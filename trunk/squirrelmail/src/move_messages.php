@@ -44,38 +44,25 @@ function putSelectedMessagesIntoString($msg) {
 }
 
 function attachSelectedMessages($msg, $imapConnection) {
-    global $mailbox, $username, $attachment_dir, $attachments, $identity, 
-           $data_dir, $composesession, $lastTargetMailbox, $uid_support,
-	   $msgs, $startMessage, $show_num, $thread_sort_messages,
-	   $allow_server_sort;
+    global $username, $attachment_dir,  
+           $data_dir, $composesession, $uid_support,
+	   $msgs, $thread_sort_messages, $allow_server_sort, $show_num,
+	   $compose_messages;
 
-    if (!isset($attachments)) {
-	    $attachments = array();
-	    session_register('attachments');
+
+    if (!isset($compose_messages)) {
+	    $compose_messages = array();
+            sqsession_register($compose_messages,'compose_messages');
     }
 
     if (!isset($composesession) ) {
 	    $composesession = 1;
-	    session_register('composesession');
+            sqsession_register($composesession,'composesession');  	    
     } else {
 	    $composesession++;
     }
 
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir, $composesession);
-
-    $rem_attachments = array();
-    foreach ($attachments as $info) {
-    	if ($info['session'] == $composesession) {
-    	    $attached_file = "$hashed_attachment_dir/$info[localfilename]";
-    	    if (file_exists($attached_file)) {
-        	    unlink($attached_file);
-    	    }
-    	} else {
-    	    $rem_attachments[] = $info;
-    	}
-    }
-
-    $attachments = $rem_attachments;
 
     if ($thread_sort_messages || $allow_server_sort) {
        $start_index=0;
@@ -86,6 +73,12 @@ function attachSelectedMessages($msg, $imapConnection) {
     $i = 0;
     $j = 0;
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+
+    $composeMessage = new Message();
+    $rfc822_header = new Rfc822Header();
+    $composeMessage->rfc822_header = $rfc822_header;
+    $composeMessage->reply_rfc822_header = '';
+
     while ($j < count($msg)) {
         if (isset($msg[$i])) {
     	    $id = $msg[$i];
@@ -104,19 +97,15 @@ function attachSelectedMessages($msg, $imapConnection) {
         	$fp = fopen( $full_localfilename, 'wb');
         	fwrite ($fp, $body);
         	fclose($fp);
-    		$newAttachment = array();
-        	$newAttachment['localfilename'] = $localfilename;
-        	$newAttachment['type'] = "message/rfc822";
-            	$newAttachment['remotefilename'] = $subject.'.eml';
-            	$newAttachment['session'] = $composesession;
-        	$attachments[] = $newAttachment;
-        	flush();
+	        $composeMessage->initAttachment('message/rfc822',$subject.'.eml', 
+	                 $full_localfilename);
     	    }
 	    $j++;
 	}
 	$i++;	
     }
-    setPref($data_dir, $username, 'attachments', serialize($attachments));
+    $compose_messages[$composesession] = $composeMessage;
+    sqsession_register($compose_messages,'compose_messages'); 
     return $composesession;
 }
 
