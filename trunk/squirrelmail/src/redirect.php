@@ -190,7 +190,7 @@ function attachment_common_parse($str, $debug) {
      */
     
     $str = str_replace( ', ' , ',' , $str );
-    $types = explode(', ', $str);
+    $types = explode(',', $str);
 
     foreach ($types as $val) {
         // Ignore the ";q=1.0" stuff
