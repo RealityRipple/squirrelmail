@@ -9,12 +9,13 @@
  * Manage personal address book.
  *
  * $Id$
+ * @package squirrelmail
  */
 
-/* Path for SquirrelMail required files. */
+/** Path for SquirrelMail required files. */
 define('SM_PATH','../');
 
-/* SquirrelMail required files. */
+/** SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/display_messages.php');
@@ -22,7 +23,7 @@ require_once(SM_PATH . 'functions/addressbook.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/html.php');
 
-/* lets get the global vars we may need */
+/** lets get the global vars we may need */
 sqgetGlobalVar('key',       $key,           SQ_COOKIE);
 
 sqgetGlobalVar('username',  $username,      SQ_SESSION);
@@ -39,7 +40,15 @@ sqgetGlobalVar('oldnick',   $oldnick,   SQ_POST);
 sqgetGlobalVar('backend',   $backend,   SQ_POST);
 sqgetGlobalVar('doedit',    $doedit,    SQ_POST); 
 
-/* Make an input field */
+/**
+ * Make an input field
+ * @param string $label
+ * @param string $field
+ * @param string $name
+ * @param string $size
+ * @param array $values
+ * @param string $add
+ */
 function adressbook_inp_field($label, $field, $name, $size, $values, $add) {
     global $color;
     $td_str = '<INPUT NAME="' . $name . '[' . $field . ']" SIZE="' . $size . '" VALUE="';
@@ -54,7 +63,9 @@ function adressbook_inp_field($label, $field, $name, $size, $values, $add) {
     . "\n";
 }
 
-/* Output form to add and modify address data */
+/**
+ * Output form to add and modify address data
+ */
 function address_form($name, $submittext, $values = array()) {
     global $color, $squirrelmail_language;
     

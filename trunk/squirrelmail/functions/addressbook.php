@@ -123,10 +123,10 @@ function addressbook_cmp($a,$b) {
 }
 
 
-/*
+/**
  * This is the main address book class that connect all the
  * backends and provide services to the functions above.
- *
+ * @package squirrelmail
  */
 
 class AddressBook {
@@ -462,8 +462,9 @@ class AddressBook {
     
 } /* End of class Addressbook */
 
-/*
+/**
  * Generic backend that all other backends extend
+ * @package squirrelmail
  */
 class addressbook_backend {
 

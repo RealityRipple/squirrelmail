@@ -9,9 +9,10 @@
  *  Cleans up after the user. Resets cookies and terminates session.
  *
  * $Id$
+ * @package squirrelmail
  */
 
-/* Path for SquirrelMail required files. */
+/** Path for SquirrelMail required files. */
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */

@@ -12,19 +12,22 @@
  *       addrbook_search_html.html -- If you change one,
  *       change the other one too!
  *
- * $Id$
+ * $Id$ 
+ * @package squirrelmail
  */
 
-/* Path for SquirrelMail required files. */
+/**
+ * Path for SquirrelMail required files.
+ */
 define('SM_PATH','../');
 
-/* SquirrelMail required files. */
+/** SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/html.php');
 
-/* lets get the global vars we may need */
+/** lets get the global vars we may need */
 sqgetGlobalVar('key',       $key,           SQ_COOKIE);
 sqgetGlobalVar('username',  $username,      SQ_SESSION);
 sqgetGlobalVar('onetimepad',$onetimepad,    SQ_SESSION);
@@ -35,7 +38,10 @@ sqgetGlobalVar('query',   $query,   SQ_POST);
 sqgetGlobalVar('listall', $listall, SQ_POST);
 sqgetGlobalVar('backend', $backend, SQ_POST);
 
-/* Function to include JavaScript code */
+/**
+ * Function to include JavaScript code
+ * @return void
+ */
 function insert_javascript() {
     ?>
     <SCRIPT LANGUAGE="Javascript"><!--
@@ -101,7 +107,12 @@ function insert_javascript() {
 } /* End of included JavaScript */
 
 
-/* List search results */
+/**
+ * List search results
+ * @param array $res Array of search results
+ * @param bool $includesource [Default=true]
+ * @return void
+ */
 function display_result($res, $includesource = true) {
     global $color;
         

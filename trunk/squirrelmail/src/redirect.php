@@ -10,9 +10,10 @@
 * Prevents users from reposting their form data after a successful logout.
 *
 * $Id$
+* @package squirrelmail
 */
 
-/* Path for SquirrelMail required files. */
+/** Path for SquirrelMail required files. */
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */

@@ -10,9 +10,10 @@
  * cookies and find language.
  *
  * $Id$
+ * @package squirrelmail
  */
 
-/* Path for SquirrelMail required files. */
+/** Path for SquirrelMail required files. */
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
@@ -26,7 +27,7 @@ require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/imap_general.php');
 
-/*
+/**
  * $squirrelmail_language is set by a cookie when the user selects
  * language and logs out
  */
@@ -49,6 +50,11 @@ sqsession_destroy();
  
 header('Pragma: no-cache');
 
+/**
+ * This detects if the IMAP server has logins disabled, and if so, 
+ * squelches the display of the login form and puts up a message
+ * explaining the situation.
+ */
 $imap = sqimap_create_stream($imapServerAddress, $imapPort, $use_imap_tls);
 $logindisabled = sqimap_capability($imap,'LOGINDISABLED');
 sqimap_logout($imap);

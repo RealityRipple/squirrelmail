@@ -24,6 +24,7 @@
 
 /**
  * Store the addressbook in a local file
+ * @package squirrelmail
  */
 class abook_local_file extends addressbook_backend {
     var $btype = 'local';
