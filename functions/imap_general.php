@@ -488,8 +488,8 @@ function sqimap_append_done ($imap_stream, $folder='') {
         	  _("Server responded: ") .
         	  $reason . "<br>\n";
 	   if (preg_match("/(.*)(quota)(.*)$/i", $reason, $regs)) {
-	      $string .= _("Sollution: ") . 
-	    _("Remove unnessecarry messages from your folder and start with your Trash folder.") 
+	      $string .= _("Solution: ") . 
+	    _("Remove unneccessary messages from your folder and start with your Trash folder.") 
 	      ."<br>\n";
 	   }
 	   $string .= "</font>\n";
