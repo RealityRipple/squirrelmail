@@ -48,6 +48,9 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
         $mailfetch_server_[$i] = getPref($data_dir, $username, "mailfetch_server_$i");
         $mailfetch_port_[$i]   = getPref($data_dir, $username, "mailfetch_port_$i");
         $mailfetch_alias_[$i]  = getPref($data_dir, $username, "mailfetch_alias_$i");
+        if($mailfetch_alias_[$i] == '') {
+            $mailfetch_alias_[$i] = $mailfetch_server_[$i];
+        }
         $mailfetch_user_[$i]   = getPref($data_dir, $username, "mailfetch_user_$i");
         $mailfetch_pass_[$i]   = getPref($data_dir, $username, "mailfetch_pass_$i");
         $mailfetch_lmos_[$i]   = getPref($data_dir, $username, "mailfetch_lmos_$i");
