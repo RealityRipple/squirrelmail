@@ -190,7 +190,7 @@ function load_optpage_data_folder() {
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_FOLDERLIST,
         'posvals' => array( '0' => _("International date and time"),
-			    '1' => _("American date and time"),
+                            '1' => _("American date and time"),
                             '2' => _("European date and time"),
                             '3' => _("Show weekday and time"),
                             '4' => _("Show time with seconds"),
@@ -237,7 +237,8 @@ function load_optpage_data_folder() {
         'refresh' => SMOPT_REFRESH_NONE,
         'posvals' => array( 0 => _("Long: ") . '"' . _("Folder") . $delim . _("Subfolder") . '"',
                             1 => _("Indented: ") .  '"&nbsp;&nbsp;&nbsp;&nbsp;' . _("Subfolder") . '"',
-                            2 => _("Delimited: ") . '".&nbsp;' . _("Subfolder") . '"')
+                            2 => _("Delimited: ") . '".&nbsp;' . _("Subfolder") . '"'),
+        'htmlencoded' => true
     );
 
     /* Assemble all this together and return it as our result. */
