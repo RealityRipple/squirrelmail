@@ -130,14 +130,14 @@ if ($right_frame == 'right_main.php') {
 }
 
 if ($location_of_bar == 'right') {
-    echo "<FRAME SRC=\"$right_frame_url\" NAME=\"right\" frameborder=\"1\">\n" .
-         "<FRAME SRC=\"left_main.php\" NAME=\"left\" frameborder=\"1\">\n";
+    echo "<frame src=\"$right_frame_url\" name=\"right\" frameborder=\"1\" />\n" .
+         "<frame src=\"left_main.php\" name=\"left\" frameborder=\"1\" />\n";
 }
 else {
-    echo "<FRAME SRC=\"left_main.php\" NAME=\"left\" frameborder=\"1\">\n".
-         "<FRAME SRC=\"$right_frame_url\"  NAME=\"right\" frameborder=\"1\">\n";
+    echo "<frame src=\"left_main.php\" name=\"left\" frameborder=\"1\" />\n".
+         "<frame src=\"$right_frame_url\" name=\"right\" frameborder=\"1\" />\n";
 }
 do_hook('webmail_bottom');
 ?>
-</FRAMESET>
-</HTML>
+</frameset>
+</html>
