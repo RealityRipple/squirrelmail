@@ -176,7 +176,7 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message) {
     $to_array = $header->to;
     $to = '';
     foreach ($to_array as $line) {
-        $to .= " $line ";
+        $to .= ' '.$line->getAddress();
     }
 
     $subject = $header->subject;
@@ -307,7 +307,8 @@ function formatRecipientString($recipients, $item ) {
     return $string;
 }
 
-function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, $color) {
+function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, 
+                         $color, $FirstTimeSee) {
   global $msn_user_support, $default_use_mdn, $draft_folder, $sent_folder,
          $default_use_priority, $show_xmailer_default, 
 	 $mdn_user_support, $PHP_SELF, $javascript_on;
@@ -341,7 +342,6 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, $color)
 	      if ( !($mailbox == $draft_folder || 
 	             $mailbox == $sent_folder  || $message->is_deleted)) {
 		$mdn_url = $PHP_SELF . '&sendreceipt=1';
-		$FirstTimeSee = false;
 		if ($FirstTimeSee && $javascript_on) {
 		   $script  = '<script language="JavaScript" type="text/javascript">' ."\n";
 		   $script .= '<!--'. "\n";
@@ -387,7 +387,12 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 
    $identity = '';
    $idents = getPref($data_dir, $username, 'identities');
-   $from_name = $message->header->from->getAddress();
+   $from_o = $message->header->from;
+   if (is_object($from_o)) {
+       $from_name = $from_o->getAddress();
+   } else {
+       $from_name = '';
+   }    
    if (!empty($idents) && $idents > 1) {
       for ($i = 1; $i < $idents; $i++) {
           $enc_from_name = '"'. 
@@ -583,6 +588,10 @@ if (!isset($messages[$uidvalidity][$passed_id]) || !$uid_support) {
 //   $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
    $message = $messages[$uidvalidity][$passed_id];
 }
+$FirstTimeSee = !$message->is_seen;
+$message->is_seen = true;
+$messages[$uidvalidity][$passed_id] = $message;
+
 if (isset($passed_ent_id)) {
    $message = $message->getEntity($passed_ent_id);
    $message->id = $passed_id;
@@ -593,16 +602,6 @@ if (isset($passed_ent_id)) {
 $header = $message->header;
 
 //do_hook('html_top');
-
-/*
- * The following code sets necesarry stuff for the MDN thing
- */
-if($default_use_mdn &&
-   ($mdn_user_support = getPref($data_dir, $username, 'mdn_user_support', 
-                                $default_use_mdn))) {
-    $supportMDN = ServerMDNSupport($mbx_response["PERMANENTFLAGS"]);
-    $FirstTimeSee = !$message->is_seen;
-}
 
 /* ============================================================================= 
  *   block for handling incoming url vars 
@@ -634,7 +633,7 @@ if (isset($sendreceipt)) {
       if ($final_recipient == '' ) {
          $final_recipient = getPref($data_dir, $username, 'email_address', '' );
       }
-
+      $supportMDN = ServerMDNSupport($mbx_response["PERMANENTFLAGS"]);
       if ( SendMDN( $mailbox, $passed_id, $final_recipient, $message ) > 0 && $supportMDN ) {
          ToggleMDNflag( true, $imapConnection, $mailbox, $passed_id, $uid_support);
          $message->is_mdnsent = true;
@@ -659,7 +658,7 @@ for ($i = 0; $i < count($ent_ar); $i++) {
 displayPageHeader($color, $mailbox);
 do_hook('read_body_top');
 formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response);
-formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, $color);
+formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, $color, $FirstTimeSee);
 formatToolbar($mailbox,$passed_id,$passed_ent_id,$message, $color);
 echo '<table width="100%" cellpadding="3" cellspacing="3" align="center"'.
       ' border="0" bgcolor="'.$color[4].'">';
