@@ -51,42 +51,45 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response, &
 }
 
 
-/******************************************************************************
-**  Reads the output from the IMAP stream.  If handle_errors is set to true,
-**  this will also handle all errors that are received.  If it is not set,
-**  the errors will be sent back through $response and $message
-******************************************************************************/
+/*
+ *  Reads the output from the IMAP stream.  If handle_errors is set to true,
+ *  this will also handle all errors that are received.  If it is not set,
+ *  the errors will be sent back through $response and $message
+ */
 
 function sqimap_read_data_list ($imap_stream, $pre, $handle_errors,
                                &$response, &$message) {
     global $color, $squirrelmail_language;
-    
+
     $read = '';
+    $bufsize = 9096;
     $resultlist = array();
-    
+
     $more_msgs = true;
     while ($more_msgs) {
         $data = array();
         $total_size = 0;
+
         while (strpos($read, "\n") === false) {
-            if(!($read .= fgets($imap_stream, 9096))) {
+            if(!($read .= fgets($imap_stream, $bufsize))) {
                 break;
             }
         }
-        
-        if (ereg("^\\* [0-9]+ FETCH.*\\{([0-9]+)\\}", $read, $regs)) {
+
+        // if (ereg("^\\* [0-9]+ FETCH.*\\{([0-9]+)\\}", $read, $regs)) {
+        if (preg_match('/^\* [0-9]+ FETCH.*\{([0-9]+)\}/', $read, $regs)) {
            $size = $regs[1];
         } else if (ereg("^\\* [0-9]+ FETCH", $read, $regs)) {
             // Sizeless response, probably single-line
             $size = -1;
             $data[] = $read;
-            $read = fgets($imap_stream, 9096);
+            $read = fgets($imap_stream, $bufsize);
         } else {
             $size = -1;
         }
         while (1) {
             while (strpos($read, "\n") === false) {
-                if(!($read .= fgets($imap_stream, 9096))) {
+                if(!($read .= fgets($imap_stream, $bufsize))) {
                     break;
                 }
             }
@@ -104,35 +107,48 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors,
                     break;
                 } else {
                     $data[] = $read;
-                    $read = fgets($imap_stream, 9096);
+                    $read = fgets($imap_stream, $bufsize);
                     while (strpos($read, "\n") === false) {
-                      $read .= fgets($imap_stream, 9096);
+                      $read .= fgets($imap_stream, $bufsize);
                     }
                 }
                 $total_size += strlen($read);
             } else {
-                if (ereg("^$pre (OK|BAD|NO)(.*)", $read, $regs) ||
+                if (preg_match("/^$pre (OK|BAD|NO)(.*)/", $read, $regs) ||
+                // if (ereg("^$pre (OK|BAD|NO)(.*)", $read, $regs) ||
                    (($size == -1) && ereg("^\\* [0-9]+ FETCH.*", $read, $regs))) {
                     break;
+                } else if ( preg_match("/^\* OK \[PARSE.*/", $read, $regs ) ) {
+                    /*
+                        This block has been added in order to avoid the problem
+                        caused by the * OK [PARSE] Missing parameter answer
+                        Please, replace it with a better parsing if you know how.
+                    */
+                    $read = fgets ($imap_stream, $bufsize);
+                    $data[] = $read;
+                    $read = fgets ($imap_stream, $bufsize);
                 } else {
                     $data[] = $read;
-                    $read = fgets ($imap_stream, 9096);
+                    $read = fgets ($imap_stream, $bufsize);
                 }
             }
         }
-        
-        while (($more_msgs = !ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs)) &&
-            !ereg("^\\* [0-9]+ FETCH.*", $read, $regs)) {
-            $read = fgets($imap_stream, 9096);
+
+        // while (($more_msgs = !ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs)) &&
+        // !ereg("^\\* [0-9]+ FETCH.*", $read, $regs)) {
+        while (($more_msgs = !preg_match("/^$pre (OK|BAD|NO)(.*)$/", $read, $regs)) &&
+            !preg_match('/^\* [0-9]+ FETCH.*/', $read, $regs)) {
+            $read = fgets($imap_stream, $bufsize);
         }
         $resultlist[] = $data;
     }
+
     $response = $regs[1];
     $message = trim($regs[2]);
-    
-    if ($handle_errors == false) { return $resultlist; }
-    
-    if ($response == 'NO') {
+
+    if ($handle_errors == false) {
+        return( $resultlist );
+    } else if ($response == 'NO') {
         // ignore this error from m$ exchange, it is not fatal (aka bug)
         if (strstr($message, 'command resulted in') === false) {
             set_up_language($squirrelmail_language);
@@ -151,15 +167,16 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors,
              _("Server responded: ") .
              $message . "</font><br>\n";
         exit;
+    } else {
+        return( $resultlist );
     }
-    return $resultlist;
 }
 
 function sqimap_read_data ($imap_stream, $pre, $handle_errors, &$response, &$message) {
 
     $res = sqimap_read_data_list($imap_stream, $pre, $handle_errors, $response, $message);
     return $res[0];
-    
+
 }
 
 /******************************************************************************
@@ -217,11 +234,11 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
                  * correct locale from the user's preferences.
                  * Therefore, apply the same hack as on the login
                  * screen.
-		 */
+                 */
                 
                 /* $squirrelmail_language is set by a cookie when
                  * the user selects language and logs out
-		 */
+                 */
                 
                 set_up_language($squirrelmail_language, true);
                 
