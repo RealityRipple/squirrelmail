@@ -158,39 +158,41 @@
     echo '<CENTER><FONT SIZE=4><B>';
     echo _("Folders") . "</B><BR></FONT>\n\n";
 
-    /* First, display the clock. */
-    if ($hour_format == 1) {
-      if ($date_format == 4) {
-         $hr = "G:i:s";
-      } else {
-         $hr = "G:i";
-      }
-    } else {  
-      if ($date_format == 4) {
-         $hr = "g:i:s a";
-      } else {
-         $hr = "g:i a";
-      }
-    }
+    if($date_format != 6) { 
+        /* First, display the clock. */
+        if ($hour_format == 1) {
+          if ($date_format == 4) {
+             $hr = "G:i:s";
+          } else {
+             $hr = "G:i";
+          }
+        } else {  
+          if ($date_format == 4) {
+             $hr = "g:i:s a";
+          } else {
+             $hr = "g:i a";
+          }
+        }
     
-    switch( $date_format ) {
-    case 1:
-      $clk = date("m/d/y ".$hr, time()); 
-      break;
-    case 2:
-      $clk = date("d/m/y ".$hr, time()); 
-      break;
-    case 4:
-    case 5:
-      $clk = date($hr, time()); 
-      break;
-    default:   
-      $clk = date("D, ".$hr, time());
-    }
-    $clk = str_replace(' ','&nbsp;',$clk);
+	switch( $date_format ) {
+	case 1:
+	  $clk = date("m/d/y ".$hr, time()); 
+	  break;
+	case 2:
+	  $clk = date("d/m/y ".$hr, time()); 
+	  break;
+	case 4:
+	case 5:
+	  $clk = date($hr, time()); 
+	  break;
+	default:   
+	  $clk = date("D, ".$hr, time());
+	}
+	$clk = str_replace(' ','&nbsp;',$clk);
 
-    echo '<CENTER><SMALL>' . str_replace(' ','&nbsp;',_("Last Refresh"))
-         .  ": $clk</SMALL></CENTER>";
+	echo '<CENTER><SMALL>' . str_replace(' ','&nbsp;',_("Last Refresh"))
+	  .  ": $clk</SMALL></CENTER>";
+    }
 
     /* Next, display the refresh button. */
     echo '<SMALL>(<A HREF="../src/left_main.php" TARGET="left">';
