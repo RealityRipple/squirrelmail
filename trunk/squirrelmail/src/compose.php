@@ -208,7 +208,7 @@
          $editor_size, $attachments, $subject, $newmail,
          $use_javascript_addr_book, $send_to_bcc, $reply_id, $mailbox,
          $from_htmladdr_search, $location_of_buttons, $attachment_dir,
-         $username, $data_dir, $identity, $draft_id;
+         $username, $data_dir, $identity, $draft_id, $delete_draft;
 
       $subject = decodeHeader($subject);
       $reply_subj = decodeHeader($reply_subj);
@@ -231,6 +231,9 @@
 
       if (isset($draft_id)) {
          echo "<input type=\"hidden\" name=\"delete_draft\" value=\"$draft_id\">\n";
+      }
+      if (isset($delete_draft)) {
+         echo "<input type=\"hidden\" name=\"delete_draft\" value=\"$delete_draft\">\n";
       }
 
       echo "<TABLE WIDTH=\"100%\" ALIGN=center CELLSPACING=0 BORDER=0>\n";
