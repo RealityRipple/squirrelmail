@@ -118,7 +118,19 @@
             </td>
          </tr>
          <tr>
-            <td align=right nowrap><?php echo _("Width of left folder list"); ?>:
+            <td align=right nowrap><?PHP echo _('Location of folder list') ?>:</td>
+            <td><select name="folder_new_location">
+                <option value="left"<?PHP
+                    if ($location_of_bar != 'right') echo ' SELECTED';
+                    ?>><?PHP echo _('Left'); ?></option>
+                <option value="right"<?PHP
+                    if ($location_of_bar == 'right') echo ' SELECTED';
+                    ?>><?PHP echo _('Right'); ?></option>
+                </select>
+            </td>
+         </tr>
+         <tr>
+            <td align=right nowrap><?php echo _("Width of folder list"); ?>:
             </td><td>
 <?php
    echo "         <select name=leftsize>\n";

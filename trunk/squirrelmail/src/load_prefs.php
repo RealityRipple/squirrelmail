@@ -147,6 +147,10 @@
       $message_highlight_list[$i]["value"] = $ary[2];
       $message_highlight_list[$i]["match_type"] = $ary[3];
    }
+   
+   $location_of_bar = getPref($data_dir, $username, 'location_of_bar');
+   if ($location_of_bar == '')
+       $location_of_bar = 'left';
 
    do_hook("loading_prefs");
 
