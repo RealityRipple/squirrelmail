@@ -99,7 +99,8 @@ function printMessageInfo($aMsg) {
         $show_recipient_instead,    /* show recipient name instead of default identity */
         $use_icons,                 /* indicates to use icons or text markers */
         $icon_theme,                /* icons theming */
-        $javascript_on;
+        $javascript_on,
+        $fancy_index_highlite;
 
     $color_string = $color[4];
 
@@ -309,7 +310,7 @@ function printMessageInfo($aMsg) {
 
     // this stuff does the auto row highlighting on mouseover
     //
-    if ($javascript_on) {
+    if ($javascript_on && $fancy_index_highlite) {
         $mouseoverColor = $color[5];
         $clickedColor = $color[2];
         $row_extra .= ' onmouseover="setPointer(this, ' . $t . ', \'over\', \'' . $hlt_color . '\', \'' . $mouseoverColor . '\', \'' . $clickedColor . '\');" onmouseout="setPointer(this, ' . $t . ', \'out\', \'' . $hlt_color . '\', \'' . $mouseoverColor . '\', \'' . $clickedColor . '\');" onmousedown="setPointer(this, ' . $t . ', \'click\', \'' . $hlt_color . '\', \'' . $mouseoverColor . '\', \'' . $clickedColor . '\');"';
@@ -322,7 +323,8 @@ function printMessageInfo($aMsg) {
     // this does the auto-checking of the checkbox no matter 
     // where on the row you click
     //
-    if ($javascript_on)
+    $javascript_auto_click = '';
+    if ($javascript_on && $fancy_index_highlite)
         $javascript_auto_click = ' onMouseDown="if (document.getElementById(\'msg[' . $t . ']\')) { document.getElementById(\'msg[' . $t . ']\').checked = (document.getElementById(\'msg[' . $t . ']\').checked ? false : true); }"';
 
 
@@ -337,7 +339,7 @@ function printMessageInfo($aMsg) {
         // care of this; just skip it
         //
         $show_label_columns = array();
-        if (!$javascript_on) {
+        if (!($javascript_on && $fancy_index_highlite)) {
             $get_next_two = 0;
             $last_order_part = 0;
             $last_last_order_part = 0;
