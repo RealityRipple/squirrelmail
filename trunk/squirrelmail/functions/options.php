@@ -91,9 +91,7 @@ class SquirrelOption {
         }
 
         /* Check for a new value. */
-        if (isset($_POST["new_$name"])) {
-            $this->new_value = $_POST["new_$name"];
-        } else {
+	if ( !sqgetGlobalVar("new_$name", $this->new_value, SQ_POST ) ) {
             $this->new_value = '';
         }
 
@@ -330,12 +328,11 @@ class SquirrelOption {
 }
 
 function save_option($option) {
-    if ( !check_php_version(4,1) ) {
-        global $_SESSION;
+    if ( !sqgetGlobalVar('username', $username, SQ_SESSION ) ) {
+        /* Can't save the pref if we don't have the username */
+        return;
     }
     global $data_dir;
-    $username = $_SESSION['username'];
-
     setPref($data_dir, $username, $option->name, $option->new_value);
 }
 
