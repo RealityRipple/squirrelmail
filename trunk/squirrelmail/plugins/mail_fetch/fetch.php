@@ -127,7 +127,7 @@
         
         Mail_Fetch_Status(_("Opening IMAP server"));
         $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10);
-        echo $mailfetch_user . ' ' . $mailfetch_pass . ' ';
+        
         Mail_Fetch_Status(_("Opening POP server"));
         $Count = $pop3->login($mailfetch_user, $mailfetch_pass);
         if (($Count == false || $Count == -1) && $pop3->ERROR != '') {
