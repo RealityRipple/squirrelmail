@@ -26,16 +26,16 @@
 ?>
 <HTML>
 <?
-   echo "<BODY TEXT=000000 BGCOLOR=FFFFFF LINK=0000CC VLINK=0000CC ALINK=0000CC>\n";
-   echo "<BR><BR><TABLE BGCOLOR=FFFFFF BORDER=0 COLS=1 WIDTH=50% CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>";
-   echo "   <TR BGCOLOR=DCDCDC WIDTH=100%>";
+   echo "<BODY TEXT=000000 BGCOLOR=#FFFFFF LINK=0000CC VLINK=0000CC ALINK=0000CC>\n";
+   echo "<BR><BR><TABLE BGCOLOR=#FFFFFF BORDER=0 COLS=1 WIDTH=50% CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>";
+   echo "   <TR BGCOLOR=#DCDCDC WIDTH=100%>";
    echo "      <TD ALIGN=CENTER>";
    echo "         <B>";
    echo _("Sign Out");
    echo "</B>";
    echo "      </TD>";
    echo "   </TR>";
-   echo "   <TR BGCOLOR=FFFFFF WIDTH=100%>";
+   echo "   <TR BGCOLOR=#FFFFFF WIDTH=100%>";
    echo "      <TD ALIGN=CENTER>";
    echo "         <BR>";
    echo _("You have been successfully signed out.");
@@ -46,7 +46,7 @@
    echo "</A><BR><BR>";
    echo "      </TD>";
    echo "   </TR>";
-   echo "   <TR BGCOLOR=DCDCDC WIDTH=100%>";
+   echo "   <TR BGCOLOR=#DCDCDC WIDTH=100%>";
    echo "      <TD ALIGN=CENTER>";
    echo "         <BR>";
    echo "      </TD>";

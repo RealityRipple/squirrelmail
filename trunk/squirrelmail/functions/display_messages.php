@@ -25,21 +25,21 @@
     function general_info($motd, $org_logo, $version, $org_name, $color) {
       echo "<BR>";
       echo "<TABLE COLS=1 WIDTH=80% CELLSPACING=0 CELLPADDING=2 NOBORDER ALIGN=CENTER><TR><TD BGCOLOR=\"$color[9]\">";
-      echo "<TABLE COLS=1 WIDTH=100% CELLSPACING=0 CELLPADDING=3 NOBORDER BGCOLOR=\"FFFFFF\" ALIGN=CENTER>";
+      echo "<TABLE COLS=1 WIDTH=100% CELLSPACING=0 CELLPADDING=3 NOBORDER BGCOLOR=\"#FFFFFF\" ALIGN=CENTER>";
       echo "   <TR>";
       echo "      <TD BGCOLOR=\"$color[0]\">";
       echo "         <B><CENTER>". _("Welcome to $org_name's WebMail system") ."</CENTER></B>";
-      echo "   <TR><TD BGCOLOR=\"FFFFFF\">";
+      echo "   <TR><TD BGCOLOR=\"#FFFFFF\">";
       echo "      <TABLE COLS=2 WIDTH=90% CELLSPACING=0 CELLPADDING=3 NOBORDER align=\"center\">";
       echo "         <TR>";
-      echo "            <TD BGCOLOR=\"FFFFFF\"><CENTER>";
+      echo "            <TD BGCOLOR=\"#FFFFFF\"><CENTER>";
       if (strlen($org_logo) > 3)
          echo "               <IMG SRC=\"$org_logo\">";
       else
          echo "               <B>$org_name</B>";
       echo "         <BR><CENTER>". _("Running SquirrelMail version $version (c) 1999-2000.") ."</CENTER><BR>";
       echo "            </CENTER></TD></TR><TR>";
-      echo "            <TD BGCOLOR=\"FFFFFF\">";
+      echo "            <TD BGCOLOR=\"#FFFFFF\">";
       echo "               $motd";
       echo "            </TD>";
       echo "         </TR>";

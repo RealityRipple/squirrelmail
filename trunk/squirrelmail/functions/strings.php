@@ -125,6 +125,7 @@
             $line = "<TT><FONT COLOR=000000>$line</FONT></TT><BR>\n";
          }
 
+         $line = parseEmail ($line);
          $line = parseUrl ($line);
          $new_body[$i] = "$line";
       }

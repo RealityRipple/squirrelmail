@@ -414,7 +414,7 @@
       }
 
       if ($status == 0) {
-         echo "<HTML><BODY BGCOLOR=ffffff>";
+         echo "<HTML><BODY BGCOLOR=#ffffff>";
          echo "<TT>";
          echo "<BR><B>ERROR</B><BR><BR>";
          echo "&nbsp;&nbsp;&nbsp;<B>Error Number: </B>$err_num<BR>";

@@ -36,7 +36,7 @@
    echo "<HEAD><TITLE>";
    echo _("SquirrelMail Login");
    echo "</TITLE></HEAD>\n";
-   echo "<BODY TEXT=000000 BGCOLOR=FFFFFF LINK=0000CC VLINK=0000CC ALINK=0000CC>\n";
+   echo "<BODY TEXT=000000 BGCOLOR=#FFFFFF LINK=0000CC VLINK=0000CC ALINK=0000CC>\n";
  
    echo "<FORM ACTION=webmail.php METHOD=\"POST\" NAME=f>\n";
    echo "<CENTER><IMG SRC=\"$org_logo\"</CENTER>\n";
@@ -45,11 +45,11 @@
    echo "<BR></SMALL><CENTER>\n";
    echo "<TABLE COLS=1 WIDTH=350>\n";
    echo "   <TR>\n";
-   echo "      <TD BGCOLOR=DCDCDC>\n";
+   echo "      <TD BGCOLOR=#DCDCDC>\n";
    echo "         <B><CENTER>$org_name Login</CENTER></B>\n";
    echo "      </TD>\n";
    echo "   </TR><TR>\n";
-   echo "      <TD BGCOLOR=FFFFFF>\n";
+   echo "      <TD BGCOLOR=#FFFFFF>\n";
    echo "         <TABLE COLS=2 WIDTH=100%>\n";
    echo "            <TR>\n";
    echo "               <TD WIDTH=30% ALIGN=right>\n";
