@@ -553,6 +553,7 @@ function findDisplayEntity ($message, $textOnly = 1)   {
     if ($message) {
         if ( $message->header->type0 == 'multipart' &&
              ( $message->header->type1 == 'alternative' ||
+               $message->header->type1 == 'mixed' ||
                $message->header->type1 == 'related' ) &&
              $show_html_default && ! $textOnly ) {
             $entity = findDisplayEntityHTML($message);
