@@ -7,7 +7,9 @@
     **  $Id$
     **/
 
-   if (!isset($mime_php)) include "../functions/mime.php";
+   if (defined ('imap_messages_php'))
+       return;
+   define ('imap_messages_php', true);
 
    /******************************************************************************
     **  Copies specified messages to specified folder

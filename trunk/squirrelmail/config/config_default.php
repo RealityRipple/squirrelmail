@@ -8,6 +8,12 @@
 //  to configure.
 //
 
+    // This makes sure we don't load it dozens of times
+    // don't change this
+    if (defined('config_php'))
+       return;
+    define('config_php', true);
+
     // don't change
     $config_version = "x62";
 

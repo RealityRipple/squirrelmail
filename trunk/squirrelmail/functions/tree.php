@@ -2,12 +2,12 @@
 
    /* $Id$ */
 
-   $tree_php = true;
+   if (defined('tree_php'))
+       return;
+   define('tree_php', true);
 
-   if (!isset($imap_php))
-      include('../functions/imap.php');
-   if (!isset($config_php))
-      include('../config/config.php');
+   include('../functions/imap.php');
+   include('../config/config.php');
 
    // Recursive function to find the correct parent for a new node
    function findParentForChild($value, $treeIndexToStart, $tree) {

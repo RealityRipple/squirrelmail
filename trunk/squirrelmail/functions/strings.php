@@ -2,91 +2,9 @@
    
    /* $Id$ */
 
-   $strings_php = true;
-   $fix_form_endlines = false;
-   
-   // Remove all slashes for form values
-   if (get_magic_quotes_gpc())
-   {
-       global $REQUEST_METHOD;
-       if ($REQUEST_METHOD == "POST")
-       {
-           global $HTTP_POST_VARS;
-            RemoveSlashes($HTTP_POST_VARS);
-       }
-       elseif ($REQUEST_METHOD == "GET")
-       {
-           global $HTTP_GET_VARS;
-            RemoveSlashes($HTTP_GET_VARS);
-       }
-   }
-
-   // Auto-detection
-   //
-   // if $send (the form button's name) contains "\n" as the first char
-   // or "\r\n" as the first two (compensating for RedHat's flawed package
-   // and Konqueror, respectively), and the script is compose.php, then
-   // trim everything.  Otherwise, we don't have to worry.
-   //
-   // If RedHat ever gets PHP officially upgraded past package php-4.0.4pl1-3
-   // or if Konqueror and PHP start working together, modify/remove this hack
-   global $send, $PHP_SELF;
-   $trimChars = 0;
-   if (isset($send) && substr($PHP_SELF, -12) == "/compose.php")
-   {
-       if (substr($send, 0, 1) == "\n")
-           $trimChars = 1;
-       if (substr($send, 0, 2) == "\r\n")
-           $trimChars = 2;
-   }
-   if ($trimChars)
-   {
-      if ($REQUEST_METHOD == "POST") {
-         TrimArray($HTTP_POST_VARS, $trimChars);
-      } else {
-         TrimArray($HTTP_GET_VARS, $trimChars);
-      }
-   }
-
-   //**************************************************************************
-   // Trims every element in the array
-   //**************************************************************************
-   function TrimArray(&$array, $trimChars) {
-      foreach ($array as $k => $v) {
-         global $$k;
-         if (is_array($$k)) {
-            foreach ($$k as $k2 => $v2) {
-	       $$k[$k2] = substr($v2, $trimChars);
-            }
-         } else {
-            $$k = substr($v, $trimChars);
-         }
-      }
-   }
-   
-   
-   //**************************************************************************
-   // Removes slashes from every element in the array
-   //**************************************************************************
-   function RemoveSlashes($array)
-   {
-       foreach ($array as $k => $v)
-       {
-           global $$k;
-            if (is_array($$k))
-            {
-                foreach ($$k as $k2 => $v2)
-                {
-                    $newArray[stripslashes($k2)] = stripslashes($v2);
-                }
-                $$k = $newArray;
-            }
-            else
-            {
-                $$k = stripslashes($v);
-            }
-       }
-   }
+   if (defined('strings_php'))
+       return;
+   define('strings_php', true);
 
 
    //*************************************************************************
@@ -252,11 +170,8 @@
 
    function translateText(&$body, $wrap_at, $charset) {
       global $where, $what; // from searching
-                  global $url_parser_php;
 
-      if (!isset($url_parser_php)) {
-         include '../functions/url_parser.php';
-      }
+      include '../functions/url_parser.php';
       
       $body_ary = explode("\n", $body);
       $PriorQuotes = 0;
@@ -300,6 +215,7 @@
    }
 
    /* SquirrelMail version number -- DO NOT CHANGE */
+   global $version;
    $version = '1.1.0 [cvs]';
 
 
@@ -309,11 +225,6 @@
       ereg(" *([^ \r\n\"]*)[ \r\n]*$",$mailbox,$regs);
       return $regs[1];
 
-   }
-
-   // Depreciated.  :-)  I always wanted to say that.
-   function replace_spaces ($string) {
-      return str_replace(' ', '&nbsp;', $string);
    }
 
    function get_location () {

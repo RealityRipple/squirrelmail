@@ -1547,6 +1547,9 @@ sub save_data {
 
    print FILE "<?php\n\t/** SquirrelMail configuration\n";
    print FILE "\t ** Created using the configure script, conf.pl\n\t **/\n\n";
+   
+   print FILE "if (defined('config_php'))\n   return;\n";
+   print FILE "define('config_php', true);\n\n";
 
    if ($print_config_version) {
       print FILE "\t\$config_version = \"$print_config_version\";\n";

@@ -6,17 +6,17 @@
     **
     ** $Id$
     **/
+    
+   if (defined('mime_php'))
+      return;
+   define('mime_php', true);
 
+   global $debug_mime;
    $debug_mime = false;
-   $mime_php = true;
-
-   if (!isset($i18n_php))
-      include "../functions/i18n.php";
-   if (!isset($imap_php))
-      include "../functions/imap.php";
-   if (!isset($config_php))
-      include "../config/config.php";
-
+   
+   include "../functions/i18n.php";
+   include "../functions/imap.php";
+   include "../config/config.php";
 
    /** Setting up the objects that have the structure for the message **/
 

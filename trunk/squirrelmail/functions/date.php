@@ -10,8 +10,10 @@
     **  $Id$
     **/
 
-   $date_php = true;
-
+   if (defined ('date_php'))
+      return; 
+   define ('date_php', true);
+   
    // corrects a time stamp to be the local time
    function getGMTSeconds($stamp, $gmt) {
       global $invert_time;
@@ -37,6 +39,8 @@
          $gmt = '+0200';
       else if ($gmt == 'JST')
          $gmt = '+0900';
+      else if ($gmt == 'KST')
+         $gmt = "+0900";
       else if ($gmt == 'MET')
          $gmt = '+0100';
       else if ($gmt == 'MET DST' || $gmt == 'METDST')

@@ -7,6 +7,11 @@
     **  $Id$
     **/
 
+   if (defined ('imap_general_php'))
+      return;
+   define ('imap_general_php', true);
+
+   global $imap_general_debug;
    $imap_general_debug = false;
 
    /******************************************************************************
@@ -213,7 +218,7 @@
       fputs ($imap_stream, "a001 LOGOUT\r\n");
    }
 
-function sqimap_capability($imap_stream, $capability) {
+   function sqimap_capability($imap_stream, $capability) {
 	global $sqimap_capabilities;
 	global $imap_general_debug;
 
@@ -236,18 +241,17 @@ function sqimap_capability($imap_stream, $capability) {
    /******************************************************************************
     **  Returns the delimeter between mailboxes:  INBOX/Test, or INBOX.Test... 
     ******************************************************************************/
-function sqimap_get_delimiter ($imap_stream = false) {
-   global $imap_general_debug;
-   global $sqimap_delimiter;
-   global $optional_delimiter;
+   function sqimap_get_delimiter ($imap_stream = false) {
+      global $imap_general_debug;
+      global $sqimap_delimiter;
+      global $optional_delimiter;
 
-   /* Use configured delimiter if set */
-   if((!empty($optional_delimiter)) && $optional_delimiter != "detect") {
-      return $optional_delimiter;
-   }
+      /* Use configured delimiter if set */
+      if((!empty($optional_delimiter)) && $optional_delimiter != "detect")
+         return $optional_delimiter;
 
-	/* Do some caching here */
-    if (!$sqimap_delimiter) {
+      /* Do some caching here */
+      if (!$sqimap_delimiter) {
 		if (sqimap_capability($imap_stream, "NAMESPACE")) {
 			/* According to something that I can't find, this is supposed to work on all systems
 			   OS: This won't work in Courier IMAP.
@@ -280,7 +284,7 @@ function sqimap_get_delimiter ($imap_stream = false) {
 		}
 	}
 	return $sqimap_delimiter;
-}
+   }
 
 
    /******************************************************************************

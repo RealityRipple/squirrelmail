@@ -7,6 +7,10 @@
     **  $Id$
     **/
 
+   if (defined ('imap_mailbox_php'))
+      return;
+   define ('imap_mailbox_php', true);
+
    /******************************************************************************
     **  Expunges a mailbox 
     ******************************************************************************/
@@ -191,17 +195,15 @@
     **  See comment on sqimap_mailbox_parse() for info about the returned array.
     ******************************************************************************/
    function sqimap_mailbox_list ($imap_stream) {
-      global $load_prefs_php, $prefs_php, $config_php;
       global $data_dir, $username, $list_special_folders_first;
       global $trash_folder, $sent_folder;
-      global $move_to_trash, $move_to_sent;
+      global $move_to_trash, $move_to_sent, $folder_prefix;
 
       $inbox_in_list = false;
       $inbox_subscribed = false;
 
-      if (!isset($load_prefs_php)) include "../src/load_prefs.php";
-      else global $folder_prefix;
-      if (!function_exists ("ary_sort")) include "../functions/array.php";
+      include "../src/load_prefs.php";
+      include "../functions/array.php";
 
       $dm = sqimap_get_delimiter ($imap_stream);
 

@@ -4,7 +4,7 @@
     **  abook_database.php
     **
     **  Backend for personal addressbook stored in a database,
-    **  accessed using the DB-casses in PEAR.
+    **  accessed using the DB-classes in PEAR.
     **
     **  IMPORTANT:  The PEAR modules must be in the include path
     **  for this class to work.
