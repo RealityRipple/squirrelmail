@@ -136,18 +136,11 @@ require_once('../functions/page_header.php');
 require_once('../functions/imap.php');
 require_once('../src/load_prefs.php');
 require_once('../plugins/administrator/defines.php');
+require_once('../plugins/administrator/auth.php');
 
 GLOBAL $data_dir, $username;
 
-$auth = FALSE;
-if ( $adm_id = fileowner('../config/config.php') ) {
-    $adm = posix_getpwuid( $adm_id );
-    if ( $username == $adm['name'] ) {
-        $auth = TRUE;
-    }
-}
-
-if ( !auth ) {
+if ( !adm_check_user() ) {
     header("Location: ../../src/options.php") ;
     exit;
 }

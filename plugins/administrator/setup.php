@@ -11,15 +11,14 @@
  * $Id$
  */
 
+require_once('../plugins/administrator/auth.php');
+
 function squirrelmail_plugin_init_administrator() {
     global $squirrelmail_plugin_hooks, $username;
 
-    if ( $adm_id = fileowner('../config/config.php') ) {
-        $adm = posix_getpwuid( $adm_id );
-        if ( $username == $adm['name'] ) {
-            $squirrelmail_plugin_hooks['optpage_register_block']['administrator'] =
-                                      'squirrelmail_administrator_optpage_register_block';
-        }
+    if ( adm_check_user() ) {        
+        $squirrelmail_plugin_hooks['optpage_register_block']['administrator'] =
+                                  'squirrelmail_administrator_optpage_register_block';
     }
 }
 
