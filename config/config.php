@@ -24,9 +24,13 @@ $version = "0.0.1";
  *         - This is the path to the default trash folder.  For Cyrus IMAP, it
  *           would be "INBOX.Trash", but for UW it would be "Trash".  We need the
  *           full path name here.
+ *   $auto_expunge
+ *         - If this is true, when a message is moved or copied, the source mailbox
+ *           will get expunged, removing all messages marked "Deleted".
  */
 
 $move_to_trash = true;
 $trash_folder = "INBOX.Trash";
+$auto_expunge = true;
 
 ?>
