@@ -70,15 +70,13 @@
    }
 
 /**
-    There are four ways to call webmail.php
+    There are three ways to call webmail.php
     1.  webmail.php
          - This just loads the default entry screen.
     2.  webmail.php?right_frame=right_main.php&sort=X&startMessage=X&mailbox=XXXX
          - This loads the frames starting at the given values.
     3.  webmail.php?right_frame=folders.php
          - Loads the frames with the Folder options in the right frame.
-    4.  webmail.php?right_frame=help.php
-	 - Lets the left frame set up different menu for help and calls the right frame.
 
     This was done to create a pure HTML way of refreshing the folder list since
     we would like to use as little Javascript as possible.
@@ -94,9 +92,6 @@
       $urlMailbox = urlencode($mailbox);
       echo "<FRAME SRC=\"left_main.php\" NAME=\"left\">";
       echo "<FRAME SRC=\"folders.php\" NAME=\"right\">";
-   } else if ($right_frame == "help.php") {
-      echo "<FRAME SRC=\"left_help.php\" NAME=\"left\">";
-      echo "<FRAME SRC=\"help.php\" NAME=\"right\">";
    } else {
       echo "<FRAME SRC=\"left_main.php\" NAME=\"left\">";
       echo "<FRAME SRC=\"right_main.php\" NAME=\"right\">";
