@@ -670,15 +670,15 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
 	    $from =  (is_array($orig_header->from)) ? 
 	              $orig_header->from[0] : $orig_header->from;
             $body = getReplyCitation($from->getAddress(false));
-
+            sqUnWordWrap($body);
             $cnt = count($rewrap_body);
             for ($i=0;$i<$cnt;$i++) {
-//              sqWordWrap($rewrap_body[$i], ($editor_size - 2));
+              sqWordWrap($rewrap_body[$i], ($editor_size - 2));
                 if (preg_match("/^(>+)/", $rewrap_body[$i], $matches)) {
                     $gt = $matches[1];
-                    $body .= '>' . str_replace("\n", "\n$gt ", $rewrap_body[$i]) ."\n";
+                    $body .= '>' . str_replace("\n", "\n>$gt ", $rewrap_body[$i]) ."\n";
                 } else {
-                    $body .= '> ' . $rewrap_body[$i] . "\n";
+                    $body .= '> ' . str_replace("\n", "\n> ", $rewrap_body[$i]) . "\n";
                 }
                 unset($rewrap_body[$i]);
             }
