@@ -20,8 +20,7 @@ $spamcop_quick_report = false;
  * @access private
  */
 function squirrelmail_plugin_init_spamcop() {
-   global $squirrelmail_plugin_hooks, $data_dir, $username,
-      $spamcop_is_composing;
+   global $squirrelmail_plugin_hooks, $spamcop_is_composing;
 
    $squirrelmail_plugin_hooks['optpage_register_block']['spamcop'] =
       'spamcop_options';

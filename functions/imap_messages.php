@@ -131,8 +131,7 @@ function sqimap_message_list_squisher($messages_array) {
  * @return array $id sorted uid list
  */
 function sqimap_get_sort_order($imap_stream, $sSortField, $reverse, $search='ALL') {
-    global  $default_charset,
-            $sent_folder;
+    global  $default_charset;
 
     $id = array();
     $sort_test = array();
@@ -936,7 +935,7 @@ function sqimap_messages_copy($imap_stream, $start, $end, $mailbox) {
  * Deprecated !!!!!!! DO NOT USE THIS, use sqimap_msgs_list_delete instead
  */
 function sqimap_messages_delete($imap_stream, $start, $end, $mailbox, $bypass_trash=false) {
-    global $move_to_trash, $trash_folder, $auto_expunge;
+    global $move_to_trash, $trash_folder;
 
     if (($move_to_trash == true) && ($bypass_trash != true) &&
         (sqimap_mailbox_exists($imap_stream, $trash_folder) && ($mailbox != $trash_folder))) {

@@ -47,7 +47,6 @@ if (isset($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
  * @return string the hashed location of datafile
  */
 function getHashedFile($username, $dir, $datafile, $hash_search = true) {
-    global $dir_hash_level;
 
     /* Remove trailing slash from $dir if found */
     if (substr($dir, -1) == '/') {

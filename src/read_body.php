@@ -91,7 +91,7 @@ function findPreviousMessage($uidset, $passed_id) {
  * @param int $passed_id
  */
 function printer_friendly_link($mailbox, $passed_id, $passed_ent_id) {
-    global $javascript_on, $color;
+    global $javascript_on;
 
     $params = '?passed_ent_id=' . urlencode($passed_ent_id) .
               '&mailbox=' . urlencode($mailbox) .
@@ -125,10 +125,9 @@ function ServerMDNSupport($aFlags) {
 }
 
 function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
-    global $username, $attachment_dir,
-           $version, $attachments, $squirrelmail_language, $default_charset,
-           $languages, $useSendmail, $domain, $sent_folder,
-           $popuser, $data_dir, $username;
+    global $username, $attachment_dir, $popuser, $username,
+           $version, $squirrelmail_language, $default_charset,
+           $languages, $useSendmail, $domain, $sent_folder;
 
     sqgetGlobalVar('SERVER_NAME', $SERVER_NAME, SQ_SERVER);
 
@@ -256,7 +255,7 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
     } else {
         require_once(SM_PATH . 'class/deliver/Deliver_SMTP.class.php');
         $deliver = new Deliver_SMTP();
-        global $smtpServerAddress, $smtpPort, $smtp_auth_mech, $pop_before_smtp;
+        global $smtpServerAddress, $smtpPort, $pop_before_smtp;
         $authPop = (isset($pop_before_smtp) && $pop_before_smtp) ? true : false;
         get_smtp_user($user, $pass);
         $stream = $deliver->initStream($composeMessage,$domain,0,
@@ -370,7 +369,7 @@ function formatRecipientString($recipients, $item ) {
 
 function formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message,
                          $color, $FirstTimeSee) {
-    global $msn_user_support, $default_use_mdn, $default_use_priority,
+    global $default_use_mdn, $default_use_priority,
            $show_xmailer_default, $mdn_user_support, $PHP_SELF, $javascript_on,
            $squirrelmail_language;
 
@@ -463,7 +462,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
     global $base_uri, $draft_folder, $where, $what, $color, $sort,
            $startMessage, $PHP_SELF, $save_as_draft,
            $enable_forward_as_attachment, $imapConnection, $lastTargetMailbox,
-           $data_dir, $username, $delete_prev_next_display,
+           $username, $delete_prev_next_display,
            $compose_new_win, $javascript_on;
 
     //FIXME cleanup argument list, use $aMailbox where possible

@@ -36,7 +36,6 @@ function get_caps($imap_stream) {
  * @access private
  */
 function imap_test($imap_stream, $string) {
-    global $default_charset;
     print "<tr><td>".htmlspecialchars($string)."</td></tr>";
     $response = sqimap_run_command_list($imap_stream, trim($string),false, $responses, $message,false);
     array_push($response, $responses . ' ' .$message);

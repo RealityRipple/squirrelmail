@@ -47,9 +47,9 @@ if ($use_icons) {
  * @return array all option information
  */
 function load_optpage_data_display() {
-    global $theme, $language, $languages, $js_autodetect_results, $javascript_setting,
-    $compose_new_win, $default_use_mdn, $squirrelmail_language, $allow_thread_sort,
-    $optmode, $show_alternative_names, $available_languages, $use_icons;
+    global $theme, $language, $languages, 
+    $default_use_mdn, $squirrelmail_language, $allow_thread_sort,
+    $show_alternative_names, $available_languages, $use_icons;
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -491,8 +491,6 @@ function save_option_theme($option) {
  * This function saves the javascript detection option.
  */
 function save_option_javascript_autodetect($option) {
-    global $data_dir, $username;
-
     save_option($option);
     checkForJavascript(TRUE);
 }
@@ -519,7 +517,6 @@ function icon_theme_save($option) {
  * This function saves the reply prefix (body_quote) character(s)
  */
 function save_option_reply_prefix($option) {
-    global $data_dir, $username, $new_javascript_setting;
 
     // save as "NONE" if it was blanked out
     //

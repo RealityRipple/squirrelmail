@@ -341,9 +341,8 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
      * primary message. To add more of them, just put them in the
      * order that is their priority.
      */
-    global $startMessage, $username, $key, $imapServerAddress, $imapPort,
+    global $startMessage, $languages, $squirrelmail_language,
            $show_html_default, $sort, $has_unsafe_images, $passed_ent_id;
-    global $languages, $squirrelmail_language;
 
     if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
         $view_unsafe_images = false;
@@ -422,7 +421,6 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
 
 function formatAttachments($message, $exclude_id, $mailbox, $id) {
     global $where, $what, $startMessage, $color, $passed_ent_id;
-    static $ShownHTML = 0;
 
     $att_ar = $message->getAttachments($exclude_id);
 

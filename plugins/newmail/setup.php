@@ -33,10 +33,9 @@
 
     function CheckNewMailboxSound($imapConnection, $mailbox, $real_box, $delimeter, $unseen, &$total_new) {
     
-        global $folder_prefix, $trash_folder, $sent_folder,
-               $color, $move_to_sent, $move_to_trash,
-               $unseen_notify, $unseen_type, $newmail_allbox, 
-               $newmail_recent, $newmail_changetitle;
+        global $trash_folder, $sent_folder,
+               $unseen_notify, $newmail_allbox, 
+               $newmail_recent;
 
         $mailboxURL = urlencode($real_box);
         $unseen = $recent = 0;
@@ -139,8 +138,7 @@
 
     function newmail_plugin() {
 
-        global $username, $key, $imapServerAddress, $imapPort,
-               $newmail_media, $newmail_enable, $newmail_popup,
+        global $username, $newmail_media, $newmail_enable, $newmail_popup,
                $newmail_recent, $newmail_changetitle, $imapConnection, $PHP_SELF;
 
         if ($newmail_enable == 'on' ||

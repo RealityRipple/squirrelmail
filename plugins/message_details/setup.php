@@ -29,7 +29,7 @@ function squirrelmail_plugin_init_message_details()
  * @access private
  */
 function show_message_details() {
-    global $passed_id, $mailbox, $ent_num, $color,
+    global $passed_id, $mailbox, $ent_num,
            $javascript_on;
 
     if (strlen(trim($mailbox)) < 1) {

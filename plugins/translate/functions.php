@@ -71,12 +71,6 @@ function translate_read_form_function() {
     global $imapConnection, $wrap_at, $passed_id, $mailbox;
     global $translate_gpltrans_url;
 
-    global $translate_babelfish_enabled, $translate_go_enabled,
-        $translate_dictionary_enabled, $translate_google_enabled,
-        $translate_gpltrans_enabled, $translate_intertran_enabled,
-        $translate_promt_enabled, $translate_otenet_enabled;
-    global $translate_custom_enabled;
-
     if (!$translate_show_read) {
         return;
     }
@@ -232,7 +226,7 @@ function translate_showoption() {
         $translate_dictionary_enabled, $translate_google_enabled,
         $translate_gpltrans_enabled, $translate_intertran_enabled,
         $translate_promt_enabled, $translate_otenet_enabled;
-    global $translate_custom_enabled;
+    global $translate_custom_enabled, $translate_gpltrans_url;
 
     if ($translate_babelfish_enabled) translate_showoption_internal('server','babelfish', 'Babelfish');
     if ($translate_go_enabled) translate_showoption_internal('server','go', 'Go.com');
@@ -426,7 +420,7 @@ function translate_lang_opt($from, $to, $value, $text) {
  * @access private
  */
 function translate_new_form($action) {
-    global $translate_dir, $translate_new_window, $translate_location;
+    global $translate_dir, $translate_location;
     global $color, $translate_same_window;
 
     echo '<form action="';

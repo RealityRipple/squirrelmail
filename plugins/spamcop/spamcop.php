@@ -22,7 +22,7 @@ require_once(SM_PATH . 'functions/imap.php');
  */
 function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id, 
                                       $passed_ent_id='', $imapConnection) {
-    global $attachments, $attachment_dir, $username, $data_dir;
+    global $attachment_dir, $username;
 
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     if (!$passed_ent_id) {

@@ -548,7 +548,7 @@ function sqimap_read_data ($imap_stream, $tag_uid, $handle_errors,
  * @return imap-stream resource identifier
  */
 function sqimap_create_stream($server,$port,$tls=false) {
-    global $username, $use_imap_tls, $squirrelmail_language;
+    global $squirrelmail_language;
 
     if ($tls == true) {
         if ((check_php_version(4,3)) and (extension_loaded('openssl'))) {
