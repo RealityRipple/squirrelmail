@@ -8,6 +8,19 @@
 ############################################################              
 $conf_pl_version = "1.2.0";
 
+############################################################
+# Check what directory we're supposed to be running in, and
+# change there if necessary.  File::Basename has been in
+# Perl since at least 5.003_7, and nobody sane runs anything
+# before that, but just in case.
+############################################################
+
+if (eval q{require "File/Basename.pm"}) {
+    my $dir = File::Basename::dirname($0);
+    chdir($dir);
+}
+
+
 ############################################################              
 # Some people try to run this as a CGI. That's wrong!
 ############################################################              
