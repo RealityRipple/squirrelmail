@@ -1683,7 +1683,7 @@ sub set_defaults {
 			
          $continue = 1;
       } elsif ($server eq "exchange") {
-			$default_folder_prefix = "INBOX/";
+			$default_folder_prefix = "";
 			$default_sub_of_inbox = true;
 			$trash_folder = "INBOX/Deleted Items";
 			$sent_folder = "INBOX/Sent Items";
@@ -1691,7 +1691,7 @@ sub set_defaults {
 			$show_contain_subfolders_option = false;
 			$imap_server_type = "exchange";
          
-         print "          default_folder_prefix = INBOX/\n";
+         print "          default_folder_prefix = <none>\n";
          print "           default_sub_of_inbox = true\n";
          print "                   trash_folder = \"INBOX/Deleted Items\"\n";
          print "                    sent_folder = \"INBOX/Sent Items\"\n";
