@@ -118,30 +118,68 @@
 
    echo "      </TD>";
    echo "   </TR>";
+
+
+	// TRASH FOLDER
+
+	echo "<tr><td align=right>";
+	echo _("Trash Folder:");
+	echo "</td><td>";
+      echo "<TT><SELECT NAME=trash>\n";
+		if ($move_to_trash == true)
+			echo "<option value=none>" . _("Don't use Trash");
+		else
+			echo "<option value=none selected>" . _("Do not use Trash");
+
+      for ($i = 0; $i < count($boxes); $i++) {
+         $use_folder = true;
+			if (strtolower($boxes[$i]["unformatted"]) == "inbox") {
+            $use_folder = false;
+         }
+         if ($use_folder == true) {
+            $box = $boxes[$i]["unformatted-dm"];
+            $box2 = replace_spaces($boxes[$i]["formatted"]);
+				if (($boxes[$i]["unformatted"] == $trash_folder) && ($move_to_trash == true))
+            	echo "         <OPTION SELECTED VALUE=\"$box\">$box2\n";
+				else
+            	echo "         <OPTION VALUE=\"$box\">$box2\n";
+         }
+      }
+      echo "</SELECT></TT>\n";
+	echo "</td></tr>";	
+
+	// SENT FOLDER
+
+	echo "<tr><td align=right>";
+	echo _("Sent Folder:");
+	echo "</td><td>";
+      echo "<TT><SELECT NAME=sent>\n";
+		if ($move_to_sent == true)
+			echo "<option value=none>" . _("Don't use Sent");
+		else
+			echo "<option value=none selected>" . _("Do not use Sent");
+
+      for ($i = 0; $i < count($boxes); $i++) {
+         $use_folder = true;
+			if (strtolower($boxes[$i]["unformatted"]) == "inbox") {
+            $use_folder = false;
+         }
+         if ($use_folder == true) {
+            $box = $boxes[$i]["unformatted-dm"];
+            $box2 = replace_spaces($boxes[$i]["formatted"]);
+				if (($boxes[$i]["unformatted"] == $sent_folder) && ($move_to_sent == true))
+            	echo "         <OPTION SELECTED VALUE=\"$box\">$box2\n";
+				else
+            	echo "         <OPTION VALUE=\"$box\">$box2\n";
+         }
+      }
+      echo "</SELECT></TT>\n";
+	echo "</td></tr>";	
+
+
    echo "</TABLE>";
 
-
-
    echo "<TABLE WIDTH=100% COLS=2 ALIGN=CENTER>\n";
-   // MOVE_TO_TRASH
-   echo "   <TR>";
-   echo "      <TD WIDTH=60% ALIGN=RIGHT>";
-   echo           _("Move deleted messages to ");
-   echo "\"$trash_folder\"?";
-   echo "      </TD>";
-   echo "      <TD WIDTH=40% ALIGN=LEFT>";
-   if ($move_to_trash == true)
-      echo "         <INPUT TYPE=RADIO NAME=movetotrash VALUE=1 CHECKED>&nbsp;True<BR>";
-   else
-      echo "         <INPUT TYPE=RADIO NAME=movetotrash VALUE=1>&nbsp;True<BR>";
-
-   if ($move_to_trash == false)
-      echo "         <INPUT TYPE=RADIO NAME=movetotrash VALUE=0 CHECKED>&nbsp;False";
-   else
-      echo "         <INPUT TYPE=RADIO NAME=movetotrash VALUE=0>&nbsp;False";
-
-   echo "      </TD>";
-   echo "   </TR>";
 
    // SHOW_NUM
    echo "   <TR>";
