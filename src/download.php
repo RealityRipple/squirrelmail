@@ -105,10 +105,11 @@ if (strlen($filename) < 1) {
         $suffix = 'ps';
     else if ($type1 == 'rfc822' && $type0 == 'message')
         $suffix = 'msg';
-    else {
-        $filename = 'untitled' . strip_tags($ent_id);
+    else
         $suffix = $type1;
-    }
+
+    if ($filename == '')
+        $filename = 'untitled' . strip_tags($ent_id);
     $filename = $filename . '.' . $suffix;
 }
 
