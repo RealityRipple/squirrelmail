@@ -129,6 +129,9 @@
    function sqimap_mailbox_list ($imap_stream) {
       global $load_prefs_php, $prefs_php, $config_php, $data_dir, $username;
 
+      $inbox_in_list = false;
+      $inbox_subscribed = false;
+
       if (!isset($load_prefs_php)) include "../src/load_prefs.php";
       else global $folder_prefix;
       if (!function_exists ("ary_sort")) include "../functions/array.php";
@@ -141,7 +144,7 @@
       for ($i=0;$i < count($list_ary); $i++) {
          $sorted_list_ary[$i]["name"] = find_mailbox_name($list_ary[$i]);
          $sorted_list_ary[$i]["raw"]  = $list_ary[$i];
-         if ($sorged_list_ary[$i]["name"] == "INBOX")
+         if ($sorted_list_ary[$i]["name"] == "INBOX")
             $inbox_in_list = true;
       }
       if (isset($sorted_list_ary)) {
