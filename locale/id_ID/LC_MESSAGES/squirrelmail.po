@@ -1,14 +1,14 @@
 # Indonesian Squirrelmail Translation
 # Copyright (C) SquirrelMail Development Project , 1999-2002
-# Arief S Fitrianto <arief@fisika.ui.ac.id>, 2001.
+# Arief S Fitrianto <arief@gurame.fisika.ui.ac.id>, 2001-2002.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: $Id$\n"
+"Project-Id-Version: $Id\n"
 "POT-Creation-Date: 2002-01-31 09:30+0100\n"
-"PO-Revision-Date: 2002-01-28 21:45+0700\n"
-"Last-Translator: Arief S Fitrianto <arief@fisika.ui.ac.id>\n"
-"Language-Team: Indonesia <squirrelmail-i18n@lists.sourceforge.net>\n"
+"PO-Revision-Date: 2002-02-02 11:09+0700\n"
+"Last-Translator: Arief S Fitrianto <arief@gurame.fisika.ui.ac.id>\n"
+"Language-Team: Indonesian <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -59,7 +59,7 @@ msgstr "Tembusan"
 
 #: squirrelmail/src/addrbook_search_html.php:86
 msgid "Bcc"
-msgstr ""
+msgstr "Salinan"
 
 #: squirrelmail/src/addrbook_search_html.php:99
 msgid "Use Addresses"
@@ -197,7 +197,7 @@ msgstr "Tidak dapat memindah/menyalin file. File tidak disisipkan"
 
 #: squirrelmail/src/compose.php:304
 msgid "Original Message"
-msgstr "Pesan Asli"
+msgstr "Pesan Awal"
 
 #: squirrelmail/functions/mailbox_display.php:581
 #: squirrelmail/plugins/filters/options.php:97
@@ -361,7 +361,7 @@ msgstr "Berhasil mengganti nama!"
 
 #: squirrelmail/src/folders.php:53 squirrelmail/src/left_main.php:277
 msgid "refresh folder list"
-msgstr "Perbarui daftar laci"
+msgstr "perbarui daftar laci"
 
 #: squirrelmail/src/folders.php:65
 msgid "Create Folder"
@@ -496,7 +496,7 @@ msgstr "Menampilkan sisipan gambar"
 
 #: squirrelmail/src/left_main.php:73
 msgid "INBOX"
-msgstr "Hanya INBOX"
+msgstr "KOTAK POS"
 
 #: squirrelmail/src/left_main.php:97
 msgid "empty"
@@ -546,7 +546,7 @@ msgstr "Pilihan Tampilan Umum"
 
 #: squirrelmail/src/options_display.php:44
 msgid "Theme"
-msgstr "Tema"
+msgstr "Latar"
 
 #: squirrelmail/plugins/administrator/defines.php:40
 #: squirrelmail/src/options_display.php:51
@@ -749,7 +749,7 @@ msgstr "Tidak ada pemberitahuan"
 
 #: squirrelmail/src/options_folder.php:146
 msgid "Only INBOX"
-msgstr "Hanya INBOX"
+msgstr "Hanya KOTAK POS"
 
 #: squirrelmail/src/options_folder.php:147
 msgid "All Folders"
@@ -773,7 +773,7 @@ msgstr "Izinkan Laci yang bisa mengembang"
 
 #: squirrelmail/src/options_folder.php:168
 msgid "Show Clock on Folders Panel"
-msgstr "Unjukkan Waktu pada Panel Laci"
+msgstr "Tunjukkan Waktu pada Panel Laci"
 
 #: squirrelmail/src/options_folder.php:176
 msgid "No Clock"
@@ -982,12 +982,11 @@ msgstr "Ukuran"
 #: squirrelmail/src/options_order.php:85
 msgid ""
 "The index order is the order that the columns are arranged in the message "
-"index.  You can add, remove, and move columns around to customize them to "
-"fit your needs."
+"index.  You can add, remove, and move columns around to customize them to fit "
+"your needs."
 msgstr ""
-"Urutan index adalah urutan yang menyusun kolom dalam urutan pesan. Anda "
-"dapat menambah, menghapus, dan memindahkan kolom agar sesuai dengan "
-"keinginan Anda"
+"Urutan index adalah urutan yang menyusun kolom dalam urutan pesan. Anda dapat "
+"menambah, menghapus, dan memindahkan kolom agar sesuai dengan keinginan Anda"
 
 #: squirrelmail/src/options_order.php:94
 msgid "up"
@@ -1118,8 +1117,8 @@ msgid ""
 "messages are from, especially for mailing lists."
 msgstr ""
 "Dengan berdasarkan kriteria , pesan yang masuk dapat memiliki latar warna "
-"berbeda dalam daftar pesan. Pilihan ini memudahkan Anda membedakan asal "
-"suatu pesan, khususnya dari suatu milis."
+"berbeda dalam daftar pesan. Pilihan ini memudahkan Anda membedakan asal suatu "
+"pesan, khususnya dari suatu milis."
 
 #: squirrelmail/src/options.php:277
 msgid ""
@@ -1182,7 +1181,7 @@ msgstr "Rangkuman Konsep"
 
 #: squirrelmail/src/read_body.php:514
 msgid "Forward"
-msgstr "Kirimkan ke"
+msgstr "Kirim ke"
 
 #: squirrelmail/src/read_body.php:519
 msgid "Reply"
@@ -1685,7 +1684,7 @@ msgstr "Pindahkan ke:"
 
 #: squirrelmail/functions/mailbox_display.php:514
 msgid "Transform Selected Messages"
-msgstr "Transformasikan Pesan Terpilih"
+msgstr "Ubah Status Pesan Terpilih"
 
 #: squirrelmail/functions/mailbox_display.php:530
 msgid "Move"
@@ -1697,7 +1696,7 @@ msgstr "Kosongkan"
 
 #: squirrelmail/functions/mailbox_display.php:534
 msgid "mailbox"
-msgstr "Kotak surat"
+msgstr "Kotak Surat"
 
 #: squirrelmail/functions/mailbox_display.php:536
 msgid "Read"
@@ -1744,8 +1743,8 @@ msgstr "Ada kesalahan saat mengurai struktur mime.  Laporkan masalah ini !"
 #: squirrelmail/functions/mime.php:431
 msgid ""
 "Body retrieval error. The reason for this is most probably that the message "
-"is malformed. Please help us making future versions better by submitting "
-"this message to the developers knowledgebase!"
+"is malformed. Please help us making future versions better by submitting this "
+"message to the developers knowledgebase!"
 msgstr ""
 "Gagal membuka pesan. Alasan yang mungkin adalah karena pesan ini salah "
 "format. Mohon bantuan Anda untuk membuat versi selanjutnya lebih baik dengan "
@@ -1839,8 +1838,8 @@ msgstr "Tidak dapat membuat file acuan awal!"
 
 #: squirrelmail/plugins/filters/filters.php:360
 msgid ""
-"COMMERCIAL - This list contains servers that are verified spam senders. It "
-"is a pretty reliable list to scan spam from."
+"COMMERCIAL - This list contains servers that are verified spam senders. It is "
+"a pretty reliable list to scan spam from."
 msgstr ""
 "KOMERSIL - Daftar ini berisi server yang dipastikan sebagai pengirim spam. "
 "Suatu daftar yang dapat dipercaya untuk memindai asal spam. "
@@ -1852,14 +1851,14 @@ msgid ""
 "to use."
 msgstr ""
 "KOMERSIL - Server yang dikonfigurasi ( atau salah konfigurasi ) untuk "
-"memungkinkan spam diteruskan melalui sistem mereka akan dicekal dengan "
-"daftar ini. Suatu pilihan baik lainnya untuk digunakan. "
+"memungkinkan spam diteruskan melalui sistem mereka akan dicekal dengan daftar "
+"ini. Suatu pilihan baik lainnya untuk digunakan. "
 
 #: squirrelmail/plugins/filters/filters.php:376
 msgid ""
-"COMMERCIAL - Dial-up users are often filtered out since they should use "
-"their ISP's mail servers to send mail.  Spammers typically get a dial-up "
-"account and send spam directly from there."
+"COMMERCIAL - Dial-up users are often filtered out since they should use their "
+"ISP's mail servers to send mail.  Spammers typically get a dial-up account "
+"and send spam directly from there."
 msgstr ""
 "KOMERSIL - Pengguna 'dial-up' seringkali dipilah untuk menggunakan server "
 "mail ISP mereka. Para 'Spammer' biasanya menggunakan 'account dial-up' dan "
@@ -1892,22 +1891,22 @@ msgstr "BEBAS - Dialups Osirusoft - Daftar sumber spam dialup dari Osirusoft."
 
 #: squirrelmail/plugins/filters/filters.php:424
 msgid ""
-"FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
-"have been manually added after multiple nominations. Use with caution. Seems "
-"to catch abuse auto-replies from some ISPs."
+"FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and have "
+"been manually added after multiple nominations. Use with caution. Seems to "
+"catch abuse auto-replies from some ISPs."
 msgstr ""
 "BEBAS - Sumber Spam yang dikonfirmasi Osirusoft - Situs yang terus-menerus "
-"mengirimkan spam dan telah ditambahkan secara manual setelah melalui "
-"beberapa penilaian. Gunakan secara bijak. Tampaknya juga memasukkan pembalas "
-"otomatis dari beberapa ISP."
+"mengirimkan spam dan telah ditambahkan secara manual setelah melalui beberapa "
+"penilaian. Gunakan secara bijak. Tampaknya juga memasukkan pembalas otomatis "
+"dari beberapa ISP."
 
 #: squirrelmail/plugins/filters/filters.php:432
 msgid ""
 "FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
 "other mail servers that are not secure."
 msgstr ""
-"BEBAS - Smart Host Osirusoft - Daftar host yang aman tetapi meneruskan "
-"server lainnya yang tidak aman."
+"BEBAS - Smart Host Osirusoft - Daftar host yang aman tetapi meneruskan server "
+"lainnya yang tidak aman."
 
 #: squirrelmail/plugins/filters/filters.php:440
 msgid ""
@@ -1929,8 +1928,8 @@ msgstr ""
 
 #: squirrelmail/plugins/filters/filters.php:456
 msgid ""
-"FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail."
-"cgi scripts. (planned)."
+"FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure "
+"formmail.cgi scripts. (planned)."
 msgstr ""
 "GRATIS - script Formmail.cgi tak aman Osirusoft - Daftar script formmail.cgi "
 "tak aman. "
@@ -1941,11 +1940,11 @@ msgstr "GRATIS - Server Proxy Terbuka Osirusoft - Daftar Server Proxy Terbuka"
 
 #: squirrelmail/plugins/filters/filters.php:472
 msgid ""
-"FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
-"false positives than ORBS did though."
+"FREE - ORDB was born when ORBS went off the air. It seems to have fewer false "
+"positives than ORBS did though."
 msgstr ""
-"BEBAS - ORDB dilahirkan ketika ORBS tidak lagi ada. Meski begitu, lembaga "
-"ini tampaknya memiliki kesalahan positif lebih sedikit dibandingkan ORBS. "
+"BEBAS - ORDB dilahirkan ketika ORBS tidak lagi ada. Meski begitu, lembaga ini "
+"tampaknya memiliki kesalahan positif lebih sedikit dibandingkan ORBS. "
 
 #: squirrelmail/plugins/filters/filters.php:480
 msgid "FREE - Another ORBS replacement (just the INPUTS database used here)."
@@ -1969,10 +1968,11 @@ msgstr ""
 "BEBAS - Five-Ten-sg.com - Daftar Spam Dialup - memasukkan beberapa ISP DSL."
 
 #: squirrelmail/plugins/filters/filters.php:512
-msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
+msgid ""
+"FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
 msgstr ""
-"BEBAS - Five-Ten-sg.com - Daftar Sarana pengirim masal yang tidak "
-"menggunakan konfirmasi terhadap user yang masuk."
+"BEBAS - Five-Ten-sg.com - Daftar Sarana pengirim masal yang tidak menggunakan "
+"konfirmasi terhadap user yang masuk."
 
 #: squirrelmail/plugins/filters/filters.php:520
 msgid "FREE - Five-Ten-sg.com - Other misc. servers."
@@ -1992,13 +1992,13 @@ msgstr "BEBAS - Five-Ten-sg.com - Daftar IP spam lewat Web ( WWW )"
 
 #: squirrelmail/plugins/filters/filters.php:552
 msgid ""
-"FREE - Dorkslayers appears to include only really bad open relays outside "
-"the US to avoid being sued. Interestingly enough, their website recommends "
-"you NOT use their service."
+"FREE - Dorkslayers appears to include only really bad open relays outside the "
+"US to avoid being sued. Interestingly enough, their website recommends you "
+"NOT use their service."
 msgstr ""
 "BEBAS - Dorkslayes muncul hanya untuk memasukkan 'Relay' terbuka yang buruk "
-"di luar Amerika agar tidak disalahgunakan. Cukup menarik, tetapi situs "
-"mereka menyarankan Anda TIDAK menggunakan layanan ini. "
+"di luar Amerika agar tidak disalahgunakan. Cukup menarik, tetapi situs mereka "
+"menyarankan Anda TIDAK menggunakan layanan ini. "
 
 #: squirrelmail/plugins/filters/filters.php:560
 msgid "FREE - orbz.gst-group.co.uk - Inputs only."
@@ -2022,9 +2022,9 @@ msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
 msgstr ""
-"BEBAS, saat ini - SPAMCOP - Sebuah pemechan menarik yang memuat daftar "
-"server yang memiliki rasio spam sangat banyak untuk merusak surate ( 85% "
-"atau lebih )."
+"BEBAS, saat ini - SPAMCOP - Sebuah pemechan menarik yang memuat daftar server "
+"yang memiliki rasio spam sangat banyak untuk merusak surate ( 85% atau lebih "
+")."
 
 #: squirrelmail/plugins/filters/options.php:62
 msgid "Message Filtering"
@@ -2077,8 +2077,8 @@ msgid ""
 "junk email in your INBOX and move it to another folder (like Trash)."
 msgstr ""
 "Pemilah SPAM memungkinkan Anda memilih berbagai daftar hitam berbasis DNS "
-"untuk mendeteksi surate sampah dalam INBOX Anda dan memindahkannya ke laci "
-"lain ( seperti laci Sampah )."
+"untuk mendeteksi surate sampah dalam KOTAK POS Anda dan memindahkannya ke "
+"laci lain ( seperti laci Sampah )."
 
 #: squirrelmail/plugins/filters/spamoptions.php:53
 msgid "Spam Filtering"
@@ -2096,16 +2096,15 @@ msgstr "Pindahkan spam ke:"
 #: squirrelmail/plugins/filters/spamoptions.php:94
 msgid ""
 "Moving spam directly to the trash may not be a good idea at first, since "
-"messages from friends and mailing lists might accidentally be marked as "
-"spam. Whatever folder you set this to, make sure that it gets cleaned out "
+"messages from friends and mailing lists might accidentally be marked as spam. "
+"Whatever folder you set this to, make sure that it gets cleaned out "
 "periodically, so that you don't have an excessively large mailbox hanging "
 "around."
 msgstr ""
 "Memindahkan spam langsung ke laci sampah mungkin bukan ide yang bagus, sebab "
 "pesan dari teman atau milis bisa saja tak disengaja ditandai sebagai spam. "
-"Laci apapun yang Anda pilih, pastikan laci tersebut selalu dikosongkan "
-"secara teratur. Jadi Anda tidak akan memiliki kotak surat yang terlampau "
-"besar"
+"Laci apapun yang Anda pilih, pastikan laci tersebut selalu dikosongkan secara "
+"teratur. Jadi Anda tidak akan memiliki kotak surat yang terlampau besar"
 
 #: squirrelmail/plugins/filters/spamoptions.php:97
 msgid "What to Scan:"
@@ -2122,14 +2121,14 @@ msgstr "Hanya pesan yang belum dibaca"
 #: squirrelmail/plugins/filters/spamoptions.php:112
 msgid ""
 "The more messages you scan, the longer it takes.  I would suggest that you "
-"scan only new messages.  If you make a change to your filters, I would set "
-"it to scan all messages, then go view my INBOX, then come back and set it to "
+"scan only new messages.  If you make a change to your filters, I would set it "
+"to scan all messages, then go view my INBOX, then come back and set it to "
 "scan only new messages.  That way, your new spam filters will be applied and "
 "you'll scan even the spam you read with the new filters."
 msgstr ""
 "Makin banyak pesan yang dipindai, makin lama waktu yang dibutuhkan. Saya "
 "sarankan Anda hanya memindai pesan baru. Jika Anda mengubah Pemilah Anda, "
-"saya akan membuatnya memindai semua pesan, lalu melihat kotak INBOX, "
+"saya akan membuatnya memindai semua pesan, lalu melihat kotak KOTAK POS, "
 "kemudian kembali lagi dan membuatnya hanya akan memindai pesan yang baru. "
 "Dengan cara ini, Pemilah spam baru Anda akan diberlakukan dan Anda akan "
 "memindai spam dengan pemilah baru."
@@ -2199,19 +2198,19 @@ msgid ""
 "likely due to the fact that you have changed your mailbox password. In order "
 "to proceed, you will have to supply your old password so that SquirrelSpell "
 "can decrypt your personal dictionary. It will be re-encrypted with your new "
-"password after this.<br>If you haven't encrypted your dictionary, then it "
-"got mangled and is no longer valid. You will have to delete it and start "
-"anew. This is also true if you don't remember your old password -- without "
-"it, the encrypted data is no longer accessible."
+"password after this.<br>If you haven't encrypted your dictionary, then it got "
+"mangled and is no longer valid. You will have to delete it and start anew. "
+"This is also true if you don't remember your old password -- without it, the "
+"encrypted data is no longer accessible."
 msgstr ""
 "SquirrelSpell tidak dapat mendekripsi kamus pribadi Anda. Hal ini bisa "
 "disebabkan oleh fakta bahwa Anda telah mengubah sandi kotak surat Anda.Untuk "
-"memproses, Anda harus memberikan sandi lama Anda sehingga SquirrelSpell "
-"dapat mendekripsi kamus pribadi Anda. Kamus tersebut akan dienkripsi kembali "
-"dengan sandi Anda yang baru.<br> Jika Anda belum mengenkripsi kamus Anda, "
-"maka kamus tersebut sudah usang dan tidak berlaku lagi. Anda harus "
-"menghapusnya dan membuat yang baru lagi. Hal ini juga berlaku bila Anda lupa "
-"sandi lama Anda -- tanpanya, data yang dienkripsi tidak bisa diakses lagi."
+"memproses, Anda harus memberikan sandi lama Anda sehingga SquirrelSpell dapat "
+"mendekripsi kamus pribadi Anda. Kamus tersebut akan dienkripsi kembali dengan "
+"sandi Anda yang baru.<br> Jika Anda belum mengenkripsi kamus Anda, maka kamus "
+"tersebut sudah usang dan tidak berlaku lagi. Anda harus menghapusnya dan "
+"membuat yang baru lagi. Hal ini juga berlaku bila Anda lupa sandi lama Anda "
+"-- tanpanya, data yang dienkripsi tidak bisa diakses lagi."
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:363
 msgid "Delete my dictionary and start a new one"
@@ -2227,17 +2226,18 @@ msgstr "Kerjakan"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:374
 msgid "You must make a choice"
-msgstr ""
+msgstr "Anda harus memilih "
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:375
 msgid ""
 "You can either delete your dictionary or type in the old password. Not both."
 msgstr ""
+"Anda hanya bisa menghapus kamus atau ketikkan sandi lama Anda. Tidak "
+"keduanya. "
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:376
-#, fuzzy
 msgid "This will delete your personal dictionary file. Proceed?"
-msgstr "Tambahkan kata ini ke kamus pribadi Anda"
+msgstr "File kamus pribadi Anda akan dihapus. Teruskan?"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:385
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:388
@@ -2245,9 +2245,8 @@ msgid "Error Decrypting Dictionary"
 msgstr "Gagal mendekripsi Kamus"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:506
-#, fuzzy
 msgid "Cute."
-msgstr "kutipan"
+msgstr "Bagus lah."
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:33
 msgid "Your personal dictionary was erased."
@@ -2259,13 +2258,12 @@ msgid "Dictionary Erased"
 msgstr "Kamus telah dihapus"
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:41
-#, fuzzy
 msgid ""
 "Your personal dictionary was erased. Please close this window and click "
 "\"Check Spelling\" button again to start your spellcheck over."
 msgstr ""
-"Kamus Pribadi Anda berhasil dienkripsi ulang. SIlahkan tutup jendela ini dan "
-"klik kembali tombol \"Periksa Ejaan\" untuk memulai kembali memeriksa ejaan."
+"Kamus Pribadi Anda telah dihapus. Silahkan tutup jendela ini dan klik kembali "
+"tombol \"Periksa Ejaan\" untuk memeriksa ulang ejaan Anda."
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:45
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:77
@@ -2277,8 +2275,8 @@ msgid ""
 "Your personal dictionary was re-encrypted successfully. Now return to the "
 "&quot;SpellChecker options&quot; menu and make your selection again."
 msgstr ""
-"Kamus Pribadi Anda berhasil dienkripsi ulang. Sekarang kembali ke-menu &quot;"
-"Pilihan Pemeriksa Ejaan&quot;dan buat pilihan Anda kembali."
+"Kamus Pribadi Anda berhasil dienkripsi ulang. Sekarang kembali ke-menu "
+"&quot;Pilihan Pemeriksa Ejaan&quot;dan buat pilihan Anda kembali."
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:72
 msgid "Successful Re-encryption"
@@ -2324,17 +2322,15 @@ msgstr "Hasil Pemeriksaan SquirrelSpell"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:256
 msgid "Spellcheck completed. Commit changes?"
-msgstr ""
+msgstr "Pemeriksaan ejaan selesai. Terima perbaikan?"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:258
-#, fuzzy
 msgid "No changes were made."
-msgstr "Tidak ada perubahan yang diminta"
+msgstr "Tak ada perubahan yang dibuat"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:260
-#, fuzzy
 msgid "Now saving your personal dictionary... Please wait."
-msgstr "Kamus Pribadi Anda tidak berisi satu kata pun."
+msgstr "Sekarang sedang menyimpan kamus pribadi Anda ... Silahkan tunggu!"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:281
 #, c-format
@@ -2460,21 +2456,23 @@ msgstr "Ubah kamus pribadi Anda"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:25
 msgid "Please make your selection first."
-msgstr ""
+msgstr "Mohon buat pilihan Anda dahulu"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:27
-#, fuzzy
 msgid ""
 "This will encrypt your personal dictionary and store it in an encrypted "
 "format. Proceed?"
-msgstr "Mohon enkripsi kamus pribadi saya dan simpan dalam bentuk terenkripsi."
+msgstr ""
+"Kamus pribadi Anda akan dienkripsi dan disimpan dalam bentuk terenkripsi. "
+"Teruskan?"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:30
-#, fuzzy
 msgid ""
 "This will decrypt your personal dictionary and store it in a clear-text "
 "format. Proceed?"
-msgstr "Mohon dekripsi kamus pribadi saya dan simpan dalam bentuk teks murni."
+msgstr ""
+"Kamus pribadi Anda akan didekripsi dan disimpan dalam bentuk teks murni. "
+"Teruskan?"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:47
 msgid ""
@@ -2482,19 +2480,20 @@ msgid ""
 "helps protect your privacy in case the web-mail system gets compromized and "
 "your personal dictionary ends up stolen. It is currently encrypted with the "
 "password you use to access your mailbox, making it hard for anyone to see "
-"what is stored in your personal dictionary.</p> <p><strong>ATTENTION:</"
-"strong> If you forget your password, your personal dictionary will become "
-"unaccessible, since it can no longer be decrypted. If you change your "
-"mailbox password, SquirrelSpell will recognize it and prompt you for your "
-"old password in order to re-encrypt the dictionary with a new key.</p>"
+"what is stored in your personal dictionary.</p> "
+"<p><strong>ATTENTION:</strong> If you forget your password, your personal "
+"dictionary will become unaccessible, since it can no longer be decrypted. If "
+"you change your mailbox password, SquirrelSpell will recognize it and prompt "
+"you for your old password in order to re-encrypt the dictionary with a new "
+"key.</p>"
 msgstr ""
 "<p>Kamus pribadi Anda <strong>saat ini dienkripsi</strong>. Hal ini untuk "
 "menjaga rahasia Anda ketika sistem webmail dibobol dan kamus pribadi Anda "
 "dicuri. Kamus tersebut saat ini dienkripsi dengan sandi yang Anda gunakan "
-"untuk mengakses surat Anda; membuatnya sulit bagi seseorang untuk melihat "
-"apa yang tersimpan dalam kamus pribadi Anda.</p><p><strong>PERHATIAN: </"
-"strong> Jika Anda lupa sandi Anda, kamus pribadi Anda menjadi tidak bisa "
-"diakses, karena tidak lagi bisa didekripsi. Jika Anda mengubah sandi Anda, "
+"untuk mengakses surat Anda; membuatnya sulit bagi seseorang untuk melihat apa "
+"yang tersimpan dalam kamus pribadi Anda.</p><p><strong>PERHATIAN: </strong> "
+"Jika Anda lupa sandi Anda, kamus pribadi Anda menjadi tidak bisa diakses, "
+"karena tidak lagi bisa didekripsi. Jika Anda mengubah sandi Anda, "
 "SquirrelSpell akan mengetahuinya dan meminta sandi lama Anda untuk "
 "mengekripsi ulang kamus Anda dengan sandi baru.</p>"
 
@@ -2506,7 +2505,7 @@ msgstr "Mohon dekripsi kamus pribadi saya dan simpan dalam bentuk teks murni."
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:55
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:73
 msgid "Change crypto settings"
-msgstr "Ubah seting enkripsi"
+msgstr "Ubah seting enkripsi "
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:65
 msgid ""
@@ -2514,28 +2513,27 @@ msgid ""
 "may wish to encrypt your personal dictionary to protect your privacy in case "
 "the webmail system gets compromized and your personal dictionary file gets "
 "stolen. When encrypted, the file's contents look garbled and are hard to "
-"decrypt without knowing the correct key (which is your mailbox password).</"
-"p> <strong>ATTENTION:</strong> If you decide to encrypt your personal "
+"decrypt without knowing the correct key (which is your mailbox password).</p> "
+"<strong>ATTENTION:</strong> If you decide to encrypt your personal "
 "dictionary, you must remember that it gets &quot;hashed&quot; with your "
 "mailbox password. If you forget your mailbox password and the administrator "
 "changes it to a new value, your personal dictionary will become useless and "
 "will have to be created anew. However, if you or your system administrator "
-"change your mailbox password but you still have the old password at hand, "
-"you will be able to enter the old key to re-encrypt the dictionary with the "
-"new value.</p>"
+"change your mailbox password but you still have the old password at hand, you "
+"will be able to enter the old key to re-encrypt the dictionary with the new "
+"value.</p>"
 msgstr ""
 "<p>Kamus pribadi Anda <strong>saat ini tidak dienkripsi</strong>. Anda "
 "mungkin ingin mengekripsinya untuk melindungi rahasia Anda ketika sistem "
-"webmail dibobol dan file kamus Anda dicuri orang. Ketika dienkripsi, isi "
-"file tampak seperti kacau balau dan sulit untuk didekripsi tampa sandi yang "
-"benar ( yaitu sandi surat Anda )</p><p><strong>PERHATIAN</strong> Jika Anda "
-"memutuskan untuk mengekripsi kamus pribadi Anda, Anda harus ingat bahwa "
-"kamus tersebut telah &quot;dienkripsi&quot; dengan sandi surat Anda. Jika "
-"Anda lupa sandi Anda dan administrator mengubahnya, kamus pribadi Anda "
-"menjadi percuma dan akan dibuatkan yang baru. Akan tetapi, jika Anda atau "
-"administrator mengubah sandi Anda namun Anda masih ingat yang lama, Anda "
-"dapat memasukkan sandi lama untuk mengenkripsi ulang kamus Anda dengan sandi "
-"baru.</p>"
+"webmail dibobol dan file kamus Anda dicuri orang. Ketika dienkripsi, isi file "
+"tampak seperti kacau balau dan sulit untuk didekripsi tampa sandi yang benar "
+"( yaitu sandi surat Anda )</p><p><strong>PERHATIAN</strong> Jika Anda "
+"memutuskan untuk mengekripsi kamus pribadi Anda, Anda harus ingat bahwa kamus "
+"tersebut telah &quot;dienkripsi&quot; dengan sandi surat Anda. Jika Anda lupa "
+"sandi Anda dan administrator mengubahnya, kamus pribadi Anda menjadi percuma "
+"dan akan dibuatkan yang baru. Akan tetapi, jika Anda atau administrator "
+"mengubah sandi Anda namun Anda masih ingat yang lama, Anda dapat memasukkan "
+"sandi lama untuk mengenkripsi ulang kamus Anda dengan sandi baru.</p>"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:70
 msgid ""
@@ -2575,7 +2573,7 @@ msgstr ""
 #: squirrelmail/plugins/calendar/calendar.php:112
 #: squirrelmail/plugins/squirrelspell/modules/init.mod:53
 msgid "Go"
-msgstr "Ayo"
+msgstr "Teruskan"
 
 #: squirrelmail/plugins/squirrelspell/modules/init.mod:57
 msgid "SquirrelSpell Initiating"
@@ -2584,8 +2582,8 @@ msgstr "Memulai SquirrelSpell"
 #: squirrelmail/plugins/squirrelspell/modules/lang_change.mod:72
 #, c-format
 msgid ""
-"Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
-"default dictionary."
+"Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as default "
+"dictionary."
 msgstr ""
 "Seting disesuaikan ke : <strong>%s</strong> dengan <strong>%s</strong> "
 "sebagai kamus utama."
@@ -2602,8 +2600,8 @@ msgstr "Acuan Kamus Internasional Diperbaharui"
 
 #: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod:22
 msgid ""
-"Please check any available international dictionaries which you would like "
-"to use when spellchecking:"
+"Please check any available international dictionaries which you would like to "
+"use when spellchecking:"
 msgstr ""
 "Silahkan pilih kamus internasional yang ada sesuka Anda saat memeriksa ejaan."
 
@@ -2731,8 +2729,8 @@ msgid ""
 "Which translator should be used when you get messages in a different "
 "language?"
 msgstr ""
-"Penerjemah yang harus digunakan bila Anda mendapatkan pesan dalam bahasa "
-"yang berbeda?"
+"Penerjemah yang harus digunakan bila Anda mendapatkan pesan dalam bahasa yang "
+"berbeda?"
 
 #: squirrelmail/plugins/translate/setup.php:230
 #: squirrelmail/plugins/translate/setup.php:234
@@ -3011,17 +3009,17 @@ msgid ""
 "unseen mail is in your folders. When enabled, you can specify the media file "
 "to play in the provided file box."
 msgstr ""
-"Pilih <b> Aktifkan Pemutar Media </b> untuk menghidupkan file media "
-"( suara ) ketika ada pesan yang belum dibaca di laci Anda. Ketika "
-"diaktifkan, Anda dapat memilih file media yang tersedia dalam kotak."
+"Pilih <b> Aktifkan Pemutar Media </b> untuk menghidupkan file media ( suara ) "
+"ketika ada pesan yang belum dibaca di laci Anda. Ketika diaktifkan, Anda "
+"dapat memilih file media yang tersedia dalam kotak."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:39
 msgid ""
 "The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
 "folders for unseen mail, not just the inbox for notification."
 msgstr ""
-"Pilihan <b>Periksa semua laci, bukan hanya INBOX </b> akan memeriksa pesan "
-"baru semua di laci Anda , jadi bukan hanya INBOX ."
+"Pilihan <b>Periksa semua laci, bukan hanya KOTAK POS </b> akan memeriksa "
+"pesan baru semua di laci Anda , jadi bukan hanya KOTAK POS ."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:41
 msgid ""
@@ -3034,9 +3032,9 @@ msgstr ""
 #: squirrelmail/plugins/newmail/newmail_opt.php:43
 msgid ""
 "Use the <b>Check RECENT</b> to only check for messages that are recent. "
-"Recent messages are those that have just recently showed up and have not "
-"been \"viewed\" or checked yet.  This can prevent being continuously annoyed "
-"by sounds or popups for unseen mail."
+"Recent messages are those that have just recently showed up and have not been "
+"\"viewed\" or checked yet.  This can prevent being continuously annoyed by "
+"sounds or popups for unseen mail."
 msgstr ""
 "Gunakan <b> Periksa Yang TERBARU </b> hanya untuk memeriksa pesan yang baru. "
 "Pesan terbaru adalah pesan yang baru saja ditampilkan dan belum di \"lihat\" "
@@ -3053,9 +3051,9 @@ msgid ""
 msgstr ""
 "Memilih <b> Ubah judul </b> akan mengubah judul dari beberapa browser untuk "
 "memudahkan Anda mengetahui bila ada pesan baru ( perlu JavaScript dan hanya "
-"bisa di IE , tetapi Anda tidak akan mendapat masalah dengan browser "
-"lainnya ) . Hal ini akan selalu memberitahukan Anda bila ada pesan baru, "
-"bahkan bila Anda juga memilih <b> Periksa Yang TERBARU </b>."
+"bisa di IE , tetapi Anda tidak akan mendapat masalah dengan browser lainnya ) "
+". Hal ini akan selalu memberitahukan Anda bila ada pesan baru, bahkan bila "
+"Anda juga memilih <b> Periksa Yang TERBARU </b>."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:47
 msgid ""
@@ -3075,7 +3073,7 @@ msgstr "Aktifkan Pemutar Media"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:65
 msgid "Check all boxes, not just INBOX"
-msgstr "Periksa semua laci, bukan hanya INBOX"
+msgstr "Periksa semua laci, bukan hanya KOTAK POS"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:73
 msgid "Count only messages that are RECENT"
@@ -3124,7 +3122,7 @@ msgstr "Pesan dari SquirrelMail:"
 
 #: squirrelmail/plugins/newmail/newmail.php:31
 msgid "You have new mail!"
-msgstr "Anda mendapat surat baru!"
+msgstr "Anda surat baru!"
 
 #: squirrelmail/plugins/newmail/setup.php:78
 msgid "NewMail Options"
@@ -3132,8 +3130,8 @@ msgstr "Pilihan Surat Baru"
 
 #: squirrelmail/plugins/newmail/setup.php:80
 msgid ""
-"This configures settings for playing sounds and/or showing popup windows "
-"when new mail arrives."
+"This configures settings for playing sounds and/or showing popup windows when "
+"new mail arrives."
 msgstr ""
 "Pilihan ini akan menkonfigurasi seting untuk memainkan suara dan/atau "
 "menampilkan jendela popup bila ada surat baru tiba."
@@ -3388,11 +3386,11 @@ msgstr "BERHASIL masuk: tidak ada pesan baru"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:156
 msgid "Login OK: Inbox EMPTY"
-msgstr "BERHASIL masuk: INBOX KOSONG"
+msgstr "BERHASIL masuk: KOTAK POS KOSONG"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:161
 msgid "Login OK: Inbox contains ["
-msgstr "BERHASIL masuk: INBOX berisi ["
+msgstr "BERHASIL masuk: KOTAK POS berisi ["
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:161
 msgid "] messages"
@@ -3463,17 +3461,17 @@ msgid ""
 "encryption anyway. Additionally, the encryption that we do to save it on the "
 "server can be undone by a hacker reading the source to this file."
 msgstr ""
-"Anda harus ingat bahwa ekripsi yang digunakan untuk menyimpan sandi Anda "
-"tidaklah sempurna keamanannya. Akan tetapi, jika anda menggunakan POP, "
-"secara internal tidak ada enkripsi apapun. Ditambah lagi, enkripsi yang kita "
-"buat untuk disimpan di server dapat dilihat oleh haker yang memaca sumber "
-"file ini."
+"Anda harus ingat bahwa enkripsi yang digunakan untuk menyimpan sandi Anda "
+"tidaklah sempurna keamanannya. Akan tetapi, jika anda menggunakan POP, secara "
+"internal tidak ada enkripsi apapun. Ditambah lagi, enkripsi yang kita buat "
+"untuk disimpan di server dapat dilihat oleh haker yang memaca sumber file "
+"ini."
 
 #: squirrelmail/plugins/mail_fetch/options.php:109
 msgid "If you leave password empty, it will be required when you fetch mail."
 msgstr ""
-"Jika Anda membiarkan sandi kosong, Sandi tersebut akan ditanyakan ketika "
-"Anda mengambil surat."
+"Jika Anda membiarkan sandi kosong, Sandi tersebut akan ditanyakan ketika Anda "
+"mengambil surat."
 
 #: squirrelmail/plugins/mail_fetch/options.php:113
 msgid "Encrypt passwords (informative only)"
@@ -3651,7 +3649,7 @@ msgstr "Waktu Mulai:"
 #: squirrelmail/plugins/calendar/event_create.php:41
 #: squirrelmail/plugins/calendar/event_edit.php:59
 msgid "Length:"
-msgstr "Panjang:"
+msgstr "Selama:"
 
 #: squirrelmail/plugins/calendar/event_create.php:47
 #: squirrelmail/plugins/calendar/event_edit.php:65
@@ -3662,7 +3660,7 @@ msgstr "Prioritas:"
 
 #: squirrelmail/plugins/calendar/event_create.php:61
 msgid "Set Event"
-msgstr "Tentukan Acara"
+msgstr "Catat Acara"
 
 #: squirrelmail/plugins/calendar/event_create.php:106
 msgid "Event Has been added!"
@@ -3786,8 +3784,8 @@ msgstr ""
 #: squirrelmail/plugins/listcommands/mailout.php:28
 #, c-format
 msgid ""
-"This will send a message to %s requesting that you will be subscribed to "
-"this list. You will be subscribed with the address below."
+"This will send a message to %s requesting that you will be subscribed to this "
+"list. You will be subscribed with the address below."
 msgstr ""
 "Hal ini akan mengirimkan suatu pesan ke %s untuk mendaftarkan Anda di milis "
 "ini. Anda akan didaftarkan dengan alamat di bawah ini."
@@ -3798,23 +3796,21 @@ msgid ""
 "This will send a message to %s requesting that you will be unsubscribed from "
 "this list. It will try to unsubscribe the adress below."
 msgstr ""
-"Hal ini akan mengirimkan suatu pesan ke %s untuk mencabut keanggotaan Anda "
-"di milis ini. Milis tersebut akan mencoba untuk mencabut keanggotaan alamat "
-"di bawah ini."
+"Hal ini akan mengirimkan suatu pesan ke %s untuk mencabut keanggotaan Anda di "
+"milis ini. Milis tersebut akan mencoba untuk mencabut keanggotaan alamat di "
+"bawah ini."
 
 #: squirrelmail/plugins/listcommands/mailout.php:79
 msgid "Send Mail"
 msgstr "Kirim Surat"
 
 #: squirrelmail/plugins/listcommands/setup.php:31
-#, fuzzy
 msgid "Post to List"
-msgstr "Kirimkam ke milis"
+msgstr "Kirim ke milis"
 
 #: squirrelmail/plugins/listcommands/setup.php:32
-#, fuzzy
 msgid "Reply to List"
-msgstr "Balas ke milis"
+msgstr "Balas ke Milis"
 
 #: squirrelmail/plugins/listcommands/setup.php:35
 msgid "List Archives"
@@ -3825,9 +3821,8 @@ msgid "Contact Listowner"
 msgstr "Hubungi Pemilik Milis"
 
 #: squirrelmail/plugins/listcommands/setup.php:105
-#, fuzzy
 msgid "Mailing List:"
-msgstr "Milis"
+msgstr "Milis:"
 
 #: squirrelmail/plugins/delete_move_next/setup.php:159
 #: squirrelmail/plugins/delete_move_next/setup.php:162
@@ -3841,7 +3836,7 @@ msgstr "Hapus & Lanjut"
 
 #: squirrelmail/plugins/delete_move_next/setup.php:290
 msgid "delete_move_next:"
-msgstr ""
+msgstr "hapus_pindah_lanjut:"
 
 #: squirrelmail/plugins/delete_move_next/setup.php:296
 msgid "display at top"
@@ -3857,318 +3852,267 @@ msgid "display at bottom"
 msgstr "tampilkan di bawah"
 
 #: squirrelmail/plugins/administrator/defines.php:46
-#, fuzzy
 msgid "Config File Version"
-msgstr "Lihat Versi yang Bisa Dicetak"
+msgstr "Versi File Konfigurasi"
 
 #: squirrelmail/plugins/administrator/defines.php:50
-#, fuzzy
 msgid "Organization Preferences"
-msgstr "Organisasi / Departemen"
+msgstr "Acuan Organisasi"
 
 #: squirrelmail/plugins/administrator/defines.php:52
-#, fuzzy
 msgid "Organization Name"
-msgstr "Organisasi / Departemen"
+msgstr "Nama Organisasi"
 
 #: squirrelmail/plugins/administrator/defines.php:55
-#, fuzzy
 msgid "Organization Logo"
-msgstr "Organisasi / Departemen"
+msgstr "Lambang Organisasi"
 
 #: squirrelmail/plugins/administrator/defines.php:58
-#, fuzzy
 msgid "Organization Title"
-msgstr "Organisasi / Departemen"
+msgstr "Nama Organisasi"
 
 #: squirrelmail/plugins/administrator/defines.php:61
-#, fuzzy
 msgid "Signout Page"
-msgstr "Keluar"
+msgstr "Halaman Keluar"
 
 #: squirrelmail/plugins/administrator/defines.php:64
-#, fuzzy
 msgid "Default Language"
-msgstr "Bahasa"
+msgstr "Bahasa Utama"
 
 #: squirrelmail/plugins/administrator/defines.php:68
 msgid "Top Frame"
-msgstr ""
+msgstr "Frame Atas"
 
 #: squirrelmail/plugins/administrator/defines.php:72
-#, fuzzy
 msgid "Server Settings"
-msgstr "seting server POP Remote"
+msgstr "Konfigurasi Server"
 
 #: squirrelmail/plugins/administrator/defines.php:74
 msgid "Mail Domain"
-msgstr ""
+msgstr "Domain Surat"
 
 #: squirrelmail/plugins/administrator/defines.php:77
 msgid "IMAP Server Address"
-msgstr ""
+msgstr "Alamat Server IMAP"
 
 #: squirrelmail/plugins/administrator/defines.php:80
-#, fuzzy
 msgid "IMAP Server Port"
-msgstr "Tambah Server"
+msgstr "Port Server IMAP"
 
 #: squirrelmail/plugins/administrator/defines.php:82
-#, fuzzy
 msgid "IMAP Server Type"
-msgstr "Tambah Server"
+msgstr "Jenis Server IMAP"
 
 #: squirrelmail/plugins/administrator/defines.php:84
-#, fuzzy
 msgid "Cyrus IMAP server"
-msgstr "Sedang membuka server IMAP "
+msgstr "Server IMAP Cyrus"
 
 #: squirrelmail/plugins/administrator/defines.php:85
 msgid "University of Washington's IMAP server"
-msgstr ""
+msgstr "Server IMAP Universitas Washington"
 
 #: squirrelmail/plugins/administrator/defines.php:86
-#, fuzzy
 msgid "Microsoft Exchange IMAP server"
-msgstr "Sedang membuka server IMAP "
+msgstr "Server IMAP Microsoft Exchange"
 
 #: squirrelmail/plugins/administrator/defines.php:87
-#, fuzzy
 msgid "Courier IMAP server"
-msgstr "Sedang membuka server IMAP "
+msgstr "Server IMAP Courier"
 
 #: squirrelmail/plugins/administrator/defines.php:88
-#, fuzzy
 msgid "Not one of the above servers"
-msgstr "Tidak ada sambungan ke server"
+msgstr "Bukan salah satu server di atas"
 
 #: squirrelmail/plugins/administrator/defines.php:89
 msgid "IMAP Folder Delimiter"
-msgstr ""
+msgstr "Pemisah Laci IMAP"
 
 #: squirrelmail/plugins/administrator/defines.php:91
 msgid "Use \"detect\" to auto-detect."
-msgstr ""
+msgstr "Pakai \"deteksi\" untuk deteksi otomatis."
 
 #: squirrelmail/plugins/administrator/defines.php:93
-#, fuzzy
 msgid "Use Sendmail"
-msgstr "Kirim Surat"
+msgstr "Pakai Sendmail"
 
 #: squirrelmail/plugins/administrator/defines.php:95
-#, fuzzy
 msgid "Sendmail Path"
-msgstr "Kirim Surat"
+msgstr "Letak Sendmail"
 
 #: squirrelmail/plugins/administrator/defines.php:98
 msgid "SMTP Server Address"
-msgstr ""
+msgstr "Alamat Server SMTP"
 
 #: squirrelmail/plugins/administrator/defines.php:101
 msgid "SMTP Server Port"
-msgstr ""
+msgstr "Port Server SMTP"
 
 #: squirrelmail/plugins/administrator/defines.php:103
-#, fuzzy
 msgid "Authenticated SMTP"
-msgstr "otentikasi gagal"
+msgstr "SMTP Autentikasi"
 
 #: squirrelmail/plugins/administrator/defines.php:105
 msgid "Invert Time"
-msgstr ""
+msgstr "Waktu Inversi"
 
 #: squirrelmail/plugins/administrator/defines.php:108
-#, fuzzy
 msgid "Folders Defaults"
-msgstr "Letak Laci"
+msgstr "Laci Utama"
 
 #: squirrelmail/plugins/administrator/defines.php:110
-#, fuzzy
 msgid "Default Folder Prefix"
-msgstr "Hapus Laci"
+msgstr "Awalan Laci Utama"
 
 #: squirrelmail/plugins/administrator/defines.php:113
-#, fuzzy
 msgid "Show Folder Prefix Option"
-msgstr "Pilihan Daftar Laci"
+msgstr "Tunjukkan Pilihan Awalan Laci Utama"
 
 #: squirrelmail/plugins/administrator/defines.php:124
 msgid "By default, move to trash"
-msgstr ""
+msgstr "Pindahkan ke Laci Sampah ( Trash ) secara Otomatis"
 
 #: squirrelmail/plugins/administrator/defines.php:126
 msgid "By default, move to sent"
-msgstr ""
+msgstr "Pindahkan ke Laci Kirim ( Sent ) secara Otomatis"
 
 #: squirrelmail/plugins/administrator/defines.php:128
 msgid "By default, save as draft"
-msgstr ""
+msgstr "Pindahkan ke Laci Konsep ( Draft ) secara otomatis"
 
 #: squirrelmail/plugins/administrator/defines.php:130
-#, fuzzy
 msgid "List Special Folders First"
-msgstr "Pilihan Laci Khusus"
+msgstr "Tampilkan Laci Khusus Lebih Dulu"
 
 #: squirrelmail/plugins/administrator/defines.php:132
-#, fuzzy
 msgid "Show Special Folders Color"
-msgstr "Pilihan Laci Khusus"
+msgstr "Tampilkan Warna Laci Khusus"
 
 #: squirrelmail/plugins/administrator/defines.php:134
-#, fuzzy
 msgid "Auto Expunge"
-msgstr "Kosongkan"
+msgstr "Hapus Otomatis"
 
 #: squirrelmail/plugins/administrator/defines.php:136
 msgid "Default Sub. of INBOX"
-msgstr ""
+msgstr "Otomatis sebagai Laci-kecil dari KOTAK POS "
 
 #: squirrelmail/plugins/administrator/defines.php:138
 msgid "Show 'Contain Sub.' Option"
-msgstr ""
+msgstr "Tampilkan Pilihan 'Berisi Laci-kecil'"
 
 #: squirrelmail/plugins/administrator/defines.php:140
-#, fuzzy
 msgid "Default Unseen Notify"
-msgstr "Identitas Utama"
+msgstr "Pemberitahuan Pesan Baru "
 
 #: squirrelmail/plugins/administrator/defines.php:142
-#, fuzzy
 msgid "Default Unseen Type"
-msgstr "Identitas Utama"
+msgstr "Jenis Pesan Baru Utama"
 
 #: squirrelmail/plugins/administrator/defines.php:144
-#, fuzzy
 msgid "Auto Create Special Folders"
-msgstr "Buat Laci"
+msgstr "Buat Laci Khusus Otomatis"
 
 #: squirrelmail/plugins/administrator/defines.php:146
 msgid "Default Javascript Adrressbook"
-msgstr ""
+msgstr "Buku Alamat Javascript Utama"
 
 #: squirrelmail/plugins/administrator/defines.php:149
-#, fuzzy
 msgid "General Options"
-msgstr "Pilihan Tampilan Umum"
+msgstr "Pilihan Umum"
 
 #: squirrelmail/plugins/administrator/defines.php:151
-#, fuzzy
 msgid "Default Charset"
-msgstr "Identitas Utama"
+msgstr "Karakter Set Utama"
 
 #: squirrelmail/plugins/administrator/defines.php:162
 msgid "Data Directory"
-msgstr ""
+msgstr "Direktori Data"
 
 #: squirrelmail/plugins/administrator/defines.php:165
 msgid "Temp Directory"
-msgstr ""
+msgstr "Direktori Temp"
 
 #: squirrelmail/plugins/administrator/defines.php:168
 msgid "Hash Level"
-msgstr ""
+msgstr "Tingkat Hash"
 
 #: squirrelmail/plugins/administrator/defines.php:170
-#, fuzzy
 msgid "Hash Disabled"
-msgstr "Tidak perlu"
+msgstr "Tanpa Hash"
 
 #: squirrelmail/plugins/administrator/defines.php:172
-#, fuzzy
 msgid "Moderate"
-msgstr "Letak Laci"
+msgstr "Moderat"
 
 #: squirrelmail/plugins/administrator/defines.php:173
-#, fuzzy
 msgid "Medium"
-msgstr "Abu-abu Sedang"
+msgstr "Sedang"
 
 #: squirrelmail/plugins/administrator/defines.php:175
-#, fuzzy
 msgid "Default Left Size"
-msgstr "Identitas Utama"
+msgstr "Ukuran Frame Kiri Utama"
 
 #: squirrelmail/plugins/administrator/defines.php:178
 msgid "Usernames in Lowercase"
-msgstr ""
+msgstr "Nama pengguna dalam huruf kecil"
 
 #: squirrelmail/plugins/administrator/defines.php:180
 msgid "Allow use of priority"
-msgstr ""
+msgstr "Boleh gunakan prioritas"
 
 #: squirrelmail/plugins/administrator/defines.php:182
 msgid "Hide SM attributions"
-msgstr ""
+msgstr "Sembunyikan atribut SM"
 
 #: squirrelmail/plugins/administrator/defines.php:185
 #: squirrelmail/plugins/administrator/defines.php:187
-#, fuzzy
 msgid "Message of the Day"
-msgstr "Pesan tidak dapat dicetak"
+msgstr "Pesan Hari Ini"
 
 #: squirrelmail/plugins/administrator/defines.php:191
-#, fuzzy
 msgid "Database"
-msgstr "Tanggal"
+msgstr "Gudang Data"
 
 #: squirrelmail/plugins/administrator/defines.php:193
-#, fuzzy
 msgid "Address book DSN"
-msgstr "Buku Alamat"
+msgstr "Buku Alamat DSN "
 
 #: squirrelmail/plugins/administrator/defines.php:197
-#, fuzzy
 msgid "Themes"
-msgstr "Tema"
+msgstr "Latar"
 
 #: squirrelmail/plugins/administrator/defines.php:199
 msgid "Style Sheet URL (css)"
-msgstr ""
+msgstr "URL stylesheet ( css )"
 
 #: squirrelmail/plugins/administrator/options.php:184
-#, fuzzy
 msgid "Configuration Administrator"
-msgstr "Hubungi administrator Anda untuk minta bantuan."
+msgstr "Administrator Konfigurasi"
 
 #: squirrelmail/plugins/administrator/options.php:363
-#, fuzzy
 msgid "Theme Name"
-msgstr "Tema"
+msgstr "Nama Latar"
 
 #: squirrelmail/plugins/administrator/options.php:364
-#, fuzzy
 msgid "Theme Path"
-msgstr "Tema"
+msgstr "Letak Latar"
 
 #: squirrelmail/plugins/administrator/options.php:401
-#, fuzzy
 msgid "Plugins"
-msgstr "Polandia"
+msgstr "Plugin"
 
 #: squirrelmail/plugins/administrator/options.php:446
-#, fuzzy
 msgid "Change Settings"
-msgstr "Ubah seting enkripsi"
+msgstr "Ubah Seting"
 
 #: squirrelmail/plugins/administrator/setup.php:31
 msgid "Administration"
-msgstr ""
+msgstr "Administrasi"
 
 #: squirrelmail/plugins/administrator/setup.php:33
 msgid ""
 "This module allows administrators to manage SquirrelMail main configuration "
 "remotely."
 msgstr ""
+"Modul ini memungkinkan administrator mengkonfigurasi Utama Squirrelmail dari "
+"jauh."
 
-#~ msgid "SECURITY BREACH ON DECK 5! CMDR TUVOK AND SECURITY TEAM REQUESTED."
-#~ msgstr "BAHAYA ADA MATA-MATA !!!! CEPAT PANGGIL BRIMOB !"
-
-#~ msgid "Mailinglist options:"
-#~ msgstr "Pilihan Milis:"
-
-#~ msgid ""
-#~ "FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be "
-#~ "SLOOOOOOW!"
-#~ msgstr ""
-#~ "BEBAS - ORBL adalah ORBS lainnya yang terbentuk setelah ORBS bubar. "
-#~ "Mungkin sangat LAMMMMBAAAAAAAAAATT ."
