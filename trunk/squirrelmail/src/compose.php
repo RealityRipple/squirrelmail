@@ -272,6 +272,7 @@
 
       echo "</TABLE>\n";
       echo "</FORM>";
+      do_hook("compose_bottom");
    }
 
    function showSentForm () {

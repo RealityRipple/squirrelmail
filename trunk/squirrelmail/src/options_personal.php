@@ -25,6 +25,8 @@
       include("../functions/array.php");
    if (!isset($i18n_php))
       include("../functions/i18n.php");
+   if (!isset($plugin_php))
+      include("../functions/plugin.php");
 
    include("../src/load_prefs.php");
    displayPageHeader($color, "None");
@@ -39,7 +41,7 @@
       <center><b><?php echo _("Options") . " - " . _("Personal Information"); ?></b></center>
    </td></tr></table>
 
-   <form action="options.php" method=post>
+   <form name=f action="options.php" method=post>
       <table width=100% cellpadding=0 cellspacing=2 border=0>
          <tr>
             <td align=right nowrap><?php echo _("Full Name"); ?>:
@@ -82,4 +84,5 @@
          </tr>
       </table>   
    </form>
+   <?php do_hook("options_personal_bottom"); ?>
 </body></html>

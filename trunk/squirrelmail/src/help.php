@@ -39,7 +39,8 @@
 	$helpdir[4] = "addresses.hlp";
 	$helpdir[5] = "folders.hlp";
 	$helpdir[6] = "options.hlp";
-	$helpdir[7] = "FAQ.hlp";
+	$helpdir[7] = "search.hlp";
+	$helpdir[8] = "FAQ.hlp";
 
    /****************[ HELP FUNCTIONS ]********************/
    // parses through and gets the information from the different documents.  
@@ -91,7 +92,7 @@
    <center><b><?php echo _("Help") ?></b></center>
 </td></tr></table>
 
-<? do_hook("help_top") ?>
+<?php do_hook("help_top") ?>
 
 <table width=90% cellpadding=0 cellspacing=10 border=0 align=center><tr><td>
 <?php
@@ -109,6 +110,8 @@
          $context = "index"; 
       else if (strpos($ref, "src/read_body"))
          $context = "read"; 
+      else if (strpos($ref, "src/search"))
+         $context = "search"; 
    }
    
    if (file_exists("../help/$squirrelmail_language")) {
@@ -142,6 +145,8 @@
          $chapter = 2;
       else if ($context == "read")
          $chapter = 3;
+      else if ($context == "search")
+         $chapter = 8;
 
       if (!$chapter) {
          echo "<table cellpadding=0 cellspacing=0 border=0 align=center><tr><td>\n";
