@@ -209,8 +209,9 @@ function translateText(&$body, $wrap_at, $charset) {
 
         $Quotes = 0;
         $pos = 0;
+	$j = strlen( $line );
 
-        while ( $line <> '' ) {
+        while ( $pos < $j ) {
             if ($line[$pos] == ' ') {
                 $pos ++;
             } else if (strpos($line, '&gt;', $pos) === $pos) {
