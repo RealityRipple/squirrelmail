@@ -27,5 +27,7 @@
     define('SMPREF_LOC_LEFT', '');
     define('SMPREF_LOC_RIGHT', 'right');
 
+    define('SMPREF_NONE', 'none');
+
     do_hook("loading_constants");
 ?>

@@ -66,30 +66,30 @@
       
         echo '<br><b>'._("Successfully saved personal information!").'</b><br>';
     } else if (isset($submit_display)) {
-        // Do checking to make sure $chosentheme is in the array
-        $in_ary = false;
+        /* Do checking to make sure $new_theme is in the array. */
+        $theme_in_array = false;
         for ($i=0; $i < count($theme); $i++) {
-            if ($theme[$i]['PATH'] == $chosentheme) {
-                $in_ary = true;
+            if ($theme[$i]['PATH'] == $new_chosen_theme) {
+                $theme_in_array = true;
                 break;
             }
         }
-        if (! $in_ary) {
-            $chosentheme = '';
+        if (!$theme_in_array) {
+            $new_chosen_theme = '';
         }
    
         /* Save display preferences. */
-        setPref($data_dir, $username, 'chosen_theme', $chosentheme);
-        setPref($data_dir, $username, 'language', $language);
-        setPref($data_dir, $username, 'use_javascript_addr_book', $javascript_abook);
+        setPref($data_dir, $username, 'chosen_theme', $new_chosen_theme);
+        setPref($data_dir, $username, 'language', $new_language);
+        setPref($data_dir, $username, 'use_javascript_addr_book', $new_use_javascript_addr_book);
         setPref($data_dir, $username, 'javascript_setting', $new_javascript_setting);
         setPref($data_dir, $username, 'show_num', $new_show_num);
         setPref($data_dir, $username, 'wrap_at', $new_wrap_at);
         setPref($data_dir, $username, 'editor_size', $new_editor_size);
-        setPref($data_dir, $username, 'left_refresh', $leftrefresh);
         setPref($data_dir, $username, 'location_of_buttons', $new_location_of_buttons);
         setPref($data_dir, $username, 'location_of_bar', $new_location_of_bar);
-        setPref($data_dir, $username, 'left_size', $leftsize);
+        setPref($data_dir, $username, 'left_size', $new_left_size);
+        setPref($data_dir, $username, 'left_refresh', $new_left_refresh);
 
         if (isset($altIndexColors) && $altIndexColors == 1) {
             setPref($data_dir, $username, 'alt_index_colors', 1);
