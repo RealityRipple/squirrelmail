@@ -107,6 +107,7 @@
    require_once('../config/config.php');
    require_once('../src/load_prefs.php');
    require_once('../functions/page_header.php');
+   require_once('../functions/prefs.php');
 
    // Set up the language
    // i18n.php was included by auth.php
