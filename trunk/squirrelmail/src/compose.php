@@ -356,41 +356,25 @@ if ($send) {
         if (! isset($passed_id)) {
             $passed_id = 0;
         }
-        /*
+        /**
          * Set $default_charset to correspond with the user's selection
          * of language interface.
          */
         set_my_charset();
-        /*
+        /**
          * This is to change all newlines to \n
          * We'll change them to \r\n later (in the sendMessage function)
          */
         $body = str_replace("\r\n", "\n", $body);
         $body = str_replace("\r", "\n", $body);
 
-        /*
-         * Rewrap $body so that no line is bigger than $editor_size
-         * This should only really kick in the sqWordWrap function
-         * if the browser doesn't support "VIRTUAL" as the wrap type.
-         *
-         * (braverock:) It is unclear if this code should be replaced
-         * with sqBodyWrap or removed entirely.
+        /**
+         * If the browser doesn't support "VIRTUAL" as the wrap type.
+         * then the line length will be longer than $editor_size
+         * almost all browsers support VIRTUAL, so remove the line by line checking
+         * If this causes a problem, call sqBodyWrap
          */
-        $body = explode("\n", $body);
-        $newBody = '';
-        foreach ($body as $line) {
-            if( $line <> '-- ' ) {
-               $line = rtrim($line);
-            }
-            if (strlen($line) <= $editor_size + 1) {
-                $newBody .= $line . "\n";
-            } else {
-                sqWordWrap($line, $editor_size);
-                $newBody .= $line . "\n";
-
-            }
-        }
-        $body = $newBody;
+        // sqBodyWrap($body, $editor_size);
 
         $composeMessage=$compose_messages[$session];
 
@@ -724,20 +708,11 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 }
             }
             $subject = decodeHeader($orig_header->subject,false,false,true);
-//            /* remember the references and in-reply-to headers in case of an reply */
+            ///* remember the references and in-reply-to headers in case of an reply */
             $composeMessage->rfc822_header->more_headers['References'] = $orig_header->references;
             $composeMessage->rfc822_header->more_headers['In-Reply-To'] = $orig_header->in_reply_to;
-            $body_ary = explode("\n", $body);
-            $cnt = count($body_ary) ;
-            $body = '';
-            for ($i=0; $i < $cnt; $i++) {
-                if (!ereg("^[>\\s]*$", $body_ary[$i])  || !$body_ary[$i]) {
-                    sqWordWrap($body_ary[$i], $editor_size );
-                    $body .= $body_ary[$i] . "\n";
-                }
-                unset($body_ary[$i]);
-            }
-            sqUnWordWrap($body);
+            //rewrap the body to clean up quotations and line lengths
+            sqBodyWrap($body, $editor_size);
             $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
             break;
         case ('edit_as_new'):
@@ -748,14 +723,18 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $mailprio = $orig_header->priority;
             $orig_from = '';
             $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
-            sqUnWordWrap($body);
+            //rewrap the body to clean up quotations and line lengths
+            sqBodyWrap($body, $editor_size);
             break;
         case ('forward'):
             $send_to = '';
             $subject = getforwardSubject(decodeHeader($orig_header->subject,false,false,true));
             $body = getforwardHeader($orig_header) . $body;
-            sqUnWordWrap($body);
+            // the logic for calling sqUnWordWrap here would be to allow the browser to wrap the lines
+            // forwarded message text should be as undisturbed as possible, so commenting out this call
+            // sqUnWordWrap($body);
             $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
+            //add a blank line after the forward headers
             $body = "\n" . $body;
             break;
         case ('forward_as_attachment'):
