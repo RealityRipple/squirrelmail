@@ -392,16 +392,18 @@ function newMail () {
         $message = sqimap_get_message($imapConnection, $id, $mailbox);
         $orig_header = $message->header;
 	$body = '';
+
         if ($ent_num) {
 	    $ent_ar = preg_split('/_/',$ent_num);
 	    foreach($ent_ar as $ent_num) {
-        	$message = getEntity($message, $ent_num);
-    		if ($message->header->type0 == 'text' ||
-        	    $message->header->type1 == 'message') {
+	        $msg = $message;
+        	$msg->getEntity($ent_num);
+    		if ($msg->header->type0 == 'text' ||
+        	    $msg->header->type1 == 'message') {
             	    $bodypart = decodeBody(
 		        mime_fetch_body($imapConnection, $id, $ent_num),
-                	    $message->header->encoding);
-			if ($message->header->type1 == 'html') {
+                	    $msg->header->encoding);
+			if ($msg->header->type1 == 'html') {
         		    $bodypart = strip_tags($bodypart);
     			}
 			$body .= $bodypart;
@@ -479,10 +481,9 @@ function newMail () {
             $body = $bodyTop . $body;
         }
         elseif ($reply_id) {
-            $orig_from = decodeHeader($orig_header->from, false);
+            $orig_from = decodeHeader($orig_header->getAddr_s('from' ), false);
             $body = getReplyCitation($orig_from) . $body;
         }
-
         return;
     }
 
