@@ -20,11 +20,8 @@ define('SM_PATH','../');
 
 /** SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/addressbook.php');
-require_once(SM_PATH . 'functions/strings.php');
-require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/forms.php');
 
 /** lets get the global vars we may need */
@@ -46,92 +43,6 @@ sqgetGlobalVar('doedit',    $doedit,    SQ_POST);
 
 /* Get sorting order */
 $abook_sort_order = get_abook_sort();
-
-/**
- * Make an input field
- * @param string $label
- * @param string $field
- * @param string $name
- * @param string $size
- * @param array $values
- * @param string $add
- */
-function addressbook_inp_field($label, $field, $name, $size, $values, $add) {
-    global $color;
-    $value = ( isset($values[$field]) ? $values[$field] : '');
-
-    $td_str = addInput($name.'['.$field.']', $value, $size)
-        . $add ;
-
-    return html_tag( 'tr' ,
-            html_tag( 'td', $label . ':', 'right', $color[4]) .
-            html_tag( 'td', $td_str, 'left', $color[4])
-            )
-        . "\n";
-}
-
-/**
- * Output form to add and modify address data
- */
-function address_form($name, $submittext, $values = array()) {
-    global $color, $squirrelmail_language;
-
-    if ($squirrelmail_language == 'ja_JP') {
-        echo html_tag( 'table',
-                addressbook_inp_field(_("Nickname"),     'nickname', $name, 15, $values,
-                    ' <small>' . _("Must be unique") . '</small>') .
-                addressbook_inp_field(_("E-mail address"),  'email', $name, 45, $values, '') .
-                addressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
-                addressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
-                addressbook_inp_field(_("Additional info"), 'label', $name, 45, $values, '') .
-                list_writable_backends($name) .
-                html_tag( 'tr',
-                    html_tag( 'td',
-                        addSubmit($submittext, $name.'[SUBMIT]'),
-                        'center', $color[4], 'colspan="2"')
-                    )
-                , 'center', '', 'border="0" cellpadding="1" width="90%"') ."\n";
-    } else {
-        echo html_tag( 'table',
-                addressbook_inp_field(_("Nickname"),     'nickname', $name, 15, $values,
-                    ' <small>' . _("Must be unique") . '</small>') .
-                addressbook_inp_field(_("E-mail address"),  'email', $name, 45, $values, '') .
-                addressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
-                addressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
-                addressbook_inp_field(_("Additional info"), 'label', $name, 45, $values, '') .
-                list_writable_backends($name) .
-                html_tag( 'tr',
-                    html_tag( 'td',
-                        addSubmit($submittext, $name.'[SUBMIT]') ,
-                        'center', $color[4], 'colspan="2"')
-                    )
-                , 'center', '', 'border="0" cellpadding="1" width="90%"') ."\n";
-    }
-}
-
-function list_writable_backends($name) {
-    global $color, $abook;
-    if ( $name != 'addaddr' ) { return; }
-    if ( $abook->numbackends > 1 ) {
-        $ret = '<select name="backend">';
-        $backends = $abook->get_backend_list();
-        while (list($undef,$v) = each($backends)) {
-            if ($v->writeable) {
-                $ret .= '<option value="' . $v->bnum;
-                $ret .= '">' . $v->sname . "</option>\n";
-            }
-        }
-        $ret .= "</select>";
-        return html_tag( 'tr',
-                html_tag( 'td', _("Add to:"),'right', $color[4] ) .
-                html_tag( 'td', $ret, 'left', $color[4] )) . "\n";
-    } else {
-        return html_tag( 'tr',
-                html_tag( 'td',
-                    addHidden('backend', '1'),
-                    'center', $color[4], 'colspan="2"')) . "\n";
-    }
-}
 
 /* Open addressbook, with error messages on but without LDAP (the *
  * second "true"). Don't need LDAP here anyway                    */
@@ -245,15 +156,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                         $olddata = $abook->lookup($enick, $ebackend);
 
                         /* Display the "new address" form */
-                        echo addForm($form_url, 'post').
-                            html_tag( 'table',
-                                    html_tag( 'tr',
-                                        html_tag( 'td',
-                                            "\n". '<strong>' . _("Update address") . '</strong>' ."\n",
-                                            'center', $color[0] )
-                                        ),
-                                    'center', '', 'width="100%" ' );
-                        address_form("editaddr", _("Update address"), $olddata);
+			abook_create_form($form_url,'editaddr',_("Update address"),_("Update address"),$olddata);
                         echo addHidden('oldnick', $olddata['nickname']).
                             addHidden('backend', $olddata['backend']).
                             addHidden('doedit', '1').
@@ -279,17 +182,8 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                                     'center', '', 'width="100%"' );
 
                             /* Display the "new address" form again */
-                            echo addForm($form_url, 'post').
-                                html_tag( 'table',
-                                        html_tag( 'tr',
-                                            html_tag( 'td',
-                                                "\n". '<strong>' . _("Update address") . '</strong>' ."\n",
-                                                'center', $color[0] )
-                                            ),
-                                        'center', '', 'width="100%"' );
-                            address_form("editaddr", _("Update address"), $newdata);
-                            echo 
-                                addHidden('oldnick', $oldnick).
+			    abook_create_form($form_url,'editaddr',_("Update address"),_("Update address"),$newdata);
+                            echo addHidden('oldnick', $oldnick).
                                 addHidden('backend', $backend).
                                 addHidden('doedit',  '1').
                                 "\n" . '</form>';
@@ -473,16 +367,8 @@ if ($showaddrlist) {
 
 
 /* Display the "new address" form */
-echo '<a name="AddAddress"></a>' . "\n" .
-    addForm($form_url, 'post', 'f_add').
-    html_tag( 'table',  
-        html_tag( 'tr',
-            html_tag( 'td', "\n". '<strong>' . _("Add to address book") . '</strong>' . "\n",
-                'center', $color[0]
-                )
-            )
-        , 'center', '', 'width="100%"' ) ."\n";
-address_form('addaddr', _("Add address"), $defdata);
+echo '<a name="AddAddress"></a>' . "\n";
+abook_create_form($form_url,'addaddr',_("Add to address book"),_("Add address"),$defdata);
 echo "</form>\n";
 
 /* Add hook for anything that wants on the bottom */
