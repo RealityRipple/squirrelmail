@@ -413,6 +413,27 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
         } else {
             header( 'Content-Type: text/html; charset=' . $languages[$sm_notAlias]['CHARSET'] );
         }
+
+        /**
+         * mbstring.func_overload fix (#929644).
+         *
+         * php mbstring extension can replace standard string functions with their multibyte 
+         * equivalents. See http://www.php.net/ref.mbstring#mbstring.overload.
+         *
+         * Some SquirrelMail functions work with 8bit strings in bytes. If interface is forced
+         * to use mbstring functions and mbstring internal encoding is set to multibyte charset,
+         * interface can't trust regular string functions. Due to mbstring overloading design 
+         * limits php scripts can't control this setting.
+         *
+         * This hack should fix some issues related to 8bit strings in passwords. Correct fix is
+         * to disable mbstring overloading. Japanese translation uses different internal encoding.
+         */
+        if ($squirrelmail_language != 'ja_JP' && 
+            function_exists('mb_internal_encoding') &&
+            check_php_version(4,2,0) &&
+            (int)ini_get('mbstring.func_overload')!=0) {
+            mb_internal_encoding('ASCII');
+        }
     }
     return 0;
 }

@@ -287,6 +287,8 @@ Version 1.5.1 -- CVS
     initialization.
   - Fixed wrapping of multibyte strings in message view and replies 
     (#1043576).
+  - mbstring internal encoding is switched to ASCII, if mbstring.func_overload
+    is enabled (#929644).
   
 Version 1.5.0
 --------------------
