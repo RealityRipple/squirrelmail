@@ -306,7 +306,11 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
         bindtextdomain( 'squirrelmail', SM_PATH . 'locale/' );
         textdomain( 'squirrelmail' );
 	if (function_exists('bind_textdomain_codeset')) {
-	     bind_textdomain_codeset ("squirrelmail", $languages[$sm_notAlias]['CHARSET'] );
+            if ($sm_notAlias == 'ja_JP') {
+        	bind_textdomain_codeset ("squirrelmail", 'EUC-JP');
+            } else {
+	        bind_textdomain_codeset ("squirrelmail", $languages[$sm_notAlias]['CHARSET'] );
+	    }
 	}
 	if (isset($languages[$sm_notAlias]['LOCALE'])){
 	  $longlocale=$languages[$sm_notAlias]['LOCALE'];
@@ -321,10 +325,13 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
         }
 	setlocale(LC_ALL, $longlocale);
 	$squirrelmail_language = $sm_notAlias;
-        if ($squirrelmail_language == 'ja_JP' && function_exists('mb_detect_encoding') ) {
+        if ($squirrelmail_language == 'ja_JP') {
             header ('Content-Type: text/html; charset=EUC-JP');
             if (!function_exists('mb_internal_encoding')) {
                 echo _("You need to have php4 installed with the multibyte string function enabled (using configure option --enable-mbstring).");
+		// Revert to English link has to be added.
+		// stop further execution in order not to get php errors on mb_internal_encoding().
+		return;
             }
             if (function_exists('mb_language')) {
                 mb_language('Japanese');
