@@ -70,7 +70,7 @@ function error_message($message, $mailbox, $sort, $startMessage, $color) {
                "<CENTER><BR>$message<BR>\n".
                '<BR>'.
                   "<A HREF=\"" . sqm_baseuri() 
-                  . "right_main.php?sort=$sort&amp;startMessage=$startMessage"
+                  . "src/right_main.php?sort=$sort&amp;startMessage=$startMessage"
                   . "&amp;mailbox=$urlMailbox\">";
     printf (_("Click here to return to %s"), $mailbox);
     echo '</A>.'.
