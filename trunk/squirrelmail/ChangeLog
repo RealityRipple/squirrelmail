@@ -221,6 +221,8 @@ Version 1.5.1 -- CVS
     issues with Internet Explorer not being able to track down the image.
   - Empty src attribute on img tags causes logouts (IE only), replacing
     string with blank.png.
+  - Added vmailmgrd backend to change_password plugin.
+  - Fixed change_password_init hook.
 
 
 Version 1.5.0
