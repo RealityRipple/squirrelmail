@@ -135,9 +135,9 @@ class abook_local_file extends addressbook_backend {
      * NOTE! Previous locks are broken by this function */
     function overwrite(&$rows) {
         $this->unlock();
-        $newfh = @fopen($this->filename, 'w');
+        $newfh = @fopen($this->filename .'.tmp', 'w');
         if(!$newfh) {
-            return $this->set_error("$file: " . _("Open failed"));
+            return $this->set_error($this->filename .'.tmp: '. _("Open failed"));
         }
         
         for($i = 0 ; $i < sizeof($rows) ; $i++) {
@@ -150,6 +150,8 @@ class abook_local_file extends addressbook_backend {
         }       
 
         fclose($newfh);
+        copy( $this->filename .'.tmp' , $this->filename);
+        unlink( $this->filename .'.tmp');
         $this->unlock();
         $this->open(true);
         return true;
