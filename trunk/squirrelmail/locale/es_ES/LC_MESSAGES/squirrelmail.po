@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
 "POT-Creation-Date: 2003-01-25 09:07+0100\n"
-"PO-Revision-Date: 2003-03-22 11:47+0100\n"
+"PO-Revision-Date: 2003-04-01 19:57+0100\n"
 "Last-Translator: Philippe Mingo <philippe@squirrelmail.org>\n"
 "Language-Team: spanish <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -1045,7 +1045,7 @@ msgid "THIS FOLDER IS EMPTY"
 msgstr "Esta Carpeta esta Vacía"
 
 msgid "Move Selected To"
-msgstr "Mover seleccionados a:"
+msgstr "Mover seleccionados a"
 
 msgid "Transform Selected Messages"
 msgstr "Marcar mensajes seleccionados como"
@@ -2722,28 +2722,28 @@ msgid "Dictionary Erased"
 msgstr "Diccionario Borrado"
 
 msgid "Your personal dictionary was erased. Please close this window and click \"Check Spelling\" button again to start your spellcheck over."
-msgstr ""
+msgstr "Su diccionario personal ha sido borrado. Cierre esta ventana y pulse sobre \"Comprobar Ortografía\" para reiniciar el comprobador."
 
 msgid "Close this Window"
 msgstr "Cerrar esta ventana"
 
 msgid "Your personal dictionary was re-encrypted successfully. Now return to the &quot;SpellChecker options&quot; menu and make your selection again."
-msgstr ""
+msgstr "Su diccionario personal se ha vuelto a cifrar con éxito. Regrese ahora a la opciones del comprobador ortográfico y repita su selección."
 
 msgid "Successful Re-encryption"
 msgstr "Nuevo cifrado correcto"
 
 msgid "Your personal dictionary was re-encrypted successfully. Please close this window and click \"Check Spelling\" button again to start your spellcheck over."
-msgstr ""
+msgstr "Su diccionario personal se a vuelto a cifrar con éxito. Cierre esta ventana y pulse sobre \"Comprobar Ortografía\" para reiniciar el comprobador."
 
 msgid "Dictionary re-encrypted"
 msgstr "Diccionario cifrado de nuevo"
 
 msgid "Your personal dictionary has been <strong>encrypted</strong> and is now stored in an <strong>encrypted format</strong>."
-msgstr ""
+msgstr "Su diccionario personal se ha <strong>cifrado</strong> se encuentra almacenado en modo <strong>cifrado</strong>."
 
 msgid "Your personal dictionary has been <strong>decrypted</strong> and is now stored as <strong>clear text</strong>."
-msgstr ""
+msgstr "Su diccionario personal se ha <strong>descifrado</strong> se encuentra almacenado en modo de <strong>texto plano</strong>."
 
 msgid "Personal Dictionary Crypto Settings"
 msgstr "Opciones Personales de Cifrado"
@@ -2777,7 +2777,7 @@ msgid "This will decrypt your personal dictionary and store it in a clear-text f
 msgstr "Esto descifrará su diccionario personal. ¿Continuamos?"
 
 msgid "<p>Your personal dictionary is <strong>currently encrypted</strong>. This helps protect your privacy in case the web-mail system gets compromized and your personal dictionary ends up stolen. It is currently encrypted with the password you use to access your mailbox, making it hard for anyone to see what is stored in your personal dictionary.</p> <p><strong>ATTENTION:</strong> If you forget your password, your personal dictionary will become unaccessible, since it can no longer be decrypted. If you change your mailbox password, SquirrelSpell will recognize it and prompt you for your old password in order to re-encrypt the dictionary with a new key.</p>"
-msgstr ""
+msgstr "<p>Su diccionario personal está <strong>cifrado</strong>. Esto ayuda en la protección de su privacidad en el caso de que se vea comprometida la seguridad del correo web, y su diccionario personal caiga en manos indebidas. El cifrado emplea la contraseña que emplea para acceder a su correo, haciendo que sea realmente dificil intentar recuperar la información almacenada en el diccionario.</p><p><strong>ATENCIÓN:</strong> Si olvida su contraseña, su diccionario personal puede volverse inservible, ya que no podrá ser descifrado. Si cambia su contraseña SquirrelSpell le pedirá su antígua clave para poder cifrar el diccionario con la nueva contraseña.</p>"
 
 msgid "Please decrypt my personal dictionary and store it in a clear-text format."
 msgstr "Por favor descifra mi diccionario personal y almacénalo en texto visible."
@@ -2786,14 +2786,14 @@ msgid "Change crypto settings"
 msgstr "Cambiar opciones de cifrado"
 
 msgid "<p>Your personal dictionary is <strong>currently not encrypted</strong>. You may wish to encrypt your personal dictionary to protect your privacy in case the webmail system gets compromized and your personal dictionary file gets stolen. When encrypted, the file's contents look garbled and are hard to decrypt without knowing the correct key (which is your mailbox password).</p> <strong>ATTENTION:</strong> If you decide to encrypt your personal dictionary, you must remember that it gets &quot;hashed&quot; with your mailbox password. If you forget your mailbox password and the administrator changes it to a new value, your personal dictionary will become useless and will have to be created anew. However, if you or your system administrator change your mailbox password but you still have the old password at hand, you will be able to enter the old key to re-encrypt the dictionary with the new value.</p>"
-msgstr ""
+msgstr "<p>Su diccionario personal actualmente <strong>no está cifrado</strong>. Puede que quiera cifrar su diccionario personal para protejer su privacidad en el caso que la seguridad se su correo web se vea comprometida, y se produzca el robo del fichero que lo contiene. Cuando se encuentra cifrado, el contenido del fichero se vuelve illegible y extremadamente dificil de descifrar sin la contraseña correspondiente (que la clave de su correo).</p><p><strong>ATENCIÓN:</strong> Si decide cifrar su diccionario debe saber que en caso de olvidar su contraseña perderá el contenido de su diccionario.</p>"
 
 msgid "Please encrypt my personal dictionary and store it in an encrypted format."
-msgstr ""
+msgstr "Cifrar mi diccionario personal y almacenarlo en modo cifrado."
 
 #, c-format
 msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
-msgstr ""
+msgstr "Borrando las palabras siguiente del diccionario <strong>%s</strong>:"
 
 msgid "All done!"
 msgstr "¡Hecho!"
@@ -2808,24 +2808,24 @@ msgid "Please wait, communicating with the server..."
 msgstr "Un momento por favor, comunicando con el servidor ..."
 
 msgid "Please choose which dictionary you would like to use to spellcheck this message:"
-msgstr ""
+msgstr "Seleccione el diccionario que desea usar para comprobar la otrografía de este mensaje:"
 
 msgid "SquirrelSpell Initiating"
 msgstr "Iniciando SquirrelSpell"
 
 #, c-format
 msgid "Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as default dictionary."
-msgstr ""
+msgstr "Opciones establecidas en: <strong>%s</strong> con <strong>%s</strong> como diccionario por omisión."
 
 #, c-format
 msgid "Using <strong>%s</strong> dictionary (system default) for spellcheck."
-msgstr ""
+msgstr "Usando el diccionario por omisión <strong>%s</strong> para comprobar la ortografía."
 
 msgid "International Dictionaries Preferences Updated"
-msgstr ""
+msgstr "Opciones de diccionarios internacionales actualizadas"
 
 msgid "Please check any available international dictionaries which you would like to use when spellchecking:"
-msgstr ""
+msgstr "Por favor marque cualquier diccionario internacional disponible que necesite para la comprobación ortográfica:"
 
 msgid "Make this dictionary my default selection:"
 msgstr "Establecer este diccionario por omisión:"
