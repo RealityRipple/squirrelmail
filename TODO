@@ -1,4 +1,5 @@
 Ideas to be implemented
 -----------------------
 
+-  Decode message bodies if they are quoted printable
 -  Saving sent mail into folder "Sent"
