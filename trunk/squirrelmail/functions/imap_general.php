@@ -305,6 +305,23 @@ function sqimap_read_data_list($imap_stream, $tag, $handle_errors,
     exit; 
 }
 
+function sqimap_error_box($title, $query = '', $message_title = '', $message = '')
+{
+    global $color, $squirrelmail_language;
+
+    set_up_language($squirrelmail_language);
+    require_once(SM_PATH . 'functions/display_messages.php');
+    $string = "<font color=$color[2]><b>\n" . $title . "</b><br>\n";
+    if ($query != '')
+        $string .= _("Query:") . ' ' . htmlspecialchars($query) . '<br>';
+    if ($message_title != '')
+        $string .= $message_title;
+    if ($message != '')
+        $string .= htmlspecialchars($message);
+    $string .= "</font><br>\n";
+    error_box($string,$color);
+}
+
 /*
  * Reads the output from the IMAP stream.  If handle_errors is set to true,
  * this will also handle all errors that are received.  If it is not set,
@@ -472,14 +489,7 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
     /* error processing in case $read is false */
     if ($read === false) {
         unset($data);
-        set_up_language($squirrelmail_language);
-        require_once(SM_PATH . 'functions/display_messages.php');
-        $string = "<b><font color=$color[2]>\n" .
-                  _("ERROR : Connection dropped by imap-server.") .
-                  "</b><br>\n" .
-                  _("Query:") . ' '.
-                  htmlspecialchars($query) . '<br>' . "</font><br>\n";
-        error_box($string,$color);    
+        sqimap_error_box(_("ERROR : Connection dropped by imap-server."), $query);
         exit;
     }
     
@@ -494,67 +504,30 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
     /* Return result or handle errors */
     if ($handle_errors == false) {
         return $aResponse;
-        return( $resultlist );
+        return( $resultlist );	//?? Why this?
     }
-    switch ($response[$tag])
-    {
+    switch ($response[$tag]) {
     case 'OK':
         return $aResponse;
         break;
     case 'NO': 
         /* ignore this error from M$ exchange, it is not fatal (aka bug) */
         if (strstr($message[$tag], 'command resulted in') === false) {
-            set_up_language($squirrelmail_language);
-            require_once(SM_PATH . 'functions/display_messages.php');
-            $string = "<b><font color=$color[2]>\n" .
-                _("ERROR : Could not complete request.") .
-                "</b><br>\n" .
-                _("Query:") . ' ' .
-                htmlspecialchars($query) . '<br>' .
-                _("Reason Given: ") .
-                htmlspecialchars($message[$tag]) . "</font><br>\n";
-            error_box($string,$color);
+            sqimap_error_box(_("ERROR : Could not complete request."), $query, _("Reason Given: "), $message[$tag]);
             echo '</body></html>';
             exit;
         }
         break;
     case 'BAD': 
-        set_up_language($squirrelmail_language);
-        require_once(SM_PATH . 'functions/display_messages.php');
-        $string = "<b><font color=$color[2]>\n" .
-            _("ERROR : Bad or malformed request.") .
-            "</b><br>\n" .
-            _("Query:") . ' '.
-            htmlspecialchars($query) . '<br>' .
-            _("Server responded: ") .
-            htmlspecialchars($message[$tag]) . "</font><br>\n";
-        error_box($string,$color);
+        sqimap_error_box(_("ERROR : Bad or malformed request."), $query, _("Server responded: "), $message[$tag]);
         echo '</body></html>';        
         exit; 
     case 'BYE': 
-        set_up_language($squirrelmail_language);
-        require_once(SM_PATH . 'functions/display_messages.php');
-        $string = "<b><font color=$color[2]>\n" .
-            _("ERROR : Imap server closed the connection.") .
-            "</b><br>\n" .
-            _("Query:") . ' '.
-            htmlspecialchars($query) . '<br>' .
-            _("Server responded: ") .
-            htmlspecialchars($message[$tag]) . "</font><br>\n";
-        error_box($string,$color);
+        sqimap_error_box(_("ERROR : Imap server closed the connection."), $query, _("Server responded: "), $message[$tag]);
         echo '</body></html>';        
         exit;
     default: 
-        set_up_language($squirrelmail_language);
-        require_once(SM_PATH . 'functions/display_messages.php');
-        $string = "<b><font color=$color[2]>\n" .
-            _("ERROR : Unknown imap response.") .
-            "</b><br>\n" .
-            _("Query:") . ' '.
-            htmlspecialchars($query) . '<br>' .
-            _("Server responded: ") .
-            htmlspecialchars($message[$tag]) . "</font><br>\n";
-        error_box($string,$color);
+        sqimap_error_box(_("ERROR : Unknown imap response."), $query, _("Server responded: "), $message[$tag]);
        /* the error is displayed but because we don't know the reponse we
           return the result anyway */
        return $aResponse;    
@@ -806,7 +779,6 @@ function sqimap_get_delimiter ($imap_stream = false) {
 }
 
 
-/* This is a straight copy of imap_mailbox.php:encode_mailbox_name() */
 function sqimap_encode_mailbox_name($what)
 {
 	if (ereg("[\"\\\r\n]", $what))
@@ -1015,7 +987,7 @@ function sqimap_unseen_messages ($imap_stream, $mailbox) {
 }
 
 /*
- * Returns the number of unseen/total messages in this folder
+ * Returns the number of total/unseen/recent messages in this folder
  */
 function sqimap_status_messages ($imap_stream, $mailbox) {
     $read_ary = sqimap_run_command ($imap_stream, 'STATUS ' . sqimap_encode_mailbox_name($mailbox) . ' (MESSAGES UNSEEN RECENT)', false, $result, $message);
