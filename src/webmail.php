@@ -64,7 +64,7 @@
    echo "</TITLE>";
    $ishelp = substr(getenv(REQUEST_URI),-8);			// If calling help, set left frame to 300
    if ($ishelp == "help.php") {			
-      echo "<FRAMESET COLS=\"300, *\" NORESIZE BORDER=0>";
+      echo "<FRAMESET COLS=\"300, *\" NORESIZE=yes BORDER=0>";
    } else {
       echo "<FRAMESET COLS=\"$left_size, *\" NORESIZE BORDER=0>";
    }
