@@ -20,6 +20,8 @@ Version 1.5.1 -- CVS
   - Improve display of some unparsable/absent dates (#891354).
   - Add comment (Highest,Normal,Lowest) to X-Priority header.
     Some SpamAssassin rule triggers on the absence of such a comment.
+  - Corrected moving of last message in a folder using Delete-Move-Next 
+    functionality added to core in 1.5.0.
 
 Version 1.5.0
 --------------------
