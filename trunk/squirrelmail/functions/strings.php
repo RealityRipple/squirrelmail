@@ -406,7 +406,7 @@ function GenerateRandomString($size, $chars, $flags = 0) {
     return $String;
 }
 
-function quoteIMAP($str) {
+function quoteimap($str) {
     return ereg_replace('(["\\])', '\\\\1', $str);
 }
 
