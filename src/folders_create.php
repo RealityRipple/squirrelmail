@@ -42,7 +42,7 @@ if (substr_count($folder_name, '"') || substr_count($folder_name, "\\") ||
     displayPageHeader($color, 'None');
 
     plain_error_message(_("Illegal folder name. Please select a different name.").
-        '<BR><A HREF="../src/folders.php">'._("Click here to go back").'</A>.', $color);
+        '<br /><a href="../src/folders.php">'._("Click here to go back").'</a>.', $color);
 
     exit;
 }

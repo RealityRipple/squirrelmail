@@ -55,7 +55,7 @@ function process_optionmode_submit($optpage, $optpage_data) {
             echo "name = '$option->name', "
                . "value = '$option->value', "
                . "new_value = '$option->new_value'\n";
-            echo "<br>";
+            echo "<br />";
             */
             if ($option->changed()) {
                 $option->save();
@@ -274,7 +274,7 @@ displayPageHeader($color, 'None', (isset($optpage_data['xtra']) ? $optpage_data[
 echo html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="1" cellspacing="0" border="0"' ) . "\n" .
         html_tag( 'tr' ) . "\n" .
             html_tag( 'td', '', 'center' ) .
-                "<b>$optpage_title</b><br>\n".
+                "<b>$optpage_title</b><br />\n".
                 html_tag( 'table', '', '', '', 'width="100%" cellpadding="5" cellspacing="0" border="0"' ) . "\n" .
                     html_tag( 'tr' ) . "\n" .
                         html_tag( 'td', '', 'center', $color[4] ) . "\n";
@@ -302,15 +302,15 @@ if ($optpage == SMOPT_PAGE_MAIN) {
             echo '<b>' . _("Some of your preference changes are not applied.") . "</b><br />\n";
         } else {
             /* Display a message indicating a successful save. */
-            echo '<b>' . _("Successfully Saved Options") . ": $optpage_name</b><br>\n";
+            echo '<b>' . _("Successfully Saved Options") . ": $optpage_name</b><br />\n";
         }
 
         /* If $max_refresh != SMOPT_REFRESH_NONE, provide a refresh link. */
         if ( !isset( $max_refresh ) ) {
         } else if ($max_refresh == SMOPT_REFRESH_FOLDERLIST) {
-            echo '<a href="../src/left_main.php" target="left">' . _("Refresh Folder List") . '</a><br>';
+            echo '<a href="../src/left_main.php" target="left">' . _("Refresh Folder List") . '</a><br />';
         } else if ($max_refresh) {
-            echo '<a href="../src/webmail.php?right_frame=options.php" target="' . $frame_top . '">' . _("Refresh Page") . '</a><br>';
+            echo '<a href="../src/webmail.php?right_frame=options.php" target="' . $frame_top . '">' . _("Refresh Page") . '</a><br />';
         }
     }
     /******************************************/
@@ -464,11 +464,9 @@ if ($optpage == SMOPT_PAGE_MAIN) {
         do_hook($bottom_hook_name);    
     }
 }
-
-echo        '</td></tr>' .
-        '</table>'.
-        '</td></tr>'.
-     '</table>' .
-     '</body></html>';
-
 ?>
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body></html>

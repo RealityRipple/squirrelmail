@@ -957,11 +957,11 @@ do_hook('left_main_before');
 if ($advanced_tree) {
    /* nice future feature, needs layout !! volunteers?   */
    $right_pos = $left_size - 20;
-/*   echo '<div style="position:absolute;top:0;border=solid;border-width:0.1em;border-color:blue;"><div ID="hidef" style="width=20;font-size:12"><A HREF="javascript:hideframe(true)"><b><<</b></a></div>';
-   echo '<div ID="showf" style="width=20;font-size:12;display:none;"><a href="javascript:hideframe(false)"><b>>></b></a></div>';
-   echo '<div ID="incrf" style="width=20;font-size:12"><a href="javascript:resizeframe(true)"><b>></b></a></div>';
-   echo '<div ID="decrf" style="width=20;font-size:12"><a href="javascript:resizeframe(false)"><b><</b></a></div></div>';
-   echo '<div ID="leftframe"><br /><br />';*/
+/*   echo '<div style="position:absolute;top:0;border=solid;border-width:0.1em;border-color:blue;"><div id="hidef" style="width=20;font-size:12"><a href="javascript:hideframe(true)"><b>&lt;&lt;</b></a></div>';
+   echo '<div id="showf" style="width=20;font-size:12;display:none;"><a href="javascript:hideframe(false)"><b>&gt;&gt;</b></a></div>';
+   echo '<div id="incrf" style="width=20;font-size:12"><a href="javascript:resizeframe(true)"><b>&gt;</b></a></div>';
+   echo '<div id="decrf" style="width=20;font-size:12"><a href="javascript:resizeframe(false)"><b>&lt;</b></a></div></div>';
+   echo '<div id="leftframe"><br /><br />';*/
 }
 
 echo "\n\n" . html_tag( 'table', '', 'left', '', 'border="0" cellspacing="0" cellpadding="0" width="99%"' ) .
@@ -1094,7 +1094,7 @@ for ($i = 0; $i < count($boxes); $i++) {
         }
 
         /* Put the final touches on our folder line. */
-        $line .= "</nobr><br>\n";
+        $line .= "</nobr><br />\n";
 
         /* Output the line for this folder. */
         echo $line;
@@ -1122,7 +1122,6 @@ for ($i = 0; $i < count($boxes); $i++) {
 do_hook('left_main_after');
 sqimap_logout($imapConnection);
 
-echo '</td></tr></table>' . "\n".
-    "</div></body></html>\n";
-
 ?>
+</td></tr></table>'
+</div></body></html>\

@@ -128,7 +128,7 @@ function addTextArea($name, $text = '', $cols = 40, $rows = 10, $attr = '') {
 /**
  * Make a <form> start-tag.
  */
-function addForm($action, $method = 'POST', $name = '', $enctype = '', $charset = '')
+function addForm($action, $method = 'post', $name = '', $enctype = '', $charset = '')
 {
     if($name) {
         $name = ' name="'.$name.'"';
