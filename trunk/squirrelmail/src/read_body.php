@@ -787,16 +787,6 @@ for ($i = 0; $i < $cnt; $i++) {
        $messagebody .= '<hr noshade size=1>';
    }
 }
-$UIpref = 'captbunzo';
-/* handy preference utility to easy switch between preferences */
-if ($UIpref== 'captbunzo') {
-    $align= 'center';
-    $vert_lines= '';
-//    $vert_lines = '<td bgcolor="'.$color[0].'"></td>'; /* test! Delete it when you are not satisfied */
-} else { 
-    $align= 'left';
-    $vert_lines = '';
-}
 
 displayPageHeader($color, $mailbox);
 formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response);
@@ -807,9 +797,9 @@ echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center" bor
 echo '      <tr><td>';
 echo '        <table width="100%" cellpadding="3" cellspacing="0" align="center" border="0">';
 echo '          <tr bgcolor="'.$color[4].'"><td>';
-echo '            <table cellpadding="1" cellspacing="5" align="'.$align.'" border="0">';
-echo '              <tr>'.$vert_lines. html_tag( 'td', '<br>'. $messagebody."\n", 'left')
-                        .$vert_lines.'</td>';
+echo '            <table cellpadding="1" cellspacing="5" align="center" border="0">';
+echo '              <tr>' . html_tag( 'td', '<br>'. $messagebody."\n", 'left')
+                        . '</td>';
 echo '            </table>';
 echo '          </td></tr>';      
 echo '        </table></td></tr>';
