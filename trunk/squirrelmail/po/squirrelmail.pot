@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-01-13 18:57+0100\n"
+"POT-Creation-Date: 2000-01-13 21:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,15 +22,15 @@ msgstr ""
 msgid "-------- Original Message ---------\n"
 msgstr ""
 
-#: compose.php:132
+#: compose.php:132 compose_send.php:27 read_body.php:155
 msgid "To:"
 msgstr ""
 
-#: compose.php:161
+#: compose.php:161 compose_send.php:45 read_body.php:125
 msgid "Subject:"
 msgstr ""
 
-#: compose.php:184 compose.php:198
+#: compose.php:184 compose.php:198 compose_send.php:31
 msgid "Send"
 msgstr ""
 
@@ -42,20 +42,8 @@ msgstr ""
 msgid "You have not filled in the \"To:\" field."
 msgstr ""
 
-#: compose_send.php:27
-msgid "To:"
-msgstr ""
-
-#: compose_send.php:31
-msgid "Send"
-msgstr ""
-
 #: compose_send.php:39
 msgid "You have not entered a subject."
-msgstr ""
-
-#: compose_send.php:45
-msgid "Subject:"
 msgstr ""
 
 #: compose_send.php:47
@@ -76,4 +64,218 @@ msgstr ""
 
 #: compose_send.php:78
 msgid "click here"
+msgstr ""
+
+#: download.php:18
+msgid "Viewing a plain text attachment"
+msgstr ""
+
+#: download.php:23
+msgid "Download this as a file"
+msgstr ""
+
+#: dupa.php:1
+msgid "Dupa:"
+msgstr ""
+
+#: folders_create.php:20
+msgid ""
+"Illegal folder name.  Please select a different name.<BR><A "
+"HREF=\"../src/folders.php\">Click here to go back</A>."
+msgstr ""
+
+#: folders_create.php:35 folders_delete.php:77 folders_rename_do.php:67
+msgid "Return"
+msgstr ""
+
+#: folders.php:18
+msgid "Folders"
+msgstr ""
+
+#: folders.php:29
+msgid "Delete Folder"
+msgstr ""
+
+#: folders.php:52 read_body.php:100
+msgid "Delete"
+msgstr ""
+
+#: folders.php:58
+msgid "Create Folder"
+msgstr ""
+
+#: folders.php:64
+msgid "as a subfolder of"
+msgstr ""
+
+#: folders.php:87
+msgid "Let this folder contain subfolders"
+msgstr ""
+
+#: folders.php:94
+msgid "Rename a Folder"
+msgstr ""
+
+#: folders.php:116
+msgid "Rename"
+msgstr ""
+
+#: folders_rename_getname.php:26
+msgid "Rename a folder"
+msgstr ""
+
+#: folders_rename_getname.php:30
+msgid "New name:"
+msgstr ""
+
+#: folders_rename_getname.php:34 options.php:163
+msgid "Submit"
+msgstr ""
+
+#: left_main.php:82
+msgid "refresh folder list"
+msgstr ""
+
+#: load_prefs.php:15
+msgid "Theme: "
+msgstr ""
+
+#: load_prefs.php:17
+msgid " was not found."
+msgstr ""
+
+#: load_prefs.php:19
+msgid "Exiting abnormally"
+msgstr ""
+
+#: login.php:22
+msgid "SquirrelMail version $version<BR>By the SquirrelMail Development Team"
+msgstr ""
+
+#: login.php:35
+msgid "Name:"
+msgstr ""
+
+#: login.php:43
+msgid "Password:"
+msgstr ""
+
+#: login.php:53
+msgid "Login"
+msgstr ""
+
+#: move_messages.php:59 move_messages.php:85
+msgid "No messages were selected."
+msgstr ""
+
+#: options.php:27
+msgid "Options"
+msgstr ""
+
+#: options.php:38
+msgid "         Full Name:"
+msgstr ""
+
+#: options.php:51
+msgid "         Reply-to:"
+msgstr ""
+
+#: options.php:64
+msgid "         Theme:"
+msgstr ""
+
+#: options.php:88
+msgid "         Move deleted messages to "
+msgstr ""
+
+#: options.php:112
+msgid "         Wrap incoming text at:"
+msgstr ""
+
+#: options.php:129
+msgid "         Size of editor window (in characters):"
+msgstr ""
+
+#: options.php:149
+msgid "Use a signature?"
+msgstr ""
+
+#: options_submit.php:28
+msgid "Options Saved!"
+msgstr ""
+
+#: options_submit.php:30
+msgid "Your options have been saved."
+msgstr ""
+
+#: options_submit.php:32
+msgid "Click here"
+msgstr ""
+
+#: options_submit.php:34
+msgid "to continue."
+msgstr ""
+
+#: read_body.php:34
+msgid "more"
+msgstr ""
+
+#: read_body.php:35
+msgid "less"
+msgstr ""
+
+#: read_body.php:97
+msgid "Message List"
+msgstr ""
+
+#: read_body.php:106
+msgid "Forward"
+msgstr ""
+
+#: read_body.php:109
+msgid "Reply"
+msgstr ""
+
+#: read_body.php:112
+msgid "Reply All"
+msgstr ""
+
+#: read_body.php:135
+msgid "From:"
+msgstr ""
+
+#: read_body.php:145
+msgid "Date:"
+msgstr ""
+
+#: right_main.php:11
+msgid "You must "
+msgstr ""
+
+#: right_main.php:13
+msgid "login"
+msgstr ""
+
+#: right_main.php:15
+msgid " first."
+msgstr ""
+
+#: right_main.php:19 webmail.php:10
+msgid "You need a valid user and password to access this page!"
+msgstr ""
+
+#: signout.php:24
+msgid "Sign Out"
+msgstr ""
+
+#: signout.php:31
+msgid "You have been successfully signed out."
+msgstr ""
+
+#: signout.php:34
+msgid "Click here to "
+msgstr ""
+
+#: signout.php:36
+msgid "log back in."
 msgstr ""
