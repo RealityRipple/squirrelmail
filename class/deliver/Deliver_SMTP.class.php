@@ -115,11 +115,7 @@ class Deliver_SMTP extends Deliver {
     // CRAM-MD5 and DIGEST-MD5 code ends here
 	} elseif ($smtp_auth_mech == 'none') {
 	  // No auth at all, just send helo and then send the mail
-	  fputs($stream, "HELO $helohost\r\n");
-      $tmp = fgets($stream, 1024);
-	  if ($this->errorCheck($tmp, $stream)) {
-        return(0);
-	  }
+      // We already said hi earlier, nothing more is needed.
 	} elseif ($smtp_auth_mech == 'login') {
 	  // The LOGIN method
       fputs($stream, "AUTH LOGIN\r\n");
