@@ -142,7 +142,10 @@ $reply_citation_style =
 $reply_citation_start = getPref($data_dir, $username, 'reply_citation_start');
 $reply_citation_end = getPref($data_dir, $username, 'reply_citation_end');
 
+/* left refresh rate, strtolower makes 1.0.6 prefs compatible */
 $left_refresh = getPref($data_dir, $username, 'left_refresh', SMPREF_NONE );
+$left_refresh = strtolower($left_refresh);
+
 $sort = getPref($data_dir, $username, 'sort', 6 );
 
 /** Load up the Signature file **/
