@@ -1198,7 +1198,7 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
     } else if ($PG_SHOWNUM == 999999) {
         $pg_str = "<A HREF=\"right_main.php?PG_SHOWALL=0"
                 . "&amp;use_mailbox_cache=$use&amp;startMessage=1&amp;mailbox=$box\" "
-                . "TARGET=\"right\">" ._("Paginate") . '</A>';
+                . ">" ._("Paginate") . '</A>';
     }
 
     /* Put all the pieces of the paginator string together. */
