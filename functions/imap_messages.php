@@ -128,7 +128,7 @@ function sqimap_get_sort_order ($imap_stream, $sort) {
     if (!empty($sort_on[$sort])) {
         $sort_query = "$sid SORT ($sort_on[$sort]) ".strtoupper($default_charset)." ALL\r\n";
         fputs($imap_stream, $sort_query);
-        $sort_test = sqimap_read_data($imap_stream, $sid, true, $response, $message);
+        $sort_test = sqimap_read_data($imap_stream, $sid, false, $response, $message);
     }
     if (preg_match("/^\* SORT (.+)$/", $sort_test[0], $regs)) {
         $server_sort_array = preg_split("/ /", trim($regs[1]));
@@ -136,6 +136,9 @@ function sqimap_get_sort_order ($imap_stream, $sort) {
     if ($sort == 0 || $sort == 2 || $sort == 4) {
        $server_sort_array = array_reverse($server_sort_array);
     }
+    if (!preg_match("/OK/", $response)) {
+	   $server_sort_array = 'no';
+	}
     session_register('server_sort_array');
     return $server_sort_array;
 }
@@ -236,13 +239,17 @@ function get_thread_sort ($imap_stream) {
     }
     $thread_query = "$sid THREAD $sort_type ".strtoupper($default_charset)." ALL\r\n";
     fputs($imap_stream, $thread_query);
-    $thread_test = sqimap_read_data($imap_stream, $sid, true, $response, $message);
+    $thread_test = sqimap_read_data($imap_stream, $sid, false, $response, $message);
     if (preg_match("/^\* THREAD (.+)$/", $thread_test[0], $regs)) {
        $thread_list = trim($regs[1]);
     }
     else {
        $thread_list = "";
     }
+    if (!preg_match("/OK/", $response)) {
+	   $server_sort_array = 'no';
+	   return $server_sort_array;
+	}
     $thread_temp = preg_split("//", $thread_list, -1, PREG_SPLIT_NO_EMPTY);
     $char_count = count($thread_temp);
     $counter = 0;

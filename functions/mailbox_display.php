@@ -236,27 +236,46 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
    */
   if ($thread_sort_messages == 1) {
     $id = get_thread_sort($imapConnection);
-    $sort = 6;
-    if ($start_msg + ($show_num - 1) < $num_msgs) {
-      $end_msg = $start_msg + ($show_num-1);
-    } 
-	else {
-      $end_msg = $num_msgs;
-    }
-    $id = array_slice($id, ($start_msg-1), ($end_msg));
+  if ($id == 'no') {
+      echo '<b><small><center><font color=red>Thread sorting is not'.
+             ' supported by your IMAP server.<br>Please report this'.
+             'to the system administrator.</center></small></b>';
+     $thread_sort_messages == 0; 
+    $id = array();
+  }
+  else {
+      $sort = 6;
+      if ($start_msg + ($show_num - 1) < $num_msgs) {
+        $end_msg = $start_msg + ($show_num-1);
+      } 
+      else {
+        $end_msg = $num_msgs;
+      }
+      $id = array_slice($id, ($start_msg-1), ($end_msg));
+      }
   }
 
   if ($allow_server_sort == TRUE && $thread_sort_messages != 1) {
     $server_sort_order = $sort;
     $id = sqimap_get_sort_order($imapConnection, $server_sort_order);
-    $sort = 6;
-    if ($start_msg + ($show_num - 1) < $num_msgs) {
-      $end_msg = $start_msg + ($show_num-1);
-    } 
+  if ($id == 'no') {
+    echo '<b><small><center><font color=red>Server-side sorting '.
+       'is not supported by your IMAP server.<br>Please report this'.
+       ' to the system administrator.</center></small></b>';
+    $sort = $server_sort_order;
+	  $allow_server_sort = false;
+	  $id = array();
+	}
 	else {
-      $end_msg = $num_msgs;
-    }
-    $id = array_slice($id, ($start_msg-1), ($end_msg));
+      $sort = 6;
+      if ($start_msg + ($show_num - 1) < $num_msgs) {
+        $end_msg = $start_msg + ($show_num-1);
+      } 
+	  else {
+        $end_msg = $num_msgs;
+      }
+      $id = array_slice($id, ($start_msg-1), ($end_msg));
+	}
   }
 
   /* If autoexpunge is turned on, then do it now. */
