@@ -15,7 +15,7 @@ $config_version = '1.4.0';
 
 /* Organization's logo picture (blank if none) */
 global $org_logo;
-$org_logo = '../images/sm_logo.png';
+$org_logo = SM_PATH . 'images/sm_logo.png';
 
 /*  The width of the logo (0 for default) */
 $org_logo_width = 308;
@@ -56,7 +56,7 @@ $imapPort = 143;
  * Example: In bob@foo.com, foo.com is the domain.
  */
 global $domain;
-$domain = 'mydomain.com';
+$domain = 'example.com';
 
 /* Your SMTP server and port number (usually the same as the IMAP server). */
 global $smtpServerAddress, $smtpPort;
@@ -92,7 +92,7 @@ $use_special_folder_color = true;
  *   other
  */
 global $imap_server_type;
-$imap_server_type = 'cyrus';
+$imap_server_type = 'other';
 
 /**
  * Rather than going to the signout.php page (which only allows you
@@ -217,10 +217,10 @@ $default_charset = 'iso-8859-1';
  *   $data_dir = '/usr/local/squirrelmail/data/';
  *
  * Relative (to the config directory):
- *   $data_dir = '../data/';
+ *   $data_dir = SM_PATH . 'data/';
  */
 global $data_dir;
-$data_dir = '../data/';
+$data_dir = SM_PATH . 'data/';
 
 /**
  * Path to directory used for storing attachments while a mail is
@@ -273,109 +273,109 @@ $theme_default = 0;
 
 global $theme;
 
-$theme[0]['PATH'] = '../themes/default_theme.php';
+$theme[0]['PATH'] = SM_PATH . 'themes/default_theme.php';
 $theme[0]['NAME'] = 'Default';
 
-$theme[1]['PATH'] = '../themes/plain_blue_theme.php';
+$theme[1]['PATH'] = SM_PATH . 'themes/plain_blue_theme.php';
 $theme[1]['NAME'] = 'Plain Blue';
 
-$theme[2]['PATH'] = '../themes/sandstorm_theme.php';
+$theme[2]['PATH'] = SM_PATH . 'themes/sandstorm_theme.php';
 $theme[2]['NAME'] = 'Sand Storm';
 
-$theme[3]['PATH'] = '../themes/deepocean_theme.php';
+$theme[3]['PATH'] = SM_PATH . 'themes/deepocean_theme.php';
 $theme[3]['NAME'] = 'Deep Ocean';
 
-$theme[4]['PATH'] = '../themes/slashdot_theme.php';
+$theme[4]['PATH'] = SM_PATH . 'themes/slashdot_theme.php';
 $theme[4]['NAME'] = 'Slashdot';
 
-$theme[5]['PATH'] = '../themes/purple_theme.php';
+$theme[5]['PATH'] = SM_PATH . 'themes/purple_theme.php';
 $theme[5]['NAME'] = 'Purple';
 
-$theme[6]['PATH'] = '../themes/forest_theme.php';
+$theme[6]['PATH'] = SM_PATH . 'themes/forest_theme.php';
 $theme[6]['NAME'] = 'Forest';
 
-$theme[7]['PATH'] = '../themes/ice_theme.php';
+$theme[7]['PATH'] = SM_PATH . 'themes/ice_theme.php';
 $theme[7]['NAME'] = 'Ice';
 
-$theme[8]['PATH'] = '../themes/seaspray_theme.php';
+$theme[8]['PATH'] = SM_PATH . 'themes/seaspray_theme.php';
 $theme[8]['NAME'] = 'Sea Spray';
 
-$theme[9]['PATH'] = '../themes/bluesteel_theme.php';
+$theme[9]['PATH'] = SM_PATH . 'themes/bluesteel_theme.php';
 $theme[9]['NAME'] = 'Blue Steel';
 
-$theme[10]['PATH'] = '../themes/dark_grey_theme.php';
+$theme[10]['PATH'] = SM_PATH . 'themes/dark_grey_theme.php';
 $theme[10]['NAME'] = 'Dark Grey';
 
-$theme[11]['PATH'] = '../themes/high_contrast_theme.php';
+$theme[11]['PATH'] = SM_PATH . 'themes/high_contrast_theme.php';
 $theme[11]['NAME'] = 'High Contrast';
 
-$theme[12]['PATH'] = '../themes/black_bean_burrito_theme.php';
+$theme[12]['PATH'] = SM_PATH . 'themes/black_bean_burrito_theme.php';
 $theme[12]['NAME'] = 'Black Bean Burrito';
 
-$theme[13]['PATH'] = '../themes/servery_theme.php';
+$theme[13]['PATH'] = SM_PATH . 'themes/servery_theme.php';
 $theme[13]['NAME'] = 'Servery';
 
-$theme[14]['PATH'] = '../themes/maize_theme.php';
+$theme[14]['PATH'] = SM_PATH . 'themes/maize_theme.php';
 $theme[14]['NAME'] = 'Maize';
 
-$theme[15]['PATH'] = '../themes/bluesnews_theme.php';
+$theme[15]['PATH'] = SM_PATH . 'themes/bluesnews_theme.php';
 $theme[15]['NAME'] = 'BluesNews';
 
-$theme[16]['PATH'] = '../themes/deepocean2_theme.php';
+$theme[16]['PATH'] = SM_PATH . 'themes/deepocean2_theme.php';
 $theme[16]['NAME'] = 'Deep Ocean 2';
 
-$theme[17]['PATH'] = '../themes/blue_grey_theme.php';
+$theme[17]['PATH'] = SM_PATH . 'themes/blue_grey_theme.php';
 $theme[17]['NAME'] = 'Blue Grey';
 
-$theme[18]['PATH'] = '../themes/dompie_theme.php';
+$theme[18]['PATH'] = SM_PATH . 'themes/dompie_theme.php';
 $theme[18]['NAME'] = 'Dompie';
 
-$theme[19]['PATH'] = '../themes/methodical_theme.php';
+$theme[19]['PATH'] = SM_PATH . 'themes/methodical_theme.php';
 $theme[19]['NAME'] = 'Methodical';
 
-$theme[20]['PATH'] = '../themes/greenhouse_effect.php';
+$theme[20]['PATH'] = SM_PATH . 'themes/greenhouse_effect.php';
 $theme[20]['NAME'] = 'Greenhouse Effect (Changes)';
 
-$theme[21]['PATH'] = '../themes/in_the_pink.php';
+$theme[21]['PATH'] = SM_PATH . 'themes/in_the_pink.php';
 $theme[21]['NAME'] = 'In The Pink (Changes)';
 
-$theme[22]['PATH'] = '../themes/kind_of_blue.php';
+$theme[22]['PATH'] = SM_PATH . 'themes/kind_of_blue.php';
 $theme[22]['NAME'] = 'Kind of Blue (Changes)';
 
-$theme[23]['PATH'] = '../themes/monostochastic.php';
+$theme[23]['PATH'] = SM_PATH . 'themes/monostochastic.php';
 $theme[23]['NAME'] = 'Monostochastic (Changes)';
 
-$theme[24]['PATH'] = '../themes/shades_of_grey.php';
+$theme[24]['PATH'] = SM_PATH . 'themes/shades_of_grey.php';
 $theme[24]['NAME'] = 'Shades of Grey (Changes)';
 
-$theme[25]['PATH'] = '../themes/spice_of_life.php';
+$theme[25]['PATH'] = SM_PATH . 'themes/spice_of_life.php';
 $theme[25]['NAME'] = 'Spice of Life (Changes)';
 
-$theme[26]['PATH'] = '../themes/spice_of_life_lite.php';
+$theme[26]['PATH'] = SM_PATH . 'themes/spice_of_life_lite.php';
 $theme[26]['NAME'] = 'Spice of Life - Lite (Changes)';
 
-$theme[27]['PATH'] = '../themes/spice_of_life_dark.php';
+$theme[27]['PATH'] = SM_PATH . 'themes/spice_of_life_dark.php';
 $theme[27]['NAME'] = 'Spice of Life - Dark (Changes)';
 
-$theme[28]['PATH'] = '../themes/christmas.php';
+$theme[28]['PATH'] = SM_PATH . 'themes/christmas.php';
 $theme[28]['NAME'] = 'Holiday - Christmas';
 
-$theme[29]['PATH'] = '../themes/darkness.php';
+$theme[29]['PATH'] = SM_PATH . 'themes/darkness.php';
 $theme[29]['NAME'] = 'Darkness (Changes)';
 
-$theme[30]['PATH'] = '../themes/random.php';
+$theme[30]['PATH'] = SM_PATH . 'themes/random.php';
 $theme[30]['NAME'] = 'Random (Changes every login)';
 
-$theme[31]['PATH'] = '../themes/midnight.php';
+$theme[31]['PATH'] = SM_PATH . 'themes/midnight.php';
 $theme[31]['NAME'] = 'Midnight';
 
-$theme[32]['PATH'] = '../themes/alien_glow.php';
+$theme[32]['PATH'] = SM_PATH . 'themes/alien_glow.php';
 $theme[32]['NAME'] = 'Alien Glow';
 
-$theme[33]['PATH'] = '../themes/dark_green.php';
+$theme[33]['PATH'] = SM_PATH . 'themes/dark_green.php';
 $theme[33]['NAME'] = 'Dark Green';
 
-$theme[34]['PATH'] = '../themes/penguin.php';
+$theme[34]['PATH'] = SM_PATH . 'themes/penguin.php';
 $theme[34]['NAME'] = 'Penguin';
 
 /**
