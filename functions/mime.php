@@ -331,12 +331,14 @@ function translateText(&$body, $wrap_at, $charset) {
     $body = '<pre>' . implode("\n", $body_ary) . '</pre>';
 }
 
-/* This returns a parsed string called $body. That string can then
+/**
+ * This returns a parsed string called $body. That string can then
  * be displayed as the actual message in the HTML. It contains
  * everything needed, including HTML Tags, Attachments at the
  * bottom, etc.
+ * @param clean Do not output stuff that's irrelevant for the printable version.
  */
-function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $mailbox='INBOX') {
+function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $mailbox='INBOX', $clean=FALSE) {
     /* This if statement checks for the entity to show as the
      * primary message. To add more of them, just put them in the
      * order that is their priority.
@@ -392,6 +394,12 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
             translateText($body, $wrap_at,
                           $body_message->header->getParameter('charset'));
         }
+
+        // if this is the clean display (i.e. printer friendly), stop here.
+        if ( $clean ) {
+            return $body;
+        }
+
         $link = 'passed_id=' . $id . '&amp;ent_id='.$ent_num.
                 '&amp;mailbox=' . $urlmailbox .'&amp;sort=' . $sort .
                 '&amp;startMessage=' . $startMessage . '&amp;show_more=0';
