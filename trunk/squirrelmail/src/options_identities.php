@@ -18,6 +18,10 @@
    
    displayPageHeader($color, 'None');
 
+   $Info = do_hook('options_identities_process', 0);
+   if ($Info[1])
+      SaveUpdateFunction();
+
    if (CheckAndDoDefault() || CheckAndDoPromote()) {
       SaveUpdateFunction();
    }
@@ -37,6 +41,8 @@
 </table>
 
 <form name=f action="options_identities.php" method=post>
+
+<?PHP do_hook('options_identities_top'); ?>
 
 <center>
 <table width=80% cellpadding=0 cellspacing=0 border=0>
@@ -89,6 +95,7 @@ function SaveUpdateFunction()
       if (isset($$name)) {
          $fakeI --;
       } else {
+         do_hook('options_identities_renumber', $i, $fakeI);
          $filled = 0;
 	 
          $name = 'full_name' . $i;
@@ -146,6 +153,7 @@ function CheckAndDoDefault()
       $name = 'make_default_' . $i;
       global $$name;
       if (isset($$name)) {
+          do_hook('options_identities_renumber', $i, 'default');
           global $full_name, $email_address, $reply_to;
 	  
           $name = 'full_name' . $i;
@@ -210,6 +218,8 @@ function CheckAndDoPromote()
       $name = 'promote_' . $i;
       global $$name;
       if (isset($$name) && $i > 1) {
+          do_hook('options_identities_renumber', $i, $i - 1);
+	  
 	  $nameA = 'full_name' . $i;
 	  $nameB = 'full_name' . ($i - 1);
 	  global $$nameA, $$nameB;
@@ -224,8 +234,8 @@ function CheckAndDoPromote()
 	  $$nameA = $$nameB;
 	  $$nameB = $temp;
 	  
-	  $nameA = 'email_address' . $i;
-	  $nameB = 'email_address' . ($i - 1);
+	  $nameA = 'reply_to' . $i;
+	  $nameB = 'reply_to' . ($i - 1);
 	  global $$nameA, $$nameB;
 	  $temp = $$nameA;
 	  $$nameA = $$nameB;
@@ -294,6 +304,7 @@ function ShowTableInfo($full_name, $email_address, $reply_to, $post)
       ?>" name="reply_to<?PHP echo $post ?>"> 
     </td>
   </tr>
+<?PHP do_hook('options_identities_table', $OtherBG, $isEmptySection, $post); ?>
   <tr<?PHP echo $OtherBG ?>>
     <td>&nbsp;</td><td>
       <input type=hidden name="form_for_<?PHP echo $post ?>" value="1">
@@ -312,6 +323,7 @@ function ShowTableInfo($full_name, $email_address, $reply_to, $post)
          echo _("Move Up") ?>">
 <?PHP
    }
+   do_hook('options_identities_buttons', $isEmptySection, $post);
 ?>
     </td>
   </tr>
