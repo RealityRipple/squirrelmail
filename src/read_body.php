@@ -134,6 +134,62 @@
       return -1;
    }
 
+
+   // displays a link to a page where the message is displayed
+   // more "printer friendly"
+
+   function printer_friendly_link($subtle) {
+       global $passed_id, $mailbox, $ent_num, $color;
+       global $pf_subtle_link;
+   
+       if ($pf_subtle_link != $subtle) return;
+   
+       if (strlen(trim($mailbox)) < 1)
+           $mailbox = 'INBOX';
+   
+       $params = '?passed_ent_id=' . $ent_num . '&mailbox=' . urlencode($mailbox) .
+                 '&passed_id=' . $passed_id;
+       $text = _("View printable version");
+   
+       if (!$subtle) {
+            // the link is large, on the bottom of the header panel
+            echo '      <tr bgcolor="' . $color[0] . '">' . "\n" .
+                 '        <td class="medText" align="right" valign="top">' . "\n" .
+                 '          &nbsp;' . "\n" .
+                 '        </td><td class="medText" valign="top" colspan="2">'."\n";
+       } else {
+            // the link is subtle, below "view full header"
+            echo '        <br>' . "\n";
+       }
+   
+            // javascript
+       echo '        <script language="javascript">' . "\n" .
+            '        <!--' . "\n" .
+            '        function printFormat() {' . "\n" .
+            '            window.open("../src/printer_friendly_main.php' .
+                         $params . '","Print","width=800,height=600");' . "\n".
+            '        }' . "\n\n" .
+            '        document.write(' . "'" .
+            '          <a href="javascript:printFormat();">' . $text . '</a>' .
+                     "');\n" .
+            '        // -->' . "\n" .
+            '        </script>' . "\n" .
+            // pure html
+            '        <noscript>' . "\n" .
+            '        <a target="_blank" href="../src/printer_friendly_bottom.php' .
+                     $params . '">' .
+                     $text . "</a>\n" .
+            '        </noscript>' . "\n";
+   
+       if (!$subtle) {
+            // the link is large, on the bottom of the header panel
+            echo '        </td>' . "\n" .
+                 '      </tr>' . "\n";
+       }
+   }
+
+   // main of read_boby.php
+
    if (isset($msgs)) {
 	   $currentArrayIndex = $passed_id;
 		/*
@@ -428,6 +484,7 @@
    } else {
       echo "<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&view_hdr=1\">" . _("View full header") . "</a>\n";
    }
+      printer_friendly_link(1); // 1 = subtle link
       do_hook("read_body_header_right");
    echo '</small></TD>' . "\n" .
         ' </TR>' ."\n" .
@@ -503,6 +560,7 @@
       }
    }
 
+   printer_friendly_link(0); // 0 = unsubtle link
    do_hook("read_body_header");
    echo '</TABLE>' .
         '   </TD></TR>' .

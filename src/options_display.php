@@ -195,6 +195,20 @@
         'refresh' => SMOPT_REFRESH_NONE
     );
 
+    $optvals[SMOPT_GRP_MESSAGE][] = array(
+        'name'    => 'pf_subtle_link',
+        'caption' => _("Printer Friendly: Subtle Link"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[SMOPT_GRP_MESSAGE][] = array(
+        'name'    => 'pf_cleandisplay',
+        'caption' => _("Printer Friendly: Clean Display"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
     /* Build and output the option groups. */
     $option_groups = createOptionGroups($optgrps, $optvals);
     printOptionGroups($option_groups);
