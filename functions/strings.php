@@ -12,21 +12,27 @@
  * $Id$
  */
 
-require_once(SM_PATH . 'functions/global.php');
 
 /**
  * SquirrelMail version number -- DO NOT CHANGE
  */
 global $version;
-$version = '1.4.1 [CVS]';
+$version = '1.5.0 [CVS]';
 
 /** 
  * SquirrelMail internal version number -- DO NOT CHANGE
  * $sm_internal_version = array (release, major, minor)
  */
 global $SQM_INTERNAL_VERSION;
-$SQM_INTERNAL_VERSION = array(1,4,1);
+$SQM_INTERNAL_VERSION = array(1,5,0);
 
+
+/**
+ * There can be a circular issue with includes, where the $version string is
+ * referenced by the include of global.php, etc. before it's defined.
+ * For that reason, bring in global.php AFTER we define the version strings.
+ */
+require_once(SM_PATH . 'functions/global.php');
 
 /**
  * Wraps text at $wrap characters
