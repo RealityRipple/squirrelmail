@@ -19,6 +19,7 @@
 <TITLE>
 <?
    include ("../config/config.php");
+   include ("../functions/prefs.php");
    echo "$org_title";
 ?>
 </TITLE>
@@ -37,6 +38,8 @@
     we would like to use as little Javascript as possible.
 **/
 <?
+   checkForPrefs($username);
+
    if ($right_frame == "right_main.php") {
       $urlMailbox = urlencode($mailbox);
       echo "<FRAME SRC=\"left_main.php\" NAME=\"left\">";

@@ -8,5 +8,14 @@ overview of how to install SquirrelMail.
 
 3.  Edit the config file, config/config.php
 
-4.  Point your browser to the location you specified in step 2.
+4.  Change the permissons for the "data/" directory so it's writable to
+    the web server.  Under Red Hat Linux 6.0, this is done by:
+
+    chown nobody data
+    chgrp nobody data
+
+    "nobody" is the user and group for the apache server for this
+    example.
+
+5.  Point your browser to the location you specified in step 2.
     In this example, it's:  http://YOURHOST/squirrelmail-0.1/index.html
