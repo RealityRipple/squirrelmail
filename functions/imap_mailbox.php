@@ -15,8 +15,8 @@
     **  Expunges a mailbox 
     ******************************************************************************/
    function sqimap_mailbox_expunge ($imap_stream, $mailbox,$handle_errors = true) {
-      fputs ($imap_stream, "a001 EXPUNGE\r\n");
-      $read = sqimap_read_data($imap_stream, "a001", $handle_errors, $response, $message);
+      fputs ($imap_stream, sqimap_session_id() . " EXPUNGE\r\n");
+      $read = sqimap_read_data($imap_stream, sqimap_session_id(), $handle_errors, $response, $message);
    }
 
 
@@ -26,8 +26,8 @@
    function sqimap_mailbox_exists ($imap_stream, $mailbox) {
       if (! isset($mailbox))
           return false;
-      fputs ($imap_stream, "a001 LIST \"\" \"$mailbox\"\r\n");
-      $mbx = sqimap_read_data($imap_stream, "a001", true, $response, $message);
+      fputs ($imap_stream, sqimap_session_id() . " LIST \"\" \"$mailbox\"\r\n");
+      $mbx = sqimap_read_data($imap_stream, sqimap_session_id(), true, $response, $message);
       return isset($mbx[0]);
    }
 
@@ -40,8 +40,8 @@
       if( $mailbox == _("None") )
           return;
       
-      fputs ($imap_stream, "a001 SELECT \"$mailbox\"\r\n");
-             $read = sqimap_read_data($imap_stream, "a001", true, $response, $message);
+      fputs ($imap_stream, sqimap_session_id() . " SELECT \"$mailbox\"\r\n");
+             $read = sqimap_read_data($imap_stream, sqimap_session_id(), true, $response, $message);
       if ($recent) {
          for ($i=0; $i<count($read); $i++) {
             if (strpos(strtolower($read[$i]), "recent")) {
@@ -51,8 +51,8 @@
          return $r[1];
       }
       if ($auto_expunge) {
-         fputs ($imap_stream, "a001 EXPUNGE\r\n");
-         $tmp = sqimap_read_data($imap_stream, "a001", false, $a, $b);
+         fputs ($imap_stream, sqimap_session_id() . " EXPUNGE\r\n");
+         $tmp = sqimap_read_data($imap_stream, sqimap_session_id(), false, $a, $b);
       }   
    }
 
@@ -66,8 +66,8 @@
          $dm = sqimap_get_delimiter($imap_stream);
          $mailbox = $mailbox.$dm;
       }
-      fputs ($imap_stream, "a001 CREATE \"$mailbox\"\r\n");
-      $read_ary = sqimap_read_data($imap_stream, "a001", true, $response, $message);
+      fputs ($imap_stream, sqimap_session_id() . " CREATE \"$mailbox\"\r\n");
+      $read_ary = sqimap_read_data($imap_stream, sqimap_session_id(), true, $response, $message);
 
       sqimap_subscribe ($imap_stream, $mailbox);
    }
@@ -78,8 +78,8 @@
     **  Subscribes to an existing folder 
     ******************************************************************************/
    function sqimap_subscribe ($imap_stream, $mailbox) {
-      fputs ($imap_stream, "a001 SUBSCRIBE \"$mailbox\"\r\n");
-      $read_ary = sqimap_read_data($imap_stream, "a001", true, $response, $message);
+      fputs ($imap_stream, sqimap_session_id() . " SUBSCRIBE \"$mailbox\"\r\n");
+      $read_ary = sqimap_read_data($imap_stream, sqimap_session_id(), true, $response, $message);
    }
 
 
@@ -91,8 +91,8 @@
    function sqimap_unsubscribe ($imap_stream, $mailbox) {
                 global $imap_server_type;
 
-      fputs ($imap_stream, "a001 UNSUBSCRIBE \"$mailbox\"\r\n");
-      $read_ary = sqimap_read_data($imap_stream, "a001", true, $response, $message);
+      fputs ($imap_stream, sqimap_session_id() . " UNSUBSCRIBE \"$mailbox\"\r\n");
+      $read_ary = sqimap_read_data($imap_stream, sqimap_session_id(), true, $response, $message);
    }
 
 
@@ -102,8 +102,8 @@
     **  This function simply deletes the given folder
     ******************************************************************************/
    function sqimap_mailbox_delete ($imap_stream, $mailbox) {
-      fputs ($imap_stream, "a001 DELETE \"$mailbox\"\r\n");
-      $read_ary = sqimap_read_data($imap_stream, "a001", true, $response, $message);
+      fputs ($imap_stream, sqimap_session_id() . " DELETE \"$mailbox\"\r\n");
+      $read_ary = sqimap_read_data($imap_stream, sqimap_session_id(), true, $response, $message);
       sqimap_unsubscribe ($imap_stream, $mailbox);
    }
    
@@ -219,8 +219,8 @@
       $dm = sqimap_get_delimiter ($imap_stream);
 
       /** LSUB array **/
-      fputs ($imap_stream, "a001 LSUB \"$folder_prefix\" \"*\"\r\n");
-      $lsub_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+      fputs ($imap_stream, sqimap_session_id() . " LSUB \"$folder_prefix\" \"*\"\r\n");
+      $lsub_ary = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
       
       // Section about removing the last element was removed
       // We don't return "* OK" anymore from sqimap_read_data
@@ -261,8 +261,8 @@
          else
             $mbx = $sorted_lsub_ary[$i];
 
-         fputs ($imap_stream, "a001 LIST \"\" \"$mbx\"\r\n");
-         $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+         fputs ($imap_stream, sqimap_session_id() . " LIST \"\" \"$mbx\"\r\n");
+         $read = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
 	 // Another workaround for EIMS
          if (isset($read[1]) && 
 	     ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$", 
@@ -284,8 +284,8 @@
       /** Just in case they're not subscribed to their inbox, we'll get it 
           for them anyway **/
       if ($inbox_subscribed == false || $inbox_in_list == false) {
-         fputs ($imap_stream, "a001 LIST \"\" \"INBOX\"\r\n");
-         $inbox_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+         fputs ($imap_stream, sqimap_session_id() . " LIST \"\" \"INBOX\"\r\n");
+         $inbox_ary = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
 	 // Another workaround for EIMS
          if (isset($inbox_ary[1]) &&
 	     ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$", 
@@ -366,22 +366,24 @@
       
       $dm = sqimap_get_delimiter ($imap_stream);
 
-      fputs ($imap_stream, "a001 LIST \"$folder_prefix\" *\r\n");
-      $read_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+      $ssid = sqimap_session_id();
+      $lsid = strlen( $ssid ); 
+      fputs ($imap_stream, $ssid . " LIST \"$folder_prefix\" *\r\n");
+      $read_ary = sqimap_read_data ($imap_stream, $ssid, true, $response, $message);
       $g = 0;
-      $phase = "inbox"; 
+      $phase = "inbox";
 
       for ($i = 0; $i < count($read_ary); $i++) {
          // Another workaround for EIMS
-	 if (isset($read_ary[$i + 1]) &&
-	     ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$", 
-	     $read_ary[$i], $regs)) {
-	    $i ++;
-	    $read_ary[$i] = $regs[1] . '"' . 
-	       addslashes(trim($read_ary[$i])) .
-	       '"' . $regs[2];
-	 }
-         if (substr ($read_ary[$i], 0, 4) != "a001") {
+			if (isset($read_ary[$i + 1]) &&
+			  ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$", 
+			  $read_ary[$i], $regs)) {
+			 $i ++;
+			 $read_ary[$i] = $regs[1] . '"' . 
+			    addslashes(trim($read_ary[$i])) .
+			    '"' . $regs[2];
+			}
+         if (substr ($read_ary[$i], 0, $lsid) != $ssid ) {
 
             // Store the raw IMAP reply
             $boxes[$g]["raw"] = $read_ary[$i];
@@ -416,16 +418,17 @@
             $boxes[$g]["id"] = $g;
 
             /** Now lets get the flags for this mailbox **/
-            fputs ($imap_stream, "a002 LIST \"\" \"$mailbox\"\r\n"); 
-            $read_mlbx = sqimap_read_data ($imap_stream, "a002", true, $response, $message);
-	    // Another workaround for EIMS
-	    if (isset($read_mlbx[1]) &&
-	        ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$", 
-	        $read_mlbx[0], $regs)) {
-	       $read_mlbx[0] = $regs[1] . '"' . 
-	          addslashes(trim($read_mlbx[1])) .
-	          '"' . $regs[2];
-	    }
+            fputs ($imap_stream, sqimap_session_id() . " LIST \"\" \"$mailbox\"\r\n"); 
+            $read_mlbx = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
+            
+				// Another workaround for EIMS
+				if (isset($read_mlbx[1]) &&
+				  ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$", 
+				  $read_mlbx[0], $regs)) {
+				 $read_mlbx[0] = $regs[1] . '"' . 
+				    addslashes(trim($read_mlbx[1])) .
+				    '"' . $regs[2];
+				}
 
             $flags = substr($read_mlbx[0], strpos($read_mlbx[0], "(")+1);
             $flags = substr($flags, 0, strpos($flags, ")"));
