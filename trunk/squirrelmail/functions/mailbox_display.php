@@ -123,9 +123,8 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
         $senderAddress = _("To:") . ' ' . $senderAddress;
     }
 
-    if ( $truncate_sender > 0 && strlen($senderName) > $truncate_sender ) {
-       $senderName = substr_replace($senderName, '... ', $truncate_sender);
-    }
+    if ($truncate_sender > 0)
+       $senderName = truncateWithEntities($senderName, $truncate_sender);
 
     echo html_tag( 'tr','','','','VALIGN="top"') . "\n";
 
@@ -1215,23 +1214,12 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
     return ($result);
 }
 
-function processSubject($subject, $threadlevel = 0) {
-    global $languages, $squirrelmail_language;
-    /* Shouldn't ever happen -- caught too many times in the IMAP functions */
-    if ($subject == '') {
-        return _("(no subject)");
-    }
-
-    $trim_at = SUBJ_TRIM_AT;
-
-    /* if this is threaded, subtract two chars per indentlevel */
-    if($threadlevel > 0 && $threadlevel <= 10) {
-        $trim_at -= (2*$threadlevel);
-    }
-
-    if (strlen($subject) <= $trim_at) {
+function truncateWithEntities($subject, $trim_at)
+{
+    if (($trim_at == 0) || (strlen($subject) <= $trim_at))
         return $subject;
-    }
+
+    global $languages, $squirrelmail_language;
 
     $ent_strlen = $orig_len = strlen($subject);
     $trim_val = $trim_at - 5;
@@ -1240,7 +1228,7 @@ function processSubject($subject, $threadlevel = 0) {
      * see if this is entities-encoded string
      * If so, Iterate through the whole string, find out
      * the real number of characters, and if more
-     * than 55, substr with an updated trim value. 
+     * than $trim_at, substr with an updated trim value. 
      */
     $step = $ent_loc = 0;
     while ( $ent_loc < $trim_val && (($ent_loc = strpos($subject, '&', $ent_offset)) !== false) &&
@@ -1250,7 +1238,7 @@ function processSubject($subject, $threadlevel = 0) {
         ++$step;
     }
     
-    if (($trim_val > 50) && (strlen($subject) > ($trim_val))&& (strpos($subject,';',$trim_val) < ($trim_val +6))) {
+    if (($trim_val > ($trim_at - 5)) && (strlen($subject) > ($trim_val))&& (strpos($subject,';',$trim_val) < ($trim_val +6))) {
         $i = strpos($subject,';',$trim_val);
         if ($i) {
             $trim_val = strpos($subject,';',$trim_val);
@@ -1266,11 +1254,27 @@ function processSubject($subject, $threadlevel = 0) {
     }
 
     // only print '...' when we're actually dropping part of the subject
-    if(strlen($subject) <= $trim_val) {
+    if (strlen($subject) <= $trim_val) {
         return $subject;
     } else {
-        return substr($subject, 0, $trim_val) . '...';
+//      return substr($subject, 0, $trim_val) . '...';
+        return substr_replace($subject, '...', $trim_val);
     }
+}
+
+function processSubject($subject, $threadlevel = 0) {
+    /* Shouldn't ever happen -- caught too many times in the IMAP functions */
+    if ($subject == '') {
+        return _("(no subject)");
+    }
+
+    $trim_at = SUBJ_TRIM_AT;
+
+    /* if this is threaded, subtract two chars per indentlevel */
+    if (($threadlevel > 0) && ($threadlevel <= 10))
+        $trim_at -= (2*$threadlevel);
+
+    return truncateWithEntities($subject, $trim_at);
 }
 
 function getMbxList($imapConnection, $boxes = 0) {
