@@ -89,13 +89,6 @@ function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
     $imap_stream = sqimap_login($username, $key, $imapServerAddress, 
        $imapPort, 0);
     sqimap_mailbox_select($imap_stream, $mailbox);
-    
-
-    $sid = sqimap_session_id($uid_support);
-    fputs($imap_stream, $sid.' FETCH ' . $passed_id . ' RFC822' . "\r\n");
-    
-    $read = sqimap_read_data($imap_stream, $sid, true, $response, $message);
-    array_shift($read);
 
     if ($spamcop_method == 'quick_email' || 
         $spamcop_method == 'thorough_email') {
@@ -180,6 +173,12 @@ agree to follow SpamCop's rules/terms of service/etc.</p>
   <input type=hidden name="session" value="<?PHP echo $session?>">
   <input type=submit name="send" value="Send Spam Report">
 <?PHP } else {
+   $sid = sqimap_session_id($uid_support);
+   fputs($imap_stream, $sid.' FETCH ' . $passed_id . ' RFC822' . "\r\n");
+    
+   $read = sqimap_read_data($imap_stream, $sid, true, $response, $message);
+   array_shift($read);
+
    $Message = implode('', $read);
    if (strlen($Message) > 50000) {
       $Warning = "\n[truncated by SpamCop]\n";
