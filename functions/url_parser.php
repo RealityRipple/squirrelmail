@@ -86,7 +86,7 @@ $url_parser_poss_ends = array(' ', "\n", "\r", '<', '>', ".\r", ".\n",
 
 /**
  * rfc 2368 (mailto URL) preg_match() regexp
- * @see http://www.ietf.org/rfc/rfc2368.txt
+ * @link http://www.ietf.org/rfc/rfc2368.txt
  * @global string MailTo_PReg_Match the encapsulated regexp for preg_match()
  */
 global $MailTo_PReg_Match;
@@ -100,7 +100,7 @@ $MailTo_PReg_Match = '/((?:' . $Mailto_Email_RegExp . ')*)((?:\?(?:to|cc|bcc|sub
  * @return void
  */
 function parseUrl (&$body) {
-    global $url_parser_poss_ends, $url_parser_url_tokens;;
+    global $url_parser_poss_ends, $url_parser_url_tokens;
     $start      = 0;
     $blength    = strlen($body);
 
@@ -128,13 +128,13 @@ function parseUrl (&$body) {
 
         /* If there was a token to replace, replace it */
         if ($target_token == 'mailto:') {	// rfc 2368 (mailto URL)
-            $target_pos += strlen($target_token);	//skip mailto:
+            $target_pos += 7;	//skip mailto:
             $end = $blength;
 
             $mailto = substr($body, $target_pos, $end-$target_pos);
 
             global $MailTo_PReg_Match;
-            if (preg_match($MailTo_PReg_Match, $mailto, $regs)) {
+            if ((preg_match($MailTo_PReg_Match, $mailto, $regs)) && ($regs[0] != '')) {
                 //sm_print_r($regs);
                 $mailto_before = $target_token . $regs[0];
                 $mailto_params = $regs[10];
@@ -144,15 +144,15 @@ function parseUrl (&$body) {
                         $mailto_params = str_replace('to=', $to . '%2C%20', $mailto_params);
                     else {
                         if ($mailto_params)	//already some params, append to them
-                            $mailto_params .= '&amp;'. $to;
+                            $mailto_params .= '&amp;' . $to;
                         else
-                            $mailto_params .= '?'. $to;
+                            $mailto_params .= '?' . $to;
                     }
                 }
                 $url_str = str_replace(array('to=', 'cc=', 'bcc='), array('send_to=', 'send_to_cc=', 'send_to_bcc='), $mailto_params);
                 $comp_uri = makeComposeLink('src/compose.php' . $url_str, $mailto_before);
-                replaceBlock($body, $comp_uri, $target_pos - strlen($target_token), $target_pos + strlen($regs[0]));
-                $target_pos += strlen($comp_uri);
+                replaceBlock($body, $comp_uri, $target_pos - 7, $target_pos + strlen($regs[0]));
+                $target_pos += strlen($comp_uri) - 7;
             }
         }
         else
