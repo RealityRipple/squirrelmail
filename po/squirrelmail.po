@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-05-31 14:56+0300\n"
+"POT-Creation-Date: 2003-07-21 21:30+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -685,7 +685,34 @@ msgstr ""
 msgid "You must be logged in to access this page."
 msgstr ""
 
-msgid "Folder:"
+msgid "All Folders"
+msgstr ""
+
+msgid "Please enter something to search for"
+msgstr ""
+
+msgid "There must be at least one criteria to search for"
+msgstr ""
+
+msgid "Error in criteria argument"
+msgstr ""
+
+msgid "M j, Y"
+msgstr ""
+
+msgid "(Illegal date)"
+msgstr ""
+
+msgid "(Wrong date)"
+msgstr ""
+
+msgid "In"
+msgstr ""
+
+msgid "(Missing argument)"
+msgstr ""
+
+msgid "(Spurious argument)"
 msgstr ""
 
 msgid "edit"
@@ -697,7 +724,7 @@ msgstr ""
 msgid "delete"
 msgstr ""
 
-msgid "Recent Searches"
+msgid "Saved Searches"
 msgstr ""
 
 msgid "save"
@@ -706,16 +733,106 @@ msgstr ""
 msgid "forget"
 msgstr ""
 
-msgid "Current Search"
+msgid "Recent Searches"
 msgstr ""
 
-msgid "All Folders"
+msgid "Exclude Criteria:"
 msgstr ""
 
-msgid "Body"
+msgid "Search Criteria"
 msgstr ""
 
-msgid "Everywhere"
+msgid "Folder:"
+msgstr ""
+
+msgid "Add New Criteria"
+msgstr ""
+
+msgid "Remove Excluded Criteria"
+msgstr ""
+
+msgid "Remove All Criteria"
+msgstr ""
+
+msgid "Answered"
+msgstr ""
+
+msgid "Before"
+msgstr ""
+
+msgid "Message Body"
+msgstr ""
+
+msgid "Deleted"
+msgstr ""
+
+msgid "Draft"
+msgstr ""
+
+msgid "Flagged"
+msgstr ""
+
+msgid "Sent By"
+msgstr ""
+
+msgid "Header Field"
+msgstr ""
+
+msgid "Keyword"
+msgstr ""
+
+msgid "Larger Than"
+msgstr ""
+
+msgid "Old"
+msgstr ""
+
+msgid "On"
+msgstr ""
+
+msgid "Recent"
+msgstr ""
+
+msgid "Seen"
+msgstr ""
+
+msgid "Sent Before"
+msgstr ""
+
+msgid "Sent On"
+msgstr ""
+
+msgid "Sent Since"
+msgstr ""
+
+msgid "Since"
+msgstr ""
+
+msgid "Smaller Than"
+msgstr ""
+
+msgid "Subject Contains"
+msgstr ""
+
+msgid "Header and Body"
+msgstr ""
+
+msgid "Sent To"
+msgstr ""
+
+msgid "Not"
+msgstr ""
+
+msgid "And In"
+msgstr ""
+
+msgid "Or In"
+msgstr ""
+
+msgid "And"
+msgstr ""
+
+msgid "Or"
 msgstr ""
 
 msgid "Search Results"
@@ -987,9 +1104,6 @@ msgstr ""
 msgid "D, G:i"
 msgstr ""
 
-msgid "M j, Y"
-msgstr ""
-
 #, c-format
 msgid "Preference database error (%s). Exiting abnormally"
 msgstr ""
@@ -1074,10 +1188,19 @@ msgstr ""
 msgid "ERROR : No available imapstream."
 msgstr ""
 
-msgid "ERROR : Could not complete request."
+msgid "ERROR : Bad function call."
+msgstr ""
+
+msgid "Reason:"
+msgstr ""
+
+msgid "ERROR : Connection dropped by imap-server."
 msgstr ""
 
 msgid "Query:"
+msgstr ""
+
+msgid "ERROR : Could not complete request."
 msgstr ""
 
 msgid "Reason Given: "
@@ -1087,6 +1210,12 @@ msgid "ERROR : Bad or malformed request."
 msgstr ""
 
 msgid "Server responded: "
+msgstr ""
+
+msgid "ERROR : Imap server closed the connection."
+msgstr ""
+
+msgid "ERROR : Unknown imap response."
 msgstr ""
 
 #, c-format
@@ -1122,6 +1251,15 @@ msgid "Unknown Sender"
 msgstr ""
 
 msgid "Unknown response from IMAP server: "
+msgstr ""
+
+msgid "The server couldn't find the message you requested."
+msgstr ""
+
+msgid ""
+"Most probably your message list was out of date and the message has been "
+"moved away or deleted (perhaps by another program accessing the same "
+"mailbox)."
 msgstr ""
 
 msgid "Unknown date"
@@ -1348,6 +1486,9 @@ msgid "Enable Page Selector"
 msgstr ""
 
 msgid "Maximum Number of Pages to Show"
+msgstr ""
+
+msgid "Always Show Full Date"
 msgstr ""
 
 msgid "Message Display and Composition"
@@ -2447,9 +2588,6 @@ msgstr ""
 msgid "Command failed "
 msgstr ""
 
-msgid "Remote POP server Fetching Mail"
-msgstr ""
-
 msgid "Select Server:"
 msgstr ""
 
@@ -2457,6 +2595,9 @@ msgid "Password for"
 msgstr ""
 
 msgid "Fetch Mail"
+msgstr ""
+
+msgid "Remote POP server Fetching Mail"
 msgstr ""
 
 msgid "Fetching from "
@@ -2602,9 +2743,6 @@ msgid "Confirm delete of selected server?"
 msgstr ""
 
 msgid "Confirm Delete"
-msgstr ""
-
-msgid "Mofify a Server"
 msgstr ""
 
 msgid "Undefined Function"
@@ -3110,23 +3248,30 @@ msgstr ""
 msgid "Your server options are as follows:"
 msgstr ""
 
-msgid ""
-"19 language pairs, maximum of 1000 characters translated, powered by Systran"
+msgid "Maximum of 1000 characters translated, powered by Systran"
 msgstr ""
 
-msgid "12 language pairs, no known limits, powered by Systran"
+#, c-format
+msgid "Number of supported language pairs: %s"
 msgstr ""
 
-msgid ""
-"784 language pairs, no known limits, powered by Translation Experts's "
-"InterTran"
+msgid "No known limits, powered by Systran"
 msgstr ""
 
-msgid ""
-"8 language pairs, no known limits, powered by GPLTrans (free, open source)"
+msgid "No known limits, powered by Translation Experts's InterTran"
 msgstr ""
 
-msgid "4 language pairs for Hellenic, no known limits, powered by Systran"
+#, c-format
+msgid "Number of supported languages: %s"
+msgstr ""
+
+msgid "No known limits, powered by GPLTrans (free, open source)"
+msgstr ""
+
+msgid "Hellenic translations, no known limits, powered by Systran"
+msgstr ""
+
+msgid "Russian translations, maximum of 500 characters translated"
 msgstr ""
 
 msgid ""
@@ -3276,6 +3421,12 @@ msgid "to English"
 msgstr ""
 
 msgid "from English"
+msgstr ""
+
+msgid "Interface language"
+msgstr ""
+
+msgid "Translation direction"
 msgstr ""
 
 msgid "Delivery error report"
