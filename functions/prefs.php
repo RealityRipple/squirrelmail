@@ -29,7 +29,10 @@ function cachePrefValues($data_dir, $username) {
     if ($prefs_are_cached) {
         return;
     }
-
+    
+    session_unregister('prefs_cache');
+    session_unregister('prefs_are_cached');
+    
     /* Calculate the filename for the user's preference file */
     $filename = getHashedFile($username, $data_dir, "$username.pref");
 
@@ -65,11 +68,8 @@ function cachePrefValues($data_dir, $username) {
      }
      fclose($file);
 
-     session_unregister('prefs_cache');
      session_register('prefs_cache');
-       
      $prefs_are_cached = true;
-     session_unregister('prefs_are_cached');
      session_register('prefs_are_cached');
 }
    
