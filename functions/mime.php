@@ -744,7 +744,7 @@ function formatAttachments($message, $ent_id, $mailbox, $id) {
         $type1 = strtolower($header->type1);
         $name = decodeHeader($header->name);
 
-	if ($type0 =='message' && $type1 = 'rfc822') {
+	if ($type0 =='message' && $type1 == 'rfc822') {
 	 
             $filename = decodeHeader($message->header->filename);
             if (trim($filename) == '') {
