@@ -162,7 +162,7 @@ function saveMessageAsDraft($t, $c, $b, $subject, $body, $reply_id, $prio = 3, $
          $tmpDraftFile = "draft-" . GenerateRandomString(32, '', 7);
          $full_tmpDraftFile = "$hashed_attachment_dir/$tmpDraftFile";
     }
-    $fp = fopen($full_tmpDraftFile, 'w');
+    $fp = fopen($full_tmpDraftFile, 'wb');
 
     $headerlength = write822HeaderForDraft
         ($fp, $t, $c, $b, $subject, $more_headers, $session);
