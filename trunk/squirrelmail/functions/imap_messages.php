@@ -106,7 +106,7 @@ function sqimap_get_sort_order ($imap_stream, $sort, $mbxresponse) {
             $sent_folder, $mailbox, $uid_support;
 
     if (session_is_registered('server_sort_array')) {
-        session_unregister('server_sort_array');
+        sqsession_unregister('server_sort_array');
     }
 
     $sid = sqimap_session_id($uid_support);
@@ -134,7 +134,7 @@ function sqimap_get_sort_order ($imap_stream, $sort, $mbxresponse) {
             $qty = $mbxresponse['EXISTS'];
             $server_sort_array = range(1, $qty);
         }
-        session_register('server_sort_array');
+        sqsession_register($server_sort_array, 'server_sort_array');
         return $server_sort_array;
     }
 
@@ -168,7 +168,7 @@ function sqimap_get_sort_order ($imap_stream, $sort, $mbxresponse) {
     if (!preg_match("/OK/", $response)) {
        $server_sort_array = 'no';
     }
-    session_register('server_sort_array');
+    sqsession_register($server_sort_array, 'server_sort_array');
     return $server_sort_array;
 }
 
@@ -177,7 +177,7 @@ function sqimap_get_php_sort_order ($imap_stream, $mbxresponse) {
     global $uid_support;
 
     if (session_is_registered('php_sort_array')) {
-        session_unregister('php_sort_array');
+        sqsession_unregister('php_sort_array');
     }
 
     $sid = sqimap_session_id($uid_support);
@@ -204,7 +204,7 @@ function sqimap_get_php_sort_order ($imap_stream, $mbxresponse) {
        $qty = $mbxresponse['EXISTS'];
        $php_sort_array = range(1, $qty);
     }
-    session_register('php_sort_array');
+    sqsession_register($php_sort_array, 'php_sort_array');
     return $php_sort_array;
 }
 
@@ -316,10 +316,10 @@ function get_parent_level ($imap_stream) {
 function get_thread_sort ($imap_stream) {
     global $thread_new, $sort_by_ref, $default_charset, $server_sort_array, $uid_support;
     if (session_is_registered('thread_new')) {
-        session_unregister('thread_new');
+        sqsession_unregister('thread_new');
     }
     if (session_is_registered('server_sort_array')) {
-        session_unregister('server_sort_array');
+        sqsession_unregister('server_sort_array');
     }
     $sid = sqimap_session_id($uid_support);
     $thread_temp = array ();
@@ -373,14 +373,14 @@ function get_thread_sort ($imap_stream) {
                     }
             }
     }
-    session_register('thread_new');
+    sqsession_register($thread_new, 'thread_new');
     $thread_new = array_reverse($thread_new);
     $thread_list = implode(" ", $thread_new);
     $thread_list = str_replace("(", " ", $thread_list);
     $thread_list = str_replace(")", " ", $thread_list);
     $thread_list = preg_split("/\s/", $thread_list, -1, PREG_SPLIT_NO_EMPTY);
     $server_sort_array = $thread_list;
-    session_register('server_sort_array');
+    sqsession_register($server_sort_array, 'server_sort_array');
     return $thread_list;
 }
 

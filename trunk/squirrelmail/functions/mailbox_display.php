@@ -380,8 +380,8 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
 
      switch ($mode) {
        case 'thread':
-	    session_unregister('msort');
-            session_unregister('msgs');
+	    sqsession_unregister('msort');
+            sqsession_unregister('msgs');
             $msgs = getThreadMessages($imapConnection, $start_msg, $show_num, 
 	                              $num_msgs);
 	    if ($msgs === false) {
@@ -390,13 +390,13 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
                  '</center></small></b>';
                $thread_sort_messages = 0;
 	       $msort = $msgs = array();
-               session_register('msort');
-               session_register('msgs');	    
+               sqsession_register($msort, 'msort');
+               sqsession_register($msgs, 'msgs');	    
             } else {
 	       $msort= $msgs;
 	       $sort = 6;
-               session_register('msort');
-               session_register('msgs');
+               sqsession_register($msort, 'msort');
+               sqsession_register($msgs, 'msgs');
             }
 	 
 	 break;
@@ -410,25 +410,25 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
             $sort = $server_sort_order;
             $allow_server_sort = FALSE;
 	    $msort = $msgs = array();
-            session_register('msort');
-            session_register('msgs');	    
+            sqsession_register($msort, 'msort');
+            sqsession_register($msgs, 'msgs');	    
             $id = array();
          } else {
             $sort = 6;
 	    $msort = $msgs;	    
-            session_register('msort');
-            session_register('msgs');	    
+            sqsession_register($msort, 'msort');
+            sqsession_register($msgs, 'msgs');	    
          }
 	 break;
        default:
          if (!$use_cache) {
-            session_unregister('msgs');	 
-            session_unregister('msort');	 
+            sqsession_unregister('msgs');	 
+            sqsession_unregister('msort');	 
 	    $msgs= getSelfSortMessages($imapConnection, $start_msg, $show_num, 
                               $num_msgs, $sort, $mbxresponse); 
             $msort = calc_msort($msgs, $sort);
-	    session_register('msort');
-            session_register('msgs');
+	    sqsession_register($msort, 'msort');
+            sqsession_register($msgs, 'msgs');
          } /* !use cache */
 	 break;
      } // switch

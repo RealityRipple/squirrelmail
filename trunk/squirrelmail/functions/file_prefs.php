@@ -11,8 +11,6 @@
  * $Id$
  */
 
-global $prefs_are_cached, $prefs_cache;
-
 /**
  * Check the preferences into the session cache.
  */
@@ -23,8 +21,8 @@ function cachePrefValues($data_dir, $username) {
         return;
     }
     
-    session_unregister('prefs_cache');
-    session_unregister('prefs_are_cached');
+    sqsession_unregister('prefs_cache');
+    sqsession_unregister('prefs_are_cached');
     
     /* Calculate the filename for the user's preference file */
     $filename = getHashedFile($username, $data_dir, "$username.pref");
@@ -70,8 +68,8 @@ function cachePrefValues($data_dir, $username) {
 
     $prefs_are_cached = TRUE;
 
-    session_register('prefs_cache');
-    session_register('prefs_are_cached');
+    sqsession_register($prefs_cache, 'prefs_cache');
+    sqsession_register($prefs_are_cached, 'prefs_are_cached');
 }
    
 /**

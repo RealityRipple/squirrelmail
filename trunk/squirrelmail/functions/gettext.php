@@ -15,33 +15,35 @@
  * $Id$
  */
 
+require_once('../src/global.php');
+
 global $gettext_php_domain, $gettext_php_dir, $gettext_php_loaded,
  $gettext_php_translateStrings, $gettext_php_loaded_language,
  $gettext_php_short_circuit;
 
 if (! isset($gettext_php_loaded)) {
     $gettext_php_loaded = false;
-    session_register('gettext_php_loaded');
+    sqsession_register($gettext_php_loaded, 'gettext_php_loaded');
 }
 if (! isset($gettext_php_domain)) {
     $gettext_php_domain = '';
-    session_register('gettext_php_domain');
+    sqsession_register($gettext_php_domain, 'gettext_php_domain');
 }
 if (! isset($gettext_php_dir)) {
     $gettext_php_dir = '';
-    session_register('gettext_php_dir');
+    sqsession_register($gettext_php_dir, 'gettext_php_dir');
 }
 if (! isset($gettext_php_translateStrings)) {
     $gettext_php_translateStrings = array();
-    session_register('gettext_php_translateStrings');
+    sqsession_register($gettext_php_translateStrings, 'gettext_php_translateStrings');
 }
 if (! isset($gettext_php_loaded_language)) {
     $gettext_php_loaded_language = '';
-    session_register('gettext_php_loaded_language');
+    sqsession_register($gettext_php_loaded_language, 'gettext_php_loaded_language');
 }
 if (! isset($gettext_php_short_circuit)) {
     $gettext_php_short_circuit = false;
-    session_register('gettext_php_short_circuit');
+    sqsession_register($gettext_php_short_circuit, 'gettext_php_short_circuit');
 }
 
 function gettext_php_load_strings() {
