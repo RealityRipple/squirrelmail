@@ -9,10 +9,10 @@
 
 %{!?rhl7:%define rhl7 0}
 %if %{rhl7}
-	%define webserver apache
+    %define webserver apache
     %define rpm_release %{spec_release}.7.x
 %else
-	%define webserver httpd
+    %define webserver httpd
     %define rpm_release %{spec_release}
 %endif
 
@@ -50,7 +50,7 @@ address books, and folder manipulation.
 %{__mv} ReleaseNotes doc/ReleaseNotes.txt
 %{__mv} themes/README.themes doc/
 for f in `find plugins -name "README*" -or -name INSTALL \
-		   -or -name CHANGES -or -name HISTORY`; do
+           -or -name CHANGES -or -name HISTORY`; do
     %{__mkdir_p} doc/`dirname $f`
     %{__mv} $f $_
 done
@@ -65,7 +65,7 @@ echo "left_refresh=300" >> data/default_pref
 for f in contrib/RPM/squirrelmail.cron contrib/RPM/config.php.redhat; do
     %{__perl} -pi \
         -e "s|__ATTDIR__|%{_localstatedir}/spool/squirrelmail/attach/|g;" \
-	    -e "s|__PREFSDIR__|%{_localstatedir}/lib/squirrelmail/prefs/|g;" $f
+        -e "s|__PREFSDIR__|%{_localstatedir}/lib/squirrelmail/prefs/|g;" $f
 done
 
 # Fix the version
@@ -118,7 +118,7 @@ done
 # install the config file
 %{__mkdir_p} %{buildroot}%{_sysconfdir}/httpd/conf.d
 %{__install} -m 644 contrib/RPM/squirrelmail.conf \
-	%{buildroot}%{_sysconfdir}/httpd/conf.d/
+    %{buildroot}%{_sysconfdir}/httpd/conf.d/
 %endif
 
 %clean
