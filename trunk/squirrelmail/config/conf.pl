@@ -1133,14 +1133,14 @@ sub command111 {
     return $new_optional_delimiter;
 }
 # IMAP authentication type
-# Possible values: login, cram-md5, digest-md5
+# Possible values: login, plain, cram-md5, digest-md5
 # Now offers to detect supported mechs, assuming server & port are set correctly
 
 sub command112a {
 	print "If you have already set the hostname and port number, I can try to\n";
 	print "detect the mechanisms your IMAP server supports.\n";
 	print "I will try to detect CRAM-MD5 and DIGEST-MD5 support.  I can't test\n";
-	print "for \"login\" without knowing a username and password.\n";
+	print "for \"login\" or \"plain\" without knowing a username and password.\n";
 	print "Auto-detecting is optional - you can safely say \"n\" here.\n";
 	print "\nTry to detect supported mechanisms? [y/N]: ";
 	$inval=<STDIN>;
@@ -1176,14 +1176,15 @@ sub command112a {
 	} 
 	  print "\nWhat authentication mechanism do you want to use for IMAP connections?\n\n";
 	  print $WHT . "login" . $NRM . " - Plaintext. If you can do better, you probably should.\n";
+      print $WHT . "plain" . $NRM . " - SASL PLAIN. If you need this, you already know it.\n";
 	  print $WHT . "cram-md5" . $NRM . " - Slightly better than plaintext methods.\n";
 	  print $WHT . "digest-md5" . $NRM . " - Privacy protection - better than cram-md5.\n";
 	  print "\n*** YOUR IMAP SERVER MUST SUPPORT THE MECHANISM YOU CHOOSE HERE ***\n";
 	  print "If you don't understand or are unsure, you probably want \"login\"\n\n";
-	  print "login, cram-md5, or digest-md5 [$WHT$imap_auth_mech$NRM]: $WHT";
+	  print "login, plain, cram-md5, or digest-md5 [$WHT$imap_auth_mech$NRM]: $WHT";
       $inval=<STDIN>;
       chomp($inval);
-      if ( ($inval =~ /^cram-md5\b/i) || ($inval =~ /^digest-md5\b/i) || ($inval =~ /^login\b/i)) {
+      if ( ($inval =~ /^cram-md5\b/i) || ($inval =~ /^digest-md5\b/i) || ($inval =~ /^login\b/i) || ($inval =~ /^plain\b/i)) {
         return lc($inval);
       } else {
         # user entered garbage or default value so nothing needs to be set
@@ -1196,7 +1197,7 @@ sub command112a {
 # Possible choices: none, plain, cram-md5, digest-md5
 sub command112b {
     print "If you have already set the hostname and port number, I can try to\n";
-    print "automatically detect the mechanisms your SMTP server supports.\n";
+    print "automatically detect some of the mechanisms your SMTP server supports.\n";
 	print "Auto-detection is *optional* - you can safely say \"n\" here.\n";
     print "\nTry to detect auth mechanisms? [y/N]: ";
     $inval=<STDIN>;
@@ -1270,6 +1271,7 @@ sub command112b {
     print "\tWhat authentication mechanism do you want to use for SMTP connections?\n";
     print $WHT . "none" . $NRM . " - Your SMTP server does not require authorization.\n";
     print $WHT . "login" . $NRM . " - Plaintext. If you can do better, you probably should.\n";
+    print $WHT . "plain" . $NRM . " - SASL PLAIN.  You already know it if you need this.\n";
     print $WHT . "cram-md5" . $NRM . " - Slightly better than plaintext.\n";
     print $WHT . "digest-md5" . $NRM . " - Privacy protection - better than cram-md5.\n";
     print $WHT . "\n*** YOUR SMTP SERVER MUST SUPPORT THE MECHANISM YOU CHOOSE HERE ***\n" . $NRM;
@@ -1282,7 +1284,7 @@ sub command112b {
       return "none";
     }
     if ( ($inval =~ /^cram-md5\b/i) || ($inval =~ /^digest-md5\b/i) || 
-    ($inval =~ /^login\b/i)) {
+    ($inval =~ /^login\b/i) || ($inval =~/^plain\b/i)) {
       return lc($inval);
     } else {
       # user entered garbage, or default value so nothing needs to be set
