@@ -20,7 +20,7 @@
    
    displayHtmlHeader();
 
-   if ($auto_create_special) {
+   if ($auto_create_special && ! isset($auto_create_done)) {
    	  if (isset ($sent_folder) && $sent_folder != "none") {
 	  	 if (!sqimap_mailbox_exists ($imapConnection, $sent_folder)) {
 		 	sqimap_mailbox_create ($imapConnection, $sent_folder, "");
@@ -31,6 +31,8 @@
 		 	sqimap_mailbox_create ($imapConnection, $trash_folder, "");
 		 }
 	  }
+	  $auto_create_done = true;
+	  session_register('auto_create_done');
    }
 
    function formatMailboxName($imapConnection, $box_array, $delimeter) {
