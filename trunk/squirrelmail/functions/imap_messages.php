@@ -40,27 +40,32 @@
    /******************************************************************************
     **  Returns some general header information -- FROM, DATE, and SUBJECT
     ******************************************************************************/
-	class small_header {
-		var $from, $subject, $date, $to, $priority;
-	}
+   class small_header {
+      var $from, $subject, $date, $to, $priority, $message_id;
+   }
 	 
    function sqimap_get_small_header ($imap_stream, $id, $sent) {
-      fputs ($imap_stream, "a001 FETCH $id BODY.PEEK[HEADER.FIELDS (Date To From Subject X-Priority)]\r\n");
+      fputs ($imap_stream, "a001 FETCH $id BODY.PEEK[HEADER.FIELDS (Date To From Subject Message-Id X-Priority)]\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
 
       $subject = _("(no subject)");
       $from = _("Unknown Sender");
       $priority = "0";
-		$g = 0;
+      $messageid = "<>";
+
+      $g = 0;
       for ($i = 0; $i < count($read); $i++) {
          if (eregi ("^to:", $read[$i])) {
             $to = sqimap_find_displayable_name(substr($read[$i], 3));
-			}	
+	 }	
          if (eregi ("^from:", $read[$i])) {
             $from = sqimap_find_displayable_name(substr($read[$i], 5));
-			}	
+	 }	
          if (eregi ("^x-priority:", $read[$i])) {
             $priority = trim(substr($read[$i], 11));
+         }
+         if (eregi ("^message-id:", $read[$i])) {
+            $messageid = trim(substr($read[$i], 11));
          }
          if (eregi ("^date:", $read[$i])) {
             $date = substr($read[$i], 5);
@@ -69,18 +74,21 @@
             if (trim($subject) == "")
                $subject = _("(no subject)");
          }
-		}	
+      }
 
-		$header = new small_header;
+      $header = new small_header;
       if ($sent == true)
          $header->from = $to;
       else   
-		   $header->from = $from;
-		$header->date = $date;
-		$header->subject = $subject;
+	 $header->from = $from;
+
+      $header->date = $date;
+      $header->subject = $subject;
       $header->to = $to;
       $header->priority = $priority;
-		return $header;
+      $header->message_id = $messageid;
+
+      return $header;
    }
 
    /******************************************************************************

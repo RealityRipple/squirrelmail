@@ -26,7 +26,7 @@
       var $type0, $type1, $boundary, $charset, $encoding;
       var $to, $from, $date, $cc, $bcc, $reply_to, $subject;
       var $id, $mailbox, $description;
-      var $entity_id;
+      var $entity_id, $message_id;
    }
    
    class message {
