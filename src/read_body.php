@@ -79,7 +79,7 @@
    $subject = htmlspecialchars(stripslashes($message["HEADER"]["SUBJECT"]));
 
    echo "<BR>";
-   echo "<TABLE COLS=1 WIDTH=95% BORDER=0 ALIGN=CENTER CELLPADDING=2>\n";
+   echo "<TABLE COLS=1 WIDTH=98% BORDER=0 ALIGN=CENTER CELLPADDING=2>\n";
    echo "   <TR><TD BGCOLOR=\"$color[0]\" WIDTH=100%>";
    echo "      <TABLE WIDTH=100% BORDER=0 COLS=2>";
    echo "         <TR>";

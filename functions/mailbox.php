@@ -317,6 +317,18 @@
                $header["CHARSET"] = "us-ascii";
             }
 
+            /** Detects filename if any **/
+            if (strpos(strtolower(trim($line)), "name=")) {
+               $pos = strpos($line, "name=") + 5;
+               $name = trim($line);
+               if (strpos($line, " ", $pos) > 0) {
+                  $name = substr($name, $pos, strpos($line, " ", $pos));
+               } else {
+                  $name = substr($name, $pos);
+               }
+               $name = str_replace("\"", "", $name);
+               $header["FILENAME"] = $name;
+            }
          }
 
          /** REPLY-TO **/
@@ -420,7 +432,7 @@
       return decodeMime($body, $bound, $type0, $type1);
    }
 
-   function fetchEntityHeader($imapConnection, &$read, &$type0, &$type1, &$bound, &$encoding, &$charset) {
+   function fetchEntityHeader($imapConnection, &$read, &$type0, &$type1, &$bound, &$encoding, &$charset, &$filename) {
       /** defaults... if the don't get overwritten, it will display text **/
       $type0 = "text";
       $type1 = "plain";
@@ -442,12 +454,15 @@
                $type0 = $cont;
             }
 
+            $read[$i] = trim($read[$i]);
             $line = $read[$i];
+            $i++;
             while ( (substr(substr($read[$i], 0, strpos($read[$i], " ")), -1) != ":") && (trim($read[$i]) != "") && (trim($read[$i]) != ")")) {
                str_replace("\n", "", $line);
                str_replace("\n", "", $read[$i]);
                $line = "$line $read[$i]";
                $i++;
+               $read[$i] = trim($read[$i]);
             }
 
             /** Detect the boundary of a multipart message **/
@@ -472,6 +487,19 @@
                   $charset = substr($charset, $pos);
                }
                $charset = str_replace("\"", "", $charset);
+            }
+
+            /** Detects filename if any **/
+            if (strpos(strtolower(trim($line)), "name=")) {
+               $pos = strpos($line, "name=") + 5;
+               $name = trim($line);
+               if (strpos($line, " ", $pos) > 0) {
+                  $name = substr($name, $pos, strpos($line, " ", $pos));
+               } else {
+                  $name = substr($name, $pos);
+               }
+               $name = str_replace("\"", "", $name);
+               $filename = $name;
             }
          }
          $i++;

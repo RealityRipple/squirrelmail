@@ -6,7 +6,6 @@
 
 
    function decodeMime($body, $bound, $type0, $type1) {
-//      echo "<TT>decodeMime: $type0/$type1</TT><BR>";
       if ($type0 == "multipart") {
          if ($body[0] == "")
             $i = 1;
@@ -26,7 +25,7 @@
                   $p++;
                }
 
-               fetchEntityHeader($imapConnection, $entity_header, $ent_type0, $ent_type1, $ent_bound, $encoding, $charset);
+               fetchEntityHeader($imapConnection, $entity_header, $ent_type0, $ent_type1, $ent_bound, $encoding, $charset, $filename);
 
                if ($ent_type0 == "text") {
                   while (substr(trim($body[$j]), 0, strlen($bound)) != $bound) {
@@ -35,14 +34,14 @@
                      $p++;
                   }
                } else {
-                  if (trim($body[$j]) == "")
-                     $j++;
+                  $j++;
+                  $entity_body = "";
                   while (substr(trim($body[$j]), 0, strlen($bound)) != $bound) {
                      $entity_body .= $body[$j];
                      $j++;
                   }
                }
-               $entity = getEntity($entity_body, $ent_bound, $ent_type0, $ent_type1, $encoding, $charset);
+               $entity = getEntity($entity_body, $ent_bound, $ent_type0, $ent_type1, $encoding, $charset, $filename);
 
                $q = count($full_message);
                $full_message[$q] = $entity[0];
@@ -57,13 +56,14 @@
    }
 
    /** This gets one entity's properties **/
-   function getEntity($body, $bound, $type0, $type1, $encoding, $charset) {
-//      echo "<TT>getEntity: $type0/$type1</TT><BR>";
+   function getEntity($body, $bound, $type0, $type1, $encoding, $charset, $filename) {
       $msg[0]["TYPE0"] = $type0;
       $msg[0]["TYPE1"] = $type1;
       $msg[0]["ENCODING"] = $encoding;
       $msg[0]["CHARSET"] = $charset;
+      $msg[0]["FILENAME"] = $filename;
 
+      echo "$type0 / $type1<BR>";
       if ($type0 == "text") {
          // error correcting if they didn't follow RFC standards
          if (trim($type1) == "")
@@ -85,11 +85,9 @@
                $msg[0]["BODY"][$p] = $body[$q];
             }
          }
-      } else if ($type0 == "image") {
+      } else {
          $msg[0]["PRIORITY"] == 5;
          $msg[0]["BODY"][0] = $body;
-      } else {
-         $msg[0]["BODY"][0] = "<B><FONT COLOR=DD0000>This attachment is of an unknown format:  $type0/$type1</FONT></B>";
       }
 
       return $msg;
@@ -137,22 +135,20 @@
          $pos = count($body);
          if ($message["ENTITIES"][$i]["TYPE0"] != "text") {
             $body[$pos] = "<BR><TT><U><B>ATTACHMENTS:</B></U></TT><BR>";
+            $i = count($message["ENTITIES"]);
          }
       }
 
       for ($i = 0; $i < count($message["ENTITIES"]); $i++) {
          $pos = count($body);
-         if ($message["ENTITIES"][$i]["TYPE0"] != "text") {
-            if ($message["ENTITIES"][$i]["TYPE0"] == "image") {
-               $body[$pos] = "<TT>&nbsp;&nbsp;&nbsp;Image: " . $message["ENTITIES"][$i]["TYPE0"] . "/" . $message["ENTITIES"][$i]["TYPE1"] . "</TT><BR>";
+         if (($message["ENTITIES"][$i]["TYPE0"] == "image") || ($message["ENTITIES"][$i]["TYPE0"] == "application")){
+            $filename = $message["ENTITIES"][$i]["FILENAME"];
+            $body[$pos] = "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../data/$filename\">" . $filename . "</A></TT><BR>";
 
-/*               $file = fopen("../data/tmp.png", "w");
-               fwrite($file, base64_decode($message["ENTITIES"][$i]["BODY"][0]));
-               fclose($file);
-*/
-            } else {
-               $body[$pos] = "<TT>&nbsp;&nbsp;&nbsp;Unknown Type: " . $message["ENTITIES"][$i]["TYPE0"] . "/" . $message["ENTITIES"][$i]["TYPE1"] . "</TT><BR>";
-            }
+            $file = fopen("../data/$filename", "w");
+            $image = base64_decode($message["ENTITIES"][$i]["BODY"][0]);
+            fwrite($file, $image);
+            fclose($file);
          }
       }
 
