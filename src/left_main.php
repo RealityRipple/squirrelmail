@@ -185,7 +185,7 @@ function create_unseen_string($boxName, $boxArray, $imapConnection) {
     global $boxes, $unseen_type, $color;
 
     /* Initialize the return value. */
-    $result = array();
+    $result = array(0,0);
 
     /* Initialize the counts for this folder. */
     $boxUnseenCount = 0;
