@@ -216,7 +216,7 @@
    $boxes_sub = $boxes;
 
    /** SUBSCRIBE TO FOLDERS **/
-   echo "<TD BGCOLOR=\"$color[0]\" widtn=50% ALIGN=CENTER>";
+   echo "<TD BGCOLOR=\"$color[0]\" width=50% ALIGN=CENTER>";
    $imap_stream = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 1);
    $boxes_all = sqimap_mailbox_list_all ($imap_stream);
 

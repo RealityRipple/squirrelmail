@@ -68,7 +68,7 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
    }
    $issent = ($mailbox == $sent_folder);
    $hdr_list = sqimap_get_small_header_list($imapConnection, $id, $issent);
-   $flags = sqimap_get_flags_list($imapConnection, $id, $issnet);
+   $flags = sqimap_get_flags_list($imapConnection, $id, $issent);
    foreach ($hdr_list as $hdr) {
       $from[] = $hdr->from;
       $date[] = $hdr->date;

@@ -1,6 +1,6 @@
 <?php
    /**
-    **  options_highlight.php
+    **  options_order.php
     **
     **  Copyright (c) 1999-2000 The SquirrelMail development team
     **  Licensed under the GNU GPL. For full terms see the file COPYING.
