@@ -17,7 +17,6 @@ require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/imap_search.php');
 require_once(SM_PATH . 'functions/imap_mailbox.php');
-require_once(SM_PATH . 'functions/array.php');
 require_once(SM_PATH . 'functions/strings.php');
 
 global $allow_thread_sort;

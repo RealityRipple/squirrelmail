@@ -13,7 +13,6 @@
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'functions/imap.php');
-require_once(SM_PATH . 'functions/array.php');
 
 /* Define the group constants for the personal options page. */
 define('SMOPT_GRP_CONTACT', 0);
