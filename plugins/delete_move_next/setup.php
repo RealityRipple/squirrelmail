@@ -42,7 +42,7 @@ function fix_sort_array () {
           $server_sort_array = sqimap_get_sort_order($imapConnection, $sort, $mbx_response);
           break;
       case ($uid_support):
-          $server_sort_array = sqimap_get_php_sort_order($imapConnecion, $mbx_response);
+          $server_sort_array = sqimap_get_php_sort_order($imapConnection, $mbx_response);
           break;
       default:
           break;
