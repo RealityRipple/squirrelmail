@@ -20,7 +20,7 @@ require_once(SM_PATH . 'functions/imap_mailbox.php');
 /* Default value for page_selector_max. */
 define('PG_SEL_MAX', 10);
 
-function printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
+function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                           $start_msg, $where, $what) {
     global $checkall,
            $color, $msgs, $msort,
@@ -142,13 +142,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
     if (!isset($hlt_color)) {
         $hlt_color = $color_string;
     }
-
-    $checked = ($checkall == 1) ? ' checked' : '';
-    $row = new html();
-    $row->tag = 'tr';
-    $row->class = 'm_r';
-    $row->id = 'mr'.$t;
-
+    $checked = ($checkall == 1) ? true : false;
     $col = 0;
     if (sizeof($index_order)) {
         foreach ($index_order as $index_order_part) {
@@ -158,6 +152,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
                                "<input type=checkbox name=\"msg[$t]\" value=\"".$msg['ID']."\"$checked>",
                                'center',
                                $hlt_color );
+		++$col;
                 break;
             case 2: /* from */
                 echo html_tag( 'td',
@@ -165,6 +160,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
                                $fontstr_end . $flag_end . $bold_end . $italic_end,
                                'left',
                                $hlt_color );
+		++$col;			       
                 break;
             case 3: /* date */
                 echo html_tag( 'td',
@@ -173,6 +169,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
                                'center',
                                $hlt_color,
                                'nowrap' );
+		++$col;			       
                 break;
             case 4: /* subject */
                 $td_str = $bold;
@@ -194,6 +191,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
                 }
                 $td_str .= ">$flag$subject$flag_end</a>$bold_end";
                 echo html_tag( 'td', $td_str, 'left', $hlt_color );
+		++$col;		
                 break;
             case 5: /* flags */
                 $stuff = false;
@@ -230,6 +228,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
                                'center',
                                $hlt_color,
                                'nowrap' );
+		++$col;			       
                 break;
             case 6: /* size */
                 echo html_tag( 'td',
@@ -237,36 +236,16 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
                                $fontstr_end . $bold_end,
                                'right',
                                $hlt_color );
+		++$col;			       
                 break;
             }
-            ++$col;
         }
     }
-    echo '</tr>'."\n".'<tr><td colspan="'.$col.'" BGCOLOR="'.
-                               $color[0].'" HEIGHT="1"></td></tr>'."\n";
-}
-
-function getThreadMessages($imapConnection, $start_msg, $show_num, $num_msgs) {
-    $id = get_thread_sort($imapConnection);
-    if ($id != 'no') {
-        if ($start_msg + ($show_num - 1) < $num_msgs) {
-            $end_msg = $start_msg + ($show_num-1);
-        } else {
-            $end_msg = $num_msgs;
-        }
-        $id = array_slice($id, ($start_msg-1), ($end_msg));
-
-        $end = $start_msg + $show_num - 1;
-        if ($num_msgs < $show_num) {
-            $end_loop = $num_msgs;
-        } else if ($end > $num_msgs) {
-            $end_loop = $num_msgs - $start_msg + 1;
-        } else {
-            $end_loop = $show_num;
-        }
-        return fillMessageArray($imapConnection,$id,$end_loop);
+    if ($not_last) {
+        echo '</tr>'."\n".'<tr><td COLSPAN="'.$col. '" BGCOLOR="'. 
+	     $color[0].'" HEIGHT="1"></td></tr>'."\n";
     } else {
-        return false;
+        echo '</tr>'."\n";
     }
 }
 
@@ -621,8 +600,8 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
             next($msort);
             $k++;
         } while (isset ($key) && ($k < $i));
-        printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
-                         $real_startMessage, $where, $what);
+        printMessageInfo($imapConnection, $t, true, $key, $mailbox,
+            $real_startMessage, $where, $what);
     } else {
         $i = $start_msg;
         reset($msort);
@@ -632,8 +611,10 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
             next($msort);
             $k++;
         } while (isset ($key) && ($k < $i));
+	$not_last = true;
         do {
-            printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
+	    if (!$i || $i == $endVar-1) $not_last = false;
+            printMessageInfo($imapConnection, $t, $not_last, $key, $mailbox,
                              $real_startMessage, $where, $what);
             $key = key($msort);
             $t++;
