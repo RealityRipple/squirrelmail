@@ -273,7 +273,7 @@
    echo "   </TD></TR>";
 
    echo "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=100%>\n";
-   $body = formatBody($message, $color, $wrap_at);
+   $body = formatBody($imapConnection, $message, $color, $wrap_at);
    echo "<BR>";
 
    echo "$body";

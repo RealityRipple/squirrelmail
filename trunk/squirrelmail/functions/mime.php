@@ -59,6 +59,7 @@
       $id = $header->id;
       fputs ($imap_stream, "a001 FETCH $id BODYSTRUCTURE\r\n");
       $read = fgets ($imap_stream, 10000);
+      $endline = fgets($imap_stream, 1024);
       $read = strtolower($read);
 
       if ($debug_mime) echo "<tt>$read</tt><br><br>";
@@ -360,13 +361,9 @@
    /** This is the first function called.  It decides if this is a multipart
        message or if it should be handled as a single entity
     **/
-   function decodeMime ($body, $header) {
+   function decodeMime ($imap_stream, $body, $header) {
       global $username, $key, $imapServerAddress, $imapPort;
-      $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-      sqimap_mailbox_select($imap_stream, $header->mailbox);
-      $struct = mime_structure ($imap_stream, $header);
-      sqimap_logout($imap_stream);
-      return $struct;
+      return mime_structure ($imap_stream, $header);
    }
 
    // This is here for debugging purposese.  It will print out a list
@@ -420,7 +417,7 @@
        everything needed, including HTML Tags, Attachments at the
        bottom, etc.
     **/
-   function formatBody($message, $color, $wrap_at) {
+   function formatBody($imap_stream, $message, $color, $wrap_at) {
       // this if statement checks for the entity to show as the
       // primary message. To add more of them, just put them in the
       // order that is their priority.
@@ -429,12 +426,8 @@
       $id = $message->header->id;
       $urlmailbox = urlencode($message->header->mailbox);
 
-      $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-      sqimap_mailbox_select($imap_stream, $message->header->mailbox);
-
       $ent_num = findDisplayEntity ($message);
       $body = mime_fetch_body ($imap_stream, $id, $ent_num); 
-      sqimap_logout($imap_stream); 
 
       // If there are other types that shouldn't be formatted, add
       // them here 
