@@ -32,7 +32,7 @@
    $filename = $message["ENTITIES"][$passed_ent_id]["FILENAME"];
 
    if (strlen($filename) < 1) {
-      $filename = "message" . time();
+      $filename = "untitled$passed_ent_id";
    }
 
    if ($absolute_dl == "true") {
@@ -41,8 +41,7 @@
             $body = decodeBody($message["ENTITIES"][$passed_ent_id]["BODY"], $message["ENTITIES"][$passed_ent_id]["ENCODING"]);
             header("Content-type: $type0/$type1");
             header("Content-Disposition: attachment; filename=\"$filename\"");
-            if ($type1 != "html")
-               echo nl2br($body);
+            echo $body;
             break;
          default:
             $body = decodeBody($message["ENTITIES"][$passed_ent_id]["BODY"], $message["ENTITIES"][$passed_ent_id]["ENCODING"]);
