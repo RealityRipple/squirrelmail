@@ -943,7 +943,7 @@ if ($default_use_mdn) {
                                 _("Read receipt") . ': ' .
                             "</TD><TD BGCOLOR=\"$color[9]\" VALIGN=TOP colspan=2>" .
                                 '<B>' . _("requested") .
-                                "</B> &nbsp; <a href=\"$url\">[" . _("Send read receipt now") . "]</a>" .
+                                "</B> &nbsp; <a href=$url>[" . _("Send read receipt now") . "]</a>" .
                             '</TD>' .
                         '</TR>' . "\n";
                 $sendreceipt='';
