@@ -2,12 +2,11 @@
 
 # **
 # ** This script merges global PO to locale PO files.
-# ** It creates a squirrelmail.po.new that have to
-# ** be renamed to squirrelmail.po once before to
-# ** compile the file.
+# ** It creates a backup of the old PO file as squirrelmail.po.bak
+# ** and puts the merged version in squirrelmail.po
 # **
 # ** Usage:   mergepo <locale id>
-# ** Example: mergepo es
+# ** Example: mergepo es_ES
 # **
 # ** Philipe Mingo <mingo@rotedic.com>
 # ** Konstantin Riabitsev <icon@duke.edu>
@@ -42,4 +41,13 @@ mv $LOCALEDIR/LC_MESSAGES/squirrelmail.po \
      $LOCALEDIR/LC_MESSAGES/squirrelmail.po.bak 
 msgmerge $LOCALEDIR/LC_MESSAGES/squirrelmail.po.bak ../po/squirrelmail.po > \
      $LOCALEDIR/LC_MESSAGES/squirrelmail.po
-echo "Old po file renamed to squirrelmail.po.bak "
+
+# msgmerge will split long lines, such as the RCS Id line. If it did split
+# it, join the pieces back together.
+ed -s $LOCALEDIR/LC_MESSAGES/squirrelmail.po << END
+/^"Project-Id-Version:/v/\\n"$/j\\
+s/""//
+wq
+END
+
+echo "Old po file renamed to squirrelmail.po.bak"
