@@ -107,27 +107,28 @@ function readMailboxParent($haystack, $needle) {
 
 
 function isBoxBelow( $box2, $box1 ) {
-    global $delimiter, $folder_prefix, $imap_server_type;
-
-    if ( $imap_server_type == 'uw' ) {
-        $boxs = $box2;
-        $i = strpos( $box1, $delimiter, strlen( $folder_prefix ) );
-        if ( $i === false ) {
-            $i = strlen( $box2 );
-        }
-    } else {
-        $boxs = $box2 . $delimiter;
-        /* Skip next second delimiter */
-        $i = strpos( $box1, $delimiter );
-        $i = strpos( $box1, $delimiter, $i + 1  );
-        if ( $i === false ) {
-            $i = strlen( $box2 );
-        } else {
-            $i++;
-        }
-    }
-
-    return ( substr( $box1, 0, $i ) == substr( $boxs, 0, $i ) );
+global $delimiter, $folder_prefix, $imap_server_type;
+	if ( $imap_server_type == 'uw' ) {
+		$boxs = $box2;
+		$i = strpos( $box1, $delimiter, strlen( $folder_prefix ) );
+		if ( $i === false ) {
+			$i = strlen( $box2 );
+		}
+	} else {
+		if (substr($box2,0,strlen($box1)) == $box1) {
+			return true;
+		}
+		$boxs = $box2 . $delimiter;
+		/* Skip next second delimiter */
+		$i = strpos( $box1, $delimiter );
+		$i = strpos( $box1, $delimiter, $i + 1  );
+		if ( $i === false ) {
+			$i = strlen( $box2 );
+		} else {
+			$i++;
+		}
+	}
+	return ( substr( $box1, 0, $i ) == substr( $boxs, 0, $i ) );
 }
 
 /* Defines special mailboxes */
@@ -935,4 +936,36 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false) {
 
     return $mailboxes;
 }
+
+function sqimap_mailbox_has_children($mailbox='INBOX',$stream=false) {
+    if (!$stream) {
+        /* We weren't provided an IMAP stream - make one */
+        global $username,$imapServerAddress, $imapPort;
+        $password=$_COOKIE['key'];
+        $stream=sqimap_login($username,$password,$imapServerAddress,$imapPort,false);
+		$log_this_out=true;
+    }
+    $query = 'LIST "" "' . $mailbox . '"';
+    $results=sqimap_run_command($stream,$query,true,$response,$message,false);
+	if (isset($log_this_out)) {
+		/* It's our stream, and since we're done with it... */
+		sqimap_logout($stream);
+	}
+    if (isset($results[0])) {
+        /* We got something back, let's parse the results */
+        $pos = strpos($results[0], '\HasChildren');
+        if ($pos === false) {
+            /* Folder has no children */
+            return false;
+        } else {
+            /* Folder has children */
+            return true;
+        }
+    } else {
+        /* Didn't get anything back, probably bad mailbox name */
+        return false;
+    }
+    return true;
+}
+
 ?>
