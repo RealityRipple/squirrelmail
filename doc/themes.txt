@@ -8,28 +8,28 @@ description of what the different entries are for.
 
 ---<START>--- 
 <?php
-
-   #  My Theme
-   #  Author:  My Name
-   #  Date:  Today's Date
-   #
-   #  Optional description
  
-   $color[0]   = "#xxxxxx";
-   $color[1]   = "#xxxxxx";
-   $color[2]   = "#xxxxxx";
-   $color[3]   = "#xxxxxx";
-   $color[4]   = "#xxxxxx";
-   $color[5]   = "#xxxxxx";
-   $color[6]   = "#xxxxxx";
-   $color[7]   = "#xxxxxx";
-   $color[8]   = "#xxxxxx";
-   $color[9]   = "#xxxxxx";
-   $color[10]  = "#xxxxxx";
-   $color[11]  = "#xxxxxx";
-   $color[12]  = "#xxxxxx";
-   $color[13]  = "#xxxxxx";
-   $color[14]  = "#xxxxxx";
+    #  My Theme
+    #  Author:  My Name
+    #  Date:  Today's Date
+    #
+    #  Optional description
+  
+    $color[0]   = '#xxxxxx';
+    $color[1]   = '#xxxxxx';
+    $color[2]   = '#xxxxxx';
+    $color[3]   = '#xxxxxx';
+    $color[4]   = '#xxxxxx';
+    $color[5]   = '#xxxxxx';
+    $color[6]   = '#xxxxxx';
+    $color[7]   = '#xxxxxx';
+    $color[8]   = '#xxxxxx';
+    $color[9]   = '#xxxxxx';
+    $color[10]  = '#xxxxxx';
+    $color[11]  = '#xxxxxx';
+    $color[12]  = '#xxxxxx';
+    $color[13]  = '#xxxxxx';
+    $color[14]  = '#xxxxxx';
 
 ?>
 ---<END>---
@@ -51,7 +51,7 @@ b  9: Darker version of #0
 b 10: Darker version of #9
 f 11: Special folders color [Inbox, Trash, Sent]
 b 12: Alternate color for message list [alters between 4 and this one]
-f 13: Color for single-quoted text ("> text") when reading (default:  #800000)
+f 13: Color for single-quoted text ('> text') when reading (default:  #800000)
 f 14: Color for text with more than one quote (default: #FF0000)
 f 15: Non-selectable folders in the left frame (defaults to $color[6])
 

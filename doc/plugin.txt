@@ -12,16 +12,10 @@ Plugin Hooks -> http://www.squirrelmail.org/wiki/wiki.php?DevelopingPlugins
 A FEW NOTES ON THE PLUGIN ARCHITECTURE
 ======================================
 
-The plugin architecture of SquirrelMail is designed to make it
-possible to add new features without having to patch SquirrelMail
-itself. At the moment the plugin part of SquirrelMail should be
-considered "alpha" or "beta" quality code.
-
-Until the functionality and code is more stable, be prepared for
-plugins to suddenly stop working.
-
-Functionality like password changing, displaying ads and calendars
-should be possible to add as plugins.
+The plugin architecture of SquirrelMail is designed to make it possible to
+add new features without having to patch SquirrelMail itself. Functionality
+like password changing, displaying ads and calendars should be possible to
+add as plugins.
 
 
 The idea
@@ -45,9 +39,9 @@ The implementation
 
 In the main SquirrelMail files the file functions/plugin.php. In
 places where hooks are made available they are executed by calling the
-function do_hook("hookname").
+function do_hook('hookname').
 
-The do_hook traverses the array $squirrelmail_plugin_hooks["hookname"]
+The do_hook traverses the array $squirrelmail_plugin_hooks['hookname']
 and executes all the functions that are named in that array.
 
 A plugin must reside in a subdirectory in the plugins/ directory. The
@@ -56,7 +50,7 @@ name of the subdirectory is considered the name of the plugin.
 To start using a plugin, its name must be added to the $plugins array
 in config.php like this:
 
-  $plugins[0] = "plugin_name";
+  $plugins[0] = 'plugin_name';
 
 When a plugin is registered the file plugins/plugin_name/setup.php is
 included and the function squirrelmail_plugin_init_plugin_name is
@@ -75,13 +69,13 @@ initalize a plugin. This function could look something like this:
 function squirrelmail_plugin_init_demo () {
   global $squirrelmail_plugin_hooks;
 
-  $squirrelmail_plugin_hooks["generic_header"]["demo"] = "plugin_demo_header";
-  $squirrelmail_plugin_hooks["menuline"]["demo"] = "plugin_demo_menuline";
+  $squirrelmail_plugin_hooks['generic_header']['demo'] = 'plugin_demo_header';
+  $squirrelmail_plugin_hooks['menuline']['demo'] = 'plugin_demo_menuline';
 }
 
 Note that the SquirrelMail files assume that all other SquirrelMail
 files are available as ../directory/file. This means that if some file
-in the plugin directory is requested, it must do a chdir("..") before
+in the plugin directory is requested, it must do a chdir('..') before
 including any of the standard SquirrelMail files.
 
 
@@ -201,12 +195,12 @@ three hooks you will need to use.
          ?>
          <table width=50% cellpadding=3 cellspacing=0 border=0 align=center>
             <tr>
-               <td bgcolor="<? echo $color[9] ?>">
+               <td bgcolor="<?php echo $color[9] ?>">
                   <a href="../plugins/YOUR_PLUGIN/YOUR_OPTIONS.php">YOUR OPTIONS NAME</a>
                </td>
             </tr>
             <tr>
-               <td bgcolor="<? echo $color[0] ?>">
+               <td bgcolor="<?php echo $color[0] ?>">
                   YOUR DESCRIPTION
                </td>
             </tr>
