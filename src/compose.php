@@ -93,9 +93,18 @@
    $send_to = stripslashes($send_to);
 
    if ($send_to_cc != "") {
-      $send_to_cc = strtolower($send_to_cc);
-      $send_to_cc = ereg_replace("\"", "", $send_to_cc);
-      $send_to_cc = stripslashes($send_to_cc);
+      $send_to_cc = ereg_replace(";", ",", $send_to_cc);
+      $sendcc = explode(",", $send_to_cc);
+      $send_to_cc = "";
+
+      for ($i = 0; $i < count($sendcc); $i++) {
+         $sendcc[$i] = encodeEmailAddr($sendcc[$i]);
+         $sendcc[$i] = decodeEmailAddr($sendcc[$i]);
+         if ($i == count($send_cc) - 1)
+            $send_to_cc .= trim($sendcc[$i]);
+         else
+            $send_to_cc .= trim($sendcc[$i]) . ", ";
+      }
    }
 
    echo "<FORM action=\"compose_send.php\" METHOD=POST>\n";
