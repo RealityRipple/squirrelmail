@@ -1551,18 +1551,25 @@ sub save_data {
    print FILE "if (defined('config_php'))\n   return;\n";
    print FILE "define('config_php', true);\n\n";
 
+   print FILE "\tglobal \$print_config_version, \$config_version, \$config_use_color;\n";
+
    if ($print_config_version) {
       print FILE "\t\$config_version = \"$print_config_version\";\n";
    }
    print FILE "\t\$config_use_color = $config_use_color;\n"; 
    print FILE "\n";
-   
+
+   print FILE "\tglobal \$org_name, \$org_logo, \$org_title;\n";
    print FILE "\t\$org_name   = \"$org_name\";\n";
    print FILE "\t\$org_logo   = \"$org_logo\";\n";
    print FILE "\t\$org_title  = \"$org_title\";\n";
 
    print FILE "\n";
 
+   print FILE "\tglobal \$domain, \$imapServerAddress, \$imapPort;\n";
+   print FILE "\tglobal \$useSendmail, \$smtpServerAddress, \$smtpPort;\n";
+   print FILE "\tglobal \$sendmail_path, \$use_authenticated_smtp, \$imap_server_type;\n";
+   print FILE "\tglobal \$invert_time, \$optional_delimiter;\n";
    print FILE "\t\$domain                 = \"$domain\";\n";
    print FILE "\t\$imapServerAddress      = \"$imapServerAddress\";\n";
    print FILE "\t\$imapPort               =  $imapPort;\n";
@@ -1577,6 +1584,12 @@ sub save_data {
    
    print FILE "\n";
 
+   print FILE "\tglobal \$default_folder_prefix, \$trash_folder, \$sent_folder;\n";
+   print FILE "\tglobal \$default_move_to_trash, \$default_move_to_sent;\n";
+   print FILE "\tglobal \$show_prefix_option, \$list_special_folders_first;\n";
+   print FILE "\tglobal \$use_special_folder_color, \$auto_expunge, \$default_sub_of_inbox;\n";
+   print FILE "\tglobal \$show_contain_subfolders_option, \$default_unseen_notify;\n";
+   print FILE "\tglobal \$default_unseen_type;\n";
    print FILE "\t\$default_folder_prefix            = \"$default_folder_prefix\";\n";
    print FILE "\t\$trash_folder                     = \"$trash_folder\";\n";
    print FILE "\t\$sent_folder                      = \"$sent_folder\";\n";
@@ -1592,6 +1605,8 @@ sub save_data {
    print FILE "\t\$default_unseen_type              =  $default_unseen_type;\n";
    print FILE "\n";
 
+   print FILE "\tglobal \$default_charset, \$data_dir, \$attachment_dir;\n";
+   print FILE "\tglobal \$default_left_size, \$force_username_lowercase;\n";
    print FILE "\t\$default_charset          = \"$default_charset\";\n";
    print FILE "\t\$data_dir                 = \"$data_dir\";\n";
    print FILE "\t\$attachment_dir           = \"$attachment_dir\";\n";
@@ -1600,12 +1615,14 @@ sub save_data {
 
    print FILE "\n";
 
+   print FILE "\tglobal \$plugins;\n";
    for ($ct=0; $ct <= $#plugins; $ct++) {
       print FILE "\t\$plugins[$ct] = \"$plugins[$ct]\";\n";
    }
    
    print FILE "\n";
 
+   print FILE "\tglobal \$theme_css, \$theme;\n";
    print FILE "\t\$theme_css = \"$theme_css\";\n";
    for ($count=0; $count <= $#theme_name; $count++) {
       print FILE "\t\$theme[$count][\"PATH\"] = \"$theme_path[$count]\";\n";
@@ -1617,6 +1634,7 @@ sub save_data {
    if ($default_use_javascript_addr_book ne "true") {
       $default_use_javascript_addr_book = "false";
    }   
+   print FILE "\tglobal \$default_use_javascript_addr_book, \$ldap_server;\n";
    print FILE "\t\$default_use_javascript_addr_book = $default_use_javascript_addr_book;\n";
    for ($count=0; $count <= $#ldap_host; $count++) {
       print FILE "\t\$ldap_server[$count] = Array(\n";
@@ -1637,6 +1655,7 @@ sub save_data {
       print FILE ");\n\n";
    }
 
+   print FILE "\tglobal \$motd;\n";
    print FILE "\t\$motd = \"$motd\";\n";
 
    print FILE "?>\n";
