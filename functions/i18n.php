@@ -19,7 +19,8 @@
 function charset_decode ($charset, $string) {
     global $languages, $squirrelmail_language;
 
-    if (function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+    if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
+        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
         $string = $languages[$squirrelmail_language]['XTRA_CODE']('decode', $string);
     }
 
