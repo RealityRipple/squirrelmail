@@ -20,11 +20,18 @@
 require_once(SM_PATH . 'functions/global.php');
 
 /**
- * Decodes a string to the internal encoding from the given charset
+ * Converts string from given charset to charset, that can be displayed by user translation.
+ *
+ * Function by default returns html encoded strings, if translation uses different encoding.
+ * If Japanese translation is used - function returns string converted to euc-jp
+ * If iconv or recode functions are enabled and translation uses utf-8 - function returns utf-8 encoded string.
+ * If $charset is not supported - function returns unconverted string.
  * 
+ * sanitizing of html tags is also done by this function.
+ *
  * @param string $charset
  * @param string $string Text to be decoded
- * @return string Decoded text
+ * @return string decoded string
  */
 function charset_decode ($charset, $string) {
     global $languages, $squirrelmail_language, $default_charset;
@@ -221,7 +228,15 @@ function charset_decode ($charset, $string) {
 }
 
 
-/* Remove all 8 bit characters from all other ISO-8859 character sets */
+/**
+ * 8bit cleanup functions.
+ *
+ * Replaces all 8 bit characters from ISO-8859 character sets with '?'
+ * Legacy function used for unsupported ISO-8859 charsets
+ * 
+ * @param string $string string that has to be cleaned
+ * @return string cleaned string
+ */
 function charset_decode_iso_8859_default ($string) {
     return (strtr($string, "\240\241\242\243\244\245\246\247".
                     "\250\251\252\253\254\255\256\257".
@@ -242,9 +257,14 @@ function charset_decode_iso_8859_default ($string) {
 
 }
 
-/*
+/**
+ * ns_4551_1 decoding function
+ *
  * This is the same as ISO-646-NO and is used by some
  * Microsoft programs when sending Norwegian characters
+ * 
+ * @param string $string
+ * @return string 
  */
 function charset_decode_ns_4551_1 ($string) {
     /*
@@ -258,17 +278,30 @@ function charset_decode_ns_4551_1 ($string) {
 }
 
 
-/*
+/**
  * Set up the language to be output
  * if $do_search is true, then scan the browser information
  * for a possible language that we know
+ *
+ * Function sets system locale environment (LC_ALL, LANG, LANGUAGE), 
+ * gettext translation bindings and html header information.
+ *
+ * Function returns error codes, if there is some fatal errors.
+ *  0 = no error, 
+ *  1 = mbstring support is not present, 
+ *  2 = mbstring support is not present, user's translation reverted to en_US.
+ *
+ * @param string $sm_language translation used by user's interface
+ * @param bool $do_search use browser's preferred language detection functions. Defaults to false.
+ * @param bool $default set $sm_language to $squirrelmail_default_language if language detection fails or language is not set. Defaults to false.
+ * @return int function execution error codes. 
  */
 function set_up_language($sm_language, $do_search = false, $default = false) {
 
     static $SetupAlready = 0;
     global $use_gettext, $languages,
            $squirrelmail_language, $squirrelmail_default_language,
-           $sm_notAlias;
+           $sm_notAlias, $username, $data_dir;
 
     if ($SetupAlready) {
         return;
@@ -328,10 +361,15 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
         if ($squirrelmail_language == 'ja_JP') {
             header ('Content-Type: text/html; charset=EUC-JP');
             if (!function_exists('mb_internal_encoding')) {
-                echo _("You need to have php4 installed with the multibyte string function enabled (using configure option --enable-mbstring).");
-		// Revert to English link has to be added.
+		// Error messages can't be displayed here
+		$error = 1;
+		// Revert to English if possible.
+		if (function_exists('setPref')  && $username!='' && $data_dir!="") {
+		    setPref($data_dir, $username, 'language', "en_US");
+    		    $error = 2;		
+		}
 		// stop further execution in order not to get php errors on mb_internal_encoding().
-		return;
+		return $error;
             }
             if (function_exists('mb_language')) {
                 mb_language('Japanese');
@@ -342,19 +380,25 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
         header( 'Content-Type: text/html; charset=' . $languages[$sm_notAlias]['CHARSET'] );
     }
 }
+    return 0;
 }
 
+/**
+ * Sets default_charset variable according to the one that is used by user's translations.
+ *
+ * Function changes global $default_charset variable in order to be sure, that it
+ * contains charset used by user's translation. Sanity of $squirrelmail_default_language
+ * and $default_charset combination provided in SquirrelMail config is also tested.
+ *
+ * There can be a $default_charset setting in the
+ * config.php file, but the user may have a different language
+ * selected for a user interface. This function checks the
+ * language selected by the user and tags the outgoing messages
+ * with the appropriate charset corresponding to the language
+ * selection. This is "more right" (tm), than just stamping the
+ * message blindly with the system-wide $default_charset.
+ */
 function set_my_charset(){
-
-    /*
-     * There can be a $default_charset setting in the
-     * config.php file, but the user may have a different language
-     * selected for a user interface. This function checks the
-     * language selected by the user and tags the outgoing messages
-     * with the appropriate charset corresponding to the language
-     * selection. This is "more right" (tm), than just stamping the
-     * message blindly with the system-wide $default_charset.
-     */
     global $data_dir, $username, $default_charset, $languages, $squirrelmail_default_language;
 
     $my_language = getPref($data_dir, $username, 'language');
@@ -382,7 +426,26 @@ if (! isset($squirrelmail_language)) {
     $squirrelmail_language = '';
 }
 
-/* This array specifies the available languages. */
+/**
+ * Array specifies the available translations.
+ *
+ * Structure of array:
+ * $languages['language']['variable'] = 'value'
+ * 
+ * Possible 'variable' names:
+ *  NAME      - Translation name in English
+ *  CHARSET   - Encoding used by translation
+ *  ALIAS     - used when 'language' is only short name and 'value' should provide long language name
+ *  ALTNAME   - Native translation name. Any 8bit symbols must be html encoded.
+ *  LOCALE    - Full locale name (in xx_XX.charset format)
+ *  DIR       - Text direction. Used to define Right-to-Left languages. Possible values 'rtl' or 'ltr'. If undefined - defaults to 'ltr'
+ *  XTRA_CODE - translation uses special functions. 'value' provides name of that extra function
+ * 
+ * Each 'language' definition requires NAME+CHARSET or ALIAS variables.
+ *
+ * @name $languages
+ * @global $languages
+ */
 $languages['bg_BG']['NAME']    = 'Bulgarian';
 $languages['bg_BG']['ALTNAME'] = '&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1080;';
 $languages['bg_BG']['CHARSET'] = 'windows-1251';
@@ -473,6 +536,7 @@ $languages['it']['ALIAS'] = 'it_IT';
 $languages['ja_JP']['NAME']    = 'Japanese';
 $languages['ja_JP']['ALTNAME'] = '&#26085;&#26412;&#35486;';
 $languages['ja_JP']['CHARSET'] = 'iso-2022-jp';
+$languages['ja_JP']['LOCALE'] = 'ja_JP.EUC-JP';
 $languages['ja_JP']['XTRA_CODE'] = 'japanese_charset_xtra';
 $languages['ja']['ALIAS'] = 'ja_JP';
 
@@ -628,9 +692,25 @@ elseif ($gettext_flags == 0) {
 }
 
 
-/*
+/**
  * Japanese charset extra function
  *
+ * Action performed by function is defined by first argument.
+ * Default return value is defined by second argument.
+ * Use of third argument depends on action.
+ *
+ * @param string action performed by this function. 
+ *    possible values:
+ * 	decode - convert returned string to euc-jp. third argument unused
+ *	encode - convert returned string to jis. third argument unused
+ *	strimwidth - third argument=$width. trims string to $width symbols.
+ *	encodeheader - create base64 encoded header in iso-2022-jp. third argument unused
+ *	decodeheader - return human readable string from mime header. string is returned in euc-jp. third argument unused
+ *	downloadfilename - third argument $useragent. Arguments provide browser info. Returns shift-jis or euc-jp encoded file name
+ *	wordwrap - third argument=$wrap. wraps text at $wrap symbols
+ *	utf7-imap_encode - returns string converted from euc-jp to utf7-imap. third argument unused
+ *	utf7-imap_decode - returns string converted from utf7-imap to euc-jp. third argument unused
+ * @param string default return value
  */
 function japanese_charset_xtra() {
     $ret = func_get_arg(1);  /* default return value */
@@ -759,9 +839,16 @@ function japanese_charset_xtra() {
 }
 
 
-/*
- * Korean charset extra function
- * Hangul(Korean Character) Attached File Name Fix.
+/**
+ * Korean charset extra functions
+ *
+ * Action performed by function is defined by first argument.
+ * Default return value is defined by second argument.
+ *
+ * @param string action performed by this function. 
+ *    possible values:
+ *	downloadfilename - Hangul(Korean Character) Attached File Name Fix.
+ * @param string default return value
  */
 function korean_charset_xtra() {
     
@@ -782,7 +869,6 @@ function korean_charset_xtra() {
         }
 
     }
-
     return $ret;
 }
 
