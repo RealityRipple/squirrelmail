@@ -4,15 +4,16 @@
  * ------------------
  * Squirrelspell module
  *
- * Copyright (c) 1999-2003 The SquirrelMail development team
+ * Copyright (c) 1999-2004 The SquirrelMail development team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This module saves the added words into the user dictionary. Called
  * after CHECK_ME module.                                            
  *
- * $Id$
- *
- * @author Konstantin Riabitsev <icon@duke.edu> ($Author$)
+ * @author Konstantin Riabitsev <icon@duke.edu>
+ * @version $Id$
+ * @package plugins
+ * @subpackage squirrelspell
  */
 
 global $SQSPELL_VERSION, $SQSPELL_APP_DEFAULT;
@@ -52,7 +53,7 @@ if (!$words){
     $lang_words=sqspell_getLang($words, $langs[$i]);
     if ($langs[$i]==$sqspell_use_app){
       if (!$lang_words) {
-	$lang_words="# $langs[$i]\n";
+          $lang_words="# $langs[$i]\n";
       }
       $lang_words .= $new_words;
     }

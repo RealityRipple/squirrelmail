@@ -4,16 +4,16 @@
  * ----------------
  * Squirrelspell module
  *
- * Copyright (c) 1999-2003 The SquirrelMail development team
+ * Copyright (c) 1999-2004 The SquirrelMail development team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This module changes the international dictionaries selection
  * for the user. Called after LANG_SETUP module.                
  *
- * $Id$
- *
- * @author Konstantin Riabitsev <icon@duke.edu> ($Author$)
- * @version $Date$
+ * @author Konstantin Riabitsev <icon@duke.edu>
+ * @version $Id$
+ * @package plugins
+ * @subpackage squirrelspell
  */
 
 global $SQSPELL_APP_DEFAULT;
@@ -40,19 +40,19 @@ if (sizeof($use_langs)){
        * to make the default dictionary first in line.
        */
       if (in_array($lang_default, $use_langs)){
-	/**
-	 * See if the user was dumb and chose a default dictionary
-	 * to be something other than the ones he selected.
-	 */
-	$hold = array_shift($use_langs);
-	$lang_string = join(", ", $use_langs);
-	$lang_string = str_replace("$lang_default", "$hold", $lang_string);
-	$lang_string = $lang_default . ", " . $lang_string;
+          /**
+           * See if the user was dumb and chose a default dictionary
+           * to be something other than the ones he selected.
+           */
+          $hold = array_shift($use_langs);
+          $lang_string = join(", ", $use_langs);
+          $lang_string = str_replace("$lang_default", "$hold", $lang_string);
+          $lang_string = $lang_default . ", " . $lang_string;
       } else {
-	/** 
-	 * Yes, he is dumb.
-	 */
-	$lang_string = join(', ', $use_langs);
+          /** 
+           * Yes, he is dumb.
+           */
+          $lang_string = join(', ', $use_langs);
       }
     } else {
       /**
@@ -86,13 +86,13 @@ if (sizeof($use_langs)){
 }
 $old_lang_string = join(", ", $langs);
 $words = str_replace("# LANG: $old_lang_string", "# LANG: $lang_string", 
-		     $words);
+     $words);
 /**
  * Write it down where the sun don't shine.
  */
 sqspell_writeWords($words);
 sqspell_makePage(_("International Dictionaries Preferences Updated"), 
-		 null, $msg);
+    null, $msg);
 
 /**
  * For Emacs weenies:
