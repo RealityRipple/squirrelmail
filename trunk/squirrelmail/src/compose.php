@@ -73,7 +73,7 @@ sqgetGlobalVar('draft_id',$draft_id);
 sqgetGlobalVar('ent_num',$ent_num);
 sqgetGlobalVar('saved_draft',$saved_draft);
 sqgetGlobalVar('delete_draft',$delete_draft);
-sqgetGlobalVar('startmessage',$startMessage);
+sqgetGlobalVar('startMessage',$startMessage);
 
 /** POST VARS */
 sqgetGlobalVar('sigappend',             $sigappend,             SQ_POST);
