@@ -79,8 +79,7 @@ function sortSpecialMbx($a, $b) {
     } else {
         $bcmp = '2' . $b->mailboxname_full;
     }
-    if ($acmp == $bcmp) return 0;
-    return ($acmp > $bcmp) ? 1: -1;
+    return user_strcasecmp($acmp, $bcmp);	
 }
 
 function compact_mailboxes_response($ary)
@@ -836,7 +835,7 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
                 the list, despite having "special folders at top" option set.
                 Need a better method than this.
             */
-
+/*
             if ($mailbox == 'INBOX') {
                 $mbx->is_special = true;
             } elseif (stristr($trash_folder , $mailbox)) {
@@ -851,7 +850,7 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
                 case 'INBOX':
                     $mbx->is_inbox = true;
                     $mbx->is_special = true;
-		    $mbx_ary[$i]['noselect'] = false;
+                    $mbx_ary[$i]['noselect'] = false;
                     break;
                 case $trash_folder:
                     $mbx->is_trash = true;
@@ -866,6 +865,13 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
                     $mbx->is_special = true;
                     break;
             }
+*/
+            $mbx->is_special |= ($mbx->is_inbox = (strtoupper($mailbox) == 'INBOX'));
+            $mbx->is_special |= ($mbx->is_trash = isTrashMailbox($mailbox));
+            $mbx->is_special |= ($mbx->is_sent = isSentMailbox($mailbox));
+            $mbx->is_special |= ($mbx->is_draft = isDraftMailbox($mailbox));
+            if (!$mbx->is_special)
+                $mbx->is_special = do_hook_function('special_mailbox', $mailbox);
             
             if (isset($mbx_ary[$i]['unseen'])) {
                 $mbx->unseen = $mbx_ary[$i]['unseen'];
