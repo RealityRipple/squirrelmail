@@ -7,10 +7,14 @@
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * IMAP asearch routines
- * @author Alex Lemaresquier - Brainstorm - alex at brainstorm.fr
+ *
+ * $Id$
  * @package squirrelmail
  * @see search.php
+ * @link ftp://ftp.rfc-editor.org/in-notes/rfc3501.txt
+ * @author Alex Lemaresquier - Brainstorm - alex at brainstorm.fr
  *
+ * Subfolder search idea from Patch #806075 by Thomas Pohl xraven at users.sourceforge.net. Thanks Thomas!
  */
 
 /** This functionality requires the IMAP and date functions */
@@ -22,7 +26,7 @@ require_once(SM_PATH . 'functions/date.php');
  */
 $imap_asearch_debug_dump = FALSE;
 
-/** Array of imap SEARCH opcodes
+/** Imap SEARCH keys
  * @global array $imap_asearch_opcodes
  */
 $imap_asearch_opcodes = array(
@@ -89,7 +93,8 @@ $imap_error_titles = array(
 	'OK' => '',
 	'NO' => _("ERROR : Could not complete request."),
 	'BAD' => _("ERROR : Bad or malformed request."),
-	'BYE' => _("ERROR : Imap server closed the connection.")
+	'BYE' => _("ERROR : Imap server closed the connection."),
+	'' => _("ERROR : Connection dropped by imap-server.")
 );
 
 /**
@@ -99,10 +104,11 @@ $imap_error_titles = array(
  * @global array imap_error_titles
  * @param string $response the imap server response code
  * @param string $query the failed query
- * @param string $message the error message
+ * @param string $message an optional error message
+ * @param string $link an optional link to try again
  */
 //@global array color sm colors array
-function sqimap_asearch_error_box($response, $query, $message)
+function sqimap_asearch_error_box($response, $query, $message, $link = '')
 {
 	global $imap_error_titles;
 
@@ -111,9 +117,12 @@ function sqimap_asearch_error_box($response, $query, $message)
 		$title = _("ERROR : Unknown imap response.");
 	else
 		$title = $imap_error_titles[$response];
-	$message_title = _("Reason Given: ");
+	if ($link == '')
+		$message_title = _("Reason Given: ");
+	else
+		$message_title = _("Possible reason : ");
 	if (function_exists('sqimap_error_box'))
-		sqimap_error_box($title, $query, $message_title, $message);
+		sqimap_error_box($title, $query, $message_title, $message, $link);
 	else {	//Straight copy of 1.5 imap_general.php:sqimap_error_box(). Can be removed at a later time
 		global $color;
     require_once(SM_PATH . 'functions/display_messages.php');
@@ -124,6 +133,8 @@ function sqimap_asearch_error_box($response, $query, $message)
         $string .= $message_title;
     if ($message != '')
         $string .= htmlspecialchars($message);
+    if ($link != '')
+        $string .= $link;
     $string .= "</font><br>\n";
     error_box($string,$color);
 	}
@@ -372,18 +383,22 @@ function sqimap_run_sort($imapConnection, $search_string, $search_charset, $sort
 
 	if ($search_charset == '')
 		$search_charset = 'US-ASCII';
-	$query = 'SORT (' . $sort_criteria . ') ' . strtoupper($search_charset) . ' ALL ' . $search_string;
+	$query = 'SORT (' . $sort_criteria . ') "' . strtoupper($search_charset) . '" ALL ' . $search_string;
 	s_debug_dump('C:', $query);
 	$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, $uid_support);
+	s_debug_dump('S:', $response);
 
 	/* 6.4 try US-ASCII charset if we received a tagged NO response (SHOULD be [BADCHARSET]) */
 	if (($search_charset != 'US-ASCII')  && (strtoupper($response) == 'NO')) {
+		s_debug_dump('S:', $readin);
 		$query = 'SORT (' . $sort_criteria . ') US-ASCII ALL ' . $search_string;
 		s_debug_dump('C:', $query);
 		$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, $uid_support);
+		s_debug_dump('S:', $response);
 	}
 
 	if (strtoupper($response) != 'OK') {
+		s_debug_dump('S:', $readin);
 //	sqimap_asearch_error_box($response, $query, $message);
 //	return array();
 		return sqimap_run_search($imapConnection, $search_string, $search_charset);	// Fell back to standard search
@@ -436,26 +451,40 @@ function sqimap_run_thread($imapConnection, $search_string, $search_charset, $th
 
 	if ($search_charset == '')
 		$search_charset = 'US-ASCII';
-	$query = 'THREAD ' . $thread_algorithm . ' ' . strtoupper($search_charset) . ' ALL ' . $search_string;
+	$query = 'THREAD ' . $thread_algorithm . ' "' . strtoupper($search_charset) . '" ALL ' . $search_string;
 	s_debug_dump('C:', $query);
 	$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, $uid_support);
+	s_debug_dump('S:', $response);
 
 	/* 6.4 try US-ASCII charset if we received a tagged NO response (SHOULD be [BADCHARSET]) */
 	if (($search_charset != 'US-ASCII')  && (strtoupper($response) == 'NO')) {
+		s_debug_dump('S:', $readin);
 		$query = 'THREAD ' . $thread_algorithm . ' US-ASCII ALL ' . $search_string;
 		s_debug_dump('C:', $query);
 		$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, $uid_support);
+		s_debug_dump('S:', $response);
 	}
 
 	if (strtoupper($response) != 'OK') {
+		s_debug_dump('S:', $readin);
+		if (empty($response)) {	//imap server closed connection. We can't go further.
 /* we should at this point:
 	- warn the user that the THREAD call has failed
 	- (offer him a way to) disconnect it permanently in the prefs
 	- perform the regular search instead or provide a way to do it in one click
 */
-//		sqimap_asearch_error_box($response, $query, $message);
-//		return array();
-			return sqimap_run_search($imapConnection, $search_string, $search_charset);	// Fell back to standard search
+			global $sort, $mailbox, $php_self;
+			$message = _("The imap server failed to handle threading.");
+			$unthread = _("Click here to unset thread view for this mailbox and start again.");
+			if (preg_match('/^(.+)\?.+$/', $php_self, $regs))
+				$source_url = $regs[1];
+    	else
+				$source_url = $php_self;
+			$link = '<a href=' . $source_url . '?sort=' . $sort . '&start_messages=1&set_thread=0&mailbox=' . urlencode($mailbox) . '>' . $unthread . '</a>';
+			sqimap_asearch_error_box($response, $query, $message, $link);
+			return array();
+		}
+		return sqimap_run_search($imapConnection, $search_string, $search_charset);	// Fell back to standard search
 	}
 
 	/* Keep going till we find the * THREAD response */
@@ -526,7 +555,9 @@ function sqimap_asearch_get_charset()
  * - if the searched mailbox is the sent folder then TO is being used instead of FROM
  * - reverse order by using REVERSE
  * @param string $mailbox mailbox name to sort
- * @param integer $sort_by sm sort criteria
+ * @param integer $sort_by sm sort criteria index
+ * @global bool $internal_date_sort sort by arrival date instead of message date
+ * @global string $sent_folder sent folder name
  * @return string imap sort criteria
  */
 function sqimap_asearch_get_sort_criteria($mailbox, $sort_by)
@@ -544,10 +575,41 @@ function sqimap_asearch_get_sort_criteria($mailbox, $sort_by)
 }
 
 /**
- * Performs the search, given all the criteria, merging results for every mailbox
- * @return array array(mailbox => array(UIDs))
+ * @param string $cur_mailbox unformatted mailbox name
+ * @param array $boxes_unformatted selectable mailbox unformatted names array (reference)
+ * @return array sub mailboxes unformatted names
  */
-function sqimap_asearch($imapConnection, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $mboxes_array)
+function sqimap_asearch_get_sub_mailboxes($cur_mailbox, $mboxes_array)
+{
+	$sub_mboxes_array = array();
+	$boxcount = count($mboxes_array);
+	for ($boxnum=0; $boxnum < $boxcount; $boxnum++) {
+		if (isBoxBelow($mboxes_array[$boxnum], $cur_mailbox))
+			$sub_mboxes_array[] = $mboxes_array[$boxnum];
+	}
+	return $sub_mboxes_array;
+}
+
+/**
+ * Performs the search, given all the criteria, merging results for every mailbox
+ * @param resource $imapConnection
+ * @param array $mailbox_array
+ * @param array $biop_array
+ * @param array $unop_array
+ * @param array $where_array
+ * @param array $what_array
+ * @param array $exclude_array
+ * @param array $sub_array
+ * @param array $mboxes_array selectable unformatted mailboxes names
+ * @global bool $allow_server_sort comes from config.php
+ * @global integer $sort sm internal sort order
+ * @global bool $allow_thread_sort comes from config.php
+ * @global bool $thread_sort_messages does it really need to global?
+ * @global string $data_dir
+ * @global string $username
+ * @return array $mbox_msgs array(mailbox => array(UIDs))
+ */
+function sqimap_asearch($imapConnection, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array, $mboxes_array)
 {
 	global $allow_server_sort, $sort, $allow_thread_sort, $thread_sort_messages;
 	global $data_dir, $username;
@@ -563,8 +625,10 @@ function sqimap_asearch($imapConnection, $mailbox_array, $biop_array, $unop_arra
 			$next_mailbox = $mailbox_array[$cur_crit];
 			if ($next_mailbox != $cur_mailbox) {
 				$search_string = trim($search_string);	/* Trim out last space */
-				if (($cur_mailbox == 'All Folders') && (!empty($mboxes_array)))
-					$search_mboxes = $mboxes_array;
+				if ($cur_mailbox == 'All Folders')
+						$search_mboxes = $mboxes_array;
+				else if ((!empty($sub_array[$cur_crit - 1])) || (!in_array($cur_mailbox, $mboxes_array)))
+					$search_mboxes = sqimap_asearch_get_sub_mailboxes($cur_mailbox, $mboxes_array);
 				else
 					$search_mboxes = array($cur_mailbox);
 				foreach ($search_mboxes as $cur_mailbox) {
