@@ -30,7 +30,7 @@ function squirrelmail_administrator_optpage_register_block() {
     $optpage_blocks[] = array(
         'name' => _("Administration"),
         'url'  => '../plugins/administrator/options.php',
-        'desc' => _("This module allows administrators to run SquirrelMail configuration remotely."),
+        'desc' => _("This module allows administrators to manage SquirrelMail main configuration remotely."),
         'js'   => false
     );
 }
