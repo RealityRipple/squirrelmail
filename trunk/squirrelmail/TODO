@@ -13,7 +13,6 @@ initials = taken by that person
   -     Filters
   -     Better inline HTML support including graphics (content-disposition)
   -     Maybe a rewrite of mime.php (see Gustav before any work is done)
-  -     Better handling emptying Trash folder.  Some servers don't allow deleting it (Courier)
   -     Make Location redirects absolute rather than relative (index.php)
   -     Foreground themes
 (lme)   Configure script
@@ -26,3 +25,4 @@ Finished:
 (lme) (24.3.00) Add "subscribe" to folders section
 (pl)  (25.3.00) LDAP support for address books
 (pl)  (2.4.00)  Personal address book management
+(nre) (2.4.00)  Better handling emptying Trash folder.  Some servers don't allow deleting it (Courier)
