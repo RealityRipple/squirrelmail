@@ -15,7 +15,7 @@
  * Will verify the input against a set of criteria:
  * is every field supplied, does verify password match,
  * does current password validate, ..
- * These criteria are (for now) backend-independant.
+ * These criteria are (for now) backend-independent.
  *
  * @return array Array with zero or more error messages.
  */
