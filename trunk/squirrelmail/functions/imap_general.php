@@ -31,17 +31,41 @@ function sqimap_session_id($unique_id = false) {
  * This is to allow proper session number handling.
  */
 function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$response, &$message, $unique_id = false) {
-    $sid = sqimap_session_id($unique_id);
-    fputs ($imap_stream, $sid . ' ' . $query . "\r\n");
-    $read = sqimap_read_data_list ($imap_stream, $sid, $handle_errors, $response, $message, $query );
-    return $read;
+    if ($imap_stream) {
+	$sid = sqimap_session_id($unique_id);
+	fputs ($imap_stream, $sid . ' ' . $query . "\r\n");
+	$read = sqimap_read_data_list ($imap_stream, $sid, $handle_errors, $response, $message, $query );
+	return $read;
+    } else {
+        global $squirrelmail_language, $color;
+        set_up_language($squirrelmail_language);
+        require_once(SM_PATH . 'functions/display_messages.php');
+        $string = "<b><font color=$color[2]>\n" .
+                _("ERROR : No available imapstream.") .
+                "</b></font>\n";
+        error_box($string,$color);
+	return false;
+    }
+    
 }
 
 function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response, &$message, $unique_id = false) {
-    $sid = sqimap_session_id($unique_id);
-    fputs ($imap_stream, $sid . ' ' . $query . "\r\n");
-    $read = sqimap_read_data ($imap_stream, $sid, $handle_errors, $response, $message, $query);
-    return $read;
+    if ($imap_stream) {
+        $sid = sqimap_session_id($unique_id);
+	fputs ($imap_stream, $sid . ' ' . $query . "\r\n");
+	$read = sqimap_read_data ($imap_stream, $sid, $handle_errors, $response, $message, $query);
+	return $read;
+    } else {
+        global $squirrelmail_language, $color;
+        set_up_language($squirrelmail_language);
+        require_once(SM_PATH . 'functions/display_messages.php');
+        $string = "<b><font color=$color[2]>\n" .
+                _("ERROR : No available imapstream.") .
+                "</b></font>\n";
+        error_box($string,$color);
+	return false;
+    }
+    
 }
 
 
