@@ -1,0 +1,27 @@
+Master Change Password plugin
+-----------------------------
+
+WHAT'S THIS?
+This plugin is a general framework for enabling the user to
+change his/her password. It allows for different backend
+to perform this task on different systems.
+
+STATUS
+Development
+
+CONFIGURATION
+Edit the file config.php to set the backend you want to use.
+Probably, you need to set some config vars in the backend too
+(backend/<yourbackend>.php).
+
+BACKENDS
+-
+-
+-
+
+
+AUTHORS
+
+
+
+$Id$
