@@ -43,6 +43,9 @@ if (!isset($passed_ent_id)) {
 }
 
 $message = &$messages[$mbx_response['UIDVALIDITY']]["$passed_id"];
+if (!is_object($message)) {
+    $message = sqimap_get_message($imapConnection,$passed_id, $mailbox);
+}
 $subject = $message->rfc822_header->subject;
 $message = &$message->getEntity($ent_id);
 $header = $message->header;
