@@ -818,15 +818,32 @@ function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN,
          * The References header should really be the old Referenced header
          * with the message ID appended, and now it is (jmunro)
          */
-        $hdr = sqimap_get_small_header ($imap_stream, $reply_id, false);
-        if(strlen($hdr->message_id) > 2) {
+	$sid = sqimap_session_id(); 
+	$query = "$sid FETCH $reply_id (BODY.PEEK[HEADER.FIELDS (Message-Id In-Reply-To)])\r\n";
+	fputs ($imap_stream, $query);
+	$read_list = sqimap_read_data_list($imap_stream, $sid, true, $response, $message);
+	$message_id = '';
+	$in_reply_to = '';
+	foreach ($read_list as $read) {
+	    foreach ($read as $r) {
+		if (preg_match("/^message-id:(.*)/iA", $r, $regs)) {
+		    $message_id = trim($regs[1]);
+		}
+		if (preg_match("/^in-reply-to:(.*)/iA", $r, $regs)) {
+		    $in_reply_to = trim($regs[1]);
+		}
+	    }
+	}
+ 
+        if(strlen($message_id) > 2) {
             $refs = get_reference_header ($imap_stream, $reply_id);
-            $inreplyto = $hdr->message_id;
-            $old_reply_to = $hdr->inrepto;
+            $inreplyto = $message_id;
+            $old_reply_to = $in_reply_to;
             $refer = calculate_references ($refs, $inreplyto, $old_reply_to);
             $more_headers['In-Reply-To'] = $inreplyto;
             $more_headers['References']  = $refer;
         }
+
     }
     if ($default_use_priority) {
         $more_headers = array_merge($more_headers, createPriorityHeaders($prio));
