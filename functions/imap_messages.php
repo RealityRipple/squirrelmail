@@ -21,7 +21,7 @@
    function sqimap_messages_delete ($imap_stream, $start, $end, $mailbox) {
       global $move_to_trash, $trash_folder, $auto_expunge;
 
-      if (($move_to_trash == true) && (sqimap_mailbox_exists($imap_stream, $trash_folder))) {
+      if (($move_to_trash == true) && (sqimap_mailbox_exists($imap_stream, $trash_folder) && ($mailbox != $trash_folder))) {
          sqimap_messages_copy ($imap_stream, $start, $end, $trash_folder);
          sqimap_messages_flag ($imap_stream, $start, $end, "Deleted");
       } else {
