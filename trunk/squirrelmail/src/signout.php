@@ -17,19 +17,19 @@ require_once('../functions/plugin.php');
 require_once('../functions/strings.php');
 
 /* Erase any lingering attachments */
-if (! isset($attachments)) {
-    $attachments = array();
-}
-$hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-foreach ($attachments as $info) {
-    $attached_file = "$hashed_attachment_dir/$info[localfilename]";
-    if (file_exists($attached_file)) {
-        unlink($attached_file);
+if (isset($attachments) && is_array($attachments) 
+    && sizeof($attachments)){
+    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+    foreach ($attachments as $info) {
+        $attached_file = "$hashed_attachment_dir/$info[localfilename]";
+        if (file_exists($attached_file)) {
+            unlink($attached_file);
+        }
     }
 }
 
 if (!isset($frame_top)) {
-     $frame_top = '_top';
+    $frame_top = '_top';
 }
 
 /* If a user hits reload on the last page, $base_uri isn't set
