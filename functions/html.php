@@ -79,7 +79,7 @@
 
     /* handy function to set url vars */
     /* especially usefull when $url = $PHP_SELF */
-    function set_url_var($url, $var, $val=0) {
+    function set_url_var($url, $var, $val=0, $link=true) {
         $k = '';
         $ret = '';
         $pat_a = array (
@@ -88,7 +88,7 @@
                        '/.+(\\?'.$var.')=(.*)$/AU',     /* at front and only var */
                        '/.+(\\&'.$var.')=(.*)$/AU'      /* at the end */
                      );
-//	preg_replace('/&amp;/','&',$url);	     
+	preg_replace('/&amp;/','&',$url);	     
         switch (true) {
             case (preg_match($pat_a[0],$url,$regs)):
                 $k = $regs[1];
@@ -120,7 +120,9 @@
         if ($k) {
             if ($val) {
                 $rpl = "$k=$val";
-//		$rpl = preg_replace('/&/','&amp;',$rpl);
+		if ($link) {
+		    $rpl = preg_replace('/&/','&amp;',$rpl);
+		}
             } else {
                 $rpl = '';
             }
