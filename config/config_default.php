@@ -277,7 +277,12 @@
  
  $invert_time = false;
 
- // This should be a unique string, unique to your server.  Something
- // that nobody would guess, and nobody can find out. 
- $otp_pad = "SecretKey$domain";
+ // To install plugins, just add elements to this array that have
+ // the plugin directory name relative to the /plugins/ directory.
+ // For instance, for the "sqclock" plugin, you'd put a line like
+ // the following:
+ //   $plugins[0] = "sqclock";
+
+ $plugins[0] = "attachment_common";
+
 ?>
