@@ -57,7 +57,7 @@
       echo "         <FONT FACE=\"Arial,Helvetica\"><B><CENTER>Messages Deleted</CENTER></B></FONT>";
       echo "   </TD></TR><TR><TD>";
       echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>The selected messages were deleted successfully.<BR>\n";
-      echo "              <A HREF=\"right_main.php?sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\" TARGET=\"right\">";
+      echo "              <A HREF=\"webmail.php?sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\" TARGET=_top>";
       echo "              Click here to return to $mailbox";
       echo "              </A>.";
       echo "      </FONT></CENTER>";
