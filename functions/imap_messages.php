@@ -67,6 +67,7 @@
    // Sort the message list and crunch to be as small as possible
    // (overflow could happen, so make it small if possible)
    function sqimap_message_list_squisher($messages_array) {
+      if( !is_array( $messages_array ) ) return;
       sort($messages_array, SORT_NUMERIC);
       $msgs_str = '';
       while ($messages_array) {
