@@ -23,6 +23,8 @@
       include("../functions/mime.php");
    if (!isset($date_php))
       include("../functions/date.php");
+	if (!isset($url_parser_php)) 
+		include("../functions/url_parser.php");
 
    include("../src/load_prefs.php");
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
@@ -47,25 +49,35 @@
       echo "<table width=99% cellpadding=2 cellspacing=0 border=0 align=center>\n";
       echo "<tr><td>";
 
-      echo "<table width=100% cellpadding=0 cellspacing=0 border=0>";
       for ($i=1; $i < count($read)-1; $i++) {
          $line = htmlspecialchars($read[$i]);
-         if (eregi("^[ |\t]", $line)) {
-            $second = $line;
-            $first = "";
-         } else if (eregi("^([^:|^\s]+):(.+)", $line, $regs)) {
-            $first = $regs[1];
-            $second = $regs[2];
+			if (eregi("^&gt;", $line)) {
+				$second[$i] = $line;
+				$first[$i] = "&nbsp;";
+				$cnum++;
+         } else if (eregi("^[ |\t]", $line)) {
+            $second[$i] = $line;
+            $first[$i] = "";
+         } else if (eregi("^([^:]+):(.+)", $line, $regs)) {
+            $first[$i] = $regs[1] . ":";
+            $second[$i] = $regs[2];
+				$cnum++;
          } else {
-            $second = trim($line);
-            $first = "";
+            $second[$i] = trim($line);
+            $first[$i] = "";
          }
-         echo "<tr><td align=right valign=top>";
-         if ($first) echo "<tt><b>$first:</b></tt>";
-         else        echo " ";
-         echo "</td><td valign=top nowrap><tt>$second</tt></td></tr>";
+		}
+		for ($i=0; $i < count($second); $i = $j) {
+			$f = $first[$i];
+			$s = nl2br($second[$i]);
+			$j = $i + 1;
+			while ($first[$j] == "" && $j < count($first)) {
+				$s .= "&nbsp;&nbsp;&nbsp;&nbsp;" . nl2br($second[$j]);
+				$j++;
+			}
+			parseEmail($s);
+			echo "<nobr><tt><b>$f</b>$s</tt></nobr>";
       }
-      echo "</table>";
       echo "</td></tr></table>\n";
       echo "</body></html>";
       sqimap_mailbox_close($imapConnection);
