@@ -422,6 +422,30 @@
          // Set $default_charset to correspond with the user's selection
          // of language interface.
          set_my_charset();
+
+         // This is to change all newlines to \n
+	 // We'll change them to \r\n later (in the sendMessage function)
+	 $body = str_replace("\r\n", "\n", $body);
+	 $body = str_replace("\r", "\n", $body);
+	 
+	 // Rewrap $body so that no line is bigger than $editor_size
+	 // This should only really kick in the sqWordWrap function
+	 // if the browser doesn't support "HARD" as the wrap type
+	 $body = explode("\n", $body);
+	 $newBody = '';
+	 foreach ($body as $line) {
+	    $line = trim($line);
+	    if (strlen($line) <= $editor_size)
+	       $newBody .= $line . "\n";
+	    else {
+	       sqWordWrap($line, $editor_size) . "\n";
+	       $newBody .= $line;
+	    }
+	 }
+	 $body = $newBody;
+	 
+	 var_dump($body);
+	 
          do_hook("compose_send");
 
          if (! sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id)) {
