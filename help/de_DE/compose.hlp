@@ -3,32 +3,28 @@
       Mail schreiben
    </title>
    <summary>
-      Mit dieser Funktion kannst Du unterschiedliche Nachtichten an
-      unterschiedliche Menschen verschicken - und das alles mit 
-      SquirrelMail.
+      Mit diesem Funktion k&ouml;nnen Sie von SquirrelMail aus Nachrichten an verschiedene Leute 
+      verschicken.
    </summary>
    <description>
       <p>
-      Wenn man "Mail schreiben" ausw&auml;hlt kommt man zu einer 
-      neuen Seite auf der man eine neue Mail erstellen kann. Dort 
-      gibt es dann mehrere Felder und Schaltfl&auml;chen mit denen man 
-      den "Gehalt" der EMail beeinflussen kann. Unter Umst&auml;nden sind 
-      auch schon einige Felder hierbei ausgef&uuml;llt (z.B. die 
-      Absenderadresse)
+      Die Wahl des Erstellen-Men&uuml;s bringt sie auf die "Mail schreiben" Seite.
+      Hier k&ouml;nnen Sie mehrere Felder und ein paar Kn&ouml;pfe finden.
+      Abh&auml;ngig davon wie Sie auf diese Seite kamen, sind einige dieser  
+      Felder schon ausgef&uuml;llt.
       </p>
    </description>
 </chapter>
 
 <section>
    <title>
-      Von:
+      Von
    </title>
    <description>
-      <p>Das <B>Von:</B>-Feld wird nur angezeigt, wenn im Optionen-Men&uuml; multiple 
-      Identit&auml;ten ausgew&auml;hlt sind. Sollte dies der Fall sein, ist es jetzt m&ouml;glich 
-      eine Identit&auml;t auszuw&auml;hlen, d.h auszuw&auml;hlen welches unter welcher
-      EMail-Adresse und unter welchem Namen die EMail verschickt wird. Der Empf&auml;nger kann
-      dann auch auf diese EMail-Adresse antworten.
+      <p>Das <B>Von:</B> Feld wird nur angezeigt wenn Sie "Mehrere Identit&auml;ten" angew&auml;hlt 
+      haben (durch das Optionen, Pers&ouml;nliche Einstellungen Menu). Wenn Sie fertig sind 
+      k&ouml;nnen Sie w&auml;hlen welche Identit&auml;t Sie benutzen m&ouml;chten, z.B. welchen Namen und welche 
+      E-Mail Adresse in der Von-Linie Ihres Mails erscheinen soll.
       </p>
    </description>
 </section>
@@ -39,15 +35,13 @@
    </title>
    <description>
       <p>
-      Als n&auml;chstes kommt das <B>An:</B>-Feld.  In diesem Feld sollte die 
-      EMail-Adresse der Person stehen, an die die Mail geschickt werden soll.
-      Es ist auch m&ouml;glich mehrere Adressen einzugeben - diese m&uuml;ssen jedoch mit 
-      Kommata abgetrennt werden.
-      Nat&uuml;rlich ist es auch m&ouml;glich die Adressen-Schaltfl&auml;che zu dr&uuml;cken, um 
-      das Feld zu f&uuml;llen. Keine Sorge, wenn nicht die gesamte EMail-Adresse
-      lesbar ist - das Eingabefeld hat eine bestimmte L&auml;nge und u.U. ist mehr
-      eingegeben, als dargestellt werden kann. Aber nat&uuml;rlich wird alles genutzt,
-      was in das Feld eingegeben wird. 
+      Als n&auml;chstes kommt das <B>An:</B> Feld.  In diesem Feld sollten Sie  
+      die E-Mail Adresse der Person oder der Personen welchen Sie eine Nachricht schreiben eintragen.  
+Sie k&ouml;nnen so viele Adressen wie sie wollen eingeben, separieren Sie diese 
+      mit einem Komma.  Sie k&ouml;nnen auch den "Andressen" Knopf dr&uuml;cken um eine Adresse 
+      ins Feld einzuf&uuml;gen.  Seien Sie unbesorgt wenn nicht die ganze Adresse angezeigt wird.
+      Das Feld hat eine fixe L&auml;nge, aber alles darin eingef&uuml;gte wird verwendet,
+      sogar wenn es von rechts nach links scrollt.
       </p>
    </description>
 </section>
@@ -58,13 +52,14 @@
    </title>
    <description>
       <p>
-      Als drittes Feld gibt es das <B>CC:</B>-Feld.  CC ist eine Abk&uuml;rzung
-      f&uuml;r <B>C</B>arbon <B>C</B>opy, also "Durchschlag". Vielleicht kann man 
-      es am besten mit einem Memo vergleichen. Es k&ouml;nnen beliebig viele 
-      Menschen in die <B>An:</B>, <B>Cc:</B> und <B>Bcc:</B> Felder eingetragen 
-      werden. Nur die direkten Empf&auml;nger sollten in das <B>An:</B> Feld
-      eingetragen werden - an die Empf&auml;nger der <B>CC:</B> oder der <B>BCC:</B>
-      Felder geht quasi nur eine informative Kopie der Mail. 
+      Nun das <B>CC:</B> Feld.  CC ist eine Abk&uuml;rzung f&uuml;r <B>C</B>arbon 
+      <B>C</B>opy ("Kohlenstoffkopie").  Wenn Sie jemandem eine Kopie ihrer Nachricht senden wollen 
+      k&ouml;nnen Sie dies hier tun.  Stellen Sie es sich als eine Art Notiz vor. 
+      Sie k&ouml;nnen so viele Leute wie Sie wollen in den <B>An:</B>, 
+      <B>CC:</B>, and <B>BCC:</B> Feldern haben.  Nur die Leute, welche die Nachricht direkt 
+      betrifft werden im <B>To:</B> Feld aufgef&uuml;hrt w&auml;hrend Empf&auml;nger f&uuml;r welche  
+      die Nachricht m&ouml;glicherweise nur informativ ist in den <B>CC:</B> und 
+      <B>BCC:</B> Feldern eingetragen sind.
       </p>
    </description>
 </section>
@@ -75,11 +70,9 @@
    </title>
    <description>
       <p>
-      BCC is eine Abk&uuml;rzung f&uuml;r einen <B>b</B>linden Durchschlag
-      (<B>B</B>lind <B>C</B>arbon <B>C</B>opy) - Dieses Feld kann man 
-      nutzen, um jemandem eine Kopie einer Mail zukommen zu lassen, ohne
-      dass es die Empf&auml;nger im <B>An:</B> Feld oder aus dem
-      <B>CC:</B>-Feld erfahren.
+      BCC ist eine Abk&uuml;rzung f&uuml;r <B>B</B>lind <B>C</B>arbon <B>C</B>opy ("Blinde Kohlenstoffkopie").
+      Benutzen Sie dies um jemandem ein E-Mail zuschreiben <I>ohne</I> dass  
+      die Empf&auml;nger in den <B>An:</B> oder <B>CC:</B> Feldern davon wissen.
       </p>
    </description>
 </section>
@@ -90,41 +83,38 @@
    </title>
    <description>
       <p>
-      Eine kurze, pr&auml;gnante &Uuml;berschrift f&uuml;r die gesamte Mail. Nicht vergessen:
-      es ist wichtig hier etwas Eindeutiges und Relevantes einzugeben - andernfalls
-      kann eine EMail kaum in der grossen Inbox des Empf&auml;ngers wiedergefunden 
-      werden.
+      Geben Sie hier einen relevanten Titel ein.  Beachten Sie dass E-Mail viel Zeit sparen kann 
+      und dass ein genauer, verst&auml;ndlicher Titel ein Grund daf&uuml;r ist.
       </p>
    </description>
 </section>
 
 <section>
    <title>
-      Adressen Schaltfl&auml;che
+      Der "Addressen" Knopf
    </title>
    <description>
       <p>
-      Dieser Knopf &ouml;ffnet das Adressbuch nachdem ein Suchfeld angezeigt 
-      wurde. Irgendetwas muss nat&uuml;rlich in das Sucheingabefeld eingegeben
-      werden, damit man etwas findet. 
-      Will man allen Menschen aus dem Adressbuch etwas schicken, so dr&uuml;ckt man
-      einfach den "Alle Listen" Knopf. 
-      Die M&ouml;glichkeiten des Adressbuches sind aber so vielf&auml;ltig, dass es noch 
-      eine eigene Hilfeseite zum Adressbuch gibt.
+      Dieser Knopf wird das Adressbuch &ouml;ffnen nachdem ein Suchfeld angezeigt wurde. 
+      Etwas muss im Suchfeld eingegeben werden um ein Resultat zu erhalten. 
+      Wenn Sie alle Adressen im Adressbuch anzeigen lassen wollen, d&uuml;rcken sie den "Alles Anzeigen" Knopf. 
+      Das Adressbuch hat so viel Funktionalit&auml;t dass es eine eigene Sektion verdient. 
+      Detailliertere Informationen k&ouml;nnen sie im "Adressen" Kapitel finden. 
       </p>
    </description>
 </section>
 
 <section>
    <title>
-      Entwurf speichern
+      Der "Entwurf speichern" Knopf
    </title>
    <description>
       <p>
-      Wenn eine EMail geschrieben wurde und diese aus irgendeinem Grund nicht
-      fertig zum senden ist kann man die Mail hiermit im Entwurfsordner
-      (Drafts) speichern. Will man sp&auml;ter weiterschreiben, kann man einfach
-      die EMail aus dem Entwurfsordner anklicken und weiterschreiben. 
+      Wenn Sie eine Nachricht am schreiben waren aber aus irgend einem Grund nich bereit waren sie zu verschicken, 
+      k&ouml;nnen Sie diesen Knopf brauchen um die Nachricht im Entw&uuml;rfe Ordner zu speichern. 
+      Wenn Sie sp&auml;ter die Nachricht beenden und verschicken wollen,
+      gehen Sie in den "Entw&uuml;rfe" Ordner, &ouml;ffnen Sie die Nachricht und Sie werden zur&uuml;ck zur "Erstellen" Seite gelangen 
+      wo ihr Entwurf schon eingegeben ist.
       </p>
    </description>
 </section>
@@ -135,51 +125,45 @@
    </title>
    <description>
       <p>
-      Wenn es der Systemadministrator aktiviert hat, erscheint auch noch die
-      Box mit unterschiedlichen "Priorit&auml;ten", also "Wichtigkeiten" - Hier kann 
-      man, wie es der Name vermuten l&auml;sst, unterschiedliche "Priorit&auml;ten" f&uuml;r
-      die zu verschickende EMail ausw&auml;hlen. Normalerweise wird eine EMail mit
-      hoher Priorit&auml;t anders dargestellt, als eine mit geringerer. Nat&uuml;rlich
-      hat &uuml;berm&auml;ssiger Gebrauch dieser Funktion eher egalisierenden Charakter 
-      beim Empf&auml;nger.
+      Wenn Ihr Systemadministrator dies aktiviert hat sieht man rechts von den Knopfs 
+      eine Pulldownliste mit der Aufschrift "Priorit&auml;t". Hier k&ouml;nnen Sie, &Uuml;berraschung!,  
+      die Priorit&auml;t der Nachricht einstellen. Eine Hochpriorit&auml;tsnachricht 
+      k&ouml;nnte nicht speziell angezeigt werden beim E-Mail-Programm des Empf&auml;ngers. 
+      Beachten Sie dass exzessives benutzen dieser Funktion den Aufmerksamkeitseffekt beim Empf&auml;nger zunichte macht.
       </p>
    </description>
 </section>
 
 <section>
    <title>
-      Nachrichten Text
+      Das Nachrichtenfeld
    </title>
    <description>
       <p>
-      In diese grosse leere Box kann man reinschreiben was man will - wenn 
-      eine Signatur-Datei existiert wird diese hier auch erscheinen. Hier wird
-      also die eigentliche EMail geschrieben. 
+      Ein grosses leeres Textfeld steht Ihnen hier f&uuml;r eine Nachricht zur Verf&uuml;gung.  Wenn eine Unteschriftsdatei 
+      gespeichert wurde wird es hier unter anderem angezeigt.  Hier k&ouml;nne sie den Hauptteil ihrer Nachricht eingeben.
       </p>
    </description>
 </section>
 
 <section>
    <title>
-      Anh&auml;nge
+      Anf&uuml;gen
    </title>
    <description>
       <p>
-      Ganz unten auf der Seite zum Schreiben einer Mail erlaubt diese Funktion
-      eine Datei (also ein Bild, Programm oder was auch immer) an die Mail 
-      anzuh&auml;ngen. Diese Datei muss allerdings auf dem lokalen Rechner (also dort
-      wo man gerade dransitzt) existieren. Hierzu gibt es einen "Ausw&auml;hlen" 
-      Knopf, mit dem man die Datei in der lokalen Verzeichnisstruktur ausw&auml;hlen 
-      kann. Alternativ kann man auch den absoluten Pfad der Datei angeben - Nachdem 
-      die Datei ausgew&auml;hlt ist muss man jetzt nur noch "Add" anklicken und die
-      Datei wird untenstehend aufgef&uuml;hrt und beim Versenden mitgeschickt. 
+      Ganz unten bei der "Erstellen" Seite k&ouml;nnen sie eine Datei Ihrem 
+      E-Mail anf&uuml;gen.  Die Datei muss auf ihrer 
+      <I>lokalen</I> Maschine oder Ihrem lokalen Netzwerk sein um angef&uuml;gt zu werden.  Es hat ein "Durchsuchen" Knopf 
+      mit dem Sie Ihre Verzeichnissstruktur durchsuchen k&ouml;nnen und auf die gew&uuml;nschte Datei 
+      klicken k&ouml;nnen, damit diese ausgew&auml;hlt wird.  Alternativ k&ouml;nnen sie gleich den Pfad im Anf&uuml;gen-Feld eingeben 
+      sofern Sie den vollen Pfad und den genauen Dateinamen kennen.  Dr&uuml;cken Sie einfach  
+      den "Hinzuf&uuml;gen" Knopf um die ausgew&auml;hlte Datei als ein Anh&auml;ngsel unten anzeigen zu lassen.
       </p>
       <p>
-      Wenn mindestens eine Datei zum Mitschicken ausgew&auml;hlt ist, erscheint 
-      eine zweites Mal die Option eine Datei anzuh&auml;ngen usw. Wenn man sich dann 
-      doch noch dagegen entscheidet eine Datei mitzuschicken, kann man die 
-      Anh&auml;nge ausw&auml;hlen, die man doch nicht mitschicken m&ouml;chte und diese dann 
-      mit "Ausgew&auml;hlte Anh&auml;nge l&ouml;schen" wieder entfernen.
+      Sobald mindestens ein Anh&auml;ngsel angezeigt wird erscheint ein neuer Knopf.
+      Das L&ouml;schen von angef&uuml;gten Dateien wird vorgenommen, indem man  
+      diese anw&auml;hlt und dann den "Ausgew&auml;hltes Anh&auml;ngsel l&ouml;schen" Knopf dr&uuml;ckt.
       <p>
    </description>
 </section>

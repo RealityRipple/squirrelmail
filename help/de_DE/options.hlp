@@ -3,342 +3,283 @@
       Optionen
    </title>
    <summary>
-      In diesem Men&uuml;punkt kann man einstellen, wie SquirrelMail aussieht und wie 
-      es sich verh&auml;lt. Man kann SquirrelMail hier auf die individuellen Bed&uuml;rfnisse
-      anpassen.
+	 		In dieser Sektion k&ouml;nnen Sie das Aussehen von SquirrelMail ver&auml;ndern und
+			einstellen, wie das Programm sich verhalten soll.
    </summary>
    <description>
       <p>
-      Eine der besten Dinge an SquirrelMail ist, wie weit man es auf die eigenen Bed&uuml;rfnisse
-      einstellen kann. Abh&auml;ngig von der individuellen Konfiguration k&ouml;nnen unterschiedliche
-      Farben, Sprachen, aber auch unterschiedliche Ordner und andere Mail-Spezifische 
-      Einstellungen ausgew&auml;hlt werden. All diese Optionen w&auml;hlt ein User nur f&uuml;r sich
-      selber - die Einstellungen der anderen User auf dem System werden nicht beeinflusst.
-      Hierbei gibt es mindestens f&uuml;nf wesentliche Bereiche: Pers&ouml;nliche Informationen,
-      Anzeigeoptionen, Nachrichtenfarbe, Ordner und IndexOrdner. Je nach SquirrelMail-
-      Konfiguration k&ouml;nnen aber auch noch weitere Optionspunkte erscheinen.
+			Eines der grossartigen Dinge an SquirrelMail sind die zahlreichen M&ouml;glichkeiten, das
+			Programm zu customizen. Sie haben die Wahl zwischen verschiedenen Themes, Sprachen,
+			Ordner und anderen Einstellungen. Alle Ihre gemachten Einstellungen nehmen keinen
+			Einfluss auf die Einstellungen von anderen Benutzern. Es gibt mindestens f&uuml;nf Hauptteile,
+			welche man ver&auml;ndern kann: Personal, Display, Message Highlighting, Folders und Index Order.
+			Je nachdem k&ouml;nnen noch weitere Einstellungen vorgenommen werden.
       </p>
    </description>
 </chapter>
 
 <section>
    <title>
-      Pers&ouml;nliche Informationen
+      Pers&ouml;nliche Information
    </title>
    <description>
-      <b>Vollst&auml;ndiger Name</b><br>
-      Hier soll der ganze Name, also Vor- und Nachname eingegeben werden. Zum Beispiel 
-      "Rudie Carell". Dieser Name wird bei den Menschen angezeigt, die Mail von Dir
-      empfangen - sie sehen also die Mail kommt von "Rudie Carell". Wird dieses Feld nicht
-      ausgef&uuml;llt, sehen sie nur, die EMail-Adresse vom Absender, also z.B. "rudie@carell.nl".
+      <b>Voller Name</b><br>
+			Sie sollten hier Ihren ganzen Namen angeben. Als Beispiel "Hans Muster". Dieses
+			Feld wird beim Empf&auml;nger als Absender angezeigt. Wenn Sie dieses Feld leer lassen,
+			sieht der Empf&auml;nger anstelle Ihres Namens Ihre E-Mailadresse.
       <br><br>
-      
-      <b>E-Mail Adresse</b><br>
-      <i>Optional</i> - Wenn Deine EMail-Adresse von der automatisch Eingestellten 
-      abweicht, k&ouml;nnen hier &Auml;nderungen vorgenommen werden.
+
+      <b>E-Mail Addesse</b><br>
+      <i>Optional</i> - Wenn Ihre E-Mailadresse anders lautet, als vorgeschlagen, k&ouml;nnen
+			Sie dieses Feld einfach ab&auml;ndern.
       <br><br>
-      
-      <b>Antwort An:</b><br>
-      <i>Optional</i> - Dies ist die EMail-Adresse auf die die Empf&auml;nger antworten, wenn
-      sie den Antwortenknopf in ihrem EMail-Progamm dr&uuml;cken. Wenn sich diese EMail-Adresse
-      von der unterscheidet, von der die EMail versendet wird kann man die Reply To Adresse 
-      hier eingeben. Diese Option ist sehr n&uuml;tzlich, wenn die Menschen die Antwort an die
-      private EMail-Adresse haben wollen und z.B. nicht an die Firma
+
+      <b>Reply To</b><br>
+      <i>Optional</i> - Dies ist die E-Mailadresse, an welche die Empf&auml;nger antworten, wenn
+			Sie auf Ihr Mail auf "antworten" geklickt haben. Wenn Sie dieses Feld leer lassen,
+			wird automatisch Ihre E-Mailadresse verwendet. Wenn die Antwortadresse jedoch anders
+			lautet, als Ihre Mailadresse, k&ouml;nnen Sie diese in diesem Feld angeben.
       <br><br>
-      
-      <b>Mehrere Identit&auml;ten</b><BR>
-      Hier kann man mehrfache Identit&auml;ten ausw&auml;hlen. Dies ist sehr praktisch, wenn
-      man bei Mails an unterschiedliche Menschen jeweils eine andere Absenderadresse
-      angeben m&ouml;chte. Dies ist gerade sehr praktisch, wenn man gesch&auml;ftliche und
-      private Mail trennen m&ouml;chte. Auf der Seite die beim Anklicken dieses Links
-      erscheint kann man beliebig viele Identit&auml;ten erstellen. Schreibt man danach eine
-      EMail kann man dann die eigene Identit&auml;t ausw&auml;hlen.<br><br>
-      
-      <b>Zitierungsstil f&uuml;r Antworten</b><BR>
-      Wenn man den Antwortknopf bei der Darstellung einer EMail dr&uuml;ckt, wird die 
-      Original-EMail zitiert. Normalerweise wird hier etwas vorangestellt wie
-      <TT>Rudie Carell schrieb:</TT> (wenn die Mail auf die man antworten m&ouml;chte
-      von Rudie Carell kam). Diese Zeile wird als "Zitat Zeile" bezeichnet. Hier 
-      kann man ausw&auml;hlen, wie diese Zeile aussieht.<BR>
+
+      <b>Multiple Identities</b><BR>
+			Klicken Sie auf diesen Link, wenn Sie mehrere Identit&auml;ten verwenden m&ouml;chten.
+			Dies ist n&uuml;tzlich, wenn Sie verschiedene From-Zeilen verwenden m&ouml;chten. (Zum
+			Beispielt, wenn Sie einen privaten und einen gesch&auml;ftlichen Mailaccount verwenden.)
+			<br><br>
+
+      <b>Reply Zitierung</b><BR>
+			Wenn Sie auf ein E-Mail antworten, erhalten Sie das erhaltene Mail gequotet in Ihrer
+			Antwort. Vor diesem Text kann ein Text wie z.B. <TT>Hans M&uuml;ller schrieb:</TT>
+			erscheinen. Diese Zeile nennt sich "Citation Line". Hier k&ouml;nnen Sie w&auml;hlen, wie diese
+			Zeile aussehen soll.<BR>
       <UL>
-      <LI><B>Keine Zitierung</B><br>
-      Stellt keine Zitierungszeile voran.<br><br>
-      <LI><B>Verfasser sagte</B><br>
-      Dies erzeugt die Zeile: <TT>Rudie Carell schrieb:</TT> wobei Rudie Carell nat&uuml;rlich 
-      durch den Namen ersetzt wird von wem die Mail kam.<br><br>
+      <LI><B>No Citation</B><br>
+      Hier wird keine Citation Line angezeigt.<br><br>
+      <LI><B>Author Said</B><br>
+      Dies gibt folgende Zeile aus: <TT>Hans Muster Said:</TT> hier wird Hans Muster mit
+			dem Namen der Person ersetzt, die Ihnen ein Mail geschrieben hat.<br><br>
       <LI><B>Quote Who XML</B><br>
-      Dies erzeigt die Zeile: <TT>&lt;quote who="Rudie Carell"&gt;</TT>.<br><br>
-      <LI><B>Benutzerdefiniert</B><br>
-      Gibt die M&ouml;glichkeite eine eigene Zitatzeile zu definieren. In den zwei Textboxen
-      untendrunter kann man sowohl Zitatanfang als auch Zitatende eingeben. Zwischen den
-      beiden Bl&ouml;cken wird der Autorenname eingef&uuml;gt.
+      Dies gibt folgende Zeile aus: <TT>&lt;quote who="Hans Muster"&gt;</TT>.<br><br>
+      <LI><B>User-Defined</B><br>
+      Hier k&ouml;nnen Sie selber eine Citation Line erstellen.
       </UL><br><br>
-      
-      <b>Signatur</b><br>
-      <i>Optional</i> - Unterschriften werden &uuml;blicherweise an das Ende der EMail 
-      angeh&auml;ngt die man verschickt. Wenn man eine Unterschrift m&ouml;chte muss man die
-      Checkbox "Signatur verwenden" anklicken. Zudem muss man in das Textfeld (oben) noch 
-      die Unterschrift selber eingeben.
+
+      <b>Signature</b><br>
+      <i>Optional</i> - Signaturen werden unterhalb eines E-Mails angeh&auml;ngt. Wenn Sie
+			eine Signature m&ouml;chten, aktivieren Sie die Checkbox im Men&uuml;punkt "use a signature"
+			und f&uuml;llen Sie anschliessend in dem Feld den Text ein, welchen Sie bei jedem
+			versendeten Mail anh&auml;ngen m&ouml;chten.
       <br><br>
    </description>
 </section>
 
 <section>
    <title>
-      Voreinstellungen f&uuml;r Anzeige
+      Display Preferences
    </title>
    <description>
-      <b>Thema</b><br>
-      SquirrelMail erlaubt es unterschiedliche Farbprofile zu benutzen. Dies ist praktisch,
-      wenn man ein Notebook mit wenigen Farben oder nur einen S/W-Monitor besitzt. Es kann
-      aber auch einfach so nett sein, sich die Farben aussuchen zu k&ouml;nnen.
+      <b>Theme</b><br>
+			SquirrelMail bietet verschiedene "Themes", welche die Darstellung ver&auml;ndern. Es
+			gibt eine grosse Auswahl an verschiedenen Themes.
       <br><br>
 
       <b>Custom Stylesheet</b><br>
-      Wenn man das Theme wechselt ver&auml;ndern sich nur die Farben von SquirrelMail. 
-      Wenn man auch noch das Stylesheet ver&auml;ndert kann man noch Schrifttyp und Farben
-      einstellen.
+			W&auml;hrend Themes nur die Farben ver&auml;ndern, k&ouml;nnen Sie mit Stylesheet viel mehr
+			ver&auml;ndern, zum Beispiel die Schriftart oder Schriftgr&ouml;sse.
       <br><br>
 
-      <b>Sprache</b><br>
-      Hier kann man die Sprache ausw&auml;hlen, mit der SquirrelMail dargestellt wird. 
-      Hier ist zur Zeit Deutsch eingestellt, denn sonst w&uuml;rde dieser Text nicht auf
-      Deutsch dargestellt werden. Nat&uuml;rlich ver&auml;ndert die Sprachauswahl an dieser Stelle
-      nicht die Namen der Ordner oder es werden gar eingehende EMails &uuml;bersetzt. Es
-      werden nur alle Dialoge und Schaltfl&auml;chen auf Deutsch dargestellt.
+      <b>Language</b><br>
+			Wenn Sie eine andere Sprache als Englisch verwenden m&ouml;chten, k&ouml;nnen Sie diese
+			in diesem Men&uuml;punkt ganz einfach ab&auml;ndern. W&auml;hlen Sie einfach Ihre gew&uuml;nschte
+			Sprache in der Liste aus.
       <br><br>
 
-      <b>Javascript benutzen</b><br>
-      Eines der Hauptziele bei der Entwicklung von SquirrelMail war, kein Javascript
-      zu benutzen. Das SquirrelMail-Entwicklungsteam hat f&uuml;r die Grundfunktionalit&auml;t
-      auch kein Javascript eingesetzt - aber dennoch gibt es Features, die Javascript
-      ben&ouml;tigen, z.B. zum leichteren Suchen durch's Adressbuch. Anstatt diese Funktionen
-      ganz wegzulassen hat man jetzt die M&ouml;glichkeit es zu deaktivieren und nur normalen
-      HTML-Code zu nutzen oder alternativ die Option Javascript nutzen zu aktivieren.
-      Wem das alles zu kompliziert ist, kann auch einfach Auto ausw&auml;hlen, dann wird 
-      Javascript benutzt, wenn es m&ouml;glich ist.
-      <br><br>
-      
-      <b>Anzahl von Nachrichten im Index</b><br>
-      Dies ist die Anzahl von Mails die auf einmal im Ordner angezeigt werden. Wenn
-      mehr als die gew&auml;hlte Anzahl EMails dargestellt werden m&uuml;ssen, einfach weil der
-      Ordner mehr EMails enth&auml;lt, erscheinen die Links "Vorherige Seite" oder "N&auml;chste
-      Seite" unter der Nachrichten&uuml;bersicht.
+      <b>Use Javascript</b><br>
+			Das Eigentliche Ziel von SquirrelMail war, kein JavaScript zu verwenden. Es
+			gibt jedoch ein sehr gutes Adressbuch, welches mit JavaScript funktioniert.
+			Sie haben hier also die Wahl, JavaScript zu verwenden oder nur reiner HTML Code.
+			Wenn Sie nicht wissen, was dies zu bedeuten hat, w&auml;hlen Sie am besten Autodetect.
       <br><br>
 
-      <B>Wechselnde Farben f&uuml;r Tabellenzeilen aktivieren</B><BR>
-      Hier kann man ausw&auml;hlen, ob in der Nachrichten&uuml;bersicht die Zeilen wechselnd 
-      hell und dunkel dargestellt werden sollen. Im allgemeinen ist diese Funktion 
-      praktisch, kann aber auf Notebooks unsch&ouml;n wirken.
-      
-      <b>Seitenauswahl aktivieren</b><br>
-      Wenn man hier Ja w&auml;hlt, sieht man in der Nachrichten&uuml;bersicht, sofern mehrere Seiten 
-      mit EMail vorhanden sind, die einzelnen Seitennummern, die man dann direkt anw&auml;hlen 
-      kann. Die Anzahl der dargestellten Seiten kann man zudem bestimmen.<br><br>
-      
-      <b>Zeilenumbruch f&uuml;r eingehende EMail bei Spalte</b><br>
-      Wieviele Zeichen in einer Zeile sind erlaubt, bevor die Zeile umgebrochen werden
-      soll. Dies verhindert, dass man immer nach rechts und links hin- und herrollen muss.
-      Normalerweise ist der Wert von 86 Zeichen eine sinnvolle Vorgabe. Aber hier kann 
-      man auch ganz andere Werte einstellen.
+      <b>Number of Messages to Index</b><br>
+			Hier k&ouml;nnen Sie die Anzahl Mails bestimmen, welche pro Seite angezeigt werden.
+			Hat es mehr Mails in einem Ordner, als aufs Mal angezeigt werden, finden Sie
+			an der Unterseite der Page einen "Previous" und "Next" Link. Sie k&ouml;nnen hiermit
+			zwischen den Seiten "bl&auml;ttern".
       <br><br>
-      
-      <b>Gr&ouml;sse des Eingabefensters</b><br>
-      Wie breit soll das "Nachricht verfassen" Eigabefeld sein? Dies gibt die Anzahl der
-      Zeichen an, bevor beim Schreiben von EMail die Zeile umgebrochen wird. 
-      <br><br>
-      
-      <b>Position der Schaltfl&auml;chen beim Editieren</b><br>
-      Wo sollen die Schaltfl&auml;chen "Adressen", "Speichere Draft" und "Abschicken"
-      angezeigt werden?<br><br>
-      
-      <b>Anzeigeformat des Adressbuches</B><br>
-      Hier kann man ausw&auml;hlen, wie das Adressbuch dargestellt werden soll. F&uuml;r
-      maximale Kompatibilit&auml;t mit allen Browsern w&auml;hlt man hier einfach "HTML" aus.
-      Wenn der Browser den man benutzt Javascript unterst&uuml;tzt ist die Darstellung 
-      mit Javascript meist netter und einfacher zu bedienen.
-      <br><br>      
 
-      <b>Zeige standardm&auml;ssig die HTML Fassung</b><br>
-      Wenn man eine EMail im Text und im HTML Format bekommt, kann man hiermit
-      ausw&auml;hlen, ob man standardm&auml;ssig die HTML-Version angezeigt bekommen m&ouml;chte
-      (Ja). Oder, wenn man lieber die Textversion liest, w&auml;hlt man hier nein.<br><br>
-      
-      <b>Eigene Adresse im CC, wenn an alle geantwortet wird</b><br>
-      "Allen Antworten" schickt allen Menschen die in den Kopfzeilen als Empf&auml;nger
-      auftauchten eine EMail. Hier kann man w&auml;hlen, ob man auch eine Kopie dieser
-      EMail erhalten m&ouml;chte.
+      <b>Enable Page Selector</b><br>
+			Wenn Sie diese Option auf Yes setzen, sehen Sie Seitenzahlen unterhalb und
+			oberhalb der Nachrichten. Die Nummer <b>Maximum pages to show</b> kann limitieren,
+			wieviele Seitenzahlen maximal angezeigt werden sollen.<br><br>
+
+      <b>Wrap incoming text at</b><br>
+			Wieviele Buchstaben sollen in der Vorschau angezeigt werden? 86 Zeichen ist ein
+			guter Wert. Dieser k&ouml;nnen Sie aber nach Ihren W&uuml;nschen anpassen.<br><br>
+
+      <b>Size of editor window</b><br>
+			Hier k&ouml;nnen Sie bestimmen, wie gross das Editierfeld sein soll, in welchem Sie
+			Ihre E-Mails schreiben.<br><br>
+
+      <b>Location of Buttons when Composing</b><br>
+			Wo sollen die Buttons Adresses, Save Draft und Send lokalisiert sein?<br><br>
+
+      <b>Addressbook Display Format</B><br>
+			W&auml;hlen Sie hier aus, wie das Adressbuch dargestellt werden soll. Wenn Sie
+			sicher sein wollen, dass das Adressbuch mit jedem Broswer funktioniert, dann
+			verwenden Sie HTML. Ansonsten k&ouml;nnen Sie Javascript verwenden, wenn Ihr Browser
+			dies unterst&uuml;tzt.<br><br>
+
+      <b>Show HTML Version by Default</b><br>
+			Wenn Sie ein E-Mail im HTML Format erhalten, k&ouml;nnen Sie hier einstellen, ob
+			Sie standartm&auml;ssig das Mail als HTML Version oder als Textversion sehen m&ouml;chten.<br><br>
+
+      <b>Include Me in CC when I Reply All</b><br>
+			Hier k&ouml;nnen Sie einstellen, ob Ihre E-Mailadresse ebenfalls im CC Feld
+			eingef&uuml;gt werden soll, wenn Sie auf "Allen antworten" klicken.
       <br><br>
-      
-      <b>Mailprogramm anzeigen</b><BR>
-      Wenn eine EMail angezeigt wird kann man mit dieser Option ausw&auml;hlen, ob das
-      EMail-Programm angezeigt wird, welches der Absender benutzt hat.
+
+      <b>Enable Mailer Display</b><BR>
+			Hier k&ouml;nnen Sie einstellen, ob angezeigt werden soll, welches Mailprogramm
+			der Absender verwendet hat.<br><br>
+
+      <b>Display Attached Images with Message</b><br>
+			Wenn Ihnen jemand eine Nachricht mit einem Bild angeh&auml;ngt schickt, w&auml;hlen Sie
+			YES und das Bild wird direkt im Mail angezeigt.
       <br><br>
-      
-      <b>Angeh&auml;ngte Bilder mit der Nachricht anzeigen</b><br>
-      Wenn jemand eine EMail sendet, die mit Bildern im Dateianhang versehen ist, 
-      sollen diese dann direkt angezeigt werden? Wenn man diese Option aktiviert, 
-      kann es bei langsamen Verbindungen ins Internet zu Problemen kommen, da
-      es lange dauert bis das Bild dargestellt wird.
+
+      <b>Enable Subtle Printer Friendly Link</b><br>
+      Hier stellen Sie ein, wie die "printer friendly" Darstellung aussehen soll.
       <br><br>
-      
-      <b>Subtilen Link auf druckerfreundliche Anzeige aktivieren</b><br>
-      Soll der Links f&uuml;r die Druckversion angezeigt werden?
+
+      <b>Enable Printer Friendly Clean Display</b><br>
+      Dies wird die Mails soweit in der Darstellung &uuml;berarbeiten, dass der Ausdruck
+			auf Papier besser aussieht.
       <br><br>
-      
-      <b>druckerfreundliche Anzeige aktivieren</b><br>
-      Dies bereinigt die Nachricht, dass die EMail besser aussieht. Gilt allerdings nur
-      f&uuml;r die Druckversion.
+
+      <b>Other Options</b><br>
+			Hier finden Sie noch weitere Optionen vor. Je nachdem, wie SquirrelMail installiert
+			wurde.
       <br><br>
-      
-      <b>Andere Optionen</b><br>
-      Abh&auml;ngig von der Konfiguration von SquirrelMail k&ouml;nnen hier weitere Optionen
-      bestimmt werden. Diese sogenannten PlugIns werden hier nicht erkl&auml;rt und 
-      sind deshalb hoffentlich selbsterkl&auml;rend.
-      <br><br>
-      
+
    </description>
 </section>
 
 <section>
    <title>
-      Hervorhebung von Nachrichten
+      Message Highlighting
    </title>
    <description>
-      Die Idee kam auf, f&uuml;r Menschen, die auf vielen Mailinglisten eingetragen 
-      sind und sehr viele EMails am Tag bekommen. Gerade die anderen, pers&ouml;nlichen 
-      EMails will man ja m&ouml;glichst schnell lesen und nicht erst ein paar Tage in der
-      Inbox liegen lassen. Deshalb kann man hier die Nachrichten aus Mailinglisten
-      einfach farbig kodieren und beim Lesen der EMails diese &uuml;berspringen.<br><br>
+			Mit dieser Option, k&ouml;nnen Sie Mails von Mailinglisten anders einf&auml;rben als
+			die regul&auml;ren Mails. So haben Sie immer die &uuml;bersicht, welches Mail zu einer
+			Mailingliste geh&ouml;rt, und welches nicht.<br><br>
 
-      Man klickt einfach auf [Neu] um eine neue Farbkodieriung zu definieren. Mit
-      [Bearbeiten] kann man eine existierende ver&auml;ndern.<BR><BR>
-      
-      <b>Identifizierender Name</b><br>
-      Dieser Text beschreibt den Filter, damit man sich sp&auml;ter noch dran 
-      erinnert, was dieser macht. Zum Beispiel, wenn alle EMails von der 
-      Mutter farbig markiert werden sollen, gibt man hier "Von Mutter" ein
-      um diesen Filter zu kathgorisieren.
-      <br><br>
-      
-      <b>Farbe</b><br>
-      Dies gibt die Farbe an, welche der Hintergrund der Nachricht im Nachrichtenindex
-      haben wird. Entweder w&auml;hlt man die Farbe aus den vorgegebenen Farben aus, oder aber
-      man gibt den hexadezimal Code f&uuml;r die Farbe ein. Wenn man selber die Farbe
-      vorgibt, muss man noch markieren, dass man dieses benutzen will.
-      <br><br>
-      
-      <b>Feld + Kriterium</b><br>
-      Hier kann man ausw&auml;hlen wo nach dem Suchbegriff gesucht werden soll. Aus der
-      Auswahlliste kann man hier w&auml;hlen wo in der Mail nach dem Suchbegriff gesucht 
-      werden soll. So kann man z.B. auf Betreff durchsuchen oder nach speziellen Absendern
-      suchen. Beim Filter nach EMails von der Mutter w&uuml;rde man hier sowas eintragen, wie
-      Suche in "From:" und im Textfeld dann "mutter@epost.de".
+			Klicken Sie einfach auf [New], um eine neue Gruppe zu erstellen und auf
+			[Edit], um eine bestehende Gruppe zu bearbeiten.<br><br>
+
+      <b>Identifying Name</b><br>
+			Hier k&ouml;nnen Sie den Gruppen Namen zuordnen. Zum Beispiel k&ouml;nnen Sie Mails,
+			welche von Ihrem Ehepartner kommen, mit einer Farbe kennzeichen und in die
+			Gruppe "Schatz" tun.<br><br>
+
+      <b>Color</b><br>
+			Hier stellen Sie die Hintergrundfarbe ein. Sie k&ouml;nnen zwischen einigen vorgegebenen
+			Farben und selbst definierten Farben w&auml;hlen (mittels HEX Code).<br><br>
+
+      <b>Match</b><br>
+			Hier k&ouml;nnen Sie das Suchwort angeben. Bei der Drop-Down Box k&ouml;nnen Sie zwischen
+			To, From, Subject etc. w&auml;hlen, in welchen Felder das Suchwort &uuml;bereinstimmen soll.
       <br><br>
    </description>
 </section>
 
 <section>
    <title>
-      Ordner Optionen
+      Ordner Einstellungen
    </title>
    <description>
-      <b>Ordner Pfad</b><br>
-      Auf einigen Systemen wird diese Option nicht angezeigt. Wenn man hier also nichts
-      sieht kann man es einfach ignorieren. Auf anderen Systemen ist diese Option
-      allerdings wichtig. Normalerweise ist hier die Vorgabeeinstellung schon richtig.
-      Der EMail-Ordner befindet sich normalerweise im Heimatverzeichnis des EMail-Benutzers.
-      Wenn das alles immer noch unklar ist, gibt's nur eins: Die voreingestellte Option 
-      so lassen wie sie ist.
+      <b>Folder Path</b><br>
+			Mit einigen Systemen wird dies nicht angezeigt. Wenn Sie diese Option nicht sehen,
+			ignorieren Sie diese. F&uuml;r einige Systeme ist dies eine sehr n&uuml;tzliche Option. Sie
+			k&ouml;nnen damit den Pfad der E-Mail Ordner ver&auml;ndern. Belassen Sie den Pfad am besten so,
+			wie er standartm&auml;ssig gesetzt ist.<br><br>
+
+      <b>Trash Folder</b><br>
+      In diesen Ordner werden die gel&ouml;schten Mails verschoben.
       <br><br>
 
-      <b>Papierkorb-Ordner</b><br>
-      Hier kann man ausw&auml;hlen in welchen Ordner Mail kopiert wird, wenn man auf den
-      L&ouml;schen-Knopf dr&uuml;ckt. Wenn man EMail beim Klicken auf den L&ouml;sch-Knopf gleich ganz
-      L&ouml;schen m&ouml;chte, kann man auch ausw&auml;hlen "keinen M&uuml;lleimer benutzen".
-      <br><br>
-      
-      <b>Ordner f&uuml;r gesendete Nachrichten</b><br>
-      Wenn man eine EMail verschickt hat, wird diese EMail normalerweise in den 
-      Ordner "Sent", also "Versandt" kopiert. Hier kann man ausw&auml;hlen, in welchen Ordner
-      die Mails kopiert werden sollen, nachdem der "Senden"-Knopf gedr&uuml;ckt wurde.
-      Will man diese Option nicht benutzen, w&auml;hlt man hier einfach "Keinen Postausgangs-
-      Ordner benutzen".
+      <b>Sent Folder</b><br>
+      In diesen Ordner werden die gesendeten Objekte reinkopiert.
       <br><br>
 
-      <b>Ordner f&uuml;r Entw&uuml;rfe</b><br>
-      Hier kann man ausw&auml;hlen, wo angefangene EMails gespeichert werden. Braucht man 
-      diese Option nicht, w&auml;hlt man hier einfach "Keine Drafts benutzen".
-      <br><br>
-      
-      <b>Ort der Ordnerliste</b><br>
-      Mit dieser Option w&auml;hlt man aus, wo die Ordnerliste angezeigt wird - rechts oder 
-      links vom Hauptfenster.
-      <br><br>
-      
-      <b>Breite der Ordnerliste</b><br>
-      Mit dieser Option kann man die Breite der Ordnerliste bestimmen. Wer sehr 
-      lange Ordnernamen hat oder eine grosse Schrift eingestellt hat, wird sich dar&uuml;ber
-      freuen hier die Breite m&ouml;glichst Hoch einstellen zu k&ouml;nnen.
-      <br><br>
-      
-      <b>Ordnerliste automatisch aktualisieren</b><br>
-      SquirrelMail kann nach einiger Zeit immer die Ordnerliste neu laden. Dies ist Praktisch,
-      wenn man nicht immer auf INBOX klicken m&ouml;chte, damit man sieht, ob neue Mail
-      angekommen ist.
+      <b>Draft Folder</b><br>
+      Wenn Sie ein Mail angefangen, aber nicht fertig geschrieben haben, befindet sich
+			jeweils eine Kopie des Mails in diesem Ordner. Sie k&ouml;nnen an diesem Mail zu
+			einem sp&auml;teren Zeitpunkt weiterarbeiten und verschicken.
       <br><br>
 
-      <b>Benachrichtung f&uuml;r ungesehene Nachrichten</b><br>
-      Diese Option bestimmt wie neue Mails in der Ordner&uuml;bersicht dargestellt werden. 
-      Wenn man hier "Keine Benachrichtigung" einstellt, erh&auml;lt man keine Benachrichtigung
-      im rechten Teil des Browserfensters, wenn eine neue Mail eintrifft. Wenn man 
-      dies auf INBOX stellt, wechselt die Darstellung von INBOX auf fett, wenn neue 
-      Mail eintrifft. Zudem wird noch die Anzahl der ungelesenen Mails angezeigt. 
-      Wenn man die Option auf "Alle Ordner" stellt, gilt das vorhergehende f&uuml;r alle 
-      Ordner. Dies verlangsamt die Darstellung allerdings sehr, sodass man doch 
-      am besten "Keine Benachrichtigung" oder "INBOX" ausw&auml;hlt.
+      <b>Location of folder list</b><br>
+      Hier k&ouml;nnen Sie bestimmen, ob die Ordner auf der linken oder auf der rechten Seite
+			angezeigt werden sollen.
       <br><br>
-      
-      <b>Art der Benachrichtigung f&uuml;r ungesehene Nachrichten</b><br>
-      Wenn neue EMails in einem Ordner sind, erlaubt diese Option auszuw&auml;hlen, 
-      ob nur die Anzahl der ungelesenen EMails gezeigt wird, oder ob auch noch die
-      Gesamtanzahl der EMails im Ordner dargestellt wird.
+
+      <b>Width of folder list</b><br>
+      Hier k&ouml;nnen Sie bestimmen, wie breit die Spalte mit den Ordnern sein soll. Wenn Sie
+			eine grosse Schriftart oder lange Ordnernamen verwenden, setzen Sie diesen Wert
+			relativ hoch.
       <br><br>
-      
-      <b>Einklappbare Ordner aktivieren</b><br>
-      Einklappbare Ordner erlauben das Einklappen von Ordnern, so dass man Unterordner
-      nicht die ganze Zeit sieht. Dies ist praktisch, wenn man extrem viele Ordner 
-      hat. Wenn diese Option angew&auml;hlt ist, kann man auf das "-" klickt klappt der
-      Ordner ein und man kann ihn wieder ausklappen, wenn man auf das "+" klickt.
+
+      <b>Auto refresh folder list</b><br>
+      Mit dieser Option k&ouml;nnen Sie bestimmen, in welchen Zeitabst&auml;nden SquirrelMail nach
+			neuen Nachrichten suchen soll. Diese Mails werden dann in den entsprechenden Ordnern
+			angezeigt.
       <br><br>
-      
-      <b>Zeige Uhr in der Ordner&uuml;bersicht</b><br>
-      Einfach auszuw&auml;hlen, ob eine kleine Uhr in der Ordner&uuml;bersicht dargestellt
-      werden kann. Hierbei bedeuten die Buchstaben folgendes:
-      (Y=Jahr, D=Tag, H=Stunde, M=Minute, S=Sekunde) 
-      Die Option "Zeitformat" gibt die M&ouml;glichkeit zwischen 12- und
-      24-Uhr Darstellung zu w&auml;hlen.
+
+      <b>Enable Unread Message Notification</b><br>
+			Mit dieser Option k&ouml;nnen Sie einstellen, ob neue, ungelesene Nachrichten speziell
+			im entsprechenden Ordner hervorgehoben werden sollen. Wenn Sie diese Option auf INBOX
+			setzen, dann sehen Sie auf der rechten Seite des Ordners eine Zahl, welche die Anzahl
+			der neuen Mails anzeigt. Wenn Sie diese Option bei allen Ordnern aktivieren, funktioniert
+			diese Anzeige bei allen Ordnern. Dies verwendet jedoch sehr viele Ressourcen und sollte
+			wenn m&ouml;glich nur in zwingenden F&auml;llen verwendet werden.
       <br><br>
-      
+
+      <b>Unseen message notification type</b><br>
+			Mit dieser Option k&ouml;nnen Sie anw&auml;hlen, ob in jedem Ordner nur die ungelesenen Mails oder
+			s&auml;mtliche Mails angezeigt werden sollen.
+      <br><br>
+
+      <b>Enable Collapsable Folders</b><br>
+			Mit dieser Option k&ouml;nnen Sie verschachtelte Unterordner verwenden. Somit k&ouml;nnen
+			Sie zum Beispiel im Unterordner "gelesene Mail" noch einen weiteren Unterordner
+			anlegen. Diese k&ouml;nnen Sie dann, wie Sie es von Ihrem Betriebssystem gewohnt sind,
+			einklappen und ausklappen.
+      <br><br>
+
+      <b>Show Clock on Folders Panel</b><br>
+			W&auml;hlen Sie, ob Sie eine Uhr oberhalb der Ordneranzeige sehen m&ouml;chten. Stellen Sie ein,
+			wie die Zeitanzeige aussehen soll (Y=year, D=day, H=hour, M=minute, S=second). Die Option
+      <B>Hour Format</B> gibt Ihnen die M&ouml;glichkeit zur Anzeige von 12- oder 24-Stunden.
+      <br><br>
+
       <b>Memory Search</b><br>
-      Wenn man eine Mailbox durchsucht, wird die Suche f&uuml;r eine sp&auml;tere Nutzung
-      gespeichert. Hier kann man ausw&auml;hlen, wieviele Suchen gespeichert werden.
+			Wenn Sie die Mailbox durchsuchen, k&ouml;nnen Sie diese Option f&uuml;r schnelleren zugriff anw&auml;hlen.
+			Die gemachten Suchen werden dann in einem Zwischenspeicher gesichert.
       <br><br>
-      
+
    </description>
 </section>
 
 <section>
    <title>
-      Indexreihenfolge
+      Index Order
    </title>
    <description>
-      Dieser Bereich erlaubt Kontrolle der Nachrichtenliste. Man kann ausw&auml;hlen 
-      wieviel Informationen dargestellt werden. Auch die Reihenfolge der Informationen
-      kann man hier voreinstellen.
+	 		Diese Sektion gibt Ihnen die Kontrolle &uuml;ber die Message Liste. Sie k&ouml;nnen
+			w&auml;hlen, wie die Message List dargestellt werden soll und in welcher
+			Reihenfolge die Eintr&auml;ge angezeigt werden.
       <br><br>
-      Die Hoch- und Runterkn&ouml;pfe kann man nutzen um die Bereiche hin- und herzuschieben.
-      Mit L&ouml;schen entfernt man einen Punkt aus der Liste und mit Zuf&uuml;gen addiert man
-      einen Punkt.
+			Dr&uuml;cken Sie Up und Down, um die Kolonnen zu verschieben. Delete, um diese
+			vom Display zu l&ouml;schen und Add, um eine zu hinzuf&uuml;gen.
    </description>
 </section>
