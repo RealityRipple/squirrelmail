@@ -469,4 +469,5 @@ if ($action == 'edit' || $action == 'add') {
 }
 do_hook('options_highlight_bottom');
 ?>
-</table></body></html>
+</table>
+<?php noframes_bottom(); ?>

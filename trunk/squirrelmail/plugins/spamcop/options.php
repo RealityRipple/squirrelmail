@@ -172,5 +172,5 @@ echo "</p>\n";
 echo "<p>";
 echo _("<b>For more information</b> about SpamCop, it's services, spam in general, and many related topics, try reading through SpamCop's <a href=\"http://spamcop.net/help.shtml\">Help and Feedback</a> section.");
 echo "</p>\n";
+noframes_bottom();
 ?>
-</body></html>

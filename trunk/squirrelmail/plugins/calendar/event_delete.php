@@ -177,4 +177,5 @@ if (isset($dyear) && isset($dmonth) && isset($dday) && isset($dhour) && isset($d
 
 ?>
 </table></td></tr></table>
-</body></html>
+<?php noframes_bottom(); ?>
+

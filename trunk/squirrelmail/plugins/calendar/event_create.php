@@ -208,4 +208,5 @@ if(!isset($event_text)){
 
 ?>
 </table></td></tr></table>
-</body></html>
+<? php noframes_bottom(); ?>
+

@@ -291,7 +291,10 @@ if ($optpage == SMOPT_PAGE_MAIN) {
         /* If $max_refresh != SMOPT_REFRESH_NONE, provide a refresh link. */
         if ( !isset( $max_refresh ) ) {
         } else if ($max_refresh == SMOPT_REFRESH_FOLDERLIST) {
-            echo '<a href="../src/left_main.php" target="left">' . _("Refresh Folder List") . '</a><br>';
+            if ($use_frames)
+                echo '<a href="../src/left_main.php" target="left">' . _("Refresh Folder List") . '</a><br>';
+            else
+                echo '<a href="../src/options.php">' . _("Refresh Folder List") . '</a><br>';
         } else if ($max_refresh) {
             echo '<a href="../src/webmail.php?right_frame=options.php" target="' . $frame_top . '">' . _("Refresh Page") . '</a><br>';
         }
@@ -451,7 +454,9 @@ if ($optpage == SMOPT_PAGE_MAIN) {
 echo        '</td></tr>' .
         '</table>'.
         '</td></tr>'.
-     '</table>' .
-     '</body></html>';
+     '</table>';
+
+noframes_bottom();
+
 
 ?>

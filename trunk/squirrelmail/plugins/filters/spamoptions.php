@@ -178,7 +178,8 @@ if (isset($action) && $action == 'spam') {
         '</table>'.
         '</center>'.
         '</form>';
-    echo '</body></html>';
+        noframes_bottom();
+
 }
 
 if (! isset($_GET['action']) || $_GET['action'] != 'spam') {
@@ -221,7 +222,7 @@ if (! isset($_GET['action']) || $_GET['action'] != 'spam') {
         echo "</td></tr>\n";
     }
     echo '</table>';
-    echo '</body></html>';
+    noframes_bottom();
 }
 
 ?>

@@ -327,4 +327,5 @@ if (!isset($updated)){
 
 ?>
 </table></td></tr></table>
-</body></html>
+<?php noframes_bottom(); ?>
+

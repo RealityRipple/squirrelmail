@@ -276,14 +276,14 @@ else {
             echo html_tag( 'p', '<b><br>' .
                              _("Your search failed with the following error(s)") .
                             ':<br>' . $abook->error . "</b>\n" ,
-                   'center' ) .
-            "\n</BODY></HTML>\n";
+                   'center' );
+            noframes_bottom();
         } else {
             if (sizeof($res) == 0) {
                 echo html_tag( 'p', '<br><b>' .
                                  _("No persons matching your search was found") . "</b>\n" ,
-                       'center' ) .
-                "\n</BODY></HTML>\n";
+                       'center' );
+                noframes_bottom();
             } else {
                 addr_display_result($res);
             }
@@ -299,5 +299,5 @@ if ($addrquery == '' || sizeof($res) == 0) {
          '</form></center></nobr>';
 }
 
+noframes_bottom();
 ?>
-</body></html>

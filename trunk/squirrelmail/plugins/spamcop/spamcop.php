@@ -189,5 +189,4 @@ echo "</p>";
 </td>
 </tr>
 </table>
-  </body>
-</html>
+<?php noframes_bottom(); ?>
