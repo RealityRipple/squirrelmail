@@ -16,24 +16,14 @@
  */
 
 function get_caps($imap_stream) {
-    $sid = sqimap_session_id();
-    $query = "$sid CAPABILITY\r\n";
-    fputs ($imap_stream, $query);
-    $responses = sqimap_read_data_list($imap_stream, $sid, true, $responses, $message);
-    return $responses;
+    return sqimap_run_command_list($imap_stream, 'CAPABILITY',false, $responses, $message,false);
 }
 
 function imap_test($imap_stream, $string) {
     global $default_charset;
-    $message = '';
-    $responses = array ();
-    $sid = sqimap_session_id();
-    $results = array();
-    $query = "$sid ".trim($string)."\r\n";
-    print "<TR><TD>".$query."</TD></TR>";
-    fputs ($imap_stream, $query);
-    $response = sqimap_read_data_list($imap_stream, $sid, false, $responses, $message);
-    array_push($response, $message);
+    print "<TR><TD>".$string."</TD></TR>";
+    $response = sqimap_run_command_list($imap_stream, trim($string),false, $responses, $message,false);
+    array_push($response, $responses . ' ' .$message);
     return $response;
 }
 
