@@ -1079,12 +1079,13 @@ sub command21 {
         $new_default_folder_prefix = "";
     } else {
         # add the trailing delimiter only if we know what the server is.
-        if ($optional_delimiter and $optional_delimiter ne 'detect') {
-           $new_default_folder_prefix =~ s/${optional_delimiter}*$/$optional_delimiter/;
-        } elsif ($imap_server_type eq 'cyrus' or
-                 $imap_server_type eq 'courier') {
+        if (($imap_server_type eq 'cyrus' and
+                  $optional_delimiter eq 'detect') or
+                 ($imap_server_type eq 'courier' and
+                  $optional_delimiter eq 'detect')) {
            $new_default_folder_prefix =~ s/\.*$/\./;
-        } elsif ($imap_server_type eq 'uw') {
+        } elsif ($imap_server_type eq 'uw' and
+                 $optional_delimiter eq 'detect') {
            $new_default_folder_prefix =~ s/\/*$/\//;
         }
     }
