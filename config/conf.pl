@@ -518,8 +518,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "11. Allow server thread sort    : $WHT$allow_thread_sort$NRM\n";
         print "12. Allow server-side sorting   : $WHT$allow_server_sort$NRM\n";
         print "13. Allow server charset search : $WHT$allow_charset_search$NRM\n";
-        print "14. Enable UID support          : $WHT$uid_support$NRM\n";
-		print "15. PHP session name            : $WHT$session_name$NRM\n";
+		print "14. PHP session name            : $WHT$session_name$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 5 ) {
@@ -717,8 +716,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             elsif ( $command == 11 ) { $allow_thread_sort        = command312(); }
             elsif ( $command == 12 ) { $allow_server_sort        = command313(); }
             elsif ( $command == 13 ) { $allow_charset_search     = command314(); }
-            elsif ( $command == 14 ) { $uid_support              = command315(); }
-			elsif ( $command == 15 ) { $session_name             = command316(); }
+			elsif ( $command == 14 ) { $session_name             = command316(); }
         } elsif ( $menu == 5 ) {
             if ( $command == 1 ) { command41(); }
             elsif ( $command == 2 ) { $theme_css = command42(); }
@@ -2152,6 +2150,8 @@ sub command314 {
 }
 
 sub command315 {
+    ## OBSOLETE - UID support is now always enabled
+    return "true";
     print "This option allows you to enable unique identifier (UID) support.\n";
     print "\n";
 
@@ -2785,7 +2785,7 @@ sub save_data {
         # boolean
         print CF "\$allow_charset_search     = $allow_charset_search;\n";
         # boolean
-        print CF "\$uid_support              = $uid_support;\n";
+        print CF "\$uid_support              = true;\n";
         print CF "\n";
 	
 	# all plugins are strings
