@@ -14,6 +14,8 @@
       include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
+   if (!isset($i18n_php))
+      include("../functions/i18n.php");
 
    // let's check to see if they compiled with gettext support
    if (!function_exists("_")) {
@@ -22,12 +24,19 @@
       }
    } else {
       // $squirrelmail_language is set by a cookie when the user selects
-      // language
+      // language and logs out
+
+      // Use HTTP content language negotiation if cookie not set
+      if (!isset($squirrelmail_language) && isset($HTTP_ACCEPT_LANGUAGE)) {
+         $squirrelmail_language = substr($HTTP_ACCEPT_LANGUAGE, 0, 2);
+      }
+
       if (isset($squirrelmail_language)) {
-         if ($squirrelmail_language != "en") {
-            putenv("LANG=".$squirrelmail_language);
+         if ($squirrelmail_language != "en" && $squirrelmail_language != "") {
+            putenv("LC_ALL=".$squirrelmail_language);
             bindtextdomain("squirrelmail", "../locale/");
             textdomain("squirrelmail");
+            header ("Content-Type: text/html; charset=".$languages[$squirrelmail_language]["CHARSET"]);
          }
       }
    }
@@ -41,12 +50,16 @@
    echo "<FORM ACTION=\"webmail.php\" METHOD=\"POST\" NAME=f>\n";
    echo "<CENTER><IMG SRC=\"$org_logo\"</CENTER>\n";
    echo "<CENTER><SMALL>";
-   echo _("SquirrelMail version $version<BR>By the SquirrelMail Development Team");
+   printf (_("SquirrelMail version %s"), $version);
+   echo "<BR>\n";
+   echo _("By the SquirrelMail Development Team");
    echo "<BR></SMALL><CENTER>\n";
    echo "<TABLE COLS=1 WIDTH=350>\n";
    echo "   <TR>\n";
    echo "      <TD BGCOLOR=#DCDCDC>\n";
-   echo "         <B><CENTER>$org_name Login</CENTER></B>\n";
+   echo "         <B><CENTER>";
+   printf (_("%s Login"), $org_name);
+   echo "</CENTER></B>\n";
    echo "      </TD>\n";
    echo "   </TR><TR>\n";
    echo "      <TD BGCOLOR=#FFFFFF>\n";
