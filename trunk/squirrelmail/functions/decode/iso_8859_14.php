@@ -47,11 +47,6 @@
  * @return string $string Decoded string
  */
 function charset_decode_iso_8859_14 ($string) {
-    global $default_charset;
-
-    if (strtolower($default_charset) == 'iso-8859-14')
-        return $string;
-
     // don't do decoding when there are no 8bit symbols
     if (! sq_is8bit($string,'iso-8859-14'))
         return $string;

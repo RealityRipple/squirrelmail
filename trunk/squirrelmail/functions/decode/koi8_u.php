@@ -49,11 +49,6 @@
  * @return string Decoded string
  */
 function charset_decode_koi8_u ($string) {
-    global $default_charset;
-
-    if (strtolower($default_charset) == 'koi8-u')
-        return $string;
-
     // don't do decoding when there are no 8bit symbols
     if (! sq_is8bit($string,'koi8-u'))
         return $string;

@@ -44,11 +44,6 @@
  * @return string Decoded string
  */
 function charset_decode_tis_620 ($string) {
-    global $default_charset;
-
-    if (strtolower($default_charset) == 'tis-620')
-        return $string;
-
     // don't do decoding when there are no 8bit symbols
     if (! sq_is8bit($string,'tis-620'))
         return $string;

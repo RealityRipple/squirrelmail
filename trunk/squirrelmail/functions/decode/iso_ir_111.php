@@ -50,11 +50,6 @@
  * @return string Decoded string
  */
 function charset_decode_iso_ir_111 ($string) {
-    global $default_charset;
-
-    if (strtolower($default_charset) == 'iso-ir-111')
-        return $string;
-
     // don't do decoding when there are no 8bit symbols
     if (! sq_is8bit($string,'iso-ir-111'))
         return $string;

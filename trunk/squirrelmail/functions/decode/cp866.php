@@ -31,11 +31,6 @@
  * @return string $string Decoded string
  */
 function charset_decode_cp866 ($string) {
-    global $default_charset;
-
-    if (strtolower($default_charset) == 'ibm866')
-        return $string;
-
     // don't do decoding when there are no 8bit symbols
     if (! sq_is8bit($string,'ibm866'))
         return $string;
