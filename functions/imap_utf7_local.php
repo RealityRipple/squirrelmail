@@ -16,9 +16,9 @@ function sqimap_mb_convert_encoding($str, $to_encoding, $from_encoding, $default
   // Allows mbstring functions only with iso-8859-*, utf-8 and 
   // iso-2022-jp (Japanese)
   // koi8-r and gb2312 can be added only in php 4.3+
-  if ( stristr('iso-8859-',substr($default_charset,0,9)) ||
-       stristr('utf-8',$default_charset) || 
-       stristr('iso-2022-jp',$default_charset) ) {
+  if ( stristr($default_charset, 'iso-8859-') ||
+       stristr($default_charset, 'utf-8') || 
+       stristr($default_charset, 'iso-2022-jp') ) {
     if (function_exists('mb_convert_encoding')) {
       return mb_convert_encoding($str, $to_encoding, $from_encoding);
     }
