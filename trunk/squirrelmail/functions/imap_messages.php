@@ -420,23 +420,13 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
 	    if ($read_part{0} == '*') {
 	        if ($internaldate) {
 		    if (preg_match ("/^.+INTERNALDATE\s+\"(.+)\".+/iUA",$read_part, $reg)) {
-                       if ( ($imap_server_type == 'courier')
-                           || ($imap_server_type == 'macosx')
-                           || ($imap_server_type == 'cyrus') ) {
-                            /** If we use courier, 
-                              *  We need to reformat the INTERNALDATE-string 
-                              **/
-                            $tmpdate = trim($reg[1]);
-                            $tmpdate = str_replace('  ',' ',$tmpdate);
-                            $tmpdate = explode(' ',$tmpdate);
-                            $date = str_replace('-',' ',$tmpdate[0]) . " " .
-                                    $tmpdate[1] . " " .
-                                    $tmpdate[2];
-                        } 
-                        else {
-                            $date = $reg[1];
-                        }
-                }
+                        $tmpdate = trim($reg[1]);
+                        $tmpdate = str_replace('  ',' ',$tmpdate);
+                        $tmpdate = explode(' ',$tmpdate);
+                        $date = str_replace('-',' ',$tmpdate[0]) . " " .
+                                $tmpdate[1] . " " .
+                                $tmpdate[2];
+                    }
 		}  
 		if (preg_match ("/^.+RFC822.SIZE\s+(\d+).+/iA",$read_part, $reg)) {
 		    $size = $reg[1];
