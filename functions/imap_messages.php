@@ -609,7 +609,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false)
             case 'BODY[HEADER.FIELDS':
                 $i = strpos($read,'{',$i);
                 $header = parseString($read,$i);
-                if ($header === false) break 3;
+                if ($header === false) break 2;
                 /* First we replace all \r\n by \n, and unfold the header */
                 $hdr = trim(str_replace(array("\r\n", "\n\t", "\n "),array("\n", ' ', ' '), $header));
                 /* Now we can make a new header array with */
