@@ -71,6 +71,20 @@
     **  Unsubscribes to an existing folder 
     ******************************************************************************/
    function sqimap_unsubscribe ($imap_stream, $mailbox) {
+		global $imap_server_type;
+
+		/** This is a hack for UW server
+		 **    Sometimes a folder will have a / at the end.  If that's the case,
+		 **    the unsubscribe doesn't work for a box named "mailbox/".  We have
+		 **    to strip off the / at the end.  There may be a better way of doing
+		 **    this, but this is the best I've found so far.  (lme - April 26, 2000)
+		 **/
+		if ($imap_server_type == "uw") {
+			if (substr($mailbox, -1) == "/") {
+				$mailbox = substr($mailbox, 0, strlen($mailbox)-1);
+			}
+		}	
+
       fputs ($imap_stream, "a001 UNSUBSCRIBE \"$mailbox\"\r\n");
       $read_ary = sqimap_read_data($imap_stream, "a001", true, $response, $message);
    }
@@ -118,12 +132,14 @@
          if ($flags) {
             $boxes[$g]["flags"] = explode(" ", $flags);
          }
+			/****  I'm not sure why this was even in here to begin with..  (lme)
 			for ($i=0; $i < count($boxes[$g]["flags"]); $i++) {
 				if ($boxes[$g]["flags"][$i] == "noselect") {
 					$boxes[$g]["unformatted-dm"] = $boxes[$g]["unformatted-dm"].$dm;
 					echo $boxes[$g]["unformatted-dm"]." - debug<br>";
 				}
 			}
+			****/
       }
       return $boxes;
    }
