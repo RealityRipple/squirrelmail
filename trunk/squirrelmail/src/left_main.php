@@ -38,21 +38,6 @@
    include("../functions/strings.php");
    include("../functions/imap.php");
 
-   // *****************************************
-   //    Parse the incoming mailbox name and return a string that is the FOLDER.MAILBOX
-   // *****************************************
-   function findMailboxName($mailbox) {
-      // start at -2 so that we skip the initial quote at the end of the mailbox name
-      $i = -2;
-      $char = substr($mailbox, $i, 1);
-      while ($char != "\"") {
-         $i--;
-         $temp .= $char;
-         $char = substr($mailbox, $i, 1);
-      }
-      return strrev($temp);
-   }
-
    // open a connection on the imap port (143)
    $imapConnection = fsockopen($imapServerAddress, 143, &$errorNumber, &$errorString);
    if (!$imapConnection) {
