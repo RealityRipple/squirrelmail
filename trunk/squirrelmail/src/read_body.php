@@ -101,6 +101,17 @@
       return -1;
    }
 
+   // Removes just one address from the list of addresses
+   function RemoveAddress(&$addr_list, $addr) {
+       if ($addr == '')
+          return;
+       foreach (array_keys($addr_list, $addr) as $key_to_delete)
+       {
+           unset($addr_list[$key_to_delete]);
+       }
+   }      
+   
+   
    // returns the index of the previous message from the array
    function findPreviousMessage() {
       global $msort, $currentArrayIndex, $sort, $msgs, $imapConnection, $mailbox;
@@ -174,16 +185,27 @@
    $url_replytoall_avoid_addrs = parseAddrs($message->header->replyto);
    foreach ($url_replytoall_avoid_addrs as $addr)
    {
-       foreach (array_keys($url_replytoall_extra_addrs, $addr) as $key_to_delete)
+       RemoveAddress($url_replytoall_extra_addrs, $addr);
+   }
+   
+   // 6) Remove our identities from the CC list (they still can be in the
+   // TO list)
+   RemoveAddress($url_replytoall_extra_addrs, getPref($data_dir, $username,
+                                                      'email_address'));
+   $idents = getPref($data_dir, $username, 'identities');
+   if ($idents != '' && $idents > 1)
+   {
+       for ($i = 1; $i < $idents; $i ++)
        {
-           unset($url_replytoall_extra_addrs[$key_to_delete]);
+           RemoveAddress($url_replytoall_extra_addrs, 
+	                 getPref($data_dir, $username, 'email_address' . $i));
        }
    }
    
-   // 6) Smoosh back into one nice line
+   // 7) Smoosh back into one nice line
    $url_replytoallcc = getLineOfAddrs($url_replytoall_extra_addrs);
    
-   // 7) urlencode() it
+   // 8) urlencode() it
    $url_replytoallcc = urlencode($url_replytoallcc);
 
    $dateString = getLongDateString($message->header->date);
