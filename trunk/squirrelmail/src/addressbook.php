@@ -78,6 +78,7 @@ function address_form($name, $submittext, $values = array()) {
                        adressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
                        adressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
                        adressbook_inp_field(_("Additional info"), 'label', $name, 45, $values, '') .
+		       list_writable_backends($name) .
                        html_tag( 'tr',
                            html_tag( 'td',
                                        '<INPUT TYPE=submit NAME="' . $name . '[SUBMIT]" VALUE="' .
@@ -93,6 +94,7 @@ function address_form($name, $submittext, $values = array()) {
                        adressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
                        adressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
                        adressbook_inp_field(_("Additional info"), 'label', $name, 45, $values, '') .
+		       list_writable_backends($name) .
                        html_tag( 'tr',
                            html_tag( 'td',
                                        '<INPUT TYPE=submit NAME="' . $name . '[SUBMIT]" VALUE="' .
@@ -101,6 +103,30 @@ function address_form($name, $submittext, $values = array()) {
                        )
     , 'center', '', 'border="0" cellpadding="1" width="90%"') ."\n";
 }
+}
+
+function list_writable_backends($name) {
+  global $color, $abook;
+  if ( $name != 'addaddr' ) { return; }
+  if ( $abook->numbackends > 1 ) {
+    $ret = "<select name=backend>";
+    $backends = $abook->get_backend_list();
+    while (list($undef,$v) = each($backends)) {
+      if ($v->writeable) {
+	$ret .= '<OPTION VALUE=' . $v->bnum;
+	$ret .= '>' . $v->sname . "\n";
+      }
+    }
+    $ret .= "</select>";
+    return html_tag( 'tr',
+		     html_tag( 'td', _("Add to:"),'right', $color[4] ) .
+		     html_tag( 'td', $ret, 'left', $color[4] )) . "\n";
+  } else {
+  return html_tag( 'tr',
+		   html_tag( 'td',
+			     '<input type=hidden name=backend value=1>',
+                             'center', $color[4], 'colspan="2"')) . "\n";
+  }
 }
 
 /* Open addressbook, with error messages on but without LDAP (the *
@@ -133,7 +159,11 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
         foreach( $addaddr as $k => $adr ) {
             $addaddr[$k] = strip_tags( $adr );
         }
-        $r = $abook->add($addaddr, $abook->localbackend);
+	if (isset($backend)) {
+	  $r = $abook->add($addaddr, $backend);
+	} else {
+	  $r = $abook->add($addaddr, $abook->localbackend);
+	}
 
         /* Handle error messages */
         if (!$r) {
@@ -426,7 +456,7 @@ echo '<a name="AddAddress"></a>' . "\n" .
     '<FORM ACTION="' . $form_url . '" NAME=f_add METHOD="POST">' . "\n" .
     html_tag( 'table',  
         html_tag( 'tr',
-            html_tag( 'td', "\n". '<strong>' . sprintf(_("Add to %s"), $abook->localbackendname) . '</strong>' . "\n",
+            html_tag( 'td', "\n". '<strong>' . _("Add to address book") . '</strong>' . "\n",
                 'center', $color[0]
             )
         )
