@@ -878,8 +878,8 @@ function asearch_print_mailbox_msgs($imapConnection, &$aMailbox, $color) {
     $cnt = count($aMailbox['UIDSET'][$iSetIndx]);
 
     $iLimit = ($aMailbox['SHOWALL'][$iSetIndx]) ? $cnt : $aMailbox['LIMIT'];
-    $iEnd = ($aMailbox['PAGEOFFSET'] + ($iLimit - 1) < $aMailbox['EXISTS']) ?
-            $aMailbox['PAGEOFFSET'] + $iLimit - 1 : $cnt;
+    $iEnd = ($aMailbox['PAGEOFFSET'] + ($iLimit - 1) < $cnt) ?
+            $aMailbox['PAGEOFFSET'] + ($iLimit - 1) : $cnt;
 
     $paginator_str = get_paginator_str($aMailbox['NAME'], $aMailbox['PAGEOFFSET'],
                                     $cnt, $aMailbox['LIMIT'], $aMailbox['SHOWALL'][$iSetIndx]);
