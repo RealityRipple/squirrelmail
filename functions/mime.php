@@ -622,17 +622,15 @@ function encodeHeader ($string) {
 }
 
 /* This function trys to locate the entity_id of a specific mime element */
-
 function find_ent_id($id, $message) {
-    $ret = '';
-    for ($i = 0; $ret == '' && $i < count($message->entities); $i++) {
-        if ($message->entities[$i]->header->type0 != 'multipart')  {
+    for ($i = 0, $ret = ''; $ret == '' && $i < count($message->entities); $i++) {
+        if ($message->entities[$i]->header->type0 == 'multipart')  {
             $ret = find_ent_id($id, $message->entities[$i]);
         } else {
             if (strcasecmp($message->entities[$i]->header->id, $id) == 0) {
                 if (sq_check_save_extension($message->entities[$i])) {
-                    $ret = $message->entities[$i]->entity_id;
-                }
+                    return $message->entities[$i]->entity_id;
+                } 
             }
         }
     }
