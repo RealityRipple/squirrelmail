@@ -41,7 +41,7 @@ $helpdir[8] = 'FAQ.hlp';
  */
 
 function get_info($doc, $pos) {
-
+    $ary = array(0,0,0);
     for ($n=$pos; $n < count($doc); $n++) {
         if (trim(strtolower($doc[$n])) == '<chapter>'
             || trim(strtolower($doc[$n])) == '<section>') {
@@ -77,12 +77,17 @@ function get_info($doc, $pos) {
                 $ary[2] = $ary[0];
             }
 	    return( $ary );
-        }
+        } else if (!trim(strtolower($doc[$n]))) {
+	     $ary[0] = '';
+	     $ary[1] = '';
+	     $ary[2] = '';
+	     $ary[3] = $n;
+	}
     }
-    
     $ary[0] = _("ERROR: Help files are not in the right format!");
     $ary[1] = $ary[0];
-
+    $ary[2] = $ary[0];
+    $ary[3] = $n;
     return( $ary );
 }
 
@@ -220,7 +225,7 @@ if ($help_exists == true) {
             $help_info = get_info($doc, $n);
             echo "<b>$chapter.$section - $help_info[0]</b>" .
                 html_tag( 'ul', $help_info[1] );
-            $n = $help_info[3];
+    	    $n = $help_info[3];
         }
 
         echo '<br><center><a href="#pagetop">' . _("Top") . '</a></center>';
