@@ -1115,10 +1115,11 @@ sub command111 {
 
 sub command112a {
 	print "If you have already set the hostname and port number, I can try to\n";
-	print "detect the methods your IMAP server supports.\n";
+	print "detect the mechanisms your IMAP server supports.\n";
 	print "I will try to detect CRAM-MD5 and DIGEST-MD5 support.  I can't test\n";
 	print "for \"plain\" without knowing a username and password.\n";
-	print "\nTry to detect auth methods? [y/N]: ";
+	print "Auto-detecting is optional - you can safely say \"n\" here.\n";
+	print "\nTry to detect supported mechanisms? [y/N]: ";
 	$inval=<STDIN>;
 	chomp($inval);
 	if ($inval =~ /^y\b/i) {
@@ -1172,13 +1173,14 @@ sub command112a {
 # Possible choices: none, plain, cram-md5, digest-md5
 sub command112b {
     print "If you have already set the hostname and port number, I can try to\n";
-    print "detect the methods your SMTP server supports.\n";
-    print "\nTry to detect auth methods? [y/N]: ";
+    print "automatically detect the mechanisms your SMTP server supports.\n";
+	print "Auto-detection is *optional* - you can safely say \"n\" here.\n";
+    print "\nTry to detect auth mechanisms? [y/N]: ";
     $inval=<STDIN>;
     chomp($inval);
     if ($inval =~ /^y\b/i) {
 		# Yes, let's try to detect.
-		print "Detecting supported methods...\n";
+		print "Trying to detect supported methods (SMTP)...\n";
 		
 		# Special case!
 		# Check none by trying to relay to junk@birdbrained.org
@@ -1261,7 +1263,7 @@ sub command112b {
       return lc($inval);
     } else {
       # user entered garbage, or default value so nothing needs to be set
-	  return;
+	  return $smtp_auth_mech;
     }
 }
 

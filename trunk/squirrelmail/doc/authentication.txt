@@ -33,6 +33,14 @@ CONFIGURATION
 
 All configuration is done using conf.pl, under main menu option #2.
 
+conf.pl can now attempt to detect which mechanisms your servers support.
+You must have set the host and port before attempting to detect, or you
+may get inaccurate results, or a long wait while the connection times out.
+
+If you get results that you know are wrong when you use auto-detection, I
+need to know about it. Please send me the results you got, the results you
+expected, and server type, name, and version (eg. "imap, Cyrus, v2.1.9").
+
 KNOWN ISSUES
 ------------
 
