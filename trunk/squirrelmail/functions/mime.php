@@ -38,7 +38,7 @@
           a better description of how this works.
        **/   
       var $header = '';
-      var $entities = '';
+      var $entities = array();
       
       function addEntity ($msg) {
          $this->entities[] = $msg;
