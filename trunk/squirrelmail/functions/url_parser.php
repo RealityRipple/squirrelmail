@@ -45,11 +45,12 @@
                          "ftp://",
                          "telnet://");
          for($i = 0; $i < sizeof($url_tokens); $i++) {
-           if($where = strpos(strtolower($body), $url_tokens[$i], $start))
+           if($where = strpos(strtolower("^^".$body), $url_tokens[$i], $start))
              break;
          }
          //$where = strpos(strtolower($body),"http://",$start);
          if ($where) {
+            $where = $where - 2;  // because we added the ^^ at the begining
             # Find the end of that URL
             reset($poss_ends); $end=0; 
             while (list($key, $val) = each($poss_ends)) {
