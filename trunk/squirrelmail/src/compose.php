@@ -363,7 +363,7 @@ exit();
 function newMail () {
     global $forward_id, $imapConnection, $msg, $ent_num, $body_ary, $body,
            $reply_id, $send_to, $send_to_cc, $mailbox, $send_to_bcc, $editor_size,
-           $draft_id, $use_signature, $composesession, $forward_cc;
+           $draft_id, $use_signature, $composesession, $forward_cc, $passed_id;
 
     $send_to = decodeHeader($send_to, false);
     $send_to_cc = decodeHeader($send_to_cc, false);
@@ -376,7 +376,10 @@ function newMail () {
         $id = $forward_id;
     } elseif ($reply_id) {
         $id = $reply_id;
+    } elseif ($passed_id) {
+        $id = $passed_id;
     }
+
 
     if ($draft_id){
         $id = $draft_id;
