@@ -17,7 +17,6 @@ require_once('../functions/imap.php');
 require_once('../functions/mime.php');
 require_once('../functions/date.php');
 require_once('../functions/url_parser.php');
-require_once('../functions/smtp.php');
 require_once('../functions/html.php');
 
 /**
@@ -155,69 +154,165 @@ function ServerMDNSupport( $read ) {
     return ( $ret );
 }
 
-function SendMDN ( $mailbox, $passed_id, $sender, $message) {
+function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
     global $username, $attachment_dir, $SERVER_NAME,
-           $version, $attachments, $squirrelmail_language;
+           $version, $attachments, $squirrelmail_language, $default_charset,
+	   $languages, $useSendmail, $domain, $sent_folder,
+	   $popuser, $data_dir, $username;
 
     $header = $message->rfc822_header;
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+
+    $rfc822_header = new Rfc822Header();
+    $content_type = new ContentType('multipart/report');
+    $content_type->properties['report-type']='disposition-notification';
     
-    $recipient_o = $header->dnt;
-    $recipient = $recipient_o->getAddress(true);
+    set_my_charset();
+    if ($default_charset) {
+	$content_type->properties['charset']=$default_charset;
+    }
+    $rfc822_header->content_type = $content_type;
+    $rfc822_header->to[] = $header->dnt;
+    $rfc822_header->subject = _("Read:") . ' ' . $header->subject;
 
+
+    $reply_to = '';
+    if (isset($identity) && $identity != 'default') {
+        $from_mail = getPref($data_dir, $username, 
+                     'email_address' . $identity);
+        $full_name = getPref($data_dir, $username, 
+                     'full_name' . $identity);
+        $from_addr = '"'.$full_name.'" <'.$from_mail.'>';
+        $reply_to = getPref($data_dir, $username, 
+                     'reply_to' . $identity);
+    } else {
+        $from_mail = getPref($data_dir, $username, 'email_address');
+        $full_name = getPref($data_dir, $username, 'full_name');
+        $from_addr = '"'.$full_name.'" <'.$from_mail.'>';
+        $reply_to = getPref($data_dir, $username,'reply_to');
+    }
+    if (!$from_addr) {
+       $from_addr = "$popuser@$domain";
+       $from_mail = $from_addr;
+    }
+    $rfc822_header->from = $rfc822_header->parseAddress($from_addr,true);
+    if ($reply_to) {
+       $rfc822_header->reply_to = $rfc822_header->parseAddress($reply_to,true);
+    }
+    
     // part 1 (RFC2298)
-
     $senton = getLongDateString( $header->date );
     $to_array = $header->to;
     $to = '';
     foreach ($to_array as $line) {
         $to .= ' '.$line->getAddress();
     }
-
-    $subject = $header->subject;
     $now = getLongDateString( time() );
-
     set_my_charset();
-
     $body = _("Your message") . "\r\n\r\n" .
             "\t" . _("To:") . ' ' . $to . "\r\n" .
-            "\t" . _("Subject:") . ' ' . $subject . "\r\n" .
+            "\t" . _("Subject:") . ' ' . $header->subject . "\r\n" .
             "\t" . _("Sent:") . ' ' . $senton . "\r\n" .
             "\r\n" .
             sprintf( _("Was displayed on %s"), $now );
 
-    if (function_exists($languages[$squrrelmail_language]['XTRA_CODE'])) {
+    $special_encoding = '';
+    if (isset($languages[$squirrelmail_language]['XTRA_CODE']) && 
+        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
         $body = $languages[$squirrelmail_language]['XTRA_CODE']('encode', $body);
+	if (strtolower($default_charset) == 'iso-2022-jp') {
+    	    if (mb_detect_encoding($body) == 'ASCII') {
+		$special_encoding = '8bit';
+    	    } else {
+        	$body = mb_convert_encoding($body, 'JIS');
+        	$special_encoding = '7bit';
+    	    }
+	}
     }
-    
+    $part1 = new Message();
+    $part1->setBody($body);
+    $mime_header = new MessageHeader;
+    $mime_header->type0 = 'text';
+    $mime_header->type1 = 'plain';
+    if ($special_encoding) {
+        $mime_header->encoding = $special_encoding;
+    } else {    
+        $mime_header->encoding = 'us-ascii';
+    }
+    if ($default_charset) {
+        $mime_header->parameters['charset'] = $default_charset;
+    }
+    $part1->mime_header = $mime_header;
+
     // part2  (RFC2298)
     $original_recipient = $to;
     $original_message_id = $header->message_id;
 
-    $part2 = "Reporting-UA : $SERVER_NAME ; SquirrelMail (version $version) \r\n";
+    $report = "Reporting-UA : $SERVER_NAME ; SquirrelMail (version $version) \r\n";
     if ($original_recipient != '') {
-        $part2 .= "Original-Recipient : $original_recipient\r\n";
+        $report .= "Original-Recipient : $original_recipient\r\n";
     }
     $final_recipient = $sender;
-    $part2 .= "Final-Recipient: rfc822; $final_recipient\r\n" .
+    $report .= "Final-Recipient: rfc822; $final_recipient\r\n" .
               "Original-Message-ID : $original_message_id\r\n" .
               "Disposition: manual-action/MDN-sent-manually; displayed\r\n";
 
-    $localfilename = GenerateRandomString(32, 'FILE', 7);
-    $full_localfilename = "$hashed_attachment_dir/$localfilename";
+    $part2 = new Message();
+    $part2->setBody($report);
+    $mime_header = new MessageHeader;
+    $mime_header->type0 = 'message';
+    $mime_header->type1 = 'disposition-notification';
+    $mime_header->encoding = 'us-ascii';
+    $part2->mime_header = $mime_header;
 
-    $fp = fopen( $full_localfilename, 'wb');
-    fwrite ($fp, $part2);
-    fclose($fp);
+    $composeMessage = new Message();
+    $composeMessage->rfc822_header = $rfc822_header;
+    $composeMessage->addEntity($part1);
+    $composeMessage->addEntity($part2);
 
-    $newAttachment = array();
-    $newAttachment['localfilename'] = $localfilename;
-    $newAttachment['type'] = "message/disposition-notification";
-    $newAttachment['session']=-1;
-    $attachments[] = $newAttachment;
 
-    return (SendMessage($recipient, '', '', _("Read:") . ' ' . $subject, 
-                        $body, 0, True, 3, -1) );
+    if (!$useSendmail) {
+	require_once('../class/deliver/Deliver_SMTP.class.php');
+	$deliver = new Deliver_SMTP();
+	global $smtpServerAddress, $smtpPort, $use_authenticated_smtp, $pop_before_smtp;
+	if ($use_authenticated_smtp) {
+    	    global $key, $onetimepad;
+    	    $user = $username;
+    	    $pass = OneTimePadDecrypt($key, $onetimepad);
+	} else {
+    	    $user = '';
+    	    $pass = '';
+	}
+	$authPop = (isset($pop_before_smtp) && $pop_before_smtp) ? true : false;
+	$stream = $deliver->initStream($composeMessage,$domain,0,
+	                  $smtpServerAddress, $smtpPort, $authPop);
+    } else {
+       require_once('../class/deliver/Deliver_SentMail.class.php');
+       global $sendmail_path;
+       $deliver = new Deliver_SendMail();
+       $stream = $deliver->initStream($composeMessage,$sendmail_path);
+    } 
+    $succes = false;
+    if ($stream) {
+	$length = $deliver->mail($composeMessage, $stream);
+	$succes = $deliver->finalizeStream($stream);
+    }
+    if (!$succes) {
+        $msg  = $deliver->dlv_msg . '<br>Server replied: '.$deliver->dlv_ret_nr;
+	require_once('../functions/display_messages.php');
+        plain_error_message($msg, $color);
+    } else {
+        unset ($deliver);
+	if (sqimap_mailbox_exists ($imapConnection, $sent_folder)) {
+    	    sqimap_append ($imapConnection, $sent_folder, $length);
+	    require_once('../class/deliver/Deliver_IMAP.class.php');
+	    $imap_deliver = new Deliver_IMAP();
+	    $imap_deliver->mail($composeMessage, $imapConnection);
+    	    sqimap_append_done ($imapConnection);
+	    unset ($imap_deliver);
+	}
+    }
+    return $succes;
 }
 
 
@@ -559,7 +654,7 @@ $mbx_response = sqimap_mailbox_select($imapConnection, $mailbox, false, false, t
 
 if (!isset($messages)) {
     $messages = array();
-    session_register('messages');
+    sqsession_register($messages,'messages');
 }
 
 /**
@@ -574,14 +669,18 @@ if (!isset($messages[$uidvalidity])) {
 }  
 if (!isset($messages[$uidvalidity][$passed_id]) || !$uid_support) {
    $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
+   $FirstTimeSee = !$message->is_seen;
+   $message->is_seen = true;
    $messages[$uidvalidity][$passed_id] = $message;
+   sqsession_register($messages, 'messages');
 } else {
-   $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
-//   $message = $messages[$uidvalidity][$passed_id];
+//   $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
+   $message = $messages[$uidvalidity][$passed_id];
+   $FirstTimeSee = !$message->is_seen;
 }
-$FirstTimeSee = !$message->is_seen;
-$message->is_seen = true;
-$messages[$uidvalidity][$passed_id] = $message;
+//$FirstTimeSee = !$message->is_seen;
+//$message->is_seen = true;
+//$messages[$uidvalidity][$passed_id] = $message;
 
 if (isset($passed_ent_id) && $passed_ent_id) {
    $message = $message->getEntity($passed_ent_id);
@@ -616,7 +715,7 @@ if (isset($sendreceipt)) {
          $final_recipient = getPref($data_dir, $username, 'email_address', '' );
       }
       $supportMDN = ServerMDNSupport($mbx_response["PERMANENTFLAGS"]);
-      if ( SendMDN( $mailbox, $passed_id, $final_recipient, $message ) > 0 && $supportMDN ) {
+      if ( SendMDN( $mailbox, $passed_id, $final_recipient, $message, $imapConnection ) > 0 && $supportMDN ) {
          ToggleMDNflag( true, $imapConnection, $mailbox, $passed_id, $uid_support);
          $message->is_mdnsent = true;
          $messages[$uidvalidity][$passed_id]=$message;
