@@ -70,6 +70,36 @@ function sqWordWrap(&$line, $wrap) {
 }
 
 /**
+ * Does the opposite of sqWordWrap()
+ */
+function sqUnWordWrap(&$body) {
+    $lines = explode("\n", $body);
+    $body = '';
+    $PreviousSpaces = '';
+    $cnt = count($lines);
+    for ($i = 0; $i < $cnt; $i ++) {
+        preg_match("/^([\t >]*)([^\t >].*)?$/", $lines[$i], $regs);
+        $CurrentSpaces = $regs[1];
+        if (isset($regs[2])) {
+            $CurrentRest = $regs[2];
+        }
+        
+        if ($i == 0) {
+            $PreviousSpaces = $CurrentSpaces;
+            $body = $lines[$i];
+        } else if (($PreviousSpaces == $CurrentSpaces) /* Do the beginnings match */
+                   && (strlen($lines[$i - 1]) > 65)    /* Over 65 characters long */
+                   && strlen($CurrentRest)) {          /* and there's a line to continue with */
+            $body .= ' ' . $CurrentRest;
+        } else {
+            $body .= "\n" . $lines[$i];
+            $PreviousSpaces = $CurrentSpaces;
+        }
+    }
+    $body .= "\n";
+}
+
+/**
  * If $haystack is a full mailbox name and $needle is the mailbox
  * separator character, returns the last part of the mailbox name.
  */
