@@ -644,6 +644,7 @@ sub command1 {
         $new_org_name = $org_name;
     } else {
         $new_org_name =~ s/[\r|\n]//g;
+	$new_org_name =~ s/\"/&quot;/g;
     }
     return $new_org_name;
 }
@@ -702,6 +703,7 @@ sub command3 {
         $new_org_title = $org_title;
     } else {
         $new_org_title =~ s/[\r|\n]//g;
+	$new_org_title =~ s/\"/\'/g;
     }
     return $new_org_title;
 }
@@ -985,7 +987,7 @@ sub command71 {
             $line =~ s/  /\&nbsp;\&nbsp;/g;
             $line =~ s/\t/\&nbsp;\&nbsp;\&nbsp;\&nbsp;/g;
             $line =~ s/$/ /;
-            $line =~ s/\'/\\\'/g;
+            $line =~ s/\"/&quot;/g;
 
             $new_motd = $new_motd . $line;
         }
@@ -2207,7 +2209,7 @@ sub save_data {
         print CF "\n";
 	
 	# string
-        print CF "\$org_name      = '$org_name';\n";
+        print CF "\$org_name      = \"$org_name\";\n";
         # string
 	print CF "\$org_logo      = '$org_logo';\n";
         $org_logo_width |= 0;
