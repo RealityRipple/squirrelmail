@@ -211,7 +211,7 @@
       
       $dm = sqimap_get_delimiter ($imap_stream);
 
-      fputs ($imap_stream, "a001 LIST \"\" *\r\n");
+      fputs ($imap_stream, "a001 LIST \"INBOX\" *\r\n");
       $read_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
       $g = 0;
       $phase = "inbox"; 

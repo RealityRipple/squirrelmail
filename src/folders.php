@@ -193,28 +193,7 @@
       $boxes = sqimap_mailbox_list_all ($imap_stream);
       
       echo "<FORM ACTION=\"folders_subscribe.php?method=sub\" METHOD=POST>\n";
-      echo "<TT><SELECT NAME=mailbox>\n";
-      for ($i = 0; $i < count($boxes); $i++) {
-         $use_folder = true;
-         for ($p = 0; $p < count($special_folders); $p++) {
-            if ($boxes[$i]["unformatted"] == $special_folders[$p]) {
-               $use_folder = false;
-            } else if (substr($boxes[$i]["unformatted"], 0, strlen($trash_folder)) == $trash_folder) {
-               $use_folder = false;
-            }
-
-            for ($q = 0; $q < count($boxes_sub); $q++) {
-               if ($boxes[$i]["unformatted"] == $boxes_sub[$q]["unformatted"]) 
-                  $use_folder = false;
-            }
-         }
-         if ($use_folder == true) {
-            $box = $boxes[$i]["unformatted-dm"];
-            $box2 = replace_spaces($boxes[$i]["formatted"]);
-            echo "         <OPTION VALUE=\"$box\">$box2\n";
-         }
-      }
-      echo "</SELECT></TT>\n";
+      echo "<tt><input type=text size=32 name=mailbox></tt>";
       echo "<INPUT TYPE=SUBMIT VALUE=\"";
       echo _("Subscribe");
       echo "\">\n";
