@@ -20,7 +20,7 @@ define('SMOPT_GRP_MESSAGE', 2);
 function load_optpage_data_display() {
     global $theme, $language, $languages, $js_autodetect_results,
     $compose_new_win, $default_use_mdn, $squirrelmail_language, $allow_thread_sort,
-    $optmode;
+    $optmode, $show_alternative_names;
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -75,6 +75,11 @@ function load_optpage_data_display() {
     foreach ($languages as $lang_key => $lang_attributes) {
         if (isset($lang_attributes['NAME'])) {
             $language_values[$lang_key] = $lang_attributes['NAME'];
+	    if ( isset($show_alternative_names) &&
+		$show_alternative_names &&
+		isset($lang_attributes['ALTNAME']) ) {
+		$language_values[$lang_key] .= " / " . $lang_attributes['ALTNAME'];
+	    }
         }
     }
     asort($language_values);
