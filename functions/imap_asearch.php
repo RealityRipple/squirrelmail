@@ -81,6 +81,7 @@ $imap_error_titles = array(
 	'BYE' => _("ERROR : Imap server closed the connection.")
 );
 
+// why can't this just use sqimap_error_box() ?
 function sqimap_asearch_error_box($response, $query, $message)
 {
 	global $imap_error_titles;
@@ -108,7 +109,9 @@ function sqimap_asearch_error_box($response, $query, $message)
 	}
 }
 
-/* This is to avoid the E_NOTICE warnings signaled by marc AT squirrelmail.org. Thanks Marc! */
+/**
+ * This is to avoid the E_NOTICE warnings signaled by marc AT squirrelmail.org. Thanks Marc!
+ */
 function asearch_nz(&$var)
 {
 	if (isset($var))
@@ -116,7 +119,10 @@ function asearch_nz(&$var)
 	return '';
 }
 
-/* This should give the same results as PHP 4 >= 4.3.0's html_entity_decode(), except it doesn't handle hex constructs */
+/**
+ * This should give the same results as PHP 4 >= 4.3.0's html_entity_decode(),
+ * except it doesn't handle hex constructs
+ */
 function asearch_unhtmlentities($string) {
 	$trans_tbl = array_flip(get_html_translation_table(HTML_ENTITIES));
 	for ($i=127; $i<255; $i++)	/* Add &#<dec>; entities */
@@ -160,11 +166,13 @@ function sqimap_asearch_encode_string($what, $charset)
 	return '"' . $what . '"';	// 4.3 quoted string form
 }
 
-/*
- Parses a user date string into an rfc2060 date string (<day number>-<US month TLA>-<4 digit year>)
- Returns a preg_match-style array: [0]: fully formatted date, [1]: day, [2]: month, [3]: year
- Handles space, slash, backslash, dot and comma as separators (and dash of course ;=)
-*/
+/**
+ * Parses a user date string into an rfc2060 date string
+ * (<day number>-<US month TLA>-<4 digit year>).
+ * Returns a preg_match-style array: [0]: fully formatted date,
+ * [1]: day, [2]: month, [3]: year
+ * Handles space, slash, backslash, dot and comma as separators (and dash of course ;=)
+ */
 function sqimap_asearch_parse_date($what)
 {
 	global $imap_asearch_months;

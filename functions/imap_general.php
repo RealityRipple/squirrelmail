@@ -20,7 +20,12 @@ require_once(SM_PATH . 'functions/auth.php');
 global $sqimap_session_id;
 $sqimap_session_id = 1;
 
-/* Sets an unique session id in order to avoid simultanous sessions crash. */
+/**
+ * Generates a new session ID by incrementing the last one used;
+ * this ensures that each command has a unique ID.
+ * @param bool unique_id
+ * @return string IMAP session id of the form 'A000'.
+ */
 function sqimap_session_id($unique_id = false) {
     global $data_dir, $username, $sqimap_session_id;
     if (!$unique_id) {
@@ -30,7 +35,7 @@ function sqimap_session_id($unique_id = false) {
     }
 }
 
-/*
+/**
  * Both send a command and accept the result from the command.
  * This is to allow proper session number handling.
  */
@@ -88,6 +93,7 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response,
         return false;
     }    
 }
+
 function sqimap_prepare_pipelined_query($new_query,&$tag,&$aQuery,$unique_id) {
     $sid = sqimap_session_id($unique_id);
     $tag_uid_a = explode(' ',trim($sid));
@@ -159,11 +165,12 @@ function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors
     return $aResults;
 }
 
-/* 
- * custom fgets function. gets a line from IMAP
- * no matter how big it may be
+/** 
+ * Custom fgets function: gets a line from the IMAP-server,
+ * no matter how big it may be.
+ * @param stream imap_stream the stream to read from
+ * @return string a line
  */
-
 function sqimap_fgets($imap_stream) {
     $read = '';
     $buffer = 4096;
@@ -245,7 +252,10 @@ function sqimap_fread($imap_stream,$iSize,$filter=false,
     return $results;       
 }        
 
-/* obsolete function, inform plugins that use it */
+/**
+ * Obsolete function, inform plugins that use it
+ * @deprecated use sqimap_run_command or sqimap_run_command_list instead
+ */
 function sqimap_read_data_list($imap_stream, $tag, $handle_errors, 
           &$response, &$message, $query = '') {
     global $color, $squirrelmail_language;
@@ -266,6 +276,14 @@ function sqimap_read_data_list($imap_stream, $tag, $handle_errors,
     exit; 
 }
 
+/**
+ * Function to display an error related to an IMAP-query.
+ * @param string title the caption of the error box
+ * @param string query the query that went wrong
+ * @param string message_title
+ * @param string message the error message
+ * @return void
+ */
 function sqimap_error_box($title, $query = '', $message_title = '', $message = '')
 {
     global $color, $squirrelmail_language;
@@ -286,12 +304,11 @@ function sqimap_error_box($title, $query = '', $message_title = '', $message = '
     error_box($string,$color);
 }
 
-/*
+/**
  * Reads the output from the IMAP stream.  If handle_errors is set to true,
  * this will also handle all errors that are received.  If it is not set,
- * the errors will be sent back through $response and $message
+ * the errors will be sent back through $response and $message.
  */
-
 function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors, 
           &$response, &$message, $query = '',
            $filter = false, $outputstream = false, $no_return = false) {
@@ -529,10 +546,13 @@ function sqimap_read_data ($imap_stream, $tag_uid, $handle_errors,
     }
 }
 
-/** sqimap_create_stream()
- * @return imap-stream resource identifier
+/**
  * Connects to the IMAP server and returns a resource identifier for use with
  * the other SquirrelMail IMAP functions.  Does NOT login!
+ * @param string server hostname of IMAP server
+ * @param int port port number to connect to
+ * @param bool tls whether to use TLS when connecting.
+ * @return imap-stream resource identifier
  */
 function sqimap_create_stream($server,$port,$tls=false) {
     global $username, $use_imap_tls;
@@ -566,7 +586,7 @@ function sqimap_create_stream($server,$port,$tls=false) {
     return $imap_stream;
 }
 
-/*
+/**
  * Logs the user into the imap server.  If $hide is set, no error messages
  * will be displayed.  This function returns the imap connection handle.
  */
@@ -718,7 +738,11 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
     return $imap_stream;
 }
 
-/* Simply logs out the IMAP session */
+/**
+ * Simply logs out the IMAP session
+ * @param stream imap_stream the IMAP connection to log out.
+ * @return void
+ */
 function sqimap_logout ($imap_stream) {
     /* Logout is not valid until the server returns 'BYE'
      * If we don't have an imap_ stream we're already logged out */
@@ -726,6 +750,11 @@ function sqimap_logout ($imap_stream) {
         sqimap_run_command($imap_stream, 'LOGOUT', false, $response, $message);
 }
 
+/**
+ * Retreive the CAPABILITY string from the IMAP server.
+ * If capability is set, returns only that specific capability,
+ * else returns array of all capabilities.
+ */
 function sqimap_capability($imap_stream, $capability='') {
     global $sqimap_capabilities;
     if (!is_array($sqimap_capabilities)) {
@@ -751,7 +780,9 @@ function sqimap_capability($imap_stream, $capability='') {
     return $sqimap_capabilities;
 }
 
-/* Returns the delimeter between mailboxes: INBOX/Test, or INBOX.Test */
+/**
+ * Returns the delimeter between mailboxes: INBOX/Test, or INBOX.Test
+ */
 function sqimap_get_delimiter ($imap_stream = false) {
     global $sqimap_delimiter, $optional_delimiter;
 
@@ -797,7 +828,11 @@ function sqimap_get_delimiter ($imap_stream = false) {
     return $sqimap_delimiter;
 }
 
-
+/**
+ * This encodes a mailbox name for use in IMAP commands.
+ * @param string what the mailbox to encode
+ * @return string the encoded mailbox string
+ */
 function sqimap_encode_mailbox_name($what)
 {
 	if (ereg("[\"\\\r\n]", $what))
@@ -806,7 +841,9 @@ function sqimap_encode_mailbox_name($what)
 }
 
 
-/* Gets the number of messages in the current mailbox. */
+/**
+ * Gets the number of messages in the current mailbox.
+ */
 function sqimap_get_num_messages ($imap_stream, $mailbox) {
     $read_ary = sqimap_run_command ($imap_stream, 'EXAMINE ' . sqimap_encode_mailbox_name($mailbox), false, $result, $message);
     for ($i = 0; $i < count($read_ary); $i++) {
@@ -816,7 +853,6 @@ function sqimap_get_num_messages ($imap_stream, $mailbox) {
     }
     return false; //"BUG! Couldn't get number of messages in $mailbox!";
 }
-
 
 function parseAddress($address, $max=0) {
     $aTokens = array();
@@ -988,9 +1024,8 @@ function parseAddress($address, $max=0) {
 } 
 
 
-
-/*
- * Returns the number of unseen messages in this folder
+/**
+ * Returns the number of unseen messages in this folder.
  */
 function sqimap_unseen_messages ($imap_stream, $mailbox) {
     $read_ary = sqimap_run_command ($imap_stream, 'STATUS ' . sqimap_encode_mailbox_name($mailbox) . ' (UNSEEN)', false, $result, $message);
@@ -1005,7 +1040,7 @@ function sqimap_unseen_messages ($imap_stream, $mailbox) {
     return $regs[1];
 }
 
-/*
+/**
  * Returns the number of total/unseen/recent messages in this folder
  */
 function sqimap_status_messages ($imap_stream, $mailbox) {
@@ -1029,8 +1064,8 @@ function sqimap_status_messages ($imap_stream, $mailbox) {
 }
 
 
-/*
- *  Saves a message to a given folder -- used for saving sent messages
+/**
+ * Saves a message to a given folder -- used for saving sent messages
  */
 function sqimap_append ($imap_stream, $sent_folder, $length) {
     fputs ($imap_stream, sqimap_session_id() . ' APPEND ' . sqimap_encode_mailbox_name($sent_folder) . " (\\Seen) \{$length}\r\n");
@@ -1078,11 +1113,12 @@ function sqimap_get_user_server ($imap_server, $username) {
    return $function($username);
 }
 
-/* This is an example that gets imapservers from yellowpages (NIS).
+/**
+ * This is an example that gets imapservers from yellowpages (NIS).
  * you can simple put map:map_yp_alias in your $imap_server_address 
  * in config.php use your own function instead map_yp_alias to map your
- * LDAP whatever way to find the users imapserver. */
-
+ * LDAP whatever way to find the users imapserver.
+ */
 function map_yp_alias($username) {
    $yp = `ypmatch $username aliases`;
    return chop(substr($yp, strlen($username)+1));

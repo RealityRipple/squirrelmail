@@ -17,7 +17,19 @@ define('SMOPT_GRP_GENERAL', 0);
 define('SMOPT_GRP_MAILBOX', 1);
 define('SMOPT_GRP_MESSAGE', 2);
 
-/* Define the optpage load function for the display options page. */
+/**
+ * This function builds an array with all the information about
+ * the options available to the user, and returns it. The options
+ * are grouped by the groups in which they are displayed.
+ * For each option, the following information is stored:
+ * - name: the internal (variable) name
+ * - caption: the description of the option in the UI
+ * - type: one of SMOPT_TYPE_*
+ * - refresh: one of SMOPT_REFRESH_*
+ * - size: one of SMOPT_SIZE_*
+ * - save: the name of a function to call when saving this option
+ * @return array all option information
+ */
 function load_optpage_data_display() {
     global $theme, $language, $languages, $js_autodetect_results,
     $compose_new_win, $default_use_mdn, $squirrelmail_language, $allow_thread_sort,
@@ -381,6 +393,10 @@ function load_optpage_data_display() {
 /** Define any specialized save functions for this option page. ***/
 /******************************************************************/
 
+/**
+ * This function saves a new theme setting.
+ * It updates the theme array.
+ */
 function save_option_theme($option) {
     global $theme;
 
@@ -401,6 +417,9 @@ function save_option_theme($option) {
     save_option($option);
 }
 
+/**
+ * This function saves the javascript detection option.
+ */
 function save_option_javascript_autodetect($option) {
     global $data_dir, $username, $new_javascript_setting;
 
