@@ -58,7 +58,7 @@ function fortune_load() {
 function fortune_options() {
   global $fortune_visible;
 
-  echo "<tr><td align=right nowrap>" . _("Fortunes:") . "</td>\n";
+  echo "<tr>" . html_tag('td',_("Fortunes:"),'right','','nowrap') . "\n";
   echo '<td><input name="fortune_fortune_visible" type=CHECKBOX';
   if ($fortune_visible)
     echo ' CHECKED';

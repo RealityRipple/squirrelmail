@@ -66,7 +66,7 @@ function bug_report_load() {
 function bug_report_options() {
     global $bug_report_visible;
 
-    echo '<tr><td align=right nowrap>' . _("Bug Reports:") . "</td>\n" .
+    echo '<tr>' . html_tag('td',_("Bug Reports:"),'right','','nowrap') . "\n" .
          '<td><input name="bug_report_bug_report_visible" type=CHECKBOX';
     if ($bug_report_visible) {
         echo ' CHECKED';

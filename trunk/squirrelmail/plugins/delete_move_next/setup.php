@@ -311,8 +311,7 @@ function delete_move_next_display_inside() {
         $delete_move_next_t, $delete_move_next_formATtop,
         $delete_move_next_b, $delete_move_next_formATbottom;
 
-    echo "<tr><td align=right valign=top>\n".
-         _("Delete/Move/Next Buttons:") . "</td>\n".
+    echo "<tr>" . html_tag('td',_("Delete/Move/Next Buttons:"),'right','','valign=top') . "\n".
          "<td><input type=checkbox name=delete_move_next_ti";
 
     if ($delete_move_next_t == 'on') {
