@@ -31,8 +31,9 @@ function addr_insert_hidden() {
            $identity;
 
    echo '<input type=hidden value="';
-   if (substr($body, 0, 1) == "\r")
+   if (substr($body, 0, 1) == "\r") {
        echo "\n";
+   }
    echo htmlspecialchars($body) . '" name=body>' . "\n" .
         '<input type=hidden value="' . htmlspecialchars($subject) .
         '" name=subject>' . "\n" .
@@ -78,11 +79,11 @@ function addr_display_result($res, $includesource = true) {
         if ($line % 2) { echo ' bgcolor="' . $color[0] . '"'; }
         echo ' nowrap><td nowrap align=center width="5%">' .
              '<input type=checkbox name="send_to_search[T' . $line . ']" value = "' .
-             htmlspecialchars($row['email']) . '">&nbsp;To&nbsp;' .
+             htmlspecialchars($row['email']) . '">&nbsp;' . _("To") . '&nbsp;' .
              '<input type=checkbox name="send_to_search[C' . $line . ']" value = "' .
-             htmlspecialchars($row['email']) . '">&nbsp;Cc&nbsp;' .
+             htmlspecialchars($row['email']) . '">&nbsp;' . _("Cc") . '&nbsp;' .
              '<input type=checkbox name="send_to_search[B' . $line . ']" value = "' .
-             htmlspecialchars($row['email']) . '">&nbsp;Bcc&nbsp;' . 
+             htmlspecialchars($row['email']) . '">&nbsp;' . _("Bcc") . '&nbsp;' . 
              '</td><td nowrap>&nbsp;' . $row['name'] . '&nbsp;</td>' .
              '<td nowrap>&nbsp;' . $row['email'] . '&nbsp;</td>' .
              '<td nowrap>&nbsp;' . $row['label'] . '&nbsp;</td>';

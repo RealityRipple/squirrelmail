@@ -26,6 +26,7 @@ define('SMOPT_TYPE_NUMLIST', 8);
 define('SMOPT_TYPE_TITLE', 9);
 define('SMOPT_TYPE_THEME', 10);
 define('SMOPT_TYPE_PLUGINS', 11);
+define('SMOPT_TYPE_LDAP', 12);
 
 global $languages;
 
