@@ -11,7 +11,7 @@
  * $Id$
  */
 
-require_once('../plugins/administrator/auth.php');
+require_once(SM_PATH . 'plugins/administrator/auth.php');
 
 function squirrelmail_plugin_init_administrator() {
     global $squirrelmail_plugin_hooks, $username;
