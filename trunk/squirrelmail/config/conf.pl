@@ -252,11 +252,6 @@ while (($command ne "q") && ($command ne "Q")) {
       print "8.  Plugins\n";
       print "\n";
       print "D.  Set pre-defined settings for specific IMAP servers\n";
-      if ($config_use_color == 1) {
-         print "C.  Turn color off\n";
-      } else {
-         print "C.  Turn color on\n";
-      }
       print "\n";
    } elsif ($menu == 1) {
       print $WHT."Organization Preferences\n".$NRM;
@@ -374,6 +369,11 @@ while (($command ne "q") && ($command ne "Q")) {
       print "\n";
       print "R   Return to Main Menu\n";
    }
+   if ($config_use_color == 1) {
+      print "C.  Turn color off\n";
+   } else {
+      print "C.  Turn color on\n";
+   }
    print "S   Save data\n";
    print "Q   Quit\n";
 
@@ -409,7 +409,7 @@ while (($command ne "q") && ($command ne "Q")) {
          $WHT = "\x1B[37;1m";
          $NRM = "\x1B[0m";
       }
-   } elsif (($command eq "d") || ($command eq "D")) {
+   } elsif ((($command eq "d") || ($command eq "D")) && $menu == 0) {
       set_defaults ();
    } else {
       $saved = 0;
