@@ -472,15 +472,16 @@
          sqimap_mailbox_select ($imap_stream, $mailbox);
          sqimap_messages_flag ($imap_stream, $reply_id, $reply_id, "Answered");
 
-	 // Insert In-Reply-To and References headers if the 
-	 // message-id of the message we reply to is set (longer than "<>")
-	 // The References header should really be the old Referenced header
-	 // with the message ID appended, but it can be only the message ID too.
-	 $hdr = sqimap_get_small_header ($imap_stream, $reply_id, false);
-	 if(strlen($hdr->message_id) > 2) {
-	    $more_headers["In-Reply-To"] = $hdr->message_id;
-	    $more_headers["References"]  = $hdr->message_id;
-	 }
+         // Insert In-Reply-To and References headers if the 
+         // message-id of the message we reply to is set (longer than "<>")
+         // The References header should really be the old Referenced header
+         // with the message ID appended, but it can be only the message ID too.
+         $hdr = sqimap_get_small_header ($imap_stream, $reply_id, false);
+         if(strlen($hdr->message_id) > 2) {
+            $more_headers["In-Reply-To"] = $hdr->message_id;
+            $more_headers["References"]  = $hdr->message_id;
+         }
+         sqimap_mailbox_close($imap_stream);
       }
       
       if ($useSendmail==true) {  
@@ -495,7 +496,6 @@
          writeBody ($imap_stream, $body); 
          sqimap_append_done ($imap_stream);
       }   
-      sqimap_mailbox_close($imap_stream);
       sqimap_logout($imap_stream); 
       // Delete the files uploaded for attaching (if any).
       deleteAttachments();
