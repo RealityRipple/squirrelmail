@@ -290,6 +290,8 @@ Version 1.5.1 -- CVS
   - mbstring internal encoding is switched to ASCII, if mbstring.func_overload
     is enabled (#929644).
   - Fixed checking for quota when appending to Sent folder (#1172694).
+  - Create a generic function to empty a folder tree, thanks to
+    Randy Smith (#1145578).
   
 Version 1.5.0
 --------------------
