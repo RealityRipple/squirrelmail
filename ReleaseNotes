@@ -22,24 +22,24 @@ All about this Release!!!
 =========================
 
 Being one of the most popular webmail clients, the developers of
-SquirrelMail feel a huge desire and responsiblity to continue push
+SquirrelMail feel a huge desire and responsibility to continue push
 the envelope and make SquirrelMail the best it can possibly be. You
 will not be disappointed with this release, as it is by far the most
-feature rich, and yet it is still the same sleak and unbloated and
+feature rich, and yet it is still the same sleek and unbloated and
 cuddly webmail application that we have all grown to love. Here is
-an uncomplete list of new features and enhancements since the last
+an incomplete list of new features and enhancements since the last
 stable release.
 
-  * Collapsable Folders - The folder list can be collapsed at any
+  * Collapsible Folders - The folder list can be collapsed at any
           parent folder. This makes folder lists with large
-          heirarchital structures much easier to manage and navigate.
+          hierarchical structures much easier to manage and navigate.
   * The Paginator! - This enables quick access to any page in the
           message list by simply choosing the page number to view
           rather than tediously clicking "next" 50 times.
   * Hundreds of UI tweaks - The user interface has been given a
-          facelift. The HTML has been largely overhauled, and while
+          face-lift. The HTML has been largely overhauled, and while
           it still has the same general feel, it has been made more
-          intuative.
+          intuitive.
   * Drafts - It is now possible to compose a message and save it to
           be sent at a later date with the drafts option.
   * New Options Page - The options page has been completely
@@ -59,18 +59,18 @@ stable release.
   * Integration of Several Plugins - The following plugins have been
           put directly into the core. As a result, be sure not to
           install these as plugins, as the result may be (at best)
-          unpredictable: attachment_common, paginator, priority
+          unpredictable: attachment_common, paginator, priority,
           printer_friendly, sqclock, xmailer.
   * Improved support for newer versions of PHP. Note that you may
           have trouble if you are running PHP version 4.0.100
           (commonly distributed with Debian 3.0).
-  * Ablity to mark messages as read and unread from the message listing.
+  * Ability to mark messages as read and unread from the message listing.
   * Alternating Colors - The message list now alternates row colors
           by default.  This presents a much cleaner and easier to
           read interface to the user.
 
 Aside from these obvious front end features, there are hundreds of
-bugs that have been fixed, and much of the code has been optomized
+bugs that have been fixed, and much of the code has been optimized
 and/or rewritten.  This stable release is far superior in all
 aspects to all previous versions of SquirrelMail.
 
@@ -85,10 +85,10 @@ Reporting my favorite SquirrelMail 1.2.0 bug
 Of course, in the words of Linus Torvalds, this release is
 officially certified to be Bug-Free (tm).
 
-However, if for some reason some bugs manage to find their way to
-the surface, please report them at once (after all, they ARE
-uncertified bugs!!!) The PROPER place to report these bugs is the
-SquirrelMail Bug Tracker.
+However, if for some reason some bugs manage to find their way to the
+surface, please report them at once (after all, they ARE uncertified
+bugs!!!) The PROPER place to report these bugs is the SquirrelMail Bug
+Tracker.
 
    http://www.squirrelmail.org/bugs
 
@@ -134,7 +134,7 @@ working in this area.
 
 At the same time, we will kick start the SquirrelMail Teams. For
 some time now, we have been planning a reorganization of the project
-into a variety of subteams. Each subteam will focus on a different
+into a variety of sub-teams. Each sub-team will focus on a different
 aspect of SquirrelMail Project work. These teams will hopefully help
 keep the SquirrelMail project more on track and to provide some
 semblance of order. This project has grown so large in the past two
@@ -152,7 +152,7 @@ done effectively. The teams (as planned) are as follows:
 Teams will be led by one or two SquirrelMail team members. And team
 members can participate in as many teams as he or she desires.
 
-For the next few weeks, the developers will be working on bugfixing
+For the next few weeks, the developers will be working on bug-fixing
 and making the 1.2 series rock solid. After that, about mid January,
 focus will shift toward getting the teams in gear and starting work
 on the SquirrelMail 1.3 development series.
