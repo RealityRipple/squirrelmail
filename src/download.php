@@ -44,7 +44,7 @@ require_once('../functions/date.php');
       
       displayPageHeader($color, 'None');
 
-      echo "<BR><TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">";
+      echo "<BR><TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">";
       echo "<B><CENTER>";
       echo _("Viewing a text attachment") . " - ";
       if ($where && $what) {
@@ -61,7 +61,7 @@ require_once('../functions/date.php');
       echo "</CENTER></B>";
       echo "</TD></TR></TABLE>";
 
-      echo "<TABLE WIDTH=98% BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">";
+      echo "<TABLE WIDTH=\"98%\" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">";
       echo "<TR><TD BGCOLOR=\"$color[4]\"><TT>";
 
       if ($type1 == 'html') {

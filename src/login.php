@@ -113,7 +113,7 @@ if (isset($emailaddress)) {
                  "</script>\n", FALSE );
 
     /* Set the title of this page. */
-    echo "<BODY TEXT=#000000 BGCOLOR=#FFFFFF LINK=#0000CC VLINK=#0000CC ALINK=#0000CC onLoad='squirrelmail_loginpage_onload();'>\n".
+    echo "<BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000CC\" VLINK=\"#0000CC\" ALINK=\"#0000CC\" onLoad='squirrelmail_loginpage_onload();'>\n".
          "<FORM ACTION=\"redirect.php\" METHOD=\"POST\" NAME=f>\n";
 
     $username_form_name = 'login_username';
@@ -131,13 +131,13 @@ if (isset($emailaddress)) {
 
          "<CENTER>\n".
          "<TABLE COLS=1 WIDTH=350>\n".
-         "   <TR><TD BGCOLOR=#DCDCDC>\n".
-         '      <B><CENTER>' . sprintf (_("%s Login"), $org_name) . "</CENTER></B>\n".
+         "   <TR><TD ALIGN=CENTER BGCOLOR=\"#DCDCDC\">\n".
+         '      <B>' . sprintf (_("%s Login"), $org_name) . "</B>\n".
          "   </TD></TR>".
          "   <TR><TD BGCOLOR=\"#FFFFFF\"><TABLE COLS=2 WIDTH=\"100%\">\n".
          "      <TR>\n".
-         '         <TD WIDTH=30% ALIGN=right>' . _("Name:") . "</TD>\n".
-         "         <TD WIDTH=* ALIGN=left>\n".
+         '         <TD WIDTH="30%" ALIGN=right>' . _("Name:") . "</TD>\n".
+         "         <TD WIDTH=\"*\" ALIGN=left>\n".
          "            <INPUT TYPE=TEXT NAME=\"$username_form_name\" VALUE=\"$loginname_value\">\n".
          "         </TD>\n".
          "      </TR>\n".

@@ -111,7 +111,7 @@ $abook = addressbook_init();
 ?>
 
 <br>
-<table width=95% align=center cellpadding=2 cellspacing=2 border=0>
+<table width="95%" align=center cellpadding=2 cellspacing=2 border=0>
 <tr><td bgcolor="<?php echo $color[0] ?>">
    <center><b><?php echo _("Address Book Search") ?></b></center>
 </td></tr></table>

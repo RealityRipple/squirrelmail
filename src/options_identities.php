@@ -52,7 +52,7 @@ require_once('../functions/display_messages.php');
 
 ?>
 <br>
-<table width=95% align=center border=0 cellpadding=2 cellspacing=0>
+<table width="95%" align=center border=0 cellpadding=2 cellspacing=0>
 <tr><td bgcolor="<?php echo $color[0] ?>" align="center">
 
       <b><?php echo _("Options") . ' - ' . _("Advanced Identities"); ?></b>
@@ -64,7 +64,7 @@ require_once('../functions/display_messages.php');
 
 <?PHP do_hook('options_identities_top'); ?>
 
-<table width=80% cellpadding=2 cellspacing=0 border=0>
+<table width="80%" cellpadding=2 cellspacing=0 border=0>
   <tr bgcolor="<?PHP echo $color[9] ?>">
     <th colspan=2 align=center><?PHP echo _("Default Identity") ?></th>
   </tr>

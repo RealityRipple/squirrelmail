@@ -8,7 +8,8 @@ Version 1.2.2 -- ??
   - Fixed an infinite loop in printer friendly when wrapping option 
     is not in the prefs. 
     Bug reported by Boris Manojlovic <steki@verat.net>  
-
+  - Html cleanup, with patch from Dave Huang (#496712)
+	
 Version 1.2.1 -- 25 December 2001
 ---------------------------------
 

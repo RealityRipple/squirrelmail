@@ -20,7 +20,7 @@ require_once('../functions/plugin.php');
 function oh_opt( $val, $sel, $tit ) {
     echo "<option value=\"$val\"";
     if ( $sel )
-        echo 'selected';
+        echo ' selected';
     echo  ">$tit</option>\n";
 }
 
@@ -68,7 +68,7 @@ if (count($message_highlight_list) >= 1) {
     echo '<table border="0" cellpadding="3" cellspacing="0" align="center" width="80%">'."\n";
     for ($i=0; $i < count($message_highlight_list); $i++) {
         echo '<tr bgcolor="' . $message_highlight_list[$i]['color'] . '">'.
-                "<td width=20% bgcolor=\"$color[4]\" nobr>".
+                "<td width=\"20%\" bgcolor=\"$color[4]\" nobr>".
                 "<small>[<a href=\"options_highlight.php?action=edit&theid=$i\">".
             _("Edit") .
             '</a>]&nbsp;[<a href="options_highlight.php?action=delete&theid='.
@@ -254,7 +254,7 @@ if ($action == 'edit' || $action == 'add') {
     echo '<input type="hidden" value="'.$theid.'" name="theid">' . "\n";
     echo '<table width="80%" align="center" cellpadding="3" cellspacing="0" border="0">' . "\n";
     echo "   <tr bgcolor=\"$color[0]\">\n";
-    echo "      <td align=\"right\" nobr><b>\n";
+    echo "      <td align=\"right\" nowrap><b>\n";
     echo _("Identifying name") . ":";
     echo '      </b></td>' . "\n";
     echo '      <td>' . "\n";
@@ -295,7 +295,7 @@ if ($action == 'edit' || $action == 'add') {
     echo "   </tr>\n";
 
     # Show grid of color choices
-    echo "<tr bgcolor=$color[0]><td colspan='2'>\n";
+    echo "<tr bgcolor=\"$color[0]\"><td colspan='2'>\n";
     echo "<table border=0 cellpadding=\"2\" align=\"center\" cellspacing=\"1\">\n";
     $current_color = $message_highlight_list[$theid]['color'];
     for($x = 0; $x < 5; $x++) {
@@ -303,14 +303,14 @@ if ($action == 'edit' || $action == 'add') {
         for($y = 0; $y < 19; $y++) {
         $gridindex = "$y,$x";
         $gridcolor = $new_color_list[$gridindex];
-        $selected = ($gridcolor == $current_color)?'SELECTED':'' ;
-        echo "<td bgcolor=#$gridcolor><input type='radio' name=color_type value='#$gridcolor' $selected>\n";
+        $selected = ($gridcolor == $current_color)?'CHECKED':'' ;
+        echo "<td bgcolor=\"#$gridcolor\"><input type='radio' name=color_type value='#$gridcolor' $selected>\n";
         echo "</td>\n";
         }
         echo "</tr>\n";
     }
     echo "</table>\n";
-    echo "</tr></td>\n";
+    echo "</td></tr>\n";
 
     echo '   <tr><td><small><small>&nbsp;</small></small></td></tr>' . "\n";
     echo "   <tr bgcolor=\"$color[0]\">\n";

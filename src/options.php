@@ -305,7 +305,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     $first_optpage = false;
     echo "<TABLE BGCOLOR=\"$color[4]\" WIDTH=\"100%\" CELLPADDING=0 CELLSPACING=\"5\" BORDER=\"0\">" .
                 '<TR><TD VALIGN="TOP">' .
-                   "<TABLE BGCOLOR=\"$color[4]\" WIDTH=\"100%\" CELLPADDING=\"3\" CELLSPACING=\"0\" BORDER=\"0\">";
+                   "<TABLE BGCOLOR=\"$color[4]\" WIDTH=\"100%\" CELLPADDING=\"3\" CELLSPACING=\"0\" BORDER=\"0\"><TR><TD>";
     foreach ($optpage_blocks as $next_optpage) {
         if ($first_optpage == false) {
             $first_optpage = $next_optpage;
@@ -319,7 +319,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
         print_optionpages_row($first_optpage);
     }
 
-    echo "</TABLE></TD></TR></TABLE>\n";
+    echo "</TD></TR></TABLE></TD></TR></TABLE>\n";
 
     do_hook('options_link_and_description');
 
@@ -329,9 +329,9 @@ if ($optpage == SMOPT_PAGE_MAIN) {
 /*************************************************************************/
 } else {
     echo '<FORM NAME="f" ACTION="options.php" METHOD="POST"><BR>' . "\n"
-       . '<TABLE WIDTH="100%" CELLPADDING=2 CELLSPACING=0 BORDER=0>' . "\n"
        . create_optpage_element($optpage)
-       . create_optmode_element(SMOPT_MODE_SUBMIT);
+       . create_optmode_element(SMOPT_MODE_SUBMIT)
+       . '<TABLE WIDTH="100%" CELLPADDING=2 CELLSPACING=0 BORDER=0>' . "\n";
 
     /* Output the option groups for this page. */
     print_option_groups($optpage_data['options']);
@@ -436,7 +436,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
             echo         "<TD VALIGN=top BGCOLOR=\"$color[4]\" WIDTH=\"50%\">&nbsp;</TD>";
         }
 
-        echo          '</TR>' .
+        echo          '</TR>' . "\n" .
                       '<TR>' .
                          "<TD VALIGN=top BGCOLOR=\"$color[0]\" WIDTH=\"50%\">" .
                             $leftopt['desc'] .
@@ -450,7 +450,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
             echo         "<TD VALIGN=top BGCOLOR=\"$color[4]\" WIDTH=\"50%\">&nbsp;</TD>";
         }
         
-        echo          '</TR>' .
+        echo          '</TR>' . "\n" .
                    '</TABLE>' .
                 '</TD></TR>' .
              "</TABLE>\n";

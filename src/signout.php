@@ -78,12 +78,12 @@ ALINK="<?php echo $color[7] ?>">
 <BR><BR>
 <TABLE BGCOLOR="FFFFFF" BORDER="0" COLS="1" WIDTH="50%" CELLSPACING="0" 
 CELLPADDING="2" ALIGN="CENTER">
-  <TR BGCOLOR="<?php echo $color[0] ?>" WIDTH=100%>
+  <TR BGCOLOR="<?php echo $color[0] ?>" WIDTH="100%">
     <TD ALIGN="CENTER">
       <B><?php echo _("Sign Out") ?></B>
     </TD>
   </TR>
-  <TR BGCOLOR="<?php echo $color[4] ?>" WIDTH=100%>
+  <TR BGCOLOR="<?php echo $color[4] ?>" WIDTH="100%">
     <TD ALIGN="CENTER">
       <?php do_hook('logout_above_text'); ?>
       <?php echo _("You have been successfully signed out.") ?><BR>
@@ -92,7 +92,7 @@ CELLPADDING="2" ALIGN="CENTER">
       </A><BR><BR>
     </TD>
   </TR>
-  <TR BGCOLOR="<?php echo $color[0] ?>" WIDTH=100%>
+  <TR BGCOLOR="<?php echo $color[0] ?>" WIDTH="100%">
     <TD ALIGN="CENTER">
       <BR>
     </TD>

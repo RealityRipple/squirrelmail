@@ -77,9 +77,9 @@ if ($just_logged_in == true) {
     $just_logged_in = false;
 
     if (strlen(trim($motd)) > 0) {
-        echo "<br><table align=center width=70% cellpadding=0 cellspacing=3 border=0 bgcolor=\"$color[9]\">" .
+        echo "<br><table align=center width=\"70%\" cellpadding=0 cellspacing=3 border=0 bgcolor=\"$color[9]\">" .
          '<tr><td>' .
-             "<table width=100% cellpadding=5 cellspacing=1 border=0 bgcolor=\"$color[4]\">" .
+             "<table width=\"100%\" cellpadding=5 cellspacing=1 border=0 bgcolor=\"$color[4]\">" .
              "<tr><td align=center>$motd";
         do_hook('motd');
         echo '</td></tr>' .
@@ -138,6 +138,6 @@ if ($use_mailbox_cache && session_is_registered('msgs')) {
 do_hook('right_main_bottom');
 sqimap_logout ($imapConnection);
 
-echo '</FONT></BODY></HTML>';
+echo '</BODY></HTML>';
 
 ?>

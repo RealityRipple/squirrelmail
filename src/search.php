@@ -17,7 +17,7 @@ require_once('../functions/array.php');
 function s_opt( $val, $sel, $tit ) {
     echo "            <option value=\"$val\"";
     if ( $sel ) {
-        echo 'selected';
+        echo ' selected';
     }
     echo  ">$tit</option>\n";
 }
@@ -27,7 +27,7 @@ $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0
 
 do_hook('search_before_form');
 echo "<br>\n".
-    "      <table width=95% align=center cellpadding=2 cellspacing=0 border=0>\n".
+    "      <table width=\"95%\" align=center cellpadding=2 cellspacing=0 border=0>\n".
     "      <tr><td bgcolor=\"$color[0]\">\n".
     "          <center><b>"._("Search")."</b></center>\n".
     "      </td></tr>\n".

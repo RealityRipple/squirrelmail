@@ -35,7 +35,7 @@ require_once('../src/load_prefs.php');
    displayPageHeader($color, 'None');
 
    echo '<BR>' . 
-        '<TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>' .
+        '<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>' .
         "\n" .
         '<TR><TD BGCOLOR="' . $color[0] . '">' .
         '<B><CENTER>' .

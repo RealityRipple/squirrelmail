@@ -48,7 +48,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start
     echo "<TR>\n";
 
     if (isset($msg['FLAG_FLAGGED']) && ($msg['FLAG_FLAGGED'] == true)) {
-        $flag = "<font color=$color[2]>";
+        $flag = "<font color=\"$color[2]\">";
         $flag_end = '</font>';
     } else {
         $flag = '';
@@ -105,16 +105,16 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start
     for ($i=1; $i <= count($index_order); $i++) {
         switch ($index_order[$i]) {
         case 1: /* checkbox */
-            echo "   <td bgcolor=$hlt_color align=center><input type=checkbox name=\"msg[$t]\" value=".$msg["ID"]."$checked></TD>\n";
+            echo "   <td bgcolor=\"$hlt_color\" align=center><input type=checkbox name=\"msg[$t]\" value=".$msg["ID"]."$checked></TD>\n";
             break;
         case 2: /* from */
-            echo "   <td bgcolor=$hlt_color>$italic$bold$flag$fontstr$senderName$fontstr_end$flag_end$bold_end$italic_end</td>\n";
+            echo "   <td bgcolor=\"$hlt_color\">$italic$bold$flag$fontstr$senderName$fontstr_end$flag_end$bold_end$italic_end</td>\n";
             break;
         case 3: /* date */
-            echo "   <td nowrap bgcolor=$hlt_color><center>$bold$flag$fontstr".$msg["DATE_STRING"]."$fontstr_end$flag_end$bold_end</center></td>\n";
+            echo "   <td nowrap bgcolor=\"$hlt_color\"><center>$bold$flag$fontstr".$msg["DATE_STRING"]."$fontstr_end$flag_end$bold_end</center></td>\n";
             break;
         case 4: /* subject */
-            echo "   <td bgcolor=$hlt_color>$bold";
+            echo "   <td bgcolor=\"$hlt_color\">$bold";
                 if (! isset($search_stuff)) { $search_stuff = ''; }
             echo "<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$start_msg&show_more=0$search_stuff\"";
             do_hook("subject_link");
@@ -130,7 +130,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start
             break;
         case 5: /* flags */
             $stuff = false;
-            echo "   <td bgcolor=$hlt_color align=center nowrap><b><small>\n";
+            echo "   <td bgcolor=\"$hlt_color\" align=center nowrap><b><small>\n";
             if (isset($msg['FLAG_ANSWERED']) &&
                 $msg['FLAG_ANSWERED'] == true) {
                 echo "A\n";
@@ -142,11 +142,11 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start
             }
             if ($default_use_priority) {
                 if (ereg('(1|2)',substr($msg['PRIORITY'],0,1))) {
-                    echo "<font color=$color[1]>!</font>\n";
+                    echo "<font color=\"$color[1]\">!</font>\n";
                     $stuff = true;
                 }
                 if (ereg('(5)',substr($msg['PRIORITY'],0,1))) {
-                    echo "<font color=$color[8]>?</font>\n";
+                    echo "<font color=\"$color[8]\">?</font>\n";
                     $stuff = true;
                 }
             }
@@ -161,7 +161,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start
             echo "</small></b></td>\n";
             break;
         case 6: /* size */
-            echo "   <td bgcolor=$hlt_color>$bold$fontstr" .
+            echo "   <td bgcolor=\"$hlt_color\">$bold$fontstr" .
                  show_readable_size($msg['SIZE']) .
                  "$fontstr_end$bold_end</td>\n";
             break;
@@ -445,11 +445,11 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg, &$msgs, $ms
     }
 
     echo '</table>'.
-        "<table bgcolor=\"$color[9]\" width=100% border=0 cellpadding=1 cellspacing=1>" .
-            "<tr BGCOLOR=\"$color[4]\">" .
-                "<table width=100% BGCOLOR=\"$color[4]\" border=0 cellpadding=1 cellspacing=0><tr><td>$paginator_str</td>".
+        "<table bgcolor=\"$color[9]\" width=\"100%\" border=0 cellpadding=1 cellspacing=1>" .
+            "<tr BGCOLOR=\"$color[4]\"><td>" .
+                "<table width=\"100%\" BGCOLOR=\"$color[4]\" border=0 cellpadding=1 cellspacing=0><tr><td>$paginator_str</td>".
                 "<td align=right>$msg_cnt_str</td></tr></table>".
-            "</tr>".
+            "</td></tr>".
         "</table>";
     /** End of message-list table */
 
@@ -478,7 +478,8 @@ function mail_message_listing_beginning
     * This is the beginning of the message list table.
     * It wraps around all messages
     */
-    echo "<TABLE WIDTH=\"100%\" BORDER=\"0\" CELLPADDING=\"1\" CELLSPACING=\"0\">\n"
+    echo "<FORM name=messageList method=post action=\"$moveURL\">\n"
+       . "<TABLE WIDTH=\"100%\" BORDER=\"0\" CELLPADDING=\"1\" CELLSPACING=\"0\">\n"
        . "<TR BGCOLOR=\"$color[0]\"><TD>"
        . "    <TABLE BGCOLOR=\"$color[4]\" width=\"100%\" CELLPADDING=\"2\" CELLSPACING=\"0\" BORDER=\"0\"><TR>\n"
        . "    <TD ALIGN=LEFT>$paginator</TD>\n"
@@ -486,10 +487,9 @@ function mail_message_listing_beginning
        . "  </TR></TABLE>\n"
        . '</TD></TR>'
        . "<TR><TD BGCOLOR=\"$color[0]\">\n"
-       . "<FORM name=messageList method=post action=\"$moveURL\">\n"
        . "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=\"100%\">\n"
        . "   <TR>\n"
-       . "      <TD ALIGN=LEFT VALIGN=CENTER NOWRAP>\n"
+       . "      <TD ALIGN=LEFT VALIGN=MIDDLE NOWRAP>\n"
        . '         <SMALL>&nbsp;' . _("Move Selected To:") . "</SMALL>\n"
        . "      </TD>\n"
        . "      <TD ALIGN=RIGHT NOWRAP>\n"
@@ -497,7 +497,7 @@ function mail_message_listing_beginning
        . "      </TD>\n"
        . "   </TR>\n"
        . "   <TR>\n"
-       . "      <TD ALIGN=LEFT VALIGN=CENTER NOWRAP>\n"
+       . "      <TD ALIGN=LEFT VALIGN=MIDDLE NOWRAP>\n"
        . '         <SMALL>&nbsp;<TT><SELECT NAME="targetMailbox">';
 
     $boxes = sqimap_mailbox_list($imapConnection);
@@ -525,7 +525,7 @@ function mail_message_listing_beginning
     echo '</TD></TR>'.
 
         "<TR><TD BGCOLOR=\"$color[0]\">".
-        "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=";
+        "<TABLE WIDTH=\"100%\" BORDER=0 CELLPADDING=2 CELLSPACING=";
     if ($GLOBALS['alt_index_colors']) {
         echo "0";
     } else {
@@ -611,7 +611,7 @@ function get_selectall_link($start_msg, $sort) {
             "   }\n" .
             "}\n" .
             "//-->\n" .
-            '</script><a href=# onClick="CheckAll();">' . _("Toggle All") . "</a>\n";
+            '</script><a href=\"#\" onClick="CheckAll();">' . _("Toggle All") . "</a>\n";
     } else {
         $result .= "<a href=\"$PHP_SELF?mailbox=" . urlencode($mailbox)
                     . "&startMessage=$start_msg&sort=$sort&checkall=";
