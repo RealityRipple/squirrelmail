@@ -208,9 +208,9 @@ class AddressBook {
      */
 
     function full_address($row) {
-        global $addrsrch_fullname, $datadir, $user;
+        global $addrsrch_fullname, $data_dir, $username;
 
-        if (($prefix = getPref($datadir, $user, 'addrsrch_fullname') or
+        if (($prefix = getPref($data_dir, $username, 'addrsrch_fullname') or
             isset($addrsrch_fullname) and $prefix = $addrsrch_fullname)
             and $prefix !== 'noprefix') {
             $name = ($prefix === 'nickname') ? $row['nickname']

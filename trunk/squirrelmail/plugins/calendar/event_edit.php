@@ -300,7 +300,7 @@ if (!isset($updated)){
                 ) . "\n";
         echo html_tag( 'tr',
                    html_tag( 'td',
-                       "<a href=\"day.php?year=$year&month=$month&day=$day\">" . 
+                       "<a href=\"day.php?year=$year&amp;month=$month&amp;day=$day\">" . 
                        _("Day View") ."</a>",
                    'left' )
                 ) . "\n";

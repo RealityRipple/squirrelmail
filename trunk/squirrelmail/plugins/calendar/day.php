@@ -60,13 +60,13 @@ function day_header() {
                     html_tag( 'table', '', '', $color[0], 'width="100%" border="0" cellpadding="2" cellspacing="1"' ) ."\n" .
                         html_tag( 'tr', 
                             html_tag( 'th',
-                                "<a href=\"day.php?year=$prev_year&month=$prev_month&day=$prev_day\">&lt;&nbsp;".
+                                "<a href=\"day.php?year=$prev_year&amp;month=$prev_month&amp;day=$prev_day\">&lt;&nbsp;".
                                 date_intl('D',$prev_date)."</a>",
                             'left' ) .
                             html_tag( 'th', date_intl( _("l, F j Y"), mktime(0, 0, 0, $month, $day, $year)) ,
                                 '', '', 'width="75%"' ) .
                             html_tag( 'th',
-                                "<a href=\"day.php?year=$next_year&month=$next_month&day=$next_day\">".
+                                "<a href=\"day.php?year=$next_year&amp;month=$next_month&amp;day=$next_day\">".
                                 date_intl('D',$next_date)."&nbsp;&gt;</a>" ,
                             'right' )
                         );
@@ -114,7 +114,7 @@ function display_events() {
                        html_tag( 'td', $ehour . ':' . $eminute, 'left' ) .
                        html_tag( 'td', '&nbsp;', 'left' ) .
                        html_tag( 'td',
-                           "<font size=\"-1\"><a href=\"event_create.php?year=$year&month=$month&day=$day&hour=".substr($calfoo['key'],0,2)."\">".
+                           "<font size=\"-1\"><a href=\"event_create.php?year=$year&amp;month=$month&amp;day=$day&amp;hour=".substr($calfoo['key'],0,2)."\">".
                            _("ADD") . "</a></font>" ,
                        'center' ) ,
                    '', $color[$eo]);
@@ -133,9 +133,9 @@ function display_events() {
                             echo"] $calbar[message]&nbsp;" .
                         html_tag( 'td',
                             "<font size=\"-1\"><nobr>\n" .
-                            "<a href=\"event_edit.php?year=$year&month=$month&day=$day&hour=".substr($calfoo['key'],0,2)."&minute=".substr($calfoo['key'],2,2)."\">".
+                            "<a href=\"event_edit.php?year=$year&amp;month=$month&amp;day=$day&amp;hour=".substr($calfoo['key'],0,2)."&amp;minute=".substr($calfoo['key'],2,2)."\">".
                             _("EDIT") . "</a>&nbsp;|&nbsp;\n" .
-                            "<a href=\"event_delete.php?dyear=$year&dmonth=$month&dday=$day&dhour=".substr($calfoo['key'],0,2)."&dminute=".substr($calfoo['key'],2,2)."&year=$year&month=$month&day=$day\">" .
+                            "<a href=\"event_delete.php?dyear=$year&amp;dmonth=$month&amp;dday=$day&amp;dhour=".substr($calfoo['key'],0,2)."&amp;dminute=".substr($calfoo['key'],2,2)."&amp;year=$year&amp;month=$month&amp;day=$day\">" .
                             _("DEL") . '</a>' .
                             "</nobr></font>\n" ,
                         'center' );

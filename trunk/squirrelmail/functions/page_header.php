@@ -82,7 +82,7 @@ function displayInternalLink($path, $text, $target='') {
 function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 
     global $hide_sm_attributions, $PHP_SELF, $frame_top,
-           $compose_new_win, $username, $datadir, $compose_width, $compose_height,
+           $compose_new_win, $compose_width, $compose_height,
            $attachemessages, $provider_name, $provider_uri;
 
     if ( !check_php_version(4,1) ) {
@@ -279,7 +279,8 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 /* blatently copied/truncated/modified from the above function */
 function compose_Header($color, $mailbox) {
 
-    global $delimiter, $hide_sm_attributions, $base_uri, $PHP_SELF, $frame_top, $compose_new_win;
+    global $delimiter, $hide_sm_attributions, $base_uri, $PHP_SELF, 
+           $data_dir, $username, $frame_top, $compose_new_win;
 
 
     $module = substr( $PHP_SELF, ( strlen( $PHP_SELF ) - strlen( $base_uri ) ) * -1 );

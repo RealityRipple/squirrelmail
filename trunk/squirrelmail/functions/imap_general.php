@@ -455,7 +455,7 @@ function sqimap_find_displayable_name ($string) {
              $string = sqimap_find_email($orig_string);
         }
         if( $string == '' || $string == ' ' ){
-            $string = '&nbsp';
+            $string = '&nbsp;';
         }
     }
     elseif ( ereg('\((.*)\)', $string, $regs) ) {
@@ -463,7 +463,7 @@ function sqimap_find_displayable_name ($string) {
             if ( ereg('^(.+) \(', $string, $regs) ) {
                $string = ereg_replace( ' \(\)$', '', $string );
             } else {
-               $string = '&nbsp';
+               $string = '&nbsp;';
             }
         } else {
             $string = $regs[1];

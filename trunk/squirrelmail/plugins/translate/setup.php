@@ -56,7 +56,7 @@ function translate_read_form() {
             
     $new_body = $body;
     $pos = strpos($new_body,
-            '">Download this as a file</A></CENTER><BR></SMALL>');
+            '">'. _("Download this as a file") . '</A></CENTER><BR></SMALL>');
     if (is_int($pos)) {
         $new_body = substr($new_body, 0, $pos);
     }

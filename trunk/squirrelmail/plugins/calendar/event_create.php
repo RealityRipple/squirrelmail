@@ -194,7 +194,7 @@ if(!isset($event_text)){
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td',
-                        "<a href=\"day.php?year=$year&month=$month&day=$day\">" . _("Day View") . "</a>\n" ,
+                        "<a href=\"day.php?year=$year&amp;month=$month&amp;day=$day\">" . _("Day View") . "</a>\n" ,
                     'left', $color[4], 'colspan="2"' ) . "\n"
                 ) ,
             '', $color[0], 'width="100%" border="0" cellpadding="2" cellspacing="1"' ) ."\n";

@@ -21,7 +21,7 @@ function squirrelmail_plugin_init_calendar() {
 function calendar() {
     /* Add Calendar link to upper menu */
     displayInternalLink('plugins/calendar/calendar.php',_("Calendar"),'right');
-    echo "&nbsp;&nbsp\n";
+    echo "&nbsp;&nbsp;\n";
 }
 
 ?>
