@@ -1,4 +1,6 @@
 <?
+   session_start();
+
 	/**
 	 **  signout.php
 	 **
@@ -20,9 +22,9 @@
            }
         }
 	
-	setcookie("username", "", time(), "/");
-	setcookie("key", "", time(), "/");
-	setcookie("logged_in", 0, time(), "/");
+#	setcookie("username", "", time(), "/");
+#	setcookie("key", "", time(), "/");
+#	setcookie("logged_in", 0, time(), "/");
 ?>
 <HTML>
 <?
@@ -55,4 +57,6 @@
 ?>
 </BODY>
 </HTML>
-
+<?
+   session_destroy();
+?>

@@ -1,4 +1,6 @@
 <?
+   session_start();
+
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($strings_php))
@@ -41,7 +43,7 @@
    }
 
    if ($count_special_folders < count($boxes)) {
-      echo "<FORM ACTION=folders_delete.php METHOD=SUBMIT>\n";
+      echo "<FORM ACTION=\"folders_delete.php?PHPSESSID=$PHPSESSID\" METHOD=\"POST\">\n";
       echo "<TT><SELECT NAME=mailbox>\n";
       for ($i = 0; $i < count($boxes); $i++) {
          $use_folder = true;
@@ -73,7 +75,7 @@
    echo _("Create Folder");
    echo "</B></TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
-   echo "<FORM ACTION=folders_create.php METHOD=POST>\n";
+   echo "<FORM ACTION=\"folders_create.php?PHPSESSID=$PHPSESSID\" METHOD=\"POST\">\n";
    echo "<INPUT TYPE=TEXT SIZE=25 NAME=folder_name><BR>\n";
    echo _("as a subfolder of");
    echo "<BR>";
@@ -125,7 +127,7 @@
    echo "</B></TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
    if ($count_special_folders < count($boxes)) {
-      echo "<FORM ACTION=folders_rename_getname.php METHOD=POST>\n";
+      echo "<FORM ACTION=\"folders_rename_getname.php?PHPSESSID=$PHPSESSID\" METHOD=\"POST\">\n";
       echo "<TT><SELECT NAME=old>\n";
       for ($i = 0; $i < count($boxes); $i++) {
          $use_folder = true;
@@ -158,7 +160,7 @@
    echo "</B></TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
    if ($count_special_folders < count($boxes)) {
-      echo "<FORM ACTION=\"folders_subscribe.php?method=unsub\" METHOD=POST>\n";
+      echo "<FORM ACTION=\"folders_subscribe.php?PHPSESSID=$PHPSESSID&method=unsub\" METHOD=\"POST\">\n";
       echo "<TT><SELECT NAME=mailbox>\n";
       for ($i = 0; $i < count($boxes); $i++) {
          $use_folder = true;
@@ -192,7 +194,7 @@
       $imap_stream = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 1);
       $boxes = sqimap_mailbox_list_all ($imap_stream);
       
-      echo "<FORM ACTION=\"folders_subscribe.php?method=sub\" METHOD=POST>\n";
+      echo "<FORM ACTION=\"folders_subscribe.php?PHPSESSID=$PHPSESSID&method=sub\" METHOD=\"POST\">\n";
       echo "<tt><input type=text size=32 name=mailbox></tt>";
       echo "<INPUT TYPE=SUBMIT VALUE=\"";
       echo _("Subscribe");

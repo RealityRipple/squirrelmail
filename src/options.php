@@ -1,4 +1,6 @@
 <?
+   session_start();
+
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($strings_php))
@@ -36,7 +38,7 @@
    echo "   </TD></TR>\n";
    echo "</TABLE>\n";
 
-   echo "<FORM action=\"options_submit.php\" METHOD=POST>\n";
+   echo "<FORM action=\"options_submit.php?PHPSESSID=$PHPSESSID\" METHOD=POST>\n";
    echo "<TABLE WIDTH=100% COLS=2 ALIGN=CENTER>\n";
    // FULL NAME
    echo "   <TR>";

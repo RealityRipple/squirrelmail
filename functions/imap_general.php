@@ -65,6 +65,7 @@
     ******************************************************************************/
    function sqimap_login ($username, $password, $imap_server_address, $imap_port, $hide) {
       global $color;
+      global $PHPSESSID;
       $imap_stream = fsockopen ($imap_server_address, $imap_port, &$error_number, &$error_string);
       $server_info = fgets ($imap_stream, 1024);
       
@@ -115,6 +116,7 @@
                      </body>
                   </html>
                <?
+               session_destroy();
                exit;
             } else {
                echo "Unknown error: $read<br>";

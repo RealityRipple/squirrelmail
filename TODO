@@ -4,7 +4,7 @@ Ideas to be implemented
 initials = taken by that person
 
 (pl?)   Importing of address books
-  -     Use PHP4 Session management, get rid of cookies
+(nre)   Use PHP4 Session management, get rid of cookies
   -     Make it possible to save preferences in MySQL DB or on Filesystem
   -     Navigation between messages without going to folder list (next, prev)
   -     Configurable headers shown on the message listing, like:  cc, to, etc

@@ -7,6 +7,8 @@
     **
     **/
 
+   session_start();
+
    if(!isset($logged_in)) {
       echo _("You must login first.");
       exit;

@@ -6,9 +6,9 @@
     **
     **/
 
-   setcookie("username", "", time(), "/");
-   setcookie("key", "", time(), "/");
-   setcookie("logged_in", 0, time(), "/");
+#   setcookie("username", "", time(), "/");
+#   setcookie("key", "", time(), "/");
+#   setcookie("logged_in", 0, time(), "/");
 
    if (!isset($config_php))
       include("../config/config.php");
@@ -38,7 +38,7 @@
    echo "</TITLE></HEAD>\n";
    echo "<BODY TEXT=000000 BGCOLOR=#FFFFFF LINK=0000CC VLINK=0000CC ALINK=0000CC>\n";
  
-   echo "<FORM ACTION=webmail.php METHOD=\"POST\" NAME=f>\n";
+   echo "<FORM ACTION=\"webmail.php\" METHOD=\"POST\" NAME=f>\n";
    echo "<CENTER><IMG SRC=\"$org_logo\"</CENTER>\n";
    echo "<CENTER><SMALL>";
    echo _("SquirrelMail version $version<BR>By the SquirrelMail Development Team");

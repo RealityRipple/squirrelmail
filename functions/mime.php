@@ -128,6 +128,7 @@
        bottom, etc.
     **/
    function formatBody($message, $color, $wrap_at) {
+      global $PHPSESSID;
 
       /** this if statement checks for the entity to show as the
           primary message. To add more of them, just put them in the
@@ -161,7 +162,7 @@
          $body = translateText($body, $wrap_at, $charset);
 
 
-      $body .= "<BR><SMALL><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_num&mailbox=$urlmailbox\">". _("Download this as a file") ."</A></CENTER><BR></SMALL>";
+      $body .= "<BR><SMALL><CENTER><A HREF=\"../src/download.php?PHPSESSID=$PHPSESSID&absolute_dl=true&passed_id=$id&passed_ent_id=$ent_num&mailbox=$urlmailbox\">". _("Download this as a file") ."</A></CENTER><BR></SMALL>";
 
       /** Display the ATTACHMENTS: message if there's more than one part **/
       if (count($message["ENTITIES"]) > 1) {
@@ -188,7 +189,7 @@
 
             $urlMailbox = urlencode($message["INFO"]["MAILBOX"]);
             $id = $message["INFO"]["ID"];
-            $body .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$i\">" . $display_filename . "</A>&nbsp;&nbsp;<SMALL>(TYPE: $type0/$type1)</SMALL></TT><BR>";
+            $body .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?PHPSESSID=$PHPSESSID&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$i\">" . $display_filename . "</A>&nbsp;&nbsp;<SMALL>(TYPE: $type0/$type1)</SMALL></TT><BR>";
          }
          $body .= "</TD></TR></TABLE>";
       }
