@@ -226,19 +226,20 @@ class Deliver {
     }    
 
     function prepareRFC822_Header($rfc822_header, $reply_rfc822_header, &$raw_length) {
-        $REMOTE_ADDR = $_SERVER['REMOTE_ADDR'];
-        $SERVER_NAME = $_SERVER['SERVER_NAME'];
-        $REMOTE_PORT = $_SERVER['REMOTE_PORT'];
-        if(isset($_SERVER['REMOTE_HOST'])) {
-            $REMOTE_HOST = $_SERVER['REMOTE_HOST'];
-        }
-        if(isset($_SERVER['HTTP_VIA'])) {
-            $HTTP_VIA = $_SERVER['HTTP_VIA'];
-        }
-        if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $HTTP_X_FORWARDED_FOR = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        }
-	global $version, $username;
+
+	global $domain, $version, $username;
+
+	/* if server var SERVER_NAME not available, use $domain */
+        if(!sqGetGlobalVar('SERVER_NAME', $SERVER_NAME, SQ_SERVER)) {
+            $SERVER_NAME = $domain;
+	}
+
+	sqGetGlobalVar('REMOTE_ADDR', $REMOTE_ADDR, SQ_SERVER);
+	sqGetGlobalVar('REMOTE_PORT', $REMOTE_PORT, SQ_SERVER);
+	sqGetGlobalVar('REMOTE_HOST', $REMOTE_HOST, SQ_SERVER);
+	sqGetGlobalVar('HTTP_VIA',    $HTTP_VIA,    SQ_SERVER);
+	sqGetGlobalVar('HTTP_X_FORWARDED_FOR', $HTTP_X_FORWARDED_FOR, SQ_SERVER);
+
 	$rn = "\r\n";
 	/* This creates an RFC 822 date */
 	$date = date('D, j M Y H:i:s ', mktime()) . $this->timezone();
@@ -341,8 +342,6 @@ class Deliver {
 	for ($i = 0 ; $i < $cnt ; $i++) {
     	    $hdr_s .= $this->foldLine($header[$i], 78, str_pad('',4));
 	}
-//	$debug = "Debug: <123456789012345678901234567890123456789012345678901234567890123456789>\r\n";
-//	$this->foldLine($debug, 78, str_pad('',4));
 	$header = $hdr_s;
 	$header .= $rn; /* One blank line to separate header and body */
 	$raw_length += strlen($header);
