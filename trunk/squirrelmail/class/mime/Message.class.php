@@ -375,9 +375,8 @@ class Message {
     function parseEnvelope($read, &$i, $hdr) {
         $arg_no = 0;
         $arg_a = array();
-
+        ++$i;
         for ($cnt = strlen($read); ($i < $cnt) && ($read{$i} != ')'); ++$i) {
-            ++$i;
             $char = strtoupper($read{$i});
             switch ($char) {
                 case '"':
@@ -386,6 +385,9 @@ class Message {
                     break;
                 case '{':
                     $arg_a[] = $this->parseLiteral($read, $i);
+		    /* temp bugfix (SM 1.5 will have a working clean version)
+		       too much work to implement that version right now */
+		    --$i;
                     ++$arg_no;
                     break;
                 case 'N':
