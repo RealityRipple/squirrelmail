@@ -34,7 +34,7 @@ if (! isset($message_highlight_list)) {
 
 if ($action == 'delete' && isset($theid)) {
     removePref($data_dir, $username, "highlight$theid");
-    header( "Location: $PHP_SELF" );
+    header( "Location: $SCRIPT_NAME" );
     exit;
 } else if ($action == 'save') {
     if (!$theid) $theid = 0;
