@@ -35,6 +35,9 @@
          exit;
       }
 
+      $from_pos = 0;
+      $date_pos = 0;
+      $subj_pos = 0;
       while ($rel_start <= $end) {
          if ($end - $rel_start > 50) {
             $rel_end = $rel_start + 50;
@@ -44,27 +47,26 @@
          fputs($imapConnection, "messageFetch FETCH $rel_start:$rel_end RFC822.HEADER.LINES (From Subject Date)\n");
          $read = fgets($imapConnection, 1024);
 
-         $from_num = $rel_start - 1;
-         $date_num = $rel_start - 1;
-         $subj_num = $rel_start - 1;
          while ((substr($read, 0, 15) != "messageFetch OK") && (substr($read, 0, 16) != "messageFetch BAD")) {
             if (substr($read, 0, 5) == "From:") {
                $read = ereg_replace("<", "EMAILSTART--", $read);
                $read = ereg_replace(">", "--EMAILEND", $read);
-               $from[$from_num] = substr($read, 5, strlen($read) - 6);
-               $from_num++;
+               $from[$from_pos] = substr($read, 5, strlen($read) - 6);
+               $from_pos++;
             }
             else if (substr($read, 0, 5) == "Date:") {
                $read = ereg_replace("<", "&lt;", $read);
                $read = ereg_replace(">", "&gt;", $read);
-               $date[$date_num] = substr($read, 5, strlen($read) - 6);
-               $date_num++;
+               $date[$date_pos] = substr($read, 5, strlen($read) - 6);
+               $date_pos++;
             }
             else if (substr($read, 0, 8) == "Subject:") {
                $read = ereg_replace("<", "&lt;", $read);
                $read = ereg_replace(">", "&gt;", $read);
-               $subject[$subj_num] = substr($read, 8, strlen($read) - 9);
-               $subj_num++;
+               $subject[$subj_pos] = substr($read, 8, strlen($read) - 9);
+               if (strlen(Chop($subject[$subj_pos])) == 0)
+                  $subject[$subj_pos] = "(no subject)";
+               $subj_pos++;
             }
             $read = fgets($imapConnection, 1024);
          }
@@ -192,5 +194,65 @@
          $box = $mailbox;
 
       return $box;
+   }
+
+   function fetchBody($imapConnection, $id) {
+      fputs($imapConnection, "messageFetch FETCH $id:$id BODY[TEXT]\n");
+      $count = 0;
+      $read[$count] = fgets($imapConnection, 1024);
+      while ((substr($read[$count], 0, 15) != "messageFetch OK") && (substr($read[$count], 0, 16) != "messageFetch BAD")) {
+         $count++;
+         $read[$count] = fgets($imapConnection, 1024);
+      }
+
+      $count = 0;
+      $useHTML= false;
+      while ($count < count($read)) {
+         $read[$count] = "^^$read[$count]";
+         if (strpos($read[$count], "<html>") == true) {
+            $useHTML = true;
+         } else if (strpos(strtolower($read[$count]), "</html") == true) {
+            $useHTML= false;
+         }
+         $read[$count] = substr($read[$count], 2, strlen($read[$count]));
+
+         if ($useHTML == false) {
+            $read[$count] = str_replace(" ", "&nbsp;", $read[$count]);
+            $read[$count] = str_replace("\n", "", $read[$count]);
+            $read[$count] = str_replace("\r", "", $read[$count]);
+            $read[$count] = str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;", $read[$count]);
+
+            $read[$count] = "^^$read[$count]";
+            if (strpos(trim(str_replace("&nbsp;", "", $read[$count])), ">>") == 2) {
+               $read[$count] = substr($read[$count], 2, strlen($read[$count]));
+               $read[$count] = "<FONT FACE=\"Fixed\" COLOR=FF0000>$read[$count]</FONT>\n";
+            } else if (strpos(trim(str_replace("&nbsp;", "", $read[$count])), ">") == 2) {
+               $read[$count] = substr($read[$count], 2, strlen($read[$count]));
+               $read[$count] = "<FONT FACE=\"Fixed\" COLOR=800000>$read[$count]</FONT>\n";
+            } else {
+               $read[$count] = substr($read[$count], 2, strlen($read[$count]));
+               $read[$count] = "<FONT FACE=\"Fixed\" COLOR=000000>$read[$count]</FONT>\n";
+            }
+
+            if (strpos(strtolower($read[$count]), "http://") != false) {
+               $start = strpos(strtolower($read[$count]), "http://");
+               $link = substr($read[$count], $start, strlen($read[$count]));
+
+               if (strpos($link, "&nbsp;"))
+                  $end = strpos($link, "&nbsp;");
+               else if (strpos($link, "<"))
+                  $end = strpos($link, "<");
+               else
+                  $end = strlen($link);
+
+               $link = substr($link, 0, $end);
+
+               $read[$count] = str_replace($link, "<A HREF=\"$link\" TARGET=_top>$link</A>", $read[$count]);
+            }
+         }
+         $count++;
+      }
+
+      return $read;
    }
 ?>
