@@ -63,14 +63,15 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
       else
          $hdr = sqimap_get_small_header ($imapConnection, $messagelist[$q], false);
 						
-			$from[$q] = $hdr->from;
-			$date[$q] = $hdr->date;
-			$subject[$q] = $hdr->subject;
+         $from[$q] = $hdr->from;
+         $date[$q] = $hdr->date;
+         $subject[$q] = $hdr->subject;
          $to[$q] = $hdr->to;
          $priority[$q] = $hdr->priority;
          $cc[$q] = $hdr->cc;
+		 $size[$q] = $hdr->size;
+		 $type[$q] = $hdr->type0;
          $id[$q] = $messagelist[$q];
-
          $flags[$q] = sqimap_get_flags ($imapConnection, $messagelist[$q]);
       }
 
@@ -87,8 +88,10 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
          $messages[$j]["SUBJECT"] = decodeHeader($subject[$j]);
          $messages[$j]["SUBJECT-SORT"] = strtolower(decodeHeader($subject[$j]));
          $messages[$j]["TO"] = decodeHeader($to[$j]);
-			$messages[$j]["PRIORITY"] = $priority[$j];
+         $messages[$j]["PRIORITY"] = $priority[$j];
          $messages[$j]["CC"] = $cc[$j];
+		 $messages[$j]["SIZE"] = $size[$j];
+		 $messages[$j]["TYPE0"] = $type[$j];
 
          $num = 0;
          while ($num < count($flags[$j])) {
