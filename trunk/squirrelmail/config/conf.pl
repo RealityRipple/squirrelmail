@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 # conf.pl
 # Luke Ehresman (luke@squirrelmail.org)
 #

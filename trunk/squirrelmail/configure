@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # Redirects to the config directory and runs conf.pl
 
