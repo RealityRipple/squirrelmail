@@ -725,7 +725,6 @@
 
       // Encode only if the string contains 8-bit characters or =?
       if (ereg("([\200-\377]|=\\?)", $string)) {
-         $newstring = "=?$default_charset?Q?";
          
          // First the special characters
          $string = str_replace("=", "=3D", $string);
@@ -737,7 +736,6 @@
 	    $replace = chr($ch);
 	    $insert = sprintf("=%02X", $ch);
             $string = str_replace($replace, $insert, $string);
-	    $ch++;
          }
 
          $newstring = "=?$default_charset?Q?".$string."?=";
