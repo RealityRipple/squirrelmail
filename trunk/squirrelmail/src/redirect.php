@@ -143,11 +143,9 @@ if ($javascript_setting != SMPREF_JS_ON){
 /* Update the prefs */
 setPref($data_dir, $username, 'javascript_on', $js_pref);
 
+global $attachments;
+$attachments = unserialize(getPref($data_dir, $username, 'attachments', 0));
 /* Compute the URL to forward the user to. */
-if(isset($rcptemail)) {
-    $redirect_url = 'webmail.php?right_frame=compose.php&rcptaddress=';
-    $redirect_url .= $rcptemail;
-} else {
     global $session_expired_location, $session_expired_post;
     if (isset($session_expired_location) && $session_expired_location) {
        $compose_new_win = getPref($data_dir, $username, 'compose_new_win', 0);
@@ -158,10 +156,23 @@ if(isset($rcptemail)) {
        }
        session_unregister('session_expired_location');
        unset($session_expired_location);
+       if (is_array($attachments)) {
+          session_register('attachments');
+       }
     } else {
+       if (is_array($attachments)) {
+          $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+          foreach ($attachments as $attachment) {
+    	     $attached_file = $hashed_attachment_dir.'/'.$attachment['localfilename'];
+    	     if (file_exists($attached_file)) {
+                unlink($attached_file);
+    	     }
+          }
+          removePref($data_dir, $username, 'attachments');
+       }
        $redirect_url = 'webmail.php';
     }
-}
+
 /* Send them off to the appropriate page. */
 header("Location: $redirect_url");
 
