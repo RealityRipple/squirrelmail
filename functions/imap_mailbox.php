@@ -114,7 +114,7 @@ function compact_mailboxes_response($ary)
      * FIXME : Doesn't work if the mailbox name is multiple lines 
      * (larger then fgets buffer)
      */
-    for ($i = 0; $i < count($ary); $i++) {
+    for ($i = 0, $iCnt=count($ary); $i < $iCnt; $i++) {
         if (isset($ary[$i + 1]) && substr($ary[$i], -3) == "}\r\n") {
             if (ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
                  $ary[$i], $regs)) {
@@ -720,7 +720,7 @@ function sqimap_mailbox_tree($imap_stream) {
         require_once(SM_PATH . 'include/load_prefs.php');
 
         /* LSUB array */
-        $lsub_ary = sqimap_run_command ($imap_stream, "LSUB \"$folder_prefix\" \"*%\"",
+        $lsub_ary = sqimap_run_command ($imap_stream, "LSUB \"$folder_prefix\" \"*\"",
                                         true, $response, $message);
         $lsub_ary = compact_mailboxes_response($lsub_ary);
 
