@@ -9,10 +9,16 @@
     **  Setup of the mailfetch plugin.
     **
     **  $Id$
+    * @package plugins
+    * @subpackage mail_fetch
     **/
-
+    
+    /**  */
     require_once(SM_PATH . 'plugins/mail_fetch/functions.php' );
 
+    /**
+     * Initialize the plugin
+     */
     function squirrelmail_plugin_init_mail_fetch() {
         global $squirrelmail_plugin_hooks;
 

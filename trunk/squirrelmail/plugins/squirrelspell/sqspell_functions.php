@@ -11,6 +11,8 @@
  *
  * @author Konstantin Riabitsev <icon@duke.edu> ($Author$)
  * @version $Date$
+ * @package plugins
+ * @subpackage squirrelspell
  */
 
 /**

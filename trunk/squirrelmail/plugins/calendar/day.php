@@ -11,8 +11,11 @@
  * Displays the day page (day view).
  *
  * $Id$
+ * @package plugins
+ * @subpackage calendar
  */
 
+/** @ignore */
 define('SM_PATH','../../');
 
 /* Calender plugin required files. */

@@ -11,6 +11,7 @@
  * the person is logged or not.
  *
  * $Id$
+ * @package plugins
  */
 
 header("Location:../index.php");

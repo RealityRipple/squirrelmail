@@ -9,6 +9,8 @@
     **  Redirects to the login page.
     **
     **  $Id$
+    * @package plugins
+    * @subpackage sent_subfolders
     **/
 
    header("Location:../../src/login.php\n\n");

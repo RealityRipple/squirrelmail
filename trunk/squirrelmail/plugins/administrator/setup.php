@@ -9,8 +9,11 @@
  *  Administrator plugin. Allows remote administration.  Philippe Mingo
  *
  * $Id$
+ * @package plugins
+ * @subpackage administrator
  */
 
+/** @ignore */
 require_once(SM_PATH . 'plugins/administrator/auth.php');
 
 function squirrelmail_plugin_init_administrator() {

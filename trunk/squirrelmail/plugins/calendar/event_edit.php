@@ -11,7 +11,11 @@
  * Functions to edit an event.
  *
  * $Id$
+ * @package plugins
+ * @subpackage calendar
  */
+
+/** @ignore */
 define('SM_PATH','../../');
 
 /* Calender plugin required files. */

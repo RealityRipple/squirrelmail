@@ -11,6 +11,8 @@
  * the person is logged or not.
  *
  * $Id$
+ * @package plugins
+ * @subpackage squirrelspell
  */
 
 header("Location: ../../index.php");

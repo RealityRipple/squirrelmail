@@ -9,8 +9,11 @@
  * Displays all options relating to new mail sounds
  *
  * $Id$
+ * @package plugins
+ * @subpackage newmail
  */
 
+/** @ignore */
 define('SM_PATH','../../');
 
 /* SquirrelMail required files. */

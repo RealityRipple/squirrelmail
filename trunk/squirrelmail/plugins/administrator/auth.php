@@ -1,14 +1,19 @@
 <?php
 
-/*
+/**
  *  This function tell other modules what users have access
  *  to the plugin.
  *  
  *  Philippe Mingo
  *  
  *  $Id$
+ * @package plugins
+ * @subpackage administrator
  */
 
+/**
+*
+*/
 function adm_check_user() {
     global $PHP_SELF;
     require_once(SM_PATH . 'functions/global.php');

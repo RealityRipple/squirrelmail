@@ -7,8 +7,11 @@
     **  Licensed under the GNU GPL. For full terms see the file COPYING.
     **
     **  $Id$
+    * @package plugins
+    * @subpackage spamcop
     **/
 
+/** @ignore */
 define('SM_PATH','../../');
 require_once(SM_PATH . 'include/validate.php');
 

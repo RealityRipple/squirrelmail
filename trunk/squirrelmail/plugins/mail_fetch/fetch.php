@@ -9,8 +9,11 @@
  * Fetch code.
  *
  * $Id$
+ * @package plugins
+ * @subpackage mail_fetch
  */
 
+/** @ignore */
 define('SM_PATH','../../');
 
 require_once(SM_PATH . 'include/validate.php');

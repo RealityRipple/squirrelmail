@@ -5,13 +5,16 @@
     **  Copyright (c) 1999-2003 The SquirrelMail development team
     **  Licensed under the GNU GPL. For full terms see the file COPYING.
     **  
-    **  $Id$                                                         
+    **  $Id$
+    * @package plugins
+    * @subpackage spamcop
     **/
 
+/** @ignore */
 require_once(SM_PATH . 'functions/global.php');
 
 
-/* Initialize the plugin */
+/** Initialize the plugin */
 function squirrelmail_plugin_init_spamcop() {
    global $squirrelmail_plugin_hooks, $data_dir, $username,
       $spamcop_is_composing;

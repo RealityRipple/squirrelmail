@@ -7,6 +7,8 @@
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
+ * @package plugins
+ * @subpackage translate
  */
 
 /* Easy plugin that sends the body of the message to a new browser
@@ -31,7 +33,10 @@ outgoing message if you send it to someone in a different country.
 */
 
 
-/* Initialize the translation plugin */
+/**
+ * Initialize the translation plugin
+ * @return void
+ */
 function squirrelmail_plugin_init_translate() {
   global $squirrelmail_plugin_hooks;
 

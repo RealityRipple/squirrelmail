@@ -11,8 +11,14 @@
  * message.
  *
  * $Id$
+ * @package plugins
+ * @subpackage abook_take
  */
 
+/**
+ * If SM_PATH isn't defined, define it.  Required to include files.
+ * @ignore
+ */
 if (!defined('SM_PATH'))  {
     define('SM_PATH','../../');
 }
@@ -20,6 +26,9 @@ if (!defined('SM_PATH'))  {
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'functions/url_parser.php');
 
+/**
+ * Initialize the plugin
+ */
 function squirrelmail_plugin_init_abook_take()
 {
     global $squirrelmail_plugin_hooks;
