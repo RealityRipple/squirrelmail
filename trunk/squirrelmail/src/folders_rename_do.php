@@ -23,6 +23,9 @@
    else
       $newone = "$new_name";
 
+   $orig = stripslashes($orig);
+   $newone = stripslashes($newone);
+
    fputs ($imapConnection, ". RENAME \"$orig\" \"$newone\"\n");
    $data = sqimap_read_data($imapConnection, ".", true, $a, $b);
 
@@ -40,8 +43,16 @@
    sqimap_logout($imapConnection);
 
    echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
-   echo "<BR><BR><A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>";
-   echo _("Return");
-   echo "</A>";
-   echo "</BODY></HTML>";
+   displayPageHeader($color, "None");
+   echo "<BR><BR><BR><CENTER><B>";
+   echo _("Folder Renamed!");
+   echo "</B><BR><BR>";
+   echo _("The folder has been successfully renamed.");
+   echo "<BR><A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>";
+   echo _("Click here");
+   echo "</A> ";
+   echo _("to continue.");
+   echo "</CENTER>";
+   
+   echo "</BODY></HTML>"; 
 ?>

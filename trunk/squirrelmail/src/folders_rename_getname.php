@@ -26,6 +26,8 @@
       $old_parent = "";
    }
 
+   $old_name = stripslashes($old_name);
+
    echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    displayPageHeader($color, "None");
    echo "<TABLE WIDTH=100% COLS=1>";
