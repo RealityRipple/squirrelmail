@@ -78,8 +78,9 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors,
 
         // if (ereg("^\\* [0-9]+ FETCH.*\\{([0-9]+)\\}", $read, $regs)) {
         if (preg_match('/^\* [0-9]+ FETCH.*\{([0-9]+)\}/', $read, $regs)) {
-           $size = $regs[1];
-        } else if (ereg("^\\* [0-9]+ FETCH", $read, $regs)) {
+            $size = $regs[1];
+        //} else if (ereg("^\\* [0-9]+ FETCH", $read, $regs)) {
+        } else if (preg_match('/^\* [0-9]+ FETCH/', $read, $regs)) {
             // Sizeless response, probably single-line
             $size = -1;
             $data[] = $read;
@@ -116,18 +117,24 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors,
             } else {
                 if (preg_match("/^$pre (OK|BAD|NO)(.*)/", $read, $regs) ||
                 // if (ereg("^$pre (OK|BAD|NO)(.*)", $read, $regs) ||
-                   (($size == -1) && ereg("^\\* [0-9]+ FETCH.*", $read, $regs))) {
+                   (($size == -1) && preg_match('/^\* [0-9]+ FETCH.*/', $read, $regs))) {
                     break;
-                } else if ( preg_match("/^\* OK \[PARSE.*/", $read, $regs ) ) {
+                } else if ( preg_match('/^\* OK \[PARSE.*/', $read, $regs ) ) {
+                    while ( preg_match('/^\* OK \[PARSE.*/', $read, $regs ) ) {
+                        $read = fgets($imap_stream, $bufsize);
+                    }
                     /*
                         This block has been added in order to avoid the problem
                         caused by the * OK [PARSE] Missing parameter answer
                         Please, replace it with a better parsing if you know how.
+                        This block has been updated by
+                        Seth E. Randall <sethr@missoulafcu.org>.  Once we see
+                        one OK [PARSE line, we just go through and keep
+                        tossing them out until we get something different.
                     */
-                    $read = fgets ($imap_stream, $bufsize);
                     $data[] = $read;
                     $read = fgets ($imap_stream, $bufsize);
-                } else if (preg_match("/^\* BYE \[ALERT\](.*)/", $read, $regs)) {
+                } else if (preg_match('/^\* BYE \[ALERT\](.*)/', $read, $regs)) {
                     /*
                         It seems that the IMAP server has coughed a lung up
                         and hung up the connection.  Print any info we have
@@ -199,17 +206,17 @@ function sqimap_read_data ($imap_stream, $pre, $handle_errors, &$response, &$mes
 function sqimap_login ($username, $password, $imap_server_address, $imap_port, $hide) {
 
     global $color, $squirrelmail_language, $HTTP_ACCEPT_LANGUAGE, $onetimepad;
-    
+
     $imap_stream = fsockopen ( $imap_server_address, $imap_port,
                              $error_number, $error_string, 15);
     if ( !$imap_stream ) {
         return FALSE;
     }
     $server_info = fgets ($imap_stream, 1024);
-    
+
     // Decrypt the password
     $password = OneTimePadDecrypt($password, $onetimepad);
-    
+
     /** Do some error correction **/
     if (!$imap_stream) {
         if (!$hide) {
@@ -248,13 +255,13 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
                  * Therefore, apply the same hack as on the login
                  * screen.
                  */
-                
+
                 /* $squirrelmail_language is set by a cookie when
                  * the user selects language and logs out
                  */
-                
+
                 set_up_language($squirrelmail_language, true);
-                
+
                 displayHtmlHeader( _("Unknown user or password incorrect.") );
                 echo "<body bgcolor=\"#ffffff\">\n";
                 error_username_password_incorrect();
@@ -265,7 +272,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
             exit;
         }
     }
-    
+
     return $imap_stream;
 }
 
@@ -279,7 +286,7 @@ function sqimap_logout ($imap_stream) {
 
 function sqimap_capability($imap_stream, $capability) {
     global $sqimap_capabilities;
-    
+
     if (!is_array($sqimap_capabilities)) {
         $read = sqimap_run_command($imap_stream, 'CAPABILITY', true, $a, $b);
 
@@ -306,12 +313,12 @@ function sqimap_get_delimiter ($imap_stream = false) {
 
     global $sqimap_delimiter;
     global $optional_delimiter;
-    
+
     /* Use configured delimiter if set */
     if((!empty($optional_delimiter)) && $optional_delimiter != 'detect') {
         return $optional_delimiter;
     }
-    
+
     /* Do some caching here */
     if (!$sqimap_delimiter) {
         if (sqimap_capability($imap_stream, 'NAMESPACE')) {
@@ -355,12 +362,12 @@ function sqimap_get_num_messages ($imap_stream, $mailbox) {
 
     $read_ary = sqimap_run_command ($imap_stream, "EXAMINE \"$mailbox\"", true, $result, $message);
     for ($i = 0; $i < count($read_ary); $i++) {
-     if (ereg("[^ ]+ +([^ ]+) +EXISTS", $read_ary[$i], $regs)) {
-        return $regs[1];
-     }
+        if (ereg("[^ ]+ +([^ ]+) +EXISTS", $read_ary[$i], $regs)) {
+            return $regs[1];
+        }
     }
     return sprintf( "BUG!  Couldn't get number of messages in %s!", $mailbox );
-    
+
 }
 
 
@@ -375,7 +382,7 @@ function sqimap_find_email ($string) {
     ** What about
     **    lehresma@css.tayloru.edu (Luke Ehresman)
     **/
-    
+
     if (ereg("<([^>]+)>", $string, $regs)) {
         $string = $regs[1];
     }
@@ -422,7 +429,7 @@ function sqimap_find_displayable_name ($string) {
 
     return trim($string);
 }
-    
+
 /*
 *  Returns the number of unseen messages in this folder
 */
@@ -445,12 +452,12 @@ function sqimap_unseen_messages ($imap_stream, $mailbox) {
 */
 function sqimap_append ($imap_stream, $sent_folder, $length) {
     fputs ($imap_stream, sqimap_session_id() . " APPEND \"$sent_folder\" (\\Seen) \{$length}\r\n");
-    $tmp = fgets ($imap_stream, 1024);    
+    $tmp = fgets ($imap_stream, 1024);
 }
 
 function sqimap_append_done ($imap_stream) {
     fputs ($imap_stream, "\r\n");
     $tmp = fgets ($imap_stream, 1024);
 }
-   
+
 ?>
