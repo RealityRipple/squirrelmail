@@ -36,7 +36,7 @@ class Deliver {
      * @param Message  $message  Message class to send
      * @param resource $stream   file handle to the SMTP stream
      *
-     * @returns integer $raw_length
+     * @return integer $raw_length
      */
     function mail($message, $stream=false) {
         $rfc822_header = $message->rfc822_header;
@@ -71,7 +71,7 @@ class Deliver {
      *                                as returned by mail fn
      * @param string    $boundary     custom boundary to call, usually for subparts
      *
-     * @returns void
+     * @return void
      */
     function writeBody($message, $stream, &$length_raw, $boundary='') {
         // calculate boundary in case of multidimensional mime structures
@@ -119,7 +119,7 @@ class Deliver {
      * @param integer  &$length       length of the message part
      *                                as returned by mail fn
      *
-     * @returns void
+     * @return void
      */
     function writeBodyPart($message, $stream, &$length) {
         if ($message->mime_header) {
@@ -198,7 +198,7 @@ class Deliver {
      *
      * @param string &$s string to clean linefeeds on
      *
-     * @returns void
+     * @return void
      */
     function clean_crlf(&$s) {
         $s = str_replace("\r\n", "\n", $s);
@@ -215,7 +215,7 @@ class Deliver {
      *
      * @param string &$s string to clean linefeeds on
      *
-     * @returns void
+     * @return void
      */
     function strip_crlf(&$s) {
         $s = str_replace("\r\n ", '', $s);
@@ -231,7 +231,7 @@ class Deliver {
      *
      * @param string &$s string to operate on
      *
-     * @returns void
+     * @return void
      */
     function preWriteToStream(&$s) {
     }
@@ -242,7 +242,7 @@ class Deliver {
      * @param resource $stream  SMTP output stream
      * @param string   $data    string with data to send to the SMTP stream
      *
-     * @returns void
+     * @return void
      */
     function writeToStream($stream, $data) {
         fputs($stream, $data);
@@ -260,7 +260,7 @@ class Deliver {
      * @param string  $pass     password to log into the SMTP server with
      * @param integer $length
      *
-     * @returns handle $stream file handle resource to SMTP stream
+     * @return handle $stream file handle resource to SMTP stream
      */
     function initStream($message, $length=0, $host='', $port='', $user='', $pass='') {
         return $stream;
@@ -283,7 +283,7 @@ class Deliver {
      * @param Message $message  Message object to act on
      * @param string  $boundary mime boundary from fn MimeBoundary
      *
-     * @returns string $header properly formatted mime header
+     * @return string $header properly formatted mime header
      */
     function prepareMIME_Header($message, $boundary) {
         $mime_header = $message->mime_header;
@@ -359,7 +359,7 @@ class Deliver {
      * @param Rfc822Header  $reply_rfc822_header
      * @param integer      &$raw_length length of the message
      *
-     * @returns
+     * @return string $header
      */
     function prepareRFC822_Header($rfc822_header, $reply_rfc822_header, &$raw_length) {
         global $domain, $version, $username;
@@ -520,7 +520,7 @@ class Deliver {
      * @param   integer $length length to fold the line at
      * @param   string  $pre    prefix the line with...
      *
-     * @returns string  $line folded line with trailing CRLF
+     * @return string   $line folded line with trailing CRLF
      */
     function foldLine($line, $length, $pre='') {
         $line = substr($line,0, -2);
@@ -613,7 +613,7 @@ class Deliver {
      * This function will generate a random mime boundary base part
      * for the message if the boundary has not already been set.
      *
-     * @returns string $mimeBoundaryString random mime boundary string
+     * @return string $mimeBoundaryString random mime boundary string
      */
     function mimeBoundary () {
         static $mimeBoundaryString;
@@ -629,7 +629,7 @@ class Deliver {
     /**
      * function timezone - Time offset for correct timezone
      *
-     * @returns string $result with timezone and offset
+     * @return string $result with timezone and offset
      */
     function timezone () {
         global $invert_time;
@@ -657,7 +657,7 @@ class Deliver {
      *
      * @param   Rfc822Header $hdr    message header to calculate from
      *
-     * @returns string       $refer  concatenated and trimmed Referer string
+     * @return  string       $refer  concatenated and trimmed Referer string
      */
     function calculate_references($hdr) {
         $refer = $hdr->references;
