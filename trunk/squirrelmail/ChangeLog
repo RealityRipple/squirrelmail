@@ -1,5 +1,10 @@
-Version 0.5pre2 -- DEVELOPMENT
-------------------------------
+Version 0.5 -- DEVELOPMENT
+--------------------------
+- Security fixes
+- Fixed hyperlink rendering problems
+
+Version 0.5pre2 -- September 6, 2000 
+------------------------------------
 - Added quite a few new themes
 - Fixed double folder problem on some servers
 - Using encryption for passwords

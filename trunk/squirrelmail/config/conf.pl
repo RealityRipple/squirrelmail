@@ -4,7 +4,7 @@
 #
 # A simple configure script to configure squirrelmail
 ############################################################              
-$conf_pl_version = "x52";
+$conf_pl_version = "x53";
 
 ############################################################              
 # First, lets read in the data already in there...
