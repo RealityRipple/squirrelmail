@@ -20,6 +20,7 @@ require_once('../functions/date.php');
 require_once('../config/config.php');
 require_once('../functions/page_header.php');
 require_once('../src/load_prefs.php');
+require_once('../functions/html.php');
 
 //display upper part of month calendar view
 function startcalendar() {

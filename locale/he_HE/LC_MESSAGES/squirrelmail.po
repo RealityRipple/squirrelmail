@@ -2098,6 +2098,7 @@ msgstr "מסחרי - רשומות של RBL ושרתי חיוג."
 #: squirrelmail/plugins/filters/filters.php:603
 msgid ""
 "FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
+"include servers used by abuse@uunet.net auto-replies too."
 msgstr "חינם - רשומות של שרתי דואר הפתוחים לכולם, ובכך מאפשרים שליחת דואר "
 "אלקטרוני דרכם לכל אחד (Osirusoft)."
 
@@ -2795,7 +2796,7 @@ msgstr "אנא בחר באיזה מילון ברצונך להשתמש לבדיקת האיות של הודעה זו:"
 #: squirrelmail/plugins/calendar/calendar.php:113
 #: squirrelmail/plugins/squirrelspell/modules/init.mod:53
 msgid "Go"
-msgstr "קדימה"
+msgstr "לך"
 
 #: squirrelmail/plugins/squirrelspell/modules/init.mod:57
 msgid "SquirrelSpell Initiating"
@@ -3223,19 +3224,22 @@ msgid ""
 "Select <b>Enable Media Playing</b> to turn on playing a media file when "
 "unseen mail is in your folders. When enabled, you can specify the media file "
 "to play in the provided file box."
-msgstr ""
+msgstr "בכדי להפעיל ניגון קובץ מדיה כאשר יש דואר חדש בחר באפשרות "
+"<b>אפשר ניגון מדיה</b>. ביכולתך לציין את קובץ המדיה שינוגן."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:45
 msgid ""
 "The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
 "folders for unseen mail, not just the inbox for notification."
-msgstr ""
+msgstr "בכדי לבדוק דואר חדש בכל התיקיות ולא רק בתיבת הדואר הנכנס, סמן את האפשרות "
+"<b>בדוק את כל התיקיות, לא רק את תיבת הדואר הנכנס</b>."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:47
 msgid ""
 "Selecting the <b>Show popup</b> option will enable the showing of a popup "
 "window when unseen mail is in your folders (requires JavaScript)."
-msgstr ""
+msgstr "אם ברצונך שיפתח חלון קטן המודיע על הודעות חדשות בחר באפשרות "
+"<b>כשיש הודעות חדשות הצג חלון קטן</b> (מצריך JavaScript)"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:49
 msgid ""
@@ -3243,7 +3247,9 @@ msgid ""
 "Recent messages are those that have just recently showed up and have not "
 "been \"viewed\" or checked yet.  This can prevent being continuously annoyed "
 "by sounds or popups for unseen mail."
-msgstr ""
+msgstr "בחר באפשרות <b>ספור רק הודעות שהגיעו לאחרונה</b> בכדי לבדוק רק הודעות שהגיעו לאחרונה. "
+"הודעות אשר הגיעו לאחרונה הן הודעות אשר הגיעו לפני זמן קצר אך לא נקראו או סומנו עדיין. "
+"אפשרות זו מונעת הטרדה רצופה של צלילים וחלונות אשר נפתחים בגלל דואר שלא נקרא."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:51
 msgid ""
@@ -3252,7 +3258,10 @@ msgid ""
 "only works in IE but you won't see errors with other browsers).  This will "
 "always tell you if you have new mail, even if you have <b>Check RECENT</b> "
 "enabled."
-msgstr ""
+msgstr "האפשרות <b>שנה כותרת בדפדפנים נתמכים</b> תשנה את כותרת החלון של הדפדפן "
+"כאשר מגיע דואר חדש (אפשרות זו מצריכה JavaScript ודפדפן אינטרנט אקספלורר, אך לא "
+"יופיעו הודעות שגיאה בדפדפנים אחרים). אפשרות זו תודיע תמיד על דואר חדש, אפילו אם סומנה "
+"האפשרות <b>ספור רק הודעות שהגיעו לאחרונה</b>."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:55
 msgid ""
@@ -3260,7 +3269,9 @@ msgid ""
 "mail arrives.  Selecting <b>local media</b> will play the file specified in "
 "the <b>local media file</b> box to play from the local computer.  If no file "
 "is specified, the system will use a default from the server."
-msgstr ""
+msgstr "בחר מהרשימה של <b>קבצי השרת</b> את קובץ המדיה שברצונך שינגן "
+"כאשר מגיע דואר חדש. בחירת האפשרות <b>קובץ מדיה מקומי</b> ינגן את הקובץ "
+"אשר יבחר מהמחשב שלך. אם לא נבחר שום קובץ המערכת תשתמש בקובץ ברירת המחדל."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:67
 msgid "Enable Media Playing"
@@ -3293,7 +3304,7 @@ msgstr "בחר קובץ שרת:"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:106
 msgid "(local media)"
-msgstr "(מדייה מקומית)"
+msgstr "(מדיה מקומית)"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:123
 msgid "Try"
@@ -3301,7 +3312,7 @@ msgstr "נסה"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:131
 msgid "Local Media File:"
-msgstr "קובץ מדייה מקומי:"
+msgstr "קובץ מדיה מקומי:"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:137
 msgid "Current File:"
@@ -3327,7 +3338,7 @@ msgstr "אפשרויות דואר חדש"
 msgid ""
 "This configures settings for playing sounds and/or showing popup windows "
 "when new mail arrives."
-msgstr "באפשרותך להגדיר ניגנון צלילים או/ו פתיחת חלון קטן במקרה "
+msgstr "באפשרותך להגדיר ניגנון צלילים ו\\או פתיחת חלון קטן במקרה "
 "שמגיע דואר חדש."
 
 #: squirrelmail/plugins/newmail/setup.php:129
@@ -3534,7 +3545,7 @@ msgstr "פקודה נכשלה "
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:54
 msgid "Remote POP server Fetching Mail"
-msgstr "מביא דואר משרת POP3 מרוחק"
+msgstr "מושך דואר משרת POP3 מרוחק"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:63
 msgid "Select Server:"
@@ -3550,11 +3561,11 @@ msgstr "סיסמא בשביל"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:85
 msgid "Fetch Mail"
-msgstr "מביא דואר"
+msgstr "משוך דואר"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:117
 msgid "Fetching from "
-msgstr "מביא מ-"
+msgstr "מושך מ-"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:124
 #: squirrelmail/plugins/mail_fetch/fetch.php:184
@@ -3592,7 +3603,7 @@ msgstr "] הודעות"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:164
 msgid "Fetching UIDL..."
-msgstr "מביא UIDL..."
+msgstr "מושך UIDL..."
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:169
 #: squirrelmail/plugins/mail_fetch/setup.php:154
@@ -3609,7 +3620,7 @@ msgstr "מוחק הודעות מהשרת..."
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:178
 msgid "Fetching message "
-msgstr "מביא הודעה "
+msgstr "מושך הודעה "
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:201
 msgid "Message appended to mailbox"
@@ -3665,7 +3676,7 @@ msgstr "במקרה ותשאיר את הסיסמא ריקה, היא תדרש כאשר תנסה להביא את הדואר."
 
 #: squirrelmail/plugins/mail_fetch/options.php:113
 msgid "Encrypt passwords (informative only)"
-msgstr ""
+msgstr "הצפן סיסמאות (אינפורמטיבי בלבד)"
 
 #: squirrelmail/plugins/mail_fetch/options.php:119
 #: squirrelmail/plugins/mail_fetch/options.php:146
@@ -3723,13 +3734,13 @@ msgstr "עדכן"
 
 #: squirrelmail/plugins/mail_fetch/options.php:166
 msgid "No-one server in use. Try to add."
-msgstr "שרת אף-אחד נמצא בשימוש. נסה להוסיף."
+msgstr "לא נמצא אף שרת אחד בשימוש. נסה להוסיף."
 
 #: squirrelmail/plugins/mail_fetch/options.php:172
 #: squirrelmail/plugins/mail_fetch/options.php:187
 #: squirrelmail/plugins/mail_fetch/options.php:234
 msgid "Fetching Servers"
-msgstr "מביא שרתים"
+msgstr "מושך שרתים"
 
 #: squirrelmail/plugins/mail_fetch/options.php:176
 msgid "Confirm Deletion of a Server"
@@ -3761,7 +3772,7 @@ msgstr ""
 
 #: squirrelmail/plugins/mail_fetch/setup.php:30
 msgid "Fetch"
-msgstr "הבא"
+msgstr "משוך"
 
 #: squirrelmail/plugins/mail_fetch/setup.php:115
 #: squirrelmail/plugins/mail_fetch/setup.php:162
@@ -3770,11 +3781,11 @@ msgstr "אזהרה, "
 
 #: squirrelmail/plugins/mail_fetch/setup.php:198
 msgid "Mail Fetch Result:"
-msgstr "תוצאת ניסיון להביא דואר:"
+msgstr "תוצאת ניסיון משיכת דואר:"
 
 #: squirrelmail/plugins/mail_fetch/setup.php:223
 msgid "Simple POP3 Fetch Mail"
-msgstr "הבאת דואר מ-POP3"
+msgstr "משיכת דואר מ-POP3"
 
 #: squirrelmail/plugins/mail_fetch/setup.php:225
 msgid ""
@@ -3974,15 +3985,15 @@ msgstr "רשימת תפוצה"
 msgid ""
 "This will send a message to %s requesting help for this list. You will "
 "receive an emailed response at the address below."
-msgstr "זה ישלח הודעה ל-%s בבקשה לעזרה עם רשימה זו. אתה תקבל "
-"תשובה לכתובת דוא\"ל הרשומה מטה."
+msgstr "אפשרות זו תשלח הודעה ל-%s בבקשה לעזרה עם רשימה זו. תשובה תשלח "
+"לכתובת הדוא\"ל הרשומה מטה."
 
 #: squirrelmail/plugins/listcommands/mailout.php:28
 #, c-format
 msgid ""
 "This will send a message to %s requesting that you will be subscribed to "
 "this list. You will be subscribed with the address below."
-msgstr "זה ישלח הודעה ל-%s בבקשה לצרף אותך לרשימה זו. כתובת הדוא\"ל הרשומה "
+msgstr "אפשרות זו תשלח הודעה ל-%s בבקשה לצרף אותך לרשימה זו. כתובת הדוא\"ל הרשומה "
 "מטה תצורף לרשימה."
 
 #: squirrelmail/plugins/listcommands/mailout.php:31
@@ -3990,7 +4001,7 @@ msgstr "זה ישלח הודעה ל-%s בבקשה לצרף אותך לרשימה זו. כתובת הדוא\"ל הרשומה "
 msgid ""
 "This will send a message to %s requesting that you will be unsubscribed from "
 "this list. It will try to unsubscribe the adress below."
-msgstr "זה ישלח הודעה ל-%s בבקשה לביטול ההרשמה לרשימה זו. ההרשמה תבוטל "
+msgstr "אפשרות זו תשלח הודעה ל-%s בבקשה לביטול ההרשמה לרשימה זו. ההרשמה תבוטל "
 "לכתובת הרשומה מטה."
 
 #: squirrelmail/plugins/listcommands/mailout.php:79

@@ -102,32 +102,67 @@
 
 
     echo '<BR><form method=post action="'.$PHP_SELF.'">' .
-            "<TABLE WIDTH=95% COLS=1 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><b>" . _("Remote POP server settings") . '</b></TD></TR></TABLE>' .
-            '<TABLE WIDTH=95% COLS=1 ALIGN=CENTER><TR><TD>' .
-            _("You should be aware that the encryption used to store your password is not perfectly secure.  However, if you are using pop, there is inherently no encryption anyway. Additionally, the encryption that we do to save it on the server can be undone by a hacker reading the source to this file." ) .
-            '</TD></TR><TR><TD>' .
-            _("If you leave password empty, it will be required when you fetch mail.") .
-            '</TD></TR>' .
-            '<tr><td align=right><input type=checkbox name=mf_cypher ' .
-            (($mailfetch_cypher=='on')?'checked >':'>') .
-            _("Encrypt passwords (informative only)") . ' </td><tr>' .
-            '</TABLE></td></tr>';
+            html_tag( 'table',
+                html_tag( 'tr',
+                    html_tag( 'td',
+                        '<b>' . _("Remote POP server settings") . '</b>',
+                    'center', $color[0] )
+                ),
+            'center', '', 'width="95%" cols="1"' ) .
+            html_tag( 'table',
+                html_tag( 'tr',
+                    html_tag( 'td',
+                        _("You should be aware that the encryption used to store your password is not perfectly secure.  However, if you are using pop, there is inherently no encryption anyway. Additionally, the encryption that we do to save it on the server can be undone by a hacker reading the source to this file." ) ,
+                    'left' )
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'td',
+                        _("If you leave password empty, it will be required when you fetch mail.") ,
+                    'left' )
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'td',
+                        '<input type=checkbox name=mf_cypher ' .
+                        (($mailfetch_cypher=='on')?'checked >':'>') .
+                        _("Encrypt passwords (informative only)") ,
+                    'right' )
+                ) ,
+            'center', '', 'width="95%" cols="1"' );
 
     switch( $mf_action ) {
     case 'config':
-        echo '<TABLE WIDTH=70% COLS=1 ALIGN=CENTER cellpadding=5 cellspacing=1>' .
-            "  <TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><b>" . _("Add Server") . '</b></TD></TR>' .
-            "  <TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>" .
+        echo html_tag( 'table', '', 'center', '', 'width="70%" cols="1" cellpadding="5" cellspacing="1"' ) .
+                    html_tag( 'tr',
+                        html_tag( 'td', '<b>' . _("Add Server") . '</b>', 'center', $color[9] )
+                    ) .
+                    html_tag( 'tr' ) .
+                        html_tag( 'td', '', 'center', $color[0] ) .
+
             "<INPUT TYPE=\"hidden\" NAME=\"mf_sn\" VALUE=\"$mailfetch_server_number\">" .
-            '<INPUT TYPE="hidden" NAME="mf_action" VALUE="add"><table>' .
-            '<tr><th align=right>' . _("Server:") . '</th><td><input type=text name=mf_server value="" size=40></td></tr>' .
-            '<tr><th align=right>' . _("Alias:") . '</th><td><input type=text name=mf_alias value="" size=20></td></tr>' .
-            '<tr><th align=right>' . _("Username:") . '</th><td><input type=text name=mf_user value="" size=20></td></tr>' .
-            '<tr><th align=right>' . _("Password:") . '</th><td><input type=password name=mf_pass value="" size=20></td></tr>' .
-            '<tr><th align=right>' . _("Store in Folder:") . '</th><td>';
+            '<INPUT TYPE="hidden" NAME="mf_action" VALUE="add">' .
+            html_tag( 'table' ) .
+                html_tag( 'tr',
+                    html_tag( 'th', _("Server:"), 'right' ) .
+                    html_tag( 'td', '<input type=text name=mf_server value="" size=40>', 'left' )
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'th', _("Alias:"), 'right' ) .
+                    html_tag( 'td', '<input type=text name=mf_alias value="" size=20>', 'left' )
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'th', _("Username:"), 'right' ) .
+                    html_tag( 'td', '<input type=text name=mf_user value="" size=20>', 'left' )
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'th', _("Password:"), 'right' ) .
+                    html_tag( 'td', '<input type=password name=mf_pass value="" size=20>', 'left' )
+                ) .
+                html_tag( 'tr' ) .
+                    html_tag( 'th', _("Store in Folder:"), 'right' ) .
+                    html_tag( 'td', '', 'left' );
         $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
         $boxes = sqimap_mailbox_list($imapConnection);
-        echo '<SELECT NAME=mf_subfolder>';
+        echo '<select name="mf_subfolder">';
         $boxes = sqimap_mailbox_list($imapConnection);
         for ($i = 0; $i < count($boxes); $i++) {
             if (!in_array('noselect', $boxes[$i]['flags'])) {
@@ -136,75 +171,116 @@
                 if ( strtolower( $box2 ) == 'inbox' ) {
                     $box2 = _("INBOX");
                 }
-                echo "<OPTION VALUE=\"$box\">$box2</option>\n";
+                echo "<option value=\"$box\">$box2</option>\n";
             }
         }        
-        echo '</SELECT></td></tr>' .
-            '<tr><th align=right>&nbsp;</th><td><input type=checkbox name=mf_lmos checked>' . _("Leave Mail on Server") . '</td></tr>' .
-            '<tr><th align=right>&nbsp;</th><td><input type=checkbox name=mf_login>' . _("Check mail during login") . '</td></tr>' .
-            '<tr><th align=right>&nbsp;</th><td><input type=checkbox name=mf_fref>' . _("Check mail during folder refresh") . '</td></tr>' .
-            '<tr><td align=center colspan=2><input type=submit name=submit_mailfetch value="' . _("Add Server") . '"></td></tr>' .
-            '</table></form></td></tr></TABLE>';
+        echo '</select></td></tr>' .
+                html_tag( 'tr',
+                    html_tag( 'th', '&nbsp;', 'right' ) .
+                    html_tag( 'td', '<input type="checkbox" name="mf_lmos" checked>' . _("Leave Mail on Server"), 'left' )
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'th', '&nbsp;', 'right' ) .
+                    html_tag( 'td', '<input type="checkbox" name="mf_login">' . _("Check mail during login"), 'left' )
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'th', '&nbsp;', 'right' ) .
+                    html_tag( 'td', '<input type="checkbox" name="mf_fref">' . _("Check mail during folder refresh"), 'left' )
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'td',
+                        '<input type=submit name="submit_mailfetch" value="' . _("Add Server") . '">',
+                    'center', '', 'colspan="2"' )
+                ) .
+            '</table></form></td></tr></table>';
 
         // Modify Server
         echo '<font size=-5><BR></font>' .
-            '<TABLE WIDTH=70% COLS=1 ALIGN=CENTER cellpadding=5 cellspacing=1>' .
-            "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><b>" . _("Modify Server") . '</b></TD></TR>' .
-            "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
+            html_tag( 'table', '', 'center', '', 'width="70%" cols="1" cellpadding="5" cellspacing="1"' ) .
+                html_tag( 'tr',
+                    html_tag( 'td', '<b>' . _("Modify Server") . '</b>', 'center', $color[9] )
+                ) .
+                html_tag( 'tr' ) .
+                    html_tag( 'td', '', 'center', $color[0] );
         if ($mailfetch_server_number>0) {
-            echo "<form action=\"$PHP_SELF\" METHOD=\"POST\" TARGET=_self>";
-            echo '<b>' . _("Server Name:") . '</b> <SELECT NAME="mf_sn">';
+            echo "<form action=\"$PHP_SELF\" method=\"post\" target=\"_self\">";
+            echo '<b>' . _("Server Name:") . '</b> <select name="mf_sn">';
             for ($i=0;$i<$mailfetch_server_number;$i++) {
-                echo "<OPTION VALUE=\"$i\">" .
-                    (($mailfetch_alias_[$i]=='')?$mailfetch_server_[$i]:$mailfetch_alias_[$i]) . "</OPTION>>";
+                echo "<option value=\"$i\">" .
+                    (($mailfetch_alias_[$i]=='')?$mailfetch_server_[$i]:$mailfetch_alias_[$i]) . "</option>>";
             }
-            echo '</SELECT>'.
+            echo '</select>'.
                  '&nbsp;&nbsp;<INPUT TYPE=submit name=mf_action value="' . _("Modify") . '">'.
                  '&nbsp;&nbsp;<INPUT TYPE=submit name=mf_action value="' . _("Delete") . '">'.
                  '</form>';
         } else {
             echo _("No-one server in use. Try to add.");
         }
-        echo '</TD></TR></TABLE>';
+        echo '</td></tr></table>';
         break;
     case _("Delete"):                                     //erase confirmation about a server
-        echo '<TABLE WIDTH=95% COLS=1 ALIGN=CENTER cellpadding=5 cellspacing=1>' .
-            "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><b>" . _("Fetching Servers") . '</b></TD></TR>' .
-            '</TABLE>' .
-            '<BR>' .
-            '<TABLE WIDTH=70% COLS=1 ALIGN=CENTER cellpadding=5 cellspacing=1>' .
-            "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><b>" . _("Confirm Deletion of a Server") . '</b></TD></TR>' .
-            "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>" .
-            "<INPUT TYPE=\"hidden\" NAME=\"mf_sn\" VALUE=\"$mf_sn\">" .
-            '<INPUT TYPE="hidden" NAME="mf_action" VALUE="confirm_delete">' .
-            '<br>' . _("Selected Server:") . "<b>$mailfetch_server_[$mf_sn]</b><br>" .
-            _("Confirm delete of selected server?") . '<br><br>' .
-            '<input type=submit name=submit_mailfetch value="' . _("Confirm Delete") . '">' .
-            '<br></form></TD></TR></TABLE>';
+        echo html_tag( 'table',
+                    html_tag( 'tr',
+                        html_tag( 'td', '<b>' . _("Fetching Servers") . '</b>', 'center', $color[0] )
+                    ) ,
+                'center', '', 'width="95%" cols="1" cellpadding="5" cellspacing="1"' ) .
+            '<br>' .
+            html_tag( 'table',
+                html_tag( 'tr',
+                    html_tag( 'td', '<b>' . _("Confirm Deletion of a Server") . '</b>', 'center', $color[9] )
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'td',
+                        "<INPUT TYPE=\"hidden\" NAME=\"mf_sn\" VALUE=\"$mf_sn\">" .
+                        '<INPUT TYPE="hidden" NAME="mf_action" VALUE="confirm_delete">' .
+                        '<br>' . _("Selected Server:") . " <b>$mailfetch_server_[$mf_sn]</b><br>" .
+                        _("Confirm delete of selected server?") . '<br><br>' .
+                        '<input type=submit name=submit_mailfetch value="' . _("Confirm Delete") . '">' .
+                        '<br></form>' ,
+                    'center', $color[9] )
+                ) ,
+            'center', '', 'width="70%" cols="1" cellpadding="5" cellspacing="1"' );
         break;                                  //modify a server
     case _("Modify"):
-        echo '<TABLE WIDTH=95% COLS=1 ALIGN=CENTER cellpadding=5 cellspacing=1>' .
-            "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><b>" . _("Fetching Servers") . '</b></TD></TR>' .
-            '</TABLE>' .
-            '<BR>' .
-            '<TABLE WIDTH=70% COLS=1 ALIGN=CENTER cellpadding=5 cellspacing=1>' .
-            "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><b>" . _("Mofify a Server") . '</b></TD></TR>' .
-            "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>" .
+        echo html_tag( 'table',
+                    html_tag( 'tr',
+                        html_tag( 'td', '<b>' . _("Fetching Servers") . '</b>', 'center', $color[0] )
+                    ) ,
+                'center', '', 'width="95%" cols="1" cellpadding="5" cellspacing="1"' ) .
+            '<br>' .
+            html_tag( 'table', '', 'center', '', 'width="70%" cols="1" cellpadding="5" cellspacing="1"' ) .
+                html_tag( 'tr',
+                    html_tag( 'td', '<b>' . _("Mofify a Server") . '</b>', 'center', $color[9] )
+                ) .
+                html_tag( 'tr' ) .
+                    html_tag( 'td', '', 'center', $color[0] ) .
+
             "<INPUT TYPE=\"hidden\" NAME=\"mf_sn\" VALUE=\"$mf_sn\">" .
             '<INPUT TYPE="hidden" NAME="mf_action" VALUE="confirm_modify">' .
-            '<table>' .
-            '<tr><th align=right>' . _("Server:") . '</th>' .
-            "<td><input type=text name=mf_server value=\"$mailfetch_server_[$mf_sn]\" size=40></td></tr>" .
-            '<tr><th align=right>' . _("Alias:") . '</th>' .
-            "<td><input type=text name=mf_alias value=\"$mailfetch_alias_[$mf_sn]\" size=40></td></tr>" .
-            '<tr><th align=right>' . _("Username:") . '</th>' .
-            "<td><input type=text name=mf_user value=\"$mailfetch_user_[$mf_sn]\" size=20></td></tr>" .
-            '<tr><th align=right>' . _("Password:") . '</th>' .
-            "<td><input type=password name=mf_pass value=\"$mailfetch_pass_[$mf_sn]\" size=20></td></tr>" .
-            '<tr><th align=right>' . _("Store in Folder:") . '</th><td>';
+            html_tag( 'table' ) .
+                html_tag( 'tr',
+                    html_tag( 'th', _("Server:"), 'right' ) .
+                    html_tag( 'td', '<input type="text" name="mf_server" value="' . $mailfetch_server_[$mf_sn] . '" size="40">', 'left' )
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'th', _("Alias:"), 'right' ) .
+                    html_tag( 'td', '<input type="text" name="mf_alias" value="' . $mailfetch_alias_[$mf_sn] . '" size="40">', 'left' )
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'th', _("Username:"), 'right' ) .
+                    html_tag( 'td', '<input type="text" name="mf_user" value="' . $mailfetch_user_[$mf_sn] . '" size="20">', 'left' )
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'th', _("Password:"), 'right' ) .
+                    html_tag( 'td', '<input type="password" name="mf_pass" value="' . $mailfetch_pass_[$mf_sn] . '" size="20">', 'left' )
+                ) .
+                html_tag( 'tr' ) .
+                    html_tag( 'th', _("Store in Folder:"), 'right' ) .
+                    html_tag( 'td', '', 'left' );
+
         $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
         $boxes = sqimap_mailbox_list($imapConnection);
-        echo "<SELECT NAME=mf_subfolder>";
+        echo '<select name="mf_subfolder">';
         $boxes = sqimap_mailbox_list($imapConnection);
         for ($i = 0; $i < count($boxes); $i++) {
             if (!in_array('noselect', $boxes[$i]['flags'])) {
@@ -213,30 +289,56 @@
                 if ( strtolower( $box2 ) == 'inbox' ) {
                     $box2 = _("INBOX");
                 }
-                echo '<OPTION ' .
-                     (strcmp($mailfetch_subfolder_[$mf_sn],$box)==0?'SELECTED':'') .
-                     " VALUE=\"$box\">$box2</option>\n";
+                echo '<option ' .
+                     (strcmp($mailfetch_subfolder_[$mf_sn],$box)==0?'selected':'') .
+                     " value=\"$box\">$box2</option>\n";
             }
         }                
-        echo '</SELECT></td></tr>' .
-            '<tr><th align=right>&nbsp;</th>' .
-            '<td><input type=checkbox name=mf_lmos ' . (($mailfetch_lmos_[$mf_sn] == 'on')?'checked':'') .
-            '>' . _("Leave Mail on Server") . '</td></tr>' .
-            '<tr><th align=right>&nbsp;</TH><td><input type=checkbox name=mf_login ' . ( ($mailfetch_login_[$mf_sn] == 'on')?'checked':'') .
-            '>' . _("Check mail during login") . '</td></tr>' .
-            '<tr><th align=right>&nbsp;</TH><td><input type=checkbox name=mf_fref ' . ( ($mailfetch_fref_[$mf_sn] == 'on')?'checked':'') .
-            '>' . _("Check mail during folder refresh") . '</td></tr>' .
-            '<tr><td align=center colspan=2><input type=submit name=submit_mailfetch value="' . _("Modify Server") . '"></td></tr>' .
-            '</table></form></TD></TR></TABLE>';
+        echo '</select></td></tr>' .
+
+                html_tag( 'tr',
+                    html_tag( 'th', '&nbsp;', 'right' ) .
+                    html_tag( 'td',
+                        '<input type=checkbox name=mf_lmos ' . (($mailfetch_lmos_[$mf_sn] == 'on')?'checked':'') .
+                        '>' . _("Leave Mail on Server") ,
+                    'left' )
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'th', '&nbsp;', 'right' ) .
+                    html_tag( 'td',
+                        '<input type=checkbox name=mf_login ' . ( ($mailfetch_login_[$mf_sn] == 'on')?'checked':'') .
+                        '>' . _("Check mail during login"),
+                    'left' )
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'th', '&nbsp;', 'right' ) .
+                    html_tag( 'td',
+                        '<input type=checkbox name=mf_fref ' . ( ($mailfetch_fref_[$mf_sn] == 'on')?'checked':'') .
+                        '>' . _("Check mail during folder refresh") ,
+                    'left' )
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'td',
+                        '<input type=submit name="submit_mailfetch" value="' . _("Modify Server") . '">',
+                    'center', '', 'colspan="2"' )
+                ) .
+
+            '</table></form></td></tr></table>';
         break;
     default:                                    //unsupported action
-        echo '</form><TABLE WIDTH=95% COLS=1 ALIGN=CENTER>' .
-            "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><b>" . _("Fetching Servers") . '</b></TD></TR>' .
-            '</TABLE><BR>' .
-            '<TABLE WIDTH=70% COLS=1 ALIGN=CENTER>' .
-            "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><b>" . _("Undefined Function") . '</b></TD></TR>' .
-            "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><b>" .
-            _("Hey! Wath do You are looking for?") . '</b></TD></TR></TABLE>';
+        echo '</form>' .
+        html_tag( 'table',
+            html_tag( 'tr',
+                html_tag( 'td', '<b>' . _("Fetching Servers") . '</b>', 'center', $color[0] )
+            ) ,
+        'center', '', 'width="95%" cols="1"' ) .
+        '<br>' .
+        html_tag( 'table',
+            html_tag( 'tr',
+                html_tag( 'td', '<b>' . _("Undefined Function") . '</b>', 'center', $color[9] ) .
+                html_tag( 'td', '<b>' . _("Hey! Wath do You are looking for?") . '</b>', 'center', $color[0] )
+            ) ,
+        'center', '', 'width="70%" cols="1"' );
     }
 
     ?>

@@ -19,12 +19,15 @@
     require_once('../plugins/mail_fetch/class.POP3.php');
     require_once('../functions/i18n.php');
     require_once( '../plugins/mail_fetch/functions.php' );
+    require_once( '../functions/html.php' );
 
 
     function Mail_Fetch_Status($msg) {
-        echo '<table width="90%"><tr><td>' .
-            htmlspecialchars( $msg ) .
-            '</td></tr></table>';
+        echo html_tag( 'table',
+                   html_tag( 'tr',
+                       html_tag( 'td', htmlspecialchars( $msg ) , 'left' )
+                   ),
+                 '', '', 'width="90%"' );
         flush();
     }
 
@@ -50,41 +53,49 @@
     
     echo '<br><center>';
     
-    echo '<TABLE WIDTH=95% COLS=1 ALIGN=CENTER>' .
-            "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><b>" . _("Remote POP server Fetching Mail") . '</b></TD></TR>' .
-         '</TABLE>';
+    echo html_tag( 'table',
+               html_tag( 'tr',
+                   html_tag( 'td', '<b>' . _("Remote POP server Fetching Mail") . '</b>', 'center', $color[0] )
+               ) ,
+           'center', '', 'width="95%" cols="1"' );
     
     if (!isset( $server_to_fetch ) ) {
         
-        echo '<font size=-5><BR></font>' .
-             "<form action=\"$PHP_SELF\" METHOD=POST TARGET=_self>" .
-             '<TABLE WIDTH=70% COLS=2 ALIGN=CENTER>' .
-                '<TR>' .
-                    '<TD ALIGN=RIGHT>' . _("Select Server:") . ' &nbsp; &nbsp; </TD>' .
-                    '<TD><SELECT NAME=server_to_fetch SIZE=1>' .
-                        '<OPTION VALUE="all" SELECTED>..' . _("All") . "...\n";
+        echo '<font size=-5><br></font>' .
+             "<form action=\"$PHP_SELF\" method=\"post\" target=\"_self\">" .
+             html_tag( 'table', '', 'center', '', 'width="70%" cols="2"' ) .
+                 html_tag( 'tr' ) .
+                     html_tag( 'td', _("Select Server:") . ' &nbsp; &nbsp;', 'right' ) .
+                     html_tag( 'td', '', 'left' ) .
+                         '<select name="server_to_fetch" size="1">' .
+                         '<option value="all" selected>..' . _("All") . "...\n";
         for ($i=0;$i<$mailfetch_server_number;$i++) {
-             echo "<OPTION VALUE=\"$i\">" .
-                  (($mailfetch_alias_[$i]=='')?$mailfetch_server_[$i]:$mailfetch_alias_[$i]);
+             echo "<option value=\"$i\">" .
+                  (($mailfetch_alias_[$i]=='')?$mailfetch_server_[$i]:$mailfetch_alias_[$i]) .
+                  '</option>' . "\n";
         } 
-        echo            '</SELECT>' .
-                    '</TD>' .
-                '</TR>';
+        echo            '</select>' .
+                    '</td>' .
+                '</tr>';
         
         //if password not set, ask for it
         for ($i=0;$i<$mailfetch_server_number;$i++) {
              if ($mailfetch_pass_[$i]=='') {
-                  echo '<tr>' .
-                       '<TD ALIGN=RIGHT>' . _("Password for") . ' <B>' . (($mailfetch_alias_[$i]=='')?$mailfetch_server_[$i]:$mailfetch_alias_[$i]) . '</B>: &nbsp; &nbsp; </TD>' .
-                       "<TD><INPUT TYPE=PASSWORD NAME=pass_$i></TD>" .
-                       '</TR>';
+                  echo html_tag( 'tr',
+                              html_tag( 'td', _("Password for") . ' <b>' .
+                                  (($mailfetch_alias_[$i]=='')?$mailfetch_server_[$i]:$mailfetch_alias_[$i]) .
+                                  '</b>: &nbsp; &nbsp; ',
+                              'right' ) .
+                              html_tag( 'td', '<input type="password" name="pass_' . $i , '">', 'left' )
+                          );
              }
         }
-        echo '<TR>' .
-                '<TD>&nbsp;</TD>' .
-                '<TD><input type=submit name=submit_mailfetch value="' . _("Fetch Mail"). '"></TD>'.
-                '</TR>' .
-             '</TABLE></form>';
+        echo html_tag( 'tr',
+                   html_tag( 'td', '&nbsp;' ) .
+                   html_tag( 'td', '<input type=submit name=submit_mailfetch value="' . _("Fetch Mail"). '">', 'left' )
+               );
+
+             '</table></form>';
         exit();
     }
 
@@ -113,10 +124,15 @@
         
         $pop3 = new POP3($mailfetch_server, 60);
         
-        echo "<br><table width=\"90%\"><tr bgcolor=\"$color[9]\"><td><b>" . 
-            _("Fetching from ") . 
-            (($mailfetch_alias_[$i_loop] == '')?$mailfetch_server:$mailfetch_alias_[$i_loop]) . 
-            "</b></td></tr></table>";
+        echo '<br>' .
+        html_tag( 'table',
+            html_tag( 'tr',
+                html_tag( 'td', '<b>' . _("Fetching from ") . 
+                    (($mailfetch_alias_[$i_loop] == '')?$mailfetch_server:$mailfetch_alias_[$i_loop]) . 
+                    '</b>',
+                'center' ) ,
+            '', $color[9] ) ,
+        '', '', 'width="90%"' );
           
         flush();
         

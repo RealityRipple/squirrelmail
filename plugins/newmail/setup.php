@@ -126,7 +126,7 @@
             } else {
                 setPref($data_dir,$username,'newmail_media','');
             }
-            echo '<center> ' . _("New Mail Notification options saved") . '</center>';
+            echo html_tag( 'p', _("New Mail Notification options saved"), 'center' );
         }
     }
 

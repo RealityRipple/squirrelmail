@@ -111,13 +111,12 @@ function plugin_listcommands_menu() {
 
     if (count($output) > 0) {
         echo "<tr>";
-        echo "<td ALIGN=RIGHT BGCOLOR=\"$color[0]\">"
-           .   str_replace(' ', '&nbsp;', _("Mailing List:"))
-           . '</td>';
-        echo "<td BGCOLOR=\"$color[0]\" WIDTH=\"100%\" colspan=\"2\">"
-           .   '<SMALL>' . implode('&nbsp;|&nbsp;', $output) . '</SMALL>'
-           . '</td>';
-        echo '</tr>';
+        echo html_tag( 'tr',
+                    html_tag( 'td', str_replace(' ', '&nbsp;', _("Mailing List:")), 'right', $color[0]) .
+                    html_tag( 'td',
+                        '<small>' . implode('&nbsp;|&nbsp;', $output) . '</small>' ,
+                    'left', $color[0], 'width="100%" colspan="2"')
+                );
     }
 }
 

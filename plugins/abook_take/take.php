@@ -14,37 +14,33 @@
    require_once("../functions/page_header.php");
    require_once("../functions/addressbook.php");
    require_once("../src/load_prefs.php");
+   require_once('../functions/html.php');
    
    displayPageHeader($color, "None");
    
    $abook_take_verify = getPref($data_dir, $username, 'abook_take_verify');
 
-?>
-<FORM ACTION="../../src/addressbook.php" NAME=f_add METHOD="POST">
-<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>
-<TR><TH BGCOLOR="<?PHP 
-    echo $color[0]; 
-?>" ALIGN=CENTER><?PHP
-   // open address book, trash errors, skip LDAP
-   $abook = addressbook_init(false, true);
-   printf(_("Add to %s"), $abook->localbackendname);
-?></TH></TR>
-</TABLE>
-<TABLE BORDER=0 CELLPADDING=1 COLS=2 WIDTH="90%" ALIGN=center>
-<?PHP
-  $name = 'addaddr';
-  
-  printf("<TR><TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>%s:</TD>",
-     _("Nickname"));
-  printf("<TD BGCOLOR=\"%s\" ALIGN=left>".
-     "<INPUT NAME=\"%s[nickname]\" SIZE=15 VALUE=\"\">".
-     "&nbsp;<SMALL>%s</SMALL></TD></TR>\n",
-     $color[4], $name, _("Must be unique"));
-  printf("<TR><TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>%s:</TD>",
-     _("E-mail address"));
-  
-  echo "<TD BGCOLOR=\"$color[4]\" ALIGN=left>\n";
-  echo '<select name="' . $name . "[email]\">\n";
+
+$abook = addressbook_init(false, true);
+$name = 'addaddr';
+echo '<form action="../../src/addressbook.php" name="f_add" method="post">' ."\n" .
+    html_tag( 'table',
+        html_tag( 'tr',
+            html_tag( 'th', sprintf(_("Add to %s"), $abook->localbackendname), 'center', $color[0] )
+        ) ,
+    'center', '', 'width="100%" cols="1"' ) .
+
+    html_tag( 'table', '', 'center', '', 'border="0" cellpadding="1" cols="2" width="90%"' ) . "\n" .
+            html_tag( 'tr', "\n" .
+                html_tag( 'td', _("Nickname") . ':', 'right', $color[4], 'width="50"' ) . "\n" .
+                html_tag( 'td', '<input name="' . $name . '[nickname]" size="15" value="">' .
+                    '&nbsp;<small>' . _("Must be unique") . '</small>',
+                'left', $color[4] )
+            ) . "\n" .
+            html_tag( 'tr' ) . "\n" .
+            html_tag( 'td', _("E-mail address") . ':', 'right', $color[4], 'width="50"' ) . "\n" .
+            html_tag( 'td', '', 'left', $color[4] ) .
+                '<select name="' . $name . "[email]\">\n";
   foreach ($email as $Val)
   {
       if (valid_email($Val, $abook_take_verify))
@@ -58,29 +54,26 @@
 	      '">FAIL - ' . htmlspecialchars($Val) . "</option>\n";
       }
   }
-  echo "</select>\n";
-  
-  printf("<TR><TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>%s:</TD>",
-     _("First name"));
-  printf("<TD BGCOLOR=\"%s\" ALIGN=left>".
-     "<INPUT NAME=\"%s[firstname]\" SIZE=45 VALUE=\"\"></TD></TR>\n",
-     $color[4], $name);
-  printf("<TR><TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>%s:</TD>",
-     _("Last name"));
-  printf("<TD BGCOLOR=\"%s\" ALIGN=left>".
-     "<INPUT NAME=\"%s[lastname]\" SIZE=45 VALUE=\"\"></TD></TR>\n",
-     $color[4], $name);
-  printf("<TR><TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>%s:</TD>",
-     _("Additional info"));
-  printf("<TD BGCOLOR=\"%s\" ALIGN=left>".
-     "<INPUT NAME=\"%s[label]\" SIZE=45 VALUE=\"\"></TD></TR>\n",
-     $color[4], $name);
+  echo '</select></td></tr>' . "\n" . 
 
-  printf("<TR><TD COLSPAN=2 BGCOLOR=\"%s\" ALIGN=center>\n".
-     "<INPUT TYPE=submit NAME=\"%s[SUBMIT]\" VALUE=\"%s\"></TD></TR>\n",
-     $color[4], $name, _("Add address"));
-
-      print "</TABLE>\n";
+  html_tag( 'tr', "\n" .
+      html_tag( 'td', _("First name") . ':', 'right', $color[4], 'width="50"' ) .
+      html_tag( 'td', '<input name="' . $name . '[firstname]" size="45" value="">', 'left', $color[4] )
+  ) . "\n" .
+  html_tag( 'tr', "\n" .
+      html_tag( 'td', _("Last name") . ':', 'right', $color[4], 'width="50"' ) .
+      html_tag( 'td', '<input name="' . $name . '[lastname]" size="45" value="">', 'left', $color[4] )
+  ) . "\n" .
+  html_tag( 'tr', "\n" .
+      html_tag( 'td', _("Additional info") . ':', 'right', $color[4], 'width="50"' ) .
+      html_tag( 'td', '<input name="' . $name . '[label]" size="45" value="">', 'left', $color[4] )
+  ) . "\n" .
+  html_tag( 'tr', "\n" .
+      html_tag( 'td',
+          '<input type="submit" name="' . $name . '[SUBMIT]" size="45" value="'. _("Add address") .'">' ,
+      'center', $color[4], 'colspan="2"' )
+  ) . "\n" .
+  '</table>';
 ?>
-</FORM></BODY>
-</HTML>
+</form></body>
+</html>
