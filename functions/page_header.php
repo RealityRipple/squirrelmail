@@ -315,7 +315,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                                  : html_tag( 'td', '', 'left' ) )
         . "\n";
     $urlMailbox = urlencode($mailbox);
-    echo makeComposeLink('src/compose.php?mailbox='.$urlMailbox.'&startMessage='.$startMessage);
+    echo makeComposeLink('src/compose.php?mailbox='.$urlMailbox.'&amp;startMessage='.$startMessage);
     echo "&nbsp;&nbsp;\n";
     displayInternalLink ('src/addressbook.php', _("Addresses"));
     echo "&nbsp;&nbsp;\n";
