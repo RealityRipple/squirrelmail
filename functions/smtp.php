@@ -753,7 +753,7 @@ function calculate_references($refs, $inreplyto, $old_reply_to) {
                 $refer = trim($regs[1]);
             }
             else {
-               $refer .= ' ' . trim($regs[1]);
+               $refer .= ' ' . trim($refs[0][$i]);
 	    }
             
         }
