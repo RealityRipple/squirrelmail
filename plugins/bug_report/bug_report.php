@@ -65,12 +65,11 @@ $body = htmlspecialchars($body_top) . $body;
 
    echo "<ul>";
    echo "<li>";
-   printf(_("Make sure that you are running the most recent copy of %s."),'<a href="http://www.squirrelmail.org/">SquirrelMail</a>');
-   printf(_("You are currently using version %s."),$version);
+   printf(_("Make sure that you are running the most recent copy of %s. You are currently using version %s."), '<a href="http://www.squirrelmail.org/" target="_blank">SquirrelMail</a>', $version);
    echo "</li>\n";
 
    echo "<li>";
-   printf(_("Check to see if your bug is already listed in the %sBug List%s on SourceForge. If it is, we already know about it and are trying to fix it."), '<a href="http://sourceforge.net/bugs/?group_id=311">', '</a>');
+   printf(_("Check to see if your bug is already listed in the %sBug List%s on SourceForge. If it is, we already know about it and are trying to fix it."), '<a href="http://sourceforge.net/bugs/?group_id=311" target="_blank">', '</a>');
    echo "</li>\n";
    
    echo "<li>";
