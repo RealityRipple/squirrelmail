@@ -5,7 +5,7 @@
     **  Copyright (c) 1999-2000 The SquirrelMail development team
     **  Licensed under the GNU GPL. For full terms see the file COPYING.
     **
-    **  Creates folders on the IMAP server. 
+    **  Creates folders on the IMAP server.
     **  Called from folders.php
     **
     **  $Id$
@@ -20,7 +20,7 @@
 
    if (strpos($folder_name, "\"") || strpos($folder_name, "\\") ||
        strpos($folder_name, "'") || strpos($folder_name, "$dm")) {
-		print "<html><body bgcolor=$color[4]>";
+      echo "<html><body bgcolor=$color[4]>";
       plain_error_message(_("Illegal folder name.  Please select a different name.")."<BR><A HREF=\"../src/folders.php\">"._("Click here to go back")."</A>.", $color);
       sqimap_logout($imapConnection);
       exit;

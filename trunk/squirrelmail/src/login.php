@@ -83,11 +83,11 @@
 			   
    if ($theme_css != "")
        echo "<LINK REL=\"stylesheet\" TYPE=\"text/css\" HREF=\"$theme_css\">\n";
-	 
+
    echo '<TITLE>';
    echo $org_name . ' - ' . _("Login");
    echo "</TITLE></HEAD>\n";
-   echo "<BODY TEXT=000000 BGCOLOR=#FFFFFF LINK=0000CC VLINK=0000CC ALINK=0000CC>\n";
+   echo "<BODY TEXT=#000000 BGCOLOR=#FFFFFF LINK=#0000CC VLINK=#0000CC ALINK=#0000CC onLoad='document.forms[0].elements[0].focus();'>\n";
    echo "<FORM ACTION=\"redirect.php\" METHOD=\"POST\" NAME=f>\n";
    
    $username_form_name = 'login_username';

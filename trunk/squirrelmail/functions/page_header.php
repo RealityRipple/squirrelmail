@@ -44,9 +44,7 @@
    function displayPageHeader($color, $mailbox) {
       displayHtmlHeader ();
 
-      printf('<BODY TEXT="%s" BGCOLOR="%s" LINK="%s" VLINK="%s" ALINK="%s">',
-             $color[8], $color[4], $color[7], $color[7], $color[7]);
-      echo "\n\n";
+      echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\" onLoad='document.forms[0].elements[0].focus();'>\n\n";
 
       /** Here is the header and wrapping table **/
       $shortBoxName = readShortMailboxName($mailbox, ".");
