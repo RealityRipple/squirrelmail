@@ -65,7 +65,7 @@ function formatMailboxName($imapConnection, $box_array) {
     if ($unseen > 0) { $line .= '<B>'; }
 
     /* Crate the link for this folder. */
-    $line .= "<A HREF=\"right_main.php?sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" TARGET=\"right\" STYLE=\"text-decoration:none\">";
+    $line .= "<A HREF=\"right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" TARGET=\"right\" STYLE=\"text-decoration:none\">";
     if ($special_color) {
         $line .= "<FONT COLOR=\"$color[11]\">";
     }

@@ -719,21 +719,21 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
       } else {
 	echo '   <TD WIDTH="25%"><B>' . _("From") . '</B>';
       }
-      if ($thread_sort_messages != 1) {
+      if ($allow_thread_sort != 'true' || $thread_sort_messages != 1) {
 	ShowSortButton($sort, $mailbox, 2, 3);
       }
       echo "</TD>\n";
       break;
     case 3: /* date */
       echo '   <TD NOWRAP WIDTH="5%"><B>' . _("Date") . '</B>';
-      if ($thread_sort_messages != 1) {
+      if ($allow_thread_sort != 'true' || $thread_sort_messages != 1) {
 	ShowSortButton($sort, $mailbox, 0, 1);
       }
       echo "</TD>\n";
       break;
     case 4: /* subject */
       echo '   <TD><B>' . _("Subject") . '</B> ';
-      if ($thread_sort_messages != 1) {
+      if ($allow_thread_sort != 'true' || $thread_sort_messages != 1) {
 	ShowSortButton($sort, $mailbox, 4, 5);
       }
       echo "</TD>\n";
@@ -812,10 +812,6 @@ function get_selectall_link($start_msg, $sort) {
     if (isset($where) && isset($what)) {
       $result .= '&amp;where=' . urlencode($where)
 	. '&amp;what=' . urlencode($what);
-    }
-    
-    if ($PG_SHOWNUM == 999999) {
-      $result .= '&amp;PG_SHOWNUM=999999';
     }
     
     $result .= "\">";
@@ -1025,14 +1021,14 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
 	}
       }
   } else if ($PG_SHOWNUM == 999999) {
-    $pg_str = "<A HREF=\"right_main.php?use_mailbox_cache=$use"
-      . "&amp;startMessage=1&amp;mailbox=$box\" TARGET=\"right\">"
-      . _("Paginate") . '</A>' . $spc;
+    $pg_str = "<A HREF=\"right_main.php?PG_SHOWALL=0"
+      . "&amp;use_mailbox_cache=$use&amp;startMessage=1&amp;mailbox=$box\" "
+      . "TARGET=\"right\">" ._("Paginate") . '</A>' . $spc;
   }
 
   /* If necessary, compute the 'show all' string. */
   if (($prv_str != '') || ($nxt_str != '')) {
-    $all_str = "<A HREF=\"right_main.php?PG_SHOWNUM=999999"
+    $all_str = "<A HREF=\"right_main.php?PG_SHOWALL=1"
       . "&amp;use_mailbox_cache=$use&amp;startMessage=1&amp;mailbox=$box\" "
       . "TARGET=\"right\">" . _("Show All") . '</A>';
   }
