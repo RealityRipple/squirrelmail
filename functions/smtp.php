@@ -361,7 +361,7 @@
 
    function sendSMTP($t, $c, $b, $subject, $body, $more_headers) {
       global $username, $popuser, $domain, $version, $smtpServerAddress, $smtpPort,
-         $data_dir, $color, $use_authenticated_smtp, $identity;
+         $data_dir, $color, $use_authenticated_smtp, $identity, $key;
 
       $to = expandAddrs(parseAddrs($t));
       $cc = expandAddrs(parseAddrs($c));
