@@ -93,10 +93,10 @@ if ($left_size == "") {
 }
 
 if ($location_of_bar == 'right') {
-    echo "<frameset cols=\"*, $left_size\" border=\"1\" id=\"fs1\">";
+    echo "<frameset cols=\"*, $left_size\" frameborder=\"1\" id=\"fs1\">";
 }
 else {
-    echo "<frameset cols=\"$left_size, *\" border=\"1\" id=\"fs1\">";
+    echo "<frameset cols=\"$left_size, *\" frameborder=\"1\" id=\"fs1\">";
 }
 
 /*
