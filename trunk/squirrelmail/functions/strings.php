@@ -49,10 +49,9 @@
    // you do character translation.
    // Specifically, &#039 comes up as 5 characters instead of 1.
    function sqWordWrap(&$line, $wrap) {
-      preg_match("/^(\s|>)+/", $line, $regs);
-      $beginning_spaces = $regs[0];
-      
-      $words = explode(" ", $line);
+      preg_match("/^([\s>]+)([^\s>].*)/", $line, $regs);
+      $beginning_spaces = $regs[1];
+      $words = explode(" ", $regs[2]);
 
       $i = 0;
       $line = $beginning_spaces;
@@ -63,17 +62,26 @@
             $line_len = strlen($beginning_spaces) + strlen($words[$i]) +
                 strlen($words[$i + 1]) + 2;
             $i ++;
+            
+            // Add more words (as long as they fit)
             while ($line_len < $wrap && $i < count($words)) {
                $line .= $words[$i] . ' ';
                $i++;
                $line_len += strlen($words[$i]) + 1;
             }
-            if ($i < count($words)) {  // If there's more to do, worry about it
+            
+            // Skip spaces if they are the first thing on a continued line
+            while (!$words[$i] && $i < count($words))
+            {
+               $i ++;
+            }
+            
+            if ($i < count($words)) {
                $line .= "\n$beginning_spaces";
             }
          }
       } else {
-         $line = $words[0];
+         $line .= $words[0];
       }
    }
 
