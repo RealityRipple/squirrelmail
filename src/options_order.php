@@ -44,12 +44,12 @@
    <table width=95% align=center border=0><tr><td>
 <?php
 
-   $available[1] = "Checkbox";
-   $available[2] = "From";
-   $available[3] = "Date";
-   $available[4] = "Subject";
-   $available[5] = "Flags";
-   $available[6] = "Size";
+   $available[1] = _("Checkbox");
+   $available[2] = _("From");
+   $available[3] = _("Date");
+   $available[4] = _("Subject");
+   $available[5] = _("Flags");
+   $available[6] = _("Size");
    
    if ($method == "up" && $num > 1) {
       $prev = $num-1;
@@ -86,12 +86,26 @@
       }
    }
 
-   for ($i=1; $i <= count($index_order); $i++) {
-      $tmp = $index_order[$i];
-      echo "<small><a href=\"options_order.php?method=up&num=$i\">up</a> | ";
-      echo "<a href=\"options_order.php?method=down&num=$i\">down</a> | ";
-      echo "<a href=\"options_order.php?method=remove&num=$i\">remove</a></small> - ";
-      echo $available[$tmp] . "<br>";
+   if (count($index_order))
+   {
+      echo "<table cellspacing=0 cellpadding=0 border=0>\n";
+      for ($i=1; $i <= count($index_order); $i++) {
+         $tmp = $index_order[$i];
+         echo "<tr>";
+         echo "<td><small><a href=\"options_order.php?method=up&num=$i\">up</a></small></td>\n";
+         echo "<td><small>&nbsp;|&nbsp;</small></td>\n";
+         echo "<td><small><a href=\"options_order.php?method=down&num=$i\">down</a></small></td>\n";
+         echo "<td><small>&nbsp;|&nbsp;</small></td>\n";
+         echo "<td>";
+         // Always show the subject
+         if ($tmp != 4)
+            echo "<small><a href=\"options_order.php?method=remove&num=$i\">remove</a></small>";
+         echo "</td>\n";
+         echo "<td><small>&nbsp;-&nbsp;</small></td>\n";
+         echo "<td>" . $available[$tmp] . "</td>\n";
+         echo "</tr>\n";
+      }
+      echo "</table>\n";
    }
    
    if (count($index_order) != count($available)) {
