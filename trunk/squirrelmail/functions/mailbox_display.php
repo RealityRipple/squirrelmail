@@ -20,20 +20,20 @@ require_once('../functions/html.php');
 define('PG_SEL_MAX', 10);
 
 function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort,
-$start_msg, $where, $what){
+                          $start_msg, $where, $what){
     global $checkall,
-    $color, $msgs, $msort,
-    $sent_folder, $draft_folder,
-    $default_use_priority,
-    $message_highlight_list,
-    $index_order,
-    $indent_array,   /* indent subject by */
-    $pos,            /* Search postion (if any)  */
-    $thread_sort_messages, /* thread sorting on/off */
-    $server_sort_order, /* sort value when using server-sorting */
-    $row_count,
-    $allow_server_sort; /* enable/disable server-side sorting */
-    $color_string = $color[4];
+           $color, $msgs, $msort,
+           $sent_folder, $draft_folder,
+           $default_use_priority,
+           $message_highlight_list,
+           $index_order,
+           $indent_array,   /* indent subject by */
+           $pos,            /* Search postion (if any)  */
+           $thread_sort_messages, /* thread sorting on/off */
+           $server_sort_order, /* sort value when using server-sorting */
+           $row_count,
+           $allow_server_sort; /* enable/disable server-side sorting */
+           $color_string = $color[4];
 
     if ($GLOBALS['alt_index_colors']) {
         if (!isset($row_count)) {
@@ -156,7 +156,7 @@ $start_msg, $where, $what){
                 echo html_tag( 'td',
                                $italic . $bold . $flag . $fontstr . $senderName . 
                                $fontstr_end . $flag_end . $bold_end . $italic_end,
-                               '',
+                               'left',
                                $hlt_color );
                 break;
             case 3: /* date */
@@ -186,7 +186,7 @@ $start_msg, $where, $what){
                     $td_str .= " title=\"$title\"";
                 }
                 $td_str .= ">$flag$subject$flag_end</a>$bold_end";
-                echo html_tag( 'td', $td_str, '', $hlt_color );
+                echo html_tag( 'td', $td_str, 'left', $hlt_color );
                 break;
             case 5: /* flags */
                 $stuff = false;
@@ -662,14 +662,14 @@ $show_num) {
 */
 
 function mail_message_listing_beginning ($imapConnection, $moveURL,
-$mailbox = '', $sort = -1,
-$msg_cnt_str = '',
-$paginator = '&nbsp;',
-$start_msg = 1) {
+                                         $mailbox = '', $sort = -1,
+                                         $msg_cnt_str = '',
+                                         $paginator = '&nbsp;',
+                                         $start_msg = 1) {
     global $color, $index_order, $auto_expunge, $move_to_trash, $base_uri,
-    $checkall, $sent_folder, $draft_folder, $thread_sort_messages,
-    $allow_thread_sort, $allow_server_sort, $server_sort_order,
-    $lastTargetMailbox;
+           $checkall, $sent_folder, $draft_folder, $thread_sort_messages,
+           $allow_thread_sort, $allow_server_sort, $server_sort_order,
+           $lastTargetMailbox;
 
     $urlMailbox = urlencode($mailbox);
 
@@ -678,29 +678,32 @@ $start_msg = 1) {
     * It wraps around all messages
     */
     echo "<FORM name=\"messageList\" method=post action=\"$moveURL\">\n"
-        . "<TABLE WIDTH=\"100%\" BORDER=\"0\" CELLPADDING=\"1\" "
-        . "CELLSPACING=\"0\">\n<TR BGCOLOR=\"$color[0]\"><TD>"
-        . "    <TABLE BGCOLOR=\"$color[4]\" width=\"100%\" CELLPADDING=\"2\" "
-        . "CELLSPACING=\"0\" BORDER=\"0\"><TR>\n"
-            . html_tag( 'td', $paginator, 'left' )
-            . html_tag( 'td', $msg_cnt_str, 'right' ) 
-        . "  </TR></TABLE>\n"
-        . '</TD></TR>'
-        . "<TR><TD BGCOLOR=\"$color[0]\">\n"
-        . "<TABLE BGCOLOR=\"$color[0]\" BORDER=0 cellpadding=0 "
-        . "cellspacing=0 width=\"100%\">\n"
-        . "   <TR>\n"
-            . html_tag( 'td', 
-                        '<SMALL>&nbsp;' . _("Move Selected To:") . '</SMALL>',
-                        'left',
-                        '',
-                        'valign="middle" nowrap' )
-            . html_tag( 'td',            
-                        '<SMALL>' . _("Transform Selected Messages") . ': &nbsp; </SMALL><BR>',
-                        'right',
-                        '',
-                        'nowrap' )
-        . "   </TR>\n"
+        . html_tag( 'table' ,'' , '', '', 'border="0" width="100%" cellpadding="1"  cellspacing="0"' ) .
+            html_tag( 'tr',
+                html_tag( 'td' ,
+                    html_tag( 'table' ,
+                        html_tag( 'tr',
+                            html_tag( 'td', $paginator, 'left' ) .
+                            html_tag( 'td', $msg_cnt_str, 'right' ) 
+                        )
+                    , '', $color[4], 'border="0" width="100%" cellpadding="2"  cellspacing="0"' ) 
+                , 'left', '', '' )
+            , '', $color[0] )
+        . '<TR>'
+        . html_tag( 'td' ,'' , 'left', $color[0], '' )
+        . html_tag( 'table' ,'' , '', $color[0], 'border="0" width="100%" cellpadding="0"  cellspacing="0"' )
+            . html_tag( 'tr',
+                html_tag( 'td', 
+                            '<SMALL>&nbsp;' . _("Move Selected To:") . '</SMALL>',
+                            'left',
+                            '',
+                            'valign="middle" nowrap' ) .
+                html_tag( 'td',            
+                            '<SMALL>' . _("Transform Selected Messages") . ': &nbsp; </SMALL><BR>',
+                            'right',
+                            '',
+                            'nowrap' )
+            )
         . "   <TR>\n"
         . html_tag( 'td', '', 'left', '', 'valign="middle" nowrap' )
         . '         <SMALL>&nbsp;<TT><SELECT NAME="targetMailbox">';
@@ -748,23 +751,26 @@ $start_msg = 1) {
             $set_thread = 1;
             $thread_name = _("Thread View");
         }
-        echo   '<tr><td>&nbsp;<a href=' . "$base_uri" . 'src/right_main.php?sort='
-        . "$sort" . '&start_messages=1&set_thread=' . "$set_thread"
-        . '&mailbox=' . urlencode($mailbox) . '><small>' . $thread_name
-        . '</a></small>&nbsp;</td></tr>';
+        echo html_tag( 'tr' ,
+                    html_tag( 'td' ,
+                              '&nbsp;<a href=' . "$base_uri" . 'src/right_main.php?sort='
+                              . "$sort" . '&start_messages=1&set_thread=' . "$set_thread"
+                              . '&mailbox=' . urlencode($mailbox) . '><small>' . $thread_name
+                              . '</a></small>&nbsp;'
+                     , '', '', '' )
+                 , '', '', '' );
     }
 
     echo "</TABLE>\n";
     do_hook('mailbox_form_before');
-    echo '</TD></TR>'
-    . "<TR><TD BGCOLOR=\"$color[0]\">"
-    . '<TABLE WIDTH="100%" BORDER=0 CELLPADDING=2 CELLSPACING=';
+    echo '</TD></TR><TR>'
+    . html_tag( 'td' ,'' , '', $color[0], '' );
     if ($GLOBALS['alt_index_colors']){
-        echo '0';
+        $cellspacing =  '0';
     } else {
-        echo '1';
+        $cellspacing = '1';
     }
-    echo " BGCOLOR=\"$color[0]\">"
+    echo html_tag( 'table' ,'' , '', $color[0], 'border="0" width="100%" cellpadding="2"  cellspacing="'. $cellspacing .'"' )
     . "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
     /* if using server sort we highjack the
     * the $sort var and use $server_sort_order
@@ -783,9 +789,11 @@ $start_msg = 1) {
             break;
         case 2: /* from */
             if (handleAsSent($mailbox)) {
-                echo '   <TD WIDTH="25%"><B>' . _("To") . '</B>';
+                echo html_tag( 'td' ,'' , 'left', '', 'width="25%"' )
+                . '<b>' . _("To") . '</b>';
             } else {
-                echo '   <TD WIDTH="25%"><B>' . _("From") . '</B>';
+                echo html_tag( 'td' ,'' , 'left', '', 'width="25%"' )
+                . '<b>' . _("From") . '</b>';
             }
             if ($allow_thread_sort != TRUE || $thread_sort_messages != 1) {
                 ShowSortButton($sort, $mailbox, 2, 3);
@@ -793,14 +801,16 @@ $start_msg = 1) {
             echo "</TD>\n";
             break;
         case 3: /* date */
-            echo '   <TD NOWRAP WIDTH="5%"><B>' . _("Date") . '</B>';
+            echo html_tag( 'td' ,'' , 'left', '', 'width="5%" nowrap' )
+            . '<b>' . _("Date") . '</b>';
             if ($allow_thread_sort != TRUE || $thread_sort_messages != 1) {
                 ShowSortButton($sort, $mailbox, 0, 1);
             }
-            echo "</TD>\n";
+            echo "</td>\n";
             break;
             case 4: /* subject */
-            echo '   <TD><B>' . _("Subject") . '</B> ';
+            echo html_tag( 'td' ,'' , 'left', '', '' )
+            . '<b>' . _("Subject") . '</b>';
             if ($allow_thread_sort != TRUE || $thread_sort_messages != 1) {
                 ShowSortButton($sort, $mailbox, 4, 5);
             }

@@ -30,7 +30,7 @@
     	} else {
     	    $dir = 'ltr';
     	}
-    	
+
     	if ( $dir == 'ltr' ) {
     	    $rgt = 'right';
     	    $lft = 'left';		
@@ -42,7 +42,7 @@
     	if ( $bgcolor <> '' ) {
     	    $bgc = " BGCOLOR=\"$bgcolor\""; 
     	}
-    	
+
     	switch ( $align ) {
     	case '':
     	    $alg = '';
@@ -52,8 +52,10 @@
     	    break;
         case 'left':    	    
             $alg = " ALIGN=\"$lft\"";
+            break;
     	default:
     	    $alg = " ALIGN=\"$align\"";
+    	    break;
     	}
 	
 	$ret = "<$tag";
@@ -61,7 +63,6 @@
 	if ( $dir <> 'ltr' ) {
 	    $ret .= " DIR=\"$dir\"";
 	}
-	    
 	$ret .= "$bgc$alg";
 	    
 	if ( $xtra <> '' ) {
