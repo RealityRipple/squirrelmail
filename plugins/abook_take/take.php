@@ -1,4 +1,3 @@
-<?php /* Modified at 6 places by ri_once */ ?>
 <?php
   /**
    **  take.php
@@ -6,27 +5,15 @@
    **	Adds a "taken" address to the address book.  Takes addresses from
    **   incoming mail -- the body, To, From, Cc, or Reply-To.
    **/
-
-   session_start();
-
-   if(!isset($username)) {
-      echo "You need a valid user and password to access this page!";
-      exit;
-   }
-
-   chdir("..");
-   if (!isset($config_php))
-      /* '_once' Added by ri_once */ include_once("../config/config.php");
-   if (!isset($i18n_php))
-      /* '_once' Added by ri_once */ include_once("../functions/i18n.php");
-   if (!isset($page_header_php))
-      /* '_once' Added by ri_once */ include_once("../functions/page_header.php");
-   if (!isset($addressbook_php))
-      /* '_once' Added by ri_once */ include_once("../functions/addressbook.php");
-   if (!isset($strings_php))
-      /* '_once' Added by ri_once */ include_once("../functions/strings.php");
-
-   /* '_once' Added by ri_once */ include_once("../src/load_prefs.php");
+   
+   chdir('..');
+   require_once('../src/validate.php');
+   require_once("../functions/strings.php");
+   require_once("../config/config.php");
+   require_once("../functions/i18n.php");
+   require_once("../functions/page_header.php");
+   require_once("../functions/addressbook.php");
+   require_once("../src/load_prefs.php");
    
    displayPageHeader($color, "None");
    
@@ -64,6 +51,11 @@
       {
           echo '<option value="' . htmlspecialchars($Val) .
               '">' . htmlspecialchars($Val) . "</option>\n";
+      }
+      else
+      {
+          echo '<option value="' . htmlspecialchars($Val) .
+	      '">FAIL - ' . htmlspecialchars($Val) . "</option>\n";
       }
   }
   echo "</select>\n";
