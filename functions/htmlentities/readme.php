@@ -7,13 +7,13 @@
  * sq_get_html_translation_table() and sq_htmlentities(). They are 
  * included in functions/strings.php
  *
- * <pre>
  * sq_htmlentities uses same syntax as functions available in php 4.1.0
  * sq_get_html_translation_table adds third option that sets charset.
- * </pre>
  *
+ * <pre>
  * string sq_htmlentities ( string string [, int quote_style [, string charset]])
  * array sq_get_html_translation_table ( int table [, int quote_style [, string charset]])
+ * </pre>
  *
  * If sq_get_html_translation_table function is called with HTML_SPECIALCHARS option,
  * it returns us-ascii translation table. If it is called with HTML_ENTITIES option,
