@@ -23,11 +23,6 @@
  * @return string cleaned string
  */
 function charset_decode_us_ascii ($string) {
-    global $default_charset;
-
-    if (strtolower($default_charset) == 'us-ascii')
-        return $string;
-
     // don't do decoding when there are no 8bit symbols
     if (! sq_is8bit($string,'us-ascii'))
         return $string;

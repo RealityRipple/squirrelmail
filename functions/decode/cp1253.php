@@ -29,11 +29,6 @@
  * @return string $string Decoded string
  */
 function charset_decode_cp1253 ($string) {
-    global $default_charset;
-
-    if (strtolower($default_charset) == 'windows-1253')
-        return $string;
-
     // don't do decoding when there are no 8bit symbols
     if (! sq_is8bit($string,'windows-1253'))
         return $string;

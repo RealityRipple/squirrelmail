@@ -30,11 +30,6 @@
  */
 
 function charset_decode_cp1252 ($string) {
-    global $default_charset;
-
-    if (strtolower($default_charset) == 'windows-1252')
-        return $string;
-
     // don't do decoding when there are no 8bit symbols
     if (! sq_is8bit($string,'windows-1252'))
         return $string;
