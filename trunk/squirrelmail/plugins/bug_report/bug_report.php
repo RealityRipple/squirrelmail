@@ -16,18 +16,18 @@
  * $Id$
  */
 
-chdir('..');
-
 session_start();
+chdir('..');
+define('SM_PATH','../');
 
-require_once('../config/config.php');
-require_once('../functions/strings.php');
-require_once('../functions/page_header.php');
-require_once('../functions/display_messages.php');
-require_once('../functions/imap.php');
-require_once('../functions/array.php');
-require_once('../functions/i18n.php');
-require_once('../src/load_prefs.php');
+require_once(SM_PATH . 'config/config.php');
+require_once(SM_PATH . 'functions/strings.php');
+require_once(SM_PATH . 'functions/page_header.php');
+require_once(SM_PATH . 'functions/display_messages.php');
+require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/array.php');
+require_once(SM_PATH . 'functions/i18n.php');
+require_once(SM_PATH . 'include/load_prefs.php');
 displayPageHeader($color, 'None');
 
 

@@ -25,7 +25,7 @@ require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'config/config.php');
 require_once(SM_PATH . 'functions/page_header.php');
-require_once(SM_PATH . 'src/load_prefs.php');
+require_once(SM_PATH . 'include/load_prefs.php');
 require_once(SM_PATH . 'functions/html.php');
 
 //displays head of day calendar view

@@ -12,9 +12,11 @@
     **/
 
     chdir('..');
-    require_once('../src/validate.php');
-    require_once('../functions/imap.php');
-    require_once('../src/load_prefs.php');
+    define('SM_PATH','../');
+
+    require_once(SM_PATH . 'include/validate.php');
+    require_once(SM_PATH . 'functions/imap.php');
+    require_once(SM_PATH . 'include/load_prefs.php');
 
     displayPageHeader( $color, 'None' );
 
