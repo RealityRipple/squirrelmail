@@ -135,7 +135,6 @@ html_tag( 'table',
             ( $hide_sm_attributions ? '' :
             '<small>' . sprintf (_("SquirrelMail version %s"), $version) . '<br>' ."\n".
             '  ' . _("By the SquirrelMail Development Team") . '<br></small>' . "\n" ) .
-            "<br>\n" .
             html_tag( 'table',
                 html_tag( 'tr',
                     html_tag( 'td',
