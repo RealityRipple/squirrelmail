@@ -120,10 +120,13 @@ function logout_error( $errString, $errTitle = '' ) {
     displayHtmlHeader( $errTitle, '', false );
 
     echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n\n" .
-         '<CENTER>'.
-         "<IMG SRC=\"$org_logo\" ALT=\"" . sprintf(_("%s Logo"), $org_name) .
-            "\"$width_and_height><BR>\n".
-         ( $hide_sm_attributions ? '' :
+         '<CENTER>';
+
+    if (isset($org_logo) && ($org_logo != '')) {
+        echo "<IMG SRC=\"$org_logo\" ALT=\"" . sprintf(_("%s Logo"), $org_name) .
+             "\"$width_and_height><BR>\n";
+    }
+    echo ( $hide_sm_attributions ? '' :
            '<SMALL>' . sprintf (_("SquirrelMail version %s"), $version) . "<BR>\n".
            '  ' . _("By the SquirrelMail Development Team") . "<BR></SMALL>\n" ) .
          "<table cellspacing=1 cellpadding=0 bgcolor=\"$color[1]\" width=\"70%\"><tr><td>".
