@@ -148,7 +148,7 @@
                               <td>
                                  <center>
                                  <?php echo _("Unknown user or password incorrect.") ?><br>
-                                 <a href="login.php"><?php echo _("Click here to try again") ?></a>
+                                 <a href="login.php" target="_top"><?php echo _("Click here to try again") ?></a>
                                  </center>
                               </td>
                            </tr>
