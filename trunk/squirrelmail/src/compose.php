@@ -1333,7 +1333,7 @@ function deliverMessage($composeMessage, $draft=false) {
 	}
 	$authPop = (isset($pop_before_smtp) && $pop_before_smtp) ? true : false;
 	$stream = $deliver->initStream($composeMessage,$domain,0,
-	                  $smtpServerAddress, $smtpPort, $authPop);
+	                  $smtpServerAddress, $smtpPort, $user, $pass, $authPop);
     } elseif (!$draft) {
        require_once(SM_PATH . 'class/deliver/Deliver_SendMail.class.php');
        global $sendmail_path;

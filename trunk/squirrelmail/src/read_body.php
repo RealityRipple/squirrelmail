@@ -280,7 +280,7 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
         }
         $authPop = (isset($pop_before_smtp) && $pop_before_smtp) ? true : false;
         $stream = $deliver->initStream($composeMessage,$domain,0,
-                                       $smtpServerAddress, $smtpPort, $authPop);
+                                       $smtpServerAddress, $smtpPort, $user, $pass, $authPop);
     }
     $success = false;
     if ($stream) {
