@@ -98,8 +98,8 @@ function printer_friendly_link() {
     }
 
     $params = '?passed_ent_id=' . $ent_num .
-              '&amp;mailbox=' . urlencode($mailbox) .
-              '&amp;passed_id=' . $passed_id;
+              '&mailbox=' . urlencode($mailbox) .
+              '&passed_id=' . $passed_id;
 
     $print_text = _("View Printable Version");
 
