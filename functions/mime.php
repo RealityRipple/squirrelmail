@@ -489,7 +489,7 @@
       // Show text/plain or text/html -- the first one we find.
       if ($message->header->type0 == 'text' && 
 	  ($message->header->type1 == 'plain' ||
-	   $message->header->type2 == 'html'))
+	   $message->header->type1 == 'html'))
 	{
 	   // If the next part is an HTML version, this will
 	   // all be true.  Show it, if the user so desires.
@@ -509,7 +509,7 @@
 	} 
       else 
 	{
-	   for ($i=0; $message->entities[$i]; $i++) 
+	   for ($i=0; isset($message->entities[$i]); $i++) 
 	     {
 		$next = 'none';
 		if (isset($message->entities[$i + 1]))
