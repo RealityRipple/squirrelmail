@@ -288,7 +288,7 @@ class Message {
                     break;
                 case '{':
                     /* process the literal value */
-                    $arg_s = $this->parseLiteral($read, $i);
+                    $arg_a[] = $this->parseLiteral($read, $i);
                     ++$arg_no;
                     break;
 		case '0':    
