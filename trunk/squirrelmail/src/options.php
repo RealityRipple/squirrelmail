@@ -6,7 +6,9 @@
    include("../functions/display_messages.php");
    include("../functions/imap.php");
    include("../functions/array.php");
-   include("../functions/prefs.php");
+
+   include("../src/load_prefs.php");
+
 
    echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    displayPageHeader($color, "None");
@@ -27,7 +29,7 @@
    echo "<TABLE WIDTH=100% COLS=2 ALIGN=CENTER>\n";
    // FULL NAME
    echo "   <TR>";
-   echo "      <TD WIDTH=20% ALIGN=RIGHT BGCOLOR=\"$color[0]\">";
+   echo "      <TD WIDTH=20% ALIGN=RIGHT>";
    echo "         <FONT FACE=\"Arial,Helvetica\">";
    echo "         Full Name:";
    echo "         </FONT>";
@@ -40,7 +42,7 @@
    echo "   </TR>";
    // REPLY-TO
    echo "   <TR>";
-   echo "      <TD WIDTH=20% ALIGN=RIGHT BGCOLOR=\"$color[0]\">";
+   echo "      <TD WIDTH=20% ALIGN=RIGHT>";
    echo "         <FONT FACE=\"Arial,Helvetica\">";
    echo "         Reply-to:";
    echo "         </FONT>";
@@ -51,12 +53,35 @@
    echo "         </FONT>";
    echo "      </TD>";
    echo "   </TR>";
+   // THEME
+   echo "   <TR>";
+   echo "      <TD WIDTH=20% ALIGN=RIGHT>";
+   echo "         <FONT FACE=\"Arial,Helvetica\">";
+   echo "         Theme:";
+   echo "         </FONT>";
+   echo "      </TD>";
+   echo "      <TD WIDTH=80% ALIGN=LEFT>";
+
+   echo "         <TT><SELECT NAME=chosentheme>\n";
+   for ($i = 0; $i < count($theme); $i++) {
+      if ($theme[$i]["PATH"] == $chosen_theme)
+         echo "         <OPTION SELECTED VALUE=\"".$theme[$i]["PATH"]."\">".$theme[$i]["NAME"]."\n";
+      else
+         echo "         <OPTION VALUE=\"".$theme[$i]["PATH"]."\">".$theme[$i]["NAME"]."\n";
+   }
+   echo "         </SELECT></TT>";
+   echo "      </TD>";
+   echo "   </TR>";
+
+   echo "</SELECT></TT>\n";
+
+
    // SUBMIT BUTTON
    echo "   <TR>";
    echo "      <TD WIDTH=20%>";
    echo "      </TD>";
    echo "      <TD WIDTH=80% ALIGN=LEFT>";
-   echo "         <INPUT TYPE=SUBMIT VALUE=\"Submit\">\n";
+   echo "         <BR><INPUT TYPE=SUBMIT VALUE=\"Submit\">\n";
    echo "      </TD>";
    echo "   </TR>";
 

@@ -15,7 +15,7 @@
          $pref = fgets($file, 1024);
          if (substr($pref, 0, strpos($pref, "=")) == $string) {
             fclose($file);
-            return substr($pref, strpos($pref, "=")+1);
+            return trim(substr($pref, strpos($pref, "=")+1));
          }
       }
       fclose($file);

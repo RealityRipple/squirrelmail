@@ -7,6 +7,8 @@
    include("../functions/mailbox.php");
    include("../functions/date.php");
 
+   include("../src/load_prefs.php");
+
    function viewText($color, $body, $id, $entid, $mailbox) {
       echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
       displayPageHeader($color, "None");
@@ -16,7 +18,7 @@
       echo "</TD></TR><TR><TD BGCOLOR=\"$color[4]\">";
       $urlmailbox = urlencode($mailbox);
       echo "<FONT FACE=\"Arial, Helvetica\"><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$entid&mailbox=$urlmailbox\">Download this as a file</A></CENTER><BR><BR></FONT><TT>";
-      echo nl2br($body);
+      echo nl2br(trim($body));
       echo "</TT></TD></TR></TABLE>";
    }
 
@@ -41,7 +43,7 @@
             $body = decodeBody($message["ENTITIES"][$passed_ent_id]["BODY"], $message["ENTITIES"][$passed_ent_id]["ENCODING"]);
             header("Content-type: $type0/$type1; name=\"$filename\"");
             header("Content-Disposition: attachment; filename=\"$filename\"");
-            echo $body;
+            echo trim($body);
             break;
          default:
             $body = decodeBody($message["ENTITIES"][$passed_ent_id]["BODY"], $message["ENTITIES"][$passed_ent_id]["ENCODING"]);

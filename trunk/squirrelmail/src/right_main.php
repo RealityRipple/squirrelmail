@@ -29,6 +29,8 @@
    include("../functions/mailbox_display.php");
    include("../functions/display_messages.php");
 
+   include("../src/load_prefs.php");
+
    echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    echo "<FONT FACE=\"Arial,Helvetica\">";
    /////////////////////////////////////////////////////////////////////////////////
@@ -65,7 +67,7 @@
    displayPageHeader($color, $mailbox);
 
    // Get the list of messages for this mailbox
-   showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort);
+   showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color);
 
    // close the connection
    fputs($imapConnection, "1 logout\n");

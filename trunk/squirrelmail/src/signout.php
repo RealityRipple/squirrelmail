@@ -17,6 +17,8 @@
 <HTML>
 <?
    include ("../config/config.php");
+   include("../src/load_prefs.php");
+
    echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    echo "<BR><BR><TABLE BGCOLOR=\"$color[4]\" BORDER=0 COLS=1 WIDTH=50% CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>";
    echo "   <TR BGCOLOR=\"$color[3]\" WIDTH=100%>";

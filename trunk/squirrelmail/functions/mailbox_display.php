@@ -32,7 +32,7 @@
    /**
     ** This function loops through a group of messages in the mailbox and shows them
     **/
-   function showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort) {
+   function showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color) {
       include ("../config/config.php");
 
       if (1 <= $numMessages) {

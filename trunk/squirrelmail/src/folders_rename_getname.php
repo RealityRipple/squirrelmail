@@ -5,6 +5,8 @@
    include("../functions/imap.php");
    include("../functions/mailbox.php");
 
+   include("../src/load_prefs.php");
+
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
    selectMailbox($imapConnection, $old, $numMessages);
 

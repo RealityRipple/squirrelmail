@@ -116,8 +116,7 @@
        as the actual message in the HTML.   It contains everything needed, including
        HTML Tags, Attachments at the bottom, etc.
     **/
-   function formatBody($message) {
-      include ("../config/config.php");
+   function formatBody($message, $color) {
 
       /** this if statement checks for the entity to show as the primary message.  To
           add more of them, just put them in the order that is their priority.
@@ -130,17 +129,17 @@
          $body .= decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
       } else if (containsType($message, "text", "plain", $ent_num)) {
          $tmpbody = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
-         $body .= "<TT>" . nl2br($tmpbody) . "</TT>";
+         $body .= "<TT>" . nl2br(trim($tmpbody)) . "</TT>";
       }
       // add other primary displaying message types here
       else {
          // find any type that's displayable
          if (containsType($message, "text", "any_type", $ent_num)) {
             $tmpbody = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
-            $body .= "<TT>" . nl2br($tmpbody) . "</TT>";
+            $body .= "<TT>" . nl2br(trim($tmpbody)) . "</TT>";
          } else if (containsType($message, "message", "any_type", $ent_num)) {
             $tmpbody = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
-            $body .= "<TT>" . nl2br($tmpbody) . "</TT>";
+            $body .= "<TT>" . nl2br(trim($tmpbody)) . "</TT>";
          }
       }
 

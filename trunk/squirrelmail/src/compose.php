@@ -7,6 +7,7 @@
    include("../functions/date.php");
    include("../functions/mime.php");
 
+   include("../src/load_prefs.php");
 
    echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
