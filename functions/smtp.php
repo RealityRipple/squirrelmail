@@ -161,7 +161,7 @@
       global $sendmail_path, $username, $domain;
       
       // open pipe to sendmail
-      $fp = popen (escapeshellcmd("$sendmail_path -t -f$username@$domain"), "w");
+      $fp = popen (escapeshellcmd("$sendmail_path -odb -oi -t -f$username@$domain"), "w");
       
       write822Header ($fp, $t, $c, $b, $subject);
       writeBody($fp, $body);
