@@ -14,17 +14,18 @@
 // Always set up the language before calling these functions
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE ) {
 
-    global $theme_css, $custom_css;
-    
+    global $theme_css, $custom_css, $base_uri;
+
     echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">' .
          "\n\n<HTML>\n<HEAD>\n";
-    
+
     if ( !isset( $custom_css ) || $custom_css == 'none' ) {
         if ($theme_css != '') {
             echo "<LINK REL=\"stylesheet\" TYPE=\"text/css\" HREF=\"$theme_css\">\n";
         }
     } else {
-        echo "<LINK REL=\"stylesheet\" TYPE=\"text/css\" HREF=\"../themes/css/$custom_css\">\n";
+        echo '<LINK REL="stylesheet" TYPE="text/css" HREF="' .
+             $base_uri . "themes/css/$custom_css\">\n";
     }
     
     if( $do_hook ) {
