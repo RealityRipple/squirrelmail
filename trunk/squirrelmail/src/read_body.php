@@ -375,19 +375,19 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, $color)
      }
    }
    $s .= '</table>';
-   return $s;
+   echo $s;
 }	     
 
-function formatMenubar($mailbox, $passed_id, $passed_ent_id, $msg, $mbx_response) {
+function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response) {
    global $base_uri, $sent_folder, $draft_folder, $where, $what, $color, $sort,
-          $startMessage, $data_dir, $username, $compose_new_win;
+          $startMessage, $data_dir, $username, $compose_new_win, $PHP_SELF;
 
    $topbar_delimiter = '&nbsp;|&nbsp;';
    $urlMailbox = encodeHeader($mailbox);
 
    $identity = '';
    $idents = getPref($data_dir, $username, 'identities');
-   $from_name = $msg->header->from->getAddress();
+   $from_name = $message->header->from->getAddress();
    if (!empty($idents) && $idents > 1) {
       for ($i = 1; $i < $idents; $i++) {
           $enc_from_name = '"'. 
@@ -478,6 +478,16 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $msg, $mbx_response
          $s .= _("Next");
       }
    } else if (isset($passed_ent_id) && $passed_ent_id) {
+      /* code for navigating through attached message/rfc822 messages */
+      $url = set_url_var($PHP_SELF, 'passed_ent_id',0);
+      $s .= '<a href="'.$url.'">'._("View Message").'</a>';
+      $par_ent_id = $message->parent->entity_id;
+      if ($par_ent_id) {
+         $par_ent_id = substr($par_ent_id,0,-2);
+         $s .= $topbar_delimiter;
+	 $url = set_url_var($PHP_SELF, 'passed_ent_id',$par_ent_id);
+	 $s .= '<a href="'.$url.'">'._("Up").'</a>';
+      }
    }      
 
    $s .= '</small></td><td align="right" width="33%"><small>';
@@ -508,35 +518,25 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $msg, $mbx_response
       $s .= '<a href="'.$comp_action_uri.'">'._("Reply All").'</a>';
    }
    $s .= '</small></td></tr></table>';
-   return $s;
+   echo $s;
 }
 
 function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
-   global $startMessage, $show_more, $base_uri, $where, $what;
+   global $PHP_SELF;
    
    $urlMailbox = encodeHeader($mailbox);
-   $s = '<table width="100%" cellpadding="3" cellspacing="0" align="right"'.
-         ' border="0" bgcolor="'.$color[9].'">'.
+   $s = '<table width="100%" cellpadding="3" cellspacing="0" align="center"'.
+         ' border="0" bgcolor="'.$color[9].'">'. "\n".
 	 '<tr align="right"><td valign="top" align="right"><small>';
 
-   $viewheader_url = $base_uri . 'src/read_body.php?mailbox=' . $urlMailbox . 
-                    '&amp;passed_id='. $passed_id. '&amp;';
-   if ($where && $what) {
-      $viewheader_url .= 'where=' . urlencode($where) . '&amp;what=' . urlencode($what) .
-                       '&amp;view_hdr=1';
-   } else {
-      $viewheader_url .= 'startMessage=' .$startMessage. '&amp;show_more='.
-                        $show_more .'&amp;view_hdr=1';
-   }
+   $viewheader_url = $PHP_SELF .  '&amp;view_hdr=1';
    $s .= '<a href="'.$viewheader_url.'">'.("View Full Header").'</a>';
   /* Output the printer friendly link if we are in subtle mode. */
    $s .= '&nbsp;|&nbsp;'. 
          printer_friendly_link($mailbox, $passed_id, $passed_ent_id, $color);
-   
+   echo $s;
    do_hook("read_body_header_right");
-   
-   $s .= '</small></td></tr></table>'."\n";
-   return $s;
+   echo '</small></td></tr></table>'."\n";
 }
 
 
@@ -658,10 +658,9 @@ for ($i = 0; $i < count($ent_ar); $i++) {
 
 displayPageHeader($color, $mailbox);
 do_hook('read_body_top');
-echo formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response);
-echo formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, $color);
-echo formatToolbar($mailbox,$passed_id,$passed_ent_id,$message, $color);
-echo "BOE";
+formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response);
+formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, $color);
+formatToolbar($mailbox,$passed_id,$passed_ent_id,$message, $color);
 echo '<table width="100%" cellpadding="3" cellspacing="3" align="center"'.
       ' border="0" bgcolor="'.$color[4].'">';
 echo '<tr><td>'.$messagebody.'</td></tr>';      
