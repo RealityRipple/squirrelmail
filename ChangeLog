@@ -1,5 +1,10 @@
-Version 1.0pre1 -- DEVELOPMENT
+Version 1.0pre2 -- DEVELOPMENT
 ------------------------------
+- Added Catalan translation of Help documents by Josep Sanz <jsanz@fa.upc.es>
+
+Version 1.0pre1 -- December 14, 2000 
+------------------------------------
+- Fixed bug in sending messages with a blank line with a "."
 - Folder displays have been changed to be more readable in drop-down lists
 - For security, login verification happens, then we're redirected to webmail.php
 - Folder sorting now case insensative
@@ -22,6 +27,7 @@ Version 1.0pre1 -- DEVELOPMENT
 - Added Catalan translation from Josep Sanz <jsanz@fa.upc.es>
 - Added Serbian translation from Boris Manojlovic <steki@verat.net>
 - Added Polish translation of Help from Krystian Kanabrodzki <krys@voruta.eu.org>
+
 
 
 Version 0.5 -- September 25, 2000 
