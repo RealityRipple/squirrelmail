@@ -22,7 +22,7 @@ function squirrelmail_plugin_init_listcommands () {
 
 function plugin_listcommands_menu() {
     global $imapConnection, $passed_id, $color, $mailbox,
-           $message, $ent_num, $priority_level, $compose_new_win;
+           $message, $ent_num, $priority_level, $compose_new_win, $uid_support;
 
     $subject = trim($message->header->subject);
 
@@ -45,7 +45,7 @@ function plugin_listcommands_menu() {
 
     $lfields = 'List-' . implode (' List-', $fields);
 
-    $sid = sqimap_session_id();
+    $sid = sqimap_session_id($uid_support);
     fputs ($imapConnection, "$sid FETCH $passed_id BODY.PEEK[HEADER.FIELDS ($lfields)]\r\n");
     $read = sqimap_read_data($imapConnection, $sid, true, $response, $emessage);
 
