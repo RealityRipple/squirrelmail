@@ -4,10 +4,10 @@
  *
  * Uses php-gettext classes
  *
- * Copyright (c) 2004 The SquirrelMail Project Team
+ * Copyright (c) 2004-2005 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * @copyright (c) 2004 The SquirrelMail Project Team
+ * @copyright (c) 2004-2005 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public Licens
  * @link http://www.php.net/gettext Original php gettext manual
  * @link http://savannah.nongnu.org/projects/php-gettext php-gettext classes

@@ -8,7 +8,7 @@
  * The third prints the results of the IMAP command
  * to options.php.
  *
- * @copyright (c) 1999-2004 The SquirrelMail Project Team
+ * @copyright (c) 1999-2005 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @author Jason Munro jason@stdbev.com
  * @version $Id$

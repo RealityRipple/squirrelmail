@@ -2,7 +2,7 @@
 /**
  * take.php
  *
- * Copyright (c) 1999-2004 The SquirrelMail Project Team
+ * Copyright (c) 1999-2005 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * Address Take -- steals addresses from incoming email messages. Searches

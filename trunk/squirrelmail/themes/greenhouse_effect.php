@@ -7,7 +7,7 @@
  * Comment: This theme generates random colors, featuring a
  *          light greenish background.
  *
- * Copyright (c) 2000-2004 The SquirrelMail Project Team
+ * Copyright (c) 2000-2005 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
