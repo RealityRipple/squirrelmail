@@ -15,34 +15,29 @@ msgstr ""
 "X-Generator: KBabel 0.9.5\n"
 
 #: squirrelmail/src/addrbook_popup.php:22
-#, fuzzy
 msgid "Address Book"
 msgstr "Книга с адреси"
 
 #: squirrelmail/src/addrbook_search.php:98
 #: squirrelmail/src/addrbook_search_html.php:67
 #: squirrelmail/src/addressbook.php:285 squirrelmail/src/vcard.php:85
-#, fuzzy
 msgid "Name"
 msgstr "Име"
 
 #: squirrelmail/src/addrbook_search.php:99
 #: squirrelmail/src/addrbook_search_html.php:68
 #: squirrelmail/src/addressbook.php:286
-#, fuzzy
 msgid "E-mail"
 msgstr "E-mail"
 
 #: squirrelmail/src/addrbook_search.php:100
 #: squirrelmail/src/addrbook_search_html.php:69
 #: squirrelmail/src/addressbook.php:287
-#, fuzzy
 msgid "Info"
 msgstr "Информация"
 
 #: squirrelmail/src/addrbook_search.php:103
 #: squirrelmail/src/addrbook_search_html.php:72
-#, fuzzy
 msgid "Source"
 msgstr "Източник"
 
@@ -54,47 +49,39 @@ msgstr "Източник"
 #: squirrelmail/src/options_highlight.php:325
 #: squirrelmail/src/printer_friendly_bottom.php:96
 #: squirrelmail/src/search.php:344
-#, fuzzy
 msgid "To"
 msgstr "До"
 
 #: squirrelmail/plugins/filters/options.php:91
 #: squirrelmail/src/addrbook_search_html.php:84
 #: squirrelmail/src/options_highlight.php:328 squirrelmail/src/search.php:343
-#, fuzzy
 msgid "Cc"
 msgstr "Копие"
 
 #: squirrelmail/src/addrbook_search_html.php:86
-#, fuzzy
 msgid "Bcc"
 msgstr "Bcc"
 
 #: squirrelmail/src/addrbook_search_html.php:99
-#, fuzzy
 msgid "Use Addresses"
 msgstr "Използвай адресите"
 
 #: squirrelmail/src/addrbook_search_html.php:122
-#, fuzzy
 msgid "Address Book Search"
 msgstr "Търсене в книгата с адреси"
 
 #: squirrelmail/src/addrbook_search.php:174
 #: squirrelmail/src/addrbook_search_html.php:131
-#, fuzzy
 msgid "Search for"
 msgstr "Търси за"
 
 #: squirrelmail/src/addrbook_search.php:180
 #: squirrelmail/src/addrbook_search_html.php:141
-#, fuzzy
 msgid "in"
 msgstr "в"
 
 #: squirrelmail/src/addrbook_search.php:181
 #: squirrelmail/src/addrbook_search_html.php:144
-#, fuzzy
 msgid "All address books"
 msgstr "Всички книги с адреси"
 
@@ -105,38 +92,32 @@ msgstr "Всички книги с адреси"
 #: squirrelmail/src/search.php:207 squirrelmail/src/search.php:348
 #: squirrelmail/src/search.php:373 squirrelmail/src/search.php:394
 #: squirrelmail/src/search.php:404
-#, fuzzy
 msgid "Search"
 msgstr "Търси"
 
 #: squirrelmail/src/addrbook_search.php:193
 #: squirrelmail/src/addrbook_search_html.php:156
-#, fuzzy
 msgid "List all"
 msgstr "Изведи всички"
 
 #: squirrelmail/src/addrbook_search.php:214
 #: squirrelmail/src/addrbook_search_html.php:186
 #, c-format
-#, fuzzy
 msgid "Unable to list addresses from %s"
 msgstr "Не мога да изведа адресите от %s"
 
 #: squirrelmail/src/addrbook_search.php:240
 #: squirrelmail/src/addrbook_search_html.php:211
-#, fuzzy
 msgid "Your search failed with the following error(s)"
 msgstr "Търсенето ви не успя поради следните грешки"
 
 #: squirrelmail/src/addrbook_search.php:160
 #: squirrelmail/src/addrbook_search.php:247
 #: squirrelmail/src/addrbook_search_html.php:216
-#, fuzzy
 msgid "No persons matching your search was found"
 msgstr "Няма хора, които да отговарят на търсенето ви"
 
 #: squirrelmail/src/addrbook_search_html.php:229
-#, fuzzy
 msgid "Return"
 msgstr "Връщане"
 
@@ -144,53 +125,43 @@ msgstr "Връщане"
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:412
 #: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod:70
 #: squirrelmail/src/addrbook_search.php:195 squirrelmail/src/compose.php:517
-#, fuzzy
 msgid "Close"
 msgstr "Затвори"
 
 #: squirrelmail/src/addressbook.php:39 squirrelmail/src/addressbook.php:285
-#, fuzzy
 msgid "Nickname"
 msgstr "Псевдоним"
 
 #: squirrelmail/src/addressbook.php:40
-#, fuzzy
 msgid "Must be unique"
 msgstr "Трябва да е уникален"
 
 #: squirrelmail/src/addressbook.php:41
-#, fuzzy
 msgid "E-mail address"
 msgstr "E-mail адрес"
 
 #: squirrelmail/src/addressbook.php:42
-#, fuzzy
 msgid "First name"
 msgstr "Име"
 
 #: squirrelmail/src/addressbook.php:43
-#, fuzzy
 msgid "Last name"
 msgstr "Фамилия"
 
 #: squirrelmail/src/addressbook.php:44
-#, fuzzy
 msgid "Additional info"
 msgstr "Допълнителна информация"
 
 #: squirrelmail/src/addressbook.php:58
-#, fuzzy
 msgid "No personal address book is defined. Contact administrator."
 msgstr "Не е дефинирана лична книга с адреси. Свържете се с администратора"
 
 #: squirrelmail/src/addressbook.php:154
-#, fuzzy
 msgid "You can only edit one address at the time"
 msgstr "Можете да редактирате само един адрес в едно и също време"
 
 #: squirrelmail/src/addressbook.php:168 squirrelmail/src/addressbook.php:170
 #: squirrelmail/src/addressbook.php:200 squirrelmail/src/addressbook.php:202
-#, fuzzy
 msgid "Update address"
 msgstr "Обнови адресите"
 
@@ -198,49 +169,40 @@ msgstr "Обнови адресите"
 #: squirrelmail/functions/display_messages.php:77
 #: squirrelmail/functions/display_messages.php:93
 #: squirrelmail/src/addressbook.php:191 squirrelmail/src/addressbook.php:239
-#, fuzzy
 msgid "ERROR"
 msgstr "ГРЕШКА"
 
 #: squirrelmail/src/addressbook.php:214
-#, fuzzy
 msgid "Unknown error"
 msgstr "Неразпозната грешка"
 
 #: squirrelmail/src/addressbook.php:258 squirrelmail/src/addressbook.php:344
-#, fuzzy
 msgid "Add address"
 msgstr "Добави адрес"
 
 #: squirrelmail/src/addressbook.php:270 squirrelmail/src/addressbook.php:326
-#, fuzzy
 msgid "Edit selected"
 msgstr "Редактирай избраните"
 
 #: squirrelmail/src/addressbook.php:272 squirrelmail/src/addressbook.php:328
-#, fuzzy
 msgid "Delete selected"
 msgstr "Изтрий избраните"
 
 #: squirrelmail/src/addressbook.php:341
 #, c-format
-#, fuzzy
 msgid "Add to %s"
 msgstr "Добави към %s"
 
 #: squirrelmail/src/compose.php:49
-#, fuzzy
 msgid "Draft Email Saved"
 msgstr "Черновата на email-a са записани"
 
 #: squirrelmail/src/compose.php:153 squirrelmail/src/compose.php:197
 #: squirrelmail/src/compose.php:207
-#, fuzzy
 msgid "Could not move/copy file. File not attached"
 msgstr "Не мога да преместя/копирам файла. Файла не е прикрепен"
 
 #: squirrelmail/src/compose.php:360
-#, fuzzy
 msgid "Original Message"
 msgstr "Оригинално писмо"
 
@@ -252,7 +214,6 @@ msgstr "Оригинално писмо"
 #: squirrelmail/src/options_order.php:40
 #: squirrelmail/src/printer_friendly_bottom.php:101
 #: squirrelmail/src/search.php:341
-#, fuzzy
 msgid "Subject"
 msgstr "Тема"
 
@@ -264,7 +225,6 @@ msgstr "Тема"
 #: squirrelmail/src/options_order.php:38
 #: squirrelmail/src/printer_friendly_bottom.php:95
 #: squirrelmail/src/search.php:342
-#, fuzzy
 msgid "From"
 msgstr "От"
 
@@ -272,12 +232,10 @@ msgstr "От"
 #: squirrelmail/src/compose.php:363 squirrelmail/src/download.php:133
 #: squirrelmail/src/download.php:141 squirrelmail/src/options_order.php:39
 #: squirrelmail/src/printer_friendly_bottom.php:100
-#, fuzzy
 msgid "Date"
 msgstr "Дата"
 
 #: squirrelmail/src/compose.php:510
-#, fuzzy
 msgid "Draft Saved"
 msgstr "Черновата на email-a записани"
 
@@ -287,73 +245,60 @@ msgstr "Писмото ви беше изпратено"
 
 #: squirrelmail/plugins/listcommands/mailout.php:50
 #: squirrelmail/src/compose.php:528 squirrelmail/src/read_body.php:711
-#, fuzzy
 msgid "From:"
 msgstr "От:"
 
 #: squirrelmail/src/compose.php:556 squirrelmail/src/read_body.php:167
 #: squirrelmail/src/read_body.php:728
-#, fuzzy
 msgid "To:"
 msgstr "До:"
 
 #: squirrelmail/src/compose.php:564
-#, fuzzy
 msgid "CC:"
 msgstr "Копие"
 
 #: squirrelmail/src/compose.php:572
-#, fuzzy
 msgid "BCC:"
 msgstr "BCC"
 
 #: squirrelmail/src/compose.php:579 squirrelmail/src/read_body.php:168
 #: squirrelmail/src/read_body.php:682
-#, fuzzy
 msgid "Subject:"
 msgstr "Тема:"
 
 #: squirrelmail/src/compose.php:624 squirrelmail/src/compose.php:708
-#, fuzzy
 msgid "Send"
 msgstr "Изпрати"
 
 #: squirrelmail/src/compose.php:630
-#, fuzzy
 msgid "Attach:"
 msgstr "Прикрепи:"
 
 #: squirrelmail/src/compose.php:635 squirrelmail/src/options_order.php:126
-#, fuzzy
 msgid "Add"
 msgstr "Добави"
 
 #: squirrelmail/src/compose.php:652
-#, fuzzy
 msgid "Delete selected attachments"
 msgstr "Изтрий избраните прикрепени файлове"
 
 #: squirrelmail/src/compose.php:679 squirrelmail/src/read_body.php:757
-#, fuzzy
 msgid "Priority"
 msgstr "Приоритет"
 
 #: squirrelmail/plugins/administrator/defines.php:191
 #: squirrelmail/plugins/calendar/functions.php:98
 #: squirrelmail/src/compose.php:680 squirrelmail/src/read_body.php:553
-#, fuzzy
 msgid "High"
 msgstr "Висок"
 
 #: squirrelmail/plugins/calendar/functions.php:97
 #: squirrelmail/src/compose.php:681 squirrelmail/src/read_body.php:566
-#, fuzzy
 msgid "Normal"
 msgstr "Нормален"
 
 #: squirrelmail/plugins/administrator/defines.php:188
 #: squirrelmail/src/compose.php:682 squirrelmail/src/read_body.php:559
-#, fuzzy
 msgid "Low"
 msgstr "Нисък"
 
@@ -372,43 +317,35 @@ msgstr "При доставка"
 #: squirrelmail/src/compose.php:695
 #: squirrelmail/src/options_identities.php:329
 #: squirrelmail/src/options_personal.php:99
-#, fuzzy
 msgid "Signature"
 msgstr "Сигнатура"
 
 #: squirrelmail/functions/page_header.php:146 squirrelmail/src/compose.php:698
 #: squirrelmail/src/compose.php:702 squirrelmail/src/compose.php:706
-#, fuzzy
 msgid "Addresses"
 msgstr "Адреси"
 
 #: squirrelmail/src/compose.php:711
-#, fuzzy
 msgid "Save Draft"
 msgstr "Запиши черновата"
 
 #: squirrelmail/src/compose.php:730
-#, fuzzy
 msgid "You have not filled in the \"To:\" field."
 msgstr "Не сте попълнили полето \"До:\"."
 
 #: squirrelmail/src/compose.php:815
-#, fuzzy
 msgid "said"
 msgstr "каза"
 
 #: squirrelmail/src/compose.php:818
-#, fuzzy
 msgid "quote"
 msgstr "фраза"
 
 #: squirrelmail/src/compose.php:818
-#, fuzzy
 msgid "who"
 msgstr "кой"
 
 #: squirrelmail/src/download.php:31
-#, fuzzy
 msgid "Viewing a text attachment"
 msgstr "Преглед на текстов прикрепен файл"
 
@@ -416,104 +353,84 @@ msgstr "Преглед на текстов прикрепен файл"
 #: squirrelmail/src/image.php:31 squirrelmail/src/image.php:35
 #: squirrelmail/src/read_body.php:281 squirrelmail/src/vcard.php:35
 #: squirrelmail/src/vcard.php:39
-#, fuzzy
 msgid "View message"
 msgstr "Преглед на писмото"
 
 #: squirrelmail/functions/mime.php:640 squirrelmail/src/download.php:41
 #: squirrelmail/src/image.php:44 squirrelmail/src/vcard.php:196
-#, fuzzy
 msgid "Download this as a file"
 msgstr "Свали го като файл"
 
 #: squirrelmail/src/folders_create.php:27
-#, fuzzy
 msgid "Illegal folder name.  Please select a different name."
 msgstr "Невалидно име на папка. Моля изберете различно име."
 
 #: squirrelmail/src/folders_create.php:27
-#, fuzzy
 msgid "Click here to go back"
 msgstr "Кликнете тук за да се върнете назад"
 
 #: squirrelmail/functions/page_header.php:148 squirrelmail/src/folders.php:29
 #: squirrelmail/src/left_main.php:238
-#, fuzzy
 msgid "Folders"
 msgstr "Папки"
 
 #: squirrelmail/src/folders.php:42
-#, fuzzy
 msgid "Subscribed successfully!"
 msgstr "Присъединен успешно!"
 
 #: squirrelmail/src/folders.php:44
-#, fuzzy
 msgid "Unsubscribed successfully!"
 msgstr "Отстранен успешно!"
 
 #: squirrelmail/src/folders.php:46
-#, fuzzy
 msgid "Deleted folder successfully!"
 msgstr "Папката изтрита успешно!"
 
 #: squirrelmail/src/folders.php:48
-#, fuzzy
 msgid "Created folder successfully!"
 msgstr "Папката създадена успешно!"
 
 #: squirrelmail/src/folders.php:50
-#, fuzzy
 msgid "Renamed successfully!"
 msgstr "Преименувана успешно!"
 
 #: squirrelmail/src/folders.php:53 squirrelmail/src/left_main.php:277
-#, fuzzy
 msgid "refresh folder list"
 msgstr "Презареди списъка с папките"
 
 #: squirrelmail/src/folders.php:65
-#, fuzzy
 msgid "Create Folder"
 msgstr "Създай папка"
 
 #: squirrelmail/src/folders.php:70
-#, fuzzy
 msgid "as a subfolder of"
 msgstr "като подпапка на"
 
 #: squirrelmail/src/folders.php:74 squirrelmail/src/folders.php:76
-#, fuzzy
 msgid "None"
 msgstr "Няма"
 
 #: squirrelmail/src/folders.php:98
-#, fuzzy
 msgid "Let this folder contain subfolders"
 msgstr "Нека тази папка съдържа подпапки"
 
 #: squirrelmail/src/folders.php:101
-#, fuzzy
 msgid "Create"
 msgstr "Създай"
 
 #: squirrelmail/src/folders.php:108
-#, fuzzy
 msgid "Rename a Folder"
 msgstr "Преименувай папката"
 
 #: squirrelmail/src/folders.php:131
-#, fuzzy
 msgid "Rename"
 msgstr "Преименувай"
 
 #: squirrelmail/src/folders.php:135 squirrelmail/src/folders.php:194
-#, fuzzy
 msgid "No folders found"
 msgstr "Папки не са намерени"
 
 #: squirrelmail/src/folders.php:143
-#, fuzzy
 msgid "Delete Folder"
 msgstr "Изтрий папка"
 
@@ -524,39 +441,32 @@ msgstr "Изтрий папка"
 #: squirrelmail/src/folders.php:190 squirrelmail/src/options_highlight.php:76
 #: squirrelmail/src/options_identities.php:341
 #: squirrelmail/src/read_body.php:602
-#, fuzzy
 msgid "Delete"
 msgstr "Изтрий"
 
 #: squirrelmail/plugins/listcommands/setup.php:34
 #: squirrelmail/src/folders.php:201 squirrelmail/src/folders.php:220
-#, fuzzy
 msgid "Unsubscribe"
 msgstr "Отстрани"
 
 #: squirrelmail/plugins/listcommands/setup.php:33
 #: squirrelmail/src/folders.php:201 squirrelmail/src/folders.php:261
-#, fuzzy
 msgid "Subscribe"
 msgstr "Присъедини"
 
 #: squirrelmail/src/folders.php:224
-#, fuzzy
 msgid "No folders were found to unsubscribe from!"
 msgstr "Не са намерени папки от които да се отстранят!"
 
 #: squirrelmail/src/folders.php:264
-#, fuzzy
 msgid "No folders were found to subscribe to!"
 msgstr "Не са намерени папки които да се присъединят!"
 
 #: squirrelmail/src/folders_rename_getname.php:40
-#, fuzzy
 msgid "Rename a folder"
 msgstr "Преименувай папката"
 
 #: squirrelmail/src/folders_rename_getname.php:44
-#, fuzzy
 msgid "New name:"
 msgstr "Ново име:"
 
@@ -566,31 +476,26 @@ msgstr "Ново име:"
 #: squirrelmail/plugins/translate/options.php:160
 #: squirrelmail/src/folders_rename_getname.php:51
 #: squirrelmail/src/options_highlight.php:347
-#, fuzzy
 msgid "Submit"
 msgstr "Потвърди"
 
 #: squirrelmail/functions/page_header.php:154
 #: squirrelmail/plugins/listcommands/setup.php:37 squirrelmail/src/help.php:91
-#, fuzzy
 msgid "Help"
 msgstr "Помощ"
 
 #: squirrelmail/src/help.php:131
 #, c-format
-#, fuzzy
 msgid ""
 "The help has not been translated to %s.  It will be displayed in English "
 "instead."
 msgstr "Помощната информация не е преведена на %s. Ще бъде показана на английски."
 
 #: squirrelmail/src/help.php:137
-#, fuzzy
 msgid "Some or all of the help documents are not present!"
 msgstr "Някой от помощните документи не е намерен!"
 
 #: squirrelmail/src/help.php:169 squirrelmail/src/help.php:191
-#, fuzzy
 msgid "Table of Contents"
 msgstr "Съдържание"
 
@@ -601,7 +506,6 @@ msgstr "Съдържание"
 #: squirrelmail/plugins/delete_move_next/setup.php:150
 #: squirrelmail/src/help.php:185 squirrelmail/src/help.php:189
 #: squirrelmail/src/read_body.php:628 squirrelmail/src/read_body.php:630
-#, fuzzy
 msgid "Previous"
 msgstr "Назад"
 
@@ -612,17 +516,14 @@ msgstr "Назад"
 #: squirrelmail/plugins/delete_move_next/setup.php:155
 #: squirrelmail/src/help.php:193 squirrelmail/src/help.php:196
 #: squirrelmail/src/read_body.php:634 squirrelmail/src/read_body.php:636
-#, fuzzy
 msgid "Next"
 msgstr "Напред"
 
 #: squirrelmail/src/help.php:219
-#, fuzzy
 msgid "Top"
 msgstr "Начало"
 
 #: squirrelmail/src/image.php:26
-#, fuzzy
 msgid "Viewing an image attachment"
 msgstr "Преглед на прикрепено изображение"
 
@@ -633,216 +534,175 @@ msgstr "Преглед на прикрепено изображение"
 #: squirrelmail/plugins/mail_fetch/options.php:137
 #: squirrelmail/plugins/mail_fetch/options.php:214
 #: squirrelmail/src/left_main.php:73 squirrelmail/src/search.php:310
-#, fuzzy
 msgid "INBOX"
 msgstr "Само INBOX"
 
 #: squirrelmail/src/left_main.php:97
-#, fuzzy
 msgid "empty"
 msgstr "изпразни"
 
 #: squirrelmail/src/left_main.php:271
-#, fuzzy
 msgid "Last Refresh"
 msgstr "Последно презареждане"
 
 #: squirrelmail/src/login.php:97 squirrelmail/src/login.php:141
-#, fuzzy
 msgid "Login"
 msgstr "Вход"
 
 #: squirrelmail/src/login.php:112
 #, c-format
-#, fuzzy
 msgid "SquirrelMail version %s"
 msgstr "SquirrelMail версия %s"
 
 #: squirrelmail/src/login.php:113
-#, fuzzy
 msgid "By the SquirrelMail Development Team"
 msgstr "От разработчиците на SquirrelMail"
 
 #: squirrelmail/src/login.php:119
 #, c-format
-#, fuzzy
 msgid "%s Login"
 msgstr "%s Вход"
 
 #: squirrelmail/src/login.php:123
-#, fuzzy
 msgid "Name:"
 msgstr "Име:"
 
 #: squirrelmail/plugins/mail_fetch/options.php:126
 #: squirrelmail/plugins/mail_fetch/options.php:202
 #: squirrelmail/src/login.php:129
-#, fuzzy
 msgid "Password:"
 msgstr "Парола:"
 
 #: squirrelmail/src/move_messages.php:80
 #: squirrelmail/src/move_messages.php:115
 #: squirrelmail/src/move_messages.php:144
-#, fuzzy
 msgid "No messages were selected."
 msgstr "Няма избрани писма"
 
 #: squirrelmail/src/options_display.php:32
-#, fuzzy
 msgid "General Display Options"
 msgstr "Основни визуални опции"
 
 #: squirrelmail/src/options_display.php:44
-#, fuzzy
 msgid "Theme"
 msgstr "Тема"
 
 #: squirrelmail/plugins/administrator/defines.php:42
 #: squirrelmail/src/options_display.php:51
 #: squirrelmail/src/options_display.php:80
-#, fuzzy
 msgid "Default"
 msgstr "Подразбиране"
 
 #: squirrelmail/src/options_display.php:64
-#, fuzzy
 msgid "Custom Stylesheet"
 msgstr "Избран стил"
 
 #: squirrelmail/src/options_display.php:83
-#, fuzzy
 msgid "Language"
 msgstr "Език"
 
 #: squirrelmail/src/options_display.php:92
-#, fuzzy
 msgid "Use Javascript"
 msgstr "Използвай Javascript"
 
 #: squirrelmail/src/options_display.php:95
-#, fuzzy
 msgid "Autodetect"
 msgstr "Автоматично откриване"
 
 #: squirrelmail/src/options_display.php:96
-#, fuzzy
 msgid "Always"
 msgstr "Винаги"
 
 #: squirrelmail/src/options_display.php:97
 #: squirrelmail/src/options_folder.php:122
-#, fuzzy
 msgid "Never"
 msgstr "Никога"
 
 #: squirrelmail/src/options_display.php:115
-#, fuzzy
 msgid "Mailbox Display Options"
 msgstr "Визуални опции за пощенската кутия"
 
 #: squirrelmail/src/options_display.php:120
-#, fuzzy
 msgid "Number of Messages to Index"
 msgstr "Брой на писмата в индекса"
 
 #: squirrelmail/src/options_display.php:128
-#, fuzzy
 msgid "Enable Alternating Row Colors"
 msgstr "Позволи алтернативни цветове на редовете"
 
 #: squirrelmail/src/options_display.php:135
-#, fuzzy
 msgid "Enable Page Selector"
 msgstr "Позволи селектора на страницата"
 
 #: squirrelmail/src/options_display.php:142
-#, fuzzy
 msgid "Maximum Number of Pages to Show"
 msgstr "Максимален брой страници за показване"
 
 #: squirrelmail/src/options_display.php:149
-#, fuzzy
 msgid "Message Display and Composition"
 msgstr "Визуализиране на писмата и въвеждане"
 
 #: squirrelmail/src/options_display.php:154
-#, fuzzy
 msgid "Wrap Incoming Text At"
 msgstr "Пренеси входящия текст на"
 
 #: squirrelmail/src/options_display.php:162
-#, fuzzy
 msgid "Size of Editor Window"
 msgstr "Размер на прозореца на редактора"
 
 #: squirrelmail/src/options_display.php:170
-#, fuzzy
 msgid "Location of Buttons when Composing"
 msgstr "Положение на бутоните при въвеждане"
 
 #: squirrelmail/src/options_display.php:173
-#, fuzzy
 msgid "Before headers"
 msgstr "Преди хедърите"
 
 #: squirrelmail/src/options_display.php:174
-#, fuzzy
 msgid "Between headers and message body"
 msgstr "Между хедърите и тялото на писмото"
 
 #: squirrelmail/src/options_display.php:175
-#, fuzzy
 msgid "After message body"
 msgstr "След тялото на писмото"
 
 #: squirrelmail/src/options_display.php:180
-#, fuzzy
 msgid "Addressbook Display Format"
 msgstr "Визуален формат на книгата с адреси"
 
 #: squirrelmail/src/options_display.php:183
-#, fuzzy
 msgid "Javascript"
 msgstr "Javascript"
 
 #: squirrelmail/src/options_display.php:184
-#, fuzzy
 msgid "HTML"
 msgstr "HTML"
 
 #: squirrelmail/src/options_display.php:189
-#, fuzzy
 msgid "Show HTML Version by Default"
 msgstr "Покажи HTML версия по подразбиране"
 
 #: squirrelmail/src/options_display.php:196
-#, fuzzy
 msgid "Include Me in CC when I Reply All"
 msgstr "Включи ме в Копие когато отговарям на всички"
 
 #: squirrelmail/src/options_display.php:203
-#, fuzzy
 msgid "Enable Mailer Display"
 msgstr "Позволи показване на подателя"
 
 #: squirrelmail/src/options_display.php:210
-#, fuzzy
 msgid "Display Attached Images with Message"
 msgstr "Покажи прикрепените към писмото изображения"
 
 #: squirrelmail/src/options_display.php:217
-#, fuzzy
 msgid "Enable Subtle Printer Friendly Link"
 msgstr "Позволи подходяща за печат връзка"
 
 #: squirrelmail/src/options_display.php:224
-#, fuzzy
 msgid "Enable Printer Friendly Clean Display"
 msgstr "Позволи чисто показване за печат"
 
 #: squirrelmail/src/options_display.php:231
-#, fuzzy
 msgid "Enable request/confirm reading"
 msgstr "Позволи четенето на заявка/потвърждение"
 
@@ -851,177 +711,144 @@ msgid "Always compose in a new window"
 msgstr "Винаги съставяй нов прозорец"
 
 #: squirrelmail/src/options_folder.php:40
-#, fuzzy
 msgid "Special Folder Options"
 msgstr "Специални опции за папки"
 
 #: squirrelmail/src/options_folder.php:47
-#, fuzzy
 msgid "Folder Path"
 msgstr "Път на папката"
 
 #: squirrelmail/src/options_folder.php:63
-#, fuzzy
 msgid "Do not use Trash"
 msgstr "Не използвай Trash"
 
 #: squirrelmail/plugins/administrator/defines.php:125
 #: squirrelmail/src/options_folder.php:67
-#, fuzzy
 msgid "Trash Folder"
 msgstr "Папка Trash"
 
 #: squirrelmail/src/options_folder.php:74
-#, fuzzy
 msgid "Do not use Sent"
 msgstr "Не използвай Изпратени"
 
 #: squirrelmail/plugins/administrator/defines.php:128
 #: squirrelmail/src/options_folder.php:78
-#, fuzzy
 msgid "Sent Folder"
 msgstr "Папка Sent"
 
 #: squirrelmail/src/options_folder.php:85
-#, fuzzy
 msgid "Do not use Drafts"
 msgstr "Не използвай Draft"
 
 #: squirrelmail/plugins/administrator/defines.php:131
 #: squirrelmail/src/options_folder.php:89
-#, fuzzy
 msgid "Draft Folder"
 msgstr "Папка Draft"
 
 #: squirrelmail/src/options_folder.php:97
-#, fuzzy
 msgid "Folder List Options"
 msgstr "Опции на списъка с папките"
 
 #: squirrelmail/src/options_folder.php:102
-#, fuzzy
 msgid "Location of Folder List"
 msgstr "Положение на списъка с папките"
 
 #: squirrelmail/src/options_folder.php:105
-#, fuzzy
 msgid "Left"
 msgstr "Ляво"
 
 #: squirrelmail/src/options_folder.php:106
-#, fuzzy
 msgid "Right"
 msgstr "Дясно"
 
 #: squirrelmail/plugins/administrator/defines.php:45
 #: squirrelmail/src/options_folder.php:111
-#, fuzzy
 msgid "pixels"
 msgstr "точки"
 
 #: squirrelmail/src/options_folder.php:115
-#, fuzzy
 msgid "Width of Folder List"
 msgstr "Дължина на списъка на папките"
 
 #: squirrelmail/src/options_folder.php:121
-#, fuzzy
 msgid "Minutes"
 msgstr "Минути"
 
 #: squirrelmail/src/options_folder.php:125
-#, fuzzy
 msgid "Seconds"
 msgstr "Секунди"
 
 #: squirrelmail/src/options_folder.php:127
-#, fuzzy
 msgid "Minute"
 msgstr "Минута"
 
 #: squirrelmail/src/options_folder.php:134
-#, fuzzy
 msgid "Auto Refresh Folder List"
 msgstr "Автоматично презареждане на списъка с папките"
 
 #: squirrelmail/src/options_folder.php:142
-#, fuzzy
 msgid "Enable Unread Message Notification"
 msgstr "Позволи съобщение за нови писма"
 
 #: squirrelmail/plugins/administrator/defines.php:152
 #: squirrelmail/src/options_folder.php:145
-#, fuzzy
 msgid "No Notification"
 msgstr "Няма съобщение"
 
 #: squirrelmail/plugins/administrator/defines.php:153
 #: squirrelmail/src/options_folder.php:146
-#, fuzzy
 msgid "Only INBOX"
 msgstr "Само Входящи"
 
 #: squirrelmail/plugins/administrator/defines.php:154
 #: squirrelmail/src/options_folder.php:147
-#, fuzzy
 msgid "All Folders"
 msgstr "Всички папки"
 
 #: squirrelmail/src/options_folder.php:152
-#, fuzzy
 msgid "Unread Message Notification Type"
 msgstr "Тип на съобщението за нови писма"
 
 #: squirrelmail/plugins/administrator/defines.php:157
 #: squirrelmail/src/options_folder.php:155
-#, fuzzy
 msgid "Only Unseen"
 msgstr "Само Нови"
 
 #: squirrelmail/plugins/administrator/defines.php:158
 #: squirrelmail/src/options_folder.php:156
-#, fuzzy
 msgid "Unseen and Total"
 msgstr "Нови и Общо"
 
 #: squirrelmail/src/options_folder.php:161
-#, fuzzy
 msgid "Enable Collapsable Folders"
 msgstr "Позволи йерархични папки"
 
 #: squirrelmail/src/options_folder.php:168
-#, fuzzy
 msgid "Show Clock on Folders Panel"
 msgstr "Покажи часовник на панела на папките"
 
 #: squirrelmail/src/options_folder.php:176
-#, fuzzy
 msgid "No Clock"
 msgstr "Няма часовник"
 
 #: squirrelmail/src/options_folder.php:181
-#, fuzzy
 msgid "Hour Format"
 msgstr "Формат на часа"
 
 #: squirrelmail/src/options_folder.php:184
-#, fuzzy
 msgid "12-hour clock"
 msgstr "12 часов часовник"
 
 #: squirrelmail/src/options_folder.php:185
-#, fuzzy
 msgid "24-hour clock"
 msgstr "24 часов часовник"
 
 #: squirrelmail/src/options_folder.php:190
-#, fuzzy
 msgid "Memory Search"
 msgstr "Търсене в паметта"
 
 #: squirrelmail/plugins/sent_subfolders/setup.php:102
 #: squirrelmail/src/options_folder.php:193
-#, fuzzy
 msgid "Disabled"
 msgstr "Забранено"
 
@@ -1032,19 +859,16 @@ msgstr "Забранено"
 #: squirrelmail/src/options.php:198 squirrelmail/src/options_highlight.php:62
 #: squirrelmail/src/options_identities.php:44
 #: squirrelmail/src/options_order.php:31
-#, fuzzy
 msgid "Options"
 msgstr "Опции"
 
 #: squirrelmail/src/options.php:146 squirrelmail/src/options.php:297
 #: squirrelmail/src/options_highlight.php:62
-#, fuzzy
 msgid "Message Highlighting"
 msgstr "Oцветяване на писмата"
 
 #: squirrelmail/plugins/filters/options.php:64
 #: squirrelmail/src/options_highlight.php:66
-#, fuzzy
 msgid "New"
 msgstr "Ново"
 
@@ -1052,201 +876,163 @@ msgstr "Ново"
 #: squirrelmail/plugins/filters/spamoptions.php:157
 #: squirrelmail/plugins/mail_fetch/fetch.php:225
 #: squirrelmail/src/options_highlight.php:67
-#, fuzzy
 msgid "Done"
 msgstr "Готово"
 
 #: squirrelmail/plugins/filters/options.php:152
 #: squirrelmail/plugins/filters/spamoptions.php:156
 #: squirrelmail/src/options_highlight.php:74
-#, fuzzy
 msgid "Edit"
 msgstr "Редактиране"
 
 #: squirrelmail/src/options_highlight.php:87
-#, fuzzy
 msgid "No highlighting is defined"
 msgstr "Не е дефинирано оцветяване"
 
 #: squirrelmail/src/options_highlight.php:259
-#, fuzzy
 msgid "Identifying name"
 msgstr "Идентифициращо име"
 
 #: squirrelmail/src/options_highlight.php:273
-#, fuzzy
 msgid "Color"
 msgstr "Цвят"
 
 #: squirrelmail/src/options_highlight.php:277
-#, fuzzy
 msgid "Dark Blue"
 msgstr "Тъмно Синьо"
 
 #: squirrelmail/src/options_highlight.php:278
-#, fuzzy
 msgid "Dark Green"
 msgstr "Тъмно Зелено"
 
 #: squirrelmail/src/options_highlight.php:279
-#, fuzzy
 msgid "Dark Yellow"
 msgstr "Тъмно Жълто"
 
 #: squirrelmail/src/options_highlight.php:280
-#, fuzzy
 msgid "Dark Cyan"
 msgstr "Тъмно Синьозелено"
 
 #: squirrelmail/src/options_highlight.php:281
-#, fuzzy
 msgid "Dark Magenta"
 msgstr "Тъмно Пурпурно"
 
 #: squirrelmail/src/options_highlight.php:282
-#, fuzzy
 msgid "Light Blue"
 msgstr "Светло Синьо"
 
 #: squirrelmail/src/options_highlight.php:283
-#, fuzzy
 msgid "Light Green"
 msgstr "Светло Зелено"
 
 #: squirrelmail/src/options_highlight.php:284
-#, fuzzy
 msgid "Light Yellow"
 msgstr "Светло жълто"
 
 #: squirrelmail/src/options_highlight.php:285
-#, fuzzy
 msgid "Light Cyan"
 msgstr "Светло Синьозелено"
 
 #: squirrelmail/src/options_highlight.php:286
-#, fuzzy
 msgid "Light Magenta"
 msgstr "Светло Пурпурно"
 
 #: squirrelmail/src/options_highlight.php:287
-#, fuzzy
 msgid "Dark Gray"
 msgstr "Тъмно сиво"
 
 #: squirrelmail/src/options_highlight.php:288
-#, fuzzy
 msgid "Medium Gray"
 msgstr "Сиво"
 
 #: squirrelmail/src/options_highlight.php:289
-#, fuzzy
 msgid "Light Gray"
 msgstr "Светло Сиво"
 
 #: squirrelmail/src/options_highlight.php:290
-#, fuzzy
 msgid "White"
 msgstr "Бяло"
 
 #: squirrelmail/src/options_highlight.php:292
-#, fuzzy
 msgid "Other:"
 msgstr "Друг:"
 
 #: squirrelmail/src/options_highlight.php:294
-#, fuzzy
 msgid "Ex: 63aa7f"
 msgstr "Пример: 63aa7f"
 
 #: squirrelmail/plugins/filters/options.php:94
 #: squirrelmail/src/options_highlight.php:331
-#, fuzzy
 msgid "To or Cc"
 msgstr "До или Копие"
 
 #: squirrelmail/src/options_highlight.php:336
-#, fuzzy
 msgid "Matches"
 msgstr "Съвпадения"
 
 #: squirrelmail/src/options_identities.php:44
-#, fuzzy
 msgid "Advanced Identities"
 msgstr "Разширени идентичности"
 
 #: squirrelmail/src/options_identities.php:55
-#, fuzzy
 msgid "Default Identity"
 msgstr "Идентичност по подразбиране"
 
 #: squirrelmail/src/options_identities.php:66
 #, c-format
-#, fuzzy
 msgid "Alternate Identity %d"
 msgstr "Алтернативна идентичност %d"
 
 #: squirrelmail/src/options_identities.php:76
-#, fuzzy
 msgid "Add a New Identity"
 msgstr "Добави нова идентичност"
 
 #: squirrelmail/src/options_identities.php:326
 #: squirrelmail/src/options_personal.php:56
 #: squirrelmail/src/options_personal.php:64
-#, fuzzy
 msgid "Full Name"
 msgstr "Пълно име"
 
 #: squirrelmail/src/options_identities.php:327
-#, fuzzy
 msgid "E-Mail Address"
 msgstr "E-Mail адрес"
 
 #: squirrelmail/src/options_identities.php:328
 #: squirrelmail/src/options_personal.php:91
-#, fuzzy
 msgid "Reply To"
 msgstr "Отговори на"
 
 #: squirrelmail/src/options_identities.php:336
-#, fuzzy
 msgid "Save / Update"
 msgstr "Запис / Обновяване"
 
 #: squirrelmail/src/options_identities.php:339
-#, fuzzy
 msgid "Make Default"
 msgstr "Направи по подразбиране"
 
 #: squirrelmail/src/options_identities.php:345
-#, fuzzy
 msgid "Move Up"
 msgstr "Придвижи на горе"
 
 #: squirrelmail/src/options.php:158 squirrelmail/src/options.php:313
 #: squirrelmail/src/options_order.php:31
-#, fuzzy
 msgid "Index Order"
 msgstr "Ред на индекса"
 
 #: squirrelmail/src/options_order.php:37
-#, fuzzy
 msgid "Checkbox"
 msgstr "Поле за отметка"
 
 #: squirrelmail/src/options_order.php:41
-#, fuzzy
 msgid "Flags"
 msgstr "Флагове"
 
 #: squirrelmail/functions/mailbox_display.php:592
 #: squirrelmail/src/options_order.php:42
-#, fuzzy
 msgid "Size"
 msgstr "Размер"
 
 #: squirrelmail/src/options_order.php:85
-#, fuzzy
 msgid ""
 "The index order is the order that the columns are arranged in the message "
 "index.  You can add, remove, and move columns around to customize them to "
@@ -1254,53 +1040,43 @@ msgid ""
 msgstr "Индексния ред е реда в който са подредени колоните в индекса на писмото. Можете да добавяте, отстранявате и премествате колони, за да ги подредите според нуждите ви."
 
 #: squirrelmail/src/options_order.php:94
-#, fuzzy
 msgid "up"
 msgstr "нагоре"
 
 #: squirrelmail/src/options_order.php:96
-#, fuzzy
 msgid "down"
 msgstr "надолу"
 
 #: squirrelmail/src/options_order.php:101
-#, fuzzy
 msgid "remove"
 msgstr "отстрани"
 
 #: squirrelmail/src/options_order.php:130
-#, fuzzy
 msgid "Return to options page"
 msgstr "Върни се към страницата с опциите"
 
 #: squirrelmail/src/options_personal.php:43
-#, fuzzy
 msgid "Name and Address Options"
 msgstr "Опции за Име и Адрес"
 
 #: squirrelmail/src/options_personal.php:74
 #: squirrelmail/src/options_personal.php:82
-#, fuzzy
 msgid "Email Address"
 msgstr "Email Адрес"
 
 #: squirrelmail/src/options_personal.php:108
-#, fuzzy
 msgid "Edit Advanced Identities"
 msgstr "Редакция на Разширените идентичности"
 
 #: squirrelmail/src/options_personal.php:110
-#, fuzzy
 msgid "(discards changes made on this form so far)"
 msgstr "(отменя промените направени в тази форма)"
 
 #: squirrelmail/src/options_personal.php:113
-#, fuzzy
 msgid "Multiple Identities"
 msgstr "Множествени идентичности"
 
 #: squirrelmail/src/options_personal.php:120
-#, fuzzy
 msgid "Same as server"
 msgstr "Същия като сървъра"
 
@@ -1309,111 +1085,90 @@ msgid "Timezone Options"
 msgstr "Опции на времевата зона"
 
 #: squirrelmail/src/options_personal.php:136
-#, fuzzy
 msgid "Your current timezone"
 msgstr "Вашата текуща вермева зона"
 
 #: squirrelmail/src/options_personal.php:143
-#, fuzzy
 msgid "Reply Citation Options"
 msgstr "Опции за цитатите в отговора"
 
 #: squirrelmail/src/options_personal.php:148
-#, fuzzy
 msgid "Reply Citation Style"
 msgstr "Стил на цитатите в отговора"
 
 #: squirrelmail/src/options_personal.php:151
-#, fuzzy
 msgid "No Citation"
 msgstr "Без цитати"
 
 #: squirrelmail/src/options_personal.php:152
-#, fuzzy
 msgid "AUTHOR Said"
 msgstr "АВТОРА каза"
 
 #: squirrelmail/src/options_personal.php:153
-#, fuzzy
 msgid "Quote Who XML"
 msgstr "Цитирай кой XML"
 
 #: squirrelmail/src/options_personal.php:154
-#, fuzzy
 msgid "User-Defined"
 msgstr "Дефинирано от потребителя"
 
 #: squirrelmail/src/options_personal.php:159
-#, fuzzy
 msgid "User-Defined Citation Start"
 msgstr "Дефинирано от потребителя начало на цитат"
 
 #: squirrelmail/src/options_personal.php:167
-#, fuzzy
 msgid "User-Defined Citation End"
 msgstr "Дефиниран от потребителя край на цитат"
 
 #: squirrelmail/src/options_personal.php:174
-#, fuzzy
 msgid "Signature Options"
 msgstr "Опции за сигнатури"
 
 #: squirrelmail/src/options_personal.php:179
-#, fuzzy
 msgid "Use Signature"
 msgstr "Използвай сигнатури"
 
 #: squirrelmail/src/options_personal.php:186
-#, fuzzy
 msgid "Prefix Signature with '-- ' Line"
 msgstr "Префикс на сигнатурата с '-- ' линия"
 
 #: squirrelmail/src/options.php:134 squirrelmail/src/options.php:281
-#, fuzzy
 msgid "Personal Information"
 msgstr "Лична Информация"
 
 #: squirrelmail/src/options.php:140 squirrelmail/src/options.php:289
-#, fuzzy
 msgid "Display Preferences"
 msgstr "Визуални настройки"
 
 #: squirrelmail/src/options.php:152 squirrelmail/src/options.php:305
-#, fuzzy
 msgid "Folder Preferences"
 msgstr "Настройки на папките"
 
 #: squirrelmail/src/options.php:264
-#, fuzzy
 msgid "Successfully Saved Options"
 msgstr "Опциите успешно записани"
 
 #: squirrelmail/src/options.php:269
-#, fuzzy
 msgid "Refresh Folder List"
 msgstr "Презареди списъка с папките"
 
 #: squirrelmail/src/options.php:271
-#, fuzzy
 msgid "Refresh Page"
 msgstr "Презареди страницата"
 
 #: squirrelmail/src/options.php:283
-#, fuzzy
 msgid ""
 "This contains personal information about yourself such as your name, your "
 "email address, etc."
 msgstr "Тук се съхранява вашата лична информация, като например име, email и т.н."
 
 #: squirrelmail/src/options.php:291
-#, fuzzy
 msgid ""
 "You can change the way that SquirrelMail looks and displays information to "
 "you, such as the colors, the language, and other settings."
 msgstr "Можете да промените начина по който изглежда SquirrelMail и по който ви показва информацията, като например цветовете, езика и други настройки."
 
 #: squirrelmail/src/options.php:299
-#, fuzzy
 msgid ""
 "Based upon given criteria, incoming messages can have different background "
 "colors in the message list.  This helps to easily distinguish who the "
@@ -1421,51 +1176,42 @@ msgid ""
 msgstr "Базирани на дадени критерии, входящите писма могат да имат различни цветове на фона в списъка с писмата. Това ви помага лесно да разграничите от кого са писмата, особено полезно за пощенски списъци."
 
 #: squirrelmail/src/options.php:307
-#, fuzzy
 msgid "These settings change the way your folders are displayed and manipulated."
 msgstr "Тези настройки променят начина по който се визуализират и манипулират папките."
 
 #: squirrelmail/src/options.php:315
-#, fuzzy
 msgid ""
 "The order of the message index can be rearranged and changed to contain the "
 "headers in any order you want."
 msgstr "Реда на индекса на писмата може да бъде преаранжиран или променен да съдържа хедърите в реда в който желаете."
 
 #: squirrelmail/src/printer_friendly_bottom.php:61
-#, fuzzy
 msgid "Message not printable"
 msgstr "Писмото не е подходящо за печатане"
 
 #: squirrelmail/src/printer_friendly_bottom.php:90
 #: squirrelmail/src/printer_friendly_main.php:15
 #: squirrelmail/src/printer_friendly_top.php:21
-#, fuzzy
 msgid "Printer Friendly"
 msgstr "Версия за печат"
 
 #: squirrelmail/src/printer_friendly_bottom.php:98
-#, fuzzy
 msgid "CC"
 msgstr "Копие"
 
 #: squirrelmail/src/printer_friendly_top.php:36
-#, fuzzy
 msgid "Print"
 msgstr "Изпечатай"
 
 #: squirrelmail/src/printer_friendly_top.php:37
-#, fuzzy
 msgid "Close Window"
 msgstr "Затвори прозореца"
 
 #: squirrelmail/src/read_body.php:104
-#, fuzzy
 msgid "View Printable Version"
 msgstr "Преглед на версията за печат"
 
 #: squirrelmail/src/read_body.php:166
-#, fuzzy
 msgid "Your message"
 msgstr "Вашите писма"
 
@@ -1475,7 +1221,6 @@ msgstr "Изпратено"
 
 #: squirrelmail/src/read_body.php:171
 #, c-format
-#, fuzzy
 msgid "Was displayed on %s"
 msgstr "Беше показан на %s"
 
@@ -1484,47 +1229,38 @@ msgid "Read:"
 msgstr "Прочетено"
 
 #: squirrelmail/src/read_body.php:273
-#, fuzzy
 msgid "Viewing Full Header"
 msgstr "Преглед на пълния хедър"
 
 #: squirrelmail/src/read_body.php:411
-#, fuzzy
 msgid "more"
 msgstr "още"
 
 #: squirrelmail/src/read_body.php:412
-#, fuzzy
 msgid "less"
 msgstr "по-малко"
 
 #: squirrelmail/src/read_body.php:594
-#, fuzzy
 msgid "Message List"
 msgstr "Списък с писмата"
 
 #: squirrelmail/src/read_body.php:610
-#, fuzzy
 msgid "Resume Draft"
 msgstr "Продължи черновата"
 
 #: squirrelmail/src/read_body.php:651
-#, fuzzy
 msgid "Forward"
 msgstr "Препрати"
 
 #: squirrelmail/src/read_body.php:660
-#, fuzzy
 msgid "Reply"
 msgstr "Отговори"
 
 #: squirrelmail/src/read_body.php:669
-#, fuzzy
 msgid "Reply All"
 msgstr "Отговори на всички"
 
 #: squirrelmail/src/read_body.php:693 squirrelmail/src/read_body.php:696
-#, fuzzy
 msgid "View Full Header"
 msgstr "Прегледай пълния хедър"
 
@@ -1534,12 +1270,10 @@ msgstr "Прегледай пълния хедър"
 #: squirrelmail/plugins/calendar/event_edit.php:93
 #: squirrelmail/plugins/calendar/event_edit.php:106
 #: squirrelmail/src/read_body.php:719
-#, fuzzy
 msgid "Date:"
 msgstr "Дата:"
 
 #: squirrelmail/src/read_body.php:771
-#, fuzzy
 msgid "Mailer"
 msgstr "Изпращач"
 
@@ -1555,7 +1289,6 @@ msgstr "изпрати"
 
 #: squirrelmail/src/read_body.php:836 squirrelmail/src/read_body.php:848
 #: squirrelmail/src/read_body.php:873 squirrelmail/src/read_body.php:933
-#, fuzzy
 msgid "requested"
 msgstr "заявен"
 
@@ -1565,7 +1298,6 @@ msgid "Send read receipt now"
 msgstr "Изпрати прочетената обратна разписка сега"
 
 #: squirrelmail/src/read_body.php:861
-#, fuzzy
 msgid ""
 "The message sender has requested a response to indicate that you have read "
 "this message. Would you like to send a receipt?"
@@ -1573,22 +1305,18 @@ msgstr "Автора на писмото изисква отговор в уверение на това, че сте прочели тов
 
 #: squirrelmail/functions/auth.php:33 squirrelmail/src/redirect.php:60
 #: squirrelmail/src/redirect.php:64
-#, fuzzy
 msgid "You must be logged in to access this page."
 msgstr "Трябва да сте влезли в системата за да имате достъп до тази страница."
 
 #: squirrelmail/functions/auth.php:34 squirrelmail/src/redirect.php:65
-#, fuzzy
 msgid "Go to the login page"
 msgstr "Отидете към логин страницата"
 
 #: squirrelmail/src/redirect.php:85 squirrelmail/src/redirect.php:89
-#, fuzzy
 msgid "There was an error contacting the mail server."
 msgstr "Грешка при свързването с пощенския сървър."
 
 #: squirrelmail/src/redirect.php:90
-#, fuzzy
 msgid "Contact your administrator for help."
 msgstr "Свържете се с администратора си за помощ."
 
@@ -1609,22 +1337,18 @@ msgid "save"
 msgstr "запис"
 
 #: squirrelmail/src/search.php:291
-#, fuzzy
 msgid "forget"
 msgstr "откажи"
 
 #: squirrelmail/src/search.php:300
-#, fuzzy
 msgid "Current Search"
 msgstr "Текущо търсене в папка"
 
 #: squirrelmail/src/search.php:339
-#, fuzzy
 msgid "Body"
 msgstr "Тяло"
 
 #: squirrelmail/src/search.php:340
-#, fuzzy
 msgid "Everywhere"
 msgstr "Навсякъде"
 
@@ -1637,89 +1361,72 @@ msgid "No Messages found"
 msgstr "Не са намерени писма"
 
 #: squirrelmail/functions/page_header.php:132 squirrelmail/src/signout.php:72
-#, fuzzy
 msgid "Sign Out"
 msgstr "Изход"
 
 #: squirrelmail/src/signout.php:78
-#, fuzzy
 msgid "You have been successfully signed out."
 msgstr "Успешно излязохте от системата."
 
 #: squirrelmail/src/signout.php:80
-#, fuzzy
 msgid "Click here to log back in."
 msgstr "Кликнете тук за да се логнете отново."
 
 #: squirrelmail/src/vcard.php:30
-#, fuzzy
 msgid "Viewing a Business Card"
 msgstr "Преглед на бизнес картата"
 
 #: squirrelmail/src/vcard.php:86 squirrelmail/src/vcard.php:146
-#, fuzzy
 msgid "Title"
 msgstr "Заглавие"
 
 #: squirrelmail/src/vcard.php:87
-#, fuzzy
 msgid "Email"
 msgstr "Email"
 
 #: squirrelmail/src/vcard.php:88 squirrelmail/src/vcard.php:138
-#, fuzzy
 msgid "Web Page"
 msgstr "Уеб Страница"
 
 #: squirrelmail/src/vcard.php:89 squirrelmail/src/vcard.php:150
-#, fuzzy
 msgid "Organization / Department"
 msgstr "Организация / Отдел"
 
 #: squirrelmail/src/vcard.php:90 squirrelmail/src/vcard.php:142
-#, fuzzy
 msgid "Address"
 msgstr "Адрес"
 
 #: squirrelmail/src/vcard.php:91 squirrelmail/src/vcard.php:159
-#, fuzzy
 msgid "Work Phone"
 msgstr "Служебен телефон"
 
 #: squirrelmail/src/vcard.php:92 squirrelmail/src/vcard.php:163
-#, fuzzy
 msgid "Home Phone"
 msgstr "Домашен телефон"
 
 #: squirrelmail/src/vcard.php:93 squirrelmail/src/vcard.php:167
-#, fuzzy
 msgid "Cellular Phone"
 msgstr "Клетъчен телефон"
 
 #: squirrelmail/src/vcard.php:94 squirrelmail/src/vcard.php:171
-#, fuzzy
 msgid "Fax"
 msgstr "Факс"
 
 #: squirrelmail/src/vcard.php:95 squirrelmail/src/vcard.php:175
-#, fuzzy
 msgid "Note"
 msgstr "Забележка"
 
 #: squirrelmail/src/vcard.php:124
-#, fuzzy
 msgid "Add to Addressbook"
 msgstr "Добави към книгата с адресите"
 
 #: squirrelmail/src/vcard.php:155
-#, fuzzy
 msgid "Title & Org. / Dept."
 msgstr "Заглавие и орг. / Отдел."
 
 #: squirrelmail/functions/abook_database.php:50
 #: squirrelmail/functions/abook_local_file.php:37
 #: squirrelmail/functions/addressbook.php:155
-#, fuzzy
 msgid "Personal address book"
 msgstr "Лична книга с адреси"
 
@@ -1731,7 +1438,6 @@ msgstr "Лична книга с адреси"
 #: squirrelmail/functions/abook_database.php:286
 #: squirrelmail/functions/abook_database.php:327
 #, c-format
-#, fuzzy
 msgid "Database error: %s"
 msgstr "Грешка в базата данни: %s"
 
@@ -1745,258 +1451,212 @@ msgstr "Грешка в базата данни: %s"
 #: squirrelmail/functions/addressbook.php:351
 #: squirrelmail/functions/addressbook.php:386
 #: squirrelmail/functions/addressbook.php:439
-#, fuzzy
 msgid "Addressbook is read-only"
 msgstr "Книгата за адреси e само за четене"
 
 #: squirrelmail/functions/abook_database.php:231
 #: squirrelmail/functions/abook_local_file.php:245
 #, c-format
-#, fuzzy
 msgid "User '%s' already exist"
 msgstr "Потребител '%s' вече съществува"
 
 #: squirrelmail/functions/abook_database.php:303
 #: squirrelmail/functions/abook_local_file.php:324
 #, c-format
-#, fuzzy
 msgid "User '%s' does not exist"
 msgstr "Потребител '%s' не съществува"
 
 #: squirrelmail/functions/abook_global_file.php:35
-#, fuzzy
 msgid "Global address book"
 msgstr "Глобална книга с адреси"
 
 #: squirrelmail/functions/abook_global_file.php:56
 #: squirrelmail/functions/abook_local_file.php:83
-#, fuzzy
 msgid "No such file or directory"
 msgstr "Няма такъв файл или директория"
 
 #: squirrelmail/functions/abook_global_file.php:69
 #: squirrelmail/functions/abook_local_file.php:104
 #: squirrelmail/functions/abook_local_file.php:140
-#, fuzzy
 msgid "Open failed"
 msgstr "Грешка при отваряне"
 
 #: squirrelmail/functions/abook_global_file.php:171
 #: squirrelmail/functions/abook_global_file.php:177
 #: squirrelmail/functions/abook_global_file.php:183
-#, fuzzy
 msgid "Can not modify global address book"
 msgstr "Не може да се модифицира глобалната книга с адреси"
 
 #: squirrelmail/functions/abook_local_file.php:46
-#, fuzzy
 msgid "Not a file name"
 msgstr "Не е име на файл"
 
 #: squirrelmail/functions/abook_local_file.php:266
 #: squirrelmail/functions/abook_local_file.php:292
 #: squirrelmail/functions/abook_local_file.php:331
-#, fuzzy
 msgid "Could not lock datafile"
 msgstr "Не мога да заключа базата данни"
 
 #: squirrelmail/functions/abook_local_file.php:279
-#, fuzzy
 msgid "Write to addressbook failed"
 msgstr "Грешка при писане в книгата с адреси"
 
 #: squirrelmail/functions/addressbook.php:73
-#, fuzzy
 msgid "Error initializing addressbook database."
 msgstr "Грешка при инициализиране на базата данни на книгата с адреси"
 
 #: squirrelmail/functions/addressbook.php:82
 #, c-format
-#, fuzzy
 msgid "Error opening file %s"
 msgstr "Грешка при отваряне на файла %s"
 
 #: squirrelmail/functions/addressbook.php:92
-#, fuzzy
 msgid "Error initializing global addressbook."
 msgstr "Грешка при инициализиране на глобалната книга с адреси"
 
 #: squirrelmail/functions/addressbook.php:108
 #, c-format
-#, fuzzy
 msgid "Error initializing LDAP server %s:"
 msgstr "Грешка при инициализирането на LDAP сървъра %s:"
 
 #: squirrelmail/functions/addressbook.php:329
 #: squirrelmail/functions/addressbook.php:416
-#, fuzzy
 msgid "Invalid input data"
 msgstr "Невалидни входни данни"
 
 #: squirrelmail/functions/addressbook.php:333
 #: squirrelmail/functions/addressbook.php:420
-#, fuzzy
 msgid "Name is missing"
 msgstr "Името липсва"
 
 #: squirrelmail/functions/addressbook.php:337
 #: squirrelmail/functions/addressbook.php:424
-#, fuzzy
 msgid "E-mail address is missing"
 msgstr "E-mail адреса липсва"
 
 #: squirrelmail/functions/addressbook.php:345
 #: squirrelmail/functions/addressbook.php:429
-#, fuzzy
 msgid "Nickname contains illegal characters"
 msgstr "Псевдонима съдържа невалидни символи"
 
 #: squirrelmail/functions/attachment_common.php:106
 #: squirrelmail/functions/attachment_common.php:131
 #: squirrelmail/functions/attachment_common.php:156
-#, fuzzy
 msgid "view"
 msgstr "преглед"
 
 #: squirrelmail/functions/attachment_common.php:173
-#, fuzzy
 msgid "Business Card"
 msgstr "Бизнес Карта"
 
 #: squirrelmail/functions/date.php:91
 #: squirrelmail/plugins/calendar/calendar.php:49
-#, fuzzy
 msgid "Sunday"
 msgstr "Неделя"
 
 #: squirrelmail/functions/date.php:94
 #: squirrelmail/plugins/calendar/calendar.php:50
-#, fuzzy
 msgid "Monday"
 msgstr "Понеделник"
 
 #: squirrelmail/functions/date.php:97
 #: squirrelmail/plugins/calendar/calendar.php:51
-#, fuzzy
 msgid "Tuesday"
 msgstr "Вторник"
 
 #: squirrelmail/functions/date.php:100
 #: squirrelmail/plugins/calendar/calendar.php:52
-#, fuzzy
 msgid "Wednesday"
 msgstr "Сряда"
 
 #: squirrelmail/functions/date.php:103
 #: squirrelmail/plugins/calendar/calendar.php:53
-#, fuzzy
 msgid "Thursday"
 msgstr "Сряда"
 
 #: squirrelmail/functions/date.php:106
 #: squirrelmail/plugins/calendar/calendar.php:54
-#, fuzzy
 msgid "Friday"
 msgstr "Петък"
 
 #: squirrelmail/functions/date.php:109
 #: squirrelmail/plugins/calendar/calendar.php:55
-#, fuzzy
 msgid "Saturday"
 msgstr "Събота"
 
 #: squirrelmail/functions/date.php:120
-#, fuzzy
 msgid "January"
 msgstr "Януари"
 
 #: squirrelmail/functions/date.php:123
-#, fuzzy
 msgid "February"
 msgstr "Февруари"
 
 #: squirrelmail/functions/date.php:126
-#, fuzzy
 msgid "March"
 msgstr "Март"
 
 #: squirrelmail/functions/date.php:129
-#, fuzzy
 msgid "April"
 msgstr "Април"
 
 #: squirrelmail/functions/date.php:132
-#, fuzzy
 msgid "May"
 msgstr "Май"
 
 #: squirrelmail/functions/date.php:135
-#, fuzzy
 msgid "June"
 msgstr "Юни"
 
 #: squirrelmail/functions/date.php:138
-#, fuzzy
 msgid "July"
 msgstr "Юли"
 
 #: squirrelmail/functions/date.php:141
-#, fuzzy
 msgid "August"
 msgstr "Август"
 
 #: squirrelmail/functions/date.php:144
-#, fuzzy
 msgid "September"
 msgstr "Септември"
 
 #: squirrelmail/functions/date.php:147
-#, fuzzy
 msgid "October"
 msgstr "Октомври"
 
 #: squirrelmail/functions/date.php:150
-#, fuzzy
 msgid "November"
 msgstr "Ноември"
 
 #: squirrelmail/functions/date.php:153
-#, fuzzy
 msgid "December"
 msgstr "Декември"
 
 #: squirrelmail/functions/date.php:180
-#, fuzzy
 msgid "D, F j, Y g:i a"
 msgstr "D, F j, Y g:i a"
 
 #: squirrelmail/functions/date.php:182
-#, fuzzy
 msgid "D, F j, Y G:i"
 msgstr "D, F j, Y G:i"
 
 #: squirrelmail/functions/date.php:204
-#, fuzzy
 msgid "g:i a"
 msgstr "g:i a"
 
 #: squirrelmail/functions/date.php:206
-#, fuzzy
 msgid "G:i"
 msgstr "G:i"
 
 #: squirrelmail/functions/date.php:211
-#, fuzzy
 msgid "D, g:i a"
 msgstr "D, g:i a"
 
 #: squirrelmail/functions/date.php:213
-#, fuzzy
 msgid "D, G:i"
 msgstr "D, G:i"
 
 #: squirrelmail/functions/date.php:217
-#, fuzzy
 msgid "M j, Y"
 msgstr "M j, Y"
 
@@ -2006,42 +1666,35 @@ msgstr "M j, Y"
 #: squirrelmail/functions/db_prefs.php:105
 #: squirrelmail/functions/db_prefs.php:251
 #, c-format
-#, fuzzy
 msgid "Preference database error (%s). Exiting abnormally"
 msgstr "Грешка в предпочитанията на базата данни (%s). Изход неправилен"
 
 #: squirrelmail/functions/display_messages.php:28
 #: squirrelmail/functions/imap_general.php:258
-#, fuzzy
 msgid "Unknown user or password incorrect."
 msgstr "Грешна парола или потребителско име"
 
 #: squirrelmail/functions/display_messages.php:30
-#, fuzzy
 msgid "Click here to try again"
 msgstr "Кликнете тук за да опитате отново"
 
 #: squirrelmail/functions/display_messages.php:45
 #, c-format
-#, fuzzy
 msgid "Welcome to %s's WebMail system"
 msgstr "Добре дошли в WebMail системата на %s"
 
 #: squirrelmail/functions/display_messages.php:57
 #, c-format
-#, fuzzy
 msgid "Running SquirrelMail version %s (c) 1999-2001."
 msgstr "Стартиран SquirrelMail версия %s (c) 1999-2000."
 
 #: squirrelmail/functions/display_messages.php:82
 #, c-format
-#, fuzzy
 msgid "Click here to return to %s"
 msgstr "Кликнете тук за да се върнете към %s"
 
 #: squirrelmail/functions/file_prefs.php:38
 #, c-format
-#, fuzzy
 msgid ""
 "Preference file, %s, does not exist. Log out, and log back in to create a "
 "default preference file."
@@ -2049,29 +1702,24 @@ msgstr "Файла с настройките, %s, не съществува. Излезте, и след това влезте отно
 
 #: squirrelmail/functions/file_prefs.php:162
 #: squirrelmail/functions/file_prefs.php:167
-#, fuzzy
 msgid "Error opening "
 msgstr "Грешка при отваряне "
 
 #: squirrelmail/functions/file_prefs.php:163
-#, fuzzy
 msgid "Default preference file not found!"
 msgstr "Файлът с настройките по подразбирaне не открит!"
 
 #: squirrelmail/functions/file_prefs.php:164
 #: squirrelmail/functions/file_prefs.php:169
 #: squirrelmail/functions/prefs.php:93
-#, fuzzy
 msgid "Please contact your system administrator and report this error."
 msgstr "Моля, свържете се със системния администратор и съобщете за грешката."
 
 #: squirrelmail/functions/file_prefs.php:168
-#, fuzzy
 msgid "Could not create initial preference file!"
 msgstr "Не мога да създам началния файл с настройките"
 
 #: squirrelmail/functions/imap_general.php:136
-#, fuzzy
 msgid "Please contact your system administrator and report the following error:"
 msgstr "Моля, свържете се със системния си администратор и съобщете за следната грешка:"
 
@@ -2082,7 +1730,6 @@ msgstr "Моля, свържете се със системния си администратор и съобщете за следната 
 #: squirrelmail/functions/imap_messages.php:155
 #: squirrelmail/functions/imap_messages.php:268
 #: squirrelmail/plugins/filters/filters.php:89
-#, fuzzy
 msgid "ERROR : Could not complete request."
 msgstr "ГРЕШКА: Не мога да завърша заявката."
 
@@ -2093,59 +1740,49 @@ msgstr "Заявка:"
 
 #: squirrelmail/functions/imap_general.php:169
 #: squirrelmail/plugins/filters/filters.php:91
-#, fuzzy
 msgid "Reason Given: "
 msgstr "Дадена причина: "
 
 #: squirrelmail/functions/imap_general.php:176
 #: squirrelmail/plugins/filters/filters.php:98
-#, fuzzy
 msgid "ERROR : Bad or malformed request."
 msgstr "ГРЕШКА: Грешна или деформирана заявка."
 
 #: squirrelmail/functions/imap_general.php:180
 #: squirrelmail/plugins/filters/filters.php:100
-#, fuzzy
 msgid "Server responded: "
 msgstr "Сървъра отговори: "
 
 #: squirrelmail/functions/imap_general.php:217
 #, c-format
-#, fuzzy
 msgid "Error connecting to IMAP server: %s."
 msgstr "Грешка при свързване с IMAP сървъра: %s."
 
 #: squirrelmail/functions/imap_general.php:233
 #, c-format
-#, fuzzy
 msgid "Bad request: %s"
 msgstr "Лоша заявка: %s"
 
 #: squirrelmail/functions/imap_general.php:235
 #, c-format
-#, fuzzy
 msgid "Unknown error: %s"
 msgstr "Неразпозната грешка: %s"
 
 #: squirrelmail/functions/imap_general.php:237
-#, fuzzy
 msgid "Read data:"
 msgstr "Чете данни:"
 
 #: squirrelmail/functions/imap_messages.php:121
 #: squirrelmail/functions/imap_messages.php:148
 #: squirrelmail/functions/imap_messages.php:270
-#, fuzzy
 msgid "Unknown response from IMAP server: "
 msgstr "Неразпознат отговор от IMAP сървъра: "
 
 #: squirrelmail/functions/imap_messages.php:129
-#, fuzzy
 msgid "Unknown message number in reply from server: "
 msgstr "Неразпознат номер на грешка в отговор на сървъра: "
 
 #: squirrelmail/functions/imap_messages.php:157
-#, fuzzy
 msgid "Unknown messagenumber in reply from server: "
 msgstr "Неразпознат номер на грешка в отговора на сървъра: "
 
@@ -2154,39 +1791,32 @@ msgstr "Неразпознат номер на грешка в отговора на сървъра: "
 #: squirrelmail/functions/imap_messages.php:440
 #: squirrelmail/functions/imap_messages.php:495
 #: squirrelmail/functions/mailbox_display.php:906
-#, fuzzy
 msgid "(no subject)"
 msgstr "(няма тема)"
 
 #: squirrelmail/functions/imap_messages.php:167
-#, fuzzy
 msgid "Unknown Sender"
 msgstr "Неразпознат Подател"
 
 #: squirrelmail/functions/imap_messages.php:222
-#, fuzzy
 msgid "No To Address"
 msgstr "Няма До Адрес"
 
 #: squirrelmail/functions/imap_messages.php:498
-#, fuzzy
 msgid "(unknown sender)"
 msgstr "(неразпознат подател)"
 
 #: squirrelmail/functions/imap_search.php:87
-#, fuzzy
 msgid "No Messages Found"
 msgstr "Не е намерено писмо"
 
 #: squirrelmail/functions/imap_search.php:188
 #: squirrelmail/functions/imap_search.php:196
-#, fuzzy
 msgid "Found"
 msgstr "Открит"
 
 #: squirrelmail/functions/imap_search.php:188
 #: squirrelmail/functions/imap_search.php:196
-#, fuzzy
 msgid "messages"
 msgstr "писма"
 
@@ -2199,91 +1829,74 @@ msgid "A"
 msgstr "А"
 
 #: squirrelmail/functions/mailbox_display.php:429
-#, fuzzy
 msgid "THIS FOLDER IS EMPTY"
 msgstr "ТАЗИ ПАПКА Е ПРАЗНА"
 
 #: squirrelmail/functions/mailbox_display.php:513
-#, fuzzy
 msgid "Move Selected To:"
 msgstr "Премести избраните в: "
 
 #: squirrelmail/functions/mailbox_display.php:516
-#, fuzzy
 msgid "Transform Selected Messages"
 msgstr "Промяна състоянието на избраните писма"
 
 #: squirrelmail/functions/mailbox_display.php:535
 #: squirrelmail/plugins/delete_move_next/setup.php:226
 #: squirrelmail/plugins/delete_move_next/setup.php:250
-#, fuzzy
 msgid "Move"
 msgstr "Премести"
 
 #: squirrelmail/functions/mailbox_display.php:539
-#, fuzzy
 msgid "Expunge"
 msgstr "Премахни"
 
 #: squirrelmail/functions/mailbox_display.php:539
-#, fuzzy
 msgid "mailbox"
 msgstr "пощенска кутия"
 
 #: squirrelmail/functions/mailbox_display.php:541
-#, fuzzy
 msgid "Read"
 msgstr "Прочетено"
 
 #: squirrelmail/functions/mailbox_display.php:542
-#, fuzzy
 msgid "Unread"
 msgstr "Непрочетено"
 
 #: squirrelmail/functions/mailbox_display.php:639
-#, fuzzy
 msgid "Toggle All"
 msgstr "Инвертирай избора"
 
 #: squirrelmail/functions/mailbox_display.php:667
-#, fuzzy
 msgid "Unselect All"
 msgstr "Размаркирай Всички"
 
 #: squirrelmail/functions/mailbox_display.php:669
-#, fuzzy
 msgid "Select All"
 msgstr "Маркирай Всички"
 
 #: squirrelmail/functions/mailbox_display.php:686
 #, c-format
-#, fuzzy
 msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
 msgstr "Преглед на писмата: <B>%s</B> до <B>%s</B> (%s общо)"
 
 #: squirrelmail/functions/mailbox_display.php:688
 #, c-format
-#, fuzzy
 msgid "Viewing Message: <B>%s</B> (1 total)"
 msgstr "Преглед на писмата: <B>%s</B> (1 общо)"
 
 #: squirrelmail/functions/mailbox_display.php:873
-#, fuzzy
 msgid "Paginate"
 msgstr "Страниране"
 
 #: squirrelmail/functions/mailbox_display.php:880
-#, fuzzy
 msgid "Show All"
 msgstr "Покажи всички"
 
 #: squirrelmail/functions/mime.php:368
-#, fuzzy
 msgid "Error decoding mime structure.  Report this as a bug!"
 msgstr "Грешка при декодиране на MIME структурата. Докладвайте за това като за бъг!"
 
 #: squirrelmail/functions/mime.php:442
-#, fuzzy
 msgid ""
 "Body retrieval error. The reason for this is most probably that the message "
 "is malformed. Please help us making future versions better by submitting "
@@ -2299,7 +1912,6 @@ msgid "Command:"
 msgstr "Команда:"
 
 #: squirrelmail/functions/mime.php:447
-#, fuzzy
 msgid "Response:"
 msgstr "Отговор:"
 
@@ -2308,12 +1920,10 @@ msgstr "Отговор:"
 #: squirrelmail/plugins/calendar/event_delete.php:38
 #: squirrelmail/plugins/calendar/event_edit.php:101
 #: squirrelmail/plugins/calendar/event_edit.php:114
-#, fuzzy
 msgid "Message:"
 msgstr "Писмо:"
 
 #: squirrelmail/functions/mime.php:449
-#, fuzzy
 msgid "FETCH line:"
 msgstr "FETCH линия:"
 
@@ -2326,12 +1936,10 @@ msgid "View Unsafe Images"
 msgstr "Преглед на несигурните изображения"
 
 #: squirrelmail/functions/mime.php:674
-#, fuzzy
 msgid "Attachments"
 msgstr "Прикрепвания"
 
 #: squirrelmail/functions/mime.php:713
-#, fuzzy
 msgid "download"
 msgstr "изтегли"
 
@@ -2342,18 +1950,15 @@ msgstr "изтегли"
 #: squirrelmail/plugins/calendar/event_edit.php:71
 #: squirrelmail/plugins/calendar/event_edit.php:99
 #: squirrelmail/plugins/calendar/event_edit.php:112
-#, fuzzy
 msgid "Title:"
 msgstr "Заглавие"
 
 #: squirrelmail/functions/mime.php:1183
-#, fuzzy
 msgid "sec_remove_eng.png"
 msgstr "отстрани"
 
 #: squirrelmail/functions/options.php:168
 #, c-format
-#, fuzzy
 msgid "Option Type '%s' Not Found"
 msgstr "Опционен тип '%s' не намерен"
 
@@ -2361,7 +1966,6 @@ msgstr "Опционен тип '%s' не намерен"
 #: squirrelmail/plugins/administrator/options.php:357
 #: squirrelmail/plugins/calendar/event_delete.php:51
 #: squirrelmail/plugins/calendar/event_edit.php:134
-#, fuzzy
 msgid "Yes"
 msgstr "Да"
 
@@ -2369,12 +1973,10 @@ msgstr "Да"
 #: squirrelmail/plugins/administrator/options.php:358
 #: squirrelmail/plugins/calendar/event_delete.php:58
 #: squirrelmail/plugins/calendar/event_edit.php:141
-#, fuzzy
 msgid "No"
 msgstr "Не"
 
 #: squirrelmail/functions/page_header.php:126
-#, fuzzy
 msgid "Current Folder"
 msgstr "Текуща папка"
 
@@ -2382,30 +1984,25 @@ msgstr "Текуща папка"
 #: squirrelmail/functions/page_header.php:143
 #: squirrelmail/functions/page_header.php:185
 #: squirrelmail/functions/page_header.php:212
-#, fuzzy
 msgid "Compose"
 msgstr "Състави"
 
 #: squirrelmail/functions/prefs.php:91
 #, c-format
-#, fuzzy
 msgid "Error creating directory %s."
 msgstr "Грешка при създаване на директория%s."
 
 #: squirrelmail/functions/prefs.php:92
-#, fuzzy
 msgid "Could not create hashed directory structure!"
 msgstr "Не мога да създам хешираната структура на директорията!"
 
 #: squirrelmail/plugins/filters/filters.php:360
-#, fuzzy
 msgid ""
 "COMMERCIAL - This list contains servers that are verified spam senders. It "
 "is a pretty reliable list to scan spam from."
 msgstr "КОМЕРСИАЛЕН - Този списък съдържа сървъри които са проверени спам сървъри. Това е доста сигурен списък за да се проверява за спам."
 
 #: squirrelmail/plugins/filters/filters.php:368
-#, fuzzy
 msgid ""
 "COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
 "be relayed through their system will be banned with this.  Another good one "
@@ -2413,7 +2010,6 @@ msgid ""
 msgstr "КОМЕРСИАЛЕН - Сървърите които са конфигурирани (или неконфигурирани) да позволяват спама да бъде предаван чрез техните системи ще бъдат изхвърлени с това. Доста е добро за използване."
 
 #: squirrelmail/plugins/filters/filters.php:376
-#, fuzzy
 msgid ""
 "COMMERCIAL - Dial-up users are often filtered out since they should use "
 "their ISP's mail servers to send mail.  Spammers typically get a dial-up "
@@ -2421,34 +2017,28 @@ msgid ""
 msgstr "КОМЕРСИАЛЕН - Dial-up потребителите често са филтрирани тъй като те използват пощенските сървъри на Интернет доставчиците си за да изпращат пощата си. Спамърите обикновено си вземат dial-up акаунт и изпращат спам директно от там."
 
 #: squirrelmail/plugins/filters/filters.php:384
-#, fuzzy
 msgid "COMMERCIAL - RBL+ Blackhole entries."
 msgstr "КОМЕРСИАЛЕН - RBL+ Blackhole записи."
 
 #: squirrelmail/plugins/filters/filters.php:392
-#, fuzzy
 msgid "COMMERCIAL - RBL+ OpenRelay entries."
 msgstr "КОМЕРСИАЛЕН - RBL+ OpenRelay записи."
 
 #: squirrelmail/plugins/filters/filters.php:400
-#, fuzzy
 msgid "COMMERCIAL - RBL+ Dial-up entries."
 msgstr "КОМЕРСИАЛЕН - RBL+ Dial-up записи."
 
 #: squirrelmail/plugins/filters/filters.php:408
-#, fuzzy
 msgid ""
 "FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
 "include servers used by abuse@uunet.net auto-replies too."
 msgstr "БЕЗПЛАТЕН - Osirusoft връзки - Списъка на Osirusoft на проверените връзки. Изглежда включва сървъри използваните от abuse@uunet.net автоматични отговори."
 
 #: squirrelmail/plugins/filters/filters.php:416
-#, fuzzy
 msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
 msgstr "БЕЗПЛАТЕН - Osirusoft Dialups - Dialup спам списък на Osirusofts."
 
 #: squirrelmail/plugins/filters/filters.php:424
-#, fuzzy
 msgid ""
 "FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
 "have been manually added after multiple nominations. Use with caution. Seems "
@@ -2456,14 +2046,12 @@ msgid ""
 msgstr "БЕЗПЛАТЕН - Потвърдени източници на спам на Osirusoft - Сайтове които продължително спамват в мануално са добавени след множество номинации. Използвай предпазливо. Изглежда хваща злоупотребите с автоматичните отговори на някои доставчици на интернет."
 
 #: squirrelmail/plugins/filters/filters.php:432
-#, fuzzy
 msgid ""
 "FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
 "other mail servers that are not secure."
 msgstr "БЕЗПЛАТЕН - Osirusoft Smart Hosts - Списък на хостове които са сигурни, но препращат на пощенски сървъри които не са сиурни."
 
 #: squirrelmail/plugins/filters/filters.php:440
-#, fuzzy
 msgid ""
 "FREE - Osirusoft Spamware Developers - It is believed that these are IP "
 "ranges of companies that are known to produce spam software. Seems to catch "
@@ -2471,78 +2059,64 @@ msgid ""
 msgstr "БЕЗПЛАТЕН - Osirusoft Spamware Developers - Вярва се, че това са IP диапазоните на компании които са познати производители на спам софтуер. Изглежда, че хваща злонамерените автоматични отговори от някои Интернет доставчици."
 
 #: squirrelmail/plugins/filters/filters.php:448
-#, fuzzy
 msgid ""
 "FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
 "users in without confirmation."
 msgstr "БЕЗПЛАТЕН - Osirusoft Unconfirmed OptIn Servers - Списък на списъчни сървъри които регистрират потребителите без потвърждение."
 
 #: squirrelmail/plugins/filters/filters.php:456
-#, fuzzy
 msgid ""
 "FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail."
 "cgi scripts. (planned)."
 msgstr "БЕЗПЛАТЕН - Osirusoft Несигурни formmail.cgi скриптове - Списък на несигурните formmail cgi скриптове. (планирано)"
 
 #: squirrelmail/plugins/filters/filters.php:464
-#, fuzzy
 msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
 msgstr "БЕЗПЛАТЕН - Osirusoft отворени прокси сървъри - Списък на отворените прокси сървъри."
 
 #: squirrelmail/plugins/filters/filters.php:472
-#, fuzzy
 msgid ""
 "FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
 "false positives than ORBS did though."
 msgstr "БЕЗПЛАТЕН - ORDB се роди когато ORBS отлетя. Изглежда има по-малко погрешни положителни страни в сравнение с ORBS"
 
 #: squirrelmail/plugins/filters/filters.php:480
-#, fuzzy
 msgid "FREE - Another ORBS replacement (just the INPUTS database used here)."
 msgstr "БЕЗПЛАТЕН - Друг заместник на ORBS (просто входната база данни е използвана тук)."
 
 #: squirrelmail/plugins/filters/filters.php:488
-#, fuzzy
 msgid "FREE - Another ORBS replacement (just the OUTPUTS database used here)."
 msgstr "БЕЗПЛАТЕН - Друг заместник на ORBS (просто изходната база данне е използвана тук)."
 
 #: squirrelmail/plugins/filters/filters.php:496
-#, fuzzy
 msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
 msgstr "БЕЗПЛАТЕН - Five-Ten-sg.com - Директни източници на спам."
 
 #: squirrelmail/plugins/filters/filters.php:504
-#, fuzzy
 msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
 msgstr "БЕЗПЛАТЕН - Five-Ten-sg.com - Dial-up списъци - включва някои DSL IP-та."
 
 #: squirrelmail/plugins/filters/filters.php:512
-#, fuzzy
 msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
 msgstr "БЕЗПЛАТЕН - Five-Ten-sg.com - Податели на големи пакети които не дават възможност за потвърждение."
 
 #: squirrelmail/plugins/filters/filters.php:520
-#, fuzzy
 msgid "FREE - Five-Ten-sg.com - Other misc. servers."
 msgstr "БЕЗПЛАТЕН - Five-Ten-sg.com - Други подобни сървъри."
 
 #: squirrelmail/plugins/filters/filters.php:528
-#, fuzzy
 msgid "FREE - Five-Ten-sg.com - Single Stage servers."
 msgstr "БЕЗПЛАТЕН - Five-Ten-sg.com - Single Stage сървъри."
 
 #: squirrelmail/plugins/filters/filters.php:536
-#, fuzzy
 msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
 msgstr "FREE - Five-Ten-sg.com - Сървъри които поддържат спам."
 
 #: squirrelmail/plugins/filters/filters.php:544
-#, fuzzy
 msgid "FREE - Five-Ten-sg.com - Web Form IPs."
 msgstr "FREE - Five-Ten-sg.com - Web Form IP-та."
 
 #: squirrelmail/plugins/filters/filters.php:552
-#, fuzzy
 msgid ""
 "FREE - Dorkslayers appears to include only really bad open relays outside "
 "the US to avoid being sued. Interestingly enough, their website recommends "
@@ -2555,7 +2129,6 @@ msgstr "БЕЗПЛАТЕН - SPAMhaus - Списък на добре познатите СПАМ източници."
 
 #: squirrelmail/plugins/filters/filters.php:568
 #, c-format
-#, fuzzy
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
@@ -2634,84 +2207,69 @@ msgid "FREE, for now - Not Just Another Blacklist - Dial-up IPs."
 msgstr "БЕЗПЛАТЕН, за сега - Нищо повече от още един черен списък - Dial-up-и и IP-та."
 
 #: squirrelmail/plugins/filters/options.php:62
-#, fuzzy
 msgid "Message Filtering"
 msgstr "Филтриране на писмата"
 
 #: squirrelmail/plugins/filters/options.php:78
-#, fuzzy
 msgid "Match:"
 msgstr "Съвпадение:"
 
 #: squirrelmail/plugins/filters/options.php:104
-#, fuzzy
 msgid "Contains:"
 msgstr "Съдържа"
 
 #: squirrelmail/plugins/delete_move_next/setup.php:222
 #: squirrelmail/plugins/delete_move_next/setup.php:246
 #: squirrelmail/plugins/filters/options.php:116
-#, fuzzy
 msgid "Move to:"
 msgstr "Премеси в:"
 
 #: squirrelmail/plugins/filters/options.php:158
-#, fuzzy
 msgid "Down"
 msgstr "Надолу"
 
 #: squirrelmail/plugins/filters/options.php:164
-#, fuzzy
 msgid "Up"
 msgstr "Нагоре"
 
 #: squirrelmail/plugins/filters/options.php:167
 #, c-format
-#, fuzzy
 msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
 msgstr "Ако <b>%s</b> съдържа <b>%s</b> тогава отидете в <b>%s</b>"
 
 #: squirrelmail/plugins/filters/setup.php:94
-#, fuzzy
 msgid "Message Filters"
 msgstr "Филтри на писмата"
 
 #: squirrelmail/plugins/filters/setup.php:96
-#, fuzzy
 msgid ""
 "Filtering enables messages with different criteria to be automatically "
 "filtered into different folders for easier organization."
 msgstr "Филтрирането позволява писма с различни критерии да бъдат автоматично филтрирани в различни папки за по-лесна организация."
 
 #: squirrelmail/plugins/filters/setup.php:102
-#, fuzzy
 msgid "SPAM Filters"
 msgstr "СПАМ филтри"
 
 #: squirrelmail/plugins/filters/setup.php:104
-#, fuzzy
 msgid ""
 "SPAM filters allow you to select from various DNS based blacklists to detect "
 "junk email in your INBOX and move it to another folder (like Trash)."
 msgstr "СПАМ филтрите ви позволяват да избирате от различно DNS базирани черни списъци за да откриете боклучивата поща във вашия INBOX и да го преместите към друга папка например (Кошче)."
 
 #: squirrelmail/plugins/filters/spamoptions.php:55
-#, fuzzy
 msgid "Spam Filtering"
 msgstr "Филтриране на спама"
 
 #: squirrelmail/plugins/filters/spamoptions.php:60
-#, fuzzy
 msgid "WARNING! Tell your admin to set the SpamFilters_YourHop variable"
 msgstr "ВНИМАНИЕ! Кажете на администратора си да установи променливата  SpamFilters_YourHop"
 
 #: squirrelmail/plugins/filters/spamoptions.php:82
-#, fuzzy
 msgid "Move spam to:"
 msgstr "Премести спама в:"
 
 #: squirrelmail/plugins/filters/spamoptions.php:100
-#, fuzzy
 msgid ""
 "Moving spam directly to the trash may not be a good idea at first, since "
 "messages from friends and mailing lists might accidentally be marked as "
@@ -2721,22 +2279,18 @@ msgid ""
 msgstr "Преместването на спам директорията в кошчето може да не е добра идея в началото тъй като писмата от приятели и пощенски списъци могат случайно да бъдат маркирани като спам. Към каквато и папка да го установите, трябва да сте сигурни, че се изчиства периодично, така че да нямате прекалено голяма пощенска кутия."
 
 #: squirrelmail/plugins/filters/spamoptions.php:103
-#, fuzzy
 msgid "What to Scan:"
 msgstr "Какво да сканирам:"
 
 #: squirrelmail/plugins/filters/spamoptions.php:109
-#, fuzzy
 msgid "All messages"
 msgstr "Всички писма"
 
 #: squirrelmail/plugins/filters/spamoptions.php:114
-#, fuzzy
 msgid "Only unread messages"
 msgstr "Само непрочетените писма"
 
 #: squirrelmail/plugins/filters/spamoptions.php:120
-#, fuzzy
 msgid ""
 "The more messages you scan, the longer it takes.  I would suggest that you "
 "scan only new messages.  If you make a change to your filters, I would set "
@@ -2746,76 +2300,62 @@ msgid ""
 msgstr "Колкото повече писма сканирате, толкова повече време отнема. Ще ви предложа да сканирате само новите писма. Ако направите промени във филтрите си, аз бих ги установил така, че да сканират всички писма, след това виж Входящи, и чак след това се върни за да го установиш да сканира само новите писма. По този начин, новите ви спам филтри ще бъдат приложени и ще сканирате едновременно със спама който четете с новите филтри."
 
 #: squirrelmail/plugins/filters/spamoptions.php:147
-#, fuzzy
 msgid "Save"
 msgstr "Запис"
 
 #: squirrelmail/plugins/filters/spamoptions.php:158
 #, c-format
-#, fuzzy
 msgid "Spam is sent to <b>%s</b>"
 msgstr "Спама е изпратен на <b>%s</b>"
 
 #: squirrelmail/plugins/filters/spamoptions.php:158
-#, fuzzy
 msgid "[<i>not set yet</i>]"
 msgstr "[<i>все още не е установено</i>]"
 
 #: squirrelmail/plugins/filters/spamoptions.php:160
 #, c-format
-#, fuzzy
 msgid "Spam scan is limited to <b>%s</b>"
 msgstr "Сканирането на спама е ограничено до <b>%s</b>"
 
 #: squirrelmail/plugins/filters/spamoptions.php:160
-#, fuzzy
 msgid "New Messages Only"
 msgstr "Само новите писма"
 
 #: squirrelmail/plugins/filters/spamoptions.php:160
-#, fuzzy
 msgid "All Messages"
 msgstr "Всички писма"
 
 #: squirrelmail/plugins/filters/spamoptions.php:170
-#, fuzzy
 msgid "ON"
 msgstr "Включено"
 
 #: squirrelmail/plugins/filters/spamoptions.php:172
-#, fuzzy
 msgid "OFF"
 msgstr "Изключено"
 
 #: squirrelmail/plugins/squirrelspell/setup.php:49
-#, fuzzy
 msgid "SpellChecker Options"
 msgstr "Опции за проверка на правописа"
 
 #: squirrelmail/plugins/squirrelspell/setup.php:51
-#, fuzzy
 msgid ""
 "Here you may set up how your personal dictionary is stored, edit it, or "
 "choose which languages should be available to you when spell-checking."
 msgstr "Тук можете да установите как да се съхранява личният ви речник, да го редактирате или да избирате кой език да ви е на разположение при проверката на правописа."
 
 #: squirrelmail/plugins/squirrelspell/setup.php:77
-#, fuzzy
 msgid "Check Spelling"
 msgstr "Проверка на правописа"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:54
-#, fuzzy
 msgid "Back to &quot;SpellChecker Options&quot; page"
 msgstr "Назад към страницата на &quot;Опциите на правописната проверка&quot;"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:356
-#, fuzzy
 msgid "ATTENTION:"
 msgstr "ВНИМАНИЕ:"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:357
-#, fuzzy
 msgid ""
 "SquirrelSpell was unable to decrypt your personal dictionary. This is most "
 "likely due to the fact that you have changed your mailbox password. In order "
@@ -2828,17 +2368,14 @@ msgid ""
 msgstr "SquirrelSpell не може да декриптира вашият личен речник. Това най-често е предизвикано от факта, че сте променили паролата на пощенската си кутия. За да продължите трябва да предоставите старата си парола за да може SquirrelSpell да декриптира личния ви речник. Той ще бъде криптиран отново с новата ви парола след това.<br>Ако не сте криптирали речника си, то той е обезобразен и повече не е валиден. Ще трябва да го изтриете и да създадете нов. Това може да направите и ако сте забравили старата си парола -- без нея криптираните данни няма да бъдат достъпни."
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:363
-#, fuzzy
 msgid "Delete my dictionary and start a new one"
 msgstr "Изтрий речника ми и започни нов"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:364
-#, fuzzy
 msgid "Decrypt my dictionary with my old password:"
 msgstr "Декриптирай речника ми със старата ми парола:"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:368
-#, fuzzy
 msgid "Proceed"
 msgstr "Давай"
 
@@ -2856,7 +2393,6 @@ msgstr "Желаете ли да изтриете личния си файл-речник?"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:385
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:388
-#, fuzzy
 msgid "Error Decrypting Dictionary"
 msgstr "Грешка при декриптирането на речника"
 
@@ -2865,13 +2401,11 @@ msgid "Cute."
 msgstr "Хитър."
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:33
-#, fuzzy
 msgid "Your personal dictionary was erased."
 msgstr "Вашият личен речник е изтрит."
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:34
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:47
-#, fuzzy
 msgid "Dictionary Erased"
 msgstr "Речника е изтрит"
 
@@ -2883,24 +2417,20 @@ msgstr "Вашият личен речник беше изтрит. Моля затворете прозореца и кликнете вър
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:45
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:77
-#, fuzzy
 msgid "Close this Window"
 msgstr "Затвори прозореца"
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:70
-#, fuzzy
 msgid ""
 "Your personal dictionary was re-encrypted successfully. Now return to the "
 "&quot;SpellChecker options&quot; menu and make your selection again."
 msgstr "Вашият личен речник е прекриптиран успешно. Сега се върнете към &quot;Опциите за проверка на правописа&quot;"
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:72
-#, fuzzy
 msgid "Successful Re-encryption"
 msgstr "Успешно прекриптиран"
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:75
-#, fuzzy
 msgid ""
 "Your personal dictionary was re-encrypted successfully. Please close this "
 "window and click \"Check Spelling\" button again to start your spellcheck "
@@ -2908,19 +2438,16 @@ msgid ""
 msgstr "Вашият личен речник беше прекриптиран успешно. Моля затворете този прозорец и кликнете отново бутона \"Правописна проверка\" за да стартирате правописната си проверка."
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:79
-#, fuzzy
 msgid "Dictionary re-encrypted"
 msgstr "Речника е прекриптиран"
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto.mod:39
-#, fuzzy
 msgid ""
 "Your personal dictionary has been <strong>encrypted</strong> and is now "
 "stored in an <strong>encrypted format</strong>."
 msgstr "Вашият личен речник беше <strong>криптиран</strong> и е съхранен в <strong>криптиран формат</strong>"
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto.mod:54
-#, fuzzy
 msgid ""
 "Your personal dictionary has been <strong>decrypted</strong> and is now "
 "stored as <strong>clear text</strong>."
@@ -2928,12 +2455,10 @@ msgstr "Вашият личен речник беше <strong>криптиран</strong> и е съхранен в <stro
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto.mod:65
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:76
-#, fuzzy
 msgid "Personal Dictionary Crypto Settings"
 msgstr "Настройки на криптирането на личния речник"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:196
-#, fuzzy
 msgid "SquirrelSpell Results"
 msgstr "Резултати на SquirrelSpell"
 
@@ -2951,145 +2476,117 @@ msgstr "Запис на личния речник... Моля изчакайте."
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:281
 #, c-format
-#, fuzzy
 msgid "Found %s errors"
 msgstr "%s грешки открити"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:302
-#, fuzzy
 msgid "Line with an error:"
 msgstr "Ред с грешка:"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:312
-#, fuzzy
 msgid "Error:"
 msgstr "Грешка:"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:321
-#, fuzzy
 msgid "Suggestions:"
 msgstr "Подсказки:"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:328
-#, fuzzy
 msgid "Suggestions"
 msgstr "Подсказки:"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:336
-#, fuzzy
 msgid "Change to:"
 msgstr "Промени на:"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:345
-#, fuzzy
 msgid "Occurs times:"
 msgstr "Брой на появяванията:"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:362
-#, fuzzy
 msgid "Change this word"
 msgstr "Промени тази дума"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:363
-#, fuzzy
 msgid "Change"
 msgstr "Промени"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:365
-#, fuzzy
 msgid "Change ALL occurances of this word"
 msgstr "Промени ВСИЧКИ появявания на тази дума"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:366
-#, fuzzy
 msgid "Change All"
 msgstr "Промени Всички"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:368
-#, fuzzy
 msgid "Ignore this word"
 msgstr "Игнорирай тази дума"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:369
-#, fuzzy
 msgid "Ignore"
 msgstr "Игнорирай"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:371
-#, fuzzy
 msgid "Ignore ALL occurances this word"
 msgstr "Игнорирай всички появявания на тази дума"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:372
-#, fuzzy
 msgid "Ignore All"
 msgstr "Игнорирай Всички"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:374
-#, fuzzy
 msgid "Add this word to your personal dictionary"
 msgstr "Добави тази дума към личния си речник"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:375
-#, fuzzy
 msgid "Add to Dic"
 msgstr "Добави към речника"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:388
-#, fuzzy
 msgid "Close and Commit"
 msgstr "Затвори и потвърди"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:390
-#, fuzzy
 msgid "The spellcheck is not finished. Really close and commit changes?"
 msgstr "Проверката на правописа не е свършила. Наистина ли искате да затворите и да потвърдите промените?"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:393
-#, fuzzy
 msgid "Close and Cancel"
 msgstr "Затвори и отмени"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:395
-#, fuzzy
 msgid "The spellcheck is not finished. Really close and discard changes?"
 msgstr "Проверката на правописа не е свършила. Наистина ли искате да затворите и да отмените промените?"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:414
-#, fuzzy
 msgid "No errors found"
 msgstr "Не са открити грешки"
 
 #: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:28
 #: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:77
-#, fuzzy
 msgid "Personal Dictionary"
 msgstr "Личен речник"
 
 #: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:29
 #: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:99
-#, fuzzy
 msgid "No words in your personal dictionary."
 msgstr "Няма думи в личният ви речник"
 
 #: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:36
-#, fuzzy
 msgid "Please check any words you wish to delete from your dictionary."
 msgstr "Моля проверете всички думи които искате да изтриете от речника си."
 
 #: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:58
 #, c-format
-#, fuzzy
 msgid "%s dictionary"
 msgstr "Речник %s"
 
 #: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:89
-#, fuzzy
 msgid "Delete checked words"
 msgstr "Изтрий отбелязаните думи"
 
 #: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:103
-#, fuzzy
 msgid "Edit your Personal Dictionary"
 msgstr "Редактирай личния си речник"
 
@@ -3110,7 +2607,6 @@ msgid ""
 msgstr "Желаете ли да декриптирате личния си речник и да го запазите в чист текстов формат?"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:47
-#, fuzzy
 msgid ""
 "<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
 "helps protect your privacy in case the web-mail system gets compromized and "
@@ -3124,18 +2620,15 @@ msgid ""
 msgstr "<p>Вашият личен речник е <strong>криптиран</strong>. Това помага да защитите личната си информация в случай, че системата за уеб поща е изложена на риск и вашият личен речник бъде откраднат. В момента е криптиран с паролата ви за достъп до пощенската кутия, за да се затрудни разглеждането на съдържанието на личния ви речник.</p><p><strong>ВНИМАНИЕ:</strong> Ако забравите паролата си, личния ви речник ще бъде недостъпен, тъй като не може да бъде декриптиран. Ако промените паролата на пощенската си кутия, SquirrelSpell ще го разпознае и ще ви попита за старата ви парола с цел да прекриптира речника с новия ключ.</p>"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:52
-#, fuzzy
 msgid "Please decrypt my personal dictionary and store it in a clear-text format."
 msgstr "Моля декриптирай личния ми речник и го запази в чист текстов формат."
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:55
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:73
-#, fuzzy
 msgid "Change crypto settings"
 msgstr "Промяна на настройките на криптирането"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:65
-#, fuzzy
 msgid ""
 "<p>Your personal dictionary is <strong>currently not encrypted</strong>. You "
 "may wish to encrypt your personal dictionary to protect your privacy in case "
@@ -3153,39 +2646,32 @@ msgid ""
 msgstr "<p>Вашият личен речник <strong>не е криптиран</strong>. Може би желаете да криптирате личния си речник в случай, че системата за уеб поща е изложена на риск и вашият личен речник бъде откраднат. Когато е криптиран, съдържанието на файла изглежда изопачено и е трудно да се декриптира без знанието на верния ключ (който е паролата на пощенската ви кутия).</p> <strong>ВНИМАНИЕ:</strong> Ако решите да декриптирате личния си речник, трябва да запомните, че е хеширан с паролата на пощенската ви кутия. Ако забравите паролата на пощенската си кутия и администратора я промени, вашият личен речник ще стане неизползваем и ще трябва да създадете нов.Ако вие или вашият системен администратор промени паролата на пощенската ви кутия , но вие все още имате старата си парола под ръка , ще можете да въведете стария си ключ за да прекриптирате речника с новата стойност.</p>"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:70
-#, fuzzy
 msgid "Please encrypt my personal dictionary and store it in an encrypted format."
 msgstr "Моля криптирай личния ми речник и го съхрани в криптиран формат."
 
 #: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:28
 #, c-format
-#, fuzzy
 msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
 msgstr "Изтривам следните данни от <strong>%s</strong> речник:"
 
 #: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:71
-#, fuzzy
 msgid "All done!"
 msgstr "Всичко изпълнено!"
 
 #: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:72
 #: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod:71
-#, fuzzy
 msgid "Personal Dictionary Updated"
 msgstr "Личния речник е обновен"
 
 #: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:78
-#, fuzzy
 msgid "No changes requested."
 msgstr "Не са заявени промени."
 
 #: squirrelmail/plugins/squirrelspell/modules/init.mod:33
-#, fuzzy
 msgid "Please wait, communicating with the server..."
 msgstr "Моля почакайте, комуникирам със сървъра..."
 
 #: squirrelmail/plugins/squirrelspell/modules/init.mod:42
-#, fuzzy
 msgid ""
 "Please choose which dictionary you would like to use to spellcheck this "
 "message:"
@@ -3193,18 +2679,15 @@ msgstr "Моля изберете кой речник ще искате да използвате за да направите правопи
 
 #: squirrelmail/plugins/calendar/calendar.php:113
 #: squirrelmail/plugins/squirrelspell/modules/init.mod:53
-#, fuzzy
 msgid "Go"
 msgstr "Давай"
 
 #: squirrelmail/plugins/squirrelspell/modules/init.mod:57
-#, fuzzy
 msgid "SquirrelSpell Initiating"
 msgstr "SquirrelSpell започва"
 
 #: squirrelmail/plugins/squirrelspell/modules/lang_change.mod:72
 #, c-format
-#, fuzzy
 msgid ""
 "Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
 "default dictionary."
@@ -3212,164 +2695,133 @@ msgstr "Настройките са приспособени към:  <strong>%s</strong> с <strong>%s</stro
 
 #: squirrelmail/plugins/squirrelspell/modules/lang_change.mod:79
 #, c-format
-#, fuzzy
 msgid "Using <strong>%s</strong> dictionary (system default) for spellcheck."
 msgstr "Използване на речника <strong>%s</strong> (по подразбиране) за правописната проверка."
 
 #: squirrelmail/plugins/squirrelspell/modules/lang_change.mod:90
-#, fuzzy
 msgid "International Dictionaries Preferences Updated"
 msgstr "Предпочитанията от международните речници обновени"
 
 #: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod:22
-#, fuzzy
 msgid ""
 "Please check any available international dictionaries which you would like "
 "to use when spellchecking:"
 msgstr "Моля проверете за някакви международни речници, които бихте искали да използвате при проверката на правописа:"
 
 #: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod:32
-#, fuzzy
 msgid "Make this dictionary my default selection:"
 msgstr "Направи този речник да е избран по подразбиране:"
 
 #: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod:49
-#, fuzzy
 msgid "Make these changes"
 msgstr "Направи промените"
 
 #: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod:50
-#, fuzzy
 msgid "Add International Dictionaries"
 msgstr "Добави международен речник"
 
 #: squirrelmail/plugins/squirrelspell/modules/options_main.mod:19
-#, fuzzy
 msgid "Please choose which options you wish to set up:"
 msgstr "Моля изберете кои опции бихте искали да установите:"
 
 #: squirrelmail/plugins/squirrelspell/modules/options_main.mod:23
-#, fuzzy
 msgid "Edit your personal dictionary"
 msgstr "Редактирай личния си речник"
 
 #: squirrelmail/plugins/squirrelspell/modules/options_main.mod:30
-#, fuzzy
 msgid "Set up international dictionaries"
 msgstr "Установяване на международните речници"
 
 #: squirrelmail/plugins/squirrelspell/modules/options_main.mod:40
 #: squirrelmail/plugins/squirrelspell/modules/options_main.mod:44
-#, fuzzy
 msgid "Encrypt or decrypt your personal dictionary"
 msgstr "Криптиране или декриптиране на личния речник"
 
 #: squirrelmail/plugins/squirrelspell/modules/options_main.mod:45
-#, fuzzy
 msgid "not available"
 msgstr "не е налице"
 
 #: squirrelmail/plugins/squirrelspell/modules/options_main.mod:48
-#, fuzzy
 msgid "SquirrelSpell Options Menu"
 msgstr "Меню на опциите на SquirrelSpell"
 
 #: squirrelmail/plugins/translate/options.php:94
-#, fuzzy
 msgid "Translator"
 msgstr "Преводач"
 
 #: squirrelmail/plugins/translate/options.php:97
-#, fuzzy
 msgid "Your server options are as follows:"
 msgstr "Опциите на сървъра са както следва:"
 
 #: squirrelmail/plugins/translate/options.php:102
-#, fuzzy
 msgid "13 language pairs, maximum of 1000 characters translated, powered by Systran"
 msgstr "13 езикови двойки, максимум 1000 символа се превеждат, благодарение на Systran"
 
 #: squirrelmail/plugins/translate/options.php:105
-#, fuzzy
 msgid "10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
 msgstr "10 езикови двойки, максимум 25 килобайта се превеждат, благодарение на Systran"
 
 #: squirrelmail/plugins/translate/options.php:108
-#, fuzzy
 msgid "12 language pairs, no known limits, powered by Systran"
 msgstr "12 езикови двойки, без ограничения, благодарение на Systran"
 
 #: squirrelmail/plugins/translate/options.php:111
-#, fuzzy
 msgid ""
 "767 language pairs, no known limits, powered by Translation Experts's "
 "InterTran"
 msgstr "767 езикови двойки, без ограничения, благодарение на Translation Experts's InterTran"
 
 #: squirrelmail/plugins/translate/options.php:114
-#, fuzzy
 msgid "8 language pairs, no known limits, powered by GPLTrans (free, open source)"
 msgstr "8 езикови двойки, без ограничения, благодарение на GPLTrans (безплатно, отворен код)"
 
 #: squirrelmail/plugins/translate/options.php:120
-#, fuzzy
 msgid ""
 "You also decide if you want the translation box displayed, and where it will "
 "be located."
 msgstr "Ще трябва да решите дали искате да ви се показва прозореца за превода и къде да бъде позиционирана."
 
 #: squirrelmail/plugins/translate/options.php:124
-#, fuzzy
 msgid "Select your translator:"
 msgstr "Изберете своя преводач:"
 
 #: squirrelmail/plugins/translate/options.php:136
-#, fuzzy
 msgid "When reading:"
 msgstr "При четене:"
 
 #: squirrelmail/plugins/translate/options.php:141
-#, fuzzy
 msgid "Show translation box"
 msgstr "Покажи прозореца на превода"
 
 #: squirrelmail/plugins/translate/options.php:143
-#, fuzzy
 msgid "to the left"
 msgstr "в ляво"
 
 #: squirrelmail/plugins/translate/options.php:144
-#, fuzzy
 msgid "in the center"
 msgstr "в центъра"
 
 #: squirrelmail/plugins/translate/options.php:145
-#, fuzzy
 msgid "to the right"
 msgstr "в дясно"
 
 #: squirrelmail/plugins/translate/options.php:150
-#, fuzzy
 msgid "Translate inside the SquirrelMail frames"
 msgstr "Преведи във фреймовете на SquirrelMail"
 
 #: squirrelmail/plugins/translate/options.php:153
-#, fuzzy
 msgid "When composing:"
 msgstr "При съставяне:"
 
 #: squirrelmail/plugins/translate/options.php:157
-#, fuzzy
 msgid "Not yet functional, currently does nothing"
 msgstr "Все още не е функционално, в момента не прави нищо"
 
 #: squirrelmail/plugins/translate/setup.php:104
-#, fuzzy
 msgid "Translation Options"
 msgstr "Опции на превода"
 
 #: squirrelmail/plugins/translate/setup.php:106
-#, fuzzy
 msgid ""
 "Which translator should be used when you get messages in a different "
 "language?"
@@ -3412,7 +2864,6 @@ msgstr "Кой преводач ще се използва когато получите писмо на друг език?"
 #: squirrelmail/plugins/translate/setup.php:477
 #: squirrelmail/plugins/translate/setup.php:481
 #, c-format
-#, fuzzy
 msgid "%s to %s"
 msgstr "%s към %s"
 
@@ -3449,7 +2900,6 @@ msgstr "%s към %s"
 #: squirrelmail/plugins/translate/setup.php:475
 #: squirrelmail/plugins/translate/setup.php:479
 #: squirrelmail/plugins/translate/setup.php:483
-#, fuzzy
 msgid "English"
 msgstr "Английски"
 
@@ -3466,7 +2916,6 @@ msgstr "Английски"
 #: squirrelmail/plugins/translate/setup.php:458
 #: squirrelmail/plugins/translate/setup.php:462
 #: squirrelmail/plugins/translate/setup.php:467
-#, fuzzy
 msgid "French"
 msgstr "Френски"
 
@@ -3483,7 +2932,6 @@ msgstr "Френски"
 #: squirrelmail/plugins/translate/setup.php:463
 #: squirrelmail/plugins/translate/setup.php:466
 #: squirrelmail/plugins/translate/setup.php:470
-#, fuzzy
 msgid "German"
 msgstr "Немски"
 
@@ -3496,7 +2944,6 @@ msgstr "Немски"
 #: squirrelmail/plugins/translate/setup.php:420
 #: squirrelmail/plugins/translate/setup.php:447
 #: squirrelmail/plugins/translate/setup.php:474
-#, fuzzy
 msgid "Italian"
 msgstr "Италиански"
 
@@ -3509,7 +2956,6 @@ msgstr "Италиански"
 #: squirrelmail/plugins/translate/setup.php:422
 #: squirrelmail/plugins/translate/setup.php:451
 #: squirrelmail/plugins/translate/setup.php:478
-#, fuzzy
 msgid "Portuguese"
 msgstr "Португалски"
 
@@ -3522,14 +2968,12 @@ msgstr "Португалски"
 #: squirrelmail/plugins/translate/setup.php:423
 #: squirrelmail/plugins/translate/setup.php:455
 #: squirrelmail/plugins/translate/setup.php:482
-#, fuzzy
 msgid "Spanish"
 msgstr "Испански"
 
 #: squirrelmail/plugins/translate/setup.php:279
 #: squirrelmail/plugins/translate/setup.php:367
 #: squirrelmail/plugins/translate/setup.php:397
-#, fuzzy
 msgid "Russian"
 msgstr "Руски"
 
@@ -3538,148 +2982,123 @@ msgstr "Руски"
 #: squirrelmail/plugins/translate/setup.php:405
 #: squirrelmail/plugins/translate/setup.php:426
 #: squirrelmail/plugins/translate/setup.php:485
-#, fuzzy
 msgid "Translate"
 msgstr "Преведи"
 
 #: squirrelmail/plugins/translate/setup.php:346
 #: squirrelmail/plugins/translate/setup.php:376
-#, fuzzy
 msgid "Brazilian Portuguese"
 msgstr "Бразилски Португалски"
 
 #: squirrelmail/plugins/translate/setup.php:347
 #: squirrelmail/plugins/translate/setup.php:377
-#, fuzzy
 msgid "Bulgarian"
 msgstr "Български"
 
 #: squirrelmail/plugins/translate/setup.php:348
 #: squirrelmail/plugins/translate/setup.php:378
-#, fuzzy
 msgid "Croatian"
 msgstr "Хърватски"
 
 #: squirrelmail/plugins/translate/setup.php:349
 #: squirrelmail/plugins/translate/setup.php:379
-#, fuzzy
 msgid "Czech"
 msgstr "Чешки"
 
 #: squirrelmail/plugins/translate/setup.php:350
 #: squirrelmail/plugins/translate/setup.php:380
-#, fuzzy
 msgid "Danish"
 msgstr "Датски"
 
 #: squirrelmail/plugins/translate/setup.php:351
 #: squirrelmail/plugins/translate/setup.php:381
 #: squirrelmail/plugins/translate/setup.php:416
-#, fuzzy
 msgid "Dutch"
 msgstr "Холандски"
 
 #: squirrelmail/plugins/translate/setup.php:353
 #: squirrelmail/plugins/translate/setup.php:383
-#, fuzzy
 msgid "European Spanish"
 msgstr "Европейски Испански"
 
 #: squirrelmail/plugins/translate/setup.php:354
 #: squirrelmail/plugins/translate/setup.php:384
-#, fuzzy
 msgid "Finnish"
 msgstr "Финландски"
 
 #: squirrelmail/plugins/translate/setup.php:357
 #: squirrelmail/plugins/translate/setup.php:387
-#, fuzzy
 msgid "Greek"
 msgstr "Гръцки"
 
 #: squirrelmail/plugins/translate/setup.php:358
 #: squirrelmail/plugins/translate/setup.php:388
-#, fuzzy
 msgid "Hungarian"
 msgstr "Унгарски"
 
 #: squirrelmail/plugins/translate/setup.php:359
 #: squirrelmail/plugins/translate/setup.php:389
-#, fuzzy
 msgid "Icelandic"
 msgstr "Исландски"
 
 #: squirrelmail/plugins/translate/setup.php:361
 #: squirrelmail/plugins/translate/setup.php:391
-#, fuzzy
 msgid "Japanese"
 msgstr "Японски"
 
 #: squirrelmail/plugins/translate/setup.php:362
 #: squirrelmail/plugins/translate/setup.php:392
-#, fuzzy
 msgid "Latin American Spanish"
 msgstr "Латино Американски Испански"
 
 #: squirrelmail/plugins/translate/setup.php:363
 #: squirrelmail/plugins/translate/setup.php:393
-#, fuzzy
 msgid "Norwegian"
 msgstr "Норвежки"
 
 #: squirrelmail/plugins/translate/setup.php:364
 #: squirrelmail/plugins/translate/setup.php:394
-#, fuzzy
 msgid "Polish"
 msgstr "Полски"
 
 #: squirrelmail/plugins/translate/setup.php:366
 #: squirrelmail/plugins/translate/setup.php:396
-#, fuzzy
 msgid "Romanian"
 msgstr "Румънски"
 
 #: squirrelmail/plugins/translate/setup.php:368
 #: squirrelmail/plugins/translate/setup.php:398
-#, fuzzy
 msgid "Serbian"
 msgstr "Сръбски"
 
 #: squirrelmail/plugins/translate/setup.php:369
 #: squirrelmail/plugins/translate/setup.php:399
-#, fuzzy
 msgid "Slovenian"
 msgstr "Словенски"
 
 #: squirrelmail/plugins/translate/setup.php:371
 #: squirrelmail/plugins/translate/setup.php:401
-#, fuzzy
 msgid "Swedish"
 msgstr "Шведски"
 
 #: squirrelmail/plugins/translate/setup.php:372
 #: squirrelmail/plugins/translate/setup.php:402
-#, fuzzy
 msgid "Welsh"
 msgstr "Уелски"
 
 #: squirrelmail/plugins/translate/setup.php:419
-#, fuzzy
 msgid "Indonesian"
 msgstr "Индонезийски"
 
 #: squirrelmail/plugins/translate/setup.php:421
-#, fuzzy
 msgid "Latin"
 msgstr "Латински"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:34
-#, fuzzy
 msgid "New Mail Notification"
 msgstr "Известие за нова поща"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:37
-#, fuzzy
 msgid ""
 "Select <b>Enable Media Playing</b> to turn on playing a media file when "
 "unseen mail is in your folders. When enabled, you can specify the media file "
@@ -3691,7 +3110,6 @@ msgstr ""
 "файлова кутия."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:39
-#, fuzzy
 msgid ""
 "The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
 "folders for unseen mail, not just the inbox for notification."
@@ -3700,7 +3118,6 @@ msgstr ""
 "папки за нова поща, не само в inbox."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:41
-#, fuzzy
 msgid ""
 "Selecting the <b>Show popup</b> option will enable the showing of a popup "
 "window when unseen mail is in your folders (requires JavaScript)."
@@ -3709,7 +3126,6 @@ msgstr ""
 "прозорец когато има непрегледана поща във папките ви (изисква JavaScript)."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:43
-#, fuzzy
 msgid ""
 "Use the <b>Check RECENT</b> to only check for messages that are recent. "
 "Recent messages are those that have just recently showed up and have not "
@@ -3722,7 +3138,6 @@ msgstr ""
 "прозорци за неразгледаната поща."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:45
-#, fuzzy
 msgid ""
 "Selecting the <b>Change title</b> option will change the title in some "
 "browsers to let you know when you have new mail (requires JavaScript, and "
@@ -3736,7 +3151,6 @@ msgstr ""
 "имате нова поща, дори и ако сте позволили <b>Проверка на СКОРОШНИТЕ</b>"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:47
-#, fuzzy
 msgid ""
 "Select from the list of <b>server files</b> the media file to play when new "
 "mail arrives.  Selecting <b>local media</b> will play the file specified in "
@@ -3749,83 +3163,67 @@ msgstr ""
 "файл, системата ще използва този по подразбиране от сървъра."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:57
-#, fuzzy
 msgid "Enable Media Playing"
 msgstr "Позволи просвирването на медийни файлове"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:65
-#, fuzzy
 msgid "Check all boxes, not just INBOX"
 msgstr "Провери всички полета, не само в INBOX"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:73
-#, fuzzy
 msgid "Count only messages that are RECENT"
 msgstr "Брой само новите писма които са СКОРОШНИ"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:81
-#, fuzzy
 msgid "Change title on supported browsers."
 msgstr "Промени заглавието на поддържаните браузъри."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:81
 #: squirrelmail/plugins/newmail/newmail_opt.php:89
-#, fuzzy
 msgid "requires JavaScript to work"
 msgstr "изисква JavaScript за да работи"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:89
-#, fuzzy
 msgid "Show popup window on new mail"
 msgstr "Покажи падащ прозорец при ново писмо"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:92
-#, fuzzy
 msgid "Select server file:"
 msgstr "Изберете сървърен файл:"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:94
-#, fuzzy
 msgid "(local media)"
 msgstr "(локална медиа)"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:111
-#, fuzzy
 msgid "Try"
 msgstr "Опитай"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:119
-#, fuzzy
 msgid "Local Media File:"
 msgstr "Локален Медиен Файл:"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:125
-#, fuzzy
 msgid "Current File:"
 msgstr "Текущ Файл:"
 
 #: squirrelmail/plugins/newmail/newmail.php:20
-#, fuzzy
 msgid "New Mail"
 msgstr "Ново Писмо:"
 
 #: squirrelmail/plugins/newmail/newmail.php:27
-#, fuzzy
 msgid "SquirrelMail Notice:"
 msgstr "SquirrelMail известие:"
 
 #: squirrelmail/plugins/newmail/newmail.php:31
-#, fuzzy
 msgid "You have new mail!"
 msgstr "Имате ново писмо!"
 
 #: squirrelmail/plugins/newmail/setup.php:78
-#, fuzzy
 msgid "NewMail Options"
 msgstr "Опции за ново писмо"
 
 #: squirrelmail/plugins/newmail/setup.php:80
-#, fuzzy
 msgid ""
 "This configures settings for playing sounds and/or showing popup windows "
 "when new mail arrives."
@@ -3834,41 +3232,34 @@ msgstr ""
 "падащи менюта когато пристигне ново писмо."
 
 #: squirrelmail/plugins/newmail/setup.php:129
-#, fuzzy
 msgid "New Mail Notification options saved"
 msgstr "Опциите за уведомяването за ново писмо записани"
 
 #: squirrelmail/plugins/newmail/setup.php:202
 #, c-format
-#, fuzzy
 msgid "%s New Messages"
 msgstr "%s Нови Писма"
 
 #: squirrelmail/plugins/newmail/setup.php:206
 #, c-format
-#, fuzzy
 msgid "%s New Message"
 msgstr "%s Ново Писмо"
 
 #: squirrelmail/plugins/newmail/testsound.php:24
-#, fuzzy
 msgid "Test Sound"
 msgstr "Проба на звука"
 
 #: squirrelmail/plugins/newmail/testsound.php:30
-#, fuzzy
 msgid "Loading the sound..."
 msgstr "Зареждане на звука..."
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:82
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:90
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:102
-#, fuzzy
 msgid "POP3 connect:"
 msgstr "POP3 конекция"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:82
-#, fuzzy
 msgid "No server specified"
 msgstr "Не е указан сървър"
 
@@ -3883,17 +3274,14 @@ msgstr "Не е указан сървър"
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:455
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:554
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:577
-#, fuzzy
 msgid "Error "
 msgstr "Грешка "
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:110
-#, fuzzy
 msgid "POP3: premature NOOP OK, NOT an RFC 1939 Compliant server"
 msgstr "POP3: преждевременно NOOP OK, не е съвместим сървър с RFC 1939"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:120
-#, fuzzy
 msgid "POP3 noop:"
 msgstr "POP3 noop:"
 
@@ -3908,25 +3296,21 @@ msgstr "POP3 noop:"
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:479
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:542
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:610
-#, fuzzy
 msgid "No connection to server"
 msgstr "Няма връзка към сървъра"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:133
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:136
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:141
-#, fuzzy
 msgid "POP3 user:"
 msgstr "POP3 потребител:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:133
-#, fuzzy
 msgid "no login ID submitted"
 msgstr "не е въведено ID на логина"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:136
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:156
-#, fuzzy
 msgid "connection not established"
 msgstr "връзката не е установена"
 
@@ -3934,24 +3318,20 @@ msgstr "връзката не е установена"
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:156
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:161
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:170
-#, fuzzy
 msgid "POP3 pass:"
 msgstr "POP3 парола:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:153
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:195
-#, fuzzy
 msgid "No password submitted"
 msgstr "Не е въведена парола"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:161
-#, fuzzy
 msgid "authentication failed "
 msgstr "аутентикацията не успя"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:170
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:219
-#, fuzzy
 msgid "NOOP failed. Server not RFC 1939 compliant"
 msgstr "NOOP не успя. Сървърът не е съвместим с RFC 1939"
 
@@ -3961,39 +3341,32 @@ msgstr "NOOP не успя. Сървърът не е съвместим с RFC 1939"
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:200
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:210
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:219
-#, fuzzy
 msgid "POP3 apop:"
 msgstr "POP3 apop"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:192
-#, fuzzy
 msgid "No login ID submitted"
 msgstr "Не е изпратено логин ID"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:200
-#, fuzzy
 msgid "No server banner"
 msgstr "Няма сървърен банер"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:200
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:210
-#, fuzzy
 msgid "abort"
 msgstr "отмени"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:210
-#, fuzzy
 msgid "apop authentication failed"
 msgstr "apop аутентикацията не успя"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:235
-#, fuzzy
 msgid "POP3 login:"
 msgstr "POP3 логин"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:260
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:276
-#, fuzzy
 msgid "POP3 top:"
 msgstr "POP3 начало:"
 
@@ -4001,224 +3374,182 @@ msgstr "POP3 начало:"
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:330
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:341
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:353
-#, fuzzy
 msgid "POP3 pop_list:"
 msgstr "POP3 pop_list:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:353
-#, fuzzy
 msgid "Premature end of list"
 msgstr "Преждевременен край на списъка"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:376
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:389
-#, fuzzy
 msgid "POP3 get:"
 msgstr "POP3 взема:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:415
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:422
-#, fuzzy
 msgid "POP3 last:"
 msgstr "POP3 последен"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:445
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:455
-#, fuzzy
 msgid "POP3 reset:"
 msgstr "POP3 занулен"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:479
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:485
-#, fuzzy
 msgid "POP3 send_cmd:"
 msgstr "POP3 send_cmd:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:485
-#, fuzzy
 msgid "Empty command string"
 msgstr "Празен команден стринг"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:505
-#, fuzzy
 msgid "POP3 quit:"
 msgstr "POP3 изход:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:505
-#, fuzzy
 msgid "connection does not exist"
 msgstr "конекцията не съществува"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:542
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:554
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:577
-#, fuzzy
 msgid "POP3 uidl:"
 msgstr "POP3 uidl:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:610
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:615
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:621
-#, fuzzy
 msgid "POP3 delete:"
 msgstr "POP3 изтриване:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:615
-#, fuzzy
 msgid "No msg number submitted"
 msgstr "Не е изпратен броя на писмата"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:621
-#, fuzzy
 msgid "Command failed "
 msgstr "Командата не успя "
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:54
-#, fuzzy
 msgid "Remote POP server Fetching Mail"
 msgstr "Отдалечения POP сървър изтегля писмата"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:63
-#, fuzzy
 msgid "Select Server:"
 msgstr "Избери Сървър"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:65
-#, fuzzy
 msgid "All"
 msgstr "Всички"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:78
-#, fuzzy
 msgid "Password for"
 msgstr "Парола за"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:85
-#, fuzzy
 msgid "Fetch Mail"
 msgstr "Изтегли писмо"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:117
-#, fuzzy
 msgid "Fetching from "
 msgstr "Изтеглям от "
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:124
 #: squirrelmail/plugins/mail_fetch/fetch.php:184
-#, fuzzy
 msgid "Oops, "
 msgstr "Опа, "
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:128
-#, fuzzy
 msgid "Opening IMAP server"
 msgstr "Отваряне на IMAP сървър"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:131
-#, fuzzy
 msgid "Opening POP server"
 msgstr "Отваряне на POP сървър"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:134
 #: squirrelmail/plugins/mail_fetch/setup.php:123
-#, fuzzy
 msgid "Login Failed:"
 msgstr "Логването не успя:"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:151
-#, fuzzy
 msgid "Login OK: No new messages"
 msgstr "Логин OK: Няма нови писма"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:156
-#, fuzzy
 msgid "Login OK: Inbox EMPTY"
 msgstr "Логин OK: Inbox ПРАЗЕН"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:161
-#, fuzzy
 msgid "Login OK: Inbox contains ["
 msgstr "Логин OK: Inbox съдържа ["
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:161
-#, fuzzy
 msgid "] messages"
 msgstr "] писма"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:164
-#, fuzzy
 msgid "Fetching UIDL..."
 msgstr "Изтеглям UIDL..."
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:169
 #: squirrelmail/plugins/mail_fetch/setup.php:154
-#, fuzzy
 msgid "Server does not support UIDL."
 msgstr "Сървъра не поддържа UIDL."
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:172
-#, fuzzy
 msgid "Leaving Mail on Server..."
 msgstr "Оставям поща на Сървъра..."
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:174
-#, fuzzy
 msgid "Deleting messages from server..."
 msgstr "Изтривам писмото от сървъра..."
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:178
-#, fuzzy
 msgid "Fetching message "
 msgstr "Изтеглям писмо "
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:201
-#, fuzzy
 msgid "Message appended to mailbox"
 msgstr "Писмото прикрепено към пощенската кутия"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:205
-#, fuzzy
 msgid "Message "
 msgstr "Писмото "
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:205
-#, fuzzy
 msgid " deleted from Remote Server!"
 msgstr " изтрит от Отдалечения Сървър"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:207
-#, fuzzy
 msgid "Delete failed:"
 msgstr "Изтриването се провали:"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:212
 #: squirrelmail/plugins/mail_fetch/setup.php:185
-#, fuzzy
 msgid "Error Appending Message!"
 msgstr "Грешка при прикрепването на писмото!"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:216
-#, fuzzy
 msgid "Closing POP"
 msgstr "Затварям POP"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:218
-#, fuzzy
 msgid "Logging out from IMAP"
 msgstr "Излизам от IMAP"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:221
-#, fuzzy
 msgid "Saving UIDL"
 msgstr "Запис на UIDL"
 
 #: squirrelmail/plugins/mail_fetch/options.php:105
-#, fuzzy
 msgid "Remote POP server settings"
 msgstr "Настройки на отдалечения POP сървър"
 
 #: squirrelmail/plugins/mail_fetch/options.php:107
-#, fuzzy
 msgid ""
 "You should be aware that the encryption used to store your password is not "
 "perfectly secure.  However, if you are using pop, there is inherently no "
@@ -4231,223 +3562,182 @@ msgstr ""
 "декриптирано от хакер, ако прочете сорс кода на този файл."
 
 #: squirrelmail/plugins/mail_fetch/options.php:109
-#, fuzzy
 msgid "If you leave password empty, it will be required when you fetch mail."
 msgstr "Ако не напишете парола, ще ви бъде искана когато изтегляте пощата."
 
 #: squirrelmail/plugins/mail_fetch/options.php:113
-#, fuzzy
 msgid "Encrypt passwords (informative only)"
 msgstr "Криптирай пароли (само информативно)"
 
 #: squirrelmail/plugins/mail_fetch/options.php:119
 #: squirrelmail/plugins/mail_fetch/options.php:146
-#, fuzzy
 msgid "Add Server"
 msgstr "Добави Сървър"
 
 #: squirrelmail/plugins/mail_fetch/options.php:123
 #: squirrelmail/plugins/mail_fetch/options.php:196
-#, fuzzy
 msgid "Server:"
 msgstr "Сървър:"
 
 #: squirrelmail/plugins/mail_fetch/options.php:124
 #: squirrelmail/plugins/mail_fetch/options.php:198
-#, fuzzy
 msgid "Alias:"
 msgstr "Псевдоним:"
 
 #: squirrelmail/plugins/mail_fetch/options.php:125
 #: squirrelmail/plugins/mail_fetch/options.php:200
-#, fuzzy
 msgid "Username:"
 msgstr "Потребителско име:"
 
 #: squirrelmail/plugins/mail_fetch/options.php:127
 #: squirrelmail/plugins/mail_fetch/options.php:204
-#, fuzzy
 msgid "Store in Folder:"
 msgstr "Запази в Папка:"
 
 #: squirrelmail/plugins/mail_fetch/options.php:143
 #: squirrelmail/plugins/mail_fetch/options.php:224
-#, fuzzy
 msgid "Leave Mail on Server"
 msgstr "Остави поща на Сървъра"
 
 #: squirrelmail/plugins/mail_fetch/options.php:144
 #: squirrelmail/plugins/mail_fetch/options.php:226
-#, fuzzy
 msgid "Check mail during login"
 msgstr "Проверявай за поща по време на логването"
 
 #: squirrelmail/plugins/mail_fetch/options.php:145
 #: squirrelmail/plugins/mail_fetch/options.php:228
-#, fuzzy
 msgid "Check mail during folder refresh"
 msgstr "Проверявай за поща при презареждането на папките"
 
 #: squirrelmail/plugins/mail_fetch/options.php:152
 #: squirrelmail/plugins/mail_fetch/options.php:229
-#, fuzzy
 msgid "Modify Server"
 msgstr "Модифицирай сървър"
 
 #: squirrelmail/plugins/mail_fetch/options.php:156
-#, fuzzy
 msgid "Server Name:"
 msgstr "Име на сървъра:"
 
 #: squirrelmail/plugins/mail_fetch/options.php:162
 #: squirrelmail/plugins/mail_fetch/options.php:185
-#, fuzzy
 msgid "Modify"
 msgstr "Модифицирай"
 
 #: squirrelmail/plugins/mail_fetch/options.php:166
-#, fuzzy
 msgid "No-one server in use. Try to add."
 msgstr "Никой сървър не се използва. Опитайте се да добавите"
 
 #: squirrelmail/plugins/mail_fetch/options.php:172
 #: squirrelmail/plugins/mail_fetch/options.php:187
 #: squirrelmail/plugins/mail_fetch/options.php:234
-#, fuzzy
 msgid "Fetching Servers"
 msgstr "Сваляне от Сървъри"
 
 #: squirrelmail/plugins/mail_fetch/options.php:176
-#, fuzzy
 msgid "Confirm Deletion of a Server"
 msgstr "Потвърди изтриването на Сървъра"
 
 #: squirrelmail/plugins/mail_fetch/options.php:180
-#, fuzzy
 msgid "Selected Server:"
 msgstr "Избран Сървър:"
 
 #: squirrelmail/plugins/mail_fetch/options.php:181
-#, fuzzy
 msgid "Confirm delete of selected server?"
 msgstr "Потвърди изтриването на избрания сървър"
 
 #: squirrelmail/plugins/mail_fetch/options.php:182
-#, fuzzy
 msgid "Confirm Delete"
 msgstr "Потвърди изтриването"
 
 #: squirrelmail/plugins/mail_fetch/options.php:191
-#, fuzzy
 msgid "Mofify a Server"
 msgstr "Модифицирай Сървъра"
 
 #: squirrelmail/plugins/mail_fetch/options.php:237
-#, fuzzy
 msgid "Undefined Function"
 msgstr "Недефинирана функция"
 
 #: squirrelmail/plugins/mail_fetch/options.php:239
-#, fuzzy
 msgid "Hey! Wath do You are looking for?"
 msgstr "Ей! Kакво търсиш?"
 
 #: squirrelmail/plugins/mail_fetch/setup.php:30
-#, fuzzy
 msgid "Fetch"
 msgstr "Изтегляне"
 
 #: squirrelmail/plugins/mail_fetch/setup.php:115
 #: squirrelmail/plugins/mail_fetch/setup.php:162
-#, fuzzy
 msgid "Warning, "
 msgstr "Внимание, "
 
 #: squirrelmail/plugins/mail_fetch/setup.php:198
-#, fuzzy
 msgid "Mail Fetch Result:"
 msgstr "Резултат от изтегляне на пощата"
 
 #: squirrelmail/plugins/mail_fetch/setup.php:223
-#, fuzzy
 msgid "Simple POP3 Fetch Mail"
 msgstr "Просто POP3 изтегляне на пощата"
 
 #: squirrelmail/plugins/mail_fetch/setup.php:225
-#, fuzzy
 msgid ""
 "This configures settings for downloading email from a pop3 mailbox to your "
 "account on this server."
 msgstr "Това конфигурира настройките за сваляне на поща от pop3 пощенска кутия в акаунта ви на сървъра"
 
 #: squirrelmail/plugins/bug_report/setup.php:65
-#, fuzzy
 msgid "Bug Reports:"
 msgstr "Описани бъгове"
 
 #: squirrelmail/plugins/bug_report/setup.php:70
-#, fuzzy
 msgid "Show button in toolbar"
 msgstr "Покажи бутон в лентата с инструментите"
 
 #: squirrelmail/plugins/sent_subfolders/setup.php:94
-#, fuzzy
 msgid "Sent Subfolders Options"
 msgstr "Опции на Sent подпапките"
 
 #: squirrelmail/plugins/sent_subfolders/setup.php:99
-#, fuzzy
 msgid "Use Sent Subfolders"
 msgstr "Използвай подпапките на Sent"
 
 #: squirrelmail/plugins/sent_subfolders/setup.php:103
-#, fuzzy
 msgid "Monthly"
 msgstr "Месечно"
 
 #: squirrelmail/plugins/sent_subfolders/setup.php:104
-#, fuzzy
 msgid "Quarterly"
 msgstr "На четиримесечие"
 
 #: squirrelmail/plugins/sent_subfolders/setup.php:105
-#, fuzzy
 msgid "Yearly"
 msgstr "Годишно"
 
 #: squirrelmail/plugins/sent_subfolders/setup.php:120
-#, fuzzy
 msgid "Base Sent Folder"
 msgstr "Базова папка на изпратените"
 
 #: squirrelmail/plugins/calendar/calendar.php:75
-#, fuzzy
 msgid "TODAY"
 msgstr "ДНЕС"
 
 #: squirrelmail/plugins/calendar/day.php:79
-#, fuzzy
 msgid "ADD"
 msgstr "ДОБАВИ"
 
 #: squirrelmail/plugins/calendar/day.php:93
-#, fuzzy
 msgid "EDIT"
 msgstr "РЕДАКТИРАЙ"
 
 #: squirrelmail/plugins/calendar/day.php:95
-#, fuzzy
 msgid "DEL"
 msgstr "ИЗТРИЙ"
 
 #: squirrelmail/plugins/calendar/event_create.php:31
-#, fuzzy
 msgid "Start time:"
 msgstr "Начално време:"
 
 #: squirrelmail/plugins/calendar/event_create.php:41
 #: squirrelmail/plugins/calendar/event_edit.php:59
-#, fuzzy
 msgid "Length:"
 msgstr "Дължина:"
 
@@ -4455,17 +3745,14 @@ msgstr "Дължина:"
 #: squirrelmail/plugins/calendar/event_edit.php:65
 #: squirrelmail/plugins/calendar/event_edit.php:97
 #: squirrelmail/plugins/calendar/event_edit.php:110
-#, fuzzy
 msgid "Priority:"
 msgstr "Приоритет:"
 
 #: squirrelmail/plugins/calendar/event_create.php:61
-#, fuzzy
 msgid "Set Event"
 msgstr "Установи събитие"
 
 #: squirrelmail/plugins/calendar/event_create.php:111
-#, fuzzy
 msgid "Event Has been added!"
 msgstr "Събитието е добавено!"
 
@@ -4473,7 +3760,6 @@ msgstr "Събитието е добавено!"
 #: squirrelmail/plugins/calendar/event_delete.php:34
 #: squirrelmail/plugins/calendar/event_edit.php:49
 #: squirrelmail/plugins/calendar/event_edit.php:95
-#, fuzzy
 msgid "Time:"
 msgstr "Време:"
 
@@ -4481,128 +3767,103 @@ msgstr "Време:"
 #: squirrelmail/plugins/calendar/event_delete.php:91
 #: squirrelmail/plugins/calendar/event_edit.php:189
 #: squirrelmail/plugins/calendar/functions.php:23
-#, fuzzy
 msgid "Day View"
 msgstr "Дневен Преглед"
 
 #: squirrelmail/plugins/calendar/event_delete.php:31
-#, fuzzy
 msgid "Do you really want to delete this event?"
 msgstr "Наистина ли искате да изтриете това събитие?"
 
 #: squirrelmail/plugins/calendar/event_delete.php:89
-#, fuzzy
 msgid "Event deleted!"
 msgstr "Събитието изтрито!"
 
 #: squirrelmail/plugins/calendar/event_delete.php:97
-#, fuzzy
 msgid "Nothing to delete!"
 msgstr "Няма нищо за изтриване!"
 
 #: squirrelmail/plugins/calendar/event_edit.php:79
-#, fuzzy
 msgid "Update Event"
 msgstr "Обнови събитие"
 
 #: squirrelmail/plugins/calendar/event_edit.php:91
-#, fuzzy
 msgid "Do you really want to change this event from:"
 msgstr "Наистина ли искате да промените това събитие от:"
 
 #: squirrelmail/plugins/calendar/event_edit.php:104
-#, fuzzy
 msgid "to:"
 msgstr "до:"
 
 #: squirrelmail/plugins/calendar/event_edit.php:187
-#, fuzzy
 msgid "Event updated!"
 msgstr "Събитието обновено!"
 
 #: squirrelmail/plugins/calendar/functions.php:21
-#, fuzzy
 msgid "Month View"
 msgstr "Месечен преглед"
 
 #: squirrelmail/plugins/calendar/functions.php:34
-#, fuzzy
 msgid "0 min."
 msgstr "0 мин."
 
 #: squirrelmail/plugins/calendar/functions.php:35
-#, fuzzy
 msgid "15 min."
 msgstr "15 мин."
 
 #: squirrelmail/plugins/calendar/functions.php:36
-#, fuzzy
 msgid "35 min."
 msgstr "35 мин."
 
 #: squirrelmail/plugins/calendar/functions.php:37
-#, fuzzy
 msgid "45 min."
 msgstr "45 мин."
 
 #: squirrelmail/plugins/calendar/functions.php:38
-#, fuzzy
 msgid "1 hr."
 msgstr "1 час"
 
 #: squirrelmail/plugins/calendar/functions.php:39
-#, fuzzy
 msgid "1.5 hr."
 msgstr "1.5 часа"
 
 #: squirrelmail/plugins/calendar/functions.php:40
-#, fuzzy
 msgid "2 hr."
 msgstr "2 часа"
 
 #: squirrelmail/plugins/calendar/functions.php:41
-#, fuzzy
 msgid "2.5 hr."
 msgstr "2.5 часа"
 
 #: squirrelmail/plugins/calendar/functions.php:42
-#, fuzzy
 msgid "3 hr."
 msgstr "3 часа"
 
 #: squirrelmail/plugins/calendar/functions.php:43
-#, fuzzy
 msgid "3.5 hr."
 msgstr "3.5 часа"
 
 #: squirrelmail/plugins/calendar/functions.php:44
-#, fuzzy
 msgid "4 hr."
 msgstr "4 часа"
 
 #: squirrelmail/plugins/calendar/functions.php:45
-#, fuzzy
 msgid "5 hr."
 msgstr "5 часа"
 
 #: squirrelmail/plugins/calendar/functions.php:46
-#, fuzzy
 msgid "6 hr."
 msgstr "6 часа"
 
 #: squirrelmail/plugins/calendar/setup.php:21
-#, fuzzy
 msgid "Calendar"
 msgstr "Календар"
 
 #: squirrelmail/plugins/listcommands/mailout.php:19
-#, fuzzy
 msgid "Mailinglist"
 msgstr "Пощенски списък"
 
 #: squirrelmail/plugins/listcommands/mailout.php:25
 #, c-format
-#, fuzzy
 msgid ""
 "This will send a message to %s requesting help for this list. You will "
 "receive an emailed response at the address below."
@@ -4610,7 +3871,6 @@ msgstr "Това ще изпрати писмо до %s с молба за помощ за този списък. Вие ще полу
 
 #: squirrelmail/plugins/listcommands/mailout.php:28
 #, c-format
-#, fuzzy
 msgid ""
 "This will send a message to %s requesting that you will be subscribed to "
 "this list. You will be subscribed with the address below."
@@ -4618,14 +3878,12 @@ msgstr "Това ще изпрати писмо до %s с молба да бъдете записани в този списък. Ще
 
 #: squirrelmail/plugins/listcommands/mailout.php:31
 #, c-format
-#, fuzzy
 msgid ""
 "This will send a message to %s requesting that you will be unsubscribed from "
 "this list. It will try to unsubscribe the adress below."
 msgstr "Това ще изпрати писмо до %s с молба да бъдете отписани от този списък. Ще се опита да отпише адреса по-долу."
 
 #: squirrelmail/plugins/listcommands/mailout.php:79
-#, fuzzy
 msgid "Send Mail"
 msgstr "Изпрати"
 
@@ -4638,12 +3896,10 @@ msgid "Reply to List"
 msgstr "Отговори на списъка"
 
 #: squirrelmail/plugins/listcommands/setup.php:35
-#, fuzzy
 msgid "List Archives"
 msgstr "Архиви на списъка"
 
 #: squirrelmail/plugins/listcommands/setup.php:36
-#, fuzzy
 msgid "Contact Listowner"
 msgstr "Свързване със собственика на списъка"
 
@@ -4653,34 +3909,28 @@ msgstr "Пощенски списък:"
 
 #: squirrelmail/plugins/delete_move_next/setup.php:158
 #: squirrelmail/plugins/delete_move_next/setup.php:161
-#, fuzzy
 msgid "Delete & Prev"
 msgstr "Изтрий"
 
 #: squirrelmail/plugins/delete_move_next/setup.php:164
 #: squirrelmail/plugins/delete_move_next/setup.php:166
-#, fuzzy
 msgid "Delete & Next"
 msgstr "Изтрий"
 
 #: squirrelmail/plugins/delete_move_next/setup.php:287
-#, fuzzy
 msgid "delete_move_next:"
 msgstr "изтрий_премести_следващ:"
 
 #: squirrelmail/plugins/delete_move_next/setup.php:293
-#, fuzzy
 msgid "display at top"
 msgstr "покажи в началото"
 
 #: squirrelmail/plugins/delete_move_next/setup.php:299
 #: squirrelmail/plugins/delete_move_next/setup.php:311
-#, fuzzy
 msgid "with move option"
 msgstr "с опцията за преместване"
 
 #: squirrelmail/plugins/delete_move_next/setup.php:305
-#, fuzzy
 msgid "display at bottom"
 msgstr "покажи в края"
 
