@@ -29,7 +29,8 @@ $SQSPELL_CRYPTO=FALSE;
  * Load the stuff needed from squirrelmail
  */
 
-define('SM_PATH','../../');
+chdir('..');
+define('SM_PATH','../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');

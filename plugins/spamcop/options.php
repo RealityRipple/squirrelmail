@@ -1,6 +1,7 @@
 <?php
 
-define('SM_PATH','../../');
+chdir('..');
+define('SM_PATH','../');
 require_once(SM_PATH . 'include/validate.php');
 
 displayPageHeader($color, "None");   
