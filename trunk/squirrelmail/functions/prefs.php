@@ -13,12 +13,8 @@
 
 require_once(SM_PATH . 'functions/global.php');
 
-if (isset($_SESSION['prefs_cache'])) {
-    $prefs_cache = $_SESSION['prefs_cache'];
-}
-if (isset($_SESSION['prefs_are_cached'])) {
-    $prefs_are_cached = $_SESSION['prefs_are_cached'];
-}
+sqgetGlobalVar('prefs_cache', $prefs_cache, SQ_SESSION );
+sqgetGlobalVar('prefs_are_cached', $prefs_are_cached, SQ_SESSION );
 
 $rg = ini_get('register_globals');
 
