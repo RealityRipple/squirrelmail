@@ -238,7 +238,7 @@
      * status and parent (or not parent) status for all children boxes.
      */
     function compute_folder_children(&$parbox, $boxcount) {
-        global $boxes;
+        global $boxes, $data_dir, $username;
         $nextbox = $parbox + 1;
 
         /* Retreive the name for the parent box. */
@@ -254,7 +254,10 @@
         $boxes[$parbox]['collapse'] = $collapse;
 
         /* Otherwise, get the name of the next box. */
-        $nextbox_name = $boxes[$nextbox]['unformatted'];
+	if (isset($boxes[$nextbox]['unformatted']))
+           $nextbox_name = $boxes[$nextbox]['unformatted'];
+	else
+	   $nextbox_name = '';
 
         /* Compute any children boxes for this box. */
         while (($nextbox < $boxcount) &&
