@@ -591,20 +591,36 @@
    {
        global $checkall, $PHP_SELF, $what, $where, $mailbox;
        
-       echo "\n<A HREF=\"$PHP_SELF?mailbox=" . urlencode($mailbox) .
-           "&startMessage=$startMessage&sort=$sort&";
-       if ( isset($checkall) && $checkall == '1')
-           echo "checkall=0";
+?>
+<script language="JavaScript">
+<!--
+   function CheckAll() {
+      for (var i = 0; i < document.List.elements.length; i++) {
+         var e = document.List.elements[i];
+	 if (e.name != 'allbox')
+	    e.checked = document.List.allbox.checked;
+      }
+   }
+//-->
+<input name="allbox" type="checkbox"
+    value="Check All" onClick="CheckAll();"> <B>Select all</B>
+</script>
+<noscript>
+<a href="<?PHP echo $PHP_SELF ?>?mailbox=<?PHP echo urlencode($mailbox)
+?>&startMessage=<?PHP echo $startMessage ?>&sort=<?PHP echo $sort
+?>&checkall=<?PHP
+       if (isset($checkall) && $checkall == '1')
+           echo '0';
        else
-           echo "checkall=1";
+           echo '1';
        if (isset($where) && isset($what))
-           echo "&where=" . urlencode($where) . "&what=" . urlencode($what);
+           echo '&where=' . urlencode($where) . '&what=' . urlencode($what);
        echo "\">";
        if (isset($checkall) && $checkall == '1')
            echo _("Unselect All");
        else
            echo _("Select All");
-       echo "</A>\n";
+       echo "</A>\n</noscript>\n";
    }
 
    function processSubject($subject)
