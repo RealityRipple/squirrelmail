@@ -39,10 +39,8 @@
         global $mailfetch_server_,$mailfetch_alias_,$mailfetch_user_,$mailfetch_pass_;
         global $mailfetch_lmos_, $mailfetch_uidl_, $mailfetch_login_, $mailfetch_fref_;
         global $PHP_SELF;
-        if ( !check_php_version(4,1) ) {
-            global $_SESSION;
-        }
-        $username = $_SESSION['username'];
+
+        sqgetGlobalVar('username', $username, SQ_SESSION);
 
         if( stristr( $PHP_SELF, 'mail_fetch' ) ) {
             $mailfetch_server_number = getPref($data_dir, $username, 'mailfetch_server_number', 0);
@@ -71,11 +69,9 @@
         require_once (SM_PATH . 'plugins/mail_fetch/functions.php');
 
         global $data_dir, $imapServerAddress, $imapPort;
-        if ( !check_php_version(4,1) ) {
-            global $_SESSION, $_COOKIE;
-        }
-        $username = $_SESSION['username'];
-        $key = $_COOKIE['key'];
+        
+        sqgetGlobalVar('username', $username, SQ_SESSION);
+        sqgetGlobalVar('key',      $key,      SQ_COOKIE);
 
         $mailfetch_newlog = getPref($data_dir, $username, 'mailfetch_newlog');
 
@@ -204,12 +200,12 @@
         }
         }
 
-        if( trim( $outMsg ) <> '' )
-            echo '<br><font size=1>' . _("Mail Fetch Result:") . "<br>$outMsg</font>";
-
-        if( $mailfetch_newlog == 'on' )
-            setPref($data_dir,$username,"mailfetch_newlog", 'off');
-
+        if( trim( $outMsg ) <> '' ) {
+            echo '<br><font size="1">' . _("Mail Fetch Result:") . "<br>$outMsg</font>";
+        }
+        if( $mailfetch_newlog == 'on' ) {
+            setPref($data_dir, $username, 'mailfetch_newlog', 'off');
+        }
     }
 
     function mail_fetch_setnew()    {
@@ -217,17 +213,9 @@
         global $data_dir;
         require_once(SM_PATH . 'functions/prefs.php');
 
-        if (isset($_SESSION['username'])) {
-            $username = $_SESSION['username'];
-        } else {
-           $username = '';
-        }
+        sqgetGlobalVar('username', $username, SQ_SESSION);
 
-        if( $username <> '' ) {
-            // Creates the pref file if it does not exist.
-            setPref( $data_dir, $username, 'mailfetch_newlog', 'on' );
-        }
-
+        setPref( $data_dir, $username, 'mailfetch_newlog', 'on' );
     }
 
     function mailfetch_optpage_register_block() {

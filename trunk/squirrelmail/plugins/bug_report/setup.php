@@ -42,11 +42,7 @@ function bug_report_button() {
 function bug_report_save() {
     global $username,$data_dir;
 
-    if ( !check_php_version(4,1) ) {
-        global $_POST;
-    }
- 
-    if(isset($_POST['bug_report_bug_report_visible'])) {
+    if( sqgetGlobalVar('bug_report_bug_report_visible', $vis, SQ_POST) ) {
         setPref($data_dir, $username, 'bug_report_visible', '1');
     } else {
         setPref($data_dir, $username, 'bug_report_visible', '');

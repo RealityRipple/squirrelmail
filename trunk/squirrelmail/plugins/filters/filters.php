@@ -164,10 +164,10 @@ function filters_bulkquery($filters_spam_scan, $filters, $read) {
 function start_filters() {
     global $mailbox, $imapServerAddress, $imapPort, $imap,
            $imap_general, $filters, $imap_stream, $imapConnection,
-           $UseSeparateImapConnection, $AllowSpamFilters, $_SESSION, $_COOKIE;
+           $UseSeparateImapConnection, $AllowSpamFilters;
 
-    $username = $_SESSION['username'];
-    $key = $_COOKIE['key'];
+    sqgetGlobalVar('username', $username, SQ_SESSION);
+    sqgetGlobalVar('key',      $key,      SQ_COOKIE);
 
 #    if ($mailbox == 'INBOX') {
         // Detect if we have already connected to IMAP or not.

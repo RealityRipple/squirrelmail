@@ -36,14 +36,14 @@ require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'plugins/filters/filters.php');
 global $AllowSpamFilters;
 
-$username = $_SESSION['username'];
-$key = $_COOKIE['key'];
-$onetimepad = $_SESSION['onetimepad'];
-$delimiter = $_SESSION['delimiter'];
+/* get globals */
+sqgetGlobalVar('username', $username, SQ_SESSION);
+sqgetGlobalVar('key', $key, SQ_COOKIE);
+sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
+sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 
-if (isset($_GET['action'])) {
-    $action = $_GET['action'];
-}
+sqgetGlobalVar('action', $action, SQ_GET);
+/* end globals */
 
 displayPageHeader($color, 'None');
 

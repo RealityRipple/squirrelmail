@@ -36,23 +36,20 @@ require_once(SM_PATH . 'functions/imap_mailbox.php');
 require_once(SM_PATH . 'include/load_prefs.php');
 require_once(SM_PATH . 'plugins/filters/filters.php');
 
-   global $AllowSpamFilters;
+global $AllowSpamFilters;
 
-   displayPageHeader($color, 'None');
+displayPageHeader($color, 'None');
 
-   $username = $_SESSION['username'];
-   $key = $_COOKIE['key'];
-   $onetimepad = $_SESSION['onetimepad'];
-   $delimiter = $_SESSION['delimiter'];
-   if(isset($_GET['theid'])) {
-       $theid = $_GET['theid'];
-   }
-   if(isset($_POST['theid'])) {
-       $theid = $_POST['theid'];
-   }
-   if(isset($_GET['action'])) {
-       $action = $_GET['action'];
-   }
+/* get globals */
+sqgetGlobalVar('username', $username, SQ_SESSION);
+sqgetGlobalVar('key', $key, SQ_COOKIE);
+sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
+sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
+
+sqgetGlobalVar('theid', $theid);
+sqgetGlobalVar('action', $action, SQ_GET);
+
+// FIXME: use sqgetGlobalVar below.
 
    if (isset($_POST['filter_submit'])) {
       if(isset($_GET['theid'])) {
@@ -130,8 +127,6 @@ require_once(SM_PATH . 'plugins/filters/filters.php');
         'center' ) . '<br>';
 
     if (isset($action) && ($action == 'add' || $action == 'edit')) {
-        $username = $_SESSION['username'];
-        $key = $_COOKIE['key'];
 
         $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
         $boxes = sqimap_mailbox_list($imapConnection);
