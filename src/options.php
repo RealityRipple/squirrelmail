@@ -249,6 +249,9 @@ if ($optmode == SMOPT_MODE_SUBMIT) {
         case SMOPT_PAGE_DISPLAY:
             $save_hook_name = 'options_display_save';
             break;
+        case SMOPT_PAGE_COMPOSE:
+            $save_hook_name = 'options_compose_save';
+            break;
         case SMOPT_PAGE_FOLDER:
             $save_hook_name = 'options_folder_save';
             break;
