@@ -14,6 +14,7 @@
 
 require_once('../functions/strings.php');
 require_once('../functions/html.php');
+require_once('../class/html.class');
 require_once('../functions/imap_utf7_decode_local.php');
 
 /* Default value for page_selector_max. */
@@ -71,6 +72,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort,
     }
     $urlMailbox = urlencode($mailbox);
     $subject = processSubject($msg['SUBJECT']);
+
     echo html_tag( 'tr' ) . "\n";
 
     if (isset($msg['FLAG_FLAGGED']) && ($msg['FLAG_FLAGGED'] == true)) {
@@ -142,7 +144,8 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort,
     }
 
     $checked = ($checkall == 1) ? ' checked' : '';
-
+    
+    
     if (sizeof($index_order)){
         foreach ($index_order as $index_order_part) {
             switch ($index_order_part) {
@@ -425,6 +428,7 @@ function calc_msort($msgs, $sort, $num_msgs, $use_cache) {
 
 function fillMessageArray($imapConnection,$id,$issent,$count) {
    $msgs_list = sqimap_get_small_header_list($imapConnection, $id, $issent);
+   $messages = array();
    if (sizeof($msgs_list)){
       foreach ($msgs_list as $hdr) {
          $unique_id[] = $hdr->uid;
@@ -452,25 +456,24 @@ function fillMessageArray($imapConnection,$id,$issent,$count) {
       } else {
 	$tmpdate = $date = array('', '', '', '', '', '');
       }
-      $i = $unique_id[$j];
-      $messages[$i]['TIME_STAMP'] = getTimeStamp($tmpdate);
-      $messages[$i]['DATE_STRING'] = 
+      $messages[$j]['TIME_STAMP'] = getTimeStamp($tmpdate);
+      $messages[$j]['DATE_STRING'] = 
 	getDateString($messages[$i]['TIME_STAMP']);
-      $messages[$i]['ID'] = $i;
-      $messages[$i]['FROM'] = decodeHeader($from[$j]);
-      $messages[$i]['FROM-SORT'] = 
+      $messages[$j]['ID'] = $unique_id[$j];
+      $messages[$j]['FROM'] = decodeHeader($from[$j]);
+      $messages[$j]['FROM-SORT'] = 
 	strtolower(sqimap_find_displayable_name(decodeHeader($from[$j])));
-      $messages[$i]['SUBJECT'] = decodeHeader($subject[$j]);
-      $messages[$i]['SUBJECT-SORT'] = strtolower(decodeHeader($subject[$j]));
-      $messages[$i]['TO'] = decodeHeader($to[$j]);
-      $messages[$i]['PRIORITY'] = $priority[$j];
-      $messages[$i]['CC'] = $cc[$j];
-      $messages[$i]['SIZE'] = $size[$j];
-      $messages[$i]['TYPE0'] = $type[$j];
-      $messages[$i]['FLAG_DELETED'] = $flag_deleted[$j];
-      $messages[$i]['FLAG_ANSWERED'] = $flag_answered[$j];
-      $messages[$i]['FLAG_SEEN'] = $flag_seen[$j];
-      $messages[$i]['FLAG_FLAGGED'] = $flag_flagged[$j];
+      $messages[$j]['SUBJECT'] = decodeHeader($subject[$j]);
+      $messages[$j]['SUBJECT-SORT'] = strtolower(decodeHeader($subject[$j]));
+      $messages[$j]['TO'] = decodeHeader($to[$j]);
+      $messages[$j]['PRIORITY'] = $priority[$j];
+      $messages[$j]['CC'] = $cc[$j];
+      $messages[$j]['SIZE'] = $size[$j];
+      $messages[$j]['TYPE0'] = $type[$j];
+      $messages[$j]['FLAG_DELETED'] = $flag_deleted[$j];
+      $messages[$j]['FLAG_ANSWERED'] = $flag_answered[$j];
+      $messages[$j]['FLAG_SEEN'] = $flag_seen[$j];
+      $messages[$j]['FLAG_FLAGGED'] = $flag_flagged[$j];
 
       
       /*
@@ -483,8 +486,8 @@ function fillMessageArray($imapConnection,$id,$issent,$count) {
        * "Re: " is for this or that locale.
        */
        if (preg_match("/^(vedr|sv|re|aw):\s*(.*)$/si", 
-		     $messages[$i]['SUBJECT-SORT'], $matches)){
-          $messages[$i]['SUBJECT-SORT'] = $matches[2];
+		     $messages[$j]['SUBJECT-SORT'], $matches)){
+          $messages[$j]['SUBJECT-SORT'] = $matches[2];
        }
        $j++;
   }
@@ -498,7 +501,8 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
   global $folder_prefix, $sent_folder, 
     $imapServerAddress, $data_dir, $username, $use_mailbox_cache, 
     $index_order, $real_endMessage, $real_startMessage, $checkall, 
-    $indent_array, $thread_sort_messages, $allow_server_sort, $server_sort_order;
+    $indent_array, $thread_sort_messages, $allow_server_sort, 
+    $server_sort_order, $PHP_SELF;
 
   /* If cache isn't already set, do it now. */
   if (!session_is_registered('msgs')) {
@@ -525,9 +529,15 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
 
   do_hook('mailbox_index_before');
 
-  $msg_cnt_str = get_msgcnt_str($start_msg, $end_msg, $num_msgs);
-  $paginator_str = get_paginator_str($urlMailbox, $start_msg, $end_msg, 
+  if (preg_match('/.+search\.php.*/',$PHP_SELF,$regs)) {
+     $paginator_str = get_selectall_link($start_msg, $sort);
+  } else {     
+     $paginator_str = get_paginator_str($urlMailbox, $start_msg, $end_msg, 
 				     $num_msgs, $show_num, $sort);
+  }
+
+  
+  $msg_cnt_str = get_msgcnt_str($start_msg, $end_msg, $num_msgs);
 
   if (!isset($msg)) {
     $msg = '';
@@ -539,10 +549,13 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
   }
   $fstring = "move_messages.php?msg=$msg&amp;mailbox=$urlMailbox"
     . "&amp;startMessage=$start_msg";
-  mail_message_listing_beginning($imapConnection, $fstring,
-				 $mailbox, $sort, $msg_cnt_str, 
-				 $paginator_str, $start_msg);
- 
+
+  /* messages display header */    
+  if ($num_msgs) {    
+     mail_message_listing_beginning($imapConnection, $fstring,
+				    $mailbox, $sort, $msg_cnt_str, 
+				    $paginator_str, $start_msg);
+  }
   $groupNum = $start_msg % ($show_num - 1);
   $real_startMessage = $start_msg;
   if ($sort == 6) {
@@ -561,6 +574,9 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
    * ($t is used for the checkbox number)
    */
   $t = 0;
+
+  /* messages display */
+  echo  html_tag( 'table' ,'' , '', '', 'border="0" width="100%" cellpadding="1"  cellspacing="0"' );
   if ($num_msgs == 0) {
     /* if there's no messages in this folder */
         echo html_tag( 'tr',
@@ -605,9 +621,11 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
       next($msort);
     } while ($i && $i < $endVar);
   }
-  
   echo '</table>';
 
+
+  /* messages display footer */
+  if ($num_msgs) {
     echo html_tag( 'table',
             html_tag( 'tr',
                 html_tag( 'td',
@@ -621,11 +639,11 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
             , '', $color[4] )
         , '', $color[9], 'width="100%" cellpadding="1"  cellspacing="1"' );
 
-
+  }
   /* End of message-list table */
   
   do_hook('mailbox_index_after');
-  echo "</TABLE></FORM>\n";
+  echo "</FORM>\n";
 }
 
 /*
@@ -751,9 +769,11 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
   echo "</TABLE>\n";
 
     echo "</table>\n";
+
     do_hook('mailbox_form_before');
+
     echo '</td></tr>'
-    . html_tag( 'tr' )
+    .  html_tag( 'tr' )
     . html_tag( 'td' ,'' , '', $color[0], '' );
     if ($GLOBALS['alt_index_colors']){
         $cellspacing =  '0';
@@ -770,7 +790,32 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
     if ($allow_server_sort == TRUE) {
         $sort = $server_sort_order;
     }
+
+    $showsort = false;
+    if ($allow_thread_sort != TRUE || $thread_sort_messages != 1) {
+       $showsort = true;
+    }
+    /* quick hack to support search.php */
+    if (preg_match('/.+search\.php.*/',$source_url, $regs)) {
+       $showsort = false;
+    }
+    
     /* Print the headers. */
+    printHeader($mailbox, $sort, $showsort);
+
+    /* if using server-sorting,
+    * send sort back to 6
+    */
+    if ($allow_server_sort == TRUE) {
+        $sort = 6;
+    }
+    echo "</tr>\n";
+
+}
+
+function printHeader($mailbox,$sort, $showsort=true) {
+  global $index_order;
+
     for ($i=1; $i <= count($index_order); $i++) {
         switch ($index_order[$i]) {
         case 1: /* checkbox */
@@ -785,7 +830,7 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
                 echo html_tag( 'td' ,'' , 'left', '', 'width="25%"' )
                 . '<b>' . _("From") . '</b>';
             }
-            if ($allow_thread_sort != TRUE || $thread_sort_messages != 1) {
+            if ($showsort) {
                 ShowSortButton($sort, $mailbox, 2, 3);
             }
             echo "</td>\n";
@@ -793,15 +838,15 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
         case 3: /* date */
             echo html_tag( 'td' ,'' , 'left', '', 'width="5%" nowrap' )
             . '<b>' . _("Date") . '</b>';
-            if ($allow_thread_sort != TRUE || $thread_sort_messages != 1) {
+            if ($showsort) {
                 ShowSortButton($sort, $mailbox, 0, 1);
             }
             echo "</td>\n";
             break;
-            case 4: /* subject */
+        case 4: /* subject */
             echo html_tag( 'td' ,'' , 'left', '', '' )
             . '<b>' . _("Subject") . '</b>';
-            if ($allow_thread_sort != TRUE || $thread_sort_messages != 1) {
+            if ($showsort) {
                 ShowSortButton($sort, $mailbox, 4, 5);
             }
             echo "</td>\n";
@@ -811,13 +856,6 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
             break;
         }
     }
-    /* if using server-sorting,
-    * send sort back to 6
-    */
-    if ($allow_server_sort == TRUE) {
-        $sort = 6;
-    }
-    echo "</tr>\n";
 
 }
 
