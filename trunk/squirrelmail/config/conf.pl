@@ -232,6 +232,11 @@ while ( $line = <FILE> ) {
                     $tmp =~ s/[\'\"]?,?\s*$//;
                     $tmp =~ s/[\'\"]?\);\s*$//;
                     $maxrows = $tmp;
+                } elsif ( $tmp =~ /^\s*[\'\"]filter[\'\"]/i ) {
+                    $tmp =~ s/^\s*[\'\"]filter[\'\"]\s*=>\s*[\'\"]?//i;
+                    $tmp =~ s/[\'\"]?,?\s*$//;
+                    $tmp =~ s/[\'\"]?\);\s*$//;
+                    $filter = $tmp;
                 } elsif ( $tmp =~ /^\s*[\'\"]name[\'\"]/i ) {
                     $tmp =~ s/^\s*[\'\"]name[\'\"]\s*=>\s*[\'\"]//i;
                     $tmp =~ s/[\'\"],?\s*$//;
@@ -252,6 +257,11 @@ while ( $line = <FILE> ) {
                     $tmp =~ s/[\'\"]?,?\s*$//;
                     $tmp =~ s/[\'\"]?\);\s*$//;
                     $protocol = $tmp;
+                } elsif ( $tmp =~ /^\s*[\'\"]limit_scope[\'\"]/i ) {
+                    $tmp =~ s/^\s*[\'\"]limit_scope[\'\"]\s*=>\s*[\'\"]?//i;
+                    $tmp =~ s/[\'\"]?,?\s*$//;
+                    $tmp =~ s/[\'\"]?\);\s*$//;
+                    $limit_scope = $tmp;
                 }
             }
             $ldap_host[$sub]    = $host;
@@ -259,10 +269,12 @@ while ( $line = <FILE> ) {
             $ldap_name[$sub]    = $name;
             $ldap_port[$sub]    = $port;
             $ldap_maxrows[$sub] = $maxrows;
+            $ldap_filter[$sub]  = $filter;
             $ldap_charset[$sub] = $charset;
             $ldap_binddn[$sub]  = $binddn;
             $ldap_bindpw[$sub]  = $bindpw;
             $ldap_protocol[$sub] = $protocol;
+            $ldap_limit_scope[$sub] = $limit_scope;
         } elsif ( $options[0] =~ /^(data_dir|attachment_dir|theme_css|org_logo|signout_page)$/ ) {
             ${ $options[0] } = &change_to_rel_path($options[1]);
         } else {
@@ -2399,14 +2411,20 @@ sub command61 {
                 if ( $ldap_maxrows[$count] ) {
                     print "     maxrows: $ldap_maxrows[$count]\n";
                 }
+                if ( $ldap_filter[$count] ) {
+                    print "      filter: $ldap_filter[$count]\n";
+                }
                 if ( $ldap_binddn[$count] ) {
                     print "      binddn: $ldap_binddn[$count]\n";
                     if ( $ldap_bindpw[$count] ) {
                         print "      bindpw: $ldap_bindpw[$count]\n";
                     }
                 }
-        if ( $ldap_protocol[$count] ) {
+                if ( $ldap_protocol[$count] ) {
                     print "    protocol: $ldap_protocol[$count]\n";
+                }
+                if ( $ldap_limit_scope[$count] ) {
+                    print " limit_scope: $ldap_limit_scope[$count]\n";
                 }
 
                 print "\n";
@@ -2470,6 +2488,16 @@ sub command61 {
 
             print "\n";
 
+            print "You can specify an additional search filter.\n";
+            print "This could be something like \"(objectclass=posixAccount)\".\n";
+            print "Default is no extra filter.  Press ENTER for default.\n";
+            print "filter: ";
+            $name = <STDIN>;
+            $name =~ s/[\r|\n]//g;
+            $ldap_filter[$sub] = $name;
+
+            print "\n";
+
             print "If your LDAP server does not like anonymous logins, you can specify bind DN.\n";
             print "Default is none, anonymous bind.  Press ENTER for default.\n";
             print "binddn: ";
@@ -2490,13 +2518,29 @@ sub command61 {
                 print "\n";
             }
 
-        print "You can specify bind protocol version here.\n";
+            print "You can specify bind protocol version here.\n";
             print "Default protocol version depends on your php ldap settings.\n";
-        print "Press ENTER for default.\n";
+            print "Press ENTER for default.\n";
             print "protocol: ";
             $name = <STDIN>;
             $name =~ s/[\r\n]//g;
             $ldap_protocol[$sub] = $name;
+
+            print "\n";
+
+            print "You can control search scope here.\n";
+            print "This option is specific to Microsoft ADS implementation.\n";
+            print "It requires use of v3 or newer LDAP protocol.\n";
+            print "Don't enable it, if you use other LDAP server.\n";
+            print "\n";
+            print "Limit ldap scope? (y/N):";
+            $name = <STDIN>;
+            if ( $name =~ /^y\n/i ) {
+                $name = 'true';
+            } else {
+                $name = 'false';
+            }
+            $ldap_limit_scope[$sub] = $name;
 
             print "\n";
 
@@ -2515,9 +2559,11 @@ sub command61 {
             @new_ldap_name    = ();
             @new_ldap_charset = ();
             @new_ldap_maxrows = ();
+            @new_ldap_filter  = ();
             @new_ldap_bindpw  = ();
             @new_ldap_binddn  = ();
             @new_ldap_protocol = ();
+            @new_ldap_limit_scope = ();
 
             while ( $count <= $#ldap_host ) {
                 if ( $count != $rem_num ) {
@@ -2527,9 +2573,11 @@ sub command61 {
                     @new_ldap_name    = ( @new_ldap_name,    $ldap_name[$count] );
                     @new_ldap_charset = ( @new_ldap_charset, $ldap_charset[$count] );
                     @new_ldap_maxrows = ( @new_ldap_maxrows, $ldap_maxrows[$count] );
+                    @new_ldap_filter  = ( @new_ldap_filter,  $ldap_filter[$count] );
                     @new_ldap_binddn  = ( @new_ldap_binddn,  $ldap_binddn[$count] );
                     @new_ldap_bindpw  = ( @new_ldap_bindpw,  $ldap_bindpw[$count] );
                     @new_ldap_protocol  = ( @new_ldap_protocol,  $ldap_protocol[$count] );
+                    @new_ldap_limit_scope = ( @new_ldap_limit_scope,  $ldap_limit_scope[$count] );
                 }
                 $count++;
             }
@@ -2539,9 +2587,11 @@ sub command61 {
             @ldap_name    = @new_ldap_name;
             @ldap_charset = @new_ldap_charset;
             @ldap_maxrows = @new_ldap_maxrows;
+            @ldap_filter  = @new_ldap_filter;
             @ldap_binddn  = @new_ldap_binddn;
             @ldap_bindpw  = @new_ldap_bindpw;
             @ldap_protocol = @new_ldap_protocol;
+            @ldap_limit_scope = @new_ldap_limit_scope;
 
         } elsif ( $input =~ /^\s*\?\s*/ ) {
             print ".-------------------------.\n";
@@ -3323,6 +3373,11 @@ sub save_data {
         # integer
                 print CF "    'maxrows' => $ldap_maxrows[$count]";
             }
+            # string
+            if ( $ldap_filter[$count] ) {
+                print CF ",\n";
+                print CF "    'filter' => '$ldap_filter[$count]'";
+            }
             if ( $ldap_binddn[$count] ) {
                 print CF ",\n";
                 # string
@@ -3337,6 +3392,11 @@ sub save_data {
                 print CF ",\n";
         # integer
                 print CF "    'protocol' => $ldap_protocol[$count]";
+            }
+            if ( $ldap_limit_scope[$count] ) {
+                print CF ",\n";
+                # boolean
+                print CF "    'limit_scope' => $ldap_limit_scope[$count]";
             }
             print CF "\n";
             print CF ");\n";
