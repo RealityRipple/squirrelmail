@@ -163,7 +163,7 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id=1, $encoding) {
 
     /* Don't kill the connection if the browser is over a dialup
      * and it would take over 30 seconds to download it.
-     * Don´t call set_time_limit in safe mode.
+     * Dont call set_time_limit in safe mode.
      */
 
     if (!ini_get('safe_mode')) {
@@ -614,7 +614,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
         $encoded = false;
         /* if encoded words are not separated by a linear-space-white we still catch them */
         $j = $i-1;
-//  if ($chunk{0} === '=') { /* performance, saves an unnessecarry preg call */
+
         while ($match = preg_match('/^(.*)=\?([^?]*)\?(Q|B)\?([^?]*)\?=(.*)$/Ui',$chunk,$res)) {
             /* if the last chunk isn't an encoded string then put back the space, otherwise don't */
             if ($iLastMatch !== $j) {
@@ -656,7 +656,13 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
             $chunk = $res[5];
             $encoded = true;
         }
-//  }
+
+        if (!$encoded && $htmlsave) {
+            $ret .= htmlspecialchars($chunk);
+        } else {
+            $ret .= $chunk;
+        }
+
         if (!$encoded) {
             if ($htmlsave) {
                 $ret .= '&nbsp;';
@@ -664,21 +670,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
                 $ret .= ' ';
             }
         }
-
-        if (!$encoded && $htmlsave) {
-            $ret .= htmlspecialchars($chunk);
-        } else {
-            $ret .= $chunk;
-        }
         ++$i;
-    }
-    /* remove the first added space */
-    if ($ret) {
-        if ($htmlsave) {
-            $ret = substr($ret,6);
-        } else {
-            $ret = substr($ret,1);
-        }
     }
 
     return $ret;
