@@ -73,6 +73,7 @@
    echo "</CENTER>";
    echo "</BODY></HTML>";
 	
+   sqimap_logout($imapConnection);
    exit;
    }
 
