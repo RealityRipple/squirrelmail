@@ -45,8 +45,12 @@ function formatMailboxName($imapConnection, $box_array) {
     if (ereg("^( *)([^ ]*)$", $mailbox, $regs)) {
         $mailbox = $regs[2];
     }
-
-    list($unseen_string, $unseen) = create_unseen_string($real_box, $box_array, $imapConnection);
+    $status = create_unseen_string($real_box, $box_array, $imapConnection);
+    if ($status !== false) {
+	list($unseen_string, $unseen) = $status;
+    } else {
+	list($unseen_string, $unseen) = array(_("Not available"),'');
+    }
     $special_color = ($use_special_folder_color && isSpecialMailbox($real_box));
 
     /* Start off with a blank line. */
@@ -56,9 +60,10 @@ function formatMailboxName($imapConnection, $box_array) {
     if ($unseen > 0) { $line .= '<B>'; }
 
     /* Create the link for this folder. */
-    $line .= '<a href="right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox='.
-             $mailboxURL.'" TARGET="right" STYLE="text-decoration:none">';
-
+    if ($status !== false) {
+	$line .= '<a href="right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox='.
+                $mailboxURL.'" TARGET="right" STYLE="text-decoration:none">';
+    } 
     if ($special_color) {
         $line .= "<font color=\"$color[11]\">";
     }
@@ -69,7 +74,9 @@ function formatMailboxName($imapConnection, $box_array) {
     }
     if ($special_color == TRUE)
         $line .= '</font>';
-    $line .= '</a>';
+    if ($status !== false) {
+	$line .= '</a>';
+    }
 
     /* If there are unseen message, close bolding. */
     if ($unseen > 0) { $line .= "</B>"; }
@@ -182,7 +189,7 @@ function create_collapse_link($boxnum) {
  * @return array[1] unseen message count
  */
 function create_unseen_string($boxName, $boxArray, $imapConnection) {
-    global $boxes, $unseen_type, $color;
+    global $boxes, $unseen_type, $color, $unseen_cum;
 
     /* Initialize the return value. */
     $result = array(0,0);
@@ -194,14 +201,18 @@ function create_unseen_string($boxName, $boxArray, $imapConnection) {
     $totalMessageCount = 0;
 
     /* Collect the counts for this box alone. */
-    $boxUnseenCount = sqimap_unseen_messages($imapConnection, $boxName);
+    $status = sqimap_status_messages($imapConnection, $boxName);
+    $boxUnseenCount = $status['UNSEEN'];
+    if ($boxUnseenCount === false) {
+	return false;
+    }
     if ($unseen_type == 2) {
-        $boxMessageCount = sqimap_get_num_messages($imapConnection, $boxName);
+        $boxMessageCount = $status['MESSAGES'];
     }
 
     /* Initialize the total counts. */
 
-    if ($boxArray['collapse'] == SM_BOX_COLLAPSED) {
+    if ($boxArray['collapse'] == SM_BOX_COLLAPSED && $unseen_cum) {
         /* Collect the counts for this boxes subfolders. */
         $curBoxLength = strlen($boxName);
         $boxCount = count($boxes);
@@ -215,11 +226,11 @@ function create_unseen_string($boxName, $boxArray, $imapConnection) {
             if (($boxName != $boxes[$i]['unformatted'])
                    && (substr($boxes[$i]['unformatted'], 0, $curBoxLength) == $boxName)
                    && !in_array('noselect', $boxes[$i]['flags'])) {
-                $subUnseenCount = sqimap_unseen_messages($imapConnection, $boxes[$i]['unformatted']);
+		$status = sqimap_status_messages($imapConnection, $boxes[$i]['unformatted']);
+		$subUnseenCount = $status['UNSEEN'];
                 if ($unseen_type == 2) {
-                    $subMessageCount = sqimap_get_num_messages($imapConnection, $boxes[$i]['unformatted']);
+                    $subMessageCount = $status['MESSAGES'];;
                 }
-
                 /* Add the counts for this subfolder to the total. */
                 $totalUnseenCount += $subUnseenCount;
                 $totalMessageCount += $subMessageCount;
@@ -312,7 +323,8 @@ function listBoxes ($boxes, $j=0 ) {
 
 	if (($move_to_trash) && ($mailbox == $trash_folder)) {
     	    if (! isset($numMessages)) {
-        	$numMessages = sqimap_get_num_messages($imapConnection, $mailbox);
+        	$status = sqimap_status_messages($imapConnection, $mailbox);
+		$numMessages = $status['MESSAGES'];
     	    }
 
     	    if ($numMessages > 0) {
