@@ -271,6 +271,8 @@ Version 1.5.1 -- CVS
   - Fixed Filters plugin problems with duplicate rule processing and false
     unread message counts (Bug# 676073 and patch #919045).
   - Strip position:absolute style from HTML mails.
+  - Add ability to the Filters plugin to filter on Message Body, or both
+    the Headers and the Message Body.
   
 Version 1.5.0
 --------------------
