@@ -368,241 +368,193 @@ if (! isset($squirrelmail_language)) {
 }
 
 /* This array specifies the available languages. */
+$languages['bg_BG']['NAME']    = 'Bulgarian';
+$languages['bg_BG']['ALTNAME'] = '&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1080;';
+$languages['bg_BG']['CHARSET'] = 'windows-1251';
+$languages['bg']['ALIAS'] = 'bg_BG';
 
-if ( file_exists( SM_PATH . 'locale/ca_ES') ) {
-    // The glibc locale is ca_ES.
-    $languages['ca_ES']['NAME']    = 'Catalan';
-    $languages['ca_ES']['CHARSET'] = 'iso-8859-1';
-    $languages['ca']['ALIAS'] = 'ca_ES';
-}
+$languages['ca_ES']['NAME']    = 'Catalan';
+$languages['ca_ES']['CHARSET'] = 'iso-8859-1';
+$languages['ca']['ALIAS'] = 'ca_ES';
 
-if ( file_exists( SM_PATH . 'locale/cs_CZ') ) {
-    $languages['cs_CZ']['NAME']    = 'Czech';
-    $languages['cs_CZ']['ALTNAME'] = '&#268;e&scaron;tina';
-    $languages['cs_CZ']['CHARSET'] = 'iso-8859-2';
-    $languages['cs']['ALIAS']      = 'cs_CZ';
-}
+$languages['cs_CZ']['NAME']    = 'Czech';
+$languages['cs_CZ']['ALTNAME'] = '&#268;e&scaron;tina';
+$languages['cs_CZ']['CHARSET'] = 'iso-8859-2';
+$languages['cs']['ALIAS']      = 'cs_CZ';
 
-if ( file_exists( SM_PATH . 'locale/da_DK') ) {
-    // Danish locale is da_DK.
-    $languages['da_DK']['NAME']    = 'Danish';
-    $languages['da_DK']['ALTNAME'] = 'Dansk';
-    $languages['da_DK']['CHARSET'] = 'iso-8859-1';
-    $languages['da']['ALIAS'] = 'da_DK';
-}
+$languages['cy_GB']['NAME']    = 'Welsh';
+$languages['cy_GB']['ALTNAME'] = 'Cymraeg';
+$languages['cy_GB']['CHARSET'] = 'iso-8859-1';
+$languages['cy']['ALIAS'] = 'cy_GB';
 
-if ( file_exists( SM_PATH . 'locale/de_DE') ) {
-    $languages['de_DE']['NAME']    = 'German';
-    $languages['de_DE']['ALTNAME']    = 'Deutsch';
-    $languages['de_DE']['CHARSET'] = 'iso-8859-1';
-    $languages['de']['ALIAS'] = 'de_DE';
-}
+// Danish locale is da_DK.
+$languages['da_DK']['NAME']    = 'Danish';
+$languages['da_DK']['ALTNAME'] = 'Dansk';
+$languages['da_DK']['CHARSET'] = 'iso-8859-1';
+$languages['da']['ALIAS'] = 'da_DK';
+
+$languages['de_DE']['NAME']    = 'German';
+$languages['de_DE']['ALTNAME']    = 'Deutsch';
+$languages['de_DE']['CHARSET'] = 'iso-8859-1';
+$languages['de']['ALIAS'] = 'de_DE';
+
+$languages['el_GR']['NAME']    = 'Greek';
+$languages['el_GR']['ALTNAME'] = '&Epsilon;&lambda;&lambda;&eta;&nu;&iota;&kappa;&#940;';
+$languages['el_GR']['CHARSET'] = 'iso-8859-7';
+$languages['el']['ALIAS'] = 'el_GR';
 
 // There is no en_EN! There is en_US, en_BR, en_AU, and so forth, 
 // but who cares about !US, right? Right? :)
-
-if ( file_exists( SM_PATH . 'locale/el_GR') ) {
-    $languages['el_GR']['NAME']    = 'Greek';
-    $languages['el_GR']['ALTNAME'] = '&Epsilon;&lambda;&lambda;&eta;&nu;&iota;&kappa;&#940;';
-    $languages['el_GR']['CHARSET'] = 'iso-8859-7';
-    $languages['el']['ALIAS'] = 'el_GR';
-}
-
 $languages['en_US']['NAME']    = 'English';
 $languages['en_US']['CHARSET'] = 'iso-8859-1';
 $languages['en']['ALIAS'] = 'en_US';
 
-if ( file_exists( SM_PATH . 'locale/es_ES') ) {
-    $languages['es_ES']['NAME']    = 'Spanish';
-    $languages['es_ES']['ALTNAME'] = 'Espa&ntilde;ol';
-    $languages['es_ES']['CHARSET'] = 'iso-8859-1';
-    $languages['es']['ALIAS'] = 'es_ES';
-}
-if ( file_exists( SM_PATH . 'locale/et_EE') ) {
-    $languages['et_EE']['NAME']    = 'Estonian';
-    $languages['et_EE']['CHARSET'] = 'iso-8859-15';
-    $languages['et']['ALIAS'] = 'et_EE';
-}
-if ( file_exists( SM_PATH . 'locale/fo_FO') ) {
-    $languages['fo_FO']['NAME']    = 'Faroese';
-    $languages['fo_FO']['CHARSET'] = 'iso-8859-1';
-    $languages['fo']['ALIAS'] = 'fo_FO';
-}
-if ( file_exists( SM_PATH . 'locale/fi_FI') ) {
-    $languages['fi_FI']['NAME']    = 'Finnish';
-    $languages['fi_FI']['ALTNAME'] = 'Suomi';
-    $languages['fi_FI']['CHARSET'] = 'iso-8859-1';
-    $languages['fi']['ALIAS'] = 'fi_FI';
-}
-if ( file_exists( SM_PATH . 'locale/fr_FR') ) {
-    $languages['fr_FR']['NAME']    = 'French';
-    $languages['fr_FR']['ALTNAME'] = 'Fran&#231;ais';
-    $languages['fr_FR']['CHARSET'] = 'iso-8859-1';
-    $languages['fr']['ALIAS'] = 'fr_FR';
-}
-if ( file_exists( SM_PATH . 'locale/hr_HR') ) {
-    $languages['hr_HR']['NAME']    = 'Croatian';
-    $languages['hr_HR']['CHARSET'] = 'iso-8859-2';
-    $languages['hr']['ALIAS'] = 'hr_HR';
-}
-if ( file_exists( SM_PATH . 'locale/hu_HU') ) {
-    $languages['hu_HU']['NAME']    = 'Hungarian';
-    $languages['hu_HU']['ALTNAME'] = 'Magyar';
-    $languages['hu_HU']['CHARSET'] = 'iso-8859-2';
-    $languages['hu']['ALIAS'] = 'hu_HU';
-}
-if ( file_exists( SM_PATH . 'locale/id_ID') ) {
-    $languages['id_ID']['NAME']    = 'Indonesian';
-    $languages['id_ID']['ALTNAME'] = 'Bahasa Indonesia';
-    $languages['id_ID']['CHARSET'] = 'iso-8859-1';
-    $languages['id']['ALIAS'] = 'id_ID';
-}
-if ( file_exists( SM_PATH . 'locale/is_IS') ) {
-    $languages['is_IS']['NAME']    = 'Icelandic';
-    $languages['is_IS']['ALTNAME'] = '&Iacute;slenska';
-    $languages['is_IS']['CHARSET'] = 'iso-8859-1';
-    $languages['is']['ALIAS'] = 'is_IS';
-}
-if ( file_exists( SM_PATH . 'locale/it_IT') ) {
-    $languages['it_IT']['NAME']    = 'Italian';
-    $languages['it_IT']['CHARSET'] = 'iso-8859-1';
-    $languages['it']['ALIAS'] = 'it_IT';
-}
-if ( file_exists( SM_PATH . 'locale/ja_JP') ) {
-    $languages['ja_JP']['NAME']    = 'Japanese';
-    $languages['ja_JP']['ALTNAME'] = '&#26085;&#26412;&#35486;';
-    $languages['ja_JP']['CHARSET'] = 'iso-2022-jp';
-    $languages['ja_JP']['XTRA_CODE'] = 'japanese_charset_xtra';
-    $languages['ja']['ALIAS'] = 'ja_JP';
-}
-if ( file_exists( SM_PATH . 'locale/ko_KR') ) {
-    $languages['ko_KR']['NAME']    = 'Korean';
-    $languages['ko_KR']['CHARSET'] = 'euc-KR';
-    $languages['ko_KR']['XTRA_CODE'] = 'korean_charset_xtra';
-    $languages['ko']['ALIAS'] = 'ko_KR';
-}
-if ( file_exists( SM_PATH . 'locale/nl_NL') ) {
-    $languages['nl_NL']['NAME']    = 'Dutch';
-    $languages['nl_NL']['ALTNAME'] = 'Nederlands';
-    $languages['nl_NL']['CHARSET'] = 'iso-8859-1';
-    $languages['nl']['ALIAS'] = 'nl_NL';
-}
-if ( file_exists( SM_PATH . 'locale/ms_MY') ) {
-    $languages['ms_MY']['NAME']    = 'Malay';
-    $languages['ms_MY']['ALTNAME'] = 'Bahasa Melayu';
-    $languages['ms_MY']['CHARSET'] = 'iso-8859-1';
-    $languages['my']['ALIAS'] = 'ms_MY';
-}
+$languages['es_ES']['NAME']    = 'Spanish';
+$languages['es_ES']['ALTNAME'] = 'Espa&ntilde;ol';
+$languages['es_ES']['CHARSET'] = 'iso-8859-1';
+$languages['es']['ALIAS'] = 'es_ES';
 
-if ( file_exists( SM_PATH . 'locale/no_NO') ) {
-    $languages['no_NO']['NAME']    = 'Norwegian (Bokm&aring;l)';
-    $languages['no_NO']['ALTNAME'] = 'Norsk (Bokm&aring;l)';
-    $languages['no_NO']['CHARSET'] = 'iso-8859-1';
-    $languages['no']['ALIAS'] = 'no_NO';
-}
-if ( file_exists( SM_PATH . 'locale/nn_NO') ) {
-    $languages['nn_NO']['NAME']    = 'Norwegian (Nynorsk)';
-    $languages['nn_NO']['ALTNAME'] = 'Norsk (Nynorsk)';
-    $languages['nn_NO']['CHARSET'] = 'iso-8859-1';
-}
-if ( file_exists( SM_PATH . 'locale/pl_PL') ) {
-    $languages['pl_PL']['NAME']    = 'Polish';
-    $languages['pl_PL']['ALTNAME'] = 'Polski';
-    $languages['pl_PL']['CHARSET'] = 'iso-8859-2';
-    $languages['pl']['ALIAS'] = 'pl_PL';
-}
-if ( file_exists( SM_PATH . 'locale/pt_PT') ) {
-    $languages['pt_PT']['NAME'] = 'Portuguese (Portugal)';
-    $languages['pt_PT']['CHARSET'] = 'iso-8859-1';
-    $languages['pt']['ALIAS'] = 'pt_PT';
-}
-if ( file_exists( SM_PATH . 'locale/pt_BR') ) {
-    $languages['pt_BR']['NAME']    = 'Portuguese (Brazil)';
-    $languages['pt_BR']['ALTNAME'] = 'Portugu&ecirc;s do Brasil';
-    $languages['pt_BR']['CHARSET'] = 'iso-8859-1';
-}
-if ( file_exists( SM_PATH . 'locale/ru_RU') ) {
-    $languages['ru_RU']['NAME']    = 'Russian';
-    $languages['ru_RU']['ALTNAME'] = '&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;';
-    $languages['ru_RU']['CHARSET'] = 'utf-8';
-    $languages['ru_RU']['LOCALE'] = 'ru_RU.UTF-8';
-    $languages['ru']['ALIAS'] = 'ru_RU';
-}
-if ( file_exists( SM_PATH . 'locale/sr_YU') ) {
-    $languages['sr_YU']['NAME']    = 'Serbian';
-    $languages['sr_YU']['ALTNAME'] = 'Srpski';
-    $languages['sr_YU']['CHARSET'] = 'iso-8859-2';
-    $languages['sr']['ALIAS'] = 'sr_YU';
-}
-if ( file_exists( SM_PATH . 'locale/sv_SE') ) {
-    $languages['sv_SE']['NAME']    = 'Swedish';
-    $languages['sv_SE']['ALTNAME'] = 'Svenska';
-    $languages['sv_SE']['CHARSET'] = 'iso-8859-1';
-    $languages['sv']['ALIAS'] = 'sv_SE';
-}
-if ( file_exists( SM_PATH . 'locale/tr_TR') ) {
-    $languages['tr_TR']['NAME']    = 'Turkish';
-    $languages['tr_TR']['CHARSET'] = 'iso-8859-9';
-    $languages['tr']['ALIAS'] = 'tr_TR';
-}
-if ( file_exists( SM_PATH . 'locale/zh_TW') ) {
-    $languages['zh_TW']['NAME']    = 'Chinese Trad';
-    $languages['zh_TW']['CHARSET'] = 'big5';
-    $languages['tw']['ALIAS'] = 'zh_TW';
-}
-if ( file_exists( SM_PATH . 'locale/zh_CN') ) {
-    $languages['zh_CN']['NAME']    = 'Chinese Simp';
-    $languages['zh_CN']['CHARSET'] = 'gb2312';
-    $languages['cn']['ALIAS'] = 'zh_CN';
-}
-if ( file_exists( SM_PATH . 'locale/sk_SK') ) {
-    $languages['sk_SK']['NAME']     = 'Slovak';
-    $languages['sk_SK']['CHARSET']  = 'iso-8859-2';
-    $languages['sk']['ALIAS']       = 'sk_SK';
-}
-if ( file_exists( SM_PATH . 'locale/ro_RO') ) {
-    $languages['ro_RO']['NAME']    = 'Romanian';
-    $languages['ro_RO']['ALTNAME'] = 'Rom&acirc;n&#259;';
-    $languages['ro_RO']['CHARSET'] = 'iso-8859-2';
-    $languages['ro']['ALIAS'] = 'ro_RO';
-}
-if ( file_exists( SM_PATH . 'locale/th_TH') ) {
-    $languages['th_TH']['NAME']    = 'Thai';
-    $languages['th_TH']['CHARSET'] = 'tis-620';
-    $languages['th']['ALIAS'] = 'th_TH';
-}
-if ( file_exists( SM_PATH . 'locale/lt_LT') ) {
-    $languages['lt_LT']['NAME']    = 'Lithuanian';
-    $languages['lt_LT']['ALTNAME'] = 'Lietuvi&#371;';
-    $languages['lt_LT']['CHARSET'] = 'utf-8';
-    $languages['lt_LT']['LOCALE'] = 'lt_LT.UTF-8';
-    $languages['lt']['ALIAS'] = 'lt_LT';
-}
-if ( file_exists( SM_PATH . 'locale/sl_SI') ) {
-    $languages['sl_SI']['NAME']    = 'Slovenian';
-    $languages['sl_SI']['ALTNAME'] = 'Sloven&scaron;&#269;ina';
-    $languages['sl_SI']['CHARSET'] = 'iso-8859-2';
-    $languages['sl']['ALIAS'] = 'sl_SI';
-}
-if ( file_exists( SM_PATH . 'locale/bg_BG') ) {
-    $languages['bg_BG']['NAME']    = 'Bulgarian';
-    $languages['bg_BG']['ALTNAME'] = '&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1080;';
-    $languages['bg_BG']['CHARSET'] = 'windows-1251';
-    $languages['bg']['ALIAS'] = 'bg_BG';
-}
+$languages['et_EE']['NAME']    = 'Estonian';
+$languages['et_EE']['CHARSET'] = 'iso-8859-15';
+$languages['et']['ALIAS'] = 'et_EE';
+
+$languages['fo_FO']['NAME']    = 'Faroese';
+$languages['fo_FO']['CHARSET'] = 'iso-8859-1';
+$languages['fo']['ALIAS'] = 'fo_FO';
+
+$languages['fi_FI']['NAME']    = 'Finnish';
+$languages['fi_FI']['ALTNAME'] = 'Suomi';
+$languages['fi_FI']['CHARSET'] = 'iso-8859-1';
+$languages['fi']['ALIAS'] = 'fi_FI';
+
+$languages['fr_FR']['NAME']    = 'French';
+$languages['fr_FR']['ALTNAME'] = 'Fran&#231;ais';
+$languages['fr_FR']['CHARSET'] = 'iso-8859-1';
+$languages['fr']['ALIAS'] = 'fr_FR';
+
+$languages['hr_HR']['NAME']    = 'Croatian';
+$languages['hr_HR']['CHARSET'] = 'iso-8859-2';
+$languages['hr']['ALIAS'] = 'hr_HR';
+
+$languages['hu_HU']['NAME']    = 'Hungarian';
+$languages['hu_HU']['ALTNAME'] = 'Magyar';
+$languages['hu_HU']['CHARSET'] = 'iso-8859-2';
+$languages['hu']['ALIAS'] = 'hu_HU';
+
+$languages['id_ID']['NAME']    = 'Indonesian';
+$languages['id_ID']['ALTNAME'] = 'Bahasa Indonesia';
+$languages['id_ID']['CHARSET'] = 'iso-8859-1';
+$languages['id']['ALIAS'] = 'id_ID';
+
+$languages['is_IS']['NAME']    = 'Icelandic';
+$languages['is_IS']['ALTNAME'] = '&Iacute;slenska';
+$languages['is_IS']['CHARSET'] = 'iso-8859-1';
+$languages['is']['ALIAS'] = 'is_IS';
+
+$languages['it_IT']['NAME']    = 'Italian';
+$languages['it_IT']['CHARSET'] = 'iso-8859-1';
+$languages['it']['ALIAS'] = 'it_IT';
+
+$languages['ja_JP']['NAME']    = 'Japanese';
+$languages['ja_JP']['ALTNAME'] = '&#26085;&#26412;&#35486;';
+$languages['ja_JP']['CHARSET'] = 'iso-2022-jp';
+$languages['ja_JP']['XTRA_CODE'] = 'japanese_charset_xtra';
+$languages['ja']['ALIAS'] = 'ja_JP';
+
+$languages['ko_KR']['NAME']    = 'Korean';
+$languages['ko_KR']['CHARSET'] = 'euc-KR';
+$languages['ko_KR']['XTRA_CODE'] = 'korean_charset_xtra';
+$languages['ko']['ALIAS'] = 'ko_KR';
+
+$languages['lt_LT']['NAME']    = 'Lithuanian';
+$languages['lt_LT']['ALTNAME'] = 'Lietuvi&#371;';
+$languages['lt_LT']['CHARSET'] = 'utf-8';
+$languages['lt_LT']['LOCALE'] = 'lt_LT.UTF-8';
+$languages['lt']['ALIAS'] = 'lt_LT';
+
+$languages['nl_NL']['NAME']    = 'Dutch';
+$languages['nl_NL']['ALTNAME'] = 'Nederlands';
+$languages['nl_NL']['CHARSET'] = 'iso-8859-1';
+$languages['nl']['ALIAS'] = 'nl_NL';
+
+$languages['ms_MY']['NAME']    = 'Malay';
+$languages['ms_MY']['ALTNAME'] = 'Bahasa Melayu';
+$languages['ms_MY']['CHARSET'] = 'iso-8859-1';
+$languages['my']['ALIAS'] = 'ms_MY';
+
+$languages['no_NO']['NAME']    = 'Norwegian (Bokm&aring;l)';
+$languages['no_NO']['ALTNAME'] = 'Norsk (Bokm&aring;l)';
+$languages['no_NO']['CHARSET'] = 'iso-8859-1';
+$languages['no']['ALIAS'] = 'no_NO';
+
+$languages['nn_NO']['NAME']    = 'Norwegian (Nynorsk)';
+$languages['nn_NO']['ALTNAME'] = 'Norsk (Nynorsk)';
+$languages['nn_NO']['CHARSET'] = 'iso-8859-1';
+
+$languages['pl_PL']['NAME']    = 'Polish';
+$languages['pl_PL']['ALTNAME'] = 'Polski';
+$languages['pl_PL']['CHARSET'] = 'iso-8859-2';
+$languages['pl']['ALIAS'] = 'pl_PL';
+
+$languages['pt_PT']['NAME'] = 'Portuguese (Portugal)';
+$languages['pt_PT']['CHARSET'] = 'iso-8859-1';
+$languages['pt']['ALIAS'] = 'pt_PT';
+
+$languages['pt_BR']['NAME']    = 'Portuguese (Brazil)';
+$languages['pt_BR']['ALTNAME'] = 'Portugu&ecirc;s do Brasil';
+$languages['pt_BR']['CHARSET'] = 'iso-8859-1';
+
+$languages['ro_RO']['NAME']    = 'Romanian';
+$languages['ro_RO']['ALTNAME'] = 'Rom&acirc;n&#259;';
+$languages['ro_RO']['CHARSET'] = 'iso-8859-2';
+$languages['ro']['ALIAS'] = 'ro_RO';
+
+$languages['ru_RU']['NAME']    = 'Russian';
+$languages['ru_RU']['ALTNAME'] = '&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;';
+$languages['ru_RU']['CHARSET'] = 'utf-8';
+$languages['ru_RU']['LOCALE'] = 'ru_RU.UTF-8';
+$languages['ru']['ALIAS'] = 'ru_RU';
+
+$languages['sk_SK']['NAME']     = 'Slovak';
+$languages['sk_SK']['CHARSET']  = 'iso-8859-2';
+$languages['sk']['ALIAS']       = 'sk_SK';
+
+$languages['sl_SI']['NAME']    = 'Slovenian';
+$languages['sl_SI']['ALTNAME'] = 'Sloven&scaron;&#269;ina';
+$languages['sl_SI']['CHARSET'] = 'iso-8859-2';
+$languages['sl']['ALIAS'] = 'sl_SI';
+
+$languages['sr_YU']['NAME']    = 'Serbian';
+$languages['sr_YU']['ALTNAME'] = 'Srpski';
+$languages['sr_YU']['CHARSET'] = 'iso-8859-2';
+$languages['sr']['ALIAS'] = 'sr_YU';
+
+$languages['sv_SE']['NAME']    = 'Swedish';
+$languages['sv_SE']['ALTNAME'] = 'Svenska';
+$languages['sv_SE']['CHARSET'] = 'iso-8859-1';
+$languages['sv']['ALIAS'] = 'sv_SE';
+
+$languages['th_TH']['NAME']    = 'Thai';
+$languages['th_TH']['CHARSET'] = 'tis-620';
+$languages['th']['ALIAS'] = 'th_TH';
+
+$languages['tr_TR']['NAME']    = 'Turkish';
+$languages['tr_TR']['CHARSET'] = 'iso-8859-9';
+$languages['tr']['ALIAS'] = 'tr_TR';
+
+$languages['zh_TW']['NAME']    = 'Chinese Trad';
+$languages['zh_TW']['CHARSET'] = 'big5';
+$languages['tw']['ALIAS'] = 'zh_TW';
+
+$languages['zh_CN']['NAME']    = 'Chinese Simp';
+$languages['zh_CN']['CHARSET'] = 'gb2312';
+$languages['cn']['ALIAS'] = 'zh_CN';
+
 /*
-if ( file_exists( SM_PATH . 'locale/uk_UA') ) {
-    $languages['uk_UA']['NAME']    = 'Ukrainian';
-    $languages['uk_UA']['CHARSET'] = 'koi8-u';
-    $languages['uk']['ALIAS'] = 'uk_UA';
-}
+$languages['uk_UA']['NAME']    = 'Ukrainian';
+$languages['uk_UA']['CHARSET'] = 'koi8-u';
+$languages['uk']['ALIAS'] = 'uk_UA';
 */
-if ( file_exists( SM_PATH . 'locale/cy_GB') ) {
-    $languages['cy_GB']['NAME']    = 'Welsh';
-    $languages['cy_GB']['ALTNAME'] = 'Cymraeg';
-    $languages['cy_GB']['CHARSET'] = 'iso-8859-1';
-    $languages['cy']['ALIAS'] = 'cy_GB';
-}
 /*
 if ( file_exists( SM_PATH . 'locale/vi_VN') ) {
     $languages['vi_VN']['NAME']    = 'Vietnamese';
@@ -610,18 +562,16 @@ if ( file_exists( SM_PATH . 'locale/vi_VN') ) {
     $languages['vi']['ALIAS'] = 'vi_VN';
 }
 */
+
 // Right to left languages
-if ( file_exists( SM_PATH . 'locale/ar') ) {
-    $languages['ar']['NAME']    = 'Arabic';
-    $languages['ar']['CHARSET'] = 'windows-1256';
-    $languages['ar']['DIR']     = 'rtl';
-}
-if ( file_exists( SM_PATH . 'locale/he_IL') ) {
-    $languages['he_IL']['NAME']    = 'Hebrew';
-    $languages['he_IL']['CHARSET'] = 'windows-1255';
-    $languages['he_IL']['DIR']     = 'rtl';
-    $languages['he']['ALIAS']      = 'he_IL';
-}
+$languages['ar']['NAME']    = 'Arabic';
+$languages['ar']['CHARSET'] = 'windows-1256';
+$languages['ar']['DIR']     = 'rtl';
+
+$languages['he_IL']['NAME']    = 'Hebrew';
+$languages['he_IL']['CHARSET'] = 'windows-1255';
+$languages['he_IL']['DIR']     = 'rtl';
+$languages['he']['ALIAS']      = 'he_IL';
 
 /* Detect whether gettext is installed. */
 $gettext_flags = 0;
