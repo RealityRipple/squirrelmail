@@ -11,6 +11,8 @@
 
 global $username, $attachment_dir;
 
+require_once('../functions/prefs.php');
+
 session_save_path( getHashedDir($username, $attachment_dir) );
 session_start();
 
