@@ -38,6 +38,7 @@ Version 1.4.0 CVS
   - Added Arabic locale. Thanks to Asrar Abbasi <asrar at canasoft.net> and
     Naveed Saqib <naveed.saqib at biznas.com>.
   - Update required PHP version in documentation to 4.0.6.
+  - Fixed delete_move_next plugin to remember where it moved mail to.
 
 Version 1.4.0 RC 2a
 -------------------
