@@ -681,62 +681,6 @@ function charset_decode_koi8r ($string) {
 
 
 /*
- * Japanese charset extra function
- *
- */
-function japanese_charset_xtra() {
-    $ret = func_get_arg(1);  /* default return value */
-    if (function_exists('mb_detect_encoding')) {
-        switch (func_get_arg(0)) { /* action */
-        case 'decode':
-            $detect_encoding = mb_detect_encoding($ret);
-            if ($detect_encoding == 'JIS' ||
-                $detect_encoding == 'EUC-JP' ||
-                $detect_encoding == 'SJIS') {
-                
-                $ret = mb_convert_encoding($ret, 'EUC-JP', 'AUTO');
-            }
-            break;
-        case 'encode':
-            $detect_encoding = mb_detect_encoding($ret);
-            if ($detect_encoding == 'JIS' ||
-                $detect_encoding == 'EUC-JP' ||
-                $detect_encoding == 'SJIS') {
-                
-                $ret = mb_convert_encoding($ret, 'JIS', 'AUTO');
-            }
-            break;
-        case 'strimwidth':
-            $width = func_get_arg(2);
-            $ret = mb_strimwidth($ret, 0, $width, '...'); 
-            break;
-        case 'encodeheader':
-            $ret = mb_encode_mimeheader($ret);
-            break;
-        case 'decodeheader':
-            $ret = str_replace("\t", "", $ret);
-            if (eregi('=\\?([^?]+)\\?(q|b)\\?([^?]+)\\?=', $ret))
-                $ret = mb_decode_mimeheader($ret);
-            $ret = mb_convert_encoding($ret, 'EUC-JP', 'AUTO');
-            break;
-        case 'downloadfilename':
-            $useragent = func_get_arg(2);
-            if (strstr($useragent, 'Windows') !== false ||
-                strstr($useragent, 'Mac_') !== false) {
-                $ret = mb_convert_encoding($ret, 'SJIS', 'AUTO');
-            } else {
-                $ret = mb_convert_encoding($ret, 'EUC-JP', 'AUTO');
-}
-            break;
-        default:
-            break;
-        }
-    }
-    return $ret;
-}
-
-
-/*
  * Set up the language to be output
  * if $do_search is true, then scan the browser information
  * for a possible language that we know
@@ -899,6 +843,7 @@ $languages['ja']['ALIAS'] = 'ja_JP';
 
 $languages['ko_KR']['NAME']    = 'Korean';
 $languages['ko_KR']['CHARSET'] = 'euc-KR';
+$languages['ko_KR']['XTRA_CODE'] = 'korean_charset_xtra';
 $languages['ko']['ALIAS'] = 'ko_KR';
 
 $languages['nl_NL']['NAME']    = 'Dutch';
@@ -1014,6 +959,88 @@ elseif ($gettext_flags == 0) {
             return;
         }
     }
+}
+
+
+/*
+ * Japanese charset extra function
+ *
+ */
+function japanese_charset_xtra() {
+    $ret = func_get_arg(1);  /* default return value */
+    if (function_exists('mb_detect_encoding')) {
+        switch (func_get_arg(0)) { /* action */
+        case 'decode':
+            $detect_encoding = mb_detect_encoding($ret);
+            if ($detect_encoding == 'JIS' ||
+                $detect_encoding == 'EUC-JP' ||
+                $detect_encoding == 'SJIS') {
+                
+                $ret = mb_convert_encoding($ret, 'EUC-JP', 'AUTO');
+            }
+            break;
+        case 'encode':
+            $detect_encoding = mb_detect_encoding($ret);
+            if ($detect_encoding == 'JIS' ||
+                $detect_encoding == 'EUC-JP' ||
+                $detect_encoding == 'SJIS') {
+                
+                $ret = mb_convert_encoding($ret, 'JIS', 'AUTO');
+            }
+            break;
+        case 'strimwidth':
+            $width = func_get_arg(2);
+            $ret = mb_strimwidth($ret, 0, $width, '...'); 
+            break;
+        case 'encodeheader':
+            $ret = mb_encode_mimeheader($ret);
+            break;
+        case 'decodeheader':
+            $ret = str_replace("\t", "", $ret);
+            if (eregi('=\\?([^?]+)\\?(q|b)\\?([^?]+)\\?=', $ret))
+                $ret = mb_decode_mimeheader($ret);
+            $ret = mb_convert_encoding($ret, 'EUC-JP', 'AUTO');
+            break;
+        case 'downloadfilename':
+            $useragent = func_get_arg(2);
+            if (strstr($useragent, 'Windows') !== false ||
+                strstr($useragent, 'Mac_') !== false) {
+                $ret = mb_convert_encoding($ret, 'SJIS', 'AUTO');
+            } else {
+                $ret = mb_convert_encoding($ret, 'EUC-JP', 'AUTO');
+}
+            break;
+        }
+    }
+    return $ret;
+}
+
+
+/*
+ * Korean charset extra function
+ * Hangul(Korean Character) Attached File Name Fix.
+ */
+function korean_charset_xtra() {
+    
+    $ret = func_get_arg(1);  /* default return value */
+    if (func_get_arg(0) == 'downloadfilename') { /* action */
+        $ret = str_replace("\x0D\x0A", '', $ret);  /* Hanmail's CR/LF Clear */
+        for ($i=0;$i<strlen($ret);$i++) {
+            if ($ret[$i] >= "\xA1" && $ret[$i] <= "\xFE") {   /* 0xA1 - 0XFE are Valid */
+                $i++;
+                continue;
+            } else if (($ret[$i] >= 'a' && $ret[$i] <= 'z') || /* From Original ereg_replace in download.php */
+                       ($ret[$i] >= 'A' && $ret[$i] <= 'Z') ||
+                       ($ret[$i] == '.') || ($ret[$i] == '-')) {
+                continue;
+            } else {
+                $ret[$i] = '_';
+            }
+        }
+
+    }
+
+    return $ret;
 }
 
 ?>
