@@ -19,7 +19,7 @@ function  parse_viewheader($imapConnection,$id,$template_vars) {
 
    $read=sqimap_run_command ($imapConnection, "FETCH $id BODY[HEADER]", 
                               true, $a, $b, $uid_support);
-    
+
     $cnum = 0;
     for ($i=1; $i < count($read); $i++) {
         $line = htmlspecialchars($read[$i]);
@@ -53,7 +53,7 @@ function  parse_viewheader($imapConnection,$id,$template_vars) {
         }
         parseEmail($s);
         if (isset($f)) {
-            $header_output[] = array($s,$f);               
+            $header_output[] = array($f,$s);
         }
     }
 
