@@ -23,7 +23,7 @@
    function formatMailboxName($imapConnection, $mailbox, $real_box, $delimeter, $color, $move_to_trash) {
       require ("../config/config.php");
 
-      $mailboxURL = urlencode($mailbox);
+      $mailboxURL = urlencode($real_box);
       selectMailbox($imapConnection, $real_box, $numNessages);
       $unseen = unseenMessages($imapConnection, $numUnseen);
 
@@ -70,7 +70,7 @@
 
    /** If it was a successful login, lets load their preferences **/
    include("../src/load_prefs.php");
-   if (isset($left_refresh) && ($left_refresh != "None")) {
+   if (isset($left_refresh) && ($left_refresh != "None") && ($left_refresh != "")) {
       echo "<META HTTP-EQUIV=\"Expires\" CONTENT=\"Thu, 01 Dec 1994 16:00:00 GMT\">";
       echo "<META HTTP-EQUIV=\"Pragma\" CONTENT=\"no-cache\">"; 
       echo "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"$left_refresh;URL=left_main.php\">";
@@ -88,6 +88,7 @@
    echo "</A>)</FONT></CENTER><BR>";
    echo "<FONT FACE=\"Arial,Helvetica\">\n";
    $delimeter = findMailboxDelimeter($imapConnection);
+
    for ($i = 0;$i < count($boxes); $i++) {
       $line = "";
       $mailbox = $boxes[$i]["FORMATTED"];
