@@ -243,7 +243,7 @@ class Rfc822Header {
                     $i = $iEnd;
                 }
                 $sToken = str_replace($aReplace, $aSpecials,$sToken);
-                $aTokens[] = $sToken;
+                if ($sToken) $aTokens[] = $sToken;
                 break;
             case '(':
                 $iEnd = strpos($address,')',$i);
