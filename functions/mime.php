@@ -26,23 +26,23 @@ require_once('../functions/attachment_common.php');
 
 function mime_structure ($bodystructure, $flags=array()) {
 
-    // isolate the body structure and remove beginning and end parenthesis
+    /* Isolate the body structure and remove beginning and end parenthesis. */
     $read = trim(substr ($bodystructure, strpos(strtolower($bodystructure), 'bodystructure') + 13));
-    $msg =& new Message();
     $read = trim(substr ($read, 0, -1));
-    $res = $msg->parseStructure($read);
-    $msg = $res[0];
+    $msg =& new Message();
+    $res  = $msg->parseStructure($read);
+    $msg  = $res[0];
     if (!is_object($msg)) {
         include_once( '../functions/display_messages.php' );
-	global $color, $mailbox;
+        global $color, $mailbox;
         displayPageHeader( $color, urldecode($mailbox) );
         echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n\n" .
          '<CENTER>';
-	$errormessage = _("Squirrelmail could not decode the bodystructure of the message");
-	$errormessage .= '<BR>'._("the provided bodystructure by your imap-server").':<BR><BR>';
-        $errormessage .= '<table><tr><td>'.htmlspecialchars($read).'</td></tr></table>';
+        $errormessage  = _("Squirrelmail could not decode the bodystructure of the message");
+        $errormessage .= '<BR>'._("the provided bodystructure by your imap-server").':<BR><BR>';
+        $errormessage .= '<table><tr><td>' . htmlspecialchars($read) . '</td></tr></table>';
         plain_error_message( $errormessage, $color );
-	echo '</body></html>';
+        echo '</body></html>';
         exit;
     }
     $msg->setEnt('0');
@@ -50,41 +50,41 @@ function mime_structure ($bodystructure, $flags=array()) {
         foreach ($flags as $flag) {
             $char = strtoupper($flag{1});
             switch ($char) {
-            case 'S':
-                if (strtolower($flag) == '\\seen') {
-                    $msg->is_seen = true;
-                }
-                break;
-            case 'A':
-                if (strtolower($flag) == '\\answered') {
-                    $msg->is_answered = true;
-                }
-                break;
-            case 'D':
-                if (strtolower($flag) == '\\deleted') {
-                    $msg->is_deleted = true;
-                }
-                break;
-            case 'F':
-                if (strtolower($flag) == '\\flagged') {
-                    $msg->is_flagged = true;
-                }
-                break;
-            case 'M':
-                if (strtolower($flag) == '$mdnsent') {
-                    $msg->is_mdnsent = true;
-                }
-                break;
-            default:
-                break;
+                case 'S':
+                    if (strtolower($flag) == '\\seen') {
+                        $msg->is_seen = true;
+                    }
+                    break;
+                case 'A':
+                    if (strtolower($flag) == '\\answered') {
+                        $msg->is_answered = true;
+                    }
+                    break;
+                case 'D':
+                    if (strtolower($flag) == '\\deleted') {
+                        $msg->is_deleted = true;
+                    }
+                    break;
+                case 'F':
+                    if (strtolower($flag) == '\\flagged') {
+                        $msg->is_flagged = true;
+                    }
+                    break;
+                case 'M':
+                    if (strtolower($flag) == '$mdnsent') {
+                        $msg->is_mdnsent = true;
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     }
     //    listEntities($msg);
-    return( $msg );
+    return $msg;
 }
 
-/* this starts the parsing of a particular structure.  It is called recursively,
+/* This starts the parsing of a particular structure.  It is called recursively,
  * so it can be passed different structures.  It returns an object of type
  * $message.
  * First, it checks to see if it is a multipart message.  If it is, then it
@@ -95,44 +95,41 @@ function mime_structure ($bodystructure, $flags=array()) {
 
 function mime_fetch_body($imap_stream, $id, $ent_id) {
     global $uid_support; 
-    /*
-     * do a bit of error correction.  If we couldn't find the entity id, just guess
+    /* Do a bit of error correction.  If we couldn't find the entity id, just guess
      * that it is the first one.  That is usually the case anyway.
      */
     if (!$ent_id) {
         $ent_id = 1;
     }
     $cmd = "FETCH $id BODY[$ent_id]";
-    
+
     $data = sqimap_run_command ($imap_stream, $cmd, true, $response, $message, $uid_support);
     do {
-        $topline = trim(array_shift( $data ));
-    } while( $topline && $topline[0] == '*' && !preg_match( '/\* [0-9]+ FETCH.*/i', $topline )) ;
+        $topline = trim(array_shift($data));
+    } while($topline && ($topline[0] == '*') && !preg_match('/\* [0-9]+ FETCH.*/i', $topline)) ;
 
     $wholemessage = implode('', $data);
     if (ereg('\\{([^\\}]*)\\}', $topline, $regs)) {
-
-        $ret = substr( $wholemessage, 0, $regs[1] );
-        /*
-            There is some information in the content info header that could be important
-            in order to parse html messages. Let's get them here.
-        */
-        if ( $ret{0} == '<' ) {
+        $ret = substr($wholemessage, 0, $regs[1]);
+        /* There is some information in the content info header that could be important
+         * in order to parse html messages. Let's get them here.
+         */
+        if ($ret{0} == '<') {
             $data = sqimap_run_command ($imap_stream, "FETCH $id BODY[$ent_id.MIME]", true, $response, $message, $uid_support);
         }
     } else if (ereg('"([^"]*)"', $topline, $regs)) {
         $ret = $regs[1];
     } else {
         global $where, $what, $mailbox, $passed_id, $startMessage;
-        $par = 'mailbox=' . urlencode($mailbox) . "&amp;passed_id=$passed_id";
+        $par = 'mailbox=' . urlencode($mailbox) . '&amp;passed_id=' . $passed_id;
         if (isset($where) && isset($what)) {
-            $par .= '&amp;where='. urlencode($where) . "&amp;what=" . urlencode($what);
+            $par .= '&amp;where=' . urlencode($where) . '&amp;what=' . urlencode($what);
         } else {
-            $par .= "&amp;startMessage=$startMessage&amp;show_more=0";
+            $par .= '&amp;startMessage=' . $startMessage . '&amp;show_more=0';
         }
         $par .= '&amp;response=' . urlencode($response) .
-                '&amp;message=' . urlencode($message).
-                '&amp;topline=' . urlencode($topline);
+                '&amp;message='  . urlencode($message)  .
+                '&amp;topline='  . urlencode($topline);
 
         echo   '<tt><br>' .
                '<table width="80%"><tr>' .
@@ -153,22 +150,24 @@ function mime_fetch_body($imap_stream, $id, $ent_id) {
 
         $ret = $wholemessage;
     }
-    return( $ret );
+    return $ret;
 }
 
 function mime_print_body_lines ($imap_stream, $id, $ent_id, $encoding) {
     global $uid_support;
-    // do a bit of error correction.  If we couldn't find the entity id, just guess
-    // that it is the first one.  That is usually the case anyway.
+    /* Do a bit of error correction.  If we couldn't find the entity id, just guess
+     * that it is the first one.  That is usually the case anyway.
+     */
     if (!$ent_id) {
         $ent_id = 1;
     }
     $sid = sqimap_session_id($uid_support);
-    // Don't kill the connection if the browser is over a dialup
-    // and it would take over 30 seconds to download it.
+    /* Don't kill the connection if the browser is over a dialup
+     * and it would take over 30 seconds to download it.
+     * Don´t call set_time_limit in safe mode.
+     */
 
-    // don´t call set_time_limit in safe mode.
-    if (!ini_get("safe_mode")) {
+    if (!ini_get('safe_mode')) {
         set_time_limit(0);
     }
     if ($uid_support) {
@@ -211,49 +210,49 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id, $encoding) {
 
 /* -[ END MIME DECODING ]----------------------------------------------------------- */
 
-// This is here for debugging purposese.  It will print out a list
-// of all the entity IDs that are in the $message object.
-
+/* This is here for debugging purposes.  It will print out a list
+ * of all the entity IDs that are in the $message object.
+ */
 function listEntities ($message) {
-  if ($message) {
-    echo "<tt>" . $message->entity_id . ' : ' . $message->type0 . '/' . $message->type1 . ' parent = '. $message->parent->entity_id. '<br>';
-    for ($i = 0;isset($message->entities[$i]); $i++) {
-       echo "$i : ";
-       $msg = listEntities($message->entities[$i]);
-    
-       if ($msg) {
-          echo "return: ";
-          return $msg;
-       }
+    if ($message) {
+        echo "<tt>" . $message->entity_id . ' : ' . $message->type0 . '/' . $message->type1 . ' parent = '. $message->parent->entity_id. '<br>';
+        for ($i = 0; isset($message->entities[$i]); $i++) {
+            echo "$i : ";
+            $msg = listEntities($message->entities[$i]);
+
+            if ($msg) {
+                echo "return: ";
+                return $msg;
+            }
+        }
     }
-  } 
 }
 
 function getPriorityStr($priority) {
-   $priority_level = substr($priority,0,1);
+    $priority_level = substr($priority,0,1);
 
-   switch($priority_level) {
-     /* check for a higher then normal priority. */
-     case '1':
-     case '2':
-        $priority_string = _("High");
-        break;
+    switch($priority_level) {
+        /* Check for a higher then normal priority. */
+        case '1':
+        case '2':
+            $priority_string = _("High");
+            break;
 
-      /* check for a lower then normal priority. */
-     case '4':
-     case '5':
-        $priority_string = _("Low");
-        break;
+        /* Check for a lower then normal priority. */
+        case '4':
+        case '5':
+            $priority_string = _("Low");
+            break;
 
-     /* check for a normal priority. */
-     case '3':
-     default:
-        $priority_level = '3';
-        $priority_string = _("Normal");
-        break;
+        /* Check for a normal priority. */
+        case '3':
+        default:
+            $priority_level = '3';
+            $priority_string = _("Normal");
+            break;
 
-   }
-   return $priority_string;
+    }
+    return $priority_string;
 }
 
 /* returns a $message object for a particular entity id */
@@ -261,19 +260,17 @@ function getEntity ($message, $ent_id) {
     return $message->getEntity($ent_id);
 }
 
-/*
- * translateText
+/* translateText
  * Extracted from strings.php 23/03/2002
  */
 
 function translateText(&$body, $wrap_at, $charset) {
-    global $where, $what; /* from searching */
-    global $color; /* color theme */
+    global $where, $what;   /* from searching */
+    global $color;          /* color theme */
 
     require_once('../functions/url_parser.php');
 
     $body_ary = explode("\n", $body);
-    $PriorQuotes = 0;
     for ($i=0; $i < count($body_ary); $i++) {
         $line = $body_ary[$i];
         if (strlen($line) - 2 >= $wrap_at) {
@@ -284,33 +281,33 @@ function translateText(&$body, $wrap_at, $charset) {
 
         parseUrl ($line);
 
-        $Quotes = 0;
+        $quotes = 0;
         $pos = 0;
-        $j = strlen( $line );
+        $j = strlen($line);
 
-        while ( $pos < $j ) {
+        while ($pos < $j) {
             if ($line[$pos] == ' ') {
-                $pos ++;
+                $pos++;
             } else if (strpos($line, '&gt;', $pos) === $pos) {
                 $pos += 4;
-                $Quotes ++;
+                $quotes++;
             } else {
                 break;
             }
         }
-        
-        if ($Quotes > 1) {
-            if (! isset($color[14])) {
+
+        if ($quotes > 1) {
+            if (!isset($color[14])) {
                 $color[14] = '#FF0000';
             }
             $line = '<FONT COLOR="' . $color[14] . '">' . $line . '</FONT>';
-        } elseif ($Quotes) {
-            if (! isset($color[13])) {
+        } elseif ($quotes) {
+            if (!isset($color[13])) {
                 $color[13] = '#800000';
             }
             $line = '<FONT COLOR="' . $color[13] . '">' . $line . '</FONT>';
         }
-        
+
         $body_ary[$i] = $line;
     }
     $body = '<pre>' . implode("\n", $body_ary) . '</pre>';
@@ -318,14 +315,15 @@ function translateText(&$body, $wrap_at, $charset) {
 
 
 /* This returns a parsed string called $body. That string can then
-be displayed as the actual message in the HTML. It contains
-everything needed, including HTML Tags, Attachments at the
-bottom, etc.
-*/
+ * be displayed as the actual message in the HTML. It contains
+ * everything needed, including HTML Tags, Attachments at the
+ * bottom, etc.
+ */
 function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $mailbox='INBOX') {
-    // this if statement checks for the entity to show as the
-    // primary message. To add more of them, just put them in the
-    // order that is their priority.
+    /* This if statement checks for the entity to show as the
+     * primary message. To add more of them, just put them in the
+     * order that is their priority.
+     */
     global $startMessage, $username, $key, $imapServerAddress, $imapPort,
            $show_html_default, $has_unsafe_images, $view_unsafe_images, $sort;
 
@@ -335,41 +333,50 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
     $body_message = getEntity($message, $ent_num);
     if (($body_message->header->type0 == 'text') ||
         ($body_message->header->type0 == 'rfc822')) {
-	    $body = mime_fetch_body ($imap_stream, $id, $ent_num);
+        $body = mime_fetch_body ($imap_stream, $id, $ent_num);
         $body = decodeBody($body, $body_message->header->encoding);
         $hookResults = do_hook("message_body", $body);
         $body = $hookResults[1];
 
-        // If there are other types that shouldn't be formatted, add
-        // them here
-        
+        /* If there are other types that shouldn't be formatted, add
+         * them here.
+         */
+
         if ($body_message->header->type1 == 'html') {
-            if ( $show_html_default <> 1 ) {
+            if ($show_html_default <> 1) {
                 $entity_conv = array('&nbsp;' => ' ',
+                                     '<p>'    => "\n",
+                                     '<br>'   => "\n",
+                                     '<P>'    => "\n",
+                                     '<BR>'   => "\n",
                                      '&gt;'   => '>',
                                      '&lt;'   => '<');
-                $body = strip_tags( $body );
                 $body = strtr($body, $entity_conv);
+                $body = strip_tags($body);
                 $body = trim($body);
                 translateText($body, $wrap_at,
                               $body_message->header->getParameter('charset'));
             } else {
-                $body = magicHTML( $body, $id, $message, $mailbox );
+                $body = magicHTML($body, $id, $message, $mailbox);
             }
         } else {
-            translateText($body, $wrap_at, 
-	                      $body_message->header->getParameter('charset'));
+            translateText($body, $wrap_at,
+                          $body_message->header->getParameter('charset'));
         }
 
         if ($has_unsafe_images) {
             if ($view_unsafe_images) {
-                $body .= "<CENTER><SMALL><A HREF=\"read_body.php?passed_id=$id&amp;passed_ent_id=".$message->entity_id."&amp;mailbox=$urlmailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">". _("Hide Unsafe Images") ."</A></SMALL></CENTER><BR>\n";
+                $untext = '">' . _("Hide Unsafe Images");
             } else {
-                $body .= "<CENTER><SMALL><A HREF=\"read_body.php?passed_id=$id&amp;passed_ent_id=".$message->entity_id."&amp;mailbox=$urlmailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0&amp;view_unsafe_images=1\">". _("View Unsafe Images") ."</A></SMALL></CENTER><BR>\n";
+                $untext = '&amp;view_unsafe_images=1">' . _("View Unsafe Images");
             }
-        } 
-    } 
-    return ($body);
+            $body .= '<center><small><a href="read_body.php?passed_id=' . $id .
+                     '&amp;passed_ent_id=' . $message->entity_id . '&amp;mailbox=' . $urlmailbox .
+                     '&amp;sort=' . $sort . '&amp;startMessage=' . $startMessage . '&amp;show_more=0' .
+                     $untext . '</a></small></center><br>' . "\n";
+        }
+    }
+    return $body;
 }
 
 
@@ -391,8 +398,8 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         $type0 = strtolower($header->type0);
         $type1 = strtolower($header->type1);
         $name = '';
-        $Links['download link']['text'] = _("download");
-        $Links['download link']['href'] =
+        $links['download link']['text'] = _("download");
+        $links['download link']['href'] =
                 "../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;ent_id=$ent";
         $ImageURL = '';
         if ($type0 =='message' && $type1 == 'rfc822') {
@@ -407,65 +414,68 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
                 $from_name = _("Unknown sender");
             }
             $from_name = decodeHeader(htmlspecialchars($from_name));
-	    $description = $from_name;
+            $description = $from_name;
         } else {
             $default_page = '../src/download.php';
-	    if (is_object($header->disposition)) {
-               $filename = decodeHeader($header->disposition->getProperty('filename'));
-               if (trim($filename) == '') {
-                  $name = decodeHeader($header->disposition->getProperty('name'));
-                  if (trim($name) == '') {
-                     if ( trim( $header->id ) == '' )
-                        $filename = 'untitled-[' . $ent . ']' ;
-                     else
-                        $filename = 'cid: ' . $header->id;
-                  } else {
-                     $filename = $name;
-                  }
-               }
-	    } else {
-	       if ( trim( $header->id ) == '' )
-                  $filename = 'untitled-[' . $ent . ']' ;
-               else
-                  $filename = 'cid: ' . $header->id;
-	    }
+            if (is_object($header->disposition)) {
+                $filename = decodeHeader($header->disposition->getProperty('filename'));
+                if (trim($filename) == '') {
+                    $name = decodeHeader($header->disposition->getProperty('name'));
+                    if (trim($name) == '') {
+                        if (trim( $header->id ) == '') {
+                            $filename = 'untitled-[' . $ent . ']' ;
+                        } else {
+                            $filename = 'cid: ' . $header->id;
+                        }
+                    } else {
+                        $filename = $name;
+                    }
+                }
+            } else {
+                if (trim( $header->id ) == '') {
+                    $filename = 'untitled-[' . $ent . ']' ;
+                } else {
+                    $filename = 'cid: ' . $header->id;
+                }
+            }
 
             if ($header->description) {
                 $description = htmlspecialchars($header->description);
             } else {
-	        $description = '';
-	    }
+                $description = '';
+            }
         }
 
         $display_filename = $filename;
-	if (isset($passed_ent_id)) {
-	   $passed_ent_id_link = '&amp;passed_ent_id='.$passed_ent_id;
-	} else {
-	   $passed_ent_id_link = '';
-	}
-        $DefaultLink = $default_page . "?startMessage=$startMessage"
+        if (isset($passed_ent_id)) {
+            $passed_ent_id_link = '&amp;passed_ent_id='.$passed_ent_id;
+        } else {
+            $passed_ent_id_link = '';
+        }
+        $defaultlink = $default_page . "?startMessage=$startMessage"
                      . "&amp;passed_id=$id&amp;mailbox=$urlMailbox"
                      . '&amp;ent_id='.$ent.$passed_ent_id_link;
         if ($where && $what) {
-           $DefaultLink = '&amp;where='. urlencode($where).'&amp;what='.urlencode($what);
+           $defaultlink = '&amp;where='. urlencode($where).'&amp;what='.urlencode($what);
         }
-        /* this executes the attachment hook with a specific MIME-type.
-            * if that doens't have results, it tries if there's a rule
-            * for a more generic type. */
-        $HookResults = do_hook("attachment $type0/$type1", $Links,
-            $startMessage, $id, $urlMailbox, $ent, $DefaultLink,
-            $display_filename, $where, $what);
-        if(count($HookResults[1]) <= 1) {
-            $HookResults = do_hook("attachment $type0/*", $Links,
-                    $startMessage, $id, $urlMailbox, $ent, $DefaultLink,
-                    $display_filename, $where, $what);
+        /* This executes the attachment hook with a specific MIME-type.
+         * If that doesn't have results, it tries if there's a rule
+         * for a more generic type.
+         */
+        $hookresults = do_hook("attachment $type0/$type1", $links,
+                               $startMessage, $id, $urlMailbox, $ent, $defaultlink,
+                               $display_filename, $where, $what);
+        if(count($hookresults[1]) <= 1) {
+            $hookresults = do_hook("attachment $type0/*", $links,
+                                   $startMessage, $id, $urlMailbox, $ent, $defaultlink,
+                                   $display_filename, $where, $what);
         }
 
-        $Links = $HookResults[1];
-        $DefaultLink = $HookResults[6];
+        $links = $hookresults[1];
+        $defaultlink = $hookresults[6];
 
         $attachments .= '<TR><TD>' .
-                        "<A HREF=\"$DefaultLink\">$display_filename</A>&nbsp;</TD>" .
+                        "<A HREF=\"$defaultlink\">$display_filename</A>&nbsp;</TD>" .
                         '<TD><SMALL><b>' . show_readable_size($header->size) .
                         '</b>&nbsp;&nbsp;</small></TD>' .
                         "<TD><SMALL>[ $type0/$type1 ]&nbsp;</SMALL></TD>" .
@@ -473,49 +483,48 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         $attachments .= '<b>' . $description . '</b>';
         $attachments .= '</SMALL></TD><TD><SMALL>&nbsp;';
 
-        $SkipSpaces = 1;
-        foreach ($Links as $Val) {
-            if ($SkipSpaces) {
-                $SkipSpaces = 0;
+        $skipspaces = 1;
+        foreach ($links as $val) {
+            if ($skipspaces) {
+                $skipspaces = 0;
             } else {
                 $attachments .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
             }
-            $attachments .= '<a href="' . $Val['href'] . '">' .  $Val['text'] . '</a>';
+            $attachments .= '<a href="' . $val['href'] . '">' .  $val['text'] . '</a>';
         }
-        unset($Links);
+        unset($links);
         $attachments .= "</TD></TR>\n";
     }
     return $attachments;
 }
 
-/** this function decodes the body depending on the encoding type. **/
+/* This function decodes the body depending on the encoding type. */
 function decodeBody($body, $encoding) {
     global $languages, $squirrelmail_language;
+    global $show_html_default;
 
     $body = str_replace("\r\n", "\n", $body);
     $encoding = strtolower($encoding);
-    
-    global $show_html_default;
-    
+
     if ($encoding == 'quoted-printable' ||
-    $encoding == 'quoted_printable') {
+        $encoding == 'quoted_printable') {
         $body = quoted_printable_decode($body);
-    
+
         while (ereg("=\n", $body)) {
             $body = ereg_replace ("=\n", '', $body);
         }
-    
+
     } else if ($encoding == 'base64') {
         $body = base64_decode($body);
     }
-    
+
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
         function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
         $body = $languages[$squirrelmail_language]['XTRA_CODE']('decode', $body);
     }
-    
+
     // All other encodings are returned raw.
-    return( $body );
+    return $body;
 }
 
 /*
@@ -538,7 +547,7 @@ function decodeHeader ($string, $utfencode=true) {
     while (preg_match('/^(.{' . $i . '})(.*)=\?([^?]*)\?(Q|B)\?([^?]*)\?=/Ui', 
                       $string, $res)) {
         $prefix = $res[1];
-        // Ignore white-space between consecutive encoded-words
+        /* Ignore white-space between consecutive encoded-words. */
         if (strspn($res[2], " \t") != strlen($res[2])) {
             $prefix .= $res[2];
         }
@@ -550,7 +559,8 @@ function decodeHeader ($string, $utfencode=true) {
             $replace = preg_replace('/=([0-9a-f]{2})/ie', 'chr(hexdec("\1"))', 
                                     $replace);
             /* Only encode into entities by default. Some places
-               don't need the encoding, like the compose form. */
+             * don't need the encoding, like the compose form.
+             */
             if ($utfencode) {
                 $replace = charset_decode($res[3], $replace);
             }
@@ -558,7 +568,7 @@ function decodeHeader ($string, $utfencode=true) {
         $string = $prefix . $replace . substr($string, strlen($res[0]));
         $i = strlen($prefix) + strlen($replace);
     }
-    return( $string );
+    return $string;
 }
 
 /*
@@ -575,65 +585,65 @@ function encodeHeader ($string) {
     }
 
     // Encode only if the string contains 8-bit characters or =?
-    $j = strlen( $string  );
+    $j = strlen($string);
     $l = strstr($string, '=?');         // Must be encoded ?
     $ret = '';
-    for( $i=0; $i < $j; ++$i) {
-        switch( $string{$i} ) {
-           case '=':
-          $ret .= '=3D';
-          break;
-        case '?':
-          $ret .= '=3F';
-          break;
-        case '_':
-          $ret .= '=5F';
-          break;
-        case ' ':
-          $ret .= '_';
-          break;
-        default:
-          $k = ord( $string{$i} );
-          if ( $k > 126 ) {
-             $ret .= sprintf("=%02X", $k);
-             $l = TRUE;
-          } else
-             $ret .= $string{$i};
+    for($i = 0; $i < $j; ++$i) {
+        switch($string{$i}) {
+            case '=':
+                $ret .= '=3D';
+                break;
+            case '?':
+                $ret .= '=3F';
+                break;
+            case '_':
+                $ret .= '=5F';
+                break;
+            case ' ':
+                $ret .= '_';
+                break;
+            default:
+                $k = ord($string{$i});
+                if ($k > 126) {
+                    $ret .= sprintf("=%02X", $k);
+                    $l = TRUE;
+                } else {
+                    $ret .= $string{$i};
+                }
+                break;
         }
     }
 
-    if ( $l ) {
+    if ($l) {
         $string = "=?$default_charset?Q?$ret?=";
     }
 
-    return( $string );
+    return $string;
 }
 
 /* This function trys to locate the entity_id of a specific mime element */
 
-function find_ent_id( $id, $message ) {
+function find_ent_id($id, $message) {
     $ret = '';
-    for ($i=0; $ret == '' && $i < count($message->entities); $i++) {
-	if ( $message->entities[$i]->header->type0 == 'multipart')  { 	 
-    	    $ret = find_ent_id( $id, $message->entities[$i] );
+    for ($i = 0; $ret == '' && $i < count($message->entities); $i++) {
+        if ($message->entities[$i]->header->type0 != 'multipart')  {
+            $ret = find_ent_id($id, $message->entities[$i]);
         } else {
-            if ( strcasecmp( $message->entities[$i]->header->id, $id ) == 0 ) {
-	        if (sq_check_save_extension($message->entities[$i])) {
-            	    $ret = $message->entities[$i]->entity_id;
-		} else {
-		    $ret = '';
-		}
-	    }
+            if (strcasecmp($message->entities[$i]->header->id, $id) == 0) {
+                if (sq_check_save_extension($message->entities[$i])) {
+                    $ret = $message->entities[$i]->entity_id;
+                }
+            }
         }
     }
-    return( $ret );
+    return $ret;
 }
 
 function sq_check_save_extension($message) {
     $filename = $message->getFilename();
     $ext = substr($filename, strrpos($filename,'.')+1);
     $save_extensions = array('jpg','jpeg','gif','png','bmp');
-    return (in_array($ext, $save_extensions));
+    return in_array($ext, $save_extensions);
 }
 
 
@@ -652,9 +662,8 @@ function sq_check_save_extension($message) {
  * @return           a string with the final tag representation.
  */
 function sq_tagprint($tagname, $attary, $tagtype){
-    
     $me = 'sq_tagprint';
-    
+
     if ($tagtype == 2){
         $fulltag = '</' . $tagname . '>';
     } else {
@@ -697,7 +706,7 @@ function sq_casenormalize(&$val){
  */
 function sq_skipspace($body, $offset){
     $me = 'sq_skipspace';
-    preg_match("/^(\s*)/s", substr($body, $offset), $matches);
+    preg_match('/^(\s*)/s', substr($body, $offset), $matches);
     if (sizeof($matches{1})){
         $count = strlen($matches{1});
         $offset += $count;
@@ -717,7 +726,7 @@ function sq_skipspace($body, $offset){
  *                 strlen($body) if needle wasn't found.
  */
 function sq_findnxstr($body, $offset, $needle){
-    $me = 'sq_findnxstr';
+    $me  = 'sq_findnxstr';
     $pos = strpos($body, $needle, $offset);
     if ($pos === FALSE){
         $pos = strlen($body);
@@ -796,34 +805,34 @@ function sq_getnxtag($body, $offset){
      */
     $tagtype = false;
     switch (substr($body, $pos, 1)){
-    case '/':
-        $tagtype = 2;
-        $pos++;
-        break;
-    case '!':
-        /**
-         * A comment or an SGML declaration.
-         */
-        if (substr($body, $pos+1, 2) == "--"){
-            $gt = strpos($body, "-->", $pos);
-            if ($gt === false){
-                $gt = strlen($body);
+        case '/':
+            $tagtype = 2;
+            $pos++;
+            break;
+        case '!':
+            /**
+             * A comment or an SGML declaration.
+             */
+            if (substr($body, $pos+1, 2) == "--"){
+                $gt = strpos($body, "-->", $pos);
+                if ($gt === false){
+                    $gt = strlen($body);
+                } else {
+                    $gt += 2;
+                }
+                return Array(false, false, false, $lt, $gt);
             } else {
-	        $gt += 2;
-	    }
-            return Array(false, false, false, $lt, $gt);
-        } else {
-            $gt = sq_findnxstr($body, $pos, ">");
-            return Array(false, false, false, $lt, $gt);
-        }
-        break;
-    default:
-        /**
-         * Assume tagtype 1 for now. If it's type 3, we'll switch values
-         * later.
-         */
-        $tagtype = 1;
-        break;
+                $gt = sq_findnxstr($body, $pos, ">");
+                return Array(false, false, false, $lt, $gt);
+            }
+            break;
+        default:
+            /**
+             * Assume tagtype 1 for now. If it's type 3, we'll switch values
+             * later.
+             */
+            $tagtype = 1;
+            break;
     }
 
     $tag_start = $pos;
@@ -847,37 +856,37 @@ function sq_getnxtag($body, $offset){
      * Whatever else we find there indicates an invalid tag.
      */
     switch ($match){
-    case '/':
-        /**
-         * This is an xhtml-style tag with a closing / at the
-         * end, like so: <img src="blah"/>. Check if it's followed
-         * by the closing bracket. If not, then this tag is invalid
-         */
-        if (substr($body, $pos, 2) == "/>"){
-            $pos++;
-            $tagtype = 3;
-        } else {
-            $gt = sq_findnxstr($body, $pos, ">");
-            $retary = Array(false, false, false, $lt, $gt);
-            return $retary;
-        }
-    case '>':
-        return Array($tagname, false, $tagtype, $lt, $pos);
-        break;
-    default:
-        /**
-         * Check if it's whitespace
-         */
-        if (preg_match("/\s/", $match)){
-        } else {
+        case '/':
             /**
-             * This is an invalid tag! Look for the next closing ">".
+             * This is an xhtml-style tag with a closing / at the
+             * end, like so: <img src="blah"/>. Check if it's followed
+             * by the closing bracket. If not, then this tag is invalid
              */
-            $gt = sq_findnxstr($body, $offset, ">");
-            return Array(false, false, false, $lt, $gt);
-        }
+            if (substr($body, $pos, 2) == "/>"){
+                $pos++;
+                $tagtype = 3;
+            } else {
+                $gt = sq_findnxstr($body, $pos, ">");
+                $retary = Array(false, false, false, $lt, $gt);
+                return $retary;
+            }
+        case '>':
+            return Array($tagname, false, $tagtype, $lt, $pos);
+            break;
+        default:
+            /**
+             * Check if it's whitespace
+             */
+            if (!preg_match('/\s/', $match)){
+                /**
+                 * This is an invalid tag! Look for the next closing ">".
+                 */
+                $gt = sq_findnxstr($body, $offset, ">");
+                return Array(false, false, false, $lt, $gt);
+            }
+            break;
     }
-    
+
     /**
      * At this point we're here:
      * <tagname  attribute='blah'>
@@ -949,91 +958,92 @@ function sq_getnxtag($body, $offset){
          *      anything else means the attribute is invalid.
          */
         switch($match){
-        case '/':
-            /**
-             * This is an xhtml-style tag with a closing / at the
-             * end, like so: <img src="blah"/>. Check if it's followed
-             * by the closing bracket. If not, then this tag is invalid
-             */
-            if (substr($body, $pos, 2) == "/>"){
-                $pos++;
-                $tagtype = 3;
-            } else {
-                $gt = sq_findnxstr($body, $pos, ">");
-                $retary = Array(false, false, false, $lt, $gt);
-                return $retary;
-            }
-        case '>':
-            $attary{$attname} = '"yes"';
-            return Array($tagname, $attary, $tagtype, $lt, $pos);
-            break;
-        default:
-            /**
-             * Skip whitespace and see what we arrive at.
-             */
-            $pos = sq_skipspace($body, $pos);
-            $char = substr($body, $pos, 1);
-            /**
-             * Two things are valid here:
-             * '=' means this is attribute type 1 2 or 3.
-             * \w means this was attribute type 4.
-             * anything else we ignore and re-loop. End of tag and
-             * invalid stuff will be caught by our checks at the beginning
-             * of the loop.
-             */
-            if ($char == "="){
-                $pos++;
-                $pos = sq_skipspace($body, $pos);
+            case '/':
                 /**
-                 * Here are 3 possibilities:
-                 * "'"  attribute type 1
-                 * '"'  attribute type 2
-                 * everything else is the content of tag type 3
+                 * This is an xhtml-style tag with a closing / at the
+                 * end, like so: <img src="blah"/>. Check if it's followed
+                 * by the closing bracket. If not, then this tag is invalid
                  */
-                $quot = substr($body, $pos, 1);
-                if ($quot == "'"){
-                    $regary = sq_findnxreg($body, $pos+1, "\'");
-                    if ($regary == false){
-                        return Array(false, false, false, $lt, strlen($body));
-                    }
-                    list($pos, $attval, $match) = $regary;
+                if (substr($body, $pos, 2) == "/>"){
                     $pos++;
-                    $attary{$attname} = "'" . $attval . "'";
-                } else if ($quot == '"'){
-                    $regary = sq_findnxreg($body, $pos+1, '\"');
-                    if ($regary == false){
-                        return Array(false, false, false, $lt, strlen($body));
-                    }
-                    list($pos, $attval, $match) = $regary;
+                    $tagtype = 3;
+                } else {
+                    $gt = sq_findnxstr($body, $pos, ">");
+                    $retary = Array(false, false, false, $lt, $gt);
+                    return $retary;
+                }
+            case '>':
+                $attary{$attname} = '"yes"';
+                return Array($tagname, $attary, $tagtype, $lt, $pos);
+                break;
+            default:
+                /**
+                 * Skip whitespace and see what we arrive at.
+                 */
+                $pos = sq_skipspace($body, $pos);
+                $char = substr($body, $pos, 1);
+                /**
+                 * Two things are valid here:
+                 * '=' means this is attribute type 1 2 or 3.
+                 * \w means this was attribute type 4.
+                 * anything else we ignore and re-loop. End of tag and
+                 * invalid stuff will be caught by our checks at the beginning
+                 * of the loop.
+                 */
+                if ($char == "="){
                     $pos++;
-                    $attary{$attname} = '"' . $attval . '"';
+                    $pos = sq_skipspace($body, $pos);
+                    /**
+                     * Here are 3 possibilities:
+                     * "'"  attribute type 1
+                     * '"'  attribute type 2
+                     * everything else is the content of tag type 3
+                     */
+                    $quot = substr($body, $pos, 1);
+                    if ($quot == "'"){
+                        $regary = sq_findnxreg($body, $pos+1, "\'");
+                        if ($regary == false){
+                            return Array(false, false, false, $lt, strlen($body));
+                        }
+                        list($pos, $attval, $match) = $regary;
+                        $pos++;
+                        $attary{$attname} = "'" . $attval . "'";
+                    } else if ($quot == '"'){
+                        $regary = sq_findnxreg($body, $pos+1, '\"');
+                        if ($regary == false){
+                            return Array(false, false, false, $lt, strlen($body));
+                        }
+                        list($pos, $attval, $match) = $regary;
+                        $pos++;
+                        $attary{$attname} = '"' . $attval . '"';
+                    } else {
+                        /**
+                         * These are hateful. Look for \s, or >.
+                         */
+                        $regary = sq_findnxreg($body, $pos, "[\s>]");
+                        if ($regary == false){
+                            return Array(false, false, false, $lt, strlen($body));
+                        }
+                        list($pos, $attval, $match) = $regary;
+                        /**
+                         * If it's ">" it will be caught at the top.
+                         */
+                        $attval = preg_replace("/\"/s", "&quot;", $attval);
+                        $attary{$attname} = '"' . $attval . '"';
+                    }
+                } else if (preg_match("|[\w/>]|", $char)) {
+                    /**
+                     * That was attribute type 4.
+                     */
+                    $attary{$attname} = '"yes"';
                 } else {
                     /**
-                     * These are hateful. Look for \s, or >.
+                     * An illegal character. Find next '>' and return.
                      */
-                    $regary = sq_findnxreg($body, $pos, "[\s>]");
-                    if ($regary == false){
-                        return Array(false, false, false, $lt, strlen($body));
-                    }
-                    list($pos, $attval, $match) = $regary;
-                    /**
-                     * If it's ">" it will be caught at the top.
-                     */
-                    $attval = preg_replace("/\"/s", "&quot;", $attval);
-                    $attary{$attname} = '"' . $attval . '"';
+                    $gt = sq_findnxstr($body, $pos, ">");
+                    return Array(false, false, false, $lt, $gt);
                 }
-            } else if (preg_match("|[\w/>]|", $char)) {
-                /**
-                 * That was attribute type 4.
-                 */
-                $attary{$attname} = '"yes"';
-            } else {
-                /**
-                 * An illegal character. Find next '>' and return.
-                 */
-                $gt = sq_findnxstr($body, $pos, ">");
-                return Array(false, false, false, $lt, $gt);
-            }
+                break;
         }
     }
     /**
@@ -1109,7 +1119,7 @@ function sq_fixatts($tagname,
                     $add_attr_to_tag,
                     $message,
                     $id,
-		    $mailbox
+                    $mailbox
                     ){
     $me = 'sq_fixatts';
     while (list($attname, $attvalue) = each($attary)){
@@ -1193,7 +1203,7 @@ function sq_fixstyle($message, $id, $content){
      * and change it to .bodyclass so we can just assign it to a <div>
      */
     $content = preg_replace("|body(\s*\{.*?\})|si", ".bodyclass\\1", $content);
-    $secremoveimg = "../images/" . _("sec_remove_eng.png");
+    $secremoveimg = '../images/' . _("sec_remove_eng.png");
     /**
      * Fix url('blah') declarations.
      */
@@ -1224,8 +1234,8 @@ function sq_fixstyle($message, $id, $content){
      * in IE.
      */
     $match   = Array('/expression/si',
-		     '/behaviou*r/si',
-		     '/binding/si');
+                     '/behaviou*r/si',
+                     '/binding/si');
     $replace = Array('idiocy', 'idiocy', 'idiocy');
     $content = preg_replace($match, $replace, $content);
     return $content;
@@ -1252,9 +1262,9 @@ function sq_cid2http($message, $id, $cidurl, $mailbox){
        unsave link image */
     $httpurl = '';
     if ($linkurl) {
-        $httpurl = $quotchar . "../src/download.php?absolute_dl=true&amp;" .
+        $httpurl = $quotchar . '../src/download.php?absolute_dl=true&amp;' .
                    "passed_id=$id&amp;mailbox=" . urlencode($mailbox) .
-                   "&amp;ent_id=" . $linkurl . $quotchar;
+                   '&amp;ent_id=' . $linkurl . $quotchar;
     }
     return $httpurl;
 }
@@ -1268,7 +1278,7 @@ function sq_cid2http($message, $id, $cidurl, $mailbox){
  */
 function sq_body2div($attary){
     $me = 'sq_body2div';
-    $divattary = Array( 'class' => "'bodyclass'" );
+    $divattary = Array('class' => "'bodyclass'");
     $bgcolor = '#ffffff';
     $text = '#000000';
     $styledef = '';
@@ -1277,14 +1287,15 @@ function sq_body2div($attary){
             $quotchar = substr($attvalue, 0, 1);
             $attvalue = str_replace($quotchar, "", $attvalue);
             switch ($attname){
-            case 'background':
-                $styledef .= "background-image: url('$attvalue'); ";
-                break;
-            case 'bgcolor':
-                $styledef .= "background-color: $attvalue; ";
-                break;
-            case 'text':
-                $styledef .= "color: $attvalue; ";
+                case 'background':
+                    $styledef .= "background-image: url('$attvalue'); ";
+                    break;
+                case 'bgcolor':
+                    $styledef .= "background-color: $attvalue; ";
+                    break;
+                case 'text':
+                    $styledef .= "color: $attvalue; ";
+                    break;
             }
         }
         if (strlen($styledef) > 0){
@@ -1324,7 +1335,7 @@ function sq_sanitize($body,
                      $add_attr_to_tag,
                      $message,
                      $id,
-		     $mailbox
+                     $mailbox
                      ){
     $me = 'sq_sanitize';
     /**
@@ -1364,7 +1375,6 @@ function sq_sanitize($body,
         }
         if ($skip_content == false){
             $trusted .= $free_content;
-        } else {
         }
         if ($tagname != FALSE){
             if ($tagtype == 2){
@@ -1386,7 +1396,6 @@ function sq_sanitize($body,
                                 $tagname = false;
                             }
                         }
-                    } else {
                     }
                 }
             } else {
@@ -1434,7 +1443,7 @@ function sq_sanitize($body,
                                                      $add_attr_to_tag,
                                                      $message,
                                                      $id,
-						     $mailbox
+                                                     $mailbox
                                                      );
                             }
                             /**
@@ -1446,13 +1455,11 @@ function sq_sanitize($body,
                             }
                         }
                     }
-                } else {
                 }
             }
             if ($tagname != false && $skip_content == false){
                 $trusted .= sq_tagprint($tagname, $attary, $tagtype);
             }
-        } else {
         }
         $curpos = $gt+1;
     }
@@ -1479,7 +1486,7 @@ function sq_sanitize($body,
  */
 function magicHTML($body, $id, $message, $mailbox = 'INBOX'){
     global $attachment_common_show_images, $view_unsafe_images,
-        $has_unsafe_images;
+           $has_unsafe_images;
     /**
      * Don't display attached images in HTML mode.
      */
@@ -1515,8 +1522,8 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX'){
                          Array(
                                "/target/si",
                                "/^on.*/si",
-			       "/^dynsrc/si",
-			       "/^data.*/si"
+                               "/^dynsrc/si",
+                               "/^data.*/si"
                                )
                          );
 
@@ -1529,14 +1536,14 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX'){
                           Array(
                                 "|^([\'\"])\s*\.\./.*([\'\"])|si",
                                 "/^([\'\"])\s*\S+script\s*:.*([\'\"])/si",
-				"/^([\'\"])\s*mocha\s*:*.*([\'\"])/si",
-				"/^([\'\"])\s*about\s*:.*([\'\"])/si"
+                                "/^([\'\"])\s*mocha\s*:*.*([\'\"])/si",
+                                "/^([\'\"])\s*about\s*:.*([\'\"])/si"
                                 ),
                           Array(
                                 "\\1$secremoveimg\\2",
                                 "\\1$secremoveimg\\2",
-				"\\1$secremoveimg\\2",
-				"\\1$secremoveimg\\2"
+                                "\\1$secremoveimg\\2",
+                                "\\1$secremoveimg\\2"
                                 )
                         ),
                 "/^href|action/i" =>
@@ -1544,35 +1551,35 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX'){
                           Array(
                                 "|^([\'\"])\s*\.\./.*([\'\"])|si",
                                 "/^([\'\"])\s*\S+script\s*:.*([\'\"])/si",
-				"/^([\'\"])\s*mocha\s*:*.*([\'\"])/si",
-				"/^([\'\"])\s*about\s*:.*([\'\"])/si"
+                                "/^([\'\"])\s*mocha\s*:*.*([\'\"])/si",
+                                "/^([\'\"])\s*about\s*:.*([\'\"])/si"
                                 ),
                           Array(
                                 "\\1#\\2",
                                 "\\1#\\2",
-				"\\1#\\2",
-				"\\1#\\2"
+                                "\\1#\\2",
+                                "\\1#\\2"
                                 )
                         ),
                 "/^style/si" =>
                     Array(
                           Array(
                                 "/expression/si",
-				"/binding/si",
-				"/behaviou*r/si",
+                                "/binding/si",
+                                "/behaviou*r/si",
                                 "|url\(([\'\"])\s*\.\./.*([\'\"])\)|si",
                                 "/url\(([\'\"])\s*\S+script\s*:.*([\'\"])\)/si",
-				"/url\(([\'\"])\s*mocha\s*:.*([\'\"])\)/si",
-				"/url\(([\'\"])\s*about\s*:.*([\'\"])\)/si"
+                                "/url\(([\'\"])\s*mocha\s*:.*([\'\"])\)/si",
+                                "/url\(([\'\"])\s*about\s*:.*([\'\"])\)/si"
                                ),
                           Array(
                                 "idiocy",
-				"idiocy",
-				"idiocy",
+                                "idiocy",
+                                "idiocy",
                                 "url(\\1#\\2)",
                                 "url(\\1#\\2)",
-				"url(\\1#\\2)",
-				"url(\\1#\\2)"
+                                "url(\\1#\\2)",
+                                "url(\\1#\\2)"
                                )
                           )
                 )
@@ -1605,7 +1612,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX'){
                            $add_attr_to_tag,
                            $message,
                            $id,
-			   $mailbox
+                           $mailbox
                            );
     if (preg_match("|$secremoveimg|si", $trusted)){
         $has_unsafe_images = true;
