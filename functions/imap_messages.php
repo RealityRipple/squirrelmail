@@ -451,6 +451,17 @@
                $i++;
             }
          }
+         /** BCC **/
+         else if (strtolower(substr($read[$i], 0, 4)) == "bcc:") {
+            $pos = 0;
+            $hdr->bcc[$pos] = trim(substr($read[$i], 5));
+            $i++;
+            while (((substr($read[$i], 0, 1) == " ") || (substr($read[$i], 0, 1) == "\t"))  && (trim($read[$i]) != "")){
+               $pos++;
+               $hdr->bcc[$pos] = trim($read[$i]);
+               $i++;
+            }
+         }
          /** TO **/
          else if (strtolower(substr($read[$i], 0, 3)) == "to:") {
             $pos = 0;
