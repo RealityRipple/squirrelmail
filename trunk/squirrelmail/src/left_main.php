@@ -138,7 +138,7 @@
       $line = "";
       $mailbox = $boxes[$i]["formatted"];
       
-      if (in_array('noselect', $boxes[$i]['flags']) {
+      if (in_array('noselect', $boxes[$i]['flags'])) {
          $line .= "<FONT COLOR=\"$color[10]\">";
          $line .= replace_spaces($mailbox);
          $line .= '</FONT>';
