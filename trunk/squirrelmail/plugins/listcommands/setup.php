@@ -110,7 +110,6 @@ function plugin_listcommands_menu() {
     }
 
     if (count($output) > 0) {
-        echo "<tr>";
         echo html_tag( 'tr',
                     html_tag( 'td', str_replace(' ', '&nbsp;', _("Mailing List:")), 'right', $color[0]) .
                     html_tag( 'td',
