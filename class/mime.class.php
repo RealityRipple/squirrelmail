@@ -173,9 +173,6 @@ class rfc822_header
 	case ('x-mailer'):
 	    $this->xmailer = $value;
 	    break;
-	case ('user-agent'):
-	    $this->xmailer = $value;
-	    break;
 	case ('x-priority'):
 	    $this->priority = $value;
 	    break;
