@@ -96,7 +96,7 @@ class SquirrelOption {
         }
 
         /* Set the default save function. */
-        if ((type != SMOPT_TYPE_HIDDEN) && ($type != SMOPT_TYPE_COMMENT)) {
+        if (($type != SMOPT_TYPE_HIDDEN) && ($type != SMOPT_TYPE_COMMENT)) {
             $this->save_function = SMOPT_SAVE_DEFAULT;
         } else {
             $this->save_function = SMOPT_SAVE_NOOP;
@@ -288,7 +288,7 @@ function save_option($option) {
     setPref($data_dir, $username, $option->name, $option->new_value);
 
     /* I do not know if this next line does any good. */
-    $GLOBALS[$name] = $option->new_value;
+    $GLOBALS[$option->name] = $option->new_value;
 }
 
 function save_option_noop($option) {
