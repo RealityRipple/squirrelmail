@@ -586,7 +586,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
     }
     $i = 0;
     $iLastMatch = -2;
-    $encoded = false;
+    $encoded = true;
 
     $aString = explode(' ',$string);
     $ret = '';
