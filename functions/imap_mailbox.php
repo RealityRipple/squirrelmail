@@ -814,10 +814,6 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false) {
     $trail_del = false;
     $start = 0;
 
-/* JA - Seems to really screw up folder displays, courier and uw both lose their INBOX when you
-        have a default_folder_prefix set on this
-
-
     if (isset($folder_prefix) && ($folder_prefix != '')) {
         $start = substr_count($folder_prefix,$delimiter);
         if (strrpos($folder_prefix, $delimiter) == (strlen($folder_prefix)-1)) {
@@ -831,7 +827,6 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false) {
     } else {
         $start = 0;
     }
-*/
 
     $cnt =  count($mbx_ary);
     for ($i=0; $i < $cnt; $i++) {
