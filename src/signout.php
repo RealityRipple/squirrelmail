@@ -1,12 +1,16 @@
 <?php
    session_start();
 
-	/**
-	 **  signout.php
-	 **
-	 **  Clears the cookie, and logs them out.
-	 **
-	 **/
+   /**
+    **  signout.php -- cleans up session and logs the user out
+    **
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  Cleans up after the user. Resets cookies and terminates
+    **  session.
+    **
+    **/
 
    include ("../src/load_prefs.php");
 
@@ -14,6 +18,8 @@
       include("../functions/i18n.php");
    if (!isset($prefs_php))
       include ("../functions/prefs.php");
+   if (!isset($plugin_php))
+      include ("../functions/plugin.php");
 
    // Quick Fix for Gettext in LogOut Screen
    if (!function_exists("_")) {
@@ -38,9 +44,10 @@
       }
    }
 
-   setcookie("username", "", time(), "/");
-   setcookie("key", "", time(), "/");
-   setcookie("logged_in", 0, time(), "/");
+   do_hook("logout");
+   setcookie("username", "", 0, $base_uri);
+   setcookie("key", "", 0, $base_uri);
+   setcookie("logged_in", "", 0, $base_uri);
    session_destroy();
 ?>
 <HTML>
