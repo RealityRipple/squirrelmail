@@ -18,7 +18,7 @@ initials = taken by that person
             list for the mail box you were looking at without having to click
             a link
   -     Spell checking
-  -     Customize how many messages are shown at once while reading a mailbox
+(glp)   Customize how many messages are shown at once while reading a mailbox
   -     Cache the sorted messages in mailbox and use that for navigation inside
             of mailbox (next 25, prev 25, etc.)
   -     Search mailbox(es) for given criteria
