@@ -107,7 +107,10 @@ $skip_folders=0;
 $server_type = strtolower($imap_server_type);
 if ( $server_type == 'courier' ) {
   $show_selected = array('inbox');
-  $skip_folders = array('inbox','inbox.trash');
+  $skip_folders = array('inbox.trash');
+  if ( $default_folder_prefix == 'INBOX.' ) {
+    array_push($skip_folders, 'inbox');
+  }
 }
 
 if ( $default_sub_of_inbox == false ) {
