@@ -829,7 +829,7 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
              $filename = $message->getFilename();
              break;
            }
-           $filename = str_replace('&nbsp;', ' ', decodeHeader($filename));
+           $filename = str_replace('&#32;', ' ', decodeHeader($filename));
            if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
                function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
                 $filename =  $languages[$squirrelmail_language]['XTRA_CODE']('encode', $filename);
