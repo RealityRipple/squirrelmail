@@ -554,7 +554,7 @@ class message {
 
     function getFilename() {
         $filename = '';
-        $filename = $this->header->getParameter('filename');	
+        $filename = $this->header->getParameter('filename');
         if (!$filename) {
             $filename = $this->header->getParameter('name');
         }
@@ -581,7 +581,7 @@ class message {
         }
         $ent_a = explode('.', $ent);
 
-        for ($i = 0, $cnt = count($ent_a); $i < $cnt -1; ++$i) {
+        for ($i = 0, $cnt = count($ent_a)-1; $i < $cnt; ++$i) {
             if (isset($cur_ent_a[$i]) && ($cur_ent_a[$i] != $ent_a[$i])) {
                 $msg = $msg->parent;
                 $cur_ent_a = explode('.', $msg->entity_id);
@@ -604,9 +604,9 @@ class message {
             $msg = $msg->entities[0];
         }
 
-        if (isset($msg->entities[($ent_a[$cnt-1])-1])) {
-            if (is_object($msg->entities[($ent_a[$cnt-1])-1])) {
-                $msg = $msg->entities[($ent_a[$cnt-1]-1)];
+        if (isset($msg->entities[($ent_a[$cnt])-1])) {
+            if (is_object($msg->entities[($ent_a[$cnt])-1])) {
+                $msg = $msg->entities[($ent_a[$cnt]-1)];
             }
         }
 
@@ -1167,7 +1167,7 @@ class message {
             }
 
             if ((($line{0} == '-') || $rfc822_header)  && isset($boundaries[0])) {
-                $cnt=count($boundaries)-1;
+                $cnt = count($boundaries)-1;
                 $bnd = $boundaries[$cnt]['bnd'];
                 $bndreg = $boundaries[$cnt]['bndreg'];
 
