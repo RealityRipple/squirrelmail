@@ -36,17 +36,26 @@ require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'plugins/filters/filters.php');
 global $AllowSpamFilters;
 
+$username = $_SESSION['username'];
+$key = $_COOKIE['key'];
+$onetimepad = $_SESSION['onetimepad'];
+$delimiter = $_SESSION['delimiter'];
+
+if (isset($_GET['action'])) {
+    $action = $_GET['action'];
+}
+
 displayPageHeader($color, 'None');
 
-if (isset($spam_submit)) {
+if (isset($_POST['spam_submit'])) {
     $spam_filters = load_spam_filters();
-    setPref($data_dir, $username, 'filters_spam_folder', $filters_spam_folder_set);
-    setPref($data_dir, $username, 'filters_spam_scan', $filters_spam_scan_set);
+    setPref($data_dir, $username, 'filters_spam_folder', $_POST['filters_spam_folder_set']);
+    setPref($data_dir, $username, 'filters_spam_scan', $_POST['filters_spam_scan_set']);
     foreach ($spam_filters as $Key => $Value) {
         $input = $spam_filters[$Key]['prefname'] . '_set';
-        if ( isset( $$input ) ) {
+        if ( isset( $_POST[$input] ) ) {
             setPref( $data_dir, $username, $spam_filters[$Key]['prefname'],
-                     $$input);
+                     $_POST[$input]);
         } else {
             removePref($data_dir, $username, $spam_filters[$Key]['prefname']);
         }
@@ -78,10 +87,9 @@ if (isset($action) && $action == 'spam') {
     $boxes = sqimap_mailbox_list($imapConnection);
     sqimap_logout($imapConnection);
     for ($i = 0; $i < count($boxes) && $filters_spam_folder == ''; $i++) {
-
-        if ($boxes[$i]['flags'][0] != 'noselect' &&
-            $boxes[$i]['flags'][1] != 'noselect' &&
-            $boxes[$i]['flags'][2] != 'noselect') {
+        if ((isset($boxes[$i]['flags'][0]) && $boxes[$i]['flags'][0] != 'noselect') &&
+            (isset($boxes[$i]['flags'][1]) && $boxes[$i]['flags'][1] != 'noselect') &&
+            (isset($boxes[$i]['flags'][2]) && $boxes[$i]['flags'][2] != 'noselect')) {
             $filters_spam_folder = $boxes[$i]['unformatted'];
         }
     }
@@ -176,7 +184,7 @@ if (isset($action) && $action == 'spam') {
 
 }
 
-if (! isset($action) || $action != 'spam') {
+if (! isset($_GET['action']) || $_GET['action'] != 'spam') {
 
     echo html_tag( 'p', '', 'center' ) .
          '[<a href="spamoptions.php?action=spam">' . _("Edit") . '</a>]' .
