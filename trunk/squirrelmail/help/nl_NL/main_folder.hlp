@@ -1,0 +1,51 @@
+<chapter>
+   <title>
+      Berichtenlijst
+   </title>
+   <summary>
+      Dit is het overzicht van alle berichten in een bepaalde map.
+   </summary>
+</chapter>
+
+<section>
+   <title>
+      De Berichtenlijst
+   </title>
+   <description>
+      <p>
+      Nadat u een map heeft aangeklikt krijgt u in het rechter frame de berichtenlijst
+      te zien. Deze geeft alle berichten weer in de betreffende map. Onder de menubalk
+      is een regel die weergeeft welke berichten u nu aan het bekijken bent en hoeveel
+      er in totaal zijn.
+      </p><p>
+      Bijvoorbeeld: Bekijk berichten: <B>20</B> t/m <B>30</B> (45 totaal).
+      </p><p>
+      Het totaal aantal berichten kan verschillen van het totaal aantal <I>nieuwe</I>
+      berichten dat in het linker frame achter de mapnaam weergegeven wordt.
+      </p><p>
+      Hierna volgt een balk met drie knoppen. Aan de linkerkant is een selectielijst
+      met al uw mappen. Een geselecteerd bericht zal hiernaar verplaatst worden als
+      er op de <I>Verplaats</I>-knop geklikt wordt. U kunt meerdere berichten
+      tegelijk verplaatsen.
+      Aan de rechterkant van de balk is een knop die u kunt gebruiken om geselecteerde
+      berichten te verwijderen.
+      </p><p>
+      Op de regel daaronder staat een kopregel met drie velden (Van, Datum en Onderwerp).
+      Deze verdelen de berichtentabel in drie delen: onder Van staat wie het bericht
+      verstuurd heeft, Datum wanneer dat was. Onderwerp geeft weer wat de afzender heeft
+      ingetypt als onderwerp.<BR>
+      <b>NB:</b> Tussen de kolommen Datum en Onderwerp is een kleine kolom zonder naam. Er
+      kan een "+", "!" of "A" in verschijnen. Als u een "+" ziet, betekent dat het bericht
+      bijlagen (attachments) heeft. De "A" betekent dat u het bericht beantwoord heeft, en
+      de "!" geeft weer dat de verzender het bericht als urgent heeft aangemerkt.
+      </p><p>
+      Na de kopregel volgt de berichtentabel. Ongelezen mails worden <B>vet</B> weergegeven,
+      gelezen berichten in romein. Voor elk bericht staat een aankruisvak. Als u dit aanvinkt
+      betekent dat dat u een bericht geselecteerd heeft. Daarna kunt u daarmee de acties Verplaats,
+       Verwijder of Gelezen uitvoeren.<BR>
+      Bijvoorbeeld, u wilt twee berichten verwijderen. U zet een vinkje voor de betreffende berichten.
+      Daarna klikt u op de knop Verwijderen. De berichten zullen dan niet meer voorkomen in het
+      berichtenoverzicht.
+      </p>
+   </description>
+</section>
