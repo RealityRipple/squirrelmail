@@ -51,7 +51,7 @@
    echo "      <TD>\n";
    echo "         <CENTER><INPUT TYPE=SUBMIT VALUE=\"";
    echo _("Login");
-   echo "></CENTER>\n";
+   echo "\"></CENTER>\n";
    echo "      </TD>\n";
    echo "   </TR>\n";
    echo "</TABLE>\n";

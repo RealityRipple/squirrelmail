@@ -12,7 +12,7 @@
       echo "<a href=\"login.php\">";
       echo _("login");
       echo "</a>";
-      echo _(" first.";
+      echo _(" first.");
       exit;
    }
    if(!isset($username) || !isset($key)) {
