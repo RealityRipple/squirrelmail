@@ -1,5 +1,7 @@
 Version 0.4pre1 -- Development
 ------------------------------
+- Added ability to go to Next and Previous message while reading a message
+- Caching of the message headers in mailbox (much faster)
 - Added a preference that allows users to customize how many messages
      they see when they index a mailbox
 - Added flag status showing on message list (Answered, Flagged, and Seen)
