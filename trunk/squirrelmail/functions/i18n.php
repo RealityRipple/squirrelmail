@@ -43,6 +43,10 @@
    $languages['es']['CHARSET'] = 'iso-8859-1';
    $languages['es_ES']['ALIAS'] = 'es';
 
+   $languages['et']['NAME']    = 'Estonian';
+   $languages['et']['CHARSET'] = 'iso-8859-15';
+   $languages['et_EE']['ALIAS'] = 'et';
+
    $languages['fi']['NAME']    = 'Finnish';
    $languages['fi']['CHARSET'] = 'iso-8859-1';
    $languages['fi_FI']['ALIAS'] = 'fi';
