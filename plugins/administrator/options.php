@@ -252,9 +252,9 @@ if ( sqgetGlobalVar('switch', $switch, SQ_GET) ) {
     setPref($data_dir, $username, "adm_$switch", $colapse[$switch] );
 }
 
-echo "<form action=options.php method=post name=options>" .
-    "<center><table width=95% bgcolor=\"$color[5]\"><tr><td>".
-    "<table width=100% cellspacing=0 bgcolor=\"$color[4]\">" ,
+echo '<form action="options.php" method="post" name="options">' .
+    "<center><table width=\"95%\" bgcolor=\"$color[5]\"><tr><td>".
+    "<table width=\"100%\" cellspacing=0 bgcolor=\"$color[4]\">" ,
     "<tr bgcolor=\"$color[5]\"><th colspan=2>" . _("Configuration Administrator") . "</th></tr>",
     "<tr bgcolor=\"$color[5]\"><td colspan=2 align=\"center\">";
 
@@ -324,7 +324,7 @@ foreach ( $newcfg as $k => $v ) {
                 $sw = '(-)';
             }
             echo "<tr bgcolor=\"$color[0]\"><th colspan=2>" .
-                 "<a href=options.php?switch=$k STYLE=\"text-decoration:none\"><b>$sw</b> </a>" .
+                 "<a href=\"options.php?switch=$k\" style=\"text-decoration:none\"><b>$sw</b> </a>" .
                  "$name</th></tr>";
             $act_grp = $k;
             break;
@@ -396,8 +396,8 @@ foreach ( $newcfg as $k => $v ) {
                 $v = '"' . $v . '"';
                 $newcfg[$k] = str_replace( "\n", '', $v );
             }
-            echo "<tr><td valign=top>$name</td><td>".
-                 "<textarea cols=\"$size\" name=\"adm_$n\">" . substr( $v, 1, strlen( $v ) - 2 ) . "</textarea>";
+            echo "<tr><td valign=\"top\">$name</td><td>".
+                 "<textarea cols=\"$size\" rows=\"4\" name=\"adm_$n\">" . substr( $v, 1, strlen( $v ) - 2 ) . "</textarea>";
             if ( isset( $defcfg[$k]['comment'] ) ) {
                 echo ' &nbsp; ' . $defcfg[$k]['comment'];
             }
@@ -433,8 +433,8 @@ foreach ( $newcfg as $k => $v ) {
                 $cf = ' checked';
             }
             echo "<tr><td>$name</td><td>" .
-                 "<INPUT$ct type=radio NAME=\"adm_$n\" value=\"TRUE\">" . _("Yes") .
-                 "<INPUT$cf type=radio NAME=\"adm_$n\" value=\"FALSE\">" . _("No");
+                 "<input$ct type=\"radio\" name=\"adm_$n\" value=\"TRUE\">" . _("Yes") .
+                 "<input$cf type=\"radio\" name=\"adm_$n\" value=\"FALSE\">" . _("No");
             if ( isset( $defcfg[$k]['comment'] ) ) {
                 echo ' &nbsp; ' . $defcfg[$k]['comment'];
             }
@@ -494,7 +494,7 @@ if ( $colapse['Group7'] == 'off' ) {
         $name = substr( $v1, 1, strlen( $v1 ) - 2 );
         $path = change_to_rel_path($v2);
         echo '<tr>'.
-             "<td align=right>$i. <input name=\"$e1\" value=\"$name\" size=30></td>".
+             "<td align=\"right\">$i. <input name=\"$e1\" value=\"$name\" size=30></td>".
              "<td><input name=\"$e2\" value=\"$path\" size=40></td>".
              "</tr>\n";
         $i++;
@@ -509,7 +509,7 @@ if ( $colapse['Group8'] == 'on' ) {
     $sw = '(-)';
 }
 echo "<tr bgcolor=\"$color[0]\"><th colspan=2>" .
-     "<a href=options.php?switch=Group8 STYLE=\"text-decoration:none\"><b>$sw</b> </a>" .
+     "<a href=\"options.php?switch=Group8\" STYLE=\"text-decoration:none\"><b>$sw</b> </a>" .
      _("Plugins") . '</th></tr>';
 
 if( $colapse['Group8'] == 'off' ) {
@@ -556,7 +556,7 @@ if( $colapse['Group8'] == 'off' ) {
             $i++;
         }
       }
-      echo "<tr><td colspan=2><input type=hidden name=plg value=on><center><table><tr><td>";
+      echo "<tr><td colspan=2><input type=\"hidden\" name=\"plg\" value=\"on\"><center><table>";
       foreach ( $op_plugin as $plg ) {
         if ( in_array( $plg, $plugins ) ) {
             $sw = ' checked';
@@ -564,19 +564,19 @@ if( $colapse['Group8'] == 'off' ) {
             $sw = '';
         }
         echo '<tr>' .
-             "<td>$plg</td><td><input$sw type=checkbox name=plgs_$plg></td>".
+             "<td>$plg</td><td><input$sw type=\"checkbox\" name=plgs_$plg></td>".
              "</tr>\n";
       }
-      echo '</td></tr></table></td></tr>';
+      echo '</table></center></td></tr>';
   } else {
-      echo '<tr><td colspan=2 align="center">Plugin directory could not be found: ' . $plugpath . "</td></tr>\n";
+      echo '<tr><td colspan=2 align="center">' . sprintf(_("Plugin directory could not be found: %s"),$plugpath) . "</td></tr>\n";
   }
 }
 echo "<tr bgcolor=\"$color[5]\"><th colspan=2><input value=\"" .
      _("Change Settings") . '" type="submit"><br />'.
      '<a href="'.SM_PATH.'src/configtest.php" target="_blank">'._("Test Configuration").
-     "</th></tr>\n" ,
-     '</table></td></tr></table></form>';
+     "</a></th></tr>\n" ,
+     '</table></td></tr></table></center></form>';
 
 /*
     Write the options to the file.
@@ -604,8 +604,9 @@ if( $fp = @fopen( $cfgfile, 'w' ) ) {
     fwrite( $fp, '?>' );
     fclose( $fp );
 } else {
-    echo '<br><big>'.
+    echo '<br /><p align="center"><big>'.
          _("Config file can't be opened. Please check config.php.").
-         '</big>';
+         '</big></p>';
 }
 ?>
+</body></html>
