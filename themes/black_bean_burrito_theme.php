@@ -16,4 +16,5 @@
     $color[9]   = "#414141"; // (dark gray)			Darker version of #0
     $color[10]  = "#292929"; // (darker gray)		Darker version of #9
     $color[11]  = "#AAAA44"; // (light red)			Special Folders color
+    $color[12]  = "#303030"; // (dark gray)             Alternate color for message backround in index table
 ?>
