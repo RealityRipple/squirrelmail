@@ -84,7 +84,7 @@ function sqimap_get_small_header ($imap_stream, $id, $sent) {
  */
 function sqimap_message_list_squisher($messages_array) {
     if( !is_array( $messages_array ) ) {
-        return;
+        return $messages_array;
     }
 
     sort($messages_array, SORT_NUMERIC);
