@@ -11,6 +11,7 @@
    function decodeMime($body, $bound, $type0, $type1, &$entities) {
       if ($type0 == "multipart") {
          $bound = trim($bound);
+         $i = 0;
          while (($i < count($body)) && (substr($body[$i], 0, strlen("--$bound--")) != "--$bound--")) {
             if (trim($body[$i]) == "--$bound") {
                $j = $i+1;
