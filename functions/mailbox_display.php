@@ -24,9 +24,9 @@
       if ($msg["FLAG_ANSWERED"] == true) { $ans = "&nbsp;[A]"; }
       
       echo "   <td width=1% align=center><input type=checkbox name=\"msg[$t]\" value=".$msg["ID"]."></TD>\n";
-      echo "   <td>$bold$flag$senderName$flag_end$bold_end</td>\n";
+      echo "   <td width=30%>$bold$flag$senderName$flag_end$bold_end</td>\n";
       echo "   <td nowrap width=1%><center>$bold$flag".$msg["DATE_STRING"]."$flag_end$bold_end</center></td>\n";
-      echo "   <td>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0\">$flag$subject$flag_end</a>$ans$bold_end</td>\n";
+      echo "   <td width=%>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0\">$flag$subject$flag_end</a>$ans$bold_end</td>\n";
 
       echo "</tr>\n";
    }
@@ -203,9 +203,9 @@
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[4]\">";
       echo "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
-      echo "   <TD WIDTH=5%><B>&nbsp;</B></TD>";
+      echo "   <TD WIDTH=1%><B>&nbsp;</B></TD>";
       /** FROM HEADER **/
-      echo "   <TD WIDTH=25%><B>". _("From") ."</B>";
+      echo "   <TD WIDTH=30%><B>". _("From") ."</B>";
       if ($sort == 2)
          echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
       else if ($sort == 3)
@@ -213,7 +213,7 @@
       else
          echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
       /** DATE HEADER **/
-      echo "   <TD WIDTH=15%><B>". _("Date") ."</B>";
+      echo "   <TD nowrap WIDTH=1%><B>". _("Date") ."</B>";
       if ($sort == 0)
          echo "   <A HREF=\"right_main.php?newsort=1&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
       else if ($sort == 1)
