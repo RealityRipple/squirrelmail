@@ -264,7 +264,7 @@ if ($draft) {
      */
     set_my_charset();
     $composeMessage=$compose_messages[$session];
-    if (! sendMessage($composeMessage, true)) {
+    if (! deliverMessage($composeMessage, true)) {
         showInputForm($session);
         exit();
     } else {
@@ -335,7 +335,7 @@ if ($send) {
         do_hook('compose_send');
         $composeMessage=$compose_messages[$session];
 
-	$Result = sendMessage($composeMessage);
+	$Result = deliverMessage($composeMessage);
         if (! $Result) {
             showInputForm($session);
             exit();
@@ -1220,7 +1220,7 @@ function getReplyCitation($orig_from) {
    The message also should be constructed by the message class.
 */
 
-function sendMessage($composeMessage, $draft=false) {
+function deliverMessage($composeMessage, $draft=false) {
     global $send_to, $send_to_cc, $send_to_bcc, $mailprio, $subject, $body,
            $username, $popuser, $usernamedata, $identity, $data_dir,
 	   $request_mdn, $request_dr, $default_charset, $color, $useSendmail,
