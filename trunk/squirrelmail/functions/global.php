@@ -250,7 +250,7 @@ function sqsession_destroy() {
         } else {
             $_SESSION = array();
         }
-        @session_destroy;
+        @session_destroy();
     }
 
 }
