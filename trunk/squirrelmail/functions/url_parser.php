@@ -82,10 +82,10 @@ function parseUrl (&$body) {
     global $url_parser_poss_ends, $url_parser_url_tokens;;
     $start      = 0;
     $blength    = strlen($body);
-    $target_pos = $blength;
 
     while ($start != $blength) {
         $target_token = '';
+        $target_pos = $blength;
 
         /* Find the first token to replace */
         foreach ($url_parser_url_tokens as $the_token) {
