@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-01-22 09:43+0100\n"
+"POT-Creation-Date: 2002-01-22 10:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3401,6 +3401,10 @@ msgstr ""
 
 #: squirrelmail/plugins/calendar/day.php:95
 msgid "DEL"
+msgstr ""
+
+#: squirrelmail/plugins/calendar/event_create.php:31
+msgid "Start time:"
 msgstr ""
 
 #: squirrelmail/plugins/calendar/event_create.php:41

@@ -28,7 +28,7 @@ function show_event_form() {
          "      <INPUT TYPE=hidden NAME=\"year\" VALUE=\"$year\">\n".
          "      <INPUT TYPE=hidden NAME=\"month\" VALUE=\"$month\">\n".
          "      <INPUT TYPE=hidden NAME=\"day\" VALUE=\"$day\">\n".
-         "      <TR><TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>" . ("Start time:") . "</TD>\n".
+         "      <TR><TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>" . _("Start time:") . "</TD>\n".
          "      <TD BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n".
          "      <SELECT NAME=\"event_hour\">\n";
     select_option_hour($hour);

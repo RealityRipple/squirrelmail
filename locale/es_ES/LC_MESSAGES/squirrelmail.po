@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2002-01-22 09:43+0100\n"
+"POT-Creation-Date: 2002-01-22 10:12+0100\n"
 "PO-Revision-Date: 2002-01-19 12:19CET\n"
 "Last-Translator: Philippe Mingo <philippe@squirrelmail.org>\n"
 "Language-Team: Spanish <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -3560,6 +3560,10 @@ msgstr "Editar"
 msgid "DEL"
 msgstr "Borrar"
 
+#: squirrelmail/plugins/calendar/event_create.php:31
+msgid "Start time:"
+msgstr "Hora inicial:"
+
 #: squirrelmail/plugins/calendar/event_create.php:41
 #: squirrelmail/plugins/calendar/event_edit.php:60
 msgid "Length:"
@@ -3686,9 +3690,9 @@ msgid ""
 "This will send a message to %s requesting help for this list. You will "
 "receive an emailed response at the address below."
 msgstr ""
-"Esta acción mandará un correo a %s solicitando ayuda para esta "
-"lista de correo. Recibirá una contestación por correo electrónico "
-"a la dirección que se muestra a continuación:"
+"Esta acción mandará un correo a %s solicitando ayuda para esta lista de "
+"correo. Recibirá una contestación por correo electrónico a la dirección que "
+"se muestra a continuación:"
 
 #: squirrelmail/plugins/listcommands/mailout.php:25
 #, c-format
@@ -3696,8 +3700,8 @@ msgid ""
 "This will send a message to %s requesting that you will be subscribed to "
 "this list. You will be subscribed with the address below."
 msgstr ""
-"Esta acción mandará un correo a %s solicitando la suscripción a esta "
-"lista de correo. Se dará de alta la dirección que se muestra a continuación:"
+"Esta acción mandará un correo a %s solicitando la suscripción a esta lista "
+"de correo. Se dará de alta la dirección que se muestra a continuación:"
 
 #: squirrelmail/plugins/listcommands/mailout.php:28
 #, c-format
@@ -3705,8 +3709,8 @@ msgid ""
 "This will send a message to %s requesting that you will be unsubscribed from "
 "this list. It will try to unsubscribe the adress below."
 msgstr ""
-"Esta acción mandará un correo a %s solicitando la baja de "
-"lista de correo. Se dará de baja la dirección que se muestra a continuación:"
+"Esta acción mandará un correo a %s solicitando la baja de lista de correo. "
+"Se dará de baja la dirección que se muestra a continuación:"
 
 #: squirrelmail/plugins/listcommands/mailout.php:76
 msgid "Send Mail"
