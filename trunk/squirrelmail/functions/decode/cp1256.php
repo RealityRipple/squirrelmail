@@ -34,9 +34,8 @@ function charset_decode_cp1256 ($string) {
     if (strtolower($default_charset) == 'windows-1256')
         return $string;
 
-    /* Only do the slow convert if there are 8-bit characters */
-    /* avoid using 0xA0 (\240) in ereg ranges. RH73 does not like that */
-    if (! ereg("[\200-\237]", $string) and ! ereg("[\241-\377]", $string) )
+    // don't do decoding when there are no 8bit symbols
+    if (! sq_is8bit($string,'windows-1256'))
         return $string;
 
     $cp1256 = array(
