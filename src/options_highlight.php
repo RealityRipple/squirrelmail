@@ -27,11 +27,11 @@
       include("../functions/i18n.php");
 
 
-   if ($action == "delete" && isset($id)) {
-      removePref($data_dir, $username, "highlight$id");
+   if ($action == "delete" && isset($theid)) {
+      removePref($data_dir, $username, "highlight$theid");
    } else if ($action == "save") {
-      if (!$id) $id = 0;
-      $name = ereg_replace(",", " ", $name);
+      if (!$theid) $theid = 0;
+      $identname = ereg_replace(",", " ", $identname);
       if ($color_type == 1) $newcolor = $newcolor_choose;
       else $newcolor = $newcolor_input;
  
@@ -39,11 +39,11 @@
       $newcolor = ereg_replace("#", "", $newcolor);
       $newcolor = "$newcolor";
       $value = ereg_replace(",", " ", $value);
-      setPref($data_dir, $username, "highlight$id", $name.",".$newcolor.",".$value.",".$match_type);
-      $message_highlight_list[$id]["name"] = $name;
-      $message_highlight_list[$id]["color"] = $newcolor;
-      $message_highlight_list[$id]["value"] = $value;
-      $message_highlight_list[$id]["match_type"] = $match_type;
+      setPref($data_dir, $username, "highlight$theid", $identname.",".$newcolor.",".$value.",".$match_type);
+      $message_highlight_list[$theid]["name"] = $identname;
+      $message_highlight_list[$theid]["color"] = $newcolor;
+      $message_highlight_list[$theid]["value"] = $value;
+      $message_highlight_list[$theid]["match_type"] = $match_type;
    } 
    include("../src/load_prefs.php");
    displayPageHeader($color, "None");
@@ -61,7 +61,7 @@
       for ($i=0; $i < count($message_highlight_list); $i++) {
          echo "<tr>\n";
          echo "   <td width=1% bgcolor=" . $color[4] . ">\n";
-         echo "<nobr><small>[<a href=\"options_highlight.php?action=edit&id=$i\">" . _("Edit") . "</a>]&nbsp;[<a href=\"options_highlight.php?action=delete&id=$i\">"._("Delete")."</a>]</small></nobr>\n";
+         echo "<nobr><small>[<a href=\"options_highlight.php?action=edit&theid=$i\">" . _("Edit") . "</a>]&nbsp;[<a href=\"options_highlight.php?action=delete&theid=$i\">"._("Delete")."</a>]</small></nobr>\n";
          echo "   </td>";
          echo "   <td bgcolor=" . $message_highlight_list[$i]["color"] . ">\n";
          echo "      " . $message_highlight_list[$i]["name"];
@@ -78,7 +78,7 @@
       echo "<br>\n";
    }
    if ($action == "edit" || $action == "add") {
-      if (!isset($id)) $id = count($message_highlight_list);
+      if (!isset($theid)) $theid = count($message_highlight_list);
  
       $color_list[0] = "4444aa";
       $color_list[1] = "44aa44";
@@ -95,27 +95,27 @@
       $color_list[12] = "dfdfdf";
       $color_list[13] = "ffffff";               
       for ($i=0; $i < 14; $i++) {
-         if ($color_list[$i] == $message_highlight_list[$id]["color"]) {
+         if ($color_list[$i] == $message_highlight_list[$theid]["color"]) {
             $selected_choose = " checked";
             ${"selected".$i} = " selected";
             continue;
          }
       }
-      if (!$message_highlight_list[$id]["color"])
+      if (!$message_highlight_list[$theid]["color"])
          $selected_choose = " checked";
       else if (!$selected_choose)
          $selected_input = " checked";
  
       echo "<form action=\"options_highlight.php\">\n";
       echo "<input type=\"hidden\" value=\"save\" name=\"action\">\n";
-      echo "<input type=\"hidden\" value=\"$id\" name=\"id\">\n";
+      echo "<input type=\"hidden\" value=\"$theid\" name=\"theid\">\n";
       echo "<table width=80% align=center cellpadding=3 cellspacing=0 border=0>\n";
       echo "   <tr bgcolor=\"$color[0]\">\n";
       echo "      <td align=right width=25%><b>\n";
       echo _("Identifying name") . ":";
       echo "      </b></td>\n";
       echo "      <td width=75%>\n";
-      echo "         <input type=\"text\" value=\"".$message_highlight_list[$id]["name"]."\" name=\"name\">";
+      echo "         <input type=\"text\" value=\"".$message_highlight_list[$theid]["name"]."\" name=\"identname\">";
       echo "      </td>\n";
       echo "   </tr>\n";
       echo "   <tr><td><small><small>&nbsp;</small></small></td></tr>\n";
@@ -141,7 +141,7 @@
       echo "            <option value=\"$color_list[13]\"$selected13>" . _("White") . "\n";
       echo "         </select><br>\n";
       echo "         <input type=\"radio\" name=color_type value=2$selected_input> &nbsp;". _("Other:") ."<input type=\"text\" value=\"";                                 
-      if ($selected_input) echo $message_highlight_list[$id]["color"];
+      if ($selected_input) echo $message_highlight_list[$theid]["color"];
       echo "\" name=\"newcolor_input\" size=7> "._("Ex: 63aa7f")."<br>\n";
       echo "      </td>\n";
       echo "   </tr>\n";
@@ -152,18 +152,18 @@
       echo "      </b></td>\n";
       echo "      <td width=75%>\n";
       echo "         <select name=match_type>\n";
-      if ($message_highlight_list[$id]["match_type"] == "from")    echo "            <option value=\"from\" selected>From\n";
+      if ($message_highlight_list[$theid]["match_type"] == "from")    echo "            <option value=\"from\" selected>From\n";
       else                                                         echo "            <option value=\"from\">From\n";
-      if ($message_highlight_list[$id]["match_type"] == "to")      echo "            <option value=\"to\" selected>To\n";
+      if ($message_highlight_list[$theid]["match_type"] == "to")      echo "            <option value=\"to\" selected>To\n";
       else                                                         echo "            <option value=\"to\">To\n";
-      if ($message_highlight_list[$id]["match_type"] == "cc")      echo "            <option value=\"cc\" selected>Cc\n";
+      if ($message_highlight_list[$theid]["match_type"] == "cc")      echo "            <option value=\"cc\" selected>Cc\n";
       else                                                         echo "            <option value=\"cc\">Cc\n";
-      if ($message_highlight_list[$id]["match_type"] == "to_cc")   echo "            <option value=\"to_cc\" selected>To or Cc\n";
+      if ($message_highlight_list[$theid]["match_type"] == "to_cc")   echo "            <option value=\"to_cc\" selected>To or Cc\n";
       else                                                         echo "            <option value=\"to_cc\">To or Cc\n";
-      if ($message_highlight_list[$id]["match_type"] == "subject") echo "            <option value=\"subject\" selected>Subject\n";
+      if ($message_highlight_list[$theid]["match_type"] == "subject") echo "            <option value=\"subject\" selected>Subject\n";
       else                                                         echo "            <option value=\"subject\">Subject\n";
       echo "         </select>\n";
-      echo "         <nobr><input type=\"text\" value=\"".$message_highlight_list[$id]["value"]."\" name=\"value\"> &nbsp;(";
+      echo "         <nobr><input type=\"text\" value=\"".$message_highlight_list[$theid]["value"]."\" name=\"value\"> &nbsp;(";
       echo _("Regular Expression");
       echo ")\n      <nobr></td>\n";
       echo "   </tr>\n";
