@@ -574,29 +574,29 @@ function load_spam_filters() {
     $filters['visi.com']['comment'] =
         _("FREE - visi.com - Relay Stop List. Very conservative OpenRelay List.");
 
-    $filters['2mbit.com Open Relays']['prefname'] = 'filters_spam_2mb_or';
-    $filters['2mbit.com Open Relays']['name'] = '2mbit.com Open Relays List';
-    $filters['2mbit.com Open Relays']['link'] = 'http://www.2mbit.com/sbl.php';
-    $filters['2mbit.com Open Relays']['dns'] = 'blackholes.2mbit.com';
-    $filters['2mbit.com Open Relays']['result'] = '127.0.0.2';
-    $filters['2mbit.com Open Relays']['comment'] =
-        _("FREE - 2mbit.com Open Relays - Another list of Open Relays.");
+    $filters['ahbl.org Open Relays']['prefname'] = 'filters_spam_2mb_or';
+    $filters['ahbl.org Open Relays']['name'] = 'ahbl.org Open Relays List';
+    $filters['ahbl.org Open Relays']['link'] = 'http://www.ahbl.org/';
+    $filters['ahbl.org Open Relays']['dns'] = 'dnsbl.ahbl.org';
+    $filters['ahbl.org Open Relays']['result'] = '127.0.0.2';
+    $filters['ahbl.org Open Relays']['comment'] =
+        _("FREE - ahbl.org Open Relays - Another list of Open Relays.");
 
-    $filters['2mbit.com SPAM Source']['prefname'] = 'filters_spam_2mb_ss';
-    $filters['2mbit.com SPAM Source']['name'] = '2mbit.com SPAM Source List';
-    $filters['2mbit.com SPAM Source']['link'] = 'http://www.2mbit.com/sbl.php';
-    $filters['2mbit.com SPAM Source']['dns'] = 'blackholes.2mbit.com';
-    $filters['2mbit.com SPAM Source']['result'] = '127.0.0.4';
-    $filters['2mbit.com SPAM Source']['comment'] =
-        _("FREE - 2mbit.com SPAM Source - List of Direct SPAM Sources.");
+    $filters['ahbl.org SPAM Source']['prefname'] = 'filters_spam_2mb_ss';
+    $filters['ahbl.org SPAM Source']['name'] = 'ahbl.org SPAM Source List';
+    $filters['ahbl.org SPAM Source']['link'] = 'http://www.ahbl.org/';
+    $filters['ahbl.org SPAM Source']['dns'] = 'dnsbl.ahbl.org';
+    $filters['ahbl.org SPAM Source']['result'] = '127.0.0.4';
+    $filters['ahbl.org SPAM Source']['comment'] =
+        _("FREE - ahbl.org SPAM Source - List of Direct SPAM Sources.");
 
-    $filters['2mbit.com SPAM ISPs']['prefname'] = 'filters_spam_2mb_isp';
-    $filters['2mbit.com SPAM ISPs']['name'] = '2mbit.com SPAM-friendly ISP List';
-    $filters['2mbit.com SPAM ISPs']['link'] = 'http://www.2mbit.com/sbl.php';
-    $filters['2mbit.com SPAM ISPs']['dns'] = 'blackholes.2mbit.com';
-    $filters['2mbit.com SPAM ISPs']['result'] = '127.0.0.10';
-    $filters['2mbit.com SPAM ISPs']['comment'] =
-        _("FREE - 2mbit.com SPAM ISPs - List of SPAM-friendly ISPs.");
+    $filters['ahbl.org SPAM ISPs']['prefname'] = 'filters_spam_2mb_isp';
+    $filters['ahbl.org SPAM ISPs']['name'] = 'ahbl.org SPAM-friendly ISP List';
+    $filters['ahbl.org SPAM ISPs']['link'] = 'http://www.ahbl.org/';
+    $filters['ahbl.org SPAM ISPs']['dns'] = 'dnsbl.ahbl.org';
+    $filters['ahbl.org SPAM ISPs']['result'] = '127.0.0.7';
+    $filters['ahbl.org SPAM ISPs']['comment'] =
+        _("FREE - ahbl.org SPAM ISPs - List of SPAM-friendly ISPs.");
 
     $filters['Leadmon DUL']['prefname'] = 'filters_spam_lm_dul';
     $filters['Leadmon DUL']['name'] = 'Leadmon.net DUL List';
