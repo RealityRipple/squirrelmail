@@ -33,10 +33,10 @@
          if ($filetype=="")
             $filetype = "application/octet-stream";
 
-         fputs ($fp, "--".mimeBoundary()."\n");
+         fputs ($fp, "--".mimeBoundary()."\r\n");
          fputs ($fp, "Content-Type: $filetype\n");
-         fputs ($fp, "Content-Disposition: attachment; filename=\"$remotename\"\n");
-         fputs ($fp, "Content-Transfer-Encoding: base64\n\n");
+         fputs ($fp, "Content-Disposition: attachment; filename=\"$remotename\"\r\n");
+         fputs ($fp, "Content-Transfer-Encoding: base64\r\n\r\n");
 
          $file = fopen ($attachment_dir.$localname, "r");
          while ($tmp = fread($file, 57))
@@ -112,26 +112,26 @@
       fputs ($fp, "$date\n");
 
       /* The rest of the header */
-      fputs ($fp, "Date: $date\n");
-      fputs ($fp, "Subject: $subject\n"); // Subject
-      fputs ($fp, "From: $from\n"); // Subject
-      fputs ($fp, "To: $to_list\n");    // Who it's TO
+      fputs ($fp, "Date: $date\r\n");
+      fputs ($fp, "Subject: $subject\r\n"); // Subject
+      fputs ($fp, "From: $from\r\n"); // Subject
+      fputs ($fp, "To: $to_list\r\n");    // Who it's TO
 
       if ($cc_list) {
-         fputs($fp, "Cc: $cc_list\n"); // Who the CCs are
+         fputs($fp, "Cc: $cc_list\r\n"); // Who the CCs are
       }
 
       if ($reply_to != "")
-         fputs($fp, "Reply-To: $reply_to\n");
+         fputs($fp, "Reply-To: $reply_to\r\n");
 
       if ($useSendmail) {
          if ($bcc_list) {
             // BCCs is removed from header by sendmail
-            fputs($fp, "Bcc: $bcc_list\n"); 
+            fputs($fp, "Bcc: $bcc_list\r\n"); 
          }
       }
 
-      fputs($fp, "X-Mailer: SquirrelMail (version $version)\n"); // Identify SquirrelMail
+      fputs($fp, "X-Mailer: SquirrelMail (version $version)\r\n"); // Identify SquirrelMail
 
       // Do the MIME-stuff
       fputs($fp, "MIME-Version: 1.0\n");
@@ -139,27 +139,27 @@
       if (isMultipart()) {
          fputs ($fp, "Content-Type: multipart/mixed; boundary=\"");
          fputs ($fp, mimeBoundary());
-         fputs ($fp, "\"\n");
+         fputs ($fp, "\"\r\n");
       } else {
-         fputs($fp, "Content-Type: text/plain; charset=ISO-8859-1\n");
-         fputs($fp, "Content-Transfer-Encoding: 8bit\n");
+         fputs($fp, "Content-Type: text/plain; charset=ISO-8859-1\r\n");
+         fputs($fp, "Content-Transfer-Encoding: 8bit\r\n");
       }
-      fputs ($fp, "\n");
+      fputs ($fp, "\r\n");
    }
 
    // Send the body
    function writeBody ($fp, $body) {
      if (isMultipart()) {
-        fputs ($fp, "--".mimeBoundary()."\n");
-        fputs ($fp, "Content-Type: text/plain; charset=ISO-8859-1\n");
-        fputs ($fp, "Content-Transfer-Encoding: 8bit\n\n");
-        fputs ($fp, stripslashes($body) . "\n");
+        fputs ($fp, "--".mimeBoundary()."\r\n");
+        fputs ($fp, "Content-Type: text/plain; charset=ISO-8859-1\r\n");
+        fputs ($fp, "Content-Transfer-Encoding: 8bit\r\n\r\n");
+        fputs ($fp, stripslashes($body) . "\r\n");
         attachFiles($fp);
-        fputs ($fp, "\n--".mimeBoundary()."--\n");
+        fputs ($fp, "\r\n--".mimeBoundary()."--\r\n");
      } else {
-       fputs ($fp, stripslashes($body) . "\n");
+       fputs ($fp, stripslashes($body) . "\r\n");
      }
-     fputs ($fp, "\n");
+     fputs ($fp, "\r\n");
    }
 
    // Send mail using the sendmail command
@@ -211,34 +211,34 @@
       $cc_list = getLineOfAddrs($cc);
 
       /** Lets introduce ourselves */
-      fputs($smtpConnection, "HELO $domain\n");
+      fputs($smtpConnection, "HELO $domain\r\n");
       $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
       errorCheck($tmp);
 
       /** Ok, who is sending the message? */
-      fputs($smtpConnection, "MAIL FROM:<$from_addr>\n");
+      fputs($smtpConnection, "MAIL FROM:<$from_addr>\r\n");
       $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
       errorCheck($tmp);
 
       /** send who the recipients are */
       for ($i = 0; $i < count($to); $i++) {
-         fputs($smtpConnection, "RCPT TO:<$to[$i]>\n");
+         fputs($smtpConnection, "RCPT TO:<$to[$i]>\r\n");
          $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
          errorCheck($tmp);
       }
       for ($i = 0; $i < count($cc); $i++) {
-         fputs($smtpConnection, "RCPT TO:<$cc[$i]>\n");
+         fputs($smtpConnection, "RCPT TO:<$cc[$i]>\r\n");
          $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
          errorCheck($tmp);
       }
       for ($i = 0; $i < count($bcc); $i++) {
-         fputs($smtpConnection, "RCPT TO:<$bcc[$i]>\n");
+         fputs($smtpConnection, "RCPT TO:<$bcc[$i]>\r\n");
          $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
          errorCheck($tmp);
       }
 
       /** Lets start sending the actual message */
-      fputs($smtpConnection, "DATA\n");
+      fputs($smtpConnection, "DATA\r\n");
       $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
       errorCheck($tmp);
 
@@ -246,14 +246,14 @@
 
       writeBody($smtpConnection, $body); // send the body of the message
 
-      fputs($smtpConnection, ".\n"); // end the DATA part
+      fputs($smtpConnection, ".\r\n"); // end the DATA part
       $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
       $num = errorCheck($tmp);
       if ($num != 250) {
          echo "<HTML><BODY BGCOLOR=FFFFFF>ERROR<BR>Message not sent!<BR>Reason given: $tmp<BR></BODY></HTML>";
       }
 
-      fputs($smtpConnection, "QUIT\n"); // log off
+      fputs($smtpConnection, "QUIT\r\n"); // log off
 
       fclose($smtpConnection);
    }
