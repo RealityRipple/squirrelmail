@@ -202,7 +202,6 @@ if(isset($expungeButton)) {
 	  	   $location = set_url_var($location,'startMessage',1);
 	       }
 	    }
-	    echo $location . ' ' .$show_num. ' '.$cnt;
             header ("Location: $location");
         } 
     } else {
