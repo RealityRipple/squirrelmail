@@ -49,7 +49,16 @@
          echo "<b>" . _("Created folder successfully!") . "</b><br>";
       } else if ($success == "rename") {
          echo "<b>" . _("Renamed successfully!") . "</b><br>";
+      } else if (($sent_create == "true") || ($trash_create == "true")) {
+         if ($sent_create == "true") {
+            sqimap_mailbox_create ($imapConnection, $sent_folder, "");  
+         }
+         if ($trash_create == "true") {
+            sqimap_mailbox_create ($imapConnection, $trash_folder, "");
+         }
+         echo _("Folders created successfully!");
       }
+
       echo "   <a href=\"../src/left_main.php\" target=left>" . _("refresh folder list") . "</a>";
       echo "   </center></td></tr>\n";
       echo "</table><br>\n";
@@ -57,47 +66,25 @@
    $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
    $boxes = sqimap_mailbox_list($imapConnection);
 
-  /** Cyrus Folder Options**/
-//Creates the Sent and Trash folder
-   if (($sent_create == "true") || ($trash_create == "true")) {
-      if ($sent_create == "true") {
-         sqimap_mailbox_create ($imapConnection, $sent_folder, "");  
+   //display form option for creating Sent and Trash folder
+   if ($imap_server_type == "cyrus" && ($sent_folder != "none" || $trash_folder != "none")) {
+      if ((!sqimap_mailbox_exists ($imapConnection, $sent_folder)) || (!sqimap_mailbox_exists ($imapConnection, $trash_folder))) {
+         echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER cellpadding=2 cellspacing=0 border=0>\n";
+         echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
+         echo _("Special Folder Options");
+         echo "</B></TD></TR>";
+         echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
+         echo _("In order for SquirrelMail to provide the full set of options you need to create the special folders listed below.  Just click the check box and hit the create button.");
+         echo "<FORM ACTION=\"folders.php\" METHOD=\"POST\">\n";
+         if (!sqimap_mailbox_exists ($imapConnection, $sent_folder) && $sent_folder != "none") {
+            echo _("Create Sent") . "<INPUT TYPE=checkbox NAME=sent_create value=true><br>\n";
+         }
+         if (!sqimap_mailbox_exists ($imapConnection, $trash_folder) && $trash_folder != "none"){
+            echo _("Create Trash") . "<INPUT TYPE=checkbox NAME=trash_create value=true><br>\n";
+         }
+         echo "<INPUT TYPE=submit VALUE=Create>";
+         echo "</FORM></TD></TR></TABLE><br>";
       }
-   if ($trash_create == "true") {
-      sqimap_mailbox_create ($imapConnection, $trash_folder, "");
-   }
-   echo "<BR><BR><CENTER><b>";
-   echo _("Mailboxes Created Successfully!");
-   echo "<BR><A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>";
-   echo _("Click here");
-   echo "</A> ";
-   echo _("to continue.");
-   echo "</CENTER>";
-   echo "</BODY></HTML>";
-	
-   sqimap_logout($imapConnection);
-   exit;
-   }
-
-//display form option for creating Sent and Trash folder
-    if ($imap_server_type == "cyrus") {
-       if ((!sqimap_mailbox_exists ($imapConnection, $sent_folder)) || (!sqimap_mailbox_exists ($imapConnection, $trash_folder))) {
-       echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER>\n";
-       echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
-       echo _("Special Folder Options");
-       echo "</B></TD></TR>";
-       echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
-       echo _("In order for SquirrelMail to provide the full set of options you need to create the special folders listed below.  Just click the check box and hit the create button.");
-       echo "<FORM ACTION=\"folders.php\" METHOD=\"POST\">\n";
-           if (!sqimap_mailbox_exists ($imapConnection, $sent_folder)) {
-              echo _("Create Sent") . "<INPUT TYPE=checkbox NAME=sent_create value=true><br>\n";
-           }
-           if (!sqimap_mailbox_exists ($imapConnection, $trash_folder)){
-           echo _("Create Trash") . "<INPUT TYPE=checkbox NAME=trash_create value=true><br>\n";
-           echo "<INPUT TYPE=submit VALUE=Create>";
-           }
-       }
-       echo "</FORM></TD></TR></TABLE>n";
    }
 
    /** DELETING FOLDERS **/
@@ -148,7 +135,7 @@
       echo "\">\n";
       echo "</FORM></TD></TR>\n";
    } else {
-      echo _("No mailboxes found") . "<br><br></td><tr>";
+      echo _("No folders found") . "<br><br></td><tr>";
    }
 
    echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr>\n";
@@ -244,7 +231,7 @@
       echo "\">\n";
       echo "</FORM></TD></TR>\n";
    } else {
-      echo _("No mailboxes found") . "<br><br></td></tr>";
+      echo _("No folders found") . "<br><br></td></tr>";
    }
    $boxes_sub = $boxes;
 
