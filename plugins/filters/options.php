@@ -67,88 +67,6 @@
    }
    $filters = load_filters();
 
-   echo '<br>' .
-        '<table width=95% align=center border=0 cellpadding=2 cellspacing=0>'.
-        "<tr><td bgcolor=\"$color[0]\">".
-        '<center><b>' . _("Options") . ' -  ' . _("Message Filtering") . '</b></center>'.
-        '</td></tr></table>'.
-        '<br><center>[<a href="options.php?action=add">' . _("New") .
-        '</a>] - [<a href="../../src/options.php">' . _("Done") . '</a>]</center><br>' .
-        '<table border=0 cellpadding=3 cellspacing=0 align=center>';
-
-    for ($i=0; $i < count($filters); $i++) {
-
-        $clr = (($i % 2)?$color[0]:$color[9]);
-        $fdr = ($folder_prefix)?str_replace($folder_prefix, "", $filters[$i]["folder"]):$filters[$i]["folder"];
-        echo "<tr bgcolor=\"$clr\"><td><small>".
-            "[<a href=\"options.php?theid=$i&action=edit\">" . _("Edit") . '</a>]'.
-            '</small></td><td><small>'.
-            "[<a href=\"options.php?theid=$i&action=delete\">" . _("Delete") . '</a>]'.
-            '</small></td><td align=center><small>[';
-
-        if (isset($filters[$i + 1])) {
-            echo "<a href=\"options.php?theid=$i&action=move_down\">" . _("Down") . '</a>';
-            if ($i > 0) {
-                echo ' | ';
-            }
-        }
-        if ($i > 0) {
-            echo "<a href=\"options.php?theid=$i&action=move_up\">" . _("Up") . '</a>';
-        }
-        echo ']</small></td><td> - ';
-        printf( _("If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"), _($filters[$i]['where']), $filters[$i]['what'], $fdr );
-        echo '</td></tr>';
-
-    }
-    echo '</table>'.
-        '<table width=80% align=center border=0 cellpadding=2 cellspacing=0">'.
-            '<tr><td>&nbsp</td></tr>'.
-        '</table>';
-
-
-    if ($AllowSpamFilters) {
-
-        echo "<table width=95% align=center border=0 cellpadding=2 cellspacing=0 bgcolor=\"$color[0]\">".
-                '<tr><th align=center>' . _("Spam Filtering") . '</th></tr>'.
-            '</table>';
-        if (! isset($action) || $action != 'spam') {
-
-            echo '<p align=center>[<a href="options.php?action=spam">' . _("Edit") . '</a>]<br>';
-            printf( _("Spam is sent to <b>%s</b>"), ($filters_spam_folder?$filters_spam_folder:_("[<i>not set yet</i>]") ) );
-            echo '<br>';
-            printf( _("Spam scan is limited to <b>%s</b>"), (($filters_spam_scan == 'new')?_("New Messages Only"):_("All Messages") ) );
-            echo '</p>'.
-                "<table border=0 cellpadding=3 cellspacing=0 align=center bgcolor=\"$color[0]\">";
-
-            $spam_filters = load_spam_filters();
-
-            foreach ($spam_filters as $Key => $Value) {
-                echo '<tr><th align=center>';
-
-                if ($spam_filters[$Key]['enabled']) {
-                    echo _("ON");
-                } else {
-                    echo _("OFF");
-                }
-
-                echo '</th><td>&nbsp;-&nbsp;</td><td>';
-
-                if ($spam_filters[$Key]['link']) {
-                echo '<a href="' .
-                    $spam_filters[$Key]['link'] .
-                    '" target="_blank">';
-                }
-
-                echo $spam_filters[$Key]['name'];
-                if ($spam_filters[$Key]['link']) {
-                echo '</a>';
-                }
-                echo "</td></tr>\n";
-            }
-            echo '</table>';
-        }
-    }
-
     if (isset($action) && ($action == 'add' || $action == 'edit')) {
         $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
         $boxes = sqimap_mailbox_list($imapConnection);
@@ -309,4 +227,87 @@
 
         sqimap_logout($imapConnection);
     }
+
+   echo '<br>' .
+        '<table width=95% align=center border=0 cellpadding=2 cellspacing=0>'.
+        "<tr><td bgcolor=\"$color[0]\">".
+        '<center><b>' . _("Options") . ' -  ' . _("Message Filtering") . '</b></center>'.
+        '</td></tr></table>'.
+        '<br><center>[<a href="options.php?action=add">' . _("New") .
+        '</a>] - [<a href="../../src/options.php">' . _("Done") . '</a>]</center><br>' .
+        '<table border=0 cellpadding=3 cellspacing=0 align=center>';
+
+    for ($i=0; $i < count($filters); $i++) {
+
+        $clr = (($i % 2)?$color[0]:$color[9]);
+        $fdr = ($folder_prefix)?str_replace($folder_prefix, "", $filters[$i]["folder"]):$filters[$i]["folder"];
+        echo "<tr bgcolor=\"$clr\"><td><small>".
+            "[<a href=\"options.php?theid=$i&action=edit\">" . _("Edit") . '</a>]'.
+            '</small></td><td><small>'.
+            "[<a href=\"options.php?theid=$i&action=delete\">" . _("Delete") . '</a>]'.
+            '</small></td><td align=center><small>[';
+
+        if (isset($filters[$i + 1])) {
+            echo "<a href=\"options.php?theid=$i&action=move_down\">" . _("Down") . '</a>';
+            if ($i > 0) {
+                echo ' | ';
+            }
+        }
+        if ($i > 0) {
+            echo "<a href=\"options.php?theid=$i&action=move_up\">" . _("Up") . '</a>';
+        }
+        echo ']</small></td><td> - ';
+        printf( _("If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"), _($filters[$i]['where']), $filters[$i]['what'], $fdr );
+        echo '</td></tr>';
+
+    }
+    echo '</table>'.
+        '<table width=80% align=center border=0 cellpadding=2 cellspacing=0">'.
+            '<tr><td>&nbsp</td></tr>'.
+        '</table>';
+
+
+    if ($AllowSpamFilters) {
+
+        echo "<table width=95% align=center border=0 cellpadding=2 cellspacing=0 bgcolor=\"$color[0]\">".
+                '<tr><th align=center>' . _("Spam Filtering") . '</th></tr>'.
+            '</table>';
+        if (! isset($action) || $action != 'spam') {
+
+            echo '<p align=center>[<a href="options.php?action=spam">' . _("Edit") . '</a>]<br>';
+            printf( _("Spam is sent to <b>%s</b>"), ($filters_spam_folder?$filters_spam_folder:_("[<i>not set yet</i>]") ) );
+            echo '<br>';
+            printf( _("Spam scan is limited to <b>%s</b>"), (($filters_spam_scan == 'new')?_("New Messages Only"):_("All Messages") ) );
+            echo '</p>'.
+                "<table border=0 cellpadding=3 cellspacing=0 align=center bgcolor=\"$color[0]\">";
+
+            $spam_filters = load_spam_filters();
+
+            foreach ($spam_filters as $Key => $Value) {
+                echo '<tr><th align=center>';
+
+                if ($spam_filters[$Key]['enabled']) {
+                    echo _("ON");
+                } else {
+                    echo _("OFF");
+                }
+
+                echo '</th><td>&nbsp;-&nbsp;</td><td>';
+
+                if ($spam_filters[$Key]['link']) {
+                echo '<a href="' .
+                    $spam_filters[$Key]['link'] .
+                    '" target="_blank">';
+                }
+
+                echo $spam_filters[$Key]['name'];
+                if ($spam_filters[$Key]['link']) {
+                echo '</a>';
+                }
+                echo "</td></tr>\n";
+            }
+            echo '</table>';
+        }
+    }
+
 ?>
