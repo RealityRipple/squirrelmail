@@ -89,12 +89,13 @@
             } else if (substr($read, 0, 7) == "a001 NO") {
                ?>
                   <html>
-                     <body bgcolor=<? echo $color[4] ?>>
+                     <body bgcolor=ffffff>
                         <br>
-                        <table width=70% noborder bgcolor=<? echo $color[4] ?> align=center>
+                        <center>
+                        <table width=70% noborder bgcolor=ffffff align=center>
                            <tr>
-                              <td bgcolor=<? echo $color[0] ?>>
-                                 <font color=<? echo $color[2] ?>>
+                              <td bgcolor=dcdcdc>
+                                 <font color=cc0000>
                                  <center>
                                  <? echo _("ERROR") ?>
                                  </center>
@@ -103,15 +104,14 @@
                            </tr>
                            <tr>
                               <td>
-                                 <font color=<? echo $color[2] ?>>
                                  <center>
                                  <? echo _("Unknown user or password incorrect.") ?><br>
                                  <a href="login.php"><? echo _("Click here to try again") ?></a>
                                  </center>
-                                 </font>
                               </td>
                            </tr>
                         </table>
+                        </center>
                      </body>
                   </html>
                <?
