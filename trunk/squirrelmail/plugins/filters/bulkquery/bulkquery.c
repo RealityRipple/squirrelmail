@@ -10,7 +10,7 @@
 #define MAXSTR 80
 #define MAXTHREADS 50
 #define MAXRBLS 40
-#define DEFTTL 7200
+#define DEFTTL 600
 
 extern int errno;
 extern int h_errno;
@@ -29,7 +29,7 @@ pthread_mutex_t *mutexp;
 pthread_mutex_t *mutexoutput;
 
 char *dnsrbls[MAXRBLS];
-int numrbls, numthreads, numqueries;
+int numrbls, numthreads, numqueries, defttl;
 
 void do_queries () {
    iplist tIP;
@@ -64,7 +64,7 @@ void do_queries () {
 	    lwres_grbnresponse_free(ctx, &response);
 	 } else {
 	    //fprintf (stderr, "Nothing found\n");
-            printf ("%s, %s, %d\n", tIP->IP, tIP->IP, DEFTTL);
+            printf ("%s, %s, %d\n", tIP->IP, tIP->IP, defttl);
 	 }
 	 //fprintf (stderr, "freeing context\n"); fflush(stderr);
 	 lwres_context_destroy(&ctx);
@@ -105,6 +105,12 @@ main () {
    char instr[MAXSTR];
    iplist tIP;
    int loop1;
+
+   if (fgets(instr, MAXSTR, stdin) != NULL) {
+      defttl = atoi(instr);
+   }
+   if (defttl < 0)
+      defttl = DEFTTL;
 
    GetRBLs();
 
