@@ -62,9 +62,8 @@ function fortune_options() {
 
 function fortune_save() {
     global $username,$data_dir;
-    global $fortune_fortune_visible;
 
-    if (isset($fortune_fortune_visible)) {
+    if (isset($_POST['fortune_fortune_visible'])) {
         setPref($data_dir, $username, 'fortune_visible', '1');
     } else {
         setPref($data_dir, $username, 'fortune_visible', '');
