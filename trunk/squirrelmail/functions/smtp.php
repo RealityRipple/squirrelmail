@@ -787,14 +787,14 @@ function errorCheck($line, $smtpConnection, $verbose = false) {
     }
 
     if ($status == 0) {
-        include_once('../functions/page_header.php');
+        include_once(SM_PATH . 'functions/page_header.php');
         if ($compose_new_win == '1') {
             compose_Header($color, 'None');
         }
         else {
             displayPageHeader($color, 'None');
         }
-        include_once('../functions/display_messages.php');
+        include_once(SM_PATH . 'functions/display_messages.php');
         $lines = nl2br(htmlspecialchars($lines));
         $msg  = $message . "<br>\nServer replied: $lines";
         plain_error_message($msg, $color);

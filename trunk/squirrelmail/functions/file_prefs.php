@@ -35,7 +35,7 @@ function cachePrefValues($data_dir, $username) {
 
     /* Make sure that the preference file now DOES exist. */
     if (!file_exists($filename)) {
-        include_once( '../functions/display_messages.php' );
+        include_once(SM_PATH . 'functions/display_messages.php');
         logout_error( sprintf( _("Preference file, %s, does not exist. Log out, and log back in to create a default preference file."), $filename)  );
         exit;
     }
@@ -43,7 +43,7 @@ function cachePrefValues($data_dir, $username) {
     /* Open the file, or else display an error to the user. */
     if(!$file = @fopen($filename, 'r'))
     {
-        include_once( '../functions/display_messages.php' );
+        include_once(SM_PATH . 'functions/display_messages.php');
         logout_error( sprintf( _("Preference file, %s, could not be opened. Contact your system administrator to resolve this issue."), $filename) );
         exit;
     }
@@ -103,7 +103,7 @@ function savePrefValues($data_dir, $username) {
     /* Open the file for writing, or else display an error to the user. */
     if(!$file = @fopen($filename, 'w'))
     {
-        include_once( '../functions/display_messages.php' );
+        include_once(SM_PATH . 'functions/display_messages.php');
         logout_error( sprintf( _("Preference file, %s, could not be opened. Contact your system administrator to resolve this issue."), $filename) );
         exit;
     }
@@ -168,7 +168,7 @@ function checkForPrefs($data_dir, $username, $filename = '') {
 
         /* If it is not there, check the internal data directory. */
         if (!@file_exists($default_pref)) {
-            $default_pref = '../data/default_pref';
+            $default_pref = SM_PATH . 'data/default_pref';
         }
 
         /* Otherwise, report an error. */
@@ -177,7 +177,7 @@ function checkForPrefs($data_dir, $username, $filename = '') {
             $errString = $errTitle . "<br>\n" .
                          _("Default preference file not found!") . "<br>\n" .
                          _("Please contact your system administrator and report this error.") . "<br>\n";
-            include_once( '../functions/display_messages.php' );
+            include_once(SM_PATH . 'functions/display_messages.php' );
             logout_error( $errString, $errTitle );
             exit;
         } else if (!@copy($default_pref, $filename)) {
@@ -190,7 +190,7 @@ function checkForPrefs($data_dir, $username, $filename = '') {
                        _("Could not create initial preference file!") . "<br>\n" .
                        sprintf( _("%s should be writable by user %s"), $data_dir, $uid ) .
                        "<br>\n" . _("Please contact your system administrator and report this error.") . "<br>\n";
-            include_once( '../functions/display_messages.php' );
+            include_once(SM_PATH . 'functions/display_messages.php' );
             logout_error( $errString, $errTitle );
             exit;
         }
@@ -205,7 +205,7 @@ function setSig($data_dir, $username, $number, $value) {
     /* Open the file for writing, or else display an error to the user. */
     if(!$file = @fopen($filename, 'w'))
     {
-        include_once( '../functions/display_messages.php' );
+        include_once(SM_PATH . '/functions/display_messages.php' );
         logout_error( sprintf( _("Signature file, %s, could not be opened. Contact your system administrator to resolve this issue."), $filename) );
         exit;
     }
@@ -223,7 +223,7 @@ function getSig($data_dir, $username, $number) {
         /* Open the file, or else display an error to the user. */
         if(!$file = @fopen($filename, 'r'))
         {
-            include_once( '../functions/display_messages.php' );
+            include_once(SM_PATH . 'functions/display_messages.php');
             logout_error( sprintf( _("Signature file, %s, could not be opened. Contact your system administrator to resolve this issue."), $filename) );
             exit;
         }

@@ -175,7 +175,7 @@ if($REQUEST_METHOD == 'POST') {
                                       "\n". '<strong>' . _("Update address") . '</strong>' ."\n",
                                       'center', $color[0] )
                                    ),
-                             'center', '', 'width="100%" ' ) .
+                             'center', '', 'width="100%" ' );
                         address_form("editaddr", _("Update address"), $olddata);
                         echo '<INPUT TYPE=hidden NAME=oldnick VALUE="' . 
                              htmlspecialchars($olddata["nickname"]) . "\">\n" .

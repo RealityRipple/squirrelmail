@@ -234,8 +234,8 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
                  */
                 
                 set_up_language($squirrelmail_language, true);
-                include_once( '../functions/display_messages.php' );
-                logout_error( _("Unknown user or password incorrect.") );                
+                include_once(SM_PATH . 'functions/display_messages.php' );
+                logout_error( _("Unknown user or password incorrect.") );
                 session_destroy();
                 exit;
             }
