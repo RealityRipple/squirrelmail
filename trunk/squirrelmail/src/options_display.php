@@ -18,7 +18,7 @@ define('SMOPT_GRP_MESSAGE', 2);
 
 /* Define the optpage load function for the display options page. */
 function load_optpage_data_display() {
-    global $theme, $language, $languages, $js_autodetect_results;
+    global $theme, $language, $languages, $js_autodetect_results, $default_use_mdn;
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -225,6 +225,14 @@ function load_optpage_data_display() {
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );
+    if ($default_use_mdn) {
+        $optvals[SMOPT_GRP_MESSAGE][] = array(
+            'name'    => 'mdn_user_support',
+            'caption' => _("Enable request/confirm reading"),
+            'type'    => SMOPT_TYPE_BOOLEAN,
+            'refresh' => SMOPT_REFRESH_NONE
+        );
+    }
 
     /* Assemble all this together and return it as our result. */
     $result = array(
