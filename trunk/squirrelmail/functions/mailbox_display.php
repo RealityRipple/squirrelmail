@@ -71,7 +71,7 @@
                else    echo "   <td bgcolor=$hlt_color width=1%>&nbsp;</td>\n";
                break;
             case 6: # size   
-               echo "   <td bgcolor=$hlt_color width=1%>$bold".$msg["SIZE"]."k$bold_end</td>\n";
+               echo "   <td bgcolor=$hlt_color width=1%>$bold".show_readable_size($msg['SIZE'])."$bold_end</td>\n";
                break;
          }
       }

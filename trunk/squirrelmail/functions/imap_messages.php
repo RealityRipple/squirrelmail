@@ -95,8 +95,7 @@
       fputs ($imap_stream, "a003 FETCH $id RFC822.SIZE\r\n");
       $read = sqimap_read_data($imap_stream, "a003", true, $r, $m);
       preg_match("/([0-9]+)\)\s*$/i", $read[0], $regs);
-      $size = $regs[1] / 1024;
-      settype($size, "integer");
+      $size = $regs[1];
       
       $header = new small_header;
       if ($sent == true)
