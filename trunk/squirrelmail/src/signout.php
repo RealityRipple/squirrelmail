@@ -77,7 +77,7 @@ html_tag( 'table',
     '', $color[0], 'width="100%"' ) .
     html_tag( 'tr',
          html_tag( 'td', _("You have been successfully signed out.") .
-             '<br><a href="login.php" target="' . $frame_to . '">' .
+             '<br><a href="login.php" target="' . $frame_top . '">' .
              _("Click here to log back in.") . '</a><br>' ,
          'center' ) ,
     '', $color[4], 'width="100%"' ) .
