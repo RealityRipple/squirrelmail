@@ -273,6 +273,8 @@ $show_full_date = getPref($data_dir, $username, 'show_full_date', 0);
 $truncate_sender = getPref($data_dir, $username, 'truncate_sender', 0);
 /* Allow user to customize length of subject field */
 $truncate_subject = getPref($data_dir, $username, 'truncate_subject', 50);
+/* Allow user to show recipient name if the message is from default identity */
+$show_recipient_instead = getPref($data_dir, $username, 'show_recipient_instead', 0);
 
 do_hook('loading_prefs');
 
