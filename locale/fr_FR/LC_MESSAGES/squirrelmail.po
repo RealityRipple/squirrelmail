@@ -248,7 +248,6 @@ msgstr "Contactez votre administrateur pour obtenir de l'aide."
 msgid "Could not create initial preference file!"
 msgstr "Impossible de créer le fichier de préférences !"
 
-# TODO À vérifier
 #, c-format
 msgid "%s should be writable by user %s"
 msgstr "%2$s devrait avoir accès en écriture à %1$s."
@@ -277,7 +276,7 @@ msgstr ""
 "octets (option de configuration --with-mbstring)."
 
 msgid "ERROR : No available imapstream."
-msgstr ""
+msgstr "ERREUR : Pas de flux imap."
 
 msgid "ERROR : Could not complete request."
 msgstr "ERREUR : Impossible d'achever la requête."
@@ -309,18 +308,18 @@ msgstr "Erreur inconnue : %s"
 msgid "Read data:"
 msgstr "Lecture des données :"
 
-#, fuzzy
 msgid "ERROR : Could not append message to"
-msgstr "ERREUR : Impossible d'achever la requête."
+msgstr "ERREUR : Impossible d'ajouter le message dans"
 
-#, fuzzy
 msgid "Solution: "
-msgstr "Suggestions :"
+msgstr "Solution :"
 
 msgid ""
 "Remove unneccessary messages from your folder and start with your Trash "
 "folder."
 msgstr ""
+"Supprimez les messages facultatifs de votre dossier et démarrez avec le "
+"dossier Poubelle."
 
 msgid "INBOX"
 msgstr "Boîte de réception"
@@ -364,7 +363,7 @@ msgid "Move Selected To"
 msgstr "Déplacer la sélection vers"
 
 msgid "Transform Selected Messages"
-msgstr "Modifier les messages sélectionnés"
+msgstr "Modifier les messages sélectionnés "
 
 msgid "Move"
 msgstr "Déplacer"
@@ -437,7 +436,6 @@ msgstr "Par pages"
 msgid "Show All"
 msgstr "Tous les messages"
 
-#, fuzzy
 msgid "SquirrelMail could not decode the bodystructure of the message"
 msgstr "Squirrelmail ne comprend pas la structure du message"
 
@@ -609,7 +607,7 @@ msgid "After message body"
 msgstr "Après le corps du message"
 
 msgid "Addressbook Display Format"
-msgstr "Format du carnet d'adresses"
+msgstr "Format du carnet d'adresses "
 
 msgid "Javascript"
 msgstr "Javascript"
@@ -706,7 +704,7 @@ msgid "Draft Folder"
 msgstr "Brouillons"
 
 msgid "Folder List Options"
-msgstr "Options de la liste des dossier"
+msgstr "Options de la liste des dossiers"
 
 # espace insécable à la fin car suivi d'un « : » 
 msgid "Location of Folder List"
@@ -793,27 +791,24 @@ msgstr "Historique des recherche "
 msgid "Disabled"
 msgstr "Désactivé"
 
-#, fuzzy
 msgid "Folder Selection Options"
-msgstr "Options de la liste des dossier"
+msgstr "Options de sélection des dossiers"
 
 # espace insécable à la fin car suivi d'un « : » 
-#, fuzzy
 msgid "Selection List Style"
-msgstr "Style de la citation en réponse "
+msgstr "Style de la liste de sélection "
 
-#, fuzzy
 msgid "Long: "
-msgstr "Durée :"
+msgstr "Long :"
 
 msgid "Indented: "
-msgstr ""
+msgstr "Indenté :"
 
 msgid "Delimited: "
-msgstr ""
+msgstr "Délimité :"
 
 msgid "Name and Address Options"
-msgstr "Noms et d'adresses"
+msgstr "Noms et adresses"
 
 msgid "Full Name"
 msgstr "Nom complet"
@@ -831,10 +826,10 @@ msgid "Edit Advanced Identities"
 msgstr "Éditer les identités avancées"
 
 msgid "(discards changes made on this form so far)"
-msgstr "(annuler les modifications faites jusqu'à présent)"
+msgstr "(annule les modifications de cette page)"
 
 msgid "Multiple Identities"
-msgstr "Identités multiples"
+msgstr "Identités multiples "
 
 msgid "Same as server"
 msgstr "Identique au serveur"
@@ -870,16 +865,16 @@ msgid "User-Defined Citation Start"
 msgstr "Début de la citation personnalisée "
 
 msgid "User-Defined Citation End"
-msgstr "Fin de la citation personnalisée"
+msgstr "Fin de la citation personnalisée "
 
 msgid "Signature Options"
 msgstr "Options de signature"
 
 msgid "Use Signature"
-msgstr "Utiliser la signature"
+msgstr "Utiliser la signature "
 
 msgid "Prefix Signature with '-- ' Line"
-msgstr "Précéder la signature de la ligne '-- '."
+msgstr "Précéder la signature de la ligne '-- ' "
 
 msgid "Config File Version"
 msgstr "Version du fichier de configuration"
@@ -947,7 +942,6 @@ msgstr "Courier"
 msgid "Not one of the above servers"
 msgstr "Aucun des serveurs précédents"
 
-# TODO À vérifier
 msgid "IMAP Folder Delimiter"
 msgstr "Délimiteur de dossier IMAP"
 
@@ -1181,7 +1175,6 @@ msgstr "Date :"
 msgid "Time:"
 msgstr "Heure :"
 
-# TODO À vérifier
 msgid "Day View"
 msgstr "Journée"
 
@@ -1797,9 +1790,8 @@ msgstr "n° de message manquant"
 msgid "Command failed "
 msgstr "la commande a échouée "
 
-# TODO à vérifier
 msgid "Remote POP server Fetching Mail"
-msgstr "Courrier récupéré d'un serveur POP"
+msgstr "Récupération de courrier sur serveur POP"
 
 msgid "Select Server:"
 msgstr "Sélectionnez le serveur :"
@@ -1856,7 +1848,6 @@ msgid "Fetching message "
 msgstr "Récupération du message "
 
 # squirrelmail/plugins/mail_fetch/fetch.php:202
-
 # squirrelmail/plugins/mail_fetch/fetch.php:202
 msgid "Server error...Disconnect"
 msgstr "Erreur serveur... Déconnexion"
@@ -1920,9 +1911,8 @@ msgstr "Ajouter un serveur"
 msgid "Server:"
 msgstr "Serveur :"
 
-#, fuzzy
 msgid "Port:"
-msgstr "Priorité :"
+msgstr "Port :"
 
 msgid "Alias:"
 msgstr "Alias :"
@@ -1946,7 +1936,7 @@ msgid "Check mail during folder refresh"
 msgstr "Récupérer le courrier au rafraîchissement des dossiers"
 
 msgid "Modify Server"
-msgstr "Modifier Serveur"
+msgstr "Modifier le serveur"
 
 msgid "Server Name:"
 msgstr "Nom du serveur :"
@@ -2158,16 +2148,19 @@ msgid "Base Sent Folder"
 msgstr "Base des élément envoyés"
 
 msgid "Report as Spam"
-msgstr ""
+msgstr "Rapport de <i>spam</i>"
 
 msgid "SpamCop - Spam Reporting"
-msgstr ""
+msgstr "SpamCop - Plainte pour <i>spam</i>"
 
 msgid ""
 "Help fight the battle against unsolicited email.  SpamCop reads the spam "
 "email and determines the correct addresses to send complaints to.  Quite "
 "fast, really smart, and easy to use."
 msgstr ""
+"Aide dans la lutte contre les messages non désirés. SpamCop analyse le "
+"message et en déduit les adresses correctes pour se plaindre. Plutôt rapide, "
+"vraiment efficace et facile à utiliser."
 
 msgid "SpellChecker Options"
 msgstr "Options du correcteur orthographique"
@@ -2464,22 +2457,22 @@ msgid "Return"
 msgstr "Retour"
 
 msgid "Nickname"
-msgstr "Surnom"
+msgstr "Surnom "
 
 msgid "Must be unique"
 msgstr "Doit être unique"
 
 msgid "E-mail address"
-msgstr "Adresse électronique"
+msgstr "Adresse électronique "
 
 msgid "First name"
-msgstr "Prénom"
+msgstr "Prénom "
 
 msgid "Last name"
-msgstr "Nom"
+msgstr "Nom "
 
 msgid "Additional info"
-msgstr "Informations complémentaires"
+msgstr "Informations complémentaires "
 
 msgid "No personal address book is defined. Contact administrator."
 msgstr "Aucun carnet d'adresses n'est défini. Contactez l'administrateur."
@@ -2587,11 +2580,11 @@ msgstr ""
 "le supprimer."
 
 msgid "Delete Folder"
-msgstr "Supprimer le dossier"
+msgstr "Supprimer un dossier"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete %s?"
-msgstr "Voulez-vous vraiment effacer cet événement ?"
+msgstr "Voulez-vous vraiment effacer %s ?"
 
 msgid "Subscribed successfully!"
 msgstr "Abonnement réussi !"
@@ -2608,15 +2601,14 @@ msgstr "Création du dossier réussie !"
 msgid "Renamed successfully!"
 msgstr "Changement de nom réussi !"
 
-# TODO vérifier le mdash
 msgid "Subscription Unsuccessful - Folder does not exist."
 msgstr "Échec de l'abonnement &mdash; le dossier n'existe pas."
 
 msgid "refresh folder list"
-msgstr "Rafraîchir la liste des dossiers"
+msgstr "Rafraîchir la liste"
 
 msgid "Create Folder"
-msgstr "Créer le dossier"
+msgstr "Créer un dossier"
 
 msgid "as a subfolder of"
 msgstr "en tant que sous-dossier de"
@@ -2646,7 +2638,7 @@ msgid "No folders were found to unsubscribe from!"
 msgstr "Aucun dossier n'a été trouvé pour le désabonnement !"
 
 msgid "No folders were found to subscribe to!"
-msgstr "Aucun dossier trouvé pour l'abonnement !"
+msgstr "Aucun dossier n'a été trouvé pour l'abonnement !"
 
 msgid "Subscribe to:"
 msgstr "S'abonner à :"
@@ -2694,7 +2686,7 @@ msgstr "Purger"
 
 # Espace à la fin car suivi d'un « : ».
 msgid "Last Refresh"
-msgstr "Dernière mise à jour "
+msgstr "Mise à jour "
 
 msgid "Save folder tree"
 msgstr "Sauvegarder l'arborescence des dossiers"
@@ -3106,7 +3098,6 @@ msgstr "Voir un fichier texte joint"
 #~ msgid "Change to:"
 #~ msgstr "Changer en :"
 
-# TODO À vérifier
 #~ msgid "Occurs times:"
 #~ msgstr "Nombre d'occurrence :"
 
@@ -3391,7 +3382,6 @@ msgstr "Voir un fichier texte joint"
 #~ msgid "SquirrelSpell Options Menu"
 #~ msgstr "Menu des options du correcteur"
 
-# TODO À vérifier
 #~ msgid "Take Address"
 #~ msgstr "Ajouter l'adresse"
 
@@ -3434,10 +3424,7 @@ msgstr "Voir un fichier texte joint"
 #~ msgstr "Répondre"
 
 # squirrelmail/functions/display_messages.php:39
-
-
 # squirrelmail/functions/display_messages.php:39
-
 #~ msgid "Welcome to %s's WebMail system"
 #~ msgstr "Bienvenue sur le Webmail de %s"
 
@@ -3459,10 +3446,7 @@ msgstr "Voir un fichier texte joint"
 #~ msgstr "messages"
 
 # squirrelmail/plugins/filters/filters.php:464
-
-
 # squirrelmail/plugins/filters/filters.php:464
-
 #~ msgid ""
 #~ "FREE - Another ORBS replacement (just the INPUTS database used here)."
 #~ msgstr ""
@@ -3470,10 +3454,7 @@ msgstr "Voir un fichier texte joint"
 #~ "de la base de données). "
 
 # squirrelmail/plugins/filters/filters.php:472
-
-
 # squirrelmail/plugins/filters/filters.php:472
-
 #~ msgid ""
 #~ "FREE - Another ORBS replacement (just the OUTPUTS database used here)."
 #~ msgstr ""
@@ -3481,10 +3462,7 @@ msgstr "Voir un fichier texte joint"
 #~ "de la base de données). "
 
 # squirrelmail/plugins/filters/filters.php:544
-
-
 # squirrelmail/plugins/filters/filters.php:544
-
 #~ msgid ""
 #~ "FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be "
 #~ "SLOOOOOOW!"
@@ -3493,10 +3471,7 @@ msgstr "Voir un fichier texte joint"
 #~ "LEEEEEEEEENT !"
 
 # squirrelmail/plugins/filters/filters.php:568
-
-
 # squirrelmail/plugins/filters/filters.php:568
-
 #~ msgid ""
 #~ "FREE - orbz.gst-group.co.uk - mailservers that refuse or bounce email "
 #~ "addressed to postmaster@<theirdomain>."
@@ -3506,15 +3481,9 @@ msgstr "Voir un fichier texte joint"
 #~ "adressés à postmaster@<theidomain>."
 
 # squirrelmail/plugins/squirrelspell/sqspell_interface.php:43
-
-
 # squirrelmail/plugins/squirrelspell/sqspell_options.php:41
-
-
 # squirrelmail/plugins/squirrelspell/sqspell_interface.php:43
-
 # squirrelmail/plugins/squirrelspell/sqspell_options.php:41
-
 #~ msgid "SECURITY BREACH ON DECK 5! CMDR TUVOK AND SECURITY TEAM REQUESTED."
 #~ msgstr "BRÈCHE DE SÉCURITÉ SUR LE 5ÈME ÉTAGE"
 
