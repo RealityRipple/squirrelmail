@@ -51,7 +51,7 @@
 
    // expunge-on-demand if user isn't using move_to_trash or auto_expunge
    if($expungeButton) {
-     sqimap_mailbox_expunge($imapConnection, $mailbox);
+     sqimap_mailbox_expunge($imapConnection, $mailbox, true);
      $location = get_location();
      if ($where && $what)
        header ("Location: $location/search.php?mailbox=".urlencode($mailbox)."&what=".urlencode($what)."&where=".urlencode($where));
@@ -102,7 +102,7 @@
             $i++;
          }
          if ($auto_expunge) {
-            sqimap_mailbox_expunge($imapConnection, $mailbox);
+            sqimap_mailbox_expunge($imapConnection, $mailbox, true);
          }
          $location = get_location();
          if ($where && $what)
@@ -131,7 +131,7 @@
             $i++;
          }
          if ($auto_expunge == true)
-            sqimap_mailbox_expunge($imapConnection, $mailbox);
+            sqimap_mailbox_expunge($imapConnection, $mailbox, true);
 
          $location = get_location();
          if ($where && $what)

@@ -29,7 +29,7 @@
 
    sqimap_messages_delete($imapConnection, $message, $message, $mailbox);
    if ($auto_expunge)
-      sqimap_mailbox_expunge($imapConnection, $mailbox);
+      sqimap_mailbox_expunge($imapConnection, $mailbox, true);
 
    $location = get_location();
    if ($where && $what)
