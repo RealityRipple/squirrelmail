@@ -7,6 +7,16 @@
 $conf_pl_version = "x62";
 
 ############################################################              
+# Some people try to run this as a CGI. That's wrong!
+############################################################              
+if(defined($ENV{'PATH_INFO'}) || defined($ENV{'QUERY_STRING'}) ||
+   defined($ENV{'REQUEST_METHOD'})) {
+   print "Content-Type: text/html\n\n";
+   print "You must run this script from the command line.";
+   exit;
+}
+
+############################################################              
 # First, lets read in the data already in there...
 ############################################################              
 if ( -e "config.php") {
