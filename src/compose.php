@@ -767,6 +767,7 @@ function showInputForm ($session) {
 function showComposeButtonRow() {
     global $use_javascript_addr_book, $save_as_draft,
         $default_use_priority, $mailprio, $default_use_mdn,
+	$request_mdn, $request_dr,
         $data_dir, $username;
 
     echo "  <TR><TD>\n</TD><TD>\n";
@@ -784,8 +785,10 @@ function showComposeButtonRow() {
     if ($default_use_mdn) {
         if ($mdn_user_support) {
             echo "\n\t". _("Receipt") .': '.
-            '<input type="checkbox" name="request_mdn" value=1>'. _("On read").
-            ' <input type="checkbox" name="request_dr" value=1>'. _("On Delivery");
+            '<input type="checkbox" name="request_mdn" value=1'.
+		($request_mdn=='1'?' checked':'') .'>'. _("On read").
+            ' <input type="checkbox" name="request_dr" value=1'.
+		($request_dr=='1'?' checked':'') .'>'. _("On Delivery");
         }
     }
 
