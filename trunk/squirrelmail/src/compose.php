@@ -1132,7 +1132,7 @@ function showInputForm ($session, $values=false) {
 
                 $s_a[] = '<table bgcolor="'.$color[0].
                 '" border="0"><tr><td>'.
-		addCheckBox('delete[]', $key).
+		addCheckBox('delete[]', FALSE, $key).
 		    "</td><td>\n" . $attached_filename .
                     '</td><td>-</td><td> ' . $type . '</td><td>('.
                     show_readable_size( filesize( $attached_file ) ) . ')</td></tr></table>'."\n";
