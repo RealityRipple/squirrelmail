@@ -19,7 +19,6 @@ require_once('../functions/date.php');
 require_once('../functions/url_parser.php');
 require_once('../functions/smtp.php');
 require_once('../functions/html.php');
-require_once('../src/view_header.php');
 
 /**
  * Given an IMAP message id number, this will look it up in the cached
@@ -380,33 +379,10 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
 
 function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response) {
    global $base_uri, $sent_folder, $draft_folder, $where, $what, $color, $sort,
-          $startMessage, $data_dir, $username, $compose_new_win, $PHP_SELF;
+          $startMessage, $compose_new_win, $PHP_SELF, $save_as_draft;
 
    $topbar_delimiter = '&nbsp;|&nbsp;';
    $urlMailbox = encodeHeader($mailbox);
-
-   $identity = '';
-   $idents = getPref($data_dir, $username, 'identities');
-   $from_o = $message->header->from;
-   if (is_object($from_o)) {
-       $from_name = $from_o->getAddress();
-   } else {
-       $from_name = '';
-   }    
-   if (!empty($idents) && $idents > 1) {
-      for ($i = 1; $i < $idents; $i++) {
-          $enc_from_name = '"'. 
-              encodeHeader(getPref($data_dir, 
-                                   $username, 
-                                   'full_name' . $i)) .
-              '" <' . getPref($data_dir, $username, 
-                              'email_address' . $i) . '>';
-          if (htmlspecialchars($enc_from_name) == $from_name) {
-              $identity = $i;
-              break;
-          }
-      }
-   }
 
    $s = '<table width="100%" cellpadding="3" cellspacing="0" align="center"'.
          ' border="0" bgcolor="'.$color[9].'"><tr><td align="left" width="33%"><small>';
@@ -439,9 +415,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
    $comp_uri = $base_uri . 'src/compose.php'.
                          '?passed_id='.$passed_id.
 			 '&amp;mailbox='.$urlMailbox.
-			 (isset($passed_ent_id)?'&amp;passed_ent_id='.$passed_ent_id:'').
-                         '&amp;identity='.$identity;
-
+			 (isset($passed_ent_id)?'&amp;passed_ent_id='.$passed_ent_id:'');
 
    if (($mailbox == $draft_folder) && ($save_as_draft)) {
       $comp_alt_uri = $comp_uri . '&amp;action=draft';
@@ -454,7 +428,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
       $s .= $topbar_delimiter;   
       if ($compose_new_win == '1') {
          $s .= '<a href="javascript:void(0)" '. 
-	         'onclick="comp_in_new("'.$comp_alt_uri.'")">'.$comp_alt_string.'</a>';
+	         'onclick="comp_in_new(\''.$comp_alt_uri.'\')">'.$comp_alt_string.'</a>';
       } else {
          $s .= '<a href="'.$comp_alt_uri.'">'.$comp_alt_string.'</a>';
       }
@@ -527,15 +501,14 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 }
 
 function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
-   global $PHP_SELF;
+   global $QUERY_STRING, $base_uri;
    
    $urlMailbox = encodeHeader($mailbox);
    $s = '<table width="100%" cellpadding="3" cellspacing="0" align="center"'.
          ' border="0" bgcolor="'.$color[9].'">'. "\n".
 	 '<tr align="right"><td valign="top" align="right"><small>';
-
-   $viewheader_url = $PHP_SELF .  '&amp;view_hdr=1';
-   $s .= '<a href="'.$viewheader_url.'">'.("View Full Header").'</a>';
+   $url = $base_uri.'src/view_header.php?'.$QUERY_STRING;
+   $s .= '<a href="'.$url.'">'.("View Full Header").'</a>';
   /* Output the printer friendly link if we are in subtle mode. */
    $s .= '&nbsp;|&nbsp;'. 
          printer_friendly_link($mailbox, $passed_id, $passed_ent_id, $color);
@@ -608,18 +581,6 @@ $header = $message->header;
  *
  * =============================================================================
  */
-
-
-/*
- * The following code shows the header of the message and then exit
- */
-if (isset($view_hdr)) {
-   $template_vars = array();
-   $template_vars['full_header'] = parse_viewheader($imapConnection,$passed_id, $passed_ent_id);
-   $template_vars['return_address'] = set_url_var($PHP_SELF, 'view_hdr');
-   view_header($template_vars, '', '</body></html>');
-   exit;
-}
 
 if (isset($sendreceipt)) {
    if ( !$message->is_mdnsent ) {
