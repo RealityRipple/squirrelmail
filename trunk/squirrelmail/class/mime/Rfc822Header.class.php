@@ -195,9 +195,24 @@ class Rfc822Header {
                 break;
         }
     }
-
+    /*
+     * parseAddress: recursive function for parsing address strings and store 
+     *               them in an address stucture object.
+     *               input: $address = string
+     *                      $ar      = boolean (return array instead of only the
+     *                                 first element)
+     *                      $addr_ar = array with parsed addresses
+     *                      $group   = string
+     *                      $host    = string (default domainname in case of 
+     *                                 addresses without a domainname)
+     *                      $lookup  = callback function (for lookup address
+     *                                 strings which are probably nicks
+     *                                 (without @ ) ) 
+     *               output: array with addressstructure objects or only one
+     *                       address_structure object.
+     */
     function parseAddress
-    ($address, $ar=false, $addr_ar = array(), $group = '', $host='') {
+    ($address, $ar=false, $addr_ar = array(), $group = '', $host='',$lookup=false) {
         $pos = 0;
         $j = strlen($address);
         $name = '';
@@ -237,7 +252,6 @@ class Rfc822Header {
                     $pos = $addr_start + 1;
                     break;
                 case ',':  /* we reached a delimiter */
-//case ';':
                     if ($addr == '') {
                         $addr = substr($address, 0, $pos);
                     } else if ($name == '') {
@@ -252,9 +266,23 @@ class Rfc822Header {
                         $addr_structure->mailbox = substr($addr, 0, $at);
                         $addr_structure->host = substr($addr, $at+1);
                     } else {
-                        $addr_structure->mailbox = $addr;
-			if ($host) {
-			   $addr_structure->host = $host;
+			/* if lookup function */
+			if ($lookup) {
+			    $aAddr = call_user_func_array($lookup,array($addr));
+			    if (isset($aAddr['email'])) {
+				$at = strpos($aAddr['email'], '@');
+                    		$addr_structure->mailbox = substr($aAddr['email'], 0, $at);
+                    		$addr_structure->host = substr($aAddr['email'], $at+1);
+				if (isset($aAddr['name'])) {
+				    $addr_structure->personal = $aAddr['name'];
+				}
+			    }
+			}
+			if (!isset($addr_structure->mailbox)) {
+                    	    $addr_structure->mailbox = trim($addr);
+			    if ($host) {
+				$addr_structure->host = $host;
+			    }
 			}
                     }
                     $address = trim(substr($address, $pos+1));
@@ -298,9 +326,23 @@ class Rfc822Header {
             $addr_structure->mailbox = trim(substr($addr, 0, $at));
             $addr_structure->host = trim(substr($addr, $at+1));
         } else {
-            $addr_structure->mailbox = trim($addr);
-            if ($host) {
-	       $addr_structure->host = $host;
+	    /* if lookup function */
+	    if ($lookup) {
+		$aAddr = call_user_func_array($lookup,array($addr));
+	        if (isset($aAddr['email'])) {
+		    $at = strpos($aAddr['email'], '@');
+                    $addr_structure->mailbox = substr($aAddr['email'], 0, $at);
+                    $addr_structure->host = substr($aAddr['email'], $at+1);
+		    if (isset($aAddr['name'])) {
+		        $addr_structure->personal = $aAddr['name'];
+		    }
+		}
+	    }
+	    if (!isset($addr_structure->mailbox)) {
+                $addr_structure->mailbox = trim($addr);
+	        if ($host) {
+		    $addr_structure->host = $host;
+		}
 	    }
         }
         if ($group && $addr == '') { /* no addresses found in group */
