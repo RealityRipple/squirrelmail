@@ -144,7 +144,7 @@ function replyAllString($header) {
    return $url_replytoallcc;
 }
 
-function getReplyCitation($orig_from) {
+function getReplyCitation($orig_from, $orig_date) {
     global $reply_citation_style, $reply_citation_start, $reply_citation_end;
     $orig_from = decodeHeader($orig_from->getAddress(false),false,false,true);
 //    $from = decodeHeader($orig_header->getAddr_s('from',"\n$indent"),false,false);
@@ -167,6 +167,10 @@ function getReplyCitation($orig_from) {
     case 'quote_who':
         $start = '<' . _("quote") . ' ' . _("who") . '="';
         $end   = '">';
+        break;
+    case 'date_time_author':
+        $start = 'On ' . getLongDateString($orig_date) . ', ';
+        $end = ' ' . _("said") . ':';
         break;
     case 'user-defined':
         $start = $reply_citation_start .
@@ -777,7 +781,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                     $body .= '> ' . str_replace("\n", "\n> ", rtrim($line)) . "\n";
                 }
             }
-            $body = getReplyCitation($from) . $body;
+            $body = getReplyCitation($from , $orig_header->date) . $body;
             $composeMessage->reply_rfc822_header = $orig_header;
 
             break;
