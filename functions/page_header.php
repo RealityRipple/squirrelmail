@@ -134,10 +134,10 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
     }
 
     if ($session) {
-	$compose_uri = $base_uri.'src/compose.php?mailbox='.urlencode($mailbox).'&amp;attachedmessages=true&amp;session='."$session";
+    $compose_uri = $base_uri.'src/compose.php?mailbox='.urlencode($mailbox).'&amp;attachedmessages=true&amp;session='."$session";
     } else {
         $compose_uri = $base_uri.'src/compose.php?newmessage=1';
-	$session = 0;
+    $session = 0;
     }
   
     if($javascript_on) { 
@@ -154,15 +154,20 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                     if (!preg_match("/^[0-9]{3,4}$/", $compose_height)) {
                         $compose_height = '550';
                     }
-                    $js .= "function comp_in_new(comp_uri) {\n".
-    		     "       if (!comp_uri) {\n".
-    		     '           comp_uri = "'.$compose_uri."\";\n".
-    		     '       }'. "\n".
-                         '    var newwin = window.open(comp_uri' .
-                         ', "_blank",'.
-                         '"width='.$compose_width. ',height='.$compose_height.
-                         ',scrollbars=yes,resizable=yes");'."\n".
-                         "}\n\n";
+                    $js .= "function comp_in_new_form(comp_uri, button, myform) {\n".
+                           '   if (!comp_uri) {'."\n".
+                           '       comp_uri = "'.$compose_uri."\";\n".
+                           '   }'. "\n".
+                           '   comp_uri += "&" + button.name + "=1";'."\n".
+                           '   for ( var i=0; i < myform.elements.length; i++ ) {'."\n".
+                           '      if ( myform.elements[i].type == "checkbox"  && myform.elements[i].checked )'."\n".
+                           '         comp_uri += "&" + myform.elements[i].name + "=1";'."\n".
+                           '   }'."\n".
+                           '   var newwin = window.open(comp_uri' .
+                           ', "_blank",'.
+                           '"width='.$compose_width. ',height='.$compose_height.
+                           ',scrollbars=yes,resizable=yes");'."\n".
+                           "}\n\n";
                 }
 
                 // javascript for sending read receipts
@@ -170,7 +175,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                     $js .= 'function sendMDN() {'."\n".
                            "    mdnuri=window.location+'&sendreceipt=1'; ".
                            "var newwin = window.open(mdnuri,'right');".
-    	               "\n}\n\n";
+                       "\n}\n\n";
                 }
 
                 // if any of the above passes, add the JS tags too.
@@ -212,9 +217,9 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                         "document.forms[i-1].elements[pos].focus();\n".
                     "}\n".
                 "}\n";
-	    
+        
             $js .= "// -->\n".
-            	 "</script>\n";
+                 "</script>\n";
             $onload = 'onload="checkForm();"';
             displayHtmlHeader ('SquirrelMail', $js);
             break;   
@@ -241,9 +246,9 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                     "if( pos >= 0 ) {\n".
                         "document.forms[i-1].elements[pos].focus();\n".
                     "}\n".
-	    	"$xtra\n".
+            "$xtra\n".
                 "}\n";
-	    
+        
                 if ($compose_new_win == '1') {
                     if (!preg_match("/^[0-9]{3,4}$/", $compose_width)) {
                         $compose_width = '640';
@@ -252,9 +257,9 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                         $compose_height = '550';
                     }
                     $js .= "function comp_in_new(comp_uri) {\n".
-    		     "       if (!comp_uri) {\n".
-		         '           comp_uri = "'.$compose_uri."\";\n".
-	    	     '       }'. "\n".
+                 "       if (!comp_uri) {\n".
+                 '           comp_uri = "'.$compose_uri."\";\n".
+                 '       }'. "\n".
                          '    var newwin = window.open(comp_uri' .
                          ', "_blank",'.
                          '"width='.$compose_width. ',height='.$compose_height.
@@ -263,7 +268,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 
                 }
             $js .= "// -->\n". "</script>\n";
-	
+    
             $onload = 'onload="checkForm();"';
             displayHtmlHeader ('SquirrelMail', $js);
             break;   
@@ -387,7 +392,7 @@ function compose_Header($color, $mailbox) {
                     "}\n".
                 "}\n";
             $js .= "// -->\n".
-            	 "</script>\n";
+                 "</script>\n";
             $onload = 'onload="checkForm();"';
             displayHtmlHeader (_("Compose"), $js);
             break;   

@@ -145,4 +145,24 @@ function computeHashDirs($username) {
     return ($hash_dirs);
 }
 
+function checkForJavascript()
+{
+  global $data_dir, $username, $javascript_on;
+  if ( sqGetGlobalVar('javascript_on', $javascript_on) )
+    return;
+
+  if ( !sqGetGlobalVar('js_autodetect_results', $js_autodetect_results) )
+    $js_autodetect_results = SMPREF_JS_OFF;
+
+  $javascript_setting = getPref($data_dir, $username, 'javascript_setting', SMPREF_JS_AUTODETECT);
+
+  if ( $javascript_setting == SMPREF_JS_AUTODETECT )
+    $js_pref = $js_autodetect_results;
+  else
+    $js_pref = $javascript_setting;
+
+  sqsession_register('javascript_on',$js_pref);
+  return $js_pref;
+}
+
 ?>
