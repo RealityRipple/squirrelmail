@@ -20,10 +20,7 @@ Define('SM_PATH','../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/date.php');
-require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/mime.php');
-require_once(SM_PATH . 'include/load_prefs.php');
 
 /* globals */
 sqgetGlobalVar('username', $username, SQ_SESSION);
@@ -39,13 +36,11 @@ sqgetGlobalVar('startMessage', $startMessage, SQ_GET);
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 sqimap_mailbox_select($imapConnection, $mailbox);
 
-
 displayPageHeader($color, 'None');
 
 echo '<br /><table width="100%" border="0" cellspacing="0" cellpadding="2" ' .
         'align="center">' . "\n" .
-     '<tr><td bgcolor="' . $color[0] . '">' .
-     '<b><center>' .
+     '<tr><td bgcolor="' . $color[0] . '"><b><center>' .
      _("Viewing a Business Card") . " - ";
 
 $msg_url = 'read_body.php?mailbox='.urlencode($mailbox).
@@ -54,15 +49,14 @@ $msg_url = 'read_body.php?mailbox='.urlencode($mailbox).
 
 $msg_url = set_url_var($msg_url, 'ent_id', 0);
 
-echo '<a href="'.$msg_url.'">'. _("View message") . '</a>';
-
-echo '</center></b></td></tr>';
+echo '<a href="'.$msg_url.'">'. _("View message") . '</a>' .
+     '</center></b></td></tr>';
 
 $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
 
 $entity_vcard = getEntity($message,$ent_id);
 
-$vcard = mime_fetch_body ($imapConnection, $passed_id, $ent_id);
+$vcard = mime_fetch_body($imapConnection, $passed_id, $ent_id);
 $vcard = decodeBody($vcard, $entity_vcard->header->encoding);
 $vcard = explode ("\n",$vcard);
 foreach ($vcard as $l) {
@@ -135,30 +129,47 @@ if (isset($vcard_safe['url'])) {
 
 foreach ($ShowValues as $k => $v) {
     if (isset($vcard_safe[$k]) && $vcard_safe[$k])     {
-        echo "<tr><td align=\"right\"><b>$v:</b></td><td>" . $vcard_safe[$k] .
-                "</td><tr>\n";
+        echo "<tr><td align=\"right\" valign=\"top\"><b>$v:</b></td><td>" .
+            $vcard_safe[$k] . "</td><tr>\n";
     }
 }
 
-echo '</table>' .
-     '<br />' .
-     '</td></tr></table>' .
-     '<table width="100%" border="0" cellspacing="0" cellpadding="2" ' .
-        'align="center">' .
-     '<tr>' .
-     '<td bgcolor="' . $color[0] . '">' .
-     '<b><center>' .
-     _("Add to Addressbook") .
-     '</td></tr>' .
-     '<tr><td align="center">' .
-     addForm('../src/addressbook.php', 'post', 'f_add') .
-     '<table border="0" cellpadding="2" cellspacing="0" align="center">' .
-     '<tr><td align="right"><b>' . _("Nickname:") . '</b></td>' .
-     '<td>' .
-     addInput('addaddr[nickname]', $vcard_safe['firstname'] . '-' .
-             $vcard_safe['lastname'], '20') .
-     '</td></tr>' .
-     '<tr><td align="right"><b>' . _("Note Field Contains:") . '</b></td><td>' ;
+?>
+</table>
+<br />
+</td></tr></table>
+<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center">
+<tr><td bgcolor="<?php echo $color[0]; ?>">
+<center><b><?php echo _("Add to Addressbook"); ?></b></center>
+</td></tr>
+<tr><td align="center">
+<?php echo addForm('../src/addressbook.php', 'post', 'f_add'); ?><br />
+<table border="0" cellpadding="2" cellspacing="0" align="center">
+<tr><td align="right"><b><?php echo _("Nickname"); ?>:</b></td>
+<td>
+<?php
+
+echo addInput('addaddr[nickname]', $vcard_safe['firstname'] .
+        '-' . $vcard_safe['lastname'], '20');
+
+/*
+ * If the vcard comes with an e-mail address it should be added to the
+ * address book, otherwise the user must add one manually to avoid an
+ * error message in src/addressbook.php.
+ *
+ * TODO: If there's no e-mail address in the vcard, use the sender's address
+ * instead of letting the user entering it manually.
+ */
+if (isset($vcard_nice['email;internet'])) {
+    echo addHidden('addaddr[email]', $vcard_nice['email;internet']);
+} else {
+    echo '</td></tr>' .
+         '<tr><td align="right"><b>' . _("E-mail address") . ':</b></td><td>' .
+         addInput('addaddr[email]', '', '20');
+}
+
+echo '</td></tr>' .
+     '<tr><td align="right"><b>' . _("Additional info") . ':</b></td><td>';
 
 $opts = array();
 if (isset($vcard_nice['url'])) {
@@ -192,18 +203,26 @@ if (isset($vcard_nice['note'])) {
     $opts[$vcard_nice['note']] = _("Note");
 }
 
-echo    addSelect('addaddr[label]', $opts, '', TRUE);
-?>
-</td></tr>
-<tr><td colspan="2" align="center">
-<?php
-if (isset($vcard_nice['email;internet'])) {
-    echo addHidden('addaddr[email]', $vcard_nice['email;internet']);
+/*
+ * If the vcard comes with nothing but name and e-mail address, the user gets
+ * the chance to type some additional info. If there's more info in the card,
+ * the user gets to choose what will be added as additional info.
+ */
+if (count($opts) == 0) {
+    echo addInput('addaddr[label]', '', '20');
+} else {
+    echo addSelect('addaddr[label]', $opts, '', TRUE);
 }
 
-echo addHidden('addaddr[firstname]', $vcard_safe['firstname']).
-    addHidden('addaddr[lastname]', $vcard_safe['lastname']).
-    addSubmit(_("Add to Address Book"), 'addaddr[SUBMIT]');
+?>
+</td></tr>
+<tr><td colspan="2" align="center"><br />
+<?php
+
+echo addHidden('addaddr[firstname]', $vcard_safe['firstname']) .
+     addHidden('addaddr[lastname]', $vcard_safe['lastname']) .
+     addSubmit(_("Add to Address Book"), 'addaddr[SUBMIT]');
+
 ?>
 </td></tr>
 </table>
@@ -211,13 +230,12 @@ echo addHidden('addaddr[firstname]', $vcard_safe['firstname']).
 </td></tr>
 <tr><td align="center">
 <?php
-echo '<a href="../src/download.php?absolute_dl=true&amp;passed_id='.
+echo '<a href="../src/download.php?absolute_dl=true&amp;passed_id=' .
      urlencode($passed_id) . '&amp;mailbox=' . urlencode($mailbox) .
-     '&amp;ent_id=' . urlencode($ent_id) .'">'.
+     '&amp;ent_id=' . urlencode($ent_id) . '">' .
      _("Download this as a file") . '</a>';
 ?>
 </td></tr></table>
-
 <table border="0" cellspacing="0" cellpadding="2" align="center">
 <tr><td bgcolor="<?php echo $color[4]; ?>">
 </td></tr></table>
