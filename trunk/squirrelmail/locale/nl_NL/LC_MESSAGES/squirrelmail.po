@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2003-08-24 15:06+0300\n"
-"PO-Revision-Date: 2003-09-07 14:00+0200\n"
+"POT-Creation-Date: 2003-09-20 12:22+0300\n"
+"PO-Revision-Date: 2003-09-23 00:17+0200\n"
 "Last-Translator: M.J. Prinsen <translation@prinsenonline.com>\n"
 "Language-Team: Dutch <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -1284,9 +1284,6 @@ msgstr ""
 msgid "(no subject)"
 msgstr "(geen onderwerp)"
 
-msgid "Unknown Sender"
-msgstr "Onbekende afzender"
-
 msgid "Unknown response from IMAP server: "
 msgstr "Onbekend antwoord van IMAP server: "
 
@@ -1351,6 +1348,9 @@ msgstr "Verberg boomstructuur"
 
 msgid "Thread View"
 msgstr "Weergave boomstructuur"
+
+msgid "Bypass Trash"
+msgstr "Omzeil verwijderde Items"
 
 msgid "Click here to change the sorting of the message list"
 msgstr "Klik hier om de sortering van de berichtenlijst te veranderen"
@@ -1545,6 +1545,12 @@ msgstr "Toon altijd de volledige datum"
 msgid "Length of From/To Field (0 for full)"
 msgstr "Lengte van VAN/AAN veld (0 = onbeperkt)"
 
+msgid "Length of Subject Field (0 for full)"
+msgstr "Lengte van Onderwerp veld (0 = onbeperkt)"
+
+msgid "Show recipient name if the message is from your default identity"
+msgstr "Toon naam ontvanger als het bericht van uw standaard identiteit is"
+
 msgid "Message Display and Composition"
 msgstr "Bericht weergave en compositie"
 
@@ -1727,6 +1733,12 @@ msgstr "Selectie mappenlijstweergave"
 
 msgid "Long: "
 msgstr "Lang: "
+
+msgid "Folder"
+msgstr "Map"
+
+msgid "Subfolder"
+msgstr "Submap"
 
 msgid "Indented: "
 msgstr "Ingesprongen: "
@@ -2268,58 +2280,6 @@ msgstr "COMMERCIAL - RBL+ OpenRelay entries."
 
 msgid "COMMERCIAL - RBL+ Dial-up entries."
 msgstr "COMMERCIAL - RBL+ Dial-up entries."
-
-msgid ""
-"FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
-"include servers used by abuse@uunet.net auto-replies too."
-msgstr ""
-"FREE - Osirusoft Relays - Osirusofts lijst van geverifieerde open relays. "
-"Lijkt ook servers gebruikt door abuse@uunet.net auto-replies te bevatten."
-
-msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
-msgstr "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
-
-msgid ""
-"FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
-"have been manually added after multiple nominations. Use with caution. Seems "
-"to catch abuse auto-replies from some ISPs."
-msgstr ""
-"FREE - Osirusoft Confirmed Spam Source - Sites die continu spam versturen en "
-"handmatig zijn toegevoegd na herhaaldelijke meldingen. Gebruik voorzichtig. "
-"Lijkt abuse auto-replies van ISPs ook te weren."
-
-msgid ""
-"FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
-"other mail servers that are not secure."
-msgstr ""
-"FREE - Osirusoft Smart Hosts - Lijst van hosts die beveiligd zijn, maar "
-"relayen voor andere mailservers die niet beveiligd zijn."
-
-msgid ""
-"FREE - Osirusoft Spamware Developers - It is believed that these are IP "
-"ranges of companies that are known to produce spam software. Seems to catch "
-"abuse auto-replies from some ISPs."
-msgstr ""
-"FREE - Osirusoft Spamware Developers - Dit zijn IP ranges van bedrijven die "
-"bekend staan om het maken van spam software. Lijkt abuse auto-replies van "
-"sommige ISPs te weren."
-
-msgid ""
-"FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
-"users in without confirmation."
-msgstr ""
-"FREE - Osirusoft Unconfirmed OptIn Servers - Lijst van listservers die "
-"gebruikers accepteren zonder bevestiging."
-
-msgid ""
-"FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail."
-"cgi scripts. (planned)."
-msgstr ""
-"FREE - Osirusoft onveilige formmail.cgi scripts - Lijst van onveilige "
-"formmail.cgi scripts. (geplanned)."
-
-msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
-msgstr "FREE - Osirusoft Open Proxy Servers - Lijst van Open Proxy Servers."
 
 msgid ""
 "FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
@@ -3674,6 +3634,61 @@ msgstr "Bezorgingsfout rapportage"
 
 msgid "Undelivered Message Headers"
 msgstr "Berichtkoppen onbestelbaar bericht"
+
+#~ msgid "Unknown Sender"
+#~ msgstr "Onbekende afzender"
+
+#~ msgid ""
+#~ "FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems "
+#~ "to include servers used by abuse@uunet.net auto-replies too."
+#~ msgstr ""
+#~ "FREE - Osirusoft Relays - Osirusofts lijst van geverifieerde open relays. "
+#~ "Lijkt ook servers gebruikt door abuse@uunet.net auto-replies te bevatten."
+
+#~ msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
+#~ msgstr "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
+
+#~ msgid ""
+#~ "FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
+#~ "have been manually added after multiple nominations. Use with caution. "
+#~ "Seems to catch abuse auto-replies from some ISPs."
+#~ msgstr ""
+#~ "FREE - Osirusoft Confirmed Spam Source - Sites die continu spam versturen "
+#~ "en handmatig zijn toegevoegd na herhaaldelijke meldingen. Gebruik "
+#~ "voorzichtig. Lijkt abuse auto-replies van ISPs ook te weren."
+
+#~ msgid ""
+#~ "FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay "
+#~ "for other mail servers that are not secure."
+#~ msgstr ""
+#~ "FREE - Osirusoft Smart Hosts - Lijst van hosts die beveiligd zijn, maar "
+#~ "relayen voor andere mailservers die niet beveiligd zijn."
+
+#~ msgid ""
+#~ "FREE - Osirusoft Spamware Developers - It is believed that these are IP "
+#~ "ranges of companies that are known to produce spam software. Seems to "
+#~ "catch abuse auto-replies from some ISPs."
+#~ msgstr ""
+#~ "FREE - Osirusoft Spamware Developers - Dit zijn IP ranges van bedrijven "
+#~ "die bekend staan om het maken van spam software. Lijkt abuse auto-replies "
+#~ "van sommige ISPs te weren."
+
+#~ msgid ""
+#~ "FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
+#~ "users in without confirmation."
+#~ msgstr ""
+#~ "FREE - Osirusoft Unconfirmed OptIn Servers - Lijst van listservers die "
+#~ "gebruikers accepteren zonder bevestiging."
+
+#~ msgid ""
+#~ "FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure "
+#~ "formmail.cgi scripts. (planned)."
+#~ msgstr ""
+#~ "FREE - Osirusoft onveilige formmail.cgi scripts - Lijst van onveilige "
+#~ "formmail.cgi scripts. (geplanned)."
+
+#~ msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
+#~ msgstr "FREE - Osirusoft Open Proxy Servers - Lijst van Open Proxy Servers."
 
 #~ msgid "Click here to try again"
 #~ msgstr "Klik hier om het nog eens te proberen"
