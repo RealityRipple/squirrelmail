@@ -30,7 +30,7 @@ function isSpecialMailbox( $box ) {
         } else {
             // Skip next second delimiter
             $i = strpos( $sent_folder, $delimiter );
-            $i = strpos( $sent_folder, $delimiter, $i+ 1  );
+            $i = strpos( $sent_folder, $delimiter, $i+ 1  ) + 1;
             if ( $i === FALSE ) {
                 $i = strlen( $box );
             }
