@@ -134,7 +134,7 @@
    function showInputForm () {
       global $send_to, $send_to_cc, $reply_subj, $forward_subj, $body,
          $passed_body, $color, $use_signature, $signature, $editor_size,
-         $attachments, $subject;
+         $attachments, $subject, $newmail;
 
       echo "\n<FORM action=\"compose.php\" METHOD=POST\n";
       echo "ENCTYPE=\"multipart/form-data\">\n";
@@ -202,8 +202,8 @@
 
       echo "   <TR>\n";
       echo "      <TD BGCOLOR=\"$color[4]\" COLSPAN=2>\n";
-      if ($use_signature == true)
-         echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>". $body . "\n\n".$signature."</TEXTAREA><BR>";
+      if ($use_signature == true && $newmail == true)
+         echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>". $body . "\n\n-- \n".$signature."</TEXTAREA><BR>";
       else
          echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>".$body."</TEXTAREA><BR>\n";
       echo "      </TD>\n";
@@ -308,7 +308,7 @@
 
       showInputForm();
    } else {
-      Newmail();
+      $newmail = true;
       showInputForm();
    }
 ?>
