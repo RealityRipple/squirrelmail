@@ -136,9 +136,9 @@ echo '<body text="#000000" bgcolor="#FFFFFF" link="#000000" vlink="#000000" alin
          html_tag( 'td', _("To").'&nbsp;', 'left','','valign="top"' ) .
          html_tag( 'td', $to, 'left' )
     ) . "\n";
-    if ( strlen($cc) > 0 ) { /* only show CC: if it's there... */
+    if ( strlen($cc) > 0 ) { /* only show Cc: if it's there... */
          echo html_tag( 'tr',
-             html_tag( 'td', _("CC").'&nbsp;', 'left','','valign="top"' ) .
+             html_tag( 'td', _("Cc").'&nbsp;', 'left','','valign="top"' ) .
              html_tag( 'td', $cc, 'left' )
          );
      }

@@ -1266,7 +1266,7 @@ if ($search_advanced) {
         'BCC' => _("Bcc"),
         'BEFORE' => _("Before"),
         'BODY' => _("Message Body"),
-        'CC' => _("CC"),
+        'CC' => _("Cc"),
         'DELETED' => _("Deleted"),
         'DRAFT' => _("Draft"),
         'FLAGGED' => _("Flagged"),
