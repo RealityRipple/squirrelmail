@@ -230,6 +230,7 @@ Version 1.5.1 -- CVS
   - Removed unused save_option_header() function from display and compose
     option includes.
   - Fixed bug #1124764, view unsafe images inside printer friendly view.
+  - Fixed bug #1032366, remove NUL characters in text attachments on sent.
 
 Version 1.5.0
 --------------------
