@@ -94,11 +94,11 @@ function printMessageInfo($aMsg) {
         $default_use_priority,
         $message_highlight_list,
         $index_order,
-        $truncate_sender,           /* number of characters for From/To field (<= 0 for unchanged) */
+        $truncate_sender,      /* number of characters for From/To field (<= 0 for unchanged) */
         $email_address,
-        $show_recipient_instead,    /* show recipient name instead of default identity */
-        $use_icons,                 /* indicates to use icons or text markers */
-        $icon_theme;                /* icons theming */
+        $show_recipient_instead,	/* show recipient name instead of default identity */
+        $use_icons,            /* indicates to use icons or text markers */
+        $icon_theme;           /* icons theming */
 
     $color_string = $color[4];
 
@@ -1511,18 +1511,15 @@ function get_paginator_link($box, $start_msg, $text) {
 /**
 * This function computes the paginator string.
 *
-* @param string $box
-* @param integer $start_msg
-* @param integer $end_msg
-* @param integer $num_msgs // total number of messages
-* @param integer $limit // number of messages to show on one page
-* @param integer $sort
+* @param string  $box      mailbox name
+* @param integer $iOffset  offset in total number of messages
+* @param integer $iTotal   total number of messages
+* @param integer $iLimit   maximum number of messages to show on a page
+* @param bool    $bShowAll show all messages at once (non paginate mode)
+* @return string $result   paginate string with links to pages
 */
-//function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
-//                        $show_num, $sort) {
 function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll) {
-
-    global $username, $data_dir, $color;
+    global $username, $data_dir;
     sqgetGlobalVar('PHP_SELF',$php_self,SQ_SERVER);
 
     /* Initialize paginator string chunks. */
@@ -1913,7 +1910,13 @@ function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = ar
             $aDeleted = array();
             foreach ($aUpdatedMsgs as $iUid => $aMsg) {
                 if (isset($aMsg['FLAGS'])) {
-                    $aMailbox['MSG_HEADERS'][$iUid]['FLAGS'] = $aMsg['FLAGS'];
+                    /**
+                     * Only update the cached headers if the header is 
+                     * cached.
+                     */
+                    if (isset($aMailbox['MSG_HEADERS'][$iUid])) {
+                        $aMailbox['MSG_HEADERS'][$iUid]['FLAGS'] = $aMsg['FLAGS'];
+                    }
                     /**
                      * Count the messages with the \Delete flag set so we can determine
                      * if the number of expunged messages equals the number of flagged
