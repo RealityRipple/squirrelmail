@@ -749,6 +749,12 @@ sub command1 {
     print "possible.  If you set up an organization name, most places where\n";
     print "SquirrelMail would take credit will be credited to your organization.\n";
     print "\n";
+    print "If your Organization Name includes a '\$', please precede it with a \\. \n";
+    print "Other '\$' will be considered the beginning of a variable that\n";
+    print "must be defined before the \$org_name is printed.\n";
+    print "\$version, for example, is included by default, and will print the\n";
+    print "string representing the current SquirrelMail version.\n";
+    print "\n";
     print "[$WHT$org_name$NRM]: $WHT";
     $new_org_name = <STDIN>;
     if ( $new_org_name eq "\n" ) {
@@ -809,6 +815,12 @@ sub command3 {
     print "A title is what is displayed at the top of the browser window in\n";
     print "the titlebar.  Usually this will end up looking something like:\n";
     print "\"Netscape: $org_title\"\n";
+    print "\n";
+    print "If your Organization Title includes a '\$', please precede it with a \\. \n";
+    print "Other '\$' will be considered the beginning of a variable that\n";
+    print "must be defined before the \$org_title is printed.\n";
+    print "\$version, for example, is included by default, and will print the\n";
+    print "string representing the current SquirrelMail version.\n";
     print "\n";
     print "[$WHT$org_title$NRM]: $WHT";
     $new_org_title = <STDIN>;
