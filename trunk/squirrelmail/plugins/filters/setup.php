@@ -67,13 +67,13 @@
       $squirrelmail_plugin_hooks['left_main_before']['filters'] = 'start_filters';
       if ($mailbox == 'INBOX')
          $squirrelmail_plugin_hooks["right_main_after_header"]['filters'] = 'start_filters';
-      $squirrelmail_plugin_hooks['options_register']['filters'] = 'squirrelmail_plugin_register';
+      $squirrelmail_plugin_hooks['optpage_register_block']['filters'] = 'squirrelmail_plugin_optpage_register_block';
    }
 
-   function squirrelmail_plugin_register() {
-      global $optionpages;
+   function squirrelmail_plugin_optpage_register_block() {
+      global $optpage_blocks;
 
-      $optionpages[] = array(
+      $optpage_blocks[] = array(
          'name' => _("Message Filters"),
          'url'  => '../plugins/filters/options.php',
          'desc' => _("Filtering enables messages with different criteria to be automatically filtered into different folders for easier organization."),

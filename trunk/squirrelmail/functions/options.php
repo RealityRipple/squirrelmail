@@ -36,6 +36,9 @@ define('SMOPT_SIZE_MEDIUM', 2);
 define('SMOPT_SIZE_LARGE', 3);
 define('SMOPT_SIZE_HUGE', 4);
 
+define('SMOPT_SAVE_DEFAULT', 'save_option');
+define('SMOPT_SAVE_NOOP', 'save_option_noop');
+
 /**
  * SquirrelOption: An option for Squirrelmail.
  *
@@ -55,16 +58,15 @@ class SquirrelOption {
     var $refresh_level;
     var $size;
     var $comment;
+    var $script;
+
+    /* The name of the Save Function for this option. */
+    var $save_function;
 
     /* The various 'values' for this options. */
     var $value;
     var $new_value;
     var $possible_values;
-
-    /* This variable needs to be made private so it can not be messed with. */
-    /* I just don't remember how to do it right now and think it would be   */
-    /* better to keep coding. Someone can fix it, if they want. Or I will.  */
-    var $changed;
 
     function SquirrelOption
     ($name, $caption, $type, $refresh_level, $possible_values = '') {
@@ -76,6 +78,7 @@ class SquirrelOption {
         $this->possible_values = $possible_values;
         $this->size = SMOPT_SIZE_MEDIUM;
         $this->comment = '';
+        $this->script = '';
 
         /* Check for a current value. */
         if (isset($GLOBALS[$name])) {
@@ -87,11 +90,26 @@ class SquirrelOption {
         /* Check for a new value. */
         if (isset($GLOBALS["new_$name"])) {
             $this->new_value = $GLOBALS["new_$name"];
-            $this->changed = ($this->value !== $this->new_value);
         } else {
             $this->new_value = '';
-            $this->changed = false;
         }
+
+        /* Set the default save function. */
+        if ((type != SMOPT_TYPE_HIDDEN) && ($type != SMOPT_TYPE_COMMENT)) {
+            $this->save_function = SMOPT_SAVE_DEFAULT;
+        } else {
+            $this->save_function = SMOPT_SAVE_NOOP;
+        }
+    }
+
+    /* Set the value for this option. */
+    function setValue($value) {
+        $this->value = $value;
+    }
+
+    /* Set the new value for this option. */
+    function setNewValue($new_value) {
+        $this->new_value = $new_value;
     }
 
     /* Set the size for this option. */
@@ -104,7 +122,20 @@ class SquirrelOption {
         $this->comment = $comment;
     }
 
+    /* Set the script for this option. */
+    function setScript($script) {
+        $this->script = $script;
+    }
+
+    /* Set the save function for this option. */
+    function setSaveFunction($save_function) {
+        $this->save_function = $save_function;
+    }
+
     function createHTMLWidget() {
+        global $javascript_on;
+
+        /* Get the widget for this option type. */
         switch ($this->type) {
             case SMOPT_TYPE_STRING:
                 $result = $this->createWidget_String();
@@ -135,6 +166,9 @@ class SquirrelOption {
                        . sprintf(_("Option Type '%s' Not Found"), $this->type)
                        . '</FONT>';
         }
+
+        /* Add the script for this option. */
+        $result .= $this->script;
 
         /* Now, return the created widget. */
         return ($result);
@@ -238,12 +272,49 @@ class SquirrelOption {
         return ($result);
     }
 
-    function hasChanged() {
-        return ($this->changed);
+    function save() {
+        $function = $this->save_function;
+        $function($this);
+    }
+
+    function changed() {
+        return ($this->value !== $this->new_value);
     }
 }
 
+function save_option($option) {
+    global $data_dir, $username;
+    setPref($data_dir, $username, $option->name, $option->new_value);
+
+    /* I do not know if this next line does any good. */
+    $GLOBALS[$name] = $option->new_value;
+}
+
+function save_option_noop($option) {
+    /* Do nothing here... */
+}
+
+function create_optpage_element($optpage) {
+    return create_hidden_element('optpage', $optpage);
+}
+
+function create_optmode_element($optmode) {
+    return create_hidden_element('optmode', $optmode);
+}
+
+function create_hidden_element($name, $value) {
+    $result = '<INPUT TYPE="HIDDEN" '
+            . 'NAME="' . $name . '" '
+            . 'VALUE="' . $value . '">';
+    return ($result);
+}
+
+
 function createOptionGroups($optgrps, $optvals) {
+    return create_option_groups($optgrps, $optvals);
+}
+
+function create_option_groups($optgrps, $optvals) {
     /* Build a simple array with which to start. */
     $result = array();
 
@@ -286,6 +357,16 @@ function createOptionGroups($optgrps, $optvals) {
                 $next_option->setComment($optset['comment']);
             }
 
+            /* If provided, set the save function for this option. */
+            if (isset($optset['save'])) {
+                $next_option->setSaveFunction($optset['save']);
+            }
+
+            /* If provided, set the script for this option. */
+            if (isset($optset['script'])) {
+                $next_option->setScript($optset['script']);
+            }
+
             /* Add this option to the option array. */
             $result[$grpkey]['options'][] = $next_option;
         }
@@ -296,6 +377,10 @@ function createOptionGroups($optgrps, $optvals) {
 }
 
 function printOptionGroups($option_groups) {
+    print_option_groups($option_groups);
+}
+
+function print_option_groups($option_groups) {
     foreach ($option_groups as $next_optgrp) {
         echo '<TR><TD ALIGN="CENTER" VALIGN="MIDDLE" COLSPAN="2" NOWRAP><B>'
            . $next_optgrp['name'] . "</B></TD></TR>\n";
@@ -312,78 +397,6 @@ function printOptionGroups($option_groups) {
         }
         echo "<TR><TD COLSPAN=\"2\">&nbsp;</TD></TR>\n";
     }
-}
-
-function OptionSelect( $title, $name, $data, $default, $show = '', $store = '' ) {
-
-    echo "<tr><td align=right valign=middle nowrap>$title: </td><td>" .
-         "<select name=\"$name\">";
-    foreach( $data as $key => $opt ) {
-        if ( $store == '' ) {
-            $vl = $key;
-        } else{
-            $vl = $opt[$store];
-        }
-        if ( $show == '' ) {
-            $nm = $opt;
-        } else{
-            $nm = $opt[$show];
-        }
-        if ( $nm <> '') {
-            echo "<option value=\"$vl\"";
-            if( $vl == $default ) {
-                echo ' selected';
-            }
-            echo ">$nm</option>\n";
-        }
-    }
-    echo "</select></td></tr>\n";
-}
-
-function OptionRadio( $title, $name, $data, $default, $show = '', $store = '', $sep = '&nbsp; &nbsp;'  ) {
-    echo "<tr><td align=right valign=middle nowrap>$title: </td><td>";
-    foreach( $data as $key => $opt ) {
-        if ( $store == '' ) {
-            $vl = $key;
-        } else{
-            $vl = $opt[$store];
-        }
-        if ( $show == '' ) {
-            $nm = $opt;
-        } else{
-            $nm = $opt[$show];
-        }
-        if ( $nm <> '') {
-            echo "<input type=\"radio\" name=\"$name\" value=\"$vl\"";
-            if( $vl == $default ) {
-                echo ' checked';
-            }
-            echo ">$nm $sep\n";
-        }
-    }
-    echo "</td></tr>\n";
-}
-
-function OptionText( $title, $name, $value, $size ) {
-    echo "<tr><td align=right valign=middle nowrap>$title: </td><td>" .
-         "<input name=\"$name\" value=\"$value\" size=\"$size\">" .
-         "</td></tr>\n";
-}
-
-function OptionHidden( $name, $value ) {
-    echo "<INPUT TYPE=HIDDEN NAME=\"$name\" VALUE=\"$value\">\n";
-}
-
-function OptionCheck( $title, $name, $value, $comment ) {
-    if ( $value )
-        $chk = 'checked';
-    echo "<tr><td align=right valign=middle nowrap>$title: </td><td>" .
-         "<input type=\"checkbox\" name=\"$name\" $chk> $comment" .
-         "</td></tr>\n";
-}
-
-function OptionTitle( $title ) {
-    echo "<tr><td colspan=2 align=left valign=middle nowrap><b>$title</b></td></tr>\n";
 }
 
 function OptionSubmit( $name ) {

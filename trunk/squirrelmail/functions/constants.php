@@ -46,5 +46,5 @@
     define('SMPREF_JS_ON', 1);
     define('SMPREF_JS_AUTODETECT', 2);
 
-    do_hook("loading_constants");
+    do_hook('loading_constants');
 ?>

@@ -27,7 +27,7 @@ function squirrelmail_plugin_init_translate() {
   global $squirrelmail_plugin_hooks;
 
   $squirrelmail_plugin_hooks['read_body_bottom']['translate'] = 'translate_read_form';
-  $squirrelmail_plugin_hooks['options_register']['translate'] = 'translate_opt';
+  $squirrelmail_plugin_hooks['optpage_register_block']['translate'] = 'translate_optpage_register_block';
   $squirrelmail_plugin_hooks['options_save']['translate'] = 'translate_sav';
   $squirrelmail_plugin_hooks['loading_prefs']['translate'] = 'translate_pref';
   $squirrelmail_plugin_hooks['compose_button_row']['translate'] = 'translate_button';
@@ -90,9 +90,9 @@ function translate_button() {
 }
 
 
-function translate_opt() {
-    global $optionpages;
-    $optionpages[] = array(
+function translate_optpage_register_block() {
+    global $optpage_blocks;
+    $optpage_blocks[] = array(
         'name' => _("Translation Options"),
         'url'  => '../plugins/translate/options.php',
         'desc' => _("Which translator should be used when you get messages in a different language?"),

@@ -1,41 +1,33 @@
 <?php
-   /**
-    **  options_personal.php
-    **
-    **  Copyright (c) 1999-2000 The SquirrelMail development team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  Displays all options relating to personal information
-    **
-    **  $Id$
-    **/
 
-   require_once('../src/validate.php');
-   require_once('../functions/display_messages.php');
-   require_once('../functions/imap.php');
-   require_once('../functions/array.php');
-   require_once('../functions/plugin.php');
-   require_once('../functions/options.php');
-   
-   displayPageHeader($color, 'None');
+/**
+ * options_personal.php
+ *
+ * Copyright (c) 1999-2001 The SquirrelMail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * Displays all options relating to personal information
+ *
+ * $Id$
+ */
 
-   $full_name = getPref($data_dir, $username, 'full_name');
-   $reply_to = getPref($data_dir, $username, 'reply_to');
-   $email_address  = getPref($data_dir, $username, 'email_address'); 
+require_once('../functions/imap.php');
+require_once('../functions/array.php');
+ 
+/* Define the group constants for the personal options page. */
+define('SMOPT_GRP_CONTACT', 0);
+define('SMOPT_GRP_REPLY', 1);
+define('SMOPT_GRP_SIG', 2);
 
-?>
-   <br>
-<table width=95% align=center border=0 cellpadding=2 cellspacing=0>
-<tr><td align="center" bgcolor="<?php echo $color[0] ?>">
+/* Define the optpage load function for the personal options page. */
+function load_optpage_data_personal() {
+    global $data_dir, $username;
+    global $full_name, $reply_to, $email_address;
 
-      <b><?php echo _("Options") . " - " . _("Personal Information"); ?></b>
-
-    <table width="100%" border="0" cellpadding="1" cellspacing="1">
-    <tr><td bgcolor="<?php echo $color[4] ?>" align="center">
-
-   <form name=f action="options.php" method=post><br>
-      <table width=100% cellpadding=2 cellspacing=0 border=0>
-<?php
+    /* Set the values of some global variables. */
+    $full_name = getPref($data_dir, $username, 'full_name');
+    $reply_to = getPref($data_dir, $username, 'reply_to');
+    $email_address  = getPref($data_dir, $username, 'email_address'); 
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -44,9 +36,6 @@
     /******************************************************/
     /* LOAD EACH GROUP OF OPTIONS INTO THE OPTIONS ARRAY. */
     /******************************************************/
-    define('SMOPT_GRP_CONTACT', 0);
-    define('SMOPT_GRP_REPLY', 1);
-    define('SMOPT_GRP_SIG', 2);
 
     /*** Load the Contact Information Options into the array ***/
     $optgrps[SMOPT_GRP_CONTACT] = _("Name and Address Options");
@@ -145,25 +134,25 @@
         'caption' => _("Signature"),
         'type'    => SMOPT_TYPE_TEXTAREA,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_MEDIUM
+        'size'    => SMOPT_SIZE_MEDIUM,
+        'save'    => 'save_option_signature'
     );
 
-    /* Build and output the option groups. */
-    $option_groups = createOptionGroups($optgrps, $optvals);
-    printOptionGroups($option_groups);
+    /* Assemble all this together and return it as our result. */
+    $result = array(
+        'grps' => $optgrps,
+        'vals' => $optvals
+    );
+    return ($result);
+}
 
-    do_hook('options_personal_inside');
-    OptionSubmit( 'submit_personal' );
+/******************************************************************/
+/** Define any specialized save functions for this option page. ***/
+/******************************************************************/
+
+function save_option_signature($option) {
+    global $data_dir, $username;
+    setSig($data_dir, $username, $option->new_value);
+}
 
 ?>
-      </table>   
-</form>
-
-   <?php do_hook('options_personal_bottom'); ?>
-
-    </td></tr>
-    </table>
-
-</td></tr>
-</table>
-</body></html>
