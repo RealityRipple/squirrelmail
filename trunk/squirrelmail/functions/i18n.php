@@ -1150,9 +1150,9 @@ endswitch;
  * @return bool is it possible to convert to user's charset
  */
 function is_conversion_safe($input_charset) {
-  global $languages, $sm_notAlias, $default_charset, $loosy_encoding;
+  global $languages, $sm_notAlias, $default_charset, $lossy_encoding;
 
-    if (isset($loosy_encoding) && $loosy_encoding )
+    if (isset($lossy_encoding) && $lossy_encoding )
 	return true;
 
  // convert to lower case
