@@ -17,6 +17,7 @@ define('SM_PATH','../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
+require_once(SM_PATH . 'functions/imap_mailbox.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 
@@ -46,6 +47,8 @@ if (substr($old, strlen($old) - strlen($delimiter)) == $delimiter) {
     $isfolder = FALSE;
 }
 
+$old = imap_utf7_decode_local($old);
+
 if (strpos($old, $delimiter)) {
     $old_name = substr($old, strrpos($old, $delimiter)+1, strlen($old));
     $old_parent = substr($old, 0, strrpos($old, $delimiter));
@@ -53,6 +56,7 @@ if (strpos($old, $delimiter)) {
     $old_name = $old;
     $old_parent = '';
 }
+
 
 displayPageHeader($color, 'None');
 echo '<br>' .

@@ -276,31 +276,36 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
         } else {
             $postfix = '';
         }
+
+        $old_name = imap_utf7_encode_local($old_name);
+        $new_name = imap_utf7_encode_local($new_name);
+
         $boxesall = sqimap_mailbox_list($imap_stream);
-        $cmd = 'RENAME "' . quoteIMAP($old_name) . '" "' .  quoteIMAP($new_name) . '"';
+        $cmd = 'RENAME "' . $old_name . '" "' . $new_name . '"';
         $data = sqimap_run_command($imap_stream, $cmd, true, $response, $message);
         sqimap_unsubscribe($imap_stream, $old_name.$postfix);
-        $oldpref = getPref($data_dir, $username, "thread_".$old_name.$postfix);
-        removePref($data_dir, $username, "thread_".$old_name.$postfix);
+        $oldpref = getPref($data_dir, $username, 'thread_'.$old_name.$postfix);
+        removePref($data_dir, $username, 'thread_'.$old_name.$postfix);
         sqimap_subscribe($imap_stream, $new_name.$postfix);
-        setPref($data_dir, $username, "thread_".$new_name.$postfix, $oldpref);
+        setPref($data_dir, $username, 'thread_'.$new_name.$postfix, $oldpref);
         do_hook_function("rename_or_delete_folder",$args = array($old_name, 'rename', $new_name));
         $l = strlen( $old_name ) + 1;
         $p = 'unformatted';
+
         foreach ($boxesall as $box) {
             if (substr($box[$p], 0, $l) == $old_name . $delimiter) {
                 $new_sub = $new_name . $delimiter . substr($box[$p], $l);
                 if ($imap_server_type == 'cyrus') {
-                    $cmd = 'RENAME "' . quoteIMAP($box[$p]) . '" "' .  quoteIMAP($new_sub) . '"';
+                    $cmd = 'RENAME "' . $box[$p] . '" "' . $new_sub . '"';
                     $data = sqimap_run_command($imap_stream, $cmd, true,
                                                $response, $message);
                 }
                 sqimap_unsubscribe($imap_stream, $box[$p]);
-                $oldpref = getPref($data_dir, $username, "thread_".$box[$p]);
-                removePref($data_dir, $username, "thread_".$box[$p]);
+                $oldpref = getPref($data_dir, $username, 'thread_'.$box[$p]);
+                removePref($data_dir, $username, 'thread_'.$box[$p]);
                 sqimap_subscribe($imap_stream, $new_sub);
-                setPref($data_dir, $username, "thread_".$new_sub, $oldpref);
-                do_hook_function("rename_or_delete_folder",
+                setPref($data_dir, $username, 'thread_'.$new_sub, $oldpref);
+                do_hook_function('rename_or_delete_folder',
                                  $args = array($box[$p], 'rename', $new_sub));
             }
         }
