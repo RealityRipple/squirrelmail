@@ -323,7 +323,7 @@ function printMessageInfo($aMsg) {
     // where on the row you click
     //
     if ($javascript_on)
-        $javascript_auto_click = ' onMouseDown="if (document.getElementById(msg[' . $t . '])) { document.getElementById(msg[' . $t . ']).checked = (document.getElementById(msg[' . $t . ']).checked ? false : true); }"';
+        $javascript_auto_click = ' onMouseDown="if (document.getElementById(\'msg[' . $t . ']\')) { document.getElementById(\'msg[' . $t . ']\').checked = (document.getElementById(\'msg[' . $t . ']\').checked ? false : true); }"';
 
 
     if (sizeof($index_order)) {
