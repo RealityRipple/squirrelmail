@@ -2,6 +2,10 @@
 *** SquirrelMail Stable Series 1.4 ***
 **************************************
 
+Version 1.4.1 -- CVS
+--------------------
+
+
 Version 1.4.0 -- 3 April 2003
 -----------------------------
   - Fixed mail_fetch plugin. Now folder edition defaults to actual value.
