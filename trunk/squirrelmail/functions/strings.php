@@ -8,7 +8,7 @@
    // Count the number of occurances of $needle are in $haystack.
    //*************************************************************************
    function countCharInString($haystack, $needle) {
-      $haystack = ereg_replace("[^$needle]","",$haystack);
+      $haystack = ereg_replace("[^$needle]",'',$haystack);
       return strlen($haystack);
    }
 
@@ -17,8 +17,8 @@
    //    of the $haystack is reached.  $needle is a single character
    //*************************************************************************
    function readShortMailboxName($haystack, $needle) {
-      if ($needle == "") return $haystack;
-      if ($needle == ".") $needle = "\.";
+      if ($needle == '') return $haystack;
+      if ($needle == '.') $needle = '\.';
       ereg("([^$needle]+)$needle?$", $haystack, $regs);
       return $regs[1];
    }
@@ -28,14 +28,14 @@
    //    of the $haystack is reached.  $needle is a single character
    //*************************************************************************
    function readMailboxParent($haystack, $needle) {
-      if ($needle == ".") $needle = "\.";
+      if ($needle == '.') $needle = '\.';
       ereg("^(.+)$needle([^$needle]+)$needle?$", $haystack, $regs);
       return $regs[1];
    }
 
    // Searches for the next position in a string minus white space
    function next_pos_minus_white ($haystack, $pos) {
-      while (substr($haystack, $pos, 1) == " " ||
+      while (substr($haystack, $pos, 1) == ' ' ||
              substr($haystack, $pos, 1) == "\t" ||
              substr($haystack, $pos, 1) == "\n" ||
              substr($haystack, $pos, 1) == "\r") {
@@ -54,7 +54,7 @@
    function sqWordWrap(&$line, $wrap) {
       preg_match("/^([\s>]*)([^\s>].*)?$/", $line, $regs);
       $beginning_spaces = $regs[1];
-      $words = explode(" ", $regs[2]);
+      $words = explode(' ', $regs[2]);
 
       $i = 0;
       $line = $beginning_spaces;
@@ -128,14 +128,14 @@
    function parseAddrs($text) {
       if (trim($text) == "")
          return array();
-      $text = str_replace(" ", "", $text);
-      $text = ereg_replace('"[^"]*"', "", $text);
-      $text = ereg_replace("\([^\)]*\)", "", $text);
-      $text = str_replace(",", ";", $text);
-      $array = explode(";", $text);
+      $text = str_replace(' ', '', $text);
+      $text = ereg_replace('"[^"]*"', '', $text);
+      $text = ereg_replace("\([^\)]*\)", '', $text);
+      $text = str_replace(',', ';', $text);
+      $array = explode(';', $text);
       for ($i = 0; $i < count ($array); $i++) {
-			    $array[$i] = eregi_replace ("^.*[<]", "", $array[$i]);
-			    $array[$i] = eregi_replace ("[>].*$", "", $array[$i]);
+			    $array[$i] = eregi_replace ("^.*[<]", '', $array[$i]);
+			    $array[$i] = eregi_replace ("[>].*$", '', $array[$i]);
 		  }
       return $array;
    }
@@ -143,10 +143,10 @@
    /** Returns a line of comma separated email addresses from an array **/
    function getLineOfAddrs($array) {
       if (is_array($array)) {
-        $to_line = implode(", ", $array);
-        $to_line = trim(ereg_replace(",,+", ",", $to_line));
+        $to_line = implode(', ', $array);
+        $to_line = trim(ereg_replace(',,+', ',', $to_line));
       } else {
-        $to_line = "";
+        $to_line = '';
       }
       return $to_line;
    }
@@ -156,7 +156,7 @@
 		global $url_parser_php;
 
       if (!isset($url_parser_php)) {
-         include "../functions/url_parser.php";
+         include '../functions/url_parser.php';
       }
       
       $body_ary = explode("\n", $body);
@@ -191,28 +191,28 @@
          }
          
          if ($Quotes > 1)
-            $line = "<FONT COLOR=FF0000>$line</FONT>";
+            $line = '<FONT COLOR="FF0000">$line</FONT>';
          elseif ($Quotes)
-            $line = "<FONT COLOR=800000>$line</FONT>";
+            $line = '<FONT COLOR="800000">$line</FONT>';
 
          $body_ary[$i] = $line;
       }
-      $body = "<pre>" . implode("\n", $body_ary) . "</pre>";
+      $body = '<pre>' . implode("\n", $body_ary) . '</pre>';
    }
 
    /* SquirrelMail version number -- DO NOT CHANGE */
-   $version = "1.0.1 [cvs]";
+   $version = '1.0.1 [cvs]';
 
 
    function find_mailbox_name ($mailbox) {
 /*
       $mailbox = trim($mailbox);
-      if (substr($mailbox, strlen($mailbox)-1, strlen($mailbox)) == "\"") {
+      if (substr($mailbox, strlen($mailbox)-1, strlen($mailbox)) == '"') {
          $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
-         $pos = strrpos ($mailbox, "\"")+1;
+         $pos = strrpos ($mailbox, '"')+1;
          $box = substr($mailbox, $pos);
       } else {
-         $box = substr($mailbox, strrpos($mailbox, " ")+1, strlen($mailbox));
+         $box = substr($mailbox, strrpos($mailbox, ' ')+1, strlen($mailbox));
       }
       return $box;
 */      
@@ -225,11 +225,11 @@
    }
 
    function replace_spaces ($string) {
-      return str_replace(" ", "&nbsp;", $string);
+      return str_replace(' ', '&nbsp;', $string);
    }
 
    function replace_escaped_spaces ($string) {
-      return str_replace("&nbsp;", " ", $string);
+      return str_replace('&nbsp;', ' ', $string);
    }
 
    function get_location () {
@@ -248,13 +248,13 @@
       $path = substr($PHP_SELF, 0, strrpos($PHP_SELF, '/'));
    
       // Check if this is a HTTPS or regular HTTP request
-      $proto = "http://";
+      $proto = 'http://';
       if(isset($HTTPS) && !strcasecmp($HTTPS, 'on') ) {
-        $proto = "https://";
+        $proto = 'https://';
       }
    
       // Get the hostname from the Host header or server config.
-      $host = "";
+      $host = '';
       if (isset($HTTP_HOST) && !empty($HTTP_HOST))
       {
           $host = $HTTP_HOST;
@@ -268,8 +268,8 @@
       if (! strstr($host, ':'))
       {
           if (isset($SERVER_PORT)) {
-              if (($SERVER_PORT != 80 && $proto == "http://")
-                      || ($SERVER_PORT != 443 && $proto == "https://")) {
+              if (($SERVER_PORT != 80 && $proto == 'http://')
+                      || ($SERVER_PORT != 443 && $proto == 'https://')) {
                   $port = sprintf(':%d', $SERVER_PORT);
               }
           }
@@ -295,7 +295,7 @@
    // stored in a cookie.
    function OneTimePadEncrypt ($string, $epad) {
       $pad = base64_decode($epad);
-      $encrypted = "";
+      $encrypted = '';
       for ($i = 0; $i < strlen ($string); $i++) {
 	 $encrypted .= chr (ord($string[$i]) ^ ord($pad[$i]));
       }
@@ -306,7 +306,7 @@
    function OneTimePadDecrypt ($string, $epad) {
       $pad = base64_decode($epad);
       $encrypted = base64_decode ($string);
-      $decrypted = "";
+      $decrypted = '';
       for ($i = 0; $i < strlen ($encrypted); $i++) {
 	 $decrypted .= chr (ord($encrypted[$i]) ^ ord($pad[$i]));
       }
@@ -327,7 +327,7 @@
        
        if (! is_int($Val))
        {
-           if (function_exists("crc32"))
+           if (function_exists('crc32'))
            {
                $Val = crc32($Val);
            }
@@ -379,9 +379,9 @@
       sq_mt_seed(md5($REMOTE_PORT . $REMOTE_ADDR . getmypid()));
       
       // getrusage
-      if (function_exists("getrusage")) {
+      if (function_exists('getrusage')) {
          $dat = getrusage();
-	 $Str = "";
+	 $Str = '';
 	 foreach ($dat as $k => $v)
 	 {
 	     $Str .= "$k = $v\n";
@@ -398,7 +398,7 @@
    function OneTimePadCreate ($length=100) {
       sq_mt_randomize();
 
-      $pad = "";
+      $pad = '';
       for ($i = 0; $i < $length; $i++) {
 	 $pad .= chr(mt_rand(0,255));
       }
@@ -422,9 +422,9 @@
       $vrel    = $regs[3];
       if($vrel[0] == ".") 
 	 $vrel = strval(substr($vrel, 1));
-      if($vrel[0] == "b" || $vrel[0] == "B") 
+      if($vrel[0] == 'b' || $vrel[0] == 'B') 
 	 $vrel = - strval(substr($vrel, 1));
-      if($vrel[0] == "r" || $vrel[0] == "R") 
+      if($vrel[0] == 'r' || $vrel[0] == 'R') 
 	 $vrel = - strval(substr($vrel, 2))/10;
       
       // Compare major version
@@ -465,11 +465,11 @@
        if ($bytes < 10)
        {
            $bytes *= 10;
-           settype($bytes, "integer");
+           settype($bytes, 'integer');
            $bytes /= 10;
        }
        else
-           settype($bytes, "integer");
+           settype($bytes, 'integer');
        
        return $bytes . '<small>&nbsp;' . $type . '</small>';
    }
@@ -492,7 +492,7 @@
           $chars .= '0123456789';
           
       if ($size < 1 || strlen($chars) < 1)
-          return "";
+          return '';
           
       sq_mt_randomize(); // Initialize the random number generator
     
