@@ -280,7 +280,7 @@ but may be out of date soon thereafter.  You never know.  ;-)
   get_pref_override              functions/file_prefs.php        hook_func
   get_pref                       functions/file_prefs.php        hook_func
   special_mailbox                functions/imap_mailbox.php      hook_func
-  % rename_or_delete_folder      functions/imap_mailbox.php      hook_func
+% rename_or_delete_folder        functions/imap_mailbox.php      hook_func
   mailbox_index_before           functions/mailbox_display.php   do_hook
   mailbox_form_before            functions/mailbox_display.php   do_hook
   mailbox_index_after            functions/mailbox_display.php   do_hook
@@ -289,7 +289,7 @@ but may be out of date soon thereafter.  You never know.  ;-)
   mailbox_display_buttons        functions/mailbox_display.php   do_hook
   mailbox_display_button_action  functions/mailbox_display.php   hook_func
   message_body                   functions/mime.php              do_hook
-  ^ attachment $type0/$type1     functions/mime.php              do_hook
+^ attachment $type0/$type1       functions/mime.php              do_hook
   attachments_bottom             functions/mime.php              hook_func
   decode_body                    functions/mime.php              hook_func
   generic_header                 functions/page_header.php       do_hook
@@ -313,34 +313,34 @@ but may be out of date soon thereafter.  You never know.  ;-)
   login_top                      src/login.php                   do_hook
   login_form                     src/login.php                   do_hook
   login_bottom                   src/login.php                   do_hook
-  * optpage_set_loadinfo         src/options.php                 do_hook
-  * optpage_loadhook_personal    src/options.php                 do_hook
-  * optpage_loadhook_display     src/options.php                 do_hook
-  * optpage_loadhook_highlight   src/options.php                 do_hook
-  * optpage_loadhook_folder      src/options.php                 do_hook
-  * optpage_loadhook_order       src/options.php                 do_hook
-  * options_personal_save        src/options.php                 do_hook
-  * options_display_save         src/options.php                 do_hook
-  * options_folder_save          src/options.php                 do_hook
-  * options_save                 src/options.php                 do_hook
-  * optpage_register_block       src/options.php                 do_hook
-  * options_link_and_description src/options.php                 do_hook
-  * options_personal_inside      src/options.php                 do_hook
-  * options_display_inside       src/options.php                 do_hook
-  * options_highlight_inside     src/options.php                 do_hook
-  * options_folder_inside        src/options.php                 do_hook
-  * options_order_inside         src/options.php                 do_hook
-  * options_personal_bottom      src/options.php                 do_hook
-  * options_display_bottom       src/options.php                 do_hook
-  * options_highlight_bottom     src/options.php                 do_hook
-  * options_folder_bottom        src/options.php                 do_hook
-  * options_order_bottom         src/options.php                 do_hook
-  * options_highlight_bottom     src/options_highlight.php       do_hook
-  & options_identities_process   src/options_identities.php      do_hook
-  & options_identities_top       src/options_identities.php      do_hook
-  &% options_identities_renumber src/options_identities.php      do_hook
-  & options_identities_table     src/options_identities.php      concat_hook
-  & options_identities_buttons   src/options_identities.php      concat_hook
+* optpage_set_loadinfo           src/options.php                 do_hook
+* optpage_loadhook_personal      src/options.php                 do_hook
+* optpage_loadhook_display       src/options.php                 do_hook
+* optpage_loadhook_highlight     src/options.php                 do_hook
+* optpage_loadhook_folder        src/options.php                 do_hook
+* optpage_loadhook_order         src/options.php                 do_hook
+* options_personal_save          src/options.php                 do_hook
+* options_display_save           src/options.php                 do_hook
+* options_folder_save            src/options.php                 do_hook
+* options_save                   src/options.php                 do_hook
+* optpage_register_block         src/options.php                 do_hook
+* options_link_and_description   src/options.php                 do_hook
+* options_personal_inside        src/options.php                 do_hook
+* options_display_inside         src/options.php                 do_hook
+* options_highlight_inside       src/options.php                 do_hook
+* options_folder_inside          src/options.php                 do_hook
+* options_order_inside           src/options.php                 do_hook
+* options_personal_bottom        src/options.php                 do_hook
+* options_display_bottom         src/options.php                 do_hook
+* options_highlight_bottom       src/options.php                 do_hook
+* options_folder_bottom          src/options.php                 do_hook
+* options_order_bottom           src/options.php                 do_hook
+* options_highlight_bottom       src/options_highlight.php       do_hook
+& options_identities_process     src/options_identities.php      do_hook
+& options_identities_top         src/options_identities.php      do_hook
+&% options_identities_renumber   src/options_identities.php      do_hook
+& options_identities_table       src/options_identities.php      concat_hook
+& options_identities_buttons     src/options_identities.php      concat_hook
   message_body                   src/printer_friendly_bottom.php do_hook
   read_body_header               src/read_body.php               do_hook
   read_body_menu_top             src/read_body.php               hook_func
@@ -360,14 +360,14 @@ but may be out of date soon thereafter.  You never know.  ;-)
   webmail_top                    src/webmail.php                 do_hook
   webmail_bottom                 src/webmail.php                 concat_hook
   logout_above_text              src/signout.php                 concat_hook
-  O info_bottom                  plugins/info/options.php        do_hook
+O info_bottom                    plugins/info/options.php        do_hook
 
 % = This hook is used in multiple places in the given file
 # = Called with hook type (see below)
 & = Special identity hooks (see below)
 ^ = Special attachments hook (see below)
 * = Special options hooks (see below)
-O = optional hook used by plugin
+O = Optional hook provided by a particular plugin
 
 
 (#) Called With
