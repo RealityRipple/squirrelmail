@@ -79,10 +79,11 @@ function gettext_php_load_strings() {
     $key = '';
     $SkipRead = false;
     while (! feof($file)) {
-        if (! $SkipRead)
+        if (! $SkipRead) {
             $line = trim(fgets($file, 4096));
-        else
+        } else {
             $SkipRead = false;
+        }
         
         if (ereg('^msgid "(.*)"$', $line, $match)) {
             if ($match[1] == '') {
