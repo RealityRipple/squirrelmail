@@ -91,7 +91,7 @@
       return $to_line;
    }
 
-   function translateText($body, $wrap_at) {
+   function translateText($body, $wrap_at, $charset) {
       /** Add any parsing you want to in here */
       $body = trim($body);
       $body_ary = explode("\n", $body);
@@ -100,11 +100,14 @@
          $line = $body_ary[$i];
          $line = "^^$line";
 
-         $line = str_replace(">", "&gt;", $line);
-         $line = str_replace("<", "&lt;", $line);
+         //$line = str_replace(">", "&gt;", $line);
+         //$line = str_replace("<", "&lt;", $line);
+         //$line = htmlspecialchars($line);
 
          if (strlen($line) >= $wrap_at) // -2 because of the ^^ at the beginning
             $line = wordWrap($line, $wrap_at);
+
+         $line = charset_decode($charset, $line);
 
          $line = str_replace(" ", "&nbsp;", $line);
          $line = str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $line);
