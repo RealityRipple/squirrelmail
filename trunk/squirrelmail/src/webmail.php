@@ -21,7 +21,10 @@ require_once('../functions/plugin.php');
 require_once('../functions/i18n.php');
 require_once('../functions/auth.php');
 
-$base_uri = dirname(dirname($PHP_SELF)) . "/";
+if (!function_exists('sqm_baseuri')){
+    require_once('../functions/display_messages.php');
+}
+$base_uri = sqm_baseuri();
 
 session_start();
 is_logged_in();
