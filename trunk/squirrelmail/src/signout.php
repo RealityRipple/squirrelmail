@@ -19,24 +19,20 @@
    include ('../functions/prefs.php');
    include ('../functions/plugin.php');
 
-
    // Erase any lingering attachments
-   if (! isset($attachments))
+   if (! isset($attachments)) {
        $attachments = array();
-   foreach ($attachments as $info)
-   {
-       if (file_exists($attachment_dir . $info['localfilename']))
-       {
+   }
+   foreach ($attachments as $info) {
+       if (file_exists($attachment_dir . $info['localfilename'])) {
            unlink($attachment_dir . $info['localfilename']);
        }
    }
-
    set_up_language(getPref($data_dir, $username, 'language'));
 
    // If a user hits reload on the last page, $base_uri isn't set
    // because it was deleted with the session.
-   if (! isset($base_uri))
-   {
+   if (! isset($base_uri)) {
        ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);
        $base_uri = $regs[1];
    }
