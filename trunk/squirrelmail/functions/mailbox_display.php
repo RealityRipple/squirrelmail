@@ -67,7 +67,7 @@
                break;
             case 5: # flags
                $stuff = false;
-               echo "   <td bgcolor=$hlt_color width=1%><b><small>\n";
+               echo "   <td bgcolor=$hlt_color width=1% nowrap><b><small>\n";
                if ($msg["FLAG_ANSWERED"] == true) {
                   echo "A\n";
                   $stuff = true;
