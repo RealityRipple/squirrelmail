@@ -68,9 +68,12 @@ for ($i = 0; $i < $numboxes; $i++) {
 
 // now lets go through the tree and delete the folders
 walkTreeInPreOrderEmptyTrash(0, $imap_stream, $foldersTree);
+sqimap_logout($imap_stream);
+
+// close session properly before redirecting
+session_write_close();
 
 $location = get_location();
 header ("Location: $location/left_main.php");
 
-sqimap_logout($imap_stream);
 ?>
