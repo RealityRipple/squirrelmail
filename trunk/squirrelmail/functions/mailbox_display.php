@@ -423,7 +423,7 @@
        $mailbox = '', $sort = -1, $Message = '', $More = '', $startMessage = 1)
    {
       global $color, $index_order, $auto_expunge, $move_to_trash;
-      global $checkall;
+      global $checkall, $sent_folder;
       $urlMailbox = urlencode($mailbox);
 
          /** This is the beginning of the message list table.  It wraps around all messages */
