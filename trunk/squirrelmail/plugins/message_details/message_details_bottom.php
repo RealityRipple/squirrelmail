@@ -1,13 +1,16 @@
 <?php
-
-/** Message Source  
+/**
+ * Message Details plugin - bottom frame with message structure and rfc822 body
  *
  * Plugin to view the RFC822 raw message output and the bodystructure of a message
  *
- * Copyright (c) 2002 Marc Groot Koerkamp, The Netherlands
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  * 
- * $Id$
+ * @author Marc Groot Koerkamp
+ * @copyright Copyright &copy; 2002 Marc Groot Koerkamp, The Netherlands
+ * @copyright Copyright &copy; 2004 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package plugins
  * @subpackage message_details
  */
@@ -290,13 +293,13 @@ echo '<br />'."\n";
 //session_unregister("entities");
 
 if (count($content) > 0) {
-    echo '<h2> Bodystructure </h2>'."\n\n";
+    echo '<h2>'._("Bodystructure")."</h2>\n\n";
     echo '<table border="1" width="98%"><thead>'.
          '<tr bgcolor="'.$color[7].'">'.
-         '<td><b><font color="'.$color[5].'">Entity</font></b></td>'.
-         '<td><b><font color="'.$color[5].'">Content-Type</font></b></td>'.
-         '<td><b><font color="'.$color[5].'">Name</font></b></td>'.
-         '<td><b><font color="'.$color[5].'">Encoding</font></b></td>'.
+         '<td><b><font color="'.$color[5].'">'._("Entity").'</font></b></td>'.
+         '<td><b><font color="'.$color[5].'">'._("Content-Type").'</font></b></td>'.
+         '<td><b><font color="'.$color[5].'">'._("Name").'</font></b></td>'.
+         '<td><b><font color="'.$color[5].'">'._("Encoding").'</font></b></td>'.
          '</tr>'.
          '</thead><tbody>';
     for ($i = 0; $i < count($content);$i++) {
@@ -317,7 +320,7 @@ if (count($content) > 0) {
     }
     echo '</tbody></table><br />'."\n";
 }
-echo '<h2> RFC822 Message body </h2>'."\n\n";
+echo '<h2>'._("RFC822 Message body")."</h2>\n\n";
 echo '<div><div class="header">'."\n\n";
 echo $message_body;
 echo '</div></div></font></code></body></html>';
