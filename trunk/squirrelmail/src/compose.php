@@ -1369,16 +1369,12 @@ function deliverMessage($composeMessage, $draft=false) {
     $rfc822_header = $composeMessage->rfc822_header;
 
     $abook = addressbook_init(false, true);
-    /* initialize properties for parseAddress */
-    $aAddressProps = array(
-                            'domain' => $domain,
-                            'abooklookup' => array(&$abook,'lookup')
-                          );
-    $rfc822_header->to = $rfc822_header->parseAddress($send_to,$aAddressProps);
-    $rfc822_header->cc = $rfc822_header->parseAddress($send_to_cc,$aAddressProps);
-    $rfc822_header->bcc = $rfc822_header->parseAddress($send_to_bcc,$aAddressProps);
+    $rfc822_header->to = $rfc822_header->parseAddress($send_to,true, array(), '', $domain, array(&$abook,'lookup'));
+    $rfc822_header->cc = $rfc822_header->parseAddress($send_to_cc,true,array(), '',$domain, array(&$abook,'lookup'));
+    $rfc822_header->bcc = $rfc822_header->parseAddress($send_to_bcc,true, array(), '',$domain, array(&$abook,'lookup'));
     $rfc822_header->priority = $mailprio;
     $rfc822_header->subject = $subject;
+
     $special_encoding='';
     if (strtolower($default_charset) == 'iso-2022-jp') {
         if (mb_detect_encoding($body) == 'ASCII') {
