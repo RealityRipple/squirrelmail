@@ -6,7 +6,13 @@
        
    **/
 
-   $TargetDistance = 32768;
+   // Note:  The text distance is actually pre-squared
+   // Background range is from 24-64, all three colors are the same
+   // Text range is from 196 to 255
+   $BackgroundTargetDistance = 12;
+   $BackgroundAdjust = 1;
+   $TextTargetDistance = 65536;
+   $TextAdjust = 0.95;
 
 function IsUnique($Distance, $r, $g, $b, $usedArray)
 {
@@ -64,21 +70,24 @@ $squirrelmail_plugin_hooks['generic_header']['theme_darkness'] =
 
    $color[3] = "#000000";
    $color[4] = "#000000";
-   $used = array(array(0, 0, 0));
-   $targetDistance = $TargetDistance;
+   $used = array(0);
+   $targetDistance = $BackgroundTargetDistance;
    $Left = array(0, 5, 9, 10, 12);
    while (count($Left) > 0) {
       // Some background colors
-      $r = mt_rand(32,64);
-      $g = $r;
-      $b = $r;
-      if (IsUnique($targetDistance, $r, $g, $b, $used)) {
+      $r = mt_rand(24,64);
+      $unique = true;
+      foreach ($used as $col) {
+         if (abs($r - $col) < $targetDistance)
+	    $unique = false;
+      }
+      if ($unique) {
          $i = array_shift($Left);
-         $color[$i] = sprintf("#%02X%02X%02X",$r,$g,$b);
-	 $used[] = array($r, $g, $b);
-	 $targetDistance = $TargetDistance;
+         $color[$i] = sprintf("#%02X%02X%02X",$r,$r, $r);
+	 $used[] = $r;
+	 $targetDistance = $BackgroundTargetDistance;
       } else {
-         $targetDistance *= 0.9;
+         $targetDistance -= $BackgroundAdjust;
       }
    }
    
@@ -101,7 +110,7 @@ $squirrelmail_plugin_hooks['generic_header']['theme_darkness'] =
    }
       
    $Left = array(1, 7, 11, 13, 14, 15);
-   $targetDistance = $TargetDistance;
+   $targetDistance = $TextTargetDistance;
    while (count($Left) > 0) {
       // Text colors -- Try to keep the colors distinct
       $cmin = 196;
@@ -116,9 +125,9 @@ $squirrelmail_plugin_hooks['generic_header']['theme_darkness'] =
          $i = array_shift($Left);
          $color[$i] = sprintf("#%02X%02X%02X",$r,$g,$b);
 	 $used[] = array($r, $g, $b);
-	 $targetDistance = $TargetDistance;
+	 $targetDistance = $TextTargetDistance;
       } else {
-         $targetDistance *= 0.9;
+         $targetDistance *= $TextAdjust;
       }
    }
 
