@@ -107,6 +107,10 @@
    $languages['sv']['CHARSET'] = 'iso-8859-1';
    $languages['sv_SV']['ALIAS'] = 'sv';
    
+   $languages['tr']['NAME']    = 'Turkish';
+   $languages['tr']['CHARSET'] = 'iso-8859-1';
+   $languages['tr_TR']['ALIAS'] = 'tr';
+   
    $languages['tw']['NAME']    = 'Taiwan';
    $languages['tw']['CHARSET'] = 'big5';
    $languages['tw_TW']['ALIAS'] = 'tw';
