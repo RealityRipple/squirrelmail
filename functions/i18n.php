@@ -44,7 +44,7 @@
       } else if ($charset == "koi8-r") {
         return charset_decode_koi8r ($string);
       } else
-         return "xx$charset:$string";
+         return "$string";
    }
 
    // iso-8859-1 is the same as Latin 1 and is normally used
