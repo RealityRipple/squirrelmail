@@ -98,6 +98,8 @@
       echo "&nbsp;&nbsp;\n";
       displayInternalLink ("src/options.php", _("Options"), "right");
       echo "&nbsp;&nbsp;\n";
+      displayInternalLink ("src/search.php?mailbox=$urlMailbox", _("Search"), "right");
+      echo "&nbsp;&nbsp;\n";
       displayInternalLink ("src/help.php", _("Help"), "right");
       echo "&nbsp;&nbsp;\n";
 
