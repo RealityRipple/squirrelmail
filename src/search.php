@@ -72,8 +72,8 @@
    if (!isset($what))
        $what = '';
    $what_disp = ereg_replace(',', ' ', $what);
-   $what_disp = str_replace('\\', '\', $what_disp);
-   $what_disp = str_replace('\"', '"', $what_disp);
+   $what_disp = str_replace('\\\\', '\\', $what_disp);
+   $what_disp = str_replace('\\"', '"', $what_disp);
    $what_disp = str_replace('"', '&quot;', $what_disp);
    echo "          <INPUT TYPE=\"TEXT\" SIZE=\"20\" NAME=\"what\" VALUE=\"$what_disp\">\n";
    echo '        </TD>';
