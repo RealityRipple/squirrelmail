@@ -16,21 +16,26 @@
  */
 
 /** @ignore */
-define('SM_PATH','../../');
+if (!defined('SM_PATH'))
+   define('SM_PATH','../../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/mime.php');
 
-global $color;
+sqgetGlobalVar('get_message_details', $md_action, SQ_GET);
 
-sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
-sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
+if (!empty($md_action))
+{
+    sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
+    sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
+    echo get_message_details($mailbox, $passed_id);
+}
 
-sqgetGlobalVar('username', $username, SQ_SESSION);
-sqgetGlobalVar('key', $key, SQ_COOKIE);
-sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
+
+// ---------- function definitions ----------
+
 
 /**
  * Calculates id of MIME entity
@@ -69,6 +74,8 @@ function CalcEntity($entString, $direction) {
     return ($result);
 }
 
+
+
 /**
  * Returns time in microseconds between selected and current timestamp
  *
@@ -81,6 +88,27 @@ function returnTime($start) {
  $timepassed =  1000000 * ($stop['sec'] - $start['sec']) + $stop['usec'] - $start['usec'];
  return $timepassed;
 }
+
+
+
+/**
+ * Returns actual message details
+ * @param string $mailbox
+ * @param string $passed_id
+ * @param boolean $stripHTML If TRUE, only plain text is returned, 
+ *                           default is FALSE, wherein output contains 
+ *                           pretty-HTMLification of message body
+ * @return string The formatted message details
+ * @access public
+ */
+function get_message_details($mailbox, $passed_id, $stripHTML=FALSE) {
+
+global $imapServerAddress, $imapPort, $color;
+
+$returnValue = '';
+
+sqgetGlobalVar('username', $username, SQ_SESSION);
+sqgetGlobalVar('key', $key, SQ_COOKIE);
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $read = sqimap_mailbox_select($imapConnection, $mailbox);
@@ -255,10 +283,14 @@ for ($i=1; $i < $count; $i++) {
         }
     }
 */
-    $line = htmlspecialchars($line);
-    $message_body .= "$pre"."$line"."$end".'<br />'."\r\n";
+    if ($stripHTML) {
+        $message_body .= $line . "\r\n";
+    } else {
+        $line = htmlspecialchars($line);
+        $message_body .= "$pre"."$line"."$end".'<br />'."\r\n";
+    }
 }
-//echo returnTime($start).'<br />';
+//$returnValue .= returnTime($start).'<br />';
 $xtra = <<<ECHO
 
 <style>
@@ -282,12 +314,20 @@ $xtra = <<<ECHO
 
 ECHO;
 
-displayHtmlHeader( _("Message Details"), $xtra, FALSE );
+if (!$stripHTML) {
+    ob_start();
+    displayHtmlHeader( _("Message Details"), $xtra, FALSE );
+    $returnValue .= ob_get_contents();
+    ob_end_clean();
+}
+
 /* body */
-echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\">\n";
-echo '<code>'."\n";
-echo '<font face="monospace">'."\n";
-echo '<br />'."\n";
+if (!$stripHTML) {
+    $returnValue .= "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\">\n";
+    $returnValue .= '<code>'."\n";
+    $returnValue .= '<font face="monospace">'."\n";
+    $returnValue .= '<br />'."\n";
+}
 
 
 //session_register("entities");
@@ -296,15 +336,17 @@ echo '<br />'."\n";
 //foreach ($keys as $key) {
 //    if (isset($entities[$key])) {
 //    if ($entities[$key]['encoding'] == 'base64') {
-//        echo '<img src="message_viewentity.php?ent='.$entities[$key]['entity'].'&amp;name='.$entities[$key]['name'].'"><br />';
+//        if (!$stripHTML) {
+//            $returnValue .= 'img src="message_viewentity.php?ent='.$entities[$key]['entity'].'&amp;name='.$entities[$key]['name'].'"><br />';
+//        }
 //    }
 //    }
 //}
 //session_unregister("entities");
 
-if (count($content) > 0) {
-    echo '<h2>'._("Bodystructure")."</h2>\n\n";
-    echo '<table border="1" width="98%"><thead>'.
+if (count($content) > 0 && !$stripHTML) {
+    $returnValue .= '<h2>'._("Bodystructure")."</h2>\n\n";
+    $returnValue .= '<table border="1" width="98%"><thead>'.
          '<tr bgcolor="'.$color[7].'">'.
          '<td><b><font color="'.$color[5].'">'._("Entity").'</font></b></td>'.
          '<td><b><font color="'.$color[5].'">'._("Content-Type").'</font></b></td>'.
@@ -313,25 +355,36 @@ if (count($content) > 0) {
          '</tr>'.
          '</thead><tbody>';
     for ($i = 0; $i < count($content);$i++) {
-        echo '<tr><td>';
-        echo $content[$i]['ent'].'</td><td>';
+        $returnValue .= '<tr><td>';
+        $returnValue .= $content[$i]['ent'].'</td><td>';
         if (isset($content[$i]['type'])) {
-            echo $content[$i]['type'];
-        } else echo 'TEXT/PLAIN';
-        echo '</td><td>';
+            $returnValue .= $content[$i]['type'];
+        } else $returnValue .= 'TEXT/PLAIN';
+        $returnValue .= '</td><td>';
         if (isset($content[$i]['name'])) {
-            echo $content[$i]['name'];
-        } else echo '&nbsp;';
-        echo '</td><td>';
+            $returnValue .= $content[$i]['name'];
+        } else $returnValue .= '&nbsp;';
+        $returnValue .= '</td><td>';
         if (isset($content[$i]['encoding'])) {
-            echo $content[$i]['encoding'];
-        } else echo '&nbsp;';
-        echo '</td></tr>'."\n";
+            $returnValue .= $content[$i]['encoding'];
+        } else $returnValue .= '&nbsp;';
+        $returnValue .= '</td></tr>'."\n";
     }
-    echo '</tbody></table><br />'."\n";
+    $returnValue .= '</tbody></table><br />'."\n";
 }
-echo '<h2>'._("RFC822 Message body")."</h2>\n\n";
-echo '<div><div class="header">'."\n\n";
-echo $message_body;
-echo '</div></div></font></code></body></html>';
+
+if (!$stripHTML) {
+    $returnValue .= '<h2>'._("RFC822 Message body")."</h2>\n\n";
+    $returnValue .= '<div><div class="header">'."\n\n";
+}
+
+$returnValue .= $message_body;
+
+if (!$stripHTML) 
+    $returnValue .= '</div></div></font></code></body></html>';
+
+return $returnValue;
+
+}
+
 ?>
