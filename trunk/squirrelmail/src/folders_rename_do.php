@@ -50,16 +50,20 @@
    sqimap_unsubscribe($imapConnection, $orig);
    sqimap_subscribe($imapConnection, $newone);
 
-   fputs ($imapConnection, "a001 LSUB \"\" \"$orig*\"\r\n");
+	fputs ($imapConnection, "a001 LIST \"\" \"$newone*\"\r\n");
    $data = sqimap_read_data($imapConnection, "a001", true, $a, $b);
-   for ($i=0; $i < count($data); $i++) {
+   for ($i=0; $i < count($data); $i++)
+   {
       $name = find_mailbox_name($data[$i]);
-      sqimap_unsubscribe($imapConnection, $name);
-      $name = substr($name, strlen($orig));
-      $name = $newone . $name;
-      sqimap_subscribe($imapConnection, $name);
-   }
 
+      if ($name != $newone) # don't try to resubscribe when renaming ab to abc
+      {
+        sqimap_unsubscribe($imapConnection, $name);
+        $name = substr($name, strlen($orig));
+        $name = $newone . $name;
+        sqimap_subscribe($imapConnection, $name);
+      }
+   }
 
    /** Log out this session **/
    sqimap_logout($imapConnection);
