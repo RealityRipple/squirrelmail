@@ -92,6 +92,7 @@ function sqimap_asearch_error_box($response, $query, $message)
 	if (function_exists('sqimap_error_box'))
 		sqimap_error_box($title, $query, $message_title, $message);
 	else {	//Straight copy of 1.5 imap_general.php:sqimap_error_box(). Can be removed at a later time
+		global $color;
     require_once(SM_PATH . 'functions/display_messages.php');
     $string = "<font color=$color[2]><b>\n" . $title . "</b><br>\n";
     if ($query != '')
@@ -153,8 +154,8 @@ function sqimap_asearch_encode_string($what, $charset)
 		$what = mb_convert_encoding($what, 'JIS', 'auto');
 //if (ereg("[\"\\\r\n\x80-\xff]", $what))
 	if (preg_match('/["\\\\\r\n\x80-\xff]/', $what))
-		return '{' . strlen($what) . "}\r\n" . $what;	/* 4.3 literal form */
-	return '"' . $what . '"';	/* 4.3 quoted string form */
+		return '{' . strlen($what) . "}\r\n" . $what;	// 4.3 literal form
+	return '"' . $what . '"';	// 4.3 quoted string form
 }
 
 /*
