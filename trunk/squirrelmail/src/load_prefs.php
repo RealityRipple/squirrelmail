@@ -131,6 +131,10 @@
    $left_refresh = getPref($data_dir, $username, "left_refresh");
    if ($left_refresh == "")
       $left_refresh = false;
+
+   $sort = getPref($data_dir, $username, "sort");
+   if ($sort == "")
+      $sort = 6;
    
    /** Load up the Signature file **/
    if ($use_signature == true) {

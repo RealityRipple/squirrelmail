@@ -67,11 +67,14 @@
    /** If it was a successful login, lets load their preferences **/
    include("../src/load_prefs.php");
 
+   if (isset($newsort) && $newsort != $sort) {
+      setPref($data_dir, $username, "sort", $newsort);
+   }
+
    // If the page has been loaded without a specific mailbox,
    //   send them to the inbox
    if (!isset($mailbox)) {
       $mailbox = "INBOX";
-      $sort = $newsort = 6;
       $startMessage = 1;
    }
 

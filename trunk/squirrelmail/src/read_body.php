@@ -45,19 +45,28 @@
       }
       echo ""._("View message") . "</a></b></center></td></tr></table>\n";
       echo "<table width=99% cellpadding=2 cellspacing=0 border=0 align=center>\n";
-      echo "<tr><td><pre>";
+      echo "<tr><td>";
+
+      echo "<table width=100% cellpadding=0 cellspacing=0 border=0>";
       for ($i=1; $i < count($read)-1; $i++) {
-         $read[$i] = htmlspecialchars($read[$i]);
-         if (substr($read[$i], 0, 1) != "\t" && 
-             substr($read[$i], 0, 1) != " " && 
-             substr($read[$i], 0, 1) != "&" && 
-             trim($read[$i])) {
-            $pre = substr($read[$i], 0, strpos($read[$i], ":"));
-            $read[$i] = str_replace("$pre", "<b>$pre</b>", decodeHeader($read[$i]));
+         $line = htmlspecialchars($read[$i]);
+         if (eregi("^[ |\t]", $line)) {
+            $second = $line;
+            $first = "";
+         } else if (eregi("^([^:|^\s]+):(.+)", $line, $regs)) {
+            $first = $regs[1];
+            $second = $regs[2];
+         } else {
+            $second = trim($line);
+            $first = "";
          }
-         echo "$read[$i]";
+         echo "<tr><td align=right valign=top>";
+         if ($first) echo "<tt><b>$first:</b></tt>";
+         else        echo " ";
+         echo "</td><td valign=top nowrap><tt>$second</tt></td></tr>";
       }
-      echo "</pre></td></tr></table>\n";
+      echo "</table>";
+      echo "</td></tr></table>\n";
       echo "</body></html>";
       sqimap_mailbox_close($imapConnection);
       sqimap_logout($imapConnection);
@@ -69,29 +78,43 @@
 
    // returns the index of the next valid message from the array
    function findNextMessage() {
-      global $msort, $currentArrayIndex, $msgs;
-		for (reset($msort); ($key = key($msort)), (isset($key)); next($msort)) { 
-   	   if ($currentArrayIndex == $msgs[$key]["ID"]) {
-				next($msort); 
-				$key = key($msort);
-				if (isset($key)) 
-					return $msgs[$key]["ID"];
-			}
-		}
+      global $msort, $currentArrayIndex, $msgs, $sort;
+
+      if ($sort == 6) {
+         if ($currentArrayIndex != 1) {
+            return $currentArrayIndex - 1;
+         }
+      } else {
+         for (reset($msort); ($key = key($msort)), (isset($key)); next($msort)) { 
+            if ($currentArrayIndex == $msgs[$key]["ID"]) {
+               next($msort); 
+               $key = key($msort);
+               if (isset($key)) 
+                  return $msgs[$key]["ID"];
+            }
+         }
+      }
       return -1;
    }
 
    // returns the index of the previous message from the array
    function findPreviousMessage() {
-      global $msort, $currentArrayIndex, $msgs;
-		for (reset($msort); ($key = key($msort)), (isset($key)); next($msort)) { 
-   	   if ($currentArrayIndex == $msgs[$key]["ID"]) {
-				prev($msort);
-				$key = key($msort);
-				if (isset($key))
-					return $msgs[$key]["ID"];
-			}
-		}
+      global $msort, $currentArrayIndex, $sort, $msgs, $imapConnection, $mailbox;
+      if ($sort == 6) {
+         $numMessages = sqimap_get_num_messages($imapConnection, $mailbox);
+         if ($currentArrayIndex != $numMessages) {
+            return $currentArrayIndex + 1; 
+         }
+      } else {
+   		for (reset($msort); ($key = key($msort)), (isset($key)); next($msort)) { 
+      	   if ($currentArrayIndex == $msgs[$key]["ID"]) {
+   				prev($msort);
+   				$key = key($msort);
+   				if (isset($key))
+   					return $msgs[$key]["ID"];
+   			}
+   		}
+      }   
       return -1;
    }
 
