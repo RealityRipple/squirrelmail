@@ -25,6 +25,9 @@ define('SM_PATH','../../');
 
 require_once(SM_PATH . 'include/validate.php');
 
+// loading form functions
+require_once(SM_PATH . 'functions/forms.php');
+
 displayPageHeader($color, 'None');
 
 
@@ -99,7 +102,7 @@ if ($imap_stream) {
     array_shift($list);
     array_shift($list);
     $read = implode(' ', $list);
-    $body .= "  Cabailities:  $read";
+    $body .= "  Capabilities:  $read";
     fputs ($imap_stream, "a002 LOGOUT\r\n");
     fclose($imap_stream);
 } else {
@@ -136,15 +139,15 @@ $body = htmlspecialchars($body_top . $body);
 
 ?>
    <br>
-   <table width=95% align=center border=0 cellpadding=2 cellspacing=0><tr>
+   <table width="95%" align="center" border="0" cellpadding="2" cellspacing="0"><tr>
       <?php echo html_tag('td',"<b>"._("Submit a Bug Report")."</b>",'center',$color[0]); ?>
    </tr></table>
 
    <?PHP echo $warning_html; 
 
-   echo "<p><font size=\"+1\">";
+   echo '<p><big>';
    echo _("Before you send your bug report, please make sure to check this checklist for any common problems.");
-   echo "</font></p>";
+   echo '</big></p>';
 
    echo "<ul>";
    echo "<li>";
@@ -187,11 +190,13 @@ $body = htmlspecialchars($body_top . $body);
    </tr>
    <tr>
      <td align=center>
-       <input type="hidden" name="send_to_cc" value="">
-       <input type="hidden" name="send_to_bcc" value="">
-       <input type="hidden" name="subject" value="Bug Report">
-       <input type="hidden" name="body" value="<?PHP echo $body ?>">
-       <input type="submit" value="<?php echo _("Start Bug Report Form"); ?>">
+    <?php
+	echo addHidden("send_to_cc","");
+	echo addHidden("send_to_bcc","");
+	echo addHidden("subject","Bug Report");
+	echo addHidden("body",$body);
+	echo addSubmit(_("Start Bug Report Form"));
+    ?>
      </td>
    </tr>
    </table>
