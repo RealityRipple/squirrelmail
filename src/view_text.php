@@ -40,7 +40,7 @@ if (sqgetGlobalVar('passed_id', $temp, SQ_GET)) {
 }
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-$mbx_response   = sqimap_mailbox_select($imapConnection, $mailbox);
+$mbx_response = sqimap_mailbox_select($imapConnection, $mailbox);
 
 $message = &$messages[$mbx_response['UIDVALIDITY']][$passed_id];
 if (!is_object($message)) {
@@ -77,18 +77,22 @@ if ($type1 == 'html' || (isset($override_type1) &&  $override_type1 == 'html')) 
 }
 
 displayPageHeader($color, 'None');
-
-echo '<br /><table width="100%" border="0" cellspacing="0" cellpadding="0" align="center"><tr><td bgcolor="' . $color[0] . '">' .
-     '<b><center>' .
-     _("Viewing a text attachment") . ' - ' .
-     '<a href="'.$msg_url.'">'. _("View message") . '</a>' .
-     '</b></td><tr><tr><td><center><a href="' . $dwnld_url . '">' .
-     _("Download this as a file") .
-     '</a></center><br />' .
-     '</center></b>' .
-     '</td></tr></table>' .
-     '<table width="98%" border="0" cellspacing="0" cellpadding="2" align="center"><tr><td bgcolor="' . $color[0] . '">' .
-     '<tr><td bgcolor="' . $color[4] . '"><tt>' .
-     $body . '</tt></td></tr></table>' .
-     '</body></html>';
 ?>
+<br /><table width="100%" border="0" cellspacing="0" cellpadding="0" align="center"><tr><td bgcolor="<?php echo $color[0]; ?>">
+<b><center>
+<?php
+echo _("Viewing a text attachment") . ' - ' .
+     '<a href="'.$msg_url.'">'. _("View message") . '</a>';
+?>
+</b></td><tr><tr><td><center>
+<?php
+echo '<a href="' . $dwnld_url . '">' . _("Download this as a file") . '</a>';
+?>
+</center><br />
+</center></b>
+</td></tr></table>
+<table width="98%" border="0" cellspacing="0" cellpadding="2" align="center"><tr><td bgcolor="<?php echo $color[0]; ?>">
+<tr><td bgcolor="<?php echo $color[4]; ?>"><tt>
+<?php echo $body; ?>
+</tt></td></tr></table>
+</body></html>
