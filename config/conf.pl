@@ -418,7 +418,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "9.  Allow use of receipts     : $WHT$default_use_mdn$NRM\n";
         print "10. Allow editing of identity : $WHT$edit_identity$NRM\n";
         print "11. Allow server thread sort  : $WHT$allow_thread_sort$NRM\n";
-        print "12. Allow server-side sorting  : $WHT$allow_server_sort$NRM\n";
+        print "12. Allow server-side sorting : $WHT$allow_server_sort$NRM\n";
         if ( lc($edit_identity) eq "false" ) {
             print "13. Allow editing of name     : $WHT$edit_name$NRM\n";
         }
