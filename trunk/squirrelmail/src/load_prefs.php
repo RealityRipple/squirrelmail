@@ -225,6 +225,8 @@ $javascript_on = getPref($data_dir, $username, 'javascript_on', SMPREF_ON);
 
 $search_memory = getPref($data_dir, $username, 'search_memory', 0);
 
+$forward_cc = getPref($data_dir, $username, 'forward_cc', 0);
+
 do_hook('loading_prefs');
 
 ?>
