@@ -7,7 +7,7 @@
     **/
 
    if(!isset($username)) {
-      echo "You need a valid user and password to access this page!";
+      echo _("You need a valid user and password to access this page!");
       exit;
    }
 

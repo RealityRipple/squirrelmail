@@ -30,6 +30,10 @@
 
    $dateString = getLongDateString($message["HEADER"]["DATE"]);
 
+   /** TEXT STRINGS DEFINITIONS **/
+   $echo_more = _("more");
+   $echo_less = _("less");
+
    /** FORMAT THE TO STRING **/
    $i = 0;
    $to_string = "";
@@ -45,11 +49,11 @@
       if (count($to_ary) > 1) {
          if ($show_more == false) {
             if ($i == 1) {
-               $to_string = "$to_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more=1&show_more_cc=$show_more_cc\">more</A>)";
+               $to_string = "$to_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more=1&show_more_cc=$show_more_cc\">$echo_more</A>)";
                $i = count($to_ary);
             }
          } else if ($i == 1) {
-            $to_string = "$to_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more=0&show_more_cc=$show_more_cc\">less</A>)";
+            $to_string = "$to_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more=0&show_more_cc=$show_more_cc\">$echo_less</A>)";
          }
       }
    }
@@ -69,11 +73,11 @@
       if (count($cc_ary) > 1) {
          if ($show_more_cc == false) {
             if ($i == 1) {
-               $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=1&show_more=$show_more\">more</A>)";
+               $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
                $i = count($cc_ary);
             }
          } else if ($i == 1) {
-            $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=0&show_more=$show_more\">less</A>)";
+            $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
          }
       }
    }
@@ -89,14 +93,24 @@
    echo "         <TR>";
    echo "            <TD ALIGN=LEFT WIDTH=50%>";
    echo "               <FONT FACE=\"Arial,Helvetica\" SIZE=2>";
-   echo "               <A HREF=\"right_main.php?sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\">Message List</A>&nbsp;|&nbsp;";
-   echo "               <A HREF=\"delete_message.php?mailbox=$urlMailbox&message=$passed_id&sort=$sort&startMessage=1\">Delete</A>&nbsp;&nbsp;";
+   echo "               <A HREF=\"right_main.php?sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\">";
+   echo _("Message List");
+   echo "</A>&nbsp;|&nbsp;";
+   echo "               <A HREF=\"delete_message.php?mailbox=$urlMailbox&message=$passed_id&sort=$sort&startMessage=1\">";
+   echo _("Delete");
+   echo "</A>&nbsp;&nbsp;";
    echo "               </FONT>";
    echo "            </TD><TD WIDTH=50% ALIGN=RIGHT>";
    echo "               <FONT FACE=\"Arial,Helvetica\" SIZE=2>";
-   echo "               <A HREF=\"compose.php?forward_id=$passed_id&forward_subj=$url_subj&mailbox=$urlMailbox\">Forward</A>&nbsp;|&nbsp;";
-   echo "               <A HREF=\"compose.php?send_to=$url_replyto&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox\">Reply</A>&nbsp;|&nbsp;";
-   echo "               <A HREF=\"compose.php?send_to=$url_replytoall&send_to_cc=$url_replytoallcc&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox\">Reply All</A>&nbsp;&nbsp;";
+   echo "               <A HREF=\"compose.php?forward_id=$passed_id&forward_subj=$url_subj&mailbox=$urlMailbox\">";
+   echo _("Forward");
+   echo "</A>&nbsp;|&nbsp;";
+   echo "               <A HREF=\"compose.php?send_to=$url_replyto&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox\">";
+   echo _("Reply");
+   echo "</A>&nbsp;|&nbsp;";
+   echo "               <A HREF=\"compose.php?send_to=$url_replytoall&send_to_cc=$url_replytoallcc&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox\">";
+   echo _("Reply All");
+   echo "</A>&nbsp;&nbsp;";
    echo "               </FONT>";
    echo "            </TD>";
    echo "         </TR>";
@@ -107,7 +121,9 @@
    echo "      <TR>\n";
    /** subject **/
    echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT>\n";
-   echo "            <FONT FACE=\"Arial,Helvetica\">Subject:</FONT>\n";
+   echo "            <FONT FACE=\"Arial,Helvetica\">";
+   echo _("Subject:");
+   echo "</FONT>\n";
    echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85%>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\"><B>$subject</B></FONT>\n";
    echo "         </TD>\n";
@@ -115,7 +131,9 @@
    /** from **/
    echo "      <TR>\n";
    echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT>\n";
-   echo "            <FONT FACE=\"Arial,Helvetica\">From:</FONT>\n";
+   echo "            <FONT FACE=\"Arial,Helvetica\">";
+   echo _("From:");
+   echo "</FONT>\n";
    echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85%>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\"><B>$from_name</B></FONT>\n";
    echo "         </TD>\n";
@@ -123,7 +141,9 @@
    /** date **/
    echo "      <TR>\n";
    echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT>\n";
-   echo "            <FONT FACE=\"Arial,Helvetica\">Date:</FONT>\n";
+   echo "            <FONT FACE=\"Arial,Helvetica\">";
+   echo _("Date:")
+   echo "</FONT>\n";
    echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85%>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\"><B>$dateString</B></FONT>\n";
    echo "         </TD>\n";
@@ -131,7 +151,9 @@
    /** to **/
    echo "      <TR>\n";
    echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
-   echo "            <FONT FACE=\"Arial,Helvetica\">To:</FONT>\n";
+   echo "            <FONT FACE=\"Arial,Helvetica\">;
+   echo _("To:");
+   echo "</FONT>\n";
    echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85% VALIGN=TOP>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\"><B>$to_string</B></FONT>\n";
    echo "         </TD>\n";
