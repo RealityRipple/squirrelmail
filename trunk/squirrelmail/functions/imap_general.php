@@ -90,7 +90,7 @@ function sqimap_prepare_pipelined_query($new_query,&$tag,&$aQuery,$unique_id) {
     $sid = sqimap_session_id($unique_id);
     $tag_uid_a = explode(' ',trim($sid));
     $tag = $tag_uid_a[0];
-    $query = $sid . ' '.$new_query."\n";
+    $query = $sid . ' '.$new_query."\r\n";
     $aQuery[$tag] = $query;
 }
 
@@ -105,6 +105,9 @@ function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors
        IMAP client or should handle BYE calls if the IMAP-server drops the
        connection because the number of queries is to large. This isn't tested
        but a wild guess how it could work in the field.
+       
+       After testing it on Exchange 2000 we discovered that a chucksize of 32 
+       was quicker then when we raised it to 128.
     */
     $iQueryCount = count($aQueryList);
     $iChunkSize = 32;
@@ -134,7 +137,6 @@ function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors
             fputs($imap_stream,$query);
             $aResults[$tag] = false;
         }
-//        $aQuery = array_reverse($aQuery,true);
         foreach($aQuery as $tag => $query) {
             if ($aResults[$tag] == false) {
                 $aReturnedResponse = sqimap_retrieve_imap_response ($imap_stream, $tag, 
