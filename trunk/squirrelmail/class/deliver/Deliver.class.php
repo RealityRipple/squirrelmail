@@ -354,55 +354,85 @@ class Deliver {
     */
     function foldLine($line, $length, $pre='') {
         $line = substr($line,0, -2);
-	$length -= 2; /* don not fold between \r and \n */
-	$cnt = strlen($line);
-	$res = '';
-	$fold=false;
-	if ($cnt > $length) {
-	    $fold_string = "\r\n " . $pre;
-	    if ($fold) {
-	      $length -=(strlen($fold_string)+2);
-	    }  
-    	    for ($i=0;$i<($cnt-$length);$i++) {
-        	$fold_pos = 0;
-		/* first try to fold at delimiters */
-        	for ($j=($i+$length); $j>$i; --$j) {
-		    switch ($line{$j}) {
-	    	      case (','):
-	    	      case (';'): $fold_pos = $i = $j; break;
-	    	      default: break;
-	    	    }
-		}
-		if (!$fold_pos) { /* not succeed yet so we try at spaces & = */
-            	    for ($j=($i+$length); $j>$i; $j--) {
-                	switch ($line{$j}) {
-	        	  case (' '):
-	        	  case ('='): $fold_pos = $i = $j; break;
-	        	  default: break;
-	        	}
-	    	    }
-		}
-		if (!$fold_pos) { /* clean folding didn't work */
-	    	    $i = $j = $fold_pos = $i+$length;
-		}
-		$line = substr_replace($line,$line{$fold_pos}.$fold_string,
-		                       $fold_pos,1);
-		$cnt += strlen($fold_string);
-		if (!$fold) {
-	    	    $length -=(strlen($fold_string)+2);
-		}  
-	    	$fold = true;
-		$i = $j + strlen($fold_string)+1;
-    	    }	    
-	}
-	/* debugging code
-	$debug = $line;
-	$debug = str_replace("\r","\\r", $debug);
-	$debug = str_replace("\n","\\n", $debug);
-	*/
-	return $line."\r\n";
-    }	   
-
+        $length -= 2; /* do not fold between \r and \n */
+        $cnt = strlen($line);
+        if ($cnt > $length) { /* try folding */
+            $fold_string = "\r\n " . $pre;
+            $bFirstFold = false;
+            $aFoldLine = array();
+            while (strlen($line) > $length) {
+                $fold = false;
+                /* handle encoded parts */
+                if (preg_match('/(=\?.+\?.+\?.+\?=)/',$line,$regs)) {
+                    $fold_tmp = $regs[1];
+                    $iPosEnc = strpos($line,$fold_tmp);
+                    $iLengthEnc = strlen($fold_tmp);
+                    if ($iPosEnc < $length && ($iPosEnc + $iLengthEnc > $length)) {
+                        $fold = true;
+                        /* fold just before the start of the encoded string */
+                        $aFoldLine[] = substr($line,0,$iPosEnc);
+                        $line = substr($line,$iPosEnc);
+                        if (!$bFirstFold) {
+                            $bFirstFold = true;
+                            $length -= strlen($fold_string);
+                        }
+                        if ($iLengthEnc > $length) { /* place the encoded
+                            string on a separate line and do not fold inside it*/
+                            if ($iLengthEnc < (998 - strlen($fold_string))) { 
+                                $aFoldLine[] = substr($line,0,$iLengthEnc);
+                                $line = substr($line,$iLengthEnc);
+                            } else { /* line is too long, continue with normal folding */
+                                $fold = false;
+                            }
+                        }
+                    } else { /* the encoded string fits into the foldlength */
+                        /*remainder */
+                        $iPosEncEnd = $iPosEnc+$iLengthEnc;
+                        $sLineRem = substr($line,$iPosEncEnd,$length - $iPosEncEnd);
+                        if (!preg_match('/[=,;\s]/',$sLineRem)) {
+                            /*impossible to fold clean in the next part -> fold after the enc string */
+                            $aFoldLine[] = substr($line,0,$iPosEncEnd+1);
+                            $line = substr($line,$iPosEncEnd+1);
+                            $fold = true;
+                            if (!$bFirstFold) {
+                                $bFirstFold = true;
+                                $length -= strlen($fold_string);
+                            }
+                        }
+                    }
+                }
+                if (!$fold) {
+                    $line_tmp = substr($line,0,$length);
+                    $iFoldPos = false;
+                    /* try to fold at logical places */
+                    switch (true)
+                    {
+                    case ($iFoldPos = strrpos($line_tmp,',')): break;
+                    case ($iFoldPos = strrpos($line_tmp,';')): break;
+                    case ($iFoldPos = strrpos($line_tmp,' ')): break;
+                    case ($iFoldPos = strrpos($line_tmp,'=')): break;
+                    default: break;
+                    }
+                    
+                    if (!$iFoldPos) { /* clean folding didn't work */
+                        $iFoldPos = $length;
+                    }
+                    $aFoldLine[] = substr($line,0,$iFoldPos+1);
+                    $line = substr($line,$iFoldPos+1);
+                    if (!$bFirstFold) {
+                        $bFirstFold = true;
+                        $length -= strlen($fold_string);
+                    }
+                }
+            }
+            /*$reconstruct the line */
+            if ($line) {
+                $aFoldLine[] = $line;
+            }
+            $line = implode($fold_string,$aFoldLine);
+        }
+        return $line."\r\n";
+    }
 
     function mimeBoundary () {
 	static $mimeBoundaryString;
