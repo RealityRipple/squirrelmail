@@ -64,6 +64,7 @@ Version 1.5.0 -- CVS
     display preferences in stead of Default.
   - Updated 'action' to be 'smaction' so that plugins can modify the submit/action of
     forms.  This was suggested for the gpg plugin, but might be useful elsewhere.
+  - Add support for Mail-Followup-To header.
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
