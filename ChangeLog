@@ -1,5 +1,7 @@
 Version 0.5pre2 -- DEVELOPMENT
 ------------------------------
+- Added a patch from Bill Thousand to allow easier virtual domains
+- Security updates with attachments
 - Added more hooks for plugins, updated plugin.txt
 - Improved HTML address book
 - Fixed bugs in parsing email addresses in smtp.php
@@ -9,7 +11,6 @@ Version 0.5pre2 -- DEVELOPMENT
 - Fixed bugs with adding and not adding backslashes
 - Made message highlighting case insensative
 - Added French translation from Ali Nedjimi <lrdfrx@club-internet.fr>
-
 
 Version 0.5pre1 -- August 9, 2000 
 ---------------------------------
