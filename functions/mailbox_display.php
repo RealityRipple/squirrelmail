@@ -70,7 +70,10 @@
                echo "   <td nowrap width=1% bgcolor=$hlt_color><center>$bold$flag$fontstr".$msg["DATE_STRING"]."$fontstr_end$flag_end$bold_end</center></td>\n";
                break;
             case 4: # subject
-               echo "   <td bgcolor=$hlt_color>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0$search_stuff\">$flag$subject$flag_end</a>$bold_end</td>\n";
+               echo "   <td bgcolor=$hlt_color>$bold";
+			   echo "<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0$search_stuff\"";
+			   do_hook("subject_link");
+			   echo ">$flag$subject$flag_end</a>$bold_end</td>\n";
                break;
             case 5: # flags
                $stuff = false;
