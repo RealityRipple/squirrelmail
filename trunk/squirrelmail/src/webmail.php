@@ -21,7 +21,7 @@ require_once('../functions/plugin.php');
 require_once('../functions/i18n.php');
 require_once('../functions/auth.php');
 
-ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);
+ereg( '(^.*/)[^/]+/[^/]+$', $PHP_SELF, $regs);
 $base_uri = $regs[1];
 
 session_start();
@@ -35,7 +35,7 @@ checkForPrefs($data_dir, $username);
  * Send him a cookie with his language preference, if there is
  * such discrepancy.
  */
-$my_language = getPref($data_dir, $username, "language");
+$my_language = getPref($data_dir, $username, 'language');
 if ($my_language != $squirrelmail_language) {
     setcookie('squirrelmail_language', $my_language, time()+2592000, $base_uri);
 }
@@ -47,8 +47,8 @@ echo '<TITLE>';
 echo $org_title;
 echo '</TITLE>';
    
-$left_size = getPref($data_dir, $username, "left_size");
-$location_of_bar = getPref($data_dir, $username, "location_of_bar");
+$left_size = getPref($data_dir, $username, 'left_size');
+$location_of_bar = getPref($data_dir, $username, 'location_of_bar');
 if ($location_of_bar == '') {
     $location_of_bar = 'left';
 }
@@ -99,7 +99,7 @@ elseif ($right_frame == 'compose.php') {
     $right_frame_url = "compose.php?send_to=$rcptaddress";
 }
 else {
-    $right_frame_url = "right_main.php";
+    $right_frame_url = 'right_main.php';
 }
 
 if ($location_of_bar == 'right') {
