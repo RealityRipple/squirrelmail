@@ -258,6 +258,19 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
             putenv( "LANGUAGE=$longlocale" );
         }
 	setlocale(LC_ALL, $longlocale);
+
+	// Set text direction/alignment variables
+	if (isset($languages[$sm_notAlias]['DIR']) && 
+		$languages[$sm_notAlias]['DIR'] == 'rtl') {
+	    $text_direction='rtl';
+	    $left_align='right';
+	    $right_align='left';
+	} else {
+	    $text_direction='ltr';
+	    $left_align='left';
+	    $right_align='right';
+	}
+
 	$squirrelmail_language = $sm_notAlias;
         if ($squirrelmail_language == 'ja_JP') {
             header ('Content-Type: text/html; charset=EUC-JP');
