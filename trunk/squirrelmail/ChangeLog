@@ -15,7 +15,7 @@ Version 1.5.1 -- CVS
   - Enabled Ukrainian and Russian-Ukrainian support
   - Fix that subfolders named "foo.inbox" didn't always work well.
   - sqimap_create_stream() was not obeying passed params properly.  Fixed.
-
+  - Fix non selectable inbox.
 
 Version 1.5.0
 --------------------
