@@ -118,7 +118,7 @@
 
       fputs ($imap_stream, "a003 FETCH $id RFC822.SIZE\r\n");
       $read = sqimap_read_data($imap_stream, "a003", true, $r, $m);
-      preg_match("/([0-9]+)\)\s*$/i", $read[0], $regs);
+      eregi("([0-9]+)[^0-9]*$", $read[0], $regs);
       $size = $regs[1];
       
       $header = new small_header;
@@ -147,7 +147,7 @@
       fputs ($imap_stream, "a001 FETCH $i:$i FLAGS\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
       if (ereg("FLAGS(.*)", $read[0], $regs))
-          return explode(" ", trim(ereg_replace('[\(\)\\]', '', $regs[1])));
+          return explode(" ", trim(ereg_replace('[\\(\\)\\\\]', '', $regs[1])));
       return Array('None');
    }
 
@@ -202,9 +202,6 @@
       $hdr->type1 = "plain";
       $hdr->charset = "us-ascii";
 
-      preg_match("/\{([0-9]+)\}/", $read[$i], $regs);
-      preg_match("/[0-9]+/", $regs[0], $regs);
-
       while ($i < count($read)) {
          if (substr($read[$i], 0, 17) == "MIME-Version: 1.0") {
             $hdr->mime = true;
@@ -242,7 +239,7 @@
             }
 
             /** Detect the boundary of a multipart message **/
-            if (eregi("boundary=\"([^\"]+)\"", $line, $regs)) {                             
+            if (eregi('boundary="([^"]+)"', $line, $regs)) {                             
                $hdr->boundary = $regs[1];                                             
             }
 
@@ -263,7 +260,7 @@
 
          }
 
-         else if (strtolower(substr($read[$i], 0, 20)) == "content-disposition:") {   
+         else if (strtolower(substr($read[$i], 0, 20)) == "content-disposition:") {
             /** Add better dontent-disposition support **/
             
             $line = $read[$i];
@@ -306,8 +303,8 @@
          else if (strtolower(substr($read[$i], 0, 5)) == "date:") {
             $d = substr($read[$i], 5);
             $d = trim($d);
-            $d = ereg_replace("  ", " ", $d);
-            $d = explode(" ", $d);
+	    $d = strtr($d, array('  ', ' '));
+            $d = explode(' ', $d);
             $hdr->date = getTimeStamp($d);
             $i++;
          }

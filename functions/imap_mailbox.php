@@ -21,11 +21,11 @@
     **  Checks whether or not the specified mailbox exists 
     ******************************************************************************/
    function sqimap_mailbox_exists ($imap_stream, $mailbox) {
+      if (! isset($mailbox))
+          return false;
       fputs ($imap_stream, "a001 LIST \"\" \"$mailbox\"\r\n");
       $mbx = sqimap_read_data($imap_stream, "a001", true, $response, $message);
-      if (isset($mailbox) && isset($mbx[0])) {
-         return !!(ereg ("$mailbox", $mbx[0]));  // To force into true/false
-      }
+      return isset($mbx[0]);
    }
 
    /******************************************************************************
@@ -150,18 +150,18 @@
             $boxes[$g]["formatted"]  = $mailbox;
          }
             
-         $boxes[$g]["unformatted-dm"] = $mailbox;
+         $boxes[$g]['unformatted-dm'] = $mailbox;
          if (substr($mailbox, -1) == $dm)
             $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
-         $boxes[$g]["unformatted"] = $mailbox;
-         $boxes[$g]["unformatted-disp"] = ereg_replace("^" . $folder_prefix, "", $mailbox);
-         $boxes[$g]["id"] = $g;
+         $boxes[$g]['unformatted'] = $mailbox;
+         $boxes[$g]['unformatted-disp'] = ereg_replace('^' . $folder_prefix, '', $mailbox);
+         $boxes[$g]['id'] = $g;
 
          if (isset($line[$g]))
          ereg("\(([^)]*)\)",$line[$g],$regs);
-         $flags = trim(strtolower(str_replace("\\", "",$regs[1])));
+         $flags = trim(strtolower(str_replace('\\', '',$regs[1])));
          if ($flags) {
-            $boxes[$g]["flags"] = explode(" ", $flags);
+            $boxes[$g]['flags'] = explode(' ', $flags);
          }
       }
 
@@ -278,14 +278,14 @@
          // Then list special folders and their subfolders
          for ($i = 0 ; $i < count($boxes) ; $i++) {
             if ($move_to_trash &&
-                eregi("^" . quotemeta($trash_folder) . "(" .
-                quotemeta($dm) . ".*)?$", $boxes[$i]["unformatted"])) {
+                eregi('^' . quotemeta($trash_folder) . '(' .
+                quotemeta($dm) . '.*)?$', $boxes[$i]["unformatted"])) {
                $boxesnew[] = $boxes[$i];
                $used[$i] = true;
             }
             elseif ($move_to_sent &&
-                eregi("^" . quotemeta($sent_folder) . "(" .
-                quotemeta($dm) . ".*)?$", $boxes[$i]["unformatted"])) {
+                eregi('^' . quotemeta($sent_folder) . '(' .
+                quotemeta($dm) . '.*)?$', $boxes[$i]["unformatted"])) {
                $boxesnew[] = $boxes[$i];
                $used[$i] = true;
             }
@@ -293,7 +293,7 @@
 
          // Put INBOX.* folders ahead of the rest
          for ($i = 0; $i < count($boxes); $i++) {
-            if (eregi("^inbox\.", $boxes[$i]["unformatted"]) &&
+            if (eregi('^inbox\\.', $boxes[$i]["unformatted"]) &&
                 (!isset($used[$i]) || $used[$i] == false)) {
                $boxesnew[] = $boxes[$i];
                $used[$i] = true;
@@ -346,8 +346,8 @@
             // a parent.
             $boxesbyname[$mailbox] = $g;
             $parentfolder = readMailboxParent($mailbox, $dm);
-            if((eregi("^inbox".quotemeta($dm), $mailbox)) || 
-               (ereg("^".$folder_prefix, $mailbox)) ||
+            if((eregi('^inbox'.quotemeta($dm), $mailbox)) || 
+               (ereg('^'.$folder_prefix, $mailbox)) ||
                ( isset($boxesbyname[$parentfolder]) && (strlen($parentfolder) > 0) ) ) {
                if ($dm_count)
                    $boxes[$g]["formatted"]  = str_repeat("&nbsp;&nbsp;", $dm_count);
@@ -362,7 +362,7 @@
             if (substr($mailbox, -1) == $dm)
                $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
             $boxes[$g]["unformatted"] = $mailbox;
-            $boxes[$g]["unformatted-disp"] = ereg_replace("^" . $folder_prefix, "", $mailbox);
+            $boxes[$g]["unformatted-disp"] = ereg_replace('^' . $folder_prefix, '', $mailbox);
             $boxes[$g]["id"] = $g;
 
             /** Now lets get the flags for this mailbox **/
@@ -371,7 +371,7 @@
 
             $flags = substr($read_mlbx[0], strpos($read_mlbx[0], "(")+1);
             $flags = substr($flags, 0, strpos($flags, ")"));
-            $flags = str_replace("\\", "", $flags);
+            $flags = str_replace('\\', '', $flags);
             $flags = trim(strtolower($flags));
             if ($flags) {
                $boxes[$g]["flags"] = explode(" ", $flags);

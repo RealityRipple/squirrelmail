@@ -149,9 +149,10 @@
        // To be replaced by advanded search expression parsing
        if(is_array($expr)) return;
 
-       // Make regexp from glob'ed expression 
-       $expr = ereg_replace('\?', '.', $expr);
-       $expr = ereg_replace('\*', '.*', $expr);
+       // Make regexp from glob'ed expression
+       // May want to quote other special characters like (, ), -, [, ], etc.
+       $expr = ereg_replace('\\?', '.', $expr);
+       $expr = ereg_replace('\\*', '.*', $expr);
 
        $res = array();
        if(!$this->open())

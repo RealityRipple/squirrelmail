@@ -62,7 +62,7 @@
    // Specifically, &#039 comes up as 5 characters instead of 1.
    // This should not add newlines to the end of lines.
    function sqWordWrap(&$line, $wrap) {
-      preg_match('/^([\\s>]*)([^\\s>].*)?$/', $line, $regs);
+      ereg("^([\t >]*)([^\t >].*)?$", $line, $regs);
       $beginning_spaces = $regs[1];
 	  if (isset($regs[2])) {
          $words = explode(' ', $regs[2]);
@@ -112,7 +112,7 @@
        $PreviousSpaces = "";
        for ($i = 0; $i < count($lines); $i ++)
        {
-           preg_match('/^([\\s>]*)([^\\s>].*)?$/', $lines[$i], $regs);
+           ereg("^([\t >]*)([^\t >].*)?$", $lines[$i], $regs);
            $CurrentSpaces = $regs[1];
 	   if (isset($regs[2]))
                $CurrentRest = $regs[2];

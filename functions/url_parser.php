@@ -24,8 +24,9 @@
       // $IPMatch = '\[?' . $IPMatch . '(\.' . $IPMatch . '){3}\]?';
       //
       // Here's enough:
-      $IPMatch = '\[?[0-9]{1,3}(\.[0-9]{1,3}){3}\]?';
-      $Host = '(' . $IPMatch . '|[0-9a-z]([-.]?[0-9a-z])*\.[a-wyz][a-z](g|l|m|pa|t|u|v)?)';
+      $IPMatch = '\\[?[0-9]{1,3}(\\.[0-9]{1,3}){3}\\]?';
+      $Host = '(' . $IPMatch .
+'|[0-9a-z]([-.]?[0-9a-z])*\\.[a-wyz][a-z](fo|g|l|m|me|o|op|pa|ro|seum|t|u|v|z)?)';
       $Expression = '[0-9a-z]([-_.]?[0-9a-z])*(%' . $Host . ')?@' . $Host;
       
       /*
