@@ -480,7 +480,7 @@ class Message {
 	$iPos = ++$i;
 	while (true) {
 	   $iPos = strpos($read,'"',$iPos);
-	   if ($iPos === false) break;
+	   if (!$iPos) break;
 	   if ($iPos && $read{$iPos -1} != '\\') {
 	      $s = substr($read,$i,($iPos-$i));
 	      $i = $iPos;
