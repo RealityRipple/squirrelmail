@@ -1,18 +1,20 @@
 <?php
-/*
- * Listcommands plugin v1.3
+
+/**
+ * setup.php
+ *
+ * Copyright (c) 1999-2002 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * Implementation of RFC 2369 for SquirrelMail.
  * When viewing a message from a mailinglist complying with this RFC,
  * this plugin displays a menu which gives the user a choice of mailinglist
  * commands such as (un)subscribe, help and list archives.
  *
- * last modified: 2002/01/21 by Thijs Kinkhorst
- * please send bug reports to <thijs@kinkhorst.com>
- *
+ * $Id$
  */
-function squirrelmail_plugin_init_listcommands ()
-{
+
+function squirrelmail_plugin_init_listcommands () {
     global $squirrelmail_plugin_hooks;
 
     $squirrelmail_plugin_hooks['read_body_header']['listcommands'] = 'plugin_listcommands_menu';

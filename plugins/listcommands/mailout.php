@@ -1,8 +1,11 @@
 <?php
-/*
- * mailout.php part of listcommands plugin
- * last modified: 2002/01/21 by Thijs Kinkhorst
+/**
+ * mailout.php
  *
+ * Copyright (c) 1999-2002 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * $Id$
  */
 
 chdir('..');
@@ -19,10 +22,10 @@ echo '<P><TABLE align="center" width="75%" BGCOLOR="' . $color[0] ."\">\n"
 
 switch ( $action ) {
 case 'Help':
-    $out_string .= _("This will send a message to %s requesting help for this list. You will receive an emailed response at the address below.");
+    $out_string = _("This will send a message to %s requesting help for this list. You will receive an emailed response at the address below.");
     break;
 case 'Subscribe':
-    $out_string .= _("This will send a message to %s requesting that you will be subscribed to this list. You will be subscribed with the address below.");
+    $out_string = _("This will send a message to %s requesting that you will be subscribed to this list. You will be subscribed with the address below.");
     break;
 case 'Unsubscribe':
     $out_string = _("This will send a message to %s requesting that you will be unsubscribed from this list. It will try to unsubscribe the adress below.");
