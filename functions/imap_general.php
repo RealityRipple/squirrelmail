@@ -81,7 +81,6 @@ function sqimap_fgets($imap_stream) {
     $buffer = 4096;
     $results = '';
     $offset = 0;
-    $i=0;
     while (strpos($results, "\r\n", $offset) === false) {
         if (!($read = fgets($imap_stream, $buffer))) {
 	    /* this happens in case of an error */
@@ -269,9 +268,14 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
     /* Return result or handle errors */
     if ($handle_errors == false) {
         return( $resultlist );
-    } 
-    elseif ($response == 'NO') {
-    /* ignore this error from M$ exchange, it is not fatal (aka bug) */
+    }
+    switch ($response)
+    {
+    case 'OK':
+        return $resultlist;
+	break;
+    case 'NO': 
+        /* ignore this error from M$ exchange, it is not fatal (aka bug) */
         if (strstr($message, 'command resulted in') === false) {
             set_up_language($squirrelmail_language);
             require_once(SM_PATH . 'functions/display_messages.php');
@@ -283,10 +287,11 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
                 _("Reason Given: ") .
                 htmlspecialchars($message) . "</font><br>\n";
             error_box($string,$color);
+	    echo '</body></html>';
             exit;
         }
-    } 
-    elseif ($response == 'BAD') {
+	break;
+    case 'BAD': 
         set_up_language($squirrelmail_language);
         require_once(SM_PATH . 'functions/display_messages.php');
         $string = "<b><font color=$color[2]>\n" .
@@ -296,11 +301,37 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
             htmlspecialchars($query) . '<br>' .
             _("Server responded: ") .
             htmlspecialchars($message) . "</font><br>\n";
-        error_box($string,$color);    
+        error_box($string,$color);
+	echo '</body></html>';	    
+        exit; 
+    case 'BYE': 
+        set_up_language($squirrelmail_language);
+        require_once(SM_PATH . 'functions/display_messages.php');
+        $string = "<b><font color=$color[2]>\n" .
+            _("ERROR : Imap server closed the connection.") .
+            "</b><br>\n" .
+            _("Query:") . ' '.
+            htmlspecialchars($query) . '<br>' .
+            _("Server responded: ") .
+            htmlspecialchars($message) . "</font><br>\n";
+        error_box($string,$color);
+	echo '</body></html>';	    
         exit;
-    } 
-    else {
-        return $resultlist;
+    default: 
+        set_up_language($squirrelmail_language);
+        require_once(SM_PATH . 'functions/display_messages.php');
+        $string = "<b><font color=$color[2]>\n" .
+            _("ERROR : Unknown imap response.") .
+            "</b><br>\n" .
+            _("Query:") . ' '.
+            htmlspecialchars($query) . '<br>' .
+            _("Server responded: ") .
+            htmlspecialchars($message) . "</font><br>\n";
+        error_box($string,$color);
+	/* the error is displayed but because we don't know the reponse we
+	   return the result anyway */
+	return $resultlist;    
+        break;
     }
 }
 
