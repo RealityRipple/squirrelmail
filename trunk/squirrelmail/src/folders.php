@@ -165,28 +165,7 @@
    }
 
    for ($i = 0; $i < count($boxes); $i++) {
-      if (count($boxes[$i]["flags"]) > 0) {
-         $noinf = false;
-         for ($j = 0; $j < count($boxes[$i]["flags"]); $j++) {
-            if ($boxes[$i]["flags"][$j] == "noinferiors") {
-               $noinf = true;
-               continue;
-            }
-         }    
-         if ($noinf == false) {
-            if ((strtolower($boxes[$i]["unformatted"]) == "inbox") && ($default_sub_of_inbox == true)) {
-               $box = $boxes[$i]["unformatted"];
-               $box2 = replace_spaces($boxes[$i]["unformatted-disp"]);
-               echo "<OPTION SELECTED VALUE=\"$box\">$box2\n";
-            } else {
-               $box = $boxes[$i]["unformatted"];
-               $box2 = replace_spaces($boxes[$i]["unformatted-disp"]);
-               if (strtolower($imap_server_type) != "courier" ||
-                  strtolower($box) != "inbox.trash")
-                echo "<OPTION VALUE=\"$box\">$box2\n";
-            }
-         }
-      } else {
+      if (!in_array('noinferiors', $boxes[$i]['flags'])) {
          if ((strtolower($boxes[$i]["unformatted"]) == "inbox") && ($default_sub_of_inbox == true)) {
             $box = $boxes[$i]["unformatted"];
             $box2 = replace_spaces($boxes[$i]["unformatted-disp"]);

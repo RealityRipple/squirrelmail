@@ -138,24 +138,13 @@
       $line = "";
       $mailbox = $boxes[$i]["formatted"];
       
-      if (count($boxes[$i]["flags"])) {
-         $noselect = false;
-         for ($h = 0; $h < count($boxes[$i]["flags"]); $h++) {
-            if (strtolower($boxes[$i]["flags"][$h]) == "noselect")
-               $noselect = true;
-         }
-         if ($noselect == true) {
-            $line .= "<FONT COLOR=\"$color[10]\">";
-            $line .= replace_spaces($mailbox);
-            $line .= "</FONT>";
-         } else {
-	    if (! isset($boxes[$i]["unseen"])) 
-	        $boxes[$i]["unseen"] = 0;
-            $line .= formatMailboxName($imapConnection, $mailbox, $boxes[$i]["unformatted"], $delimeter, $boxes[$i]["unseen"]);
-         }
+      if (in_array('noselect', $boxes[$i]['flags']) {
+         $line .= "<FONT COLOR=\"$color[10]\">";
+         $line .= replace_spaces($mailbox);
+         $line .= '</FONT>';
       } else {
-        if (!isset($boxes[$i]["unseen"])) 
-            $boxes[$i]["unseen"] = "";
+	 if (! isset($boxes[$i]['unseen'])) 
+	    $boxes[$i]['unseen'] = '';
          $line .= formatMailboxName($imapConnection, $mailbox, $boxes[$i]["unformatted"], $delimeter, $boxes[$i]["unseen"]);
       }
       echo "$line<BR>\n";
