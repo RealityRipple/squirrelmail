@@ -252,6 +252,12 @@
                $i++;
             }
          }
+         /** MESSAGE ID **/
+         else if (strtolower(substr($read[$i], 0, 11)) == "message-id:") {
+            $header["MESSAGE-ID"] = trim(substr($read[$i], 11));
+            $i++;
+         }
+
 
          /** ERROR CORRECTION **/
          else if (substr($read[$i], 0, 1) == ")") {
