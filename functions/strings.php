@@ -153,7 +153,7 @@ function php_self () {
 function get_location () {
     
     global $PHP_SELF, $SERVER_NAME, $HTTP_HOST, $SERVER_PORT,
-        $HTTP_SERVER_VARS;
+        $HTTP_SERVER_VARS, $imap_server_type;
     
     /* Get the path, handle virtual directories */
     $path = substr(php_self(), 0, strrpos(php_self(), '/'));
@@ -196,6 +196,14 @@ function get_location () {
         }
     }
     
+   /* this is a workaround for the weird macosx caching that
+      causes Apache to return 16080 as the port number, which causes
+      SM to bail */
+      
+   if ($imap_server_type == 'macosx' && $port == ':16080') {
+        $port = '';
+   }
+   
     /* Fallback is to omit the server name and use a relative */
     /* URI, although this is not RFC 2616 compliant.          */
     return ($host ? $proto . $host . $port . $path : $path);
