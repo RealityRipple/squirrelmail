@@ -121,13 +121,13 @@ function delete_move_next_read($currloc) {
            $color, $where, $what, $currentArrayIndex, $passed_id,
            $urlMailbox, $sort, $startMessage, $delete_id, $move_id,
            $imapConnection, $auto_expunge, $move_to_trash, $server_sort_array,
-           $allow_thread_sort, $allow_server_sort;
+           $allow_thread_sort, $allow_server_sort, $thread_sort_messages;
 
     if (!(($where && $what) || ($currentArrayIndex == -1))) {
         if ($allow_server_sort == true) {
             $server_sort_array = sqimap_get_sort_order($imapConnection, $sort);
         }
-        if ($allow_thread_sort == true) {
+        if ($allow_thread_sort == true && $thread_sort_messages == 1) {
             $server_sort_array = get_thread_sort($imapConnection);
         }
         $next = findNextMessage();
