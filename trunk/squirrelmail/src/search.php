@@ -175,9 +175,13 @@ if ($mailbox == 'All Folders') {
 displayPageHeader($color, $mailbox);
 
 /*  See how the page was called and fire off correct function  */
-if ( !isset( $submit ) ) {
-    $submit = '';
-} else if ($submit == 'Search' && !empty($what)) {
+//if ( !isset( $submit ) ) {
+//    $submit = '';
+//} else if ($submit == 'Search' && !empty($what)) {
+if ((!isset($submit) || empty($submit)) && !empty($what)) {
+    $submit = 'Search';
+}
+if ($submit == 'Search' && !empty($what)) {
     update_recent($what, $where, $mailbox, $username, $data_dir); 
 }
 elseif ($submit == 'forget') {
