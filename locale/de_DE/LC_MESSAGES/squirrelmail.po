@@ -303,7 +303,7 @@ msgstr "Kein Ordner zum l&ouml;schen angegeben. Bitte ausw&auml;hlen."
 
 #, c-format
 msgid "Are you sure you want to delete %s?"
-msgstr "Wollen Sie das Ereignis %s wirklich l&ouml;schen?"
+msgstr "Wollen Sie den Ordner %s wirklich l&ouml;schen?"
 
 msgid "Yes"
 msgstr "Ja"
@@ -1908,10 +1908,10 @@ msgid "Calendar"
 msgstr "Kalender"
 
 msgid "Delete & Prev"
-msgstr "L&ouml;schen"
+msgstr "L&ouml;schen und N&auml;chste"
 
 msgid "Delete & Next"
-msgstr "Ausgew&auml;hlte Eintr&auml;ge l&ouml;schen"
+msgstr "L&ouml;schen und Vorige"
 
 msgid "Move to:"
 msgstr "Verschiebe nach:"
@@ -2173,7 +2173,7 @@ msgid "Send Mail"
 msgstr "Neue Mail"
 
 msgid "Post to List"
-msgstr "%s nach %s"
+msgstr "Schreibe an Liste"
 
 msgid "Reply to List"
 msgstr "Liste antworten"
