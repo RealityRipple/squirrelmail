@@ -28,8 +28,10 @@ if(!sqgetGlobalVar('emailaddress', $emailaddress)) {
     return;
 }
 
-if(stristr($emailaddress, 'mailto:')) {
-    $emailaddress = substr($emailaddress, 7);
+$mailto_pos = strpos(strtolower($emailaddress), 'mailto:');
+if($mailto_pos !== false) {
+    $emailaddress = substr($emailaddress, $mailto_pos+7);
+    $_GET['emailaddress'] = $emailaddress;
 }
 if(($pos = strpos($emailaddress, '?')) !== false) {
     $a = substr($emailaddress, $pos+1);
@@ -38,7 +40,6 @@ if(($pos = strpos($emailaddress, '?')) !== false) {
     $_GET['emailaddress'] = $emailaddress;
     $_GET[$a[0]] = $a[1];
 }
-
 $trtable = array('emailaddress' => 'send_to',
                  'cc'           => 'send_to_cc',
                  'bcc'          => 'send_to_bcc',

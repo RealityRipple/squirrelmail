@@ -18,7 +18,7 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Clients\Mail\SquirrelMail\Protocols\mailto\shell\open]
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Clients\Mail\SquirrelMail\Protocols\mailto\shell\open\command]
-@="rundll32.exe url.dll,FileProtocolHandler http://mail.server/squirrelmail/src/mailto.php?emailaddress=\"%1\""
+@="rundll32.exe url.dll,FileProtocolHandler http://mail.server/squirrelmail/src/mailto.php?emailaddress=%1"
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Clients\Mail\SquirrelMail\shell]
 
