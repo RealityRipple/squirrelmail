@@ -15,6 +15,29 @@
     require_once('../functions/i18n.php');
     require_once('../functions/strings.php');
     require_once('../config/config.php');
+    require_once('../functions/prefs.php');
+    require_once('../functions/imap.php');
+    require_once('../functions/plugin.php');
+    require_once('../functions/constants.php');
+
+    function attachment_common_parse($str, $debug) {
+        global $attachment_common_types, $attachment_common_types_parsed;
+
+        $attachment_common_types_parsed[$str] = true;
+        $types = explode(', ', $str);
+
+        foreach ($types as $val)
+        {
+            // Ignore the ";q=1.0" stuff
+            if (strpos($val, ';') !== false)
+                $val = substr($val, 0, strpos($val, ';'));
+
+            if (! isset($attachment_common_types[$val])) {
+                $attachment_common_types[$val] = true;
+            }
+        }
+    }
+
 
     /* Before starting the session, the base URI must be known. Assuming */
     /* that this file is in the src/ subdirectory (or something).        */
@@ -30,31 +53,24 @@
     session_unregister ('user_is_logged_in');
     session_register ('base_uri');
 
-    if (! isset($squirrelmail_language)) {
-        $squirrelmail_language = '';
+    if (! isset($squirrelmail_language) ||
+          $squirrelmail_language == '' ) {
+        $squirrelmail_language = $squirrelmail_default_language;
     }
     set_up_language($squirrelmail_language, true);
+    /* Refresh the language cookie. */
+    setcookie('squirrelmail_language', $squirrelmail_language, time()+2592000,$base_uri);
 
     if (!isset($login_username)) {
-        echo "<HTML><BODY BGCOLOR=\"#ffffff\">\n";
-        echo "<BR><BR>\n";
-        echo "<CENTER>\n";
-        echo '  <B>' . _("You must be logged in to access this page.") . "</B><BR>";
-        echo '  <A HREF="../src/login.php">'  . _("Go to the login page") . "</A>\n";
-        echo "</CENTER>\n";
-        echo "</BODY></HTML>\n";
+        echo "<HTML><BODY BGCOLOR=\"#ffffff\">\n" .
+             "<BR>&nbsp;<BR>\n" .
+             "<CENTER>\n" .
+             '<B>' . _("You must be logged in to access this page.") . "</B><BR>" .
+             '<A HREF="../src/login.php">'  . _("Go to the login page") . "</A>\n" .
+             "</CENTER>\n" .
+             "</BODY></HTML>\n";
         exit;
     }
-
-    /* Refresh the language cookie. */
-    if (isset($squirrelmail_language)) {
-        setcookie('squirrelmail_language', $squirrelmail_language, time()+2592000,$base_uri);
-    }
-
-    require_once('../functions/prefs.php');
-    require_once('../functions/imap.php');
-    require_once('../functions/plugin.php');
-    require_once('../functions/constants.php');
 
     if (!session_is_registered('user_is_logged_in')) {
         do_hook ('login_before');
@@ -67,16 +83,16 @@
         if ($force_username_lowercase) {
             $login_username = strtolower($login_username);
         }
-
+        
         $imapConnection = sqimap_login($login_username, $key, $imapServerAddress, $imapPort, 0);
         if (!$imapConnection) {
-            echo "<html><body bgcolor=\"#ffffff\">\n";
-            echo "<br><br>";
-            echo "<center>";
-            echo "<b>"._("There was an error contacting the mail server.")."</b><br>";
-            echo _("Contact your administrator for help.")."\n";
-            echo "</center>";
-            echo "</body></html>\n";
+            echo "<html><body bgcolor=\"#ffffff\">\n".
+                 "<br> <br>\n".
+                 "<center>\n".
+                 '<b>' . _("There was an error contacting the mail server.") . "</b><br>\n".
+                 _("Contact your administrator for help.") . "\n".
+                 "</center>\n".
+                 "</body></html>\n";
             exit;
         } else {
             $delimiter = sqimap_get_delimiter ($imapConnection);
@@ -137,25 +153,5 @@
 
     /* Send them off to the appropriate page. */
     header("Location: $redirect_url");
-
-
-function attachment_common_parse($str, $debug)
-{
-   global $attachment_common_types, $attachment_common_types_parsed;
-   
-   $attachment_common_types_parsed[$str] = true;
-   $types = explode(', ', $str);
-
-   foreach ($types as $val)
-   {
-      // Ignore the ";q=1.0" stuff
-      if (strpos($val, ';') !== false)
-         $val = substr($val, 0, strpos($val, ';'));
-      
-      if (! isset($attachment_common_types[$val])) {
-	 $attachment_common_types[$val] = true;
-      }
-   }
-}
 
 ?>

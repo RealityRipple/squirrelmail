@@ -53,21 +53,7 @@
         $rcptaddress = urlencode($rcptaddress);
     }
 
-    /* Check if system has been configured */
-    if ( !file_exists( '../config/config.php' ) ) {
-        echo "<html>\n".
-             "<head>\n".
-             '<title>' . _("Configuration Error") . "</title>\n".
-             "</head>\n".
-             "<body>\n" .
-             '<center><h1>' . 
-             _("This system has not been configured yet.") .
-             '<br>' .
-             _("Please contact system administrator.") .
-             '</h1></center>'.
-             "</body></html>\n";
-        exit;
-    }
+
 
     require_once('../functions/strings.php');
     require_once('../config/config.php');
