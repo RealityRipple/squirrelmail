@@ -521,7 +521,7 @@
    
          /** Display the ATTACHMENTS: message if there's more than one part **/
          $body .= "</TD></TR></TABLE>";
-         if (isset($message->entities)) {
+         if (isset($message->entities[0])) {
             $body .= formatAttachments ($message, $ent_num, $message->header->mailbox, $id);
          }
       } else {
@@ -535,7 +535,7 @@
    function formatAttachments ($message, $ent_id, $mailbox, $id) {
       global $where, $what;
       global $startMessage, $color;
-      static $ShownHTML;
+      static $ShownHTML = 0;
       
 	  $body = "";
       if ($ShownHTML == 0)
