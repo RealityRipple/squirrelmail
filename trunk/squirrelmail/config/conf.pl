@@ -273,6 +273,12 @@ if(!$default_use_mdn) {
 if(!$frame_top) {
     $frame_top = "_top";
 }
+if(!$edit_identity) {
+    $edit_identity = "true";
+}
+if(!$edit_name) {
+    $edit_name = "true";
+}
 
 if ($ARGV[0] eq '--install-plugin') {
     print "Activating plugin " . $ARGV[1]
@@ -384,15 +390,19 @@ while (($command ne "q") && ($command ne "Q")) {
       print "R   Return to Main Menu\n";
    } elsif ($menu == 4) {
       print $WHT."General Options\n".$NRM;
-      print "1.  Default Charset        : $WHT$default_charset$NRM\n";
-      print "2.  Data Directory         : $WHT$data_dir$NRM\n";
-      print "3.  Attachment Directory   : $WHT$attachment_dir$NRM\n";
-      print "4.  Directory Hash Level   : $WHT$dir_hash_level$NRM\n";
-      print "5.  Default Left Size      : $WHT$default_left_size$NRM\n";
-      print "6.  Usernames in Lowercase : $WHT$force_username_lowercase$NRM\n";
-      print "7.  Allow use of priority  : $WHT$default_use_priority$NRM\n";
-      print "8.  Hide SM attributions   : $WHT$hide_sm_attributions$NRM\n";
-      print "9.  Allow use of receipts  : $WHT$default_use_mdn$NRM\n";      
+      print "1.  Default Charset           : $WHT$default_charset$NRM\n";
+      print "2.  Data Directory            : $WHT$data_dir$NRM\n";
+      print "3.  Attachment Directory      : $WHT$attachment_dir$NRM\n";
+      print "4.  Directory Hash Level      : $WHT$dir_hash_level$NRM\n";
+      print "5.  Default Left Size         : $WHT$default_left_size$NRM\n";
+      print "6.  Usernames in Lowercase    : $WHT$force_username_lowercase$NRM\n";
+      print "7.  Allow use of priority     : $WHT$default_use_priority$NRM\n";
+      print "8.  Hide SM attributions      : $WHT$hide_sm_attributions$NRM\n";
+      print "9.  Allow use of receipts     : $WHT$default_use_mdn$NRM\n";      
+      print "10. Allow editing of identity : $WHT$edit_identity$NRM\n";
+      if (lc($edit_identity) eq "false") {
+         print "11. Allow editing of name     : $WHT$edit_name$NRM\n";
+      }
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 5) {
@@ -564,6 +574,8 @@ while (($command ne "q") && ($command ne "Q")) {
          elsif ($command == 7)  { $default_use_priority     = command37  (); }
          elsif ($command == 8)  { $hide_sm_attributions     = command38  (); }
          elsif ($command == 9)  { $default_use_mdn          = command39  (); }     
+         elsif ($command == 10) { $edit_identity            = command310 (); }
+         elsif ($command == 11) { $edit_name                = command311 (); }
       } elsif ($menu == 5) {
          if    ($command == 1) { command41 (); }
          elsif ($command == 2) { $theme_css = command42 (); }
@@ -1558,6 +1570,46 @@ sub command39 {
       return "false";
 }
 
+sub command310 {
+    print "This allows you to prevent the editing of the users name and";
+    print "email address. This is mainly useful when used with the";
+    print "retrieveuserdata plugin\n";
+    print "\n";
+    
+    if (lc($edit_identity) eq "true") {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Allow editing? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $new_edit = <STDIN>;
+    if (($new_edit =~ /^y\n/i) || (($new_edit =~ /^\n/) && ($default_value eq "y"))) {
+        $edit_identity = "true";
+    } else {
+        $edit_identity = "false";
+    }
+    return $edit_identity;
+}
+
+sub command311 {
+    print "This option allows you to choose if the user can edit their full name";
+    print "even when you don't want them to change their username\n";
+    print "\n";
+
+    if (lc($edit_name) eq "true") {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Allow editing of the users full name? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $new_edit = <STDIN>;
+    if (($new_edit =~ /^y\n/i) || (($new_edit =~ /^\n/) && ($default_value eq "y"))) {
+        $edit_name = "true";
+    } else {
+        $edit_name = "false";
+    }
+    return $edit_name;
+}
 
 sub command41 {
    print "\nNow we will define the themes that you wish to use.  If you have added\n";
@@ -2032,6 +2084,8 @@ sub save_data {
         print CF "\$default_use_priority     = $default_use_priority;\n";
         print CF "\$hide_sm_attributions     = $hide_sm_attributions;\n";
         print CF "\$default_use_mdn          = $default_use_mdn;\n";
+        print CF "\$edit_identity            = $edit_identity;\n";
+        print CF "\$edit_name                = $edit_name;\n";
         print CF "\n";
      
         for ($ct=0; $ct <= $#plugins; $ct++) {

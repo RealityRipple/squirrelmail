@@ -21,7 +21,7 @@ define('SMOPT_GRP_SIG', 2);
 
 /* Define the optpage load function for the personal options page. */
 function load_optpage_data_personal() {
-    global $data_dir, $username;
+    global $data_dir, $username, $edit_identity, $edit_name;
     global $full_name, $reply_to, $email_address;
 
     /* Set the values of some global variables. */
@@ -44,21 +44,41 @@ function load_optpage_data_personal() {
     /* Build a simple array into which we will build options. */
     $optvals = array();
 
-    $optvals[SMOPT_GRP_CONTACT][] = array(
-        'name'    => 'full_name',
-        'caption' => _("Full Name"),
-        'type'    => SMOPT_TYPE_STRING,
-        'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_HUGE
-    );
+    if ($edit_identity || $edit_name) {
+        $optvals[SMOPT_GRP_CONTACT][] = array(
+            'name'    => 'full_name',
+            'caption' => _("Full Name"),
+            'type'    => SMOPT_TYPE_STRING,
+            'refresh' => SMOPT_REFRESH_NONE,
+            'size'    => SMOPT_SIZE_HUGE
+        );
+    } else {
+        $optvals[SMOPT_GRP_CONTACT][] = array(
+            'name'    => 'full_name',
+            'caption' => _("Full Name"),
+            'type'    => SMOPT_TYPE_COMMENT,
+            'refresh' => SMOPT_REFRESH_NONE,
+            'comment' => $full_name
+        );
+    }
 
-    $optvals[SMOPT_GRP_CONTACT][] = array(
-        'name'    => 'email_address',
-        'caption' => _("Email Address"),
-        'type'    => SMOPT_TYPE_STRING,
-        'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_HUGE
-    );
+    if ($edit_identity) {
+        $optvals[SMOPT_GRP_CONTACT][] = array(
+            'name'    => 'email_address',
+            'caption' => _("Email Address"),
+            'type'    => SMOPT_TYPE_STRING,
+            'refresh' => SMOPT_REFRESH_NONE,
+            'size'    => SMOPT_SIZE_HUGE
+        );
+    } else {
+        $optvals[SMOPT_GRP_CONTACT][] = array(
+            'name'    => 'email_address',
+            'caption' => _("Email Address"),
+            'type'    => SMOPT_TYPE_COMMENT,
+            'refresh' => SMOPT_REFRESH_NONE,
+            'comment' => $email_address
+        );
+    }
 
     $optvals[SMOPT_GRP_CONTACT][] = array(
         'name'    => 'reply_to',
@@ -68,17 +88,19 @@ function load_optpage_data_personal() {
         'size'    => SMOPT_SIZE_HUGE
     );
 
-    $identities_link_value = '<A HREF="options_identities.php">'
-                           . _("Edit Advanced Identities")
-                           . '</A> '
-                           . _("(discards changes made on this form so far)");
-    $optvals[SMOPT_GRP_CONTACT][] = array(
-        'name'    => 'identities_link',
-        'caption' => _("Multiple Identities"),
-        'type'    => SMOPT_TYPE_COMMENT,
-        'refresh' => SMOPT_REFRESH_NONE,
-        'comment' =>  $identities_link_value
-    );
+    if ($edit_identity) {
+        $identities_link_value = '<A HREF="options_identities.php">'
+                               . _("Edit Advanced Identities")
+                               . '</A> '
+                               . _("(discards changes made on this form so far)");
+        $optvals[SMOPT_GRP_CONTACT][] = array(
+            'name'    => 'identities_link',
+            'caption' => _("Multiple Identities"),
+            'type'    => SMOPT_TYPE_COMMENT,
+            'refresh' => SMOPT_REFRESH_NONE,
+            'comment' =>  $identities_link_value
+        );
+    }
 
     /*** Load the Reply Citation Options into the array ***/
     $optgrps[SMOPT_GRP_REPLY] = _("Reply Citation Options");
