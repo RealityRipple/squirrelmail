@@ -45,10 +45,11 @@ $boxes = sqimap_mailbox_list($imap_stream);
  */
 
 /** First create the top node in the tree **/
-for ($i = 0;$i < count($boxes);$i++) {
-    if (($boxes[$i]["unformatted"] == $mailbox) && (strlen($boxes[$i]["unformatted"]) == strlen($mailbox))) {
-        $foldersTree[0]["value"] = $mailbox;
-        $foldersTree[0]["doIHaveChildren"] = false;
+$numboxes = count($boxes);
+for ($i = 0; $i < $numboxes; $i++) {
+    if (($boxes[$i]['unformatted'] == $mailbox) && (strlen($boxes[$i]['unformatted']) == strlen($mailbox))) {
+        $foldersTree[0]['value'] = $mailbox;
+        $foldersTree[0]['doIHaveChildren'] = false;
         continue;
     }
 }
@@ -58,9 +59,9 @@ for ($i = 0;$i < count($boxes);$i++) {
  *    on the end of the $mailbox string, and compare to that.
  */
 $j = 0;
-for ($i = 0;$i < count($boxes);$i++) {
-    if (substr($boxes[$i]["unformatted"], 0, strlen($mailbox . $delimiter)) == ($mailbox . $delimiter)) {
-        addChildNodeToTree($boxes[$i]["unformatted"], $boxes[$i]["unformatted-dm"], $foldersTree);
+for ($i = 0; $i < $numboxes; $i++) {
+    if (substr($boxes[$i]['unformatted'], 0, strlen($mailbox . $delimiter)) == ($mailbox . $delimiter)) {
+        addChildNodeToTree($boxes[$i]['unformatted'], $boxes[$i]['unformatted-dm'], $foldersTree);
     }
 }
 
