@@ -17,6 +17,8 @@ Version 1.4.0 CVS
   - Fix for date/time display in certain timezones
   - Fix some features of login.php that are used by some plugins and was broken
     by register_globals = off.
+  - Added Greek locale. Thanks to George P. Kremmydas 
+    <george at kefalonia-ithaki.gr> and Alexandros Vellis <avel at noc.uoa.gr>
   
 Version 1.4.0 RC 2a
 -------------------

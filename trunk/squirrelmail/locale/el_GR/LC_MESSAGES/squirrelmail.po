@@ -1,17 +1,18 @@
-# Translation of Squirrelmail to Hellenic (Greek)
-# Copyright (c) 1999-2002 The Squirrelmail Development Team
-# Alexandros Vellis <avel@noc.uoa.gr>, 2003.
-#
+# Translation of Squirrelmail interface to Hellenic (Greek)
+# Copyright (c) 1999-2003 The Squirrelmail Development Team
+# "George P. Kremmydas" <george@kefalonia-ithaki.gr>, 2004.
+# Proofreading & some help by Alexandros Vellis <avel@noc.uoa.gr>
 msgid ""
 msgstr ""
-"Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2002-12-07 18:05+0100\n"
-"PO-Revision-Date: 2003-01-03 21:48+0100\n"
-"Last-Translator: Alexandros Vellis <avel@noc.uoa.gr>\n"
-"Language-Team: Squirrelmail i18n team <squirrelmail-i18n@lists.sourceforge.net>\n"
+"Project-Id-Version: $Id$ "
+"POT-Creation-Date: 2003-01-25 09:07+0100\n"
+"PO-Revision-Date: 2003-02-18 22:52+0200\n"
+"Last-Translator: George P. Kremmydas <george@kefalonia-ithaki.gr>\n"
+"Language-Team: Greek Squirrelmail i18n team <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-7\n"
+"Content-Type: text/plain; charset=ISO-8859-7\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.6\n"
 
 msgid "Address Book"
 msgstr "Βιβλίο Διευθύνσεων"
@@ -23,114 +24,107 @@ msgid "Name"
 msgstr "Όνομα"
 
 msgid "E-mail"
-msgstr "Email"
+msgstr "E-mail"
 
 msgid "Info"
 msgstr "Πληροφορίες"
 
 msgid "Source"
-msgstr ""
+msgstr "Πηγή"
 
 msgid "To"
 msgstr "Προς"
 
 msgid "Cc"
-msgstr "Κοιν"
+msgstr "Κοινοποίηση"
 
 msgid "Bcc"
-msgstr ""
+msgstr "Κρυφή Κοινοπ."
 
 msgid "Use Addresses"
-msgstr ""
+msgstr "Χρήση Διευθύνσεων"
 
 msgid "Address Book Search"
-msgstr ""
+msgstr "Αναζήτηση Βιβλίου Διευθύνσεων"
 
 msgid "Search for"
-msgstr "Εύρεση για"
+msgstr "Αναζήτηση για"
 
 msgid "in"
-msgstr "στο"
+msgstr "σε"
 
 msgid "All address books"
-msgstr ""
+msgstr "Όλα τα βιβλία Διευθύνσεων"
 
 msgid "Search"
-msgstr "Εύρεση"
+msgstr "Αναζήτηση"
 
 msgid "List all"
-msgstr ""
+msgstr "Παρουσίαση όλων"
 
 #, c-format
 msgid "Unable to list addresses from %s"
-msgstr ""
+msgstr "Αδύνατον να παρουσιαστούν διευθύνσεις από %s"
 
 msgid "Your search failed with the following error(s)"
-msgstr ""
+msgstr "Η αναζήτηση σας απέτυχε με τα ακόλουθο(-α) σφάλμα(τα)"
 
 msgid "No persons matching your search was found"
-msgstr ""
+msgstr "Δεν βρέθηκε κανένα άτομο που να ταιριάζει με την αναζήτηση σας"
 
 msgid "Return"
-msgstr ""
+msgstr "Επιστροφή"
 
 msgid "Close"
 msgstr "Κλείσιμο"
 
 msgid "Nickname"
-msgstr ""
+msgstr "Ψευδώνυμο"
 
 msgid "Must be unique"
-msgstr ""
+msgstr "Πρέπει να είναι μοναδικό"
 
 msgid "E-mail address"
-msgstr ""
+msgstr "Διεύθυνση E-mail"
 
 msgid "First name"
-msgstr ""
+msgstr "Όνομα"
 
 msgid "Last name"
-msgstr ""
+msgstr "Επώνυμο"
 
 msgid "Additional info"
-msgstr ""
+msgstr "Πρόσθετες πληροφορίες"
 
 msgid "No personal address book is defined. Contact administrator."
 msgstr ""
+"Δεν έχει ορισθεί κανένα βιβλίο διευθύνσεων. Επικοινωνήστε με τον διαχειριστή "
+"του συστήματος."
 
 msgid "You can only edit one address at the time"
-msgstr ""
+msgstr "Μπορείτε να τροποποιήσετε μόνο μια διεύθυνση κάθε φορά"
 
 msgid "Update address"
-msgstr ""
+msgstr "Ενημέρωση διεύθυνσης"
 
 msgid "ERROR"
-msgstr "ΛΑΘΟΣ"
+msgstr "ΣΦΑΛΜΑ"
 
 msgid "Unknown error"
-msgstr "Άγνωστο λάθος"
+msgstr "Άγνωστο σφάλμα"
 
 msgid "Add address"
-msgstr ""
+msgstr "Προσθήκη διεύθυνσης"
 
 msgid "Edit selected"
-msgstr ""
+msgstr "Τροποποίηση επιλεγμένων"
 
 msgid "Delete selected"
-msgstr ""
+msgstr "Διαγραφή επιλεγμένων"
 
 #, c-format
 msgid "Add to %s"
-msgstr ""
-
-msgid "Draft Email Saved"
-msgstr ""
-
-msgid "Could not move/copy file. File not attached"
-msgstr ""
-
-msgid "Original Message"
-msgstr ""
+msgstr "Προσθήκη στο %s"
 
 msgid "Subject"
 msgstr "Θέμα"
@@ -139,13 +133,24 @@ msgid "From"
 msgstr "Από"
 
 msgid "Date"
-msgstr "Ημ/νία"
+msgstr "Ημερομηνία"
+
+msgid "Original Message"
+msgstr "Αρχικό Μήνυμα"
+
+msgid "Draft Email Saved"
+msgstr "Το πρόχειρο Email Αποθηκεύτηκε"
+
+msgid "Could not move/copy file. File not attached"
+msgstr ""
+"Αδύνατη η μετακίνηση/αντιγραφή του αρχείου. Τα αρχείο δεν έχει προσαρτηθεί "
+"στα συνημμένα."
 
 msgid "Draft Saved"
-msgstr ""
+msgstr "Πρόχειρο Αποθηκεύτηκε"
 
 msgid "Your Message has been sent"
-msgstr ""
+msgstr "Το Μήνυμα σας έχει αποσταλεί"
 
 msgid "From:"
 msgstr "Από:"
@@ -154,10 +159,10 @@ msgid "To:"
 msgstr "Προς:"
 
 msgid "CC:"
-msgstr "Κοιν.:"
+msgstr "Κοινοποίηση:"
 
 msgid "BCC:"
-msgstr "Κ.Κοιν.:"
+msgstr "Κρυφή Κοινοπ.:"
 
 msgid "Subject:"
 msgstr "Θέμα:"
@@ -166,13 +171,13 @@ msgid "Send"
 msgstr "Αποστολή"
 
 msgid "Attach:"
-msgstr "Επισύναψη:"
+msgstr "Συνημμένα:"
 
 msgid "Add"
-msgstr "Πρόσθεσε"
+msgstr "Προσθήκη"
 
 msgid "Delete selected attachments"
-msgstr ""
+msgstr "Διαγραφή επιλεγμένων συνημμένων"
 
 msgid "Priority"
 msgstr "Προτεραιότητα"
@@ -187,13 +192,13 @@ msgid "Low"
 msgstr "Χαμηλή"
 
 msgid "Receipt"
-msgstr "Απόδειξη Παραλαβής"
+msgstr "Λήψη"
 
-msgid "On read"
-msgstr "Στην ανάγνωση"
+msgid "On Read"
+msgstr "Με την Ανάγνωση"
 
 msgid "On Delivery"
-msgstr "Στην παράδοση"
+msgstr "Με την Παράδοση"
 
 msgid "Signature"
 msgstr "Υπογραφή"
@@ -202,149 +207,148 @@ msgid "Addresses"
 msgstr "Διευθύνσεις"
 
 msgid "Save Draft"
-msgstr ""
+msgstr "Αποθήκευση Προχείρου"
 
 msgid "You have not filled in the \"To:\" field."
-msgstr ""
+msgstr "Δεν έχετε συμπληρώσει το πεδίο \"Προς:\"."
 
 msgid "said"
-msgstr ""
+msgstr "είπε"
 
 msgid "quote"
-msgstr ""
+msgstr "ανέφερε"
 
 msgid "who"
-msgstr ""
+msgstr "ποιός"
 
-msgid "Viewing a text attachment"
-msgstr ""
+msgid "Draft folder"
+msgstr "Φάκελος Πρόχειρα"
 
-msgid "View message"
-msgstr ""
-
-msgid "Download this as a file"
-msgstr ""
-
-msgid "Viewing a message attachment"
-msgstr ""
-
-msgid "Date:"
-msgstr "Ημ/νία:"
-
-msgid "Cc:"
-msgstr "Κοιν:"
-
-msgid "Bcc:"
-msgstr "Κ. Κοιν.:"
-
-msgid "more"
-msgstr "περισσότερα"
-
-msgid "less"
-msgstr "λιγότερα"
+msgid "Server replied: "
+msgstr "Απόκριση εξυπηρετητή:"
 
 msgid "Illegal folder name.  Please select a different name."
-msgstr "Λάθος όνομα φακέλου. Παρακαλώ διαλέξτε ένα διαφορετικό όνομα."
+msgstr "Μη έγκυρο όνομα φακέλου.  Παρακαλώ επιλέξτε ένα διαφορετικό όνομα."
 
 msgid "Click here to go back"
-msgstr ""
+msgstr "Κάντε κλικ εδώ για να επιστρέψετε πίσω."
 
 msgid "You have not selected a folder to delete. Please do so."
-msgstr ""
+msgstr "Δεν έχετε επιλέξει κάποιον φάκελο για διαγραφή. Παρακαλώ κάντε το."
+
+msgid "Delete Folder"
+msgstr "Διαγραφή Φακέλου"
+
+#, c-format
+msgid "Are you sure you want to delete %s?"
+msgstr "Θέλετε πράγματι να διαγράψετε αυτό το συμβάν %s;"
+
+msgid "Yes"
+msgstr "Ναι"
+
+msgid "No"
+msgstr "Όχι"
 
 msgid "Folders"
 msgstr "Φάκελοι"
 
 msgid "Subscribed successfully!"
-msgstr ""
+msgstr "Επιτυχής Εγγραφή!"
 
 msgid "Unsubscribed successfully!"
-msgstr ""
+msgstr "Επιτυχής Διαγραφή!"
 
 msgid "Deleted folder successfully!"
-msgstr ""
+msgstr "Επιτυχής διαγραφή φακέλου"
 
 msgid "Created folder successfully!"
-msgstr ""
+msgstr "Επιτυχής δημιουργία φακέλου!"
 
 msgid "Renamed successfully!"
-msgstr ""
+msgstr "Επιτυχής μετονομασία!"
+
+msgid "Subscription Unsuccessful - Folder does not exist."
+msgstr "Ανεπιτυχής Διαγραφή - ο φάκελος δεν υπάρχει."
 
 msgid "refresh folder list"
-msgstr ""
+msgstr "ανανέωση καταλόγου φακέλων"
 
 msgid "Create Folder"
-msgstr ""
+msgstr "Δημιουργία Φακέλου"
 
 msgid "as a subfolder of"
-msgstr ""
+msgstr "ως υποφάκελος του"
 
 msgid "None"
-msgstr ""
+msgstr "Κανένα"
 
 msgid "Let this folder contain subfolders"
-msgstr ""
+msgstr "Να περιέχει αυτός ο φάκελος υποφακέλους"
 
 msgid "Create"
-msgstr ""
+msgstr "Δημιουργία"
 
 msgid "Rename a Folder"
-msgstr ""
+msgstr "Μετονομασία ενός Φακέλου"
 
 msgid "Select a folder"
-msgstr ""
+msgstr "Επιλογή ενός Φακέλου"
 
 msgid "Rename"
-msgstr ""
+msgstr "Μετονομασία"
 
 msgid "No folders found"
-msgstr ""
-
-msgid "Delete Folder"
-msgstr "Διαγραφή Φακέλου"
+msgstr "Δεν βρέθηκαν φάκελοι"
 
 msgid "Delete"
 msgstr "Διαγραφή"
 
 msgid "Unsubscribe"
-msgstr ""
+msgstr "Ακύρωση Εγγραφής"
 
 msgid "Subscribe"
-msgstr ""
+msgstr "Εγγραφή"
 
 msgid "No folders were found to unsubscribe from!"
-msgstr ""
+msgstr "Δεν βρέθηκαν φάκελοι για τους οποίους να ακυρωθεί η εγγραφή!"
 
 msgid "No folders were found to subscribe to!"
-msgstr ""
+msgstr "Δεν βρέθηκαν φάκελοι για να γίνει η εγγραφή!"
+
+msgid "Subscribe to:"
+msgstr "Εγγραφή:"
 
 msgid "You have not selected a folder to rename. Please do so."
-msgstr ""
+msgstr "Δεν έχετε επιλέξει φάκελο για μετονομασία. Παρακαλώ κάντε το."
 
 msgid "Rename a folder"
-msgstr ""
+msgstr "Μετονομασία φακέλου"
 
 msgid "New name:"
-msgstr ""
+msgstr "Νέο όνομα:"
 
 msgid "Submit"
-msgstr ""
+msgstr "Υποβολή"
 
 msgid "ERROR: Help files are not in the right format!"
-msgstr ""
+msgstr "ΣΦΑΛΜΑ: Τα αρχεία βοήθειας δεν είναι στην σωστή μορφή!"
 
 msgid "Help"
 msgstr "Βοήθεια"
 
 #, c-format
-msgid "The help has not been translated to %s.  It will be displayed in English instead."
-msgstr "Η βοήθεια δεν έχει μεταφραστεί στα %s. Θα εμφανιστεί στα Αγγλικά."
+msgid ""
+"The help has not been translated to %s.  It will be displayed in English "
+"instead."
+msgstr ""
+"Η βοήθεια δεν έχει μεταφραστεί στα %s.  Γι αυτό το λόγο θα εμφανιστεί στα "
+"Αγγλικά."
 
 msgid "Some or all of the help documents are not present!"
-msgstr ""
+msgstr "Κάποια ή όλα τα έγγραφα βοήθειας δεν υπάρχουν!"
 
 msgid "Table of Contents"
-msgstr ""
+msgstr "Πίνακας Περιεχομένων"
 
 msgid "Previous"
 msgstr "Προηγούμενο"
@@ -353,38 +357,49 @@ msgid "Next"
 msgstr "Επόμενο"
 
 msgid "Top"
-msgstr ""
+msgstr "Επάνω"
 
 msgid "Viewing an image attachment"
-msgstr ""
+msgstr "Εμφάνιση συνημμένου σε μορφή εικόνας"
+
+msgid "View message"
+msgstr "Εμφάνιση μηνύματος"
+
+msgid "Download this as a file"
+msgstr "Κατέβασμα ως αρχείο"
+
+msgid "Not available"
+msgstr "Mη διαθέσιμο"
 
 msgid "INBOX"
-msgstr ""
+msgstr "ΕΙΣΕΡΧΟΜΕΝΑ"
 
-#, fuzzy
 msgid "purge"
-msgstr "Εκκαθάριση"
+msgstr "purge"
 
 msgid "Last Refresh"
-msgstr ""
+msgstr "Τελευταία Ενημέρωση"
+
+msgid "Save folder tree"
+msgstr "Αποθήκευση δέντρου φακέλων"
 
 msgid "Login"
-msgstr ""
+msgstr "Σύνδεση"
 
 #, c-format
 msgid "%s Logo"
-msgstr ""
+msgstr "%s Λογότυπο"
 
 #, c-format
 msgid "SquirrelMail version %s"
 msgstr "SquirrelMail έκδοση %s"
 
 msgid "By the SquirrelMail Development Team"
-msgstr "Από την Ομάδα Ανάπτυξης του Squirrelmail"
+msgstr "Από την Ομάδα Ανάπτυξης του SquirrelMail"
 
 #, c-format
 msgid "%s Login"
-msgstr ""
+msgstr "%s Σύνδεση"
 
 msgid "Name:"
 msgstr "Όνομα:"
@@ -392,693 +407,476 @@ msgstr "Όνομα:"
 msgid "Password:"
 msgstr "Κωδικός:"
 
-msgid "<No subject>"
-msgstr "<Χωρίς θέμα>"
-
 msgid "No messages were selected."
-msgstr ""
-
-msgid "General Display Options"
-msgstr ""
-
-msgid "Theme"
-msgstr ""
-
-msgid "Default"
-msgstr ""
-
-msgid "Custom Stylesheet"
-msgstr ""
-
-msgid "Language"
-msgstr ""
-
-msgid "Use Javascript"
-msgstr ""
-
-msgid "Autodetect"
-msgstr ""
-
-msgid "Always"
-msgstr ""
-
-msgid "Never"
-msgstr ""
-
-msgid "Mailbox Display Options"
-msgstr ""
-
-msgid "Number of Messages to Index"
-msgstr ""
-
-msgid "Enable Alternating Row Colors"
-msgstr ""
-
-msgid "Enable Page Selector"
-msgstr ""
-
-msgid "Maximum Number of Pages to Show"
-msgstr ""
-
-msgid "Message Display and Composition"
-msgstr ""
-
-msgid "Wrap Incoming Text At"
-msgstr ""
-
-msgid "Size of Editor Window"
-msgstr ""
-
-msgid "Location of Buttons when Composing"
-msgstr ""
-
-msgid "Before headers"
-msgstr ""
-
-msgid "Between headers and message body"
-msgstr ""
-
-msgid "After message body"
-msgstr ""
-
-msgid "Addressbook Display Format"
-msgstr ""
-
-msgid "Javascript"
-msgstr ""
-
-msgid "HTML"
-msgstr ""
-
-msgid "Show HTML Version by Default"
-msgstr ""
-
-msgid "Include Me in CC when I Reply All"
-msgstr ""
-
-msgid "Include CCs when forwarding messages"
-msgstr ""
-
-msgid "Enable Mailer Display"
-msgstr ""
-
-msgid "Display Attached Images with Message"
-msgstr ""
-
-msgid "Enable Subtle Printer Friendly Link"
-msgstr ""
-
-msgid "Enable Printer Friendly Clean Display"
-msgstr ""
-
-msgid "Enable request/confirm reading"
-msgstr ""
-
-msgid "Always compose in a new window"
-msgstr ""
-
-msgid "Width of compose window"
-msgstr ""
-
-msgid "Height of compose window"
-msgstr ""
-
-msgid "Append signature before reply/forward text"
-msgstr ""
-
-msgid "Use receive date for sort"
-msgstr ""
-
-msgid "Use References header for thread sort"
-msgstr ""
-
-msgid "Special Folder Options"
-msgstr ""
-
-msgid "Folder Path"
-msgstr ""
-
-msgid "Do not use Trash"
-msgstr ""
-
-msgid "Trash Folder"
-msgstr ""
-
-msgid "Do not use Sent"
-msgstr ""
-
-msgid "Sent Folder"
-msgstr ""
-
-msgid "Do not use Drafts"
-msgstr ""
-
-msgid "Draft Folder"
-msgstr ""
-
-msgid "Folder List Options"
-msgstr ""
-
-msgid "Location of Folder List"
-msgstr ""
-
-msgid "Left"
-msgstr ""
-
-msgid "Right"
-msgstr ""
-
-msgid "pixels"
-msgstr ""
-
-msgid "Width of Folder List"
-msgstr ""
-
-msgid "Minutes"
-msgstr ""
-
-msgid "Seconds"
-msgstr ""
-
-msgid "Minute"
-msgstr ""
-
-msgid "Auto Refresh Folder List"
-msgstr ""
-
-msgid "Enable Unread Message Notification"
-msgstr ""
-
-msgid "No Notification"
-msgstr ""
-
-msgid "Only INBOX"
-msgstr ""
-
-msgid "All Folders"
-msgstr ""
-
-msgid "Unread Message Notification Type"
-msgstr ""
-
-msgid "Only Unseen"
-msgstr ""
-
-msgid "Unseen and Total"
-msgstr ""
-
-msgid "Enable Collapsable Folders"
-msgstr ""
-
-msgid "Show Clock on Folders Panel"
-msgstr ""
-
-msgid "No Clock"
-msgstr ""
-
-msgid "Hour Format"
-msgstr ""
-
-msgid "12-hour clock"
-msgstr ""
-
-msgid "24-hour clock"
-msgstr ""
-
-msgid "Memory Search"
-msgstr ""
-
-msgid "Disabled"
-msgstr ""
+msgstr "Δεν επελέγησαν μηνύματα."
 
 msgid "Options"
 msgstr "Επιλογές"
 
 msgid "Message Highlighting"
-msgstr ""
+msgstr "Μαρκάρισμα Μηνυμάτων"
 
 msgid "New"
-msgstr ""
+msgstr "Νέο"
 
 msgid "Done"
-msgstr ""
-
-msgid "Edit"
-msgstr ""
-
-msgid "No highlighting is defined"
-msgstr ""
-
-msgid "Identifying name"
-msgstr ""
-
-msgid "Color"
-msgstr ""
-
-msgid "Dark Blue"
-msgstr ""
-
-msgid "Dark Green"
-msgstr ""
-
-msgid "Dark Yellow"
-msgstr ""
-
-msgid "Dark Cyan"
-msgstr ""
-
-msgid "Dark Magenta"
-msgstr ""
-
-msgid "Light Blue"
-msgstr ""
-
-msgid "Light Green"
-msgstr ""
-
-msgid "Light Yellow"
-msgstr ""
-
-msgid "Light Cyan"
-msgstr ""
-
-msgid "Light Magenta"
-msgstr ""
-
-msgid "Dark Gray"
-msgstr ""
-
-msgid "Medium Gray"
-msgstr ""
-
-msgid "Light Gray"
-msgstr ""
-
-msgid "White"
-msgstr ""
-
-msgid "Other:"
-msgstr ""
-
-msgid "Ex: 63aa7f"
-msgstr ""
+msgstr "Έγινε"
 
 msgid "To or Cc"
-msgstr ""
+msgstr "Προς η Κοινοποίηση"
+
+msgid "subject"
+msgstr "θέμα"
+
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+msgid "No highlighting is defined"
+msgstr "Δεν έχει οριστεί μαρκάρισμα"
+
+msgid "Identifying name"
+msgstr "Όνομα Ταυτοποίησης"
+
+msgid "Color"
+msgstr "Χρώμα"
+
+msgid "Dark Blue"
+msgstr "Σκούρο Μπλέ"
+
+msgid "Dark Green"
+msgstr "Σκούρο Πράσινο"
+
+msgid "Dark Yellow"
+msgstr "Σκούρο Κίτρινο"
+
+msgid "Dark Cyan"
+msgstr "Σκούρο Κυανό"
+
+msgid "Dark Magenta"
+msgstr "Σκούρο Ματζέντα"
+
+msgid "Light Blue"
+msgstr "Ανοιχτό Μπλέ"
+
+msgid "Light Green"
+msgstr "Ανοιχτό Πράσινο"
+
+msgid "Light Yellow"
+msgstr "Ανοιχτό Κίτρινο"
+
+msgid "Light Cyan"
+msgstr "Ανοιχτό Κυανό"
+
+msgid "Light Magenta"
+msgstr "Ανοιχτό Ματζέντα"
+
+msgid "Dark Gray"
+msgstr "Σκούρο Γκρι"
+
+msgid "Medium Gray"
+msgstr "Μεσαίο Γκρι"
+
+msgid "Light Gray"
+msgstr "Ανοιχτό Γκρι"
+
+msgid "White"
+msgstr "Λευκό"
+
+msgid "Other:"
+msgstr "Άλλο:"
+
+msgid "Ex: 63aa7f"
+msgstr "Πχ: 63aa7f"
 
 msgid "Matches"
-msgstr ""
-
-msgid "Advanced Identities"
-msgstr ""
-
-msgid "Default Identity"
-msgstr ""
+msgstr "Εγγραφές που ταιριάζουν"
 
 #, c-format
 msgid "Alternate Identity %d"
-msgstr ""
+msgstr "Εναλλασσόμενη Ταυτότητα %d"
+
+msgid "Advanced Identities"
+msgstr "Προχωρημένες Ταυτότητες"
+
+msgid "Default Identity"
+msgstr "Εξ ορισμού ταυτότητα"
 
 msgid "Add a New Identity"
-msgstr ""
+msgstr "Προσθήκη Νέας Ταυτότητας"
 
 msgid "Full Name"
-msgstr ""
+msgstr "Πλήρες Όνομα"
 
 msgid "E-Mail Address"
-msgstr ""
+msgstr "Διεύθυνση E-Mail"
 
 msgid "Reply To"
-msgstr ""
+msgstr "Απάντηση Προς"
 
 msgid "Save / Update"
-msgstr ""
+msgstr "Αποθήκευση / Ενημέρωση"
 
 msgid "Make Default"
-msgstr ""
+msgstr "Να Γίνει Εξ ορισμού"
 
 msgid "Move Up"
-msgstr ""
+msgstr "Μετακίνηση Επάνω"
 
 msgid "Index Order"
-msgstr ""
+msgstr "Σειρά Καταλόγου"
 
 msgid "Checkbox"
-msgstr ""
+msgstr "Τετράγωνο Επιλογής"
 
 msgid "Flags"
-msgstr ""
+msgstr "Σημαίες"
 
 msgid "Size"
-msgstr ""
+msgstr "Μέγεθος"
 
-msgid "The index order is the order that the columns are arranged in the message index.  You can add, remove, and move columns around to customize them to fit your needs."
+msgid ""
+"The index order is the order that the columns are arranged in the message "
+"index.  You can add, remove, and move columns around to customize them to "
+"fit your needs."
 msgstr ""
+"Η σειρά καταλόγου είναι η σειρά με την οποία διατάσσονται οι στήλες στον "
+"κατάλογο μηνυμάτων.  Μπορείτε να προσθέσετε, να αφαιρέσετε και να "
+"μετακινήσετε στήλες για την προσαρμογή στις ανάγκες σας."
 
 msgid "up"
-msgstr ""
+msgstr "πάνω"
 
 msgid "down"
-msgstr ""
+msgstr "κάτω"
 
 msgid "remove"
-msgstr ""
+msgstr "αφαίρεση"
 
 msgid "Return to options page"
-msgstr ""
-
-msgid "Name and Address Options"
-msgstr ""
-
-msgid "Email Address"
-msgstr ""
-
-msgid "Edit Advanced Identities"
-msgstr ""
-
-msgid "(discards changes made on this form so far)"
-msgstr ""
-
-msgid "Multiple Identities"
-msgstr ""
-
-msgid "Same as server"
-msgstr ""
-
-msgid "Timezone Options"
-msgstr ""
-
-msgid "Your current timezone"
-msgstr ""
-
-msgid "Reply Citation Options"
-msgstr ""
-
-msgid "Reply Citation Style"
-msgstr ""
-
-msgid "No Citation"
-msgstr ""
-
-msgid "AUTHOR Said"
-msgstr ""
-
-msgid "Quote Who XML"
-msgstr ""
-
-msgid "User-Defined"
-msgstr ""
-
-msgid "User-Defined Citation Start"
-msgstr ""
-
-msgid "User-Defined Citation End"
-msgstr ""
-
-msgid "Signature Options"
-msgstr ""
-
-msgid "Use Signature"
-msgstr ""
-
-msgid "Prefix Signature with '-- ' Line"
-msgstr ""
+msgstr "Επιστροφή στην σελίδα επιλογών"
 
 msgid "Personal Information"
-msgstr ""
+msgstr "Προσωπικές Πληροφορίες"
 
 msgid "Display Preferences"
-msgstr ""
+msgstr "Προτιμήσεις Εμφάνισης"
 
 msgid "Folder Preferences"
-msgstr ""
+msgstr "Προτιμήσεις Φακέλων"
 
 msgid "Successfully Saved Options"
-msgstr ""
+msgstr "Επιτυχής Αποθήκευση Επιλογών"
 
 msgid "Refresh Folder List"
-msgstr ""
+msgstr "Ανανέωση Λίστας Φακέλων"
 
 msgid "Refresh Page"
-msgstr ""
+msgstr "Ανανέωση Σελίδας"
 
-msgid "This contains personal information about yourself such as your name, your email address, etc."
+msgid ""
+"This contains personal information about yourself such as your name, your "
+"email address, etc."
 msgstr ""
+"Περιέχει προσωπικές πληροφορίες για εσάς όπως το όνομα σας, η ηλεκτρονική "
+"σας διεύθυνση κλπ."
 
-msgid "You can change the way that SquirrelMail looks and displays information to you, such as the colors, the language, and other settings."
+msgid ""
+"You can change the way that SquirrelMail looks and displays information to "
+"you, such as the colors, the language, and other settings."
 msgstr ""
+"Μπορείτε να αλλάξετε τον τρόπο εμφάνισης του SquirrelMail και του πως "
+"παρουσιάζει πληροφορίες προς εσάς, όπως χρώματα, τη γλώσσα και άλλες "
+"ρυθμίσεις."
 
-msgid "Based upon given criteria, incoming messages can have different background colors in the message list.  This helps to easily distinguish who the messages are from, especially for mailing lists."
+msgid ""
+"Based upon given criteria, incoming messages can have different background "
+"colors in the message list.  This helps to easily distinguish who the "
+"messages are from, especially for mailing lists."
 msgstr ""
+"Με βάση δεδομένα κριτήρια, τα εισερχόμενα μηνύματα μπορούν να έχουν "
+"διαφορετικό χρώματα φόντου στην λίστα μηνυμάτων. Αυτό βοηθάει στο να "
+"διακρίνεται από ποιόν είναι το μήνυμα, ιδιαίτερα για λίστες μηνυμάτων "
+"(mailing lists)."
 
 msgid "These settings change the way your folders are displayed and manipulated."
 msgstr ""
+"Αυτές οι ρυθμίσεις αλλάζουν τον τρόπο με τον οποίο γίνεται η εμφάνιση και η "
+"μεταχείριση των φακέλων σας."
 
-msgid "The order of the message index can be rearranged and changed to contain the headers in any order you want."
+msgid ""
+"The order of the message index can be rearranged and changed to contain the "
+"headers in any order you want."
 msgstr ""
+"Η σειρά του καταλόγου μηνυμάτων μπορεί να επαναδιαταχθεί και να αλλάξει ώστε "
+"να περιέχει κεφαλίδες με οποιαδήποτε σειρά θέλετε."
 
 msgid "Message not printable"
-msgstr ""
+msgstr "Μη εκτυπώσιμο μήνυμα"
 
 msgid "Printer Friendly"
-msgstr ""
+msgstr "Φιλικό για Εκτύπωση"
 
 msgid "CC"
-msgstr ""
+msgstr "Αντίγραφο"
 
 msgid "Print"
 msgstr "Εκτύπωση"
 
-msgid "Close Window"
-msgstr "Κλείσιμο Παραθύρου"
-
 msgid "View Printable Version"
-msgstr ""
+msgstr "Δείτε Εκτυπώσιμη Έκδοση"
+
+msgid "Read:"
+msgstr "Διαβασμένο:"
 
 msgid "Your message"
-msgstr ""
+msgstr "Το μήνυμα σας"
 
 msgid "Sent:"
-msgstr ""
+msgstr "Απεσταλμένο:"
 
 #, c-format
 msgid "Was displayed on %s"
-msgstr ""
+msgstr "Εμφανίστηκε %s"
 
-msgid "Read:"
-msgstr ""
+msgid "less"
+msgstr "λιγότερα"
 
-msgid "Viewing Full Header"
-msgstr ""
+msgid "more"
+msgstr "περισσότερα"
 
-msgid "Message List"
-msgstr ""
-
-msgid "Resume Draft"
-msgstr ""
-
-msgid "Edit Message as New"
-msgstr ""
-
-msgid "Forward"
-msgstr ""
-
-msgid "Reply"
-msgstr ""
-
-msgid "Reply All"
-msgstr ""
-
-msgid "View Full Header"
-msgstr ""
+msgid "Unknown sender"
+msgstr "Άγνωστος αποστολέας"
 
 msgid "Mailer"
-msgstr ""
+msgstr "Mailer"
 
 msgid "Read receipt"
-msgstr ""
+msgstr "Ανάγνωση απόδειξης"
 
 msgid "send"
-msgstr ""
+msgstr "αποστολή"
 
 msgid "requested"
+msgstr "αιτούμενο"
+
+msgid ""
+"The message sender has requested a response to indicate that you have read "
+"this message. Would you like to send a receipt?"
 msgstr ""
+"Ο αποστολέας του μηνύματος ζήτησε μία απόκριση που να δείχνει ότι έχετε διαβάσει "
+"αυτό το μήνυμα. Θα θέλατε να στείλετε απόδειξη;"
 
 msgid "Send read receipt now"
-msgstr ""
+msgstr "Αποστολή απόδειξης ανάγνωσης τώρα"
 
-msgid "The message sender has requested a response to indicate that you have read this message. Would you like to send a receipt?"
-msgstr ""
+msgid "Search results"
+msgstr "Αποτελέσματα αναζήτησης"
+
+msgid "Message List"
+msgstr "Λίστα Μηνυμάτων"
+
+msgid "Resume Draft"
+msgstr "Επαναφορά Προχείρου"
+
+msgid "Edit Message as New"
+msgstr "Επεξεργασία Μηνύματος ως Νέο"
+
+msgid "View Message"
+msgstr "Εμφάνιση μηνύματος"
+
+msgid "Up"
+msgstr "Πάνω"
+
+msgid "Forward"
+msgstr "Προώθηση"
+
+msgid "Forward as Attachment"
+msgstr "Προώθηση ως Συνημμένο"
+
+msgid "Reply"
+msgstr "Απάντηση"
+
+msgid "Reply All"
+msgstr "Απάντηση Προς Όλους"
+
+msgid "View Full Header"
+msgstr "Εμφάνιση Πλήρους Κεφαλίδας"
+
+msgid "Attachments"
+msgstr "Συνημμένα"
 
 msgid "You must be logged in to access this page."
-msgstr ""
+msgstr "Πρέπει να έχετε συνδεθεί για να έχετε πρόσβαση σε αυτή τη σελίδα."
 
-msgid "There was an error contacting the mail server."
-msgstr ""
-
-msgid "Contact your administrator for help."
-msgstr ""
+msgid "Folder:"
+msgstr "Φάκελος:"
 
 msgid "edit"
-msgstr ""
+msgstr "επεξεργασία"
 
 msgid "search"
-msgstr ""
+msgstr "εξερεύνηση"
 
 msgid "delete"
-msgstr ""
+msgstr "διαγραφή"
 
 msgid "Recent Searches"
-msgstr ""
+msgstr "Πρόσφατες Αναζητήσεις"
 
 msgid "save"
-msgstr ""
+msgstr "αποθήκευση"
 
 msgid "forget"
-msgstr ""
+msgstr "ξέχασε το"
 
 msgid "Current Search"
-msgstr ""
+msgstr "Τρέχουσα Αναζήτηση"
+
+msgid "All Folders"
+msgstr "Όλοι οι Φάκελοι"
 
 msgid "Body"
-msgstr ""
+msgstr "Σώμα"
 
 msgid "Everywhere"
-msgstr ""
+msgstr "Παντού"
 
 msgid "Search Results"
-msgstr ""
+msgstr "Αποτελέσματα Αναζήτησης"
 
-msgid "No Messages found"
-msgstr ""
+msgid "No Messages Found"
+msgstr "Δεν Βρέθηκαν Μηνύματα"
 
 msgid "Sign Out"
-msgstr ""
+msgstr "Αποσύνδεση"
 
 msgid "You have been successfully signed out."
-msgstr ""
+msgstr "Έχετε αποσυνδεθεί επιτυχώς."
 
 msgid "Click here to log back in."
-msgstr ""
+msgstr "Κάντε κλικ εδώ για να συνδεθείτε πάλι."
 
 msgid "Viewing a Business Card"
-msgstr ""
+msgstr "Βλέπετε μια Επιχειρηματική Κάρτα"
 
 msgid "Title"
-msgstr ""
+msgstr "Τίτλος"
 
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 msgid "Web Page"
-msgstr ""
+msgstr "Ιστοσελίδα"
 
 msgid "Organization / Department"
-msgstr ""
+msgstr "Οργανισμός / Τμήμα"
 
 msgid "Address"
-msgstr ""
+msgstr "Διεύθυνση"
 
 msgid "Work Phone"
-msgstr ""
+msgstr "Τηλέφωνο Εργασίας"
 
 msgid "Home Phone"
-msgstr ""
+msgstr "Τηλέφωνο Οικίας"
 
 msgid "Cellular Phone"
-msgstr ""
+msgstr "Κινητό Τηλέφωνο"
 
 msgid "Fax"
-msgstr ""
+msgstr "Φαξ"
 
 msgid "Note"
-msgstr ""
+msgstr "Σημείωση"
 
 msgid "Add to Addressbook"
-msgstr ""
-
-msgid "Note Field Contains"
-msgstr ""
+msgstr "Προσθήκη στο Βιβλίο Διευθύνσεων"
 
 msgid "Title & Org. / Dept."
-msgstr ""
+msgstr "Τίτλος & Οργ. / Τμήμα"
+
+msgid "Viewing Full Header"
+msgstr "Εμφάνιση Πλήρους Κεφαλίδας"
+
+msgid "Viewing a text attachment"
+msgstr "Βλέπετε συνημμένο σε μορφή κειμένου"
 
 msgid "Personal address book"
-msgstr ""
+msgstr "Προσωπικό βιβλίο διευθύνσεων"
 
 #, c-format
 msgid "Database error: %s"
-msgstr ""
+msgstr "Σφάλμα βάσης δεδομένων: %s"
 
 msgid "Addressbook is read-only"
-msgstr ""
+msgstr "Το βιβλίο διευθύνσεων είναι μόνο για ανάγνωση"
 
 #, c-format
 msgid "User '%s' already exist"
-msgstr ""
+msgstr "Ο χρήστης '%s' υπάρχει ήδη"
 
 #, c-format
 msgid "User '%s' does not exist"
-msgstr ""
+msgstr "Ο χρήστης '%s' δεν υπάρχει"
 
 msgid "Global address book"
-msgstr ""
+msgstr "Γενικό βιβλίο διευθύνσεων"
 
 msgid "No such file or directory"
-msgstr ""
+msgstr "Δεν υπάρχει τέτοιο αρχείο ή φάκελος"
 
 msgid "Open failed"
-msgstr ""
+msgstr "Αποτυχία ανοίγματος"
 
 msgid "Can not modify global address book"
-msgstr ""
+msgstr "Δεν είναι δυνατή η τροποποίηση του γενικού βιβλίου διευθύνσεων"
 
 msgid "Not a file name"
-msgstr ""
+msgstr "Δεν είναι όνομα αρχείου"
 
 msgid "Write failed"
-msgstr ""
+msgstr "Απέτυχε η εγγραφή"
 
 msgid "Unable to update"
-msgstr ""
+msgstr "Αδυναμία ανανέωσης"
 
 msgid "Could not lock datafile"
-msgstr ""
+msgstr "Δεν ήταν δυνατό το κλείδωμα του αρχείου δεδομένων"
 
 msgid "Write to addressbook failed"
-msgstr ""
+msgstr "Η εγγραφή στο βιβλίο διευθύνσεων απέτυχε"
 
 msgid "Error initializing addressbook database."
-msgstr ""
+msgstr "Σφάλμα στην αρχικοποίηση της βάσης δεδομένων βιβλίου διευθύνσεων."
 
 #, c-format
 msgid "Error opening file %s"
-msgstr ""
+msgstr "Σφάλμα στο άνοιγμα του αρχείου %s"
 
 msgid "Error initializing global addressbook."
-msgstr ""
+msgstr "Σφάλμα στην αρχικοποίηση του συνολικού βιβλίου διευθύνσεων."
 
 #, c-format
 msgid "Error initializing LDAP server %s:"
-msgstr ""
+msgstr "Σφάλμα στην αρχικοποίηση του εξυπηρετητή LDAP %s:"
 
 msgid "Invalid input data"
-msgstr ""
+msgstr "Μη έγκυρα δεδομένα εισόδου"
 
 msgid "Name is missing"
-msgstr ""
+msgstr "Το όνομα λείπει"
 
 msgid "E-mail address is missing"
-msgstr ""
+msgstr "Η διεύθυνση E-mail λείπει"
 
 msgid "Nickname contains illegal characters"
-msgstr ""
+msgstr "Το παρατσούκλι περιέχει μη έγκυρους χαρακτήρες"
 
 msgid "view"
-msgstr ""
+msgstr "θεώρηση"
 
 msgid "Business Card"
-msgstr ""
+msgstr "Συστατική Κάρτα"
 
 msgid "Sunday"
 msgstr "Κυριακή"
@@ -1100,27 +898,6 @@ msgstr "Παρασκευή"
 
 msgid "Saturday"
 msgstr "Σάββατο"
-
-msgid "Sun"
-msgstr "Κυρ"
-
-msgid "Mon"
-msgstr "Δευ"
-
-msgid "Tue"
-msgstr "Τρί"
-
-msgid "Wed"
-msgstr "Τετ"
-
-msgid "Thu"
-msgstr "Πέμ"
-
-msgid "Fri"
-msgstr "Παρ"
-
-msgid "Sat"
-msgstr "Σάβ"
 
 msgid "January"
 msgstr "Ιανουάριος"
@@ -1147,7 +924,7 @@ msgid "August"
 msgstr "Αύγουστος"
 
 msgid "September"
-msgstr "Σεπτέμβριος"
+msgstr "Σεπτέμβρης"
 
 msgid "October"
 msgstr "Οκτώβριος"
@@ -1157,39 +934,6 @@ msgstr "Νοέμβριος"
 
 msgid "December"
 msgstr "Δεκέμβριος"
-
-msgid "Jan"
-msgstr "Ιαν"
-
-msgid "Feb"
-msgstr "Φεβ"
-
-msgid "Mar"
-msgstr "Μάρ"
-
-msgid "Apr"
-msgstr "Απρ"
-
-msgid "Jun"
-msgstr "Ιούν"
-
-msgid "Jul"
-msgstr "Ιούλ"
-
-msgid "Aug"
-msgstr "Αύγ"
-
-msgid "Sep"
-msgstr "Σεπ"
-
-msgid "Oct"
-msgstr "Οκτ"
-
-msgid "Nov"
-msgstr "Νοέ"
-
-msgid "Dec"
-msgstr "Δεκ"
 
 msgid "D, F j, Y g:i a"
 msgstr "D, F j, Y g:i a"
@@ -1214,132 +958,178 @@ msgstr "M j, Y"
 
 #, c-format
 msgid "Preference database error (%s). Exiting abnormally"
-msgstr ""
+msgstr "Σφάλμα βάσης δεδομένων προτιμήσεων (%s). Μη ομαλή έξοδος"
 
 msgid "Unknown user or password incorrect."
-msgstr "Άγνωστος χρήστης ή λάθος κωδικός."
+msgstr "Άγνωστος χρήστης η εσφαλμένος κωδικός."
 
 msgid "Click here to try again"
-msgstr ""
+msgstr "Κάντε κλικ εδώ για να προσπαθήσετε πάλι"
 
 #, c-format
 msgid "Click here to return to %s"
-msgstr ""
+msgstr "Κάντε κλικ εδώ για να επιστρέψετε στο %s"
 
 msgid "Go to the login page"
-msgstr ""
+msgstr "Πηγαίνετε στην σελίδα σύνδεσης"
 
 #, c-format
-msgid "Preference file, %s, does not exist. Log out, and log back in to create a default preference file."
+msgid ""
+"Preference file, %s, does not exist. Log out, and log back in to create a "
+"default preference file."
 msgstr ""
+"Το αρχείο προτιμήσεων, %s, δεν υπάρχει. Αποσυνδεθείτε, και συνδεθείτε ξανά "
+"για να δημιουργήσετε ένα εξ ορισμού αρχείο προτιμήσεων."
 
 #, c-format
-msgid "Preference file, %s, could not be opened. Contact your system administrator to resolve this issue."
+msgid ""
+"Preference file, %s, could not be opened. Contact your system administrator "
+"to resolve this issue."
 msgstr ""
+"Το αρχείο προτιμήσεων, %s, δεν ήταν δυνατό να ανοιχθεί. Επικοινωνήστε με τον "
+"διαχειριστή του συστήματος για να επιλύσετε αυτό το θέμα."
 
 #, c-format
-msgid "Preference file, %s, could not be written. Contact your system administrator to resolve this issue."
+msgid ""
+"Preference file, %s, could not be written. Contact your system administrator "
+"to resolve this issue."
 msgstr ""
+"Το αρχείο προτιμήσεων, %s, δεν ήταν δυνατό να γραφτεί. Επικοινωνήστε με τον "
+"διαχειριστή του συστήματος για να επιλύσετε αυτό το θέμα."
 
 #, c-format
 msgid "Error opening %s"
-msgstr ""
+msgstr "Σφάλμα στο άνοιγμα %s"
 
 msgid "Default preference file not found or not readable!"
-msgstr ""
+msgstr "Το εξ ορισμού αρχείο προτιμήσεων δεν βρέθηκε ή δεν είναι αναγνώσιμο!"
 
 msgid "Please contact your system administrator and report this error."
 msgstr ""
+"Παρακαλώ επικοινωνήστε με τον διαχειριστή του συστήματος και αναφέρετε αυτό "
+"το σφάλμα."
 
 msgid "Could not create initial preference file!"
-msgstr ""
+msgstr "Δεν ήταν εφικτή η δημιουργία του αρχικού αρχείου προτιμήσεων!"
 
 #, c-format
 msgid "%s should be writable by user %s"
-msgstr ""
+msgstr "%s πρέπει να είναι εγγράψιμο από το χρήστη %s"
 
 #, c-format
-msgid "Signature file, %s, could not be opened. Contact your system administrator to resolve this issue."
+msgid ""
+"Signature file, %s, could not be opened. Contact your system administrator "
+"to resolve this issue."
 msgstr ""
+"Το αρχείο υπογραφής, %s, δεν ήταν δυνατό να ανοιχτεί. Επικοινωνήστε με τον "
+"διαχειριστή του συστήματος για να επιλύσετε αυτό το θέμα."
 
 #, c-format
-msgid "Signature file, %s, could not be written. Contact your system administrator to resolve this issue."
+msgid ""
+"Signature file, %s, could not be written. Contact your system administrator "
+"to resolve this issue."
 msgstr ""
+"Το αρχείο υπογραφής, %s, δεν ήταν δυνατό να γραφτεί. Επικοινωνήστε με τον "
+"διαχειριστή του συστήματος για να επιλύσετε αυτό το θέμα."
+
+msgid ""
+"You need to have php4 installed with the multibyte string function enabled "
+"(using configure option --with-mbstring)."
+msgstr ""
+"Πρέπει να έχετε εγκαταστήσει php4 με ενεργοποιημένη multibyte string function "
+"(χρήση επιλογής ρυθμίσεων --with-mbstring)"
+
+msgid "ERROR : No available imapstream."
+msgstr "ΣΦΑΛΜΑ : Μη διαθέσιμο imapstream."
 
 msgid "ERROR : Could not complete request."
-msgstr ""
+msgstr "ΣΦΑΛΜΑ: Δεν ήταν δυνατό να ολοκληρωθεί το αίτημα."
 
 msgid "Query:"
-msgstr ""
+msgstr "Εξερεύνηση:"
 
 msgid "Reason Given: "
-msgstr ""
+msgstr "Αιτιολογία που Δόθηκε:"
 
 msgid "ERROR : Bad or malformed request."
-msgstr ""
+msgstr "ΣΦΑΛΜΑ: Κακό η κακώς διαμορφωμένο."
 
 msgid "Server responded: "
-msgstr ""
+msgstr "Απόκριση του εξυπηρετητή:"
 
 #, c-format
 msgid "Error connecting to IMAP server: %s."
-msgstr ""
+msgstr "Σφάλμα σύνδεσης με τον εξυπηρετητή IMAP: %s."
 
 #, c-format
 msgid "Bad request: %s"
-msgstr ""
+msgstr "Κακό αίτημα: %s"
 
 #, c-format
 msgid "Unknown error: %s"
-msgstr ""
+msgstr "Άγνωστο σφάλμα: %s"
 
 msgid "Read data:"
+msgstr "Ανάγνωση δεδομένων:"
+
+msgid "ERROR : Could not append message to"
+msgstr "ΣΦΑΛΜΑ: Δεν ήταν δυνατό να προσαρτηθεί το μήνυμα"
+
+msgid "Solution: "
+msgstr "Λύση:"
+
+msgid ""
+"Remove unneccessary messages from your folder and start with your Trash "
+"folder."
 msgstr ""
+"Αφαιρέστε τα μη απαραίτητα μηνύματα από τον φάκελο σας και ξεκινήστε με "
+"τον φάκελο Διαγραμμένα."
 
 msgid "Unknown response from IMAP server: "
-msgstr ""
+msgstr "Άγνωστη απόκριση από τον εξυπηρετητή IMAP: "
 
 msgid "Unknown message number in reply from server: "
-msgstr ""
+msgstr "Άγνωστος αριθμός μηνυμάτων στην απόκριση από τον εξυπηρετητή: "
 
 msgid "(no subject)"
-msgstr ""
+msgstr "(κανένα θέμα)"
 
 msgid "Unknown Sender"
-msgstr ""
-
-msgid "No To Address"
-msgstr ""
+msgstr "Άγνωστος Αποστολέας"
 
 msgid "(unknown sender)"
-msgstr ""
+msgstr "(άγνωστος αποστολέας)"
 
-msgid "No Messages Found"
-msgstr ""
-
-msgid "Folder:"
-msgstr "Φάκελος:"
-
-msgid "Found"
-msgstr "Βρέθηκαν"
-
-msgid "messages"
-msgstr "μηνύματα"
+msgid "Unknown date"
+msgstr "Άγνωστη ημερομηνία"
 
 msgid "A"
-msgstr ""
+msgstr "Α"
 
-msgid "Server-side sorting is not supported by your IMAP server.<br>Please report this to the system administrator"
+msgid ""
+"Thread sorting is not supported by your IMAP server.<br>Please report this "
+"to the system administrator."
 msgstr ""
+"Ταξινόμηση thread από την πλευρά του εξυπηρετητή δεν υποστηρίζεται από τον "
+"εξυπηρετητή σας IMAP.<br>Παρακαλώ να το αναφέρετε στον διαχειριστή του "
+"συστήματος."
+
+msgid ""
+"Server-side sorting is not supported by your IMAP server.<br>Please report "
+"this to the system administrator."
+msgstr ""
+"Ταξινόμηση από την πλευρά του εξυπηρετητή δεν υποστηρίζεται από τον "
+"εξυπηρετητή σας IMAP.<br>Παρακαλώ να το αναφέρετε στον διαχειριστή του "
+"συστήματος."
 
 msgid "THIS FOLDER IS EMPTY"
 msgstr "ΑΥΤΟΣ Ο ΦΑΚΕΛΟΣ ΕΙΝΑΙ ΑΔΕΙΟΣ"
 
-msgid "Move Selected To:"
-msgstr ""
+msgid "Move Selected To"
+msgstr "Μετακίνηση Επιλεγμένων Σε:"
 
 msgid "Transform Selected Messages"
-msgstr "Αλλαγή Επιλεγμένων Μηνυμάτων"
+msgstr "Μετασχηματισμός Επιλεγμένων Μηνυμάτων"
 
 msgid "Move"
 msgstr "Μετακίνηση"
@@ -1348,86 +1138,83 @@ msgid "Expunge"
 msgstr "Εκκαθάριση"
 
 msgid "mailbox"
-msgstr ""
+msgstr "γραμματοκιβώτιο"
 
 msgid "Read"
-msgstr "Αναγνωσμένα"
+msgstr "Ανάγνωση"
 
 msgid "Unread"
-msgstr "Μη Αναγνωσμένα"
+msgstr "Αδιάβαστο"
 
-#, fuzzy
 msgid "Unthread View"
-msgstr "Μη Αναγνωσμένα"
+msgstr "Μη Εμφάνιση Αλληλουχίας"
 
 msgid "Thread View"
-msgstr ""
+msgstr "Εμφάνιση Αλληλουχίας"
 
 msgid "Toggle All"
-msgstr ""
+msgstr "Αναστροφή Όλων"
 
 msgid "Unselect All"
-msgstr ""
+msgstr "Απο-Επιλογή Όλων"
 
 msgid "Select All"
-msgstr ""
+msgstr "Επιλογή Όλων"
 
 #, c-format
 msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
-msgstr ""
+msgstr "Προβολή Μηνυμάτων: <B>%s</B> έως <B>%s</B> (%s σύνολο)"
 
 #, c-format
 msgid "Viewing Message: <B>%s</B> (1 total)"
-msgstr ""
+msgstr "Εμφάνιση μηνύματος: <B>%s</B> (1 σύνολο)"
 
 msgid "Paginate"
-msgstr ""
+msgstr "Σελιδοποίηση"
 
 msgid "Show All"
-msgstr ""
+msgstr "Εμφάνιση Όλων"
 
-msgid "Error decoding mime structure.  Report this as a bug!"
-msgstr ""
+msgid "SquirrelMail could not decode the bodystructure of the message"
+msgstr "Το SquirrelMail δεν μπόρεσε να αποκωδικοποιήσει την δομή του σώματος του μηνύματος"
 
-msgid "Body retrieval error. The reason for this is most probably that the message is malformed."
+msgid "the provided bodystructure by your imap-server"
+msgstr "η παρεχόμενη δομή σώματος από τον εξυπηρετητή σας IMAP"
+
+msgid ""
+"Body retrieval error. The reason for this is most probably that the message "
+"is malformed."
 msgstr ""
+"Σφάλμα ανάκτησης σώματος. Ο λόγος για αυτό είναι πιθανότατα ότι το μήνυμα "
+"είναι σε λάθος μορφή."
 
 msgid "Command:"
-msgstr ""
+msgstr "Εντολή:"
 
 msgid "Response:"
-msgstr ""
+msgstr "Απόκριση:"
 
 msgid "Message:"
 msgstr "Μήνυμα:"
 
 msgid "FETCH line:"
-msgstr ""
+msgstr "ΑΝΑΚΤΗΣΗ γραμμής:"
 
 msgid "Hide Unsafe Images"
-msgstr ""
+msgstr "Απόκρυψη Μη-ασφαλών Εικόνων"
 
 msgid "View Unsafe Images"
-msgstr ""
-
-msgid "Attachments"
-msgstr "Επισυνάψεις"
+msgstr "Εμφάνιση Μη-ασφαλών Εικόνων"
 
 msgid "download"
-msgstr ""
+msgstr "κατέβασμα"
 
 msgid "sec_remove_eng.png"
-msgstr ""
+msgstr "sec_remove_eng.png"
 
 #, c-format
 msgid "Option Type '%s' Not Found"
-msgstr ""
-
-msgid "Yes"
-msgstr "Ναι"
-
-msgid "No"
-msgstr "Όχι"
+msgstr "Τύπος Επιλογής '%s' Δεν Βρέθηκε"
 
 msgid "Current Folder"
 msgstr "Τρέχων Φάκελος"
@@ -1437,550 +1224,2185 @@ msgstr "Σύνθεση"
 
 #, c-format
 msgid "Error creating directory %s."
-msgstr ""
+msgstr "Σφάλμα στη δημιουργία του φακέλου %s."
 
 msgid "Could not create hashed directory structure!"
-msgstr ""
+msgstr "Δεν ήταν δυνατή η δημιουργία hashed δομής φακέλου!"
 
-msgid "COMMERCIAL - This list contains servers that are verified spam senders. It is a pretty reliable list to scan spam from."
-msgstr ""
+msgid "Service not available, closing channel"
+msgstr "Μη διαθέσιμη υπηρεσία, κλείσιμο διαύλου"
 
-msgid "COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to be relayed through their system will be banned with this.  Another good one to use."
-msgstr ""
+msgid "A password transition is needed"
+msgstr "Απαιτείται μετάβαση κωδικού"
 
-msgid "COMMERCIAL - Dial-up users are often filtered out since they should use their ISP's mail servers to send mail.  Spammers typically get a dial-up account and send spam directly from there."
+msgid "Requested mail action not taken: mailbox unavailable"
+msgstr "Η ενέργεια αλληλογραφίας που ζητήθηκε δεν έγινε: μη διαθέσιμο γραμματοκιβώτιο"
+
+msgid "Requested action aborted: error in processing"
+msgstr "Η ενέργεια που ζητήθηκε διακόπηκε: σφάλμα στην επεξεργασία"
+
+msgid "Requested action not taken: insufficient system storage"
+msgstr "Η ενέργεια που ζητήθηκε δεν εκτελέστηκε: μη επαρκής αποθηκευτικός χώρος στο σύστημα"
+
+msgid "Temporary authentication failure"
+msgstr "Προσωρινή αποτυχία πιστοποίησης ταυτότητας"
+
+msgid "Syntax error; command not recognized"
+msgstr "Συντακτικό σφάλμα, η εντολή δεν αναγνωρίζεται"
+
+msgid "Syntax error in parameters or arguments"
+msgstr "Συντακτικό σφάλμα στις παραμέτρους ή τα ορίσματα"
+
+msgid "Command not implemented"
+msgstr "Δεν έχει υλοποιηθεί η εντολή"
+
+msgid "Bad sequence of commands"
+msgstr "Κακή ακολουθία εντολών"
+
+msgid "Command parameter not implemented"
+msgstr "Η παράμετρος της εντολής δεν έχει υλοποιηθεί"
+
+msgid "Authentication required"
+msgstr "Απαιτείται πιστοποίηση ταυτότητας"
+
+msgid "Authentication mechanism is too weak"
+msgstr "Ο μηχανισμός πιστοποίησης ταυτότητας είναι υπερβολικά αδύναμος"
+
+msgid "Authentication failed"
+msgstr "Αποτυχία πιστοποίησης ταυτότητας"
+
+msgid "Encryption required for requested authentication mechanism"
+msgstr "Απαιτείται κρυπτογράφηση για τον μηχανισμό πιστοποίησης ταυτότητας που ζητήθηκε"
+
+msgid "Requested action not taken: mailbox unavailable"
+msgstr "Η ενέργεια που ζητήθηκε δεν εκτελέστηκε: μη διαθέσιμο γραμματοκιβώτιο"
+
+msgid "User not local; please try forwarding"
+msgstr "Μη τοπικός χρήστης, παρακαλώ δοκιμάστε προώθηση"
+
+msgid "Requested mail action aborted: exceeding storage allocation"
 msgstr ""
+"Η ενέργεια ταχυδρομείου που ζητήθηκε διακόπηκε: υπέρβαση "
+"διαθέσιμου αποθηκευτικού χώρου"
+
+msgid "Requested action not taken: mailbox name not allowed"
+msgstr "Η ενέργεια που ζητήθηκε δεν έγινε: δεν επιτρέπεται το όνομα γραμματοκιβωτίου "
+
+msgid "Transaction failed"
+msgstr "Αποτυχία συναλλαγής"
+
+msgid "Unknown response"
+msgstr "Άγνωστη Απόκριση"
+
+msgid "General Display Options"
+msgstr "Γενικές Επιλογές Εμφάνισης"
+
+msgid "Theme"
+msgstr "Θέμα Παρουσίασης"
+
+msgid "Default"
+msgstr "Εξ ορισμού"
+
+msgid "Custom Stylesheet"
+msgstr "Προσαρμοσμένο Στυλ"
+
+msgid "Language"
+msgstr "Γλώσσα"
+
+msgid "Use Javascript"
+msgstr "Χρήση Javascript"
+
+msgid "Autodetect"
+msgstr "Αυτόματος Εντοπισμός"
+
+msgid "Always"
+msgstr "Πάντα"
+
+msgid "Never"
+msgstr "Ποτέ"
+
+msgid "Mailbox Display Options"
+msgstr "Επιλογές Εμφάνισης Γραμματοκιβωτίου"
+
+msgid "Number of Messages to Index"
+msgstr "Αριθμός Μηνυμάτων στον Κατάλογο"
+
+msgid "Enable Alternating Row Colors"
+msgstr "Ενεργοποίηση Εναλλασσόμενων Χρωμάτων Γραμμών"
+
+msgid "Enable Page Selector"
+msgstr "Ενεργοποίηση Επιλογέα Σελίδων"
+
+msgid "Maximum Number of Pages to Show"
+msgstr "Μέγιστος Αριθμός Σελίδων για Εμφάνιση"
+
+msgid "Message Display and Composition"
+msgstr "Εμφάνιση Μηνύματος και Συγγραφής"
+
+msgid "Wrap Incoming Text At"
+msgstr "Αναδίπλωση Εισερχόμενου Κειμένου Σε"
+
+msgid "Size of Editor Window"
+msgstr "Μέγεθος Παραθύρου Επεξεργασίας"
+
+msgid "Location of Buttons when Composing"
+msgstr "Τοποθέτηση Κουμπιών κατά την Συγγραφή"
+
+msgid "Before headers"
+msgstr "Πριν τις κεφαλίδες"
+
+msgid "Between headers and message body"
+msgstr "Ανάμεσα στις κεφαλίδες και το σώμα του μηνύματος"
+
+msgid "After message body"
+msgstr "Μετά το σώμα του μηνύματος"
+
+msgid "Addressbook Display Format"
+msgstr "Μορφοποίηση Εμφάνισης Βιβλίου Διευθύνσεων"
+
+msgid "Javascript"
+msgstr "Javascript"
+
+msgid "HTML"
+msgstr "HTML"
+
+msgid "Show HTML Version by Default"
+msgstr "Εξ ορισμού Εμφάνιση Έκδοσης HTML"
+
+msgid "Enable Forward as Attachment"
+msgstr "Ενεργοποίηση Προώθησης ως Συνημμένου"
+
+msgid "Include CCs when Forwarding Messages"
+msgstr "Να συμπεριλαμβάνονται οι Κοινοποιήσεις όταν Προωθούνται Μηνύματα"
+
+msgid "Include Me in CC when I Reply All"
+msgstr "Να συμπεριλαμβάνομαι στο Κοινοποίηση όταν Απαντώ Προς Όλους"
+
+msgid "Enable Mailer Display"
+msgstr "Ενεργοποίηση Εμφάνισης Ταχυδρόμου"
+
+msgid "Display Attached Images with Message"
+msgstr "Εμφάνιση Συνημμένων Εικόνων με το Μήνυμα"
+
+msgid "Enable Printer Friendly Clean Display"
+msgstr "Ενεργοποίηση Καθαρής Εμφάνισης Φιλικής Εκτύπωσης"
+
+msgid "Enable Mail Delivery Notification"
+msgstr "Ενεργοποίηση Ειδοποίησης Παράδοσης Αλληλογραφίας"
+
+msgid "Compose Messages in New Window"
+msgstr "Πάντα Σύνθεση σε Νέο Παράθυρο"
+
+msgid "Width of Compose Window"
+msgstr "Πλάτος Παραθύρου Σύνθεσης"
+
+msgid "Height of Compose Window"
+msgstr "Ύψος Παραθύρου Σύνθεσης"
+
+msgid "Append Signature before Reply/Forward Text"
+msgstr "Προσάρτηση υπογραφής πριν το Κείμενο Απάντησης/Προώθησης"
+
+msgid "Enable Sort by of Receive Date"
+msgstr "Ενεργοποίηση Ταξινόμησης με Ημερομηνία Παραλαβής"
+
+msgid "Enable Thread Sort by References Header"
+msgstr "Ενεργοποίηση Ταξινόμησης Thread σύμφωνα με Κεφαλίδα Αναφορών"
+
+msgid "Special Folder Options"
+msgstr "Ειδικές Επιλογές Φακέλων"
+
+msgid "Folder Path"
+msgstr "Διαδρομή Φακέλου"
+
+msgid "Do not use Trash"
+msgstr "Να μην χρησιμοποιηθεί το Διαγραμμένα"
+
+msgid "Trash Folder"
+msgstr "Φάκελος Διαγραμμένα"
+
+msgid "Do not use Sent"
+msgstr "Να μην χρησιμοποιηθεί το Απεσταλμένα"
+
+msgid "Sent Folder"
+msgstr "Φάκελος Απεσταλμένα"
+
+msgid "Do not use Drafts"
+msgstr "Να μην χρησιμοποιηθεί το Πρόχειρα"
+
+msgid "Draft Folder"
+msgstr "Φάκελος Πρόχειρα"
+
+msgid "Folder List Options"
+msgstr "Επιλογές Λίστας Φακέλων"
+
+msgid "Location of Folder List"
+msgstr "Τοποθεσία Λίστας Φακέλων"
+
+msgid "Left"
+msgstr "Αριστερά"
+
+msgid "Right"
+msgstr "Δεξιά"
+
+msgid "pixels"
+msgstr "pixels"
+
+msgid "Width of Folder List"
+msgstr "Πλάτος Λίστας Φακέλων"
+
+msgid "Minutes"
+msgstr "Λεπτά"
+
+msgid "Seconds"
+msgstr "Δευτερόλεπτα"
+
+msgid "Minute"
+msgstr "Λεπτό"
+
+msgid "Auto Refresh Folder List"
+msgstr "Αυτόματη Ανανέωση Λίστας Φακέλων"
+
+msgid "Enable Unread Message Notification"
+msgstr "Ενεργοποίηση Ειδοποίησης Μη-Αναγνωσμένων Μηνυμάτων"
+
+msgid "No Notification"
+msgstr "Καμία Ειδοποίηση"
+
+msgid "Only INBOX"
+msgstr "Μόνο ΕΙΣΕΡΧΟΜΕΝΑ"
+
+msgid "Unread Message Notification Type"
+msgstr "Είδος Ειδοποίησης Μη-Αναγνωσμένων Μηνυμάτων"
+
+msgid "Only Unseen"
+msgstr "Μόνο όσα δεν έχουν Κοιταχτεί"
+
+msgid "Unseen and Total"
+msgstr "Όσα δεν έχουν κοιταχτεί και Συνολικά"
+
+msgid "Enable Collapsable Folders"
+msgstr "Ενεργοποίηση Πτυσσόμενων Φακέλων"
+
+msgid "Enable Cumulative Unread Message Notification"
+msgstr "Ενεργοποίηση Συσωρρευμένης Ειδοποίησης Μη-Αναγνωσμένων Μηνυμάτων"
+
+msgid "Show Clock on Folders Panel"
+msgstr "Εμφάνιση Ρολογιού στο Πάνελ των Φακέλων"
+
+msgid "No Clock"
+msgstr "Όχι Ρολόι"
+
+msgid "Hour Format"
+msgstr "Μορφή Ώρας"
+
+msgid "12-hour clock"
+msgstr "Ρολόι 12-ωρών"
+
+msgid "24-hour clock"
+msgstr "Ρολόι 24-ωρών"
+
+msgid "Memory Search"
+msgstr "Αναζήτηση Μνήμης"
+
+msgid "Disabled"
+msgstr "Απενεργοποιημένο"
+
+msgid "Folder Selection Options"
+msgstr "Προτιμήσεις Επιλογής Φακέλων"
+
+msgid "Selection List Style"
+msgstr "Στυλ Λίστας Επιλογής"
+
+msgid "Long: "
+msgstr "Μήκος:"
+
+msgid "Indented: "
+msgstr "Με εσοχή:"
+
+msgid "Delimited: "
+msgstr "Διαχωρισμένο:"
+
+msgid "Name and Address Options"
+msgstr "Επιλογές Ονόματος και Διεύθυνσης"
+
+msgid "Email Address"
+msgstr "Διεύθυνση Email"
+
+msgid "Edit Advanced Identities"
+msgstr "Επεξεργασία Προχωρημένων Ταυτοτήτων"
+
+msgid "(discards changes made on this form so far)"
+msgstr "(απορρίπτει αλλαγές που έχουν γίνει μέχρι τώρα σε αυτή τη φόρμα)"
+
+msgid "Multiple Identities"
+msgstr "Πολλαπλές Ταυτότητες"
+
+msgid "Same as server"
+msgstr "Το ίδιο με τον Εξυπηρετητή (Server)"
+
+msgid "Error opening timezone config, contact administrator."
+msgstr "Σφάλμα στο άνοιγμα ρυθμίσεων της ζώνης ώρας, επικοινωνήστε με τον διαχειριστή."
+
+msgid "Timezone Options"
+msgstr "Επιλογές Ζώνης Ώρας"
+
+msgid "Your current timezone"
+msgstr "Η τρέχουσα ζώνη της ώρας σας"
+
+msgid "Reply Citation Options"
+msgstr "Επιλογές Αναφοράς Απάντησης"
+
+msgid "Reply Citation Style"
+msgstr "Στυλ Αναφοράς Απάντησης"
+
+msgid "No Citation"
+msgstr "Καμία Αναφορά"
+
+msgid "AUTHOR Said"
+msgstr "Ο ΣΥΓΓΡΑΦΕΑΣ Είπε"
+
+msgid "Quote Who XML"
+msgstr "Ανέφερε Ποιός XML"
+
+msgid "User-Defined"
+msgstr "Ορισμού από Χρήστη"
+
+msgid "User-Defined Citation Start"
+msgstr "Αρχή Αναφοράς Ορισμού από Χρήστη"
+
+msgid "User-Defined Citation End"
+msgstr "Τέλος Αναφοράς Ορισμού από Χρήστη"
+
+msgid "Signature Options"
+msgstr "Επιλογές Υπογραφής"
+
+msgid "Use Signature"
+msgstr "Χρήση Υπογραφής"
+
+msgid "Prefix Signature with '-- ' Line"
+msgstr "Πρόθεμα Υπογραφής με Γραμμή '-- '"
+
+msgid "Take Address"
+msgstr "Λήψη Διεύθυνσης"
+
+msgid "Address Book Take:"
+msgstr "Βιβλίο Διευθύνσεων Λήψη:"
+
+msgid "Try to verify addresses"
+msgstr "Προσπάθεια εξακρίβωσης διεύθυνσης"
+
+msgid "Config File Version"
+msgstr "Έκδοση Αρχείου Προσαρμογής (config)"
+
+msgid "Squirrelmail Version"
+msgstr "Έκδοση Squirrelmail"
+
+msgid "PHP Version"
+msgstr "Έκδοση PHP"
+
+msgid "Organization Preferences"
+msgstr "Προτιμήσεις Οργανισμού"
+
+msgid "Organization Name"
+msgstr "Όνομα Οργανισμού"
+
+msgid "Organization Logo"
+msgstr "Λογότυπο Οργανισμού"
+
+msgid "Organization Logo Width"
+msgstr "Πλάτος Λογότυπου Οργανισμού"
+
+msgid "Organization Logo Height"
+msgstr "Ύψος Λογότυπου Οργανισμού"
+
+msgid "Organization Title"
+msgstr "Τίτλος Οργανισμού"
+
+msgid "Signout Page"
+msgstr "Σελίδα Εξόδου"
+
+msgid "Provider Link URI"
+msgstr "Δεσμός URI Παροχέα"
+
+msgid "Provider Name"
+msgstr "Όνομα Παροχέα"
+
+msgid "Default Language"
+msgstr "Εξ ορισμού Γλώσσα"
+
+msgid "Top Frame"
+msgstr "Πλαίσιο Κορυφής"
+
+msgid "Server Settings"
+msgstr "Επιλογές Εξυπηρετητή"
+
+msgid "Mail Domain"
+msgstr "Τομέας Ηλεκτρονικού Ταχυδρομείου"
+
+msgid "IMAP Server Address"
+msgstr "Διεύθυνση εξυπηρετητή IMAP"
+
+msgid "IMAP Server Port"
+msgstr "Θύρα εξυπηρετητή IMAP"
+
+msgid "IMAP Server Type"
+msgstr "Τύπος Εξυπηρετητή IMAP"
+
+msgid "Cyrus IMAP server"
+msgstr "Εξυπηρετητής Cyrus IMAP"
+
+msgid "University of Washington's IMAP server"
+msgstr "Εξυπηρετητής IMAP University of Washington"
+
+msgid "Microsoft Exchange IMAP server"
+msgstr "Εξυπηρετητής Microsoft Exchange IMAP"
+
+msgid "Courier IMAP server"
+msgstr "Εξυπηρετητής Courier IMAP"
+
+msgid "Not one of the above servers"
+msgstr "Όχι κάποιος από τους παραπάνω εξυπηρετητές"
+
+msgid "IMAP Folder Delimiter"
+msgstr "Διακριτικό Σύμβολο (Delimiter) Φακέλου IMAP"
+
+msgid "Use \"detect\" to auto-detect."
+msgstr "Χρήση \"εντοπισμός\" για αυτόματο εντοπισμό."
+
+msgid "Use TLS for IMAP Connections"
+msgstr "Χρήση TLS για IMAP Συνδέσεις"
+
+msgid "Requires PHP 4.3.x! Experimental."
+msgstr "Απαιτεί PHP 4.3.x! Πειραματικό."
+
+msgid "IMAP Authentication Type"
+msgstr "Τύπος πιστοποίησης ταυτότητας IMAP"
+
+msgid "Use Sendmail Binary"
+msgstr "Χρήση Sendmail Binary"
+
+msgid "Sendmail Path"
+msgstr "Διαδρομή του Sendmail"
+
+msgid "SMTP Server Address"
+msgstr "Διεύθυνση Εξυπηρετητή SMTP"
+
+msgid "SMTP Server Port"
+msgstr "Θύρα SMTP του Εξυπηρετητή"
+
+msgid "Use TLS for SMTP Connections"
+msgstr "Χρήση TLS για SMTP Συνδέσεις"
+
+msgid "SMTP Authentication Type"
+msgstr "Τύπος πιστοποίησης ταυτότητας SMTP"
+
+msgid "POP3 Before SMTP?"
+msgstr "POP3 πριν SMTP;"
+
+msgid "Invert Time"
+msgstr "Αναστροφή Χρόνου"
+
+msgid "Use Confirmation Flags"
+msgstr "Χρήση Σημαιών Επιβεβαίωσης"
+
+msgid "Folders Defaults"
+msgstr "Εξ ορισμού επιλογές Φακέλων"
+
+msgid "Default Folder Prefix"
+msgstr "Εξ ορισμού Πρόθεμα Φακέλου"
+
+msgid "Show Folder Prefix Option"
+msgstr "Εμφάνιση Επιλογής Προθέματος Φακέλου"
+
+msgid "By default, move to trash"
+msgstr "Εξ ορισμού μετακίνηση στα διαγραμμένα"
+
+msgid "By default, move to sent"
+msgstr "Εξ ορισμού μετακίνηση στα απεσταλμένα"
+
+msgid "By default, save as draft"
+msgstr "Εξ ορισμού αποθήκευση ως πρόχειρο"
+
+msgid "List Special Folders First"
+msgstr "Εμφάνιση Πρώτα των Ειδικών Φακέλων"
+
+msgid "Show Special Folders Color"
+msgstr "Εμφάνιση Χρώματος Ειδικών Φακέλων"
+
+msgid "Auto Expunge"
+msgstr "Auto Expunge"
+
+msgid "Default Sub. of INBOX"
+msgstr "Εξ ορισμού Υπό. του ΕΙΣΕΡΧΟΜΕΝΑ"
+
+msgid "Show 'Contain Sub.' Option"
+msgstr "Εμφάνιση Επιλογής 'Περιέχει Υπο.'"
+
+msgid "Default Unseen Notify"
+msgstr "Εξ ορισμού Ενημέρωση Μη-Ορατού"
+
+msgid "Default Unseen Type"
+msgstr "Εξ ορισμού Τύπος Μη-Ορατού"
+
+msgid "Auto Create Special Folders"
+msgstr "Αυτόματη Δημιουργία Ειδικών Φακέλων"
+
+msgid "Default Javascript Adrressbook"
+msgstr "Εξ ορισμού Βιβλίο Διευθύνσεων Javascript"
+
+msgid "Auto delete folders"
+msgstr "Αυτόματη διαγραφή φακέλων"
+
+msgid "Enable /NoSelect folder fix"
+msgstr "Ενεργοποίηση / Μη Επιλογή επιδιόρθωσης φακέλων"
+
+msgid "General Options"
+msgstr "Γενικές Επιλογές"
+
+msgid "Default Charset"
+msgstr "Εξ ορισμού Σύνολο Χαρακτήρων"
+
+msgid "Data Directory"
+msgstr "Φάκελος Δεδομένων"
+
+msgid "Temp Directory"
+msgstr "Προσωρινός Φάκελος"
+
+msgid "Hash Level"
+msgstr "Επίπεδο Hash"
+
+msgid "Hash Disabled"
+msgstr "Απενεργοποίηση Hash "
+
+msgid "Moderate"
+msgstr "Ελαφρό"
+
+msgid "Medium"
+msgstr "Μέσο"
+
+msgid "Default Left Size"
+msgstr "Εξ ορισμού Αριστερό Μέγεθος"
+
+msgid "Usernames in Lowercase"
+msgstr "Ονόματα χρηστών με πεζά"
+
+msgid "Allow use of priority"
+msgstr "Επέτρεψε χρήση προτεραιότητας"
+
+msgid "Hide SM attributions"
+msgstr "Απόκρυψη SM attributions"
+
+msgid "Enable use of delivery receipts"
+msgstr "Ενεργοποίηση χρήσης αποδείξεων παραλαβής"
+
+msgid "Allow editing of identities"
+msgstr "Επέτρεψε επεξεργασία ταυτοτήτων"
+
+msgid "Allow editing of full name"
+msgstr "Επέτρεψε επεξεργασία πλήρους ονόματος"
+
+msgid "Use server-side sorting"
+msgstr "Χρήση ταξινόμησης από τον εξυπηρετητή"
+
+msgid "Use server-side thread sorting"
+msgstr "Χρήση ταξινόμησης thread από τον εξυπηρετητή"
+
+msgid "Allow server charset search"
+msgstr "Επέτρεψε αναζήτηση συνόλου χαρακτήρων εξυπηρετητή"
+
+msgid "UID support"
+msgstr "Υποστήριξη UID"
+
+msgid "PHP session name"
+msgstr "Όνομα συνεδρίας PHP"
+
+msgid "Message of the Day"
+msgstr "Μήνυμα της Ημέρας"
+
+msgid "Database"
+msgstr "Βάση δεδομένων"
+
+msgid "Address book DSN"
+msgstr "DSN βιβλίου διευθύνσεων"
+
+msgid "Address book table"
+msgstr "Πίνακας βιβλίου διευθύνσεων"
+
+msgid "Preferences DSN"
+msgstr "Προτιμήσεις DSN"
+
+msgid "Preferences table"
+msgstr "Πίνακας προτιμήσεων"
+
+msgid "Preferences username field"
+msgstr "Πεδίο ονόματος χρήστη προτιμήσεων"
+
+msgid "Preferences key field"
+msgstr "Πεδίο κλειδιών προτιμήσεων"
+
+msgid "Preferences value field"
+msgstr "Πεδίο τιμής προτιμήσεων"
+
+msgid "Themes"
+msgstr "Θέματα"
+
+msgid "Style Sheet URL (css)"
+msgstr "Style Sheet URL (css)"
+
+msgid "Default theme"
+msgstr "Εξ ορισμού Θέμα"
+
+msgid "Use index number of theme"
+msgstr "Χρήση αριθμού καταλόγου του Θέματος"
+
+msgid "Configuration Administrator"
+msgstr "Διαχειριστής Ρυθμίσεων"
+
+msgid "Theme Name"
+msgstr "Όνομα Θέματος"
+
+msgid "Theme Path"
+msgstr "Διαδρομή Θέματος"
+
+msgid "Plugins"
+msgstr "Πρόσθετα"
+
+msgid "Change Settings"
+msgstr "Αλλαγή Ρυθμίσεων"
+
+msgid "Config file can't be opened. Please check config.php."
+msgstr "Το αρχείο ρυθμίσεων δεν μπορεί να ανοιχθεί. Παρακαλώ ελέγξτε το config.php."
+
+msgid "Administration"
+msgstr "Διαχείριση"
+
+msgid ""
+"This module allows administrators to manage SquirrelMail main configuration "
+"remotely."
+msgstr ""
+"Αυτό το πακέτο (module) επιτρέπει στους Διαχειριστές να διαχειρίζονται την "
+"κεντρική διαμόρφωση του SquirrelMail από απόσταση."
+
+msgid "Bug Reports:"
+msgstr "Αναφορές Σφαλμάτων (bug):"
+
+msgid "Show button in toolbar"
+msgstr "Εμφάνιση button στη γραμμή εργαλείων"
+
+msgid "TODAY"
+msgstr "ΣΗΜΕΡΑ"
+
+msgid "Go"
+msgstr "Πήγαινε"
+
+msgid "l, F j Y"
+msgstr "l, F j Y"
+
+msgid "ADD"
+msgstr "ΠΡΟΣΘΗΚΗ"
+
+msgid "EDIT"
+msgstr "ΕΠΕΞΕΡΓΑΣΙΑ"
+
+msgid "DEL"
+msgstr "ΔΙΑΓΡΑΦΗ"
+
+msgid "Start time:"
+msgstr "Χρόνος έναρξης:"
+
+msgid "Length:"
+msgstr "Μήκος (Διάρκεια):"
+
+msgid "Priority:"
+msgstr "Προτεραιότητα:"
+
+msgid "Title:"
+msgstr "Τίτλος:"
+
+msgid "Set Event"
+msgstr "Ορισμός Συμβάντος"
+
+msgid "Event Has been added!"
+msgstr "Το συμβάν προστέθηκε!"
+
+msgid "Date:"
+msgstr "Ημερομηνία:"
+
+msgid "Time:"
+msgstr "Ώρα:"
+
+msgid "Day View"
+msgstr "Ημερήσια Εμφάνιση"
+
+msgid "Do you really want to delete this event?"
+msgstr "Θέλετε πράγματι να διαγράψετε αυτό το συμβάν;"
+
+msgid "Event deleted!"
+msgstr "Το Συμβάν Διαγράφηκε!"
+
+msgid "Nothing to delete!"
+msgstr "Τίποτα προς διαγραφή!"
+
+msgid "Update Event"
+msgstr "Ενημέρωση Συμβάντος"
+
+msgid "Do you really want to change this event from:"
+msgstr "Θέλετε πράγματι να αλλάξετε αυτό το συμβάν από:"
+
+msgid "to:"
+msgstr "προς:"
+
+msgid "Event updated!"
+msgstr "Ενημέρωση Συμβάντος!"
+
+msgid "Month View"
+msgstr "Μηνιαία Εμφάνιση"
+
+msgid "0 min."
+msgstr "0 λεπτά"
+
+msgid "15 min."
+msgstr "15 λεπτά"
+
+msgid "35 min."
+msgstr "35 λεπτά"
+
+msgid "45 min."
+msgstr "45 λεπτά"
+
+msgid "1 hr."
+msgstr "1 ώρα"
+
+msgid "1.5 hr."
+msgstr "1.5 ώρες"
+
+msgid "2 hr."
+msgstr "2 ώρες"
+
+msgid "2.5 hr."
+msgstr "2.5 ώρες"
+
+msgid "3 hr."
+msgstr "3 ώρες"
+
+msgid "3.5 hr."
+msgstr "3.5 ώρες"
+
+msgid "4 hr."
+msgstr "4 ώρες"
+
+msgid "5 hr."
+msgstr "5 ώρες"
+
+msgid "6 hr."
+msgstr "6 ώρες"
+
+msgid "Calendar"
+msgstr "Ημερολόγιο"
+
+msgid "Delete & Prev"
+msgstr "Διαγραφή & Προηγ."
+
+msgid "Delete & Next"
+msgstr "Διαγραφή & Επόμενο"
+
+msgid "Move to:"
+msgstr "Μετακίνηση σε:"
+
+msgid "Delete/Move/Next Buttons:"
+msgstr "Κουμπιά Διαγραφή/Μετακίνηση/Επόμενο:"
+
+msgid "Display at top"
+msgstr "Εμφάνιση στην κορυφή"
+
+msgid "with move option"
+msgstr "με την επιλογή μετακίνησης"
+
+msgid "Display at bottom"
+msgstr "Εμφάνιση στο τέρμα "
+
+msgid ""
+"COMMERCIAL - This list contains servers that are verified spam senders. It "
+"is a pretty reliable list to scan spam from."
+msgstr ""
+"ΕΜΠΟΡΙΚΗ - Αυτή η λίστα περιλαμβάνει εξυπηρετητές οι οποίοι έχουν "
+"εξακριβωθεί ως αποστολείς κακόβουλου (spam) ηλεκτρονικού ταχυδρομείου. Είναι "
+"αρκετά αξιόπιστη λίστα για να ανιχνεύσετε κακόβουλα μηνύματα."
+
+msgid ""
+"COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
+"be relayed through their system will be banned with this.  Another good one "
+"to use."
+msgstr ""
+"ΕΜΠΟΡΙΚΗ - Εξυπηρετητές που έχουν ρυθμιστεί (ή κακο-ρυθμιστεί) να επιτρέπουν "
+"κακόβουλα (spam) μηνύματα να αναμεταδίδονται διαμέσου του συστήματος θα "
+"αποκλείονται με αυτή την επιλογή.  Ακόμη μία καλή επιλογή προς χρήση."
+
+msgid ""
+"COMMERCIAL - Dial-up users are often filtered out since they should use "
+"their ISP's mail servers to send mail.  Spammers typically get a dial-up "
+"account and send spam directly from there."
+msgstr ""
+"ΕΜΠΟΡΙΚΗ - Χρήστες dial-up συνδέσεων αποκλείονται αφού πρέπει να "
+"χρησιμοποιούν τους εξυπηρετητές ηλεκτρονικού ταχυδρομείου του παροχέα "
+"πρόσβασης (ISP) που χρησιμοποιούν. Οι αποστολείς κακόβουλου ηλεκτρονικού "
+"ταχυδρομείου (spam) συνήθως παίρνουν ένα λογαριασμό dial-up πρόσβασης και "
+"αποστέλλουν κακόβουλο ηλεκτρονικό ταχυδρομείο απευθείας από αυτόν. "
 
 msgid "COMMERCIAL - RBL+ Blackhole entries."
-msgstr ""
+msgstr "ΕΜΠΟΡΙΚΗ - RBL + Εγγραφές \"μαύρης τρύπας\""
 
 msgid "COMMERCIAL - RBL+ OpenRelay entries."
-msgstr ""
+msgstr "ΕΜΠΟΡΙΚΗ - RBL+ Εγγραφές  OpenRelay."
 
 msgid "COMMERCIAL - RBL+ Dial-up entries."
-msgstr ""
+msgstr "ΕΜΠΟΡΙΚΗ  - RBL+ Εγγραφές Dial-up."
 
-msgid "FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to include servers used by abuse@uunet.net auto-replies too."
+msgid ""
+"FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
+"include servers used by abuse@uunet.net auto-replies too."
 msgstr ""
+"ΔΩΡΕΑΝ- Osirusoft Relays - Η λίστα των διαπιστωμένων ανοικτών αναμεταδόσεων "
+"Osirusoft . Φαίνεται να περιλαμβάνει εξυπηρετητές που χρησιμοποιούνται και "
+"από το abuse@uunet.net auto-replies."
 
 msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
 msgstr ""
+"ΔΩΡΕΑΝ - Osirusoft Dialups - Η λίστα κακόβουλου ηλεκτρονικού ταχυδρομείου "
+"dialup πρόσβασης Osirusoft."
 
-msgid "FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and have been manually added after multiple nominations. Use with caution. Seems to catch abuse auto-replies from some ISPs."
+msgid ""
+"FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
+"have been manually added after multiple nominations. Use with caution. Seems "
+"to catch abuse auto-replies from some ISPs."
 msgstr ""
+"ΔΩΡΕΑΝ - Πηγή Επιβεβαιωμένης Κακόβουλης Αλληλογραφίας Osirusoft -  Κόμβοι "
+"που συνεχώς στέλνουν κακόβουλη αλληλογραφία και έχουν προστεθεί με το χέρι "
+"μετά από πολλαπλές συστάσεις. Χρησιμοποιήστε με προσοχή. Φαίνεται να πιάνει "
+"κατάχρηση αυτόματης-απάντησης από μερικούς παροχείς πρόσβασης (ISPs)."
 
-msgid "FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for other mail servers that are not secure."
+msgid ""
+"FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
+"other mail servers that are not secure."
 msgstr ""
+"ΔΩΡΕΑΝ - Osirusoft Smart Hosts - Λίστες εξυπηρετητών που είναι ασφαλείς αλλά "
+"αναδιανέμουν προς άλλους εξυπηρετητές ηλεκτρονικού ταχυδρομείου που δεν "
+"είναι ασφαλείς."
 
-msgid "FREE - Osirusoft Spamware Developers - It is believed that these are IP ranges of companies that are known to produce spam software. Seems to catch abuse auto-replies from some ISPs."
+msgid ""
+"FREE - Osirusoft Spamware Developers - It is believed that these are IP "
+"ranges of companies that are known to produce spam software. Seems to catch "
+"abuse auto-replies from some ISPs."
 msgstr ""
+"ΔΩΡΕΑΝ - Osirusoft Spamware Developers - Πιστεύεται ότι αυτές είναι περιοχές "
+"διευθύνσεων IP από εταιρείες που είναι γνωστές ότι παράγουν κακόβουλο "
+"λογισμικό.  Φαίνεται να πιάνει κατάχρηση αυτόματης-απάντησης από μερικούς "
+"παροχείς πρόσβασης (ISPs)."
 
-msgid "FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt users in without confirmation."
+msgid ""
+"FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
+"users in without confirmation."
 msgstr ""
+"ΔΩΡΕΑΝ - Osirusoft Unconfirmed OptIn Servers - Λίστα εξυπηρετητών με λίστες "
+"ηλεκτρονικού ταχυδρομείου που επιτρέπουν πρόσβαση στους χρήστες χωρίς "
+"επιβεβαίωση."
 
-msgid "FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail.cgi scripts. (planned)."
+msgid ""
+"FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail."
+"cgi scripts. (planned)."
 msgstr ""
+"ΔΩΡΕΑΝ - Osirusoft Μη-ασφαλή formmail.cgi scripts - Λίστα μη-ασφαλών  "
+"formmail.cgi scripts. (προγραμματισμένο)."
 
 msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
 msgstr ""
+"ΔΩΡΕΑΝ - Osirusoft Ανοιχτοί Proxy Εξυπηρετητές - Λίστα Ανοιχτών Proxy "
+"Εξυπηρετητών."
 
-msgid "FREE - ORDB was born when ORBS went off the air. It seems to have fewer false positives than ORBS did though."
+msgid ""
+"FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
+"false positives than ORBS did though."
 msgstr ""
+"ΔΩΡΕΑΝ - Το ORDB γεννήθηκε όταν το ORBS βγήκε στον αέρα. Φαίνεται όμως να "
+"έχει λιγότερες λανθασμένες θετικές εγγραφές από αυτές που είχε το ORBS."
 
 msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
-msgstr ""
+msgstr "ΔΩΡΕΑΝ - Five-Ten-sg.com - Άμεσες πηγές κακόβουλου ταχυδρομείου (SPAM)."
 
 msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
 msgstr ""
+"ΔΩΡΕΑΝ - Five-Ten-sg.com - Λίστες Dial-up - περιλαμβάνει μερικές IP-"
+"διευθύνσεις με DSL."
 
 msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
 msgstr ""
+"ΔΩΡΕΑΝ - Five-Ten-sg.com - Μαζικοί ταχυδρομητές που δεν χρησιμοποιούν "
+"επιβεβαιωμένη είσοδο (opt-in)."
 
 msgid "FREE - Five-Ten-sg.com - Other misc. servers."
-msgstr ""
+msgstr "ΔΩΡΕΑΝ - Five-Ten-sg.com - Άλλοι διάφοροι εξυπηρετητές."
 
 msgid "FREE - Five-Ten-sg.com - Single Stage servers."
-msgstr ""
+msgstr "ΔΩΡΕΑΝ - Five-Ten-sg.com - Single Stage εξυπηρετητές."
 
 msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
 msgstr ""
+"ΔΩΡΕΑΝ - Five-Ten-sg.com - Εξυπηρετητές υποστήριξης κακόβουλου ταχυδρομείου "
+"(SPAM)."
 
 msgid "FREE - Five-Ten-sg.com - Web Form IPs."
-msgstr ""
+msgstr "ΔΩΡΕΑΝ - Five-Ten-sg.com - Διευθύνσεις IP με Web Form."
 
-msgid "FREE - Dorkslayers appears to include only really bad open relays outside the US to avoid being sued. Interestingly enough, their website recommends you NOT use their service."
+msgid ""
+"FREE - Dorkslayers appears to include only really bad open relays outside "
+"the US to avoid being sued. Interestingly enough, their website recommends "
+"you NOT use their service."
 msgstr ""
+"ΔΩΡΕΑΝ - Dorkslayers φαίνεται να συμπεριλαμβάνει πραγματικά άσχημα ανοικτούς "
+"αναδιανομείς ταχυδρομείου εκτός των ΗΠΑ προς αποφυγή δικαστικών αγωγών. "
+"Είναι αρκετά ενδιαφέρον το ότι η ιστοσελίδες τους συστήνουν να ΜΗΝ "
+"χρησιμοποιήσετε την υπηρεσία τους."
 
 msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
-msgstr ""
+msgstr "ΔΩΡΕΑΝ - SPAMhaus - Λίστα γνωστών πηγών κακόβουλου ταχυδρομείου (SPAM)."
 
 #, c-format
-msgid "FREE, for now - SPAMCOP - An interesting solution that lists servers that have a very high spam to legit email ratio (85% or more)."
+msgid ""
+"FREE, for now - SPAMCOP - An interesting solution that lists servers that "
+"have a very high spam to legit email ratio (85% or more)."
 msgstr ""
+"ΔΩΡΕΑΝ, προς το παρόν - SPAMCOP - Ενδιαφέρουσα λύση που αναφέρει "
+"εξυπηρετητές που έχουν υψηλό ποσοστό κακόβουλου (spam) προς κανονικό-"
+"ταχυδρομείο (85% or more)."
 
 msgid "FREE - dev.null.dk - I don't have any detailed info on this list."
 msgstr ""
+"ΔΩΡΕΑΝ - dev.null.dk - Δεν υπάρχουν λεπτομερείς πληροφορίες για αυτή τη "
+"λίστα."
 
 msgid "FREE - visi.com - Relay Stop List. Very conservative OpenRelay List."
-msgstr ""
+msgstr "ΔΩΡΕΑΝ - visi.com - Relay Stop Λίστα. Πολύ συντηρητική λίστα OpenRelay."
 
 msgid "FREE - 2mbit.com Open Relays - Another list of Open Relays."
-msgstr ""
+msgstr "ΔΩΡΕΑΝ - 2mbit.com Ανοιχτά Relays - Άλλη λίστα για Open Relays."
 
 msgid "FREE - 2mbit.com SPAM Source - List of Direct SPAM Sources."
 msgstr ""
+"ΔΩΡΕΑΝ - 2mbit.com SPAM Source - Λίστα άμεσων πηγών κακόβουλου ταχυδρομείου "
+"(SPAM)."
 
 msgid "FREE - 2mbit.com SPAM ISPs - List of SPAM-friendly ISPs."
 msgstr ""
+"ΔΩΡΕΑΝ - 2mbit.com SPAM ISPs - Λίστα φιλικών προς κακόβουλο ταχυδρομείο "
+"(SPAM)- παροχέων πρόσβασης ISPs."
 
-msgid "FREE - Leadmon DUL - Another list of Dial-up or otherwise dynamically assigned IPs."
+msgid ""
+"FREE - Leadmon DUL - Another list of Dial-up or otherwise dynamically "
+"assigned IPs."
 msgstr ""
+"ΔΩΡΕΑΝ - Leadmon DUL - Άλλη λίστα Dial-up ή αλλιώς, δυναμικά αποδιδόμενων "
+"διευθύνσεων IP."
 
-msgid "FREE - Leadmon SPAM Source - List of IPs Leadmon.net has received SPAM directly from."
+msgid ""
+"FREE - Leadmon SPAM Source - List of IPs Leadmon.net has received SPAM "
+"directly from."
 msgstr ""
+"ΔΩΡΕΑΝ - Leadmon Πηγή SPAM  - Λίστα με IP διευθύνσεις από τις οποίες το "
+"Leadmon.net έχει λάβει απ'ευθείας κακόβουλο ταχυδρομείο (SPAM)."
 
-msgid "FREE - Leadmon Bulk Mailers - Bulk mailers that do not require confirmed opt-in or that have allowed known spammers to become clients and abuse their services."
+msgid ""
+"FREE - Leadmon Bulk Mailers - Bulk mailers that do not require confirmed opt-"
+"in or that have allowed known spammers to become clients and abuse their "
+"services."
 msgstr ""
+"ΔΩΡΕΑΝ - Leadmon Μαζικοί Ταχυδρομητές - Μαζικοί Ταχυδρομητές που δεν "
+"απαιτούν επιβεβαιωμένη πρόσβαση (opt-in) ή που έχουν επιτρέψει σε γνωστούς "
+"χρήστες κακόβουλου ταχυδρομείου (spam) να γίνουν πελάτες και να καταχραστούν "
+"τις υπηρεσίες τους."
 
-msgid "FREE - Leadmon Open Relays - Single Stage Open Relays that are not listed on other active RBLs."
+msgid ""
+"FREE - Leadmon Open Relays - Single Stage Open Relays that are not listed on "
+"other active RBLs."
 msgstr ""
+"ΔΩΡΕΑΝ - Leadmon Open Relays - Ανοιχτοί αναδιανομείς ταχυδρομείου μίας φάσης "
+"που δεν συμπεριλαμβάνονται στις λίστες σε άλλους ενεργούς RBL."
 
-msgid "FREE - Leadmon Multi-stage - Multi-Stage Open Relays that are not listed on other active RBLs and that have sent SPAM to Leadmon.net."
+msgid ""
+"FREE - Leadmon Multi-stage - Multi-Stage Open Relays that are not listed on "
+"other active RBLs and that have sent SPAM to Leadmon.net."
 msgstr ""
+"ΔΩΡΕΑΝ - Leadmon Multi-stage - Ανοιχτοί αναδιανομείς ηλεκτρονικού "
+"ταχυδρομείου πολλαπλών φάσεων που δεν συμπεριλαμβάνονται σε λίστες άλλων "
+"ενεργών RBL και έχουν στείλει κακόβουλο ταχυδρομείο (SPAM) στο Leadmon.net."
 
-msgid "FREE - Leadmon SpamBlock - Sites on this listing have sent Leadmon.net direct SPAM from IPs in netblocks where the entire block has no DNS mappings. It's a list of BLOCKS of IPs being used by people who have SPAMmed Leadmon.net."
+msgid ""
+"FREE - Leadmon SpamBlock - Sites on this listing have sent Leadmon.net "
+"direct SPAM from IPs in netblocks where the entire block has no DNS "
+"mappings. It's a list of BLOCKS of IPs being used by people who have SPAMmed "
+"Leadmon.net."
 msgstr ""
+"ΔΩΡΕΑΝ - Leadmon SpamBlock - Δικτυακοί τόποι σε αυτή τη λίστα έχουν στείλει "
+"στο Leadmon.net απευθείας κακόβουλο ταχυδρομείο (SPAM) από διευθύνσεις IP σε "
+"ομάδες διευθύνσεων όπου ολόκληρη η ομάδα δεν ήταν σε απεικονίσεις DNS. Είναι "
+"λίστα ΟΜΑΔΩΝ IP που χρησιμοποιούνται από άτομα που έχουν αποστείλει "
+"κακόβουλο ταχυδρομείο (SPAM) στο Leadmon.net."
 
-msgid "FREE, for now - Not Just Another Blacklist - Both Open Relays and Direct SPAM Sources."
+msgid ""
+"FREE, for now - Not Just Another Blacklist - Both Open Relays and Direct "
+"SPAM Sources."
 msgstr ""
+"ΔΩΡΕΑΝ , προς το παρόν - Not Just Another Blacklist - Ανοιχτοί αναδιανομείς "
+"ηλεκτρονικού ταχυδρομείου και απευθείας πηγές κακόβουλου ταχυδρομείου (SPAM)."
 
 msgid "FREE, for now - Not Just Another Blacklist - Dial-up IPs."
 msgstr ""
+"ΔΩΡΕΑΝ , προς το παρόν - Not Just Another Blacklist - Διευθύνσεις IP "
+"Πρόσβασης με Dial-up ."
+
+msgid "FREE - Distributed Sender Boycott List - Confirmed Relays"
+msgstr ""
+"ΔΩΡΕΑΝ - Distributed Sender Boycott List - Επιβεβαιωμένοι αναδιανομείς ηλεκτρονικού "
+"ταχυδρομείου"
+
+msgid "FREE - Distributed Sender Boycott List - Confirmed Multi-stage Relays"
+msgstr ""
+"ΔΩΡΕΑΝ - Distributed Sender Boycott List - Επιβεβαιωμένοι αναδιανομείς ηλεκτρονικού "
+"ταχυδρομείου πολλαπλών φάσεων "
+
+msgid "FREE - Distributed Sender Boycott List - UN-Confirmed Relays"
+msgstr ""
+"ΔΩΡΕΑΝ - Distributed Sender Boycott List - UN-Επιβεβαιωμένοι αναδιανομείς ηλεκτρονικού "
+"ταχυδρομείου"
 
 msgid "Saved Scan type"
-msgstr ""
+msgstr "Τύπος Ανίχνευσης αποθηκεύτηκε"
 
 msgid "Message Filtering"
-msgstr ""
+msgstr "Φιλτράρισμα Μηνυμάτων"
 
 msgid "What to Scan:"
-msgstr ""
+msgstr "Τι να Ανιχνευθεί:"
 
 msgid "All messages"
-msgstr ""
+msgstr "Όλα τα μηνύματα"
 
 msgid "Only unread messages"
-msgstr ""
+msgstr "Μόνο τα μη αναγνωσμένα μηνύματα"
 
 msgid "Save"
-msgstr ""
+msgstr "Αποθήκευση"
 
 msgid "Match:"
-msgstr ""
+msgstr "Ταίριασμα:"
 
-#, fuzzy
 msgid "Header"
-msgstr "Αναγνωσμένα"
+msgstr "Κεφαλίδα"
 
 msgid "Contains:"
-msgstr ""
-
-msgid "Move to:"
-msgstr ""
+msgstr "Περιέχει:"
 
 msgid "Down"
-msgstr ""
-
-msgid "Up"
-msgstr ""
+msgstr "Κάτω"
 
 #, c-format
 msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
-msgstr ""
+msgstr "Αν <b>%s</b> περιέχει <b>%s</b> μετακίνηση σε <b>%s</b>"
 
 msgid "Message Filters"
 msgstr "Φίλτρα Μηνυμάτων"
 
-msgid "Filtering enables messages with different criteria to be automatically filtered into different folders for easier organization."
+msgid ""
+"Filtering enables messages with different criteria to be automatically "
+"filtered into different folders for easier organization."
 msgstr ""
+"Το φιλτράρισμα επιτρέπει μηνύματα με διαφορετικά κριτήρια να φιλτραριστούν "
+"αυτόματα σε διαφορετικούς φακέλους για ευκολότερη οργάνωση."
 
 msgid "SPAM Filters"
-msgstr ""
+msgstr "Φίλτρα Κακόβουλης Αλληλογραφίας (SPAM)"
 
-msgid "SPAM filters allow you to select from various DNS based blacklists to detect junk email in your INBOX and move it to another folder (like Trash)."
+msgid ""
+"SPAM filters allow you to select from various DNS based blacklists to detect "
+"junk email in your INBOX and move it to another folder (like Trash)."
 msgstr ""
+"Τα φίλτρα κακόβουλης αλληλογραφίας (SPAM) σας επιτρέπουν να επιλέξετε από "
+"διάφορες \"μαύρες-λίστες\" βασισμένες σε DNS για να εντοπίσετε άχρηστο "
+"ταχυδρομείο στα ΕΙΣΕΡΧΟΜΕΝΑ σας και να το μετακινήσετε σε άλλο φάκελο (όπως "
+"τα Διαγραμμένα)."
 
 msgid "Spam Filtering"
-msgstr ""
+msgstr "Φιλτράρισμα Κακόβουλης Αλληλογραφίας (SPAM)"
 
 msgid "WARNING! Tell your admin to set the SpamFilters_YourHop variable"
 msgstr ""
+"ΕΙΔΟΠΟΙΗΣΗ! Πείτε στον διαχειριστή σας να ορίσει την μεταβλητή  "
+"SpamFilters_YourHop"
 
 msgid "Move spam to:"
-msgstr ""
+msgstr "Μετακίνηση κακόβουλης αλληλογραφίας σε:"
 
-msgid "Moving spam directly to the trash may not be a good idea at first, since messages from friends and mailing lists might accidentally be marked as spam. Whatever folder you set this to, make sure that it gets cleaned out periodically, so that you don't have an excessively large mailbox hanging around."
+msgid ""
+"Moving spam directly to the trash may not be a good idea at first, since "
+"messages from friends and mailing lists might accidentally be marked as "
+"spam. Whatever folder you set this to, make sure that it gets cleaned out "
+"periodically, so that you don't have an excessively large mailbox hanging "
+"around."
 msgstr ""
+"Η μετακίνηση κακόβουλης αλληλογραφίας (spam) απευθείας στο φάκελο "
+"Διαγραμμένα ίσως να μην είναι αρχικά καλή ιδέα αφού μηνύματα από φίλους και "
+"λίστες αλληλογραφίας μπορεί από λάθος να μαρκαριστούν ως κακόβουλα. Σε "
+"οποιοδήποτε φάκελο και αν το ορίσετε αυτό, βεβαιωθείτε ότι καθαρίζεται "
+"περιοδικά, ώστε να μην έχετε ένα αρκετά μεγάλο γραμματοκιβώτιο να βρίσκεται "
+"τριγύρω."
 
-msgid "The more messages you scan, the longer it takes.  I would suggest that you scan only new messages.  If you make a change to your filters, I would set it to scan all messages, then go view my INBOX, then come back and set it to scan only new messages.  That way, your new spam filters will be applied and you'll scan even the spam you read with the new filters."
+msgid ""
+"The more messages you scan, the longer it takes.  I would suggest that you "
+"scan only new messages.  If you make a change to your filters, I would set "
+"it to scan all messages, then go view my INBOX, then come back and set it to "
+"scan only new messages.  That way, your new spam filters will be applied and "
+"you'll scan even the spam you read with the new filters."
 msgstr ""
+"Όσο περισσότερα μηνύματα ανιχνεύετε, τόσο περισσότερο χρόνος χρειάζεται.  "
+"Προτείνω να ανιχνεύσετε μόνο τα νέα μηνύματα.  Αν κάνετε κάποια αλλαγή στα "
+"φίλτρα σας, θα το ορίσω να ανιχνεύσει όλα τα μηνύματα, πηγαίνετε να δείτε τα "
+"ΕΙΣΕΡΧΟΜΕΝΑ και μετά επιστρέψτε και ορίστε το να ανιχνεύει μόνο τα νέα "
+"μηνύματα.  Με αυτό τον τρόπο, τα νέα φίλτρα κακόβουλης αλληλογραφίας (spam) "
+"θα εφαρμοστούν και θα ανιχνεύσετε ακόμα και την κακόβουλη αλληλογραφία που "
+"διαβάσατε με τα νέα φίλτρα."
 
 #, c-format
 msgid "Spam is sent to <b>%s</b>"
-msgstr ""
+msgstr "Κακόβουλη αλληλογραφία (Spam) εστάλη προς <b>%s</b>"
 
 msgid "[<i>not set yet</i>]"
-msgstr ""
+msgstr "[<i>δεν έχει οριστεί ακόμα</i>]"
 
 #, c-format
 msgid "Spam scan is limited to <b>%s</b>"
-msgstr ""
+msgstr "Η Ανίχνευση κακόβουλης αλληλογραφίας περιορίζεται σε <b>%s</b>"
 
 msgid "New Messages Only"
-msgstr ""
+msgstr "Νέα Μηνύματα Όχι"
 
 msgid "All Messages"
-msgstr ""
+msgstr "Όλα τα Μηνύματα"
 
 msgid "ON"
-msgstr ""
+msgstr "ΑΝΟΙΧΤΟ"
 
 msgid "OFF"
+msgstr "ΚΛΕΙΣΤΟ"
+
+msgid " not found."
+msgstr " δεν βρέθηκε."
+
+msgid "Today's Fortune"
+msgstr "Η σημερινή Τυχαία Ρήση"
+
+msgid "Fortunes:"
+msgstr "Τυχαίες Ρήσεις (Fortunes):"
+
+msgid "Show fortunes at top of mailbox"
+msgstr "Επίδειξη τυχαίων ρήσεων πάνω από το γραμματοκιβώτιο"
+
+msgid "IMAP server information"
+msgstr "Πληροφορίες εξυπηρετητή IMAP"
+
+msgid ""
+"Run some test IMAP commands, displaying both the command and the result. "
+"These tests use the Squirrelmail IMAP commands and your current Squirrelmail "
+"configuration. Custom command strings can be used."
 msgstr ""
+"Εκτέλεση μερικών δοκιμαστικών εντολών IMAP, με εμφάνιση της εντολής και του "
+"αποτελέσματος. Αυτά τα δοκιμαστικά χρησιμοποιούν τις εντολές IMAP του "
+"Squirrelmail και την τρέχουσα ρύθμιση του Squirrelmail. Μπορούν να "
+"χρησιμοποιηθούν προσαρμοσμένες γραμμές εντολών."
+
+msgid "Mailinglist"
+msgstr "ΤαχυδρομικήΛίστα"
+
+#, c-format
+msgid ""
+"This will send a message to %s requesting help for this list. You will "
+"receive an emailed response at the address below."
+msgstr ""
+"Θα στείλει ένα μήνυμα προς %s που θα ζητάει βοήθεια για αυτή τη λίστα. Θα "
+"λάβετε απάντηση με ηλεκτρονικό ταχυδρομείο στην παρακάτω διεύθυνση."
+
+#, c-format
+msgid ""
+"This will send a message to %s requesting that you will be subscribed to "
+"this list. You will be subscribed with the address below."
+msgstr ""
+"Θα στείλει ένα μήνυμα προς %s που θα ζητάει να εγγραφείτε σε αυτή τη λίστα. "
+"Θα εγγραφείτε με την παρακάτω διεύθυνση."
+
+#, c-format
+msgid ""
+"This will send a message to %s requesting that you will be unsubscribed from "
+"this list. It will try to unsubscribe the adress below."
+msgstr ""
+"Θα στείλει ένα μήνυμα προς %s που θα ζητάει να ακυρωθεί η εγγραφή σας σε "
+"αυτή τη λίστα. Θα προσπαθήσει να ακυρώσει την εγγραφή για την παρακάτω "
+"διεύθυνση."
+
+msgid "Send Mail"
+msgstr "Αποστολή Μηνύματος"
+
+msgid "Post to List"
+msgstr "Ταχυδρόμηση στη Λίστα"
+
+msgid "Reply to List"
+msgstr "Απάντηση στη Λίστα"
+
+msgid "List Archives"
+msgstr "Αρχεία Λίστας"
+
+msgid "Contact Listowner"
+msgstr "Επικοινωνία με τον Ιδιοκτήτη της Λίστας"
+
+msgid "Mailing List"
+msgstr "Λίστα Μηνυμάτων (Mailing List):"
+
+msgid "POP3 connect:"
+msgstr "POP3 σύνδεση:"
+
+msgid "No server specified"
+msgstr "Δεν έχει καθοριστεί εξυπηρετητής"
+
+msgid "Error "
+msgstr "Σφάλμα "
+
+msgid "POP3 noop:"
+msgstr "POP3 noop:"
+
+msgid "No connection to server"
+msgstr "Δεν υπάρχει σύνδεση στον εξυπηρετητή"
+
+msgid "POP3 user:"
+msgstr "POP3 χρήστης:"
+
+msgid "no login ID submitted"
+msgstr "δεν υποβλήθηκε ταυτότητα σύνδεσης"
+
+msgid "connection not established"
+msgstr "δεν έχει δημιουργηθεί σύνδεση"
+
+msgid "POP3 pass:"
+msgstr "POP3 κωδικός:"
+
+msgid "No password submitted"
+msgstr "Δεν υποβλήθηκε κωδικός πρόσβασης"
+
+msgid "authentication failed "
+msgstr "αποτυχία πιστοποίησης ταυτότητας"
+
+msgid "POP3 apop:"
+msgstr "POP3 apop:"
+
+msgid "No login ID submitted"
+msgstr "Δεν υποβλήθηκε ταυτότητα σύνδεσης"
+
+msgid "No server banner"
+msgstr "Δεν υπάρχει banner εξυπηρετητή"
+
+msgid "abort"
+msgstr "διακοπή"
+
+msgid "apop authentication failed"
+msgstr "αποτυχία πιστοποίησης ταυτότητας apop"
+
+msgid "POP3 login:"
+msgstr "POP3 σύνδεση:"
+
+msgid "POP3 top:"
+msgstr "POP3 κορυφή:"
+
+msgid "POP3 pop_list:"
+msgstr "POP3 pop_list:"
+
+msgid "Premature end of list"
+msgstr "Πρόωρο τέλος λίστας"
+
+msgid "POP3 get:"
+msgstr "POP3 λήψη:"
+
+msgid "POP3 last:"
+msgstr "POP3 τελευταίο:"
+
+msgid "POP3 reset:"
+msgstr "POP3 επαναφορά:"
+
+msgid "POP3 send_cmd:"
+msgstr "POP3 send_cmd:"
+
+msgid "Empty command string"
+msgstr "Άδεια γραμμή εντολών"
+
+msgid "POP3 quit:"
+msgstr "POP3 εγκατάλειψη:"
+
+msgid "connection does not exist"
+msgstr "η σύνδεση δεν υπάρχει"
+
+msgid "POP3 uidl:"
+msgstr "POP3 uidl:"
+
+msgid "POP3 delete:"
+msgstr "POP3 διαγραφή:"
+
+msgid "No msg number submitted"
+msgstr "Δεν υποβλήθηκε αριθμός μηνυμάτων"
+
+msgid "Command failed "
+msgstr "Αποτυχία εντολής"
+
+msgid "Remote POP server Fetching Mail"
+msgstr "Λήψη Ταχυδρομείου από Απομακρυσμένο Εξυπηρετητή POP"
+
+msgid "Select Server:"
+msgstr "Επιλογή Εξυπηρετητή:"
+
+msgid "Password for"
+msgstr "Κωδικός για"
+
+msgid "Fetch Mail"
+msgstr "Λήψη Ταχυδρομείου"
+
+msgid "Fetching from "
+msgstr "Λήψη από "
+
+msgid "Oops, "
+msgstr "Όπα, "
+
+msgid "Opening IMAP server"
+msgstr "Άνοιγμα εξυπηρετητή IMAP"
+
+msgid "Opening POP server"
+msgstr "Άνοιγμα εξυπηρετητή POP"
+
+msgid "Login Failed:"
+msgstr "Αποτυχία Σύνδεσης:"
+
+msgid "Login OK: No new messages"
+msgstr "Σύνδεση OK: Κανένα νέο μήνυμα"
+
+msgid "Login OK: Inbox EMPTY"
+msgstr "Σύνδεση OK: Το γραμματοκιβώτιο είναι ΑΔΕΙΟ "
+
+msgid "Login OK: Inbox contains ["
+msgstr "Σύνδεση OK: Το γραμματοκιβώτιο περιέχει ["
+
+msgid "] messages"
+msgstr "] μηνύματα"
+
+msgid "Fetching UIDL..."
+msgstr "Λήψη UIDL..."
+
+msgid "Server does not support UIDL."
+msgstr "Ο εξυπηρετητής δεν υποστηρίζει UIDL."
+
+msgid "Leaving Mail on Server..."
+msgstr "Διατήρηση Ταχυδρομείου στον Εξυπηρετητή..."
+
+msgid "Deleting messages from server..."
+msgstr "Διαγραφή μηνυμάτων από τον εξυπηρετητή..."
+
+msgid "Fetching message "
+msgstr "Λήψη μηνύματος"
+
+msgid "Server error...Disconnect"
+msgstr "Σφάλμα Εξυπηρετητή...Αποσύνδεση"
+
+msgid "Reconnect from dead connection"
+msgstr "Επανασύνδεση από νεκρή σύνδεση"
+
+msgid "Saving UIDL"
+msgstr "Αποθήκευση UIDL"
+
+msgid "Refetching message "
+msgstr "Επανάληψη Λήψης μηνύματος"
+
+msgid "Error Appending Message!"
+msgstr "Σφάλμα στην Προσάρτηση Μηνύματος!"
+
+msgid "Closing POP"
+msgstr "Κλείσιμο POP"
+
+msgid "Logging out from IMAP"
+msgstr "Αποσύνδεση από IMAP"
+
+msgid "Message appended to mailbox"
+msgstr "Το μήνυμα προσαρτήθηκε στο γραμματοκιβώτιο"
+
+msgid "Message "
+msgstr "Μήνυμα"
+
+msgid " deleted from Remote Server!"
+msgstr " διαγράφηκε από τον Απομακρυσμένο Εξυπηρετητή!"
+
+msgid "Delete failed:"
+msgstr "Αποτυχία διαγραφής:"
+
+msgid "Remote POP server settings"
+msgstr "Ρυθμίσεις απομακρυσμένου εξυπηρετητή POP"
+
+msgid ""
+"You should be aware that the encryption used to store your password is not "
+"perfectly secure.  However, if you are using pop, there is inherently no "
+"encryption anyway. Additionally, the encryption that we do to save it on the "
+"server can be undone by a hacker reading the source to this file."
+msgstr ""
+"Πρέπει να γνωρίζεται ότι η κρυπτογράφηση που χρησιμοποιείται για να "
+"αποθηκευτεί ο κωδικός σας δεν είναι τελείως ασφαλής. Ωστόσο, αν "
+"χρησιμοποιείτε pop, έτσι και αλλιώς δεν υπάρχει κρυπτογράφηση. Επιπλέον, η "
+"κρυπτογράφηση που κάνουμε για να τον αποθηκεύσουμε στον εξυπηρετητή μπορεί "
+"να αναστραφεί από έναν χάκερ που διαβάζει την πηγή προς αυτό το αρχείο."
+
+msgid "If you leave password empty, it will be required when you fetch mail."
+msgstr "Αν αφήσετε τον κωδικό κενό, θα απαιτηθεί όταν κατεβάζετε ταχυδρομείο."
+
+msgid "Encrypt passwords (informative only)"
+msgstr "Κρυπτογράφηση κωδικών (μόνο πληροφοριακό)"
+
+msgid "Add Server"
+msgstr "Προσθήκη Εξυπηρετητή"
+
+msgid "Server:"
+msgstr "Εξυπηρετητής:"
+
+msgid "Port:"
+msgstr "Θύρα:"
+
+msgid "Alias:"
+msgstr "Ψευδώνυμο (alias):"
+
+msgid "Username:"
+msgstr "Όνομα Χρήστη:"
+
+msgid "Store in Folder:"
+msgstr "Αποθήκευση στο Φάκελο:"
+
+msgid "Leave Mail on Server"
+msgstr "Άφησε το Ταχυδρομείο στον Εξυπηρετητή"
+
+msgid "Check mail during login"
+msgstr "Έλεγχος Ταχυδρομείου κατά τη διάρκεια σύνδεσης (login)"
+
+msgid "Check mail during folder refresh"
+msgstr "Έλεγχος Ταχυδρομείου κατά την ανανέωση φακέλων"
+
+msgid "Modify Server"
+msgstr "Προσαρμογή Εξυπηρετητή"
+
+msgid "Server Name:"
+msgstr "Όνομα Εξυπηρετητή:"
+
+msgid "Modify"
+msgstr "Προσαρμογή"
+
+msgid "No-one server in use. Try to add."
+msgstr "Κανένας εξυπηρετητής σε χρήση. Προσπάθεια προσθήκης."
+
+msgid "Fetching Servers"
+msgstr "Fetching Servers"
+
+msgid "Confirm Deletion of a Server"
+msgstr "Επιβεβαίωση Διαγραφής Εξυπηρετητή"
+
+msgid "Selected Server:"
+msgstr "Επιλεγμένος Εξυπηρετητής:"
+
+msgid "Confirm delete of selected server?"
+msgstr "Επιβεβαίωση διαγραφής επιλεγμένου εξυπηρετητή;"
+
+msgid "Confirm Delete"
+msgstr "Επιβεβαίωση Διαγραφής"
+
+msgid "Mofify a Server"
+msgstr "Τροποποίησε Εξυπηρετητή"
+
+msgid "Undefined Function"
+msgstr "Μη ορισμένη Λειτουργία"
+
+msgid "Hey! Wath do You are looking for?"
+msgstr "Εεε! Για τι ψάχνεις;"
+
+msgid "Fetch"
+msgstr "Λήψη"
+
+msgid "Warning, "
+msgstr "Προειδοποίηση,"
+
+msgid "Mail Fetch Result:"
+msgstr "Αποτέλεσμα Λήψης Ταχυδρομείου:"
+
+msgid "Simple POP3 Fetch Mail"
+msgstr "Απλή Λήψη POP3 Ταχυδρομείου"
+
+msgid ""
+"This configures settings for downloading email from a pop3 mailbox to your "
+"account on this server."
+msgstr ""
+"Κάνει ρύθμισεις επιλογών για το κατέβασμα ταχυδρομείου από ένα "
+"γραμματοκιβώτιο pop3 στον λογαριασμό σας σε αυτόν τον εξυπηρετητή."
+
+msgid "Message Details"
+msgstr "Λεπτομέρειες Μηνύματος"
+
+msgid "Message details"
+msgstr "Λεπτομέρειες Μηνύματος"
+
+msgid "Close Window"
+msgstr "Κλείσιμο Παραθύρου"
+
+msgid "Save Message"
+msgstr "Αποθήκευση Μηνύματος"
+
+msgid "View Message details"
+msgstr "Εμφάνιση λεπτομερειών μηνύματος"
+
+msgid "New Mail Notification"
+msgstr "Ειδοποίηση Νέου Ταχυδρομείου"
+
+msgid ""
+"Select <b>Enable Media Playing</b> to turn on playing a media file when "
+"unseen mail is in your folders. When enabled, you can specify the media file "
+"to play in the provided file box."
+msgstr ""
+"Επιλέξτε  <b>Ενεργοποίηση Εκτέλεσης Πολυμέσων</b> για να ενεργοποιήσετε την "
+"εκτέλεση ενός αρχείου πολυμέσων όταν υπάρχει στους φακέλους σας ταχυδρομείο "
+"που δεν έχετε δει. Όταν ενεργοποιηθεί, μπορείτε να καθορίσετε το αρχείο "
+"πολυμέσων που θα εκτελεστεί στο διαθέσιμο πλαίσιο αρχείου."
+
+msgid ""
+"The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
+"folders for unseen mail, not just the inbox for notification."
+msgstr ""
+"Η επιλογή  <b>Έλεγχος όλων των κιβωτίων, όχι μόνο του ΕΙΣΕΡΧΟΜΕΝΑ</b> θα "
+"ελέγξει ΟΛΟΥΣ τους φακέλους σας για ταχυδρομείου που δεν έχετε δει, όχι μόνο "
+"τα ΕΙΣΕΡΧΟΜΕΝΑ για ειδοποίηση."
+
+msgid ""
+"Selecting the <b>Show popup</b> option will enable the showing of a popup "
+"window when unseen mail is in your folders (requires JavaScript)."
+msgstr ""
+"Επιλέγοντας <b>Εμφάνιση αναδυόμενων παραθύρων</b> επιτρέπετε την εμφάνιση "
+"ενός αναδυόμενου παραθύρου όταν ταχυδρομείο που δεν έχετε δει είναι στους "
+"φακέλους σας (απαιτεί JavaScript)."
+
+msgid ""
+"Use the <b>Check RECENT</b> to only check for messages that are recent. "
+"Recent messages are those that have just recently showed up and have not "
+"been \"viewed\" or checked yet.  This can prevent being continuously annoyed "
+"by sounds or popups for unseen mail."
+msgstr ""
+"Χρησιμοποιήστε το <b>Έλεγχος ΠΡΟΣΦΑΤΩΝ</b> για να ελέγξετε μόνο για μηνύματα "
+"τα οποία είναι πρόσφατα. Πρόσφατα μηνύματα είναι αυτά τα οποία έχουν "
+"πρόσφατα εμφανισθεί και δεν τα έχετε \"δει\" η ελέγξει ακόμα.  Αυτό σας "
+"γλιτώνει από τη συνεχή ενόχληση με ήχους η αναδυόμενα παράθυρα για "
+"ταχυδρομείου που δεν έχετε δει."
+
+msgid ""
+"Selecting the <b>Change title</b> option will change the title in some "
+"browsers to let you know when you have new mail (requires JavaScript, and "
+"only works in IE but you won't see errors with other browsers).  This will "
+"always tell you if you have new mail, even if you have <b>Check RECENT</b> "
+"enabled."
+msgstr ""
+"Επιλέγοντας το <b>Αλλαγή τίτλου</b> θα αλλάξει τον τίτλο σε μερικά "
+"προγράμματα περιήγησης για να σας ενημερώσει όταν έχετε νέο ταχυδρομείο "
+"(απαιτεί JavaScript, και και λειτουργεί μόνο στον IE αλλά δεν θα δείτε "
+"σφάλματα με άλλα προγράμματα περιήγησης).  Θα σας λέει πάντα αν έχετε νέο "
+"ταχυδρομείο, ακόμα και αν έχετε ενεργοποιήσει το <b>Έλεγχος ΠΡΟΣΦΑΤΩΝ</b>."
+
+msgid ""
+"Select from the list of <b>server files</b> the media file to play when new "
+"mail arrives.  Selecting <b>local media</b> will play the file specified in "
+"the <b>local media file</b> box to play from the local computer.  If no file "
+"is specified, the system will use a default from the server."
+msgstr ""
+"Επέλεξε από την λίστα των <b>αρχείων εξυπηρετητή</b> το αρχείο πολυμέσων που "
+"θα εκτελεστεί όταν καταφθάνει νέο ταχυδρομείο.  Επιλέγοντας <b>τοπικά "
+"πολυμέσα</b> θα εκτελέσει το αρχείο που καθορίζεται στο κουτί<b>αρχείο "
+"τοπικών πολυμέσων</b> για να εκτελεστεί από τον τοπικό υπολογιστή.  Αν δεν "
+"έχει ορισθεί κάποιο αρχείο, το σύστημα θα χρησιμοποιήσει ένα εξ ορισμού από "
+"τον εξυπηρετητή."
+
+msgid "Enable Media Playing"
+msgstr "Ενεργοποίηση Εκτέλεσης Πολυμέσων"
+
+msgid "Check all boxes, not just INBOX"
+msgstr "Έλεγχος όλων των κιβωτίων, όχι μόνο τα ΕΙΣΕΡΧΟΜΕΝΑ"
+
+msgid "Count only messages that are RECENT"
+msgstr "Προσμέτρηση μόνο των μηνυμάτων που είναι ΠΡΟΣΦΑΤΑ"
+
+msgid "Change title on supported browsers."
+msgstr "Αλλαγή τίτλου σε υποστηριζόμενα προγράμματα περιήγησης."
+
+msgid "requires JavaScript to work"
+msgstr "απαιτεί JavaScript για να λειτουργήσει"
+
+msgid "Show popup window on new mail"
+msgstr "Εμφάνιση παραθύρου με νέο ταχυδρομείο"
+
+msgid "Select server file:"
+msgstr "Επιλογή αρχείου εξυπηρετητή:"
+
+msgid "(local media)"
+msgstr "(τοπικά πολυμέσα)"
+
+msgid "Try"
+msgstr "Δοκιμή"
+
+msgid "Local Media File:"
+msgstr "Τοπικό Αρχείο Πολυμέσων"
+
+msgid "Current File:"
+msgstr "Τρέχον Αρχείο:"
+
+msgid "New Mail"
+msgstr "Νέο Ταχυδρομείο"
+
+msgid "SquirrelMail Notice:"
+msgstr "Σημείωση SquirrelMail:"
+
+msgid "You have new mail!"
+msgstr "Έχετε νέο ταχυδρομείο!"
+
+msgid "NewMail Options"
+msgstr "Επιλογές Νέου Ταχυδρομείου"
+
+msgid ""
+"This configures settings for playing sounds and/or showing popup windows "
+"when new mail arrives."
+msgstr ""
+"Προσαρμόζει ρυθμίσεις για την εκτέλεση ήχων και/η την εμφάνιση παραθύρων "
+"όταν φθάνει νέο ταχυδρομείο."
+
+msgid "New Mail Notification options saved"
+msgstr "Αποθηκεύτηκαν οι επιλογές Ενημέρωσης Νέου Ταχυδρομείου"
+
+#, c-format
+msgid "%s New Messages"
+msgstr "%s Νέα Μηνύματα"
+
+#, c-format
+msgid "%s New Message"
+msgstr "%s Νέο Μήνυμα"
+
+msgid "Test Sound"
+msgstr "Έλεγχος Ήχου"
+
+msgid "Loading the sound..."
+msgstr "Φόρτωμα ήχου..."
+
+msgid "Sent Subfolders Options"
+msgstr "Επιλογές Υποφακέλων Απεσταλμένων"
+
+msgid "Use Sent Subfolders"
+msgstr "Χρήση Υποφακέλων Απεσταλμένων"
+
+msgid "Monthly"
+msgstr "Μηνιαίο"
+
+msgid "Quarterly"
+msgstr "Τρίμηνο"
+
+msgid "Yearly"
+msgstr "Ετήσια"
+
+msgid "Base Sent Folder"
+msgstr "Απεσταλμένος Φάκελος Βάσης"
+
+msgid "Report as Spam"
+msgstr "Ανέφερε ως Κακόβουλη Αλληλογραφία (Spam)"
+
+msgid "SpamCop - Spam Reporting"
+msgstr "SpamCop - Αναφορά κακόβουλου ταχυδρομείου (Spam)"
+
+msgid ""
+"Help fight the battle against unsolicited email.  SpamCop reads the spam "
+"email and determines the correct addresses to send complaints to.  Quite "
+"fast, really smart, and easy to use."
+msgstr ""
+"Βοηθήστε στην μάχη ενάντια στο μη εγκεκριμένο ηλεκτρονικό ταχυδρομείο. Το "
+"SpamCop διαβάζει κακόβουλο ηλεκτρονικό ταχυδρομείο (spam) και καθορίζει "
+"την σωστή διεύθυνση για την αποστολή παραπόνων. Αρκετά γρήγορο, πραγματικά "
+"έξυπνο και εύκολο στη χρήση."
 
 msgid "SpellChecker Options"
-msgstr ""
+msgstr "Επιλογές Διορθωτή Ορθογραφίας"
 
-msgid "Here you may set up how your personal dictionary is stored, edit it, or choose which languages should be available to you when spell-checking."
+msgid ""
+"Here you may set up how your personal dictionary is stored, edit it, or "
+"choose which languages should be available to you when spell-checking."
 msgstr ""
+"Εδώ μπορείτε να ρυθμίσετε πως αποθηκεύεται το προσωπικό σας λεξικό, να το "
+"επεξεργαστείτε ή να διαλέξετε ποιές γλώσσες θα πρέπει να είναι διαθέσιμες σε "
+"σας όταν κάνετε έλεγχο ορθογραφίας."
 
 msgid "Check Spelling"
-msgstr ""
+msgstr "Έλεγχος Ορθογραφίας"
 
 msgid "Back to &quot;SpellChecker Options&quot; page"
-msgstr ""
+msgstr "Επιστροφή στη σελίδα &quot;Επιλογές Διορθωτή Ορθογραφίας&quot; "
 
 msgid "ATTENTION:"
-msgstr ""
+msgstr "ΠΡΟΣΟΧΗ:"
 
-msgid "SquirrelSpell was unable to decrypt your personal dictionary. This is most likely due to the fact that you have changed your mailbox password. In order to proceed, you will have to supply your old password so that SquirrelSpell can decrypt your personal dictionary. It will be re-encrypted with your new password after this.<br>If you haven't encrypted your dictionary, then it got mangled and is no longer valid. You will have to delete it and start anew. This is also true if you don't remember your old password -- without it, the encrypted data is no longer accessible."
+msgid ""
+"SquirrelSpell was unable to decrypt your personal dictionary. This is most "
+"likely due to the fact that you have changed your mailbox password. In order "
+"to proceed, you will have to supply your old password so that SquirrelSpell "
+"can decrypt your personal dictionary. It will be re-encrypted with your new "
+"password after this.<br>If you haven't encrypted your dictionary, then it "
+"got mangled and is no longer valid. You will have to delete it and start "
+"anew. This is also true if you don't remember your old password -- without "
+"it, the encrypted data is no longer accessible."
 msgstr ""
+"SquirrelSpell was unable to decrypt your personal dictionary. This is most "
+"likely due to the fact that you have changed your mailbox password. In order "
+"to proceed, you will have to supply your old password so that SquirrelSpell "
+"can decrypt your personal dictionary. It will be re-encrypted with your new "
+"password after this.<br>If you haven't encrypted your dictionary, then it "
+"got mangled and is no longer valid. You will have to delete it and start "
+"anew. This is also true if you don't remember your old password -- without "
+"it, the encrypted data is no longer accessible."
 
 msgid "Delete my dictionary and start a new one"
-msgstr ""
+msgstr "Διέγραψε το λεξικό μου και ξεκίνα ένα καινούριο"
 
 msgid "Decrypt my dictionary with my old password:"
-msgstr ""
+msgstr "Αποκρυπτογράφησε το λεξικό μου με τον παλιό μου κωδικό:"
 
 msgid "Proceed"
-msgstr ""
+msgstr "Προχώρησε"
 
 msgid "You must make a choice"
-msgstr ""
+msgstr "Πρέπει να επιλέξετε"
 
 msgid "You can either delete your dictionary or type in the old password. Not both."
 msgstr ""
+"Μπορείτε είτε να διαγράψετε το λεξικό σας ή να πληκτρολογήσετε τον παλιό "
+"κωδικό. Όχι και τα δύο."
 
 msgid "This will delete your personal dictionary file. Proceed?"
-msgstr ""
+msgstr "Αυτό θα διαγράψει το αρχείο προσωπικού σας λεξικού. Να προχωρήσω;"
 
 msgid "Error Decrypting Dictionary"
-msgstr ""
+msgstr "Σφάλμα στην Αποκρυπτογράφηση του Λεξικού"
 
 msgid "Cute."
-msgstr ""
+msgstr "Χαριτωμένο."
 
 #, c-format
 msgid "I tried to execute '%s', but it returned:"
-msgstr ""
+msgstr "Προσπάθησα να εκτελέσω '%s', αλλά επέστρεψε:"
 
 msgid "SquirrelSpell is misconfigured."
-msgstr ""
+msgstr "Ο Διορθωτής-Squirrel δεν έχει ρυθμιστεί καλά"
 
 msgid "SquirrelSpell Results"
-msgstr ""
+msgstr "Αποτελέσματα Διορθωτή-Squirrel"
 
 msgid "Spellcheck completed. Commit changes?"
-msgstr ""
+msgstr "Έλεγχος ορθογραφίας ολοκληρώθηκε. Να οριστικοποιηθούν οι αλλαγές;"
 
 msgid "No changes were made."
-msgstr ""
+msgstr "Δεν έγιναν καθόλου αλλαγές"
 
 msgid "Now saving your personal dictionary... Please wait."
-msgstr ""
+msgstr "Τώρα αποθηκεύεται το προσωπικό σας λεξικό... Παρακαλώ περιμένετε"
 
 #, c-format
 msgid "Found %s errors"
-msgstr ""
+msgstr "Βρέθηκαν %s σφάλματα"
 
 msgid "Line with an error:"
-msgstr ""
+msgstr "Γραμμή με ένα σφάλμα:"
 
 msgid "Error:"
-msgstr ""
+msgstr "Σφάλμα:"
 
 msgid "Suggestions:"
-msgstr ""
+msgstr "Εισηγήσεις:"
 
 msgid "Suggestions"
-msgstr ""
+msgstr "Εισηγήσεις"
 
 msgid "Change to:"
-msgstr ""
+msgstr "Αλλαγή σε:"
 
 msgid "Occurs times:"
-msgstr ""
+msgstr "Φορές που εμφανίζεται:"
 
 msgid "Change this word"
-msgstr ""
+msgstr "Αλλαγή αυτής της λέξης"
 
 msgid "Change"
-msgstr ""
+msgstr "Αλλαγή"
 
 msgid "Change ALL occurances of this word"
-msgstr ""
+msgstr "Αλλαγή ΟΛΩΝ των εμφανίσεων αυτής της λέξης"
 
 msgid "Change All"
-msgstr ""
+msgstr "Αλλαγή Όλων"
 
 msgid "Ignore this word"
-msgstr ""
+msgstr "Αγνόησε αυτή τη λέξη"
 
 msgid "Ignore"
-msgstr ""
+msgstr "Αγνόησε"
 
 msgid "Ignore ALL occurances this word"
-msgstr ""
+msgstr "Αγνόησε ΟΛΕΣ της εμφανίσεις αυτής της λέξης"
 
 msgid "Ignore All"
-msgstr ""
+msgstr "Αγνόησε τα Όλα"
 
 msgid "Add this word to your personal dictionary"
-msgstr ""
+msgstr "Προσθήκη της λέξης στο προσωπικό σας λεξικό"
 
 msgid "Add to Dic"
-msgstr ""
+msgstr "Προσθήκη στο Λεξικό"
 
 msgid "Close and Commit"
-msgstr ""
+msgstr "Κλείσιμο και Οριστικοποίηση"
 
 msgid "The spellcheck is not finished. Really close and commit changes?"
 msgstr ""
+"Ο έλεγχος ορθογραφίας δεν έχει τελειώσει. Πράγματι να κλείσει και να "
+"οριστικοποιηθούν οι αλλαγές;"
 
 msgid "Close and Cancel"
-msgstr ""
+msgstr "Κλείσιμο και Ακύρωση"
 
 msgid "The spellcheck is not finished. Really close and discard changes?"
 msgstr ""
+"Ο έλεγχος ορθογραφίας δεν έχει τελειώσει. Πράγματι να κλείσει και να χαθούν "
+"οι αλλαγές;"
 
 msgid "No errors found"
-msgstr ""
+msgstr "Δεν βρέθηκαν σφάλματα"
 
 msgid "Your personal dictionary was erased."
-msgstr ""
+msgstr "Το προσωπικό σας λεξικό διαγράφηκε."
 
 msgid "Dictionary Erased"
-msgstr ""
+msgstr "Λεξικό Διαγράφηκε"
 
-msgid "Your personal dictionary was erased. Please close this window and click \"Check Spelling\" button again to start your spellcheck over."
+msgid ""
+"Your personal dictionary was erased. Please close this window and click "
+"\"Check Spelling\" button again to start your spellcheck over."
 msgstr ""
+"Το προσωπικό σας λεξικό διαγράφηκε. Παρακαλώ κλείστε αυτό το παράθυρο και "
+"κάντε κλικ στο κουμπί \"Έλεγχος Ορθογραφίας\" για να αρχίσετε τον "
+"ορθογραφικό σας έλεγχο από την αρχή."
 
 msgid "Close this Window"
-msgstr ""
+msgstr "Κλείσιμο αυτού του Παραθύρου"
 
-msgid "Your personal dictionary was re-encrypted successfully. Now return to the &quot;SpellChecker options&quot; menu and make your selection again."
+msgid ""
+"Your personal dictionary was re-encrypted successfully. Now return to the "
+"&quot;SpellChecker options&quot; menu and make your selection again."
 msgstr ""
+"Το προσωπικό σας λεξικό επανα-κρυπτογραφήθηκε με επιτυχία. Τώρα επιστρέψτε "
+"στο μενού &quot;Επιλογές Ελέγχου Ορθογραφίας&quot; και κάντε την επιλογή σας "
+"ξανά. "
 
 msgid "Successful Re-encryption"
-msgstr ""
+msgstr "Επιτυχής Επανα-κρυπτογράφηση"
 
-msgid "Your personal dictionary was re-encrypted successfully. Please close this window and click \"Check Spelling\" button again to start your spellcheck over."
+msgid ""
+"Your personal dictionary was re-encrypted successfully. Please close this "
+"window and click \"Check Spelling\" button again to start your spellcheck "
+"over."
 msgstr ""
+"Το προσωπικό σας λεξικό επανα-κρυπτογραφήθηκε με επιτυχία. Παρακαλώ κλείστε "
+"αυτό το παράθυρο και κάντε ξανά κλικ στο κουμπί \"Έλεγχος Ορθογραφίας\" για "
+"να αρχίσετε τον ορθογραφικό σας έλεγχο από την αρχή."
 
 msgid "Dictionary re-encrypted"
-msgstr ""
+msgstr "Λεξικό επανα-κρυπτογραφήθηκε"
 
-msgid "Your personal dictionary has been <strong>encrypted</strong> and is now stored in an <strong>encrypted format</strong>."
+msgid ""
+"Your personal dictionary has been <strong>encrypted</strong> and is now "
+"stored in an <strong>encrypted format</strong>."
 msgstr ""
+"Το προσωπικό σας λεξικό έχει  <strong>κρυπτογραφηθεί</strong> και είναι "
+"πλέον αποθηκευμένο σε <strong>κρυπτογραφημένη μορφή</strong>."
 
-msgid "Your personal dictionary has been <strong>decrypted</strong> and is now stored as <strong>clear text</strong>."
+msgid ""
+"Your personal dictionary has been <strong>decrypted</strong> and is now "
+"stored as <strong>clear text</strong>."
 msgstr ""
+"Το προσωπικό σας λεξικό έχει  <strong>αποκρυπτογραφηθεί</strong> και είναι "
+"πλέον αποθηκευμένο ως <strong>καθαρό κείμενο</strong>."
 
 msgid "Personal Dictionary Crypto Settings"
-msgstr ""
+msgstr "Κρυπτογραφικές Ρυθμίσεις Προσωπικού Λεξικού"
 
 msgid "Personal Dictionary"
-msgstr ""
+msgstr "Προσωπικό Λεξικό"
 
 msgid "No words in your personal dictionary."
-msgstr ""
+msgstr "Δεν υπάρχουν λέξεις στο προσωπικό σας λεξικό."
 
 msgid "Please check any words you wish to delete from your dictionary."
-msgstr ""
+msgstr "Παρακαλώ επιλέξτε λέξεις που επιθυμείτε να διαγράψετε από το λεξικό σας."
 
 #, c-format
 msgid "%s dictionary"
-msgstr ""
+msgstr "%s λεξικό"
 
 msgid "Delete checked words"
-msgstr ""
+msgstr "Διαγραφή επιλεγμένων λέξεων"
 
 msgid "Edit your Personal Dictionary"
-msgstr ""
+msgstr "Επεξεργασία του Προσωπικού σας Λεξικού"
 
 msgid "Please make your selection first."
-msgstr ""
+msgstr "Παρακαλώ κάντε πρώτα την επιλογή σας."
 
-msgid "This will encrypt your personal dictionary and store it in an encrypted format. Proceed?"
+msgid ""
+"This will encrypt your personal dictionary and store it in an encrypted "
+"format. Proceed?"
 msgstr ""
+"Αυτό θα κρυπτογραφήσει το προσωπικό σας λεξικό και θα το αποθηκεύσει σε "
+"κρυπτογραφημένη μορφή. Να προχωρήσω;"
 
-msgid "This will decrypt your personal dictionary and store it in a clear-text format. Proceed?"
+msgid ""
+"This will decrypt your personal dictionary and store it in a clear-text "
+"format. Proceed?"
 msgstr ""
+"Αυτό θα αποκρυπτογραφήσει το προσωπικό σας λεξικό και θα το αποθηκεύσει σε "
+"μορφή καθαρού κειμένου. Να προχωρήσω;"
 
-msgid "<p>Your personal dictionary is <strong>currently encrypted</strong>. This helps protect your privacy in case the web-mail system gets compromized and your personal dictionary ends up stolen. It is currently encrypted with the password you use to access your mailbox, making it hard for anyone to see what is stored in your personal dictionary.</p> <p><strong>ATTENTION:</strong> If you forget your password, your personal dictionary will become unaccessible, since it can no longer be decrypted. If you change your mailbox password, SquirrelSpell will recognize it and prompt you for your old password in order to re-encrypt the dictionary with a new key.</p>"
+msgid ""
+"<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
+"helps protect your privacy in case the web-mail system gets compromized and "
+"your personal dictionary ends up stolen. It is currently encrypted with the "
+"password you use to access your mailbox, making it hard for anyone to see "
+"what is stored in your personal dictionary.</p> <p><strong>ATTENTION:</"
+"strong> If you forget your password, your personal dictionary will become "
+"unaccessible, since it can no longer be decrypted. If you change your "
+"mailbox password, SquirrelSpell will recognize it and prompt you for your "
+"old password in order to re-encrypt the dictionary with a new key.</p>"
 msgstr ""
+"<p>Το προσωπικό σας λεξικό <strong>είναι κρυπτογραφημένο</strong>. Αυτό "
+"βοηθάει να προστατεύσετε το ιδιωτικό σας απόρρητο σε περίπτωση που το "
+"σύστημα ηλεκτρονικού ταχυδρομείου μέσω ιστοσελίδων παραβιαστεί και το αρχείο "
+"σας προσωπικού λεξικού καταλήξει να κλαπεί. Έχει κρυπτογραφηθεί με τον "
+"κωδικό που χρησιμοποιείτε για να έχετε πρόσβαση στο γραμματοκιβώτιο σας, "
+"κάνοντας δύσκολο για τον οποιοδήποτε να δει τι έχει αποθηκευτεί στο "
+"προσωπικό σας λεξικό.</p> <p><strong>ΠΡΟΣΟΧΗ:</strong> Αν ξεχάσετε τον "
+"κωδικό σας, το προσωπικό σας λεξικό θα γίνει απροσπέλαστο, αφού δεν μπορεί "
+"πλέον να αποκρυπτογραφηθεί. Αν αλλάξετε τον κωδικό του γραμματοκιβωτίου σας, "
+"Διορθωτής-Squirrel θα το αναγνωρίσει και θα σας προτρέψει να δώσετε τον "
+"παλιό σας κωδικό  ώστε να επανα-κρυπτογραφηθεί το λεξικό με ένα νέο κλειδί.</"
+"p> "
 
 msgid "Please decrypt my personal dictionary and store it in a clear-text format."
 msgstr ""
+"Παρακαλώ να γίνει αποκρυπτογράφηση του προσωπικού μου λεξικού και αποθήκευση "
+"του σε μορφή καθαρού κειμένου."
 
 msgid "Change crypto settings"
-msgstr ""
+msgstr "Αλλαγή ρυθμίσεων κρυπτογράφησης"
 
-msgid "<p>Your personal dictionary is <strong>currently not encrypted</strong>. You may wish to encrypt your personal dictionary to protect your privacy in case the webmail system gets compromized and your personal dictionary file gets stolen. When encrypted, the file's contents look garbled and are hard to decrypt without knowing the correct key (which is your mailbox password).</p> <strong>ATTENTION:</strong> If you decide to encrypt your personal dictionary, you must remember that it gets &quot;hashed&quot; with your mailbox password. If you forget your mailbox password and the administrator changes it to a new value, your personal dictionary will become useless and will have to be created anew. However, if you or your system administrator change your mailbox password but you still have the old password at hand, you will be able to enter the old key to re-encrypt the dictionary with the new value.</p>"
+msgid ""
+"<p>Your personal dictionary is <strong>currently not encrypted</strong>. You "
+"may wish to encrypt your personal dictionary to protect your privacy in case "
+"the webmail system gets compromized and your personal dictionary file gets "
+"stolen. When encrypted, the file's contents look garbled and are hard to "
+"decrypt without knowing the correct key (which is your mailbox password).</"
+"p> <strong>ATTENTION:</strong> If you decide to encrypt your personal "
+"dictionary, you must remember that it gets &quot;hashed&quot; with your "
+"mailbox password. If you forget your mailbox password and the administrator "
+"changes it to a new value, your personal dictionary will become useless and "
+"will have to be created anew. However, if you or your system administrator "
+"change your mailbox password but you still have the old password at hand, "
+"you will be able to enter the old key to re-encrypt the dictionary with the "
+"new value.</p>"
 msgstr ""
+"<p>Το προσωπικό σας λεξικό <strong>δεν είναι κρυπτογραφημένο</strong>. "
+"Μπορεί να επιθυμείτε να κρυπτογραφήσετε το προσωπικό σας λεξικό για να "
+"προστατεύσετε το προσωπικό σας απόρρητο σε περίπτωση που το σύστημα "
+"ηλεκτρονικού ταχυδρομείου μέσω ιστοσελίδων παραβιαστεί και το αρχείο σας "
+"προσωπικού λεξικού κλαπεί. Όταν είναι κρυπτογραφημένο το περιεχόμενο του "
+"αρχείου δεν μπορεί να διαβαστεί  και είναι δύσκολο να αποκρυπτογραφηθεί "
+"χωρίς γνώση του σωστού κλειδιού (το οποίο είναι ο κωδικός του "
+"γραμματοκιβωτίου σας). </p> <strong>ΠΡΟΣΟΧΗ:</strong> Αν αποφασίσετε να "
+"κωδικοποιήσετε το προσωπικό σας λεξικό, πρέπει να θυμάστε ότι &quot;το "
+"ανακάτεμα του&quot; γίνεται με τον κωδικό του γραμματοκιβωτίου σας. Αν "
+"ξεχάσετε τον κωδικό του γραμματοκιβωτίου σας και ο διαχειριστής του "
+"συστήματος τον αλλάξει σε νέα τιμή, το προσωπικό σας λεξικό θα γίνει άχρηστο "
+"και θα πρέπει να δημιουργηθεί από την αρχή. Ωστόσο, αν εσείς ή ο "
+"διαχειριστής του συστήματος σας αλλάξει τον κωδικό του γραμματοκιβωτίου σας "
+"αλλά διαθέτετε ακόμα τον παλιό κωδικό, θα είστε σε θέση να εισάγετε το παλιό "
+"κλειδί για να επανα-κρυπτογραφήσετε το λεξικό με τη νέα τιμή.</p>"
 
 msgid "Please encrypt my personal dictionary and store it in an encrypted format."
 msgstr ""
+"Παρακαλώ να κρυπτογραφηθεί το προσωπικό μου λεξικό και να αποθηκευτεί σε "
+"κρυπτογραφημένη μορφή."
 
 #, c-format
 msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
-msgstr ""
+msgstr "Διαγραφή των ακόλουθων εγγραφών από το λεξικό <strong>%s</strong>:"
 
 msgid "All done!"
-msgstr ""
+msgstr "Έγιναν Όλα!"
 
 msgid "Personal Dictionary Updated"
-msgstr ""
+msgstr "Το Προσωπικό Λεξικό Ενημερώθηκε"
 
 msgid "No changes requested."
-msgstr ""
+msgstr "Δεν ζητήθηκε καμία αλλαγή."
 
 msgid "Please wait, communicating with the server..."
-msgstr ""
+msgstr "Παρακαλώ περιμένετε, επικοινωνία με τον εξυπηρετητή..."
 
-msgid "Please choose which dictionary you would like to use to spellcheck this message:"
+msgid ""
+"Please choose which dictionary you would like to use to spellcheck this "
+"message:"
 msgstr ""
-
-msgid "Go"
-msgstr ""
+"Παρακαλώ επιλέξτε ποιο λεξικό θα θέλατε να χρησιμοποιήσετε για τον "
+"ορθογραφικό έλεγχο αυτού του μηνύματος:"
 
 msgid "SquirrelSpell Initiating"
-msgstr ""
+msgstr "Αρχικοποίηση Διορθωτή-Squirrel"
 
 #, c-format
-msgid "Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as default dictionary."
+msgid ""
+"Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
+"default dictionary."
 msgstr ""
+"Οι ρυθμίσεις προσαρμόστηκαν σε: <strong>%s</strong> με <strong>%s</strong> "
+"ως το  εξ ορισμού λεξικό."
 
 #, c-format
 msgid "Using <strong>%s</strong> dictionary (system default) for spellcheck."
 msgstr ""
+"Χρήση του λεξικού <strong>%s</strong> (προεπιλογή συστήματος) για έλεγχο "
+"ορθογραφίας."
 
 msgid "International Dictionaries Preferences Updated"
-msgstr ""
+msgstr "Οι Προτιμήσεις Διεθνών Λεξικών Ενημερώθηκαν"
 
-msgid "Please check any available international dictionaries which you would like to use when spellchecking:"
+msgid ""
+"Please check any available international dictionaries which you would like "
+"to use when spellchecking:"
 msgstr ""
+"Παρακαλώ επιλέξτε όποια από τα διαθέσιμα διεθνή λεξικά θα θέλατε να "
+"χρησιμοποιήσετε όταν κάνετε έλεγχο ορθογραφίας:"
 
 msgid "Make this dictionary my default selection:"
-msgstr ""
+msgstr "Όρισε αυτό το λεξικό ως την εξ ορισμού επιλογή μου:"
 
 msgid "Make these changes"
-msgstr ""
+msgstr "Να γίνουν αυτές οι αλλαγές"
 
 msgid "Add International Dictionaries"
-msgstr ""
+msgstr "Προσθήκη Διεθνών Λεξικών"
 
 msgid "Please choose which options you wish to set up:"
-msgstr ""
+msgstr "Παρακαλώ επιλέξτε ποιές επιλογές επιθυμείτε να ρυθμίσετε:"
 
 msgid "Edit your personal dictionary"
-msgstr ""
+msgstr "Επεξεργασία προσωπικού λεξικού"
 
 msgid "Set up international dictionaries"
-msgstr ""
+msgstr "Ρυθμίσεις διεθνών λεξικών"
 
 msgid "Encrypt or decrypt your personal dictionary"
-msgstr ""
+msgstr "Κρυπτογράφηση ή αποκρυπτογράφηση του προσωπικού σας λεξικού"
 
 msgid "not available"
-msgstr ""
+msgstr "μη διαθέσιμο"
 
 msgid "SquirrelSpell Options Menu"
-msgstr ""
+msgstr "Μενού Επιλογών Διορθωτής-Squirrel"
 
 msgid "Translator"
-msgstr ""
+msgstr "Μεταφραστής"
 
 msgid "Saved Translation Options"
-msgstr ""
+msgstr "Αποθήκευση Επιλογών Μετάφρασης"
 
 msgid "Your server options are as follows:"
-msgstr ""
+msgstr "Οι επιλογές του εξυπηρετητή σας έχουν ως εξής:"
 
 msgid "13 language pairs, maximum of 1000 characters translated, powered by Systran"
-msgstr ""
+msgstr "13 ζεύγη γλωσσών, μέγιστο μετάφρασης 1000 χαρακτήρων, από το Systran"
 
 msgid "10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
-msgstr ""
+msgstr "10 ζεύγη γλωσσών, μέγιστο μετάφρασης 25 kilobytes, από το Systran"
 
 msgid "12 language pairs, no known limits, powered by Systran"
-msgstr ""
+msgstr "12 ζεύγη γλωσσών, κανένας γνωστός περιορισμός, από το Systran"
 
-msgid "767 language pairs, no known limits, powered by Translation Experts's InterTran"
+msgid ""
+"767 language pairs, no known limits, powered by Translation Experts's "
+"InterTran"
 msgstr ""
+"767 ζεύγη γλωσσών, κανένας γνωστός περιορισμός, από το Translation Experts's "
+"InterTran"
 
 msgid "8 language pairs, no known limits, powered by GPLTrans (free, open source)"
 msgstr ""
+"8 ζεύγη γλωσσών, κανένας γνωστός περιορισμός, από το GPLTrans (ελεύθερο, "
+"ανοικτός κώδικας)"
 
-msgid "You also decide if you want the translation box displayed, and where it will be located."
+msgid ""
+"You also decide if you want the translation box displayed, and where it will "
+"be located."
 msgstr ""
+"Επίσης αποφασίζετε αν θέλετε να εμφανίζεται το κουτί μετάφρασης, και που θα "
+"είναι τοποθετημένο."
 
 msgid "Select your translator:"
-msgstr "Επιλέξτε τον μεταφραστή σας:"
+msgstr "Επιλογή του μεταφραστή σας:"
 
 msgid "When reading:"
-msgstr ""
+msgstr "Κατά την ανάγνωση:"
 
 msgid "Show translation box"
-msgstr ""
+msgstr "Εμφάνιση κουτιού μετάφρασης"
 
 msgid "to the left"
-msgstr ""
+msgstr "προς τα δεξιά"
 
 msgid "in the center"
-msgstr ""
+msgstr "στο κέντρο"
 
 msgid "to the right"
-msgstr ""
+msgstr "προς τα δεξιά"
 
 msgid "Translate inside the SquirrelMail frames"
-msgstr ""
+msgstr "Μετάφραση μέσα στα πλαίσια του SquirrelMail "
 
 msgid "When composing:"
-msgstr ""
+msgstr "Κατά την σύνταξη:"
 
 msgid "Not yet functional, currently does nothing"
-msgstr ""
+msgstr "Δεν λειτουργία ακόμα, προς το παρόν δεν κάνει τίποτα"
 
 msgid "Translation Options"
-msgstr ""
+msgstr "Επιλογές Μετάφρασης"
 
-msgid "Which translator should be used when you get messages in a different language?"
+msgid ""
+"Which translator should be used when you get messages in a different "
+"language?"
 msgstr ""
+"Ποιός μεταφραστής θα πρέπει να χρησιμοποιείται όταν λαμβάνετε μηνύματα σε "
+"διαφορετική γλώσσα;"
 
 #, c-format
 msgid "%s to %s"
-msgstr "από %s σε %s"
+msgstr "%s σε %s"
 
 msgid "English"
 msgstr "Αγγλικά"
@@ -2004,28 +3426,28 @@ msgid "Russian"
 msgstr "Ρώσικα"
 
 msgid "Translate"
-msgstr "Μετάφραση"
+msgstr "Μετέφρασε"
 
 msgid "Brazilian Portuguese"
 msgstr "Πορτογαλικά Βραζιλίας"
 
 msgid "Bulgarian"
-msgstr "Βουλγαρικά"
+msgstr "Βουλγάρική"
 
 msgid "Croatian"
-msgstr "Κροατικά"
+msgstr "Κροατική"
 
 msgid "Czech"
-msgstr "Τσέχικα"
+msgstr "Τσεχική"
 
 msgid "Danish"
-msgstr "Δανικά"
+msgstr "Δανέζικα"
 
 msgid "Dutch"
 msgstr "Ολλανδικά"
 
 msgid "European Spanish"
-msgstr "Ευρωπαϊκά Ισπανικά"
+msgstr "Ισπανικά Ευρώπης"
 
 msgid "Finnish"
 msgstr "Φινλανδικά"
@@ -2034,7 +3456,7 @@ msgid "Greek"
 msgstr "Ελληνικά"
 
 msgid "Hungarian"
-msgstr "Ουγγαρικά"
+msgstr "Ουγγρική"
 
 msgid "Icelandic"
 msgstr "Ισλανδικά"
@@ -2043,13 +3465,13 @@ msgid "Japanese"
 msgstr "Ιαπωνικά"
 
 msgid "Latin American Spanish"
-msgstr "Λατινοαμερικάνικα Ισπανικά"
+msgstr "Ισπανικά Λατινικής Αμερικής"
 
 msgid "Norwegian"
 msgstr "Νορβηγικά"
 
 msgid "Polish"
-msgstr "Πολωνικά"
+msgstr "Πολωνική"
 
 msgid "Romanian"
 msgstr "Ρουμανικά"
@@ -2058,10 +3480,13 @@ msgid "Serbian"
 msgstr "Σέρβικα"
 
 msgid "Slovenian"
-msgstr "Σλοβακικά"
+msgstr "Σλοβένικη"
 
 msgid "Swedish"
 msgstr "Σουηδικά"
+
+msgid "Turkish"
+msgstr "Τουρκικά"
 
 msgid "Welsh"
 msgstr "Ουαλικά"
@@ -2072,783 +3497,116 @@ msgstr "Ινδονησιακά"
 msgid "Latin"
 msgstr "Λατινικά"
 
-msgid "New Mail Notification"
-msgstr ""
-
-msgid "Select <b>Enable Media Playing</b> to turn on playing a media file when unseen mail is in your folders. When enabled, you can specify the media file to play in the provided file box."
-msgstr ""
-
-msgid "The <b>Check all boxes, not just INBOX</b> option will check ALL of your folders for unseen mail, not just the inbox for notification."
-msgstr ""
-
-msgid "Selecting the <b>Show popup</b> option will enable the showing of a popup window when unseen mail is in your folders (requires JavaScript)."
-msgstr ""
-
-msgid "Use the <b>Check RECENT</b> to only check for messages that are recent. Recent messages are those that have just recently showed up and have not been \"viewed\" or checked yet.  This can prevent being continuously annoyed by sounds or popups for unseen mail."
-msgstr ""
-
-msgid "Selecting the <b>Change title</b> option will change the title in some browsers to let you know when you have new mail (requires JavaScript, and only works in IE but you won't see errors with other browsers).  This will always tell you if you have new mail, even if you have <b>Check RECENT</b> enabled."
-msgstr ""
-
-msgid "Select from the list of <b>server files</b> the media file to play when new mail arrives.  Selecting <b>local media</b> will play the file specified in the <b>local media file</b> box to play from the local computer.  If no file is specified, the system will use a default from the server."
-msgstr ""
-
-msgid "Enable Media Playing"
-msgstr ""
-
-msgid "Check all boxes, not just INBOX"
-msgstr ""
-
-msgid "Count only messages that are RECENT"
-msgstr ""
-
-msgid "Change title on supported browsers."
-msgstr ""
-
-msgid "requires JavaScript to work"
-msgstr ""
-
-msgid "Show popup window on new mail"
-msgstr ""
-
-msgid "Select server file:"
-msgstr ""
-
-msgid "(local media)"
-msgstr ""
-
-msgid "Try"
-msgstr ""
-
-msgid "Local Media File:"
-msgstr ""
-
-msgid "Current File:"
-msgstr ""
-
-msgid "New Mail"
-msgstr ""
-
-msgid "SquirrelMail Notice:"
-msgstr ""
-
-msgid "You have new mail!"
-msgstr ""
-
-msgid "NewMail Options"
-msgstr ""
-
-msgid "This configures settings for playing sounds and/or showing popup windows when new mail arrives."
-msgstr ""
-
-msgid "New Mail Notification options saved"
-msgstr ""
-
-#, c-format
-msgid "%s New Messages"
-msgstr ""
-
-#, c-format
-msgid "%s New Message"
-msgstr ""
-
-msgid "Test Sound"
-msgstr ""
-
-msgid "Loading the sound..."
-msgstr ""
-
-msgid "POP3 connect:"
-msgstr ""
-
-msgid "No server specified"
-msgstr ""
-
-msgid "Error "
-msgstr "Λάθος "
-
-msgid "POP3 noop:"
-msgstr ""
-
-msgid "No connection to server"
-msgstr ""
-
-msgid "POP3 user:"
-msgstr ""
-
-msgid "no login ID submitted"
-msgstr ""
-
-msgid "connection not established"
-msgstr ""
-
-msgid "POP3 pass:"
-msgstr ""
-
-msgid "No password submitted"
-msgstr ""
-
-msgid "authentication failed "
-msgstr ""
-
-msgid "POP3 apop:"
-msgstr ""
-
-msgid "No login ID submitted"
-msgstr ""
-
-msgid "No server banner"
-msgstr ""
-
-msgid "abort"
-msgstr ""
-
-msgid "apop authentication failed"
-msgstr ""
-
-msgid "POP3 login:"
-msgstr ""
-
-msgid "POP3 top:"
-msgstr ""
-
-msgid "POP3 pop_list:"
-msgstr ""
-
-msgid "Premature end of list"
-msgstr ""
-
-msgid "POP3 get:"
-msgstr ""
-
-msgid "POP3 last:"
-msgstr ""
-
-msgid "POP3 reset:"
-msgstr ""
-
-msgid "POP3 send_cmd:"
-msgstr ""
-
-msgid "Empty command string"
-msgstr ""
-
-msgid "POP3 quit:"
-msgstr ""
-
-msgid "connection does not exist"
-msgstr ""
-
-msgid "POP3 uidl:"
-msgstr ""
-
-msgid "POP3 delete:"
-msgstr ""
-
-msgid "No msg number submitted"
-msgstr ""
-
-msgid "Command failed "
-msgstr ""
-
-msgid "Remote POP server Fetching Mail"
-msgstr ""
-
-msgid "Select Server:"
-msgstr ""
-
-msgid "Password for"
-msgstr ""
-
-msgid "Fetch Mail"
-msgstr ""
-
-msgid "Fetching from "
-msgstr ""
-
-msgid "Oops, "
-msgstr ""
-
-msgid "Opening IMAP server"
-msgstr ""
-
-msgid "Opening POP server"
-msgstr ""
-
-msgid "Login Failed:"
-msgstr ""
-
-msgid "Login OK: No new messages"
-msgstr ""
-
-msgid "Login OK: Inbox EMPTY"
-msgstr ""
-
-msgid "Login OK: Inbox contains ["
-msgstr ""
-
-msgid "] messages"
-msgstr ""
-
-msgid "Fetching UIDL..."
-msgstr ""
-
-msgid "Server does not support UIDL."
-msgstr ""
-
-msgid "Leaving Mail on Server..."
-msgstr ""
-
-msgid "Deleting messages from server..."
-msgstr ""
-
-msgid "Fetching message "
-msgstr ""
-
-msgid "Message appended to mailbox"
-msgstr ""
-
-msgid "Message "
-msgstr ""
-
-msgid " deleted from Remote Server!"
-msgstr ""
-
-msgid "Delete failed:"
-msgstr ""
-
-msgid "Error Appending Message!"
-msgstr ""
-
-msgid "Closing POP"
-msgstr ""
-
-msgid "Logging out from IMAP"
-msgstr ""
-
-msgid "Saving UIDL"
-msgstr ""
-
-msgid "Remote POP server settings"
-msgstr ""
-
-msgid "You should be aware that the encryption used to store your password is not perfectly secure.  However, if you are using pop, there is inherently no encryption anyway. Additionally, the encryption that we do to save it on the server can be undone by a hacker reading the source to this file."
-msgstr ""
-
-msgid "If you leave password empty, it will be required when you fetch mail."
-msgstr ""
-
-msgid "Encrypt passwords (informative only)"
-msgstr ""
-
-msgid "Add Server"
-msgstr ""
-
-msgid "Server:"
-msgstr ""
-
-#, fuzzy
-msgid "Port:"
-msgstr "Προτεραιότητα"
-
-msgid "Alias:"
-msgstr ""
-
-msgid "Username:"
-msgstr ""
-
-msgid "Store in Folder:"
-msgstr ""
-
-msgid "Leave Mail on Server"
-msgstr ""
-
-msgid "Check mail during login"
-msgstr ""
-
-msgid "Check mail during folder refresh"
-msgstr ""
-
-msgid "Modify Server"
-msgstr ""
-
-msgid "Server Name:"
-msgstr ""
-
-msgid "Modify"
-msgstr ""
-
-msgid "No-one server in use. Try to add."
-msgstr ""
-
-msgid "Fetching Servers"
-msgstr ""
-
-msgid "Confirm Deletion of a Server"
-msgstr ""
-
-msgid "Selected Server:"
-msgstr ""
-
-msgid "Confirm delete of selected server?"
-msgstr ""
-
-msgid "Confirm Delete"
-msgstr ""
-
-msgid "Mofify a Server"
-msgstr ""
-
-msgid "Undefined Function"
-msgstr ""
-
-msgid "Hey! Wath do You are looking for?"
-msgstr ""
-
-msgid "Fetch"
-msgstr ""
-
-msgid "Warning, "
-msgstr ""
-
-msgid "Mail Fetch Result:"
-msgstr ""
-
-msgid "Simple POP3 Fetch Mail"
-msgstr ""
-
-msgid "This configures settings for downloading email from a pop3 mailbox to your account on this server."
-msgstr ""
-
-msgid "Bug Reports:"
-msgstr ""
-
-msgid "Show button in toolbar"
-msgstr ""
-
-msgid "Sent Subfolders Options"
-msgstr ""
-
-msgid "Use Sent Subfolders"
-msgstr ""
-
-msgid "Monthly"
-msgstr ""
-
-msgid "Quarterly"
-msgstr ""
-
-msgid "Yearly"
-msgstr ""
-
-msgid "Base Sent Folder"
-msgstr ""
-
-msgid "TODAY"
-msgstr ""
-
-msgid "l, F j Y"
-msgstr "D, F j, Y G:i"
-
-msgid "ADD"
-msgstr ""
-
-msgid "EDIT"
-msgstr ""
-
-msgid "DEL"
-msgstr ""
-
-msgid "Start time:"
-msgstr ""
-
-msgid "Length:"
-msgstr ""
-
-msgid "Priority:"
-msgstr ""
-
-msgid "Title:"
-msgstr ""
-
-msgid "Set Event"
-msgstr ""
-
-msgid "Event Has been added!"
-msgstr ""
-
-msgid "Time:"
-msgstr ""
-
-msgid "Day View"
-msgstr ""
-
-msgid "Do you really want to delete this event?"
-msgstr ""
-
-msgid "Event deleted!"
-msgstr ""
-
-msgid "Nothing to delete!"
-msgstr ""
-
-msgid "Update Event"
-msgstr ""
-
-msgid "Do you really want to change this event from:"
-msgstr ""
-
-msgid "to:"
-msgstr ""
-
-msgid "l, F d Y"
-msgstr ""
-
-msgid "Event updated!"
-msgstr ""
-
-msgid "Month View"
-msgstr ""
-
-msgid "0 min."
-msgstr ""
-
-msgid "15 min."
-msgstr ""
-
-msgid "35 min."
-msgstr ""
-
-msgid "45 min."
-msgstr ""
-
-msgid "1 hr."
-msgstr ""
-
-msgid "1.5 hr."
-msgstr ""
-
-msgid "2 hr."
-msgstr ""
-
-msgid "2.5 hr."
-msgstr ""
-
-msgid "3 hr."
-msgstr ""
-
-msgid "3.5 hr."
-msgstr ""
-
-msgid "4 hr."
-msgstr ""
-
-msgid "5 hr."
-msgstr ""
-
-msgid "6 hr."
-msgstr ""
-
-msgid "Calendar"
-msgstr ""
-
-msgid "Mailinglist"
-msgstr "Ταχυδρομική λίστα"
-
-#, c-format
-msgid "This will send a message to %s requesting help for this list. You will receive an emailed response at the address below."
-msgstr ""
-
-#, c-format
-msgid "This will send a message to %s requesting that you will be subscribed to this list. You will be subscribed with the address below."
-msgstr ""
-
-#, c-format
-msgid "This will send a message to %s requesting that you will be unsubscribed from this list. It will try to unsubscribe the adress below."
-msgstr ""
-
-msgid "Send Mail"
-msgstr ""
-
-msgid "Post to List"
-msgstr ""
-
-msgid "Reply to List"
-msgstr ""
-
-msgid "List Archives"
-msgstr ""
-
-msgid "Contact Listowner"
-msgstr ""
-
-msgid "Mailing List:"
-msgstr ""
-
-msgid "Delete & Prev"
-msgstr ""
-
-msgid "Delete & Next"
-msgstr ""
-
-msgid "Delete/Move/Next Buttons:"
-msgstr ""
-
-msgid "Display at top"
-msgstr ""
-
-msgid "with move option"
-msgstr ""
-
-msgid "Display at bottom"
-msgstr ""
-
-msgid "Config File Version"
-msgstr ""
-
-msgid "Squirrelmail Version"
-msgstr ""
-
-msgid "PHP Version"
-msgstr ""
-
-msgid "Organization Preferences"
-msgstr ""
-
-msgid "Organization Name"
-msgstr ""
-
-msgid "Organization Logo"
-msgstr ""
-
-msgid "Organization Logo Width"
-msgstr ""
-
-msgid "Organization Logo Height"
-msgstr ""
-
-msgid "Organization Title"
-msgstr ""
-
-msgid "Signout Page"
-msgstr ""
-
-msgid "Default Language"
-msgstr ""
-
-msgid "Top Frame"
-msgstr ""
-
-msgid "Server Settings"
-msgstr ""
-
-msgid "Mail Domain"
-msgstr ""
-
-msgid "IMAP Server Address"
-msgstr ""
-
-msgid "IMAP Server Port"
-msgstr ""
-
-msgid "IMAP Server Type"
-msgstr ""
-
-msgid "Cyrus IMAP server"
-msgstr ""
-
-msgid "University of Washington's IMAP server"
-msgstr ""
-
-msgid "Microsoft Exchange IMAP server"
-msgstr ""
-
-msgid "Courier IMAP server"
-msgstr ""
-
-msgid "Not one of the above servers"
-msgstr ""
-
-msgid "IMAP Folder Delimiter"
-msgstr ""
-
-msgid "Use \"detect\" to auto-detect."
-msgstr ""
-
-msgid "Use Sendmail"
-msgstr ""
-
-msgid "Sendmail Path"
-msgstr ""
-
-msgid "SMTP Server Address"
-msgstr ""
-
-msgid "SMTP Server Port"
-msgstr ""
-
-msgid "Authenticated SMTP"
-msgstr ""
-
-msgid "Invert Time"
-msgstr ""
-
-msgid "Use Confirmation Flags"
-msgstr ""
-
-msgid "Folders Defaults"
-msgstr ""
-
-msgid "Default Folder Prefix"
-msgstr ""
-
-msgid "Show Folder Prefix Option"
-msgstr ""
-
-msgid "By default, move to trash"
-msgstr ""
-
-msgid "By default, move to sent"
-msgstr ""
-
-msgid "By default, save as draft"
-msgstr ""
-
-msgid "List Special Folders First"
-msgstr ""
-
-msgid "Show Special Folders Color"
-msgstr ""
-
-msgid "Auto Expunge"
-msgstr ""
-
-msgid "Default Sub. of INBOX"
-msgstr ""
-
-msgid "Show 'Contain Sub.' Option"
-msgstr ""
-
-msgid "Default Unseen Notify"
-msgstr ""
-
-msgid "Default Unseen Type"
-msgstr ""
-
-msgid "Auto Create Special Folders"
-msgstr ""
-
-msgid "Default Javascript Adrressbook"
-msgstr ""
-
-msgid "Auto delete folders"
-msgstr ""
-
-msgid "General Options"
-msgstr ""
-
-msgid "Default Charset"
-msgstr ""
-
-msgid "Data Directory"
-msgstr ""
-
-msgid "Temp Directory"
-msgstr ""
-
-msgid "Hash Level"
-msgstr ""
-
-msgid "Hash Disabled"
-msgstr ""
-
-msgid "Moderate"
-msgstr ""
-
-msgid "Medium"
-msgstr ""
-
-msgid "Default Left Size"
-msgstr ""
-
-msgid "Usernames in Lowercase"
-msgstr ""
-
-msgid "Allow use of priority"
-msgstr ""
-
-msgid "Hide SM attributions"
-msgstr ""
-
-msgid "Enable use of delivery receipts"
-msgstr ""
-
-msgid "Allow editing of identities"
-msgstr ""
-
-msgid "Allow editing of full name"
-msgstr ""
-
-msgid "Message of the Day"
-msgstr ""
-
-msgid "Database"
-msgstr ""
-
-msgid "Address book DSN"
-msgstr ""
-
-msgid "Address book table"
-msgstr ""
-
-msgid "Preferences DSN"
-msgstr ""
-
-msgid "Preferences table"
-msgstr ""
-
-msgid "Preferences username field"
-msgstr ""
-
-msgid "Preferences key field"
-msgstr ""
-
-msgid "Preferences value field"
-msgstr ""
-
-msgid "Themes"
-msgstr ""
-
-msgid "Style Sheet URL (css)"
-msgstr ""
-
-msgid "Configuration Administrator"
-msgstr ""
-
-msgid "Theme Name"
-msgstr ""
-
-msgid "Theme Path"
-msgstr ""
-
-msgid "Plugins"
-msgstr ""
-
-msgid "Change Settings"
-msgstr ""
-
-msgid "Config file can't be opened. Please check config.php."
-msgstr ""
-
-msgid "Administration"
-msgstr ""
-
-msgid "This module allows administrators to manage SquirrelMail main configuration remotely."
-msgstr ""
-
 msgid "Delivery error report"
-msgstr ""
+msgstr "Αναφορά σφάλματος παράδοσης"
 
 msgid "Undelivered Message Headers"
-msgstr ""
+msgstr "Κεφαλίδες Μη-Απεσταλμένων Μηνυμάτων"
+
+#~ msgid "Viewing a message attachment"
+#~ msgstr "Βλέπετε ένα συνημμένο με μορφή μηνύματος"
+
+#~ msgid "Cc:"
+#~ msgstr "Αντίγραφο:"
+
+#~ msgid "Bcc:"
+#~ msgstr "2ο Αντίγραφο:"
+
+#~ msgid "<No subject>"
+#~ msgstr "<Χωρίς Θέμα>"
+
+#~ msgid "Enable Subtle Printer Friendly Link"
+#~ msgstr "Εμφάνιση Δεσμού Φιλικής Εκτύπωσης"
+
+#~ msgid "Enable request/confirm reading"
+#~ msgstr "Ενεργοποίηση απαίτησης/επιβεβαίωσης ανάγνωσης"
+
+#~ msgid "Use receive date for sort"
+#~ msgstr "Χρήση ημερομηνίας παραλαβής για ταξινόμηση"
+
+#~ msgid "There was an error contacting the mail server."
+#~ msgstr ""
+#~ "Παρουσιάστηκε σφάλμα στην επικοινωνία με τον εξυπηρετητή ταχυδρομείου."
+
+#~ msgid "Contact your administrator for help."
+#~ msgstr "Επικοινωνήστε με τον διαχειριστή του συστήματος για βοήθεια."
+
+#~ msgid "No Messages found"
+#~ msgstr "Δεν βρέθηκαν Μηνύματα"
+
+#~ msgid "Note Field Contains"
+#~ msgstr "Το Πεδίο Σημειώσεων Περιέχει"
+
+#~ msgid "Sun"
+#~ msgstr "Κυρ"
+
+#~ msgid "Mon"
+#~ msgstr "Δευ"
+
+#~ msgid "Tue"
+#~ msgstr "Τρι"
+
+#~ msgid "Wed"
+#~ msgstr "Τετ"
+
+#~ msgid "Thu"
+#~ msgstr "Πεμ"
+
+#~ msgid "Fri"
+#~ msgstr "Παρ"
+
+#~ msgid "Sat"
+#~ msgstr "Σαβ"
+
+#~ msgid "Jan"
+#~ msgstr "Ιαν"
+
+#~ msgid "Feb"
+#~ msgstr "Φεβ"
+
+#~ msgid "Mar"
+#~ msgstr "Μαρ"
+
+#~ msgid "Apr"
+#~ msgstr "Απρ"
+
+#~ msgid "Jun"
+#~ msgstr "Ιουν"
+
+#~ msgid "Jul"
+#~ msgstr "Ιουλ"
+
+#~ msgid "Aug"
+#~ msgstr "Αυγ"
+
+#~ msgid "Sep"
+#~ msgstr "Σεπ"
+
+#~ msgid "Oct"
+#~ msgstr "Οκτ"
+
+#~ msgid "Nov"
+#~ msgstr "Νοε"
+
+#~ msgid "Dec"
+#~ msgstr "Δεκ"
+
+#~ msgid "No To Address"
+#~ msgstr "Όχι Στη Διεύθυνση"
+
+#~ msgid "Found"
+#~ msgstr "Βρέθηκε"
+
+#~ msgid "messages"
+#~ msgstr "μηνύματα"
+
+#~ msgid "Error decoding mime structure.  Report this as a bug!"
+#~ msgstr ""
+#~ "Σφάλμα στην αποκωδικοποίηση δομής mime. Να το αναφέρετε ως σφάλμα (bug)!"
+
+#~ msgid "l, F d Y"
+#~ msgstr "l, F d Y"
+
+#~ msgid "Authenticated SMTP"
+#~ msgstr "SMTP με Έλεγχο Αυθεντικότητας"
 
