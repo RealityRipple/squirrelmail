@@ -659,7 +659,7 @@ if ($attachmentsdisplay) {
    echo '   <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
    echo '      <tr><td>';
    echo '      <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
-   echo '         <tr><td ALIGN="left" bgcolor="'.$color[9].'">';// colspan="5"><b>';
+   echo '         <tr><td ALIGN="left" bgcolor="'.$color[9].'"><b>';
    echo           _("Attachments").':</b></td></tr><tr><td>';
    echo '          <table width="100%" cellpadding="2" cellspacing="2" align="center"'.' border="0" bgcolor="'.$color[12].'">';
    echo             $attachmentsdisplay;
