@@ -376,7 +376,7 @@ class AddressBook {
 
       // Constructor function.
     function AddressBook() {
-        $localbackendname = _("Personal address book");
+        $this->localbackendname = _("Personal address book");
     }
 
     /*
