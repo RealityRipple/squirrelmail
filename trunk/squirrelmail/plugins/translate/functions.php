@@ -71,6 +71,13 @@ function translate_read_form_function() {
     global $imapConnection, $wrap_at, $passed_id, $mailbox;
     global $translate_gpltrans_url;
 
+    global $translate_babelfish_enabled, $translate_go_enabled,
+        $translate_dictionary_enabled, $translate_google_enabled,
+        $translate_gpltrans_enabled, $translate_intertran_enabled,
+        $translate_promt_enabled, $translate_otenet_enabled;
+    global $translate_custom_enabled;
+
+
     if (!$translate_show_read) {
         return;
     }
