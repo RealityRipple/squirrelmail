@@ -328,6 +328,11 @@ echo '         </SELECT>'.
 if ( !isset( $what ) ) {
     $what = '';
 }
+if ( !isset( $where ) ) {
+    $where = '';
+}
+
+
 $what_disp = str_replace(',', ' ', $what);
 $what_disp = str_replace('\\\\', '\\', $what_disp);
 $what_disp = str_replace('\\"', '"', $what_disp);
