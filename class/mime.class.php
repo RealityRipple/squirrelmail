@@ -1623,7 +1623,7 @@ class message
 	    $exclude = false;
 	    foreach ($exclude_id as $excl)
 	    {
-               if ($entity->entity_id == $excl)
+               if ($entity->entity_id === $excl)
 	       {
 	          $exclude = true;
 	       }
