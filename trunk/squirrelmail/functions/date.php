@@ -58,6 +58,8 @@
 
       /** now find what the server is at **/
       $current = date("Z", time());
+      if ($invert_time)
+          $current = - $current;
       $stamp = (int)$stamp - (int)$gmt + (int)$current;
 
       return $stamp;
@@ -69,7 +71,10 @@
 
    function getDateString($stamp) {
       $now = time();
-      $midnight = $now - ($now % 86400) - 86400 - date("Z", $now);
+      $dateZ = date("Z", $now);
+      if ($invert_time)
+          $dateZ = - $dateZ;
+      $midnight = $now - ($now % 86400) - 86400 - $dateZ;
 
       if ($midnight < $stamp) {
          // Today

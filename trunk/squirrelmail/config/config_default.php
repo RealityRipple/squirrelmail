@@ -163,7 +163,7 @@
 
     $attachment_dir = $data_dir;
 
-//  This is the default size of the left folder list.  Default is 200,
+//  This is the default size of the folder list.  Default is 200,
 //  but you can set it to whatever you wish.
 
    $default_left_size = 200;
@@ -261,4 +261,11 @@
 
  $default_unseen_notify = 2;
  $default_unseen_type   = 1;
+ 
+ // If you are running on a machine that doesn't have the tm_gmtoff
+ // value in your time structure and if you are in a time zone that
+ // has a negative offset, you need to set this value to 1.
+ // This is typically people in the US that are running Solaris 7.
+ 
+ $invert_time = false;
 ?>
