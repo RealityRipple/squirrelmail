@@ -405,7 +405,7 @@
         } else if (ereg('"([^"]*)"', $topline, $regs)) {
             $ret = $regs[1];
         } else {
-            $ret = "Body retrival error.  Please report this bug!\n" .
+            $ret = "Body retrieval error.  Please report this bug!\n" .
                    "Response:  $response\n" .
                    "Message:  $message\n" .
                    "FETCH line:  $topline" .
