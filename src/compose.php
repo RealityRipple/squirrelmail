@@ -620,7 +620,12 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 }
             }
 	    
-	    $actual = $body_part_entity->header->parameters['charset'];
+	    if (isset($body_part_entity->header->parameters['charset'])) {
+            $actual = $body_part_entity->header->parameters['charset'];
+        } else {
+            $actual = 'us-ascii';
+        }
+
 	    if ( $actual && is_conversion_safe($actual) && $actual != $default_charset){
 		$bodypart = charset_decode($actual,$bodypart);
 	    }
