@@ -411,6 +411,7 @@ function mime_fetch_body ($imap_stream, $id, $ent_id ) {
                 $k++;
             }
             if ( $base <> '' )
+                
                 $ret = "<base href=\"$base\">" . $ret;
         }
     } else if (ereg('"([^"]*)"', $topline, $regs)) {
@@ -1023,7 +1024,7 @@ function MagicHTML( $body, $id ) {
 return( "\n\n<!-- HTML Output ahead -->\n" .
         $ret .
         "\n<!-- END of HTML Output --><base href=\"".
-        $HTTP_SERVER_VARS["SERVER_NAME"] . substr( $PHP_SELF, 0, strlen( $PHP_SELF ) - 13 ) .
+        get_location() . '/'.
         "\">\n\n" );
 }
 
