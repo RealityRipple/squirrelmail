@@ -158,4 +158,32 @@
       $d[5] = getYear(trim($dateParts[2]));
       return mktime($d[0], $d[1], $d[2], $d[3], $d[4], $d[5]);
    }
+
+   function getLongDateString($dateParts) {
+      if (eregi("mon|tue|wed|thu|fri|sat|sun", trim($dateParts[0]), $tmp)) {
+         $date[0] = getDayOfMonth(trim($dateParts[1]));
+         $date[1] = getMonth(trim($dateParts[2]));
+         $date[2] = getYear(trim($dateParts[3]));
+         $date[3] = getHour(trim($dateParts[4]));
+         $date[4] = getMinute(trim($dateParts[4]));
+      } else {
+         $date[0] = getDayOfMonth(trim($dateParts[0]));
+         $date[1] = getMonth(trim($dateParts[1]));
+         $date[2] = getYear(trim($dateParts[2]));
+         $date[3] = getHour(trim($dateParts[3]));
+         $date[4] = getMinute(trim($dateParts[4]));
+      }
+
+      if ($date[3] >= 12) {
+         $date[5] = "p.m.";
+         if ($date[3] >= 13)
+            $date[3] = $date[3] - 12;
+      } else {
+         $date[5] = "a.m.";
+         if ($date[3] < 1)
+            $date[3] = 12;
+      }
+
+      return "$date[1] $date[0], $date[2]&nbsp;&nbsp;&nbsp;$date[3]:$date[4] $date[5]";
+   }
 ?>

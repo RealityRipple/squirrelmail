@@ -282,6 +282,8 @@
 
       $line = str_replace(" ", "&nbsp;", $line);
       $line = str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $line);
+      $line = str_replace("\n", "", $line);
+      $line = str_replace("\r", "", $line);
 
       /** if >> or > are found at the beginning of a line, I'll assume that was
           replied text, so make it different colors **/
@@ -299,23 +301,57 @@
       /** This translates "http://" into a link.  It could be made better to accept
           "www" and "mailto" also.  That should probably be added later. **/
       if (strpos(strtolower($line), "http://") != false) {
+         $line = ereg_replace("<BR>", "", $line);
          $start = strpos(strtolower($line), "http://");
-         $text = substr($line, $start, strlen($line));
-         $link = ereg_replace("<BR>", "", $text);
+         $link = substr($line, $start, strlen($line));
 
-         if (strpos($link, "&"))
-            $end = strpos($link, "&");
-         else if (strpos($link, "<"))
+         if (strpos($link, " ")) {
+            $end = strpos($link, " ")-1;
+         }
+         else if (strpos($link, "&nbsp;")) {
+            $end = strpos($link, "&nbsp;")-1;
+         }
+         else if (strpos($link, "<")) {
             $end = strpos($link, "<");
+         }
+         else if (strpos($link, ">")) {
+            $end = strpos($link, ">");
+         }
+         else if (strpos($link, "(")) {
+            $end = strpos($link, "(")-1;
+         }
+         else if (strpos($link, ")")) {
+            $end = strpos($link, ")")-1;
+         }
+         else if (strpos($link, "{")) {
+            $end = strpos($link, "{")-1;
+         }
+         else if (strpos($link, "}")) {
+            $end = strpos($link, "}")-1;
+         }
          else
             $end = strlen($link);
 
-         $link = substr($link, 0, $end);
-         $line = str_replace($text, "<A HREF=\"$link\" TARGET=_top>$text</A>", $line);
+         $link = substr($line, $start, $end);
+         $end = $end + $start;
+         $before = substr($line, 0, $start);
+         $after  = substr($line, $end, strlen($line));
+
+         $line = "$before<A HREF=\"$link\" TARGET=_top>$link</A>$after<BR>";
       }
 
       return $line;
    }
+
+/*
+         $start = strpos(strtolower($line), "http://");
+         $text = substr($line, $start, strlen($line));
+         $linktext = substr($link, 0, $end);
+         $link = trim(ereg_replace("<BR>", "", $linktext));
+
+
+//         $line = str_replace($text, "<A HREF=\"$link\" TARGET=_top>$link</A>", $line);
+*/
 
    function getMessageHeadersTo($imapConnection, $start, $end, &$to) {
       $rel_start = $start;
