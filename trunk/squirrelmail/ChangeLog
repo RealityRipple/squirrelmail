@@ -1,5 +1,6 @@
-Version 1.0.1 -- DEVELOPMENT
-----------------------------
+Version 1.0.1 -- February 1, 2001 
+---------------------------------
+- Improved the way sqimap_read_data() is handled
 - Sped up "no sorting" even more 
 - Fixed problems with sending messages
 - Fixed some pass-by-reference calls that caused problems with newer PHP versions

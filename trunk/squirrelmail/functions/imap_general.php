@@ -26,6 +26,7 @@
       }
       
       $data = Array();
+      $total_size = 0;
       
       $continue = true;
       while ($continue) {
@@ -33,28 +34,39 @@
          while (strpos($read, "\n") === false) {
             $read .= fgets($imap_stream, 9096);
          }
+         // For debugging purposes
          if ($imap_general_debug) {
             echo "<small><tt><font color=\"#CC0000\">$read</font></tt></small><br>\n";
             flush();
          }
-         
-         if (ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs)) {
-            if ($size) {
-               $dt = $data;
-               $dt[0] = $dt[count($dt)-1] = "";
-               $d = implode ("", $dt);
-               if (strlen($d) >= $size) {
-                  $continue = false;
-               } else {
-                  $data[] = $read;
-                  $read = fgets ($imap_stream, 9096);
-               }
-            } else {
+
+
+         // If we know the size, no need to look at the end parameters
+         if ($size > 0) {
+            if ($total_size == $size) {
+               $data[] = $read;
+               $read = fgets($imap_stream, 9096);
+               $read = fgets($imap_stream, 9096);
                $continue = false;
+            } else if ($total_size > $size) {
+               $difference = $total_size - $size;
+               $total_size = $total_size - strlen($read);
+               $read = substr ($read, 0, strlen($read)-$difference);
+               $data[] = $read;
+               $junk = fgets($imap_stream, 9096);
+               $continue = false;
+            } else {
+               $data[] = $read;
+               $read = fgets($imap_stream, 9096);
             }
+            $total_size += strlen($read);
          } else {
-            $data[] = $read;
-            $read = fgets ($imap_stream, 9096);
+            if (ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs)) {
+               $continue = false;
+            } else {
+               $data[] = $read;
+               $read = fgets ($imap_stream, 9096);
+            }
          }
       }
 
