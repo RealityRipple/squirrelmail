@@ -921,6 +921,7 @@ sub command19 {
     print "    uw         = University of Washington's IMAP server\n";
     print "    exchange   = Microsoft Exchange IMAP server\n";
     print "    courier    = Courier IMAP server\n";
+    print "    macosx     = Mac OS X Mailserver\n";
     print "    other      = Not one of the above servers\n";
     print "[$WHT$imap_server_type$NRM]: $WHT";
     $new_imap_server_type = <STDIN>;
