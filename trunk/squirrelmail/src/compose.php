@@ -512,7 +512,13 @@
 
          do_hook("compose_send");
 
-         if (!sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id, $mailprio)) {
+         if (! isset($mailprio))
+	    $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc, 
+	                          $subject, $body, $reply_id)
+	 else
+	    $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc, 
+	                          $subject, $body, $reply_id, $mailprio)
+         if (! $Result) {
             showInputForm();
             exit();
          }
