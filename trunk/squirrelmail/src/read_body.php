@@ -364,14 +364,13 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
       }	         
    }
 
-/* BOOKMARK */
    $s  = '<TABLE WIDTH="100%" CELLPADDING="0" CELLSPACING="0" BORDER="0"';
    $s .=       ' ALIGN="center" BGCOLOR="' . $color[0] . '">';
    foreach ($env as $key => $val) {
      if ($val) {      
         $s .= '<TR>';
-        $s .=   html_tag('TD', '<B>' . $key . ':&nbsp;&nbsp;</B>', 'RIGHT', '', 'VALIGN="MIDDLE" WIDTH="20%"') . "\n";
-        $s .=   html_tag('TD', $val, 'left', '', 'VALIGN="MIDDLE" WIDTH="80%"') . "\n";
+        $s .=   html_tag('TD', '<B>' . $key . ':&nbsp;&nbsp;</B>', 'RIGHT', '', 'VALIGN="TOP" WIDTH="20%"') . "\n";
+        $s .=   html_tag('TD', $val, 'left', '', 'VALIGN="TOP" WIDTH="80%"') . "\n";
         $s .= '</TR>';
      }
    }
@@ -518,7 +517,6 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
    $urlMailbox = urlencode($mailbox);
    $url = $base_uri.'src/view_header.php?'.$QUERY_STRING;
 
-/* BOOKMARK */
    $s  = "<TR>\n";
    $s .= '<TD VALIGN="MIDDLE" ALIGN="RIGHT" WIDTH="20%"><B>' . _("Other") . ":&nbsp;&nbsp;</B></TD>\n";
    $s .= '<TD VALIGN="MIDDLE" ALIGN="LEFT" WIDTH="80%"><SMALL>';
