@@ -19,12 +19,14 @@ require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/imap.php');
 
-$key = $_COOKIE['key'];
-$username = $_SESSION['username'];
-$onetimepad = $_SESSION['onetimepad'];
+/* get globals */
+sqgetGlobalVar('username', $username, SQ_SESSION);
+sqgetGlobalVar('key', $key, SQ_COOKIE);
+sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
-$message = $_GET['message'];
-$mailbox = $_GET['mailbox'];
+sqgetGlobalVar('message', $message, SQ_GET);
+sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
+/* end globals */
 
 if (isset($_GET['saved_draft'])) {
     $saved_draft = urlencode($_GET['saved_draft']);

@@ -22,13 +22,14 @@ require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'include/load_prefs.php');
 
 /* globals */
-$key  = $_COOKIE['key'];
-$username = $_SESSION['username'];
-$onetimepad = $_SESSION['onetimepad'];
-$mailbox = $_GET['mailbox'];
-$passed_id = (int) $_GET['passed_id'];
-$ent_id = $_GET['ent_id'];
-$startMessage = (int) $_GET['startMessage'];
+sqgetGlobalVar('username', $username, SQ_SESSION);
+sqgetGlobalVar('key', $key, SQ_COOKIE);
+sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
+
+sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
+sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
+sqgetGlobalVar('ent_id', $ent_id, SQ_GET);
+sqgetGlobalVar('startMessage', $startMessage, SQ_GET);
 /* end globals */
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);

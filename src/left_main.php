@@ -504,17 +504,16 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
 
 /* -------------------- MAIN ------------------------ */
 
-$key = $_COOKIE['key'];
-$onetimepad = $_SESSION['onetimepad'];
-$username = $_SESSION['username'];
-$delimiter = $_SESSION['delimiter'];
+/* get globals */
+sqgetGlobalVar('username', $username, SQ_SESSION);
+sqgetGlobalVar('key', $key, SQ_COOKIE);
+sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
+sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
-if (isset($_GET['fold'])) {
-    $fold = $_GET['fold'];
-}
-if (isset($_GET['unfold'])) {
-    $unfold = $_GET['unfold'];
-}
+sqgetGlobalVar('fold', $fold, SQ_GET);
+sqgetGlobalVar('unfold', $unfold, SQ_GET);
+
+/* end globals */
 
 // open a connection on the imap port (143)
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10); // the 10 is to hide the output

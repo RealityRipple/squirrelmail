@@ -156,8 +156,7 @@ if (isset($note)) {
     echo html_tag( 'div', '<b>' . $note .'</b>', 'center' ) . "<br>\n";
 }
 
-if (isset($_SESSION['just_logged_in'])) {
-    $just_logged_in = $_SESSION['just_logged_in'];
+if ( sqgetGlobalVar('just_logged_in', $just_logged_in, SQ_SESSION) ) {
     if ($just_logged_in == true) {
         $just_logged_in = false;
 

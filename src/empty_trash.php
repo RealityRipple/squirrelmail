@@ -23,10 +23,10 @@ require_once(SM_PATH . 'functions/tree.php');
 
 /* get those globals */
 
-$key = $_COOKIE['key'];
-$username = $_SESSION['username'];
-$onetimepad = $_SESSION['onetimepad'];
-$delimiter = $_SESSION['delimiter'];
+sqgetGlobalVar('username', $username, SQ_SESSION);
+sqgetGlobalVar('key', $key, SQ_COOKIE);
+sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
+sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
 /* finished globals */
 

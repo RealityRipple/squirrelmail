@@ -27,18 +27,16 @@ require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/html.php');
 
 /* get some of these globals */
-$key = $_COOKIE['key'];
-$username = $_SESSION['username'];
-$onetimepad = $_SESSION['onetimepad'];
+sqgetGlobalVar('username', $username, SQ_SESSION);
+sqgetGlobalVar('key', $key, SQ_COOKIE);
+sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
-$passed_id = (int) $_GET['passed_id'];
-$mailbox = $_GET['mailbox'];
+sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
+sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
 
-if (!isset($_GET['passed_ent_id'])) {
+if (! sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET) ) {
     $passed_ent_id = '';
-} else {
-    $passed_ent_id = $_GET['passed_ent_id'];
-}
+} 
 /* end globals */
 
 $pf_cleandisplay = getPref($data_dir, $username, 'pf_cleandisplay');
