@@ -65,9 +65,7 @@ class rfc822_header {
 
     function stripComments($value) {
         $result = '';
-
-        $cnt = strlen($value);
-        for ($i = 0; $i < $cnt; $i++) {
+        for ($i = 0, $cnt = strlen($value); $i < $cnt; $i++) {
             switch ($value{$i}) {
                 case '"':
                     $result .= '"';
@@ -583,9 +581,7 @@ class message {
         }
         $ent_a = explode('.', $ent);
 
-        $cnt = count($ent_a);
-
-        for ($i = 0; $i < $cnt -1; ++$i) {
+        for ($i = 0, $cnt = count($ent_a); $i < $cnt -1; ++$i) {
             if (isset($cur_ent_a[$i]) && ($cur_ent_a[$i] != $ent_a[$i])) {
                 $msg = $msg->parent;
                 $cur_ent_a = explode('.', $msg->entity_id);
@@ -683,9 +679,7 @@ class message {
     function parseStructure($read, $i = 0) {
         $arg_no = 0;
         $arg_a  = array();
-        $cnt    = strlen($read);
-
-        for (; $i < $cnt; ++$i) {
+        for ($cnt = strlen($read); $i < $cnt; ++$i) {
             $char = strtoupper($read{$i});
             switch ($char) {
                 case '(':
@@ -909,9 +903,8 @@ class message {
     function parseEnvelope($read, $i, $hdr) {
         $arg_no = 0;
         $arg_a = array();
-        $cnt = strlen($read);
 
-        for (; ($i < $cnt) && ($read{$i} != ')'); ++$i) {
+        for ($cnt = strlen($read); ($i < $cnt) && ($read{$i} != ')'); ++$i) {
             ++$i;
             $char = strtoupper($read{$i});
             switch ($char) {
@@ -1284,14 +1277,12 @@ class message {
         /* choose the best viewable message supported by SM. */
         $best_view = 0;
         $entity = array();
-        $altcount = count($alt_order);
-
         foreach($this->entities as $ent) {
             $type = $ent->header->type0 . '/' . $ent->header->type1;
             if ($type == 'multipart/related') {
                 $type = $ent->header->getParameter('type');
             }
-            for ($j = $best_view; $j < $altcount; ++$j) {
+            for ($j = $best_view, $altcount = count($alt_order); $j < $altcount; ++$j) {
                 if (($alt_order[$j] == $type) && ($j >= $best_view)) {
                     $best_view = $j;
                     $entity = $ent;
