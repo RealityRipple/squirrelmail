@@ -105,7 +105,7 @@ function display_result($res, $includesource = true) {
     
     while (list($undef, $row) = each($res)) {
         echo '<tr';
-        if ($line % 2) { echo ' bgcolor="' . $color[0] . '"' }
+        if ($line % 2) { echo ' bgcolor="' . $color[0] . '"'; }
         echo ' nowrap><td valign=top nowrap align=center width="5%">' .
              '<small><a href="javascript:to_address(' . 
                                        "'" . $row['email'] . "');\">To</A> | " .
