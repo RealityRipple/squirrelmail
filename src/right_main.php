@@ -132,6 +132,6 @@ if ($use_mailbox_cache && session_is_registered('msgs')) {
 do_hook('right_main_bottom');
 sqimap_logout ($imapConnection);
 
-echo '/FONT></BODY></HTML>';
+echo '</FONT></BODY></HTML>';
 
 ?>
