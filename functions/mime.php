@@ -2061,8 +2061,8 @@ function magicHTML($body, $id, $message){
                           Array(
                                 "|^([\'\"])\s*\.\./.*([\'\"])|si",
                                 "/^([\'\"])\s*\S+script\s*:.*([\'\"])/si",
-				"/^([\'\"])\s*mocha\s*:*(.*)([\'\"])/si",
-				"/^([\'\"])\s*about\s*:(.*)([\'\"])/si"
+				"/^([\'\"])\s*mocha\s*:*.*([\'\"])/si",
+				"/^([\'\"])\s*about\s*:.*([\'\"])/si"
                                 ),
                           Array(
                                 "\\1$secremoveimg\\2",
