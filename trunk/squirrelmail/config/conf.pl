@@ -357,22 +357,23 @@ while (($command ne "q") && ($command ne "Q")) {
       print "R   Return to Main Menu\n";
    } elsif ($menu == 3) {
       print $WHT."Folder Defaults\n".$NRM;
-      print "1.  Default Folder Prefix       : $WHT$default_folder_prefix$NRM\n";
-      print "2.  Show Folder Prefix Option   : $WHT$show_prefix_option$NRM\n";
-      print "3.  Trash Folder                : $WHT$trash_folder$NRM\n";
-      print "4.  Sent Folder                 : $WHT$sent_folder$NRM\n";
-      print "5.  Drafts Folder               : $WHT$draft_folder$NRM\n";
-      print "6.  By default, move to trash   : $WHT$default_move_to_trash$NRM\n";
-      print "7.  By default, move to sent    : $WHT$default_move_to_sent$NRM\n";
-      print "8.  By default, save as draft   : $WHT$default_save_as_draft$NRM\n";
-      print "9.  List Special Folders First  : $WHT$list_special_folders_first$NRM\n";
-      print "10. Show Special Folders Color  : $WHT$use_special_folder_color$NRM\n";
-      print "11. Auto Expunge                : $WHT$auto_expunge$NRM\n";
-      print "12. Default Sub. of INBOX       : $WHT$default_sub_of_inbox$NRM\n";
-      print "13. Show 'Contain Sub.' Option  : $WHT$show_contain_subfolders_option$NRM\n";
-      print "14. Default Unseen Notify       : $WHT$default_unseen_notify$NRM\n";
-      print "15. Default Unseen Type         : $WHT$default_unseen_type$NRM\n";
-      print "16. Auto Create Special Folders : $WHT$auto_create_special$NRM\n";
+      print "1.  Default Folder Prefix         : $WHT$default_folder_prefix$NRM\n";
+      print "2.  Show Folder Prefix Option     : $WHT$show_prefix_option$NRM\n";
+      print "3.  Trash Folder                  : $WHT$trash_folder$NRM\n";
+      print "4.  Sent Folder                   : $WHT$sent_folder$NRM\n";
+      print "5.  Drafts Folder                 : $WHT$draft_folder$NRM\n";
+      print "6.  By default, move to trash     : $WHT$default_move_to_trash$NRM\n";
+      print "7.  By default, move to sent      : $WHT$default_move_to_sent$NRM\n";
+      print "8.  By default, save as draft     : $WHT$default_save_as_draft$NRM\n";
+      print "9.  List Special Folders First    : $WHT$list_special_folders_first$NRM\n";
+      print "10. Show Special Folders Color    : $WHT$use_special_folder_color$NRM\n";
+      print "11. Auto Expunge                  : $WHT$auto_expunge$NRM\n";
+      print "12. Default Sub. of INBOX         : $WHT$default_sub_of_inbox$NRM\n";
+      print "13. Show 'Contain Sub.' Option    : $WHT$show_contain_subfolders_option$NRM\n";
+      print "14. Default Unseen Notify         : $WHT$default_unseen_notify$NRM\n";
+      print "15. Default Unseen Type           : $WHT$default_unseen_type$NRM\n";
+      print "16. Auto Create Special Folders   : $WHT$auto_create_special$NRM\n";
+      print "17. Don't move folders into Trash : $WHT$delete_folder$NRM\n";
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 4) {
@@ -545,6 +546,7 @@ while (($command ne "q") && ($command ne "Q")) {
          elsif ($command == 14) { $default_unseen_notify          = command212(); }
          elsif ($command == 15) { $default_unseen_type            = command213(); }
          elsif ($command == 16) { $auto_create_special            = command214(); }
+         elsif ($command == 17) { $delete_folder                  = command215(); }
       } elsif ($menu == 4) {
          if    ($command == 1) { $default_charset          = command31 (); }
          elsif ($command == 2) { $data_dir                 = command33a (); }
@@ -1316,6 +1318,28 @@ sub command214 {
    return $auto_create_special;
 }
 
+# Auto create special folders
+sub command215 {
+   print "Would you like to automatically completely delete any deleted\n";
+   print "folders? If not then they will be moved to the Trash folder\n";
+   print "and can be deleted from there\n";
+   print "\n";
+
+   if ($delete_folder eq "true") {
+      $default_value = "y";
+   } else {
+      $default_value = "n";
+   }
+   print "Auto delete folders? (y/n) [$WHT$default_value$NRM]: $WHT";
+   $new_delete = <STDIN>;
+   if (($new_delete =~ /^y\n/i) || (($new_delete =~ /^\n/) && ($default_value eq "y"))) {
+      $delete_folder = "true";
+   } else {
+      $delete_folder = "false";
+   }  
+   return $delete_folder;
+}     
+
 
 ############# GENERAL OPTIONS #####################
 
@@ -1976,6 +2000,7 @@ sub save_data {
         print CF "global \$show_contain_subfolders_option;\n";
         print CF "global \$default_unseen_notify;\n";
         print CF "global \$default_unseen_type, \$auto_create_special;\n";
+        print CF "global \$delete_folder;\n";
         print CF "\$default_folder_prefix          = '$default_folder_prefix';\n";
         print CF "\$trash_folder                   = '$trash_folder';\n";
         print CF "\$sent_folder                    = '$sent_folder';\n";
@@ -1992,6 +2017,7 @@ sub save_data {
         print CF "\$default_unseen_notify          = $default_unseen_notify;\n";
         print CF "\$default_unseen_type            = $default_unseen_type;\n";
         print CF "\$auto_create_special            = $auto_create_special;\n";
+        print CF "\$delete_folder                  = $delete_folder;\n";
         print CF "\n";
      
         print CF "global \$default_charset;\n";

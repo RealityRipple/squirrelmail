@@ -160,6 +160,8 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                                                   'type' => SMOPT_TYPE_BOOLEAN ),
                  '$default_use_javascript_addr_book' => array( 'name' => _("Default Javascript Adrressbook"),
                                                   'type' => SMOPT_TYPE_BOOLEAN ),
+                 '$delete_folder' => array( 'name' => _("Auto delete folders"),
+                                            'type' => SMOPT_TYPE_BOOLEAN ),
                  /* --------------------------------------------------------*/
                  'Group4' => array( 'name' => _("General Options"),
                                     'type' => SMOPT_TYPE_TITLE ),
