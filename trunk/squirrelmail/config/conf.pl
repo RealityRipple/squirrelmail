@@ -1953,6 +1953,11 @@ sub save_data {
            print CF ");\n";
            print CF "\n";
         }
+
+        if (defined $addrbook_dsn) {
+            print CF "global \$addrbook_dsn;\n";
+            print CF "\$addrbook_dsn = $addrbook_dsn;\n\n";
+        }
      
         print CF "/**\n";
         print CF " * Make sure there are no characters after the PHP closing\n";
