@@ -17,88 +17,87 @@ require_once('../functions/array.php');
 require_once('../functions/mailbox_display.php');
 require_once('../functions/mime.php');
 
-function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$color, $search_position = '', $search_all, $count_all) {
+function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
+                       $color, $search_position = '', $search_all, $count_all) {
 
-    global $msgs, $message_highlight_list, $squirrelmail_language, $languages, $index_order,
-           $pos;
+    global $msgs, $message_highlight_list, $squirrelmail_language, $languages,
+           $index_order, $pos;
 
     $pos = $search_position;
 
     $urlMailbox = urlencode($mailbox);
 
-    /*
-        Construct the Search QuERY
-
-        account for multiple search terms
-    */
-
-    $multi_search = array ();
-    $search_what = ereg_replace("[ ]{2,}", ' ', $search_what);
-    $multi_search = split (' ', $search_what);
+    /* construct the search query, taking multiple search terms into account */
+    $multi_search = array();
+    $search_what  = trim($search_what);
+    $search_what  = ereg_replace('[ ]{2,}', ' ', $search_what);
+    $multi_search = explode(' ', $search_what);
+    $search_string = '';
+    foreach ($multi_search as $multi_search_part) {
+        $search_string .= $search_where . ' "' . $multi_search_part . '" ';
+    }
+/*
     if (count($multi_search)==1) {
             $search_string = $search_where . ' ' . '"' . $multi_search[0] . '"';
     }
     else {
             $search_string = '';
-    $count = count($multi_search);
+            $count = count($multi_search);
             for ($x=0;$x<$count;$x++) {
                 trim($multi_search[$x]);
                 $search_string = $search_string . ' ' . $search_where . ' "' . $multi_search[$x] . '"';
             }
     }
+*/
     $search_string = trim($search_string);
 
-/* now use $search_string in the imap search */
-
+    /* now use $search_string in the imap search */
     if (isset($languages[$squirrelmail_language]['CHARSET']) &&
         $languages[$squirrelmail_language]['CHARSET']) {
         $ss = "SEARCH CHARSET ".$languages[$squirrelmail_language]['CHARSET']." ALL $search_string";
     } else {
-        $ss .= "SEARCH ALL $search_string";
+        $ss = "SEARCH ALL $search_string";
     }
-    /* Read Data Back From IMAP */
-    $readin = sqimap_run_command ($imapConnection, $ss, true, $result, $message);
+
+    /* read data back from IMAP */
+    $readin = sqimap_run_command($imapConnection, $ss, true, $result, $message);
+
+    /* try US-ASCII charset if search fails */
     if (isset($languages[$squirrelmail_language]['CHARSET']) && strtolower($result) == 'no') {
-        // $ss = "SEARCH CHARSET \"US-ASCII\" ALL $search_where \"$search_what\"";
         $ss = "SEARCH CHARSET \"US-ASCII\" ALL $search_string";
         $readin = sqimap_run_command ($imapConnection, $ss, true, $result, $message);
     }
 
     unset($messagelist);
     $msgs = '';
-    $c = 0;
 
-    /* Keep going till we find the SEARCH responce */
-    while ($c < count( $readin )) {
-
-        /* Check to see if a SEARCH Responce was recived */
-        if (substr($readin[$c],0,9) == "* SEARCH ")
-            $messagelist = explode(" ",substr($readin[$c],9));
-        else if (isset($errors))
-            $errors = $errors.$readin[$c];
-        else
-            $errors = $readin[$c];
-        $c++;
+    /* Keep going till we find the SEARCH response */
+    foreach ($readin as $readin_part) {
+        /* Check to see if a SEARCH response was received */
+        if (substr($readin_part, 0, 9) == '* SEARCH ') {
+            $messagelist = explode(' ', substr($readin_part, 9));
+        } else if (isset($errors)) {
+            $errors = $errors.$readin_part;
+        } else {
+            $errors = $readin_part;
+        }
     }
 
     /* If nothing is found * SEARCH should be the first error else echo errors */
-    if (isset($errors) && strstr($errors,"* SEARCH")) {
-        if ($search_all != "all") {
-            echo '<br><CENTER>' . _("No Messages Found") . '</CENTER>';
+    if (isset($errors)) {
+        if (strstr($errors,'* SEARCH')) {
+            if ($search_all != 'all') {
+                echo '<br><CENTER>' . _("No Messages Found") . '</CENTER>';
+            }
             return;
         }
-        else {
-            return;
-        }
-    }
-    else if (isset($errors)) {
-        echo "<!-- ".$errors." -->";
+        echo "<!-- $errors -->";
     }
 
     /*
-        HACKED CODED FROM ANOTHER FUNCTION, Could Probably dump this and mondify
-        exsitising code with a search true/false varible.
-    */
+     * HACKED CODE FROM ANOTHER FUNCTION, could probably dump this and modify
+     * existing code with a search true/false variable.
+     */
 
     global $sent_folder;
     for ($q = 0; $q < count($messagelist); $q++) {
@@ -121,7 +120,7 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
     $j = 0;
     while ($j < count($messagelist)) {
             $date[$j] = str_replace('  ', ' ', $date[$j]);
-            $tmpdate = explode(" ", trim($date[$j]));
+            $tmpdate = explode(' ', trim($date[$j]));
 
             $messages[$j]["TIME_STAMP"] = getTimeStamp($tmpdate);
             $messages[$j]["DATE_STRING"] = getDateString($messages[$j]["TIME_STAMP"]);
@@ -183,15 +182,15 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
             }
             mail_message_listing_beginning( $imapConnection,
                 "move_messages.php?msg=$msg&mailbox=$urlMailbox&pos=$pos&where=" . urlencode($search_where) . "&what=".urlencode($search_what),
-            $mailbox,
+                $mailbox,
                 -1,
                 '<b>' . _("Found") . ' ' . count($messagelist) . ' ' . _("messages") . '</b></tr><tr>'.
-            get_selectall_link($start_msg, $sort));
+                get_selectall_link($start_msg, $sort));
         }
         else {
             mail_message_listing_beginning( $imapConnection,
                 "move_messages.php?msg=$msg&mailbox=$urlMailbox&pos=$pos&where=" . urlencode($search_where) . "&what=".urlencode($search_what),
-            $mailbox,
+                $mailbox,
                 -1,
                 '<b>' . _("Found") . ' ' . count($messagelist) . ' ' . _("messages") . '</b></tr><tr>');
         }
