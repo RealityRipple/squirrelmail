@@ -30,7 +30,8 @@ function mime_structure ($bodystructure, $flags=array()) {
     $read = trim(substr ($bodystructure, strpos(strtolower($bodystructure), 'bodystructure') + 13));
     $msg = &new message();
     $read = trim(substr ($read, 0, -1));
-    $msg = $msg->parseStructure($read,0);
+    $res = $msg->parseStructure($read);
+    $msg = $res[0];
     $msg->setEnt('0');
     if (count($flags)) {
        foreach ($flags as $flag) {
