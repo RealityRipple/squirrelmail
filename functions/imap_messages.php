@@ -118,12 +118,12 @@
     ******************************************************************************/
    function sqimap_get_header ($imap_stream, $read) {
       $i = 0;
+      // Set up some defaults
+      $header["TYPE0"] = "text";
+      $header["TYPE1"] = "plain";
+      $header["CHARSET"] = "us-ascii";
+
       while ($i < count($read)) {
-         // Set up some defaults
-         $header["TYPE0"] = "text";
-         $header["TYPE1"] = "plain";
-         $header["CHARSET"] = "us-ascii";
-         
          if (substr($read[$i], 0, 17) == "MIME-Version: 1.0") {
             $header["MIME"] = true;
             $i++;
@@ -136,7 +136,7 @@
          }
 
          /** CONTENT-TYPE **/
-         else if (substr($read[$i], 0, 13) == "Content-Type:") {
+         else if (strtolower(substr($read[$i], 0, 13)) == "content-type:") {
             $cont = strtolower(trim(substr($read[$i], 13)));
             if (strpos($cont, ";"))
                $cont = substr($cont, 0, strpos($cont, ";"));
@@ -148,6 +148,7 @@
             } else {
                $header["TYPE0"] = $cont;
             }
+
 
             $line = $read[$i];
             $i++;
