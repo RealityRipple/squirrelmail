@@ -28,7 +28,9 @@
       echo "<TABLE COLS=1 WIDTH=100% CELLSPACING=0 CELLPADDING=3 NOBORDER BGCOLOR=\"#FFFFFF\" ALIGN=CENTER>";
       echo "   <TR>";
       echo "      <TD BGCOLOR=\"$color[0]\">";
-      echo "         <B><CENTER>". _("Welcome to $org_name's WebMail system") ."</CENTER></B>";
+      echo "         <B><CENTER>";
+      printf (_("Welcome to %s's WebMail system"), $org_name);
+      echo           "</CENTER></B>";
       echo "   <TR><TD BGCOLOR=\"#FFFFFF\">";
       echo "      <TABLE COLS=2 WIDTH=90% CELLSPACING=0 CELLPADDING=3 NOBORDER align=\"center\">";
       echo "         <TR>";
@@ -37,7 +39,9 @@
          echo "               <IMG SRC=\"$org_logo\">";
       else
          echo "               <B>$org_name</B>";
-      echo "         <BR><CENTER>". _("Running SquirrelMail version $version (c) 1999-2000.") ."</CENTER><BR>";
+      echo "         <BR><CENTER>";
+      printf (_("Running SquirrelMail version %s (c) 1999-2000."), $version);
+      echo           "</CENTER><BR>";
       echo "            </CENTER></TD></TR><TR>";
       echo "            <TD BGCOLOR=\"#FFFFFF\">";
       echo "               $motd";
@@ -61,7 +65,8 @@
       echo "      <CENTER><BR>". _("The selected messages were deleted successfully.") ."<BR>\n";
       echo "      <BR>";
       echo "              <A HREF=\"webmail.php?right_frame=right_main.php&sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\" TARGET=_top>";
-      echo "              ". _("Click here to return to ") ."$mailbox</A>.";
+      printf (_("Click here to return to %s"), $mailbox);
+      echo "</A>.";
       echo "      </CENTER>";
       echo "   </TD></TR>";
       echo "</TABLE>";
@@ -79,7 +84,8 @@
       echo "      <CENTER><BR>". _("The selected messages were moved successfully.") ."<BR>\n";
       echo "      <BR>";
       echo "              <A HREF=\"webmail.php?right_frame=right_main.php&sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\" TARGET=_top>";
-      echo "              ". _("Click here to return to ") ."$mailbox</A>.";
+      printf (_("Click here to return to %s"), $mailbox);
+      echo "</A>.";
       echo "      </CENTER>";
       echo "   </TD></TR>";
       echo "</TABLE>";
@@ -97,8 +103,8 @@
       echo "      <CENTER><BR>$message<BR>\n";
       echo "      <BR>";
       echo "              <A HREF=\"webmail.php?right_frame=right_main.php&sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\" TARGET=_top>";
-      echo "              ". _("Click here to return to ") ."$mailbox</A>.";
-      echo "      </CENTER>";
+      printf (_("Click here to return to %s"), $mailbox);
+      echo "</A>.";
       echo "   </TD></TR>";
       echo "</TABLE>";
     }
