@@ -1,0 +1,121 @@
+$Date$
+
+This file lists squirrelmail options set by D option in conf.pl
+
+It can be used if user can't run conf.pl and changes options manually.
+Settings can be different if IMAP server uses shared folders.
+
+Possible server values are:
+ cyrus      = Cyrus IMAP server
+ uw         = University of Washington's IMAP server
+ exchange   = Microsoft Exchange IMAP server
+ courier    = Courier IMAP server
+ macosx     = Mac OS X Mailserver
+ mercury32  = Mercury/32
+
+-----------------
+default settings:
+-----------------
+
+              imap_server_type = other
+         default_folder_prefix =
+                  trash_folder = INBOX.Trash
+                   sent_folder = INBOX.Sent
+                  draft_folder = INBOX.Drafts
+            show_prefix_option = false
+          default_sub_of_inbox = true
+show_contain_subfolders_option = false
+            optional_delimiter = detect
+                 delete_folder = false
+      force_username_lowercase = false
+
+-----------------
+'cyrus' settings:
+-----------------
+              imap_server_type = cyrus
+         default_folder_prefix = <none> (is not set)
+                  trash_folder = INBOX.Trash
+                   sent_folder = INBOX.Sent
+                  draft_folder = INBOX.Drafts
+            show_prefix_option = false
+          default_sub_of_inbox = true
+show_contain_subfolders_option = false
+            optional_delimiter = .
+                 delete_folder = true
+      force_username_lowercase = false
+
+--------------
+'uw' settings:
+--------------
+              imap_server_type = uw
+         default_folder_prefix = mail/
+                  trash_folder = Trash
+                   sent_folder = Sent
+                  draft_folder = Drafts
+            show_prefix_option = true
+          default_sub_of_inbox = false
+show_contain_subfolders_option = true
+            optional_delimiter = /
+                 delete_folder = true
+      force_username_lowercase = true
+
+--------------------
+'exchange' settings:
+--------------------
+              imap_server_type = exchange
+         default_folder_prefix = <none>  (is not set)
+                  trash_folder = INBOX/Deleted Items
+                   sent_folder = INBOX/Sent Items
+                  draft_folder = Drafts
+            show_prefix_option = false
+          default_sub_of_inbox = true
+show_contain_subfolders_option = false
+            optional_delimiter = detect
+                 delete_folder = true
+      force_username_lowercase = true
+
+-------------------
+'courier' settings:
+-------------------
+              imap_server_type = courier
+         default_folder_prefix = INBOX.
+                  trash_folder = Trash
+                   sent_folder = Sent
+                  draft_folder = Drafts
+            show_prefix_option = false
+          default_sub_of_inbox = false
+show_contain_subfolders_option = false
+            optional_delimiter = .
+                 delete_folder = true
+      force_username_lowercase = false
+
+------------------
+'macosx' settings:
+------------------
+              imap_server_type = macosx
+         default_folder_prefix = INBOX/
+                  trash_folder = Trash
+                   sent_folder = Sent
+                  draft_folder = Drafts
+            show_prefix_option = false
+          default_sub_of_inbox = true
+show_contain_subfolders_option = false
+            optional_delimiter = detect
+                 delete_folder = true
+      force_username_lowercase = false
+
+-------------------
+'mercury' settings:
+-------------------
+              imap_server_type = mercury32
+         default_folder_prefix = INBOX/
+                  trash_folder = INBOX.Trash
+                   sent_folder = INBOX.Sent
+                  draft_folder = INBOX.Drafts
+            show_prefix_option = false
+          default_sub_of_inbox = true
+show_contain_subfolders_option = true
+            optional_delimiter = detect
+                 delete_folder = true
+      force_username_lowercase = true
+
