@@ -234,6 +234,8 @@ but may be out of date soon thereafter.  You never know.  ;-)
   Hook Name                      Found In                        Called With(#)
   ---------                      --------                        --------------
   loading_constants              functions/constants.php         do_hook
+  logout_error                   functions/display_messages.php  do_hook
+  error_box                      functions/display_messages.php  concat_hook
   get_pref_override              functions/file_prefs.php        hook_func
   get_pref                       functions/file_prefs.php        hook_func
   special_mailbox                functions/imap_mailbox.php      hook_func
