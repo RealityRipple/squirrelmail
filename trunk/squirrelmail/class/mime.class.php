@@ -769,14 +769,15 @@ class message {
 	       $this->type1 == 'message') &&
              isset($this->entity_id) ) {
 	     if (count($this->entities) == 0) {
-	        if ($this->header->disposition->name != 'attachment') {
+	        if (strtolower($this->header->disposition->name) != 'attachment') {
+		   echo $this->header->disposition->name;
         	   $entity[] = $this->entity_id;
 		}
 	     }
         } 
     	$i = 0;
     	while ( isset($this->entities[$i]) &&  !$found &&
-	        ($this->entities[$i]->header->disposition->name 
+	        (strtolower($this->entities[$i]->header->disposition->name) 
 	        != 'attachment') &&
 	        ($this->entities[$i]->type0 != 'message' && 
 		  $this->entities[$i]->type1 != 'rfc822' )
