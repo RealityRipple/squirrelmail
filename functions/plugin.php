@@ -69,4 +69,17 @@
          use_plugin($name);
       }
 
+   if ($plugin_general_debug)
+   {
+      global $squirrelmail_plugin_hooks;
+      echo "plugin:  Hook list<br>\n";
+      foreach ($squirrelmail_plugin_hooks as $Hook => $Plugins)
+      {
+          foreach ($Plugins as $Name => $Func)
+	  {
+	      echo "[$Hook][$Name] = $Func<br>\n";
+	  }
+      }
+   }
+
 ?>
