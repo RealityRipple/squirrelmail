@@ -3,7 +3,7 @@
    /**
     * newmail.php
     *
-    * Copyright (c) 1999-2003 The SquirrelMail Project Team
+    * Copyright (c) 1999-2002 The SquirrelMail Project Team
     * Copyright (c) 2000 by Michael Huttinger
     * Licensed under the GNU GPL. For full terms see the file COPYING.
     *
@@ -25,7 +25,7 @@
     * $Id$
     */
 
-    function CheckNewMailboxSound($imapConnection, $mailbox, $real_box, $delimeter, $unseen, &$total_unseen) {
+    function CheckNewMailboxSound($imapConnection, $mailbox, $real_box, $delimeter, $unseen, &$total_new) {
     
         global $folder_prefix, $trash_folder, $sent_folder,
                $color, $move_to_sent, $move_to_trash,
@@ -33,7 +33,7 @@
                $newmail_recent, $newmail_changetitle;
 
         $mailboxURL = urlencode($real_box);
-        $unseen_found = 0;
+        $unseen = $recent = 0;
 
         // Skip folders for Sent and Trash
 
@@ -45,18 +45,18 @@
         if (($unseen_notify == 2 && $real_box == 'INBOX') ||
             ($unseen_notify == 3 && ($newmail_allbox == 'on' ||
                                      $real_box == 'INBOX'))) {
-            $unseen = sqimap_unseen_messages($imapConnection, $real_box);
-            $total_unseen += $unseen;
-
+            $status = sqimap_status_messages( $imapConnection, $real_box);
             if($newmail_recent == 'on') {
-                $unseen = sqimap_mailbox_select( $imapConnection, $real_box, TRUE, TRUE);
+                $total_new += $status['RECENT'];
+            } else {
+                $total_new += $status['UNSEEN'];
             }
-
-            if ($unseen > 0) {
-                $unseen_found = 1;
+            if ($total_new) {
+                    return 1;
             }
+            
         }
-        return( $unseen_found );
+        return 0;
     }
 
     function squirrelmail_plugin_init_newmail() {
@@ -147,8 +147,10 @@
 
         global $username, $key, $imapServerAddress, $imapPort,
                $newmail_media, $newmail_enable, $newmail_popup,
-               $newmail_recent, $newmail_changetitle, $imapConnection;
-        
+               $newmail_recent, $newmail_changetitle, $imapConnection, $PHP_SELF;
+
+        /* temp hack to locate the sounds correct from the src dir */
+        $newmail_media = SM_PATH . 'plugins/newmail/' . $newmail_media;
         if ($newmail_enable == 'on' ||
             $newmail_popup == 'on' ||
             $newmail_changetitle) {
@@ -222,6 +224,7 @@
 
             if ($totalNew > 0 && $newmail_enable == 'on') {
                 echo "<EMBED SRC=\"$newmail_media\" HIDDEN=TRUE AUTOSTART=TRUE>\n";
+                echo "JAAAAAAAA";
             }
             if ($totalNew > 0 && $newmail_popup == 'on') {
                 echo "<SCRIPT LANGUAGE=\"JavaScript\">\n".
