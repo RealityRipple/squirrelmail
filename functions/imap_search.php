@@ -21,7 +21,8 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
                        $color, $search_position = '', $search_all, $count_all) {
 
     global $message_highlight_list, $squirrelmail_language, $languages,
-           $index_order, $pos, $allow_charset_search, $uid_support;
+           $index_order, $pos, $allow_charset_search, $uid_support,
+	   $imap_server_type;
 
     $pos = $search_position;
 
@@ -33,9 +34,25 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
     $search_what  = ereg_replace('[ ]{2,}', ' ', $search_what);
     $multi_search = explode(' ', $search_what);
     $search_string = '';
-    foreach ($multi_search as $multi_search_part) {
-        $search_string .= $search_where . ' {' . strlen($multi_search_part)
-            . "}\r\n" . $multi_search_part . ' ';
+
+    /* it seems macosx does not support the prefered search 
+       syntax so we fall back to the older style. This IMAP
+       server has a problem with multiple search terms. Instead
+       of returning the messages that match all the terms it
+       returns the messages that match each term. Could be fixed
+       on the client side, but should be fixed on the server
+       as per the RFC */
+
+    if ($imap_server_type == 'macosx') {
+        foreach ($multi_search as $multi_search_part) {
+            $search_string .= $search_where . ' ' .$multi_search_part . ' ';
+        }
+    }
+    else {
+        foreach ($multi_search as $multi_search_part) {
+            $search_string .= $search_where . ' {' . strlen($multi_search_part)
+                . "}\r\n" . $multi_search_part . ' ';
+        }
     }
 
     $search_string = trim($search_string);
