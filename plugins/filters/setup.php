@@ -107,7 +107,7 @@ function squirrelmail_plugin_init_filters() {
     if ($mailbox == 'INBOX') {
         $squirrelmail_plugin_hooks['right_main_after_header']['filters'] = 'start_filters';
     }
-    $squirrelmail_plugin_hooks['optpage_register_block']['filters'] = 'squirrelmail_plugin_optpage_register_block';
+    $squirrelmail_plugin_hooks['optpage_register_block']['filters'] = 'filters_optpage_register_block';
 #    $squirrelmail_plugin_hooks['special_mailbox']['filters'] = 'filters_special_mailbox';
     $squirrelmail_plugin_hooks['rename_or_delete_folder']['filters'] = 'update_for_folder';
     $squirrelmail_plugin_hooks['webmail_bottom']['filters'] = 'start_filters';
@@ -120,7 +120,7 @@ function filters_special_mailbox( $mb ) {
 
 }
 
-function squirrelmail_plugin_optpage_register_block() {
+function filters_optpage_register_block() {
     global $optpage_blocks;
     global $AllowSpamFilters;
 
