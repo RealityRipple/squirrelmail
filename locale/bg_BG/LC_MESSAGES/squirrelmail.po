@@ -1,18 +1,19 @@
-# Squirrelmail Bulgarian Translation 1.52
+# Squirrelmail Bulgarian Translation 1.55
 # Copyright (c) 1999-2002 The Squirrelmail Development Team
 # Stanislav Yordanov <stan@stud.ru.acad.bg>, 2001.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: $Id$\n"
+"Project-Id-Version: $Id: squirrelmail.po,v 1.2 2001/12/31 09:50:31 "
+"philippe_mingo Exp $\n"
 "POT-Creation-Date: 2001-12-29 10:37+0100\n"
-"PO-Revision-Date: 2001-12-31 10:00+0100\n"
+"PO-Revision-Date: 2002-01-02 15:58GMT+2\n"
 "Last-Translator: Stanislav Yordanov <stan@stud.ru.acad.bg>\n"
 "Language-Team: Bulgarian <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=WINDOWS-1251\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
 
 #: squirrelmail/src/addrbook_popup.php:22
 msgid "Address Book"
@@ -436,7 +437,8 @@ msgstr "Помощ"
 msgid ""
 "The help has not been translated to %s.  It will be displayed in English "
 "instead."
-msgstr "Помощната информация не е преведена на %s. Ще бъде показана на английски."
+msgstr ""
+"Помощната информация не е преведена на %s. Ще бъде показана на английски."
 
 #: squirrelmail/src/help.php:157
 msgid "Some or all of the help documents are not present!"
@@ -887,7 +889,7 @@ msgstr "Идентичност по подразбиране"
 #: squirrelmail/src/options_identities.php:80
 #, c-format
 msgid "Alternate Identity %d"
-msgstr "Алтернативна идентичност"
+msgstr "Алтернативна идентичност %d"
 
 #: squirrelmail/src/options_identities.php:90
 msgid "Add a New Identity"
@@ -942,7 +944,10 @@ msgid ""
 "The index order is the order that the columns are arranged in the message "
 "index.  You can add, remove, and move columns around to customize them to "
 "fit your needs."
-msgstr "Индексния ред е реда в който са подредени колоните в индекса на писмото. Можете да добавяте, отстранявате и премествате колони, за да ги подредите според нуждите ви."
+msgstr ""
+"Индексния ред е реда в който са подредени колоните в индекса на писмото. "
+"Можете да добавяте, отстранявате и премествате колони, за да ги подредите "
+"според нуждите ви."
 
 #: squirrelmail/src/options_order.php:111
 msgid "up"
@@ -1056,31 +1061,41 @@ msgstr "Презареди страницата"
 msgid ""
 "This contains personal information about yourself such as your name, your "
 "email address, etc."
-msgstr "Тук се съхранява вашата лична информация, като например име, email и т.н."
+msgstr ""
+"Тук се съхранява вашата лична информация, като например име, email и т.н."
 
 #: squirrelmail/src/options.php:257
 msgid ""
 "You can change the way that SquirrelMail looks and displays information to "
 "you, such as the colors, the language, and other settings."
-msgstr "Можете да промените начина по който изглежда SquirrelMail и по който ви показва информацията, като например цветовете, езика и други настройки."
+msgstr ""
+"Можете да промените начина по който изглежда SquirrelMail и по който ви "
+"показва информацията, като например цветовете, езика и други настройки."
 
 #: squirrelmail/src/options.php:265
 msgid ""
 "Based upon given criteria, incoming messages can have different background "
 "colors in the message list.  This helps to easily distinguish who the "
 "messages are from, especially for mailing lists."
-msgstr "Базирани на дадени критерии, входящите писма могат да имат различни цветове на фона в списъка с писмата. Това ви помага лесно да разграничите от кого са писмата, особено полезно за пощенски списъци."
+msgstr ""
+"Базирани на дадени критерии, входящите писма могат да имат различни цветове "
+"на фона в списъка с писмата. Това ви помага лесно да разграничите от кого са "
+"писмата, особено полезно за пощенски списъци."
 
 #: squirrelmail/src/options.php:273
 msgid ""
 "These settings change the way your folders are displayed and manipulated."
-msgstr "Тези настройки променят начина по който се визуализират и манипулират папките."
+msgstr ""
+"Тези настройки променят начина по който се визуализират и манипулират "
+"папките."
 
 #: squirrelmail/src/options.php:281
 msgid ""
 "The order of the message index can be rearranged and changed to contain the "
 "headers in any order you want."
-msgstr "Реда на индекса на писмата може да бъде преаранжиран или променен да съдържа хедърите в реда в който желаете."
+msgstr ""
+"Реда на индекса на писмата може да бъде преаранжиран или променен да съдържа "
+"хедърите в реда в който желаете."
 
 #: squirrelmail/src/printer_friendly_bottom.php:86
 #: squirrelmail/src/printer_friendly_main.php:31
@@ -1687,7 +1702,9 @@ msgstr "Състави"
 msgid ""
 "Preference file, %s, does not exist. Log out, and log back in to create a "
 "default preference file."
-msgstr "Файла с настройките, %s, не съществува. Излезте, и след това влезте отново за да се създаде файл по подразбиране"
+msgstr ""
+"Файла с настройките, %s, не съществува. Излезте, и след това влезте отново "
+"за да се създаде файл по подразбиране"
 
 #: squirrelmail/functions/prefs.php:167 squirrelmail/functions/prefs.php:172
 msgid "Error opening "
@@ -1719,21 +1736,30 @@ msgstr "Не мога да създам хешираната структура на директорията!"
 msgid ""
 "COMMERCIAL - This list contains servers that are verified spam senders. It "
 "is a pretty reliable list to scan spam from."
-msgstr "КОМЕРСИАЛЕН - Този списък съдържа сървъри които са проверени спам сървъри. Това е доста сигуре списъм за да се проверява за спам."
+msgstr ""
+"КОМЕРСИАЛЕН - Този списък съдържа сървъри които са проверени спам сървъри. "
+"Това е доста сигуре списъм за да се проверява за спам."
 
 #: squirrelmail/plugins/filters/filters.php:368
 msgid ""
 "COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
 "be relayed through their system will be banned with this.  Another good one "
 "to use."
-msgstr "КОМЕРСИАЛЕН - Сървърите които са конфигурирани (или неконфигурирани) да позволяват спама да бъде предаван чрез техните системи ще бъдат изхвърлени с това. Доста е добро за използване."
+msgstr ""
+"КОМЕРСИАЛЕН - Сървърите които са конфигурирани (или неконфигурирани) да "
+"позволяват спама да бъде предаван чрез техните системи ще бъдат изхвърлени с "
+"това. Доста е добро за използване."
 
 #: squirrelmail/plugins/filters/filters.php:376
 msgid ""
 "COMMERCIAL - Dial-up users are often filtered out since they should use "
 "their ISP's mail servers to send mail.  Spammers typically get a dial-up "
 "account and send spam directly from there."
-msgstr "КОМЕРСИАЛЕН - Dial-up потебителите често са филтрирани тъй като те използват пощенските сървъри на Интернет доставчиците си за да изпращат пощата си. Спамърите обикновено си вземат dial-up акаунт и изпращат спам директно от там."
+msgstr ""
+"КОМЕРСИАЛЕН - Dial-up потебителите често са филтрирани тъй като те използват "
+"пощенските сървъри на Интернет доставчиците си за да изпращат пощата си. "
+"Спамърите обикновено си вземат dial-up акаунт и изпращат спам директно от "
+"там."
 
 #: squirrelmail/plugins/filters/filters.php:384
 msgid "COMMERCIAL - RBL+ Blackhole entries."
@@ -1751,7 +1777,10 @@ msgstr "КОМЕРСИАЛЕН - RBL+ Dial-up записи."
 msgid ""
 "FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
 "include servers used by abuse@uunet.net auto-replies too."
-msgstr "БЕЗПЛАТЕН - Osirusoft връзки - Списъка на Osirusoft на проверените връзки. Изгрежда включва сървъри използваните от abuse@uunet.net автоматични отговори."
+msgstr ""
+"БЕЗПЛАТЕН - Osirusoft връзки - Списъка на Osirusoft на проверените връзки. "
+"Изгрежда включва сървъри използваните от abuse@uunet.net автоматични "
+"отговори."
 
 #: squirrelmail/plugins/filters/filters.php:416
 msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
@@ -1762,40 +1791,58 @@ msgid ""
 "FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
 "have been manually added after multiple nominations. Use with caution. Seems "
 "to catch abuse auto-replies from some ISPs."
-msgstr "БЕЗПЛАТЕН - Потвърдени източници на спам на Osirusoft - Сайтове които продължително спамват в мануално са добавени след множество номинации. Използвай предпазливо. Изгклежда хваща злоупотребите с автоматичните отговори на някои доставчици на интернет."
+msgstr ""
+"БЕЗПЛАТЕН - Потвърдени източници на спам на Osirusoft - Сайтове които "
+"продължително спамват в мануално са добавени след множество номинации. "
+"Използвай предпазливо. Изгклежда хваща злоупотребите с автоматичните "
+"отговори на някои доставчици на интернет."
 
 #: squirrelmail/plugins/filters/filters.php:432
 msgid ""
 "FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
 "other mail servers that are not secure."
-msgstr "БЕЗПЛАТЕН - Osirusoft Smart Hosts - Списък на хостове които са сигуни, но препращат на пощенски сървъри които не са сиурни."
+msgstr ""
+"БЕЗПЛАТЕН - Osirusoft Smart Hosts - Списък на хостове които са сигуни, но "
+"препращат на пощенски сървъри които не са сиурни."
 
 #: squirrelmail/plugins/filters/filters.php:440
 msgid ""
 "FREE - Osirusoft Spamware Developers - It is believed that these are IP "
 "ranges of companies that are known to produce spam software. Seems to catch "
 "abuse auto-replies from some ISPs."
-msgstr "БЕЗПЛАТЕН - Osirusoft Spamware Developers - Вярва се, че това са IP диапазоните на компании които са познати производители на спам софтуер. Изглежда, че хваща злонамерените автоматични отговориот някои Интернет доставчици."
+msgstr ""
+"БЕЗПЛАТЕН - Osirusoft Spamware Developers - Вярва се, че това са IP "
+"диапазоните на компании които са познати производители на спам софтуер. "
+"Изглежда, че хваща злонамерените автоматични отговориот някои Интернет "
+"доставчици."
 
 #: squirrelmail/plugins/filters/filters.php:448
 msgid ""
 "FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
 "users in without confirmation."
-msgstr "БЕЗПЛАТЕН - Osirusoft Unconfirmed OptIn Servers - Списък на списъчни сървиру които регистрират потребителите без потвърждение."
+msgstr ""
+"БЕЗПЛАТЕН - Osirusoft Unconfirmed OptIn Servers - Списък на списъчни сървиру "
+"които регистрират потребителите без потвърждение."
 
 #: squirrelmail/plugins/filters/filters.php:456
 msgid ""
 "FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
 "false positives than ORBS did though."
-msgstr "БЕЗПЛАТЕН - ORDB се роди когато ORBS отлетя. Изглежда има по-малко погрешни положителни страни в сравнение с ORBS"
+msgstr ""
+"БЕЗПЛАТЕН - ORDB се роди когато ORBS отлетя. Изглежда има по-малко погрешни "
+"положителни страни в сравнение с ORBS"
 
 #: squirrelmail/plugins/filters/filters.php:464
 msgid "FREE - Another ORBS replacement (just the INPUTS database used here)."
-msgstr "БЕЗПЛАТЕН - Друг заместник на ORBS (просто входната база данне е използвана тук)."
+msgstr ""
+"БЕЗПЛАТЕН - Друг заместник на ORBS (просто входната база данне е използвана "
+"тук)."
 
 #: squirrelmail/plugins/filters/filters.php:472
 msgid "FREE - Another ORBS replacement (just the OUTPUTS database used here)."
-msgstr "БЕЗПЛАТЕН - Друг заместник на ORBS (просто изходната база данне е използвана тук)."
+msgstr ""
+"БЕЗПЛАТЕН - Друг заместник на ORBS (просто изходната база данне е използвана "
+"тук)."
 
 #: squirrelmail/plugins/filters/filters.php:480
 msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
@@ -1803,11 +1850,14 @@ msgstr "БЕЗПЛАТЕН - Five-Ten-sg.com - Директни източници на спам."
 
 #: squirrelmail/plugins/filters/filters.php:488
 msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
-msgstr "БЕЗПЛАТЕН - Five-Ten-sg.com - Dial-up списъци - включва някои DSL IP-та."
+msgstr ""
+"БЕЗПЛАТЕН - Five-Ten-sg.com - Dial-up списъци - включва някои DSL IP-та."
 
 #: squirrelmail/plugins/filters/filters.php:496
 msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
-msgstr "БЕЗПЛАТЕН - Five-Ten-sg.com - Податели на големи пакети които не дават възможност за потвърждение."
+msgstr ""
+"БЕЗПЛАТЕН - Five-Ten-sg.com - Податели на големи пакети които не дават "
+"възможност за потвърждение."
 
 #: squirrelmail/plugins/filters/filters.php:504
 msgid "FREE - Five-Ten-sg.com - Other misc. servers."
@@ -1830,13 +1880,17 @@ msgid ""
 "FREE - Dorkslayers appears to include only really bad open relays outside "
 "the US to avoid being sued. Interestingly enough, their website recommends "
 "you NOT use their service."
-msgstr "БЕЗПЛАТЕН - Dorkslayers включват само наистина лоши отворените връзки извън Съединените Щати за да не бъдат дадени под съд."
+msgstr ""
+"БЕЗПЛАТЕН - Dorkslayers включват само наистина лоши отворените връзки извън "
+"Съединените Щати за да не бъдат дадени под съд."
 
 #: squirrelmail/plugins/filters/filters.php:544
 msgid ""
 "FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be "
 "SLOOOOOOW!"
-msgstr "БЕЗПЛАТЕН - ORBL е друг ORBS формиран след затварянето на ORBS, но може да бъде твърде БААААААААААВН!"
+msgstr ""
+"БЕЗПЛАТЕН - ORBL е друг ORBS формиран след затварянето на ORBS, но може да "
+"бъде твърде БААААААААААВН!"
 
 #: squirrelmail/plugins/filters/filters.php:552
 msgid "FREE - orbz.gst-group.co.uk - Inputs only."
@@ -1850,14 +1904,19 @@ msgstr "БЕЗПЛАТЕН - orbz.gst-group.co.uk - Само изходните."
 msgid ""
 "FREE - orbz.gst-group.co.uk - mailservers that refuse or bounce email "
 "addressed to postmaster@<theirdomain>."
-msgstr "БЕЗПЛАТЕН - orbz.gst-group.co.uk - пощенски сървъри които отхвърлят писма адресирани до postmaster@<техендомейн>."
+msgstr ""
+"БЕЗПЛАТЕН - orbz.gst-group.co.uk - пощенски сървъри които отхвърлят писма "
+"адресирани до postmaster@<техендомейн>."
 
 #: squirrelmail/plugins/filters/filters.php:576
 #, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
-msgstr "БЕЗПЛАТЕН, за сега - SPAMCOP - Интересно решение което листва сървъри които имат много голям спам в сравнение със законния процент на писмата (85% или повече)."
+msgstr ""
+"БЕЗПЛАТЕН, за сега - SPAMCOP - Интересно решение което листва сървъри които "
+"имат много голям спам в сравнение със законния процент на писмата (85% или "
+"повече)."
 
 #: squirrelmail/plugins/filters/options.php:62
 msgid "Message Filtering"
@@ -1896,7 +1955,9 @@ msgstr "Филтри на писмата"
 msgid ""
 "Filtering enables messages with different criteria to be automatically "
 "filtered into different folders for easier organization."
-msgstr "Филтрирането позволява писма с различни критерии да бъдат автоматично филтрирани в различни папки за по-лесна организация."
+msgstr ""
+"Филтрирането позволява писма с различни критерии да бъдат автоматично "
+"филтрирани в различни папки за по-лесна организация."
 
 #: squirrelmail/plugins/filters/setup.php:86
 msgid "SPAM Filters"
@@ -1906,7 +1967,10 @@ msgstr "СПАМ филтри"
 msgid ""
 "SPAM filters allow you to select from various DNS based blacklists to detect "
 "junk email in your INBOX and move it to another folder (like Trash)."
-msgstr "СПАМ филтрите ви позволяват да избирате от различно DNS нюбазирани черни списъци за да откриете боклучивата поща във вашия INBOX и да го преместите към друга папка например (Кошче)."
+msgstr ""
+"СПАМ филтрите ви позволяват да избирате от различно DNS нюбазирани черни "
+"списъци за да откриете боклучивата поща във вашия INBOX и да го преместите "
+"към друга папка например (Кошче)."
 
 #: squirrelmail/plugins/filters/spamoptions.php:53
 msgid "Spam Filtering"
@@ -1914,7 +1978,9 @@ msgstr "Филтриране на спама"
 
 #: squirrelmail/plugins/filters/spamoptions.php:57
 msgid "WARNING! Tell your admin to set the SpamFilters_YourHop variable"
-msgstr "ВНИМАНИЕ! Кажете на администратора си да установи променливата  SpamFilters_YourHop"
+msgstr ""
+"ВНИМАНИЕ! Кажете на администратора си да установи променливата  "
+"SpamFilters_YourHop"
 
 #: squirrelmail/plugins/filters/spamoptions.php:77
 msgid "Move spam to:"
@@ -1927,7 +1993,12 @@ msgid ""
 "spam. Whatever folder you set this to, make sure that it gets cleaned out "
 "periodically, so that you don't have an excessively large mailbox hanging "
 "around."
-msgstr "Преместването на спам директорията в кошчето може да не е добра идея в началото тъй като писмата от приятели и пощеснски списъци могат случайно да бъдат маркирани като спам. Към каквато и папка да го установите, трябва да сте сигурни, че се изчиства периодично, така че да нямате прекалено голяма пощенска кутия."
+msgstr ""
+"Преместването на спам директорията в кошчето може да не е добра идея в "
+"началото тъй като писмата от приятели и пощеснски списъци могат случайно да "
+"бъдат маркирани като спам. Към каквато и папка да го установите, трябва да "
+"сте сигурни, че се изчиства периодично, така че да нямате прекалено голяма "
+"пощенска кутия."
 
 #: squirrelmail/plugins/filters/spamoptions.php:97
 msgid "What to Scan:"
@@ -1948,7 +2019,13 @@ msgid ""
 "it to scan all messages, then go view my INBOX, then come back and set it to "
 "scan only new messages.  That way, your new spam filters will be applied and "
 "you'll scan even the spam you read with the new filters."
-msgstr "Колкото повече писма сканирате, толкова повече време отнема. Ще ви предложа да сканирате само новите писма. Ако направите промени във филтрите си, аз бих ги установил така, че да сканират всички писма, след това виж Входящи, и чак след това се върни за да го установиш да сканира само новите писма. По този начин, новите ви спам филтри ще бъдат приложени и ще сканирате едновременно със спама който четете с новите филтри."
+msgstr ""
+"Колкото повече писма сканирате, толкова повече време отнема. Ще ви предложа "
+"да сканирате само новите писма. Ако направите промени във филтрите си, аз "
+"бих ги установил така, че да сканират всички писма, след това виж Входящи, и "
+"чак след това се върни за да го установиш да сканира само новите писма. По "
+"този начин, новите ви спам филтри ще бъдат приложени и ще сканирате "
+"едновременно със спама който четете с новите филтри."
 
 #: squirrelmail/plugins/filters/spamoptions.php:138
 msgid "Save"
@@ -1992,7 +2069,10 @@ msgstr "Опции за проверка на правописа"
 msgid ""
 "Here you may set up how your personal dictionary is stored, edit it, or "
 "choose which languages should be available to you when spell-checking."
-msgstr "Тук можете да установите как да се съхранява личният ви речник, да го редактирате или да избирате кой език да ви е на разположение при проверката на правописа."
+msgstr ""
+"Тук можете да установите как да се съхранява личният ви речник, да го "
+"редактирате или да избирате кой език да ви е на разположение при проверката "
+"на правописа."
 
 #: squirrelmail/plugins/squirrelspell/setup.php:64
 msgid "Check Spelling"
@@ -2016,7 +2096,15 @@ msgid ""
 "got mangled and is no longer valid. You will have to delete it and start "
 "anew. This is also true if you don't remember your old password -- without "
 "it, the encrypted data is no longer accessible."
-msgstr "SquirrelSpell не може да декриптира вашият личен речник. Това най-често е предизвикано от факта, че сте променили паролата на пощенската си кутия. За да продължите трябва да предоставите старата си пароола за да може SquirrelSpell да декриптира личния ви речник. Той ще бъде криптиран отново с новата ви парола след това.<br>Ако не сте криптирали речника си, то той е обезобразен и повече не е валиден. Ще трябва да го изтриете и да създадете нов. Това може да направите и ако сте забравили старата си парола -- без нея криптираните дани няма да бъдат достъпни."
+msgstr ""
+"SquirrelSpell не може да декриптира вашият личен речник. Това най-често е "
+"предизвикано от факта, че сте променили паролата на пощенската си кутия. За "
+"да продължите трябва да предоставите старата си пароола за да може "
+"SquirrelSpell да декриптира личния ви речник. Той ще бъде криптиран отново с "
+"новата ви парола след това.<br>Ако не сте криптирали речника си, то той е "
+"обезобразен и повече не е валиден. Ще трябва да го изтриете и да създадете "
+"нов. Това може да направите и ако сте забравили старата си парола -- без нея "
+"криптираните дани няма да бъдат достъпни."
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:217
 msgid "Delete my dictionary and start a new one"
@@ -2058,7 +2146,9 @@ msgstr "Затвори прозореца"
 msgid ""
 "Your personal dictionary was re-encrypted successfully. Now return to the "
 "&quot;SpellChecker options&quot; menu and make your selection again."
-msgstr "Вашият личен речник е прекриптиран успешно. Сега се върнете към &quot;Опциите за проверка на правописа&quot;"
+msgstr ""
+"Вашият личен речник е прекриптиран успешно. Сега се върнете към &quot;"
+"Опциите за проверка на правописа&quot;"
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:51
 msgid "Successful Re-encryption"
@@ -2069,7 +2159,10 @@ msgid ""
 "Your personal dictionary was re-encrypted successfully. Please close this "
 "window and click \"Check Spelling\" button again to start your spellcheck "
 "over."
-msgstr "Вашият личен речник беше прекриптиран успешно. Моля затоврете този прозорец и кликнете отново бутона \"Правописна проверка\" за да стартирате правописната си проверка."
+msgstr ""
+"Вашият личен речник беше прекриптиран успешно. Моля затоврете този прозорец "
+"и кликнете отново бутона \"Правописна проверка\" за да стартирате "
+"правописната си проверка."
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:59
 msgid "Dictionary re-encrypted"
@@ -2079,13 +2172,17 @@ msgstr "Речника е прекриптиран"
 msgid ""
 "Your personal dictionary has been <strong>encrypted</strong> and is now "
 "stored in an <strong>encrypted format</strong>."
-msgstr "Валшият личен речник беше <strong>криптиран</strong> и е съхранен в <strong>криптиран формат</strong>"
+msgstr ""
+"Валшият личен речник беше <strong>криптиран</strong> и е съхранен в "
+"<strong>криптиран формат</strong>"
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:36
 msgid ""
 "Your personal dictionary has been <strong>decrypted</strong> and is now "
 "stored as <strong>clear text</strong>."
-msgstr "Вашият личен речник беше <strong>криптиран</strong> и е съхранен в <strong>чист текст</strong>"
+msgstr ""
+"Вашият личен речник беше <strong>криптиран</strong> и е съхранен в "
+"<strong>чист текст</strong>"
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:44
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:45
@@ -2171,7 +2268,9 @@ msgstr "Затвори и потвърди"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:266
 msgid "The spellcheck is not finished. Really close and commit changes?"
-msgstr "Проверката на правописа не е свършила. Наистина ли искате да затворите и да потвърдите промените?"
+msgstr ""
+"Проверката на правописа не е свършила. Наистина ли искате да затворите и да "
+"потвърдите промените?"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:269
 msgid "Close and Cancel"
@@ -2179,7 +2278,9 @@ msgstr "Затвори и отмени"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:271
 msgid "The spellcheck is not finished. Really close and discard changes?"
-msgstr "Проверката на правописа не е свършила. Наистина ли искате да затворите и да отмените промените?"
+msgstr ""
+"Проверката на правописа не е свършила. Наистина ли искате да затворите и да "
+"отмените промените?"
 
 #: squirrelmail/plugins/newmail/testsound.php:33
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:285
@@ -2229,7 +2330,16 @@ msgid ""
 "unaccessible, since it can no longer be decrypted. If you change your "
 "mailbox password, SquirrelSpell will recognize it and prompt you for your "
 "old password in order to re-encrypt the dictionary with a new key.</p>"
-msgstr "<p>Вашият личен речник е <strong>криптиран</strong>. Това помага да защитите личната си информация в случай, че системата за уеб поща е изложена на риск и вашият личен речник бъде откраднат. В момента е криптиран с паролата ви за достъп до пощенската кутия, за да се затрудни разглеждането на съдържанието на личния ви речник.</p><p><strong>ВНИМАНИЕ:</strong> Ако забравите паролата си, личния ви речник ще бъде недостъпен, тъй като не може да бъде декриптиран. Ако промените паролата на пощенската си кутия, SquirrelSpell ще го разпознае и ще ви попита за старата ви парола с цел да прекриптира речника с новия ключ.</p>"
+msgstr ""
+"<p>Вашият личен речник е <strong>криптиран</strong>. Това помага да защитите "
+"личната си информация в случай, че системата за уеб поща е изложена на риск "
+"и вашият личен речник бъде откраднат. В момента е криптиран с паролата ви за "
+"достъп до пощенската кутия, за да се затрудни разглеждането на съдържанието "
+"на личния ви речник.</p><p><strong>ВНИМАНИЕ:</strong> Ако забравите паролата "
+"си, личния ви речник ще бъде недостъпен, тъй като не може да бъде "
+"декриптиран. Ако промените паролата на пощенската си кутия, SquirrelSpell ще "
+"го разпознае и ще ви попита за старата ви парола с цел да прекриптира "
+"речника с новия ключ.</p>"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:26
 msgid ""
@@ -2256,7 +2366,19 @@ msgid ""
 "change your mailbox password but you still have the old password at hand, "
 "you will be able to enter the old key to re-encrypt the dictionary with the "
 "new value.</p>"
-msgstr "<p>Вашият личен речник <strong>не е криптиран</strong>. Може би желаете да криптирате личния си речник в случай, че системата за уеб поща е изложена на риск и вашият личен речник бъде откраднат. Когато е криптиран, съдържанието на файла изглежда изопачено и е трудно да се декриптира без знанието на верния ключ (който е паролата на пощенската ви кутия).</p> <strong>ВНИМАНИЕ:</strong> Ако решите да декриптирате личния си речник, трябва да запомните, че е хеширан с паролата на пощенската ви кутия. Ако забравите паролата на пощенската си кутия и администратора я промени, вашият личен речник ще стане неизползваем и ще трябва да създадете нов.Ако вие или вашият системен администратор промени паролата на пощенската ви кутия , но вие все още имате старата си парола под ръка , ще можете да въведете стария си ключ за да прекриптирате речника с новата стойност.</p>"
+msgstr ""
+"<p>Вашият личен речник <strong>не е криптиран</strong>. Може би желаете да "
+"криптирате личния си речник в случай, че системата за уеб поща е изложена на "
+"риск и вашият личен речник бъде откраднат. Когато е криптиран, съдържанието "
+"на файла изглежда изопачено и е трудно да се декриптира без знанието на "
+"верния ключ (който е паролата на пощенската ви кутия).</p> <strong>ВНИМАНИЕ:"
+"</strong> Ако решите да декриптирате личния си речник, трябва да запомните, "
+"че е хеширан с паролата на пощенската ви кутия. Ако забравите паролата на "
+"пощенската си кутия и администратора я промени, вашият личен речник ще стане "
+"неизползваем и ще трябва да създадете нов.Ако вие или вашият системен "
+"администратор промени паролата на пощенската ви кутия , но вие все още имате "
+"старата си парола под ръка , ще можете да въведете стария си ключ за да "
+"прекриптирате речника с новата стойност.</p>"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:39
 msgid ""
@@ -2289,7 +2411,9 @@ msgstr "Моля почакайте, комуникирам със сървъра..."
 msgid ""
 "Please choose which dictionary you would like to use to spellcheck this "
 "message:"
-msgstr "Моля изберете кой речник ще искате да използвате за да направите правописна проверка на това писмо:"
+msgstr ""
+"Моля изберете кой речник ще искате да използвате за да направите правописна "
+"проверка на това писмо:"
 
 #: squirrelmail/plugins/squirrelspell/modules/init.mod.php:44
 msgid "Go"
@@ -2304,12 +2428,16 @@ msgstr "SquirrelSpell започва"
 msgid ""
 "Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
 "default dictionary."
-msgstr "Настройките са приспособени към:  <strong>%s</strong> с <strong>%s</strong> като текущ речник."
+msgstr ""
+"Настройките са приспособени към:  <strong>%s</strong> с <strong>%s</strong> "
+"като текущ речник."
 
 #: squirrelmail/plugins/squirrelspell/modules/lang_change.mod.php:61
 #, c-format
 msgid "Using <strong>%s</strong> dictionary (system default) for spellcheck."
-msgstr "Използване на речника <strong>%s</strong> (по подразбиране) за правописната проверка."
+msgstr ""
+"Използване на речника <strong>%s</strong> (по подразбиране) за правописната "
+"проверка."
 
 #: squirrelmail/plugins/squirrelspell/modules/lang_change.mod.php:69
 msgid "International Dictionaries Preferences Updated"
@@ -2319,7 +2447,9 @@ msgstr "Предпочитанията от международните речници обновени"
 msgid ""
 "Please check any available international dictionaries which you would like "
 "to use when spellchecking:"
-msgstr "Моля проверете за някакви международни речници, които бихте искали да използвате при проверката на правописа:"
+msgstr ""
+"Моля проверете за някакви международни речници, които бихте искали да "
+"използвате при проверката на правописа:"
 
 #: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:26
 msgid "Make this dictionary my default selection:"
@@ -2369,12 +2499,16 @@ msgstr "Опциите на сървъра са както следва:"
 #: squirrelmail/plugins/translate/options.php:105
 msgid ""
 "13 language pairs, maximum of 1000 characters translated, powered by Systran"
-msgstr "13 езикови двойки, максимум 1000 символа се превеждат, благодарение на Systran"
+msgstr ""
+"13 езикови двойки, максимум 1000 символа се превеждат, благодарение на "
+"Systran"
 
 #: squirrelmail/plugins/translate/options.php:108
 msgid ""
 "10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
-msgstr "10 езикови двойки, максимум 25 килобайта се превеждат, благодарение на Systran"
+msgstr ""
+"10 езикови двойки, максимум 25 килобайта се превеждат, благодарение на "
+"Systran"
 
 #: squirrelmail/plugins/translate/options.php:111
 msgid "12 language pairs, no known limits, powered by Systran"
@@ -2384,18 +2518,24 @@ msgstr "12 езикови двойки, без ограничения, благодарение на Systran"
 msgid ""
 "767 language pairs, no known limits, powered by Translation Experts's "
 "InterTran"
-msgstr "767 езикови двойки, без ограничения, благодарение на Translation Experts's InterTran"
+msgstr ""
+"767 езикови двойки, без ограничения, благодарение на Translation Experts's "
+"InterTran"
 
 #: squirrelmail/plugins/translate/options.php:117
 msgid ""
 "8 language pairs, no known limits, powered by GPLTrans (free, open source)"
-msgstr "8 езикови двойки, без ограничения, благодарение на GPLTrans (безплатно, отворен код)"
+msgstr ""
+"8 езикови двойки, без ограничения, благодарение на GPLTrans (безплатно, "
+"отворен код)"
 
 #: squirrelmail/plugins/translate/options.php:123
 msgid ""
 "You also decide if you want the translation box displayed, and where it will "
 "be located."
-msgstr "Ще трябва да решите дали искате да ви се показва прозореца за превода и къде да бъде позиционирана."
+msgstr ""
+"Ще трябва да решите дали искате да ви се показва прозореца за превода и къде "
+"да бъде позиционирана."
 
 #: squirrelmail/plugins/translate/options.php:127
 msgid "Select your translator:"
@@ -2719,19 +2859,28 @@ msgid ""
 "Select <b>Enable Media Playing</b> to turn on playing a media file when "
 "unseen mail is in your folders. When enabled, you can specify the media file "
 "to play in the provided file box."
-msgstr "Изберете <b>Позволи просвирването на медийни файлове</b> за да включите изпълняването на медийни файлове когато в папките ви има непрегледана поща. Когато е позволено можете да укажете медиен файл който да се просвири в предоставената файлова кутия."
+msgstr ""
+"Изберете <b>Позволи просвирването на медийни файлове</b> за да включите "
+"изпълняването на медийни файлове когато в папките ви има непрегледана поща. "
+"Когато е позволено можете да укажете медиен файл който да се просвири в "
+"предоставената файлова кутия."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:39
 msgid ""
 "The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
 "folders for unseen mail, not just the inbox for notification."
-msgstr "Опцията <b>Провери всички полета, не само в INBOX</b> ще провери всичките ви папки за нова поща, не само в inbox."
+msgstr ""
+"Опцията <b>Провери всички полета, не само в INBOX</b> ще провери всичките ви "
+"папки за нова поща, не само в inbox."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:41
 msgid ""
 "Selecting the <b>Show popup</b> option will enable the showing of a popup "
 "window when unseen mail is in your folders (requires JavaScript)."
-msgstr "Избирайки опцията <b>Покажи падащ прозорец</b> ще включите показването на падащ прозорец когато има непрегледана поща във папките ви (изисква JavaScript)."
+msgstr ""
+"Избирайки опцията <b>Покажи падащ прозорец</b> ще включите показването на "
+"падащ прозорец когато има непрегледана поща във папките ви (изисква "
+"JavaScript)."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:43
 msgid ""
@@ -2739,7 +2888,11 @@ msgid ""
 "Recent messages are those that have just recently showed up and have not "
 "been \"viewed\" or checked yet.  This can prevent being continuously annoyed "
 "by sounds or popups for unseen mail."
-msgstr "Използвайте опцията <b>Провери СКОРОШНИТЕ</b> само за писма които са скорошни. Скорошни писма са тези, които току що са се полявили и не са прегледани или прочетени все още. Това може да предотврати да ви бъде постоянно досаждано със звуци и падащи прозорци за неразгледаната поща."
+msgstr ""
+"Използвайте опцията <b>Провери СКОРОШНИТЕ</b> само за писма които са "
+"скорошни. Скорошни писма са тези, които току що са се полявили и не са "
+"прегледани или прочетени все още. Това може да предотврати да ви бъде "
+"постоянно досаждано със звуци и падащи прозорци за неразгледаната поща."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:45
 msgid ""
@@ -2748,7 +2901,12 @@ msgid ""
 "only works in IE but you won't see errors with other browsers).  This will "
 "always tell you if you have new mail, even if you have <b>Check RECENT</b> "
 "enabled."
-msgstr "Избирането на опцията <b>Промени заглавието</b> ще промени заглавието в някой браузъри за да ви уведоми, че имате нова поща (изисква JavaScript и работи само при Internet Explorer, но не издава грешки при другите браузъри). Винаги ще ви казва ако имате нова поща, дори и ако сте позволили <b>Проверка на СКОРОШНИТЕ</b>"
+msgstr ""
+"Избирането на опцията <b>Промени заглавието</b> ще промени заглавието в "
+"някой браузъри за да ви уведоми, че имате нова поща (изисква JavaScript и "
+"работи само при Internet Explorer, но не издава грешки при другите "
+"браузъри). Винаги ще ви казва ако имате нова поща, дори и ако сте позволили "
+"<b>Проверка на СКОРОШНИТЕ</b>"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:47
 msgid ""
@@ -2756,7 +2914,12 @@ msgid ""
 "mail arrives.  Selecting <b>local media</b> will play the file specified in "
 "the <b>local media file</b> box to play from the local computer.  If no file "
 "is specified, the system will use a default from the server."
-msgstr "Изберете от списъка на <b>сървърните файлове</b> медийния файл който да се изпълни когато пристигне нова поща. Избирането на <b>локална медия</b> ще просвири файлът указан в полето <b>локален медиен файл</> от локалния компютър. Ако не е указан файл, системата ще използва този по подразбиране от сървъра."
+msgstr ""
+"Изберете от списъка на <b>сървърните файлове</b> медийния файл който да се "
+"изпълни когато пристигне нова поща. Избирането на <b>локална медия</b> ще "
+"просвири файлът указан в полето <b>локален медиен файл</> от локалния "
+"компютър. Ако не е указан файл, системата ще използва този по подразбиране "
+"от сървъра."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:57
 msgid "Enable Media Playing"
@@ -2823,7 +2986,9 @@ msgstr "Опции за ново писмо"
 msgid ""
 "This configures settings for playing sounds and/or showing popup windows "
 "when new mail arrives."
-msgstr "Това конгигурира настройките за възпроизвеждане на звук и/или показване на падащи менюта когато пристигне ново писмо."
+msgstr ""
+"Това конгигурира настройките за възпроизвеждане на звук и/или показване на "
+"падащи менюта когато пристигне ново писмо."
 
 #: squirrelmail/plugins/newmail/setup.php:129
 msgid "New Mail Notification options saved"
@@ -3149,7 +3314,12 @@ msgid ""
 "perfectly secure.  However, if you are using pop, there is inherently no "
 "encryption anyway. Additionally, the encryption that we do to save it on the "
 "server can be undone by a hacker reading the source to this file."
-msgstr "Трябва да ви е ясно това, че криптирането което се използва за да се съхрани паролата ви не е абсолютно сигурно. Ако използвате pop, наследствено няма криптиране. Допълнтелно, криптирането което използваме за да го запишем на сървъра може да бъде декриптирано от хакер, ако прочете сорс кода на този файл."
+msgstr ""
+"Трябва да ви е ясно това, че криптирането което се използва за да се съхрани "
+"паролата ви не е абсолютно сигурно. Ако използвате pop, наследствено няма "
+"криптиране. Допълнтелно, криптирането което използваме за да го запишем на "
+"сървъра може да бъде декриптирано от хакер, ако прочете сорс кода на този "
+"файл."
 
 #: squirrelmail/plugins/mail_fetch/options.php:109
 msgid "If you leave password empty, it will be required when you fetch mail."
@@ -3273,7 +3443,9 @@ msgstr "Просто POP3 изтегляне на пощата"
 msgid ""
 "This configures settings for downloading email from a pop3 mailbox to your "
 "account on this server."
-msgstr "Това конфигурира настройките за сваляне на поща от pop3 пощенска кутия в акаунта ви на сървъра"
+msgstr ""
+"Това конфигурира настройките за сваляне на поща от pop3 пощенска кутия в "
+"акаунта ви на сървъра"
 
 #: squirrelmail/plugins/bug_report/setup.php:65
 msgid "Bug Reports:"
