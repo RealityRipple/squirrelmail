@@ -145,6 +145,8 @@ class Rfc822Header {
 		$value = $this->stripComments($value);
 	        $this->references = $value;
 		break;
+	    case 'x-confirm-reading-to':
+	    case 'return-receipt-to':
             case 'disposition-notification-to':
 		$value = $this->stripComments($value);
                 $this->dnt = $this->parseAddress($value);
