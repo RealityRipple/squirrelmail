@@ -34,27 +34,6 @@ function sqm_baseuri(){
     return $base_uri;
 }
 
-/**
- * Find out the top REAL path of the squirrelmail installation.
- *
- * @return  the real installation directory of squirrelmail.
- */
-
-function sqm_topdir(){
-    $topdir = '';
-    /**
-     * $levels is just to avoid a potential infinite loop in case
-     * things are REALLY broken. Shouldn't really ever happen.
-     */
-    $levels = 0;
-    while (!(is_dir("$topdir/functions") && is_dir("$topdir/src"))
-           && $levels < 10){
-        $topdir .= '../';
-        $levels++;
-    }
-    return $topdir;
-}
-
 function error_username_password_incorrect() {
     global $frame_top, $color;
     /* XXX: Should really not start the HTML before this, or close off more
@@ -96,11 +75,11 @@ function logout_error( $errString, $errTitle = '' ) {
            $hide_sm_attributions, $version, $squirrelmail_language;
 
     $base_uri = sqm_baseuri();
-    $topdir = sqm_topdir();
-    include_once( "$topdir/functions/page_header.php" );
+
+    include_once( SM_PATH . 'functions/page_header.php' );
     if ( !isset( $org_logo ) ) {
         // Don't know yet why, but in some accesses $org_logo is not set.
-        include( "$topdir/config/config.php" );
+        include( SM_PATH . 'config/config.php' );
     }
     /* Display width and height like good little people */
     $width_and_height = '';
