@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-04-12 17:34+0300\n"
+"POT-Creation-Date: 2004-04-13 21:45+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2505,6 +2505,9 @@ msgstr ""
 msgid "FREE - Distributed Sender Boycott List - UN-Confirmed Relays"
 msgstr ""
 
+msgid "WARNING! Header filters should be of the format \"Header: value\""
+msgstr ""
+
 msgid "Saved Scan type"
 msgstr ""
 
@@ -2533,7 +2536,7 @@ msgid "Contains:"
 msgstr ""
 
 #, c-format
-msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
+msgid "If %s contains %s then move to %s"
 msgstr ""
 
 msgid "Message Filters"
@@ -2552,10 +2555,17 @@ msgid ""
 "junk email in your INBOX and move it to another folder (like Trash)."
 msgstr ""
 
+msgid "You must select spam folder."
+msgstr ""
+
+msgid "You must select scan type."
+msgstr ""
+
 msgid "Spam Filtering"
 msgstr ""
 
-msgid "WARNING! Tell your admin to set the SpamFilters_YourHop variable"
+#, c-format
+msgid "WARNING! Tell your admin to set the %s variable"
 msgstr ""
 
 msgid "Move spam to:"
@@ -2570,18 +2580,18 @@ msgid ""
 msgstr ""
 
 msgid ""
-"The more messages you scan, the longer it takes.  I would suggest that you "
+"The more messages you scan, the longer it takes. I would suggest that you "
 "scan only new messages.  If you make a change to your filters, I would set "
 "it to scan all messages, then go view my INBOX, then come back and set it to "
-"scan only new messages.  That way, your new spam filters will be applied and "
+"scan only new messages. That way, your new spam filters will be applied and "
 "you'll scan even the spam you read with the new filters."
 msgstr ""
 
 #, c-format
-msgid "Spam is sent to <b>%s</b>"
+msgid "Spam is sent to %s"
 msgstr ""
 
-msgid "[<i>not set yet</i>]"
+msgid "not set yet"
 msgstr ""
 
 #, c-format
