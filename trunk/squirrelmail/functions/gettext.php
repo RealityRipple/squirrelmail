@@ -15,7 +15,8 @@
    define('gettext_php', true);
    
    global $gettext_php_domain, $gettext_php_dir, $gettext_php_loaded,
-      $gettext_php_translateStrings, $gettext_php_loaded_language;
+      $gettext_php_translateStrings, $gettext_php_loaded_language,
+      $gettext_php_short_circuit;
    
    if (! isset($gettext_php_loaded)) {
       $gettext_php_loaded = false;
@@ -41,13 +42,15 @@
    function gettext_php_load_strings() {
       global $squirrelmail_language, $gettext_php_translateStrings,
          $gettext_php_domain, $gettext_php_dir, $gettext_php_loaded,
-         $gettext_php_loaded_language;
+         $gettext_php_loaded_language, $gettext_php_short_circuit;
       
       // $squirrelmail_language gives 'en' for English, 'de' for German,
       // etc.  I didn't wanna use getenv or similar, but you easily could
       // change my code to do that.
       
       $gettext_php_translateStrings = array();
+      
+      $gettext_php_short_circuit = false;  // initialization
 
       $filename = $gettext_php_dir;
       if (substr($filename, -1) != '/')
@@ -61,6 +64,8 @@
 	 // This is also for English, which doesn't use translations
          $gettext_php_loaded = true;
          $gettext_php_loaded_language = $squirrelmail_language;
+	 $gettext_php_short_circuit = true;  // Avoid fuzzy matching when we
+	                                     // didn't load strings
          return;
       }
 	  
@@ -119,7 +124,8 @@
 
    function _($str) {
       global $gettext_php_loaded, $gettext_php_translateStrings, 
-         $squirrelmail_language, $gettext_php_loaded_language;
+         $squirrelmail_language, $gettext_php_loaded_language,
+	 $gettext_php_short_circuit;
 	 
       if (! $gettext_php_loaded || 
           $gettext_php_loaded_language != $squirrelmail_language)
@@ -128,7 +134,13 @@
       // Try finding the exact string      
       if (isset($gettext_php_translateStrings[$str]))
          return $gettext_php_translateStrings[$str];
-
+	 
+      // See if we should short-circuit
+      if ($gettext_php_short_circuit) {
+         $gettext_php_translateStrings[$str] = $str;
+	 return $str;
+      }
+      
       // Look for a string that is very close to the one we want
       // Very computationally expensive
       $oldPercent = 0;
