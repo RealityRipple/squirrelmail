@@ -152,7 +152,6 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                                "<input type=checkbox name=\"msg[$t]\" value=\"".$msg['ID']."\"$checked>",
                                'center',
                                $hlt_color );
-		++$col;
                 break;
             case 2: /* from */
                 echo html_tag( 'td',
@@ -160,7 +159,6 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                                $fontstr_end . $flag_end . $bold_end . $italic_end,
                                'left',
                                $hlt_color );
-		++$col;			       
                 break;
             case 3: /* date */
                 echo html_tag( 'td',
@@ -169,7 +167,6 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                                'center',
                                $hlt_color,
                                'nowrap' );
-		++$col;			       
                 break;
             case 4: /* subject */
                 $td_str = $bold;
@@ -191,7 +188,6 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                 }
                 $td_str .= ">$flag$subject$flag_end</a>$bold_end";
                 echo html_tag( 'td', $td_str, 'left', $hlt_color );
-		++$col;		
                 break;
             case 5: /* flags */
                 $stuff = false;
@@ -228,7 +224,6 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                                'center',
                                $hlt_color,
                                'nowrap' );
-		++$col;			       
                 break;
             case 6: /* size */
                 echo html_tag( 'td',
@@ -236,78 +231,87 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                                $fontstr_end . $bold_end,
                                'right',
                                $hlt_color );
-		++$col;			       
                 break;
             }
+            ++$col;
         }
     }
     if ($not_last) {
-        echo '</tr>'."\n".'<tr><td COLSPAN="'.$col. '" BGCOLOR="'. 
-	     $color[0].'" HEIGHT="1"></td></tr>'."\n";
+        echo '</tr>' . "\n" . '<tr><td COLSPAN="' . $col . '" BGCOLOR="' .
+             $color[0] . '" HEIGHT="1"></td></tr>' . "\n";
     } else {
         echo '</tr>'."\n";
     }
 }
 
-function getServerSortMessages($imapConnection, $start_msg, $show_num,
-                              $num_msgs, $server_sort_order, $mbxresponse) {
-  $id = sqimap_get_sort_order($imapConnection, $server_sort_order,$mbxresponse);
-  if ($id != 'no') {
-     if ($start_msg + ($show_num - 1) < $num_msgs) {
-        $end_msg = $start_msg + ($show_num-1);
-     } else {
-        $end_msg = $num_msgs;
-     }
-     $id = array_slice($id, ($start_msg-1), ($end_msg));
+function getServerMessages($imapConnection, $start_msg, $show_num, $num_msgs, $id) {
+    if ($id != 'no') {
+        if ($start_msg + ($show_num - 1) < $num_msgs) {
+            $end_msg = $start_msg + ($show_num-1);
+        } else {
+            $end_msg = $num_msgs;
+        }
+        $id = array_slice($id, ($start_msg-1), ($end_msg));
 
-     $end = $start_msg + $show_num - 1;
-     if ($num_msgs < $show_num) {
-        $end_loop = $num_msgs;
-     } else if ($end > $num_msgs) {
-        $end_loop = $num_msgs - $start_msg + 1;
-     } else {
-        $end_loop = $show_num;
-     }
-     return fillMessageArray($imapConnection,$id,$end_loop);
-  } else {
-     return false;
-  }
+        $end = $start_msg + $show_num - 1;
+        if ($num_msgs < $show_num) {
+            $end_loop = $num_msgs;
+        } else if ($end > $num_msgs) {
+            $end_loop = $num_msgs - $start_msg + 1;
+        } else {
+            $end_loop = $show_num;
+        }
+        return fillMessageArray($imapConnection,$id,$end_loop);
+    } else {
+        return false;
+    }
+}
+
+function getThreadMessages($imapConnection, $start_msg, $show_num, $num_msgs) {
+    $id = get_thread_sort($imapConnection);
+    return getServerMessages($imapConnection, $start_msg, $show_num, $num_msgs, $id);
+}
+
+function getServerSortMessages($imapConnection, $start_msg, $show_num,
+                               $num_msgs, $server_sort_order, $mbxresponse) {
+    $id = sqimap_get_sort_order($imapConnection, $server_sort_order,$mbxresponse);
+    return getServerMessages($imapConnection, $start_msg, $show_num, $num_msgs, $id);
 }
 
 function getSelfSortMessages($imapConnection, $start_msg, $show_num,
                               $num_msgs, $sort, $mbxresponse) {
-  $msgs = array();
-  if ($num_msgs >= 1) {
-    $id = sqimap_get_php_sort_order ($imapConnection, $mbxresponse);
-    if ($sort < 6 ) {
-       $end = $num_msgs;
-       $end_loop = $end;
-    } else {
-       /* if it's not sorted */
-       if ($start_msg + ($show_num - 1) < $num_msgs) {
-          $end_msg = $start_msg + ($show_num - 1);
-       } else {
-          $end_msg = $num_msgs;
-       }
-       if ($end_msg < $start_msg) {
-          $start_msg = $start_msg - $show_num;
-          if ($start_msg < 1) {
-             $start_msg = 1;
-          }
-       }
-       $id = array_slice(array_reverse($id), ($start_msg-1), ($end_msg));
-       $end = $start_msg + $show_num - 1;
-       if ($num_msgs < $show_num) {
-          $end_loop = $num_msgs;
-       } else if ($end > $num_msgs) {
-          $end_loop = $num_msgs - $start_msg + 1;
-       } else {
-          $end_loop = $show_num;
-       }
+    $msgs = array();
+    if ($num_msgs >= 1) {
+        $id = sqimap_get_php_sort_order ($imapConnection, $mbxresponse);
+        if ($sort < 6 ) {
+            $end = $num_msgs;
+            $end_loop = $end;
+        } else {
+            /* if it's not sorted */
+            if ($start_msg + ($show_num - 1) < $num_msgs) {
+                $end_msg = $start_msg + ($show_num - 1);
+            } else {
+                $end_msg = $num_msgs;
+            }
+            if ($end_msg < $start_msg) {
+                $start_msg = $start_msg - $show_num;
+                if ($start_msg < 1) {
+                    $start_msg = 1;
+                }
+            }
+            $id = array_slice(array_reverse($id), ($start_msg-1), ($end_msg));
+            $end = $start_msg + $show_num - 1;
+            if ($num_msgs < $show_num) {
+                $end_loop = $num_msgs;
+            } else if ($end > $num_msgs) {
+                $end_loop = $num_msgs - $start_msg + 1;
+            } else {
+                $end_loop = $show_num;
+            }
+        }
+        $msgs = fillMessageArray($imapConnection,$id,$end_loop);
     }
-    $msgs = fillMessageArray($imapConnection,$id,$end_loop);
-  }
-  return $msgs;
+    return $msgs;
 }
 
 
@@ -358,30 +362,26 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
             $mode = '';
         }
 
+        sqsession_unregister('msort');
+        sqsession_unregister('msgs');
         switch ($mode) {
             case 'thread':
-                sqsession_unregister('msort');
-                sqsession_unregister('msgs');
-                $msgs = getThreadMessages($imapConnection, $start_msg, $show_num,
-                                          $num_msgs);
+                $id   = get_thread_sort($imapConnection);
+                $msgs = getServerMessages($imapConnection, $start_msg, $show_num, $num_msgs, $id);
                 if ($msgs === false) {
                     echo '<b><small><center><font color=red>' .
                          _("Thread sorting is not supported by your IMAP server.<br>Please report this to the system administrator.").
                          '</center></small></b>';
                     $thread_sort_messages = 0;
                     $msort = $msgs = array();
-                    sqsession_register($msort, 'msort');
-                    sqsession_register($msgs, 'msgs');
                 } else {
                     $msort= $msgs;
                     $sort = 6;
-                    sqsession_register($msort, 'msort');
-                    sqsession_register($msgs, 'msgs');
                 }
                 break;
             case 'serversort':
-                $msgs = getServerSortMessages($imapConnection, $start_msg, $show_num,
-                                              $num_msgs, $sort, $mbxresponse);
+                $id   = sqimap_get_sort_order($imapConnection, $sort, $mbxresponse);
+                $msgs = getServerMessages($imapConnection, $start_msg, $show_num, $num_msgs, $id);
                 if ($msgs === false) {
                     echo '<b><small><center><font color=red>' .
                          _( "Server-side sorting is not supported by your IMAP server.<br>Please report this to the system administrator.").
@@ -389,28 +389,22 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
                     $sort = $server_sort_order;
                     $allow_server_sort = FALSE;
                     $msort = $msgs = array();
-                    sqsession_register($msort, 'msort');
-                    sqsession_register($msgs, 'msgs');
                     $id = array();
                 } else {
-                    $sort = 6;
                     $msort = $msgs;
-                    sqsession_register($msort, 'msort');
-                    sqsession_register($msgs, 'msgs');
+                    $sort = 6;
                 }
                 break;
             default:
                 if (!$use_cache) {
-                    sqsession_unregister('msgs');
-                    sqsession_unregister('msort');
                     $msgs = getSelfSortMessages($imapConnection, $start_msg, $show_num,
                                                 $num_msgs, $sort, $mbxresponse);
                     $msort = calc_msort($msgs, $sort);
-                    sqsession_register($msort, 'msort');
-                    sqsession_register($msgs, 'msgs');
                 } /* !use cache */
                 break;
         } // switch
+        sqsession_register($msort, 'msort');
+        sqsession_register($msgs,  'msgs');
     } /* if exists > 0 */
 
     $res = getEndMessage($start_msg, $show_num, $num_msgs);
@@ -601,7 +595,7 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
             $k++;
         } while (isset ($key) && ($k < $i));
         printMessageInfo($imapConnection, $t, true, $key, $mailbox,
-            $real_startMessage, $where, $what);
+                         $real_startMessage, $where, $what);
     } else {
         $i = $start_msg;
         reset($msort);
@@ -611,11 +605,11 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
             next($msort);
             $k++;
         } while (isset ($key) && ($k < $i));
-	$not_last = true;
+        $not_last = true;
         do {
-	    if (!$i || $i == $endVar-1) $not_last = false;
-            printMessageInfo($imapConnection, $t, $not_last, $key, $mailbox,
-                             $real_startMessage, $where, $what);
+            if (!$i || $i == $endVar-1) $not_last = false;
+                printMessageInfo($imapConnection, $t, $not_last, $key, $mailbox,
+                                 $real_startMessage, $where, $what);
             $key = key($msort);
             $t++;
             $i++;
