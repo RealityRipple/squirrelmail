@@ -11,7 +11,6 @@
     **  $Id$
     **/
 
-    define('SM_PATH','../../');
     require_once(SM_PATH . 'plugins/mail_fetch/functions.php' );
 
     function squirrelmail_plugin_init_mail_fetch() {
