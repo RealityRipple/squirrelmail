@@ -14,7 +14,7 @@
 
    if (!isset($strings_php))
       include ("../functions/strings.php");
-include("../config/config.php");
+   include("../config/config.php");
 
    // Before starting the session, the base URI must be known.
    // Assuming that this file is in the src/ subdirectory (or
