@@ -411,9 +411,12 @@ function mime_match_parenthesis ($pos, $structure) {
 
     $j = strlen( $structure );
     
-    // ignore all extra characters
-    // If inside of a string, skip string -- Boundary IDs and other
-    // things can have ) in them.
+    /*
+     * ignore all extra characters
+     * If inside of a quoted string or literal, skip it -- Boundary IDs and other
+     * things can have ) in them.
+     */
+     
     if ( $structure{$pos} != '(' ) {
         return( $j );
     }
@@ -422,7 +425,7 @@ function mime_match_parenthesis ($pos, $structure) {
         $pos++;
         if ($structure{$pos} == ')') {
             return $pos;
-        } elseif ($structure{$pos} == '"') {
+        } elseif ($structure{$pos} == '"') { /* check for quoted string */
             $pos++;
             while ( $structure{$pos} != '"' &&
                     $pos < $j ) {
@@ -433,6 +436,12 @@ function mime_match_parenthesis ($pos, $structure) {
                }
                $pos++;
             }
+	} elseif ($structure{$pos} == '{') { /* check for literal */ 
+	    $str = substr($structure, $pos);
+	    $pos++;
+	    if (preg_match("/^\{(\d+)\}.*/",$str,$reg)) {
+		$pos = $pos + strlen($reg[1]) + $reg[1] + 2;
+	    } 
         } elseif ( $structure{$pos} == '(' ) {
             $pos = mime_match_parenthesis ($pos, $structure);
         }
