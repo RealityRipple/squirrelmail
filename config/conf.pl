@@ -1,12 +1,14 @@
 #!/usr/bin/env perl
 # conf.pl
-# Luke Ehresman (luke@squirrelmail.org)
 #
-# A simple configure script to configure squirrelmail
+# Copyright (c) 1999-2003 The SquirrelMail Project Team 
+# Licensed under the GNU GPL. For full terms see COPYING.
+#
+# A simple configure script to configure SquirrelMail
 #
 # $Id$
 ############################################################              
-$conf_pl_version = "1.2.0";
+$conf_pl_version = "1.4.0";
 
 ############################################################
 # Check what directory we're supposed to be running in, and
@@ -2126,7 +2128,7 @@ sub command316 {
     print "[$WHT$session_name$NRM]: $WHT";
     $new_session_name = <STDIN>;
 	chomp($new_session_name);
-    if ( $new_session_name eq "\n" ) {
+    if ( $new_session_name eq "" ) {
         $new_session_name = $session_name;
     }
     return $new_session_name;
