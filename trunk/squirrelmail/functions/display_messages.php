@@ -87,6 +87,8 @@ function logout_error( $errString, $errTitle = '' ) {
         $color[8]  = '#000000';  /* black         Normal text            */
     }
 
+    list($junk, $errString, $errTitle) = do_hook('logout_error', $errString, $errTitle);
+
     if ( $errTitle == '' ) {
         $errTitle = $errString;
     }
@@ -123,6 +125,8 @@ function error_box($string, $color) {
     global $pageheader_sent;
 
     $err = _("ERROR");
+
+    $string = concat_hook_function('error_box', $string);
 
     /* check if the page header has been sent; if not, send it! */
     if(!isset($pageheader_sent) && !$pageheader_sent) {
