@@ -15,6 +15,7 @@ require_once('../functions/imap_search.php');
 require_once('../functions/imap_utf7_decode_local.php');
 require_once('../functions/array.php');
 require_once('../functions/strings.php');
+require_once('../functions/html.php');
 
 global $allow_thread_sort;
 
@@ -211,12 +212,12 @@ elseif ($submit == 'delete') {
 
 do_hook('search_before_form');
 
-echo "<BR>\n".
-     "<table width=\"100%\">\n".
-        "<TR><td bgcolor=\"$color[0]\">\n".
-            "<CENTER><B>" . _("Search") . "</B></CENTER>\n".
-        "</TD></TR>\n".
-     "</TABLE>\n";
+echo "<br>\n".
+     html_tag( 'table',
+         html_tag( 'tr', "\n" .
+             html_tag( 'td', '<b>' . _("Search") . '</b>', 'center', $color[0] )
+         ) ,
+     '', '', 'width="100%"') . "\n";
 
 /*  update the recent and saved searches from the pref files  */
 $attributes = get_recent($username, $data_dir);
@@ -226,47 +227,55 @@ $count_all = 0;
 
 /* Saved Search Table */
 if ($saved_count > 0) {
-    echo "<BR>\n"
-    . "<TABLE WIDTH=\"95%\" BGCOLOR=\"$color[9]\" ALIGN=\"CENTER\" CELLPADDING=1 CELLSPACING=1>"
-    . '<TR><TD align=center><B>Saved Searches</B></TD></TR><TR><TD>'
-    . '<TABLE WIDTH="100%" ALIGN="CENTER" CELLPADDING=0 CELLSPACING=0>';
+    echo "<br>\n"
+    . html_tag( 'table', '', 'center', $color[9], 'width="95%" cellpadding="1" cellspacing="1" border="0"' )
+    . html_tag( 'tr',
+          html_tag( 'td', '<b>Saved Searches</b>', 'center' )
+      )
+    . html_tag( 'tr' )
+    . html_tag( 'td' )
+    . html_tag( 'table', '', 'center', '', 'width="100%" cellpadding="2" cellspacing="2" border="0"' );
     for ($i=0; $i < $saved_count; ++$i) {
         if ($i % 2) {
-            echo "<TR BGCOLOR=\"$color[0]\">";
+            echo html_tag( 'tr', '', '', $color[0] );
         } else {
-            echo "<TR BGCOLOR=\"$color[4]\">";
+            echo html_tag( 'tr', '', '', $color[4] );
         }
-        echo "<TD WIDTH=\"35%\">".$saved_attributes['saved_folder'][$i]."</TD>"
-        . "<TD ALIGN=LEFT>".$saved_attributes['saved_what'][$i]."</TD>"
-        . "<TD ALIGN=CENTER>".$saved_attributes['saved_where'][$i]."</TD>"
-        . '<TD ALIGN=RIGHT>'
-        .   '<A HREF=search.php'
+        echo html_tag( 'td', $saved_attributes['saved_folder'][$i], 'left', '', 'width="35%"' )
+        . html_tag( 'td', $saved_attributes['saved_what'][$i], 'left' )
+        . html_tag( 'td', $saved_attributes['saved_where'][$i], 'center' )
+        . html_tag( 'td', '', 'right' )
+        .   '<a href=search.php'
         .     '?mailbox=' . urlencode($saved_attributes['saved_folder'][$i])
         .     '&amp;what=' . urlencode($saved_attributes['saved_what'][$i])
         .     '&amp;where=' . urlencode($saved_attributes['saved_where'][$i])
-        .   '>' . _("edit") . '</A>'
+        .   '>' . _("edit") . '</a>'
         .   '&nbsp;|&nbsp;'
-        .   '<A HREF=search.php'
+        .   '<a href=search.php'
         .     '?mailbox=' . urlencode($saved_attributes['saved_folder'][$i])
         .     '&amp;what=' . urlencode($saved_attributes['saved_what'][$i])
         .     '&amp;where=' . urlencode($saved_attributes['saved_where'][$i])
         .     '&amp;submit=Search_no_update'
-        .   '>' . _("search") . '</A>'
+        .   '>' . _("search") . '</a>'
         .   '&nbsp;|&nbsp;'
-        .   "<A HREF=search.php?count=$i&amp;submit=delete>"
+        .   "<a href=search.php?count=$i&amp;submit=delete>"
         .     _("delete")
-        .   '</A>'
-        . '</TD></TR>';
+        .   '</a>'
+        . '</td></tr>';
     }
-    echo "</TABLE></TD></TR></TABLE>\n";
+    echo "</table></td></tr></table>\n";
 }
 
 /* Recent Search Table */
 if ($recent_count > 0) {
-    echo "<BR>\n"
-       . "<TABLE WIDTH=\"95%\" BGCOLOR=\"$color[9]\" ALIGN=\"CENTER\" CELLPADDING=1 CELLSPACING=1>\n"
-       . '<TR><TD ALIGN=CENTER><B>' . _("Recent Searches") . '</B></TD></TR><TR><TD>'
-       . '<TABLE WIDTH="100%" ALIGN="CENTER" CELLPADDING=0 CELLSPACING=0>';
+    echo "<br>\n"
+       . html_tag( 'table', '', 'center', $color[9], 'width="95%" cellpadding="1" cellspacing="1" border="0"' )
+       . html_tag( 'tr',
+             html_tag( 'td', '<b>' . _("Recent Searches") . '</b>', 'center' )
+         )
+       . html_tag( 'tr' )
+       . html_tag( 'td' )
+       . html_tag( 'table', '', 'center', '', 'width="100%" cellpadding="0" cellspacing="0" border="0"' );
     for ($i=1; $i <= $recent_count; ++$i) {
             if (isset($attributes['search_folder'][$i])) { 
             if ($attributes['search_folder'][$i] == "") {
@@ -274,42 +283,43 @@ if ($recent_count > 0) {
             }
             }
             if ($i % 2) {
-                echo "<TR BGCOLOR=\"$color[0]\">";
+                echo html_tag( 'tr', '', '', $color[0] );
             } else {
-                echo "<TR BGCOLOR=\"$color[4]\">";
+                echo html_tag( 'tr', '', '', $color[0] );
             }
             if (isset($attributes['search_what'][$i]) &&
                 !empty($attributes['search_what'][$i])) {
-            echo "<TD WIDTH=35%>".$attributes['search_folder'][$i]."</TD>"
-               . "<TD ALIGN=LEFT>".$attributes['search_what'][$i]."</TD>"
-               . "<TD ALIGN=CENTER>".$attributes['search_where'][$i]."</TD>"
-               . '<TD ALIGN=RIGHT>'
-               .   "<A HREF=search.php?count=$i&amp;submit=save>"
+            echo html_tag( 'td', $attributes['search_folder'][$i], 'left', '', 'width="35%"' )
+               . html_tag( 'td', $attributes['search_what'][$i], 'left' )
+               . html_tag( 'td', $attributes['search_where'][$i], 'center' )
+               . html_tag( 'td', '', 'right' )
+               .   "<a href=search.php?count=$i&amp;submit=save>"
                .     _("save")
-               .   '</A>'
+               .   '</a>'
                .   '&nbsp;|&nbsp;'
-               .   '<A HREF=search.php'
+               .   '<a href=search.php'
                .     '?mailbox=' . urlencode($attributes['search_folder'][$i])
                .     '&amp;what=' . urlencode($attributes['search_what'][$i])
                .     '&amp;where=' . urlencode($attributes['search_where'][$i])
                .     '&amp;submit=Search_no_update'
-               .   '>' . _("search") . '</A>'
+               .   '>' . _("search") . '</a>'
                .   '&nbsp;|&nbsp;'
-               .   "<A HREF=search.php?count=$i&amp;submit=forget>"
+               .   "<a href=search.php?count=$i&amp;submit=forget>"
                .     _("forget")
-               .   '</A>'
-               . '</TD></TR>';
+               .   '</a>'
+               . '</td></tr>';
         }
         }
-    echo '</TABLE></TD></TR></TABLE><BR>';
+    echo '</table></td></tr></table><br>';
 }
 
 /* Search Form */
-echo '<B>' . _("Current Search") . '</B>'
-   . '<FORM ACTION="search.php" NAME=s>'
-   . '   <TABLE WIDTH="95%" CELLPADDING=0 CELLSPACING=0>'
-   . '     <TR>'
-   . '       <TD><SELECT NAME="mailbox">';
+echo html_tag( 'div', '<b>' . _("Current Search") . '</b>', 'left' ) . "\n"
+   . '<form action="search.php" name="s">'
+   . html_tag( 'table', '', '', '', 'width="95%" cellpadding="0" cellspacing="0" border="0"' )
+   . html_tag( 'tr' )
+   . html_tag( 'td', '', 'left' )
+   . '<select name="mailbox">';
 for ($i = 0; $i < count($boxes); $i++) {
     if (!in_array('noselect', $boxes[$i]['flags'])) {
         $box = $boxes[$i]['unformatted'];
@@ -318,22 +328,18 @@ for ($i = 0; $i < count($boxes); $i++) {
         if( $box2 == 'INBOX' ) {
             $box2 = _("INBOX");
         }
-        if ($mailbox == $box) {
-            echo "         <OPTION VALUE=\"$box\" SELECTED>$box2</OPTION>\n";
-        }
-        else {
-            echo "         <OPTION VALUE=\"$box\">$box2</OPTION>\n";
-        }
+        echo '         <option value="' . $box . '"';
+        if ($mailbox == $box) { echo ' selected'; }
+        echo '>' . $box2 . '</option>' . "\n";
     }
 }
-        echo "<OPTION VALUE=\"All Folders\"";
-        if ($mailbox == "All Folders") {
-            echo "SELECTED";
+        echo '<option value="All Folders"';
+        if ($mailbox == 'All Folders') {
+            echo ' selected';
         }
-        echo ">All folders</OPTION>\n";
-echo '         </SELECT>'.
-     "       </TD>\n".
-     "        <TD ALIGN=\"CENTER\">\n";
+        echo ">All folders</option>\n";
+echo '         </select>'.
+     "       </td>\n";
 if ( !isset( $what ) ) {
     $what = '';
 }
@@ -346,25 +352,22 @@ $what_disp = str_replace(',', ' ', $what);
 $what_disp = str_replace('\\\\', '\\', $what_disp);
 $what_disp = str_replace('\\"', '"', $what_disp);
 $what_disp = str_replace('"', '&quot;', $what_disp);
-echo "          <INPUT TYPE=\"TEXT\" SIZE=\"35\" NAME=\"what\" VALUE=\"$what_disp\">\n".
-     "        </TD>\n".
-     "<TD ALIGN=\"RIGHT\">\n".
-     "<SELECT NAME=\"where\">";
+echo html_tag( 'td', '<input type="text" size="35" name="what" value="' . $what_disp . '">' . "\n", 'center' )
+     . html_tag( 'td', '', 'right' )
+     . "<select name=\"where\">";
 s_opt( 'BODY', $where, _("Body") );
 s_opt( 'TEXT', $where, _("Everywhere") );
 s_opt( 'SUBJECT', $where, _("Subject") );
 s_opt( 'FROM', $where, _("From") );
 s_opt( 'CC', $where, _("Cc") );
 s_opt( 'TO', $where, _("To") );
-echo "         </SELECT>\n" .
-     "        </TD>\n".
-     "       <TD COLSPAN=\"3\" ALIGN=\"CENTER\">\n".
-     "         <INPUT TYPE=\"submit\" NAME=\"submit\" VALUE=\"" . _("Search") . "\">\n".
-     "       </TD>\n".
-     "     </TR>\n".
-     "</FORM>\n".
-     "   </TABLE>\n".
-     "</TD></TR></TABLE>\n";
+echo "         </select>\n" .
+     "        </td>\n".
+     html_tag( 'td', '<input type="submit" name="submit" value="' . _("Search") . '">' . "\n", 'center', '', 'colspan="3"' ) .
+     "     </tr>\n".
+     "</form>\n".
+     "   </table>\n".
+     "</td></tr></table>\n";
 
 
 do_hook('search_after_form');
@@ -383,9 +386,9 @@ if ($allow_thread_sort == TRUE) {
 if ($search_all == 'all') {
     $mailbox == '';
     $boxcount = count($boxes);
-    echo '<BR><CENTER><B>' .
+    echo '<br><center><b>' .
          _("Search Results") .
-         "</B><CENTER><BR>\n";
+         "</b><center><br>\n";
     for ($x=0;$x<$boxcount;$x++) {
         if (!in_array('noselect', $boxes[$x]['flags'])) {
             $mailbox = $boxes[$x]['unformatted'];
@@ -412,9 +415,8 @@ if ($search_all == 'all') {
 /*  search one folder option  */
 else {
     if (($submit == _("Search") || $submit == 'Search_no_update') && !empty($what)) {
-        echo '<BR><CENTER><B>' .
-             _("Search Results") .
-             "</B></CENTER>\n";
+        echo '<br>'
+        . html_tag( 'div', '<b>' . _("Search Results") . '</b>', 'center' ) . "\n";
         sqimap_mailbox_select($imapConnection, $mailbox);
         sqimap_search($imapConnection, $where, $what, $mailbox, $color, 0, $search_all, $count_all);
     }
@@ -422,7 +424,8 @@ else {
 
 /*  must have search terms to search  */
 if ($submit == _("Search") && empty($what)) {
-    echo "<BR><CENTER><B>Please enter something to search for</B></CENTER>\n";
+        echo '<br>'
+        . html_tag( 'div', '<b>Please enter something to search for</b>', 'center' ) . "\n";
 }
 
 $allow_thread_sort = $old_value;

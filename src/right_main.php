@@ -19,6 +19,7 @@ require_once('../functions/array.php');
 require_once('../functions/mime.php');
 require_once('../functions/mailbox_display.php');
 require_once('../functions/display_messages.php');
+require_once('../functions/html.php');
 
 /***********************************************************
  * incoming variables from URL:                            *
@@ -119,21 +120,24 @@ echo "<br>\n";
 
 do_hook('right_main_after_header');
 if (isset($note)) {
-    echo "<CENTER><B>$note</B></CENTER><BR>\n";
+    echo html_tag( 'div', '<b>' . $note .'</b>', 'center' ) . "<br>\n";
 }
 
 if ($just_logged_in == true) {
     $just_logged_in = false;
 
     if (strlen(trim($motd)) > 0) {
-        echo "<br><table align=center width=\"70%\" cellpadding=0 cellspacing=3 border=0 bgcolor=\"$color[9]\">" .
-         '<tr><td>' .
-             "<table width=\"100%\" cellpadding=5 cellspacing=1 border=0 bgcolor=\"$color[4]\">" .
-             "<tr><td align=center>$motd";
-        do_hook('motd');
-        echo '</td></tr>' .
-             '</table>' .
-             '</td></tr></table>';
+        echo html_tag( 'table',
+                    html_tag( 'tr',
+                        html_tag( 'td', $motd ,
+                            html_tag( 'table',
+                                html_tag( 'tr',
+                                    html_tag( 'td', $motd, 'center' )
+                                ) ,
+                            '', $color[4], 'width="100%" cellpadding="5" cellspacing="1" border="0"' )
+                         )
+                    ) ,
+                'center', $color[9], 'width="70%" cellpadding="0" cellspacing="3" border="0"' );
     }
 }
 
@@ -196,6 +200,6 @@ if ($use_mailbox_cache && session_is_registered('msgs')) {
 do_hook('right_main_bottom');
 sqimap_logout ($imapConnection);
 
-echo '</BODY></HTML>';
+echo '</body></html>';
 
 ?>
