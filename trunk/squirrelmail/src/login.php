@@ -90,7 +90,7 @@ do_hook('login_cookie');
 
 /* Output the javascript onload function. */
 
-$header = "<SCRIPT LANGUAGE=\"JavaScript\">\n" .
+$header = "<SCRIPT LANGUAGE=\"JavaScript\" TYPE=\"text/javascript\">\n" .
           "<!--\n".
           "  function squirrelmail_loginpage_onload() {\n".
           "    document.forms[0].js_autodetect_results.value = '" . SMPREF_JS_ON . "';\n".
@@ -103,7 +103,7 @@ displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 
 /* Set the title of this page. */
 echo '<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000CC" VLINK="#0000CC" ALINK="#0000CC" onLoad="squirrelmail_loginpage_onload();">'.
-     "\n<FORM ACTION=\"redirect.php\" METHOD=\"POST\" NAME=f>\n";
+     "\n<FORM ACTION=\"redirect.php\" METHOD=\"POST\">\n";
 
 $username_form_name = 'login_username';
 $password_form_name = 'secretkey';
@@ -129,7 +129,7 @@ echo '<CENTER>'.
      "</CENTER>\n".
 
      "<CENTER>\n".
-     "<TABLE COLS=1 WIDTH=350>\n".
+     "<TABLE COLS=\"1\" WIDTH=\"350\">\n".
      "   <TR><TD ALIGN=CENTER BGCOLOR=\"#DCDCDC\">\n".
      '      <B>' . sprintf (_("%s Login"), $org_name) . "</B>\n".
      "   </TD></TR>".
