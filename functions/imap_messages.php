@@ -420,7 +420,9 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
 	    if ($read_part{0} == '*') {
 	        if ($internaldate) {
 		    if (preg_match ("/^.+INTERNALDATE\s+\"(.+)\".+/iUA",$read_part, $reg)) {
-                       if ($imap_server_type == 'courier') {
+                       if ( ($imap_server_type == 'courier')
+                           || ($imap_server_type == 'macosx')
+                           || ($imap_server_type == 'cyrus') ) {
                             /** If we use courier, 
                               *  We need to reformat the INTERNALDATE-string 
                               **/
