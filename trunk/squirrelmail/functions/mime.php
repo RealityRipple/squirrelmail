@@ -1410,9 +1410,10 @@ function sq_fixatts($tagname,
  * @param  $message  the message object
  * @param  $id       the message id
  * @param  $content  a string with whatever is between <style> and </style>
+ * @param  $mailbox  the message mailbox
  * @return           a string with edited content.
  */
-function sq_fixstyle($body, $pos, $message, $id){
+function sq_fixstyle($body, $pos, $message, $id, $mailbox){
     global $view_unsafe_images;
     $me = 'sq_fixstyle';
     $ret = sq_findnxreg($body, $pos, '</\s*style\s*>');
@@ -1449,7 +1450,7 @@ function sq_fixstyle($body, $pos, $message, $id){
     while (preg_match("|url\s*\(\s*([\'\"]\s*cid:.*?[\'\"])\s*\)|si",
                       $content, $matches)){
         $cidurl = $matches{1};
-        $httpurl = sq_cid2http($message, $id, $cidurl);
+        $httpurl = sq_cid2http($message, $id, $cidurl, $mailbox);
         $content = preg_replace("|url\s*\(\s*$cidurl\s*\)|si",
                                 "url($httpurl)", $content);
     }
@@ -1474,6 +1475,7 @@ function sq_fixstyle($body, $pos, $message, $id){
  * @param  $message  the message object
  * @param  $id       the message id
  * @param  $cidurl   the cid: url.
+ * @param  $mailbox  the message mailbox
  * @return           a string with a http-friendly url
  */
 function sq_cid2http($message, $id, $cidurl, $mailbox){
@@ -1611,7 +1613,7 @@ function sq_sanitize($body,
          */
         if ($tagname == "style" && $tagtype == 1){
             list($free_content, $curpos) =
-                sq_fixstyle($body, $gt+1, $message, $id);
+                sq_fixstyle($body, $gt+1, $message, $id, $mailbox);
             if ($free_content != FALSE){
                 $trusted .= sq_tagprint($tagname, $attary, $tagtype);
                 $trusted .= $free_content;
