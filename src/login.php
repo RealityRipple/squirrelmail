@@ -75,7 +75,7 @@ if (@file_exists($theme[$theme_default]['PATH']))
 
 displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 
-echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" squirrelmail_loginpage_onload();>" .
+echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" onLoad=\"squirrelmail_loginpage_onload()\">" .
      "\n" . '<form action="redirect.php" method="post">' . "\n";
 
 $username_form_name = 'login_username';
