@@ -201,6 +201,8 @@ if (!isset($index_order)) {
 $alt_index_colors =
     getPref($data_dir, $username, 'alt_index_colors', SMPREF_ON );
 
+/* Folder List Display Format */
+$use_javascript_folder_list = getPref($data_dir, $username, 'use_javascript_folder_list');
 $location_of_bar =
     getPref($data_dir, $username, 'location_of_bar', SMPREF_LOC_LEFT);
 $location_of_buttons =
@@ -242,6 +244,9 @@ $compose_width = getPref($data_dir, $username, 'compose_width', 640);
 /* signature placement settings */
 $sig_first = getPref($data_dir, $username, 'sig_first', 0);
 
+/* Strip signature when replying */
+$strip_sigs = getPref($data_dir, $username, 'strip_sigs', 0);
+
 /* use the internal date of the message for sorting instead of the supplied header date */
 $internal_date_sort = getPref($data_dir, $username, 'internal_date_sort', SMPREF_ON);
 
@@ -266,6 +271,8 @@ $show_full_date = getPref($data_dir, $username, 'show_full_date', 0);
 
 /* Allow user to customize length of from field */
 $truncate_sender = getPref($data_dir, $username, 'truncate_sender', 0);
+/* Allow user to customize length of subject field */
+$truncate_subject = getPref($data_dir, $username, 'truncate_subject', 50);
 
 do_hook('loading_prefs');
 
