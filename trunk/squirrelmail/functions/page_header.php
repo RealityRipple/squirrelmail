@@ -13,19 +13,23 @@
 
    // Always set up the language before calling these functions
 
-   function displayHtmlHeader ($title="SquirrelMail") {
-     global $theme_css;
+   function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE ) {
 
-      echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">' .
-           "\n\n<HTML>\n<HEAD>\n";
-      if ($theme_css != '') {
-        echo "<LINK REL=\"stylesheet\" TYPE=\"text/css\" HREF=\"$theme_css\">\n"; 
-      }
-      
-      do_hook ("generic_header");
+        global $theme_css;
 
-      echo "<TITLE>$title</TITLE>\n";
-      echo "</HEAD>\n\n";
+        echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">' .
+             "\n\n<HTML>\n<HEAD>\n";
+
+        if ($theme_css != '') {
+            echo "<LINK REL=\"stylesheet\" TYPE=\"text/css\" HREF=\"$theme_css\">\n";
+        }
+
+        if( $do_hook ) {
+            do_hook ("generic_header");
+        }
+
+        echo "<title>$title</title>$xtra</head>\n\n";
+
    }
 
    function displayInternalLink ($path, $text, $target='') {

@@ -141,16 +141,16 @@
    function printer_friendly_link($subtle) {
        global $passed_id, $mailbox, $ent_num, $color;
        global $pf_subtle_link;
-   
+
        if ($pf_subtle_link != $subtle) return;
-   
+
        if (strlen(trim($mailbox)) < 1)
            $mailbox = 'INBOX';
-   
+
        $params = '?passed_ent_id=' . $ent_num . '&mailbox=' . urlencode($mailbox) .
                  '&passed_id=' . $passed_id;
        $text = _("View printable version");
-   
+
        if (!$subtle) {
             // the link is large, on the bottom of the header panel
             echo '      <tr bgcolor="' . $color[0] . '">' . "\n" .
@@ -159,10 +159,10 @@
                  '        </td><td class="medText" valign="top" colspan="2">'."\n";
        } else {
             // the link is subtle, below "view full header"
-            echo '        <br>' . "\n";
+            echo "<br>\n";
        }
-   
-            // javascript
+
+       // javascript
        echo '        <script language="javascript">' . "\n" .
             '        <!--' . "\n" .
             '        function printFormat() {' . "\n" .
@@ -178,9 +178,9 @@
             '        <noscript>' . "\n" .
             '        <a target="_blank" href="../src/printer_friendly_bottom.php' .
                      $params . '">' .
-                     $text . "</a>\n" .
+                     "$text</a>\n" .
             '        </noscript>' . "\n";
-   
+
        if (!$subtle) {
             // the link is large, on the bottom of the header panel
             echo '        </td>' . "\n" .
@@ -191,28 +191,28 @@
    // main of read_boby.php
 
    if (isset($msgs)) {
-	   $currentArrayIndex = $passed_id;
-		/*
+       $currentArrayIndex = $passed_id;
+         /*
       for ($i=0; $i < count($msgs); $i++) {
          if ($msgs[$i]["ID"] == $passed_id) {
             $currentArrayIndex = $i;
             break;
          }
       }
-		*/
+        */
    } else {
       $currentArrayIndex = -1;
    }
 
-	for ($i = 0; $i < count($msgs); $i++) {
-		if ($msgs[$i]['ID'] == $passed_id)
-			$msgs[$i]['FLAG_SEEN'] = true;
-	}
+    for ($i = 0; $i < count($msgs); $i++) {
+        if ($msgs[$i]['ID'] == $passed_id)
+            $msgs[$i]['FLAG_SEEN'] = true;
+    }
 
    // $message contains all information about the message
    // including header and body
    $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
-   
+
    /** translate the subject and mailbox into url-able text **/
    $url_subj = urlencode(trim($message->header->subject));
    $urlMailbox = urlencode($mailbox);
