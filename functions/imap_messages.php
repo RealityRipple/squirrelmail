@@ -43,6 +43,8 @@
       fputs ($imap_stream, "a001 FETCH $id:$id RFC822.HEADER.LINES (From Subject Date)\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
 
+      $subject = _("(no subject)");
+      $from = _("Unknown Sender");
       for ($i = 0; $i < count($read); $i++) {
          if (strtolower(substr($read[$i], 0, 5)) == "from:") {
             $from = sqimap_find_displayable_name(substr($read[$i], 5));
