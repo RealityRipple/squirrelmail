@@ -362,19 +362,20 @@ require_once('../functions/url_parser.php');
                 if ($show_more_cc == false) {
                     if ($i == 1) {
                         /* From a search... */
+                        $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id";
                         if (isset($where) && isset($what)) {
-                            $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&what=".urlencode($what)."&where=".urlencode($where)."&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
+                            $cc_string .= "&what=".urlencode($what)."&where=".urlencode($where)."&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
                         } else {
-                            $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
+                            $cc_string = "&sort=$sort&startMessage=$startMessage&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
                         }   
                         $i = count($cc_ary);
                     }
                 } else if ($i == 1) {
                     /* From a search... */
                     if (isset($where) && isset($what)) {
-                        $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&what=".urlencode($what)."&where=".urlencode($where)."&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
+                        $cc_string .= "&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&what=".urlencode($what)."&where=".urlencode($where)."&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
                     } else {
-                        $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
+                        $cc_string .= "&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
                     }   
                 }
             }
@@ -445,8 +446,12 @@ require_once('../functions/url_parser.php');
          '         <TR>' . "\n" .
          '            <TD ALIGN="LEFT" WIDTH="33%">' . "\n" .
          '               <SMALL>' . "\n";
+         
     if ($where && $what) {
-        echo "               <A HREF=\"search.php?where=".urlencode($where)."&what=".urlencode($what)."&mailbox=$urlMailbox\">";
+        if( $pos == '' ) {
+            $pos = 0;
+        }
+        echo "               <A HREF=\"search.php?where$pos=".urlencode($where)."&pos=$pos&what$pos=".urlencode($what)."&mailbox=$urlMailbox\">";
     } else {
         echo "               <A HREF=\"right_main.php?use_mailbox_cache=1&sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\">";
     }
