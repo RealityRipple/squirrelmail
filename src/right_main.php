@@ -8,11 +8,7 @@
     **/
 
    if(!isset($logged_in)) {
-      echo _("You must ");
-      echo "<a href=\"login.php\">";
-      echo _("login");
-      echo "</a>";
-      echo _(" first.");
+      echo _("You must login first.");
       exit;
    }
    if(!isset($username) || !isset($key)) {

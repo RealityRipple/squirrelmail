@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-03-25 18:20+0100\n"
+"POT-Creation-Date: 2000-03-28 14:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,45 +16,35 @@ msgstr ""
 
 #: ../src/addrbook_popup.php:10 ../src/addrbook_search.php:10
 #: ../src/right_main.php:11
-msgid "You must "
+msgid "You must login first."
 msgstr ""
 
-#: ../src/addrbook_popup.php:11 ../src/addrbook_search.php:11
-#: ../src/right_main.php:13
-msgid "login"
-msgstr ""
-
-#: ../src/addrbook_popup.php:12 ../src/addrbook_search.php:12
-#: ../src/right_main.php:15
-msgid " first."
-msgstr ""
-
-#: ../src/addrbook_popup.php:16 ../src/addrbook_search.php:16
-#: ../src/right_main.php:19 ../src/webmail.php:10
+#: ../src/addrbook_popup.php:14 ../src/addrbook_search.php:14
+#: ../src/right_main.php:15 ../src/webmail.php:10
 msgid "You need a valid user and password to access this page!"
 msgstr ""
 
-#: ../src/addrbook_popup.php:32 ../src/addrbook_search.php:45
+#: ../src/addrbook_popup.php:30 ../src/addrbook_search.php:43
 msgid "Address Book"
 msgstr ""
 
-#: ../src/addrbook_search.php:63
+#: ../src/addrbook_search.php:61
 msgid "Search results will display here"
 msgstr ""
 
-#: ../src/addrbook_search.php:74
+#: ../src/addrbook_search.php:72
 msgid "Search for"
 msgstr ""
 
-#: ../src/addrbook_search.php:79
+#: ../src/addrbook_search.php:77
 msgid "Search"
 msgstr ""
 
-#: ../src/addrbook_search.php:82
+#: ../src/addrbook_search.php:80
 msgid "Close window"
 msgstr ""
 
-#: ../src/addrbook_search.php:148
+#: ../src/addrbook_search.php:146
 msgid "No persons matching your search was found"
 msgstr ""
 
@@ -79,7 +69,7 @@ msgid "BCC:"
 msgstr ""
 
 #: ../src/compose.php:196
-msgid "Lookup recipients in addressbook.<BR>"
+msgid "Lookup recipients in addressbook."
 msgstr ""
 
 #: ../src/compose.php:202 ../src/read_body.php:129
@@ -178,9 +168,11 @@ msgid "Subscribe"
 msgstr ""
 
 #: ../src/folders_create.php:21
-msgid ""
-"Illegal folder name.  Please select a different name.<BR><A "
-"HREF=\"../src/folders.php\">Click here to go back</A>."
+msgid "Illegal folder name.  Please select a different name."
+msgstr ""
+
+#: ../src/folders_create.php:21
+msgid "Click here to go back"
 msgstr ""
 
 #: ../src/folders_create.php:41
@@ -395,10 +387,6 @@ msgstr ""
 msgid "log back in."
 msgstr ""
 
-#: ../functions/abook_ldap_server.php:56 ../functions/abook_local_file.php:51
-msgid "Invalid argument to constructor"
-msgstr ""
-
 #: ../functions/abook_local_file.php:32
 msgid "Personal address book"
 msgstr ""
@@ -416,6 +404,7 @@ msgid "Open failed"
 msgstr ""
 
 #: ../functions/abook_local_file.php:189 ../functions/abook_local_file.php:209
+#: ../functions/addressbook.php:204
 msgid "Addressbook is read-only"
 msgstr ""
 
@@ -428,8 +417,9 @@ msgstr ""
 msgid "Write to addressbook failed"
 msgstr ""
 
-#: ../functions/addressbook.php:29 ../functions/prefs.php:80
-msgid "Error opening "
+#: ../functions/addressbook.php:29
+#, c-format
+msgid "Error opening file %s"
 msgstr ""
 
 #: ../functions/addressbook.php:186
@@ -442,10 +432,6 @@ msgstr ""
 
 #: ../functions/addressbook.php:195
 msgid "E-mail address is missing"
-msgstr ""
-
-#: ../functions/addressbook.php:204
-msgid "Addressbook is not writable"
 msgstr ""
 
 #: ../functions/display_messages.php:19 ../functions/imap_general.php:108
@@ -602,6 +588,10 @@ msgstr ""
 msgid ""
 ", does not exist.  Log out, and log back in to create a default preference "
 "file. "
+msgstr ""
+
+#: ../functions/prefs.php:80
+msgid "Error opening "
 msgstr ""
 
 #: ../functions/prefs.php:108
