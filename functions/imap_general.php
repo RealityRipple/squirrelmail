@@ -166,11 +166,21 @@
    /******************************************************************************
     **  Returns the delimeter between mailboxes:  INBOX/Test, or INBOX.Test... 
     ******************************************************************************/
-   function sqimap_get_delimiter ($imap_stream) {
+   function sqimap_get_delimiter ($imap_stream = false) {
+      fputs ($imap_stream, ". LIST \"INBOX\" \"\"\r\n");
+      $read = sqimap_read_data($imap_stream, ".", true, $a, $b);
+      $quote_position = strpos ($read[0], "\"");
+      $delim = substr ($read[0], $quote_position+1, 1);
+
+      return $delim;
+   
+   /* According to something that I can't find, this is supposed to work on all systems
+   
       fputs ($imap_stream, "a001 NAMESPACE\r\n");
       $read = sqimap_read_data($imap_stream, "a001", true, $a, $b);
       eregi("\"\" \"(.)\"", $read[0], $regs);
       return $regs[1];
+   */
    }
 
 
@@ -198,6 +208,9 @@
       /** Luke Ehresman <lehresma@css.tayloru.edu>
        ** <lehresma@css.tayloru.edu>
        ** lehresma@css.tayloru.edu
+       **
+       ** What about
+       **    lehresma@css.tayloru.edu (Luke Ehresman)
        **/
 
       if (ereg("<([^>]+)>", $string, $regs)) {
@@ -215,10 +228,22 @@
     **           becomes:   lkehresman@yahoo.com
     ******************************************************************************/
    function sqimap_find_displayable_name ($string) {
-      ereg("^\"?([^\"<]*)[\" <]*([^>]+)>?$", trim($string), $regs);
-      if ($regs[1] == '')
-          return $regs[2];
-      return $regs[1];
+      $string = " ".trim($string);
+      $orig_string = $string;
+      if (strpos($string, "<") && strpos($string, ">")) {
+         if (strpos($string, "<") == 1) {
+            $string = sqimap_find_email($string);
+         } else {
+            $string = trim($string);
+            $string = substr($string, 0, strpos($string, "<"));
+            $string = ereg_replace ("\"", "", $string);   
+         }   
+
+         if (trim($string) == "") {
+            $string = sqimap_find_email($orig_string);
+         }
+      }
+      return $string; 
    }
 
 

@@ -15,8 +15,9 @@
    //    of the $haystack is reached.  $needle is a single character
    //*************************************************************************
    function readShortMailboxName($haystack, $needle) {
-      ereg("^$needle?([^$needle]+)$needle*",strrev($haystack),$regs);
-        return strrev($regs[1]);
+      if ($needle == ".") $needle = "\.";
+      ereg("([^$needle]+)$needle?$", $haystack, $regs);
+      return $regs[1];
    }
 
    // Searches for the next position in a string minus white space
@@ -105,11 +106,18 @@
 
    /** Returns an array of email addresses **/
    function parseAddrs($text) {
-      if (trim($text) == "") {
+      if (trim($text) == "")
          return;
-      }
-      $text=ereg_replace("[;,][^<]*<* *([^>]*) *>*",";\\1",",$text");
-      return split("[;]", substr($text,1));
+      $text = str_replace(" ", "", $text);
+      $text = ereg_replace('"[^"]*"', "", $text);
+      $text = ereg_replace("\([^\)]*\)", "", $text);
+      $text = str_replace(",", ";", $text);
+      $array = explode(";", $text);
+      for ($i = 0; $i < count ($array); $i++) {
+			    $array[$i] = eregi_replace ("^.*[<]", "", $array[$i]);
+			    $array[$i] = eregi_replace ("[>].*$", "", $array[$i]);
+		  }
+      return $array;
    }
 
    /** Returns a line of comma separated email addresses from an array **/
