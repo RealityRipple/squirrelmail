@@ -79,6 +79,7 @@ function logout_error( $errString, $errTitle = '' ) {
         $frame_top = '_top';
     }
 
+    // Since $color never is set, this is always true
     if ( !isset( $color ) ) {
         $color = array();
         $color[0]  = '#dcdcdc';  /* light gray    TitleBar               */
@@ -92,11 +93,11 @@ function logout_error( $errString, $errTitle = '' ) {
     list($junk, $errString, $errTitle) = do_hook('logout_error', $errString, $errTitle);
 
     if ( $errTitle == '' ) {
-        $errTitle = $org_name . ' - ' . $errString;
+        $errTitle = $errString;
     }
     set_up_language($squirrelmail_language, true);
 
-    displayHtmlHeader( $errTitle, '', false );
+    displayHtmlHeader( $org_name.' - '.$errTitle, '', false );
 
     echo '<body text="'.$color[8].'" bgcolor="'.$color[4].'" link="'.$color[7].'" vlink="'.$color[7].'" alink="'.$color[7]."\">\n\n".
          '<center>';
