@@ -62,27 +62,22 @@
       $length = 0;
 
       if (isMultipart()) {
-         reset($attachments);
-         while (list($localname, $remotename) = each($attachments)) {
-            // This is to make sure noone is giving a filename in another
-            // directory
-            $localname = ereg_replace ("\\/", '', $localname);
-            
-            $fileinfo = fopen ($attachment_dir.$localname.'.info', 'r');
-            $filetype = fgets ($fileinfo, 8192);
-            fclose ($fileinfo);
-            $filetype = trim ($filetype);
-            if ($filetype=='')
+         foreach ($attachments as $info)
+	 {
+	    $filetype = $info['type'];
+            if ($filetype == '')
                $filetype = 'application/octet-stream';
             
             $header = '--'.mimeBoundary()."\r\n";
-            $header .= "Content-Type: $filetype;name=\"$remotename\"\r\n";
-            $header .= "Content-Disposition: attachment; filename=\"$remotename\"\r\n";
+            $header .= "Content-Type: $filetype; name=\"" .
+	        $info['remotefilename'] . "\"\r\n";
+            $header .= "Content-Disposition: attachment; filename=\"" .
+	        $info['remotefilename'] . "\"\r\n";
             $header .= "Content-Transfer-Encoding: base64\r\n\r\n";
             fputs ($fp, $header);
             $length += strlen($header);
             
-            $file = fopen ($attachment_dir.$localname, 'r');
+            $file = fopen ($attachment_dir . $info['localfilename'], 'r');
             while ($tmp = fread($file, 570)) {
                $encoded = chunk_split(base64_encode($tmp));
                $length += strlen($encoded);
@@ -556,7 +551,7 @@
       }
       sqimap_logout($imap_stream);
       // Delete the files uploaded for attaching (if any).
-      deleteAttachments();
+      ClearAttachments();
    }
 
 ?>
