@@ -348,9 +348,9 @@ while (($command ne "q") && ($command ne "Q")) {
       @files = readdir(DIR);
       $pos=0;
       @unused_plugins = ();
-      chdir ("../plugins");
       for ($i=0; $i <= $#files; $i++) {
-         if ( -d $files[$i] && $files[$i] !~ /^\./ && $files[$i] ne "CVS") {
+         if ( -d "../plugins/" . $files[$i]" && 
+	     $files[$i] !~ /^\./ && $files[$i] ne "CVS") {
             $match = 0;
             for ($k=0; $k<=$#plugins; $k++) {
                if ($plugins[$k] eq $files[$i]) {
@@ -363,7 +363,6 @@ while (($command ne "q") && ($command ne "Q")) {
             }
          }
       }
-      chdir ("../config");
       
       for ($i=0; $i<=$#unused_plugins; $i++) {
          $num = $num + 1;
