@@ -98,8 +98,8 @@ function printer_friendly_link() {
     }
 
     $params = '?passed_ent_id=' . $ent_num .
-              '&mailbox=' . urlencode($mailbox) .
-              '&passed_id=' . $passed_id;
+              '&amp;mailbox=' . urlencode($mailbox) .
+              '&amp;passed_id=' . $passed_id;
 
     $print_text = _("View Printable Version");
 
@@ -116,7 +116,7 @@ function printer_friendly_link() {
 
     /* Output the link. */
     if ($javascript_on) {
-        $result .= '<script language="javascript">' . "\n" .
+        $result .= '<script language="javascript" type="text/javascript">' . "\n" .
                 '<!--' . "\n" .
                 "  function printFormat() {\n" .
                 '    window.open("../src/printer_friendly_main.php' .
@@ -270,15 +270,15 @@ if (isset($view_hdr)) {
 
     echo '<BR>' .
         '<TABLE WIDTH="100%" CELLPADDING="2" CELLSPACING="0" BORDER="0" ALIGN="CENTER">' . "\n" .
-        "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=\"100%\"><CENTER><B>" . _("Viewing Full Header") . '</B> - '.
+        "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=\"100%\" ALIGN=\"CENTER\"><B>" . _("Viewing Full Header") . '</B> - '.
         '<a href="' . $base_uri . "src/read_body.php?mailbox=".urlencode($mailbox);
     if (isset($where) && isset($what)) {
         // Got here from a search
-        echo "&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what).'">';
+        echo "&amp;passed_id=$passed_id&amp;where=".urlencode($where)."&amp;what=".urlencode($what).'">';
     } else {
-        echo "&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more\">";
+        echo "&amp;passed_id=$passed_id&amp;startMessage=$startMessage&amp;show_more=$show_more\">";
     }
-    echo _("View message") . "</a></b></center></td></tr></table>\n" .
+    echo _("View message") . "</a></b></td></tr></table>\n" .
          "<table width=\"99%\" cellpadding=2 cellspacing=0 border=0 align=center>\n" .
          '<tr><td>';
 
@@ -432,22 +432,22 @@ while ($i < count($to_ary)) {
             if ($i == 1) {
                 /* From a search... */
                 $to_string .= '&nbsp;(<A HREF="' . $base_uri .
-                             "src/read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&";
+                             "src/read_body.php?mailbox=$urlMailbox&amp;passed_id=$passed_id&amp;";
                 if (isset($where) && isset($what)) {
-                    $to_string .= 'where='.urlencode($where)."&what=".urlencode($what)."&show_more=1&show_more_cc=$show_more_cc\">$echo_more</A>)";
+                    $to_string .= 'where='.urlencode($where)."&amp;what=".urlencode($what)."&amp;show_more=1&amp;show_more_cc=$show_more_cc\">$echo_more</A>)";
                 } else {
-                    $to_string .= "sort=$sort&startMessage=$startMessage&show_more=1&show_more_cc=$show_more_cc\">$echo_more</A>)";
+                    $to_string .= "sort=$sort&amp;startMessage=$startMessage&amp;show_more=1&amp;show_more_cc=$show_more_cc\">$echo_more</A>)";
                 }
                 $i = count($to_ary);
             }
         } else if ($i == 1) {
             /* From a search... */
             $to_string .= '&nbsp;(<A HREF="' . $base_uri .
-                         "src/read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&";
+                         "src/read_body.php?mailbox=$urlMailbox&amp;passed_id=$passed_id&amp;";
             if (isset($where) && isset($what)) {
-                $to_string .= 'where='.urlencode($where)."&what=".urlencode($what)."&show_more=0&show_more_cc=$show_more_cc\">$echo_less</A>)";
+                $to_string .= 'where='.urlencode($where)."&amp;what=".urlencode($what)."&amp;show_more=0&amp;show_more_cc=$show_more_cc\">$echo_less</A>)";
             } else {
-                $to_string .= "sort=$sort&startMessage=$startMessage&show_more=0&show_more_cc=$show_more_cc\">$echo_less</A>)";
+                $to_string .= "sort=$sort&amp;startMessage=$startMessage&amp;show_more=0&amp;show_more_cc=$show_more_cc\">$echo_less</A>)";
             }
         }
     }
@@ -474,20 +474,20 @@ if (isset ($message->header->cc[0]) && trim($message->header->cc[0])) {
                     $cc_string .= '&nbsp;(<A HREF="' . $base_uri .
                                   "src/read_body.php?mailbox=$urlMailbox&passed_id=$passed_id";
                     if (isset($where) && isset($what)) {
-                        $cc_string .= '&what='.urlencode($what)."&where=".urlencode($where)."&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
+                        $cc_string .= '&amp;what='.urlencode($what)."&amp;where=".urlencode($where)."&amp;show_more_cc=1&amp;show_more=$show_more\">$echo_more</A>)";
                     } else {
-                        $cc_string .= "&sort=$sort&startMessage=$startMessage&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
+                        $cc_string .= "&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more_cc=1&amp;show_more=$show_more\">$echo_more</A>)";
                     }
                     $i = count($cc_ary);
                 }
             } else if ($i == 1) {
                 /* From a search... */
                 $cc_string .= '&nbsp;(<A HREF="' . $base_uri .
-                              "src/read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&";
+                              "src/read_body.php?mailbox=$urlMailbox&amp;passed_id=$passed_id&amp;";
                 if (isset($where) && isset($what)) {
-                    $cc_string .= 'what=' . urlencode($what)."&where=".urlencode($where)."&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
+                    $cc_string .= 'what=' . urlencode($what)."&amp;where=".urlencode($where)."&amp;show_more_cc=0&amp;show_more=$show_more\">$echo_less</A>)";
                 } else {
-                    $cc_string .= "sort=$sort&startMessage=$startMessage&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
+                    $cc_string .= "sort=$sort&amp;startMessage=$startMessage&amp;show_more_cc=0&amp;show_more=$show_more\">$echo_less</A>)";
                 }
             }
         }
@@ -516,22 +516,22 @@ if (isset ($message->header->bcc[0]) && trim($message->header->bcc[0])){
                 if ($i == 1) {
                     /* From a search... */
                     $bcc_string .= '&nbsp;(<A HREF="' . $base_uri .
-                                   "src/read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&";
+                                   "src/read_body.php?mailbox=$urlMailbox&amp;passed_id=$passed_id&amp;";
                     if (isset($where) && isset($what)) {
-                        $bcc_string .= 'what=' . urlencode($what)."&where=".urlencode($where)."&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
+                        $bcc_string .= 'what=' . urlencode($what)."&amp;where=".urlencode($where)."&amp;show_more_cc=1&amp;show_more=$show_more\">$echo_more</A>)";
                     } else {
-                        $bcc_string .= "sort=$sort&startMessage=$startMessage&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
+                        $bcc_string .= "sort=$sort&amp;startMessage=$startMessage&amp;show_more_cc=1&amp;show_more=$show_more\">$echo_more</A>)";
                     }
                     $i = count($bcc_ary);
                 }
             } else if ($i == 1) {
                 /* From a search... */
                 $bcc_string .= '&nbsp;(<A HREF="' . $base_uri .
-                               "src/read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&";
+                               "src/read_body.php?mailbox=$urlMailbox&amp;passed_id=$passed_id&amp;";
                 if (isset($where) && isset($what)) {
-                    $bcc_string .= 'what=' . urlencode($what)."&where=".urlencode($where)."&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
+                    $bcc_string .= 'what=' . urlencode($what)."&amp;where=".urlencode($where)."&amp;show_more_cc=0&amp;show_more=$show_more\">$echo_less</A>)";
                 } else {
-                    $bcc_string .= "sort=$sort&startMessage=$startMessage&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
+                    $bcc_string .= "sort=$sort&amp;startMessage=$startMessage&amp;show_more_cc=0&amp;show_more=$show_more\">$echo_less</A>)";
                 }
             }
         }
@@ -585,22 +585,22 @@ if ($where && $what) {
     if( $pos == '' ) {
         $pos = 0;
     }
-    echo "search.php?where$pos=".urlencode($where)."&pos=$pos&what$pos=".urlencode($what)."&mailbox=$urlMailbox\">";
+    echo "search.php?where$pos=".urlencode($where)."&amp;pos=$pos&amp;what$pos=".urlencode($what)."&amp;mailbox=$urlMailbox\">";
 } else {
-    echo "right_main.php?sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\">";
+    echo "right_main.php?sort=$sort&amp;startMessage=$startMessage&amp;mailbox=$urlMailbox\">";
 }
 echo _("Message List") .
      '</A>&nbsp;|&nbsp;' .
-     '<A HREF="' . $base_uri . "src/delete_message.php?mailbox=$urlMailbox&message=$passed_id&";
+     '<A HREF="' . $base_uri . "src/delete_message.php?mailbox=$urlMailbox&amp;message=$passed_id&amp;";
 if ($where && $what) {
-    echo 'where=' . urlencode($where) . '&what=' . urlencode($what) . '">';
+    echo 'where=' . urlencode($where) . '&amp;what=' . urlencode($what) . '">';
 } else {
-    echo "sort=$sort&startMessage=$startMessage\">";
+    echo "sort=$sort&amp;startMessage=$startMessage\">";
 }
 echo _("Delete") . '</A>&nbsp;';
 if (($mailbox == $draft_folder) && ($save_as_draft)) {
     echo '|&nbsp;<A HREF="' . $base_uri .
-         "src/compose.php?mailbox=$mailbox&send_to=$to_string&send_to_cc=$cc_string&send_to_bcc=$bcc_string&subject=$url_subj&draft_id=$passed_id&ent_num=$ent_num\"";
+         "src/compose.php?mailbox=$mailbox&amp;send_to=$to_string&amp;send_to_cc=$cc_string&amp;send_to_bcc=$bcc_string&amp;subject=$url_subj&amp;draft_id=$passed_id&amp;ent_num=$ent_num\"";
     if ($compose_new_win == '1') {
         echo 'TARGET="compose_window" onClick="comp_in_new()"';
     }
@@ -623,13 +623,13 @@ if ( !($where && $what) ) {
         $next = findNextMessage();
 
         if ($prev != -1) {
-            echo '<a href="' . $base_uri . "src/read_body.php?passed_id=$prev&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage&show_more=0\">" . _("Previous") . "</A>&nbsp;|&nbsp;";
+            echo '<a href="' . $base_uri . "src/read_body.php?passed_id=$prev&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">" . _("Previous") . "</A>&nbsp;|&nbsp;";
         } else {
             echo _("Previous") . '&nbsp;|&nbsp;';
         }
 
         if ($next != -1) {
-            echo '<a href="' . $base_uri . "src/read_body.php?passed_id=$next&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage&show_more=0\">" . _("Next") . "</A>";
+            echo '<a href="' . $base_uri . "src/read_body.php?passed_id=$next&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">" . _("Next") . "</A>";
         } else {
             echo _("Next");
         }
@@ -639,27 +639,27 @@ if ( !($where && $what) ) {
 echo                '</SMALL>' .
                 '</TD><TD WIDTH="33%" ALIGN="RIGHT">' .
                    '<SMALL>' .
-                   '<A HREF="' . $base_uri . "src/compose.php?forward_id=$passed_id&forward_subj=$url_subj&".
-                    ($default_use_priority?"mailprio=$priority_level&":"")
-                    ."mailbox=$urlMailbox&ent_num=$ent_num\"";
+                   '<A HREF="' . $base_uri . "src/compose.php?forward_id=$passed_id&amp;forward_subj=$url_subj&amp;".
+                    ($default_use_priority?"mailprio=$priority_level&amp;":"")
+                    ."mailbox=$urlMailbox&amp;ent_num=$ent_num\"";
     if ($compose_new_win == '1') {
         echo 'TARGET="compose_window" onClick="comp_in_new()"';
     }
     echo '>'.
     _("Forward") .
     '</A>&nbsp;|&nbsp;' .
-                   '<A HREF="' . $base_uri . "src/compose.php?send_to=$url_replyto&reply_subj=$url_subj&".
-                    ($default_use_priority?"mailprio=$priority_level&":"").
-                    "reply_id=$passed_id&mailbox=$urlMailbox&ent_num=$ent_num\"";
+                   '<A HREF="' . $base_uri . "src/compose.php?send_to=$url_replyto&amp;reply_subj=$url_subj&amp;".
+                    ($default_use_priority?"mailprio=$priority_level&amp;":"").
+                    "reply_id=$passed_id&amp;mailbox=$urlMailbox&amp;ent_num=$ent_num\"";
     if ($compose_new_win == '1') {
         echo 'TARGET="compose_window" onClick="comp_in_new()"';
     }
     echo '>'.
     _("Reply") .
     '</A>&nbsp;|&nbsp;' .
-                   '<A HREF="' . $base_uri . "src/compose.php?send_to=$url_replytoall&send_to_cc=$url_replytoallcc&reply_subj=$url_subj&".
-                    ($default_use_priority?"mailprio=$priority_level&":"").
-                    "reply_id=$passed_id&mailbox=$urlMailbox&ent_num=$ent_num\"";
+                   '<A HREF="' . $base_uri . "src/compose.php?send_to=$url_replytoall&amp;send_to_cc=$url_replytoallcc&amp;reply_subj=$url_subj&amp;".
+                    ($default_use_priority?"mailprio=$priority_level&amp;":"").
+                    "reply_id=$passed_id&amp;mailbox=$urlMailbox&amp;ent_num=$ent_num\"";
     if ($compose_new_win == '1') {
         echo 'TARGET="compose_window" onClick="comp_in_new()"';
     }
@@ -671,7 +671,7 @@ echo                '</SMALL>' .
              '</TR>' .
           '</TABLE>' .
        '</TD></TR>' .
-       '<TR><TD CELLSPACING="0" WIDTH="100%">' .
+       '<TR><TD WIDTH="100%">' .
        '<TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="3">' . "\n" .
           '<TR>' . "\n";
 
@@ -683,14 +683,14 @@ echo          "<TD BGCOLOR=\"$color[0]\" WIDTH=\"10%\" ALIGN=\"right\" VALIGN=\"
              "</TD>\n" .
              '<TD ROWSPAN="4" width="10%" BGCOLOR="' . $color[0] .
     '" ALIGN=right VALIGN=top NOWRAP><small>'.
-    '<A HREF="' . $base_uri . "src/read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&";
+    '<A HREF="' . $base_uri . "src/read_body.php?mailbox=$urlMailbox&amp;passed_id=$passed_id&amp;";
 
 /* From a search... */
 if ($where && $what) {
-    echo 'where=' . urlencode($where) . '&what=' . urlencode($what) .
-         "&view_hdr=1\">" . _("View Full Header") . "</A>\n";
+    echo 'where=' . urlencode($where) . '&amp;what=' . urlencode($what) .
+         "&amp;view_hdr=1\">" . _("View Full Header") . "</A>\n";
 } else {
-    echo "startMessage=$startMessage&show_more=$show_more&view_hdr=1\">" .
+    echo "startMessage=$startMessage&amp;show_more=$show_more&amp;view_hdr=1\">" .
          _("View Full Header") . "</A>\n";
 }
 
@@ -799,7 +799,7 @@ if ($default_use_mdn) {
 
             if ( $MDN_flag_present && $supportMDN) {
                 $sendreceipt = 'removeMDN';
-                $url = "\"read_body.php?mailbox=$mailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&sendreceipt=$sendreceipt\"";
+                $url = "\"read_body.php?mailbox=$mailbox&amp;passed_id=$passed_id&amp;startMessage=$startMessage&amp;show_more=$show_more&amp;sendreceipt=$sendreceipt\"";
                 $sendreceipt="";
                 if ($MDNDebug ) {
                     echo       '<TR>' .
@@ -834,7 +834,7 @@ if ($default_use_mdn) {
             // if no MDNsupport don't use the annoying popup messages
             else if (  !$FirstTimeSee ) {
                 $sendreceipt = 'send';
-                $url = "\"read_body.php?mailbox=$mailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&sendreceipt=$sendreceipt\"";
+                $url = "\"read_body.php?mailbox=$mailbox&amp;passed_id=$passed_id&amp;startMessage=$startMessage&amp;show_more=$show_more&amp;sendreceipt=$sendreceipt\"";
                 echo       '<TR>' .
                             "<TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>" .
                                 _("Read receipt") . ': ' .
@@ -847,9 +847,9 @@ if ($default_use_mdn) {
             }
             else {
                 $sendreceipt = 'send';
-                $url = "\"read_body.php?mailbox=$mailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&sendreceipt=$sendreceipt\"";
+                $url = "\"read_body.php?mailbox=$mailbox&amp;passed_id=$passed_id&amp;startMessage=$startMessage&amp;show_more=$show_more&amp;sendreceipt=$sendreceipt\"";
                 if ($javascript_on) {
-                echo "<script language=\"javascript\">  \n" .
+                echo "<script language=\"javascript\" type=\"text/javascript\">  \n" .
                     '<!-- ' . "\n" .
                     "               if (window.confirm(\"" .
                     _("The message sender has requested a response to indicate that you have read this message. Would you like to send a receipt?") .
@@ -891,7 +891,7 @@ if ($default_use_mdn) {
                 }
             }
             $sendreceipt = 'removeMDN';
-            $url = "\"read_body.php?mailbox=$mailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&sendreceipt=$sendreceipt\"";
+            $url = "\"read_body.php?mailbox=$mailbox&amp;passed_id=$passed_id&amp;startMessage=$startMessage&amp;show_more=$show_more&amp;sendreceipt=$sendreceipt\"";
             $sendreceipt="";
 
             if ($MDNDebug && $supportMDN) {
@@ -916,7 +916,7 @@ if ($default_use_mdn) {
             ToggleMDNflag ( false );
 
             $sendreceipt = 'send';
-                $url = "\"read_body.php?mailbox=$mailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&sendreceipt=$sendreceipt\"";
+                $url = "\"read_body.php?mailbox=$mailbox&amp;passed_id=$passed_id&amp;startMessage=$startMessage&amp;show_more=$show_more&amp;sendreceipt=$sendreceipt\"";
                 echo       '<TR>'.
                               "<TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>" .
                                     _("Read receipt") . ': ' .
@@ -942,7 +942,7 @@ echo "<TABLE CELLSPACING=0 WIDTH=\"97%\" BORDER=0 ALIGN=CENTER CELLPADDING=0>\n"
     "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=\"100%\">\n" .
     '<BR>'.
     formatBody($imapConnection, $message, $color, $wrap_at).
-    '</TABLE>' .
+    '</TD></TR></TABLE>' .
     '<TABLE CELLSPACING="0" WIDTH="100%" BORDER="0" ALIGN="CENTER" CELLPADDING="0">' . "\n" .
     "   <TR><TD BGCOLOR=\"$color[9]\">&nbsp;</TD></TR>" .
     '</TABLE>' . "\n";
@@ -955,9 +955,9 @@ if (($attachment_common_show_images) &&
         $imgurl = '../src/download.php' .
                 '?' .
                 'passed_id='     . urlencode($img['passed_id']) .
-                '&mailbox='       . urlencode($mailbox) .
-                '&passed_ent_id=' . urlencode($img['ent_id']) .
-                '&absolute_dl=true';
+                '&amp;mailbox='       . urlencode($mailbox) .
+                '&amp;passed_ent_id=' . urlencode($img['ent_id']) .
+                '&amp;absolute_dl=true';
 
         echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>\n" .
               '<TR>' .

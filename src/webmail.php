@@ -84,7 +84,7 @@ if (!isset($right_frame)) {
 if ($right_frame == 'right_main.php') {
     $urlMailbox = urlencode($mailbox);
     $right_frame_url =
-        "right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage";
+        "right_main.php?mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage";
 } elseif ($right_frame == 'options.php') {
     $right_frame_url = 'options.php';
 } elseif ($right_frame == 'folders.php') {
