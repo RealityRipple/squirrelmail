@@ -74,6 +74,17 @@ in the plugin directory is requested, it must do a chdir("..") before
 including any of the standard SquirrelMail files.
 
 
+Hook Data Passed
+----------------
+Hooks, when executed, are called with one parameter, an array of data
+that is passed to the hook.  The first element in the array is the name
+of the hook that is being called.  Any other elements in the array are
+dependant on the type of hook that is being called.
+
+Some of the information in the array may be changed.  By default, the
+plugins should never change data unless it is documented otherwise.
+
+
 List of hooks
 -------------
   generic_header                  functions/page_header.php
@@ -115,7 +126,8 @@ List of hooks
   help_chapter                    src/help.php
   addrbook_html_search_below      src/addrbook_search_html.php
   addressbook_bottom              src/addressbook.php
-  ^ attachment $type0/$type1      functions/mime.php
+  ^ attachment $type0/$type1      functions/mime.php (see note on attachments)
+   
    
 (*) Options
 -----------
@@ -123,14 +135,6 @@ There are two ways to do options for your plugin.  First, you can incorporate it
 into an existing section of the preferences (Display, Personal, or Folders).
 The second way, you create your own section that they can choose from and it 
 displays its own range of options.
-
-
-(^) Attachment Hooks
---------------------
-When a message has attachments, this hook is called with the MIME types.  For
-instance, a .zip file hook is "attachment application/x-zip".  The hook should
-probably show a link to do a specific action, such as "Verify" or "View" for a
-.zip file.
 
 
 First:  Integrating into existing options
@@ -199,3 +203,29 @@ three hooks you will need to use.
     You should put the code in here that loads your preferences back
     into usable variables.  Examples of this can be found in the file
     src/load_prefs.php
+
+
+(^) Attachment Hooks
+--------------------
+When a message has attachments, this hook is called with the MIME types.  For
+instance, a .zip file hook is "attachment application/x-zip".  The hook should
+probably show a link to do a specific action, such as "Verify" or "View" for a
+.zip file.
+
+This is a breakdown of the data passed in the array to the hook that is called:
+
+  [0] = Hook's name ('attachment text/plain')
+  [1] = Array of links of actions (more below) (Alterable)
+  [2] = Used for returning to mail message (startMessage)
+  [3] = Used for finding message to display (id)
+  [4] = Mailbox name, urlencode()'d (urlMailbox)
+  [5] = Entity ID inside mail message (ent)
+  [6] = Default URL to go to when filename is clicked on (Alterable)
+  [7] = Sent if message was found from a search (where)
+  [8] = Sent if message was found from a search (what)
+  
+To set up links for actions, you assign them like this:
+  
+  $Args[1]['your_plugin_name']['href'] = 'URL to link to';
+  $Args[1]['your_plugin_name']['text'] = 'What to display';
+    
