@@ -144,8 +144,8 @@ function error_box($string, $color) {
    echo '              <tr>' . html_tag( 'td', $string."\n", 'left')
                     . '</tr>';
    echo '            </table>';
+   echo '        </td></tr>';
    echo '       </table></td></tr>';
    echo '    </table>';
-   echo '  </td></tr>';
 }
 ?>
