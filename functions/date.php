@@ -68,7 +68,6 @@ function getGMTSeconds($stamp, $gmt) {
         case 'KST':
             $gmt = '+0900';     
             break;
-            break;
     }
     
     if (substr($gmt, 0, 1) == '-') {

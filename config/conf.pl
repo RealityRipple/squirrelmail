@@ -2417,6 +2417,8 @@ sub save_data {
 
 	# strings
         print CF "\$theme_css = '$theme_css';\n";
+        print CF "\$theme_default = $theme_default;\n";
+
         for ( $count = 0 ; $count <= $#theme_name ; $count++ ) {
             print CF "\$theme[$count]['PATH'] = '$theme_path[$count]';\n";
             print CF "\$theme[$count]['NAME'] = '$theme_name[$count]';\n";
