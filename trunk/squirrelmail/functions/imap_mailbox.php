@@ -251,9 +251,9 @@ function user_strcasecmp($a, $b) {
         if (($a_del == $delimiter) && ($b_del == $delimiter)) {
             $result = 0;
         } else if (($a_del == $delimiter) && ($b_del != $delimiter)) {
-            $result = 1;
-        } else if (($a_del != $delimiter) && ($b_del == $delimiter)) {
             $result = -1;
+        } else if (($a_del != $delimiter) && ($b_del == $delimiter)) {
+            $result = 1;
         } else {
             $result = strcasecmp($a{$c}, $b{$c});
         }
