@@ -21,7 +21,11 @@
  *   filename  => path to addressbook file
  * ? create    => if true: file is created if it does not exist.
  * ? umask     => umask set before opening file.
- * ? name      => name of address book
+ * ? name      => name of address book.
+ * ? detect_writeable => detect address book access permissions by 
+ *                checking file permissions.
+ * ? writeable => allow writing into address book. Used only when
+ *                detect_writeable is set to false.
  *</pre>
  * NOTE. This class should not be used directly. Use the
  *       "AddressBook" class instead.

@@ -144,6 +144,8 @@ Version 1.5.1 -- CVS
     by Felix Egli.
   - Removed command line option unsupported by qmail-inject in 
     class/deliver/Deliver_SendMail.class.php. Thanks to Ken Brush.
+  - Global file based address book is controled in configuration. Removed
+    global_file address book backend (use 'local_file' instead). 
 
 Version 1.5.0
 --------------------
