@@ -1165,7 +1165,7 @@ function sendMessage($composeMessage, $draft=false) {
     }
     $rfc822_header->from = $rfc822_header->parseAddress($from_mail,true);
     if ($full_name) {
-        $from = $rfc822_header->from;
+        $from = $rfc822_header->from[0];
 	if (!$from->host) $from->host = $domain;
 	$from_addr = $full_name .' <'.$from->mailbox.'@'.$from->host.'>';
         $rfc822_header->from = $rfc822_header->parseAddress($from_addr,true);
