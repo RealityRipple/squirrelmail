@@ -273,7 +273,22 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 var marked_row = new Array;
 
 
-/**
+/* 
+ * (un)Checks checkbox for the row that the current table cell is in
+ * when it gets clicked.
+ *
+ * @param   string   the name of the checkbox that should be (un)checked
+ */
+function row_click(chkboxName) {
+    chkbox = document.getElementById(chkboxName);
+    if (chkbox) { 
+        chkbox.checked = (chkbox.checked ? false : true); 
+    }
+}
+
+
+
+/*
  * Sets/unsets the pointer and marker in browse mode
  *
  * @param   object    the table row
