@@ -23,6 +23,7 @@ Version 1.2.6 -- CVS
   - Added POP3 Before SMTP option (feature request: #498428)
   - Added a server-side thread sorting option per folder
   - Added a server-side sorting global option
+  - Compose in new window size can be set in Display prefs.
   - Logout error system unified.
   - Fix for a "theme passed as cookie" exploit.
   - PostgreSQL is now supported for database backed use
@@ -34,6 +35,7 @@ Version 1.2.6 -- CVS
   - Fixed folder list display when special folders have subfolders
   - Added option to auto-append sig before reply/forward text (523853)
   - Fixed subfolders being "orphaned" when renaming parents (498167)
+  - Filters can be applied to only new mail.
   - Filters are updated when renaming/deleting folders (512056)
   - Filtering now happens on login (filters plugin)
   - Added option for WIDTH and HEIGHT tags to Org. Logo. (patch #412754)
