@@ -16,7 +16,7 @@
       global $color, $squirrelmail_language, $imap_general_debug;
 
       $read = fgets($imap_stream, 9096);
-      if (preg_match ("/^\* [0-9]+ FETCH.*{([0-9]+)}/", $read, $regs)) {
+      if (ereg("^\* [0-9]+ FETCH.*{([0-9]+)}", $read, $regs)) {
          $size = $regs[1];
       }
       
