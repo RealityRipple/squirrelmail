@@ -6,7 +6,7 @@ Version 1.5.1 -- CVS
 --------------------
   - New reply citation to include date and author.
   - Fix quite some possible XSS-bugs.
-  - Norwegian Bokmal translation uses nb_NO
+  - Norwegian Bokmal translation uses nb_NO.
   - Integrated Msg_Flags plugin - turn on/off icons using configuration tool, menu 
     number 11 (Tweaks), option number 3, after which users must select an icon 
     theme in Options/Display Preferences.  "Flag"/"Unflag" buttons are implemented 
@@ -14,7 +14,7 @@ Version 1.5.1 -- CVS
   - Added Farsi and Tagalog translation support.
   - Enabled Ukrainian and Russian-Ukrainian support
   - Fix that subfolders named "foo.inbox" didn't always work well.
-  - sqimap_create_stream() was not obeying passed params properly.  Fixed.
+  - sqimap_create_stream() was not obeying passed params properly.
   - Fix non selectable inbox.
   - Add src/configtest.php script which checks for common errors in the config.
   - Improve display of some unparsable/absent dates (#891354).
@@ -38,11 +38,12 @@ Version 1.5.1 -- CVS
   - Fixed "Resume Draft" to continue using selected identities (#845290).
   - Fixed RFC2821 incompliancy by adding a fallback mechanism to HELO if
     EHLO is not supported.
-  - Fixed RFC2298 incompliancy by setting envelop sender to null.
+  - Fixed RFC2298 incompliancy by setting envelope sender to null.
   - Fixed problem where setting all the messages on the last page of the
     message list would return one page higher.
   - Remove call to perform expunge on mailbox select - auto-expunge will 
     still be performed on message delete, etc.
+  - Allow single quotes to be used in theme name in conf.pl (#805309).
 
 Version 1.5.0
 --------------------
