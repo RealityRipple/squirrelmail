@@ -1030,6 +1030,7 @@ if (isset($_GET['mailbox'])) {
     }
 } else {
     $mailbox_array = array();
+    $targetmailbox = array();
 }
 $aMailboxGlobalPref = array(
                        MBX_PREF_SORT         => 0,
