@@ -356,15 +356,16 @@ require_once('../functions/plugin.php');
       }
 
       // This code is for attachments
-      echo "   <tr>\n";
-      echo "     <TD BGCOLOR=\"$color[0]\" VALIGN=MIDDLE ALIGN=RIGHT>\n";
+      echo "   <TR>\n";
+      echo "     <TD VALIGN=MIDDLE ALIGN=RIGHT>\n";
       echo        _("Attach:");
-      echo "      </td><td ALIGN=left BGCOLOR=\"$color[0]\">\n";
+      echo "      </TD>\n";
+      echo "      <TD VALIGN=MIDDLE ALIGN=LEFT>\n";
       echo "      <INPUT NAME=\"attachfile\" SIZE=48 TYPE=\"file\">\n";
       echo "      &nbsp;&nbsp;<input type=\"submit\" name=\"attach\"";
       echo " value=\"" . _("Add") ."\">\n";
-      echo "     </td>\n";
-      echo "   </tr>\n";
+      echo "     </TD>\n";
+      echo "   </TR>\n";
       if (count($attachments)) {
          $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
          echo "<tr><td bgcolor=\"$color[0]\" align=right>\n";
