@@ -342,11 +342,14 @@ function getDateString( $stamp ) {
     $now = time();
     
     $dateZ = date('Z', $now );
+
+    // FIXME: isn't this obsolete and introduced as a terrible workaround
+    // for bugs at other places which are fixed a long time ago? 
     if ($invert_time) {
         $dateZ = - $dateZ;
     }
     $midnight = $now - ($now % 86400) - $dateZ;
-    $nextmid = $midnight + 86400;
+    $nextmid = $midnight + 86400 - $dateZ;
     
     if (($show_full_date == 1) || ($nextmid < $stamp)) {
         $date_format = _("M j, Y");
