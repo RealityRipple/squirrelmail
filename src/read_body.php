@@ -27,9 +27,11 @@ require_once('../functions/smtp.php');
 * returns the index of the next valid message from the array
 */
 function findNextMessage() {
-    global $msort, $currentArrayIndex, $msgs, $sort;
+    global $msort, $currentArrayIndex, $msgs, $sort, $thread_sort_messages;
     $result = -1;
-
+		if ($thread_sort_messages == 1) {
+				$sort = 0;
+		}
     if ($sort == 6) {
         if ($currentArrayIndex != 1) {
             $result = $currentArrayIndex - 1;
@@ -63,7 +65,10 @@ function RemoveAddress(&$addr_list, $addr) {
 /** returns the index of the previous message from the array. */
 function findPreviousMessage() {
     global $msort, $currentArrayIndex, $sort, $msgs, $imapConnection,
-           $mailbox, $data_dir, $username;
+           $mailbox, $data_dir, $username, $thread_sort_messages;
+		if ($thread_sort_messages == 1) {
+				$sort = 0;
+		}
 
     $result = -1;
 

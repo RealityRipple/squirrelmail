@@ -217,6 +217,10 @@ $sig_first = getPref($data_dir, $username, 'sig_first', 0);
 /* use the internal date of the message for sorting instead of the supplied header date */
 $internal_date_sort = getPref($data_dir, $username, 'internal_date_sort', SMPREF_ON);
 
+/* if thread sorting is enabled/disabled */
+$thread_sort_messages = getPref($data_dir, $username, 'thread_sort_messages', 0);
+$sort_by_ref = getPref($data_dir, $username, 'sort_by_ref', 1);
+
 /* Load the javascript settings. */
 $javascript_setting =
     getPref($data_dir, $username, 'javascript_setting', SMPREF_JS_AUTODETECT);

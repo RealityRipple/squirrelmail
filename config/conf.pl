@@ -284,6 +284,9 @@ if ( !$edit_identity ) {
 if ( !$edit_name ) {
     $edit_name = "true";
 }
+if ( !$allow_thread_sort ) {
+    $allow_thread_sort = 'false';
+}
 if ( !$prefs_user_field ) {
     $prefs_user_field = 'user';
 }
@@ -411,9 +414,9 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "8.  Hide SM attributions      : $WHT$hide_sm_attributions$NRM\n";
         print "9.  Allow use of receipts     : $WHT$default_use_mdn$NRM\n";
         print "10. Allow editing of identity : $WHT$edit_identity$NRM\n";
-
+        print "11. Allow server thread sort  : $WHT$allow_thread_sort$NRM\n";
         if ( lc($edit_identity) eq "false" ) {
-            print "11. Allow editing of name     : $WHT$edit_name$NRM\n";
+            print "12. Allow editing of name     : $WHT$edit_name$NRM\n";
         }
         print "\n";
         print "R   Return to Main Menu\n";
@@ -592,7 +595,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             elsif ( $command == 8 )  { $hide_sm_attributions     = command38(); }
             elsif ( $command == 9 )  { $default_use_mdn          = command39(); }
             elsif ( $command == 10 ) { $edit_identity            = command310(); }
-            elsif ( $command == 11 ) { $edit_name                = command311(); }
+            elsif ( $command == 11 ) { $allow_thread_sort        = command312(); }
+            elsif ( $command == 12 ) { $edit_name                = command311(); }
         } elsif ( $menu == 5 ) {
             if ( $command == 1 ) { command41(); }
             elsif ( $command == 2 ) { $theme_css = command42(); }
@@ -1669,6 +1673,26 @@ sub command311 {
     return $edit_name;
 }
 
+sub command312 {
+    print "This option allows you to choose if users can use thread sorting\n";
+    print "Your IMAP server must support the THREAD command for this to work\n";
+    print "\n";
+
+    if ( lc($allow_thread_sort) eq "true" ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Allow server side thread sorting? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $allow_thread_sort = <STDIN>;
+    if ( ( $allow_thread_sort =~ /^y\n/i ) || ( ( $allow_thread_sort =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $allow_thread_sort = "true";
+    } else {
+        $allow_thread_sort = "false";
+    }
+    return $allow_thread_sort;
+}
+
 sub command41 {
     print "\nNow we will define the themes that you wish to use.  If you have added\n";
     print "a theme of your own, just follow the instructions (?) about how to add\n";
@@ -2191,6 +2215,7 @@ sub save_data {
         print CF "\$default_use_mdn          = $default_use_mdn;\n";
         print CF "\$edit_identity            = $edit_identity;\n";
         print CF "\$edit_name                = $edit_name;\n";
+        print CF "\$allow_thread_sort        = $allow_thread_sort;\n";
         print CF "\n";
 
         for ( $ct = 0 ; $ct <= $#plugins ; $ct++ ) {
