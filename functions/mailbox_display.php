@@ -174,7 +174,7 @@
       echo "</TD></TR>\n";
 
       /** The delete and move options */
-      echo "<TR><TD BGCOLOR=DCDCDC>";
+      echo "<TR><TD BGCOLOR=$color_lgray>";
       echo "<FORM name=messageList method=post action=\"move_messages.php?msg=$msg&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage\">";
       echo "<SELECT NAME=move_or_delete><OPTION>Delete selected messages<OPTION>Move selected messages</SELECT>";
       echo "<NOBR><INPUT TYPE=SUBMIT VALUE=\"Go\">";
@@ -182,7 +182,7 @@
          echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\">Empty Trash</A></NOBR>";
       echo "</TD></TR>";
 
-      echo "<TR><TD BGCOLOR=DCDCDC>";
+      echo "<TR><TD BGCOLOR=$color_lgray>";
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=FFFFFF>";
       echo "<TR BGCOLOR=FFFFCC ALIGN=\"center\">";
       echo "   <TD WIDTH=5%><FONT FACE=\"Arial,Helvetica\"><B>Num</B></FONT></TD>";
