@@ -25,6 +25,7 @@
  * @subpackage filters
  */
 
+/** load config */
 if (file_exists(SM_PATH . 'plugins/filters/config.php'))
     include_once (SM_PATH . 'plugins/filters/config.php');
 
