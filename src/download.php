@@ -68,8 +68,6 @@
    $filename = decodeHeader($header->filename);
 
    if (strlen($filename) < 1) {
-      # set some standard suffixes to the filenames if the filename isn't known
-
       if ($type1 == "plain" && $type0 == "text")                  $suffix = "txt";
       else if ($type1 == "richtext" && $type0 == "text")          $suffix = "rtf";
       else if ($type1 == "postscript" && $type0 == "application") $suffix = "ps";
