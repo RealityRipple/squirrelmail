@@ -119,10 +119,8 @@ function printer_friendly_link($mailbox, $passed_id, $passed_ent_id) {
 
 function ServerMDNSupport($aFlags) {
     /* escaping $ doesn't work -> \x36 */
-    return (array_search('$mdnsent',$aFlags,true) !== false ||
-            array_search('\\*',$aFlags,true) !== false) ? true : false;
-    //$ret = preg_match('/(\x36MDNSent|\\\\\*)/i', $read);
-    //return $ret;
+    return ( in_array('$mdnsent',$aFlags,true) ||
+             in_array('\\*',$aFlags,true) ) ;
 }
 
 function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
@@ -548,7 +546,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $mbx_res
         // Only bother with Delete & Prev and Delete & Next IF
         // top display is enabled.
         if ( $delete_prev_next_display == 1 &&
-               array_search('\\deleted', $mbx_response['PERMANENTFLAGS'],true) !== false) {
+               in_array('\\deleted', $mbx_response['PERMANENTFLAGS'],true) ) {
             $del_prev_link = _("Delete & Prev");
             if ($prev >= 0) {
                 $uri = $base_uri . 'src/read_body.php?passed_id='.$prev.
@@ -634,7 +632,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $mbx_res
 
     $menu_row .= '</form>&nbsp;';
 
-    if (array_search('\\deleted', $mbx_response['PERMANENTFLAGS'],true) !== false) {
+    if ( in_array('\\deleted', $mbx_response['PERMANENTFLAGS'],true) ) {
     // Form for deletion
         $delete_url = $base_uri . 'src/delete_message.php?mailbox=' . $urlMailbox;
         $menu_row .= '<form action="'.$delete_url.'" method="post" style="display: inline">';
@@ -661,7 +659,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $mbx_res
     // Add top move link
     $menu_row .= '</small></td><td align="right">';
     if ( !(isset($passed_ent_id) && $passed_ent_id) &&
-        array_search('\\deleted', $mbx_response['PERMANENTFLAGS'],true) !== false) {
+        in_array('\\deleted', $mbx_response['PERMANENTFLAGS'],true) ) {
 
         $current_box = 'mailbox='.$mailbox.'&sort='.$sort.'&startMessage='.$startMessage;
 

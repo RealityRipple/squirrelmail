@@ -856,12 +856,12 @@ function mail_message_listing_beginning ($imapConnection,
 
                     // display flag buttons only if supported
                     if ($show_flag_buttons  &&
-                    array_search('\\flagged',$aMailbox['PERMANENTFLAGS'], true) !== FALSE) {
+                    in_array('\\flagged',$aMailbox['PERMANENTFLAGS'], true) ) {
                         echo getButton('SUBMIT', 'markUnflagged',_("Unflag"));
                         echo getButton('SUBMIT', 'markFlagged',_("Flag"));
                         echo '&nbsp;';
                     }
-                    if (array_search('\\seen',$aMailbox['PERMANENTFLAGS'], true) !== FALSE) {
+                    if (in_array('\\seen',$aMailbox['PERMANENTFLAGS'], true)) {
                         echo getButton('SUBMIT', 'markUnread',_("Unread"));
                         echo getButton('SUBMIT', 'markRead',_("Read"));
                         echo '&nbsp;';
@@ -869,7 +869,7 @@ function mail_message_listing_beginning ($imapConnection,
 
                     echo getButton('SUBMIT', 'attache',_("Forward"));
                     echo '&nbsp;';
-                    if (array_search('\\deleted',$aMailbox['PERMANENTFLAGS'], true) !== FALSE) {
+                    if (in_array('\\deleted',$aMailbox['PERMANENTFLAGS'], true)) {
                         echo getButton('SUBMIT', 'delete',_("Delete"));
                         echo '<input type="checkbox" name="bypass_trash" />' . _("Bypass Trash");
                         echo '&nbsp;';
@@ -882,7 +882,7 @@ function mail_message_listing_beginning ($imapConnection,
                 ?></small>
                 </td>
                 <?php
-                if (array_search('\\deleted',$aMailbox['PERMANENTFLAGS'], true) !== FALSE) {
+                if (in_array('\\deleted',$aMailbox['PERMANENTFLAGS'], true)) {
                     echo '<td align="right">
                 <small>';
                     //echo $thread_link_str;	//previous behaviour
