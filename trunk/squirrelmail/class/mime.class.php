@@ -1,10 +1,11 @@
 <?php
 
 /**
- * mime.class.php
+ * mime.class
  *
  * Copyright (c) 2002 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
  *
  * This contains functions needed to handle mime messages.
  *
@@ -838,7 +839,7 @@ class message {
 	       }
 	    }
     	    if (!$exclude) {
-	       if ($entity->type0 == 'multipart' && $entity->type1 == 'digest') {
+	       if ($entity->type0 == 'multipart' && !$entity->type1 == 'related') {
 	          $result = $entity->getAttachments($exclude_id, $result);
 	       } else if ($entity->type0 != 'multipart') {
 	          $result[] = $entity;
