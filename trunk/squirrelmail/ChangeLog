@@ -11,6 +11,8 @@ Version 1.5.1 -- CVS
     number 11 (Tweaks), option number 3, after which users must select an icon 
     theme in Options/Display Preferences.  "Flag"/"Unflag" buttons are implemented 
     as separate plugin.
+  - Added Farsi and Tagalog translation support.
+  - Enabled Ukrainian and Russian-Ukrainian support
 
 
 Version 1.5.0
