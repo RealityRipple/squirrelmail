@@ -53,13 +53,13 @@ if ( -e "config.php" ) {
         $var = $line;
 
         $var =~ s/=/EQUALS/;
-        if ( $var =~ /^([a-z]|[A-Z])/ ) {
+        if ( $var =~ /^([a-z])/i ) {
             @o = split ( /\s*EQUALS\s*/, $var );
             if ( $o[0] eq "config_version" ) {
-                $o[1] =~ s/[\n|\r]//g;
-                $o[1] =~ s/[\'|\"];\s*$//;
+                $o[1] =~ s/[\n\r]//g;
+                $o[1] =~ s/[\'\"];\s*$//;
                 $o[1] =~ s/;$//;
-                $o[1] =~ s/^[\'|\"]//;
+                $o[1] =~ s/^[\'\"]//;
 
                 $config_version = $o[1];
                 close(FILE);
@@ -106,13 +106,13 @@ if ( -e "config.php" ) {
         $var = $line;
 
         $var =~ s/=/EQUALS/;
-        if ( $var =~ /^([a-z]|[A-Z])/ ) {
+        if ( $var =~ /^([a-z])/i ) {
             @o = split ( /\s*EQUALS\s*/, $var );
             if ( $o[0] eq "config_version" ) {
-                $o[1] =~ s/[\n|\r]//g;
-                $o[1] =~ s/[\'|\"];\s*$//;
+                $o[1] =~ s/[\n\r]//g;
+                $o[1] =~ s/[\'\"];\s*$//;
                 $o[1] =~ s/;$//;
-                $o[1] =~ s/^[\'|\"]//;
+                $o[1] =~ s/^[\'\"]//;
 
                 $config_version = $o[1];
                 close(FILE);
@@ -165,27 +165,27 @@ while ( $line = <FILE> ) {
     $var = $line;
 
     $var =~ s/=/EQUALS/;
-    if ( $var =~ /^([a-z]|[A-Z])/ ) {
+    if ( $var =~ /^([a-z])/i ) {
         @options = split ( /\s*EQUALS\s*/, $var );
-        $options[1] =~ s/[\n|\r]//g;
-        $options[1] =~ s/[\'|\"];\s*$//;
+        $options[1] =~ s/[\n\r]//g;
+        $options[1] =~ s/[\'\"];\s*$//;
         $options[1] =~ s/;$//;
-        $options[1] =~ s/^[\'|\"]//;
+        $options[1] =~ s/^[\'\"]//;
         # de-escape escaped strings
         $options[1] =~ s/\\'/'/g;
         $options[1] =~ s/\\\\/\\/g;
 
-        if ( $options[0] =~ /^theme\[[0-9]+\]\[['|"]PATH['|"]\]/ ) {
+        if ( $options[0] =~ /^theme\[[0-9]+\]\[['"]PATH['"]\]/ ) {
             $sub = $options[0];
-            $sub =~ s/\]\[['|"]PATH['|"]\]//;
+            $sub =~ s/\]\[['"]PATH['"]\]//;
             $sub =~ s/.*\[//;
             if ( -e "../themes" ) {
                 $options[1] =~ s/^\.\.\/config/\.\.\/themes/;
             }
             $theme_path[$sub] = &change_to_rel_path($options[1]);
-        } elsif ( $options[0] =~ /^theme\[[0-9]+\]\[['|"]NAME['|"]\]/ ) {
+        } elsif ( $options[0] =~ /^theme\[[0-9]+\]\[['"]NAME['"]\]/ ) {
             $sub = $options[0];
-            $sub =~ s/\]\[['|"]NAME['|"]\]//;
+            $sub =~ s/\]\[['"]NAME['"]\]//;
             $sub =~ s/.*\[//;
             $theme_name[$sub] = $options[1];
         } elsif ( $options[0] =~ /^plugins\[[0-9]+\]/ ) {
@@ -203,50 +203,50 @@ while ( $line = <FILE> ) {
                     $continue = 1;
                 }
 
-                if ( $tmp =~ /^\s*[\'|\"]host[\'|\"]/i ) {
-                    $tmp =~ s/^\s*[\'|\"]host[\'|\"]\s*=>\s*[\'|\"]//i;
-                    $tmp =~ s/[\'|\"],?\s*$//;
-                    $tmp =~ s/[\'|\"]\);\s*$//;
+                if ( $tmp =~ /^\s*[\'\"]host[\'\"]/i ) {
+                    $tmp =~ s/^\s*[\'\"]host[\'\"]\s*=>\s*[\'\"]//i;
+                    $tmp =~ s/[\'\"],?\s*$//;
+                    $tmp =~ s/[\'\"]\);\s*$//;
                     $host = $tmp;
-                } elsif ( $tmp =~ /^\s*[\'|\"]base[\'|\"]/i ) {
-                    $tmp =~ s/^\s*[\'|\"]base[\'|\"]\s*=>\s*[\'|\"]//i;
-                    $tmp =~ s/[\'|\"],?\s*$//;
-                    $tmp =~ s/[\'|\"]\);\s*$//;
+                } elsif ( $tmp =~ /^\s*[\'\"]base[\'\"]/i ) {
+                    $tmp =~ s/^\s*[\'\"]base[\'\"]\s*=>\s*[\'\"]//i;
+                    $tmp =~ s/[\'\"],?\s*$//;
+                    $tmp =~ s/[\'\"]\);\s*$//;
                     $base = $tmp;
-                } elsif ( $tmp =~ /^\s*[\'|\"]charset[\'|\"]/i ) {
-                    $tmp =~ s/^\s*[\'|\"]charset[\'|\"]\s*=>\s*[\'|\"]//i;
-                    $tmp =~ s/[\'|\"],?\s*$//;
-                    $tmp =~ s/[\'|\"]\);\s*$//;
+                } elsif ( $tmp =~ /^\s*[\'\"]charset[\'\"]/i ) {
+                    $tmp =~ s/^\s*[\'\"]charset[\'\"]\s*=>\s*[\'\"]//i;
+                    $tmp =~ s/[\'\"],?\s*$//;
+                    $tmp =~ s/[\'\"]\);\s*$//;
                     $charset = $tmp;
-                } elsif ( $tmp =~ /^\s*[\'|\"]port[\'|\"]/i ) {
-                    $tmp =~ s/^\s*[\'|\"]port[\'|\"]\s*=>\s*[\'|\"]?//i;
-                    $tmp =~ s/[\'|\"]?,?\s*$//;
-                    $tmp =~ s/[\'|\"]?\);\s*$//;
+                } elsif ( $tmp =~ /^\s*[\'\"]port[\'\"]/i ) {
+                    $tmp =~ s/^\s*[\'\"]port[\'\"]\s*=>\s*[\'\"]?//i;
+                    $tmp =~ s/[\'\"]?,?\s*$//;
+                    $tmp =~ s/[\'\"]?\);\s*$//;
                     $port = $tmp;
-                } elsif ( $tmp =~ /^\s*[\'|\"]maxrows[\'|\"]/i ) {
-                    $tmp =~ s/^\s*[\'|\"]maxrows[\'|\"]\s*=>\s*[\'|\"]?//i;
-                    $tmp =~ s/[\'|\"]?,?\s*$//;
-                    $tmp =~ s/[\'|\"]?\);\s*$//;
+                } elsif ( $tmp =~ /^\s*[\'\"]maxrows[\'\"]/i ) {
+                    $tmp =~ s/^\s*[\'\"]maxrows[\'\"]\s*=>\s*[\'\"]?//i;
+                    $tmp =~ s/[\'\"]?,?\s*$//;
+                    $tmp =~ s/[\'\"]?\);\s*$//;
                     $maxrows = $tmp;
-                } elsif ( $tmp =~ /^\s*[\'|\"]name[\'|\"]/i ) {
-                    $tmp =~ s/^\s*[\'|\"]name[\'|\"]\s*=>\s*[\'|\"]//i;
-                    $tmp =~ s/[\'|\"],?\s*$//;
-                    $tmp =~ s/[\'|\"]\);\s*$//;
+                } elsif ( $tmp =~ /^\s*[\'\"]name[\'\"]/i ) {
+                    $tmp =~ s/^\s*[\'\"]name[\'\"]\s*=>\s*[\'\"]//i;
+                    $tmp =~ s/[\'\"],?\s*$//;
+                    $tmp =~ s/[\'\"]\);\s*$//;
                     $name = $tmp;
-                } elsif ( $tmp =~ /^\s*[\'|\"]binddn[\'|\"]/i ) {
-                    $tmp =~ s/^\s*[\'|\"]binddn[\'|\"]\s*=>\s*[\'|\"]//i;
-                    $tmp =~ s/[\'|\"],?\s*$//;
-                    $tmp =~ s/[\'|\"]\);\s*$//;
+                } elsif ( $tmp =~ /^\s*[\'\"]binddn[\'\"]/i ) {
+                    $tmp =~ s/^\s*[\'\"]binddn[\'\"]\s*=>\s*[\'\"]//i;
+                    $tmp =~ s/[\'\"],?\s*$//;
+                    $tmp =~ s/[\'\"]\);\s*$//;
                     $binddn = $tmp;
-                } elsif ( $tmp =~ /^\s*[\'|\"]bindpw[\'|\"]/i ) {
-                    $tmp =~ s/^\s*[\'|\"]bindpw[\'|\"]\s*=>\s*[\'|\"]//i;
-                    $tmp =~ s/[\'|\"],?\s*$//;
-                    $tmp =~ s/[\'|\"]\);\s*$//;
+                } elsif ( $tmp =~ /^\s*[\'\"]bindpw[\'\"]/i ) {
+                    $tmp =~ s/^\s*[\'\"]bindpw[\'\"]\s*=>\s*[\'\"]//i;
+                    $tmp =~ s/[\'\"],?\s*$//;
+                    $tmp =~ s/[\'\"]\);\s*$//;
                     $bindpw = $tmp;
-                } elsif ( $tmp =~ /^\s*[\'|\"]protocol[\'|\"]/i ) {
-                    $tmp =~ s/^\s*[\'|\"]protocol[\'|\"]\s*=>\s*[\'|\"]?//i;
-                    $tmp =~ s/[\'|\"]?,?\s*$//;
-                    $tmp =~ s/[\'|\"]?\);\s*$//;
+                } elsif ( $tmp =~ /^\s*[\'\"]protocol[\'\"]/i ) {
+                    $tmp =~ s/^\s*[\'\"]protocol[\'\"]\s*=>\s*[\'\"]?//i;
+                    $tmp =~ s/[\'\"]?,?\s*$//;
+                    $tmp =~ s/[\'\"]?\);\s*$//;
                     $protocol = $tmp;
                 }
             }
@@ -600,7 +600,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
     print "\n";
     print "Command >> " . $WHT;
     $command = <STDIN>;
-    $command =~ s/[\n|\r]//g;
+    $command =~ s/[\n\r]//g;
     $command =~ tr/A-Z/a-z/;
     print "$NRM\n";
 
@@ -772,7 +772,7 @@ sub command1 {
     if ( $new_org_name eq "\n" ) {
         $new_org_name = $org_name;
     } else {
-        $new_org_name =~ s/[\r|\n]//g;
+        $new_org_name =~ s/[\r\n]//g;
     $new_org_name =~ s/\"/&quot;/g;
     }
     return $new_org_name;
@@ -795,7 +795,7 @@ sub command2 {
     if ( $new_org_logo eq "\n" ) {
         $new_org_logo = $org_logo;
     } else {
-        $new_org_logo =~ s/[\r|\n]//g;
+        $new_org_logo =~ s/[\r\n]//g;
     }
     return $new_org_logo;
 }
@@ -842,7 +842,7 @@ sub command3 {
     if ( $new_org_title eq "\n" ) {
         $new_org_title = $org_title;
     } else {
-        $new_org_title =~ s/[\r|\n]//g;
+        $new_org_title =~ s/[\r\n]//g;
     $new_org_title =~ s/\"/\'/g;
     }
     return $new_org_title;
@@ -860,7 +860,7 @@ sub command4 {
     if ( $new_signout_page eq "\n" ) {
         $new_signout_page = $signout_page;
     } else {
-        $new_signout_page =~ s/[\r|\n]//g;
+        $new_signout_page =~ s/[\r\n]//g;
         $new_signout_page =~ s/^\s+$//g;
     }
     return $new_signout_page;
@@ -877,7 +877,7 @@ sub command6 {
     if ( $new_frame_top eq "\n" ) {
         $new_frame_top = '_top';
     } else {
-        $new_frame_top =~ s/[\r|\n]//g;
+        $new_frame_top =~ s/[\r\n]//g;
         $new_frame_top =~ s/^\s+$//g;
     }
     return $new_frame_top;
@@ -893,7 +893,7 @@ sub command7 {
     if ( $new_provider_uri eq "\n" ) {
         $new_provider_uri = 'http://www.squirrelmail.org/';
     } else {
-        $new_provider_uri =~ s/[\r|\n]//g;
+        $new_provider_uri =~ s/[\r\n]//g;
         $new_provider_uri =~ s/^\s+$//g;
     }
     return $new_provider_uri;
@@ -908,7 +908,7 @@ sub command8 {
     if ( $new_provider_name eq "\n" ) {
         $new_provider_name = 'SquirrelMail';
     } else {
-        $new_provider_name =~ s/[\r|\n]//g;
+        $new_provider_name =~ s/[\r\n]//g;
         $new_provider_name =~ s/^\s+$//g;
     }
     return $new_provider_name;
@@ -927,7 +927,7 @@ sub command11 {
     if ( $new_domain eq "\n" ) {
         $new_domain = $domain;
     } else {
-        $new_domain =~ s/[\r|\n]//g;
+        $new_domain =~ s/[\r\n]//g;
     }
     return $new_domain;
 }
@@ -940,7 +940,7 @@ sub command12 {
     if ( $new_imapServerAddress eq "\n" ) {
         $new_imapServerAddress = $imapServerAddress;
     } else {
-        $new_imapServerAddress =~ s/[\r|\n]//g;
+        $new_imapServerAddress =~ s/[\r\n]//g;
     }
     return $new_imapServerAddress;
 }
@@ -953,7 +953,7 @@ sub command13 {
     if ( $new_imapPort eq "\n" ) {
         $new_imapPort = $imapPort;
     } else {
-        $new_imapPort =~ s/[\r|\n]//g;
+        $new_imapPort =~ s/[\r\n]//g;
     }
     return $new_imapPort;
 }
@@ -993,7 +993,7 @@ sub command15 {
     if ( $new_sendmail_path eq "\n" ) {
         $new_sendmail_path = $sendmail_path;
     } else {
-        $new_sendmail_path =~ s/[\r|\n]//g;
+        $new_sendmail_path =~ s/[\r\n]//g;
     }
     return $new_sendmail_path;
 }
@@ -1006,7 +1006,7 @@ sub command16 {
     if ( $new_smtpServerAddress eq "\n" ) {
         $new_smtpServerAddress = $smtpServerAddress;
     } else {
-        $new_smtpServerAddress =~ s/[\r|\n]//g;
+        $new_smtpServerAddress =~ s/[\r\n]//g;
     }
     return $new_smtpServerAddress;
 }
@@ -1019,7 +1019,7 @@ sub command17 {
     if ( $new_smtpPort eq "\n" ) {
         $new_smtpPort = $smtpPort;
     } else {
-        $new_smtpPort =~ s/[\r|\n]//g;
+        $new_smtpPort =~ s/[\r\n]//g;
     }
     return $new_smtpPort;
 }
@@ -1081,7 +1081,7 @@ sub command19 {
     if ( $new_imap_server_type eq "\n" ) {
         $new_imap_server_type = $imap_server_type;
     } else {
-        $new_imap_server_type =~ s/[\r|\n]//g;
+        $new_imap_server_type =~ s/[\r\n]//g;
     }
     return $new_imap_server_type;
 }
@@ -1123,7 +1123,7 @@ sub command111 {
     if ( $new_optional_delimiter eq "\n" ) {
         $new_optional_delimiter = $optional_delimiter;
     } else {
-        $new_optional_delimiter =~ s/[\r|\n]//g;
+        $new_optional_delimiter =~ s/[\r\n]//g;
     }
     return $new_optional_delimiter;
 }
@@ -1349,7 +1349,7 @@ sub command71 {
     do {
         print "] ";
         $line = <STDIN>;
-        $line =~ s/[\r|\n]//g;
+        $line =~ s/[\r\n]//g;
         if ( $line ne "@" ) {
             $line =~ s/  /\&nbsp;\&nbsp;/g;
             $line =~ s/\t/\&nbsp;\&nbsp;\&nbsp;\&nbsp;/g;
@@ -1365,7 +1365,7 @@ sub command71 {
 ################# PLUGINS ###################
 
 sub command81 {
-    $command =~ s/[\s|\n|\r]*//g;
+    $command =~ s/[\s\n\r]*//g;
     if ( $command > 0 ) {
         $command = $command - 1;
         if ( $command <= $#plugins ) {
@@ -1478,7 +1478,7 @@ sub command23a {
     if ( $new_trash_folder eq "\n" ) {
         $new_trash_folder = $trash_folder;
     } else {
-        $new_trash_folder =~ s/[\r|\n]//g;
+        $new_trash_folder =~ s/[\r\n]//g;
     }
     return $new_trash_folder;
 }
@@ -1499,7 +1499,7 @@ sub command23b {
     if ( $new_sent_folder eq "\n" ) {
         $new_sent_folder = $sent_folder;
     } else {
-        $new_sent_folder =~ s/[\r|\n]//g;
+        $new_sent_folder =~ s/[\r\n]//g;
     }
     return $new_sent_folder;
 }
@@ -1521,7 +1521,7 @@ sub command23c {
     if ( $new_draft_folder eq "\n" ) {
         $new_draft_folder = $draft_folder;
     } else {
-        $new_draft_folder =~ s/[\r|\n]//g;
+        $new_draft_folder =~ s/[\r\n]//g;
     }
     return $new_draft_folder;
 }
@@ -1733,10 +1733,10 @@ sub command212 {
 
     print "Which one should be default (1,2,3)? [$WHT$default_unseen_notify$NRM]: $WHT";
     $new_show = <STDIN>;
-    if ( $new_show =~ /^[1|2|3]\n/i ) {
+    if ( $new_show =~ /^[123]\n/i ) {
         $default_unseen_notify = $new_show;
     }
-    $default_unseen_notify =~ s/[\r|\n]//g;
+    $default_unseen_notify =~ s/[\r\n]//g;
     return $default_unseen_notify;
 }
 
@@ -1750,10 +1750,10 @@ sub command213 {
 
     print "Which one should be default (1,2)? [$WHT$default_unseen_type$NRM]: $WHT";
     $new_show = <STDIN>;
-    if ( $new_show =~ /^[1|2]\n/i ) {
+    if ( $new_show =~ /^[12]\n/i ) {
         $default_unseen_type = $new_show;
     }
-    $default_unseen_type =~ s/[\r|\n]//g;
+    $default_unseen_type =~ s/[\r\n]//g;
     return $default_unseen_type;
 }
 
@@ -1867,7 +1867,7 @@ sub command33a {
     if ( $new_data_dir eq "\n" ) {
         $new_data_dir = $data_dir;
     } else {
-        $new_data_dir =~ s/[\r|\n]//g;
+        $new_data_dir =~ s/[\r\n]//g;
     }
     if ( $new_data_dir =~ /^\s*$/ ) {
         $new_data_dir = "";
@@ -1907,7 +1907,7 @@ sub command33b {
     if ( $new_attachment_dir eq "\n" ) {
         $new_attachment_dir = $attachment_dir;
     } else {
-        $new_attachment_dir =~ s/[\r|\n]//g;
+        $new_attachment_dir =~ s/[\r\n]//g;
     }
     if ( $new_attachment_dir =~ /^\s*$/ ) {
         $new_attachment_dir = "";
@@ -1938,7 +1938,7 @@ sub command33c {
     if ( $new_dir_hash_level eq "\n" ) {
         $new_dir_hash_level = $dir_hash_level;
     } else {
-        $new_dir_hash_level =~ s/[\r|\n]//g;
+        $new_dir_hash_level =~ s/[\r\n]//g;
     }
     if ( ( int($new_dir_hash_level) < 0 )
         || ( int($new_dir_hash_level) > 4 )
@@ -1964,7 +1964,7 @@ sub command35 {
     if ( $new_default_left_size eq "\n" ) {
         $new_default_left_size = $default_left_size;
     } else {
-        $new_default_left_size =~ s/[\r|\n]//g;
+        $new_default_left_size =~ s/[\r\n]//g;
     }
     return $new_default_left_size;
 }
@@ -2160,10 +2160,10 @@ sub command316 {
 
     print "Allowed search (0,1,2)? [$WHT$allow_advanced_search$NRM]: $WHT";
     $new_allow_advanced_search = <STDIN>;
-    if ( $new_allow_advanced_search =~ /^[0|1|2]\n/i ) {
+    if ( $new_allow_advanced_search =~ /^[012]\n/i ) {
         $allow_advanced_search = $new_allow_advanced_search;
     }
-    $allow_advanced_search =~ s/[\r|\n]//g;
+    $allow_advanced_search =~ s/[\r\n]//g;
     return $allow_advanced_search;
 }
 
@@ -2189,7 +2189,7 @@ sub command41 {
     print "them.  You can also change the default theme.\n";
     print "[theme] command (?=help) > ";
     $input = <STDIN>;
-    $input =~ s/[\r|\n]//g;
+    $input =~ s/[\r\n]//g;
     while ( $input ne "d" ) {
         if ( $input =~ /^\s*l\s*/i ) {
             $count = 0;
@@ -2224,12 +2224,12 @@ sub command41 {
         } elsif ( $input =~ /^\s*\+/ ) {
             print "What is the name of this theme: ";
             $name = <STDIN>;
-            $name =~ s/[\r|\n]//g;
+            $name =~ s/[\r\n]//g;
             $theme_name[ $#theme_name + 1 ] = $name;
             print "Be sure to put ../themes/ before the filename.\n";
             print "What file is this stored in (ex: ../themes/default_theme.php): ";
             $name = <STDIN>;
-            $name =~ s/[\r|\n]//g;
+            $name =~ s/[\r\n]//g;
             $theme_path[ $#theme_path + 1 ] = $name;
         } elsif ( $input =~ /^\s*-\s*[0-9]?/ ) {
             if ( $input =~ /[0-9]+\s*$/ ) {
@@ -2277,7 +2277,7 @@ sub command41 {
                         print "** Found theme: $filename\n";
                         print "   What is its name? ";
                         $nm = <STDIN>;
-                        $nm =~ s/[\n|\r]//g;
+                        $nm =~ s/[\n\r]//g;
                         $theme_name[ $#theme_name + 1 ] = $nm;
                         $theme_path[ $#theme_path + 1 ] = $filename;
                     }
@@ -2323,7 +2323,7 @@ sub command41 {
         }
         print "[theme] command (?=help) > ";
         $input = <STDIN>;
-        $input =~ s/[\r|\n]//g;
+        $input =~ s/[\r\n]//g;
     }
 }
 
@@ -2349,7 +2349,7 @@ sub command42 {
     if ( $new_theme_css eq "\n" ) {
         $new_theme_css = $theme_css;
     } else {
-        $new_theme_css =~ s/[\r|\n]//g;
+        $new_theme_css =~ s/[\r\n]//g;
     }
     $new_theme_css =~ s/^\s*//;
     return $new_theme_css;
@@ -2359,7 +2359,7 @@ sub command61 {
     print "You can now define different LDAP servers.\n";
     print "[ldap] command (?=help) > ";
     $input = <STDIN>;
-    $input =~ s/[\r|\n]//g;
+    $input =~ s/[\r\n]//g;
     while ( $input ne "d" ) {
         if ( $input =~ /^\s*l\s*/i ) {
             $count = 0;
@@ -2398,7 +2398,7 @@ sub command61 {
             print "this LDAP server resides.  Example: ldap.bigfoot.com\n";
             print "hostname: ";
             $name = <STDIN>;
-            $name =~ s/[\r|\n]//g;
+            $name =~ s/[\r\n]//g;
             $ldap_host[$sub] = $name;
 
             print "\n";
@@ -2408,7 +2408,7 @@ sub command61 {
             print "Example: ou=member_directory,o=netcenter.com\n";
             print "base: ";
             $name = <STDIN>;
-            $name =~ s/[\r|\n]//g;
+            $name =~ s/[\r\n]//g;
             $ldap_base[$sub] = $name;
 
             print "\n";
@@ -2417,7 +2417,7 @@ sub command61 {
             print "port is 389.  This is optional.  Press ENTER for default.\n";
             print "port: ";
             $name = <STDIN>;
-            $name =~ s/[\r|\n]//g;
+            $name =~ s/[\r\n]//g;
             $ldap_port[$sub] = $name;
 
             print "\n";
@@ -2426,7 +2426,7 @@ sub command61 {
             print "is also optional.  Press ENTER for default.\n";
             print "charset: ";
             $name = <STDIN>;
-            $name =~ s/[\r|\n]//g;
+            $name =~ s/[\r\n]//g;
             $ldap_charset[$sub] = $name;
 
             print "\n";
@@ -2435,7 +2435,7 @@ sub command61 {
             print "the search.  Default it \"LDAP: hostname\".  Press ENTER for default\n";
             print "name: ";
             $name = <STDIN>;
-            $name =~ s/[\r|\n]//g;
+            $name =~ s/[\r\n]//g;
             $ldap_name[$sub] = $name;
 
             print "\n";
@@ -2444,7 +2444,7 @@ sub command61 {
             print "Default is unlimited.  Press ENTER for default.\n";
             print "maxrows: ";
             $name = <STDIN>;
-            $name =~ s/[\r|\n]//g;
+            $name =~ s/[\r\n]//g;
             $ldap_maxrows[$sub] = $name;
 
             print "\n";
@@ -2453,7 +2453,7 @@ sub command61 {
             print "Default is none, anonymous bind.  Press ENTER for default.\n";
             print "binddn: ";
             $name = <STDIN>;
-            $name =~ s/[\r|\n]//g;
+            $name =~ s/[\r\n]//g;
             $ldap_binddn[$sub] = $name;
 
             print "\n";
@@ -2463,7 +2463,7 @@ sub command61 {
                 print "Now, please specify password for that DN.\n";
                 print "bindpw: ";
                 $name = <STDIN>;
-                $name =~ s/[\r|\n]//g;
+                $name =~ s/[\r\n]//g;
                 $ldap_bindpw[$sub] = $name;
 
                 print "\n";
@@ -2474,7 +2474,7 @@ sub command61 {
         print "Press ENTER for default.\n";
             print "protocol: ";
             $name = <STDIN>;
-            $name =~ s/[\r|\n]//g;
+            $name =~ s/[\r\n]//g;
             $ldap_protocol[$sub] = $name;
 
             print "\n";
@@ -2532,7 +2532,7 @@ sub command61 {
         }
         print "[ldap] command (?=help) > ";
         $input = <STDIN>;
-        $input =~ s/[\r|\n]//g;
+        $input =~ s/[\r\n]//g;
     }
 }
 
@@ -2583,7 +2583,7 @@ sub command91 {
     if ( $new_dsn eq "\n" ) {
         $new_dsn = "";
     } else {
-        $new_dsn =~ s/[\r|\n]//g;
+        $new_dsn =~ s/[\r\n]//g;
         $new_dsn =~ s/^\s+$//g;
     }
     return $new_dsn;
@@ -2598,7 +2598,7 @@ sub command92 {
     if ( $new_table eq "\n" ) {
         $new_table = $addrbook_table;
     } else {
-        $new_table =~ s/[\r|\n]//g;
+        $new_table =~ s/[\r\n]//g;
     }
     return $new_table;
 }
@@ -2623,7 +2623,7 @@ sub command93 {
     if ( $new_dsn eq "\n" ) {
         $new_dsn = "";
     } else {
-        $new_dsn =~ s/[\r|\n]//g;
+        $new_dsn =~ s/[\r\n]//g;
         $new_dsn =~ s/^\s+$//g;
     }
     return $new_dsn;
@@ -2638,7 +2638,7 @@ sub command94 {
     if ( $new_table eq "\n" ) {
         $new_table = $prefs_table;
     } else {
-        $new_table =~ s/[\r|\n]//g;
+        $new_table =~ s/[\r\n]//g;
     }
     return $new_table;
 }
@@ -2654,7 +2654,7 @@ sub command95 {
     if ( $new_field eq "\n" ) {
         $new_field = $prefs_user_field;
     } else {
-        $new_field =~ s/[\r|\n]//g;
+        $new_field =~ s/[\r\n]//g;
     }
     return $new_field;
 }
@@ -2668,7 +2668,7 @@ sub command96 {
     if ( $new_field eq "\n" ) {
         $new_field = $prefs_key_field;
     } else {
-        $new_field =~ s/[\r|\n]//g;
+        $new_field =~ s/[\r\n]//g;
     }
     return $new_field;
 }
@@ -2682,7 +2682,7 @@ sub command97 {
     if ( $new_field eq "\n" ) {
         $new_field = $prefs_val_field;
     } else {
-        $new_field =~ s/[\r|\n]//g;
+        $new_field =~ s/[\r\n]//g;
     }
     return $new_field;
 }
@@ -2707,7 +2707,7 @@ sub command98 {
     if ( $new_dsn eq "\n" ) {
         $new_dsn = "";
     } else {
-        $new_dsn =~ s/[\r|\n]//g;
+        $new_dsn =~ s/[\r\n]//g;
         $new_dsn =~ s/^\s+$//g;
     }
     return $new_dsn;
@@ -2722,7 +2722,7 @@ sub command99 {
     if ( $new_table eq "\n" ) {
         $new_table = $addrbook_global_table;
     } else {
-        $new_table =~ s/[\r|\n]//g;
+        $new_table =~ s/[\r\n]//g;
     }
     return $new_table;
 }
@@ -2777,7 +2777,7 @@ sub commandA1 {
     if ( $new_squirrelmail_default_language eq "\n" ) {
         $new_squirrelmail_default_language = $squirrelmail_default_language;
     } else {
-        $new_squirrelmail_default_language =~ s/[\r|\n]//g;
+        $new_squirrelmail_default_language =~ s/[\r\n]//g;
         $new_squirrelmail_default_language =~ s/^\s+$//g;
     }
     return $new_squirrelmail_default_language;
@@ -2798,7 +2798,7 @@ sub commandA2 {
     if ( $new_default_charset eq "\n" ) {
         $new_default_charset = $default_charset;
     } else {
-        $new_default_charset =~ s/[\r|\n]//g;
+        $new_default_charset =~ s/[\r\n]//g;
     }
     return $new_default_charset;
 }
@@ -2852,7 +2852,7 @@ sub commandA4 {
     if ( $new_available_languages eq "\n" ) {
         $new_available_languages = $available_languages;
     } else {
-        $new_available_languages =~ s/[\r|\n]//g;
+        $new_available_languages =~ s/[\r\n]//g;
         $new_available_languages =~ s/^\s+$//g;
     }
     return $new_available_languages;
@@ -3354,7 +3354,7 @@ sub set_defaults {
         print "    quit       = Do not change anything\n";
         print "Command >> ";
         $server = <STDIN>;
-        $server =~ s/[\r|\n]//g;
+        $server =~ s/[\r\n]//g;
 
         print "\n";
         if ( $server eq "cyrus" ) {
