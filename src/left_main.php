@@ -45,11 +45,18 @@ function formatMailboxName($imapConnection, $box_array) {
     if (ereg("^( *)([^ ]*)$", $mailbox, $regs)) {
         $mailbox = $regs[2];
     }
-    $status = create_unseen_string($real_box, $box_array, $imapConnection);
-    if ($status !== false) {
-	list($unseen_string, $unseen) = $status;
+    $unseen = 0;
+    $status = array();
+    if (($unseen_notify == 2 && $real_box == 'INBOX') ||
+        $unseen_notify == 3) {
+	$status = create_unseen_string($real_box, $box_array, $imapConnection, $unseen_type );
+	if ($status !== false) {
+	    list($unseen_string, $unseen) = $status;
+	} else {
+	    list($unseen_string, $unseen) = array(_("Not available"),'');
+	}
     } else {
-	list($unseen_string, $unseen) = array(_("Not available"),'');
+	list($unseen_string, $unseen) = array('','');
     }
     $special_color = ($use_special_folder_color && isSpecialMailbox($real_box));
 
@@ -188,7 +195,7 @@ function create_collapse_link($boxnum) {
  * @return array[0] unseen message string (for display)
  * @return array[1] unseen message count
  */
-function create_unseen_string($boxName, $boxArray, $imapConnection) {
+function create_unseen_string($boxName, $boxArray, $imapConnection, $unseen_type) {
     global $boxes, $unseen_type, $color, $unseen_cum;
 
     /* Initialize the return value. */
