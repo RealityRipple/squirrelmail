@@ -42,9 +42,8 @@
    echo "<TITLE>";
    echo "$org_title";
    echo "</TITLE>";
-   $ishelp = substr(getenv(REQUEST_URI),-8);			// If calling help, set left frame to 300
    
-       $bar_size = $left_size;
+   $bar_size = $left_size;
    
    if ($location_of_bar == 'right')
    {
