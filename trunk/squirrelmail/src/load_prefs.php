@@ -137,6 +137,10 @@
    if ($use_signature == "")
       $use_signature = false;
 
+   $prefix_sig = getPref($data_dir, $username, "prefix_sig");
+   if ($prefix_sig == "")
+      $prefix_sig = false;
+
    $left_refresh = getPref($data_dir, $username, "left_refresh");
    if ($left_refresh == "")
       $left_refresh = false;
