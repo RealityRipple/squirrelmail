@@ -94,12 +94,12 @@ function plugin_listcommands_menu() {
                       . '&amp;reply_id=' . $passed_id
                       . '&amp;ent_num=' . $ent_num
                       . '&amp;mailprio=' . $priority_level;
-            if ($compose_new_win == '1') {
-                $output[] = '<A HREF="' . $url . '" target="compose_window" onClick="comp_in_new()">' . $fieldsdescr['Reply'] . '</A>';
-            }
-            else {
-                $output[] = '<A HREF="' . $url . '">' . $fieldsdescr['Reply'] . '</A>';
-            }
+                if ($compose_new_win == '1') {
+                    $output[] = '<A HREF="' . $url . '" target="compose_window" onClick="comp_in_new()">' . $fieldsdescr['Reply'] . '</A>';
+                }
+                else {
+                    $output[] = '<A HREF="' . $url . '">' . $fieldsdescr['Reply'] . '</A>';
+                }
             }
         } else if (eregi('^(http|ftp)', $url)) {
             $output[] = '<A HREF="' . $url . '" TARGET="_blank">'
