@@ -1,7 +1,7 @@
 <?php
 
 /**
- * functions/i18n.php
+ * SquirrelMail internationalization functions
  *
  * Copyright (c) 1999-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
@@ -105,6 +105,42 @@ function charset_decode ($charset, $string) {
       $ret = $string;
     }
     return( $ret );
+}
+
+/**
+ * Converts html string to given charset
+ * @param string $string
+ * @param string $charset
+ * @param string 
+ */
+function charset_encode($string,$charset) {
+  global $default_charset;
+
+  $encode=fixcharset($charset);
+  $encodefile=SM_PATH . 'functions/encode/' . $encode . '.php';
+  if (file_exists($encodefile)) {
+    include_once($encodefile);
+    $ret = call_user_func('charset_encode_'.$encode, $string);
+  } else {
+    $ret = $string;
+  }
+  return( $ret );
+}
+
+/**
+ * Combined decoding and encoding functions
+ *
+ * If conversion is done to charset different that utf-8, unsupported symbols
+ * will be replaced with question marks.
+ * @param string $in_charset initial charset
+ * @param string $string string that has to be converted
+ * @param string $out_charset final charset
+ * @return string converted string
+ */
+function charset_convert($in_charset,$string,$out_charset) {
+  $string=charset_decode($in_charset,$string);
+  $string=charset_encode($string,$out_charset);
+  return $string;
 }
 
 /**
