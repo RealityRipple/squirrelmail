@@ -1,0 +1,1041 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2000-08-17 13:27+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Magni Onsøien <magnio-squirrel@initio.no>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#: squirrelmail/src/addrbook_popup.php:30
+msgid "Address Book"
+msgstr "Adressebok"
+
+#: squirrelmail/src/addrbook_search.php:96
+#: squirrelmail/src/addrbook_search_html.php:72
+#: squirrelmail/src/addressbook.php:307
+msgid "Name"
+msgstr "Namn"
+
+#: squirrelmail/src/addrbook_search.php:96
+#: squirrelmail/src/addrbook_search_html.php:72
+#: squirrelmail/src/addressbook.php:308
+msgid "E-mail"
+msgstr "E-postadresse"
+
+#: squirrelmail/src/addrbook_search.php:96
+#: squirrelmail/src/addrbook_search_html.php:72
+#: squirrelmail/src/addressbook.php:309
+msgid "Info"
+msgstr "Informasjon"
+
+#: squirrelmail/src/addrbook_search.php:99
+#: squirrelmail/src/addrbook_search_html.php:75
+msgid "Source"
+msgstr "Kjelde"
+
+#: squirrelmail/functions/auth.php:14 squirrelmail/src/addrbook_search.php:130
+#: squirrelmail/src/right_main.php:17 squirrelmail/src/search.php:5
+msgid "You must login first."
+msgstr "Du må logge inn fyrst."
+
+#: squirrelmail/src/addrbook_search.php:134 squirrelmail/src/right_main.php:21
+#: squirrelmail/src/search.php:9 squirrelmail/src/webmail.php:27
+msgid "You need a valid user and password to access this page!"
+msgstr "Du må ha eit gyldig brukarnamn og passord for å få tilgang til denne sida!"
+
+#: squirrelmail/src/addrbook_search.php:169
+#: squirrelmail/src/addrbook_search.php:253
+#: squirrelmail/src/addrbook_search_html.php:207
+msgid "No persons matching your search was found"
+msgstr "Ingen personar som samsvarer med søket ditt vart funne"
+
+#: squirrelmail/src/addrbook_search.php:182
+#: squirrelmail/src/addrbook_search_html.php:132
+msgid "Search for"
+msgstr "Søk etter"
+
+#: squirrelmail/src/addrbook_search.php:189
+#: squirrelmail/src/addrbook_search_html.php:140
+msgid "in"
+msgstr "i"
+
+#: squirrelmail/src/addrbook_search.php:191
+#: squirrelmail/src/addrbook_search_html.php:143
+msgid "All address books"
+msgstr "Alle adressebøker"
+
+#: squirrelmail/functions/page_header.php:101
+#: squirrelmail/src/addrbook_search.php:201
+#: squirrelmail/src/addrbook_search_html.php:155
+#: squirrelmail/src/search.php:35 squirrelmail/src/search.php:89
+msgid "Search"
+msgstr "Søk"
+
+#: squirrelmail/src/addrbook_search.php:203
+#: squirrelmail/src/addrbook_search_html.php:157
+msgid "List all"
+msgstr "List alle"
+
+#: squirrelmail/src/addrbook_search.php:206
+msgid "Close window"
+msgstr "Lukk vindauge"
+
+#: squirrelmail/src/addrbook_search.php:224
+#: squirrelmail/src/addrbook_search_html.php:180
+#, c-format
+msgid "Unable to list addresses from %s"
+msgstr "Klarte ikkje å liste adresser frå %s"
+
+#: squirrelmail/src/addrbook_search.php:246
+#: squirrelmail/src/addrbook_search_html.php:203
+msgid "Your search failed with the following error(s)"
+msgstr "Søket ditt feila med fylgjande feilmelding(ar)"
+
+#: squirrelmail/src/addrbook_search_html.php:98
+msgid "Use Addresses"
+msgstr "Bruk adresser"
+
+#: squirrelmail/src/addrbook_search_html.php:122
+msgid "Address Book Search"
+msgstr "Søk i adressebok"
+
+#: squirrelmail/src/addrbook_search_html.php:216
+msgid "Return"
+msgstr "Tilbake"
+
+#: squirrelmail/src/addressbook.php:46 squirrelmail/src/addressbook.php:306
+msgid "Nickname"
+msgstr "Kortnamn"
+
+#: squirrelmail/src/addressbook.php:51
+msgid "Must be unique"
+msgstr "Må vere unikt"
+
+#: squirrelmail/src/addressbook.php:53
+msgid "E-mail address"
+msgstr "E-postadresse"
+
+#: squirrelmail/src/addressbook.php:58
+msgid "First name"
+msgstr "Fornamn"
+
+#: squirrelmail/src/addressbook.php:63
+msgid "Last name"
+msgstr "Etternamn"
+
+#: squirrelmail/src/addressbook.php:68
+msgid "Additional info"
+msgstr "Tilleggsinformasjon"
+
+#: squirrelmail/src/addressbook.php:87
+msgid "No personal address book is defined. Contact administrator."
+msgstr "Inga personleg adressebok er definert. Ta kontakt med administrator."
+
+#: squirrelmail/src/addressbook.php:184
+msgid "You can only edit one address at the time"
+msgstr "Du kan berre editere ei adresse om gongen."
+
+#: squirrelmail/src/addressbook.php:196 squirrelmail/src/addressbook.php:199
+#: squirrelmail/src/addressbook.php:228 squirrelmail/src/addressbook.php:231
+msgid "Update address"
+msgstr "Oppdater adresse"
+
+#: squirrelmail/functions/display_messages.php:63
+#: squirrelmail/functions/display_messages.php:79
+#: squirrelmail/functions/imap_general.php:139
+#: squirrelmail/src/addressbook.php:219 squirrelmail/src/addressbook.php:269
+msgid "ERROR"
+msgstr "FEIL"
+
+#: squirrelmail/src/addressbook.php:245
+msgid "Unknown error"
+msgstr "Ukjend feil"
+
+#: squirrelmail/src/addressbook.php:344
+msgid "Edit selected"
+msgstr "Endre valde"
+
+#: squirrelmail/src/addressbook.php:346
+msgid "Delete selected"
+msgstr "Slett valde"
+
+#: squirrelmail/src/addressbook.php:356
+#, c-format
+msgid "Add to %s"
+msgstr "Legg til %s"
+
+#: squirrelmail/src/addressbook.php:359
+msgid "Add address"
+msgstr "Legg til adresse"
+
+#: squirrelmail/src/compose.php:79
+msgid "Original Message"
+msgstr "Opphavleg melding"
+
+#: squirrelmail/functions/imap_search.php:170
+#: squirrelmail/functions/mailbox_display.php:284
+#: squirrelmail/src/compose.php:80 squirrelmail/src/download.php:112
+#: squirrelmail/src/search.php:74 squirrelmail/src/search.php:75
+msgid "Subject"
+msgstr "Emne"
+
+#: squirrelmail/functions/imap_search.php:165
+#: squirrelmail/functions/mailbox_display.php:266
+#: squirrelmail/src/compose.php:81 squirrelmail/src/download.php:113
+#: squirrelmail/src/search.php:77 squirrelmail/src/search.php:78
+msgid "From"
+msgstr "Frå"
+
+#: squirrelmail/functions/imap_search.php:163
+#: squirrelmail/functions/mailbox_display.php:264
+#: squirrelmail/src/compose.php:82 squirrelmail/src/download.php:114
+#: squirrelmail/src/search.php:83 squirrelmail/src/search.php:84
+msgid "To"
+msgstr "Til"
+
+#: squirrelmail/src/compose.php:164 squirrelmail/src/read_body.php:315
+msgid "To:"
+msgstr "Til:"
+
+#: squirrelmail/src/compose.php:172
+msgid "CC:"
+msgstr "Kopi til:"
+
+#: squirrelmail/src/compose.php:180
+msgid "BCC:"
+msgstr "Blindkopi til:"
+
+#: squirrelmail/src/compose.php:188 squirrelmail/src/read_body.php:285
+msgid "Subject:"
+msgstr "Emne:"
+
+#: squirrelmail/functions/page_header.php:95 squirrelmail/src/compose.php:217
+#: squirrelmail/src/compose.php:219 squirrelmail/src/compose.php:222
+msgid "Addresses"
+msgstr "Adresser"
+
+#: squirrelmail/src/compose.php:224 squirrelmail/src/compose.php:244
+msgid "Send"
+msgstr "Send"
+
+#: squirrelmail/src/compose.php:250
+msgid "Attach:"
+msgstr "Legg ved:"
+
+#: squirrelmail/src/compose.php:256
+msgid "Add"
+msgstr "Legg til:"
+
+#: squirrelmail/src/compose.php:268
+msgid "Delete selected attachments"
+msgstr "Slett valde vedlegg"
+
+#: squirrelmail/src/compose.php:293
+msgid "You have not filled in the \"To:\" field."
+msgstr "Du har ikkje fylt ut \"Til:\"-feltet"
+
+#: squirrelmail/src/compose.php:356
+msgid "Could not move/copy file. File not attached"
+msgstr "Kunne ikkje flytte/kopiere fila. Fila er ikkje lagt ved"
+
+#: squirrelmail/src/download.php:34
+msgid "Viewing a text attachment"
+msgstr "Viser eit tekstvedlegg"
+
+#: squirrelmail/src/download.php:37 squirrelmail/src/download.php:39
+#: squirrelmail/src/read_body.php:45
+msgid "View message"
+msgstr "Vis melding"
+
+#: squirrelmail/functions/mime.php:449 squirrelmail/src/download.php:44
+msgid "Download this as a file"
+msgstr "Last ned dette som ei fil"
+
+#: squirrelmail/functions/imap_search.php:167
+#: squirrelmail/functions/mailbox_display.php:275
+#: squirrelmail/src/download.php:115
+msgid "Date"
+msgstr "Dato"
+
+#: squirrelmail/functions/page_header.php:97 squirrelmail/src/folders.php:35
+#: squirrelmail/src/left_main.php:123
+msgid "Folders"
+msgstr "Mapper"
+
+#: squirrelmail/src/folders.php:43
+msgid "Subscribed successfully!"
+msgstr "La til mappa til lista over aktive mapper."
+
+#: squirrelmail/src/folders.php:45
+msgid "Unsubscribed successfully!"
+msgstr "Fjerna mappa frå lista over aktive mapper."
+
+#: squirrelmail/src/folders.php:47
+msgid "Deleted folder successfully!"
+msgstr "Mappa er sletta."
+
+#: squirrelmail/src/folders.php:49
+msgid "Created folder successfully!"
+msgstr "Mappa er oppretta."
+
+#: squirrelmail/src/folders.php:51
+msgid "Renamed successfully!"
+msgstr "Mappa er omnamna."
+
+#: squirrelmail/src/folders.php:59
+msgid "Folders created successfully!"
+msgstr "Mappa er oppretta."
+
+#: squirrelmail/src/folders.php:62 squirrelmail/src/left_main.php:126
+msgid "refresh folder list"
+msgstr "oppdater mappeliste"
+
+#: squirrelmail/src/folders.php:74
+msgid "Special Folder Options"
+msgstr "Val for spesielle mapper"
+
+#: squirrelmail/src/folders.php:77
+msgid ""
+"In order for SquirrelMail to provide the full set of options you need to "
+"create the special folders listed below.  Just click the check box and hit "
+"the create button."
+msgstr "For at SquirrelMail skal tilby alle val, må du opprette dei spesielle mappene som er lista opp under. Berre kryss av og trykk på opprett-knappen."
+
+#: squirrelmail/src/folders.php:80
+msgid "Create Sent"
+msgstr "Lag mappe"
+
+#: squirrelmail/src/folders.php:83
+msgid "Create Trash"
+msgstr "Lag mappe"
+
+#: squirrelmail/src/folders.php:93
+msgid "Delete Folder"
+msgstr "Slett mappe"
+
+#: squirrelmail/functions/imap_search.php:151
+#: squirrelmail/functions/mailbox_display.php:251
+#: squirrelmail/src/folders.php:134 squirrelmail/src/options_highlight.php:73
+#: squirrelmail/src/read_body.php:241
+msgid "Delete"
+msgstr "Slett"
+
+#: squirrelmail/src/folders.php:138 squirrelmail/src/folders.php:234
+msgid "No folders found"
+msgstr "Fann ingen mapper"
+
+#: squirrelmail/src/folders.php:145
+msgid "Create Folder"
+msgstr "Lag mappe"
+
+#: squirrelmail/src/folders.php:150
+msgid "as a subfolder of"
+msgstr "som undermappe til"
+
+#: squirrelmail/src/folders.php:199
+msgid "Let this folder contain subfolders"
+msgstr "La denne mappa innehalde undermapper"
+
+#: squirrelmail/src/folders.php:202
+msgid "Create"
+msgstr "Lag mappe"
+
+#: squirrelmail/src/folders.php:209
+msgid "Rename a Folder"
+msgstr "Bytt namn på mappa"
+
+#: squirrelmail/src/folders.php:230
+msgid "Rename"
+msgstr "Bytt namn"
+
+#: squirrelmail/src/folders.php:243 squirrelmail/src/folders.php:262
+msgid "Unsubscribe"
+msgstr "Fjern"
+
+#: squirrelmail/src/folders.php:243 squirrelmail/src/folders.php:305
+msgid "Subscribe"
+msgstr "Legg til"
+
+#: squirrelmail/src/folders.php:266
+msgid "No folders were found to unsubscribe from!"
+msgstr "Fann ingen mapper å fjerne!"
+
+#: squirrelmail/src/folders.php:308
+msgid "No folders were found to subscribe to!"
+msgstr "Fann ingen mappe å legge til!"
+
+#: squirrelmail/src/folders_create.php:32
+msgid "Illegal folder name.  Please select a different name."
+msgstr "Ulovleg mappenamn. Ver venleg og velj eit anna namn."
+
+#: squirrelmail/src/folders_create.php:32
+msgid "Click here to go back"
+msgstr "Klikk her for å gå tilbake"
+
+#: squirrelmail/src/folders_rename_getname.php:46
+msgid "Rename a folder"
+msgstr "Bytt namn på ei mappe"
+
+#: squirrelmail/src/folders_rename_getname.php:50
+msgid "New name:"
+msgstr "Nytt namn:"
+
+#: squirrelmail/src/folders_rename_getname.php:56
+#: squirrelmail/src/options_highlight.php:187
+msgid "Submit"
+msgstr "OK"
+
+#: squirrelmail/functions/page_header.php:103 squirrelmail/src/help.php:92
+msgid "Help"
+msgstr "Hjelp"
+
+#: squirrelmail/src/help.php:123
+#, c-format
+msgid ""
+"The help has not been translated to %s.  It will be displayed in English "
+"instead."
+msgstr "Hjelpa er enno ikkje omsett til %s. Den vil difor bli vist på engelsk."
+
+#: squirrelmail/src/help.php:129
+msgid "Some or all of the help documents are not present!"
+msgstr "Nokre eller alle hjelpefilene mangler."
+
+#: squirrelmail/src/help.php:153
+msgid "Table of Contents"
+msgstr "Innhaldsliste"
+
+#: squirrelmail/src/help.php:193
+msgid "Top"
+msgstr "Topp"
+
+#: squirrelmail/src/left_main.php:103
+msgid "purge"
+msgstr "Tøm"
+
+#: squirrelmail/src/login.php:60 squirrelmail/src/login.php:98
+msgid "Login"
+msgstr "Logg inn"
+
+#: squirrelmail/src/login.php:67
+#, c-format
+msgid "SquirrelMail version %s"
+msgstr "SquirrelMail versjon %s"
+
+#: squirrelmail/src/login.php:69
+msgid "By the SquirrelMail Development Team"
+msgstr "Av SquirrelMail-utviklingsgruppa"
+
+#: squirrelmail/src/login.php:75
+#, c-format
+msgid "%s Login"
+msgstr "%s innlogging"
+
+#: squirrelmail/src/login.php:83
+msgid "Name:"
+msgstr "Namn:"
+
+#: squirrelmail/src/login.php:89
+msgid "Password:"
+msgstr "Passord:"
+
+#: squirrelmail/src/move_messages.php:78
+#: squirrelmail/src/move_messages.php:107
+msgid "No messages were selected."
+msgstr "Ingen valde meldingar."
+
+#: squirrelmail/functions/page_header.php:99 squirrelmail/src/options.php:45
+#: squirrelmail/src/options_display.php:37
+#: squirrelmail/src/options_folder.php:40
+#: squirrelmail/src/options_highlight.php:62
+#: squirrelmail/src/options_personal.php:41
+msgid "Options"
+msgstr "Alternativ"
+
+#: squirrelmail/src/options.php:59
+msgid "Successfully saved personal information!"
+msgstr "Lagra personleg informasjon!"
+
+#: squirrelmail/src/options.php:73
+msgid "Successfully saved display preferences!"
+msgstr "Lagra val for framsyning!"
+
+#: squirrelmail/src/options.php:74
+msgid "Refresh Page"
+msgstr "Last sida på nytt"
+
+#: squirrelmail/src/options.php:95
+msgid "Successfully saved folder preferences!"
+msgstr "Lagra val for mapper"
+
+#: squirrelmail/src/options.php:96
+msgid "Refresh Folders"
+msgstr "Oppdater mappelista"
+
+#: squirrelmail/src/options.php:110 squirrelmail/src/options_personal.php:41
+msgid "Personal Information"
+msgstr "Personleg informasjon"
+
+#: squirrelmail/src/options.php:115
+msgid ""
+"This contains personal information about yourself such as your name, your "
+"email address, etc."
+msgstr "Dette inneheld personleg informasjon om deg sjølv, slik som namn, e-postadresse og liknande."
+
+#: squirrelmail/src/options.php:122 squirrelmail/src/options_highlight.php:62
+msgid "Message Highlighting"
+msgstr "Utheving av meldingar"
+
+#: squirrelmail/src/options.php:127
+msgid ""
+"Based upon given criteria, incoming messages can have different background "
+"colors in the message list.  This helps to easily distinguish who the "
+"messages are from, especially for mailing lists."
+msgstr "Basert på gjevne kriterium kan innkomande meldingar ha ulik bakgrunnsfagre i meldingslista. Dette er til hjelp for å sjå kven meldinga er frå, særleg i samband med mailinglister."
+
+#: squirrelmail/src/options.php:136 squirrelmail/src/options_display.php:37
+msgid "Display Preferences"
+msgstr "Framsyningsval"
+
+#: squirrelmail/src/options.php:141
+msgid ""
+"You can change the way that SquirrelMail looks and displays information to "
+"you, such as the colors, the language, and other settings."
+msgstr "Du kan endre måten SquirrelMail ser ut og viser informasjon på, slik som fargar, språk og andre val."
+
+#: squirrelmail/src/options.php:148 squirrelmail/src/options_folder.php:40
+msgid "Folder Preferences"
+msgstr "Val for mapper"
+
+#: squirrelmail/src/options.php:153
+msgid ""
+"These settings change the way your folders are displayed and manipulated."
+msgstr "Dette er val for korleis mapper vert viste og kan endrast."
+
+#: squirrelmail/src/options_display.php:43
+msgid "Theme"
+msgstr "Fargeval"
+
+#: squirrelmail/src/options_display.php:58
+msgid "Language"
+msgstr "Språk"
+
+#: squirrelmail/src/options_display.php:76
+msgid "Use Javascript or HTML addressbook?"
+msgstr "Bruk Javascript eller HTML i adresseboka?"
+
+#: squirrelmail/src/options_display.php:78
+#: squirrelmail/src/options_display.php:81
+msgid "JavaScript"
+msgstr "Javascript"
+
+#: squirrelmail/src/options_display.php:79
+#: squirrelmail/src/options_display.php:82
+msgid "HTML"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:88
+msgid "Number of Messages to Index"
+msgstr "Talet meldingar som skal indekserast"
+
+#: squirrelmail/src/options_display.php:99
+msgid "Wrap incoming text at"
+msgstr "Bryt innkomande tekst ved"
+
+#: squirrelmail/src/options_display.php:110
+msgid "Size of editor window"
+msgstr "Storleik på editorvindauget"
+
+#: squirrelmail/src/options_display.php:121
+msgid "Width of left folder list"
+msgstr "Breidde på mappelista til venstre"
+
+#: squirrelmail/src/options_display.php:175
+msgid "Auto refresh folder list"
+msgstr "Automatisk oppdatering av mappelista"
+
+#: squirrelmail/src/options_folder.php:48
+msgid "Folder Path"
+msgstr "Sti til mapper (folder path)"
+
+#: squirrelmail/src/options_folder.php:61
+msgid "Trash Folder:"
+msgstr "Søppelbøtte:"
+
+#: squirrelmail/src/options_folder.php:65
+msgid "Don't use Trash"
+msgstr "Ikkje bruk søppelbøtta"
+
+#: squirrelmail/src/options_folder.php:67
+msgid "Do not use Trash"
+msgstr "Bruk søppelbøtta"
+
+#: squirrelmail/src/options_folder.php:89
+msgid "Sent Folder:"
+msgstr "Mappe for sendte meldingar:"
+
+#: squirrelmail/src/options_folder.php:93
+msgid "Don't use Sent"
+msgstr "Ikkje bruk mappe for sendte meldingar"
+
+#: squirrelmail/src/options_folder.php:95
+msgid "Do not use Sent"
+msgstr "Ikkje bruk mappe for sendte meldingar"
+
+#: squirrelmail/src/options_folder.php:117
+msgid "Unseen message notification"
+msgstr "Gje melding om ulesne meldingar"
+
+#: squirrelmail/src/options_folder.php:120
+msgid "No notification"
+msgstr "Inga varsling"
+
+#: squirrelmail/src/options_folder.php:121
+msgid "Only INBOX"
+msgstr "Berre INBOX"
+
+#: squirrelmail/src/options_folder.php:122
+msgid "All Folders"
+msgstr "Alle mapper"
+
+#: squirrelmail/src/options_folder.php:129
+msgid "Unseen message notification type"
+msgstr "Meldingstype for ulesne meldingar"
+
+#: squirrelmail/src/options_folder.php:132
+msgid "Only unseen"
+msgstr "Berre ulesne"
+
+#: squirrelmail/src/options_folder.php:133
+msgid "Unseen and Total"
+msgstr "Ulesne og totalt tal"
+
+#: squirrelmail/src/options_highlight.php:66
+msgid "New"
+msgstr "Ny"
+
+#: squirrelmail/src/options_highlight.php:67
+msgid "Done"
+msgstr "Ferdig"
+
+#: squirrelmail/src/options_highlight.php:73
+msgid "Edit"
+msgstr "Editer"
+
+#: squirrelmail/src/options_highlight.php:86
+msgid "No highlighting is defined"
+msgstr "Inga utheving er definert"
+
+#: squirrelmail/src/options_highlight.php:124
+msgid "Identifying name"
+msgstr ""
+
+#: squirrelmail/src/options_highlight.php:137
+msgid "Color"
+msgstr "Farge"
+
+#: squirrelmail/src/options_highlight.php:141
+msgid "Dark Blue"
+msgstr "Mørk blå"
+
+#: squirrelmail/src/options_highlight.php:142
+msgid "Dark Green"
+msgstr "Mørk grøn"
+
+#: squirrelmail/src/options_highlight.php:143
+msgid "Dark Yellow"
+msgstr "Mørk gul"
+
+#: squirrelmail/src/options_highlight.php:144
+msgid "Dark Cyan"
+msgstr "Mørk cyan"
+
+#: squirrelmail/src/options_highlight.php:145
+msgid "Dark Magenta"
+msgstr "Mørk lilla"
+
+#: squirrelmail/src/options_highlight.php:146
+msgid "Light Blue"
+msgstr "Lys blå"
+
+#: squirrelmail/src/options_highlight.php:147
+msgid "Light Green"
+msgstr "Lys grøn"
+
+#: squirrelmail/src/options_highlight.php:148
+msgid "Light Yellow"
+msgstr "Lys gul"
+
+#: squirrelmail/src/options_highlight.php:149
+msgid "Light Cyan"
+msgstr "Lys cyan"
+
+#: squirrelmail/src/options_highlight.php:150
+msgid "Light Magenta"
+msgstr "Lys magenta"
+
+#: squirrelmail/src/options_highlight.php:151
+msgid "Dark Gray"
+msgstr "Lys grå"
+
+#: squirrelmail/src/options_highlight.php:152
+msgid "Medium Gray"
+msgstr "Medium grå"
+
+#: squirrelmail/src/options_highlight.php:153
+msgid "Light Gray"
+msgstr "Lys grå"
+
+#: squirrelmail/src/options_highlight.php:154
+msgid "White"
+msgstr "Kvit"
+
+#: squirrelmail/src/options_highlight.php:156
+msgid "Other:"
+msgstr "Annan:"
+
+#: squirrelmail/src/options_highlight.php:158
+msgid "Ex: 63aa7f"
+msgstr "Døme: 63aa7f"
+
+#: squirrelmail/src/options_highlight.php:164
+msgid "Match"
+msgstr ""
+
+#: squirrelmail/src/options_personal.php:47
+msgid "Full Name"
+msgstr "Fullt namn"
+
+#: squirrelmail/src/options_personal.php:53
+msgid "E-Mail Address"
+msgstr "E-postadresse"
+
+#: squirrelmail/src/options_personal.php:59
+msgid "Reply To"
+msgstr "Svar-til-adresse"
+
+#: squirrelmail/src/options_personal.php:65
+msgid "Signature"
+msgstr "Signatur"
+
+#: squirrelmail/src/options_personal.php:69
+msgid "Use a signature"
+msgstr "Bruk ein signatur"
+
+#: squirrelmail/src/options_personal.php:72
+msgid "Use a signature?"
+msgstr "Bruk ein signatur?"
+
+#: squirrelmail/src/read_body.php:38
+msgid "Viewing full header"
+msgstr "Viser fulle meldingshovud"
+
+#: squirrelmail/src/read_body.php:145
+msgid "more"
+msgstr "meir"
+
+#: squirrelmail/src/read_body.php:146
+msgid "less"
+msgstr "mindre"
+
+#: squirrelmail/src/read_body.php:234
+msgid "Message List"
+msgstr "Meldingsliste"
+
+#: squirrelmail/functions/mailbox_display.php:215
+#: squirrelmail/functions/mailbox_display.php:219
+#: squirrelmail/functions/mailbox_display.php:223
+#: squirrelmail/functions/mailbox_display.php:332
+#: squirrelmail/functions/mailbox_display.php:336
+#: squirrelmail/functions/mailbox_display.php:340
+#: squirrelmail/src/read_body.php:254 squirrelmail/src/read_body.php:256
+msgid "Previous"
+msgstr "Forrige"
+
+#: squirrelmail/functions/mailbox_display.php:216
+#: squirrelmail/functions/mailbox_display.php:220
+#: squirrelmail/functions/mailbox_display.php:224
+#: squirrelmail/functions/mailbox_display.php:333
+#: squirrelmail/functions/mailbox_display.php:337
+#: squirrelmail/functions/mailbox_display.php:341
+#: squirrelmail/src/read_body.php:258 squirrelmail/src/read_body.php:260
+msgid "Next"
+msgstr "Neste"
+
+#: squirrelmail/src/read_body.php:267
+msgid "Forward"
+msgstr "Vidaresend"
+
+#: squirrelmail/src/read_body.php:270
+msgid "Reply"
+msgstr "Svar"
+
+#: squirrelmail/src/read_body.php:273
+msgid "Reply All"
+msgstr "Svar til alle"
+
+#: squirrelmail/src/read_body.php:291 squirrelmail/src/read_body.php:293
+msgid "View full header"
+msgstr "Vis fulle meldingshovud"
+
+#: squirrelmail/src/read_body.php:299
+msgid "From:"
+msgstr "Frå:"
+
+#: squirrelmail/src/read_body.php:307
+msgid "Date:"
+msgstr "Dato:"
+
+#: squirrelmail/src/search.php:68 squirrelmail/src/search.php:69
+msgid "Body"
+msgstr "Meldingskropp"
+
+#: squirrelmail/src/search.php:71 squirrelmail/src/search.php:72
+msgid "Everywhere"
+msgstr "Overalt"
+
+#: squirrelmail/src/search.php:80 squirrelmail/src/search.php:81
+msgid "Cc"
+msgstr "Kopi til"
+
+#: squirrelmail/functions/page_header.php:83 squirrelmail/src/signout.php:69
+msgid "Sign Out"
+msgstr "Logg ut"
+
+#: squirrelmail/src/signout.php:76
+msgid "You have been successfully signed out."
+msgstr "Du er no logga ut"
+
+#: squirrelmail/src/signout.php:79
+msgid "Click here to log back in."
+msgstr "Klikk her for å prøve på nytt."
+
+#: squirrelmail/functions/abook_local_file.php:32
+#: squirrelmail/functions/addressbook.php:72
+msgid "Personal address book"
+msgstr "Personleg adressebok"
+
+#: squirrelmail/functions/abook_local_file.php:40
+msgid "Not a file name"
+msgstr "Ikkje eit filnamn"
+
+#: squirrelmail/functions/abook_local_file.php:74
+msgid "No such file or directory"
+msgstr "Fila eller katalogen finst ikkje"
+
+#: squirrelmail/functions/abook_local_file.php:94
+#: squirrelmail/functions/abook_local_file.php:130
+msgid "Open failed"
+msgstr "Feila ved opning av fil"
+
+#: squirrelmail/functions/abook_local_file.php:226
+#: squirrelmail/functions/abook_local_file.php:246
+#: squirrelmail/functions/abook_local_file.php:269
+#: squirrelmail/functions/abook_local_file.php:299
+#: squirrelmail/functions/addressbook.php:268
+#: squirrelmail/functions/addressbook.php:299
+msgid "Addressbook is read-only"
+msgstr "Adresseboka er ikkje skrivbar"
+
+#: squirrelmail/functions/abook_local_file.php:231
+#, c-format
+msgid "User '%s' already exist"
+msgstr "Brukaren '%s' finst alt"
+
+#: squirrelmail/functions/abook_local_file.php:250
+#: squirrelmail/functions/abook_local_file.php:274
+#: squirrelmail/functions/abook_local_file.php:310
+msgid "Could not lock datafile"
+msgstr "Kunne ikkje låse datafila"
+
+#: squirrelmail/functions/abook_local_file.php:262
+msgid "Write to addressbook failed"
+msgstr "Feila ved skriving til adressebok"
+
+#: squirrelmail/functions/abook_local_file.php:304
+#, c-format
+msgid "User '%s' does not exist"
+msgstr "Brukaren '%s' finst ikkje"
+
+#: squirrelmail/functions/addressbook.php:29
+#, c-format
+msgid "Error opening file %s"
+msgstr "Feila ved opning av %s"
+
+#: squirrelmail/functions/addressbook.php:43
+#, c-format
+msgid "Error initializing LDAP server %s:"
+msgstr "Feil ved tilkobling til LDAP-serveren %s"
+
+#: squirrelmail/functions/addressbook.php:245
+#: squirrelmail/functions/addressbook.php:326
+msgid "Invalid input data"
+msgstr "Ugyldige inndata"
+
+#: squirrelmail/functions/addressbook.php:250
+#: squirrelmail/functions/addressbook.php:331
+msgid "Name is missing"
+msgstr "Namnet manglar"
+
+#: squirrelmail/functions/addressbook.php:254
+#: squirrelmail/functions/addressbook.php:335
+msgid "E-mail address is missing"
+msgstr "E-postadressa manglar"
+
+#: squirrelmail/functions/addressbook.php:262
+msgid "Nickname contain illegal characters"
+msgstr "Kortnamnet inneheld ugyldige teikn"
+
+#: squirrelmail/functions/addressbook.php:344
+#, c-format
+msgid "Addressbook %s is read-only"
+msgstr "Adresseboka %s er ikkje skrivbar"
+
+#: squirrelmail/functions/display_messages.php:19
+#: squirrelmail/functions/imap_general.php:147
+msgid "Unknown user or password incorrect."
+msgstr "Ukjend brukar eller feil passord."
+
+#: squirrelmail/functions/display_messages.php:19
+#: squirrelmail/functions/imap_general.php:148
+msgid "Click here to try again"
+msgstr "Klikk her for å prøve på nytt"
+
+#: squirrelmail/functions/display_messages.php:32
+#, c-format
+msgid "Welcome to %s's WebMail system"
+msgstr "Velkomen til %s sitt WebMailsystem"
+
+#: squirrelmail/functions/display_messages.php:43
+#, c-format
+msgid "Running SquirrelMail version %s (c) 1999-2000."
+msgstr "Køyrer SquirrelMail versjon %s &#160; 1999-2000."
+
+#: squirrelmail/functions/display_messages.php:68
+#, c-format
+msgid "Click here to return to %s"
+msgstr "Klikk her for å gå tilbake til %s"
+
+#: squirrelmail/functions/imap_general.php:44
+msgid "ERROR : Could not complete request."
+msgstr "FEIL: Kunne ikkje fullføre førespurnaden."
+
+#: squirrelmail/functions/imap_general.php:46
+msgid "Reason Given: "
+msgstr "Oppgjeven grunn: "
+
+#: squirrelmail/functions/imap_general.php:51
+msgid "ERROR : Bad or malformed request."
+msgstr "FEIL: Feil eller misforma førespurnad."
+
+#: squirrelmail/functions/imap_general.php:53
+msgid "Server responded: "
+msgstr "Serveren svarte: "
+
+#: squirrelmail/functions/imap_general.php:89
+#, c-format
+msgid "Error connecting to IMAP server: %s."
+msgstr "Kunne ikkje koble til IMAP-serveren: %s"
+
+#: squirrelmail/functions/imap_general.php:102
+#, c-format
+msgid "Bad request: %s"
+msgstr "Feil i førespurnaden: %s"
+
+#: squirrelmail/functions/imap_general.php:160
+#, c-format
+msgid "Unknown error: %s"
+msgstr "Ukjend feil: %s"
+
+#: squirrelmail/functions/imap_messages.php:52
+#: squirrelmail/functions/imap_messages.php:76
+#: squirrelmail/functions/imap_messages.php:277
+#: squirrelmail/functions/imap_messages.php:316
+msgid "(no subject)"
+msgstr "(utan emne)"
+
+#: squirrelmail/functions/imap_messages.php:53
+msgid "Unknown Sender"
+msgstr "Ukjend avsendar"
+
+#: squirrelmail/functions/imap_messages.php:319
+msgid "(unknown sender)"
+msgstr "(ukjend avsendar)"
+
+#: squirrelmail/functions/imap_search.php:126
+msgid "Found"
+msgstr "Funne"
+
+#: squirrelmail/functions/imap_search.php:126
+msgid "messages"
+msgstr "meldingar"
+
+#: squirrelmail/functions/imap_search.php:135
+#: squirrelmail/functions/mailbox_display.php:235
+msgid "Move selected to:"
+msgstr "Flytt valde til:"
+
+#: squirrelmail/functions/imap_search.php:147
+#: squirrelmail/functions/mailbox_display.php:247
+msgid "Move"
+msgstr "Flytt"
+
+#: squirrelmail/functions/imap_search.php:151
+#: squirrelmail/functions/mailbox_display.php:251
+msgid "checked messages"
+msgstr "valde meldingar"
+
+#: squirrelmail/functions/mailbox_display.php:205
+msgid "Viewing messages"
+msgstr "Ser på melding"
+
+#: squirrelmail/functions/mailbox_display.php:205
+msgid "to"
+msgstr "til"
+
+#: squirrelmail/functions/mailbox_display.php:205
+#: squirrelmail/functions/mailbox_display.php:209
+msgid "total"
+msgstr "totalt"
+
+#: squirrelmail/functions/mailbox_display.php:209
+msgid "Viewing message"
+msgstr "Viser melding"
+
+#: squirrelmail/functions/mailbox_display.php:298
+msgid "THIS FOLDER IS EMPTY"
+msgstr "DENNE MAPPA ER TOM"
+
+#: squirrelmail/functions/mime.php:495
+msgid "download"
+msgstr "last ned"
+
+#: squirrelmail/functions/page_header.php:85
+msgid "Current Folder"
+msgstr "Vald mappe"
+
+#: squirrelmail/functions/page_header.php:93
+msgid "Compose"
+msgstr "Ny melding"
+
+#: squirrelmail/functions/prefs.php:14
+#, c-format
+msgid "Preference file %s not found. Exiting abnormally"
+msgstr "Fil for lagring av valet (%s) vart ikkje funne. Avsluttar med feil."
+
+#: squirrelmail/functions/prefs.php:36 squirrelmail/functions/prefs.php:75
+#, c-format
+msgid ""
+"Preference file, %s, does not exist. Log out, and log back in to create a "
+"default preference file."
+msgstr "Fil for lagring av val (%s) vart ikkje funne. Logg ut og innatt for å opprette fila."
+
+#: squirrelmail/functions/prefs.php:119
+msgid "Error opening "
+msgstr "Feil ved opning"

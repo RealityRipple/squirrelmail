@@ -15,8 +15,10 @@
 
    // This array specifies the available languages.
    $languages["en"]["NAME"]    = "English";
-   $languages["no"]["NAME"]    = "Norsk";
+   $languages["no"]["NAME"]    = "Norwegian (Bokm&aring;l)";
    $languages["no"]["CHARSET"] = "iso-8859-1";
+   $languages["no_NO_ny"]["NAME"] = "Norwegian (Nynorsk)";
+   $languages["no_NO_ny"]["CHARSET"] = "iso-8859-1";
    $languages["de"]["NAME"]    = "Deutsch";
    $languages["de"]["CHARSET"] = "iso-8859-1";
    $languages["ru"]["NAME"]    = "Russian KOI8-R";
