@@ -469,13 +469,21 @@ $edit_name = true;
 
 
 /**
-* If you want to enable server side thread sorting options
-* Your IMAP server must support the THREAD extension for 
-* this to work.
-*/
+ * If you want to enable server side thread sorting options
+ * Your IMAP server must support the THREAD extension for 
+ * this to work.
+ */
 
 global $allow_thread_sort;
 $allow_thread_sort = false;
+
+/** 
+ * to use server-side sorting instead of SM client side.
+ * Your IMAP server must support the SORT extension for this
+ * to work.
+ */
+global $allow_server_sort;
+$allow_server_sort = false;
 
 /**
  * Make sure there are no characters after the PHP closing
