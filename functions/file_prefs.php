@@ -223,6 +223,11 @@ function checkForPrefs($data_dir, $username, $filename = '') {
  * Write the User Signature.
  */
 function setSig($data_dir, $username, $number, $value) {
+    // Limit signature size to 64KB (database BLOB limit)
+    if (strlen($value)>65536) {
+        error_option_save(_("Signature is too big."));
+        return;
+    }
     $filename = getHashedFile($username, $data_dir, "$username.si$number");
     /* Open the file for writing, or else display an error to the user. */
     if(!$file = @fopen("$filename.tmp", 'w')) {

@@ -77,6 +77,9 @@ Version 1.5.1 -- CVS
     reply focus to "No focus" also affects composing new messages)
   - Current hook name is now globally available when running a hook ($currentHookName)
   - Fix bug when Saving to Draft folder that contains special characters.
+  - Added size limit to signatures saved in file backend. Created error_option_save
+    function, that allows sending error message to options page. Thanks to Martynas 
+    Bieliauskas for spotting big signature "option".
 
 Version 1.5.0
 --------------------

@@ -210,6 +210,8 @@ if ( !@is_file( $optpage_file ) ) {
 /*** Next, process anything that needs to be processed. ***/
 /***********************************************************/
 
+$optpage_save_error=array();
+
 if ( isset( $optpage_data ) ) {
     switch ($optmode) {
         case SMOPT_MODE_SUBMIT:
@@ -289,8 +291,19 @@ if ($optpage == SMOPT_PAGE_MAIN) {
         if (!isset($frame_top)) {
             $frame_top = '_top';
         }
-        /* Display a message indicating a successful save. */
-        echo '<b>' . _("Successfully Saved Options") . ": $optpage_name</b><br>\n";
+
+        if (isset($optpage_save_error) && $optpage_save_error!=array()) {
+            echo "<font color=\"$color[2]\"><b>" . _("Error(s) happened while saving your options") . "</b></font><br />\n";
+            echo "<ul>\n";
+            foreach ($optpage_save_error as $error_message) {
+                echo '<li><small>' . $error_message . "</small></li>\n";
+            }
+            echo "</ul>\n";
+            echo '<b>' . _("Some of your preference changes are not applied.") . "</b><br />\n";
+        } else {
+            /* Display a message indicating a successful save. */
+            echo '<b>' . _("Successfully Saved Options") . ": $optpage_name</b><br>\n";
+        }
 
         /* If $max_refresh != SMOPT_REFRESH_NONE, provide a refresh link. */
         if ( !isset( $max_refresh ) ) {
