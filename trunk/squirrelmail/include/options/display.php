@@ -169,7 +169,7 @@ function load_optpage_data_display() {
         'refresh' => SMOPT_REFRESH_NONE
         //'post_script' => $js_autodetect_script,
     );
-    
+
     $optvals[SMOPT_GRP_GENERAL][] = array(
         'name'    => 'hour_format',
         'caption' => _("Hour Format"),
@@ -185,7 +185,7 @@ function load_optpage_data_display() {
 
     $optvals[SMOPT_GRP_MAILBOX][] = array(
         'name'    => 'show_num',
-        'caption' => _("Number of Messages on one Page"),
+        'caption' => _("Number of Messages per Page"),
         'type'    => SMOPT_TYPE_INTEGER,
         'refresh' => SMOPT_REFRESH_NONE,
         'size'    => SMOPT_SIZE_TINY
@@ -278,7 +278,7 @@ function load_optpage_data_display() {
         'refresh' => SMOPT_REFRESH_NONE,
         'size'    => SMOPT_SIZE_TINY
     );
-    
+
     $optvals[SMOPT_GRP_MAILBOX][] = array(
         'name'    => 'internal_date_sort',
         'caption' => _("Sort by Received Date"),
