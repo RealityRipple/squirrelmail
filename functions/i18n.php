@@ -762,7 +762,9 @@
       if ($SetupAlready)
          return;
       $SetupAlready = 1;
-     
+      
+      $charset_headers_sent=false;
+      
       if ($do_search && ! $sm_language && isset($HTTP_ACCEPT_LANGUAGE)) {
          $sm_language = substr($HTTP_ACCEPT_LANGUAGE, 0, 2);
       }
@@ -777,6 +779,26 @@
          bindtextdomain('squirrelmail', '../locale/');
          textdomain('squirrelmail');
          header ('Content-Type: text/html; charset=' . $languages[$sm_language]['CHARSET']);
+         $charset_headers_sent=true;
       }
+      return $charset_headers_sent;
    }
+
+   function set_my_charset(){
+     //
+     // There can be a $default_charset setting in the
+     // config.php file, but the user may have a different language
+     // selected for a user interface. This function checks the
+     // language selected by the user and tags the outgoing messages 
+     // with the appropriate charset corresponding to the language
+     // selection. This is "more right" (tm), than just stamping the 
+     // message blindly with the system-wide $default_charset.
+     //
+     global $data_dir, $username, $default_charset, $languages;
+     $my_language = getPref($data_dir, $username, "language");
+     if (!$my_language) return;
+     $my_charset=$languages[$my_language]['CHARSET'];
+     if ($my_charset) $default_charset=$my_charset;
+   }
+
 ?>

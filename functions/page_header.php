@@ -19,10 +19,14 @@
       include ("../functions/plugin.php");
 
    // Check to see if gettext is installed
-   set_up_language(getPref($data_dir, $username, "language"));
+   $headers_sent=set_up_language(getPref($data_dir, $username, "language"));
 
    // This is done to ensure that the character set is correct.
-   if ($default_charset != "")
+   // But first checks whether we have already sent headers
+   // with charset when we were setting up the user language.
+   // Otherwise user ends up with the default charset overriding
+   // his selected one.
+   if (!$headers_sent && $default_charset != "")
       header ("Content-Type: text/html; charset=$default_charset");
 
    function displayHtmlHeader ($title="SquirrelMail") {

@@ -426,7 +426,10 @@
          $urlMailbox = urlencode (trim($mailbox));
          if (! isset($reply_id))
              $reply_id = 0;
-         sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id);
+         // Set $default_charset to correspond with the user's selection
+	 // of language interface.
+	 set_my_charset();
+	 sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id);
          header ("Location: right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=1");
       } else {
          //$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
