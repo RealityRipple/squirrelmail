@@ -170,6 +170,7 @@
 
    function translateText(&$body, $wrap_at, $charset) {
       global $where, $what; // from searching
+      global $color; // color theme
 
       include '../functions/url_parser.php';
       
@@ -204,10 +205,15 @@
              }
          }
          
-         if ($Quotes > 1)
-            $line = '<FONT COLOR="FF0000">'.$line.'</FONT>';
-         elseif ($Quotes)
-            $line = '<FONT COLOR="800000">'.$line.'</FONT>';
+         if ($Quotes > 1) {
+	    if (! isset($color[13]))
+	       $color[13] = '#FF0000';
+            $line = '<FONT COLOR="' . $color[13] . '">' . $line . '</FONT>';
+	 } elseif ($Quotes) {
+	    if (! isset($color[14]))
+	       $color[14] = '#800000';
+            $line = '<FONT COLOR="' . $color[14] . '">' . $line . '</FONT>';
+	 }
 
          $body_ary[$i] = $line;
       }
