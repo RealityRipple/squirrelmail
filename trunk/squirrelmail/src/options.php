@@ -287,40 +287,41 @@
      */
     function print_optionpages_row($leftopt, $rightopt = false) {
         global $color;
-?>
-<table bgcolor="<?php echo $color[4] ?>" width="100%" cellpadding="0" cellspacing="5" border="0">
-   <tr><td valign=top>
-      <table width="100%" cellpadding="3" cellspacing="0" border="0">
-         <tr>
-            <td valign="top" bgcolor="<?php echo $color[9] ?>" width="50%">
-               <a href="<?php echo $leftopt['url'] ?>"><?php echo $leftopt['name'] ?></a>
-            </td>
-            <td valign="top" bgcolor="<?php echo $color[4] ?>">&nbsp;</td>
-<?php if ($rightopt != false) { ?>
-            <td valign="top" bgcolor="<?php echo $color[9] ?>" width="50%">
-               <a href="<?php echo $rightopt['url'] ?>"><?php echo $rightopt['name'] ?></a>
-            </td>
-<?php } else { ?>
-            <td valign="top" bgcolor="<?php echo $color[4] ?>" width="50%">&nbsp;</td>
-<?php } ?>
-         </tr>
-         <tr>
-            <td valign="top" bgcolor="<?php echo $color[0] ?>">
-               <?php echo $leftopt['desc'] ?>
-            </td>
-            <td valign="top" bgcolor="<?php echo $color[4] ?>">&nbsp;</td>
-<?php if ($rightopt != false) { ?>
-            <td valign="top" bgcolor="<?php echo $color[0] ?>">
-               <?php echo $rightopt['desc'] ?>
-            </td>
-<?php } else { ?>
-            <td valign="top" bgcolor="<?php echo $color[4] ?>">&nbsp;</td>
-<?php } ?>
-         </tr>
-      </table>
-   </td></tr>
-</table>
-<?php
+        
+        echo "<table bgcolor=\"$color[4]\" width=\"100%\" cellpadding=0 cellspacing=5 border=0>" .
+                '<tr><td valign="top">' .
+                   '<table width="100%" cellpadding="3" cellspacing="0" border="0">' .
+                      '<tr>' .
+                         "<td valign=top bgcolor=\"$color[9]\" width=\"50%\">" .
+                            '<a href="' . $leftopt['url'] . '">' . $leftopt['name'] . '</a>'.
+                         '</td>'.
+                         "<td valign=top bgcolor=\"$color[4]\">&nbsp;</td>";
+        if( $rightopt ) {
+            echo         "<td valign=top bgcolor=\"$color[9]\" width=\"50%\">" .
+                            '<a href="' . $rightopt['url'] . '">' . $rightopt['name'] . '</a>' .
+                         '</td>';
+        } else {
+            echo         "<td valign=top bgcolor=\"$color[4]\" width=\"50%\">&nbsp;</td>";
+        }
+        
+        echo          '</tr>' .
+                      '<tr>' .
+                         "<td valign=top bgcolor=\"$color[0]\">" .
+                            $leftopt['desc'] .
+                         '</td>' .
+                         "<td valign=top bgcolor=\"$color[4]\">&nbsp;</td>";
+        if( $rightopt ) {
+            echo         "<td valign=top bgcolor=\"$color[0]\">" .
+                            $rightopt['desc'] .
+                         '</td>';
+        }else {
+            echo "<td valign=top bgcolor=\"$color[4]\">&nbsp;</td>";
+        }
+        
+        echo          '</tr>' .
+                   '</table>' .
+                '</td></tr>' .
+             "</table>\n";
     }
 
 ?>
