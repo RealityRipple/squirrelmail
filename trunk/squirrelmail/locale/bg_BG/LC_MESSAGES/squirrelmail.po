@@ -4,13 +4,13 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: $Id$\n"
 "POT-Creation-Date: 2003-01-25 09:07+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2003-05-24 21:45+0300\n"
 "Last-Translator: Stanislav Yordanov <stan@stud.ru.acad.bg>\n"
 "Language-Team: Bulgarian <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=cp-1251\n"
+"Content-Type: text/plain; charset=cp1251\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: StanProg PO-Editor 1.0\n"
 
@@ -2003,7 +2003,6 @@ msgstr "БЕЗПЛАТЕН - Dorkslayers включват само наистина лоши отворените връзки из
 msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
 msgstr "БЕЗПЛАТЕН - SPAMhaus - Списък на добре познатите СПАМ източници."
 
-#, c-format
 msgid "FREE, for now - SPAMCOP - An interesting solution that lists servers that have a very high spam to legit email ratio (85% or more)."
 msgstr "БЕЗПЛАТЕН, за сега - SPAMCOP - Интересно решение което листва сървъри които имат много голям спам в сравнение със законния процент на писмата (85% или повече)."
 
