@@ -10,26 +10,25 @@
 
    $mailbox_info = true;
 
-   function printMessageInfo($imapConnection, $t, $i, $from, $subject, $dateString, $answered, $seen, $mailbox, $sort, $startMessage) {
-      require ("../config/config.php");
-      global $PHPSESSID;
+   function printMessageInfo($imapConnection, $t, $msg, $mailbox, $sort, $startMessage) {
+      //require ("../config/config.php");
+      global $color, $PHPSESSID;
 
-      $senderName = $from;
+      $senderName = $msg["FROM"];
       $urlMailbox = urlencode($mailbox);
-      $subject = trim(stripslashes($subject));
+      $subject = trim(stripslashes($msg["SUBJECT"]));
       echo "<TR>\n";
-      if ($seen == false) {
-         echo "   <TD><nobr><B><input type=checkbox name=\"msg[$t]\" value=$i></B></nobr></TD>\n";
-         echo "   <TD><B>$senderName</B></TD>\n";
-         echo "   <TD NOWRAP><CENTER><B>$dateString</B></CENTER></TD>\n";
-         echo "   <TD><B><A HREF=\"read_body.php?PHPSESSID=$PHPSESSID&mailbox=$urlMailbox&passed_id=$i&sort=$sort&startMessage=$startMessage&show_more=0\">$subject</A></B></TD>\n";
-      } else {
-         echo "   <TD><nobr><input type=checkbox name=\"msg[$t]\" value=$i></nobr></TD>\n";
-         echo "   <TD>$senderName</TD>\n";
-         echo "   <TD NOWRAP><CENTER>$dateString</CENTER></TD>\n";
-         echo "   <TD><A HREF=\"read_body.php?PHPSESSID=$PHPSESSID&mailbox=$urlMailbox&passed_id=$i&sort=$sort&startMessage=$startMessage&show_more=0\">$subject</A></TD>\n";
-      }
-      echo "</TR>\n";
+      
+      if ($msg["FLAG_FLAGGED"] == true) { $flag = "<font color=$color[2]>"; $flag_end = "</font>"; }
+      if ($msg["FLAG_SEEN"] == false) { $bold = "<b>"; $bold_end = "</b>"; }
+      if ($msg["FLAG_ANSWERED"] == true) { $ans = "&nbsp;[A]"; }
+      
+      echo "   <td width=1% align=center><input type=checkbox name=\"msg[$t]\" value=$i></TD>\n";
+      echo "   <td>$bold$flag$senderName$flag_end$bold_end</td>\n";
+      echo "   <td nowrap width=1%><center>$bold$flag".$msg["DATE_STRING"]."$flag_end$bold_end</center></td>\n";
+      echo "   <td>$bold<a href=\"read_body.php?PHPSESSID=$PHPSESSID&mailbox=$urlMailbox&passed_id=$i&sort=$sort&startMessage=$startMessage&show_more=0\">$flag$subject$flag_end</a>$ans$bold_end</td>\n";
+
+      echo "</tr>\n";
    }
 
    /**
@@ -59,9 +58,6 @@
          $messages[$j]["ID"] = $j+1;
          $messages[$j]["FROM"] = decodeHeader($from[$j]);
          $messages[$j]["SUBJECT"] = decodeHeader($subject[$j]);
-         $messages[$j]["FLAG_DELETED"] = false;
-         $messages[$j]["FLAG_ANSWERED"] = false;
-         $messages[$j]["FLAG_SEEN"] = false;
 
          $num = 0;
          while ($num < count($flags[$j])) {
@@ -73,6 +69,9 @@
             }
             else if ($flags[$j][$num] == "Seen") {
                $messages[$j]["FLAG_SEEN"] = true;
+            }
+            else if ($flags[$j][$num] == "Flagged") {
+               $messages[$j]["FLAG_FLAGGED"] = true;
             }
             $num++;
          }
@@ -87,14 +86,7 @@
             $j++;
             continue;
          }
-         $msgs[$i]["TIME_STAMP"]    = $messages[$j]["TIME_STAMP"];
-         $msgs[$i]["DATE_STRING"]   = $messages[$j]["DATE_STRING"];
-         $msgs[$i]["ID"]            = $messages[$j]["ID"];
-         $msgs[$i]["FROM"]          = $messages[$j]["FROM"];
-         $msgs[$i]["SUBJECT"]       = $messages[$j]["SUBJECT"];
-         $msgs[$i]["FLAG_DELETED"]  = $messages[$j]["FLAG_DELETED"];
-         $msgs[$i]["FLAG_ANSWERED"] = $messages[$j]["FLAG_ANSWERED"];
-         $msgs[$i]["FLAG_SEEN"]     = $messages[$j]["FLAG_SEEN"];
+         $msgs[$i] = $messages[$j];
 
          $i++;
          $j++;
@@ -269,10 +261,10 @@
          echo "<TR><TD BGCOLOR=\"$color[4]\" COLSPAN=4><CENTER><BR><B>". _("THIS FOLDER IS EMPTY") ."</B><BR>&nbsp</CENTER></TD></TR>";
       } else if ($startMessage == $endMessage) { // if there's only one message in the box, handle it different.
          $i = $startMessage - 1;
-         printMessageInfo($imapConnection, $t, $msgs[$i]["ID"], $msgs[$i]["FROM"], $msgs[$i]["SUBJECT"], $msgs[$i]["DATE_STRING"], $msgs[$i]["FLAG_ANSWERED"], $msgs[$i]["FLAG_SEEN"], $mailbox, $sort, $startMessage);
+         printMessageInfo($imapConnection, $t, $msgs[$i], $mailbox, $sort, $startMessage);
       } else {
          for ($i = $startMessage - 1;$i <= $endMessage - 1; $i++) {
-            printMessageInfo($imapConnection, $t, $msgs[$i]["ID"], $msgs[$i]["FROM"], $msgs[$i]["SUBJECT"], $msgs[$i]["DATE_STRING"], $msgs[$i]["FLAG_ANSWERED"], $msgs[$i]["FLAG_SEEN"], $mailbox, $sort, $startMessage);
+            printMessageInfo($imapConnection, $t, $msgs[$i], $mailbox, $sort, $startMessage);
             $t++;
          }
       }
