@@ -42,6 +42,7 @@ Version 1.4.0 CVS
   - Fixed compose to remember attachments.
   - Fixed possible XSS in compose when replying to malicious sources.
   - Add display of the maximum filesize for attachment uploads.
+  - Do not add < and > if an identity doesn't contain a full name.
 
 Version 1.4.0 RC 2a
 -------------------

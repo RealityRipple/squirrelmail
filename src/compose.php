@@ -908,73 +908,85 @@ function showInputForm ($session, $values=false) {
         showComposeButtonRow();
     }
 
+    /* display select list for identities */
     $idents = getPref($data_dir, $username, 'identities', 0);
     if ($idents > 1) {
-        echo '   <TR>' . "\n" .
-                    html_tag( 'td', '', 'right', $color[4], 'WIDTH="10%"' ) .
-                    _("From:") . '</TD>' . "\n" .
-                    html_tag( 'td', '', 'left', $color[4], 'WIDTH="90%"' ) .
-             '         <select name=identity>' . "\n" .
-             '         <option value=default>' .
-                       htmlspecialchars(getPref($data_dir, $username, 'full_name'));
+        $fn = getPref($data_dir, $username, 'full_name');
         $em = getPref($data_dir, $username, 'email_address');
+        echo '   <tr>' . "\n" .
+                    html_tag( 'td', '', 'right', $color[4], 'width="10%"' ) .
+                    _("From:") . '</td>' . "\n" .
+                    html_tag( 'td', '', 'left', $color[4], 'width="90%"' ) .
+             '         <select name="identity">' . "\n" .
+             '         <option value="default">' .
+                       htmlspecialchars($fn);
         if ($em != '') {
-            echo htmlspecialchars(' <' . $em . '>') . "\n";
+            if($fn != '') {
+                echo htmlspecialchars(' <' . $em . '>') . "\n";
+            } else {
+                echo htmlspecialchars($em) . "\n";
+            }
         }
         for ($i = 1; $i < $idents; $i ++) {
+            $fn = getPref($data_dir, $username, 'full_name' . $i);
+            $em = getPref($data_dir, $username, 'email_address' . $i);
+
             echo '<option value="' . $i . '"';
             if (isset($identity) && $identity == $i) {
-                echo ' SELECTED';
+                echo ' selected';
             }
-            echo '>' . htmlspecialchars(getPref($data_dir, $username,
-                                                'full_name' . $i));
-            $em = getPref($data_dir, $username, 'email_address' . $i);
+            echo '>' . htmlspecialchars($fn);
             if ($em != '') {
-                echo htmlspecialchars(' <' . $em . '>') . "\n";
+                if($fn != '') {
+                    echo htmlspecialchars(' <' . $em . '>') . "\n";
+                } else {
+                    echo htmlspecialchars($em) . "\n";
+                }
             }
             echo '</option>';
         }
         echo '</select>' . "\n" .
-             '      </TD>' . "\n" .
-             '   </TR>' . "\n";
+             '      </td>' . "\n" .
+             '   </tr>' . "\n";
     }
-    echo '   <TR>' . "\n" .
-                html_tag( 'td', '', 'right', $color[4], 'WIDTH="10%"' ) .
+    echo '   <tr>' . "\n" .
+                html_tag( 'td', '', 'right', $color[4], 'width="10%"' ) .
                 _("To:") . '</TD>' . "\n" .
-                html_tag( 'td', '', 'left', $color[4], 'WIDTH="90%"' ) .
-         '         <INPUT TYPE=text NAME="send_to" VALUE="' .
-                   $send_to . '" SIZE=60><BR>' . "\n" .
-         '      </TD>' . "\n" .
-         '   </TR>' . "\n" .
-         '   <TR>' . "\n" .
+                html_tag( 'td', '', 'left', $color[4], 'width="90%"' ) .
+         '         <input type="text" name="send_to" value="' .
+                   $send_to . '" size="60" /><br />' . "\n" .
+         '      </td>' . "\n" .
+         '   </tr>' . "\n" .
+         '   <tr>' . "\n" .
                 html_tag( 'td', '', 'right', $color[4] ) .
-                _("CC:") . '</TD>' . "\n" .
+                _("CC:") . '</td>' . "\n" .
                 html_tag( 'td', '', 'left', $color[4] ) .
-         '         <INPUT TYPE=text NAME="send_to_cc" SIZE=60 VALUE="' .
-                   $send_to_cc . '"><BR>' . "\n" .
-         '      </TD>' . "\n" .
-         '   </TR>' . "\n" .
-         '   <TR>' . "\n" .
+         '         <input type="text" name="send_to_cc" size="60" value="' .
+                   $send_to_cc . '" /><br />' . "\n" .
+         '      </td>' . "\n" .
+         '   </tr>' . "\n" .
+         '   <tr>' . "\n" .
                 html_tag( 'td', '', 'right', $color[4] ) .
-                _("BCC:") . '</TD>' . "\n" .
+                _("BCC:") . '</td>' . "\n" .
                 html_tag( 'td', '', 'left', $color[4] ) .
-         '         <INPUT TYPE=text NAME="send_to_bcc" VALUE="' .
-                $send_to_bcc . '" SIZE=60><BR>' . "\n" .
-         '      </TD>' . "\n" .
-         '   </TR>' . "\n" .
-         '   <TR>' . "\n" .
+         '         <input type="text" name="send_to_bcc" value="' .
+                $send_to_bcc . '" size="60" /><br />' . "\n" .
+         '      </td>' . "\n" .
+         '   </tr>' . "\n" .
+         '   <tr>' . "\n" .
                 html_tag( 'td', '', 'right', $color[4] ) .
-                _("Subject:") . '</TD>' . "\n" .
+                _("Subject:") . '</td>' . "\n" .
                 html_tag( 'td', '', 'left', $color[4] ) . "\n";
-    echo '         <INPUT TYPE=text NAME=subject SIZE=60 VALUE="' .
-                   $subject . '">' . "\n" .
-         '      </TD>' . "\n" .
-         '   </TR>' . "\n\n";
+    echo '         <input type="text" name="subject" size="60" value="' .
+                   $subject . '" />' . "\n" .
+         '      </td>' . "\n" .
+         '   </tr>' . "\n\n";
 
     if ($location_of_buttons == 'between') {
         showComposeButtonRow();
     }
 
+    /* why this distinction? */
     if ($compose_new_win == '1') {
         echo '   <TR>' . "\n" .
              '      <TD BGCOLOR="' . $color[0] . '" COLSPAN=2 ALIGN=CENTER>' . "\n" .
@@ -987,6 +999,7 @@ function showInputForm ($session, $values=false) {
             '         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS="' .
                       $editor_size . '" WRAP="VIRTUAL">';
     }
+
     if ($use_signature == true && $newmail == true && !isset($from_htmladdr_search)) {
         if ($idents > 1) {
             if ($identity == 'default') {
@@ -1017,20 +1030,20 @@ function showInputForm ($session, $values=false) {
     else {
        echo decodeHeader($body,false,true);
     }
-    echo '</TEXTAREA><BR>' . "\n" .
-         '      </TD>' . "\n" .
-         '   </TR>' . "\n";
+    echo '</textarea><br />' . "\n" .
+         '      </td>' . "\n" .
+         '   </tr>' . "\n";
 
 
     if ($location_of_buttons == 'bottom') {
         showComposeButtonRow();
     } else {
-        echo '   <TR>' . "\n" .
-                    html_tag( 'td', '', 'right', '', 'COLSPAN=2' ) . "\n" .
-             '         <INPUT TYPE=SUBMIT NAME=send VALUE="' . _("Send") . '">' . "\n" .
-             '         &nbsp;&nbsp;&nbsp;&nbsp;<BR><BR>' . "\n" .
-             '      </TD>' . "\n" .
-             '   </TR>' . "\n";
+        echo '   <tr>' . "\n" .
+                    html_tag( 'td', '', 'right', '', 'colspan="2"' ) . "\n" .
+             '         <input type="submit" name="send" value="' . _("Send") . '" />' . "\n" .
+             '         &nbsp;&nbsp;&nbsp;&nbsp;<br /><br />' . "\n" .
+             '      </td>' . "\n" .
+             '   </tr>' . "\n";
     }
 
     /* This code is for attachments */
