@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2003-01-25 09:07+0100\n"
-"PO-Revision-Date: 2003-01-30 13:39+0200\n"
+"POT-Creation-Date: 2003-05-31 14:56+0300\n"
+"PO-Revision-Date: 2003-05-31 15:01+0300\n"
 "Last-Translator: Tomas Kuliavas <tokul@users.sourceforge.net>\n"
 "Language-Team: Lithuanian <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -86,11 +86,11 @@ msgstr "Turi nesutapti su kitu vardu"
 msgid "E-mail address"
 msgstr "E-paðto adresas"
 
-msgid "First name"
-msgstr "Vardas"
-
 msgid "Last name"
 msgstr "Pavardë"
+
+msgid "First name"
+msgstr "Vardas"
 
 msgid "Additional info"
 msgstr "Papildoma informacija"
@@ -122,6 +122,15 @@ msgstr "Iðtrinti pasirinktà(us)"
 #, c-format
 msgid "Add to %s"
 msgstr "Átraukti á adresø knygà (%s)"
+
+msgid "said"
+msgstr "paraðë"
+
+msgid "quote"
+msgstr "citata"
+
+msgid "who"
+msgstr "kas"
 
 msgid "Subject"
 msgstr "Tema"
@@ -206,15 +215,6 @@ msgstr "Iðsaugoti juodraðtá"
 
 msgid "You have not filled in the \"To:\" field."
 msgstr "Jûs neuþpildëte gavëjo lauko (Kam:)"
-
-msgid "said"
-msgstr "paraðë"
-
-msgid "quote"
-msgstr "citata"
-
-msgid "who"
-msgstr "kas"
 
 msgid "Draft folder"
 msgstr "Juodraðèiø aplankas"
@@ -361,9 +361,6 @@ msgstr "Perþiûrëti þinutæ"
 msgid "Download this as a file"
 msgstr "Parsisiøsti kaip failà"
 
-msgid "Not available"
-msgstr "Neprieinamas"
-
 msgid "INBOX"
 msgstr "INBOX"
 
@@ -423,6 +420,12 @@ msgstr "tema"
 
 msgid "Edit"
 msgstr "Taisyti"
+
+msgid "Up"
+msgstr "Aukðtyn"
+
+msgid "Down"
+msgstr "Þemyn"
 
 msgid "No highlighting is defined"
 msgstr "Joks iðskyrimas neapraðytas"
@@ -671,9 +674,6 @@ msgstr "Taisyti þinutæ kaip naujà"
 msgid "View Message"
 msgstr "Perþiûrëti þinutæ"
 
-msgid "Up"
-msgstr "Aukðtyn"
-
 msgid "Forward"
 msgstr "Persiøsti"
 
@@ -888,6 +888,27 @@ msgstr "Penktadienis"
 msgid "Saturday"
 msgstr "Ðeðtadienis"
 
+msgid "Sun"
+msgstr "Sek"
+
+msgid "Mon"
+msgstr "Pir"
+
+msgid "Tue"
+msgstr "Ant"
+
+msgid "Wed"
+msgstr "Tre"
+
+msgid "Thu"
+msgstr "Ket"
+
+msgid "Fri"
+msgstr "Pen"
+
+msgid "Sat"
+msgstr "Ðeð"
+
 msgid "January"
 msgstr "Sausis"
 
@@ -923,6 +944,42 @@ msgstr "Lapkritis"
 
 msgid "December"
 msgstr "Gruodis"
+
+msgid "Jan"
+msgstr "Sau"
+
+msgid "Feb"
+msgstr "Vas"
+
+msgid "Mar"
+msgstr "Kov"
+
+msgid "Apr"
+msgstr "Bal"
+
+msgid "Ma&#121;"
+msgstr "Geg"
+
+msgid "Jun"
+msgstr "Bir"
+
+msgid "Jul"
+msgstr "Lie"
+
+msgid "Aug"
+msgstr "Rugp"
+
+msgid "Sep"
+msgstr "Rugs"
+
+msgid "Oct"
+msgstr "Spa"
+
+msgid "Nov"
+msgstr "Lap"
+
+msgid "Dec"
+msgstr "Gruo"
 
 msgid "D, F j, Y g:i a"
 msgstr "Y F j, g:i a, D"
@@ -987,6 +1044,14 @@ msgstr ""
 "praneðkite apie ðià klaidà."
 
 #, c-format
+msgid ""
+"Preference file, %s, could not be copied from temporary file, %s. Contact "
+"your system administrator to resolve this issue."
+msgstr ""
+"Nepavyko nukopijuoti nustatymø failo %s ið laikino failo %s. Susisiekite su "
+"administratoriumi ir praneðkite apie ðià klaidà."
+
+#, c-format
 msgid "Error opening %s"
 msgstr "Klaida atidarant %s"
 
@@ -1019,12 +1084,20 @@ msgstr ""
 "Nepavyko raðyti á paraðo failà %s. Susisiekite su administratoriumi ir "
 "praneðkite apie ðià klaidà."
 
+#, c-format
+msgid ""
+"Signature file, %s, could not be copied from temporary file, %s. Contact "
+"your system administrator to resolve this issue."
+msgstr ""
+"Nepavyko nukopijuoti paraðo failo %s ið laikino failo %s. Susisiekite su "
+"administratoriumi ir praneðkite apie ðià klaidà."
+
 msgid ""
 "You need to have php4 installed with the multibyte string function enabled "
-"(using configure option --with-mbstring)."
+"(using configure option --enable-mbstring)."
 msgstr ""
 "Jûs turite turëti php4 instaliacijà su ájungtomis multibyte funkcijomis "
-"(configure opcija --with-mbstring)."
+"(configure opcija --enable-mbstring)."
 
 msgid "ERROR : No available imapstream."
 msgstr "KLAIDA : imap srautas neprieinamas."
@@ -1072,20 +1145,14 @@ msgstr ""
 "Paðalinkite nereikalingas þinutes ið savo aplankø. Pradëti valymà reiktø nuo "
 "ðiukðlyno (Trash aplankas)."
 
-msgid "Unknown response from IMAP server: "
-msgstr "Nesuprantamas atsakymas ið IMAP serverio"
-
-msgid "Unknown message number in reply from server: "
-msgstr "Neþinomas þinutës numeris atsakyme, gautame ið serverio:"
-
 msgid "(no subject)"
 msgstr "(tema nenurodyta)"
 
 msgid "Unknown Sender"
 msgstr "Neþinomas siuntëjas"
 
-msgid "(unknown sender)"
-msgstr "(neþinomas siuntëjas)"
+msgid "Unknown response from IMAP server: "
+msgstr "Nesuprantamas atsakymas ið IMAP serverio"
 
 msgid "Unknown date"
 msgstr "Neþinoma data"
@@ -1515,7 +1582,7 @@ msgid "Edit Advanced Identities"
 msgstr "Taisyti specialius ID"
 
 msgid "(discards changes made on this form so far)"
-msgstr " "
+msgstr "(visi kiti pakeitimai padaryti ðioje formoje dings)"
 
 msgid "Multiple Identities"
 msgstr "Skirtingi ID"
@@ -1946,8 +2013,8 @@ msgstr "0 min."
 msgid "15 min."
 msgstr "15 min."
 
-msgid "35 min."
-msgstr "35 min."
+msgid "30 min."
+msgstr "30 min."
 
 msgid "45 min."
 msgstr "45 min."
@@ -2135,7 +2202,6 @@ msgstr ""
 msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
 msgstr "NEMOKAMAS - SPAMhaus - Gerai þinomø spameriø sàraðas"
 
-#, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
@@ -2255,9 +2321,6 @@ msgstr "Antraðtë"
 
 msgid "Contains:"
 msgstr "Turi:"
-
-msgid "Down"
-msgstr "Þemyn"
 
 #, c-format
 msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
@@ -2420,12 +2483,6 @@ msgstr "Serveris nenurodytas"
 msgid "Error "
 msgstr "Klaida "
 
-msgid "POP3 noop:"
-msgstr "POP3 noop:"
-
-msgid "No connection to server"
-msgstr "Prisijungti prie serverio nepavyko"
-
 msgid "POP3 user:"
 msgstr "POP3 vartotojas:"
 
@@ -2446,6 +2503,9 @@ msgstr "autorizacija nepavyko "
 
 msgid "POP3 apop:"
 msgstr "POP3 apop:"
+
+msgid "No connection to server"
+msgstr "Prisijungti prie serverio nepavyko"
 
 msgid "No login ID submitted"
 msgstr "Nebuvo pateiktas vartotojo vardas"
@@ -2700,9 +2760,6 @@ msgstr ""
 msgid "Message Details"
 msgstr "Þinutës detalës"
 
-msgid "Message details"
-msgstr "Þinuèiø detalës"
-
 msgid "Close Window"
 msgstr "Uþdaryti langà"
 
@@ -2765,13 +2822,10 @@ msgstr ""
 
 msgid ""
 "Select from the list of <b>server files</b> the media file to play when new "
-"mail arrives.  Selecting <b>local media</b> will play the file specified in "
-"the <b>local media file</b> box to play from the local computer.  If no file "
-"is specified, the system will use a default from the server."
+"mail arrives.  If no file is specified, \"(none)\", no sound will be used."
 msgstr ""
 "Garsus galima pasirinkti ið <b>serverio failø</b> arba <b>lokaliø failø</b> "
-"esanèiø jûsø kompiuteryje. Nenurodþius nieko, sistema naudos standartiná "
-"serverio failà."
+"esanèiø jûsø kompiuteryje. Nenurodþius nieko, garsas nebus naudojamas."
 
 msgid "Enable Media Playing"
 msgstr "Groti garsus"
@@ -2794,14 +2848,11 @@ msgstr "Iðkviesti naujà langà pasirodþius naujoms þinutëms"
 msgid "Select server file:"
 msgstr "Pasirinkti failà serveryje:"
 
-msgid "(local media)"
-msgstr "(lokalus failas)"
+msgid "(none)"
+msgstr "(joks)"
 
 msgid "Try"
 msgstr "Patikrinti"
-
-msgid "Local Media File:"
-msgstr "Lokalus audio failas:"
 
 msgid "Current File:"
 msgstr "Dabar nustatytas failas:"
@@ -2838,6 +2889,9 @@ msgstr "%s nauja þinutë"
 
 msgid "Test Sound"
 msgstr "Patikrinti garsà"
+
+msgid "No sound specified"
+msgstr "Garsas nenurodytas"
 
 msgid "Loading the sound..."
 msgstr "Kraunasi audio..."
@@ -3254,15 +3308,9 @@ msgid "Your server options are as follows:"
 msgstr "Jûsø serverio nustatymai yra:"
 
 msgid ""
-"13 language pairs, maximum of 1000 characters translated, powered by Systran"
+"19 language pairs, maximum of 1000 characters translated, powered by Systran"
 msgstr ""
-"13 skirtingø kalbø porø, verèiama iki 1000 simboliø, naudojamas Systran "
-"vertëjas"
-
-msgid ""
-"10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
-msgstr ""
-"10 skirtingø kalbø porø, verèiama iki 25 kilobaitø, naudojamas Systran "
+"19 skirtingø kalbø porø, verèiama iki 1000 simboliø, naudojamas Systran "
 "vertëjas"
 
 msgid "12 language pairs, no known limits, powered by Systran"
@@ -3270,10 +3318,10 @@ msgstr ""
 "12 skirtingø kalbø porø, jokiø þinomø apribojimø, naudojamas Systran vertëjas"
 
 msgid ""
-"767 language pairs, no known limits, powered by Translation Experts's "
+"784 language pairs, no known limits, powered by Translation Experts's "
 "InterTran"
 msgstr ""
-"767 skirtingos kalbø poros, jokiø þinomø apribojimø, naudojamas Translation "
+"784 skirtingos kalbø poros, jokiø þinomø apribojimø, naudojamas Translation "
 "Expert's InterTran vertëjas"
 
 msgid ""
@@ -3281,6 +3329,11 @@ msgid ""
 msgstr ""
 "8 kalbø poros, jokiø þinomø apribojimø, naudojamas GPLTrans (nemokamas, "
 "atviro kodo) vertëjas"
+
+msgid "4 language pairs for Hellenic, no known limits, powered by Systran"
+msgstr ""
+"4 kalbø poros graikiðkiems vertimams, jokiø þinomø apribojimø, naudojamas "
+"Systran vertëjas"
 
 msgid ""
 "You also decide if you want the translation box displayed, and where it will "
@@ -3331,6 +3384,9 @@ msgstr "ið %s á %s"
 msgid "English"
 msgstr "anglø"
 
+msgid "Chinese"
+msgstr "kinø"
+
 msgid "French"
 msgstr "prancûzø"
 
@@ -3339,6 +3395,12 @@ msgstr "vokieèiø"
 
 msgid "Italian"
 msgstr "italø"
+
+msgid "Japanese"
+msgstr "japonø"
+
+msgid "Korean"
+msgstr "korëjieèiø"
 
 msgid "Portuguese"
 msgstr "portugalø"
@@ -3385,9 +3447,6 @@ msgstr "vengrø"
 msgid "Icelandic"
 msgstr "islandø"
 
-msgid "Japanese"
-msgstr "japonø"
-
 msgid "Latin American Spanish"
 msgstr "ispanø (lotynø-amerikieèiø)"
 
@@ -3421,35 +3480,23 @@ msgstr "indonezieèiø"
 msgid "Latin"
 msgstr "lotynø"
 
+msgid "to English"
+msgstr "á anglø"
+
+msgid "from English"
+msgstr "ið anglø"
+
 msgid "Delivery error report"
 msgstr "Ataskaita apie pristatymo klaidà"
 
 msgid "Undelivered Message Headers"
 msgstr "Nepristatytos þinutës antraðtës"
 
-#~ msgid "Enable Subtle Printer Friendly Link"
-#~ msgstr "Rodyti puslapiø, skirtø spausdinimui, nuorodas"
+#~ msgid "Unknown message number in reply from server: "
+#~ msgstr "Neþinomas þinutës numeris atsakyme, gautame ið serverio:"
 
-#~ msgid "Authenticated SMTP"
-#~ msgstr "SMTP autorizavimas"
+#~ msgid "(unknown sender)"
+#~ msgstr "(neþinomas siuntëjas)"
 
-#~ msgid "There was an error contacting the mail server."
-#~ msgstr "Ávyko klaida bandant susisiekti su paðto serveriu."
-
-#~ msgid "Contact your administrator for help."
-#~ msgstr "Susisiekite su administratoriumi, jei reikia pagalbos."
-
-#~ msgid "Left aligned"
-#~ msgstr "Iðlyginta pagal kairá kraðtà"
-
-#~ msgid "Centered"
-#~ msgstr "Centruota"
-
-#~ msgid "Right aligned"
-#~ msgstr "Iðlyginta pagal deðiná kraðtà"
-
-#~ msgid "on the Read screen"
-#~ msgstr "skaitymo lange"
-
-#~ msgid "Hide the box"
-#~ msgstr "paslëpti mygtukà"
+#~ msgid "POP3 noop:"
+#~ msgstr "POP3 noop:"
