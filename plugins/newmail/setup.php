@@ -25,7 +25,7 @@
 
     function CheckNewMailboxSound($imapConnection, $mailbox, $real_box, $delimeter, $unseen, &$total_unseen) {
         global $folder_prefix, $trash_folder, $sent_folder;
-		global $color, $move_to_sent, $move_to_trash;
+        global $color, $move_to_sent, $move_to_trash;
         global $unseen_notify, $unseen_type, $newmail_allbox, $newmail_recent;
         global $newmail_changetitle;
 
@@ -34,31 +34,31 @@
 
         // Skip folders for Sent and Trash
 
-        if ($real_box == $sent_folder || 
+        if ($real_box == $sent_folder ||
             $real_box == $trash_folder) {
-	        return 0;
+            return 0;
         }
 
         if (($unseen_notify == 2 && $real_box == 'INBOX') ||
             ($unseen_notify == 3 && ($newmail_allbox == 'on' ||
-	                                 $real_box == 'INBOX'))) {
+                                     $real_box == 'INBOX'))) {
             $unseen = sqimap_unseen_messages($imapConnection, $real_box);
-	        $total_unseen += $unseen;
-	 
-	        if($newmail_recent == 'on') {
-	            $unseen = sqimap_mailbox_select( $imapConnection, $real_box, TRUE, TRUE);
-	        }
-	 
+            $total_unseen += $unseen;
+
+            if($newmail_recent == 'on') {
+                $unseen = sqimap_mailbox_select( $imapConnection, $real_box, TRUE, TRUE);
+            }
+
             if ($unseen > 0) {
                 $unseen_found = 1;
-            } 
+            }
         }
         return( $unseen_found );
     }
 
     function squirrelmail_plugin_init_newmail() {
         global $squirrelmail_plugin_hooks;
-        
+
         $squirrelmail_plugin_hooks['left_main_before']['newmail'] = 'newmail_plugin';
         $squirrelmail_plugin_hooks['optpage_register_block']['newmail'] = 'newmail_optpage_register_block';
         $squirrelmail_plugin_hooks['options_link_and_description']['newmail'] = 'newmail_options';
