@@ -21,6 +21,7 @@ require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/html.php');
+require_once(SM_PATH . 'functions/date.php');
 
 /* These constants are used for folder stuff. */
 define('SM_BOX_UNCOLLAPSED', 0);
@@ -526,6 +527,8 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
         $folder_img = '../images/delitem.png';
           } else if ($boxes->is_draft) {
         $folder_img = '../images/draft.png';
+          } else if ($boxes->is_noinferiors) {
+        $folder_img = '../images/folder_noinf.png';
           } else $folder_img = '../images/folder.png';
           $folder_img = '&nbsp;<img src="'.$folder_img.'" height="15" valign="center" />&nbsp;';
         } else $folder_img = '';
@@ -902,11 +905,11 @@ do_hook('left_main_before');
 if ($advanced_tree) {
    /* nice future feature, needs layout !! volunteers?   */
    $right_pos = $left_size - 20;
-   echo '<div style="position:absolute;top:0;border=solid;border-width:0.1em;border-color:blue;"><div ID="hidef" style="width=20;font-size:12"><A HREF="javascript:hideframe(true)"><b><<</b></a></div>';
+/*   echo '<div style="position:absolute;top:0;border=solid;border-width:0.1em;border-color:blue;"><div ID="hidef" style="width=20;font-size:12"><A HREF="javascript:hideframe(true)"><b><<</b></a></div>';
    echo '<div ID="showf" style="width=20;font-size:12;display:none;"><a href="javascript:hideframe(false)"><b>>></b></a></div>';
    echo '<div ID="incrf" style="width=20;font-size:12"><a href="javascript:resizeframe(true)"><b>></b></a></div>';
    echo '<div ID="decrf" style="width=20;font-size:12"><a href="javascript:resizeframe(false)"><b><</b></a></div></div>';
-   echo '<div ID="leftframe"><br /><br />';
+   echo '<div ID="leftframe"><br /><br />';*/
 }
 
 echo "\n\n" . html_tag( 'table', '', 'left', '', 'border="0" cellspacing="0" cellpadding="0" width="99%"' ) .
@@ -1024,7 +1027,8 @@ for ($i = 0; $i < count($boxes); $i++) {
     if (isset($advanced_tree) && $advanced_tree) {
         echo '<form name="collapse" action="left_main.php" method="post" ' .
              'enctype="multipart/form-data"'."\n";
-        echo '<small><button type="submit" class="button" onmouseover="buttonover(this,true)" onmouseout="buttonover(this,false)" onmousedown="buttonclick(this,true)" onmouseup="buttonclick(this,false)">'. _("Save folder tree") .'</button><br /><br />';
+        echo '<small>';
+/*        echo '<button type="submit" class="button" onmouseover="buttonover(this,true)" onmouseout="buttonover(this,false)" onmousedown="buttonclick(this,true)" onmouseup="buttonclick(this,false)">'. _("Save folder tree") .'</button><br /><br />';*/
         echo '<div id="mailboxes" class="mailboxes">'."\n\n";
         if (!isset($mbx)) $mbx=NULL;
         ListAdvancedBoxes($boxes, $mbx);
