@@ -4,7 +4,7 @@
 #
 # A simple configure script to configure squirrelmail
 ############################################################              
-$conf_pl_version = "x61";
+$conf_pl_version = "x62";
 
 ############################################################              
 # First, lets read in the data already in there...
@@ -304,10 +304,11 @@ while (($command ne "q") && ($command ne "Q")) {
       print "R   Return to Main Menu\n";
    } elsif ($menu == 4) {
       print $WHT."General Options\n".$NRM;
-      print "1.  Default Charset      : $WHT$default_charset$NRM\n";
-      print "2.  Data Directory       : $WHT$data_dir$NRM\n";
-      print "3.  Attachment Directory : $WHT$attachment_dir$NRM\n";
-      print "4.  Default Left Size    : $WHT$default_left_size$NRM\n";
+      print "1.  Default Charset        : $WHT$default_charset$NRM\n";
+      print "2.  Data Directory         : $WHT$data_dir$NRM\n";
+      print "3.  Attachment Directory   : $WHT$attachment_dir$NRM\n";
+      print "4.  Default Left Size      : $WHT$default_left_size$NRM\n";
+      print "5.  Usernames in Lowercase : $WHT$force_username_lowercase$NRM\n";
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 5) {
@@ -451,10 +452,11 @@ while (($command ne "q") && ($command ne "Q")) {
          elsif ($command == 12){ $default_unseen_notify          = command212(); }
          elsif ($command == 13){ $default_unseen_type            = command213(); }
       } elsif ($menu == 4) {
-         if    ($command == 1) { $default_charset    = command31 (); }
-         elsif ($command == 2) { $data_dir           = command33 (); }
-         elsif ($command == 3) { $attachment_dir     = command34 (); }
-         elsif ($command == 4) { $default_left_size  = command35 (); }
+         if    ($command == 1) { $default_charset          = command31 (); }
+         elsif ($command == 2) { $data_dir                 = command33 (); }
+         elsif ($command == 3) { $attachment_dir           = command34 (); }
+         elsif ($command == 4) { $default_left_size        = command35 (); }
+	 elsif ($command == 5) { $force_username_lowercase = command36 (); }
       } elsif ($menu == 5) {
          if    ($command == 1) { command41 (); }
          elsif ($command == 2) { $theme_css = command42 (); }
@@ -1136,6 +1138,27 @@ sub command35 {
 }
 
 
+sub command36 {
+   print "Some IMAP servers only have lowercase letters in the usernames\n";
+   print "but they still allow people with uppercase to log in.  This\n";
+   print "causes a problem with the user's preference files.  This option\n";
+   print "transparently changes all usernames to lowercase.";
+   print "\n";
+   
+   if ($force_username_lowercase eq "true") {
+      $default_value = "y";
+   } else {
+      $default_value = "n";
+   }
+   print "Convert usernames to lowercase (y/n) [$WHT$default_value$NRM]: $WHT";
+   $new_show = <STDIN>;
+   if (($new_show =~ /^y\n/i) || (($new_show =~ /^\n/) && ($default_value eq "y"))) {
+      return "true";
+   }
+   return "false";
+}
+
+
 sub command41 {
    print "\nNow we will define the themes that you wish to use.  If you have added\n";
    print "a theme of your own, just follow the instructions (?) about how to add\n";
@@ -1500,10 +1523,11 @@ sub save_data {
    print FILE "\t\$default_unseen_type              =  $default_unseen_type;\n";
    print FILE "\n";
 
-   print FILE "\t\$default_charset   = \"$default_charset\";\n";
-   print FILE "\t\$data_dir          = \"$data_dir\";\n";
-   print FILE "\t\$attachment_dir    = \"$attachment_dir\";\n";
-   print FILE "\t\$default_left_size =  $default_left_size;\n";
+   print FILE "\t\$default_charset          = \"$default_charset\";\n";
+   print FILE "\t\$data_dir                 = \"$data_dir\";\n";
+   print FILE "\t\$attachment_dir           = \"$attachment_dir\";\n";
+   print FILE "\t\$default_left_size        =  $default_left_size;\n";
+   print FILE "\t\$force_username_lowercase = $force_username_lowercase;\n";
 
    print FILE "\n";
 

@@ -33,7 +33,6 @@
       setcookie("squirrelmail_language", $squirrelmail_language, time()+2592000);
    }
 
-
    include ("../config/config.php");
    include ("../functions/prefs.php");
    include ("../functions/imap.php");
@@ -43,6 +42,9 @@
       include ("../functions/auth.php");
    if (!isset($strings_php))
       include ("../functions/strings.php");
+
+   if ($force_username_lowercase)
+      $username = strtolower($username);
 
    if (!session_is_registered("user_is_logged_in") || $logged_in != 1) {
       do_hook ("login_before");
