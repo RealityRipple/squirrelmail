@@ -53,7 +53,11 @@ if ($ent_id) {
     
     if ($message->rfc822_header) {
        $subject = $message->rfc822_header->subject;
-       $charset = $header->content_type->properties['charset'];
+       if (isset($header->content_type)) {
+           $charset = $header->content_type->properties['charset'];
+       } else {
+           $charset = '';
+       }
     } else {
        $header = $message->header;
        $charset = $header->getParameter('charset');
