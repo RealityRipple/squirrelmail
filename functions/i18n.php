@@ -200,8 +200,10 @@ function charset_convert($in_charset,$string,$out_charset,$htmlencode=true) {
  * @return string $charset Adjusted name of charset
  */
 function fixcharset($charset) {
-    // minus removed from function names
-    $charset=str_replace('-','_',$charset);
+    /* remove minus and characters that might be used in paths from charset 
+     * name in order to be able to use it in function names and include calls.
+     */
+    $charset=preg_replace("/[-:.\/\\\]/",'_',$charset);
 
     // windows-125x and cp125x charsets
     $charset=str_replace('windows_','cp',$charset);
