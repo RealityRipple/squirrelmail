@@ -73,7 +73,7 @@ sqgetGlobalVar('draft_id',$draft_id);
 sqgetGlobalVar('ent_num',$ent_num);
 sqgetGlobalVar('saved_draft',$saved_draft);
 sqgetGlobalVar('delete_draft',$delete_draft);
-
+sqgetGlobalVar('startmessage',$startMessage);
 
 /** POST VARS */
 sqgetGlobalVar('sigappend',             $sigappend,             SQ_POST);
@@ -385,7 +385,7 @@ if ($send) {
         }
         else {
             Header("Location: $location/right_main.php?mailbox=$urlMailbox&sort=$sort".
-                   "&startMessage=1");
+                   "&startMessage=$startMessage");
         }
     } else {
         if ($compose_new_win == '1') {
@@ -840,7 +840,7 @@ function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
 }
 
 function showInputForm ($session, $values=false) {
-    global $send_to, $send_to_cc, $body,
+    global $send_to, $send_to_cc, $body, $startMessage,
            $passed_body, $color, $use_signature, $signature, $prefix_sig,
            $editor_size, $attachments, $subject, $newmail,
            $use_javascript_addr_book, $send_to_bcc, $passed_id, $mailbox,
@@ -877,11 +877,13 @@ function showInputForm ($session, $values=false) {
              "// -->\n</SCRIPT>\n\n";
     }
 
-    echo "\n" . '<FORM name=compose action="compose.php" METHOD=POST ' .
-         'ENCTYPE="multipart/form-data"';
-    do_hook("compose_form");
+    echo "\n" . '<form name="compose" action="compose.php" method="post" ' .
+         'enctype="multipart/form-data"';
+    do_hook('compose_form');
 
     echo ">\n";
+
+    echo '<input type="hidden" name="startMessage" value="' . $startMessage . "\">\n";
 
     if ($action == 'draft') {
         echo '<input type="hidden" name="delete_draft" value="' . $passed_id . "\">\n";
@@ -903,7 +905,7 @@ function showInputForm ($session, $values=false) {
     if ($mail_sent == 'yes') {
         echo '<BR><CENTER><B>'. _("Your Message has been sent").'</CENTER></B>';
     }
-    echo '<TABLE ALIGN=center CELLSPACING=0 BORDER=0>' . "\n";
+    echo '<table align="center" cellspacing="0" border="0">' . "\n";
     if ($compose_new_win == '1') {
         echo '<TABLE ALIGN=CENTER BGCOLOR="'.$color[0].'" WIDTH="100%" BORDER=0>'."\n" .
              '   <TR><TD></TD>'. html_tag( 'td', '', 'right' ) . '<INPUT TYPE="BUTTON" NAME="Close" onClick="return self.close()" VALUE='._("Close").'></TD></TR>'."\n";

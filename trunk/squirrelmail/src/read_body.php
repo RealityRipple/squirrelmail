@@ -502,6 +502,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
     $comp_uri = 'src/compose.php' .
                             '?passed_id=' . $passed_id .
                             '&amp;mailbox=' . $urlMailbox .
+                            '&amp;startMessage=' . $startMessage .
                             (isset($passed_ent_id)?'&amp;passed_ent_id='.$passed_ent_id:'');
 
     if (($mailbox == $draft_folder) && ($save_as_draft)) {
