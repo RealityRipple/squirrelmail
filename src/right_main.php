@@ -50,9 +50,13 @@ $delimiter = $_SESSION['delimiter'];
  
 if (isset($_GET['startMessage'])) {
     $startMessage = $_GET['startMessage'];
+} elseif (isset($_POST['startMessage'])) {
+    $startMessage = $_POST['startMessage'];
 }
 if (isset($_GET['mailbox'])) {
     $mailbox = $_GET['mailbox'];
+} else if (isset($_POST['mailbox'])) {
+    $mailbox = $_POST['mailbox'];
 }
 if (isset($_GET['PG_SHOWNUM'])) {
     $PG_SHOWNUM = $_GET['PG_SHOWNUM'];
