@@ -436,7 +436,7 @@ function printMessageInfo($aMsg) {
                 // parentNode property is DOM Level 1
                 //
                 if ($javascript_on && $fancy_index_highlite)
-                    $td_str .= ' onmousedown="row_click(\'msg[' . $t . ']\'); setPointer(this.parentNode.parentNode, ' . $t . ', \'click\', \'' . $hlt_color . '\', \'' . $mouseoverColor . '\', \'' . $clickedColor . '\');"';
+                    $td_str .= ' onmousedown="row_click(\'msg[' . $t . ']\'); setPointer(this.' . (empty($bold) ? '' : 'parentNode.') . 'parentNode.parentNode, ' . $t . ', \'click\', \'' . $hlt_color . '\', \'' . $mouseoverColor . '\', \'' . $clickedColor . '\');"';
 
                 $td_str .= ' ' .concat_hook_function('subject_link', array($start_msg, $searchstr));
                 if ($subject != $sSubject) {
