@@ -28,12 +28,16 @@
 
    // Renaming a folder doesn't renames the folder but leaves you unsubscribed
    //    at least on Cyrus IMAP servers.
-   fputs ($imapConnection, "sub UNSUBSCRIBE \"$orig\"\n");
-   fputs ($imapConnection, "sub SUBSCRIBE \"$newone\"\n");
-   $data = sqimap_read_data($imapConnection, "sub", true, $a, $b);
+   if ($isfolder) {
+      $newone = $newone.$dm;
+      $orig = $orig.$dm;
+   }   
+
+   sqimap_unsubscribe($imapConnection, $orig);
+   sqimap_subscribe($imapConnection, $newone);
 
    /** Log out this session **/
-   fputs($imapConnection, "1 logout");
+   sqimap_logout($imapConnection);
 
    echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    echo "<BR><BR><A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>";

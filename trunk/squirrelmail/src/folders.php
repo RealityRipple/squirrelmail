@@ -137,7 +137,7 @@
             }
          }
          if ($use_folder == true) {
-            $box = $boxes[$i]["unformatted"];
+            $box = $boxes[$i]["unformatted-dm"];
             $box2 = replace_spaces($boxes[$i]["formatted"]);
             echo "         <OPTION VALUE=\"$box\">$box2\n";
          }

@@ -11,9 +11,13 @@
    include("../src/load_prefs.php");
 
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
-   sqimap_mailbox_select($imapConnection, $old);
 
    $dm = sqimap_get_delimiter($imapConnection);
+   if (substr($old, strlen($old) - strlen($dm)) == $dm) {
+      $isfolder = true;
+      $old = substr($old, 0, strlen($old) - 1);
+   }
+   
    if (strpos($old, $dm)) {
       $old_name = substr($old, strrpos($old, $dm)+1, strlen($old));
       $old_parent = substr($old, 0, strrpos($old, $dm));
@@ -32,6 +36,8 @@
    echo "<FORM ACTION=folders_rename_do.php METHOD=POST>\n";
    echo _("New name:");
    echo " &nbsp;&nbsp;<INPUT TYPE=TEXT SIZE=25 NAME=new_name VALUE=\"$old_name\"><BR>\n";
+   if ($isfolder)
+      echo "<INPUT TYPE=HIDDEN NAME=isfolder VALUE=\"true\">";
    echo "<INPUT TYPE=HIDDEN NAME=orig VALUE=\"$old\">";
    echo "<INPUT TYPE=SUBMIT VALUE=\"";
    echo _("Submit");
