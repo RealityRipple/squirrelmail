@@ -366,8 +366,7 @@
       $topline = array_shift($data);
       while (! ereg('\* [0-9]+ FETCH ', $topline) && data)
           $topline = array_shift($data);
-      while ($data)
-          $wholemessage .= array_shift($data);
+      $wholemessage = implode('', $data);
 
       if (ereg('\{([^\}]*)\}', $topline, $regs)) {
          return substr($wholemessage, 0, $regs[1]);
