@@ -1,5 +1,6 @@
 Version 0.5pre2 -- DEVELOPMENT
 ------------------------------
+- Applied fixes for Courier IMAP server (by Andreas Dahl)
 - Fixed some buggy IMAP handling
 - Improved word wrapping
 - Made message highlighting not case sensative
