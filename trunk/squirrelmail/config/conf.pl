@@ -984,7 +984,14 @@ sub command81 {
 
                     # sanitize the plugin
                     $dir = $unused_plugins[$ct];
-                    `./ri_once.pl ../plugins/$dir`;
+                    if (-d "../plugins/$dir") {
+                        `./ri_once.pl ../plugins/$dir`;
+                    } else {
+                        print "Could not locate ../plugins/$dir\n" ;
+                        print "The plugin $dir could *not* be sanitized!\n" ;
+                        print "If you want to try to do this manually, please run\n" ;
+                         print "config/ri_once.pl with the full path to the $dir plugin.\n" ;
+                    }
                 }
                 $ct++;
             }
