@@ -153,20 +153,4 @@
    function replace_escaped_spaces ($string) {
       return str_replace("&nbsp;", " ", $string);
    }
-
-   function count_chars($string) {
-      for ($i = 0; $i < strlen($string); $i++) {
-         $ch = substr($string, $i, 1);
-         $size++;
-         if ($ch == "\\") {
-            $i++;   
-            $ch = substr($string, $i, 1);
-            if ($ch == "n")
-               $i--;
-            if ($ch == "r")
-               $i--;
-         }   
-      }   
-      return $size;
-   }
 ?>
