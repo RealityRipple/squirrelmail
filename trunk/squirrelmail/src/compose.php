@@ -41,7 +41,7 @@
    // This function is used when not sending or adding attachments
    function newMail () {
       global $forward_id, $imapConnection, $msg, $ent_num, $body_ary, $body,
-         $reply_id, $send_to, $send_to_cc, $mailbox, $send_to_bcc;
+         $reply_id, $send_to, $send_to_cc, $mailbox, $send_to_bcc, $editor_size;
 
       $send_to = sqStripSlashes(decodeHeader($send_to));
       $send_to_cc = sqStripSlashes(decodeHeader($send_to_cc));
@@ -75,6 +75,13 @@
          $body_ary = explode("\n", $body);
          $body = "";
          for ($i=0; $i < count($body_ary); $i++) {
+            sqWordWrap($body_ary[$i], $editor_size - 1);
+            $body .= $body_ary[$i];
+         }
+         $body_ary = array();
+         $body_ary = explode("\n", $body);
+         $body = "";
+         for ($i=0; $i < count($body_ary); $i++) {
             if ($i==0 && $forward_id) {
                $tmp = "-------- " . _("Original Message") . " --------\n";
                $tmp .= _("Subject") . ": " . $orig_header->subject . "\n"; 
@@ -94,6 +101,7 @@
             else
                $body = "$body> $tmp\n";
          }
+
          sqimap_mailbox_close($imapConnection);
          return $body;   
       }
