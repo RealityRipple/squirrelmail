@@ -15,7 +15,7 @@
  * @author Konstantin Riabitsev <icon@duke.edu> ($Author$)
  */
 
-global $SQSPELL_VERSION, $SQSPELL_APP_DEFFAULT;
+global $SQSPELL_VERSION, $SQSPELL_APP_DEFAULT;
 
 $words = $_POST['words'];
 $sqspell_use_app = $_POST['sqspell_use_app'];
