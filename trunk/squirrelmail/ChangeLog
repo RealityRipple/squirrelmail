@@ -28,6 +28,7 @@ Version 1.5.1 -- CVS
   - Make writing of preferences, abook, calendars fail better when disk full
     (#915527).
   - Remove code related to non-UID-supporting IMAP servers.
+  - Fix quoteimap() regex escaping problem (#921291).
 
 Version 1.5.0
 --------------------
