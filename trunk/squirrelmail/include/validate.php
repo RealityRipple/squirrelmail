@@ -40,19 +40,6 @@ require_once(SM_PATH . 'functions/global.php');
 
 is_logged_in();
 
-/* Remove all slashes for form values. */
-if (get_magic_quotes_gpc()) {
-    global $REQUEST_METHOD;
-
-    if ($REQUEST_METHOD == 'POST') {
-        global $HTTP_POST_VARS;
-        RemoveSlashes($HTTP_POST_VARS);
-    } else if ($REQUEST_METHOD == 'GET') {
-        global $HTTP_GET_VARS;
-        RemoveSlashes($HTTP_GET_VARS);
-    }
-}
-
 /**
 * Auto-detection
 *
