@@ -156,11 +156,11 @@ function abook_take_options()
           '<input type="checkbox" name="abook_take_abook_take_hide"';
           if ($abook_take_hide)
             echo ' checked';
-          echo '>' . _("Hide the box") . '<br>' .
+          echo '>&nbsp;' . _("Hide the box") . '<br>' .
           '<input type=checkbox name="abook_take_abook_take_verify"';
           if ($abook_take_verify)
             echo ' checked';
-          echo '>' . _("Try to verify addresses") . '</td></tr>';
+          echo '>&nbsp;' . _("Try to verify addresses") . '</td></tr>';
 }
 
 
