@@ -300,27 +300,31 @@ $allow_advanced_search = 0              if ( !$allow_advanced_search) ;
 $prefs_user_field = 'user'              if ( !$prefs_user_field );
 $prefs_key_field = 'prefkey'            if ( !$prefs_key_field );
 $prefs_val_field = 'prefval'            if ( !$prefs_val_field );
-$addrbook_global_table = 'global_abook' if ( !$addrbook_global_table );
-$addrbook_global_writeable = 'false'    if ( !$addrbook_global_writeable );
-$addrbook_global_listing = 'false'      if ( !$addrbook_global_listing );
-$abook_global_file = ''                 if ( !$abook_global_file);
-$abook_global_file_writeable = 'false'  if ( !$abook_global_file_writeable);
 $use_smtp_tls= 'false'                  if ( !$use_smtp_tls);
 $smtp_auth_mech = 'none'                if ( !$smtp_auth_mech );
 $use_imap_tls = 'false'                 if ( !$use_imap_tls );
 $imap_auth_mech = 'login'               if ( !$imap_auth_mech );
 $session_name = 'SQMSESSID'             if ( !$session_name );
+$skip_SM_header = 'false'               if ( !$skip_SM_header );
+$default_use_javascript_addr_book = 'false' if (! $default_use_javascript_addr_book);
+# since 1.5.0
 $show_alternative_names = 'false'       if ( !$show_alternative_names );
 $available_languages = 'all'            if ( !$available_languages );
 $aggressive_decoding = 'false'          if ( !$aggressive_decoding );
-$lossy_encoding = 'false'               if ( !$lossy_encoding );
 $advanced_tree = 'false'                if ( !$advanced_tree );
 $oldway = 'false'                       if ( !$oldway );
-$use_icons = 'false'                    if ( !$use_icons );
 $use_php_recode = 'false'               if ( !$use_php_recode );
 $use_php_iconv = 'false'                if ( !$use_php_iconv );
-$skip_SM_header = 'false'               if ( !$skip_SM_header );
-$default_use_javascript_addr_book = 'false' if (! $default_use_javascript_addr_book);
+# since 1.5.1
+$use_icons = 'false'                    if ( !$use_icons );
+$lossy_encoding = 'false'               if ( !$lossy_encoding );
+$allow_remote_configtest = 'false'      if ( !$allow_remote_configtest );
+$addrbook_global_table = 'global_abook' if ( !$addrbook_global_table );
+$addrbook_global_writeable = 'false'    if ( !$addrbook_global_writeable );
+$addrbook_global_listing = 'false'      if ( !$addrbook_global_listing );
+$abook_global_file = ''                 if ( !$abook_global_file);
+$abook_global_file_writeable = 'false'  if ( !$abook_global_file_writeable);
+$abook_global_file_listing = 'true'     if ( !$abook_global_file_listing );
 
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
@@ -510,9 +514,10 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         for ( $count = 0 ; $count <= $#ldap_host ; $count++ ) {
             print "    >  $ldap_host[$count]\n";
         }
-        print "2.  Use Javascript address book search  : $WHT$default_use_javascript_addr_book$NRM\n";
-        print "3.  Use global file address book        : $WHT$abook_global_file$NRM\n";
+        print "2.  Use Javascript address book search          : $WHT$default_use_javascript_addr_book$NRM\n";
+        print "3.  Use global file address book                : $WHT$abook_global_file$NRM\n";
         print "4.  Allow writing into global file address book : $WHT$abook_global_file_writeable$NRM\n";
+        print "5.  Allow listing of global file address book   : $WHT$abook_global_file_listing$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 7 ) {
@@ -594,6 +599,9 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
     print $WHT. "PHP tweaks\n" . $NRM;
     print "4.  Use php recode functions : $WHT$use_php_recode$NRM\n";
     print "5.  Use php iconv functions  : $WHT$use_php_iconv$NRM\n";
+    print "\n";
+    print $WHT. "Configuration tweaks\n" . $NRM;
+    print "6.  Allow remote configtest  : $WHT$allow_remote_configtest$NRM\n";
     print "\n";
         print "R   Return to Main Menu\n";
     }
@@ -723,6 +731,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 2 ) { command62(); }
             elsif ( $command == 3 ) { $abook_global_file=command63(); }
             elsif ( $command == 4 ) { command64(); }
+            elsif ( $command == 5 ) { command65(); }
         } elsif ( $menu == 7 ) {
             if ( $command == 1 ) { $motd = command71(); }
         } elsif ( $menu == 8 ) {
@@ -748,10 +757,11 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 6 ) { $lossy_encoding         = commandA6(); }
         } elsif ( $menu == 11 ) {
             if    ( $command == 1 ) { $advanced_tree  = commandB1(); }
-            elsif ( $command == 2 ) { $oldway            = commandB2(); }
+            elsif ( $command == 2 ) { $oldway         = commandB2(); }
             elsif ( $command == 3 ) { $use_icons      = commandB3(); }
             elsif ( $command == 4 ) { $use_php_recode = commandB4(); }
             elsif ( $command == 5 ) { $use_php_iconv  = commandB5(); }
+            elsif ( $command == 6 ) { $allow_remote_configtest = commandB6(); }
         }
     }
 }
@@ -2617,6 +2627,28 @@ sub command64 {
     return $abook_global_file_writeable;
 }
 
+# listing of global filebased abook control
+sub command65 {
+    print "This setting controls listing of global file address\n";
+    print "book in addresses page.\n";
+    print "\n";
+
+    if ( lc($abook_global_file_listing) eq 'true' ) {
+        $default_value = "y";
+    } else {
+        $abook_global_file_listing = 'false';
+        $default_value               = "n";
+    }
+    print "Allow listing of global file address book (y/n) [$WHT$default_value$NRM]: $WHT";
+    $new_show = <STDIN>;
+    if ( ( $new_show =~ /^y\n/i ) || ( ( $new_show =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $abook_global_file_listing = 'true';
+    } else {
+        $abook_global_file_listing = 'false';
+    }
+    return $abook_global_file_listing;
+}
+
 sub command91 {
     print "If you want to store your users address book details in a database then\n";
     print "you need to set this DSN to a valid value. The format for this is:\n";
@@ -3059,6 +3091,28 @@ sub commandB5 {
     return $use_php_iconv;
 }
 
+# configtest block
+sub commandB6 {
+    print "Enable this option if you want to check SquirrelMail configuration\n";
+    print "remotely with configtest.php script.\n";
+    print "\n";
+
+    if ( lc($allow_remote_configtest) eq 'true' ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Allow remote configuration tests? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $allow_remote_configtest = <STDIN>;
+    if ( ( $allow_remote_configtest =~ /^y\n/i ) || ( ( $allow_remote_configtest =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $allow_remote_configtest = 'true';
+    } else {
+        $allow_remote_configtest = 'false';
+    }
+    return $allow_remote_configtest;
+}
+
+
 
 sub save_data {
     $tab = "    ";
@@ -3316,6 +3370,8 @@ sub save_data {
     # boolean
         print CF "\$abook_global_file_writeable = $abook_global_file_writeable;\n\n";
     # boolean
+        print CF "\$abook_global_file_listing = $abook_global_file_listing;\n\n";
+    # boolean
         print CF "\$no_list_for_subscribe = $no_list_for_subscribe;\n";
 
     # string
@@ -3345,6 +3401,9 @@ sub save_data {
     print CF "\n";
     # boolean
     print CF "\$use_php_iconv = $use_php_iconv;\n";
+    print CF "\n";
+    # boolean
+    print CF "\$allow_remote_configtest = $allow_remote_configtest;\n";
     print CF "\n";
 
         print CF "\@include SM_PATH . 'config/config_local.php';\n";
