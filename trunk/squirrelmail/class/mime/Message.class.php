@@ -6,7 +6,7 @@
  * Copyright (c) 2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * This contains functions needed to handle mime messages.
+  This contains functions needed to handle mime messages.
  *
  * $Id$
  */
@@ -23,7 +23,7 @@ class Message {
         $type0='',
         $type1='',
         $entities = array(),
-	$entity_id = '',
+        $entity_id = '',
         $parent_ent, $entity,
         $parent = '', $decoded_body='',
         $is_seen = 0, $is_answered = 0, $is_deleted = 0, $is_flagged = 0,
@@ -31,8 +31,8 @@ class Message {
         $body_part = '',
         $offset = 0,  /* for fetching body parts out of raw messages */
         $length = 0,  /* for fetching body parts out of raw messages */
-	$att_local_name = ''; /* location where the tempory attachment
-	                         is stored. For future usage in smtp.php */
+        $att_local_name = ''; /* location where the tempory attachment
+                             is stored. For future usage in smtp.php */
 
     function setEnt($ent) {
         $this->entity_id= $ent;
@@ -144,43 +144,42 @@ class Message {
     
     function setEntIds(&$msg,$init=false,$i=0) {
         $iCnt = count($msg->entities);
-	if ($init !==false) {
-	    $iEntSub = $i+1;
-	    if ($msg->parent->type0 == 'message' && 
-	        $msg->parent->type1 == 'rfc822' &&
-		$msg->type0 == 'multipart') {
-		$iEntSub = '0';
-	    }
-	    if ($init) {
-		$msg->entity_id = "$init.$iEntSub";
-	    } else {
-		$msg->entity_id = $iEntSub;
-	    }
-	} else if ($iCnt) {
-	    $msg->entity_id='0';
-	} else {
-	    $msg->entity_id='1';
-	}
+        if ($init !==false) {
+            $iEntSub = $i+1;
+            if ($msg->parent->type0 == 'message' && 
+                $msg->parent->type1 == 'rfc822' &&
+                $msg->type0 == 'multipart') {
+                $iEntSub = '0';
+            }
+            if ($init) {
+                $msg->entity_id = "$init.$iEntSub";
+            } else {
+                $msg->entity_id = $iEntSub;
+            }
+        } else if ($iCnt) {
+            $msg->entity_id='0';
+        } else {
+            $msg->entity_id='1';
+        }
         for ($i=0;$i<$iCnt;++$i) {
-	    $msg->entities[$i]->parent =& $msg;	
-            if (strrchr($msg->entity_id, '.') != '.0') {	
-	        $msg->entities[$i]->setEntIds($msg->entities[$i],$msg->entity_id,$i);
-	    } else {
-	        $msg->entities[$i]->setEntIds($msg->entities[$i],$msg->parent->entity_id,$i);
-	    }
-	    
-	}
+            $msg->entities[$i]->parent =& $msg;    
+            if (strrchr($msg->entity_id, '.') != '.0') {    
+                $msg->entities[$i]->setEntIds($msg->entities[$i],$msg->entity_id,$i);
+            } else {
+                $msg->entities[$i]->setEntIds($msg->entities[$i],$msg->parent->entity_id,$i);
+            }
+        }
     }
 
     function parseBodyStructure($read, &$i, $sub_msg = '') {
         $arg_no = 0;
         $arg_a  = array();
-	if ($sub_msg) {
-	    $message = $sub_msg;
-	} else {
-	    $message = new Message();
-	}
-	$this = $message;    
+        if ($sub_msg) {
+            $message = $sub_msg;
+        } else {
+            $message = new Message();
+        }
+        $this = $message;    
         for ($cnt = strlen($read); $i < $cnt; ++$i) {
             $char = strtoupper($read{$i});
             switch ($char) {
@@ -291,17 +290,17 @@ class Message {
                     $arg_a[] = $this->parseLiteral($read, $i);
                     ++$arg_no;
                     break;
-		case '0':    
+        case '0':    
                 case is_numeric($read{$i}):
                     /* process integers */
                     if ($read{$i} == ' ') { break; }
-		    ++$arg_no;
-		    if (preg_match('/^([0-9]+).*/',substr($read,$i), $regs)) {
-			$i += strlen($regs[1])-1;
-			$arg_a[] = $regs[1];
-		    } else {
-			$arg_a[] = 0;
-		    }
+            ++$arg_no;
+            if (preg_match('/^([0-9]+).*/',substr($read,$i), $regs)) {
+                $i += strlen($regs[1])-1;
+                $arg_a[] = $regs[1];
+            } else {
+                $arg_a[] = 0;
+            }
                     break;
                 case ')':
                     $multipart = (isset($msg->type0) && ($msg->type0 == 'multipart'));
@@ -385,9 +384,9 @@ class Message {
                     break;
                 case '{':
                     $arg_a[] = $this->parseLiteral($read, $i);
-		    /* temp bugfix (SM 1.5 will have a working clean version)
-		       too much work to implement that version right now */
-//		    --$i;
+            /* temp bugfix (SM 1.5 will have a working clean version)
+               too much work to implement that version right now */
+//            --$i;
                     ++$arg_no;
                     break;
                 case 'N':
@@ -439,7 +438,7 @@ class Message {
         if (count($arg_a) > 9) {
             $d = strtr($arg_a[0], array('  ' => ' '));
             $d = explode(' ', $d);
-	    if (!$arg_a[1]) $arg_1[1] = _("(no subject)");	    
+        if (!$arg_a[1]) $arg_1[1] = _("(no subject)");        
 
             $hdr->date = getTimeStamp($d); /* argument 1: date */
             $hdr->subject = $arg_a[1];     /* argument 2: subject */
@@ -457,40 +456,40 @@ class Message {
 
     function parseLiteral($read, &$i) {
         $lit_cnt = '';
-	++$i;
-	$iPos = strpos($read,'}',$i);
-	if ($iPos) {
-	   $lit_cnt = substr($read, $i, $iPos - $i);
-	   $i += strlen($lit_cnt) + 3; /* skip } + \r + \n */
-	   /* Now read the literal */
-	   $s = ($lit_cnt ? substr($read,$i,$lit_cnt): '');
-	   $i += $lit_cnt;
-	   /* temp bugfix (SM 1.5 will have a working clean version)
-	      too much work to implement that version right now */
-	   --$i;
-	} else { /* should never happen */
-	   $i += 3; /* } + \r + \n */
-	   $s = '';
-	}
+        ++$i;
+        $iPos = strpos($read,'}',$i);
+        if ($iPos) {
+            $lit_cnt = substr($read, $i, $iPos - $i);
+            $i += strlen($lit_cnt) + 3; /* skip } + \r + \n */
+            /* Now read the literal */
+            $s = ($lit_cnt ? substr($read,$i,$lit_cnt): '');
+            $i += $lit_cnt;
+            /* temp bugfix (SM 1.5 will have a working clean version)
+               too much work to implement that version right now */
+            --$i;
+        } else { /* should never happen */
+            $i += 3; /* } + \r + \n */
+            $s = '';
+        }
         return $s;
     }
 
     function parseQuote($read, &$i) {
         $s = '';
-	$iPos = ++$i;
-	while (true) {
-	   $iPos = strpos($read,'"',$iPos);
-	   if (!$iPos) break;
-	   if ($iPos && $read{$iPos -1} != '\\') {
-	      $s = substr($read,$i,($iPos-$i));
-	      $i = $iPos;
-	      break;
-	   }
-       $iPos++;
-       if ($iPos > strlen($read)) {
-          break;
-       }
-	}
+        $iPos = ++$i;
+        while (true) {
+            $iPos = strpos($read,'"',$iPos);
+            if (!$iPos) break;
+            if ($iPos && $read{$iPos -1} != '\\') {
+                $s = substr($read,$i,($iPos-$i));
+                $i = $iPos;
+                break;
+            }
+            ++$iPos;
+            if ($iPos > strlen($read)) {
+                break;
+            }
+        }
         return $s;
     }
 
@@ -675,8 +674,8 @@ class Message {
             } else { /* Treat as multipart/mixed */
                 foreach ($this->entities as $ent) {
                     if((strtolower($ent->header->disposition->name) != 'attachment') &&
-		        (!isset($ent->header->parameters['filename'])) &&
-			(!isset($ent->header->parameters['name'])) &&
+                (!isset($ent->header->parameters['filename'])) &&
+                (!isset($ent->header->parameters['name'])) &&
                        (($ent->type0 != 'message') && ($ent->type1 != 'rfc822'))) {
                         $entity = $ent->findDisplayEntity($entity, $alt_order, $strict);
                         $found = true;
@@ -685,12 +684,12 @@ class Message {
             }
         } else { /* If not multipart, then just compare with each entry from $alt_order */
             $type = $this->type0.'/'.$this->type1;
-//	    $alt_order[] = "message/rfc822";
+//        $alt_order[] = "message/rfc822";
             foreach ($alt_order as $alt) {
                 if( ($alt == $type) && isset($this->entity_id) ) {
                     if ((count($this->entities) == 0) && 
-		        (!isset($ent->header->parameters['filename'])) &&
-			(!isset($ent->header->parameters['name'])) &&
+                (!isset($ent->header->parameters['filename'])) &&
+                (!isset($ent->header->parameters['name'])) &&
                         (strtolower($this->header->disposition->name) != 'attachment')) {
                         $entity[] = $this->entity_id;
                         $found = true;
@@ -730,6 +729,8 @@ class Message {
             $type = $ent->header->type0 . '/' . $ent->header->type1;
             if ($type == 'multipart/related') {
                 $type = $ent->header->getParameter('type');
+            // Mozilla bug. Mozilla does not provide the parameter type.
+            if (!$type) $type = 'text/html';
             }
             $altCount = count($alt_order);
             for ($j = $best_view; $j < $altCount; ++$j) {
@@ -745,23 +746,24 @@ class Message {
 
     function findRelatedEntity() {
         $msgs = array();
-
+        $related_type = $this->header->getParameter('type');
+        // Mozilla bug. Mozilla does not provide the parameter type.
+        if (!$related_type) $related_type = 'text/html';
         $entCount = count($this->entities);
         for ($i = 0; $i < $entCount; ++$i) {
             $type = $this->entities[$i]->header->type0.'/'.$this->entities[$i]->header->type1;
-            if ($this->header->getParameter('type') == $type) {
+            if ($related_type == $type) {
                 $msgs[] = $this->entities[$i];
             }
         }
-
         return $msgs;
     }
 
     function getAttachments($exclude_id=array(), $result = array()) {
 /*
         if (($this->type0 == 'message') && 
-	    ($this->type1 == 'rfc822') &&
-	    ($this->entity_id) ) {
+        ($this->type1 == 'rfc822') &&
+        ($this->entity_id) ) {
             $this = $this->entities[0];
         }
 */
@@ -800,19 +802,19 @@ class Message {
         $attachment = new Message();
         $mime_header = new MessageHeader();
         $mime_header->setParameter('name', $name);
-	$pos = strpos($type, '/');
-	if ($pos > 0) {
-    	    $mime_header->type0 = substr($type, 0, $pos);
-    	    $mime_header->type1 = substr($type, $pos+1);
-	} else {
-    	    $mime_header->type0 = $type;
-	}
-	$attachment->att_local_name = $location;
-	$disposition = new Disposition('attachment');
-	$disposition->properties['filename'] = $name;
-	$mime_header->disposition = $disposition;
-	$attachment->mime_header = $mime_header;
-	$this->entities[]=$attachment;
+        $pos = strpos($type, '/');
+        if ($pos > 0) {
+            $mime_header->type0 = substr($type, 0, $pos);
+            $mime_header->type1 = substr($type, $pos+1);
+        } else {
+            $mime_header->type0 = $type;
+        }
+        $attachment->att_local_name = $location;
+        $disposition = new Disposition('attachment');
+        $disposition->properties['filename'] = $name;
+        $mime_header->disposition = $disposition;
+        $attachment->mime_header = $mime_header;
+        $this->entities[]=$attachment;
     }
 }
 
