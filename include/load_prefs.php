@@ -245,7 +245,7 @@ $page_selector_max = getPref($data_dir, $username, 'page_selector_max', 10);
 
 /* SqClock now in the core */
 $date_format = getPref($data_dir, $username, 'date_format', 3);
-$hour_format = getPref($data_dir, $username, 'hour_format', 2);
+$hour_format = getPref($data_dir, $username, 'hour_format', SMPREF_TIME_12HR);
 
 /*  compose in new window setting */
 $compose_new_win = getPref($data_dir, $username, 'compose_new_win', 0);
