@@ -18,14 +18,25 @@ class AddressStructure {
         $host     = '',
         $group    = '';
 
-    function getAddress($full = true) {
+    function getAddress($full = true, $encoded = false) {
         $result = '';
 
         if (is_object($this)) {
             $email = ($this->host ? $this->mailbox.'@'.$this->host
 	                          : $this->mailbox);
-            if (trim($this->personal)) {
-	        $addr = ($email ? '"' . $this->personal . '" <' .$email.'>'
+            $personal = trim($this->personal);
+            if ($personal) {
+                if ($encoded) {
+                    $personal_encoded = encodeHeader($personal);
+                    if ($personal !== $personal_encoded) {
+                        $personal = $personal_encoded;
+                    } else {
+                        $personal = '"'.$this->personal.'"';
+                    }
+                } else {
+                    $personal = '"'.$this->personal.'"';
+                }
+	        $addr = ($email ? $personal . ' <' .$email.'>'
 		                : $this->personal);
                 $best_dpl = $this->personal;
             } else {
@@ -35,6 +46,10 @@ class AddressStructure {
             $result = ($full ? $addr : $best_dpl);
         }
         return $result;
+    }
+    
+    function getEncodedAddress() {
+        return $this->getAddress(true, true);
     }
 }
 
