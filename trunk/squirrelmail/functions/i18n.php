@@ -1354,6 +1354,9 @@ $languages['he_IL']['CHARSET'] = 'windows-1255';
 $languages['he_IL']['DIR']     = 'rtl';
 $languages['he']['ALIAS']      = 'he_IL';
 
+$languages['vi_VN']['NAME']    = 'Vietnamese';
+$languages['vi_VN']['CHARSET'] = 'utf-8';
+$languages['vi']['ALIAS'] = 'vi_VN';
 
 /* Detect whether gettext is installed. */
 $gettext_flags = 0;
