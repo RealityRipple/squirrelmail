@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# **
+# ** This script regenerates main PO file
+# **
+# ** Philipe Mingo <mingo@rotedic.com>
+# ** 
+# **  $Id$ 
+
+xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail \
+    -C ../src/*.php
+xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
+    -C ../functions/*.php

@@ -6,1470 +6,1353 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-10-07 00:49+0200\n"
+"POT-Creation-Date: 2001-10-09 10:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: ENCODING\n"
 
-#: /home/backup/squirrelmail/src/addrbook_popup.php:22
+#: ../src/addrbook_popup.php:22
 msgid "Address Book"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addrbook_search.php:100
-#: /home/backup/squirrelmail/src/addrbook_search_html.php:67
-#: /home/backup/squirrelmail/src/addressbook.php:315
+#: ../src/addrbook_search.php:100 ../src/addrbook_search_html.php:67
+#: ../src/addressbook.php:315
 msgid "Name"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addrbook_search.php:100
-#: /home/backup/squirrelmail/src/addrbook_search_html.php:67
-#: /home/backup/squirrelmail/src/addressbook.php:316
+#: ../src/addrbook_search.php:100 ../src/addrbook_search_html.php:67
+#: ../src/addressbook.php:316
 msgid "E-mail"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addrbook_search.php:100
-#: /home/backup/squirrelmail/src/addrbook_search_html.php:67
-#: /home/backup/squirrelmail/src/addressbook.php:317
+#: ../src/addrbook_search.php:100 ../src/addrbook_search_html.php:67
+#: ../src/addressbook.php:317
 msgid "Info"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addrbook_search.php:103
-#: /home/backup/squirrelmail/src/addrbook_search_html.php:70
+#: ../src/addrbook_search.php:103 ../src/addrbook_search_html.php:70
 msgid "Source"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addrbook_search_html.php:95
-msgid "Use Addresses"
+#: ../src/addrbook_search.php:154 ../src/addrbook_search.php:238
+#: ../src/addrbook_search_html.php:202
+msgid "No persons matching your search was found"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addrbook_search_html.php:114
-msgid "Address Book Search"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/addrbook_search.php:167
-#: /home/backup/squirrelmail/src/addrbook_search_html.php:124
+#: ../src/addrbook_search.php:167 ../src/addrbook_search_html.php:124
 msgid "Search for"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addrbook_search.php:174
-#: /home/backup/squirrelmail/src/addrbook_search_html.php:135
+#: ../src/addrbook_search.php:174 ../src/addrbook_search_html.php:135
 msgid "in"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addrbook_search.php:176
-#: /home/backup/squirrelmail/src/addrbook_search_html.php:138
+#: ../src/addrbook_search.php:176 ../src/addrbook_search_html.php:138
 msgid "All address books"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/page_header.php:75
-#: /home/backup/squirrelmail/src/addrbook_search.php:186
-#: /home/backup/squirrelmail/src/addrbook_search_html.php:150
-#: /home/backup/squirrelmail/src/search.php:17
-#: /home/backup/squirrelmail/src/search.php:73
+#: ../functions/page_header.php:75 ../src/addrbook_search.php:186
+#: ../src/addrbook_search_html.php:150 ../src/search.php:17
+#: ../src/search.php:73
 msgid "Search"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addrbook_search.php:188
-#: /home/backup/squirrelmail/src/addrbook_search_html.php:152
+#: ../src/addrbook_search.php:188 ../src/addrbook_search_html.php:152
 msgid "List all"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addrbook_search.php:209
-#: /home/backup/squirrelmail/src/addrbook_search_html.php:175
+#: ../src/addrbook_search.php:191
+msgid "Close window"
+msgstr ""
+
+#: ../src/addrbook_search.php:209 ../src/addrbook_search_html.php:175
 #, c-format
 msgid "Unable to list addresses from %s"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addrbook_search.php:231
-#: /home/backup/squirrelmail/src/addrbook_search_html.php:198
+#: ../src/addrbook_search.php:231 ../src/addrbook_search_html.php:198
 msgid "Your search failed with the following error(s)"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addrbook_search.php:154
-#: /home/backup/squirrelmail/src/addrbook_search.php:238
-#: /home/backup/squirrelmail/src/addrbook_search_html.php:202
-msgid "No persons matching your search was found"
+#: ../src/addrbook_search_html.php:95
+msgid "Use Addresses"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addrbook_search_html.php:211
+#: ../src/addrbook_search_html.php:114
+msgid "Address Book Search"
+msgstr ""
+
+#: ../src/addrbook_search_html.php:211
 msgid "Return"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addrbook_search.php:191
-msgid "Close window"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/addressbook.php:33
-#: /home/backup/squirrelmail/src/addressbook.php:314
+#: ../src/addressbook.php:33 ../src/addressbook.php:314
 msgid "Nickname"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addressbook.php:40
+#: ../src/addressbook.php:40
 msgid "Must be unique"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addressbook.php:42
+#: ../src/addressbook.php:42
 msgid "E-mail address"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addressbook.php:49
+#: ../src/addressbook.php:49
 msgid "First name"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addressbook.php:56
+#: ../src/addressbook.php:56
 msgid "Last name"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addressbook.php:63
+#: ../src/addressbook.php:63
 msgid "Additional info"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addressbook.php:82
+#: ../src/addressbook.php:82
 msgid "No personal address book is defined. Contact administrator."
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addressbook.php:179
+#: ../src/addressbook.php:179
 msgid "You can only edit one address at the time"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addressbook.php:191
-#: /home/backup/squirrelmail/src/addressbook.php:194
-#: /home/backup/squirrelmail/src/addressbook.php:223
-#: /home/backup/squirrelmail/src/addressbook.php:226
+#: ../src/addressbook.php:191 ../src/addressbook.php:194
+#: ../src/addressbook.php:223 ../src/addressbook.php:226
 msgid "Update address"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/display_messages.php:66
-#: /home/backup/squirrelmail/functions/display_messages.php:82
-#: /home/backup/squirrelmail/functions/imap_general.php:214
-#: /home/backup/squirrelmail/src/addressbook.php:214
-#: /home/backup/squirrelmail/src/addressbook.php:264
+#: ../functions/display_messages.php:66 ../functions/display_messages.php:82
+#: ../functions/imap_general.php:214 ../src/addressbook.php:214
+#: ../src/addressbook.php:264
 msgid "ERROR"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addressbook.php:240
+#: ../src/addressbook.php:240
 msgid "Unknown error"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addressbook.php:284
-#: /home/backup/squirrelmail/src/addressbook.php:368
+#: ../src/addressbook.php:284 ../src/addressbook.php:368
 msgid "Add address"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addressbook.php:295
-#: /home/backup/squirrelmail/src/addressbook.php:352
+#: ../src/addressbook.php:295 ../src/addressbook.php:352
 msgid "Edit selected"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addressbook.php:297
-#: /home/backup/squirrelmail/src/addressbook.php:354
+#: ../src/addressbook.php:297 ../src/addressbook.php:354
 msgid "Delete selected"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/addressbook.php:365
+#: ../src/addressbook.php:365
 #, c-format
 msgid "Add to %s"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/compose.php:93
+#: ../src/compose.php:93
 msgid "Original Message"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:572
-#: /home/backup/squirrelmail/src/compose.php:94
-#: /home/backup/squirrelmail/src/download.php:116
-#: /home/backup/squirrelmail/src/download.php:122
-#: /home/backup/squirrelmail/src/options_order.php:42
-#: /home/backup/squirrelmail/src/search.php:58
-#: /home/backup/squirrelmail/src/search.php:59
+#: ../functions/mailbox_display.php:596 ../src/compose.php:94
+#: ../src/download.php:116 ../src/download.php:122 ../src/options_order.php:42
+#: ../src/search.php:58 ../src/search.php:59
 msgid "Subject"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:560
-#: /home/backup/squirrelmail/src/compose.php:95
-#: /home/backup/squirrelmail/src/download.php:117
-#: /home/backup/squirrelmail/src/download.php:124
-#: /home/backup/squirrelmail/src/options_order.php:40
-#: /home/backup/squirrelmail/src/search.php:61
-#: /home/backup/squirrelmail/src/search.php:62
+#: ../functions/mailbox_display.php:584 ../src/compose.php:95
+#: ../src/download.php:117 ../src/download.php:124 ../src/options_order.php:40
+#: ../src/search.php:61 ../src/search.php:62
 msgid "From"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:558
-#: /home/backup/squirrelmail/src/compose.php:96
-#: /home/backup/squirrelmail/src/download.php:118
-#: /home/backup/squirrelmail/src/download.php:126
-#: /home/backup/squirrelmail/src/search.php:67
-#: /home/backup/squirrelmail/src/search.php:68
+#: ../functions/mailbox_display.php:582 ../src/compose.php:96
+#: ../src/download.php:118 ../src/download.php:126 ../src/search.php:67
+#: ../src/search.php:68
 msgid "To"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/compose.php:231
-#: /home/backup/squirrelmail/src/read_body.php:387
+#: ../src/compose.php:231 ../src/read_body.php:387
 msgid "From:"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/compose.php:256
-#: /home/backup/squirrelmail/src/read_body.php:403
+#: ../src/compose.php:256 ../src/read_body.php:403
 msgid "To:"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/compose.php:264
+#: ../src/compose.php:264
 msgid "CC:"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/compose.php:272
+#: ../src/compose.php:272
 msgid "BCC:"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/compose.php:280
-#: /home/backup/squirrelmail/src/read_body.php:370
+#: ../src/compose.php:280 ../src/read_body.php:370
 msgid "Subject:"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/compose.php:322
-#: /home/backup/squirrelmail/src/compose.php:370
+#: ../src/compose.php:322 ../src/compose.php:370
 msgid "Send"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/compose.php:328
+#: ../src/compose.php:328
 msgid "Attach:"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/compose.php:332
-#: /home/backup/squirrelmail/src/options_order.php:128
+#: ../src/compose.php:332 ../src/options_order.php:128
 msgid "Add"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/compose.php:347
+#: ../src/compose.php:347
 msgid "Delete selected attachments"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/page_header.php:69
-#: /home/backup/squirrelmail/src/compose.php:363
-#: /home/backup/squirrelmail/src/compose.php:365
-#: /home/backup/squirrelmail/src/compose.php:368
+#: ../functions/page_header.php:69 ../src/compose.php:363
+#: ../src/compose.php:365 ../src/compose.php:368
 msgid "Addresses"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/compose.php:387
+#: ../src/compose.php:387
 msgid "You have not filled in the \"To:\" field."
 msgstr ""
 
-#: /home/backup/squirrelmail/src/compose.php:470
-#: /home/backup/squirrelmail/src/compose.php:507
-#: /home/backup/squirrelmail/src/compose.php:514
+#: ../src/compose.php:470 ../src/compose.php:507 ../src/compose.php:514
 msgid "Could not move/copy file. File not attached"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/compose.php:573
+#: ../src/compose.php:573
 msgid "said"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/compose.php:576
+#: ../src/compose.php:576
 msgid "quote"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/compose.php:576
+#: ../src/compose.php:576
 msgid "who"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/download.php:32
+#: ../src/download.php:32
 msgid "Viewing a text attachment"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/download.php:35
-#: /home/backup/squirrelmail/src/download.php:37
-#: /home/backup/squirrelmail/src/read_body.php:38
+#: ../src/download.php:35 ../src/download.php:37 ../src/read_body.php:38
 msgid "View message"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mime.php:559
-#: /home/backup/squirrelmail/src/download.php:42
+#: ../functions/mime.php:559 ../src/download.php:42
 msgid "Download this as a file"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:566
-#: /home/backup/squirrelmail/src/download.php:119
-#: /home/backup/squirrelmail/src/download.php:128
-#: /home/backup/squirrelmail/src/options_order.php:41
+#: ../functions/mailbox_display.php:590 ../src/download.php:119
+#: ../src/download.php:128 ../src/options_order.php:41
 msgid "Date"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders_create.php:24
-msgid "Illegal folder name.  Please select a different name."
-msgstr ""
-
-#: /home/backup/squirrelmail/src/folders_create.php:24
-msgid "Click here to go back"
-msgstr ""
-
-#: /home/backup/squirrelmail/functions/imap_mailbox.php:40
-#: /home/backup/squirrelmail/src/folders.php:20
-#: /home/backup/squirrelmail/src/folders.php:124
-#: /home/backup/squirrelmail/src/folders.php:126
-#: /home/backup/squirrelmail/src/options.php:24
-#: /home/backup/squirrelmail/src/options_display.php:161
+#: ../functions/imap_mailbox.php:40 ../src/folders.php:20
+#: ../src/folders.php:124 ../src/folders.php:126 ../src/options.php:24
+#: ../src/options_display.php:161
 msgid "None"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/page_header.php:71
-#: /home/backup/squirrelmail/src/folders.php:28
-#: /home/backup/squirrelmail/src/left_main.php:134
+#: ../functions/page_header.php:71 ../src/folders.php:28
+#: ../src/left_main.php:134
 msgid "Folders"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders.php:41
+#: ../src/folders.php:41
 msgid "Subscribed successfully!"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders.php:43
+#: ../src/folders.php:43
 msgid "Unsubscribed successfully!"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders.php:45
+#: ../src/folders.php:45
 msgid "Deleted folder successfully!"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders.php:47
+#: ../src/folders.php:47
 msgid "Created folder successfully!"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders.php:49
+#: ../src/folders.php:49
 msgid "Renamed successfully!"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders.php:52
-#: /home/backup/squirrelmail/src/left_main.php:137
+#: ../src/folders.php:52 ../src/left_main.php:137
 msgid "refresh folder list"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders.php:62
+#: ../src/folders.php:62
 msgid "Delete Folder"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:530
-#: /home/backup/squirrelmail/src/folders.php:103
-#: /home/backup/squirrelmail/src/read_body.php:326
+#: ../functions/mailbox_display.php:554 ../src/folders.php:103
+#: ../src/read_body.php:326
 msgid "Delete"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders.php:107
-#: /home/backup/squirrelmail/src/folders.php:182
+#: ../src/folders.php:107 ../src/folders.php:182
 msgid "No folders found"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders.php:114
+#: ../src/folders.php:114
 msgid "Create Folder"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders.php:119
+#: ../src/folders.php:119
 msgid "as a subfolder of"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders.php:147
+#: ../src/folders.php:147
 msgid "Let this folder contain subfolders"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders.php:150
+#: ../src/folders.php:150
 msgid "Create"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders.php:157
+#: ../src/folders.php:157
 msgid "Rename a Folder"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders.php:178
+#: ../src/folders.php:178
 msgid "Rename"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders.php:191
-#: /home/backup/squirrelmail/src/folders.php:210
+#: ../src/folders.php:191 ../src/folders.php:210
 msgid "Unsubscribe"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders.php:191
-#: /home/backup/squirrelmail/src/folders.php:251
+#: ../src/folders.php:191 ../src/folders.php:251
 msgid "Subscribe"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders.php:214
+#: ../src/folders.php:214
 msgid "No folders were found to unsubscribe from!"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders.php:254
+#: ../src/folders.php:254
 msgid "No folders were found to subscribe to!"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders_rename_getname.php:36
+#: ../src/folders_create.php:24
+msgid "Illegal folder name.  Please select a different name."
+msgstr ""
+
+#: ../src/folders_create.php:24
+msgid "Click here to go back"
+msgstr ""
+
+#: ../src/folders_rename_getname.php:36
 msgid "Rename a folder"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders_rename_getname.php:40
+#: ../src/folders_rename_getname.php:40
 msgid "New name:"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/folders_rename_getname.php:46
-#: /home/backup/squirrelmail/src/options_highlight.php:330
+#: ../src/folders_rename_getname.php:46 ../src/options_highlight.php:330
 msgid "Submit"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/page_header.php:77
-#: /home/backup/squirrelmail/src/help.php:80
+#: ../functions/page_header.php:77 ../src/help.php:80
 msgid "Help"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/help.php:114
+#: ../src/help.php:114
 #, c-format
 msgid ""
 "The help has not been translated to %s.  It will be displayed in English "
 "instead."
 msgstr ""
 
-#: /home/backup/squirrelmail/src/help.php:120
+#: ../src/help.php:120
 msgid "Some or all of the help documents are not present!"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/help.php:146
-#: /home/backup/squirrelmail/src/help.php:165
+#: ../src/help.php:146 ../src/help.php:165
 msgid "Table of Contents"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:387
-#: /home/backup/squirrelmail/functions/mailbox_display.php:391
-#: /home/backup/squirrelmail/functions/mailbox_display.php:395
-#: /home/backup/squirrelmail/src/help.php:163
-#: /home/backup/squirrelmail/src/help.php:164
-#: /home/backup/squirrelmail/src/read_body.php:339
-#: /home/backup/squirrelmail/src/read_body.php:341
+#: ../functions/mailbox_display.php:387 ../functions/mailbox_display.php:391
+#: ../functions/mailbox_display.php:395 ../src/help.php:163
+#: ../src/help.php:164 ../src/read_body.php:339 ../src/read_body.php:341
 msgid "Previous"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:388
-#: /home/backup/squirrelmail/functions/mailbox_display.php:392
-#: /home/backup/squirrelmail/functions/mailbox_display.php:396
-#: /home/backup/squirrelmail/src/help.php:166
-#: /home/backup/squirrelmail/src/help.php:167
-#: /home/backup/squirrelmail/src/read_body.php:343
-#: /home/backup/squirrelmail/src/read_body.php:345
+#: ../functions/mailbox_display.php:388 ../functions/mailbox_display.php:392
+#: ../functions/mailbox_display.php:396 ../src/help.php:166
+#: ../src/help.php:167 ../src/read_body.php:343 ../src/read_body.php:345
 msgid "Next"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/help.php:187
+#: ../src/help.php:187
 msgid "Top"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/left_main.php:113
+#: ../src/left_main.php:113
 msgid "purge"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/login.php:80
-#: /home/backup/squirrelmail/src/login.php:129
+#: ../src/login.php:80 ../src/login.php:129
 msgid "Login"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/login.php:91
+#: ../src/login.php:91
 #, c-format
 msgid "SquirrelMail version %s"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/login.php:93
+#: ../src/login.php:93
 msgid "By the SquirrelMail Development Team"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/login.php:99
+#: ../src/login.php:99
 #, c-format
 msgid "%s Login"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/login.php:107
+#: ../src/login.php:107
 msgid "Name:"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/login.php:116
+#: ../src/login.php:116
 msgid "Password:"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/move_messages.php:76
-#: /home/backup/squirrelmail/src/move_messages.php:105
-#: /home/backup/squirrelmail/src/move_messages.php:134
+#: ../src/move_messages.php:76 ../src/move_messages.php:105
+#: ../src/move_messages.php:134
 msgid "No messages were selected."
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/page_header.php:73
-#: /home/backup/squirrelmail/src/options.php:32
-#: /home/backup/squirrelmail/src/options_display.php:26
-#: /home/backup/squirrelmail/src/options_folder.php:29
-#: /home/backup/squirrelmail/src/options_highlight.php:49
-#: /home/backup/squirrelmail/src/options_identities.php:36
-#: /home/backup/squirrelmail/src/options_order.php:31
-#: /home/backup/squirrelmail/src/options_personal.php:30
+#: ../functions/page_header.php:73 ../src/options.php:32
+#: ../src/options_display.php:26 ../src/options_folder.php:29
+#: ../src/options_highlight.php:49 ../src/options_identities.php:36
+#: ../src/options_order.php:31 ../src/options_personal.php:30
 msgid "Options"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/options.php:194
-#: /home/backup/squirrelmail/src/options_display.php:26
-msgid "Display Preferences"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:34
-msgid "Theme"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:49
-msgid "Language"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:69
-msgid "Use Javascript or HTML addressbook?"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:71
-#: /home/backup/squirrelmail/src/options_display.php:74
-msgid "JavaScript"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:72
-#: /home/backup/squirrelmail/src/options_display.php:75
-msgid "HTML"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:81
-msgid "Number of Messages to Index"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:92
-msgid "Wrap incoming text at"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:103
-msgid "Size of editor window"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:114
-msgid "Location of buttons when composing"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:118
-msgid "Before headers"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:121
-msgid "Between headers and message body"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:124
-msgid "After message body"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:129
-msgid "Location of folder list"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:133
-msgid "Left"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:136
-msgid "Right"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:141
-msgid "Width of folder list"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:157
-msgid "Auto refresh folder list"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:160
-#: /home/backup/squirrelmail/src/options_display.php:194
-msgid "Seconds"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:162
-#: /home/backup/squirrelmail/src/options_display.php:192
-msgid "Minute"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:163
-#: /home/backup/squirrelmail/src/options_display.php:190
-msgid "Minutes"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:171
-msgid "Never"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:209
-msgid "Use alternating row colors?"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:220
-msgid "Yes"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:221
-msgid "No"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:226
-msgid "Show HTML version by default"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:233
-msgid "Yes, show me the HTML version of a mail message, if it is available."
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:239
-msgid "Include Self"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_display.php:247
-msgid "Don't remove me from the CC addresses when I use \"Reply All\""
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options.php:206
-#: /home/backup/squirrelmail/src/options_folder.php:29
-msgid "Folder Preferences"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_folder.php:40
-msgid "Folder Path"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_folder.php:53
-msgid "Trash Folder:"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_folder.php:57
-msgid "Don't use Trash"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_folder.php:59
-msgid "Do not use Trash"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_folder.php:81
-msgid "Sent Folder:"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_folder.php:85
-msgid "Don't use Sent"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_folder.php:87
-msgid "Do not use Sent"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_folder.php:108
-msgid "Unseen message notification"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_folder.php:111
-msgid "No notification"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_folder.php:112
-msgid "Only INBOX"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_folder.php:113
-msgid "All Folders"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_folder.php:118
-msgid "Unseen message notification type"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_folder.php:121
-msgid "Only unseen"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_folder.php:122
-msgid "Unseen and Total"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_folder.php:127
-msgid "Collapseable folders"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_folder.php:131
-msgid "Enable Collapseable Folders"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options.php:168
-#: /home/backup/squirrelmail/src/options_highlight.php:49
-msgid "Message Highlighting"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:53
-msgid "New"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:54
-msgid "Done"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:61
-msgid "Edit"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:75
-msgid "No highlighting is defined"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:247
-msgid "Identifying name"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:261
-msgid "Color"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:265
-msgid "Dark Blue"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:266
-msgid "Dark Green"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:267
-msgid "Dark Yellow"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:268
-msgid "Dark Cyan"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:269
-msgid "Dark Magenta"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:270
-msgid "Light Blue"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:271
-msgid "Light Green"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:272
-msgid "Light Yellow"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:273
-msgid "Light Cyan"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:274
-msgid "Light Magenta"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:275
-msgid "Dark Gray"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:276
-msgid "Medium Gray"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:277
-msgid "Light Gray"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:278
-msgid "White"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:280
-msgid "Other:"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:282
-msgid "Ex: 63aa7f"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_highlight.php:319
-msgid "Matches"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_identities.php:36
-msgid "Advanced Identities"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_identities.php:47
-msgid "Default Identity"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_identities.php:58
-#, c-format
-msgid "Alternate Identity %d"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_identities.php:68
-msgid "Add a New Identity"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_identities.php:285
-#: /home/backup/squirrelmail/src/options_personal.php:38
-msgid "Full Name"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_identities.php:294
-#: /home/backup/squirrelmail/src/options_personal.php:44
-msgid "E-Mail Address"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_identities.php:303
-#: /home/backup/squirrelmail/src/options_personal.php:50
-msgid "Reply To"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_identities.php:315
-msgid "Save / Update"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_identities.php:321
-msgid "Make Default"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_identities.php:328
-msgid "Move Up"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options.php:180
-#: /home/backup/squirrelmail/src/options_order.php:31
-msgid "Index Order"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_order.php:39
-msgid "Checkbox"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_order.php:43
-msgid "Flags"
-msgstr ""
-
-#: /home/backup/squirrelmail/functions/mailbox_display.php:578
-#: /home/backup/squirrelmail/src/options_order.php:44
-msgid "Size"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_order.php:87
-msgid ""
-"The index order is the order that the columns are arranged in the message "
-"index.  You can add, remove, and move columns around to customize them to "
-"fit your needs."
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_order.php:96
-msgid "up"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_order.php:98
-msgid "down"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_order.php:103
-msgid "remove"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_order.php:132
-msgid "Return to options page"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options.php:156
-#: /home/backup/squirrelmail/src/options_personal.php:30
-msgid "Personal Information"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_personal.php:56
-msgid "Reply Citation Style"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_personal.php:60
-msgid "No Citation"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_personal.php:63
-msgid "AUTHOR Said"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_personal.php:66
-msgid "Quote Who XML"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_personal.php:69
-msgid "User-Defined"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_personal.php:74
-msgid "User-Defined Reply Citation"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_personal.php:79
-msgid "Author's Name"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_personal.php:87
-msgid "Multiple Identities"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_personal.php:90
-msgid "Edit Advanced Identities"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_personal.php:90
-msgid "(discards changes made on this form so far)"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_personal.php:95
-msgid "Signature"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_personal.php:101
-msgid "Use a signature?"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options_personal.php:106
-msgid "Prefix signature with '-- ' ?"
-msgstr ""
-
-#: /home/backup/squirrelmail/src/options.php:65
+#: ../src/options.php:65
 msgid "Successfully saved personal information!"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/options.php:112
+#: ../src/options.php:118
 msgid "Successfully saved display preferences!"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/options.php:113
+#: ../src/options.php:119
 msgid "Refresh Page"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/options.php:142
+#: ../src/options.php:148
 msgid "Successfully saved folder preferences!"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/options.php:143
+#: ../src/options.php:149
 msgid "Refresh Folder List"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/options.php:161
+#: ../src/options.php:162 ../src/options_personal.php:30
+msgid "Personal Information"
+msgstr ""
+
+#: ../src/options.php:167
 msgid ""
 "This contains personal information about yourself such as your name, your "
 "email address, etc."
 msgstr ""
 
-#: /home/backup/squirrelmail/src/options.php:173
+#: ../src/options.php:174 ../src/options_highlight.php:49
+msgid "Message Highlighting"
+msgstr ""
+
+#: ../src/options.php:179
 msgid ""
 "Based upon given criteria, incoming messages can have different background "
 "colors in the message list.  This helps to easily distinguish who the "
 "messages are from, especially for mailing lists."
 msgstr ""
 
-#: /home/backup/squirrelmail/src/options.php:185
+#: ../src/options.php:186 ../src/options_order.php:31
+msgid "Index Order"
+msgstr ""
+
+#: ../src/options.php:191
 msgid ""
 "The order of the message index can be rearanged and changed to contain the "
 "headers in any order you want."
 msgstr ""
 
-#: /home/backup/squirrelmail/src/options.php:199
+#: ../src/options.php:200 ../src/options_display.php:26
+msgid "Display Preferences"
+msgstr ""
+
+#: ../src/options.php:205
 msgid ""
 "You can change the way that SquirrelMail looks and displays information to "
 "you, such as the colors, the language, and other settings."
 msgstr ""
 
-#: /home/backup/squirrelmail/src/options.php:211
+#: ../src/options.php:212 ../src/options_folder.php:29
+msgid "Folder Preferences"
+msgstr ""
+
+#: ../src/options.php:217
 msgid ""
 "These settings change the way your folders are displayed and manipulated."
 msgstr ""
 
-#: /home/backup/squirrelmail/src/read_body.php:31
+#: ../src/options_display.php:34
+msgid "Theme"
+msgstr ""
+
+#: ../src/options_display.php:49
+msgid "Language"
+msgstr ""
+
+#: ../src/options_display.php:69
+msgid "Use Javascript or HTML addressbook?"
+msgstr ""
+
+#: ../src/options_display.php:71 ../src/options_display.php:74
+msgid "JavaScript"
+msgstr ""
+
+#: ../src/options_display.php:72 ../src/options_display.php:75
+msgid "HTML"
+msgstr ""
+
+#: ../src/options_display.php:81
+msgid "Number of Messages to Index"
+msgstr ""
+
+#: ../src/options_display.php:92
+msgid "Wrap incoming text at"
+msgstr ""
+
+#: ../src/options_display.php:103
+msgid "Size of editor window"
+msgstr ""
+
+#: ../src/options_display.php:114
+msgid "Location of buttons when composing"
+msgstr ""
+
+#: ../src/options_display.php:118
+msgid "Before headers"
+msgstr ""
+
+#: ../src/options_display.php:121
+msgid "Between headers and message body"
+msgstr ""
+
+#: ../src/options_display.php:124
+msgid "After message body"
+msgstr ""
+
+#: ../src/options_display.php:129
+msgid "Location of folder list"
+msgstr ""
+
+#: ../src/options_display.php:133
+msgid "Left"
+msgstr ""
+
+#: ../src/options_display.php:136
+msgid "Right"
+msgstr ""
+
+#: ../src/options_display.php:141
+msgid "Width of folder list"
+msgstr ""
+
+#: ../src/options_display.php:157
+msgid "Auto refresh folder list"
+msgstr ""
+
+#: ../src/options_display.php:160 ../src/options_display.php:194
+msgid "Seconds"
+msgstr ""
+
+#: ../src/options_display.php:162 ../src/options_display.php:192
+msgid "Minute"
+msgstr ""
+
+#: ../src/options_display.php:163 ../src/options_display.php:190
+msgid "Minutes"
+msgstr ""
+
+#: ../src/options_display.php:171
+msgid "Never"
+msgstr ""
+
+#: ../src/options_display.php:209
+msgid "Use alternating row colors?"
+msgstr ""
+
+#: ../src/options_display.php:220
+msgid "Yes"
+msgstr ""
+
+#: ../src/options_display.php:221
+msgid "No"
+msgstr ""
+
+#: ../src/options_display.php:226
+msgid "Show HTML version by default"
+msgstr ""
+
+#: ../src/options_display.php:233
+msgid "Yes, show me the HTML version of a mail message, if it is available."
+msgstr ""
+
+#: ../src/options_display.php:239
+msgid "Include Self"
+msgstr ""
+
+#: ../src/options_display.php:245
+msgid "Don't remove me from the CC addresses when I use \"Reply All\""
+msgstr ""
+
+#: ../src/options_display.php:251
+msgid "Page Selector"
+msgstr ""
+
+#: ../src/options_display.php:257
+msgid "Show page selector"
+msgstr ""
+
+#: ../src/options_folder.php:40
+msgid "Folder Path"
+msgstr ""
+
+#: ../src/options_folder.php:53
+msgid "Trash Folder:"
+msgstr ""
+
+#: ../src/options_folder.php:57
+msgid "Don't use Trash"
+msgstr ""
+
+#: ../src/options_folder.php:59
+msgid "Do not use Trash"
+msgstr ""
+
+#: ../src/options_folder.php:81
+msgid "Sent Folder:"
+msgstr ""
+
+#: ../src/options_folder.php:85
+msgid "Don't use Sent"
+msgstr ""
+
+#: ../src/options_folder.php:87
+msgid "Do not use Sent"
+msgstr ""
+
+#: ../src/options_folder.php:108
+msgid "Unseen message notification"
+msgstr ""
+
+#: ../src/options_folder.php:111
+msgid "No notification"
+msgstr ""
+
+#: ../src/options_folder.php:112
+msgid "Only INBOX"
+msgstr ""
+
+#: ../src/options_folder.php:113
+msgid "All Folders"
+msgstr ""
+
+#: ../src/options_folder.php:118
+msgid "Unseen message notification type"
+msgstr ""
+
+#: ../src/options_folder.php:121
+msgid "Only unseen"
+msgstr ""
+
+#: ../src/options_folder.php:122
+msgid "Unseen and Total"
+msgstr ""
+
+#: ../src/options_folder.php:127
+msgid "Collapseable folders"
+msgstr ""
+
+#: ../src/options_folder.php:131
+msgid "Enable Collapseable Folders"
+msgstr ""
+
+#: ../src/options_highlight.php:53
+msgid "New"
+msgstr ""
+
+#: ../src/options_highlight.php:54
+msgid "Done"
+msgstr ""
+
+#: ../src/options_highlight.php:75
+msgid "No highlighting is defined"
+msgstr ""
+
+#: ../src/options_highlight.php:247
+msgid "Identifying name"
+msgstr ""
+
+#: ../src/options_highlight.php:261
+msgid "Color"
+msgstr ""
+
+#: ../src/options_highlight.php:265
+msgid "Dark Blue"
+msgstr ""
+
+#: ../src/options_highlight.php:266
+msgid "Dark Green"
+msgstr ""
+
+#: ../src/options_highlight.php:267
+msgid "Dark Yellow"
+msgstr ""
+
+#: ../src/options_highlight.php:268
+msgid "Dark Cyan"
+msgstr ""
+
+#: ../src/options_highlight.php:269
+msgid "Dark Magenta"
+msgstr ""
+
+#: ../src/options_highlight.php:270
+msgid "Light Blue"
+msgstr ""
+
+#: ../src/options_highlight.php:271
+msgid "Light Green"
+msgstr ""
+
+#: ../src/options_highlight.php:272
+msgid "Light Yellow"
+msgstr ""
+
+#: ../src/options_highlight.php:273
+msgid "Light Cyan"
+msgstr ""
+
+#: ../src/options_highlight.php:274
+msgid "Light Magenta"
+msgstr ""
+
+#: ../src/options_highlight.php:275
+msgid "Dark Gray"
+msgstr ""
+
+#: ../src/options_highlight.php:276
+msgid "Medium Gray"
+msgstr ""
+
+#: ../src/options_highlight.php:277
+msgid "Light Gray"
+msgstr ""
+
+#: ../src/options_highlight.php:278
+msgid "White"
+msgstr ""
+
+#: ../src/options_highlight.php:280
+msgid "Other:"
+msgstr ""
+
+#: ../src/options_highlight.php:282
+msgid "Ex: 63aa7f"
+msgstr ""
+
+#: ../src/options_highlight.php:319
+msgid "Matches"
+msgstr ""
+
+#: ../src/options_identities.php:36
+msgid "Advanced Identities"
+msgstr ""
+
+#: ../src/options_identities.php:47
+msgid "Default Identity"
+msgstr ""
+
+#: ../src/options_identities.php:58
+#, c-format
+msgid "Alternate Identity %d"
+msgstr ""
+
+#: ../src/options_identities.php:68
+msgid "Add a New Identity"
+msgstr ""
+
+#: ../src/options_identities.php:285 ../src/options_personal.php:38
+msgid "Full Name"
+msgstr ""
+
+#: ../src/options_identities.php:294 ../src/options_personal.php:44
+msgid "E-Mail Address"
+msgstr ""
+
+#: ../src/options_identities.php:303 ../src/options_personal.php:50
+msgid "Reply To"
+msgstr ""
+
+#: ../src/options_identities.php:315
+msgid "Save / Update"
+msgstr ""
+
+#: ../src/options_identities.php:319
+msgid "Make Default"
+msgstr ""
+
+#: ../src/options_identities.php:326
+msgid "Move Up"
+msgstr ""
+
+#: ../src/options_order.php:39
+msgid "Checkbox"
+msgstr ""
+
+#: ../src/options_order.php:43
+msgid "Flags"
+msgstr ""
+
+#: ../functions/mailbox_display.php:602 ../src/options_order.php:44
+msgid "Size"
+msgstr ""
+
+#: ../src/options_order.php:87
+msgid ""
+"The index order is the order that the columns are arranged in the message "
+"index.  You can add, remove, and move columns around to customize them to "
+"fit your needs."
+msgstr ""
+
+#: ../src/options_order.php:96
+msgid "up"
+msgstr ""
+
+#: ../src/options_order.php:98
+msgid "down"
+msgstr ""
+
+#: ../src/options_order.php:103
+msgid "remove"
+msgstr ""
+
+#: ../src/options_order.php:132
+msgid "Return to options page"
+msgstr ""
+
+#: ../src/options_personal.php:56
+msgid "Reply Citation Style"
+msgstr ""
+
+#: ../src/options_personal.php:60
+msgid "No Citation"
+msgstr ""
+
+#: ../src/options_personal.php:63
+msgid "AUTHOR Said"
+msgstr ""
+
+#: ../src/options_personal.php:66
+msgid "Quote Who XML"
+msgstr ""
+
+#: ../src/options_personal.php:69
+msgid "User-Defined"
+msgstr ""
+
+#: ../src/options_personal.php:74
+msgid "User-Defined Reply Citation"
+msgstr ""
+
+#: ../src/options_personal.php:79
+msgid "Author's Name"
+msgstr ""
+
+#: ../src/options_personal.php:87
+msgid "Multiple Identities"
+msgstr ""
+
+#: ../src/options_personal.php:90
+msgid "Edit Advanced Identities"
+msgstr ""
+
+#: ../src/options_personal.php:90
+msgid "(discards changes made on this form so far)"
+msgstr ""
+
+#: ../src/options_personal.php:95
+msgid "Signature"
+msgstr ""
+
+#: ../src/options_personal.php:101
+msgid "Use a signature?"
+msgstr ""
+
+#: ../src/options_personal.php:106
+msgid "Prefix signature with '-- ' ?"
+msgstr ""
+
+#: ../src/read_body.php:31
 msgid "Viewing full header"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/read_body.php:227
+#: ../src/read_body.php:227
 msgid "more"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/read_body.php:228
+#: ../src/read_body.php:228
 msgid "less"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/read_body.php:319
+#: ../src/read_body.php:319
 msgid "Message List"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/read_body.php:352
+#: ../src/read_body.php:352
 msgid "Forward"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/read_body.php:355
+#: ../src/read_body.php:355
 msgid "Reply"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/read_body.php:358
+#: ../src/read_body.php:358
 msgid "Reply All"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/read_body.php:377
-#: /home/backup/squirrelmail/src/read_body.php:379
+#: ../src/read_body.php:377 ../src/read_body.php:379
 msgid "View full header"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/read_body.php:395
+#: ../src/read_body.php:395
 msgid "Date:"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/auth.php:26
-#: /home/backup/squirrelmail/src/redirect.php:43
+#: ../functions/auth.php:26 ../src/redirect.php:43
 msgid "You must be logged in to access this page."
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/auth.php:27
-#: /home/backup/squirrelmail/src/redirect.php:44
+#: ../functions/auth.php:27 ../src/redirect.php:44
 msgid "Go to the login page"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/redirect.php:75
+#: ../src/redirect.php:75
 msgid "There was an error contacting the mail server."
 msgstr ""
 
-#: /home/backup/squirrelmail/src/redirect.php:76
+#: ../src/redirect.php:76
 msgid "Contact your administrator for help."
 msgstr ""
 
-#: /home/backup/squirrelmail/src/search.php:52
-#: /home/backup/squirrelmail/src/search.php:53
+#: ../src/search.php:52 ../src/search.php:53
 msgid "Body"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/search.php:55
-#: /home/backup/squirrelmail/src/search.php:56
+#: ../src/search.php:55 ../src/search.php:56
 msgid "Everywhere"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/search.php:64
-#: /home/backup/squirrelmail/src/search.php:65
+#: ../src/search.php:64 ../src/search.php:65
 msgid "Cc"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/page_header.php:57
-#: /home/backup/squirrelmail/src/signout.php:65
+#: ../functions/page_header.php:57 ../src/signout.php:65
 msgid "Sign Out"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/signout.php:71
+#: ../src/signout.php:71
 msgid "You have been successfully signed out."
 msgstr ""
 
-#: /home/backup/squirrelmail/src/signout.php:73
+#: ../src/signout.php:73
 msgid "Click here to log back in."
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/abook_database.php:47
-#: /home/backup/squirrelmail/functions/abook_local_file.php:34
-#: /home/backup/squirrelmail/functions/addressbook.php:139
+#: ../functions/abook_database.php:47 ../functions/abook_local_file.php:34
+#: ../functions/addressbook.php:139
 msgid "Personal address book"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/abook_database.php:86
-#: /home/backup/squirrelmail/functions/abook_database.php:122
-#: /home/backup/squirrelmail/functions/abook_database.php:154
-#: /home/backup/squirrelmail/functions/abook_database.php:183
-#: /home/backup/squirrelmail/functions/abook_database.php:229
-#: /home/backup/squirrelmail/functions/abook_database.php:258
-#: /home/backup/squirrelmail/functions/abook_database.php:294
+#: ../functions/abook_database.php:86 ../functions/abook_database.php:122
+#: ../functions/abook_database.php:154 ../functions/abook_database.php:183
+#: ../functions/abook_database.php:229 ../functions/abook_database.php:258
+#: ../functions/abook_database.php:294
 #, c-format
 msgid "Database error: %s"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/abook_database.php:202
-#: /home/backup/squirrelmail/functions/abook_database.php:236
-#: /home/backup/squirrelmail/functions/abook_database.php:265
-#: /home/backup/squirrelmail/functions/abook_local_file.php:228
-#: /home/backup/squirrelmail/functions/abook_local_file.php:248
-#: /home/backup/squirrelmail/functions/abook_local_file.php:271
-#: /home/backup/squirrelmail/functions/abook_local_file.php:301
-#: /home/backup/squirrelmail/functions/addressbook.php:324
-#: /home/backup/squirrelmail/functions/addressbook.php:355
-#: /home/backup/squirrelmail/functions/addressbook.php:406
+#: ../functions/abook_database.php:202 ../functions/abook_database.php:236
+#: ../functions/abook_database.php:265 ../functions/abook_local_file.php:228
+#: ../functions/abook_local_file.php:248 ../functions/abook_local_file.php:271
+#: ../functions/abook_local_file.php:301 ../functions/addressbook.php:324
+#: ../functions/addressbook.php:355 ../functions/addressbook.php:406
 msgid "Addressbook is read-only"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/abook_database.php:210
-#: /home/backup/squirrelmail/functions/abook_local_file.php:233
+#: ../functions/abook_database.php:210 ../functions/abook_local_file.php:233
 #, c-format
 msgid "User '%s' already exist"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/abook_database.php:273
-#: /home/backup/squirrelmail/functions/abook_local_file.php:306
+#: ../functions/abook_database.php:273 ../functions/abook_local_file.php:306
 #, c-format
 msgid "User '%s' does not exist"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/abook_global_file.php:32
+#: ../functions/abook_global_file.php:32
 msgid "Global address book"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/abook_global_file.php:52
-#: /home/backup/squirrelmail/functions/abook_local_file.php:75
+#: ../functions/abook_global_file.php:52 ../functions/abook_local_file.php:75
 msgid "No such file or directory"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/abook_global_file.php:62
-#: /home/backup/squirrelmail/functions/abook_local_file.php:95
-#: /home/backup/squirrelmail/functions/abook_local_file.php:131
+#: ../functions/abook_global_file.php:62 ../functions/abook_local_file.php:95
+#: ../functions/abook_local_file.php:131
 msgid "Open failed"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/abook_global_file.php:159
-#: /home/backup/squirrelmail/functions/abook_global_file.php:165
-#: /home/backup/squirrelmail/functions/abook_global_file.php:171
+#: ../functions/abook_global_file.php:159
+#: ../functions/abook_global_file.php:165
+#: ../functions/abook_global_file.php:171
 msgid "Can not modify global address book"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/abook_local_file.php:42
+#: ../functions/abook_local_file.php:42
 msgid "Not a file name"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/abook_local_file.php:252
-#: /home/backup/squirrelmail/functions/abook_local_file.php:276
-#: /home/backup/squirrelmail/functions/abook_local_file.php:312
+#: ../functions/abook_local_file.php:252 ../functions/abook_local_file.php:276
+#: ../functions/abook_local_file.php:312
 msgid "Could not lock datafile"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/abook_local_file.php:264
+#: ../functions/abook_local_file.php:264
 msgid "Write to addressbook failed"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/addressbook.php:64
+#: ../functions/addressbook.php:64
 msgid "Error initializing addressbook database."
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/addressbook.php:73
+#: ../functions/addressbook.php:73
 #, c-format
 msgid "Error opening file %s"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/addressbook.php:83
+#: ../functions/addressbook.php:83
 msgid "Error initializing global addressbook."
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/addressbook.php:99
+#: ../functions/addressbook.php:99
 #, c-format
 msgid "Error initializing LDAP server %s:"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/addressbook.php:301
-#: /home/backup/squirrelmail/functions/addressbook.php:382
+#: ../functions/addressbook.php:301 ../functions/addressbook.php:382
 msgid "Invalid input data"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/addressbook.php:306
-#: /home/backup/squirrelmail/functions/addressbook.php:387
+#: ../functions/addressbook.php:306 ../functions/addressbook.php:387
 msgid "Name is missing"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/addressbook.php:310
-#: /home/backup/squirrelmail/functions/addressbook.php:391
+#: ../functions/addressbook.php:310 ../functions/addressbook.php:391
 msgid "E-mail address is missing"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/addressbook.php:318
-#: /home/backup/squirrelmail/functions/addressbook.php:396
+#: ../functions/addressbook.php:318 ../functions/addressbook.php:396
 msgid "Nickname contain illegal characters"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:85
+#: ../functions/date.php:85
 msgid "Sunday"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:88
+#: ../functions/date.php:88
 msgid "Monday"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:91
+#: ../functions/date.php:91
 msgid "Tuesday"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:94
+#: ../functions/date.php:94
 msgid "Wednesday"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:97
+#: ../functions/date.php:97
 msgid "Thursday"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:100
+#: ../functions/date.php:100
 msgid "Friday"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:103
+#: ../functions/date.php:103
 msgid "Saturday"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:114
+#: ../functions/date.php:114
 msgid "January"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:117
+#: ../functions/date.php:117
 msgid "February"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:120
+#: ../functions/date.php:120
 msgid "March"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:123
+#: ../functions/date.php:123
 msgid "April"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:126
+#: ../functions/date.php:126
 msgid "May"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:129
+#: ../functions/date.php:129
 msgid "June"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:132
+#: ../functions/date.php:132
 msgid "July"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:135
+#: ../functions/date.php:135
 msgid "August"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:138
+#: ../functions/date.php:138
 msgid "September"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:141
+#: ../functions/date.php:141
 msgid "October"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:144
+#: ../functions/date.php:144
 msgid "November"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:147
+#: ../functions/date.php:147
 msgid "December"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:170
+#: ../functions/date.php:170
 msgid "D, F j, Y g:i a"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:187
+#: ../functions/date.php:187
 msgid "g:i a"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:190
+#: ../functions/date.php:190
 msgid "D, g:i a"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:193
+#: ../functions/date.php:193
 msgid "M j, Y"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/db_prefs.php:67
-#: /home/backup/squirrelmail/functions/db_prefs.php:70
-#: /home/backup/squirrelmail/functions/db_prefs.php:189
+#: ../functions/db_prefs.php:67 ../functions/db_prefs.php:70
+#: ../functions/db_prefs.php:189
 #, c-format
 msgid "Preference database error (%s). Exiting abnormally"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/display_messages.php:22
-#: /home/backup/squirrelmail/functions/imap_general.php:222
+#: ../functions/display_messages.php:22 ../functions/imap_general.php:222
 msgid "Unknown user or password incorrect."
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/display_messages.php:22
-#: /home/backup/squirrelmail/functions/imap_general.php:223
+#: ../functions/display_messages.php:22 ../functions/imap_general.php:223
 msgid "Click here to try again"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/display_messages.php:35
+#: ../functions/display_messages.php:35
 #, c-format
 msgid "Welcome to %s's WebMail system"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/display_messages.php:46
+#: ../functions/display_messages.php:46
 #, c-format
 msgid "Running SquirrelMail version %s (c) 1999-2000."
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/display_messages.php:71
+#: ../functions/display_messages.php:71
 #, c-format
 msgid "Click here to return to %s"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_general.php:121
-#: /home/backup/squirrelmail/functions/imap_messages.php:116
-#: /home/backup/squirrelmail/functions/imap_messages.php:125
-#: /home/backup/squirrelmail/functions/imap_messages.php:143
-#: /home/backup/squirrelmail/functions/imap_messages.php:152
-#: /home/backup/squirrelmail/functions/imap_messages.php:263
+#: ../functions/imap_general.php:121 ../functions/imap_messages.php:116
+#: ../functions/imap_messages.php:125 ../functions/imap_messages.php:143
+#: ../functions/imap_messages.php:152 ../functions/imap_messages.php:263
 msgid "ERROR : Could not complete request."
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_general.php:123
+#: ../functions/imap_general.php:123
 msgid "Reason Given: "
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_general.php:130
+#: ../functions/imap_general.php:130
 msgid "ERROR : Bad or malformed request."
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_general.php:132
+#: ../functions/imap_general.php:132
 msgid "Server responded: "
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_general.php:162
+#: ../functions/imap_general.php:162
 #, c-format
 msgid "Error connecting to IMAP server: %s."
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_general.php:179
+#: ../functions/imap_general.php:179
 #, c-format
 msgid "Bad request: %s"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_general.php:181
+#: ../functions/imap_general.php:181
 #, c-format
 msgid "Unknown error: %s"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_general.php:183
+#: ../functions/imap_general.php:183
 msgid "Read data:"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_messages.php:118
-#: /home/backup/squirrelmail/functions/imap_messages.php:145
-#: /home/backup/squirrelmail/functions/imap_messages.php:265
+#: ../functions/imap_messages.php:118 ../functions/imap_messages.php:145
+#: ../functions/imap_messages.php:265
 msgid "Unknown response from IMAP server: "
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_messages.php:127
+#: ../functions/imap_messages.php:127
 msgid "Unknown message number in reply from server: "
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_messages.php:154
+#: ../functions/imap_messages.php:154
 msgid "Unknown messagenumber in reply from server: "
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_messages.php:163
-#: /home/backup/squirrelmail/functions/imap_messages.php:192
-#: /home/backup/squirrelmail/functions/imap_messages.php:435
-#: /home/backup/squirrelmail/functions/imap_messages.php:474
-#: /home/backup/squirrelmail/functions/mailbox_display.php:646
+#: ../functions/imap_messages.php:163 ../functions/imap_messages.php:192
+#: ../functions/imap_messages.php:435 ../functions/imap_messages.php:474
+#: ../functions/mailbox_display.php:670
 msgid "(no subject)"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_messages.php:164
+#: ../functions/imap_messages.php:164
 msgid "Unknown Sender"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_messages.php:217
+#: ../functions/imap_messages.php:217
 msgid "(only Cc/Bcc)"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_messages.php:477
+#: ../functions/imap_messages.php:477
 msgid "(unknown sender)"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_search.php:142
+#: ../functions/imap_search.php:142
 msgid "Found"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_search.php:142
+#: ../functions/imap_search.php:142
 msgid "messages"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:375
+#: ../functions/mailbox_display.php:376
 msgid "Viewing messages"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:375
+#: ../functions/mailbox_display.php:376
 msgid "to"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:375
-#: /home/backup/squirrelmail/functions/mailbox_display.php:377
+#: ../functions/mailbox_display.php:376 ../functions/mailbox_display.php:378
 msgid "total"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:377
+#: ../functions/mailbox_display.php:378
 msgid "Viewing message"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:423
+#: ../functions/mailbox_display.php:448
 msgid "THIS FOLDER IS EMPTY"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:512
+#: ../functions/mailbox_display.php:536
 msgid "Move selected to:"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:524
+#: ../functions/mailbox_display.php:548
 msgid "Move"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:528
+#: ../functions/mailbox_display.php:552
 msgid "Expunge"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:528
+#: ../functions/mailbox_display.php:552
 msgid "mailbox"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:530
+#: ../functions/mailbox_display.php:554
 msgid "checked messages"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:620
+#: ../functions/mailbox_display.php:644
 msgid "Toggle All"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:635
+#: ../functions/mailbox_display.php:659
 msgid "Unselect All"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mailbox_display.php:637
+#: ../functions/mailbox_display.php:661
 msgid "Select All"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mime.php:587
+#: ../functions/mime.php:587
 msgid "Attachments"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mime.php:625
+#: ../functions/mime.php:625
 msgid "download"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/page_header.php:59
+#: ../functions/page_header.php:59
 msgid "Current Folder"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/page_header.php:67
+#: ../functions/page_header.php:67
 msgid "Compose"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/prefs.php:29
+#: ../functions/prefs.php:29
 #, c-format
 msgid ""
 "Preference file, %s, does not exist. Log out, and log back in to create a "
 "default preference file."
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/prefs.php:123
+#: ../functions/prefs.php:123
 msgid "Error opening "
 msgstr ""
