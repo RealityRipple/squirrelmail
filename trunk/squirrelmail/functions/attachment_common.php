@@ -27,8 +27,8 @@ $FileExtensionToMimeType = array('bmp'  => 'image/x-bitmap',
                                  'txt'  => 'text/plain',
                                  'vcf'  => 'text/x-vcard');
 
-
 /* Register browser-supported image types */
+$attachment_common_types = $_SESSION['attachment_common_types'];
 if (isset($attachment_common_types)) {
     /* Don't run this before being logged in. That may happen
        when plugins include mime.php */
