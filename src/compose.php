@@ -1509,7 +1509,7 @@ function deliverMessage($composeMessage, $draft=false) {
         ClearAttachments($composeMessage);
         if ($action == 'reply' || $action == 'reply_all') {
             sqimap_mailbox_select ($imap_stream, $mailbox);
-            sqimap_messages_flag ($imap_stream, $passed_id, $passed_id, 'Answered', true);
+            sqimap_messages_flag ($imap_stream, $passed_id, $passed_id, 'Answered', false);
         }
             sqimap_logout($imap_stream);
     }
