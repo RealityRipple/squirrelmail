@@ -195,10 +195,13 @@ function create_unseen_string($boxName, $boxArray, $imapConnection) {
         $boxMessageCount = sqimap_get_num_messages($imapConnection, $boxName);
     }
 
+    /* Initialize the total counts. */
+
     if ($boxArray['collapse'] == SM_BOX_COLLAPSED) {
         /* Collect the counts for this boxes subfolders. */
         $curBoxLength = strlen($boxName);
         $boxCount = count($boxes);
+
         for ($i = 0; $i < $boxCount; ++$i) {
             /* Initialize the counts for this subfolder. */
             $subUnseenCount = 0;
@@ -212,38 +215,29 @@ function create_unseen_string($boxName, $boxArray, $imapConnection) {
                 if ($unseen_type == 2) {
                     $subMessageCount = sqimap_get_num_messages($imapConnection, $boxes[$i]['unformatted']);
                 }
-            }
 
-            /* Add the counts for this subfolder to the total. */
-            $totalUnseenCount += $subUnseenCount;
-            $totalMessageCount += $subMessageCount;
+                /* Add the counts for this subfolder to the total. */
+                $totalUnseenCount += $subUnseenCount;
+                $totalMessageCount += $subMessageCount;
+            }
         }
+
+        /* Add the counts for all subfolders to that of the box. */
+        $boxUnseenCount += $totalUnseenCount;
+        $boxMessageCount += $totalMessageCount;
     }
 
     /* And create the magic unseen count string.     */
     /* Really a lot more then just the unseen count. */
     if (($unseen_type == 1) && ($boxUnseenCount > 0)) {
-        if ($totalUnseenCount == 0) {
-            $result[0] = "($boxUnseenCount)";
-        } else {
-            $result[0] = "($boxUnseenCount:$totalUnseenCount)";
-        }
+        $result[0] = "($boxUnseenCount)";
     } else if ($unseen_type == 2) {
-        if ($totalMessageCount == 0) {
-            $result[0] = "($boxUnseenCount/$boxMessageCount)";
-        } else {
-            $result[0] = "($boxUnseenCount/$boxMessageCount"
-                       . '&nbsp;:&nbsp;'
-                       . "$totalUnseenCount/$totalMessageCount)";
-        }
+        $result[0] = "($boxUnseenCount/$boxMessageCount)";
         $result[0] = "<font color=\"$color[11]\">$result[0]</font>";
     }
 
-    /* Decide on an unseen count to return to the outside world. */
+    /* Set the unseen count to return to the outside world. */
     $result[1] = $boxUnseenCount;
-    if ($boxArray['collapse'] == SM_BOX_COLLAPSED) {
-        $result[1] += $totalUnseenCount;
-    }
 
     /* Return our happy result. */
     return ($result);
