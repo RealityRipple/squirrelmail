@@ -23,22 +23,9 @@ define('SMOPT_TYPE_BOOLEAN', 5);
 define('SMOPT_TYPE_HIDDEN', 6);
 define('SMOPT_TYPE_COMMENT', 7);
 define('SMOPT_TYPE_NUMLIST', 8);
-define('SMOPT_TYPE_TITLE', 128);
-
-/* Define constants for the options refresh levels. */
-define('SMOPT_REFRESH_NONE', 0);
-define('SMOPT_REFRESH_FOLDERLIST', 1);
-define('SMOPT_REFRESH_ALL', 2);
-
-/* Define constants for the options size. */
-define('SMOPT_SIZE_TINY', 0);
-define('SMOPT_SIZE_SMALL', 1);
-define('SMOPT_SIZE_MEDIUM', 2);
-define('SMOPT_SIZE_LARGE', 3);
-define('SMOPT_SIZE_HUGE', 4);
-
-define('SMOPT_SAVE_DEFAULT', 'save_option');
-define('SMOPT_SAVE_NOOP', 'save_option_noop');
+define('SMOPT_TYPE_TITLE', 9);
+define('SMOPT_TYPE_THEME', 10);
+define('SMOPT_TYPE_PLUGINS', 11);
 
 global $languages;
 
@@ -100,6 +87,7 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                                                                    'other' => _("Not one of the above servers") ) ),
                  '$optional_delimiter' => array( 'name' => _("IMAP Folder Delimiter"),
                                                  'type' => SMOPT_TYPE_STRING,
+                                                 'comment' => _("Use \"detect\" to auto-detect."),
                                                  'size' => 10 ),
                  '$useSendmail' => array( 'name' => _("Use Sendmail"),
                                           'type' => SMOPT_TYPE_BOOLEAN ),
@@ -160,8 +148,16 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                  'Group4' => array( 'name' => _("General Options"),
                                     'type' => SMOPT_TYPE_TITLE ),
                  '$default_charset' => array( 'name' => _("Default Charset"),
-                                              'type' => SMOPT_TYPE_STRING,
-                                              'size' => 10 ),
+                                              'type' => SMOPT_TYPE_STRLIST,
+                                              'posvals' => array( 'iso_8859_1' => 'iso_8859_1',
+                                                                  'iso_8859_2' => 'iso_8859_2',
+                                                                  'iso_8859_7' => 'iso_8859_7',
+                                                                  'iso_8859_15' => 'iso_8859_15',
+                                                                  'iso_8859_15' => 'iso_8859_15',
+                                                                  'ns_4551_1' => 'ns_4551_1',
+                                                                  'koi8-r' => 'koi8-r',
+                                                                  'euc-KR' => 'euc-KR',
+                                                                  'windows-1251' => 'windows-1251' ) ),
                  '$data_dir' => array( 'name' => _("Data Directory"),
                                        'type' => SMOPT_TYPE_STRING,
                                        'size' => 40 ),
@@ -175,7 +171,7 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                                                                  2 => _("Moderate"),
                                                                  3 => _("Medium"),
                                                                  4 => _("High") ) ),
-                 '$default_left_size' => array( 'name' => _("Hash Level"),
+                 '$default_left_size' => array( 'name' => _("Default Left Size"),
                                                 'type' => SMOPT_TYPE_NUMLIST,
                                                 'posvals' => $left_size_values ),
                  '$force_username_lowercase' => array( 'name' => _("Usernames in Lowercase"),
@@ -185,13 +181,20 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                  '$hide_sm_attributions' => array( 'name' => _("Hide SM attributions"),
                                                    'type' => SMOPT_TYPE_BOOLEAN ),
                  /* --------------------------------------------------------*/
-                 'Group5' => array( 'name' => _("Themes"),
-                                    'type' => SMOPT_TYPE_TITLE )
+                 'Group5' => array( 'name' => _("Message of the Day"),
+                                    'type' => SMOPT_TYPE_TITLE ),
+                 '$motd' => array( 'name' => _("Message of the Day"),
+                                   'type' => SMOPT_TYPE_TEXTAREA,
+                                   'size' => 40 ),
+                 /* --------------------------------------------------------*/
+                 'Group6' => array( 'name' => _("Themes"),
+                                    'type' => SMOPT_TYPE_TITLE ),
+                 '$theme_css' => array( 'name' => _("Style Sheet URL (css)"),
+                                        'type' => SMOPT_TYPE_STRING,
+                                        'size' => 40 ),
+                 /* --------------------------------------------------------*/
+                 '$config_use_color' => array( 'type' => SMOPT_TYPE_HIDDEN )
+
                );
-
-
-$defcfg['$motd'] = array( 'name' => _("Message of the Day"),
-                          'type' => SMOPT_TYPE_STRING,
-                          'size' => 40 );
 
 ?>
