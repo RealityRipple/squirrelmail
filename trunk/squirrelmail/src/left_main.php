@@ -101,11 +101,14 @@ function formatMailboxName($imapConnection, $box_array) {
             $line .= "\n<small>\n" .
                     "&nbsp;&nbsp;(<A HREF=\"empty_trash.php\" style=\"text-decoration:none\">"._("purge")."</A>)" .
                     "</small>";
-        } else {
-	   $line .= concat_hook_function('left_main_after_each_folder',
-	          array(isset($numMessages) ? $numMessages : '',$real_box,$imapConnection));
         }
     }
+
+
+    // let plugins fiddle with end of line
+    $line .= concat_hook_function('left_main_after_each_folder',
+        array(isset($numMessages) ? $numMessages : '', $real_box, $imapConnection));
+
 
     /* Return the final product. */
     return ($line);
@@ -406,6 +409,12 @@ function ListBoxes ($boxes, $j=0 ) {
         $font = "<font color=\"$color[11]\">";
         $fontend = "</font>";
     }
+
+    // let plugins fiddle with end of line
+    $end .= concat_hook_function('left_main_after_each_folder',
+        array(isset($numMessages) ? $numMessages : '', 
+              $boxes->mailboxname_full, $imapConnection));
+
     $end .= '</nobr>';
 
     if (!$boxes->is_root) {
@@ -508,6 +517,12 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
             $end .= '</a>';
         }
     }
+
+    // let plugins fiddle with end of line
+    global $imapConnection;
+    $end .= concat_hook_function('left_main_after_each_folder',
+        array(isset($numMessages) ? $numMessages : '', 
+              $boxes->mailboxname_full, $imapConnection));
 
     if (!$boxes->is_root) {
         if ($use_folder_images) {
