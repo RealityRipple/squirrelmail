@@ -5,6 +5,8 @@
 	
 Version 1.3.2 -- cvs
 -------------
+  - Rewrite of message delivery related functions.
+  - Userinterface modifications.
   - Added Japanese support thanks to Masato HIGASHIYAMA <masato@yamaai-tech.com>
   - Remove NOOP checks in the POP3 client of mail_fetch to make things more
     compatible and not break things which don't need to be broken.
