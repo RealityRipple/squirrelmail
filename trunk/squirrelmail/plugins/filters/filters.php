@@ -447,6 +447,22 @@
         $filters['Osirusoft Unc. OptIn']['comment'] =
             _("FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt users in without confirmation.");
 
+        $filters['Osirusoft Insecure Formmail']['prefname'] = 'filters_spam_maps_osirusoft_fm';
+        $filters['Osirusoft Insecure Formmail']['name'] = 'Osirusoft Insecure formmail.cvi Script List';
+        $filters['Osirusoft Insecure Formmail']['link'] = 'http://relays.osirusoft.com/';
+        $filters['Osirusoft Insecure Formmail']['dns'] = 'relays.osirusoft.com';
+        $filters['Osirusoft Insecure Formmail']['result'] = '127.0.0.8';
+        $filters['Osirusoft Insecure Formmail']['comment'] =
+            _("FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail.cgi scripts. (planned).");
+
+        $filters['Osirusoft Open Proxy']['prefname'] = 'filters_spam_maps_osirusoft_op';
+        $filters['Osirusoft Open Proxy']['name'] = 'Osirusoft Open Proxy Server List';
+        $filters['Osirusoft Open Proxy']['link'] = 'http://relays.osirusoft.com/';
+        $filters['Osirusoft Open Proxy']['dns'] = 'relays.osirusoft.com';
+        $filters['Osirusoft Open Proxy']['result'] = '127.0.0.9';
+        $filters['Osirusoft Open Proxy']['comment'] =
+            _("FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers.");
+
         $filters['ORDB']['prefname'] = 'filters_spam_ordb';
         $filters['ORDB']['name'] = 'Open Relay Database List';
         $filters['ORDB']['link'] = 'http://www.ordb.org/';
@@ -534,14 +550,6 @@
         $filters['Dorkslayers']['result'] = '127.0.0.2';
         $filters['Dorkslayers']['comment'] =
             _("FREE - Dorkslayers appears to include only really bad open relays outside the US to avoid being sued. Interestingly enough, their website recommends you NOT use their service.");
-
-        $filters['ORBL']['prefname'] = 'filters_spam_orbl';
-        $filters['ORBL']['name'] = 'ORBL Lists';
-        $filters['ORBL']['link'] = 'http://www.orbl.org';
-        $filters['ORBL']['dns'] = 'or.orbl.org';
-        $filters['ORBL']['result'] = '127.0.0.2';
-        $filters['ORBL']['comment'] =
-            _("FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be SLOOOOOOW!");
 
         $filters['ORBZ-UK Inputs']['prefname'] = 'filters_spam_orbzuk_in';
         $filters['ORBZ-UK Inputs']['name'] = 'ORBZ-UK Inputs Lists';
