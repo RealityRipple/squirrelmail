@@ -1405,7 +1405,12 @@ function deliverMessage($composeMessage, $draft=false) {
         array_unshift($composeMessage->entities, $message_body);
         $content_type = new ContentType('multipart/mixed');
     } else {
-            $content_type = new ContentType('text/plain');
+        $content_type = new ContentType('text/plain');
+        if ($special_encoding) {
+            $rfc822_header->encoding = $special_encoding;
+        } else {    
+            $rfc822_header->encoding = '8bit';
+        }            
     }
     if ($default_charset) {
         $content_type->properties['charset']=$default_charset;
