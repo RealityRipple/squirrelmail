@@ -62,13 +62,13 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
         Locate the first displayable form element
     */
 
-    if ($session !== false) {
+    if ($session != false) {
 	$compose_uri = 'src/compose.php?mailbox='. urlencode($mailbox).'&attachedmessages=true&session='."$session";
     } else {
         $compose_uri = 'src/compose.php?newmessage=1';
 	$session = 0;
     }
-
+   
     switch ( $module ) {
     case 'src/read_body.php':
             if ($compose_new_win == '1') {
@@ -82,7 +82,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                     "\n<!--\n";
                 $js .= "function comp_in_new(new_mes, comp_uri) {\n".
 		     '    if (new_mes) { '."\n".
-		     "       comp_uri = \"../src/compose.php?newmessage=1\";\n".
+		     "       comp_uri = \"".$base_uri."/src/compose.php?newmessage=1\";\n".
 		     '    } else { '."\n".
 		     "       if (comp_uri =='') {\n".
 		     '           comp_uri = "'.$base_uri.$compose_uri."\";\n".
@@ -163,7 +163,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                 }
                 $js .= "function comp_in_new(new_mes, comp_uri) {\n".
 		     '    if (new_mes) { '."\n".
-		     "       comp_uri = \"../src/compose.php?newmessage=1\";\n".
+		     "       comp_uri = \"".$base_uri."src/compose.php?newmessage=1\";\n".
 		     '    } else { '."\n".
 		     "       if (comp_uri =='') {\n".
 		     '           comp_uri = "'.$base_uri.$compose_uri."\";\n".
