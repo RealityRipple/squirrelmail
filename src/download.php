@@ -56,14 +56,18 @@ function viewText($color, $body, $id, $entid, $mailbox, $type1, $wrap_at) {
          "</TT></TD></TR></TABLE>";
 }
 
-function viewMessage($imapConnection, $id, $mailbox, $ent_id, $msg, $color, $wrap_at) {
+function viewMessage($imapConnection, $id, $mailbox, $ent_id, $color, $wrap_at) {
     global $startMessage;
+
+
+    $msg  = sqimap_get_message($imapConnection, $id, $mailbox);    
+    $msg = getEntity($msg, $ent_id);    
+
     $header = sqimap_get_ent_header($imapConnection,$id,$mailbox,$ent_id);
     $msg->header = $header;
     $msg->header->id = $id;
     $body = formatBody($imapConnection, $msg, $color, $wrap_at);
     $bodyheader = viewHeader($header, $color);
-
     displayPageHeader($color, 'None');
 
     echo "<BR><TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">".
@@ -236,22 +240,18 @@ function formatRecipientString($recipients, $item ) {
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 sqimap_mailbox_select($imapConnection, $mailbox);
 
-/*
- * $message contains all information about the message
- * including header and body
- */
-$message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
-
-$top_header = $message->header;
-
+if (isset($showHeaders)) {
+  $top_header = sqimap_get_message_header ($imapConnection, $passed_id, $mailbox);
+}
 /*
  * lets redefine message as this particular entity that we wish to display.
  * it should hold only the header for this entity.  We need to fetch the body
  * yet before we can display anything.
  */
-$message = getEntity($message, $passed_ent_id);
 
-$header = $message->header;
+$header = sqimap_get_mime_ent_header ($imapConnection, $passed_id, $mailbox, $passed_ent_id);
+$header->entity_id = $passed_ent_id;
+$header->mailbox = $mailbox;
 
 $charset = $header->charset;
 $type0 = $header->type0;
@@ -345,7 +345,7 @@ if (isset($absolute_dl) && $absolute_dl == 'true') {
         break;
     case 'message':
 	if ($type1 == 'rfc822' ) {
-	    viewMessage($imapConnection, $passed_id, $mailbox, $passed_ent_id, $message, $color, $wrap_at);
+	    viewMessage($imapConnection, $passed_id, $mailbox, $passed_ent_id, $color, $wrap_at);
 	} else {
     	    $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
     	    $body = decodeBody($body, $msgheader->encoding);
