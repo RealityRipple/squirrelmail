@@ -12,7 +12,7 @@ require_once(SM_PATH . 'functions/imap.php');
        $imapPort, 0);
     sqimap_mailbox_select($imap_stream, $mailbox);
     $sid = sqimap_session_id($uid_support)
-    fputs($imap_stream, '$sid FETCH ' . $passed_id . ' RFC822' . "\r\n");
+    fputs($imap_stream, $sid.' FETCH ' . $passed_id . ' RFC822' . "\r\n");
     
     $read = sqimap_read_data($imap_stream, $sid, true, $response, $message);
     array_shift($read);
