@@ -9,8 +9,8 @@
 
    $imap_backend = 'imap';
    
-   include ("../functions/".$imap_backend."_mailbox.php");
-   include ("../functions/".$imap_backend."_messages.php");
-   include ("../functions/".$imap_backend."_general.php");
-   include ("../functions/".$imap_backend."_search.php");
+   include ('../functions/' . $imap_backend . '_mailbox.php');
+   include ('../functions/' . $imap_backend . '_messages.php');
+   include ('../functions/' . $imap_backend . '_general.php');
+   include ('../functions/' . $imap_backend . '_search.php');
 ?>
