@@ -1,4 +1,5 @@
 Translating the help files.
+---------------------------
 
 I have tried to write the help files in plain english with good grammer.
 Since English is not my strong point you probably can't tell, but I hope it helps.
