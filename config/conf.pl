@@ -286,7 +286,7 @@ $provider_name = ''                     if ( !$provider_name );
 $edit_identity = 'true'                 if ( !$edit_identity );
 $edit_name = 'true'                     if ( !$edit_name );
 $allow_thread_sort = 'false'            if ( !$allow_thread_sort );
-$disable_server_sort = 'false'          if ( !$disable_server_sort );
+$allow_server_sort = 'false'            if ( !$allow_server_sort );
 $no_list_for_subscribe = 'false'        if ( !$no_list_for_subscribe );
 $allow_charset_search = 'true'          if ( !$allow_charset_search );
 $prefs_user_field = 'user'              if ( !$prefs_user_field );
@@ -474,7 +474,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "8.  Allow use of receipts       : $WHT$default_use_mdn$NRM\n";
         print "9.  Allow editing of identity   : $WHT$edit_identity$NRM/$WHT$edit_name$NRM\n";
         print "10. Allow server thread sort    : $WHT$allow_thread_sort$NRM\n";
-        print "11. Disable server-side sorting : $WHT$disable_server_sort$NRM\n";
+        print "11. Allow server-side sorting   : $WHT$allow_server_sort$NRM\n";
         print "12. Allow server charset search : $WHT$allow_charset_search$NRM\n";
     print "13. PHP session name            : $WHT$session_name$NRM\n";
         print "\n";
@@ -2104,19 +2104,19 @@ sub command313 {
     print "Your IMAP server must support the SORT  command for this to work\n";
     print "\n";
 
-    if ( lc($disable_server_sort) eq 'true' ) {
+    if ( lc($allow_server_sort) eq 'true' ) {
         $default_value = "y";
     } else {
         $default_value = "n";
     }
-    print "Disable server-side sorting? (y/n) [$WHT$default_value$NRM]: $WHT";
-    $disable_server_sort = <STDIN>;
-    if ( ( $disable_server_sort =~ /^y\n/i ) || ( ( $disable_server_sort =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
-        $disable_server_sort = 'true';
+    print "Allow server-side sorting? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $allow_server_sort = <STDIN>;
+    if ( ( $allow_server_sort =~ /^y\n/i ) || ( ( $allow_server_sort =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $allow_server_sort = 'true';
     } else {
-        $disable_server_sort = 'false';
+        $allow_server_sort = 'false';
     }
-    return $disable_server_sort;
+    return $allow_server_sort;
 }
 
 sub command314 {
@@ -3118,7 +3118,7 @@ sub save_data {
     # boolean
         print CF "\$allow_thread_sort        = $allow_thread_sort;\n";
     # boolean
-        print CF "\$disable_server_sort      = $disable_server_sort;\n";
+        print CF "\$allow_server_sort        = $allow_server_sort;\n";
         # boolean
         print CF "\$allow_charset_search     = $allow_charset_search;\n";
         print CF "\n";
