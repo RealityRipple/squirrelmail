@@ -48,7 +48,7 @@
 <?php
    if ($theme_css != '') {
 ?>
-<LINK REL="stylesheet" TYPE=text/css" HREF="<?php echo $theme_css ?>">
+<LINK REL="stylesheet" TYPE="text/css" HREF="<?php echo $theme_css ?>">
 <?php
    }
 ?>
