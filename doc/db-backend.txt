@@ -73,7 +73,8 @@ Next, edit your configuration so that the address book DSN (Data Source
 Name) is specified, this can be done using either conf.pl or via the
 administration plugin. The DSN should look something like:
 
- mysql://squirreluser:sqpassword@localhost/squirrelmail
+ mysql://squirreluser:sqpassword@localhost/squirrelmail or
+ pgsql://squirreluser:sqpassword@localhost/squirrelmail
 
 From now on all users' personal addressbooks will be stored in a
 database.
@@ -97,25 +98,21 @@ The table structure should be similar to this (for MySQL):
 
 and for PostgreSQL:
 CREATE TABLE "userprefs" (
-   "user" varchar(128) NOT NULL,
+   "username" varchar(128) NOT NULL,
    "prefkey" varchar(64) NOT NULL,
    "prefval" text,
-   CONSTRAINT "userprefs_pkey" PRIMARY KEY ("prefkey", "user")
+   CONSTRAINT "userprefs_pkey" PRIMARY KEY ("prefkey", "username")
 );
 
 Next, edit your configuration so that the preferences DSN (Data Source
 Name) is specified, this can be done using either conf.pl or via the
 administration plugin. The DSN should look something like:
 
- mysql://squirreluser:sqpassword@localhost/squirrelmail
+ mysql://squirreluser:sqpassword@localhost/squirrelmail or
+ pgsql://squirreluser:sqpassword@localhost/squirrelmail
 
 From now on all users' personal preferences will be stored in a
 database.
 
 Default preferences can be set by altering the $default array in
 db_prefs.php.
-
-NB It seems that currently database backed preferences won't work under
-PostgreSQL at least due to using a column name of user and REPLACE which
-doesn't exist under PostgreSQL. This will be worked on and fixed as soon
-as possible.

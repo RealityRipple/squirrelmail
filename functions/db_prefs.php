@@ -32,6 +32,10 @@
  * $Id$
  */
 
+define('SMDB_UNKNOWN', 0);
+define('SMDB_MYSQL', 1);
+define('SMDB_PGSQL', 2);
+
 require_once('DB.php');
 require_once('../config/config.php');
 
@@ -75,15 +79,23 @@ class dbPrefs {
 
     var $dbh   = NULL;
     var $error = NULL;
+    var $db_type = SMDB_UNKNOWN;
 
     var $default = Array('chosen_theme' => '../themes/default_theme.php',
                          'show_html_default' => '0');
 
     function open() {
         global $prefs_dsn, $prefs_table;
+        global $prefs_user_field, $prefs_key_field, $prefs_val_field;
 
         if(isset($this->dbh)) {
             return true;
+        }
+
+        if (preg_match('/^mysql/', $prefs_dsn)) {
+            $this->db_type = SMDB_MYSQL;
+        } elseif (preg_match('/^pgsql/', $prefs_dsn)) {
+            $this->db_type = SMDB_PGSQL;
         }
 
         if (!empty($prefs_table)) {
@@ -168,19 +180,71 @@ class dbPrefs {
         if (!$this->open()) {
             return false;
         }
-        $query = sprintf("REPLACE INTO %s (%s, %s, %s) ".
-                         "VALUES('%s','%s','%s')",
-                         $this->table,
-                         $this->user_field,
-                         $this->key_field,
-                         $this->val_field,
-                         $this->dbh->quoteString($user),
-                         $this->dbh->quoteString($key),
-                         $this->dbh->quoteString($value));
+        if ($this->db_type == SMDB_MYSQL) {
+            $query = sprintf("REPLACE INTO %s (%s, %s, %s) ".
+                             "VALUES('%s','%s','%s')",
+                             $this->table,
+                             $this->user_field,
+                             $this->key_field,
+                             $this->val_field,
+                             $this->dbh->quoteString($user),
+                             $this->dbh->quoteString($key),
+                             $this->dbh->quoteString($value));
 
-        $res = $this->dbh->simpleQuery($query);
-        if(DB::isError($res)) {
-            $this->failQuery($res);
+            $res = $this->dbh->simpleQuery($query);
+            if(DB::isError($res)) {
+                $this->failQuery($res);
+            }
+        } elseif ($this->db_type == SMDB_PGSQL) {
+            $this->dbh->simpleQuery("BEGIN TRANSACTION");
+            $query = sprintf("DELETE FROM %s WHERE %s='%s' AND %s='%s'",
+                             $this->table,
+                             $this->user_field,
+                             $this->dbh->quoteString($user),
+                             $this->key_field,
+                             $this->dbh->quoteString($key));
+            $res = $this->dbh->simpleQuery($query);
+            if (DB::isError($res)) {
+                $this->dbh->simpleQuery("ROLLBACK TRANSACTION");
+                $this->failQuery($res);
+            }
+            $query = sprintf("INSERT INTO %s (%s, %s, %s) VALUES ('%s', '%s', '%s')",
+                             $this->table,
+                             $this->user_field,
+                             $this->key_field,
+                             $this->val_field,
+                             $this->dbh->quoteString($user),
+                             $this->dbh->quoteString($key),
+                             $this->dbh->quoteString($value));
+            $res = $this->dbh->simpleQuery($query);
+            if (DB::isError($res)) {
+                $this->dbh->simpleQuery("ROLLBACK TRANSACTION");
+                $this->failQuery($res);
+            }
+            $this->dbh->simpleQuery("COMMIT TRANSACTION");
+        } else {
+            $query = sprintf("DELETE FROM %s WHERE %s='%s' AND %s='%s'",
+                             $this->table,
+                             $this->user_field,
+                             $this->dbh->quoteString($user),
+                             $this->key_field,
+                             $this->dbh->quoteString($key));
+            $res = $this->dbh->simpleQuery($query);
+            if (DB::isError($res)) {
+                $this->failQuery($res);
+            }
+            $query = sprintf("INSERT INTO %s (%s, %s, %s) VALUES ('%s', '%s', '%s')",
+                             $this->table,
+                             $this->user_field,
+                             $this->key_field,
+                             $this->val_field,
+                             $this->dbh->quoteString($user),
+                             $this->dbh->quoteString($key),
+                             $this->dbh->quoteString($value));
+            $res = $this->dbh->simpleQuery($query);
+            if (DB::isError($res)) {
+                $this->failQuery($res);
+            }
         }
 
         return true;
