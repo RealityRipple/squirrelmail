@@ -370,7 +370,7 @@ function mime_match_parenthesis ($pos, $structure) {
     return( $pos );
 }
 
-function mime_fetch_body ($imap_stream, $id, $ent_id ) {
+function mime_fetch_body($imap_stream, $id, $ent_id ) {
 
     /*
      * do a bit of error correction.  If we couldn't find the entity id, just guess
@@ -379,7 +379,9 @@ function mime_fetch_body ($imap_stream, $id, $ent_id ) {
     if (!$ent_id) {
         $ent_id = 1;
     }
-    $data = sqimap_run_command ($imap_stream, "FETCH $id BODY[$ent_id]", true, $response, $message);
+
+    $cmd = "FETCH $id BODY[$ent_id]";
+    $data = sqimap_run_command ($imap_stream, $cmd, true, $response, $message);
     $topline = array_shift($data);
     while (! ereg('\\* [0-9]+ FETCH ', $topline) && $data) {
         $topline = array_shift($data);
@@ -414,35 +416,42 @@ function mime_fetch_body ($imap_stream, $id, $ent_id ) {
                 }
                 $k++;
             }
-            if ( $base <> '' )
-                
+            if ( $base <> '' ) {
                 $ret = "<base href=\"$base\">" . $ret;
+            }
         }
     } else if (ereg('"([^"]*)"', $topline, $regs)) {
         $ret = $regs[1];
     } else {
         global $where, $what, $mailbox, $passed_id, $startMessage;
-        $par = "mailbox=".urlencode($mailbox)."&passed_id=$passed_id";
+        $par = 'mailbox=' . urlencode($mailbox) . "&passed_id=$passed_id";
         if (isset($where) && isset($what)) {
-            $par .= "&where=".urlencode($where)."&what=".urlencode($what);
+            $par .= '&where='. urlencode($where) . "&what=" . urlencode($what);
         } else {
             $par .= "&startMessage=$startMessage&show_more=0";
         }
-        $par .= '&response='.urlencode($response).'&message='.urlencode($message).
-                '&topline='.urlencode($topline);
+        $par .= '&response=' . urlencode($response) .
+                '&message=' . urlencode($message).
+                '&topline=' . urlencode($topline);
 
-        echo   '<b><font color=$color[2]>' .
+        echo   '<tt><br>' .
+               '<table width="80%"><tr>' .
+               '<tr><td colspan=2>' .
                _("Body retrieval error. The reason for this is most probably that the message is malformed. Please help us making future versions better by submitting this message to the developers knowledgebase!") .
-               "<A HREF=\"../src/retrievalerror.php?$par\">Submit message</A><BR>" .
-               '<tt>' . _("Response:") . "$response<BR>" .
-               _("Message:") . " $message<BR>" .
-               _("FETCH line:") . " $topline ....<BR></tt></font></b>";
-               
+               " <A HREF=\"../src/retrievalerror.php?$par\"><br>" .
+               _("Submit message") . '</A><BR>&nbsp;' .
+               '</td></tr>' .
+               '<td><b>' . _("Command:") . "</td><td>$cmd</td></tr>" .
+               '<td><b>' . _("Response:") . "</td><td>$response</td></tr>" .
+               '<td><b>' . _("Message:") . "</td><td>$message</td></tr>" .
+               '<td><b>' . _("FETCH line:") . "</td><td>$topline</td></tr>" .
+               "</table><BR></tt></font><hr>";
+
         $data = sqimap_run_command ($imap_stream, "FETCH $passed_id BODY[]", true, $response, $message);
         array_shift($data);
         $wholemessage = implode('', $data);
 
-        $ret = "---------------\n$wholemessage";
+        $ret = $wholemessage;
     }
     return( $ret );
 }
@@ -461,7 +470,7 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id, $encoding) {
     if (!ini_get("safe_mode")) {
         set_time_limit(0);
     }
-    
+
     fputs ($imap_stream, "$sid FETCH $id BODY[$ent_id]\r\n");
     $cnt = 0;
     $continue = true;
@@ -849,7 +858,7 @@ function encodeHeader ($string) {
     if ( $l ) {
         $string = "=?$default_charset?Q?$ret?=";
     }
-    
+
     return( $string );
 }
 
