@@ -14,14 +14,13 @@
    $i18n_php = true;
 
    // This array specifies the available languages.
-   $languages[0]["NAME"] = "English";
-   $languages[0]["CODE"] = "en";
-   $languages[1]["NAME"] = "Norsk";
-   $languages[1]["CODE"] = "no";
-   $languages[2]["NAME"] = "Deutcsh";
-   $languages[2]["CODE"] = "de";
-   $languages[2]["NAME"] = "Russian KOI8-R";
-   $languages[2]["CODE"] = "ru";
+   $languages["en"]["NAME"]    = "English";
+   $languages["no"]["NAME"]    = "Norsk";
+   $languages["no"]["CHARSET"] = "iso-8859-1";
+   $languages["de"]["NAME"]    = "Deutcsh";
+   $languages["de"]["CHARSET"] = "iso-8859-1";
+   $languages["ru"]["NAME"]    = "Russian KOI8-R";
+   $languages["ru"]["CHARSET"] = "koi8-r";
 
    // Decodes a string to the internal encoding from the given charset
    function charset_decode ($charset, $string) {

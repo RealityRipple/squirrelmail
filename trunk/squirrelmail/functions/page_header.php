@@ -10,11 +10,8 @@
 
    if (!isset($prefs_php))
       include ("../functions/prefs.php");
-
-   // This is done to ensure that the character set is correct when
-   // receiving input from HTTP forms
-   if ($default_charset != "")
-      header ("Content-Type: text/html; charset=$default_charset");
+   if (!isset($i18n_php))
+      include ("../functions/i18n.php");
 
    // Check to see if gettext is installed
    if (function_exists("_")) {
@@ -25,6 +22,7 @@
          putenv("LANG=$squirrelmail_language");
          bindtextdomain("squirrelmail", "../locale/");
          textdomain("squirrelmail");
+         $default_charset = $languages[$squirrelmail_language]["CHARSET"];
          
          // Setting cookie to use on the login screen the next time the
          // same user logs in.
@@ -36,6 +34,10 @@
          return $string;
       }
    }
+
+   // This is done to ensure that the character set is correct.
+   if ($default_charset != "")
+      header ("Content-Type: text/html; charset=$default_charset");
 
    function displayPageHeader($color, $mailbox) {
       /** Here is the header and wrapping table **/
