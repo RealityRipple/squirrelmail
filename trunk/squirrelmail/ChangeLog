@@ -51,7 +51,8 @@ Version 1.5.1 -- CVS
     of long format. (only occures in the timeframe around 0:00 AM till
     timezone).
   - Added address book sorting options. Ascending/descending sorting code 
-    written by Bryan Loniewski 
+    written by Bryan Loniewski.
+  - Use Special Folder Color config option works again (#931956).
 
 Version 1.5.0
 --------------------
