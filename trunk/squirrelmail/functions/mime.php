@@ -23,7 +23,7 @@ require_once(SM_PATH . 'functions/attachment_common.php');
 
 /**
  * Get the MIME structure
- * 
+ *
  * This function gets the structure of a message and stores it in the "message" class.
  * It will return this object for use with all relevant header information and
  * fully parsed into the standard "message" object format.
@@ -1891,9 +1891,10 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
  * @param string $type1 second half of mime type
  * @param string $filename filename to tell the browser for downloaded file
  * @param boolean $force whether to force the download dialog to pop
+ * @param integer $filesize optional, send the Content-Header and length to the browser
  * @return void
  */
- function SendDownloadHeaders($type0, $type1, $filename, $force) {
+ function SendDownloadHeaders($type0, $type1, $filename, $force, $filesize=0) {
      global $languages, $squirrelmail_language;
      $isIE = $isIE6 = 0;
 
@@ -1954,6 +1955,12 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
              header("Content-Type: application/octet-stream; name=\"$filename\"");
          }
      }
- }
+
+     //send the content-length header if the calling function provides it
+     if ($filesize > 0) {
+        header("Content-Length: $filesize");
+     }
+
+ }  // end fn SendDownlaodHeaders
 
 ?>
