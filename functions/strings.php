@@ -350,7 +350,7 @@ function &sqBodyWrap (&$body, $wrap) {
  * Has a problem with special HTML characters, so call this before
  * you do character translation.
  *
- * Specifically, &#039; comes up as 5 characters instead of 1.
+ * Specifically, &amp;#039; comes up as 5 characters instead of 1.
  * This should not add newlines to the end of lines.
  *
  * @param string line the line of text to wrap, by ref
@@ -361,6 +361,7 @@ function &sqBodyWrap (&$body, $wrap) {
 function sqWordWrap(&$line, $wrap, $charset='') {
     global $languages, $squirrelmail_language;
 
+    // Use custom wrapping function, if translation provides it
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
         function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_wordwrap')) {
         if (mb_detect_encoding($line) != 'ASCII') {
@@ -955,7 +956,10 @@ function sq_get_html_translation_table($table,$quote_style=ENT_COMPAT,$charset='
  * sq_htmlentities
  *
  * Convert all applicable characters to HTML entities.
- * Minimal php requirement - v.4.0.5
+ * Minimal php requirement - v.4.0.5.
+ *
+ * Function is designed for people that want to use full power of htmlentities() in
+ * i18n environment.
  *
  * @param string $string string that has to be sanitized
  * @param integer $quote_style quote encoding style. Possible values (without quotes):
@@ -983,7 +987,7 @@ function sq_htmlentities($string,$quote_style=ENT_COMPAT,$charset='us-ascii') {
  * @param string $string tested string
  * @param string $charset charset used in a string
  * @return bool true if 8bit symbols are detected
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.4
  */
 function sq_is8bit($string,$charset='') {
     global $default_charset;
@@ -992,7 +996,7 @@ function sq_is8bit($string,$charset='') {
 
     /**
      * Don't use \240 in ranges. Sometimes RH 7.2 doesn't like it.
-     * Don't use \200-\237 for iso-8859-x charsets. This ranges
+     * Don't use \200-\237 for iso-8859-x charsets. This range
      * stores control symbols in those charsets.
      * Use preg_match instead of ereg in order to avoid problems
      * with mbstring overloading
@@ -1012,12 +1016,12 @@ function sq_is8bit($string,$charset='') {
  * in php 5.x. Function does not test all mbstring encodings. Only the ones
  * that might be used in SM translations.
  *
- * Supported arrays are stored in session in order to reduce number of
+ * Supported strings are stored in session in order to reduce number of
  * mb_internal_encoding function calls.
  *
  * If you want to test all mbstring encodings - fill $list_of_encodings
  * array.
- * @return array list of encodings supported by mbstring
+ * @return array list of encodings supported by php mbstring extension
  * @since 1.5.1
  */
 function sq_mb_list_encodings() {
@@ -1112,7 +1116,7 @@ function sq_strlen($str, $charset=''){
             $str_length=strlen($str);
             $str_index=0;
             while ($str_index < $str_length) {
-                // start of utf-8 multibyte character detection
+                // start of internal utf-8 multibyte character detection
                 if (preg_match("/[\xC0-\xDF]/",$str[$str_index]) &&
                     isset($str[$str_index+1]) && 
                     preg_match("/[\x80-\xBF]/",$str[$str_index+1])) {
@@ -1149,7 +1153,7 @@ function sq_strlen($str, $charset=''){
                     $str_index++;
                     $real_length++;
                 }
-                // end of utf-8 multibyte character detection
+                // end of internal utf-8 multibyte character detection
             }
         }
         // end of utf-8 length detection
@@ -1180,5 +1184,37 @@ function sq_strlen($str, $charset=''){
     return $real_length;
 }
 
+/**
+ * string padding with multibyte support
+ *
+ * @link http://www.php.net/str_pad
+ * @param string $string original string
+ * @param integer $width padded string width
+ * @param string $pad padding symbols
+ * @param integer $padtype padding type 
+ *  (internal php defines, see str_pad() description)
+ * @param string $charset charset used in original string
+ * @return string padded string
+ */
+function sq_str_pad($string, $width, $pad, $padtype, $charset='') {
+
+    $charset = strtolower($charset);
+    $padded_string = '';
+
+    switch ($charset) {
+    case 'utf-8':
+    case 'big5':
+    case 'gb2312':
+    case 'euc-kr':
+        /*
+         * all multibyte charsets try to increase width value by
+         * adding difference between number of bytes and real length
+         */
+        $width = $width - sq_strlen($string,$charset) + strlen($string);
+    default:
+        $padded_string=str_pad($string,$width,$pad,$padtype);
+    }
+    return $padded_string;
+}
 $PHP_SELF = php_self();
 ?>
