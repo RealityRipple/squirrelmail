@@ -118,6 +118,11 @@ Version 1.5.1 -- CVS
     but name and e-mail address.
   - User may now add an e-mail address when adding vcards without one to the
     address book. No need to wait for the error message anymore.
+  - Removed japanese_xtra function used by older XTRA_CODE calls. Plugins
+    should use separate xtra_code functions. Older function does not provide
+    information about supported options.
+  - Added php-gettext classes (see class/l10n/*.php) and ngettext support 
+    functions (provides fix for #1019007).
   
 
 Version 1.5.0
