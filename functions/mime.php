@@ -24,7 +24,7 @@ class msg_header {
         $encoding = '', $size = 0, $to = array(), $from = '', $date = '',
         $cc = array(), $bcc = array(), $reply_to = '', $subject = '',
         $id = 0, $mailbox = '', $description = '', $filename = '',
-        $entity_id = 0, $message_id = 0, $name = '', $priority = 3;
+        $entity_id = 0, $message_id = 0, $name = '', $priority = 3, $type = '';
 }
 
 class message {
@@ -68,6 +68,7 @@ function mime_structure ($imap_stream, $header) {
 
     // isolate the body structure and remove beginning and end parenthesis
     $read = trim(substr ($read, strpos(strtolower($read), 'bodystructure') + 13));
+
     $read = trim(substr ($read, 0, -1));
     $end = mime_match_parenthesis(0, $read);
     while ($end == strlen($read)-1) {
@@ -91,23 +92,51 @@ function mime_structure ($imap_stream, $header) {
  * to mime_get_elements()
  */
 function mime_parse_structure ($structure, $ent_id) {
-
+  $properties = array();
   $msg = new message();
   if ($structure{0} == '(') {
+     $old_ent_id = $ent_id;
      $ent_id = mime_new_element_level($ent_id);
      $start = $end = -1;
      do {
         $start = $end+1;
         $end = mime_match_parenthesis ($start, $structure);
+        /* add "forgotten"  parent entities (alternative and relative) */
+	if (strpos($ent_id, '0')  || strpos($ent_id) == 0) { 
+	    $str = substr($structure, $end+1 );
+	    $startprop = strrpos($str,'(');
+	    $endprop   = strrpos($str,')');
+	    $propstr = substr($str, $startprop + 1, ($endprop - $startprop)-1);
+
+	    $type1 = trim(substr($str,0, $startprop));
+	    $pos = strrpos($type1,' ');
+	    $type1 = strtolower(trim(substr($type1,$pos +1)));
+	    $cnt = strlen($type1);
+	    $type1 = substr($type1,0,$cnt-1);
+     
+            $properties = mime_get_props($properties, $propstr);
+	    if (count($properties)>0) {
+		$msg->header->entity_id = $old_ent_id;
+		$msg->header->type0 = 'multipart';
+		$msg->header->type1 = $type1;
+	    }
+	    for ($i=0; $i < count($properties); $i++) {
+    		$msg->header->{$properties[$i]['name']} = $properties[$i]['value'];
+		$name = $properties[$i]['name'];
+		$value = $properties[$i]['value'];
+	    }
+	}
 
         $element = substr($structure, $start+1, ($end - $start)-1);
+	
         $ent_id = mime_increment_id ($ent_id);
         $newmsg = mime_parse_structure ($element, $ent_id);
         $msg->addEntity ($newmsg);
+	
      } while ($structure{$end+1} == '(');
   } else {
      // parse the elements
-     $msg = mime_get_element ($structure, $msg, $ent_id);
+    $msg = mime_get_element ($structure, $msg, $ent_id);
   }
   return $msg;
 }
@@ -155,7 +184,6 @@ function mime_get_element (&$structure, $msg, $ent_id) {
   $msg->header = new msg_header();
   $msg->header->entity_id = $ent_id;
   $properties = array();
-
   while (strlen($structure) > 0) {
      $structure = trim($structure);
      $char = $structure{0};
@@ -251,11 +279,9 @@ function mime_get_element (&$structure, $msg, $ent_id) {
      $text = "";
   }
   // loop through the additional properties and put those in the various headers
-//  if ($msg->header->type0 != 'message') {
-     for ($i=0; $i < count($properties); $i++) {
-        $msg->header->{$properties[$i]['name']} = $properties[$i]['value'];
-     }
-//  }
+  for ($i=0; $i < count($properties); $i++) {
+     $msg->header->{$properties[$i]['name']} = $properties[$i]['value'];
+  }
 
   return $msg;
 }
@@ -281,7 +307,6 @@ function mime_get_props ($props, $structure) {
   while (strlen($structure) > 0) {
      $structure = trim($structure);
      $char = $structure{0};
-
      if ($char == '"') {
         $pos = 1;
         $tmp = '';
@@ -301,20 +326,24 @@ function mime_get_props ($props, $structure) {
               $value .= $char;
               $pos++;
            }
-           $structure = trim(substr($structure, strlen($tmp) + 2));
-
+           $structure = trim(substr($structure, strlen($value) + 2));
            $k = count($props);
            $props[$k]['name'] = strtolower($tmp);
            $props[$k]['value'] = $value;
+	   if ($structure != '') {
+		mime_get_props($props, $structure);
+	   } else {
+	     return $props;
+	   }     	
         } else if ($char == '(') {
            $end = mime_match_parenthesis (0, $structure);
            $sub = substr($structure, 1, $end-1);
-       if (! isset($props))
-           $props = array();
-           $props = mime_get_props($props, $sub);
-           $structure = substr($structure, strlen($sub) + 2);
+    	   if (! isset($props))
+              $props = array();
+              $props = mime_get_props($props, $sub);
+              $structure = substr($structure, strlen($sub) + 2);
+	   return $props;      
         }
-        return $props;
      } else if ($char == '(') {
         $end = mime_match_parenthesis (0, $structure);
         $sub = substr($structure, 1, $end-1);
@@ -527,14 +556,15 @@ if ($message) {
 /* returns a $message object for a particular entity id */
 function getEntity ($message, $ent_id) {
     if ($message) {
-        if ($message->header->entity_id == $ent_id && strlen($ent_id) == strlen($message->header->entity_id)) {
+        if ($message->header->entity_id == $ent_id && strlen($ent_id) == strlen($message->header->entity_id))
+	{
             return $message;
         } else {
             for ($i = 0; isset($message->entities[$i]); $i++) {
                 $msg = getEntity ($message->entities[$i], $ent_id);
                 if ($msg) {
                     return $msg;
-                }
+		}
             }
         }
     }
@@ -544,32 +574,32 @@ function getEntity ($message, $ent_id) {
  * figures out what entity to display and returns the $message object
  * for that entity.
  */
-function findDisplayEntity ($message, $textOnly = 1)   {
+function findDisplayEntity ($msg, $textOnly = 1)   {
     global $show_html_default;
     
     $entity = 0;
     
-    if ($message) {
-        if ( $message->header->type0 == 'multipart' &&
-             ( $message->header->type1 == 'alternative' ||
-               $message->header->type1 == 'mixed' ||	       
-               $message->header->type1 == 'related' ) &&
+    if ($msg) {
+        if ( $msg->header->type0 == 'multipart' &&
+             ( $msg->header->type1 == 'alternative' ||
+               $msg->header->type1 == 'mixed' ||	       
+               $msg->header->type1 == 'related' ) &&
              $show_html_default && ! $textOnly ) {
-            $entity = findDisplayEntityHTML($message);
+            $entity = findDisplayEntityHTML($msg);
         }
 
         // Show text/plain or text/html -- the first one we find.
         if ( $entity == 0 &&
-             $message->header->type0 == 'text' &&
-             ( $message->header->type1 == 'plain' ||
-               $message->header->type1 == 'html' ) &&
-             isset($message->header->entity_id) ) {
-            $entity = $message->header->entity_id;
+             $msg->header->type0 == 'text' &&
+             ( $msg->header->type1 == 'plain' ||
+               $msg->header->type1 == 'html' ) &&
+             isset($msg->header->entity_id) ) {
+            $entity = $msg->header->entity_id;
         }
     
         $i = 0;
-        while ($entity == 0 && isset($message->entities[$i]) ) {
-            $entity = findDisplayEntity($message->entities[$i], $textOnly);
+        while ($entity == 0 && isset($msg->entities[$i]) ) {
+            $entity = findDisplayEntity($msg->entities[$i], $textOnly);
             $i++;
         }
     }
@@ -596,7 +626,7 @@ function findDisplayEntityHTML ($message) {
             return $entity;
         }
     }
-    
+
     return 0;
 }
 
@@ -655,6 +685,37 @@ function translateText(&$body, $wrap_at, $charset) {
     $body = '<pre>' . implode("\n", $body_ary) . '</pre>';
 }
 
+/* debugfunction for looping through entities and displaying correct entities */
+function listMyEntities ($message) {
+
+if ($message) {
+    if ($message->header->entity_id) {
+	echo "<tt>" . $message->header->entity_id . ' : ' . $message->header->type0 . '/' . $message->header->type1 . '<br>';
+    } 
+    if (!($message->header->type0 == 'message' &&  $message->header->type1 == 'rfc822')) {
+	if (isset($message->header->boundary) ) {
+	    $ent_id = $message->header->entity_id;
+	    $var = $message->header->boundary;
+	    if ($var !='')
+	    echo "<b>$ent_id boundary = $var</b><br>";
+	} 
+	if (isset($message->header->type) ) {
+	    $var = $message->header->type;
+	    if ($var !='')
+	    echo "<b>$ent_id type = $var</b><br>";
+	} 
+	for ($i = 0; $message->entities[$i]; $i++) {
+	    $msg = listMyEntities($message->entities[$i]);
+	}
+
+	if ($msg )  return $msg;
+    }
+}
+
+}
+
+
+
 /* This returns a parsed string called $body. That string can then
 be displayed as the actual message in the HTML. It contains
 everything needed, including HTML Tags, Attachments at the
@@ -672,19 +733,17 @@ function formatBody($imap_stream, $message, $color, $wrap_at) {
     $id = $message->header->id;
 
     $urlmailbox = urlencode($message->header->mailbox);
-
+//    ListMyEntities($message); 
     // Get the right entity and redefine message to be this entity
     // Pass the 0 to mean that we want the 'best' viewable one
     $ent_num = findDisplayEntity ($message, 0);
     $body_message = getEntity($message, $ent_num);
-
     if (($body_message->header->type0 == 'text') ||
         ($body_message->header->type0 == 'rfc822')) {
         $body = mime_fetch_body ($imap_stream, $id, $ent_num);
         $body = decodeBody($body, $body_message->header->encoding);
         $hookResults = do_hook("message_body", $body);
         $body = $hookResults[1];
-
         // If there are other types that shouldn't be formatted, add
         // them here
         if ($body_message->header->type1 == 'html') {
@@ -1402,11 +1461,9 @@ function stripEvent( &$i, $j, &$body, $id, $base ) {
 /* This function trys to locate the entity_id of a specific mime element */
 
 function find_ent_id( $id, $message ) {
-
     $ret = '';
     for ($i=0; $ret == '' && $i < count($message->entities); $i++) {
-
-        if ( $message->entities[$i]->header->entity_id == '' ) {
+	if ( $message->entities[$i]->header->entity_id == '' || $message->entities[$i]->header->type ) {
             $ret = find_ent_id( $id, $message->entities[$i] );
         } else {
             if ( strcasecmp( $message->entities[$i]->header->id, $id ) == 0 )
