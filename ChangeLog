@@ -1,6 +1,6 @@
 Version 0.2 -- January 02, 2000
 -------------------------------
-- Attachment support (better MIME support in general)
+- Attachment support (much better MIME support in general)
 - Themeable support replaced Custom Colors.  Themes are pluggable.
 
 
