@@ -431,6 +431,7 @@ function sqimap_get_num_messages ($imap_stream, $mailbox) {
     return false; //"BUG! Couldn't get number of messages in $mailbox!";
 }
 
+
 function parseAddress($address, $max=0, $addr_ar = array(), $group = '', $host='') {
     $pos = 0;
     $j = strlen($address);
