@@ -553,7 +553,7 @@ function sqimap_mailbox_list($imap_stream) {
             $inbox_ary = sqimap_run_command ($imap_stream, "LIST \"\" \"INBOX\"",
                                              true, $response, $message);
             /* Another workaround for literals */
-            if (isset($inbox_ary[1]) && substr($inbox_ary[$i],-3) == "}\r\n") {
+            if (isset($inbox_ary[1]) && substr($inbox_ary[0],-3) == "}\r\n") {
 		if (ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
                      $inbox_ary[0], $regs)) {
             	    $inbox_ary[0] = $regs[1] . '"' . addslashes(trim($inbox_ary[1])) .
