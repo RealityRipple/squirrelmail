@@ -70,7 +70,7 @@ function abook_take_read()
         abook_take_read_array($message->rfc822_header->to);
 
     echo addSubmit(_("Take Address")) .
-         '</center>';
+         '</center></form>';
 }
 
 function abook_take_pref()
