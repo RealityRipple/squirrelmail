@@ -103,7 +103,7 @@ elseif (isset($_GET['minute'])) {
 /* got 'em */
 
 // update event info
-function show_event_form() {
+function update_event_form() {
     global $color, $editor_size, $year, $day, $month, $hour, $minute, $calendardata;
 
     $tmparray = $calendardata["$month$day$year"]["$hour$minute"];
@@ -287,7 +287,7 @@ echo html_tag( 'tr', '', '', $color[0] ) .
 if (!isset($updated)){
     //get changes to event
     readcalendardata();
-    show_event_form();
+    update_event_form();
 } else {
     if (!isset($confirmed)){
         //confirm changes
