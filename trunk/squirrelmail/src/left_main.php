@@ -14,10 +14,14 @@
 ?>
 <HTML>
 <?
-   include("../config/config.php");
-   include("../functions/array.php");
-   include("../functions/strings.php");
-   include("../functions/imap.php");
+   if (!isset($config_php))
+      include("../config/config.php");
+   if (!isset($array_php))
+      include("../functions/array.php");
+   if (!isset($strings_php))
+      include("../functions/strings.php");
+   if (!isset($imap_php))
+      include("../functions/imap.php");
 
    function formatMailboxName($imapConnection, $mailbox, $real_box, $delimeter, $color, $move_to_trash) {
       require ("../config/config.php");

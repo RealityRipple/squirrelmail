@@ -1,9 +1,14 @@
 <?
-   include("../config/config.php");
-   include("../functions/strings.php");
-   include("../functions/page_header.php");
-   include("../functions/display_messages.php");
-   include("../functions/imap.php");
+   if (!isset($config_php))
+      include("../config/config.php");
+   if (!isset($strings_php))
+      include("../functions/strings.php");
+   if (!isset($page_header_php))
+      include("../functions/page_header.php");
+   if (!isset($display_messages_php))
+      include("../functions/display_messages.php");
+   if (!isset($imap_php))
+      include("../functions/imap.php");
 
    include("../src/load_prefs.php");
 
@@ -14,8 +19,9 @@
       $i = 0;
       $firstLoop = true;
       
-      // If they have selected nothing msg is size one still, but will be an infinite
-      //    loop because we never increment j.  so check to see if msg[0] is set or not to fix this.
+      // If they have selected nothing msg is size one still, but will
+      // be an infinite loop because we never increment j. so check to
+      // see if msg[0] is set or not to fix this.
       while (($j < count($msg)) && ($msg[0])) {
          if ($msg[$i]) {
             if ($firstLoop != true)

@@ -5,6 +5,8 @@
     **  This contains functions for manipulating user preferences
     **/
 
+   $prefs_php = true;
+
    /** returns the value for $string **/
    function getPref($data_dir, $username, $string) {
       $filename = "$data_dir$username.pref";
@@ -69,7 +71,8 @@
 
 
 
-   /** This checks if there is a pref file, if there isn't, it will create it. **/
+   /** This checks if there is a pref file, if there isn't, it will
+       create it. **/
    function checkForPrefs($data_dir, $username) {
       $filename = "$data_dir$username.pref";
       if (!file_exists($filename)) {

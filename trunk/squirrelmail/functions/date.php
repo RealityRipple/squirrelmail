@@ -9,6 +9,8 @@
     **
     **/
 
+   $date_php = true;
+
    function getMinutes($hour) {
       $date = $hour;
 
@@ -196,16 +198,19 @@
        **        and everything would be bumped up one.
        **/
 
-      // Simply check to see if the first element in the dateParts array is an integer or not.
+      // Simply check to see if the first element in the dateParts
+      // array is an integer or not.
       //    Since the day of week is optional, this check is needed.  
       //    
-      //    The old code used eregi("mon|tue|wed|thu|fri|sat|sun", $dateParts[0], $tmp) 
-      //    to find if the first element was the day of week or day of month.  This is an
-      //    expensive call (processing time) to have inside a loop.  Doing it this way saves
-      //    quite a bit of time for large mailboxes.
+      //    The old code used eregi("mon|tue|wed|thu|fri|sat|sun",
+      //    $dateParts[0], $tmp) to find if the first element was the
+      //    day of week or day of month. This is an expensive call
+      //    (processing time) to have inside a loop. Doing it this way
+      //    saves quite a bit of time for large mailboxes.
       //
-      //    It is also quicker to call explode only once rather than the 3 times it was getting
-      //    called by calling the functions getHour, getMinute, and getSecond.
+      //    It is also quicker to call explode only once rather than
+      //    the 3 times it was getting called by calling the functions
+      //    getHour, getMinute, and getSecond.
       //
       if (intval(trim($dateParts[0])) > 0) {
          $time = explode(":", $dateParts[3]);
@@ -227,8 +232,8 @@
       return getGMTSeconds(mktime($d[0], $d[1], $d[2], $d[3], $d[4], $d[5]), $dateParts[5]);
    }
 
-   // I use this function for profiling.  Should never be called in actual versions of squirrelmail
-   //    released to public.
+   // I use this function for profiling. Should never be called in
+   // actual versions of squirrelmail released to public.
    function getmicrotime() {
       $mtime = microtime();
       $mtime = explode(" ",$mtime);

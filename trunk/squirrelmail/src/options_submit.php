@@ -1,10 +1,16 @@
 <?
-   include("../config/config.php");
-   include("../functions/strings.php");
-   include("../functions/page_header.php");
-   include("../functions/display_messages.php");
-   include("../functions/imap.php");
-   include("../functions/array.php");
+   if (!isset($config_php))
+      include("../config/config.php");
+   if (!isset($strings_php))
+      include("../functions/strings.php");
+   if (!isset($page_header_php))
+      include("../functions/page_header.php");
+   if (!isset($dipslay_messages_php))
+      include("../functions/display_messages.php");
+   if (!isset($imap_php))
+      include("../functions/imap.php");
+   if (!isset($array_php))
+      include("../functions/array.php");
 
    include("../src/load_prefs.php");
 

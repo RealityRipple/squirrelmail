@@ -5,6 +5,7 @@
     ** an smtp server or sendmail.
     **/
 
+   $smtp_php = true;
 
    // Returns true only if this message is multipart
    function isMultipart () {
