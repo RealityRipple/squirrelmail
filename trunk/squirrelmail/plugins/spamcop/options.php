@@ -43,6 +43,9 @@ switch ($action) {
         break;
     case 'save_id':
         if (isset($ID)) {
+            $ID = trim($ID);
+            $ID = preg_replace('/@.*/','',$ID);
+            $ID = preg_replace('/.*\./','',$ID);
             setPref($data_dir, $username, 'spamcop_id', $ID);
         }
         break;
