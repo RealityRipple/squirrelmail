@@ -799,7 +799,7 @@ function sqimap_mailbox_tree($imap_stream) {
             if (($unseen_notify == 2 && $mbx == 'INBOX') ||
                 ($unseen_notify == 3) ||
                 ($move_to_trash && ($mbx == $trash_folder))) {
-                if($sorted_lsub_ary[$i]['noselect']) {
+                if(isset($sorted_lsub_ary[$i]['noselect']) && $sorted_lsub_ary[$i]['noselect']) {
                     $sorted_lsub_ary[$i]['unseen'] = 0;
                 } else {
                     $sorted_lsub_ary[$i]['unseen'] = 
