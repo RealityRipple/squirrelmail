@@ -24,8 +24,7 @@
 
         $IMAPSessionID = substr(session_id(), -4);
         if( $IMAPSessionID == '' ) {
-            $IMAPSessionID = str_pad( dechex( getPref( $data_dir, $username, 'counter', 0 ) ),
-                                      4, '0', STR_PAD_LEFT);
+            $IMAPSessionID = 'A001';
         }
 
         return( $IMAPSessionID );
