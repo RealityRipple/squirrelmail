@@ -401,7 +401,7 @@ function getTop($color, $mailbox) {
    if ( $shortBoxName <> '' && strtolower( $shortBoxName ) <> 'none' ) {
         $row->addChild('td',_("Current Folder") .':','','tp_c','tp_mbx_k', 
 	                array('align' => $lft));
-	$row->addChild('td',$shortBoxName .'&nbsp',array('b'=>true),'tp_c',
+	$row->addChild('td',$shortBoxName .'&nbsp;',array('b'=>true),'tp_c',
 	               'tp_mbx_v',array('align' => $lft));
    }
    $col = new html('td','','','tp_c','tp_so',array('align' => $rgt));
