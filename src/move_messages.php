@@ -16,7 +16,10 @@
       // Marks the selected messages ad 'Deleted'
       $j = 0;
       $i = 0;
-      while ($j < count($msg)) {
+      
+      // If they have selected nothing msg is size one still, but will be an infinite
+      //    loop because we never increment j.  so check to see if msg[0] is set or not to fix this.
+      while (($j < count($msg)) && ($msg[0])) {
          if ($msg[$i]) {
             /** check if they would like to move it to the trash folder or not */
             if ($move_to_trash == true) {
@@ -35,9 +38,24 @@
       displayPageHeader($mailbox);
       messages_deleted_message($mailbox, $sort, $startMessage);
    } else {
-      if ($auto_expunge == true)
-         expungeBox($imapConnection, $mailbox, $numMessages);
-      displayPageHeader($mailbox);
+      $j = 0;
+      $i = 0;
+      
+      // If they have selected nothing msg is size one still, but will be an infinite
+      //    loop because we never increment j.  so check to see if msg[0] is set or not to fix this.
+      while (($j < count($msg)) && ($msg[0])) {
+         if ($msg[$i]) {
+            $success = copyMessages($imapConnection, $msg[$i], $msg[$i], $trash_folder);
+            if ($success == true) {
+               setMessageFlag($imapConnection, $msg[$i], $msg[$i], "Deleted");
+               displayPageHeader($mailbox);
+            }
+            if ($auto_expunge == true)
+               expungeBox($imapConnection, $mailbox, $numMessages);
+            $j++;
+         }
+         $i++;
+      }
    }
 
    // Log out this session
