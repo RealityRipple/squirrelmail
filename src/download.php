@@ -56,24 +56,45 @@
    $filename = $header->filename;
 
    if (strlen($filename) < 1) {
-      $filename = "untitled$passed_ent_id";
+      $filename = "untitled$passed_ent_id.$type1";
    }
+
+   // Note:
+   //    The following sections display the attachment in different
+   //    ways depending on how they choose.  The first way will download
+   //    under any circumstance.  This sets the Content-type to be
+   //    applicatin/octet-stream, which should be interpreted by the
+   //    browser as "download me".
+   //      The second method (view) is used for images or other formats
+   //    that should be able to be handled by the browser.  It will
+   //    most likely display the attachment inline inside the browser.
+   //      And finally, the third one will be used by default.  If it
+   //    is displayable (text or html), it will load them up in a text
+   //    viewer (built in to squirrelmail).  Otherwise, it sets the
+   //    content-type as application/octet-stream
 
    if ($absolute_dl == "true") {
       switch($type0) {
          case "text":
             $body = decodeBody($body, $header->encoding);
-            header("Content-type: $type0/$type1; name=\"$filename\"");
+            #header("Content-type: $type0/$type1; name=\"$filename\"");
+            header("Content-type: application/octet-stream; name=\"$filename\"");
             header("Content-Disposition: attachment; filename=\"$filename\"");
             echo trim($body);
             break;
          default:
             $body = decodeBody($body, $header->encoding);
-            header("Content-type: $type0/$type1; name=\"$filename\"");
+            header("Content-type: application/octet-stream; name=\"$filename\"");
+            #header("Content-type: $type0/$type1; name=\"$filename\"");
             header("Content-Disposition: attachment; filename=\"$filename\"");
             echo $body;
             break;
       }
+   } else if ($view == "true") {
+      $body = decodeBody ($body, $header->encoding);
+      header("Content-type: $type0/$type1; name=\"$filename\"");
+      header("Content-disposition: attachment; filename=\"$filename\"");
+      echo $body;
    } else {
       switch ($type0) {
          case "text":
@@ -86,7 +107,7 @@
             break;
          default:
             $body = decodeBody($body, $header->encoding);
-            header("Content-type: $type0/$type1; name=\"$filename\"");
+            header("Content-type: applicatin/octet-stream; name=\"$filename\"");
             header("Content-Disposition: attachment; filename=\"$filename\"");
             echo $body;
             break;

@@ -1,5 +1,6 @@
 Version 0.5pre1 -- DEVELOPMENT
 ------------------------------
+- Changed how attachments are displayed and handled
 - Rewrote MIME support from scratch, optomizing it an unbelievable amount
 - Added support for message highlighting
 - Moved Address and Send buttons on Compose form for easier access 
