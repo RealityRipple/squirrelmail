@@ -555,6 +555,16 @@ $allow_server_sort = false;
 $allow_charset_search = true;
 
 /**
+ * Search functions control
+ *
+ * This option allows you to control the use of advanced search form.
+ * Set to 0 to enable basic search only, 1 to enable advanced search only
+ * or 2 to enable both.
+ * @global integer $allow_advanced_search
+ */
+$allow_advanced_search = 0;
+
+/**
  * PHP session name.
  *
  * Leave this alone unless you know what you are doing.
