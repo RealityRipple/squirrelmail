@@ -16,7 +16,7 @@ class Deliver_SendMail extends Deliver {
 
     function preWriteToStream(&$s) {
        if ($s) {
-    	  $s = str_replace(".\n",".\r\n",str_replace("\r\n", "\n", $s));
+    	  $s = str_replace("\r\n", "\n", $s);
        }
     }
     
@@ -25,9 +25,9 @@ class Deliver_SendMail extends Deliver {
 	$from = $rfc822_header->from[0];
 	$envelopefrom = $from->mailbox.'@'.$from->host;
 	if (strstr($sendmail_path, "qmail-inject")) {
-    	    $stream = popen (escapeshellcmd("$sendmail_path -f$envelopefrom"), "w");
+    	    $stream = popen (escapeshellcmd("$sendmail_path -i -f$envelopefrom"), "w");
 	} else {
-    	    $stream = popen (escapeshellcmd("$sendmail_path -t -f$envelopefrom"), "w");
+    	    $stream = popen (escapeshellcmd("$sendmail_path -i -t -f$envelopefrom"), "w");
 	}
 	return $stream;
     }
