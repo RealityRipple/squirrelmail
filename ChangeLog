@@ -3,6 +3,7 @@ Version 0.4pre1 -- Development
 - Addressbook with LDAP support
 - Big speed improvements with folder listing
 - Added Subscribe/Unsubscribe to folders
+- Fixed bug in UW that didn't mark unseen messages
 - Saving sent messages into $sent_folder
 - It doesn't bail out if PHP wasn't compiled with --with-gettext.  
     It only uses english in this case.
