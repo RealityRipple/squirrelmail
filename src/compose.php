@@ -509,7 +509,7 @@ function showInputForm ($session) {
            $from_htmladdr_search, $location_of_buttons, $attachment_dir,
            $username, $data_dir, $identity, $draft_id, $delete_draft,
            $mailprio, $default_use_mdn, $mdn_user_support, $compose_new_win,
-           $saved_draft, $mail_sent;
+           $saved_draft, $mail_sent, $sig_first;
 
     $subject = decodeHeader($subject, false);
     $reply_subj = decodeHeader($reply_subj, false);
@@ -646,9 +646,19 @@ function showInputForm ($session) {
     echo '   <TR>' . "\n" .
          '      <TD BGCOLOR="' . $color[4] . '" COLSPAN=2>' . "\n" .
          '         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS="' .
-         $editor_size . '" WRAP=HARD>' . htmlspecialchars($body);
+         $editor_size . '" WRAP=HARD>';
     if ($use_signature == true && $newmail == true && !isset($from_htmladdr_search)) {
-        echo "\n\n".($prefix_sig==true? "-- \n":'').htmlspecialchars($signature);
+        if ($sig_first == '1') {
+            echo "\n\n".($prefix_sig==true? "-- \n":'').htmlspecialchars($signature);
+            echo "\n\n".htmlspecialchars($body);
+        }
+        else {
+            echo "\n\n".htmlspecialchars($body);
+            echo "\n\n".($prefix_sig==true? "-- \n":'').htmlspecialchars($signature);
+        }
+    }
+    else {
+       echo htmlspecialchars($body);
     }
     echo '</TEXTAREA><BR>' . "\n" .
          '      </TD>' . "\n" .

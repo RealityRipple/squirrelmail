@@ -207,6 +207,9 @@ $hour_format = getPref($data_dir, $username, 'hour_format', 2);
 /*  compose in new window setting */
 $compose_new_win = getPref($data_dir, $username, 'compose_new_win', 0);
 
+/* signature placement settings */
+$sig_first = getPref($data_dir, $username, 'sig_first', 0);
+
 /* Load the javascript settings. */
 $javascript_setting =
     getPref($data_dir, $username, 'javascript_setting', SMPREF_JS_AUTODETECT);
