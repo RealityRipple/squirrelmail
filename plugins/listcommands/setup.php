@@ -21,8 +21,7 @@ function squirrelmail_plugin_init_listcommands () {
 }
 
 function plugin_listcommands_menu() {
-    global $passed_id, $passed_ent_id, $color, $mailbox,
-           $message, $compose_new_win;
+    global $passed_id, $passed_ent_id, $color, $mailbox, $message;
 
     /**
      * Array of commands we can deal with from the header. The Reply option
@@ -55,28 +54,21 @@ function plugin_listcommands_menu() {
         if ($proto == 'mailto') {
 
             if (($cmd == 'post') || ($cmd == 'owner')) {
-                $url = 'compose.php?';
+                $url = 'src/compose.php?';
             } else {
-                $url = "../plugins/listcommands/mailout.php?action=$cmd&amp;";
+                $url = "plugins/listcommands/mailout.php?action=$cmd&amp;";
             }
             $url .= 'send_to=' . strtr($act,'?','&');
 
-            if ($compose_new_win == '1') {
-                $output[] = "<a href=\"javascript:void(0)\" onclick=\"comp_in_new('$url')\">" . $fieldsdescr[$cmd] . '</a>';
-            }
-            else {
-                $output[] = '<a href="' . $url . '">' . $fieldsdescr[$cmd] . '</a>';
-            }
+            $output[] = makeComposeLink($url, $fieldsdescr[$cmd]);
+
             if ($cmd == 'post') {
 	        $url .= '&amp;passed_id='.$passed_id.
 		        '&amp;mailbox='.urlencode($mailbox).
 		        (isset($passed_ent_id)?'&amp;passed_ent_id='.$passed_ent_id:'');
                 $url .= '&amp;action=reply';
-                if ($compose_new_win == '1') {
-                    $output[] = "<a href=\"javascript:void(0)\" onclick=\"comp_in_new('$url')\">" . $fieldsdescr['reply'] . '</a>';
-                } else {
-                    $output[] = '<a href="' . $url . '">' . $fieldsdescr['reply'] . '</a>';
-                }
+
+                $output[] = makeComposeLink($url, $fieldsdescr['reply']);
             }
         } else if ($proto == 'href') {
             $output[] = '<a href="' . $act . '" target="_blank">'

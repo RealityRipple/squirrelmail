@@ -115,10 +115,11 @@ $ShowValues = array(
 echo '<tr><td><br>' .
         '<TABLE border=0 cellpadding=2 cellspacing=0 align=center>' . "\n";
 
-if (isset($vcard_safe['email;internet'])) {     $vcard_safe['email;internet'] = '<A HREF="../src/compose.php?send_to=' .
-        $vcard_safe['email;internet'] . '">' . $vcard_safe['email;internet'] .
-        '</A>';
+if (isset($vcard_safe['email;internet'])) {
+    $vcard_safe['email;internet'] = makeComposeLink('src/compose.php?send_to='.urlencode($vcard_safe['email;internet']),
+        $vcard_safe['email;internet']);
 }
+
 if (isset($vcard_safe['url'])) {
     $vcard_safe['url'] = '<A HREF="' . $vcard_safe['url'] . '">' .
         $vcard_safe['url'] . '</A>';

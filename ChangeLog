@@ -26,6 +26,11 @@ Version 1.5.0 -- CVS
   - Fixed language bug in posting on modifying/deleting servers on mail_fetch plugin
     (#742705).
   - Fixed infinite loop in parseAddress on invalid mailadress (#742584).
+  - Rewrote ugly "Not a very useful errormessage" to something more friendly.
+  - Make central function for compose links to make sure compose_in_new always
+    works the same way.
+  - Fix that when JavaScript off, compose in new was broken (#749654).
+  - Do not output JavaScript functions in page_header when JavaScript off.
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
