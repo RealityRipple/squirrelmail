@@ -36,6 +36,7 @@ define('SMOPT_SIZE_SMALL', 1);
 define('SMOPT_SIZE_MEDIUM', 2);
 define('SMOPT_SIZE_LARGE', 3);
 define('SMOPT_SIZE_HUGE', 4);
+define('SMOPT_SIZE_NORMAL', 5);
 
 define('SMOPT_SAVE_DEFAULT', 'save_option');
 define('SMOPT_SAVE_NOOP', 'save_option_noop');
@@ -177,12 +178,21 @@ class SquirrelOption {
 
     function createWidget_String() {
         switch ($this->size) {
-            case SMOPT_SIZE_TINY:  $width = 5; break;
-            case SMOPT_SIZE_SMALL: $width = 12; break;
-            case SMOPT_SIZE_LARGE: $width = 38; break;
-            case SMOPT_SIZE_HUGE:  $width = 50; break;
+            case SMOPT_SIZE_TINY:
+                $width = 5;
+                break;
+            case SMOPT_SIZE_SMALL:
+                $width = 12;
+                break;
+            case SMOPT_SIZE_LARGE:
+                $width = 38;
+                break;
+            case SMOPT_SIZE_HUGE:
+                $width = 50;
+                break;
             case SMOPT_SIZE_NORMAL:
-            default: $width = 25;
+            default:
+                $width = 25;
         }
 
         $result = "<INPUT NAME=\"new_$this->name\" VALUE=\"$this->value\" SIZE=\"$width\">";

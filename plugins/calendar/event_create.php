@@ -63,16 +63,16 @@ function show_event_form() {
 }
 
 
-if ($month <= 0){
+if ( !isset($month) || $month <= 0){
     $month = date( 'm' );
 }
-if ($year <= 0){
+if ( !isset($year) || $year <= 0){
     $year = date( 'Y' );
 }
-if ($day <= 0){
+if (!isset($day) || $day <= 0){
     $day = date( 'd' );
 }
-if ($hour <= 0){
+if (!isset($hour) || $hour <= 0){
     $hour = '08';
 }
 
@@ -98,7 +98,12 @@ if(!isset($event_text)){
     $event_text=nl2br($event_text);
     $event_text=ereg_replace ("\n", "", $event_text);
     $event_text=ereg_replace ("\r", "", $event_text);
-    $calendardata["$month$day$year"]["$event_hour$event_minute"] = array("length"=>"$event_length","priority"=>"$event_priority","title"=>"$event_title","message"=>"$event_text");
+    $calendardata["$month$day$year"]["$event_hour$event_minute"] =
+    array( 'length' => $event_length,
+           'priority' => $event_priority,
+           'title' => $event_title,
+           'message' => $event_text,
+           'reminder' => '' );
     //save
     writecalendardata();
     echo "  <TABLE BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">\n".

@@ -14,13 +14,13 @@
 require_once( '../functions/page_header.php' );
 
 function is_logged_in () {
-    global $squirrelmail_language, $frame_top;
+    global $squirrelmail_language, $frame_top, $base_uri;
 
     if ( session_is_registered('user_is_logged_in') ) {
         return;
     }
 
-    if (!isset($frame_top)) {
+    if (!isset($frame_top) || $frame_top == '' ) {
         $frame_top = '_top';
     }
 
@@ -31,7 +31,7 @@ function is_logged_in () {
     echo "<body bgcolor=\"ffffff\">\n" .
          '<br><br><center><b>' .
          _("You must be logged in to access this page.").'</b><br><br>' .
-         "<a href=\"../src/login.php\" target=\"$frame_top\">"._("Go to the login page")."</a>\n" .
+         "<a href=\"$base_uri/src/login.php\" target=\"$frame_top\">"._("Go to the login page")."</a>\n" .
          "</center></body></html>\n";
     exit;
 }

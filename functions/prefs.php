@@ -11,23 +11,25 @@
  * $Id$
  */
 
+/*
 global $prefs_are_cached, $prefs_cache;
 
 if ( !session_is_registered('prefs_are_cached') ||
      !isset( $prefs_cache) ||
-     !is_array( $prefs_cache) ||
+     !is_array( $prefs_cache)     ||
      substr( phpversion(), 0, 3 ) == '4.1'  ) {
     $prefs_are_cached = false;
     $prefs_cache = array();
 }
+*/
 
 /**
  * Check the preferences into the session cache.
  */
 function cachePrefValues($data_dir, $username) {
     global $prefs_are_cached, $prefs_cache;
-       
-    if ($prefs_are_cached) {
+
+    if ( isset($prefs_are_cached) && $prefs_are_cached) {
         return;
     }
     
@@ -69,10 +71,10 @@ function cachePrefValues($data_dir, $username) {
      }
      fclose($file);
 
-    $prefs_are_cached = true;
+    $prefs_are_cached = TRUE;
 
-     session_register('prefs_cache');
-     session_register('prefs_are_cached');
+    session_register('prefs_cache');
+    session_register('prefs_are_cached');
 }
    
 /**

@@ -204,12 +204,13 @@ function translateText(&$body, $wrap_at, $charset) {
         }
         $line = charset_decode($charset, $line);
         $line = str_replace("\t", '        ', $line);
-        
+
         parseUrl ($line);
-        
+
         $Quotes = 0;
         $pos = 0;
-        while (1) {
+
+        while ( $line <> '' ) {
             if ($line[$pos] == ' ') {
                 $pos ++;
             } else if (strpos($line, '&gt;', $pos) === $pos) {

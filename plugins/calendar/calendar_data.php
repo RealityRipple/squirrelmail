@@ -27,16 +27,17 @@ function readcalendardata() {
 
     if (file_exists($filename)){
         $fp = fopen ($filename,'r');
-    }
-    if ($fp){
-        while ($fdata = fgetcsv ($fp, 4096, '|')) {
-            $calendardata[$fdata[0]][$fdata[1]] = array( 'length' => $fdata[2],
-                                                         'priority' => $fdata[3],
-                                                         'title' => $fdata[4],
-                                                         'message' => $fdata[5],
-                                                         'reminder' => $fdata[6] );
+
+        if ($fp){
+            while ($fdata = fgetcsv ($fp, 4096, '|')) {
+                $calendardata[$fdata[0]][$fdata[1]] = array( 'length' => $fdata[2],
+                                                            'priority' => $fdata[3],
+                                                            'title' => $fdata[4],
+                                                            'message' => $fdata[5],
+                                                            'reminder' => $fdata[6] );
+            }
+            fclose ($fp);
         }
-        fclose ($fp);
     }
 }
 
@@ -49,8 +50,8 @@ function writecalendardata() {
     $fp = fopen ($filetmp,"w");
     if ($fp) {
         while ( $calfoo = each ($calendardata)) {
-            while ( $calbar = each ($calfoo[value])) {
-                $calfoobar = $calendardata[$calfoo[key]][$calbar[key]];
+            while ( $calbar = each ($calfoo['value'])) {
+                $calfoobar = $calendardata[$calfoo['key']][$calbar['key']];
                 $calstr = "$calfoo[key]|$calbar[key]|$calfoobar[length]|$calfoobar[priority]|$calfoobar[title]|$calfoobar[message]|$calfoobar[reminder]\n";
                 fwrite($fp, $calstr, 4096);
             }

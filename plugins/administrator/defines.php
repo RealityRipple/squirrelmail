@@ -28,6 +28,7 @@ define('SMOPT_TYPE_TITLE', 9);
 define('SMOPT_TYPE_THEME', 10);
 define('SMOPT_TYPE_PLUGINS', 11);
 define('SMOPT_TYPE_LDAP', 12);
+define('SMOPT_TYPE_EXTERNAL', 32);
 
 global $languages;
 
@@ -47,6 +48,12 @@ for ($lsv = 100; $lsv <= 300; $lsv += 10) {
 $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                                              'type' => SMOPT_TYPE_COMMENT,
                                              'size' => 7 ),
+                 'SM_ver' => array( 'name' => _("Squirrelmail Version"),
+                                    'type' => SMOPT_TYPE_EXTERNAL,
+                                    'value' => "$version" ),
+                 'PHP_ver' => array( 'name' => _("PHP Version"),
+                                     'type' => SMOPT_TYPE_EXTERNAL,
+                                     'value' => phpversion() ),
                  /* --------------------------------------------------------*/
                  'Group1' => array( 'name' => _("Organization Preferences"),
                                     'type' => SMOPT_TYPE_TITLE ),
@@ -74,13 +81,13 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                  'Group2' => array( 'name' => _("Server Settings"),
                                     'type' => SMOPT_TYPE_TITLE ),
                  '$domain' => array( 'name' => _("Mail Domain"),
-                                                'type' => SMOPT_TYPE_STRING,
-                                                'size' => 40 ),
+                                     'type' => SMOPT_TYPE_STRING,
+                                     'size' => 40 ),
                  '$imapServerAddress' => array( 'name' => _("IMAP Server Address"),
                                                 'type' => SMOPT_TYPE_STRING,
                                                 'size' => 40 ),
                  '$imapPort' => array( 'name' => _("IMAP Server Port"),
-                                                 'type' => SMOPT_TYPE_INTEGER ),
+                                       'type' => SMOPT_TYPE_INTEGER ),
                  '$imap_server_type' => array( 'name' => _("IMAP Server Type"),
                                                'type' => SMOPT_TYPE_STRLIST,
                                                'posvals' => array( 'cyrus' => _("Cyrus IMAP server"),
@@ -102,7 +109,7 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                                                 'type' => SMOPT_TYPE_STRING,
                                                 'size' => 40 ),
                  '$smtpPort' => array( 'name' => _("SMTP Server Port"),
-                                                 'type' => SMOPT_TYPE_INTEGER ),
+                                       'type' => SMOPT_TYPE_INTEGER ),
                  '$use_authenticated_smtp' => array( 'name' => _("Authenticated SMTP"),
                                                      'type' => SMOPT_TYPE_BOOLEAN ),
                  '$invert_time' => array( 'name' => _("Invert Time"),
@@ -200,7 +207,7 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                                     'type' => SMOPT_TYPE_TITLE ),
                  '$addrbook_dsn' => array( 'name' => _("Address book DSN"),
                                            'type' => SMOPT_TYPE_STRING,
-                                           'size' => 40 ), 
+                                           'size' => 40 ),
                  '$addrbook_table' => array( 'name' => _("Address book table"),
                                              'type' => SMOPT_TYPE_STRING,
                                              'size' => 40,
@@ -212,7 +219,8 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                                         'type' => SMOPT_TYPE_STRING,
                                         'size' => 40 ),
                  /* --------------------------------------------------------*/
-                 '$config_use_color' => array( 'type' => SMOPT_TYPE_HIDDEN )
+                 '$config_use_color' => array(  'name' => '',
+                                                'type' => SMOPT_TYPE_HIDDEN )
                  /* --------------------------------------------------------*/
 
                );

@@ -72,7 +72,8 @@ function parseConfig( $cfg_file ) {
                 break;
             case 'C':
                 // Comments
-                if ( $line{$j}.$line{$j+1} == '*/' ) {
+                if ( $s > $j + 1  &&
+                     $line{$j}.$line{$j+1} == '*/' ) {
                     $mode = '';
                     $j++;
                 }
@@ -107,7 +108,12 @@ function parseConfig( $cfg_file ) {
                 }
                 break;
             default:
-                if ( strtoupper( substr( $line, $j, 7 ) ) == 'GLOBAL ' ) {
+                if ( $line{$j} == '$' ) {
+                    // We must detect $key name
+                    $mode = 'K';
+                    $key = '$';
+                } else if ( $s < $j + 2 ) {
+                } else if ( strtoupper( substr( $line, $j, 7 ) ) == 'GLOBAL ' ) {
                     // Skip untill next ;
                     $mode = ';';
                     $j += 6;
@@ -117,10 +123,6 @@ function parseConfig( $cfg_file ) {
                 } else if ( $line{$j} == '#' || $line{$j}.$line{$j+1} == '//' ) {
                     // Delete till the end of the line
                     $j = $s;
-                } else if ( $line{$j} == '$' ) {
-                    // We must detect $key name
-                    $mode = 'K';
-                    $key = '$';
                 }
             }
         }
@@ -157,22 +159,28 @@ $cfgfile = '../config/config.php';
 parseConfig( '../config/config_default.php' );
 parseConfig( $cfgfile );
 
-$colapse = array( 'Titles' => FALSE,
-                  'Group1' => getPref($data_dir, $username, 'adm_Group1', FALSE ),
-                  'Group2' => getPref($data_dir, $username, 'adm_Group2', TRUE ),
-                  'Group3' => getPref($data_dir, $username, 'adm_Group3', TRUE ),
-                  'Group4' => getPref($data_dir, $username, 'adm_Group4', TRUE ),
-                  'Group5' => getPref($data_dir, $username, 'adm_Group5', TRUE ),
-                  'Group6' => getPref($data_dir, $username, 'adm_Group6', TRUE ),
-                  'Group7' => getPref($data_dir, $username, 'adm_Group7', TRUE ),
-                  'Group8' => getPref($data_dir, $username, 'adm_Group8', TRUE ) );
+$colapse = array( 'Titles' => 'off',
+                  'Group1' => getPref($data_dir, $username, 'adm_Group1', 'off' ),
+                  'Group2' => getPref($data_dir, $username, 'adm_Group2', 'on' ),
+                  'Group3' => getPref($data_dir, $username, 'adm_Group3', 'on' ),
+                  'Group4' => getPref($data_dir, $username, 'adm_Group4', 'on' ),
+                  'Group5' => getPref($data_dir, $username, 'adm_Group5', 'on' ),
+                  'Group6' => getPref($data_dir, $username, 'adm_Group6', 'on' ),
+                  'Group7' => getPref($data_dir, $username, 'adm_Group7', 'on' ),
+                  'Group8' => getPref($data_dir, $username, 'adm_Group8', 'on' ) );
 
 if ( isset( $switch ) ) {
-    $colapse[$switch] = !$colapse[$switch];
+
+    if ( $colapse[$switch] == 'on' ) {
+       $colapse[$switch] = 'off';
+    } else {
+       $colapse[$switch] = 'on';
+    }
     setPref($data_dir, $username, "adm_$switch", $colapse[$switch] );
+
 }
 
-echo "<form action=options.php method=post>" .
+echo "<form action=options.php method=post name=options>" .
     "<br><center><table width=95% bgcolor=\"$color[5]\"><tr><td>".
     "<table width=100% cellspacing=0 bgcolor=\"$color[4]\">" ,
     "<tr bgcolor=\"$color[5]\"><th colspan=2>" . _("Configuration Administrator") . "</th></tr>";
@@ -191,7 +199,11 @@ foreach ( $newcfg as $k => $v ) {
     if ( isset( $defcfg[$k] ) ) {
         $name = $defcfg[$k]['name'];
         $type = $defcfg[$k]['type'];
-        $size = $defcfg[$k]['size'];
+        if ( isset( $defcfg[$k]['size'] ) ) {
+            $size = $defcfg[$k]['size'];
+        } else {
+            $size = 40;
+        }
     } else if ( $l == 'true' ) {
         $v = 'TRUE';
         $type = SMOPT_TYPE_BOOLEAN;
@@ -212,7 +224,7 @@ foreach ( $newcfg as $k => $v ) {
         $type = SMOPT_TYPE_LDAP;
     }
 
-    if( $type == SMOPT_TYPE_TITLE || !$colapse[$act_grp] ) {
+    if( $type == SMOPT_TYPE_TITLE || $colapse[$act_grp] == 'off' ) {
 
         switch ( $type ) {
         case SMOPT_TYPE_LDAP:
@@ -220,8 +232,13 @@ foreach ( $newcfg as $k => $v ) {
         case SMOPT_TYPE_THEME:
         case SMOPT_TYPE_HIDDEN:
             break;
+        case SMOPT_TYPE_EXTERNAL:
+            echo "<tr><td>$name</td><td><b>" .
+                 $defcfg[$k]['value'] .
+                 "</b></td></tr>";
+            break;
         case SMOPT_TYPE_TITLE:
-            if ( $colapse[$k] ) {
+            if ( $colapse[$k] == 'on' ) {
                 $sw = '(+)';
             } else {
                 $sw = '(-)';
@@ -357,7 +374,7 @@ foreach ( $newcfg as $k => $v ) {
 }
 
 /* Special Themes Block */
-if ( !($colapse['Group7']) ) {
+if ( $colapse['Group7'] == 'off' ) {
     $i = 0;
     echo '<tr><th>' . _("Theme Name") .
          '</th><th>' . _("Theme Path") .
@@ -391,7 +408,7 @@ if ( !($colapse['Group7']) ) {
 }
 
 /* Special Plugins Block */
-if ( $colapse['Group8'] ) {
+if ( $colapse['Group8'] == 'on' ) {
     $sw = '(+)';
 } else {
     $sw = '(-)';
@@ -400,7 +417,7 @@ echo "<tr bgcolor=\"$color[0]\"><th colspan=2>" .
      "<a href=options.php?switch=Group8 STYLE=\"text-decoration:none\"><b>$sw</b> </a>" .
      _("Plugins") . '</th></tr>';
 
-if( !$colapse['Group8'] ) {
+if( $colapse['Group8'] == 'off' ) {
 
     $fd = opendir( '../plugins/' );
     $op_plugin = array();
@@ -420,7 +437,8 @@ if( !$colapse['Group8'] ) {
     $plugins = array();
     if ( isset( $HTTP_POST_VARS['plg'] ) ) {
         foreach ( $op_plugin as $plg ) {
-            if ( $HTTP_POST_VARS["plgs_$plg"] == 'on' ) {
+            if ( isset( $HTTP_POST_VARS["plgs_$plg"] ) &&
+                 $HTTP_POST_VARS["plgs_$plg"] == 'on' ) {
                 $plugins[] = $plg;
             }
         }
@@ -453,7 +471,7 @@ if( !$colapse['Group8'] ) {
         }
         echo '<tr>' .
              "<td>$plg</td><td><input$sw type=checkbox name=plgs_$plg></td>".
-             '</tr>';
+             "</tr>\n";
     }
     echo '</td></tr></table>';
 
@@ -471,7 +489,8 @@ fwrite( $fp, "<?PHP\n".
             "/**\n".
             " * SquirrelMail Configuration File\n".
             " * Created using the Administrator Plugin\n".
-            " */\n" );
+            " */\n".
+            "GLOBAL \$version;\n" );
 
 /*
 fwrite( $fp, 'GLOBAL ' );

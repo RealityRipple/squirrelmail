@@ -52,7 +52,7 @@ function initialize_events() {
 
     if (isset($calendardata[$cdate])){
         while ( $calfoo = each($calendardata[$cdate])){
-            $daily_events["$calfoo[key]"] = $calendardata[$cdate][$calfoo[key]];
+            $daily_events["$calfoo[key]"] = $calendardata[$cdate][$calfoo['key']];
         }
     }
 }
@@ -70,32 +70,31 @@ function display_events() {
             $eo=0;
         }
 
-        $ehour = substr($calfoo[key],0,2);
-        $eminute = substr($calfoo[key],2,2);
-        if (!is_array($calfoo[value])){
+        $ehour = substr($calfoo['key'],0,2);
+        $eminute = substr($calfoo['key'],2,2);
+        if (!is_array($calfoo['value'])){
             echo "         <TR BGCOLOR=\"$color[$eo]\"><TD>$ehour:$eminute</TD>\n" .
                  "              <TD>&nbsp;</TD>\n" .
-                 "              <TD ALIGN=CENTER><FONT SIZE=-1><A HREF=\"event_create.php?year=$year&month=$month&day=$day&hour=".substr($calfoo[key],0,2)."\">".
+                 "              <TD ALIGN=CENTER><FONT SIZE=-1><A HREF=\"event_create.php?year=$year&month=$month&day=$day&hour=".substr($calfoo['key'],0,2)."\">".
                  _("ADD") . "</A></FONT></TD></TR>\n";
         } else {
-            $calbar=$calfoo[value];
-            if ($calbar[length]!=0){
-                $elength = '-'.date('H:i',mktime($ehour,$eminute+$calbar[length],0,1,1,0));
+            $calbar=$calfoo['value'];
+            if ($calbar['length']!=0){
+                $elength = '-'.date('H:i',mktime($ehour,$eminute+$calbar['length'],0,1,1,0));
             } else {
                 $elength='';
             }
             echo "         <TR BGCOLOR=\"$color[$eo]\"><TD>$ehour:$eminute$elength</TD>\n" .
                  "              <TD>[";
-            echo ($calbar[priority]==1) ? "<FONT COLOR=\"$color[1]\">$calbar[title]</FONT>" : "$calbar[title]";
+            echo ($calbar['priority']==1) ? "<FONT COLOR=\"$color[1]\">$calbar[title]</FONT>" : "$calbar[title]";
             echo"] $calbar[message]&nbsp;</TD>\n" .
                  "              <TD ALIGN=CENTER><FONT SIZE=-1><nobr>\n" .
-                 "<A HREF=\"event_edit.php?year=$year&month=$month&day=$day&hour=".substr($calfoo[key],0,2)."&minute=".substr($calfoo[key],2,2)."\">".
+                 "<A HREF=\"event_edit.php?year=$year&month=$month&day=$day&hour=".substr($calfoo['key'],0,2)."&minute=".substr($calfoo['key'],2,2)."\">".
                  _("EDIT") . "</A>&nbsp;|&nbsp;\n" .
-                 "<A HREF=\"event_delete.php?dyear=$year&dmonth=$month&dday=$day&dhour=".substr($calfoo[key],0,2)."&dminute=".substr($calfoo[key],2,2)."&year=$year&month=$month&day=$day\">" .
+                 "<A HREF=\"event_delete.php?dyear=$year&dmonth=$month&dday=$day&dhour=".substr($calfoo['key'],0,2)."&dminute=".substr($calfoo['key'],2,2)."&year=$year&month=$month&day=$day\">" .
                  _("DEL") . '</A>' .
                  "              </nobr></FONT></TD></TR>\n";
     }
-    $i++;
 }
 
 

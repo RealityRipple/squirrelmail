@@ -27,12 +27,14 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start
 
     $color_string = $color[4];
     if ($GLOBALS['alt_index_colors']) {
-        if (!isset($GLOBALS["row_count"])) {
-            $GLOBALS["row_count"] = 0;
+        if (!isset($GLOBALS['row_count'])) {
+            $GLOBALS['row_count'] = 0;
         }
         $GLOBALS['row_count']++;
-        if ($GLOBALS["row_count"] % 2) {
-        if (!isset($color[12])) $color[12] = '#EAEAEA';
+        if ($GLOBALS['row_count'] % 2) {
+            if (!isset($color[12])) {
+                $color[12] = '#EAEAEA';
+            }
             $color_string = $color[12];
         }
     }

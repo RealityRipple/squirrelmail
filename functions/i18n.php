@@ -712,19 +712,19 @@ function set_up_language($sm_language, $do_search = false) {
         $sm_notAlias = $languages[$sm_notAlias]['ALIAS'];
     }
 
-    if ( isset($sm_language) && 
+    if ( isset($sm_language) &&
          $use_gettext &&
          $sm_language != '' &&
          isset($languages[$sm_notAlias]['CHARSET']) ) {
         bindtextdomain( 'squirrelmail', '../locale/' );
-        textdomain( 'squirrelmail' );         
-        if ( !ini_get('safe_mode') && 
+        textdomain( 'squirrelmail' );
+        if ( !ini_get('safe_mode') &&
              getenv( 'LC_ALL' ) != $sm_notAlias ) {
             putenv( "LC_ALL=$sm_notAlias" );
             putenv( "LANG=$sm_notAlias" );
             putenv( "LANGUAGE=$sm_notAlias" );
         }
-        setlocale('LC_ALL', $sm_notAlias);
+        setlocale(LC_ALL, $sm_notAlias);
         $squirrelmail_language = $sm_notAlias;
         header( 'Content-Type: text/html; charset=' . $languages[$sm_notAlias]['CHARSET'] );
     }
@@ -742,7 +742,7 @@ function set_my_charset(){
      * message blindly with the system-wide $default_charset.
      */
     global $data_dir, $username, $default_charset, $languages;
-    
+
     $my_language = getPref($data_dir, $username, 'language');
     if (!$my_language) {
         return;

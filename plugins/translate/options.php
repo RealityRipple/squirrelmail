@@ -24,7 +24,7 @@
    require_once('../src/load_prefs.php');
    displayPageHeader($color, 'None');
 
-    if ($submit_translate) {
+    if (isset($submit_translate) && $submit_translate ) {
         if (isset($translate_translate_server)) {
             setPref($data_dir, $username, 'translate_server', $translate_translate_server);
         } else {

@@ -20,12 +20,11 @@ class msg_header {
     /** msg_header contains generic variables for values that **/
     /** could be in a header.                                 **/
 
-    var $type0 = '', $type1 = '', $boundary = '', $charset = '';
-    var $encoding = '', $size = 0, $to = array(), $from = '', $date = '';
-    var $cc = array(), $bcc = array(), $reply_to = '', $subject = '';
-    var $id = 0, $mailbox = '', $description = '', $filename = '';
-    var $entity_id = 0, $message_id = 0, $name = '';
-    // var $priority = "";
+    var $type0 = '', $type1 = '', $boundary = '', $charset = '',
+        $encoding = '', $size = 0, $to = array(), $from = '', $date = '',
+        $cc = array(), $bcc = array(), $reply_to = '', $subject = '',
+        $id = 0, $mailbox = '', $description = '', $filename = '',
+        $entity_id = 0, $message_id = 0, $name = '', $priority = 3;
 }
 
 class message {
