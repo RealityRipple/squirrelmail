@@ -631,9 +631,9 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 $bodypart = strip_tags($bodypart);
             }
             if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-                function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+                function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_decode')) {
                 if (mb_detect_encoding($bodypart) != 'ASCII') {
-                    $bodypart = $languages[$squirrelmail_language]['XTRA_CODE']('decode', $bodypart);
+                    $bodypart = call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_decode', $bodypart);
                 }
             }
 
@@ -840,8 +840,8 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
            }
            $filename = str_replace('&#32;', ' ', decodeHeader($filename));
            if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-               function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
-                $filename =  $languages[$squirrelmail_language]['XTRA_CODE']('encode', $filename);
+               function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_encode')) {
+                $filename =  call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_encode', $filename);
            }
            $localfilename = GenerateRandomString(32, '', 7);
            $full_localfilename = "$hashed_attachment_dir/$localfilename";
