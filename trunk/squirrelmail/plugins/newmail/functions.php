@@ -5,7 +5,7 @@
  * Functions
  * @version $Id$
  * @package plugins
- * @subpackage new_mail
+ * @subpackage newmail
  */
 
 /** file type defines */
@@ -66,9 +66,10 @@ function newmail_detect_filetype($contents,$type) {
 }
 
 /**
+ * Function tries to detect uploaded file type
  * @param string $type
  * @param string $filename
- * @return integer
+ * @return integer One of SM_NEWMAIL_FILETYPE_* defines or false.
  */
 function newmail_get_mediatype($type,$filename) {
     switch ($type) {
@@ -100,9 +101,9 @@ function newmail_get_mediatype($type,$filename) {
 /**
  * Function provides filetype detection for browsers, that
  * upload files with application/octet-stream file type.
- * Ex. Opera.
+ * Ex. some version of Opera.
  * @param string $filename
- * @return string
+ * @return integer One of SM_NEWMAIL_FILETYPE_* defines or false.
  */
 function newmail_get_mediatype_by_ext($filename) {
     if (preg_match("/\.wav$/i",$filename)) return SM_NEWMAIL_FILETYPE_WAV;
@@ -164,6 +165,7 @@ function newmail_media_objects($object,$types,$path,$args=array(),$extra='',$add
  * Warnings:
  * * Returned string does not contain html closing tag.
  * * This is internal function, use newmail_media_objects() instead
+ * @link http://www.w3.org/TR/html4/struct/objects.html#edef-OBJECT W3.org specs
  * @param string $object object name
  * @param integer $type media object type
  * @param string $path URL to media object
