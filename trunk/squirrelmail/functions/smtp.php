@@ -47,6 +47,10 @@
             $ret .= '<'.$result['email'].'>';
             $array[$i] = $ret;
          }
+	 else
+	 {
+	    $array[$i] = '<' . $array[$i] . '>';
+	 }
       }
       return $array;
    }
@@ -202,7 +206,7 @@
          $header .= "Date: $date\r\n";
          $header .= "Subject: $subject\r\n";
          $header .= "From: $from\r\n";
-         $header .= "To: $to_list \r\n";    // Who it's TO
+         $header .= "To: $to_list\r\n";    // Who it's TO
 
 	 /* Insert headers from the $more_headers array */
 	 if(is_array($more_headers)) {
@@ -356,7 +360,7 @@
 
       /** send who the recipients are */
       for ($i = 0; $i < count($to); $i++) {
-         fputs($smtpConnection, "RCPT TO:<$to[$i]>\r\n");
+         fputs($smtpConnection, "RCPT TO: $to[$i]\r\n");
          $tmp = fgets($smtpConnection, 1024);
          errorCheck($tmp, $smtpConnection);
       }
