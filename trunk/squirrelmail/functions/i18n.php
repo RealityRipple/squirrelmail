@@ -294,7 +294,7 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
         } else {
             $longlocale=$sm_notAlias;
         }
-        if ( !ini_get('safe_mode') &&
+        if ( !((bool)ini_get('safe_mode')) &&
              getenv( 'LC_ALL' ) != $longlocale ) {
             putenv( "LC_ALL=$longlocale" );
             putenv( "LANG=$longlocale" );
