@@ -245,6 +245,19 @@ function sqimap_asearch_build_criteria($opcode, $what, $charset)
 	return $criteria;
 }
 
+// equivalent to : $to = array_values(array_unique(array_merge($to, $from)));
+function sqimap_array_merge_unique($to, $from)
+{
+	if (empty($to))
+		return $from;
+	$count = count($from);
+	for ($i = 0; $i < $count; $i++) {
+		if (!in_array($from[$i], $to))
+			$to[] = $from[$i];
+	}
+	return $to;
+}
+
 function sqimap_run_search($imapConnection, $search_string, $search_charset)
 {
 	global $uid_support;
@@ -270,27 +283,16 @@ function sqimap_run_search($imapConnection, $search_string, $search_charset)
 
 	unset($messagelist);
 
-	/* Keep going till we find the * SEARCH response */
+	// Keep going till we find the * SEARCH response
 	foreach ($readin as $readin_part) {
 		s_debug_dump('S:', $readin_part);
 		if (substr($readin_part, 0, 9) == '* SEARCH ') {
-			$messagelist = preg_split("/ /", substr($readin_part, 9));
-			break;	// Should be the last anyway
+			//workaround for an EIMS singularity (to say the least)
+			//$messagelist = preg_split("/ /", substr($readin_part, 9));
+			//break;	//this should be the last anyway
+			$messagelist = sqimap_array_merge_unique($message_list, preg_split("/ /", substr($readin_part, 9)));
 		}
-/*	else {
-			if (isset($errors))
-				$errors = $errors . $readin_part;
-			else
-				$errors = $readin_part;
-		}*/
 	}
-
-	/* If nothing is found * SEARCH should be the first error else echo errors */
-/*if (isset($errors)) {
-		if (strstr($errors,'* SEARCH'))
-			return array();
-		echo '<!-- ' . htmlspecialchars($errors) . ' -->';
-	}*/
 
 	if (empty($messagelist))	//Empty search response, ie '* SEARCH'
 		return array();
@@ -319,9 +321,9 @@ function sqimap_run_sort($imapConnection, $search_string, $search_charset, $sort
 	}
 
 	if (strtoupper($response) != 'OK') {
-//		sqimap_asearch_error_box($response, $query, $message);
-//		return array();
-			return sqimap_run_search($imapConnection, $search_string, $search_charset);	// Fell back to standard search
+//	sqimap_asearch_error_box($response, $query, $message);
+//	return array();
+		return sqimap_run_search($imapConnection, $search_string, $search_charset);	// Fell back to standard search
 	}
 
 	/* Keep going till we find the * SORT response */
@@ -372,6 +374,11 @@ function sqimap_run_thread($imapConnection, $search_string, $search_charset, $th
 	}
 
 	if (strtoupper($response) != 'OK') {
+/* we should at this point:
+	- warn the user that the THREAD call has failed
+	- (offer him a way to) disconnect it permanently in the prefs
+	- perform the regular search instead or provide a way to do it in one click
+*/
 //		sqimap_asearch_error_box($response, $query, $message);
 //		return array();
 			return sqimap_run_search($imapConnection, $search_string, $search_charset);	// Fell back to standard search
@@ -445,18 +452,6 @@ function sqimap_asearch_get_sort_criteria($mailbox, $sort_by)
 	if ($mailbox == $sent_folder)
 		$sort_opcodes[1] = 'TO';
 	return (($sort_by % 2) ? '' : 'REVERSE ') . $sort_opcodes[$sort_by >> 1];
-}
-
-/* replaces $mbox_msgs[$search_mailbox] = array_values(array_unique(array_merge($mbox_msgs[$search_mailbox], sqimap_run_search($imapConnection, $search_string, $search_charset))));*/
-function sqimap_array_merge_unique($to, $from)
-{
-	if (empty($to))
-		return $from;
-	for ($i=0; $i<count($from); $i++) {
-		if (!in_array($from[$i], $to))
-			$to[] = $from[$i];
-	}
-	return $to;
 }
 
 function sqimap_asearch($imapConnection, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $mboxes_array)
