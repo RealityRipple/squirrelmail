@@ -45,7 +45,11 @@ $subject = trim(decodeHeader($rfc822_header->subject));
 $cc = decodeHeader($rfc822_header->getAddr_s('cc'));
 $to = decodeHeader($rfc822_header->getAddr_s('to'));
 
-$ent_ar = $message->findDisplayEntity();
+if ($show_html_default == 1) {
+    $ent_ar = $message->findDisplayEntity(array());
+} else {
+    $ent_ar = $message->findDisplayEntity(array(), array('text/plain'));
+}
 $body = '';
 if ($ent_ar[0] != '') {
   for ($i = 0; $i < count($ent_ar); $i++) {
