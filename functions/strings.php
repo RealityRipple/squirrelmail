@@ -190,10 +190,14 @@ function php_self () {
 function get_location () {
     
     global $imap_server_type;
-    
+
     /* Get the path, handle virtual directories */
     $path = substr(php_self(), 0, strrpos(php_self(), '/'));
-    
+
+    if ( sqgetGlobalVar('sq_base_url', $full_url, SQ_SESSION) ) {
+      return $full_url . $path;
+    }
+
     /* Check if this is a HTTPS or regular HTTP request. */
     $proto = 'http://';
     
@@ -234,9 +238,11 @@ function get_location () {
         $port = '';
    }
    
-    /* Fallback is to omit the server name and use a relative */
-    /* URI, although this is not RFC 2616 compliant.          */
-    return ($host ? $proto . $host . $port . $path : $path);
+   /* Fallback is to omit the server name and use a relative */
+   /* URI, although this is not RFC 2616 compliant.          */
+   $full_url = ($host ? $proto . $host . $port : '');
+   sqsession_register($full_url, 'sq_base_url');
+   return $full_url . $path;
 }
 
 
