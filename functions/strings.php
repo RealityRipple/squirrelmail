@@ -62,19 +62,23 @@
       while ($i < count($words)) {
          // Force one word to be on a line (minimum)
          $line .= $words[$i];
-         $line_len = strlen($beginning_spaces) + strlen($words[$i]) +
-             strlen($words[$i + 1]) + 2;
+         $line_len = strlen($beginning_spaces) + strlen($words[$i]) + 2;
+	 if (isset($words[$i + 1]))
+	     $line_len += strlen($words[$i + 1]);
          $i ++;
             
          // Add more words (as long as they fit)
          while ($line_len < $wrap && $i < count($words)) {
             $line .= ' ' . $words[$i];
             $i++;
-            $line_len += strlen($words[$i]) + 1;
+	    if (isset($words[$i]))
+                $line_len += strlen($words[$i]) + 1;
+	    else
+	        $line_len += 1;
          }
             
          // Skip spaces if they are the first thing on a continued line
-         while (!$words[$i] && $i < count($words)) {
+         while (!isset($words[$i]) && $i < count($words)) {
             $i ++;
          }
 
@@ -96,7 +100,8 @@
        {
            preg_match("/^([\s>]*)([^\s>].*)?$/", $lines[$i], $regs);
            $CurrentSpaces = $regs[1];
-           $CurrentRest = $regs[2];
+	   if (isset($regs[2]))
+               $CurrentRest = $regs[2];
            if ($i == 0)
            {
                $PreviousSpaces = $CurrentSpaces;
