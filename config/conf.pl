@@ -317,6 +317,7 @@ while (($command ne "q") && ($command ne "Q")) {
       print "6.  Address Books (LDAP)\n";
       print "7.  Message of the Day (MOTD)\n";
       print "8.  Plugins\n";
+      print "9.  Database\n";
       print "\n";
       print "D.  Set pre-defined settings for specific IMAP servers\n";
       print "\n";
@@ -450,6 +451,12 @@ while (($command ne "q") && ($command ne "Q")) {
       print "A   Sanitize all plugins for use with Squirrelmail 1.2\n";
       print "\n";
       print "R   Return to Main Menu\n";
+   } elsif ($menu == 9) {
+      print $WHT."Database\n".$NRM;
+      print "1.  DSN for Address Book : $WHT$addrbook_dsn$NRM\n";
+      print "\n";
+      print "S   Save data\n";
+      print "R   Return to Main Menu\n";
    }
    if ($config_use_color == 1) {
       print "C.  Turn color off\n";
@@ -496,7 +503,7 @@ while (($command ne "q") && ($command ne "Q")) {
    } else {
       $saved = 0;
       if ($menu == 0) {
-         if (($command > 0) && ($command < 9)) {
+         if (($command > 0) && ($command < 10)) {
             $menu = $command;
          }
       } elsif ($menu == 1) {
@@ -555,6 +562,8 @@ while (($command ne "q") && ($command ne "Q")) {
       } elsif ($menu == 8) {
          if    ($command =~ /^[0-9]+/) { @plugins = command81(); }
          elsif ($command eq "a") { command8s(); }
+      } elsif ($menu == 9) {
+         if    ($command == 1) { $addrbook_dsn = command91(); }
       }
    }   
 }
@@ -1813,6 +1822,31 @@ sub command62 {
    return $default_use_javascript_addr_book;
 }
 
+sub command91 {
+   print "If you want to store your users address book details in a database then\n";
+   print "you need to set this DSN to a valid value. The format for this is:\n";
+   print "mysql://user:pass\@hostname/dbname\n";
+   print "Where mysql can be one of the databases PHP supports, the most common\n";
+   print "of these are mysql, msql and pgsql\n";
+   print "If the DSN is left empty (hit space and then return) the database\n";
+   print "related code for address books will not be used\n";
+   print "\n";
+
+   if ($addrbook_dsn eq "") {
+      $default_value = "Disabled";
+   } else {
+      $default_value = $addrbook_dsn;
+   }
+   print "[$WHT$addrbook_dsn$NRM]: $WHT";
+   $new_dsn = <STDIN>;
+   if ($new_dsn eq "\n") {
+      $new_dsn = "";
+   } else {
+      $new_dsn =~ s/[\r|\n]//g;
+      $new_dsn =~ s/^\s+$//g;
+   }
+   return $new_dsn;
+}
 
 sub save_data {
     $tab = "    ";
@@ -1954,10 +1988,8 @@ sub save_data {
            print CF "\n";
         }
 
-        if (defined $addrbook_dsn) {
-            print CF "global \$addrbook_dsn;\n";
-            print CF "\$addrbook_dsn = '$addrbook_dsn';\n\n";
-        }
+        print CF "global \$addrbook_dsn;\n";
+        print CF "\$addrbook_dsn = '$addrbook_dsn';\n\n";
      
         print CF "/**\n";
         print CF " * Make sure there are no characters after the PHP closing\n";
