@@ -133,7 +133,7 @@ function load_optpage_data_folder() {
 
     $minute_str = _("Minutes");
     $left_refresh_values = array(SMPREF_NONE => _("Never"));
-    foreach (array(30,60,120,180,300,600) as $lr_val) {
+    foreach (array(30,60,120,180,300,600,1200) as $lr_val) {
         if ($lr_val < 60) {
             $left_refresh_values[$lr_val] = "$lr_val " . _("Seconds");
         } else if ($lr_val == 60) {

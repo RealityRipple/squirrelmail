@@ -170,7 +170,7 @@ if ($body_quote == 'NONE') $body_quote = '';
 $reply_focus = getPref($data_dir, $username, 'reply_focus', '');
 
 /* left refresh rate, strtolower makes 1.0.6 prefs compatible */
-$left_refresh = getPref($data_dir, $username, 'left_refresh', SMPREF_NONE );
+$left_refresh = getPref($data_dir, $username, 'left_refresh', 600 );
 $left_refresh = strtolower($left_refresh);
 
 /* Load up the Signature file */
@@ -223,7 +223,7 @@ $collapse_folders =
     getPref($data_dir, $username, 'collapse_folders', SMPREF_ON);
 
 $show_html_default =
-   getPref($data_dir, $username, 'show_html_default', SMPREF_OFF);
+   getPref($data_dir, $username, 'show_html_default', SMPREF_ON);
 
 $enable_forward_as_attachment =
    getPref($data_dir, $username, 'enable_forward_as_attachment', SMPREF_ON);
@@ -254,16 +254,16 @@ $compose_width = getPref($data_dir, $username, 'compose_width', 640);
 
 
 /* signature placement settings */
-$sig_first = getPref($data_dir, $username, 'sig_first', 0);
+$sig_first = getPref($data_dir, $username, 'sig_first', SMPREF_OFF);
 
 /* Strip signature when replying */
-$strip_sigs = getPref($data_dir, $username, 'strip_sigs', 0);
+$strip_sigs = getPref($data_dir, $username, 'strip_sigs', SMPREF_ON);
 
 /* use the internal date of the message for sorting instead of the supplied header date */
 $internal_date_sort = getPref($data_dir, $username, 'internal_date_sort', SMPREF_ON);
 
 /* if server sorting is enabled/disabled */
-$sort_by_ref = getPref($data_dir, $username, 'sort_by_ref', 1);
+$sort_by_ref = getPref($data_dir, $username, 'sort_by_ref', SMPREF_ON);
 
 /* Load the javascript settings. */
 $javascript_setting = getPref($data_dir, $username, 'javascript_setting', SMPREF_JS_AUTODETECT);
@@ -276,27 +276,29 @@ if ( checkForJavascript() )
   $use_javascript_addr_book = false;
 }
 
-$search_memory = getPref($data_dir, $username, 'search_memory', 0);
+$search_memory = getPref($data_dir, $username, 'search_memory', SMPREF_OFF);
 
 $show_only_subscribed_folders =
     getPref($data_dir, $username, 'show_only_subscribed_folders', SMPREF_ON);
 
-$forward_cc = getPref($data_dir, $username, 'forward_cc', 0);
+$forward_cc = getPref($data_dir, $username, 'forward_cc', SMPREF_OFF);
 
-$mailbox_select_style = getPref($data_dir, $username, 'mailbox_select_style', 0);
+/* How are mailbox select lists displayed: 0. full names, 1. indented (default),
+ * 3. delimited) */
+$mailbox_select_style = getPref($data_dir, $username, 'mailbox_select_style', 1);
 
 /* Allow user to customize, and display the full date, instead of day, or time based
    on time distance from date of message */
-$show_full_date = getPref($data_dir, $username, 'show_full_date', 0);
+$show_full_date = getPref($data_dir, $username, 'show_full_date', SMPREF_OFF);
 
 /* Allow user to customize length of from field */
-$truncate_sender = getPref($data_dir, $username, 'truncate_sender', 0);
+$truncate_sender = getPref($data_dir, $username, 'truncate_sender', 50);
 /* Allow user to customize length of subject field */
 $truncate_subject = getPref($data_dir, $username, 'truncate_subject', 50);
 /* Allow user to show recipient name if the message is from default identity */
-$show_recipient_instead = getPref($data_dir, $username, 'show_recipient_instead', 0);
+$show_recipient_instead = getPref($data_dir, $username, 'show_recipient_instead', SMPREF_OFF);
 
-$delete_prev_next_display = getPref($data_dir, $username, 'delete_prev_next_display', 1);
+$delete_prev_next_display = getPref($data_dir, $username, 'delete_prev_next_display', SMPREF_ON);
 
 do_hook('loading_prefs');
 
