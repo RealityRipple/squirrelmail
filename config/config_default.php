@@ -276,4 +276,8 @@
  // This is typically people in the US that are running Solaris 7.
  
  $invert_time = false;
+
+ // This should be a unique string, unique to your server.  Something
+ // that nobody would guess, and nobody can find out. 
+ $otp_pad = "SecretKey$domain";
 ?>

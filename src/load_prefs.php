@@ -59,7 +59,7 @@
       }
    }
 
-	session_register("theme_css");
+    if (!$download_php) session_register("theme_css");
 
    $use_javascript_addr_book = getPref($data_dir, $username, "use_javascript_addr_book");
    if ($use_javascript_addr_book == "")
