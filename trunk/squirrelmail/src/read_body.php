@@ -265,7 +265,7 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
         $success = $deliver->finalizeStream($stream);
     }
     if (!$success) {
-        $msg  = $deliver->dlv_msg . '<br>' .
+        $msg  = $deliver->dlv_msg . '<br />' .
                 _("Server replied: ") . $deliver->dlv_ret_nr . ' '.
                 $deliver->dlv_server_msg;
         require_once(SM_PATH . 'functions/display_messages.php');
@@ -636,7 +636,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
     $menu_row .= getButton('SUBMIT', 'smaction_reply_all', _("Reply All"), $on_click) ."\n";
     $menu_row .= getButton('SUBMIT', 'smaction_forward', _("Forward"), $on_click);
     if ($enable_forward_as_attachment)
-        $menu_row .= '<input type="checkbox" name="smaction_attache">' . _("As Attachment") .'&nbsp;&nbsp;'."\n";
+        $menu_row .= '<input type="checkbox" name="smaction_attache" />' . _("As Attachment") .'&nbsp;&nbsp;'."\n";
 
     $menu_row .= '</form>&nbsp;';
 
@@ -649,7 +649,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
             $menu_row .= addHidden('mailbox', $aMailbox['NAME']);
             $menu_row .= addHidden('msg[0]', $passed_id);
             $menu_row .= getButton('SUBMIT', 'delete', _("Delete"));
-            $menu_row .= '<input type="checkbox" name="bypass_trash">' . _("Bypass Trash");
+            $menu_row .= '<input type="checkbox" name="bypass_trash" />' . _("Bypass Trash");
         } else {
             $menu_row .= getButton('SUBMIT', 'delete', _("Delete"), '', FALSE) . "\n"; // delete button is disabled
         }

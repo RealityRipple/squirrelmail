@@ -39,7 +39,7 @@ if ($old == '') {
     displayPageHeader($color, 'None');
 
     plain_error_message(_("You have not selected a folder to rename. Please do so.").
-        '<BR><A HREF="../src/folders.php">'._("Click here to go back").'</A>.', $color);
+        '<br /><a href="../src/folders.php">'._("Click here to go back").'</a>.', $color);
     exit;
 }
 
@@ -62,23 +62,23 @@ if (strpos($old, $delimiter)) {
 
 
 displayPageHeader($color, 'None');
-echo '<br>' .
+echo '<br />' .
     html_tag( 'table', '', 'center', '', 'width="95%" border="0"' ) .
         html_tag( 'tr',
             html_tag( 'td', '<b>' . _("Rename a folder") . '</b>', 'center', $color[0] )
         ) .
         html_tag( 'tr' ) .
             html_tag( 'td', '', 'center', $color[4] ) .
-	    addForm('folders_rename_do.php').
+            addForm('folders_rename_do.php').
      _("New name:").
-     '<br><b>' . htmlspecialchars($old_parent) . ' ' . htmlspecialchars($delimiter) . '</b>' .
-     addInput('new_name', $old_name, 25) . '<BR>' . "\n";
+     '<br /><b>' . htmlspecialchars($old_parent) . ' ' . htmlspecialchars($delimiter) . '</b>' .
+     addInput('new_name', $old_name, 25) . '<br />' . "\n";
 if ( $isfolder ) {
     echo addHidden('isfolder', 'true');
 }
 echo addHidden('orig', $old).
      addHidden('old_name', $old_name).
-     '<INPUT TYPE=SUBMIT VALUE="'._("Submit")."\">\n".
-     '</FORM><BR></td></tr></table>';
+     '<input type="submit" value="'._("Submit")."\" />\n".
+     '</form><br /></td></tr></table>';
 
 ?>
