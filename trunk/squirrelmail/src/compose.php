@@ -695,7 +695,7 @@ function showInputForm ($session) {
     echo '   <TR>' . "\n" .
          '      <TD BGCOLOR="' . $color[4] . '" COLSPAN=2>' . "\n" .
          '         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS="' .
-         $editor_size . '" WRAP=HARD>';
+         $editor_size . '" WRAP="VIRTUAL">';
     if ($use_signature == true && $newmail == true && !isset($from_htmladdr_search)) {
         if ($sig_first == '1') {
             echo "\n\n".($prefix_sig==true? "-- \n":'').htmlspecialchars($signature);
