@@ -25,6 +25,8 @@
       include("../functions/smtp.php");
    if (!isset($display_messages_php))
       include("../functions/display_messages.php");
+   if (!isset($auth_php))
+      include ("../functions/auth.php");
 
    include("../src/load_prefs.php");
 
@@ -287,7 +289,7 @@
          showInputForm();
       }
    } else if ($html_addr_search_done) {
-      $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+      is_logged_in();
       displayPageHeader($color, $mailbox);
 
       $body = stripslashes($body);
@@ -314,7 +316,7 @@
       //* can think of a better way, please implement it.
       include ("addrbook_search_html.php");
    } else if (isset($attach)) {
-      $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+      is_logged_in();
       displayPageHeader($color, $mailbox);
 
       $localfilename = md5("$attachfile, $attachfile_name, $REMOTE_IP, $REMOTE_PORT, $UNIQUE_ID, and everything else that may add entropy");
@@ -341,7 +343,7 @@
       
       showInputForm();
    } else if (isset($do_delete)) {
-      $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+      is_logged_in();
       displayPageHeader($color, $mailbox);
 
       while (list($key, $localname) = each($delete)) {
@@ -352,7 +354,7 @@
 
       showInputForm();
    } else {
-      $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+      is_logged_in();
       displayPageHeader($color, $mailbox);
 
       $newmail = true;
