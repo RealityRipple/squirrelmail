@@ -111,34 +111,34 @@ require_once(SM_PATH . 'include/load_prefs.php');
 <?php
     ShowTrad( 'Babelfish',
               _("Maximum of 1000 characters translated, powered by Systran").
-	      "<br>".sprintf(_("Number of supported language pairs: %s"),"19")." " ,
+	      "<br />".sprintf(_("Number of supported language pairs: %s"),"19")." " ,
               'http://babelfish.altavista.com/' );
 //    ShowTrad( 'Translator.Go.com',
 //              _("10 language pairs, maximum of 25 kilobytes translated, powered by Systran"),
 //              'http://translator.go.com/' );
     ShowTrad( 'Dictionary.com',
               _("No known limits, powered by Systran").
-	      "<br>".sprintf(_("Number of supported language pairs: %s"),"12")." " ,
+	      "<br />".sprintf(_("Number of supported language pairs: %s"),"24")." " ,
               'http://www.dictionary.com/translate' );
     ShowTrad( 'Google Translate',
               _("No known limits, powered by Systran").
-	      "<br>".sprintf(_("Number of supported language pairs: %s"),"12")." " ,
+	      "<br />".sprintf(_("Number of supported language pairs: %s"),"12")." " ,
               'http://www.google.com/translate' );
     ShowTrad( 'GPLTrans',
               _("No known limits, powered by GPLTrans (free, open source)").
-	      "<br>".sprintf(_("Number of supported language pairs: %s"),"8")." " ,
+	      "<br />".sprintf(_("Number of supported language pairs: %s"),"16")." " ,
               'http://www.translator.cx/' );
     ShowTrad( 'InterTran',
               _("No known limits, powered by Translation Experts's InterTran").
-	      "<br>".sprintf(_("Number of supported languages: %s"),"28")." " ,
+	      "<br />".sprintf(_("Number of supported languages: %s"),"29")." " ,
               'http://www.tranexp.com/' );
     ShowTrad( 'OTEnet',
               _("Hellenic translations, no known limits, powered by Systran").
-	      "<br>".sprintf(_("Number of supported language pairs: %s"),"20")." " ,
+	      "<br />".sprintf(_("Number of supported language pairs: %s"),"20")." " ,
               'http://systran.otenet.gr/' );
     ShowTrad( 'PROMT',
               _("Russian translations, maximum of 500 characters translated").
-	      "<br>".sprintf(_("Number of supported language pairs: %s"),"12")." " ,
+	      "<br />".sprintf(_("Number of supported language pairs: %s"),"13")." " ,
               'http://www.translate.ru/' );
 ?>
    </ul>
@@ -176,14 +176,18 @@ require_once(SM_PATH . 'include/load_prefs.php');
     if ($translate_same_window)
         echo " CHECKED";
     echo '> - ' . _("Translate inside the SquirrelMail frames").
-         '</td></tr>'.
-         '<tr>'.html_tag('td',_("When composing:"),'right','','nowrap').
+    "</td></tr>\n";
+
+$disable_compose_translate=true;
+if (!$disable_compose_translate) {
+   echo '<tr>'.html_tag('td',_("When composing:"),'right','','nowrap').
          '<td><input type=checkbox name="translate_translate_show_send"';
    if ($translate_show_send)
-     echo " CHECKED";
+      echo " CHECKED";
    echo '> - ' . _("Not yet functional, currently does nothing") .
-        '</td></tr>'.
-        '<tr><td></td><td>'.
+      "</td></tr>\n";
+}
+   echo '<tr><td></td><td>'.
         '<input type="submit" value="' . _("Submit") . '" name="submit_translate">'.
         '</td></tr>'.
    '</table>'.
