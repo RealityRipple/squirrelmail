@@ -93,7 +93,7 @@
         'posvals' => $sent_folder_values
     );
     
-    $drafts_none = array(SMPREF_NONE => _("Do not use Drafts"));
+    $draft_none = array(SMPREF_NONE => _("Do not use Drafts"));
     $draft_folder_values = array_merge($draft_none, $special_folder_values);
     $optvals[SMOPT_GRP_SPCFOLDER][] = array(
         'name'    => 'draft_folder',
