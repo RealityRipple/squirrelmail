@@ -17,7 +17,6 @@
  * Check if user has access to administrative functions
  *
  * @return boolean
- * @access private
  */
 function adm_check_user() {
     global $PHP_SELF;
@@ -53,7 +52,8 @@ function adm_check_user() {
  * Removes whitespace from array values
  * @param string $value array value that has to be trimmed
  * @param string $key array key
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.5
+ * @access private
  */
 function adm_array_trim(&$value,$key) {
     $value=trim($value);
