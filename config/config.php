@@ -51,6 +51,8 @@
     $theme[3]["PATH"] = "../config/slashdot_theme.php";
     $theme[3]["NAME"] = "Slashdot";
 
+    $theme[4]["PATH"] = "../config/purple_theme.php";
+    $theme[4]["NAME"] = "Purple";
 
 //  Whether or not to use a special color for special folders.  If not, special
 //  folders will be the same color as the other folders
