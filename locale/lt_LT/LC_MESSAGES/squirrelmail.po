@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
 "POT-Creation-Date: 2003-01-01 18:33+0100\n"
-"PO-Revision-Date: 2002-11-16 12:32+0200\n"
+"PO-Revision-Date: 2003-01-04 10:06+0200\n"
 "Last-Translator: Tomas Kuliavas <tokul@users.sourceforge.net>\n"
 "Language-Team: Lithuanian <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -278,7 +278,7 @@ msgstr ""
 "(configure opcija --with-mbstring)."
 
 msgid "ERROR : No available imapstream."
-msgstr ""
+msgstr "KLAIDA : imap srautas neprieinamas."
 
 msgid "ERROR : Could not complete request."
 msgstr "KLAIDA : Neámanoma vykdyti uþklausos."
@@ -310,18 +310,16 @@ msgstr "Neaiðki klaida: %s"
 msgid "Read data:"
 msgstr "Skaitomi duomenys:"
 
-#, fuzzy
 msgid "ERROR : Could not append message to"
-msgstr "KLAIDA : Neámanoma vykdyti uþklausos."
+msgstr "KLAIDA : Neámanoma prijungti þinutës prie"
 
-#, fuzzy
 msgid "Solution: "
-msgstr "Pasiûlymai:"
+msgstr "Sprendimas:"
 
 msgid ""
 "Remove unneccessary messages from your folder and start with your Trash "
 "folder."
-msgstr ""
+msgstr "Paðalinkite nereikalingas þinutes ið savo aplankø. Pradëti valymà reiktø nuo ðiukðlyno (Trash aplankas)."
 
 msgid "INBOX"
 msgstr "INBOX"
@@ -438,9 +436,8 @@ msgstr "Skaidyti á puslapius"
 msgid "Show All"
 msgstr "Rodyti viskà"
 
-#, fuzzy
 msgid "SquirrelMail could not decode the bodystructure of the message"
-msgstr "Squirrelmail nepavyko atkoduoti þinutës struktûros."
+msgstr "SquirrelMail nepavyko atkoduoti þinutës struktûros."
 
 msgid "the provided bodystructure by your imap-server"
 msgstr "imap serverio pateikta þinutës struktûra"
@@ -751,23 +748,20 @@ msgstr "Paieðka atmintyje"
 msgid "Disabled"
 msgstr "Atjungta"
 
-#, fuzzy
 msgid "Folder Selection Options"
-msgstr "Aplankø sàraðo nustatymai"
+msgstr "Aplankø pasirinkimo nustatymai"
 
-#, fuzzy
 msgid "Selection List Style"
-msgstr "Atsakymo citatø stilius"
+msgstr "Pasirinkimo sàraðo stilius"
 
-#, fuzzy
 msgid "Long: "
-msgstr "Trukmë:"
+msgstr "Ilgas: "
 
 msgid "Indented: "
-msgstr ""
+msgstr "Su paraðtëmis: "
 
 msgid "Delimited: "
-msgstr ""
+msgstr "Su skirtukais: "
 
 msgid "Name and Address Options"
 msgstr "Vardo ir adreso nustatymai"
@@ -1842,9 +1836,8 @@ msgstr "Pridëti serverá"
 msgid "Server:"
 msgstr "Serveris:"
 
-#, fuzzy
 msgid "Port:"
-msgstr "Prioritetas:"
+msgstr "Jungtis:"
 
 msgid "Alias:"
 msgstr "Trumpas vardas:"
@@ -2077,16 +2070,16 @@ msgid "Base Sent Folder"
 msgstr "Pagrindinis iðsiøstø laiðkø aplankas"
 
 msgid "Report as Spam"
-msgstr ""
+msgstr "Praneðti apie spamà"
 
 msgid "SpamCop - Spam Reporting"
-msgstr ""
+msgstr "SpamCop - spamo registras"
 
 msgid ""
 "Help fight the battle against unsolicited email.  SpamCop reads the spam "
 "email and determines the correct addresses to send complaints to.  Quite "
 "fast, really smart, and easy to use."
-msgstr ""
+msgstr "Padëkite kovoti prieð nepriimtinus masinius laiðkus. SpamCop priedas ávertina nepriimtino laiðko antraðtes ir nustato adresus, kuriems reiktø skøstis. Tai yra gana greitas, protingas ir lengvai naudojamas árankis."
 
 msgid "SpellChecker Options"
 msgstr "Raðybos tikrinimo nustatymai"
@@ -2502,9 +2495,9 @@ msgstr "Bandant trinti buvo nepasirinktas joks aplankas."
 msgid "Delete Folder"
 msgstr "Iðtrinti aplankà"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete %s?"
-msgstr "Ar tikrai norite iðtrinti ðá ávyká?"
+msgstr "Ar tikrai norite iðtrinti %s?"
 
 msgid "Subscribed successfully!"
 msgstr "Uþsiprenumeravote sëkmingai!"
