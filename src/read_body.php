@@ -658,8 +658,11 @@ elseif (isset($_POST['startMessage'])) {
 if (isset($_GET['show_more'])) {
     $show_more = $_GET['show_more'];
 }
-elseif (isset($_POST['show_more'])) {
-    $show_more = $_POST['show_more'];
+if (isset($_GET['show_more_cc'])) {
+    $show_more_cc = $_GET['show_more_cc'];
+}
+if (isset($_GET['show_more_bcc'])) {
+    $show_more_bcc = $_GET['show_more_bcc'];
 }
 if (isset($_GET['mailbox'])) {
     $mailbox = $_GET['mailbox'];
