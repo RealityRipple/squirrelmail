@@ -231,7 +231,8 @@ function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_
         $what  = addslashes(trim($what[1]));
     }
 
-    if ($imap_server_type == 'macosx') {
+    // see comments in squirrelmail sqimap_search function
+    if ($imap_server_type == 'macosx' || $imap_server_type == 'hmailserver') {
         $search_str .= ' ' . $where . ' ' . $what;
     } else {
         $search_str .= ' ' . $where . ' {' . strlen($what) . "}\r\n"
