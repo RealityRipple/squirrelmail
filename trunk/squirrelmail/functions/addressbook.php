@@ -24,7 +24,7 @@
    The global addressbook is unmodifiable by anyone.  You must actually
    use a shell script or whatnot to modify the contents.
 
-  global $data_dir;
+  global $data_dir, $address_book_global_filename;
   $address_book_global_filename = "$data_dir/global.abook";
 
   Include backends here.
