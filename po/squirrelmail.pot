@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-10-04 18:24+0300\n"
+"POT-Creation-Date: 2004-10-24 16:17+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,27 +78,6 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-msgid "Nickname"
-msgstr ""
-
-msgid "Must be unique"
-msgstr ""
-
-msgid "E-mail address"
-msgstr ""
-
-msgid "Last name"
-msgstr ""
-
-msgid "First name"
-msgstr ""
-
-msgid "Additional info"
-msgstr ""
-
-msgid "Add to:"
-msgstr ""
-
 msgid "No personal address book is defined. Contact administrator."
 msgstr ""
 
@@ -121,6 +100,9 @@ msgid "Edit selected"
 msgstr ""
 
 msgid "Delete selected"
+msgstr ""
+
+msgid "Nickname"
 msgstr ""
 
 msgid "sort by nickname"
@@ -955,6 +937,12 @@ msgstr ""
 msgid "Add to Addressbook"
 msgstr ""
 
+msgid "E-mail address"
+msgstr ""
+
+msgid "Additional info"
+msgstr ""
+
 msgid "Title & Org. / Dept."
 msgstr ""
 
@@ -1037,6 +1025,21 @@ msgstr ""
 msgid "Error initializing LDAP server %s:"
 msgstr ""
 
+msgid "Must be unique"
+msgstr ""
+
+msgid "Last name"
+msgstr ""
+
+msgid "First name"
+msgstr ""
+
+msgid "Add to:"
+msgstr ""
+
+msgid "Click here to change the sorting of the address list"
+msgstr ""
+
 msgid "Invalid input data"
 msgstr ""
 
@@ -1047,9 +1050,6 @@ msgid "E-mail address is missing"
 msgstr ""
 
 msgid "Nickname contains illegal characters"
-msgstr ""
-
-msgid "Click here to change the sorting of the address list"
 msgstr ""
 
 msgid "View"
@@ -1898,10 +1898,6 @@ msgid "Address Book Take:"
 msgstr ""
 
 msgid "Try to verify addresses"
-msgstr ""
-
-#, c-format
-msgid "Add to %s"
 msgstr ""
 
 msgid "Config File Version"
@@ -3877,20 +3873,36 @@ msgstr ""
 msgid "SquirrelSpell Options Menu"
 msgstr ""
 
-msgid "Translator"
+msgid "Translate"
 msgstr ""
 
-msgid "Saved Translation Options"
+msgid "Translation Theme:"
 msgstr ""
 
-msgid "Your server options are as follows:"
+msgid ""
+"Selected translation engine is disabled. Please update your translation "
+"preferences."
 msgstr ""
 
-msgid "Maximum of 1000 characters translated, powered by Systran"
+msgid "Translation Options"
+msgstr ""
+
+msgid ""
+"Which translator should be used when you get messages in a different "
+"language?"
+msgstr ""
+
+msgid "Translation Preferences"
+msgstr ""
+
+msgid "Maximum of 150 words translated, powered by Systran"
 msgstr ""
 
 #, c-format
 msgid "Number of supported language pairs: %s"
+msgstr ""
+
+msgid "Maximum of 25 kilobytes translated, powered by Systran"
 msgstr ""
 
 msgid "No known limits, powered by Systran"
@@ -3912,60 +3924,29 @@ msgstr ""
 msgid "Russian translations, maximum of 500 characters translated"
 msgstr ""
 
-msgid ""
-"You also decide if you want the translation box displayed, and where it will "
-"be located."
-msgstr ""
-
-msgid "Select your translator:"
-msgstr ""
-
-msgid "When reading:"
-msgstr ""
-
-msgid "Show translation box"
-msgstr ""
-
-msgid "to the left"
-msgstr ""
-
-msgid "in the center"
-msgstr ""
-
-msgid "to the right"
-msgstr ""
-
-msgid "Translate inside the SquirrelMail frames"
-msgstr ""
-
-msgid "When composing:"
-msgstr ""
-
-msgid "Not yet functional, currently does nothing"
-msgstr ""
-
-msgid "Translation Options"
-msgstr ""
-
-msgid ""
-"Which translator should be used when you get messages in a different "
-"language?"
-msgstr ""
-
 #, c-format
 msgid "%s to %s"
+msgstr ""
+
+msgid "Chinese Simplified"
 msgstr ""
 
 msgid "English"
 msgstr ""
 
-msgid "Chinese"
+msgid "Chinese Traditional"
+msgstr ""
+
+msgid "Dutch"
 msgstr ""
 
 msgid "French"
 msgstr ""
 
 msgid "German"
+msgstr ""
+
+msgid "Greek"
 msgstr ""
 
 msgid "Italian"
@@ -3980,13 +3961,10 @@ msgstr ""
 msgid "Portuguese"
 msgstr ""
 
-msgid "Spanish"
-msgstr ""
-
 msgid "Russian"
 msgstr ""
 
-msgid "Translate"
+msgid "Spanish"
 msgstr ""
 
 msgid "Brazilian Portuguese"
@@ -4004,16 +3982,10 @@ msgstr ""
 msgid "Danish"
 msgstr ""
 
-msgid "Dutch"
-msgstr ""
-
 msgid "Filipino (Tagalog)"
 msgstr ""
 
 msgid "Finnish"
-msgstr ""
-
-msgid "Greek"
 msgstr ""
 
 msgid "Hungarian"
@@ -4071,6 +4043,47 @@ msgid "Interface language"
 msgstr ""
 
 msgid "Translation direction"
+msgstr ""
+
+msgid "Transliterate unknown words:"
+msgstr ""
+
+msgid "Translator"
+msgstr ""
+
+msgid "Your server options are as follows:"
+msgstr ""
+
+msgid ""
+"You also decide if you want the translation box displayed, and where it will "
+"be located."
+msgstr ""
+
+msgid "Select your translator:"
+msgstr ""
+
+msgid "When reading:"
+msgstr ""
+
+msgid "Show translation box"
+msgstr ""
+
+msgid "to the left"
+msgstr ""
+
+msgid "in the center"
+msgstr ""
+
+msgid "to the right"
+msgstr ""
+
+msgid "Translate inside the SquirrelMail frames"
+msgstr ""
+
+msgid "When composing:"
+msgstr ""
+
+msgid "Not yet functional, currently does nothing"
 msgstr ""
 
 msgid "Delivery error report"
