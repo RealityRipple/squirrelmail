@@ -40,9 +40,6 @@ if ( defined( $ENV{'PATH_INFO'} )
 ############################################################
 use Cwd;
 $dir = cwd();
-if ( $dir =~ /:/ ) {
-  $dir = substr($dir, index($dir, ':') + 1);
-}
   
 
 ############################################################              
@@ -3001,7 +2998,9 @@ sub change_to_SM_path() {
     # If the path is absolute, don't bother.
     return "\'" . $old_path . "\'"  if ( $old_path eq '');
     return "\'" . $old_path . "\'"  if ( $old_path =~ /^(\/|http)/ );
+    return "\'" . $old_path . "\'"  if ( $old_path =~ /^\w:\// );
     return $old_path                if ( $old_path =~ /^\'(\/|http)/ );
+    return $old_path                if ( $old_path =~ /^\'\w:\// );
     return $old_path                if ( $old_path =~ /^(\$|SM_PATH)/);
     
     # Remove remaining '
