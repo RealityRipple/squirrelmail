@@ -244,11 +244,13 @@ Version 1.2.6 -- April 29 2002
   - SquirrelSpell version 0.3.8 -- pretty configuration error reporting
     added by popular demand.
   - Improved the handling of IMAP [PARSE] messages to reduce retrieval error.
-  - Fixed small bug in handeling timezone (bug #536149)	
-  - MDN message now RFC compatible (bug #537662)
-  - Fixed html tables in printer_friendly_bottom.php (patch #542367)
+  - Fixed small bug in handeling timezone (bug #536149).	
+  - MDN message now RFC compatible (bug #537662).
+  - Fixed html tables in printer_friendly_bottom.php (patch #542367), and
+    make it so that printer friendly uses black-on-white colors in stead
+    of the theme colors.
   - Fixed return address of MDN receipts when having multiple identities
-    (patch #530139)
+    (patch #530139).
 	
 Version 1.2.5 -- 22 February 2002
 ---------------------------------
