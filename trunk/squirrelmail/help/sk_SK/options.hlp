@@ -49,23 +49,24 @@
       ako chcete. Keï budete tvori» správu, ponúkne sa vám výber z týchto identít.
       
       <b>Odpoveda» ako Citácia</b><BR>
-      If you press Reply on a message, you will be presented with the Compose
-      form with the original message quoted. Before this quoted message, a text
-      like <TT>John Doe wrote:</TT> might be prepended (if the message you're replying
-      to originated from John Doe). This is called the citation line. Here you
-      can choose how this line looks.<BR>
+      Ak kliknete "Odpoveda» na Správu", zobrazí sa vám formulár "Nová správa"
+      s citovanou pôvodnou správou. Pred citáciou tejto správy mô¾e by» vsunutý 
+      napr. text <TT>Ján Novák napísal:</TT> (ak odpovedáte na správu, ktorú
+      poslal Ján Novák). Toto sa nazýva riadok citácie. Tu si mô¾te vybra» ako
+      bude tento riadok vyzera».<BR>
+      
+      
       <UL>
-      <LI><B>No Citation</B><br>
-      Prepends no citation line whatsoever.<br><br>
-      <LI><B>Author Said</B><br>
-      This produces the line: <TT>John Doe Said:</TT> where John Doe will be replaced
-      by whoever the message you're replying to was from.<br><br>
-      <LI><B>Quote Who XML</B><br>
-      This produces the line: <TT>&lt;quote who="John Doe"&gt;</TT>.<br><br>
-      <LI><B>User-Defined</B><br>
-      Enables you to define your own citation line. In the two text boxes below, you
-      can type in the citation start and end. Between these the author name will be
-      inserted.
+      <LI><B>Bez Citácie</B><br>
+      Vôbec sa nevlo¾í citácia.<br><br>
+      <LI><B>Autor povedal</B><br>
+      Toto vyprodukuje napr. riadok <TT>Ján Novák Povedal:</TT>. Tu sa vlo¾í text
+      citácie nech pôvodnú správu, na ktorú odpovedáte, napísal ktokoµvek.<br><br>
+      <LI><B>Citova» ako XML</B><br>
+      Toto vyprodukuje riadok: <TT>&lt;Kto cituje="Ján Novák"&gt;</TT>.<br><br>
+      <LI><B>U¾ívateµom definované</B><br>
+      Povolí vami definovaný riadok citácie. V dvoch textových poliach ni¾¹ie,
+      mô¾te napísa» zaèiatok a koniec citácie. medzi týmito bude vlo¾ené meno autora.
       </UL><br><br>
       
       <b>Podpis</b><br>
@@ -83,100 +84,103 @@
 
 <section>
    <title>
-      Display Preferences
+      Mo¾nosti vzhµadu
    </title>
    <description>
-      <b>Theme</b><br>
-      SquirrelMail offers different color themes for your viewing pleasure.  You can
-      choose between the many listed there if you so desire.
+      <b>Schéma</b><br>
+      SquirrelMail ponúka rôzne farebné schémy, pre va¹e vizuálne pote¹enie.
+      Mô¾te si vybra» z mnohých tu zobrazených schém podµa vá¹ho ¾elania.
       <br><br>
 
       <b>Custom Stylesheet</b><br>
-      Changing a theme only changes the colors, a stylesheet may change more, for
-      example the font size used by SquirrelMail.
+      Zmenením schémy len zmeníme farbu, ¹týly umo¾òujú zmeni» viac, napríklad 
+      veµkos» písma pou¾ívaného v SquirrelMail-y.
       <br><br>
 
-      <b>Language</b><br>
-      If English isn't your native tongue, you can easily change the language that
-      most things display in.  If your desired language is in the list, you can choose
-      it and all future SquirrelMail related messages will be in that language.  Note
-      that this doesn't translate incoming email messages or folder names.
+      <b>Jazyk</b><br>
+      Ak nieje va¹ím rodným jazykom angliètina, µahko si mô¾ete zmeni» jazyk podµa
+      jazykových verzií zobrazenia. Ak vá¹ po¾adovaný jazyk je v zozname, mô¾ete
+      si ho vybra» a  SquirrelMail  vám v¹etky nasledujúce správy a texty zobrazí
+      v tomto jazyku. Treba poznamena», ¾e toto sa v¹ak nevz»ahuje na prichadzajúce
+      e-mail správy alebo názvy prieèinkov.
       <br><br>
 
-      <b>Use Javascript</b><br>
-      One of our main goals in creating SquirrelMail was to have no Javascript in
-      any of our pages.  However, some of our developers made a very good address
-      book searching utility that uses Javascript. Some other Javascript functions
-      were added aswell. Rather than remove it, we now
-      give you the option of using 
-      pure HTML or allow Javascript aswell.  If
-      you don't know what this means, you are safest to choose Autodetect.
+      <b>Pou¾i» Javascript</b><br>
+      Jedným z hlavých cieµov pri vytváraní SquirrelMailu bolo aby vo svojich
+      stránkach neobsahoval JavaScript. Ale jednako, niektorí z na¹ich vývojárov
+      vyrobili veµmi dobrý nástroj na vyhµadávanie v adresári, ktorý pou¾íva
+      JavaScript. Niektoré ïal¹ie JavaScript funkcie sme tie¾ pridali. Rad¹ej ako
+      ich odstráni», dali sme vám mo¾nos» pou¾i» èíre HTML alebo pou¾i» taktie¾
+      JavaScript. Ak neviete, èo to znamená, je bezpeènej¹ie, keï zvolíte Autodetekcia.
       <br><br>
       
-      <b>Number of Messages to Index</b><br>
-      This is the number of messages to show at a time in a folder.  If there are
-      more than this number in the folder, you will see a "Previous" and "Next" link
-      above and below the listing which will take you to the previous or next
-      messages.
+      <b>Poèet správ zobrazených v prieèinku</b><br>
+      Toto je poèet správ, ktoré sa naraz zobrazia v prieèinku. Ak je ich v tomto
+      prieèinku viac, zobrazí sa  vám odkaz Predchádzajúca a Nasledujúca správa
+      pod zoznamom správ. Pomocou nich dosiahnete zobrazenie po¾adovanej správy.
       <br><br>
       
-      <b>Enable Page Selector</b><br>
-      Setting this to Yes shows page numbers above and below the message list to
-      quickly jump to a specific page of messages. The number <B>Maximum pages to show</B>
-      can limit how many page numbers will be displayed above and below the
-      message list.<br><br>
-      
-      <b>Wrap incoming text at</b><br>
-      How many characters should we allow before wrapping the text.  This prevents
-      messages from scrolling way off the screen.  86 is usually a safe thing to
-      put in here, but you are free to change it to whatever you desire.
+      <b>Povoli» Voliè Strán</b><br>
+      Nastavením tejto voµby na Áno sa zobrazia nad a pod zoznamom strán èísla stránok
+      pre rýchly skok na po¾adovanú stránku so zobrazením správ. "Maximálny Poèet
+      Strán pre Zobrazenie" mô¾e limitova» koµko strán koµko maximálne strán bude
+      zobrazených nad a pod zoznamom správ.
       <br><br>
       
-      <b>Size of editor window</b><br>
-      How wide do you want your "Compose" box to be?  This is the number of characters
-      per line that you will be able to type before wrapping in the Compose section.
+      <b>Zalomi» text doruèenej správy na</b><br>
+      Koµko znakov mo¾e by» pred zalomením textu. Toto zabraòuje pred posúvaním
+      zabrazenia správy mimo obrazovku. 86 je zvyèajne najbezpeènej¹ia mo¾nos»,
+      ktorú tu mô¾te zada», no to èo tu zadáte je len na vás.
       <br><br>
       
-      <b>Location of Buttons when Composing</b><br>
-      Where are the buttons Addresses, Save Draft and Send located?<br><br>
-      
-      <b>Addressbook Display Format</B><br>
-      Choose how you want the addressbook to be displayed. If you want maximum
-      compatibility with all browsers, use HTML. Select Javascript if you
-      know your browser supports it, it will display a nicer addressbook.
+      <b>Veµkos» Okna Editora</b><br>
+      Ako chcete aby ako bolo ¹iroké textové pole na Písanie Správy? Toto je
+      poèet znakov na riadok, ktorý mo¾te napísa» pred zalomením textu do nového
+      riadku.
       <br><br>
       
-      <b>Show HTML Version by Default</b><br>
-      If a message you receive is in both text and HTML format, you can choose
-      if you want to see the HTML version (Yes) or the text version (No) by
-      default.<br><br>
-      
-      <b>Include Me in CC when I Reply All</b><br>
-      Reply All sends your reply to all recepients of the original message,
-      including yourself. To leave your own email address out, set this to No.
+      <b>Umiestnenie Tlaèidiel pri Písaní Novej Správy</b><br>
+      Kde sú umiestnené taèidlá Adresy, Ulo¾i» ako Koncept a Posla»?
       <br><br>
       
-      <b>Enable Mailer Display</b><BR>
-      When viewing a message, this displays which email program the sender used.
+      <b>Formát Zobrazenia Adresára</B><br>
+      Zvoµte si ako chcete aby vyzeral vá¹ Adresár. Ak chcete maximálnu kompatibilitu
+      so v¹etkými vyhµadávaèmi, pou¾ívajte HTML. Vyberte si Javascript ak ho vá¹
+      vyhµadávaè podporuje, tak bude adresár vyzera» lep¹ie.
       <br><br>
       
-      <b>Display Attached Images with Message</b><br>
-      If someone sends you a message with one or more images attached and you've
-      set this to Yes, the images will be displayed right away when you view
-      the message.
+      <b>Predvoli» Zobrazovanie HTML verzie</b><br>
+      Ak v správe ktorú obdr¾íte je spolu toxtový a HTML formát, mô¾ete si vybra»
+      èi chcete vidie» HTML verziu (Áno) alebo textovú verziu (Nie). Predvolená
+      je textová verzia.<br><br>
+      
+      <b>Zahrnú» aj Mòa v Kópii pri Odpovedi V¹etkým</b><br>
+      Odpoveda» V¹etkým po¹le odpoveï v¹etkým príjemcom pôvodnej správy, vrátane
+      seba. Pre vynechanie vlastne e-mailovej adresy, nastavte toto na Nie.
       <br><br>
       
-      <b>Enable Subtle Printer Friendly Link</b><br>
-      This determines the way the Printable Version-link will be displayed.
+      <b>Povoli» Zobrazenie Po¹tového Programu (Mailer)</b><BR>
+      Ked si prezeráte správu, toto zobrazí aký po¹tový program pou¾ívate.
       <br><br>
       
-      <b>Enable Printer Friendly Clean Display</b><br>
-      This will clean out the message so the print looks nicer.
+      <b>Zobrazi» Obrázky v Prílohe spolu so Správou</b><br>
+      Ak vám niekto po¹le správu s jedným, alebo viacerými obrázkami a vy máte túto
+      mo¾nos» nastavenú na Áno, obrázky sa zobrazia vpravo od miesta, kde je
+      zobrazená správa.
+      
       <br><br>
       
-      <b>Other Options</b><br>
-      Depending on the configuration of your SquirrelMail installation, some more
-      options might be displayed here. They hopefully should be self-explanatory.
+      <b>Povoli» Odkaz na Verziu pre Tlaè</b><br>
+      Toto determinuje ako bude zobrazená Verzia pre tlaè.
+      <br><br>
+      
+      <b>Povoli» Zobrazenie Èistého Pohµadu ako Verzie pre Tlaè</b><br>
+      Toto vyèistí formát zobrazenia správy aby vyzerala po vytlaèení lep¹ie.
+      <br><br>
+      
+      <b>Iné nastavenia</b><br>
+      V závislosti na va¹ej in¹talácii SquirrelMail-u, sa tu nachádzajú niektoré
+      ïal¹ie mo¾nosti nastavenia. Dúfame, ¾e budú samovysvetµujúce.
       <br><br>
       
    </description>
@@ -184,118 +188,119 @@
 
 <section>
    <title>
-      Message Highlighting
+      Zvýrazòovanie správ
    </title>
    <description>
-      The idea for this came because if you are subscribed to many mailing lists,
-      it is very hard to distinguish which messages came from where while reading
-      through the list of messages.  With Message Highlighting, you can have the
-      background color of all messages from one mailing list different than the
-      color of another list.<br><br>
+      My¹lienka nato vzi¹la z dôvodu, ¾e ak ste prihlásený do viacerých mailing-listov
+      (po¹tových konferencií), je pre vás veµmi »a¾ké  vyzna» sa medzi správami
+      ktoré pri¹li. So zvýrazòovaním správ, máte pozadie farebne odí¹ené v závislosti
+      od toho, z ktorého mailing listu správa pri¹la.
+      <br><br>
 
-      Just click on [New] to create a new one, or [Edit] to edit an existing one
-      and the options will appear below.<br><br>
-      
-      <b>Identifying Name</b><br>
-      This is simply the name that you see which describes what it is.  For
-      example, if you are highlighting messages from your mother, you might
-      set this to "From Mom".
+      Jednoducho kliknite na [Nový] pre vytvorenie nového a [Upravi»] pre úpravu
+      u¾ existujúceho a voµby sa zobrazia hneï dole.<br><br>
+     
+      <b>Identifikaèné meno</b><br>
+      Toto je jednoducho meno ktoré vidíte v popise od koho pri¹la. Pre príklad,
+      ak ste zvýradznili  správu od mamy, mô¾ete si tu nastavi» text : "od mamy".
       <br><br>
       
-      <b>Color</b><br>
-      This is the actual color that the background will be.  You can choose between
-      a number of pre-defined colors that we have selected for you, or you can enter
-      the HEX code for the color that you desire (i.e.  a6b492).  If you choose to
-      enter your own color, you must also select the radio button in front so that it is
-      checked.
+      <b>Farba</b><br>
+      Toto je aktuálna farba pozadia. Mô¾ete si vybra» medzi niekoµko preddefinovanými
+      farbami, podµa vlastného uvá¾enia, alebo si tu mô¾ete zada» HEX kód farby,
+      ktorú si ¾eláte ( napr.: a6b492). Ak si vyberiete vlastnú farbu musíte
+      tie¾ vybra» prepínacie tlaèidlo (radio button) ktorým toto vyberiete.
       <br><br>
       
-      <b>Match</b><br>
-      Here you can choose the matching phrase.  From the drop-down box, you can 
-      choose which header field to match against (to, from, subject...) and in the
-      text box, you can enter the phrase to match (mom@yahoo.com). 
+      <b>Zhoda</b><br>
+      Tu si mô¾te vybra» frázu zhody. Z políèka výberu si mô¾te vybra» pole hlavièky
+      (Komu, Od, Predmet, ...)ktoré sa má zhodova» s textom (frázou )ktorý napí¹ete
+      do textového poµa. Napr. mama@centrum.sk
       <br><br>
    </description>
 </section>
 
 <section>
    <title>
-      Folder Preferences
+      Nastavenia Prieèinkov
    </title>
    <description>
-      <b>Folder Path</b><br>
-      On some systems this will not be displayed.  If you don't see this option, just
-      ignore this.  On other systems, this is quite a necessary feature.  Usually the
-      option that is in there is what should be there.  This is the folder in your
-      home directory that holds all your email folders.  If you don't understand this,
-      just leave it what it is.
+      <b>Cesta prieèinku</b><br>
+      Na niektorých systémoch toto nemusí by» zobrazené. Ak nevidíte túto mo¾nos»,
+      jednoducho ju ignorujte. Na iných systémoch je to dos» podstatná voµba. Zvyèajne
+      je tu toto nastavenie, ak tu musí by». Je to prieèinok vo va¹om domácom
+      (home) prieèinku ktorý uchováva va¹e po¹tovné prieèinky. Ak tomuto
+      nerozumiete, jednoducho to nechajte tak.
       <br><br>
 
-      <b>Trash Folder</b><br>
-      You can choose which folder messages will be sent to when you delete them. If
-      you don't want deleted messages to go to the trash, set this to "Don't use Trash".
+      <b>Prieèinok Kô¹</b><br>
+      Mô¾ete si vybra» prieèinok kam sa va¹e správy budú odstraòova». Ak nechcete,
+      aby sa va¹e správy odstraòovali do ko¹a, vyberte si "Nepou¾íva» kô¹".
       <br><br>
       
-      <b>Sent Folder</b><br>
-      You can choose which folder your sent messages will go to.  If you don't want
-      these, just set it to "Don't use Sent".
+      <b>Prieèinok Odoslaná po¹ta</b><br>
+      Mo¾te si zvoli» do ktorého prieèinka pôjdu odoslané správy. Ak toto nechcete,
+      jednoducho nastavte "Nepou¾íva» prieèinok Odoslaná po¹ta"
       <br><br>
 
-      <b>Draft Folder</b><br>
-      You can choose which folder the messages you save as draft will go to.
-      If you don't want to use this, just set it to "Don't use Drafts".
+      <b>Prieèinok Konceptov</b><br>
+      
+      Mo¾te si zvoli» do ktorého prieèinka pôjdu Koncepty (rozpísané správy). Ak
+      toto nechcete, jednoducho nastavte "Nepou¾íva» prieèinok Koncepty"
       <br><br>
       
-      <b>Location of folder list</b><br>
-      Determines wether you want the list of folders on the left or right of your
-      window.
+      <b>Umiestnenie Zoznamu Prieèinkov</b><br>
+      Determinuje èi chcete ma» zoznam prieèinkov na µavej alebo pravej strane
+      vá¹ho okna.
       <br><br>
       
-      <b>Width of folder list</b><br>
-      With this option, you can select how wide the list of folders will be.
-      If you have very long folder names or large fonts, it is good to set this
-      pretty high.  Otherwise, you should set it low so you don't waste screen space.
+      <b>©írka Zoznamu Prieèinkov</b><br>
+      S týmto nastavením si mô¾te zvoli» aký bude ¹iroký vá¹ zoznam prieèinkov.
+      Ak máte veµmi dlhé názvy prieèinkov alebo nastavené veµké písmo, je toto
+      veµmi u¾itoèné nastavenie. Inak si toto musíte nastavi» na èo najmenej,
+      aby ste nemrhali plochou obrazovky.
       <br><br>
       
-      <b>Auto refresh folder list</b><br>
-      SquirrelMail has the functionality to automatically refresh the folder listing
-      on the left side of your browser window.  This will also update the number of
-      unseen messages that are in each folder.  This is a good way to check for unseen
-      messages in the INBOX without having to click on it every time.
+      <b>Automatické obnovenie Zoznamu Prieèinkov</b><br>
+      SquirrelMail umo¾òuje automaticky obnova» zobrazenie prieèinkov na µavej
+      strane okna vá¹ho prehliadaèa. Toto nastavenie automaticky aktualizuje
+      poèet nepreèítaných správ v ka¾dom z prieèinkov. Toto je dobrý spôsob ako
+      si prezrie» správy v prieèinku Doruèená po¹ta bez klikania na tento prieèinok
+      znovu a znovu.
       <br><br>
 
-      <b>Enable Unread Message Notification</b><br>
-      This option specifies how to display unseen messages in the folder listing on the
-      right side of your browser window.  If you set this to No Notification, you will
-      not be notified of unseen messages.  If you set it to INBOX, when you have new
-      messages, the INBOX will become bold and a number will appear to the right of it
-      to say how many new messages are in it.  If you set it to All Folders, this 
-      behavior will happen on all folders.  If you notice that loading the folder list
-      is really slow, you can set this to INBOX or None and that should speed it up.
+      <b>Oznámenie o nepreèítaných správach</b><br>      
+      Toto nastavenie ¹pecifikuje ako zobrazi» nepreèítané správy zobrazené  na
+      µavej strane okna vá¹ho prehliadaèa. Ak toto nastavíte na "Bez oznámenia"
+      Nebudú sa vám zobrazova» oznámenia o nepreèítaných správach. Ak toto nastavíte
+      na "Doruèená Po¹ta", tak ak prídu nové správy do prieèinka doruèená po¹ta,
+      Tento prieèinok sa vypí¹e tuèným písmom a zobrazí sa vpravo poèet nových
+      správ v òom. Ak toto nastavíte na v¹etky prieèinky, bude sa toto oznamovanie
+      vz»ahova» na v¹etky prieèinky. Ak je na va¹om PC nahrávanie zoznamu prieèinkov
+      príli¹ dlhé, nastavne "®iadny". Týmto nahrávanie urýchlite.
       <br><br>
       
-      <b>Unseen message notification type</b><br>
-      When new messages are in a folder, this option tells
-      either to only display the number of new messages or also display the
-      total number of messages in that folder.
+      <b>Typ Oznámenia o Nepreèítaných Správach</b><br>
+      Ak sú v Prieèinku nové správy, táto mo¾nos» zobrazí len poèet nových správ
+      v prieèinku.
       <br><br>
       
-      <b>Enable Collapsible Folders</b><br>
-      Collapsible Folders allow you to 'fold' or collapse a folder which contains
-      subfolders so the subfolders will not be displayed. You can collapse a
-      folder by clicking the "-" next to it and expand it again with the "+" sign.
-      Setting this to No disables collapsing.
+      <b>Povoli» Skládateµné prieèinky</b><br>
+      Skládateµné prieèinky umo¾òujú zlo¾it a rozlo¾i» prieèinok, ktorý obsahuje
+      ïal¹ie pod-prieèinky. Prieèinok mô¾te zlo¾i» kliknutím na "-" a rozlo¾i»
+      kliknutím na znak "+". Nastavenie "Nie" zaká¾e skladanie.
       <br><br>
       
-      <b>Show Clock on Folders Panel</b><br>
-      Choose if you want a clock to be displayed above the folder list and how
-      it should look (Y=year, D=day, H=hour, M=minute, S=second). The option
-      <B>Hour Format</B> below gives you the choice of a 12- or 24-hour clock.
+      <b>Zobraz Hodiny na Paneli Prieèinkov</b><br>
+      Toto nastavne ak chcete aby nad zoznamom prieèinkov boli zobrazené hodiny a 
+      ako majú vyzera». zobrazova» ( Y = rok, D = deò, H = hodina, M = minúta,
+      S = sekunda ). Táto voµba <B>Formát hodín</B> vám umo¾òuje si vybra» z: 12- alebo 24-
+      hodinových hodín.
       <br><br>
       
-      <b>Memory Search</b><br>
-      If you search a mailbox, the search will be saved for quick access later.
-      This defines how many mailbox searches will be saved.
+      <b>Hµadanie v Pamäti</b><br>
+      Ak vyhµadávate v schránke, zoznam posledných vyhµadávané bude zobrazený pre
+      rýchlej¹í prístup. Toto definuje, ako veµa posledných vyhµadávaní bude zobrazených.
       <br><br>
       
    </description>
@@ -303,14 +308,14 @@
 
 <section>
    <title>
-      Index Order
+      Poradie v zozname
    </title>
    <description>
-      This section gives you control over the message list. You can choose how
-      much information you want in the message list and in what order it should
-      be displayed.
+      Táto sekcia vám dá kontrolu nad zoznamom správ. Mô¾te si vybra» ako veµa
+      informácií chcete ma» v zozname správ a v akom poradí ich chcete ma»
+      zobrazené.
       <br><br>
-      Use the Up and Down links to move columns around, Del to remove a column
-      from the display and Add to add one.
+      Pou¾ite odkazy Hore a Dole pre presun o ståpec ïalej, Del pre odstránie ståpca
+      a Prida» pre pridanie nového ståpca.
    </description>
 </section>
