@@ -382,9 +382,9 @@
 
       $Message = '';
       if ($startMessage < $endMessage) {
-         $Message = _("Viewing messages") .":<br><B>$startMessage</B> ". _("to") ." <B>$endMessage</B> ($numMessages " . _("total") . ")\n";
+         $Message = _("Viewing messages") .":<B>$startMessage</B> ". _("to") ." <B>$endMessage</B> ($numMessages " . _("total") . ")\n";
       } elseif ($startMessage == $endMessage) {
-         $Message = _("Viewing message") .":<br><B>$startMessage</B> ($numMessages " . _("total") . ")\n";
+         $Message = _("Viewing message") .":<B>$startMessage</B> ($numMessages " . _("total") . ")\n";
       }
 
       if ($sort == 6) {
@@ -496,20 +496,12 @@
             next($msort);
          } while ($i && $i < $endVar);
       }
-      echo '</TABLE></FORM>';
 
-      echo "</td></tr>\n";
-
-      echo "<TR BGCOLOR=\"$color[4]\"><TD>";
-      echo "<table BGCOLOR=\"$color[4]\" ".
-           'width="100%" cellpadding="0" cellspacing="2" border="0"><tr><td>';
-      echo "$lMore$mMore$rMore</td><td align=right>";
-      if (!$startMessage)
-          $startMessage=1;
-      ShowSelectAllLink($startMessage, $sort);
-      echo '</td></tr></table></td></tr></table>'; /** End of message-list table */
+      echo "<TR BGCOLOR=\"$color[5]\"><TD colspan=5><table width=100%><tr ><td>$lMore$mMore$rMore</td><td align=right>$Message</td></tr></table></td></tr></table>";
+      /** End of message-list table */
 
       do_hook('mailbox_index_after');
+      echo "</TABLE></FORM>\n";
    }
 
    /* Displays the standard message list header.
@@ -538,11 +530,18 @@
       echo "\n<FORM name=messageList method=post action=\"$moveURL\">\n";
       echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=100%>\n";
 
+
+      echo "<tr  bgcolor=\"$color[4]\"><td colspan=3>\n" .
+           "<table bgcolor=\"$color[4]\" cellpadding=2".
+           ' width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td>' .
+           "$More</td><td align=right>";
+      ShowSelectAllLink($startMessage, $sort);
+      echo "</td></tr></table>\n</td></tr>";
+
       echo "   <TR>\n" .
            "      <TD ALIGN=LEFT VALIGN=CENTER NOWRAP>\n" .
            '         <SMALL>&nbsp;' . _("Move selected to:") . "</SMALL>\n" .
            "      </TD>\n" .
-           "      <TD rowspan=2><center>$Message</TD>\n" .
            "      <TD ALIGN=RIGHT NOWRAP>\n" .
            '         <SMALL>&nbsp;' . _("Transform Selected Messages") . ": &nbsp; </SMALL><BR>\n" .
            "      </TD>\n" .
@@ -577,12 +576,6 @@
       do_hook('mailbox_form_before');
       echo '</TD></TR>';
 
-      echo "<tr  bgcolor=\"$color[4]\"><td colspan=3>\n";
-      echo "<table bgcolor=\"$color[4]\" cellpadding=2".
-           ' width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td>';
-      echo "$More</td><td align=right>";
-      ShowSelectAllLink($startMessage, $sort);
-      echo "</td></tr></table>\n</td></tr>";
 
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=";
