@@ -26,68 +26,89 @@
 
    if (file_exists("../help/$user_language/basic.hlp")) {
 	include ("../help/$user_language/basic.hlp");
-   } else {
+   } elseif(file_exists("../help/en/basic.hlp")) {
 	echo "<CENTER><B><FONT COLOR=$color[2]>";
 	echo _("Your preferred language is not yet translated. English will be substituted here.");
 	echo "</FONT></B></CENTER><BR>";
 	include ("../help/en/basic.hlp");
+   } else {
+	$nohelp = true;
    }
    if (file_exists("../help/$user_language/main_folder.hlp")) {
 	include ("../help/$user_language/main_folder.hlp");
-   } else {
+   } elseif(file_exists("../help/en/main_folder.hlp")) {
 	echo "<CENTER><B><FONT COLOR=$color[2]>";
 	echo _("Your preferred language is not yet translated. English will be substituted here.");
 	echo "</FONT></B></CENTER><BR>";
 	include ("../help/en/main_folder.hlp");
+   } else {
+	$nohelp = true;
    }
    if (file_exists("../help/$user_language/read_mail.hlp")) {
 	include ("../help/$user_language/read_mail.hlp");
-   } else {
+   } elseif(file_exists("../help/en/read_mail.hlp")) {
 	echo "<CENTER><B><FONT COLOR=$color[2]>";
 	echo _("Your preferred language is not yet translated. English will be substituted here.");
 	echo "</FONT></B></CENTER><BR>";
 	include ("../help/en/read_mail.hlp");
+   } else {
+	$nohelp = true;
    }
    if (file_exists("../help/$user_language/compose.hlp")) {
 	include ("../help/$user_language/compose.hlp");
-   } else {
+   } elseif(file_exists("../help/en/compose.hlp")) {
 	echo "<CENTER><B><FONT COLOR=$color[2]>Your preferred language is not yet translated. English will be substituted here.</FONT></B></CENTER><BR>";
 	echo "<CENTER><B><FONT COLOR=$color[2]>";
 	echo _("Your preferred language is not yet translated. English will be substituted here.");
 	echo "</FONT></B></CENTER><BR>";
 	include ("../help/en/compose.hlp");
+   } else {
+	$nohelp = true;
    }
    if (file_exists("../help/$user_language/addresses.hlp")) {
 	include ("../help/$user_language/addresses.hlp");
-   } else {
+   } elseif(file_exists("../help/en/addresses.hlp")) {
 	echo "<CENTER><B><FONT COLOR=$color[2]>";
 	echo _("Your preferred language is not yet translated. English will be substituted here.");
 	echo "</FONT></B></CENTER><BR>";
 	include ("../help/en/addresses.hlp");
+   } else {
+	$nohelp = true;
    }
    if (file_exists("../help/$user_language/folders.hlp")) {
 	include ("../help/$user_language/folders.hlp");
-   } else {
+   } elseif(file_exists("../help/en/folders.hlp")) {
 	echo "<CENTER><B><FONT COLOR=$color[2]>";
 	echo _("Your preferred language is not yet translated. English will be substituted here.");
 	echo "</FONT></B></CENTER><BR>";
 	include ("../help/en/folders.hlp");
+   } else {
+	$nohelp = true;
    }
    if (file_exists("../help/$user_language/options.hlp")) {
 	include ("../help/$user_language/options.hlp");
-   } else {
+   } elseif(file_exists("../help/en/options.hlp")) {
 	echo "<CENTER><B><FONT COLOR=$color[2]>";
 	echo _("Your preferred language is not yet translated. English will be substituted here.");
 	echo "</FONT></B></CENTER><BR>";
 	include ("../help/en/options.hlp");
+   } else {
+	$nohelp = true;
    }
    if (file_exists("../help/$user_language/FAQ.hlp")) {
 	include ("../help/$user_language/FAQ.hlp");
-   } else {
+   } elseif(file_exists("../help/en/FAQ.hlp")) {
 	echo "<CENTER><B><FONT COLOR=$color[2]>";
 	echo _("Your preferred language is not yet translated. English will be substituted here.");
 	echo "</FONT></B></CENTER><BR>";
 	include ("../help/en/FAQ.hlp");
+   } else {
+	$nohelp = true;
+   }
+// If any of the standard help files aren't there, tell them.
+
+   if($nohelp) {
+	echo "<BR><CENTER><B><FONT COLOR=$color[2]>",_("ERROR: Some or all of the standard English help files ar missing."), "</FONT></B></CENTER><BR>";
    }
 
 ?>
