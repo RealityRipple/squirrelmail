@@ -90,7 +90,9 @@
                     $body_ary[$i] = '> ' . $body_ary[$i];
                 }
             }
-            sqWordWrap($body_ary[$i], $editor_size - 1);
+            if (!$draft_id) {
+               sqWordWrap($body_ary[$i], $editor_size - 1);
+            }
             $body .= $body_ary[$i] . "\n";
             unset($body_ary[$i]);
          }
