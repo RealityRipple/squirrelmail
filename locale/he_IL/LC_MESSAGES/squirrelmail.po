@@ -1,0 +1,3300 @@
+# Hebrew translation
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# yoav <yoavb@zavit.net.il>, 2002.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: $Id$\n"
+"POT-Creation-Date: 2003-01-01 18:33+0100\n"
+"PO-Revision-Date: 2002-05-03 13:21+0200\n"
+"Last-Translator: yoav <yoavb@zavit.net.il>\n"
+"Language-Team: HEBREW <squirrelmail-i18n@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Delivery error report"
+msgstr ""
+
+msgid "Undelivered Message Headers"
+msgstr ""
+
+msgid "(no subject)"
+msgstr "(ללא נושא)"
+
+msgid "Personal address book"
+msgstr "ספר כתובות אישי"
+
+#, c-format
+msgid "Database error: %s"
+msgstr "שגיאת מסד נתונים: %s"
+
+msgid "Addressbook is read-only"
+msgstr "ספר כתובות הוא לקריאה בלבד"
+
+#, c-format
+msgid "User '%s' already exist"
+msgstr "משתמש '%s' כבר קיים"
+
+#, c-format
+msgid "User '%s' does not exist"
+msgstr "משתמש '%s' אינו קיים"
+
+msgid "Global address book"
+msgstr "ספר כתובות כללי"
+
+msgid "No such file or directory"
+msgstr "קובץ או ספרייה בשם זה אינו קיים"
+
+msgid "Open failed"
+msgstr "פתיחה נכשלה"
+
+msgid "Can not modify global address book"
+msgstr "לא יכול לעדכן ספר כתובות כללי"
+
+msgid "Not a file name"
+msgstr "לא שם קובץ"
+
+#, fuzzy
+msgid "Write failed"
+msgstr "פתיחה נכשלה"
+
+#, fuzzy
+msgid "Unable to update"
+msgstr "שמור \\ עדכן"
+
+msgid "Could not lock datafile"
+msgstr "לא יכול לנעול את קובץ המידע"
+
+msgid "Write to addressbook failed"
+msgstr "כתיבה לספר כתובות נכשלה"
+
+msgid "Error initializing addressbook database."
+msgstr "שגיאה באתחול מסד הנתונים של ספר הכתובות."
+
+#, c-format
+msgid "Error opening file %s"
+msgstr "שגיאה בפתיחת קובץ %s"
+
+msgid "Error initializing global addressbook."
+msgstr "שגיאה באתחול ספר כתובות כללי."
+
+#, c-format
+msgid "Error initializing LDAP server %s:"
+msgstr "שגיאה באתחול שרת LDAP %s:"
+
+msgid "Invalid input data"
+msgstr "מידע קלט שגוי"
+
+msgid "Name is missing"
+msgstr "שם חסר"
+
+msgid "E-mail address is missing"
+msgstr "דוא\"ל חסר"
+
+msgid "Nickname contains illegal characters"
+msgstr "כינוי מכיל תווים לא חוקיים"
+
+msgid "view"
+msgstr "הצג"
+
+msgid "Business Card"
+msgstr "כרטיס ביקור"
+
+msgid "You must be logged in to access this page."
+msgstr "עליך להכנס למערכת בכדי לראות דף זה."
+
+msgid "Sunday"
+msgstr "ראשון"
+
+msgid "Monday"
+msgstr "שני"
+
+msgid "Tuesday"
+msgstr "שלישי"
+
+msgid "Wednesday"
+msgstr "רביעי"
+
+msgid "Thursday"
+msgstr "חמישי"
+
+msgid "Friday"
+msgstr "שישי"
+
+msgid "Saturday"
+msgstr "שבת"
+
+msgid "January"
+msgstr "ינואר"
+
+msgid "February"
+msgstr "פברואר"
+
+msgid "March"
+msgstr "מרץ"
+
+msgid "April"
+msgstr "אפריל"
+
+msgid "May"
+msgstr "מאי"
+
+msgid "June"
+msgstr "יוני"
+
+msgid "July"
+msgstr "יולי"
+
+msgid "August"
+msgstr "אוגוסט"
+
+msgid "September"
+msgstr "ספטמבר"
+
+msgid "October"
+msgstr "אוקטובר"
+
+msgid "November"
+msgstr "נובמבר"
+
+msgid "December"
+msgstr "דצמבר"
+
+msgid "D, F j, Y g:i a"
+msgstr "l, j F, Y a g:i"
+
+msgid "D, F j, Y G:i"
+msgstr "l, j F, Y G:i"
+
+msgid "g:i a"
+msgstr "a g:i"
+
+msgid "G:i"
+msgstr "G:i"
+
+msgid "D, g:i a"
+msgstr "l, a g:i"
+
+msgid "D, G:i"
+msgstr "l, G:i"
+
+msgid "M j, Y"
+msgstr "j M, Y"
+
+#, c-format
+msgid "Preference database error (%s). Exiting abnormally"
+msgstr "שגיאת מסד נתונים של ההגדרות (%s). יוצא בצורה אבנורמלית."
+
+msgid "Unknown user or password incorrect."
+msgstr "שם משתמש או סיסמא אינם נכונים."
+
+msgid "Click here to try again"
+msgstr "לחץ כאן בכדי לנסות שוב"
+
+#, c-format
+msgid "Click here to return to %s"
+msgstr "לחץ כאן בכדי לחזור ל-%s"
+
+#, c-format
+msgid "%s Logo"
+msgstr "לוגו של %s"
+
+#, c-format
+msgid "SquirrelMail version %s"
+msgstr "SquirrelMail גירסא %s"
+
+msgid "By the SquirrelMail Development Team"
+msgstr "ע\"י צוות הפיתוח של SquirrelMail"
+
+msgid "ERROR"
+msgstr "שגיאה"
+
+msgid "Go to the login page"
+msgstr "לך לדף הכניסה"
+
+#, c-format
+msgid ""
+"Preference file, %s, does not exist. Log out, and log back in to create a "
+"default preference file."
+msgstr ""
+"קובץ ההגדרות, %s, אינו קיים. התנתק, והכנס מחדש בכדי ליצור קובץ הגדרות ברירת "
+"מחדש."
+
+#, fuzzy, c-format
+msgid ""
+"Preference file, %s, could not be opened. Contact your system administrator "
+"to resolve this issue."
+msgstr "אנא צור קשר עם מנהל המערכת ודווח על שגיאה זו."
+
+#, fuzzy, c-format
+msgid ""
+"Preference file, %s, could not be written. Contact your system administrator "
+"to resolve this issue."
+msgstr "אנא צור קשר עם מנהל המערכת ודווח על שגיאה זו."
+
+#, c-format
+msgid "Error opening %s"
+msgstr "שגיאה בפתיחת %s"
+
+#, fuzzy
+msgid "Default preference file not found or not readable!"
+msgstr "קובץ הגדרות ברירת מחדל לא נמצא!"
+
+msgid "Please contact your system administrator and report this error."
+msgstr "אנא צור קשר עם מנהל המערכת ודווח על שגיאה זו."
+
+msgid "Could not create initial preference file!"
+msgstr "לא יכול ליצור קובץ הגדרות ראשוני!"
+
+#, c-format
+msgid "%s should be writable by user %s"
+msgstr "המשתמש %s זקוק להרשאות כתיבה על %s"
+
+#, fuzzy, c-format
+msgid ""
+"Signature file, %s, could not be opened. Contact your system administrator "
+"to resolve this issue."
+msgstr "אנא צור קשר עם מנהל המערכת ודווח על שגיאה זו."
+
+#, fuzzy, c-format
+msgid ""
+"Signature file, %s, could not be written. Contact your system administrator "
+"to resolve this issue."
+msgstr "אנא צור קשר עם מנהל המערכת ודווח על שגיאה זו."
+
+msgid ""
+"You need to have php4 installed with the multibyte string function enabled "
+"(using configure option --with-mbstring)."
+msgstr ""
+
+msgid "ERROR : No available imapstream."
+msgstr ""
+
+msgid "ERROR : Could not complete request."
+msgstr "שגיאה: לא יכול להשלים בקשה."
+
+msgid "Query:"
+msgstr "בקשה:"
+
+msgid "Reason Given: "
+msgstr "סיבה:"
+
+msgid "ERROR : Bad or malformed request."
+msgstr "שגיאה: בקשה שגויה."
+
+msgid "Server responded: "
+msgstr "השרת השיב:"
+
+#, c-format
+msgid "Error connecting to IMAP server: %s."
+msgstr "שגיאה בהתחברות לשרת IMAP: %s"
+
+#, c-format
+msgid "Bad request: %s"
+msgstr "בקשה שגויה: %s"
+
+#, c-format
+msgid "Unknown error: %s"
+msgstr "שגיאה לא ידועה: %s"
+
+msgid "Read data:"
+msgstr "מידע נקרא:"
+
+#, fuzzy
+msgid "ERROR : Could not append message to"
+msgstr "שגיאה: לא יכול להשלים בקשה."
+
+#, fuzzy
+msgid "Solution: "
+msgstr "הצעות:"
+
+msgid ""
+"Remove unneccessary messages from your folder and start with your Trash "
+"folder."
+msgstr ""
+
+msgid "INBOX"
+msgstr "דואר נכנס"
+
+msgid "Unknown response from IMAP server: "
+msgstr "תשובה לא ידועה משרת IMAP: "
+
+msgid "Unknown message number in reply from server: "
+msgstr "מספר לא ידוע של הודעה בתשובה מהשרת: "
+
+msgid "Unknown Sender"
+msgstr "שולח לא ידוע"
+
+msgid "(unknown sender)"
+msgstr "(שולח לא ידוע)"
+
+#, fuzzy
+msgid "Unknown date"
+msgstr "שולח לא ידוע"
+
+msgid "A"
+msgstr "ע"
+
+msgid ""
+"Thread sorting is not supported by your IMAP server.<br>Please report this "
+"to the system administrator."
+msgstr ""
+
+msgid ""
+"Server-side sorting is not supported by your IMAP server.<br>Please report "
+"this to the system administrator."
+msgstr ""
+
+msgid "THIS FOLDER IS EMPTY"
+msgstr "התיקיה ריקה"
+
+#, fuzzy
+msgid "Move Selected To"
+msgstr "העבר נבחרות אל:"
+
+msgid "Transform Selected Messages"
+msgstr "שנה הודעות נבחרות"
+
+msgid "Move"
+msgstr "העבר"
+
+msgid "Forward"
+msgstr "הפץ"
+
+msgid "Expunge"
+msgstr "מחק"
+
+msgid "mailbox"
+msgstr "תיבת דואר"
+
+msgid "Read"
+msgstr "נקרא"
+
+msgid "Unread"
+msgstr "לא נקרא"
+
+msgid "Delete"
+msgstr "מחק"
+
+msgid "Unthread View"
+msgstr "ללא חלוקה לדפים"
+
+msgid "Thread View"
+msgstr "חלוקה לדפים"
+
+msgid "To"
+msgstr "אל"
+
+msgid "From"
+msgstr "מאת"
+
+msgid "Date"
+msgstr "תאריך"
+
+msgid "Subject"
+msgstr "נושא"
+
+msgid "Size"
+msgstr "גודל"
+
+msgid "Toggle All"
+msgstr "סמן הכל"
+
+msgid "Unselect All"
+msgstr "הסר סימון מהכל"
+
+msgid "Select All"
+msgstr "בחר הכל"
+
+#, c-format
+msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
+msgstr "מציג הודעות: <b>%s</b> עד <b>%s</b> (%s בסה\"כ)"
+
+#, c-format
+msgid "Viewing Message: <B>%s</B> (1 total)"
+msgstr "מציג הודעה: <b>%s</b> (1 בסה\"כ)"
+
+msgid "Previous"
+msgstr "הקודם"
+
+msgid "Next"
+msgstr "הבא"
+
+msgid "Paginate"
+msgstr "מספר עמודים"
+
+msgid "Show All"
+msgstr "הצג הכל"
+
+msgid "SquirrelMail could not decode the bodystructure of the message"
+msgstr ""
+
+msgid "the provided bodystructure by your imap-server"
+msgstr ""
+
+#, fuzzy
+msgid ""
+"Body retrieval error. The reason for this is most probably that the message "
+"is malformed."
+msgstr ""
+"שגיאה באחזור גוף ההודעה. קרוב לוודאי שהסביה נובעת מגוף הודעה מעוות. אנא עזור "
+"לנו בשיפור גרסאות עתידיות ע\"י שליחת הודעה זו למאגר המידע של המפתחים!"
+
+msgid "Command:"
+msgstr "פקודה:"
+
+msgid "Response:"
+msgstr "תשובה:"
+
+msgid "Message:"
+msgstr "הודעה:"
+
+msgid "FETCH line:"
+msgstr "שורת FETCH:"
+
+msgid "High"
+msgstr "גבוהה"
+
+msgid "Low"
+msgstr "נמוכה"
+
+msgid "Normal"
+msgstr "רגילה"
+
+msgid "Hide Unsafe Images"
+msgstr "הסתר תמונות לא בטוחות"
+
+msgid "View Unsafe Images"
+msgstr "הצג תמונות לא בטוחות"
+
+msgid "download"
+msgstr "הורד"
+
+#, fuzzy
+msgid "Unknown sender"
+msgstr "שולח לא ידוע"
+
+msgid "sec_remove_eng.png"
+msgstr ""
+
+#, c-format
+msgid "Option Type '%s' Not Found"
+msgstr "לא נמצאה אפשרות מסוג '%s'"
+
+msgid "Yes"
+msgstr "כן"
+
+msgid "No"
+msgstr "לא"
+
+msgid "Submit"
+msgstr "שלח"
+
+msgid "Current Folder"
+msgstr "תיקיה נוכחית"
+
+msgid "Sign Out"
+msgstr "התנתק"
+
+msgid "Compose"
+msgstr "הודעה חדשה"
+
+msgid "Addresses"
+msgstr "כתובות"
+
+msgid "Folders"
+msgstr "תיקיות"
+
+msgid "Options"
+msgstr "אפשרויות"
+
+msgid "Search"
+msgstr "חפש"
+
+msgid "Help"
+msgstr "עזרה"
+
+#, c-format
+msgid "Error creating directory %s."
+msgstr "שגיאה ביצירת הספרייה %s."
+
+msgid "Could not create hashed directory structure!"
+msgstr "לא יכול ליצור ספרייה בעלת מבנה משורשר!"
+
+msgid "General Display Options"
+msgstr "הגדרות תצוגה - כללי"
+
+msgid "Theme"
+msgstr "נושא"
+
+msgid "Default"
+msgstr "ברירת מחדל"
+
+msgid "Custom Stylesheet"
+msgstr "סגנון מותאם אישית"
+
+msgid "Language"
+msgstr "שפה"
+
+msgid "Use Javascript"
+msgstr "השתמש ב-JavaScript"
+
+msgid "Autodetect"
+msgstr "זיהוי אוטומטי"
+
+msgid "Always"
+msgstr "תמיד"
+
+msgid "Never"
+msgstr "אף-פעם"
+
+msgid "Mailbox Display Options"
+msgstr "הגדרות תצוגה - תיבת דואר"
+
+msgid "Number of Messages to Index"
+msgstr "מספר ההודעות לדף"
+
+msgid "Enable Alternating Row Colors"
+msgstr "אפשר צבעי שורה מתחלפים"
+
+msgid "Enable Page Selector"
+msgstr "אפשר בוחר דפים"
+
+msgid "Maximum Number of Pages to Show"
+msgstr "מספר הדפים לתצוגה"
+
+msgid "Message Display and Composition"
+msgstr "הגדרות תצוגה - הודעה וכתיבה"
+
+msgid "Wrap Incoming Text At"
+msgstr "גלישת טקסט ב"
+
+msgid "Size of Editor Window"
+msgstr "גודל תיבת עריכה"
+
+msgid "Location of Buttons when Composing"
+msgstr "מיקום הכפתורים כאשר עורכים הודעות"
+
+msgid "Before headers"
+msgstr "לפני כותרות"
+
+msgid "Between headers and message body"
+msgstr "בין הכותרות וגוף ההודעה"
+
+msgid "After message body"
+msgstr "מתחת לגוף ההודעה"
+
+msgid "Addressbook Display Format"
+msgstr "תבנית תצוגה של ספר כתובות"
+
+msgid "Javascript"
+msgstr ""
+
+msgid "HTML"
+msgstr ""
+
+msgid "Show HTML Version by Default"
+msgstr "הצג גירסאת HTML כברירת מחדל"
+
+msgid "Enable Forward as Attachment"
+msgstr ""
+
+#, fuzzy
+msgid "Include CCs when Forwarding Messages"
+msgstr "כלול העתקים כאשר אני מפיץ הודעה"
+
+msgid "Include Me in CC when I Reply All"
+msgstr "כלול אותי בהעתקים כאשר אני משיב לכולם"
+
+msgid "Enable Mailer Display"
+msgstr "אפשר תצוגת תכנית דיוור"
+
+msgid "Display Attached Images with Message"
+msgstr "הצג תמונות מצורפות עם ההודעה"
+
+msgid "Enable Subtle Printer Friendly Link"
+msgstr "אפשר קישור עדין להדפסת ההודעה"
+
+msgid "Enable Printer Friendly Clean Display"
+msgstr "אפשר תצוגה נקיה של גירסאת הדפסה"
+
+#, fuzzy
+msgid "Enable Mail Delivery Notification"
+msgstr "אפשר הודעה על הודעות חדשות"
+
+#, fuzzy
+msgid "Compose Messages in New Window"
+msgstr "תמיד ערוך הודעה בחלון חדש"
+
+#, fuzzy
+msgid "Width of Compose Window"
+msgstr "רוחב חלון עריכה"
+
+#, fuzzy
+msgid "Height of Compose Window"
+msgstr "גובה חלון עריכה"
+
+#, fuzzy
+msgid "Append Signature before Reply/Forward Text"
+msgstr "הדבק חתימה לפני טקסט התשובה\\הפצה"
+
+msgid "Enable Sort by of Receive Date"
+msgstr ""
+
+msgid "Enable Thread Sort by References Header"
+msgstr ""
+
+msgid "Special Folder Options"
+msgstr "אפשרויות תיקיות מיוחדות"
+
+msgid "Folder Path"
+msgstr "מיקום תיקיה"
+
+msgid "Do not use Trash"
+msgstr "אל תשתמש בסל מיחזור"
+
+msgid "Trash Folder"
+msgstr "סל מיחזור"
+
+msgid "Do not use Sent"
+msgstr "אל תשתמש בדואר יוצא"
+
+msgid "Sent Folder"
+msgstr "תיקית דואר יוצא"
+
+msgid "Do not use Drafts"
+msgstr "אל תשתמש בטיוטה"
+
+msgid "Draft Folder"
+msgstr "תיקית טיוטות"
+
+msgid "Folder List Options"
+msgstr "אפשרויות רשימת תיקיות"
+
+msgid "Location of Folder List"
+msgstr "מיקום רשימת תיקיות:"
+
+msgid "Left"
+msgstr "שמאל"
+
+msgid "Right"
+msgstr "ימין"
+
+msgid "pixels"
+msgstr "פיקסלים"
+
+msgid "Width of Folder List"
+msgstr "רוחב רשימת תיקיות"
+
+msgid "Minutes"
+msgstr "דקות"
+
+msgid "Seconds"
+msgstr "שניות"
+
+msgid "Minute"
+msgstr "דקה"
+
+msgid "Auto Refresh Folder List"
+msgstr "רענן אוטומטית את רשימת התיקיות"
+
+msgid "Enable Unread Message Notification"
+msgstr "אפשר הודעה על הודעות חדשות"
+
+msgid "No Notification"
+msgstr "ללא הודעה"
+
+msgid "Only INBOX"
+msgstr "רק בדואר נכנס"
+
+msgid "All Folders"
+msgstr "כל התיקיות"
+
+msgid "Unread Message Notification Type"
+msgstr "סוג הודעה על הודעה חדשה"
+
+msgid "Only Unseen"
+msgstr "רק לא נראה"
+
+msgid "Unseen and Total"
+msgstr "לא נראה וסה\"כ"
+
+msgid "Enable Collapsable Folders"
+msgstr "אפשר תיקיות מתקפלות"
+
+#, fuzzy
+msgid "Enable Cumulative Unread Message Notification"
+msgstr "אפשר הודעה על הודעות חדשות"
+
+msgid "Show Clock on Folders Panel"
+msgstr "הצג שעון ברשימת תיקיות"
+
+msgid "No Clock"
+msgstr "ללא שעון"
+
+msgid "Hour Format"
+msgstr "סגנון שעות"
+
+msgid "12-hour clock"
+msgstr "12 שעות"
+
+msgid "24-hour clock"
+msgstr "24 שעות"
+
+msgid "Memory Search"
+msgstr "חיפוש בזכרון"
+
+msgid "Disabled"
+msgstr "מבוטל"
+
+#, fuzzy
+msgid "Folder Selection Options"
+msgstr "אפשרויות רשימת תיקיות"
+
+#, fuzzy
+msgid "Selection List Style"
+msgstr "סגנון ציטוט משוב"
+
+#, fuzzy
+msgid "Long: "
+msgstr "אורך:"
+
+msgid "Indented: "
+msgstr ""
+
+msgid "Delimited: "
+msgstr ""
+
+msgid "Name and Address Options"
+msgstr "אפשרויות שם וכתובת"
+
+msgid "Full Name"
+msgstr "שם מלא"
+
+msgid "Email Address"
+msgstr "כתובת דוא\"ל"
+
+msgid "Reply To"
+msgstr "השב אל"
+
+msgid "Signature"
+msgstr "חתימה"
+
+msgid "Edit Advanced Identities"
+msgstr "ערוך זהויות מרובות"
+
+msgid "(discards changes made on this form so far)"
+msgstr "(מבטל שינויים שנעשו על הטופס עד כה)"
+
+msgid "Multiple Identities"
+msgstr "זהויות מרובות"
+
+msgid "Same as server"
+msgstr "אותו דבר כמו שרת"
+
+msgid "Timezone Options"
+msgstr "אפשרויות אזור זמן"
+
+msgid "Your current timezone"
+msgstr "אזור זמן נוכחי"
+
+msgid "Reply Citation Options"
+msgstr "אפשרויות ציטוט משוב"
+
+msgid "Reply Citation Style"
+msgstr "סגנון ציטוט משוב"
+
+msgid "No Citation"
+msgstr "ללא ציטוט"
+
+msgid "AUTHOR Said"
+msgstr "המחבר אמר"
+
+msgid "Quote Who XML"
+msgstr ""
+
+msgid "User-Defined"
+msgstr "מותאם אישית"
+
+msgid "User-Defined Citation Start"
+msgstr "התחלת ציטוט מותאם אישית"
+
+msgid "User-Defined Citation End"
+msgstr "סיום ציטוט מותאם אישית"
+
+msgid "Signature Options"
+msgstr "אפשרויות חתימה"
+
+msgid "Use Signature"
+msgstr "השתמש בחתימה"
+
+msgid "Prefix Signature with '-- ' Line"
+msgstr "הקדם חתימה בשורה של '-- '"
+
+msgid "Config File Version"
+msgstr "גירסאת קובץ הגדרות"
+
+msgid "Squirrelmail Version"
+msgstr "SquirrelMail גירסא"
+
+msgid "PHP Version"
+msgstr "PHP גירסא"
+
+msgid "Organization Preferences"
+msgstr "הגדרות חברה"
+
+msgid "Organization Name"
+msgstr "שם חברה"
+
+msgid "Organization Logo"
+msgstr "לוגו חברה"
+
+msgid "Organization Logo Width"
+msgstr "רוחב לוגו חברה"
+
+msgid "Organization Logo Height"
+msgstr "אורך לוגו חברה"
+
+msgid "Organization Title"
+msgstr "כותרת חברה"
+
+msgid "Signout Page"
+msgstr "דף התנתקות"
+
+msgid "Default Language"
+msgstr "שפה ברירת מחדל"
+
+msgid "Top Frame"
+msgstr "חלק עליון"
+
+msgid "Server Settings"
+msgstr "הגדרות שרת"
+
+msgid "Mail Domain"
+msgstr "דומיין דואר"
+
+msgid "IMAP Server Address"
+msgstr "כתובת שרת IMAP"
+
+msgid "IMAP Server Port"
+msgstr "יציאת שרת IMAP"
+
+msgid "IMAP Server Type"
+msgstr "סוג שרת IMAP"
+
+msgid "Cyrus IMAP server"
+msgstr ""
+
+msgid "University of Washington's IMAP server"
+msgstr ""
+
+msgid "Microsoft Exchange IMAP server"
+msgstr ""
+
+msgid "Courier IMAP server"
+msgstr ""
+
+msgid "Not one of the above servers"
+msgstr ""
+
+msgid "IMAP Folder Delimiter"
+msgstr ""
+
+msgid "Use \"detect\" to auto-detect."
+msgstr "השתמש ב \"detect\" לזיהוי אוטומטי"
+
+msgid "Use Sendmail"
+msgstr "השתמש ב-SendMail"
+
+msgid "Sendmail Path"
+msgstr "נתיב SendMail"
+
+msgid "SMTP Server Address"
+msgstr "כתובת שרת SMTP"
+
+msgid "SMTP Server Port"
+msgstr "יציאת שרת SMTP"
+
+msgid "Authenticated SMTP"
+msgstr "SMTP מאומת"
+
+msgid "Invert Time"
+msgstr "הפוך זמן"
+
+msgid "Use Confirmation Flags"
+msgstr ""
+
+msgid "Folders Defaults"
+msgstr "ברירת מחדל של תיקיות"
+
+msgid "Default Folder Prefix"
+msgstr ""
+
+msgid "Show Folder Prefix Option"
+msgstr ""
+
+msgid "By default, move to trash"
+msgstr ""
+
+msgid "By default, move to sent"
+msgstr ""
+
+msgid "By default, save as draft"
+msgstr ""
+
+msgid "List Special Folders First"
+msgstr ""
+
+msgid "Show Special Folders Color"
+msgstr ""
+
+msgid "Auto Expunge"
+msgstr ""
+
+msgid "Default Sub. of INBOX"
+msgstr ""
+
+msgid "Show 'Contain Sub.' Option"
+msgstr ""
+
+msgid "Default Unseen Notify"
+msgstr ""
+
+msgid "Default Unseen Type"
+msgstr ""
+
+msgid "Auto Create Special Folders"
+msgstr ""
+
+msgid "Default Javascript Adrressbook"
+msgstr ""
+
+msgid "Auto delete folders"
+msgstr ""
+
+msgid "General Options"
+msgstr ""
+
+msgid "Default Charset"
+msgstr ""
+
+msgid "Data Directory"
+msgstr ""
+
+msgid "Temp Directory"
+msgstr ""
+
+msgid "Hash Level"
+msgstr ""
+
+msgid "Hash Disabled"
+msgstr ""
+
+msgid "Moderate"
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "Default Left Size"
+msgstr ""
+
+msgid "Usernames in Lowercase"
+msgstr ""
+
+msgid "Allow use of priority"
+msgstr ""
+
+msgid "Hide SM attributions"
+msgstr ""
+
+msgid "Enable use of delivery receipts"
+msgstr ""
+
+msgid "Allow editing of identities"
+msgstr ""
+
+msgid "Allow editing of full name"
+msgstr ""
+
+msgid "Message of the Day"
+msgstr ""
+
+msgid "Database"
+msgstr ""
+
+msgid "Address book DSN"
+msgstr ""
+
+msgid "Address book table"
+msgstr ""
+
+msgid "Preferences DSN"
+msgstr ""
+
+msgid "Preferences table"
+msgstr ""
+
+msgid "Preferences username field"
+msgstr ""
+
+msgid "Preferences key field"
+msgstr ""
+
+msgid "Preferences value field"
+msgstr ""
+
+msgid "Themes"
+msgstr ""
+
+msgid "Style Sheet URL (css)"
+msgstr ""
+
+msgid "Configuration Administrator"
+msgstr ""
+
+msgid "Theme Name"
+msgstr ""
+
+msgid "Theme Path"
+msgstr ""
+
+msgid "Plugins"
+msgstr ""
+
+msgid "Change Settings"
+msgstr ""
+
+msgid "Config file can't be opened. Please check config.php."
+msgstr ""
+
+msgid "Administration"
+msgstr ""
+
+msgid ""
+"This module allows administrators to manage SquirrelMail main configuration "
+"remotely."
+msgstr ""
+
+msgid "Bug Reports:"
+msgstr "דיווח על באגים:"
+
+msgid "Show button in toolbar"
+msgstr "הצג כפתור בסרגל כלים"
+
+msgid "TODAY"
+msgstr "היום"
+
+msgid "Go"
+msgstr "לך"
+
+#, fuzzy
+msgid "l, F j Y"
+msgstr "l, j F, Y G:i"
+
+msgid "ADD"
+msgstr "הוסף"
+
+msgid "EDIT"
+msgstr "ערוך"
+
+msgid "DEL"
+msgstr "מחק"
+
+msgid "Start time:"
+msgstr "זמן התחלה:"
+
+msgid "Length:"
+msgstr "אורך:"
+
+msgid "Priority:"
+msgstr "עדיפות:"
+
+msgid "Title:"
+msgstr "כותרת:"
+
+msgid "Set Event"
+msgstr "צור ארוע"
+
+msgid "Event Has been added!"
+msgstr "ארוע הוסף!"
+
+msgid "Date:"
+msgstr "תאריך:"
+
+msgid "Time:"
+msgstr "זמן:"
+
+msgid "Day View"
+msgstr "תצוגת יום"
+
+msgid "Do you really want to delete this event?"
+msgstr "האם ברצונך למחוק ארוע זה?"
+
+msgid "Event deleted!"
+msgstr "ארוע נמחק!"
+
+msgid "Nothing to delete!"
+msgstr "אין מה למחוק!"
+
+msgid "Update Event"
+msgstr "עדכן ארוע"
+
+msgid "Do you really want to change this event from:"
+msgstr "האם ברצונך לשנות ארוע זה מ:"
+
+msgid "to:"
+msgstr "ל:"
+
+msgid "Event updated!"
+msgstr "ארוע עודכן!"
+
+msgid "Month View"
+msgstr "תצוגה חודשית"
+
+msgid "0 min."
+msgstr "0 דקות"
+
+msgid "15 min."
+msgstr "15 דקות"
+
+msgid "35 min."
+msgstr "35 דקות"
+
+msgid "45 min."
+msgstr "45 דקות"
+
+msgid "1 hr."
+msgstr "שעה"
+
+msgid "1.5 hr."
+msgstr "שעה וחצי"
+
+msgid "2 hr."
+msgstr "שעתיים"
+
+msgid "2.5 hr."
+msgstr "שעתיים וחצי"
+
+msgid "3 hr."
+msgstr "3 שעות"
+
+msgid "3.5 hr."
+msgstr "3 וחצי שעות"
+
+msgid "4 hr."
+msgstr "4 שעות"
+
+msgid "5 hr."
+msgstr "5 שעות"
+
+msgid "6 hr."
+msgstr "6 שעות"
+
+msgid "Calendar"
+msgstr "לוח שנה"
+
+msgid "Delete & Prev"
+msgstr "מחק והקודם"
+
+msgid "Delete & Next"
+msgstr "מחק והבא"
+
+msgid "Move to:"
+msgstr "העבר אל:"
+
+msgid "Delete/Move/Next Buttons:"
+msgstr "כפתורי מחק/העבר/הבא:"
+
+msgid "Display at top"
+msgstr "הצג למעלה"
+
+msgid "with move option"
+msgstr "עם אפשרויות העברה"
+
+msgid "Display at bottom"
+msgstr "הצג בתחתית"
+
+msgid ""
+"COMMERCIAL - This list contains servers that are verified spam senders. It "
+"is a pretty reliable list to scan spam from."
+msgstr ""
+"מסחרי - רשימה זו מכילה שרתים הידועים כשולחי דואר זבל. זוהי רשימה מהימנה "
+"לבדיקת דואר זבל."
+
+msgid ""
+"COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
+"be relayed through their system will be banned with this.  Another good one "
+"to use."
+msgstr ""
+"מסחרי - שרתים אשר מוגדרים (או מוגדרים לא נכון), ומאפשרים בכך שליחת דואר זבל "
+"דרכם."
+
+msgid ""
+"COMMERCIAL - Dial-up users are often filtered out since they should use "
+"their ISP's mail servers to send mail.  Spammers typically get a dial-up "
+"account and send spam directly from there."
+msgstr ""
+"מסחרי - לעיתים קרובות מסננים החוצה משתמשי חיוג מכיוון שהם משתמשים בשרתי "
+"הדואר של שרת האינטרנט שלהם."
+
+msgid "COMMERCIAL - RBL+ Blackhole entries."
+msgstr "מסחרי - רשומות של RBL ו-Blackhole."
+
+msgid "COMMERCIAL - RBL+ OpenRelay entries."
+msgstr "מסחרי - רשומות של RBL ו-OpenRelay."
+
+msgid "COMMERCIAL - RBL+ Dial-up entries."
+msgstr "מסחרי - רשומות של RBL ושרתי חיוג."
+
+msgid ""
+"FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
+"include servers used by abuse@uunet.net auto-replies too."
+msgstr ""
+"חינם - רשומות של שרתי דואר הפתוחים לכולם, ובכך מאפשרים שליחת דואר אלקטרוני "
+"דרכם לכל אחד (Osirusoft)."
+
+msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
+msgstr ""
+"חינם - רשימה של שרתי חיוג אשר לעיתים קרובות שימשו כשרתים לשליחת דואר זבל "
+"(Osirusoft)."
+
+msgid ""
+"FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
+"have been manually added after multiple nominations. Use with caution. Seems "
+"to catch abuse auto-replies from some ISPs."
+msgstr ""
+"חינם - רשימה ידנית של שרתים אשר שולחים דואר זבל ללא הרף, וקבלו תלונות רבות. "
+"אנא השתמשו ברשימה זו בזהירות (Osirusoft)."
+
+msgid ""
+"FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
+"other mail servers that are not secure."
+msgstr ""
+"חינם - רשימה של שרתים בטוחים אשר מאשרים שימוש בשרתי הדואר שלהם לשרתים אשר "
+"אינם בטוחים (Osirusoft)."
+
+msgid ""
+"FREE - Osirusoft Spamware Developers - It is believed that these are IP "
+"ranges of companies that are known to produce spam software. Seems to catch "
+"abuse auto-replies from some ISPs."
+msgstr ""
+"חינם - רשימה של כתובות IP אשר כביכול משמשות חברות אשר שולחות דואר זבל "
+"(Osirusoft)."
+
+msgid ""
+"FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
+"users in without confirmation."
+msgstr ""
+"חינם - רשימה של שרתי רשימות תפוצה אשר מוסיפים אליהם משתמשים ללא בקשת אישור "
+"(Osirusoft)."
+
+msgid ""
+"FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail."
+"cgi scripts. (planned)."
+msgstr "חינם - רשימה של סקריפטים לא בטוחים אשר שולחים דואר זבל (Osirusoft)."
+
+msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
+msgstr "חינם - רשימה של שרתי פרוקסי פתוחים (Osirusoft)."
+
+msgid ""
+"FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
+"false positives than ORBS did though."
+msgstr ""
+"חינם - ORDB נולדה כאשר ORBS ירדה מהאוויר. בכל-זאת נראה שיש להם יותר טעויות."
+
+msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
+msgstr "חינם - Five-Ten-sg.com - מקורות SPAM ישירים."
+
+msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
+msgstr "חינם - Five-Ten-sg.com - רשימות חיוג - כולל כמה IPים של DSL."
+
+msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
+msgstr ""
+"חינם - Five-Ten-sg.com - רשימה של שולחי דואר בכמויות אשר אינם משתמשים בבקשת "
+"אישור."
+
+msgid "FREE - Five-Ten-sg.com - Other misc. servers."
+msgstr "חינם - Five-Ten-sg.com - שרתים אחרים."
+
+msgid "FREE - Five-Ten-sg.com - Single Stage servers."
+msgstr "חינם - Five-Ten-sg.com - שרתי רמה אחת (Single Stage)."
+
+msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
+msgstr "חינם - Five-Ten-sg.com - שרתים אשר תומכים ב-SPAM."
+
+msgid "FREE - Five-Ten-sg.com - Web Form IPs."
+msgstr "חינם - Five-Ten-sg.com - IPים של טפסי Web."
+
+msgid ""
+"FREE - Dorkslayers appears to include only really bad open relays outside "
+"the US to avoid being sued. Interestingly enough, their website recommends "
+"you NOT use their service."
+msgstr ""
+"חינם - נראה ,שבכדי למנוע תביעות, דורקסליירס כוללים רק שרתים אשר יושבים מחוץ "
+"לארה\"ב ומשמשים כתחנת ממסר פתוחה. למרבה הפלא, האתר שלהם ממליץ לא להתשמש "
+"בשירות שלהם."
+
+msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
+msgstr "חינם - SPAMhaus - רשימה של מקורות ידועים של SPAM."
+
+#, c-format
+msgid ""
+"FREE, for now - SPAMCOP - An interesting solution that lists servers that "
+"have a very high spam to legit email ratio (85% or more)."
+msgstr ""
+"חינם, בינתיים - SPAMCOP - פתרון מעניין של רשימות שרתים שיש להם יחס גבוה בין "
+"דואר לא חוקי (SPAM) לדואר חוקי (85% או יותר)."
+
+msgid "FREE - dev.null.dk - I don't have any detailed info on this list."
+msgstr "חינם - dev.null.dk - אין מידע על השירות הזה."
+
+msgid "FREE - visi.com - Relay Stop List. Very conservative OpenRelay List."
+msgstr ""
+"חינם - visi.com - רשימת עצירת ממסר. רשימה מאוד שמרנית של שרתים המשמשים "
+"כתחנות ממסר פתוחות."
+
+msgid "FREE - 2mbit.com Open Relays - Another list of Open Relays."
+msgstr ""
+"חינם - 2mbit.com תחנות ממסר פתוחות - עוד רשימה של שרתים המשמשים כתחנות ממסר "
+"פתוחות."
+
+msgid "FREE - 2mbit.com SPAM Source - List of Direct SPAM Sources."
+msgstr "חינם - 2mbit.com מקורות SPAM - רשימה של מקורות SPAM ישירים."
+
+msgid "FREE - 2mbit.com SPAM ISPs - List of SPAM-friendly ISPs."
+msgstr ""
+"חינם - 2mbit.com ספקי שרותי אינטרנט - רשימה של ספקי אינטרנט אשר מאשרים SPAM."
+
+msgid ""
+"FREE - Leadmon DUL - Another list of Dial-up or otherwise dynamically "
+"assigned IPs."
+msgstr ""
+"חינם - Leadmon DUL - עוד רשימה של חיוג או באופן אחר IPים המוקנים באופן דינמי."
+
+msgid ""
+"FREE - Leadmon SPAM Source - List of IPs Leadmon.net has received SPAM "
+"directly from."
+msgstr ""
+"חינם - Leadmon SPAM Source - רשימה של IPים אשר Leadmon.net קיבלו SPAM ישירות "
+"מהם."
+
+msgid ""
+"FREE - Leadmon Bulk Mailers - Bulk mailers that do not require confirmed opt-"
+"in or that have allowed known spammers to become clients and abuse their "
+"services."
+msgstr "חינם - Leadmon Bulk Mailers - "
+
+msgid ""
+"FREE - Leadmon Open Relays - Single Stage Open Relays that are not listed on "
+"other active RBLs."
+msgstr ""
+"חינם - Leadmon Open Relays - תחנות ממסר פתוחות בעלות שלב אחד, אשר אינן "
+"רשומות אצל RBLים פעילים אחרים."
+
+msgid ""
+"FREE - Leadmon Multi-stage - Multi-Stage Open Relays that are not listed on "
+"other active RBLs and that have sent SPAM to Leadmon.net."
+msgstr ""
+"חינם - Leadmon Multi-stage - תחנות ממסר פתוחות מרובות שלבים, אשר אינן רשומות "
+"אצל RBLים אחרים, ושלחו SPAM ל-Leadmon.net."
+
+msgid ""
+"FREE - Leadmon SpamBlock - Sites on this listing have sent Leadmon.net "
+"direct SPAM from IPs in netblocks where the entire block has no DNS "
+"mappings. It's a list of BLOCKS of IPs being used by people who have SPAMmed "
+"Leadmon.net."
+msgstr ""
+"חינם - Leadmon SpamBlock - אתרים ברשימה זו שלחו SPAM ישירות אל Leadmon.net מ-"
+"IPים בקבוצות רשת, כאשר לכל הקבוצה אין מיפוי DNS. זוהיא רשימה של קבוצות של "
+"IPים אשר נמצאים בשימוש ע\"י אנשים אשר שלחו SPAM אל Leadmon.net."
+
+msgid ""
+"FREE, for now - Not Just Another Blacklist - Both Open Relays and Direct "
+"SPAM Sources."
+msgstr ""
+"חינם, לעת עתה - לא עוד רשימה שחורה - גם תחנות ממסר פתוחות וגם מקורות ישירים "
+"של SPAM."
+
+msgid "FREE, for now - Not Just Another Blacklist - Dial-up IPs."
+msgstr "חינם, לעת עתה - לא עוד רשימה שחורה - IPים של חיוג."
+
+msgid "FREE - Distributed Sender Boycott List - Confirmed Relays"
+msgstr ""
+
+msgid "FREE - Distributed Sender Boycott List - Confirmed Multi-stage Relays"
+msgstr ""
+
+msgid "FREE - Distributed Sender Boycott List - UN-Confirmed Relays"
+msgstr ""
+
+msgid "Saved Scan type"
+msgstr "סוג סריקה שמורה"
+
+msgid "Message Filtering"
+msgstr "מיון הודעות"
+
+msgid "What to Scan:"
+msgstr "סרוק את:"
+
+msgid "All messages"
+msgstr "כל ההודעות"
+
+msgid "Only unread messages"
+msgstr "רק הודעות חדשות"
+
+msgid "Save"
+msgstr "שמור"
+
+msgid "New"
+msgstr "חדש"
+
+msgid "Done"
+msgstr "סיים"
+
+msgid "Match:"
+msgstr "לפי שדה:"
+
+msgid "Cc"
+msgstr "העתקים"
+
+msgid "To or Cc"
+msgstr "אל או העתקים"
+
+msgid "Header"
+msgstr "כותרות"
+
+msgid "Contains:"
+msgstr "מכיל:"
+
+msgid "Edit"
+msgstr "ערוך"
+
+msgid "Down"
+msgstr "למטה"
+
+msgid "Up"
+msgstr "למעלה"
+
+#, c-format
+msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
+msgstr "אם <b>%s</b> מכיל <b>%s</b> אז תעביר את ההודעה ל-<b>%s</b>"
+
+msgid "Message Filters"
+msgstr "מיון הודעות"
+
+msgid ""
+"Filtering enables messages with different criteria to be automatically "
+"filtered into different folders for easier organization."
+msgstr ""
+"בעזרת מיון הודעות ניתן להעביר הודעות אוטומטית לתוך תיקיות מסויימות, לפי "
+"קריטריונים המצויינים מראש."
+
+msgid "SPAM Filters"
+msgstr "מסנני דואר זבל (SPAM)"
+
+msgid ""
+"SPAM filters allow you to select from various DNS based blacklists to detect "
+"junk email in your INBOX and move it to another folder (like Trash)."
+msgstr "בעזרת מסנני דואר ביכולתך לחסום שרתים אשר ידועים כשולחי דואר זבל."
+
+msgid "Spam Filtering"
+msgstr "סינון דואר זבל (SPAM)"
+
+msgid "WARNING! Tell your admin to set the SpamFilters_YourHop variable"
+msgstr "אזהרה! תגיד למנהל המערכת להגדיר את המשתנה SpamFilters_YourHop"
+
+msgid "Move spam to:"
+msgstr "העבר דואר זבל ל:"
+
+msgid ""
+"Moving spam directly to the trash may not be a good idea at first, since "
+"messages from friends and mailing lists might accidentally be marked as "
+"spam. Whatever folder you set this to, make sure that it gets cleaned out "
+"periodically, so that you don't have an excessively large mailbox hanging "
+"around."
+msgstr ""
+"לא מומלץ להעביר דואר זבל ישירות לסל המיחזור, בגלל שהודעותמחברים ורשימות "
+"תפוצה יכולות בטעות להיות מסומנות כדואר זבל. נא לדאוג להעביר את דואר הזבל "
+"לתיקיה אשר מתנקה אוטומטית בכדי למנוע עליה בגודל תיבת הדואר שלך."
+
+msgid ""
+"The more messages you scan, the longer it takes.  I would suggest that you "
+"scan only new messages.  If you make a change to your filters, I would set "
+"it to scan all messages, then go view my INBOX, then come back and set it to "
+"scan only new messages.  That way, your new spam filters will be applied and "
+"you'll scan even the spam you read with the new filters."
+msgstr ""
+"ככל שמספר ההודעות הנסרקות גדול יותר, כך זמן הסריקה לוקח יותר זמן. מומלץ "
+"לסרוק רק הודעות חדשות. במקרה ונעשה שינויים במסננים, מומלץ להגדיר למסנן לבדוק "
+"את כל ההודעה, לאחר מכן ללכת לדואר נכנס, ולאחר מכן להגידר את המסנן מחדש לבדוק "
+"רק דואר חדש. בצורה זו, יוגדר המסנן החדש וגם הדואר הישן יבדק נגדו."
+
+#, c-format
+msgid "Spam is sent to <b>%s</b>"
+msgstr "דואר זבל נשלח ל: <b>%s</b>"
+
+msgid "[<i>not set yet</i>]"
+msgstr "[<i>עדיין לא הוגדר</i>]"
+
+#, c-format
+msgid "Spam scan is limited to <b>%s</b>"
+msgstr "סריקת דואר זבל מוגבלת ל: <b>%s</b>"
+
+msgid "New Messages Only"
+msgstr "הודעות חדשות בלבד"
+
+msgid "All Messages"
+msgstr "כל ההודעות"
+
+msgid "ON"
+msgstr "פועל"
+
+msgid "OFF"
+msgstr "כבוי"
+
+msgid "Mailinglist"
+msgstr "רשימת תפוצה"
+
+#, c-format
+msgid ""
+"This will send a message to %s requesting help for this list. You will "
+"receive an emailed response at the address below."
+msgstr ""
+"אפשרות זו תשלח הודעה ל-%s בבקשה לעזרה עם רשימה זו. תשובה תשלח לכתובת הדוא\"ל "
+"הרשומה מטה."
+
+#, c-format
+msgid ""
+"This will send a message to %s requesting that you will be subscribed to "
+"this list. You will be subscribed with the address below."
+msgstr ""
+"אפשרות זו תשלח הודעה ל-%s בבקשה לצרף אותך לרשימה זו. כתובת הדוא\"ל הרשומה "
+"מטה תצורף לרשימה."
+
+#, c-format
+msgid ""
+"This will send a message to %s requesting that you will be unsubscribed from "
+"this list. It will try to unsubscribe the adress below."
+msgstr ""
+"אפשרות זו תשלח הודעה ל-%s בבקשה לביטול ההרשמה לרשימה זו. ההרשמה תבוטל לכתובת "
+"הרשומה מטה."
+
+msgid "From:"
+msgstr "מאת:"
+
+msgid "Send Mail"
+msgstr "שלח דואר"
+
+msgid "Post to List"
+msgstr "שלח לרשימה"
+
+msgid "Reply to List"
+msgstr "השב לרשימה"
+
+msgid "Subscribe"
+msgstr "הרשם"
+
+msgid "Unsubscribe"
+msgstr "בטל הרשמה"
+
+msgid "List Archives"
+msgstr "הצג ארכיונים"
+
+msgid "Contact Listowner"
+msgstr "צור קשר עם מנהל הרשימה"
+
+#, fuzzy
+msgid "Mailing List"
+msgstr "רשימת תפוצה"
+
+msgid "POP3 connect:"
+msgstr "חיבור POP3:"
+
+msgid "No server specified"
+msgstr "לא הוגדר שרת"
+
+msgid "Error "
+msgstr "שגיאה"
+
+msgid "POP3 noop:"
+msgstr ""
+
+msgid "No connection to server"
+msgstr "אין חיבור לשרת"
+
+msgid "POP3 user:"
+msgstr "משתמש POP3:"
+
+msgid "no login ID submitted"
+msgstr "לא נשלח שם משתמש"
+
+msgid "connection not established"
+msgstr "לא נוצר חיבור"
+
+msgid "POP3 pass:"
+msgstr "סיסמאת POP3:"
+
+msgid "No password submitted"
+msgstr "לא נשלחה סיסמא"
+
+msgid "authentication failed "
+msgstr "אימות נכשל"
+
+msgid "POP3 apop:"
+msgstr ""
+
+msgid "No login ID submitted"
+msgstr "לא נשלח שם משתמש"
+
+msgid "No server banner"
+msgstr "אין כרזת שרת"
+
+msgid "abort"
+msgstr "בטל"
+
+msgid "apop authentication failed"
+msgstr "אימות apop נכשל"
+
+msgid "POP3 login:"
+msgstr ""
+
+msgid "POP3 top:"
+msgstr ""
+
+msgid "POP3 pop_list:"
+msgstr ""
+
+msgid "Premature end of list"
+msgstr "סיום מוקדם של רשימה"
+
+msgid "POP3 get:"
+msgstr ""
+
+msgid "POP3 last:"
+msgstr ""
+
+msgid "POP3 reset:"
+msgstr ""
+
+msgid "POP3 send_cmd:"
+msgstr ""
+
+msgid "Empty command string"
+msgstr "מחרוזת פקודה ריקה"
+
+msgid "POP3 quit:"
+msgstr ""
+
+msgid "connection does not exist"
+msgstr "לא נמצא חיבור"
+
+msgid "POP3 uidl:"
+msgstr ""
+
+msgid "POP3 delete:"
+msgstr ""
+
+msgid "No msg number submitted"
+msgstr "לא נשלח מספר הודעה"
+
+msgid "Command failed "
+msgstr "פקודה נכשלה "
+
+msgid "Remote POP server Fetching Mail"
+msgstr "מושך דואר משרת POP3 מרוחק"
+
+msgid "Select Server:"
+msgstr "בחר שרת:"
+
+msgid "All"
+msgstr "הכל"
+
+msgid "Password for"
+msgstr "סיסמא בשביל"
+
+msgid "Fetch Mail"
+msgstr "משוך דואר"
+
+msgid "Fetching from "
+msgstr "מושך מ-"
+
+msgid "Oops, "
+msgstr "אופס, "
+
+msgid "Opening IMAP server"
+msgstr "פותח שרת IMAP"
+
+msgid "Opening POP server"
+msgstr "פותח שרת POP"
+
+msgid "Login Failed:"
+msgstr "כניסה שגויה:"
+
+msgid "Login OK: No new messages"
+msgstr "כניסה אושרה: אין הודעות חדשות"
+
+msgid "Login OK: Inbox EMPTY"
+msgstr "כניסה אושרה: תיבת דואר נכנס ריקה"
+
+msgid "Login OK: Inbox contains ["
+msgstr "כניסה אושרה: תיבת דואר נכנס מכילה ["
+
+msgid "] messages"
+msgstr "] הודעות"
+
+msgid "Fetching UIDL..."
+msgstr "מושך UIDL..."
+
+msgid "Server does not support UIDL."
+msgstr "שרת לא תומך ב UIDL."
+
+msgid "Leaving Mail on Server..."
+msgstr "משאיר את הדואר על השרת..."
+
+msgid "Deleting messages from server..."
+msgstr "מוחק הודעות מהשרת..."
+
+msgid "Fetching message "
+msgstr "מושך הודעה "
+
+msgid "Server error...Disconnect"
+msgstr ""
+
+msgid "Reconnect from dead connection"
+msgstr ""
+
+msgid "Saving UIDL"
+msgstr "שומר UIDL"
+
+#, fuzzy
+msgid "Refetching message "
+msgstr "מושך הודעה "
+
+msgid "Error Appending Message!"
+msgstr "שגיאה בצירוף ההודעה!"
+
+msgid "Closing POP"
+msgstr "סוגר את ה-POP"
+
+msgid "Logging out from IMAP"
+msgstr "מתנתק משרת IMAP"
+
+msgid "Message appended to mailbox"
+msgstr "הודעה צורפה לתיבת הדואר"
+
+msgid "Message "
+msgstr "הודעה "
+
+msgid " deleted from Remote Server!"
+msgstr " נמחקה משרת מרוחק!"
+
+msgid "Delete failed:"
+msgstr "מחיקה נכשלה:"
+
+msgid "Remote POP server settings"
+msgstr "הגדרות שרת POP מרוחק"
+
+msgid ""
+"You should be aware that the encryption used to store your password is not "
+"perfectly secure.  However, if you are using pop, there is inherently no "
+"encryption anyway. Additionally, the encryption that we do to save it on the "
+"server can be undone by a hacker reading the source to this file."
+msgstr ""
+"עלייך להיות מודע לכך שההצפנה הנמצאת בשימוש בכדי להצפין את סיסמאתך איננה "
+"בטוחה לחלוטין. למרות זאת, אם הינך משתמש ב-POP, אין הצפנה בכל מקרה. בנוסף, כל "
+"פורץ אשר יקרא את הקוד של קובץ זה יוכל לפענח את ההצפנה שאנו משתמשים בה בכדי "
+"להצפין את סיסמאתך על השרת."
+
+msgid "If you leave password empty, it will be required when you fetch mail."
+msgstr "במקרה ותשאיר את הסיסמא ריקה, היא תדרש כאשר תנסה להביא את הדואר."
+
+msgid "Encrypt passwords (informative only)"
+msgstr "הצפן סיסמאות (אינפורמטיבי בלבד)"
+
+msgid "Add Server"
+msgstr "הוסף שרת"
+
+msgid "Server:"
+msgstr "שרת:"
+
+#, fuzzy
+msgid "Port:"
+msgstr "עדיפות:"
+
+msgid "Alias:"
+msgstr "כינוי:"
+
+msgid "Username:"
+msgstr "שם משתמש:"
+
+msgid "Password:"
+msgstr "סיסמא:"
+
+msgid "Store in Folder:"
+msgstr "אחסן בתיקיה:"
+
+msgid "Leave Mail on Server"
+msgstr "השאר דואר על השרת"
+
+msgid "Check mail during login"
+msgstr "בדוק דואר בכניסה"
+
+msgid "Check mail during folder refresh"
+msgstr "בדוק דואר ברענון תיקיה"
+
+msgid "Modify Server"
+msgstr "עדכן שרת"
+
+msgid "Server Name:"
+msgstr "שם שרת:"
+
+msgid "Modify"
+msgstr "עדכן"
+
+msgid "No-one server in use. Try to add."
+msgstr "לא נמצא אף שרת אחד בשימוש. נסה להוסיף."
+
+msgid "Fetching Servers"
+msgstr "מושך שרתים"
+
+msgid "Confirm Deletion of a Server"
+msgstr "אשר מחיקת שרת"
+
+msgid "Selected Server:"
+msgstr "שרת נבחר:"
+
+msgid "Confirm delete of selected server?"
+msgstr "מאשר מחיקת שרת נבחר?"
+
+msgid "Confirm Delete"
+msgstr "אשר מחיקה"
+
+msgid "Mofify a Server"
+msgstr "עדכן שרת"
+
+msgid "Undefined Function"
+msgstr "פונקציה לא מוגדרת"
+
+msgid "Hey! Wath do You are looking for?"
+msgstr ""
+
+msgid "Fetch"
+msgstr "משוך"
+
+msgid "Warning, "
+msgstr "אזהרה, "
+
+msgid "Mail Fetch Result:"
+msgstr "תוצאת ניסיון משיכת דואר:"
+
+msgid "Simple POP3 Fetch Mail"
+msgstr "משיכת דואר מ-POP3"
+
+msgid ""
+"This configures settings for downloading email from a pop3 mailbox to your "
+"account on this server."
+msgstr "הגדרות הורדת דוא\"ל מתיבת POP3 לתיבת הדואר שלך בשרת זה."
+
+msgid "New Mail Notification"
+msgstr "הודעה על דואר חדש"
+
+msgid ""
+"Select <b>Enable Media Playing</b> to turn on playing a media file when "
+"unseen mail is in your folders. When enabled, you can specify the media file "
+"to play in the provided file box."
+msgstr ""
+"בכדי להפעיל ניגון קובץ מדיה כאשר יש דואר חדש בחר באפשרות <b>אפשר ניגון מדיה</"
+"b>. ביכולתך לציין את קובץ המדיה שינוגן."
+
+msgid ""
+"The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
+"folders for unseen mail, not just the inbox for notification."
+msgstr ""
+"בכדי לבדוק דואר חדש בכל התיקיות ולא רק בתיבת הדואר הנכנס, סמן את האפשרות "
+"<b>בדוק את כל התיקיות, לא רק את תיבת הדואר הנכנס</b>."
+
+msgid ""
+"Selecting the <b>Show popup</b> option will enable the showing of a popup "
+"window when unseen mail is in your folders (requires JavaScript)."
+msgstr ""
+"אם ברצונך שיפתח חלון קטן המודיע על הודעות חדשות בחר באפשרות <b>כשיש הודעות "
+"חדשות הצג חלון קטן</b> (מצריך JavaScript)"
+
+msgid ""
+"Use the <b>Check RECENT</b> to only check for messages that are recent. "
+"Recent messages are those that have just recently showed up and have not "
+"been \"viewed\" or checked yet.  This can prevent being continuously annoyed "
+"by sounds or popups for unseen mail."
+msgstr ""
+"בחר באפשרות <b>ספור רק הודעות שהגיעו לאחרונה</b> בכדי לבדוק רק הודעות שהגיעו "
+"לאחרונה. הודעות אשר הגיעו לאחרונה הן הודעות אשר הגיעו לפני זמן קצר אך לא "
+"נקראו או סומנו עדיין. אפשרות זו מונעת הטרדה רצופה של צלילים וחלונות אשר "
+"נפתחים בגלל דואר שלא נקרא."
+
+msgid ""
+"Selecting the <b>Change title</b> option will change the title in some "
+"browsers to let you know when you have new mail (requires JavaScript, and "
+"only works in IE but you won't see errors with other browsers).  This will "
+"always tell you if you have new mail, even if you have <b>Check RECENT</b> "
+"enabled."
+msgstr ""
+"האפשרות <b>שנה כותרת בדפדפנים נתמכים</b> תשנה את כותרת החלון של הדפדפן כאשר "
+"מגיע דואר חדש (אפשרות זו מצריכה JavaScript ודפדפן אינטרנט אקספלורר, אך לא "
+"יופיעו הודעות שגיאה בדפדפנים אחרים). אפשרות זו תודיע תמיד על דואר חדש, אפילו "
+"אם סומנה האפשרות <b>ספור רק הודעות שהגיעו לאחרונה</b>."
+
+msgid ""
+"Select from the list of <b>server files</b> the media file to play when new "
+"mail arrives.  Selecting <b>local media</b> will play the file specified in "
+"the <b>local media file</b> box to play from the local computer.  If no file "
+"is specified, the system will use a default from the server."
+msgstr ""
+"בחר מהרשימה של <b>קבצי השרת</b> את קובץ המדיה שברצונך שינגן כאשר מגיע דואר "
+"חדש. בחירת האפשרות <b>קובץ מדיה מקומי</b> ינגן את הקובץ אשר יבחר מהמחשב שלך. "
+"אם לא נבחר שום קובץ המערכת תשתמש בקובץ ברירת המחדל."
+
+msgid "Enable Media Playing"
+msgstr "אפשר ניגון מדיה"
+
+msgid "Check all boxes, not just INBOX"
+msgstr "בדוק את כל התיבות, לא רק את תיבת הדואר הנכנס"
+
+msgid "Count only messages that are RECENT"
+msgstr "ספור רק הודעות שהגיעו לאחרונה"
+
+msgid "Change title on supported browsers."
+msgstr "שנה כותרת בדפדפנים נתמכים."
+
+msgid "requires JavaScript to work"
+msgstr "בכדי לעבוד נחוץ JavaScript"
+
+msgid "Show popup window on new mail"
+msgstr "כשיש הודעות חדשות הצג חלון קטן"
+
+msgid "Select server file:"
+msgstr "בחר קובץ שרת:"
+
+msgid "(local media)"
+msgstr "(מדיה מקומית)"
+
+msgid "Try"
+msgstr "נסה"
+
+msgid "Local Media File:"
+msgstr "קובץ מדיה מקומי:"
+
+msgid "Current File:"
+msgstr "קובץ נוכחי:"
+
+msgid "New Mail"
+msgstr "דואר חדש"
+
+msgid "SquirrelMail Notice:"
+msgstr "הודעת SquirrelMail:"
+
+msgid "You have new mail!"
+msgstr "יש לך דואר חדש!"
+
+msgid "Close Window"
+msgstr "סגור חלון"
+
+msgid "NewMail Options"
+msgstr "אפשרויות דואר חדש"
+
+msgid ""
+"This configures settings for playing sounds and/or showing popup windows "
+"when new mail arrives."
+msgstr ""
+"באפשרותך להגדיר ניגנון צלילים ו\\או פתיחת חלון קטן במקרה שמגיע דואר חדש."
+
+msgid "New Mail Notification options saved"
+msgstr "הגדרות הודעה על דואר חדש נשמרו"
+
+#, c-format
+msgid "%s New Messages"
+msgstr "%s הודעות חדשות"
+
+#, c-format
+msgid "%s New Message"
+msgstr "%s הודעה חדשה"
+
+msgid "Test Sound"
+msgstr "בדוק צלילים"
+
+msgid "Loading the sound..."
+msgstr "טוען את הצליל..."
+
+msgid "Close"
+msgstr "סגור"
+
+msgid "Sent Subfolders Options"
+msgstr "אפשרויות תתי-ספריות של תיקיית דואר יוצא"
+
+msgid "Use Sent Subfolders"
+msgstr "השתמש בתתי-תיקיות תחת דואר יוצא"
+
+msgid "Monthly"
+msgstr "חודשי"
+
+msgid "Quarterly"
+msgstr "רבעוני"
+
+msgid "Yearly"
+msgstr "שנתי"
+
+msgid "Base Sent Folder"
+msgstr ""
+
+msgid "Report as Spam"
+msgstr ""
+
+msgid "SpamCop - Spam Reporting"
+msgstr ""
+
+msgid ""
+"Help fight the battle against unsolicited email.  SpamCop reads the spam "
+"email and determines the correct addresses to send complaints to.  Quite "
+"fast, really smart, and easy to use."
+msgstr ""
+
+msgid "SpellChecker Options"
+msgstr "אפשרויות בודק איות"
+
+msgid ""
+"Here you may set up how your personal dictionary is stored, edit it, or "
+"choose which languages should be available to you when spell-checking."
+msgstr ""
+"ביכולתך להגדיר את המילון האישי שלך, לערוןך אותו, או לבחור את ספת המילון."
+
+msgid "Check Spelling"
+msgstr "בדוק איות"
+
+msgid "Back to &quot;SpellChecker Options&quot; page"
+msgstr "בחזרה לדף &quot;אפשרויות בודק איות&quot;"
+
+msgid "ATTENTION:"
+msgstr "שים לב:"
+
+msgid ""
+"SquirrelSpell was unable to decrypt your personal dictionary. This is most "
+"likely due to the fact that you have changed your mailbox password. In order "
+"to proceed, you will have to supply your old password so that SquirrelSpell "
+"can decrypt your personal dictionary. It will be re-encrypted with your new "
+"password after this.<br>If you haven't encrypted your dictionary, then it "
+"got mangled and is no longer valid. You will have to delete it and start "
+"anew. This is also true if you don't remember your old password -- without "
+"it, the encrypted data is no longer accessible."
+msgstr ""
+"SquirrelSpell לא הצליח לפענח את המילון האישי שלך. רוב הסיכויים שזה בגלל "
+"ששינת את הסיסמא שלך. בכדי להמשיך, עלייך לספק את הסיסמא הישנה שלך על-מנת ש-"
+"SquirrelSpell יוכל לפענח את המילון האישי שלך. הוא יוצפן מחדש בעזרת הסיסמא "
+"החדשה שלך.<br>אם לא הצפנת את המילון שלך, אז כנראה שהוא הושחת ואינו זמין "
+"יותר. עלייך למחוק אותו והתחיל מחדש. זה גם נכון במקרה ושכחת את הסיסמא שלך -- "
+"ללא הסיסמא הישנה המידע המוצפן אינו זמין."
+
+msgid "Delete my dictionary and start a new one"
+msgstr "מחק את המילון שלי והתחל חדש."
+
+msgid "Decrypt my dictionary with my old password:"
+msgstr "פענח את המילון שלי בעזרת הסיסמא הישנה שלי."
+
+msgid "Proceed"
+msgstr "התקדם"
+
+msgid "You must make a choice"
+msgstr "עלייך לבחור אחת מהאפשרויות"
+
+msgid ""
+"You can either delete your dictionary or type in the old password. Not both."
+msgstr "ביכולתך למחוק את המילון הישן או להקליד את סיסמאתך הישנה. לא שניהם."
+
+msgid "This will delete your personal dictionary file. Proceed?"
+msgstr "האם אתה בטוח שברצונך למחוק את המילון האישי הישן שלך?"
+
+msgid "Error Decrypting Dictionary"
+msgstr "שגיאה בפענוח המילון"
+
+msgid "Cute."
+msgstr "חמוד."
+
+msgid "Translator"
+msgstr "מתרגם"
+
+#, fuzzy
+msgid "Saved Translation Options"
+msgstr "אפשרויות תרגום"
+
+msgid "Your server options are as follows:"
+msgstr "אפשרויות השרת שלך הן:"
+
+msgid ""
+"13 language pairs, maximum of 1000 characters translated, powered by Systran"
+msgstr ""
+
+msgid ""
+"10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
+msgstr ""
+
+msgid "12 language pairs, no known limits, powered by Systran"
+msgstr ""
+
+msgid ""
+"767 language pairs, no known limits, powered by Translation Experts's "
+"InterTran"
+msgstr ""
+
+msgid ""
+"8 language pairs, no known limits, powered by GPLTrans (free, open source)"
+msgstr ""
+
+msgid ""
+"You also decide if you want the translation box displayed, and where it will "
+"be located."
+msgstr "אתה גם מחליט האם תוצג קופסאת התרגום, ואיכן היא תמוקם."
+
+msgid "Select your translator:"
+msgstr "בחר את המתרגם שלך:"
+
+msgid "When reading:"
+msgstr "כאשר בקריאה:"
+
+msgid "Show translation box"
+msgstr "הצג קופסאת תרגום"
+
+msgid "to the left"
+msgstr "משמאל"
+
+msgid "in the center"
+msgstr "במרכז"
+
+msgid "to the right"
+msgstr "מימין"
+
+msgid "Translate inside the SquirrelMail frames"
+msgstr "תרגם בתוך המסגרות של SquirrelMail"
+
+msgid "When composing:"
+msgstr "כאשר בכתיבה:"
+
+msgid "Not yet functional, currently does nothing"
+msgstr "לא פעיל עדיין, לעת עתה לא עושה כלום"
+
+msgid "Download this as a file"
+msgstr "הורד כקובץ"
+
+msgid "Translation Options"
+msgstr "אפשרויות תרגום"
+
+msgid ""
+"Which translator should be used when you get messages in a different "
+"language?"
+msgstr "באיזה מתרגם להתשמש כאשר הינך מקבל הודעות בשפות שונות?"
+
+#, c-format
+msgid "%s to %s"
+msgstr "%s ל-%s"
+
+msgid "English"
+msgstr "אנגלית"
+
+msgid "French"
+msgstr "צרפתית"
+
+msgid "German"
+msgstr "גרמנית"
+
+msgid "Italian"
+msgstr "איטלקית"
+
+msgid "Portuguese"
+msgstr "פורטוגזית"
+
+msgid "Spanish"
+msgstr "ספרדית"
+
+msgid "Russian"
+msgstr "רוסית"
+
+msgid "Translate"
+msgstr "תרגם"
+
+msgid "Brazilian Portuguese"
+msgstr "פורטוגזית (ברזיל)"
+
+msgid "Bulgarian"
+msgstr "בולגרית"
+
+msgid "Croatian"
+msgstr "קרואטית"
+
+msgid "Czech"
+msgstr "צ'כית"
+
+msgid "Danish"
+msgstr "דנית"
+
+msgid "Dutch"
+msgstr "הולנדית"
+
+msgid "European Spanish"
+msgstr "ספרדית (אירופה)"
+
+msgid "Finnish"
+msgstr "פינית"
+
+msgid "Greek"
+msgstr "יוונית"
+
+msgid "Hungarian"
+msgstr "הונגרית"
+
+msgid "Icelandic"
+msgstr "איסלנדית"
+
+msgid "Japanese"
+msgstr "יפנית"
+
+msgid "Latin American Spanish"
+msgstr "ספרדית (דרום-אמריקה)"
+
+msgid "Norwegian"
+msgstr "נורווגית"
+
+msgid "Polish"
+msgstr "פולנית"
+
+msgid "Romanian"
+msgstr "רומנית"
+
+msgid "Serbian"
+msgstr "סרבית"
+
+msgid "Slovenian"
+msgstr "סלובנית"
+
+msgid "Swedish"
+msgstr "שוודית"
+
+msgid "Welsh"
+msgstr "וולשית"
+
+msgid "Indonesian"
+msgstr "אינדונזית"
+
+msgid "Latin"
+msgstr "לטינית"
+
+msgid "Address Book"
+msgstr "ספר כתובות"
+
+msgid "Name"
+msgstr "שם"
+
+msgid "E-mail"
+msgstr "כתובת דוא\"ל"
+
+msgid "Info"
+msgstr "מידע"
+
+msgid "Source"
+msgstr "מקור"
+
+msgid "Bcc"
+msgstr "העתקים עיוורים"
+
+msgid "Use Addresses"
+msgstr "השתמש בכתובות"
+
+msgid "Address Book Search"
+msgstr "חיפוש בספר כתובות"
+
+msgid "Search for"
+msgstr "חפש את"
+
+msgid "in"
+msgstr "ב"
+
+msgid "All address books"
+msgstr "כל ספרי הכתובות"
+
+msgid "List all"
+msgstr "הצג הכל"
+
+#, c-format
+msgid "Unable to list addresses from %s"
+msgstr "לא יכול להציג כתובות מ %s"
+
+msgid "Your search failed with the following error(s)"
+msgstr "החיפוש נכשל עם השגיאות הבאות"
+
+msgid "No persons matching your search was found"
+msgstr "לא נמצאו מכותבים המתאימים לתנאי החיפוש"
+
+msgid "Return"
+msgstr "חזור"
+
+msgid "Nickname"
+msgstr "כינוי"
+
+msgid "Must be unique"
+msgstr "חייב להיות ייחודי"
+
+msgid "E-mail address"
+msgstr "כתובת דוא\"ל"
+
+msgid "First name"
+msgstr "שם פרטי"
+
+msgid "Last name"
+msgstr "שם משפחה"
+
+msgid "Additional info"
+msgstr "מידע נוסף"
+
+msgid "No personal address book is defined. Contact administrator."
+msgstr "לא הוגדר ספר כתובות אישי. צור קשר עם מנהל המערכת."
+
+msgid "You can only edit one address at the time"
+msgstr "ביכולתך לערוך ספר כתובות אחד בכל פעם"
+
+msgid "Update address"
+msgstr "עדכן כתובת"
+
+msgid "Unknown error"
+msgstr "שגיאה לא ידועה"
+
+msgid "Add address"
+msgstr "הוסף כתובת"
+
+msgid "Edit selected"
+msgstr "ערוך נבחרים"
+
+msgid "Delete selected"
+msgstr "מחק נבחרים"
+
+#, c-format
+msgid "Add to %s"
+msgstr "הוסף ל %s"
+
+msgid "Original Message"
+msgstr "הודעה מקורית"
+
+msgid "Draft Email Saved"
+msgstr "טיוטת דוא\"ל נשמרה"
+
+msgid "Could not move/copy file. File not attached"
+msgstr "לא יכול להעתיק/להעביר את הקובץ. הקובץ לא צורף."
+
+msgid "Draft Saved"
+msgstr "טיוטה נשמרה"
+
+msgid "Your Message has been sent"
+msgstr "הודעתך נשלחה"
+
+msgid "To:"
+msgstr "אל:"
+
+msgid "CC:"
+msgstr "העתקים:"
+
+msgid "BCC:"
+msgstr "העתקים עיוורים:"
+
+msgid "Subject:"
+msgstr "נושא:"
+
+msgid "Send"
+msgstr "שלח"
+
+msgid "Attach:"
+msgstr "צרף:"
+
+msgid "Add"
+msgstr "הוסף"
+
+msgid "Delete selected attachments"
+msgstr "מחק מצורפים נבחרים"
+
+msgid "Priority"
+msgstr "עדיפות"
+
+msgid "Receipt"
+msgstr "קבלה"
+
+#, fuzzy
+msgid "On Read"
+msgstr "בקריאה"
+
+msgid "On Delivery"
+msgstr "בשליחה"
+
+msgid "Save Draft"
+msgstr "שמור טיוטה"
+
+msgid "You have not filled in the \"To:\" field."
+msgstr "לא מילאת את שדה ה-\"אל\""
+
+msgid "said"
+msgstr "אמר"
+
+msgid "quote"
+msgstr "ציטוט"
+
+msgid "who"
+msgstr "מי"
+
+#, fuzzy
+msgid "Draft folder"
+msgstr "תיקית טיוטות"
+
+msgid "Illegal folder name.  Please select a different name."
+msgstr "שם תיקיה לא חוקי. אנא בחר שם אחר."
+
+msgid "Click here to go back"
+msgstr "לחץ כאן לחזור אחורה"
+
+msgid "You have not selected a folder to delete. Please do so."
+msgstr "לא בחרת תיקיה למחיקה."
+
+msgid "Delete Folder"
+msgstr "מחק תיקיה"
+
+#, fuzzy, c-format
+msgid "Are you sure you want to delete %s?"
+msgstr "האם ברצונך למחוק ארוע זה?"
+
+msgid "Subscribed successfully!"
+msgstr "נרשמת בהצלחה!"
+
+msgid "Unsubscribed successfully!"
+msgstr "בטלת הרשמה בהצלחה!"
+
+msgid "Deleted folder successfully!"
+msgstr "תיקיה נמחקה!"
+
+msgid "Created folder successfully!"
+msgstr "התיקיה נוצרה!"
+
+msgid "Renamed successfully!"
+msgstr "השם שונה בהצלחה!"
+
+msgid "Subscription Unsuccessful - Folder does not exist."
+msgstr ""
+
+msgid "refresh folder list"
+msgstr "רענן רשימת תיקיות"
+
+msgid "Create Folder"
+msgstr "צור תיקיה"
+
+msgid "as a subfolder of"
+msgstr "כתת-תיקיה של"
+
+msgid "None"
+msgstr "כלום"
+
+msgid "Let this folder contain subfolders"
+msgstr "אפשר לתיקיה זו להכיל תת-תיקיות"
+
+msgid "Create"
+msgstr "צור"
+
+msgid "Rename a Folder"
+msgstr "שנה שם תיקיה"
+
+msgid "Select a folder"
+msgstr "בחר תיקיה"
+
+msgid "Rename"
+msgstr "שנה שם"
+
+msgid "No folders found"
+msgstr "לא נמצאו תיקיות"
+
+msgid "No folders were found to unsubscribe from!"
+msgstr "לא נמצאו תיקיות לביטול הרשמה מהן!"
+
+msgid "No folders were found to subscribe to!"
+msgstr "לא נמצאו תיקיות להרשם אליהן!"
+
+#, fuzzy
+msgid "Subscribe to:"
+msgstr "הרשם"
+
+msgid "You have not selected a folder to rename. Please do so."
+msgstr "לא בחרת תיקיה אשר ברצונך לשנות את שמה."
+
+msgid "Rename a folder"
+msgstr "שינוי שם תיקיה"
+
+msgid "New name:"
+msgstr "שם חדש:"
+
+msgid "ERROR: Help files are not in the right format!"
+msgstr ""
+
+#, c-format
+msgid ""
+"The help has not been translated to %s.  It will be displayed in English "
+"instead."
+msgstr "העזרה עדיין לא תורגמה ל %s. היא תוצג באנגלית במקום זאת."
+
+msgid "Some or all of the help documents are not present!"
+msgstr "חלק או כל ממסמכי העזרה לא נמצאו!"
+
+msgid "Table of Contents"
+msgstr "תוכן עניינים"
+
+msgid "Top"
+msgstr "למעלה"
+
+msgid "Viewing an image attachment"
+msgstr "מציג תמונה מצורפת"
+
+msgid "View message"
+msgstr "הצג הודעה"
+
+#, fuzzy
+msgid "Not available"
+msgstr "לא זמין"
+
+msgid "purge"
+msgstr "מחק"
+
+msgid "Last Refresh"
+msgstr "רוענן לאחרונה"
+
+msgid "Save folder tree"
+msgstr ""
+
+msgid "Login"
+msgstr "כניסה"
+
+#, c-format
+msgid "%s Login"
+msgstr "כניסה ל-%s"
+
+msgid "Name:"
+msgstr "שם משתמש:"
+
+msgid "No messages were selected."
+msgstr "לא נבחרו הודעות."
+
+msgid "Message Highlighting"
+msgstr "הדגשת הודעות"
+
+msgid "subject"
+msgstr "נושא"
+
+msgid "No highlighting is defined"
+msgstr "לא הוגדרו הדגשות"
+
+msgid "Identifying name"
+msgstr "שם מתאר"
+
+msgid "Color"
+msgstr "צבע"
+
+msgid "Dark Blue"
+msgstr "כחול כהה"
+
+msgid "Dark Green"
+msgstr "ירוק כהה"
+
+msgid "Dark Yellow"
+msgstr "צהוב כהה"
+
+msgid "Dark Cyan"
+msgstr "תכלת כהה"
+
+msgid "Dark Magenta"
+msgstr "אדום כהה"
+
+msgid "Light Blue"
+msgstr "כחול בהיר"
+
+msgid "Light Green"
+msgstr "ירוק בהיר"
+
+msgid "Light Yellow"
+msgstr "צהוב בהיר"
+
+msgid "Light Cyan"
+msgstr "תכלת בהיר"
+
+msgid "Light Magenta"
+msgstr "אדום בהיר"
+
+msgid "Dark Gray"
+msgstr "אפור כהה"
+
+msgid "Medium Gray"
+msgstr "אפור בינוני"
+
+msgid "Light Gray"
+msgstr "אפור בהיר"
+
+msgid "White"
+msgstr "לבן"
+
+msgid "Other:"
+msgstr "אחר:"
+
+msgid "Ex: 63aa7f"
+msgstr "לדוגמא: 63aa7f"
+
+msgid "Matches"
+msgstr "התאם לטקסט"
+
+#, c-format
+msgid "Alternate Identity %d"
+msgstr "זהות משנית %d"
+
+msgid "Advanced Identities"
+msgstr "זהויות מרובות"
+
+msgid "Default Identity"
+msgstr "זהות ברירת-מחדל"
+
+msgid "Add a New Identity"
+msgstr "הוסף זהות חדשה"
+
+msgid "E-Mail Address"
+msgstr "כתובת דוא\"ל"
+
+msgid "Save / Update"
+msgstr "שמור \\ עדכן"
+
+msgid "Make Default"
+msgstr "הפוך לברירת מחדל"
+
+msgid "Move Up"
+msgstr "העבר למעלה"
+
+msgid "Index Order"
+msgstr "סידור"
+
+msgid "Checkbox"
+msgstr "תיבת בחירה"
+
+msgid "Flags"
+msgstr "סימון"
+
+msgid ""
+"The index order is the order that the columns are arranged in the message "
+"index.  You can add, remove, and move columns around to customize them to "
+"fit your needs."
+msgstr ""
+"ביכולתך לשנות את הסדר של העמודות בתיבת הדואר. ביכולתך להוסיף, להוריד או "
+"להזיז עמודות."
+
+msgid "up"
+msgstr "העלה"
+
+msgid "down"
+msgstr "הורד"
+
+msgid "remove"
+msgstr "הסר"
+
+msgid "Return to options page"
+msgstr "חזור לדף אפשרויות"
+
+msgid "Personal Information"
+msgstr "מידע אישי"
+
+msgid "Display Preferences"
+msgstr "אפשרויות תצוגה"
+
+msgid "Folder Preferences"
+msgstr "אפשרויות תיקיה"
+
+msgid "Successfully Saved Options"
+msgstr "אפשרויות נשמרו בהצלחה"
+
+msgid "Refresh Folder List"
+msgstr "רענן רשימת תיקיות"
+
+msgid "Refresh Page"
+msgstr "רענן דף"
+
+msgid ""
+"This contains personal information about yourself such as your name, your "
+"email address, etc."
+msgstr "דף זה מכיל הגדרות אישיות כגון, שמך, כתובת דוא\"ל שלך וכ\"ו..."
+
+msgid ""
+"You can change the way that SquirrelMail looks and displays information to "
+"you, such as the colors, the language, and other settings."
+msgstr ""
+"ביכולתך לשנות את הגדרות התצוגה של תיבת הדואר שלך כגון צבעים, שפה, ועוד..."
+
+msgid ""
+"Based upon given criteria, incoming messages can have different background "
+"colors in the message list.  This helps to easily distinguish who the "
+"messages are from, especially for mailing lists."
+msgstr ""
+"ביכולתך לצבוע הודעות מסוימות בתיבת הדואר שלך לפי קריטריונים שונים (כגון שם "
+"השולח, נושא ההודעה וכ\"ו). אפשרות זו עוזרת להבחין בדואר אשר מגיע ממכותב "
+"מסוים, מכיל נושא מסוים ועוד..."
+
+msgid ""
+"These settings change the way your folders are displayed and manipulated."
+msgstr "הגדרות אלו משנות את תצוגת התיקיות והצורה בה הן מנוהלות."
+
+msgid ""
+"The order of the message index can be rearranged and changed to contain the "
+"headers in any order you want."
+msgstr ""
+"הצורה בה הודעות מסודרות ומדפסות ניתנת לסידור מחדש ולשינוי כך שיכילו את "
+"הכותרות שברצונך לראות."
+
+msgid "Message not printable"
+msgstr "ההודעה לא ניתנת להדפסה"
+
+msgid "Printer Friendly"
+msgstr "גירסאת הדפסה"
+
+msgid "CC"
+msgstr "העתקים"
+
+msgid "Print"
+msgstr "הדפס"
+
+msgid "View Printable Version"
+msgstr "הצג גירסאת הדפסה"
+
+msgid "Read:"
+msgstr "נקרא:"
+
+msgid "Your message"
+msgstr "ההודעה שלך"
+
+msgid "Sent:"
+msgstr "נשלח:"
+
+#, c-format
+msgid "Was displayed on %s"
+msgstr "נקרא ב %s"
+
+msgid "less"
+msgstr "פחות"
+
+msgid "more"
+msgstr "יותר"
+
+msgid "Mailer"
+msgstr "תכנית דיוור"
+
+msgid "Read receipt"
+msgstr "קבלה על קריאה"
+
+msgid "send"
+msgstr "שלח"
+
+msgid "requested"
+msgstr "מבוקש"
+
+msgid ""
+"The message sender has requested a response to indicate that you have read "
+"this message. Would you like to send a receipt?"
+msgstr ""
+"השולח של ההודעה ביקש שתשלח קבלה בעת קריאת ההודעה. האם ברצונך לשלוח אלי קבלה "
+"כעת?"
+
+msgid "Send read receipt now"
+msgstr "שלח קבלה על קריאה עכשיו"
+
+#, fuzzy
+msgid "Search results"
+msgstr "תוצאות חיפוש"
+
+msgid "Message List"
+msgstr "רשימת הודעות"
+
+msgid "Resume Draft"
+msgstr "המשך טיוטה"
+
+msgid "Edit Message as New"
+msgstr "ערוך הודעה כחדשה"
+
+#, fuzzy
+msgid "View Message"
+msgstr "הצג הודעה"
+
+#, fuzzy
+msgid "Forward as Attachment"
+msgstr "מצורפים"
+
+msgid "Reply"
+msgstr "השב"
+
+msgid "Reply All"
+msgstr "השב לכל"
+
+msgid "View Full Header"
+msgstr "הצג כל הכותרות"
+
+msgid "Attachments"
+msgstr "מצורפים"
+
+msgid "Folder:"
+msgstr "תיקיה:"
+
+msgid "edit"
+msgstr "ערוך"
+
+msgid "search"
+msgstr "חיפוש"
+
+msgid "delete"
+msgstr "מחק"
+
+msgid "Recent Searches"
+msgstr "חיפושים אחרונים"
+
+msgid "save"
+msgstr "שמור"
+
+msgid "forget"
+msgstr "שכח"
+
+msgid "Current Search"
+msgstr "חיפוש נוכחי"
+
+msgid "Body"
+msgstr "גוף ההודעה"
+
+msgid "Everywhere"
+msgstr "כל השדות"
+
+msgid "Search Results"
+msgstr "תוצאות חיפוש"
+
+msgid "No Messages Found"
+msgstr "לא נמצאו הודעות"
+
+msgid "You have been successfully signed out."
+msgstr "התנתקת מהמערכת בהצלחה."
+
+msgid "Click here to log back in."
+msgstr "לחץ כאן בכדי להתחבר מחדש."
+
+msgid "Viewing a Business Card"
+msgstr "מציג כרטיס ביקור"
+
+msgid "Title"
+msgstr "כותרת"
+
+msgid "Email"
+msgstr "דוא\"ל"
+
+msgid "Web Page"
+msgstr "דף בית"
+
+msgid "Organization / Department"
+msgstr "אירגון \\ מחלקה"
+
+msgid "Address"
+msgstr "כתובת"
+
+msgid "Work Phone"
+msgstr "טלפון בעבודה"
+
+msgid "Home Phone"
+msgstr "טלפון בבית"
+
+msgid "Cellular Phone"
+msgstr "טלפון סלולרי"
+
+msgid "Fax"
+msgstr "פקס"
+
+msgid "Note"
+msgstr "פתק"
+
+msgid "Add to Addressbook"
+msgstr "הוסף לספר כתובות"
+
+msgid "Title & Org. / Dept."
+msgstr "תואר וארגון \\ מחלקה"
+
+msgid "Viewing Full Header"
+msgstr "מציג כל הכותרות"
+
+msgid "Viewing a text attachment"
+msgstr "מציג טקסט מצורף"
+
+#~ msgid "Viewing a message attachment"
+#~ msgstr "מציג מצורף להודעה"
+
+#~ msgid "Save to:"
+#~ msgstr "העבר אל:"
+
+#~ msgid "Cc:"
+#~ msgstr "העתקים:"
+
+#~ msgid "Bcc:"
+#~ msgstr "העתקים עיוורים:"
+
+#~ msgid "<No subject>"
+#~ msgstr ">ללא נושא<"
+
+#~ msgid "Enable request/confirm reading"
+#~ msgstr "אפשר בקשת\\אישור קריאה"
+
+#~ msgid "Use receive date for sort"
+#~ msgstr "השתמש בתאריך הקבלה למיון"
+
+#~ msgid "Use References header for thread sort"
+#~ msgstr "השתמש בכותרות הערה למיון"
+
+#~ msgid "There was an error contacting the mail server."
+#~ msgstr "היתה שגיאה ביצירת קשר עם שרת הדואר."
+
+#~ msgid "Contact your administrator for help."
+#~ msgstr "צור קשר עם מנהל המערכת לקבלת עזרה."
+
+#~ msgid "No Messages found"
+#~ msgstr "לא נמצאו הודעות"
+
+#~ msgid ""
+#~ "Please contact your system administrator and report the following error:"
+#~ msgstr "אנא צור קשר עם מנהל המערכת ודווח על השגיאה הבאה."
+
+#~ msgid "No To Address"
+#~ msgstr "חסר מכותב (אל)"
+
+#~ msgid "Found"
+#~ msgstr "נמצא"
+
+#~ msgid "messages"
+#~ msgstr "הודעות"
+
+#~ msgid "Error decoding mime structure.  Report this as a bug!"
+#~ msgstr "שגיאה בפענוח מבנה סוג קובץ. אנא דווח על באג זה!"
+
+#~ msgid "Submit message"
+#~ msgstr "שלח הודעה"
+
+#~ msgid "I tried to execute '%s', but it returned:"
+#~ msgstr "ניסיתי לבצע את %s, אבל הוא החזיר:"
+
+#~ msgid "SquirrelSpell is misconfigured."
+#~ msgstr "SquirrelSpell לא מוגדר נכון"
+
+#~ msgid "SquirrelSpell Results"
+#~ msgstr "תוצאות SquirrelSpell"
+
+#~ msgid "Spellcheck completed. Commit changes?"
+#~ msgstr "בדיק איות הסתיימה. לבצע שינויים?"
+
+#~ msgid "No changes were made."
+#~ msgstr "לא נעשו שינויים."
+
+#~ msgid "Now saving your personal dictionary... Please wait."
+#~ msgstr "שומר כעת את המילון האישי שלך... אנא המתן."
+
+#~ msgid "Found %s errors"
+#~ msgstr "נמצאו %s שגיאות"
+
+#~ msgid "Line with an error:"
+#~ msgstr "שורה עם שגיאה:"
+
+#~ msgid "Error:"
+#~ msgstr "שגיאה:"
+
+#~ msgid "Suggestions"
+#~ msgstr "הצעות"
+
+#~ msgid "Change to:"
+#~ msgstr "שנה ל:"
+
+#~ msgid "Occurs times:"
+#~ msgstr "מספר חזרות:"
+
+#~ msgid "Change this word"
+#~ msgstr "שנה מילה זו"
+
+#~ msgid "Change"
+#~ msgstr "שנה"
+
+#~ msgid "Change ALL occurances of this word"
+#~ msgstr "שנה את כל המקרים למילה זו"
+
+#~ msgid "Change All"
+#~ msgstr "שנה הכל"
+
+#~ msgid "Ignore this word"
+#~ msgstr "התעלם ממלה זו"
+
+#~ msgid "Ignore"
+#~ msgstr "התעלם"
+
+#~ msgid "Ignore ALL occurances this word"
+#~ msgstr "התעלם מכל המקרים למילה זו"
+
+#~ msgid "Ignore All"
+#~ msgstr "התעלם מהכל"
+
+#~ msgid "Add this word to your personal dictionary"
+#~ msgstr "הוסף מילה זו למילון האישי שלך"
+
+#~ msgid "Add to Dic"
+#~ msgstr "הוסף למילון"
+
+#~ msgid "Close and Commit"
+#~ msgstr "סגור ובצע"
+
+#~ msgid "The spellcheck is not finished. Really close and commit changes?"
+#~ msgstr ""
+#~ "בדיקת האיות לא הושלמה. האם אתה בטוח שברצונך לסגור ולבצע את השינויים?"
+
+#~ msgid "Close and Cancel"
+#~ msgstr "סגור ובטל"
+
+#~ msgid "The spellcheck is not finished. Really close and discard changes?"
+#~ msgstr ""
+#~ "בדיקת האיות לא הושלמה. האם אתה בטוח שברצונך לסגור ולבטל את השינויים?"
+
+#~ msgid "No errors found"
+#~ msgstr "לא נמצאו שגיאות"
+
+#~ msgid ""
+#~ "Your personal dictionary has been <strong>encrypted</strong> and is now "
+#~ "stored in an <strong>encrypted format</strong>."
+#~ msgstr ""
+#~ "המילון האישי שלך <strong>הוצפן</strong> והוא מאוחסן כעת <strong>בצורה "
+#~ "מאובטחת</strong>."
+
+#~ msgid ""
+#~ "Your personal dictionary has been <strong>decrypted</strong> and is now "
+#~ "stored as <strong>clear text</strong>."
+#~ msgstr ""
+#~ "המילון האישי שלך <strong>פוענח</strong> והוא מאוחסן כעת <strong>בצורה "
+#~ "רגילה</strong>."
+
+#~ msgid "Personal Dictionary Crypto Settings"
+#~ msgstr "הגדרות הצפנה למילון אישי"
+
+#~ msgid "Your personal dictionary was erased."
+#~ msgstr "המילון האישי שלך נמחק."
+
+#~ msgid "Dictionary Erased"
+#~ msgstr "מילון נמחק"
+
+#~ msgid ""
+#~ "Your personal dictionary was erased. Please close this window and click "
+#~ "\"Check Spelling\" button again to start your spellcheck over."
+#~ msgstr ""
+#~ "המילון האישי שלך נמחק. אנא סגור חלון זה ולחץ שוב על הכפתור \"בדוק איות\" "
+#~ "בכדי להתחיל מחדש את בדיקת האיות."
+
+#~ msgid "Close this Window"
+#~ msgstr "סגור חלון זה"
+
+#~ msgid ""
+#~ "Your personal dictionary was re-encrypted successfully. Now return to the "
+#~ "&quot;SpellChecker options&quot; menu and make your selection again."
+#~ msgstr ""
+#~ "המילון האישי שלך הוצפן מחדש בהצלחה. כעת חזור לתפריט &quot;אפשרויות בודק "
+#~ "האיות&quot; ובצע את בחירתך בשנית."
+
+#~ msgid "Successful Re-encryption"
+#~ msgstr "הצפנה מחדש מוצלחת"
+
+#~ msgid ""
+#~ "Your personal dictionary was re-encrypted successfully. Please close this "
+#~ "window and click \"Check Spelling\" button again to start your spellcheck "
+#~ "over."
+#~ msgstr ""
+#~ "המילון האישי שלך הוצפן מחדש בהצלחה. אנא סגור חלון זה ולחץ על \"בדוק איות"
+#~ "\" שובבכדי להתחיל מחדש את בדיקת האיות."
+
+#~ msgid "Dictionary re-encrypted"
+#~ msgstr "מילון הוצפן שוב"
+
+#~ msgid "Personal Dictionary"
+#~ msgstr "מילון אישי"
+
+#~ msgid "No words in your personal dictionary."
+#~ msgstr "אין מילים במילון האישי שלך"
+
+#~ msgid "Please check any words you wish to delete from your dictionary."
+#~ msgstr "אנא בחר את המילים אשר ברצונך למחוק מהמילון האישי שלך."
+
+#~ msgid "%s dictionary"
+#~ msgstr "מילון %s"
+
+#~ msgid "Delete checked words"
+#~ msgstr "מחק מילים נבחרות"
+
+#~ msgid "Edit your Personal Dictionary"
+#~ msgstr "ערוך את המילון האישי שלך"
+
+#~ msgid "Please make your selection first."
+#~ msgstr "אנא בצע את הבחירה קודם."
+
+#~ msgid ""
+#~ "This will encrypt your personal dictionary and store it in an encrypted "
+#~ "format. Proceed?"
+#~ msgstr ""
+#~ "האם אתה בטוח שברצונך להצפין, ולאחסן בצורה מוצפנת את המילון האישי שלך?"
+
+#~ msgid ""
+#~ "This will decrypt your personal dictionary and store it in a clear-text "
+#~ "format. Proceed?"
+#~ msgstr "האם אתה בטוח שברצונך לפענח, ולאחסן בצורה רגילה את המילון האישי שלך?"
+
+#~ msgid ""
+#~ "<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
+#~ "helps protect your privacy in case the web-mail system gets compromized "
+#~ "and your personal dictionary ends up stolen. It is currently encrypted "
+#~ "with the password you use to access your mailbox, making it hard for "
+#~ "anyone to see what is stored in your personal dictionary.</p> "
+#~ "<p><strong>ATTENTION:</strong> If you forget your password, your personal "
+#~ "dictionary will become unaccessible, since it can no longer be decrypted. "
+#~ "If you change your mailbox password, SquirrelSpell will recognize it and "
+#~ "prompt you for your old password in order to re-encrypt the dictionary "
+#~ "with a new key.</p>"
+#~ msgstr ""
+#~ "<p>המילון האישי שלך נמצא כעת <strong>במצב מוצפן</strong>. זה עוזר לשמור "
+#~ "על הפרטיות שלך במקרה והמילון נגנב. כרגע הוא מוצפן בעזרת הסיסמא של תיבת "
+#~ "הדואר שלך, מה שמקשה על מי שרוצה לראות את המידע המאוחסן במילון האישי שלך.</"
+#~ "p> <p><strong>שים לב:</strong> אם שכחת את הסיסמא שלך, המילון האישי יהפך "
+#~ "ללא זמין, מכיוון שלא ניתן לפענח את הקידוד. במקרה ותשנה את סיסמאת הדואר "
+#~ "שלך, SquirrelMail יזהה זאת ויבקש ממך להכניס את הסיסמא הישנה בכדי להצפין "
+#~ "את המילון בעזרת הסיסמא החדשה.</p>"
+
+#~ msgid ""
+#~ "Please decrypt my personal dictionary and store it in a clear-text format."
+#~ msgstr "פענח בבקשה את המילון האישי שלי ואחסן אותו בצורה רגילה."
+
+#~ msgid "Change crypto settings"
+#~ msgstr "שנה הגדרות הצפנה"
+
+#~ msgid ""
+#~ "<p>Your personal dictionary is <strong>currently not encrypted</strong>. "
+#~ "You may wish to encrypt your personal dictionary to protect your privacy "
+#~ "in case the webmail system gets compromized and your personal dictionary "
+#~ "file gets stolen. When encrypted, the file's contents look garbled and "
+#~ "are hard to decrypt without knowing the correct key (which is your "
+#~ "mailbox password).</p> <strong>ATTENTION:</strong> If you decide to "
+#~ "encrypt your personal dictionary, you must remember that it gets &quot;"
+#~ "hashed&quot; with your mailbox password. If you forget your mailbox "
+#~ "password and the administrator changes it to a new value, your personal "
+#~ "dictionary will become useless and will have to be created anew. However, "
+#~ "if you or your system administrator change your mailbox password but you "
+#~ "still have the old password at hand, you will be able to enter the old "
+#~ "key to re-encrypt the dictionary with the new value.</p>"
+#~ msgstr ""
+#~ "<p>המילון האישי שלך נמצא כעת <strong>במצב רגיל</strong>. אם ברצונך להגן "
+#~ "על פרטיות המילון האישי שלך במקרה שהוא נגנב, עלייך להציפנו. כאשר במצב "
+#~ "מוצפן, תכולת הקובץ נראת מעוותת, וקשה לפענוח ללא המפתח (שהוא סיסמאת תיבת "
+#~ "הדואר שלך).</p> <p><strong>שים לב:</strong> אם הינך מחליט שברצונך להצפין "
+#~ "את המילון האישי שלך, עלייך לזכור שהוא מוצפן בעזרת סיסמאת תיבת הדואר שלך. "
+#~ "במקרה ושכחת את הסיסמא ומנהל המערכת שינה אותה, המילון האישי שלך יהיה חסר "
+#~ "שימוש ויהיה עלייך להתחיל מחדש. בכל אופן, במקרה ומנהל המערכת שינה את "
+#~ "הסיסמא שלך, והינך זוכר את הסיסמא הישנה, יהיה ביכולתך להקליד את הסיסמא "
+#~ "הישנה ולהצפין מחדש את המילון בעזרת הסיסמא החדשה.</p>"
+
+#~ msgid ""
+#~ "Please encrypt my personal dictionary and store it in an encrypted format."
+#~ msgstr "הצפן בבקשה את המילון האישי שלי ואחסן אותו בצורה מוצפנת."
+
+#~ msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
+#~ msgstr "מוחק את הרשומות הבאות מהמילון <strong>%s</strong>:"
+
+#~ msgid "All done!"
+#~ msgstr "הכל סויים!"
+
+#~ msgid "Personal Dictionary Updated"
+#~ msgstr "עודכן המילון האישי"
+
+#~ msgid "No changes requested."
+#~ msgstr "לא נתבקשו שינויים."
+
+#~ msgid "Please wait, communicating with the server..."
+#~ msgstr "אנא המתן, יוצר קשר עם השרת..."
+
+#~ msgid ""
+#~ "Please choose which dictionary you would like to use to spellcheck this "
+#~ "message:"
+#~ msgstr "אנא בחר באיזה מילון ברצונך להשתמש לבדיקת האיות של הודעה זו:"
+
+#~ msgid "SquirrelSpell Initiating"
+#~ msgstr "מאתחל את SquirrelSpell"
+
+#~ msgid ""
+#~ "Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
+#~ "default dictionary."
+#~ msgstr ""
+#~ "הגדרות הותאמו ל: <strong>%s</strong> עם <strong>%s</strong> כמילון ברירת "
+#~ "המחדל."
+
+#~ msgid ""
+#~ "Using <strong>%s</strong> dictionary (system default) for spellcheck."
+#~ msgstr ""
+#~ "משתמש במילון <strong>%s</strong> (ברירת מחדל של המערכת) לבדיקת איות."
+
+#~ msgid "International Dictionaries Preferences Updated"
+#~ msgstr "הגדרות מילון בינלאומי עודכנו"
+
+#~ msgid ""
+#~ "Please check any available international dictionaries which you would "
+#~ "like to use when spellchecking:"
+#~ msgstr "אנא סמן את כל המילונים הבינלאומיים שברצונך להשתמש בבדיק איות:"
+
+#~ msgid "Make this dictionary my default selection:"
+#~ msgstr "הפוך מילון זה לברירת המחדל שלי:"
+
+#~ msgid "Make these changes"
+#~ msgstr "בצע שינויים אלו"
+
+#~ msgid "Add International Dictionaries"
+#~ msgstr "הוסף מילונים בינלאומיים"
+
+#~ msgid "Please choose which options you wish to set up:"
+#~ msgstr "אנא בחר את האפשרויות שברצונך להגדיר:"
+
+#~ msgid "Edit your personal dictionary"
+#~ msgstr "ערוך את המילון האישי שלך"
+
+#~ msgid "Set up international dictionaries"
+#~ msgstr "הכן מילונים בינלאומיים"
+
+#~ msgid "Encrypt or decrypt your personal dictionary"
+#~ msgstr "הצפן או פענח את המילון האישי שלך"
+
+#~ msgid "SquirrelSpell Options Menu"
+#~ msgstr "תפריט אפשרויות SquirrelSpell"
+
+#~ msgid "NOOP failed. Server not RFC 1939 compliant"
+#~ msgstr "NOOP נכשל. שרת אינו תואם RFC 1939"
+
+#~ msgid "Take Address"
+#~ msgstr "הוסף כתובת"
+
+#~ msgid "Address Book Take"
+#~ msgstr "הוסף לספר כתובות"
+
+#~ msgid "Left aligned"
+#~ msgstr "מוצמד לשמאל"
+
+#~ msgid "Centered"
+#~ msgstr "ממורכז"
+
+#~ msgid "Right aligned"
+#~ msgstr "מוצמד לימין"
+
+#~ msgid "on the Read screen"
+#~ msgstr "במסך הקריאה"
+
+#~ msgid "Hide the box"
+#~ msgstr "הסתר את הקופסא"
+
+#~ msgid "Try to verify addresses"
+#~ msgstr "נסה לוודא כתובת דוא\"ל"

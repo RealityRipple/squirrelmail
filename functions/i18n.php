@@ -1349,10 +1349,10 @@ $languages['ar']['NAME']    = 'Arabic';
 $languages['ar']['CHARSET'] = 'windows-1256';
 $languages['ar']['DIR']     = 'rtl';
 
-$languages['he_HE']['NAME']    = 'Hebrew';
-$languages['he_HE']['CHARSET'] = 'windows-1255';
-$languages['he_HE']['DIR']     = 'rtl';
-$languages['he']['ALIAS']      = 'he_HE';
+$languages['he_IL']['NAME']    = 'Hebrew';
+$languages['he_IL']['CHARSET'] = 'windows-1255';
+$languages['he_IL']['DIR']     = 'rtl';
+$languages['he']['ALIAS']      = 'he_IL';
 
 
 /* Detect whether gettext is installed. */
