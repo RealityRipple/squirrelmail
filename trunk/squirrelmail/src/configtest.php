@@ -14,7 +14,8 @@
  ************************************************************/
 
 function do_err($str, $exit = TRUE) {
-    echo '<p><font color="red"><b>ERROR:</b></font> ' .$str. "</p>\n";
+    global $IND;
+    echo '<p>'.$IND.'<font color="red"><b>ERROR:</b></font> ' .$str. "</p>\n";
     if($exit) {
          echo '</body></html>';
          exit;
@@ -46,7 +47,7 @@ if (file_exists(SM_PATH . 'config/config.php')) {
 
 <p>This script will try to check some aspects of your SquirrelMail configuration
 and point you to errors whereever it can find them. You need to go run <tt>conf.pl</tt>
-in this directory first before you run this script.</p>
+in the <tt>config/</tt> directory first before you run this script.</p>
 
 <?php
 
@@ -227,7 +228,7 @@ fclose($stream);
 
 echo $IND . 'IMAP server OK (<tt><small>'.trim($imapline)."</small></tt>)<br />\n";
 
-echo "Checking i18n settings:<br />\n";
+echo "Checking internationalization (i18n) settings:<br />\n";
 echo "$IND gettext - ";
 if (function_exists('gettext')) {
     echo "Gettext functions are available. You must have appropriate system locales compiled.<br />\n";
@@ -268,42 +269,58 @@ if ( (!ini_get('safe_mode')) ||
     echo "Webmail users can't change their time zone settings.<br />\n";
 }
 
-// Pear DB tests
-echo "Checking PHP Pear DB support:<br />\n";
-@include_once('DB.php');
-if (class_exists('DB')) {
-    echo "$IND PHP Pear DB support is present.<br />\n";
-    $db_functions=array(
-	'dbase' => 'dbase_open', 
-	'fbsql' => 'fbsql_connect', 
-	'interbase' => 'ibase_connect', 
-	'informix' => 'ifx_connect',
-	'msql' => 'msql_connect',
-	'mssql' => 'mssql_connect',
-	'mysql' => 'mysql_connect',
-	'mysqli' => 'mysqli_connect',
-	'oci8' => 'ocilogon',
-	'odbc' => 'odbc_connect',
-	'pgsql' => 'pgsql_connect',
-	'sqlite' => 'sqlite_open',
-	'sybase' => 'sybase_connect'
-    );
-    $pear_db_support="";
-    foreach ($db_functions as $db => $function)
-	if (function_exists($function)) $pear_db_support .= $db . " ";
-    if ($pear_db_support!="") {
-	echo "$IND Supported backends: $pear_db_support <br />\n";
-    } else {
-	echo "$IND Pear DB support is present, but none of database backends is supported <br />\n";
-    }
-} else {
-    echo "$IND PHP Pear DB support is not available.<br />\n";
-}
 
-// other possible checks:
-// ? prefs/abook DSN
-// ? actually start a session to see if it works
-// ? ...
+// Pear DB tests
+echo "Checking database functions...<br />\n";
+if($addrbook_dsn || $prefs_dsn || $addrbook_global_dsn) {
+	@include_once('DB.php');
+	if (class_exists('DB')) {
+	    echo "$IND PHP Pear DB support is present.<br />\n";
+	    $db_functions=array(
+		'dbase' => 'dbase_open', 
+		'fbsql' => 'fbsql_connect', 
+		'interbase' => 'ibase_connect', 
+		'informix' => 'ifx_connect',
+		'msql' => 'msql_connect',
+		'mssql' => 'mssql_connect',
+		'mysql' => 'mysql_connect',
+		'mysqli' => 'mysqli_connect',
+		'oci8' => 'ocilogon',
+		'odbc' => 'odbc_connect',
+		'pgsql' => 'pgsql_connect',
+		'sqlite' => 'sqlite_open',
+		'sybase' => 'sybase_connect'
+	    );
+
+	    $dsns = array();
+	    if($prefs_dsn) $dsns['preferences'] = $prefs_dsn;
+	    if($addrbook_dsn) $dsns['addressbook'] = $addrbook_dsn;
+	    if($addrbook_global_dsn) $dsns['global addressbook'] = $addrbook_global_dsn;
+	    
+            foreach($dsns as $type => $dsn) {
+	        $dbtype = array_shift(explode(':', $dsn));
+	        if(isset($db_functions[$dbtype]) && function_exists($db_functions[$dbtype])) {
+		    echo "$IND$dbtype database support present.<br />\n";
+
+		    // now, test this interface:
+
+		    $dbh = DB::connect($dsn, true);
+                    if (DB::isError($dbh)) {
+                        do_err('Database error: '. DB::errorMessage($dbh) . ' in ' .$type .' DSN.');
+                    }
+		    $dbh->disconnect();
+		    echo "$IND$type database connect successful.<br />\n";
+		    
+		} else {
+		    do_err($db.' database support not present!');
+		}
+            }
+	} else {
+	    do_err('Required PHP Pear DB support is not available.');;
+	}
+} else {
+    echo $IND."not using database functionality.<br />\n";
+}
 ?>
 
 <p>Congratulations, your SquirrelMail setup looks fine to me!</p>
