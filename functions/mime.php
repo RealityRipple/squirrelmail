@@ -412,10 +412,16 @@
       // that it is the first one.  That is usually the case anyway.
       if (!$ent_id) $ent_id = 1;
 
+      // Don't kill the connection if the browser is over a dialup
+      // and it would take over 30 seconds to download it.
+      set_time_limit(0);
+      
       fputs ($imap_stream, "a001 FETCH $id BODY[$ent_id]\r\n");
 	  $cnt = 0;
 	  $continue = true;
 	  	$read = fgets ($imap_stream,4096);
+		// This could be bad -- if the section has 'a001 OK'
+		// or similar, it will kill the download.
 		while (!ereg("^a001 (OK|BAD|NO)(.*)$", $read, $regs)) {
 			if (trim($read) == ")==") {
 				$read1 = $read;
