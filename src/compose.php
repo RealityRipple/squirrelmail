@@ -359,6 +359,17 @@ elseif (isset($sigappend)) {
     if (!isset($action)) $action = '';
 
     $values = newMail($imapConnection,$mailbox,$passed_id,$passed_ent_id, $action, $session);
+    /* in case the origin is not read_body.php */
+    if (isset($send_to)) {
+       $values['send_to'] = $send_to;
+    }
+    if (isset($send_to_cc)) {
+       $values['send_to_cc'] = $send_cc;
+    }
+    if (isset($send_to_bcc)) {
+       $values['send_to_bcc'] = $send_bcc;
+    }
+    
     showInputForm($session, $values);
     sqimap_logout($imapConnection);
 
@@ -384,6 +395,17 @@ elseif (isset($sigappend)) {
     if (!isset($action)) $action = '';
     
     $values = newMail($imapConnection,$mailbox,$passed_id,$passed_ent_id, $action, $session);
+
+    /* in case the origin is not read_body.php */
+    if (isset($send_to)) {
+       $values['send_to'] = $send_to;
+    }
+    if (isset($send_to_cc)) {
+       $values['send_to_cc'] = $send_cc;
+    }
+    if (isset($send_to_bcc)) {
+       $values['send_to_bcc'] = $send_bcc;
+    }
     showInputForm($session, $values);
     sqimap_logout($imapConnection);
 }
