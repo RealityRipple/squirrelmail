@@ -592,7 +592,7 @@ function translate_form_otenet($message) {
  * @access private
  */
 function translate_form_promt($message) {
-    translate_new_form('http://www.translate.ru/text.asp#tr_form');
+    translate_new_form('http://www.online-translator.com/text.asp#tr_form');
     echo '<input type="hidden" name="status" value="translate">';
     echo "<input type=\"hidden\" name=\"source\" value=\"$message\">";
     echo _("Interface language")." : ";
