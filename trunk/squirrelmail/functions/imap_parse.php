@@ -126,7 +126,7 @@ function sqimap_parse_RFC822Header ($read, $hdr) {
 	     break;
 	   case 'c': /* Cc */
     	     if (strtolower(substr($line, 0, 3)) == "cc:") {
-        	$hdr->cc = sqimap_parse_address(trim(substr($line, 9, strlen($line) - 10)), true);
+        	$hdr->cc = sqimap_parse_address(trim(substr($line, 3, strlen($line) - 4)), true);
     	     }
 	     $i++;
 	     break;
@@ -166,7 +166,7 @@ function sqimap_parse_RFC822Header ($read, $hdr) {
 	   case 'i': /* Disposition-Notification-To */
              if (strtolower(substr($line, 0, 28)) == "disposition-notification-to:") {
 	        $dnt = trim(substr($read[$i], 28));
-	        $hdr->disposition = sqimap_parse_address($dnt, false);
+	        $hdr->dnt = sqimap_parse_address($dnt, false);
 	     }
 	     $i++;
 	     break;
@@ -214,9 +214,11 @@ function sqimap_parse_RFC822Header ($read, $hdr) {
         break;
       case 'x':
         /* X-PRIORITY */
-        if (strtolower(substr($line, 0, 11)) == "x-priority:") {
+        if (strtolower(substr($line, 0, 11)) == 'x-priority:') {
     	   $hdr->priority = trim(substr($line, 11));
-        } 
+        } else if (strtolower(substr($line,0,9)) == 'x-mailer:') {
+    	   $hdr->xmailer = trim(substr($line, 9));
+	}
         $i++;
 	break;
       default:
