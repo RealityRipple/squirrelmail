@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-02-04 15:24+0100\n"
+"POT-Creation-Date: 2002-02-04 15:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -468,9 +468,9 @@ msgstr ""
 msgid "Table of Contents"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:737
-#: squirrelmail/functions/mailbox_display.php:740
 #: squirrelmail/functions/mailbox_display.php:743
+#: squirrelmail/functions/mailbox_display.php:746
+#: squirrelmail/functions/mailbox_display.php:749
 #: squirrelmail/plugins/delete_move_next/setup.php:149
 #: squirrelmail/plugins/delete_move_next/setup.php:151
 #: squirrelmail/src/help.php:187 squirrelmail/src/help.php:191
@@ -478,9 +478,9 @@ msgstr ""
 msgid "Previous"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:738
-#: squirrelmail/functions/mailbox_display.php:741
 #: squirrelmail/functions/mailbox_display.php:744
+#: squirrelmail/functions/mailbox_display.php:747
+#: squirrelmail/functions/mailbox_display.php:750
 #: squirrelmail/plugins/delete_move_next/setup.php:154
 #: squirrelmail/plugins/delete_move_next/setup.php:156
 #: squirrelmail/src/help.php:195 squirrelmail/src/help.php:198
@@ -1247,6 +1247,10 @@ msgstr ""
 msgid "forget"
 msgstr ""
 
+#: squirrelmail/src/search.php:290
+msgid "Current Search"
+msgstr ""
+
 #: squirrelmail/src/search.php:326
 msgid "Body"
 msgstr ""
@@ -1684,7 +1688,7 @@ msgstr ""
 #: squirrelmail/functions/imap_messages.php:195
 #: squirrelmail/functions/imap_messages.php:440
 #: squirrelmail/functions/imap_messages.php:495
-#: squirrelmail/functions/mailbox_display.php:896
+#: squirrelmail/functions/mailbox_display.php:902
 msgid "(no subject)"
 msgstr ""
 
@@ -1754,29 +1758,29 @@ msgstr ""
 msgid "Toggle All"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:657
+#: squirrelmail/functions/mailbox_display.php:663
 msgid "Unselect All"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:659
+#: squirrelmail/functions/mailbox_display.php:665
 msgid "Select All"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:676
+#: squirrelmail/functions/mailbox_display.php:682
 #, c-format
 msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:678
+#: squirrelmail/functions/mailbox_display.php:684
 #, c-format
 msgid "Viewing Message: <B>%s</B> (1 total)"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:863
+#: squirrelmail/functions/mailbox_display.php:869
 msgid "Paginate"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:870
+#: squirrelmail/functions/mailbox_display.php:876
 msgid "Show All"
 msgstr ""
 

@@ -103,7 +103,7 @@ function checkForm() {
 
     /** Here is the header and wrapping table **/
     $shortBoxName = readShortMailboxName($mailbox, $delimiter);
-    if ( $shorBoxName == 'INBOX' ) {
+    if ( $shortBoxName == 'INBOX' ) {
         $shortBoxName = _("INBOX");
     }
     echo "<A NAME=pagetop></A>\n"
