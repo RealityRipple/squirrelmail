@@ -304,10 +304,15 @@
       if($vrel[0] == "r" || $vrel[0] == "R") 
 	 $vrel = - strval(substr($vrel, 2))/10;
       
-      // Compare major and minor
+      // Compare major version
       if($vmajor < $major) return false;
+      if($vmajor > $major) return true;
+
+      // Major is the same. Compare minor
       if($vminor < $minor) return false;
+      if($vminor > $minor) return true;
       
+      // Major and minor is the same as the required one.
       // Compare release
       if($vrel >= 0 && $release >= 0) {       // Neither are beta
 	 if($vrel < $release) return false;
