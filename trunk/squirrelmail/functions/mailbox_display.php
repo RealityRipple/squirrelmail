@@ -668,13 +668,18 @@ function mail_message_listing_beginning ($imapConnection,
   global $color, $auto_expunge, $base_uri, $thread_sort_messages, 
     $allow_thread_sort, $allow_server_sort, $server_sort_order,
     $PHP_SELF;
-
+    
+  $php_self = $PHP_SELF;
+  /* fix for incorrect $PHP_SELF */
+  if (strpos($php_self, 'move_messages.php')) {
+      $php_self = str_replace('move_messages.php', 'right_main.php', $php_self);
+  }
   $urlMailbox = urlencode($mailbox);
 
-  if (preg_match('/^(.+)\?.+$/',$PHP_SELF,$regs)) {
+  if (preg_match('/^(.+)\?.+$/',$php_self,$regs)) {
      $source_url = $regs[1];
   } else {
-     $source_url = $PHP_SELF;
+     $source_url = $php_self;
   }
 
   if (!isset($msg)) {
@@ -682,7 +687,6 @@ function mail_message_listing_beginning ($imapConnection,
   }
   $moveURL = "move_messages.php?msg=$msg&amp;mailbox=$urlMailbox"
     . "&amp;startMessage=$start_msg";
-
   /*
    * This is the beginning of the message list table.
    * It wraps around all messages
@@ -704,7 +708,7 @@ function mail_message_listing_beginning ($imapConnection,
         . html_tag( 'td' ,'' , 'left', $color[0], '' )
         . html_tag( 'table' ,'' , '', $color[0], 'border="0" width="100%" cellpadding="0"  cellspacing="0"' )
             . html_tag( 'tr',
-	        getSmallStringCell(_("Move Selected To"), 'left') .
+	        getSmallStringCell(_("Move Selected To $mailbox"), 'left') .
 	        getSmallStringCell(_("Transform Selected Messages"), 'right')
             )
             . html_tag( 'tr' ) ."\n"
@@ -724,10 +728,10 @@ function mail_message_listing_beginning ($imapConnection,
   echo getButton('SUBMIT', 'markRead',_("Read"));
   echo getButton('SUBMIT', 'markUnread',_("Unread"));
   echo getButton('SUBMIT', 'delete',_("Delete")) ."&nbsp\n";
-  if (!strpos($PHP_SELF,'mailbox')) {
-     $location = $PHP_SELF.'?mailbox=INBOX&amp;startMessage=1';
+  if (!strpos($php_self,'mailbox')) {
+     $location = $php_self.'?mailbox=INBOX&amp;startMessage=1';
   } else {
-     $location = $PHP_SELF;
+     $location = $php_self;
   }
   echo '<INPUT TYPE="HIDDEN" NAME="location" VALUE="'.$location.'">';
   echo "</TD>\n"
