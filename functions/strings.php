@@ -72,14 +72,6 @@ function getLineOfAddrs($array) {
     return( $to_line );
 }
 
-function find_mailbox_name ($mailbox) {
-    if (ereg(" *\"([^\r\n\"]*)\"[ \r\n]*$", $mailbox, $regs))
-        return $regs[1];
-    ereg(" *([^ \r\n\"]*)[ \r\n]*$",$mailbox,$regs);
-    return $regs[1];
-    
-}
-
 function php_self () {
     global $PHP_SELF, $HTTP_SERVER_VARS;
     
