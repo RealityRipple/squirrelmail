@@ -100,22 +100,19 @@ else {
 } 
 
 global $color;
-/* if( isset($do_hook) && $do_hook ) {
-    do_hook ("generic_header");
-}*/
+
+do_hook ("generic_header");
 
 sqimap_mailbox_select($imapConnection, $mailbox);
 
 if (isset($composenew) && $composenew) {
     $comp_uri = "../src/compose.php?mailbox=". urlencode($mailbox).
-		"&amp;session=$composesession&amp;attachedmessages=true&amp";
-
-    displayPageHeader($color, $mailbox, "comp_in_new(false,'$comp_uri');", false);
+		"&amp;session=$composesession";
+    displayPageHeader($color, $mailbox, "comp_in_new('$comp_uri');", false);
 } else {
     displayPageHeader($color, $mailbox);
 }
 echo "<br>\n";
-
 do_hook('right_main_after_header');
 if (isset($note)) {
     echo html_tag( 'div', '<b>' . $note .'</b>', 'center' ) . "<br>\n";
