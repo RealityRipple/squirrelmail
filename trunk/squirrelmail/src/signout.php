@@ -64,16 +64,16 @@ if ($signout_page) {
 <?php
     if ($theme_css != '') {
 ?>
-   <link rel="stylesheet" type="text/css" href="<?php echo $theme_css ?>" />
+   <link rel="stylesheet" type="text/css" href="<?php echo $theme_css; ?>" />
 <?php
     }
 ?>
    <title><?php echo $org_title . ' - ' . _("Signout"); ?></title>
 </head>
-<body text="<?php echo $color[8] ?>" bgcolor="<?php echo $color[4] ?>" 
-link="<?php echo $color[7] ?>" vlink="<?php echo $color[7] ?>"
-alink="<?php echo $color[7] ?>">
-<br><br>
+<body text="<?php echo $color[8]; ?>" bgcolor="<?php echo $color[4]; ?>" 
+link="<?php echo $color[7]; ?>" vlink="<?php echo $color[7]; ?>"
+alink="<?php echo $color[7]; ?>">
+<br /><br />
 <?php
 $plugin_message = concat_hook_function('logout_above_text');
 echo
@@ -84,12 +84,12 @@ html_tag( 'table',
     $plugin_message .
     html_tag( 'tr',
          html_tag( 'td', _("You have been successfully signed out.") .
-             '<br><a href="login.php" target="' . $frame_top . '">' .
-             _("Click here to log back in.") . '</a><br>' ,
+             '<br /><a href="login.php" target="' . $frame_top . '">' .
+             _("Click here to log back in.") . '</a><br />' ,
          'center' ) ,
     '', $color[4], 'width="100%"' ) .
     html_tag( 'tr',
-         html_tag( 'td', '<br>', 'center' ) ,
+         html_tag( 'td', '<br />', 'center' ) ,
     '', $color[0], 'width="100%"' ) ,
 'center', $color[4], 'width="50%" cols="1" cellpadding="2" cellspacing="0" border="0"' )
 ?>
