@@ -393,7 +393,7 @@
          return $regs[1];
       }
       
-      $str = "Body retrival error.  Please report this bug!\n";
+      $str = "Body retrieval error.  Please report this bug!\n";
       $str .= "Response:  $response\n";
       $str .= "Message:  $message\n";
       $str .= "FETCH line:  $topline";
