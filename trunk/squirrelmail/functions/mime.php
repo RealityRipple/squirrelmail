@@ -525,6 +525,11 @@
             $replace = base64_decode($res[3]);
          } else {
             $replace = ereg_replace("_", " ", $res[3]);
+	    // Convert lowercase Quoted Printable to uppercase for
+	    // quoted_printable_decode to understand it.
+	    while (ereg("(=([0-9][a-f])|([a-f][0-9]))", $replace, $res)) {
+	       $replace = str_replace($res[1], strtoupper($res[1]), $replace);
+	    }
             $replace = quoted_printable_decode($replace);
          }
 
