@@ -1,5 +1,10 @@
-Version 0.4 -- DEVELOPMENT
---------------------------
+Version 0.5pre1 -- DEVELOPMENT
+------------------------------
+
+
+
+Version 0.4 -- May 15, 2000 
+---------------------------
 - If subject is blank, displays "(no subject)"
 - Fixed a few minor bugs and typos reported to list
 - Changed <? to <?php in a few places
