@@ -22,17 +22,11 @@ class AddressStructure {
         $result = '';
 
         if (is_object($this)) {
-            if (isset($this->host) && ($this->host != '')) {
-                $email = $this->mailbox.'@'.$this->host;
-            } else {
-                $email = $this->mailbox;
-            }
-            if (trim($this->personal) != '') {
-                if ($email) {
-                    $addr = '"' . $this->personal . '" <' .$email.'>';
-                } else {
-                    $addr = $this->personal;
-                }
+            $email = ($this->host ? $this->mailbox.'@'.$this->host
+	                          : $this->mailbox);
+            if (trim($this->personal)) {
+	        $addr = ($email ? '"' . $this->personal . '" <' .$email.'>'
+		                : $this->personal);
                 $best_dpl = $this->personal;
             } else {
                 $addr = $email;
