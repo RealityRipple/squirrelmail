@@ -94,7 +94,7 @@ function formatMailboxName($imapConnection, $box_array) {
         if ($numMessages > 0) {
             $urlMailbox = urlencode($real_box);
             $line .= "\n<small>\n" .
-                    "&nbsp;&nbsp;(<A HREF=\"empty_trash.php\" style=\"text-decoration:none\">"._("empty")."</A>)" .
+                    "&nbsp;&nbsp;(<A HREF=\"empty_trash.php\" style=\"text-decoration:none\">"._("expunge")."</A>)" .
                     "</small>";
         }
     }
