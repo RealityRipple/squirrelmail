@@ -91,7 +91,5 @@
       } else {
          setMessageFlag($imapConnection, $a, $b, "Deleted");
       }
-      if ($auto_expunge == true)
-         expungeBox($imapConnection, $mailbox, $numMessages);
    }
 ?>

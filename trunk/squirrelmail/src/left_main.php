@@ -68,7 +68,7 @@
       if (($move_to_trash == true) && ($mailbox == $trash_folder)) {
          $urlMailbox = urlencode($mailbox);
          selectMailbox($imapConnection, $mailbox, $numNessages);
-         echo "</A>&nbsp;&nbsp;<B>(<A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\" TARGET=right>empty</A>)</B>";
+         echo "</A>&nbsp;&nbsp;&nbsp;&nbsp;(<B><A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\" TARGET=right style=\"text-decoration:none\">empty</A></B>)";
       }
       echo "</FONT></a><br>\n";
    }

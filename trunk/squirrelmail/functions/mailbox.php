@@ -183,12 +183,13 @@
    function copyMessages($imapConnection, $from_id, $to_id, $folder) {
       fputs($imapConnection, "mailboxStore COPY $from_id:$to_id \"$folder\"\n");
       $read = fgets($imapConnection, 1024);
+      echo ">>> $read<BR>";
       while ((substr($read, 0, 15) != "mailboxStore OK") && (substr($read, 0, 15) != "mailboxStore NO")) {
          $read = fgets($imapConnection, 1024);
+         echo ">>> $read<BR>";
       }
 
       if (substr($read, 0, 15) == "mailboxStore NO") {
-         echo "ERROR... $read<BR>";
          return false;
       } else if (substr($read, 0, 15) == "mailboxStore OK") {
          return true;
