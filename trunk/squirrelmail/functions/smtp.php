@@ -912,7 +912,7 @@ function createPriorityHeaders($prio) {
 
 function createReceiptHeaders($receipt) {
 
-    GLOBAL $data_dir, $username, $identity;
+    GLOBAL $data_dir, $username, $identity, $popuser, $domain;
 
     $receipt_headers = Array();
     if (isset($identity) && $identity != 'default') {
