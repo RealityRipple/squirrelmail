@@ -1,5 +1,8 @@
-Version 0.4pre1 -- Development
-------------------------------
+Version 0.4pre1 -- April 29, 2000
+---------------------------------
+- For speed's sake, unseen messages are only noted on INBOX in left
+    folder list.  This will change with 0.5.
+- Optomizations, fewer IMAP calls, more efficient sorting algorithms.
 - Fixed all bugs listed in BUG
 - When inside the Sent folder, it displays "To" instead of "From" 
 - Added ability to go to Next and Previous message while reading a message
