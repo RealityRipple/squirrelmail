@@ -1221,7 +1221,13 @@ function processSubject($subject, $threadlevel = 0) {
         function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
         return $languages[$squirrelmail_language]['XTRA_CODE']('strimwidth', $subject, $trim_val);
     }
-    return substr($subject, 0, $trim_val) . '...';
+
+    // only print '...' when we're actually dropping part of the subject
+    if(strlen($subject) < $trim_val) {
+        return $subject;
+    } else {
+        return substr($subject, 0, $trim_val) . '...';
+    }
 }
 
 function getMbxList($imapConnection) {
