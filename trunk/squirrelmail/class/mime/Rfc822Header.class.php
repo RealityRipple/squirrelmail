@@ -295,6 +295,10 @@ class Rfc822Header {
             case '<':  /* get email address */
                 $addr_start = $pos;
                 $addr_end = strpos($address,'>',$addr_start);
+		/* check for missing '>' */
+		if ($addr_end === false) {
+		    $addr_end = $j;
+		}
                 $addr = substr($address,$addr_start+1,$addr_end-$addr_start-1);
                 if ($addr_end) {
                     $pos = $addr_end+1;
@@ -409,49 +413,85 @@ class Rfc822Header {
                  * we should look for the delimiter ',' or a SPACE
                  */
                 /* check for emailaddress */
+		
+		/* Blah, this code sucks */
+		
+		/* we need an tokenizer !!!!!!!! */
+		
                 $i_space = strpos($address,' ',$pos);
                 $i_del = strpos($address,',',$pos);
                 if ($i_space || $i_del) {
-                    if ($i_del) {
+                    if ($i_del) { /* extract the stringpart before the delimiter */
                         $address_part = substr($address,$pos,$i_del-$pos);
-                    } else {
+                    } else { /* extract the stringpart started with pos */
                         $address_part = substr($address,$pos);
                     }
                     if ($i = strpos($address_part,'@')) {
                         /* an email address is following */
                         if (($i+$pos) < $i_space) {
                             $addr_start = $pos;
+			    /* multiple addresses are following */
                             if ($i_space < $i_del && $i_del) {
+				/* <space> is present */
                                 if ($i_space) {
-                                    $addr = substr($address,$pos,$i_space-$pos);
-                                    $pos = $i_space;
-                                } else {
-                                    $addr = substr($address,$pos);
-                                    $pos = $j;
+				    if ($i = strpos($address_part,'<')) {
+					$name .= substr($address_part,0,$i);
+					$pos = $i+$pos;
+				    } else {
+                                        $addr = substr($address,$pos,$i_space-$pos);
+                                        $pos = $i_space;
+				    }
+                                } else { /* no <space> $i_space === false */
+				    if ($i = strpos($address_part,'<')) {
+					$name .= substr($address_part,0,$i);
+					$pos = $i+$pos;
+				    } else {
+                                	$addr = substr($address,$pos);
+                                	$pos = $j;
+				    }
                                 }
-                            } else {
+                            } else { /* <space> is available in the next address */
+			        /* OR no delimiter and <space> */
                                 if ($i_del) {
-                                    $addr = substr($address,$pos,$i_del-$pos);
-                                    $pos = $i_del;
-                                } else if ($i_space) {
-                                    $addr = substr($address,$pos,$i_space-$pos);
-                                    $pos = $i_space+1;
-                                } else {
+				    /* check for < > addresses */
+				    if ($i = strpos($address_part,'<')) {
+					$name .= substr($address_part,0,$i);
+					$pos = $i+$pos;
+				    } else {
+                                	$addr = substr($address,$pos,$i_del-$pos);
+                                	$pos = $i_del;
+				    }
+				/* no delimiter */    
+                                } else if ($i_space) { /* can never happen ? */
+				    if ($i = strpos($address_part,'<')) {
+					$name .= substr($address_part,0,$i);
+					$pos = $i+$pos;
+				    } else {
+                                	$addr = substr($address,$pos,$i_space-$pos);
+                                	$pos = $i_space+1;
+				    }
+                                } else { /* can never happen */
                                     $addr = substr($address,$pos);
                                     $pos = $j;
                                 }
                             }
-                        } else {
+                        } else { /* <space> is located after the user@domain part */
+			         /* or no <space> present */ 
                             if ($i_space) {
-                                $name .= substr($address,$pos,$i_space-$pos) . ' ';
-                                $addr_start = $i_space+1;
-                                $pos = $i_space+1;
-                            } else {
-                                $addr = substr($address,$pos,$i_del-$pos);
-                                $addr_start = $pos;
+				if ($i = strpos($address_part,'<')) {
+				    $name .= substr($address_part,0,$i);
+				    $pos = $i+$pos;
+				} else {
+                            	    $name .= substr($address,$pos,$i_space-$pos) . ' ';
+                            	    $addr_start = $i_space+1;
+                            	    $pos = $i_space+1;
+				}
+                            } else { /* no <space> */
+	                    	$addr = substr($address,$pos,$i_del-$pos);
+                            	$addr_start = $pos;
                                 if ($i_del) {
                                     $pos = $i_del;
-                                } else {
+                                } else { /* can never happen. REMOVE */
                                     $pos = $j;
                                 }
                             }
@@ -459,13 +499,21 @@ class Rfc822Header {
                     } else {
                         /* email address without domain name, could be an alias */
                         $addr_start = $pos;
+			/* FIXME check for comments */
                         $addr = $address_part;
                         $pos = strlen($address_part) + $pos;
                     }
                 } else {
-                    $addr = substr($address,$pos);
-                    $addr_start = $pos;
-                    $pos = $j;
+		    /* check for < > addresses */
+		    if ($i = strpos($address,'<')) {
+			$name .= substr($address,$pos,$i-$pos);
+			$pos = $i;
+		    } else {
+		        /* FIXME check for comments */
+                	$addr = substr($address,$pos);
+                	$addr_start = $pos;
+                	$pos = $j;
+		    }
                 }
                 break;
             }
