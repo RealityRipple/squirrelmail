@@ -736,9 +736,9 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
     global $base_uri;
 
     $urlMailbox = urlencode($mailbox);
-    if (sqgetGlobalVar('QUERY_STRING', $query_string, SQ_SERVER)) {                                                                 
-        $query_string = $query_string;                                                                                   
-    } else {                                                                                                                        
+    if (!sqgetGlobalVar('QUERY_STRING', $query_string, SQ_SERVER)) {
+        // FIX ME !. If this happens there is something else wrong. Falling
+        // back to '' won't help. We should raise an error instead.
         $query_string = '';                                                                                                         
     } 
     $url = $base_uri.'src/view_header.php?'.$query_string;
