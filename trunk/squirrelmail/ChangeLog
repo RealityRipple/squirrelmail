@@ -23,6 +23,8 @@ Version 1.5.0 -- CVS
   - Fix for parsing fetch results. We are now able to extract the UID if it's
     returned after the header.
   - Remove obsoleted parsing functions.
+  - Fixed language bug in posting on modifying/deleting servers on mail_fetch plugin
+    (#742705).
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
