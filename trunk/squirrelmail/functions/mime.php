@@ -551,7 +551,15 @@ function decodeBody($body, $encoding) {
     $body = str_replace("\r\n", "\n", $body);
     $encoding = strtolower($encoding);
 
-    if ($encoding == 'quoted-printable' ||
+    $encoding_handler = do_hook_function('decode_body', $encoding);
+
+
+    // plugins get first shot at decoding the body
+    //
+    if (!empty($encoding_handler) && function_exists($encoding_handler)) {
+        $body = $encoding_handler('decode', $body);
+
+    } else if ($encoding == 'quoted-printable' ||
         $encoding == 'quoted_printable') {
         $body = quoted_printable_decode($body);
 
