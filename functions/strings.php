@@ -12,22 +12,6 @@
  * $Id$
  */
 
-/*****************************************************************/
-/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
-/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
-/***    + Base level indent should begin at left margin, as    ***/
-/***      the comment and $version stuff below.                ***/
-/***    + All identation should consist of four space blocks   ***/
-/***    + Tab characters are evil.                             ***/
-/***    + all comments should use "slash-star ... star-slash"  ***/
-/***      style -- no pound characters, no slash-slash style   ***/
-/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
-/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
-/***    + Please use ' instead of ", when possible. Note "     ***/
-/***      should always be used in _( ) function calls.        ***/
-/*** Thank you for your help making the SM code more readable. ***/
-/*****************************************************************/
-
 /**
  * SquirrelMail version number -- DO NOT CHANGE
  */
@@ -102,21 +86,21 @@ function sqWordWrap(&$line, $wrap) {
     if (isset($regs[2])) {
         $words = explode(' ', $regs[2]);
     } else {
-        $words = "";
+        $words = '';
     }
     
     $i = 0;
     $line = $beginning_spaces;
     
     while ($i < count($words)) {
-        // Force one word to be on a line (minimum)
+        /* Force one word to be on a line (minimum) */
         $line .= $words[$i];
         $line_len = strlen($beginning_spaces) + strlen($words[$i]) + 2;
         if (isset($words[$i + 1]))
             $line_len += strlen($words[$i + 1]);
         $i ++;
         
-        // Add more words (as long as they fit)
+        /* Add more words (as long as they fit) */
         while ($line_len < $wrap && $i < count($words)) {
             $line .= ' ' . $words[$i];
             $i++;
@@ -126,12 +110,12 @@ function sqWordWrap(&$line, $wrap) {
                 $line_len += 1;
         }
         
-        // Skip spaces if they are the first thing on a continued line
+        /* Skip spaces if they are the first thing on a continued line */
         while (!isset($words[$i]) && $i < count($words)) {
             $i ++;
         }
         
-        // Go to the next line if we have more to process
+        /* Go to the next line if we have more to process */
         if ($i < count($words)) {
             $line .= "\n" . $beginning_spaces;
         }
@@ -144,8 +128,8 @@ function sqWordWrap(&$line, $wrap) {
  */
 function sqUnWordWrap(&$body) {
     $lines = explode("\n", $body);
-    $body = "";
-    $PreviousSpaces = "";
+    $body = '';
+    $PreviousSpaces = '';
     for ($i = 0; $i < count($lines); $i ++) {
         ereg("^([\t >]*)([^\t >].*)?$", $lines[$i], $regs);
         $CurrentSpaces = $regs[1];
@@ -156,9 +140,9 @@ function sqUnWordWrap(&$body) {
         if ($i == 0) {
             $PreviousSpaces = $CurrentSpaces;
             $body = $lines[$i];
-        } else if (($PreviousSpaces == $CurrentSpaces)   // Do the beginnings match
-                   && (strlen($lines[$i - 1]) > 65)    // Over 65 characters long
-                   && strlen($CurrentRest)) {          // and there's a line to continue with
+        } else if (($PreviousSpaces == $CurrentSpaces) /* Do the beginnings match */
+                   && (strlen($lines[$i - 1]) > 65)    /* Over 65 characters long */
+                   && strlen($CurrentRest)) {          /* and there's a line to continue with */
             $body .= ' ' . $CurrentRest;
         } else {
             $body .= "\n" . $lines[$i];
@@ -174,7 +158,7 @@ function sqUnWordWrap(&$body) {
  * Be cautious of "user@host.com"
  */
 function parseAddrs($text) {
-    if (trim($text) == "")
+    if (trim($text) == '')
         return array();
     $text = str_replace(' ', '', $text);
     $text = ereg_replace('"[^"]*"', '', $text);
@@ -182,8 +166,8 @@ function parseAddrs($text) {
     $text = str_replace(',', ';', $text);
     $array = explode(';', $text);
     for ($i = 0; $i < count ($array); $i++) {
-        $array[$i] = eregi_replace ("^.*[<]", '', $array[$i]);
-        $array[$i] = eregi_replace ("[>].*$", '', $array[$i]);
+        $array[$i] = eregi_replace ('^.*[<]', '', $array[$i]);
+        $array[$i] = eregi_replace ('[>].*$', '', $array[$i]);
     }
     return $array;
 }
@@ -206,8 +190,8 @@ function getLineOfAddrs($array) {
 }
 
 function translateText(&$body, $wrap_at, $charset) {
-    global $where, $what; // from searching
-    global $color; // color theme
+    global $where, $what; /* from searching */
+    global $color; /* color theme */
     
     require_once('../functions/url_parser.php');
     
@@ -264,6 +248,10 @@ function find_mailbox_name ($mailbox) {
 function php_self () {
     global $PHP_SELF, $HTTP_SERVER_VARS;
     
+    if (isset($HTTP_SERVER_VARS['REQUEST_URI']) && !empty($HTTP_SERVER_VARS['REQUEST_URI']) ) {
+        return $HTTP_SERVER_VARS['REQUEST_URI'];
+    }
+
     if (isset($PHP_SELF) && !empty($PHP_SELF)) {
         return $PHP_SELF;
     } else if (isset($HTTP_SERVER_VARS['PHP_SELF']) &&
@@ -289,8 +277,8 @@ function get_location () {
     global $PHP_SELF, $SERVER_NAME, $HTTP_HOST, $SERVER_PORT,
         $HTTP_SERVER_VARS;
     
-    /* Get the path. */
-    $path = substr($PHP_SELF, 0, strrpos($PHP_SELF, '/'));
+    /* Get the path, handle virtual directories */
+    $path = substr(php_self(), 0, strrpos(php_self(), '/'));
     
     /* Check if this is a HTTPS or regular HTTP request. */
     $proto = 'http://';
@@ -308,7 +296,7 @@ function get_location () {
         $proto = 'https://';
     }
     
-    // Get the hostname from the Host header or server config.
+    /* Get the hostname from the Host header or server config. */
     $host = '';
     if (isset($HTTP_HOST) && !empty($HTTP_HOST)) {
         $host = $HTTP_HOST;
@@ -368,8 +356,8 @@ function OneTimePadDecrypt ($string, $epad) {
  * better to get them long. Use md5() to lengthen smaller strings.
  */
 function sq_mt_seed($Val) {
-    // if mt_getrandmax() does not return a 2^n - 1 number,
-    // this might not work well.  This uses $Max as a bitmask.
+    /* if mt_getrandmax() does not return a 2^n - 1 number,
+       this might not work well.  This uses $Max as a bitmask. */
     $Max = mt_getrandmax();
     
     if (! is_int($Val)) {
@@ -424,7 +412,7 @@ function sq_mt_randomize() {
     
     /* getrusage */
     if (function_exists('getrusage')) {
-        // Avoid warnings with Win32
+        /* Avoid warnings with Win32 */
         $dat = @getrusage();
         if (isset($dat) && is_array($dat)) {
             $Str = '';
@@ -436,7 +424,7 @@ function sq_mt_randomize() {
         }
     }
     
-    // Apache-specific
+    /* Apache-specific */
     sq_mt_seed(md5($UNIQUE_ID));
     
     $randomized = 1;
@@ -471,7 +459,7 @@ function sqCheckPHPVersion($major, $minor, $release) {
     $vmajor  = strval($regs[1]);
     $vminor  = strval($regs[2]);
     $vrel    = $regs[3];
-    if($vrel[0] == ".") {
+    if($vrel[0] == '.') {
         $vrel = strval(substr($vrel, 1));
     }
     if($vrel[0] == 'b' || $vrel[0] == 'B') {
@@ -490,13 +478,13 @@ function sqCheckPHPVersion($major, $minor, $release) {
     if ($vminor > $minor) { return true; }
     
     /* Major and minor is the same as the required one. Compare release */
-    if ($vrel >= 0 && $release >= 0) {       // Neither are beta
+    if ($vrel >= 0 && $release >= 0) {       /* Neither are beta */
         if($vrel < $release) return false;
-    } else if($vrel >= 0 && $release < 0) {  // This is not beta, required is beta
+    } else if($vrel >= 0 && $release < 0) {  /* This is not beta, required is beta */
         return true;
-    } else if($vrel < 0 && $release >= 0){   // This is beta, require not beta
+    } else if($vrel < 0 && $release >= 0){   /* This is beta, require not beta */
         return false;
-    } else {                                 // Both are beta
+    } else {                                 /* Both are beta */
         if($vrel > $release) return false;
     }
     
@@ -550,9 +538,9 @@ function GenerateRandomString($size, $chars, $flags = 0) {
         return '';
     }
     
-    sq_mt_randomize(); // Initialize the random number generator
+    sq_mt_randomize(); /* Initialize the random number generator */
     
-    $String = "";
+    $String = '';
     while (strlen($String) < $size) {
         $String .= $chars[mt_rand(0, strlen($chars))];
     }
@@ -578,7 +566,7 @@ function TrimArray(&$array) {
             $$k = substr($v, 1);
         }
         
-	    /* Re-assign back to array. */
+        /* Re-assign back to array. */
         $array[$k] = $$k;
     }
 }   
@@ -598,7 +586,7 @@ function RemoveSlashes(&$array) {
             $$k = stripslashes($v);
         }
         
-	    /* Re-assign back to the array. */
+        /* Re-assign back to the array. */
         $array[$k] = $$k;
     }
 }
