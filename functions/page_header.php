@@ -62,7 +62,7 @@
 
       if ($target != "")
          $target = " target=\"$target\"";
-
+      
       echo '<a href="'.$base_uri.$path.'"'.$target.'>'.$text.'</a>';
    }
 
@@ -97,7 +97,7 @@
       echo "&nbsp;&nbsp;\n";
       displayInternalLink ("src/options.php", _("Options"), "right");
       echo "&nbsp;&nbsp;\n";
-      displayInternalLink ("src/webmail.php?right_frame=help.php", _("Help"), "Help Me!");
+      displayInternalLink ("src/help.php", _("Help"), "right");
       echo "&nbsp;&nbsp;\n";
 
       do_hook("menuline");
