@@ -12,7 +12,10 @@
  */
 
 global $prefs_are_cached, $prefs_cache;
-if (!session_is_registered('prefs_are_cached')) {
+
+if ( !session_is_registered('prefs_are_cached') ||
+     !isset( $prefs_cache) ||
+     !is_array( prefs_cache) ) {
     $prefs_are_cached = false;
     $prefs_cache = array();
 }
