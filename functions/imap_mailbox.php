@@ -344,6 +344,7 @@ function sqimap_mailbox_delete ($imap_stream, $mailbox) {
     } else {
         do_hook_function('rename_or_delete_folder', $args = array($mailbox, 'delete', ''));
         removePref($data_dir, $username, "thread_$mailbox");
+        removePref($data_dir, $username, "collapse_folder_$mailbox");
     }
 }
 
@@ -374,15 +375,18 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
             $postfix = '';
         }
 
-        $boxesall = sqimap_mailbox_list($imap_stream);
+        $boxesall = sqimap_mailbox_list_all($imap_stream);
         $cmd = 'RENAME ' . sqimap_encode_mailbox_name($old_name) .
                      ' ' . sqimap_encode_mailbox_name($new_name);
         $data = sqimap_run_command($imap_stream, $cmd, true, $response, $message);
         sqimap_unsubscribe($imap_stream, $old_name.$postfix);
-        $oldpref = getPref($data_dir, $username, 'thread_'.$old_name.$postfix);
+        $oldpref_thread = getPref($data_dir, $username, 'thread_'.$old_name.$postfix);
+        $oldpref_collapse = getPref($data_dir, $username, 'collapse_folder_'.$old_name.$postfix);
         removePref($data_dir, $username, 'thread_'.$old_name.$postfix);
+        removePref($data_dir, $username, 'collapse_folder_'.$old_name.$postfix);
         sqimap_subscribe($imap_stream, $new_name.$postfix);
-        setPref($data_dir, $username, 'thread_'.$new_name.$postfix, $oldpref);
+        setPref($data_dir, $username, 'thread_'.$new_name.$postfix, $oldpref_thread);
+        setPref($data_dir, $username, 'collapse_folder_'.$new_name.$postfix, $oldpref_collapse);
         do_hook_function('rename_or_delete_folder',$args = array($old_name, 'rename', $new_name));
         $l = strlen( $old_name ) + 1;
         $p = 'unformatted';
@@ -390,16 +394,25 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
         foreach ($boxesall as $box) {
             if (substr($box[$p], 0, $l) == $old_name . $delimiter) {
                 $new_sub = $new_name . $delimiter . substr($box[$p], $l);
+                /* With Cyrus IMAPd >= 2.0 rename is recursive, so don't check for errors here */
                 if ($imap_server_type == 'cyrus') {
                     $cmd = 'RENAME "' . $box[$p] . '" "' . $new_sub . '"';
-                    $data = sqimap_run_command($imap_stream, $cmd, true,
+                    $data = sqimap_run_command($imap_stream, $cmd, false,
                                                $response, $message);
                 }
-                sqimap_unsubscribe($imap_stream, $box[$p]);
-                $oldpref = getPref($data_dir, $username, 'thread_'.$box[$p]);
+                $was_subscribed = sqimap_mailbox_is_subscribed($imap_stream, $box[$p]);
+                if ( $was_subscribed ) {
+                    sqimap_unsubscribe($imap_stream, $box[$p]);
+                }
+                $oldpref_thread = getPref($data_dir, $username, 'thread_'.$box[$p]);
+                $oldpref_collapse = getPref($data_dir, $username, 'collapse_folder_'.$box[$p]);
                 removePref($data_dir, $username, 'thread_'.$box[$p]);
-                sqimap_subscribe($imap_stream, $new_sub);
-                setPref($data_dir, $username, 'thread_'.$new_sub, $oldpref);
+                removePref($data_dir, $username, 'collapse_folder_'.$box[$p]);
+                if ( $was_subscribed ) {
+                    sqimap_subscribe($imap_stream, $new_sub);
+                }
+                setPref($data_dir, $username, 'thread_'.$new_sub, $oldpref_thread);
+                setPref($data_dir, $username, 'collapse_folder_'.$new_sub, $oldpref_collapse);
                 do_hook_function('rename_or_delete_folder',
                                  $args = array($box[$p], 'rename', $new_sub));
             }
