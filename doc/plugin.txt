@@ -107,6 +107,11 @@ List of hooks
   * options_folders_bottom        src/options_folders.php
   * options_folders_inside        src/options_folders.php
   * options_folders_save          src/options_folders.php
+  & options_identities_process    src/options_identities.php
+  & options_identities_top        src/options_identities.php
+  & options_identities_renumber   src/options_identities.php (multiple places)
+  & options_identities_table      src/options_identities.php
+  & options_identities_buttons    src/options_identities.php
   logout                          src/signout.php
   login_before                    src/webmail.php
   login_verified                  src/webmail.php
@@ -211,6 +216,33 @@ three hooks you will need to use.
     You should put the code in here that loads your preferences back
     into usable variables.  Examples of this can be found in the file
     src/load_prefs.php
+
+
+(&) Identity Hooks
+------------------
+Some hooks are passed special information in the array of arguments.  See
+the SpamCop plugin for how to use them.
+
+options_identities_process
+   [0] = Hook's name
+   [1] = Should I run the SaveUpdateFunction() (alterable)
+
+options_identities_renumber
+   [0] = Hook's name
+   [1] = Renumber it from ('default' or 1 through # idents - 1)
+   [2] = Renumber it to (same thing)
+   
+options_identities_table
+   [0] = Hook's name
+   [1] = Color of table (use it like   <tr<?PHP echo $Info[1]?>>   in your
+         plugin)
+   [2] = Is this an empty section?
+   [3] = What is the 'post' value?
+  
+options_identities_buttons
+   [0] = Hook's name
+   [1] = Is this an empty section (the one at the end of the list)?
+   [2] = What is the 'post' value?
 
 
 (^) Attachment Hooks
