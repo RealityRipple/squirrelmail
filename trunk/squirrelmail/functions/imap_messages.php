@@ -518,7 +518,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false)
     
     foreach ($read_list as $r) {
         $subject = _("(no subject)");
-        $from = _("Unknown Sender");
+        $from = _("Unknown sender");
         $priority = 0;
         $messageid = '<>';
         $cc = $to = $date = $type[0] = $type[1] = $inrepto = '';
