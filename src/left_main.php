@@ -141,9 +141,6 @@
             $line .= replace_spaces(readShortMailboxName($mailbox, $delimeter));
             $line .= "</FONT>";
          } else {
-            if ($auto_expunge) {
-               sqimap_mailbox_expunge($imapConnection, $boxes[$i]["unformatted-dm"]);
-            }
             $line .= formatMailboxName($imapConnection, $mailbox, $boxes[$i]["unformatted"], $delimeter, $boxes[$i]["unseen"]);
          }
       } else {
