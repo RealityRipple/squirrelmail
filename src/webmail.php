@@ -26,7 +26,7 @@
    include ("../functions/imap.php");
 
    // verify that username and password are correct
-   $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
+   $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    
    include ("../src/load_prefs.php");
    

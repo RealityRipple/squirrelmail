@@ -63,9 +63,9 @@
     **  Logs the user into the imap server.  If $hide is set, no error messages
     **  will be displayed.  This function returns the imap connection handle.
     ******************************************************************************/
-   function sqimap_login ($username, $password, $imap_server_address, $hide) {
+   function sqimap_login ($username, $password, $imap_server_address, $imap_port, $hide) {
       global $color;
-      $imap_stream = fsockopen ($imap_server_address, 143, &$error_number, &$error_string);
+      $imap_stream = fsockopen ($imap_server_address, $imap_port, &$error_number, &$error_string);
       $server_info = fgets ($imap_stream, 1024);
       
       /** Do some error correction **/

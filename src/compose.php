@@ -278,14 +278,14 @@
          header ("Location: right_main.php");
       } else {
          echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
-         $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
+         $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
          displayPageHeader($color, "None");
 
          showInputForm();
       }
    } else if (isset($attach)) {
       echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
-      $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
+      $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
       displayPageHeader($color, "None");
 
       $localfilename = md5("$attachfile, $attachfile_name, $REMOTE_IP, $REMOTE_PORT, $UNIQUE_ID, and everything else that may add entropy");
@@ -313,7 +313,7 @@
       showInputForm();
    } else if (isset($do_delete)) {
       echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
-      $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
+      $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
       displayPageHeader($color, "None");
 
       while (list($key, $localname) = each($delete)) {
@@ -325,7 +325,7 @@
       showInputForm();
    } else {
       echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
-      $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
+      $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
       displayPageHeader($color, "None");
 
       $newmail = true;

@@ -11,7 +11,7 @@
 
    include("../src/load_prefs.php");
 
-   $imap_stream = sqimap_login($username, $key, $imapServerAddress, 0);
+   $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 
    sqimap_mailbox_list($imap_stream, $boxes);
 
