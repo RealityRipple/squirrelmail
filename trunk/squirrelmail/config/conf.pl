@@ -119,6 +119,9 @@ while (($command ne "q") && ($command ne "Q")) {
 		print "R   Return to Main Menu\n";
 	} elsif ($menu == 7) {
 		print $WHT."Message of the Day (MOTD)\n".$NRM;
+		print "\n$motd\n";
+		print "\n";
+		print "1   Edit the MOTD\n";
 		print "\n";
 		print "R   Return to Main Menu\n";
 	}
@@ -136,7 +139,7 @@ while (($command ne "q") && ($command ne "Q")) {
 		$menu = 0;
 	} else {
 		if ($menu == 0) {
-			if (($command > 0) && ($command < 7)) {
+			if (($command > 0) && ($command < 8)) {
 				$menu = $command;
 			}
 		} elsif ($menu == 1) {
@@ -156,6 +159,7 @@ while (($command ne "q") && ($command ne "Q")) {
 		} elsif ($menu == 5) {
 		} elsif ($menu == 6) {
 		} elsif ($menu == 7) {
+			if    ($command == 1) { $motd   = command71 (); }
 		}
 	}	
 }
@@ -317,4 +321,21 @@ sub command17 {
       $new_smtpPort =~ s/[\r|\n]//g;
    }
 	return $new_smtpPort;
+}
+
+# MOTD
+sub command71 {
+	print "\nYou can now create the welcome message that is displayed\n";
+	print "every time a user logs on.  You can use HTML or just plain\n";
+	print "text.\n\n(Type @ on a blank line to exit)\n";
+	do {
+	   print "] ";
+	   $line = <STDIN>;
+	   $line =~ s/[\r|\n]//g;
+	   $line =~ s/  /\&nbsp;\&nbsp;/g;
+	   if ($line ne "@") {
+	      $new_motd = $new_motd . $line;
+	   }
+	} while ($line ne "@");
+	return $new_motd;
 }
