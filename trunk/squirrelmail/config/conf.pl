@@ -663,13 +663,13 @@ sub command2a {
     if ( $new_org_logo_width eq '' ) {
         $new_org_logo_width = $org_logo_width;
     }
-    if ( $new_org_logo_height > 0 ) {
-    	print "Height: [$WHT$org_logo_height$NRM]: $WHT";
-    	$new_org_logo_height = <STDIN>;
-    	$new_org_logo_height =~ tr/0-9//cd;  # only want digits!
+    if ( $new_org_logo_width > 0 ) {
+        print "Height: [$WHT$org_logo_height$NRM]: $WHT";
+        $new_org_logo_height = <STDIN>;
+        $new_org_logo_height =~ tr/0-9//cd;  # only want digits!
         $new_org_logo_height = $org_logo_height;
     } else {
-	$new_org_logo_height = 0;
+        $new_org_logo_height = 0;
     }
     return ($new_org_logo_width, $new_org_logo_height);
 }
@@ -1040,14 +1040,14 @@ sub command21 {
         $new_default_folder_prefix = "";
     } else {
         # add the trailing delimiter only if we know what the server is.
-	if ($optional_delimiter and $optional_delimiter ne 'detect') {
+        if ($optional_delimiter and $optional_delimiter ne 'detect') {
            $new_default_folder_prefix =~ s/${optional_delimiter}*$/$optional_delimiter/;
-	} elsif ($imap_server_type eq 'cyrus' or
-	         $imap_server_type eq 'courier') {
+        } elsif ($imap_server_type eq 'cyrus' or
+                 $imap_server_type eq 'courier') {
            $new_default_folder_prefix =~ s/\.*$/\./;
-	} elsif ($imap_server_type eq 'uw') {
+        } elsif ($imap_server_type eq 'uw') {
            $new_default_folder_prefix =~ s/\/*$/\//;
-	}
+        }
     }
     return $new_default_folder_prefix;
 }
