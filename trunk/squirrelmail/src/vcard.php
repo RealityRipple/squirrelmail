@@ -28,7 +28,6 @@ $onetimepad = $_SESSION['onetimepad'];
 $mailbox = urldecode($_GET['mailbox']);
 $passed_id = (int) $_GET['passed_id'];
 $ent_id = $_GET['ent_id'];
-$passed_ent_id = $_GET['passed_ent_id'];
 $startMessage = (int) $_GET['startMessage'];
 /* end globals */
 
@@ -210,7 +209,7 @@ echo '</select>' .
         '<tr><td align=center>' .
         '<a href="../src/download.php?absolute_dl=true&amp;passed_id=' .
         $passed_id . '&amp;mailbox=' . urlencode($mailbox) .
-        '&amp;passed_ent_id=' . urlencode($passed_ent_id) . '">' .
+        '&amp;ent_id=' . urlencode($ent_id) . '">' .
         _("Download this as a file") . '</A>' .
         '</TD></TR></TABLE>' .
 
