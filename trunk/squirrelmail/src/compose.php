@@ -1222,7 +1222,7 @@ function showComposeButtonRow() {
     if ($use_javascript_addr_book) {
         echo "         <script language=\"JavaScript\"><!--\n document.write(\"".
              "            <input type=button value=\\\""._("Addresses").
-                                 "\\\" onclick=\"javascript:open_abook();\" />\");".
+                                 "\\\" onclick=\\\"javascript:open_abook();\\\" />\");".
              "            // --></script><noscript>\n".
              '            <input type="submit" name="html_addr_search" value="'.
                               _("Addresses").'" />'.
