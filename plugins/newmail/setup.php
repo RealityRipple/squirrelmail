@@ -60,20 +60,20 @@
         global $squirrelmail_plugin_hooks;
         
         $squirrelmail_plugin_hooks['left_main_before']['newmail'] = 'newmail_plugin';
-        $squirrelmail_plugin_hooks['options_register']['newmail'] = 'newmail_options';
+        $squirrelmail_plugin_hooks['optpage_register_block']['newmail'] = 'newmail_optpage_register_block';
         $squirrelmail_plugin_hooks['options_link_and_description']['newmail'] = 'newmail_options';
         $squirrelmail_plugin_hooks['options_save']['newmail'] = 'newmail_sav';
         $squirrelmail_plugin_hooks['loading_prefs']['newmail'] = 'newmail_pref';
     }
 
-    function newmail_options() {
+    function newmail_optpage_register_block() {
        // Gets added to the user's OPTIONS page.
-       global $optionpages;
+       global $optpage_blocks;
 
        if ( !soupNazi() ) {
 
            /* Register Squirrelspell with the $optionpages array. */
-           $optionpages[] = array(
+           $optpage_blocks[] = array(
                'name' => _("NewMail Options"),
                'url'  => '../plugins/newmail/newmail_opt.php',
                'desc' => _("This configures settings for playing sounds and/or showing popup windows when new mail arrives."),

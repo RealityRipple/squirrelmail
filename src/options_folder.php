@@ -1,54 +1,32 @@
 <?php
-   /**
-    **  options_folder.php
-    **
-    **  Copyright (c) 1999-2000 The SquirrelMail development team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  Displays all options relating to folders
-    **
-    **  $Id$
-    **/
 
-   require_once('../src/validate.php');
-   require_once('../functions/display_messages.php');
-   require_once('../functions/imap.php');
-   require_once('../functions/array.php');
-   require_once('../functions/plugin.php');
-   require_once('../functions/options.php');   
-   
-   displayPageHeader($color, 'None');
+/**
+ * options_folder.php
+ *
+ * Copyright (c) 1999-2001 The SquirrelMail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * Displays all options relating to folders
+ *
+ * $Id$
+ */
 
-   $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-   $boxes = sqimap_mailbox_list($imapConnection);
-   sqimap_logout($imapConnection);
-?>
-   <br>
-<table width="95%" align="center" border="0" cellpadding="2" cellspacing="0">
-<tr><td bgcolor="<?php echo $color[0] ?>" align="center">
+require_once('../functions/imap.php');
 
-      <b><?php echo _("Options") . " - " . _("Folder Preferences"); ?></b>
+/* Define the group constants for the folder options page. */   
+define('SMOPT_GRP_SPCFOLDER', 0);
+define('SMOPT_GRP_FOLDERLIST', 1);
 
-    <table width="100%" border="0" cellpadding="1" cellspacing="1">
-    <tr><td bgcolor="<?php echo $color[4] ?>" align="center">
+/* Define the optpage load function for the folder options page. */
+function load_optpage_data_folder() {
+    global $username, $key, $imapServerAddress, $imapPort;
+    global $folder_prefix, $default_folder_prefix;
 
-   <form name="f" action="options.php" method="post"><br>
-
-      <table width="100%" cellpadding="2" cellspacing="0" border="0">
-
-<?php if ($show_prefix_option == true) {   ?>   
-         <tr>
-            <td align=right nowrap><?php echo _("Folder Path"); ?>:
-            </td><td>
-<?php if (isset ($folder_prefix))
-      echo '         <input type="text" name="folderprefix" value="'.$folder_prefix.'" size="35"><br>';
-   else
-      echo '         <input type="text" name="folderprefix" value="'.$default_folder_prefix.'" size="35"><br>';
-?>
-            </td>
-         </tr>
-<?php }          
-
+    /* Get some imap data we need later. */
+    $imapConnection =
+        sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+    $boxes = sqimap_mailbox_list($imapConnection);
+    sqimap_logout($imapConnection);
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -57,12 +35,21 @@
     /******************************************************/
     /* LOAD EACH GROUP OF OPTIONS INTO THE OPTIONS ARRAY. */
     /******************************************************/
-    define('SMOPT_GRP_SPCFOLDER', 0);
-    define('SMOPT_GRP_FOLDERLIST', 1);
 
     /*** Load the General Options into the array ***/
     $optgrps[SMOPT_GRP_SPCFOLDER] = _("Special Folder Options");
     $optvals[SMOPT_GRP_SPCFOLDER] = array();
+
+    if (!isset($folder_prefix)) { $folder_prefix = $default_folder_prefix; }
+    if ($show_prefix_option) {
+        $optvals[SMOPT_GRP_SPCFOLDER][] = array(
+            'name'    => 'folder_prefix',
+            'caption' => _("Folder Path"),
+            'type'    => SMOPT_TYPE_STRING,
+            'refresh' => SMOPT_REFRESH_FOLDERLIST,
+            'size'    => SMOPT_SIZE_LARGE
+        );
+    }
 
     $special_folder_values = array();
     foreach ($boxes as $folder) {
@@ -80,7 +67,8 @@
         'caption' => _("Trash Folder"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_FOLDERLIST,
-        'posvals' => $trash_folder_values
+        'posvals' => $trash_folder_values,
+        'save'    => 'save_option_trash_folder'
     );
     
     $sent_none = array(SMPREF_NONE => _("Do not use Sent"));
@@ -90,7 +78,8 @@
         'caption' => _("Sent Folder"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_FOLDERLIST,
-        'posvals' => $sent_folder_values
+        'posvals' => $sent_folder_values,
+        'save'    => 'save_option_sent_folder'
     );
     
     $draft_none = array(SMPREF_NONE => _("Do not use Drafts"));
@@ -100,7 +89,8 @@
         'caption' => _("Draft Folder"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_FOLDERLIST,
-        'posvals' => $draft_folder_values
+        'posvals' => $draft_folder_values,
+        'save'    => 'save_option_draft_folder'
     );
 
     /*** Load the General Options into the array ***/
@@ -195,24 +185,48 @@
                            SMPREF_TIME_24HR => _("24-hour clock")) 
     );
 
+    /* Assemble all this together and return it as our result. */
+    $result = array(
+        'grps' => $optgrps,
+        'vals' => $optvals
+    );
+    return ($result);
+}
 
-    /* Build and output the option groups. */
-    $option_groups = createOptionGroups($optgrps, $optvals);
-    printOptionGroups($option_groups);
-                 
-    echo '<TR><TD ALIGN="CENTER" VALIGN="MIDDLE" COLSPAN="2" NOWRAP><B>'
-         . _("Plugin Options") . "</B></TD></TR>\n";
-    OptionSubmit( 'submit_folder' );
-?>         
+/******************************************************************/
+/** Define any specialized save functions for this option page. ***/
+/******************************************************************/
+function save_option_trash_folder($option) {
+    global $data_dir, $username;
 
-      </table>
-   </form>
+    /* Set move to trash on or off. */
+    $trash_on = ($option->new_value == SMPREF_NONE ? SMPREF_OFF : SMPREF_ON);
+    setPref($data_dir, $username, 'move_to_trash', $trash_on);
 
-   <?php do_hook('options_folders_bottom'); ?>
+    /* Now just save the option as normal. */
+    save_option($option);
+}
 
-    </td></tr>
-    </table>
+function save_option_sent_folder($option) {
+    global $data_dir, $username;
 
-</td></tr>
-</table>
-</body></html>
+    /* Set move to sent on or off. */
+    $sent_on = ($option->new_value == SMPREF_NONE ? SMPREF_OFF : SMPREF_ON);
+    setPref($data_dir, $username, 'move_to_sent', $sent_on);
+
+    /* Now just save the option as normal. */
+    save_option($option);
+}
+
+function save_option_draft_folder($option) {
+    global $data_dir, $username;
+
+    /* Set move to draft on or off. */
+    $draft_on = ($option->new_value == SMPREF_NONE ? SMPREF_OFF : SMPREF_ON);
+    setPref($data_dir, $username, 'save_as_draft', $draft_on);
+
+    /* Now just save the option as normal. */
+    save_option($option);
+}
+
+?>

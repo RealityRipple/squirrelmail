@@ -1,177 +1,255 @@
 <?php
-    /**
-     * options.php
-     *
-     * Copyright (c) 1999-2001 The SquirrelMail Development Team
-     * Licensed under the GNU GPL. For full terms see the file COPYING.
-     *
-     * Displays the options page. Pulls from proper user preference files
-     * and config.php. Displays preferences as selected and other options.
-     *
-     *  $Id$
-     */
 
-    require_once('../src/validate.php');
-    require_once('../functions/display_messages.php');
-    require_once('../functions/imap.php');
-    require_once('../functions/array.php');
-   
-    ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);
-    $base_uri = $regs[1];   
+/**
+ * options.php
+ *
+ * Copyright (c) 1999-2001 The SquirrelMail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * Displays the options page. Pulls from proper user preference files
+ * and config.php. Displays preferences as selected and other options.
+ *
+ * $Id$
+ */
 
-    if (isset($language)) {
-        setcookie('squirrelmail_language', $language, time()+2592000, $base_uri);
-        $squirrelmail_language = $language;
-    }   
+require_once('../src/validate.php');
+require_once('../functions/display_messages.php');
+require_once('../functions/imap.php');
+require_once('../functions/array.php');
+require_once('../functions/options.php');
 
-    displayPageHeader($color, _("None"));
+/* Set the base uri. */
+ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);
+$base_uri = $regs[1];   
+
+/* First and foremost, deal with language stuff. */
+if (isset($language)) {
+    setcookie('squirrelmail_language', $language, time()+2592000, $base_uri);
+    $squirrelmail_language = $language;
+} else {
+    $language = getPref($data_dir, $username, 'language');
+}
+
+/*********************************/
+/*** Build the resultant page. ***/
+/*********************************/
+
+displayPageHeader($color, _("None"));
+
+define('SMOPT_MODE_DISPLAY', 'display');
+define('SMOPT_MODE_SUBMIT', 'submit');
+define('SMOPT_MODE_LINK', 'link');
+
+define('SMOPT_PAGE_MAIN', 'main');
+define('SMOPT_PAGE_PERSONAL', 'personal');
+define('SMOPT_PAGE_DISPLAY', 'display');
+define('SMOPT_PAGE_HIGHLIGHT', 'highlight');
+define('SMOPT_PAGE_FOLDER', 'folder');
+define('SMOPT_PAGE_ORDER', 'order');
+
+function process_optionmode_submit($optpage, $optpage_data) {
+    /* Initialize the maximum option refresh level. */
+    $max_refresh = SMOPT_REFRESH_NONE;
+
+    /* Save each option in each option group. */
+    foreach ($optpage_data['options'] as $option_grp) {
+        foreach ($option_grp['options'] as $option) {
+            echo "name = '$option->name', "
+               . "value = '$option->value', "
+               . "new_value = '$option->new_value'<BR>\n";
+            if ($option->changed()) {
+                $option->save();
+                $max_refresh = max($max_refresh, $option->refresh_level);
+            }
+        }
+    }
+
+    /* Return the max refresh level. */
+    return ($max_refresh);
+}
+
+function process_optionmode_link($optpage) {
+   /* There will be something here, later. */
+}
+
+/* Make sure we have an Option Page set. Default to main. */
+if (!isset($optpage)) {
+    $optpage = 'main';
+}
+
+/* Make sure we have an Option Mode set. Default to display. */
+if (!isset($optmode)) {
+    $optmode = SMOPT_MODE_DISPLAY;
+}
+
+/*************************************************************/
+/*** First, set the load information for each option page. ***/
+/*************************************************************/
+
+/* Initialize load information variables. */
+$optpage_name = '';
+$optpage_file = '';
+$optpage_loader = '';
+
+/* Set the load information for each page. */
+switch ($optpage) {
+    case SMOPT_PAGE_MAIN: break;
+    case SMOPT_PAGE_PERSONAL:
+        $optpage_name   = _("Personal Information");
+        $optpage_file   = 'options_personal.php';
+        $optpage_loader = 'load_optpage_data_personal';
+        break;
+    case SMOPT_PAGE_DISPLAY:
+        $optpage_name   = _("Display Preferences");
+        $optpage_file   = 'options_display.php';
+        $optpage_loader = 'load_optpage_data_display';
+        break;
+    case SMOPT_PAGE_HIGHLIGHT:
+        $optpage_name   = _("Message Highlighting");
+        $optpage_file   = 'options_highlight.php';
+        $optpage_loader = 'load_optpage_data_highlight';
+        break;
+    case SMOPT_PAGE_FOLDER:
+        $optpage_name   = _("Folder Preferences");
+        $optpage_file   = 'options_folder.php';
+        $optpage_loader = 'load_optpage_data_folder';
+        break;
+    case SMOPT_PAGE_ORDER:
+        $optpage_name = _("Index Order");
+        $optpage_file = 'options_order.php';
+        $optpage_loader = 'load_optpage_data_order';
+        break;
+    default: do_hook('set_optpage_loadinfo');
+}
+
+/**********************************************************/
+/*** Second, load the option information for this page. ***/
+/**********************************************************/
+
+if ($optpage != SMOPT_PAGE_MAIN) {
+    /* Include the file for this optionpage. */
+    require_once($optpage_file);
+
+    /* Assemble the data for this option page. */
+    $optpage_data = array();
+    $optpage_data = $optpage_loader();
+    $optpage_data['options'] =
+        create_option_groups($optpage_data['grps'], $optpage_data['vals']);
+}
+
+/***********************************************************/
+/*** Next, process anything that needs to be processed. ***/
+/***********************************************************/
+
+switch ($optmode) {
+    case SMOPT_MODE_SUBMIT:
+        $max_refresh = process_optionmode_submit($optpage, $optpage_data);
+        break;
+    case SMOPT_MODE_LINK:
+        $max_refresh = process_optionmode_link($optpage, $optpage_data);
+        break;
+}
+
+/*** MOVE THIS DISPLAY CODE DOWN EVENTUALLY!!! ***/
+
+$optpage_title = _("Options");
+if (isset($optpage_name) && ($optpage_name != '')) {
+    $optpage_title .= " - $optpage_name";
+}
 
 ?>
 
-<br>
-<TABLE BGCOLOR="<?php echo $color[0] ?>" WIDTH="95%" align="center" CELLPADDING="2" CELLSPACING="0" BORDER="0">
-<TR><TD align="center">
-    <b><?php echo _("Options") ?></b><br>
-
+<BR>
+<TABLE BGCOLOR="<?php echo $color[0] ?>" WIDTH="95%" ALIGN="CENTER" CELLPADDING="2" CELLSPACING="0" BORDER="0">
+<TR><TD ALIGN="CENTER">
+    <B><?php echo $optpage_title; ?></B><BR>
     <TABLE WIDTH="100%" BORDER="0" CELLPADDING="5" CELLSPACING="0">
-    <TR><TD BGCOLOR="<?php echo $color[4] ?>" align="center">
+    <TR><TD BGCOLOR="<?php echo $color[4] ?>" ALIGN="CENTER">
 
 <?php
-    if (isset($submit_personal)) {
-        /* Save personal information. */
-        setPref($data_dir, $username, 'full_name', $new_full_name);
-        setPref($data_dir, $username, 'email_address', $new_email_address);
-        setPref($data_dir, $username, 'reply_to', $new_reply_to);
-        setPref($data_dir, $username, 'reply_citation_style', $new_reply_citation_style);
-        setPref($data_dir, $username, 'reply_citation_start', $new_reply_citation_start);
-        setPref($data_dir, $username, 'reply_citation_end', $new_reply_citation_end);
-        setPref($data_dir, $username, 'use_signature', $new_use_signature);
-        setPref($data_dir, $username, 'prefix_sig', $new_prefix_sig);
-        setSig($data_dir, $username, $new_signature_abs);
-      
-        do_hook('options_personal_save');
-      
-        echo '<br><b>'._("Successfully saved personal information!").'</b><br>';
-    } else if (isset($submit_display)) {
-        /* Do checking to make sure $new_theme is in the array. */
-        $theme_in_array = false;
-        for ($i=0; $i < count($theme); $i++) {
-            if ($theme[$i]['PATH'] == $new_chosen_theme) {
-                $theme_in_array = true;
-                break;
-            }
-        }
-        if (!$theme_in_array) {
-            $new_chosen_theme = '';
-        }
-   
-        /* Save display preferences. */
-        setPref($data_dir, $username, 'chosen_theme', $new_chosen_theme);
-        setPref($data_dir, $username, 'language', $new_language);
-        setPref($data_dir, $username, 'use_javascript_addr_book', $new_use_javascript_addr_book);
-        setPref($data_dir, $username, 'javascript_setting', $new_javascript_setting);
-        setPref($data_dir, $username, 'show_num', $new_show_num);
-        setPref($data_dir, $username, 'wrap_at', $new_wrap_at);
-        setPref($data_dir, $username, 'editor_size', $new_editor_size);
-        setPref($data_dir, $username, 'location_of_buttons', $new_location_of_buttons);
-        setPref($data_dir, $username, 'alt_index_colors', $new_alt_index_colors);
-        setPref($data_dir, $username, 'show_html_default', $new_show_html_default);
-        setPref($data_dir, $username, 'include_self_reply_all', $new_include_self_reply_all);
-        setPref($data_dir, $username, 'page_selector', $new_page_selector);
-        setPref($data_dir, $username, 'page_selector_max', $new_page_selector_max);
-        setPref($data_dir, $username, 'show_xmailer_default', $new_show_xmailer_default);
-        setPref($data_dir, $username, 'attachment_common_show_images', $new_attachment_common_show_images);
-        setPref($data_dir, $username, 'pf_subtle_link', $new_pf_subtle_link);
-        setPref($data_dir, $username, 'pf_cleandisplay', $new_pf_cleandisplay);
 
-        $js_autodetect_results = (isset($new_js_autodetect_results) ? $new_js_autodetect_results : SMPREF_JS_OFF);
-        if ($new_javascript_setting == SMPREF_JS_AUTODETECT) {
-            if ($js_autodetect_results == SMPREF_JS_ON) {
-                setPref($data_dir, $username, 'javascript_on', SMPREF_JS_ON);
-            } else {
-                setPref($data_dir, $username, 'javascript_on', SMPREF_JS_OFF);
-            }
-        } else {
-            setPref($data_dir, $username, 'javascript_on', $new_javascript_setting);
-        }
+/*******************************************************************/
+/* DO OLD SAVING OF SUBMITTED OPTIONS. THIS WILL BE REMOVED LATER. */
+/*******************************************************************/
 
-        do_hook('options_display_save');
-
-        echo '<br><b>'._("Successfully saved display preferences!").'</b><br>';
-        echo '<A HREF="../src/webmail.php?right_frame=options.php" target=_top>' . _("Refresh Page") . '</A><br>';
-    } else if (isset($submit_folder)) { 
-        /* Save trash folder preferences. */
-        if ($new_trash_folder != SMPREF_NONE) {
-            setPref($data_dir, $username, 'move_to_trash', SMPREF_ON);
-            setPref($data_dir, $username, 'trash_folder', $new_trash_folder);
-        } else {
-            setPref($data_dir, $username, 'move_to_trash', SMPREF_OFF);
-            setPref($data_dir, $username, 'trash_folder', SMPREF_NONE);
-        }
-
-        /* Save sent folder preferences. */
-        if ($new_sent_folder != SMPREF_NONE) {
-            setPref($data_dir, $username, 'move_to_sent', SMPREF_ON);
-            setPref($data_dir, $username, 'sent_folder', $new_sent_folder);
-        } else {
-            setPref($data_dir, $username, 'move_to_sent', SMPREF_OFF);
-            setPref($data_dir, $username, 'sent_folder', SMPREF_NONE);
-        }
-
-        /* Save draft folder preferences. */
-        if ($new_draft_folder != SMPREF_NONE) {
-            setPref($data_dir, $username, 'save_as_draft', SMPREF_ON);
-            setPref($data_dir, $username, 'draft_folder', $new_draft_folder);
-        } else {
-            setPref($data_dir, $username, 'save_as_draft', SMPREF_OFF);
-            setPref($data_dir, $username, 'draft_folder', SMPREF_NONE);
-        }
-
-        /* Save folder prefix preferences. */
-        if (isset($folderprefix)) {
-            setPref($data_dir, $username, 'folder_prefix', $folderprefix);
-        } else {
-            setPref($data_dir, $username, 'folder_prefix', '');
-        }
-
-        setPref($data_dir, $username, 'location_of_bar', $new_location_of_bar);
-        setPref($data_dir, $username, 'left_size', $new_left_size);
-        setPref($data_dir, $username, 'left_refresh', $new_left_refresh);
-        setPref($data_dir, $username, 'unseen_notify', $new_unseen_notify);
-        setPref($data_dir, $username, 'unseen_type', $new_unseen_type);
-        setPref($data_dir, $username, 'collapse_folders', $new_collapse_folders);
-        setPref($data_dir, $username, 'date_format', $new_date_format);
-        setPref($data_dir, $username, 'hour_format', $new_hour_format);
-
-        do_hook('options_folders_save');
-        echo '<br><b>'._("Successfully saved folder preferences!").'</b><br>';
-        echo '<A HREF="../src/left_main.php" target=left>' . _("Refresh Folder List") . '</A><br>';
-    } else {
-        do_hook('options_save');
+/* If in submit mode, select a save hook name and run it. */
+if ($optmode == SMOPT_MODE_SUBMIT)	 {
+    /* Select a save hook name. */
+    switch ($optpage) {
+        case SMOPT_PAGE_PERSONAL:
+            $save_hook_name = 'options_personal_save';
+            break;
+        case SMOPT_PAGE_DISPLAY:
+            $save_hook_name = 'options_display_save';
+            break;
+        case SMOPT_PAGE_FOLDER:
+            $save_hook_name = 'options_folder_save';
+            break;
+        default: $save_hook_name = 'options_save';
+            break;
     }
 
-    /****************************************/
-    /* Now build our array of option pages. */
-    /****************************************/
+    /* Run the options save hook. */
+    do_hook($save_hook_name);
+}
+
+/***************************************************************/
+/* Apply logic to decide what optpage we want to display next. */
+/***************************************************************/
+
+/* If this is the result of an option page being submitted, then */
+/* show the main page. Otherwise, show whatever page was called. */
+
+if ($optmode == SMOPT_MODE_SUBMIT) {
+    $optpage = SMOPT_PAGE_MAIN;
+}
+
+/***************************************************************/
+/* Finally, display whatever page we are supposed to show now. */
+/***************************************************************/
+
+/*
+ * The main option page has a different layout then the rest of the option
+ * pages. Therefore, we create it here first, then the others below.
+ */
+if ($optpage == SMOPT_PAGE_MAIN) {
+    /**********************************************************/
+    /* First, display the results of a submission, if needed. */
+    /**********************************************************/
+    if ($optmode == SMOPT_MODE_SUBMIT) {
+        /* Display a message indicating a successful save. */
+        echo '<B>' . _("Successfully Saved Options") . ": $optpage_name</B><BR>\n";
+
+        /* If $max_refresh != SMOPT_REFRESH_NONE, provide a refresh link. */
+        if ($max_refresh == SMOPT_REFRESH_FOLDERLIST) {
+            echo '<A HREF="../src/left_main.php" TARGET="left">' . _("Refresh Folder List") . '</A><BR>';
+        } else if ($max_refresh) {
+            echo '<A HREF="../src/webmail.php?right_frame=options.php" TARGET="_top">' . _("Refresh Page") . '</A><BR>';
+        }
+    }
+    /******************************************/
+    /* Build our array of Option Page Blocks. */
+    /******************************************/
+    $optpage_blocks = array();
 
     /* Build a section for Personal Options. */
-    $optionpages[] = array(
+    $optpage_blocks[] = array(
         'name' => _("Personal Information"),
-        'url'  => 'options_personal.php',
+        'url'  => 'options.php?optpage=' . SMOPT_PAGE_PERSONAL,
         'desc' => _("This contains personal information about yourself such as your name, your email address, etc."),
         'js'   => false
     );
 
     /* Build a section for Display Options. */
-    $optionpages[] = array(
+    $optpage_blocks[] = array(
         'name' => _("Display Preferences"),
-        'url'  => 'options_display.php',
+        'url'  => 'options.php?optpage=' . SMOPT_PAGE_DISPLAY,
         'desc' => _("You can change the way that SquirrelMail looks and displays information to you, such as the colors, the language, and other settings."),
         'js'   => false
     );
 
     /* Build a section for Message Highlighting Options. */
-    $optionpages[] = array(
+    $optpage_blocks[] = array(
         'name' =>_("Message Highlighting"),
         'url'  => 'options_highlight.php',
         'desc' =>_("Based upon given criteria, incoming messages can have different background colors in the message list.  This helps to easily distinguish who the messages are from, especially for mailing lists."),
@@ -179,36 +257,37 @@
     );
 
     /* Build a section for Folder Options. */
-    $optionpages[] = array(
+    $optpage_blocks[] = array(
         'name' => _("Folder Preferences"),
-        'url'  => 'options_folder.php',
+        'url'  => 'options.php?optpage=' . SMOPT_PAGE_FOLDER,
         'desc' => _("These settings change the way your folders are displayed and manipulated."),
         'js'   => false
     );
 
     /* Build a section for Index Order Options. */
-    $optionpages[] = array(
+    $optpage_blocks[] = array(
         'name' => _("Index Order"),
         'url'  => 'options_order.php',
         'desc' => _("The order of the message index can be rearanged and changed to contain the headers in any order you want."),
         'js'   => false
     );
+
     /* Build a section for plugins wanting to register an optionpage. */
-    do_hook('options_register');
+    do_hook('optpage_register_block');
 
     /*****************************************************/
     /* Let's sort Javascript Option Pages to the bottom. */
     /*****************************************************/
-    $js_optionpages = array();
-    $reg_optionpages = array();
-    foreach ($optionpages as $optpage) {
-        if (!$optpage['js']) {
-            $reg_optionpages[] = $optpage;
+    $js_optpage_blocks = array();
+    $reg_optpage_blocks = array();
+    foreach ($optpage_blocks as $cur_optpage) {
+        if (!$cur_optpage['js']) {
+            $reg_optpage_blocks[] = $cur_optpage;
         } else if ($javascript_on == SMPREF_JS_ON) {
-            $js_optionpages[] = $optpage;
+            $js_optpage_blocks[] = $cur_optpage;
         }
     }
-    $optionpages = array_merge($reg_optionpages, $js_optionpages);
+    $optpage_blocks = array_merge($reg_optpage_blocks, $js_optpage_blocks);
 
     /********************************************/
     /* Now, print out each option page section. */
@@ -217,7 +296,7 @@
     echo "<TABLE BGCOLOR=\"$color[4]\" WIDTH=\"100%\" CELLPADDING=0 CELLSPACING=\"5\" BORDER=\"0\">" .
                 '<TR><TD VALIGN="TOP">' .
                    "<TABLE BGCOLOR=\"$color[4]\" WIDTH=\"100%\" CELLPADDING=\"3\" CELLSPACING=\"0\" BORDER=\"0\">";
-    foreach ($optionpages as $next_optpage) {
+    foreach ($optpage_blocks as $next_optpage) {
         if ($first_optpage == false) {
             $first_optpage = $next_optpage;
         } else {
@@ -230,11 +309,73 @@
         print_optionpages_row($first_optpage);
     }
 
-    echo '</TABLE>' .
-                '</TD></TR>' .
-             "</TABLE>\n";
+    echo "</TABLE></TD></TR></TABLE>\n";
 
     do_hook('options_link_and_description');
+
+
+/*************************************************************************/
+/* If we are not looking at the main option page, display the page here. */
+/*************************************************************************/
+} else {
+    echo '<FORM NAME="f" ACTION="options.php" METHOD="POST"><BR>' . "\n"
+       . '<TABLE WIDTH="100%" CELLPADDING="2" CELLSPACING="0" BORDER="0">' . "\n"
+       . create_optpage_element($optpage)
+       . create_optmode_element(SMOPT_MODE_SUBMIT);
+
+    /* Output the option groups for this page. */
+    print_option_groups($optpage_data['options']);
+
+    /*** FIXME: CURRENTLY, THIS NEXT SWITCH STATEMENT DOES NOT TAKE
+     *** INTO ACCOUNT FOR PLUGINS. NEED TO FIX IT. ***/
+ 
+    /* Set the inside_hook_name and submit_name. */
+    switch ($optpage) {
+        case SMOPT_PAGE_PERSONAL:
+            $inside_hook_name = 'options_personal_inside';
+            $bottom_hook_name = 'options_personal_bottom';
+            $submit_name = 'submit_personal';
+            break;
+        case SMOPT_PAGE_DISPLAY:
+            $inside_hook_name = 'options_display_inside';
+            $bottom_hook_name = 'options_display_bottom';
+            $submit_name = 'submit_display';
+            break;
+        case SMOPT_PAGE_HIGHLIGHT:
+            $inside_hook_name = 'options_highlight_inside';
+            $bottom_hook_name = 'options_display_bottom';
+            $submit_name = 'submit_highlight';
+            break;
+        case SMOPT_PAGE_FOLDER:
+            $inside_hook_name = 'options_folder_inside';
+            $bottom_hook_name = 'options_display_bottom';
+            $submit_name = 'submit_folder';
+            break;
+        case SMOPT_PAGE_ORDER:
+            $inside_hook_name = 'options_order_inside';
+            $bottom_hook_name = 'options_order_bottom';
+            $submit_name = 'submit_order';
+            break;
+        default:
+            $inside_hook_name = '';
+            $bottom_hook_name = '';
+            $submit_name = 'submit';
+    }
+
+    /* If it is not empty, trigger the inside hook. */
+    if ($inside_hook_name != '') {
+        do_hook($inside_hook_name);    
+    }
+
+    /* Spit out a submit button. */
+    OptionSubmit($submit_name);
+    echo '</TABLE></FORM>';
+
+    /* If it is not empty, trigger the bottom hook. */
+    if ($bottom_hook_name != '') {
+        do_hook($bottom_hook_name);    
+    }
+}
 
 ?>
     </TD></TR>
@@ -243,7 +384,7 @@
 </TD></TR>
 </TABLE>
 
-</body></html>
+</BODY></HTML>
 
 <?php
 
@@ -290,16 +431,16 @@
 
         echo          '</TR>' .
                       '<TR>' .
-                         "<TD VALIGN=top BGCOLOR=\"$color[0]\">" .
+                         "<TD VALIGN=top BGCOLOR=\"$color[0]\" WIDTH=\"50%\">" .
                             $leftopt['desc'] .
                          '</TD>' .
                          "<TD VALIGN=top BGCOLOR=\"$color[4]\">&nbsp;</TD>";
         if ($rightopt) {
-            echo         "<TD VALIGN=top BGCOLOR=\"$color[0]\">" .
+            echo         "<TD VALIGN=top BGCOLOR=\"$color[0]\" WIDTH=\"50%\">" .
                             $rightopt['desc'] .
                          '</TD>';
         } else {
-            echo "<TD VALIGN=top BGCOLOR=\"$color[4]\">&nbsp;</TD>";
+            echo         "<TD VALIGN=top BGCOLOR=\"$color[4]\" WIDTH=\"50%\">&nbsp;</TD>";
         }
         
         echo          '</TR>' .

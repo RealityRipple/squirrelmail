@@ -1,37 +1,24 @@
 <?php
-   /**
-    **  options_display.php
-    **
-    **  Copyright (c) 1999-2000 The SquirrelMail development team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  Displays all optinos about display preferences
-    **
-    **  $Id$
-    **/
 
-   require_once('../src/validate.php');
-   require_once('../functions/display_messages.php');
-   require_once('../functions/imap.php');
-   require_once('../functions/array.php');
-   require_once('../functions/plugin.php');
-   require_once('../functions/options.php');
+/**
+ * options_display.php
+ *
+ * Copyright (c) 1999-2001 The SquirrelMail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * Displays all optinos about display preferences
+ *
+ * $Id$
+ */
 
-   displayPageHeader($color, 'None');
-   $language = getPref($data_dir, $username, 'language');
-?>
-   <br>
-<table width="95%" align="center" border="0" cellpadding="2" cellspacing="0">
-<tr><td bgcolor="<?php echo $color[0] ?>" align="center">
+/* Define the group constants for the display options page. */
+define('SMOPT_GRP_GENERAL', 0);
+define('SMOPT_GRP_MAILBOX', 1);
+define('SMOPT_GRP_MESSAGE', 2);
 
-   <b><?php echo _("Options") . ' - ' . _("Display Preferences"); ?></b><br>
-
-   <table width="100%" border="0" cellpadding="1" cellspacing="1">
-   <tr><td bgcolor="<?php echo $color[4] ?>" align="center">
-
-   <form name="f" action="options.php" method="post"><br>
-      <table width="100%" cellpadding="2" cellspacing="0" border="0">
-<?php
+/* Define the optpage load function for the display options page. */
+function load_optpage_data_display() {
+    global $theme, $languages, $js_autodetect_results;
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -40,9 +27,6 @@
     /******************************************************/
     /* LOAD EACH GROUP OF OPTIONS INTO THE OPTIONS ARRAY. */
     /******************************************************/
-    define('SMOPT_GRP_GENERAL', 0);
-    define('SMOPT_GRP_MAILBOX', 1);
-    define('SMOPT_GRP_MESSAGE', 2);
 
     /*** Load the General Options into the array ***/
     $optgrps[SMOPT_GRP_GENERAL] = _("General Display Options");
@@ -58,7 +42,8 @@
         'caption' => _("Theme"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_ALL,
-        'posvals' => $theme_values
+        'posvals' => $theme_values,
+        'save'    => 'save_option_theme'
     );
 
     $language_values = array();
@@ -86,12 +71,19 @@
                            SMPREF_JS_OFF        => _("Never"))
     );
 
+    $js_autodetect_script = "
+        <SCRIPT LANGUAGE=\"JavaScript\"><!--
+           document.forms[0].new_js_autodetect_results.value = '" . SMPREF_JS_ON . "';
+        // --></SCRIPT>
+    ";
     $js_autodetect_results = SMPREF_JS_OFF;
     $optvals[SMOPT_GRP_GENERAL][] = array(
         'name'    => 'js_autodetect_results',
         'caption' => '',
         'type'    => SMOPT_TYPE_HIDDEN,
-        'refresh' => SMOPT_REFRESH_NONE
+        'refresh' => SMOPT_REFRESH_NONE,
+        'script'  => $js_autodetect_script,
+        'save'    => 'save_option_javascript_autodetect'
     );
 
     /*** Load the General Options into the array ***/
@@ -209,28 +201,51 @@
         'refresh' => SMOPT_REFRESH_NONE
     );
 
-    /* Build and output the option groups. */
-    $option_groups = createOptionGroups($optgrps, $optvals);
-    printOptionGroups($option_groups);
-    
-    do_hook('options_display_inside');
-    echo "<TR><TD>&nbsp;</TD></TR>\n";
+    /* Assemble all this together and return it as our result. */
+    $result = array(
+        'grps' => $optgrps,
+        'vals' => $optvals
+    );
+    return ($result);
+}
 
-    OptionSubmit( 'submit_display' );
+/******************************************************************/
+/** Define any specialized save functions for this option page. ***/
+/******************************************************************/
+
+function save_option_theme($option) {
+    global $theme;
+
+    /* Do checking to make sure $new_theme is in the array. */
+    $theme_in_array = false;
+    for ($i = 0; $i < count($theme); ++$i) {
+        if ($theme[$i]['PATH'] == $option->new_value) {
+            $theme_in_array = true;
+            break;
+        }
+    }
+
+    if (!$theme_in_array) {
+        $option->new_value = '';
+    }
+
+    /* Save the option like normal. */
+    save_option($option);
+}
+
+function save_option_javascript_autodetect($option) {
+    global $data_dir, $username, $new_javascript_setting;
+
+    /* Set javascript either on or off. */
+    if ($new_javascript_setting == SMPREF_JS_AUTODETECT) {
+        if ($option->new_value == SMPREF_JS_ON) {
+            setPref($data_dir, $username, 'javascript_on', SMPREF_JS_ON);
+        } else {
+            setPref($data_dir, $username, 'javascript_on', SMPREF_JS_OFF);
+        }
+    } else {
+        setPref($data_dir, $username, 'javascript_on', $new_javascript_setting);
+    }
+}
+
 ?>
-
-      </table>
-   </form>
-
-   <?php do_hook('options_display_bottom'); ?>
-
-    </td></tr>
-    </table>
-
-<SCRIPT LANGUAGE="JavaScript"><!--
-  document.forms[0].new_js_autodetect_results.value = '<?php echo SMPREF_JS_ON; ?>';
-// --></SCRIPT>
-
-</td></tr>
-</table>
-</body></html>
