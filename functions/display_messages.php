@@ -12,8 +12,19 @@
  * $Id$
  */
 
+/**
+ * Find out where squirrelmail lives and try to be smart about it.
+ * The only problem would be when squirrelmail lives in directories
+ * called "src", "functions", or "plugins", but people who do that need
+ * to be beaten with a steel pipe anyway.
+ *
+ * @return  the base uri of squirrelmail installation.
+ */
 function sqm_baseuri(){
     global $base_uri, $PHP_SELF;
+    /**
+     * If it is in the session, just return it.
+     */
     if (isset($base_uri)){
         return $base_uri;
     }
@@ -115,12 +126,12 @@ function plain_error_message($message, $color) {
 function logout_error( $errString, $errTitle = '' ) {
 
     GLOBAL $frame_top, $org_logo, $org_name, $org_logo_width, $org_logo_height,
-           $hide_sm_attributions, $version;
+           $hide_sm_attributions, $version, $DOCUMENT_ROOT;
     $base_uri = sqm_baseuri();
-    include_once($base_uri . 'functions/page_header.php' );
+    include_once($DOCUMENT_ROOT . $base_uri . 'functions/page_header.php' );
     if ( !isset( $org_logo ) ) {
         // Don't know yet why, but in some accesses $org_logo is not set.
-        include( $base_uri . '../config/config.php' );
+        include( $DOCUMENT_ROOT . $base_uri . 'config/config.php' );
     }
     /* Display width and height like good little people */
     $width_and_height = '';
@@ -174,7 +185,8 @@ function logout_error( $errString, $errTitle = '' ) {
             '<TR><TD><CENTER>' . $errString . '</CENTER></TD></TR>'.
             "<TR><TD BGCOLOR=\"$color[0]\">".
                   "<FONT COLOR=\"$color[2]\"><B><CENTER>".
-                  '<a href="' . $base_uri . '" target="' . $frame_top . '">' .
+                  '<a href="' . $base_uri . 'src/login.php" target="' .
+                  $frame_top . '">' .
                   _("Go to the login page") . "</a></CENTER></B></FONT>".
             '</TD></TR>'.
          '</TABLE></td></tr></table></body></html>';
