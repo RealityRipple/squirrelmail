@@ -1,3 +1,14 @@
+$Id$
+
+It is best if you check out the SquirrelMail development FAQ for more
+information.  This document may be obsoleted at some point in the future (or
+maybe we'll write a script to get the wiki contents and dump them in here
+automatically).
+
+FAQ -> http://www.squirrelmail.org/wiki/wiki.php?DeveloperFAQ
+Plugin Hooks -> http://www.squirrelmail.org/wiki/wiki.php?DevelopingPlugins
+
+
 A FEW NOTES ON THE PLUGIN ARCHITECTURE
 ======================================
 
@@ -121,6 +132,7 @@ List of hooks
   mailbox_index_after             functions/mailbox_display.php
   mailbox_form_before             functions/mailbox_display.php
   subject_link                    functions/mailbox_display.php
+  motd                            src/right_main.php
   right_main_after_header         src/right_main.php
   right_main_bottom               src/right_main.php
   login_top                       src/login.php
