@@ -13,8 +13,6 @@
       include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
-//   if (!isset($page_header_php))
-//      include("../functions/page_header.php");
    if (!isset($imap_php))
       include("../functions/imap.php");
    if (!isset($mime_php))
@@ -27,6 +25,8 @@
    function viewText($color, $body, $id, $entid, $mailbox, $type1, $wrap_at) {
       global $where, $what, $charset;
       global $startMessage;
+
+      
       displayPageHeader($color, "None");
 
       echo "<BR><TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">";
@@ -127,10 +127,12 @@
       switch ($type0) {
          case "text":
             $body = decodeBody($body, $header->encoding);
+            include("../functions/page_header.php");
             viewText($color, $body, $passed_id, $passed_ent_id, $mailbox, $type1, $wrap_at);
             break;
          case "message":
             $body = decodeBody($body, $header->encoding);
+            include("../functions/page_header.php");
             viewText($color, $body, $passed_id, $passed_ent_id, $mailbox, $type1, $wrap_at);
             break;
          default:
