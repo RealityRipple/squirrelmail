@@ -82,6 +82,8 @@
    
    $languages['es']['NAME']    = 'Spanish';
    $languages['es']['CHARSET'] = 'iso-8859-1';
+   $languages['es_ES']['NAME']    = 'Spanish';
+   $languages['es_ES']['CHARSET'] = 'iso-8859-1';
 
    $languages['sv']['NAME']    = 'Swedish';
    $languages['sv']['CHARSET'] = 'iso-8859-1';
