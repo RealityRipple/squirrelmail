@@ -23,7 +23,7 @@ function cachePrefValues($data_dir, $username) {
 
     sqgetGlobalVar('prefs_are_cached', $prefs_are_cached, SQ_SESSION );
     if ( isset($prefs_are_cached) && $prefs_are_cached) {
-    	sqgetGlobalVar('prefs_cache', $prefs_cache, SQ_SESSION );
+        sqgetGlobalVar('prefs_cache', $prefs_cache, SQ_SESSION );
         return;
     }
 
@@ -95,7 +95,7 @@ function getPref($data_dir, $username, $string, $default = '') {
     if (!$result) {
         cachePrefValues($data_dir, $username);
         if (isset($prefs_cache[$string])) {
-                $result = $prefs_cache[$string];
+            $result = $prefs_cache[$string];
         } else {
             $result = do_hook_function('get_pref', array($username,$string));
             if (!$result) {
