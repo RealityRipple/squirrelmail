@@ -326,13 +326,8 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
     global $startMessage, $username, $key, $imapServerAddress, $imapPort,
            $show_html_default, $sort, $has_unsafe_images;
 
-    if ( !check_php_version(4,1) ) {
-        global $_GET;
-    }
-    if(isset($_GET['view_unsafe_images'])) {
-        $view_unsafe_images = $_GET['view_unsafe_images'];
-    } else {
-	$view_unsafe_images = false;
+    if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
+        $view_unsafe_images = false;
     }
 
     $body = '';
@@ -1596,9 +1591,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
                           )
                 )
         );
-    if(isset($_GET['view_unsafe_images'])) {
-        $view_unsafe_images = $_GET['view_unsafe_images'];
-    } else {
+    if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
 	$view_unsafe_images = false;
     }
     if (!$view_unsafe_images){
