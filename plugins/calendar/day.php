@@ -11,6 +11,7 @@
  * Displays the day page (day view).
  *
  * $Id$
+ */
 
 define('SM_PATH','../../');
 
