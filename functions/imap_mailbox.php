@@ -36,6 +36,9 @@
     ******************************************************************************/
    function sqimap_mailbox_select ($imap_stream, $mailbox, $hide=true, $recent=false) {
       global $auto_expunge;
+
+      if( $mailbox == _("None") )
+          return;
       
       fputs ($imap_stream, "a001 SELECT \"$mailbox\"\r\n");
              $read = sqimap_read_data($imap_stream, "a001", true, $response, $message);
