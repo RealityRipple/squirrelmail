@@ -188,7 +188,7 @@ function sqspell_crypto($mode, $ckey, $input){
       mcrypt_generic_deinit ($td);
       mcrypt_module_close ($td);
   } else {
-      // older depreciated function
+      // older deprecated function
       mcrypt_generic_end ($td);
   }
   return $crypto;
