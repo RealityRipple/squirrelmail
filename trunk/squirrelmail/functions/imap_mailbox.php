@@ -75,13 +75,15 @@ function sortSpecialMbx($a, $b) {
     return ($acmp>$bcmp) ? 1: -1;
 }     	
 
-
 function find_mailbox_name ($mailbox) {
     if (ereg(" *\"([^\r\n\"]*)\"[ \r\n]*$", $mailbox, $regs))
         return $regs[1];
     ereg(" *([^ \r\n\"]*)[ \r\n]*$",$mailbox,$regs);
     return $regs[1];
-    
+}
+
+function check_is_noselect ($lsub_line) {
+    return preg_match("/^\* LSUB \([^\)]*\\Noselect[^\)]*\)/i", $lsub_line);
 }
 
 /**
@@ -740,10 +742,11 @@ function sqimap_mailbox_tree($imap_stream) {
 //		$sorted_lsub_ary[] = array ('mbx' => $mbx, 'flag' => $flag); 
 //	    }
 	    $mbx = find_mailbox_name($lsub_ary[$i]);
+	    $noselect = check_is_noselect($lsub_ary[$i]);
 	    if (substr($mbx, -1) == $delimiter) {
     	        $mbx = substr($mbx, 0, strlen($mbx) - 1);
     	    }
-	    $sorted_lsub_ary[] = array ('mbx' => $mbx, 'flag' => ''); 
+	    $sorted_lsub_ary[] = array ('mbx' => $mbx, 'noselect' => $noselect); 
         }
 	array_multisort($sorted_lsub_ary, SORT_ASC, SORT_REGULAR);
 
@@ -861,6 +864,8 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false) {
 	    if (isset($mbx_ary[$i]['nummessages'])) {
 		$mbx->total = $mbx_ary[$i]['nummessages'];
 	    }
+
+	    $mbx->is_noselect = $mbx_ary[$i]['noselect'];
 	    
             $r_del_pos = strrpos($mbx_ary[$i]['mbx'], $delimiter);
 	    if ($r_del_pos) {
