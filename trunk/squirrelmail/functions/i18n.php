@@ -482,6 +482,11 @@ $languages['th_TH']['NAME']    = 'Thai';
 $languages['th_TH']['CHARSET'] = 'tis-620';
 $languages['th']['ALIAS'] = 'th_TH';
 
+$languages['tl_PH']['NAME']    = 'Tagalog';
+$languages['tl_PH']['CHARSET'] = 'iso-8859-1';
+$languages['tl_PH']['LOCALE']  = 'tl_PH.ISO-8859-1';
+$languages['tl']['ALIAS'] = 'tl_PH';
+
 $languages['tr_TR']['NAME']    = 'Turkish';
 $languages['tr_TR']['CHARSET'] = 'iso-8859-9';
 $languages['tr']['ALIAS'] = 'tr_TR';
