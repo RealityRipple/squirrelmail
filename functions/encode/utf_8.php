@@ -20,6 +20,10 @@
  * @return a utf-8 encoded string [STRING]
  */
 function charset_encode_utf_8 ($source) {
+
+   // don't run though encoding function, if there is no encoded characters
+   if (! preg_match("'&#'",$source) ) return $source;
+
    $utf8Str = '';
    $entityArray = explode ("&#", $source);
    $size = count ($entityArray);
