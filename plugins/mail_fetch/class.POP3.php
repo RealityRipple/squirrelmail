@@ -306,7 +306,7 @@ class POP3 {
                 $this->ERROR = _("POP3 pop_list:") . ' ' . _("Error ") . "[$reply]";
                 return false;
             }
-            list($junk,$num,$size) = explode(" ",$reply);
+            list($junk,$num,$size) = preg_split('/\s+/',$reply);
             return $size;
         }
         $cmd = "LIST";
@@ -329,7 +329,7 @@ class POP3 {
                 $this->ERROR = _("POP3 pop_list:") . ' ' . _("Premature end of list");
                 return false;
             }
-            list($thisMsg,$msgSize) = explode(" ",$line);
+            list($thisMsg,$msgSize) = preg_split('/\s+/',$line);
             settype($thisMsg,"integer");
             if($thisMsg != $msgC)
             {
@@ -399,7 +399,7 @@ class POP3 {
             return $last;
         }
 
-        $Vars = explode(" ",$reply);
+        $Vars = preg_split('/\s+/',$reply);
         $count = $Vars[1];
         $size = $Vars[2];
         settype($count,"integer");
@@ -530,7 +530,7 @@ class POP3 {
                 $this->ERROR = _("POP3 uidl:") . ' ' . _("Error ") . "[$reply]";
                 return false;
             }
-            list ($ok,$num,$myUidl) = explode(" ",$reply);
+            list ($ok,$num,$myUidl) = preg_split('/\s+/',$reply);
             return $myUidl;
         } else {
             $this->update_timer();
@@ -561,7 +561,7 @@ class POP3 {
                 if(ereg("^\.\r\n",$line)) {
                     break;
                 }
-                list ($msg,$msgUidl) = explode(" ",$line);
+                list ($msg,$msgUidl) = preg_split('/\s+/',$line);
                 $msgUidl = $this->strip_clf($msgUidl);
                 if($count == $msg) {
                     $UIDLArray[$msg] = $msgUidl;
