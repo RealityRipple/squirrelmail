@@ -1,16 +1,16 @@
 <?php
 
 /**
- * servery_theme.php
- *    Name:    Servery.cz Theme
- *    Author:  Ondrej Sury <ondrej@globe.cz>
- *    Date:    August 18, 2000
- *    Comment: 
+ * Name:   Servery.cz Theme
+ * @author Ondrej Sury <ondrej@globe.cz>
+ * Date:   August 18, 2000
  *
  * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
+ * @package squirrelmail
+ * @subpackage themes
  */
 
 global $color;

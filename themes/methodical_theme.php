@@ -2,17 +2,19 @@
 
 /**
  * methodical_theme.php
- *    Name:    Methodical
- *    Author:  Ray Black III
- *    Date:    November 19, 2001
- *    Comment: Methodical is a theme that's based on the dompie theme,
- *             but expands the blue across the entire page, and modifies
- *             some of the gray backgrounds.
+ * Name:    Methodical
+ * @author Ray Black III
+ * Date:    November 19, 2001
+ * Comment: Methodical is a theme that's based on the dompie theme,
+ *          but expands the blue across the entire page, and modifies
+ *          some of the gray backgrounds.
  *
  * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
+ * @package squirrelmail
+ * @subpackage themes
  */
 
 global $color;

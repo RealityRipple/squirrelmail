@@ -1,11 +1,11 @@
 <?php
-   /** 
-	Author:       Todd Hammer <thammer@rtccom.com>
-	Name:		  Alien Glow Theme
-	Date:         May 2, 2002
-	Theme Name:   "Alien Glow Color Scheme"
-
-    **/
+/**
+ * @author Todd Hammer <thammer@rtccom.com>
+ * Name: Alien Glow Theme
+ * Date: May 2, 2002
+ * @package squirrelmail
+ * @subpackage themes
+ */
 
     $color[0]   = "#19881A"; //      TitleBar
     $color[1]   = "#800000"; // 

@@ -3,13 +3,15 @@
 /**
  * dark_grey_theme.php
  *    Name:   Dark Grey
- *    Author: Justin Miller
+ * @author Justin Miller
  *    Date:   July 24, 2000
  *
  * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
+ * @package squirrelmail
+ * @subpackage themes
  */
 
 global $color;

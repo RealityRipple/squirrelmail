@@ -2,21 +2,23 @@
 
 /**
  * maize_theme.php
- *    Name:    Maize
- *    Author:  Ray Black
- *    Date:    August 15, 2000
- *    Comment: Staying with the 'South of the border food' theme,
- *              Staying with the 'South of the border food' theme,
- *              I bring you Maize to accompany Black Bean Burrito.
- *              As the Furbies say: Yum! Oh, message highlighting
- *              looks best with colors in the neighborhood of
- *              #7A6A50, bumping up the red, green and blue where
- *              necessary.
+ * Name:    Maize
+ * @author Ray Black
+ * Date:    August 15, 2000
+ * Comment: Staying with the 'South of the border food' theme,
+ *          Staying with the 'South of the border food' theme,
+ *          I bring you Maize to accompany Black Bean Burrito.
+ *          As the Furbies say: Yum! Oh, message highlighting
+ *          looks best with colors in the neighborhood of
+ *          #7A6A50, bumping up the red, green and blue where
+ *          necessary.
  *             
  * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
+ * @package squirrelmail
+ * @subpackage themes
  */
 
 global $color;

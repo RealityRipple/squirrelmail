@@ -2,15 +2,17 @@
 
 /**
  * dompie_theme.php
- *    Name:    Forest
- *    Author:  Luke Ehresman
- *    Date:    January 7, 2000
- *    Comment: This theme uses Forest-ish colors (mostly green).
+ * Name:    Forest
+ * @author Luke Ehresman
+ * Date:    January 7, 2000
+ * Comment: This theme uses Forest-ish colors (mostly green).
  *
  * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
+ * @package squirrelmail
+ * @subpackage themes
  */
 
 global $color;

@@ -1,16 +1,17 @@
 <?php
 
 /**
- * purple_theme.php
- *    Name:    Purple Theme
- *    Author:  Luke Ehresman
- *    Date:    January 7, 2000
- *    Comment: This Theme is composed entirely of shades of purple.
+ * Name:   Purple Theme
+ * @author Luke Ehresman
+ * Date:   January 7, 2000
+ * Comment This Theme is composed entirely of shades of purple.
  *
  * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
+ * @package squirrelmail
+ * @subpackage themes
  */
 
 global $color;

@@ -2,19 +2,21 @@
 
 /**
  * kind_of_blue.php
- *    Name:    Kind of Blue
- *    Author:  Jorey Bump
- *    Date:    October 20, 2001
- *    Comment: This theme generates random colors, featuring a
- *             light bluish background with dark text.
+ * Name:    Kind of Blue
+ * @author Jorey Bump
+ * Date:    October 20, 2001
+ * Comment: This theme generates random colors, featuring a
+ *          light bluish background with dark text.
  *
  * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
+ * @package squirrelmail
+ * @subpackage themes
  */
    
-/* seed the random number generator */
+/** seed the random number generator */
 sq_mt_randomize();
 
 for ($i = 0; $i <= 15; $i++) {
