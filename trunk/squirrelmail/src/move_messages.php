@@ -87,7 +87,13 @@
          //    loop because we never increment j.  so check to see if msg[0] is set or not to fix this.
          while ($j < count($msg)) {
             if (isset($msg[$i])) {
-               sqimap_messages_delete($imapConnection, $msg[$i], $msg[$i], $mailbox);
+               if (isset($markRead)) {
+                  sqimap_messages_flag($imapConnection, $msg[$i], $msg[$i], "Seen");
+               } else if (isset($markRead)) {
+                   sqimap_messages_remove_flag($imapConnection, $msg[$i], $msg[$i], "Seen");
+               } else {
+                  sqimap_messages_delete($imapConnection, $msg[$i], $msg[$i], $mailbox);
+               }
                $j++;
             }
             $i++;
