@@ -428,7 +428,7 @@ function load_optpage_data_display() {
 
     $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'internal_date_sort',
-        'caption' => _("Enable Sort by of Receive Date"),
+        'caption' => _("Sort by Receive Date"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_ALL
     );
