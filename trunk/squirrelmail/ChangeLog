@@ -1,5 +1,6 @@
 Version 0.4pre1 -- Development
 ------------------------------
+- Addressbook with LDAP support
 - Big speed improvements with folder listing
 - Added Subscribe/Unsubscribe to folders
 - Saving sent messages into $sent_folder
