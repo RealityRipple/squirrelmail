@@ -120,7 +120,7 @@
    /* Be cautious of "user@host.com" */
    function parseAddrs($text) {
       if (trim($text) == "")
-         return;
+         return array();
       $text = str_replace(" ", "", $text);
       $text = ereg_replace('"[^"]*"', "", $text);
       $text = ereg_replace("\([^\)]*\)", "", $text);
