@@ -28,18 +28,48 @@
  * @package squirrelmail
  */
 class abook_local_file extends addressbook_backend {
-    /** @var string backend type */
+    /**
+     * Backend type
+     * @var string 
+     */
     var $btype = 'local';
-    /** @var string backend name */
+    /**
+     * Backend name
+     * @var string
+     */
     var $bname = 'local_file';
 
-    /** @var string file used to store data */
-    var $filename   = '';
-    /** @var object file handle */
+    /**
+     * File used to store data
+     * @var string
+     */
+    var $filename = '';
+    /**
+     * File handle
+     * @var object
+     */
     var $filehandle = 0;
-    /** @var bool create file if it is not present */
-    var $create     = false;
-    /** @var string umask of the file */
+    /**
+     * Create file, if it not present
+     * @var bool
+     */
+    var $create = false;
+    /**
+     * Detect, if address book is writeable by checking file permisions
+     * @var bool
+     */
+    var $detect_writeable   = true;
+    /**
+     * Control write access to address book
+     *
+     * Option does not have any effect, if 'detect_writeable' is 'true'
+     * @var bool
+     */
+    var $writeable = false;
+    /**
+     * Umask of the file
+     * @var string
+     */
     var $umask;
 
     /* ========================== Private ======================= */
@@ -70,8 +100,14 @@ class abook_local_file extends addressbook_backend {
             if(isset($param['umask'])) {
                 $this->umask = $param['umask'];
             }
-            if(!empty($param['name'])) {
+            if(isset($param['name'])) {
                 $this->sname = $param['name'];
+            }
+            if(isset($param['detect_writeable'])) {
+                $this->detect_writeable = $param['detect_writeable'];
+            }
+            if(!empty($param['writeable'])) {
+                $this->writeable = $param['writeable'];
             }
 
             $this->open(true);
@@ -92,6 +128,7 @@ class abook_local_file extends addressbook_backend {
         $this->error = '';
         $file   = $this->filename;
         $create = $this->create;
+        $fopenmode = ($this->writeable ? 'a+' : 'r');
 
         /* Return true is file is open and $new is unset */
         if($this->filehandle && !$new) {
@@ -106,22 +143,32 @@ class abook_local_file extends addressbook_backend {
         /* Close old file, if any */
         if($this->filehandle) { $this->close(); }
 
-        /* Open file. First try to open for reading and writing,
-         * but fall back to read only. */
         umask($this->umask);
-        $fh = @fopen($file, 'a+');
-        if($fh) {
-            $this->filehandle = &$fh;
-            $this->filename   = $file;
-            $this->writeable  = true;
+        if (! $this->detect_writeable) {
+            $fh = @fopen($file,$fopenmode);
+            if ($fh) {
+                $this->filehandle = &$fh;
+                $this->filename = $file;
+            } else {
+                return $this->set_error("$file: " . _("Open failed"));
+            }
         } else {
-            $fh = @fopen($file, 'r');
+            /* Open file. First try to open for reading and writing,
+             * but fall back to read only. */
+            $fh = @fopen($file, 'a+');
             if($fh) {
                 $this->filehandle = &$fh;
                 $this->filename   = $file;
-                $this->writeable  = false;
+                $this->writeable  = true;
             } else {
-                return $this->set_error("$file: " . _("Open failed"));
+                $fh = @fopen($file, 'r');
+                if($fh) {
+                    $this->filehandle = &$fh;
+                    $this->filename   = $file;
+                    $this->writeable  = false;
+                } else {
+                    return $this->set_error("$file: " . _("Open failed"));
+                }
             }
         }
         return true;
