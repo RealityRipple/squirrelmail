@@ -18,15 +18,13 @@
 
 <section>
    <title>
-      <INS>From</INS>
+      From
    </title>
    <description>
-      <p><INS>
-      The <B>From:</B> field will only be displayed if you have enabled multiple
+      <p>The <B>From:</B> field will only be displayed if you have enabled multiple
       identities (through the Options, Personal Preferences menu). If you've done
       so you can choose which identity you want to use, i.e. which name and
       email address appear as the From-line of your message.
-      </INS>
       </p>
    </description>
 </section>
@@ -99,8 +97,7 @@
       <p>
       This button will open the address book after a search box is presented.
       Something must be entered in the search box to retrieve a result.
-      If all addresses in the address book are required<DEL> enter a space here 
-      and click the submit button</DEL><INS>, press the List All button.</INS>
+      If all addresses in the address book are required, press the List All button.
        The address book has enough functionality 
       that it deserves it's own section. More detailed information is 
       available in the "Addresses" chapter. 
@@ -110,31 +107,31 @@
 
 <section>
    <title>
-      <INS>Save Draft button</INS>
+      Save Draft button
    </title>
    <description>
       <p>
-      <INS>If you've been composing a message but for some reason aren't ready
+      If you've been composing a message but for some reason aren't ready
       to send it yet, you can use this button to save the message in the
       Drafts folder. If later you want to finish the message and send it out,
       go to the Drafts folder, open the message and you will return to the
-      compose page with your message filled in.</INS>
+      compose page with your message filled in.
       </p>
    </description>
 </section>
 
 <section>
    <title>
-      <INS>Priority</INS>
+      Priority
    </title>
    <description>
       <p>
-      <INS>If enabled by your system administrator, at the right of the
+      If enabled by your system administrator, at the right of the
       buttons a drop down list "Priority" is available. Here you can
       select, surprisingly, the priority of this message. A high-priority
       message might be presented in a different way by the recepient's
       mail program. Note that excessive use of this function will devalue it's
-      effect.</INS>
+      effect.
       </p>
    </description>
 </section>

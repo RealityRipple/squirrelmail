@@ -77,14 +77,14 @@
 
 <section>
    <title>
-      <INS>Recent Searches</INS>
+   Recent Searches
    </title>
    <description>
-   <INS>If you've enabled this option, the Search page also displays an overview of
+   If you've enabled this option, the Search page also displays an overview of
    up to 9 of your most recent searches for quick access. Click on Search
    next to the listed search to perform it again. With the Save link
    you can move a search to the Saved Searches which will be kept until you
    explicitly press Delete. Click Forget to remove a search from the list of
-   recent searches.</INS>
+   recent searches.
    </description>
 </section>
