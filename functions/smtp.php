@@ -462,7 +462,6 @@
 
    function errorCheck($line, $smtpConnection, $verbose = false) {
       global $color;
-      include '../functions/page_header.php';
       
       // Read new lines on a multiline response
       $lines = $line;
@@ -553,6 +552,7 @@
       }
 
       if ($status == 0) {
+         include '../functions/page_header.php';
          displayPageHeader($color, 'None');
 		 include ("../functions/display_messages.php");
          $lines = nl2br(htmlspecialchars($lines));
