@@ -485,9 +485,9 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
    $comp_action_uri = $comp_uri . '&amp;action=forward_as_attachment';
    if ($compose_new_win == '1') {
       $s .= '<a href="javascript:void(0)" '. 
-            'onclick="comp_in_new(\''.$comp_action_uri.'\')">'._("Forward as Attachment").'</a>';
+            'onclick="comp_in_new(\''.$comp_action_uri.'\')">'._("Forward as attachment").'</a>';
    } else {
-      $s .= '<a href="'.$comp_action_uri.'">'._("Forward as Attachment").'</a>';
+      $s .= '<a href="'.$comp_action_uri.'">'._("Forward as attachment").'</a>';
    }
    $s .= $topbar_delimiter;
 
@@ -635,7 +635,12 @@ if (isset($sendreceipt)) {
 $msgs[$passed_id]['FLAG_SEEN'] = true;
  
 $messagebody = ''; 
-$ent_ar = $message->findDisplayEntity(array());
+do_hook('read_body_top');
+if ($show_html_default == 1) {
+    $ent_ar = $message->findDisplayEntity(array());
+} else {
+    $ent_ar = $message->findDisplayEntity(array(), array('text/plain'));
+}
 $cnt = count($ent_ar);
 for ($i = 0; $i < $cnt; $i++) {
    $messagebody .= formatBody($imapConnection, $message, $color, $wrap_at, $ent_ar[$i], $passed_id, $mailbox);
@@ -645,7 +650,6 @@ for ($i = 0; $i < $cnt; $i++) {
 }
 
 displayPageHeader($color, $mailbox);
-do_hook('read_body_top');
 formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response);
 formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, $color, $FirstTimeSee);
 echo '<table width="100%" cellpadding="0" cellspacing="5" align="center" border="0">';
