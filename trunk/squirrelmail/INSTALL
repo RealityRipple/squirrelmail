@@ -19,6 +19,9 @@ a. Obtaining and compiling PHP4
   If you have a database like MySQL you might want to add something
   like --with-mysql to get database functionality.
 
+  If you're going to use LDAP in the addressbook, you must compile PHP4
+  with --with-ldap (see the PHP4 docs for more information).
+
   Run make to build the binary file. This will generate a binary file
   called "php". Move this file into a CGI-directory.
 
