@@ -285,7 +285,7 @@ function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_
     } else {
         $category = 'ALL';
     }
-    $category .= ' NOT DELETED';
+    $category .= ' UNDELETED';
 
     if ($allow_charset_search &&
         isset($languages[$squirrelmail_language]['CHARSET']) &&
