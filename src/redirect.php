@@ -32,12 +32,12 @@
    session_unregister ('user_is_logged_in');
    session_register ('base_uri');
 
-   if (! isset($squirrelmail_language)) 
+   if (! isset($squirrelmail_language))
       $squirrelmail_language = '';
    set_up_language($squirrelmail_language, true);
-   
+
    if(!isset($login_username)) {
-      echo "<html><body bgcolor=\"ffffff\">\n";
+      echo "<html><body bgcolor=\"#ffffff\">\n";
       echo "<br><br>";
       echo "<center>";
       echo "<b>"._("You must be logged in to access this page.")."</b><br>";
@@ -68,16 +68,16 @@
           $login_username = strtolower($login_username);
 
       $imapConnection = sqimap_login($login_username, $key, $imapServerAddress, $imapPort, 0);
-	  if (!$imapConnection) {
-             echo "<html><body bgcolor=\"ffffff\">\n";
-	     echo "<br><br>";
-	     echo "<center>";
-	     echo "<b>"._("There was an error contacting the mail server.")."</b><br>";
-	     echo _("Contact your administrator for help.")."\n";
-	     echo "</center>";
-	     echo "</body></html>\n";
-	     exit;
-	  }
+      if (!$imapConnection) {
+         echo "<html><body bgcolor=\"#ffffff\">\n";
+         echo "<br><br>";
+         echo "<center>";
+         echo "<b>"._("There was an error contacting the mail server.")."</b><br>";
+         echo _("Contact your administrator for help.")."\n";
+         echo "</center>";
+         echo "</body></html>\n";
+         exit;
+      }
       sqimap_logout($imapConnection);
 
       $username = $login_username;

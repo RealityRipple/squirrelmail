@@ -1,5 +1,5 @@
 <?php
-   /** 
+   /**
     ** compose.php
     **
     **  Copyright (c) 1999-2000 The SquirrelMail development team
@@ -33,7 +33,7 @@
    // This function is used when not sending or adding attachments
    function newMail () {
       global $forward_id, $imapConnection, $msg, $ent_num, $body_ary, $body,
-         $reply_id, $send_to, $send_to_cc, $mailbox, $send_to_bcc, $editor_size;
+             $reply_id, $send_to, $send_to_cc, $mailbox, $send_to_bcc, $editor_size;
 
       $send_to = decodeHeader($send_to);
       $send_to_cc = decodeHeader($send_to_cc);
@@ -52,7 +52,7 @@
          if ($ent_num)
             $message = getEntity($message, $ent_num);
 
-         if ($message->header->type0 == "text" || $message->header->type1 == "message") {
+         if ($message->header->type0 == 'text' || $message->header->type1 == 'message') {
             if ($ent_num)
                $body = decodeBody(mime_fetch_body($imapConnection, $id, $ent_num), $message->header->encoding);
             else
@@ -60,11 +60,11 @@
          } else {
             $body = "";
          }
-         
+
          if ($message->header->type1 == "html")
             $body = strip_tags($body);
 
-         sqUnWordWrap($body);   
+         sqUnWordWrap($body);
          $body_ary = explode("\n", $body);
          $i = count($body_ary) - 1;
          while ($i >= 0 && ereg("^[>\\s]*$", $body_ary[$i])) {
@@ -91,9 +91,9 @@
          if ($forward_id)
          {
              $bodyTop =  "-------- " . _("Original Message") . " --------\n";
-             $bodyTop .= _("Subject") . ": " . $orig_header->subject . "\n"; 
-             $bodyTop .= _("From") . ": " . $orig_header->from . "\n"; 
-             $bodyTop .= _("To") . ": " . $orig_header->to[0] . "\n"; 
+             $bodyTop .= _("Subject") . ": " . $orig_header->subject . "\n";
+             $bodyTop .= _("From") . ": " . $orig_header->from . "\n";
+             $bodyTop .= _("To") . ": " . $orig_header->to[0] . "\n";
              if (count($orig_header->to) > 1) {
                  for ($x=1; $x < count($orig_header->to); $x++) {
                      $bodyTop .= "         " . $orig_header->to[$x] . "\n";
@@ -108,7 +108,7 @@
              $orig_from = str_replace("'",'',$orig_from);
              $body = getReplyCitation($orig_from) . $body;
          }
-         
+
          return;
       }
 
@@ -122,16 +122,16 @@
          $send_to_cc = ereg_replace(";", ",", $send_to_cc);
          $sendcc = explode(",", $send_to_cc);
          $send_to_cc = "";
-         
+
          for ($i = 0; $i < count($sendcc); $i++) {
             $sendcc[$i] = trim($sendcc[$i]);
             if ($sendcc[$i] == "")
                continue;
-            
+
             $sendcc[$i] = sqimap_find_email($sendcc[$i]);
             $whofrom = sqimap_find_displayable_name($msg["HEADER"]["FROM"]);
             $whoreplyto = sqimap_find_email($msg["HEADER"]["REPLYTO"]);
-         
+
             if ((strtolower(trim($sendcc[$i])) != strtolower(trim($whofrom))) &&
                 (strtolower(trim($sendcc[$i])) != strtolower(trim($whoreplyto))) &&
                 (trim($sendcc[$i]) != "")) {
@@ -151,17 +151,17 @@
 
       if (!$message) {
            sqimap_mailbox_select($imapConnection, $mailbox);
-           $message = sqimap_get_message($imapConnection, $forward_id, 
+           $message = sqimap_get_message($imapConnection, $forward_id,
                $mailbox);
       }
-      
+
       if (count($message->entities) == 0) {
           if ($message->header->entity_id != $ent_num) {
               $filename = decodeHeader($message->header->filename);
-      
+
               if ($filename == "")
                   $filename = "untitled-".$message->header->entity_id;
-      
+
               $localfilename = GenerateRandomString(32, '', 7);
               while (file_exists($attachment_dir . $localfilename))
                   $localfilename = GenerateRandomString(32, '', 7);
@@ -174,33 +174,33 @@
 
               // Write Attachment to file
               $fp = fopen ($attachment_dir.$localfilename, 'w');
-              fputs ($fp, decodeBody(mime_fetch_body($imapConnection, 
-                  $forward_id, $message->header->entity_id), 
+              fputs ($fp, decodeBody(mime_fetch_body($imapConnection,
+                  $forward_id, $message->header->entity_id),
                   $message->header->encoding));
               fclose ($fp);
-      
+
               $attachments[] = $newAttachment;
           }
       } else {
           for ($i = 0; $i < count($message->entities); $i++) {
               getAttachments($message->entities[$i]);
-          }       
+          }
       }
       return;
-   }       
+   }
 
    function showInputForm () {
       global $send_to, $send_to_cc, $reply_subj, $forward_subj, $body,
-         $passed_body, $color, $use_signature, $signature, $prefix_sig, 
-         $editor_size, $attachments, $subject, $newmail, 
-         $use_javascript_addr_book, $send_to_bcc, $reply_id, $mailbox, 
+         $passed_body, $color, $use_signature, $signature, $prefix_sig,
+         $editor_size, $attachments, $subject, $newmail,
+         $use_javascript_addr_book, $send_to_bcc, $reply_id, $mailbox,
          $from_htmladdr_search, $location_of_buttons, $attachment_dir,
          $username, $data_dir, $identity;
 
       $subject = decodeHeader($subject);
       $reply_subj = decodeHeader($reply_subj);
       $forward_subj = decodeHeader($forward_subj);
-      
+
       if ($use_javascript_addr_book) {
          echo "\n<SCRIPT LANGUAGE=JavaScript><!--\n";
          echo "function open_abook() { \n";
@@ -215,10 +215,7 @@
       echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST ENCTYPE=\"multipart/form-data\"";
       do_hook("compose_form");
           echo ">\n";
-      if ($reply_id) {
-         echo "<input type=hidden name=reply_id value=$reply_id>\n";
-      }                 
-      printf("<INPUT TYPE=hidden NAME=mailbox VALUE=\"%s\">\n", htmlspecialchars($mailbox));
+
       echo "<TABLE WIDTH=\"100%\" ALIGN=center CELLSPACING=0 BORDER=0>\n";
 
       if ($location_of_buttons == 'top') showComposeButtonRow();
@@ -230,7 +227,7 @@
          echo _("From:");
          echo "      </TD><TD BGCOLOR=\"$color[4]\" WIDTH=\"90%\">\n";
          echo "<select name=identity>\n";
-         echo "<option value=default>" . 
+         echo "<option value=default>" .
          htmlspecialchars(getPref($data_dir, $username, 'full_name'));
          $em = getPref($data_dir, $username, 'email_address');
          if ($em != '')
@@ -240,7 +237,7 @@
             if (isset($identity) && $identity == $i)
                echo ' SELECTED';
             echo '>';
-            echo htmlspecialchars(getPref($data_dir, $username, 'full_name' . 
+            echo htmlspecialchars(getPref($data_dir, $username, 'full_name' .
                                         $i));
             $em = getPref($data_dir, $username, 'email_address' . $i);
             if ($em != '')
@@ -315,12 +312,12 @@
       echo "      </TD>\n";
       echo "   </TR>\n";
 
-      if ($location_of_buttons == 'bottom') 
+      if ($location_of_buttons == 'bottom')
          showComposeButtonRow();
       else {
          echo "   <TR><TD>&nbsp;</TD><TD ALIGN=LEFT><INPUT TYPE=SUBMIT NAME=send VALUE=\""._("Send")."\"></TD></TR>\n";
       }
-      
+
       // This code is for attachments
       echo "   <tr>\n";
       echo "     <TD BGCOLOR=\"$color[0]\" VALIGN=TOP ALIGN=RIGHT>\n";
@@ -339,23 +336,27 @@
          foreach ($attachments as $key => $info) {
             echo "<input type=\"checkbox\" name=\"delete[]\" value=\"$key\">\n";
             echo $info['remotefilename'] . " - " . $info['type'] . " (";
-            echo show_readable_size(filesize($attachment_dir . 
+            echo show_readable_size(filesize($attachment_dir .
                 $info['localfilename'])) . ")<br>\n";
          }
-         
+
          echo "<input type=\"submit\" name=\"do_delete\" value=\""._("Delete selected attachments")."\">\n";
          echo "</td></tr>";
       }
       // End of attachment code
 
       echo "</TABLE>\n";
+      if ($reply_id) {
+         echo "<input type=hidden name=reply_id value=$reply_id>\n";
+      }
+      printf("<INPUT TYPE=hidden NAME=mailbox VALUE=\"%s\">\n", htmlspecialchars($mailbox));      
       echo "</FORM>";
       do_hook("compose_bottom");
    }
-   
+
    function showComposeButtonRow() {
       global $use_javascript_addr_book;
-      
+
       echo "   <TR><td>\n   </td><td>\n";
       if ($use_javascript_addr_book) {
          echo "      <SCRIPT LANGUAGE=JavaScript><!--\n document.write(\"";
@@ -363,11 +364,11 @@
          echo "         // --></SCRIPT><NOSCRIPT>\n";
          echo "         <input type=submit name=\"html_addr_search\" value=\""._("Addresses")."\">";
          echo "      </NOSCRIPT>\n";
-      } else {  
+      } else {
          echo "      <input type=submit name=\"html_addr_search\" value=\""._("Addresses")."\">";
-      }   
+      }
       echo "\n    <INPUT TYPE=SUBMIT NAME=send VALUE=\"". _("Send") . "\">\n";
-      
+
       do_hook("compose_button_row");
 
       echo "   </TD>\n";
@@ -393,7 +394,7 @@
    // True if FAILURE
    function saveAttachedFiles() {
       global $HTTP_POST_FILES, $attachment_dir, $attachments;
-      
+
       $localfilename = GenerateRandomString(32, '', 7);
       while (file_exists($attachment_dir . $localfilename))
           $localfilename = GenerateRandomString(32, '', 7);
@@ -403,10 +404,10 @@
             return true;
          }
       }
-   
+
       $newAttachment['localfilename'] = $localfilename;
       $newAttachment['remotefilename'] = $HTTP_POST_FILES['attachfile']['name'];
-      $newAttachment['type'] = 
+      $newAttachment['type'] =
          strtolower($HTTP_POST_FILES['attachfile']['type']);
 
       if ($newAttachment['type'] == "")
@@ -414,7 +415,7 @@
 
       $attachments[] = $newAttachment;
     }
-  
+
    if (!isset($mailbox) || $mailbox == "" || ($mailbox == "None"))
       $mailbox = "INBOX";
 
@@ -435,7 +436,7 @@
          // We'll change them to \r\n later (in the sendMessage function)
          $body = str_replace("\r\n", "\n", $body);
          $body = str_replace("\r", "\n", $body);
-         
+
          // Rewrap $body so that no line is bigger than $editor_size
          // This should only really kick in the sqWordWrap function
          // if the browser doesn't support "HARD" as the wrap type
@@ -453,23 +454,23 @@
             }
          }
          $body = $newBody;
-         
+
          do_hook("compose_send");
-         
+
          if (! sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id)) {
-            showInputForm(); 
+            showInputForm();
             exit();
          }
          Header("Location: right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=1");
       } else {
          //$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
          displayPageHeader($color, $mailbox);
-         
+
          if (isset($AttachFailure))
              plain_error_message(_("Could not move/copy file. File not attached"), $color);
 
          checkInput(true);
-         
+
          showInputForm();
          //sqimap_logout($imapConnection);
       }
@@ -495,7 +496,7 @@
        }
          }
       }
-      
+
       showInputForm();
    } else if (isset($html_addr_search)) {
       if (isset($HTTP_POST_FILES['attachfile']) &&
@@ -529,7 +530,7 @@
    } else {
       // This handles the default case as well as the error case
       // (they had the same code) --> if (isset($smtpErrors))
-      $imapConnection = sqimap_login($username, $key, $imapServerAddress, 
+      $imapConnection = sqimap_login($username, $key, $imapServerAddress,
           $imapPort, 0);
       displayPageHeader($color, $mailbox);
 
@@ -539,21 +540,21 @@
 
       if (isset($forward_id) && $forward_id && isset($ent_num) && $ent_num)
           getAttachments(0);
-              
+
       newMail();
       showInputForm();
       sqimap_logout($imapConnection);
    }
-   
+
    function ClearAttachments() {
        global $attachments, $attachment_dir;
-       
+
        foreach ($attachments as $info) {
            if (file_exists($attachment_dir . $info['localfilename'])) {
                unlink($attachment_dir . $info['localfilename']);
            }
        }
-       
+
        $attachments = array();
    }
 
@@ -584,5 +585,5 @@
 
       /* Build and return the citation string. */
       return ($start . $orig_from . $end . "\n");
-   }   
+   }
 ?>
