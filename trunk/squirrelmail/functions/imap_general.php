@@ -363,6 +363,9 @@ function sqimap_find_displayable_name ($string) {
     
     if ( ereg('^(.+)<.*>', $string, $regs) ) {
         $string = ereg_replace ('"', '', $regs[1] );
+        if( $string == '' || $string == ' ' ){
+            $string = '&nbsp';
+        }
     }
     elseif ( ereg('\((.*)\)', $string, $regs) ) {
         if( ( $regs[1] == '' ) || ( $regs[1] == ' ' ) ){
