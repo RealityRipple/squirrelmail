@@ -187,14 +187,13 @@
 
       /** The delete and move options */
       echo "<TR><TD BGCOLOR=$color_lgray>";
-      echo "\n\n\n<TABLE BGCOLOR=$color_lgray><TR><TD>";
-      echo "<FORM name=messageList method=post action=\"move_messages.php?msg=$msg&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage\">";
-      echo "<NOBR>\n";
-      echo "<INPUT TYPE=SUBMIT VALUE=\"Delete\">\n";
-      echo "checked mail";
-      echo "</NOBR></TD><TD ALIGN=\"right\"><NOBR>";
-      echo "<INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"Move messages to:\">\n";
-      echo "<SELECT NAME=\"targetMailbox\">\n";
+
+      echo "\n\n\n<FORM name=messageList method=post action=\"move_messages.php?msg=$msg&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage\">";
+      echo "<TABLE BGCOLOR=$color_lgray>\n";
+      echo "   <TR>\n";
+      echo "      <TD WIDTH=30% ALIGN=LEFT>\n";
+      echo "         <NOBR><FONT FACE=\"Arial,Helvetica\"><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"Move to:\"></FONT>\n";
+      echo "         <SELECT NAME=\"targetMailbox\">\n";
       getFolderList($imapConnection, $boxesFormatted, $boxesUnformatted);
       for ($i = 0; $i < count($boxesUnformatted); $i++) {
          $use_folder = true;
@@ -207,14 +206,19 @@
             }
          }
          if ($use_folder == true)
-            echo "<OPTION VALUE=\"$boxesUnformatted[$i]\">$boxesUnformatted[$i]\n";
+            echo "         <OPTION VALUE=\"$boxesUnformatted[$i]\">$boxesUnformatted[$i]\n";
       }
-      echo "</SELECT>\n";
+      echo "         </SELECT></NOBR>\n";
+
+      echo "      </TD>\n";
+      echo "      <TD WIDTH=70% ALIGN=RIGHT>\n";
+      echo "         <NOBR><FONT FACE=\"Arial,Helvetica\"><INPUT TYPE=SUBMIT VALUE=\"Delete\">&nbsp;checked messages</FONT></NOBR>\n";
+      echo "      </TD>";
+      echo "   </TR>\n";
+
       if (($move_to_trash == true) && ($mailbox == $trash_folder))
-         echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\">Empty Trash</A></NOBR>";
-      else
-         echo "</NOBR>\n";
-      echo "</TD></TR></TABLE>\n\n\n";
+         echo "<TR><TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\">Empty Trash</A></TD></TR>";
+      echo "</TABLE>\n\n\n";
       echo "</TD></TR>";
 
       echo "<TR><TD BGCOLOR=$color_lgray>";
