@@ -27,7 +27,7 @@ if (isset($_SESSION['composesession'])) {
 } else {
     $composesession = 0;
 } 
-
+/* obsolete ?? */
 function putSelectedMessagesIntoString($msg) {
     $j = 0;
     $i = 0;
@@ -54,7 +54,6 @@ function attachSelectedMessages($msg, $imapConnection) {
            $data_dir, $composesession, $uid_support,
 	   $msgs, $thread_sort_messages, $allow_server_sort, $show_num,
 	   $compose_messages;
-
 
     if (!isset($compose_messages)) {
 	    $compose_messages = array();
@@ -146,7 +145,6 @@ if (isset($_SESSION['msgs'])) {
     $msgs = $_SESSION['msgs'];
 }
 
-
 if (isset($_POST['expungeButton'])) {
     $expungeButton = $_POST['expungeButton'];
 }
@@ -211,48 +209,50 @@ if(isset($expungeButton)) {
     // undelete messages if user isn't using move_to_trash or auto_expunge
     if (is_array($msg) == 1) {
         // Removes \Deleted flag from selected messages
-        $j = 0;
-        $i = 0;
+        $j = $i = 0;
+        $id = array();
         // If they have selected nothing msg is size one still, but will be an infinite
         //    loop because we never increment j.  so check to see if msg[0] is set or not to fix this.
         while ($j < count($msg)) {
             if ($msg[$i]) {
-                sqimap_messages_remove_flag ($imapConnection, $msg[$i], $msg[$i], "Deleted", true);
+	        $id[] = $msg[$i];
                 $j++;
             }
             $i++;
+        }
+	if (count($id)) {
+            sqimap_toggle_flag($imapConnection, $id, '\\Deleted',false,true);
         }
     } else {
 	$exception = true;
     }
 } elseif (!isset($moveButton)) {
     // If the delete button was pressed, the moveButton variable will not be set.
-    if (is_array($msg) == 1) {
+    if (is_array($msg)) {
         // Marks the selected messages as 'Deleted'
-        $j = 0;
-        $i = 0;
+        $j = $i = $cnt = 0;
+	$id = array();
         // If they have selected nothing msg is size one still, but will be an infinite
         //    loop because we never increment j.  so check to see if msg[0] is set or not to fix this.
         while ($j < count($msg)) {
             if (isset($msg[$i])) {
-                if (isset($markRead)) {
-                    sqimap_messages_flag($imapConnection, $msg[$i], $msg[$i], "Seen", true);
-                } else if (isset($markUnread)) {
-                    sqimap_messages_remove_flag($imapConnection, $msg[$i], $msg[$i], "Seen", true);
-                } else if (isset($attache)) {
-		    break;
-                } else  {
-                    sqimap_messages_delete($imapConnection, $msg[$i], $msg[$i], $mailbox);
-                }
+	        $id[] = $msg[$i];
                 $j++;
             }
             $i++;
         }
-        if ($auto_expunge) {
-            $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
-        } else {
-	    $cnt = 0;
-	}
+	if (count($id) && !isset($attache)) {
+           if (isset($markRead)) {
+	      sqimap_toggle_flag($imapConnection, $id, '\\Seen',true,true);
+           } else if (isset($markUnread)) {
+	      sqimap_toggle_flag($imapConnection, $id, '\\Seen',false,true);
+           } else  {
+	      sqimap_msgs_list_delete($imapConnection, $mailbox, $id);
+              if ($auto_expunge) {
+                 $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+	      }
+           }
+        }
         if (isset($attache)) {
 	    $composesession = attachSelectedMessages($msg, $imapConnection);
 	    $location = set_url_var($location, 'session', $composesession, false);
@@ -276,21 +276,20 @@ if(isset($expungeButton)) {
     }
 } else {    // Move messages
     // lets check to see if they selected any messages
-    if (is_array($msg) == 1) {
-        $j = 0;
-        $i = 0;
+    if (is_array($msg)) {
+        $j = $i = 0;
+	$id = array();
         // If they have selected nothing msg is size one still, but will be an infinite
         //    loop because we never increment j.  so check to see if msg[0] is set or not to fix this.
 	$cnt = count($msg);
         while ($j < $cnt) {
             if (isset($msg[$i])) {
-                /** check if they would like to move it to the trash folder or not */
-                sqimap_messages_copy($imapConnection, $msg[$i], $msg[$i], $targetMailbox);
-                sqimap_messages_flag($imapConnection, $msg[$i], $msg[$i], "Deleted", true);
+	        $id[] = $msg[$i];
                 $j++;
             }
             $i++;
         }
+	sqimap_msgs_list_copy($imapConnection,$id,$targetMailbox);
         if ($auto_expunge) {
             $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
 	} else {
