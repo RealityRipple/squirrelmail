@@ -10,6 +10,8 @@ Version 0.4pre1 -- Development
     It only uses english in this case.
 - Added support for Cyrillic (thanks to Artem Botchkov for help)
 - Honoring charset parameter for the body.
+- Changed the way emptying of trash was done to work better
+    across different IMAP servers
 
 
 Version 0.3.1 -- March 13, 2000
