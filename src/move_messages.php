@@ -67,6 +67,7 @@ function attachSelectedMessages($msg, $imapConnection) {
             }
 
             array_shift($body_a);
+            array_pop($body_a);
             $body = implode('', $body_a);
             $body .= "\r\n";
 
