@@ -226,7 +226,6 @@ class Deliver {
     }    
 
     function prepareRFC822_Header($rfc822_header, $reply_rfc822_header, &$raw_length) {
-
 	global $domain, $version, $username;
 
 	/* if server var SERVER_NAME not available, use $domain */
@@ -241,6 +240,7 @@ class Deliver {
 	sqGetGlobalVar('HTTP_X_FORWARDED_FOR', $HTTP_X_FORWARDED_FOR, SQ_SERVER);
 
 	$rn = "\r\n";
+
 	/* This creates an RFC 822 date */
 	$date = date('D, j M Y H:i:s ', mktime()) . $this->timezone();
 	/* Create a message-id */
@@ -342,6 +342,8 @@ class Deliver {
 	for ($i = 0 ; $i < $cnt ; $i++) {
     	    $hdr_s .= $this->foldLine($header[$i], 78, str_pad('',4));
 	}
+//	$debug = "Debug: <123456789012345678901234567890123456789012345678901234567890123456789>\r\n";
+//	$this->foldLine($debug, 78, str_pad('',4));
 	$header = $hdr_s;
 	$header .= $rn; /* One blank line to separate header and body */
 	$raw_length += strlen($header);
@@ -362,11 +364,11 @@ class Deliver {
             while (strlen($line) > $length) {
                 $fold = false;
                 /* handle encoded parts */
-                if (preg_match('/(=\?.+\?.+\?.+\?=)/',$line,$regs)) {
+                if (preg_match('/(=\?([^?]*)\?(Q|B)\?([^?]*)\?=)(.*)/Ui',$line,$regs)) {
                     $fold_tmp = $regs[1];
                     $iPosEnc = strpos($line,$fold_tmp);
                     $iLengthEnc = strlen($fold_tmp);
-                    if ($iPosEnc < $length && ($iPosEnc + $iLengthEnc > $length)) {
+                    if ($iPosEnc < $length && (($iPosEnc + $iLengthEnc) > $length)) {
                         $fold = true;
                         /* fold just before the start of the encoded string */
                         $aFoldLine[] = substr($line,0,$iPosEnc);
@@ -377,18 +379,16 @@ class Deliver {
                         }
                         if ($iLengthEnc > $length) { /* place the encoded
                             string on a separate line and do not fold inside it*/
-                            if ($iLengthEnc < (998 - strlen($fold_string))) { 
-                                $aFoldLine[] = substr($line,0,$iLengthEnc);
-                                $line = substr($line,$iLengthEnc);
-                            } else { /* line is too long, continue with normal folding */
-                                $fold = false;
-                            }
-                        }
+                            /* minimize foldstring */
+                            $fold_string = "\r\n ";
+                            $aFoldLine[] = substr($line,0,$iLengthEnc);
+                            $line = substr($line,$iLengthEnc);
+                        } 
                     } else { /* the encoded string fits into the foldlength */
                         /*remainder */
                         $iPosEncEnd = $iPosEnc+$iLengthEnc;
                         $sLineRem = substr($line,$iPosEncEnd,$length - $iPosEncEnd);
-                        if (!preg_match('/[=,;\s]/',$sLineRem)) {
+                        if (preg_match('/(=\?([^?]*)\?(Q|B)\?([^?]*)\?=)(.*)/Ui',$slineRem) || !preg_match('/[=,;\s]/',$sLineRem)) {
                             /*impossible to fold clean in the next part -> fold after the enc string */
                             $aFoldLine[] = substr($line,0,$iPosEncEnd+1);
                             $line = substr($line,$iPosEncEnd+1);
@@ -397,7 +397,7 @@ class Deliver {
                                 $bFirstFold = true;
                                 $length -= strlen($fold_string);
                             }
-                        }
+                        } 
                     }
                 }
                 if (!$fold) {
@@ -430,6 +430,7 @@ class Deliver {
             }
             $line = implode($fold_string,$aFoldLine);
         }
+        
         return $line."\r\n";
     }
 
