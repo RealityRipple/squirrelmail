@@ -163,5 +163,18 @@ function error_box($string, $color) {
          '</td></tr></table></td></tr></table>';
 }
 
+/**
+ * Adds message that informs about non fatal error that can happen while saving preferences
+ * @param string $message error message
+ * @since 1.5.1
+ */
+function error_option_save($message) {
+    global $optpage_save_error;
+
+    if (! is_array($optpage_save_error) )
+	$optpage_save_error=array();
+
+    $optpage_save_error=array_merge($optpage_save_error,array($message));
+}
 // vim: et ts=4
 ?>
