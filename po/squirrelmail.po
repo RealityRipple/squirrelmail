@@ -554,7 +554,19 @@ msgid "Size of editor window"
 msgstr ""
 
 #: squirrelmail/src/options_display.php:121
-msgid "Width of left folder list"
+msgid "Location of folder list"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:125
+msgid "Left"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:128
+msgid "Right"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:121
+msgid "Width of folder list"
 msgstr ""
 
 #: squirrelmail/src/options_display.php:175

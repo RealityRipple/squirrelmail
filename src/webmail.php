@@ -71,8 +71,15 @@
    echo "$org_title";
    echo "</TITLE>";
    $ishelp = substr(getenv(REQUEST_URI),-8);			// If calling help, set left frame to 300
-   if ($ishelp == "help.php") {			
-      echo "<FRAMESET COLS=\"300, *\" NORESIZE=yes BORDER=0>";
+   
+   if (ishelp == 'help.php')
+       $bar_size = 300;
+   else
+       $bar_size = $left_size;
+   
+   if ($location_of_bar == 'right')
+   {
+      echo "<FRAMESET COLS=\"*, $left_size\" NORESIZE=yes BORDER=0>";
    } else {
       echo "<FRAMESET COLS=\"$left_size, *\" NORESIZE BORDER=0>";
    }
@@ -91,19 +98,25 @@
 **/
    if ($right_frame == "right_main.php") {
       $urlMailbox = urlencode($mailbox);
-      echo "<FRAME SRC=\"left_main.php\" NAME=\"left\">";
-      echo "<FRAME SRC=\"right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage\" NAME=\"right\">";
+      $right_frame_url = "right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage";
    } else if ($right_frame == "options.php") {
-      echo "<FRAME SRC=\"left_main.php\" NAME=\"left\">";
-      echo "<FRAME SRC=\"options.php\" NAME=\"right\">";
+      $right_frame_url = "options.php";
    } else if ($right_frame == "folders.php") {
-      $urlMailbox = urlencode($mailbox);
-      echo "<FRAME SRC=\"left_main.php\" NAME=\"left\">";
-      echo "<FRAME SRC=\"folders.php\" NAME=\"right\">";
+      $right_frame_url = "folders.php";
    } else {
-      echo "<FRAME SRC=\"left_main.php\" NAME=\"left\">";
       if (!isset($just_logged_in)) $just_logged_in = 0;
-      echo "<FRAME SRC=\"right_main.php?just_logged_in=$just_logged_in\" NAME=\"right\">";
+      $right_frame_url = "right_main.php?just_logged_in=$just_logged_in";
+   }
+
+   if ($location_of_bar == 'right')
+   {
+      echo "<FRAME SRC=\"$right_frame_url\" NAME=\"right\">";
+      echo "<FRAME SRC=\"left_main.php\" NAME=\"left\">";
+   }
+   else
+   {
+      echo "<FRAME SRC=\"left_main.php\" NAME=\"left\">";
+      echo "<FRAME SRC=\"$right_frame_url\" NAME=\"right\">";
    }
 
 ?>
