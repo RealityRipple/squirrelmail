@@ -138,31 +138,34 @@
 
    function decodeEmailAddr($sender) {
       $emailAddr = getEmailAddr($sender);
-      $emailStart = strpos($emailAddr, "EMAILSTART--");
-      $emailEnd = strpos($emailAddr, "--EMAILEND") - 10;
+      if (strpos($emailAddr, "EMAILSTART--")) {
 
-      $emailAddr = ereg_replace("EMAILSTART--", "", $emailAddr);
-      $emailAddr = ereg_replace("--EMAILEND", "", $emailAddr);
+         $emailAddr = ereg_replace("EMAILSTART--", "", $emailAddr);
+         $emailAddr = ereg_replace("--EMAILEND", "", $emailAddr);
+      } else {
+         $emailAddr = $emailAddr;
+      }
       return $emailAddr;
    }
 
    function getEmailAddr($sender) {
       if (strpos($sender, "EMAILSTART--") == false)
-         return "";
+         return "$sender";
 
-      $start = strpos($sender, "EMAILSTART--");
-      $emailAddr = substr($sender, $start, strlen($sender));
+      $emailStart = strpos($sender, "EMAILSTART--") + 12;
+      $emailAddr = substr($sender, $emailStart, strlen($sender));
+      $emailAddr = substr($emailAddr, 0, strpos($emailAddr, "--EMAILEND"));
 
       return $emailAddr;
    }
 
    function getSender($sender) {
       if (strpos($sender, "EMAILSTART--") == false)
-         return "";
+         return "$sender";
 
       $first = substr($sender, 0, strpos($sender, "EMAILSTART--"));
       $second = substr($sender, strpos($sender, "--EMAILEND") +10, strlen($sender));
-      return "$first$second";
+      return "$first $second";
    }
 
    function getSenderName($sender) {
