@@ -116,6 +116,7 @@ function sm_ctype_space($string) {
  * @return string the wrapped text
  */
 function &sqBodyWrap (&$body, $wrap) {
+    //sm_print_r($body);
     //check for ctype support, and fake it if it doesn't exist
     if (!function_exists('ctype_space')) {
         function ctype_space ($string) {
@@ -145,7 +146,9 @@ function &sqBodyWrap (&$body, $wrap) {
 
            // skip over any spaces interleaved among the cite markers
            while (($pos < $length) && ($body{$pos} == ' ')) {
+              
                $pos++;
+               
            }
            if ($pos >= $length) {
                break;
@@ -155,7 +158,7 @@ function &sqBodyWrap (&$body, $wrap) {
        // special case: if this is a blank line then maintain it
        // (i.e. try to preserve original paragraph breaks)
        // unless they occur at the very beginning of the text
-       if (($body{$pos} == "\n") && (strlen($outString) != 0)) {
+       if (($body{$pos} == "\n" ) && (strlen($outString) != 0)) {
            $outStringLast = $outString{strlen($outString) - 1};
            if ($outStringLast != "\n") {
                $outString .= "\n";
@@ -217,25 +220,61 @@ function &sqBodyWrap (&$body, $wrap) {
            }
 
            // if this is a short line then just append it and continue outer loop
-           if (($outStringCol + $nextNewline - $pos) <= ($wrap - $citeLevel - 1)) {
+           if (($outStringCol + $nextNewline - $pos) <= ($wrap - $citeLevel - 1) ) {
                // if this is the final line in the input string then include
                // any trailing newlines
+               //      echo substr($body,$pos,$wrap). "<br />";
                if (($nextNewline + 1 == $length) && ($body{$nextNewline} == "\n")) {
                    $nextNewline++;
                }
 
-               // trim trailing spaces
-               $lastRealChar = $nextNewline;
-               while (($lastRealChar > $pos) && (ctype_space ($body{$lastRealChar}))) {
-                   $lastRealChar--;
+               if (($nextNewline < $length && $body{$nextNewline} == "\n") && 
+                     isset($lastRealChar)) {
+
+                     // trim trailing spaces
+                     $lastRealChar = $nextNewline;
+                     while (($lastRealChar > $pos && $lastRealChar < $length) && (ctype_space ($body{$lastRealChar}))) {
+                         $lastRealChar--;
+                     }
+
+                     //check the first word:
+                     $mypos = $nextNewline+1;
+                     while (($mypos < $length) && ($body{$mypos} == '>')) {
+                        $mypos++;
+
+                        // skip over any spaces interleaved among the cite markers
+                        while (($mypos < $length) && ($body{$mypos} == ' ')) {
+              
+                           $mypos++;
+               
+                        }
+                     }   
+                     $firstword = substr($body,$mypos,strpos($body,' ',$mypos) - $mypos);
+                     if ($firstword && ($firstword{0} == '-' ||
+                                        $firstword{0} == '+' ||
+                                        $firstword{0} == '*' ||
+                                        strpos($firstword,':'))) {
+                         $outString .= substr($body,$pos,($lastRealChar - $pos+1));
+                         $outStringCol += ($lastRealChar - $pos);
+                         sqMakeNewLine($outString,$citeLevel,$outStringCol);
+                         $nextNewline++;
+                         $pos = $nextNewline;
+                         $outStringCol--;
+                         continue; //break 2; 
+                     }
                }
 
+
+               // trim trailing spaces
+               $lastRealChar = $nextNewline;
+               while (($lastRealChar > $pos && $lastRealChar < $length) && (ctype_space ($body{$lastRealChar}))) {
+                   $lastRealChar--;
+               }
                $outString .= substr ($body, $pos, ($lastRealChar - $pos + 1));
                $outStringCol += ($lastRealChar - $pos);
                $pos = $nextNewline + 1;
                continue;
            }
-
            $eol = $pos + $wrap - $citeLevel - $outStringCol;
            // eol is the tentative end of line.
            // look backwards for there for a whitespace to break at.
@@ -243,7 +282,7 @@ function &sqBodyWrap (&$body, $wrap) {
            // our current line is already too long, break immediately
            // and restart outer loop
            if ($eol <= $pos) {
-               sqMakeNewLine ($outString, $citeLeve, $outStringCol);
+               sqMakeNewLine ($outString, $citeLevel, $outStringCol);
                continue;
            }
 
