@@ -72,21 +72,14 @@ function abook_take_read()
   if ($abook_take_hide)
     return;
     
-  ?>
-  <FORM ACTION="../plugins/abook_take/take.php" METHOD=POST>
-  <table align="<?PHP 
-      echo $abook_take_location;
-  ?>" cellpadding=3 cellspacing=0 border=0 bgcolor="<?PHP 
-      echo $color[10] 
-  ?>">
-    <tr>
-      <td>
-        <table cellpadding=2 cellspacing=1 border=0 bgcolor="<?PHP 
-            echo $color[5] 
-        ?>">
-          <tr>
-            <td>
-            <?PHP
+  echo '<form action="../plugins/abook_take/take.php" method="post">' . "\n" .
+  html_tag( 'table', '', $abook_take_location, $color[10], 'cellpadding="3" cellspacing="0" border="0"' ) .
+      html_tag( 'tr' ) .
+          html_tag( 'td', '', 'left' ) .
+              html_tag( 'table', '', '', $color[5], 'cellpadding="2" cellspacing="1" border="0"' ) .
+                  html_tag( 'tr' ) .
+                      html_tag( 'td' );
+
               abook_take_read_string($message->header->from);
               abook_take_read_array($message->header->cc);
               abook_take_read_array($message->header->reply_to);
@@ -95,7 +88,7 @@ function abook_take_read()
 
               $new_body = $body;
               $pos = strpos($new_body, 
-                '">Download this as a file</A></CENTER><BR></SMALL>');
+                '">' . _("Download this as a file") . '</a></center><br></small>');
               if (is_int($pos))
               {
                 $new_body = substr($new_body, 0, $pos);
@@ -112,8 +105,9 @@ function abook_take_read()
               $new_body = strtr($new_body, "\n", ' ');
     
               abook_take_read_string($body);
+            
+              echo '<input type="submit" value="' . _("Take Address") . '">';
             ?>
-              <INPUT TYPE="submit" VALUE="Take Address">
             </td>
           </tr>
         </table>
@@ -142,30 +136,31 @@ function abook_take_options()
 {
   global $abook_take_location, $abook_take_hide, $abook_take_verify;
   
-  ?><tr><td align=right nowrap valign="top">Address Book Take:</td>
-    <td><select name="abook_take_abook_take_location">
-    <option value="left"<?PHP
-      if ($abook_take_location == 'left')
-        echo ' SELECTED';
-    ?>>Left aligned</option>
-    <option value="center"<?PHP
-      if ($abook_take_location == 'center')
-        echo ' SELECTED';
-    ?>>Centered</option>
-    <option value="right"<?PHP
-      if ($abook_take_location == 'right')
-        echo ' SELECTED';
-    ?>>Right aligned</option>
-  </select> on the Read screen<br>
-  <input type=checkbox name="abook_take_abook_take_hide"<?PHP
-      if ($abook_take_hide)
-        echo ' CHECKED';
-    ?>> Hide the box<br>
-  <input type=checkbox name="abook_take_abook_take_verify"<?PHP
-      if ($abook_take_verify)
-        echo ' CHECKED';
-    ?>> Try to verify addresses
-  </td></tr><?PHP
+  echo html_tag( 'tr' ) .
+      html_tag( 'td', _("Address Book Take") . ':', 'right', '', 'nowrap valign="top"' ) .
+      html_tag( 'td', '', 'left' ) .
+          '<select name="abook_take_abook_take_location">' .
+          '<option value="left"';
+          if ($abook_take_location == 'left')
+            echo ' selected';
+          echo '>' . _("Left aligned") . '</option>' .
+          '<option value="center"';
+          if ($abook_take_location == 'center')
+            echo ' selected';
+          echo '>' . _("Centered") . '</option>' .
+          '<option value="right"';
+          if ($abook_take_location == 'right')
+            echo ' selected';
+          echo '>' . _("Right aligned") . '</option>' .
+          '</select> ' . _("on the Read screen") .'<br>' .
+          '<input type="checkbox" name="abook_take_abook_take_hide"';
+          if ($abook_take_hide)
+            echo ' checked';
+          echo '>' . _("Hide the box") . '<br>' .
+          '<input type=checkbox name="abook_take_abook_take_verify"';
+          if ($abook_take_verify)
+            echo ' checked';
+          echo '>' . _("Try to verify addresses") . '</td></tr>';
 }
 
 

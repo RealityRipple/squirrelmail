@@ -12,13 +12,17 @@ chdir('..');
 include_once ('../src/validate.php');
 include_once ('../functions/page_header.php');
 include_once ('../src/load_prefs.php');
+include_once('../functions/html.php');
 
 displayPageHeader($color, $mailbox);
 
-echo '<P><TABLE align="center" width="75%" BGCOLOR="' . $color[0] ."\">\n"
-    .'<TR><TH BGCOLOR="'. $color[9] . '">' . _("Mailinglist") . ' ' . _($action) .
-    "</TH></TR>\n<TR><TD>";
-
+echo html_tag('p', '', 'left' ) .
+html_tag( 'table', '', 'center', $color[0], 'border="0" width="75%"' ) . "\n" .
+    html_tag( 'tr',
+        html_tag( 'th', _("Mailinglist") . ' ' . _($action), '', $color[9] )
+    ) .
+    html_tag( 'tr' ) .
+    html_tag( 'td', '', 'left' );
 
 switch ( $action ) {
 case 'Help':
@@ -33,7 +37,7 @@ case 'Unsubscribe':
 
 printf( $out_string, htmlspecialchars($send_to) );
 
-echo '<form method="POST" action="../../src/compose.php">';
+echo '<form method="post" action="../../src/compose.php">';
 
 /*
  * Identity support (RFC 2369 sect. B.1.)
@@ -47,16 +51,16 @@ $em = getPref($data_dir, $username, 'email_address');
 if ($em != '') {
     $defaultmail .= htmlspecialchars(' <' . $em . '>') . "\n";
 }
-echo '<P><CENTER>' . _("From:") . ' ';
+echo html_tag('p', '', 'center' ) . _("From:") . ' ';
 
 $idents = getPref($data_dir, $username, 'identities');
 if ($idents != '' && $idents > 1) {
-    echo ' <select name=identity>' . "\n" .
-         '<option value=default>' . $defaultmail;
+    echo ' <select name="identity">' . "\n" .
+         '<option value="default">' . $defaultmail;
     for ($i = 1; $i < $idents; $i ++) {
         echo '<option value="' . $i . '"';
         if (isset($identity) && $identity == $i) {
-            echo ' SELECTED';
+            echo ' selected';
         }
         echo '>' . htmlspecialchars(getPref($data_dir, $username,
                                                 'full_name' . $i));
@@ -71,7 +75,7 @@ if ($idents != '' && $idents > 1) {
     echo $defaultmail;
 }
 
-echo '<BR>'
+echo '<br>'
 . '<input type=hidden name="send_to" value="' . htmlspecialchars($send_to) . '">'
 . '<input type=hidden name="subject" value="' . htmlspecialchars($subject) . '">'
 . '<input type=hidden name="body" value="' . htmlspecialchars($body) . '">'

@@ -914,10 +914,10 @@ function get_msgcnt_str($start_msg, $end_msg, $num_msgs) {
     /* Compute the $msg_cnt_str. */
     $result = '';
     if ($start_msg < $end_msg) {
-        $result = sprintf(_("Viewing Messages: <b>%s</b> to <b>%s</b> (%s total)"),
+        $result = sprintf(_("Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"),
         $start_msg, $end_msg, $num_msgs);
     } else if ($start_msg == $end_msg) {
-        $result = sprintf(_("Viewing Message: <b>%s</b> (1 total)"), $start_msg);
+        $result = sprintf(_("Viewing Message: <B>%s</B> (1 total)"), $start_msg);
     } else {
         $result = '<br>';
     }
