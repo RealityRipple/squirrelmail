@@ -23,13 +23,13 @@
       $subject = trim($msg["SUBJECT"]);
       if ($subject == "")
          $subject = _("(no subject)");
-    
+
       echo "<TR>\n";
-      
+
       if ($msg["FLAG_FLAGGED"] == true) { $flag = "<font color=$color[2]>"; $flag_end = "</font>"; }
       if ($msg["FLAG_SEEN"] == false) { $bold = "<b>"; $bold_end = "</b>"; }
       if ($mailbox == $sent_folder) { $italic = "<i>"; $italic_end = "</i>"; }
-      
+
       for ($i=0; $i < count($message_highlight_list); $i++) {
          if (trim($message_highlight_list[$i]["value"]) != "") {
             if ($message_highlight_list[$i]["match_type"] == "to_cc") {
@@ -40,10 +40,10 @@
             } else if (strpos("^^".strtolower($msg[strtoupper($message_highlight_list[$i]["match_type"])]),strtolower($message_highlight_list[$i]["value"]))) {
                $hlt_color = $message_highlight_list[$i]["color"];
                continue;
-            }   
+            }
          }
-      }   
-      
+      }
+
       if (!$hlt_color)
          $hlt_color = $color[4];
 
@@ -138,7 +138,7 @@
                } else {
                   $endMessage = $numMessages;
                }
-               
+
                if ($endMessage < $startMessage) {
                   $startMessage = $startMessage - $show_num;
                   if ($startMessage < 1)
@@ -148,14 +148,16 @@
 
                $real_startMessage = $numMessages - $startMessage + 1;
                $real_endMessage = $numMessages - $startMessage - $show_num;
-               
+               if ($real_endMessage <= 0)
+                  $real_endMessage = 1;
+
                $j = 0;
                for ($q = $real_startMessage; $q >= $real_endMessage; $q--) {
                   if($mailbox == $sent_folder)
                      $hdr = sqimap_get_small_header ($imapConnection, $q, true);
                   else
                      $hdr = sqimap_get_small_header ($imapConnection, $q, false);
-                       
+
                   $from[$j] = $hdr->from;
                   $date[$j] = $hdr->date;
                   $subject[$j] = $hdr->subject;
@@ -168,9 +170,9 @@
                   $id[$j] = $q;
                   $j++;
                }
-            }   
+            }
          }
-   
+
          $j = 0;
          if ($sort == 6) {
             $end = $startMessage + $show_num - 1;
@@ -200,7 +202,7 @@
                "re|aw";        # English
             if (eregi("^($re_abbr):[ ]*(.*)$", $messages[$j]['SUBJECT-SORT'], $regs))
                $messages[$j]['SUBJECT-SORT'] = $regs[2];
-   
+
             $num = 0;
             while ($num < count($flags[$j])) {
                if ($flags[$j][$num] == "Deleted") {
@@ -223,7 +225,7 @@
          /* Only ignore messages flagged as deleted if we are using a
           * trash folder or auto_expunge */
          if (($move_to_trash || $auto_expunge) && $sort != 6)
-         {      
+         {
             /** Find and remove the ones that are deleted */
             $i = 0;
             $j = 0;
@@ -233,7 +235,7 @@
                   continue;
                }
                $msgs[$i] = $messages[$j];
-   
+
                $i++;
                $j++;
             }
@@ -277,7 +279,7 @@
    function displayMessageArray($imapConnection, $numMessages, $startMessage, &$msgs, $msort, $mailbox, $sort, $color,$show_num) {
       global $folder_prefix, $sent_folder;
       global $imapServerAddress;
-      global $index_order;
+      global $index_order, $real_endMessage, $real_startMessage;
 
       // if cache isn't already set, do it now
       if (!session_is_registered("msgs"))
@@ -291,13 +293,13 @@
       } else {
          $endMessage = $numMessages;
       }
-      
+
       if ($endMessage < $startMessage) {
          $startMessage = $startMessage - $show_num;
          if ($startMessage < 1)
             $startMessage = 1;
       }
-      
+
       $nextGroup = $startMessage + $show_num;
       $prevGroup = $startMessage - $show_num;
       $urlMailbox = urlencode($mailbox);
@@ -330,21 +332,29 @@
          $More .= "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
       }
 
-      mail_message_listing_beginning($imapConnection, 
+      mail_message_listing_beginning($imapConnection,
          "move_messages.php?msg=$msg&mailbox=$urlMailbox&startMessage=$startMessage",
           $mailbox, $sort, $Message, $More);
 
-      if ($sort == 6)
-         $endVar = $show_num;
-      else
-         $endVar = $endMessage + 1;
-      
+      // $groupNum = $startMessage % ($show_num - 1);
+      if ($sort == 6) {
+         if ($endMessage - $startMessage < $show_num - 1) {
+            $endMessage = $endMessage - $startMessage + 1;
+            $startMessage = 1;
+         } else if ($startMessage > $show_num) {
+            $endMessage = $show_num;
+            $startMessage = 1;
+         }
+      }
+
+      $endVar = $endMessage + 1;
+
       // loop through and display the info for each message.
       $t = 0; // $t is used for the checkbox number
       if ($numMessages == 0) { // if there's no messages in this folder
          echo "<TR><TD BGCOLOR=\"$color[4]\" COLSPAN=" . count($index_order);
          echo "><CENTER><BR><B>". _("THIS FOLDER IS EMPTY") ."</B><BR>&nbsp;</CENTER></TD></TR>";
-      } elseif ($startMessage == $endMessage) { // if there's only one message in the box, handle it different.
+      } else if ($startMessage == $endMessage) { // if there's only one message in the box, handle it different.
          if ($sort != 6)
             $i = $startMessage;
          else
@@ -357,10 +367,8 @@
          } while (isset ($key) && ($k < $i));
          printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage, 0, 0);
       } else {
-         if ($sort != 6)
-            $i = $startMessage;
-         else
-            $i = 1;
+         $i = $startMessage;
+
          reset($msort);
          do {
             $key = key($msort);
@@ -374,7 +382,7 @@
             $t++;
             $i++;
             next($msort);
-         } while ($i < $endVar);
+         } while ($i && $i < $endVar);
       }
       echo "</TABLE>";
 
