@@ -457,12 +457,9 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
     }
     echo '<TABLE BGCOLOR="'.$color[9].'" WIDTH="100%" CELLPADDING="1"'.
          ' CELLSPACING="0" BORDER="0" ALIIGN="center">'."\n";
-    echo '<TR><TD HEIGHT="7" COLSPAN="2" BGCOLOR="'.$color[4].'"></TD></TR><TR><TD align=center>'."\n";
     echo $s;
     do_hook("read_body_header");
     formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color);
-    echo '</TABLE>';
-    echo '</TD></TR><TR><TD HEIGHT="7" COLSPAN="2" BGCOLOR="'.$color[4].'"></TD></TR>'."\n";
     echo '</TABLE>';
 }
 
