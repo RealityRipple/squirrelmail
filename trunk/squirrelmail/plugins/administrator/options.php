@@ -604,8 +604,8 @@ if( $fp = @fopen( $cfgfile, 'w' ) ) {
     fwrite( $fp, '?>' );
     fclose( $fp );
 } else {
-    echo '<font size=+1><br>'.
+    echo '<br><big>'.
          _("Config file can't be opened. Please check config.php.").
-         '</font>';
+         '</big>';
 }
 ?>
