@@ -44,11 +44,7 @@ function plugin_listcommands_menu() {
     foreach ($message->rfc822_header->mlist as $cmd => $actions) {
 
 	/* I don't know this action... skip it */
-	if ( ( function_exists('array_key_exists') &&       /* PHP >= 4.1 */
-               !array_key_exists($cmd, $fieldsdescr) ) ||
-             ( function_exists('key_exists') && 
-               !key_exists($cmd, $fieldsdescr) )            /* PHP == 4.0.6 */
-        ) {
+	if ( !array_key_exists($cmd, $fieldsdescr) ) {
             continue;
         }
 

@@ -125,6 +125,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
 /*
  *   Had to move this function outside of the Addressbook Class
  *   PHP 4.0.4 Seemed to be having problems with inline functions.
+ *   Note: this can return now since we don't support 4.0.4 anymore.
  */    
 function addressbook_cmp($a,$b) {
 
