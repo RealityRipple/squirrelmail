@@ -1,5 +1,6 @@
-Version 0.3 (final) -- March 9, 2000
-------------------------------------
+Version 0.3 (final) -- March 10, 2000
+-------------------------------------
+- Fixed bug in smtp.php and made sending RFC complient
 - Fixed a bug that wouldn't let you rename folders with UW server.
 - Other minor bugfixes
 
