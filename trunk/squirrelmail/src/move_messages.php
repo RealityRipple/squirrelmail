@@ -58,9 +58,9 @@
             }
             $i++;
          }
-         if ($auto_expunge)
+         if ($auto_expunge) {
             sqimap_mailbox_expunge($imapConnection, $mailbox);
-
+         }
          if ($auto_forward) {   
             header ("Location: right_main.php");
          } else {
