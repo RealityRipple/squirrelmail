@@ -56,7 +56,7 @@ function plugin_listcommands_menu() {
 
             if (($cmd == 'post') || ($cmd == 'owner')) {
                 $url = 'src/compose.php?'.
-                (isset($startMessage)?'startMessage='.$startMessage.'&amp;'?'');
+                (isset($startMessage)?'startMessage='.$startMessage.'&amp;':'');
             } else {
                 $url = "plugins/listcommands/mailout.php?action=$cmd&amp;";
             }
