@@ -45,7 +45,7 @@
 
    sendMessage($smtpServerAddress, $smtpPort, $username, $domain, $passed_to, $passed_cc, $passed_bcc, $passed_subject, $passed_body, $version);
 
-   if ($auto_forwarding == true)
+   if ($auto_forward == true)
       echo "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"0;URL=right_main.php\">";
    echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
 

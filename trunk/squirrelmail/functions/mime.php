@@ -62,7 +62,7 @@
          /** If this isn't a multipart message **/
          $j = 0;
          $entity_body = "";
-         while ((substr(trim($body[$j]), 0, strlen("--$bound")) != "--$bound") && ($j < count($body))) {
+         while ($j < count($body)) {
             $entity_body .= $body[$j];
             $j++;
          }
@@ -143,6 +143,10 @@
             $body .= "<TT>" . nl2br($tmpbody) . "</TT>";
          }
       }
+
+      /** If there are other types that shouldn't be formatted, add them here **/
+      if ($message["ENTITIES"][$ent_num]["TYPE1"] != "html")
+         $body = translateText($body);
 
       $body .= "<BR><SMALL><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_num&mailbox=$urlmailbox\">Download this as a file</A></CENTER><BR></SMALL>";
 

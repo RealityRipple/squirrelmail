@@ -1,6 +1,6 @@
 <?
 //  Organization's logo picture (blank if none)
-    $org_logo = "../images/logo.gif";
+    $org_logo = "../images/sm_logo.jpg";
 
 //  Organization's name
     $org_name = "SquirrelMail";

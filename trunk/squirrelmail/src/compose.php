@@ -16,12 +16,34 @@
       selectMailbox($imapConnection, $mailbox, $numMessages);
       $msg = fetchMessage($imapConnection, $forward_id, $mailbox);
 
-      $body_ary = formatBody($msg);
+      if (containsType($msg, "text", "html", $ent_num)) {
+         $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"]);
+      } else if (containsType($msg, "text", "plain", $ent_num)) {
+         $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"]);
+      }
+      // add other primary displaying msg types here
+      else {
+         // find any type that's displayable
+         if (containsType($msg, "text", "any_type", $ent_num)) {
+            $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"]);
+         } else if (containsType($msg, "msg", "any_type", $ent_num)) {
+            $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"]);
+         } else {
+            $body = "No Message";
+         }
+      }
+
+      $type1 = $msg["ENTITIES"][$ent_num]["TYPE1"];
+
       $tmp = "-------- Original Message ---------\n";
+      $body_ary = explode("\n", $body);
+      $body = "";
       for ($i=0;$i < count($body_ary);$i++) {
-         $tmp .= strip_tags($body_ary[$i]);
-         $tmp = substr($tmp, 0, strlen($tmp) -1);
-         $body = "$body$tmp";
+         if ($type1 == "html")
+            $tmp .= strip_tags($body_ary[$i]);
+         else
+            $tmp .= $body_ary[$i];
+         $body = "$body$tmp\n";
          $tmp = "";
       }
    }
@@ -30,11 +52,33 @@
       selectMailbox($imapConnection, $mailbox, $numMessages);
       $msg = fetchMessage($imapConnection, $reply_id, $mailbox);
 
-      $body_ary = formatBody($msg);
+      if (containsType($msg, "text", "html", $ent_num)) {
+         $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"], false);
+      } else if (containsType($msg, "text", "plain", $ent_num)) {
+         $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"], false);
+      }
+      // add other primary displaying msg types here
+      else {
+         // find any type that's displayable
+         if (containsType($msg, "text", "any_type", $ent_num)) {
+            $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"], false);
+         } else if (containsType($msg, "msg", "any_type", $ent_num)) {
+            $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"], false);
+         } else {
+            $body = "No Message";
+         }
+      }
+
+      $type1 = $msg["ENTITIES"][$ent_num]["TYPE1"];
+
+      $body_ary = explode("\n", $body);
+      $body = "";
       for ($i=0;$i < count($body_ary);$i++) {
-         $tmp = strip_tags($body_ary[$i]);
-         $tmp = substr($tmp, 0, strlen($tmp) -1);
-         $body = "$body> $tmp";
+         if ($type1 == "html")
+            $tmp = strip_tags($body_ary[$i]);
+         else
+            $tmp = $body_ary[$i];
+         $body = "$body> $tmp\n";
       }
    }
 

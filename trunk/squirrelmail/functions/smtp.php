@@ -75,5 +75,7 @@
       fputs($smtpConnection, ".\n"); // end the DATA part
       fputs($smtpConnection, "QUIT\n"); // log off
       echo "</FONT>";
+
+      fclose($smtpConnection);
    }
 ?>

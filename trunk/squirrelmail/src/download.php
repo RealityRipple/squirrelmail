@@ -15,7 +15,7 @@
       echo "<B><CENTER>Viewing a plain text attachment</CENTER></B>";
       echo "</TD></TR><TR><TD BGCOLOR=\"$color[4]\">";
       $urlmailbox = urlencode($mailbox);
-      echo "<FONT FACE=\"Arial, Helvetica\"><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$entid&mailbox=$urlmailbox\">Download this as a file</A><BR><BR></FONT><TT>";
+      echo "<FONT FACE=\"Arial, Helvetica\"><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$entid&mailbox=$urlmailbox\">Download this as a file</A></CENTER><BR><BR></FONT><TT>";
       echo nl2br($body);
       echo "</TT></TD></TR></TABLE>";
    }
@@ -39,13 +39,13 @@
       switch($type0) {
          case "text":
             $body = decodeBody($message["ENTITIES"][$passed_ent_id]["BODY"], $message["ENTITIES"][$passed_ent_id]["ENCODING"]);
-            header("Content-type: $type0/$type1");
+            header("Content-type: $type0/$type1; name=\"$filename\"");
             header("Content-Disposition: attachment; filename=\"$filename\"");
             echo $body;
             break;
          default:
             $body = decodeBody($message["ENTITIES"][$passed_ent_id]["BODY"], $message["ENTITIES"][$passed_ent_id]["ENCODING"]);
-            header("Content-type: $type0/$type1");
+            header("Content-type: $type0/$type1; name=\"$filename\"");
             header("Content-Disposition: attachment; filename=\"$filename\"");
             echo $body;
             break;
@@ -62,7 +62,7 @@
             break;
          default:
             $body = decodeBody($message["ENTITIES"][$passed_ent_id]["BODY"], $message["ENTITIES"][$passed_ent_id]["ENCODING"]);
-            header("Content-type: $type0/$type1");
+            header("Content-type: $type0/$type1; name=\"$filename\"");
             header("Content-Disposition: attachment; filename=\"$filename\"");
             echo $body;
             break;

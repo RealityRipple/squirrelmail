@@ -80,6 +80,11 @@
       return $to_line;
    }
 
+   function translateText($body) {
+      $body = ereg_replace(" ", "&nbsp;", $body);
+      return $body;
+   }
+
    /* SquirrelMail version number -- DO NOT CHANGE */
-   $version = "0.2";
+   $version = "0.2.1";
 ?>
