@@ -115,10 +115,10 @@ function display_result($res, $includesource = true) {
              '<a href="javascript:bcc_address(' . 
                                  "'" . $row['email'] . "');\">Bcc</A></small>" .
              '<td nowrap valign=top>&nbsp;' .
-                                 $row['name'] . '&nbsp;<td nowrap valign=top>' .
-             '&nbsp;<a href="javascript:to_and_close(' .
-                 "'" . $row['email'] . "');\">" . $row['email'] . '</A>&nbsp;' .
-             '<td valign=top>&nbsp;' . $row['label'] . '&nbsp;';
+                                 $row['name'] . '<td valign=top>' .
+             '<a href="javascript:to_and_close(' .
+                 "'" . $row['email'] . "');\">" . $row['email'] . '</A>' .
+             '<td valign=top nowrap>' . $row['label'];
         if ($includesource) {
             echo '<td nowrap valign=top>&nbsp;' . $row['source'];
         }
@@ -142,7 +142,7 @@ if (!isset($query)) { $query = ''; }
 if (!isset($show))  { $show  = ''; }
 
 /* Choose correct colors for top and bottom frame */
-if ($show == 'form') {
+if ($show == 'form' && !isset($listall)) {
     echo '<BODY TEXT="' . $color[6] . '" BGCOLOR="' . $color[3] . '" ' .
                'LINK="' . $color[6] . '" VLINK="'   . $color[6] . '" ' .
                                         'ALINK="'   . $color[6] . '" ' .
@@ -169,10 +169,10 @@ if ($show == 'form' && empty($listall)) {
     echo '<FORM NAME=sform TARGET=abookres ACTION="' . $PHP_SELF .
          '" METHOD="POST">' . "\n" .
          '<TABLE BORDER="0" WIDTH="100%" HEIGHT="100%">' .
-         '<TR><TD NOWRAP VALIGN=middle>' . "\n" .
+         '<TR><TD NOWRAP VALIGN=middle align=left width=10%>' . "\n" .
          '  <STRONG>' . _("Search for") . "</STRONG>\n" .
-         '  <INPUT TYPE=text NAME=query VALUE="' . htmlspecialchars($query) .
-         "\" SIZE=26>\n";
+         '  </TD><TD align=left><INPUT TYPE=text NAME=query VALUE="' . htmlspecialchars($query) .
+         "\" SIZE=28>\n";
 
     /* List all backends to allow the user to choose where to search */
     if ($abook->numbackends > 1) {
@@ -187,11 +187,11 @@ if ($show == 'form' && empty($listall)) {
         echo '<INPUT TYPE=hidden NAME=backend VALUE=-1>' . "\n";
     }
         
-    echo '<INPUT TYPE=submit VALUE="' . _("Search") . '" NAME=show>' .
+    echo '</TD></TR><TR><TD></TD><TD align=left>'.
+					'<INPUT TYPE=submit VALUE="' . _("Search") . '" NAME=show>' .
          '&nbsp;|&nbsp;<INPUT TYPE=submit VALUE="' . _("List all") .
          '" NAME=listall>' . "\n" .
-         '</TD><TD ALIGN=right>' . "\n" .
-         '<INPUT TYPE=button VALUE="' . _("Close window") .
+         '&nbsp;|&nbsp;<INPUT TYPE=button VALUE="' . _("Close") .
          '" onclick="parent.close();">' . "\n" .
          '</TD></TR></TABLE></FORM>' . "\n";
 } else {
