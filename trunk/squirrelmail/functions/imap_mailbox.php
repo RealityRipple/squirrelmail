@@ -400,7 +400,7 @@ function sqimap_mailbox_list($imap_stream) {
         require_once('../functions/array.php');
 
         /** LSUB array **/
-        $lsub_ary = sqimap_run_command ($imap_stream, "LSUB \"$folder_prefix\" \"*\"",
+        $lsub_ary = sqimap_run_command ($imap_stream, "LSUB \"$folder_prefix\" \"*%\"",
                                       TRUE, $response, $message);
 
         /* Section about removing the last element was removed */

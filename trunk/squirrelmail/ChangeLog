@@ -11,6 +11,8 @@ Version 1.2.6 -- CVS
   - Filtering now happens on folder list refresh (filters plugin)
   - Added checking of input of the folders page
   - Made erronous deleting of folders harder (patch #514208)
+  - Made SquirrelMail display \Noselect nodes in Cyrus also made it 
+    impossible to try to delete \Noselect nodes. (patch #452178)
 	
 Version 1.2.5 -- 22 February 2002
 ---------------------------------
