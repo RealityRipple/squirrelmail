@@ -31,7 +31,7 @@ function is_logged_in () {
     echo "<body bgcolor=\"ffffff\">\n" .
          '<br><br><center><b>' .
          _("You must be logged in to access this page.").'</b><br><br>' .
-         "<a href=\"$base_uri/src/login.php\" target=\"$frame_top\">"._("Go to the login page")."</a>\n" .
+         "<a href=\"$base_uri" . "src/login.php\" target=\"$frame_top\">"._("Go to the login page")."</a>\n" .
          "</center></body></html>\n";
     exit;
 }
