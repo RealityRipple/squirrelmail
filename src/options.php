@@ -128,7 +128,7 @@
    echo "      </TD>";
    echo "      <TD WIDTH=40% ALIGN=LEFT>";
    echo "         <FONT FACE=\"Arial,Helvetica\">";
-   if (isset($editor_size))
+   if ($editor_size >= 5)
       echo "         <TT><INPUT TYPE=TEXT SIZE=5 NAME=editorsize VALUE=\"$editor_size\"></TT><BR>";
    else
       echo "         <TT><INPUT TYPE=TEXT SIZE=5 NAME=editorsize VALUE=\"76\"></TT><BR>";
@@ -136,6 +136,21 @@
    echo "      </TD>";
    echo "   </TR>";
    echo "</TABLE>";
+
+   // SIGNATURE
+   echo "<CENTER>";
+   if ($use_signature == true)
+      echo "<INPUT TYPE=CHECKBOX VALUE=\"1\" NAME=usesignature CHECKED>&nbsp;&nbsp;Use a signature?<BR>";
+   else
+      echo "<INPUT TYPE=CHECKBOX VALUE=\"1\" NAME=usesignature>&nbsp;&nbsp;Use a signature?<BR>";
+
+   if ($editor_size < 5)
+      $sig_size = 76;
+   else
+      $sig_size = $editor_size;
+
+   echo "<BR>Signature:<BR><TEXTAREA NAME=signature_edit ROWS=5 COLS=\"$sig_size\" WRAP=HARD>$signature</TEXTAREA><BR>";
+   echo "</CENTER>";
 
 
    // SUBMIT BUTTON

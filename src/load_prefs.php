@@ -31,5 +31,16 @@
    $editor_size = getPref($data_dir, $username, "editor_size");
    if ($editor_size == "")
       $editor_size = 76;
+
+   $use_signature = getPref($data_dir, $username, "use_signature");
+   if ($use_signature == "")
+      $use_signature = false;
+
+   /** Load up the Signature file **/
+   if ($use_signature == true) {
+      $signature = getSig($data_dir, $username);
+   } else {
+      $signature = "";
+   }
 ?>
 

@@ -19,6 +19,9 @@
    setPref($data_dir, $username, "move_to_trash", $movetotrash);
    setPref($data_dir, $username, "wrap_at", $wrapat);
    setPref($data_dir, $username, "editor_size", $editorsize);
+   setPref($data_dir, $username, "use_signature", $usesignature);
+
+   setSig($data_dir, $username, $signature_edit);
 
    echo "<FONT FACE=\"Arial,Helvetica\">";
    echo "<BR><BR><BR><CENTER><B>Options Saved!</B><BR><BR>";

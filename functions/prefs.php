@@ -66,6 +66,9 @@
       fclose($file);
    }
 
+
+
+
    /** This checks if there is a pref file, if there isn't, it will create it. **/
    function checkForPrefs($data_dir, $username) {
       $filename = "$data_dir$username.pref";
@@ -76,5 +79,33 @@
          }
       }
       return;
+   }
+
+
+
+   /** Writes the Signature **/
+   function setSig($data_dir, $username, $string) {
+      $filename = "$data_dir$username.sig";
+      $file = fopen($filename, "w");
+      fwrite($file, $string);
+      fclose($file);
+   }
+
+
+
+   /** Gets the signature **/
+   function getSig($data_dir, $username) {
+      $filename = "$data_dir$username.sig";
+      if (file_exists($filename)) {
+         $file = fopen($filename, "r");
+         while (!feof($file)) {
+            $sig .= fgets($file, 1024);
+         }
+         fclose($file);
+      } else {
+         echo "Signature file not found.";
+         exit;
+      }
+      return $sig;
    }
 ?>
