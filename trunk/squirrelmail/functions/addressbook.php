@@ -33,9 +33,17 @@
 
       // Load configured LDAP servers
       reset($ldap_server);
-      while(list($key,$param) = each($ldap_server))
-	 if(is_array($param))
-	    $abook->add_backend("ldap_server", $param);
+      while(list($key,$param) = each($ldap_server)) {
+	 if(is_array($param)) {
+	    $r = $abook->add_backend("ldap_server", $param);
+            if(!$r) {
+              printf("&nbsp;"._("Error initializing LDAP server %s:")."<BR>\n",
+                     $param["host"]);
+              printf("&nbsp;".$abook->error);
+              exit;
+            }
+         }
+      }
 
       // Return the initialized object
       return $abook;
