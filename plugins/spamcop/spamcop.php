@@ -163,7 +163,7 @@ agree to follow SpamCop's rules/terms of service/etc.</p>
      htmlspecialchars($passed_id) ?>">
   <input type="hidden" name="send_to" value="<?PHP echo $report_email?>">
   <input type="hidden" name="subject" value="reply anyway">
-  <input type="hidden" name="identity" value="default">
+  <input type="hidden" name="identity" value="0">
   <input type="hidden" name="session" value="<?PHP echo $session?>">
   <input type="submit" name="send" value="Send Spam Report">
 <?PHP } else {

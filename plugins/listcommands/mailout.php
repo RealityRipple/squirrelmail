@@ -64,7 +64,7 @@ if (count($idents) > 1) {
     }
     echo '</select>' . "\n" ;
 } else {
-    echo htmlspecialchars('"'.$idents['default']['full_name'].'" <'.$idents['default']['email_address'].'>');
+    echo htmlspecialchars('"'.$idents[0]['full_name'].'" <'.$idents[0]['email_address'].'>');
 }
 
 echo '<br />'
