@@ -1,6 +1,8 @@
 SquirrelMail
 http://www.squirrelmail.org
 
+NOTE: Converting 1.0 trunk to a 1.0 branch.
+
 Introduction:
 -------------
 SquirrelMail is a standards-based webmail package written in PHP4. It
