@@ -291,6 +291,9 @@ class message {
 
 		     $msg->header->type0 = $arg_a[0];
 		     $msg->type0 = $arg_a[0];
+
+		     $msg->header->type1 = $arg_a[1];
+		     $msg->type1 = $arg_a[1];
 		 
 		     $msg->parseEnvelope($read,&$i,&$hdr);
 		     $i++;
@@ -580,6 +583,7 @@ class message {
 	   $lit_cnt .= $read{$i};
 	   $i++;
 	}
+	$lit_cnt +=2; /* add the { and } characters */
 	$s = '';
 	for ($j = 0; $j < $lit_cnt; $j++) {
 	   $i++;
