@@ -38,6 +38,9 @@
    $languages['de']['NAME']    = 'Deutsch';
    $languages['de']['CHARSET'] = 'iso-8859-1';
    
+   $languages['id']['NAME']    = 'Indonesian';
+   $languages['id']['CHARSET'] = 'iso-8859-1';
+   
    $languages['nl']['NAME']    = 'Dutch';
    $languages['nl']['CHARSET'] = 'iso-8859-1';
    
