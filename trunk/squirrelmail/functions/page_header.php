@@ -14,7 +14,7 @@
 require_once('../functions/strings.php');
 require_once('../functions/imap_utf7_decode_local.php');
 require_once('../functions/html.php');
-require_once('../class/html.class');
+require_once('../class/html.class.php');
 
 /* Always set up the language before calling these functions */
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE ) {
