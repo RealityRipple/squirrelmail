@@ -21,7 +21,10 @@
    if (CheckAndDoDefault() || CheckAndDoPromote()) {
       SaveUpdateFunction();
    }
-   if (isset($update))
+   if (isset($update) || isset($delete_0) || isset($delete_1) || 
+       isset($delete_2) || isset($delete_3) || isset($delete_4) || 
+	   isset($delete_5) || isset($delete_6) || isset($delete_7) || 
+	   isset($delete_8))
       SaveUpdateFunction();
 
    LoadInfo($full_name, $email_address, $reply_to, '');
@@ -37,16 +40,9 @@
 </table>
 
 <form name=f action="options_identities.php" method=post>
-<p align=center><input type=submit name=return value="<?PHP
-echo _("Save and return to the Personal Options"); ?>"><br><?PHP
-$num = getPref($data_dir, $username, 'identities');
-echo htmlspecialchars($num) . ' ';
-if ($num > 1)
-   echo _("Identities Defined");
-else
-   echo _("Identity Defined");
-?></p>
-<table width=100% cellpadding=0 cellspacing=2 border=0>
+
+<center>
+<table width=80% cellpadding=0 cellspacing=0 border=0>
   <tr bgcolor="<?PHP echo $color[9] ?>">
     <th colspan=2 align=center><?PHP echo _("Default Identity") ?></th>
   </tr>
@@ -76,6 +72,7 @@ else
    ShowTableInfo('', '', '', $num);
 ?>
 </table>   
+</center>
 </form>
 </body></html>
 <?PHP
@@ -154,25 +151,25 @@ function CheckAndDoDefault()
       if (isset($$name)) {
           global $full_name, $email_address, $reply_to;
 	  
-	  $name = 'full_name' . $i;
-	  global $$name;
-	  $temp = $full_name;
-	  $full_name = $$name;
-	  $$name = $temp;
-	  
-	  $name = 'email_address' . $i;
-	  global $$name;
-	  $temp = $email_address;
-	  $email_address = $$name;
-	  $$name = $temp;
-	  
-	  $name = 'reply_to' . $i;
-	  global $$name;
-	  $temp = $reply_to;
-	  $reply_to = $$name;
-	  $$name = $temp;
-	  
-	  return true;
+          $name = 'full_name' . $i;
+          global $$name;
+          $temp = $full_name;
+          $full_name = $$name;
+          $$name = $temp;
+          
+          $name = 'email_address' . $i;
+          global $$name;
+          $temp = $email_address;
+          $email_address = $$name;
+          $$name = $temp;
+          
+          $name = 'reply_to' . $i;
+          global $$name;
+          $temp = $reply_to;
+          $reply_to = $$name;
+          $$name = $temp;
+          
+          return true;
       }
       
       $i ++;
@@ -241,10 +238,9 @@ function ShowTableInfo($full_name, $email_address, $reply_to, $post)
 {
    global $color;
    
-   $OtherBG = '';
-   
-   if ($post == '')
-      $OtherBG = ' bgcolor="' . $color[10] . '"';
+   $OtherBG = ' bgcolor="' . $color[0] . '"';
+   if ($full_name == '' && $email_address == '' && $reply_to == '')
+   	  $OtherBG = '';
 
    if ($full_name == '' && $email_address == '' && $reply_to == '')
       $isEmptySection = true;
@@ -279,31 +275,16 @@ function ShowTableInfo($full_name, $email_address, $reply_to, $post)
       ?>" name="reply_to<?PHP echo $post ?>"> 
     </td>
   </tr>
-<?PHP
-   if (! $isEmptySection && $post != '') {
-?>
-  <tr>
-    <td align=right>
-      <?PHP echo _("Delete") ?>:
-    </td>
-    <td>
-      <input type=checkbox name="delete_<?PHP echo $post ?>"> <?PHP
-      echo _("Delete this identity"); ?>
-    </td>
-  </tr>
-<?PHP
-   }
-?>
-  <tr>
-    <td colspan=2 align=center>
+  <tr<?PHP echo $OtherBG ?>>
+    <td>&nbsp;</td><td>
       <input type=hidden name="form_for_<?PHP echo $post ?>" value="1">
-      <input type=submit name="update" value="<?PHP
-         echo _("Save / Update") ?>">
+      <input type=submit name="update" value="<?PHP echo _("Save / Update") ?>">
 <?PHP 
    if (! $isEmptySection && $post != '') {
 ?>
       <input type=submit name="make_default_<?PHP echo $post ?>" value="<?PHP
          echo _("Make Default") ?>">
+      <input type=submit name="delete_<?PHP echo $post ?>" value="<?PHP echo _("Delete") ?>">
 <?PHP
    }
    if (! $isEmptySection && $post != '' && $post > 1) {
@@ -314,6 +295,9 @@ function ShowTableInfo($full_name, $email_address, $reply_to, $post)
    }
 ?>
     </td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
   </tr>
 <?PHP
 }

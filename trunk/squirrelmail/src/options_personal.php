@@ -51,10 +51,9 @@
             </td>
          </tr>
 	 <tr>
-	    <td align=right nowrap><?PHP echo _("Multiple Identities"); ?>:
+	    <td align=right nowrap>&nbsp;
 	    </td><td>
-	       <a href="options_identities.php">Edit Advanced Identities</a>
-               (discards changes made on this form so far)
+	       <a href="options_identities.php"><?php echo _("Edit multiple identities"); ?></a>
 	    </td>
 	 </tr>
          <tr><td colspan=2><hr size=1 width=80%></td></tr>
