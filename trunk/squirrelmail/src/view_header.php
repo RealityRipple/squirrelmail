@@ -22,17 +22,17 @@ require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/url_parser.php');
 
 function parse_viewheader($imapConnection,$id, $passed_ent_id) {
-   global $uid_support;
+    global $uid_support;
 
-   $header_full = array();
-   if (!$passed_ent_id) {
-       $read=sqimap_run_command ($imapConnection, "FETCH $id BODY[HEADER]", 
+    $header_full = array();
+    if (!$passed_ent_id) {
+        $read=sqimap_run_command ($imapConnection, "FETCH $id BODY[HEADER]", 
                               true, $a, $b, $uid_support);
-   } else {
-       $query = "FETCH $id BODY[".$passed_ent_id.'.HEADER]';
-       $read=sqimap_run_command ($imapConnection, $query, 
+    } else {
+        $query = "FETCH $id BODY[".$passed_ent_id.'.HEADER]';
+        $read=sqimap_run_command ($imapConnection, $query, 
                               true, $a, $b, $uid_support);
-   }    
+    }    
     $cnum = 0;
     for ($i=1; $i < count($read); $i++) {
         $line = htmlspecialchars($read[$i]);
@@ -65,9 +65,11 @@ function parse_viewheader($imapConnection,$id, $passed_ent_id) {
             $s .= '&nbsp;&nbsp;&nbsp;&nbsp;' . nl2br($second[$j]);
             $j++;
         }
-        if(strtolower($f) != 'message-id:') {
-		parseEmail($s);
-	}
+        $lowf=strtolower($f);
+        /* do not mark these headers as emailaddresses */
+        if($lowf != 'message-id:' && $lowf != 'in-reply-to:' && $lowf != 'references:') {
+            parseEmail($s);
+        }
         if ($f) {
             $header_output[] = array($f,$s);
         }
