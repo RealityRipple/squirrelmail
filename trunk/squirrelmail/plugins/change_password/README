@@ -15,6 +15,16 @@ Probably, you need to set some config vars in the backend too
 (backend/<yourbackend>.php).
 
 BACKENDS
+- ldap
+
+  Default settings are supplied in backends/ldap.php.
+
+  You don't have to change any configuration vars in
+  backend/ldap.php - instead, create an $cpw_ldap array in 
+  config.php containing the variable you want to override.
+
+  See more information in "About ldap backend" chapter.
+
 - mysql
 
   Default settings are supplied in backends/mysql.php.
@@ -56,10 +66,115 @@ BACKENDS
 
   $vmailmgrd['vmail_inc_path'] setting is required.
 
+
 AUTHORS:
+ldap backend      - Tomas Kuliavas <tokul@users.sourceforge.net>
+                    used code from phpldapadmin and squirrelmail
+                    ldapquery plugin.
 merak backend     - Edwin van Elk <Edwin@eve-software.com>
 mysql backend     - Thijs Kinkhorst <kink@squirrelmail.org>
 poppassd backend  - Seth Randall <sethr@missoulafcu.org>
 vmailmgrd backend - Tomas Kuliavas <tokul@users.sourceforge.net>
+
+------------------
+ABOUT LDAP BACKEND
+------------------
+  List of supported overrides
+  * 'server'
+    overrides address of ldap server. use any syntax that is supported 
+    by your php ldap extension. Defaults to address of imap server.
+
+  * 'port'
+    overrides port of ldap server. Defaults to 389.
+
+  * 'basedn'
+    (required) ldap basedn used for binding to ldap server. Empty 
+    string blocks use of backend. Defaults to empty string.
+
+  * 'connect_opts'
+    override controls LDAP_OPT_* settings that are set with 
+    ldap_set_option() function. If you want to set specific ldap option 
+    that is not listed as LDAP_OPT_* constant, define own LDAP_OPT_* 
+    constant in config. LDAP_OPT_ prefix must be omitted in 
+    $cpw_ldap['connect_opts'] overrides. No connection options are 
+    enabled by default.
+
+  * 'use_tls'
+    enables or disables use of tls in ldap connection. Requires php 
+    4.2+, php ldap extension with ssl support and PROTOCOL_VERSION => 3 
+    setting in $cpw_ldap_connect_opts. Does not enable tls by default.
+
+  * 'binddn'
+    unprivileged binddn. should be able to search ldap directory and 
+    find DN used by user. Uses anonymous bind, if set to empty string.
+    You should not use DN with write access to ldap directory here.
+    Defaults to anonymous bind.
+
+  * 'bindpw'
+    password used for unprivileged bind
+
+  * 'admindn'
+    bind DN that should be able to change password.
+    WARNING: usually user has enough privileges to change own password.
+    If you leave default value, plugin will try to connect with dn that 
+    is detected in $cpw_ldap_username_attr=$username search and current
+    user password will be used for authentication.
+
+  * 'adminpw'
+    password for binding with 'admindn'
+
+  * 'userid_attr'
+    ldap attribute that stores username. Defaults to 'uid'
+
+  * 'default_crypto'
+    crypto that is used to encode new password. If set to empty string, 
+    system tries to keep same encoding/hashing algorithm. Currently 
+    backend supports:
+    - md5 - used name 'md5'. Implemented in standard php functions.
+    - smd5 - used name 'smd5'. Implemented in php mhash extension functions. 
+      Minimal php version 4.0.4.
+    - sha - used name 'sha'. Implemented in php mhash extension functions.
+    - ssha - used name 'ssha'. Implemeted in php mhash extension functions.
+      Minimal php version 4.0.4.
+    - md5 crypt - used name 'md5crypt'. Uses php crypt function. Depends on
+      md5 support in system crypt libraries. Should work on linux glibc2 systems
+      and openbsd.
+    - blowfish crypt - used name 'blowfish' Uses php crypt function. Depends on
+      blowfish support in system crypt libraries. Should work on openbsd. Is not
+      supported by glibc 2.3.3.
+    - extended des crypt - used name 'extcrypt'. Uses php crypt function. Depends on
+      extended des support in system crypt libraries. Should work on openbsd.
+      Is not supported by glibc 2.3.3,
+    - standard des crypt - used name 'crypt'. Uses php crypt function. Depends on
+      standard des support in system crypt libraries. Should work on libc systems
+      and openbsd.
+    - plain text passwords - used name 'plaintext'
+
+    If you use admindn, plugin should support all encryption/hashing 
+    algorithms used in your ldap server.
+
+    WARNINGS:
+    * don't enforce any crypto that is not supported by ldap server.
+    * don't enforce extcrypt, md5crypt or blowfish, if they are not supported 
+      by ldap server and web server crypt libraries.
+
+    Safest setting options:
+    * If web server and ldap server is on same OS, make sure that mhash 
+      extension is present in php.
+    * If web server and ldap server is on same OS and mhash extension is 
+      not present, enforce md5 passwords or any crypt password algorithm 
+      supported by your os. Remember that standard des crypt is limited
+      to eight symbols.  Don't use admindn override, if ldap server 
+      supports sha, ssha or smd5.
+    * If crypt libraries differ on web server and ldap server -
+      enforce md5 passwords or any crypt password algorithm supported by
+      web server and ldap server. Don't use admindn override, if ldap 
+      server supports sha, ssha or smd5 and mhash extension is not 
+      present.
+
+  Example:
+  $cpw_ldap['base_dn']='ou=users,dc=example,dc=com'; // sets base dn
+  $cpw_ldap['connect_opts']['PROTOCOL_VERSION']=3;   // forces v3 bind protocol
+
 
 $Id$
