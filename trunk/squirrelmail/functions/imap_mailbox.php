@@ -16,9 +16,8 @@
  *************************/
 function sqimap_mailbox_expunge ($imap_stream, $mailbox,$handle_errors = true)
 {
-    fputs ($imap_stream, sqimap_session_id() . " EXPUNGE\r\n");
-    $read = sqimap_read_data($imap_stream, sqimap_session_id(),
-                             $handle_errors, $response, $message);
+    $read = sqimap_run_command($imap_stream, 'EXPUNGE',
+                               $handle_errors, $response, $message);
 }
 
 
@@ -30,9 +29,8 @@ function sqimap_mailbox_exists ($imap_stream, $mailbox)
     if (! isset($mailbox)) {
         return false;
     }
-    fputs ($imap_stream, sqimap_session_id() . " LIST \"\" \"$mailbox\"\r\n");
-    $mbx = sqimap_read_data($imap_stream, sqimap_session_id(),
-                            true, $response, $message);
+    $mbx = sqimap_run_command($imap_stream, "LIST \"\" \"$mailbox\"",
+                              true, $response, $message);
     return isset($mbx[0]);
 }
 
@@ -48,9 +46,8 @@ function sqimap_mailbox_select ($imap_stream, $mailbox,
         return;
     }
     
-    fputs ($imap_stream, sqimap_session_id() . " SELECT \"$mailbox\"\r\n");
-    $read = sqimap_read_data($imap_stream, sqimap_session_id(),
-                             true, $response, $message);
+    $read = sqimap_run_command($imap_stream, "SELECT \"$mailbox\"",
+                               true, $response, $message);
     if ($recent) {
         for ($i=0; $i<count($read); $i++) {
             if (strpos(strtolower($read[$i]), 'recent')) {
@@ -60,9 +57,8 @@ function sqimap_mailbox_select ($imap_stream, $mailbox,
         return $r[1];
     }
     if ($auto_expunge) {
-        fputs ($imap_stream, sqimap_session_id() . " EXPUNGE\r\n");
-        $tmp = sqimap_read_data($imap_stream, sqimap_session_id(),
-                                false, $a, $b);
+        $tmp = sqimap_run_command($imap_stream, "EXPUNGE",
+                                  false, $a, $b);
     }
 }
 
@@ -77,9 +73,8 @@ function sqimap_mailbox_create ($imap_stream, $mailbox, $type)
     if (strtolower($type) == 'noselect') {
         $mailbox = $mailbox.$delimiter;
     }
-    fputs ($imap_stream, sqimap_session_id() . " CREATE \"$mailbox\"\r\n");
-    $read_ary = sqimap_read_data($imap_stream, sqimap_session_id(),
-                                 true, $response, $message);
+    $read_ary = sqimap_run_command($imap_stream, "CREATE \"$mailbox\"",
+                                   true, $response, $message);
     
     sqimap_subscribe ($imap_stream, $mailbox);
 }
@@ -91,8 +86,7 @@ function sqimap_mailbox_create ($imap_stream, $mailbox, $type)
  ******************************************************************************/
 function sqimap_subscribe ($imap_stream, $mailbox)
 {
-    fputs ($imap_stream, sqimap_session_id() . " SUBSCRIBE \"$mailbox\"\r\n");
-    $read_ary = sqimap_read_data($imap_stream, sqimap_session_id(),
+    $read_ary = sqimap_run_command($imap_stream, " SUBSCRIBE \"$mailbox\"",
                                  true, $response, $message);
 }
 
@@ -105,8 +99,7 @@ function sqimap_unsubscribe ($imap_stream, $mailbox)
 {
     global $imap_server_type;
     
-    fputs ($imap_stream, sqimap_session_id() . " UNSUBSCRIBE \"$mailbox\"\r\n");
-    $read_ary = sqimap_read_data($imap_stream, sqimap_session_id(),
+    $read_ary = sqimap_run_command($imap_stream, " UNSUBSCRIBE \"$mailbox\"",
                                  true, $response, $message);
 }
 
@@ -117,8 +110,7 @@ function sqimap_unsubscribe ($imap_stream, $mailbox)
  ******************************************************************************/
 function sqimap_mailbox_delete ($imap_stream, $mailbox)
 {
-    fputs ($imap_stream, sqimap_session_id() . " DELETE \"$mailbox\"\r\n");
-    $read_ary = sqimap_read_data($imap_stream, sqimap_session_id(),
+    $read_ary = sqimap_run_command($imap_stream, "DELETE \"$mailbox\"",
                                  true, $response, $message);
     sqimap_unsubscribe ($imap_stream, $mailbox);
 }
@@ -156,10 +148,8 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
             $boxes = FALSE;
         }
 
-        $cmd = sqimap_session_id() . " RENAME \"" . quoteIMAP($old_name) . "\" \"" .
-               quoteIMAP($new_name) . "\"\r\n";
-        fputs($imap_stream, $cmd);
-        $data = sqimap_read_data($imap_stream, sqimap_session_id(),
+        $cmd = 'RENAME "' . quoteIMAP($old_name) . '" "' .  quoteIMAP($new_name) . '"';
+        $data = sqimap_run_command($imap_stream, $cmd,
                                  TRUE, $response, $message);
         sqimap_unsubscribe($imap_stream, $old_name.$postfix);
         sqimap_subscribe($imap_stream, $new_name.$postfix);
@@ -335,9 +325,7 @@ function sqimap_mailbox_list ($imap_stream) {
     require_once('../functions/array.php');
     
     /** LSUB array **/
-    fputs ($imap_stream, sqimap_session_id() .
-           " LSUB \"$folder_prefix\" \"*\"\r\n");
-    $lsub_ary = sqimap_read_data ($imap_stream, sqimap_session_id(),
+    $lsub_ary = sqimap_run_command ($imap_stream, "LSUB \"$folder_prefix\" \"*\"",
                                   true, $response, $message);
     
     /* Section about removing the last element was removed */
@@ -381,8 +369,7 @@ function sqimap_mailbox_list ($imap_stream) {
             $mbx = $sorted_lsub_ary[$i];
         }
         
-        fputs ($imap_stream, sqimap_session_id() . " LIST \"\" \"$mbx\"\r\n");
-        $read = sqimap_read_data ($imap_stream, sqimap_session_id(),
+        $read = sqimap_run_command ($imap_stream, "LIST \"\" \"$mbx\"",
                                   true, $response, $message);
         /* Another workaround for EIMS */
         if (isset($read[1]) && 
@@ -414,8 +401,7 @@ function sqimap_mailbox_list ($imap_stream) {
      * we'll get it for them anyway
      */
     if ($inbox_subscribed == false || $inbox_in_list == false) {
-        fputs ($imap_stream, sqimap_session_id() . " LIST \"\" \"INBOX\"\r\n");
-        $inbox_ary = sqimap_read_data ($imap_stream, sqimap_session_id(),
+        $inbox_ary = sqimap_run_command ($imap_stream, "LIST \"\" \"INBOX\"",
                                        true, $response, $message);
         /* Another workaround for EIMS */
         if (isset($inbox_ary[1]) &&
@@ -568,8 +554,7 @@ function sqimap_mailbox_list_all ($imap_stream)
             $boxes[$g]["id"] = $g;
             
             /** Now lets get the flags for this mailbox **/
-            fputs ($imap_stream, sqimap_session_id() . " LIST \"\" \"$mailbox\"\r\n");
-            $read_mlbx = sqimap_read_data ($imap_stream, sqimap_session_id(),
+            $read_mlbx = sqimap_run_command ($imap_stream, "LIST \"\" \"$mailbox\"",
                                            true, $response, $message);
             
             /* Another workaround for EIMS */

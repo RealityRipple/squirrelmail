@@ -376,9 +376,7 @@ function mime_fetch_body ($imap_stream, $id, $ent_id ) {
     // that it is the first one.  That is usually the case anyway.
     if (!$ent_id)
         $ent_id = 1;
-    $sid = sqimap_session_id();
-    fputs ($imap_stream, "$sid FETCH $id BODY[$ent_id]\r\n");
-    $data = sqimap_read_data ($imap_stream, $sid, true, $response, $message);
+    $data = sqimap_run_command ($imap_stream, " FETCH $id BODY[$ent_id]", true, $response, $message);
     $topline = array_shift($data);
     while (! ereg('\\* [0-9]+ FETCH ', $topline) && $data)
         $topline = array_shift($data);
@@ -390,8 +388,7 @@ function mime_fetch_body ($imap_stream, $id, $ent_id ) {
             in order to parse html messages. Let's get them here.
         */
         if ( $ret{0} == '<' ) {
-            fputs ($imap_stream, "$sid FETCH $id BODY[$ent_id.MIME]\r\n");
-            $data = sqimap_read_data ($imap_stream, $sid, true, $response, $message);
+            $data = sqimap_run_command ($imap_stream, "FETCH $id BODY[$ent_id.MIME]", true, $response, $message);
             $base = '';
             $k = 10;
             foreach( $data as $d ) {
@@ -436,8 +433,7 @@ function mime_fetch_body ($imap_stream, $id, $ent_id ) {
                _("Message:") . " $message<BR>" .
                _("FETCH line:") . " $topline<BR></tt></font></b>";
 
-        fputs ($imap_stream, "$sid FETCH $passed_id BODY[]\r\n");
-        $data = sqimap_read_data ($imap_stream, $sid, true, $response, $message);
+        $data = sqimap_run_command ($imap_stream, "FETCH $passed_id BODY[]", true, $response, $message);
         array_shift($data);
         $wholemessage = implode('', $data);
 
