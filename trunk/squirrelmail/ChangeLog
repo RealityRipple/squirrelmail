@@ -18,7 +18,8 @@ Version 1.5.1 -- CVS
   - Fix non selectable inbox.
   - Add src/configtest.php script which checks for common errors in the config.
   - Improve display of some unparsable/absent dates (#891354).
-  
+  - Add comment (Highest,Normal,Lowest) to X-Priority header.
+    Some SpamAssassin rule triggers on the absence of such a comment.
 
 Version 1.5.0
 --------------------
