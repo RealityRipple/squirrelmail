@@ -616,7 +616,7 @@
             $replace = ereg_replace("_", " ", $res[3]);
 	    // Convert lowercase Quoted Printable to uppercase for
 	    // quoted_printable_decode to understand it.
-	    while (ereg("(=([0-9][a-f])|([a-f][0-9])|([a-f][0-9]))", $replace, $res)) {
+	    while (ereg("(=([0-9][abcdef])|([abcdef][0-9])|([abcdef][abcdef]))", $replace, $res)) {
 	       $replace = str_replace($res[1], strtoupper($res[1]), $replace);
 	    }
             $replace = quoted_printable_decode($replace);
@@ -649,11 +649,11 @@
          $string = str_replace("_", "=5F", $string);
          $string = str_replace(" ", "_", $string);
 
-
-         while (ereg("([\200-\377])", $string, $regs)) {
-            $replace = $regs[1];
-            $insert = "=" . strtoupper(bin2hex($replace));
+	 for ( $ch = 127 ; $ch <= 255 ; $ch++ ) {
+	    $replace = chr($ch);
+	    $insert = sprintf("=%02X", $ch);
             $string = str_replace($replace, $insert, $string);
+	    $ch++;
          }
 
          $newstring = "=?$default_charset?Q?".$string."?=";
