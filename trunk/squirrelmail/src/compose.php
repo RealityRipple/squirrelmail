@@ -393,7 +393,7 @@
       echo "\n    <INPUT TYPE=SUBMIT NAME=send VALUE=\"". _("Send") . "\">\n";
 
       if ($save_as_draft) {
-          echo "<input type=\"submit\" name =\"draft\" value=\"Save Draft\">\n";
+          echo '<input type="submit" name ="draft" value="' . _("Save Draft") . "\">\n";
       }
       if ($default_use_priority) {
         if(!isset($mailprio)) {
