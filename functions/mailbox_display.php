@@ -14,6 +14,7 @@
 
 require_once('../functions/strings.php');
 require_once('../functions/imap_utf7_decode_local.php');
+require_once('../functions/html.php');
 
 /* Default value for page_selector_max. */
 define('PG_SEL_MAX', 10);
@@ -605,11 +606,12 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
   }
   
   echo '</table>'
-    . "<table bgcolor=\"$color[9]\" width=\"100%\" border=0 cellpadding=1 "
-    . "cellspacing=1><tr BGCOLOR=\"$color[4]\"><td>"
+    . html_tag( 'table', '', 
+                "bgcolor=\"$color[9]\" width=\"100%\" border=0 cellpadding=1 cellspacing=1" ) 
+    . "<tr BGCOLOR=\"$color[4]\"><td>"
     . "<table width=\"100%\" BGCOLOR=\"$color[4]\" border=0 cellpadding=1 "
     . "cellspacing=0><tr><td>$paginator_str</td>"
-    . "<td align=right>$msg_cnt_str</td></tr></table>"
+    . html_tag( 'td', 'right' ) . "$msg_cnt_str</td></tr></table>"
     . "</td></tr></table>";
   /* End of message-list table */
   
