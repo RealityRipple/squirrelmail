@@ -34,7 +34,7 @@
 		 } else if (! sqimap_mailbox_is_subscribed($imapConnection, $trash_folder)) {
 		    sqimap_subscribe($imapConnection, $trash_folder);
 		 }
-	  }
+   }
 	  $auto_create_done = true;
 	  session_register('auto_create_done');
    }
@@ -45,7 +45,7 @@
       global $unseen_notify, $unseen_type, $collapse_folders;
 
       $real_box = $box_array['unformatted'];
-      $mailbox = $box_array['formatted'];
+      $mailbox = str_replace('&nbsp;',' ',$box_array['formatted']);
       $mailboxURL = urlencode($real_box);
       
       $unseen = 0;
@@ -86,11 +86,11 @@
          else
             $line .= '<tt>&nbsp;</tt>&nbsp;';
       }
-          
+      
       $line .= "<a href=\"right_main.php?sort=0&startMessage=1&mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
       if ($special_color == true)
          $line .= "<FONT COLOR=\"$color[11]\">";
-      $line .= str_replace(' ', '&nbsp;', $mailbox);
+      $line .= str_replace(' ','&nbsp;',$mailbox);
       if ($special_color == true)
          $line .= "</font>";
       $line .= "</a>";
@@ -189,13 +189,14 @@
 
    function FoldLink($mailbox, $folded) {
        $mailbox = urlencode($mailbox);
-       echo '<tt><a target="left" style="text-decoration:none" ';
-       echo 'href="left_main.php?';
+       $link = '<tt><a target="left" style="text-decoration:none" ';
+       $link .= 'href="left_main.php?';
        if ($folded)
-           echo "unfold=$mailbox\">+";
+           $link .= "unfold=$mailbox\">+";
        else
-           echo "fold=$mailbox\">-";
-       echo '</a></tt>&nbsp;';
+           $link .= "fold=$mailbox\">-";
+       $link .= '</a></tt>&nbsp;';
+       return ($link);
    }
    
 ?>
