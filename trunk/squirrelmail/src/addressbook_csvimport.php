@@ -113,7 +113,7 @@
    	echo "       </TD>\n";
    	echo "   </TR>\n";
    	echo "   <TR>\n";
-   	echo "       <TD>", _("View full set of imported records in thier new format."), "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp\n";
+   	echo "       <TD>", _("View full set of imported records in their new format."), "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp\n";
    	echo "           <INPUT TYPE=\"submit\" NAME=\"all\" VALUE=\"Show all Records\">\n";
    	echo "           <INPUT TYPE=\"hidden\" NAME=\"submit\" VALUE=\"Submit\">";	
    	echo "       </TD>";
