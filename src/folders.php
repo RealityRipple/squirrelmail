@@ -18,6 +18,7 @@ require_once('../functions/imap_utf7_decode_local.php');
 require_once('../functions/imap.php');
 require_once('../functions/array.php');
 require_once('../functions/plugin.php');
+require_once('../functions/html.php');
 
 displayPageHeader($color, 'None');
 
@@ -37,23 +38,25 @@ displayPageHeader($color, 'None');
 if ((isset($success) && $success) ||
     (isset($sent_create) && $sent_create == 'true') ||
     (isset($trash_create) && $trash_create == 'true')) {
-    echo "<table width=\"100%\" align=center cellpadding=4 cellspacing=0 border=0>\n" .
-         "   <tr><td align=center>\n";
     if ($success == "subscribe") {
-        echo "<b>" . _("Subscribed successfully!") . "</b><br>";
+        $td_str = "<b>" . _("Subscribed successfully!") . "</b><br>";
     } else if ($success == "unsubscribe") {
-        echo "<b>" . _("Unsubscribed successfully!") . "</b><br>";
+        $td_str = "<b>" . _("Unsubscribed successfully!") . "</b><br>";
     } else if ($success == "delete") {
-        echo "<b>" . _("Deleted folder successfully!") . "</b><br>";
+        $td_str = "<b>" . _("Deleted folder successfully!") . "</b><br>";
     } else if ($success == "create") {
-        echo "<b>" . _("Created folder successfully!") . "</b><br>";
+        $td_str = "<b>" . _("Created folder successfully!") . "</b><br>";
     } else if ($success == "rename") {
-        echo "<b>" . _("Renamed successfully!") . "</b><br>";
+        $td_str = "<b>" . _("Renamed successfully!") . "</b><br>";
     }
 
-    echo "   <a href=\"../src/left_main.php\" target=left>" . _("refresh folder list") . "</a>".
-         "   </td></tr>\n";
-         "</table><br>\n";
+    echo html_tag( 'table',
+                html_tag( 'tr',
+                     html_tag( 'td', $td_str .
+                               "<a href=\"../src/left_main.php\" target=left>" . _("refresh folder list") . "</a>" ,
+                     'center' )
+                ) ,
+            'center', '', 'width="100%" cellpadding="4" cellspacing="0" border="0"' ) . "<br>\n";
 } else {
     echo "<br>";
 }
@@ -61,11 +64,13 @@ $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 
 $boxes = sqimap_mailbox_list($imapConnection);
 
 /** CREATING FOLDERS **/
-echo "<TABLE WIDTH=\"70%\" COLS=1 ALIGN=CENTER cellpadding=4 cellspacing=0 border=0>\n".
-     "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>".
-     _("Create Folder").
-     "</B></TD></TR>".
-     "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>".
+echo html_tag( 'table', '', 'center', '', 'width="70%" cols="1" cellpadding="4" cellspacing="0" border="0"' ) .
+            html_tag( 'tr',
+                html_tag( 'td', '<b>' . _("Create Folder") . '</b>', 'center', $color[9] )
+            ) .
+            html_tag( 'tr' ) .
+                html_tag( 'td', '', 'center', $color[0] ) .
+
      "<FORM NAME=cf ACTION=\"folders_create.php\" METHOD=\"POST\">\n".
      "<INPUT TYPE=TEXT SIZE=25 NAME=folder_name><BR>\n".
      _("as a subfolder of").
@@ -105,8 +110,9 @@ if ($show_contain_subfolders_option) {
 echo "<INPUT TYPE=SUBMIT VALUE=\""._("Create")."\">\n";
 echo "</FORM></TD></TR>\n";
 
-echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr>\n";
-
+echo html_tag( 'tr',
+            html_tag( 'td', '&nbsp;', 'left', $color[4] )
+        ) ."\n";
 
 /** count special folders **/
 $count_special_folders = 0;
@@ -136,10 +142,12 @@ for ($p = 0; $p < count($boxes) && $count_special_folders < $num_max; $p++) {
 
 
 /** RENAMING FOLDERS **/
-echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>".
-     _("Rename a Folder").
-     "</B></TD></TR>".
-     "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
+echo html_tag( 'tr',
+            html_tag( 'td', '<b>' . _("Rename a Folder") . '</b>', 'center', $color[9] )
+        ) .
+        html_tag( 'tr' ) .
+        html_tag( 'td', '', 'center', $color[0] );
+
 if ($count_special_folders < count($boxes)) {
     echo "<FORM ACTION=\"folders_rename_getname.php\" METHOD=\"POST\">\n"
        . "<TT><SELECT NAME=old>\n"
@@ -164,19 +172,22 @@ if ($count_special_folders < count($boxes)) {
          "<INPUT TYPE=SUBMIT VALUE=\"".
          _("Rename").
          "\">\n".
-         "</FORM></TD></TR>\n";
+         "</FORM></td></tr>\n";
 } else {
     echo _("No folders found") . "<br><br></td></tr>";
 }
 $boxes_sub = $boxes;
 
-echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr>\n";
+echo html_tag( 'tr',
+            html_tag( 'td', '&nbsp;', 'left', $color[4] )
+        ) ."\n";
 
 /** DELETING FOLDERS **/
-echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
-echo _("Delete Folder");
-echo "</B></TD></TR>";
-echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
+echo html_tag( 'tr',
+            html_tag( 'td', '<b>' . _("Delete Folder") . '</b>', 'center', $color[9] )
+        ) .
+        html_tag( 'tr' ) .
+        html_tag( 'td', '', 'center', $color[0] );
 
 if ($count_special_folders < count($boxes)) {
     echo "<FORM ACTION=\"folders_delete.php\" METHOD=\"POST\">\n"
@@ -205,14 +216,20 @@ if ($count_special_folders < count($boxes)) {
 } else {
     echo _("No folders found") . "<br><br></td><tr>";
 }
-echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr></table>\n";
+
+echo html_tag( 'tr',
+            html_tag( 'td', '&nbsp;', 'left', $color[4] )
+        ) ."</table>\n";
+
 
 /** UNSUBSCRIBE FOLDERS **/
-echo "<TABLE WIDTH=\"70%\" COLS=2 ALIGN=CENTER cellpadding=4 cellspacing=0 border=0>\n";
-echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER colspan=2><B>";
-echo _("Unsubscribe") . "/" . _("Subscribe");
-echo "</B></TD></TR>\n";
-echo "<TR><TD BGCOLOR=\"$color[0]\" width=\"50%\" ALIGN=CENTER>\n";
+echo html_tag( 'table', '', 'center', '', 'width="70%" cols="2" cellpadding="4" cellspacing="0" border="0"' ) .
+            html_tag( 'tr',
+                html_tag( 'td', '<b>' . _("Unsubscribe") . '/' . _("Subscribe") . '</b>', 'center', $color[9], 'colspan="2"' )
+            ) .
+            html_tag( 'tr' ) .
+                html_tag( 'td', '', 'center', $color[0], 'width="50%"' );
+
 if ($count_special_folders < count($boxes)) {
     echo "<FORM ACTION=\"folders_subscribe.php?method=unsub\" METHOD=\"POST\">\n";
     echo "<TT><SELECT NAME=\"mailbox[]\" multiple size=8>\n";
@@ -232,14 +249,14 @@ if ($count_special_folders < count($boxes)) {
     echo "<INPUT TYPE=SUBMIT VALUE=\"";
     echo _("Unsubscribe");
     echo "\">\n";
-    echo "</FORM></TD>\n";
+    echo "</FORM></td>\n";
 } else {
     echo _("No folders were found to unsubscribe from!") . "</td>";
 }
 $boxes_sub = $boxes;
 
 /** SUBSCRIBE TO FOLDERS **/
-echo "<TD BGCOLOR=\"$color[0]\" width=\"50%\" ALIGN=CENTER>";
+echo html_tag( 'td', '', 'center', $color[0], 'width="50%"' );
 $imap_stream = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 1);
 $boxes_all = sqimap_mailbox_list_all ($imap_stream);
 
@@ -272,7 +289,7 @@ if ($box && $box2) {
     }      
     echo "</select></tt><br><br>";
     echo "<INPUT TYPE=SUBMIT VALUE=\"". _("Subscribe") . "\">\n";
-    echo "</FORM></TD></TR></TABLE><BR>\n";
+    echo "</FORM></td></tr></table><BR>\n";
 } else {
     echo _("No folders were found to subscribe to!") . "</td></tr></table>";
 }
