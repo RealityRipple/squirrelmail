@@ -157,6 +157,8 @@ foreach($theme as $thm) {
 
 echo $IND . "Themes OK.<br />\n";
 
+echo $IND . "Base URL detected as: <tt>" . htmlspecialchars(get_location()) . "</tt><br />\n";
+
 
 /* check outgoing mail */
 
