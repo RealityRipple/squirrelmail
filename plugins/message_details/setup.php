@@ -18,7 +18,6 @@ function squirrelmail_plugin_init_message_details()
 {
   global $squirrelmail_plugin_hooks;
 
-  do_hook('read_body_header_right');
   $squirrelmail_plugin_hooks['read_body_header_right']['message_details'] = 'show_message_details';
 }
 
