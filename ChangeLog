@@ -1,5 +1,7 @@
 Version 0.4pre1 -- Development
 ------------------------------
+- Added a preference that allows users to customize how many messages
+     they see when they index a mailbox
 - Added flag status showing on message list (Answered, Flagged, and Seen)
 - Now using PHP session management
 - Parsing the body for URLs and Email addrs
