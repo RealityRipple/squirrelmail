@@ -17,6 +17,8 @@
    }
 
    function sendMessage($smtpServerAddress, $smtpPort, $username, $domain, $t, $c, $b, $subject, $body, $version) {
+      include("../config/config.php");
+
       $to = parseAddrs($t);
       $cc = parseAddrs($c);
       $bcc = parseAddrs($b);
@@ -29,6 +31,8 @@
          echo "Error connecting to SMTP Server.<br>";
          echo "$errorNumber : $errorString<br>";
          exit;
+      } else {
+         $tmp = fgets($smtpConnection, 1024);
       }
 
       $to_list = getLineOfAddrs($to);
@@ -36,6 +40,7 @@
 
       /** Lets introduce ourselves */
       fputs($smtpConnection, "HELO $domain\n");
+
       /** Ok, who is sending the message? */
       fputs($smtpConnection, "MAIL FROM:<$from>\n");
 
@@ -52,9 +57,11 @@
 
       /** Lets start sending the actual message */
       fputs($smtpConnection, "DATA\n");
+
       fputs($smtpConnection, "Subject: $subject\n"); // Subject
       fputs($smtpConnection, "From: <$from>\n"); // Subject
       fputs($smtpConnection, "To: <$to_list>\n");    // Who it's TO
+
       if ($cc_list) {
          fputs($smtpConnection, "Cc: <$cc_list>\n"); // Who the CCs are
       }
@@ -64,9 +71,9 @@
       fputs($smtpConnection, "Content-Type: text/plain\n");
 
       fputs($smtpConnection, "$body\n"); // send the body of the message
+
       fputs($smtpConnection, ".\n"); // end the DATA part
       fputs($smtpConnection, "QUIT\n"); // log off
-
       echo "</FONT>";
    }
 ?>

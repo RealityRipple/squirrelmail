@@ -264,7 +264,7 @@
          }
 
          /** ENCODING TYPE **/
-         else if (substr($read[$i], 0, 26) == "Content-Transfer-Encoding:") {
+         else if (substr(strtolower($read[$i]), 0, 26) == "content-transfer-encoding:") {
             $header["ENCODING"] = strtolower(trim(substr($read[$i], 26)));
          }
 
@@ -440,7 +440,7 @@
       $encoding = "us-ascii";
       $i = 0;
       while (trim($read[$i]) != "") {
-         if (substr($read[$i], 0, 26) == "Content-Transfer-Encoding:") {
+         if (substr(strtolower($read[$i]), 0, 26) == "content-transfer-encoding:") {
             $encoding = strtolower(trim(substr($read[$i], 26)));
 
          } else if (substr($read[$i], 0, 13) == "Content-Type:") {
@@ -465,6 +465,7 @@
                $i++;
                $read[$i] = trim($read[$i]);
             }
+            $i--;
 
             /** Detect the boundary of a multipart message **/
             if (strpos(strtolower(trim($line)), "boundary=")) {
@@ -504,10 +505,6 @@
             }
          }
          $i++;
-      }
-
-      if ( ($encoding == "us-ascii") && ($type0 != "text") && ($type0 != "message") ) {
-         $encoding = "base64";
       }
 
       /** remove the header from the entity **/

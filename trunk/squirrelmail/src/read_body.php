@@ -147,12 +147,10 @@
    $body = formatBody($message);
    echo "<BR>";
 
-   for ($i = 0; $i < count($body); $i++) {
-      echo "$body[$i]";
-   }
+   echo "$body";
 
-   echo "   <BR></TD></TR>\n";
-   echo "   <TR><TD BGCOLOR=\"$color[0]\">&nbsp;</TD></TR>";
+   echo "   </TD></TR>\n";
+   echo "   <TR><TD BGCOLOR=\"$color[9]\">&nbsp;</TD></TR>";
    echo "</TABLE>\n";
 
 ?>
