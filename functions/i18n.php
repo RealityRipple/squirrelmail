@@ -187,6 +187,9 @@ function charset_decode ($charset, $string) {
     } else if ($charset == 'ibm866') {
         include_once(SM_PATH . 'functions/decode/cp866.php');
         $ret = charset_decode_cp866 ($string);
+    } else if ($charset == 'iso-ir-111') {
+        include_once(SM_PATH . 'functions/decode/iso-ir-111.php');
+        $ret = charset_decode_iso_ir_111 ($string);
     } else if ($charset == 'tis-620') {
         include_once(SM_PATH . 'functions/decode/tis620.php');
         $ret = charset_decode_tis620 ($string);
