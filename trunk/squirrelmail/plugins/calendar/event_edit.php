@@ -12,7 +12,7 @@
  *
  * $Id$
  */
-define('SM_PATH','../');
+define('SM_PATH','../../');
 
 /* Calender plugin required files. */
 require_once(SM_PATH . 'plugins/calendar/calendar_data.php');
