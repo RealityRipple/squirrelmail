@@ -463,10 +463,7 @@
       echo '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td>';
       echo "$More</td><td align=right>\n";
       if (!$startMessage) $startMessage=1;
-      if ( $checkall == '1')
-         echo "\n<A HREF=\"right_main.php?mailbox=$urlMailbox&startMessage=$real_startMessage&sort=$sort\">" . _("Unselect All") . "</A>\n";
-      else
-         echo "\n<A HREF=\"right_main.php?mailbox=$urlMailbox&startMessage=$real_startMessage&sort=$sort&checkall=1\">" . _("Select All") . "</A>\n";
+      ShowSelectAllLink($startMessage, $sort);
 
       echo '</td></tr></table>';
       echo '</td></tr>';
@@ -501,10 +498,7 @@
       echo "<TR BGCOLOR=\"$color[4]\"><TD>";
       echo '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td>';
       echo "$More</td><td align=right>\n";
-      if ( $checkall == '1')
-         echo "\n<A HREF=\"right_main.php?mailbox=$urlMailbox&startMessage=$startMessage&sort=$sort\">" . _("Unselect All") . "</A>\n";
-      else
-         echo "\n<A HREF=\"right_main.php?mailbox=$urlMailbox&startMessage=$startMessage&sort=$sort&checkall=1\">" . _("Select All") . "</A>\n";
+      ShowSelectAllLink($startMessage, $sort);
 
       echo '</td></tr></table>';
       echo '</td></tr>';
@@ -605,4 +599,25 @@
       }
       echo "</TR>\n";
    }
+   
+   function ShowSelectAllLink($startMessage, $sort)
+   {
+       global $checkall, $PHP_SELF, $what, $where, $mailbox;
+       
+       echo "\n<A HREF=\"$PHP_SELF?mailbox=" . urlencode($mailbox) .
+           "&startMessage=$startMessage&sort=$sort&";
+       if ( isset($checkall) && $checkall == '1')
+           echo "checkall=0";
+       else
+           echo "checkall=1";
+       if (isset($where) && isset($what))
+           echo "&where=" . urlencode($where) . "&what=" . urlencode($what);
+       echo "\">";
+       if (isset($checkall) && $checkall == '1')
+           echo _("Unselect All");
+       else
+           echo _("Select All");
+       echo "</A>\n";
+   }
+   
 ?>
