@@ -12,7 +12,7 @@
 # ** Philipe Mingo <mingo@rotedic.com>
 # **
 # **  $Id$
+
 mv $1/LC_MESSAGES/squirrelmail.po $1/LC_MESSAGES/squirrelmail.po.bak 
 msgmerge $1/LC_MESSAGES/squirrelmail.po.bak ../po/squirrelmail.po > $1/LC_MESSAGES/squirrelmail.po
-echo "Once you've got the strings tranlated rename "
-echo "manualy po file to squirrelmail.po"
+echo "Old po file renamed to squirrelmail.po.bak "
