@@ -49,90 +49,64 @@
          </tr>
 <?php }          
 
-   /* TRASH FOLDER */
-   echo '<tr><td nowrap align="right">';
-   echo _("Trash Folder:");
-   echo '</td><td>';
-      echo "<TT><SELECT NAME=trash>\n";
-      if ($move_to_trash == true) {
-         echo '<option value="none">' . _("Do not use Trash");
-      } else {
-         echo '<option value="none" selected>' . _("Do not use Trash");
-      }
- 
-      for ($i = 0; $i < count($boxes); $i++) {
-         $use_folder = true;
-         if (strtolower($boxes[$i]['unformatted']) == 'inbox') {
-            $use_folder = false;
-         }
-         if ($use_folder == true) {
-            $box = $boxes[$i]['unformatted-dm'];
-            $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['formatted']);
-            if (($boxes[$i]['unformatted'] == $trash_folder) && ($move_to_trash == true))
-               echo "         <OPTION SELECTED VALUE=\"$box\">$box2\n";
-            else
-               echo "         <OPTION VALUE=\"$box\">$box2\n";
-         }
-      }
-      echo "</SELECT></TT>\n";
-   echo '</td></tr>';  
+    /* Build a simple array into which we will build options. */
+    $optvals = array();
 
+    $special_folder_values = array();
+    foreach ($boxes as $folder) {
+        if (strtolower($folder['unformatted']) != 'inbox') {
+            $real_value = $folder['unformatted-dm'];
+            $disp_value = str_replace(' ', '&nbsp;', $folder['formatted']);
+            $special_folder_values[$real_value] = $disp_value;
+        }
+    }
 
-   /* SENT FOLDER */
-   echo '<tr><td nowrap align="right">';
-   echo _("Sent Folder:");
-   echo '</td><td>';
-      echo '<TT><SELECT NAME="sent">' . "\n";
-      if ($move_to_sent == true)
-         echo '<option value="none">' . _("Do not use Sent");
-      else
-         echo "<option value=\"none\" selected>" . _("Do not use Sent");
- 
-      for ($i = 0; $i < count($boxes); $i++) {
-         $use_folder = true;
-         if (strtolower($boxes[$i]['unformatted']) == 'inbox') {
-            $use_folder = false;
-         }
-         if ($use_folder == true) {
-            $box = $boxes[$i]['unformatted-dm'];
-            $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['formatted']);
-            if (($boxes[$i]['unformatted'] == $sent_folder) && ($move_to_sent == true))
-               echo "         <OPTION SELECTED VALUE=\"$box\">$box2\n";
-            else
-               echo "         <OPTION VALUE=\"$box\">$box2\n";
-         }
-      }
-      echo "</SELECT></TT>\n";
-   echo '</td></tr>';  
+    $trash_none = array(SMPREF_NONE => _("Do not use Trash"));
+    $trash_folder_values = array_merge($trash_none, $special_folder_values);
+    $optvals[] = array(
+        'name'    => 'trash_folder',
+        'caption' => _("Trash Folder"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_FOLDERLIST,
+        'posvals' => $trash_folder_values
+    );
+    
+    $sent_none = array(SMPREF_NONE => _("Do not use Sent"));
+    $sent_folder_values = array_merge($sent_none, $special_folder_values);
+    $optvals[] = array(
+        'name'    => 'sent_folder',
+        'caption' => _("Sent Folder"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_FOLDERLIST,
+        'posvals' => $sent_folder_values
+    );
+    
+    $drafts_none = array(SMPREF_NONE => _("Do not use Drafts"));
+    $draft_folder_values = array_merge($draft_none, $special_folder_values);
+    $optvals[] = array(
+        'name'    => 'draft_folder',
+        'caption' => _("Draft Folder"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_FOLDERLIST,
+        'posvals' => $draft_folder_values
+    );
 
-   /* Drafts Folder. */
-   echo '<tr><td nowrap align="right">';
-   echo _("Drafts Folder:");
-   echo '</td><td>';
-   echo '<TT><SELECT NAME="draft">';
-   if ($save_as_draft == true)
-      echo '<option value="none">' . _("Do not use Drafts");
-   else
-      echo '<option value="none" selected>' . _("Do not use Drafts");
+    /* Build all these values into an array of SquirrelOptions objects. */
+    $options = createOptionArray($optvals);
 
-   for ($i = 0; $i < count($boxes); $i++) {
-      $use_folder = true;
-      if (strtolower($boxes[$i]['unformatted']) == 'inbox') {
-         $use_folder = false;
-      }
-      if ($use_folder == true) {
-         $box = $boxes[$i]['unformatted-dm'];
-         $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['formatted']);
-         $select_draft_value = rtrim($boxes[$i]['unformatted']);
-         if (($select_draft_value == $draft_folder) && ($save_as_draft == true)) {
-            echo "         <OPTION SELECTED VALUE=\"$box\">$box2\n";
-         } else {
-            echo "         <OPTION VALUE=\"$box\">$box2\n";
-         }
-      }
-   }
-   echo "</SELECT></TT>\n";
-   echo '</td></tr>';
+    /* Print the row for each option. */
+    foreach ($options as $option) {
+        if ($option->type != SMOPT_TYPE_HIDDEN) {
+            echo "<TR>\n";
+            echo '  <TD ALIGN="RIGHT" VALIGN="MIDDLE" NOWRAP>'
+               . $option->caption . ":</TD>\n";
+            echo '  <TD>' . $option->createHTMLWidget() . "</TD>\n";
+            echo "</TR>\n";
+        } else {
+            echo $option->createHTMLWidget();
+        }
+    }
+
    // if( $unseen_notify == '' )
    //   $unseen_notify = '2';
    OptionRadio( _("Unseen message notification"),
