@@ -149,7 +149,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
     $row->class = 'm_r';
     $row->id = 'mr'.$t;
     
-    
+    $col = 0;
     if (sizeof($index_order)){
         foreach ($index_order as $index_order_part) {
             switch ($index_order_part) {
@@ -158,6 +158,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
                                "<input type=checkbox name=\"msg[$t]\" value=\"".$msg['ID']."\"$checked>",
                                'center', 
                                $hlt_color );
+	        ++$col;
                 break;
             case 2: /* from */
                 echo html_tag( 'td',
@@ -165,6 +166,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
                                $fontstr_end . $flag_end . $bold_end . $italic_end,
                                'left',
                                $hlt_color );
+	        ++$col;			       
                 break;
             case 3: /* date */
                 echo html_tag( 'td',
@@ -173,6 +175,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
                                'center',
                                $hlt_color,
                                'nowrap' );
+	        ++$col;			       
                 break;
             case 4: /* subject */
                 $td_str = $bold;
@@ -194,6 +197,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
                 }
                 $td_str .= ">$flag$subject$flag_end</a>$bold_end";
                 echo html_tag( 'td', $td_str, 'left', $hlt_color );
+	        ++$col;		
                 break;
             case 5: /* flags */
                 $stuff = false;
@@ -230,6 +234,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
                                'center',
                                $hlt_color,
                                'nowrap' );
+	        ++$col;			       
                 break;
             case 6: /* size */
 
@@ -238,11 +243,13 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
                                $fontstr_end . $bold_end,
                                'right',
                                $hlt_color );
+	        ++$col;			       
                 break;
             }
         }
     }
-    echo "</tr>\n";
+    echo '</tr>'."\n".'<tr><td colspan="'.$col.'" BGCOLOR="'.
+                               $color[3].'"></td></tr>'."\n";
 }
 
 function getThreadMessages($imapConnection, $start_msg, $show_num, $num_msgs) {
