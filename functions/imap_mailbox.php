@@ -79,21 +79,9 @@
 
    
    /******************************************************************************
-    **  This is a recursive function that checks to see if the folder has any 
-    **  subfolders, and if so it calls itself on the subfolders first, then 
-    **  removes the parent folder.
+    **  This function simply deletes the given folder
     ******************************************************************************/
    function sqimap_mailbox_delete ($imap_stream, $mailbox) {
-      global $boxes;
-
-      $dm = sqimap_get_delimiter($imap_stream);
-      for ($i = 0; $i < count($boxes); $i++) {
-         if (strstr($boxes[$i]["unformatted"], $mailbox . $dm)) {
-            $new_delete = $boxes[$i]["unformatted"];
-            $boxes = removeElement($boxes, $i);
-//            sqimap_mailbox_delete ($imap_stream, $new_delete);
-         }
-      }
       sqimap_unsubscribe ($imap_stream, $mailbox);
       fputs ($imap_stream, "a001 DELETE \"$mailbox\"\n");
       $read_ary = sqimap_read_data($imap_stream, "a001", true, $response, $message);
