@@ -16,6 +16,15 @@
     if ($spamcop_method == 'quick_email' || 
         $spamcop_method == 'thorough_email') {
        // Use email-based reporting -- save as an attachment
+       if(!isset($composesession)) {
+        $composesession = 0;
+        session_register('composesession');
+       }
+       if (!isset($session)) {
+         $session = "$composesession" +1;
+           $composesession = $session;
+       }
+
        if (!isset($attachments)) {
           $attachments = array();
           session_register('attachments');
@@ -33,6 +42,7 @@
        $newAttachment['localfilename'] = $file;
        $newAttachment['remotefilename'] = 'email.txt';
        $newAttachment['type'] = 'message/rfc822';
+       $newAttachment['session'] = $session;
        $fp = fopen($attachment_dir . $file, 'w');
        foreach ($read as $line) {
           fputs($fp, $line);
@@ -90,6 +100,7 @@ agree to follow SpamCop's rules/terms of service/etc.</p>
   <input type=hidden name="send_to_bcc" value="">
   <input type=hidden name="subject" value="reply anyway">
   <input type=hidden name="identity" value="default">
+  <input type=hidden name="session" value="<?PHP echo $session?>">
   <input type=submit name="send" value="Send Spam Report">
 <?PHP } else {
    $Message = implode('', $read);
