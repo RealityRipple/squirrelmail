@@ -571,7 +571,7 @@ msgstr "Selector de Páginas"
 
 #: squirrelmail/src/options_display.php:138
 msgid "Maximum Number of Pages to Show"
-msgstr "Número de Mensajes a Indexar"
+msgstr "Nº de Páginas en el Selector"
 
 #: squirrelmail/src/options_display.php:145
 msgid "Message Display and Composition"
