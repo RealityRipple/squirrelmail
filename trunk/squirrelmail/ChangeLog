@@ -16,6 +16,9 @@ Version 1.2.2 -- ??
     '#!/usr/bin/env perl' to help people who have perl somewhere
     else. (Bug #496753)
   - Fixed sorting of folder list, bug #497181
+  - Fixed wrong behavior of non-javascript select all, bug #496681
+  - Added "Show Pages" link to message list showing all messages
+    (the resultant page of clicking "Show All")
   	
 Version 1.2.1 -- 25 December 2001
 ---------------------------------
