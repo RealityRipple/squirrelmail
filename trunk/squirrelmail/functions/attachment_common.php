@@ -175,7 +175,7 @@ function attachment_common_link_vcard(&$Args) {
           set_url_var($Args[1]['attachment_common']['href'],
           'ent_id',$Args[5]);
 
-    $Args[1]['attachment_common']['text'] = _("View business Card");
+    $Args[1]['attachment_common']['text'] = _("View Business Card");
 
     $Args[6] = $Args[1]['attachment_common']['href'];
 }
