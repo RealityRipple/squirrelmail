@@ -761,6 +761,7 @@ function mail_message_listing_beginning ($imapConnection,
                 <td align="left">
                   <small><?php
                     echo getButton('SUBMIT', 'markRead',_("Read"));
+                    echo '&nbsp;';
                     echo getButton('SUBMIT', 'markUnread',_("Unread"));
                     echo '&nbsp;';
                     echo getButton('SUBMIT', 'attache',_("Forward"));
