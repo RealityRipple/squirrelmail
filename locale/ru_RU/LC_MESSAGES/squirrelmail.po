@@ -523,7 +523,6 @@ msgid "Theme"
 msgstr "Внешний Вид"
 
 #: squirrelmail/src/options_display.php:59
-#, fuzzy
 msgid "Default"
 msgstr "Использовать по умолчанию"
 
@@ -1089,7 +1088,6 @@ msgid ""
 msgstr "Здесь вы можете настроить разные папки в вашем ящике."
 
 #: squirrelmail/src/options.php:281
-#, fuzzy
 msgid ""
 "The order of the message index can be rearranged and changed to contain the "
 "headers in any order you want."
@@ -1605,7 +1603,6 @@ msgid "THIS FOLDER IS EMPTY"
 msgstr "ЭТА ПАПКА ПУСТА"
 
 #: squirrelmail/functions/mailbox_display.php:493
-#, fuzzy
 msgid "Move Selected To:"
 msgstr "Поместить выделенные в:"
 
@@ -1656,9 +1653,8 @@ msgid "Viewing Message: <B>%s</B> (1 total)"
 msgstr "Просмотр сообщения: <b>%s</b> (1 всего)"
 
 #: squirrelmail/functions/mailbox_display.php:843
-#, fuzzy
 msgid "Paginate"
-msgstr "Печатать"
+msgstr "Разбить на страницы"
 
 #: squirrelmail/functions/mailbox_display.php:850
 msgid "Show All"
@@ -1712,26 +1708,25 @@ msgstr "Ошибка при открытии "
 
 #: squirrelmail/functions/prefs.php:168
 msgid "Default preference file not found!"
-msgstr ""
+msgstr "Дефолтный файл настроек не найден!"
 
 #: squirrelmail/functions/prefs.php:169 squirrelmail/functions/prefs.php:174
 #: squirrelmail/functions/prefs.php:268
-#, fuzzy
 msgid "Please contact your system administrator and report this error."
 msgstr "Свяжитесь с Вашим администратором."
 
 #: squirrelmail/functions/prefs.php:173
 msgid "Could not create initial preference file!"
-msgstr ""
+msgstr "Ошибка при попытке создания файла настроек!"
 
 #: squirrelmail/functions/prefs.php:266
-#, fuzzy, c-format
+#, c-format
 msgid "Error creating directory %s."
-msgstr "Ошибка при раскодировании словаря"
+msgstr "Ошибка при создании директории %s."
 
 #: squirrelmail/functions/prefs.php:267
 msgid "Could not create hashed directory structure!"
-msgstr ""
+msgstr "Ошибка при попытке создания хэш-директории!"
 
 #: squirrelmail/plugins/filters/filters.php:360
 msgid ""
@@ -3434,41 +3429,37 @@ msgstr ""
 
 #: squirrelmail/plugins/bug_report/setup.php:65
 msgid "Bug Reports:"
-msgstr ""
+msgstr "Посылать авторам сообщения о глюках:"
 
 #: squirrelmail/plugins/bug_report/setup.php:70
 msgid "Show button in toolbar"
-msgstr ""
+msgstr "Показывать кнопку в меню"
 
 #: squirrelmail/plugins/sent_subfolders/setup.php:94
-#, fuzzy
 msgid "Sent Subfolders Options"
-msgstr "Настройка специальных папок"
+msgstr "Настройка под-папок папки 'Sent'"
 
 #: squirrelmail/plugins/sent_subfolders/setup.php:99
-#, fuzzy
 msgid "Use Sent Subfolders"
-msgstr "Папка с отправленными сообщениями (Sent)"
+msgstr "Использовать папку с отправленными сообщениями (Sent)"
 
 #: squirrelmail/plugins/sent_subfolders/setup.php:102
 msgid "Disabled"
-msgstr ""
+msgstr "Выключено"
 
 #: squirrelmail/plugins/sent_subfolders/setup.php:103
-#, fuzzy
 msgid "Monthly"
-msgstr "Понедельник"
+msgstr "Каждый месяц"
 
 #: squirrelmail/plugins/sent_subfolders/setup.php:104
 msgid "Quarterly"
-msgstr ""
+msgstr "Раз в четверть"
 
 #: squirrelmail/plugins/sent_subfolders/setup.php:105
 msgid "Yearly"
-msgstr ""
+msgstr "Раз в год"
 
 #: squirrelmail/plugins/sent_subfolders/setup.php:120
-#, fuzzy
 msgid "Base Sent Folder"
 msgstr "Папка с отправленными сообщениями (Sent)"
 
