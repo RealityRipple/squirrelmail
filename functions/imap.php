@@ -186,6 +186,8 @@
    /** Sends back two arrays, boxesFormatted and boxesUnformatted **/
    function getFolderList($imapConnection, &$boxes) {
       require ("../config/config.php");
+      if (!function_exists("ary_sort"))
+         include("../functions/array.php");
 
       /** First we get the inbox **/
       fputs($imapConnection, "1 LIST \"\" INBOX\n");
@@ -290,7 +292,7 @@
 
    function deleteMessages($imapConnection, $a, $b, $numMessages, $trash_folder, $move_to_trash, $auto_expunge, $mailbox) {
       /** check if they would like to move it to the trash folder or not */
-      if ($move_to_trash == true) {
+      if (($move_to_trash == true) && (folderExists($imapConnection, $trash_folder))) {
          $success = copyMessages($imapConnection, $a, $b, $trash_folder);
          if ($success == true)
             setMessageFlag($imapConnection, $a, $b, "Deleted");
@@ -313,5 +315,15 @@
          $full_line = $line;
       }
       return $full_line;
+   }
+
+   function folderExists($imapConnection, $folderName) {
+      getFolderList($imapConnection, $folders);
+      $found = false;
+      for ($i = 0; ($i < count($folders)) && (!$found); $i++) {
+         if ($folders[$i]["UNFORMATTED"] == $folderName)
+            $found = true;
+      }
+      return $found;
    }
 ?>
