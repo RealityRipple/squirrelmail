@@ -10,7 +10,7 @@
       <p>
       Jedna od sjajnih stvari kod SquirrelMail-a je nivo do kog se mo¾e sve pode¹avati.
       U zavisnosti od konfiguracije, mo¾ete imati vi¹e izbora Tema, jezika, direktorijuma
-      i drugih pode¹avanja. Sva od pode¹avanja se mogu uèiniti i zasebno ne utièiæi na druge 
+      i drugih pode¹avanja. Sva od pode¹avanja se mogu uèiniti i zasebno ne utièuæi na druge 
       korisnike na sistemu. Postoji bar pet glavnih delova u Opcijama:
       Liène Informacije, Opcije prikaza, Oznaèavanje poruka, prikaz direktorijuma i Redosled 
       indeksa </p>
@@ -25,7 +25,7 @@
       <b>Puno ime</b><br>
       Ovde bi trebalo upisati puno ime i prezime. Na primer "Petar Markovic" i to ime se
       prikazuje ljudima kojima po¹aljete poruku. Oni æe, dakle, videti da je poruka stigla
-      od "Petra Markovica". Ukoliko ne popunite ovo polje, prikazaæe se samo va¹a email adresa, npr.
+      od osobe s imenom "Petar Markovic". Ukoliko ne popunite ovo polje, prikazaæe se samo va¹a email adresa, npr.
       "petarm@negde.org"
       <br><br>
       
@@ -53,7 +53,7 @@
       Ukoliko pritisnete Odgovori na poruku, biæe vam prikazan prozor sa novom porukom
       u kojoj æe stara poruka biti citirana. Pre citirane poruke mo¾e stajati tekst kao
       na primer <TT>Marko Petrovic je napisao:</TT> taèno ispred citirane poruke, pod uslovom 
-      da odgovarate na poruku od Marka Petrovica. Ovo se yove linija citata. Znaèi ovde 
+      da odgovarate na poruku od Marka Petrovica. Ovo se zove linija citata. Znaèi ovde 
       mo¾ete odrediti kako æe ta linija izgledati.<BR>
       <UL>
       <LI><B>Bez Citata</B><br>
@@ -94,7 +94,7 @@
       <br><br>
 
       <b>Jezik</b><br>
-      Ukoliko vam maternji jezik nije engleski, vrlo lako mo¾ete promeniti jezik u 
+      Ukoliko vam maternji jezik nije srpski, vrlo lako mo¾ete promeniti jezik u 
       kom se veæina stvari prikazuje. Pronaðite ¾eljeni jezik iz liste, izaberite ga i svaklo 
       va¹e sledeæe prijavljivanje na mail æe znaèiti prikazivanje na izabranom jeziku.
       Ovo se, naravno, ne odnosi na primljenu po¹tu i imena direktorijuma.
@@ -103,8 +103,8 @@
       <b>Koristi Javascript</b><br>
       Jedan od glavnih ciljeva pri kreiranju SquirrelMaila nam je bio pravljenje 
       programa bez JavaScripta. No neki od ljudi koji su radili na projektu, napravili
-      su jako dobre ptretra¾ivaèe adresara koji koriste JavaScript. Tako da smo dodali i
-      JavaScript funkcioje. Umesto da ga uklonimo, dajemo vam moguænost da izberete
+      su jako dobre pretra¾ivaèe adresara koji koriste JavaScript. Tako da smo dodali i
+      JavaScript funkcije. Umesto da ga uklonimo, dajemo vam moguænost da izberete
       da li æete koristiti èisti HTML ili i JavaScript. 
       Ukoliko ne znate ¹ta sve ovo znaèi, najsigurnije vam je da izaberete auto-detekciju.
       <br><br>
@@ -215,7 +215,7 @@
 
 <section>
    <title>
-      Opcije prikaya direktorijuma
+      Opcije prikaza direktorijuma
    </title>
    <description>
       <b>Putanja do direktorijuma</b><br>
@@ -237,7 +237,7 @@
       <br><br>
 
       <b>Draft direktorijum</b><br>
-      Mo¾ete izabrati gde ¾e i¾i va¹a draft (zapoèeta a nezavr¹ena) po¹ta.
+      Mo¾ete izabrati gde æe iæi va¹a draft (zapoèeta a nezavr¹ena) po¹ta.
       Ukoliko ne ¾elite ovu opciju, podesite "Ne upotrebljavaj Drafts".
       <br><br>
       
@@ -254,13 +254,13 @@
       <br><br>
       
       <b>Automatsko osve¾avanje direktorijuma</b><br>
-      SquirrelMail poseduje funkcioju da automatski osve¾ava listu direktorijuma s leve
+      SquirrelMail poseduje funkciju da automatski osve¾ava listu direktorijuma s leve
       strane va¹eg prozora. Ovo æe, takoðe, prikazati i broj neproèitanih poruka u svakom
       od direktorijuma. Ovo je dobar naèin za proveravanje novopristigle ili neproèitane
       po¹te, bez potrebe da stalno pritiskate na INBOX link.
       <br><br>
 
-      <b>Ukljuèi obave¹tenje i neproèitanim porukama</b><br>
+      <b>Ukljuèi obave¹tenje o neproèitanim porukama</b><br>
       Ova opcija odreðuje kako æe neproèitane poruke biti prikazane u listi direktorijuma
       na desnoj strani va¹eg mail prozora. Ukoliko postavite na Bez Obave¹tenja, neæete
       biti obave¹tenipri pristizanju nove po¹te. Ako postavite na INBOX, ime INBOX æe postati

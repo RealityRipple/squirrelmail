@@ -65,7 +65,7 @@
    </title>
    <description>
       <p>
-      BCC je skraæenica ya englesko<B>B</B>lind <B>C</B>arbon <B>C</B>opy.
+      BCC je skraæenica za englesko <B>B</B>lind <B>C</B>arbon <B>C</B>opy.
       U prevodu bi znaèilo "slepa kopija". U ovo polje napi¹ite adrese za 
       koje primaoci iz liste Prima: i Kopija: neæe znati, jer im se neæe 
       prikazati adresa(e) koja se nalazi u ovom polju. 
@@ -80,7 +80,7 @@
    <description>
       <p>
       Ovo je neka vrsta naslova poruke i u ovo polje upi¹ite ne¹to ¹to  
-      æe pribli¾nije oznaèiti ovu poruku primaocu kad je bude dobio u svoj mailbox.
+      æe pribli¾nije objasniti ovu poruku primaocu kad je bude dobio u svoj mailbox.
       </p>
    </description>
 </section>
@@ -91,7 +91,7 @@
    </title>
    <description>
       <p>
-      Ovo dugmence æe otvoriti adresar opsle kog je prikazano polje za pretra¾ivanje.
+      Ovo dugmence æe otvoriti adresar posle kog je prikazano polje za pretra¾ivanje.
       Ne¹to mora biti une¹eno u ovo polje kako bi se dobio rezultat.
       Ako su vam neophodne sve adrese iz adresara, kliknite na Prika¾i Sve.
       Adresar ima toliko posebnih funkcinalnosti da ima zasebno poglavlje
@@ -123,7 +123,7 @@
       <p>
       Ukoliko je ukljuèena ova opcija od strane administratora, mo¾ete
       koristiti padajuæi meni "Prioritet:". Ovde mo¾ete izabrati, zamislite, 
-      priritet poruke. Poruka visokog prioriteta æe biti drugaèije prikazana kod 
+      prioritet poruke. Poruka visokog prioriteta æe biti drugaèije prikazana kod 
       primaoca u njegovom mail programu. Napominjemo da preterana upotreba ove
       opcije poni¹tava njenu primarnu funkcionalnost.
       </p>
@@ -136,7 +136,7 @@
    </title>
    <description>
       <p>
-      Veliki prayni kvadrat slu¾i za pisanje va¹e poruke i u njega mo¾ete upisati
+      Veliki prazni kvadrat slu¾i za pisanje va¹e poruke i u njega mo¾ete upisati
       ¹ta god ¾elite. Snimljene poruke æe se takoðe ovde pokazati. Znaèi, ovo je
       polje u koje pi¹ete va¹u poruku.
       </p>
@@ -149,13 +149,13 @@
    </title>
    <description>
       <p>
-      Nalazi se na dnu strane za stastavljanje nove poruke, i dozvoljava vam
+      Nalazi se na dnu strane za sastavljanje nove poruke, i dozvoljava vam
       da prikaèite neku datoteku uz va¹ email. Datoteka koju ¹aljete mora
       biti na <I>va¹em</I> raèunaru ili mre¾nom disku. Postoji i dugme Browse: 
-      koje slu¾i dapronaðete datoteku kroz va¹e direktorijume i oznaèite fajl 
+      koje slu¾i da pronaðete datoteku kroz va¹e direktorijume i oznaèite fajl 
       koji ¾elite da po¹aljete. Naravno, mo¾ete ukucati putanju direktno u  
       Zakaèi polje ukoliko je znate. Jednostavno potom kliknite na dugme Dodaj
-      i va¹a datoteka ¾e biti poslata na server i prikazaæe se ispod poruke.
+      i va¹a datoteka æe biti poslata na server i prikazaæe se ispod poruke.
       
       </p>
       <p>

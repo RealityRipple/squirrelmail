@@ -18,8 +18,8 @@
       Svaki nivo odgovora æe imati razlièitu boju i drugaèiju od novog teksta.
       Ovo radi u dva nivoa dubine. Jo¹ jedan meni je prikazan ispod glavnog menija.
       Ovaj meni ima tri sekcije. Na levoj strani mo¾ete obrisati po¹tu ili vratiti
-      se na listu poruka. Na sredini direktna navigacija izmeðu poruka je moguæa.
-      Na desnoj strani, razlièite mail funkcije æe biti prikazane. 
+      se na listu poruka. Na sredini je omoguæena direktna navigacija izmeðu poruka.
+      Na desnoj strani, prikazane su razlièite mail funkcije.
       </p>
    </description>
 </chapter>
@@ -42,7 +42,7 @@
    <description>
       <p>
       Kliknite na ovaj link da obri¹ete poruku koju trenutno gledate.
-      Ovim æe biti obrisani i svi dodatci koji su stigli uz poruku. Mo¾ete spreèiti
+      Ovim æe biti obrisani i svi dodaci koji su stigli uz poruku. Mo¾ete spreèiti
       gubitak dodataka tako ¹to æete ih prvo preuzeti na svoj raèunar (detaljnije obja¹njeno
       kasnije).<BR>
       U ovom kontekstu, brisanje, znaèi preme¹tanje poruke u Trash (Kantu)
@@ -58,7 +58,7 @@
    </title>
    <description>
       <p>
-      Na sredini menija su linkovi za navigaciju. link za prethodnu poruku æe
+      Na sredini menija su linkovi za navigaciju. Link za prethodnu poruku æe
       biti aktivan ukoliko postoji prethodna poruka, ili obièan tekst u suprotnom. 
       Pritiskom na ovaj link, otiæi æete na prethodnu poruku bez potrebe da se vrati 
       u listu poruka. Isto va¾i i za link Sledeæa koji æe vas prebaciti na sledeæu poruku

@@ -10,7 +10,7 @@
       Dakle, ¹ta je u stvari<A HREF="http://www.squirrelmail.org/index.php3?from=1">SquirrelMail</A>?
       To je web interfejs za pristup e-mailu napisan u <A HREF="http://www.php.net">PHP4</A>.
       Dizajniran je da dozvoli e-mail pristup s va¹eg servera iz bilo kog kraja
-      sveta putem WWW-a. Vi¹e informacija o tome kako radi i
+      sveta putem WWW-a. Vi¹e informacija o tome kako radi, i
       o IMAP protokolu mo¾ete naæi <A HREF="http://imap.org">ovde</A>.
       </p>
    </description>
@@ -22,10 +22,10 @@
    </title>
    <description>
       <p>
-      Ukoliko imate neko kratko pitanje, mo¾da bi vam pomoglao pregled èesto postavljanih pitanja. (FAQ)
+      Ukoliko imate neko kratko pitanje, mo¾da bi vam pomogao pregled èesto postavljanih pitanja. (FAQ)
       </p>
       <p>
-      SquirrelMail je raspore¾en u dve glavne sekcije zvane frejmovi (okviri). Levi
+      SquirrelMail je rasporeðen u dve glavne sekcije zvane frejmovi (okviri). Levi
       frejm izlistava va¹e direktorijume, koje trenutno koristite. Vi¹e informacija o 
       levom frejmu, mo¾ete naæi u sekciji "Direktorijumi" ove dokumentacije.
       </p>
@@ -42,7 +42,7 @@
             <li><b>Nova poruka</b> - Sastavite i po¹aljite poruku koja mo¾e sadr¾ati i dodatke.
             <li><b>Adrese</b> - Èuva listu adresa koje se nalaze u va¹em liènom adresaru.
             <li><b>Direktorijumi</b> - Sve radnje s direktorijumima se odvijaju ovde. Mo¾ete brisati, kreirati, preimenovati, dodavati i oduzimati direktorijume.
-            <li><b>Opcije</b> - Promenite razna pode¹avanja u vezi izgleda i funkcionalnosti SquirrelMaila
+            <li><b>Opcije</b> - Promenite razna pode¹avanja u vezi izgleda i funkcionalnosti SquirrelMai-a
             <li><b>Pretra¾ivanje</b> - Uz pomoæ ovog alata mo¾ete tra¾iti odreðenu po¹tu u va¹em mail sanduèetu po zadatim kriterijumima.
             <li><b>Pomoæ</b> - Upravo ste ovde! 
          </ul>

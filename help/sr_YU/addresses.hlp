@@ -12,13 +12,13 @@
       Adresari su veliki pomoænici u èuvanju va¹eg vremena. Èesto kori¹æene
       adrese se ovde upisuju. LDAP serveri (koji se èesto koriste u veæim kompanijama
       i univerzitetima da bi se lak¹e organizovale adrese unutar istih) 
-      su takoðe podr¹ani.
+      su takoðe podr¾ani.
       </p>
       <p>
       Ukoliko va¹ browser podr¾ava JavaScript onda biste verovatno ¾eleli da ukljuèite
       adresar koji radi pod JavaScript-om pod menijem Opcije s glavnog menija. To je jedna vrlo
       zgodna pop-up stvarèica. Èisti HTML browseri su takoðe podr¾ani tako da i bez
-      podr¹ke za JavaScript imate moguænost kori¹æenja SquirrelMail-a bez gubitka na funkcionalnosti.
+      podr¹ke za JavaScript imate moguænost kori¹æenja SquirrelMail-a bez gubitka funkcionalnosti.
       </p>
    </description>
 </chapter>
@@ -60,21 +60,21 @@
    <description>
       <p>
       Ovde opet mo¾ete dodati ne¹to ¹to æe vam bli¾e objasniti osobu koju ste 
-      upravo uneli u adresar. Mo?ete upisati ne¹to du¾e od nadimka kao na primer
-      "upoznali smo se na ¾urci kod Marka". Ili "Mali iz kom¹iluka"
+      upravo uneli u adresar. Mo¾ete upisati ne¹to du¾e od nadimka kao na primer
+      "upoznali smo se na ¾urci kod Marka", ili "Mali iz kom¹iluka"
       </p>
    </description>
 </section>
 
 <section>
    <title>
-      Promeni ili Obri?i
+      Promeni ili Obri¹i
    </title>
    <description>
       <p>
       Ova dva dugmeta vam omoguæavaju da izaberete neki od prethodnih unosa i
-      promenite bilo koje od malopre obja?njenih polja. Dozvoljeno je da izaberete samo po jedan 
-      unos koji æete menjati ilki brisati.
+      promenite bilo koje od malopre obja¹njenih polja. Dozvoljeno je da izaberete samo po jedan 
+      unos koji æete menjati ili brisati.
       </p>
    </description>
 </section>
@@ -85,7 +85,7 @@
    </title>
    <description>
       <p>
-      Popunite naznaèena polja. Prva tri (Nadimak, E-mail adresa i Ime) su obaveza
+      Popunite naznaèena polja. Prva tri (Nadimak, E-mail adresa i Ime) su obavezna
       i moraju biti popunjena. Prezime i Dodatne informacije ne morate upisati
       ukoliko ne ¾elite.
       </p>
@@ -99,7 +99,7 @@
    <description>
       <p>
       LDAP je protokol za unificirano sme¹tanje imena i adresa i udaljeni pristup
-      tim informacijama. na primer: univerzitet bi mogao koristiti LDAP na jednom 
+      tim informacijama. Na primer: univerzitet bi mogao koristiti LDAP na jednom 
       mestu gde bi svi studenti, osoblje, i profesori fakulteta bili upisani i dostupni.
       Ukoliko se SquirrelMail konfigurise da koristi takav LDAP, onda bi SquirrelMail mogao
       da lista sve email adrese koje se nalaze na tom serveru, zajedno sa ostalim
