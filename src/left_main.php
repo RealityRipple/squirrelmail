@@ -517,14 +517,14 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     if (!$boxes->is_root) {
         if ($use_folder_images) {
           if ($boxes->is_inbox) {
-        $folder_img = '../images/inbox.gif';
+        $folder_img = '../images/inbox.png';
           } else if ($boxes->is_sent) {
-        $folder_img = '../images/senti.gif';
+        $folder_img = '../images/senti.png';
           } else if ($boxes->is_trash) {
-        $folder_img = '../images/delitem.gif';
+        $folder_img = '../images/delitem.png';
           } else if ($boxes->is_draft) {
-        $folder_img = '../images/draft.gif';
-          } else $folder_img = '../images/folder.gif';
+        $folder_img = '../images/draft.png';
+          } else $folder_img = '../images/folder.png';
           $folder_img = '&nbsp;<img src="'.$folder_img.'" height="15" valign="center" />&nbsp;';
         } else $folder_img = '';
         if (!isset($boxes->mbxs[0])) {
@@ -549,9 +549,9 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
                 $collapse = ($collapse == '' ? SM_BOX_UNCOLLAPSED : $collapse);
             }
             if ($collapse) {
-                $link = '<a href="javascript:void(0)">'." <img src=\"../images/plus.gif\" border=\"1\" id=$j onclick=\"hidechilds(this)\" /></a>";
+                $link = '<a href="javascript:void(0)">'." <img src=\"../images/plus.png\" border=\"1\" id=$j onclick=\"hidechilds(this)\" /></a>";
             } else {
-                $link = '<a href="javascript:void(0)">'."<img src=\"../images/minus.gif\" border=\"1\" id=$j onclick=\"hidechilds(this)\" /></a>";
+                $link = '<a href="javascript:void(0)">'."<img src=\"../images/minus.png\" border=\"1\" id=$j onclick=\"hidechilds(this)\" /></a>";
             }
             $collapse_link = $link;
         } else $collapse_link='';
@@ -648,12 +648,12 @@ $xtra .= <<<ECHO
            if(ele.style.display == "none") {
                   ele.style.display = "block";
               ele.style.visibility = "visible"
-                  el.src="../images/minus.gif";
+                  el.src="../images/minus.png";
                   document.all[form_id].value=0;
                } else {
                   ele.style.display = "none";
               ele.style.visibility = "hidden"
-              el.src="../images/plus.gif";
+              el.src="../images/plus.png";
               document.all[form_id].value=1;
            }
         }
@@ -663,12 +663,12 @@ $xtra .= <<<ECHO
            if(ele.style.display == "none") {
               ele.style.display = "block";
               ele.style.visibility = "visible"
-              el.src="../images/minus.gif";
+              el.src="../images/minus.png";
                   document.getElementById(form_id).value=0;
            } else {
               ele.style.display = "none";
               ele.style.visibility = "hidden"
-              el.src="../images/plus.gif";
+              el.src="../images/plus.png";
                   document.getElementById(form_id).value=1;
            }
         }
