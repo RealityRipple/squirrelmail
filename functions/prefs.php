@@ -89,26 +89,26 @@
 
    function removePref($data_dir, $username, $string) {
       global $prefs_cache;
-      
+
       cachePrefValues($data_dir, $username);
-      
+
       if (isset($prefs_cache[$string])) {
           unset($prefs_cache[$string]);
       }
-          
+
       savePrefValues($data_dir, $username);
    }
-   
+
    /** sets the pref, $string, to $set_to **/
    function setPref($data_dir, $username, $string, $set_to) {
       global $prefs_cache;
-      
+
       cachePrefValues($data_dir, $username);
       if (isset($prefs_cache[$string]) && $prefs_cache[$string] == $set_to)
          return;
       if ($set_to === '') {
          removePref($data_dir, $username, $string);
-	 return;
+         return;
       }
       $prefs_cache[$string] = $set_to;
       savePrefValues($data_dir, $username);
@@ -119,7 +119,7 @@
        create it. **/
    function checkForPrefs($data_dir, $username) {
       $filename = $data_dir . $username . '.pref';
-      if (!file_exists($filename)) {
+      if (!file_exists($filename) ) {
          if (!copy($data_dir . 'default_pref', $filename)) {
             echo _("Error opening ") . $filename;
             exit;
@@ -150,4 +150,5 @@
       }
       return $sig;
    }
+
 ?>

@@ -17,6 +17,8 @@
     /* Set values for constants used by Squirrelmail preferences. */
     /**************************************************************/
 
+    require_once( '../functions/plugin.php' );      // Required for the hook
+
     /* Define basic, general purpose preference constants. */
     define('SMPREF_NO', 0);
     define('SMPREF_OFF', 0);
