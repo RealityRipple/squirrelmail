@@ -125,6 +125,13 @@ Version 1.5.1 -- CVS
     functions (provides fix for #1019007).
   - LC_NUMERIC locale is set to C. (workaround for #1027130). Some plugins
     might use decimal delimiters incorrectly.
+  - Added sq_is8bit function that can be used to detect 8bit strings.
+  - Added sq_mb_list_encodings function that provides list of encodings supported
+    by php mbstring module.
+  - Added Content-Transfer-Encoding: 8bit header for read receipts that contain
+    8bit symbols. (provides fix for #934033).
+  - Fixed decoding function problems when mbstring.func_override has MB_OVERLOAD_REGEX
+    enabled.
 
 
 Version 1.5.0
