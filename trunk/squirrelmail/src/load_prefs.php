@@ -42,7 +42,7 @@
    if (isset($chosen_theme) && $in_ary && (file_exists($chosen_theme))) {
       @include($chosen_theme);
    } else {
-      if (file_exists(isset($theme) && isset($theme[0]) && $theme[0]["PATH"])) {
+      if (isset($theme) && isset($theme[0]) && file_exists($theme[0]["PATH"])) {
          @include($theme[0]["PATH"]);
       } else {
           #
