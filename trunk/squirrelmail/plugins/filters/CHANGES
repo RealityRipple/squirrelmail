@@ -1,6 +1,7 @@
 Changes since 0.8.3
 -------------------
-Just changed include() calls to require_once() calls.
+Changed include() calls to require_once() calls.
+Internationalization of the plugin.
 
 Changes since 0.8.2
 -------------------

@@ -255,88 +255,77 @@
       $filters['MAPS RBL']['link'] = 'http://www.mail-abuse.org/rbl/';
       $filters['MAPS RBL']['dns'] = 'blackholes.mail-abuse.org';
       $filters['MAPS RBL']['comment'] = 
-'COMMERCIAL - This list contains servers that are verified spam senders.
-It is a pretty reliable list to scan spam from.';
+_("COMMERCIAL - This list contains servers that are verified spam senders. It is a pretty reliable list to scan spam from.");
       
       $filters['MAPS RSS']['prefname'] = 'filters_spam_maps_rss';
       $filters['MAPS RSS']['name'] = 'MAPS Relay Spam Stopper';
       $filters['MAPS RSS']['link'] = 'http://www.mail-abuse.org/rss/';
       $filters['MAPS RSS']['dns'] = 'relays.mail-abuse.org';
       $filters['MAPS RSS']['comment'] =
-'COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to
-be relayed through their system will be banned with this.  Another good one to
-use.';
+_("COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to be relayed through their system will be banned with this.  Another good one to use.");
 
       $filters['MAPS DUL']['prefname'] = 'filters_spam_maps_dul';
       $filters['MAPS DUL']['name'] = 'MAPS Dial-Up List';
       $filters['MAPS DUL']['link'] = 'http://www.mail-abuse.org/dul/';
       $filters['MAPS DUL']['dns'] = 'dialups.mail-abuse.org';
       $filters['MAPS DUL']['comment'] =
-'COMMERCIAL - Dial-up users are often filtered out since they should use their
-ISP\'s mail servers to send mail.  Spammers typically get a dial-up account
-and send spam directly from there.';
+_("COMMERCIAL - Dial-up users are often filtered out since they should use their ISP\'s mail servers to send mail.  Spammers typically get a dial-up account and send spam directly from there.");
 
       $filters['MAPS RBLplus']['prefname'] = 'filters_spam_maps_rblplus';
       $filters['MAPS RBLplus']['name'] = 'MAPS RBL+ List';
       $filters['MAPS RBLplus']['link'] = 'http://www.mail-abuse.org/';
       $filters['MAPS RBLplus']['dns'] = 'rbl-plus.mail-abuse.org';
       $filters['MAPS RBLplus']['comment'] =
-'COMMERCIAL - RBL+ is a combination of RSS, DUL, and RBL.';
+_("COMMERCIAL - RBL+ is a combination of RSS, DUL, and RBL.");
 
       $filters['Osirusoft']['prefname'] = 'filters_spam_maps_osirusoft';
       $filters['Osirusoft']['name'] = 'Osirusoft List';
       $filters['Osirusoft']['link'] = 'http://relays.osirusoft.com/';
       $filters['Osirusoft']['dns'] = 'relays.osirusoft.com';
       $filters['Osirusoft']['comment'] =
-'FREE - Osirusoft - Very thorough, but also rejects replies from many
-ISP\'s abuse@domain.name email messages for some reason.';
+_("FREE - Osirusoft - Very thorough, but also rejects replies from many ISP\'s abuse@domain.name email messages for some reason.");
 
       $filters['ORDB']['prefname'] = 'filters_spam_ordb';
       $filters['ORDB']['name'] = 'Open Relay Database List';
       $filters['ORDB']['link'] = 'http://www.ordb.org/';
       $filters['ORDB']['dns'] = 'relays.ordb.org';
       $filters['ORDB']['comment'] =
-'FREE - ORDB was born when ORBS went off the air. It seems to have fewer false
-positives than ORBS did though.';
+_("FREE - ORDB was born when ORBS went off the air. It seems to have fewer false positives than ORBS did though.");
       
       $filters['ORBZ']['prefname'] = 'filters_spam_orbz';
       $filters['ORBZ']['name'] = 'ORBZ List';
       $filters['ORBZ']['link'] = 'http://www.orbz.org/';
       $filters['ORBZ']['dns'] = 'inputs.orbz.org';
       $filters['ORBZ']['comment'] =
-'FREE - Another ORBS replacement (just the INPUTS database used here).';
+_("FREE - Another ORBS replacement (just the INPUTS database used here).");
       
       $filters['Five-Ten']['prefname'] = 'filters_spam_fiveten';
       $filters['Five-Ten']['name'] = 'Five-Ten-sg.com Lists';
       $filters['Five-Ten']['link'] = 'http://www.five-ten-sg.com/blackhole.php';
       $filters['Five-Ten']['dns'] = 'blackholes.five-ten-sg.com';
       $filters['Five-Ten']['comment'] =
-'FREE - Five-Ten-sg.com has SPAM source, OpenRelay, and and Dialup IPs.';
+_("FREE - Five-Ten-sg.com has SPAM source, OpenRelay, and and Dialup IPs.");
       
       $filters['Dorkslayers']['prefname'] = 'filters_spam_dorks';
       $filters['Dorkslayers']['name'] = 'Dorkslayers Lists';
       $filters['Dorkslayers']['link'] = 'http://www.dorkslayers.com';
       $filters['Dorkslayers']['dns'] = 'orbs.dorkslayers.com';
       $filters['Dorkslayers']['comment'] =
-'FREE - Dorkslayers appears to include only really bad open relays outside
-the US to avoid being sued. Interestingly enough, their website recommends
-you NOT use their service.';
+_("FREE - Dorkslayers appears to include only really bad open relays outside the US to avoid being sued. Interestingly enough, their website recommends you NOT use their service.");
       
       $filters['ORBL']['prefname'] = 'filters_spam_orbl';
       $filters['ORBL']['name'] = 'ORBL Lists';
       $filters['ORBL']['link'] = 'http://www.orbl.org';
       $filters['ORBL']['dns'] = 'or.orbl.org';
       $filters['ORBL']['comment'] =
-'FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be
-SLOOOOOOW!';
+_("'FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be SLOOOOOOW!");
       
       $filters['ORBZ-UK']['prefname'] = 'filters_spam_orbzuk';
       $filters['ORBZ-UK']['name'] = 'ORBZ-UK Lists';
       $filters['ORBZ-UK']['link'] = 'http://orbz.gst-group.co.uk';
       $filters['ORBZ-UK']['dns'] = 'orbz.gst-group.co.uk';
       $filters['ORBZ-UK']['comment'] =
-'FREE - orbz.gst-group.co.uk lists not only open relays, but also mailservers
-that refuse or bounce email addressed to postmaster@<theirdomain>.';
+_("FREE - orbz.gst-group.co.uk lists not only open relays, but also mailservers that refuse or bounce email addressed to postmaster@<theirdomain>.");
       
       foreach ($filters as $Key => $Value) {
           $filters[$Key]['enabled'] = getPref($data_dir, $username,
