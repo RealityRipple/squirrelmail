@@ -16,42 +16,61 @@
    // This array specifies the available languages.
    $languages["en"]["NAME"]    = "English";
    $languages["en"]["CHARSET"] = "iso-8859-1";
-   $languages["no"]["NAME"]    = "Norwegian (Bokm&aring;l)";
-   $languages["no"]["CHARSET"] = "iso-8859-1";
-   $languages["no_NO_ny"]["NAME"] = "Norwegian (Nynorsk)";
-   $languages["no_NO_ny"]["CHARSET"] = "iso-8859-1";
-   $languages["de"]["NAME"]    = "Deutsch";
-   $languages["de"]["CHARSET"] = "iso-8859-1";
-   $languages["ru"]["NAME"]    = "Russian KOI8-R";
-   $languages["ru"]["CHARSET"] = "koi8-r";
-   $languages["pl"]["NAME"]    = "Polish";
-   $languages["pl"]["CHARSET"] = "iso-8859-2";
-   $languages["sv"]["NAME"]    = "Swedish";
-   $languages["sv"]["CHARSET"] = "iso-8859-1";
-   $languages["nl"]["NAME"]    = "Dutch";
-   $languages["nl"]["CHARSET"] = "iso-8859-1";
-   $languages["pt_BR"]["NAME"] = "Portuguese (Brazil)";
-   $languages["pt_BR"]["CHARSET"] = "iso-8859-1";
-   $languages["fr"]["NAME"]    = "French";
-   $languages["fr"]["CHARSET"] = "iso-8859-1";
-   $languages["it"]["NAME"]    = "Italian";
-   $languages["it"]["CHARSET"] = "iso-8859-1";
-   $languages["cs_CZ"]["NAME"]    = "Czech";
-   $languages["cs_CZ"]["CHARSET"] = "iso-8859-2";
-   $languages["es"]["NAME"]    = "Spanish";
-   $languages["es"]["CHARSET"] = "iso-8859-1";
-   $languages["ko"]["NAME"]    = "Korean";
-   $languages["ko"]["CHARSET"] = "euc-KR";
+   
    $languages["ca"]["NAME"]    = "Catalan";
    $languages["ca"]["CHARSET"] = "iso-8859-1";
-   $languages["sr"]["NAME"]	 = "Serbian";
-   $languages["sr"]["CHARSET"] = "iso-8859-2";
-   $languages["tw"]["NAME"]    = "Taiwan";
-   $languages["tw"]["CHARSET"] = "big5";
+
+   $languages["cs_CZ"]["NAME"]    = "Czech";
+   $languages["cs_CZ"]["CHARSET"] = "iso-8859-2";
+   
    $languages["da"]["NAME"]    = "Danish";
    $languages["da"]["CHARSET"] = "iso-8859-1";
+   
+   $languages["de"]["NAME"]    = "Deutsch";
+   $languages["de"]["CHARSET"] = "iso-8859-1";
+   
+   $languages["nl"]["NAME"]    = "Dutch";
+   $languages["nl"]["CHARSET"] = "iso-8859-1";
+   
+   $languages["fr"]["NAME"]    = "French";
+   $languages["fr"]["CHARSET"] = "iso-8859-1";
+   
    $languages["fi"]["NAME"] = "Finnish";
    $languages["fi"]["CHARSET"] = "iso-8859-1";
+
+   $languages["it"]["NAME"]    = "Italian";
+   $languages["it"]["CHARSET"] = "iso-8859-1";
+   
+   $languages["ko"]["NAME"]    = "Korean";
+   $languages["ko"]["CHARSET"] = "euc-KR";
+   
+   $languages["no"]["NAME"]    = "Norwegian (Bokm&aring;l)";
+   $languages["no"]["CHARSET"] = "iso-8859-1";
+   
+   $languages["no_NO_ny"]["NAME"] = "Norwegian (Nynorsk)";
+   $languages["no_NO_ny"]["CHARSET"] = "iso-8859-1";
+   
+   $languages["pl"]["NAME"]    = "Polish";
+   $languages["pl"]["CHARSET"] = "iso-8859-2";
+   
+   $languages["pt_BR"]["NAME"] = "Portuguese (Brazil)";
+   $languages["pt_BR"]["CHARSET"] = "iso-8859-1";
+   
+   $languages["ru"]["NAME"]    = "Russian KOI8-R";
+   $languages["ru"]["CHARSET"] = "koi8-r";
+   
+   $languages["sr"]["NAME"]	 = "Serbian";
+   $languages["sr"]["CHARSET"] = "iso-8859-2";
+   
+   $languages["es"]["NAME"]    = "Spanish";
+   $languages["es"]["CHARSET"] = "iso-8859-1";
+   
+   $languages["sv"]["NAME"]    = "Swedish";
+   $languages["sv"]["CHARSET"] = "iso-8859-1";
+   
+   $languages["tw"]["NAME"]    = "Taiwan";
+   $languages["tw"]["CHARSET"] = "big5";
+   
 
    // Decodes a string to the internal encoding from the given charset
    function charset_decode ($charset, $string) {
