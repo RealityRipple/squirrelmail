@@ -37,7 +37,7 @@ function elapsed($start)
 function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                           $start_msg, $where, $what) {
     global $checkall,
-           $color, $msgs, $msort,
+           $color, $msgs, $msort, $td_str, $msg, 
            $default_use_priority,
            $message_highlight_list,
            $index_order,
