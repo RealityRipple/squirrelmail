@@ -62,7 +62,7 @@
             fwrite($file, "$pref[$i]", 1024);
          }   
       }
-      if (isset($htl)) {
+      if (isset($hlt)) {
          for ($i=0; $i < count($hlt); $i++) {
             fwrite($file, "highlight$i=$hlt[$i]");
          }
