@@ -94,7 +94,8 @@
       echo "<FRAME SRC=\"folders.php\" NAME=\"right\">";
    } else {
       echo "<FRAME SRC=\"left_main.php\" NAME=\"left\">";
-      echo "<FRAME SRC=\"right_main.php\" NAME=\"right\">";
+      if (!isset($just_logged_in)) $just_logged_in = 0;
+      echo "<FRAME SRC=\"right_main.php?just_logged_in=$just_logged_in\" NAME=\"right\">";
    }
 
 ?>

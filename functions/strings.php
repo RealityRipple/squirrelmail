@@ -124,6 +124,10 @@
          $line = $body_ary[$i];
          $line = charset_decode($charset, $line);
          
+         if (strlen($line) - 2 >= $wrap_at) {
+            $line = wordWrap($line, $wrap_at);  
+         }
+         
          $line = str_replace(" ", "&nbsp;", $line);
          $line = str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $line);
          $line = nl2br($line);

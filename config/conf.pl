@@ -396,9 +396,9 @@ while (($command ne "q") && ($command ne "Q")) {
          if    ($command == 1) { command61(); }
          elsif ($command == 2) { command62(); }
       } elsif ($menu == 7) {
-         if    ($command == 1) { $motd = command71(); }
+         if    ($command == 1) { $motd             = command71(); }
       } elsif ($menu == 8) {
-         if    ($command == 1) { $motd = command81(); }
+         if    ($command == 1) { $plugins = command81(); }
       }
    }   
 }
@@ -587,7 +587,7 @@ sub command18 {
 sub command71 {
    print "\nYou can now create the welcome message that is displayed\n";
    print "every time a user logs on.  You can use HTML or just plain\n";
-   print "text.\n\n(Type @ on a blank line to exit)\n";
+   print "text.  If you do not wish to have one, just make it blank.\n\n(Type @ on a blank line to exit)\n";
    
    $new_motd = "";
    do {

@@ -41,7 +41,7 @@
 //    $sendmail_path = "/usr/sbin/sendmail";
 
 //  This is displayed right after they log in
-    $motd = "You are using SquirrelMail's web-based email client.  If you run into any bugs or have suggestions, please report them to our <A HREF=\"mailto:squirrelmail-list@sourceforge.net\">mailing list</A>";
+   $motd = "";
 
 //  Whether or not to use a special color for special folders.  If not, special
 //  folders will be the same color as the other folders
