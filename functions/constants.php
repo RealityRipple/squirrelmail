@@ -29,7 +29,7 @@
 /*** Thank you for your help making the SM code more readable. ***/
 /*****************************************************************/
 
-require_once( '../functions/plugin.php' );      // Required for the hook
+require_once('../functions/plugin.php');      // Required for the hook
 
 /**************************************************************/
 /* Set values for constants used by Squirrelmail preferences. */

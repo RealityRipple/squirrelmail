@@ -17,7 +17,7 @@
 /*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
 /*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
 /***    + Base level indent should begin at left margin, as    ***/
-/***      the $squirrelmail_plugin_hooks stuff below.          ***/
+/***      the first line of the function definition below.     ***/
 /***    + All identation should consist of four space blocks   ***/
 /***    + Tab characters are evil.                             ***/
 /***    + all comments should use "slash-star ... star-slash"  ***/
@@ -30,7 +30,7 @@
 /*****************************************************************/
 
 global $squirrelmail_plugin_hooks;
-squirrelmail_plugin_hooks = array();
+$squirrelmail_plugin_hooks = array();
 
     // This function adds a plugin
     function use_plugin ($name) {
