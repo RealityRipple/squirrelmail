@@ -122,25 +122,29 @@
       /** this if statement checks for the entity to show as the primary message.  To
           add more of them, just put them in the order that is their priority.
        **/
+      $id = $message["INFO"]["ID"];
+      $urlmailbox = urlencode($message["INFO"]["MAILBOX"]);
+      $body = "";
+
       if (containsType($message, "text", "html", $ent_num)) {
-         $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
+         $body .= decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
       } else if (containsType($message, "text", "plain", $ent_num)) {
-         $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
-         $body = "<TT>" . nl2br($body) . "</TT>";
+         $tmpbody = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
+         $body .= "<TT>" . nl2br($tmpbody) . "</TT>";
       }
       // add other primary displaying message types here
       else {
          // find any type that's displayable
          if (containsType($message, "text", "any_type", $ent_num)) {
-            $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
-            $body = "<TT>" . nl2br($body) . "</TT>";
+            $tmpbody = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
+            $body .= "<TT>" . nl2br($tmpbody) . "</TT>";
          } else if (containsType($message, "message", "any_type", $ent_num)) {
-            $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
-            $body = "<TT>" . nl2br($body) . "</TT>";
+            $tmpbody = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
+            $body .= "<TT>" . nl2br($tmpbody) . "</TT>";
          }
       }
 
-      $body .= "<BR>";
+      $body .= "<BR><SMALL><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_num&mailbox=$urlmailbox\">Download this as a file</A></CENTER><BR></SMALL>";
 
       /** Display the ATTACHMENTS: message if there's more than one part **/
       if (count($message["ENTITIES"]) > 1) {
@@ -160,8 +164,7 @@
             $num++;
             $filename = $message["ENTITIES"][$i]["FILENAME"];
             if (trim($filename) == "") {
-               $filename = "UNKNOWN_FORMAT_" . time() . $i;
-               $display_filename = "Attachment $i";
+               $display_filename = "untitled$i";
             } else {
                $display_filename = $filename;
             }
