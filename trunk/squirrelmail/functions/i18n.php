@@ -721,19 +721,15 @@ function cleanup_nbsp($string,$charset) {
 // where is non-braking space symbol
 switch($output_charset):
  case "iso-8859-x":
+ case "cp125x":
+ case "iso-2022-jp":
   $nbsp="\xA0";
   break;
- case "cp125x":
-   $nbsp="\xA0";
-   break;
  case "koi8-x":
    $nbsp="\x9A";
    break;
  case "utf-8":
    $nbsp="\xC2\xA0";
-   break;
- case "iso-2022-jp":
-   $nbsp="\xA0";
    break;
  default:
    // don't change string if charset is unmatched
