@@ -240,6 +240,12 @@ function user_filters($imap_stream) {
                   $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan, $expunge);
             $expunge = filter_search_and_delete($imap_stream, 'CC',
                   $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan, $expunge);
+        } else if ($filters[$i]['where'] == 'Header and Body') {
+            $expunge = filter_search_and_delete($imap_stream, 'TEXT',
+                  $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan, $expunge);
+        } else if ($filters[$i]['where'] == 'Message Body') {
+            $expunge = filter_search_and_delete($imap_stream, 'BODY',
+                  $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan, $expunge);                  
         } else {
             /*
             *  If it's a normal TO, CC, SUBJECT, or FROM, then handle it
