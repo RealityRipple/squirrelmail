@@ -14,16 +14,16 @@ while (<>) {
   unless (/^\#/) {
 
     ($orig_text, $unicode_text, $dummy, $name) = split /\t/;
-	
-    # oct does not only do what it's name suggest. If a string starts 
+
+    # oct does not only do what it's name suggest. If a string starts
     # with 0x it is interpreted as a hexadecimal value.
     $orig = oct $orig_text;
     $unicode = oct $unicode_text;
-	
+
     if ($orig >= $min) {
       print "            // $name\n";
       printf ('            $string = str_replace("\%o", "&#%d", $string);'."\n",
-	      $orig, $unicode);
+              $orig, $unicode);
     }
-  } 
+  }
 }

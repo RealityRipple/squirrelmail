@@ -33,7 +33,7 @@ function populateSqspellForm(){
   } else {
     CurrentLocation++;
   }
-  
+
   tmp = CurrentLoc.split(":");
   CurrentLine=parseInt(tmp[0]);
   CurrentSymbol=parseInt(tmp[1]);
@@ -53,7 +53,7 @@ function populateSqspellForm(){
   }
   NewLineValue+=LineValue.substring(StartWith, CurrentSymbol) + "*" + Word + "*" + LineValue.substring(CurrentSymbol + Word.length, EndWith) + EndLine;
   document.forms[0].sqspell_line_area.value=NewLineValue;
-       
+
   if (suggestions[CurrentError]){
     WordSuggestions = suggestions[CurrentError].split(", ");
     for (i=0; i<WordSuggestions.length; i++){
@@ -65,7 +65,7 @@ function populateSqspellForm(){
     document.forms[0].sqspell_oruse.focus();
     document.forms[0].sqspell_oruse.select();
   }
-  
+
   document.forms[0].sqspell_suggestion.selectedIndex=0;
   if (!document.forms[0].sqspell_oruse.value)
     document.forms[0].sqspell_oruse.value=document.forms[0].sqspell_suggestion.options[document.forms[0].sqspell_suggestion.selectedIndex].value;
@@ -151,7 +151,7 @@ function sqspellChangeAll(){
      * Load it again to reflect the changes in symbol data
      */
     allLoc = locations[CurrentError].split(", ");
-  }       
+  }
   CurrentLocation=0;
   proceed();
 }
@@ -168,7 +168,7 @@ function sqspellIgnore(){
 
 /**
  * This function is called when the "Ignore All" button is pressed.
- * 
+ *
  * @return void
  */
 function sqspellIgnoreAll(){
@@ -185,7 +185,7 @@ function clearSqspellForm(){
   for (i=0; i<document.forms[0].sqspell_suggestion.length; i++){
     document.forms[0].sqspell_suggestion.options[i]=null;
   }
-       
+
   /**
    * Now, I've been instructed by the Netscape Developer docs to call
    * history.go(0) to refresh the page after I've changed the options.
@@ -211,7 +211,7 @@ function proceed(){
   } else {
     if (ChangesMade || document.forms[0].words.value){
       if (confirm(ui_completed))
-	sqspellCommitChanges();
+        sqspellCommitChanges();
       else self.close();
     } else {
       confirm (ui_nochange);
@@ -232,33 +232,33 @@ function proceed(){
  * @return            void
  */
 function updateSymbol(lLine, lSymbol, difference){
-  /** 
+  /**
    * Now, I will admit that this is not the best way to do stuff,
    * However that's the solution I've come up with.
    *
    * If you are wondering why I didn't use two-dimensional arrays instead,
    * well, sometimes there will be a long line with an error close to the
-   * end of it, so the coordinates would be something like 2,98 and 
-   * some Javascript implementations will create 98 empty members of an 
-   * array just to have a filled number 98. This is too resource-wasteful 
-   * and I have decided to go with the below solution instead. It takes 
+   * end of it, so the coordinates would be something like 2,98 and
+   * some Javascript implementations will create 98 empty members of an
+   * array just to have a filled number 98. This is too resource-wasteful
+   * and I have decided to go with the below solution instead. It takes
    * a little more processing, but it saves a lot on memory.
    *
    * It just looks heinous. In real life it's really nice and sane. ;)
    */
-       
+
   for (i=0; i<misses.length; i++){
     if(locations[i].indexOf(lLine + ":") >= 0){
       allLoc = locations[i].split(", ");
       for (j=0; j<allLoc.length; j++){
-	if (allLoc[j].indexOf(lLine+":")==0){
-	  tmp = allLoc[j].split(":");
-	  tmp[0] = parseInt(tmp[0]); tmp[1] = parseInt(tmp[1]);
-	  if (tmp[1] > lSymbol){
-	    tmp[1] = tmp[1] + difference;
-	    allLoc[j] = tmp.join(":");
-	  }
-	}
+        if (allLoc[j].indexOf(lLine+":")==0){
+          tmp = allLoc[j].split(":");
+          tmp[0] = parseInt(tmp[0]); tmp[1] = parseInt(tmp[1]);
+          if (tmp[1] > lSymbol){
+            tmp[1] = tmp[1] + difference;
+            allLoc[j] = tmp.join(":");
+          }
+        }
       }
       locations[i] = allLoc.join(", ");
     }
@@ -277,10 +277,10 @@ function sqspellCommitChanges(){
     if (i!=1) newBody+="\r\n";
     newBody += sqspell_lines[i];
   }
-  
+
   opener.document.compose.subject.value=newSubject;
   opener.document.compose.body.value=newBody;
-  
+
   /**
    * See if any words were added to the dictionary.
    */

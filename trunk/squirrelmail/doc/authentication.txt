@@ -31,7 +31,7 @@ TLS
 * PHP 4.3.0 or higher (Check Release Notes for PHP 4.3.x information)
 * The "STARTTLS" command is NOT supported.  The server you wish to use TLS
   on must have a dedicated port listening for TLS connections. (ie. port
-  993 for IMAP, 465 for SMTP) 
+  993 for IMAP, 465 for SMTP)
 
 CONFIGURATION
 -------------
@@ -60,26 +60,26 @@ server, start a DIGEST-MD5 auth session, and include the challenge from the
 server in your bug report.)
 
 To get the challenge with IMAP:
-	telnet <your server> imap
-	[server says hello]
-	A01 AUTHENTICATE DIGEST-MD5
-	<copy the gobbledygook that the server sends - this is what I need>
-	*
-	[server says auth aborted]
-	A02 LOGOUT
-	[server says goodbye, closes connection]
+   telnet <your server> imap
+   [server says hello]
+   A01 AUTHENTICATE DIGEST-MD5
+   <copy the gobbledygook that the server sends - this is what I need>
+   *
+   [server says auth aborted]
+   A02 LOGOUT
+   [server says goodbye, closes connection]
 
 To get the challenge with SMTP:
-	telnet <your server> smtp
-	[server sends some sort of "hello" banner]
-	EHLO myhostname
-	[server will probably list a bunch of capabilities]
-	AUTH DIGEST-MD5
-	<copy the gobbledygook that the server sends - this is what I need>
-	*
-	[server says auth aborted]
-	QUIT
-	[server says bye, closes connection]
+   telnet <your server> smtp
+   [server sends some sort of "hello" banner]
+   EHLO myhostname
+   [server will probably list a bunch of capabilities]
+   AUTH DIGEST-MD5
+   <copy the gobbledygook that the server sends - this is what I need>
+   *
+   [server says auth aborted]
+   QUIT
+   [server says bye, closes connection]
 
 
 OPTIONAL SMTP AUTH CONFIGURATION
@@ -90,13 +90,13 @@ If you need all users to send mail via an upstream SMTP provider
 there are two variables that can be added to config_local.php
 that will specify a sitewide SMTP username and password.
 
-Set up SMTP authentication to the remote server according to the 
-instructions above, then add the following to config_local.php, 
+Set up SMTP authentication to the remote server according to the
+instructions above, then add the following to config_local.php,
 replacing <smtp_user> and <smtp_pass> with the username and password
 you'd like to use for the entire site:
 
-  $smtp_sitewide_user = '<smtp_user>';
-  $smtp_sitewide_pass = '<smtp_pass>';
+   $smtp_sitewide_user = '<smtp_user>';
+   $smtp_sitewide_pass = '<smtp_pass>';
 
 These values will be used to connect to the SMTP server as long
 as the authentication mechanism is something besides 'none', i.e.

@@ -49,26 +49,26 @@ void do_queries () {
 //fprintf (stderr, "making query %s\n", tIP->IP); fflush(stderr);
       if (lwres_context_create(&ctx, NULL, NULL, NULL, 0) != 0) {
          fprintf (stderr, "Couldn't create context\n");
-	 return;
+         return;
       } else {
          lwres_conf_parse(ctx, lwres_resolv_conf);
          //pthread_mutex_lock(mutexoutput);
-	 n = lwres_getrdatabyname(ctx, tIP->IP, ns_c_in, ns_t_a, 0, &response);
+         n = lwres_getrdatabyname(ctx, tIP->IP, ns_c_in, ns_t_a, 0, &response);
          //pthread_mutex_unlock(mutexoutput);
-	 if (n == LWRES_R_SUCCESS) {
-            printf ("%s,%d.%d.%d.%d,%d\n", tIP->IP, 
-			    response->rdatas[0][0], response->rdatas[0][1],
-			    response->rdatas[0][2], response->rdatas[0][3],
-			    response->ttl);
-	    //fprintf (stderr, "freeing response\n"); fflush(stderr);
-	    lwres_grbnresponse_free(ctx, &response);
-	 } else {
-	    //fprintf (stderr, "Nothing found\n");
+         if (n == LWRES_R_SUCCESS) {
+            printf ("%s,%d.%d.%d.%d,%d\n", tIP->IP,
+                            response->rdatas[0][0], response->rdatas[0][1],
+                            response->rdatas[0][2], response->rdatas[0][3],
+                            response->ttl);
+            //fprintf (stderr, "freeing response\n"); fflush(stderr);
+            lwres_grbnresponse_free(ctx, &response);
+         } else {
+            //fprintf (stderr, "Nothing found\n");
             printf ("%s, %s, %d\n", tIP->IP, tIP->IP, defttl);
-	 }
-	 //fprintf (stderr, "freeing context\n"); fflush(stderr);
-	 lwres_context_destroy(&ctx);
-	 //fprintf (stderr, "done freeing\n"); fflush(stderr);
+         }
+         //fprintf (stderr, "freeing context\n"); fflush(stderr);
+         lwres_context_destroy(&ctx);
+         //fprintf (stderr, "done freeing\n"); fflush(stderr);
       }
 
       pthread_mutex_lock(mutexp);
@@ -91,7 +91,7 @@ void GetRBLs() {
       dnsrbls[numrbls] = (char *) malloc(strlen(instr)+1);
       if (dnsrbls[numrbls] == NULL) {
          fprintf (stderr, "Couldn't allocate memory for %d DNS RBLs\n", numrbls);
-	 exit (10);
+         exit (10);
       } else {
          strcpy (dnsrbls[numrbls], instr);
          numrbls++;
@@ -126,7 +126,7 @@ main () {
          tIP = (iplist)malloc(sizeof(struct ipnode));
          tIP->IP = (char *)malloc(strlen(instr)+strlen(dnsrbls[loop1])+2);
          strcpy (tIP->IP, instr);
-	 strcat (tIP->IP, dnsrbls[loop1]);
+         strcat (tIP->IP, dnsrbls[loop1]);
          tIP->next = IPs;
          IPs = tIP;
          numqueries++;
@@ -151,7 +151,7 @@ main () {
    for (loop1 = 0; ((loop1<MAXTHREADS) && (loop1<numqueries)); loop1++) {
       if (pthread_create(&threads[loop1], NULL,
                          (void *) do_queries, NULL) != 0) {
-	 fprintf (stderr, "Couldn't make more than %d threads\n", numthreads);
+         fprintf (stderr, "Couldn't make more than %d threads\n", numthreads);
          break;
       } else {
          numthreads++;
@@ -166,4 +166,3 @@ main () {
 
    exit (0);
 }
-

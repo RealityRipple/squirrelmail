@@ -26,15 +26,15 @@
  *  octdec(a-340)*64^2 + octdec(b-200)*64 + octdec(c-200)
  *
  * \a\b\c\d characters are decoded to html code calculated with formula:
- *  octdec(a-360)*64^3 + octdec(b-200)*64^2 + 
+ *  octdec(a-360)*64^3 + octdec(b-200)*64^2 +
  *  + octdec(c-200)*64 + octdec(d-200)
  *
  * \a\b\c\d\e characters are decoded to html code calculated with formula:
- *  octdec(a-370)*64^4 + octdec(b-200)*64^3 + 
+ *  octdec(a-370)*64^4 + octdec(b-200)*64^3 +
  *  + octdec(c-200)*64^2 + octdec(d-200)*64 + octdec(e-200)
  *
  * \a\b\c\d\e\f characters are decoded to html code calculated with formula:
- *  octdec(a-374)*64^5 + octdec(b-200)*64^4 + octdec(c-200)*64^3 + 
+ *  octdec(a-374)*64^5 + octdec(b-200)*64^4 + octdec(c-200)*64^3 +
  *  + octdec(d-200)*64^2 + octdec(e-200)*64 + octdec(f-200)
  *</pre>
  * @version $Id$
@@ -58,14 +58,14 @@ function charset_decode_utf_8 ($string) {
     if (! sq_is8bit($string,'utf-8'))
         return $string;
 
-    // decode six byte unicode characters 
+    // decode six byte unicode characters
     /* (i think currently there is no such symbol)
     $string = preg_replace("/([\374-\375])([\200-\277])([\200-\277])([\200-\277])([\200-\277])([\200-\277])/e",
     "'&#'.((ord('\\1')-252)*1073741824+(ord('\\2')-200)*16777216+(ord('\\3')-200)*262144+(ord('\\4')-128)*4096+(ord('\\5')-128)*64+(ord('\\6')-128)).';'",
     $string);
     */
 
-    // decode five byte unicode characters 
+    // decode five byte unicode characters
     /* (i think currently there is no such symbol)
     $string = preg_replace("/([\370-\373])([\200-\277])([\200-\277])([\200-\277])([\200-\277])/e",
     "'&#'.((ord('\\1')-248)*16777216+(ord('\\2')-200)*262144+(ord('\\3')-128)*4096+(ord('\\4')-128)*64+(ord('\\5')-128)).';'",

@@ -3482,10 +3482,10 @@ sub set_defaults {
             $optional_delimiter             = "detect";
             $allow_charset_search           = false;
             $disp_default_folder_prefix     = $default_folder_prefix;
-	    $delete_folder                  = false;
-	    $force_username_lowercase       = false;
+            $delete_folder                  = false;
+            $force_username_lowercase       = false;
 
-	    $continue = 1;
+            $continue = 1;
         } elsif ( $server eq "mercury32" ) {
             $imap_server_type               = "mercury32";
             $default_folder_prefix          = "";

@@ -7,7 +7,7 @@ v0.3.7
 - Moving some strings from .js files into .mod or .php so they can be
   translated.
 - Miscellaneous code moves and smallish rewrites.
-	
+
 v0.3.6
 ------
 - Remote arbirtary execution as apache user vulnerability fix.
@@ -47,7 +47,7 @@ Added vlink and alink settings, plus fixed some colors.
 
 v0.3b
 ------
-- Major code re-organization. 
+- Major code re-organization.
 - Moved modules into separate directory.
 - Moved most JavaScript out of the main code into separate .js files
 - Created generic GUI-wrappers for most interface screens.

@@ -29,7 +29,7 @@ foreach $arg (@ARGV)
     else
     {
         print "Unrecognized argument:  $arg\n";
-	exit(0);
+        exit(0);
     }
 }
 
@@ -67,12 +67,12 @@ $QuietString = " > /dev/null 2> /dev/null" if (! $Verbose);
 
 print "\n\n" if ($Verbose);
 print "Creating $Plugin.$Version-$SMVersion.tar.gz\n";
-system("tar cvfz $Plugin.$Version-$SMVersion.tar.gz $Plugin" . 
+system("tar cvfz $Plugin.$Version-$SMVersion.tar.gz $Plugin" .
     FindTarExcludes(@Files) . $QuietString);
-    
+
 #print "\n\n" if ($Verbose);
 #print "Creating $Plugin.$Version-$SMVersion.zip\n";
-#system("zip -r $Plugin.$Version-$SMVersion.zip $Plugin/" . 
+#system("zip -r $Plugin.$Version-$SMVersion.zip $Plugin/" .
 #    FindZipExcludes(@Files) . $QuietString);
 
 
@@ -80,11 +80,11 @@ system("tar cvfz $Plugin.$Version-$SMVersion.tar.gz $Plugin" .
 sub VerifyPluginDir
 {
     local ($Plugin) = @_;
-    
+
     if (! -e $Plugin && ! -d $Plugin)
     {
         print "The $Plugin directory doesn't exist, " .
-	    "or else it is not a directory.\n";
+            "or else it is not a directory.\n";
         exit(0);
     }
 }
@@ -93,39 +93,39 @@ sub VerifyPluginDir
 sub FindTarExcludes
 {
     local (@Files) = @_;
-    
+
     $ExcludeStr = "";
-    
+
     foreach $File (@Files)
     {
         if ($File =~ /^(.*\/CVS)\/$/)
-	{
-	    $ExcludeStr .= " --exclude $1";
-	}
+        {
+            $ExcludeStr .= " --exclude $1";
+        }
     }
-    
+
     return $ExcludeStr;
 }
 
 sub FindZipExcludes
 {
     local (@Files) = @_;
-    
+
     $ExcludeStr = "";
-    
+
     foreach $File (@Files)
     {
         if ($File =~ /^(.*\/CVS)\/$/)
-	{
-	    $ExcludeStr .= " $1/ $1/*";
-	}
+        {
+            $ExcludeStr .= " $1/ $1/*";
+        }
     }
-    
+
     if ($ExcludeStr ne "")
     {
         $ExcludeStr = " -x" . $ExcludeStr;
     }
-    
+
     return $ExcludeStr;
 }
 
@@ -133,25 +133,25 @@ sub RecurseDir
 {
     local ($Dir) = @_;
     local (@Files, @Results);
-    
+
     opendir(DIR, $Dir);
     @Files = readdir(DIR);
     closedir(DIR);
-    
+
     @Results = ("$Dir/");
-    
+
     foreach $file (@Files)
     {
         next if ($file =~ /^[\.]+/);
         if (-d "$Dir/$file")
-	{
-	    push (@Results, RecurseDir("$Dir/$file"));
-	}
-	else
-	{
-	    push (@Results, "$Dir/$file");
-	}
+        {
+            push (@Results, RecurseDir("$Dir/$file"));
+        }
+        else
+        {
+            push (@Results, "$Dir/$file");
+        }
     }
-    
+
     return @Results;
 }

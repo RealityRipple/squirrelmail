@@ -31,7 +31,7 @@ function sqimap_mb_convert_encoding($str, $to_encoding, $from_encoding, $default
 
 /**
  * encode folder name to utf7-imap
- * 
+ *
  * If mbstring functions do not support charset used by translation, falls back to iso-8859-1
  * @param string $s folder name
  * @return string utf7-imap encoded folder name
