@@ -22,7 +22,7 @@
       echo "         <FONT FACE=\"Arial,Helvetica\"><A HREF=\"compose.php\">Compose</A></FONT>&nbsp&nbsp";
       echo "         <FONT FACE=\"Arial,Helvetica\">Addresses</FONT>&nbsp&nbsp";
       echo "         <FONT FACE=\"Arial,Helvetica\"><A HREF=\"folders.php\">Folders</A></FONT>&nbsp&nbsp";
-      echo "         <FONT FACE=\"Arial,Helvetica\">Options</FONT>&nbsp&nbsp";
+      echo "         <FONT FACE=\"Arial,Helvetica\"><A HREF=\"options.php\">Options</A></FONT>&nbsp&nbsp";
       echo "      </TD><TD ALIGN=right WIDTH=30%>";
       echo "         <FONT FACE=\"Arial,Helvetica\"><A HREF=\"http://squirrelmail.sourceforge.net\" TARGET=_top>SquirrelMail</A></FONT>";
       echo "      </TD>";
