@@ -32,7 +32,7 @@
       echo "<BR><TABLE WIDTH=90% BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">";
       echo "<B><CENTER>";
       echo _("Viewing a text attachment") . " - ";
-      echo "<a href=\"read_body.php?mailbox=$mailbox&passed_id=$id\">". _("View message") . "</a>";
+      echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$id&startMessage=$startMessage&show_more=0\">". _("View message") . "</a>";
       echo "</CENTER></B>";
       echo "</TD></TR><TR><TD BGCOLOR=\"$color[4]\">";
       $urlmailbox = urlencode($mailbox);
