@@ -729,7 +729,7 @@
       global $default_charset;
 
       // Encode only if the string contains 8-bit characters or =?
-      if (ereg("([\200-\377]|=\\?)", $string)) {
+      if (ereg("([\\200-\\377]|=\\?)", $string)) {
          
          // First the special characters
          $string = str_replace("=", "=3D", $string);
