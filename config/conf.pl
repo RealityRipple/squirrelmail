@@ -1679,7 +1679,6 @@ sub save_data {
    print FILE "\tglobal \$motd;\n";
    print FILE "\t\$motd = \"$motd\";\n";
 
-   print FILE "?>\n";
    close FILE;
 }
 

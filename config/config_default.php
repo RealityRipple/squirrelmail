@@ -320,5 +320,7 @@ global $ldap_server;
  // For instance, for the "sqclock" plugin, you'd put a line like
  // the following:
  //   $plugins[0] = "sqclock";
+ //   $plugins[1] = "attachment_common";
 
-?>
+// Do not add the closing PHP tag here just because we want to avoid
+// the potential for parsing errors if there is a newline added
