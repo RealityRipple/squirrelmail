@@ -161,7 +161,7 @@
 
             /** Detect the boundary of a multipart message **/
             if (strpos(strtolower(trim($line)), "boundary=")) {
-               $pos = strpos($line, "boundary=") + 9;
+               $pos = strpos(strtolower($line), "boundary=") + 9;
                $bound = trim($line);
                if (strpos($line, " ", $pos) > 0) {
                   $bound = substr($bound, $pos, strpos($line, " ", $pos));
