@@ -17,14 +17,11 @@
 
 /* Decodes a string to the internal encoding from the given charset */
 function charset_decode ($charset, $string) {
-    global $debug_mime;
 
     /* All HTML special characters are 7 bit and can be replaced first */
     $string = htmlspecialchars ($string);
 
     $charset = strtolower($charset);
-
-    if ($debug_mime) $string = $charset . ':' . $string;
 
     if (ereg('iso-8859-([[:digit:]]+)', $charset, $res)) {
         if ($res[1] == '1') {
@@ -700,10 +697,7 @@ function set_up_language($sm_language, $do_search = false) {
     if ($SetupAlready) {
         return;
     }
-
-    $SetupAlready = 1;
-
-    $charset_headers_sent = FALSE;
+    $SetupAlready = TRUE;
 
     if ($do_search && ! $sm_language && isset($HTTP_ACCEPT_LANGUAGE)) {
         $sm_language = substr($HTTP_ACCEPT_LANGUAGE, 0, 2);
@@ -716,16 +710,21 @@ function set_up_language($sm_language, $do_search = false) {
         $sm_notAlias = $languages[$sm_notAlias]['ALIAS'];
     }
 
-    if (isset($sm_language) && $use_gettext &&
-        $sm_language != '' &&
-        isset($languages[$sm_notAlias]['CHARSET'])) {
-        if ((ini_get('safe_mode') == FALSE) && (getenv('LC_ALL') != $sm_language)) {
-            putenv('LC_ALL=' . $sm_notAlias);
+    if ( isset($sm_language) && 
+         $use_gettext &&
+         $sm_language != '' &&
+         isset($languages[$sm_notAlias]['CHARSET']) ) {
+        bindtextdomain( 'squirrelmail', '../locale/' );
+        textdomain( 'squirrelmail' );         
+        if ( !ini_get('safe_mode') && 
+             getenv( 'LC_ALL' ) != $sm_notAlias ) {
+            putenv( "LC_ALL=$sm_notAlias" );
+            putenv( "LANG=$sm_notAlias" );
+            putenv( "LANGUAGE=$sm_notAlias" );
         }
         setlocale('LC_ALL', $sm_notAlias);
-        bindtextdomain('squirrelmail', '../locale/');
-        textdomain('squirrelmail');
-        header ('Content-Type: text/html; charset=' . $languages[$sm_notAlias]['CHARSET']);
+        $squirrelmail_language = $sm_notAlias;
+        header( 'Content-Type: text/html; charset=' . $languages[$sm_notAlias]['CHARSET'] );
     }
 }
 
@@ -741,156 +740,164 @@ function set_my_charset(){
      * message blindly with the system-wide $default_charset.
      */
     global $data_dir, $username, $default_charset, $languages;
+    
     $my_language = getPref($data_dir, $username, 'language');
-    if (!$my_language) return;
+    if (!$my_language) {
+        return;
+    }
     while (isset($languages[$my_language]['ALIAS'])) {
         $my_language = $languages[$my_language]['ALIAS'];
     }
-    $my_charset=$languages[$my_language]['CHARSET'];
+    $my_charset = $languages[$my_language]['CHARSET'];
     if ($my_charset) {
         $default_charset = $my_charset;
     }
 }
 
-
 /* ------------------------------ main --------------------------- */
 
-global $squirrelmail_language, $languages;
+global $squirrelmail_language, $languages, $use_gettext;
+
 if (! isset($squirrelmail_language)) {
     $squirrelmail_language = '';
 }
 
 /* This array specifies the available languages. */
-$languages['ca']['NAME']    = 'Catalan';
-$languages['ca']['CHARSET'] = 'iso-8859-1';
-$languages['ca_CA']['ALIAS'] = 'ca';
 
-/* PLEASE DON'T TOUCH!!!
-    * Correct locale name, which should be set by setlocale and/or putenv('LC_ALL='...)
-    * is 'cs_CZ' and NOT 'cs', this applies to all locale names, look into docs, if you
-    * don't believe me.  Ondrej Sury, czech and slovak translator.
-    */
+// The glibc locale is ca_ES.
+
+$languages['ca_ES']['NAME']    = 'Catalan';
+$languages['ca_ES']['CHARSET'] = 'iso-8859-1';
+$languages['ca']['ALIAS'] = 'ca_ES';
+
 $languages['cs_CZ']['NAME']    = 'Czech';
 $languages['cs_CZ']['CHARSET'] = 'iso-8859-2';
 $languages['cs']['ALIAS']      = 'cs_CZ';
-$languages['cz']['ALIAS']      = 'cs_CZ'; // set up by some ancient versions of IE
 
-$languages['da']['NAME']    = 'Danish';
-$languages['da']['CHARSET'] = 'iso-8859-1';
-$languages['da_DA']['ALIAS'] = 'da';
+// Danish locale is da_DK.
 
-$languages['de']['NAME']    = 'Deutsch';
-$languages['de']['CHARSET'] = 'iso-8859-1';
-$languages['de_DE']['ALIAS'] = 'de';
+$languages['da_DK']['NAME']    = 'Danish';
+$languages['da_DK']['CHARSET'] = 'iso-8859-1';
+$languages['da']['ALIAS'] = 'da_DK';
 
-$languages['en']['NAME']    = 'English';
-$languages['en']['CHARSET'] = 'iso-8859-1';
-$languages['en_EN']['ALIAS'] = 'en';
+$languages['de_DE']['NAME']    = 'Deutsch';
+$languages['de_DE']['CHARSET'] = 'iso-8859-1';
+$languages['de']['ALIAS'] = 'de_DE';
 
-$languages['es']['NAME']    = 'Spanish';
-$languages['es']['CHARSET'] = 'iso-8859-1';
-$languages['es_ES']['ALIAS'] = 'es';
+// There is no en_EN! There is en_US, en_BR, en_AU, and so forth, 
+// but who cares about !US, right? Right? :)
 
-$languages['et']['NAME']    = 'Estonian';
-$languages['et']['CHARSET'] = 'iso-8859-15';
-$languages['et_EE']['ALIAS'] = 'et';
+$languages['en_US']['NAME']    = 'English';
+$languages['en_US']['CHARSET'] = 'iso-8859-1';
+$languages['en']['ALIAS'] = 'en_US';
 
-$languages['fi']['NAME']    = 'Finnish';
-$languages['fi']['CHARSET'] = 'iso-8859-1';
-$languages['fi_FI']['ALIAS'] = 'fi';
+$languages['es_ES']['NAME']    = 'Spanish';
+$languages['es_ES']['CHARSET'] = 'iso-8859-1';
+$languages['es']['ALIAS'] = 'es_ES';
 
-$languages['fr']['NAME']    = 'French';
-$languages['fr']['CHARSET'] = 'iso-8859-1';
-$languages['fr_FR']['ALIAS'] = 'fr';
+$languages['et_EE']['NAME']    = 'Estonian';
+$languages['et_EE']['CHARSET'] = 'iso-8859-15';
+$languages['et']['ALIAS'] = 'et_EE';
 
-$languages['hr']['NAME']    = 'Croatian';
-$languages['hr']['CHARSET'] = 'iso-8859-2';
-$languages['hr_HR']['ALIAS'] = 'hr';
+$languages['fi_FI']['NAME']    = 'Finnish';
+$languages['fi_FI']['CHARSET'] = 'iso-8859-1';
+$languages['fi']['ALIAS'] = 'fi_FI';
 
-$languages['hu']['NAME']    = 'Hungarian';
-$languages['hu']['CHARSET'] = 'iso-8859-2';
-$languages['hu_HU']['ALIAS'] = 'hu';
+$languages['fr_FR']['NAME']    = 'French';
+$languages['fr_FR']['CHARSET'] = 'iso-8859-1';
+$languages['fr']['ALIAS'] = 'fr_FR';
 
-$languages['id']['NAME']    = 'Indonesian';
-$languages['id']['CHARSET'] = 'iso-8859-1';
-$languages['id_ID']['ALIAS'] = 'id';
+$languages['hr_HR']['NAME']    = 'Croatian';
+$languages['hr_HR']['CHARSET'] = 'iso-8859-2';
+$languages['hr']['ALIAS'] = 'hr_HR';
 
-$languages['is']['NAME']    = 'Icelandic';
-$languages['is']['CHARSET'] = 'iso-8859-1';
-$languages['is_IS']['ALIAS'] = 'is';
+$languages['hu_HU']['NAME']    = 'Hungarian';
+$languages['hu_HU']['CHARSET'] = 'iso-8859-2';
+$languages['hu']['ALIAS'] = 'hu_HU';
 
-$languages['it']['NAME']    = 'Italian';
-$languages['it']['CHARSET'] = 'iso-8859-1';
-$languages['it_IT']['ALIAS'] = 'it';
+$languages['id_ID']['NAME']    = 'Indonesian';
+$languages['id_ID']['CHARSET'] = 'iso-8859-1';
+$languages['id']['ALIAS'] = 'id_ID';
 
-$languages['ko']['NAME']    = 'Korean';
-$languages['ko']['CHARSET'] = 'euc-KR';
-$languages['ko_KO']['ALIAS'] = 'ko';
+$languages['is_IS']['NAME']    = 'Icelandic';
+$languages['is_IS']['CHARSET'] = 'iso-8859-1';
+$languages['is']['ALIAS'] = 'is_IS';
 
-$languages['nl']['NAME']    = 'Dutch';
-$languages['nl']['CHARSET'] = 'iso-8859-1';
-$languages['nl_NL']['ALIAS'] = 'nl';
+$languages['it_IT']['NAME']    = 'Italian';
+$languages['it_IT']['CHARSET'] = 'iso-8859-1';
+$languages['it']['ALIAS'] = 'it_IT';
 
-$languages['no']['NAME']    = 'Norwegian (Bokm&aring;l)';
-$languages['no']['CHARSET'] = 'iso-8859-1';
-$languages['no_NO']['ALIAS'] = 'no';
+$languages['ko_KR']['NAME']    = 'Korean';
+$languages['ko_KR']['CHARSET'] = 'euc-KR';
+$languages['ko']['ALIAS'] = 'ko_KR';
+
+$languages['nl_NL']['NAME']    = 'Dutch';
+$languages['nl_NL']['CHARSET'] = 'iso-8859-1';
+$languages['nl']['ALIAS'] = 'nl_NL';
+
+$languages['no_NO']['NAME']    = 'Norwegian (Bokm&aring;l)';
+$languages['no_NO']['CHARSET'] = 'iso-8859-1';
+$languages['no']['ALIAS'] = 'no_NO';
 $languages['no_NO_ny']['NAME']    = 'Norwegian (Nynorsk)';
 $languages['no_NO_ny']['CHARSET'] = 'iso-8859-1';
 
-$languages['pl']['NAME']    = 'Polish';
-$languages['pl']['CHARSET'] = 'iso-8859-2';
-$languages['pl_PL']['ALIAS'] = 'pl';
+$languages['pl_PL']['NAME']    = 'Polish';
+$languages['pl_PL']['CHARSET'] = 'iso-8859-2';
+$languages['pl']['ALIAS'] = 'pl_PL';
 
-$languages['pt']['NAME'] = 'Portuguese (Portugal)';
-$languages['pt']['CHARSET'] = 'iso-8859-1';
+$languages['pt_PT']['NAME'] = 'Portuguese (Portugal)';
+$languages['pt_PT']['CHARSET'] = 'iso-8859-1';
 $languages['pt_BR']['NAME']    = 'Portuguese (Brazil)';
 $languages['pt_BR']['CHARSET'] = 'iso-8859-1';
-$languages['pt_PT']['ALIAS'] = 'pt';
+$languages['pt']['ALIAS'] = 'pt_PT';
 
-$languages['ru']['NAME']    = 'Russian KOI8-R';
-$languages['ru']['CHARSET'] = 'koi8-r';
-$languages['ru_RU']['ALIAS'] = 'ru';
+$languages['ru_RU']['NAME']    = 'Russian';
+$languages['ru_RU']['CHARSET'] = 'koi8-r';
+$languages['ru']['ALIAS'] = 'ru_RU';
 
 $languages['sr']['NAME']    = 'Serbian';
 $languages['sr']['CHARSET'] = 'iso-8859-2';
-$languages['sr_SR']['ALIAS'] = 'sr';
+$languages['sr_YU']['ALIAS'] = 'sr';
 
-$languages['sv']['NAME']    = 'Swedish';
-$languages['sv']['CHARSET'] = 'iso-8859-1';
-$languages['sv_SV']['ALIAS'] = 'sv';
+$languages['sv_SE']['NAME']    = 'Swedish';
+$languages['sv_SE']['CHARSET'] = 'iso-8859-1';
+$languages['sv']['ALIAS'] = 'sv_SE';
 
-$languages['tr']['NAME']    = 'Turkish';
-$languages['tr']['CHARSET'] = 'iso-8859-9';
-$languages['tr_TR']['ALIAS'] = 'tr';
+$languages['tr_TR']['NAME']    = 'Turkish';
+$languages['tr_TR']['CHARSET'] = 'iso-8859-9';
+$languages['tr']['ALIAS'] = 'tr_TR';
 
-$languages['tw']['NAME']    = 'Taiwan';
-$languages['tw']['CHARSET'] = 'big5';
-$languages['tw_TW']['ALIAS'] = 'tw';
+// it's zh_TW, actually.
+
+$languages['zh_TW']['NAME']    = 'Taiwan';
+$languages['zh_TW']['CHARSET'] = 'big5';
+$languages['tw']['ALIAS'] = 'zh_TW';
 
 $languages['sk_SK']['NAME']     = 'Slovak';
 $languages['sk_SK']['CHARSET']  = 'iso-8859-2';
 $languages['sk']['ALIAS']       = 'sk_SK';
 
-$languages['ro']['NAME']    = 'Romanian';
-$languages['ro']['CHARSET'] = 'iso-8859-2';
-$languages['ro_RO']['ALIAS'] = 'ro';
+$languages['ro_RO']['NAME']    = 'Romanian';
+$languages['ro_RO']['CHARSET'] = 'iso-8859-2';
+$languages['ro']['ALIAS'] = 'ro_RO';
 
-$languages['th']['NAME']    = 'Thai';
-$languages['th']['CHARSET'] = 'tis-620';
+$languages['th_TH']['NAME']    = 'Thai';
+$languages['th_TH']['CHARSET'] = 'tis-620';
+$languages['th']['ALIAS'] = 'th_TH';
 
-$languages['lt']['NAME']    = 'Lithuanian';
-$languages['lt']['CHARSET'] = 'iso-8859-13';
-$languages['lt_LT']['ALIAS'] = 'lt';
+$languages['lt_LT']['NAME']    = 'Lithuanian';
+$languages['lt_LT']['CHARSET'] = 'iso-8859-13';
+$languages['lt']['ALIAS'] = 'lt_LT';
 
-$languages['sl']['NAME']    = 'Slovenian';
-$languages['sl']['CHARSET'] = 'iso-8859-2';
+$languages['sl_SI']['NAME']    = 'Slovenian';
+$languages['sl_SI']['CHARSET'] = 'iso-8859-2';
+$languages['sl']['ALIAS'] = 'sl_SI';
 
-$languages['bg']['NAME']    = 'Bulgarian';
-$languages['bg']['CHARSET'] = 'windows-1251';
+$languages['bg_BG']['NAME']    = 'Bulgarian';
+$languages['bg_BG']['CHARSET'] = 'windows-1251';
+$languages['bg']['ALIAS'] = 'bg_BG';
 
-global $use_gettext;
-
-// Detect whether gettext is installed.
+/* Detect whether gettext is installed. */
 $gettext_flags = 0;
 if (function_exists('_')) {
     $gettext_flags += 1;
@@ -902,16 +909,16 @@ if (function_exists('textdomain')) {
     $gettext_flags += 4;
 }
 
-// If gettext is fully loaded, cool
+/* If gettext is fully loaded, cool */
 if ($gettext_flags == 7) {
     $use_gettext = true;
 }
-// If we can fake gettext, try that
+/* If we can fake gettext, try that */
 elseif ($gettext_flags == 0) {
     $use_gettext = true;
     include_once('../functions/gettext.php');
 } else {
-    // Uh-ho.  A weird install
+    /* Uh-ho.  A weird install */
     if (! $gettext_flags & 1) {
         function _($str) {
             return $str;
@@ -928,6 +935,5 @@ elseif ($gettext_flags == 0) {
         }
     }
 }
-
 
 ?>
