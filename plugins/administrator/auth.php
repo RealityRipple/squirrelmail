@@ -24,6 +24,9 @@ function adm_check_user() {
         $adm = posix_getpwuid( $adm_id );
         $auth = ( $username == $adm['name'] );
     }
+    else {
+        $auth = FALSE;
+    }
 
     return( $auth );
 
