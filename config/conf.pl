@@ -324,7 +324,6 @@ $show_alternative_names = 'false'       if ( !$show_alternative_names );
 $available_languages = 'all'            if ( !$available_languages );
 $aggressive_decoding = 'false'          if ( !$aggressive_decoding );
 $advanced_tree = 'false'                if ( !$advanced_tree );
-$oldway = 'false'                       if ( !$oldway );
 $use_php_recode = 'false'               if ( !$use_php_recode );
 $use_php_iconv = 'false'                if ( !$use_php_iconv );
 # since 1.5.1
@@ -605,7 +604,6 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
     } elsif ( $menu == 11 ) {
     print $WHT. "Interface tweaks\n" . $NRM;
     print "1.  Advanced tree            : $WHT$advanced_tree$NRM\n";
-    print "2.  Oldway                   : $WHT$oldway$NRM\n";
     print "3.  Use Icons                : $WHT$use_icons$NRM\n";
     print "\n";
     print $WHT. "PHP tweaks\n" . $NRM;
@@ -769,7 +767,6 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 6 ) { $lossy_encoding         = commandA6(); }
         } elsif ( $menu == 11 ) {
             if    ( $command == 1 ) { $advanced_tree  = commandB1(); }
-            elsif ( $command == 2 ) { $oldway         = commandB2(); }
             elsif ( $command == 3 ) { $use_icons      = commandB3(); }
             elsif ( $command == 4 ) { $use_php_recode = commandB4(); }
             elsif ( $command == 5 ) { $use_php_iconv  = commandB5(); }
@@ -3048,26 +3045,6 @@ sub commandB1 {
     }
     return $advanced_tree;
 }
-# Oldway
-sub commandB2 {
-    print "Setting \$oldway to false causes left_main.php to use the new\n";
-    print "experimental way of getting the mailbox-tree.\n";
-    print "\n";
-
-    if ( lc($oldway) eq 'true' ) {
-        $default_value = "y";
-    } else {
-        $default_value = "n";
-    }
-    print "Use old way of folder list display? (y/n) [$WHT$default_value$NRM]: $WHT";
-    $oldway = <STDIN>;
-    if ( ( $oldway =~ /^y\n/i ) || ( ( $oldway =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
-        $oldway = 'true';
-    } else {
-        $oldway = 'false';
-    }
-    return $oldway;
-}
 # use icons
 sub commandB3 {
     print "Enabling this option will cause icons to be used instead of text\n";
@@ -3449,9 +3426,6 @@ sub save_data {
 
     # boolean
     print CF "\$advanced_tree = $advanced_tree;\n";
-    print CF "\n";
-    # boolean
-    print CF "\$oldway = $oldway;\n";
     print CF "\n";
     # boolean
     print CF "\$use_icons = $use_icons;\n";
