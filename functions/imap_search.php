@@ -24,7 +24,7 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
                        $color, $search_position = '', $search_all, $count_all) {
 
     global $message_highlight_list, $squirrelmail_language, $languages,
-           $index_order, $pos, $allow_charset_search, $uid_support,
+           $index_order, $pos, $allow_charset_search, 
 	   $imap_server_type;
 
     $pos = $search_position;
@@ -77,7 +77,7 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
     }
 
     /* read data back from IMAP */
-    $readin = sqimap_run_command($imapConnection, $ss, false, $result, $message, $uid_support);
+    $readin = sqimap_run_command($imapConnection, $ss, false, $result, $message, TRUE);
 
     /* try US-ASCII charset if search fails */
     if (isset($languages[$squirrelmail_language]['CHARSET']) 

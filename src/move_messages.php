@@ -30,7 +30,7 @@ if ( !sqgetGlobalVar('composesession', $composesession, SQ_SESSION) ) {
 
 function attachSelectedMessages($msg, $imapConnection) {
     global $username, $attachment_dir, $startMessage,
-           $data_dir, $composesession, $uid_support,
+           $data_dir, $composesession, 
            $msgs, $show_num, $compose_messages;
 
     if (!isset($compose_messages)) {
@@ -54,7 +54,7 @@ function attachSelectedMessages($msg, $imapConnection) {
     $composeMessage->reply_rfc822_header = '';
 
     foreach($msg as $id) {
-        $body_a = sqimap_run_command($imapConnection, "FETCH $id RFC822", true, $response, $readmessage, $uid_support);
+        $body_a = sqimap_run_command($imapConnection, "FETCH $id RFC822", true, $response, $readmessage, TRUE);
 
         if ($response == 'OK') {
             // fetch the subject for the message with $id from msgs.

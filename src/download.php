@@ -38,8 +38,6 @@ if ( sqgetGlobalVar('passed_id', $temp, SQ_GET) ) {
 
 /* end globals */
 
-global $uid_support;
-
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response =  sqimap_mailbox_select($imapConnection, $mailbox);
 

@@ -22,7 +22,7 @@ require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'config/config.php');
 require_once(SM_PATH . 'functions/prefs.php');
 
-global $color, $uid_support;
+global $color;
 
 sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
 sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
@@ -73,7 +73,7 @@ function GetMimeProperties($header) {
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $read = sqimap_mailbox_select($imapConnection, $mailbox);
 $start = gettimeofday();
-$body = sqimap_run_command($imapConnection, "FETCH $passed_id RFC822",true, $response, $readmessage, $uid_support);
+$body = sqimap_run_command($imapConnection, "FETCH $passed_id RFC822",true, $response, $readmessage, TRUE);
 $message_body = '';
 $header = false;
 $mimepart = false;

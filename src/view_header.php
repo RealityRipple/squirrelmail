@@ -23,16 +23,15 @@ require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/url_parser.php');
 
 function parse_viewheader($imapConnection,$id, $passed_ent_id) {
-    global $uid_support;
 
     $header_full = array();
     if (!$passed_ent_id) {
         $read=sqimap_run_command ($imapConnection, "FETCH $id BODY[HEADER]", 
-                              true, $a, $b, $uid_support);
+                              true, $a, $b, TRUE);
     } else {
         $query = "FETCH $id BODY[".$passed_ent_id.'.HEADER]';
         $read=sqimap_run_command ($imapConnection, $query, 
-                              true, $a, $b, $uid_support);
+                              true, $a, $b, TRUE);
     }    
     $cnum = 0;
     for ($i=1; $i < count($read); $i++) {
