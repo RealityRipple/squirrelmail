@@ -51,10 +51,10 @@ function sqimap_messages_delete ($imap_stream, $start, $end, $mailbox) {
     sqimap_messages_flag ($imap_stream, $start, $end, "Deleted", true);
 }
 
-function sqimap_msgs_list_delete ($imap_stream, $mailbox, $id) {
+function sqimap_msgs_list_delete ($imap_stream, $mailbox, $id, $bypass_trash=false) {
     global $move_to_trash, $trash_folder, $uid_support;
     $msgs_id = sqimap_message_list_squisher($id);
-    if (($move_to_trash == true) && (sqimap_mailbox_exists($imap_stream, $trash_folder) && ($mailbox != $trash_folder))) {
+    if (($move_to_trash == true) && (sqimap_mailbox_exists($imap_stream, $trash_folder) && ($mailbox != $trash_folder)) && ($bypass_trash != true)) {
         $read = sqimap_run_command ($imap_stream, "COPY $msgs_id " . sqimap_encode_mailbox_name($trash_folder), true, $response, $message, $uid_support);
     }
     $read = sqimap_run_command ($imap_stream, "STORE $msgs_id +FLAGS (\\Deleted)", true, $response, $message, $uid_support);
