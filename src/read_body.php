@@ -185,29 +185,40 @@
    echo "         <TR>";
    echo "            <TD ALIGN=LEFT WIDTH=33%>";
    echo "               <SMALL>";
-   echo "               <A HREF=\"right_main.php?use_mailbox_cache=1&sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\">";
+   if ($where && $what) {
+      echo "               <A HREF=\"search.php?where=".urlencode($where)."&what=".urlencode($what)."&mailbox=$urlMailbox\">";
+   } else {
+      echo "               <A HREF=\"right_main.php?use_mailbox_cache=1&sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\">";
+   }
    echo _("Message List");
    echo "</A>&nbsp;|&nbsp;";
-   echo "               <A HREF=\"delete_message.php?mailbox=$urlMailbox&message=$passed_id&sort=$sort&startMessage=1\">";
+   if ($where && $what) {
+      echo "               <A HREF=\"delete_message.php?mailbox=$urlMailbox&message=$passed_id&sort=$sort&startMessage=1&where=".urlencode($where)."&what=".urlencode($what)."\">";
+   } else {
+      echo "               <A HREF=\"delete_message.php?mailbox=$urlMailbox&message=$passed_id&sort=$sort&startMessage=1\">";
+   }
    echo _("Delete");
    echo "</A>&nbsp;&nbsp;";
    echo "               </SMALL>";
    echo "            </TD><TD WIDTH=33% ALIGN=CENTER>";
    echo "               <SMALL>\n";
-   if ($currentArrayIndex == -1) {
-      echo "Previous&nbsp;|&nbsp;Next";
+   if ($where && $what) {
    } else {
-      $prev = findPreviousMessage();
-      $next = findNextMessage();
-      if ($prev != -1)
-         echo "<a href=\"read_body.php?passed_id=$prev&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage&show_more=0\">" . _("Previous") . "</A>&nbsp;|&nbsp;";
-      else
-         echo _("Previous") . "&nbsp;|&nbsp;";
-      if ($next != -1)
-         echo "<a href=\"read_body.php?passed_id=$next&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage&show_more=0\">" . _("Next") . "</A>";
-      else
-         echo _("Next");
-   }
+      if ($currentArrayIndex == -1) {
+         echo "Previous&nbsp;|&nbsp;Next";
+      } else {
+         $prev = findPreviousMessage();
+         $next = findNextMessage();
+         if ($prev != -1)
+            echo "<a href=\"read_body.php?passed_id=$prev&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage&show_more=0\">" . _("Previous") . "</A>&nbsp;|&nbsp;";
+         else
+            echo _("Previous") . "&nbsp;|&nbsp;";
+         if ($next != -1)
+            echo "<a href=\"read_body.php?passed_id=$next&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage&show_more=0\">" . _("Next") . "</A>";
+         else
+            echo _("Next");
+      }
+   }   
    echo "               </SMALL>\n";
    echo "            </TD><TD WIDTH=33% ALIGN=RIGHT>";
    echo "               <SMALL>";
