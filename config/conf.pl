@@ -2148,17 +2148,19 @@ sub command314 {
 # command315 (UID support) obsoleted.
 
 # advanced search option
-
 sub command316 {
     print "This option allows you to control the use of advanced search form.\n";
-    print "Set to 0 to enable basic search only, 1 to enable advanced search only\n";
-    print "or 2 to enable both.\n";
-    print "[$WHT$allow_advanced_search$NRM]: $WHT";
-    $allow_advanced_search = <STDIN>;
-    chomp($allow_advanced_search);
-    if ( $allow_advanced_search eq "" ) {
-        $allow_advanced_search = 0;
+    print "  0 = enable basic search only\n";
+    print "  1 = enable advanced search only\n";
+    print "  2 = enable both\n";
+    print "\n";
+
+    print "Allowed search (0,1,2)? [$WHT$allow_advanced_search$NRM]: $WHT";
+    $new_allow_advanced_search = <STDIN>;
+    if ( $new_allow_advanced_search =~ /^[0|1|2]\n/i ) {
+        $allow_advanced_search = $new_allow_advanced_search;
     }
+    $allow_advanced_search =~ s/[\r|\n]//g;
     return $allow_advanced_search;
 }
 
@@ -3143,6 +3145,8 @@ sub save_data {
         print CF "\$allow_server_sort        = $allow_server_sort;\n";
     # boolean
         print CF "\$allow_charset_search     = $allow_charset_search;\n";
+    # integer
+        print CF "\$allow_advanced_search    = $allow_advanced_search;\n";
         print CF "\n";
     
     # all plugins are strings
@@ -3253,8 +3257,6 @@ sub save_data {
         print CF "\$use_smtp_tls = $use_smtp_tls;\n";
     # string
         print CF "\$session_name = '$session_name';\n";
-    # string
-        print CF "\$allow_advanced_search = $allow_advanced_search;\n";
 
     print CF "\n";
 
