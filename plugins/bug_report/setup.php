@@ -85,9 +85,6 @@ function bug_report_options() {
         echo ' checked="checked"';
     }
     echo ' /> ' . _("Show button in toolbar") . "</td></tr>\n";
-
-    echo '<tr><td></td>' .
-         '<td><a href="' . SM_PATH . 'plugins/bug_report/show_system_specs.php" target="_blank"><small>' . _("Show system specs") . '</small></a></td></tr>';
 }
 
 ?>
