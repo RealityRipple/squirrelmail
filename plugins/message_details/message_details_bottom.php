@@ -37,6 +37,7 @@ sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
  * @param string $entString
  * @param integer $direction
  * @return string
+ * @access private
  */
 function CalcEntity($entString, $direction) {
     $result = $entString;

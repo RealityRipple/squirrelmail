@@ -15,6 +15,7 @@
 
 /**
  * Initialize the plugin
+ * @access private
  */
 function squirrelmail_plugin_init_message_details()
 {
