@@ -58,7 +58,7 @@ $body = htmlspecialchars($body_top) . $body;
     </tr></table>
 
 <?php
-echo $warning_html; 
+echo $warning_html;
 
 echo '<p><big>';
 echo _("Before you send your bug report, please make sure to check this checklist for any common problems.");
@@ -72,7 +72,7 @@ echo "</li>\n";
 echo '<li>';
 printf(_("Check to see if your bug is already listed in the %sBug List%s on SourceForge. If it is, we already know about it and are trying to fix it."), '<a href="http://sourceforge.net/bugs/?group_id=311" target="_blank">', '</a>');
 echo "</li>\n";
-   
+
 echo '<li>';
 echo _("Try to make sure that you can repeat it. If the bug happens sporatically, try to document what you did when it happened. If it always occurs when you view a specific message, keep that message around so maybe we can see it.");
 echo "</li>\n";

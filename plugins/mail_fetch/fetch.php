@@ -24,7 +24,7 @@ require_once(SM_PATH . 'plugins/mail_fetch/class.POP3.php');
 require_once(SM_PATH . 'plugins/mail_fetch/functions.php' );
 require_once(SM_PATH . 'functions/html.php' );
 
-/* globals */ 
+/* globals */
 sqgetGlobalVar('username',   $username,   SQ_SESSION);
 sqgetGlobalVar('key',        $key,        SQ_COOKIE);
 sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
@@ -86,7 +86,7 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
              echo "<option value=\"$i\">" .
                  htmlspecialchars($mailfetch[$i]['alias']) .
                   '</option>' . "\n";
-        } 
+        }
         echo            '</select>' .
                     '</td>' .
                 '</tr>';
@@ -163,8 +163,8 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
         echo '<br />' .
         html_tag( 'table',
             html_tag( 'tr',
-                html_tag( 'td', '<b>' . _("Fetching from ") . 
-                    htmlspecialchars($mailfetch[$i_loop]['alias']) . 
+                html_tag( 'td', '<b>' . _("Fetching from ") .
+                    htmlspecialchars($mailfetch[$i_loop]['alias']) .
                     '</b>',
                 'center' ) ,
             '', $color[9] ) ,
@@ -211,7 +211,7 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
         } else {
             $newmsgcount = $Count - $i + 1;
             Mail_Fetch_Status(sprintf(ngettext("Login OK: Inbox contains %s message",
-	                "Login OK: Inbox contains %s messages",$newmsgcount), $newmsgcount));
+                        "Login OK: Inbox contains %s messages",$newmsgcount), $newmsgcount));
         }
 
         Mail_Fetch_Status(_("Fetching UIDL..."));
@@ -271,8 +271,8 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
                 fputs($imap_stream, $Message);
                 fputs($imap_stream, "\r\n");
                 sqimap_read_data($imap_stream, "A3$i", false, $response, $message);
-		$response=(implode('',$response));
-		$message=(implode('',$message));
+                $response=(implode('',$response));
+                $message=(implode('',$message));
                 if ($response != 'OK') {
                     Mail_Fetch_Status(_("Error Appending Message!")." ".htmlspecialchars($message) );
                     Mail_Fetch_Status(_("Closing POP"));

@@ -130,7 +130,7 @@ function load_optpage_data_personal() {
             'comment' =>  $identities_link_value
         );
     }
-    
+
     if ( $tzChangeAllowed ) {
         $TZ_ARRAY[SMPREF_NONE] = _("Same as server");
         $tzfile = SM_PATH . 'locale/timezones.cfg';
@@ -161,7 +161,7 @@ function load_optpage_data_personal() {
             'posvals' => $TZ_ARRAY
         );
     }
-    
+
     /*** Load the Reply Citation Options into the array ***/
     $optgrps[SMOPT_GRP_REPLY] = _("Reply Citation Options");
     $optvals[SMOPT_GRP_REPLY] = array();

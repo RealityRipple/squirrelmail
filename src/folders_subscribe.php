@@ -6,7 +6,7 @@
  * Copyright (c) 1999-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * Subscribe and unsubcribe from folders. 
+ * Subscribe and unsubcribe from folders.
  * Called from folders.php
  *
  * @version $Id$

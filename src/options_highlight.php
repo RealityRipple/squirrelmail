@@ -38,7 +38,7 @@ sqGetGlobalVar('match_type', $match_type);
 sqGetGlobalVar('value', $value);
 
 /* end of get globals */
- 
+
 function oh_opt( $val, $sel, $tit ) {
     echo "<option value=\"$val\"";
     if ( $sel )
@@ -100,11 +100,11 @@ if (isset($theid) && ($action == 'delete') ||
     $value = str_replace(',', ' ', $value);
 
     if(isset($theid)) {
-        $message_highlight_list[$theid] = 
+        $message_highlight_list[$theid] =
             array( 'name' => $identname, 'color' => $newcolor,
                    'value' => $value, 'match_type' => $match_type );
     } else {
-        $message_highlight_list[] = 
+        $message_highlight_list[] =
             array( 'name' => $identname, 'color' => $newcolor,
                    'value' => $value, 'match_type' => $match_type );
     }
@@ -119,7 +119,7 @@ html_tag( 'table', "\n" .
         html_tag( 'td', '<center><b>' . _("Options") . ' - ' . _("Message Highlighting") . '</b></center>', 'left')
     ),
     'center', $color[9], 'width="95%" border="0" cellpadding="1" cellspacing="0"' ) . "<br />\n" .
-html_tag( 'table', '', '', '', 'width="100%" border="0" cellpadding="1" cellspacing="0"' ) . 
+html_tag( 'table', '', '', '', 'width="100%" border="0" cellpadding="1" cellspacing="0"' ) .
      html_tag( 'tr' ) . "\n" .
          html_tag( 'td', '', 'left' );
 

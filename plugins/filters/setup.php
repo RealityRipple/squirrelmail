@@ -133,7 +133,7 @@ function squirrelmail_plugin_init_filters() {
     global $squirrelmail_plugin_hooks;
 
     if (sqgetGlobalVar('mailbox',$mailbox,SQ_FORM)) {
-	sqgetGlobalVar('mailbox',$mailbox,SQ_FORM);
+        sqgetGlobalVar('mailbox',$mailbox,SQ_FORM);
     } else {
         $mailbox = 'INBOX';
     }
@@ -152,7 +152,7 @@ function squirrelmail_plugin_init_filters() {
  * Report spam folder as special mailbox
  * @param string $mb variable used by hook
  * @return string spam folder name
- * @access private 
+ * @access private
  */
 function filters_special_mailbox( $mb ) {
     global $data_dir, $username;

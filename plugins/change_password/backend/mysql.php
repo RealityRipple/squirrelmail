@@ -39,14 +39,14 @@ if ( isset($mysql) && is_array($mysql) && !empty($mysql) )
   {
     if ( isset(${'mysql_'.$key}) )
       ${'mysql_'.$key} = $value;
-  }   
+  }
 }
 
 // NO NEED TO CHANGE ANYTHING BELOW THIS LINE
 
 global $squirrelmail_plugin_hooks;
-$squirrelmail_plugin_hooks['change_password_dochange']['mysql'] = 
-	'cpw_mysql_dochange';
+$squirrelmail_plugin_hooks['change_password_dochange']['mysql'] =
+        'cpw_mysql_dochange';
 
 /**
  * This is the function that is specific to your backend. It takes
@@ -58,7 +58,7 @@ $squirrelmail_plugin_hooks['change_password_dochange']['mysql'] =
  * CPW_CURRENT_NOMATCH -> "Your current password is not correct."
  * CPW_INVALID_PW -> "Your new password contains invalid characters."
  *
- * @param array data The username/currentpw/newpw data. 
+ * @param array data The username/currentpw/newpw data.
  * @return array Array of error messages.
  */
 function cpw_mysql_dochange($data)
@@ -101,7 +101,7 @@ function cpw_mysql_dochange($data)
     $select_result = mysql_query($query_string, $ds);
     if (!$select_result) {
         array_push($msgs, _("SQL call failed, try again later."));
-	return $msgs;
+        return $msgs;
     }
 
     if (mysql_num_rows($select_result) == 0) {

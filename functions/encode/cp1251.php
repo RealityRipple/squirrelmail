@@ -22,17 +22,17 @@ function charset_encode_cp1251 ($string) {
 
     $string=preg_replace("/&#([0-9]+);/e","unicodetocp1251('\\1')",$string);
     // $string=preg_replace("/&#[xX]([0-9A-F]+);/e","unicodetocp1251(hexdec('\\1'))",$string);
-    
+
     return $string;
 }
 
 /**
  * Return cp1251 symbol when unicode character number is provided
- * 
- * This function is used internally by charset_encode_cp1251 
+ *
+ * This function is used internally by charset_encode_cp1251
  * function. It might be unavailable to other squirrelmail functions.
- * Don't use it or make sure, that functions/encode/cp1251.php is 
- * included. 
+ * Don't use it or make sure, that functions/encode/cp1251.php is
+ * included.
  *
  * @param int $var decimal unicode value
  * @return string cp1251 character

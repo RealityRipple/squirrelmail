@@ -3,7 +3,7 @@
  * newmail.php - popup page
  *
  * Copyright (c) 1999-2004 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.        
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * Displays all options relating to new mail sounds
  *

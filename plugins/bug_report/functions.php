@@ -28,7 +28,7 @@ function add_gmane_form() {
                           html_tag('td',addInput('query','',50),'left')
                           ) .
                  html_tag('tr',
-                          html_tag('td',_("Written by:") . '<br />' . 
+                          html_tag('td',_("Written by:") . '<br />' .
                                    '<small>' . _("Email addresses only") . '</small>','right') .
                           html_tag('td',addInput('email','',40),'left')
                           ) .

@@ -25,15 +25,15 @@ if (!$words){
    * Agt. Smith: "You're empty."
    * Neo: "So are you."
    */
-  sqspell_makePage(_("Personal Dictionary"), null, 
-      '<p>' . _("No words in your personal dictionary.") 
+  sqspell_makePage(_("Personal Dictionary"), null,
+      '<p>' . _("No words in your personal dictionary.")
       . '</p>');
 } else {
   /**
    * We're loaded with booty.
    */
-  $pre_msg = '<p>' 
-     . _("Please check any words you wish to delete from your dictionary.") 
+  $pre_msg = '<p>'
+     . _("Please check any words you wish to delete from your dictionary.")
      . "</p>\n";
   $pre_msg .= "<table border=\"0\" width=\"95%\" align=\"center\">\n";
   /**
@@ -59,7 +59,7 @@ if (!$words){
           . '<tr><td align="center">'
           . '<form method="post">'
           . '<input type="hidden" name="MOD" value="forget_me" />'
-          . '<input type="hidden" name="sqspell_use_app" value="' 
+          . '<input type="hidden" name="sqspell_use_app" value="'
           . $langs[$i] . '" />'
           . '<table border="0" width="95%" align="center">'
           . '<tr>'
@@ -73,11 +73,11 @@ if (!$words){
       array_pop($words_ary);
       array_shift($words_ary);
       /**
-       * Do some fancy stuff to separate the words into three 
+       * Do some fancy stuff to separate the words into three
        * columns.
        */
       for ($j=0; $j<sizeof($words_ary); $j++){
-          if ($j==intval(sizeof($words_ary)/3) 
+          if ($j==intval(sizeof($words_ary)/3)
               || $j==intval(sizeof($words_ary)/3*2)){
               $msg .= "</td><td valign=\"top\">\n";
           }
@@ -87,7 +87,7 @@ if (!$words){
       }
       $msg .= '</td></tr></table></td></tr>'
           . "<tr bgcolor=\"$color[0]\" align=\"center\"><td>"
-          . '<input type="submit" value="' . _("Delete checked words") 
+          . '<input type="submit" value="' . _("Delete checked words")
           . '" /></form>'
           . '</td></tr><tr><td><hr />'
           . "</td></tr>\n";

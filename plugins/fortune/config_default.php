@@ -1,7 +1,7 @@
 <?php
 /**
  * Default Fortune plugin configuration
- * 
+ *
  * Configuration defaults to /usr/games/fortune with short quotes
  *
  * @copyright (c) 2004 The SquirrelMail Project Team

@@ -8,7 +8,7 @@
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This module changes the international dictionaries selection
- * for the user. Called after LANG_SETUP module.                
+ * for the user. Called after LANG_SETUP module.
  *
  * @author Konstantin Riabitsev <icon@duke.edu>
  * @version $Id$
@@ -49,7 +49,7 @@ if (sizeof($use_langs)){
           $lang_string = str_replace("$lang_default", "$hold", $lang_string);
           $lang_string = $lang_default . ", " . $lang_string;
       } else {
-          /** 
+          /**
            * Yes, he is dumb.
            */
           $lang_string = join(', ', $use_langs);
@@ -85,13 +85,13 @@ if (sizeof($use_langs)){
   $lang_string = $SQSPELL_APP_DEFAULT;
 }
 $old_lang_string = join(", ", $langs);
-$words = str_replace("# LANG: $old_lang_string", "# LANG: $lang_string", 
+$words = str_replace("# LANG: $old_lang_string", "# LANG: $lang_string",
      $words);
 /**
  * Write it down where the sun don't shine.
  */
 sqspell_writeWords($words);
-sqspell_makePage(_("International Dictionaries Preferences Updated"), 
+sqspell_makePage(_("International Dictionaries Preferences Updated"),
     null, $msg);
 
 /**

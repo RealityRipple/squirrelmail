@@ -13,7 +13,7 @@
  * @package plugins
  * @subpackage squirrelspell
  */
-    
+
 global $SQSPELL_APP;
 $msg = '<p>'
   . _("Please choose which options you wish to set up:")
@@ -41,7 +41,7 @@ if (function_exists("mcrypt_generic")) {
     . "</a></li>\n";
 } else {
   $msg .= '<li>'
-    . _("Encrypt or decrypt your personal dictionary") . ' <em>(' 
+    . _("Encrypt or decrypt your personal dictionary") . ' <em>('
     . _("not available") . ')</em></li>';
 }
 $msg .= "</ul>\n";

@@ -25,7 +25,7 @@ sqgetGlobalVar('username',   $username,   SQ_SESSION);
 sqgetGlobalVar('key',        $key,        SQ_COOKIE);
 sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
-    
+
 if(!sqgetGlobalVar('mf_cypher', $mf_cypher, SQ_POST)) {
     $mf_cypher = '';
 }
@@ -122,7 +122,7 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
                     getPref($data_dir,$username, 'mailfetch_fref_'.$tmp));
                 setPref($data_dir,$username,'mailfetch_subfolder_'.$i,
                     getPref($data_dir,$username, 'mailfetch_subfolder_'.$tmp));
-		setPref($data_dir,$username,'mailfetch_uidl_'.$i,
+                setPref($data_dir,$username,'mailfetch_uidl_'.$i,
                     getPref($data_dir,$username, 'mailfetch_uidl_'.$tmp));
             }
             setPref($data_dir,$username,"mailfetch_server_number", $mailfetch_server_number);
@@ -323,7 +323,7 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Username:"), 'right' ) .
-                    html_tag( 'td', '<input type="text" name="mf_user" value="' . 
+                    html_tag( 'td', '<input type="text" name="mf_user" value="' .
                         htmlspecialchars($mailfetch_user_[$mf_sn]) . '" size="20" />', 'left' )
                 ) .
                 html_tag( 'tr',
@@ -341,7 +341,7 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
         $selected = 0;
         if ( isset($mailfetch_subfolder_[$mf_sn]) ) {
             $selected = array(strtolower($mailfetch_subfolder_[$mf_sn]));
-	} 
+        }
         echo sqimap_mailbox_option_list($imapConnection, $selected) .
              '</select></td></tr>' .
 

@@ -26,7 +26,7 @@ require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/html.php');
 
 /* Erase any lingering attachments */
-if (isset($attachments) && is_array($attachments) 
+if (isset($attachments) && is_array($attachments)
     && sizeof($attachments)){
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     foreach ($attachments as $info) {
@@ -70,7 +70,7 @@ if ($signout_page) {
 ?>
    <title><?php echo $org_title . ' - ' . _("Signout"); ?></title>
 </head>
-<body text="<?php echo $color[8]; ?>" bgcolor="<?php echo $color[4]; ?>" 
+<body text="<?php echo $color[8]; ?>" bgcolor="<?php echo $color[4]; ?>"
 link="<?php echo $color[7]; ?>" vlink="<?php echo $color[7]; ?>"
 alink="<?php echo $color[7]; ?>">
 <br /><br />

@@ -23,10 +23,10 @@
  * Define here the name of your password changing function.
  */
 global $squirrelmail_plugin_hooks;
-$squirrelmail_plugin_hooks['change_password_dochange']['template'] = 
-	'cpw_template_dochange';
-$squirrelmail_plugin_hooks['change_password_init']['template'] = 
-	'cpw_template_init';
+$squirrelmail_plugin_hooks['change_password_dochange']['template'] =
+        'cpw_template_dochange';
+$squirrelmail_plugin_hooks['change_password_init']['template'] =
+        'cpw_template_init';
 
 
 /**
@@ -50,7 +50,7 @@ function cpw_template_init()
  * CPW_CURRENT_NOMATCH -> "Your current password is not correct."
  * CPW_INVALID_PW -> "Your new password contains invalid characters."
  *
- * @param array data The username/currentpw/newpw data. 
+ * @param array data The username/currentpw/newpw data.
  * @return array Array of error messages.
  */
 function cpw_template_dochange($data)

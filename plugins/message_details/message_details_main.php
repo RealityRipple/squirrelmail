@@ -1,5 +1,5 @@
 <?php
-/**  
+/**
  * Message Details plugin - main frame
  *
  * Plugin to view the RFC822 raw message output and the bodystructure of a message

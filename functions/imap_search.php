@@ -25,7 +25,7 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
                        $color, $search_position = '', $search_all, $count_all) {
 
     global $squirrelmail_language, $languages, $pos, $allow_charset_search,
-	       $imap_server_type;
+           $imap_server_type;
 
     $pos = $search_position;
 

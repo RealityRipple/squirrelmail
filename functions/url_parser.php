@@ -135,8 +135,8 @@ function parseUrl (&$body) {
         }
 
         /* If there was a token to replace, replace it */
-        if ($target_token == 'mailto:') {	// rfc 2368 (mailto URL)
-            $target_pos += 7;	//skip mailto:
+        if ($target_token == 'mailto:') {    // rfc 2368 (mailto URL)
+            $target_pos += 7;    //skip mailto:
             $end = $blength;
 
             $mailto = substr($body, $target_pos, $end-$target_pos);
@@ -146,12 +146,12 @@ function parseUrl (&$body) {
                 //sm_print_r($regs);
                 $mailto_before = $target_token . $regs[0];
                 $mailto_params = $regs[10];
-                if ($regs[1]) {	//if there is an email addr before '?', we need to merge it with the params
+                if ($regs[1]) {    //if there is an email addr before '?', we need to merge it with the params
                     $to = 'to=' . $regs[1];
-                    if (strpos($mailto_params, 'to=') > -1)	//already a 'to='
+                    if (strpos($mailto_params, 'to=') > -1)    //already a 'to='
                         $mailto_params = str_replace('to=', $to . '%2C%20', $mailto_params);
                     else {
-                        if ($mailto_params)	//already some params, append to them
+                        if ($mailto_params)    //already some params, append to them
                             $mailto_params .= '&amp;' . $to;
                         else
                             $mailto_params .= '?' . $to;
@@ -214,8 +214,8 @@ function getEmail($string) {
     /* Find all the email addresses in the body */
     while (eregi($Email_RegExp_Match, $string, $regs)) {
         $addresses[$regs[0]] = strtr($regs[0], array('&amp;' => '&'));
-       	$start = strpos($string, $regs[0]) + strlen($regs[0]);
-       	$string = substr($string, $start);
+        $start = strpos($string, $regs[0]) + strlen($regs[0]);
+        $string = substr($string, $start);
     }
 
     /* Return the first address, or an empty string if no address was found */

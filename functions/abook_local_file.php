@@ -22,7 +22,7 @@
  * ? create    => if true: file is created if it does not exist.
  * ? umask     => umask set before opening file.
  * ? name      => name of address book.
- * ? detect_writeable => detect address book access permissions by 
+ * ? detect_writeable => detect address book access permissions by
  *                checking file permissions.
  * ? writeable => allow writing into address book. Used only when
  *                detect_writeable is set to false.
@@ -34,7 +34,7 @@
 class abook_local_file extends addressbook_backend {
     /**
      * Backend type
-     * @var string 
+     * @var string
      */
     var $btype = 'local';
     /**

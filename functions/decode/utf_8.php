@@ -15,7 +15,7 @@
  * \a\b\c characters are decoded to html code octdec(a-340)*64*64 + octdec(b-200)*64 + octdec(c-200)
  *
  * decoding cycle is unfinished. please test and report problems to tokul@users.sourceforge.net
- * 
+ *
  * @version $Id$
  * @package squirrelmail
  * @subpackage decode

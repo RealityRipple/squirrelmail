@@ -22,7 +22,7 @@
 function adm_check_user() {
     global $PHP_SELF;
     require_once(SM_PATH . 'functions/global.php');
-    
+
     if ( !sqgetGlobalVar('username',$username,SQ_SESSION) ) {
         $username = '';
     }

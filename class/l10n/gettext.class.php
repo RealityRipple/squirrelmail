@@ -21,7 +21,7 @@
  * @package squirrelmail
  * @subpackage i18n
  */
- 
+
 /**
  * Class that uses parsed translation input objects
  * @package squirrelmail
@@ -57,9 +57,9 @@ class gettext_reader {
             $byte[$i]=ord($this->STREAM->read(1));
         }
         //print sprintf("pos: %d\n",$this->STREAM->currentpos());
-        if ($this->BYTEORDER == 0) 
+        if ($this->BYTEORDER == 0)
             return (int)(($byte[0]) | ($byte[1]<<8) | ($byte[2]<<16) | ($byte[3]<<24));
-        else 
+        else
             return (int)(($byte[3]) | ($byte[2]<<8) | ($byte[1]<<16) | ($byte[0]<<24));
     }
 
@@ -161,7 +161,7 @@ class gettext_reader {
         $data = $this->STREAM->read($length);
         return (string)$data;
     }
-  
+
     /**
      * binary search for string
      * @param string $string
@@ -190,7 +190,7 @@ class gettext_reader {
             if ($cmp == 0) {
                 $this->_HASHED[$string] = $half;
                 return $half;
-            } elseif ($cmp<0) 
+            } elseif ($cmp<0)
                 return $this->find_string($string,$start,$half);
             else
                 return $this->find_string($string,$half,$end);
@@ -203,11 +203,11 @@ class gettext_reader {
      * @return string translated string
      */
     function translate($string) {
-	if ($this->error > 0) return $string;
+        if ($this->error > 0) return $string;
         $num = $this->find_string($string, 0, $this->total);
         if ($num == -1)
             return $string;
-        else 
+        else
             return $this->get_translation_number($num);
     }
 
@@ -220,7 +220,7 @@ class gettext_reader {
         // this is true, right?
 
         // cache header field for plural forms
-        if (isset($this->pluralheader) && is_string($this->pluralheader)) 
+        if (isset($this->pluralheader) && is_string($this->pluralheader))
             return $this->pluralheader;
         else {
             $header = $this->get_translation_number(0);
@@ -266,7 +266,7 @@ class gettext_reader {
             $result=-1;
         } else {
             // find out the appropriate form
-            $select = $this->select_string($number); 
+            $select = $this->select_string($number);
 
             // this should contains all strings separated by NULLs
             $result = $this->find_string($single.chr(0).$plural,0,$this->total);

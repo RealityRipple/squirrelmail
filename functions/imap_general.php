@@ -72,7 +72,7 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response,
 
         $read = sqimap_read_data ($imap_stream, $tag, $handle_errors, $response,
                                   $message, $query,$filter,$outputstream,$no_return);
-        if (empty($read)) {	//Imap server dropped its connection
+        if (empty($read)) {    //Imap server dropped its connection
             $response = '';
             $message = '';
             return false;
@@ -816,7 +816,7 @@ function sqimap_get_delimiter ($imap_stream = false) {
         } else {
             fputs ($imap_stream, ". LIST \"INBOX\" \"\"\r\n");
             $read = sqimap_read_data($imap_stream, '.', true, $a, $b);
-            $read = $read['.'][0];	//sqimap_read_data() now returns a tag array of response array
+            $read = $read['.'][0];    //sqimap_read_data() now returns a tag array of response array
             $quote_position = strpos ($read[0], '"');
             $sqimap_delimiter = substr ($read[0], $quote_position+1, 1);
         }
@@ -831,9 +831,9 @@ function sqimap_get_delimiter ($imap_stream = false) {
  */
 function sqimap_encode_mailbox_name($what)
 {
-	if (ereg("[\"\\\r\n]", $what))
-		return '{' . strlen($what) . "}\r\n" . $what;	/* 4.3 literal form */
-	return '"' . $what . '"';	/* 4.3 quoted string form */
+    if (ereg("[\"\\\r\n]", $what))
+        return '{' . strlen($what) . "}\r\n" . $what;        /* 4.3 literal form */
+    return '"' . $what . '"';        /* 4.3 quoted string form */
 }
 
 /**

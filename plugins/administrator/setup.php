@@ -22,7 +22,7 @@ require_once(SM_PATH . 'plugins/administrator/auth.php');
 function squirrelmail_plugin_init_administrator() {
     global $squirrelmail_plugin_hooks;
 
-    if ( adm_check_user() ) {        
+    if ( adm_check_user() ) {
         $squirrelmail_plugin_hooks['optpage_register_block']['administrator'] =
                                   'squirrelmail_administrator_optpage_register_block';
     }

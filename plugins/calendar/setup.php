@@ -10,7 +10,7 @@
  *
  * init plugin into squirrelmail
  *
- * $Id$ 
+ * $Id$
  * @package plugins
  * @subpackage calendar
  */

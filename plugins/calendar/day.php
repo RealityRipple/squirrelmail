@@ -61,7 +61,7 @@ function day_header() {
     echo html_tag( 'tr', '', '', $color[0] ) . "\n".
                 html_tag( 'td', '', 'left' ) .
                     html_tag( 'table', '', '', $color[0], 'width="100%" border="0" cellpadding="2" cellspacing="1"' ) ."\n" .
-                        html_tag( 'tr', 
+                        html_tag( 'tr',
                             html_tag( 'th',
                                 "<a href=\"day.php?year=$prev_year&amp;month=$prev_month&amp;day=$prev_day\">&lt;&nbsp;".
                                 date_intl('D',$prev_date)."</a>",

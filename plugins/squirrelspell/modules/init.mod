@@ -1,6 +1,6 @@
 <?php
 /**
- * init.mod 
+ * init.mod
  * ---------
  * Squirrelspell module
  *
@@ -16,7 +16,7 @@
  */
 
 /**
- * See if we need to give user the option of choosing which dictionary 
+ * See if we need to give user the option of choosing which dictionary
  * s/he wants to use to spellcheck his message.
  */
 $langs=sqspell_getSettings(null);
@@ -24,7 +24,7 @@ $msg = '<form method="post">'
   . '<input type="hidden" name="MOD" value="check_me" />'
   . '<input type="hidden" name="sqspell_text" />'
   . '<p align="center">';
-if (sizeof($langs)==1){ 
+if (sizeof($langs)==1){
   /**
    * Only one dictionary defined by the user. Submit the form
    * automatically.
@@ -48,7 +48,7 @@ if (sizeof($langs)==1){
       $msg .= ' selected="selected"';
     }
     $msg .= " value=\"$langs[$i]\"> " . _($langs[$i]) . "</option>\n";
-  }  
+  }
   $msg .= ' </select>'
     . '<input type="submit" value="' . _("Go") . '" />'
     . '</p>';
@@ -63,5 +63,5 @@ sqspell_makeWindow($onload, _("SquirrelSpell Initiating"), "init.js", $msg);
  * End:
  * vim: syntax=php
  */
- 
+
 ?>

@@ -13,7 +13,7 @@
  */
 
 /**
- * Contains all variables available in a bodystructure 
+ * Contains all variables available in a bodystructure
  * @package squirrelmail
  */
 class MessageHeader {

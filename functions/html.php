@@ -99,7 +99,7 @@ function html_tag( $tag,                // Tag to output
                        '/.+(\\?'.$var.')=(.*)$/AU',     /* at front and only var */
                        '/.+(\\&'.$var.')=(.*)$/AU'      /* at the end */
                      );
-	preg_replace('/&amp;/','&',$url);
+        preg_replace('/&amp;/','&',$url);
         switch (true) {
             case (preg_match($pat_a[0],$url,$regs)):
                 $k = $regs[1];
@@ -131,9 +131,9 @@ function html_tag( $tag,                // Tag to output
         if ($k) {
             if ($val) {
                 $rpl = "$k=$val";
-		if ($link) {
-		    $rpl = preg_replace('/&/','&amp;',$rpl);
-		}
+                if ($link) {
+                    $rpl = preg_replace('/&/','&amp;',$rpl);
+                }
             } else {
                 $rpl = '';
             }

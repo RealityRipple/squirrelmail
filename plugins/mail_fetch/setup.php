@@ -12,7 +12,7 @@
     * @package plugins
     * @subpackage mail_fetch
     **/
-    
+
     /**  */
     require_once(SM_PATH . 'plugins/mail_fetch/functions.php' );
 
@@ -75,7 +75,7 @@
         require_once (SM_PATH . 'plugins/mail_fetch/functions.php');
 
         global $data_dir, $imapServerAddress, $imapPort;
-        
+
         sqgetGlobalVar('username', $username, SQ_SESSION);
         sqgetGlobalVar('key',      $key,      SQ_COOKIE);
 

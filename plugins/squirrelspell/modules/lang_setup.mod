@@ -7,17 +7,17 @@
  * Copyright (c) 1999-2004 The SquirrelMail development team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * This module displays available dictionaries to the user and lets 
- * him/her choose which ones s/he wants to check messages with.     
+ * This module displays available dictionaries to the user and lets
+ * him/her choose which ones s/he wants to check messages with.
  *
  * @author Konstantin Riabitsev <icon@duke.edu>
  * @version $Id$
  * @package plugins
  * @subpackage squirrelspell
  */
-    
+
 global $SQSPELL_APP;
-    
+
 $msg = '<p>'
   . _("Please check any available international dictionaries which you would like to use when spellchecking:")
   . '</p>'
@@ -45,9 +45,9 @@ while (list($avail_lang, $junk) = each($SQSPELL_APP)){
   $add .= " value=\"$avail_lang\" >" . _($avail_lang) . "</option>\n";
 }
 $msg .= "</p>\n" . $add . "</select>\n";
-$msg .= "</p></blockquote><p><input type=\"submit\" value=\" " 
+$msg .= "</p></blockquote><p><input type=\"submit\" value=\" "
   . _("Make these changes") . " \" /></p>";
-sqspell_makePage(_("Add International Dictionaries"), null, $msg); 
+sqspell_makePage(_("Add International Dictionaries"), null, $msg);
 
 /**
  * For Emacs weenies:
@@ -56,5 +56,5 @@ sqspell_makePage(_("Add International Dictionaries"), null, $msg);
  * End:
  * vim: syntax=php
  */
- 
+
 ?>

@@ -173,7 +173,7 @@ function error_option_save($message) {
     global $optpage_save_error;
 
     if (! is_array($optpage_save_error) )
-	$optpage_save_error=array();
+        $optpage_save_error=array();
 
     $optpage_save_error=array_merge($optpage_save_error,array($message));
 }

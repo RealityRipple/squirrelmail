@@ -7,7 +7,7 @@
  *
  * This file contains koi8-u decoding function that is needed to read
  * koi8-u encoded mails in non-koi8-u locale.
- * 
+ *
  * Original data taken from rfc2319
  *
  * Original copyright:

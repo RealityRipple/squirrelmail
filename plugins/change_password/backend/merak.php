@@ -23,7 +23,7 @@ $merak_action = "self_edit";
 // NO NEED TO CHANGE ANYTHING BELOW THIS LINE
 
 global $squirrelmail_plugin_hooks;
-$squirrelmail_plugin_hooks['change_password_dochange']['merak'] = 
+$squirrelmail_plugin_hooks['change_password_dochange']['merak'] =
    'cpw_merak_dochange';
 
 /**
@@ -36,7 +36,7 @@ $squirrelmail_plugin_hooks['change_password_dochange']['merak'] =
  * CPW_CURRENT_NOMATCH -> "Your current password is not correct."
  * CPW_INVALID_PW -> "Your new password contains invalid characters."
  *
- * @param array data The username/currentpw/newpw data. 
+ * @param array data The username/currentpw/newpw data.
  * @return array Array of error messages.
  */
 function cpw_merak_dochange($data)

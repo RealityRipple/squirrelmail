@@ -376,7 +376,7 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
 
         $boxesall = sqimap_mailbox_list($imap_stream);
         $cmd = 'RENAME ' . sqimap_encode_mailbox_name($old_name) .
-	             ' ' . sqimap_encode_mailbox_name($new_name);
+                     ' ' . sqimap_encode_mailbox_name($new_name);
         $data = sqimap_run_command($imap_stream, $cmd, true, $response, $message);
         sqimap_unsubscribe($imap_stream, $old_name.$postfix);
         $oldpref = getPref($data_dir, $username, 'thread_'.$old_name.$postfix);

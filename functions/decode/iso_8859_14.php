@@ -7,7 +7,7 @@
  *
  * This file contains iso-8859-14 decoding function that is needed to read
  * iso-8859-14 encoded mails in non-iso-8859-14 locale.
- * 
+ *
  * Original data taken from:
  *  ftp://ftp.unicode.org/Public/MAPPINGS/ISO8859/8859-14.TXT
  *
@@ -44,7 +44,7 @@
 /**
  * Decode iso8859-14 encoded string
  * @param string $string Encoded string
- * @return string $string Decoded string 
+ * @return string $string Decoded string
  */
 function charset_decode_iso_8859_14 ($string) {
     global $default_charset;

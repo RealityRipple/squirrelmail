@@ -200,7 +200,7 @@ function charset_convert($in_charset,$string,$out_charset,$htmlencode=true) {
  * @return string $charset Adjusted name of charset
  */
 function fixcharset($charset) {
-    /* remove minus and characters that might be used in paths from charset 
+    /* remove minus and characters that might be used in paths from charset
      * name in order to be able to use it in function names and include calls.
      */
     $charset=preg_replace("/[-:.\/\\\]/",'_',$charset);
@@ -299,8 +299,8 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
         }
         setlocale(LC_ALL, $longlocale);
         // Workaround for plugins that use numbers with floating point
-        // It might be removed if plugins use correct decimal delimiters 
-	// according to locale settings.
+        // It might be removed if plugins use correct decimal delimiters
+        // according to locale settings.
         setlocale(LC_NUMERIC, 'C');
         // Workaround for specific Turkish strtolower/strtoupper rules.
         // Many functions expect English conversion rules.
@@ -717,7 +717,7 @@ function is_conversion_safe($input_charset) {
   global $languages, $sm_notAlias, $default_charset, $lossy_encoding;
 
     if (isset($lossy_encoding) && $lossy_encoding )
-	return true;
+        return true;
 
  // convert to lower case
  $input_charset = strtolower($input_charset);

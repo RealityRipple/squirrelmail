@@ -212,9 +212,9 @@ class abook_database extends addressbook_backend {
             return false;
         }
 
-	if(isset($this->listing) && !$this->listing) {
-	    return array();
-	}
+        if(isset($this->listing) && !$this->listing) {
+            return array();
+        }
 
 
         $query = sprintf("SELECT * FROM %s WHERE owner='%s'",

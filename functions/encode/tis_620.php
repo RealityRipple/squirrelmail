@@ -22,17 +22,17 @@ function charset_encode_tis_620 ($string) {
 
     $string=preg_replace("/&#([0-9]+);/e","unicodetotis620('\\1')",$string);
     // $string=preg_replace("/&#[xX]([0-9A-F]+);/e","unicodetotis620(hexdec('\\1'))",$string);
-    
+
     return $string;
 }
 
 /**
  * Return tis-620 symbol when unicode character number is provided
- * 
- * This function is used internally by charset_encode_tis_620 
+ *
+ * This function is used internally by charset_encode_tis_620
  * function. It might be unavailable to other squirrelmail functions.
- * Don't use it or make sure, that functions/encode/tis_620.php is 
- * included. 
+ * Don't use it or make sure, that functions/encode/tis_620.php is
+ * included.
  *
  * @param int $var decimal unicode value
  * @return string tis-620 character

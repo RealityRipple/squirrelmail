@@ -4,7 +4,7 @@
  *
  * SquirrelMail provides own implementation of htmlentities() and
  * get_html_translation_table() functions. Functions are called
- * sq_get_html_translation_table() and sq_htmlentities(). They are 
+ * sq_get_html_translation_table() and sq_htmlentities(). They are
  * included in functions/strings.php
  *
  * sq_htmlentities uses same syntax as functions available in php 4.1.0
@@ -20,7 +20,7 @@
  * it returns translation table defined by charset. Function defaults to us-ascii charset
  * and not to iso-8859-1.
  *
- * Why own functions are used instead of htmlspecialchars() and 
+ * Why own functions are used instead of htmlspecialchars() and
  * htmlentities() provided by php.
  *
  * <ul>

@@ -22,17 +22,17 @@ function charset_encode_us_ascii ($string) {
 
     $string=preg_replace("/&#([0-9]+);/e","unicodetousascii('\\1')",$string);
     // $string=preg_replace("/&#[xX]([0-9A-F]+);/e","unicodetousascii(hexdec('\\1'))",$string);
-    
+
     return $string;
 }
 
 /**
  * Return us-ascii symbol when unicode character number is provided
- * 
+ *
  * This function is used internally by charset_encode_us_ascii
  * function. It might be unavailable to other squirrelmail functions.
- * Don't use it or make sure, that functions/encode/us_ascii.php is 
- * included. 
+ * Don't use it or make sure, that functions/encode/us_ascii.php is
+ * included.
  *
  * @param int $var decimal unicode value
  * @return string us-ascii character

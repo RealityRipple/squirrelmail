@@ -7,7 +7,7 @@
  *
  * This file contains iso-8859-13 decoding function that is needed to read
  * iso-8859-13 encoded mails in non-iso-8859-13 locale.
- * 
+ *
  * Original data taken from:
  *  ftp://ftp.unicode.org/Public/MAPPINGS/ISO8859/8859-13.TXT
  *

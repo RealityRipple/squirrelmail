@@ -46,11 +46,11 @@ function readcalendardata() {
             fclose ($fp);
             // this is to sort the events within a day on starttime
             $new_calendardata = array();
-	    foreach($calendardata as $day => $data) {
+            foreach($calendardata as $day => $data) {
                 ksort($data, SORT_NUMERIC);
                 $new_calendardata[$day] = $data;
             }
-	    $calendardata = $new_calendardata;
+            $calendardata = $new_calendardata;
         }
     }
 }
@@ -68,8 +68,8 @@ function writecalendardata() {
                 $calfoobar = $calendardata[$calfoo['key']][$calbar['key']];
                 $calstr = "$calfoo[key]|$calbar[key]|$calfoobar[length]|$calfoobar[priority]|$calfoobar[title]|$calfoobar[message]|$calfoobar[reminder]\n";
                 if(sq_fwrite($fp, $calstr, 4096) === FALSE) {
-			error_box(_("Could not write calendar file %s", "$username.$year.cal.tmp"), $color);
-		}
+                        error_box(_("Could not write calendar file %s", "$username.$year.cal.tmp"), $color);
+                }
             }
 
         }

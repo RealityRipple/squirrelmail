@@ -1,9 +1,9 @@
 <?php
 /**
- * options page for IMAP info plugin 
- * 
+ * options page for IMAP info plugin
+ *
  * This is where it all happens :)
- * 
+ *
  * @copyright (c) 1999-2004 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
@@ -162,7 +162,7 @@ if ($submit == 'submit') {
         $check = "CHECK_".$index;
         if (isset($$check)) {
             $type[$index] = $$index;
-            array_push($tests, $index); 
+            array_push($tests, $index);
         }
     }
     for ($i=0;$i<count($tests);$i++) {

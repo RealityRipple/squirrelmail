@@ -26,17 +26,17 @@ function charset_encode_utf_8 ($string) {
 
     $string=preg_replace("/&#([0-9]+);/e","unicodetoutf8('\\1')",$string);
     // $string=preg_replace("/&#[xX]([0-9A-F]+);/e","unicodetoutf8(hexdec('\\1'))",$string);
-    
+
     return $string;
 }
 
 /**
  * Return utf8 symbol when unicode character number is provided
- * 
- * This function is used internally by charset_encode_utf_8 
+ *
+ * This function is used internally by charset_encode_utf_8
  * function. It might be unavailable to other squirrelmail functions.
- * Don't use it or make sure, that functions/encode/utf_8.php is 
- * included. 
+ * Don't use it or make sure, that functions/encode/utf_8.php is
+ * included.
  *
  * @param int $var decimal unicode value
  * @return string utf8 character
@@ -50,7 +50,7 @@ function unicodetoutf8($var) {
         $binVal = str_pad (decbin ($var), 11, "0", STR_PAD_LEFT);
         $binPart1 = substr ($binVal, 0, 5);
         $binPart2 = substr ($binVal, 5);
-        
+
         $char1 = chr (192 + bindec ($binPart1));
         $char2 = chr (128 + bindec ($binPart2));
         $ret = $char1 . $char2;

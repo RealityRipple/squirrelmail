@@ -75,7 +75,7 @@ if ($old_name <> $new_name) {
     }
     sqimap_mailbox_rename( $imapConnection, $orig, $newone );
 
-    // Log out this session 
+    // Log out this session
     sqimap_logout($imapConnection);
 
 }

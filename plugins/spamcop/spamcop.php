@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * spamcop.php -- SpamCop plugin -- main page
  *
  * @copyright (c) 1999-2004 The SquirrelMail development team
@@ -20,18 +20,18 @@ require_once(SM_PATH . 'functions/imap.php');
  * Stores message in attachment directory, when email based reports are used
  * @access private
  */
-function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id, 
+function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
                                       $passed_ent_id='', $imapConnection) {
     global $attachment_dir, $username;
 
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     if (!$passed_ent_id) {
-        $body_a = sqimap_run_command($imapConnection, 
+        $body_a = sqimap_run_command($imapConnection,
                                     'FETCH '.$passed_id.' RFC822',
-                                    TRUE, $response, $readmessage, 
+                                    TRUE, $response, $readmessage,
                                     TRUE);
     } else {
-        $body_a = sqimap_run_command($imapConnection, 
+        $body_a = sqimap_run_command($imapConnection,
                                      'FETCH '.$passed_id.' BODY['.$passed_ent_id.']',
                                      TRUE, $response, $readmessage,TRUE);
         $message = $message->parent;
@@ -39,22 +39,22 @@ function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
     if ($response == 'OK') {
         array_shift($body_a);
         $body = implode('', $body_a) . "\r\n";
-                
+
         $localfilename = GenerateRandomString(32, 'FILE', 7);
         $full_localfilename = "$hashed_attachment_dir/$localfilename";
         $fp = fopen( $full_localfilename, 'w');
         fwrite ($fp, $body);
         fclose($fp);
-	
+
         /* dirty relative dir fix */
         if (substr($attachment_dir,0,3) == '../') {
-	   $attachment_dir = substr($attachment_dir,3);
-	   $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+           $attachment_dir = substr($attachment_dir,3);
+           $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
         }
-	$full_localfilename = "$hashed_attachment_dir/$localfilename";
+        $full_localfilename = "$hashed_attachment_dir/$localfilename";
 
-	$composeMessage->initAttachment('message/rfc822','email.txt', 
-	                 $full_localfilename);
+        $composeMessage->initAttachment('message/rfc822','email.txt',
+                         $full_localfilename);
     }
     return $composeMessage;
 }
@@ -97,11 +97,11 @@ if ($js_web) {
   displayPageHeader($color,$mailbox);
 }
 
-    $imap_stream = sqimap_login($username, $key, $imapServerAddress, 
+    $imap_stream = sqimap_login($username, $key, $imapServerAddress,
        $imapPort, 0);
     sqimap_mailbox_select($imap_stream, $mailbox);
 
-    if ($spamcop_method == 'quick_email' || 
+    if ($spamcop_method == 'quick_email' ||
         $spamcop_method == 'thorough_email') {
        // Use email-based reporting -- save as an attachment
        $session = "$composesession"+1;
@@ -116,18 +116,18 @@ if ($js_web) {
           $composeMessage->rfc822_header = $rfc822_header;
           $composeMessage->reply_rfc822_header = '';
           $compose_messages[$session] = $composeMessage;
-          sqsession_register($compose_messages,'compose_messages');  
+          sqsession_register($compose_messages,'compose_messages');
        } else {
           $composeMessage=$compose_messages[$session];
        }
 
 
         $message = sqimap_get_message($imap_stream, $passed_id, $mailbox);
-        $composeMessage = getMessage_RFC822_Attachment($message, $composeMessage, $passed_id, 
+        $composeMessage = getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
                                       $passed_ent_id, $imap_stream);
 
-    	$compose_messages[$session] = $composeMessage;
-	sqsession_register($compose_messages, 'compose_messages');
+            $compose_messages[$session] = $composeMessage;
+        sqsession_register($compose_messages, 'compose_messages');
 
         $fn = getPref($data_dir, $username, 'full_name');
         $em = getPref($data_dir, $username, 'email_address');
@@ -200,7 +200,7 @@ echo "</p>";
   <input type="hidden" name="code" value="<?php echo htmlspecialchars($spamcop_id) ?>" />
   <input type="hidden" name="spam" value="<?php echo htmlspecialchars($spam_message); ?>" />
     <?php
-	echo '<input type="submit" name="x1" value="' . _("Send Spam Report") . "\" />\n";
+        echo '<input type="submit" name="x1" value="' . _("Send Spam Report") . "\" />\n";
     }
 ?>  </form>
 </td>

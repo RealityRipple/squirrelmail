@@ -122,7 +122,7 @@ if ( $default_sub_of_inbox == false ) {
 }
 
 // Call sqimap_mailbox_option_list, using existing connection to IMAP server,
-// the arrays of folders to include or skip (assembled above), 
+// the arrays of folders to include or skip (assembled above),
 // use 'noinferiors' as a mailbox filter to leave out folders that can not contain other folders.
 // use the long format to show subfolders in an intelligible way if parent is missing (special folder)
 echo sqimap_mailbox_option_list($imapConnection, $show_selected, $skip_folders, $boxes, 'noinferiors', true);
@@ -199,7 +199,7 @@ if ($count_special_folders < count($boxes)) {
        . "<tt><select name=\"old\">\n"
        . '         <option value="">[ ' . _("Select a folder") . " ]</option>\n";
 
-    // use existing IMAP connection, we have no special values to show, 
+    // use existing IMAP connection, we have no special values to show,
     // but we do include values to skip. Use the pre-created $boxes to save an IMAP query.
     // send NULL for the flag - ALL folders are eligible for rename!
     // use long format to make sure folder names make sense when parents may be missing.
@@ -309,9 +309,9 @@ if(!$no_list_for_subscribe) {
     echo addForm('folders_subscribe.php?method=sub')
        . '<tt><select name="mailbox[]" multiple="multiple" size="8">';
 
-    for ($q = 0; $q < count($box); $q++) {      
+    for ($q = 0; $q < count($box); $q++) {
        echo '         <option value="' . $box[$q] . '">'.$box2[$q]."</option>\n";
-    }      
+    }
     echo '</select></tt><br /><br />'
        . '<input type="submit" value="'. _("Subscribe") . "\" />\n"
        . "</form></td></tr></table><br />\n";

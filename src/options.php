@@ -142,7 +142,7 @@ if (!isset($optmode)) {
 }
 
 /*
- * First, set the load information for each option page.   
+ * First, set the load information for each option page.
  */
 
 /* Initialize load information variables. */
@@ -152,7 +152,7 @@ $optpage_loader = '';
 
 /* Set the load information for each page. */
 switch ($optpage) {
-    case SMOPT_PAGE_MAIN: 
+    case SMOPT_PAGE_MAIN:
         break;
     case SMOPT_PAGE_PERSONAL:
         $optpage_name     = _("Personal Information");
@@ -195,7 +195,7 @@ if ( !@is_file( $optpage_file ) ) {
     $optpage = SMOPT_PAGE_MAIN;
 } else if ($optpage != SMOPT_PAGE_MAIN ) {
     /* Include the file for this optionpage. */
-    
+
     require_once($optpage_file);
 
     /* Assemble the data for this option page. */
@@ -245,7 +245,7 @@ if ($optmode == SMOPT_MODE_SUBMIT) {
         case SMOPT_PAGE_FOLDER:
             $save_hook_name = 'options_folder_save';
             break;
-        default: 
+        default:
             $save_hook_name = 'options_save';
             break;
     }
@@ -452,7 +452,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
 
     /* If it is not empty, trigger the inside hook. */
     if ($inside_hook_name != '') {
-        do_hook($inside_hook_name);    
+        do_hook($inside_hook_name);
     }
 
     /* Spit out a submit button. */
@@ -461,7 +461,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
 
     /* If it is not empty, trigger the bottom hook. */
     if ($bottom_hook_name != '') {
-        do_hook($bottom_hook_name);    
+        do_hook($bottom_hook_name);
     }
 }
 ?>

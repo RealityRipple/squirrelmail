@@ -47,7 +47,7 @@ function cpw_poppassd_init() {
  * CPW_CURRENT_NOMATCH -> "Your current password is not correct."
  * CPW_INVALID_PW -> "Your new password contains invalid characters."
  *
- * @param array data The username/currentpw/newpw data. 
+ * @param array data The username/currentpw/newpw data.
  * @return array Array of error messages.
  */
 function cpw_poppassd_dochange($data) {

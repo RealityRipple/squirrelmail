@@ -47,7 +47,7 @@ if ($use_icons) {
  * @return array all option information
  */
 function load_optpage_data_display() {
-    global $theme, $language, $languages, 
+    global $theme, $language, $languages,
     $default_use_mdn, $squirrelmail_language, $allow_thread_sort,
     $show_alternative_names, $available_languages, $use_icons;
 

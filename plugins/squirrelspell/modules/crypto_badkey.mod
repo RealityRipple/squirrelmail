@@ -29,7 +29,7 @@ if ($delete_words=='ON'){
    * the user asked to delete the file. Erase the bastard and hope
    * this never happens again.
    */
-  sqspell_deleteWords(); 
+  sqspell_deleteWords();
   /**
    * See where we were called from -- pop-up window or options page
    * and call whichever wrapper is appropriate.
@@ -43,7 +43,7 @@ if ($delete_words=='ON'){
      * The _("Your....") has to be on one line. Otherwise xgettext borks
      * on getting the strings.
      */
-    $msg = '<p>' 
+    $msg = '<p>'
        . _("Your personal dictionary was erased. Please close this window and click \"Check Spelling\" button again to start your spellcheck over.")
        . '</p> '
        . '<p align="center"><form>'
@@ -54,7 +54,7 @@ if ($delete_words=='ON'){
   }
   exit;
 }
-    
+
 if ($old_key){
   /**
    * User provided another key to try and decrypt the dictionary.
@@ -73,13 +73,13 @@ if ($old_key){
    */
   if (strstr($SCRIPT_NAME, 'sqspell_options')){
     $msg = '<p>'
-       . _("Your personal dictionary was re-encrypted successfully. Now return to the &quot;SpellChecker options&quot; menu and make your selection again." ) 
+       . _("Your personal dictionary was re-encrypted successfully. Now return to the &quot;SpellChecker options&quot; menu and make your selection again." )
        . '</p>';
     sqspell_makePage(_("Successful re-encryption"), null, $msg);
   } else {
     $msg = '<p>'
-       . _("Your personal dictionary was re-encrypted successfully. Please close this window and click \"Check Spelling\" button again to start your spellcheck over.") 
-       . '</p><form><p align="center"><input type="button" value=" ' 
+       . _("Your personal dictionary was re-encrypted successfully. Please close this window and click \"Check Spelling\" button again to start your spellcheck over.")
+       . '</p><form><p align="center"><input type="button" value=" '
        . _("Close this Window") . ' "'
        . 'onclick="self.close()" /></p></form>';
     sqspell_makeWindow(null, _("Dictionary re-encrypted"), null, $msg);
@@ -93,5 +93,5 @@ if ($old_key){
  * mode: php
  * End:
  * vim: syntax=php
- */    
+ */
 ?>

@@ -1,7 +1,7 @@
 <?php
 /**
  * crypto.mod
- * --------------- 
+ * ---------------
  * Squirrelspell module
  *
  * Copyright (c) 1999-2004 The SquirrelMail development team
@@ -27,7 +27,7 @@ switch ($_POST['action']){
          * Let's encrypt the file and save it in an encrypted format.
          */
         $words=sqspell_getWords();
-        /** 
+        /**
          * Flip the flag so the sqspell_writeWords function knows to encrypt
          * the message before writing it to the disk.
          */
@@ -37,7 +37,7 @@ switch ($_POST['action']){
          */
         sqspell_writeWords($words);
         $msg='<p>'
-            . _("Your personal dictionary has been encrypted and is now stored in an encrypted format.") 
+            . _("Your personal dictionary has been encrypted and is now stored in an encrypted format.")
             . '</p>';
     break;
     case 'decrypt':
@@ -45,7 +45,7 @@ switch ($_POST['action']){
          * Let's decrypt the file and save it as plain text.
          */
         $words=sqspell_getWords();
-        /** 
+        /**
          * Flip the flag and tell the sqspell_writeWords() function that we
          * want to save it plaintext.
          */

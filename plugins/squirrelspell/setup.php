@@ -3,7 +3,7 @@
  * setup.php
  * -----------
  * Squirrelspell setup file, as defined by the SquirrelMail-1.2 API.
- * 
+ *
  * Copyright (c) 1999-2004 The SquirrelMail development team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
@@ -22,9 +22,9 @@
  */
 function squirrelmail_plugin_init_squirrelspell() {
     global $squirrelmail_plugin_hooks;
-    $squirrelmail_plugin_hooks['compose_button_row']['squirrelspell'] = 
+    $squirrelmail_plugin_hooks['compose_button_row']['squirrelspell'] =
         'squirrelspell_setup';
-    $squirrelmail_plugin_hooks['optpage_register_block']['squirrelspell'] = 
+    $squirrelmail_plugin_hooks['optpage_register_block']['squirrelspell'] =
         'squirrelspell_optpage_register_block';
     $squirrelmail_plugin_hooks['options_link_and_description']['squirrelspell'] =
         'squirrelspell_options';
@@ -44,7 +44,7 @@ function squirrelspell_optpage_register_block() {
     if (checkForJavascript()) {
         /**
          * The browser checks out.
-         * Register Squirrelspell with the $optionpages array. 
+         * Register Squirrelspell with the $optionpages array.
          */
         $optpage_blocks[] =
             array(
