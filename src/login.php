@@ -69,10 +69,13 @@ $header = "<script language=\"JavaScript\" type=\"text/javascript\">\n" .
           "  }\n".
           "// -->\n".
           "</script>\n";
-$custom_css = 'none';          
+
+if (@file_exists($theme[$theme_default]['PATH']))
+   @include ($theme[$theme_default]['PATH']);
+
 displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 
-echo '<body text="#000000" bgcolor="#FFFFFF" link="#0000CC" vlink="#0000CC" alink="#0000CC" onload="squirrelmail_loginpage_onload();">' .
+echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" squirrelmail_loginpage_onload();>" .
      "\n" . '<form action="redirect.php" method="post">' . "\n";
 
 $username_form_name = 'login_username';
@@ -116,7 +119,7 @@ echo html_tag( 'table',
                 html_tag( 'tr',
                     html_tag( 'td',
                         '<b>' . sprintf (_("%s Login"), $org_name) . "</b>\n",
-                    'center', '#DCDCDC' )
+                    'center', $color[0] )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td',  "\n" .
@@ -140,18 +143,18 @@ echo html_tag( 'table',
                                     '<input type="hidden" name="just_logged_in" value="1" />' . "\n",
                                 'left', '', 'width="*"' )
                             ) ,
-                        'center', '#ffffff', 'border="0" width="100%"' ) ,
-                    'left', '#FFFFFF' )
+                        'center', $color[4], 'border="0" width="100%"' ) ,
+                    'left', $color[4] )
                 ) . 
                 html_tag( 'tr',
                     html_tag( 'td',
                         '<center><input type="submit" value="' . _("Login") . '" /></center>',
                     'left' )
                 ),
-            '', '#ffffff', 'border="0" width="350"' ) . '</center>',
+            '', $color[4], 'border="0" width="350"' ) . '</center>',
         'center' )
     ) ,
-'', '#ffffff', 'border="0" cellspacing="0" cellpadding="0" width="100%"' );
+'', $color[4], 'border="0" cellspacing="0" cellpadding="0" width="100%"' );
 do_hook('login_form');
 echo '</form>' . "\n";
 
