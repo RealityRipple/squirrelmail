@@ -28,6 +28,7 @@
          $temp .= $char;
          $char = substr($mailbox, $i, 1);
       }
+      echo $tmp;
       return strrev($temp);
    }
 
