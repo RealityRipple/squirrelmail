@@ -25,8 +25,7 @@
  */
 
 /* Path for SquirrelMail required files. */
-define('SM_PATH','../../');
-
+if (!defined('SM_PATH') define('SM_PATH','../../');
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'plugins/filters/filters.php');
 
