@@ -35,6 +35,7 @@ require_once('../functions/prefs.php');
 require_once('../functions/imap.php');
 require_once('../functions/plugin.php');
 require_once('../functions/constants.php');
+require_once('../functions/page_header.php');
 
 function attachment_common_parse($str, $debug) {
     global $attachment_common_types, $attachment_common_types_parsed;
@@ -42,8 +43,7 @@ function attachment_common_parse($str, $debug) {
     $attachment_common_types_parsed[$str] = true;
     $types = explode(', ', $str);
 
-    foreach ($types as $val)
-    {
+    foreach ($types as $val) {
         // Ignore the ";q=1.0" stuff
         if (strpos($val, ';') !== false)
             $val = substr($val, 0, strpos($val, ';'));
@@ -78,7 +78,8 @@ set_up_language($squirrelmail_language, true);
 setcookie('squirrelmail_language', $squirrelmail_language, time()+2592000,$base_uri);
 
 if (!isset($login_username)) {
-    echo "<HTML><BODY BGCOLOR=\"#ffffff\">\n" .
+    displayHtmlHeader( _("You must be logged in to access this page.") );
+    echo "<BODY BGCOLOR=\"#ffffff\">\n" .
         "<BR>&nbsp;<BR>\n" .
         "<CENTER>\n" .
         '<B>' . _("You must be logged in to access this page.") . "</B><BR>" .
@@ -102,7 +103,8 @@ if (!session_is_registered('user_is_logged_in')) {
 
     $imapConnection = sqimap_login($login_username, $key, $imapServerAddress, $imapPort, 0);
     if (!$imapConnection) {
-        echo "<html><body bgcolor=\"#ffffff\">\n".
+        displayHtmlHeader( _("There was an error contacting the mail server.") );
+        echo "<body bgcolor=\"#ffffff\">\n".
             "<br> <br>\n".
             "<center>\n".
             '<b>' . _("There was an error contacting the mail server.") . "</b><br>\n".
