@@ -471,8 +471,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
       }
    }      
 
-   $s .= '</small></td><td align="right" width="33%"><small>';
-
+   $s .= '</small></td><td align="right" width="33%" nowrap><small>';
    $comp_action_uri = $comp_uri . '&amp;action=forward';
    if ($compose_new_win == '1') {
       $s .= '<a href="javascript:void(0)" '. 
@@ -481,6 +480,17 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
       $s .= '<a href="'.$comp_action_uri.'">'._("Forward").'</a>';
    }
    $s .= $topbar_delimiter;
+
+   $comp_action_uri = $comp_uri . '&amp;action=forward_as_attachment';
+   if ($compose_new_win == '1') {
+      $s .= '<a href="javascript:void(0)" '. 
+            'onclick="comp_in_new(\''.$comp_action_uri.'\')">'._("Forward as attachment").'</a>';
+   } else {
+      $s .= '<a href="'.$comp_action_uri.'">'._("Forward as attachment").'</a>';
+   }
+   $s .= $topbar_delimiter;
+
+
 
    $comp_action_uri = decodeHeader($comp_uri . '&amp;action=reply');
    if ($compose_new_win == '1') {
@@ -510,17 +520,20 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
 
 /* BOOKMARK */
    $s  = "<TR>\n";
-   $s .= '<TD VALIGN="MIDDLE" ALIGN="RIGHT"><B>' . _("Other") . ":&nbsp;&nbsp;</B></TD>\n";
-   $s .= '<TD VALIGN="MIDDLE" ALIGN="LEFT"><SMALL>';
+   $s .= '<TD VALIGN="MIDDLE" ALIGN="RIGHT" WIDTH="20%"><B>' . _("Other") . ":&nbsp;&nbsp;</B></TD>\n";
+   $s .= '<TD VALIGN="MIDDLE" ALIGN="LEFT" WIDTH="80%"><SMALL>';
    $s .= '<a href="'.$url.'">'.("View Full Header").'</a>';
 
    /* Output the printer friendly link if we are in subtle mode. */
    $s .= '&nbsp;|&nbsp;';
    $s .= printer_friendly_link($mailbox, $passed_id, $passed_ent_id, $color);
-   $s .= "</SMALL></TD>\n";
-   $s .= "</TR>\n";
    echo $s;
    do_hook("read_body_header_right");
+   $s = "</SMALL></TD>\n";   
+   $s .= "</TR>\n";
+   echo $s;
+
+
 }
 
 
@@ -618,20 +631,45 @@ $msgs[$passed_id]['FLAG_SEEN'] = true;
  
 $messagebody = ''; 
 $ent_ar = $message->findDisplayEntity(array());
-for ($i = 0; $i < count($ent_ar); $i++) {
+$cnt = count($ent_ar);
+for ($i = 0; $i < $cnt; $i++) {
    $messagebody .= formatBody($imapConnection, $message, $color, $wrap_at, $ent_ar[$i], $passed_id, $mailbox);
-   $messagebody .= '<hr noshade size=1>';
+   if ($i != $cnt-1) {
+       $messagebody .= '<hr noshade size=1>';
+   }
 }
 
 displayPageHeader($color, $mailbox);
 do_hook('read_body_top');
 formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response);
 formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, $color, $FirstTimeSee);
-echo '<table width="100%" cellpadding="3" cellspacing="3" align="center"'.
-      ' border="0" bgcolor="'.$color[4].'">';
-echo '<tr><td>'.$messagebody.'</td></tr>';      
-echo '<tr><td>'.formatAttachments($message,$ent_ar,$mailbox, $passed_id).'</td></tr>';      
+echo '<table width="100%" cellpadding="0" cellspacing="5" align="center" border="0">';
+echo '   <tr><td>';
+echo '   <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
+echo '      <tr><td>';
+echo '      <table width="100%" cellpadding="3" cellspacing="0" align="center" border="0">';
+echo '          <tr bgcolor="'.$color[4].'"><td>'.$messagebody. '</td></tr>';      
+echo '      </table></td></tr>';
+echo '   </table>';
+echo '   </td></tr>';
+
+$attachmentsdisplay = formatAttachments($message,$ent_ar,$mailbox, $passed_id);
+if ($attachmentsdisplay) {
+   echo '   <tr><td>';
+   echo '   <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
+   echo '      <tr><td>';
+   echo '      <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
+   echo '         <tr><td ALIGN="left" bgcolor="'.$color[9].'">';// colspan="5"><b>';
+   echo           _("Attachments").':</b></td></tr><tr><td>';
+   echo '          <table width="100%" cellpadding="2" cellspacing="2" align="center"'.' border="0" bgcolor="'.$color[12].'">';
+   echo             $attachmentsdisplay;
+   echo '         </td></tr></table></table></td></tr>';
+   echo '      </table></td></tr>';
+   echo '   </table>';
+   echo '   </td></tr>';
+}
 echo '</table>';
+
 
 /* show attached images inline -- if pref'fed so */
 if (($attachment_common_show_images) &&
