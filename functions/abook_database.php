@@ -1,5 +1,5 @@
 <?php
-   
+
 /**
  * abook_database.php
  *
@@ -32,7 +32,7 @@
  * @subpackage addressbook
  */
 
-/** Needs the DB functions */   
+/** Needs the DB functions */
 if (!include_once('DB.php')) {
     // same error also in db_prefs.php
     require_once(SM_PATH . 'functions/display_messages.php');
@@ -51,31 +51,31 @@ if (!include_once('DB.php')) {
 class abook_database extends addressbook_backend {
     var $btype = 'local';
     var $bname = 'database';
-      
+
     var $dsn       = '';
     var $table     = '';
     var $owner     = '';
     var $dbh       = false;
-      
+
     var $writeable = true;
-      
+
     /* ========================== Private ======================= */
-      
+
     /* Constructor */
     function abook_database($param) {
         $this->sname = _("Personal address book");
-         
+
         if (is_array($param)) {
-            if (empty($param['dsn']) || 
-                empty($param['table']) || 
+            if (empty($param['dsn']) ||
+                empty($param['table']) ||
                 empty($param['owner'])) {
                 return $this->set_error('Invalid parameters');
             }
-            
+
             $this->dsn   = $param['dsn'];
             $this->table = $param['table'];
             $this->owner = $param['owner'];
-            
+
             if (!empty($param['name'])) {
                $this->sname = $param['name'];
             }
@@ -94,29 +94,29 @@ class abook_database extends addressbook_backend {
             return $this->set_error('Invalid argument to constructor');
         }
     }
-      
-      
+
+
     /* Open the database. New connection if $new is true */
     function open($new = false) {
         $this->error = '';
-         
+
         /* Return true is file is open and $new is unset */
         if ($this->dbh && !$new) {
             return true;
         }
-         
+
         /* Close old file, if any */
         if ($this->dbh) {
             $this->close();
         }
-         
+
         $dbh = DB::connect($this->dsn, true);
-         
+
         if (DB::isError($dbh)) {
             return $this->set_error(sprintf(_("Database error: %s"),
                                             DB::errorMessage($dbh)));
         }
-         
+
         $this->dbh = $dbh;
         return true;
     }
@@ -128,7 +128,7 @@ class abook_database extends addressbook_backend {
     }
 
     /* ========================== Public ======================== */
-     
+
     /* Search the file */
     function &search($expr) {
         $ret = array();
@@ -169,19 +169,19 @@ class abook_database extends addressbook_backend {
         }
         return $ret;
     }
-     
+
     /* Lookup alias */
     function &lookup($alias) {
         if (empty($alias)) {
             return array();
         }
-         
+
         $alias = strtolower($alias);
 
         if (!$this->open()) {
             return false;
         }
-         
+
         $query = sprintf("SELECT * FROM %s WHERE owner='%s' AND LOWER(nickname)='%s'",
                          $this->table, $this->owner, $this->dbh->quoteString($alias));
 
@@ -211,7 +211,7 @@ class abook_database extends addressbook_backend {
         if (!$this->open()) {
             return false;
         }
-	
+
 	if(isset($this->listing) && !$this->listing) {
 	    return array();
 	}
@@ -221,7 +221,7 @@ class abook_database extends addressbook_backend {
                          $this->table, $this->owner);
 
         $res = $this->dbh->query($query);
-        
+
         if (DB::isError($res)) {
             return $this->set_error(sprintf(_("Database error: %s"),
                                             DB::errorMessage($res)));
@@ -249,7 +249,7 @@ class abook_database extends addressbook_backend {
         if (!$this->open()) {
             return false;
         }
-         
+
         /* See if user exist already */
         $ret = $this->lookup($userdata['nickname']);
         if (!empty($ret)) {
@@ -263,9 +263,9 @@ class abook_database extends addressbook_backend {
                          "'%s','%s','%s')",
                          $this->table, $this->owner,
                          $this->dbh->quoteString($userdata['nickname']),
-                         $this->dbh->quoteString($userdata['firstname']), 
+                         $this->dbh->quoteString($userdata['firstname']),
                          $this->dbh->quoteString($userdata['lastname']),
-                         $this->dbh->quoteString($userdata['email']), 
+                         $this->dbh->quoteString($userdata['email']),
                          $this->dbh->quoteString($userdata['label']) );
 
          /* Do the insert */
@@ -288,7 +288,7 @@ class abook_database extends addressbook_backend {
         if (!$this->open()) {
             return false;
         }
-         
+
         /* Create query */
         $query = sprintf("DELETE FROM %s WHERE owner='%s' AND (",
                          $this->table, $this->owner);
@@ -321,7 +321,7 @@ class abook_database extends addressbook_backend {
         if (!$this->open()) {
             return false;
         }
-         
+
          /* See if user exist */
         $ret = $this->lookup($alias);
         if (empty($ret)) {
@@ -333,11 +333,11 @@ class abook_database extends addressbook_backend {
         $query = sprintf("UPDATE %s SET nickname='%s', firstname='%s', ".
                          "lastname='%s', email='%s', label='%s' ".
                          "WHERE owner='%s' AND nickname='%s'",
-                         $this->table, 
+                         $this->table,
                          $this->dbh->quoteString($userdata['nickname']),
-                         $this->dbh->quoteString($userdata['firstname']), 
+                         $this->dbh->quoteString($userdata['firstname']),
                          $this->dbh->quoteString($userdata['lastname']),
-                         $this->dbh->quoteString($userdata['email']), 
+                         $this->dbh->quoteString($userdata['email']),
                          $this->dbh->quoteString($userdata['label']),
                          $this->owner,
                          $this->dbh->quoteString($alias) );
@@ -353,7 +353,6 @@ class abook_database extends addressbook_backend {
                                         DB::errorMessage($r)));
     }
 } /* End of class abook_database */
-
 
 // vim: et ts=4
 ?>

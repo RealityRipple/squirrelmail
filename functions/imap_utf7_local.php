@@ -22,11 +22,11 @@
  */
 function sqimap_mb_convert_encoding($str, $to_encoding, $from_encoding, $default_charset)
 {
-  // Allows mbstring functions only with iso-8859-*, utf-8 and 
+  // Allows mbstring functions only with iso-8859-*, utf-8 and
   // iso-2022-jp (Japanese)
   // koi8-r and gb2312 can be added only in php 4.3+
   if ( stristr($default_charset, 'iso-8859-') ||
-       stristr($default_charset, 'utf-8') || 
+       stristr($default_charset, 'utf-8') ||
        stristr($default_charset, 'iso-2022-jp') ) {
     if (function_exists('mb_convert_encoding')) {
       return mb_convert_encoding($str, $to_encoding, $from_encoding);
@@ -37,7 +37,7 @@ function sqimap_mb_convert_encoding($str, $to_encoding, $from_encoding, $default
 
 function imap_utf7_encode_local($s) {
     global $languages, $squirrelmail_language;
-    
+
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
         function_exists($languages[$squirrelmail_language]['XTRA_CODE'].'_utf7_imap_encode')) {
         return call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_utf7_imap_encode', $s);
@@ -54,8 +54,8 @@ function imap_utf7_encode_local($s) {
         return $utf7_s;
     }
 
-    // Later code works only for ISO-8859-1 
-    
+    // Later code works only for ISO-8859-1
+
 	$b64_s = '';	// buffer for substring to be base64-encoded
 	$utf7_s = '';	// imap-utf7-encoded string
 	for ($i = 0; $i < strlen($s); $i++) {
@@ -90,7 +90,7 @@ function imap_utf7_encode_local($s) {
 
 function imap_utf7_decode_local($s) {
     global $languages, $squirrelmail_language;
-    
+
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
         function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_utf7_imap_decode')) {
         return call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_utf7_imap_decode', $s);
@@ -108,7 +108,7 @@ function imap_utf7_decode_local($s) {
     }
 
     // Later code works only for ISO-8859-1
-    
+
 	$b64_s = '';
 	$iso_8859_1_s = '';
 	for ($i = 0, $len = strlen($s); $i < $len; $i++) {

@@ -90,7 +90,7 @@ class abook_ldap_server extends addressbook_backend {
             else {
                 $this->sname = $param['name'];
             }
-            
+
             $this->open(true);
         } else {
             $this->set_error('Invalid argument to constructor');
@@ -101,21 +101,21 @@ class abook_ldap_server extends addressbook_backend {
     /* Open the LDAP server. New connection if $new is true */
     function open($new = false) {
         $this->error = '';
-  
+
         /* Connection is already open */
         if($this->linkid != false && !$new) {
             return true;
         }
-  
+
         $this->linkid = @ldap_connect($this->server, $this->port);
         if(!$this->linkid) {
             if(function_exists('ldap_error')) {
-                return $this->set_error(ldap_error($this->linkid)); 
+                return $this->set_error(ldap_error($this->linkid));
             } else {
                 return $this->set_error('ldap_connect failed');
             }
         }
-	
+
 	if(!empty($this->protocol)) {
             if(!@ldap_set_option($this->linkid, LDAP_OPT_PROTOCOL_VERSION, $this->protocol)) {
                 if(function_exists('ldap_error')) {
@@ -137,7 +137,7 @@ class abook_ldap_server extends addressbook_backend {
         } else {
     	    if(!@ldap_bind($this->linkid)) {
         	if(function_exists('ldap_error')) {
-            	    return $this->set_error(ldap_error($this->linkid)); 
+            	    return $this->set_error(ldap_error($this->linkid));
         	} else {
             	    return $this->set_error('anonymous ldap_bind failed');
         	}
@@ -145,7 +145,7 @@ class abook_ldap_server extends addressbook_backend {
         }
 
         $this->bound = true;
-        
+
         return true;
     }
 
@@ -177,64 +177,64 @@ class abook_ldap_server extends addressbook_backend {
         }
     }
 
-    
+
     /* ========================== Public ======================== */
 
     /* Search the LDAP server */
     function search($expr) {
-  
+
         /* To be replaced by advanded search expression parsing */
         if(is_array($expr)) return false;
-  
+
         /* Encode the expression */
         $expr = $this->charset_encode($expr);
         if(strstr($expr, '*') === false) {
             $expr = "*$expr*";
         }
         $expression = "cn=$expr";
-  
+
         /* Make sure connection is there */
         if(!$this->open()) {
             return false;
         }
-  
+
         $sret = @ldap_search($this->linkid, $this->basedn, $expression,
-            array('dn', 'o', 'ou', 'sn', 'givenname', 
+            array('dn', 'o', 'ou', 'sn', 'givenname',
             'cn', 'mail', 'telephonenumber'),
             0, $this->maxrows, $this->timeout);
-  
+
         /* Should get error from server using the ldap_error() function,
          * but it only exist in the PHP LDAP documentation. */
         if(!$sret) {
             if(function_exists('ldap_error')) {
-                return $this->set_error(ldap_error($this->linkid)); 
+                return $this->set_error(ldap_error($this->linkid));
             } else {
-                return $this->set_error('ldap_search failed');       
+                return $this->set_error('ldap_search failed');
             }
         }
-        
+
         if(@ldap_count_entries($this->linkid, $sret) <= 0) {
             return array();
         }
-  
+
         /* Get results */
         $ret = array();
         $returned_rows = 0;
         $res = @ldap_get_entries($this->linkid, $sret);
         for($i = 0 ; $i < $res['count'] ; $i++) {
             $row = $res[$i];
-           
+
             /* Extract data common for all e-mail addresses
              * of an object. Use only the first name */
             $nickname = $this->charset_decode($row['dn']);
             $fullname = $this->charset_decode($row['cn'][0]);
-           
+
             if(empty($row['telephonenumber'][0])) {
                 $phone = '';
             } else {
                 $phone = $this->charset_decode($row['telephonenumber'][0]);
             }
-           
+
             if(!empty($row['ou'][0])) {
                 $label = $this->charset_decode($row['ou'][0]);
             }
@@ -243,19 +243,19 @@ class abook_ldap_server extends addressbook_backend {
             } else {
                 $label = '';
             }
-           
+
             if(empty($row['givenname'][0])) {
                 $firstname = '';
             } else {
                 $firstname = $this->charset_decode($row['givenname'][0]);
             }
-           
+
             if(empty($row['sn'][0])) {
                 $surname = '';
             } else {
                 $surname = $this->charset_decode($row['sn'][0]);
             }
-           
+
             /* Add one row to result for each e-mail address */
             if(isset($row['mail']['count'])) {
                 for($j = 0 ; $j < $row['mail']['count'] ; $j++) {
@@ -268,10 +268,10 @@ class abook_ldap_server extends addressbook_backend {
                    'phone'     => $phone,
                    'backend'   => $this->bnum,
                    'source'    => &$this->sname));
-                    
+
                     // Limit number of hits
                     $returned_rows++;
-                    if(($returned_rows >= $this->maxrows) && 
+                    if(($returned_rows >= $this->maxrows) &&
                        ($this->maxrows > 0) ) {
                         ldap_free_result($sret);
                         return $ret;
@@ -280,9 +280,9 @@ class abook_ldap_server extends addressbook_backend {
                 } // for($j ...)
 
             } // isset($row['mail']['count'])
- 
+
         }
-  
+
         ldap_free_result($sret);
         return $ret;
     } /* end search() */

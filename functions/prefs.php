@@ -20,7 +20,7 @@ sqgetGlobalVar('prefs_are_cached', $prefs_are_cached, SQ_SESSION );
 
 if ( !sqsession_is_registered('prefs_are_cached') ||
      !isset( $prefs_cache) ||
-     !is_array( $prefs_cache) 
+     !is_array( $prefs_cache)
    ) {
     $prefs_are_cached = false;
     $prefs_cache = array();
@@ -53,7 +53,7 @@ function getHashedFile($username, $dir, $datafile, $hash_search = true) {
     if (substr($dir, -1) == '/') {
         $dir = substr($dir, 0, strlen($dir) - 1);
     }
-    
+
     /* Compute the hash for this user and extract the hash directories. */
     $hash_dirs = computeHashDirs($username);
 
@@ -82,7 +82,7 @@ function getHashedFile($username, $dir, $datafile, $hash_search = true) {
             }
         }
     }
-     
+
     /* Return the full hashed datafile path. */
     return ($result);
 }
@@ -103,7 +103,7 @@ function getHashedDir($username, $dir, $hash_dirs = '') {
     if (substr($dir, -1) == '/') {
         $dir = substr($dir, 0, strlen($dir) - 1);
     }
-    
+
     /* If necessary, populate the hash dir variable. */
     if ($hash_dirs == '') {
         $hash_dirs = computeHashDirs($username);

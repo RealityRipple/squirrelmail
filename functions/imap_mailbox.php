@@ -1,4 +1,5 @@
 <?php
+
 /**
  * imap_mailbox.php
  *

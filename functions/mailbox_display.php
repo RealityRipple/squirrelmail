@@ -1,17 +1,17 @@
 <?php
 
 /**
-* mailbox_display.php
-*
-* Copyright (c) 1999-2004 The SquirrelMail Project Team
-* Licensed under the GNU GPL. For full terms see the file COPYING.
-*
-* This contains functions that display mailbox information, such as the
-* table row that has sender, date, subject, etc...
-*
-* @version $Id$
-* @package squirrelmail
-*/
+ * mailbox_display.php
+ *
+ * Copyright (c) 1999-2004 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * This contains functions that display mailbox information, such as the
+ * table row that has sender, date, subject, etc...
+ *
+ * @version $Id$
+ * @package squirrelmail
+ */
 
 /** The standard includes.. */
 require_once(SM_PATH . 'functions/strings.php');
@@ -24,18 +24,18 @@ require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'functions/forms.php');
 
 /**
-* default value for page_selector_max
-*/
+ * default value for page_selector_max
+ */
 define('PG_SEL_MAX', 10);
 
 /**
-* The number of pages to cache msg headers
-*/
+ * The number of pages to cache msg headers
+ */
 define('SQM_MAX_PAGES_IN_CACHE',5);
 
 /**
-* Sort constants used for sorting of messages
-*/
+ * Sort constants used for sorting of messages
+ */
 define('SQSORT_NONE',0);
 define('SQSORT_DATE_ASC',1);
 define('SQSORT_DATE_DEC',2);
@@ -63,8 +63,8 @@ define('SQM_MAX_MBX_IN_CACHE',3);
 // define('MBX_PREF_FUTURE',unique integer key);
 
 /**
-* @param mixed $start UNDOCUMENTED
-*/
+ * @param mixed $start UNDOCUMENTED
+ */
 function elapsed($start) {
 
     $end = microtime();
@@ -80,11 +80,11 @@ function elapsed($start) {
 }
 
 /**
-* Displays message header row in messages list
-*
-* @param  array $aMsg contains all message related parameters
-* @return void
-*/
+ * Displays message header row in messages list
+ *
+ * @param  array $aMsg contains all message related parameters
+ * @return void
+ */
 
 function printMessageInfo($aMsg) {
     // FIX ME, remove these globals as well by adding an array as argument for the user settings
@@ -710,12 +710,12 @@ function sqm_api_mailbox_select($imapConnection,$mailbox,$aConfig,$aProps) {
 
 
 /**
-* Does the $srt $_GET var to field mapping
-*
-* @param int $srt Field to sort on
-* @param bool $bServerSort Server sorting is true
-* @return string $sSortField Field to sort on
-*/
+ * Does the $srt $_GET var to field mapping
+ *
+ * @param int $srt Field to sort on
+ * @param bool $bServerSort Server sorting is true
+ * @return string $sSortField Field to sort on
+ */
 function getSortField($sort,$bServerSort) {
     switch($sort) {
         case SQSORT_NONE:
@@ -932,10 +932,10 @@ function fetchMessageHeaders($imapConnection, &$aMailbox) {
             }
 
             /**
-            * retrieve messages by sequence id's and fetch the UID to retrieve
-            * the UID. for sorted lists this is not needed because a UID FETCH
-            * automaticly add the UID value in fetch results
-            **/
+             * retrieve messages by sequence id's and fetch the UID to retrieve
+             * the UID. for sorted lists this is not needed because a UID FETCH
+             * automaticly add the UID value in fetch results
+             **/
             $aFetchItems[] = 'UID';
 
             //create id range
@@ -999,12 +999,12 @@ function fetchMessageHeaders($imapConnection, &$aMailbox) {
 }
 
 /**
-* This function loops through a group of messages in the mailbox
-* and shows them to the user.
-*
-* @param mixed $imapConnection
-* @param array $aMailbox associative array with mailbox related vars
-*/
+ * This function loops through a group of messages in the mailbox
+ * and shows them to the user.
+ *
+ * @param mixed $imapConnection
+ * @param array $aMailbox associative array with mailbox related vars
+ */
 function showMessagesForMailbox($imapConnection, &$aMailbox) {
     global $color;
 
@@ -1063,15 +1063,15 @@ function showMessagesForMailbox($imapConnection, &$aMailbox) {
 }
 
 /**
-* Function to map an uid list with a msg header array by uid
-* The mapped headers are printed with printMessage
-* aMailbox parameters contains info about the page we are on, the
-* used search criteria, the number of messages to show
-*
-* @param resource $imapConnection socket handle to imap
-* @param array    $aMailbox array with required elements MSG_HEADERS, UIDSET, OFFSET, LIMIT
-* @return void
-**/
+ * Function to map an uid list with a msg header array by uid
+ * The mapped headers are printed with printMessage
+ * aMailbox parameters contains info about the page we are on, the
+ * used search criteria, the number of messages to show
+ *
+ * @param resource $imapConnection socket handle to imap
+ * @param array    $aMailbox array with required elements MSG_HEADERS, UIDSET, OFFSET, LIMIT
+ * @return void
+ **/
 function displayMessageArray($imapConnection, $aMailbox) {
     $iSetIndx    = $aMailbox['SETINDEX'];
     $aId         = $aMailbox['UIDSET'][$iSetIndx];
@@ -1123,15 +1123,15 @@ function displayMessageArray($imapConnection, $aMailbox) {
 }
 
 /**
-* Displays the standard message list header.
-*
-* To finish the table, you need to do a "</table></table>";
-*
-* @param resource $imapConnection
-* @param array    $aMailbox associative array with mailbox related information
-* @param string   $msg_cnt_str
-* @param string   $paginator Paginator string
-*/
+ * Displays the standard message list header.
+ *
+ * To finish the table, you need to do a "</table></table>";
+ *
+ * @param resource $imapConnection
+ * @param array    $aMailbox associative array with mailbox related information
+ * @param string   $msg_cnt_str
+ * @param string   $paginator Paginator string
+ */
 function mail_message_listing_beginning ($imapConnection,
                                          $aMailbox,
                                          $msg_cnt_str = '',
@@ -1256,13 +1256,13 @@ function mail_message_listing_beginning ($imapConnection,
 }
 
 /**
-* Function to add the last row in a message list, it contains the paginator and info about
-* the number of messages.
-*
-* @param integer $num_msgs number of messages in a mailbox
-* @param string  $paginator_str Paginator string  [Prev | Next]  [ 1 2 3 ... 91 92 94 ]  [Show all]
-* @param string  $msg_cnt_str   Message count string Viewing Messages: 21 to 1861 (20 total)
-*/
+ * Function to add the last row in a message list, it contains the paginator and info about
+ * the number of messages.
+ *
+ * @param integer $num_msgs number of messages in a mailbox
+ * @param string  $paginator_str Paginator string  [Prev | Next]  [ 1 2 3 ... 91 92 94 ]  [Show all]
+ * @param string  $msg_cnt_str   Message count string Viewing Messages: 21 to 1861 (20 total)
+ */
 function mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str) {
 global $color;
 if ($num_msgs) {
@@ -1294,10 +1294,10 @@ if ($num_msgs) {
 }
 
 /**
-* Prints the table header for the messages list view
-*
-* @param array $aMailbox
-*/
+ * Prints the table header for the messages list view
+ *
+ * @param array $aMailbox
+ */
 function printHeader($aMailbox) {
     global $index_order, $internal_date_sort, $color;
 
@@ -1310,7 +1310,7 @@ function printHeader($aMailbox) {
     echo html_tag( 'tr' ,'' , 'center', $color[5] );
 
     /* calculate the width of the subject column based on the
-    * widths of the other columns */
+     * widths of the other columns */
     $widths = array(1=>1,2=>25,3=>5,4=>0,5=>1,6=>5);
     $subjectwidth = 100;
     foreach($index_order as $item) {
@@ -1376,12 +1376,12 @@ function printHeader($aMailbox) {
 
 
 /**
-* This function shows the sort button. Isn't this a good comment?
-*
-* @param array $aMailbox
-* @param integer $Down
-* @param integer $Up
-*/
+ * This function shows the sort button. Isn't this a good comment?
+ *
+ * @param array $aMailbox
+ * @param integer $Down
+ * @param integer $Up
+ */
 function ShowSortButton($aMailbox, $Down, $Up ) {
     global $PHP_SELF;
 
@@ -1412,10 +1412,10 @@ function ShowSortButton($aMailbox, $Down, $Up ) {
 }
 
 /**
-* FIXME: Undocumented function
-*
-* @param array $aMailbox
-*/
+ * FIXME: Undocumented function
+ *
+ * @param array $aMailbox
+ */
 function get_selectall_link($aMailbox) {
     global $checkall, $javascript_on;
     global $PHP_SELF;
@@ -1469,13 +1469,13 @@ function get_selectall_link($aMailbox) {
 }
 
 /**
-* This function computes the "Viewing Messages..." string.
-*
-* @param integer $start_msg first message number
-* @param integer $end_msg last message number
-* @param integer $num_msgs total number of message in folder
-* @return string
-*/
+ * This function computes the "Viewing Messages..." string.
+ *
+ * @param integer $start_msg first message number
+ * @param integer $end_msg last message number
+ * @param integer $num_msgs total number of message in folder
+ * @return string
+ */
 function get_msgcnt_str($start_msg, $end_msg, $num_msgs) {
     /* Compute the $msg_cnt_str. */
     $result = '';
@@ -1492,14 +1492,14 @@ function get_msgcnt_str($start_msg, $end_msg, $num_msgs) {
 }
 
 /**
-* Generate a paginator link.
-*
-* @param mixed $box Mailbox name
-* @param mixed $start_msg Message Offset
-* @param mixed $use
-* @param string $text text used for paginator link
-* @return string
-*/
+ * Generate a paginator link.
+ *
+ * @param mixed $box Mailbox name
+ * @param mixed $start_msg Message Offset
+ * @param mixed $use
+ * @param string $text text used for paginator link
+ * @return string
+ */
 function get_paginator_link($box, $start_msg, $text) {
     sqgetGlobalVar('PHP_SELF',$php_self,SQ_SERVER);
     $result = "<a href=\"$php_self?startMessage=$start_msg&amp;mailbox=$box\" "
@@ -1509,15 +1509,15 @@ function get_paginator_link($box, $start_msg, $text) {
 }
 
 /**
-* This function computes the paginator string.
-*
-* @param string  $box      mailbox name
-* @param integer $iOffset  offset in total number of messages
-* @param integer $iTotal   total number of messages
-* @param integer $iLimit   maximum number of messages to show on a page
-* @param bool    $bShowAll show all messages at once (non paginate mode)
-* @return string $result   paginate string with links to pages
-*/
+ * This function computes the paginator string.
+ *
+ * @param string  $box      mailbox name
+ * @param integer $iOffset  offset in total number of messages
+ * @param integer $iTotal   total number of messages
+ * @param integer $iLimit   maximum number of messages to show on a page
+ * @param bool    $bShowAll show all messages at once (non paginate mode)
+ * @return string $result   paginate string with links to pages
+ */
 function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll) {
     global $username, $data_dir;
     sqgetGlobalVar('PHP_SELF',$php_self,SQ_SERVER);
@@ -1680,9 +1680,9 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll) {
 
     /* Put all the pieces of the paginator string together. */
     /**
-    * Hairy code... But let's leave it like it is since I am not certain
-    * a different approach would be any easier to read. ;)
-    */
+     * Hairy code... But let's leave it like it is since I am not certain
+     * a different approach would be any easier to read. ;)
+     */
     $result = '';
     if ( $prv_str || $nxt_str ) {
 
@@ -1710,8 +1710,8 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll) {
 }
 
 /**
-* FIXME: Undocumented function
-*/
+ * FIXME: Undocumented function
+ */
 function truncateWithEntities($subject, $trim_at)
 {
     $ent_strlen = strlen($subject);
@@ -1721,11 +1721,11 @@ function truncateWithEntities($subject, $trim_at)
     global $languages, $squirrelmail_language;
 
     /*
-    * see if this is entities-encoded string
-    * If so, Iterate through the whole string, find out
-    * the real number of characters, and if more
-    * than $trim_at, substr with an updated trim value.
-    */
+     * see if this is entities-encoded string
+     * If so, Iterate through the whole string, find out
+     * the real number of characters, and if more
+     * than $trim_at, substr with an updated trim value.
+     */
     $trim_val = $trim_at;
     $ent_offset = 0;
     $ent_loc = 0;
@@ -1753,8 +1753,8 @@ function truncateWithEntities($subject, $trim_at)
 }
 
 /**
-* FIXME: Undocumented function
-*/
+ * FIXME: Undocumented function
+ */
 function processSubject($subject, $threadlevel = 0) {
     /* Shouldn't ever happen -- caught too many times in the IMAP functions */
     if ($subject == '') {
@@ -1773,15 +1773,15 @@ function processSubject($subject, $threadlevel = 0) {
 
 
 /**
-* Creates button
-*
-* @deprecated see form functions available in 1.5.1 and 1.4.3.
-* @param string $type
-* @param string $name
-* @param string $value
-* @param string $js
-* @param bool $enabled
-*/
+ * Creates button
+ *
+ * @deprecated see form functions available in 1.5.1 and 1.4.3.
+ * @param string $type
+ * @param string $name
+ * @param string $value
+ * @param string $js
+ * @param bool $enabled
+ */
 function getButton($type, $name, $value, $js = '', $enabled = TRUE) {
     $disabled = ( $enabled ? '' : 'disabled ' );
     $js = ( $js ? $js.' ' : '' );
@@ -1793,11 +1793,11 @@ function getButton($type, $name, $value, $js = '', $enabled = TRUE) {
 }
 
 /**
-* Puts string into cell, aligns it and adds <small> tag
-*
-* @param string $string string
-* @param string $align alignment
-*/
+ * Puts string into cell, aligns it and adds <small> tag
+ *
+ * @param string $string string
+ * @param string $align alignment
+ */
 function getSmallStringCell($string, $align) {
     return html_tag('td',
                     '<small>' . $string . ':&nbsp; </small>',
@@ -1807,9 +1807,9 @@ function getSmallStringCell($string, $align) {
 }
 
 /**
-* This should go in imap_mailbox.php
-* @param string $mailbox
-*/
+ * This should go in imap_mailbox.php
+ * @param string $mailbox
+ */
 function handleAsSent($mailbox) {
     global $handleAsSent_result;
 
