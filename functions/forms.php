@@ -121,8 +121,8 @@ function addReset($value) {
  */
 function addTextArea($name, $text = '', $cols = 40, $rows = 10, $attr = '') {
     return '<textarea name="'.htmlspecialchars($name).'" '.
-        'rows="'.(int)$rows .'" cols="'.(int)$cols.'"'.
-        $attr . '">'.htmlspecialchars($text) ."</textarea>\n";
+        'rows="'.(int)$rows .'" cols="'.(int)$cols.'" '.
+        $attr . '>'.htmlspecialchars($text) ."</textarea>\n";
 }
 
 /**
