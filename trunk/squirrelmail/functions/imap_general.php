@@ -30,13 +30,16 @@
 
       if ($handle_errors == true) {
          if ($response == "NO") {
-            set_up_language($squirrelmail_language);
-            echo "<br><b><font color=$color[2]>\n";
-            echo _("ERROR : Could not complete request.");
-            echo "</b><br>\n";
-            echo _("Reason Given: ");
-            echo $message . "</font><br>\n";
-            exit;
+            // ignore this error from m$ exchange, it is not fatal (aka bug)
+            if (!ereg("command resulted in",$message)) { 
+               set_up_language($squirrelmail_language);
+               echo "<br><b><font color=$color[2]>\n";
+               echo _("ERROR : Could not complete request.");
+               echo "</b><br>\n";
+               echo _("Reason Given: ");
+               echo $message . "</font><br>\n";
+               exit;
+            }
          } else if ($response == "BAD") {
             set_up_language($squirrelmail_language);
             echo "<br><b><font color=$color[2]>\n";
