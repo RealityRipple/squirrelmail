@@ -521,13 +521,13 @@ global $use_smtp_tls;
 $use_imap_tls = false;
 $use_smtp_tls = false;
 
-/* auth_mech can be either 'plain', 'cram-md5', or 'digest-md5'
+/* auth_mech can be either 'login','plain', 'cram-md5', or 'digest-md5'
    SMTP can also be 'none'
 */
 global $smtp_auth_mech;
 global $imap_auth_mech;
 $smtp_auth_mech = 'none';
-$imap_auth_mech = 'plain';
+$imap_auth_mech = 'login';
 
 /* PHP session name.  Leave this alone unless you know what you are doing. */
 global $session_name;

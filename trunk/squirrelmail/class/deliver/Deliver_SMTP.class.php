@@ -104,8 +104,8 @@ class Deliver_SMTP extends Deliver {
 	  if ($this->errorCheck($tmp, $stream)) {
         return(0);
 	  }
-	} elseif ($smtp_auth_mech == 'plain') {
-	  // The plain LOGIN method
+	} elseif ($smtp_auth_mech == 'login') {
+	  // The LOGIN method
       fputs($stream, "EHLO $domain\r\n");
       $tmp = fgets($stream, 1024);
 	  if ($this->errorCheck($tmp, $stream)) {

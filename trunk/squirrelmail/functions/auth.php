@@ -18,7 +18,7 @@ if (! isset($smtp_auth_mech)) {
 }
 
 if (! isset($imap_auth_mech)) {
-  $imap_auth_mech = 'plain';
+  $imap_auth_mech = 'login';
 }
 
 if (! isset($use_imap_tls)) {
