@@ -65,12 +65,7 @@ $_SERVER['PHP_SELF'] = strip_tags($_SERVER['PHP_SELF']);
  */
 function check_php_version ($a = '0', $b = '0', $c = '0')             
 {
-    global $SQ_PHP_VERSION;
- 
-    if(!isset($SQ_PHP_VERSION))
-        $SQ_PHP_VERSION = substr( str_pad( preg_replace('/\D/','', PHP_VERSION), 3, '0'), 0, 3);
-
-    return $SQ_PHP_VERSION >= ($a.$b.$c);
+    return version_compare ( PHP_VERSION, "$a.$b.$c", 'ge' );
 }
 
 /**
@@ -290,5 +285,5 @@ function sqsession_is_active() {
     }
 }
 
-
+// vim: et ts=4
 ?>
