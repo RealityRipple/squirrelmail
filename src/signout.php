@@ -7,7 +7,14 @@
 	 **  Clears the cookie, and logs them out.
 	 **
 	 **/
-	
+
+	// Quick Fix for Gettext in LogOut Screen
+if (!function_exists("_")) {
+      function _($string) {
+         return $string;
+      }
+   }
+
    // $squirrelmail_language is set by a cookie when the user
    // selects language
    if (isset($squirrelmail_language)) {
