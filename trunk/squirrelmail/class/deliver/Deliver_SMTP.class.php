@@ -218,7 +218,7 @@ class Deliver_SMTP extends Deliver {
     }
     
     function finalizeStream($stream) {
-	fputs($stream, ".\r\n"); /* end the DATA part */
+	fputs($stream, "\r\n.\r\n"); /* end the DATA part */
 	$tmp = fgets($stream, 1024);
 	$this->errorCheck($tmp, $stream);
 	if ($this->dlv_ret_nr != 250) {
