@@ -1,16 +1,16 @@
 <?php
 
    /**
-    **  display_messages.php
-    **
-    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  This contains all messages, including information, error, and just
-    **  about any other message you can think of.
-    **
-    ** $Id$
-    **/
+    *   display_messages.php
+    *
+    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
+    *   Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    *   This contains all messages, including information, error, and just
+    *   about any other message you can think of.
+    *
+    *  $Id$
+    */
 
     function error_username_password_incorrect($color) {
 

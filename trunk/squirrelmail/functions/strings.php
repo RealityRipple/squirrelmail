@@ -1,14 +1,15 @@
 <?php
+
    /**
-    **  strings.php
-    **
-    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  This code provides various string manipulation functions that are
-    **  used by the rest of the Squirrelmail code.
-    **
-    **  $Id$
+    *   strings.php
+    *
+    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
+    *   Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    *   This code provides various string manipulation functions that are
+    *   used by the rest of the Squirrelmail code.
+    *
+    *   $Id$
     */
 
    /**

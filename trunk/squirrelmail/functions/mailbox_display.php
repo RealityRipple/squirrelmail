@@ -1,16 +1,16 @@
 <?php
 
    /**
-    **  mailbox_display.php
-    **
-    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  This contains functions that display mailbox information, such as the
-    **  table row that has sender, date, subject, etc...
-    **
-    **  $Id$
-    **/
+    *   mailbox_display.php
+    *
+    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
+    *   Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    *   This contains functions that display mailbox information, such as the
+    *   table row that has sender, date, subject, etc...
+    *
+    *   $Id$
+    */
 
    define('PG_SEL_MAX', 10);  /* Default value for page_selector_max. */
 

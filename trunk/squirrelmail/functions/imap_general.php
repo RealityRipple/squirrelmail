@@ -1,33 +1,34 @@
 <?php
 
    /**
-    **  imap.php
-    **
-    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.    
-    **
-    **  This implements all functions that do general imap functions.
-    **
-    **  $Id$
-    **/
+    *   imap.php
+    *
+    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
+    *   Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    *   This implements all functions that do general imap functions.
+    *
+    *   $Id$
+    */
 
-global $imap_general_debug;
-$imap_general_debug = false;
+    /**
+    * Unique SessionId
+    *
+    * Sets an unique session id in order to avoid simultanous sessions crash.
+    *
+    * @return	string	a 4 chars unique string
+    */
+    function sqimap_session_id() {
 
-   /******************************************************************************
-    **  Sets an unique session id in order to avoid simultanous sessions crash.
-    ******************************************************************************/
+        if (session_id() == '')
+            global $RememberedSessionID;
 
-   function sqimap_session_id() {
-      if (session_id() != '')
-         return substr(session_id(), -4);
-	 
-      global $RememberedSessionID;
-      
-      if (! isset($RememberedSessionID))
-         $RememberedSessionID = GenerateRandomString(4, '', 7);
-	 
-      return $RememberedSessionID;
+            if (! isset($RememberedSessionID))
+                $RememberedSessionID = GenerateRandomString(4, '', 7);
+        else
+            $RememberedSessionID = substr(session_id(), -4);
+
+        return( $RememberedSessionID );
    }
 
 
@@ -40,11 +41,10 @@ $imap_general_debug = false;
    function sqimap_read_data_list ($imap_stream, $pre, $handle_errors,
                                    &$response, &$message) {
       global $color, $squirrelmail_language;
-      global $imap_general_debug;
 
       $read = '';
       $resultlist = array();
-      
+
       $more_msgs = true;
       while ($more_msgs) {
          $data = array();
@@ -57,13 +57,6 @@ $imap_general_debug = false;
             $size = $regs[1];
          } else if (ereg("^\\* [0-9]+ FETCH", $read, $regs)) {
             // Sizeless response, probably single-line
-
-            // For debugging purposes
-            if ($imap_general_debug) {
-                echo "<small><tt><font color=\"#CC0000\">$read</font></tt></small><br>\n";
-                flush();
-            }
-
             $size = -1;
             $data[] = $read;
             $read = fgets($imap_stream, 9096);
@@ -74,13 +67,6 @@ $imap_general_debug = false;
             while (strpos($read, "\n") === false) {
                $read .= fgets($imap_stream, 9096);
             }
-
-            // For debugging purposes
-            if ($imap_general_debug) {
-                echo "<small><tt><font color=\"#CC0000\">$read</font></tt></small><br>\n";
-                flush();
-            }
-
             // If we know the size, no need to look at the end parameters
             if ($size > 0) {
                if ($total_size == $size) {
@@ -121,7 +107,6 @@ $imap_general_debug = false;
       $response = $regs[1];
       $message = trim($regs[2]);
       
-      if ($imap_general_debug) { echo '--<br>'; }
       if ($handle_errors == false) { return $resultlist; }
      
       if ($response == 'NO') {
@@ -263,7 +248,6 @@ $imap_general_debug = false;
 
    function sqimap_capability($imap_stream, $capability) {
         global $sqimap_capabilities;
-global $imap_general_debug;
 
         if (!is_array($sqimap_capabilities)) {
             fputs ($imap_stream, sqimap_session_id() . " CAPABILITY\r\n");
@@ -287,7 +271,7 @@ global $imap_general_debug;
     **  Returns the delimeter between mailboxes:  INBOX/Test, or INBOX.Test... 
     ******************************************************************************/
    function sqimap_get_delimiter ($imap_stream = false) {
-global $imap_general_debug;
+
       global $sqimap_delimiter;
       global $optional_delimiter;
 

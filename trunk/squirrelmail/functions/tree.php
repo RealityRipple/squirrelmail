@@ -1,20 +1,27 @@
 <?php
 
    /**
-    **  tree.php
-    **
-    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  This code provides various string manipulation functions that are
-    **  used by the rest of the Squirrelmail code.
-    **
-    **  $Id$
+    *   tree.php
+    *
+    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
+    *   Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    *   This code provides various string manipulation functions that are
+    *   used by the rest of the Squirrelmail code.
+    *
+    *   $Id$
     */
 
    require_once('../functions/imap.php');
 
-   // Recursive function to find the correct parent for a new node
+    /**
+    * findParentForChild
+    *
+    * Recursive function to find the correct parent for a new node
+    *
+    * @copyright    1999-2001 The Squirrelmail Development Team
+    */
+
    function findParentForChild($value, $treeIndexToStart, $tree) {
       // is $value in $tree[$treeIndexToStart]['value']
       if ((isset($tree[$treeIndexToStart])) && (strstr($value, $tree[$treeIndexToStart]['value']))) {

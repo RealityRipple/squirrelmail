@@ -1,15 +1,15 @@
 <?php
 
    /**
-    **  prefs.php
-    **
-    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  This contains functions for manipulating user preferences
-    **
-    **  $Id$
-    **/
+    *   prefs.php
+    *
+    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
+    *   Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    *   This contains functions for manipulating user preferences
+    *
+    *   $Id$
+    */
 
    global $prefs_are_cached, $prefs_cache;
    if (!session_is_registered('prefs_are_cached')) {
