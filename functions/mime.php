@@ -547,7 +547,7 @@ function decodeBody($body, $encoding) {
  * Patched by Christian Schmidt <christian@ostenfeld.dk>  23/03/2002
  */
 function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
-    global $default_charset, $languages, $squirrelmail_language;
+    global $languages, $squirrelmail_language;
     if (is_array($string)) {
         $string = implode("\n", $string);
     }
@@ -561,10 +561,6 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
     $i = 0;
     $iLastMatch = -2;
     $encoded = false;
-
-    if (strtolower($default_charset) == 'iso-8859-1') {
-        $string = str_replace("\240",' ',$string);
-    }
 
     $aString = explode(' ',$string);
     $ret = '';
