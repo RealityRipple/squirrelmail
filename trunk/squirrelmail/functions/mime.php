@@ -374,9 +374,11 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
             if ($show_html_default <> 1) {
                 $entity_conv = array('&nbsp;' => ' ',
                                      '<p>'    => "\n",
-                                     '<br>'   => "\n",
                                      '<P>'    => "\n",
+                                     '<br>'   => "\n",
                                      '<BR>'   => "\n",
+                                     '<br />' => "\n",
+                                     '<BR />' => "\n",
                                      '&gt;'   => '>',
                                      '&lt;'   => '<');
                 $body = strtr($body, $entity_conv);
