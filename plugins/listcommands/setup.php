@@ -26,7 +26,7 @@ function squirrelmail_plugin_init_listcommands () {
 }
 
 function plugin_listcommands_menu() {
-    global $passed_id, $passed_ent_id, $color, $mailbox, $message;
+    global $passed_id, $passed_ent_id, $color, $mailbox, $message, $startMessage;
 
     /**
      * Array of commands we can deal with from the header. The Reply option
@@ -55,7 +55,8 @@ function plugin_listcommands_menu() {
         if ($proto == 'mailto') {
 
             if (($cmd == 'post') || ($cmd == 'owner')) {
-                $url = 'src/compose.php?';
+                $url = 'src/compose.php?'.
+                (isset($startMessage)?'startMessage='.$startMessage.'&amp;'?'');
             } else {
                 $url = "plugins/listcommands/mailout.php?action=$cmd&amp;";
             }

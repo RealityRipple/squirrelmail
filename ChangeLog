@@ -171,6 +171,8 @@ Version 1.5.1 -- CVS
     option.
   - Changing your JavaScript preference required a re-login to work.
     Fixes #983614.
+  - Fix listcommands plugin to behave like normal reply/compose
+    links, and return to message page that originally called from.
 
 Version 1.5.0
 --------------------
