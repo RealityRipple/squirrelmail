@@ -242,6 +242,9 @@ if (!$force_username_lowercase) {
 if (!$optional_delimiter) {
 	$optional_delimiter = "detect";
 }
+if (!$use_authenticated_smtp) {
+    $use_authenticated_smtp = "false";
+}
 
 #####################################################################################
 if ($config_use_color == 1) {
@@ -298,10 +301,11 @@ while (($command ne "q") && ($command ne "Q")) {
       } else {
          print "6.    SMTP Server        : $WHT$smtpServerAddress$NRM\n";
          print "7.    SMTP Port          : $WHT$smtpPort$NRM\n";
+         print "8.    Authenticated SMTP : $WHT$use_authenticated_smtp$NRM\n";
       }
-      print "8.  Server               : $WHT$imap_server_type$NRM\n";
-      print "9.  Invert Time          : $WHT$invert_time$NRM\n";
-      print "10. Delimiter            : $WHT$optional_delimiter$NRM\n";
+      print "9.  Server               : $WHT$imap_server_type$NRM\n";
+      print "10. Invert Time          : $WHT$invert_time$NRM\n";
+      print "11. Delimiter            : $WHT$optional_delimiter$NRM\n";
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 3) {
@@ -454,9 +458,10 @@ while (($command ne "q") && ($command ne "Q")) {
          elsif ($command == 5)  { $sendmail_path      = command15 (); }
          elsif ($command == 6)  { $smtpServerAddress  = command16 (); }
          elsif ($command == 7)  { $smtpPort           = command17 (); }
-         elsif ($command == 8)  { $imap_server_type   = command18 (); }
-         elsif ($command == 9)  { $invert_time        = command19 (); }
-         elsif ($command == 10) { $optional_delimiter = command110 (); }
+         elsif ($command == 8)  { $use_authenticated_smtp   = command18 (); }
+         elsif ($command == 9)  { $imap_server_type   = command19 (); }
+         elsif ($command == 10) { $invert_time        = command110 (); }
+         elsif ($command == 11) { $optional_delimiter = command111 (); }
       } elsif ($menu == 3) {
          if    ($command == 1) { $default_folder_prefix          = command21 (); }
          elsif ($command == 2) { $show_prefix_option             = command22 (); }
@@ -651,8 +656,27 @@ sub command17 {
    }
    return $new_smtpPort;
 }
-# imap_server_type 
+
+# authenticated server 
 sub command18 {
+   print "Do you wish to use an authenticated SMTP server?  Your server must\n";
+   print "support this in order for SquirrelMail to work with it.  We implemented\n";
+   print "it according to RFC 2554.\n";
+   
+   $YesNo = 'n';
+   $YesNo = 'y' if ($use_authenticated_smtp eq "true");
+
+   print "Use authenticated SMTP server (y/n) [$WHT$YesNo$NRM]: $WHT";
+
+   $new_use_authenticated_smtp = <STDIN>;
+   $new_use_authenticated_smtp =~ tr/yn//cd;
+   return "true" if ($new_use_authenticated_smtp eq "y");
+   return "false" if ($new_use_authenticated_smtp eq "n");
+   return $use_authenticated_smtp;
+}   
+
+# imap_server_type 
+sub command19 {
    print "Each IMAP server has its own quirks.  As much as we tried to stick\n";
    print "to standards, it doesn't help much if the IMAP server doesn't follow\n";
    print "the same principles.  We have made some work-arounds for some of\n";
@@ -674,7 +698,7 @@ sub command18 {
 }
 
 # invert_time
-sub command19 {
+sub command110 {
    print "Sometimes the date of messages sent is messed up (off by a few hours\n";
    print "on some machines).  Typically this happens if the system doesn't support\n";
    print "tm_gmtoff.  It will happen only if your time zone is \"negative\".\n";
@@ -696,7 +720,7 @@ sub command19 {
    return $invert_time;
 }   
 
-sub command110 {
+sub command111 {
 	print "This is the delimiter that your IMAP server uses to distinguish between\n";
 	print "folders.  For example, Cyrus uses '.' as the delimiter and a complete\n";
 	print "folder would look like 'INBOX.Friends.Bob', while UW uses '/' and would\n";
@@ -1536,16 +1560,17 @@ sub save_data {
 
    print FILE "\n";
 
-   print FILE "\t\$domain               = \"$domain\";\n";
-   print FILE "\t\$imapServerAddress    = \"$imapServerAddress\";\n";
-   print FILE "\t\$imapPort             =  $imapPort;\n";
-   print FILE "\t\$useSendmail          =  $useSendmail;\n";
-   print FILE "\t\$smtpServerAddress    = \"$smtpServerAddress\";\n";
-   print FILE "\t\$smtpPort             =  $smtpPort;\n";
-   print FILE "\t\$sendmail_path        = \"$sendmail_path\";\n";
-   print FILE "\t\$imap_server_type     = \"$imap_server_type\";\n";
-   print FILE "\t\$invert_time          = $invert_time;\n";
-	print FILE "\t\$optional_delimiter   = \"$optional_delimiter\";\n";
+   print FILE "\t\$domain                 = \"$domain\";\n";
+   print FILE "\t\$imapServerAddress      = \"$imapServerAddress\";\n";
+   print FILE "\t\$imapPort               =  $imapPort;\n";
+   print FILE "\t\$useSendmail            =  $useSendmail;\n";
+   print FILE "\t\$smtpServerAddress      = \"$smtpServerAddress\";\n";
+   print FILE "\t\$smtpPort               =  $smtpPort;\n";
+   print FILE "\t\$sendmail_path          = \"$sendmail_path\";\n";
+   print FILE "\t\$use_authenticated_smtp = $use_authenticated_smtp;\n";
+   print FILE "\t\$imap_server_type       = \"$imap_server_type\";\n";
+   print FILE "\t\$invert_time            = $invert_time;\n";
+   print FILE "\t\$optional_delimiter     = \"$optional_delimiter\";\n";
    
    print FILE "\n";
 
