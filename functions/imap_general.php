@@ -87,10 +87,11 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors, &$response, 
             case preg_match("/^\* (OK \[PARSE\])(.*)$/", $read):
                 $read = sqimap_fgets($imap_stream);
                 break 1;
-            case preg_match('/^\* [0-9]+ FETCH.*/', $read):
+            case preg_match('/^\* ([0-9]+) FETCH.*/', $read, $regs):
                 $fetch_data = array();
                 $fetch_data[] = $read;
                 $read = sqimap_fgets($imap_stream);
+                $i = 0;
                 while (!preg_match('/^\* [0-9]+ FETCH.*/', $read) && 
                        !preg_match("/^$pre (OK|BAD|NO)(.*)$/", $read)) {
                     $fetch_data[] = $read;
@@ -144,8 +145,74 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors, &$response, 
 }
 
 function sqimap_read_data ($imap_stream, $pre, $handle_errors, &$response, &$message, $query = '') {
-    $res = sqimap_read_data_list($imap_stream, $pre, $handle_errors, $response, $message, $query);
-    return $res[0];
+    global $color, $squirrelmail_language;
+    $read = '';
+    $pre_a = explode(' ',trim($pre));
+    $pre = $pre_a[0];
+    $result = '';
+    $data = array();
+    $read = sqimap_fgets($imap_stream);
+    while (1) {
+        switch (true) { 
+            case preg_match("/^$pre (OK|BAD|NO)(.*)$/", $read, $regs):
+            case preg_match('/^\* (BYE \[ALERT\])(.*)$/', $read, $regs):
+                $response = $regs[1];
+                $message = trim($regs[2]);
+                break 2;
+            case preg_match("/^\* (OK \[PARSE\])(.*)$/", $read):
+                $read = sqimap_fgets($imap_stream);
+                break 1;
+            case preg_match('/^\* [0-9]+ FETCH.*/', $read):
+                $fetch_data = array();
+                $fetch_data[] = $read;
+                $read = sqimap_fgets($imap_stream);
+                while (!preg_match("/^$pre (OK|BAD|NO)(.*)$/", $read)) {
+                    $fetch_data[] = $read;
+                    $read = sqimap_fgets($imap_stream);
+                }
+                $result = $fetch_data;
+		break 2;
+            default:
+                $data[] = $read;
+                $read = sqimap_fgets($imap_stream);
+                break 1;
+        }
+    }
+    if (!empty($data)) {
+        $result = $data;
+    }
+    if ($handle_errors == false) {
+        return( $result );
+    } 
+    elseif ($response == 'NO') {
+    /* ignore this error from M$ exchange, it is not fatal (aka bug) */
+        if (strstr($message, 'command resulted in') === false) {
+            set_up_language($squirrelmail_language);
+            echo "<br><b><font color=$color[2]>\n" .
+                _("ERROR : Could not complete request.") .
+                "</b><br>\n" .
+                _("Query:") .
+                $query . '<br>' .
+                _("Reason Given: ") .
+                $message . "</font><br>\n";
+            exit;
+        }
+    } 
+    elseif ($response == 'BAD') {
+        set_up_language($squirrelmail_language);
+        echo "<br><b><font color=$color[2]>\n" .
+            _("ERROR : Bad or malformed request.") .
+            "</b><br>\n" .
+            _("Query:") .
+            $query . '<br>' .
+            _("Server responded: ") .
+            $message . "</font><br>\n";
+        exit;
+    } 
+    else {
+        return $result;
+    }
+
 }
 
 /*
