@@ -37,7 +37,7 @@ echo '<BR>' .
     '<B><CENTER>' .
     _("Viewing an image attachment") . " - ";
 
-$msg_url = 'read_body.php?' . urlencode(strip_tags(urldecode($QUERY_STRING)));
+$msg_url = 'read_body.php?' . $QUERY_STRING;
 $msg_url = set_url_var($msg_url, 'ent_id', 0);
 echo '<a href="'.$msg_url.'">'. _("View message") . '</a>';
 
