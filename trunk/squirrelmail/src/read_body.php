@@ -21,7 +21,6 @@ require_once('../functions/smtp.php');
 require_once('../functions/html.php');
 require_once('../src/view_header.php');
 
-
 /**
  * Given an IMAP message id number, this will look it up in the cached
  * and sorted msgs array and return the index. Used for finding the next
@@ -547,7 +546,6 @@ $dateString = getLongDateString($header->date);
  */
  
 $body = ''; 
-
     
 /* first step in displaying multiple entities */
 
