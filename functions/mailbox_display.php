@@ -280,13 +280,12 @@
       global $folder_prefix, $sent_folder;
       global $imapServerAddress;
       global $index_order, $real_endMessage, $real_startMessage;
-
+      
       // if cache isn't already set, do it now
       if (!session_is_registered("msgs"))
          session_register("msgs");
       if (!session_is_registered("msort"))
          session_register("msort");
-
 
       if ($startMessage + ($show_num - 1) < $numMessages) {
          $endMessage = $startMessage + ($show_num-1);
@@ -337,6 +336,7 @@
           $mailbox, $sort, $Message, $More);
 
       $groupNum = $startMessage % ($show_num - 1);
+      $real_startMessage = $startMessage;
       if ($sort == 6) {
          if ($endMessage - $startMessage < $show_num - 1) {
             $endMessage = $endMessage - $startMessage + 1;
@@ -365,7 +365,7 @@
             next($msort);
             $k++;
          } while (isset ($key) && ($k < $i));
-         printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage, 0, 0);
+         printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $real_startMessage, 0, 0);
       } else {
          $i = $startMessage;
 
@@ -377,7 +377,7 @@
          } while (isset ($key) && ($k < $i));
 
          do {
-            printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage, 0, 0);
+            printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $real_startMessage, 0, 0);
             $key = key($msort);
             $t++;
             $i++;
