@@ -52,7 +52,7 @@ switch ($_POST['action']){
         $SQSPELL_CRYPTO=false;
         sqspell_writeWords($words);
         $msg='<p>'
-            . _("Your personal dictionary has been decrypted and is now stored as plain text."),
+            . _("Your personal dictionary has been decrypted and is now stored as plain text.")
             . '</p>';
     break;
     case '':
