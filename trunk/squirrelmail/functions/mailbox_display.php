@@ -555,12 +555,6 @@
       echo " BGCOLOR=\"$color[0]\">";
       echo "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
 
-      $urlMailbox=urlencode($mailbox);
-      
-      $upPointer = '<IMG SRC="../images/up_pointer.gif" HEIGHT=10 WIDTH=12 BORDER=0>';
-      $downPointer = '<IMG SRC="../images/down_pointer.gif" HEIGHT=10 WIDTH=12 BORDER=0>';
-      $noPointer = '<IMG SRC="../images/sort_none" WIDTH=12 HEIGHT=10 BORDER=0>';
-
       // Print the headers
       for ($i=1; $i <= count($index_order); $i++) {
          switch ($index_order[$i]) {
@@ -574,19 +568,19 @@
                   echo '   <TD WIDTH="25%"><B>'. _("To") .'</B>';
                else
                     echo '   <TD WIDTH="25%"><B>'. _("From") .'</B>';
-	       ShowSortButton($sort, $urlMailbox, 2, 3);
+	       ShowSortButton($sort, $mailbox, 2, 3);
                echo "</TD>\n";
                break;
                
             case 3: # date
                echo '   <TD NOWRAP WIDTH="5%"><B>'. _("Date") .'</B>';
-	       ShowSortButton($sort, $urlMailbox, 0, 1);
+	       ShowSortButton($sort, $mailbox, 0, 1);
                echo "</TD>\n";
                break;
                
             case 4: # subject
                echo '   <TD><B>'. _("Subject") .'</B> ';
-	       ShowSortButton($sort, $urlMailbox, 4, 5);
+	       ShowSortButton($sort, $mailbox, 4, 5);
                echo "</TD>\n";
                break;
                
@@ -610,8 +604,9 @@
 	 $which = 6;
       }
       echo ' <a href="right_main.php?newsort=' . $which . 
-	 '&startMessage=1&mailbox=' . $mailbox . '"><IMG SRC="../images/' .
-	 $img . '" BORDER=0 WIDTH=12 HEIGHT=10></a>';
+	 '&startMessage=1&mailbox=' . urlencode($mailbox) . 
+	 '"><IMG SRC="../images/' . $img . 
+	 '" BORDER=0 WIDTH=12 HEIGHT=10></a>';
    }
    
    function ShowSelectAllLink($startMessage, $sort)
