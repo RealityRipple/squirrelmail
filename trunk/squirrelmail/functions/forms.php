@@ -26,8 +26,8 @@ function addInputField($type, $name = null, $value = null, $attributes = '') {
 /**
  * Password input field
  */
-function addPwField($name) {
-    return addInputField('password', $name);
+function addPwField($name , $value = null) {
+    return addInputField('password', $name , $value);
 }
 
 
