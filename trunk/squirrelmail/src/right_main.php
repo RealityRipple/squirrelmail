@@ -8,11 +8,14 @@
  * This is where the mailboxes are listed. This controls most of what
  * goes on in SquirrelMail.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 
-/** Path for SquirrelMail required files. */
+/**
+ * Path for SquirrelMail required files.
+ * @ignore
+ */
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */

@@ -12,12 +12,13 @@
  *       addrbook_search_html.html -- If you change one,
  *       change the other one too!
  *
- * $Id$ 
+ * @version $Id$ 
  * @package squirrelmail
  */
 
 /**
  * Path for SquirrelMail required files.
+ * @ignore
  */
 define('SM_PATH','../');
 

@@ -9,11 +9,14 @@
  * Subscribe and unsubcribe from folders. 
  * Called from folders.php
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 
-/** Path for SquirrelMail required files. */
+/**
+ * Path for SquirrelMail required files.
+ * @ignore
+ */
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */

@@ -10,11 +10,14 @@
  *
  * This file is included from compose.php
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 
-/** Path for SquirrelMail required files. */
+/** 
+ * Path for SquirrelMail required files.
+ * @ignore
+ */
 if (! defined('SM_PATH') ) {
 	define('SM_PATH','../');
 }

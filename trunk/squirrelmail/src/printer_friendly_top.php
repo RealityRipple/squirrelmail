@@ -9,11 +9,14 @@
  * top frame of printer_friendly_main.php
  * displays some javascript buttons for printing & closing
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 
-/** Path for SquirrelMail required files. */
+/**
+ * Path for SquirrelMail required files.
+ * @ignore
+ */
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */

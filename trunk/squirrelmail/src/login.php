@@ -9,11 +9,14 @@
  * This a simple login screen. Some housekeeping is done to clean
  * cookies and find language.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 
-/** Path for SquirrelMail required files. */
+/**
+ * Path for SquirrelMail required files.
+ * @ignore
+ */
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
