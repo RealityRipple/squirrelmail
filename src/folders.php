@@ -103,14 +103,43 @@ echo "</FORM></TD></TR>\n";
 
 echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr>\n";
 
+
+/** count special folders **/
+$count_special_folders = 0;
+$num_max = 1;
+if (strtolower($imap_server_type) == "courier" || $move_to_trash) {
+        $num_max++;
+}
+if ($move_to_sent) {
+        $num_max++;
+}
+if ($save_as_draft) {
+        $num_max++;
+}
+for ($p = 0; $p < count($boxes) && $count_special_folders < $num_max; $p++) {
+    if (strtolower($boxes[$p]['unformatted']) == 'inbox')
+        $count_special_folders++;
+    else if (strtolower($imap_server_type) == 'courier' &&
+            strtolower($boxes[$p]['unformatted']) == 'inbox.trash')
+        $count_special_folders++;
+    else if ($boxes[$p]['unformatted'] == $trash_folder && $trash_folder)
+        $count_special_folders++;
+    else if ($boxes[$p]['unformatted'] == $sent_folder && $sent_folder)
+        $count_special_folders++;
+    else if ($boxes[$p]['unformatted'] == $draft_folder && $draft_folder)
+        $count_special_folders++;
+}
+
+
 /** RENAMING FOLDERS **/
 echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>".
      _("Rename a Folder").
      "</B></TD></TR>".
      "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
-if (count($boxes)) {
-    echo "<FORM ACTION=\"folders_rename_getname.php\" METHOD=\"POST\">\n".
-         "<TT><SELECT NAME=old>\n";
+if ($count_special_folders < count($boxes)) {
+    echo "<FORM ACTION=\"folders_rename_getname.php\" METHOD=\"POST\">\n"
+       . "<TT><SELECT NAME=old>\n"
+       . '         <OPTION VALUE="">[ ' . _("Select a folder") . " ]</OPTION>\n";
     for ($i = 0; $i < count($boxes); $i++) {
         $use_folder = true;
 
@@ -144,34 +173,10 @@ echo _("Delete Folder");
 echo "</B></TD></TR>";
 echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
 
-$count_special_folders = 0;
-$num_max = 1;
-if (strtolower($imap_server_type) == "courier" || $move_to_trash) {
-        $num_max++;
-}
-if ($move_to_sent) {
-        $num_max++;
-}
-if ($save_as_draft) {
-        $num_max++;
-}
-for ($p = 0; $p < count($boxes) && $count_special_folders < $num_max; $p++) {
-    if (strtolower($boxes[$p]['unformatted']) == 'inbox')
-        $count_special_folders++;
-    else if (strtolower($imap_server_type) == 'courier' &&
-            strtolower($boxes[$p]['unformatted']) == 'inbox.trash')
-        $count_special_folders++;
-    else if ($boxes[$p]['unformatted'] == $trash_folder && $trash_folder)
-        $count_special_folders++;
-    else if ($boxes[$p]['unformatted'] == $sent_folder && $sent_folder)
-        $count_special_folders++;
-    else if ($boxes[$p]['unformatted'] == $draft_folder && $draft_folder)
-        $count_special_folders++;
-}
-
 if ($count_special_folders < count($boxes)) {
-    echo "<FORM ACTION=\"folders_delete.php\" METHOD=\"POST\">\n";
-    echo "<TT><SELECT NAME=mailbox>\n";
+    echo "<FORM ACTION=\"folders_delete.php\" METHOD=\"POST\">\n"
+       . "<TT><SELECT NAME=mailbox>\n"
+       . '         <OPTION VALUE="">[ ' . _("Select a folder") . " ]</OPTION>\n";
     for ($i = 0; $i < count($boxes); $i++) {
         $use_folder = true;
         if ((strtolower($boxes[$i]['unformatted']) != 'inbox') &&
