@@ -47,6 +47,24 @@ class Deliver_SendMail extends Deliver {
     function getBcc() {
        return true;
     }
+
+   /**
+    * function clean_crlf
+    *
+    * Cleans each line to only end in a LF
+    * Returns the length of the line including a CR, 
+    * so that length is correct when the message is saved to imap
+    * Implemented to fix sendmail->postfix rejection of messages with attachments because of stray LF's
+    *
+    * @param string $s string to strip of CR's 
+    * @return integer length of string including a CR for each LF 
+    */
+    function clean_crlf(&$s) {
+        $s = str_replace("\r\n", "\n", $s);
+        $s = str_replace("\r", "\n", $s);
+        $s2 = str_replace("\n", "\r\n", $s);
+        return strlen($s2);
+    }
     
 }
 ?>
