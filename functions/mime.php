@@ -660,19 +660,18 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
             $chunk = $res[5];
             $encoded = true;
         }
-
-        if (!$encoded && $htmlsave) {
-            $ret .= htmlspecialchars($chunk);
-        } else {
-            $ret .= $chunk;
-        }
-
         if (!$encoded) {
             if ($htmlsave) {
                 $ret .= '&nbsp;';
             } else {
                 $ret .= ' ';
             }
+        }
+
+        if (!$encoded && $htmlsave) {
+            $ret .= htmlspecialchars($chunk);
+        } else {
+            $ret .= $chunk;
         }
         ++$i;
     }
