@@ -127,6 +127,16 @@ function logout_error( $errString, $errTitle = '' ) {
 function error_box($string, $color) {
     global $pageheader_sent;
 
+    if ( !isset( $color ) ) {
+        $color = array();
+        $color[0]  = '#DCDCDC';  /* light gray    TitleBar               */
+        $color[1]  = '#800000';  /* red                                  */
+        $color[2]  = '#CC0000';  /* light red     Warning/Error Messages */
+        $color[4]  = '#FFFFFF';  /* white         Normal Background      */
+        $color[7]  = '#0000CC';  /* blue          Links                  */
+        $color[8]  = '#000000';  /* black         Normal text            */
+    }
+
     $err = _("ERROR");
 
     $ret = concat_hook_function('error_box', $string);
