@@ -38,6 +38,7 @@
 
       $j = 0;
       while ($j < $numMessages) {
+//         echo "$numMessages -- $j -- $subject[$j]<BR>";
          $date[$j] = ereg_replace("  ", " ", $date[$j]);
          $tmpdate = explode(" ", trim($date[$j]));
 
@@ -83,6 +84,7 @@
          $msgs[$i]["FLAG_DELETED"]  = $messages[$j]["FLAG_DELETED"];
          $msgs[$i]["FLAG_ANSWERED"] = $messages[$j]["FLAG_ANSWERED"];
          $msgs[$i]["FLAG_SEEN"]     = $messages[$j]["FLAG_SEEN"];
+
          $i++;
          $j++;
       }
@@ -135,6 +137,15 @@
          }
       }
 
+//      $j = 0;
+//      while ($j < $numMessages) {
+//         $sub = $msgs[$j]["SUBJECT"];
+//         $id = $msgs[$j]["ID"];
+//         echo "$id -- $sub<BR>";
+//         $j++;
+//      }
+//exit;
+
       if ($startMessage + 24 < $numMessages) {
          $endMessage = $startMessage + 24;
       } else {
@@ -144,6 +155,7 @@
       $nextGroup = $startMessage + 25;
       $prevGroup = $startMessage - 25;
       $urlMailbox = urlencode($mailbox);
+
 
       /** This is the beginning of the message list table.  It wraps around all messages */
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1>";

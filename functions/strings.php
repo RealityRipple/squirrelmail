@@ -27,4 +27,22 @@
       return strrev($data);
    }
 
+   // Wraps text at $wrap_max characters
+   function wordWrap($line) {
+      $newline = $line;
+      $lastpart = $line;
+      $numlines = 0;
+      $wrap_max = 80;
+      while (strlen($lastpart) > $wrap_max) {
+         $pos = $wrap_max;
+         while ((substr($line, $pos, $pos+1) != " ") && ($pos > 0)) {
+            $pos--;
+         }
+         $before = substr($line, 0, $pos);
+         $lastpart = substr($line, $pos+1, strlen($line));
+         $newline = $before . "<BR>" . $lastpart;
+         $numlines++;
+      }
+      return $newline;
+   }
 ?>
