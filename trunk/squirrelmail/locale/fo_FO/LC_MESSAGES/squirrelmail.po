@@ -1,6 +1,6 @@
 # Faroese Language Translation
 # Copyright (C) 2003 Free Software Foundation, Inc.
-# Dánial Olsen <danial@com-data> & David Sundskarð <david@com-data.fo>, 2003.
+# Dánial Olsen <danial@com-data.fo> & Davið Sundskarð <david@com-data.fo>, 2003.
 #
 msgid ""
 msgstr ""
@@ -66,7 +66,7 @@ msgid "Unable to list addresses from %s"
 msgstr "Kann ikki vísa adressur frá %s"
 
 msgid "Your search failed with the following error(s)"
-msgstr "Feilur í leiting, við hesum feilum"
+msgstr "Feilur í leiting við hesum feilum"
 
 msgid "No persons matching your search was found"
 msgstr "Ongir persónar funnir sambært tíni leiting"
@@ -217,22 +217,22 @@ msgid "You have not filled in the \"To:\" field."
 msgstr "Tú hevur ikki útfylt \"Til:\" teigin."
 
 msgid "Draft folder"
-msgstr "Kladdu mappa"
+msgstr "Kladdu skjátta"
 
 msgid "Server replied: "
 msgstr "Servarin svaraði: "
 
 msgid "Illegal folder name.  Please select a different name."
-msgstr "Óloyviligt mappu navn.  Vinarliga vel eitt annað navn."
+msgstr "Óloyviligt skjáttu navn.  Vinarliga vel eitt annað navn."
 
 msgid "Click here to go back"
-msgstr "Trýst her fyri at bakka"
+msgstr "Trýst her fyri at venda aftur"
 
 msgid "You have not selected a folder to delete. Please do so."
-msgstr "Tú hevur ikki valt eina mappu at strika. Vinarliga ger tað."
+msgstr "Tú hevur ikki valt eina skjáttu at strika. Vinarliga ger tað."
 
 msgid "Delete Folder"
-msgstr "Strika Mappu"
+msgstr "Strika skjáttu"
 
 #, c-format
 msgid "Are you sure you want to delete %s?"
@@ -245,7 +245,7 @@ msgid "No"
 msgstr "Nei"
 
 msgid "Folders"
-msgstr "Mappur"
+msgstr "Skjáttur"
 
 msgid "Subscribed successfully!"
 msgstr "Hald teknað!"
@@ -254,46 +254,46 @@ msgid "Unsubscribed successfully!"
 msgstr "Hald fráteknað!"
 
 msgid "Deleted folder successfully!"
-msgstr "Mappa strikað!"
+msgstr "Skjátta strikað!"
 
 msgid "Created folder successfully!"
-msgstr "Mappa stovnað!"
+msgstr "Skjátta stovnað!"
 
 msgid "Renamed successfully!"
 msgstr "Navn broytt!"
 
 msgid "Subscription Unsuccessful - Folder does not exist."
-msgstr "Hald Ikki teknað - Mappa finst ikki."
+msgstr "Hald Ikki teknað - Skjátta finst ikki."
 
 msgid "refresh folder list"
-msgstr "endurles mappulista"
+msgstr "endurles skjáttulista"
 
 msgid "Create Folder"
-msgstr "Stovna Mappu"
+msgstr "Stovna skjáttu"
 
 msgid "as a subfolder of"
-msgstr "sum undirmappa av"
+msgstr "sum undirskjátta av"
 
 msgid "None"
-msgstr "Onki"
+msgstr "Ongum"
 
 msgid "Let this folder contain subfolders"
-msgstr "Loyv hesi mappuni at innihalda undirmappur"
+msgstr "Loyv hesi skjáttuni at innihalda undirskjáttur"
 
 msgid "Create"
 msgstr "Stovna"
 
 msgid "Rename a Folder"
-msgstr "Rætta Mappunavn"
+msgstr "Rætta skjáttunavn"
 
 msgid "Select a folder"
-msgstr "Vel mappu"
+msgstr "Vel skjáttu"
 
 msgid "Rename"
 msgstr "Rætta navn"
 
 msgid "No folders found"
-msgstr "Ongar mappur funnar"
+msgstr "Ongar skjáttur funnar"
 
 msgid "Delete"
 msgstr "Strika"
@@ -305,19 +305,19 @@ msgid "Subscribe"
 msgstr "Tekna hald"
 
 msgid "No folders were found to unsubscribe from!"
-msgstr "Ongar mappur vóru funnar at strika hald frá!"
+msgstr "Ongar skjáttur vóru funnar at strika hald frá!"
 
 msgid "No folders were found to subscribe to!"
-msgstr "Ongar mappur vóru funnar at tekna hald til!"
+msgstr "Ongar skjáttur vóru funnar at tekna hald til!"
 
 msgid "Subscribe to:"
 msgstr "Tekna hald til:"
 
 msgid "You have not selected a folder to rename. Please do so."
-msgstr "Tú hevur ikki valt eina mappu at broyta navn á. Vinarliga ger tað."
+msgstr "Tú hevur ikki valt eina skjáttu at broyta navn á. Vinarliga ger tað."
 
 msgid "Rename a folder"
-msgstr "Broyt navn á mappu"
+msgstr "Broyt navn á skjáttu"
 
 msgid "New name:"
 msgstr "Nýtt navn:"
@@ -335,7 +335,7 @@ msgstr "Hjálp"
 msgid ""
 "The help has not been translated to %s.  It will be displayed in English "
 "instead."
-msgstr "Hjálpin er ikki umsett til %s. Tað verður víst á enskum ístaðin"
+msgstr "Hjálpin er ikki umsett til %s. Hon verður víst á enskum í staðin."
 
 msgid "Some or all of the help documents are not present!"
 msgstr "Nakrar ella allar hjálpifílurnar eru ikki til staðar"
@@ -353,13 +353,13 @@ msgid "Top"
 msgstr "Topp"
 
 msgid "Viewing an image attachment"
-msgstr "Hyggja eftir viðheftari mynd"
+msgstr "Vísi viðhefta mynd"
 
 msgid "View message"
 msgstr "Vís boð"
 
 msgid "Download this as a file"
-msgstr "Taka niður sum fílu"
+msgstr "Tak niður sum fílu"
 
 msgid "INBOX"
 msgstr "INBOX"
@@ -371,25 +371,25 @@ msgid "Last Refresh"
 msgstr "Seinasta endurlesing"
 
 msgid "Save folder tree"
-msgstr "Goym mappu sum træ"
+msgstr "Goym skjáttu sum træ"
 
 msgid "Login"
 msgstr "Logga á"
 
 #, c-format
 msgid "%s Logo"
-msgstr "%s Búmerki"
+msgstr "%s búmerki"
 
 #, c-format
 msgid "SquirrelMail version %s"
 msgstr "ÍkornaPostur slepping %s"
 
 msgid "By the SquirrelMail Development Team"
-msgstr "Av ÍkornaPost Menningar Liðinum"
+msgstr "Av ÍkornaPost Menningarliðinum"
 
 #, c-format
 msgid "%s Login"
-msgstr "%s Logga á"
+msgstr "Logga á %s"
 
 msgid "Name:"
 msgstr "Navn:"
@@ -422,10 +422,10 @@ msgid "Edit"
 msgstr "Broyt"
 
 msgid "Up"
-msgstr "Upp"
+msgstr "upp"
 
 msgid "Down"
-msgstr "Niður"
+msgstr "niður"
 
 msgid "No highlighting is defined"
 msgstr "Ongin merking er vald"
@@ -446,10 +446,10 @@ msgid "Dark Yellow"
 msgstr "Myrkagult"
 
 msgid "Dark Cyan"
-msgstr "Myrkt Cyanblátt"
+msgstr "Myrkt cyanblátt"
 
 msgid "Dark Magenta"
-msgstr "Myrkt Magentareytt"
+msgstr "Myrkt magentareytt"
 
 msgid "Light Blue"
 msgstr "Ljósablátt"
@@ -461,10 +461,10 @@ msgid "Light Yellow"
 msgstr "Ljósagult"
 
 msgid "Light Cyan"
-msgstr "Ljóst Cyanblátt"
+msgstr "Ljóst cyanblátt"
 
 msgid "Light Magenta"
-msgstr "Ljóst Magentareytt"
+msgstr "Ljóst magentareytt"
 
 msgid "Dark Gray"
 msgstr "Myrkagrátt"
@@ -501,10 +501,10 @@ msgid "Add a New Identity"
 msgstr "Legg samleika afturat"
 
 msgid "Full Name"
-msgstr "Fult Navn"
+msgstr "Fult navn"
 
 msgid "E-Mail Address"
-msgstr "E-post Adressa"
+msgstr "E-post adressa"
 
 msgid "Reply To"
 msgstr "Svara"
@@ -558,13 +558,13 @@ msgid "Display Preferences"
 msgstr "Snið uppsetingar"
 
 msgid "Folder Preferences"
-msgstr "Mappu uppsetingar"
+msgstr "Skjáttu uppsetingar"
 
 msgid "Successfully Saved Options"
 msgstr "Valmøguleikar eru goymdir"
 
 msgid "Refresh Folder List"
-msgstr "Endurles mappulista"
+msgstr "Endurles skjáttulista"
 
 msgid "Refresh Page"
 msgstr "Endurles síðu"
@@ -573,8 +573,8 @@ msgid ""
 "This contains personal information about yourself such as your name, your "
 "email address, etc."
 msgstr ""
-"Hetta inniheldur tínir persónligu upplýsingar, so sum títt navn, tína e-post "
-"adressu osv."
+"Hetta inniheldur tínir persónligu upplýsingar, so sum títt navn, tína "
+"e-post adressu osv."
 
 msgid ""
 "You can change the way that SquirrelMail looks and displays information to "
@@ -594,7 +594,7 @@ msgstr ""
 
 msgid ""
 "These settings change the way your folders are displayed and manipulated."
-msgstr "Hesar uppsetingarnar broyta mátan, tínar mappur verða vístar."
+msgstr "Hesar uppsetingarnar broyta mátan, tínar skjáttur verða vístar."
 
 msgid ""
 "The order of the message index can be rearranged and changed to contain the "
@@ -616,7 +616,7 @@ msgid "Print"
 msgstr "Prenta"
 
 msgid "View Printable Version"
-msgstr "Vís Prent-útgávu"
+msgstr "Vís prent-útgávu"
 
 msgid "Read:"
 msgstr "Les:"
@@ -656,14 +656,14 @@ msgid ""
 "The message sender has requested a response to indicate that you have read "
 "this message. Would you like to send a receipt?"
 msgstr ""
-"Sendarin av boðunum hevur biðið um svar fyri at vita um tú hevur lisið hesi "
+"Sendarin av boðunum hevur biðið um svar fyri at vita, um tú hevur lisið hesi "
 "boðini. Vilt tú senda honum hesa kvittan?"
 
 msgid "Send read receipt now"
 msgstr "Send kvittan fyri lisin boð"
 
 msgid "Search results"
-msgstr "Leiti úrslit"
+msgstr "Leitiúrslit"
 
 msgid "Message List"
 msgstr "Boðlisti"
@@ -699,7 +699,7 @@ msgid "You must be logged in to access this page."
 msgstr "Tú mást verða loggaður á fyri at vísa hesa síðu."
 
 msgid "Folder:"
-msgstr "Mappa:"
+msgstr "Skjátta:"
 
 msgid "edit"
 msgstr "broyt"
@@ -723,7 +723,7 @@ msgid "Current Search"
 msgstr "Verandi leiting"
 
 msgid "All Folders"
-msgstr "Allar mappur"
+msgstr "Allar skjáttur"
 
 msgid "Body"
 msgstr "Innihald"
@@ -741,10 +741,10 @@ msgid "Sign Out"
 msgstr "Logga av"
 
 msgid "You have been successfully signed out."
-msgstr "Tú ert loggaður av."
+msgstr "Tú ert loggaður av"
 
 msgid "Click here to log back in."
-msgstr "Trýst her fyri at logga inn aftur."
+msgstr "Trýst her fyri at logga inn aftur"
 
 msgid "Viewing a Business Card"
 msgstr "Vísi eitt Business Card"
@@ -780,7 +780,7 @@ msgid "Note"
 msgstr "Viðmerking"
 
 msgid "Add to Addressbook"
-msgstr "Legg í Adressubók"
+msgstr "Legg afturat adressubók"
 
 msgid "Title & Org. / Dept."
 msgstr "Heiti & Fyrit. / Deild"
@@ -799,7 +799,7 @@ msgid "Database error: %s"
 msgstr "Feilur í dátugrunni: %s"
 
 msgid "Addressbook is read-only"
-msgstr "Adressubók kann bert Lesast"
+msgstr "Adressubók kann bert lesast"
 
 #, c-format
 msgid "User '%s' already exist"
@@ -891,28 +891,28 @@ msgstr "Leygardagur"
 
 #, fuzzy
 msgid "Sun"
-msgstr "Sunnudagur"
+msgstr "Sun"
 
 #, fuzzy
 msgid "Mon"
-msgstr "Mánadagur"
+msgstr "Mán"
 
 #, fuzzy
 msgid "Tue"
-msgstr "Týsdagur"
+msgstr "Týs"
 
 msgid "Wed"
-msgstr ""
+msgstr "Mik"
 
 msgid "Thu"
-msgstr ""
+msgstr "Hós"
 
 #, fuzzy
 msgid "Fri"
-msgstr "Fríggjadagur"
+msgstr "Frí"
 
 msgid "Sat"
-msgstr ""
+msgstr "Ley"
 
 msgid "January"
 msgstr "Januar"
@@ -952,53 +952,53 @@ msgstr "Desember"
 
 #, fuzzy
 msgid "Jan"
-msgstr "Januar"
+msgstr "Jan"
 
 msgid "Feb"
-msgstr ""
+msgstr "Feb"
 
 #, fuzzy
 msgid "Mar"
-msgstr "Mars"
+msgstr "Mar"
 
 #, fuzzy
 msgid "Apr"
-msgstr "Apríl"
+msgstr "Apr"
 
 msgid "Ma&#121;"
-msgstr ""
+msgstr "Mar"
 
 #, fuzzy
 msgid "Jun"
-msgstr "Juni"
+msgstr "Jun"
 
 #, fuzzy
 msgid "Jul"
-msgstr "Juli"
+msgstr "Jul"
 
 #, fuzzy
 msgid "Aug"
-msgstr "August"
+msgstr "Aug"
 
 msgid "Sep"
-msgstr ""
+msgstr "Sep"
 
 #, fuzzy
 msgid "Oct"
-msgstr "Oktober"
+msgstr "Okt"
 
 #, fuzzy
 msgid "Nov"
-msgstr "Nei"
+msgstr "Nov"
 
 msgid "Dec"
-msgstr ""
+msgstr "Des"
 
 msgid "D, F j, Y g:i a"
-msgstr "D, F j, Y g:i a"
+msgstr "D, j F, Y g:i a"
 
 msgid "D, F j, Y G:i"
-msgstr "D, F j, Y G:i"
+msgstr "D, j F, Y G:i"
 
 msgid "g:i a"
 msgstr "g:i a"
@@ -1013,14 +1013,14 @@ msgid "D, G:i"
 msgstr "D, G:i"
 
 msgid "M j, Y"
-msgstr "M j, Y"
+msgstr "j M, Y"
 
 #, c-format
 msgid "Preference database error (%s). Exiting abnormally"
 msgstr "Feilur í forvaldum dátugrunni (%s). Endi óvanliga"
 
 msgid "Unknown user or password incorrect."
-msgstr "Ókendur brúkari ella skeivt loyniorð."
+msgstr "Ókendur brúkari ella skeivt loyniorð"
 
 msgid "Click here to try again"
 msgstr "Trýst her fyri at royna aftur"
@@ -1056,7 +1056,9 @@ msgstr "Forvald fíla, %s, kundi ikki goymast. Set teg í samband við umsitaran."
 msgid ""
 "Preference file, %s, could not be copied from temporary file, %s. Contact "
 "your system administrator to resolve this issue."
-msgstr "Forvald fíla, %s, kundi ikki opnast. Set teg í samband við umsitaran."
+msgstr ""
+"Forvald fíla, %s, kundi ikki kopierast frá fyribils fílu, %s. Set teg í "
+"samband við umsitaran."
 
 #, c-format
 msgid "Error opening %s"
@@ -1095,21 +1097,22 @@ msgid ""
 "Signature file, %s, could not be copied from temporary file, %s. Contact "
 "your system administrator to resolve this issue."
 msgstr ""
-"Undirskrifta fíla, %s, kundi ikki opnast. Set teg í samband við umsitaran."
+"Undirskrifta fíla, %s, kundi kopierast frá fyribils fílu, %s. Set teg í "
+"samband við umsitaran."
 
 #, fuzzy
 msgid ""
 "You need to have php4 installed with the multibyte string function enabled "
 "(using configure option --enable-mbstring)."
 msgstr ""
-"You need to have php4 installed with the multibyte string function enabled "
-"(using configure option --with-mbstring)."
+"Tú mást hava php4 installerað við 'multibyte string' funkuni gildaðari "
+"(við at brúka møguleikan --with-mbstring)."
 
 msgid "ERROR : No available imapstream."
-msgstr "FEILUR : Ongin fríur imapstreymur"
+msgstr "FEILUR : Ongin fríur imapstreymur."
 
 msgid "ERROR : Could not complete request."
-msgstr "FEILUR : Kundi ikki fullføra umsøknina"
+msgstr "FEILUR : Kundi ikki fullføra umsøknina."
 
 msgid "Query:"
 msgstr "Fyrispurningur:"
@@ -1147,7 +1150,7 @@ msgstr "Loysn: "
 msgid ""
 "Remove unneccessary messages from your folder and start with your Trash "
 "folder."
-msgstr "Strika óneyðug boð frá tíni mappu og byrja við tíni Trash mappu."
+msgstr "Strika óneyðug boð frá tíni skjáttu og byrja við tíni Trash skjáttu."
 
 msgid "(no subject)"
 msgstr "(onki evni)"
@@ -1179,7 +1182,7 @@ msgstr ""
 "hesum. (Ella lat vera :) )"
 
 msgid "THIS FOLDER IS EMPTY"
-msgstr "HENDAN MAPPAN ER TÓM"
+msgstr "HENDAN SKJÁTTAN ER TÓM"
 
 msgid "Move Selected To"
 msgstr "Flyt vald boð til"
@@ -1241,8 +1244,8 @@ msgid ""
 "Body retrieval error. The reason for this is most probably that the message "
 "is malformed."
 msgstr ""
-"Kundi ikki heinta innihald. Orsøkin til hetta er óivað hon, at boðini "
-"eruavskapaði"
+"Kundi ikki heinta innihald. Orsøkin til hetta er óivað hon, at boðini eru "
+"avskapaði."
 
 msgid "Command:"
 msgstr "Kommando:"
@@ -1273,7 +1276,7 @@ msgid "Option Type '%s' Not Found"
 msgstr "Valmøguleiki '%s' ikki funnin"
 
 msgid "Current Folder"
-msgstr "Verandi mappa"
+msgstr "Núverandi skjátta"
 
 msgid "Compose"
 msgstr "Skriva"
@@ -1308,7 +1311,7 @@ msgstr "Feilur í setningsbygnaði; ókend kommando"
 
 msgid "Syntax error in parameters or arguments"
 msgstr ""
-"Setningsbygnaðarfeilur í bundnaðartølum ella ávirkjum(Syntax error in "
+"Setningsbygnaðarfeilur í bundnaðartølum ella ávirkjum (Syntax error in "
 "parameters or arguments)"
 
 msgid "Command not implemented"
@@ -1465,34 +1468,34 @@ msgid "Enable Thread Sort by References Header"
 msgstr "Gilda Tráðskiljing eftir Tilvísingar Høvdi"
 
 msgid "Special Folder Options"
-msgstr "Serligir Mappu valmøguleikar"
+msgstr "Serligir skjáttu valmøguleikar"
 
 msgid "Folder Path"
-msgstr "Mappugøta"
+msgstr "Skjáttugøta"
 
 msgid "Do not use Trash"
 msgstr "Ikki brúka Trash"
 
 msgid "Trash Folder"
-msgstr "Trash mappa"
+msgstr "Trash skjátta"
 
 msgid "Do not use Sent"
 msgstr "Ikki brúka Sent"
 
 msgid "Sent Folder"
-msgstr "Sent mappa"
+msgstr "Sent skjátta"
 
 msgid "Do not use Drafts"
 msgstr "Ikki brúka Drafts"
 
 msgid "Draft Folder"
-msgstr "Drafts mappa"
+msgstr "Drafts skjátta"
 
 msgid "Folder List Options"
-msgstr "Valmøguleikar fyri mappuvísing"
+msgstr "Valmøguleikar fyri skjáttuvísing"
 
 msgid "Location of Folder List"
-msgstr "Gøta til Mappuskrá"
+msgstr "Gøta til skjáttuskrá"
 
 msgid "Left"
 msgstr "Vinstru"
@@ -1504,7 +1507,7 @@ msgid "pixels"
 msgstr "pixlar"
 
 msgid "Width of Folder List"
-msgstr "Vídd av Mappuskrá"
+msgstr "Vídd av skjáttuskrá"
 
 msgid "Minutes"
 msgstr "Minuttir"
@@ -1516,7 +1519,7 @@ msgid "Minute"
 msgstr "Minutt"
 
 msgid "Auto Refresh Folder List"
-msgstr "Endurles Mappuskrá sjálvvirkið"
+msgstr "Endurles skjáttuskrá sjálvvirkið"
 
 msgid "Enable Unread Message Notification"
 msgstr "Gilda fráboðan um ólisin boð"
@@ -1537,13 +1540,13 @@ msgid "Unseen and Total"
 msgstr "Ósædd og Fulfíggjað"
 
 msgid "Enable Collapsable Folders"
-msgstr "Gilda mappur, ið kunnu krympast"
+msgstr "Gilda skjáttur, ið kunnu krympast"
 
 msgid "Enable Cumulative Unread Message Notification"
 msgstr "Gilda fráboðan um fleiri samanløgd ólisin boð"
 
 msgid "Show Clock on Folders Panel"
-msgstr "Vís klokku omanfyri mappulista"
+msgstr "Vís klokku omanfyri skjáttulista"
 
 msgid "No Clock"
 msgstr "Ongin klokka"
@@ -1564,7 +1567,7 @@ msgid "Disabled"
 msgstr "Sløkt"
 
 msgid "Folder Selection Options"
-msgstr "Mappu valmøguleikar"
+msgstr "Skjáttu valmøguleikar"
 
 msgid "Selection List Style"
 msgstr "Vísing av valhátti"
@@ -1612,16 +1615,16 @@ msgid "Reply Citation Style"
 msgstr "Snið til sitat í svari"
 
 msgid "No Citation"
-msgstr "Onki Sitat"
+msgstr "Onki sitat"
 
 msgid "AUTHOR Said"
-msgstr "HØVUNDI Segði"
+msgstr "HØVUNDI segði"
 
 msgid "Quote Who XML"
-msgstr "Sitat Hvør XML"
+msgstr "Sitat hvør XML"
 
 msgid "User-Defined"
-msgstr "Brúkara-Uppsett"
+msgstr "Brúkara-uppsett"
 
 msgid "User-Defined Citation Start"
 msgstr "Brúkara-Uppsett sitat byrjan"
@@ -1642,13 +1645,13 @@ msgid "Take Address"
 msgstr "Tak adressu"
 
 msgid "Address Book Take:"
-msgstr "Adressubók Tak:"
+msgstr "Goym adressur í adressubók:"
 
 msgid "Try to verify addresses"
 msgstr "Royn og vátta adressur"
 
 msgid "Config File Version"
-msgstr "Slepping av Uppsetingarfílu"
+msgstr "Slepping av uppsetingarfílu"
 
 msgid "Squirrelmail Version"
 msgstr "Slepping av ÍkornaPosti"
@@ -1657,22 +1660,22 @@ msgid "PHP Version"
 msgstr "Slepping av PHP"
 
 msgid "Organization Preferences"
-msgstr "Uppseting fyri Fyritøku"
+msgstr "Uppseting fyri fyritøku"
 
 msgid "Organization Name"
-msgstr "Navn á Fyritøku"
+msgstr "Navn á fyritøku"
 
 msgid "Organization Logo"
-msgstr "Búmerki hjá Fyritøku"
+msgstr "Búmerki hjá fyritøku"
 
 msgid "Organization Logo Width"
-msgstr "Vídd á Búmerki hjá Fyritøku"
+msgstr "Vídd á búmerki hjá fyritøku"
 
 msgid "Organization Logo Height"
-msgstr "Hædd á Búmerki hjá Fyritøku"
+msgstr "Hædd á búmerki hjá fyritøku"
 
 msgid "Organization Title"
-msgstr "Heiti á Fyritøku"
+msgstr "Heiti á fyritøku"
 
 msgid "Signout Page"
 msgstr "Logga av síða"
@@ -1681,10 +1684,10 @@ msgid "Provider Link URI"
 msgstr "Veitara Link URI"
 
 msgid "Provider Name"
-msgstr "Veitara Navn"
+msgstr "Veitaranavn"
 
 msgid "Default Language"
-msgstr "Sjálvsett Mál"
+msgstr "Sjálvsett mál"
 
 msgid "Top Frame"
 msgstr "Topp rammi"
@@ -1696,13 +1699,13 @@ msgid "Mail Domain"
 msgstr "Post Domain"
 
 msgid "IMAP Server Address"
-msgstr "IMAP Servara Adressa"
+msgstr "IMAP servara adressa"
 
 msgid "IMAP Server Port"
-msgstr "IMAP Servara Portur"
+msgstr "IMAP servara portur"
 
 msgid "IMAP Server Type"
-msgstr "IMAP Servara Slag"
+msgstr "IMAP servara slag"
 
 msgid "Cyrus IMAP server"
 msgstr "Cyrus IMAP servari"
@@ -1720,55 +1723,55 @@ msgid "Not one of the above servers"
 msgstr "Ongin av omanfyri nevndu servarum"
 
 msgid "IMAP Folder Delimiter"
-msgstr "IMAP Mappu Avmarkari"
+msgstr "IMAP skjáttu avmarkari"
 
 msgid "Use \"detect\" to auto-detect."
 msgstr "Brúka \"detect\" til sjálvkannan."
 
 msgid "Use TLS for IMAP Connections"
-msgstr "Brúka TLS til IMAP Sambond"
+msgstr "Brúka TLS til IMAP sambond"
 
 msgid "Requires PHP 4.3.x! Experimental."
-msgstr "Krevur PHP 4.3.x! Á Royndarstøði."
+msgstr "Krevur PHP 4.3.x! Á royndarstøði."
 
 msgid "IMAP Authentication Type"
-msgstr "IMAP Heimildarslag"
+msgstr "IMAP heimildarslag"
 
 msgid "Use Sendmail Binary"
-msgstr "Brúka Sendmail Tvítals (binary)"
+msgstr "Brúka Sendmail tvítals (binary)"
 
 msgid "Sendmail Path"
 msgstr "Leið til Sendmail"
 
 msgid "SMTP Server Address"
-msgstr "SMTP Servara Adressa"
+msgstr "SMTP servara adressa"
 
 msgid "SMTP Server Port"
-msgstr "SMTP Servara Portur"
+msgstr "SMTP servara portur"
 
 msgid "Use TLS for SMTP Connections"
-msgstr "Brúka TLS fyri SMTP Sambond"
+msgstr "Brúka TLS fyri SMTP sambond"
 
 msgid "SMTP Authentication Type"
-msgstr "SMTP Heimildarslag"
+msgstr "SMTP heimildarslag"
 
 msgid "POP3 Before SMTP?"
 msgstr "POP3 áðrenn SMTP?"
 
 msgid "Invert Time"
-msgstr "Vend Tíð"
+msgstr "Vend tíð"
 
 msgid "Use Confirmation Flags"
-msgstr "Brúka Staðfestingar Fløgg"
+msgstr "Brúka staðfestingar fløgg"
 
 msgid "Folders Defaults"
-msgstr "Mappu Sjálvsetingar"
+msgstr "Skjáttu sjálvsetingar"
 
 msgid "Default Folder Prefix"
-msgstr "Sjálvsett Mappu Prefiks"
+msgstr "Sjálvsett skjáttu prefiks"
 
 msgid "Show Folder Prefix Option"
-msgstr "Vís Mappu Prefiks Valmøguleika"
+msgstr "Vís skjáttu prefiks valmøguleika"
 
 msgid "By default, move to trash"
 msgstr "Flyt til trash sjálvvalt"
@@ -1780,55 +1783,55 @@ msgid "By default, save as draft"
 msgstr "Flyt til draft sjálvvalt"
 
 msgid "List Special Folders First"
-msgstr "Vís Serligar Mappur Fyrst"
+msgstr "Vís serligar skjáttur fyrst"
 
 msgid "Show Special Folders Color"
-msgstr "Vís Serligar Mappu Litir"
+msgstr "Vís serligar skjáttu litir"
 
 msgid "Auto Expunge"
-msgstr "Sletta Sjálvt"
+msgstr "Sletta sjálvt"
 
 msgid "Default Sub. of INBOX"
-msgstr "Sjálvsett Undirm. av INBOX"
+msgstr "Sjálvsett undirskj. av INBOX"
 
 msgid "Show 'Contain Sub.' Option"
-msgstr "Vís 'Innihald Undirm.' Valmøguleikar"
+msgstr "Vís 'Innihald undirskj.' valmøguleikar"
 
 msgid "Default Unseen Notify"
-msgstr "Sjálvsett Ósædd Fráboðan"
+msgstr "Sjálvsett ósædd fráboðan"
 
 msgid "Default Unseen Type"
-msgstr "Sjálvsett Ósætt Slag"
+msgstr "Sjálvsett ósætt slag"
 
 msgid "Auto Create Special Folders"
-msgstr "Stovna Serligar Mappur Sjálvvalt"
+msgstr "Stovna serligar skjáttur sjálvvalt"
 
 msgid "Default Javascript Adrressbook"
-msgstr "Sjálvsett Javascript Adressubók"
+msgstr "Sjálvsett Javascript adressubók"
 
 msgid "Auto delete folders"
-msgstr "Strika mappur sjálvvalt"
+msgstr "Strika skjáttur sjálvvalt"
 
 msgid "Enable /NoSelect folder fix"
-msgstr "Gilda /NoSelect mappur rætting"
+msgstr "Gilda /NoSelect skjáttur rætting"
 
 msgid "General Options"
 msgstr "Høvuðsvalmøguleikar"
 
 msgid "Default Charset"
-msgstr "Sjálvsett Teknsett"
+msgstr "Sjálvsett teknsett"
 
 msgid "Data Directory"
-msgstr "Data Directory"
+msgstr "Data directory"
 
 msgid "Temp Directory"
-msgstr "Temp Directory"
+msgstr "Temp directory"
 
 msgid "Hash Level"
-msgstr "Hash Stig"
+msgstr "Hash stig"
 
 msgid "Hash Disabled"
-msgstr "Hash Sløkt"
+msgstr "Hash sløkt"
 
 msgid "Moderate"
 msgstr "Hóvligt"
@@ -1837,10 +1840,10 @@ msgid "Medium"
 msgstr "Miðal"
 
 msgid "Default Left Size"
-msgstr "Sjálvsett Vinstra Síða"
+msgstr "Sjálvsett vinstra síða"
 
 msgid "Usernames in Lowercase"
-msgstr "Brúkaranøvn við Smáum"
+msgstr "Brúkaranøvn við smáum"
 
 msgid "Allow use of priority"
 msgstr "Loyv brúk av raðfesting"
@@ -1873,16 +1876,16 @@ msgid "PHP session name"
 msgstr "Navn á PHP sessión"
 
 msgid "Message of the Day"
-msgstr "Dagsins Boðskapur"
+msgstr "Dagsins boðskapur"
 
 msgid "Database"
 msgstr "Dátugrunnur"
 
 msgid "Address book DSN"
-msgstr "DSN hjá Adressubók"
+msgstr "DSN hjá adressubók"
 
 msgid "Address book table"
-msgstr "Tabell hjá Adressubók"
+msgstr "Tabell hjá adressubók"
 
 msgid "Preferences DSN"
 msgstr "Valmøguleikar til DSN"
@@ -1912,13 +1915,13 @@ msgid "Use index number of theme"
 msgstr "Brúka skránummar á temaði"
 
 msgid "Configuration Administrator"
-msgstr "Uppsetingar Umsitari"
+msgstr "Uppsetingar umsitari"
 
 msgid "Theme Name"
 msgstr "Tema Navn"
 
 msgid "Theme Path"
-msgstr "Leið til Tema"
+msgstr "Leið til tema"
 
 msgid "Plugins"
 msgstr "Plugins"
@@ -1940,7 +1943,7 @@ msgstr ""
 "ÍkornaPosti"
 
 msgid "Bug Reports:"
-msgstr "Feil Fráboðanir: "
+msgstr "Feil fráboðanir: "
 
 msgid "Show button in toolbar"
 msgstr "Vís knøtt í tólkassa"
@@ -1952,7 +1955,7 @@ msgid "Go"
 msgstr "Far"
 
 msgid "l, F j Y"
-msgstr "l, F j Y"
+msgstr "l, j F Y"
 
 msgid "ADD"
 msgstr "LEGG AFTURAT"
@@ -1964,7 +1967,7 @@ msgid "DEL"
 msgstr "STRIKA"
 
 msgid "Start time:"
-msgstr "Byrjunar tíð:"
+msgstr "Byrjunartíð:"
 
 msgid "Length:"
 msgstr "Longd:"
@@ -1976,7 +1979,7 @@ msgid "Title:"
 msgstr "Heiti:"
 
 msgid "Set Event"
-msgstr "Set Hending"
+msgstr "Set hending"
 
 msgid "Event Has been added!"
 msgstr "Hending er løgd afturat!"
@@ -2000,7 +2003,7 @@ msgid "Nothing to delete!"
 msgstr "Onki at strika!"
 
 msgid "Update Event"
-msgstr "Dagfør Hending"
+msgstr "Dagfør hending"
 
 msgid "Do you really want to change this event from:"
 msgstr "Vilt tú veruliga broyta hesa hending frá:"
@@ -2021,8 +2024,8 @@ msgid "15 min."
 msgstr "15 min."
 
 #, fuzzy
-msgid "30 min."
-msgstr "0 min."
+msgid "35 min."
+msgstr "35 min."
 
 msgid "45 min."
 msgstr "45 min."
@@ -2326,28 +2329,28 @@ msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
 msgstr "Um <b>%s</b> inniheldur <b>%s</b> flyt síðan til <b>%s</b>"
 
 msgid "Message Filters"
-msgstr "Boð Filtur"
+msgstr "Boð filtur"
 
 msgid ""
 "Filtering enables messages with different criteria to be automatically "
 "filtered into different folders for easier organization."
 msgstr ""
 "Filtrering loyvir boðum við ymiskum eyðkennum at verða filtreraði í ymiskar "
-"mappur av sær sjálvum, fyri lættari umsiting."
+"skjáttur av sær sjálvum, fyri lættari umsiting."
 
 msgid "SPAM Filters"
-msgstr "SPAM Filtur"
+msgstr "SPAM filtur"
 
 msgid ""
 "SPAM filters allow you to select from various DNS based blacklists to detect "
 "junk email in your INBOX and move it to another folder (like Trash)."
 msgstr ""
 "SPAM filtur loyva tær at velja ímillum ymiskar DNS-grundaðar svartalistar "
-"fyri at finna rusk post í INBOX og flyta hesar til aðrar mappur (sosum "
+"fyri at finna rusk post í INBOX og flyta hesar til aðrar skjáttur (sosum "
 "Trash)."
 
 msgid "Spam Filtering"
-msgstr "Spam Filtrering"
+msgstr "Spam filtrering"
 
 msgid "WARNING! Tell your admin to set the SpamFilters_YourHop variable"
 msgstr "ÁVARING! Bið umsitaran at seta SpamFilters_YourHop brigdilin"
@@ -2364,8 +2367,8 @@ msgid ""
 msgstr ""
 "Flyting av spam beinleiðis til trash er nokk ikki eitt gott hugskot í "
 "fyrstani, tí boð frá vinum og mailing-listum kunnu av óvart, verða merkt sum "
-"spam. Verð varugur við, at mappan ið tú setir hesa til, má helst verða tømd "
-"av og á, so tú ikki endar við einari yvirstórari mappu."
+"spam. Verð varugur við, at skjáttan ið tú setir hesa til, má helst verða tømd "
+"av og á, so tú ikki endar við einari yvirstórari skjáttu."
 
 msgid ""
 "The more messages you scan, the longer it takes.  I would suggest that you "
@@ -2375,7 +2378,7 @@ msgid ""
 "you'll scan even the spam you read with the new filters."
 msgstr ""
 "Fleiri boð tú kannar, longri tekur tað. Eg vildi rátt tær til bert at kanna "
-"nýggj boð.  Um tú gert eina broyting í tínum filtrum, eg vildi sett tað til "
+"nýggj boð.  Um tú gert eina broyting í tínum filtrum, eg vildi sett tað til " 
 "at kanna øll boð, hygg síðani eftir INBOX, kom síðani aftur og set tað til "
 "bert at kanna nýggj boð.  Á tann hátt verða tíni nýggju spam filtur sett í "
 "gildi, og tú kannar sjálvt spammið tú lesur við tínum nýggju filtrum."
@@ -2392,10 +2395,10 @@ msgid "Spam scan is limited to <b>%s</b>"
 msgstr "Spam kanning er avmarkað til <b>%s</b>"
 
 msgid "New Messages Only"
-msgstr "Bert Nýggj Boð"
+msgstr "Bert nýggj boð"
 
 msgid "All Messages"
-msgstr "Øll Boð"
+msgstr "Øll boð"
 
 msgid "ON"
 msgstr "TIL"
@@ -2407,7 +2410,7 @@ msgid " not found."
 msgstr " ikki funnið."
 
 msgid "Today's Fortune"
-msgstr "Dagsins Hepni"
+msgstr "Dagsins hepni"
 
 msgid "Fortunes:"
 msgstr "Hepni:"
@@ -2443,7 +2446,7 @@ msgid ""
 "This will send a message to %s requesting that you will be subscribed to "
 "this list. You will be subscribed with the address below."
 msgstr ""
-"Hetta sendir eini boð til %s við umbøn um tekning av haldi fyri hendan "
+"Hetta sendir eini boð til %s við umbøn um tekning av haldi fyri hendan " 
 "listan. Hald verður teknað við adressuni niðanfyri."
 
 #, c-format
@@ -2451,20 +2454,20 @@ msgid ""
 "This will send a message to %s requesting that you will be unsubscribed from "
 "this list. It will try to unsubscribe the adress below."
 msgstr ""
-"Hetta sendir eini boð til %s við umbøn um frátekning av haldi fyri hendan "
+"Hetta sendir eini boð til %s við umbøn um frátekning av haldi fyri hendan " 
 "listan. Hald verður fráteknað við adressuni niðanfyri."
 
 msgid "Send Mail"
-msgstr "Send Post"
+msgstr "Send post"
 
 msgid "Post to List"
-msgstr "Send til Lista"
+msgstr "Send til lista"
 
 msgid "Reply to List"
-msgstr "Svara til Lista"
+msgstr "Svara til lista"
 
 msgid "List Archives"
-msgstr "Lista Savn"
+msgstr "Lista savn"
 
 msgid "Contact Listowner"
 msgstr "Kontakta listaeigara"
@@ -2563,10 +2566,10 @@ msgid "Command failed "
 msgstr "Feilur í kommando "
 
 msgid "Remote POP server Fetching Mail"
-msgstr "POP fjarservari Heintar Post"
+msgstr "POP fjarservari heintar post"
 
 msgid "Select Server:"
-msgstr "Vel Servara"
+msgstr "Vel servara"
 
 msgid "Password for"
 msgstr "Loyniorð til"
@@ -2578,7 +2581,7 @@ msgid "Fetching from "
 msgstr "Heinti frá "
 
 msgid "Oops, "
-msgstr "Uuuups, "
+msgstr "Ups, "
 
 msgid "Opening IMAP server"
 msgstr "Opni IMAP servara"
@@ -2587,7 +2590,7 @@ msgid "Opening POP server"
 msgstr "Opni POP servara"
 
 msgid "Login Failed:"
-msgstr "Login Feilur:"
+msgstr "Login feilur:"
 
 msgid "Login OK: No new messages"
 msgstr "Login OK: ongi nýggj boð"
@@ -2626,7 +2629,7 @@ msgid "Saving UIDL"
 msgstr "Goymi UIDL"
 
 msgid "Refetching message "
-msgstr "Heinti boð ummaftur "
+msgstr "Heinti boð umaftur "
 
 msgid "Error Appending Message!"
 msgstr "Feilur meðan boð vóru løgd afturat!"
@@ -2658,8 +2661,8 @@ msgid ""
 "encryption anyway. Additionally, the encryption that we do to save it on the "
 "server can be undone by a hacker reading the source to this file."
 msgstr ""
-"Tú skalt verða varugur við, at krypteringin sum er nýtt til at goyma tíni "
-"loyniorð, ikki er heilt trygg.  Men tá tú nýtir pop, er onki krypterað "
+"Tú skalt verða varugur við, at krypteringin sum er nýtt til at goyma "
+"tíni loyniorð, ikki er heilt trygg.  Men tá tú nýtir pop, er onki krypterað "
 "allíkavæl, so tað ger onki."
 
 msgid "If you leave password empty, it will be required when you fetch mail."
@@ -2684,7 +2687,7 @@ msgid "Username:"
 msgstr "Brúkaranavn:"
 
 msgid "Store in Folder:"
-msgstr "Goym í mappu:"
+msgstr "Goym í skjáttu:"
 
 msgid "Leave Mail on Server"
 msgstr "Lat post liggja á servaranum"
@@ -2693,7 +2696,7 @@ msgid "Check mail during login"
 msgstr "Kanna post tá eg loggi á"
 
 msgid "Check mail during folder refresh"
-msgstr "Kanna post, tá eg endurlesi mappur"
+msgstr "Kanna post, tá eg endurlesi skjáttur"
 
 msgid "Modify Server"
 msgstr "Broyt servara"
@@ -2720,13 +2723,13 @@ msgid "Confirm delete of selected server?"
 msgstr "Vátta strikan av valda servara?"
 
 msgid "Confirm Delete"
-msgstr "Vátta Strikan"
+msgstr "Vátta strikan"
 
 msgid "Mofify a Server"
-msgstr "Broyt ein Servara"
+msgstr "Broyt ein servara"
 
 msgid "Undefined Function"
-msgstr "Ógreinað Funka"
+msgstr "Ógreinað funka"
 
 msgid "Hey! Wath do You are looking for?"
 msgstr "Hey! Hvat leita Tygum eftir?!?"
@@ -2738,10 +2741,10 @@ msgid "Warning, "
 msgstr "Ávaring, "
 
 msgid "Mail Fetch Result:"
-msgstr "Heinta Post Úrslit:"
+msgstr "Heinta post úrslit:"
 
 msgid "Simple POP3 Fetch Mail"
-msgstr "Einfalt POP3 Heinta Post"
+msgstr "Einfalt POP3 heinta post"
 
 msgid ""
 "This configures settings for downloading email from a pop3 mailbox to your "
@@ -2751,7 +2754,7 @@ msgstr ""
 "tína konto á hesum servaranum."
 
 msgid "Message Details"
-msgstr "Boð Útgreinað"
+msgstr "Boð útgreinað"
 
 msgid "Close Window"
 msgstr "Lat vindeygað aftur"
@@ -2760,7 +2763,7 @@ msgid "Save Message"
 msgstr "Goym boð"
 
 msgid "View Message details"
-msgstr "Vís Boð Útgreinað"
+msgstr "Vís boð útgreinað"
 
 msgid "New Mail Notification"
 msgstr "Fráboðan um nýggjan post"
@@ -2778,7 +2781,7 @@ msgid ""
 "The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
 "folders for unseen mail, not just the inbox for notification."
 msgstr ""
-"2. <b>Kanna allar mappur, ikki bert INBOX</b> ger tað, at allar mappur verða "
+"2. <b>Kanna allar skjáttur, ikki bert INBOX</b> ger tað, at allar skjáttur verða "
 "kannaðar fyri nýggjan post. Ikki bert INBOX."
 
 msgid ""
@@ -2813,18 +2816,20 @@ msgstr ""
 #, fuzzy
 msgid ""
 "Select from the list of <b>server files</b> the media file to play when new "
-"mail arrives.  If no file is specified, \"(none)\", no sound will be used."
+"mail arrives.  Selecting <b>local media</b> will play the file specified in "
+"the <b>local media file</b> box to play from the local computer.  If no file "
+"is specified, the system will use a default from the server."
 msgstr ""
 "6. Vel úr listanum av <b>servara fílum</b>, hvørjar fílur skulu spælast tá "
 "nýggjur postur kemur.  Velur tú <b>lokal media</b>, velur tú hvørja fílu í "
-"<b>Lokal Media Fíla</b> tú spælir frá lokalu telduni.  Er ongin fíla er "
-"vald, verður ein sjálvvald frá servaranum spæld."
+"<b>Lokal Media Fíla</b> tú spælir frá lokalu telduni.  Er ongin fíla er vald, "
+"verður ein sjálvvald frá servaranum spæld."
 
 msgid "Enable Media Playing"
 msgstr "Ger tað møguligt at spæla media"
 
 msgid "Check all boxes, not just INBOX"
-msgstr "Kanna allar mappur, ikki bert INBOX"
+msgstr "Kanna allar skjáttur, ikki bert INBOX"
 
 msgid "Count only messages that are RECENT"
 msgstr "Tel bara boð sum eru NÝLIGA"
@@ -2861,7 +2866,7 @@ msgid "You have new mail!"
 msgstr "Tú hevur fingið post!"
 
 msgid "NewMail Options"
-msgstr "\"Nýggjur Postur\" - Valmøguleikar"
+msgstr "\"Nýggjur Postur\" - valmøguleikar"
 
 msgid ""
 "This configures settings for playing sounds and/or showing popup windows "
@@ -2875,27 +2880,27 @@ msgstr "\"Nýggjur Postur\" fráboðan goymd"
 
 #, c-format
 msgid "%s New Messages"
-msgstr "%s Nýggj Boð"
+msgstr "%s nýggj boð"
 
 #, c-format
 msgid "%s New Message"
-msgstr "%s Nýtt Boð"
+msgstr "%s nýtt boð"
 
 msgid "Test Sound"
-msgstr "Royn Ljóð"
+msgstr "Royn ljóð"
 
 #, fuzzy
 msgid "No sound specified"
-msgstr "Ongin servari valdur"
+msgstr "Onki ljóð valt"
 
 msgid "Loading the sound..."
 msgstr "Innlesi ljóðið..."
 
 msgid "Sent Subfolders Options"
-msgstr "Sent Undirmappur - Valmøguleikar"
+msgstr "Sent undirskjáttur - valmøguleikar"
 
 msgid "Use Sent Subfolders"
-msgstr "Brúka Sent Undirmappur"
+msgstr "Brúka sent undirskjáttur"
 
 msgid "Monthly"
 msgstr "Mánaðarliga"
@@ -2907,7 +2912,7 @@ msgid "Yearly"
 msgstr "Árliga"
 
 msgid "Base Sent Folder"
-msgstr "Uppruna Sent Mappa"
+msgstr "Uppruna Sent Skjátta"
 
 msgid "Report as Spam"
 msgstr "Fráboða sum Spam"
@@ -2935,7 +2940,7 @@ msgstr ""
 "ella velja hvørji mál skulu vera at velja í, tá tú rættstavar."
 
 msgid "Check Spelling"
-msgstr "Kanna Stavseting"
+msgstr "Kanna stavseting"
 
 msgid "Back to &quot;SpellChecker Options&quot; page"
 msgstr "Aftur til &quot;SquirrelSpell valmøguleikar&quot;"
@@ -3039,7 +3044,7 @@ msgid "Change ALL occurances of this word"
 msgstr "Broyt orðið, hvørjafer tað kemur fyri"
 
 msgid "Change All"
-msgstr "Broyt Øll"
+msgstr "Broyt øll"
 
 msgid "Ignore this word"
 msgstr "Síggj burtur frá hesum orði"
@@ -3183,7 +3188,7 @@ msgstr ""
 "loyniorði, ið ger tað torført hjá øðrum at síggja, hvat tín orðabók "
 "inniheldur.</p> <strong>LEGG TIL MERKIS:</strong> Gloymir tú loyniorðið, "
 "verður orðabókin ónýtilig, tí hon ikki kann dekrypterast longur. Broytir tú "
-"títt loyniorð, vil SquirrelSpell leggja hetta til merkis og spyrja teg um "
+"títt loyniorð, vil SquirrelSpell leggja hetta til merkis og spyrja teg um " 
 "títt gamla loyniorð, fyri at endurkryptera orðabókina við tínum nýggja lykli."
 "</p>"
 
@@ -3212,7 +3217,7 @@ msgstr ""
 "<p>Tín persónliga orðabók er <strong>ikki krypterað</strong>. Tú vilt "
 "møguliga kryptera tína persónligu orðabók fyri at halda hesa privata, um nú "
 "postskipanin fellur í skeivar hendur, og tín persónliga orðabókafíla verður "
-"stolin. Tá hon er krypterað, er innihaldið bronglað, og trupult er at "
+"stolin. Tá hon er krypterað, er innihaldið bronglað, og trupult er at"
 "avbrongla uttan at vita rætta lykilin (ið er títt postkassa loyniorð).</p> "
 "<strong>LEGG TIL MERKIS:</strong> Velur tú at kryptera tína persónligu "
 "orðabók, mást tú minnast til, at hon gerst &quot;bronglað&quot; við tínum "
@@ -3233,7 +3238,7 @@ msgid "All done!"
 msgstr "Liðugt!"
 
 msgid "Personal Dictionary Updated"
-msgstr "Persónliga Orðabókin Rættað"
+msgstr "Persónliga orðabókin rættað"
 
 msgid "No changes requested."
 msgstr "Ongar broytingar umbidnar."
@@ -3247,7 +3252,7 @@ msgid ""
 msgstr "Vel hvørja orðabók tú ætlar at nýta til at rættstava hesi boðini: "
 
 msgid "SquirrelSpell Initiating"
-msgstr "SquirrelSpell Byrjar"
+msgstr "SquirrelSpell byrjar"
 
 #, c-format
 msgid ""
@@ -3301,7 +3306,7 @@ msgid "Translator"
 msgstr "Umsetari"
 
 msgid "Saved Translation Options"
-msgstr "Goymdar Umsetingaruppsetingar"
+msgstr "Goymdir umsetingaruppsetingar"
 
 msgid "Your server options are as follows:"
 msgstr "Tín servarauppseting er hendan:"
@@ -3309,7 +3314,7 @@ msgstr "Tín servarauppseting er hendan:"
 #, fuzzy
 msgid ""
 "19 language pairs, maximum of 1000 characters translated, powered by Systran"
-msgstr "13 málpør, í mesta lagi 1000 stavir umsettir, rikin av Systran"
+msgstr "19 málpør, í mesta lagi 1000 stavir umsettir, rikin av Systran"
 
 msgid "12 language pairs, no known limits, powered by Systran"
 msgstr "12 málpør, ongar kendar avmarkingar, rikin av Systran"
@@ -3319,7 +3324,7 @@ msgid ""
 "784 language pairs, no known limits, powered by Translation Experts's "
 "InterTran"
 msgstr ""
-"767 málpør, ongar kendar avmarkingar, rikin av Translation Expert's InterTran"
+"784 málpør, ongar kendar avmarkingar, rikin av Translation Expert's InterTran"
 
 msgid ""
 "8 language pairs, no known limits, powered by GPLTrans (free, open source)"
@@ -3328,7 +3333,7 @@ msgstr ""
 
 #, fuzzy
 msgid "4 language pairs for Hellenic, no known limits, powered by Systran"
-msgstr "12 málpør, ongar kendar avmarkingar, rikin av Systran"
+msgstr "4 málpør, til Hellenic, ongar kendar avmarkingar, rikin av Systran"
 
 msgid ""
 "You also decide if you want the translation box displayed, and where it will "
@@ -3380,7 +3385,7 @@ msgstr "Enskt"
 
 #, fuzzy
 msgid "Chinese"
-msgstr "Broyt"
+msgstr "Kinesiskt"
 
 msgid "French"
 msgstr "Franskt"
@@ -3396,7 +3401,7 @@ msgstr "Japanskt"
 
 #, fuzzy
 msgid "Korean"
-msgstr "Norskt"
+msgstr "Koreanskt"
 
 msgid "Portuguese"
 msgstr "Portugisiskt"
@@ -3478,17 +3483,17 @@ msgstr "Latín"
 
 #, fuzzy
 msgid "to English"
-msgstr "Enskt"
+msgstr "til Enskt"
 
 #, fuzzy
 msgid "from English"
-msgstr "Enskt"
+msgstr "frá Enskum"
 
 msgid "Delivery error report"
 msgstr "Frágreiðing um feil levering"
 
 msgid "Undelivered Message Headers"
-msgstr "Óleverað Boðhøvd"
+msgstr "Óleverað boðhøvd"
 
 #~ msgid "Not available"
 #~ msgstr "Ikki tøkt"
