@@ -1,11 +1,25 @@
 <?php
+   /**
+    **  retrievalerror.php
+    **
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  Submits a message which Squirrelmail couldn't handle
+    **  because of malformedness of the message
+    **  sends it to retrievalerror@squirrelmail.org
+    **  Of course, this only happens when the end user has chosen to do so
+    **
+    **  $Id$
+    **/
+
    require_once('../src/validate.php');
    require_once("../functions/imap.php");
    require_once("../functions/smtp.php");
    require_once("../functions/page_header.php");
    require_once("../src/load_prefs.php");
 
-   $destination = "retrievalerror@gm44c.xs4all.nl";
+   $destination = "retrievalerror@squirrelmail.org";
 
    $attachments = array();
 
