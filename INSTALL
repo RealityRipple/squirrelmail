@@ -137,3 +137,10 @@ c. Setting up SquirrelMail
   Point your browser at the URL at which SquirrelMail is installed. It
   should be pretty stright forward to use. Some more documentation
   might show up onbe day or another.
+
+
+5. RUSSIAN CHARSETS
+-------------------
+
+  For information on how to make SquirrelMail work with Russian
+  Apache, see the README.russian_apache in the doc/ subdirectory.

@@ -13,6 +13,7 @@ Version 0.4pre1 -- Development
 - It doesn't bail out if PHP wasn't compiled with --with-gettext.  
     It only uses english in this case.
 - Added support for Cyrillic (thanks to Artem Botchkov for help)
+- Included information on Russian Apache from Konstantin Riabitsev
 - Honoring charset parameter for the body.
 - Changed the way emptying of trash was done to work better
     across different IMAP servers
