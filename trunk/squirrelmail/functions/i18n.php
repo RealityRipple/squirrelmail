@@ -141,6 +141,9 @@
    $languages['lt']['CHARSET'] = 'iso-8859-13';
    $languages['lt_LT']['ALIAS'] = 'lt';
 
+   $languages['sl']['NAME']    = 'Slovenian';
+   $languages['sl']['CHARSET'] = 'iso-8859-2';
+
    // Decodes a string to the internal encoding from the given charset
    function charset_decode ($charset, $string) {
       global $debug_mime;
