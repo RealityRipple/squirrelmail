@@ -162,10 +162,10 @@ function attachFiles ($fp, $session, $rn="\r\n") {
                          * Check if the last line has newline ($rn) in it
                          * and append if it doesn't.
                          */
-                        if ($file && feof($file) && !strstr($tmp, "$rn")){
+                        if ($file && feof($fp) && !strstr($tmp, "$rn")){
                             $tmp .= $rn;
                         }
-                        if ($fp) { 
+                        if ($fp) {
                             fputs($fp, $tmp);
                         }
                         $length += strlen($tmp);
@@ -779,7 +779,7 @@ function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN,
     global $useSendmail, $msg_id, $is_reply, $mailbox, $onetimepad,
         $data_dir, $username, $domain, $key, $version, $sent_folder, 
         $imapServerAddress, $imapPort, $default_use_priority, $more_headers, 
-        $request_mdn, $request_dr;
+        $request_mdn, $request_dr, $uid_support;
 
     $more_headers = Array();
     
@@ -797,7 +797,7 @@ function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN,
          * The References header should really be the old Referenced header
          * with the message ID appended, and now it is (jmunro)
          */
-	$sid = sqimap_session_id(); 
+	$sid = sqimap_session_id($uid_support); 
 	$query = "$sid FETCH $reply_id (BODY.PEEK[HEADER.FIELDS (Message-Id In-Reply-To)])\r\n";
 	fputs ($imap_stream, $query);
 	$read = sqimap_read_data($imap_stream, $sid, true, $response, $message);
