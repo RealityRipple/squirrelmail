@@ -37,7 +37,7 @@ if (isset($where) && isset($what)) {
     header("Location: $location/search.php?where=" . urlencode($where) .
            '&what=' . urlencode($what) . '&mailbox=' . urlencode($mailbox));
 } else {
-    if ($compose_new_win == '1') {
+    if (!empty($saved_draft) || !empty($mail_sent)) {
           header("Location: $location/compose.php?mail_sent=$mail_sent&saved_draft=$saved_draft");
     }
     else {
