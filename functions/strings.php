@@ -116,7 +116,6 @@ function sm_ctype_space($string) {
  * @return string the wrapped text
  */
 function &sqBodyWrap (&$body, $wrap) {
-    //sm_print_r($body);
     //check for ctype support, and fake it if it doesn't exist
     if (!function_exists('ctype_space')) {
         function ctype_space ($string) {
@@ -146,9 +145,9 @@ function &sqBodyWrap (&$body, $wrap) {
 
            // skip over any spaces interleaved among the cite markers
            while (($pos < $length) && ($body{$pos} == ' ')) {
-              
+
                $pos++;
-               
+
            }
            if ($pos >= $length) {
                break;
@@ -210,6 +209,10 @@ function &sqBodyWrap (&$body, $wrap) {
            $pos = $nextNewline + 1;
            continue;
        }
+       /**
+        * Set this to false to stop appending short strings to previous lines
+        */
+       $smartwrap = true;
 
        // inner loop, (obviously) handles wrapping up to
        // the next newline
@@ -218,6 +221,7 @@ function &sqBodyWrap (&$body, $wrap) {
            while (($pos < $nextNewline) && (ctype_space ($body{$pos}))) {
                $pos++;
            }
+
 
            // if this is a short line then just append it and continue outer loop
            if (($outStringCol + $nextNewline - $pos) <= ($wrap - $citeLevel - 1) ) {
@@ -228,53 +232,60 @@ function &sqBodyWrap (&$body, $wrap) {
                    $nextNewline++;
                }
 
-               if (($nextNewline < $length && $body{$nextNewline} == "\n") && 
-                     isset($lastRealChar)) {
-
-                     // trim trailing spaces
-                     $lastRealChar = $nextNewline;
-                     while (($lastRealChar > $pos && $lastRealChar < $length) && (ctype_space ($body{$lastRealChar}))) {
-                         $lastRealChar--;
-                     }
-
-                     //check the first word:
-                     $mypos = $nextNewline+1;
-                     while (($mypos < $length) && ($body{$mypos} == '>')) {
-                        $mypos++;
-
-                        // skip over any spaces interleaved among the cite markers
-                        while (($mypos < $length) && ($body{$mypos} == ' ')) {
-              
-                           $mypos++;
-               
-                        }
-                     }   
-                     $firstword = substr($body,$mypos,strpos($body,' ',$mypos) - $mypos);
-                     if ($firstword && ($firstword{0} == '-' ||
-                                        $firstword{0} == '+' ||
-                                        $firstword{0} == '*' ||
-                                        strpos($firstword,':'))) {
-                         $outString .= substr($body,$pos,($lastRealChar - $pos+1));
-                         $outStringCol += ($lastRealChar - $pos);
-                         sqMakeNewLine($outString,$citeLevel,$outStringCol);
-                         $nextNewline++;
-                         $pos = $nextNewline;
-                         $outStringCol--;
-                         continue; //break 2; 
-                     }
-               }
-
-
                // trim trailing spaces
                $lastRealChar = $nextNewline;
                while (($lastRealChar > $pos && $lastRealChar < $length) && (ctype_space ($body{$lastRealChar}))) {
                    $lastRealChar--;
                }
+
+               // decide if appending the short string is what we want
+               if (($nextNewline < $length && $body{$nextNewline} == "\n") &&
+                     isset($lastRealChar)) {
+
+                     //check the first word:
+                   $mypos = $nextNewline+1;
+                   while (($mypos < $length) && ($body{$mypos} == '>')) {
+                       $mypos++;
+                       // skip over any spaces interleaved among the cite markers
+                       while (($mypos < $length) && ($body{$mypos} == ' ')) {
+                           $mypos++;
+                       }
+                   }
+/*
+                     $ldnspacecnt = 0;
+                     if ($mypos == $nextNewline+1) {
+                        while (($mypos < $length) && ($body{$mypos} == ' ')) {
+                         $ldnspacecnt++;
+                        }
+                     }
+*/
+
+                   $firstword = substr($body,$mypos,strpos($body,' ',$mypos) - $mypos);
+
+                   //if ($dowrap || $ldnspacecnt > 1 || ($firstword && (
+                   if (!$smartwrap || $firstword && (
+                                        $firstword{0} == '-' ||
+                                        $firstword{0} == '+' ||
+                                        $firstword{0} == '*' ||
+                                        $firstword{0} == strtoupper($firstword{0}) ||
+                                        strpos($firstword,':'))) {
+                        $outString .= substr($body,$pos,($lastRealChar - $pos+1));
+                        $outStringCol += ($lastRealChar - $pos);
+                        sqMakeNewLine($outString,$citeLevel,$outStringCol);
+                        $nextNewline++;
+                        $pos = $nextNewline;
+                        $outStringCol--;
+                        continue;
+                   }
+
+               }
+
                $outString .= substr ($body, $pos, ($lastRealChar - $pos + 1));
                $outStringCol += ($lastRealChar - $pos);
                $pos = $nextNewline + 1;
                continue;
            }
+
            $eol = $pos + $wrap - $citeLevel - $outStringCol;
            // eol is the tentative end of line.
            // look backwards for there for a whitespace to break at.
