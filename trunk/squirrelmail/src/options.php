@@ -17,6 +17,7 @@ define('SM_PATH','../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
+require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/options.php');
@@ -115,23 +116,14 @@ function print_optionpages_row($leftopt, $rightopt = false) {
 /* ---------------------------- main ---------------------------- */
 
 /* get the globals that we may need */
-if (isset($_GET['optpage'])) {
-    $optpage = $_GET['optpage'];
-}
-elseif (isset($_POST['optpage'])) {
-    $optpage = $_POST['optpage'];
-}
-if (isset($_POST['optmode'])) {
-    $optmode = $_POST['optmode'];
-}
-if (isset($_POST['optpage_data'])) {
-    $optpage_data = $_POST['optpage_data'];
-}
-$username = $_SESSION['username'];
-$key = $_COOKIE['key'];
-$onetimepad = $_SESSION['onetimepad'];
-$delimiter = $_SESSION['delimiter'];
+sqgetGlobalVar('key',       $key,           SQ_COOKIE);
+sqgetGlobalVar('username',  $username,      SQ_SESSION);
+sqgetGlobalVar('onetimepad',$onetimepad,    SQ_SESSION);
+sqgetGlobalVar('delimiter', $delimiter,     SQ_SESSION);
 
+sqgetGlobalVar('optpage',     $optpage);
+sqgetGlobalVar('optmode',     $optmode,      SQ_POST);
+sqgetGlobalVar('optpage_data',$optpage_data, SQ_POST);
 /* end of getting globals */
 
 /* Make sure we have an Option Page set. Default to main. */

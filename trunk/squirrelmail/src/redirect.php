@@ -16,6 +16,7 @@
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
+require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/i18n.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'config/config.php');
@@ -24,10 +25,9 @@ require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/constants.php');
 require_once(SM_PATH . 'functions/page_header.php');
-require_once(SM_PATH . 'functions/global.php');
 
 // Remove slashes if PHP added them
-$REQUEST_METHOD = $_SERVER['REQUEST_METHOD'];
+sqgetGlobalVar('REQUEST_METHOD', $REQUEST_METHOD, SQ_SERVER);
 if (get_magic_quotes_gpc()) {
     if ($REQUEST_METHOD == 'POST') {
         RemoveSlashes($_POST);
@@ -68,7 +68,7 @@ setcookie('squirrelmail_language', $squirrelmail_language, time()+2592000,
           $base_uri);
 
 if (!isset($login_username)) {
-    include_once( '../functions/display_messages.php' );
+    include_once(SM_PATH .  'functions/display_messages.php' );
     logout_error( _("You must be logged in to access this page.") );    
     exit;
 }
@@ -120,9 +120,9 @@ sqsession_register($attachment_common_types_parsed, 'attachment_common_types_par
 
 $debug = false;
 
-if (isset($_SERVER['HTTP_ACCEPT']) &&
-    !isset($attachment_common_types_parsed[$_SERVER['HTTP_ACCEPT']])) {
-    attachment_common_parse($_SERVER['HTTP_ACCEPT'], $debug);
+if ( sqgetGlobalVar('HTTP_ACCEPT', $http_accept, SQ_SERVER) &&
+    !isset($attachment_common_types_parsed[$http_accept]) ) {
+    attachment_common_parse($http_accept, $debug);
 }
 
 /* Complete autodetection of Javascript. */

@@ -22,11 +22,10 @@ require_once(SM_PATH . 'functions/html.php');
 
 global $compose_new_win;
 
-if (isset($_SESSION['composesession'])) {
-    $composesession = $_SESSION['composesession'];
-} else {
-    $composesession = 0;
-} 
+if ( !sqgetGlobalVar('composesession', $composesession, SQ_SESSION) ) {
+  $composesession = 0;
+}
+
 /* obsolete ?? */
 function putSelectedMessagesIntoString($msg) {
     $j = 0;
@@ -119,57 +118,30 @@ function attachSelectedMessages($msg, $imapConnection) {
 
 
 /* get globals */
+sqgetGlobalVar('key',       $key,           SQ_COOKIE);
+sqgetGlobalVar('username',  $username,      SQ_SESSION);
+sqgetGlobalVar('onetimepad',$onetimepad,    SQ_SESSION);
+sqgetGlobalVar('delimiter', $delimiter,     SQ_SESSION);
+sqgetGlobalVar('base_uri',  $base_uri,      SQ_SESSION);
 
-$username = $_SESSION['username'];
-$key  = $_COOKIE['key'];
-$onetimepad = $_SESSION['onetimepad'];
-$base_uri = $_SESSION['base_uri'];
-$delimiter = $_SESSION['delimiter'];
+sqgetGlobalVar('mailbox', $mailbox);
+sqgetGlobalVar('startMessage', $startMessage);
+sqgetGlobalVar('msg', $msg);
 
-sqGetGlobalVar('mailbox', $mailbox);
-sqGetGlobalVar('startMessage', $startMessage);
-sqGetGlobalVar('msg', $msg);
+sqgetGlobalVar('msgs',              $msgs,              SQ_SESSION);
+sqgetGlobalVar('composesession',    $composesession,    SQ_SESSION);
+sqgetGlobalVar('lastTargetMailbox', $lastTargetMailbox, SQ_SESSION);
 
-if (isset($_POST['moveButton'])) {
-    $moveButton = $_POST['moveButton'];
-}
+sqgetGlobalVar('moveButton',      $moveButton,      SQ_POST);
+sqgetGlobalVar('expungeButton',   $expungeButton,   SQ_POST);
+sqgetGlobalVar('targetMailbox',   $targetMailbox,   SQ_POST);
+sqgetGlobalVar('expungeButton',   $expungeButton,   SQ_POST);
+sqgetGlobalVar('undeleteButton',  $undeleteButton,  SQ_POST);
+sqgetGlobalVar('markRead',        $markRead,        SQ_POST);
+sqgetGlobalVar('markUnread',      $markUnread,      SQ_POST);
+sqgetGlobalVar('attache',         $attache,         SQ_POST);
+sqgetGlobalVar('location',        $location,        SQ_POST);
 
-if (isset($_SESSION['msgs'])) {
-    $msgs = $_SESSION['msgs'];
-}
-
-if (isset($_POST['expungeButton'])) {
-    $expungeButton = $_POST['expungeButton'];
-}
-if (isset($_POST['targetMailbox'])) {
-    $targetMailbox = $_POST['targetMailbox'];
-}
-if (isset($_SESSION['lastTargetMailbox'])) {
-    $lastTargetMailbox = $_SESSION['lastTargetMailbox'];
-}
-if (isset($_POST['expungeButton'])) {
-    $expungeButton = $_POST['expungeButton'];
-}
-if (isset($_POST['undeleteButton'])) {
-    $undeleteButton = $_POST['undeleteButton'];
-}
-if (isset($_POST['markRead'])) {
-    $markRead = $_POST['markRead'];
-}
-if (isset($_POST['markUnread'])) {
-    $markUnread = $_POST['markUnread'];
-}
-if (isset($_POST['attache'])) {
-    $attache = $_POST['attache'];
-}
-
-if (isset($_POST['location'])) {
-    $location = $_POST['location'];
-}
-
-if (isset($_SESSION['composesession'])) {
-    $composesession = $_SESSION['composesession'];
-}
 /* end of get globals */
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);

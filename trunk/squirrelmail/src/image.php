@@ -16,6 +16,7 @@ define('SM_PATH','../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
+require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/html.php');
@@ -24,10 +25,12 @@ require_once(SM_PATH . 'include/load_prefs.php');
 displayPageHeader($color, 'None');
 
 /* globals */
-$mailbox = $_GET['mailbox'];
-$passed_id = (int) $_GET['passed_id'];
-$ent_id = $_GET['ent_id'];
-$QUERY_STRING = $_SERVER['QUERY_STRING'];
+if ( sqgetGlobalVar('passed_id', $temp, SQ_GET) ) {
+  $passed_id = (int) $temp;
+}
+sqgetGlobalVar('mailbox',       $mailbox,       SQ_GET);
+sqgetGlobalVar('ent_id',        $ent_id,        SQ_GET);
+sqgetGlobalVar('QUERY_STRING',  $QUERY_STRING,  SQ_SERVER);
 /* end globals */
 
 echo '<BR>' . 

@@ -41,58 +41,38 @@ require_once(SM_PATH . 'functions/html.php');
 
 
 /* lets get the global vars we may need */
-$username = $_SESSION['username'];
-$key  = $_COOKIE['key'];
-$onetimepad = $_SESSION['onetimepad'];
-$base_uri = $_SESSION['base_uri'];
-$delimiter = $_SESSION['delimiter'];
- 
-if (isset($_GET['startMessage'])) {
-    $startMessage = (int) $_GET['startMessage'];
-} elseif (isset($_POST['startMessage'])) {
-    $startMessage = (int) $_POST['startMessage'];
+sqgetGlobalVar('key',       $key,           SQ_COOKIE);
+sqgetGlobalVar('username',  $username,      SQ_SESSION);
+sqgetGlobalVar('onetimepad',$onetimepad,    SQ_SESSION);
+sqgetGlobalVar('delimiter', $delimiter,     SQ_SESSION);
+sqgetGlobalVar('base_uri',  $base_uri,      SQ_SESSION);
+
+sqgetGlobalVar('mailbox',   $mailbox);
+sqgetGlobalVar('lastTargetMailbox', $lastTargetMailbox, SQ_SESSION);
+sqgetGlobalVar('session',           $session,           SQ_GET);
+sqgetGlobalVar('note',              $note,              SQ_GET);
+
+if ( sqgetGlobalVar('startMessage', $temp) ) {
+  $startMessage = (int) $temp;
 }
-if (isset($_GET['mailbox'])) {
-    $mailbox = $_GET['mailbox'];
-} else if (isset($_POST['mailbox'])) {
-    $mailbox = $_POST['mailbox'];
+if ( sqgetGlobalVar('PG_SHOWNUM', $temp) ) {
+  $PG_SHOWNUM = (int) $temp;
 }
-if (isset($_GET['PG_SHOWNUM'])) {
-    $PG_SHOWNUM = (int) $_GET['PG_SHOWNUM'];
+if ( sqgetGlobalVar('PG_SHOWALL', $temp, SQ_GET) ) {
+  $PG_SHOWALL = (int) $temp;
 }
-elseif (isset($_SESSION['PG_SHOWNUM'])) {
-    $PG_SHOWNUM = (int) $_SESSION['PG_SHOWNUM'];
+if ( sqgetGlobalVar('newsort', $temp, SQ_GET) ) {
+  $newsort = (int) $temp;
 }
-if (isset($_GET['PG_SHOWALL'])) {
-    $PG_SHOWALL = (int) $_GET['PG_SHOWALL'];
+if ( sqgetGlobalVar('checkall', $temp, SQ_GET) ) {
+  $checkall = (int) $temp;
 }
-if (isset($_GET['newsort'])) {
-    $newsort = (int) $_GET['newsort'];
+if ( sqgetGlobalVar('set_thread', $temp, SQ_GET) ) {
+  $set_thread = (int) $temp;
 }
-if (isset($_GET['composenew'])) {
-    $composenew = $_GET['composenew'];
-} else {
+if ( !sqgetGlobalVar('composenew', $composenew, SQ_GET) ) {
     $composenew = false;
 }
-
-if (isset($_GET['checkall'])) {
-    $checkall = (int) $_GET['checkall'];
-}
-if (isset($_GET['set_thread'])) {
-    $set_thread = (int) $_GET['set_thread'];
-}
-if (isset($_SESSION['lastTargetMailbox'])) {
-    $lastTargetMailbox =$_SESSION['lastTargetMailbox'];
-}
-
-if (isset($_GET['session'])) {
-    $session = $_GET['session'];
-}
-
-if (isset($_GET['note'])) {
-	$note = $_GET['note'];
-}
-
 /* end of get globals */
 
 

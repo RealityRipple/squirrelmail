@@ -21,24 +21,19 @@ define('SM_PATH','../');
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/strings.php');
+require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/html.php');
 
 /* lets get the global vars we may need */
-$key  = $_COOKIE['key'];
-$username = $_SESSION['username'];
-$onetimepad = $_SESSION['onetimepad'];
-$base_uri = $_SESSION['base_uri'];
+sqgetGlobalVar('key',       $key,           SQ_COOKIE);
+sqgetGlobalVar('username',  $username,      SQ_SESSION);
+sqgetGlobalVar('onetimepad',$onetimepad,    SQ_SESSION);
+sqgetGlobalVar('base_uri',  $base_uri,      SQ_SESSION);
 
-sqgetGlobalVar('show' , $show);
-if ( isset($_POST['query']) ) {
-    $query = $_POST['query'];
-}
-if ( isset($_POST['listall']) ) {
-    $listall = $_POST['listall'];
-}
-if ( isset($_POST['backend'] ) ) {
-    $backend = $_POST['backend'];
-}
+sqgetGlobalVar('show' ,   $show);
+sqgetGlobalVar('query',   $query,   SQ_POST);
+sqgetGlobalVar('listall', $listall, SQ_POST);
+sqgetGlobalVar('backend', $backend, SQ_POST);
 
 /* Function to include JavaScript code */
 function insert_javascript() {

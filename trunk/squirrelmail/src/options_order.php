@@ -16,30 +16,18 @@ define('SM_PATH','../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
+require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/html.php');
 
 /* get globals */
-if (isset($_GET['num'])) {
-    $num = $_GET['num'];
-}
-if (isset($_GET['method'])) {
-    $method = $_GET['method'];
-}
-elseif (isset($_POST['method'])) {
-    $method = $_POST['method'];
-}
-if (isset($_POST['add'])) {
-    $add = $_POST['add'];
-}
-if (isset($_GET['submit'])) {
-    $submit = $_GET['submit'];
-}
-elseif (isset($_POST['submit'])) {
-    $submit = $_POST['submit'];
-}
+sqgetGlobalVar('num',       $num,       SQ_GET);  
+sqgetGlobalVar('add',       $add,       SQ_POST);
+
+sqgetGlobalVar('submit',    $submit);
+sqgetGlobalVar('method',    $method);
 /* end of get globals */
 
 displayPageHeader($color, 'None');

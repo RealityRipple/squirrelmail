@@ -16,40 +16,28 @@ define('SM_PATH','../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
+require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/addressbook.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/html.php');
 
 /* lets get the global vars we may need */
-$key  = $_COOKIE['key'];
+sqgetGlobalVar('key',       $key,           SQ_COOKIE);
 
-$username = $_SESSION['username'];
-$onetimepad = $_SESSION['onetimepad'];
-$base_uri = $_SESSION['base_uri'];
-$delimiter = $_SESSION['delimiter'];
+sqgetGlobalVar('username',  $username,      SQ_SESSION);
+sqgetGlobalVar('onetimepad',$onetimepad,    SQ_SESSION);
+sqgetGlobalVar('base_uri',  $base_uri,      SQ_SESSION);
+sqgetGlobalVar('delimiter', $delimiter,     SQ_SESSION);
 
 /* From the address form */
-if ( isset($_POST['addaddr']) ) {
-    $addaddr = &$_POST['addaddr'];
-}
-if ( isset($_POST['editaddr']) ) {
-    $editaddr = &$_POST['editaddr'];
-}
-if ( isset($_POST['deladdr']) ) {
-    $deladdr = &$_POST['deladdr'];
-}
-$sel = &$_POST['sel'];
-
-if (isset($_POST['oldnick'])) {
-    $oldnick = $_POST['oldnick'];
-}
-if (isset($_POST['backend'])) {
-    $backend = $_POST['backend'];
-}
-if (isset($_POST['doedit'])) {
-    $doedit = $_POST['doedit'];
-}
+sqgetGlobalVar('addaddr',   $addaddr,   SQ_POST);
+sqgetGlobalVar('editaddr',  $editaddr,  SQ_POST);
+sqgetGlobalVar('deladdr',   $deladdr,   SQ_POST);
+sqgetGlobalVar('sel',       $sel,       SQ_POST);
+sqgetGlobalVar('oldnick',   $oldnick,   SQ_POST);
+sqgetGlobalVar('backend',   $backend,   SQ_POST);
+sqgetGlobalVar('doedit',    $doedit,    SQ_POST); 
 
 /* Make an input field */
 function adressbook_inp_field($label, $field, $name, $size, $values, $add) {
@@ -107,7 +95,7 @@ $form_url = 'addressbook.php';
 
 
 /* Handle user's actions */
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
+if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'POST') {
 
     /**************************************************
      * Add new address                                *

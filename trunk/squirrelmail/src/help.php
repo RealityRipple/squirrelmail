@@ -128,13 +128,10 @@ if (file_exists("../help/$squirrelmail_language")) {
  * else see if we can get a relevant chapter from the referer */
 $chapter = 0;
 
-if ( isset( $_GET['chapter'] ) )
-{
-    $chapter = intval( $_GET['chapter']);
-}
-elseif (isset($_SERVER['HTTP_REFERER']))
-{
-    $ref = strtolower($_SERVER['HTTP_REFERER']);
+if ( sqgetGlobalVar('chapter', $temp, SQ_GET) ) {
+    $chapter = (int) $temp;
+} elseif ( sqgetGlobalVar('HTTP_REFERER', $temp, SQ_SERVER) ) {
+    $ref = strtolower($temp);
 
     $contexts = array ( 'src/compose' => 4, 'src/addr' => 5,
         'src/folders' => 6, 'src/options' => 7, 'src/right_main' => 2,

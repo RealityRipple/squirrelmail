@@ -21,17 +21,13 @@ require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 
 /* get globals we may need */
-
-$username = $_SESSION['username'];
-$key = $_COOKIE['key'];
-$delimiter = $_SESSION['delimiter'];
-$onetimepad = $_SESSION['onetimepad'];
-$folder_name = $_POST['folder_name'];
-$subfolder = $_POST['subfolder'];
-if (isset($_POST['contain_subs'])) {
-    $contain_subs = $_POST['contain_subs'];
-}
-
+sqgetGlobalVar('key',          $key,           SQ_COOKIE);
+sqgetGlobalVar('username',     $username,      SQ_SESSION);
+sqgetGlobalVar('onetimepad',   $onetimepad,    SQ_SESSION);
+sqgetGlobalVar('delimiter',    $delimiter,     SQ_SESSION);
+sqgetGlobalVar('folder_name',  $folder_name,   SQ_POST);
+sqgetGlobalVar('subfolder',    $subfolder,     SQ_POST);
+sqgetGlobalVar('contain_subs', $contain_subs,  SQ_POST);
 /* end of get globals */
 
 $folder_name = trim($folder_name);

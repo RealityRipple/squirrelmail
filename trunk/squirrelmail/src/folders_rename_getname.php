@@ -22,14 +22,11 @@ require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 
 /* get globals we may need */
-
-$username = $_SESSION['username'];
-$key = $_COOKIE['key'];
-$delimiter = $_SESSION['delimiter'];
-$onetimepad = $_SESSION['onetimepad'];
-
-$old = $_POST['old'];
-    
+sqgetGlobalVar('key',       $key,           SQ_COOKIE);
+sqgetGlobalVar('username',  $username,      SQ_SESSION);
+sqgetGlobalVar('onetimepad',$onetimepad,    SQ_SESSION);
+sqgetGlobalVar('delimiter', $delimiter,     SQ_SESSION);
+sqgetGlobalVar('old',       $old,           SQ_POST);
 /* end of get globals */
 
 if ($old == '') {
