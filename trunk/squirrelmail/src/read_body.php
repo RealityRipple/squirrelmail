@@ -3,6 +3,7 @@
    include("../functions/strings.php");
    include("../functions/page_header.php");
    include("../functions/imap.php");
+   include("../functions/mime.php");
    include("../functions/mailbox.php");
    include("../functions/date.php");
 
@@ -11,29 +12,24 @@
 
    echo "<HTML><BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000EE\" VLINK=\"#0000EE\" ALINK=\"#0000EE\">\n";
    displayPageHeader($mailbox);
-   $body = fetchBody($imapConnection, $passed_id);
-   getMessageHeaders($imapConnection, $passed_id, $passed_id, $f, $s, $d);
-   getMessageHeadersTo($imapConnection, $passed_id, $t);
-   getMessageHeadersCc($imapConnection, $passed_id, $c);
 
-   $subject = $s[0];
-   $url_subj = urlencode(trim($subject));
+   // $message contains all information about the message
+   // including header and body
+   $message = fetchMessage($imapConnection, $passed_id);
 
-   $d[0] = ereg_replace("  ", " ", $d[0]);
-   $dateParts = explode(" ", trim($d[0]));
-   $dateString = getLongDateString($dateParts);
-
-   $from_name = getSenderName($f[0]);
+   /** translate the subject and mailbox into url-able text **/
+   $url_subj = urlencode(trim($message["HEADER"]["SUBJECT"]));
    $urlMailbox = urlencode($mailbox);
+   $url_from = urlencode($message["HEADER"]["FROM"]);
 
-   $url_from = trim(decodeEmailAddr($f[0]));
-   $url_from = urlencode($url_from);
+   $dateString = getLongDateString($message["HEADER"]["DATE"]);
 
    /** FORMAT THE TO STRING **/
    $i = 0;
    $to_string = "";
-   $to_ary = $t;
+   $to_ary = $message["HEADER"]["TO"];
    while ($i < count($to_ary)) {
+      $to_ary[$i] = htmlspecialchars($to_ary[$i]);
       if ($to_string)
          $to_string = "$to_string<BR>$to_ary[$i]";
       else
@@ -55,8 +51,9 @@
    /** FORMAT THE CC STRING **/
    $i = 0;
    $cc_string = "";
-   $cc_ary = $c;
+   $cc_ary = $message["HEADER"]["CC"];
    while ($i < count($cc_ary)) {
+      $cc_ary[$i] = htmlspecialchars($cc_ary[$i]);
       if ($cc_string)
          $cc_string = "$cc_string<BR>$cc_ary[$i]";
       else
@@ -75,7 +72,9 @@
       }
    }
 
-
+   /** make sure everything will display in HTML format **/
+   $from_name = htmlspecialchars($message["HEADER"]["FROM"]);
+   $subject = htmlspecialchars($message["HEADER"]["SUBJECT"]);
 
    echo "<BR>";
    echo "<TABLE COLS=1 WIDTH=95% BORDER=0 ALIGN=CENTER CELLPADDING=2>\n";
@@ -131,7 +130,7 @@
    echo "         </TD>\n";
    echo "      </TR>\n";
    /** cc **/
-   if ($c[0]) {
+   if ($message["HEADER"]["CC"][0]) {
       echo "      <TR>\n";
       echo "         <TD BGCOLOR=FFFFFF WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
       echo "            <FONT FACE=\"Arial,Helvetica\">Cc:</FONT>\n";
@@ -143,10 +142,21 @@
    echo "   </TABLE></TD></TR>\n";
 
    echo "   <TR><TD BGCOLOR=FFFFFF WIDTH=100%><BR>\n";
-   $i = 0;
-   while ($i < count($body)) {
-      echo "$body[$i]";
-      $i++;
+   if (count($message["ENTITIES"]) > 1) {
+      echo "<B>This is a multipart MIME encoded message.<BR></B>";
+      $i = 0;
+      while ($i < count($message["ENTITIES"])) {
+         echo "<B>--(PART $i)--</B><BR>";
+         for ($p = 0; $p < count($message["ENTITIES"][$i][0]["BODY"]); $p++) {
+            echo $message["ENTITIES"][$i][0]["BODY"][$p];
+         }
+         $i++;
+      }
+   } else {
+      echo "<FONT COLOR=DD0000><B>This is a single part mime encoded message</B></FONT><BR>";
+      for ($p = 0; $p < count($message["ENTITIES"][0]["BODY"]); $p++) {
+         echo $message["ENTITIES"][0]["BODY"][$p];
+      }
    }
    echo "   <BR></TD></TR>\n";
    echo "   <TR><TD BGCOLOR=DCDCDC>&nbsp;</TD></TR>";
