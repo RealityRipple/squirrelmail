@@ -207,6 +207,8 @@ Version 1.5.1 -- CVS
   - Fixed sorting problem is get_squirrel_sort() function (#1115403).
   - Add "Show Only Subscribed Folders" option to allow users to show all
     folders instead of only subscribed ones (#1105756, #1105250).
+  - Add workaround for Mercury/32 servers that will subscribe again to
+    an already subscribed folder (#1115409).
 
 Version 1.5.0
 --------------------

@@ -890,10 +890,14 @@ if ($auto_create_special && !isset($auto_create_done)) {
             if ( !sqimap_mailbox_exists($imapConnection, $folder)) {
                 sqimap_mailbox_create($imapConnection, $folder, '');
             } else {
-                //if (!sqimap_mailbox_is_subscribed($imapConnection, $folder)) {
-                // check for subscription is useless and expensive  just
-                // surpress the NO response
-                sqimap_subscribe($imapConnection, $folder, false);
+                // check for subscription is useless and expensive, just
+                // surpress the NO response. Unless we're on Mecury, which
+                // will just subscribe a folder again if it's already
+                // subscribed.
+                if ( strtolower($imap_server_type) != 'mercury32' ||
+                    !sqimap_mailbox_is_subscribed($imapConnection, $folder) ) {
+                    sqimap_subscribe($imapConnection, $folder, false);
+                }
             }
         }
     }
