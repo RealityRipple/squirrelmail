@@ -15,6 +15,7 @@
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'functions/url_parser.php');
+require_once(SM_PATH . 'functions/forms.php');
 
 function valid_email ($email, $verify)
 {
@@ -38,8 +39,7 @@ function abook_take_read_string($str)
         $str = substr(strstr($str, $hits[0]), strlen($hits[0]));
         if (! isset($abook_found_email[$hits[0]]))
         {
-            echo '<input type="hidden" name="email[]" value="' .
-                 htmlspecialchars($hits[0]) . "\" />\n";
+            echo addHidden('email[]', htmlspecialchars($hits[0]));
             $abook_found_email[$hits[0]] = 1;
         }
     }
@@ -57,7 +57,8 @@ function abook_take_read()
 {
     global $message;
 
-    echo '<br /><form action="../plugins/abook_take/take.php" method="post"><center>'."\n";
+    echo '<br />' . addForm(SM_PATH . 'plugins/abook_take/take.php') .
+         '<center>' . "\n";
 
     if (isset($message->rfc822_header->reply_to))
         abook_take_read_array($message->rfc822_header->reply_to);
@@ -68,26 +69,24 @@ function abook_take_read()
     if (isset($message->rfc822_header->to))
         abook_take_read_array($message->rfc822_header->to);
 
-    echo '<input type="submit" value="' . _("Take Address") . '" />' .
-         '</center></form>';
+    echo addSubmit(_("Take Address")) .
+         '</center>';
 }
 
 function abook_take_pref()
 {
     global $username, $data_dir, $abook_take_verify;
 
-    $abook_take_verify = getPref($data_dir, $username, 'abook_take_verify');
+    $abook_take_verify = getPref($data_dir, $username, 'abook_take_verify', false);
 }
 
 function abook_take_options()
 {
     global $abook_take_verify;
 
-    echo '<tr>' . html_tag('td',_("Address Book Take:"),'right','','nowrap') . "\n" .
-         '<td><input name="abook_take_abook_take_verify" type="checkbox"';
-    if (isset($abook_take_verify) && $abook_take_verify)
-        echo ' checked';
-    echo ' /> ' . _("Try to verify addresses") . "</td></tr>\n";
+    echo '<tr>' . html_tag('td',_("Address Book Take:"),'right','','nowrap') . "\n" .  '<td>' .
+         addCheckbox('abook_take_abook_take_verify', $abook_take_verify) .
+         _("Try to verify addresses") . "</td></tr>\n";
 }
 
 function abook_take_save()
