@@ -382,13 +382,13 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
     arsort($read_list);
 
     $patterns = array (
-			"/^To:(.*)/iA",
-			"/^From:(.*)/iA",
-			"/^X-Priority:(.*)/iA",
-			"/^Cc:(.*)/iA",
-			"/^Date:(.*)/iA",
-			"/^Subject:(.*)/iA",
-			"/^Content-Type:(.*)/iA"
+			"/^To:(.*)\$/AU",
+			"/^From:(.*)\$/AU",
+			"/^X-Priority:(.*)\$/AU",
+			"/^Cc:(.*)\$/AU",
+			"/^Date:(.*)\$/AU",
+			"/^Subject:(.*)\$/AU",
+			"/^Content-Type:(.*)\$/AU"
 		);
     $regpattern = '';		
 
@@ -419,7 +419,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
 	    
 	    if ($read_part{0} == '*') {
 	        if ($internaldate) {
-		    if (preg_match ("/^.+INTERNALDATE\s\"(.+)\"\s.+/iUA",$read_part, $reg)) {
+		    if (preg_match ("/^.+INTERNALDATE\s+\"(.+)\".+/iUA",$read_part, $reg)) {
 			$date = $reg[1];
 		    }
 		}  
@@ -440,9 +440,8 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
 			    $flag_flagged = true;
 			}
 		    }	          
-    		} 
+    		}
 	    } else {
-
 		$firstchar = $read_part{0};	    	
 		if ($firstchar == 'T') {
 		    $regpattern = $patterns[0];
@@ -461,7 +460,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
 			$regpattern = $patterns[6];
 			$id = 7;
 		    }	
-		} else if ($firstchar == 'D') {
+		} else if ($firstchar == 'D' && !$internaldate ) {
 		    $regpattern = $patterns[4];
 		    $id = 5;
 		} else if ($firstchar == 'S') {
@@ -485,9 +484,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
 			      $cc = $regs[1];
 			      break;
 			    case 5:
-			      if (!$internaldate) {
-			        $date = $regs[1];
-			      }	
+			      $date = $regs[1];
 			      break;
 			    case 6:
             		      $subject = htmlspecialchars(trim($regs[1]));
@@ -630,12 +627,22 @@ function sqimap_get_header ($imap_stream, $read) {
     $hdr->type1 = "plain";
     $hdr->charset = "us-ascii";
 
+    $read_fold = array();
+
     while ($i < count($read)) {
-        //unfold multi-line headers
-        while ($i + 1 < count($read) && strspn($read[$i + 1], "\t ") > 0) {
-            $read[$i + 1] = substr($read[$i], 0, -2) . ' ' . ltrim($read[$i + 1]);
-            array_splice($read, $i, 1);
-        }
+        /* unfold multi-line headers */
+	/* remember line for to, cc and bcc */
+    	$read_fold[] = $read[$i];
+	$folded = false;
+    	while (($i + 1 < count($read)) && (strspn($read[$i + 1], "\t ") > 0) ) {
+    	    if ($read[$i+1] != '') $read_fold[] = $read[$i+1];
+    	    $read[$i + 1] = substr($read[$i], 0, -2) . ' ' . ltrim($read[$i+1]);
+	    array_splice($read, $i, 1);
+	    $folded = true;
+    	}
+	if (!$folded) {
+	    $read_fold = array();
+	}
 
         if (substr($read[$i], 0, 17) == "MIME-Version: 1.0") {
             $hdr->mime = true;
@@ -763,35 +770,48 @@ function sqimap_get_header ($imap_stream, $read) {
         /* CC */
         else if (strtolower(substr($read[$i], 0, 3)) == "cc:") {
             $pos = 0;
-            $hdr->cc[$pos] = trim(substr($read[$i], 4));
-            $i++;
-            while (((substr($read[$i], 0, 1) == " ") || (substr($read[$i], 0, 1) == "\t"))  && (trim($read[$i]) != "")){
-                $pos++;
-                $hdr->cc[$pos] = trim($read[$i]);
-                $i++;
+	    if (isset($read_fold[0])) {
+        	$hdr->cc[$pos] = trim(substr($read_fold[0], 4));
+		$pos++;
+        	while ($pos < count($read_fold)) {		    
+            	    $hdr->cc[$pos] = trim($read_fold[$pos]);
+            	    $pos++;
+		}
+            } else {
+        	$hdr->cc[$pos] = trim(substr($read[$i], 4));
             }
+	    $i++;
         }
         /* BCC */
         else if (strtolower(substr($read[$i], 0, 4)) == "bcc:") {
             $pos = 0;
-            $hdr->bcc[$pos] = trim(substr($read[$i], 5));
-            $i++;
-            while (((substr($read[$i], 0, 1) == " ") || (substr($read[$i], 0, 1) == "\t"))  && (trim($read[$i]) != "")){
-                $pos++;
-                $hdr->bcc[$pos] = trim($read[$i]);
-                $i++;
+	    if (isset($read_fold[0])) {
+        	$hdr->bcc[$pos] = trim(substr($read_fold[0], 5));
+		$pos++;
+        	while ($pos < count($read_fold)) {		    
+            	    $hdr->bcc[$pos] = trim($read_fold[$pos]);
+            	    $pos++;
+		}
+            } else {
+        	$hdr->bcc[$pos] = trim(substr($read[$i], 5));
             }
+	    $i++;
         }
         /* TO */
         else if (strtolower(substr($read[$i], 0, 3)) == "to:") {
             $pos = 0;
-            $hdr->to[$pos] = trim(substr($read[$i], 4));
-            $i++;
-            while (((substr($read[$i], 0, 1) == " ") || (substr($read[$i], 0, 1) == "\t"))  && (trim($read[$i]) != "")){
-                $pos++;
-                $hdr->to[$pos] = trim($read[$i]);
-                $i++;
+	    if (isset($read_fold[0])) {
+        	$hdr->to[$pos] = trim(substr($read_fold[0], 4));
+		$pos++;
+        	while ($pos < count($read_fold)) {		    
+            	    $hdr->to[$pos] = trim($read_fold[$pos]);
+            	    $pos++;
+		}
+            } else {
+        	$hdr->to[$pos] = trim(substr($read[$i], 4));
             }
+	    $i++;
+	    
         }
         /* MESSAGE ID */
         else if (strtolower(substr($read[$i], 0, 11)) == "message-id:") {
@@ -819,6 +839,7 @@ function sqimap_get_header ($imap_stream, $read) {
         else {
             $i++;
         }
+	$read_fold=array();
      }
      return $hdr;
 }
