@@ -213,25 +213,10 @@ for ($i=0; $i<sizeof($sqspell_output); $i++){
 
 if ($errors){
   /**
-   * So, there are errors
-   * This is the only place where the generic GUI-wrapper is not
-   * called, but generated right here. This is due to the complexity
-   * of the output.
-   */
-  echo "<html>\n"
-    . "<head>\n"
-    . '<title>' . _("SquirrelSpell Results") . '</title>';
-  /**
-   * Check if there are user-defined stylesheets.
-   */
-  if ($theme_css != '') {
-    echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$theme_css\" />\n";
-  }
-  /**
    * Load the spelling errors into JavaScript arrays
    * (More dark magic!)
    */
-  echo "<script type=\"text/javascript\">\n"
+  $extrajs="<script type=\"text/javascript\">\n"
     . "<!--\n";
   
   $sqspell_lines = explode("\n", $sqspell_text);
@@ -239,51 +224,51 @@ if ($errors){
    * The javascript array sqspell_lines[] contains all lines of
    * the message we've been checking.
    */
-  echo "var sqspell_lines=new Array();\n";
+  $extrajs.= "var sqspell_lines=new Array();\n";
   for ($i=0; $i<sizeof($sqspell_lines); $i++){
-    echo "sqspell_lines[$i] = \"" 
+    $extrajs.= "sqspell_lines[$i] = \"" 
       . chop(addslashes($sqspell_lines[$i])) . "\";\n";
   }  
-  echo "\n\n";
+  $extrajs.= "\n\n";
 
   /**
    * The javascript array misses[] contais all misspelled words.
    */
-  echo "var misses=new Array();\n";
+  $extrajs.= "var misses=new Array();\n";
   for ($i=0; $i<sizeof($missed_words); $i++){
-    echo "misses[$i] = \"" . $missed_words[$i] . "\";\n";
+    $extrajs.= "misses[$i] = \"" . $missed_words[$i] . "\";\n";
   }
-  echo "\n\n";
+  $extrajs.= "\n\n";
   
   /**
    * Suggestions are (guess what!) suggestions for misspellings
    */
-  echo "var suggestions = new Array();\n";
+  $extrajs.= "var suggestions = new Array();\n";
   $i=0;
   while (list($word, $value) = each($misses)){
     if ($value=='_NONE') $value='';
-    echo "suggestions[$i] = \"$value\";\n";
+    $extrajs.= "suggestions[$i] = \"$value\";\n";
     $i++;
   }
-  echo "\n\n";
+  $extrajs.= "\n\n";
 
   /**
    * Locations are where those misspellings are located, line:symbol
    */
-  echo "var locations= new Array();\n";
+  $extrajs.= "var locations= new Array();\n";
   $i=0;
   while (list($word, $value) = each($locations)){
-    echo "locations[$i] = \"$value\";\n";
+    $extrajs.= "locations[$i] = \"$value\";\n";
     $i++;
   }
 
   /** 
    * Add some strings so they can be i18n'd.
    */
-  echo "var ui_completed = \"" . _("Spellcheck completed. Commit changes?")
+  $extrajs.= "var ui_completed = \"" . _("Spellcheck completed. Commit changes?")
     . "\";\n";
-  echo "var ui_nochange = \"" . _("No changes were made.") . "\";\n";
-  echo "var ui_wait = \"" 
+  $extrajs.= "var ui_nochange = \"" . _("No changes were made.") . "\";\n";
+  $extrajs.= "var ui_wait = \"" 
     . _("Now saving your personal dictionary... Please wait.")
     . "\";\n";
   
@@ -292,11 +277,13 @@ if ($errors){
    * Did I mention that I hate dots on the end of contcatenated lines?
    * Dots at the beginning make so much more sense!
    */
-  echo "//-->\n"
+  $extrajs.= "//-->\n"
     . "</script>\n"
-    . "<script src=\"js/check_me.js\" type=\"text/javascript\"></script>\n"
-    . "</head>\n";
+    . "<script src=\"js/check_me.js\" type=\"text/javascript\"></script>\n";
   
+
+  displayHtmlHeader(_("SquirrelSpell Results"),$extrajs);
+
   echo "<body bgcolor=\"$color[4]\" text=\"$color[8]\" link=\"$color[7]\" "
     . "alink=\"$color[7]\" vlink=\"$color[7]\" "
     . "onload=\"populateSqspellForm()\">\n";
