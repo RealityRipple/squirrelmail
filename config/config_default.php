@@ -529,6 +529,10 @@ global $imap_auth_mech;
 $smtp_auth_mech = 'none';
 $imap_auth_mech = 'plain';
 
+/* PHP session name.  Leave this alone unless you know what you are doing. */
+global $session_name;
+$session_name = 'SQMSESSID';
+
 /**
  * Make sure there are no characters after the PHP closing
  * tag below (including newline characters and whitespace).
