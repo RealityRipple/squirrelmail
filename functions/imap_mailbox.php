@@ -446,6 +446,52 @@ function user_strcasecmp($a, $b) {
     return $result;
 }
 
+/*
+ * Returns list of options (to be echoed into select statement
+ * based on available mailboxes and separators
+ * Caller should surround options with <SELECT..> </SELECT> and
+ * any formatting.
+ *   $imap_stream - $imapConnection to query for mailboxes
+ *   $show_selected - array containing list of mailboxes to pre-select (0 if none)
+ *   $folder_skip - array of folders to keep out of option list (compared in lower)
+ *   $boxes - list of already fetched boxes (for places like folder panel, where
+ *            you know these options will be shown 3 times in a row.. (most often unset).
+ */
+function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_skip = 0, $boxes = 0 ) {
+    global $username, $data_dir;
+    $mbox_options = '';
+
+    $shorten_box_names = getPref($data_dir, $username, 'mailbox_select_style', SMPREF_OFF);
+    
+    if ( $boxes == 0 ) {
+        $boxes = sqimap_mailbox_list($imap_stream);
+    }   
+    foreach ($boxes as $boxes_part) {
+        if (!in_array('noselect', $boxes_part['flags'])) {
+            $box = $boxes_part['unformatted'];
+            $lowerbox = strtolower($box);
+
+            if ( $folder_skip != 0 && in_array($lowerbox, $folder_skip) ) {
+                continue;
+            }
+            if ($lowerbox == 'inbox'){
+                $box2 = _("INBOX");
+            } else if ( $shorten_box_names == 2 ) {  /* delimited, style = 2 */
+                $box2 = str_replace('&nbsp;&nbsp;', '.&nbsp;', $boxes_part['formatted']);
+            } else if ( $shorten_box_names == 1 ) {     /* indent, style = 1 */
+                $box2 = $boxes_part['formatted'];
+            } else  {                      /* default, long names, style = 0 */
+                $box2 = str_replace(' ', '&nbsp;', imap_utf7_decode_local($boxes_part['unformatted-disp']));
+            }
+            if ($show_selected != 0 && in_array($lowerbox, $show_selected) ) {
+                $mbox_options .= '<OPTION VALUE="'.$box.'" SELECTED>'.$box2.'</OPTION>' . "\n";
+            } else {
+                $mbox_options .= '<OPTION VALUE="'.$box.'">'.$box2.'</OPTION>' . "\n";
+            }
+        }
+    }
+    return $mbox_options;
+}
 
 /*
  * Returns sorted mailbox lists in several different ways. 

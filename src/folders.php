@@ -109,25 +109,17 @@ if ($default_sub_of_inbox == false) {
     echo '<OPTION VALUE="">[ '._("None")." ]\n";
 }
 
-for ($i = 0, $cnt=count($boxes); $i < $cnt; $i++) {
-    if (!in_array('noinferiors', $boxes[$i]['flags'])) {
-        if ((strtolower($boxes[$i]['unformatted']) == 'inbox') &&
-            $default_sub_of_inbox) {
-
-            $box = $boxes[$i]['unformatted'];
-            $box2 = str_replace(' ', '&nbsp;',
-                                imap_utf7_decode_local($boxes[$i]['unformatted-disp']));
-            echo "<OPTION SELECTED VALUE=\"$box\">$box2</option>\n";
-        } else {
-            $box = $boxes[$i]['unformatted'];
-            $box2 = str_replace(' ', '&nbsp;',
-                                imap_utf7_decode_local($boxes[$i]['unformatted-disp'])); 
-            if (strtolower($imap_server_type) != 'courier' ||
-                  strtolower($box) != "inbox.trash")
-                echo "<OPTION VALUE=\"$box\">$box2</option>\n";
-        }
-    }
+$show_selected = 0;
+if ( $default_sub_of_inbox ) {
+    $show_selected = array('inbox');
 }
+$skip_folders = 0;
+if ( strtolower($imap_server_type) == 'courier' ) {
+    $skip_folders = array('inbox.trash');
+}
+
+echo sqimap_mailbox_option_list($imapConnection, $show_selected, $skip_folders, $boxes, 'noinferiors');
+
 echo "</SELECT></TT>\n";
 if ($show_contain_subfolders_option) {
     echo '<br><input type=CHECKBOX NAME="contain_subs"> &nbsp;'
@@ -179,22 +171,9 @@ if ($count_special_folders < count($boxes)) {
     echo "<FORM ACTION=\"folders_rename_getname.php\" METHOD=\"POST\">\n"
        . "<TT><SELECT NAME=old>\n"
        . '         <OPTION VALUE="">[ ' . _("Select a folder") . " ]</OPTION>\n";
-    for ($i = 0; $i < count($boxes); $i++) {
-        $use_folder = true;
 
-        if ((strtolower($boxes[$i]['unformatted']) != 'inbox') &&
-            ($boxes[$i]['unformatted'] != $trash_folder)  &&
-            ($boxes[$i]['unformatted'] != $sent_folder) &&
-            ($boxes[$i]['unformatted'] != $draft_folder)) {
-            $box = $boxes[$i]['unformatted-dm'];
+    echo sqimap_mailbox_option_list($imapConnection, 0, $skip_folders, $boxes);
 
-            $box2 = str_replace(' ', '&nbsp;',
-                                imap_utf7_decode_local($boxes[$i]['unformatted-disp']));
-            if (strtolower($imap_server_type) != 'courier' || strtolower($box) != 'inbox.trash') {
-                echo "<OPTION VALUE=\"$box\">$box2</option>\n";
-            }
-        }
-    }
     echo "</SELECT></TT>\n".
          "<input type=SUBMIT VALUE=\"".
          _("Rename").
@@ -220,21 +199,9 @@ if ($count_special_folders < count($boxes)) {
     echo "<FORM ACTION=\"folders_delete.php\" METHOD=\"POST\">\n"
        . "<TT><SELECT NAME=mailbox>\n"
        . '         <OPTION VALUE="">[ ' . _("Select a folder") . " ]</OPTION>\n";
-    for ($i = 0; $i < count($boxes); $i++) {
-        $use_folder = true;
-        if ((strtolower($boxes[$i]['unformatted']) != 'inbox') &&
-            ($boxes[$i]['unformatted'] != $trash_folder) &&
-            ($boxes[$i]['unformatted'] != $sent_folder) &&
-            ($boxes[$i]['unformatted'] != $draft_folder) &&
-            (!in_array('noselect', $boxes[$i]['flags'])) &&
-            ((strtolower($imap_server_type) != 'courier') ||
-             (strtolower($boxes[$i]['unformatted']) != 'inbox.trash'))) {
-            $box = $boxes[$i]['unformatted-dm'];
-            $box2 = str_replace(' ', '&nbsp;',
-                                imap_utf7_decode_local($boxes[$i]['unformatted-disp']));
-            echo "         <OPTION VALUE=\"$box\">$box2</option>\n";
-        }
-    }
+
+    echo sqimap_mailbox_option_list($imapConnection, 0, $skip_folders, $boxes);
+
     echo "</SELECT></TT>\n"
        . '<input type=SUBMIT VALUE="'
        . _("Delete")

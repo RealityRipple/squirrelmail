@@ -13,10 +13,12 @@
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/imap_general.php');
 
 /* Define the group constants for the folder options page. */   
 define('SMOPT_GRP_SPCFOLDER', 0);
 define('SMOPT_GRP_FOLDERLIST', 1);
+define('SMOPT_GRP_FOLDERSELECT', 2);
 
 /* Define the optpage load function for the folder options page. */
 function load_optpage_data_folder() {
@@ -52,43 +54,34 @@ function load_optpage_data_folder() {
         );
     }
 
-    $special_folder_values = array();
-    foreach ($boxes as $folder) {
-        if (strtolower($folder['unformatted']) != 'inbox') {
-            $real_value = $folder['unformatted-dm'];
-            $disp_value = str_replace(' ', '&nbsp;', $folder['formatted']);
-            $special_folder_values[$real_value] = $disp_value;
-        }
-    }
-
-    $trash_none = array(SMPREF_NONE => _("Do not use Trash"));
-    $trash_folder_values = array_merge($trash_none, $special_folder_values);
+    $trash_folder_values = array(SMPREF_NONE => '[ '._("Do not use Trash").' ]',
+                                 'whatever'  => $boxes);
     $optvals[SMOPT_GRP_SPCFOLDER][] = array(
         'name'    => 'trash_folder',
         'caption' => _("Trash Folder"),
-        'type'    => SMOPT_TYPE_STRLIST,
+        'type'    => SMOPT_TYPE_FLDRLIST,
         'refresh' => SMOPT_REFRESH_FOLDERLIST,
         'posvals' => $trash_folder_values,
         'save'    => 'save_option_trash_folder'
     );
     
-    $sent_none = array(SMPREF_NONE => _("Do not use Sent"));
-    $sent_folder_values = array_merge($sent_none, $special_folder_values);
+    $sent_folder_values = array(SMPREF_NONE => '[ '._("Do not use Sent").' ]',
+                                'whatever'  => $boxes);
     $optvals[SMOPT_GRP_SPCFOLDER][] = array(
         'name'    => 'sent_folder',
         'caption' => _("Sent Folder"),
-        'type'    => SMOPT_TYPE_STRLIST,
+        'type'    => SMOPT_TYPE_FLDRLIST,
         'refresh' => SMOPT_REFRESH_FOLDERLIST,
         'posvals' => $sent_folder_values,
         'save'    => 'save_option_sent_folder'
     );
     
-    $draft_none = array(SMPREF_NONE => _("Do not use Drafts"));
-    $draft_folder_values = array_merge($draft_none, $special_folder_values);
+    $draft_folder_values = array(SMPREF_NONE => '[ '._("Do not use Drafts").' ]',
+                                 'whatever'  => $boxes);
     $optvals[SMOPT_GRP_SPCFOLDER][] = array(
         'name'    => 'draft_folder',
         'caption' => _("Draft Folder"),
-        'type'    => SMOPT_TYPE_STRLIST,
+        'type'    => SMOPT_TYPE_FLDRLIST,
         'refresh' => SMOPT_REFRESH_FOLDERLIST,
         'posvals' => $draft_folder_values,
         'save'    => 'save_option_draft_folder'
@@ -209,6 +202,22 @@ function load_optpage_data_folder() {
                             7 => '7',
                             8 => '8',
                             9 => '9')
+    );
+
+
+    /*** Load the General Options into the array ***/
+    $optgrps[SMOPT_GRP_FOLDERSELECT] = _("Folder Selection Options");
+    $optvals[SMOPT_GRP_FOLDERSELECT] = array();
+
+    $delim = sqimap_get_delimiter();
+    $optvals[SMOPT_GRP_FOLDERSELECT][] = array(
+        'name'    => 'mailbox_select_style',
+        'caption' => _("Selection List Style"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => array( 0 => _("Long: ") . '"Folder' . $delim . 'Subfolder"',
+                            1 => _("Indented: ") .  '"&nbsp;&nbsp;&nbsp;&nbsp;' . 'Subfolder"',
+                            2 => _("Delimited: ") . '".&nbsp;' . 'Subfolder"')
     );
 
     /* Assemble all this together and return it as our result. */

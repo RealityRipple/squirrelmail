@@ -436,27 +436,18 @@ echo html_tag( 'div', '<b>' . _("Current Search") . '</b>', 'left' ) . "\n"
    . html_tag( 'table', '', '', '', 'width="95%" cellpadding="0" cellspacing="0" border="0"' )
    . html_tag( 'tr' )
    . html_tag( 'td', '', 'left' )
-   . '<select name="mailbox">';
-for ($i = 0; $i < count($boxes); $i++) {
-    if (!in_array('noselect', $boxes[$i]['flags'])) {
-        $box = $boxes[$i]['unformatted'];
-        $box2 = str_replace(' ', '&nbsp;', 
-                         imap_utf7_decode_local($boxes[$i]['unformatted-disp']));
-        if( $box2 == 'INBOX' ) {
-            $box2 = _("INBOX");
-        }
-        echo '         <option value="' . $box . '"';
-        if ($mailbox == $box) { echo ' selected'; }
-        echo '>' . $box2 . '</option>' . "\n";
-    }
-}
-        echo '<option value="All Folders"';
-        if ($mailbox == 'All Folders') {
-            echo ' selected';
-        }
-        echo ">All folders</option>\n";
-echo '         </select>'.
-     "       </td>\n";
+   . '<select name="mailbox">'
+   . '<option value="All Folders"';
+   if ($mailbox == 'All Folders') {
+       echo ' selected';
+   }
+   echo ">[ All Folders ]</option>\n";
+
+   $show_selected = array(strtolower($mailbox));
+   echo sqimap_mailbox_option_list($imapConnection, $show_selected, 0, $boxes);
+
+   echo '         </select>'.
+        "       </td>\n";
 if ( !isset( $what ) ) {
     $what = '';
 }

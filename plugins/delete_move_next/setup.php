@@ -219,18 +219,7 @@ function delete_move_next_read($currloc) {
 
 function get_move_target_list() {
     global $imapConnection;
-
-    $boxes = sqimap_mailbox_list($imapConnection);
-    for ($i = 0; $i < count($boxes); $i++) {
-        if (!in_array('noselect', $boxes[$i]['flags'])) {
-            $box = $boxes[$i]['unformatted'];
-            $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
-            if ( $box2 == 'INBOX' ) {
-                $box2 = _("INBOX");
-            }
-            echo "<option value=\"$box\">$box2</option>\n";
-        }
-    }
+    echo sqimap_mailbox_option_list($imapConnection);
 }
 
 function delete_move_next_moveNextForm($next) {
