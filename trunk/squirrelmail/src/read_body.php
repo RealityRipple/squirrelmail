@@ -418,9 +418,11 @@ if (!isset($show_more_cc)) {
 /** FORMAT THE TO STRING **/
 $i = 0;
 $to_string = '';
+$url_to_string = '';
 $to_ary = $message->header->to;
 while ($i < count($to_ary)) {
     $to_ary[$i] = htmlspecialchars(decodeHeader($to_ary[$i]));
+    $url_to_string .= $to_ary[$i];
 
     if ($to_string) {
         $to_string = "$to_string<BR>$to_ary[$i]";
@@ -454,14 +456,19 @@ while ($i < count($to_ary)) {
         }
     }
 }
+$url_to_string = urlencode($url_to_string);
+
 
 /** FORMAT THE CC STRING **/
 $i = 0;
+$url_cc_string = '';
 if (isset ($message->header->cc[0]) && trim($message->header->cc[0])) {
     $cc_string = '';
     $cc_ary = $message->header->cc;
     while ($i < count(decodeHeader($cc_ary))) {
         $cc_ary[$i] = htmlspecialchars($cc_ary[$i]);
+        $url_cc_string .= $cc_ary[$i];
+
         if ($cc_string) {
             $cc_string = "$cc_string<BR>$cc_ary[$i]";
         } else {
@@ -498,14 +505,17 @@ if (isset ($message->header->cc[0]) && trim($message->header->cc[0])) {
 else {
     $cc_string = '';
 }
+$url_cc_string = urlencode($url_cc_string);
 
 /** FORMAT THE BCC STRING **/
 $i = 0;
+$url_bcc_string = '';
 if (isset ($message->header->bcc[0]) && trim($message->header->bcc[0])){
     $bcc_string = '';
     $bcc_ary = $message->header->bcc;
     while ($i < count(decodeHeader($bcc_ary))) {
         $bcc_ary[$i] = htmlspecialchars($bcc_ary[$i]);
+        $url_bcc_string .= $bcc_ary[$i];
         if ($bcc_string) {
             $bcc_string = "$bcc_string<BR>$bcc_ary[$i]";
         } else {
@@ -542,6 +552,7 @@ if (isset ($message->header->bcc[0]) && trim($message->header->bcc[0])){
 else {
     $bcc_string = '';
 }
+$url_bcc_string = urlencode($url_bcc_string);
 
 if ($default_use_priority) {
     $priority_level = substr($message->header->priority,0,1);
@@ -602,7 +613,7 @@ if ($where && $what) {
 echo _("Delete") . '</A>&nbsp;';
 if (($mailbox == $draft_folder) && ($save_as_draft)) {
     echo '|&nbsp;<A HREF="' . $base_uri .
-         "src/compose.php?mailbox=$mailbox&amp;send_to=$to_string&amp;send_to_cc=$cc_string&amp;send_to_bcc=$bcc_string&amp;subject=$url_subj&amp;draft_id=$passed_id&amp;ent_num=$ent_num\"";
+         "src/compose.php?mailbox=$mailbox&amp;send_to=$url_to_string&amp;send_to_cc=$url_cc_string&amp;send_to_bcc=$url_bcc_string&amp;subject=$url_subj&amp;draft_id=$passed_id&amp;ent_num=$ent_num" . '"';
     if ($compose_new_win == '1') {
         echo 'TARGET="compose_window" onClick="comp_in_new()"';
     }
