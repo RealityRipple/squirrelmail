@@ -16,7 +16,7 @@ function squirrelmail_plugin_init_administrator() {
 
     if ( $adm_id = fileowner('../config/config.php') ) {
         $adm = posix_getpwuid( $adm_id );
-        if ( $username = $adm['name'] ) {
+        if ( $username == $adm['name'] ) {
             $squirrelmail_plugin_hooks['optpage_register_block']['administrator'] =
                                       'squirrelmail_plugin_optpage_register_block';
         }
