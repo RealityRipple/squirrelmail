@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2003-05-31 14:56+0300\n"
+"POT-Creation-Date: 2003-07-06 14:37+0300\n"
 "PO-Revision-Date: 2003-07-21 00:00+0200\n"
 "Last-Translator: M.J. Prinsen <translation@prinsenonline.com>\n"
 "Language-Team: Dutch <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -949,7 +949,7 @@ msgstr "Printer vriendelijk"
 
 # squirrelmail/src/printer_friendly_bottom.php:98
 msgid "CC"
-msgstr "CC"
+msgstr "CC:"
 
 # squirrelmail/src/printer_friendly_top.php:36
 msgid "Print"
@@ -1397,7 +1397,7 @@ msgid "Fri"
 msgstr "Vr"
 
 msgid "Sat"
-msgstr "Za"
+msgstr "Zo"
 
 # squirrelmail/functions/date.php:120
 msgid "January"
@@ -1658,6 +1658,14 @@ msgstr ""
 msgid "ERROR : No available imapstream."
 msgstr "FOUT : Imapstream niet beschikbaar."
 
+msgid "ERROR : Connection dropped by imap-server."
+msgstr "FOUT : Verbinding verbroken door imap-server."
+
+# squirrelmail/functions/imap_general.php:165
+# squirrelmail/functions/imap_general.php:176
+msgid "Query:"
+msgstr "Verzoek:"
+
 # squirrelmail/functions/imap_general.php:163
 # squirrelmail/functions/imap_messages.php:366
 # squirrelmail/functions/imap_messages.php:374
@@ -1665,11 +1673,6 @@ msgstr "FOUT : Imapstream niet beschikbaar."
 # squirrelmail/plugins/filters/filters.php:227
 msgid "ERROR : Could not complete request."
 msgstr "FOUT : Kan opdracht niet verwerken."
-
-# squirrelmail/functions/imap_general.php:165
-# squirrelmail/functions/imap_general.php:176
-msgid "Query:"
-msgstr "Verzoek:"
 
 # squirrelmail/functions/imap_general.php:167
 # squirrelmail/plugins/filters/filters.php:229
@@ -1679,12 +1682,19 @@ msgstr "Reden: "
 # squirrelmail/functions/imap_general.php:174
 # squirrelmail/plugins/filters/filters.php:236
 msgid "ERROR : Bad or malformed request."
-msgstr "FOUT: Foute of corrupte aanvraag."
+msgstr "FOUT : Foute of corrupte aanvraag."
 
 # squirrelmail/functions/imap_general.php:178
 # squirrelmail/plugins/filters/filters.php:238
 msgid "Server responded: "
 msgstr "Server reageerde: "
+
+msgid "ERROR : Imap server closed the connection."
+msgstr "FOUT : IMAP server heeft de verbinding verbroken."
+
+# squirrelmail/functions/imap_messages.php:397
+msgid "ERROR : Unknown imap response."
+msgstr "FOUt : Onbekend IMAP antwoord"
 
 # squirrelmail/functions/imap_general.php:211
 #, c-format
@@ -1740,6 +1750,15 @@ msgstr "Onbekende afzender"
 # squirrelmail/functions/imap_messages.php:569
 msgid "Unknown response from IMAP server: "
 msgstr "Onbekend antwoord van IMAP server: "
+
+msgid "The server couldn't find the message you requested."
+msgstr ""
+
+msgid ""
+"Most probably your message list was out of date and the message has been "
+"moved away or deleted (perhaps by another program accessing the same "
+"mailbox)."
+msgstr ""
 
 # squirrelmail/functions/imap_messages.php:397
 msgid "Unknown date"
@@ -2238,7 +2257,7 @@ msgid "Unseen and Total"
 msgstr "Ongelezen en Totaal"
 
 # squirrelmail/src/options_folder.php:161
-msgid "Enable Collapsable Folders"
+msgid "Enable Collapsible Folders"
 msgstr "Maak uitklapbare mappen mogelijk"
 
 # squirrelmail/src/options_folder.php:142
@@ -3489,6 +3508,24 @@ msgstr "Geen server gespecificeerd"
 msgid "Error "
 msgstr "Fout "
 
+# squirrelmail/plugins/mail_fetch/class.POP3.php:120
+msgid "POP3 noop:"
+msgstr "POP3 noop:"
+
+# squirrelmail/plugins/mail_fetch/class.POP3.php:120
+# squirrelmail/plugins/mail_fetch/class.POP3.php:186
+# squirrelmail/plugins/mail_fetch/class.POP3.php:235
+# squirrelmail/plugins/mail_fetch/class.POP3.php:260
+# squirrelmail/plugins/mail_fetch/class.POP3.php:302
+# squirrelmail/plugins/mail_fetch/class.POP3.php:376
+# squirrelmail/plugins/mail_fetch/class.POP3.php:415
+# squirrelmail/plugins/mail_fetch/class.POP3.php:445
+# squirrelmail/plugins/mail_fetch/class.POP3.php:479
+# squirrelmail/plugins/mail_fetch/class.POP3.php:542
+# squirrelmail/plugins/mail_fetch/class.POP3.php:610
+msgid "No connection to server"
+msgstr "Geen verbinding met server"
+
 # squirrelmail/plugins/mail_fetch/class.POP3.php:133
 # squirrelmail/plugins/mail_fetch/class.POP3.php:136
 # squirrelmail/plugins/mail_fetch/class.POP3.php:141
@@ -3528,20 +3565,6 @@ msgstr "authorisatie mislukt "
 # squirrelmail/plugins/mail_fetch/class.POP3.php:219
 msgid "POP3 apop:"
 msgstr "POP3 apop:"
-
-# squirrelmail/plugins/mail_fetch/class.POP3.php:120
-# squirrelmail/plugins/mail_fetch/class.POP3.php:186
-# squirrelmail/plugins/mail_fetch/class.POP3.php:235
-# squirrelmail/plugins/mail_fetch/class.POP3.php:260
-# squirrelmail/plugins/mail_fetch/class.POP3.php:302
-# squirrelmail/plugins/mail_fetch/class.POP3.php:376
-# squirrelmail/plugins/mail_fetch/class.POP3.php:415
-# squirrelmail/plugins/mail_fetch/class.POP3.php:445
-# squirrelmail/plugins/mail_fetch/class.POP3.php:479
-# squirrelmail/plugins/mail_fetch/class.POP3.php:542
-# squirrelmail/plugins/mail_fetch/class.POP3.php:610
-msgid "No connection to server"
-msgstr "Geen verbinding met server"
 
 # squirrelmail/plugins/mail_fetch/class.POP3.php:192
 msgid "No login ID submitted"
@@ -3864,10 +3887,6 @@ msgstr "Bevestig de verwijdering van de geselecteerde server"
 msgid "Confirm Delete"
 msgstr "Bevestig verwijdering"
 
-# squirrelmail/plugins/mail_fetch/options.php:191
-msgid "Mofify a Server"
-msgstr "Bewerk een server"
-
 # squirrelmail/plugins/mail_fetch/options.php:237
 msgid "Undefined Function"
 msgstr "Niet gedefinieerde functie"
@@ -3989,7 +4008,7 @@ msgid ""
 msgstr ""
 "Selecteer het geluid dat u wilt afspelen bij een nieuw bericht van de lijst "
 "met <b>server bestanden</b>. Indien er geen bestand wordt gespecificeerd, "
-"\"(geen)\" zal geen geluid worden gebruikt."
+"\"(geen)\", zal geen geluid worden gebruikt."
 
 # squirrelmail/plugins/newmail/newmail_opt.php:67
 msgid "Enable Media Playing"
@@ -4617,11 +4636,11 @@ msgstr "Uw server opties zijn:"
 # squirrelmail/plugins/translate/options.php:102
 msgid ""
 "19 language pairs, maximum of 1000 characters translated, powered by Systran"
-msgstr "19 talen paren, maximum van 1000 tekens vertaald, powered by Systran"
+msgstr "19 talen paren, maximum van 1000 tekens vertaald, powered by Systran "
 
 # squirrelmail/plugins/translate/options.php:108
 msgid "12 language pairs, no known limits, powered by Systran"
-msgstr "12 talen paren, geen limieten bekend, powered by Systran"
+msgstr "12 talen paren, geen limieten bekend, powered by Systran "
 
 # squirrelmail/plugins/translate/options.php:111
 msgid ""
@@ -4629,7 +4648,7 @@ msgid ""
 "InterTran"
 msgstr ""
 "784 talen paren, geen limieten bekend, powered by Translation Experts's "
-"InterTran"
+"InterTran "
 
 # squirrelmail/plugins/translate/options.php:114
 msgid ""
@@ -4639,7 +4658,7 @@ msgstr ""
 
 # squirrelmail/plugins/translate/options.php:108
 msgid "4 language pairs for Hellenic, no known limits, powered by Systran"
-msgstr "4 talen paren voor Hellenic, geen limieten bekend, powered by Systran"
+msgstr "4 talen paren voor Hellenic, geen limieten bekend, powered by Systran "
 
 # squirrelmail/plugins/translate/options.php:120
 msgid ""
@@ -4649,7 +4668,7 @@ msgstr "Waar en wanneer wilt u het vertaalkader weergegeven hebben?"
 
 # squirrelmail/plugins/translate/options.php:124
 msgid "Select your translator:"
-msgstr "Selecteer uw vertaler:"
+msgstr "Selecteer uw vertaler"
 
 # squirrelmail/plugins/translate/options.php:136
 msgid "When reading:"
@@ -5070,9 +5089,9 @@ msgstr "Berichtkoppen onbestelbaar bericht"
 #~ msgid "35 min."
 #~ msgstr "35 min."
 
-# squirrelmail/plugins/mail_fetch/class.POP3.php:120
-#~ msgid "POP3 noop:"
-#~ msgstr "POP3 noop:"
+# squirrelmail/plugins/mail_fetch/options.php:191
+#~ msgid "Mofify a Server"
+#~ msgstr "Bewerk een server"
 
 # squirrelmail/src/read_body.php:683
 #~ msgid "Message details"
