@@ -136,10 +136,9 @@ html_tag( 'table',
             '', '#ffffff', 'border="0" width="350"' ) . '</center>',
         'center' )
     ) ,
-'', '#ffffff', 'border="0" cellspacing="0" cellpadding="0" width="100%"' ) .
-'</form>' . "\n";
-
+'', '#ffffff', 'border="0" cellspacing="0" cellpadding="0" width="100%"' );
 do_hook('login_form');
+echo '</form>' . "\n";
 
 do_hook('login_bottom');
 echo "</body>\n".
