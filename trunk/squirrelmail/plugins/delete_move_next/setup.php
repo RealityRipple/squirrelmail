@@ -15,11 +15,11 @@
 
 function squirrelmail_plugin_init_delete_move_next() {
     global $squirrelmail_plugin_hooks;
-    
+
     $squirrelmail_plugin_hooks['html_top']['delete_move_next'] = 'delete_move_next_action';
     $squirrelmail_plugin_hooks['right_main_after_header']['delete_move_next'] = 'delete_move_next_action';
     $squirrelmail_plugin_hooks['read_body_bottom']['delete_move_next'] = 'delete_move_next_read_b';
-    $squirrelmail_plugin_hooks['read_body_top']['delete_move_next'] = 'delete_move_next_read_t';
+    $squirrelmail_plugin_hooks['read_body_menu_bottom']['delete_move_next'] = 'delete_move_next_read_t';
     $squirrelmail_plugin_hooks['options_display_inside']['delete_move_next'] = 'delete_move_next_display_inside';
     $squirrelmail_plugin_hooks['options_display_save']['delete_move_next'] = 'delete_move_next_display_save';
     $squirrelmail_plugin_hooks['loading_prefs']['delete_move_next'] = 'delete_move_next_loading_prefs';
@@ -37,16 +37,16 @@ function fix_sort_array () {
     switch (true) {
       case ($allow_thread_sort && $thread_sort_messages):
           $server_sort_array = get_thread_sort($imapConnection);
-	  break;
+          break;
       case ($allow_server_sort):
           $server_sort_array = sqimap_get_sort_order($imapConnection, $sort, $mbx_response);
-	  break;
+          break;
       case ($uid_support):
           $server_sort_array = sqimap_get_php_sort_order($imapConnecion, $mbx_response);
-	  break;
+          break;
       default:
           break;
-    }	  
+    }
 }
 
 /*
@@ -63,9 +63,9 @@ function delete_move_del_arr_elem($arr, $index) {
     $j = 0;
     foreach ($arr as $v) {
         if ($j != $index) {
-	   $tmp[] = $v;
-	 }
-	 $j++;
+           $tmp[] = $v;
+         }
+         $j++;
     }
     return $tmp;
 }
@@ -86,12 +86,12 @@ function delete_move_expunge_from_all($id) {
         if ($msgs[$i]['ID'] == $id) {
             $delAt = $i;
         } elseif ($msgs[$i]['ID'] > $id) {
-	    if (!$uid_support) {
+            if (!$uid_support) {
                $msgs[$i]['ID']--;
-	    }
+            }
         }
     }
-    
+
     $msgs = delete_move_del_arr_elem($msgs, $delAt);
     $msort = delete_move_del_arr_elem($msort, $delAt);
     if ($sort < 6) {
@@ -103,7 +103,7 @@ function delete_move_expunge_from_all($id) {
     }
     session_register('msgs');
     session_register('msort');
-    
+
     sqimap_mailbox_expunge($imapConnection, $mailbox, true);
 }
 
@@ -146,7 +146,7 @@ function delete_move_next_read($currloc) {
            $color, $where, $what, $currentArrayIndex, $passed_id,
            $mailbox, $sort, $startMessage, $delete_id, $move_id,
            $imapConnection, $auto_expunge, $move_to_trash, $mbx_response,
-	   $uid_support;
+           $uid_support;
 
     $urlMailbox = urlencode($mailbox);
 
@@ -162,15 +162,15 @@ function delete_move_next_read($currloc) {
             if ($next_if_del > $passed_id) {
                 $next_if_del--;
             }
-        }    
-        
-	/* Base is illegal within documents 
+        }
+
+        /* Base is illegal within documents 
         * $location = get_location();
         * echo "<base href=\"$location/\">" . */
         echo '<table cellspacing=0 width="100%" border=0 cellpadding=2>'.
              '<tr>'.
                  "<td bgcolor=\"$color[9]\" width=\"100%\" align=center><small>";
-    
+
 //        if ($prev > 0) {
 //            echo "<a href=\"read_body.php?passed_id=$prev&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">" . _("Previous") . "</A>&nbsp;|&nbsp;\n";
 //        } else {
@@ -193,7 +193,7 @@ function delete_move_next_read($currloc) {
             echo _("Delete & Next");
         }
         echo '</small></td></tr>';
-        
+
         if ($next_if_del < 0) {
             $next_if_del = $prev_if_del;
         }
@@ -217,9 +217,9 @@ function delete_move_next_read($currloc) {
 
 function get_move_target_list() {
     global $imapConnection;
-    
+
     $boxes = sqimap_mailbox_list($imapConnection);
-    for ($i = 0; $i < count($boxes); $i++) {  
+    for ($i = 0; $i < count($boxes); $i++) {
         if (!in_array('noselect', $boxes[$i]['flags'])) {
             $box = $boxes[$i]['unformatted'];
             $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
@@ -263,7 +263,7 @@ function delete_move_next_moveRightMainForm() {
            $mailbox, $sort, $startMessage, $delete_id, $move_id,
            $imapConnection;
 
-    echo '<tr>' .      
+    echo '<tr>' .
             "<td bgcolor=\"$color[9]\" width=\"100%\" align=\"center\">".
             '<form action="right_main.php" method="post"><small>' .
             "<input type=\"hidden\" name=\"mailbox\" value=\"".$mailbox."\">".
@@ -285,17 +285,17 @@ function delete_move_next_moveRightMainForm() {
 
 function delete_move_next_delete() {
     global $imapConnection, $delete_id, $mailbox, $auto_expunge;
-    
+
     sqimap_messages_delete($imapConnection, $delete_id, $delete_id, $mailbox);
     if ($auto_expunge) {
         delete_move_expunge_from_all($delete_id);
-        // sqimap_mailbox_expunge($imapConnection, $mailbox, true);    
+        // sqimap_mailbox_expunge($imapConnection, $mailbox, true);
     }
 }
 
 function delete_move_next_move() {
     global $imapConnection, $move_id, $targetMailbox, $auto_expunge, $mailbox;
-    
+
     // Move message
     sqimap_messages_copy($imapConnection, $move_id, $move_id, $targetMailbox);
     sqimap_messages_flag($imapConnection, $move_id, $move_id, 'Deleted', true);
@@ -309,29 +309,29 @@ function delete_move_next_display_inside() {
     global $username,$data_dir,
         $delete_move_next_t, $delete_move_next_formATtop,
         $delete_move_next_b, $delete_move_next_formATbottom;
-    
+
     echo "<tr><td align=right valign=top>\n".
          _("Delete/Move/Next Buttons:") . "</td>\n".
          "<td><input type=checkbox name=delete_move_next_ti";
-         
+
     if ($delete_move_next_t == 'on') {
         echo " checked";
     }
     echo '> ' . _("Display at top").
          " <input type=checkbox name=delete_move_next_formATtopi";
-         
+
     if ($delete_move_next_formATtop == 'on') {
         echo ' checked';
     }
-    echo '> ' . _("with move option") . '<br>';    
-    
+    echo '> ' . _("with move option") . '<br>';
+
     echo '<input type=checkbox name=delete_move_next_bi';
     if($delete_move_next_b != 'off') {
         echo ' checked';
     }
     echo '> ' . _("Display at bottom") .
          '<input type=checkbox name=delete_move_next_formATbottomi';
-         
+
     if ($delete_move_next_formATbottom != 'off') {
         echo ' checked';
     }
@@ -344,26 +344,26 @@ function delete_move_next_display_save() {
     global $username,$data_dir,
            $delete_move_next_ti, $delete_move_next_formATtopi,
            $delete_move_next_bi, $delete_move_next_formATbottomi;
-    
+
     if (isset($delete_move_next_ti)) {
         setPref($data_dir, $username, 'delete_move_next_t', 'on');
     } else {
         setPref($data_dir, $username, 'delete_move_next_t', "off");
     }
-    
+
     if (isset($delete_move_next_formATtopi)) {
         setPref($data_dir, $username, 'delete_move_next_formATtop', 'on');
     } else {
         setPref($data_dir, $username, 'delete_move_next_formATtop', "off");
     }
-    
-    
+
+
     if (isset($delete_move_next_bi)) {
         setPref($data_dir, $username, 'delete_move_next_b', 'on');
     } else {
         setPref($data_dir, $username, 'delete_move_next_b', "off");
     }
-    
+
     if (isset($delete_move_next_formATbottomi)) {
         setPref($data_dir, $username, 'delete_move_next_formATbottom', 'on');
     } else {
@@ -377,7 +377,7 @@ function delete_move_next_loading_prefs() {
     global $username,$data_dir,
            $delete_move_next_t, $delete_move_next_formATtop,
            $delete_move_next_b, $delete_move_next_formATbottom;
-    
+
     $delete_move_next_t = getPref($data_dir, $username, 'delete_move_next_t');
     $delete_move_next_b = getPref($data_dir, $username, 'delete_move_next_b');
     $delete_move_next_formATtop = getPref($data_dir, $username, 'delete_move_next_formATtop');
