@@ -1,4 +1,4 @@
-<?Php
+<?php
 
 /**
  * array.php
