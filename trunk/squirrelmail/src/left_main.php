@@ -362,7 +362,7 @@ function listBoxes ($boxes, $j=0 ) {
                         "</small>";
             }
         } else {
-            if (!$boxes->is_noselect) {
+            if (!$boxes->is_noselect || strtolower($boxes->mailboxname_full)=="inbox") {
                 if ($unseen > 0) {
                     $pre .= '<b>';
                 }
