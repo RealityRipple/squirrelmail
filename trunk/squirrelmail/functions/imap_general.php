@@ -667,11 +667,11 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
          *
          **/
         $tag=sqimap_session_id(false);
-        $sasl = (isset($capability['SASL']) && $capability['SASL']) ? true : false;
+        $sasl = (isset($capability['SASL-IR']) && $capability['SASL-IR']) ? true : false;
         $auth = base64_encode("$username\0$username\0$password");
         if ($sasl) {
             // IMAP Extension for SASL Initial Client Response
-            // <draft-siemborski-imap-sasl-initial-response-00.txt>
+            // <draft-siemborski-imap-sasl-initial-response-01b.txt>
             $query = $tag . " AUTHENTICATE PLAIN $auth\r\n";
             fputs($imap_stream, $query);
             $read = sqimap_fgets($imap_stream);
