@@ -343,7 +343,7 @@
          exit;
       }
       $tmp = fgets($smtpConnection, 1024);
-      errorCheck($tmp, $smtpConnection);
+      if (errorCheck($tmp, $smtpConnection)!=5) return(0);
 
       $to_list = getLineOfAddrs($to);
       $cc_list = getLineOfAddrs($cc);
@@ -352,51 +352,51 @@
       if (! isset ($use_authenticated_smtp) || $use_authenticated_smtp == false) {
          fputs($smtpConnection, "HELO $domain\r\n");
          $tmp = fgets($smtpConnection, 1024);
-         errorCheck($tmp, $smtpConnection);
+      if (errorCheck($tmp, $smtpConnection)!=5) return(0);
       } else {
          fputs($smtpConnection, "EHLO $domain\r\n");
          $tmp = fgets($smtpConnection, 1024);
-         errorCheck($tmp, $smtpConnection);
+         if (errorCheck($tmp, $smtpConnection)!=5) return(0);
 
          fputs($smtpConnection, "AUTH LOGIN\r\n");
          $tmp = fgets($smtpConnection, 1024);
-         errorCheck($tmp, $smtpConnection);
+         if (errorCheck($tmp, $smtpConnection)!=5) return(0);
 
          fputs($smtpConnection, base64_encode ($username) . "\r\n");
          $tmp = fgets($smtpConnection, 1024);
-         errorCheck($tmp, $smtpConnection);
+         if (errorCheck($tmp, $smtpConnection)!=5) return(0);
 
          fputs($smtpConnection, base64_encode ($OneTimePadDecrypt($key, $onetimepad)) . "\r\n");
          $tmp = fgets($smtpConnection, 1024);
-         errorCheck($tmp, $smtpConnection);
+         if (errorCheck($tmp, $smtpConnection)!=5) return(0);
       }
 
       /** Ok, who is sending the message? */
       fputs($smtpConnection, "MAIL FROM: <$from_addr>\r\n");
       $tmp = fgets($smtpConnection, 1024);
-      errorCheck($tmp, $smtpConnection);
+      if (errorCheck($tmp, $smtpConnection)!=5) return(0);
 
       /** send who the recipients are */
       for ($i = 0; $i < count($to); $i++) {
          fputs($smtpConnection, "RCPT TO: $to[$i]\r\n");
          $tmp = fgets($smtpConnection, 1024);
-         errorCheck($tmp, $smtpConnection);
+         if (errorCheck($tmp, $smtpConnection)!=5) return(0);
       }
       for ($i = 0; $i < count($cc); $i++) {
          fputs($smtpConnection, "RCPT TO: $cc[$i]\r\n");
          $tmp = fgets($smtpConnection, 1024);
-         errorCheck($tmp, $smtpConnection);
+         if (errorCheck($tmp, $smtpConnection)!=5) return(0);
       }
       for ($i = 0; $i < count($bcc); $i++) {
          fputs($smtpConnection, "RCPT TO: $bcc[$i]\r\n");
          $tmp = fgets($smtpConnection, 1024);
-         errorCheck($tmp, $smtpConnection);
+         if (errorCheck($tmp, $smtpConnection)!=5) return(0);
       }
 
       /** Lets start sending the actual message */
       fputs($smtpConnection, "DATA\r\n");
       $tmp = fgets($smtpConnection, 1024);
-      errorCheck($tmp, $smtpConnection);
+      if (errorCheck($tmp, $smtpConnection)!=5) return(0);
 
       // Send the message
       $headerlength = write822Header ($smtpConnection, $t, $c, $b, $subject, $more_headers);
@@ -404,10 +404,15 @@
 
       fputs($smtpConnection, ".\r\n"); // end the DATA part
       $tmp = fgets($smtpConnection, 1024);
-      $num = errorCheck($tmp, $smtpConnection);
+      $num = errorCheck($tmp, $smtpConnection, verbose);
       if ($num != 250) {
-	 $tmp = nl2br(htmlspecialchars($tmp));
-         echo "ERROR<BR>Message not sent!<BR>Reason given: $tmp<BR></BODY></HTML>";
+         $tmp = nl2br(htmlspecialchars($tmp));
+         displayPageHeader($color, 'None');
+         include ("../functions/display_messages.php");
+         $lines = nl2br(htmlspecialchars($lines));
+         $msg  = "Message not sent!<br>\nReason given: $tmp";
+         plain_error_message($msg, $color);
+         return(0);
       }
 
       fputs($smtpConnection, "QUIT\r\n"); // log off
@@ -469,14 +474,14 @@
                      $status = 0;
                      break;
 
-         case 235:   return; break;
+         case 235:   return(5); break;
          case 250:   $message = 'Requested mail action okay, completed';
                      $status = 5;
                      break;
          case 251:   $message = 'User not local; will forward';
                      $status = 5;
                      break;
-         case 334:   return; break;
+         case 334:   return(5); break;
          case 450:   $message = 'Requested mail action not taken:  mailbox unavailable';
                      $status = 0;
                      break;
@@ -512,16 +517,12 @@
 
       if ($status == 0) {
          displayPageHeader($color, 'None');
-         echo '<TT>';
-         echo "<br><b><font color=\"$color[1]\">ERROR</font></b><br><br>";
-         echo "&nbsp;&nbsp;&nbsp;<B>Error Number: </B>$err_num<BR>";
-         echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Reason: </B>$message<BR>";
+		 include ("../functions/display_messages.php");
          $lines = nl2br(htmlspecialchars($lines));
-         echo "<B>Server Response: </B>$lines<BR>";
-         echo '<BR>MAIL NOT SENT';
-         echo '</TT></BODY></HTML>';
-         exit;
+		 $msg  = $message . "<br>\nServer replied: $lines";
+		 plain_error_message($msg, $color);
       }
+      if ($verbose == "") return $status;
       return $err_num;
    }
 

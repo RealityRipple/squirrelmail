@@ -561,6 +561,7 @@
          if (isset($message->entities[0])) {
             $body .= formatAttachments ($message, $ent_num, $message->header->mailbox, $id);
          }
+	     $body .= "</TD></TR></TABLE>";
       } else {
          $body = formatAttachments ($message, -1, $message->header->mailbox, $id);
       }
