@@ -14,6 +14,36 @@
    if (!isset($date_php))
       include("../functions/date.php");
 
+   // given an IMAP message id number, this will look it up in the cached and sorted msgs array and
+   //    return the index.  used for finding the next and previous messages
+
+   // returns the index of the next valid message from the array
+   function findNextMessage() {
+      global $currentArrayIndex, $msgs;
+      if ($currentArrayIndex < (count($msgs)-1))
+         return $msgs[$currentArrayIndex+1]["ID"];
+      return -1;
+   }
+
+   // returns the index of the previous message from the array
+   function findPreviousMessage() {
+      global $currentArrayIndex, $msgs;
+      if ($currentArrayIndex > 0)
+         return $msgs[$currentArrayIndex-1]["ID"];
+      return -1;
+   }
+
+   if (isset($msgs)) {
+      for ($i=0; $i < count($msgs); $i++) {
+         if ($msgs[$i]["ID"] == $passed_id) {
+            $currentArrayIndex = $i;
+            break;
+         }
+      }
+   } else {
+      $currentArrayIndex = -1;
+   }
+
    include("../src/load_prefs.php");
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    sqimap_mailbox_select($imapConnection, $mailbox);
@@ -97,16 +127,33 @@
    echo "   <TR><TD BGCOLOR=\"$color[0]\" WIDTH=100%>";
    echo "      <TABLE WIDTH=100% CELLSPACING=0 BORDER=0 COLS=2 CELLPADDING=3>";
    echo "         <TR>";
-   echo "            <TD ALIGN=LEFT WIDTH=50%>";
+   echo "            <TD ALIGN=LEFT WIDTH=33%>";
    echo "               <SMALL>";
-   echo "               <A HREF=\"right_main.php?sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\">";
+   echo "               <A HREF=\"right_main.php?use_mailbox_cache=1&sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\">";
    echo _("Message List");
    echo "</A>&nbsp;|&nbsp;";
    echo "               <A HREF=\"delete_message.php?mailbox=$urlMailbox&message=$passed_id&sort=$sort&startMessage=1\">";
    echo _("Delete");
    echo "</A>&nbsp;&nbsp;";
    echo "               </SMALL>";
-   echo "            </TD><TD WIDTH=50% ALIGN=RIGHT>";
+   echo "            </TD><TD WIDTH=33% ALIGN=CENTER>";
+   echo "               <SMALL>\n";
+   if ($currentArrayIndex == -1) {
+      echo "Previous&nbsp;|&nbspNext";
+   } else {
+      $prev = findPreviousMessage();
+      $next = findNextMessage();
+      if ($prev != -1)
+         echo "<a href=\"read_body.php?passed_id=$prev&mailbox=$mailbox&sort=$sort&startMessage=$startMessage&show_more=0\">" . _("Previous") . "</A>&nbsp;|&nbsp;";
+      else
+         echo _("Previous") . "&nbsp;|&nbsp;";
+      if ($next != -1)
+         echo "<a href=\"read_body.php?passed_id=$next&mailbox=$mailbox&sort=$sort&startMessage=$startMessage&show_more=0\">" . _("Next") . "</A>";
+      else
+         echo _("Next");
+   }
+   echo "               </SMALL>\n";
+   echo "            </TD><TD WIDTH=33% ALIGN=RIGHT>";
    echo "               <SMALL>";
    echo "               <A HREF=\"compose.php?forward_id=$passed_id&forward_subj=$url_subj&mailbox=$urlMailbox\">";
    echo _("Forward");
