@@ -4,7 +4,10 @@
 
 Version 1.2.5 -- CVS
 --------------------
-
+  - Made searching on multiple criteria possible, with thanks to Jason Munro
+  - Fixed 'list all' in addressbook (#506624, thanks to Kurt Yoder)
+  - Fixed a small bug in db_prefs
+	
 Version 1.2.4 -- 25 January 2002
 --------------------------------
   - Fixes a nasty remote arbitrary command execution vulnerability
