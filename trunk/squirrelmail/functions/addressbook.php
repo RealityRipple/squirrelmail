@@ -13,6 +13,7 @@
    include("../functions/abook_local_file.php");
    include("../functions/abook_ldap_server.php");
 
+
    // Create and initialize an addressbook object. 
    // Returns the created object
    function addressbook_init($showerr = true, $onlylocal = false) {
@@ -53,6 +54,16 @@
       return $abook;
    }
 
+   
+   // Had to move this function outside of the Addressbook Class
+   // PHP 4.0.4 Seemed to be having problems with inline functions.
+   function cmp($a,$b) {   
+      if($a["backend"] > $b["backend"]) 
+	     return 1;
+	  else if($a["backend"] < $b["backend"]) 
+	     return -1;
+	  return (strtolower($a["name"]) > strtolower($b["name"])) ? 1 : -1;
+   }
 
 
   /**
@@ -60,6 +71,7 @@
    ** backends and provide services to the functions above.
    **
    **/
+   
    class AddressBook { 
       var $backends    = array();
       var $numbackends = 0;
@@ -154,26 +166,15 @@
 	 return $ret;
       }
 
-
+      
       // Return a sorted search
       function s_search($expression, $bnum = -1) {
-
-	 $ret = $this->search($expression, $bnum);
-	 if(!is_array($ret))
-	    return $ret;
-
-	 // Inline function - Not nice, but still.. 
-	 function cmp($a,$b) {   
-	    if($a["backend"] > $b["backend"]) 
-	       return 1;
-	    else if($a["backend"] < $b["backend"]) 
-	       return -1;
-	 
-	    return (strtolower($a["name"]) > strtolower($b["name"])) ? 1 : -1;
-	 }
-
-	 usort($ret, 'cmp');
-	 return $ret;
+	      
+    	 $ret = $this->search($expression, $bnum);
+    	 if(!is_array($ret))
+    	    return $ret;
+	     usort($ret, 'cmp');
+	     return $ret;
       }
 
 
@@ -363,8 +364,8 @@
 	 return false;  // Not reached
       } // end of modify()
 
-   } // End of class Addressbook
 
+   } // End of class Addressbook
 
   /**
    ** Generic backend that all other backends extend
