@@ -84,7 +84,7 @@ function find_mailbox_name ($mailbox) {
 }
 
 function check_is_noselect ($lsub_line) {
-    return preg_match("/^\* LSUB \([^\)]*\\Noselect[^\)]*\)/i", $lsub_line);
+    return preg_match("/^\* (LSUB|LIST) \([^\)]*\\Noselect[^\)]*\)/i", $lsub_line);
 }
 
 /**
@@ -707,7 +707,8 @@ function sqimap_mailbox_tree($imap_stream) {
     if (!isset($boxesnew)) {
 
         global $data_dir, $username, $list_special_folders_first,
-               $folder_prefix, $delimiter, $trash_folder, $move_to_trash;
+               $folder_prefix, $delimiter, $trash_folder, $move_to_trash,
+               $imap_server_type;
 
 
         $inbox_in_list = false;
@@ -763,6 +764,14 @@ function sqimap_mailbox_tree($imap_stream) {
             }
 
             $mbx = find_mailbox_name($lsub_ary[$i]);
+
+            // Force a list for UW as it returns \NoSelect in LIST and not LSUB //
+            if ($imap_server_type == "uw") {                
+                $tmp_str = sqimap_run_command( $imap_stream , "LIST \"\" \"$mbx\"" , true, $response, $message );
+                if (isset($tmp_str[0])) {
+                    $lsub_ary[$i] = $tmp_str[0];
+                }
+            }
             $noselect = check_is_noselect($lsub_ary[$i]);
             if (substr($mbx, -1) == $delimiter) {
                 $mbx = substr($mbx, 0, strlen($mbx) - 1);
