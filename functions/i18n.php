@@ -39,8 +39,8 @@ function charset_decode ($charset, $string) {
     global $use_php_recode, $use_php_iconv, $agresive_decoding;
 
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
-        $string = $languages[$squirrelmail_language]['XTRA_CODE']('decode', $string);
+        function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_decode')) {
+        $string = call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_decode', $string);
     }
 
     $charset = strtolower($charset);
@@ -358,7 +358,7 @@ if (! isset($squirrelmail_language)) {
  *  ALTNAME   - Native translation name. Any 8bit symbols must be html encoded.
  *  LOCALE    - Full locale name (in xx_XX.charset format)
  *  DIR       - Text direction. Used to define Right-to-Left languages. Possible values 'rtl' or 'ltr'. If undefined - defaults to 'ltr'
- *  XTRA_CODE - translation uses special functions. 'value' provides name of that extra function
+ *  XTRA_CODE - translation uses special functions. See doc/i18n.txt
  * 
  * Each 'language' definition requires NAME+CHARSET or ALIAS variables.
  *
@@ -481,14 +481,13 @@ $languages['ja_JP']['NAME']    = 'Japanese';
 $languages['ja_JP']['ALTNAME'] = '&#26085;&#26412;&#35486;';
 $languages['ja_JP']['CHARSET'] = 'iso-2022-jp';
 $languages['ja_JP']['LOCALE'] = 'ja_JP.EUC-JP';
-$languages['ja_JP']['XTRA_CODE'] = 'japanese_charset_xtra';
+$languages['ja_JP']['XTRA_CODE'] = 'japanese_xtra';
 $languages['ja']['ALIAS'] = 'ja_JP';
 
 $languages['ko_KR']['NAME']    = 'Korean';
 $languages['ko_KR']['CHARSET'] = 'euc-KR';
 $languages['ko_KR']['LOCALE']  = 'ko_KR.EUC-KR';
-// Function does not provide all needed options
-// $languages['ko_KR']['XTRA_CODE'] = 'korean_charset_xtra';
+$languages['ko_KR']['XTRA_CODE'] = 'korean_xtra';
 $languages['ko']['ALIAS'] = 'ko_KR';
 
 $languages['lt_LT']['NAME']    = 'Lithuanian';
@@ -700,7 +699,7 @@ elseif ($gettext_flags == 0) {
  *  utf7-imap_decode - returns string converted from utf7-imap to euc-jp. third argument unused
  * @param string $ret default return value
  */
-function japanese_charset_xtra() {
+function japanese_xtra() {
     $ret = func_get_arg(1);  /* default return value */
     if (function_exists('mb_detect_encoding')) {
         switch (func_get_arg(0)) { /* action */
@@ -826,36 +825,220 @@ function japanese_charset_xtra() {
     return $ret;
 }
 
+/**************************
+ * Japanese extra functions
+ **************************/
 
 /**
- * Korean charset extra functions
- *
- * Action performed by function is defined by first argument.
- * Default return value is defined by second argument.
- *
- * @param string action performed by this function. 
- *    possible values:
- * downloadfilename - Hangul(Korean Character) Attached File Name Fix.
- * @param string default return value
+ * Japanese decoding function
+ * @since 1.5.1
  */
-function korean_charset_xtra() {
-    
-    $ret = func_get_arg(1);  /* default return value */
-    if (func_get_arg(0) == 'downloadfilename') { /* action */
-        $ret = str_replace("\x0D\x0A", '', $ret);  /* Hanmail's CR/LF Clear */
-        for ($i=0;$i<strlen($ret);$i++) {
-            if ($ret[$i] >= "\xA1" && $ret[$i] <= "\xFE") {   /* 0xA1 - 0XFE are Valid */
-                $i++;
-                continue;
-            } else if (($ret[$i] >= 'a' && $ret[$i] <= 'z') || /* From Original ereg_replace in download.php */
-                       ($ret[$i] >= 'A' && $ret[$i] <= 'Z') ||
-                       ($ret[$i] == '.') || ($ret[$i] == '-')) {
-                continue;
-            } else {
-                $ret[$i] = '_';
+function japanese_xtra_decode($ret) {
+    if (function_exists('mb_detect_encoding')) {
+        $detect_encoding = @mb_detect_encoding($ret);
+        if ($detect_encoding == 'JIS' ||
+            $detect_encoding == 'EUC-JP' ||
+            $detect_encoding == 'SJIS' ||
+            $detect_encoding == 'UTF-8') {
+
+            $ret = mb_convert_kana(mb_convert_encoding($ret, 'EUC-JP', 'AUTO'), "KV");
+        }
+    }
+    return $ret;
+}
+
+/**
+ * Japanese encoding function
+ * @since 1.5.1
+ */
+function japanese_xtra_encode($ret) {
+    if (function_exists('mb_detect_encoding')) {
+        $detect_encoding = @mb_detect_encoding($ret);
+        if ($detect_encoding == 'JIS' ||
+            $detect_encoding == 'EUC-JP' ||
+            $detect_encoding == 'SJIS' ||
+            $detect_encoding == 'UTF-8') {
+            
+            $ret = mb_convert_encoding(mb_convert_kana($ret, "KV"), 'JIS', 'AUTO');
+        }
+    }
+    return $ret;
+}
+
+/**
+ * Japanese header encoding function
+ * @since 1.5.1
+ */
+function japanese_xtra_encodeheader($ret) {
+    if (function_exists('mb_detect_encoding')) {
+        $result = '';
+        if (strlen($ret) > 0) {
+            $tmpstr = mb_substr($ret, 0, 1);
+            $prevcsize = strlen($tmpstr);
+            for ($i = 1; $i < mb_strlen($ret); $i++) {
+                $tmp = mb_substr($ret, $i, 1);
+                if (strlen($tmp) == $prevcsize) {
+                    $tmpstr .= $tmp;
+                } else {
+                    if ($prevcsize == 1) {
+                        $result .= $tmpstr;
+                    } else {
+                        $result .= str_replace(' ', '', 
+                                               mb_encode_mimeheader($tmpstr,'iso-2022-jp','B',''));
+                    }
+                    $tmpstr = $tmp;
+                    $prevcsize = strlen($tmp);
+                }
+            }
+            if (strlen($tmpstr)) {
+                if (strlen(mb_substr($tmpstr, 0, 1)) == 1)
+                    $result .= $tmpstr;
+                else
+                    $result .= str_replace(' ', '',
+                                           mb_encode_mimeheader($tmpstr,'iso-2022-jp','B',''));
             }
         }
+        $ret = $result;
+    }
+    return $ret;
+}
 
+/**
+ * Japanese header decoding function
+ * @since 1.5.1
+ */
+function japanese_xtra_decodeheader($ret) {
+    if (function_exists('mb_detect_encoding')) {
+        $ret = str_replace("\t", "", $ret);
+        if (eregi('=\\?([^?]+)\\?(q|b)\\?([^?]+)\\?=', $ret))
+            $ret = @mb_decode_mimeheader($ret);
+        $ret = @mb_convert_encoding($ret, 'EUC-JP', 'AUTO');
+    }
+    return $ret;
+}
+
+/**
+ * Japanese downloaded filename processing function
+ * @since 1.5.1
+ */
+function japanese_xtra_downloadfilename($ret,$useragent) {
+    if (function_exists('mb_detect_encoding')) {
+        if (strstr($useragent, 'Windows') !== false ||
+            strstr($useragent, 'Mac_') !== false) {
+            $ret = mb_convert_encoding($ret, 'SJIS', 'AUTO');
+        } else {
+            $ret = mb_convert_encoding($ret, 'EUC-JP', 'AUTO');
+        }
+    }
+    return $ret;
+}
+
+/**
+ * Japanese wordwrap function
+ *  
+ * @since 1.5.1
+ */
+function japanese_xtra_wordwrap($ret,$wrap) {
+    if (function_exists('mb_detect_encoding')) {
+        $no_begin = "\x21\x25\x29\x2c\x2e\x3a\x3b\x3f\x5d\x7d\xa1\xf1\xa1\xeb\xa1" .
+            "\xc7\xa1\xc9\xa2\xf3\xa1\xec\xa1\xed\xa1\xee\xa1\xa2\xa1\xa3\xa1\xb9" .
+            "\xa1\xd3\xa1\xd5\xa1\xd7\xa1\xd9\xa1\xdb\xa1\xcd\xa4\xa1\xa4\xa3\xa4" .
+            "\xa5\xa4\xa7\xa4\xa9\xa4\xc3\xa4\xe3\xa4\xe5\xa4\xe7\xa4\xee\xa1\xab" .
+            "\xa1\xac\xa1\xb5\xa1\xb6\xa5\xa1\xa5\xa3\xa5\xa5\xa5\xa7\xa5\xa9\xa5" .
+            "\xc3\xa5\xe3\xa5\xe5\xa5\xe7\xa5\xee\xa5\xf5\xa5\xf6\xa1\xa6\xa1\xbc" .
+            "\xa1\xb3\xa1\xb4\xa1\xaa\xa1\xf3\xa1\xcb\xa1\xa4\xa1\xa5\xa1\xa7\xa1" .
+            "\xa8\xa1\xa9\xa1\xcf\xa1\xd1";
+        $no_end = "\x5c\x24\x28\x5b\x7b\xa1\xf2\x5c\xa1\xc6\xa1\xc8\xa1\xd2\xa1" .
+            "\xd4\xa1\xd6\xa1\xd8\xa1\xda\xa1\xcc\xa1\xf0\xa1\xca\xa1\xce\xa1\xd0\xa1\xef";
+ 
+        if (strlen($ret) >= $wrap && 
+            substr($ret, 0, 1) != '>' &&
+            strpos($ret, 'http://') === FALSE &&
+            strpos($ret, 'https://') === FALSE &&
+            strpos($ret, 'ftp://') === FALSE) {
+
+            $ret = mb_convert_kana($ret, "KV");
+           
+            $line_new = '';
+            $ptr = 0;
+        
+            while ($ptr < strlen($ret) - 1) {
+                $l = mb_strcut($ret, $ptr, $wrap);
+                $ptr += strlen($l);
+                $tmp = $l;
+            
+                $l = mb_strcut($ret, $ptr, 2);
+                while (strlen($l) != 0 && mb_strpos($no_begin, $l) !== FALSE ) {
+                    $tmp .= $l;
+                    $ptr += strlen($l);
+                    $l = mb_strcut($ret, $ptr, 1);
+                }
+                $line_new .= $tmp;
+                if ($ptr < strlen($ret) - 1)
+                    $line_new .= "\n";
+            }
+            $ret = $line_new;
+        }
+    }
+    return $ret;
+}
+
+/**
+ * Japanese imap folder name encoding function
+ * @since 1.5.1
+ */
+function japanese_xtra_utf7_imap_encode($ret){
+    if (function_exists('mb_detect_encoding')) {
+        $ret = mb_convert_encoding($ret, 'UTF7-IMAP', 'EUC-JP');
+    }
+    return $ret;
+}
+
+/**
+ * Japanese imap folder name decoding function
+ * @since 1.5.1
+ */
+function japanese_xtra_utf7_imap_decode($ret) {
+    if (function_exists('mb_detect_encoding')) {
+        $ret = mb_convert_encoding($ret, 'EUC-JP', 'UTF7-IMAP');
+    }
+    return $ret;
+}
+
+/**
+ * Japanese string trimming function
+ * @since 1.5.1
+ */
+function japanese_xtra_strimwidth($ret,$width) {
+    if (function_exists('mb_detect_encoding')) {
+        $ret = mb_strimwidth($ret, 0, $width, '...');
+    }
+    return $ret;
+}
+
+/********************************
+ * Korean charset extra functions
+ ********************************/
+
+/**
+ * Korean downloaded filename processing functions
+ *
+ * @param string default return value
+ * @return string 
+ */
+function korean_xtra_downloadfilename($ret) {
+    $ret = str_replace("\x0D\x0A", '', $ret);  /* Hanmail's CR/LF Clear */
+    for ($i=0;$i<strlen($ret);$i++) {
+        if ($ret[$i] >= "\xA1" && $ret[$i] <= "\xFE") {   /* 0xA1 - 0XFE are Valid */
+            $i++;
+            continue;
+        } else if (($ret[$i] >= 'a' && $ret[$i] <= 'z') || /* From Original ereg_replace in download.php */
+                   ($ret[$i] >= 'A' && $ret[$i] <= 'Z') ||
+                   ($ret[$i] == '.') || ($ret[$i] == '-')) {
+            continue;
+        } else {
+            $ret[$i] = '_';
+        }
     }
     return $ret;
 }
