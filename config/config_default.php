@@ -282,6 +282,9 @@
 
     $theme[15]["PATH"] = "../themes/bluesnews_theme.php";
     $theme[15]["NAME"] = "BluesNews";
+    
+    $theme[16]["PATH"] = "../themes/deepocean2_theme.php";
+    $theme[16]["NAME"] = "Deep Ocean 2";
 
 //  LDAP server(s)
 //
