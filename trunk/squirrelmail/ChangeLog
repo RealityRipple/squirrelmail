@@ -73,6 +73,8 @@ Version 1.5.1 -- CVS
   - Added "trailing text" for options built by SquirrelMail (text placed
     after text and select list inputs on options pages)
   - Custom option page values now repopulate correctly
+  - Added "no focus" option for compose page in display preferences (setting
+    reply focus to "No focus" also affects composing new messages)
 
 Version 1.5.0
 --------------------
