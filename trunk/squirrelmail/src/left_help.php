@@ -42,35 +42,41 @@
    **  header tags (<H1> or <H3>).
    **/
 
-	if (!file_exists("../help/$user_language"))			// If the selected language doesn't exist, use english
-	   $user_language = "en";
+	if (file_exists("../help/$user_language")) {			
+        } elseif(file_exists("../help/en")){                             // If the selected language doesn't exist, use english
+	   $user_language = en;
+	} else {                                                         // If that is gone too, send a message
+	   $nohelp = true;
+	   echo "<BR><CENTER><B><FONT COLOR=$color[2]>",_("ERROR: Some or all of the standard English help files ar missing."), "</FONT></B></CENTER><BR>";
+        }
 
+	if(!$nohelp) {
+	   while ( list( $key, $val ) = each( $helpdir ) ) {		// loop through the array of files
+	      $fcontents = file("../help/$user_language/$val");		// assign each line of the above file to another array
+	      while ( list( $line_num, $line ) = each( $fcontents ) ) {	// loop through the second array
+     	         $temphed="";
+      	   	 $tempanc="";
 
-	while ( list( $key, $val ) = each( $helpdir ) ) {		// loop through the array of files
-	   $fcontents = file("../help/$user_language/$val");		// assign each line of the above file to another array
-	   while ( list( $line_num, $line ) = each( $fcontents ) ) {	// loop through the second array
-     	   	$temphed="";
-      	   	$tempanc="";
-
-    	   	if ( eregi("<A NAME=", $line, $tempanc)) {		// if a name anchor is found, make a link
-		   $tempanc = trim($line);
-		   $tempanc = str_replace("<A NAME=", "", $tempanc);
-    		   $tempanc = str_replace("></A>", "", $tempanc);
-        	   echo "<A HREF=\"help.php#$tempanc\" target=\"right\">";
-    	   	} 
-    	   	if ( eregi("<H1>", $line, $temphed)) {			// grab a description for the link made above
-		   $temphed = trim($line);
-		   $temphed = str_replace("<H1>", "", $temphed);
-    		   $temphed = str_replace("</H1>", "", $temphed);
-		   echo "<BR>";
-		   echo "<FONT SIZE=+1>" . _("$temphed") . "</FONT></A><BR>\n";	// make it bigger since it is a heading type 1
-   	   	}
-    	   	if ( eregi("<H3>", $line, $temphed)) {			// grab a description for the link made above
-		   $temphed = trim($line);
-		   $temphed = str_replace("<H3>", "", $temphed);
-    		   $temphed = str_replace("</H3>", "", $temphed);
-		   echo "" . _("$temphed") . "</A><BR>\n";		// keep same size since it is a normal entry
-    	   	}
+    	   	 if ( eregi("<A NAME=", $line, $tempanc)) {		// if a name anchor is found, make a link
+		    $tempanc = trim($line);
+		    $tempanc = str_replace("<A NAME=", "", $tempanc);
+    		    $tempanc = str_replace("></A>", "", $tempanc);
+        	    echo "<A HREF=\"help.php#$tempanc\" target=\"right\">";
+    	   	 }
+    	   	 if ( eregi("<H1>", $line, $temphed)) {			// grab a description for the link made above
+		    $temphed = trim($line);
+		    $temphed = str_replace("<H1>", "", $temphed);
+    		    $temphed = str_replace("</H1>", "", $temphed);
+		    echo "<BR>";
+		    echo "<FONT SIZE=+1>" . _("$temphed") . "</FONT></A><BR>\n";	// make it bigger since it is a heading type 1
+   	   	 }
+    	   	 if ( eregi("<H3>", $line, $temphed)) {			// grab a description for the link made above
+		    $temphed = trim($line);
+		    $temphed = str_replace("<H3>", "", $temphed);
+    		    $temphed = str_replace("</H3>", "", $temphed);
+		    echo "" . _("$temphed") . "</A><BR>\n";		// keep same size since it is a normal entry
+    	   	 }
+	      }
 	   }
-	}                  
+	}
 ?>
