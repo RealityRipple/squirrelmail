@@ -8,7 +8,7 @@
     **
     **  Redirects to the login page.
     **
-    **  $Id$
+    * @version $Id$
     * @package plugins
     * @subpackage translate
     **/
