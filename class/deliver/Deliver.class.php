@@ -369,7 +369,6 @@ class Deliver {
             default: $hdr_s .= $this->foldLine($header[$i], 78, str_pad('',4)); break;
             }
         }
-
         $header = $hdr_s;
         $header .= $rn; /* One blank line to separate header and body */
         $raw_length += strlen($header);
@@ -390,15 +389,20 @@ class Deliver {
             while (strlen($line) > $length) {
                 $fold = false;
                 /* handle encoded parts */
-                if (preg_match('/(=\?([^?]*)\?(Q|B)\?([^?]*)\?=)(.*)/Ui',$line,$regs)) {
+                if (preg_match('/(=\?([^?]*)\?(Q|B)\?([^?]*)\?=)(\s+|.*)/Ui',$line,$regs)) {
                     $fold_tmp = $regs[1];
+                    if (!trim($regs[5])) {
+                        $fold_tmp .= $regs[5];
+                    }
                     $iPosEnc = strpos($line,$fold_tmp);
                     $iLengthEnc = strlen($fold_tmp);
                     $iPosEncEnd = $iPosEnc+$iLengthEnc;
                     if ($iPosEnc < $length && (($iPosEncEnd) > $length)) {
                         $fold = true;
                         /* fold just before the start of the encoded string */
-                        $aFoldLine[] = substr($line,0,$iPosEnc);
+                        if ($iPosEnc) {
+                            $aFoldLine[] = substr($line,0,$iPosEnc);
+                        }
                         $line = substr($line,$iPosEnc);
                         if (!$bFirstFold) {
                             $bFirstFold = true;
@@ -416,8 +420,8 @@ class Deliver {
                         $sLineRem = substr($line,$iPosEncEnd,$length - $iPosEncEnd);
                         if (preg_match('/^(=\?([^?]*)\?(Q|B)\?([^?]*)\?=)(.*)/Ui',$sLineRem) || !preg_match('/[=,;\s]/',$sLineRem)) {
                             /*impossible to fold clean in the next part -> fold after the enc string */
-                            $aFoldLine[] = substr($line,0,$iPosEncEnd+1);
-                            $line = substr($line,$iPosEncEnd+1);
+                            $aFoldLine[] = substr($line,0,$iPosEncEnd);
+                            $line = substr($line,$iPosEncEnd);
                             $fold = true;
                             if (!$bFirstFold) {
                                 $bFirstFold = true;
@@ -456,7 +460,6 @@ class Deliver {
             }
             $line = implode($fold_string,$aFoldLine);
         }
-        
         return $line."\r\n";
     }
 
