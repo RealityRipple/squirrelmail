@@ -68,7 +68,25 @@ function do_hook_function($name,$parm=NULL) {
     return $ret;
 }
 
+/* This function executes a hook. */
+function concat_hook_function($name,$parm=NULL) {
+    global $squirrelmail_plugin_hooks;
+    $ret = '';
 
+    if (isset($squirrelmail_plugin_hooks[$name])
+          && is_array($squirrelmail_plugin_hooks[$name])) {
+        foreach ($squirrelmail_plugin_hooks[$name] as $function) {
+            /* Concatenate results from hook. */
+            if (function_exists($function)) {
+                $ret .= $function($parm);
+            }
+        }
+    }
+
+    /* Variable-length argument lists have a slight problem when */
+    /* passing values by reference. Pity. This is a workaround.  */
+    return $ret;
+}
 
 /**
  * This function checks whether the user's USER_AGENT is known to
