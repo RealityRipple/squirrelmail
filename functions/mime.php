@@ -540,6 +540,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
 }
 
 function sqimap_base64_decode(&$string) {
+    $string = str_replace("\r\n", "\n", $string);
     $string = base64_decode($string);
 }
 
@@ -599,6 +600,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
         $encoded = false;
         /* if encoded words are not separated by a linear-space-white we still catch them */
         $j = $i-1;
+//	if ($chunk{0} === '=') { /* performance, saves an unnessecarry preg call */
         while ($match = preg_match('/^(.*)=\?([^?]*)\?(Q|B)\?([^?]*)\?=(.*)$/Ui',$chunk,$res)) {
             /* if the last chunk isn't an encoded string then put back the space, otherwise don't */
             if ($iLastMatch !== $j) {
@@ -640,6 +642,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
             $chunk = $res[5];
             $encoded = true;
         }
+//	}
         if (!$encoded) {
             if ($htmlsave) {
                 $ret .= '&nbsp;';
@@ -745,7 +748,13 @@ function encodeHeader ($string) {
             $k = ord($string{$i});
             if ($k > 126) {
                 if ($iEncStart === false) {
-                    $iEncStart = $i;
+                    // do not start encoding in the middle of a string, also take the rest of the word.
+                    $sLeadString = substr($string,0,$i);
+                    $aLeadString = explode(' ',$sLeadString);
+                    $sToBeEncoded = array_pop($aLeadString);                  
+                    $iEncStart = $i - strlen($sToBeEncoded);
+                    $ret .= $sToBeEncoded;
+                    $cur_l += strlen($sToBeEncoded);
                 }
                 $cur_l += 3;
                 /* first we add the encoded string that reached it's max size */
