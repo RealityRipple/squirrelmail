@@ -4,6 +4,7 @@
    include("../functions/strings.php");
    include("../functions/page_header.php");
    include("../functions/imap.php");
+   include("../functions/mailbox.php");
 
    displayPageHeader("None");
 
@@ -35,15 +36,19 @@
 
    /** DELETING FOLDERS **/
    echo "<FORM ACTION=folders_delete.php METHOD=POST>\n";
-   echo "<SELECT NAME=folder_list><FONT FACE=\"Arial,Helvetica\">\n";
+   echo "<SELECT NAME=mailbox><FONT FACE=\"Arial,Helvetica\">\n";
    for ($i = 0; $i < count($str); $i++) {
+      $thisbox = Chop($str[$i]);
+      $thisbox = findMailboxName($thisbox);
+      $thisbox = getFolderNameMinuxINBOX($thisbox);
+
       $use_folder = true;
       for ($p = 0; $p < count($special_folders); $p++) {
          if ($special_folders[$p] == $long_name_boxes[$i])
             $use_folder = false;
       }
       if ($use_folder == true)
-         echo "   <OPTION>$boxes[$i]\n";
+         echo "   <OPTION>$thisbox\n";
    }
    echo "</SELECT>\n";
    echo "<INPUT TYPE=SUBMIT VALUE=Delete>\n";
@@ -57,7 +62,7 @@
    for ($i = 0;$i < count($str); $i++) {
       $thisbox = Chop($str[$i]);
       $thisbox = findMailboxName($thisbox);
-      $thisbox = getBoxForCreate($thisbox);
+      $thisbox = getFolderNameMinusINBOX($thisbox);
       echo "<OPTION>$thisbox\n";
    }
    echo "</SELECT>\n";
