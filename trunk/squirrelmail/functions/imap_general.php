@@ -17,24 +17,28 @@ global $sqimap_session_id;
 $sqimap_session_id = 1;
 
 /* Sets an unique session id in order to avoid simultanous sessions crash. */
-function sqimap_session_id() {
+function sqimap_session_id($unique_id = false) {
     global $data_dir, $username, $sqimap_session_id;
-    return( sprintf("A%03d", $sqimap_session_id++) );
+    if (!$unique_id) {
+	return( sprintf("A%03d", $sqimap_session_id++) );
+    } else {
+	return( sprintf("A%03d", $sqimap_session_id++) . ' UID' );
+    }
 }
 
 /*
  * Both send a command and accept the result from the command.
  * This is to allow proper session number handling.
  */
-function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$response, &$message) {
-    $sid = sqimap_session_id();
+function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$response, &$message, $unique_id = false) {
+    $sid = sqimap_session_id($unique_id);
     fputs ($imap_stream, $sid . ' ' . $query . "\r\n");
     $read = sqimap_read_data_list ($imap_stream, $sid, $handle_errors, $response, $message, $query );
     return $read;
 }
 
-function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response, &$message) {
-    $sid = sqimap_session_id();
+function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response, &$message, $unique_id = false) {
+    $sid = sqimap_session_id($unique_id);
     fputs ($imap_stream, $sid . ' ' . $query . "\r\n");
     $read = sqimap_read_data ($imap_stream, $sid, $handle_errors, $response, $message, $query);
     return $read;
@@ -52,7 +56,8 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors, &$response, 
     $read = '';
     $bufsize = 9096;
     $resultlist = array();
-
+    $pre_a = explode(' ',trim($pre));
+    $pre = $pre_a[0];
     $more_msgs = true;
     while ($more_msgs) {
         $data = array();
@@ -63,11 +68,8 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors, &$response, 
                 break;
             }
         }
-
-        /* if (ereg("^\\* [0-9]+ FETCH.*\\{([0-9]+)\\}", $read, $regs)) { */
         if (preg_match('/^\* [0-9]+ FETCH.*\{([0-9]+)\}/', $read, $regs)) {
            $size = $regs[1];
-        /* } else if (ereg("^\\* [0-9]+ FETCH", $read, $regs)) { */
         } else if (preg_match('/^\* [0-9]+ FETCH/', $read, $regs)) {
             /* Sizeless response, probably single-line */
             $size = -1;
@@ -83,17 +85,20 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors, &$response, 
                 }
             }
             /* If we know the size, no need to look at the end parameters */
+	    /* In case of a totalsize > size we do have to look at the end
+	       parameters because there can exists literals inside bodystructures.
+	    */  
             if ($size > 0) {
                 if ($total_size == $size) {
                     /* We've reached the end of this 'message', switch to the next one. */
                     $data[] = $read;
                     break;
                 } else if ($total_size > $size) {
+		    $size = -1; /* switch to end parameters in case of literals inside a bodystructure */
                     $difference = $total_size - $size;
                     $total_size = $total_size - strlen($read);
                     $data[] = substr ($read, 0, strlen($read)-$difference);
                     $read = substr ($read, strlen($read)-$difference, strlen($read));
-                    break;
                 } else {
                     $data[] = $read;
                     $read = fgets($imap_stream, $bufsize);
@@ -103,9 +108,7 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors, &$response, 
                 }
                 $total_size += strlen($read);
             } else {
-                /* if (ereg("^$pre (OK|BAD|NO)(.*)", $read, $regs) || */
                 if (preg_match("/^$pre (OK|BAD|NO)(.*)/", $read, $regs) ||
-                    /* (($size == -1) && ereg("^\\* [0-9]+ FETCH.*", $read, $regs))) { */
                     (($size == -1) && preg_match('/^\* [0-9]+ FETCH.*/', $read, $regs))) {
                     break;
                 } else if ( preg_match('/^\* OK \[PARSE.*/', $read, $regs ) ) {
@@ -139,12 +142,8 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors, &$response, 
             }
         }
 
-        /*
-         * while (($more_msgs = !ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs)) &&
-         * !ereg("^\\* [0-9]+ FETCH.*", $read, $regs)) {
-         */
         while (($more_msgs = !preg_match("/^$pre (OK|BAD|NO)(.*)$/", $read, $regs)) &&
-            !preg_match('/^\* [0-9]+ FETCH.*/', $read, $regs)) {
+            !preg_match("/^\* [0-9]+ FETCH.*/", $read, $regs)) {
             $read = fgets($imap_stream, $bufsize);
         }
         $resultlist[] = $data;
@@ -266,9 +265,8 @@ function sqimap_logout ($imap_stream) {
     sqimap_run_command($imap_stream, 'LOGOUT', false, $response, $message);
 }
 
-function sqimap_capability($imap_stream, $capability) {
+function sqimap_capability($imap_stream, $capability='') {
     global $sqimap_capabilities;
-
     if (!is_array($sqimap_capabilities)) {
         $read = sqimap_run_command($imap_stream, 'CAPABILITY', true, $a, $b);
 
@@ -282,11 +280,14 @@ function sqimap_capability($imap_stream, $capability) {
             }
         }
     }
-    if (isset($sqimap_capabilities[$capability])) {
-        return $sqimap_capabilities[$capability];
-    } else {
-        return false;
+    if ($capability) {
+	if (isset($sqimap_capabilities[$capability])) {
+    	    return $sqimap_capabilities[$capability];
+	} else {
+    	    return false;
+	}
     }
+    return $sqimap_capabilities;
 }
 
 /* Returns the delimeter between mailboxes: INBOX/Test, or INBOX.Test */
