@@ -111,9 +111,9 @@ for ( $form = 0; $form <= $search_memory; $form++ ) {
                    "<TD ALIGN=\"RIGHT\">\n".
                      "<SELECT NAME=\"where$frm\">";
         
+        s_opt( 'SUBJECT', $$where, _("Subject") );
         s_opt( 'BODY', $$where, _("Body") );
         s_opt( 'TEXT', $$where, _("Everywhere") );
-        s_opt( 'SUBJECT', $$where, _("Subject") );
         s_opt( 'FROM', $$where, _("From") );
         s_opt( 'CC', $$where, _("Cc") );
         s_opt( 'TO', $$where, _("To") );
