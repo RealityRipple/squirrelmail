@@ -821,7 +821,7 @@ function showInputForm ($session, $values=false) {
        $subject = $values['subject'];       
        $mailprio = $values['mailprio'];
        $body = $values['body'];
-       $identity = $values['identity'];
+       $identity = (int) $values['identity'];
     }
     
     if ($use_javascript_addr_book) {
@@ -950,6 +950,15 @@ function showInputForm ($session, $values=false) {
                       $editor_size . '" WRAP="VIRTUAL">';
     }
     if ($use_signature == true && $newmail == true && !isset($from_htmladdr_search)) {
+        if ($idents > 1) {
+            if ($identity == 'default') {
+                $no = 'g';
+        } else {
+            $no = $identity;
+        }
+        $signature = getSig($data_dir, $username, $no);
+    }
+
         if ($sig_first == '1') {
             if ($default_charset == 'iso-2022-jp') {
                 echo "\n\n".($prefix_sig==true? "-- \n":'').mb_convert_encoding($signature, 'EUC-JP');
