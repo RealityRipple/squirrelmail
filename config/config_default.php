@@ -69,29 +69,30 @@
 //  folders will be the same color as the other folders
     $use_special_folder_color = true;
 
-/* The following are related to deleting messages.
- *   $move_to_trash
- *         - if this is set to "true", when "delete" is pressed, it will attempt
- *           to move the selected messages to the folder named $trash_folder.  If
- *           it's set to "false", we won't even attempt to move the messages, just
- *           delete them.
- *   $trash_folder
- *         - This is the path to the default trash folder.  For Cyrus IMAP, it
- *           would be "INBOX.Trash", but for UW it would be "Trash".  We need the
- *           full path name here.
- *   $auto_expunge
- *         - If this is true, when a message is moved or copied, the source mailbox
- *           will get expunged, removing all messages marked "Deleted".
- */
+//  The following are related to deleting messages.
+//    $move_to_trash
+//         - if this is set to "true", when "delete" is pressed, it
+//           will attempt to move the selected messages to the folder
+//           named $trash_folder. If it's set to "false", we won't even
+//           attempt to move the messages, just delete them.
+//    $trash_folder
+//         - This is the path to the default trash folder. For Cyrus
+//           IMAP, it would be "INBOX.Trash", but for UW it would be
+//           "Trash". We need the full path name here.
+//    $auto_expunge
+//         - If this is true, when a message is moved or copied, the
+//           source mailbox will get expunged, removing all messages
+//           marked "Deleted".
 
     $default_move_to_trash = true;
     $trash_folder = "INBOX.Trash";
     $auto_expunge = true;
 
-//  Special Folders are folders that can't be manipulated like normal user created
-//  folders can.  A couple of examples would be "INBOX.Trash", "INBOX.Drafts".  We have
-//  them set to Netscape's default mailboxes, but this obviously can be changed.
-//  To add one, just add a new number to the array.
+//  Special Folders are folders that can't be manipulated like normal
+//  user created folders can. A couple of examples would be
+//  "INBOX.Trash", "INBOX.Drafts". We have them set to Netscape's
+//  default mailboxes, but this obviously can be changed. To add one,
+//  just add a new number to the array.
 
     $special_folders[0] = "INBOX";   // The first one has to be the inbox (whatever the name is)
     $special_folders[1] = $trash_folder;
@@ -106,25 +107,29 @@
 //  If you are not sure, set it to false.
     $default_sub_of_inbox = true;
 
-//  Some IMAP daemons (UW) handle folders weird.  They only allow a folder to contain
-//  either messages or other folders, not both at the same time.  This option controls
-//  whether or not to display an option during folder creation.  The option toggles
-//  which type of folder it should be.
+//  Some IMAP daemons (UW) handle folders weird. They only allow a
+//  folder to contain either messages or other folders, not both at
+//  the same time. This option controls whether or not to display an
+//  option during folder creation. The option toggles which type of
+//  folder it should be.
 //
-//  If this option confuses you, make it "true".  You can't hurt anything if it's true,
-//  but some servers will respond weird if it's false.  (Cyrus works fine whether it's
-//  true OR false).
+//  If this option confuses you, make it "true". You can't hurt
+//  anything if it's true, but some servers will respond weird if it's
+//  false. (Cyrus works fine whether it's true OR false).
+
     $show_contain_subfolders_option = false;
 
-//  Whether or not to use META tags and automatically forward after an action has
-//  been completed.
+//  Whether or not to use META tags and automatically forward after an
+//  action has been completed.
     $auto_forward = true;
 
 //  Path to the data/ directory
-//    It is a possible security hole to have a writable directory under the web server's
-//    root directory (ex: /home/httpd/html).  For this reason, it is possible to put
-//    the data directory anywhere you would like.   The path name can be absolute or
-//    relative (to the config directory).  It doesn't matter.  Here are two examples:
+//    It is a possible security hole to have a writable directory
+//    under the web server's root directory (ex: /home/httpd/html).
+//    For this reason, it is possible to put the data directory
+//    anywhere you would like. The path name can be absolute or
+//    relative (to the config directory). It doesn't matter. Here are
+//    two examples:
 //
 //  Absolute:
 //    $data_dir = "/usr/local/squirrelmail/data/";
@@ -133,4 +138,18 @@
 //    $data_dir = "../data/";
 
     $data_dir = "../data/";
+
+//  Path to directory used for storing attachments while a mail is
+//  being sent. There are a few security considerations regarding this
+//  directory:
+//    - It should have the permission 733 (rwx-wx-wx) to make it
+//      impossible for a random person with access to the webserver to
+//      list files in this directory. Confidential data might be laying
+//      around there
+//    - Since the webserver is not able to list the files in the content
+//      is also impossible for the webserver to delete files lying around 
+//      there for too long.
+//    - It should probably be another directory than data_dir.
+
+    $attachment_dir = $data_dir
 ?>
