@@ -57,6 +57,9 @@
     $theme[5]["PATH"] = "../config/forest_theme.php";
     $theme[5]["NAME"] = "Forest";
 
+    $theme[6]["PATH"] = "../config/ice_theme.php";
+    $theme[6]["NAME"] = "Ice";
+
 //  Whether or not to use a special color for special folders.  If not, special
 //  folders will be the same color as the other folders
     $use_special_folder_color = true;
