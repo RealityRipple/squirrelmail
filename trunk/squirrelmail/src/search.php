@@ -302,7 +302,7 @@ function asearch_get_date_display($what)
 	$what_parts = sqimap_asearch_parse_date($what);
 	if (count($what_parts) == 4) {
 		if (checkdate($what_parts[2], $what_parts[1], $what_parts[3])) {
-			$what_display = date_intl(_("M j, Y"),mktime(0,0,0,$what_parts[2],$what_parts[1],$what_parts[3]));
+			$what_display = date_intl(_("M j, Y"), mktime(0,0,0,$what_parts[2],$what_parts[1],$what_parts[3]));
 			/*$what_display = $what_parts[1] . ' ' . getMonthName($what_parts[2]) . ' ' . $what_parts[3];*/
 		}
 		else
@@ -511,8 +511,6 @@ function asearch_print_form_row($imapConnection, $boxes, $mailbox, $biop, $unop,
 	echo '</select></td>' . "\n";
 
 /* Unary operator and Search location */
-	if (empty($where))
-		$where = 'FROM';
 	echo html_tag('td',
 		asearch_opt_array('unop[' . $row_num . ']', $imap_asearch_unops, $unop)
 		. asearch_opt_array('where[' . $row_num . ']', $imap_asearch_options, $where),
@@ -535,7 +533,7 @@ function asearch_print_form_row($imapConnection, $boxes, $mailbox, $biop, $unop,
 }
 
 /* print the search form */
-function asearch_print_form($imapConnection, $boxes, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $add_criteria)
+function asearch_print_form($imapConnection, $boxes, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array)
 {
 	global $search_button_html, $add_criteria_button_html, $del_excluded_button_html, $del_all_button_html;
 	global $color;
@@ -546,17 +544,12 @@ function asearch_print_form($imapConnection, $boxes, $mailbox_array, $biop_array
 
 	echo html_tag('table', '', 'center', $color[9], 'width="100%" cellpadding="1" cellspacing="1" border="0"');
 	echo html_tag('tr', html_tag('td', asearch_get_title_display($color, _("Search Criteria")), 'center', $color[5], 'colspan=5'));
-	$row_count = count($where_array) + $add_criteria;
-	$mailbox = '';
+	$row_count = count($where_array);
 	for ($row_num = 0; $row_num < $row_count; $row_num++) {
-		/* Keep the last non-empty mailbox as default choice */
-		if (strip_tags(asearch_nz($mailbox_array[$row_num])) != '')
-			$mailbox = strip_tags($mailbox_array[$row_num]);
-		if ($mailbox == '')
-			$mailbox = $boxes[0]['unformatted'];
+		$mailbox = asearch_nz($mailbox_array[$row_num]);
 		$biop = strip_tags(asearch_nz($biop_array[$row_num]));
 		$unop = strip_tags(asearch_nz($unop_array[$row_num]));
-		$where = asearch_nz($where_array[$row_num]);
+		$where = strip_tags(asearch_nz($where_array[$row_num]));
 		$what = asearch_nz($what_array[$row_num]);
 		$exclude = strip_tags(asearch_nz($exclude_array[$row_num]));
 		asearch_print_form_row($imapConnection, $boxes, $mailbox, $biop, $unop, $where, $what, $exclude, $row_num);
@@ -840,11 +833,9 @@ $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0
 /* get mailbox names once here */
 $boxes = sqimap_mailbox_list($imapConnection);
 /* ensure we have a valid default mailbox name */
-$mailbox = strip_tags(asearch_nz($mailbox_array[0]));
-if (($mailbox == '') || ($mailbox == 'None'))	{	//Workaround for sm quirk IMHO (what if I really have a mailbox called None?)
-	$mailbox = $boxes[0]['unformatted'];
-	$mailbox_array[0] = $mailbox;
-}
+$mailbox = asearch_nz($mailbox_array[0]);
+if (($mailbox == '') || ($mailbox == 'None'))	//Workaround for sm quirk IMHO (what if I really have a mailbox called None?)
+	$mailbox = $boxes[0]['unformatted'];	//Usually INBOX ;)
 
 if (isset($composenew) && $composenew) {
 	$comp_uri = "../src/compose.php?mailbox=" . urlencode($mailbox) .
@@ -864,11 +855,24 @@ if (!$search_silent) {
 				'', '', 'width="100%"') . "\n";
 	asearch_print_saved($data_dir, $username);
 	asearch_print_recent($data_dir, $username);
-	if (($submit == $add_criteria_button_text) || (empty($where_array)))
-		$new_row = 1;
-	else
-		$new_row = 0;
-	asearch_print_form($imapConnection, $boxes, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $new_row);
+	if (empty($where_array)) {
+		$mailbox_array[0] = $mailbox;
+		$biop_array[0] = '';
+		$unop_array[0] = '';
+		$where_array[0] = 'FROM';
+		$what_array[0] = '';
+		$exclude_array[0] = '';
+	}
+	if ($submit == $add_criteria_button_text) {
+		$last_index = max(count($where_array) - 1, 0);
+		$mailbox_array[] = asearch_nz($mailbox_array[$last_index]);
+		$biop_array[] = asearch_nz($biop_array[$last_index]);
+		$unop_array[] = asearch_nz($unop_array[$last_index]);
+		$where_array[] = asearch_nz($where_array[$last_index]);
+		$what_array[] = asearch_nz($what_array[$last_index]);
+		$exclude_array[] = asearch_nz($exclude_array[$last_index]);
+	}
+	asearch_print_form($imapConnection, $boxes, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array);
 }
 
 /* This deserves a comment, at least. What is it for exactly? */
@@ -883,16 +887,8 @@ if (isset($newsort)) {
  * used. Also check to make sure we actually have the array in the   *
  * registered session data.  :)                                      *
  *********************************************************************/
-if (! isset($use_mailbox_cache)) {
+if (!isset($use_mailbox_cache))
     $use_mailbox_cache = 0;
-}
-
-/* There is a problem with registered vars in 4.1 */
-/*
-if(substr(phpversion(), 0, 3) == '4.1') {
-    $use_mailbox_cache = FALSE;
-}
-*/
 
 do_hook('search_after_form');
 
@@ -906,7 +902,8 @@ if ($submit == $search_button_text) {
 	if ($query_error != '')
 		echo '<br>' . html_tag('div', asearch_get_error_display($color, $query_error), 'center') . "\n";
 	else {
-		$old_allow_thread_sort = 0;
+		// Temporarily unset thread sort because it is meaningless in search results
+		$old_allow_thread_sort = FALSE;
 		if ($allow_thread_sort == TRUE) {
 			$old_allow_thread_sort = $allow_thread_sort;
 			$allow_thread_sort = FALSE;
@@ -937,7 +934,6 @@ if ($submit == $search_button_text) {
 		$allow_thread_sort = $old_allow_thread_sort;
 	}
 }
-
 
 do_hook('search_bottom');
 sqimap_logout($imapConnection);
