@@ -509,7 +509,7 @@ function mail_message_listing_beginning
        . "<TR><TD BGCOLOR=\"$color[0]\">\n"
        . "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=\"100%\">\n"
        . "   <TR>\n"
-       . "      <TD ALIGN=LEFT VALIGN=MIDDLE NOWRAP>\n"
+       . "      <TD ALIGN=LEFT VALIGN=MIDDLE>\n"
        . '         <SMALL>&nbsp;' . _("Move Selected To:") . "</SMALL>\n"
        . "      </TD>\n"
        . "      <TD ALIGN=RIGHT NOWRAP>\n"
@@ -517,7 +517,7 @@ function mail_message_listing_beginning
        . "      </TD>\n"
        . "   </TR>\n"
        . "   <TR>\n"
-       . "      <TD ALIGN=LEFT VALIGN=MIDDLE NOWRAP>\n"
+       . "      <TD ALIGN=LEFT VALIGN=MIDDLE>\n"
        . '         <SMALL>&nbsp;<TT><SELECT NAME="targetMailbox">';
 
     $boxes = sqimap_mailbox_list($imapConnection);
@@ -532,15 +532,16 @@ function mail_message_listing_beginning
         }
     }
     echo '         </SELECT></TT>&nbsp;'.
-         "<INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"" . _("Move") . "\"></SMALL>\n".
+         "<INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"" . _("Move") . '">&nbsp;'.
+	 "<INPUT TYPE=SUBMIT NAME=\"attache\" VALUE=\"". _("Forward") . "\">&nbsp;\n"."</SMALL>\n".
          "      </TD>\n".
-         "      <TD ALIGN=RIGHT NOWRAP>&nbsp;&nbsp;&nbsp;\n";
+         "      <TD ALIGN=RIGHT NOWRAP WIDTH=\"40%\">\n";
     if (!$auto_expunge) {
         echo '         <INPUT TYPE=SUBMIT NAME="expungeButton" VALUE="'. _("Expunge") .'">&nbsp;'. _("mailbox") ."&nbsp;\n";
     }
     echo "         <INPUT TYPE=SUBMIT NAME=\"markRead\" VALUE=\"". _("Read")."\">\n".
          "         <INPUT TYPE=SUBMIT NAME=\"markUnread\" VALUE=\"". _("Unread")."\">\n".
-         "         <INPUT TYPE=SUBMIT VALUE=\"". _("Delete") . "\">&nbsp;\n".
+	 "	   <INPUT TYPE=SUBMIT VALUE=\"". _("Delete") . "\">&nbsp;\n".
          "      </TD>\n".
          "   </TR>\n".
          "</TABLE>\n";
