@@ -4,6 +4,11 @@
 
 Version 1.2.6 -- CVS
 --------------------
+  - Added user option to sort messages by internal date
+  - Changed attachment handling now attachments are adressed to 
+    unique compose session.
+  - Added forward messages as message/rfc822 attachment
+  - Fixed handling message/rfc822 attachments
   - Fixed folder list display when special folders have subfolders
   - Added option to auto-append sig before reply/forward text (523853)
   - Fixed subfolders being "orphaned" when renaming parents (498167)
