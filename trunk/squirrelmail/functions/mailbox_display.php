@@ -22,9 +22,7 @@
 
       $senderName = sqimap_find_displayable_name($msg['FROM']);
       $urlMailbox = urlencode($mailbox);
-      $subject = trim($msg['SUBJECT']);
-      if ($subject == '')
-         $subject = _("(no subject)");
+      $subject = processSubject($msg['SUBJECT']);
 
       echo "<TR>\n";
 
@@ -111,33 +109,7 @@
                    if (! isset($search_stuff)) { $search_stuff = ''; }
                echo "<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0$search_stuff\"";
                do_hook("subject_link");
-               echo ">$flag";
-               if (strlen($subject) > 55){
-                 $ent_strlen=strlen($subject);
-                 $trim_val=50;
-                 // see if this is entities-encoded string
-                 if (is_int(strpos($subject, "&#"))){
-                   // Yes. Iterate through the whole string, find out
-                   // the real number of characters, and if more
-                   // than 55, substr with an updated trim value.
-                   $ent_offset=0;
-                   $ent_count=0;
-                   do {
-                     $ent_loc = strpos($subject, "&#", $ent_offset);
-                     $ent_loc_end = strpos($subject, ";", $ent_offset);
-                     if ($ent_loc_end){
-                       $trim_val += ($ent_loc_end-$ent_loc)+1;
-                       $ent_strlen -= $ent_loc_end-$ent_loc;
-                       $ent_offset = $ent_loc_end+1;
-                       $ent_count++;
-                     } else $ent_loc=false;
-                   } while (is_int($ent_loc));
-                 }
-                 if ($ent_strlen>55) echo substr($subject, 0, $trim_val) . '...';
-		 else echo $subject;
-               } else echo $subject;
-               
-	       echo "$flag_end</a>$bold_end</td>\n";
+               echo ">$flag$subject$flag_end</a>$bold_end</td>\n";
                break;
             case 5: # flags
                $stuff = false;
@@ -639,5 +611,35 @@
            echo _("Select All");
        echo "</A>\n";
    }
-   
+
+   function processSubject($subject)
+   {
+      // Shouldn't ever happen -- caught too many times in the IMAP functions
+      if ($subject == '')
+          return _("(no subject)");
+	  
+      if (strlen($subject) <= 55)
+          return $subject;
+	  
+      $ent_strlen=strlen($subject);
+      $trim_val=50;
+      $ent_offset=0;
+      // see if this is entities-encoded string
+      // If so, Iterate through the whole string, find out
+      // the real number of characters, and if more
+      // than 55, substr with an updated trim value.
+      while (($ent_loc = strpos($subject, '&', $ent_offset)) !== false &&
+             ($ent_loc_end = strpos($subject, ';', $ent_loc)) !== false)
+      {
+	 $trim_val += ($ent_loc_end-$ent_loc)+1;
+	 $ent_strlen -= $ent_loc_end-$ent_loc;
+	 $ent_offset = $ent_loc_end+1;
+      }
+      
+      if ($ent_strlen <= 55)
+          return $subject;
+
+      return substr($subject, 0, $trim_val) . '...';
+   }
+
 ?>
