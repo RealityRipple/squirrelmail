@@ -248,7 +248,8 @@
       if (! strstr($host, ':'))
       {
           if (isset($SERVER_PORT)) {
-              if ($SERVER_PORT != 80) {
+              if (($SERVER_PORT != 80 && $proto == "http://")
+                      || ($SERVER_PORT != 443 && $proto == "https://")) {
                   $port = sprintf(':%d', $SERVER_PORT);
               }
           }
