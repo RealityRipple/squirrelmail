@@ -374,9 +374,9 @@
 
       $Message = '';
       if ($startMessage < $endMessage) {
-         $Message = _("Viewing messages") .":<B>$startMessage</B> ". _("to") ." <B>$endMessage</B> ($numMessages " . _("total") . ")\n";
+         $Message = sprintf( _("Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"), $startMessage, $endMessage, $numMessages );
       } elseif ($startMessage == $endMessage) {
-         $Message = _("Viewing message") .":<B>$startMessage</B> ($numMessages " . _("total") . ")\n";
+         $Message = sprintf( _("Viewing Message: <B>%s</B> to <B>%s</B> (%s total)"), $startMessage, $endMessage, $numMessages );
       }
 
       if ($sort == 6) {
@@ -489,7 +489,12 @@
       }
 
       echo '</table>';
-      echo "<table bgcolor=\"$color[4]\" width=100%><tr ><td>$lMore$mMore$rMore</td><td align=right>$Message</td></tr></table>";
+      echo "<table bgcolor=\"$color[9]\" width=100% border=0 cellpadding=1 cellspacing=1>" .
+              "<tr BGCOLOR=\"$color[4]\">" .
+                 "<table width=100% BGCOLOR=\"$color[4]\" border=0 cellpadding=1 cellspacing=0><tr><td>$lMore$mMore$rMore</td>".
+                 "<td align=right>$Message</td></tr></table>".
+              "</tr>".
+           "</table>";
       /** End of message-list table */
 
       do_hook('mailbox_index_after');
@@ -512,9 +517,10 @@
       $urlMailbox = urlencode($mailbox);
 
       /** This is the beginning of the message list table.  It wraps around all messages */
-      echo '<TABLE WIDTH="100%" BORDER="0" CELLPADDING="2" CELLSPACING="0">';
+      echo "<center>$Message</center>" .
+           '<TABLE WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">';
 
-      echo "<TR BGCOLOR=\"$color[4]\"><TD>";
+      echo "<TR BGCOLOR=\"$color[9]\"><TD>";
 
       echo  "<table bgcolor=\"$color[4]\" cellpadding=2".
            ' width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td>' .
@@ -523,7 +529,7 @@
       echo "</td></tr></table>\n</td></tr>";
 
       /** The delete and move options */
-      echo "<TR><TD BGCOLOR=\"$color[0]\">";
+      echo "<TD BGCOLOR=\"$color[0]\">";
 
       echo "\n<FORM name=messageList method=post action=\"$moveURL\">\n";
       echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=100%>\n";
