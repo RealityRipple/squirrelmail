@@ -514,7 +514,8 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
     }
 
     foreach ($boxes as $boxes_part) {
-        if ($flag == NULL || !in_array($flag, $boxes_part['flags'])) {
+        if ($flag == NULL || (is_array($boxes_part['flags'])
+                      && !in_array($flag, $boxes_part['flags']))) {
             $box = $boxes_part['unformatted'];
 
             if ($folder_skip != 0 && in_array($box, $folder_skip) ) {
