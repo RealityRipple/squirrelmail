@@ -44,7 +44,7 @@
    function displayPageHeader($color, $mailbox) {
       displayHtmlHeader ();
 
-      echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\" onLoad='document.forms[0].elements[0].focus();'>\n\n";
+      echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\" onLoad='if ( document.form[0].elements[0].type == \"text\" ) { document.forms[0].elements[0].focus(); }'>\n\n";
 
       /** Here is the header and wrapping table **/
       $shortBoxName = readShortMailboxName($mailbox, ".");
