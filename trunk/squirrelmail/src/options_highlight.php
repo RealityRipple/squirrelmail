@@ -64,13 +64,34 @@ if (! isset($message_highlight_list)) {
     $message_highlight_list = array();
 }
 
-if ($action == 'delete' && isset($theid)) {
-
+if (isset($theid) && ($action == 'delete') ||
+                     ($action == 'up')     ||
+                     ($action == 'down')) {
     $new_rules = array();
-    foreach($message_highlight_list as $rid => $rule) {
-         if($rid != $theid) {
-             $new_rules[] = $rule;
-         }
+    switch($action) {
+        case('delete'):
+            foreach($message_highlight_list as $rid => $rule) {
+                 if($rid != $theid) {
+                     $new_rules[] = $rule;
+                 }
+            }
+            break;
+        case('down'):
+            $theid++;
+        case('up'):
+            foreach($message_highlight_list as $rid => $rule) {
+                if($rid == $theid) {
+                    $temp_rule         = $new_rules[$rid-1];
+                    $new_rules[$rid-1] = $rule;
+                    $new_rules[$rid]   = $temp_rule;
+                } else {
+                    $new_rules[$rid]   = $rule;
+                }
+            }
+            break;
+        default:
+            $new_rules = $message_highlight_list;
+            break;
     }
     $message_highlight_list = $new_rules;    
 
@@ -115,9 +136,10 @@ html_tag( 'table', '', '', '', 'width="100%" border="0" cellpadding="1" cellspac
 
 echo '<center>[<a href="options_highlight.php?action=add">' . _("New") . '</a>]'.
         ' - [<a href="options.php">'._("Done").'</a>]</center><br>'."\n";
-if (count($message_highlight_list) >= 1) {
+$mhl_count = count($message_highlight_list);
+if ($mhl_count > 0) {
     echo html_tag( 'table', '', 'center', '', 'width="80%" border="0" cellpadding="3" cellspacing="0"' ) . "\n";
-    for ($i=0; $i < count($message_highlight_list); $i++) {
+    for ($i=0; $i < $mhl_count; $i++) {
         $match_type = '';
         switch ($message_highlight_list[$i]['match_type'] ) {
             case 'from' :
@@ -137,12 +159,21 @@ if (count($message_highlight_list) >= 1) {
             break;
         }
 
+        $links = '<small>[<a href="options_highlight.php?action=edit&amp;theid=' . $i . '">' .
+                 _("Edit") .
+                 '</a>]&nbsp;[<a href="options_highlight.php?action=delete&amp;theid='.  $i . '">' .
+                 _("Delete");
+        if($i > 0) {
+            $links .= '</a>]&nbsp;[<a href="options_highlight.php?action=up&amp;theid='.  $i . '">' .  _("Up");
+        }
+        if($i+1 < $mhl_count) {
+            $links .= '</a>]&nbsp;[<a href="options_highlight.php?action=down&amp;theid='.  $i . '">' .  _("Down");
+        }
+        $links .= '</a>]</small>';
+
         echo html_tag( 'tr',
                     html_tag( 'td',
-                        '<small>[<a href="options_highlight.php?action=edit&amp;theid=' . $i . '">' .
-                        _("Edit") .
-                        '</a>]&nbsp;[<a href="options_highlight.php?action=delete&amp;theid='.
-                        $i . '">' . _("Delete") . '</a>]</small>' ,
+                        $links,
                     'left', $color[4], 'width="20%" nowrap' ) .
                     html_tag( 'td',
                         htmlspecialchars($message_highlight_list[$i]['name']) ,
