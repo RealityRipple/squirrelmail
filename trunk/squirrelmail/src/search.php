@@ -162,8 +162,7 @@ function save_recent($save_index, $username, $data_dir) {
 function printSearchMessages($msgs,$mailbox, $cnt, $imapConnection, $usecache = false, $newsort = false) {
     global $sort, $color;
     
-    $msort = calc_msort($msgs, $sort, $cnt, true);
-
+    $msort = calc_msort($msgs, $sort);
     if ($cnt > 0) {
        if ( $mailbox == 'INBOX' ) {
            $showbox = _("INBOX");
@@ -172,10 +171,19 @@ function printSearchMessages($msgs,$mailbox, $cnt, $imapConnection, $usecache = 
        }
        echo html_tag( 'div', '<b><big>' . _("Folder:") . ' '. $showbox.'</big></b>','center') . "\n";
 
+
+       $msg_cnt_str = get_msgcnt_str(1, $cnt, $cnt);
+
+       mail_message_listing_beginning($imapConnection, $mailbox, $sort, 
+                                       $msg_cnt_str, '', 1);
+
+
+       printHeader($mailbox, 6, $color, false);
+
        displayMessageArray($imapConnection, $cnt, 1, 
-			     $msgs, $msort, $mailbox, $sort, $color, 
-			     $cnt, true);
-       
+		          $msort, $mailbox, $sort, $color, $cnt);
+
+       mail_message_listing_end($cnt, '', $msg_cnt_str, $color); 
     }
 }			      
 
@@ -439,7 +447,8 @@ if ($search_all == 'all') {
             sqimap_mailbox_select($imapConnection, $mailbox);
             $msgs = sqimap_search($imapConnection, $where, $what, $mailbox, $color, 0, $search_all, $count_all);
 	    $count_all = count($msgs);
-            printSearchMessages($msgs, $mailbox, $count_all, $imapConnection);
+            printSearchMessages($msgs, $mailbox, $count_all, $imapConnection, 
+	                        false, false);
             array_push($perbox_count, $count_all);
         }
     }
@@ -462,7 +471,8 @@ else {
         sqimap_mailbox_select($imapConnection, $mailbox);
         $msgs = sqimap_search($imapConnection, $where, $what, $mailbox, $color, 0, $search_all, $count_all);
 	if (count($msgs)) {
-           printSearchMessages($msgs, $mailbox, count($msgs), $imapConnection);
+           printSearchMessages($msgs, $mailbox, count($msgs), $imapConnection,
+	                       false, false);
 	} else {
            echo '<br><center>' . _("No Messages Found") . '</center>';
 	}
