@@ -76,6 +76,9 @@ if ($signout_page) {
     header("Location: $signout_page");
     exit; /* we send no content if we're redirecting. */
 }
+
+/* internal gettext functions will fail, if language is not set */
+set_up_language($squirrelmail_language, true, true);
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
