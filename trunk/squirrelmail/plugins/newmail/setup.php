@@ -235,8 +235,12 @@ function newmail_plugin() {
         }
 
         if ($totalNew > 0 && $newmail_enable == 'on' && $newmail_media != '' ) {
+            /**
+             * docs about embed
+             * Apple: http://www.apple.com/quicktime/authoring/embed.html
+             */
             echo '<embed src="'.htmlspecialchars($newmail_media) .
-                "\" hidden=\"true\" autostart=\"true\">\n";
+                "\" hidden=\"true\" autostart=\"true\" width=\"2\" height=\"2\">\n";
         }
         if ($totalNew > 0 && $newmail_popup == 'on') {
             echo "<script language=\"JavaScript\">\n".
