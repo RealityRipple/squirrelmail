@@ -93,10 +93,10 @@ if ($left_size == "") {
 }
 
 if ($location_of_bar == 'right') {
-    echo "<frameset cols=\"*, $left_size\" border=\"0\" id=\"fs1\">";
+    echo "<frameset cols=\"*, $left_size\" border=\"1\" id=\"fs1\">";
 }
 else {
-    echo "<frameset cols=\"$left_size, *\" border=\"0\" id=\"fs1\">";
+    echo "<frameset cols=\"$left_size, *\" border=\"1\" id=\"fs1\">";
 }
 
 /*
@@ -129,12 +129,12 @@ if ($right_frame == 'right_main.php') {
 }
 
 if ($location_of_bar == 'right') {
-    echo "<FRAME SRC=\"$right_frame_url\" NORESIZE NAME=\"right\">" .
-         '<FRAME SRC="left_main.php" NORESIZE NAME="left">';
+    echo "<FRAME SRC=\"$right_frame_url\"  NAME=\"right\">" .
+         '<FRAME SRC="left_main.php"  NAME="left">';
 }
 else {
-    echo '<FRAME SRC="left_main.php" NORESIZE NAME="left">'.
-         "<FRAME SRC=\"$right_frame_url\" NORESIZE NAME=\"right\">";
+    echo '<FRAME SRC="left_main.php"  NAME="left">'.
+         "<FRAME SRC=\"$right_frame_url\"  NAME=\"right\">";
 }
 do_hook('webmail_bottom');
 ?>
