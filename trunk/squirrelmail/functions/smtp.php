@@ -960,17 +960,16 @@ function createPriorityHeaders($prio) {
     $prio_headers['X-Priority'] = $prio;
 
     switch($prio) {
-    case 1: $prio_headers['Importance'] = 'High';
-        $prio_headers['X-MSMail-Priority'] = 'High';
+    case 1: 
+        $prio_headers['Importance'] = 'High';
         break;
 
-    case 3: $prio_headers['Importance'] = 'Normal';
-        $prio_headers['X-MSMail-Priority'] = 'Normal';
+    case 3: 
+        $prio_headers['Importance'] = 'Normal';
         break;
 
     case 5:
         $prio_headers['Importance'] = 'Low';
-        $prio_headers['X-MSMail-Priority'] = 'Low';
         break;
     }
     return  $prio_headers;
