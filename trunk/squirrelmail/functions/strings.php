@@ -415,6 +415,29 @@ function TrimArray(&$array) {
     }
 }   
 
+/* returns a link to the compose-page, taking in consideration
+ * the compose_in_new and javascript settings. */
+function makeComposeLink($url, $text = null)
+{
+    global $compose_new_win,$javascript_on;
+
+    if(!$text) {
+        $text = _("Compose");
+    }
+
+    if($compose_new_win != '1') {
+        return makeInternalLink($url, $text, 'right');
+    }
+
+    /* if we can use JS, use the fancy window, else just open a new one HTML-style */
+    if($javascript_on) {
+        sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION);
+        return '<a href="javascript:void(0)" onclick="comp_in_new(\''.$base_uri.$url.'\')">'. $text.'</a>';
+    }
+
+    return makeInternalLink($url, $text, '_blank');
+}
+
 $PHP_SELF = php_self();
 
 ?>

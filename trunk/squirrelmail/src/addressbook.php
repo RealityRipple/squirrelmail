@@ -386,13 +386,9 @@ if ($showaddrlist) {
             html_tag( 'td', '', 'left', '', 'valign="top" width="1%" nowrap' ) . '&nbsp;';
                 }
             $email = $abook->full_address($row);
-            if ($compose_new_win == '1') {
-                echo '<a href="javascript:void(0)" onclick=comp_in_new("compose.php?send_to='.rawurlencode($email).'")>';
-            }
-            else {
-                echo '<A HREF="compose.php?send_to=' . rawurlencode($email).'">';
-            }
-            echo htmlspecialchars($row['email']) . '</A>&nbsp;</td>'."\n".
+            echo makeComposeLink('src/compose.php?send_to='.rawurlencode($email),
+                 htmlspecialchars($row['email']) ) .
+            '&nbsp;</td>'."\n".
             html_tag( 'td', '&nbsp;' . htmlspecialchars($row['label']) . '&nbsp;', 'left', '', 'valign="top" width="1%"' ) .
             "</tr>\n";
             $line++;
