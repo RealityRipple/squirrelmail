@@ -1,10 +1,12 @@
 Version 0.3pre2 -- Development
 ------------------------------
+- Rewrote folder deletion.  It works unbelievably efficiently now.
+- Fixed message deletion that didn't always delete the right messages.
+- Removed font tags
 - Better character translation, especially for i18n
 - Added the choice of language as a user preference
 - Bug fixes, bug fixes, bug fixes
 - Fixed bugs in message moving and deleting
-- Wrote new algorithm for deleting folders
 - Rewrote all IMAP functions from scratch
 
 Version 0.3pre1 -- February 17, 2000
