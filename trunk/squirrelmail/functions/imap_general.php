@@ -114,7 +114,7 @@
                   $squirrelmail_language = substr($HTTP_ACCEPT_LANGUAGE, 0, 2);
                }
                
-               if (isset($squirrelmail_language)) {
+               if (isset($squirrelmail_language) && function_exists("bindtextdomain")) {
                   if ($squirrelmail_language != "en" && $squirrelmail_language != "") {
                      putenv("LC_ALL=".$squirrelmail_language);
                      bindtextdomain("squirrelmail", "../locale/");
