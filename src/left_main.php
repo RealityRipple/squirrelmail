@@ -77,7 +77,7 @@ function formatMailboxName($imapConnection, $box_array) {
     if ( $mailbox == 'INBOX' ) {
         $line .= _("INBOX");
     } else {
-        $line .= str_replace(' ','&nbsp;',$mailbox);
+        $line .= str_replace(array(' ','<','>'),array('&nbsp;','&lt;','&gt;'),$mailbox);
     }
     if ($special_color == TRUE)
         $line .= '</font>';
@@ -434,7 +434,7 @@ function ListBoxes ($boxes, $j=0 ) {
     $end .= '</nobr>';
 
     if (!$boxes->is_root) {
-        echo "" . $pre .$font. $boxes->mailboxname_sub .$fontend . $end. '<br />' . "\n";
+        echo "" . $pre .$font. $line .= str_replace(array(' ','<','>'),array('&nbsp;','&lt;','&gt;'),$boxes->mailboxname_sub) .$fontend . $end. '<br />' . "\n";
         $j++;
     }
 
@@ -561,7 +561,7 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
         }
         if (!isset($boxes->mbxs[0])) {
             echo '   ' . html_tag( 'div',
-                            '<tt>'. $pre . $folder_img . '</tt>'. $boxes->mailboxname_sub . $end,
+                            '<tt>'. $pre . $folder_img . '</tt>'. $line .= str_replace(array(' ','<','>'),array('&nbsp;','&lt;','&gt;'),$boxes->mailboxname_sub) . $end,
                             'left', '', 'class="mbx_sub" id="' .$j. '"' ) . "\n";
         } else {
             /* get collapse information */
