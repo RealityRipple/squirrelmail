@@ -48,7 +48,7 @@ msgid "Address Book Search"
 msgstr "Търсене в книгата с адреси"
 
 msgid "Search for"
-msgstr "Търси за"
+msgstr "Търсене за"
 
 msgid "in"
 msgstr "в"
@@ -57,10 +57,10 @@ msgid "All address books"
 msgstr "Всички книги с адреси"
 
 msgid "Search"
-msgstr "Търси"
+msgstr "Търсене"
 
 msgid "List all"
-msgstr "Изведи всички"
+msgstr "Извеждане на всички"
 
 #, c-format
 msgid "Unable to list addresses from %s"
@@ -70,13 +70,13 @@ msgid "Your search failed with the following error(s)"
 msgstr "Търсенето ви не успя поради следните грешки"
 
 msgid "No persons matching your search was found"
-msgstr "Няма хора, които да отговарят на търсенето ви"
+msgstr "Няма лица, които да отговарят на критериите на търсенето Ви"
 
 msgid "Return"
 msgstr "Връщане"
 
 msgid "Close"
-msgstr "Затвори"
+msgstr "Затваряне"
 
 msgid "Nickname"
 msgstr "Псевдоним"
@@ -103,7 +103,7 @@ msgid "You can only edit one address at the time"
 msgstr "Можете да редактирате само един адрес в едно и също време"
 
 msgid "Update address"
-msgstr "Обнови адресите"
+msgstr "Обновяване на адресите"
 
 msgid "ERROR"
 msgstr "ГРЕШКА"
@@ -112,17 +112,17 @@ msgid "Unknown error"
 msgstr "Неразпозната грешка"
 
 msgid "Add address"
-msgstr "Добави адреса"
+msgstr "Добавяне на адреса"
 
 msgid "Edit selected"
-msgstr "Редактирай избраното"
+msgstr "Редактиране на избраното"
 
 msgid "Delete selected"
-msgstr "Изтрий избраните"
+msgstr "Изтриване на избраните"
 
 #, c-format
 msgid "Add to %s"
-msgstr "Добави към %s"
+msgstr "Добавяне към %s"
 
 msgid "Subject"
 msgstr "Тема"
@@ -140,7 +140,7 @@ msgid "Draft Email Saved"
 msgstr "Черновата на email-a са записани"
 
 msgid "Could not move/copy file. File not attached"
-msgstr "Не мога да преместя/копирам файла. Файла не е прикрепен"
+msgstr "Не може да се премести/копира файла. Файлът не е прикрепен"
 
 msgid "Draft Saved"
 msgstr "Черновата на email-a записани"
@@ -155,25 +155,25 @@ msgid "To:"
 msgstr "До:"
 
 msgid "CC:"
-msgstr "Копие"
+msgstr "Копие:"
 
 msgid "BCC:"
-msgstr "BCC"
+msgstr "BCC:"
 
 msgid "Subject:"
 msgstr "Тема:"
 
 msgid "Send"
-msgstr "Изпрати"
+msgstr "Изпращане"
 
 msgid "Attach:"
-msgstr "Прикрепи:"
+msgstr "Прикрепване:"
 
 msgid "Add"
-msgstr "Добави"
+msgstr "Добавяне"
 
 msgid "Delete selected attachments"
-msgstr "Изтрий избраните прикрепени файлове"
+msgstr "Изтриване на избраните прикрепени файлове"
 
 msgid "Priority"
 msgstr "Приоритет"
@@ -203,10 +203,10 @@ msgid "Addresses"
 msgstr "Адреси"
 
 msgid "Save Draft"
-msgstr "Запиши черновата"
+msgstr "Записване на черновата"
 
 msgid "You have not filled in the \"To:\" field."
-msgstr "Не сте попълнили полето \"До:\"."
+msgstr "Полето \"До:\" не е попълнено."
 
 msgid "said"
 msgstr "каза"
@@ -224,7 +224,7 @@ msgid "Server replied: "
 msgstr "Отговор на сървъра: "
 
 msgid "Illegal folder name. Please select a different name."
-msgstr "Нелегално име на папка. Моля изберете друго име."
+msgstr "Невалидно име на папка. Моля изберете друго име."
 
 msgid "Click here to go back"
 msgstr "Кликнете тук за да се върнете назад"
@@ -233,7 +233,7 @@ msgid "You have not selected a folder to delete. Please do so."
 msgstr "Не сте избрали папка за изтриване. Моля, направете го."
 
 msgid "Delete Folder"
-msgstr "Изтрий папка"
+msgstr "Изтриване на папка"
 
 #, c-format
 msgid "Are you sure you want to delete %s?"
@@ -267,10 +267,10 @@ msgid "Subscription Unsuccessful - Folder does not exist."
 msgstr "Присъединяването неуспешно - Папката не съществува."
 
 msgid "refresh folder list"
-msgstr "Презареди списъка с папките"
+msgstr "Презареждане на списъка с папките"
 
 msgid "Create Folder"
-msgstr "Създай папка"
+msgstr "Създаване на папка"
 
 msgid "as a subfolder of"
 msgstr "като подпапка на"
@@ -282,28 +282,28 @@ msgid "Let this folder contain subfolders"
 msgstr "Нека тази папка съдържа подпапки"
 
 msgid "Create"
-msgstr "Създай"
+msgstr "Създаване"
 
 msgid "Rename a Folder"
-msgstr "Преименувай папката"
+msgstr "Преименуване на папката"
 
 msgid "Select a folder"
-msgstr "Избери папката"
+msgstr "Изберете папката"
 
 msgid "Rename"
-msgstr "Преименувай"
+msgstr "Преименуване"
 
 msgid "No folders found"
 msgstr "Папки не са намерени"
 
 msgid "Delete"
-msgstr "Изтрий"
+msgstr "Изтриване"
 
 msgid "Unsubscribe"
-msgstr "Отстрани"
+msgstr "Отстраняване"
 
 msgid "Subscribe"
-msgstr "Присъедини"
+msgstr "Присъединяване"
 
 msgid "No folders were found to unsubscribe from!"
 msgstr "Не са намерени папки които да се отстранят!"
@@ -312,22 +312,22 @@ msgid "No folders were found to subscribe to!"
 msgstr "Не са намерени папки които да се присъединят!"
 
 msgid "Subscribe to:"
-msgstr "Присъедини се към:"
+msgstr "Присъединяване към:"
 
 msgid "You have not selected a folder to rename. Please do so."
 msgstr "Не сте избрали папка за изтриване. Моля, направете го."
 
 msgid "Rename a folder"
-msgstr "Преименувай папката"
+msgstr "Преименуване на папка"
 
 msgid "New name:"
 msgstr "Ново име:"
 
 msgid "Submit"
-msgstr "Потвърди"
+msgstr "Потврждения"
 
 msgid "ERROR: Help files are not in the right format!"
-msgstr "ГРЕШКА: Помощните файлове не са в точния формат!"
+msgstr "ГРЕШКА: Помощните файлове не са в правилния формат!"
 
 msgid "Help"
 msgstr "Помощ"
@@ -358,7 +358,7 @@ msgid "View message"
 msgstr "Преглед на писмото"
 
 msgid "Download this as a file"
-msgstr "Свали го като файл"
+msgstr "Сваляне като файл"
 
 msgid "Not available"
 msgstr "Не е предоставено"
@@ -367,13 +367,13 @@ msgid "INBOX"
 msgstr "ВХОДЯЩИ"
 
 msgid "purge"
-msgstr "изчисти"
+msgstr "изчистване"
 
 msgid "Last Refresh"
 msgstr "Последно презареждане"
 
 msgid "Save folder tree"
-msgstr "Запази дървото на папките"
+msgstr "Записване на дървото на папките"
 
 msgid "Login"
 msgstr "Вход"
@@ -506,13 +506,13 @@ msgid "Reply To"
 msgstr "Отговор на"
 
 msgid "Save / Update"
-msgstr "Запис / Обновяване"
+msgstr "Записване / Обновяване"
 
 msgid "Make Default"
 msgstr "Направи по подразбиране"
 
 msgid "Move Up"
-msgstr "Придвижи на горе"
+msgstr "Придвижване на горе"
 
 msgid "Index Order"
 msgstr "Ред на индекса"
@@ -536,10 +536,10 @@ msgid "down"
 msgstr "надолу"
 
 msgid "remove"
-msgstr "отстрани"
+msgstr "отстраняване"
 
 msgid "Return to options page"
-msgstr "Върни се към страницата с опциите"
+msgstr "Връщане към страницата с опциите"
 
 msgid "Personal Information"
 msgstr "Лична информация"
@@ -554,10 +554,10 @@ msgid "Successfully Saved Options"
 msgstr "Опциите успешно записани"
 
 msgid "Refresh Folder List"
-msgstr "Презареди списъка с папките"
+msgstr "Презареждане списъка с папките"
 
 msgid "Refresh Page"
-msgstr "Презареди страницата"
+msgstr "Презареждане на страницата"
 
 msgid "This contains personal information about yourself such as your name, your email address, etc."
 msgstr "Тук се съхранява вашата лична информация, като например име, email и т.н."
@@ -584,7 +584,7 @@ msgid "CC"
 msgstr "Копие"
 
 msgid "Print"
-msgstr "Изпечатай"
+msgstr "Изпечатване"
 
 msgid "View Printable Version"
 msgstr "Преглед на версията за печат"
@@ -627,7 +627,7 @@ msgid "The message sender has requested a response to indicate that you have rea
 msgstr "Автора на писмото изисква отговор в уверение на това, че сте прочели това писмо. Желаете ли да изпратите такова?"
 
 msgid "Send read receipt now"
-msgstr "Изпрати прочетената обратна разписка сега"
+msgstr "Изпращане на прочетената обратна разписка"
 
 msgid "Search results"
 msgstr "Резултати от търсенето"
@@ -636,10 +636,10 @@ msgid "Message List"
 msgstr "Списък с писмата"
 
 msgid "Resume Draft"
-msgstr "Продължи черновата"
+msgstr "Продължение на черновата"
 
 msgid "Edit Message as New"
-msgstr "Редактирай писмото като Ново"
+msgstr "Редактиране на писмото като Ново"
 
 msgid "View Message"
 msgstr "Преглед на писмото"
@@ -648,7 +648,7 @@ msgid "Up"
 msgstr "Нагоре"
 
 msgid "Forward"
-msgstr "Препрати"
+msgstr "Препращане"
 
 msgid "Forward as Attachment"
 msgstr "Препращане като прикрепване"
@@ -657,10 +657,10 @@ msgid "Reply"
 msgstr "Отговори"
 
 msgid "Reply All"
-msgstr "Отговори на всички"
+msgstr "Отговаряне на всички"
 
 msgid "View Full Header"
-msgstr "Прегледай пълния хедър"
+msgstr "Преглеждане пълния хедър"
 
 msgid "Attachments"
 msgstr "Прикрепени файлове"
@@ -684,10 +684,10 @@ msgid "Recent Searches"
 msgstr "Последни търсения"
 
 msgid "save"
-msgstr "запис"
+msgstr "записване"
 
 msgid "forget"
-msgstr "откажи"
+msgstr "отказване"
 
 msgid "Current Search"
 msgstr "Текущо търсене в папка"
@@ -705,7 +705,7 @@ msgid "Search Results"
 msgstr "Резултати от търсенето"
 
 msgid "No Messages Found"
-msgstr "Не е намерено писмо"
+msgstr "Не са намерени писма отговарящи на критериите за търсене"
 
 msgid "Sign Out"
 msgstr "Изход"
@@ -750,7 +750,7 @@ msgid "Note"
 msgstr "Забележка"
 
 msgid "Add to Addressbook"
-msgstr "Добави към книгата с адресите"
+msgstr "Добавяне към книгата с адреси"
 
 msgid "Title & Org. / Dept."
 msgstr "Заглавие и организация / Отдел."
@@ -833,7 +833,7 @@ msgid "Nickname contains illegal characters"
 msgstr "Псевдонима съдържа невалидни символи"
 
 msgid "view"
-msgstr "преглед"
+msgstr "преглеждане"
 
 msgid "Business Card"
 msgstr "Бизнес Карта"
@@ -1046,16 +1046,16 @@ msgid "THIS FOLDER IS EMPTY"
 msgstr "ТАЗИ ПАПКА Е ПРАЗНА"
 
 msgid "Move Selected To"
-msgstr "Премести избраното в"
+msgstr "Преместване на избраното в"
 
 msgid "Transform Selected Messages"
 msgstr "Промяна състоянието на избраните писма"
 
 msgid "Move"
-msgstr "Премести"
+msgstr "Преместване"
 
 msgid "Expunge"
-msgstr "Премахни"
+msgstr "Премахване"
 
 msgid "mailbox"
 msgstr "пощенска кутия"
@@ -1073,27 +1073,27 @@ msgid "Thread View"
 msgstr "Нишков преглед"
 
 msgid "Toggle All"
-msgstr "Инвертирай избора"
+msgstr "Инвертиране на избора"
 
 msgid "Unselect All"
-msgstr "Размаркирай Всички"
+msgstr "Размаркиране на всички"
 
 msgid "Select All"
-msgstr "Маркирай Всички"
+msgstr "Маркиране всички"
 
 #, c-format
 msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
-msgstr "Преглед на писма: <B>%s</B> до <B>%s</B> (%s общо)"
+msgstr "Преглеждане на писма: <B>%s</B> до <B>%s</B> (%s общо)"
 
 #, c-format
 msgid "Viewing Message: <B>%s</B> (1 total)"
-msgstr "Преглед на писма: <B>%s</B> (1 общо)"
+msgstr "Преглеждане на писма: <B>%s</B> (1 общо)"
 
 msgid "Paginate"
 msgstr "Страниране"
 
 msgid "Show All"
-msgstr "Покажи всички"
+msgstr "Показване на всички"
 
 msgid "SquirrelMail could not decode the bodystructure of the message"
 msgstr "SquirrelMail не може да декодира структурата на тялото на писмото"
@@ -1120,10 +1120,10 @@ msgid "Hide Unsafe Images"
 msgstr "Скрий несигурните изображения"
 
 msgid "View Unsafe Images"
-msgstr "Преглед на несигурните изображения"
+msgstr "Преглеждане на несигурните изображения"
 
 msgid "download"
-msgstr "изтегли"
+msgstr "изтегляне"
 
 msgid "sec_remove_eng.png"
 msgstr "sec_remove_eng.png"
@@ -1136,14 +1136,14 @@ msgid "Current Folder"
 msgstr "Текуща папка"
 
 msgid "Compose"
-msgstr "Състави"
+msgstr "Ново писмо"
 
 #, c-format
 msgid "Error creating directory %s."
 msgstr "Грешка при създаване на директория%s."
 
 msgid "Could not create hashed directory structure!"
-msgstr "Не мога да създам хешираната структура на директорията!"
+msgstr "Не може да се създаде хешираната структура на директорията!"
 
 msgid "Service not available, closing channel"
 msgstr "Услугана не е достъпна, затварянен на канала"
@@ -1173,7 +1173,7 @@ msgid "Command not implemented"
 msgstr "Командата не е реализирана"
 
 msgid "Bad sequence of commands"
-msgstr "Неправилна последователност на команди"
+msgstr "Неправилна последователност от команди"
 
 msgid "Command parameter not implemented"
 msgstr "Командния параметър не е реализиран"
@@ -1182,7 +1182,7 @@ msgid "Authentication required"
 msgstr "Изисква се аутентикация"
 
 msgid "Authentication mechanism is too weak"
-msgstr "Механизама за аутентикиране е твърде слаб"
+msgstr "Механизама за аутентикиране е твърде несигурен"
 
 msgid "Authentication failed"
 msgstr "Неуспешна аутентикация"
@@ -1200,7 +1200,7 @@ msgid "Requested mail action aborted: exceeding storage allocation"
 msgstr "Заявеното действие с писмото е прекъснато: отпуснатото място е превишено"
 
 msgid "Requested action not taken: mailbox name not allowed"
-msgstr "Заявеното действие не е извършено: непозволено има на пощенска кутия"
+msgstr "Заявеното действие не е извършено: непозволено име на пощенска кутия"
 
 msgid "Transaction failed"
 msgstr "Транзакцията пропадна"
@@ -1242,10 +1242,10 @@ msgid "Number of Messages to Index"
 msgstr "Брой на писмата в индекса"
 
 msgid "Enable Alternating Row Colors"
-msgstr "Позволи алтернативни цветове на редовете"
+msgstr "Позволяване алтернативни цветове на редовете"
 
 msgid "Enable Page Selector"
-msgstr "Позволи селектора на страницата"
+msgstr "Позволяване селектора на страницата"
 
 msgid "Maximum Number of Pages to Show"
 msgstr "Максимален брой страници за показване"
@@ -1254,7 +1254,7 @@ msgid "Message Display and Composition"
 msgstr "Визуализиране на писмата и въвеждане"
 
 msgid "Wrap Incoming Text At"
-msgstr "Пренасяй входящия текст от символ"
+msgstr "Пренасяне на входящия текст от символ"
 
 msgid "Size of Editor Window"
 msgstr "Размер на прозореца на редактора"
@@ -1281,31 +1281,31 @@ msgid "HTML"
 msgstr "HTML"
 
 msgid "Show HTML Version by Default"
-msgstr "Покажи HTML версия по подразбиране"
+msgstr "Показване на HTML версия по подразбиране"
 
 msgid "Enable Forward as Attachment"
-msgstr "Позволи препращане като прикрепване"
+msgstr "Позволяване на препращане като прикрепване"
 
 msgid "Include CCs when Forwarding Messages"
-msgstr "Включи \"Копия\" при препращане на писмата"
+msgstr "Включване на \"Копия\" при препращане на писмата"
 
 msgid "Include Me in CC when I Reply All"
-msgstr "Включи ме в \"Копие\" когато отговарям на всички"
+msgstr "Включване в \"Копие\" когато се отговаря на всички"
 
 msgid "Enable Mailer Display"
-msgstr "Позволи показване на подателя"
+msgstr "Позволяване на показване на подателя"
 
 msgid "Display Attached Images with Message"
-msgstr "Покажи прикрепените към писмото изображения"
+msgstr "Показване на прикрепените към писмото изображения"
 
 msgid "Enable Printer Friendly Clean Display"
-msgstr "Позволи показване удобно за печат"
+msgstr "Позволяване на показване удобно за печат"
 
 msgid "Enable Mail Delivery Notification"
-msgstr "Позволи уведомяване при неполучено писмо"
+msgstr "Позволяване на уведомяване при неполучено писмо"
 
 msgid "Compose Messages in New Window"
-msgstr "Съставяй новите писма в нов прозорец"
+msgstr "Съставяване новите писма в нов прозорец"
 
 msgid "Width of Compose Window"
 msgstr "Ширина на прозореца за съставяне на ново писмо"
@@ -1314,13 +1314,13 @@ msgid "Height of Compose Window"
 msgstr "Височина на прозореца за съставяне на ново писмо"
 
 msgid "Append Signature before Reply/Forward Text"
-msgstr "Добави сигнатурата преди текста в Отговори/Препрати"
+msgstr "Добавяване на сигнатурата преди текста в Отговори/Препрати"
 
 msgid "Enable Sort by of Receive Date"
-msgstr "Позволи сортиране по дата на получаване"
+msgstr "Позволяване на сортиране по дата на получаване"
 
 msgid "Enable Thread Sort by References Header"
-msgstr "Позволи нишково сортиране по References хедъра"
+msgstr "Позволяване на нишково сортиране по References хедъра"
 
 msgid "Special Folder Options"
 msgstr "Специални опции за папки"
@@ -1329,19 +1329,19 @@ msgid "Folder Path"
 msgstr "Път на папката"
 
 msgid "Do not use Trash"
-msgstr "Не използвай Trash"
+msgstr "Да не се използва Trash"
 
 msgid "Trash Folder"
 msgstr "Папка Trash"
 
 msgid "Do not use Sent"
-msgstr "Не използвай Изпратени"
+msgstr "Да не се използва Изпратени"
 
 msgid "Sent Folder"
 msgstr "Папка Sent"
 
 msgid "Do not use Drafts"
-msgstr "Не използвай Draft"
+msgstr "Да не се използва Draft"
 
 msgid "Draft Folder"
 msgstr "Папка Draft"
@@ -1377,7 +1377,7 @@ msgid "Auto Refresh Folder List"
 msgstr "Автоматично презареждане на списъка с папките"
 
 msgid "Enable Unread Message Notification"
-msgstr "Позволи съобщение за нови писма"
+msgstr "Позволяване на съобщение за нови писма"
 
 msgid "No Notification"
 msgstr "Без съобщение"
@@ -1395,13 +1395,13 @@ msgid "Unseen and Total"
 msgstr "Нови и Общо"
 
 msgid "Enable Collapsable Folders"
-msgstr "Позволи йерархични папки"
+msgstr "Позволяване на йерархични папки"
 
 msgid "Enable Cumulative Unread Message Notification"
-msgstr "Позволи кумулативно съобщение за не прочетено писмо"
+msgstr "Позволяване на кумулативно съобщение за не прочетено писмо"
 
 msgid "Show Clock on Folders Panel"
-msgstr "Покажи часовник на панела на папките"
+msgstr "Показване на часовник на панела на папките"
 
 msgid "No Clock"
 msgstr "Няма часовник"
@@ -1443,10 +1443,10 @@ msgid "Email Address"
 msgstr "Email адрес"
 
 msgid "Edit Advanced Identities"
-msgstr "Редакция на Разширените идентичности"
+msgstr "Редактиране на Разширените идентичности"
 
 msgid "(discards changes made on this form so far)"
-msgstr "(отменя промените направени в тази форма)"
+msgstr "(отменяне на промените направени в тази форма)"
 
 msgid "Multiple Identities"
 msgstr "Множествени идентичности"
@@ -1491,16 +1491,16 @@ msgid "Signature Options"
 msgstr "Опции за сигнатури"
 
 msgid "Use Signature"
-msgstr "Използвай сигнатури"
+msgstr "Използване на сигнатури"
 
 msgid "Prefix Signature with '-- ' Line"
 msgstr "Префикс на сигнатурата с '-- ' линия"
 
 msgid "Take Address"
-msgstr "Вземи адрес"
+msgstr "Вземане на адрес"
 
 msgid "Address Book Take:"
-msgstr "Вземан на адресна книга:"
+msgstr "Вземане на адресна книга:"
 
 msgid "Try to verify addresses"
 msgstr "Опит за проверка на адресите"
@@ -1530,7 +1530,7 @@ msgid "Organization Logo Height"
 msgstr "Височина на логото на организацията"
 
 msgid "Organization Title"
-msgstr "Титла на организацията"
+msgstr "Название на организацията"
 
 msgid "Signout Page"
 msgstr "Страница за изход"
@@ -1584,16 +1584,16 @@ msgid "Use \"detect\" to auto-detect."
 msgstr "Използвай \"детекция\" за автоматична детекция."
 
 msgid "Use TLS for IMAP Connections"
-msgstr "Използвай TLS за IMAP конекции"
+msgstr "Използване на TLS за IMAP конекции"
 
 msgid "Requires PHP 4.3.x! Experimental."
-msgstr "Изисква PHP 4.3.x! Експериментално."
+msgstr "Изисква се PHP 4.3.x! Експериментално."
 
 msgid "IMAP Authentication Type"
 msgstr "Тип на IMAP аутентикацията"
 
 msgid "Use Sendmail Binary"
-msgstr "Използвай Sendmail"
+msgstr "Използване на Sendmail"
 
 msgid "Sendmail Path"
 msgstr "Път на Sendmail"
@@ -1605,7 +1605,7 @@ msgid "SMTP Server Port"
 msgstr "Порт на SMTP сървъра"
 
 msgid "Use TLS for SMTP Connections"
-msgstr "Използвай TLS за SMTP конекции"
+msgstr "Използване на TLS за SMTP конекции"
 
 msgid "SMTP Authentication Type"
 msgstr "Тип на SMTP аутентикацията"
@@ -1617,7 +1617,7 @@ msgid "Invert Time"
 msgstr "Инвертирано време"
 
 msgid "Use Confirmation Flags"
-msgstr "Използвай потвърждаващи флагове"
+msgstr "Използване на потвърждаващи флагове"
 
 msgid "Folders Defaults"
 msgstr "Настройки по подразбиране на папките"
@@ -1629,19 +1629,19 @@ msgid "Show Folder Prefix Option"
 msgstr "Показване на опцията за префикс на папка"
 
 msgid "By default, move to trash"
-msgstr "По подразбиране, премести в кошчето"
+msgstr "По подразбиране, преместване в кошчето"
 
 msgid "By default, move to sent"
-msgstr "По подразбиране, премести в изпратени"
+msgstr "По подразбиране, преместване в изпратени"
 
 msgid "By default, save as draft"
 msgstr "По подразбиране запиши като чернова"
 
 msgid "List Special Folders First"
-msgstr "Покажи специалните папки първи"
+msgstr "Показване на специалните папки първи"
 
 msgid "Show Special Folders Color"
-msgstr "Покажи цвете на специалните папки"
+msgstr "Показване цвете на специалните папки"
 
 msgid "Auto Expunge"
 msgstr "Автоматично изчистване"
@@ -1650,7 +1650,7 @@ msgid "Default Sub. of INBOX"
 msgstr "Подпапка по подразбиране на ВХОДЯЩИ"
 
 msgid "Show 'Contain Sub.' Option"
-msgstr "Покажи опцията 'Съдържа подпапка'"
+msgstr "Показване на опцията 'Съдържа подпапка'"
 
 msgid "Default Unseen Notify"
 msgstr "Съобщение по подразбиране за не прегледаните"
@@ -1668,7 +1668,7 @@ msgid "Auto delete folders"
 msgstr "Автоматично изтриване на папките"
 
 msgid "Enable /NoSelect folder fix"
-msgstr "Позволи / NoSelect folder fix"
+msgstr "Позволяване / NoSelect folder fix"
 
 msgid "General Options"
 msgstr "Главни опции"
@@ -1707,22 +1707,22 @@ msgid "Hide SM attributions"
 msgstr "Скриване на атрибутите на SM"
 
 msgid "Enable use of delivery receipts"
-msgstr "Разреши използването на разписка за получаване"
+msgstr "Разрешаване на използването на разписка за получаване"
 
 msgid "Allow editing of identities"
-msgstr "Позволи редактиране на идентичностите"
+msgstr "Позволяване на редактиране на идентичностите"
 
 msgid "Allow editing of full name"
-msgstr "Позволи редактиране на пълното име"
+msgstr "Позволяване на редактиране на пълното име"
 
 msgid "Use server-side sorting"
-msgstr "Използвай сортиране от страна на сървъра"
+msgstr "Използване на сортиране от страна на сървъра"
 
 msgid "Use server-side thread sorting"
-msgstr "Използвай нишково сортиране от страна на сървъра"
+msgstr "Използване на нишково сортиране от страна на сървъра"
 
 msgid "Allow server charset search"
-msgstr "Позволи търсене с кодировката на сървъра"
+msgstr "Позволяване на търсене с кодировката на сървъра"
 
 msgid "UID support"
 msgstr "UID поддръжка"
@@ -1788,16 +1788,16 @@ msgid "Config file can't be opened. Please check config.php."
 msgstr "Конфигурационния файл не може да бъде отворен. Моля проверете config.php."
 
 msgid "Administration"
-msgstr "Администрация"
+msgstr "Администриране"
 
 msgid "This module allows administrators to manage SquirrelMail main configuration remotely."
 msgstr "Този модул позволява на администраторите да управляват главната конфигурация на SquirrelMail отдалечено."
 
 msgid "Bug Reports:"
-msgstr "Описани бъгове"
+msgstr "Сведения за бъгове:"
 
 msgid "Show button in toolbar"
-msgstr "Покажи бутон в лентата с инструментите"
+msgstr "Показване на бутон в лентата с инструментите"
 
 msgid "TODAY"
 msgstr "ДНЕС"
@@ -1809,13 +1809,13 @@ msgid "l, F j Y"
 msgstr "l, F j Y"
 
 msgid "ADD"
-msgstr "ДОБАВИ"
+msgstr "ДОБАВЯНЕ"
 
 msgid "EDIT"
-msgstr "РЕДАКТИРАЙ"
+msgstr "РЕДАКТИРАНЕ"
 
 msgid "DEL"
-msgstr "ИЗТРИЙ"
+msgstr "ИЗТРИВАНЕ"
 
 msgid "Start time:"
 msgstr "Начално време:"
@@ -1830,7 +1830,7 @@ msgid "Title:"
 msgstr "Заглавие"
 
 msgid "Set Event"
-msgstr "Установи събитие"
+msgstr "Установяване на събитие"
 
 msgid "Event Has been added!"
 msgstr "Събитието е добавено!"
@@ -1911,25 +1911,25 @@ msgid "Calendar"
 msgstr "Календар"
 
 msgid "Delete & Prev"
-msgstr "Изтрий"
+msgstr "Изтриване и Предишно"
 
 msgid "Delete & Next"
-msgstr "Изтрий"
+msgstr "Изтриване и Следващо"
 
 msgid "Move to:"
-msgstr "Премеси в:"
+msgstr "Преместване в:"
 
 msgid "Delete/Move/Next Buttons:"
-msgstr "Изтрий/Премести/Напред бутони:"
+msgstr "Изтриване/Преместване/Напред бутони:"
 
 msgid "Display at top"
-msgstr "Покажи в горната част"
+msgstr "Показване в горната част"
 
 msgid "with move option"
 msgstr "с опцията за преместване"
 
 msgid "Display at bottom"
-msgstr "Покажи в долната част"
+msgstr "Показване в долната част"
 
 msgid "COMMERCIAL - This list contains servers that are verified spam senders. It is a pretty reliable list to scan spam from."
 msgstr "КОМЕРСИАЛЕН - Този списък съдържа сървъри които са проверени спам сървъри. Това е доста сигурен списък за да се проверява за спам."
@@ -2071,7 +2071,7 @@ msgid "Only unread messages"
 msgstr "Само непрочетените писма"
 
 msgid "Save"
-msgstr "Запис"
+msgstr "Записване"
 
 msgid "Match:"
 msgstr "Съвпадение:"
@@ -2173,13 +2173,13 @@ msgid "This will send a message to %s requesting that you will be unsubscribed f
 msgstr "Това ще изпрати писмо до %s с молба да бъдете отписани от този списък. Ще се опита да отпише адреса по-долу."
 
 msgid "Send Mail"
-msgstr "Изпрати"
+msgstr "Изпращане на писмото"
 
 msgid "Post to List"
-msgstr "Изпрати до списъка"
+msgstr "Изпращане до списъка"
 
 msgid "Reply to List"
-msgstr "Отговори на списъка"
+msgstr "Отговоряне на списъка"
 
 msgid "List Archives"
 msgstr "Архиви на списъка"
@@ -2233,7 +2233,7 @@ msgid "No server banner"
 msgstr "Няма сървърен банер"
 
 msgid "abort"
-msgstr "отмени"
+msgstr "отмяна"
 
 msgid "apop authentication failed"
 msgstr "apop аутентикацията не успя"
@@ -2254,10 +2254,10 @@ msgid "POP3 get:"
 msgstr "POP3 взема:"
 
 msgid "POP3 last:"
-msgstr "POP3 последен"
+msgstr "POP3 последен:"
 
 msgid "POP3 reset:"
-msgstr "POP3 занулен"
+msgstr "POP3 занулен:"
 
 msgid "POP3 send_cmd:"
 msgstr "POP3 send_cmd:"
@@ -2293,10 +2293,10 @@ msgid "Password for"
 msgstr "Парола за"
 
 msgid "Fetch Mail"
-msgstr "Изтегли писмо"
+msgstr "Изтегляне на писмо"
 
 msgid "Fetching from "
-msgstr "Изтеглям от "
+msgstr "Изтегляне от "
 
 msgid "Oops, "
 msgstr "Опа, "
@@ -2353,10 +2353,10 @@ msgid "Error Appending Message!"
 msgstr "Грешка при прикрепването на писмото!"
 
 msgid "Closing POP"
-msgstr "Затварям POP"
+msgstr "Затваряне на POP"
 
 msgid "Logging out from IMAP"
-msgstr "Излизам от IMAP"
+msgstr "Излизане от IMAP"
 
 msgid "Message appended to mailbox"
 msgstr "Писмото прикрепено към пощенската кутия"
@@ -2365,7 +2365,7 @@ msgid "Message "
 msgstr "Писмото "
 
 msgid " deleted from Remote Server!"
-msgstr " изтрит от Отдалечения Сървър"
+msgstr " изтрито от Отдалечения Сървър"
 
 msgid "Delete failed:"
 msgstr "Изтриването се провали:"
@@ -2377,13 +2377,13 @@ msgid "You should be aware that the encryption used to store your password is no
 msgstr "Би трябвало да съзнавате, че криптирането което се използва за съхраняване на паролата ви, не е идеално сигурно. Ако използвате POP, няма никакво криптиране. Допълнително, криптирането което ние правим за да го запишем на сървъра, може да бъде разбито от хакер който може да прочете сора на този файл." 
 
 msgid "If you leave password empty, it will be required when you fetch mail."
-msgstr "Ако не напишете парола, ще ви бъде искана когато изтегляте пощата."
+msgstr "Ако не напишете парола, тя ще ви бъде искана когато изтегляте пощата."
 
 msgid "Encrypt passwords (informative only)"
-msgstr "Криптирай пароли (само информативно)"
+msgstr "Криптиране на пароли (само информативно)"
 
 msgid "Add Server"
-msgstr "Добави Сървър"
+msgstr "Добавяне на Сървър"
 
 msgid "Server:"
 msgstr "Сървър:"
@@ -2398,19 +2398,19 @@ msgid "Username:"
 msgstr "Потребителско име:"
 
 msgid "Store in Folder:"
-msgstr "Запази в Папка:"
+msgstr "Запазване в Папка:"
 
 msgid "Leave Mail on Server"
-msgstr "Остави поща на Сървъра"
+msgstr "Оставияне на поща на Сървъра"
 
 msgid "Check mail during login"
-msgstr "Проверявай за поща по време на логването"
+msgstr "Проверяване на пощата по време на логването"
 
 msgid "Check mail during folder refresh"
-msgstr "Проверявай за поща при презареждането на папките"
+msgstr "Проверяване на поща при презареждането на папките"
 
 msgid "Modify Server"
-msgstr "Модифицирай сървър"
+msgstr "Модифициране на сървър"
 
 msgid "Server Name:"
 msgstr "Име на сървъра:"
@@ -2419,19 +2419,19 @@ msgid "Modify"
 msgstr "Модифицирай"
 
 msgid "No-one server in use. Try to add."
-msgstr "Никой сървър не се използва. Опитайте се да добавите"
+msgstr "Никой сървър не се използва. Опитайте се да добавите."
 
 msgid "Fetching Servers"
 msgstr "Сваляне от Сървъри"
 
 msgid "Confirm Deletion of a Server"
-msgstr "Потвърди изтриването на Сървъра"
+msgstr "Потвърждаване на изтриването на Сървъра"
 
 msgid "Selected Server:"
 msgstr "Избран Сървър:"
 
 msgid "Confirm delete of selected server?"
-msgstr "Потвърди изтриването на избрания сървър"
+msgstr "Потвърждаване на изтриването на избрания сървър"
 
 msgid "Confirm Delete"
 msgstr "Потвърди изтриването"
@@ -2467,10 +2467,10 @@ msgid "Message details"
 msgstr "Детайли на писмото"
 
 msgid "Close Window"
-msgstr "Затвори прозореца"
+msgstr "Затваряне на прозореца"
 
 msgid "Save Message"
-msgstr "Запази писмо"
+msgstr "Записване на писмото"
 
 msgid "View Message details"
 msgstr "Преглед на детайлите на писмото"
@@ -2479,7 +2479,7 @@ msgid "New Mail Notification"
 msgstr "Известие за нова поща"
 
 msgid "Select <b>Enable Media Playing</b> to turn on playing a media file when unseen mail is in your folders. When enabled, you can specify the media file to play in the provided file box."
-msgstr "Изберете Позволи просвирването на медийни файлове за да включите изпълняването на медийни файлове когато в папките ви има непрегледана поща. Когато е позволено можете да укажете медиен файл който да се просвири в предоставената файлова кутия."
+msgstr "Изберете <b>Позволи просвирването на медийни файлове</b> за да включите изпълняването на медийни файлове когато в папките ви има непрегледана поща. Когато е позволено можете да укажете медиен файл който да се просвири в предоставената файлова кутия."
 
 msgid "The <b>Check all boxes, not just INBOX</b> option will check ALL of your folders for unseen mail, not just the inbox for notification."
 msgstr "Опцията <b>Провери всички полета, не само във ВХОДЯЩИ</b> ще провери всичките ви папки за нова поща, не само във ВХОДЯЩИ."
@@ -2497,10 +2497,10 @@ msgid "Select from the list of <b>server files</b> the media file to play when n
 msgstr "Изберете от списъка на <b>сървърните файлове</b> медийния файл който да се изпълни когато пристигне нова поща. Избирането на локална медия ще просвири файлът указан в полето локален медиен файл от локалния компютър. Ако не е указан файл, системата ще използва този по подразбиране от сървъра."
 
 msgid "Enable Media Playing"
-msgstr "Позволи просвирването на медийни файлове"
+msgstr "Позволяване на просвирването на медийни файлове"
 
 msgid "Check all boxes, not just INBOX"
-msgstr "Провери всички полета, не само във ВХОДЯЩИ"
+msgstr "Проверяване на всички полета, не само във ВХОДЯЩИ"
 
 msgid "Count only messages that are RECENT"
 msgstr "Брой само новите писма които са СКОРОШНИ"
@@ -2512,13 +2512,13 @@ msgid "requires JavaScript to work"
 msgstr "изисква JavaScript за да работи"
 
 msgid "Show popup window on new mail"
-msgstr "Покажи падащ прозорец при ново писмо"
+msgstr "Показване на падащ прозорец при ново писмо"
 
 msgid "Select server file:"
 msgstr "Изберете сървърен файл:"
 
 msgid "(local media)"
-msgstr "(локална медия)"
+msgstr "(локален медиен файл)"
 
 msgid "Try"
 msgstr "Опитай"
@@ -2549,11 +2549,11 @@ msgstr "Опциите за уведомяването за ново писмо записани"
 
 #, c-format
 msgid "%s New Messages"
-msgstr "%s Нови Писма"
+msgstr "%s нови писма"
 
 #, c-format
 msgid "%s New Message"
-msgstr "%s Ново Писмо"
+msgstr "%s ново писмо"
 
 msgid "Test Sound"
 msgstr "Проба на звука"
@@ -2580,7 +2580,7 @@ msgid "Base Sent Folder"
 msgstr "Базова папка на изпратените"
 
 msgid "Report as Spam"
-msgstr "Това е спам"
+msgstr "Това е СПАМ"
 
 msgid "SpamCop - Spam Reporting"
 msgstr "SpamCop - Съобщаване за СПАМ"
@@ -2613,7 +2613,7 @@ msgid "Decrypt my dictionary with my old password:"
 msgstr "Декриптирай речника ми със старата ми парола:"
 
 msgid "Proceed"
-msgstr "Давай"
+msgstr "Продължение"
 
 msgid "You must make a choice"
 msgstr "Трябва да направите избор"
@@ -2666,7 +2666,7 @@ msgid "Suggestions"
 msgstr "Предположения:"
 
 msgid "Change to:"
-msgstr "Промени на:"
+msgstr "Променяне на:"
 
 msgid "Occurs times:"
 msgstr "Брой появявания"
@@ -2681,25 +2681,25 @@ msgid "Change ALL occurances of this word"
 msgstr "Промени ВСИЧКИ появявания на тази дума"
 
 msgid "Change All"
-msgstr "Промени всички"
+msgstr "Променяне на всички"
 
 msgid "Ignore this word"
-msgstr "Прескочи тази дума"
+msgstr "Прескачане на тази дума"
 
 msgid "Ignore"
-msgstr "Прескочи"
+msgstr "Прескачане"
 
 msgid "Ignore ALL occurances this word"
-msgstr "Прескочи ВСИЧКИ появявания на тази дума"
+msgstr "Прескачане на ВСИЧКИ появявания на тази дума"
 
 msgid "Ignore All"
-msgstr "Прескочи всички"
+msgstr "Прескачане не всички"
 
 msgid "Add this word to your personal dictionary"
-msgstr "Добави тази дума в личния си речник"
+msgstr "Добавяне на думата в личния речник"
 
 msgid "Add to Dic"
-msgstr "Добави към речника"
+msgstr "Добавяне в речника"
 
 msgid "Close and Commit"
 msgstr "Затваряне и Потвърждаване"
@@ -2726,7 +2726,7 @@ msgid "Your personal dictionary was erased. Please close this window and click \
 msgstr "Вашият личен речиник беше изтрит. Моля затворете прозореца и кликнете бутона \"Провери правописа\" отнови за да започне правописната проверка отново."
 
 msgid "Close this Window"
-msgstr "Затвори прозореца"
+msgstr "Затваряне на прозореца"
 
 msgid "Your personal dictionary was re-encrypted successfully. Now return to the &quot;SpellChecker options&quot; menu and make your selection again."
 msgstr "Вашият личен речник беше пре-криптиран успешно. Сега се върnете към менюто &quot;Опции на SpellChecker&quot; и изберете отново."
@@ -2753,7 +2753,7 @@ msgid "Personal Dictionary"
 msgstr "Личен речник"
 
 msgid "No words in your personal dictionary."
-msgstr "Няма думи ви личния ви речник."
+msgstr "Няма думи в личния ви речник."
 
 msgid "Please check any words you wish to delete from your dictionary."
 msgstr "Моля проверете всички думи които искате да изтриете от личния си речник."
@@ -2763,7 +2763,7 @@ msgid "%s dictionary"
 msgstr "речник %s "
 
 msgid "Delete checked words"
-msgstr "Изтрий избраните думи"
+msgstr "Изтриване на избраните думи"
 
 msgid "Edit your Personal Dictionary"
 msgstr "Редактиране на личния речник"
@@ -2832,7 +2832,7 @@ msgid "Make this dictionary my default selection:"
 msgstr "Направи този речник моят избор по подразбиране:"
 
 msgid "Make these changes"
-msgstr "Направи тези промени3/29/2003"
+msgstr "Направи тези промени"
 
 msgid "Add International Dictionaries"
 msgstr "Добавяне на международни речници"
@@ -2850,7 +2850,7 @@ msgid "Encrypt or decrypt your personal dictionary"
 msgstr "Криптира или декриптира вашият личен речник"
 
 msgid "not available"
-msgstr " не е достъпно"
+msgstr "не е достъпно"
 
 msgid "SquirrelSpell Options Menu"
 msgstr "Меню с опции на SquirrelSpell"
@@ -2880,16 +2880,16 @@ msgid "8 language pairs, no known limits, powered by GPLTrans (free, open source
 msgstr "8 езикови двойки, без ограничения, благодарение на GPLTrans (безплатно, отворен код)"
 
 msgid "You also decide if you want the translation box displayed, and where it will be located."
-msgstr "Ще трябва да решите дали искате да ви се показва прозореца за превода и къде да бъде позиционирана."
+msgstr "Ще трябва да решите дали искате да ви се показва прозореца за превода и къде да бъде позициониран."
 
 msgid "Select your translator:"
-msgstr "Изберете своя преводач:"
+msgstr "Избор на преводач:"
 
 msgid "When reading:"
 msgstr "При четене:"
 
 msgid "Show translation box"
-msgstr "Покажи прозореца на превода"
+msgstr "Показване на прозореца на превода"
 
 msgid "to the left"
 msgstr "в ляво"
@@ -3013,7 +3013,7 @@ msgid "Latin"
 msgstr "Латински"
 
 msgid "Delivery error report"
-msgstr "Грешка при получаване на mail-a"
+msgstr "Грешка при получаване на писмото"
 
 msgid "Undelivered Message Headers"
 msgstr "Хедъри на непристигналото писмо"
