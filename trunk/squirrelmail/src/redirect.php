@@ -14,6 +14,7 @@
 
    if (!isset($strings_php))
       include ("../functions/strings.php");
+include("../config/config.php");
 
    // Before starting the session, the base URI must be known.
    // Assuming that this file is in the src/ subdirectory (or
@@ -55,6 +56,7 @@
       $onetimepad = OneTimePadCreate(strlen($secretkey));
       $key = OneTimePadEncrypt($secretkey, $onetimepad);
       session_register("onetimepad");
+      $onetimepad = OneTimePadEncrypt($onetimepad, $otp_pad);
       // verify that username and password are correct
       if ($force_username_lowercase)
           $login_username = strtolower($login_username);

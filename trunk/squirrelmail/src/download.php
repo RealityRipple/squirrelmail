@@ -9,6 +9,9 @@
     **  Also allows displaying of attachments when possible.
     **/
 
+    $download_php = true;
+    $onetimepad = $otp;
+
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($strings_php))
@@ -22,12 +25,12 @@
    if (!isset($i18n_php))
       include("../functions/i18n.php");
 
-   include("../src/load_prefs.php");
 
    function viewText($color, $body, $id, $entid, $mailbox, $type1, $wrap_at) {
       global $where, $what, $charset;
       global $startMessage;
       
+      include("../src/load_prefs.php");
       displayPageHeader($color, "None");
 
       echo "<BR><TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">";
@@ -109,8 +112,8 @@
          case "text":
             $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
             $body = decodeBody($body, $header->encoding);
-            header("Content-Disposition: filename=\"$filename\"");
-            header("Content-type: application/octet-stream; name=\"$filename\"");
+            header("Content-Disposition: attachment; filename=$filename");
+            header("Content-type: application/octet-stream; name=$filename");
             set_up_language(getPref($data_dir, $username, "language"));
             if ($type1 == "plain") {
                echo _("Subject") . ": " . decodeHeader(sqStripSlashes($top_header->subject)) . "\n";
@@ -121,8 +124,8 @@
             echo trim($body);
             break;
          default:
-            header("Content-Disposition: filename=$filename");
-            header("Content-type: application/octet-stream; name=\"$filename\"");
+            header("Content-Disposition: attachment; filename=$filename");
+            header("Content-type: application/octet-stream; name=$filename");
             mime_print_body_lines ($imapConnection, $passed_id, $passed_ent_id, $header->encoding);
             break;
       }
@@ -137,8 +140,8 @@
             } else {
                 $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
                 $body = decodeBody($body, $header->encoding);
-                header("Content-type: $type0/$type1; name=\"$filename\"");
-                header("Content-Disposition: filename=\"$filename\"");
+                header("Content-type: $type0/$type1; name=$filename");
+                header("Content-Disposition: attachment; filename=$filename");
                 echo $body;
             }
             break;
@@ -150,7 +153,7 @@
             break;
          default:
             header("Content-type: $type0/$type1; name=\"$filename\"");
-            header("Content-Disposition: filename=\"$filename\"");
+            header("Content-Disposition: attachment; filename=\"$filename\"");
             mime_print_body_lines ($imapConnection, $passed_id, $passed_ent_id, $header->encoding);
             break;
       }
