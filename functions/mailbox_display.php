@@ -14,7 +14,7 @@
 
 require_once('../functions/strings.php');
 require_once('../functions/html.php');
-require_once('../class/html.class');
+require_once('../class/html.class.php');
 require_once('../functions/imap_utf7_decode_local.php');
 
 /* Default value for page_selector_max. */

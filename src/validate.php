@@ -13,7 +13,7 @@
  * messages with a session_register.
  */
  
-require_once('../class/mime.class');
+require_once('../class/mime.class.php');
 
 session_start();
 

@@ -19,7 +19,7 @@ require_once('../functions/date.php');
 require_once('../functions/url_parser.php');
 require_once('../functions/smtp.php');
 require_once('../functions/html.php');
-require_once('../class/html.class');
+require_once('../class/html.class.php');
 require_once('../src/view_header.php');
 
 /**
