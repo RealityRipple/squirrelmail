@@ -377,7 +377,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
 	    if (isset($has_unsafe_images) && $has_unsafe_images) {
         	$untext = '&amp;view_unsafe_images=1">' . _("View Unsafe Images");
 	    } else {
-		$untext = '';
+		$untext = '">';
 	    }
         }
         $body .= '<center><small><a href="read_body.php?passed_id=' . $id .
