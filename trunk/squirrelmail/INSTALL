@@ -171,13 +171,19 @@ b. Setting up directories
 
 c. Setting up SquirrelMail
 
-  There are two ways to configure Squirrelmail.  In the config/ directory,
+  There are two ways to configure SquirrelMail.  In the config/ directory,
   there is a perl script called conf.pl that will aid you in the
   configuration process.  This is the recommended way of handling
   the config.
 
   You can also copy the config/config_default.php file to config/config.php
   and edit that manually.
+
+  After you've created a configuration, you can use your webbrowser to
+  browse to http://your-squirrelmail-location/config/configtest.php.
+  This will perform some basic checks on your config to make sure
+  everything works like it should.
+
 
 4. RUNNING SQUIRRELMAIL
 -----------------------
