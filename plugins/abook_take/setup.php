@@ -106,7 +106,7 @@ function abook_take_options()
 {
     global $abook_take_verify;
 
-    echo '<tr><td align="right" nowrap>' . _("Address Book Take:") . "</td>\n" .
+    echo '<tr>' . html_tag('td',_("Address Book Take:"),'right','','nowrap') . "\n" .
          '<td><input name="abook_take_abook_take_verify" type="checkbox"';
     if (isset($abook_take_verify) && $abook_take_verify)
         echo ' checked';
