@@ -107,18 +107,8 @@ if( isset($do_hook) && $do_hook ) {
 
 sqimap_mailbox_select($imapConnection, $mailbox);
 
-if (isset($composenew)) {
-    $width= getPref($data_dir, $username, 'editor_size', 76);
-    if ($width < 65) {
-        $pix_width = 560;
-    } else {
-        $width = (.9*$width);
-        $pix_width = intval($width).'0';
-    }
-    $features = "toolbar=no, width=$pix_width, height=650, scrollbars=yes, resizable=yes target=_blank";
-    $location = 'compose.php?mailbox='. urlencode($mailbox).'&attachedmessages=true&session='."$session";
-    $onload= "window.open(\"$location\",\"compose_window_$session\", \"$features\");";
-    displayPageHeader($color, $mailbox, $onload);
+if (isset($composenew) && $composenew) {
+    displayPageHeader($color, $mailbox, 'comp_in_new();');
 } else {
     displayPageHeader($color, $mailbox);
 }
