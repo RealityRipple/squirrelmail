@@ -517,8 +517,7 @@
 
       $boxes = sqimap_mailbox_list($imapConnection);
       for ($i = 0; $i < count($boxes); $i++) {
-         if (!is_array($boxes[$i]['flags']) ||
-	     !in_array("noselect", $boxes[$i]['flags'])) {
+         if (!in_array("noselect", $boxes[$i]['flags'])) {
             $box = $boxes[$i]['unformatted'];
             $box2 = replace_spaces($boxes[$i]['unformatted-disp']);
             echo "         <OPTION VALUE=\"$box\">$box2</option>\n";

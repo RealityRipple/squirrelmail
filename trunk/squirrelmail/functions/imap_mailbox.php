@@ -163,6 +163,8 @@
          if ($flags) {
             $boxes[$g]['flags'] = explode(' ', $flags);
          }
+	 else
+	     $boxes[$g]['flags'] = array();
       }
 
       return $boxes;
