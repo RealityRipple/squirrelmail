@@ -83,6 +83,7 @@
    $url_replytoallcc = urlencode(getLineOfAddrs($message->header->to) . ", " . getLineOfAddrs($message->header->cc));
 
    $dateString = getLongDateString($message->header->date);
+   $ent_num = findDisplayEntity($message);
 
    /** TEXT STRINGS DEFINITIONS **/
    $echo_more = _("more");
@@ -174,13 +175,13 @@
    echo "               </SMALL>\n";
    echo "            </TD><TD WIDTH=33% ALIGN=RIGHT>";
    echo "               <SMALL>";
-   echo "               <A HREF=\"compose.php?forward_id=$passed_id&forward_subj=$url_subj&mailbox=$urlMailbox\">";
+   echo "               <A HREF=\"compose.php?forward_id=$passed_id&forward_subj=$url_subj&mailbox=$urlMailbox&ent_num=$ent_num\">";
    echo _("Forward");
    echo "</A>&nbsp;|&nbsp;";
-   echo "               <A HREF=\"compose.php?send_to=$url_replyto&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox\">";
+   echo "               <A HREF=\"compose.php?send_to=$url_replyto&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox&ent_num=$ent_num\">";
    echo _("Reply");
    echo "</A>&nbsp;|&nbsp;";
-   echo "               <A HREF=\"compose.php?send_to=$url_replytoall&send_to_cc=$url_replytoallcc&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox\">";
+   echo "               <A HREF=\"compose.php?send_to=$url_replytoall&send_to_cc=$url_replytoallcc&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox&ent_num=$ent_num\">";
    echo _("Reply All");
    echo "</A>&nbsp;&nbsp;";
    echo "               </SMALL>";

@@ -36,76 +36,40 @@
       $send_to = decodeHeader($send_to);
       $send_to_cc = decodeHeader($send_to_cc);
 
-      if ($forward_id) {
+      if ($forward_id)
+         $id = $forward_id;
+      else if ($reply_id)
+         $id = $reply_id;
+
+      if ($id) {
          sqimap_mailbox_select($imapConnection, $mailbox);
-         $msg = sqimap_get_message($imapConnection, $forward_id, $mailbox);
-         
-         if (containsType($msg, "text", "html", $ent_num)) {
-            $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"]);
-         } else if (containsType($msg, "text", "plain", $ent_num)) {
-            $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"]);
-         }
-         // add other primary displaying msg types here
-         else {
-            // find any type that's displayable
-            if (containsType($msg, "text", "any_type", $ent_num)) {
-               $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"]);
-            } else if (containsType($msg, "msg", "any_type", $ent_num)) {
-               $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"]);
-            } else {
-               $body = _("No Message");
-            }
+         $message = sqimap_get_message($imapConnection, $id, $mailbox);
+         $message = getEntity($message, $ent_num);
+
+         if ($message->header->type0 == "text" || $message->header->type1 == "message") {
+            $body = decodeBody(mime_fetch_body($imapConnection, $id, $message->header->entity_id), $message->header->encoding);
+         } else {
+            $body = "";
          }
          
-         $type1 = $msg["ENTITIES"][$ent_num]["TYPE1"];
-         
-         $tmp = _("-------- Original Message ---------\n");
+         if ($forward_id)
+            $tmp = _("-------- Original Message ---------\n");
+         if ($message->header->type1 == "html")
+            $body = strip_tags($body);
+            
          $body_ary = explode("\n", $body);
          $body = "";
-         for ($i=0;$i < count($body_ary);$i++) {
-            if ($type1 == "html")
-               $tmp .= strip_tags($body_ary[$i]);
+         for ($i=0; $i < count($body_ary); $i++) {
+            $tmp = $body_ary[$i];
+            
+            if ($forward_id)
+               $body = "$body$tmp\n";
             else
-               $tmp .= $body_ary[$i];
-            $body = "$body$tmp\n";
-            $tmp = "";
+               $body = "$body> $tmp\n";
          }
+            
       }
-      
-      if ($reply_id) {
-         sqimap_mailbox_select($imapConnection, $mailbox);
-         $msg = sqimap_get_message($imapConnection, $reply_id, $mailbox);
-         
-         if (containsType($msg, "text", "html", $ent_num)) {
-            $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"], false);
-         } else if (containsType($msg, "text", "plain", $ent_num)) {
-            $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"], false);
-         }
-         // add other primary displaying msg types here
-         else {
-            // find any type that's displayable
-            if (containsType($msg, "text", "any_type", $ent_num)) {
-               $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"], false);
-            } else if (containsType($msg, "msg", "any_type", $ent_num)) {
-               $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"], false);
-            } else {
-               $body = _("No Message");
-            }
-         }
-         
-         $type1 = $msg["ENTITIES"][$ent_num]["TYPE1"];
-         
-         $body_ary = explode("\n", $body);
-         $body = "";
-         for ($i=0;$i < count($body_ary);$i++) {
-            if ($type1 == "html")
-               $tmp = strip_tags($body_ary[$i]);
-            else
-               $tmp = $body_ary[$i];
-            $body = "$body> $tmp\n";
-         }
-      }
-      
+
       if (!$send_to) {
          $send_to = sqimap_find_email($send_to);
       }
