@@ -87,6 +87,9 @@ if ( sqgetGlobalVar('return', $temp, SQ_POST) ) {
 /** GET VARS */
 sqgetGlobalVar('attachedmessages', $attachedmessages, SQ_GET);
 
+/* Location (For HTTP 1.1 Header("Location: ...") redirects) */
+$location = get_location();
+
 /* --------------------- Specific Functions ------------------------------ */
 
 function replyAllString($header) {
@@ -300,17 +303,17 @@ if ($draft) {
         $draft_message = _("Draft Email Saved");
         /* If this is a resumed draft, then delete the original */
         if(isset($delete_draft)) {
-            Header("Location: delete_message.php?mailbox=" . urlencode($draft_folder) .
+            Header("Location: $location/delete_message.php?mailbox=" . urlencode($draft_folder) .
                    "&message=$delete_draft&sort=$sort&startMessage=1&saved_draft=yes");
             exit();
         }
         else {
             if ($compose_new_win == '1') {
-                Header("Location: compose.php?saved_draft=yes&session=$composesession");
+                Header("Location: $location/compose.php?saved_draft=yes&session=$composesession");
                 exit();
             }
             else {
-                Header("Location: right_main.php?mailbox=$draft_folder&sort=$sort".
+                Header("Location: $location/right_main.php?mailbox=$draft_folder&sort=$sort".
                        "&startMessage=1&note=".urlencode($draft_message));
                 exit();
             }
@@ -376,16 +379,16 @@ if ($send) {
         }
        unset($compose_messages[$session]);
         if ( isset($delete_draft)) {
-            Header("Location: delete_message.php?mailbox=" . urlencode( $draft_folder ).
+            Header("Location: $location/delete_message.php?mailbox=" . urlencode( $draft_folder ).
                    "&message=$delete_draft&sort=$sort&startMessage=1&mail_sent=yes");
             exit();
         }
         if ($compose_new_win == '1') {
 
-            Header("Location: compose.php?mail_sent=yes");
+            Header("Location: $location/compose.php?mail_sent=yes");
         }
         else {
-            Header("Location: right_main.php?mailbox=$urlMailbox&sort=$sort".
+            Header("Location: $location/right_main.php?mailbox=$urlMailbox&sort=$sort".
                    "&startMessage=1");
         }
     } else {
