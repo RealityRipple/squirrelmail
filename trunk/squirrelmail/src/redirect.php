@@ -164,10 +164,10 @@ if ($javascript_setting != SMPREF_JS_ON){
 /* Update the prefs */
 setPref($data_dir, $username, 'javascript_on', $js_pref);
 
-global $attachments;
-$attachments = unserialize(getPref($data_dir, $username, 'attachments', 0));
 /* Compute the URL to forward the user to. */
-    global $session_expired_location, $session_expired_post;
+    $session_expired_location= $_SESSION['session_expired_location'];
+    $session_expired_post= $_SESSION['session_expired_post'];
+
     if (isset($session_expired_location) && $session_expired_location) {
        $compose_new_win = getPref($data_dir, $username, 'compose_new_win', 0);
        if ($compose_new_win) {
@@ -177,22 +177,9 @@ $attachments = unserialize(getPref($data_dir, $username, 'attachments', 0));
        }
        sqsession_unregister('session_expired_location');
        unset($session_expired_location);
-       if (is_array($compose_messages)) {
-          sqsession_register('compose_messages');
-       }
+
+
     } else {
-/* need to be adapted to compose_messages.
-       if (is_array($attachments)) {
-          $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-          foreach ($attachments as $attachment) {
-    	     $attached_file = $hashed_attachment_dir.'/'.$attachment['localfilename'];
-    	     if (file_exists($attached_file)) {
-                unlink($attached_file);
-    	     }
-          }
-          removePref($data_dir, $username, 'attachments');
-       }
-*/       
        $redirect_url = 'webmail.php';
     }
 
