@@ -11,6 +11,10 @@ Version 1.2.2 -- ??
   - Html cleanup, with patch from Dave Huang (#496712)
   - Fixed a problem saving prefs when using PHP 4.1
   - Russian, Thai, Swedish, Dutch and French update.
+  - Changed configure invocation from bash to sh. (Bug #496752)
+  - Changed conf.pl invocation from '#/usr/bin/perl' to
+    '#!/usr/bin/env perl' to help people who have perl somewhere
+    else. (Bug #496753)
   	
 Version 1.2.1 -- 25 December 2001
 ---------------------------------
