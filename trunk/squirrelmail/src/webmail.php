@@ -28,10 +28,6 @@
       exit;
    }
 
-   setcookie("username", $username, 0, $base_uri);
-   setcookie("key", $key, 0, $base_uri);
-   setcookie("logged_in", 1, 0, $base_uri);
-   
    // Refresh the language cookie.
    if (isset($squirrelmail_language)) {
       setcookie("squirrelmail_language", $squirrelmail_language, time()+2592000);
@@ -44,12 +40,23 @@
       include ("../functions/plugin.php");
    if (!isset($auth_php))
       include ("../functions/auth.php");
+   if (!isset($strings_php))
+      include ("../functions/strings.php");
 
    if (!session_is_registered("user_is_logged_in") || $logged_in != 1) {
       do_hook ("login_before");
+
+      $onetimepad = OneTimePadCreate(strlen($secretkey));
+      $key = OneTimePadEncrypt($secretkey, $onetimepad);
+      session_register("onetimepad");
       // verify that username and password are correct
       $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
       sqimap_logout($imapConnection);
+
+      setcookie("username", $username, 0, $base_uri);
+      setcookie("key", $key, 0, $base_uri);
+      setcookie("logged_in", 1, 0, $base_uri);
+   
       do_hook ("login_verified");
    }
 
