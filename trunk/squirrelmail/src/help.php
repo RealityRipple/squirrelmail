@@ -148,7 +148,7 @@ if ( sqgetGlobalVar('chapter', $temp, SQ_GET) ) {
 }
 
 if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
-    echo html_tag( 'table', '', 'center', '', 'cellpadding="0" cellspacing="0" border="0"' );
+    echo html_tag( 'table', '', 'center', '', 'cellpadding="0" cellspacing="0" border="0"' ) .
 	        html_tag( 'tr' ) .
                     html_tag( 'td' ) .
                          '<b><center>' . _("Table of Contents") . '</center></b><br>';
