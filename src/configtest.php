@@ -70,9 +70,11 @@ if(!in_array('strings.php', $included)) {
 
 /* checking PHP specs */
 
-echo '<p>SquirrelMail version: '.$version.'<br />'.
-     'Config file version: '.$config_version . '<br />'.
-     'Config file last modified: '.date ('d F Y H:i:s', filemtime(SM_PATH . 'config/config.php')).'</p>';
+echo "<p><table>\n<tr><td>SquirrelMail version:</td><td><b>" . $version . "</b></td></tr>\n" .
+     '<tr><td>Config file version:</td><td><b>' . $config_version . "</b></td></tr>\n" .
+     '<tr><td>Config file last modified:</td><td><b>' . 
+         date ('d F Y H:i:s', filemtime(SM_PATH . 'config/config.php')) .
+         "</b></td></tr>\n</table>\n</p>\n\n";
 
 echo "Checking PHP configuration...<br />\n";
 
@@ -80,7 +82,7 @@ if(!check_php_version(4,1,0)) {
     do_err('Insufficient PHP version: '. PHP_VERSION . '! Minimum required: 4.1.0');
 }
 
-echo $IND . 'PHP version '.PHP_VERSION.' OK.<br />';
+echo $IND . 'PHP version ' . PHP_VERSION . " OK.<br />\n";
 
 $php_exts = array('session','pcre');
 $diff = array_diff($php_exts, get_loaded_extensions());
@@ -88,7 +90,7 @@ if(count($diff)) {
     do_err('Required PHP extensions missing: '.implode(', ',$diff) );
 }
 
-echo $IND . 'PHP extensions OK.<br />';
+echo $IND . "PHP extensions OK.<br />\n";
 
 
 /* checking paths */
@@ -236,7 +238,7 @@ fclose($stream);
 echo $IND . 'IMAP server OK (<tt><small>'.
     htmlspecialchars(trim($imapline))."</small></tt>)<br />\n";
 
-echo "Checking internationalization (i18n) settings:<br />\n";
+echo "Checking internationalization (i18n) settings...<br />\n";
 echo "$IND gettext - ";
 if (function_exists('gettext')) {
     echo "Gettext functions are available. You must have appropriate system locales compiled.<br />\n";
@@ -325,7 +327,9 @@ if($addrbook_dsn || $prefs_dsn || $addrbook_global_dsn) {
 		}
             }
 	} else {
-	    do_err('Required PHP Pear DB support is not available.');;
+	    do_err('Required PHP PEAR DB support is not available. Is PEAR installed and is the
+	    	include path set correctly to find <tt>DB.php</tt>? The include path is now:
+		"<tt>' . ini_get('include_path') . '</tt>".');
 	}
 } else {
     echo $IND."not using database functionality.<br />\n";
@@ -338,3 +342,5 @@ if($addrbook_dsn || $prefs_dsn || $addrbook_global_dsn) {
 
 </body>
 </html>
+<?php
+// vim: et ts=4
