@@ -85,7 +85,7 @@ if (!$words){
 	   . "value=\"$words_ary[$j]\"> $words_ary[$j]<br>";
       }
       $msg .= '</td></tr></table></td></tr>'
-	 . "<tr bgcolor=\"$color[0]\" align=\"center\"><td>".
+	 . "<tr bgcolor=\"$color[0]\" align=\"center\"><td>"
 	 . '<input type="submit" value="' . _("Delete checked words") 
 	 . '"></form>'
 	 . '</td></tr><tr><td><hr>'
