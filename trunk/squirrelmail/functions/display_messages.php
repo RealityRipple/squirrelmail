@@ -48,11 +48,11 @@ function error_username_password_incorrect() {
                 '<TR BGCOLOR="' . $color[0] . '">'.
                     '<TH>' . _("ERROR") . '</TH>'.
                 '</TR>' .
-                '<TR><TD>'.
-                    '<CENTER><BR>' . _("Unknown user or password incorrect.") .
+                '<TR><TD ALIGN="center">'.
+                    '<BR>' . _("Unknown user or password incorrect.") .
                     '<BR><A HREF="' . sqm_baseuri() . '"login.php" TARGET='.
                     $frame_top.'>' . _("Click here to try again") .
-                    '</A>.</CENTER>'.
+                    '</A>.'.
                 '</TD></TR>'.
                 '</TABLE>'.
             '</BODY></HTML>';
@@ -62,12 +62,12 @@ function error_message($message, $mailbox, $sort, $startMessage, $color) {
     $urlMailbox = urlencode($mailbox);
 
     echo '<BR>'.
-         "<TABLE COLS=1 WIDTH=\"70%\" BORDER=\"0\" BGCOLOR=\"$color[4]\" ALIGN=CENTER>".
+         "<TABLE WIDTH=\"70%\" BORDER=\"0\" BGCOLOR=\"$color[4]\" ALIGN=CENTER>".
             '<TR>'.
-               "<TD BGCOLOR=\"$color[0]\">".
-                  "<FONT COLOR=\"$color[2]\"><B><CENTER>" . _("ERROR") . '</CENTER></B></FONT>'.
-            '</TD></TR><TR><TD>'.
-               "<CENTER><BR>$message<BR>\n".
+               "<TD BGCOLOR=\"$color[0]\" ALIGN=\"center\">".
+                  "<FONT COLOR=\"$color[2]\"><B>" . _("ERROR") . '</B></FONT>'.
+            '</TD></TR><TR><TD ALIGN="center">'.
+               "<BR>$message<BR>\n".
                '<BR>'.
                   "<A HREF=\"" . sqm_baseuri() 
                   . "src/right_main.php?sort=$sort&amp;startMessage=$startMessage"
@@ -79,13 +79,12 @@ function error_message($message, $mailbox, $sort, $startMessage, $color) {
 }
 
 function plain_error_message($message, $color) {
-    echo "<br><TABLE COLS=1 WIDTH=\"70%\" BORDER=\"0\" BGCOLOR=\"$color[4]\" ALIGN=CENTER>".
+    echo "<br><TABLE WIDTH=\"70%\" BORDER=\"0\" BGCOLOR=\"$color[4]\" ALIGN=CENTER>".
             '<TR>'.
-               "<TD BGCOLOR=\"$color[0]\">".
-                  "<FONT COLOR=\"$color[2]\"><B><CENTER>" . _("ERROR") . '</CENTER></B></FONT>'.
-            '</TD></TR><TR><TD>'.
-               "<CENTER><BR>$message".
-               '</CENTER>'.
+               "<TD BGCOLOR=\"$color[0]\" ALIGN=\"center\">".
+                  "<FONT COLOR=\"$color[2]\"><B>" . _("ERROR") . '</B></FONT>'.
+            '</TD></TR><TR><TD ALIGN="center">'.
+               "<BR>$message".
             '</TD></TR>'.
          '</TABLE>';
 }
@@ -146,18 +145,18 @@ function logout_error( $errString, $errTitle = '' ) {
            '<SMALL>' . sprintf (_("SquirrelMail version %s"), $version) . "<BR>\n".
            '  ' . _("By the SquirrelMail Development Team") . "<BR></SMALL>\n" ) .
          "<table cellspacing=1 cellpadding=0 bgcolor=\"$color[1]\" width=\"70%\"><tr><td>".
-         "<TABLE COLS=1 WIDTH=\"100%\" BORDER=\"0\" BGCOLOR=\"$color[4]\" ALIGN=CENTER>".
-            "<TR><TD BGCOLOR=\"$color[0]\">".
-                  "<FONT COLOR=\"$color[2]\"><B><CENTER>" . _("ERROR") .
-                  '</CENTER></B></FONT></TD></TR>'.
-            '<TR><TD><CENTER>' . $errString . '</CENTER></TD></TR>'.
-            "<TR><TD BGCOLOR=\"$color[0]\">".
-                  "<FONT COLOR=\"$color[2]\"><B><CENTER>".
+         "<TABLE WIDTH=\"100%\" BORDER=\"0\" BGCOLOR=\"$color[4]\" ALIGN=CENTER>".
+            "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=\"center\">".
+                  "<FONT COLOR=\"$color[2]\"><B>" . _("ERROR") .
+                  '</B></FONT></TD></TR>'.
+            '<TR><TD ALIGN="center">' . $errString . '</TD></TR>'.
+            "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=\"center\">".
+                  "<FONT COLOR=\"$color[2]\"><B>".
                   '<a href="' . $base_uri . 'src/login.php" target="' .
                   $frame_top . '">' .
-                  _("Go to the login page") . "</a></CENTER></B></FONT>".
+                  _("Go to the login page") . "</a></B></FONT>".
             '</TD></TR>'.
-         '</TABLE></td></tr></table></body></html>';
+         '</TABLE></td></tr></table></center></body></html>';
 }
 
 ?>

@@ -222,5 +222,4 @@ if ($help_exists == true) {
 do_hook('help_bottom');
 ?>
 <tr><td bgcolor="<?php echo $color[0] ?>">&nbsp;</td></tr></table>
-<td></tr></table>
 </body></html>
