@@ -47,6 +47,26 @@ if (isset($newsort) && $newsort != $sort) {
     setPref($data_dir, $username, 'sort', $newsort);
 }
 
+
+
+/* If the page has been loaded without a specific mailbox, */
+/* send them to the inbox                                  */
+if (!isset($mailbox)) {
+    $mailbox = 'INBOX';
+    $startMessage = 1;
+}
+
+
+if (!isset($startMessage) || ($startMessage == '')) {
+    $startMessage = 1;
+}
+
+/* compensate for the UW vulnerability. */
+if ($imap_server_type == 'uw' && (strstr($mailbox, '../') ||
+                                  substr($mailbox, 0, 1) == '/')) {
+   $mailbox = 'INBOX';
+}
+
 /* decide if we are thread sorting or not */
 global $allow_thread_sort;
 if ($allow_thread_sort == TRUE) {
@@ -68,29 +88,10 @@ else {
     $thread_sort_messages = 0;
 } 
 
-
-/* If the page has been loaded without a specific mailbox, */
-/* send them to the inbox                                  */
-if (!isset($mailbox)) {
-    $mailbox = 'INBOX';
-    $startMessage = 1;
+global $color;
+if( isset($do_hook) && $do_hook ) {
+    do_hook ("generic_header");
 }
-
-
-if (!isset($startMessage) || ($startMessage == '')) {
-    $startMessage = 1;
-}
-
-/* compensate for the UW vulnerability. */
-if ($imap_server_type == 'uw' && (strstr($mailbox, '../') ||
-                                  substr($mailbox, 0, 1) == '/')) {
-   $mailbox = 'INBOX';
-}
-    global $color;
-
-    if( isset($do_hook) && $do_hook ) {
-        do_hook ("generic_header");
-    }
 
 sqimap_mailbox_select($imapConnection, $mailbox);
 
