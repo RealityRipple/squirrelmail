@@ -2,8 +2,8 @@
 *** Squirrelmail Stable Series 1.2 ***
 **************************************
 
-Version 1.2.3 -- cvs
---------------------
+Version 1.2.3 -- 21 January 2002
+--------------------------------
   - Fixed focus system on pages that contain forms.
   - Fixed IMAP code to send different command identifiers as per 
     section 2.2.1 of RFC 2060.
