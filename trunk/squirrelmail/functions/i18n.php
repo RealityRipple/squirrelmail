@@ -21,6 +21,44 @@
 require_once(SM_PATH . 'functions/global.php');
 
 /**
+ * Gettext bindtextdomain wrapper.
+ *
+ * Wrapper solves differences between php versions in order to provide
+ * ngettext support. Should be used if translation uses ngettext
+ * functions.
+ * @param string $domain gettext domain name
+ * @param string $dir directory that contains all translations
+ * @return string path to translation directory
+ */
+function sq_bindtextdomain($domain,$dir) {
+    global $l10n, $gettext_flags, $sm_notAlias;
+
+    if ($gettext_flags==7) {
+        // gettext extension without ngettext
+        if (substr($dir, -1) != '/') $dir .= '/';
+        $mofile=$dir . $sm_notAlias . '/LC_MESSAGES/' . $domain . '.mo';
+        $input = new FileReader($mofile);
+        $l10n[$domain] = new gettext_reader($input);
+    }
+
+    $dir=bindtextdomain($domain,$dir);
+
+    return $dir;
+}
+
+/**
+ * Gettext textdomain wrapper.
+ * Makes sure that gettext_domain global is modified.
+ * @param string $name gettext domain name
+ * @return string gettext domain name
+ */
+function sq_textdomain($domain) {
+    global $gettext_domain;
+    $gettext_domain=textdomain($domain);
+    return $gettext_domain;
+}
+
+/**
  * Converts string from given charset to charset, that can be displayed by user translation.
  *
  * Function by default returns html encoded strings, if translation uses different encoding.
@@ -49,17 +87,17 @@ function charset_decode ($charset, $string) {
 
     // Variables that allow to use functions without function_exist() calls
     if (! isset($use_php_recode) || $use_php_recode=="" ) {
-      $use_php_recode=false; }
+        $use_php_recode=false; }
     if (! isset($use_php_iconv) || $use_php_iconv=="" ) {
-         $use_php_iconv=false; }
+        $use_php_iconv=false; }
 
     // Don't do conversion if charset is the same.
     if ( $charset == strtolower($default_charset) )
-          return htmlspecialchars($string);
+        return htmlspecialchars($string);
 
     // catch iso-8859-8-i thing
     if ( $charset == "iso-8859-8-i" )
-              $charset = "iso-8859-8";
+        $charset = "iso-8859-8";
 
     /*
      * Recode converts html special characters automatically if you use
@@ -67,23 +105,23 @@ function charset_decode ($charset, $string) {
      * into php recode function call.
      */
     if ( $use_php_recode ) {
-      if ( $default_charset == "utf-8" ) {
-        // other charsets can be converted to utf-8 without loss.
-        // and output string is smaller
-        $string = recode_string($charset . "..utf-8",$string);
-        return htmlspecialchars($string);
-      } else {
-        $string = recode_string($charset . "..html",$string);
-        // recode does not convert single quote, htmlspecialchars does.
-        $string = str_replace("'", '&#039;', $string);
-        return $string;
-      }
+        if ( $default_charset == "utf-8" ) {
+            // other charsets can be converted to utf-8 without loss.
+            // and output string is smaller
+            $string = recode_string($charset . "..utf-8",$string);
+            return htmlspecialchars($string);
+        } else {
+            $string = recode_string($charset . "..html",$string);
+            // recode does not convert single quote, htmlspecialchars does.
+            $string = str_replace("'", '&#039;', $string);
+            return $string;
+        }
     }
 
     // iconv functions does not have html target and can be used only with utf-8
     if ( $use_php_iconv && $default_charset=='utf-8') {
-      $string = iconv($charset,$default_charset,$string);
-      return htmlspecialchars($string);
+        $string = iconv($charset,$default_charset,$string);
+        return htmlspecialchars($string);
     }
 
     // If we don't use recode and iconv, we'll do it old way.
@@ -94,15 +132,15 @@ function charset_decode ($charset, $string) {
 
     /* controls cpu and memory intensive decoding cycles */
     if (! isset($aggressive_decoding) || $aggressive_decoding=="" ) {
-         $aggressive_decoding=false; }
+        $aggressive_decoding=false; }
 
     $decode=fixcharset($charset);
     $decodefile=SM_PATH . 'functions/decode/' . $decode . '.php';
     if (file_exists($decodefile)) {
-      include_once($decodefile);
-      $ret = call_user_func('charset_decode_'.$decode, $string);
+        include_once($decodefile);
+        $ret = call_user_func('charset_decode_'.$decode, $string);
     } else {
-      $ret = $string;
+        $ret = $string;
     }
     return( $ret );
 }
@@ -115,23 +153,23 @@ function charset_decode ($charset, $string) {
  * @param string
  */
 function charset_encode($string,$charset,$htmlencode=true) {
-  global $default_charset;
+    global $default_charset;
 
-  // Undo html special chars
-  if (! $htmlencode ) {
-      $string = str_replace(array('&amp;','&gt;','&lt;','&quot;'),array('&','>','<','"'),$string);
-  }
+    // Undo html special chars
+    if (! $htmlencode ) {
+        $string = str_replace(array('&amp;','&gt;','&lt;','&quot;'),array('&','>','<','"'),$string);
+    }
 
-  $encode=fixcharset($charset);
-  $encodefile=SM_PATH . 'functions/encode/' . $encode . '.php';
-  if (file_exists($encodefile)) {
-      include_once($encodefile);
-      $ret = call_user_func('charset_encode_'.$encode, $string);
-  } else {
-      include_once(SM_PATH . 'functions/encode/us_ascii.php');
-      $ret = charset_encode_us_ascii($string);
-  }
-  return( $ret );
+    $encode=fixcharset($charset);
+    $encodefile=SM_PATH . 'functions/encode/' . $encode . '.php';
+    if (file_exists($encodefile)) {
+        include_once($encodefile);
+        $ret = call_user_func('charset_encode_'.$encode, $string);
+    } else {
+        include_once(SM_PATH . 'functions/encode/us_ascii.php');
+        $ret = charset_encode_us_ascii($string);
+    }
+    return( $ret );
 }
 
 /**
@@ -220,7 +258,7 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
     // System reverts to English translation if user prefs contain translation
     // that is not available in $languages array
     if (!isset($languages[$sm_notAlias])) {
-      $sm_notAlias="en_US";
+        $sm_notAlias="en_US";
     }
 
     while (isset($languages[$sm_notAlias]['ALIAS'])) {
@@ -231,19 +269,19 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
          $use_gettext &&
          $sm_language != '' &&
          isset($languages[$sm_notAlias]['CHARSET']) ) {
-        bindtextdomain( 'squirrelmail', SM_PATH . 'locale/' );
-        textdomain( 'squirrelmail' );
+        sq_bindtextdomain( 'squirrelmail', SM_PATH . 'locale/' );
+        sq_textdomain( 'squirrelmail' );
         if (function_exists('bind_textdomain_codeset')) {
-          if ($sm_notAlias == 'ja_JP') {
-            bind_textdomain_codeset ("squirrelmail", 'EUC-JP');
+            if ($sm_notAlias == 'ja_JP') {
+                bind_textdomain_codeset ("squirrelmail", 'EUC-JP');
             } else {
-              bind_textdomain_codeset ("squirrelmail", $languages[$sm_notAlias]['CHARSET'] );
+                bind_textdomain_codeset ("squirrelmail", $languages[$sm_notAlias]['CHARSET'] );
             }
         }
         if (isset($languages[$sm_notAlias]['LOCALE'])){
-          $longlocale=$languages[$sm_notAlias]['LOCALE'];
+            $longlocale=$languages[$sm_notAlias]['LOCALE'];
         } else {
-          $longlocale=$sm_notAlias;
+            $longlocale=$sm_notAlias;
         }
         if ( !ini_get('safe_mode') &&
              getenv( 'LC_ALL' ) != $longlocale ) {
@@ -258,40 +296,40 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
         // Set text direction/alignment variables
         if (isset($languages[$sm_notAlias]['DIR']) &&
             $languages[$sm_notAlias]['DIR'] == 'rtl') {
-          /**
-           * Text direction
-           * @global string $text_direction
-           */
-          $text_direction='rtl';
-          /**
-           * Left alignment
-           * @global string $left_align
-           */
-          $left_align='right';
-          /**
-           * Right alignment
-           * @global string $right_align
-           */
-          $right_align='left';
+            /**
+             * Text direction
+             * @global string $text_direction
+             */
+            $text_direction='rtl';
+            /**
+             * Left alignment
+             * @global string $left_align
+             */
+            $left_align='right';
+            /**
+             * Right alignment
+             * @global string $right_align
+             */
+            $right_align='left';
         } else {
-          $text_direction='ltr';
-          $left_align='left';
-          $right_align='right';
+            $text_direction='ltr';
+            $left_align='left';
+            $right_align='right';
         }
 
         $squirrelmail_language = $sm_notAlias;
         if ($squirrelmail_language == 'ja_JP') {
             header ('Content-Type: text/html; charset=EUC-JP');
             if (!function_exists('mb_internal_encoding')) {
-              // Error messages can't be displayed here
-              $error = 1;
-              // Revert to English if possible.
-              if (function_exists('setPref')  && $username!='' && $data_dir!="") {
-                setPref($data_dir, $username, 'language', "en_US");
-                $error = 2;
-              }
-              // stop further execution in order not to get php errors on mb_internal_encoding().
-              return $error;
+                // Error messages can't be displayed here
+                $error = 1;
+                // Revert to English if possible.
+                if (function_exists('setPref')  && $username!='' && $data_dir!="") {
+                    setPref($data_dir, $username, 'language', "en_US");
+                    $error = 2;
+                }
+                // stop further execution in order not to get php errors on mb_internal_encoding().
+                return $error;
             }
             if (function_exists('mb_language')) {
                 mb_language('Japanese');
@@ -331,7 +369,7 @@ function set_my_charset(){
     }
     // Catch removed translation
     if (!isset($languages[$my_language])) {
-      $my_language="en_US";
+        $my_language="en_US";
     }
     while (isset($languages[$my_language]['ALIAS'])) {
         $my_language = $languages[$my_language]['ALIAS'];
@@ -652,11 +690,23 @@ if (function_exists('bindtextdomain')) {
 if (function_exists('textdomain')) {
     $gettext_flags += 4;
 }
+if (function_exists('ngettext')) {
+    $gettext_flags += 8;
+}
 
 /* If gettext is fully loaded, cool */
-if ($gettext_flags == 7) {
+if ($gettext_flags == 15) {
     $use_gettext = true;
 }
+
+/* If ngettext support is missing, load it */
+elseif ($gettext_flags == 7) {
+    $use_gettext = true;
+    // load internal ngettext functions
+    include_once(SM_PATH . 'class/l10n.class.php');
+    include_once(SM_PATH . 'functions/ngettext.php');
+}
+
 /* If we can fake gettext, try that */
 elseif ($gettext_flags == 0) {
     $use_gettext = true;
@@ -688,6 +738,19 @@ elseif ($gettext_flags == 0) {
        */
         function textdomain() {
             return;
+        }
+    }
+    if (! $gettext_flags & 8) {
+        /**
+         * Function is used as replacemet in broken installs
+         * @ignore
+         */
+        function ngettext($str,$str2,$number) {
+            if ($number>1) {
+                return $str2;
+            } else {
+                return $str;
+            }
         }
     }
 }
