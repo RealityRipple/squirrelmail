@@ -516,7 +516,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
             } else {
                 $attachments .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
             }
-            $attachments .= '<a href="' . $val['href'] . '">' .  $val['text'] . '</a>';
+            $attachments .= '<a href="' . $val['href'] . '">' . (isset($val['text']) && !empty($val['text']) ? $val['text'] : '') . (isset($val['extra']) && !empty($val['extra']) ? $val['extra'] : '') . '</a>';
         }
         unset($links);
         $attachments .= "</td></tr>\n";
@@ -1993,6 +1993,11 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
     if (preg_match("|$secremoveimg|i", $trusted)){
         $has_unsafe_images = true;
     }
+
+
+    // we want to parse mailto's and other URLs in HTML output too
+    parseUrl($trusted);
+
     return $trusted;
 }
 
