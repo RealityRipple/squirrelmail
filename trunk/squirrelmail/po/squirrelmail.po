@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-01-23 09:37+0100\n"
+"POT-Creation-Date: 2002-01-24 15:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: squirrelmail/src/addrbook_search.php:98
 #: squirrelmail/src/addrbook_search_html.php:66
-#: squirrelmail/src/addressbook.php:285 squirrelmail/src/vcard.php:107
+#: squirrelmail/src/addressbook.php:285 squirrelmail/src/vcard.php:85
 msgid "Name"
 msgstr ""
 
@@ -64,7 +64,7 @@ msgstr ""
 msgid "All address books"
 msgstr ""
 
-#: squirrelmail/functions/page_header.php:124
+#: squirrelmail/functions/page_header.php:128
 #: squirrelmail/src/addrbook_search.php:190
 #: squirrelmail/src/addrbook_search_html.php:150
 #: squirrelmail/src/search.php:45 squirrelmail/src/search.php:124
@@ -181,8 +181,8 @@ msgstr ""
 
 #: squirrelmail/functions/mailbox_display.php:581
 #: squirrelmail/plugins/filters/options.php:97
-#: squirrelmail/src/compose.php:305 squirrelmail/src/download.php:143
-#: squirrelmail/src/download.php:149
+#: squirrelmail/src/compose.php:305 squirrelmail/src/download.php:130
+#: squirrelmail/src/download.php:135
 #: squirrelmail/src/options_highlight.php:334
 #: squirrelmail/src/options_order.php:57
 #: squirrelmail/src/printer_friendly_bottom.php:118
@@ -192,8 +192,8 @@ msgstr ""
 
 #: squirrelmail/functions/mailbox_display.php:567
 #: squirrelmail/plugins/filters/options.php:85
-#: squirrelmail/src/compose.php:306 squirrelmail/src/download.php:144
-#: squirrelmail/src/download.php:151
+#: squirrelmail/src/compose.php:306 squirrelmail/src/download.php:131
+#: squirrelmail/src/download.php:137
 #: squirrelmail/src/options_highlight.php:322
 #: squirrelmail/src/options_order.php:55
 #: squirrelmail/src/printer_friendly_bottom.php:112
@@ -202,16 +202,16 @@ msgid "From"
 msgstr ""
 
 #: squirrelmail/functions/mailbox_display.php:575
-#: squirrelmail/src/compose.php:307 squirrelmail/src/download.php:146
-#: squirrelmail/src/download.php:155 squirrelmail/src/options_order.php:56
+#: squirrelmail/src/compose.php:307 squirrelmail/src/download.php:133
+#: squirrelmail/src/download.php:141 squirrelmail/src/options_order.php:56
 #: squirrelmail/src/printer_friendly_bottom.php:117
 msgid "Date"
 msgstr ""
 
 #: squirrelmail/functions/mailbox_display.php:565
 #: squirrelmail/plugins/filters/options.php:88
-#: squirrelmail/src/compose.php:309 squirrelmail/src/download.php:145
-#: squirrelmail/src/download.php:153
+#: squirrelmail/src/compose.php:309 squirrelmail/src/download.php:132
+#: squirrelmail/src/download.php:139
 #: squirrelmail/src/options_highlight.php:325
 #: squirrelmail/src/printer_friendly_bottom.php:113
 #: squirrelmail/src/search.php:119
@@ -255,7 +255,7 @@ msgstr ""
 msgid "Delete selected attachments"
 msgstr ""
 
-#: squirrelmail/functions/page_header.php:118 squirrelmail/src/compose.php:609
+#: squirrelmail/functions/page_header.php:122 squirrelmail/src/compose.php:609
 #: squirrelmail/src/compose.php:613 squirrelmail/src/compose.php:617
 msgid "Addresses"
 msgstr ""
@@ -298,19 +298,19 @@ msgstr ""
 msgid "who"
 msgstr ""
 
-#: squirrelmail/src/download.php:49
+#: squirrelmail/src/download.php:31
 msgid "Viewing a text attachment"
 msgstr ""
 
-#: squirrelmail/src/download.php:52 squirrelmail/src/download.php:54
+#: squirrelmail/src/download.php:34 squirrelmail/src/download.php:36
 #: squirrelmail/src/image.php:31 squirrelmail/src/image.php:35
-#: squirrelmail/src/read_body.php:162 squirrelmail/src/vcard.php:51
-#: squirrelmail/src/vcard.php:55
+#: squirrelmail/src/read_body.php:162 squirrelmail/src/vcard.php:35
+#: squirrelmail/src/vcard.php:39
 msgid "View message"
 msgstr ""
 
-#: squirrelmail/functions/mime.php:620 squirrelmail/src/download.php:59
-#: squirrelmail/src/image.php:44 squirrelmail/src/vcard.php:212
+#: squirrelmail/functions/mime.php:620 squirrelmail/src/download.php:41
+#: squirrelmail/src/image.php:44 squirrelmail/src/vcard.php:196
 msgid "Download this as a file"
 msgstr ""
 
@@ -322,7 +322,7 @@ msgstr ""
 msgid "Click here to go back"
 msgstr ""
 
-#: squirrelmail/functions/page_header.php:120 squirrelmail/src/folders.php:29
+#: squirrelmail/functions/page_header.php:124 squirrelmail/src/folders.php:29
 #: squirrelmail/src/left_main.php:234
 msgid "Folders"
 msgstr ""
@@ -432,7 +432,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: squirrelmail/functions/page_header.php:126
+#: squirrelmail/functions/page_header.php:130
 #: squirrelmail/plugins/listcommands/setup.php:32 squirrelmail/src/help.php:91
 msgid "Help"
 msgstr ""
@@ -455,6 +455,8 @@ msgstr ""
 #: squirrelmail/functions/mailbox_display.php:735
 #: squirrelmail/functions/mailbox_display.php:738
 #: squirrelmail/functions/mailbox_display.php:741
+#: squirrelmail/plugins/delete_move_next/setup.php:149
+#: squirrelmail/plugins/delete_move_next/setup.php:151
 #: squirrelmail/src/help.php:187 squirrelmail/src/help.php:191
 #: squirrelmail/src/read_body.php:495 squirrelmail/src/read_body.php:497
 msgid "Previous"
@@ -463,6 +465,8 @@ msgstr ""
 #: squirrelmail/functions/mailbox_display.php:736
 #: squirrelmail/functions/mailbox_display.php:739
 #: squirrelmail/functions/mailbox_display.php:742
+#: squirrelmail/plugins/delete_move_next/setup.php:154
+#: squirrelmail/plugins/delete_move_next/setup.php:156
 #: squirrelmail/src/help.php:195 squirrelmail/src/help.php:198
 #: squirrelmail/src/read_body.php:501 squirrelmail/src/read_body.php:503
 msgid "Next"
@@ -512,9 +516,9 @@ msgstr ""
 msgid "Password:"
 msgstr ""
 
-#: squirrelmail/src/move_messages.php:93
-#: squirrelmail/src/move_messages.php:128
-#: squirrelmail/src/move_messages.php:157
+#: squirrelmail/src/move_messages.php:79
+#: squirrelmail/src/move_messages.php:114
+#: squirrelmail/src/move_messages.php:143
 msgid "No messages were selected."
 msgstr ""
 
@@ -773,7 +777,7 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
-#: squirrelmail/functions/page_header.php:122
+#: squirrelmail/functions/page_header.php:126
 #: squirrelmail/plugins/filters/options.php:62
 #: squirrelmail/plugins/newmail/newmail_opt.php:34
 #: squirrelmail/plugins/translate/options.php:97
@@ -1202,7 +1206,7 @@ msgstr ""
 msgid "Everywhere"
 msgstr ""
 
-#: squirrelmail/functions/page_header.php:110 squirrelmail/src/signout.php:84
+#: squirrelmail/functions/page_header.php:114 squirrelmail/src/signout.php:84
 msgid "Sign Out"
 msgstr ""
 
@@ -1214,55 +1218,55 @@ msgstr ""
 msgid "Click here to log back in."
 msgstr ""
 
-#: squirrelmail/src/vcard.php:46
+#: squirrelmail/src/vcard.php:30
 msgid "Viewing a Business Card"
 msgstr ""
 
-#: squirrelmail/src/vcard.php:108 squirrelmail/src/vcard.php:169
+#: squirrelmail/src/vcard.php:86 squirrelmail/src/vcard.php:146
 msgid "Title"
 msgstr ""
 
-#: squirrelmail/src/vcard.php:109
+#: squirrelmail/src/vcard.php:87
 msgid "Email"
 msgstr ""
 
-#: squirrelmail/src/vcard.php:110 squirrelmail/src/vcard.php:163
+#: squirrelmail/src/vcard.php:88 squirrelmail/src/vcard.php:138
 msgid "Web Page"
 msgstr ""
 
-#: squirrelmail/src/vcard.php:111 squirrelmail/src/vcard.php:172
+#: squirrelmail/src/vcard.php:89 squirrelmail/src/vcard.php:150
 msgid "Organization / Department"
 msgstr ""
 
-#: squirrelmail/src/vcard.php:112 squirrelmail/src/vcard.php:166
+#: squirrelmail/src/vcard.php:90 squirrelmail/src/vcard.php:142
 msgid "Address"
 msgstr ""
 
-#: squirrelmail/src/vcard.php:113 squirrelmail/src/vcard.php:179
+#: squirrelmail/src/vcard.php:91 squirrelmail/src/vcard.php:159
 msgid "Work Phone"
 msgstr ""
 
-#: squirrelmail/src/vcard.php:114 squirrelmail/src/vcard.php:182
+#: squirrelmail/src/vcard.php:92 squirrelmail/src/vcard.php:163
 msgid "Home Phone"
 msgstr ""
 
-#: squirrelmail/src/vcard.php:115 squirrelmail/src/vcard.php:185
+#: squirrelmail/src/vcard.php:93 squirrelmail/src/vcard.php:167
 msgid "Cellular Phone"
 msgstr ""
 
-#: squirrelmail/src/vcard.php:116 squirrelmail/src/vcard.php:188
+#: squirrelmail/src/vcard.php:94 squirrelmail/src/vcard.php:171
 msgid "Fax"
 msgstr ""
 
-#: squirrelmail/src/vcard.php:117 squirrelmail/src/vcard.php:191
+#: squirrelmail/src/vcard.php:95 squirrelmail/src/vcard.php:175
 msgid "Note"
 msgstr ""
 
-#: squirrelmail/src/vcard.php:149
+#: squirrelmail/src/vcard.php:124
 msgid "Add to Addressbook"
 msgstr ""
 
-#: squirrelmail/src/vcard.php:176
+#: squirrelmail/src/vcard.php:155
 msgid "Title & Org. / Dept."
 msgstr ""
 
@@ -1770,11 +1774,11 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: squirrelmail/functions/page_header.php:107
+#: squirrelmail/functions/page_header.php:108
 msgid "Current Folder"
 msgstr ""
 
-#: squirrelmail/functions/page_header.php:116
+#: squirrelmail/functions/page_header.php:120
 msgid "Compose"
 msgstr ""
 
@@ -3582,4 +3586,31 @@ msgstr ""
 
 #: squirrelmail/plugins/listcommands/setup.php:90
 msgid "Mailinglist options:"
+msgstr ""
+
+#: squirrelmail/plugins/delete_move_next/setup.php:159
+#: squirrelmail/plugins/delete_move_next/setup.php:162
+msgid "Delete & Prev"
+msgstr ""
+
+#: squirrelmail/plugins/delete_move_next/setup.php:165
+#: squirrelmail/plugins/delete_move_next/setup.php:167
+msgid "Delete & Next"
+msgstr ""
+
+#: squirrelmail/plugins/delete_move_next/setup.php:290
+msgid "delete_move_next:"
+msgstr ""
+
+#: squirrelmail/plugins/delete_move_next/setup.php:296
+msgid "display at top"
+msgstr ""
+
+#: squirrelmail/plugins/delete_move_next/setup.php:302
+#: squirrelmail/plugins/delete_move_next/setup.php:314
+msgid "with move option"
+msgstr ""
+
+#: squirrelmail/plugins/delete_move_next/setup.php:308
+msgid "display at bottom"
 msgstr ""
