@@ -326,7 +326,7 @@
    echo _("Delete") . '</A>&nbsp;';
    if (($mailbox == $draft_folder) && ($save_as_draft)) {
       echo '|&nbsp;';
-      echo "               <A HREF=\"compose.php?mailbox=$mailbox&send_to=$to_string&send_to_cc=$cc_string&send_to_bcc=\$bcc_string\">";
+      echo "               <A HREF=\"compose.php?mailbox=$mailbox&send_to=$to_string&send_to_cc=$cc_string&send_to_bcc=$bcc_string&subject=$url_subj&draft_id=$passed_id&ent_num=$ent_num\">";
       echo _("Resume Draft") . '</a>';
    }
    echo '&nbsp;&nbsp;' .
