@@ -70,7 +70,6 @@
 
    /** If it was a successful login, lets load their preferences **/
    include("../src/load_prefs.php");
-   checkForPrefs($data_dir, $username);
    echo "<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\">";
    echo "<FONT FACE=\"Arial,Helvetica\">";
 
