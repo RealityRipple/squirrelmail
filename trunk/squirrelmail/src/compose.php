@@ -1319,7 +1319,7 @@ function deliverMessage($composeMessage, $draft=false) {
     global $send_to, $send_to_cc, $send_to_bcc, $mailprio, $subject, $body,
            $username, $popuser, $usernamedata, $identity, $data_dir,
            $request_mdn, $request_dr, $default_charset, $color, $useSendmail,
-           $domain, $action;
+           $domain, $action, $default_move_to_sent, $move_to_sent;
     global $imapServerAddress, $imapPort, $sent_folder, $key;
 
     $rfc822_header = $composeMessage->rfc822_header;
@@ -1469,9 +1469,10 @@ function deliverMessage($composeMessage, $draft=false) {
         plain_error_message($msg, $color);
     } else {
         unset ($deliver);
-        $imap_stream = sqimap_login($username, $key, $imapServerAddress,
-        $imapPort, 0);
-        if (sqimap_mailbox_exists ($imap_stream, $sent_folder)) {
+        $move_to_sent = getPref($data_dir,$username,'move_to_sent');
+        $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+        if (sqimap_mailbox_exists ($imap_stream, $sent_folder) && ((isset($move_to_sent) && $move_to_sent) ||
+           (isset($default_move_to_sent) && $default_move_to_sent))) {
                 sqimap_append ($imap_stream, $sent_folder, $length);
             require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
             $imap_deliver = new Deliver_IMAP();
