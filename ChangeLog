@@ -4,6 +4,9 @@
 
 Version 1.2.6 -- CVS
 --------------------
+  - Fix for cross-site scripting vulnerability (bug #544658)
+    Reported by Nick Cleaton.
+  - Fix for incorrect word wrap in Opera (bug #495073)
   - Workaround for older prefs: some of them contain "None" for
     left_refresh (bug #540108)
   - Fix for entities in cc and bcc fields on message display (bug #522493)
