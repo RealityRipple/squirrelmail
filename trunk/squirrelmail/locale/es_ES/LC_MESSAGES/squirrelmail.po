@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
 "POT-Creation-Date: 2002-02-21 13:58+0100\n"
-"PO-Revision-Date: 2002-02-11 19:54GMT+1\n"
+"PO-Revision-Date: 2002-02-23 22:59GMT+1\n"
 "Last-Translator: Philippe Mingo <philippe@squirrelmail.org>\n"
 "Language-Team: Spanish <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -1958,7 +1958,7 @@ msgstr "Línea contestada:"
 
 #: squirrelmail/functions/mime.php:643
 msgid "Hide Unsafe Images"
-msgstr ""
+msgstr "Ocultar imágenes inseguras"
 
 #: squirrelmail/functions/mime.php:645
 msgid "View Unsafe Images"
@@ -4304,15 +4304,15 @@ msgstr "¿Esconder atributos de SM?"
 
 #: squirrelmail/plugins/administrator/defines.php:201
 msgid "Enable use of delivery receipts"
-msgstr ""
+msgstr "Activar confirmaciones de entrega"
 
 #: squirrelmail/plugins/administrator/defines.php:203
 msgid "Allow editing of identities"
-msgstr ""
+msgstr "Permitir edición de identidades"
 
 #: squirrelmail/plugins/administrator/defines.php:205
 msgid "Allow editing of full name"
-msgstr ""
+msgstr "Permitir edición del nombre"
 
 #: squirrelmail/plugins/administrator/defines.php:208
 #: squirrelmail/plugins/administrator/defines.php:210
@@ -4370,6 +4370,8 @@ msgstr "Cambiar opciones"
 #: squirrelmail/plugins/administrator/options.php:531
 msgid "Config file can't be opened. Please check config.php."
 msgstr ""
+"El archivo de configuración no puede abrirse. Por favor compruebe el fichero "
+"config.php"
 
 #: squirrelmail/plugins/administrator/setup.php:30
 msgid "Administration"
@@ -4390,6 +4392,3 @@ msgstr "Informe de error en entrega"
 #: squirrelmail/po/independent_strings.txt:19
 msgid "Undelivered Message Headers"
 msgstr "Cabecera de mensaje no entregado"
-
-#~ msgid "Remove MDN flag"
-#~ msgstr "Eliminar señal de envío"
