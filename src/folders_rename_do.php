@@ -35,8 +35,8 @@
    else
       $newone = "$new_name";
 
-   $orig = stripslashes($orig);
-   $newone = stripslashes($newone);
+   $orig = sqStripSlashes($orig);
+   $newone = sqStripSlashes($newone);
 
    fputs ($imapConnection, ". RENAME \"$orig\" \"$newone\"\r\n");
    $data = sqimap_read_data($imapConnection, ".", true, $a, $b);

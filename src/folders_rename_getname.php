@@ -38,7 +38,7 @@
       $old_parent = "";
    }
 
-   $old_name = stripslashes($old_name);
+   $old_name = sqStripSlashes($old_name);
 
    displayPageHeader($color, "None");
    echo "<br><TABLE align=center border=0 WIDTH=95% COLS=1>";

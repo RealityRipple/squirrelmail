@@ -43,8 +43,8 @@
       global $forward_id, $imapConnection, $msg, $ent_num, $body_ary, $body,
          $reply_id, $send_to, $send_to_cc, $mailbox, $send_to_bcc;
 
-      $send_to = stripslashes(decodeHeader($send_to));
-      $send_to_cc = stripslashes(decodeHeader($send_to_cc));
+      $send_to = sqStripSlashes(decodeHeader($send_to));
+      $send_to_cc = sqStripSlashes(decodeHeader($send_to_cc));
 
       if ($forward_id)
          $id = $forward_id;
@@ -96,7 +96,7 @@
          return $body;   
       }
 
-      $send_to = stripslashes($send_to);
+      $send_to = sqStripSlashes($send_to);
       
       if (!$send_to) {
          $send_to = sqimap_find_email($send_to);
@@ -189,7 +189,7 @@
       echo "      </TD><TD BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
       if ($reply_subj) {
          $reply_subj = str_replace("\"", "'", $reply_subj);
-         $reply_subj = stripslashes($reply_subj);
+         $reply_subj = sqStripSlashes($reply_subj);
          $reply_subj = trim($reply_subj);
          if (substr(strtolower($reply_subj), 0, 3) != "re:")
             $reply_subj = "Re: $reply_subj";
@@ -197,7 +197,7 @@
 		htmlspecialchars($reply_subj));
       } else if ($forward_subj) {
          $forward_subj = str_replace("\"", "'", $forward_subj);
-         $forward_subj = stripslashes($forward_subj);
+         $forward_subj = sqStripSlashes($forward_subj);
          $forward_subj = trim($forward_subj);
          if ((substr(strtolower($forward_subj), 0, 4) != "fwd:") &&
              (substr(strtolower($forward_subj), 0, 5) != "[fwd:") &&
@@ -317,11 +317,11 @@
       is_logged_in();
       displayPageHeader($color, $mailbox);
 
-      $body = stripslashes($body);
-      $send_to = stripslashes($send_to);
-      $send_to_cc = stripslashes($send_to_cc);
-      $send_to_bcc = stripslashes($send_to_bcc);
-      $subject = stripslashes($subject);
+      $body = sqStripSlashes($body);
+      $send_to = sqStripSlashes($send_to);
+      $send_to_cc = sqStripSlashes($send_to_cc);
+      $send_to_bcc = sqStripSlashes($send_to_bcc);
+      $subject = sqStripSlashes($subject);
       
       for ($i=0; $i < count($send_to_search); $i++) {
          if ($send_to)

@@ -132,7 +132,7 @@
          $bcc_list = getLineOfAddrs($bcc);
          
          /* Encoding 8-bit characters and making from line */
-         $subject = stripslashes(encodeHeader($subject));
+         $subject = sqStripSlashes(encodeHeader($subject));
          if ($from == "")
             $from = "<$from_addr>";
          else
@@ -233,7 +233,7 @@
             $body .= "Content-Type: text/plain\r\n";
 
          $body .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
-         $body .= stripslashes($passedBody) . "\r\n";
+         $body .= sqStripSlashes($passedBody) . "\r\n";
          fputs ($fp, $body);
 
          $attachmentlength = attachFiles($fp);
@@ -241,7 +241,7 @@
          $postbody .= "\r\n--".mimeBoundary()."--\r\n\r\n";
          fputs ($fp, $postbody);
       } else {
-         $body = stripslashes($passedBody) . "\r\n";
+         $body = sqStripSlashes($passedBody) . "\r\n";
          fputs ($fp, $body);
          $postbody = "\r\n";
          fputs ($fp, $postbody);

@@ -19,7 +19,7 @@
 
       $senderName = sqimap_find_displayable_name($msg["FROM"]);
       $urlMailbox = urlencode($mailbox);
-      $subject = trim(stripslashes($msg["SUBJECT"]));
+      $subject = trim($msg["SUBJECT"]);
       echo "<TR>\n";
       
       if ($msg["FLAG_FLAGGED"] == true) { $flag = "<font color=$color[2]>"; $flag_end = "</font>"; }

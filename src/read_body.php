@@ -117,7 +117,7 @@
    $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
 
    /** translate the subject and mailbox into url-able text **/
-   $url_subj = urlencode(trim(stripslashes($message->header->subject)));
+   $url_subj = urlencode(trim(sqStripSlashes($message->header->subject)));
    $urlMailbox = urlencode($mailbox);
    $url_replyto = urlencode($message->header->replyto);
 
@@ -215,7 +215,7 @@
 
    /** make sure everything will display in HTML format **/
    $from_name = decodeHeader(htmlspecialchars($message->header->from));
-   $subject = decodeHeader(htmlspecialchars(stripslashes($message->header->subject)));
+   $subject = decodeHeader(htmlspecialchars($message->header->subject));
 
    do_hook("read_body_top");
    echo "<BR>";

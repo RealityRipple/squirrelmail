@@ -29,7 +29,7 @@
    if (!isset($auth_php))
       include ("../functions/auth.php"); 
 
-   if ($language) {
+   if (isset($language)) {
       setcookie("squirrelmail_language", $language, time()+2592000);
       $squirrelmail_language = $language;
    }   
@@ -48,11 +48,11 @@
 <?php
    if ($submit_personal) {
       # Save personal information
-      if (isset($full_name)) setPref($data_dir, $username, "full_name", stripslashes($full_name));
-      if (isset($email_address)) setPref($data_dir, $username, "email_address", stripslashes($email_address));
-      if (isset($reply_to)) setPref($data_dir, $username, "reply_to", stripslashes($reply_to));  
-      setPref($data_dir, $username, "use_signature", stripslashes($usesignature));  
-      if (isset($signature_edit)) setSig($data_dir, $username, stripslashes($signature_edit)); 
+      if (isset($full_name)) setPref($data_dir, $username, "full_name", sqStripSlashes($full_name));
+      if (isset($email_address)) setPref($data_dir, $username, "email_address", sqStripSlashes($email_address));
+      if (isset($reply_to)) setPref($data_dir, $username, "reply_to", sqStripSlashes($reply_to));  
+      setPref($data_dir, $username, "use_signature", sqStripSlashes($usesignature));  
+      if (isset($signature_edit)) setSig($data_dir, $username, sqStripSlashes($signature_edit)); 
       
       echo "<br><center><b>"._("Successfully saved personal information!")."</b></center><br>";
    } else if ($submit_display) {  

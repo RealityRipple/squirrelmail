@@ -137,6 +137,7 @@
       $filename = "$data_dir$username.sig";
       if (file_exists($filename)) {
          $file = fopen($filename, "r");
+         $sig = "";
          while (!feof($file)) {
             $sig .= fgets($file, 1024);
          }

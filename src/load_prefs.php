@@ -109,6 +109,8 @@
    $wrap_at = getPref($data_dir, $username, "wrap_at");
    if ($wrap_at == "")
       $wrap_at = 86;
+   if ($wrap_at < 15)
+      $wrap_at = 15;
 
    $left_size = getPref($data_dir, $username, "left_size");
    if ($left_size == "") {
