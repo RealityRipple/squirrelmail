@@ -1,4 +1,5 @@
 <?php
+
 /**
  * read_body.php
  *
@@ -302,7 +303,7 @@ function ClearAttachments() {
             if ($info['session'] == -1) {
                 $attached_file = "$hashed_attachment_dir/$info[localfilename]";
                 if (file_exists($attached_file)) {
-                        unlink($attached_file);
+                    unlink($attached_file);
                 }
             } else {
                 $rem_attachments[] = $info;
@@ -369,9 +370,9 @@ function formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message,
                          $color, $FirstTimeSee) {
     global $msn_user_support, $default_use_mdn, $default_use_priority,
            $show_xmailer_default, $mdn_user_support, $PHP_SELF, $javascript_on,
-	   $squirrelmail_language;
+           $squirrelmail_language;
 
-    $mailbox = $aMailbox['NAME']	;
+    $mailbox = $aMailbox['NAME'];
 
     $header = $message->rfc822_header;
     $env = array();
@@ -849,7 +850,7 @@ $header = $message->header;
 if (isset($sendreceipt)) {
    if ( !$message->is_mdnsent ) {
       $final_recipient = '';
-      if ((isset($identity)) && ($identity != 0))	//Main identity
+      if ((isset($identity)) && ($identity != 0)) //Main identity
          $final_recipient = trim(getPref($data_dir, $username, 'email_address' . $identity, '' ));
       if ($final_recipient == '' )
          $final_recipient = trim(getPref($data_dir, $username, 'email_address', '' ));
@@ -955,5 +956,4 @@ sqimap_logout($imapConnection);
 $mailbox_cache[$aMailbox['NAME']] = $aMailbox;
 sqsession_register($mailbox_cache,'mailbox_cache');
 ?>
-</body>
-</html>
+</body></html>

@@ -39,25 +39,25 @@ function parse_viewheader($imapConnection,$id, $passed_ent_id) {
     $cnum = 0;
     for ($i=1; $i < count($read); $i++) {
         $line = htmlspecialchars($read[$i]);
-	switch (true) {
-	  case (eregi("^&gt;", $line)):
-            $second[$i] = $line;
-            $first[$i] = '&nbsp;';
-            $cnum++;
-	    break;
-	  case (eregi("^[ |\t]", $line)):
-            $second[$i] = $line;
-            $first[$i] = '';
-	    break;
-	  case (eregi("^([^:]+):(.+)", $line, $regs)):
-            $first[$i] = $regs[1] . ':';
-            $second[$i] = $regs[2];
-            $cnum++;
-	    break;
-	  default:
-            $second[$i] = trim($line);
-            $first[$i] = '';
-	    break;
+        switch (true) {
+            case (eregi("^&gt;", $line)):
+                $second[$i] = $line;
+                $first[$i] = '&nbsp;';
+                $cnum++;
+                break;
+            case (eregi("^[ |\t]", $line)):
+                $second[$i] = $line;
+                $first[$i] = '';
+                break;
+            case (eregi("^([^:]+):(.+)", $line, $regs)):
+                $first[$i] = $regs[1] . ':';
+                $second[$i] = $regs[2];
+                $cnum++;
+                break;
+            default:
+                $second[$i] = trim($line);
+                $first[$i] = '';
+                break;
         }
     }
     for ($i=0; $i < count($second); $i = $j) {
@@ -100,11 +100,12 @@ function view_header($header, $mailbox, $color) {
         array(
             '<table width="99%" cellpadding="2" cellspacing="0" border="0" '.
                 "align=center>\n".'<tr><td>',
-           '<nobr><tt><b>',
-           '</b>',
-           '</tt></nobr>',
-           '</td></tr></table>'."\n" 
-         ) );
+            '<nobr><tt><b>',
+            '</b>',
+            '</tt></nobr>',
+            '</td></tr></table>'."\n" 
+         )
+    );
     echo '</body></html>';
 }
 

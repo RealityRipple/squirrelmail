@@ -178,11 +178,11 @@ function pf_clean_string ( $unclean_string, $num_leading_spaces ) {
         }
         else
         {
-	    $i = strrpos( $this_line, ' ');
-    	    $clean_string .= substr( $this_line, 0, $i);
-    	    $clean_string .= "\n" . $leading_spaces;
-    	    $unclean_string = substr($unclean_string, 1+$i);
-	}
+            $i = strrpos( $this_line, ' ');
+            $clean_string .= substr( $this_line, 0, $i);
+            $clean_string .= "\n" . $leading_spaces;
+            $unclean_string = substr($unclean_string, 1+$i);
+        }
     }
     $clean_string .= $unclean_string;
 

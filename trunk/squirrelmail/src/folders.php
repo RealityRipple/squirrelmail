@@ -159,32 +159,31 @@ if ($save_as_draft) {
 // What if move_to_sent = false and $sent_folder is set? Should it still be skipped?
 
 for ($p = 0, $cnt = count($boxes); $p < $cnt && $count_special_folders < $num_max; $p++) {
-    switch ($boxes[$p]['unformatted'])
-    {
-       case (strtoupper($boxes[$p]['unformatted']) == 'INBOX'):
-          ++$count_special_folders;
-	  $skip_folders[] = $boxes[$p]['unformatted'];
-	  break;
-       // FIX ME inbox.trash should be set in conf.pl
-       case 'inbox.trash':
-          if (strtolower($imap_server_type) == 'courier') {
-	      ++$count_special_folders;
-	  }
-	  break;
-       case $trash_folder:
-           ++$count_special_folders;
-           $skip_folders[] = $trash_folder;
-	   break;
-       case $sent_folder:
-           ++$count_special_folders;
-           $skip_folders[] = $sent_folder;
-	   break;
-       case $draft_folder:
-           ++$count_special_folders;
-           $skip_folders[] = $draft_folder;
-	   break;
-       default: break;
-    }	  
+    switch ($boxes[$p]['unformatted']) {
+        case (strtoupper($boxes[$p]['unformatted']) == 'INBOX'):
+            ++$count_special_folders;
+            $skip_folders[] = $boxes[$p]['unformatted'];
+            break;
+        // FIX ME inbox.trash should be set in conf.pl
+        case 'inbox.trash':
+            if (strtolower($imap_server_type) == 'courier') {
+                ++$count_special_folders;
+            }
+            break;
+        case $trash_folder:
+            ++$count_special_folders;
+            $skip_folders[] = $trash_folder;
+            break;
+        case $sent_folder:
+            ++$count_special_folders;
+            $skip_folders[] = $sent_folder;
+            break;
+        case $draft_folder:
+            ++$count_special_folders;
+            $skip_folders[] = $draft_folder;
+            break;
+        default: break;
+    }
 }
 
 
@@ -330,15 +329,11 @@ if(!$no_list_for_subscribe) {
 
 do_hook('folders_bottom');
 ?>
-
     </td></tr>
     </table>
-
 </td></tr>
 </table>
-
 <?php
    sqimap_logout($imapConnection);
 ?>
-
 </body></html>

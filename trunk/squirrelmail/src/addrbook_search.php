@@ -206,23 +206,23 @@ $abook = addressbook_init();
 /* Create search form */
 if ($show == 'form' && empty($listall)) {
     echo '<form name="sform" target="abookres" action="addrbook_search.php'. 
-         '" method="post">' . "\n" .
+            '" method="post">' . "\n" .
          html_tag( 'table', '', '', '', 'border="0" width="100%" height="100%"' ) .
          html_tag( 'tr' ) .
          html_tag( 'td', '  <strong>' . _("Search for") . "</strong>\n", 'left', '', 'nowrap valign="middle" width="10%"' ) .
          html_tag( 'td', '', 'left', '', '' ) .
-	     addInput('query', $query, 28);
+         addInput('query', $query, 28);
 
     /* List all backends to allow the user to choose where to search */
     if ($abook->numbackends > 1) {
         echo '<strong>' . _("in") . '</strong>&nbsp;'."\n".
-	$selopts['-1'] = _("All address books");
-	
+             $selopts['-1'] = _("All address books");
+
         $ret = $abook->get_backend_list();
         while (list($undef,$v) = each($ret)) {
             $selopts[$v->bnum] = $v->sname;
         }
-	echo addSelect('backend', $selopts, '-1', TRUE);
+        echo addSelect('backend', $selopts, '-1', TRUE);
     } else {
         echo addHidden('backend', '-1');
     }
