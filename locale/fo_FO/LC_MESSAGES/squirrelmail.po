@@ -3495,30 +3495,3 @@ msgstr "Frágreiðing um feil levering"
 msgid "Undelivered Message Headers"
 msgstr "Óleverað boðhøvd"
 
-#~ msgid "Not available"
-#~ msgstr "Ikki tøkt"
-
-#~ msgid "Unknown message number in reply from server: "
-#~ msgstr "Ókent boðnummar í svari frá servara: "
-
-#~ msgid "(unknown sender)"
-#~ msgstr "(ókendur sendari)"
-
-#~ msgid "35 min."
-#~ msgstr "35 min."
-
-#~ msgid "POP3 noop:"
-#~ msgstr "POP3 noop:"
-
-#~ msgid "Message details"
-#~ msgstr "Boð útgreinað"
-
-#~ msgid "(local media)"
-#~ msgstr "(lokal media)"
-
-#~ msgid "Local Media File:"
-#~ msgstr "Lokal Media fíla"
-
-#~ msgid ""
-#~ "10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
-#~ msgstr "10 málpør, í mesta lagi 25 kilobyte umsett, rikin av Systran"
