@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-24 20:03+0300\n"
+"POT-Creation-Date: 2003-12-26 17:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,6 +98,9 @@ msgstr ""
 msgid "Additional info"
 msgstr ""
 
+msgid "Add to:"
+msgstr ""
+
 msgid "No personal address book is defined. Contact administrator."
 msgstr ""
 
@@ -122,8 +125,7 @@ msgstr ""
 msgid "Delete selected"
 msgstr ""
 
-#, c-format
-msgid "Add to %s"
+msgid "Add to address book"
 msgstr ""
 
 msgid "said"
@@ -741,6 +743,9 @@ msgstr ""
 msgid "Missing"
 msgstr ""
 
+msgid "and&nbsp;subfolders:"
+msgstr ""
+
 msgid "Exclude Criteria:"
 msgstr ""
 
@@ -1182,11 +1187,6 @@ msgid ""
 "your system administrator to resolve this issue."
 msgstr ""
 
-msgid ""
-"You need to have php4 installed with the multibyte string function enabled "
-"(using configure option --enable-mbstring)."
-msgstr ""
-
 msgid "ERROR : Could not complete request."
 msgstr ""
 
@@ -1196,13 +1196,25 @@ msgstr ""
 msgid "ERROR : Imap server closed the connection."
 msgstr ""
 
+msgid "ERROR : Connection dropped by imap-server."
+msgstr ""
+
 msgid "ERROR : Unknown imap response."
 msgstr ""
 
 msgid "Reason Given: "
 msgstr ""
 
+msgid "Possible reason : "
+msgstr ""
+
 msgid "Query:"
+msgstr ""
+
+msgid "The imap server failed to handle threading."
+msgstr ""
+
+msgid "Click here to unset thread view for this mailbox and start again."
 msgstr ""
 
 msgid "ERROR : No available imapstream."
@@ -1212,9 +1224,6 @@ msgid "ERROR : Bad function call."
 msgstr ""
 
 msgid "Reason:"
-msgstr ""
-
-msgid "ERROR : Connection dropped by imap-server."
 msgstr ""
 
 msgid "Server responded: "
@@ -1796,6 +1805,10 @@ msgstr ""
 msgid "Try to verify addresses"
 msgstr ""
 
+#, c-format
+msgid "Add to %s"
+msgstr ""
+
 msgid "Config File Version"
 msgstr ""
 
@@ -2009,9 +2022,6 @@ msgstr ""
 msgid "Allow server charset search"
 msgstr ""
 
-msgid "UID support"
-msgstr ""
-
 msgid "PHP session name"
 msgstr ""
 
@@ -2042,16 +2052,16 @@ msgstr ""
 msgid "Preferences value field"
 msgstr ""
 
-msgid "Themes"
+msgid "Global address book DSN"
 msgstr ""
 
-msgid "Style Sheet URL (css)"
+msgid "Global address book table"
 msgstr ""
 
-msgid "Default theme"
+msgid "Allow writing into global address book"
 msgstr ""
 
-msgid "Use index number of theme"
+msgid "Allow listing of global address book"
 msgstr ""
 
 msgid "Language settings"
@@ -2085,6 +2095,18 @@ msgid "Use php recode functions"
 msgstr ""
 
 msgid "Use php iconv functions"
+msgstr ""
+
+msgid "Themes"
+msgstr ""
+
+msgid "Style Sheet URL (css)"
+msgstr ""
+
+msgid "Default theme"
+msgstr ""
+
+msgid "Use index number of theme"
 msgstr ""
 
 msgid "Configuration Administrator"
@@ -3060,6 +3082,15 @@ msgstr ""
 msgid "Web-based form"
 msgstr ""
 
+msgid "Spam Service Type:"
+msgstr ""
+
+msgid "Free reporting"
+msgstr ""
+
+msgid "Member services"
+msgstr ""
+
 msgid "Your SpamCop authorization code:"
 msgstr ""
 
@@ -3132,10 +3163,19 @@ msgstr ""
 
 msgid ""
 "The SpamCop service will display information as it finds it, so scroll down "
-"until you see a form button.  It might pause a little while it is looking up "
-"information, so be a little patient.  Read what it says, and submit the "
-"spam.  Close the browser window.  Press Cancel or click on the appropriate "
-"mail folder to see messages and/or delete the spam."
+"until you see a form button. It might pause a little while it is looking up "
+"information, so be a little patient. Read what it says, and submit the spam. "
+"Close the browser window.  Press Cancel or click on the appropriate mail "
+"folder to see messages and/or delete the spam."
+msgstr ""
+
+msgid "Spamcop Service Type"
+msgstr ""
+
+msgid ""
+"Service type option allows selecting which spamcop services you are using. "
+"Member services use different web reporting forms  and does not display "
+"nags. You can purchase these services, if you want to support SpamCop."
 msgstr ""
 
 msgid ""
@@ -3505,14 +3545,14 @@ msgstr ""
 msgid "No known limits, powered by Systran"
 msgstr ""
 
+msgid "No known limits, powered by GPLTrans (free, open source)"
+msgstr ""
+
 msgid "No known limits, powered by Translation Experts's InterTran"
 msgstr ""
 
 #, c-format
 msgid "Number of supported languages: %s"
-msgstr ""
-
-msgid "No known limits, powered by GPLTrans (free, open source)"
 msgstr ""
 
 msgid "Hellenic translations, no known limits, powered by Systran"
