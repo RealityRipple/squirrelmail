@@ -22,10 +22,18 @@ require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'functions/html.php');
    
-$mailbox = urldecode($mailbox);
-if (!isset($passed_ent_id)) {
+$mailbox = urldecode($_GET['mailbox']);
+if (!isset($_GET['passed_ent_id'])) {
     $passed_ent_id = '';
+} else {
+    $passed_ent_id = $_GET['passed_ent_id'];
 }
+$passed_id = $_GET['passed_id'];
+$username = $_SESSION['username'];
+$key = $_COOKIE['key'];
+$delimiter = $_SESSION['delimiter'];
+$onetimepad = $_SESSION['onetimepad'];
+
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response =  sqimap_mailbox_select($imapConnection, $mailbox);

@@ -76,9 +76,9 @@ function  parse_viewheader($imapConnection,$id, $passed_ent_id) {
 }
 
 function view_header($header, $mailbox, $color) {
-    global $QUERY_STRING, $base_uri;
+    global $base_uri;
 
-    $ret_addr = $base_uri . 'src/read_body.php?'.$QUERY_STRING;
+    $ret_addr = $base_uri . 'src/read_body.php?'.$_SERVER['QUERY_STRING'];
 
     displayPageHeader($color, $mailbox);
 
@@ -103,10 +103,20 @@ function view_header($header, $mailbox, $color) {
     echo '</body></html>';
 }
 
-if (!isset($passed_ent_id)) {
+/* get global vars */
+$passed_id = $_GET['passed_id'];
+$username = $_SESSION['username'];
+$key = $_COOKIE['key'];
+$delimiter = $_SESSION['delimiter'];
+$onetimepad = $_SESSION['onetimepad'];
+
+if (!isset($_GET['passed_ent_id'])) {
   $passed_ent_id = '';
+} else {
+    $passed_ent_id = $_GET['passed_ent_id'];
 }
-$mailbox = decodeHeader($mailbox);
+
+$mailbox = decodeHeader($_GET['mailbox']);
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, 
                                $imapPort, 0);

@@ -591,10 +591,10 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 }
 
 function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
-    global $QUERY_STRING, $base_uri;
-   
+    global $base_uri;
+
     $urlMailbox = urlencode($mailbox);
-    $url = $base_uri.'src/view_header.php?'.$QUERY_STRING;
+    $url = $base_uri.'src/view_header.php?'.$_SERVER['QUERY_STRING'];
 
     $s  = "<TR>\n" .
           '<TD VALIGN="MIDDLE" ALIGN="RIGHT" WIDTH="20%"><B>' . _("Options") . ":&nbsp;&nbsp;</B></TD>\n" .
