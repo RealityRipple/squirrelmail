@@ -158,8 +158,13 @@
    // This loop sets up a table of the data they uploaded to save time while the user rearranges it.
 	$row = 0;
 	do {
-	   ($data = fgetcsv($fp, 4096));		
-	   $cols = count($data);
+	   ($data = fgetcsv($fp, 4096));
+	   if(count($data) >= 5) {
+	      $cols = count($data);
+	   } else {
+	      $cols = 5;
+	   }		
+//	   $cols = count($data);
 	   $row++;
 	   
 	   if($flag == 0 && !$finish) {                            // Table header on initial import
