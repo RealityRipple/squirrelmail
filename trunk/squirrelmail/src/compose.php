@@ -385,7 +385,7 @@ if ($send) {
         }
         else {
             Header("Location: $location/right_main.php?mailbox=$urlMailbox&sort=$sort".
-                   "&startMessage=$startMessage");
+                   "&startMessage=$startMessage&note=".urlencode(_("Your Message has been sent.")));
         }
     } else {
         if ($compose_new_win == '1') {
