@@ -1016,15 +1016,14 @@ if ($use_css) {
 
 $rb_message_table =  new html('table','','','rb_body','',$ar_table);
 $row_body = new html('tr','','','rb_bd','rb_bdr');
-$col_body = new html('tb',$messagebody,array('br'=>false),'rb_bd','rb_bdr',$ar_row);
+$col_body = new html('td',$messagebody,array('br'=>false),'rb_bd','rb_bdr',$ar_row);
+$row_body->htmlAdd($col_body);
+$rb_message_table->htmlAdd($row_body);
 
+$row_body = new html('tr','','','rb_bd','rb_bdr');
 $attachements = formatAttachments($message,$ent_ar,$mailbox, $passed_id);
-
+$col_body = new html('td',$attachements,array('br'=>false),'rb_bd','rb_bdr',$ar_row);
 $row_body->htmlAdd($col_body);
-
-$col_body = new html('tb',$attachements,array('br'=>false),'rb_bd','rb_bdr',$ar_row);
-$row_body->htmlAdd($col_body);
-
 $rb_message_table->htmlAdd($row_body);
 
 if ($use_css) {
