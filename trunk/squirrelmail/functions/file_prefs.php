@@ -49,9 +49,15 @@ function cachePrefValues($data_dir, $username) {
     /* Read in the preferences. */
     $highlight_num = 0;
     while (! feof($file)) {
-        // Make sure that this fgets is larger than any of the pref strings
-        // could ever be.  1024 is too short
-        $pref = trim(fgets($file, 65536));
+        $pref = '';
+        /* keep reading a pref until we reach an eol (\n (or \r for macs)) */
+        while($read = fgets($file, 1024))
+        {
+                $pref .= $read;
+                if(strpos($read,"\n") || strpos($read,"\r"))
+                        break;
+        }
+        $pref = trim($pref);
         $equalsAt = strpos($pref, '=');
         if ($equalsAt > 0) {
             $key = substr($pref, 0, $equalsAt);
