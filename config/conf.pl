@@ -4,7 +4,7 @@
 #
 # A simple configure script to configure squirrelmail
 ############################################################              
-$conf_pl_version = "x53";
+$conf_pl_version = "x61";
 
 ############################################################              
 # First, lets read in the data already in there...
@@ -220,6 +220,9 @@ if (!$default_unseen_type) {
 }
 if (!$config_use_color) {
    $config_use_color = 1;
+}
+if (!$invert_time) {
+   $invert_time = "false";
 }
 
 #####################################################################################
