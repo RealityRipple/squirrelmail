@@ -245,6 +245,7 @@ Version 1.5.1 -- CVS
   - Added ldap backend to change_password plugin.
   - Change defaults of some prefs to more sensible / usable settings.
   - Revise the documentation of the packaged plugins.
+  - Fixed edit form checks in address listing (#1124018).
 
 Version 1.5.0
 --------------------
