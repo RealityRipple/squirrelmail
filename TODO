@@ -17,3 +17,4 @@ initials = taken by that person
   -     Filters
   -     Better inline HTML support including graphics (content-disposition)
   -     Maybe a rewrite of mime.php (see Gustav before any work is done)
+  -     Better handling emptying Trash folder.  Some servers don't allow deleting it (Courier)
