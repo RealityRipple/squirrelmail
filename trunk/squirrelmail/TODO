@@ -5,12 +5,11 @@ initials = taken by that person
 
 (lme)   Saving sent mail into folder "Sent"
   -     POP suport (maybe)
-(gf/pl) LDAP support for address books
+  -     LDAP support for address books
+  -     Importing of address books
   -     Better email message body parsing
   -     Use PHP4 Session management, get rid of cookies
   -     Make it possible to save preferences in MySQL DB or on Filesystem
-  -     Session management -- do away with cookies
-  -     Importing of address books
   -     Navigation between messages without going to folder list (next, prev)
   -     Configurable headers shown on the message listing, like:  cc, to, etc
   -     Advanced statuses on messages (Seen, Answered, etc)
