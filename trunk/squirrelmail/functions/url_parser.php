@@ -12,159 +12,139 @@
  * $Id$
  */
 
-/*****************************************************************/
-/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
-/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
-/***    + Base level indent should begin at left margin, as    ***/
-/***      the first line of the function definition below.     ***/
-/***    + All identation should consist of four space blocks   ***/
-/***    + Tab characters are evil.                             ***/
-/***    + all comments should use "slash-star ... star-slash"  ***/
-/***      style -- no pound characters, no slash-slash style   ***/
-/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
-/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
-/***    + Please use ' instead of ", when possible. Note "     ***/
-/***      should always be used in _( ) function calls.        ***/
-/*** Thank you for your help making the SM code more readable. ***/
-/*****************************************************************/
-
 function replaceBlock (&$in, $replace, $start, $end) {
     $begin = substr($in,0,$start);
     $end   = substr($in,$end,strlen($in)-$end);
     $in    = $begin.$replace.$end;
 }
 
-   // Having this defined in just one spot could help when changes need
-   // to be made to the pattern
-   // Make sure that the expression is evaluated case insensitively
-   // 
-   // Here's pretty sophisticated IP matching:
-   // $IPMatch = '(2[0-5][0-9]|1?[0-9]{1,2})';
-   // $IPMatch = '\[?' . $IPMatch . '(\.' . $IPMatch . '){3}\]?';
-   //
-   // Here's enough:
-   global $IP_RegExp_Match, $Host_RegExp_Match, $Email_RegExp_Match;
-   $IP_RegExp_Match = '\\[?[0-9]{1,3}(\\.[0-9]{1,3}){3}\\]?';
-   $Host_RegExp_Match = '(' . $IP_RegExp_Match . 
-       '|[0-9a-z]([-.]?[0-9a-z])*\\.[a-z][a-z]+)';
-   $Email_RegExp_Match = '[0-9a-z]([-_.]?[0-9a-z])*(%' . $Host_RegExp_Match . 
-       ')?@' . $Host_RegExp_Match;
+/* Having this defined in just one spot could help when changes need
+ * to be made to the pattern
+ * Make sure that the expression is evaluated case insensitively
+ * 
+ * Here's pretty sophisticated IP matching:
+ * $IPMatch = '(2[0-5][0-9]|1?[0-9]{1,2})';
+ * $IPMatch = '\[?' . $IPMatch . '(\.' . $IPMatch . '){3}\]?';
+ */
+/* Here's enough: */
+global $IP_RegExp_Match, $Host_RegExp_Match, $Email_RegExp_Match;
+$IP_RegExp_Match = '\\[?[0-9]{1,3}(\\.[0-9]{1,3}){3}\\]?';
+$Host_RegExp_Match = '(' . $IP_RegExp_Match . 
+    '|[0-9a-z]([-.]?[0-9a-z])*\\.[a-z][a-z]+)';
+$Email_RegExp_Match = '[0-9a-z]([-_.+]?[0-9a-z])*(%' . $Host_RegExp_Match . 
+    ')?@' . $Host_RegExp_Match;
       
-   function parseEmail (&$body) {
-      global $color, $Email_RegExp_Match;
-      $Size = strlen($body);
+function parseEmail (&$body) {
+    global $color, $Email_RegExp_Match;
+    $Size = strlen($body);
       
-      /*
-        This is here in case we ever decide to use highlighting of searched
-        text.  this does it for email addresses
-        
-      if ($what && ($where == "BODY" || $where == "TEXT")) {
-         eregi ($Email_RegExp_Match, $body, $regs);
-         $oldaddr = $regs[0];
-         if ($oldaddr) {
-            $newaddr = eregi_replace ($what, "<b><font color=\"$color[2]\">$what</font></font></b>", $oldaddr);
-            $body = str_replace ($oldaddr, "<a href=\"../src/compose.php?send_to=$oldaddr\">$newaddr</a>", $body); 
-         }
-      } else { 
-         $body = eregi_replace ($Email_RegExp_Match, "<a href=\"../src/compose.php?send_to=\\0\">\\0</a>", $body);
-      }
-      */
-      
-      $body = eregi_replace ($Email_RegExp_Match, "<a href=\"../src/compose.php?send_to=\\0\">\\0</a>", $body); 
-      
-      // If there are any changes, it'll just get bigger.
-      if ($Size != strlen($body))
-          return 1;
-      return 0;
-   }
+    /*
+     * This is here in case we ever decide to use highlighting of searched
+     * text.  this does it for email addresses
+     *   
+     * if ($what && ($where == "BODY" || $where == "TEXT")) {
+     *    eregi ($Email_RegExp_Match, $body, $regs);
+     *    $oldaddr = $regs[0];
+     *    if ($oldaddr) {
+     *       $newaddr = eregi_replace ($what, "<b><font color=\"$color[2]\">$what</font></font></b>", $oldaddr);
+     *       $body = str_replace ($oldaddr, "<a href=\"../src/compose.php?send_to=$oldaddr\">$newaddr</a>", $body); 
+     *    }
+     * } else { 
+     *    $body = eregi_replace ($Email_RegExp_Match, "<a href=\"../src/compose.php?send_to=\\0\">\\0</a>", $body);
+     * }
+     */
+     
+    if( eregi($Email_RegExp_Match, $body, $regs) ) {
+        $body = str_replace($regs[0],  '<a href="../src/compose.php?send_to='.
+            urlencode($regs[0]).'">'.$regs[0].'</a>', $body);
+    } 
+
+    /* If there are any changes, it'll just get bigger. */
+    if ($Size != strlen($body)) {
+        return 1;
+    }
+    return 0;
+}
 
 
-   // We don't want to re-initialize this stuff for every line.  Save work
-   // and just do it once here.
-   global $url_parser_url_tokens;
-   $url_parser_url_tokens = array(
-       'http://',
-       'https://',
-       'ftp://',
-       'telnet:',  // Special case -- doesn't need the slashes
-       'gopher://',
-       'news://');
+/* We don't want to re-initialize this stuff for every line.  Save work
+ * and just do it once here.
+ */
+global $url_parser_url_tokens;
+$url_parser_url_tokens = array(
+    'http://',
+    'https://',
+    'ftp://',
+    'telnet:',  // Special case -- doesn't need the slashes
+    'gopher://',
+    'news://');
 
-   global $url_parser_poss_ends;
-   $url_parser_poss_ends = array(' ', "\n", "\r", '<', '>', ".\r", ".\n", 
-       '.&nbsp;', '&nbsp;', ')', '(', '&quot;', '&lt;', '&gt;', '.<', 
-       ']', '[', '{', '}', "\240", ', ', '. ', ",\n", ",\r");
+global $url_parser_poss_ends;
+$url_parser_poss_ends = array(' ', "\n", "\r", '<', '>', ".\r", ".\n", 
+    '.&nbsp;', '&nbsp;', ')', '(', '&quot;', '&lt;', '&gt;', '.<', 
+    ']', '[', '{', '}', "\240", ', ', '. ', ",\n", ",\r");
 
 
-   function parseUrl (&$body)
-   {
-      global $url_parser_poss_ends, $url_parser_url_tokens;;
-      $start = 0;
-      $target_pos = strlen($body);
+function parseUrl (&$body) {
+    global $url_parser_poss_ends, $url_parser_url_tokens;;
+    $start = 0;
+    $target_pos = strlen($body);
       
-      while ($start != $target_pos)
-      {
+    while ($start != $target_pos) {
         $target_token = '';
         
-        // Find the first token to replace
-        foreach ($url_parser_url_tokens as $the_token)
-        {
-          $pos = strpos(strtolower($body), $the_token, $start);
-          if (is_int($pos) && $pos < $target_pos)
-          {
-            $target_pos = $pos;
-            $target_token = $the_token;
-          }
+        /* Find the first token to replace */
+        foreach ($url_parser_url_tokens as $the_token) {
+            $pos = strpos(strtolower($body), $the_token, $start);
+            if (is_int($pos) && $pos < $target_pos) {
+                $target_pos = $pos;
+                $target_token = $the_token;
+            }
         }
         
-        // Look for email addresses between $start and $target_pos
+        /* Look for email addresses between $start and $target_pos */
         $check_str = substr($body, $start, $target_pos);
        
-        if (parseEmail($check_str))
-        {
-          replaceBlock($body, $check_str, $start, $target_pos);
-          $target_pos = strlen($check_str) + $start;
+        if (parseEmail($check_str)) {
+            replaceBlock($body, $check_str, $start, $target_pos);
+            $target_pos = strlen($check_str) + $start;
         }
 
-        // If there was a token to replace, replace it
-        if ($target_token != '')
-        {
-          // Find the end of the URL
-          $end=strlen($body); 
-          foreach ($url_parser_poss_ends as $key => $val)
-          {
-            $enda = strpos($body,$val,$target_pos);
-            if (is_int($enda) && $enda < $end) 
-              $end = $enda;
-          }
+        /* If there was a token to replace, replace it */
+        if ($target_token != '') {
+            /* Find the end of the URL */
+            $end=strlen($body); 
+            foreach ($url_parser_poss_ends as $key => $val) {
+                $enda = strpos($body,$val,$target_pos);
+                if (is_int($enda) && $enda < $end) {
+                    $end = $enda;
+                }
+            }
+         
+            /* Extract URL */
+            $url = substr($body, $target_pos, $end-$target_pos);
           
-          // Extract URL
-          $url = substr($body, $target_pos, $end-$target_pos);
-          
-          // Needed since lines are not passed with \n or \r
-          while ( ereg("[,\.]$", $url) ) {
-            $url = substr( $url, 0, -1 );
-            $end--;
-          }
+            /* Needed since lines are not passed with \n or \r */
+            while ( ereg("[,\.]$", $url) ) {
+                $url = substr( $url, 0, -1 );
+                $end--;
+            }
 
-          // Replace URL with HyperLinked Url, requires 1 char in link
-          if ($url != '' && $url != $target_token) 
-          {
-            $url_str = "<a href=\"$url\" target=\"_blank\">$url</a>";
-            replaceBlock($body,$url_str,$target_pos,$end);
-            $target_pos += strlen($url_str);
-          } 
-          else 
-          { 
-             // Not quite a valid link, skip ahead to next chance
-             $target_pos += strlen($target_token);
-          }
+            /* Replace URL with HyperLinked Url, requires 1 char in link */
+            if ($url != '' && $url != $target_token) {
+                $url_str = "<a href=\"$url\" target=\"_blank\">$url</a>";
+                replaceBlock($body,$url_str,$target_pos,$end);
+                $target_pos += strlen($url_str);
+            } 
+            else { 
+                 // Not quite a valid link, skip ahead to next chance
+                 $target_pos += strlen($target_token);
+            }
         }
         
-        // Move forward
+        /* Move forward */
         $start = $target_pos;
         $target_pos = strlen($body);
-      }
-   }
-   
+    }
+} 
 ?>
