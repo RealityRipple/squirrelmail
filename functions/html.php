@@ -81,9 +81,9 @@ function html_tag( $tag,                // Tag to output
         }
 
         if ( $val <> '' ) {
-            $ret .= ">$val</$tag>";
+            $ret .= ">$val</$tag>\n";
         } else {
-            $ret .= '>';
+            $ret .= '>'. "\n";
         }
 
         return( $ret );
