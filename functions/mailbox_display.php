@@ -249,6 +249,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                 if (!$stuff) {
                     $td_str .= '&nbsp;';
                 }
+                do_hook("msg_envelope");
                 $td_str .= '</small></b>';
                 echo html_tag( 'td',
                                $td_str,
