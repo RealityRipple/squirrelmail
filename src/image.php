@@ -25,7 +25,7 @@ displayPageHeader($color, 'None');
 
 /* globals */
 $mailbox = $_GET['mailbox'];
-$passed_id = $_GET['passed_id'];
+$passed_id = (int) $_GET['passed_id'];
 $ent_id = $_GET['ent_id'];
 $QUERY_STRING = $_SERVER['QUERY_STRING'];
 /* end globals */
@@ -37,14 +37,14 @@ echo '<BR>' .
     '<B><CENTER>' .
     _("Viewing an image attachment") . " - ";
 
-$msg_url = 'read_body.php?' . $QUERY_STRING;
+$msg_url = 'read_body.php?' . urlencode(strip_tags(urldecode($QUERY_STRING)));
 $msg_url = set_url_var($msg_url, 'ent_id', 0);
 echo '<a href="'.$msg_url.'">'. _("View message") . '</a>';
 
 
 $DownloadLink = '../src/download.php?passed_id=' . $passed_id .
                '&amp;mailbox=' . urlencode($mailbox) . 
-               '&amp;ent_id=' . $ent_id . '&amp;absolute_dl=true';
+               '&amp;ent_id=' . urlencode($ent_id) . '&amp;absolute_dl=true';
 
 echo '</b></td></tr>' . "\n" .
     '<tr><td align=center><A HREF="' . $DownloadLink . '">' .

@@ -460,14 +460,14 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list) {
                       _("ERROR : Could not complete request.") .
                       '</b><br>' .
                       _("Unknown response from IMAP server: ") . ' 1.' .
-                      $r[0] . "</font><br>\n";
+                      htmlspecialchars($r[0]) . "</font><br>\n";
             } else if (! isset($id2index[$regs[1]]) || !count($id2index[$regs[1]])) {
                 set_up_language($squirrelmail_language);
                 echo '<br><b><font color=$color[2]>' .
                       _("ERROR : Could not complete request.") .
                       '</b><br>' .
                       _("Unknown message number in reply from server: ") .
-                      $regs[1] . "</font><br>\n";
+                      htmlspecialchars($regs[1]) . "</font><br>\n";
             } else {
                 $read_list[$id2index[$regs[1]]] = $r;
             }
@@ -478,14 +478,14 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list) {
                      _("ERROR : Could not complete request.") .
                      '</b><br>' .
                      _("Unknown response from IMAP server: ") . ' 1.' .
-                     $r[0] . "</font><br>\n";
+                     htmlspecialchars($r[0]) . "</font><br>\n";
             } else if (! isset($id2index[$regs[2]]) || !count($id2index[$regs[2]])) {
                 set_up_language($squirrelmail_language);
                 echo '<br><b><font color=$color[2]>' .
                       _("ERROR : Could not complete request.") .
                       '</b><br>' .
                       _("Unknown message number in reply from server: ") .
-                      $regs[2] . "</font><br>\n";
+                      htmlspecialchars($regs[2]) . "</font><br>\n";
             } else {
                 $read_list[$id2index[$regs[2]]] = $r;
                 $unique_id = $regs[2];
@@ -509,13 +509,13 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list) {
         $subject = _("(no subject)");
         $from = _("Unknown Sender");
         $priority = 0;
-        $messageid = "<>";
-        $cc = "";
-        $to = "";
-        $date = "";
-        $type[0] = "";
-        $type[1] = "";
-        $inrepto = "";
+        $messageid = '<>';
+        $cc = '';
+        $to = '';
+        $date = '';
+        $type[0] = '';
+        $type[1] = '';
+        $inrepto = '';
         $flag_seen = false;
         $flag_answered = false;
         $flag_deleted = false;
@@ -536,7 +536,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list) {
                         $tmpdate = str_replace('  ',' ',$tmpdate);
                         $tmpdate = explode(' ',$tmpdate);
                         $date = str_replace('-',' ',$tmpdate[0]) . " " .
-                                $tmpdate[1] . " " .
+                                $tmpdate[1] . ' ' .
                                 $tmpdate[2];
                     }
                 }

@@ -29,14 +29,9 @@ $key = $_COOKIE['key'];
 $username = $_SESSION['username'];
 $onetimepad = $_SESSION['onetimepad'];
 $mailbox = $_GET['mailbox'];
-$passed_id = $_GET['passed_id'];
+$passed_id = (int) $_GET['passed_id'];
 $ent_id = $_GET['ent_id'];
 $messages = $_SESSION['messages'];
-if (isset($_GET['passed_ent_id'])) {
-   $passed_ent_id = $_GET['passed_ent_id'];
-} else {
-   $passed_ent_id = '';
-}
 
 if (isset($_GET['absolute_dl'])) {
    $absolute_dl = $_GET['absolute_dl'];
@@ -105,7 +100,7 @@ if (strlen($filename) < 1) {
     }
 
     if (strlen($filename) < 1) {
-       $filename = "untitled$ent_id.$suffix";
+       $filename = 'untitled'.strip_tags($ent_id).$suffix;
     } else {
        $filename = "$filename.$suffix";
     }

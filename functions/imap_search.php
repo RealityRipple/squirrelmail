@@ -102,7 +102,7 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
         if (strstr($errors,'* SEARCH')) {
             return array();
         }
-        echo "<!-- $errors -->";
+        echo '<!-- '.htmlspecialchars($errors) .' -->';
     }
 
 
