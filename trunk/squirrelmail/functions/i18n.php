@@ -18,6 +18,8 @@
 /* Decodes a string to the internal encoding from the given charset */
 function charset_decode ($charset, $string) {
 
+    $string = charset_decode_japanese($string);
+
     /* All HTML special characters are 7 bit and can be replaced first */
     $string = htmlspecialchars ($string);
 
@@ -674,6 +676,32 @@ function charset_decode_koi8r ($string) {
 }
 
 /*
+ * for japanese
+ */
+function charset_decode_japanese($string)
+{
+    global $squirrelmail_language;
+    if ($squirrelmail_language == 'ja_JP' && function_exists('mb_detect_encoding')) {
+        $detect_encoding = mb_detect_encoding($string);
+        if ($detect_encoding == 'JIS' || $detect_encoding == 'EUC-JP' || $detect_encoding == 'SJIS') {
+            $string = mb_convert_encoding($string, 'EUC-JP', 'AUTO');
+        }
+    }
+    return $string;
+}
+function charset_encode_japanese($string)
+{
+    global $squirrelmail_language;
+    if ($squirrelmail_language == 'ja_JP' && function_exists('mb_detect_encoding')) {
+        $detect_encoding = mb_detect_encoding($string);
+        if ($detect_encoding == 'JIS' || $detect_encoding == 'EUC-JP' || $detect_encoding == 'SJIS') {
+            $string = mb_convert_encoding($string, 'JIS', 'AUTO');
+        }
+    }
+    return $string;
+}
+
+/*
  * Set up the language to be output
  * if $do_search is true, then scan the browser information
  * for a possible language that we know
@@ -717,8 +745,17 @@ function set_up_language($sm_language, $do_search = false) {
         }
         setlocale(LC_ALL, $sm_notAlias);
         $squirrelmail_language = $sm_notAlias;
+        if ($squirrelmail_language == 'ja_JP') {
+            header ('Content-Type: text/html; charset=EUC-JP');
+            if (!function_exists('mb_internal_encoding')) {
+                echo _("You need to have php4 installed with the multibyte string function enabled (using configure option --with-mbstring).");
+            }
+            mb_internal_encoding('EUC-JP');
+            mb_http_output('pass');
+        } else {
         header( 'Content-Type: text/html; charset=' . $languages[$sm_notAlias]['CHARSET'] );
     }
+}
 }
 
 function set_my_charset(){
@@ -819,6 +856,10 @@ $languages['is']['ALIAS'] = 'is_IS';
 $languages['it_IT']['NAME']    = 'Italian';
 $languages['it_IT']['CHARSET'] = 'iso-8859-1';
 $languages['it']['ALIAS'] = 'it_IT';
+
+$languages['ja_JP']['NAME']    = 'Japanese';
+$languages['ja_JP']['CHARSET'] = 'iso-2022-jp';
+$languages['ja']['ALIAS'] = 'ja_JP';
 
 $languages['ko_KR']['NAME']    = 'Korean';
 $languages['ko_KR']['CHARSET'] = 'euc-KR';
