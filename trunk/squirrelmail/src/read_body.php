@@ -597,7 +597,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
 
 
     // BEGIN MENU ROW - DELETE/REPLY/FORWARD/MOVE/etc.
-    $menu_row = '<tr bgcolor="'.$color[9].'"><td><small>';
+    $menu_row = '<tr bgcolor="'.$color[0].'"><td><small>';
     $comp_uri = $base_uri.'src/compose.php' .
                 '?passed_id=' . $passed_id .
                 '&amp;mailbox=' . $urlMailbox .
