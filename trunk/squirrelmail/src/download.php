@@ -9,7 +9,7 @@
 
    include("../src/load_prefs.php");
 
-   function viewText($color, $body, $id, $entid, $mailbox, $type1) {
+   function viewText($color, $body, $id, $entid, $mailbox, $type1, $wrap_at) {
       echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
       displayPageHeader($color, "None");
 
@@ -19,9 +19,9 @@
       $urlmailbox = urlencode($mailbox);
       echo "<FONT FACE=\"Arial, Helvetica\"><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$entid&mailbox=$urlmailbox\">Download this as a file</A></CENTER><BR><BR></FONT><TT>";
       if ($type1 == "html")
-         echo nl2br(trim($body));
+         echo $body;
       else
-         echo nl2br(trim(htmlspecialchars($body)));
+         echo translateText($body, $wrap_at);
 
       echo "</TT></TD></TR></TABLE>";
    }
@@ -60,11 +60,11 @@
       switch ($type0) {
          case "text":
             $body = decodeBody($message["ENTITIES"][$passed_ent_id]["BODY"], $message["ENTITIES"][$passed_ent_id]["ENCODING"]);
-            viewText($color, $body, $passed_id, $passed_ent_id, $mailbox, $type1);
+            viewText($color, $body, $passed_id, $passed_ent_id, $mailbox, $type1, $wrap_at);
             break;
          case "message":
             $body = decodeBody($message["ENTITIES"][$passed_ent_id]["BODY"], $message["ENTITIES"][$passed_ent_id]["ENCODING"]);
-            viewText($color, $body, $passed_id, $passed_ent_id, $mailbox, $type1);
+            viewText($color, $body, $passed_id, $passed_ent_id, $mailbox, $type1, $wrap_at);
             break;
          default:
             $body = decodeBody($message["ENTITIES"][$passed_ent_id]["BODY"], $message["ENTITIES"][$passed_ent_id]["ENCODING"]);
