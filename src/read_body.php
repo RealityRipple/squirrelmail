@@ -650,7 +650,7 @@ if (($attachment_common_show_images) &&
 
 do_hook('read_body_bottom');
 do_hook('html_bottom');
-$message->clean_up();
+//$message->clean_up();
 sqimap_logout($imapConnection);
 ?>
 </body>
