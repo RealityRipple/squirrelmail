@@ -156,11 +156,13 @@ function delete_move_next_read($currloc) {
            $color, $where, $what, $currentArrayIndex, $passed_id,
            $mailbox, $sort, $startMessage, $delete_id, $move_id,
            $imapConnection, $auto_expunge, $move_to_trash, $mbx_response,
-           $uid_support;
+           $uid_support, $passed_ent_id;
 
     $urlMailbox = urlencode($mailbox);
 
-    if (!(($where && $what) || ($currentArrayIndex == -1))) {
+    if (!isset($passed_ent_id)) $passed_ent_id = 0;
+
+    if (!(($where && $what) || ($currentArrayIndex == -1)) && !$passed_ent_id) {
         $next = findNextMessage($passed_id);
         $prev = findPreviousMessage($mbx_response['EXISTS'], $passed_id);
         $prev_if_del = $prev;
@@ -181,16 +183,6 @@ function delete_move_next_read($currloc) {
              '<tr>'.
                  "<td bgcolor=\"$color[9]\" width=\"100%\" align=center><small>";
 
-//        if ($prev > 0) {
-//            echo "<a href=\"read_body.php?passed_id=$prev&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">" . _("Previous") . "</A>&nbsp;|&nbsp;\n";
-//        } else {
-//            echo _("Previous") . "&nbsp;|&nbsp;";
-//        }
-//        if ($next > 0) {
-//            echo "<a href=\"read_body.php?passed_id=$next&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">" . _("Next") . "</A>&nbsp;|&nbsp;\n";
-//        } else {
-//            echo _("Next") . "&nbsp;|&nbsp;";
-//        }
         if ($prev > 0){
             echo "<a href=\"read_body.php?passed_id=$prev_if_del&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0&amp;delete_id=$passed_id\">" . _("Delete & Prev") . "</a>" . "&nbsp;|&nbsp;\n";
         }
@@ -207,14 +199,14 @@ function delete_move_next_read($currloc) {
         if ($next_if_del < 0) {
             $next_if_del = $prev_if_del;
         }
-        if (($delete_move_next_formATtop == 'on') && ($currloc == 'top')){
+        if (($delete_move_next_formATtop == 'on') && ($currloc == 'top')) {
             if ($next_if_del > 0) {
                 delete_move_next_moveNextForm($next_if_del);
             } else {
                 delete_move_next_moveRightMainForm();
             }
         }
-        if (($delete_move_next_formATbottom != 'off') && ($currloc == 'bottom')){
+        if (($delete_move_next_formATbottom != 'off') && ($currloc == 'bottom')) {
             if ($next_if_del > 0) {
                 delete_move_next_moveNextForm($next_if_del);
             } else {
