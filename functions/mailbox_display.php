@@ -669,13 +669,18 @@ function mail_message_listing_beginning ($imapConnection,
     if (!isset($msg)) {
         $msg = '';
     }
-    $moveURL = "move_messages.php?msg=$msg&amp;mailbox=$urlMailbox"
-             . "&amp;startMessage=$start_msg";
+    $moveFields = '<input type="hidden" name="msg" value="'.htmlspecialchars($msg).'">' .
+		  '<input type="hidden" name="mailbox" value="'.htmlspecialchars($mailbox).'">' .
+		  '<input type="hidden" name="startMessage" value="'.htmlspecialchars($start_msg).'">';
+
+//    $moveURL = "move_messages.php?msg=$msg&amp;mailbox=$urlMailbox"
+//             . "&amp;startMessage=$start_msg";
     /*
      * This is the beginning of the message list table.
      * It wraps around all messages
      */
-    echo "<FORM name=\"messageList\" method=post action=\"$moveURL\">\n"
+    echo '<form name="messageList" method="post" action="move_messages.php">' ."\n"
+	. $moveFields
         . html_tag( 'table' ,
             html_tag( 'tr',
                 html_tag( 'td' ,
