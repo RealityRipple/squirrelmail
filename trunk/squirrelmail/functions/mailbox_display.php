@@ -141,6 +141,10 @@
                   echo "A\n";
                   $stuff = true;
                }
+               if (ereg('(5)',substr($msg['PRIORITY'],0,1))) {
+                  echo "<font color=$color[8]>v</font>\n";
+                  $stuff = true;
+               }
                if ($msg['TYPE0'] == 'multipart') {
                   echo "+\n";
                   $stuff = true;

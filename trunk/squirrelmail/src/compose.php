@@ -362,6 +362,11 @@
          echo "      <input type=submit name=\"html_addr_search\" value=\""._("Addresses")."\">";
       }   
       echo "\n    <INPUT TYPE=SUBMIT NAME=send VALUE=\"". _("Send") . "\">\n";
+      echo "\n    ". _("Priority") .":<select name=\"mailprio\">".
+           "\n                        <option value=1>". _("High") ."</option>".
+           "\n                        <option value=3 selected>". _("Normal") ."</option>".
+           "\n                        <option value=5>". _("Low") ."</option>".
+           "\n                      </select>";
       
       do_hook("compose_button_row");
 
@@ -447,7 +452,7 @@
 	 
          do_hook("compose_send");
 
-         if (! sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id)) {
+         if (! sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id, $mailprio)) {
 	    showInputForm(); 
 	    exit();
 	 }
