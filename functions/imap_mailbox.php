@@ -149,7 +149,6 @@
          asort($list_sorted);
       }   
 
-      echo "<BR><BR><BR>";
 
       /** LSUB array **/
       $inbox_subscribed = false;
@@ -195,7 +194,6 @@
 	      }
       }
 
-      echo "<BR><BR><BR>";
       return sqimap_mailbox_parse ($merged, $dm);
    }
    
