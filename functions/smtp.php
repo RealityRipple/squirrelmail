@@ -438,15 +438,14 @@
       }
 
       $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 1);
-      sqimap_append ($imap_stream, $sent_folder, $length);
-      write822Header ($imap_stream, $t, $c, $b, $subject);
-      writeBody ($imap_stream, $body); 
-      sqimap_append_done ($imap_stream);
-
+      if (sqimap_mailbox_exists ($imap_stream, $sent_folder)) {
+         sqimap_append ($imap_stream, $sent_folder, $length);
+         write822Header ($imap_stream, $t, $c, $b, $subject);
+         writeBody ($imap_stream, $body); 
+         sqimap_append_done ($imap_stream);
+      }   
 
       // Delete the files uploaded for attaching (if any).
       deleteAttachments();
-
    }
-
 ?>
