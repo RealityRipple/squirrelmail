@@ -19,6 +19,7 @@ define('SM_PATH','../');
 require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/html.php');
+require_once(SM_PATH . 'functions/display_messages.php');
 
 /* get globals we may need */
 
