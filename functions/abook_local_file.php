@@ -26,6 +26,7 @@
  *                checking file permissions.
  * ? writeable => allow writing into address book. Used only when
  *                detect_writeable is set to false.
+ * ? listing   => enable/disable listing
  *</pre>
  * NOTE. This class should not be used directly. Use the
  *       "AddressBook" class instead.
@@ -71,6 +72,11 @@ class abook_local_file extends addressbook_backend {
      */
     var $writeable = false;
     /**
+     * controls listing of address book
+     * @var bool
+     */
+    var $listing = true;
+    /**
      * Umask of the file
      * @var string
      */
@@ -112,6 +118,9 @@ class abook_local_file extends addressbook_backend {
             }
             if(!empty($param['writeable'])) {
                 $this->writeable = $param['writeable'];
+            }
+            if(isset($param['listing'])) {
+                $this->listing = $param['listing'];
             }
 
             $this->open(true);
@@ -315,6 +324,11 @@ class abook_local_file extends addressbook_backend {
      */
     function list_addr() {
         $res = array();
+
+        if(isset($this->listing) && !$this->listing) {
+            return array();
+        }
+
         $this->open();
         @rewind($this->filehandle);
 

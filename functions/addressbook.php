@@ -35,7 +35,7 @@ global $addrbook_dsn, $addrbook_global_dsn;
 function addressbook_init($showerr = true, $onlylocal = false) {
     global $data_dir, $username, $color, $ldap_server, $address_book_global_filename;
     global $addrbook_dsn, $addrbook_table;
-    global $abook_global_file, $abook_global_file_writeable;
+    global $abook_global_file, $abook_global_file_writeable, $abook_global_file_listing;
     global $addrbook_global_dsn, $addrbook_global_table, $addrbook_global_writeable, $addrbook_global_listing;
 
     /* Create a new addressbook object */
@@ -72,9 +72,12 @@ function addressbook_init($showerr = true, $onlylocal = false) {
 
     }
 
-    /* This would be for the global addressbook */
-    if (isset($abook_global_file) && isset($abook_global_file_writeable)
-        && trim($abook_global_file)!=''){
+    /* Global file based addressbook */
+    if (isset($abook_global_file) && 
+        isset($abook_global_file_writeable) &&
+        isset($abook_global_file_listing) &&
+        trim($abook_global_file)!=''){
+
         // Detect place of address book
         if (! preg_match("/[\/\\\]/",$abook_global_file)) {
             /* no path chars, address book stored in data directory
@@ -90,10 +93,12 @@ function addressbook_init($showerr = true, $onlylocal = false) {
         } else {
             $abook_global_filename=SM_PATH . $abook_global_file;
         }
+
         $r = $abook->add_backend('local_file',array('filename'=>$abook_global_filename,
                                                     'name' => _("Global address book"),
                                                     'detect_writeable' => false,
-                                                    'writeable'=> $abook_global_file_writeable));
+                                                    'writeable'=> $abook_global_file_writeable,
+                                                    'listing' => $abook_global_file_listing));
 
         /* global abook init error is not fatal. add error message and continue */
         if (!$r && $showerr) {
