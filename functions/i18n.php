@@ -307,7 +307,7 @@
       // Only do the slow convert if there are 8-bit characters
       if (! ereg("[\200-\377]", $string))
          return $string;
-	 
+         
       // NO-BREAK SPACE
       $string = str_replace("\240", '&#160;', $string);
       // LATIN CAPITAL LETTER A WITH OGONEK
@@ -510,11 +510,11 @@
 
       if (strtolower($default_charset) == 'iso-8859-7')
          return $string;
-	 
+         
       // Only do the slow convert if there are 8-bit characters
       if (!ereg("[\200-\377]", $string))
          return $string;
-	 
+         
       // Some diverse characters in the beginning
       $string = str_replace("\240", '&#160;', $string);
       $string = str_replace("\241", '&#8216;', $string);
@@ -550,7 +550,7 @@
       // These are Unicode 900-902
       while (ereg("([\270-\272])", $string, $res)) {
          $replace = '&#' . (ord($res[1])+720) . ";";
-	 $string = str_replace($res[1], $replace, $string);
+         $string = str_replace($res[1], $replace, $string);
       }
          
       // 11/11 (0xBB) Right angle quotation mark is the same as in
@@ -560,7 +560,7 @@
       // And now the rest of the charset
       while (ereg("([\274-\376])", $string, $res)) {
          $replace = '&#' . (ord($res[1])+720) . ';';
-	 $string = str_replace($res[1], $replace, $string);
+         $string = str_replace($res[1], $replace, $string);
       }
 
       return $string;
@@ -635,7 +635,7 @@
 
       if ($default_charset == 'koi8-r')
          return $string;
-	 
+         
       // Convert to Unicode HTML entities.
       // This code is rather ineffective.
       $string = str_replace("\200", '&#9472;', $string);
@@ -803,12 +803,11 @@
    // Set up the language to be output
    // if $do_search is true, then scan the browser information
    // for a possible language that we know
-   function set_up_language($sm_language, $do_search = false)
-   {
+   function set_up_language($sm_language, $do_search = false) {
       static $SetupAlready = 0;
       global $HTTP_ACCEPT_LANGUAGE, $use_gettext, $languages, 
           $squirrelmail_language, $squirrelmail_default_language, 
-	  $sm_notAlias;
+          $sm_notAlias;
       
       if ($SetupAlready)
          return;
@@ -820,15 +819,15 @@
       if ($do_search && ! $sm_language && isset($HTTP_ACCEPT_LANGUAGE)) {
          $sm_language = substr($HTTP_ACCEPT_LANGUAGE, 0, 2);
       }
-      if (! $sm_language && isset($squirrelmail_default_language))
+      if (!$sm_language && isset($squirrelmail_default_language))
          $sm_language = $squirrelmail_default_language;
       $sm_notAlias = $sm_language;
       while (isset($languages[$sm_notAlias]['ALIAS']))
          $sm_notAlias = $languages[$sm_notAlias]['ALIAS'];
 
       if (isset($sm_language) && $use_gettext &&
-          $squirrelmail_language != '' &&
- 	  isset($languages[$sm_notAlias]['CHARSET'])) {
+          $sm_language != '' &&
+          isset($languages[$sm_notAlias]['CHARSET'])) {
          if ((ini_get('safe_mode') == FALSE) && (getenv('LC_ALL') != $sm_language)) {
            putenv('LC_ALL=' . $sm_notAlias);
          }
