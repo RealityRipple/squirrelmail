@@ -73,14 +73,14 @@
       $response = $regs[1];
       $message = trim($regs[2]);
       
-      if ($imap_general_debug) echo "--<br>";
+      if ($imap_general_debug) echo '--<br>';
 
       if ($handle_errors == false)
           return $data;
      
-      if ($response == "NO") {
+      if ($response == 'NO') {
          // ignore this error from m$ exchange, it is not fatal (aka bug)
-         if (!ereg("command resulted in",$message)) { 
+         if (!ereg('command resulted in',$message)) { 
             set_up_language($squirrelmail_language);
             echo "<br><b><font color=$color[2]>\n";
             echo _("ERROR : Could not complete request.");
@@ -89,7 +89,7 @@
             echo $message . "</font><br>\n";
             exit;
          }
-      } else if ($response == "BAD") {
+      } else if ($response == 'BAD') {
          set_up_language($squirrelmail_language);
          echo "<br><b><font color=$color[2]>\n";
          echo _("ERROR : Bad or malformed request.");
@@ -127,20 +127,20 @@
       }
 
       fputs ($imap_stream, "a001 LOGIN \"" . quotemeta($username) . 
-         "\" \"" . quotemeta($password) . "\"\r\n");
-      $read = sqimap_read_data ($imap_stream, "a001", false, $response, $message);
+         '" "' . quotemeta($password) . "\"\r\n");
+      $read = sqimap_read_data ($imap_stream, 'a001', false, $response, $message);
 
       /** If the connection was not successful, lets see why **/
       if ($response != "OK") {
          if (!$hide) {
-            if ($response != "NO") {
+            if ($response != 'NO') {
                // "BAD" and anything else gets reported here.
                set_up_language($squirrelmail_language, true);
-               if ($response == "BAD")
+               if ($response == 'BAD')
                    printf (_("Bad request: %s")."<br>\r\n", $message);
                else
                    printf (_("Unknown error: %s") . "<br>\n", $message);
-               echo "<br>";
+               echo '<br>';
                echo _("Read data:") . "<br>\n";
 	       if (is_array($read))
 	       {
@@ -164,13 +164,13 @@
                
                ?>
                   <html>
-                     <body bgcolor=ffffff>
+                     <body bgcolor="ffffff">
                         <br>
                         <center>
-                        <table width=70% noborder bgcolor=ffffff align=center>
+                        <table width="70%" noborder bgcolor="ffffff" align="center">
                            <tr>
-                              <td bgcolor=dcdcdc>
-                                 <font color=cc0000>
+                              <td bgcolor="dcdcdc">
+                                 <font color="cc0000">
                                  <center>
                                  <?php echo _("ERROR") ?>
                                  </center>
@@ -217,7 +217,7 @@ function sqimap_capability($imap_stream, $capability) {
 
 	if (!is_array($sqimap_capabilities)) {
 		fputs ($imap_stream, "a001 CAPABILITY\r\n");
-		$read = sqimap_read_data($imap_stream, "a001", true, $a, $b);
+		$read = sqimap_read_data($imap_stream, 'a001', true, $a, $b);
 
 		$c = explode(' ', $read[0]);
 		for ($i=2; $i < count($c); $i++) {
@@ -254,7 +254,7 @@ function sqimap_get_delimiter ($imap_stream = false) {
 			   OS:  We want to lookup all personal NAMESPACES...
 			*/
 			fputs ($imap_stream, "a001 NAMESPACE\r\n");
-			$read = sqimap_read_data($imap_stream, "a001", true, $a, $b);
+			$read = sqimap_read_data($imap_stream, 'a001', true, $a, $b);
 			if (eregi('\* NAMESPACE +(\( *\(.+\) *\)|NIL) +(\( *\(.+\) *\)|NIL) +(\( *\(.+\) *\)|NIL)', $read[0], $data)) {
 				if (eregi('^\( *\((.*)\) *\)', $data[1], $data2))
 					$pn = $data2[1];
@@ -265,15 +265,15 @@ function sqimap_get_delimiter ($imap_stream = false) {
                     if (isset($lst[3])) {
                         $pn[$lst[1]] = $lst[3];
                     } else {
-                        $pn[$lst[1]] = "";
+                        $pn[$lst[1]] = '';
                     }
 				}
 			}
 			$sqimap_delimiter = $pn[0];
 		} else {
 			fputs ($imap_stream, ". LIST \"INBOX\" \"\"\r\n");
-			$read = sqimap_read_data($imap_stream, ".", true, $a, $b);
-			$quote_position = strpos ($read[0], "\"");
+			$read = sqimap_read_data($imap_stream, '.', true, $a, $b);
+			$quote_position = strpos ($read[0], '"');
 			$sqimap_delimiter = substr ($read[0], $quote_position+1, 1);
 		}
 	}
@@ -286,7 +286,7 @@ function sqimap_get_delimiter ($imap_stream = false) {
     ******************************************************************************/
    function sqimap_get_num_messages ($imap_stream, $mailbox) {
       fputs ($imap_stream, "a001 EXAMINE \"$mailbox\"\r\n");
-      $read_ary = sqimap_read_data ($imap_stream, "a001", true, $result, $message);
+      $read_ary = sqimap_read_data ($imap_stream, 'a001', true, $result, $message);
       for ($i = 0; $i < count($read_ary); $i++) {
          if (ereg("[^ ]+ +([^ ]+) +EXISTS", $read_ary[$i], $regs)) {
 	    return $regs[1];
@@ -323,18 +323,18 @@ function sqimap_get_delimiter ($imap_stream = false) {
     **           becomes:   lkehresman@yahoo.com
     ******************************************************************************/
    function sqimap_find_displayable_name ($string) {
-      $string = " ".trim($string);
+      $string = ' '.trim($string);
       $orig_string = $string;
-      if (strpos($string, "<") && strpos($string, ">")) {
-         if (strpos($string, "<") == 1) {
+      if (strpos($string, '<') && strpos($string, '>')) {
+         if (strpos($string, '<') == 1) {
             $string = sqimap_find_email($string);
          } else {
             $string = trim($string);
-            $string = substr($string, 0, strpos($string, "<"));
-            $string = ereg_replace ("\"", "", $string);   
+            $string = substr($string, 0, strpos($string, '<'));
+            $string = ereg_replace ('"', '', $string);   
          }   
 
-         if (trim($string) == "") {
+         if (trim($string) == '') {
             $string = sqimap_find_email($orig_string);
          }
       }
@@ -348,7 +348,7 @@ function sqimap_get_delimiter ($imap_stream = false) {
    function sqimap_unseen_messages ($imap_stream, &$num_unseen, $mailbox) {
       //fputs ($imap_stream, "a001 SEARCH UNSEEN NOT DELETED\r\n");
       fputs ($imap_stream, "a001 STATUS \"$mailbox\" (UNSEEN)\r\n");
-      $read_ary = sqimap_read_data ($imap_stream, "a001", true, $result, $message);
+      $read_ary = sqimap_read_data ($imap_stream, 'a001', true, $result, $message);
       ereg("UNSEEN ([0-9]+)", $read_ary[0], $regs);
       return $regs[1];
    }
