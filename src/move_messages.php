@@ -46,6 +46,7 @@
          //    loop because we never increment j.  so check to see if msg[0] is set or not to fix this.
          while ($j < count($msg)) {
             if ($msg[$i]) {
+               echo $msg[$i] . "<BR>";
                sqimap_messages_delete($imapConnection, $msg[$i], $msg[$i], $mailbox);
                $j++;
             }
@@ -66,10 +67,10 @@
          //    loop because we never increment j.  so check to see if msg[0] is set or not to fix this.
          while ($j < count($msg)) {
             if ($msg[$i]) {
+               echo $msg[$i] . "<BR>";
                /** check if they would like to move it to the trash folder or not */
-               $success = sqimap_messages_copy($imapConnection, $msg[$i], $msg[$i], $targetMailbox);
-               if ($success == true)
-                  sqimap_messages_flag($imapConnection, $msg[$i], $msg[$i], "Deleted");
+               sqimap_messages_copy($imapConnection, $msg[$i], $msg[$i], $targetMailbox);
+               sqimap_messages_flag($imapConnection, $msg[$i], $msg[$i], "Deleted");
                $j++;
             }
             $i++;
