@@ -1361,6 +1361,22 @@ function stripEvent( &$i, $j, &$body, $id, $base ) {
 
     while ( $body{$i} <> '>' &&
            $i < $j ) {
+        /**
+         * [ 545933 ] Cross-site scripting vulnerability
+         * <hr>
+         * <img x="<foo>" src=javascript:alert(1) y="</foo>">
+         * <hr>
+         *
+         * This code will ignore anything within the quotes
+         * so they don't mess us up.
+         */
+        if ( $body{$i} == '"' || $body{$i} == "'" ){
+            $quotechar = $body{$i};
+            do {
+                $ret .= $body{$i};
+                $i++;
+            } while ($body{$i} != $quotechar && $i < $j);
+        }
         $etg = strtolower($body{$i}.$body{$i+1}.$body{$i+2});
         switch( $etg ) {
         case 'src':
