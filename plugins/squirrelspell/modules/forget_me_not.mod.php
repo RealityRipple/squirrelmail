@@ -38,6 +38,6 @@
  // display the splash screen, then close it automatically after 2 sec.
  $onload="setTimeout('self.close()', 2000)";
  $msg="<form onsubmit=\"return false\"><div align=\"center\"><input type=\"submit\" value=\"  Close  \" onclick=\"self.close()\"></div></form>";
- sqspell_makeWindow($onload, "Personal Dictionary Updated", null, $msg);
+ sqspell_makeWindow($onload, _("Personal Dictionary Updated"), null, $msg);
 ?>
 
