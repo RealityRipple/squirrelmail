@@ -40,9 +40,9 @@ displayPageHeader($color, 'None');
    <p>
 <?php
    echo _("You also decide if you want the translation box displayed, and where it will be located.") .
-        '<form action="'.sqm_baseuri().'src/options.php'.'" method="post">'.
-        '<input type="hidden" name="optmode" value="submit">' .
-        '<input type="hidden" name="optpage" value="translate">' .
+        '<form action="'.sqm_baseuri().'src/options.php" method="post">'.
+        '<input type="hidden" name="optmode" value="submit" />' .
+        '<input type="hidden" name="optpage" value="translate" />' .
         '<table border="0" cellpadding="0" cellspacing="2">'.
             '<tr><td align="right" nowrap="nowrap">' .
              _("Select your translator:") .
@@ -51,7 +51,7 @@ displayPageHeader($color, 'None');
    translate_showoption();
    echo '</select>' .
        '</td></tr>' .
-       '<tr>'.html_tag('td',_("When reading:"),'right','','nowrap').
+       '<tr>'.html_tag('td',_("When reading:"),'right','','nowrap="nowrap"').
        '<td><input type="checkbox" name="translate_translate_show_read"';
    if ($translate_show_read)
        echo ' checked="checked"';

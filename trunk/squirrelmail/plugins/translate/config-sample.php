@@ -71,8 +71,8 @@ function translate_form_custom($message) {
     echo '<p align="center">';
     echo '<input name="lang" type="hidden" value="eng" />';
     echo '<input name="auth" type="hidden" value="no" />';
-    echo "<inpu name=\"text\" type=\"hidden\" value=\"$message\" />";
-    echo 'Al Misbar: <input type="submit" class=button value="' . _("Translate") . '" />';
+    echo '<input name="text" type="hidden" value="' . $message . '" />';
+    echo 'Al Misbar: <input type="submit" class="button" value="' . _("Translate") . '" />';
 
     echo '<br />';
     echo _("Translation Theme:") . '&nbsp;';
@@ -103,9 +103,9 @@ function translate_form_custom($message) {
         '<option value="N">' . "Science" .
         '</select>';
     echo '<br />';
-    echo '<input checked id="option1" name="options" type="checkbox" value="translit" />';
+    echo '<input checked="checked" id="option1" name="options" type="checkbox" value="translit" />';
     echo "Transliteration of abbreviations";
-    echo '<input checked id="option2" name="options" type="checkbox" value="abbr" />';
+    echo '<input checked="checked" id="option2" name="options" type="checkbox" value="abbr" />';
     echo "Transliteration of proper nouns";
     echo '<input name="vowels" type="checkbox" value="a" />';
     echo "Show Harakat";
