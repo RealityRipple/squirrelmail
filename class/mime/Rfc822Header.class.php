@@ -411,6 +411,7 @@ class Rfc822Header {
                 break;
             case ';':
                 if ($sGroup) {
+                    $aAddress[] = $this->createAddressObject($aStack,$aComment,$sEmail,$sGroup);
                     $oAddr = end($aAddress);
                     if(!$oAddr || ((isset($oAddr)) && !$oAddr->mailbox && !$oAddr->personal)) {
                         $sEmail = $sGroup . ':;';
@@ -424,7 +425,7 @@ class Rfc822Header {
                 $aAddress[] = $this->createAddressObject($aStack,$aComment,$sEmail,$sGroup);
                 break;
             case ':': 
-                $sGroup = trim(implode(' ',$aStack)); break;
+                $sGroup = trim(implode(' ',$aStack));
                 $sGroup = preg_replace('/\s+/',' ',$sGroup);
                 $aStack = array();
                 break;
