@@ -356,13 +356,16 @@
 
    function sendMessage($t, $c, $b, $subject, $body) {
       global $useSendmail;
-
+      global $data_dir, $username, $domain, $key, $version, $sent_folder, $imapServerAddress;
+/*
       if ($useSendmail==true) {  
 	 sendSendmail($t, $c, $b, $subject, $body);
       } else {
 	 sendSMTP($t, $c, $b, $subject, $body);
       }
-    
+*/
+      $imap_stream = sqimap_login($username, $key, $imapServerAddress, 1);
+      sqimap_append ($imap_stream, $sent_folder, $body, $t, $c, $b, $subject, $data_dir, $username, $domain, $version);    
    }
 
 ?>
