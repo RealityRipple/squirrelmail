@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-20 12:22+0300\n"
+"POT-Creation-Date: 2003-10-05 12:51+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1374,6 +1374,9 @@ msgstr ""
 msgid "sec_remove_eng.png"
 msgstr ""
 
+msgid "This external link will open in a new window"
+msgstr ""
+
 #, c-format
 msgid "Option Type '%s' Not Found"
 msgstr ""
@@ -1572,6 +1575,18 @@ msgid "Height of Compose Window"
 msgstr ""
 
 msgid "Append Signature before Reply/Forward Text"
+msgstr ""
+
+msgid "Cursor Position when Replying"
+msgstr ""
+
+msgid "To: field"
+msgstr ""
+
+msgid "Focus in body"
+msgstr ""
+
+msgid "Select body"
 msgstr ""
 
 msgid "Strip signature when replying"
@@ -2263,7 +2278,7 @@ msgstr ""
 
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
-"have a very high spam to legit email ratio (85% or more)."
+"have a very high spam to legit email ratio (85 percent or more)."
 msgstr ""
 
 msgid "FREE - dev.null.dk - I don't have any detailed info on this list."
@@ -2849,7 +2864,15 @@ msgstr ""
 msgid "SquirrelMail Notice:"
 msgstr ""
 
-msgid "You have new mail!"
+msgid "You have"
+msgstr ""
+
+#, c-format
+msgid "%s new message"
+msgstr ""
+
+#, c-format
+msgid "%s new messages"
 msgstr ""
 
 msgid "NewMail Options"
