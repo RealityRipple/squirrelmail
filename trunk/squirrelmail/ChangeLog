@@ -7,13 +7,13 @@ Version 1.5.1 -- CVS
   - New reply citation to include date and author.
   - Security: Fix some possible XSS bugs.
   - Norwegian Bokmal translation uses nb_NO.
-  - Integrated Msg_Flags plugin - turn on/off icons using configuration tool, menu
-    number 11 (Tweaks), option number 3, after which users must select an icon
-    theme in Options/Display Preferences.  "Flag"/"Unflag" buttons are implemented
-    as separate plugin.
+  - Integrated Msg_Flags plugin - turn on/off icons using configuration tool,
+    menu number 11 (Tweaks), option number 3, after which users must select an
+    icon theme in Options/Display Preferences. 
+    "Flag"/"Unflag" buttons are implemented as separate plugin.
   - Added Farsi and Tagalog translation support.
   - Enabled Ukrainian and Russian-Ukrainian support
-  - Subfolders named "foo.inbox" didn't always work well.  Fixed.
+  - Fixed subfolders named "foo.inbox" didn't always work well.
   - sqimap_create_stream() was not obeying passed params properly.
   - Fix non-selectable inbox.
   - Add src/configtest.php script which checks for common errors in the config.
@@ -32,8 +32,8 @@ Version 1.5.1 -- CVS
   - Added option to suppress Received: line in outbound SM headers (#847107).
   - Changed read_body header from links to buttons (looks like message index).
   - Add functions for building HTML forms (functions/forms.php).
-  - Moved javascript_on to session (from prefs). Centralized javascript detection
-    in prefs.php method checkForJavascript.
+  - Moved javascript_on to session (from prefs). Centralized JavaScript
+    detection in prefs.php method checkForJavascript.
   - Added abook_init and abook_add_class hooks.
   - Fixed "Resume Draft" to continue using selected identities (#845290).
   - Fixed RFC2821 incompliancy by adding a fallback mechanism to HELO if
@@ -45,7 +45,7 @@ Version 1.5.1 -- CVS
     still be performed on message delete, etc.
   - Allow single quotes to be used in theme name in conf.pl (#805309).
   - Fixed on the fly decoding of base64 encoded attachments.
-  - Fixed message rejects by the postfix sendmail wrapper when attachments were
+  - Fixed message rejects by the Postfix sendmail wrapper when attachments were
     involved.
   - Fixed date display bug for messages of today. Show short format in case
     of long format. (only occurs in the timeframe around 0:00 AM till
@@ -75,10 +75,12 @@ Version 1.5.1 -- CVS
   - Custom option page values now repopulate correctly
   - Added "no focus" option for compose page in display preferences (setting
     reply focus to "No focus" also affects composing new messages)
-  - Current hook name is now globally available when running a hook ($currentHookName)
+  - Current hook name is now globally available when running a hook
+    ($currentHookName)
   - Fix bug when Saving to Draft folder that contains special characters.
-  - Added size limit to signatures saved in file backend. Created error_option_save
-    function, that allows sending error message to options page. Thanks to Martynas
+  - Added size limit to signatures saved in file backend. Created
+    error_option_save function, that allows sending error message to options
+    page. Thanks to Martynas.
     Bieliauskas for spotting big signature "option".
   - Make SquirrelSpell work with safe_mode enabled, if using PHP >=4.3.0.
     Patch by Ray Ferguson.
@@ -102,10 +104,10 @@ Version 1.5.1 -- CVS
   - Fixed $custom_css loading in squirrelspell plugin.
   - Turkish translation uses C character case conversion rules. Fixes PHP and
     SquirrelMail functions are assume English conversion rules.
-  - Fixed problem that caused an error when deleting all messages on the last page
-    of a paginated view (provides fix for #1014612)
+  - Fixed problem that caused an error when deleting all messages on the last
+    page of a paginated view (provides fix for #1014612).
   - Added MySQL password/UNIX crypt support to mysql backend in the
-    change_password plugin
+    change_password plugin.
   - Make SMTP Authentication detection in conf.pl more RFC-compliant.
   - Fixed IMAP errors when using mail_fetch plugin to auto-fetch on login.
   - Fixed folder list in Create Folders list for Courier (properly skip INBOX).
@@ -128,12 +130,12 @@ Version 1.5.1 -- CVS
   - LC_NUMERIC locale is set to C. (workaround for #1027130). Some plugins
     might use decimal delimiters incorrectly.
   - Added sq_is8bit function that can be used to detect 8bit strings.
-  - Added sq_mb_list_encodings function that provides list of encodings supported
-    by PHP mbstring module.
+  - Added sq_mb_list_encodings function that provides list of encodings
+    supported by PHP mbstring module.
   - Added Content-Transfer-Encoding: 8bit header for read receipts that contain
     8bit symbols. (provides fix for #934033).
-  - Fixed decoding function problems when mbstring.func_override has MB_OVERLOAD_REGEX
-    enabled.
+  - Fixed decoding function problems when mbstring.func_override has
+    MB_OVERLOAD_REGEX enabled.
   - Security: Fixed XSS exploit in decodeHeader function. [CAN-2004-1036]
   - Added site configuration and custom translation engine support to translate
     plugin.
@@ -142,8 +144,8 @@ Version 1.5.1 -- CVS
     a string (patch courtesy Maurice Makaay).
   - Fixed PHP notice when header property value is blank.
   - Added compact paginator option. Patch by Felix Egli.
-  - Fixed reply/forward form in order to avoid warnings in SSL enabled sites. Patch
-    by Felix Egli.
+  - Fixed reply/forward form in order to avoid warnings in SSL enabled sites.
+    Patch by Felix Egli.
   - Removed command line option unsupported by qmail-inject in
     class/deliver/Deliver_SendMail.class.php. Thanks to Ken Brush.
   - Global file based address book is controled in configuration. Removed
@@ -156,19 +158,20 @@ Version 1.5.1 -- CVS
     supported by mbstring and use it. Fixes bug #1005353.
   - LDAP backend will use internal SquirrelMail charset conversion functions
     instead of PHP XML extension. Fixes bug #655137.
-  - Added Wood theme and Silver Steel theme by Pavel Spatny and Simple Green theme
+  - Added Wood and Silver Steel themes by Pavel Spatny and Simple Green theme.
   - Fix two time zone calculation bugs, thanks to David White. Fixes #1063879.
   - 'Priority' and 'Importance' headers are now also recognised, next to the
     'X-Priority' header that we've supported since a long time. Fixes #1039935.
   - Handle a reload of the signout page gracefully: do not present an error
     about having to be logged in to be able to sign out. Fixes #1070069.
-  - Prevent & being eaten in set_url_var, thanks Marcin Orlowski. Fixes #1053725.
+  - Prevent & being eaten in set_url_var, thanks Marcin Orlowski (#1053725).
   - Removed internal_link hook.
   - Added sq_setlocale function in order to use multiple locale names.
   - Set up language before outputing errors in signout.php to make them appear
     in the correct language.
   - Added size attributes to new_mail sound tags. Fixes #818958.
-  - Removed extra ; in SquirrelMail added Received header per RFC 822. Fixes #1088548.
+  - Removed extra ; in SquirrelMail added Received header per RFC 822
+    (#1088548).
   - Add IMAP server type "hmailserver" to make search work with hMailServer.
     Fixes #1085377.
   - Reuploaded newmail plugin sounds. Fixes files uploaded to cvs without binary
@@ -213,10 +216,10 @@ Version 1.5.1 -- CVS
   - Use the proper attachment filenames in case of forwarding a message.
   - Fix for #855320 where Outlook Express was creating CID: based URLs,
     but not assigning a content-id to the attachment.  This is a bug in
-	Outlook Express and is non-RFC compliant behaviour.
+    Outlook Express and is non-RFC compliant behaviour.
   - Strip <outbind://> tags out. This is a Microsoft only protocol and
     references files local to the sending machine.  This causes issues
-	with Internet Explorer.
+    with Internet Explorer.
   - Replace <img src="outbind://"> links with clean images to stop
     issues with Internet Explorer not being able to track down the image.
   - Empty src attribute on img tags causes logouts (IE only), replacing
@@ -296,8 +299,8 @@ Version 1.5.1 -- CVS
   - Fix incorrect folder hierarchy display (#1009654), thanks
     Awais Ahmad for the patch (#1082558).
   
-Version 1.5.0
---------------------
+Version 1.5.0 - 2 Februari 2004
+-------------------------------
   - Added new preference that determines cursor focus when replying
   - Added support in conf.pl for MS cls command.
   - conf.pl changes for relative paths outside the SM tree (#715119).
