@@ -4,6 +4,10 @@
 
 Version 1.2.5 -- CVS
 --------------------
+  - Added 'View unsafe images' link to the bottom of pages which contain
+    unsafe images.
+  - Fixed 'too many close table tags' and various other issues
+    which meant SM output didn't always validate as clean HTML.
   - Added the ability to add special folders through plugins.
   - Made searching on multiple criteria possible, with thanks to Jason Munro
   - Fixed 'list all' in addressbook (#506624, thanks to Kurt Yoder)
