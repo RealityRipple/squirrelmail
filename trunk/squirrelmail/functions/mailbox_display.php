@@ -143,7 +143,7 @@
                   echo "+\n";
                   $stuff = true;
                }
-	       if ($default_use_priority) {
+               if ($default_use_priority) {
                   if (ereg('(1|2)',substr($msg['PRIORITY'],0,1))) {
                      echo "<font color=$color[1]>!</font>\n";
                      $stuff = true;
@@ -467,7 +467,7 @@
     */
    function mail_message_listing_beginning
         ($imapConnection, $moveURL, $mailbox = '', $sort = -1,
-         $msg_cnt_str = '', $paginator = '', $start_msg = 1) {
+         $msg_cnt_str = '', $paginator = '&nbsp;', $start_msg = 1) {
       global $color, $index_order, $auto_expunge, $move_to_trash;
       global $checkall, $sent_folder, $draft_folder;
       $urlMailbox = urlencode($mailbox);
@@ -725,6 +725,9 @@
         }
 
         /* Return the resulting string. */
+        if( $lMore . $mMore . $rMore == '' ) {
+            $lMore = '&nbsp;';
+        }
         return ($lMore . $mMore . $rMore);
     }
 
