@@ -11,8 +11,12 @@
 
 function adm_check_user() {
     global $PHP_SELF;
+    require_once(SM_PATH . 'functions/global.php');
     
-    $username = ( !isset($_SESSION['username']) ? '' : $_SESSION['username'] );
+    if ( !sqgetGlobalVar('username',$username,SQ_SESSION) ) {
+        $username = '';
+    }
+
     /* This needs to be first, for all non_options pages */
     if (strpos('options.php', $PHP_SELF)) {
         $auth = FALSE;
