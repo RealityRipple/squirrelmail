@@ -53,8 +53,6 @@
    echo "</form>";
    echo "</center>";
 
-   echo "<tt>".nl2br($body)."</tt>";
-
    if(!empty($query)) {
       $abook = addressbook_init();
       $res = $abook->s_search($query);
@@ -95,10 +93,10 @@
                 "<input type=checkbox name=send_to_search[] value=\"%s\">&nbsp;To".
                 "<input type=checkbox name=send_to_cc_search[] value=\"%s\">&nbsp;Cc&nbsp;".
                 "<td nowrap>&nbsp;%s&nbsp;<td nowrap>&nbsp;".
-                "<a href=\"compose.php?send_to_search=%s\">%s</A>&nbsp;".
+                "%s".
                 "<td nowrap>&nbsp;%s&nbsp;<td nowrap>&nbsp;%s</tr>\n",
                 ($line % 2) ? " bgcolor=\"$color[0]\"" : "", $row["email"],
-                $row["email"], $row["name"], $row["email"], $row["email"],
+                $row["email"], $row["name"], $row["email"],
                 $row["label"], $row["source"]);
          $line++;
       }
