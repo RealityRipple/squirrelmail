@@ -43,7 +43,7 @@ function sqimap_msgs_list_delete ($imap_stream, $mailbox, $id) {
     if (($move_to_trash == true) && (sqimap_mailbox_exists($imap_stream, $trash_folder) && ($mailbox != $trash_folder))) {
         $read = sqimap_run_command ($imap_stream, "COPY $msgs_id \"$trash_folder\"", true, $response, $message, $uid_support);
     }
-    $read = sqimap_run_command ($imap_stream, "STORE $msgs_id +FLAGS (\\Deleted)", $handle_errors, $response, $message, $uid_support);
+    $read = sqimap_run_command ($imap_stream, "STORE $msgs_id +FLAGS (\\Deleted)", true, $response, $message, $uid_support);
 }
 
 
