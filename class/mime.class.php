@@ -169,7 +169,11 @@ class rfc822_header
 	case ('content-disposition'):
 	    $this->parseDisposition($value);
 	    break;    
+	case ('user-agent'):
 	case ('x-mailer'):
+	    $this->xmailer = $value;
+	    break;
+	case ('user-agent'):
 	    $this->xmailer = $value;
 	    break;
 	case ('x-priority'):
