@@ -21,7 +21,7 @@
    $fullname = getPref($data_dir, $username, 'full_name');
    $replyto = getPref($data_dir, $username, 'reply_to');
    $email_address  = getPref($data_dir, $username, 'email_address'); 
-echo $prefix_sig;
+
 ?>
    <br>
 <table width=95% align=center border=0 cellpadding=2 cellspacing=0>
