@@ -101,7 +101,9 @@ if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
             break;
     } 
 
-    echo html_tag( 'table',
+    // if there are any messages, output them.
+    if ( !empty($td_str) ) {
+        echo html_tag( 'table',
                 html_tag( 'tr',
                      html_tag( 'td', '<b>' . $td_str . "</b><br />\n" .
                                '<a href="../src/left_main.php" target="left">' .
@@ -109,6 +111,7 @@ if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
                      'center' )
                 ) ,
             'center', '', 'width="100%" cellpadding="4" cellspacing="0" border="0"' );
+    }
 }
 
 echo "\n<br />";
