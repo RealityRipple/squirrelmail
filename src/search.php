@@ -191,8 +191,8 @@ function save_recent($save_index, $username, $data_dir) {
 function printSearchMessages($msgs,$mailbox, $cnt, $imapConnection, $where, $what, $usecache = false, $newsort = false) {
     global $sort, $color;
     
-    $msort = calc_msort($msgs, $sort);
-    if ($cnt > 0) {
+	if ($cnt > 0) {
+	   $msort = calc_msort($msgs, $sort);
        if ( $mailbox == 'INBOX' ) {
            $showbox = _("INBOX");
        } else {
