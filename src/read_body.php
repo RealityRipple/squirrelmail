@@ -287,7 +287,7 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
 	$stream = $deliver->initStream($composeMessage,$domain,0,
 	                  $smtpServerAddress, $smtpPort, $authPop);
     } else {
-       require_once('../class/deliver/Deliver_SentMail.class.php');
+       require_once('../class/deliver/Deliver_SendMail.class.php');
        global $sendmail_path;
        $deliver = new Deliver_SendMail();
        $stream = $deliver->initStream($composeMessage,$sendmail_path);
