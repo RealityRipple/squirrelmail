@@ -555,9 +555,10 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
 /**
  * Returns sorted mailbox lists in several different ways.
  * See comment on sqimap_mailbox_parse() for info about the returned array.
+ * @param resource $imap_stream imap connection resource
+ * @param boolean $force force update of mailbox listing. available since 1.4.2 and 1.5.0
+ * @return array list of mailboxes
  */
-
-
 function sqimap_mailbox_list($imap_stream, $force=false) {
     if (!sqgetGlobalVar('boxesnew',$boxesnew,SQ_SESSION) || $force) {
         global $data_dir, $username, $list_special_folders_first,
