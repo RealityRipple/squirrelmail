@@ -2223,26 +2223,7 @@ sub command314 {
     return $allow_charset_search;
 }
 
-sub command315 {
-    ## OBSOLETE - UID support is now always enabled
-    return "true";
-    print "This option allows you to enable unique identifier (UID) support.\n";
-    print "\n";
-
-    if ( lc($uid_support) eq "true" ) {
-        $default_value = "y";
-    } else {
-        $default_value = "n";
-    }
-    print "Enable Unique identifier (UID) support? (y/n) [$WHT$default_value$NRM]: $WHT";
-    $uid_support = <STDIN>;
-    if ( ( $uid_support =~ /^y\n/i ) || ( ( $uid_support =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
-        $uid_support = "true";
-    } else {
-        $uid_support = "false";
-    }
-    return $uid_support;
-}
+# command315 (UID support) obsoleted.
 
 sub command316 {
 	print "This option allows you to change the name of the PHP session used\n";
