@@ -107,6 +107,7 @@ Version 1.5.1 -- CVS
   - Make SMTP Authentication detection in conf.pl more RFC-compliant.
   - Fixed IMAP errors when using mail_fetch plugin to auto-fetch on login.
   - Fixed folder list in Create Folders list for Courier (properly skip INBOX).
+  - Fixed undefined variables in sqimap_create_stream().
   - Added Bengali translation support.
 
 Version 1.5.0
