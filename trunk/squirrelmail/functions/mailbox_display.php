@@ -877,8 +877,9 @@ function ShowSortButton($sort, $mailbox, $Up, $Down ) {
     /* Now that we have everything figured out, show the actual button. */
     echo ' <a href="' . $source_url .'?newsort=' . $which
          . '&amp;startMessage=1&amp;mailbox=' . urlencode($mailbox)
-         . '"><IMG SRC="../images/' . $img
-         . '" BORDER=0 WIDTH=12 HEIGHT=10 ALT="sort"></a>';
+         . '"><img src="../images/' . $img
+         . '" border="0" width="12" height="10" alt="sort" title="'
+         . _("Click here to change the sorting of the message list") .'"></a>';
 }
 
 function get_selectall_link($start_msg, $sort) {

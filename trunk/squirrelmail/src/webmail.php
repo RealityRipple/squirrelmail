@@ -131,13 +131,16 @@ if ($right_frame == 'right_main.php') {
     $right_frame_url =  $right_frame;
 }
 
+$left_frame  = '<frame src="left_main.php" name="left" frameborder="1" title="'.
+               _("Folder List") ."\" />\n";
+$right_frame = '<frame src="'.$right_frame_url.'" name="right" frameborder="1" title="'.
+               _("Message List") ."\" />\n";
+
 if ($location_of_bar == 'right') {
-    echo "<frame src=\"$right_frame_url\" name=\"right\" frameborder=\"1\" />\n" .
-         "<frame src=\"left_main.php\" name=\"left\" frameborder=\"1\" />\n";
+    echo $right_frame . $left_frame;
 }
 else {
-    echo "<frame src=\"left_main.php\" name=\"left\" frameborder=\"1\" />\n".
-         "<frame src=\"$right_frame_url\" name=\"right\" frameborder=\"1\" />\n";
+    echo $left_frame . $right_frame;
 }
 do_hook('webmail_bottom');
 ?>
