@@ -108,10 +108,11 @@ function delete_move_next_action() {
 
     if ($delete_id) {
         delete_move_next_delete();
+        fix_sort_array();
     } elseif ($move_id) {
         delete_move_next_move();
+        fix_sort_array();
     }
-    fix_sort_array();
 
 }
 
