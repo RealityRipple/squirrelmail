@@ -48,11 +48,6 @@
    echo "</TABLE>\n";
    echo "</FORM>\n";
 ?>
-
-<SCRIPT LANGUAGE="JavaScript">
-   document.f.username.focus(); 
-</SCRIPT>
-
 </BODY>
 </HTML>
 

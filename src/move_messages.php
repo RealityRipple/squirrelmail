@@ -53,7 +53,7 @@
             }
             $i++;
          }
-         messages_deleted_message($mailbox, $sort, $startMessage);
+         messages_deleted_message($mailbox, $sort, $startMessage, $color);
       } else {
          echo "<BR><BR><CENTER>No messages selected.</CENTER>";
       }
@@ -79,9 +79,9 @@
          if ($auto_expunge == true)
             expungeBox($imapConnection, $mailbox, $numMessages);
 
-         messages_moved_message($mailbox, $sort, $startMessage);
+         messages_moved_message($mailbox, $sort, $startMessage, $color);
       } else {
-         error_message("No messages were selected.", $mailbox, $sort, $startMessage);
+         error_message("No messages were selected.", $mailbox, $sort, $startMessage, $color);
       }
    }
 

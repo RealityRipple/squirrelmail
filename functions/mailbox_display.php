@@ -9,6 +9,8 @@
     **/
 
    function printMessageInfo($imapConnection, $t, $i, $from, $subject, $dateString, $answered, $seen, $mailbox, $sort, $startMessage) {
+      require ("../config/config.php");
+
       $senderName = getSenderName($from);
       $urlMailbox = urlencode($mailbox);
       $subject = trim(stripslashes($subject));
@@ -31,7 +33,7 @@
     ** This function loops through a group of messages in the mailbox and shows them
     **/
    function showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort) {
-      include("../config/config.php");
+      require ("../config/config.php");
 
       if (1 <= $numMessages) {
          getMessageHeaders($imapConnection, 1, $numMessages, $from, $subject, $date);
@@ -194,7 +196,7 @@
       echo "      <TD WIDTH=30% ALIGN=LEFT>\n";
       echo "         <NOBR><FONT FACE=\"Arial,Helvetica\" SIZE=2><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"Move to:\">\n";
       echo "         <SELECT NAME=\"targetMailbox\">\n";
-      getFolderList($imapConnection, $boxesFormatted, $boxesUnformatted);
+      getFolderList($imapConnection, $boxesFormatted, $boxesUnformatted, $boxesRaw);
       for ($i = 0; $i < count($boxesUnformatted); $i++) {
          $use_folder = true;
          for ($p = 0; $p < count($special_folders); $p++) {

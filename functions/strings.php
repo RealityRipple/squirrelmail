@@ -16,15 +16,13 @@
    //    of the $haystack is reached.
    //*************************************************************************
    function readShortMailboxName($haystack, $needle) {
-      $len = strlen($haystack);
-      for ($i = $len - 1; ($i >= 0) && (!$found);$i--) {
-         $char = $haystack[$i];
-         if ($char == $needle)
-            $found = 1;
-         else
-            $data .= $char;
+      if (strpos($haystack, $needle)) {
+         $pos = strrpos($haystack, $needle) + 1;
+         $data = substr($haystack, $pos, strlen($haystack));
+      } else {
+         $data = $haystack;
       }
-      return strrev($data);
+      return $data;
    }
 
    // Wraps text at $wrap characters

@@ -7,33 +7,90 @@
     **/
 
    /** Read from the connection until we get either an OK or BAD message. **/
-   function imapReadData($connection) {
+   function imapReadData($connection, $pre, $handle_errors, &$response, &$message) {
+      require ("../config/config.php");
+
       $read = fgets($connection, 1024);
       $counter = 0;
-      while ((substr($read, strpos($read, " ") + 1, 2) != "OK") && (substr($read, strpos($read, " ") + 1, 3) != "BAD")) {
+      while ((substr($read, 0, strlen("$pre OK")) != "$pre OK") &&
+             (substr($read, 0, strlen("$pre BAD")) != "$pre BAD") &&
+             (substr($read, 0, strlen("$pre NO")) != "$pre NO")) {
          $data[$counter] = $read;
          $read = fgets($connection, 1024);
          $counter++;
       }
+      if (substr($read, 0, strlen("$pre OK")) == "$pre OK") {
+         $response = "OK";
+         $message = trim(substr($read, strlen("$pre OK"), strlen($read)));
+      } else if (substr($read, 0, strlen("$pre BAD")) == "$pre BAD") {
+         $response = "BAD";
+         $message = trim(substr($read, strlen("$pre BAD"), strlen($read)));
+      } else {
+         $response = "NO";
+         $message = trim(substr($read, strlen("$pre NO"), strlen($read)));
+      }
+
+      if ($handle_errors == true) {
+         if ($response == "NO") {
+            echo "<B><FONT COLOR=FF0000>ERROR</FONT><FONT COLOR=CC0000>:  Could not complete request.</B> </FONT><BR><FONT COLOR=CC0000>&nbsp;&nbsp;<B>Reason given:</B> $message</FONT><BR><BR>";
+            exit;
+         } else if ($response == "BAD") {
+            echo "<B><FONT COLOR=FF0000>ERROR</FONT><FONT COLOR=CC0000>:  Bad or malformed request.</B></FONT><BR><FONT COLOR=CC0000>&nbsp;&nbsp;<B>Server responded:</B> $message</FONT><BR><BR>";
+            exit;
+         }
+      }
+
       return $data;
    }
 
    /** Parse the incoming mailbox name and return a string that is the FOLDER.MAILBOX **/
    function findMailboxName($mailbox) {
-      // start at -2 so that we skip the initial quote at the end of the mailbox name
-      $i = -2;
-      $char = substr($mailbox, $i, 1);
-      while ($char != "\"") {
-         $i--;
-         $temp .= $char;
-         $char = substr($mailbox, $i, 1);
+      $mailbox = trim($mailbox);
+      if (substr($mailbox,  strlen($mailbox)-1, strlen($mailbox)) == "\"") {
+         $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
+         $pos = strrpos($mailbox, "\"") + 1;
+         $box = substr($mailbox, $pos, strlen($mailbox));
+      } else {
+         $box = substr($mailbox, strrpos($mailbox, " ")+1, strlen($mailbox));
       }
-      echo $tmp;
-      return strrev($temp);
+      return $box;
+   }
+
+   /** Finds the delimeter between mailboxes **/
+   function findMailboxDelimeter($imapConnection) {
+      fputs($imapConnection, ". list \"\" \"\"\n");
+      $read = fgets($imapConnection, 1024);
+
+      $pos = strrpos($read, "\"");
+      $read = substr($read, 0, $pos);
+
+      $pos = strrpos($read, "\"");
+      $read = substr($read, 0, $pos);
+
+      $pos = strrpos($read, "\"");
+      $read = substr($read, 0, $pos);
+
+      $pos = strrpos($read, "\"");
+      $read = substr($read, $pos+1, strlen($read));
+
+      $tmp = fgets($imapConnection, 1024);
+      return $read;
+   }
+
+   function getMailboxFlags($mailbox) {
+      $mailbox = trim($mailbox);
+      $mailbox = substr($mailbox, strpos($mailbox, "(")+1, strlen($mailbox));
+      $mailbox = substr($mailbox, 0, strpos($mailbox, ")"));
+      $mailbox = str_replace("\\", "", $mailbox);
+      $mailbox = strtolower($mailbox);
+      $mailbox = explode(" ", $mailbox);
+      return $mailbox;
    }
 
    // handles logging onto an imap server.
-   function loginToImapServer($username, $key, $imapServerAddress) {
+   function loginToImapServer($username, $key, $imapServerAddress, $hide) {
+      require("../config/config.php");
+
       $imapConnection = fsockopen($imapServerAddress, 143, &$errorNumber, &$errorString);
       if (!$imapConnection) {
          echo "Error connecting to IMAP Server.<br>";
@@ -43,42 +100,98 @@
       $serverInfo = fgets($imapConnection, 256);
  
       // login
-      fputs($imapConnection, "1 login $username $key\n");
+      fputs($imapConnection, "a001 LOGIN $username $key\n");
       $read = fgets($imapConnection, 1024);
- 
-      if (strpos($read, "NO")) {
-         error_username_password_incorrect();
-         exit;
+      if ($debug_login == true) {
+         echo "SERVER SAYS: $read<BR>";
       }
-      
+
+      if (substr($read, 0, 7) != "a001 OK") {
+         if (!$hide) {
+            if (substr($read, 0, 8) == "a001 BAD") {
+               echo "Bad request: $read<BR>";
+               exit;
+            }
+            else if (substr($read, 0, 7) == "a001 NO") {
+               echo "<BR>";
+               echo "<TABLE COLS=1 WIDTH=70% NOBORDER BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
+               echo "   <TR>";
+               echo "      <TD BGCOLOR=\"$color[0]\">";
+               echo "         <FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[2]\"><B><CENTER>ERROR</CENTER></B></FONT>";
+               echo "   </TD></TR><TR><TD>";
+               echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>Unknown user or password incorrect.<BR><A HREF=\"login.php\" TARGET=_top>Click here to try again</A>.</FONT></CENTER>";
+               echo "   </TD></TR>";
+               echo "</TABLE>";
+               echo "</BODY></HTML>";
+               exit;
+            }
+            else {
+               echo "Unknown error: $read<BR>";
+               exit;
+            }
+         } else {
+            exit;
+         }
+      }
+
       return $imapConnection;
    }
 
    /** must be sent in the form:  user.<USER>.<FOLDER> **/
-   function createFolder($imapConnection, $folder) {
+   function createFolder($imapConnection, $folder, $type) {
+      require ("../config/config.php");
+
+      if (strtolower($type) == "noselect") {
+         $dm = findMailboxDelimeter($imapConnection);
+         $folder = "$folder$dm";
+      } else {
+         $folder = "$folder";
+      }
       fputs($imapConnection, "1 create \"$folder\"\n");
+      $data = imapReadData($imapConnection, "1", false, $response, $message);
+
+      if ($response == "NO") {
+         echo "<B><FONT COLOR=FF0000>ERROR</FONT><FONT COLOR=CC0000>:  Could not complete request.</B> </FONT><BR><FONT COLOR=CC0000>&nbsp;&nbsp;<B>Reason given:</B> $message</FONT><BR><BR>";
+         echo "Possible solutions:<BR><LI>You may need to specify that the folder is a subfolder of INBOX</LI>";
+         exit;
+      } else if ($response == "BAD") {
+         echo "<B><FONT COLOR=FF0000>ERROR</FONT><FONT COLOR=CC0000>:  Bad or malformed request.</B></FONT><BR><FONT COLOR=CC0000>&nbsp;&nbsp;<B>Server responded:</B> $message</FONT><BR><BR>";
+         exit;
+      }
    }
 
-   /** must be sent in the form:  user.<USER>.<FOLDER> **/
    function removeFolder($imapConnection, $folder) {
       fputs($imapConnection, "1 delete \"$folder\"\n");
+      $data = imapReadData($imapConnection, "1", false, $response, $message);
+      if ($response == "NO") {
+         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=FF0000><B>ERROR</B>:  Could not delete the folder $folder.</FONT>";
+         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[8]\">Probable causes:</FONT><BR>";
+         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[8]\"><LI>This folder may contain subfolders.  Delete all subfolders first</LI></FONT>";
+         exit;
+      } else if ($response == "BAD") {
+         echo "<B><FONT COLOR=FF0000>ERROR</FONT><FONT COLOR=CC0000>:  Bad or malformed request.</B></FONT><BR><FONT COLOR=CC0000>&nbsp;&nbsp;<B>Server responded:</B> $message</FONT><BR><BR>";
+         exit;
+      }
    }
 
    /** Sends back two arrays, boxesFormatted and boxesUnformatted **/
-   function getFolderList($imapConnection, &$boxesFormatted, &$boxesUnformatted) {
+   function getFolderList($imapConnection, &$boxesFormatted, &$boxesUnformatted, &$boxesRaw) {
       fputs($imapConnection, "1 list \"\" *\n");
-      $str = imapReadData($imapConnection);
+      $str = imapReadData($imapConnection, "1", true, $response, $message);
 
+      $dm = findMailboxDelimeter($imapConnection);
       for ($i = 0;$i < count($str); $i++) {
          $mailbox = chop($str[$i]);
+         $boxesRaw[$i] = $mailbox;
+
          $mailbox = findMailboxName($mailbox);
-         $periodCount = countCharInString($mailbox, ".");
+         $periodCount = countCharInString($mailbox, $dm);
 
          // indent the correct number of spaces.
          for ($j = 0;$j < $periodCount;$j++)
             $boxesFormatted[$i] = "$boxesFormatted[$i]&nbsp;&nbsp;";
 
-         $boxesFormatted[$i] = $boxesFormatted[$i] . readShortMailboxName($mailbox, ".");
+         $boxesFormatted[$i] = $boxesFormatted[$i] . readShortMailboxName($mailbox, $dm);
          $boxesUnformatted[$i] = $mailbox;
       }
    }

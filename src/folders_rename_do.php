@@ -6,8 +6,25 @@
    include("../functions/mailbox.php");
 
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
+   $dm = findMailboxDelimeter($imapConnection);
+
+   if (strpos($orig, $dm))
+      $old_dir = substr($orig, 0, strrpos($orig, $dm));
+   else
+      $old_dir = "";
+
+   if ($old_dir != "")
+      $newone = "$old_dir$dm$new_name";
+   else
+      $newone = "$new_name";
+
+   fputs ($imapConnection, ". RENAME \"$orig\" \"$newone\"\n");
+   $data = imapReadData($imapConnection, ".", true, $a, $b);
+
+/*   fputs ($imapConnection, ". RENAME \"$old_name\" \"$mailbox\"\n";
+
    selectMailbox($imapConnection, $orig, $numMessages);
-   getFolderList($imapConnection, $boxesFormatted, $boxesUnformatted);
+   getFolderList($imapConnection, $boxesFormatted, $boxesUnformatted, $boxesRaw);
 
    $mailbox = "$subfolder.$new_name";
    $old_name = substr($orig, strrpos($orig, ".")+1, strlen($orig));
@@ -39,7 +56,7 @@
          }
       }
    }
-
+*/
    /** Log out this session **/
    fputs($imapConnection, "1 logout");
 

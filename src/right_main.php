@@ -46,7 +46,6 @@
    //
    /////////////////////////////////////////////////////////////////////////////////
 
-
    // open a connection on the imap port (143)
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
 

@@ -10,14 +10,12 @@
    function selectMailbox($imapConnection, $mailbox, &$numberOfMessages) {
       // select mailbox
       fputs($imapConnection, "mailboxSelect SELECT \"$mailbox\"\n");
-      $read = fgets($imapConnection, 1024);
-      $unseen = false;
-      while ((substr($read, 0, 16) != "mailboxSelect OK") && (substr($read, 0, 17) != "mailboxSelect BAD")) {
-         if (substr(Chop($read), -6) == "EXISTS") {
-            $array = explode(" ", $read);
+      $data = imapReadData($imapConnection, "mailboxSelect");
+      for ($i = 0; $i < count($data); $i++) {
+         if (substr(Chop($data[$i]), -6) == "EXISTS") {
+            $array = explode(" ", $data[$i]);
             $numberOfMessages = $array[1];
          }
-         $read = fgets($imapConnection, 1024);
       }
    }
 
@@ -226,9 +224,10 @@
       fputs($imapConnection, "1 EXPUNGE\n");
    }
 
-   function getFolderNameMinusINBOX($mailbox) {
-      if (substr($mailbox, 0, 6) == "INBOX.")
-         $box = substr($mailbox, 6, strlen($mailbox));
+   function getFolderNameMinusINBOX($mailbox, $del) {
+      $inbox = "INBOX" . $del;
+      if (substr($mailbox, 0, strlen($inbox)) == $inbox)
+         $box = substr($mailbox, strlen($inbox), strlen($mailbox));
       else
          $box = $mailbox;
 

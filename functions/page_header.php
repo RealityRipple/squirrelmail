@@ -14,7 +14,7 @@
       echo "      <TD ALIGN=left WIDTH=30%>";
       echo "         <FONT FACE=\"Arial,Helvetica\"><A HREF=\"signout.php\" TARGET=_top><B>Sign Out</B></A></FONT>";
       echo "      </TD><TD ALIGN=right WIDTH=70%>";
-      echo "         <FONT FACE=\"Arial,Helvetica\"><div align=right>Current Folder: <B>$shortBoxName</div></B></FONT>";
+      echo "         <FONT FACE=\"Arial,Helvetica\"><div align=right>Current Folder: <B>$shortBoxName&nbsp;</div></B></FONT>";
       echo "      </TD>";
       echo "   </TR></TABLE>\n";
       echo "<TABLE BGCOLOR=\"$color[4]\" BORDER=0 COLS=2 WIDTH=100% CELLSPACING=0 CELLPADDING=2><TR>";
