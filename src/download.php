@@ -15,48 +15,9 @@
 require_once('../src/validate.php');
 require_once('../functions/imap.php');
 require_once('../functions/mime.php');
-require_once('../functions/date.php');
 
 header('Pragma: ');
 header('Cache-Control: cache');
-
-
-function viewText($color, $body, $id, $entid, $mailbox, $type1, $wrap_at, $imapConnection) {
-    global $where, $what, $charset;
-    global $startMessage;
-
-    displayPageHeader($color, 'None');
-    echo "<BR><TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">".
-         "<B><CENTER>".
-         _("Viewing a text attachment") . " - ";
-    if ($where && $what) {
-        // from a search
-        echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$id&where=".urlencode($where)."&what=".urlencode($what)."\">". _("View message") . "</a>";
-    } else {
-        echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$id&startMessage=$startMessage&show_more=0\">". _("View message") . "</a>";
-    }
-
-    $urlmailbox = urlencode($mailbox);
-    echo "</b></td><tr><tr><td><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$entid&mailbox=$urlmailbox\">".
-         _("Download this as a file").
-         "</A></CENTER><BR>".
-         "</CENTER></B>".
-         "</TD></TR></TABLE>".
-         "<TABLE WIDTH=\"98%\" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">".
-         "<TR><TD BGCOLOR=\"$color[4]\"><TT>";
-
-    if ($type1 == 'html') {
-        $msg  = sqimap_get_message($imapConnection, $id, $mailbox);    
-	$msg = $msg->getEntity($entid);
-        $body = MagicHTML( $body, $id, $msg );
-    } else {
-        translateText($body, $wrap_at, $charset);
-    }
-
-    flush();
-    echo $body .
-         "</TT></TD></TR></TABLE>";
-}
 
 function get_extract_to_target_list($imapConnection) {
     $boxes = sqimap_mailbox_list($imapConnection);
@@ -75,10 +36,11 @@ $mailbox = decodeHeader($mailbox);
 
 global $messages, $uid_support;
 
-
-
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response =  sqimap_mailbox_select($imapConnection, $mailbox);
+if (!isset($passed_ent_id)) {
+   $passed_ent_id = '';
+}
 
 $message = &$messages[$mbx_response['UIDVALIDITY']]["$passed_id"];
 $message = &$message->getEntity($passed_ent_id);
@@ -88,9 +50,6 @@ $charset = $header->charset;
 $type0 = $header->type0;
 $type1 = $header->type1;
 $encoding = strtolower($header->encoding);
-
-
-
 
 /*
 $extracted = false;
@@ -112,9 +71,6 @@ if (isset($extract_message) && $extract_message) {
   }
 }   
 
-if (isset($showHeaders)) {
-  $top_header = sqimap_get_message_header ($imapConnection, $passed_id, $mailbox);
-}
 
 */
 /*
@@ -176,64 +132,11 @@ if (strlen($filename) < 1) {
  *    content-type as application/octet-stream
  */
 if (isset($absolute_dl) && $absolute_dl == 'true') {
-    switch($type0) {
-    case 'text':
-        DumpHeaders($type0, $type1, $filename, 1);
-        $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
-        $body = decodeBody($body, $encoding);
-        if ($type1 == 'plain' && isset($showHeaders)) {
-            echo _("Subject") . ": " . decodeHeader($top_header->subject) . "\n".
-                 "   " . _("From") . ": " . decodeHeader($top_header->from) . "\n".
-                 "     " . _("To") . ": " . decodeHeader(getLineOfAddrs($top_header->to)) . "\n".
-                 "   " . _("Date") . ": " . getLongDateString($top_header->date) . "\n\n";
-        } elseif ($type1 == 'html' && isset($showHeaders)) {
-            echo '<table><tr><th align=right>' . _("Subject").
-                 ':</th><td>' . decodeHeader($top_header->subject).
-                 "</td></tr>\n<tr><th align=right>" . _("From").
-                 ':</th><td>' . decodeHeader($top_header->from).
-                 "</td></tr>\n<tr><th align=right>" . _("To").
-                 ':</th><td>' . decodeHeader(getLineOfAddrs($top_header->to)).
-                 "</td></tr>\n<tr><th align=right>" . _("Date").
-                 ':</th><td>' . getLongDateString($top_header->date).
-                 "</td></tr>\n</table>\n<hr>\n";
-        } 
-        echo $body;
-        break;
-    default:
-        DumpHeaders($type0, $type1, $filename, 1);
-//	if ($message->decoded_body == '') {
-//            $message->setBody(mime_print_body_lines ($imapConnection, $passed_id, $passed_ent_id, $encoding));
-//	}
-//	echo $message->decoded_body;
-
-        mime_print_body_lines ($imapConnection, $passed_id, $passed_ent_id, $encoding);
-        break;
-    }
+    DumpHeaders($type0, $type1, $filename, 1);
 } else {
-    switch ($type0) {
-    case 'text':
-        if ($type1 == 'plain' || $type1 == 'html') {
-            $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
-            $body = decodeBody($body, $encoding);
-            viewText($color, $body, $passed_id, $passed_ent_id, $mailbox, $type1, $wrap_at, $imapConnection);
-        } else {
-            DumpHeaders($type0, $type1, $filename, 0);
-            $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
-            $body = decodeBody($body, $encoding);
-            echo $body;
-        }
-        break;
-    default:
-        DumpHeaders($type0, $type1, $filename, 0);
-//	if ($message->decoded_body == '') {
-//            $message->setBody(mime_print_body_lines ($imapConnection, $passed_id, $passed_ent_id, $encoding));
-//
-//	} 
-//	echo $message->decoded_body;
-        mime_print_body_lines ($imapConnection, $passed_id, $passed_ent_id, $encoding);
-        break;
-    }
+    DumpHeaders($type0, $type1, $filename, 0);
 }
+mime_print_body_lines ($imapConnection, $passed_id, $passed_ent_id, $encoding);
 
 $message = &$message->getEntity('');
 $messages[$mbx_response['UIDVALIDITY']]["$passed_id"] = &$message;
@@ -245,7 +148,6 @@ $messages[$mbx_response['UIDVALIDITY']]["$passed_id"] = &$message;
 function DumpHeaders($type0, $type1, $filename, $force) {
     global $HTTP_USER_AGENT;
     $isIE = 0;
-
 
     if (strstr($HTTP_USER_AGENT, 'compatible; MSIE ') !== false &&
         strstr($HTTP_USER_AGENT, 'Opera') === false) {
