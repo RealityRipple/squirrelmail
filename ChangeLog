@@ -31,6 +31,7 @@ Version 1.4.0 RC 2
   - Obsolete sqm_topdir(), which caused login trouble with installs that
     have open_basedir restrictions. Thanks Jimmy Connor.
   - Fix broken abook_take plugin.
+  - Fix HTML errors that caused display problems in NS4.
 	
 Version 1.4.0 RC 1
 ------------------

@@ -79,7 +79,7 @@ function sqspell_makePage($title, $scriptsrc, $body){
           ) . "\n"
     . html_tag( 'tr',
           html_tag( 'td', 'SquirrelSpell ' . $SQSPELL_VERSION, 'center', $color[9] )
-      ) . "\n";
+      ) . "\n</table>\n";
 }
 
 /**

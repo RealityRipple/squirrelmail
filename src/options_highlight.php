@@ -108,15 +108,15 @@ html_tag( 'table', "\n" .
     html_tag( 'tr', "\n" .
         html_tag( 'td', '<center><b>' . _("Options") . ' - ' . _("Message Highlighting") . '</b></center>', 'left')
     ),
-    'center', $color[9], 'width="95% border="0" cellpadding="1" cellspacing="0"' ) . "<br>\n" .
-html_tag( 'table', '', '', '', 'width="100% border="0" cellpadding="1" cellspacing="0"' ) . 
+    'center', $color[9], 'width="95%" border="0" cellpadding="1" cellspacing="0"' ) . "<br>\n" .
+html_tag( 'table', '', '', '', 'width="100%" border="0" cellpadding="1" cellspacing="0"' ) . 
      html_tag( 'tr' ) . "\n" .
          html_tag( 'td', '', 'left' );
 
 echo '<center>[<a href="options_highlight.php?action=add">' . _("New") . '</a>]'.
         ' - [<a href="options.php">'._("Done").'</a>]</center><br>'."\n";
 if (count($message_highlight_list) >= 1) {
-    echo html_tag( 'table', '', 'center', '', 'width="80% border="0" cellpadding="3" cellspacing="0"' ) . "\n";
+    echo html_tag( 'table', '', 'center', '', 'width="80%" border="0" cellpadding="3" cellspacing="0"' ) . "\n";
     for ($i=0; $i < count($message_highlight_list); $i++) {
         $match_type = '';
         switch ($message_highlight_list[$i]['match_type'] ) {
@@ -436,4 +436,4 @@ if ($action == 'edit' || $action == 'add') {
 }
 do_hook('options_highlight_bottom');
 ?>
-</body></html>
+</table></body></html>
