@@ -48,10 +48,10 @@
    // Has a problem with special HTML characters, so call this before
    // you do character translation.
    // Specifically, &#039 comes up as 5 characters instead of 1.
+   // This should not add newlines to the end of lines.
    function sqWordWrap(&$line, $wrap) {
       preg_match("/^([\s>]*)([^\s>].*)?$/", $line, $regs);
       $beginning_spaces = $regs[1];
-      $regs[2] .= "\n"; 
       $words = explode(" ", $regs[2]);
 
       $i = 0;
@@ -81,6 +81,39 @@
          }
       }
    }
+   
+   
+   // Does the opposite of sqWordWrap()
+   function sqUnWordWrap(&$body)
+   {
+       $lines = explode("\n", $body);
+       $body = "";
+       $PreviousSpaces = "";
+       for ($i = 0; $i < count($lines); $i ++)
+       {
+           preg_match("/^([\s>]*)([^\s>].*)?$/", $lines[$i], $regs);
+           $CurrentSpaces = $regs[1];
+           $CurrentRest = $regs[2];
+           if ($i == 0)
+           {
+               $PreviousSpaces = $CurrentSpaces;
+               $body = $lines[$i];
+           }
+           else if ($PreviousSpaces == $CurrentSpaces &&  // Do the beginnings match
+               strlen($lines[$i - 1]) > 65 &&             // Over 65 characters long
+               strlen($CurrentRest))                      // and there's a line to continue with
+           {
+               $body .= ' ' . $CurrentRest;
+           }
+           else
+           {
+               $body .= "\n" . $lines[$i];
+               $PreviousSpaces = $CurrentSpaces;
+           }
+       }
+       $body .= "\n";
+   }
+   
 
    /** Returns an array of email addresses **/
    function parseAddrs($text) {
