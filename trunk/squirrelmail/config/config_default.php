@@ -127,12 +127,14 @@
 //         - This is the path to where Sent messages will be stored.
 
     global $default_move_to_trash, $default_move_to_sent, $trash_folder,
-        $auto_expunge, $sent_folder;
+        $auto_expunge, $sent_folder, $draft_folder, $default_save_as_draft;
     $default_move_to_trash = true;
     $default_move_to_sent  = true;
+    $default_save_as_draft = true;
     $trash_folder = "INBOX.Trash";
     $auto_expunge = true;
     $sent_folder = "INBOX.Sent";
+    $draft_folder = "INBOX.Drafts";
 
 //  Special Folders are folders that can't be manipulated like normal
 //  user created folders can. A couple of examples would be
