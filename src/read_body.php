@@ -13,6 +13,7 @@
    displayPageHeader($mailbox);
    $body = fetchBody($imapConnection, $passed_id);
    getMessageHeaders($imapConnection, $passed_id, $passed_id, $f, $s, $d);
+   getMessageHeadersTo($imapConnection, $passed_id, $passed_id, $t);
 
    $subject = $s[0];
    $url_subj = urlencode(trim($subject));
@@ -24,6 +25,39 @@
 
    $url_from = trim(decodeEmailAddr($f[0]));
    $url_from = urlencode($url_from);
+
+   $to_left = trim($t[0]);
+   for ($i = 0; $to_left;$i++) {
+      if (strpos($to_left, ",")) {
+         $to_ary[$i] = trim(substr($to_left, 0, strpos($to_left, ",")));
+         $to_left = substr($to_left, strpos($to_left, ",")+1, strlen($to_left));
+      }
+      else {
+         $to_ary[$i] = trim($to_left);
+         $to_left = "";
+      }
+   }
+
+   $i = 0;
+   $to_string = "";
+   while ($i < count($to_ary)) {
+      if ($to_string)
+         $to_string = "$to_string<BR>$to_ary[$i]";
+      else
+         $to_string = "$to_ary[$i]";
+
+      $i++;
+      if (count($to_ary) > 1) {
+         if ($show_more == false) {
+            if ($i == 1) {
+               $to_string = "$to_string&nbsp;&nbsp;&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more=1\">more</A>)";
+               $i = count($to_ary);
+            }
+         } else if ($i == 1) {
+            $to_string = "$to_string&nbsp;&nbsp;&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more=0\">less</A>)";
+         }
+      }
+   }
 
    echo "<BR>";
    echo "<TABLE COLS=1 WIDTH=95% BORDER=0 ALIGN=CENTER CELLPADDING=2>\n";
@@ -68,6 +102,14 @@
    echo "            <FONT FACE=\"Arial,Helvetica\">Date:</FONT>\n";
    echo "         </TD><TD BGCOLOR=FFFFFF WIDTH=85%>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\"><B>$date</B></FONT>\n";
+   echo "         </TD>\n";
+   echo "      </TR>\n";
+   /** to **/
+   echo "      <TR>\n";
+   echo "         <TD BGCOLOR=FFFFFF WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
+   echo "            <FONT FACE=\"Arial,Helvetica\">To:</FONT>\n";
+   echo "         </TD><TD BGCOLOR=FFFFFF WIDTH=85% VALIGN=TOP>\n";
+   echo "            <FONT FACE=\"Arial,Helvetica\"><B>$to_string</B></FONT>\n";
    echo "         </TD>\n";
    echo "      </TR>\n";
 

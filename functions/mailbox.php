@@ -316,4 +316,42 @@
 
       return $line;
    }
+
+   function getMessageHeadersTo($imapConnection, $start, $end, &$to) {
+      $rel_start = $start;
+      if (($start > $end) || ($start < 1)) {
+         echo "Error in message header fetching.  Start message: $start, End message: $end<BR>";
+         exit;
+      }
+
+      $pos = 0;
+      while ($rel_start <= $end) {
+         if ($end - $rel_start > 50) {
+            $rel_end = $rel_start + 49;
+         } else {
+            $rel_end = $end;
+         }
+         fputs($imapConnection, "messageFetch FETCH $rel_start:$rel_end RFC822.HEADER.LINES (To)\n");
+         $read = fgets($imapConnection, 1024);
+
+         while ((substr($read, 0, 15) != "messageFetch OK") && (substr($read, 0, 16) != "messageFetch BAD")) {
+            if (substr($read, 0, 3) == "To:") {
+               $read = ereg_replace("<", "&lt;", $read);
+               $read = ereg_replace(">", "&gt;", $read);
+               $to[$pos] = substr($read, 3, strlen($read));
+               if (strlen(Chop($to[$pos])) == 0)
+                  $to[$pos] = "Unknown Recipients";
+            }
+            else if (substr($read, 0, 1) == ")") {
+               if ($subject[$pos] == "")
+                  $subject[$pos] = "Unknown Recipients";
+               $pos++;
+            }
+
+            $read = fgets($imapConnection, 1024);
+         }
+         $rel_start = $rel_start + 50;
+      }
+   }
+
 ?>
