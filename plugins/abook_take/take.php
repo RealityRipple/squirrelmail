@@ -8,7 +8,7 @@
  * Address Take -- steals addresses from incoming email messages. Searches
  * the To, Cc, From and Reply-To headers.
  *
- * $Id$
+ * @version $Id$
  * @package plugins
  * @subpackage abook_take
  */

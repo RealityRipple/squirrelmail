@@ -8,7 +8,7 @@
  *
  * Fetch code.
  *
- * $Id$
+ * @version $Id$
  * @package plugins
  * @subpackage mail_fetch
  */
