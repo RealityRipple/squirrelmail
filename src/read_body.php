@@ -150,9 +150,12 @@ function ServerMDNSupport( $read ) {
     $num = 0;
     $ret = FALSE;
     while ( !$ret && $num < count($read) ) {
+        $ret = preg_match( '/.*PERMANENTFLAGS.*(MDNSent|\\\*).*/i', $read[$num] );
+        /*
         if ( ereg('PERMANENTFLAGS', $read[$num] ) ) {
             $ret = ( ereg('mdnsent',strtolower($read[$num]) ) || ereg("\\\*", $read[$num] ) );
         }
+        */
         $num++;
     }
     return ( $ret );
