@@ -7,7 +7,7 @@
 
    include("../src/load_prefs.php");
 
-   $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
+   $imapConnection = loginToImapServer($username, $key, $imapServerAddress, 0);
    selectMailbox($imapConnection, $old, $numMessages);
 
    $dm = findMailboxDelimeter($imapConnection);

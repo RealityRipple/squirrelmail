@@ -20,7 +20,7 @@
    echo "   </TD></TR>\n";
    echo "</TABLE>\n";
 
-   $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
+   $imapConnection = loginToImapServer($username, $key, $imapServerAddress, 0);
    getFolderList($imapConnection, $boxes);
 
    /** DELETING FOLDERS **/

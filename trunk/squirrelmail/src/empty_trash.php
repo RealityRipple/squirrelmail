@@ -9,7 +9,7 @@
 
    include("../src/load_prefs.php");
 
-   $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
+   $imapConnection = loginToImapServer($username, $key, $imapServerAddress, 0);
 
    getFolderList($imapConnection, $boxes);
 

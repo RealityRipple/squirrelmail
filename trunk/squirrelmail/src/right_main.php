@@ -49,7 +49,7 @@
    /////////////////////////////////////////////////////////////////////////////////
 
    // open a connection on the imap port (143)
-   $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
+   $imapConnection = loginToImapServer($username, $key, $imapServerAddress, 0);
 
    /** If it was a successful login, lets load their preferences **/
    include("../src/load_prefs.php");
