@@ -185,6 +185,22 @@ function load_optpage_data_folder() {
                            SMPREF_TIME_24HR => _("24-hour clock")) 
     );
 
+    $optvals[SMOPT_GRP_FOLDERLIST][] = array(
+        'name'    => 'search_memory',
+        'caption' => _("Memory Search"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_FOLDERLIST,
+        'posvals' => array( 0 => _("Disabled"),
+                            1 => '1',
+                            2 => '2',
+                            3 => '3',
+                            4 => '4',
+                            5 => '5',
+                            6 => '6',
+                            7 => '7',
+                            8 => '8',
+                            9 => '9') 
+
     /* Assemble all this together and return it as our result. */
     $result = array(
         'grps' => $optgrps,
