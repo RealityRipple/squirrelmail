@@ -163,6 +163,10 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id, $encoding) {
        $sid_s = $sid;
     }
 
+    $body = mime_fetch_body ($imap_stream, $id, $ent_id);
+    echo decodeBody($body, $encoding);
+    return;
+/*
     fputs ($imap_stream, "$sid FETCH $id BODY[$ent_id]\r\n");
     $cnt = 0;
     $continue = true;
@@ -172,22 +176,23 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id, $encoding) {
     // This could be bad -- if the section has sqimap_session_id() . ' OK'
     // or similar, it will kill the download.
     while (!ereg("^".$sid_s." (OK|BAD|NO)(.*)$", $read, $regs)) {
-      if (trim($read) == ')==') {
-          $read1 = $read;
-          $read = fgets ($imap_stream,4096);
-          if (ereg("^".$sid." (OK|BAD|NO)(.*)$", $read, $regs)) {
-              return;
-          } else {
-              echo decodeBody($read1, $encoding) .
-                   decodeBody($read, $encoding);
-          }
-      } else if ($cnt) {
-          echo decodeBody($read, $encoding);
-      }
-      $read = fgets ($imap_stream,4096);
-      $cnt++;
+        if (trim($read) == ')==') {
+            $read1 = $read;
+            $read = fgets ($imap_stream,4096);
+            if (ereg("^".$sid." (OK|BAD|NO)(.*)$", $read, $regs)) {
+                return;
+            } else {
+                echo decodeBody($read1, $encoding) .
+                     decodeBody($read, $encoding);
+            }
+        } else if ($cnt) {
+            echo decodeBody($read, $encoding);
+        }
+        $read = fgets ($imap_stream,4096);
+        $cnt++;
 //      break;
     }
+*/
 }
 
 /* -[ END MIME DECODING ]----------------------------------------------------------- */
