@@ -132,7 +132,7 @@
 
        for($i = 0 ; $i < sizeof($rows) ; $i++) {
 	 if(is_array($rows[$i]))
-	   fwrite($newfh, join('|', $rows[$i]) . '\n');
+	   fwrite($newfh, join('|', $rows[$i]) . "\n");
        }       
 
        fclose($newfh);
@@ -237,9 +237,9 @@
                $userdata['lastname'] . '|' . $userdata['email'] . '|' .
                $userdata['label'];
        // Strip linefeeds
-       $data = ereg_replace('[\r\n]', ' ', $data);
+       $data = ereg_replace("[\r\n]", ' ', $data);
        // Add linefeed at end
-       $data = $data . '\n';
+       $data = $data . "\n";
 
        // Reopen file, just to be sure
        $this->open(true);
