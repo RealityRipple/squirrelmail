@@ -39,8 +39,8 @@
    } else if ($action == 'save') {
       if (!$theid) $theid = 0;
       $identname = ereg_replace(',', ' ', $identname);
-      $identname = str_replace("\\\\", "\\", $identname);
-      $identname = str_replace("\\\"", '"', $identname);
+      $identname = str_replace('\\\\', '\\', $identname);
+      $identname = str_replace('\\"', '"', $identname);
       $identname = str_replace('"', '&quot;', $identname);
       if ($color_type == 1) $newcolor = $newcolor_choose;
       else $newcolor = $newcolor_input;
@@ -49,8 +49,8 @@
       $newcolor = ereg_replace('#', '', $newcolor);
       $newcolor = "$newcolor";
       $value = ereg_replace(',', ' ', $value);
-      $value = str_replace("\\\\", "\\", $value);
-      $value = str_replace("\\\"", '"', $value);
+      $value = str_replace('\\\\', '\\', $value);
+      $value = str_replace('\\"', '"', $value);
       $value = str_replace('"', '&quot;', $value);
 
       setPref($data_dir, $username, "highlight$theid", $identname.','.$newcolor.','.$value.','.$match_type);
@@ -142,8 +142,8 @@
           $disp = $message_highlight_list[$theid]['name'];
       else
           $disp = '';
-      $disp = str_replace("\\\\", "\\", $disp);
-      $disp = str_replace("\\\"", '"', $disp);
+      $disp = str_replace('\\\\', '\\', $disp);
+      $disp = str_replace('\\"', '"', $disp);
       $disp = str_replace('"', '&quot;', $disp);
       echo "         <input type=\"text\" value=\"".$disp."\" name=\"identname\">";
       echo "      </td>\n";
@@ -197,8 +197,8 @@
           $disp = $message_highlight_list[$theid]['value'];
       else
           $disp = '';
-      $disp = str_replace("\\\\", "\\", $disp);
-      $disp = str_replace("\\\"", '"', $disp);
+      $disp = str_replace('\\\\', '\\', $disp);
+      $disp = str_replace('\\"', '"', $disp);
       $disp = str_replace('"', '&quot;', $disp);
       echo '         <nobr><input type="text" value="'.$disp.'" name="value">';
       echo "        <nobr></td>\n";
