@@ -339,12 +339,33 @@ class Deliver {
 	}
 	$cnt = count($header);
 	$hdr_s = '';
+
 	for ($i = 0 ; $i < $cnt ; $i++) {
-    	    $hdr_s .= $this->foldLine($header[$i], 78, str_pad('',4));
+            $sKey = substr($header[$i],0,strpos($header[$i],':'));
+            switch ($sKey)
+            {
+            case 'Message-ID':
+            case 'In-Reply_To':
+                $hdr_s .= $header[$i];
+                break;
+            case 'References':
+                $sRefs = substr($header[$i],12);
+                $aRefs = explode(' ',$sRefs);
+                $sLine = 'References:';
+                foreach ($aRefs as $sReference) {
+                    if (strlen($sLine)+strlen($sReference) >76) {
+                        $hdr_s .= $sLine;
+                        $sLine = $rn . '    ' . $sReference;
+                    } else {
+                        $sLine .= ' '. $sReference;
+                    }
+                }
+                $hdr_s .= $sLine;
+                break;
+            default: $hdr_s .= $this->foldLine($header[$i], 78, str_pad('',4)); break;
+            }
 	}
 
-//	$debug = "Debug: <123456789012345678901234567890123456789012345678901234567890123456789>\r\n";
-//	$this->foldLine($debug, 78, str_pad('',4));
 	$header = $hdr_s;
 	$header .= $rn; /* One blank line to separate header and body */
 	$raw_length += strlen($header);
