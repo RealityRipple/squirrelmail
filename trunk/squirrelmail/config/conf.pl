@@ -2121,7 +2121,6 @@ sub save_data {
         $org_logo_height |= 0;
         print CF "\$org_logo_width  = $org_logo_width;\n";
         print CF "\$org_logo_height = $org_logo_height;\n";
-        print CF "\$org_logo      = '$org_logo';\n";
         print CF "\$org_title     = \"$org_title\";\n";
         print CF "\$signout_page  = '$signout_page';\n";
         print CF "\$frame_top     = '$frame_top';\n";
