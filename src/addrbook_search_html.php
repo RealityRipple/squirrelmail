@@ -1,14 +1,14 @@
 <?php
 
    /**
-    **  addrbook_search.php
+    **  addrbook_search_html.php
     **
     **  Copyright (c) 1999-2000 The SquirrelMail development team
     **  Licensed under the GNU GPL. For full terms see the file COPYING.
     **
-    **  Handle addressbook searching with pure html. 
-    ** 
-    **  This file is included from compose.php 
+    **  Handle addressbook searching with pure html.
+    **
+    **  This file is included from compose.php
     **
     **  NOTE: A lot of this code is similar to the code in
     **        addrbook_search.html -- If you change one, change
@@ -28,7 +28,7 @@
    function addr_insert_hidden() {
       global $body, $subject, $send_to, $send_to_cc, $send_to_bcc, $mailbox,
          $identity;
-      
+
       echo '<input type=hidden value="';
       if (substr($body, 0, 1) == "\r")
           echo "\n";
@@ -71,7 +71,7 @@
          printf("<TH ALIGN=left WIDTH=\"10%%\">&nbsp;%s", _("Source"));
 
       print "</TR>\n";
-      
+
       foreach ($res as $row) {
          echo '<tr';
 	 if ($line % 2) echo ' bgcolor="' . $color[0] . '"';
@@ -92,7 +92,7 @@
       }
       printf('<TR><TD ALIGN=center COLSPAN=%d><INPUT TYPE=submit '.
              'NAME="addr_search_done" VALUE="%s"></TD></TR>',
-             4 + ($includesource ? 1 : 0), 
+             4 + ($includesource ? 1 : 0),
              _("Use Addresses"));
       print '</TABLE>';
       print '<INPUT TYPE=hidden VALUE=1 NAME="html_addr_search_done">';
@@ -103,7 +103,7 @@
 
    global $mailbox;
    displayPageHeader($color, $mailbox);
-   
+
    // Initialize addressbook
    $abook = addressbook_init();
 
@@ -132,15 +132,15 @@
    // List all backends to allow the user to choose where to search
    if(!isset($backend)) $backend = "";
    if($abook->numbackends > 1) {
-      printf("<STRONG>%s</STRONG>&nbsp;<SELECT NAME=backend>\n", 
+      printf("<STRONG>%s</STRONG>&nbsp;<SELECT NAME=backend>\n",
              _("in"));
-      printf("<OPTION VALUE=-1 %s>%s\n", 
+      printf("<OPTION VALUE=-1 %s>%s\n",
              ($backend == -1) ? "SELECTED" : "",
              _("All address books"));
       $ret = $abook->get_backend_list();
-      while(list($undef,$v) = each($ret)) 
-         printf("<OPTION VALUE=%d %s>%s\n", 
-                $v->bnum, 
+      while(list($undef,$v) = each($ret))
+         printf("<OPTION VALUE=%d %s>%s\n",
+                $v->bnum,
                 ($backend == $v->bnum) ? "SELECTED" : "",
                 $v->sname);
       print "</SELECT>\n";
@@ -206,13 +206,13 @@
       }
    }
 
-   if ($addrquery == '' || sizeof($res) == 0) {  
+   if ($addrquery == '' || sizeof($res) == 0) {
       printf('<center><FORM METHOD=post NAME=k ACTION="compose.php">'."\n", $PHP_SELF);
       addr_insert_hidden();
       printf("<INPUT TYPE=submit VALUE=\"%s\" NAME=return>\n", _("Return"));
       print '</form>';
       print '</center></nobr>';
-   }   
+   }
 
 ?>
 </body></html>
