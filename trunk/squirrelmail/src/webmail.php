@@ -21,6 +21,9 @@
    require_once('../functions/i18n.php');
    require_once('../functions/auth.php');
 
+   ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);
+   $base_uri = $regs[1];
+
    session_start();
    is_logged_in();
    checkForPrefs($data_dir, $username);
@@ -32,7 +35,7 @@
    // such discrepancy.
    $my_language=getPref($data_dir, $username, "language");
    if ($my_language != $squirrelmail_language)
-     setcookie('squirrelmail_language', $my_language, time()+2592000);
+     setcookie('squirrelmail_language', $my_language, time()+2592000, $base_uri);
 
    set_up_language(getPref($data_dir, $username, 'language'));
 

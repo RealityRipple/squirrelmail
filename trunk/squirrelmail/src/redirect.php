@@ -49,7 +49,7 @@
 
    // Refresh the language cookie.
    if (isset($squirrelmail_language)) {
-      setcookie('squirrelmail_language', $squirrelmail_language, time()+2592000);
+      setcookie('squirrelmail_language', $squirrelmail_language, time()+2592000,$base_uri);
    }
 
 
