@@ -387,13 +387,13 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0' ) {
 		    $collapse_link = $link;
 		} else $collapse_link='';
 		echo '   <div class="mbx_par" id='.$j. 'P onmouseover="changerowcolor(this,true)" onmouseout="changerowcolor(this,false)">' . $collapse_link . $folder_img .$pre.  $font. '&nbsp '. $boxes->mailboxname_sub .$fontend . $end. '</div>'."\n";
-		echo '   <INPUT TYPE="hidden" name=mbx['.$j. 'F] value="'.$collapse.'">'."\n";
+		echo '   <INPUT TYPE="hidden" name=mbx['.$j. 'F] value="'.$collapse.'" id=mbx['.$j.'F>'."\n";
 	    }
 	}
 	if ($collapse) {
 	    $visible = ' STYLE="display:none;"';
 	} else {
-	    $visible = ' STYLE="display:inline;"';
+	    $visible = ' STYLE="display:block;"';
 	}
 
 	if (isset($boxes->mbxs[0]) && !$boxes->is_root) /* mailbox contains childs */
@@ -554,6 +554,8 @@ $xtra .= <<<ECHO
       } else if (document.getElementById) {
 	masterf = window.parent.document.getElementById("fs1");
 	leftf = window.parent.document.getElementById("left");
+	leftcontent = document.getElementById("leftframe");
+	leftbutton = document.getElementById("showf");
       } else {
         return false;
       }	
@@ -630,8 +632,7 @@ $xtra .= <<<ECHO
 ECHO;
 
 /* style definitions */
-/* if you use konquerer and have problems with the width of mbx_par delete the line height = 100% */
-/* if you do that then ie6 have problems :-(  solution is browserdetection  */
+
 $xtra .= <<<ECHO
 
 <STYLE>
@@ -678,7 +679,6 @@ $xtra .= <<<ECHO
      border-bottom-width:0.1em;
      border-bottom-color:blue;
      display:block;
-     height: 100%; 
   }
 
   .mailboxes {
