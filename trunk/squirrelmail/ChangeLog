@@ -59,7 +59,8 @@ Version 1.5.1 -- CVS
   - Added Basque translation support.
   - Remove flag buttons / links from display if mailbox doesn't allow it.
   - Make used of cached ordered uid list in case of server_side_sorting.
-
+  - Rewrite of internal mailbox sorting routines.
+  - Added sort by message size.
 
 Version 1.5.0
 --------------------
