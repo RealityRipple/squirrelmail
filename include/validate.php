@@ -26,10 +26,19 @@
  * ** Note this means that for the 1.3.2 release, we should probably
  * recommend that people set session.auto_start=0 to avoid this altogether.
  */
+
 session_write_close();
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'class/mime.class.php');
+require_once(SM_PATH . 'config/config.php');
+
+/* set the name of the session cookie */
+if(isset($session_name) && $session_name) {
+    ini_set('session.name' , $session_name);
+} else {
+    ini_set('session.name' , 'SQMSESSID');
+}
 
 session_start();
 
@@ -80,7 +89,6 @@ global $theme;
 unset($theme);
 $theme=array();
 
-require_once(SM_PATH . 'config/config.php');
 require_once(SM_PATH . 'include/load_prefs.php');
 require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/prefs.php');

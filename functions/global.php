@@ -13,6 +13,15 @@
  * $Id$
  */
 
+require_once(SM_PATH . 'config/config.php');
+
+/* set the name of the session cookie */
+if(isset($session_name) && $session_name) {  
+    ini_set('session.name' , $session_name);  
+} else {  
+    ini_set('session.name' , 'SQMSESSID');  
+}
+
 /* If magic_quotes_runtime is on, SquirrelMail breaks in new and creative ways.
  * Force magic_quotes_runtime off.
  * chilts@birdbrained.org - I put it here in the hopes that all SM code includes this.
