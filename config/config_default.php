@@ -773,8 +773,8 @@ $motd = "";
  * the plugin directory name relative to the /plugins/ directory.
  * For instance, for the 'sqclock' plugin, you'd put a line like
  * the following.
- *    $plugins[0] = 'sqclock';
- *    $plugins[1] = 'attachment_common';
+ *    $plugins[] = 'sqclock';
+ *    $plugins[] = 'attachment_common';
  */
 // Add list of enabled plugins here
 

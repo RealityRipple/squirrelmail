@@ -191,6 +191,7 @@ Version 1.5.1 -- CVS
   - Security: Fix possible XSS issues in src/webmail.php. [CAN-2005-0104]
   - Fix undefined variables in src/webmail.php.
   - 24hr clock format should include a leading 0.
+  - Removed numeric keys for plugin array in config.php
 
 Version 1.5.0
 --------------------
