@@ -83,12 +83,12 @@
         setPref($data_dir, $username, 'language', $language);
         setPref($data_dir, $username, 'use_javascript_addr_book', $javascript_abook);
         setPref($data_dir, $username, 'javascript_setting', $new_javascript_setting);
-        setPref($data_dir, $username, 'show_num', $shownum);
-        setPref($data_dir, $username, 'wrap_at', $wrapat);
-        setPref($data_dir, $username, 'editor_size', $editorsize);
+        setPref($data_dir, $username, 'show_num', $new_show_num);
+        setPref($data_dir, $username, 'wrap_at', $new_wrap_at);
+        setPref($data_dir, $username, 'editor_size', $new_editor_size);
         setPref($data_dir, $username, 'left_refresh', $leftrefresh);
-        setPref($data_dir, $username, 'location_of_bar', $folder_new_location);
-        setPref($data_dir, $username, 'location_of_buttons', $button_new_location);
+        setPref($data_dir, $username, 'location_of_buttons', $new_location_of_buttons);
+        setPref($data_dir, $username, 'location_of_bar', $new_location_of_bar);
         setPref($data_dir, $username, 'left_size', $leftsize);
 
         if (isset($altIndexColors) && $altIndexColors == 1) {
@@ -117,7 +117,7 @@
             setPref($data_dir, $username, 'page_selector', 1);
         }
 
-        $js_autodetect_results = (isset($js_autodetect_results) ? $js_autodetect_results : SMPREF_JS_OFF);
+        $js_autodetect_results = (isset($new_js_autodetect_results) ? $new_js_autodetect_results : SMPREF_JS_OFF);
         if ($new_javascript_setting == SMPREF_JS_AUTODETECT) {
             if ($js_autodetect_results == SMPREF_JS_ON) {
                 setPref($data_dir, $username, 'javascript_on', SMPREF_JS_ON);
