@@ -770,7 +770,6 @@ class message {
              isset($this->entity_id) ) {
 	     if (count($this->entities) == 0) {
 	        if (strtolower($this->header->disposition->name) != 'attachment') {
-		   echo $this->header->disposition->name;
         	   $entity[] = $this->entity_id;
 		}
 	     }
