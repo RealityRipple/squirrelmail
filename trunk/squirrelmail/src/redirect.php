@@ -98,6 +98,7 @@
     session_register ('just_logged_in');
 
     /* Complete autodetection of Javascript. */
+    checkForPrefs($data_dir, $username);
     $javascript_setting = getPref($data_dir, $username, 'javascript_setting', SMPREF_JS_AUTODETECT);
     $js_autodetect_results = (isset($js_autodetect_results) ? $js_autodetect_results : SMPREF_JS_OFF);
     if ($javascript_setting == SMPREF_JS_AUTODETECT) {
