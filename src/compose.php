@@ -405,7 +405,22 @@ function newMail () {
             $body = strip_tags($body);
         }
 
-        //sqUnWordWrap($body);
+        sqUnWordWrap($body);
+        
+        /* this corrects some wrapping/quoting problems on replies */
+        if ($reply_id) {
+            $rewrap_body = explode("\n", $body);
+            for ($i=0;$i<count($rewrap_body);$i++) {
+                sqWordWrap($rewrap_body[$i], ($editor_size - 2));
+                if (preg_match("/^(>+)/", $rewrap_body[$i], $matches)) {
+                    $gt = $matches[1];
+                    $rewrap_body[$i] = str_replace("\n", "\n$gt ", $rewrap_body[$i]);
+                }
+                $rewrap_body[$i] .= "\n";
+            }
+            $body = implode("", $rewrap_body);
+        }
+
         $body_ary = explode("\n", $body);
         $i = count($body_ary) - 1;
         while ($i >= 0 && ereg("^[>\\s]*$", $body_ary[$i])) {
@@ -415,14 +430,14 @@ function newMail () {
         $body = '';
         for ($i=0; isset($body_ary[$i]); $i++) {
             if ($reply_id) {
-                if (ereg('^[ >]+', $body_ary[$i])) {
+                if (preg_match("/^(>){1,}/", $body_ary[$i])) {
                     $body_ary[$i] = '>' . $body_ary[$i];
                 } else {
                     $body_ary[$i] = '> ' . $body_ary[$i];
                 }
             }
-            if (!$draft_id) {
-                sqWordWrap($body_ary[$i], $editor_size - 1);
+            if ($draft_id) {
+                sqWordWrap($body_ary[$i], $editor_size );
             }
             $body .= $body_ary[$i] . "\n";
             unset($body_ary[$i]);
