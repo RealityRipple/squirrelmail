@@ -541,7 +541,9 @@ class message {
         $is_mdnsent = 0,
         $body_part = '',
         $offset = 0,  /* for fetching body parts out of raw messages */
-        $length = 0;  /* for fetching body parts out of raw messages */
+        $length = 0,  /* for fetching body parts out of raw messages */
+	$att_local_name = ''; /* location where the tempory attachment
+	                         is stored. For future usage in smtp.php */
 
     function setEnt($ent) {
         $this->entity_id= $ent;
