@@ -155,6 +155,7 @@ Version 1.5.1 -- CVS
   - LDAP backend will use internal squirrelmail charset conversion functions
     instead of php xml extension. Fixes bug #655137.
   - Added Wood theme and Silver Steel theme by Pavel Spatny and Simple Green theme
+  - Fix two time zone calculation bugs, thanks to David White
 
 Version 1.5.0
 --------------------

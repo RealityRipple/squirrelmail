@@ -349,8 +349,16 @@ function getDateString( $stamp ) {
     if ($invert_time) {
         $dateZ = - $dateZ;
     }
+
+    // calculate when it was midnight and when it will be,
+    // in order to display dates differently if they're 'today'
     $midnight = $now - ($now % 86400) - $dateZ;
-    $nextmid = $midnight + 86400 - $dateZ;
+    // this is to correct if after calculations midnight is more than
+    // one whole day away.
+    if ($now - $midnight > 86400) {
+        $midnight += 86400;
+    }
+    $nextmid = $midnight + 86400;
 
     if (($show_full_date == 1) || ($nextmid < $stamp)) {
         $date_format = _("M j, Y");
