@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-04-13 21:45+0300\n"
+"POT-Creation-Date: 2004-04-18 20:55+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,6 +124,9 @@ msgid "Edit selected"
 msgstr ""
 
 msgid "Delete selected"
+msgstr ""
+
+msgid "Click here to change the sorting of the address list"
 msgstr ""
 
 msgid "Add to address book"
@@ -1296,14 +1299,13 @@ msgstr ""
 msgid "A"
 msgstr ""
 
-msgid ""
-"Thread sorting is not supported by your IMAP server.<br>Please report this "
-"to the system administrator."
+msgid "Thread sorting is not supported by your IMAP server."
 msgstr ""
 
-msgid ""
-"Server-side sorting is not supported by your IMAP server.<br>Please report "
-"this to the system administrator."
+msgid "Please report this to the system administrator."
+msgstr ""
+
+msgid "Server-side sorting is not supported by your IMAP server."
 msgstr ""
 
 msgid "THIS FOLDER IS EMPTY"
@@ -1337,11 +1339,11 @@ msgid "Toggle All"
 msgstr ""
 
 #, c-format
-msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
+msgid "Viewing Messages: %s to %s (%s total)"
 msgstr ""
 
 #, c-format
-msgid "Viewing Message: <B>%s</B> (1 total)"
+msgid "Viewing Message: %s (1 total)"
 msgstr ""
 
 msgid "Paginate"
