@@ -45,12 +45,14 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
            $default_use_priority,
            $message_highlight_list,
            $index_order,
-           $indent_array,   /* indent subject by */
-           $pos,            /* Search postion (if any)  */
+           $indent_array,         /* indent subject by */
+           $pos,                  /* Search postion (if any)  */
            $thread_sort_messages, /* thread sorting on/off */
-           $server_sort_order, /* sort value when using server-sorting */
+           $server_sort_order,    /* sort value when using server-sorting */
            $row_count,
-           $allow_server_sort; /* enable/disable server-side sorting */
+           $allow_server_sort,    /* enable/disable server-side sorting */
+           $truncate_sender;      /* number of characters for From/To field (<= 0 for unchanged) */
+
     $color_string = $color[4];
 
     if ($GLOBALS['alt_index_colors']) {
@@ -99,6 +101,11 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
         }
     }
     $senderName = str_replace('&nbsp;',' ',$senderName);
+
+    if ( $truncate_sender > 0 && strlen($senderName) > $truncate_sender ) {
+       $senderName = substr_replace($senderName, '... ', $truncate_sender);
+    }
+
     echo html_tag( 'tr','','','','VALIGN="top"') . "\n";
 
     if (isset($msg['FLAG_FLAGGED']) && ($msg['FLAG_FLAGGED'] == true)) {
