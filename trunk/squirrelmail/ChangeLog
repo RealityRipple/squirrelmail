@@ -28,8 +28,9 @@ Version 1.2.2 -- ??
   - Moved compilepo and mergepo files from locale/ into po/
   - Slight i18n fixes and rewrites to accommodate for moved files.
   - Fixes for entities in the subject when replying.
-  - Fixes for entites in the To: header. (Bug #489365)
-  
+  - Fixes for entities in the To: header. (Bug #489365)
+  - Fix for incorrect javascript prefs handling (Bug #497688)
+
 Version 1.2.1 -- 25 December 2001
 ---------------------------------
 
