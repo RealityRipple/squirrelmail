@@ -488,6 +488,30 @@
         $filters['FiveTen Others']['comment'] =
     'FREE - Five-Ten-sg.com - Other misc. servers.';
 
+      $filters['FiveTen Others']['prefname'] = 'filters_spam_fiveten_ss';
+      $filters['FiveTen Others']['name'] = 'Five-Ten-sg.com Single Stage Servers';
+      $filters['FiveTen Others']['link'] = 'http://www.five-ten-sg.com/blackhole.php';
+      $filters['FiveTen Others']['dns'] = 'blackholes.five-ten-sg.com';
+      $filters['FiveTen Others']['result'] = '127.0.0.6';
+      $filters['FiveTen Others']['comment'] =
+'FREE - Five-Ten-sg.com - Single Stage servers.';
+      
+      $filters['FiveTen Others']['prefname'] = 'filters_spam_fiveten_supp';
+      $filters['FiveTen Others']['name'] = 'Five-Ten-sg.com SPAM Support Servers';
+      $filters['FiveTen Others']['link'] = 'http://www.five-ten-sg.com/blackhole.php';
+      $filters['FiveTen Others']['dns'] = 'blackholes.five-ten-sg.com';
+      $filters['FiveTen Others']['result'] = '127.0.0.7';
+      $filters['FiveTen Others']['comment'] =
+'FREE - Five-Ten-sg.com - SPAM Support servers.';
+      
+      $filters['FiveTen Others']['prefname'] = 'filters_spam_fiveten_wf';
+      $filters['FiveTen Others']['name'] = 'Five-Ten-sg.com Web Form IPs';
+      $filters['FiveTen Others']['link'] = 'http://www.five-ten-sg.com/blackhole.php';
+      $filters['FiveTen Others']['dns'] = 'blackholes.five-ten-sg.com';
+      $filters['FiveTen Others']['result'] = '127.0.0.8';
+      $filters['FiveTen Others']['comment'] =
+'FREE - Five-Ten-sg.com - Web Form IPs.';
+      
         $filters['Dorkslayers']['prefname'] = 'filters_spam_dorks';
         $filters['Dorkslayers']['name'] = 'Dorkslayers Lists';
         $filters['Dorkslayers']['link'] = 'http://www.dorkslayers.com';
