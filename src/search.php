@@ -206,6 +206,7 @@ $saved_what_array = get_saved("saved_what", $username, $data_dir);
 $saved_where_array = get_saved("saved_where", $username, $data_dir);
 $saved_folder_array = get_saved("saved_folder", $username, $data_dir);
 $saved_count = count($saved_what_array);
+$count_all = 0;
 
 /* Saved Search Table */
 if ($saved_count > 0) {
@@ -349,12 +350,14 @@ if ($search_all == "all") {
         if (!in_array('noselect', $boxes[$x]['flags'])) {
 	    $mailbox = $boxes[$x]['unformatted'];
 	}
-	echo "<BR><CENTER><B>Folder: $mailbox</CENTER></B>";
         if (($submit == "Search" || $submit == "Search_no_update") && !empty($what)) {
             sqimap_mailbox_select($imapConnection, $mailbox);
-            sqimap_search($imapConnection, $where, $what, $mailbox, $color, $pos);
+           $count_all = sqimap_search($imapConnection, $where, $what, $mailbox, $color, $pos, $search_all, $count_all);
        }
     }
+	if ($count_all == 0) {
+	echo "<br><b>No Messages found</b><br>";
+	}
 }
 
 //	search one folder option
@@ -363,7 +366,7 @@ else {
     if (($submit == "Search" || $submit == "Search_no_update") && !empty($what)) {
         echo "<BR><CENTER><B>Search Results</B></CENTER>\n";
         sqimap_mailbox_select($imapConnection, $mailbox);
-        sqimap_search($imapConnection, $where, $what, $mailbox, $color, $pos);
+        sqimap_search($imapConnection, $where, $what, $mailbox, $color, $pos, $search_all, $count_all);
     }
 }
 
