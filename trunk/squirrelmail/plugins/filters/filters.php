@@ -1,7 +1,6 @@
 <?php
-
 /**
- * Message and Spam Filter Plugin
+ * Message and Spam Filter Plugin - Filtering Functions
  *
  * Copyright (c) 1999-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
@@ -28,7 +27,8 @@
  */
 
 /**
- *
+ * FIXME: Undocumented function
+ * @access private
  */
 function filters_SaveCache () {
     global $data_dir, $SpamFilters_DNScache;
@@ -57,6 +57,10 @@ function filters_SaveCache () {
     fclose($fp);
 }
 
+/**
+ * FIXME: Undocumented function
+ * @access private
+ */
 function filters_LoadCache () {
     global $data_dir, $SpamFilters_DNScache;
 
@@ -76,6 +80,10 @@ function filters_LoadCache () {
     }
 }
 
+/**
+ * FIXME: Undocumented function
+ * @access private
+ */
 function filters_bulkquery($filters, $IPs) {
     global $SpamFilters_YourHop, $attachment_dir, $username,
            $SpamFilters_DNScache, $SpamFilters_BulkQuery,
@@ -113,6 +121,10 @@ function filters_bulkquery($filters, $IPs) {
     }
 }
 
+/**
+ * FIXME: Undocumented function
+ * @access private
+ */
 function start_filters() {
     global $mailbox, $imapServerAddress, $imapPort, $imap,
            $imap_general, $filters, $imap_stream, $imapConnection,
@@ -153,6 +165,10 @@ function start_filters() {
 #    }
 }
 
+/**
+ * FIXME: Undocumented function
+ * @access private
+ */
 function user_filters($imap_stream) {
     global $data_dir, $username;
     $filters = load_filters();
@@ -189,6 +205,10 @@ function user_filters($imap_stream) {
     }
 }
 
+/**
+ * FIXME: Undocumented function
+ * @access private
+ */
 function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_scan, 
                                   $should_expunge) {
     global $languages, $squirrelmail_language, $allow_charset_search, $imap_server_type;
@@ -249,7 +269,10 @@ function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_
     return $should_expunge;
 }
 
-// These are the spam filters
+/**
+ * FIXME: Undocumented function
+ * @access private
+ */
 function spam_filters($imap_stream) {
     global $data_dir, $username;
     global $SpamFilters_YourHop;
@@ -372,8 +395,12 @@ function spam_filters($imap_stream) {
     }
 }
 
-// Does the loop through each enabled filter for the specified IP address.
-// IP format:  $a.$b.$c.$d
+/**
+ * FIXME: Undocumented function
+ * Does the loop through each enabled filter for the specified IP address.
+ * IP format:  $a.$b.$c.$d
+ * @access private
+ */
 function filters_spam_check_site($a, $b, $c, $d, &$filters) {
     global $SpamFilters_DNScache, $SpamFilters_CacheTTL;
     foreach ($filters as $key => $value) {
@@ -404,6 +431,10 @@ function filters_spam_check_site($a, $b, $c, $d, &$filters) {
     return 0;
 }
 
+/**
+ * FIXME: Undocumented function
+ * @access private
+ */
 function load_filters() {
     global $data_dir, $username;
 
@@ -417,6 +448,10 @@ function load_filters() {
     return $filters;
 }
 
+/**
+ * FIXME: Undocumented function
+ * @access private
+ */
 function load_spam_filters() {
     global $data_dir, $username, $SpamFilters_ShowCommercial;
 
@@ -694,6 +729,10 @@ function load_spam_filters() {
     return $filters;
 }
 
+/**
+ * FIXME: Undocumented function
+ * @access private
+ */
 function remove_filter ($id) {
     global $data_dir, $username;
 
@@ -706,6 +745,10 @@ function remove_filter ($id) {
     removePref($data_dir, $username, 'filter' . $id);
 }
 
+/**
+ * FIXME: Undocumented function
+ * @access private
+ */
 function filter_swap($id1, $id2) {
     global $data_dir, $username;
 
@@ -718,8 +761,10 @@ function filter_swap($id1, $id2) {
     }
 }
 
-/* This update the filter rules when
-   renaming or deleting folders */
+/**
+ * This update the filter rules when renaming or deleting folders
+ * @param array $args
+ */
 function update_for_folder ($args) {
     $old_folder = $args[0];
         $new_folder = $args[2];
@@ -746,9 +791,11 @@ function update_for_folder ($args) {
         }
     }
 }
-/*
+
+/**
  * Function extracted from sqimap_get_small_header_list.
  * The unused FETCH arguments and HEADERS are disabled.
+ * @access private
  */
 function filter_get_headers ($imap_stream, $query) {
     /* Get the small headers for each message in $msg_list */
@@ -866,4 +913,16 @@ function filter_get_headers ($imap_stream, $query) {
     return $msgs;
 }
 
+/**
+ * Display formated error message
+ * @param string $string text message
+ * @return string html formated text message
+ * @access private
+ */
+function do_error($string) {
+    global $color;
+    echo "<p align=\"center\"><font color=\"$color[2]\">";
+    echo $string;
+    echo "</font></p>\n";
+}
 ?>
