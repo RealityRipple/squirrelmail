@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-02-08 07:02-0500\n"
+"POT-Creation-Date: 2000-02-09 07:13-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -114,7 +114,28 @@ msgid ""
 msgstr ""
 
 #: squirrelmail/src/folders_create.php:35
-#: squirrelmail/src/folders_delete.php:77
+msgid "Folder Created!"
+msgstr ""
+
+#: squirrelmail/src/folders_create.php:36
+#: squirrelmail/src/folders_delete.php:80
+msgid "You will be automatically forwarded."
+msgstr ""
+
+#: squirrelmail/src/folders_create.php:36
+#: squirrelmail/src/folders_delete.php:80
+msgid "If not,"
+msgstr ""
+
+#: squirrelmail/src/folders_create.php:36
+#: squirrelmail/src/folders_delete.php:80
+msgid "click here"
+msgstr ""
+
+#: squirrelmail/src/folders_delete.php:79
+msgid "Folder Deleted!"
+msgstr ""
+
 #: squirrelmail/src/folders_rename_do.php:67
 msgid "Return"
 msgstr ""
@@ -128,7 +149,7 @@ msgid "New name:"
 msgstr ""
 
 #: squirrelmail/src/folders_rename_getname.php:34
-#: squirrelmail/src/options.php:259
+#: squirrelmail/src/options.php:258
 msgid "Submit"
 msgstr ""
 
@@ -196,11 +217,11 @@ msgstr ""
 msgid "         Size of editor window (in characters):"
 msgstr ""
 
-#: squirrelmail/src/options.php:147
+#: squirrelmail/src/options.php:146
 msgid "         Time between auto refresh of folder list:"
 msgstr ""
 
-#: squirrelmail/src/options.php:245
+#: squirrelmail/src/options.php:244
 msgid "Use a signature?"
 msgstr ""
 

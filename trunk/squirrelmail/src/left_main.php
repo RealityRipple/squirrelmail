@@ -20,11 +20,11 @@
    include("../functions/imap.php");
    include("../functions/mailbox.php");
 
-   function formatMailboxName($imapConnection, $mailbox, $delimeter, $color, $move_to_trash) {
+   function formatMailboxName($imapConnection, $mailbox, $real_box, $delimeter, $color, $move_to_trash) {
       require ("../config/config.php");
 
       $mailboxURL = urlencode($mailbox);
-      selectMailbox($imapConnection, $mailbox, $numNessages);
+      selectMailbox($imapConnection, $real_box, $numNessages);
       $unseen = unseenMessages($imapConnection, $numUnseen);
 
       echo "<NOBR>";
@@ -87,15 +87,9 @@
    echo "<FONT FACE=\"Arial,Helvetica\">\n";
    $delimeter = findMailboxDelimeter($imapConnection);
    for ($i = 0;$i < count($boxes); $i++) {
-      $mailbox = $boxes[$i]["UNFORMATTED"];
-      $boxFlags = getMailboxFlags($boxes[$i]["RAW"]);
-
-      $boxCount = countCharInString($mailbox, $delimeter);
-
       $line = "";
-      // indent the correct number of spaces.
-      for ($j = 0;$j < $boxCount;$j++)
-         $line .= "&nbsp;&nbsp;";
+      $mailbox = $boxes[$i]["FORMATTED"];
+      $boxFlags = getMailboxFlags($imapConnection, $boxes[$i]["RAW"]);
 
       if (trim($boxFlags[0]) != "") {
          $noselect = false;
@@ -103,16 +97,15 @@
             if (strtolower($boxFlags[$h]) == "noselect")
                $noselect = true;
          }
-
          if ($noselect == true) {
             $line .= "<FONT COLOR=\"$color[10]\" FACE=\"Arial,Helvetica\">";
             $line .= readShortMailboxName($mailbox, $delimeter);
             $line .= "</FONT><FONT FACE=\"Arial,Helvetica\">";
          } else {
-            $line .= formatMailboxName($imapConnection, $mailbox, $delimeter, $color, $move_to_trash);
+            $line .= formatMailboxName($imapConnection, $mailbox, $boxes[$i]["UNFORMATTED"], $delimeter, $color, $move_to_trash);
          }
       } else {
-         $line .= formatMailboxName($imapConnection, $mailbox, $delimeter, $color, $move_to_trash);
+         $line .= formatMailboxName($imapConnection, $mailbox, $boxes[$i]["UNFORMATTED"], $delimeter, $color, $move_to_trash);
       }
       echo "$line<BR>";
    }
