@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
 "POT-Creation-Date: 2002-01-24 15:07+0100\n"
-"PO-Revision-Date: 2002-01-28 17:06+0700\n"
+"PO-Revision-Date: 2002-01-28 21:45+0700\n"
 "Last-Translator: Arief S Fitrianto <arief@fisika.ui.ac.id>\n"
 "Language-Team: Indonesia <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -3592,7 +3592,7 @@ msgstr "Tentukan Acara"
 
 #: squirrelmail/plugins/calendar/event_create.php:106
 msgid "Event Has been added!"
-msgstr "Event telah ditambahkan!"
+msgstr "Acara telah ditambahkan!"
 
 #: squirrelmail/plugins/calendar/event_create.php:109
 #: squirrelmail/plugins/calendar/event_delete.php:34
@@ -3610,11 +3610,11 @@ msgstr "Lihat Hari"
 
 #: squirrelmail/plugins/calendar/event_delete.php:31
 msgid "Do you really want to delete this event?"
-msgstr "Apakah Anda sungguh-sungguh ingin menghapus event ini?"
+msgstr "Apakah Anda sungguh-sungguh ingin menghapus acara ini?"
 
 #: squirrelmail/plugins/calendar/event_delete.php:89
 msgid "Event deleted!"
-msgstr "Event telah dihapus!"
+msgstr "Acara telah dihapus!"
 
 #: squirrelmail/plugins/calendar/event_delete.php:97
 msgid "Nothing to delete!"
