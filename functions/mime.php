@@ -361,8 +361,8 @@
       // that it is the first one.  That is usually the case anyway.
       if (!$ent_id) $ent_id = 1;
 
-      fputs ($imap_stream, "a001 FETCH $id BODY[$ent_id]\r\n");
-      $data = sqimap_read_data ($imap_stream, 'a001', true, $response, $message);
+      fputs ($imap_stream, "a010 FETCH $id BODY[$ent_id]\r\n");
+      $data = sqimap_read_data ($imap_stream, 'a010', true, $response, $message);
       $topline = array_shift($data);
       while (! ereg('\* [0-9]+ FETCH ', $topline) && data)
           $topline = array_shift($data);
