@@ -412,7 +412,7 @@
    // input.
    // See graf@relhum.org for support.
    //
-   if ($CHARSET && $CHARSET != $SOURCE_CHARSET) SqConvertRussianCharsets();
+   if (isset($CHARSET) && $CHARSET != $SOURCE_CHARSET) SqConvertRussianCharsets();
    
    if (!isset($mailbox) || $mailbox == "" || ($mailbox == "None"))
       $mailbox = "INBOX";
