@@ -9,6 +9,25 @@
      *
      * $Id$
      */
+
+/**********************************************/
+/* Define constants used in the options code. */
+/**********************************************/
+
+/* Define constants for the various option types. */
+define('SMOPT_TYPE_STRING', 0);
+define('SMOPT_TYPE_STRLIST', 1);
+define('SMOPT_TYPE_TEXTAREA', 2);
+define('SMOPT_TYPE_INTEGER', 3);
+define('SMOPT_TYPE_FLOAT', 4);
+define('SMOPT_TYPE_BOOLEAN', 5);
+define('SMOPT_TYPE_HIDDEN', 6);
+
+/* Define constants for the options refresh levels. */
+define('SMOPT_REFRESH_NONE', 0);
+define('SMOPT_REFRESH_FOLDERLIST', 1);
+define('SMOPT_REFRESH_ALL', 2);
+
 /**
  * SquirrelOption: An option for Squirrelmail.
  *
@@ -24,13 +43,13 @@ class SquirrelOption {
     /* The basic stuff. */
     var $name;
     var $caption;
-    var $refresh_level;
     var $type;
+    var $refresh_level;
 
     /* The various 'values' for this options. */
     var $value;
     var $new_value;
-    var $possible_vals;
+    var $possible_values;
 
     /* This variable needs to be made private so it can not be messed with. */
     /* I just don't remember how to do it right now and think it would be   */
@@ -38,29 +57,148 @@ class SquirrelOption {
     var $changed;
 
     function SquirrelOption
-    ($name, $caption, $value, $refresh_level = SMOPT_REFRESH_NONE,
-     $type = SMOPT_TYPE_STRING, $possible_values = '') {
+    ($name, $caption, $type, $refresh_level, $possible_values = '') {
         /* Set the basic stuff. */
         $this->name = $name;
         $this->caption = $caption;
-        $this->value = $value;
-
-        /* Set the optional parameters. */
-        $this->refresh_level = $refresh_level;
         $this->type = $type;
-        $this->value = $value;
-        $this->possible_values = $possible_value;
+        $this->refresh_level = $refresh_level;
+        $this->possible_values = $possible_values;
 
-        /* Lastly, check for a new value. */
+        /* Check for a current value. */
+        if (isset($GLOBALS[$name])) {
+            $this->value = $GLOBALS[$name];
+        } else {
+            $this->value = '';
+        }
+
+        /* Check for a new value. */
         if (isset($GLOBALS["new_$name"])) {
             $this->new_value = $GLOBALS["new_$name"];
             $this->changed = ($this->value !== $this->new_value);
+        } else {
+            $this->new_value = '';
+            $this->changed = false;
         }
+    }
+
+    function createHTMLWidget() {
+        switch ($this->type) {
+            case SMOPT_TYPE_STRING:
+                $result = $this->createWidget_String();
+                break;
+            case SMOPT_TYPE_STRLIST:
+                $result = $this->createWidget_StrList();
+                break;
+            case SMOPT_TYPE_TEXTAREA:
+                $result = $this->createWidget_TextArea();
+                break;
+            case SMOPT_TYPE_INTEGER:
+                $result = $this->createWidget_Integer();
+                break;
+            case SMOPT_TYPE_FLOAT:
+                $result = $this->createWidget_Float();
+                break;
+            case SMOPT_TYPE_BOOLEAN:
+                $result = $this->createWidget_Boolean();
+                break;
+            case SMOPT_TYPE_HIDDEN:
+                $result = $this->createWidget_Hidden();
+                break;
+            default:
+               $result = '<FONT COLOR=RED>'
+                       . sprintf(_("Option Type '%s' Not Found"), $this->type)
+                       . '</FONT>';
+        }
+
+        /* Now, return the created widget. */
+        return ($result);
+    }
+
+    function createWidget_String() {
+        $result = "<INPUT NAME=\"new_$this->name\" value=\"$this->value\" size=\"5\">";
+        return ($result);
+    }
+
+    function createWidget_StrList() {
+        /* Begin the select tag. */
+        $result = "<SELECT NAME=\"new_$this->name\">";
+
+        /* Add each possible value to the select list. */
+        foreach ($this->possible_values as $real_value => $disp_value) {
+            /* Start the next new option string. */
+            $new_option = "<OPTION VALUE=\"$real_value\"";
+
+            /* If this value is the current value, select it. */
+            if ($real_value == $this->value) {
+               $new_option .= ' SELECTED';
+            }
+
+            /* Add the display value to our option string. */
+            $new_option .= ">$disp_value</OPTION>";
+
+            /* And add the new option string to our select tag. */
+            $result .= $new_option;
+        }
+
+        /* Close the select tag and return our happy result. */
+        $result .= '</SELECT>';
+        return ($result);
+    }
+
+    function createWidget_TextArea() {
+    }
+
+    function createWidget_Integer() {
+        return ($this->createWidget_String());
+    }
+
+    function createWidget_Float() {
+        return ($this->createWidget_String());
+    }
+
+    function createWidget_Boolean() {
+    }
+
+    function createWidget_Hidden() {
+        $result = '<INPUT TYPE="HIDDEN" NAME="new_' . $this->name
+                . '" VALUE="' . $this->value . '">';
+        return ($result);
     }
 
     function hasChanged() {
         return ($this->changed);
     }
+}
+
+function createOptionArray($optvals) {
+    /* Build a simple array with which to start. */
+    $result = array();
+
+     /* Create a new SquirrelOption for each set of option values. */
+    foreach ($optvals as $optset) {
+        if (isset($optset['posvals'])) {
+            /* Create a new option with all values given. */
+            $result[] = new SquirrelOption(
+                $optset['name'],
+                $optset['caption'],
+                $optset['type'],
+                $optset['refresh'],
+                $optset['posvals']
+            );
+        } else {
+            /* Create a new option with all but possible values given. */
+            $result[] = new SquirrelOption(
+                $optset['name'],
+                $optset['caption'],
+                $optset['type'],
+                $optset['refresh']
+            );
+        }
+    }
+
+    /* Return our resulting array. */
+    return ($result);
 }
 
 function OptionSelect( $title, $name, $data, $default, $show = '', $store = '' ) {

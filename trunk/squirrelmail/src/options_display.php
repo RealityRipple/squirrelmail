@@ -39,26 +39,97 @@
                  array( '1' => _("JavaScript"),
                         '0' => _("HTML") ),
                  $use_javascript_addr_book );
-    OptionSelect( _("Use Javascript"), 'new_javascript_setting',
-                 array(SMPREF_JS_AUTODETECT => _("Autodetect"),
-                       SMPREF_JS_ON         => _("Always"),
-                       SMPREF_JS_OFF        => _("Never") ),
-                 $javascript_setting );
-    OptionHidden('js_autodetect_results', SMPREF_JS_OFF);
-    OptionText( _("Number of Messages to Index"), 'shownum', $show_num, 5 );
-    OptionText( _("Wrap incoming text at"), 'wrapat', $wrap_at, 5 );
-    OptionText( _("Size of editor window"), 'editorsize', $editor_size, 5 );
+
+    /*** BEGIN OPTIONS CLASS EXPERMINENTATION ***/
+
+    /* Build a simple array with which to start. */
+    $optvals = array();
+ 
+
+    /* Set values for the "use javascript" option. */
+    $optvals[] = array(
+        'name'    => 'javascript_setting',
+        'caption' =>_("Use Javascript"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_ALL,
+        'posvals' => array(SMPREF_JS_AUTODETECT => _("Autodetect"),
+                           SMPREF_JS_ON         => _("Always"),
+                           SMPREF_JS_OFF        => _("Never"))
+    );
+
+    $js_autodetect_results = SMPREF_JS_OFF;
+    $optvals[] = array(
+        'name'    => 'js_autodetect_results',
+        'caption' => '',
+        'type'    => SMOPT_TYPE_HIDDEN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[] = array(
+        'name'    => 'show_num',
+        'caption' => _("Number of Messages to Index"),
+        'type'    => SMOPT_TYPE_INTEGER,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[] = array(
+        'name'    => 'wrap_at',
+        'caption' => _("Wrap Incoming Text At"),
+        'type'    => SMOPT_TYPE_INTEGER,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[] = array(
+        'name'    => 'editor_size',
+        'caption' => _("Size of Editor Window"),
+        'type'    => SMOPT_TYPE_INTEGER,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
     OptionSelect( _("Location of buttons when composing"),
                   'button_new_location',
                   array( 'top' => _("Before headers"),
                          'between' => _("Between headers and message body"),
                          'bottom' => _("After message body") ),
                   $location_of_buttons );
-    OptionSelect( _("Location of folder list"),
-                  'folder_new_location',
-                  array( '' => _("Left"),
-                         'right' => _("Right") ),
-                  $location_of_bar );
+
+    $optvals[] = array(
+        'name'    => 'location_of_buttons',
+        'caption' =>_("Location of Buttons when Composing"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => array(SMPREF_LOC_TOP      => _("Before headers"),
+                           SMPREF_LOC_BETWEEN  => _("Between headers and message body"),
+                           SMPREF_LOC_BOTTOM   => _("After message body"))
+    );
+
+    $optvals[] = array(
+        'name'    => 'location_of_bar',
+        'caption' =>_("Location of Folder List"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_ALL,
+        'posvals' => array(SMPREF_LOC_LEFT   => _("Left"),
+                           SMPREF_LOC_RIGHT  => _("Right"))
+    );
+
+    /* Now, build the complete options array. */
+    $options = createOptionArray($optvals);
+
+    /* Print the row for each option. */
+    foreach ($options as $option) {
+        if ($option->type != SMOPT_TYPE_HIDDEN) {
+            echo "<TR>\n";
+            echo '  <TD ALIGN="RIGHT" VALIGN="MIDDLE" NOWRAP><font color=red><b>'
+               . $option->caption . "</b></font>:</TD>\n";
+            echo '  <TD>' . $option->createHTMLWidget() . "</TD>\n";
+            echo "</TR>\n";
+        } else {
+            echo $option->createHTMLWidget();
+        }
+    }
+
+    /*** END OPTIONS CLASS EXPERMINENTATION ***/
+
    for ($i = 100; $i <= 300; $i += 10) {
         $res[$i] = $i . _("pixels");
    }
@@ -112,7 +183,7 @@
     </table>
 
 <SCRIPT LANGUAGE="JavaScript"><!--
-  document.forms[0].js_autodetect_results.value = '<?php echo SMPREF_JS_ON; ?>';
+  document.forms[0].new_js_autodetect_results.value = '<?php echo SMPREF_JS_ON; ?>';
 // --></SCRIPT>
 
 </td></tr>
