@@ -123,7 +123,7 @@
       
       $header = new small_header;
       if ($sent == true)
-         $header->from = (trim($to) != '')? $to : _('(only Cc/Bcc)');
+         $header->from = (trim($to) != '')? $to : _("(only Cc/Bcc)");
       else   
          $header->from = $from;
 

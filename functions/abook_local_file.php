@@ -31,7 +31,7 @@
 
      // Constructor
      function abook_local_file($param) {
-       $this->sname = _('Personal address book');
+       $this->sname = _("Personal address book");
        $this->umask = Umask();
 
        if(is_array($param)) {
@@ -39,7 +39,7 @@
 	   return $this->set_error('Invalid parameters');
 	 if(!is_string($param['filename']))
 	   return $this->set_error($param['filename'] . ': '.
-				   _('Not a file name'));
+				   _("Not a file name"));
 
 	 $this->filename = $param['filename'];
 
@@ -72,7 +72,7 @@
 
        // Check that new file exitsts
        if((!(file_exists($file) && is_readable($file))) && !$create)
-	 return $this->set_error("$file: " . _('No such file or directory'));
+	 return $this->set_error("$file: " . _("No such file or directory"));
 
        // Close old file, if any
        if($this->filehandle) $this->close();
@@ -92,7 +92,7 @@
 	   $this->filename   = $file;
 	   $this->writeable  = false;
 	 } else {
-	   return $this->set_error("$file: " . _('Open failed'));
+	   return $this->set_error("$file: " . _("Open failed"));
 	 }
        }
 
@@ -128,7 +128,7 @@
      function overwrite($rows) {
        $newfh = @fopen($this->filename, 'w');
        if(!$newfh)
-	 return $this->set_error("$file: " . _('Open failed'));
+	 return $this->set_error("$file: " . _("Open failed"));
 
        for($i = 0 ; $i < sizeof($rows) ; $i++) {
 	 if(is_array($rows[$i]))
@@ -224,12 +224,12 @@
      // Add address
      function add($userdata) {
        if(!$this->writeable) 
-	 return $this->set_error(_('Addressbook is read-only'));
+	 return $this->set_error(_("Addressbook is read-only"));
 
        // See if user exist already
        $ret = $this->lookup($userdata['nickname']);
        if(!empty($ret))
-	 return $this->set_error(sprintf(_('User \'%s\' already exist'), 
+	 return $this->set_error(sprintf(_("User '%s' already exist"),
 					 $ret['nickname']));
 
        // Here is the data to write
@@ -244,11 +244,11 @@
        // Reopen file, just to be sure
        $this->open(true);
        if(!$this->writeable) 
-	 return $this->set_error(_('Addressbook is read-only'));
+	 return $this->set_error(_("Addressbook is read-only"));
 
        // Lock the file
        if(!$this->lock())
-	 return $this->set_error(_('Could not lock datafile'));
+	 return $this->set_error(_("Could not lock datafile"));
 
        // Write
        $r = fwrite($this->filehandle, $data);
@@ -260,19 +260,19 @@
        if($r > 0) return true;
 
        // Fail
-       $this->set_error(_('Write to addressbook failed'));
+       $this->set_error(_("Write to addressbook failed"));
        return false;
      }
 
      // Delete address
      function remove($alias) {
        if(!$this->writeable) 
-	 return $this->set_error(_('Addressbook is read-only'));
+	 return $this->set_error(_("Addressbook is read-only"));
 
        // Lock the file to make sure we're the only process working
        // on it.
        if(!$this->lock())
-	 return $this->set_error(_('Could not lock datafile'));
+	 return $this->set_error(_("Could not lock datafile"));
 
        // Read file into memory, ignoring nicknames to delete
        $this->open();
@@ -297,18 +297,18 @@
      // Modify address
      function modify($alias, $userdata) {
        if(!$this->writeable) 
-	 return $this->set_error(_('Addressbook is read-only'));
+	 return $this->set_error(_("Addressbook is read-only"));
 
        // See if user exist
        $ret = $this->lookup($alias);
        if(empty($ret))
-	 return $this->set_error(sprintf(_('User \'%s\' does not exist'), 
+	 return $this->set_error(sprintf(_("User '%s' does not exist"),
 					 $alias));
 
        // Lock the file to make sure we're the only process working
        // on it.
        if(!$this->lock())
-	 return $this->set_error(_('Could not lock datafile'));
+	 return $this->set_error(_("Could not lock datafile"));
 
        // Read file into memory, modifying the data for the 
        // user identifyed by $alias
