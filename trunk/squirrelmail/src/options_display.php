@@ -168,7 +168,7 @@
       $left_refresh = 'None';
    if ($left_refresh > 600)
       $left_refresh = 600;
-   RefreshOption($left_refresh, '', 'Never', _("Never"));
+   RefreshOption($left_refresh, '', _("Never"));
    RefreshOption($left_refresh, 30);
    RefreshOption($left_refresh, 60);
    RefreshOption($left_refresh, 120);
