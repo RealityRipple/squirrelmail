@@ -153,11 +153,11 @@ echo '<body text="#000000" bgcolor="#FFFFFF" link="#000000" vlink="#000000" alin
 /**
  * Function should clean layout of printed messages when user
  * enables "Printer Friendly Clean Display" option.
+ * For example: $string = pf_clean_string($string, 9);
  *
  * @param string unclean_string
  * @param integer num_leading_spaces
  * @return string
- * @example $string = pf_clean_string($string, 9);
  * @access private 
  */
 function pf_clean_string ( $unclean_string, $num_leading_spaces ) {
