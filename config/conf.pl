@@ -1889,7 +1889,11 @@ sub save_data {
         print CF "\$org_logo      = '$org_logo';\n";
         print CF "\$org_title     = \"$org_title\";\n";
         print CF "\$signout_page  = '$signout_page';\n";
-        print CF "\$frame_top     = '$frame_top';\n";
+        if ($frame_top eq "") {
+            print CF "\$frame_top     = '_top';\n";
+        } else {
+            print CF "\$frame_top     = '$frame_top';\n";
+        }
         print CF "\n";
      
         print CF "global \$motd;\n";
