@@ -4,6 +4,8 @@
 
 Version 1.2.6 -- CVS
 --------------------
+  - Fixes for quoted values in the addressbook by David Rees (bug #538389)
+  - Fixed src/src problem (bug #538803)
   - Fixed so non-ascii searches no longer fail both when searching
     and when applying filters (bug #520918)
   - Added POP3 Before SMTP option (feature request: #498428)
