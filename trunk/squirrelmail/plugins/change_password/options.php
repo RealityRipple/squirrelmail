@@ -14,19 +14,51 @@
 /** @ignore */
 define('SM_PATH','../../');
 
-require_once (SM_PATH . 'include/validate.php');
-require_once (SM_PATH . 'functions/page_header.php');
-require_once (SM_PATH . 'plugins/change_password/functions.php');
-require_once (SM_PATH . 'plugins/change_password/config.php');
-require_once (SM_PATH . 'functions/forms.php');
+include_once (SM_PATH . 'include/validate.php');
+include_once (SM_PATH . 'plugins/change_password/functions.php');
+include_once (SM_PATH . 'functions/forms.php');
 
-// you must load backend configuration here in order to get working change_password_init hook.
+/** load default config */
+if (file_exists(SM_PATH . 'plugins/change_password/config_default.php')) {
+    include_once (SM_PATH . 'plugins/change_password/config_default.php');
+} else {
+    // somebody decided to remove default config
+    $cpw_backend = 'template';
+    $cpw_pass_min_length = 4;
+    $cpw_pass_max_length = 25;
+    $cpw_require_ssl = FALSE;
+}
+
+/**
+ * prevent possible corruption of configuration overrides in 
+ * register_globals=on and preloaded php scripts.
+ */
+$cpw_ldap=array();
+$cpw_merak=array();
+$cpw_mysql=array();
+$cpw_poppassd=array();
+$cpw_vmailmgrd=array();
+
+/** load site config */
+if (file_exists(SM_PATH . 'config/change_password_config.php')) {
+    include_once (SM_PATH . 'config/change_password_config.php');
+} elseif (file_exists(SM_PATH . 'plugins/change_password/config.php')) {
+    include_once (SM_PATH . 'plugins/change_password/config.php');
+}
+
+// must load backend libraries here in order to get working change_password_init hook.
 if (file_exists(SM_PATH . 'plugins/change_password/backend/'.$cpw_backend.'.php')) {
    include_once(SM_PATH . 'plugins/change_password/backend/'.$cpw_backend.'.php');
 }
 
 /* the form was submitted, go for it */
 if(sqgetGlobalVar('cpw_go', $cpw_go, SQ_POST)) {
+
+    // SM14 code: use change_password gettext domain binding for 1.4.x
+    if (! check_sm_version(1,5,0)) {
+        bindtextdomain('change_password',SM_PATH . 'locale');
+        textdomain('change_password');
+    }
 
     /* perform basic checks */
     $Messages = cpw_check_input();
@@ -35,9 +67,21 @@ if(sqgetGlobalVar('cpw_go', $cpw_go, SQ_POST)) {
     if(count($Messages) == 0) {
         $Messages = cpw_do_change();
     }
+
+    // SM14 code: use change_password gettext domain binding for 1.4.x
+    if (! check_sm_version(1,5,0)) {
+        bindtextdomain('squirrelmail',SM_PATH . 'locale');
+        textdomain('squirrelmail');
+    }
 }
 
 displayPageHeader($color, 'None');
+
+// SM14 code: use change_password gettext domain binding for 1.4.x
+if (! check_sm_version(1,5,0)) {
+    bindtextdomain('change_password',SM_PATH . 'locale');
+    textdomain('change_password');
+}
 
 do_hook('change_password_init');
 ?>

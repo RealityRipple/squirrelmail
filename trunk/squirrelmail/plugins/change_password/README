@@ -26,8 +26,10 @@ REQUIREMENTS:
 
 CONFIGURATION
 Edit the file config.php to set the backend you want to use.
-Probably, you need to set some config vars in the backend too
-(backend/<yourbackend>.php).
+
+Backends can use special arrays that override default values set
+in backend/<yourbackend>.php. Check description of backend that
+you use.
 
 BACKENDS
 - ldap
@@ -45,41 +47,73 @@ BACKENDS
   Default settings are supplied in backends/mysql.php.
 
   You do not have to change any configuration vars in 
-  backend/mysql.php - instead, create an array in config.php 
-  containing the variable you want to override, for example:
+  backend/mysql.php - instead, create an $cpw_mysql array in 
+  config.php containing the variable you want to override, 
+  for example:
 
   To override the server name ($mysql_server), you would add
-    $mysql['server'] = 'remote_servername';
+    $cpw_mysql['server'] = 'remote_servername';
   to config.php.
 
+  See more information in "About mysql backend" chapter.
 
 - merak
 
   Default settings are supplied in backends/merak.php.
+
+  Site configuration is controlled in config.php $cpw_merak
+  array. You can use 'url','selfpage' and 'action' array
+  keys to override default values.
+
+  * 'url'
+    override sets address of merak interface. URL is used 
+    by webserver's libraries. If it points at localhost, 
+    plugin tries to connect to administrative interface on
+    same machine that hosts squirrelmail scripts.
+    Defaults to 'http://localhost:32000/'.
+
+  * 'selfpage'
+    override sets page that is used to change password.
+    Defaults to 'self.html'.
+
+  * 'action'
+    override sets action that is used during password change.
+    Defaults to 'self_edit'.
+
+  For example:
+  $cpw_merak['url']='http://example.com:32000';
 
 
 - poppassd
 
   Default settings are supplied in backends/poppassd.php.
 
+  Site configuration is controlled in config.php $cpw_poppassd 
+  array. You can use 'server' array key to override address
+  of poppassd server. Backend uses address of imap server, if
+  variable is set to empty string. It uses address of imap 
+  server by default.
+
+  For example:
+  $cpw_poppassd['server'] = 'remote_servername';
 
 - vmailmgrd
 
   Default settings are supplied in backends/vmailmgrd.php.
   
-  Site configuration is controlled in config.php $vmailmgrd 
+  Site configuration is controlled in config.php $cpw_vmailmgrd 
   array. Backend uses 'vmail_inc_path', 'vm_tcphost', 
-  'vm_tcphost_port' and 'cpw_vmailmgrd_8bitpw' array keys.
+  'vm_tcphost_port' and '8bitpw' array keys.
   
   'vmail_inc_path' sets path to vmail.inc. 'vm_tcphost' sets
   vmailmgrd tcp service ip address or dns name. Plugin uses 
   vmailmgrd socket, if it is not set. 'vm_tcphost_port' sets 
   port of vmailmrgd service. Plugin uses port 322, if it is 
-  not set. 'cpw_vmailmgrd_8bitpw' controls use of 8bit 
-  passwords. If it is not set, interface does not allow new 
-  passwords with 8bit symbols.
+  not set. '8bitpw' controls use of 8bit passwords. If it 
+  is not set, interface does not allow new passwords with 
+  8bit symbols.
 
-  $vmailmgrd['vmail_inc_path'] setting is required.
+  $cpw_vmailmgrd['vmail_inc_path'] setting is required.
 
 
 AUTHORS:
@@ -103,8 +137,8 @@ ABOUT LDAP BACKEND
     overrides port of ldap server. Defaults to 389.
 
   * 'basedn'
-    (required) ldap basedn used for binding to ldap server. Empty 
-    string blocks use of backend. Defaults to empty string.
+    (required) ldap basedn used for binding to ldap server. If set to
+    empty string, blocks use of backend. Defaults to empty string.
 
   * 'connect_opts'
     controls LDAP_OPT_* settings that are set with ldap_set_option() 
@@ -150,7 +184,7 @@ ABOUT LDAP BACKEND
     - smd5 - used name 'smd5'. Implemented in php mhash extension functions. 
       Minimal php version = 4.0.4.
     - sha - used name 'sha'. Implemented in php mhash extension functions 
-      and php 4.3.0+ sha1() function. mhash extension is used only wheh 
+      and php 4.3.0+ sha1() function. mhash extension is used only when 
       sha1() function is unavailable.
     - ssha - used name 'ssha'. Implemented in php mhash extension functions.
       Minimal php version = 4.0.4.
@@ -194,5 +228,42 @@ ABOUT LDAP BACKEND
   $cpw_ldap['base_dn']='ou=users,dc=example,dc=com'; // sets base dn
   $cpw_ldap['connect_opts']['PROTOCOL_VERSION']=3;   // forces v3 bind protocol
 
+-------------------
+ABOUT MYSQL BACKEND
+------------_------
+  List of supported overrides:
+  * 'server'
+    address of MySQL server. Defaults to localhost.
+
+  * 'database'
+    database that stores user information. Defaults to 'email'.
+
+  * 'table'
+    database table that stores user information. Defaults to 'users'.
+
+  * 'userid_field'
+    field that stores user's ID. Defaults to 'id'.
+
+  * 'password_field'
+    field that stores password. Defaults to 'password'.
+
+  * 'manager_id'
+    username that is used to log into MySQL with (must have rights).
+    Defaults to 'email_admin'.
+
+  * 'manager_pw'
+    password that is used to log into MySQL.
+
+  * 'saslcrypt'
+    boolean value that controls use of SASL (MySQL) crypt in passwords.
+    It is not enabled by default.
+
+  * 'unixcrypt'
+    boolean value that controls use of unix crypt() in passwords. 
+    Setting is ignored, if saslcrypt is enabled. It is not enabled 
+    by default. 
+
+If saslcrypt and unixcrypt are not enabled, plugin defaults to plaintext 
+passwords.
 
 $Id$
