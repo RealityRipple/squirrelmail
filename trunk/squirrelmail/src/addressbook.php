@@ -376,7 +376,7 @@ if ($showaddrlist) {
             if ($line % 2) { $tr_bgcolor = $color[0]; }
             if ($squirrelmail_language == 'ja_JP')
                 {
-            echo html_tag( 'tr', '') .
+            echo html_tag( 'tr', '', '', $tr_bgcolor) .
                 html_tag( 'td',
                           '<SMALL>' .
                           '<INPUT TYPE=checkbox ' . $selected . ' NAME="sel[]" VALUE="' .
@@ -386,7 +386,7 @@ if ($showaddrlist) {
                 html_tag( 'td', '&nbsp;' . $row['lastname'] . ' ' . $row['firstname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) .
                 html_tag( 'td', '', 'left', '', 'valign="top" width="1%" nowrap' ) . '&nbsp;';
                 } else {
-            echo html_tag( 'tr', '') .
+            echo html_tag( 'tr', '', '', $tr_bgcolor) .
             html_tag( 'td',
                 '<SMALL>' .
                 '<INPUT TYPE=checkbox ' . $selected . ' NAME="sel[]" VALUE="' .
