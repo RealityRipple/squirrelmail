@@ -564,7 +564,7 @@
       return $err_num;
    }
 
-   function sendMessage($t, $c, $b, $subject, $body, $reply_id, $prio = 3) {
+   function sendMessage($t, $c, $b, $subject, $body, $reply_id) {
       global $useSendmail, $msg_id, $is_reply, $mailbox, $onetimepad;
       global $data_dir, $username, $domain, $key, $version, $sent_folder, $imapServerAddress, $imapPort;
       $more_headers = Array();
@@ -585,7 +585,6 @@
             $more_headers['References']  = $hdr->message_id;
          }
       }
-      $more_headers = array_merge($more_headers, createPriorityHeaders($prio));
 
       // In order to remove the problem of users not able to create
       // messages with "." on a blank line, RFC821 has made provision
@@ -619,24 +618,4 @@
       return $length;
    }
    
-   function createPriorityHeaders($prio) {
-      $prio_headers = Array();
-      $prio_headers["X-Priority"] = $prio;
-
-      switch($prio) {
-        case 1: $prio_headers["Importance"] = "High";
-                $prio_headers["X-MSMail-Priority"] = "High";
-                break;
-
-        case 3: $prio_headers["Importance"] = "Normal";
-                $prio_headers["X-MSMail-Priority"] = "Normal";
-                break;
-
-        case 5:
-               $prio_headers["Importance"] = "Low";
-               $prio_headers["X-MSMail-Priority"] = "Low";
-               break;
-      }
-      return  $prio_headers;
-   }
 ?>
