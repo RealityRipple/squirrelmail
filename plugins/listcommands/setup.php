@@ -66,7 +66,7 @@ function plugin_listcommands_menu() {
 	        $url .= '&amp;passed_id='.$passed_id.
 		        '&amp;mailbox='.urlencode($mailbox).
 		        (isset($passed_ent_id)?'&amp;passed_ent_id='.$passed_ent_id:'');
-                $url .= '&amp;action=reply';
+                $url .= '&amp;smaction=reply';
 
                 $output[] = makeComposeLink($url, $fieldsdescr['reply']);
             }
