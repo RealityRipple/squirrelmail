@@ -64,9 +64,9 @@ $body = mime_fetch_body($imapConnection, $passed_id, $ent_id);
 $body = decodeBody($body, $encoding);
 
 if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-    function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+    function_exists($languages[$squirrelmail_language]['XTRA_CODE'].'_decode')) {
     if (mb_detect_encoding($body) != 'ASCII') {
-        $body = $languages[$squirrelmail_language]['XTRA_CODE']('decode', $body);
+        $body = call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_decode', $body);
     }
 }
 

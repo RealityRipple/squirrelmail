@@ -192,8 +192,8 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
 
     $special_encoding = '';
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
-        $body = $languages[$squirrelmail_language]['XTRA_CODE']('encode', $body);
+        function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_encode')) {
+        $body = call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_encode', $body);
         if (strtolower($default_charset) == 'iso-2022-jp') {
             if (mb_detect_encoding($body) == 'ASCII') {
                 $special_encoding = '8bit';
