@@ -53,7 +53,7 @@ function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$respon
         global $squirrelmail_language, $color;
         set_up_language($squirrelmail_language);
         require_once(SM_PATH . 'functions/display_messages.php');
-        $string = "<b><font color=$color[2]>\n" .
+        $string = "<b><font color=\"$color[2]\">\n" .
                 _("ERROR : No available imapstream.") .
                 "</b></font>\n";
         error_box($string,$color);
@@ -90,7 +90,7 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response,
         global $squirrelmail_language, $color;
         set_up_language($squirrelmail_language);
         require_once(SM_PATH . 'functions/display_messages.php');
-        $string = "<b><font color=$color[2]>\n" .
+        $string = "<b><font color=\"$color[2]\">\n" .
                 _("ERROR : No available imapstream.") .
                 "</b></font>\n";
         error_box($string,$color);
@@ -258,16 +258,16 @@ function sqimap_read_data_list($imap_stream, $tag, $handle_errors,
     global $color, $squirrelmail_language;
     set_up_language($squirrelmail_language);
     require_once(SM_PATH . 'functions/display_messages.php');
-    $string = "<b><font color=$color[2]>\n" .
+    $string = "<b><font color=\"$color[2]\">\n" .
         _("ERROR : Bad function call.") .
-        "</b><br>\n" .
+        "</b><br />\n" .
         _("Reason:") . ' '.
-          'There is a plugin installed which make use of the  <br>' .
-          'SquirrelMail internal function sqimap_read_data_list.<br>'.
-          'Please adapt the installed plugin and let it use<br>'.
-          'sqimap_run_command or sqimap_run_command_list instead<br><br>'.
-          'The following query was issued:<br>'.
-           htmlspecialchars($query) . '<br>' . "</font><br>\n";
+          'There is a plugin installed which make use of the  <br />' .
+          'SquirrelMail internal function sqimap_read_data_list.<br />'.
+          'Please adapt the installed plugin and let it use<br />'.
+          'sqimap_run_command or sqimap_run_command_list instead<br /><br />'.
+          'The following query was issued:<br />'.
+           htmlspecialchars($query) . '<br />' . "</font><br />\n";
     error_box($string,$color);
     echo '</body></html>';
     exit;
@@ -288,17 +288,17 @@ function sqimap_error_box($title, $query = '', $message_title = '', $message = '
 
     set_up_language($squirrelmail_language);
     require_once(SM_PATH . 'functions/display_messages.php');
-    $string = "<font color=$color[2]><b>\n" . $title . "</b><br>\n";
+    $string = "<font color=\"$color[2]\"><b>\n" . $title . "</b><br />\n";
     $cmd = explode(' ',$query);
     $cmd= strtolower($cmd[0]);
 
     if ($query != '' &&  $cmd != 'login')
-        $string .= _("Query:") . ' ' . htmlspecialchars($query) . '<br>';
+        $string .= _("Query:") . ' ' . htmlspecialchars($query) . '<br />';
     if ($message_title != '')
         $string .= $message_title;
     if ($message != '')
         $string .= htmlspecialchars($message);
-    $string .= "</font><br>\n";
+    $string .= "</font><br />\n";
     if ($link != '')
         $string .= $link;
     error_box($string,$color);
@@ -556,9 +556,9 @@ function sqimap_create_stream($server,$port,$tls=false) {
             $server = 'tls://' . $server;
         } else {
             require_once(SM_PATH . 'functions/display_messages.php');
-            $string = "Unable to connect to IMAP server!<br>TLS is enabled, but this " .
+            $string = "Unable to connect to IMAP server!<br />TLS is enabled, but this " .
               "version of PHP does not support TLS sockets, or is missing the openssl " .
-              "extension.<br><br>Please contact your system administrator.";
+              "extension.<br /><br />Please contact your system administrator.";
             logout_error($string,$color);
         }
     }
@@ -570,8 +570,8 @@ function sqimap_create_stream($server,$port,$tls=false) {
         set_up_language($squirrelmail_language, true);
         require_once(SM_PATH . 'functions/display_messages.php');
         $string = sprintf (_("Error connecting to IMAP server: %s.") .
-           "<br>\r\n", $server) .
-           "$error_number : $error_string<br>\r\n";
+           "<br />\r\n", $server) .
+           "$error_number : $error_string<br />\r\n";
         logout_error($string,$color);
         exit;
     }
@@ -694,14 +694,14 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
                 set_up_language($squirrelmail_language, true);
                 require_once(SM_PATH . 'functions/display_messages.php');
                 if ($response == 'BAD') {
-                    $string = sprintf (_("Bad request: %s")."<br>\r\n", $message);
+                    $string = sprintf (_("Bad request: %s")."<br />\r\n", $message);
                 } else {
-                    $string = sprintf (_("Unknown error: %s") . "<br>\n", $message);
+                    $string = sprintf (_("Unknown error: %s") . "<br />\n", $message);
                 }
                 if (isset($read) && is_array($read)) {
-                    $string .= '<br>' . _("Read data:") . "<br>\n";
+                    $string .= '<br />' . _("Read data:") . "<br />\n";
                     foreach ($read as $line) {
-                        $string .= htmlspecialchars($line) . "<br>\n";
+                        $string .= htmlspecialchars($line) . "<br />\n";
                     }
                 }
                 error_box($string,$color);
@@ -945,24 +945,24 @@ function sqimap_append_done ($imap_stream, $folder='') {
         require_once(SM_PATH . 'functions/display_messages.php');
         $reason = $regs[3];
         if ($regs[2] == 'NO') {
-           $string = "<b><font color=$color[2]>\n" .
+           $string = "<b><font color=\"$color[2]\">\n" .
                   _("ERROR : Could not append message to") ." $folder." .
-                  "</b><br>\n" .
+                  "</b><br />\n" .
                   _("Server responded: ") .
-                  $reason . "<br>\n";
+                  $reason . "<br />\n";
            if (preg_match("/(.*)(quota)(.*)$/i", $reason, $regs)) {
               $string .= _("Solution: ") .
             _("Remove unneccessary messages from your folder and start with your Trash folder.")
-              ."<br>\n";
+              ."<br />\n";
            }
            $string .= "</font>\n";
            error_box($string,$color);
         } else {
-           $string = "<b><font color=$color[2]>\n" .
+           $string = "<b><font color=\"$color[2]\">\n" .
                   _("ERROR : Bad or malformed request.") .
-                  "</b><br>\n" .
+                  "</b><br />\n" .
                   _("Server responded: ") .
-                  $tmp . "</font><br>\n";
+                  $tmp . "</font><br />\n";
            error_box($string,$color);
            exit;
         }

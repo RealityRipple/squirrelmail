@@ -46,7 +46,7 @@ function show_message_details() {
                 "  }\n" .
                 "// -->\n" .
                 "</script>\n" .
-                "&nbsp;|&nbsp;<A HREF=\"javascript:MessageSource();\">$print_text</A>\n";
+                "&nbsp;|&nbsp;<a href=\"javascript:MessageSource();\">$print_text</a>\n";
     } 
     echo $result;
 }

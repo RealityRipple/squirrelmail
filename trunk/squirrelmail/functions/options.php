@@ -521,7 +521,7 @@ function print_option_groups($option_groups) {
 
 function OptionSubmit( $name ) {
         echo html_tag( 'tr',
-                   html_tag( 'td', '<input type="submit" value="' . _("Submit") . '" name="' . $name . '">&nbsp;&nbsp;&nbsp;&nbsp;', 'right', '', 'colspan="2"' )
+                   html_tag( 'td', '<input type="submit" value="' . _("Submit") . '" name="' . $name . '" />&nbsp;&nbsp;&nbsp;&nbsp;', 'right', '', 'colspan="2"' )
                 ) . "\n";
 }
 

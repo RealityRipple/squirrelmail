@@ -118,7 +118,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
                 $r = $abook->add_backend('ldap_server', $param);
                 if (!$r && $showerr) {
                     printf( '&nbsp;' . _("Error initializing LDAP server %s:") .
-                            "<BR>\n", $param['host']);
+                            "<br />\n", $param['host']);
                     echo '&nbsp;' . $abook->error;
                     exit;
                 }
@@ -251,7 +251,7 @@ class AddressBook {
                 if (is_array($res)) {
                     $ret = array_merge($ret, $res);
                 } else {
-                    $this->error .= "<br>\n" . $backend->error;
+                    $this->error .= "<br />\n" . $backend->error;
                     $failed++;
                 }
             }
@@ -267,7 +267,7 @@ class AddressBook {
 
             $ret = $this->backends[$bnum]->search($expression);
             if (!is_array($ret)) {
-                $this->error .= "<br>\n" . $this->backends[$bnum]->error;
+                $this->error .= "<br />\n" . $this->backends[$bnum]->error;
                 $ret = FALSE;
             }
         }

@@ -63,7 +63,7 @@ function DarknessTremble() {
 }
 setTimeout('DarknessTremble()', 10000);
 </script>
-<?PHP
+<?php
 }
 
 global $squirrelmail_plugin_hooks;

@@ -86,52 +86,52 @@ if (isset($_POST['send'])) {
 function show_event_form() {
     global $color, $editor_size, $year, $day, $month, $hour;
 
-    echo "\n<FORM name=eventscreate action=\"event_create.php\" METHOD=POST >\n".
-         "      <INPUT TYPE=hidden NAME=\"year\" VALUE=\"$year\">\n".
-         "      <INPUT TYPE=hidden NAME=\"month\" VALUE=\"$month\">\n".
-         "      <INPUT TYPE=hidden NAME=\"day\" VALUE=\"$day\">\n".
+    echo "\n<form name=\"eventscreate\" action=\"event_create.php\" method=\"post\">\n".
+         "      <input type=\"hidden\" name=\"year\" value=\"$year\" />\n".
+         "      <input type=\"hidden\" name=\"month\" value=\"$month\" />\n".
+         "      <input type=\"hidden\" name=\"day\" value=\"$day\" />\n".
          html_tag( 'tr' ) .
          html_tag( 'td', _("Start time:"), 'right', $color[4] ) . "\n" .
          html_tag( 'td', '', 'left', $color[4] ) . "\n" .
-         "      <SELECT NAME=\"event_hour\">\n";
+         "      <select name=\"event_hour\">\n";
     select_option_hour($hour);
-    echo "      </SELECT>\n" .
+    echo "      </select>\n" .
          "      &nbsp;:&nbsp;\n" .
-         "      <SELECT NAME=\"event_minute\">\n";
+         "      <select name=\"event_minute\">\n";
     select_option_minute("00");
-    echo "      </SELECT>\n".
+    echo "      </select>\n".
          "      </td></tr>\n".
          html_tag( 'tr' ) .
          html_tag( 'td', _("Length:"), 'right', $color[4] ) . "\n" .
          html_tag( 'td', '', 'left', $color[4] ) . "\n" .
-         "      <SELECT NAME=\"event_length\">\n";
+         "      <select name=\"event_length\">\n";
     select_option_length("0");
-    echo "      </SELECT>\n".
+    echo "      </select>\n".
          "      </td></tr>\n".
          html_tag( 'tr' ) .
          html_tag( 'td', _("Priority:"), 'right', $color[4] ) . "\n" .
          html_tag( 'td', '', 'left', $color[4] ) . "\n" .
-         "      <SELECT NAME=\"event_priority\">\n";
+         "      <select name=\"event_priority\">\n";
     select_option_priority("0");
-    echo "      </SELECT>\n".
+    echo "      </select>\n".
          "      </td></tr>\n".
          html_tag( 'tr' ) .
          html_tag( 'td', _("Title:"), 'right', $color[4] ) . "\n" .
          html_tag( 'td', '', 'left', $color[4] ) . "\n" .
-         "      <INPUT TYPE=text NAME=\"event_title\" VALUE=\"\" SIZE=30 MAXLENGTH=50><BR>\n".
+         "      <input type=\"text\" name=\"event_title\" value=\"\" size=\"30\" maxlength=\"50\" /><br />\n".
          "      </td></tr>\n".
          html_tag( 'tr',
              html_tag( 'td',
-                 "<TEXTAREA NAME=\"event_text\" ROWS=5 COLS=\"$editor_size\" WRAP=HARD></TEXTAREA>" ,
+                 "<textarea name=\"event_text\" rows=\"5\" cols=\"$editor_size\" wrap=\"hard\"></textarea>" ,
              'left', $color[4], 'colspan="2"' )
          ) ."\n" .
          html_tag( 'tr',
              html_tag( 'td',
-                 "<INPUT TYPE=SUBMIT NAME=send VALUE=\"" .
-                 _("Set Event") . "\">" ,
+                 '<input type="submit" name="send" value="' .
+                 _("Set Event") . '" />' ,
              'left', $color[4], 'colspan="2"' )
          ) ."\n";
-    echo "</FORM>\n";
+    echo "</form>\n";
 }
 
 
@@ -180,7 +180,7 @@ if(!isset($event_text)){
     writecalendardata();
     echo html_tag( 'table',
                 html_tag( 'tr',
-                    html_tag( 'th', _("Event Has been added!") . "<br>\n", '', $color[4], 'colspan="2"' )
+                    html_tag( 'th', _("Event Has been added!") . "<br />\n", '', $color[4], 'colspan="2"' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Date:"), 'right', $color[4] ) . "\n" .

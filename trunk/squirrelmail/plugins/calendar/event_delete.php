@@ -94,7 +94,7 @@ function confirm_deletion()
 
     echo html_tag( 'table',
                html_tag( 'tr',
-                   html_tag( 'th', _("Do you really want to delete this event?") . '<br>', '', $color[4], 'colspan="2"' )
+                   html_tag( 'th', _("Do you really want to delete this event?") . '<br />', '', $color[4], 'colspan="2"' )
                ) .
                html_tag( 'tr',
                    html_tag( 'td', _("Date:"), 'right', $color[4] ) .
@@ -114,26 +114,26 @@ function confirm_deletion()
                ) .
                html_tag( 'tr',
                    html_tag( 'td',
-                       "    <FORM NAME=\"delevent\" METHOD=POST ACTION=\"$calself\">\n".
-                       "       <INPUT TYPE=HIDDEN NAME=\"dyear\" VALUE=\"$dyear\">\n".
-                       "       <INPUT TYPE=HIDDEN NAME=\"dmonth\" VALUE=\"$dmonth\">\n".
-                       "       <INPUT TYPE=HIDDEN NAME=\"dday\" VALUE=\"$dday\">\n".
-                       "       <INPUT TYPE=HIDDEN NAME=\"year\" VALUE=\"$year\">\n".
-                       "       <INPUT TYPE=HIDDEN NAME=\"month\" VALUE=\"$month\">\n".
-                       "       <INPUT TYPE=HIDDEN NAME=\"day\" VALUE=\"$day\">\n".
-                       "       <INPUT TYPE=HIDDEN NAME=\"dhour\" VALUE=\"$dhour\">\n".
-                       "       <INPUT TYPE=HIDDEN NAME=\"dminute\" VALUE=\"$dminute\">\n".
-                       "       <INPUT TYPE=HIDDEN NAME=\"confirmed\" VALUE=\"yes\">\n".
-                       '       <INPUT TYPE=SUBMIT VALUE="' . _("Yes") . "\">\n".
-                       "    </FORM>\n" ,
+                       "    <form name=\"delevent\" method=\"post\" action=\"$calself\">\n".
+                       "       <input type=\"hidden\" name=\"dyear\" value=\"$dyear\" />\n".
+                       "       <input type=\"hidden\" name=\"dmonth\" value=\"$dmonth\" />\n".
+                       "       <input type=\"hidden\" name=\"dday\" value=\"$dday\" />\n".
+                       "       <input type=\"hidden\" name=\"year\" value=\"$year\" />\n".
+                       "       <input type=\"hidden\" name=\"month\" value=\"$month\" />\n".
+                       "       <input type=\"hidden\" name=\"day\" value=\"$day\" />\n".
+                       "       <input type=\"hidden\" name=\"dhour\" value=\"$dhour\" />\n".
+                       "       <input type=\"hidden\" name=\"dminute\" value=\"$dminute\" />\n".
+                       "       <input type=\"hidden\" name=\"confirmed\" value=\"yes\" />\n".
+                       '       <input type="submit" value="' . _("Yes") . "\" />\n".
+                       "    </form>\n" ,
                    'right', $color[4] ) .
                    html_tag( 'td',
-                       "    <FORM NAME=\"nodelevent\" METHOD=POST ACTION=\"day.php\">\n".
-                       "       <INPUT TYPE=HIDDEN NAME=\"year\" VALUE=\"$year\">\n".
-                       "       <INPUT TYPE=HIDDEN NAME=\"month\" VALUE=\"$month\">\n".
-                       "       <INPUT TYPE=HIDDEN NAME=\"day\" VALUE=\"$day\">\n".
-                       '       <INPUT TYPE=SUBMIT VALUE="' . _("No") . "\">\n".
-                       "    </FORM>\n" ,
+                       "    <form name=\"nodelevent\" method=\"post\" action=\"day.php\">\n".
+                       "       <input type=\"hidden\" name=\"year\" value=\"$year\" />\n".
+                       "       <input type=\"hidden\" name=\"month\" value=\"$month\" />\n".
+                       "       <input type=\"hidden\" name=\"day\" value=\"$day\" />\n".
+                       '       <input type="submit" value="' . _("No") . "\" />\n".
+                       "    </form>\n" ,
                    'left', $color[4] )
                ) ,
            '', $color[0], 'border="0" cellpadding="2" cellspacing="1"' );
@@ -164,7 +164,7 @@ echo html_tag( 'tr', '', '', $color[0] ) .
 if (isset($dyear) && isset($dmonth) && isset($dday) && isset($dhour) && isset($dminute)){
     if (isset($confirmed)){
         delete_event("$dmonth$dday$dyear", "$dhour$dminute");
-        echo '<br><br>' . _("Event deleted!") . "<br>\n";
+        echo '<br /><br />' . _("Event deleted!") . "<br />\n";
         echo "<a href=\"day.php?year=$year&amp;month=$month&amp;day=$day\">" .
           _("Day View") . "</a>\n";
     } else {
@@ -172,7 +172,7 @@ if (isset($dyear) && isset($dmonth) && isset($dday) && isset($dhour) && isset($d
         confirm_deletion();
     }
 } else {
-    echo '<br>' . _("Nothing to delete!");
+    echo '<br />' . _("Nothing to delete!");
 }
 
 ?>

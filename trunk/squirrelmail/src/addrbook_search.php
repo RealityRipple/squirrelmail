@@ -46,7 +46,7 @@ sqgetGlobalVar('backend', $backend, SQ_POST);
  */
 function insert_javascript() {
     ?>
-    <SCRIPT LANGUAGE="Javascript"><!--
+    <script language="Javascript"><!--
 
     function to_and_close($addr) {
         to_address($addr);
@@ -104,7 +104,7 @@ function insert_javascript() {
         }
     }
 
-// --></SCRIPT>
+// --></script>
 <?php
 } /* End of included JavaScript */
 
@@ -302,4 +302,4 @@ if ($show == 'form' && empty($listall)) {
    
 }
 ?>
-</BODY></HTML>
+</body></html>

@@ -56,9 +56,9 @@ function select_option_length($selected) {
 
     while( $bar = each($eventlength)) {
         if($selected==$bar['key']){
-                echo "        <OPTION VALUE=\"".$bar['key']."\" SELECTED>".$bar['value']."</OPTION>\n";
+                echo '        <option value="'.$bar['key'].'" selected="selected">'.$bar['value']."</option>\n";
         } else {
-                echo "        <OPTION VALUE=\"".$bar['key']."\">".$bar['value']."</OPTION>\n";
+                echo '        <option value="'.$bar['key'].'">'.$bar['value']."</option>\n";
         }
     }
 }
@@ -81,9 +81,9 @@ function select_option_minute($selected) {
 
     while ( $bar = each($eventminute)) {
         if ($selected==$bar['key']){
-                echo "        <OPTION VALUE=\"".$bar['key']."\" SELECTED>".$bar['value']."</OPTION>\n";
+                echo '        <option value="'.$bar['key'].'" selected="selected">'.$bar['value']."</option>\n";
         } else {
-                echo "        <OPTION VALUE=\"".$bar['key']."\">".$bar['value']."</OPTION>\n";
+                echo '        <option value="'.$bar['key'].'">'.$bar['value']."</option>\n";
         }
     }
 }
@@ -93,9 +93,9 @@ function select_option_hour($selected) {
     for ($i=0;$i<24;$i++){
         ($i<10)? $ih = "0" . $i : $ih = $i;
         if ($ih==$selected){
-            echo "            <OPTION VALUE=\"$ih\" SELECTED>$i</OPTION>\n";
+            echo '            <option value="'.$ih.'" selected="selected">'.$i."</option>\n";
         } else {
-            echo "            <OPTION VALUE=\"$ih\">$i</OPTION>\n";
+            echo '            <option value="'.$ih.'">'.$i."</option>\n";
         }
     }
 }
@@ -108,9 +108,9 @@ function select_option_priority($selected) {
 
     while( $bar = each($eventpriority)) {
         if($selected==$bar['key']){
-                echo "        <OPTION VALUE=\"".$bar['key']."\" SELECTED>".$bar['value']."</OPTION>\n";
+                echo '        <option value="'.$bar['key'].'" selected="selected">'.$bar['value']."</option>\n";
         } else {
-                echo "        <OPTION VALUE=\"".$bar['key']."\">".$bar['value']."</OPTION>\n";
+                echo '        <option value="'.$bar['key'].'">'.$bar['value']."</option>\n";
         }
     }
 }
@@ -119,9 +119,9 @@ function select_option_year($selected) {
 
     for ($i=1902;$i<2038;$i++){
         if ($i==$selected){
-            echo "            <OPTION VALUE=\"$i\" SELECTED>$i</OPTION>\n";
+            echo '            <option value="'.$i.'" selected="selected">'.$i."</option>\n";
         } else {
-            echo "            <OPTION VALUE=\"$i\">$i</OPTION>\n";
+            echo '            <option value="'.$i.'">'.$i."</option>\n";
         }
     }
 }
@@ -132,9 +132,9 @@ function select_option_month($selected) {
         $im=date('m',mktime(0,0,0,$i,1,1));
         $is = getMonthAbrv( date('m',mktime(0,0,0,$i,1,1)) );
         if ($im==$selected){
-            echo "            <OPTION VALUE=\"$im\" SELECTED>$is</OPTION>\n";
+            echo '            <option value="'.$im.'" selected="selected">'.$is."</option>\n";
         } else {
-            echo "            <OPTION VALUE=\"$im\">$is</OPTION>\n";
+            echo '            <option value="'.$im.'">'.$is."</option>\n";
         }
     }
 }
@@ -144,9 +144,9 @@ function select_option_day($selected) {
     for ($i=1;$i<32;$i++){
         ($i<10)? $ih="0".$i : $ih=$i;
         if ($i==$selected){
-            echo "            <OPTION VALUE=\"$ih\" SELECTED>$i</OPTION>\n";
+            echo '            <option value="'.$ih.'" selected="selected">'.$i."</option>\n";
         } else {
-            echo "            <OPTION VALUE=\"$ih\">$i</OPTION>\n";
+            echo '            <option value="'.$ih.'">'.$i."</option>\n";
         }
     }
 }

@@ -19,7 +19,7 @@
       menu choice is a line which informs you which mails you are viewing 
       numerically and how many total you have.
       </p><p>
-      For example: Viewing messages <B>20</B> to <B>30</B> (45 total).
+      For example: Viewing messages <b>20</b> to <b>30</b> (45 total).
       </p><p>
       Notice that the total message count might be different from the unread 
       mail count which is to the right of the main mail folder.
@@ -43,12 +43,12 @@
 	  message, and if you see the "!", then the message was marked as urgent!  
       </p><p>
       What remains is the actual message table.  You will notice that unread 
-      messages are <B>bold</B> while viewed messages are in normal text.
+      messages are <b>bold</b> while viewed messages are in normal text.
       Four fields form this table.  On the far left is a select box.  When 
       selected, the message on the same line is subject to the actions previously 
       discussed (moving, marking (un)read and deletion).
       The Toggle All link at the top of the list allows you to check all
-      select boxes at once.<BR>
+      select boxes at once.<br />
       Under the From header is listed whom 
       the message is from.  Surprising, we know. But hey, you don't have to read 
       this.  The date is listed next, and finally the subject.

@@ -92,7 +92,7 @@ function spamcop_show_link() {
     $passed_ent_id = 0;
    }
 
-   echo "<br>\n";
+   echo "<br />\n";
 
     /* 
        Catch situation when user use quick_email and does not update 
@@ -107,14 +107,14 @@ function spamcop_show_link() {
     // don't insert javascript if javascript is disabled
    if ($spamcop_method == 'web_form' && $javascript_on) {
 ?><script language="javascript" type="text/javascript">
-document.write('<a href="../plugins/spamcop/spamcop.php?passed_id=<?PHP echo urlencode($passed_id); ?>&amp;js_web=1&amp;mailbox=<?PHP echo urlencode($mailbox); ?>&amp;passed_ent_id=<?PHP echo urlencode($passed_ent_id); ?>" target="_blank">');
-document.write("<?PHP echo _("Report as Spam"); ?>");
+document.write('<a href="../plugins/spamcop/spamcop.php?passed_id=<?php echo urlencode($passed_id); ?>&amp;js_web=1&amp;mailbox=<?php echo urlencode($mailbox); ?>&amp;passed_ent_id=<?php echo urlencode($passed_ent_id); ?>" target="_blank">');
+document.write("<?php echo _("Report as Spam"); ?>");
 document.write("</a>");
-</script><?PHP
+</script><?php
    } else {
-?><a href="../plugins/spamcop/spamcop.php?passed_id=<?PHP echo urlencode($passed_id); ?>&amp;mailbox=<?PHP echo urlencode($mailbox); ?>&amp;startMessage=<?PHP echo urlencode($startMessage); ?>&amp;passed_ent_id=<?PHP echo urlencode($passed_ent_id); ?>">
-<?PHP echo _("Report as Spam"); ?></a>
-<?PHP
+?><a href="../plugins/spamcop/spamcop.php?passed_id=<?php echo urlencode($passed_id); ?>&amp;mailbox=<?php echo urlencode($mailbox); ?>&amp;startMessage=<?php echo urlencode($startMessage); ?>&amp;passed_ent_id=<?php echo urlencode($passed_ent_id); ?>">
+<?php echo _("Report as Spam"); ?></a>
+<?php
    }
 }
 

@@ -63,7 +63,7 @@ if ($trans_ar[0] != '') {
 
     $new_body = $body;
     $pos = strpos($new_body,
-            '">'. _("Download this as a file") . '</A></CENTER><BR></SMALL>');
+            '">'. _("Download this as a file") . '</a></center><br /></small>');
     if (is_int($pos)) {
         $new_body = substr($new_body, 0, $pos);
     }
@@ -208,11 +208,11 @@ function translate_lang_opt($from, $to, $value, $text) {
     $ret = '  <option value="' . $value . '"';
 
     if (translate_does_it_match_language($to) && ($translate_dir == 'to')) {
-        $ret .= ' SELECTED';
+        $ret .= ' selected="selected"';
     }
 
     if (translate_does_it_match_language($from) && ($translate_dir == 'from')) {
-        $ret .= ' SELECTED';
+        $ret .= ' selected="selected"';
     }
 
     $ret .= '>' . $text . "</option>\n";
@@ -263,10 +263,10 @@ function translate_new_form($action) {
 function translate_form_babelfish($message) {
     translate_new_form('http://babelfish.altavista.com/babelfish/tr');
 ?>
-    <input type="hidden" name="doit" value="done">
-    <input type="hidden" name="intl" value="1">
-    <input type="hidden" name="tt" value="urltext">
-    <input type="hidden" name="urltext" value="<?php echo $message; ?>">
+    <input type="hidden" name="doit" value="done" />
+    <input type="hidden" name="intl" value="1" />
+    <input type="hidden" name="tt" value="urltext" />
+    <input type="hidden" name="urltext" value="<?php echo $message; ?>" />
     <select name="lp"><?php
         echo translate_lang_opt('en_US', 'zh_CN', 'en_zh',
                                 sprintf( _("%s to %s"),_("English"),_("Chinese"))) .
@@ -307,7 +307,7 @@ function translate_form_babelfish($message) {
              translate_lang_opt('ru_RU',  '',    'ru_en',
                                 sprintf( _("%s to %s"),_("Russian"),_("English")));
     echo '</select>'.
-         'Babelfish: <input type="Submit" value="' . _("Translate") . '">';
+         'Babelfish: <input type="submit" value="' . _("Translate") . '" />';
 
     translate_table_end();
 }
@@ -321,8 +321,8 @@ function translate_form_babelfish($message) {
 function translate_form_go($message) {
     translate_new_form('http://translator.go.com/cb/trans_entry');
 ?>
-    <input type=hidden name=input_type value=text>
-    <select name=lp><?php
+    <input type="hidden" name="input_type" value="text" />
+    <select name="lp"><?php
         echo translate_lang_opt('en_US', 'es_ES', 'en_sp',
                                 sprintf( _("%s to %s"),_("English"),_("Spanish"))) .
              translate_lang_opt('en_US', 'fr_FR', 'en_fr',
@@ -344,8 +344,8 @@ function translate_form_go($message) {
              translate_lang_opt('pt*',   '',      'pt_en',
                                 sprintf( _("%s to %s"),_("Portuguese"),_("English")));
     echo '</select>'.
-         "<input type=\"hidden\" name=\"text\" value=\"$message\">".
-         'Go.com: <input type="Submit" value="' . _("Translate") . '">';
+         '<input type="hidden" name="text" value="'.$message.'" />'.
+         'Go.com: <input type="submit" value="' . _("Translate") . '" />';
 
     translate_table_end();
 }
@@ -358,11 +358,11 @@ function translate_form_go($message) {
  */
 function translate_form_intertran($message) {
     translate_new_form('http://www.tranexp.com:2000/InterTran');
-    echo '<INPUT TYPE="hidden" NAME="topframe" VALUE="yes">'.
-         '<INPUT TYPE="hidden" NAME="type" VALUE="text">'.
-         "<input type=\"hidden\" name=\"text\" value=\"$message\">";
+    echo '<input type="hidden" name="topframe" value="yes" />'.
+         '<input type="hidden" name="type" value="text" />'.
+         '<input type="hidden" name="text" value="'.$message.'" />';
 
-    $left = '<SELECT name="from">' .
+    $left = '<select name="from">' .
         translate_lang_opt('pt_BR', '',    'pob', _("Brazilian Portuguese")).
         translate_lang_opt('bg_BG', '',    'bul', _("Bulgarian") . ' (CP 1251)').
         translate_lang_opt('hr_HR', '',    'cro', _("Croatian") . ' (CP 1250)').
@@ -392,9 +392,9 @@ function translate_form_intertran($message) {
         translate_lang_opt('sv_SE', '',    'swe', _("Swedish")).
         translate_lang_opt('tr_TR', '',    'tur', _("Turkish") . ' (CP 1254)').
         translate_lang_opt('cy_GB', '',    'wel', _("Welsh")).
-        '</SELECT>';
+        '</select>';
 
-    $right = '<SELECT name="to">'.
+    $right = '<select name="to">'.
         translate_lang_opt('',    'pt_BR', 'pob', _("Brazilian Portuguese")).
         translate_lang_opt('',    'bg_BG', 'bul', _("Bulgarian") . ' (CP 1251)').
         translate_lang_opt('',    'hr_HR', 'cro', _("Croatian") . ' (CP 1250)').
@@ -424,9 +424,9 @@ function translate_form_intertran($message) {
         translate_lang_opt('',    'sv_SE', 'swe', _("Swedish")).
         translate_lang_opt('',    'tr_TR', 'tur', _("Turkish") . ' (CP 1254)').
         translate_lang_opt('',    'cy_GB', 'wel', _("Welsh")).
-        '</SELECT>';
+        '</select>';
     printf( _("%s to %s"), $left, $right );
-    echo 'InterTran: <input type=submit value="' . _("Translate") . '">';
+    echo 'InterTran: <input type="submit" value="' . _("Translate") . '" />';
 
     translate_table_end();
 }
@@ -450,10 +450,10 @@ function translate_form_gpltrans($message) {
         translate_lang_opt('', 'es_ES', 'spanish_dict',    _("Spanish")).
         '</select>';
     echo '<select name="toenglish">';
-    echo '<option value="yes" >'. _("to English") . '</option>';
-    echo '<option value="no" selected>' . _("from English") . '</option></select>';
-    echo "<input type=hidden name=text value=\"$message\">".
-        'GPLTrans: <input type="submit" value="' . _("Translate") . '">';
+    echo '<option value="yes">'. _("to English") . '</option>';
+    echo '<option value="no" selected="selected">' . _("from English") . '</option></select>';
+    echo '<input type="hidden" name="text" value="'.$message.'" />'.
+        'GPLTrans: <input type="submit" value="' . _("Translate") . '" />';
 
     translate_table_end();
 }
@@ -468,9 +468,9 @@ function translate_form_dictionary($message) {
     translate_new_form('http://dictionary.reference.com/translate/text.html');
     list($usec, $sec) = explode(" ",microtime());
     $time = $sec . (float)$usec*100000000;
-    echo "<input type=hidden name=text value=\"$message\" />".
-         "<input type=hidden name=r value=\"$time\" />".
-         '<SELECT NAME="lp">'.
+    echo '<input type="hidden" name="text" value="'.$message.'" />'.
+         '<input type="hidden" name="r" value="'.$time.'" />'.
+         '<select name="lp">'.
          translate_lang_opt('en_US', 'zh_CN', 'en_zh',
                             sprintf( _("%s to %s"),_("English"),_("Simplified Chinese"))) .
          translate_lang_opt('en_US', 'zh_TW', 'en_zt',
@@ -519,8 +519,8 @@ function translate_form_dictionary($message) {
                             sprintf( _("%s to %s"),_("Russian"),_("English"))) .
          translate_lang_opt('es_ES',  '',     'es_en',
                             sprintf( _("%s to %s"),_("Spanish"),_("English"))) .
-         '</SELECT>'.
-         'Dictionary.com: <INPUT TYPE="submit" VALUE="'._("Translate").'">';
+         '</select>'.
+         'Dictionary.com: <input type="submit" value="'._("Translate").'" />';
 
   translate_table_end();
 }
@@ -534,9 +534,9 @@ function translate_form_dictionary($message) {
 function translate_form_otenet($message) {
     translate_new_form('http://systran.otenet.gr/cgi-bin/systran.cgi');
 ?>
-    <input type="hidden" name="doit" value="done">
-    <INPUT NAME="partner" VALUE="OTEnet-en" type="hidden">
-    <input type="hidden" name="urltext" value="<?php echo $message; ?>">
+    <input type="hidden" name="doit" value="done" />
+    <input type="hidden" name="partner" value="OTEnet-en" />
+    <input type="hidden" name="urltext" value="<?php echo $message; ?>" />
     <select name="lp" size="1"><?php
         echo translate_lang_opt('en_US', 'el_GR', 'en_el',
                                 sprintf( _("%s to %s"),_("English"),_("Greek"))) .
@@ -546,7 +546,7 @@ function translate_form_otenet($message) {
                                 sprintf( _("%s to %s"),_("French"),_("Greek"))) .
 	     translate_lang_opt('el_GR', 'fr_FR', 'el_fr',
                                 sprintf( _("%s to %s"),_("Greek"),_("French"))) .
-	     translate_lang_opt('#',  '',  '', "----------------") .
+	     translate_lang_opt('#',  '',  '', '----------------') .
 	     translate_lang_opt('en_US', '',      'en_fr',
                                 sprintf( _("%s to %s"),_("English"),_("French"))) .
 	     translate_lang_opt('fr_FR', '',      'fr_en',
@@ -580,7 +580,7 @@ function translate_form_otenet($message) {
 	     translate_lang_opt('nl_NL', '',      'nl_fr',
                                 sprintf( _("%s to %s"),_("Dutch"),_("French"))) ;
     echo '</select>'.
-         'OTEnet: <input type="Submit" value="' . _("Translate") . '">';
+         'OTEnet: <input type="submit" value="' . _("Translate") . '" />';
     translate_table_end();
 
 }
@@ -593,16 +593,16 @@ function translate_form_otenet($message) {
  */
 function translate_form_promt($message) {
     translate_new_form('http://www.online-translator.com/text.asp#tr_form');
-    echo '<input type="hidden" name="status" value="translate">';
-    echo "<input type=\"hidden\" name=\"source\" value=\"$message\">";
+    echo '<input type="hidden" name="status" value="translate" />';
+    echo '<input type="hidden" name="source" value="'.$message.'" />';
     echo _("Interface language")." : ";
     echo "<select size=\"1\" name=\"lang\">\n";
-    echo "<option value=\"en\">" . _("English") . "</option>\n";
-    echo "<option value=\"ru\">" . _("Russian") . "</option>\n";
-    echo "<option value=\"de\">" . _("German") . "</option>\n";
-    echo "<option value=\"fr\">" . _("French") . "</option>\n";
-    echo "<option value=\"es\">" . _("Spanish") . "</option>\n";
-    echo "</select><br>\n";
+    echo '<option value="en">' . _("English") . "</option>\n";
+    echo '<option value="ru">' . _("Russian") . "</option>\n";
+    echo '<option value="de">' . _("German") . "</option>\n";
+    echo '<option value="fr">' . _("French") . "</option>\n";
+    echo '<option value="es">' . _("Spanish") . "</option>\n";
+    echo "</select><br />\n";
     echo _("Translation direction")." : ";
     echo '<select size="1" id="direction" name="direction">';
         echo translate_lang_opt('en_US', 'ru_RU', 'er',
@@ -631,9 +631,9 @@ function translate_form_promt($message) {
                                 sprintf( _("%s to %s"),_("English"),_("Spanish"))) .
 	     translate_lang_opt('es_ES', '',  'se',
                                 sprintf( _("%s to %s"),_("Spanish"),_("English"))) ;
-    echo "</select><br>\n";
-    echo "<input type=\"hidden\" name=\"template\" value=\"General\">\n";
-    echo 'PROMT: <input type="submit" value="' . _("Translate") . '">';
+    echo "</select><br />\n";
+    echo "<input type=\"hidden\" name=\"template\" value=\"General\" />\n";
+    echo 'PROMT: <input type="submit" value="' . _("Translate") . '" />';
 
     translate_table_end();
 }
@@ -647,10 +647,10 @@ function translate_form_promt($message) {
 function translate_form_google($message) {
     translate_new_form('http://www.google.com/translate_t');
 ?>
-    <input type="hidden" name="ie" value="Unknown">
-    <input type="hidden" name="oe" value="ASCII">
-    <input type="hidden" name="hl" value="en">
-    <input type="hidden" name="text" value="<?php echo $message; ?>">
+    <input type="hidden" name="ie" value="Unknown" />
+    <input type="hidden" name="oe" value="ASCII" />
+    <input type="hidden" name="hl" value="en" />
+    <input type="hidden" name="text" value="<?php echo $message; ?>" />
     <select name="langpair"><?php
         echo translate_lang_opt('en_US', 'de_DE', 'en|de',
 				sprintf( _("%s to %s"),_("English"),_("German"))) .
@@ -677,7 +677,7 @@ function translate_form_google($message) {
              translate_lang_opt('pt*',   '', 'pt|en',
                                 sprintf( _("%s to %s"),_("Portuguese"),_("English")));
     echo '</select>'.
-         'Google: <input type="Submit" value="' . _("Translate") . '">';
+         'Google: <input type="submit" value="' . _("Translate") . '" />';
 
     translate_table_end();
 }

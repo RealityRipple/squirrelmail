@@ -125,16 +125,16 @@ function sqimap_asearch_error_box($response, $query, $message, $link = '')
     else {	//Straight copy of 1.5 imap_general.php:sqimap_error_box(). Can be removed at a later time
         global $color;
     require_once(SM_PATH . 'functions/display_messages.php');
-    $string = "<font color=$color[2]><b>\n" . $title . "</b><br>\n";
+    $string = "<font color=\"$color[2]\"><b>\n" . $title . "</b><br />\n";
     if ($query != '')
-        $string .= _("Query:") . ' ' . htmlspecialchars($query) . '<br>';
+        $string .= _("Query:") . ' ' . htmlspecialchars($query) . '<br />';
     if ($message_title != '')
         $string .= $message_title;
     if ($message != '')
         $string .= htmlspecialchars($message);
     if ($link != '')
         $string .= $link;
-    $string .= "</font><br>\n";
+    $string .= "</font><br />\n";
     error_box($string,$color);
     }
 }

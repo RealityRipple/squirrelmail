@@ -64,7 +64,7 @@ function formatMailboxName($imapConnection, $box_array) {
     $line = '';
 
     /* If there are unseen message, bold the line. */
-    if ($unseen > 0) { $line .= '<B>'; }
+    if ($unseen > 0) { $line .= '<b>'; }
 
     /* Create the link for this folder. */
     if ($status !== false) {
@@ -86,7 +86,7 @@ function formatMailboxName($imapConnection, $box_array) {
     }
 
     /* If there are unseen message, close bolding. */
-    if ($unseen > 0) { $line .= "</B>"; }
+    if ($unseen > 0) { $line .= "</b>"; }
 
     /* Print unseen information. */
     if ($unseen_string != '') {

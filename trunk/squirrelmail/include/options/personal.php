@@ -118,9 +118,9 @@ function load_optpage_data_personal() {
     );
 
     if ($edit_identity) {
-        $identities_link_value = '<A HREF="options_identities.php">'
+        $identities_link_value = '<a href="options_identities.php">'
                                . _("Edit Advanced Identities")
-                               . '</A> '
+                               . '</a> '
                                . _("(discards changes made on this form so far)");
         $optvals[SMOPT_GRP_CONTACT][] = array(
             'name'    => 'identities_link',

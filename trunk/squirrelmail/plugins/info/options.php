@@ -148,12 +148,12 @@ foreach($type as $index=>$value) {
          addInput($index, $value, 60);
 }
 
-echo "</td></tr></table></center><br>\n".
+echo "</td></tr></table></center><br />\n".
      '<center>'.
      addSubmit('submit','submit').
      addSubmit('clear','submit').
      addSubmit('default','submit').
-     "</center><br></form>\n";
+     "</center><br /></form>\n";
 
 $tests = array();
 

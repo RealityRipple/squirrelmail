@@ -74,14 +74,14 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
     function Mail_Fetch_Select_Server($mailfetch) {
         global $PHP_SELF;
 
-        echo '<font size=-5><br></font>' .
-             "<form action=\"$PHP_SELF\" method=\"post\" target=\"_self\">" .
+        echo '<font size="-5"><br /></font>' .
+             '<form action="'.$PHP_SELF.'" method="post" target="_self">' .
              html_tag( 'table', '', 'center', '', 'width="70%" cols="2"' ) .
                  html_tag( 'tr' ) .
                      html_tag( 'td', _("Select Server:") . ' &nbsp; &nbsp;', 'right' ) .
                      html_tag( 'td', '', 'left' ) .
                          '<select name="server_to_fetch" size="1">' .
-                         '<option value="all" selected>..' . _("All") . "...\n";
+                         '<option value="all" selected="selected">..' . _("All") . "...\n";
         for ($i = 0;$i < $mailfetch['server_number'];$i++) {
              echo "<option value=\"$i\">" .
                  htmlspecialchars($mailfetch[$i]['alias']) .
@@ -99,13 +99,13 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
                                   htmlspecialchars($mailfetch[$i]['alias']) .
                                   '</b>: &nbsp; &nbsp; ',
                               'right' ) .
-                              html_tag( 'td', '<input type="password" name="pass_' . $i . '">', 'left' )
+                              html_tag( 'td', '<input type="password" name="pass_' . $i . '" />', 'left' )
                           );
              }
         }
         echo html_tag( 'tr',
                    html_tag( 'td', '&nbsp;' ) .
-                   html_tag( 'td', '<input type=submit name=submit_mailfetch value="' . _("Fetch Mail"). '">', 'left' )
+                   html_tag( 'td', '<input type="submit" name="submit_mailfetch" value="' . _("Fetch Mail"). '" />', 'left' )
                ) .
              '</table></form>';
     }
@@ -113,7 +113,7 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
     $mailfetch = Mail_Fetch_Servers();
     displayPageHeader($color, 'None');
 
-    echo '<br><center>';
+    echo '<br /><center>';
 
     echo html_tag( 'table',
                html_tag( 'tr',
@@ -160,7 +160,7 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
 
         $pop3 = new POP3($mailfetch_server, 60);
 
-        echo '<br>' .
+        echo '<br />' .
         html_tag( 'table',
             html_tag( 'tr',
                 html_tag( 'td', '<b>' . _("Fetching from ") . 
