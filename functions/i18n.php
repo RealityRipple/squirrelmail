@@ -831,6 +831,11 @@ function japanese_xtra() {
 
 /**
  * Japanese decoding function
+ *
+ * converts string to euc-jp, if string uses JIS, EUC-JP, ShiftJIS or UTF-8 
+ * charset. Needs mbstring support in php.
+ * @param string $ret text, that has to be converted
+ * @return string converted string
  * @since 1.5.1
  */
 function japanese_xtra_decode($ret) {
@@ -849,6 +854,11 @@ function japanese_xtra_decode($ret) {
 
 /**
  * Japanese encoding function
+ *
+ * converts string to jis, if string uses JIS, EUC-JP, ShiftJIS or UTF-8
+ * charset. Needs mbstring support in php.
+ * @param string $ret text, that has to be converted
+ * @return string converted text
  * @since 1.5.1
  */
 function japanese_xtra_encode($ret) {
@@ -867,6 +877,10 @@ function japanese_xtra_encode($ret) {
 
 /**
  * Japanese header encoding function
+ *
+ * creates base64 encoded header in iso-2022-jp charset
+ * @param string $ret text, that has to be converted
+ * @return string mime base64 encoded string
  * @since 1.5.1
  */
 function japanese_xtra_encodeheader($ret) {
@@ -905,6 +919,11 @@ function japanese_xtra_encodeheader($ret) {
 
 /**
  * Japanese header decoding function
+ *
+ * return human readable string from mime header. string is returned in euc-jp 
+ * charset.
+ * @param string $ret header string
+ * @return string decoded header string
  * @since 1.5.1
  */
 function japanese_xtra_decodeheader($ret) {
@@ -919,6 +938,11 @@ function japanese_xtra_decodeheader($ret) {
 
 /**
  * Japanese downloaded filename processing function
+ *
+ * Returns shift-jis or euc-jp encoded file name
+ * @param string $ret string
+ * @param string $useragent browser
+ * @return string converted string
  * @since 1.5.1
  */
 function japanese_xtra_downloadfilename($ret,$useragent) {
@@ -935,7 +959,11 @@ function japanese_xtra_downloadfilename($ret,$useragent) {
 
 /**
  * Japanese wordwrap function
- *  
+ * 
+ * wraps text at set number of symbols
+ * @param string $ret text
+ * @param integer $wrap number of symbols per line
+ * @return string wrapped text
  * @since 1.5.1
  */
 function japanese_xtra_wordwrap($ret,$wrap) {
@@ -985,6 +1013,10 @@ function japanese_xtra_wordwrap($ret,$wrap) {
 
 /**
  * Japanese imap folder name encoding function
+ *
+ * converts folder name from euc-jp to utf7-imap
+ * @param string $ret folder name
+ * @return string converted folder name
  * @since 1.5.1
  */
 function japanese_xtra_utf7_imap_encode($ret){
@@ -996,6 +1028,10 @@ function japanese_xtra_utf7_imap_encode($ret){
 
 /**
  * Japanese imap folder name decoding function
+ *
+ * converts folder name from utf7-imap to euc-jp.
+ * @param string $ret folder name in utf7-imap
+ * @return string converted folder name
  * @since 1.5.1
  */
 function japanese_xtra_utf7_imap_decode($ret) {
@@ -1007,6 +1043,11 @@ function japanese_xtra_utf7_imap_decode($ret) {
 
 /**
  * Japanese string trimming function
+ *
+ * trims string to defined number of symbols
+ * @param string $ret string
+ * @param integer $width number of symbols
+ * @return string trimmed string
  * @since 1.5.1
  */
 function japanese_xtra_strimwidth($ret,$width) {
