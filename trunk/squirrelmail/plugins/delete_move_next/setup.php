@@ -32,6 +32,7 @@ function squirrelmail_plugin_init_delete_move_next() {
 
 function fix_sort_array () {
     global $username, $data_dir, $allow_server_sort, $allow_thread_sort,
+    $thread_sort_messages, 
     $mailbox, $imapConnection, $sort, $uid_support, $mbx_response;
     switch (true) {
       case ($allow_thread_sort && $thread_sort_messages):
@@ -59,19 +60,18 @@ function fix_sort_array () {
 
 function delete_move_del_arr_elem($arr, $index) {
     $tmp = array();
-    $lim = count($arr);
     $j = 0;
-    for ($i = 0; $i < $lim; $i++) {
-        if ($i != $index) {
-            $tmp[$j++] = $arr[$i];
-        }
+    foreach ($arr as $v) {
+        if ($j != $index) {
+	   $tmp[] = $v;
+	 }
+	 $j++;
     }
     return $tmp;
 }
 
 function delete_move_show_msg_array() {
     global $msort, $msgs;
-    
     $keys = array_keys($msort);
     for ($i = 0; $i < count($keys); $i++) {
         echo '<p>key ' . $keys[$i] . ' msgid ' . $msgs[$keys[$i]]['ID'] . '</p>';
@@ -80,9 +80,7 @@ function delete_move_show_msg_array() {
 
 
 function delete_move_expunge_from_all($id) {
-    global $msgs, $msort, $sort, $imapConnection, $mailbox;
-    
-//    delete_move_show_msg_array();
+    global $msgs, $msort, $sort, $imapConnection, $mailbox, $uid_support;
     $delAt = -1;
     for ($i = 0; $i < count($msort); $i++) {
         if ($msgs[$i]['ID'] == $id) {
@@ -96,7 +94,6 @@ function delete_move_expunge_from_all($id) {
     
     $msgs = delete_move_del_arr_elem($msgs, $delAt);
     $msort = delete_move_del_arr_elem($msort, $delAt);
-    
     if ($sort < 6) {
         if ($sort % 2) {
             asort($msort);
@@ -104,6 +101,8 @@ function delete_move_expunge_from_all($id) {
             arsort($msort);
         }
     }
+    session_register('msgs');
+    session_register('msort');
     
     sqimap_mailbox_expunge($imapConnection, $mailbox, true);
 }
@@ -145,9 +144,11 @@ function delete_move_next_read_b() {
 function delete_move_next_read($currloc) {
     global $delete_move_next_formATtop, $delete_move_next_formATbottom,
            $color, $where, $what, $currentArrayIndex, $passed_id,
-           $urlMailbox, $sort, $startMessage, $delete_id, $move_id,
+           $mailbox, $sort, $startMessage, $delete_id, $move_id,
            $imapConnection, $auto_expunge, $move_to_trash, $mbx_response,
 	   $uid_support;
+
+    $urlMailbox = urlencode($mailbox);
 
     if (!(($where && $what) || ($currentArrayIndex == -1))) {
         $next = findNextMessage($passed_id);
@@ -233,14 +234,14 @@ function get_move_target_list() {
 function delete_move_next_moveNextForm($next) {
 
     global $color, $where, $what, $currentArrayIndex, $passed_id,
-           $urlMailbox, $sort, $startMessage, $delete_id, $move_id,
+           $mailbox, $sort, $startMessage, $delete_id, $move_id,
            $imapConnection;
 
     echo '<tr>'.
          "<td bgcolor=\"$color[9]\" width=\"100%\" align=\"center\">".
            '<form action="read_body.php" method="post"><small>'.
             "<input type=\"hidden\" name=\"passed_id\" value=\"$next\">".
-            "<input type=\"hidden\" name=\"mailbox\" value=\"".urldecode($urlMailbox)."\">".
+            "<input type=\"hidden\" name=\"mailbox\" value=\"".$mailbox."\">".
             "<input type=\"hidden\" name=\"sort\" value=\"$sort\">".
             "<input type=\"hidden\" name=\"startMessage\" value=\"$startMessage\">".
             "<input type=\"hidden\" name=\"show_more\" value=\"0\">".
@@ -259,13 +260,13 @@ function delete_move_next_moveNextForm($next) {
 function delete_move_next_moveRightMainForm() {
 
     global $color, $where, $what, $currentArrayIndex, $passed_id,
-           $urlMailbox, $sort, $startMessage, $delete_id, $move_id,
+           $mailbox, $sort, $startMessage, $delete_id, $move_id,
            $imapConnection;
 
     echo '<tr>' .      
             "<td bgcolor=\"$color[9]\" width=\"100%\" align=\"center\">".
             '<form action="right_main.php" method="post"><small>' .
-            "<input type=\"hidden\" name=\"mailbox\" value=\"".urldecode($urlMailbox)."\">".
+            "<input type=\"hidden\" name=\"mailbox\" value=\"".$mailbox."\">".
             "<input type=\"hidden\" name=\"sort\" value=\"$sort\">".
             "<input type=\"hidden\" name=\"startMessage\" value=\"$startMessage\">".
             "<input type=\"hidden\" name=\"move_id\" value=\"$passed_id\">".
@@ -286,7 +287,7 @@ function delete_move_next_delete() {
     global $imapConnection, $delete_id, $mailbox, $auto_expunge;
     
     sqimap_messages_delete($imapConnection, $delete_id, $delete_id, $mailbox);
-    if ($auto_expunge){
+    if ($auto_expunge) {
         delete_move_expunge_from_all($delete_id);
         // sqimap_mailbox_expunge($imapConnection, $mailbox, true);    
     }
@@ -297,7 +298,7 @@ function delete_move_next_move() {
     
     // Move message
     sqimap_messages_copy($imapConnection, $move_id, $move_id, $targetMailbox);
-    sqimap_messages_flag($imapConnection, $move_id, $move_id, 'Deleted');
+    sqimap_messages_flag($imapConnection, $move_id, $move_id, 'Deleted', true);
     if ($auto_expunge) {
         delete_move_expunge_from_all($move_id);
         // sqimap_mailbox_expunge($imapConnection, $mailbox, true);
