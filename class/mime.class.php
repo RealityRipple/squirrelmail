@@ -12,39 +12,393 @@
  * $Id$
  */
 
-class msg_header {
-    /** msg_header contains generic variables for values that **/
-    /** could be in a header.                                 **/
-
-    var $type0 = '', $type1 = '', $boundary = '', $charset = '',
-        $encoding='', $size = 0, $to = array(), $from = '', $date = '',
-        $cc = array(), $bcc = array(), $reply_to = '', $subject = '',
-        $id = 0, $mailbox = '', $description = '', $filename = '',
-        $entity_id = 0, $message_id = 0, $name = '', $priority = 3, $type = '',
-	$disposition = '', $md5='', $language='',$dnt = '', $xmailer = '';
-    
-    /* 
-     * returns addres_list of supplied argument
-     * arguments: array('to', 'from', ...) or just a string like 'to'.
-     * result: string: address1, addres2, ....
-     */ 
-    
-    function setVar($var, $value) {
-        $this->{$var} = $value;
+/* 
+ * rdc822_header class
+ * input: header_string or array
+ */
+ 
+class rfc822_header {
+    var $date = '',
+        $subject = '',
+	$from = array(),
+	$sender = '',
+	$reply_to = array(),
+	$to = array(),
+	$cc = array(),
+	$bcc = array(),
+	$in_reply_to = '',
+	$message_id = '',
+	$mime = false,
+	$content_type = '',
+	$disposition = '',
+	$xmailer = '',
+	$priority = 3,
+	$dnt = '',
+	$mlist = array(),
+	$optional_headers = array(); /* only needed for 
+	                                constructing headers in smtp.php */
+	
+    function parseHeader($hdr) {
+        if (is_array($hdr)) {
+	   $hdr = implode('',$hdr);
+	}
+        /* first we unfold the header */
+	$hdr = str_replace(array("\r\n\t","\r\n\s"),array('',''),$hdr);
+	/* 
+	 * now we can make a new header array with each element representing 
+	 * a headerline
+	 */
+	$hdr = explode("\r\n" , $hdr);  
+	foreach ($hdr as $line) {
+	   $pos = strpos($line,':');
+	   if ($pos > 0) {
+	      $field = substr($line,0,$pos);
+	      $value = trim(substr($line,$pos+1));
+	      $value = $this->stripComments($value);
+	      $this->parseField($field,$value);
+	   }
+	}
+	if ($this->content_type == '') {
+	   $this->parseContentType('text/plain; charset=us-ascii');
+	}
     }
+    
+    function stripComments($value) {
+        $cnt = strlen($value);
+	$s = '';
+	$i = 0;
+	while ($i < $cnt) {
+	   switch ($value{$i})
+	   {
+	   case ('"'):
+	      $s .= '"';
+	      $i++;
+	      while ($value{$i} != '"') {
+	         if ($value{$i} == '\\') {
+		    $s .= '\\'; 
+	            $i++;
+	         }
+		 $s .= $value{$i}; 
+	         $i++;
+	      }
+	      $s .= $value{$i};
+	      break;
+	   case ('('):
+	      while ($value{$i} != ')') {
+	         if ($value{$i} == '\\') {
+	            $i++;
+	         }
+	         $i++;
+	      }
+	      break;
+	   default:
+	      $s .= $value{$i};
+	      break;
+	   }
+	   $i++;    
+	}
+        return $s;
+    }     
+    
+    function parseField($field,$value) {
+        $field = strtolower($field);
+        switch($field)
+	{
+	case ('date'):
+            $d = strtr($value, array('  ' => ' '));
+            $d = explode(' ', $d);
+            $this->date = getTimeStamp($d);
+	    break;
+	case ('subject'):
+	    $this->subject = $value;
+	    break;
+	case ('from'):
+	    $this->from = $this->parseAddress($value,true);
+	    break;
+        case ('sender'):
+	    $this->sender = $this->parseAddress($value);
+	    break;
+        case ('reply-to'):
+	    $this->reply_to = $this->parseAddress($value, true);
+	    break;
+	case ('to'):
+	    $this->to = $this->parseAddress($value, true);
+	    break;
+	case ('cc'):
+            $this->cc = $this->parseAddress($value, true);
+	    break;
+	case ('bcc'):
+	    $this->bcc = $this->parseAddress($value, true);
+	    break;
+        case ('in-reply-to'):
+	    $this->in_reply_to = $value;
+	    break;
+	case ('message_id'):
+	    $this->message_id = $value;
+	    break;
+	case ('disposition-notification-to'):
+	    $this->dnt = $this->parseAddress($value);
+	    break;
+	case ('mime-Version'):
+	    $value = str_replace(' ','',$value);
+	    if ($value == '1.0') {
+	       $this->mime = true;
+	    }
+	    break;
+	case ('content-type'):
+	    $this->parseContentType($value);
+	    break;
+	case ('content-disposition'):
+	    $this->parseDisposition($value);
+	    break;    
+	case ('x-mailer'):
+	    $this->xmailer = $value;
+	    break;
+	case ('x-priority'):
+	    $this->priority = $value;
+	    break;
+	case ('list-post'):
+	    $this->mlist('post',$value);
+	    break;
+	case ('list-reply'):
+	    $this->mlist('reply',$value);	
+	    break;
+	case ('list-subscribe'):
+	    $this->mlist('subscribe',$value);
+	    break;
+	case ('list-unsubscribe'):
+	    $this->mlist('unsubscribe',$value);
+	    break;
+	case ('list-archive'):
+	    $this->mlist('archive',$value);
+	    break;
+	case ('list-owner'):
+	    $this->mlist('owner',$value);
+	    break;
+	case ('list-help'):
+	    $this->mlist('help',$value);
+	    break;
+	case ('list-id'):
+	    $this->mlist('id',$value);
+	    break;
+	default:
+	    break;
+	}
+    } 
+
+    function parseAddress($address, $ar=false, $addr_ar = array(), $group = '') {
+        $pos = 0;
+        $j = strlen( $address );
+        $name = '';
+        $addr = '';
+        while ( $pos < $j ) {
+	   switch ($address{$pos})
+	   {
+	   case ('"'): /* get the personal name */
+              $pos++;
+	      if ($address{$pos} == '"') {
+	         $pos++;
+	      } else {
+              while ( $pos < $j && $address{$pos} != '"') {
+                 if (substr($address, $pos, 2) == '\\"') {
+	             $name .= $address{$pos};
+                     $pos++;
+                  } elseif (substr($address, $pos, 2) == '\\\\') {
+	             $name .= $address{$pos};
+                     $pos++;
+                  }
+                  $name .= $address{$pos};
+                  $pos++;
+              }
+	      }
+	      $pos++;
+	      break;
+           case ('<'):  /* get email address */
+              $addr_start=$pos;
+              $pos++;
+              while ( $pos < $j && $address{$pos} != '>' ) {
+	         $addr .= $address{$pos};	
+                 $pos++;
+              }
+	      $pos++;
+	      break;
+           case ('('):  /* rip off comments */
+              $addr_start=$pos;
+              $pos++;
+              while ( $pos < $j && $address{$pos} != ')' ) {
+	         $addr .= $address{$pos};	
+                 $pos++;
+              }
+	      $address_start = substr($address,0,$addr_start);
+	      $address_end = substr($address,$pos+1);
+	      $address = $address_start . $address_end; 
+	      $j = strlen( $address );
+	      $pos = $addr_start;
+	      $pos++;
+	      break;
+           case (','):  /* we reached a delimiter */
+              if ($addr == '') {
+	         $addr = substr($address,0,$pos);
+	      } elseif ($name == '') {
+	         $name = substr($address,0,$addr_start);
+	      }
+	      
+	      $at = strpos($addr, '@');
+	      $addr_structure = new address_structure();
+	      $addr_structure->personal = $name;
+	      $addr_structure->group = $group;
+	      if ($at) {
+	         $addr_structure->mailbox = substr($addr,0,$at);
+	         $addr_structure->host = substr($addr,$at+1);
+	      } else  {
+	         $addr_structure->mailbox = $addr;
+	      }
+	      $address = trim(substr($address,$pos+1));
+	      $j = strlen( $address );
+	      $pos = 0;
+              $name = '';
+              $addr = '';
+              $addr_ar[] = $addr_structure;
+	      break;
+           case (':'):  /* process the group addresses */
+              /* group marker */
+              $group = substr($address,0,$pos);
+	      $address = substr($address,$pos+1);
+              $result = $this->parseAddress($address, $ar, $addr_ar, $group);
+	      $addr_ar = $result[0];
+	      $pos = $result[1];
+	      $address = substr($address,$pos);
+	      $j = strlen( $address );	
+	      $group = '';
+	      $pos++;
+	      break;
+           case (';'):
+	      if ($group) {
+                 $address = substr($address, 0, $pos-1);
+	      }
+	      $pos++;
+              break;
+	   default:
+	      $pos++;
+	      break;
+	   }      
+           
+        }
+        if ($addr == '') {
+           $addr = substr($address,0,$pos);
+        } elseif ($name == '') {
+           $name = substr($address,0,$addr_start);
+        }
+        $at = strpos($addr, '@');
+        $addr_structure = new address_structure();
+        $addr_structure->group = $group;
+        if ($at) {
+           $addr_structure->mailbox = trim(substr($addr,0,$at));
+           $addr_structure->host = trim(substr($addr,$at+1));
+        } else {
+           $addr_structure->mailbox = trim($addr);
+        }
+        if ($group && $addr == '') { /* no addresses found in group */
+           $name = "$group: Undisclosed recipients;";
+           $addr_structure->personal = $name;
+           $addr_ar[] = $addr_structure;     
+           return (array($addr_ar,$pos+1)); 
+        } else {
+           $addr_structure->personal = $name;
+           if ($name || $addr) {
+              $addr_ar[] = $addr_structure;
+           } 
+        }
+        if ($ar) {
+           return ($addr_ar);
+        } else {
+           return ($addr_ar[0]);
+        }          
+    }
+   
+   function parseContentType($value) {
+       $pos = strpos($value,';');
+       $props = '';
+       if ($pos > 0) {
+          $type = trim(substr($value,0,$pos));
+	  $props = trim(substr($type,$pos+1));
+       } else {
+          $type = $value;
+       }
+       $content_type = new content_type($type);
+       if ($props) {
+          $properties = $this->parseProperties($props);
+	  if (!isset($properties['charset'])) {
+	     $properties['charset'] = 'us-ascii';
+	  }
+	  $content_type->properties = $this->parseProperties($props);
+       }
+       $this->content_type = $content_type;
+   }
+   
+   function parseProperties($value) {
+      $propArray = explode(';',$value);
+      $propResultArray = array();
+      foreach ($propArray as $prop) {
+         $prop = trim($prop);
+         $pos = strpos($prop,'=');
+	 if ($pos>0) {
+	    $key = trim(substr($prop,0,$pos));
+	    $val = trim(substr($prop,$pos+1));
+	    if ($val{0} == '"') {
+	       $val = substr($val,1,-1);
+	    }
+	    $propResultArray[$key] = $val;
+	 }
+      }
+      return $propResultArray;
+   }
+   
+   function parseDisposition($value) {
+       $pos = strpos($value,';');
+       $props = '';
+       if ($pos > 0) {
+          $name = trim(substr($value,0,$pos));
+	  $props = trim(substr($type,$pos+1));
+       } else {
+          $name = $value;
+       }
+       $props_a = $this->parseProperties($props);
+       $disp = new disposition($name);
+       $disp->properties = $props_a;
+       $this->disposition = $disp;
+   }
+   
+   function mlist($field, $value) {
+       $res_a = array();
+       $value_a = explode(',',$value);
+       foreach ($value_a as $val) {
+          $val = trim($val);
+	  if ($val{0} == '<') {
+	     $val = substr($val,1,-1);
+	  }
+	  if (substr($val,0,7) == 'mailto:') {
+	     $res_a['mailto'] = substr($val,7);
+	  } else {
+	     $res_a['href'] = $val;
+	  }
+       }
+       $this->mlist[$field] = $res_a;
+   }
+
     /* 
     * function to get the addres strings out of the header.
     * Arguments: string or array of strings !
     * example1: header->getAddr_s('to').
     * example2: header->getAddr_s(array('to','cc','bcc'))
     */
-    function getAddr_s($arr) {
+    function getAddr_s($arr, $separator=', ') {
 	if (is_array($arr)) {
 	    $s = '';
 	    foreach($arr as $arg ) {
 	       $result = $this->getAddr_s($arg);
 	       if ($result) {
-	          $s .= ', ' . $result;
+	          $s .= $separator . $result;
 	       }
 	    }
 	    if ($s) $s = substr($s,2);
@@ -55,10 +409,10 @@ class msg_header {
 	    if (is_array($addr)) {
                foreach ($addr as $addr_o) {
                   if (is_object($addr_o)) {
-                     $s .= $addr_o->getAddress() . ', ';
+                     $s .= $addr_o->getAddress() . $separator;
                   }
                }
-	       $s = substr($s,0,-2);
+	       $s = substr($s,0,-strlen($separator));
 	    } else {
 	       if (is_object($addr)) {
 	          $s .= $addr->getAddress();
@@ -106,7 +460,53 @@ class msg_header {
 	    return $arr;
 	}
     }
+    
+    function getContentType($type0, $type1) {
+        $type0 = $this->content_type->type0;
+	$type1 = $this->content_type->type1;
+        return $this->content_type->properties;
+    }
 }
+
+class msg_header {
+    /** msg_header contains all variables available in a bodystructure **/
+    /** entity like described in rfc2060                               **/
+
+    var $type0 = '', 
+        $type1 = '', 
+	$parameters = array(),
+        $id = 0, 
+	$description = '', 
+        $encoding='', 
+	$size = 0,
+	$md5='', 
+	$disposition = '', 
+	$language='';
+    
+    /* 
+     * returns addres_list of supplied argument
+     * arguments: array('to', 'from', ...) or just a string like 'to'.
+     * result: string: address1, addres2, ....
+     */ 
+    
+    function setVar($var, $value) {
+        $this->{$var} = $value;
+    }
+    
+    function getParameter($par) {
+        $value = strtolower($par);
+        if (isset($this->parameters[$par])) {
+           return $this->parameters[$par];
+        }
+        return '';
+    }
+    
+    function setParameter($parameter, $value) {
+        $this->parameters[strtolower($parameter)] = $value;
+    }
+}
+
+
 
 class address_structure {
    var $personal = '', $adl = '', $mailbox = '', $host = '', $group = '';
@@ -114,13 +514,13 @@ class address_structure {
    function getAddress($full=true) {
      if (is_object($this)) {
         if (isset($this->host) && $this->host !='') {
-    	   $email = '<'.$this->mailbox.'@'.$this->host.'>';
+    	   $email = $this->mailbox.'@'.$this->host;
         } else {
            $email = $this->mailbox;
         }
         if (trim($this->personal) !='') {
 	   if ($email) {
-        	$addr = '"' . $this->personal . '" ' .$email;
+        	$addr = '"' . $this->personal . '" <' .$email.'>';
 	   } else {
 	        $addr = $this->personal;
 	   }
@@ -144,19 +544,22 @@ class message {
       more objects of type message.  See documentation in mime.txt for
       a better description of how this works.
     **/
-    var $header = '', $entities = array(), $mailbox = 'INBOX', $id = 0,
-        $envelope = '', $parent_ent, $entity, $type0='', $type1='',
+    var $rfc822_header = '', 
+        $mime_header = '',
+	$flags = '',
+        $type0='',
+	$type1='',         
+        $entities = array(), 
+        $parent_ent, $entity, 
 	$parent = '', $decoded_body='',
 	$is_seen = 0, $is_answered = 0, $is_deleted = 0, $is_flagged = 0,
-	$is_mdnsent = 0;
+	$is_mdnsent = 0,
+	$body_part = '';
 
     function setEnt($ent) {
         $this->entity_id= $ent;
     }
     
-    function setBody($body) {
-        $this->decoded_body = $body;
-    }
     function addEntity ($msg) {
         $msg->parent = &$this;
         $this->entities[] = $msg;
@@ -208,6 +611,20 @@ class message {
         }
 
         return $msg;
+    }
+
+    function setBody($s) {
+        $this->body_part = $s;
+    }
+    
+    function clean_up() {
+        $msg = $this;
+	$msg->body_part = '';
+	$i=0;
+    	while ( isset($msg->entities[$i])) {
+    	    $msg->entities[$i]->clean_up();
+    	    $i++;
+    	}
     }
     
     function getMailbox() {
@@ -282,14 +699,15 @@ class message {
 		   }
 	      }
 	   } else {
-	      switch ($arg_no) {
-	       case 1:
+	      switch ($arg_no)
+	      {
+	      case 1:
 	         /* multipart properties */
 		 $i++;
 		 $arg_a[] = $this->parseProperties($read,&$i);
 		 $arg_no++;
 		 break;
-	       case 2:
+	      case 2:
 	         if (isset($msg->type0) &&  $msg->type0 == 'multipart') {
 		    $i++;
 		    $arg_a[]= $msg->parseDisposition($read,&$i);
@@ -299,12 +717,12 @@ class message {
 		 }
  	         $arg_no++;
                  break;
-	       case 3:
+	      case 3:
 	         if (isset($msg->type0) &&  $msg->type0 == 'multipart') {
 		    $i++;
 		    $arg_a[]= $msg->parseLanguage($read,&$i);
 		 }
-	       case 7:
+	      case 7:
 	         if ($arg_a[0] == 'message' && $arg_a[1] == 'rfc822') {
 
 		     $msg->header->type0 = $arg_a[0];
@@ -312,8 +730,9 @@ class message {
 
 		     $msg->header->type1 = $arg_a[1];
 		     $msg->type1 = $arg_a[1];
-		 
-		     $msg->parseEnvelope($read,&$i,&$hdr);
+		     $rfc822_hdr = new rfc822_header();
+		     $msg->parseEnvelope($read,&$i,&$rfc822_hdr);
+		     $msg->rfc822_header = $rfc822_hdr;
 		     $i++;
 		     while ($i < $cnt && $read{$i} != '(') {
 		       $i++;
@@ -321,12 +740,12 @@ class message {
 	             $msg->addEntity($msg->parseStructure($read,&$i));
 		 }
 		 break;
-	       case 8:
+	      case 8:
 	         $i++;
 		 $arg_a[] = $msg->parseDisposition($read,&$i);
 		 $arg_no++;    
 		 break;
-	       case 9:
+	      case 9:
 	         if ($arg_a[0] == 'text' || 
 		       ($arg_a[0] == 'message' && $arg_a[1] == 'rfc822')) {
 	            $i++;
@@ -337,7 +756,7 @@ class message {
 		 }
 		 $arg_no++;    
 		 break;
-	       case 10:
+	      case 10:
 	         if ($arg_a[0] == 'text' ||
 		       ($arg_a[0] == 'message' && $arg_a[1] == 'rfc822')) {
 		    $i++;		       
@@ -348,7 +767,7 @@ class message {
 		 }
 	       	 $arg_no++;
 		 break;  
-	       default:
+	      default:
 	         /* unknown argument, skip this part */
 	         $msg->parseParenthesis($read,&$i);
 		 $arg_a[] = '';
@@ -365,6 +784,7 @@ class message {
 	   if ($arg_no < 3) $arg_s = strtolower($arg_s); /* type0 and type1 */
 	   $arg_a[] = $arg_s;
 	   break;
+	case 'n':   
 	case 'N':
 	   /* probably NIL argument */
 	   if (strtoupper(substr($read,$i,4)) == 'NIL ' || 
@@ -384,7 +804,7 @@ class message {
 	   if ($read{$i} == ' ') break; 
 	   $arg_s = $read{$i};;
 	   $i++;
-	   while (preg_match('/\d+/',$read{$i})) { // != ' ') {
+	   while (preg_match('/^[0-9]{1}$/',$read{$i})) { 
 	      $arg_s .= $read{$i};
 	      $i++;
 	   }
@@ -412,9 +832,7 @@ class message {
 
 	      $arr = $arg_a[2];
 	      if (is_array($arr)) {
-    	         foreach($arr as $name => $value) {
-        	    $hdr->{$name} = $value;
-    	         }
+	         $hdr->parameters = $arg_a[2];
 	      }
 	      $hdr->id = str_replace( '<', '', str_replace( '>', '', $arg_a[3] ) );
 	      $hdr->description = $arg_a[4];
@@ -456,23 +874,18 @@ class message {
 
 	        $msg->type0 = 'multipart';
 	        $msg->type1 = $arg_a[0];
-	        if (isset($arg_a[1])) {
-	           $arr = $arg_a[1];
-	           if (is_array($arr)) {
-    	           foreach($arr as $name => $value) {
-        	      $hdr->{$name} = $value;
-    	           }
-		 }  
-                 }
-	         if (isset($arg_a[2])) {
+	        if (is_array($arg_a[1])) {
+                   $hdr->parameters = $arg_a[1]; 
+                }
+	        if (isset($arg_a[2])) {
 		    $hdr->disposition = $arg_a[2];
-	         }
-	         if (isset($arg_a[3])) {
+	        }
+	        if (isset($arg_a[3])) {
 		    $hdr->language = $arg_a[3];
-	         }
-		 $msg->header = $hdr;
-	         return $msg;
-	      }
+	        }
+		$msg->header = $hdr;
+	        return $msg;
+	   }
 	default:
 	   break;
         } /* switch */
@@ -511,16 +924,17 @@ class message {
         while ($i< $cnt && $read{$i} != ')') {
 	   $i++;
 	   $char = strtoupper($read{$i});
-	   switch ($char) {
-	     case '"':
+	   switch ($char) 
+	   {
+	   case '"':
 	       $arg_a[] = $this->parseQuote($read,&$i);
 	       $arg_no++;
 	       break;
-	     case '{':
+	   case '{':
 	       $arg_a[] = $this->parseLiteral($read,&$i);
 	       $arg_no++;
 	       break;
-	     case 'N':   
+	   case 'N':   
 	       /* probably NIL argument */
 	       if (strtoupper(substr($read,$i,3)) == 'NIL') {
 	          $arg_a[] = '';
@@ -528,7 +942,7 @@ class message {
 	          $i = $i+2;
 	       }      
 	       break;
-	     case '(':
+	   case '(':
 	       /* Address structure 
 	        * With group support.
 		* Note: Group support is useless on SMTP connections
@@ -564,7 +978,7 @@ class message {
 	       }
 	       $arg_a[] = $addr_a;
 	       break;
-	     default:
+	   default:
 	       break;
 	   }
 	   $i++;
@@ -631,20 +1045,22 @@ class message {
 	$arg_a = array();
         while ($read{$i} != ')' ) { //&& $i < count($read)) {
 	   $char = strtoupper($read{$i});
-	   switch ($char) {
-	     case '"':
+	   switch ($char) 
+	   {
+	   case '"':
 	       $arg_a[] = $this->parseQuote($read,&$i);
 	       break;
-	     case '{': 
+	   case '{': 
 	       $arg_a[] = $this->parseLiteral($read,&$i);
 	       break;
-	     case 'N':   
-	       if (strtolower(substr($read,$i,3)) == 'nil') {
+	   case 'n':
+	   case 'N':   
+	       if (strtoupper(substr($read,$i,3)) == 'NIL') {
 	          $arg_a[] = '';
 	          $i = $i+2;
 	       }
 	       break;
-	     default:
+	   default:
 	       break;
 	   }
 	   $i++;
@@ -664,17 +1080,18 @@ class message {
     function parseDisposition($read,&$i) {
         $arg_a = array();
         while ($read{$i} != ')') {
-	   switch ($read{$i}) {
-	     case '"':
+	   switch ($read{$i}) 
+	   {
+	   case '"':
 	       $arg_a[] = $this->parseQuote($read,&$i);
 	       break;
-	     case '{': 
+	   case '{': 
 	       $arg_a[] = $this->parseLiteral($read,&$i);
 	       break;
-	     case '(':
+	   case '(':
 	       $arg_a[] = $this->parseProperties($read,&$i);
 	       break;
-	     default:
+	   default:
 	       break;
 	   }
 	   $i++;
@@ -694,17 +1111,18 @@ class message {
         /* no idea how to process this one without examples */
         $arg_a = array();
         while ($read{$i} != ')') {
-	   switch ($read{$i}) {
-	     case '"':
+	   switch ($read{$i})
+	   {
+	   case '"':
 	       $arg_a[] = $this->parseQuote($read,&$i);
 	       break;
-	     case '{': 
+	   case '{': 
 	       $arg_a[] = $this->parseLiteral($read,&$i);
 	       break;
-	     case '(':
+	   case '(':
 	       $arg_a[] = $this->parseProperties($read,&$i);
 	       break;
-	     default:
+	   default:
 	       break;
 	   }
 	   $i++;
@@ -724,17 +1142,18 @@ class message {
     
     function parseParenthesis($read,&$i) {
         while ($read{$i} != ')') {
-	   switch ($read{$i}) {
-	     case '"':
+	   switch ($read{$i})
+	   {
+	   case '"':
 	       $this->parseQuote($read,&$i);
 	       break;
-	     case '{': 
+	   case '{': 
 	       $this->parseLiteral($read,&$i);
 	       break;
-	     case '(':
+	   case '(':
 	       $this->parseParenthesis($read,&$i);
 	       break;
-	     default:
+	   default:
 	       break;
 	   }
 	   $i++;
@@ -802,7 +1221,7 @@ class message {
         for ($i = 0; $i < count($this->entities); $i ++) {
             $type = $this->entities[$i]->header->type0.'/'.$this->entities[$i]->header->type1;
 	    if ($type == 'multipart/related') {
-	       $type = $this->entities[$i]->header->type;
+	       $type = $this->entities[$i]->header->getParameter('type');
 	    }
 	    for ($j = $k; $j < count($alt_order); $j++) {
 	        if ($alt_order[$j] == $type && $j > $best_view) {
@@ -819,7 +1238,7 @@ class message {
         $msgs = array(); 
         for ($i = 0; $i < count($this->entities); $i ++) {
             $type = $this->entities[$i]->header->type0.'/'.$this->entities[$i]->header->type1;
-            if ($this->header->type == $type) {
+            if ($this->header->getParameter('type') == $type) {
 	        $msgs[] = $this->entities[$i];
 	    }
         }
@@ -864,16 +1283,32 @@ class message {
 }
 
 class disposition {
-  function disposition($name) {
-     $this->name = $name;
-     $this->properties = array();
-  }
+    function disposition($name) {
+       $this->name = $name;
+       $this->properties = array();
+    }
 }
 
 class language {
-  function language($name) {
-     $this->name = $name;
-     $this->properties = array();
+    function language($name) {
+       $this->name = $name;
+       $this->properties = array();
+    }
+}
+
+class content_type {
+    var $type0='text', 
+        $type1='plain', 
+	$properties='';
+  function content_type($type) {
+       $pos = strpos($type,'/');
+       if ($pos > 0) {
+          $this->type0 = substr($type,0,$pos);
+          $this->type1 = substr($type,$pos+1);
+       } else {
+          $this->type0 = $type;
+       }
+       $this->properties = array();
   }
 }
 
