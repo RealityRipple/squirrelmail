@@ -102,6 +102,8 @@ if ( !sqgetGlobalVar('smaction',$action) )
   if ( sqgetGlobalVar('smaction_edit_new',$tmp) )   $action = 'edit_as_new';
 }
 
+sm_print_r($_POST);
+die();
 /* Location (For HTTP 1.1 Header("Location: ...") redirects) */
 $location = get_location();
 /* Identities (fetch only once) */
@@ -990,7 +992,7 @@ function showInputForm ($session, $values=false) {
                     _("From:") . '</td>' . "\n" .
                     html_tag( 'td', '', 'left', $color[4], 'width="90%"' ) .
              '         '.
-	     addSelect('identitiy', $ident_list, $identity, TRUE);
+	     addSelect('identity', $ident_list, $identity, TRUE);
 
         echo '      </td>' . "\n" .
              '   </tr>' . "\n";
