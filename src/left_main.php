@@ -943,7 +943,7 @@ for ($i = 0; $i < count($boxes); $i++) {
 } else {  /* expiremental code */ 
     $boxes = sqimap_mailbox_tree($imapConnection);
     if (isset($advanced_tree) && $advanced_tree) {
-	echo '<FORM name=collapse action="left_main.php" METHOD=POST' .
+	echo '<FORM name=collapse action="left_main.php" METHOD=POST ' .
             'ENCTYPE="multipart/form-data"'."\n";
 	echo '<small><button type="submit" class="button" onmouseover="buttonover(this,true)" onmouseout="buttonover(this,false)" onmousedown="buttonclick(this,true)" onmouseup="buttonclick(this,false)">'. _("Save folder tree") .'</button><br><br>';
 	echo '<DIV ID=mailboxes CLASS=mailboxes>'."\n\n";
