@@ -193,7 +193,7 @@
       echo _("Let this folder contain subfolders");
       echo "<BR>";
    }   
-   echo "<INPUT TYPE=SUBMIT VALUE=Create>\n";
+   echo "<INPUT TYPE=SUBMIT VALUE=\""._("Create")."\">\n";
    echo "</FORM></TD></TR>\n";
 
    echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr>\n";
@@ -233,7 +233,7 @@
    /** UNSUBSCRIBE FOLDERS **/
    echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER cellpadding=2 cellspacing=0 border=0>\n";
    echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER colspan=3>";
-   echo _("Unsubscribe/Subscribe");
+   echo _("Unsubscribe") . "/" . _("Subscribe");
    echo "</TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[0]\" width=49% ALIGN=CENTER>";
    if ($count_special_folders < count($boxes)) {

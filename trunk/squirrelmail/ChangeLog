@@ -1,8 +1,5 @@
 Version 0.5pre1 -- DEVELOPMENT
 ------------------------------
-- Added Swedish translation from Tobias Ekbom
-- Added Brazilian Portuguse translation from Henrique Moura
-- Added Dutch translation from Arjen Halma
 - Date display now is similar to Netscape Messenger
 - Many bugs have been reported to the list, and been squashed
 - Help system developed 
@@ -18,6 +15,9 @@ Version 0.5pre1 -- DEVELOPMENT
 - Added support for message highlighting
 - Moved Address and Send buttons on Compose form for easier access 
 - Added Polish translation from Lukasz Klimek <casa@LO.Pila.PL>
+- Added Swedish translation from Tobias Ekbom
+- Added Brazilian Portuguse translation from Henrique Moura
+- Added Dutch translation from Arjen Halma
 
 
 
