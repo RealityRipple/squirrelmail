@@ -1276,7 +1276,7 @@ function deliverMessage($composeMessage, $draft=false) {
     if ($full_name) {
         $from = $rfc822_header->from[0];
 	if (!$from->host) $from->host = $domain;
-	$from_addr = $full_name .' <'.$from->mailbox.'@'.$from->host.'>';
+	$from_addr = '"'.$full_name .'" <'.$from->mailbox.'@'.$from->host.'>';
         $rfc822_header->from = $rfc822_header->parseAddress($from_addr,true);
     }
     if ($reply_to) {
