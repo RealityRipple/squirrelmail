@@ -100,11 +100,11 @@ function confirm_deletion()
                ) .
                html_tag( 'tr',
                    html_tag( 'td', _("Title:"), 'right', $color[4] ) .
-                   html_tag( 'td', $tmparray[title], 'left', $color[4] )
+                   html_tag( 'td', $tmparray['title'], 'left', $color[4] )
                ) .
                html_tag( 'tr',
                    html_tag( 'td', _("Message:"), 'right', $color[4] ) .
-                   html_tag( 'td', $tmparray[message], 'left', $color[4] )
+                   html_tag( 'td', $tmparray['message'], 'left', $color[4] )
                ) .
                html_tag( 'tr',
                    html_tag( 'td',
