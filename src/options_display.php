@@ -57,13 +57,17 @@ function load_optpage_data_display() {
 	}	
 	closedir($handle);
     
-    $optvals[SMOPT_GRP_GENERAL][] = array(
-        'name'    => 'custom_css',
-        'caption' => _("Custom Stylesheet"),
-        'type'    => SMOPT_TYPE_STRLIST,
-        'refresh' => SMOPT_REFRESH_ALL,
-        'posvals' => $css_values
-    );
+    if ( count( $css_values > 1 ) ) {
+    
+        $optvals[SMOPT_GRP_GENERAL][] = array(
+            'name'    => 'custom_css',
+            'caption' => _("Custom Stylesheet"),
+            'type'    => SMOPT_TYPE_STRLIST,
+            'refresh' => SMOPT_REFRESH_ALL,
+            'posvals' => $css_values
+        );
+    
+    }
     
     $language_values = array();
     foreach ($languages as $lang_key => $lang_attributes) {
