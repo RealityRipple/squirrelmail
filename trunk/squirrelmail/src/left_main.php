@@ -20,6 +20,7 @@
    
    displayHtmlHeader();
 
+   $auto_create_done = getPref($data_dir, $username, 'auto_create_done');
    if ($auto_create_special && ! isset($auto_create_done)) {
    	  if (isset ($sent_folder) && $sent_folder != "none") {
 	  	 if (!sqimap_mailbox_exists ($imapConnection, $sent_folder)) {
@@ -37,6 +38,7 @@
 	  }
 	  $auto_create_done = true;
 	  session_register('auto_create_done');
+          setPref($data_dir, $username, 'auto_create_done', TRUE);
    }
 
    function formatMailboxName($imapConnection, $box_array, $delimeter) {
