@@ -1,5 +1,7 @@
 Version 1.1.3 -- DEVELOPMENT
 ----------------------------
+- Fixed MOTD
+- Fixed multipart/alternative messages
 
 Version 1.1.2 -- May 21, 2001 
 -----------------------------
