@@ -306,9 +306,9 @@ function formatRecipientString($recipients, $item ) {
 
 function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, 
                          $color, $FirstTimeSee) {
-  global $msn_user_support, $default_use_mdn, $draft_folder, $sent_folder,
-         $default_use_priority, $show_xmailer_default, 
-	 $mdn_user_support, $PHP_SELF, $javascript_on;
+    global $msn_user_support, $default_use_mdn, $draft_folder, $sent_folder,
+           $default_use_priority, $show_xmailer_default, 
+           $mdn_user_support, $PHP_SELF, $javascript_on;
 
    $header = $message->rfc822_header;
    $env = array();
@@ -375,7 +375,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
      }
    }
    echo $s;
-   do_hook("read_body_header");   
+   do_hook("read_body_header");
    formatToolbar($mailbox,$passed_id,$passed_ent_id,$message, $color);
    echo '</table>';
 }	     
@@ -394,7 +394,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
    if (isset($where) && isset($what)) {
       $msgs_url .= 'search.php?where='.urlencode($where).
                    '&amp;what='.urlencode($what).'&amp;mailbox='.$urlMailbox;
-      $msgs_str = _("Search results");		   
+      $msgs_str = _("Search results");
    } else {
       $msgs_url .= 'right_main.php?sort='.$sort.'&amp;startMessage='.
                   $startMessage.'&amp;mailbox='.$urlMailbox;
@@ -416,8 +416,8 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 
    $comp_uri = $base_uri . 'src/compose.php'.
                          '?passed_id='.$passed_id.
-			 '&amp;mailbox='.$urlMailbox.
-			 (isset($passed_ent_id)?'&amp;passed_ent_id='.$passed_ent_id:'');
+                         '&amp;mailbox='.$urlMailbox.
+                         (isset($passed_ent_id)?'&amp;passed_ent_id='.$passed_ent_id:'');
 
    if (($mailbox == $draft_folder) && ($save_as_draft)) {
       $comp_alt_uri = $comp_uri . '&amp;action=draft';
@@ -430,14 +430,14 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
       $s .= $topbar_delimiter;   
       if ($compose_new_win == '1') {
          $s .= '<a href="javascript:void(0)" '. 
-	         'onclick="comp_in_new(\''.$comp_alt_uri.'\')">'.$comp_alt_string.'</a>';
+               'onclick="comp_in_new(\''.$comp_alt_uri.'\')">'.$comp_alt_string.'</a>';
       } else {
          $s .= '<a href="'.$comp_alt_uri.'">'.$comp_alt_string.'</a>';
       }
    }
-   
+
    $s .= '</small></td><td align="center" width="33%"><small>';
-   
+
    if (!(isset($where) && isset($what)) && !$passed_ent_id) {
       $prev = findPreviousMessage($mbx_response['EXISTS'], $passed_id);
       $next = findNextMessage($passed_id);
@@ -454,7 +454,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
          $uri = $base_uri . 'src/read_body.php?passed_id='.$next.
                 '&amp;mailbox='.$urlMailbox.'&amp;sort='.$sort.
                 '&amp;startMessage='.$startMessage.'&amp;show_more=0';
-         $s .= '<a href="'.$uri.'">'._("Next").'</a>';	 
+         $s .= '<a href="'.$uri.'">'._("Next").'</a>';
       } else {
          $s .= _("Next");
       }
@@ -464,12 +464,12 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
       $s .= '<a href="'.$url.'">'._("View Message").'</a>';
       $par_ent_id = $message->parent->entity_id;
       if ($par_ent_id) {
-         $par_ent_id = substr($par_ent_id,0,-2);
-         $s .= $topbar_delimiter;
-	 $url = set_url_var($PHP_SELF, 'passed_ent_id',$par_ent_id);
-	 $s .= '<a href="'.$url.'">'._("Up").'</a>';
+        $par_ent_id = substr($par_ent_id,0,-2);
+        $s .= $topbar_delimiter;
+        $url = set_url_var($PHP_SELF, 'passed_ent_id',$par_ent_id);
+        $s .= '<a href="'.$url.'">'._("Up").'</a>';
       }
-   }      
+   }
 
    $s .= '</small></td><td align="right" width="33%" nowrap><small>';
    $comp_action_uri = $comp_uri . '&amp;action=forward';
@@ -492,7 +492,6 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
       $s .= $topbar_delimiter;
    }
 
-
    $comp_action_uri = decodeHeader($comp_uri . '&amp;action=reply');
    if ($compose_new_win == '1') {
       $s .= '<a href="javascript:void(0)" '. 
@@ -510,7 +509,9 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
       $s .= '<a href="'.$comp_action_uri.'">'._("Reply All").'</a>';
    }
    $s .= '</small></td></tr></table>';
+   do_hook("read_body_menu_top");
    echo $s;
+   do_hook("read_body_menu_bottom");
 }
 
 function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
@@ -537,7 +538,7 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
 }
 
 /***************************/
-/*   Main of read_boby.php */
+/*   Main of read_body.php */
 /***************************/
 
 /*
@@ -657,15 +658,15 @@ echo '              <tr><td><br>' . $messagebody . '</td></td>';
 echo '            </table>';
 echo '          </td></tr>';      
 echo '        </table></td></tr>';
-echo '      </table>';
-echo '    </td></tr>';
+echo '    </table>';
+echo '  </td></tr>';
 
 $attachmentsdisplay = formatAttachments($message,$ent_ar,$mailbox, $passed_id);
 if ($attachmentsdisplay) {
-   echo '    <tr><td>';
+   echo '  <tr><td>';
    echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
-   echo '      <tr><td>';
-   echo '      <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
+   echo '     <tr><td>';
+   echo '       <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
    echo '        <tr><td ALIGN="left" bgcolor="'.$color[9].'">';
    echo '           <b>' . _("Attachments") . ':</b>';
    echo '        </td></tr>';
@@ -674,7 +675,7 @@ if ($attachmentsdisplay) {
    echo              $attachmentsdisplay;
    echo '          </td></tr></table>';
    echo '        </table></td></tr>';
-   echo '      </table></td></tr>';
+   echo '       </table></td></tr>';
    echo '    </table>';
    echo '  </td></tr>';
 }
