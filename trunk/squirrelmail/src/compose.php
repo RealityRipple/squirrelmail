@@ -255,32 +255,39 @@
       echo "</CENTER>";
    }
 
-   function checkInput () {
-      global $body, $send_to, $subject;
+   function checkInput ($show) {
+      /** I implemented the $show variable because the error messages
+          were getting sent before the page header.  So, I check once
+          using $show=false, and then when i'm ready to display the
+          error message, show=true **/
+      global $body, $send_to, $subject, $color;
 
       if ($body == "") {
-         plain_error_message(_("You have not entered a message body."), $color);
+         if ($show)
+            plain_error_message(_("You have not entered a message body."), $color);
          return false;
       } else if ($send_to == "") {
-         displayPageHeader($color, "None");
-         plain_error_message(_("You have not filled in the \"To:\" field."), $color);
+         if ($show)
+            plain_error_message(_("You have not filled in the \"To:\" field."), $color);
          return false;
       } else if ($subject == "") {
-         plain_error_message(_("You have not entered a subject."), $color);
+         if ($show)
+            plain_error_message(_("You have not entered a subject."), $color);
          return false;
       }
       return true;
    } // function checkInput()
 
    if(isset($send)) {
-      if (checkInput()) {
+      if (checkInput(false)) {
          sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body);
          header ("Location: right_main.php");
       } else {
          echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
          $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
          displayPageHeader($color, "None");
-
+         checkInput(true);
+         
          showInputForm();
       }
    } else if (isset($attach)) {

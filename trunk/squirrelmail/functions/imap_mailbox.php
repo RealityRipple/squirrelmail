@@ -83,7 +83,6 @@
     ******************************************************************************/
    function sqimap_mailbox_delete ($imap_stream, $mailbox) {
       fputs ($imap_stream, "a001 DELETE \"$mailbox\"\r\n");
-      echo "mailbox: $mailbox<BR>";
       $read_ary = sqimap_read_data($imap_stream, "a001", true, $response, $message);
       sqimap_unsubscribe ($imap_stream, $mailbox);
    }
