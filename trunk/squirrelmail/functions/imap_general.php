@@ -73,10 +73,15 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response,
    
         $read = sqimap_read_data ($imap_stream, $tag, $handle_errors, $response,
                                   $message, $query,$filter,$outputstream,$no_return);
+        if (empty($read)) {	//Imap server dropped its connection
+            $response = '';
+            $message = '';
+            return false;
+        }
         /* retrieve the response and the message */
         $response = $response[$tag];
         $message  = $message[$tag];
-        
+    
         if (!empty($read[$tag])) {
             return $read[$tag][0];
         } else {
@@ -280,11 +285,12 @@ function sqimap_read_data_list($imap_stream, $tag, $handle_errors,
  * Function to display an error related to an IMAP-query.
  * @param string title the caption of the error box
  * @param string query the query that went wrong
- * @param string message_title
- * @param string message the error message
+ * @param string message_title optional message title
+ * @param string message optional error message
+ * @param string $link an optional link to try again
  * @return void
  */
-function sqimap_error_box($title, $query = '', $message_title = '', $message = '')
+function sqimap_error_box($title, $query = '', $message_title = '', $message = '', $link = '')
 {
     global $color, $squirrelmail_language;
 
@@ -301,6 +307,8 @@ function sqimap_error_box($title, $query = '', $message_title = '', $message = '
     if ($message != '')
         $string .= htmlspecialchars($message);
     $string .= "</font><br>\n";
+    if ($link != '')
+        $string .= $link;
     error_box($string,$color);
 }
 
@@ -316,6 +324,7 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
     $read = '';
     if (!is_array($message)) $message = array();
     if (!is_array($response)) $response = array();
+    $aResponse = '';
     $resultlist = array();
     $data = array();
     $read = sqimap_fgets($imap_stream);
@@ -470,8 +479,10 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
     /* error processing in case $read is false */
     if ($read === false) {
         unset($data);
-        sqimap_error_box(_("ERROR : Connection dropped by imap-server."), $query);
-        exit;
+        if ($handle_errors) {
+            sqimap_error_box(_("ERROR : Connection dropped by imap-server."), $query);
+            exit;
+        }
     }
     
     /* Set $resultlist array */
@@ -485,7 +496,6 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
     /* Return result or handle errors */
     if ($handle_errors == false) {
         return $aResponse;
-        return( $resultlist );	//?? Why this?
     }
     switch ($response[$tag]) {
     case 'OK':
