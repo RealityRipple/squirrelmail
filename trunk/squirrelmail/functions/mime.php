@@ -915,6 +915,8 @@
                             $ret .= '<b>' . _("Title:") . " </b>$title<br>\n";
                         $ret .= "<TABLE";
                         $i += 5;
+			if (! isset($base))
+			   $base = '';
                         $ret .= stripEvent( $i, $j, $body, $id, $base );
                         //if( $bgcolor <> '' )
                             $ret .= " bgcolor=$bgcolor";
@@ -952,6 +954,8 @@
                     default:
                         // Following tags can contain some event handler, lets search it
                         stripComments( $i, $j, $body );
+			if (! isset($base))
+			   $base = '';
                         $ret .= stripEvent( $i, $j, $body, $id, $base ) . '>';
                         // $ret .= "<!-- $tag detected -->";
                 }
