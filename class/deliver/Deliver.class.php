@@ -361,7 +361,7 @@ class Deliver {
      * @return string $header
      */
     function prepareRFC822_Header($rfc822_header, $reply_rfc822_header, &$raw_length) {
-        global $domain, $version, $username;
+        global $domain, $version, $username, $skip_SM_header;
 
         /* if server var SERVER_NAME not available, use $domain */
         if(!sqGetGlobalVar('SERVER_NAME', $SERVER_NAME, SQ_SERVER)) {
@@ -394,10 +394,13 @@ class Deliver {
             $received_from .= " (proxying for $HTTP_X_FORWARDED_FOR)";
         }
         $header = array();
-        $header[] = "Received: from $received_from" . $rn;
-        $header[] = "        (SquirrelMail authenticated user $username);" . $rn;
-        $header[] = "        by $SERVER_NAME with HTTP;" . $rn;
-        $header[] = "        $date" . $rn;
+        if ( !isset($skip_SM_header) || !$skip_SM_header )
+        {
+          $header[] = "Received: from $received_from" . $rn;
+          $header[] = "        (SquirrelMail authenticated user $username);" . $rn;
+          $header[] = "        by $SERVER_NAME with HTTP;" . $rn;
+          $header[] = "        $date" . $rn;
+        }
         /* Insert the rest of the header fields */
         $header[] = 'Message-ID: '. $message_id . $rn;
         if ($reply_rfc822_header->message_id) {
