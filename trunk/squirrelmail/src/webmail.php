@@ -66,7 +66,7 @@
       echo "<FRAME SRC=\"left_main.php\" NAME=\"left\">";
       echo "<FRAME SRC=\"folders.php\" NAME=\"right\">";
    } else if ($right_frame == "help.php") {
-      echo "<FRAME SRC=\"left_main.php?help.php\" NAME=\"left\">";
+      echo "<FRAME SRC=\"left_help.php\" NAME=\"left\">";
       echo "<FRAME SRC=\"help.php\" NAME=\"right\">";
    } else {
       echo "<FRAME SRC=\"left_main.php\" NAME=\"left\">";
