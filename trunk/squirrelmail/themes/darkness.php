@@ -1,6 +1,6 @@
 <?php
    /** Author:       Tyler Akins
-       Theme Name:   "Darkness"
+       Theme Name:   'Darkness'
 
        Like black?
        
@@ -37,16 +37,16 @@ function IsUnique($Distance, $r, $g, $b, $usedArray)
 function Darkness_HeaderPlugin() {
    global $PHP_SELF, $Darkness_Transition;
    
-   if (substr($PHP_SELF, -18) == "/src/left_main.php") {
-      echo '<meta http-equiv="Page-Enter" content="' .
-         'blendTrans(Duration=2.0)">' . "\n";
+   if (substr($PHP_SELF, -18) == '/src/left_main.php') {
+      echo '<meta http-equiv='Page-Enter' content='' .
+         'blendTrans(Duration=2.0)'>' . '\n';
    }
 	 
 ?><script language=javascript>
 darkness_color = 0;
 darkness_dir = +1;
-darkness_hex = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", 
-   "A", "B", "C", "D", "E", "F");
+darkness_hex = new Array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 
+   'A', 'B', 'C', 'D', 'E', 'F');
 function DarknessTremble() {
    if (darkness_color >= 32 || darkness_color <= 0)
       darkness_dir = - darkness_dir;
@@ -56,10 +56,10 @@ function DarknessTremble() {
    bigDigit = Math.floor(darkness_color / 16);
    littleDigit = darkness_color - (bigDigit * 16);
    Color = darkness_hex[bigDigit] + darkness_hex[littleDigit];
-   document.bgColor="#" + Color + Color + Color;
-   setTimeout("DarknessTremble()", 5000);
+   document.bgColor='#' + Color + Color + Color;
+   setTimeout('DarknessTremble()', 5000);
 }
-setTimeout("DarknessTremble()", 10000);
+setTimeout('DarknessTremble()', 10000);
 </script>
 <?PHP
 }
@@ -71,8 +71,8 @@ $squirrelmail_plugin_hooks['generic_header']['theme_darkness'] =
    /** seed the random number generator **/
    sq_mt_randomize();
 
-   $color[3] = "#000000";
-   $color[4] = "#000000";
+   $color[3] = '#000000';
+   $color[4] = '#000000';
    $used = array(0);
    $targetDistance = $BackgroundTargetDistance;
    $Left = array(0, 5, 9, 10, 12);
@@ -86,7 +86,7 @@ $squirrelmail_plugin_hooks['generic_header']['theme_darkness'] =
       }
       if ($unique) {
          $i = array_shift($Left);
-         $color[$i] = sprintf("#%02X%02X%02X",$r,$r, $r);
+         $color[$i] = sprintf('#%02X%02X%02X',$r,$r, $r);
 	 $used[] = $r;
 	 $targetDistance = $BackgroundTargetDistance;
       } else {
@@ -97,7 +97,7 @@ $squirrelmail_plugin_hooks['generic_header']['theme_darkness'] =
    // Set the error color to some shade of red
    $r = mt_rand(196, 255);
    $g = mt_rand(144, ($r * .8));
-   $color[2] = sprintf("#%02X%02X%02X", $r, $g, $g);
+   $color[2] = sprintf('#%02X%02X%02X', $r, $g, $g);
    $used = array(array($r, $g, $g));
    
    // Set normal text colors
@@ -108,7 +108,7 @@ $squirrelmail_plugin_hooks['generic_header']['theme_darkness'] =
       $r = mt_rand($cmin,$cmax);
       $g = mt_rand($cmin,$cmax);
       $b = mt_rand($cmin,$cmax);
-      $color[$i] = sprintf("#%02X%02X%02X",$r,$g,$b);
+      $color[$i] = sprintf('#%02X%02X%02X',$r,$g,$b);
       $used[] = array($r, $g, $b);
    }
       
@@ -126,7 +126,7 @@ $squirrelmail_plugin_hooks['generic_header']['theme_darkness'] =
 
       if (IsUnique($targetDistance, $r, $g, $b, $used)) {
          $i = array_shift($Left);
-         $color[$i] = sprintf("#%02X%02X%02X",$r,$g,$b);
+         $color[$i] = sprintf('#%02X%02X%02X',$r,$g,$b);
 	 $used[] = array($r, $g, $b);
 	 $targetDistance = $TextTargetDistance;
       } else {
@@ -150,7 +150,7 @@ b  9: Darker version of #0
 b 10: Darker version of #9
 f 11: Special folders color [Inbox, Trash, Sent]
 b 12: Alternate color for message list [alters between 4 and this one]
-f 13: Color for single-quoted text ("> text") when reading (default:  #800000)
+f 13: Color for single-quoted text ('> text') when reading (default:  #800000)
 f 14: Color for text with more than one quote (default: #FF0000)
 
 **/

@@ -41,7 +41,7 @@ for ($i = 0; $i <= 15; $i++) {
     $b = mt_rand($cmin,$cmax);
 
     /** set array element as hex string with hashmark (for HTML output) **/
-    $color[$i] = sprintf("#%02X%02X%02X",$r,$g,$b);
+    $color[$i] = sprintf('#%02X%02X%02X',$r,$g,$b);
 }
 
 
