@@ -437,7 +437,7 @@ function user_strcasecmp($a, $b) {
  * See comment on sqimap_mailbox_parse() for info about the returned array.
  */
 function sqimap_mailbox_list($imap_stream) {
-    global $boxesnew, $default_folder_prefix;
+    global $default_folder_prefix;
 
     if ( !isset( $boxesnew ) ) {
 
