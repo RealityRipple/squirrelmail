@@ -65,13 +65,14 @@ class Deliver_SMTP extends Deliver {
 	}
 	
 	/* Lets introduce ourselves */
+    fputs($stream, "EHLO $helohost\r\n");
+    $tmp = fgets($stream,1024);
+    if ($this->errorCheck($tmp,$stream)) {
+        return(0);
+    }
+
 	if (( $smtp_auth_mech == 'cram-md5') or ( $smtp_auth_mech == 'digest-md5' )) {
 	  // Doing some form of non-plain auth
-	  fputs($stream, "EHLO $helohost\r\n");
-	  $tmp = fgets($stream,1024);
-	  if ($this->errorCheck($tmp,$stream)) {
-	    return(0);
-	  }
 	  if ($smtp_auth_mech == 'cram-md5') {
 	    fputs($stream, "AUTH CRAM-MD5\r\n");
 	  } elseif ($smtp_auth_mech == 'digest-md5') {
@@ -121,11 +122,6 @@ class Deliver_SMTP extends Deliver {
 	  }
 	} elseif ($smtp_auth_mech == 'login') {
 	  // The LOGIN method
-      fputs($stream, "EHLO $helohost\r\n");
-      $tmp = fgets($stream, 1024);
-	  if ($this->errorCheck($tmp, $stream)) {
-    	return(0);
-	  }
       fputs($stream, "AUTH LOGIN\r\n");
       $tmp = fgets($stream, 1024);
 
@@ -143,7 +139,25 @@ class Deliver_SMTP extends Deliver {
 	  if ($this->errorCheck($tmp, $stream)) {
     	return(0);
 	  }
-	} else {
+	} elseif ($smtp_auth_mech == "plain") {
+      /* SASL Plain */
+      $auth = base64_encode("$username\0$username\0$pass");
+                  
+      $query = "AUTH PLAIN\r\n";
+      fputs($stream, $query);
+      $read=fgets($stream, 1024);
+
+      if (substr($read,0,3) == '334') { // OK so far..
+         fputs($stream, "$auth\r\n");
+         $read = fgets($stream, 1024);
+      }
+                
+      $results=explode(" ",$read,3);
+      $response=$results[1];
+      $message=$results[2];
+
+      
+    } else {
 		/* Right here, they've reached an unsupported auth mechanism.
 		   This is the ugliest hack I've ever done, but it'll do till I can fix
 		   things up better tomorrow.  So tired... */

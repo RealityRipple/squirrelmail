@@ -639,9 +639,22 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
       $query = 'LOGIN "' . quoteimap($username) .  '" "' . quoteimap($password) . '"';
       $read = sqimap_run_command ($imap_stream, $query, false, $response, $message);
     } elseif ($imap_auth_mech == 'plain') {
-                /* Replace this with SASL PLAIN if it ever gets implemented */
-                $response="BAD";
-                $message='SquirrelMail does not support SASL PLAIN yet. Rerun conf.pl and use login instead.';
+                /* SASL PLAIN */
+                $tag=sqimap_session_id(false);
+                $auth = base64_encode("$username\0$username\0$password");
+                  
+                $query = $tag . " AUTHENTICATE PLAIN\r\n";
+                fputs($imap_stream, $query);
+                $read=sqimap_fgets($imap_stream);
+
+                if (substr($read,0,1) == '+') { // OK so far..
+                    fputs($imap_stream, "$auth\r\n");
+                    $read = sqimap_fgets($imap_stream);
+                }
+                
+                $results=explode(" ",$read,3);
+                $response=$results[1];
+                $message=$results[2];
         } else {
                 $response="BAD";
                 $message="Internal SquirrelMail error - unknown IMAP authentication method chosen.  Please contact the developers.";
