@@ -282,26 +282,26 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                 if ($use_icons && $icon_theme != 'none') {
                     $td_str = "<b><small>";
                     if (isset($msg['FLAG_FLAGGED']) && $msg['FLAG_FLAGGED'] == true) {
-                        $td_str .= '<IMG SRC="' . SM_PATH . 'images/themes/' . $icon_theme . '/flagged.gif" border="0" height="10" width="10"> ';
+                        $td_str .= '<img src="' . SM_PATH . 'images/themes/' . $icon_theme . '/flagged.png" border="0" height="10" width="10" /> ';
                     }
                     if ($default_use_priority) {
                         if ( ($msg['PRIORITY'] == 1) || ($msg['PRIORITY'] == 2) ) {
-                            $td_str .= '<IMG SRC="' . SM_PATH . 'images/themes/' . $icon_theme . '/prio_high.gif" border="0" height="10" width="5"> ';
+                            $td_str .= '<img src="' . SM_PATH . 'images/themes/' . $icon_theme . '/prio_high.png" border="0" height="10" width="5" /> ';
                         }
                         else if ($msg['PRIORITY'] == 5) {
-                            $td_str .= '<IMG SRC="' . SM_PATH . 'images/themes/' . $icon_theme . '/prio_low.gif" border="0" height="10" width="5"> ';
+                            $td_str .= '<img src="' . SM_PATH . 'images/themes/' . $icon_theme . '/prio_low.png" border="0" height="10" width="5" /> ';
                         }
                         else
                         {
-                            $td_str .= '<IMG SRC="' . SM_PATH . 'images/themes/' . $icon_theme . '/transparent.gif" border="0" width="5"> ';
+                            $td_str .= '<img src="' . SM_PATH . 'images/themes/' . $icon_theme . '/transparent.png" border="0" width="5" /> ';
                         }
                     }
                     if ($msg['TYPE0'] == 'multipart') {
-                        $td_str .= '<IMG SRC="' . SM_PATH . 'images/themes/' . $icon_theme . '/attach.gif" border="0" height="10" width="6">';
+                        $td_str .= '<img src="' . SM_PATH . 'images/themes/' . $icon_theme . '/attach.png" border="0" height="10" width="6" />';
                     }
                     else
                     {
-                        $td_str .= '<IMG SRC="' . SM_PATH . 'images/themes/' . $icon_theme . '/transparent.gif" border="0" width="6">';
+                        $td_str .= '<img src="' . SM_PATH . 'images/themes/' . $icon_theme . '/transparent.png" border="0" width="6" />';
                     }
 
                     $msg_icon = '';
@@ -327,7 +327,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                         $msg_title = '(' . _("Answered") . ')';
                         $msg_icon .= '_reply';
                     }
-                    $td_str .= '<IMG SRC="' . $msg_icon . '.gif" border="0" alt="'. $msg_alt . '" title="' . $msg_title . '" height="12" width="18" >';
+                    $td_str .= '<img src="' . $msg_icon . '.png" border="0" alt="'. $msg_alt . '" title="' . $msg_title . '" height="12" width="18" />';
                     $td_str .= '</small></b>';
                     echo html_tag( 'td',
                                    $td_str,
@@ -387,8 +387,8 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
         }
     }
     if ($not_last) {
-        echo '</tr>' . "\n" . '<tr><td COLSPAN="' . $col . '" BGCOLOR="' .
-             $color[0] . '" HEIGHT="1"></td></tr>' . "\n";
+        echo '</tr>' . "\n" . '<tr><td colspan="' . $col . '" bgcolor="' .
+             $color[0] . '" height="1"></td></tr>' . "\n";
     } else {
         echo '</tr>'."\n";
     }
