@@ -45,6 +45,9 @@
         $mailbox = 'INBOX';
         $startMessage = 1;
     }
+    
+    if (! isset($startMessage) || $startMessage == '')
+       $startMessage = 1;
 
     /* compensate for the UW vulnerability. */
     if ($imap_server_type == 'uw' && (strstr($mailbox, '../') !== false ||
@@ -109,7 +112,8 @@
 
         $numMessages = sqimap_get_num_messages ($imapConnection, $mailbox);
 
-        showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color, $show_num, $use_mailbox_cache);
+        showMessagesForMailbox($imapConnection, $mailbox, $numMessages, 
+   	   $startMessage, $sort, $color, $show_num, $use_mailbox_cache);
 
         if (session_is_registered('msgs') && isset($msgs)) {
             session_register('msgs');
