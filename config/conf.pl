@@ -2407,7 +2407,6 @@ sub save_data {
         print CF "\$allow_charset_search     = $allow_charset_search;\n";
         # boolean
         print CF "\$uid_support              = $uid_support;\n";
-	# boolean
         print CF "\n";
 	
 	# all plugins are strings
@@ -2475,6 +2474,8 @@ sub save_data {
         print CF "\$prefs_key_field = '$prefs_key_field';\n";
 	# string
         print CF "\$prefs_val_field = '$prefs_val_field';\n";
+	# boolean
+	print CF "\$no_list_for_subscribe = $no_list_for_subscribe;\n";
         print CF "\n";
 
         print CF "/**\n";

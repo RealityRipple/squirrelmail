@@ -501,6 +501,14 @@ global $noselect_fix_enable;
 $noselect_fix_enable = false;
 
 /**
+ * this disables listing all of the folders on the IMAP Server to
+ * generate the folder subscribe listbox (this can take a long time
+ * when you have a lot of folders).  Instead, a textbox will be
+ * displayed allowing users to enter a specific folder name to subscribe to */
+global $no_list_for_subscribe;
+$no_list_for_subscribe = false;
+
+/**
  * Make sure there are no characters after the PHP closing
  * tag below (including newline characters and whitespace).
  * Otherwise, that character will cause the headers to be
