@@ -200,10 +200,12 @@ but may be out of date soon thereafter.  You never know.  ;-)
   mailbox_index_after            functions/mailbox_display.php   do_hook
   check_handleAsSent_result      functions/mailbox_display.php   do_hook
   subject_link                   functions/mailbox_display.php   concat_hook
+  mailbox_display_buttons        functions/mailbox_display.php   do_hook
   message_body                   functions/mime.php              do_hook
   ^ attachment $type0/$type1     functions/mime.php              do_hook
   generic_header                 functions/page_header.php       do_hook
   menuline                       functions/page_header.php       do_hook
+  internal_link                  functions/page_header.php       hook_func
   loading_prefs                  include/load_prefs.php          do_hook
   addrbook_html_search_below     src/addrbook_search_html.php    do_hook
   addressbook_bottom             src/addressbook.php             do_hook
@@ -218,11 +220,13 @@ but may be out of date soon thereafter.  You never know.  ;-)
   left_main_after_each_folder    src/left_main.php               concat_hook
   left_main_before               src/left_main.php               do_hook
   left_main_after                src/left_main.php               do_hook
+  create_collapse_link           src/left_main.php               hook_func
   login_cookie                   src/login.php                   do_hook
   login_top                      src/login.php                   do_hook
   login_form                     src/login.php                   do_hook
   login_bottom                   src/login.php                   do_hook
   move_before_move               src/move_messages.php           do_hook
+  move_messages_button_action    src/move_messages.php           concat_hook
   * optpage_set_loadinfo         src/options.php                 do_hook
   * optpage_loadhook_personal    src/options.php                 do_hook
   * optpage_loadhook_display     src/options.php                 do_hook
