@@ -84,6 +84,7 @@ Version 1.5.1 -- CVS
   - Uneditable address book entries no longer have checkboxes on addresses page.
   - Alignment of title text above folder list fixed.
   - Changed structure of xtra_code functions that are used by some translations.
+  - Added Uighur language support.
 
 Version 1.5.0
 --------------------

@@ -627,6 +627,10 @@ $languages['he_IL']['LOCALE']  = 'he_IL.CP1255';
 $languages['he_IL']['DIR']     = 'rtl';
 $languages['he']['ALIAS']      = 'he_IL';
 
+$languages['ug']['NAME']    = 'Uighur';
+$languages['ug']['CHARSET'] = 'utf-8';
+$languages['ug']['DIR']     = 'rtl';
+
 /* Detect whether gettext is installed. */
 $gettext_flags = 0;
 if (function_exists('_')) {
