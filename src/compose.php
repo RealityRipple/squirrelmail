@@ -24,6 +24,7 @@ require_once('../functions/mime.php');
 require_once('../functions/smtp.php');
 require_once('../functions/display_messages.php');
 require_once('../functions/plugin.php');
+require_once('../functions/html.php');
 
 /* --------------------- Specific Functions ------------------------------ */
 
@@ -629,10 +630,15 @@ function showInputForm ($session) {
     if ($mail_sent == 'yes') {
         echo '<BR><CENTER><B>'. _("Your Message has been sent").'</CENTER></B>';
     }
-    echo '<TABLE WIDTH="100%" ALIGN=center CELLSPACING=0 BORDER=0>' . "\n";
+    echo html_tag( 'table', '', 'center', '', 'width="100%" cellspacing="0" border="0"' ) . "\n";
     if ($compose_new_win == '1') {
-        echo '<TABLE ALIGN=CENTER BGCOLOR="'.$color[0].'" WIDTH="100%" BORDER=0>'."\n";
-        echo '   <TR><TD></TD><TD ALIGN="RIGHT"><INPUT TYPE="BUTTON" NAME="Close" onClick="return self.close()" VALUE='._("Close").'></TD></TR>'."\n";
+        echo html_tag( 'table', 'center', $color[0], 'width="100%" border="0"' ) .
+                        html_tag( 'tr',
+                            html_tag( 'td' ) . 
+                            html_tag( 'td',
+                                      '<INPUT TYPE="BUTTON" NAME="Close" onClick="return self.close()" VALUE='._("Close").'>',
+                            'right' )
+                         );
     }
     if ($location_of_buttons == 'top') {
         showComposeButtonRow();
@@ -640,11 +646,9 @@ function showInputForm ($session) {
 
     $idents = getPref($data_dir, $username, 'identities', 0);
     if ($idents > 1) {
-        echo '   <TR>' . "\n" .
-             '      <TD BGCOLOR="' . $color[4] . '" WIDTH="10%" ALIGN=RIGHT>' .
-             "\n" .
-             _("From:") .
-             '      </TD><TD BGCOLOR="' . $color[4] . '" WIDTH="90%">' . "\n" .
+        echo html_tag( 'tr' ) . "\n" .
+            html_tag( 'td', "\n" . _("From:"), 'right', $color[4], 'width="10%"' ) .
+            html_tag( 'td', '', 'left', $color[4], 'width="90%"' ) .
              '<select name=identity>' . "\n" .
              '<option value=default>' .
              htmlspecialchars(getPref($data_dir, $username, 'full_name'));
@@ -666,44 +670,38 @@ function showInputForm ($session) {
             echo '</option>';
         }
         echo '</select>' . "\n" .
-             '      </TD>' . "\n" .
-             '   </TR>' . "\n";
+             '      </td>' . "\n" .
+             '   </tr>' . "\n";
     }
-    echo '   <TR>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" WIDTH="10%" ALIGN=RIGHT>' . "\n" .
-         _("To:") .
-         '      </TD><TD BGCOLOR="' . $color[4] . '" WIDTH="90%">' . "\n" .
-         '         <INPUT TYPE=text NAME="send_to" VALUE="' .
-         htmlspecialchars($send_to) . '" SIZE=60><BR>' . "\n" .
-         '      </TD>' . "\n" .
-         '   </TR>' . "\n" .
-         '   <TR>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" ALIGN=RIGHT>' . "\n" .
-         _("CC:") .
-         '      </TD><TD BGCOLOR="' . $color[4] . '" ALIGN=LEFT>' . "\n" .
-         '         <INPUT TYPE=text NAME="send_to_cc" SIZE=60 VALUE="' .
-         htmlspecialchars($send_to_cc) . '"><BR>' . "\n" .
-         '      </TD>' . "\n" .
-         '   </TR>' . "\n" .
-         '   <TR>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" ALIGN=RIGHT>' . "\n" .
-         _("BCC:") .
-         '      </TD><TD BGCOLOR="' . $color[4] . '" ALIGN=LEFT>' . "\n" .
-         '         <INPUT TYPE=text NAME="send_to_bcc" VALUE="' .
-         htmlspecialchars($send_to_bcc) . '" SIZE=60><BR>' . "\n" .
-         '</TD></TR>' . "\n" .
-         '   <TR>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" ALIGN=RIGHT>' . "\n" .
-         _("Subject:") .
-         '      </TD><TD BGCOLOR="' . $color[4] . '" ALIGN=LEFT>' . "\n";
+    echo html_tag( 'tr',
+                html_tag( 'td', "\n" . _("To:"), 'right', $color[4], 'width="10%"' ) .
+                html_tag( 'td', 
+                          '         <INPUT TYPE=text NAME="send_to" VALUE="' .
+                          htmlspecialchars($send_to) . '" SIZE=60><BR>' . "\n",
+                'left', $color[4], 'width="90%"' )
+            ) . "\n" .
+           html_tag( 'tr',
+                html_tag( 'td', "\n" . _("CC:"), 'right', $color[4], 'width="10%"' ) .
+                html_tag( 'td', 
+                          '         <INPUT TYPE=text NAME="send_to_cc" VALUE="' .
+                          htmlspecialchars($send_to_cc) . '" SIZE=60><BR>' . "\n",
+                'left', $color[4], 'width="90%"' )
+            ) . "\n" .
+           html_tag( 'tr',
+                html_tag( 'td', "\n" . _("BCC:"), 'right', $color[4], 'width="10%"' ) .
+                html_tag( 'td', 
+                          '         <INPUT TYPE=text NAME="send_to_bcc" VALUE="' .
+                          htmlspecialchars($send_to_bcc) . '" SIZE=60><BR>' . "\n",
+                'left', $color[4], 'width="90%"' )
+            ) . "\n";
+
     if ($reply_subj) {
-        $reply_subj = str_replace('"', "'", $reply_subj);
+        $reply_subj = str_replace('"', '\'', $reply_subj);
         $reply_subj = trim($reply_subj);
         if (substr(strtolower($reply_subj), 0, 3) != 're:') {
             $reply_subj = 'Re: ' . $reply_subj;
         }
-        echo '         <INPUT TYPE=text NAME=subject SIZE=60 VALUE="' .
-             htmlspecialchars($reply_subj) . '">';
+        $subject = $reply_subj;
     }
     elseif ($forward_subj) {
         $forward_subj = trim($forward_subj);
@@ -712,28 +710,33 @@ function showInputForm ($session) {
             (substr(strtolower($forward_subj), 0, 6) != '[ fwd:')) {
             $forward_subj = '[Fwd: ' . $forward_subj . ']';
         }
-        echo '         <INPUT TYPE=text NAME=subject SIZE=60 VALUE="' .
-             htmlspecialchars($forward_subj) . '">';
+        $subject = $forward_subj;
     } else {
-        echo '         <INPUT TYPE=text NAME=subject SIZE=60 VALUE="' .
-             htmlspecialchars($subject) . '">';
+        $subject = $subject;
     }
-    echo '</td></tr>' . "\n\n";
+
+    echo html_tag( 'tr',
+                html_tag( 'td', "\n" . _("Subject:"), 'right', $color[4], 'width="10%"' ) .
+                html_tag( 'td', 
+                          '         <INPUT TYPE=text NAME="subject" VALUE="' .
+                          htmlspecialchars($subject) . '" SIZE=60><BR>' . "\n",
+                'left', $color[4], 'width="90%"' )
+            ) . "\n";
 
     if ($location_of_buttons == 'between') {
         showComposeButtonRow();
     }
+
+    echo html_tag( 'tr' ) . "\n";
     if ($compose_new_win == '1') {
-        echo '   <TR>' . "\n" .
-             '      <TD BGCOLOR="' . $color[0] . '" COLSPAN=2 ALIGN=CENTER>' . "\n" .
-             '         <TEXTAREA NAME=body ROWS=20 COLS="' .
-             $editor_size . '" WRAP="VIRTUAL">';
+        echo html_tag( 'td', '', 'left', $color[0], 'colspan="2"' ) . "\n" .
+             '         <textarea name="body" rows="20" cols="' .
+             $editor_size . '" wrap="virtual">';
     }
     else {
-        echo '   <TR>' . "\n" .
-            '      <TD BGCOLOR="' . $color[4] . '" COLSPAN=2>' . "\n" .
-            '         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS="' .
-            $editor_size . '" WRAP="VIRTUAL">';
+        echo html_tag( 'td', '', 'left', $color[4], 'colspan="2"' ) . "\n" .
+            '         &nbsp;&nbsp;<textarea name="body" rows="20" cols="' .
+            $editor_size . '" wrap="virtual">';
     }
     if ($use_signature == true && $newmail == true && !isset($from_htmladdr_search)) {
         if ($sig_first == '1') {
@@ -748,35 +751,33 @@ function showInputForm ($session) {
     else {
        echo htmlspecialchars($body);
     }
-    echo '</TEXTAREA><BR>' . "\n" .
-         '      </TD>' . "\n" .
-         '   </TR>' . "\n";
+    echo '</textarea><br>' . "\n" .
+         '      </td>' . "\n" .
+         '   </tr>' . "\n";
 
     if ($location_of_buttons == 'bottom') {
         showComposeButtonRow();
     } else {
-        echo '   <TR><TD COLSPAN=2 ALIGN=LEFT>';
-        echo ' &nbsp; <INPUT TYPE=SUBMIT NAME=send VALUE="' . _("Send") . '"></TD></TR>' . "\n";
+        echo html_tag( 'tr',
+                    html_tag( 'td', ' &nbsp; <INPUT TYPE=SUBMIT NAME=send VALUE="' . _("Send") . '">', 'left', '', 'colspan="2"' ) ."\n"
+                );
     }
 
     /* This code is for attachments */
     if ($file_uploads) {
-        echo '   <TR>' . "\n" .
-             '     <TD VALIGN=MIDDLE ALIGN=RIGHT>' . "\n" .
-                    _("Attach:") .
-             '      </TD>' . "\n" .
-             '      <TD VALIGN=MIDDLE ALIGN=LEFT>' . "\n" .
-             '      <INPUT NAME="attachfile" SIZE=48 TYPE="file">' . "\n" .
-             '      &nbsp;&nbsp;<input type="submit" name="attach"' .
-             ' value="' . _("Add") .'">' . "\n" .
-             '     </TD>' . "\n" .
-             '   </TR>' . "\n";
+        echo html_tag( 'tr',
+                    html_tag( 'td', "\n" . _("Attach:") ."\n", 'right', '', 'valign="middle"' ) ."\n" .
+                    html_tag( 'td', "\n" . '<INPUT NAME="attachfile" SIZE=48 TYPE="file">' .
+                             '&nbsp;&nbsp;<input type="submit" name="attach"' .
+                             ' value="' . _("Add") .'">' . "\n" ,
+                    'left', '', 'valign="middle"' ) ."\n"
+                );
 
         if (count($attachments)) {
             $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-            echo '<tr><td bgcolor="' . $color[0] . '" align=right>' . "\n" .
-                 '&nbsp;' .
-                 '</td><td align=left bgcolor="' . $color[0] . '">';
+            echo html_tag( 'tr' ) .
+                      html_tag( 'td', "\n" . '&nbsp;', 'right', $color[0] ) .
+                      html_tag( 'td', '', 'left', $color[0] );
             foreach ($attachments as $key => $info) {
                 if ($info['session'] == $session) {
                     $attached_file = "$hashed_attachment_dir/$info[localfilename]";
@@ -793,9 +794,9 @@ function showInputForm ($session) {
         /* End of attachment code */
     }
     if ($compose_new_win == '1') {
-        echo '</TABLE>'."\n";
+        echo '</table>'."\n";
     }
-    echo '</TABLE>' . "\n";
+    echo '</table>' . "\n";
     if ($reply_id) {
         echo '<input type=hidden name=reply_id value=' . $reply_id . ">\n";
     }
@@ -813,7 +814,9 @@ function showComposeButtonRow() {
 	$request_mdn, $request_dr,
         $data_dir, $username;
 
-    echo "  <TR><TD>\n</TD><TD>\n";
+    echo html_tag( 'tr' ) .
+                html_tag( 'td', "\n", 'left' ) .
+                html_tag( 'td', '', 'left' );
     if ($default_use_priority) {
         if(!isset($mailprio)) {
             $mailprio = "3";
@@ -835,7 +838,10 @@ function showComposeButtonRow() {
         }
     }
 
-    echo "   </td></tr>\n   <TR><td>\n   </td><td>\n";
+    echo "   </td></tr>\n" .
+        html_tag( 'tr' ) .
+        html_tag( 'td', "\n", 'left' ) .
+        html_tag( 'td', '', 'left' );
     echo "\n    <INPUT TYPE=SUBMIT NAME=\"sigappend\" VALUE=\"". _("Signature") . "\">\n";
     if ($use_javascript_addr_book) {
         echo "      <SCRIPT LANGUAGE=JavaScript><!--\n document.write(\"".
@@ -857,7 +863,7 @@ function showComposeButtonRow() {
 
     do_hook('compose_button_row');
 
-    echo "   </TD></TR>\n\n";
+    echo "   </td></tr>\n\n";
 }
 
 function checkInput ($show) {
