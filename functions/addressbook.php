@@ -116,36 +116,49 @@
 
       // Return a list of addresses matching expression in
       // all backends of a given type.
-      function search($expression, $btype = "") {
+      function search($expression, $bnum = -1) {
 	 $ret = array();
 	 $this->error = "";
 
-	 $sel = $this->get_backend_list($btype);
-	 $failed = 0;
-	 for($i = 0 ; $i < sizeof($sel) ; $i++) {
-	    $backend = &$sel[$i];
-	    $backend->error = "";
-	    $res = $backend->search($expression);
-	    if(is_array($res)) {
-	       $ret = array_merge($ret, $res);
-	    } else {
-	       $this->error = $this->error . "<br>\n". $backend->error;
-	       $failed++;
+	 // Search all backends
+	 if($bnum == -1) {
+	    $sel = $this->get_backend_list("");
+	    $failed = 0;
+	    for($i = 0 ; $i < sizeof($sel) ; $i++) {
+	       $backend = &$sel[$i];
+	       $backend->error = "";
+	       $res = $backend->search($expression);
+	       if(is_array($res)) {
+		  $ret = array_merge($ret, $res);
+	       } else {
+		  $this->error = $this->error . "<br>\n". $backend->error;
+		  $failed++;
+	       }
 	    }
+
+	    // Only fail if all backends failed
+	    if($failed >= sizeof($sel))
+	       return false;
+
 	 }
 
-	 // Only fail if all backends failed
-	 if($failed >= sizeof($sel))
-	    return false;
+	 // Search only one backend
+	 else {
+	    $ret = $this->backends[$bnum]->search($expression);
+	    if(!is_array($ret)) {
+	       $this->error = $this->error . "<br>\n". $this->backends[$bnum]->error;
+	       return false;
+	    }
+	 }
 
 	 return $ret;
       }
 
 
       // Return a sorted search
-      function s_search($expression, $btype = "") {
+      function s_search($expression, $bnum = -1) {
 
-	 $ret = $this->search($expression, $btype);
+	 $ret = $this->search($expression, $bnum);
 	 if(!is_array($ret))
 	    return $ret;
 
@@ -198,10 +211,14 @@
 
 
       // Return all addresses
-      function list_addr() {
+      function list_addr($bnum = -1) {
 	 $ret = array();
 
-	 $sel = $this->get_backend_list("local");
+	 if($bnum == -1) 
+	    $sel = $this->get_backend_list("local");
+	 else
+	    $sel = array(0 => &$this->backends[$bnum]);
+
 	 for($i = 0 ; $i < sizeof($sel) ; $i++) {
 	    $backend = &$sel[$i];
 	    $backend->error = "";
