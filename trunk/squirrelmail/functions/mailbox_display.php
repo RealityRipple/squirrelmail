@@ -458,7 +458,7 @@ function fillMessageArray($imapConnection,$id,$issent,$count) {
       }
       $messages[$j]['TIME_STAMP'] = getTimeStamp($tmpdate);
       $messages[$j]['DATE_STRING'] = 
-	getDateString($messages[$i]['TIME_STAMP']);
+	getDateString($messages[$j]['TIME_STAMP']);
       $messages[$j]['ID'] = $unique_id[$j];
       $messages[$j]['FROM'] = decodeHeader($from[$j]);
       $messages[$j]['FROM-SORT'] = 
