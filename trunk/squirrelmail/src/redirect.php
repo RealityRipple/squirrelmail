@@ -173,8 +173,7 @@ function attachment_common_parse($str, $debug) {
             $attachment_common_types[$val] = true;
         }
     }
-    $_SESSION['attachment_common_types'] = $attachment_common_types;
+    sqsession_register($attachment_common_types, 'attachment_common_types');
 }
-
 
 ?>
