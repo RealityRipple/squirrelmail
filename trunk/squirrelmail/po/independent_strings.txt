@@ -4,7 +4,7 @@
 /**
  * independent_strings.php
  *
- * Copyright (c) 1999-2003 The SquirrelMail Project Team
+ * Copyright (c) 1999-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * The purpose of this module is to store translation strings that
@@ -15,8 +15,11 @@
  */
 
 
-_("This image has been removed for security reasons")
 _("Delivery error report");
 _("Undelivered Message Headers");
+
+/* The string for unsafe images */
+_("This image has been removed for security reasons")
+
 
 ?>
