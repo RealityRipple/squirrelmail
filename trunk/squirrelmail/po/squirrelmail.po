@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-11-17 14:56+0100\n"
+"POT-Creation-Date: 2001-11-17 18:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2029,6 +2029,7 @@ msgstr ""
 msgid "The spellcheck is not finished. Really close and discard changes?"
 msgstr ""
 
+#: squirrelmail/plugins/newmail/testsound.php:33
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:285
 #: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod.php:50
 msgid "Close"
@@ -2657,11 +2658,11 @@ msgstr ""
 msgid "New Mail"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail.php:25
+#: squirrelmail/plugins/newmail/newmail.php:26
 msgid "SquirrelMail Notice:"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail.php:29
+#: squirrelmail/plugins/newmail/newmail.php:30
 msgid "You have new mail!"
 msgstr ""
 
@@ -2687,4 +2688,12 @@ msgstr ""
 #: squirrelmail/plugins/newmail/setup.php:205
 #, c-format
 msgid "%s New Message"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/testsound.php:24
+msgid "Test Sound"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/testsound.php:30
+msgid "Loading the sound..."
 msgstr ""
