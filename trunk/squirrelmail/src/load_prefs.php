@@ -35,6 +35,8 @@
       }
    }
 
+	session_register("theme_css");
+
    $use_javascript_addr_book = getPref($data_dir, $username, "use_javascript_addr_book");
    if ($use_javascript_addr_book == "")
       $use_javascript_addr_book = $default_use_javascript_addr_book;
