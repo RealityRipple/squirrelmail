@@ -139,6 +139,12 @@ class Deliver {
         $s = str_replace("\n", "\r\n", $s);
 	return strlen($s);
     }
+    
+    function strip_crlf(&$s) {
+        $s = str_replace("\r\n ", '', $s);
+	$s = str_replace("\r", '', $s);
+	$s = str_replace("\n", '', $s);
+    }
 
     function preWriteToStream(&$s) {
     }
@@ -259,7 +265,9 @@ class Deliver {
         /* Insert the rest of the header fields */
         $header[] = 'Message-ID: '. $message_id . $rn;
         if ($reply_rfc822_header->message_id) {
-	    $header[] = 'In-Reply-To: '.$reply_rfc822_header->message_id . $rn;
+	    $rep_message_id = $reply_rfc822_header->message_id;
+//	    $this->strip_crlf($message_id);
+	    $header[] = 'In-Reply-To: '.$rep_message_id . $rn;
     	    $references = $this->calculate_references($reply_rfc822_header);
 	    $header[] = 'References: '.$references . $rn;
 	}	
@@ -333,6 +341,8 @@ class Deliver {
 	for ($i = 0 ; $i < $cnt ; $i++) {
     	    $hdr_s .= $this->foldLine($header[$i], 78, str_pad('',4));
 	}
+//	$debug = "Debug: <123456789012345678901234567890123456789012345678901234567890123456789>\r\n";
+//	$this->foldLine($debug, 78, str_pad('',4));
 	$header = $hdr_s;
 	$header .= $rn; /* One blank line to separate header and body */
 	$raw_length += strlen($header);
@@ -343,11 +353,16 @@ class Deliver {
     * function for cleanly folding of headerlines
     */
     function foldLine($line, $length, $pre='') {
+        $line = substr($line,0, -2);
+	$length -= 2; /* don not fold between \r and \n */
 	$cnt = strlen($line);
 	$res = '';
+	$fold=false;
 	if ($cnt > $length) {
 	    $fold_string = "\r\n " . $pre;
-	    $length -=strlen($fold_string);
+	    if ($fold) {
+	      $length -=(strlen($fold_string)+2);
+	    }  
     	    for ($i=0;$i<($cnt-$length);$i++) {
         	$fold_pos = 0;
 		/* first try to fold at delimiters */
@@ -373,10 +388,19 @@ class Deliver {
 		$line = substr_replace($line,$line{$fold_pos}.$fold_string,
 		                       $fold_pos,1);
 		$cnt += strlen($fold_string);
-		$i = $j + strlen($fold_string);
+		if (!$fold) {
+	    	    $length -=(strlen($fold_string)+2);
+		}  
+	    	$fold = true;
+		$i = $j + strlen($fold_string)+1;
     	    }	    
 	}
-	return $line;
+	/* debugging code
+	$debug = $line;
+	$debug = str_replace("\r","\\r", $debug);
+	$debug = str_replace("\n","\\n", $debug);
+	*/
+	return $line."\r\n";
     }	   
 
 
@@ -415,13 +439,15 @@ class Deliver {
 
     function calculate_references($hdr) {
         $refer = $hdr->references;
+	$message_id = $hdr->message_id;
+	$in_reply_to = $hdr->in_reply_to;
 	if (strlen($refer) > 2) {
-    	    $refer .= ' ' . $hdr->message_id;
+    	    $refer .= ' ' . $message_id;
 	} else {
-    	    if ($hdr->in_reply_to) {
-        	$refer .= $hdr->in_reply_to . ' ' . $hdr->message_id;
+    	    if ($in_reply_to) {
+        	$refer .= $in_reply_to . ' ' . $message_id;
     	    } else {
-        	$refer .= $hdr->message_id;
+        	$refer .= $message_id;
     	    }                        
 	}
 	trim($refer);
