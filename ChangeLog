@@ -277,6 +277,14 @@ Version 1.5.1 -- CVS
   - Fix the filter plugin from halting the login process when copying errors
     occur.
   - Clean up the folder management (create, rename, subscribe) code.
+  - Added filtering support to address book LDAP backend (#539534). Thanks
+    to Tim Bell.
+  - Added domain scope limit controls to address book LDAP backend. Issue
+    is specific to Microsoft ADS (#1035454). Thanks to Michael Brown.
+  - Missing PHP LDAP extension errors are now handled by ldap backend and
+    errors are displayed after address book initialization.
+  - LDAP connections are opened during search and not during address book 
+    initialization.
   
 Version 1.5.0
 --------------------
