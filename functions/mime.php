@@ -1629,10 +1629,11 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
     $rm_attnames = Array(
                          "/.*/" =>
                          Array(
-                               "/target/si",
-                               "/^on.*/si",
-                               "/^dynsrc/si",
-                               "/^data.*/si"
+                               "/target/i",
+                               "/^on.*/i",
+                               "/^dynsrc/i",
+                               "/^data.*/i",
+                               "/^lowsrc.*/i"
                                )
                          );
 
@@ -1643,10 +1644,10 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
                 "/^src|background/i" =>
                     Array(
                           Array(
-                                "|^([\'\"])\s*\.\./.*([\'\"])|si",
-                                "/^([\'\"])\s*\S+script\s*:.*([\'\"])/si",
-                                "/^([\'\"])\s*mocha\s*:*.*([\'\"])/si",
-                                "/^([\'\"])\s*about\s*:.*([\'\"])/si"
+                                "|^([\'\"])\s*\.\./.*([\'\"])|i",
+                                "/^([\'\"])\s*\S+script\s*:.*([\'\"])/i",
+                                "/^([\'\"])\s*mocha\s*:*.*([\'\"])/i",
+                                "/^([\'\"])\s*about\s*:.*([\'\"])/i"
                                 ),
                           Array(
                                 "\\1$secremoveimg\\2",
@@ -1658,10 +1659,10 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
                 "/^href|action/i" =>
                     Array(
                           Array(
-                                "|^([\'\"])\s*\.\./.*([\'\"])|si",
-                                "/^([\'\"])\s*\S+script\s*:.*([\'\"])/si",
-                                "/^([\'\"])\s*mocha\s*:*.*([\'\"])/si",
-                                "/^([\'\"])\s*about\s*:.*([\'\"])/si"
+                                "|^([\'\"])\s*\.\./.*([\'\"])|i",
+                                "/^([\'\"])\s*\S+script\s*:.*([\'\"])/i",
+                                "/^([\'\"])\s*mocha\s*:*.*([\'\"])/i",
+                                "/^([\'\"])\s*about\s*:.*([\'\"])/i"
                                 ),
                           Array(
                                 "\\1#\\2",
@@ -1676,10 +1677,10 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
                                 "/expression/si",
                                 "/binding/si",
                                 "/behaviou*r/si",
-                                "|url\(([\'\"])\s*\.\./.*([\'\"])\)|si",
-                                "/url\(([\'\"])\s*\S+script\s*:.*([\'\"])\)/si",
-                                "/url\(([\'\"])\s*mocha\s*:.*([\'\"])\)/si",
-                                "/url\(([\'\"])\s*about\s*:.*([\'\"])\)/si"
+                                "|url\(([\'\"])\s*\.\./.*([\'\"])\)|i",
+                                "/url\(([\'\"])\s*\S+script\s*:.*([\'\"])\)/i",
+                                "/url\(([\'\"])\s*mocha\s*:.*([\'\"])\)/i",
+                                "/url\(([\'\"])\s*about\s*:.*([\'\"])\)/i"
                                ),
                           Array(
                                 "idiocy",
@@ -1702,12 +1703,12 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
          * to false.
          */
          array_push($bad_attvals{'/.*/'}{'/^src|background/i'}[0],
-                    '/^([\'\"])\s*https*:.*([\'\"])/si');
+                    '/^([\'\"])\s*https*:.*([\'\"])/i');
          array_push($bad_attvals{'/.*/'}{'/^src|background/i'}[1],
                     "\\1$secremoveimg\\2");
-         array_push($bad_attvals{'/.*/'}{'/^style/si'}[0],
+         array_push($bad_attvals{'/.*/'}{'/^style/i'}[0],
                     '/url\(([\'\"])\s*https*:.*([\'\"])\)/si');
-         array_push($bad_attvals{'/.*/'}{'/^style/si'}[1],
+         array_push($bad_attvals{'/.*/'}{'/^style/i'}[1],
                     "url(\\1$secremoveimg\\2)");
     }
 
