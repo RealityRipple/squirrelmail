@@ -758,7 +758,7 @@ function mail_message_listing_beginning ($imapConnection,
                               . "$sort" . '&start_messages=1&set_thread=' . "$set_thread"
                               . '&mailbox=' . urlencode($mailbox) . '><small>' . $thread_name
                               . '</a></small>&nbsp;'
-                     , '', '', '' ) . html_tag( 'td', 'Bypass Trash<input type="checkbox" name="bypass_trash">','right','','')
+                     , '', '', '' ) . html_tag( 'td', _('Bypass Trash') . '<input type="checkbox" name="bypass_trash">','right','','')
 
                  , '', '', '' );
     }
