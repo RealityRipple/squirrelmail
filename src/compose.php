@@ -453,11 +453,22 @@
       }
 
       showInputForm();
+	} else if ($smtpErrors) {
+      $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+      displayPageHeader($color, $mailbox);
+
+      $newmail = true;
+      if ($forward_id && $ent_num)  getAttachments(0);
+              
+      newMail();
+      showInputForm();
+      sqimap_logout($imapConnection);
    } else {
       $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
       displayPageHeader($color, $mailbox);
 
       $newmail = true;
+		
       if ($forward_id && $ent_num)  getAttachments(0);
               
       newMail();

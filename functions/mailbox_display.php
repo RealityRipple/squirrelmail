@@ -11,6 +11,7 @@
    $mailbox_display_php = true;
 
    function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage, $where, $what) {
+      global $checkall;
       global $color, $msgs, $msort;
       global $sent_folder;
       global $message_highlight_list;
@@ -50,6 +51,11 @@
       if ($where && $what) {
          $search_stuff = "&where=".urlencode($where)."&what=".urlencode($what);
       }
+
+		if ($checkall == 1) 
+			$checked = " checked";
+		else
+			$checked = "";
       
       for ($i=1; $i <= count($index_order); $i++) {
          switch ($index_order[$i]) {
@@ -333,7 +339,7 @@
 
       mail_message_listing_beginning($imapConnection,
          "move_messages.php?msg=$msg&mailbox=$urlMailbox&startMessage=$startMessage",
-          $mailbox, $sort, $Message, $More);
+          $mailbox, $sort, $Message, $More, $startMessage);
 
       $groupNum = $startMessage % ($show_num - 1);
       $real_startMessage = $startMessage;
@@ -388,10 +394,17 @@
 
       echo "</td></tr>\n";
 
-      if ($More)
-      {
-         echo "<TR BGCOLOR=\"$color[4]\"><TD>$More</td></tr>\n";
-      }
+      echo "<TR BGCOLOR=\"$color[4]\"><TD>";
+		echo "<table width=100% cellpadding=0 cellspacing=0 border=0><tr><td>";
+		echo "$More</td><td align=right>\n";
+		if (!$startMessage) $startMessage=1;
+      if ( $checkall == "1")
+         echo "\n<A HREF=\"right_main.php?mailbox=$mailbox&startMessage=$startMessage&sort=$sort\">" . _("Unselect All") . "</A>\n";
+      else
+         echo "\n<A HREF=\"right_main.php?mailbox=$mailbox&startMessage=$startMessage&sort=$sort&checkall=1\">" . _("Select All") . "</A>\n";
+
+		echo "</td></tr></table>";
+		echo "</td></tr>";
       echo "</table>"; /** End of message-list table */
 
       do_hook("mailbox_index_after");
@@ -406,9 +419,10 @@
     * $More is a second line that is left aligned
     */
    function mail_message_listing_beginning($imapConnection, $moveURL,
-       $mailbox = '', $sort = -1, $Message = '', $More = '')
+       $mailbox = '', $sort = -1, $Message = '', $More = '', $startmessage = 1)
    {
       global $color, $index_order, $auto_expunge, $move_to_trash;
+		global $checkall;
 		$urlMailbox = urlencode($mailbox);
 
          /** This is the beginning of the message list table.  It wraps around all messages */
@@ -419,10 +433,17 @@
          echo "<TR BGCOLOR=\"$color[4]\"><TD align=center>$Message</td></tr>\n";
       }
 
-      if ($More)
-      {
-         echo "<TR BGCOLOR=\"$color[4]\"><TD>$More</td></tr>\n";
-      }
+      echo "<TR BGCOLOR=\"$color[4]\"><TD>";
+		echo "<table width=100% cellpadding=0 cellspacing=0 border=0><tr><td>";
+		echo "$More</td><td align=right>\n";
+		if (!$startMessage) $startMessage=1;
+      if ( $checkall == "1")
+         echo "\n<A HREF=\"right_main.php?mailbox=$mailbox&startMessage=$startMessage&sort=$sort\">" . _("Unselect All") . "</A>\n";
+      else
+         echo "\n<A HREF=\"right_main.php?mailbox=$mailbox&startMessage=$startMessage&sort=$sort&checkall=1\">" . _("Select All") . "</A>\n";
+
+		echo "</td></tr></table>";
+		echo "</td></tr>";
 
       /** The delete and move options */
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
@@ -431,6 +452,8 @@
       echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=100%>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=60% ALIGN=LEFT VALIGN=CENTER>\n";
+
+
       echo "         <NOBR><SMALL>". _("Move selected to:") ."</SMALL>";
       echo "         <TT><SMALL><SELECT NAME=\"targetMailbox\">";
 

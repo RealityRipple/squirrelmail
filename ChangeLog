@@ -1,5 +1,6 @@
 Version 1.0pre1 -- DEVELOPMENT
 ------------------------------
+- Fixed default charset that is sent with outbound messages (now user's preferred charset)
 - Sort method saving now transparent to user, and saves between sessions
 - Now replacing all \n with \r\n before sending the message.
 - Added sorting option for NO sorting.. 10000 times faster!
