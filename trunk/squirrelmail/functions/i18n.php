@@ -466,7 +466,7 @@ function charset_decode_iso_8859_15 ($string) {
     // Euro sign
     $string = str_replace ("\244", '&#8364;', $string);
     // Latin capital letter S with caron
-    $string = str_replace ("\244", '&#352;', $string);
+    $string = str_replace ("\246", '&#352;', $string);
     // Latin small letter s with caron
     $string = str_replace ("\250", '&#353;', $string);
     // Latin capital letter Z with caron
@@ -483,7 +483,7 @@ function charset_decode_iso_8859_15 ($string) {
     return (charset_decode_iso_8859_1($string));
 }
 
-/* ISO-8859-15 is Cyrillic */
+/* ISO-8859-5 is Cyrillic */
 function charset_decode_iso_8859_5 ($string) {
     // Convert to KOI8-R, then return this decoded.
     $string = convert_cyr_string($string, 'i', 'k');
