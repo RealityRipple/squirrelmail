@@ -44,16 +44,27 @@
 
    /** lets see if we CAN move folders to the trash.. otherwise, 
     ** just delete them **/
+
+   // Courier IMAP doesn't like subfolders of Trash
    if (strtolower($imap_server_type) == "courier") {
-      // Courier IMAP doesn't like subfolders of Trash
       $can_move_to_trash = false;
-   } else {
+   } 
+
+   // If it's already a subfolder of trash, we'll have to delete it
+   else if(eregi("^".$trash_folder.".+", $mailbox)) {
+
+      $can_move_to_trash = false;
+
+   }
+
+   // Otherwise, check if trash folder exits and support sub-folders
+   else {
       for ($i = 0; $i < count($boxes); $i++) {
          if ($boxes[$i]["unformatted"] == $trash_folder) {
             $can_move_to_trash = true;
             for ($j = 0; $j < count($boxes[$i]["flags"]); $j++) {
-               if (strtolower($boxes[$i]["flags"][$j]) == "noinferiors")                                                               
-               $can_move_to_trash = false;
+               if (strtolower($boxes[$i]["flags"][$j]) == "noinferiors")
+		  $can_move_to_trash = false;
             }
          }
       }
