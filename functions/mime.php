@@ -65,11 +65,12 @@
          $read = fgets ($imap_stream, 10000);
          $response = substr($read, 0, 4);
       }
-      $read = strtolower($bodystructure);
+   //   $read = strtolower($bodystructure);
+      $read = $bodystructure;
 
       if ($debug_mime) echo "<tt>$read</tt><br><br>";
       // isolate the body structure and remove beginning and end parenthesis
-      $read = trim(substr ($read, strpos($read, "bodystructure") + 13));
+      $read = trim(substr ($read, strpos(strtolower($read), "bodystructure") + 13));
       $read = trim(substr ($read, 0, -1));
       $end = mime_match_parenthesis(0, $read);
       while ($end == strlen($read)-1) {
@@ -195,20 +196,20 @@
          // This is where all the text parts get put into the header
          switch ($elem_num) {
             case 1: 
-               $msg->header->type0 = $text;
-               if ($debug_mime) echo "<tt>type0 = $text</tt><br>";
+               $msg->header->type0 = strtolower($text);
+               if ($debug_mime) echo "<tt>type0 = ".strtolower($text)."</tt><br>";
                break;
             case 2: 
-               $msg->header->type1 = $text;
-               if ($debug_mime) echo "<tt>type1 = $text</tt><br>";
+               $msg->header->type1 = strtolower($text);
+               if ($debug_mime) echo "<tt>type1 = ".strtolower($text)."</tt><br>";
                break;
             case 5:
                $msg->header->description = $text;
                if ($debug_mime) echo "<tt>description = $text</tt><br>";
                break;
             case 6:
-               $msg->header->encoding = $text;
-               if ($debug_mime) echo "<tt>encoding = $text</tt><br>";
+               $msg->header->encoding = strtolower($text);
+               if ($debug_mime) echo "<tt>encoding = ".strtolower($text)."</tt><br>";
                break;
             case 7:
                $msg->header->size = $text;
@@ -306,7 +307,7 @@
                $structure = trim(substr($structure, strlen($tmp) + 2));
                
                $k = count($props);
-               $props[$k]["name"] = $tmp;
+               $props[$k]["name"] = strtolower($tmp);
                $props[$k]["value"] = $value;
             } else if ($char == "(") {
                $end = mime_match_parenthesis (0, $structure);
