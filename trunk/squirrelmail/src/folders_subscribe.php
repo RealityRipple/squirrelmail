@@ -16,7 +16,6 @@
    require_once('../functions/display_messages.php');
 
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-   $dm = sqimap_get_delimiter($imapConnection);
 
    $location = get_location();
    if ($method == "sub") {

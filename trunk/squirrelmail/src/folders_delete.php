@@ -23,9 +23,9 @@
    
    $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    $boxes = sqimap_mailbox_list ($imap_stream);
-   $dm = sqimap_get_delimiter($imap_stream);
+   global $delimiter;
    
-   if (substr($mailbox, -1) == $dm)
+   if (substr($mailbox, -1) == $delimiter)
       $mailbox_no_dm = substr($mailbox, 0, strlen($mailbox) - 1); 
    else
       $mailbox_no_dm = $mailbox;
@@ -67,7 +67,7 @@
    //    on the end of the $mailbox string, and compare to that.
    $j = 0;
    for ($i = 0;$i < count($boxes);$i++) {
-      if (substr($boxes[$i]["unformatted"], 0, strlen($mailbox_no_dm . $dm)) == ($mailbox_no_dm . $dm)) {
+      if (substr($boxes[$i]["unformatted"], 0, strlen($mailbox_no_dm . $delimiter)) == ($mailbox_no_dm . $delimiter)) {
          addChildNodeToTree($boxes[$i]["unformatted"], $boxes[$i]["unformatted-dm"], $foldersTree);
       }
    }
@@ -75,7 +75,7 @@
 
    /** Lets start removing the folders and messages **/
    if (($move_to_trash == true) && ($can_move_to_trash == true)) { /** if they wish to move messages to the trash **/
-      walkTreeInPostOrderCreatingFoldersUnderTrash(0, $imap_stream, $foldersTree, $dm, $mailbox);
+      walkTreeInPostOrderCreatingFoldersUnderTrash(0, $imap_stream, $foldersTree, $mailbox);
       walkTreeInPreOrderDeleteFolders(0, $imap_stream, $foldersTree);
    } else { /** if they do NOT wish to move messages to the trash (or cannot)**/
       walkTreeInPreOrderDeleteFolders(0, $imap_stream, $foldersTree);

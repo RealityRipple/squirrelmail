@@ -23,7 +23,7 @@
 
    $mailbox = $trash_folder;
    $boxes = sqimap_mailbox_list($imap_stream);
-   $dm = sqimap_get_delimiter($imap_stream);
+   global $delimiter;
    
    // According to RFC2060, a DELETE command should NOT remove inferiors (sub folders)
    //    so lets go through the list of subfolders and remove them before removing the
@@ -42,7 +42,7 @@
    //    on the end of the $mailbox string, and compare to that.
    $j = 0;
    for ($i = 0;$i < count($boxes);$i++) {
-      if (substr($boxes[$i]["unformatted"], 0, strlen($mailbox . $dm)) == ($mailbox . $dm)) {
+      if (substr($boxes[$i]["unformatted"], 0, strlen($mailbox . $delimiter)) == ($mailbox . $delimiter)) {
          addChildNodeToTree($boxes[$i]["unformatted"], $boxes[$i]["unformatted-dm"], $foldersTree);
       }
    }
