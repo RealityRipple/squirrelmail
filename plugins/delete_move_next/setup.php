@@ -34,7 +34,8 @@ function fix_sort_array () {
     global $username, $data_dir, $allow_server_sort, $allow_thread_sort,
     $mailbox, $imapConnection, $sort;
     if ($allow_server_sort == true) {
-        $server_sort_array = sqimap_get_sort_order($imapConnection, $sort);
+        $mbxresponse = sqimap_mailbox_select($imapConnection, $mailbox);
+        $server_sort_array = sqimap_get_sort_order($imapConnection, $sort, $mbxresponse);
     }
     $thread_sort_messages = getPref($username, $data_dir, "thread_$mailbox");
     if ($allow_thread_sort == true && $thread_sort_messages == 1) {
