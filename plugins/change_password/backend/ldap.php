@@ -38,7 +38,7 @@ $cpw_ldap_port=389;
 /**
  * LDAP basedn that is used for binding to LDAP server.
  * this option must be set to correct value.
- * @global $cpw_ldap_basedn;
+ * @global string $cpw_ldap_basedn;
  */
 global $cpw_ldap_basedn;
 $cpw_ldap_basedn='';
