@@ -161,8 +161,12 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                                $hlt_color );
                 break;
             case 3: /* date */
+                $date_string = $msg['DATE_STRING'] . '';
+                if ($date_string == '') {
+                    $date_string = _("Unknown date");
+                }
                 echo html_tag( 'td',
-                               $bold . $flag . $fontstr . $msg['DATE_STRING'] .
+                               $bold . $flag . $fontstr . $date_string .
                                $fontstr_end . $flag_end . $bold_end,
                                'center',
                                $hlt_color,
