@@ -71,6 +71,10 @@
       setPref($data_dir, $username, 'location_of_buttons', $button_new_location);
       setPref($data_dir, $username, 'left_size', $leftsize);
       setPref($data_dir, $username, 'use_javascript_addr_book', $javascript_abook);
+      if (isset($showhtmldefault))
+         setPref($data_dir, $username, 'show_html_default', 1);
+      else
+         removePref($data_dir, $username, 'show_html_default');
     
       do_hook('options_display_save');
 

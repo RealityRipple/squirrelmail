@@ -479,21 +479,46 @@
 
    // figures out what entity to display and returns the $message object
    // for that entity.
-   function findDisplayEntity ($message) {
-      if ($message) {
-         if ($message->header->type0 == "text") {
-            if ($message->header->type1 == "plain" ||
-                $message->header->type1 == "html") {
-	       if (isset($message->header->entity_id))
-                   return $message->header->entity_id;
-	       return 0;
-            }
-         } else {
-            for ($i=0; $message->entities[$i]; $i++) {
-               return findDisplayEntity($message->entities[$i]);
-            }   
-         }   
-      }
+   function findDisplayEntity ($message, $next = 'none')
+   {
+      global $show_html_default;
+      
+      if (! $message)
+	return;
+
+      // Show text/plain or text/html -- the first one we find.
+      if ($message->header->type0 == 'text' && 
+	  ($message->header->type1 == 'plain' ||
+	   $message->header->type2 == 'html'))
+	{
+	   // If the next part is an HTML version, this will
+	   // all be true.  Show it, if the user so desires.
+	   // HTML mails this way all have entity_id of 2.  1 = text/plain
+	   if ($next != 'none' &&
+	       $next->header->type0 == "text" &&
+	       $next->header->type1 == "html" &&
+	       $next->header->entity_id == 2 &&
+	       $message->header->type1 == "plain" &&
+	       isset($show_html_default) &&
+	       $show_html_default)
+	     $message = $next;
+	   
+	   if (isset($message->header->entity_id))
+	     return $message->header->entity_id;
+	} 
+      else 
+	{
+	   for ($i=0; $message->entities[$i]; $i++) 
+	     {
+		$next = 'none';
+		if (isset($message->entities[$i + 1]))
+		  $next = $message->entities[$i + 1];
+		$entity = findDisplayEntity($message->entities[$i], $next);
+		if ($entity != 0)
+		  return $entity;
+	     }   
+	}   
+      return 0;
    }
 
    /** This returns a parsed string called $body. That string can then
