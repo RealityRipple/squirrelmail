@@ -309,6 +309,7 @@
       showInputForm();
    } else {
       $newmail = true;
+      newMail();
       showInputForm();
    }
 ?>
