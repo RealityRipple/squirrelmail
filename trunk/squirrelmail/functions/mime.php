@@ -405,15 +405,32 @@
         } else if (ereg('"([^"]*)"', $topline, $regs)) {
             $ret = $regs[1];
         } else {
-            $ret = "Body retrieval error.  Please report this bug!\n" .
-                   "Response:  $response\n" .
-                   "Message:  $message\n" .
-                   "FETCH line:  $topline" .
-                   "---------------\n$wholemessage";
-    
-            foreach ($data as $d) {
-              $ret .= htmlspecialchars($d) . "\n";
+            global $where, $what, $mailbox, $passed_id, $startMessage;
+            $par = "mailbox=".urlencode($mailbox)."&passed_id=$passed_id";
+            if (isset($where) && isset($what)) {
+                $par .= "&where=".urlencode($where)."&what=".urlencode($what);
+            } else {
+                $par .= "&startMessage=$startMessage&show_more=0";
             }
+            $par .= '&response='.urlencode($response).'&message='.urlencode($message).
+                    '&topline='.urlencode($topline);
+
+            echo   '<b><font color=$color[2]>Body retrieval error. The reason for this is most probably that<BR> ' .
+                   'the message is malformed. Please help us making future versions<BR> ' .
+                   "better by submitting this message to the developers knowledgebase!<BR>\n" .
+                   "<A HREF=\"../src/retrievalerror.php?$par\">Submit message</A><BR>" .
+
+                   "<tt>Response:  $response<BR>" .
+                   "Message:  $message<BR>" .
+                   "FETCH line:  $topline<BR></tt></font></b>";
+
+            fputs ($imap_stream, "$sid FETCH $passed_id BODY[]\r\n");
+            $data = sqimap_read_data ($imap_stream, $sid, true, $response, $message);
+            array_shift($data);
+            $wholemessage = implode('', $data);
+
+            $ret = "---------------\n$wholemessage";
+    
         }
         return( $ret );
     }
