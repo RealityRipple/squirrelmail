@@ -223,7 +223,8 @@ Version 1.5.1 -- CVS
     string with blank.png.
   - Added vmailmgrd backend to change_password plugin.
   - Fixed change_password_init hook.
-
+  - Give an error to the user when SquirrelMail is not configured yet
+    (instead of "failed to include config.php").
 
 Version 1.5.0
 --------------------
