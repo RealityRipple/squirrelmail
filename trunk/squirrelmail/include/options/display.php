@@ -20,7 +20,7 @@ define('SMOPT_GRP_MESSAGE', 2);
 function load_optpage_data_display() {
     global $theme, $language, $languages, $js_autodetect_results,
     $compose_new_win, $default_use_mdn, $squirrelmail_language, $allow_thread_sort,
-    $optmode, $show_alternative_names;
+    $optmode, $show_alternative_names, $available_languages;
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -70,29 +70,51 @@ function load_optpage_data_display() {
         );
     
     }
+
+    // config.php can be unupdated.
+    if (! isset($available_languages) || $available_languages=="" ) {
+     $available_languages="ALL"; }
     
     $language_values = array();
-    foreach ($languages as $lang_key => $lang_attributes) {
-        if (isset($lang_attributes['NAME'])) {
-            $language_values[$lang_key] = $lang_attributes['NAME'];
-	    if ( isset($show_alternative_names) &&
-		$show_alternative_names &&
-		isset($lang_attributes['ALTNAME']) ) {
-		$language_values[$lang_key] .= " / " . $lang_attributes['ALTNAME'];
-	    }
-        }
+    if ( strtoupper($available_languages)=='ALL') {
+	foreach ($languages as $lang_key => $lang_attributes) {
+    	    if (isset($lang_attributes['NAME'])) {
+        	$language_values[$lang_key] = $lang_attributes['NAME'];
+		if ( isset($show_alternative_names) &&
+		  $show_alternative_names &&
+		  isset($lang_attributes['ALTNAME']) ) {
+		    $language_values[$lang_key] .= " / " . $lang_attributes['ALTNAME'];
+		}
+    	    }
+	}
+    } else if (strtoupper($available_languages)!='NONE') {
+	// admin can set list of available languages in config
+	$available_languages_array=explode (" ",$available_languages);
+        foreach ($available_languages_array as $lang_key ) {
+    	    if (isset($languages[$lang_key]['NAME'])) {
+        	$language_values[$lang_key] = $languages[$lang_key]['NAME'];
+    		if ( isset($show_alternative_names) &&
+		 $show_alternative_names &&
+		 isset($languages[$lang_key]['ALTNAME']) ) {
+    		    $language_values[$lang_key] .= " / " . $languages[$lang_key]['ALTNAME'];
+        	}
+    	    }	    
+	}
     }
     asort($language_values);
     $language_values =
         array_merge(array('' => _("Default")), $language_values);
     $language = $squirrelmail_language;
-    $optvals[SMOPT_GRP_GENERAL][] = array(
-        'name'    => 'language',
-        'caption' => _("Language"),
-        'type'    => SMOPT_TYPE_STRLIST,
-        'refresh' => SMOPT_REFRESH_ALL,
-        'posvals' => $language_values
-    );
+    if (strtoupper($available_languages)!='NONE') {
+	// if set to 'none', interface will use only default language
+	$optvals[SMOPT_GRP_GENERAL][] = array(
+    	    'name'    => 'language',
+    	    'caption' => _("Language"),
+    	    'type'    => SMOPT_TYPE_STRLIST,
+    	    'refresh' => SMOPT_REFRESH_ALL,
+    	    'posvals' => $language_values
+	);
+    }
 
     /* Set values for the "use javascript" option. */
     $optvals[SMOPT_GRP_GENERAL][] = array(
