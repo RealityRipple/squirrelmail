@@ -763,7 +763,6 @@ class message {
 		}
 		$found = true;		
 	    }
-	    $found = true;		
 	} else if ( $this->type0 == 'text' &&
              ( $this->type1 == 'plain' ||
                $this->type1 == 'html' ||
