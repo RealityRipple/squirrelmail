@@ -40,14 +40,32 @@
 
    // corrects a time stamp to be the local time
    function getGMTSeconds($stamp, $gmt) {
-      if (($gmt == "Pacific") || ($gmt == "PST") || ($gmt == "PDT"))
+      if (($gmt == "Pacific") || ($gmt == "PST"))
          $gmt = "-0800";
-      if (($gmt == "Eastern") || ($gmt == "EST") || ($gmt == "EDT"))
+      else if (($gmt == "EDT"))
+         $gmt = "-0400";
+      else if (($gmt == "Eastern") || ($gmt == "EST") || ($gmt == "CDT"))
          $gmt = "-0500";
-      if (($gmt == "Central") || ($gmt == "CST") || ($gmt == "CDT"))
+      else if (($gmt == "Central") || ($gmt == "CST") || ($gmt == "MDT"))
          $gmt = "-0600";
-      if (($gmt == "Mountain") || ($gmt == "MST") || ($gmt == "MDT"))
+      else if (($gmt == "Mountain") || ($gmt == "MST") || ($gmt == "PDT"))
          $gmt = "-0700";
+      else if ($gmt == "BST")
+         $gmt = "+0100";
+      else if ($gmt == "EET")
+         $gmt = "+0200";
+      else if ($gmt == "GMT")
+         $gmt = "+0000";
+      else if ($gmt == "HKT")
+         $gmt = "+0800";
+      else if ($gmt == "IST")
+         $gmt = "+0200";
+      else if ($gmt == "JST")
+         $gmt = "+0900";
+      else if ($gmt == "MET")
+         $gmt = "+0100";
+      else if ($gmt == "MET DST" || $gmt == "METDST")
+         $gmt = "+0200";
 
       if (substr($gmt, 0, 1) == "-") {
          $neg = true;
