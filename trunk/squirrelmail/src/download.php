@@ -13,8 +13,8 @@
       include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
-   if (!isset($page_header_php))
-      include("../functions/page_header.php");
+//   if (!isset($page_header_php))
+//      include("../functions/page_header.php");
    if (!isset($imap_php))
       include("../functions/imap.php");
    if (!isset($mime_php))
