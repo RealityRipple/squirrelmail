@@ -193,8 +193,8 @@ function attachFiles ($fp, $session, $rn="\r\n", $checkdot = false) {
                     if (substr($tmp, $tmp_length - strlen($rn), strlen($rn)) != $rn) {
                         if ($fp) {
                             fputs($fp, $rn);
-			    $length += strlen($rn);
                         }
+			$length += strlen($rn);
                     }
 
 
