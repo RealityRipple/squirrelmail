@@ -564,7 +564,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
         $encoded = false;
         $aString[$i] = '';
         while (preg_match('/^(.*)=\?([^?]*)\?(Q|B)\?([^?]*)\?=(.*)$/Ui',$chunk,$res)) {
-            //$aString[$i] .= $res[1];
+            $aString[$i] .= $res[1];
 	    //echo "$chunk match ". $res[5] . "<br>";
             $encoding = ucfirst($res[3]);
             switch ($encoding)
