@@ -63,51 +63,32 @@ function error_username_password_incorrect() {
     if (!isset($frame_top)) {
         $frame_top = '_top';
     }
-
-    echo '<BR>'.
-                '<TABLE COLS=1 WIDTH="75%" BORDER="0" BGCOLOR="' . $color[4] . '" ALIGN=CENTER>'.
-                '<TR BGCOLOR="' . $color[0] . '">'.
-                    '<TH>' . _("ERROR") . '</TH>'.
-                '</TR>' .
-                '<TR><TD ALIGN="center">'.
-                    '<BR>' . _("Unknown user or password incorrect.") .
-                    '<BR><A HREF="' . sqm_baseuri() . '"login.php" TARGET='.
+    $string = '<TR><TD ALIGN="center">'.
+                 _("Unknown user or password incorrect.") .
+              '</TD></TR><TR><TD ALIGN="center">'.
+	         '<A HREF="' . sqm_baseuri() . '"login.php" TARGET='.
                     $frame_top.'>' . _("Click here to try again") .
                     '</A>.'.
-                '</TD></TR>'.
-                '</TABLE>'.
-            '</BODY></HTML>';
+              '</TD></TR>';
+   error_box($string,$color);
+echo  '</BODY></HTML>';
 }
 
 function error_message($message, $mailbox, $sort, $startMessage, $color) {
     $urlMailbox = urlencode($mailbox);
 
-    echo '<BR>'.
-         "<TABLE WIDTH=\"70%\" BORDER=\"0\" BGCOLOR=\"$color[4]\" ALIGN=CENTER>".
-            '<TR>'.
-               "<TD BGCOLOR=\"$color[0]\" ALIGN=\"center\">".
-                  "<FONT COLOR=\"$color[2]\"><B>" . _("ERROR") . '</B></FONT>'.
-            '</TD></TR><TR><TD ALIGN="center">'.
-               "<BR>$message<BR>\n".
-               '<BR>'.
-                  "<A HREF=\"" . sqm_baseuri() 
+    $string = '<tr><td ALIGN="center">' . $message . '</td></tr>'."\n".
+               '<tr><td ALIGN="center">'.
+                  '<A HREF="' . sqm_baseuri() 
                   . "src/right_main.php?sort=$sort&amp;startMessage=$startMessage"
-                  . "&amp;mailbox=$urlMailbox\">";
-    printf (_("Click here to return to %s"), $mailbox);
-    echo '</A>.'.
-            '</TD></TR>'.
-         '</TABLE>';
+                  . "&amp;mailbox=$urlMailbox\">" .
+	    sprintf (_("Click here to return to %s"), $mailbox) .
+	    '</A></td></tr>';
+    error_box($string, $color);
 }
 
 function plain_error_message($message, $color) {
-    echo "<br><TABLE WIDTH=\"70%\" BORDER=\"0\" BGCOLOR=\"$color[4]\" ALIGN=CENTER>".
-            '<TR>'.
-               "<TD BGCOLOR=\"$color[0]\" ALIGN=\"center\">".
-                  "<FONT COLOR=\"$color[2]\"><B>" . _("ERROR") . '</B></FONT>'.
-            '</TD></TR><TR><TD ALIGN="center">'.
-               "<BR>$message".
-            '</TD></TR>'.
-         '</TABLE>';
+    error_box($message, $color);
 }
 
 function logout_error( $errString, $errTitle = '' ) {
@@ -181,4 +162,20 @@ function logout_error( $errString, $errTitle = '' ) {
             '</TABLE></td></tr></table></center></body></html>';
 }
 
+function error_box($string, $color) {
+   echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
+   echo '     <tr><td>';
+   echo '       <table width="100%" cellpadding="0" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
+   echo '        <tr><td ALIGN="center" bgcolor="'.$color[0].'">';
+   echo '           <font color="' . $color[2].'"><b>' . _("ERROR") . ':</b></font>';
+   echo '        </td></tr>';
+   echo '        <tr><td>';
+   echo '            <table cellpadding="1" cellspacing="5" align="center" border="0">';
+   echo '              <tr>' . html_tag( 'td', $string."\n", 'left')
+                    . '</tr>';
+   echo '            </table>';
+   echo '       </table></td></tr>';
+   echo '    </table>';
+   echo '  </td></tr>';
+}
 ?>
