@@ -1039,27 +1039,26 @@ function parseAddress($address, $max=0) {
 
 /**
  * Returns the number of unseen messages in this folder.
+ * obsoleted by sqimap_status_messages !
  */
 function sqimap_unseen_messages ($imap_stream, $mailbox) {
-    $read_ary = sqimap_run_command ($imap_stream, 'STATUS ' . sqimap_encode_mailbox_name($mailbox) . ' (UNSEEN)', false, $result, $message);
-    $i = 0;
-    $regs = array(false, false);
-    while (isset($read_ary[$i])) {
-        if (ereg("UNSEEN ([0-9]+)", $read_ary[$i], $regs)) {
-            break;
-        }
-        $i++;
-    }
-    return $regs[1];
+    $aStatus = sqimap_status_messages($imap_stream,$mailbox,array('UNSEEN'));
+    return $aStatus['UNSEEN'];
 }
 
 /**
- * Returns the number of total/unseen/recent messages in this folder
+ * Returns the status items of a mailbox.
+ * Default it returns MESSAGES,UNSEEN and RECENT
+ * Supported status items are MESSAGES, UNSEEN, RECENT, UIDNEXT and UIDVALIDITY
  */
-function sqimap_status_messages ($imap_stream, $mailbox) {
-    $read_ary = sqimap_run_command ($imap_stream, 'STATUS ' . sqimap_encode_mailbox_name($mailbox) . ' (MESSAGES UNSEEN RECENT)', false, $result, $message);
+function sqimap_status_messages ($imap_stream, $mailbox, 
+                       $aStatusItems = array('MESSAGES','UNSEEN','RECENT')) {
+
+    $aStatusItems = implode(' ',$aStutusItems);
+    $read_ary = sqimap_run_command ($imap_stream, 'STATUS ' . sqimap_encode_mailbox_name($mailbox) .
+                                    " ($aStatusItems)", false, $result, $message);
     $i = 0;
-    $messages = $unseen = $recent = false;
+    $messages = $unseen = $recent = $uidnext = $uidvalidity = false;
     $regs = array(false,false);
     while (isset($read_ary[$i])) {
         if (preg_match('/UNSEEN\s+([0-9]+)/i', $read_ary[$i], $regs)) {
@@ -1071,9 +1070,19 @@ function sqimap_status_messages ($imap_stream, $mailbox) {
         if (preg_match('/RECENT\s+([0-9]+)/i', $read_ary[$i], $regs)) {
             $recent = $regs[1];
         }        
+        if (preg_match('/UIDNEXT\s+([0-9]+)/i', $read_ary[$i], $regs)) {
+            $uidnext = $regs[1];
+        }        
+        if (preg_match('/UIDVALIDITY\s+([0-9]+)/i', $read_ary[$i], $regs)) {
+            $uidvalidity = $regs[1];
+        }        
         $i++;
     }
-    return array('MESSAGES' => $messages, 'UNSEEN'=>$unseen, 'RECENT' => $recent);
+    return array('MESSAGES' => $messages, 
+                 'UNSEEN'=>$unseen, 
+                 'RECENT' => $recent,
+                 'UIDNEXT' => $uidnext,
+                 'UIDVALIDITY' => $uidvalidity);
 }
 
 

@@ -257,14 +257,17 @@ function sqimap_mailbox_expunge ($imap_stream, $mailbox, $handle_errors = true, 
  * won't be changed - the array element for the message
  * will just be removed.
  */
-function sqimap_mailbox_expunge_dmn($message_id)
+function sqimap_mailbox_expunge_dmn($message_id, $aMbxResponse, &$server_sort_array)
 {
     global $msgs, $msort, $sort, $imapConnection, 
-           $mailbox, $mbx_response, $auto_expunge, 
+           $mailbox, $auto_expunge, 
            $sort, $allow_server_sort, $thread_sort_messages, $allow_thread_sort,
            $username, $data_dir;
     $cnt = 0;
 
+    if (!isset($sort) || $sort === false) {
+        sqgetGlobalVar('sort',$sort,SQ_GET);
+    }
     // Got to grab this out of prefs, since it isn't saved from mailbox_view.php
     if ($allow_thread_sort) {
         $thread_sort_messages = getPref($data_dir, $username, "thread_$mailbox",0); 
@@ -290,26 +293,32 @@ function sqimap_mailbox_expunge_dmn($message_id)
 
     if ($auto_expunge) {
          $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+    } else {
+         return $cnt;
     }
 
     // And after all that mucking around, update the sort list!
     // Remind me why the hell we need those two arrays again?!
 
-    sqgetGlobalVar('server_sort_array',$server_sort_array,SQ_SESSION);
-
-
     if ( $allow_thread_sort && $thread_sort_messages ) {
         $server_sort_array = get_thread_sort($imapConnection);
     } elseif ( $allow_server_sort ) {
-        $key = array_search($message_id,$server_sort_array,true);
-        if ($key !== false) {
-           unset($server_sort_array[$key]);
-           $server_sort_array = array_values($server_sort_array);
+        if (is_array($server_sort_array)) { 
+            $key = array_search($message_id,$server_sort_array,true);
+            if ($key !== false) {
+                unset($server_sort_array[$key]);
+                $server_sort_array = array_values($server_sort_array);
+            } else {
+                $server_sort_array = sqimap_get_sort_order($imapConnection,$sort,$aMbxResponse);
+            }
+        } else {
+            $server_sort_array = sqimap_get_sort_order($imapConnection,$sort,$aMbxResponse);
         }
-     } else {
-        $server_sort_array = sqimap_get_php_sort_order($imapConnection, $mbx_response);
+    } else {
+        $server_sort_array = sqimap_get_php_sort_order($imapConnection,
+                                                   $sort,$aMbxResponse);
     }
-    sqsession_register('server_sort_array',$server_sort_array);
+    sqsession_register($server_sort_array,'server_sort_array');
     return $cnt;
 }
 

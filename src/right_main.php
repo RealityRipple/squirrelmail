@@ -156,17 +156,29 @@ $aMbxResponse['SORT_ARRAY'] = false;
 
 sqgetGlobalVar('aLastSelectedMailbox',$aLastSelectedMailbox,SQ_SESSION);
 
+// deal with imap servers that do not return the required UIDNEXT or
+// UIDVALIDITY response
+// from a SELECT call (since rfc 3501 it's required)
+if (!isset($aMbxResponse['UIDNEXT']) || !isset($aMbxResponse['UIDVALIDITY'])) {
+    $aStatus = sqimap_status_messages($imapConnection,$mailbox,
+                                      array('UIDNEXT','UIDVALIDITY'));
+    $aMbxResponse['UIDNEXT'] = $aStatus['UIDNEXT'];
+    $aMbxResponse['UIDVALIDTY'] = $aStatus['UIDVALIDITY'];
+}
+
 if ($aLastSelectedMailbox && !isset($newsort)) {
-  // check if we deal with the same mailbox
-  if ($aLastSelectedMailbox['NAME'] == $mailbox) {
-     if ($aLastSelectedMailbox['EXISTS'] == $aMbxResponse['EXISTS'] &&
-         $aLastSelectedMailbox['UIDVALIDITY'] == $aMbxResponse['UIDVALIDITY'] &&
-         $aLastSelectedMailbox['UIDNEXT'] == $aMbxResponse['UIDNEXT']) {
-         // sort is still valid
-         sqgetGlobalVar('server_sort_array',$server_sort_array,SQ_SESSION);
-         $aMbxResponse['SORT_ARRAY'] = $server_sort_array;
-     }
-  } 
+    // check if we deal with the same mailbox
+    if ($aLastSelectedMailbox['NAME'] == $mailbox) {
+       if ($aLastSelectedMailbox['EXISTS'] == $aMbxResponse['EXISTS'] &&
+           $aLastSelectedMailbox['UIDVALIDITY'] == $aMbxResponse['UIDVALIDITY'] &&
+           $aLastSelectedMailbox['UIDNEXT']  == $aMbxResponse['UIDNEXT']) {
+           // sort is still valid
+           sqgetGlobalVar('server_sort_array',$server_sort_array,SQ_SESSION);
+           if ($server_sort_array && is_array($server_sort_array)) {
+               $aMbxResponse['SORT_ARRAY'] = $server_sort_array;
+           }
+       }
+    } 
 }
  
 $aLastSelectedMailbox['NAME'] = $mailbox;
