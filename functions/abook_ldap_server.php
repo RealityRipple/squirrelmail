@@ -192,26 +192,30 @@
 	 else $surname = $this->charset_decode($row['sn'][0]);
 
 	 // Add one row to result for each e-mail address
-	 for($j = 0 ; $j < $row['mail']['count'] ; $j++) {
-	   array_push($ret, array('nickname'  => $nickname,
-				  'name'      => $fullname,
-				  'firstname' => $firstname,
-				  'lastname'  => $surname,
-				  'email'     => $row['mail'][$j],
-				  'label'     => $label,
-				  'phone'     => $phone,
-				  'backend'   => $this->bnum,
-				  'source'    => &$this->sname));
+	 if(isset($row['mail']['count'])) {
+	   for($j = 0 ; $j < $row['mail']['count'] ; $j++) {
+	     array_push($ret, array('nickname'  => $nickname,
+				    'name'      => $fullname,
+				    'firstname' => $firstname,
+				    'lastname'  => $surname,
+				    'email'     => $row['mail'][$j],
+				    'label'     => $label,
+				    'phone'     => $phone,
+				    'backend'   => $this->bnum,
+				    'source'    => &$this->sname));
+	     
+	     // Limit number of hits
+	     $returned_rows++;
+	     if(($returned_rows >= $this->maxrows) && 
+		($this->maxrows > 0) ) {
+	       ldap_free_result($sret);
+	       return $ret;
+	     }
 
-	   // Limit number of hits
-	   $returned_rows++;
-	   if(($returned_rows >= $this->maxrows) && 
-	      ($this->maxrows > 0) ) {
-	     ldap_free_result($sret);
-	     return $ret;
-	   }
+	   } // for($j ...)
 
-	 }
+	 } // isset($row['mail']['count'])
+
        }
 
        ldap_free_result($sret);
