@@ -35,7 +35,7 @@
       #Possible ways a URL could finish.
 
       $poss_ends=array(" ", "\n", "\r", "<", ">", ".\r", ".\n", ".&nbsp;", "&nbsp;", ")", "(", 
-                       "&quot;", "&lt;", "&gt;", ".<");
+                       "&quot;", "&lt;", "&gt;", ".<", "]", "[", "{", "}", "--");
       $done=False;
       while (!$done) {
          #Look for when a URL starts

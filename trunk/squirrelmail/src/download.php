@@ -26,9 +26,10 @@
 
    function viewText($color, $body, $id, $entid, $mailbox, $type1, $wrap_at) {
       global $where, $what, $charset;
+      global $startMessage;
       displayPageHeader($color, "None");
 
-      echo "<BR><TABLE WIDTH=90% BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">";
+      echo "<BR><TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">";
       echo "<B><CENTER>";
       echo _("Viewing a text attachment") . " - ";
       if ($where && $what) {
@@ -37,12 +38,17 @@
       } else {   
          echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$id&startMessage=$startMessage&show_more=0\">". _("View message") . "</a>";
       }   
-      echo "</CENTER></B>";
-      echo "</TD></TR><TR><TD BGCOLOR=\"$color[4]\">";
+
       $urlmailbox = urlencode($mailbox);
-      echo "<CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$entid&mailbox=$urlmailbox\">";
+      echo "</b></td><tr><tr><td><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$entid&mailbox=$urlmailbox\">";
       echo _("Download this as a file");
-      echo "</A></CENTER><BR><BR><TT>";
+      echo "</A></CENTER><BR>";
+      echo "</CENTER></B>";
+      echo "</TD></TR></TABLE>";
+
+      echo "<TABLE WIDTH=98% BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">";
+      echo "<TR><TD BGCOLOR=\"$color[4]\"><TT>";
+
       if ($type1 == "html")
          echo $body;
       else

@@ -427,7 +427,7 @@
       // this if statement checks for the entity to show as the
       // primary message. To add more of them, just put them in the
       // order that is their priority.
-      global $username, $key, $imapServerAddress, $imapPort;
+      global $startMessage, $username, $key, $imapServerAddress, $imapPort;
 
       $id = $message->header->id;
       $urlmailbox = urlencode($message->header->mailbox);
@@ -449,12 +449,15 @@
 
       /** Display the ATTACHMENTS: message if there's more than one part **/
       if ($message->entities) {
+         $body .= "</TD></TR></TABLE>";
          $body .= "<TABLE WIDTH=100% CELLSPACING=0 CELLPADDING=4 BORDER=0><TR><TD BGCOLOR=\"$color[0]\">";
          $body .= "<TT><B>ATTACHMENTS:</B></TT>";
          $body .= "</TD></TR><TR><TD BGCOLOR=\"$color[0]\">";
          $num = 0;
 
          $body .= formatAttachments ($message, $ent_num, $message->header->mailbox, $id);
+         $body .= "</TD></TR></TABLE>";
+      } else {
          $body .= "</TD></TR></TABLE>";
       }
       return $body;
@@ -464,6 +467,7 @@
    // to where to download these attachments
    function formatAttachments ($message, $ent_id, $mailbox, $id) {
       global $where, $what;
+      global $startMessage;
       if ($message) {
          if (!$message->entities) {
             $type0 = strtolower($message->header->type0);
@@ -481,9 +485,9 @@
                $ent = urlencode($message->header->entity_id);
                if ($where && $what) {   
                   // from a search
-                  $body .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?where=".urlencode($where)."&what=".urlencode($what)."&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">" . $display_filename . "</A>&nbsp;&nbsp;(TYPE: $type0/$type1)";
+                  $body .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?startMessage=$startMessage&where=".urlencode($where)."&what=".urlencode($what)."&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">" . $display_filename . "</A>&nbsp;&nbsp;(TYPE: $type0/$type1)";
                } else {   
-                  $body .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">" . $display_filename . "</A>&nbsp;&nbsp;(TYPE: $type0/$type1)";
+                  $body .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?startMessage=$startMessage&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">" . $display_filename . "</A>&nbsp;&nbsp;(TYPE: $type0/$type1)";
                }
                if ($message->header->description)
                   $body .= "&nbsp;&nbsp;<b>" . htmlspecialchars($message->header->description)."</b>";
