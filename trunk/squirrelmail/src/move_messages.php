@@ -200,7 +200,16 @@ if(isset($expungeButton)) {
         }
         $location = get_location();
         if (isset($where) && isset($what)) {
-            header ("Location: $location/search.php?mailbox=".urlencode($mailbox)."&what=".urlencode($what)."&where=".urlencode($where));
+	    if (isset($attache)) {
+		$composesession = attachSelectedMessages($msg, $imapConnection);
+		if ($compose_new_win == '1') {
+        	    header ("Location: $location/search.php?mailbox=".urlencode($mailbox)."&what=".urlencode($what)."&where=".urlencode($where)."&composenew=1&session=$composesession&attachedmessages=true");
+		} else {
+		    header ("Location: $location/compose.php?startMessage=$startMessage&mailbox=". urlencode($mailbox)."&session=$composesession&attachedmessages=true".$wherewhat);
+		}
+	    } else {		
+        	header ("Location: $location/search.php?mailbox=".urlencode($mailbox)."&what=".urlencode($what)."&where=".urlencode($where));
+	    }
 	} elseif(isset($attache)) {
 	    $composesession = attachSelectedMessages($msg, $imapConnection);
 	    if ($compose_new_win == '1') {
