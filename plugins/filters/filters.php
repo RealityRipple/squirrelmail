@@ -53,7 +53,6 @@ function filters_SaveCache () {
     fclose($fp);
 }
 
-
 function filters_LoadCache () {
     global $data_dir, $SpamFilters_DNScache;
 
@@ -165,8 +164,8 @@ function filters_bulkquery($filters_spam_scan, $filters, $read) {
 
 function start_filters() {
     global $mailbox, $username, $key, $imapServerAddress, $imapPort, $imap,
-        $imap_general, $filters, $imap_stream, $imapConnection,
-    $UseSeparateImapConnection, $AllowSpamFilters;
+           $imap_general, $filters, $imap_stream, $imapConnection,
+           $UseSeparateImapConnection, $AllowSpamFilters;
 
 #    if ($mailbox == 'INBOX') {
         // Detect if we have already connected to IMAP or not.
@@ -200,7 +199,6 @@ function start_filters() {
 #    }
 }
 
-
 function user_filters($imap_stream) {
     global $data_dir, $username;
     $filters = load_filters();
@@ -233,7 +231,7 @@ function user_filters($imap_stream) {
     // Clean out the mailbox whether or not auto_expunge is on
     // That way it looks like it was redirected properly
     if (count($id)) {
-	sqimap_mailbox_expunge($imap_stream, 'INBOX');
+        sqimap_mailbox_expunge($imap_stream, 'INBOX');
     }
 }
 
@@ -259,6 +257,8 @@ function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan, $
         $where = trim($where . ' ' . $what[0]);
         $what  = addslashes(trim($what[1]));
     }
+    $search_str .= ' ' . $where . ' {' . strlen($what) . "}\r\n"
+                 . $what . "\r\n";
 
     /* read data back from IMAP */
     $read = sqimap_run_command($imap, $search_str, true, $response, $message, $uid_support);
@@ -416,7 +416,6 @@ function spam_filters($imap_stream) {
     }
 
 }
-
 
 // Does the loop through each enabled filter for the specified IP address.
 // IP format:  $a.$b.$c.$d
