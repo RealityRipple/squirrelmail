@@ -5,11 +5,11 @@
    Gustav Foseid <gustavf@squirrelmail.org>
    Pål Løberg <pallo@squirrelmail.org>
    Shane Wilson
-   Sergiusz Pawlowicz
    Steve Gare
    Gerrit Padgham
    Matt Phillips
    Lewis Bergman
+   Bryan Stalcup <bryan@stalcup.net>
 
  Translations:
  -------------
@@ -21,11 +21,13 @@
    Dutch:        Arjen Halma <arjen@halma.nl>
    Portuguese (Brazil): Henrique Moura <henriquemoura@hotmail.com>
    French        Ali Nedjimi <lrdfrx@club-internet.fr>
-   Italian	 Aldo Moresco <moresco@idcm.it>
+   Italian       Aldo Moresco <moresco@idcm.it>
 
  Significant Contributions:
  --------------------------
-   Konstantin Riabitsev <graf@relhum.org>
-   Alex Bleeker <beheer@hackers.nl>
-   Peter Hutnick <peter@hutnick.com>
+   i18n support:        Sergiusz Pawlowicz 
+   SquirrelMail logo:   Libor Kopecky <libor@globe.cz>
+   Code contributions:  Konstantin Riabitsev <graf@relhum.org>
+                        Alex Bleeker <beheer@hackers.nl>
+
    Many others...
