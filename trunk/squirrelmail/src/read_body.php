@@ -41,7 +41,7 @@
       echo "<br>";
       echo "<table width=100% cellpadding=2 cellspacing=0 border=0 align=center>\n";
       echo "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=100%><center><b>" . _("Viewing full header") . "</b> - ";
-      if ($where && $what) {
+      if (isset($where) && isset($what)) {
          // Got here from a search
          echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what)."\">";
       } else {
@@ -51,6 +51,7 @@
       echo "<table width=99% cellpadding=2 cellspacing=0 border=0 align=center>\n";
       echo "<tr><td>";
 
+      $cnum = 0;
       for ($i=1; $i < count($read)-1; $i++) {
          $line = htmlspecialchars($read[$i]);
 			if (eregi("^&gt;", $line)) {
@@ -70,15 +71,17 @@
          }
 		}
 		for ($i=0; $i < count($second); $i = $j) {
-			$f = $first[$i];
-			$s = nl2br($second[$i]);
+            if (isset($first[$i]))
+			    $f = $first[$i];
+            if (isset($second[$i]))
+			    $s = nl2br($second[$i]);
 			$j = $i + 1;
 			while ($first[$j] == "" && $j < count($first)) {
 				$s .= "&nbsp;&nbsp;&nbsp;&nbsp;" . nl2br($second[$j]);
 				$j++;
 			}
 			parseEmail($s);
-			echo "<nobr><tt><b>$f</b>$s</tt></nobr>";
+            if (isset($f)) echo "<nobr><tt><b>$f</b>$s</tt></nobr>";
       }
       echo "</td></tr></table>\n";
       echo "</body></html>";

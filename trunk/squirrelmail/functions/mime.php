@@ -460,7 +460,7 @@
          if ($message->header->entity_id == $ent_id && strlen($ent_id) == strlen($message->header->entity_id)) {
             return $message;
          } else {
-            for ($i = 0; $message->entities[$i]; $i++) {
+            for ($i = 0; isset($message->entities[$i]); $i++) {
                $msg = getEntity ($message->entities[$i], $ent_id);
                if ($msg)
                   return $msg;
