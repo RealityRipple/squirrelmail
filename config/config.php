@@ -50,7 +50,7 @@
     $theme[3]["NAME"] = "Slashdot";
 
 
-//  Whether or not to use $color[11] for special folders.  If not, special
+//  Whether or not to use a special color for special folders.  If not, special
 //  folders will be the same color as the other folders
     $use_special_folder_color = true;
 

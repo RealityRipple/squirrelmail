@@ -15,17 +15,17 @@
    include("../config/config.php");
    include("../functions/strings.php");
 
-   echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+   echo "<BODY TEXT=000000 BGCOLOR=FFFFFF LINK=0000CC VLINK=0000CC ALINK=0000CC>\n";
    echo "<FORM ACTION=webmail.php METHOD=\"POST\" NAME=f>\n";
    echo "<CENTER><IMG SRC=\"$org_logo\"</CENTER>\n";
    echo "<CENTER><FONT FACE=\"Arial,Helvetica\" SIZE=-2>SquirrelMail version $version<BR>By the SquirrelMail Development Team<BR></FONT><CENTER>\n";
    echo "<TABLE COLS=1 WIDTH=350>\n";
    echo "   <TR>\n";
-   echo "      <TD BGCOLOR=\"$color[0]\">\n";
+   echo "      <TD BGCOLOR=DCDCDC>\n";
    echo "         <B><CENTER><FONT FACE=\"Arial,Helvetica\">$org_name Login</FONT></CENTER></B>\n";
    echo "      </TD>\n";
    echo "   </TR><TR>\n";
-   echo "      <TD BGCOLOR=\"$color[4]\">\n";
+   echo "      <TD BGCOLOR=FFFFFF>\n";
    echo "         <TABLE COLS=2 WIDTH=100%>\n";
    echo "            <TR>\n";
    echo "               <TD WIDTH=30% ALIGN=right>\n";

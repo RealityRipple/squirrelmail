@@ -16,23 +16,20 @@
 ?>
 <HTML>
 <?
-   include ("../config/config.php");
-   include("../src/load_prefs.php");
-
-   echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
-   echo "<BR><BR><TABLE BGCOLOR=\"$color[4]\" BORDER=0 COLS=1 WIDTH=50% CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>";
-   echo "   <TR BGCOLOR=\"$color[3]\" WIDTH=100%>";
+   echo "<BODY TEXT=000000 BGCOLOR=FFFFFF LINK=0000CC VLINK=0000CC ALINK=0000CC>\n";
+   echo "<BR><BR><TABLE BGCOLOR=FFFFFF BORDER=0 COLS=1 WIDTH=50% CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>";
+   echo "   <TR BGCOLOR=DCDCDC WIDTH=100%>";
    echo "      <TD ALIGN=CENTER>";
    echo "         <FONT FACE=\"Arial,Helvetica\"><B>Sign Out</B></FONT>";
    echo "      </TD>";
    echo "   </TR>";
-   echo "   <TR BGCOLOR=\"$color[4]\" WIDTH=100%>";
+   echo "   <TR BGCOLOR=FFFFFF WIDTH=100%>";
    echo "      <TD ALIGN=CENTER>";
    echo "         <FONT FACE=\"Arial,Helvetica\"><BR>You have been successfully signed out.<BR></FONT>";
    echo "         <FONT FACE=\"Arial,Helvetica\">Click here to <A HREF=\"login.php\" TARGET=_top>log back in.</A></FONT><BR><BR>";
    echo "      </TD>";
    echo "   </TR>";
-   echo "   <TR BGCOLOR=\"$color[0]\" WIDTH=100%>";
+   echo "   <TR BGCOLOR=DCDCDC WIDTH=100%>";
    echo "      <TD ALIGN=CENTER>";
    echo "         <FONT FACE=\"Arial,Helvetica\"><BR></FONT>";
    echo "      </TD>";
