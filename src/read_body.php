@@ -457,8 +457,8 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
     }
     echo '<TABLE BGCOLOR="'.$color[9].'" WIDTH="100%" CELLPADDING="1"'.
          ' CELLSPACING="0" BORDER="0" ALIIGN="center">'."\n";
-    echo '<TR><TD HEIGHT="5" COLSPAN="2" BGCOLOR="'.$color[4].'"></TD></TR><TR><TD 
-align=center>'."\n";
+    echo '<TR><TD HEIGHT="5" COLSPAN="2" BGCOLOR="'.
+          $color[4].'"></TD></TR><TR><TD align=center>'."\n";
     echo $s;
     do_hook("read_body_header");
     formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color);
@@ -807,12 +807,15 @@ echo '        </table></td></tr>';
 echo '    </table>';
 echo '  </td></tr>';
 
+echo '<TR><TD HEIGHT="5" COLSPAN="2" BGCOLOR="'.
+          $color[4].'"></TD></TR><TR><TD align=center>'."\n";
+
 $attachmentsdisplay = formatAttachments($message,$ent_ar,$mailbox, $passed_id);
 if ($attachmentsdisplay) {
    echo '  <tr><td>';
    echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
    echo '     <tr><td>';
-   echo '       <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
+   echo '       <table width="100%" cellpadding="0" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
    echo '        <tr><td ALIGN="left" bgcolor="'.$color[9].'">';
    echo '           <b>' . _("Attachments") . ':</b>';
    echo '        </td></tr>';
