@@ -19,10 +19,10 @@
    **/
 
    class abook_local_file extends addressbook_backend {
-     var $btype = "local";
-     var $bname = "local_file";
+     var $btype = 'local';
+     var $bname = 'local_file';
 
-     var $filename   = "";
+     var $filename   = '';
      var $filehandle = 0;
      var $create     = false;
      var $umask;
@@ -31,29 +31,29 @@
 
      // Constructor
      function abook_local_file($param) {
-       $this->sname = _("Personal address book");
+       $this->sname = _('Personal address book');
        $this->umask = Umask();
 
        if(is_array($param)) {
-	 if(empty($param["filename"]))
-	   return $this->set_error("Invalid parameters");
-	 if(!is_string($param["filename"]))
-	   return $this->set_error($param["filename"] . ": ".
-				   _("Not a file name"));
+	 if(empty($param['filename']))
+	   return $this->set_error('Invalid parameters');
+	 if(!is_string($param['filename']))
+	   return $this->set_error($param['filename'] . ': '.
+				   _('Not a file name'));
 
-	 $this->filename = $param["filename"];
+	 $this->filename = $param['filename'];
 
-	 if($param["create"])
+	 if($param['create'])
 	   $this->create = true;
-	 if(isset($param["umask"])) 
-	   $this->umask = $param["umask"];
+	 if(isset($param['umask'])) 
+	   $this->umask = $param['umask'];
 
-	 if(!empty($param["name"]))
-	   $this->sname = $param["name"];
+	 if(!empty($param['name']))
+	   $this->sname = $param['name'];
 
 	 $this->open(true);
        } else {
-	 $this->set_error("Invalid argument to constructor");
+	 $this->set_error('Invalid argument to constructor');
        }
      }
 
@@ -62,7 +62,7 @@
      // filename property. If $param is empty and file is  
      // open, do nothing.
      function open($new = false) {
-       $this->error = "";
+       $this->error = '';
        $file   = $this->filename;
        $create = $this->create;
 
@@ -72,8 +72,7 @@
 
        // Check that new file exitsts
        if((!(file_exists($file) && is_readable($file))) && !$create)
-	 return $this->set_error("$file: " . 
-				 _("No such file or directory"));
+	 return $this->set_error("$file: " . _('No such file or directory'));
 
        // Close old file, if any
        if($this->filehandle) $this->close();
@@ -81,19 +80,19 @@
        // Open file. First try to open for reading and writing,
        // but fall back to read only.
        umask($this->umask);
-       $fh = @fopen($file, "a+");
+       $fh = @fopen($file, 'a+');
        if($fh) {
 	 $this->filehandle = &$fh;
 	 $this->filename   = $file;
 	 $this->writeable  = true;
        } else {
-	 $fh = @fopen($file, "r");
+	 $fh = @fopen($file, 'r');
 	 if($fh) {
 	   $this->filehandle = &$fh;
 	   $this->filename   = $file;
 	   $this->writeable  = false;
 	 } else {
-	   return $this->set_error("$file: "._("Open failed"));
+	   return $this->set_error("$file: " . _('Open failed'));
 	 }
        }
 
@@ -104,7 +103,7 @@
      function close() {
        @fclose($this->filehandle);
        $this->filehandle = 0;
-       $this->filename   = "";
+       $this->filename   = '';
        $this->writable   = false;
      }
 
@@ -127,13 +126,13 @@
      // Overwrite the file with data from $rows
      // NOTE! Previous locks are broken by this function
      function overwrite($rows) {
-       $newfh = @fopen($this->filename, "w");
+       $newfh = @fopen($this->filename, 'w');
        if(!$newfh)
-	 return $this->set_error("$file: "._("Open failed"));
+	 return $this->set_error("$file: " . _('Open failed'));
 
        for($i = 0 ; $i < sizeof($rows) ; $i++) {
 	 if(is_array($rows[$i]))
-	   fwrite($newfh, join("|", $rows[$i])."\n");
+	   fwrite($newfh, join('|', $rows[$i]) . '\n');
        }       
 
        fclose($newfh);
@@ -151,8 +150,8 @@
        if(is_array($expr)) return;
 
        // Make regexp from glob'ed expression 
-       $expr = ereg_replace("\?", ".", $expr);
-       $expr = ereg_replace("\*", ".*", $expr);
+       $expr = ereg_replace('\?', '.', $expr);
+       $expr = ereg_replace('\*', '.*', $expr);
 
        $res = array();
        if(!$this->open())
@@ -160,17 +159,17 @@
 
        @rewind($this->filehandle);
        
-       while ($row = @fgetcsv($this->filehandle, 2048, "|")) {
-	 $line = join(" ", $row);
+       while ($row = @fgetcsv($this->filehandle, 2048, '|')) {
+	 $line = join(' ', $row);
 	 if(eregi($expr, $line)) {
-	   array_push($res, array("nickname"  => $row[0],
-				  "name"      => $row[1] . " " . $row[2],
-				  "firstname" => $row[1],
-				  "lastname"  => $row[2],
-				  "email"     => $row[3],
-				  "label"     => $row[4],
-				  "backend"   => $this->bnum,
-				  "source"    => &$this->sname));
+	   array_push($res, array('nickname'  => $row[0],
+				  'name'      => $row[1] . ' ' . $row[2],
+				  'firstname' => $row[1],
+				  'lastname'  => $row[2],
+				  'email'     => $row[3],
+				  'label'     => $row[4],
+				  'backend'   => $this->bnum,
+				  'source'    => &$this->sname));
 	 }
        }
        
@@ -187,16 +186,16 @@
        $this->open();
        @rewind($this->filehandle);
        
-       while ($row = @fgetcsv($this->filehandle, 2048, "|")) {
+       while ($row = @fgetcsv($this->filehandle, 2048, '|')) {
 	 if(strtolower($row[0]) == $alias) {
-	   return array("nickname"  => $row[0],
-			"name"      => $row[1] . " " . $row[2],
-			"firstname" => $row[1],
-			"lastname"  => $row[2],
-			"email"     => $row[3],
-			"label"     => $row[4],
-			"backend"   => $this->bnum,
-			"source"    => &$this->sname);
+	   return array('nickname'  => $row[0],
+			'name'      => $row[1] . ' ' . $row[2],
+			'firstname' => $row[1],
+			'lastname'  => $row[2],
+			'email'     => $row[3],
+			'label'     => $row[4],
+			'backend'   => $this->bnum,
+			'source'    => &$this->sname);
 	 }
        }
        
@@ -209,15 +208,15 @@
        $this->open();
        @rewind($this->filehandle);
        
-       while ($row = @fgetcsv($this->filehandle, 2048, "|")) {
-	 array_push($res, array("nickname"  => $row[0],
-				"name"      => $row[1] . " " . $row[2],
-				"firstname" => $row[1],
-				"lastname"  => $row[2],
-				"email"     => $row[3],
-				"label"     => $row[4],
-				"backend"   => $this->bnum,
-				"source"    => &$this->sname));
+       while ($row = @fgetcsv($this->filehandle, 2048, '|')) {
+	 array_push($res, array('nickname'  => $row[0],
+				'name'      => $row[1] . ' ' . $row[2],
+				'firstname' => $row[1],
+				'lastname'  => $row[2],
+				'email'     => $row[3],
+				'label'     => $row[4],
+				'backend'   => $this->bnum,
+				'source'    => &$this->sname));
        }
        return $res;
      }
@@ -225,31 +224,31 @@
      // Add address
      function add($userdata) {
        if(!$this->writeable) 
-	 return $this->set_error(_("Addressbook is read-only"));
+	 return $this->set_error(_('Addressbook is read-only'));
 
        // See if user exist already
-       $ret = $this->lookup($userdata["nickname"]);
+       $ret = $this->lookup($userdata['nickname']);
        if(!empty($ret))
-	 return $this->set_error(sprintf(_("User '%s' already exist"), 
-					 $ret["nickname"]));
+	 return $this->set_error(sprintf(_('User \'%s\' already exist'), 
+					 $ret['nickname']));
 
        // Here is the data to write
-       $data = sprintf("%s|%s|%s|%s|%s", $userdata["nickname"],
-		       $userdata["firstname"], $userdata["lastname"],
-		       $userdata["email"], $userdata["label"]);
+       $data = $userdata['nickname'] . '|' . $userdata['firstname'] . '|' .
+               $userdata['lastname'] . '|' . $userdata['email'] . '|' .
+               $userdata['label'];
        // Strip linefeeds
-       $data = ereg_replace("[\r\n]", " ", $data);
+       $data = ereg_replace('[\r\n]', ' ', $data);
        // Add linefeed at end
-       $data = $data."\n";
+       $data = $data . '\n';
 
        // Reopen file, just to be sure
        $this->open(true);
        if(!$this->writeable) 
-	 return $this->set_error(_("Addressbook is read-only"));
+	 return $this->set_error(_('Addressbook is read-only'));
 
        // Lock the file
        if(!$this->lock())
-	 return $this->set_error(_("Could not lock datafile"));
+	 return $this->set_error(_('Could not lock datafile'));
 
        // Write
        $r = fwrite($this->filehandle, $data);
@@ -261,26 +260,26 @@
        if($r > 0) return true;
 
        // Fail
-       $this->set_error(_("Write to addressbook failed"));
+       $this->set_error(_('Write to addressbook failed'));
        return false;
      }
 
      // Delete address
      function remove($alias) {
        if(!$this->writeable) 
-	 return $this->set_error(_("Addressbook is read-only"));
+	 return $this->set_error(_('Addressbook is read-only'));
 
        // Lock the file to make sure we're the only process working
        // on it.
        if(!$this->lock())
-	 return $this->set_error(_("Could not lock datafile"));
+	 return $this->set_error(_('Could not lock datafile'));
 
        // Read file into memory, ignoring nicknames to delete
        $this->open();
        @rewind($this->filehandle);
        $i = 0;
        $rows = array();
-       while($row = @fgetcsv($this->filehandle, 2048, "|")) {
+       while($row = @fgetcsv($this->filehandle, 2048, '|')) {
 	 if(!in_array($row[0], $alias))
 	   $rows[$i++] = $row;
        }
@@ -298,18 +297,18 @@
      // Modify address
      function modify($alias, $userdata) {
        if(!$this->writeable) 
-	 return $this->set_error(_("Addressbook is read-only"));
+	 return $this->set_error(_('Addressbook is read-only'));
 
        // See if user exist
        $ret = $this->lookup($alias);
        if(empty($ret))
-	 return $this->set_error(sprintf(_("User '%s' does not exist"), 
+	 return $this->set_error(sprintf(_('User \'%s\' does not exist'), 
 					 $alias));
 
        // Lock the file to make sure we're the only process working
        // on it.
        if(!$this->lock())
-	 return $this->set_error(_("Could not lock datafile"));
+	 return $this->set_error(_('Could not lock datafile'));
 
        // Read file into memory, modifying the data for the 
        // user identifyed by $alias
@@ -317,15 +316,15 @@
        @rewind($this->filehandle);
        $i = 0;
        $rows = array();
-       while($row = @fgetcsv($this->filehandle, 2048, "|")) {
+       while($row = @fgetcsv($this->filehandle, 2048, '|')) {
 	 if(strtolower($row[0]) != strtolower($alias)) {
 	   $rows[$i++] = $row;
 	 } else {
-	   $rows[$i++] = array(0 => $userdata["nickname"],
-			       1 => $userdata["firstname"],
-			       2 => $userdata["lastname"],
-			       3 => $userdata["email"], 
-			       4 => $userdata["label"]);
+	   $rows[$i++] = array(0 => $userdata['nickname'],
+			       1 => $userdata['firstname'],
+			       2 => $userdata['lastname'],
+			       3 => $userdata['email'], 
+			       4 => $userdata['label']);
 	 }
        }
 

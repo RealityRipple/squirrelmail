@@ -44,34 +44,34 @@
       
       // Constructor
       function abook_database($param) {
-         $this->sname = _("Personal address book");
+         $this->sname = _('Personal address book');
          
          if(is_array($param)) {
-            if(empty($param["dsn"]) || 
-               empty($param["table"]) || 
-               empty($param["owner"]))
-               return $this->set_error("Invalid parameters");
+            if(empty($param['dsn']) || 
+               empty($param['table']) || 
+               empty($param['owner']))
+               return $this->set_error('Invalid parameters');
             
-            $this->dsn   = $param["dsn"];
-            $this->table = $param["table"];
-            $this->owner = $param["owner"];
+            $this->dsn   = $param['dsn'];
+            $this->table = $param['table'];
+            $this->owner = $param['owner'];
             
-            if(!empty($param["name"]))
-               $this->sname = $param["name"];
+            if(!empty($param['name']))
+               $this->sname = $param['name'];
 
-            if(isset($param["writeable"]))
-               $this->writeable = $param["writeable"];
+            if(isset($param['writeable']))
+               $this->writeable = $param['writeable'];
 
             $this->open(true);
          } else {
-            return $this->set_error("Invalid argument to constructor");
+            return $this->set_error('Invalid argument to constructor');
          }
       }
       
       
       // Open the database. New connection if $new is true
       function open($new = false) {
-         $this->error = "";
+         $this->error = '';
          
          // Return true is file is open and $new is unset
          if($this->dbh && !$new)
@@ -83,7 +83,7 @@
          $dbh = DB::connect($this->dsn, true);
          
          if(DB::isError($dbh) || DB::isWarning($dbh)) 
-            return $this->set_error(sprintf(_("Database error: %s"),
+            return $this->set_error(sprintf(_('Database error: %s'),
                                             DB::errorMessage($dbh)));
          
          $this->dbh = $dbh;
@@ -108,29 +108,29 @@
          if(is_array($expr)) return;
 
          // Make regexp from glob'ed expression 
-         $expr = ereg_replace("\?", "_", $expr);
-         $expr = ereg_replace("\*", "%", $expr);
+         $expr = ereg_replace('\?', '_', $expr);
+         $expr = ereg_replace('\*'. '%', $expr);
          $expr = $this->dbh->quoteString($expr);
          $expr = "%$expr%";
 
-         $query = sprintf("SELECT * FROM %s WHERE owner='%s' AND ".
-                          "(firstname LIKE '%s' OR lastname LIKE '%s')",
+         $query = sprintf('SELECT * FROM %s WHERE owner=\'%s\' AND ' .
+                          '(firstname LIKE \'%s\' OR lastname LIKE \'%s\')',
                           $this->table, $this->owner, $expr, $expr);
          $res = $this->dbh->query($query);
 
          if(DB::isError($res)) 
-            return $this->set_error(sprintf(_("Database error: %s"),
+            return $this->set_error(sprintf(_('Database error: %s'),
                                             DB::errorMessage($res)));
 
          while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-            array_push($ret, array("nickname"  => $row["nickname"],
-                                   "name"      => $row["firstname"] . " " . $row["lastname"],
-                                   "firstname" => $row["firstname"],
-                                   "lastname"  => $row["lastname"],
-                                   "email"     => $row["email"],
-                                   "label"     => $row["label"],
-                                   "backend"   => $this->bnum,
-                                   "source"    => &$this->sname));
+            array_push($ret, array('nickname'  => $row['nickname'],
+                                   'name'      => "$row[firstname] $row[lastname]",
+                                   'firstname' => $row['firstname'],
+                                   'lastname'  => $row['lastname'],
+                                   'email'     => $row['email'],
+                                   'label'     => $row['label'],
+                                   'backend'   => $this->bnum,
+                                   'source'    => &$this->sname));
          }
          return $ret;
       }
@@ -145,24 +145,24 @@
          if(!$this->open())
             return false;
          
-         $query = sprintf("SELECT * FROM %s WHERE owner='%s' AND nickname='%s'",
+         $query = sprintf('SELECT * FROM %s WHERE owner=\'%s\' AND nickname=\'%s\'',
                           $this->table, $this->owner, $alias);
 
          $res = $this->dbh->query($query);
 
          if(DB::isError($res)) 
-            return $this->set_error(sprintf(_("Database error: %s"),
+            return $this->set_error(sprintf(_('Database error: %s'),
                                             DB::errorMessage($res)));
 
          if ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-            return array("nickname"  => $row["nickname"],
-                         "name"      => $row["firstname"] . " " . $row["lastname"],
-                         "firstname" => $row["firstname"],
-                         "lastname"  => $row["lastname"],
-                         "email"     => $row["email"],
-                         "label"     => $row["label"],
-                         "backend"   => $this->bnum,
-                         "source"    => &$this->sname);
+            return array('nickname'  => $row['nickname'],
+                         'name'      => "$row[firstname] $row[lastname]",
+                         'firstname' => $row['firstname'],
+                         'lastname'  => $row['lastname'],
+                         'email'     => $row['email'],
+                         'label'     => $row['label'],
+                         'backend'   => $this->bnum,
+                         'source'    => &$this->sname);
          }
 
          return array();
@@ -174,95 +174,95 @@
          if(!$this->open())
             return false;
 
-         $query = sprintf("SELECT * FROM %s WHERE owner='%s'",
+         $query = sprintf(;SELECT * FROM %s WHERE owner=\'%s\';,
                           $this->table, $this->owner);
 
          $res = $this->dbh->query($query);
 
          if(DB::isError($res)) 
-            return $this->set_error(sprintf(_("Database error: %s"),
+            return $this->set_error(sprintf(_('Database error: %s'),
                                             DB::errorMessage($res)));
 
          while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-            array_push($ret, array("nickname"  => $row["nickname"],
-                                   "name"      => $row["firstname"] . " " . $row["lastname"],
-                                   "firstname" => $row["firstname"],
-                                   "lastname"  => $row["lastname"],
-                                   "email"     => $row["email"],
-                                   "label"     => $row["label"],
-                                   "backend"   => $this->bnum,
-                                   "source"    => &$this->sname));
+            array_push($ret, array('nickname'  => $row['nickname'],
+                                   'name'      => "$row[firstname] $row[lastname]",
+                                   'firstname' => $row['firstname'],
+                                   'lastname'  => $row['lastname'],
+                                   'email'     => $row['email'],
+                                   'label'     => $row['label'],
+                                   'backend'   => $this->bnum,
+                                   'source'    => &$this->sname));
          }
          return $ret;
       }
 
       // Add address
       function add($userdata) {
-         if(!$this->writeable) 
-            return $this->set_error(_("Addressbook is read-only"));
+         if(!$this->writeable)
+            return $this->set_error(_('Addressbook is read-only'));
 
          if(!$this->open())
             return false;
          
          // See if user exist already
-         $ret = $this->lookup($userdata["nickname"]);
+         $ret = $this->lookup($userdata['nickname']);
          if(!empty($ret))
-            return $this->set_error(sprintf(_("User '%s' already exist"), 
-                                            $ret["nickname"]));
+            return $this->set_error(sprintf(_('User \'%s\' already exist'), 
+                                            $ret['nickname']));
 
          // Create query
-         $query = sprintf("INSERT INTO %s (owner, nickname, firstname, ".
-                          "lastname, email, label) VALUES('%s','%s','%s',".
+         $query = sprintf('INSERT INTO %s (owner, nickname, firstname, ' .
+                          "lastname, email, label) VALUES('%s','%s','%s'," .
                           "'%s','%s','%s')",
                           $this->table, $this->owner,
-                          $this->dbh->quoteString($userdata["nickname"]),
-                          $this->dbh->quoteString($userdata["firstname"]), 
-                          $this->dbh->quoteString($userdata["lastname"]),
-                          $this->dbh->quoteString($userdata["email"]), 
-                          $this->dbh->quoteString($userdata["label"]) );
+                          $this->dbh->quoteString($userdata['nickname']),
+                          $this->dbh->quoteString($userdata['firstname']), 
+                          $this->dbh->quoteString($userdata['lastname']),
+                          $this->dbh->quoteString($userdata['email']), 
+                          $this->dbh->quoteString($userdata['label']) );
 
          // Do the insert
          $r = $this->dbh->simpleQuery($query);
          if($r == DB_OK) return true;
 
          // Fail
-         return $this->set_error(sprintf(_("Database error: %s"),
+         return $this->set_error(sprintf(_('Database error: %s'),
                                          DB::errorMessage($r)));
       }
 
       // Delete address
       function remove($alias) {
          if(!$this->writeable) 
-            return $this->set_error(_("Addressbook is read-only"));
+            return $this->set_error(_('Addressbook is read-only'));
 
          if(!$this->open())
             return false;
          
          // Create query
-         $query = sprintf("DELETE FROM %s WHERE owner='%s' AND (",
+         $query = sprintf('DELETE FROM %s WHERE owner=\'%s\' AND (',
                           $this->table, $this->owner);
 
-         $sepstr = "";
+         $sepstr = '';
          while(list($undef, $nickname) = each($alias)) {
-            $query .= sprintf("%s nickname='%s' ", $sepstr,
+            $query .= sprintf('%s nickname=\'%s\' ', $sepstr,
                               $this->dbh->quoteString($nickname));
-            $sepstr = "OR";
+            $sepstr = 'OR';
          }
-         $query .= ")";
+         $query .= ')';
 
          // Delete entry
          $r = $this->dbh->simpleQuery($query);
          if($r == DB_OK) return true;
 
          // Fail
-         return $this->set_error(sprintf(_("Database error: %s"),
+         return $this->set_error(sprintf(_('Database error: %s'),
                                          DB::errorMessage($r)));
       }
 
       // Modify address
       function modify($alias, $userdata) {
          if(!$this->writeable) 
-            return $this->set_error(_("Addressbook is read-only"));
+            return $this->set_error(_('Addressbook is read-only'));
 
          if(!$this->open())
             return false;
@@ -270,7 +270,7 @@
          // See if user exist
          $ret = $this->lookup($alias);
          if(empty($ret))
-            return $this->set_error(sprintf(_("User '%s' does not exist"), 
+            return $this->set_error(sprintf(_('User \'%s\' does not exist'), 
                                             $alias));
 
          // Create query
@@ -278,11 +278,11 @@
                           "lastname='%s', email='%s', label='%s' ".
                           "WHERE owner='%s' AND nickname='%s'",
                           $this->table, 
-                          $this->dbh->quoteString($userdata["nickname"]),
-                          $this->dbh->quoteString($userdata["firstname"]), 
-                          $this->dbh->quoteString($userdata["lastname"]),
-                          $this->dbh->quoteString($userdata["email"]), 
-                          $this->dbh->quoteString($userdata["label"]),
+                          $this->dbh->quoteString($userdata['nickname']),
+                          $this->dbh->quoteString($userdata['firstname']), 
+                          $this->dbh->quoteString($userdata['lastname']),
+                          $this->dbh->quoteString($userdata['email']), 
+                          $this->dbh->quoteString($userdata['label']),
                           $this->owner,
                           $this->dbh->quoteString($alias) );
 
@@ -291,7 +291,7 @@
          if($r == DB_OK) return true;
 
          // Fail
-         return $this->set_error(sprintf(_("Database error: %s"),
+         return $this->set_error(sprintf(_('Database error: %s'),
                                          DB::errorMessage($r)));
       }
    } // End of class abook_database
