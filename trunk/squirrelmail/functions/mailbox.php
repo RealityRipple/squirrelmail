@@ -20,10 +20,16 @@
       }
    }
 
+   /**  This function sends a request to the IMAP server for headers, 50 at a time
+    **  until $end is reached.  I originally had it do them all at one time, but found
+    **  it slightly faster to do it this way.
+    **
+    **  Originally we had getMessageHeaders get the headers for one message at a time.
+    **  Doing it in bunches gave us a speed increase from 9 seconds (for a box of 800
+    **  messages) to about 3.5 seconds.
+    **/
    function getMessageHeaders($imapConnection, $start, $end, &$from, &$subject, &$date) {
-
       $rel_start = $start;
-
       if (($start > $end) || ($start < 1)) {
          echo "Error in message header fetching.  Start message: $start, End message: $end<BR>";
          exit;
@@ -70,6 +76,12 @@
       fputs($imapConnection, "messageStore STORE $i:$q +FLAGS (\\$flag)\n");
    }
 
+   /**  This function gets the flags for message $j.  It does only one message at a
+    **  time, rather than doing groups of messages (like getMessageHeaders does).
+    **  I found it one or two seconds quicker (on a box of 800 messages) to do it
+    **  individually.  I'm not sure why it happens like that, but that's what my
+    **  testing found.  Perhaps later I will be proven wrong and this will change.
+    **/
    function getMessageFlags($imapConnection, $j, &$flags) {
       /**   * 2 FETCH (FLAGS (\Answered \Seen))   */
       fputs($imapConnection, "messageFetch FETCH $j:$j FLAGS\n");

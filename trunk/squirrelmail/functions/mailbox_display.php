@@ -40,10 +40,13 @@
 
       $j = 0;
       while ($j < $numMessages) {
-         $messages[$j]["TIME_STAMP"] = getTimeStamp(explode(" ", trim($date[$j])));
-         $messages[$j]["DATE_STRING"] = getDateString(explode(" ", trim($date[$j])));
+         $date[$j] = ereg_replace("  ", " ", $date[$j]);
+         $tmpdate = explode(" ", trim($date[$j]));
+
+         $messages[$j]["TIME_STAMP"] = getTimeStamp($tmpdate);
+         $messages[$j]["DATE_STRING"] = getDateString($tmpdate);
          $messages[$j]["ID"] = $j+1;
-         $messages[$j]["FROM"] = $from[$j];
+         $messages[$j]["FROM"] = getSenderName($from[$j]);
          $messages[$j]["SUBJECT"] = $subject[$j];
          $messages[$j]["FLAG_DELETED"] = false;
          $messages[$j]["FLAG_ANSWERED"] = false;
@@ -90,10 +93,48 @@
 
       // There's gotta be messages in the array for it to sort them.
       if ($numMessages > 0) {
+         /** 0 = Date (up)      4 = Subject (up)
+          ** 1 = Date (dn)      5 = Subject (dn)
+          ** 2 = Name (up)
+          ** 3 = Name (dn)
+          **/
          if ($sort == 0)
             $msgs = ary_sort($msgs, "TIME_STAMP", -1);
-         else
+         else if ($sort == 1)
             $msgs = ary_sort($msgs, "TIME_STAMP", 1);
+         else {
+            $original = $msgs;
+            $i = 0;
+            while ($i < count($msgs)) {
+               $msgs[$i]["FROM"] = strtolower($msgs[$i]["FROM"]);
+               $msgs[$i]["SUBJECT"] = strtolower($msgs[$i]["SUBJECT"]);
+               $i++;
+            }
+
+            if ($sort == 2)
+               $msgs = ary_sort($msgs, "FROM", -1);
+            else if ($sort == 3)
+               $msgs = ary_sort($msgs, "FROM", 1);
+            else if ($sort == 4)
+               $msgs = ary_sort($msgs, "SUBJECT", -1);
+            else if ($sort == 5)
+               $msgs = ary_sort($msgs, "SUBJECT", 1);
+            else
+               $msgs = ary_sort($msgs, "TIME_STAMP", -1);
+
+            $i = 0;
+            while ($i < count($msgs)) {
+               $j = 0;
+               while ($j < count($original)) {
+                  if ($msgs[$i]["ID"] == $original[$j]["ID"]) {
+                     $msgs[$i]["FROM"] = $original[$j]["FROM"];
+                     $msgs[$i]["SUBJECT"] = $original[$j]["SUBJECT"];
+                  }
+                  $j++;
+               }
+               $i++;
+            }
+         }
       }
 
       if ($startMessage + 24 < $numMessages) {
@@ -140,13 +181,30 @@
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=FFFFFF>";
       echo "<TR BGCOLOR=FFFFCC ALIGN=\"center\">";
       echo "   <TD WIDTH=5%><FONT FACE=\"Arial,Helvetica\"><B>Num</B></FONT></TD>";
-      echo "   <TD WIDTH=25%><FONT FACE=\"Arial,Helvetica\"><B>From</B></FONT></TD>";
+      /** FROM HEADER **/
+      echo "   <TD WIDTH=25%><FONT FACE=\"Arial,Helvetica\"><B>From</B></FONT>";
+      if ($sort == 2)
+         echo "   <A HREF=\"right_main.php?sort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
+      else if ($sort == 3)
+         echo "   <A HREF=\"right_main.php?sort=2&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
+      else
+         echo "   <A HREF=\"right_main.php?sort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
+      /** DATE HEADER **/
       echo "   <TD WIDTH=15%><FONT FACE=\"Arial,Helvetica\"><B>Date</B></FONT>";
       if ($sort == 0)
          echo "   <A HREF=\"right_main.php?sort=1&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
-      else
+      else if ($sort == 1)
          echo "   <A HREF=\"right_main.php?sort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
-      echo "   <TD WIDTH=*><FONT FACE=\"Arial,Helvetica\"><B>Subject</B></FONT></TD>\n";
+      else
+         echo "   <A HREF=\"right_main.php?sort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
+      /** SUBJECT HEADER **/
+      echo "   <TD WIDTH=*><FONT FACE=\"Arial,Helvetica\"><B>Subject</B></FONT>\n";
+      if ($sort == 4)
+         echo "   <A HREF=\"right_main.php?sort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
+      else if ($sort == 5)
+         echo "   <A HREF=\"right_main.php?sort=4&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
+      else
+         echo "   <A HREF=\"right_main.php?sort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
       echo "</TR>";
 
       // loop through and display the info for each message.
