@@ -138,7 +138,12 @@ Version 1.5.1 -- CVS
   - Fixed SquirrelSpell error output.  Patch courtesy David Boone.
   - Fixed bug in IMAP read routines that treated "0" as false instead of
     a string (patch courtesy Maurice Makaay).
-  - Fixed PHP notice when header property value is blank
+  - Fixed PHP notice when header property value is blank.
+  - Added compact paginator option. Patch by Felix Egli.
+  - Fixed reply/forward form in order to avoid warnings in SSL enabled sites. Patch
+    by Felix Egli.
+  - Removed command line option unsupported by qmail-inject in 
+    class/deliver/Deliver_SendMail.class.php. Thanks to Ken Brush.
 
 Version 1.5.0
 --------------------
