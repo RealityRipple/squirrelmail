@@ -11,10 +11,10 @@
  * $Id$
  */
 
-require_once('../functions/strings.php');
-//require_once('../functions/imap_utf7_decode_local.php');
-require_once('../functions/html.php');
-require_once('../functions/imap_mailbox.php');
+require_once(SM_PATH . 'functions/strings.php');
+require_once(SM_PATH . 'functions/html.php');
+require_once(SM_PATH . 'functions/imap_mailbox.php');
+
 /* Always set up the language before calling these functions */
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE ) {
 

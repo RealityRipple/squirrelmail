@@ -12,10 +12,10 @@
  * $Id$
  */
 
-require_once('../functions/strings.php');
-require_once('../functions/html.php');
-require_once('../class/html.class.php');
-require_once('../functions/imap_mailbox.php');
+require_once(SM_PATH . 'functions/strings.php');
+require_once(SM_PATH . 'functions/html.php');
+require_once(SM_PATH . 'class/html.class.php');
+require_once(SM_PATH . 'functions/imap_mailbox.php');
 
 /* Default value for page_selector_max. */
 define('PG_SEL_MAX', 10);

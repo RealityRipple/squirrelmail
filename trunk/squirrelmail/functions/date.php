@@ -14,7 +14,7 @@
  * $Id$
  */
 
-require_once( '../functions/constants.php' );
+require_once(SM_PATH . 'functions/constants.php');
 
 /* corrects a time stamp to be the local time */
 function getGMTSeconds($stamp, $gmt) {

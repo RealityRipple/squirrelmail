@@ -11,7 +11,7 @@
  * $Id$
  */
 
-require_once('../functions/page_header.php');
+require_once(SM_PATH . 'functions/page_header.php');
 
 global $sqimap_session_id;
 $sqimap_session_id = 1;

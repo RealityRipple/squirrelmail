@@ -10,8 +10,8 @@
  *
  * $Id$
  */
-require_once('../functions/imap_utf7_encode_local.php');
-require_once('../functions/imap_utf7_decode_local.php');
+require_once(SM_PATH . 'functions/imap_utf7_encode_local.php');
+require_once(SM_PATH . 'functions/imap_utf7_decode_local.php');
 global $boxesnew;
 
 class mailboxes {
@@ -461,8 +461,8 @@ function sqimap_mailbox_list($imap_stream) {
         $inbox_in_list = false;
         $inbox_subscribed = false;
 
-        require_once('../src/load_prefs.php');
-        require_once('../functions/array.php');
+        require_once(SM_PATH . 'src/load_prefs.php');
+        require_once(SM_PATH . 'functions/array.php');
 
     if ($noselect_fix_enable) {
         $lsub_args = "LSUB \"$folder_prefix\" \"*%\"";
@@ -615,7 +615,7 @@ function sqimap_mailbox_list($imap_stream) {
 function sqimap_mailbox_list_all($imap_stream) {
     global $list_special_folders_first, $folder_prefix, $delimiter;
 
-    require_once('../functions/array.php');
+    require_once(SM_PATH . 'functions/array.php');
 
     $ssid = sqimap_session_id();
     $lsid = strlen( $ssid );
@@ -711,8 +711,8 @@ function sqimap_mailbox_tree($imap_stream) {
         $inbox_in_list = false;
         $inbox_subscribed = false;
 
-        require_once('../src/load_prefs.php');
-        require_once('../functions/array.php');
+        require_once(SM_PATH . 'src/load_prefs.php');
+        require_once(SM_PATH . 'functions/array.php');
 
         /* LSUB array */
         $lsub_ary = sqimap_run_command ($imap_stream, "LSUB \"$folder_prefix\" \"*\"",

@@ -89,7 +89,7 @@ if (isset($plugins) && is_array($plugins)) {
 
         global $HTTP_USER_AGENT, $SQSPELL_SOUP_NAZI;
         
-        require_once('../plugins/squirrelspell/sqspell_config.php');
+        require_once(SM_PATH . 'plugins/squirrelspell/sqspell_config.php');
 
         $soup_menu = explode( ',', $SQSPELL_SOUP_NAZI );
         return( in_array( trim( $HTTP_USER_AGENT ), $soup_menu ) );

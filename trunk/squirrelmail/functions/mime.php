@@ -12,8 +12,8 @@
  * $Id$
  */
 
-require_once('../functions/imap.php');
-require_once('../functions/attachment_common.php');
+require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/attachment_common.php');
 
 /* --------------------------------------------------------------------------------- */
 /* MIME DECODING                                                                     */
@@ -268,7 +268,7 @@ function translateText(&$body, $wrap_at, $charset) {
     global $where, $what;   /* from searching */
     global $color;          /* color theme */
 
-    require_once('../functions/url_parser.php');
+    require_once(SM_PATH . 'functions/url_parser.php');
 
     $body_ary = explode("\n", $body);
     for ($i=0; $i < count($body_ary); $i++) {

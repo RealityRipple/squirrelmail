@@ -23,9 +23,9 @@ if ( !session_is_registered('prefs_are_cached') ||
 }
 
 if (isset($prefs_dsn) && !empty($prefs_dsn)) {
-    require_once('../functions/db_prefs.php');
+    require_once(SM_PATH . 'functions/db_prefs.php');
 } else {
-    require_once('../functions/file_prefs.php');
+    require_once(SM_PATH . 'functions/file_prefs.php');
 }
 
 /* Hashing functions */

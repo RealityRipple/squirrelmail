@@ -12,9 +12,9 @@
  * $Id$
  */
 
-require_once('../functions/addressbook.php');
-require_once('../functions/plugin.php');
-require_once('../functions/prefs.php');
+require_once(SM_PATH . 'functions/addressbook.php');
+require_once(SM_PATH . 'functions/plugin.php');
+require_once(SM_PATH . 'functions/prefs.php');
 
 global $username, $popuser, $domain;
 
