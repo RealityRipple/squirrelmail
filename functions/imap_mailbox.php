@@ -755,6 +755,9 @@ function sqimap_mailbox_tree($imap_stream) {
 	    if (preg_match("/^\*\s+LIST\s+\((.*)\)\s+\"(.*)\"\s+\"?(.+(?=\")|.+).*$/",$inbox_ary[0],$regs)) {
     		$flag = $regs[1];
     		$mbx = trim($regs[3]);
+		if (substr($mbx, -1) == $delimiter) {
+        	    $mbx = substr($mbx, 0, strlen($mbx) - 1);
+    		}
 		$sorted_lsub_ary[] = array ('mbx' => $mbx, 'flag' => $flag); 
 	    }
         }
