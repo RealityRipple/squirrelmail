@@ -182,7 +182,7 @@ if ($mailbox == 'All Folders') {
 }
 
 if (isset($composenew) && $composenew) {
-    displayPageHeader($color, $mailbox, 'comp_in_new();');
+    displayPageHeader($color, $mailbox, 'comp_in_new();', $session);
 } else {
     displayPageHeader($color, $mailbox);
 }
