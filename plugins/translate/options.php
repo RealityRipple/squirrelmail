@@ -105,7 +105,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
    <ul>
 <?php
     ShowTrad( 'Babelfish',
-              _("13 language pairs, maximum of 1000 characters translated, powered by Systran"),
+              _("19 language pairs, maximum of 1000 characters translated, powered by Systran"),
               'http://babelfish.altavista.com/' );
 //    ShowTrad( 'Translator.Go.com',
 //              _("10 language pairs, maximum of 25 kilobytes translated, powered by Systran"),
@@ -114,11 +114,14 @@ require_once(SM_PATH . 'include/load_prefs.php');
               _("12 language pairs, no known limits, powered by Systran"),
               'http://www.dictionary.com/translate' );
     ShowTrad( 'InterTran',
-              _("767 language pairs, no known limits, powered by Translation Experts's InterTran"),
+              _("784 language pairs, no known limits, powered by Translation Experts's InterTran"),
               'http://www.tranexp.com/' );
     ShowTrad( 'GPLTrans',
               _("8 language pairs, no known limits, powered by GPLTrans (free, open source)"),
               'http://www.translator.cx/' );
+    ShowTrad( 'OTEnet',
+              _("4 language pairs for Hellenic, no known limits, powered by Systran"),
+              'http://systran.otenet.gr/' );
 ?>
    </ul>
    <p>
@@ -136,6 +139,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
     ShowOption('server', 'dictionary', 'Dictionary.com');
     ShowOption('server', 'intertran', 'Intertran');
     ShowOption('server', 'gpltrans', 'GPLTrans');
+    ShowOption('server', 'otenet', 'OTEnet');
     echo '</select>' .
          '</td></tr>' .
          '<tr><td align=right nowrap>' .
