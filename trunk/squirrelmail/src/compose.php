@@ -351,7 +351,7 @@
       error_reporting(0); // Rename will produce error output if it fails
       if (!rename($attachfile, $attachment_dir.$localfilename)) {
          if (!copy($attachfile, $attachment_dir.$localfilename)) {
-            plain_error_message(_("Could not move/copy file. File not attached"));
+            plain_error_message(_("Could not move/copy file. File not attached"), $color);
             $failed = true;
          }
       }

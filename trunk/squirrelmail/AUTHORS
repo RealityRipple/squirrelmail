@@ -1,23 +1,28 @@
  Developers:
  -----------
-   Luke Ehresman (luke@squirrelmail.org)
-   Nathan Ehresman (nathan@squirrelmail.org)
-   Gustav Foseid (gustavf@squirrelmail.org)
-   Pål Løberg (pallo@squirrelmail.org)
+   Luke Ehresman <luke@squirrelmail.org>
+   Nathan Ehresman <nathan@squirrelmail.org>
+   Gustav Foseid <gustavf@squirrelmail.org>
+   Pål Løberg <pallo@squirrelmail.org>
    Shane Wilson
    Sergiusz Pawlowicz
    Steve Gare
    Gerrit Padgham
    Matt Phillips
-   David Whittington
    Lewis Bergman
 
  Translations:
  -------------
-   Norwegian:    Gustav Foseid (gustavf@squirrelmail.org)
-   German:       Chris Thil (cj@limburgerhof.de)
-   Russian:      Konstantin Riabitsev (graf@relhum.org)
-   Polish:       Lukasz Klimek (casa@lo.pila.pl)
-   Swedish:      Tobias Ekbom (tobias@vallcom.net)	
-   Dutch:        Arjan Halma (arjan@halma.nl)
-   Portugese (Brazil): Henrique Moura (henriquemoura@hotmail.com)
+   Norwegian:    Gustav Foseid <gustavf@squirrelmail.org>
+   German:       Chris Thil <cj@limburgerhof.de>
+   Russian:      Konstantin Riabitsev <graf@relhum.org>
+   Polish:       Lukasz Klimek <casa@lo.pila.pl>
+   Swedish:      Tobias Ekbom <tobias@vallcom.net>	
+   Dutch:        Arjan Halma <arjan@halma.nl>
+   Portuguese (Brazil): Henrique Moura <henriquemoura@hotmail.com>
+
+ Significant Contributions:
+ --------------------------
+   Konstantin Riabitsev <graf@relhum.org>
+   Alex Bleeker <beheer@hackers.nl>
+   Many others...
