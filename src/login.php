@@ -43,7 +43,7 @@ $base_uri = sqm_baseuri();
  * In case the last session was not terminated properly, make sure
  * we get a new one.
  */
- 
+
 sqsession_destroy();
  
 header('Pragma: no-cache');
@@ -69,7 +69,7 @@ $username_form_name = 'login_username';
 $password_form_name = 'secretkey';
 do_hook('login_top');
 
-$loginname_value = (isset($loginname) ? htmlspecialchars($loginname) : '');
+$loginname_value = (sqGetGlobalVar('loginname', $loginname) ? htmlspecialchars($loginname) : '');
 
 /* If they don't have a logo, don't bother.. */
 if (isset($org_logo) && $org_logo) {
