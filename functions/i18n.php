@@ -840,8 +840,8 @@ $languages['nl']['ALIAS'] = 'nl_NL';
 $languages['no_NO']['NAME']    = 'Norwegian (Bokm&aring;l)';
 $languages['no_NO']['CHARSET'] = 'iso-8859-1';
 $languages['no']['ALIAS'] = 'no_NO';
-$languages['no_NO_ny']['NAME']    = 'Norwegian (Nynorsk)';
-$languages['no_NO_ny']['CHARSET'] = 'iso-8859-1';
+$languages['nn_NO']['NAME']    = 'Norwegian (Nynorsk)';
+$languages['nn_NO']['CHARSET'] = 'iso-8859-1';
 
 $languages['pl_PL']['NAME']    = 'Polish';
 $languages['pl_PL']['CHARSET'] = 'iso-8859-2';
