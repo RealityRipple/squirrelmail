@@ -128,11 +128,11 @@ function mime_parse_structure ($structure, $ent_id) {
 		$structure_end = substr($structure, $endprop+2);
 		$structure = trim(substr($structure,0,$startprop));
 	    }
-	    
 	    /* get type1 */
 	    $pos = strrpos($structure,' ');
+	    if ($structure{$pos+1} =='(') $pos++;
+	    
 	    $type1 = strtolower(substr($structure, $pos+2, (count($structure)-2)));
-
 	    /* cut off  type1 */
 	    if ($pos && $startprop) {
 		$structure = trim(substr($structure, 0, $pos));
@@ -617,10 +617,9 @@ function getEntity ($message, $ent_id) {
  * figures out what entity to display and returns the $message object
  * for that entity.
  */
-function findDisplayEntity ($msg, $textOnly = 1)   {
+function findDisplayEntity ($msg, $textOnly = 1, $entity = array() )   {
     global $show_html_default;
     
-    $entity = array();
     $found = false;    
     if ($msg) {
         $type = $msg->header->type0.'/'.$msg->header->type1;
@@ -630,15 +629,18 @@ function findDisplayEntity ($msg, $textOnly = 1)   {
         	$entity[] = $msg->header->entity_id;
 	    } else {
 		$found = true;
-	        $entity = findDisplayEntity($msg,$textOnly);
+	         $entity =findDisplayEntity($msg,$textOnly, $entity);
 	    }
 	} else 	if ( $type == 'multipart/related') {
-            $msg = findRelatedEntity($msg);
-	    if (count($msg->entities) == 0) {
-        	$entity[] = $msg->header->entity_id;
-	    } else {
-		$found = true;
-	        $entity = findDisplayEntity($msg,$textOnly);
+            $msgs = findRelatedEntity($msg);
+	    for ($i = 0; $i < count($msgs); $i++) {
+	        $msg = $msgs[$i];
+		if (count($msg->entities) == 0) {
+        	    $entity[] = $msg->header->entity_id;
+		} else {
+		    $found = true;
+	    	     $entity =findDisplayEntity($msg,$textOnly, $entity);
+		}
 	    }
 	} else if ( count($entity) == 0 &&
              $msg->header->type0 == 'text' &&
@@ -651,7 +653,7 @@ function findDisplayEntity ($msg, $textOnly = 1)   {
         } 
     	$i = 0;
     	while ( isset($msg->entities[$i]) && count($entity) == 0 && !$found )  {
-    	    $entity = findDisplayEntity($msg->entities[$i], $textOnly);
+    	    $entity = findDisplayEntity($msg->entities[$i], $textOnly, $entity);
     	    $i++;
     	}
     }
@@ -696,6 +698,7 @@ function findAlternativeEntity ($message) {
 	$alt_order = array ('text/plain');
     }
     $best_view = 0;
+    $ent_id = 0;
     $k = 0; 
     for ($i = 0; $i < count($message->entities); $i ++) {
         $type = $message->entities[$i]->header->type0.'/'.$message->entities[$i]->header->type1;
@@ -705,21 +708,23 @@ function findAlternativeEntity ($message) {
 	for ($j = $k; $j < count($alt_order); $j++) {
 	    if ($alt_order[$j] == $type && $j > $best_view) {
 		$best_view = $j;
+		$ent_id = $i;
 		$k = $j;
 	    }
 	}
     }
-    return $message->entities[$best_view];
+    return $message->entities[$ent_id];
 }
 
 function findRelatedEntity ($message) {
+    $msgs = array(); 
     for ($i = 0; $i < count($message->entities); $i ++) {
         $type = $message->entities[$i]->header->type0.'/'.$message->entities[$i]->header->type1;
         if ($message->header->type == $type) {
-	    return $message->entities[$i];
+	    $msgs[] = $message->entities[$i];
 	}
     }
-    return $message->entities[0];
+    return $msgs;
 }    
 
 /*
@@ -817,7 +822,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num) {
     // this if statement checks for the entity to show as the
     // primary message. To add more of them, just put them in the
     // order that is their priority.
-    global $startMessage, $username, $key, $imapServerAddress, $imapPort, $body,
+    global $startMessage, $username, $key, $imapServerAddress, $imapPort,
            $show_html_default, $has_unsafe_images, $view_unsafe_images, $sort;
 
     $has_unsafe_images = 0;
@@ -846,7 +851,6 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num) {
         } else {
             translateText($body, $wrap_at, $body_message->header->charset);
         }
-
         $body .= "<CENTER><SMALL><A HREF=\"../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;passed_ent_id=$ent_num&amp;mailbox=$urlmailbox&amp;showHeaders=1\">". _("Download this as a file") ."</A></SMALL></CENTER><BR>";
         if ($has_unsafe_images) {
             if ($view_unsafe_images) {
