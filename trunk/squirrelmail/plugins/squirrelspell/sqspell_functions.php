@@ -35,35 +35,40 @@ function sqspell_makePage($title, $scriptsrc, $body){
   if($scriptsrc) { 
     echo "<script type=\"text/javascript\" src=\"js/$scriptsrc\"></script>\n";
   }
-  echo '<table width="95%" align="center" border="0" cellpadding="2" '
-    . 'cellspacing="0">'
-    . '<tr>'
-    . "<td bgcolor=\"$color[9]\" align=center>"
-    . "<strong>$title</strong>"
-    . '</td>'
-    . '</tr>'
-    . '<tr><td><hr></td></tr>'
-    . "<tr><td>$body</td></tr>";
+  echo html_tag( 'table', '', 'center', '', 'width="95%" border="0" cellpadding="2" cellspacing="0"' ) . "\n"
+    . html_tag( 'tr', "\n" .
+          html_tag( 'td', '<strong>' . $title .'</strong>', 'center', $color[9] )
+      ) . "\n"
+    . html_tag( 'tr', "\n" .
+          html_tag( 'td', '<hr>', 'left' )
+      ) . "\n"
+    . html_tag( 'tr', "\n" .
+          html_tag( 'td', $body, 'left' )
+      ) . "\n";
   /**
    * Generate a nice "Return to Options" link, unless this is the
    * starting page.
    */
   if ($MOD != "options_main"){ 
-    echo '<tr><td><hr></td></tr>'
-      . '<tr><td align="center"><a href="sqspell_options.php">'
-      . _("Back to &quot;SpellChecker Options&quot; page") 
-      . '</a></td></tr>';
+    echo html_tag( 'tr', "\n" .
+                html_tag( 'td', '<hr>', 'left' )
+            ) . "\n"
+      . html_tag( 'tr', "\n" .
+            html_tag( 'td', '<a href="sqspell_options.php">'
+                . _("Back to &quot;SpellChecker Options&quot; page")
+                . '</a>',
+            'center' )
+        ) . "\n";
   }
   /**
    * Close the table and display the version.
    */
-  echo '<tr><td><hr></td></tr>'
-    . '<tr>'
-    . "<td bgcolor=\"$color[9]\" align=center>"
-    . "SquirrelSpell $SQSPELL_VERSION"
-    . '</td>'
-    . '</tr>'
-    . '</table>';
+  echo html_tag( 'tr', "\n" .
+              html_tag( 'td', '<hr>', 'left' )
+          ) . "\n"
+    . html_tag( 'tr',
+          html_tag( 'td', 'SquirrelSpell ' . $SQSPELL_VERSION, 'center', $color[9] )
+      ) . "\n";
 }
 
 /**
@@ -111,23 +116,23 @@ function sqspell_makeWindow($onload, $title, $scriptsrc, $body){
    * Draw the rest of the page.
    */
   echo '>'
-    . '<table width="100%" border="0" cellpadding="2">'
-    . '<tr>'
-    . "<td bgcolor=\"$color[9]\" align=center>"
-    . "<strong>$title</strong>"
-    . '</td>'
-    . '</tr>'
-    . '<tr><td><hr></td></tr>'
-    . '<tr>'
-    . "<td>$body</td>"
-    . '</tr>'
-    . '<tr><td><hr></td></tr>'
-    . '<tr>'
-    . "<td bgcolor=\"$color[9]\" align=center>"
-    . "SquirrelSpell $SQSPELL_VERSION"
-    . '</td>'
-    . '</tr>'
-    . '</table>'
+    . html_tag( 'table', "\n" .
+          html_tag( 'tr', "\n" .
+              html_tag( 'td', '<strong>' . $title . '</strong>', 'center', $color[9] )
+          ) . "\n" .
+          html_tag( 'tr', "\n" .
+              html_tag( 'td', '<hr>', 'left' )
+          ) . "\n" .
+          html_tag( 'tr', "\n" .
+              html_tag( 'td', $body, 'left' )
+          ) . "\n" .
+          html_tag( 'tr', "\n" .
+              html_tag( 'td', '<hr>', 'left' )
+          ) . "\n" .
+          html_tag( 'tr', "\n" .
+              html_tag( 'td', 'SquirrelSpell ' . $SQSPELL_VERSION, 'center', $color[9] )
+          ) ,
+      '', '', 'width="100%" border="0" cellpadding="2"' )
     . "</body>\n</html>\n";
 }
 
@@ -352,21 +357,25 @@ function sqspell_getWords(){
        * The _("SquirrelSpell...) line has to be on one line, otherwise
        * gettext will bork. ;(
        */
-      $msg='<p>'
-	 . '<strong>' . _("ATTENTION:") . '</strong><br>'
-	 .  _("SquirrelSpell was unable to decrypt your personal dictionary. This is most likely due to the fact that you have changed your mailbox password. In order to proceed, you will have to supply your old password so that SquirrelSpell can decrypt your personal dictionary. It will be re-encrypted with your new password after this.<br>If you haven't encrypted your dictionary, then it got mangled and is no longer valid. You will have to delete it and start anew. This is also true if you don't remember your old password -- without it, the encrypted data is no longer accessible.")
-	 . '</p>'
-	 . '<blockquote>'
-	 . '<form method="post" onsubmit="return AYS()">'
-	 . '<input type="hidden" name="MOD" value="crypto_badkey">'
-	 . '<p><input type="checkbox" name="delete_words" value="ON">'
-	 . _("Delete my dictionary and start a new one") . '<br>'
-	 . _("Decrypt my dictionary with my old password:")
-	 . '<input name="old_key" size=\"10\"></p>'
-	 . '</blockquote>'
-	 . '<p align="center"><input type="submit" value="' 
-	 . _("Proceed") . ' &gt;&gt;"></p>'
-	 . '</form>';
+      $msg = html_tag( 'p', "\n" .
+                     '<strong>' . _("ATTENTION:") . '</strong><br>'
+                     .  _("SquirrelSpell was unable to decrypt your personal dictionary. This is most likely due to the fact that you have changed your mailbox password. In order to proceed, you will have to supply your old password so that SquirrelSpell can decrypt your personal dictionary. It will be re-encrypted with your new password after this.<br>If you haven't encrypted your dictionary, then it got mangled and is no longer valid. You will have to delete it and start anew. This is also true if you don't remember your old password -- without it, the encrypted data is no longer accessible.") ,
+                 'left' ) .  "\n"
+	 . '<blockquote>' . "\n"
+	 . '<form method="post" onsubmit="return AYS()">' . "\n"
+	 . '<input type="hidden" name="MOD" value="crypto_badkey">' . "\n"
+	 . html_tag( 'p',  "\n" .
+	       '<input type="checkbox" name="delete_words" value="ON">'
+	       . _("Delete my dictionary and start a new one") . '<br>'
+	       . _("Decrypt my dictionary with my old password:")
+	       . '<input name="old_key" size=\"10\">' ,
+	   'left' ) . "\n"
+	 . '</blockquote>' . "\n"
+	 . html_tag( 'p', "\n" .
+	       '<input type="submit" value="' 
+	       . _("Proceed") . ' &gt;&gt;">' ,
+	   'center' ) . "\n"
+	 . '</form>' . "\n";
       /**
        * Add some string vars so they can be i18n'd.
        */
