@@ -12,7 +12,7 @@
  *
  */
 
-require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/imap_general.php');
 require_once(SM_PATH . 'functions/date.php');
 
 /* Set to TRUE to dump the imap dialogue */
@@ -72,6 +72,25 @@ $imap_asearch_months = array(
 	'12' => 'dec'
 );
 
+$imap_error_titles = array(
+	'OK' => '',
+	'NO' => _("ERROR : Could not complete request."),
+	'BAD' => _("ERROR : Bad or malformed request."),
+	'BYE' => _("ERROR : Imap server closed the connection.")
+);
+
+function sqimap_asearch_error_box($response, $query, $message)
+{
+	global $imap_error_titles;
+
+	//if (!array_key_exists($response, $imap_error_titles))	//php 4.0.6 compatibility
+	if (!in_array($response, array_keys($imap_error_titles)))
+		$title = _("ERROR : Unknown imap response.");
+	else
+		$title = $imap_error_titles[$response];
+	sqimap_error_box($title, $query, _("Reason Given: "), $message);
+}
+
 /* This is to avoid the E_NOTICE warnings signaled by marc AT squirrelmail.org. Thanks Marc! */
 function asearch_nz(&$var)
 {
@@ -92,23 +111,11 @@ function asearch_unhtmlentities($string) {
 */
 }
 
-function s_dump($var_name, $var_var, $compact = FALSE)
-{
-	if (!$compact)
-		echo '<PRE>';
-	echo htmlentities($var_name) . '=';
-	print_r($var_var);
-	if ($compact)
-		echo "<BR>\n";
-	else
-		echo "</PRE>\n";
-}
-
-function s_debug_dump($var_name, $var_var, $compact = FALSE)
+function s_debug_dump($var_name, $var_var)
 {
 	global $imap_asearch_debug_dump;
 	if ($imap_asearch_debug_dump)
-		s_dump($var_name, $var_var, $compact);
+		sm_print_r($var_name, $var_var);
 }
 
 /*
@@ -122,7 +129,8 @@ function sqimap_asearch_encode_string($what, $search_charset)
 {
 	if (strtoupper($search_charset) == 'ISO-2022-JP')
 		$what = mb_convert_encoding($what, 'JIS', 'auto');
-	if (ereg("[\"\\\r\n]", $what))
+//if (ereg("[\"\\\r\n\x80-\xff]", $what))
+	if (preg_match('/["\\\\\r\n\x80-\xff]/', $what))
 		return '{' . strlen($what) . "}\r\n" . $what;	/* 4.3 literal form */
 	return '"' . $what . '"';	/* 4.3 quoted string form */
 }
@@ -209,44 +217,51 @@ function sqimap_run_search($imapConnection, $search_string, $search_charset)
 
 	/* 6.4.4 try OPTIONAL [CHARSET] specification first */
 	if ($allow_charset_search && (!empty($search_charset)))
-		$ss = 'SEARCH CHARSET ' . strtoupper($search_charset) . ' ALL ' . $search_string;
+		$query = 'SEARCH CHARSET ' . strtoupper($search_charset) . ' ALL ' . $search_string;
 	else
-		$ss = 'SEARCH ALL ' . $search_string;
-	s_debug_dump('O', $ss);
+		$query = 'SEARCH ALL ' . $search_string;
+	s_debug_dump('C:', $query);
 
 	/* read data back from IMAP */
-	$readin = sqimap_run_command($imapConnection, $ss, false, $result, $message, $uid_support);
+	$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, $uid_support);
 
 	/* 6.4.4 try US-ASCII charset if we receive a tagged NO response */
-	if (!empty($charset)  && strtolower($result) == 'no') {
-		$ss = 'SEARCH CHARSET "US-ASCII" ALL ' . $search_string;
-		s_debug_dump('O', $ss);
-		$readin = sqimap_run_command ($imapConnection, $ss, true, $result, $message);	/* no $uid_support? */
+	if ((!empty($charset))  && (strtoupper($response) == 'NO')) {
+		$query = 'SEARCH CHARSET "US-ASCII" ALL ' . $search_string;
+		s_debug_dump('C:', $query);
+		$readin = sqimap_run_command ($imapConnection, $query, false, $response, $message, $uid_support);	/* added $uid_support */
+	}
+	if (strtoupper($response) != 'OK') {
+		sqimap_asearch_error_box($response, $query, $message);
+		return array();
 	}
 
 	unset($messagelist);
 
 	/* Keep going till we find the SEARCH response */
 	foreach ($readin as $readin_part) {
-		s_debug_dump('I', $readin_part);
+		s_debug_dump('S:', $readin_part);
 		/* Check to see if a SEARCH response was received */
 		if (substr($readin_part, 0, 9) == '* SEARCH ') {
 			$messagelist = preg_split("/ /", substr($readin_part, 9));
-		} else if (isset($errors)) {
-			$errors = $errors . $readin_part;
-		} else {
-			$errors = $readin_part;
+			break;	// Should be the last anyway
 		}
+/*	else {
+			if (isset($errors))
+				$errors = $errors . $readin_part;
+			else
+				$errors = $readin_part;
+		}*/
 	}
 
 	/* If nothing is found * SEARCH should be the first error else echo errors */
-	if (isset($errors)) {
+/*if (isset($errors)) {
 		if (strstr($errors,'* SEARCH'))
 			return array();
 		echo '<!-- ' . htmlspecialchars($errors) . ' -->';
-	}
+	}*/
 
-	if (empty($messagelist))
+	if (empty($messagelist))	//Empty search response, ie '* SEARCH'
 		return array();
 
 	$cnt = count($messagelist);
@@ -291,7 +306,7 @@ function sqimap_asearch($imapConnection, $mailbox_array, $biop_array, $unop_arra
 					$search_mboxes = array($cur_mailbox);
 				foreach ($search_mboxes as $cur_mailbox) {
 					sqimap_mailbox_select($imapConnection, $cur_mailbox);
-					s_debug_dump('SELECT',$cur_mailbox);
+					s_debug_dump('C:SELECT:', $cur_mailbox);
 					if (isset($mbox_msgs[$cur_mailbox])) {
 						if ($cur_biop == 'OR')	/* Merge with previous results */
 							$mbox_msgs[$cur_mailbox] = sqimap_array_merge_unique($mbox_msgs[$cur_mailbox], sqimap_run_search($imapConnection, $search_string, $search_charset));
