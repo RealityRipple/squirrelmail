@@ -426,10 +426,10 @@ $languages['ms_MY']['ALTNAME'] = 'Bahasa Melayu';
 $languages['ms_MY']['CHARSET'] = 'iso-8859-1';
 $languages['my']['ALIAS'] = 'ms_MY';
 
-$languages['no_NO']['NAME']    = 'Norwegian (Bokm&aring;l)';
-$languages['no_NO']['ALTNAME'] = 'Norsk (Bokm&aring;l)';
-$languages['no_NO']['CHARSET'] = 'iso-8859-1';
-$languages['no']['ALIAS'] = 'no_NO';
+$languages['nb_NO']['NAME']    = 'Norwegian (Bokm&aring;l)';
+$languages['nb_NO']['ALTNAME'] = 'Norsk (Bokm&aring;l)';
+$languages['nb_NO']['CHARSET'] = 'iso-8859-1';
+$languages['nb']['ALIAS'] = 'nb_NO';
 
 $languages['nn_NO']['NAME']    = 'Norwegian (Nynorsk)';
 $languages['nn_NO']['ALTNAME'] = 'Norsk (Nynorsk)';
@@ -500,11 +500,9 @@ $languages['uk_UA']['CHARSET'] = 'koi8-u';
 $languages['uk']['ALIAS'] = 'uk_UA';
 */
 /*
-if ( file_exists( SM_PATH . 'locale/vi_VN') ) {
-    $languages['vi_VN']['NAME']    = 'Vietnamese';
-    $languages['vi_VN']['CHARSET'] = 'utf-8';
-    $languages['vi']['ALIAS'] = 'vi_VN';
-}
+$languages['vi_VN']['NAME']    = 'Vietnamese';
+$languages['vi_VN']['CHARSET'] = 'utf-8';
+$languages['vi']['ALIAS'] = 'vi_VN';
 */
 
 // Right to left languages
