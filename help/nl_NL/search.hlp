@@ -3,12 +3,12 @@
       Zoeken
    </title>
    <summary>
-      De zoekfunctie laat u op woorden zoeken door uw e-mailberichten.
+      De zoekfunctie laat u op woorden zoeken in uw e-mailberichten.
    </summary>
    <description>
       <p>
       Met deze nuttige functie kunt u uw mappen doorzoeken op bepaalde
-      zoekwoorden die voorkomen in de headers of de berichttekst. SquirrelMail
+      zoekwoorden die voorkomen in de headers of de berichttekst. Webmail
       geeft alle berichten weer die voldoen aan uw criteria.
       </p>
    </description>
@@ -22,7 +22,7 @@
       <p>
       Het zoeken werkt als volgt. U kiest de map die u wilt doorzoeken,
       geeft de zoektermen in en kiest welk onderdeel van de berichten
-      u wilt doorzoeken. Als u op de knop drukt zal er een lijst verschijnen
+      u wilt doorzoeken. Als u op de 'Zoek'-knop drukt zal er een lijst verschijnen
       met alle berichten die aan uw zoekvraag voldoen. U kunt op een bericht
       klikken en het bekijken zoals u gewend bent.
       </p>
@@ -30,7 +30,7 @@
       Let op dat als u berichten aan het lezen bent en vervolgens naar de
       zoekfunctie gaat, de map die u aan het bekijken was de standaard
       map zal zijn waarin gezocht wordt. Bijvoorbeeld, als u zich in de map
-      "Vrienden" bevindt en op "Zoeken" klikt, zal de map "Vrienden" geselecteerd
+      'Vrienden' bevindt en op 'Zoeken' klikt, zal de map 'Vrienden' geselecteerd
       zijn als de map waarin u wilt zoeken.
       </p>
    </description>
