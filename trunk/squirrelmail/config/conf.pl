@@ -2417,6 +2417,7 @@ sub save_data {
 
 	# strings
         print CF "\$theme_css = '$theme_css';\n";
+	if ( $theme_default eq '' ) { $theme_default = '0'; }
         print CF "\$theme_default = $theme_default;\n";
 
         for ( $count = 0 ; $count <= $#theme_name ; $count++ ) {
