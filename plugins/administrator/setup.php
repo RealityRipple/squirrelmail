@@ -1,14 +1,13 @@
 <?php
-
 /**
- * setup.php
+ * Administrator plugin - Setup script
  *
- * Copyright (c) 1999-2004 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- *  Administrator plugin. Allows remote administration.  Philippe Mingo
+ * Plugin allows remote administration.
  *
  * @version $Id$
+ * @author Philippe Mingo
+ * @copyright (c) 1999-2004 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package plugins
  * @subpackage administrator
  */
