@@ -109,7 +109,7 @@ function plugin_listcommands_menu() {
 
     if (count($output) > 0) {
         echo "<tr>";
-        echo "<td BGCOLOR=\"$color[0]\">"
+        echo "<td ALIGN=RIGHT BGCOLOR=\"$color[0]\">"
            .   str_replace(' ', '&nbsp;', _("Mailing List:"))
            . '</td>';
         echo "<td BGCOLOR=\"$color[0]\" WIDTH=\"100%\" colspan=\"2\">"
