@@ -2,8 +2,8 @@
 *** SquirrelMail Stable Series 1.4 ***
 **************************************
 
-Version 1.4.0 RC 2
-------------------
+Version 1.4.0 RC 2a
+-------------------
   - Fix broken themes box in display options.
   - Massive overhaul of administrator plugin.
   - Added new function sqgetGlobalVar to global.php to provide direct access
@@ -32,7 +32,12 @@ Version 1.4.0 RC 2
     have open_basedir restrictions. Thanks Jimmy Connor.
   - Fix broken abook_take plugin.
   - Fix HTML errors that caused display problems in NS4.
-	
+  - Correctly fold encoded header lines.
+  - Fix prefs caching not working correctly in PHP 4.3 caused by a stupid
+    version checking mechanism.
+  - Fix XXS hole that allowed JavaScript execution by sending someone
+    an email with specially crafted headers. Thanks Jason Munro.
+
 Version 1.4.0 RC 1
 ------------------
   - Change the way highlighting rules are stored to make them more reliable and
@@ -42,7 +47,7 @@ Version 1.4.0 RC 1
   - Experimental TLS support for IMAP and SMTP (requires PHP 4.3.x)
   - Override settings with config_local.php
   - Compose form no longer shows attachment options if php file_uploads
-  	disabled
+    disabled
   - Improved bodystructure parsing.
   - Support for windows-1257 charset.
   - Optimizations to the number of IMAP calls.
