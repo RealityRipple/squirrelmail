@@ -77,16 +77,20 @@ function cachePrefValues($data_dir, $username) {
  */
 function getPref($data_dir, $username, $string, $default = '') {
     global $prefs_cache;
+
     $result = '';
-
-    cachePrefValues($data_dir, $username);
-
-    if (isset($prefs_cache[$string])) {
-        $result = $prefs_cache[$string];
-    } else {
-        $result = $default;
+    $result = do_hook_function('get_pref_override',array($username,$string));
+    if (!$result) {
+	cachePrefValues($data_dir, $username);
+	if (isset($prefs_cache[$string])) {
+    	    $result = $prefs_cache[$string];
+	} else {
+	    $result = do_hook_function('get_pref', array($username,$string));
+	    if (!$result) {	    
+    		$result = $default;
+	    }
+	}
     }
-
     return ($result);
 }
 
@@ -99,10 +103,10 @@ function savePrefValues($data_dir, $username) {
     $filename = getHashedFile($username, $data_dir, "$username.pref");
 
     /* Open the file for writing, or else display an error to the user. */
-    if(!$file = @fopen($filename, 'w'))
+    if(!$file = @fopen($filename.'.tmp', 'w'))
     {
         include_once(SM_PATH . 'functions/display_messages.php');
-        logout_error( sprintf( _("Preference file, %s, could not be opened. Contact your system administrator to resolve this issue."), $filename) );
+        logout_error( sprintf( _("Preference file, %s, could not be opened. Contact your system administrator to resolve this issue."), $filename.'.tmp') );
         exit;
     }
     foreach ($prefs_cache as $Key => $Value) {
