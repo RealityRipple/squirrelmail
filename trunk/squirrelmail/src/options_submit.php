@@ -10,6 +10,7 @@
 
 
    setPref($data_dir, $username, "full_name", stripslashes($full_name));
+   setPref($data_dir, $username, "email_address", stripslashes($email_address));
    setPref($data_dir, $username, "reply_to", stripslashes($reply_to));
    setPref($data_dir, $username, "chosen_theme", $chosentheme);
    setPref($data_dir, $username, "move_to_trash", $movetotrash);

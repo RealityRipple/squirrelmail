@@ -18,7 +18,8 @@
 
    /** load up some of the values from the pref file **/
    $fullname = getPref($data_dir, $username, "full_name");
-   $replyto  = getPref($data_dir, $username, "reply_to");
+   $replyto = getPref($data_dir, $username, "reply_to");
+   $email_address  = getPref($data_dir, $username, "email_address");
 
    echo "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
    echo "   <TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>\n";
@@ -34,7 +35,7 @@
    echo "   <TR>";
    echo "      <TD WIDTH=20% ALIGN=RIGHT>";
    echo "         <FONT FACE=\"Arial,Helvetica\">";
-   echo _("         Full Name:");
+   echo           _("Full Name:");
    echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=80% ALIGN=LEFT>";
@@ -43,11 +44,24 @@
    echo "         </FONT>";
    echo "      </TD>";
    echo "   </TR>";
+   // FROM-ADDRESS
+   echo "   <TR>";
+   echo "      <TD WIDTH=20% ALIGN=RIGHT>";
+   echo "         <FONT FACE=\"Arial,Helvetica\">";
+   echo           _("E-mail address:");
+   echo "         </FONT>";
+   echo "      </TD>";
+   echo "      <TD WIDTH=80% ALIGN=LEFT>";
+   echo "         <FONT FACE=\"Arial,Helvetica\">";
+   echo "         <INPUT TYPE=TEXT NAME=email_address VALUE=\"$email_address\" SIZE=50><BR>";
+   echo "         </FONT>";
+   echo "      </TD>";
+   echo "   </TR>";
    // REPLY-TO
    echo "   <TR>";
    echo "      <TD WIDTH=20% ALIGN=RIGHT>";
    echo "         <FONT FACE=\"Arial,Helvetica\">";
-   echo _("         Reply-to:");
+   echo           _("Reply-to:");
    echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=80% ALIGN=LEFT>";
@@ -60,7 +74,7 @@
    echo "   <TR>";
    echo "      <TD WIDTH=20% ALIGN=RIGHT>";
    echo "         <FONT FACE=\"Arial,Helvetica\">";
-   echo _("         Theme:");
+   echo           _("Theme:");
    echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=80% ALIGN=LEFT>";
@@ -84,7 +98,7 @@
    echo "   <TR>";
    echo "      <TD WIDTH=60% ALIGN=RIGHT>";
    echo "         <FONT FACE=\"Arial,Helvetica\">";
-   echo _("         Move deleted messages to ");
+   echo           _("Move deleted messages to ");
    echo "\"$trash_folder\"?";
    echo "         </FONT>";
    echo "      </TD>";
@@ -108,7 +122,7 @@
    echo "   <TR>";
    echo "      <TD WIDTH=60% ALIGN=RIGHT>";
    echo "         <FONT FACE=\"Arial,Helvetica\">";
-   echo _("         Wrap incoming text at:");
+   echo           _("Wrap incoming text at:");
    echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=40% ALIGN=LEFT>";
@@ -125,7 +139,7 @@
    echo "   <TR>";
    echo "      <TD WIDTH=60% ALIGN=RIGHT>";
    echo "         <FONT FACE=\"Arial,Helvetica\">";
-   echo _("         Size of editor window (in characters):");
+   echo           _("Size of editor window (in characters):");
    echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=40% ALIGN=LEFT>";
@@ -142,7 +156,7 @@
    echo "   <TR>";
    echo "      <TD WIDTH=60% ALIGN=RIGHT>";
    echo "         <FONT FACE=\"Arial,Helvetica\">";
-   echo _("         Time between auto refresh of folder list:");
+   echo           _("Time between auto refresh of folder list:");
    echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=40% ALIGN=LEFT>";
