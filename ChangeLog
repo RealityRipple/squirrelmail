@@ -1,11 +1,12 @@
 Version 0.6pre1 -- DEVELOPMENT
 ------------------------------
-- Updated attachment viewing, added plugin support (see plugins.txt)
+- Updated attachment plugin support and passing values to hooks (see plugins.txt)
 - Added file and message size in many locations
 - Made message index order customizable (from, subject, date) can be (date, from, subject)
 - Fixed some security problems with uploading attachments
 - Added Catalan translation from Josep Sanz <jsanz@fa.upc.es>
 - When reading, attachments look better and have a better plugin interface
+- Some functions now pass values by reference to save on memory
 
 
 Version 0.5 -- September 25, 2000 

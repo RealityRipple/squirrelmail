@@ -10,8 +10,9 @@
       return $ret;
    }
 
-   function parseEmail ($body) {
+   function parseEmail (&$body) {
       global $color;
+      $Size = strlen($body);
       
       // Having this defined in just one spot could help when changes need
       // to be made to the pattern
@@ -43,11 +44,15 @@
       */
       
       $body = eregi_replace ($Expression, "<a href=\"../src/compose.php?send_to=\\0\">\\0</a>", $body); 
-      return $body;
+      
+      // If there are any changes, it'll just get bigger.
+      if ($Size != strlen($body))
+          return 1;
+      return 0;
    }
 
 
-   function parseUrl ($body)
+   function parseUrl (&$body)
    {
       $url_tokens = array(
          'http://',
@@ -81,12 +86,11 @@
         
         // Look for email addresses between $start and $target_pos
         $check_str = substr($body, $start, $target_pos);
-        $new_str = parseEmail($check_str);
        
-        if ($check_str != $new_str)
+        if (parseEmail($check_str))
         {
-          $body = replaceBlock($body, $new_str, $start, $target_pos);
-          $target_pos = strlen($new_str) + $start;
+          $body = replaceBlock($body, $check_str, $start, $target_pos);
+          $target_pos = strlen($check_str) + $start;
         }
 
         // If there was a token to replace, replace it
@@ -122,8 +126,6 @@
         $start = $target_pos;
         $target_pos = strlen($body);
       }
-      
-     return $body;
    }
    
 ?>

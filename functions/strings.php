@@ -45,20 +45,20 @@
    }
 
    // Wraps text at $wrap characters
-   function sqWordWrap($passed, $wrap) {
-      $passed = str_replace("&lt;", "<", $passed);
-      $passed = str_replace("&gt;", ">", $passed);
+   function sqWordWrap(&$line, $wrap) {
+      $line = str_replace("&lt;", "<", $line);
+      $line = str_replace("&gt;", ">", $line);
 
-      preg_match("/^(\s|>)+/", $passed, $regs);
+      preg_match("/^(\s|>)+/", $line, $regs);
       $beginning_spaces = $regs[0];
 
-      $words = explode(" ", $passed);
+      $words = explode(" ", $line);
       $i = -1;
       $line_len = strlen($words[0])+1;
       $line = "";
       if (count($words) > 1) {   
          while ($i++ < count($words)) {
-            while ($line_len < $wrap) {
+            while ($line_len < $wrap && $i < count($words)) {
                $line = "$line$words[$i] ";
                $i++;
                $line_len = $line_len + strlen($words[$i]) + 1;
@@ -95,7 +95,6 @@
 
       $line = str_replace(">", "&gt;", $line);
       $line = str_replace("<", "&lt;", $line);
-      return $line;
    }
 
    /** Returns an array of email addresses **/
@@ -125,7 +124,7 @@
       return $to_line;
    }
 
-   function translateText($body, $wrap_at, $charset) {
+   function translateText(&$body, $wrap_at, $charset) {
       global $where, $what; // from searching
 
       if (!isset($url_parser_php)) {
@@ -137,23 +136,39 @@
          $line = $body_ary[$i];
          $line = charset_decode($charset, $line);
          $line = str_replace("\t", '        ', $line);
+         chop($line);
          
          if (strlen($line) - 2 >= $wrap_at) {
-            $line = sqWordWrap($line, $wrap_at);  
+            sqWordWrap($line, $wrap_at);  
          }
          
          $line = str_replace(' ', '&nbsp;', $line);
          $line = nl2br($line);
 
-         // Removed parseEmail and integrated it into parseUrl
-         // This line is no longer needed.
-         // $line = parseEmail ($line);
-         $line = parseUrl ($line);
+         parseUrl ($line);
          
-         $test_line = str_replace('&nbsp;', '', $line);
-         if (strpos($test_line, '&gt;&gt;') === 0) {
+         $Quotes = 0;
+         $pos = 0;
+         while (1)
+         {
+             if (strpos($line, '&nbsp;', $pos) === $pos)
+             {
+                $pos += 6;
+             }
+             else if (strpos($line, '&gt;', $pos) === $pos)
+             {
+                $pos += 4;
+                $Quotes ++;
+             }
+             else
+             {
+                 break;
+             }
+         }
+         
+         if ($Quotes > 1) {
             $line = "<FONT COLOR=FF0000>$line</FONT>\n";
-         } else if (strpos($test_line, '&gt;') === 0) {
+         } else if ($Quotes) {
             $line = "<FONT COLOR=800000>$line</FONT>\n";
          }
 
@@ -165,8 +180,6 @@
          $body_ary[$i] = $line . '<br>';
       }
       $body = implode("\n", $body_ary);
-            
-      return $body;
    }
 
    /* SquirrelMail version number -- DO NOT CHANGE */
