@@ -47,6 +47,7 @@ Version 1.5.0 -- CVS
   - Fix that sending of read receipts failed when JavaScript on and comp in new off (#738130).
   - Replaced search with new version by Alex Lemaresquier. (Originally
     "asearch" plugin)
+  - New debugging function: sm_print_r() in strings.php
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
