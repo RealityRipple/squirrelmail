@@ -474,9 +474,14 @@ To set up links for actions, you assign them like this:
 
   $Args[1]['<plugin_name>']['href'] = 'URL to link to';
   $Args[1]['<plugin_name>']['text'] = _("What to display");
+  $Args[1]['<plugin_name>']['extra'] = 'extra stuff, such as an <img ...> tag';
 
 Note: _("What to display") is explained in the section about
 internationalization.
+
+You can leave the 'text' empty and put an image tag in 'extra' to show an
+image-only link for the attachment, or do the opposite (leave 'extra' empty)
+to display a text-only link.
 
 It's also possible to specify a hook as "attachment type0/*",
 for example "attachment text/*". This hook will be executed whenever there's
