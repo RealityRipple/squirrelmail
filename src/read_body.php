@@ -643,7 +643,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
     if ( in_array('\\deleted', $aMailbox['PERMANENTFLAGS'],true) ) {
     // Form for deletion. Form is handled by the originating display in $where. This is right_main.php or search.php
         $delete_url = $base_uri . "src/$where";
-        $menu_row .= '<form action="'.$delete_url.'" method="post" style="display: inline">';
+        $menu_row .= '<form name="deleteMessageForm" action="'.$delete_url.'" method="post" style="display: inline">';
 
         if (!(isset($passed_ent_id) && $passed_ent_id)) {
             $menu_row .= addHidden('mailbox', $aMailbox['NAME']);
@@ -662,7 +662,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
     if ( !(isset($passed_ent_id) && $passed_ent_id) &&
         in_array('\\deleted', $aMailbox['PERMANENTFLAGS'],true) ) {
 
-        $menu_row .= '<form action="'.$base_uri.'src/'.$where.'?'.'" method="post" style="display: inline">'.
+        $menu_row .= '<form name="moveMessageForm" action="'.$base_uri.'src/'.$where.'?'.'" method="post" style="display: inline">'.
               '<small>'.
 
           addHidden('mailbox',$aMailbox['NAME']) .
