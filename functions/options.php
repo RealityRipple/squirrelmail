@@ -163,7 +163,7 @@ class SquirrelOption {
                 $result = $this->createWidget_Comment();
                 break;
             default:
-               $result = '<FONT COLOR=RED>'
+               $result = '<FONT COLOR="' . $color[2] . '">'
                        . sprintf(_("Option Type '%s' Not Found"), $this->type)
                        . '</FONT>';
         }
