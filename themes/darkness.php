@@ -39,7 +39,7 @@ function Darkness_HeaderPlugin() {
    
    if (substr($PHP_SELF, -18) == '/src/left_main.php') {
       echo '<meta http-equiv="Page-Enter" content="' .
-         'blendTrans(Duration=2.0)">' . '\n';
+         'blendTrans(Duration=2.0)">' . "\n";
    }
 	 
 ?><script language=javascript>
