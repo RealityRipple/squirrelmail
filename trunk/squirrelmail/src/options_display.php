@@ -18,7 +18,8 @@ define('SMOPT_GRP_MESSAGE', 2);
 
 /* Define the optpage load function for the display options page. */
 function load_optpage_data_display() {
-    global $theme, $language, $languages, $js_autodetect_results, $default_use_mdn;
+    global $theme, $language, $languages, $js_autodetect_results,
+           $default_use_mdn, $squirrelmail_language;
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -78,6 +79,7 @@ function load_optpage_data_display() {
     asort($language_values);
     $language_values =
         array_merge(array('' => _("Default")), $language_values);
+    $language = $squirrelmail_language;
     $optvals[SMOPT_GRP_GENERAL][] = array(
         'name'    => 'language',
         'caption' => _("Language"),
