@@ -7,6 +7,8 @@ Version 0.3pre1 -- Development
     Move messages to trash option (true/false)
     Wrap incoming text at XX characters
     Editor window size (in characters)
+    Time between reloads of the left folder list
+    Signature
 - Rewrote SMTP functions.  It now works and handles error correction.
 - Only folders that you're subscribed to will be listed
 - Fixed a bug in outbound messages that translated " into \"
@@ -15,6 +17,7 @@ Version 0.3pre1 -- Development
     Subject or Sender by up to 100%.
 - Added internationalization
 - Added sending of attachments
+- Left folder refreshing at intervals (with META tags)
 
 
 
