@@ -208,7 +208,8 @@
          $editor_size, $attachments, $subject, $newmail,
          $use_javascript_addr_book, $send_to_bcc, $reply_id, $mailbox,
          $from_htmladdr_search, $location_of_buttons, $attachment_dir,
-         $username, $data_dir, $identity, $draft_id, $delete_draft;
+         $username, $data_dir, $identity, $draft_id, $delete_draft,
+	 $mailprio;
 
       $subject = decodeHeader($subject);
       $reply_subj = decodeHeader($reply_subj);
@@ -376,7 +377,8 @@
    }
 
    function showComposeButtonRow() {
-      global $use_javascript_addr_book, $save_as_draft;
+      global $use_javascript_addr_book, $save_as_draft, 
+             $default_use_priority, $mailprio;
 
       echo "   <TR><td>\n   </td><td>\n";
       if ($use_javascript_addr_book) {
@@ -392,6 +394,16 @@
 
       if ($save_as_draft) {
           echo "<input type=\"submit\" name =\"draft\" value=\"Save Draft\">\n";
+      }
+      if ($default_use_priority) {
+        if(!isset($mailprio)) {
+	  $mailprio = "3";
+	}
+	echo "\n\t". _("Priority") .":<select name=\"mailprio\">".
+	  "\n\t\t<option value=1".($mailprio=="1"?" selected":"").">". _("High") ."</option>".
+	  "\n\t\t<option value=3".($mailprio=="3"?" selected":"").">". _("Normal") ."</option>".
+	  "\n\t\t<option value=5".($mailprio=="5"?" selected":"").">". _("Low")."</option>".
+	  "\n\t</select>";
       }
 
       do_hook("compose_button_row");
@@ -419,7 +431,7 @@
    // True if FAILURE
    function saveAttachedFiles() {
       global $HTTP_POST_FILES, $attachment_dir, $attachments;
-
+      
       $localfilename = GenerateRandomString(32, '', 7);
       while (file_exists($attachment_dir . $localfilename))
           $localfilename = GenerateRandomString(32, '', 7);
@@ -500,7 +512,7 @@
 
          do_hook("compose_send");
 
-         if (! sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id)) {
+         if (!sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id, $mailprio)) {
             showInputForm();
             exit();
          }

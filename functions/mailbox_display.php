@@ -21,6 +21,7 @@
       global $checkall;
       global $color, $msgs, $msort;
       global $sent_folder, $draft_folder;
+      global $default_use_priority;
       global $message_highlight_list;
       global $index_order;
 
@@ -138,17 +139,19 @@
                   echo "A\n";
                   $stuff = true;
                }
-               if (ereg('(5)',substr($msg['PRIORITY'],0,1))) {
-                  echo "<font color=$color[8]>v</font>\n";
-                  $stuff = true;
-               }
                if ($msg['TYPE0'] == 'multipart') {
                   echo "+\n";
                   $stuff = true;
                }
-               if (ereg('(1|2)',substr($msg['PRIORITY'],0,1))) {
-                  echo "<font color=$color[1]>!</font>\n";
-                  $stuff = true;
+	       if ($default_use_priority) {
+                  if (ereg('(1|2)',substr($msg['PRIORITY'],0,1))) {
+                     echo "<font color=$color[1]>!</font>\n";
+                     $stuff = true;
+                  }
+                  if (ereg('(5)',substr($msg['PRIORITY'],0,1))) {
+                     echo "<font color=$color[8]>?</font>\n";
+                     $stuff = true;
+                  }
                }
                if (isset($msg['FLAG_DELETED']) && $msg['FLAG_DELETED']) {
                   echo "<font color=\"$color[1]\">D</font>\n";

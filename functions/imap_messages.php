@@ -492,6 +492,11 @@
                 $hdr->date = time();
             $i++;
          }
+	 /** X-PRIORITY **/
+         else if (strtolower(substr($read[$i], 0, 11)) == "x-priority:") {
+            $hdr->priority = trim(substr($read[$i], 11));
+            $i++;
+         }
          else {
             $i++;
          }
