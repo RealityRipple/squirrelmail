@@ -2,6 +2,11 @@
 *** Squirrelmail Stable Series 1.2 ***
 **************************************
 
+Version 1.2.1 -- 25 December 2001
+---------------------------------
+
+  - Fixed the bug that made the folders page appear only half
+
 Version 1.2.0 -- 25 December 2001
 ---------------------------------
 
