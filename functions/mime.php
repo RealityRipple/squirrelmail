@@ -412,7 +412,9 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
             $default_page = '../src/read_body.php';
             $rfc822_header = $att->rfc822_header;
             $filename = decodeHeader($rfc822_header->subject);
-
+            if (trim( $filename ) == '') {
+                $filename = 'untitled-[' . $ent . ']' ;
+	    }		
             $from_o = $rfc822_header->from;
             if (is_object($from_o)) {
                 $from_name = $from_o->getAddress(false);
