@@ -199,15 +199,6 @@ function load_optpage_data_folder() {
     );
 
     $optvals[SMOPT_GRP_FOLDERLIST][] = array(
-        'name'    => 'hour_format',
-        'caption' => _("Hour Format"),
-        'type'    => SMOPT_TYPE_STRLIST,
-        'refresh' => SMOPT_REFRESH_FOLDERLIST,
-        'posvals' => array(SMPREF_TIME_12HR => _("12-hour clock"),
-                           SMPREF_TIME_24HR => _("24-hour clock"))
-    );
-
-    $optvals[SMOPT_GRP_FOLDERLIST][] = array(
         'name'    => 'search_memory',
         'caption' => _("Memory Search"),
         'type'    => SMOPT_TYPE_STRLIST,
