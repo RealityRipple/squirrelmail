@@ -1,6 +1,7 @@
 # Polish Squirrelmail Translation
 # Copyright (c) 1999-2002 The Squirrelmail Development Team
-# Lukasz "casa" Klimek <casa@LO.PILA.PL>, 2001 - author of
+# Lukasz "casa" Klimek <casa@LO.PILA.PL> - first translator (2000-2001)
+# Horus <horus@dronet.pl> - since ver. 1.2.0
 #
 msgid ""
 msgstr ""
