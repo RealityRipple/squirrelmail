@@ -27,7 +27,6 @@
    function viewText($color, $body, $id, $entid, $mailbox, $type1, $wrap_at) {
       global $where, $what, $charset;
       global $startMessage;
-
       
       displayPageHeader($color, "None");
 
@@ -143,7 +142,6 @@
             break;
          default:
             $body = decodeBody($body, $header->encoding);
-//            header("Pragma: ");
             header("Content-type: $type0/$type1; name=\"$filename\"");
             header("Content-Disposition: attachment; filename=\"$filename\"");
             echo $body;
