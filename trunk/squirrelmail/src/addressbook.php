@@ -415,9 +415,12 @@ if ($showaddrlist) {
             /* Check if this user is selected */
             $selected = in_array($row['backend'] . ':' . $row['nickname'], $defselected);
     
-            /* Print one row */
-            $tr_bgcolor = '';
-            if ($line % 2) { $tr_bgcolor = $color[0]; }
+            /* Print one row, with alternating color */
+            if ($line % 2) { 
+                $tr_bgcolor = $color[12];
+            } else {
+                $tr_bgcolor = $color[4];
+            }
             if ($squirrelmail_language == 'ja_JP')
                 {
             echo html_tag( 'tr', '', '', $tr_bgcolor) .
