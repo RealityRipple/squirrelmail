@@ -720,7 +720,7 @@ function sqimap_mailbox_tree($imap_stream) {
         require_once(SM_PATH . 'include/load_prefs.php');
 
         /* LSUB array */
-        $lsub_ary = sqimap_run_command ($imap_stream, "LSUB \"$folder_prefix\" \"*\"",
+        $lsub_ary = sqimap_run_command ($imap_stream, "LSUB \"$folder_prefix\" \"*%\"",
                                         true, $response, $message);
         $lsub_ary = compact_mailboxes_response($lsub_ary);
 
@@ -728,14 +728,14 @@ function sqimap_mailbox_tree($imap_stream) {
         $has_inbox = false;
 
         for ($i = 0, $cnt = count($lsub_ary); $i < $cnt; $i++) {
-            if (preg_match("/^\*\s+LSUB\s+(.*)\"?INBOX\"?[^(\/\.)].*$/",$lsub_ary[$i])) {
+            if (preg_match("/^\*\s+LSUB\s+(.*)\"?INBOX\"?[^(\/\.)].*$/i",$lsub_ary[$i])) {
+	        $lsub_ary[$i] = strtoupper($lsub_ary[$i]);
                 $has_inbox = true;
                 break;
             }
         }
 
         if ($has_inbox == false) {
-/*            $lsub_ary[] = '* LSUB () "' . $folder_prefix . '" INBOX';*/
             $lsub_ary[] = '* LSUB () NIL INBOX';
         }
 
@@ -843,6 +843,7 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
                 case 'INBOX':
                     $mbx->is_inbox = true;
                     $mbx->is_special = true;
+		    $mbx_ary[$i]['noselect'] = false;
                     break;
                 case $trash_folder:
                     $mbx->is_trash = true;
@@ -858,22 +859,6 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
                     break;
             }
             
-
-            if ($mailbox == 'INBOX') {
-                $mbx->is_inbox = true;
-                $mbx->is_special = true;
-            } elseif (stristr($trash_folder , $mailbox)) {
-                $mbx->is_trash = true;
-                $mbx->is_special = true;
-            } elseif (stristr($sent_folder , $mailbox)) {
-                $mbx->is_sent = true;
-                $mbx->is_special = true;
-            } elseif (stristr($draft_folder , $mailbox)) {
-                $mbx->is_draft = true;
-                $mbx->is_special = true;
-            }
-
-
             if (isset($mbx_ary[$i]['unseen'])) {
                 $mbx->unseen = $mbx_ary[$i]['unseen'];
             }
