@@ -238,11 +238,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
         displayInternalLink ("src/compose.php?mailbox=$urlMailbox", _("Compose"), 'right');
     } 
     echo "&nbsp;&nbsp;\n";
-    if (getPref($data_dir, $username,"vcard")==1)  {
-      displayInternalLink ('src/addressbook_vcard.php', _("Addresses"), 'right');
-    } else {
     displayInternalLink ('src/addressbook.php', _("Addresses"), 'right');
-    }
     echo "&nbsp;&nbsp;\n";
     displayInternalLink ('src/folders.php', _("Folders"), 'right');
     echo "&nbsp;&nbsp;\n";
