@@ -13,18 +13,21 @@
    function sqimap_read_data ($imap_stream, $pre, $handle_errors, $response, $message) {
       global $color;
 
+      //$imap_general_debug = true;
+      $imap_general_debug = false;
+
       $read = fgets ($imap_stream, 1024);
-//		echo "<small><tt><font color=cc0000>$read</font></tt></small><br>";
+		if ($imap_general_debug) echo "<small><tt><font color=cc0000>$read</font></tt></small><br>";
       $counter = 0;
       while ((substr($read, 0, strlen("$pre OK")) != "$pre OK") &&
              (substr($read, 0, strlen("$pre BAD")) != "$pre BAD") &&
              (substr($read, 0, strlen("$pre NO")) != "$pre NO")) {
          $data[$counter] = $read;
          $read = fgets ($imap_stream, 1024);
-//			echo "<small><tt><font color=cc0000>$read</font></tt></small><br>";
+			if ($imap_general_debug) echo "<small><tt><font color=cc0000>$read</font></tt></small><br>";
          $counter++;
       }       
-//      echo "--<br>";
+      if ($imap_general_debug) echo "--<br>";
       if (substr($read, 0, strlen("$pre OK")) == "$pre OK") {
          $response = "OK";
          $message = trim(substr($read, strlen("$pre OK"), strlen($read)));

@@ -10,6 +10,8 @@
       exit;
    }
 
+   if (!isset($i18n_php))
+      include("../functions/i18n.php");
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($strings_php))

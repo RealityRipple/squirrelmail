@@ -66,6 +66,12 @@
       global $msgs, $msort;
 		global $sent_folder;
       global $message_highlight_list;
+      global $auto_expunge;
+
+      if ($auto_expunge) {
+         sqimap_mailbox_expunge($imapConnection, $mailbox);
+         sqimap_mailbox_select($imapConnection, $mailbox);
+      }
 
       if (!$use_cache) {
          if ($numMessages >= 1) {
