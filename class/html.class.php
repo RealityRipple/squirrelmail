@@ -30,7 +30,6 @@ class html {
      if ($last) {
         $this->html_el[] = $el;
      } else {
-        echo 'JOPPPEEE';
 	$new_html_el = array();
 	$new_html_el[] = $el;
 	foreach ($this->html_el as $html_el) {
@@ -74,7 +73,7 @@ class html {
      $s = "\n".'<!--'."\n".
 	  $script .
 	  "\n".'// -->'."\n";
-     $el = new html ('script',$s,''.''.''.array('language' => 'JavaScript',
+     $el = new html ('script',$s,'','','',array('language' => 'JavaScript',
                                                 'type' => 'text/javascript'));
      $this->htmlAdd($el);
   }
