@@ -174,7 +174,7 @@ class abook_database extends addressbook_backend {
         }
          
         $query = sprintf("SELECT * FROM %s WHERE owner='%s' AND nickname='%s'",
-                         $this->table, $this->owner, $alias);
+                         $this->table, $this->owner, $this->dbh->quoteString($alias));
 
         $res = $this->dbh->query($query);
 
