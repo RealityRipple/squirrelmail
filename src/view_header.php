@@ -12,14 +12,18 @@
  */
 
 
-function  parse_viewheader($imapConnection,$id) {
+function  parse_viewheader($imapConnection,$id, $passed_ent_id) {
    global $uid_support;
 
    $header_full = array();
-
-   $read=sqimap_run_command ($imapConnection, "FETCH $id BODY[HEADER]", 
+   if (!$passed_ent_id) {
+       $read=sqimap_run_command ($imapConnection, "FETCH $id BODY[HEADER]", 
                               true, $a, $b, $uid_support);
-
+   } else {
+       $query = "FETCH $id BODY[".$passed_ent_id.'.HEADER]';
+       $read=sqimap_run_command ($imapConnection, $query, 
+                              true, $a, $b, $uid_support);
+   }    
     $cnum = 0;
     for ($i=1; $i < count($read); $i++) {
         $line = htmlspecialchars($read[$i]);
