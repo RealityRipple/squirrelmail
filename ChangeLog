@@ -11,6 +11,7 @@ Version 1.5.0 -- CVS
   - Fixed code to allow for \ in password/username (#718116).
   - Added mailto: support for Windows clients.  See
     contrib/squirrelmail.mailto.reg
+  - Added lowsrc to the list of attributes to be removed.
 
 
 **************************************
