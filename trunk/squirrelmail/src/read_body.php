@@ -229,6 +229,83 @@ function ClearAttachments() {
         $attachments = array();
 }
 
+function formatRecipientString($recipients, $item ) {
+    global $base_uri, $passed_id, $urlMailbox, $startMessage, $show_more_cc, $echo_more, $echo_less, $show_more, $show_more_bcc;
+
+    $i = 0;
+    $url_string = '';
+    
+    if (isset ($recipients[0]) && trim($recipients[0])) {
+	$string = '';
+        $ary = $recipients;
+
+	switch ($item) {
+	    case 'to':
+		$show = "&amp;show_more=1&amp;show_more_cc=$show_more_cc&amp;show_more_bcc=$show_more_bcc";
+		$show_n = "&amp;show_more=0&amp;show_more_cc=$show_more_cc&amp;show_more_bcc=$show_more_bcc";
+		break;
+	    case 'cc':
+		$show = "&amp;show_more=$show_more&amp;show_more_cc=1&amp;show_more_bcc=$show_more_bcc";
+		$show_n = "&amp;show_more=$show_more&amp;show_more_cc=0&amp;show_more_bcc=$show_more_bcc";
+		$show_more = $show_more_cc;
+		break;
+	    case 'bcc':
+		$show = "&amp;show_more=$show_more&amp;show_more_cc=$show_more_cc&amp;show_more_bcc=1";
+		$show_n = "&amp;show_more=$show_more&amp;show_more_cc=$show_more_cc&amp;show_more_bcc=0";
+		$show_more = $show_more_bcc;
+		break;
+	    default:
+		$break;
+	}
+
+	while ($i < count($ary)) {
+    	    $ary[$i] = htmlspecialchars(decodeHeader($ary[$i]));
+    	    $url_string .= $ary[$i];
+    	    if ($string) {
+        	$string = "$string<BR>$ary[$i]";
+    	    } else {
+        	$string = "$ary[$i]";
+    	    }
+
+    	    $i++;
+    	    if (count($ary) > 1) {
+        	if ($show_more == false) {
+            	    if ($i == 1) {
+                	/* From a search... */
+                	$string .= '&nbsp;(<A HREF="' . $base_uri .
+                                   "src/read_body.php?mailbox=$urlMailbox&amp;passed_id=$passed_id&amp;";
+                	if (isset($where) && isset($what)) {
+                    	    $string .= 'what=' . urlencode($what)."&amp;where=".urlencode($where)."$show\">$echo_more</A>)";
+                	} else {
+                    	    $string .= "sort=$sort&amp;startMessage=$startMessage"."$show\">$echo_more</A>)";
+                	}
+                	$i = count($ary);
+            	    }
+        	} else if ($i == 1) {
+            	    /* From a search... */
+            	    $string .= '&nbsp;(<A HREF="' . $base_uri .
+                               "src/read_body.php?mailbox=$urlMailbox&amp;passed_id=$passed_id&amp;";
+            	    if (isset($where) && isset($what)) {
+                	$string .= 'what=' . urlencode($what)."&amp;where=".urlencode($where)."$show_n\">$echo_less</A>)";
+            	    } else {
+                	$string .= "sort=$sort&amp;startMessage=$startMessage"."$show_n\">$echo_less</A>)";
+            	    }
+        	}
+    	    }
+
+	}
+    }
+    else {
+	$string = '';
+    }
+    $url_string = urlencode($url_string);
+    $result = array();
+    $result['str'] = $string;
+    $result['url_str'] = $url_string;
+    return $result;
+}
+
+
 
 /*
  *   Main of read_boby.php  --------------------------------------------------
@@ -415,144 +492,27 @@ if (!isset($show_more_cc)) {
     $show_more_cc = FALSE;
 }
 
-/** FORMAT THE TO STRING **/
-$i = 0;
-$to_string = '';
-$url_to_string = '';
-$to_ary = $message->header->to;
-while ($i < count($to_ary)) {
-    $to_ary[$i] = htmlspecialchars(decodeHeader($to_ary[$i]));
-    $url_to_string .= $to_ary[$i];
-
-    if ($to_string) {
-        $to_string = "$to_string<BR>$to_ary[$i]";
-    } else {
-        $to_string = "$to_ary[$i]";
-    }
-
-    $i++;
-    if (count($to_ary) > 1) {
-        if ($show_more == false) {
-            if ($i == 1) {
-                /* From a search... */
-                $to_string .= '&nbsp;(<A HREF="' . $base_uri .
-                             "src/read_body.php?mailbox=$urlMailbox&amp;passed_id=$passed_id&amp;";
-                if (isset($where) && isset($what)) {
-                    $to_string .= 'where='.urlencode($where)."&amp;what=".urlencode($what)."&amp;show_more=1&amp;show_more_cc=$show_more_cc\">$echo_more</A>)";
-                } else {
-                    $to_string .= "sort=$sort&amp;startMessage=$startMessage&amp;show_more=1&amp;show_more_cc=$show_more_cc\">$echo_more</A>)";
-                }
-                $i = count($to_ary);
-            }
-        } else if ($i == 1) {
-            /* From a search... */
-            $to_string .= '&nbsp;(<A HREF="' . $base_uri .
-                         "src/read_body.php?mailbox=$urlMailbox&amp;passed_id=$passed_id&amp;";
-            if (isset($where) && isset($what)) {
-                $to_string .= 'where='.urlencode($where)."&amp;what=".urlencode($what)."&amp;show_more=0&amp;show_more_cc=$show_more_cc\">$echo_less</A>)";
-            } else {
-                $to_string .= "sort=$sort&amp;startMessage=$startMessage&amp;show_more=0&amp;show_more_cc=$show_more_cc\">$echo_less</A>)";
-            }
-        }
-    }
+if (!isset($show_more_bcc)) {
+    $show_more_bcc = FALSE;
 }
-$url_to_string = urlencode($url_to_string);
+
+/** FORMAT THE TO STRING **/
+$to = formatRecipientString($message->header->to, "to");
+$to_string = $to['str'];
+$url_to_string = $to['url_str'];
 
 
 /** FORMAT THE CC STRING **/
-$i = 0;
-$url_cc_string = '';
-if (isset ($message->header->cc[0]) && trim($message->header->cc[0])) {
-    $cc_string = '';
-    $cc_ary = $message->header->cc;
-    while ($i < count(decodeHeader($cc_ary))) {
-        $cc_ary[$i] = htmlspecialchars($cc_ary[$i]);
-        $url_cc_string .= $cc_ary[$i];
 
-        if ($cc_string) {
-            $cc_string = "$cc_string<BR>$cc_ary[$i]";
-        } else {
-            $cc_string = "$cc_ary[$i]";
-        }
-
-        $i++;
-        if (count($cc_ary) > 1) {
-            if ($show_more_cc == false) {
-                if ($i == 1) {
-                    /* From a search... */
-                    $cc_string .= '&nbsp;(<A HREF="' . $base_uri .
-                                  "src/read_body.php?mailbox=$urlMailbox&passed_id=$passed_id";
-                    if (isset($where) && isset($what)) {
-                        $cc_string .= '&amp;what='.urlencode($what)."&amp;where=".urlencode($where)."&amp;show_more_cc=1&amp;show_more=$show_more\">$echo_more</A>)";
-                    } else {
-                        $cc_string .= "&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more_cc=1&amp;show_more=$show_more\">$echo_more</A>)";
-                    }
-                    $i = count($cc_ary);
-                }
-            } else if ($i == 1) {
-                /* From a search... */
-                $cc_string .= '&nbsp;(<A HREF="' . $base_uri .
-                              "src/read_body.php?mailbox=$urlMailbox&amp;passed_id=$passed_id&amp;";
-                if (isset($where) && isset($what)) {
-                    $cc_string .= 'what=' . urlencode($what)."&amp;where=".urlencode($where)."&amp;show_more_cc=0&amp;show_more=$show_more\">$echo_less</A>)";
-                } else {
-                    $cc_string .= "sort=$sort&amp;startMessage=$startMessage&amp;show_more_cc=0&amp;show_more=$show_more\">$echo_less</A>)";
-                }
-            }
-        }
-    }
-}
-else {
-    $cc_string = '';
-}
-$url_cc_string = urlencode($url_cc_string);
+$cc = formatRecipientString($message->header->cc, "cc");
+$cc_string = $cc['str'];
+$url_cc_string = $cc['url_str'];
 
 /** FORMAT THE BCC STRING **/
-$i = 0;
-$url_bcc_string = '';
-if (isset ($message->header->bcc[0]) && trim($message->header->bcc[0])){
-    $bcc_string = '';
-    $bcc_ary = $message->header->bcc;
-    while ($i < count(decodeHeader($bcc_ary))) {
-        $bcc_ary[$i] = htmlspecialchars($bcc_ary[$i]);
-        $url_bcc_string .= $bcc_ary[$i];
-        if ($bcc_string) {
-            $bcc_string = "$bcc_string<BR>$bcc_ary[$i]";
-        } else {
-            $bcc_string = "$bcc_ary[$i]";
-        }
 
-        $i++;
-        if (count($bcc_ary) > 1) {
-            if ($show_more_cc == false) {
-                if ($i == 1) {
-                    /* From a search... */
-                    $bcc_string .= '&nbsp;(<A HREF="' . $base_uri .
-                                   "src/read_body.php?mailbox=$urlMailbox&amp;passed_id=$passed_id&amp;";
-                    if (isset($where) && isset($what)) {
-                        $bcc_string .= 'what=' . urlencode($what)."&amp;where=".urlencode($where)."&amp;show_more_cc=1&amp;show_more=$show_more\">$echo_more</A>)";
-                    } else {
-                        $bcc_string .= "sort=$sort&amp;startMessage=$startMessage&amp;show_more_cc=1&amp;show_more=$show_more\">$echo_more</A>)";
-                    }
-                    $i = count($bcc_ary);
-                }
-            } else if ($i == 1) {
-                /* From a search... */
-                $bcc_string .= '&nbsp;(<A HREF="' . $base_uri .
-                               "src/read_body.php?mailbox=$urlMailbox&amp;passed_id=$passed_id&amp;";
-                if (isset($where) && isset($what)) {
-                    $bcc_string .= 'what=' . urlencode($what)."&amp;where=".urlencode($where)."&amp;show_more_cc=0&amp;show_more=$show_more\">$echo_less</A>)";
-                } else {
-                    $bcc_string .= "sort=$sort&amp;startMessage=$startMessage&amp;show_more_cc=0&amp;show_more=$show_more\">$echo_less</A>)";
-                }
-            }
-        }
-    }
-}
-else {
-    $bcc_string = '';
-}
-$url_bcc_string = urlencode($url_bcc_string);
+$bcc = formatRecipientString($message->header->bcc, "bcc");
+$bcc_string = $bcc['str'];
+$url_bcc_string = $bcc['url_str'];
 
 if ($default_use_priority) {
     $priority_level = substr($message->header->priority,0,1);
