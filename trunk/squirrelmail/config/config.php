@@ -34,15 +34,14 @@ $trash_folder = "INBOX.Trash";
 $auto_expunge = true;
 
 /* Special Folders are folders that can't be manipulated like normal user created
-   folders can.  A couple of examples would be "INBOX", "INBOX.Trash".  We have
+   folders can.  A couple of examples would be "INBOX.Trash", "INBOX.Drafts".  We have
    them set to Netscape's default mailboxes, but this obviously can be changed.
    To add one, just add a new number to the array.
+
+   NOTE:   INBOX is handled separately.  Do not put it in this list
 */
-$special_folders[0] = "INBOX";
-$special_folders[1] = "INBOX.Trash";
-$special_folders[2] = "INBOX.Sent";
-$special_folders[3] = "INBOX.Drafts";
-$special_folders[4] = "INBOX.Templates";
-
-
+$special_folders[0] = $trash_folder;
+$special_folders[1] = "INBOX.Sent";
+$special_folders[2] = "INBOX.Drafts";
+$special_folders[3] = "INBOX.Templates";
 ?>
