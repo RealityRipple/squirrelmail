@@ -2989,10 +2989,8 @@ sub change_to_SM_path() {
 
     # If the path is absolute, don't bother.
     return "\'" . $old_path . "\'"  if ( $old_path eq '');
-    return "\'" . $old_path . "\'"  if ( $old_path =~ /^\// );
-    return "\'" . $old_path . "\'"  if ( $old_path =~ /^http/ );
-    return $old_path                if ( $old_path =~ /^\$/);
-    return $old_path                if ( $old_path =~ /^SM_PATH/ );
+    return "\'" . $old_path . "\'"  if ( $old_path =~ /^(\/|http)/ );
+    return $old_path                if ( $old_path =~ /^(\$|SM_PATH)/);
     
     # For relative paths, split on '../'
     @rel_path = split(/\.\.\//, $old_path);
