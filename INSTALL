@@ -67,6 +67,10 @@ b. Changing php.ini
   session's data with his own PHP script.  Caution should be used when 
   setting up permissions and locations of php.ini and the session data.
 
+  FILE UPLOADS - Note that sending messages will not work if your
+  "file_uploads" setting is "Off". Squirrelmail requires that setting
+  enabled in order to work.
+
 c. Setting up .php files to use PHP4
 
   You need to create a .htaccess file in you SquirrelMail directory
