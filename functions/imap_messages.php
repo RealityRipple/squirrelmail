@@ -175,7 +175,13 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
         $inrepto = "";
         $read = $read_list[$msgi];
 
+        $prevline = false;
         foreach ($read as $read_part) {
+            //unfold multi-line headers
+            while ($prevline && strspn($read_part, "\t ") > 0) {
+               $read_part = substr($prevline, 0, -2) . $read_part;
+            }
+            $prevline = $read_part;
             if (eregi ("^to:(.*)$", $read_part, $regs)) {
                 $to = $regs[1];
             } else if (eregi ("^from:(.*)$", $read_part, $regs)) {
@@ -329,6 +335,12 @@ function sqimap_get_header ($imap_stream, $read) {
     $hdr->charset = "us-ascii";
 
     while ($i < count($read)) {
+        //unfold multi-line headers
+        while ($i + 1 < count($read) && strspn($read[$i + 1], "\t ") > 0) {
+            $read[$i + 1] = substr($read[$i], 0, -2) . $read[$i + 1];
+            array_splice($read, $i, 1);
+        }
+
         if (substr($read[$i], 0, 17) == "MIME-Version: 1.0") {
             $hdr->mime = true;
             $i++;
