@@ -100,7 +100,8 @@
 	          $tmp = str_replace("\r\n", "\n", $tmp);
 	          $tmp = str_replace("\r", "\n", $tmp);
 	          $tmp = str_replace("\n", "\r\n", $tmp);
-		  $tmp .= "\r\n";
+		  if (feof($fp) && substr($tmp, -2) != "\r\n")
+		     $tmp .= "\r\n";
 		  fputs($fp, $tmp);
 		  $length += strlen($tmp);
 	       }
