@@ -45,7 +45,7 @@ function getHashedFile($username, $dir, $datafile, $hash_search = true) {
     $real_hash_dir = getHashedDir($username, $dir, $hash_dirs);
 
     /* Set the value of our real data file. */
-    $result = SM_PATH . "$real_hash_dir/$datafile";
+    $result = "$real_hash_dir/$datafile";
 
     /* Check for this file in the real hash directory. */
     if ($hash_search && !@file_exists($result)) {
