@@ -81,10 +81,12 @@ function sqimap_fgets($imap_stream) {
     $buffer = 4096;
     $results = '';
     $offset = 0;
+    $i=0;
     while (strpos($results, "\r\n", $offset) === false) {
         if (!($read = fgets($imap_stream, $buffer))) {
             break;
         }
+//	echo $read;
         if ( $results != '' ) {
             $offset = strlen($results) - 1;
         }
@@ -107,36 +109,112 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors, &$response, 
     $resultlist = array();
     $data = array();
     $read = sqimap_fgets($imap_stream);
+    $i = 0;
     while (1) {
-        switch (true) { 
-            case preg_match("/^$pre (OK|BAD|NO)(.*)$/", $read, $regs):
-            case preg_match('/^\* (BYE \[ALERT\])(.*)$/', $read, $regs):
-                $response = $regs[1];
-                $message = trim($regs[2]);
-                break 2;
-            case preg_match("/^\* (OK \[PARSE\])(.*)$/", $read):
-                $read = sqimap_fgets($imap_stream);
-                break 1;
-            case preg_match('/^\* ([0-9]+) FETCH.*/', $read, $regs):
-                $fetch_data = array();
-                $fetch_data[] = $read;
-                $read = sqimap_fgets($imap_stream);
-                while (!preg_match('/^\* [0-9]+ FETCH.*/', $read) &&
-                       !preg_match("/^$pre (OK|BAD|NO)(.*)$/", $read)) {
-                    $fetch_data[] = $read;
-                    $last = $read;
-                    $read = sqimap_fgets($imap_stream);
-                }
-                if (isset($last) && preg_match('/^\)/', $last)) {
-                    array_pop($fetch_data);
-                }
-                $resultlist[] = $fetch_data;
-                break 1;
-            default:
-                $data[] = $read;
-                $read = sqimap_fgets($imap_stream);
-                break 1;
-        }
+	$char = $read{0};
+	switch ($char) {
+	    case $pre{0}:
+	         /* get the command */
+		 $arg = '';
+		 $i = strlen($pre)+1;
+		 $s = substr($read,$i);
+                 if (($j = strpos($s,' ')) || ($j = strpos($s,"\n"))) {
+		    $arg = substr($s,0,$j);
+		 }
+		 $tag = substr($read,0,$i-1);
+		 if ($arg && $tag==$pre) {
+		    switch ($arg) {
+			case 'OK':
+			case 'BAD':
+			case 'NO':
+			case 'BYE':
+			case 'PREAUTH':
+			   $response = $arg;
+			   $message = trim(substr($read,$i+strlen($arg)));
+			   break 3;
+			default: 
+			   /* this shouldn't happen */
+			   $response = $arg;
+			   $message = trim(substr($read,$i+strlen($arg)));
+			   break 3;
+		    }
+		} elseif($tag !== $pre) {
+		    /* reset data array because we do not need this reponse */
+		    $data = array();
+		    $read = sqimap_fgets($imap_stream);
+		    break;
+		}
+	    case '*':
+		if (preg_match('/^\*\s\d+\sFETCH/',$read)) {
+		    /* check for literal */
+		    $s = substr($read,-3);
+		    $fetch_data = array();
+		    do { /* outer loop, continue until next untagged fetch
+		            or tagged reponse */
+			do { /* innerloop for fetching literals. with this loop
+			        we prohibid that literal responses appear in the
+				outer loop so we can trust the untagged and
+				tagged info provided by $read */
+			    if ($s === "}\r\n") {
+			        $j = strrpos($read,'{');
+			        $iLit = substr($read,$j+1,-3);
+		                $fetch_data[] = $read;
+				$sLiteral = fread($imap_stream,$iLit);
+				/* backwards compattibility */
+				$aLiteral = explode("\n", $sLiteral);
+				/* release not neaded data */
+				unset($sLiteral);
+				foreach ($aLiteral as $line) {
+				    $fetch_data[] = $line ."\n";
+			        }
+				/* release not neaded data */
+				unset($aLiteral); 
+				/* next fgets belongs to this fetch because
+				   we just got teh exact literalsize and there
+				   must follow data to complete the response */
+			        $fetch_data[] = sqimap_fgets($imap_stream);
+			    } else {
+			        $fetch_data[] = $read;
+			    }
+			    /* retrieve next line and check in the while
+			       statements if it belongs to this fetch response */
+			    $read = sqimap_fgets($imap_stream);
+			    /* check for next untagged reponse and break */
+			    if ($read{0} == '*') break 2;
+			    $s = substr($read,-3);
+			} while ($s === "}\r\n");
+			$s = substr($read,-3);
+		    } while ($read{0} !== '*' &&
+			     substr($read,0,strlen($pre)) !== $pre);
+		    $resultlist[] = $fetch_data;
+		    /* release not neaded data */
+		    unset ($fetch_data);
+		} else {
+		    $s = substr($read,-3);
+		    do {
+			if ($s === "}\r\n") {
+			    $j = strrpos($read,'{');
+			    $iLit = substr($read,$j+1,-3);
+		            $data[] = $read;
+			    $data[] = fread($imap_stream,$iLit);
+			    $fetch_data[] = sqimap_fgets($imap_stream);
+			} else {
+			    $data[] = $read;
+			}
+			$read = sqimap_fgets($imap_stream);
+			if ($read{0} == '*') break;
+			$s = substr($read,-3);
+		    } while ($s === "}\r\n");
+            	    break 1;
+		}
+		break;
+	    case '+':
+		$read = sqimap_fgets($imap_stream);
+		break;
+	    default:
+		$read = sqimap_fgets($imap_stream);
+		break;
+	}
     }
     if (!empty($data)) {
         $resultlist[] = $data;
@@ -190,13 +268,13 @@ function sqimap_read_data ($imap_stream, $pre, $handle_errors, &$response, &$mes
        and merge the $res array IF they are seperated and 
        IF it was a FETCH response. */
   
-    if (isset($res[1]) && is_array($res[1]) && isset($res[1][0]) 
-        && preg_match('/^\* \d+ FETCH/', $res[1][0])) {
-        $result = array();
-        foreach($res as $index=>$value) {
-            $result = array_merge($result, $res["$index"]);
-        }
-    }
+//    if (isset($res[1]) && is_array($res[1]) && isset($res[1][0]) 
+//        && preg_match('/^\* \d+ FETCH/', $res[1][0])) {
+//        $result = array();
+//        foreach($res as $index=>$value) {
+//            $result = array_merge($result, $res["$index"]);
+//        }
+//    }
     if (isset($result)) {
         return $result;
     }
