@@ -69,7 +69,9 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors,
         $data = array();
         $total_size = 0;
         while (strpos($read, "\n") === false) {
-            $read .= fgets($imap_stream, 9096);
+            if(!($read .= fgets($imap_stream, 9096))) {
+                break;
+            }
         }
         
         if (ereg("^\\* [0-9]+ FETCH.*\\{([0-9]+)\\}", $read, $regs)) {
@@ -84,7 +86,9 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors,
         }
         while (1) {
             while (strpos($read, "\n") === false) {
-                $read .= fgets($imap_stream, 9096);
+                if(!($read .= fgets($imap_stream, 9096))) {
+                    break;
+                }
             }
             // If we know the size, no need to look at the end parameters
             if ($size > 0) {
