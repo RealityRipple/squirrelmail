@@ -325,12 +325,12 @@ function spam_filters($imap_stream) {
     // flags for each message.  Kinda big.
     if ($filters_spam_scan != 'new') {
         $read = sqimap_run_command($imap_stream, 'FETCH 1:* (FLAGS BODY.PEEK[HEADER.FIELDS ' .
-            '(RECEIVED)])', true, $reponse, $message, $uid_support);
+            '(RECEIVED)])', true, $response, $message, $uid_support);
     } else {
-        $read = sqimap_run_command($imap_stream, 'SEARCH UNSEEN', true, $reponse, $message, $uid_support);
+        $read = sqimap_run_command($imap_stream, 'SEARCH UNSEEN', true, $response, $message, $uid_support);
         if ($response != 'OK' || trim($read[0]) == '* SEARCH') {
     	    $read = sqimap_run_command($imap_stream, 'FETCH 1:* (FLAGS BODY.PEEK[HEADER.FIELDS ' .
-            '(RECEIVED)])', true, $reponse, $message, $uid_support);
+            '(RECEIVED)])', true, $response, $message, $uid_support);
         } else {
 	    $read[0] = trim($read[0]);
             $i = 0;
@@ -342,7 +342,7 @@ function spam_filters($imap_stream) {
             $imap_query .= $Chunks[count($Chunks)-1];
             $imap_query .= ' (FLAGS BODY.PEEK[HEADER.FIELDS ';
             $imap_query .= '(RECEIVED)])';//\r\n";
-	    $read = sqimap_run_command($imap_stream,$imap_query, true, $reponse, $message, $uid_support);
+	    $read = sqimap_run_command($imap_stream,$imap_query, true, $response, $message, $uid_support);
         }
     }
     
