@@ -777,33 +777,35 @@ function createPriorityHeaders($prio) {
 }
 
 function createReceiptHeaders($receipt) {
-  
-  $receipt_headers = Array();
-  $from_addr = getPref($data_dir, $username, 'email_address');
-  $from = getPref($data_dir, $username, 'full_name');
 
-  if ($from == '') {
-    $from = "<$from_addr>";
-  }
-  else {
-    $from = '"' . encodeHeader($from) . "\" <$from_addr>";
-  }
-  
-  /* On Delivery */
-  if ( $receipt == 1 
-       || $receipt == 3 ) {
-    $receipt_headers["Return-Receipt-To"] = $from;
-  }
-  /* On Read */
-  if ($receipt == 2 
-      || $receipt == 3 ) {
-    /* Pegasus Mail */
-    $receipt_headers["X-Confirm-Reading-To"] = $from;
-    /* RFC 2298 */
-    $receipt_headers["Disposition-Notification-To"] = $from;
-  }
-  return $receipt_headers;
-}   
+    GLOBAL $data_dir, $username;
+
+    $receipt_headers = Array();
+    $from_addr = getPref($data_dir, $username, 'email_address');
+    $from = getPref($data_dir, $username, 'full_name');
+
+    if ($from == '') {
+        $from = "<$from_addr>";
+    }
+    else {
+        $from = '"' . encodeHeader($from) . "\" <$from_addr>";
+    }
+
+    /* On Delivery */
+    if ( $receipt == 1
+        || $receipt == 3 ) {
+        $receipt_headers["Return-Receipt-To"] = $from;
+    }
+    /* On Read */
+    if ($receipt == 2
+        || $receipt == 3 ) {
+        /* Pegasus Mail */
+        $receipt_headers["X-Confirm-Reading-To"] = $from;
+        /* RFC 2298 */
+        $receipt_headers["Disposition-Notification-To"] = $from;
+    }
+    return $receipt_headers;
+}
 
 
 ?>
