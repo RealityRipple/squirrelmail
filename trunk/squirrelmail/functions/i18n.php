@@ -15,6 +15,8 @@
  * $Id$
  */
 
+require_once(SM_PATH . 'functions/global.php');
+
 /* Decodes a string to the internal encoding from the given charset */
 function charset_decode ($charset, $string) {
     global $languages, $squirrelmail_language;
@@ -553,7 +555,8 @@ function charset_decode_iso_8859_7 ($string) {
 }
 
 /*
- ISOIEC 8859-9:1999 Latin Alphabet No. 5
+ ISOIEC 8859-9:1999 Latin Alphabet No. 5require_once(SM_PATH . 'functions/global.php');
+
 */
 function charset_decode_iso_8859_9 ($string) {
     global $default_charset;
@@ -1118,9 +1121,10 @@ function set_up_language($sm_language, $do_search = false) {
     }
 
     $SetupAlready = TRUE;
+    sqgetGlobalVar('HTTP_ACCEPT_LANGUAGE',  $accept_lang, SQ_SERVER);
 
-    if ($do_search && ! $sm_language && isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-        $sm_language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+    if ($do_search && ! $sm_language && isset($accept_lang)) {
+        $sm_language = substr($accept_lang, 0, 2);
     }
     
     if (!$sm_language && isset($squirrelmail_default_language)) {
