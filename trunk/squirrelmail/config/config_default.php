@@ -393,7 +393,7 @@ $addrbook_table = 'address';
 
 global $prefs_dsn, $prefs_table;
 $prefs_dsn = '';
-$prefs_table = 'userprefs'
+$prefs_table = 'userprefs';
 
 /**
  * Users may search their addressbook via either a plain HTML or Javascript
