@@ -16,6 +16,10 @@ require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'class/html.class.php');
 require_once(SM_PATH . 'functions/imap_mailbox.php');
+require_once(SM_PATH . 'functions/set_language_align.php');
+
+/* --------------------- Get globals ------------------------------------- */
+$language_align = set_language_align();
 
 /* Default value for page_selector_max. */
 define('PG_SEL_MAX', 10);
@@ -327,7 +331,7 @@ function getSelfSortMessages($imapConnection, $start_msg, $show_num,
 function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
                                 $start_msg, $sort, $color, $show_num,
                                 $use_cache, $mode='') {
-    global $msgs, $msort, $auto_expunge, $thread_sort_messages,
+    global $msgs, $msort, $auto_expunge, $thread_sort_messages, $language_align,
            $allow_server_sort, $server_sort_order;
 
     /* If autoexpunge is turned on, then do it now. */
@@ -421,7 +425,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
     $msg_cnt_str = get_msgcnt_str($start_msg, $end_msg, $num_msgs);
 
     do_hook('mailbox_index_before');
-    echo '<table border="0" width="100%" cellpadding="0" cellspacing="0">';
+    echo '<table dir="' . $language_align['dir'] . '" border="0" width="100%" cellpadding="0" cellspacing="0">';
     echo '<tr><td>';
 
     mail_message_listing_beginning($imapConnection, $mailbox, $sort, 
