@@ -88,17 +88,6 @@ $imap_asearch_months = array(
     '12' => 'dec'
 );
 
-/** Error message titles according to imap server returned code
-* @global array $imap_error_titles
-*/
-$imap_error_titles = array(
-    'OK' => '',
-    'NO' => _("ERROR : Could not complete request."),
-    'BAD' => _("ERROR : Bad or malformed request."),
-    'BYE' => _("ERROR : Imap server closed the connection."),
-    '' => _("ERROR : Connection dropped by imap-server.")
-);
-
 /**
 * Function to display an error related to an IMAP-query.
 * We need to do our own error management since we may receive NO responses on purpose (even BAD with SORT or THREAD)
@@ -112,7 +101,16 @@ $imap_error_titles = array(
 //@global array color sm colors array
 function sqimap_asearch_error_box($response, $query, $message, $link = '')
 {
-    global $imap_error_titles;
+    global $color;
+    // Error message titles according to imap server returned code
+    $imap_error_titles = array(
+        'OK' => '',
+        'NO' => _("ERROR : Could not complete request."),
+        'BAD' => _("ERROR : Bad or malformed request."),
+        'BYE' => _("ERROR : Imap server closed the connection."),
+        '' => _("ERROR : Connection dropped by imap-server.")
+    );
+
 
     if (!array_key_exists($response, $imap_error_titles))
         $title = _("ERROR : Unknown imap response.");
