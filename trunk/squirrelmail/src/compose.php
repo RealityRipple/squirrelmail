@@ -680,15 +680,24 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $send_to = decodeHeader($orig_header->getAddr_s('to'),false,true);
             $send_to_cc = decodeHeader($orig_header->getAddr_s('cc'),false,true);
             $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'),false,true);
+            $send_from = $orig_header->getAddr_s('from');
+            $send_from_parts = new AddressStructure();
+            $send_from_parts = $orig_header->parseAddress($send_from);
+            $send_from_add = $send_from_parts->mailbox . '@' . $send_from_parts->host;
+            $identities = get_identities();
+            if (count($identities) > 0) {
+                foreach($identities as $iddata) {
+                    if ($send_from_add == $iddata['email_address']) {
+                        $identity = $iddata['index'];
+                        break;
+                    }
+                }
+            }
             $subject = decodeHeader($orig_header->subject,false,true);
 //            /* remember the references and in-reply-to headers in case of an reply */
             $composeMessage->rfc822_header->more_headers['References'] = $orig_header->references;
             $composeMessage->rfc822_header->more_headers['In-Reply-To'] = $orig_header->in_reply_to;
             $body_ary = explode("\n", $body);
-/*	   echo "debug: $identity"; #845290
-	   $identity='2'; */
-            echo "header".decodeHeader($orig_header->getAddr_s('from'),false,true)."<BR>";
-	    print_r($identities);
             $cnt = count($body_ary) ;
             $body = '';
             for ($i=0; $i < $cnt; $i++) {
