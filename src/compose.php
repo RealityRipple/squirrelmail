@@ -25,7 +25,6 @@ require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/mime.php');
-//require_once(SM_PATH . 'functions/smtp.php');
 require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'class/deliver/Deliver.class.php');
@@ -43,7 +42,6 @@ if ( isset($_SESSION['composesession']) ) {
     $composesession = $_SESSION['composesession'];
 }
 sqextractGlobalVar('action');
-sqextractGlobalVar('send');
 sqextractGlobalVar('session');
 sqextractGlobalVar('mailbox');
 sqextractGlobalVar('identity');
@@ -59,6 +57,7 @@ sqextractGlobalVar('html_addr_search');
 sqextractGlobalVar('mail_sent');
 sqextractGlobalVar('passed_id');
 sqextractGlobalVar('passed_ent_id');
+sqextractGlobalVar('send');
 
 if ( isset($_POST['sigappend']) ) {
     $sigappend = $_POST['sigappend'];
@@ -82,12 +81,10 @@ if ( isset($_POST['do_delete']) ) {
 if ( isset($_POST['delete']) ) {
     $delete = &$_POST['delete'];
 }
-if ( isset($_POST['attachments']) ) {
-    $attachments = &$_POST['attachments'];
+if ( isset($_SESSION['compose_messages']) ) {
+    $compose_messages = &$_SESSION['compose_messages'];
 }
-elseif ( isset($_SESSION['attachments'])) {
-    $attachments = &$_SESSION['attachments'];
-}
+
 
 /* Forward message as attachment */
 if ( isset($_GET['attachedmessages']) ) {
@@ -192,7 +189,8 @@ function getforwardHeader($orig_header) {
  * vars.
  */
 //$session_expired = false; 
-if (session_is_registered('session_expired_post')) {
+sqsession_unregister('session_expired_post');
+if (false && session_is_registered('session_expired_post')) {
     global $session_expired_post, $session_expired;
     /* 
      * extra check for username so we don't display previous post data from
@@ -219,6 +217,7 @@ if (session_is_registered('session_expired_post')) {
     if (!isset($mailbox)) {
         $mailbox = '';
     }
+
     if ($compose_new_win == '1') {
         compose_Header($color, $mailbox);
     } else {
@@ -227,7 +226,6 @@ if (session_is_registered('session_expired_post')) {
     showInputForm($session, false);
     exit();
 }
-
 if (!isset($composesession)) {
     $composesession = 0;
     sqsession_register(0,'composesession');
@@ -259,15 +257,13 @@ if (!isset($mailbox) || $mailbox == '' || ($mailbox == 'None')) {
     $mailbox = 'INBOX';
 }
 
-if (isset($draft)) {
-        /*
-         * Set $default_charset to correspond with the user's selection
-         * of language interface.
-         */
-        set_my_charset();
-        $composeMessage=$compose_messages[$session];
-	$Result = sendMessage($composeMessage, true);
-
+if ($draft) {
+    /*
+     * Set $default_charset to correspond with the user's selection
+     * of language interface.
+     */
+    set_my_charset();
+    $composeMessage=$compose_messages[$session];
     if (! sendMessage($composeMessage, true)) {
         showInputForm($session);
         exit();
@@ -293,7 +289,7 @@ if (isset($draft)) {
     }
 }
 
-if (isset($send)) {
+if ($send) {
     if (isset($_FILES['attachfile']) &&
         $_FILES['attachfile']['tmp_name'] &&
         $_FILES['attachfile']['tmp_name'] != 'none') {
@@ -355,10 +351,6 @@ if (isset($send)) {
                    "&startMessage=1");
         }
     } else {
-        /*
-         *$imapConnection = sqimap_login($username, $key, $imapServerAddress,
-         *                               $imapPort, 0);
-         */
         if ($compose_new_win == '1') {
             compose_Header($color, $mailbox);
         }
@@ -673,10 +665,13 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             /* this corrects some wrapping/quoting problems on replies */
             $rewrap_body = explode("\n", $body);
 
-            $body = getReplyCitation($orig_header->from->personal);
+	    $from =  (is_array($orig_header->from)) ? 
+	              $orig_header->from[0] : $orig_header->from;
+            $body = getReplyCitation($from->getAddress(false));
+
             $cnt = count($rewrap_body);
             for ($i=0;$i<$cnt;$i++) {
-                //              sqWordWrap($rewrap_body[$i], ($editor_size - 2));
+//              sqWordWrap($rewrap_body[$i], ($editor_size - 2));
                 if (preg_match("/^(>+)/", $rewrap_body[$i], $matches)) {
                     $gt = $matches[1];
                     $body .= '>' . str_replace("\n", "\n$gt ", $rewrap_body[$i]) ."\n";
@@ -831,7 +826,6 @@ function showInputForm ($session, $values=false) {
     echo "\n" . '<FORM name=compose action="compose.php" METHOD=POST ' .
          'ENCTYPE="multipart/form-data"';
     do_hook("compose_form");
-
     
     echo ">\n";
 
@@ -929,6 +923,7 @@ function showInputForm ($session, $values=false) {
     if ($location_of_buttons == 'between') {
         showComposeButtonRow();
     }
+
     if ($compose_new_win == '1') {
         echo '   <TR>' . "\n" .
              '      <TD BGCOLOR="' . $color[0] . '" COLSPAN=2 ALIGN=CENTER>' . "\n" .
@@ -994,7 +989,8 @@ function showInputForm ($session, $values=false) {
     
 
     $s_a = array();
-    foreach ($composeMessage->entities as $key => $attachment) {
+    if ($composeMessage->entities) {
+        foreach ($composeMessage->entities as $key => $attachment) {
            $attached_file = $attachment->att_local_name;
 	   if ($attachment->att_local_name || $attachment->body_part) { 
 		$attached_filename = decodeHeader($attachment->mime_header->getParameter('name'));
@@ -1005,6 +1001,7 @@ function showInputForm ($session, $values=false) {
 		         ' ('.show_readable_size( filesize( $attached_file ) ) 
 		         . ')<br>'."\n";
            }
+        }
     }
     if (count($s_a)) {
        foreach ($s_a as $s) {
@@ -1026,8 +1023,8 @@ function showInputForm ($session, $values=false) {
          '<input type="hidden" name="username" value="'. $username . "\">\n" .   
          '<input type=hidden name=action value=' . $action . ">\n" .
          '<INPUT TYPE=hidden NAME=mailbox VALUE="' . htmlspecialchars($mailbox) .
-         "\">\n" .
-         '</FORM>';
+         "\">\n";
+    echo '</FORM>';
     do_hook('compose_bottom');
     echo '</BODY></HTML>' . "\n";
 }
@@ -1080,7 +1077,7 @@ function showComposeButtonRow() {
         echo '<input type="submit" name ="draft" value="' . _("Save Draft") . "\">\n";
     }
 
-    echo "\n    <INPUT TYPE=SUBMIT NAME=send VALUE=\"". _("Send") . "\">\n";
+    echo '<INPUT TYPE=submit NAME=send VALUE="'. _("Send") . "\">\n";
     do_hook('compose_button_row');
 
     echo "   </TD></TR>\n\n";
@@ -1315,17 +1312,20 @@ function sendMessage($composeMessage, $draft=false) {
        $imap_stream = sqimap_login($username, $key, $imapServerAddress,
                       $imapPort, 0);
        if (sqimap_mailbox_exists ($imap_stream, $draft_folder)) {
-	    require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
-	    $imap_deliver = new Deliver_IMAP();
-	    $length = $imap_deliver->mail($composeMessage);
-	    sqimap_append ($imap_stream, $draft_folder, $length);	 
-	    $imap_deliver->mail($composeMessage, $imap_stream);
-    	    sqimap_append_done ($imap_stream);
-	    sqimap_logout($imap_stream);
-	    unset ($imap_deliver);
-	
+           require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
+	   $imap_deliver = new Deliver_IMAP();
+	   $length = $imap_deliver->mail($composeMessage);
+	   sqimap_append ($imap_stream, $draft_folder, $length);	 
+           $imap_deliver->mail($composeMessage, $imap_stream);
+    	   sqimap_append_done ($imap_stream);
+	   sqimap_logout($imap_stream);
+	   unset ($imap_deliver);
+	   return $length;
+        } else {
+	   $msg  = '<br>Error: '._("Draft folder")." $draft_folder" . ' does not exist.';
+	   plain_error_message($msg, $color);
+	   return false;
 	}
-	return $length;
     }
     $succes = false;
     if ($stream) {
