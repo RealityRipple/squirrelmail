@@ -32,9 +32,7 @@
 
    echo "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
    echo "   <TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>\n";
-   echo "      <FONT FACE=\"Arial,Helvetica\">";
    echo _("Options");
-   echo "</FONT>\n";
    echo "   </TD></TR>\n";
    echo "</TABLE>\n";
 
@@ -43,48 +41,34 @@
    // FULL NAME
    echo "   <TR>";
    echo "      <TD WIDTH=20% ALIGN=RIGHT>";
-   echo "         <FONT FACE=\"Arial,Helvetica\">";
    echo           _("Full Name:");
-   echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=80% ALIGN=LEFT>";
-   echo "         <FONT FACE=\"Arial,Helvetica\">";
    echo "         <INPUT TYPE=TEXT NAME=full_name VALUE=\"$fullname\" SIZE=50><BR>";
-   echo "         </FONT>";
    echo "      </TD>";
    echo "   </TR>";
    // FROM-ADDRESS
    echo "   <TR>";
    echo "      <TD WIDTH=20% ALIGN=RIGHT>";
-   echo "         <FONT FACE=\"Arial,Helvetica\">";
    echo           _("E-mail address:");
-   echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=80% ALIGN=LEFT>";
-   echo "         <FONT FACE=\"Arial,Helvetica\">";
    echo "         <INPUT TYPE=TEXT NAME=email_address VALUE=\"$email_address\" SIZE=50><BR>";
-   echo "         </FONT>";
    echo "      </TD>";
    echo "   </TR>";
    // REPLY-TO
    echo "   <TR>";
    echo "      <TD WIDTH=20% ALIGN=RIGHT>";
-   echo "         <FONT FACE=\"Arial,Helvetica\">";
    echo           _("Reply-to:");
-   echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=80% ALIGN=LEFT>";
-   echo "         <FONT FACE=\"Arial,Helvetica\">";
    echo "         <INPUT TYPE=TEXT NAME=reply_to VALUE=\"$replyto\" SIZE=50><BR>";
-   echo "         </FONT>";
    echo "      </TD>";
    echo "   </TR>";
    // THEME
    echo "   <TR>";
    echo "      <TD WIDTH=20% ALIGN=RIGHT>";
-   echo "         <FONT FACE=\"Arial,Helvetica\">";
    echo           _("Theme:");
-   echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=80% ALIGN=LEFT>";
 
@@ -101,9 +85,7 @@
    // LANGUAGE
    echo "   <TR>";
    echo "      <TD WIDTH=20% ALIGN=RIGHT>";
-   echo "         <FONT FACE=\"Arial,Helvetica\">";
    echo           _("Language:");
-   echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=80% ALIGN=LEFT>";
 
@@ -125,13 +107,10 @@
    // MOVE_TO_TRASH
    echo "   <TR>";
    echo "      <TD WIDTH=60% ALIGN=RIGHT>";
-   echo "         <FONT FACE=\"Arial,Helvetica\">";
    echo           _("Move deleted messages to ");
    echo "\"$trash_folder\"?";
-   echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=40% ALIGN=LEFT>";
-   echo "         <FONT FACE=\"Arial,Helvetica\">";
    if ($move_to_trash == true)
       echo "         <INPUT TYPE=RADIO NAME=movetotrash VALUE=1 CHECKED>&nbsp;True<BR>";
    else
@@ -142,53 +121,41 @@
    else
       echo "         <INPUT TYPE=RADIO NAME=movetotrash VALUE=0>&nbsp;False";
 
-   echo "         </FONT>";
    echo "      </TD>";
    echo "   </TR>";
 
    // WRAP_AT
    echo "   <TR>";
    echo "      <TD WIDTH=60% ALIGN=RIGHT>";
-   echo "         <FONT FACE=\"Arial,Helvetica\">";
    echo           _("Wrap incoming text at:");
-   echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=40% ALIGN=LEFT>";
-   echo "         <FONT FACE=\"Arial,Helvetica\">";
    if (isset($wrap_at))
       echo "         <TT><INPUT TYPE=TEXT SIZE=5 NAME=wrapat VALUE=\"$wrap_at\"></TT><BR>";
    else
       echo "         <TT><INPUT TYPE=TEXT SIZE=5 NAME=wrapat VALUE=\"86\"></TT><BR>";
-   echo "         </FONT>";
    echo "      </TD>";
    echo "   </TR>";
 
    // EDITOR_SIZE
    echo "   <TR>";
    echo "      <TD WIDTH=60% ALIGN=RIGHT>";
-   echo "         <FONT FACE=\"Arial,Helvetica\">";
    echo           _("Size of editor window (in characters):");
-   echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=40% ALIGN=LEFT>";
-   echo "         <FONT FACE=\"Arial,Helvetica\">";
    if ($editor_size >= 5)
       echo "         <TT><INPUT TYPE=TEXT SIZE=5 NAME=editorsize VALUE=\"$editor_size\"></TT><BR>";
    else
       echo "         <TT><INPUT TYPE=TEXT SIZE=5 NAME=editorsize VALUE=\"76\"></TT><BR>";
-   echo "         </FONT>";
    echo "      </TD>";
    echo "   </TR>";
 
    // LEFT_REFRESH
    echo "   <TR>";
    echo "      <TD WIDTH=60% ALIGN=RIGHT>";
-   echo "         <FONT FACE=\"Arial,Helvetica\">";
    echo           _("Time between auto refresh of folder list:");
-   echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=40% ALIGN=LEFT>";
-   echo "         <FONT FACE=\"Arial,Helvetica\">";
    echo "               <SELECT name=leftrefresh>";
    if (($left_refresh == "None") || ($left_refresh == "")) 
       echo "                  <OPTION VALUE=None SELECTED>None";
@@ -271,7 +238,6 @@
       echo "                  <OPTION VALUE=1800>30 Minutes";
    
       echo "               </SELECT>";
-      echo "         </FONT>";
       echo "      </TD>";
       echo "   </TR>";
       echo "</TABLE>";

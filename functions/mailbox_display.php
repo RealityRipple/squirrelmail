@@ -18,15 +18,15 @@
       $subject = trim(stripslashes($subject));
       echo "<TR>\n";
       if ($seen == false) {
-         echo "   <TD><FONT FACE=\"Arial,Helvetica\"><nobr><B><input type=checkbox name=\"msg[$t]\" value=$i></B></nobr></FONT></TD>\n";
-         echo "   <TD><FONT FACE=\"Arial,Helvetica\"><B>$senderName</B></FONT></TD>\n";
-         echo "   <TD><CENTER><B><FONT FACE=\"Arial,Helvetica\">$dateString</FONT></B></CENTER></TD>\n";
-         echo "   <TD><FONT FACE=\"Arial,Helvetica\"><B><A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$i&sort=$sort&startMessage=$startMessage&show_more=0\">$subject</A></B></FONT></TD>\n";
+         echo "   <TD><nobr><B><input type=checkbox name=\"msg[$t]\" value=$i></B></nobr></TD>\n";
+         echo "   <TD><B>$senderName</B></TD>\n";
+         echo "   <TD><CENTER><B>$dateString</B></CENTER></TD>\n";
+         echo "   <TD><B><A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$i&sort=$sort&startMessage=$startMessage&show_more=0\">$subject</A></B></TD>\n";
       } else {
-         echo "   <TD><FONT FACE=\"Arial,Helvetica\"><nobr><input type=checkbox name=\"msg[$t]\" value=$i></nobr></FONT></TD>\n";
-         echo "   <TD><FONT FACE=\"Arial,Helvetica\">$senderName</FONT></TD>\n";
-         echo "   <TD><FONT FACE=\"Arial,Helvetica\"><CENTER>$dateString</CENTER></FONT></TD>\n";
-         echo "   <TD><FONT FACE=\"Arial,Helvetica\"><A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$i&sort=$sort&startMessage=$startMessage&show_more=0\">$subject</A></FONT></TD>\n";
+         echo "   <TD><nobr><input type=checkbox name=\"msg[$t]\" value=$i></nobr></TD>\n";
+         echo "   <TD>$senderName</TD>\n";
+         echo "   <TD><CENTER>$dateString</CENTER></TD>\n";
+         echo "   <TD><A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$i&sort=$sort&startMessage=$startMessage&show_more=0\">$subject</A></TD>\n";
       }
       echo "</TR>\n";
    }
@@ -167,26 +167,26 @@
 
       if ($startMessage < $endMessage) {
          echo "<TR BGCOLOR=\"$color[4]\"><TD>";
-         echo "<CENTER><FONT FACE=\"Arial,Helvetica\">". _("Viewing messages ") ."<B>$startMessage</B>". _(" to ") ."<B>$endMessage</B> ($numMessages total)</FONT></CENTER>\n";
+         echo "<CENTER>". _("Viewing messages ") ."<B>$startMessage</B>". _(" to ") ."<B>$endMessage</B> ($numMessages total)</CENTER>\n";
          echo "</TD></TR>\n";
       } else if ($startMessage == $endMessage) {
          echo "<TR BGCOLOR=\"$color[4]>\"TD>";
-         echo "<CENTER><FONT FACE=\"Arial,Helvetica\">". _("Viewing message ") ."<B>$startMessage</B> ($numMessages ". _("total") .")</FONT></CENTER>\n";
+         echo "<CENTER>". _("Viewing message ") ."<B>$startMessage</B> ($numMessages ". _("total") .")</CENTER>\n";
          echo "</TD></TR>\n";
       }
 
       echo "<TR BGCOLOR=\"$color[4]\"><TD>";
       if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">". _("Previous") ."</FONT></A>\n";
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">". _("Next") ."</FONT></A>\n";
+         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A>\n";
+         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
       }
       else if (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">". _("Previous") ."</FONT></A>\n";
-         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[9]\">Next</FONT>\n";
+         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A>\n";
+         echo "<FONT COLOR=\"$color[9]\">Next</FONT>\n";
       }
       else if (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
-         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[9]\">Previous</FONT>\n";
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">". _("Next") ."</FONT></A>\n";
+         echo "<FONT COLOR=\"$color[9]\">Previous</FONT>\n";
+         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
       }
       echo "</TD></TR>\n";
 
@@ -197,7 +197,7 @@
       echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=60% ALIGN=LEFT>\n";
-      echo "         <NOBR><FONT FACE=\"Arial,Helvetica\"><SMALL>". _("Move selected to:") ."</SMALL></FONT>";
+      echo "         <NOBR><SMALL>". _("Move selected to:") ."</SMALL>";
       echo "         <TT><SMALL><SELECT NAME=\"targetMailbox\">";
 
       $boxes = sqimap_mailbox_list($imapConnection, $boxes);
@@ -219,11 +219,11 @@
          }
       }
       echo "         </SELECT></SMALL></TT>";
-      echo "         <FONT FACE=\"Arial,Helvetica\"><SMALL><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"". _("Move") ."\"></SMALL></FONT></NOBR>\n";
+      echo "         <SMALL><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"". _("Move") ."\"></SMALL></NOBR>\n";
 
       echo "      </TD>\n";
       echo "      <TD WIDTH=40% ALIGN=RIGHT>\n";
-      echo "         <NOBR><FONT FACE=\"Arial,Helvetica\"><SMALL><INPUT TYPE=SUBMIT VALUE=\"". _("Delete") ."\">&nbsp;". _("checked messages") ."</SMALL></FONT></NOBR>\n";
+      echo "         <NOBR><SMALL><INPUT TYPE=SUBMIT VALUE=\"". _("Delete") ."\">&nbsp;". _("checked messages") ."</SMALL></NOBR>\n";
       echo "      </TD>";
       echo "   </TR>\n";
 
@@ -233,9 +233,9 @@
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[4]\">";
       echo "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
-      echo "   <TD WIDTH=5%><FONT FACE=\"Arial,Helvetica\"><B>&nbsp;</B></FONT></TD>";
+      echo "   <TD WIDTH=5%><B>&nbsp;</B></TD>";
       /** FROM HEADER **/
-      echo "   <TD WIDTH=25%><FONT FACE=\"Arial,Helvetica\"><B>". _("From") ."</B></FONT>";
+      echo "   <TD WIDTH=25%><B>". _("From") ."</B>";
       if ($sort == 2)
          echo "   <A HREF=\"right_main.php?sort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
       else if ($sort == 3)
@@ -243,7 +243,7 @@
       else
          echo "   <A HREF=\"right_main.php?sort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
       /** DATE HEADER **/
-      echo "   <TD WIDTH=15%><FONT FACE=\"Arial,Helvetica\"><B>". _("Date") ."</B></FONT>";
+      echo "   <TD WIDTH=15%><B>". _("Date") ."</B>";
       if ($sort == 0)
          echo "   <A HREF=\"right_main.php?sort=1&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
       else if ($sort == 1)
@@ -251,7 +251,7 @@
       else
          echo "   <A HREF=\"right_main.php?sort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
       /** SUBJECT HEADER **/
-      echo "   <TD WIDTH=%><FONT FACE=\"Arial,Helvetica\"><B>". _("Subject") ."</B></FONT>\n";
+      echo "   <TD WIDTH=%><B>". _("Subject") ."</B>\n";
       if ($sort == 4)
         echo "   <A HREF=\"right_main.php?sort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
       else if ($sort == 5)
@@ -281,16 +281,16 @@
 
       echo "<TR BGCOLOR=\"$color[4]\"><TD>";
       if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">" . _("Previous") . "</FONT></A>\n";
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">" . _("Next") . "</FONT></A>\n";
+         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Previous") . "</A>\n";
+         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Next") . "</A>\n";
       }
       else if (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">" . _("Previous") . "</FONT></A>\n";
-         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[9]\">" . _("Next") . "</FONT>\n";
+         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Previous") . "</A>\n";
+         echo "<FONT COLOR=\"$color[9]\">" . _("Next") . "</FONT>\n";
       }
       else if (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
-         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[9]\">Previous</FONT>\n";
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">" . _("Next") . "</FONT></A>\n";
+         echo "<FONT COLOR=\"$color[9]\">Previous</FONT>\n";
+         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Next") . "</A>\n";
       }
       echo "</TD></TR></TABLE>"; /** End of message-list table */
    }

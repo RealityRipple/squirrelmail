@@ -37,14 +37,14 @@
 
       if ($handle_errors == true) {
          if ($response == "NO") {
-            echo "<br><b><font face=\"arial,helvetica\" color=$color[2]>";
+            echo "<br><b><font color=$color[2]>";
             echo _("ERROR : Could not complete request.");
             echo "</b><br>";
             echo _("Reason Given: ");
             echo "$message</font><br>";
             exit;
          } else if ($response == "BAD") {
-            echo "<br><b><font face=\"arial,helvetica\" color=$color[2]>";
+            echo "<br><b><font color=$color[2]>";
             echo _("ERROR : Bad or malformed request.");
             echo "</b><br>";
             echo _("Server responded: ");
@@ -94,7 +94,7 @@
                         <table width=70% noborder bgcolor=<? echo $color[4] ?> align=center>
                            <tr>
                               <td bgcolor=<? echo $color[0] ?>>
-                                 <font face="arial,helvetica" color=<? echo $color[2] ?>>
+                                 <font color=<? echo $color[2] ?>>
                                  <center>
                                  <? echo _("ERROR") ?>
                                  </center>
@@ -103,7 +103,7 @@
                            </tr>
                            <tr>
                               <td>
-                                 <font face="arial,helvetica" color=<? echo $color[2] ?>>
+                                 <font color=<? echo $color[2] ?>>
                                  <center>
                                  <? echo _("Unknown user or password incorrect.") ?><br>
                                  <a href="login.php"><? echo _("Click here to try again") ?></a>

@@ -37,7 +37,6 @@
 //   } else {
       echo "<html><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
       displayPageHeader($color, "None");
-      echo "<FONT FACE=\"Arial,Helvetica\">";
       echo "<BR><BR><BR><CENTER><B>";
       echo _("Folder Created!");
       echo "</B><BR><BR>";
@@ -46,7 +45,7 @@
       echo _("Click here");
       echo "</A> ";
       echo _("to continue.");
-      echo "</CENTER></FONT>";
+      echo "</CENTER>";
       echo "</BODY></HTML>";
 //   }
 ?>

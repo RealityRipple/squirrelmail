@@ -155,9 +155,7 @@
       echo "<TABLE COLS=2 WIDTH=50 ALIGN=center CELLSPACING=0 BORDER=0>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
-      echo "         <FONT FACE=\"Arial,Helvetica\">";
       echo _("To:");
-      echo " </FONT>\n";
       echo "      </TD><TD WIDTH=% BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
       if ($send_to)
          echo "         <INPUT TYPE=TEXT NAME=send_to VALUE=\"$send_to\" SIZE=60><BR>";
@@ -167,7 +165,7 @@
       echo "   </TR>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
-      echo "         <FONT FACE=\"Arial,Helvetica\">"._("CC").":</FONT>\n";
+      echo _("CC:");
       echo "      </TD><TD WIDTH=% BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
       if ($send_to_cc)
          echo "         <INPUT TYPE=TEXT NAME=send_to_cc SIZE=60 VALUE=\"$send_to_cc\"><BR>";
@@ -177,7 +175,7 @@
       echo "   </TR>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
-      echo "         <FONT FACE=\"Arial,Helvetica\">BCC:</FONT>\n";
+      echo _("BCC:");
       echo "      </TD><TD WIDTH=% BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
       if ($send_to_bcc)
          echo "         <INPUT TYPE=TEXT NAME=send_to_bcc VALUE=\"$send_to_bcc\" SIZE=60><BR>";
@@ -187,9 +185,7 @@
       echo "   </TR>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
-      echo "         <FONT FACE=\"Arial,Helvetica\">";
       echo _("Subject:");
-      echo " </FONT>\n";
       echo "      </TD><TD WIDTH=% BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
       if ($reply_subj) {
          $reply_subj = str_replace("\"", "'", $reply_subj);
@@ -229,8 +225,7 @@
       // This code is for attachments
       echo "   <tr>\n";
       echo "     <TD WIDTH=50 BGCOLOR=\"$color[0]\" VALIGN=TOP ALIGN=RIGHT>\n";
-      echo "      <FONT FACE=\"Arial,Helvetica\">";
-      echo "      <SMALL><BR></SMALL>"._("Attach:")."</FONT>\n";
+      echo "      <SMALL><BR></SMALL>"._("Attach:");
       echo "      </td><td width=% ALIGN=left BGCOLOR=\"$color[0]\">\n";
       //      echo "      <INPUT TYPE=\"hidden\" name=\"MAX_FILE_SIZE\"\n";
       //      echo "      value=\"10000\">\n";
@@ -259,10 +254,9 @@
    }
 
    function showSentForm () {
-      echo "<FONT FACE=\"Arial,Helvetica\">";
       echo "<BR><BR><BR><CENTER><B>Message Sent!</B><BR><BR>";
       echo "You will be automatically forwarded.<BR>If not, <A HREF=\"right_main.php\">click here</A>";
-      echo "</CENTER></FONT>";
+      echo "</CENTER>";
    }
 
    function checkInput () {
