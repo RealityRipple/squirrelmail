@@ -117,7 +117,7 @@
       for ($g=0; $g < count($line); $g++) {
          $boxes[$g]["raw"] = $line[$g];
             
-         $mailbox = $line_lsub[$g];
+         $mailbox = trim($line_lsub[$g]);
          $dm_count = countCharInString($mailbox, $dm);
          if (substr($mailbox, -1) == $dm)
             $dm_count--;
@@ -147,7 +147,7 @@
     ******************************************************************************/
    function sqimap_mailbox_list ($imap_stream) {
       global $load_prefs_php, $prefs_php, $config_php, $data_dir, $username, $list_special_folders_first;
-      global $trash_folder, $sent_folder, $imap_server_type;
+      global $trash_folder, $sent_folder;
       global $move_to_trash, $move_to_sent;
 
       $inbox_in_list = false;
@@ -161,14 +161,9 @@
 
       /** LSUB array **/
       $inbox_subscribed = false;
-      if ($imap_server_type == "uw") {
-         fputs ($imap_stream, "a001 LSUB \"~\" \"*\"\r\n");
-      }
-      else {
-         fputs ($imap_stream, "a001 LSUB \"\" \"*\"\r\n");
-      }
+      fputs ($imap_stream, "a001 LSUB \"\" \"*\"\r\n");
       $lsub_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
-   
+
       for ($i=0;$i < count($lsub_ary); $i++) {
          $sorted_lsub_ary[$i] = find_mailbox_name($lsub_ary[$i]);
          if ($sorted_lsub_ary[$i] == "INBOX")
