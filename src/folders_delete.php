@@ -3,7 +3,6 @@
    include("../functions/strings.php");
    include("../functions/page_header.php");
    include("../functions/imap.php");
-   include("../functions/mailbox.php");
    include("../functions/array.php");
 
    include("../src/load_prefs.php");
@@ -12,31 +11,29 @@
    echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    displayPageHeader($color, "None");  
    
-   $imapConnection = loginToImapServer($username, $key, $imapServerAddress, 0);
-   getFolderList($imapConnection, $boxes);
+   $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
+   $boxes = sqimap_mailbox_list ($imapConnection);
+   $dm = sqimap_get_delimiter($imapConnection);
 
-   $dm = findMailboxDelimeter($imapConnection);
    /** lets see if we CAN move folders to the trash.. otherwise, just delete them **/
-   for ($i = 0; $i < count($boxes[$i]["UNFORMATTED"]); $i++) {
-      if ($boxes[$i]["UNFORMATTED"] == $trash_folder)
-         $tmp_trash_folder = $boxes[$i]["RAW"];
-   }
-
-   $tmpflags = getMailboxFlags($imapConnection, $tmp_trash_folder);
-   $can_move_to_trash = true;
-   for ($i = 0; $i < count($tmpflags); $i++) {
-      if (strtolower($tmpflags[$i]) == "noinferiors")
-         $can_move_to_trash = false;
+   for ($i = 0; $i < count($boxes[$i]["unformatted"]); $i++) {
+      if ($boxes[$i]["unformatted"] == $trash_folder) {
+         $can_move_to_trash = true;
+         for ($i = 0; $i < count($tmpflags); $i++) {
+            if (strtolower($tmpflags[$i]) == "noinferiors")
+               $can_move_to_trash = false;
+         }
+      }
    }
 
    /** Lets start removing the folders and messages **/
    if (($move_to_trash == true) && ($can_move_to_trash == true)) { /** if they wish to move messages to the trash **/
       /** Creates the subfolders under $trash_folder **/
       for ($i = 0; $i < count($boxes); $i++) {
-         if (($boxes[$i]["UNFORMATTED"] == $mailbox) ||
-             (substr($boxes[$i]["UNFORMATTED"], 0, strlen($mailbox . $dm)) == $mailbox . $dm)) {
-            $folderWithoutINBOX = getFolderNameMinusINBOX($boxes[$i]["UNFORMATTED"], $dm);
-            $flags = getMailboxFlags($imapConnection, $boxes[$i]["RAW"]);
+         if (($boxes[$i]["unformatted"] == $mailbox) ||
+             (substr($boxes[$i]["unformatted"], 0, strlen($mailbox . $dm)) == $mailbox . $dm)) {
+            $folderWithoutINBOX = getFolderNameMinusINBOX($boxes[$i]["unformatted"], $dm);
+            $flags = getMailboxFlags($imapConnection, $boxes[$i]["raw"]);
             for ($b = 0; $b < count($flags); $b++) {
                $type = $flags[$b];
             }
@@ -44,32 +41,32 @@
          }
       }
       for ($i = 0; $i < count($boxes); $i++) {
-         if (($boxes[$i]["UNFORMATTED"] == $mailbox) ||
-             (substr($boxes[$i]["UNFORMATTED"], 0, strlen($mailbox . $dm)) == $mailbox . $dm)) {
-            selectMailbox($imapConnection, $boxes[$i]["UNFORMATTED"], $numMessages);
-            $folder = getFolderNameMinusINBOX($boxes[$i]["UNFORMATTED"]);
+         if (($boxes[$i]["unformatted"] == $mailbox) ||
+             (substr($boxes[$i]["unformatted"], 0, strlen($mailbox . $dm)) == $mailbox . $dm)) {
+            sqimap_mailbox_create($imapConnection, $boxes[$i]["unformatted"], $numMessages);
+            $folder = $boxes[$i]["unformatted"];
 
             if ($numMessages > 0)
-               $success = copyMessages($imapConnection, 1, $numMessages, "$trash_folder" . $dm . "$folder");
+               $success = sqimap_messages_copy($imapConnection, 1, $folder);
             else
                $success = true;
 
             if ($success == true)
-               removeFolder($imapConnection, $boxes[$i]["UNFORMATTED"], $dm);
+               sqimap_mailbox_delete($imapConnection, $boxes[$i]["unformatted"]);
          }
       }
    } else { /** if they do NOT wish to move messages to the trash (or cannot)**/
       fputs($imapConnection, "1 LIST \"$mailbox\" *\n");
-      $data = imapReadData($imapConnection , "1", false, $response, $message);
+      $data = sqimap_read_data($imapConnection, "1", false, $response, $message);
       while (substr($data[0], strpos($data[0], " ")+1, 4) == "LIST") {
          for ($i = 0; $i < count($boxes); $i++) {
-            if (($boxes[$i]["UNFORMATTED"] == $mailbox) ||
-                (substr($boxes[$i]["UNFORMATTED"], 0, strlen($mailbox . $dm)) == $mailbox . $dm)) {
-               removeFolder($imapConnection, $boxes[$i]["UNFORMATTED"], $dm);
+            if (($boxes[$i]["unformatted"] == $mailbox) ||
+                (substr($boxes[$i]["unformatted"], 0, strlen($mailbox . $dm)) == $mailbox . $dm)) {
+               sqimap_mailbox_delete($imapConnection, $boxes[$i]["unformatted"], $dm);
             }
          }
          fputs($imapConnection, "1 LIST \"$mailbox\" *\n");
-         $data = imapReadData($imapConnection , "1", false, $response, $message);
+         $data = sqimap_read_data($imapConnection , "1", false, $response, $message);
       }
    }
 

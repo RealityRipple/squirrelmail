@@ -11,7 +11,6 @@
    include("../functions/strings.php");
    include("../functions/page_header.php");
    include("../functions/imap.php");
-   include("../functions/mailbox.php");
    include("../functions/date.php");
    include("../functions/mime.php");
    include("../functions/smtp.php");
@@ -20,7 +19,7 @@
    include("../src/load_prefs.php");
 
    echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
-   $imapConnection = loginToImapServer($username, $key, $imapServerAddress, 0);
+   $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
    displayPageHeader($color, "None");
 
    // This function is used when not sending or adding attachments
@@ -29,8 +28,8 @@
          $reply_id, $send_to, $send_to_cc, $mailbox;
 
       if ($forward_id) {
-         selectMailbox($imapConnection, $mailbox, $numMessages);
-         $msg = fetchMessage($imapConnection, $forward_id, $mailbox);
+         sqimap_mailbox_select($imapConnection, $mailbox);
+         $msg = sqimap_get_message($imapConnection, $forward_id, $mailbox);
          
          if (containsType($msg, "text", "html", $ent_num)) {
             $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"]);
@@ -65,8 +64,8 @@
       }
       
       if ($reply_id) {
-         selectMailbox($imapConnection, $mailbox, $numMessages);
-         $msg = fetchMessage($imapConnection, $reply_id, $mailbox);
+         sqimap_mailbox_select($imapConnection, $mailbox);
+         $msg = sqimap_get_message($imapConnection, $reply_id, $mailbox);
          
          if (containsType($msg, "text", "html", $ent_num)) {
             $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"], false);
@@ -98,10 +97,7 @@
          }
       }
       
-      // Add some decoding information
-      $send_to = encodeEmailAddr($send_to);
-      // parses the field and returns only the email address
-      $send_to = decodeEmailAddr($send_to);
+      $send_to = sqimap_find_displayable_name($send_to);
       
       $send_to = strtolower($send_to);
       $send_to = ereg_replace("\"", "", $send_to);
@@ -118,14 +114,9 @@
             if ($sendcc[$i] == "")
                continue;
             
-            $sendcc[$i] = encodeEmailAddr($sendcc[$i]);
-            $sendcc[$i] = decodeEmailAddr($sendcc[$i]);
-            
-            $whofrom = encodeEmailAddr($msg["HEADER"]["FROM"]);
-            $whofrom = decodeEmailAddr($whofrom);
-            
-            $whoreplyto = encodeEmailAddr($msg["HEADER"]["REPLYTO"]);
-            $whoreplyto = decodeEmailAddr($whoreplyto);
+            $sendcc[$i] = sqimap_find_displayable_name($sendcc[$i]);
+            $whofrom = sqimap_find_displayable_name($msg["HEADER"]["FROM"]);
+            $whoreplyto = sqimap_find_email($msg["HEADER"]["REPLYTO"]);
          
             if ((strtolower(trim($sendcc[$i])) != strtolower(trim($whofrom))) &&
                 (strtolower(trim($sendcc[$i])) != strtolower(trim($whoreplyto))) &&
@@ -212,7 +203,7 @@
       echo "   <TR>\n";
       echo "      <TD BGCOLOR=\"$color[4]\" COLSPAN=2>\n";
       if ($use_signature == true)
-         echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>". $body . "\n\n-- \n".$signature."</TEXTAREA><BR>";
+         echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>". $body . "\n\n".$signature."</TEXTAREA><BR>";
       else
          echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>".$body."</TEXTAREA><BR>\n";
       echo "      </TD>\n";

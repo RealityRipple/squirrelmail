@@ -1,6 +1,5 @@
 <?
    include("../config/config.php");
-   include("../functions/mailbox.php");
    include("../functions/strings.php");
    include("../functions/page_header.php");
    include("../functions/display_messages.php");
@@ -10,8 +9,8 @@
    include("../src/load_prefs.php");
 
 
-   $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
-   getFolderList($imapConnection, $boxes);
+   $imapConnection = sqimap_login($username, $key, $imapServerAddress);
+   $boxes = sqimap_mailbox_list($imapConnection, $boxes);
    fputs($imapConnection, "1 logout\n");
 
    echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";

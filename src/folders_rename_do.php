@@ -3,12 +3,11 @@
    include("../functions/strings.php");
    include("../functions/page_header.php");
    include("../functions/imap.php");
-   include("../functions/mailbox.php");
 
    include("../src/load_prefs.php");
 
-   $imapConnection = loginToImapServer($username, $key, $imapServerAddress, 0);
-   $dm = findMailboxDelimeter($imapConnection);
+   $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
+   $dm = sqimap_get_delimiter($imapConnection);
 
    if (strpos($orig, $dm))
       $old_dir = substr($orig, 0, strrpos($orig, $dm));
@@ -21,12 +20,13 @@
       $newone = "$new_name";
 
    fputs ($imapConnection, ". RENAME \"$orig\" \"$newone\"\n");
-   $data = imapReadData($imapConnection, ".", true, $a, $b);
+   $data = sqimap_read_data($imapConnection, ".", true, $a, $b);
 
    // Renaming a folder doesn't renames the folder but leaves you unsubscribed
    //    at least on Cyrus IMAP servers.
+   fputs ($imapConnection, "sub UNSUBSCRIBE \"$orig\"\n");
    fputs ($imapConnection, "sub SUBSCRIBE \"$newone\"\n");
-   $data = imapReadData($imapConnection, "sub", true, $a, $b);
+   $data = sqimap_read_data($imapConnection, "sub", true, $a, $b);
 
    /** Log out this session **/
    fputs($imapConnection, "1 logout");

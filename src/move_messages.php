@@ -1,6 +1,5 @@
 <?
    include("../config/config.php");
-   include("../functions/mailbox.php");
    include("../functions/strings.php");
    include("../functions/page_header.php");
    include("../functions/display_messages.php");
@@ -32,10 +31,8 @@
       }
    }
 
-   $imapConnection = loginToImapServer($username, $key, $imapServerAddress, 0);
-
-   // switch to the mailbox, and get the number of messages in it.
-   selectMailbox($imapConnection, $mailbox, $numMessages, $imapServerAddress);
+   $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
+   sqimap_mailbox_select($imapConnection, $mailbox);
 
    // If the delete button was pressed, the moveButton variable will not be set.
    if (!$moveButton) {
@@ -49,7 +46,7 @@
          //    loop because we never increment j.  so check to see if msg[0] is set or not to fix this.
          while ($j < count($msg)) {
             if ($msg[$i]) {
-               deleteMessages($imapConnection, $msg[$i], $msg[$i], $numMessages, $trash_folder, $move_to_trash, $auto_expunge, $mailbox);
+               sqimap_messages_delete($imapConnection, $msg[$i], $msg[$i], $mailbox);
                $j++;
             }
             $i++;
@@ -70,15 +67,15 @@
          while ($j < count($msg)) {
             if ($msg[$i]) {
                /** check if they would like to move it to the trash folder or not */
-               $success = copyMessages($imapConnection, $msg[$i], $msg[$i], $targetMailbox);
+               $success = sqimap_messages_copy($imapConnection, $msg[$i], $msg[$i], $targetMailbox);
                if ($success == true)
-                  setMessageFlag($imapConnection, $msg[$i], $msg[$i], "Deleted");
+                  sqimap_messages_flag($imapConnection, $msg[$i], $msg[$i], "Deleted");
                $j++;
             }
             $i++;
          }
          if ($auto_expunge == true)
-            expungeBox($imapConnection, $mailbox, $numMessages);
+            sqimap_mailbox_expunge($imapConnection, $mailbox, $numMessages);
 
          messages_moved_message($mailbox, $sort, $startMessage, $color);
       } else {
@@ -87,7 +84,7 @@
    }
 
    // Log out this session
-   fputs($imapConnection, "1 logout");
+   sqimap_logout($imapConnection);
 
 ?>
 </BODY></HTML>

@@ -4,17 +4,16 @@
    include("../functions/page_header.php");
    include("../functions/imap.php");
    include("../functions/mime.php");
-   include("../functions/mailbox.php");
    include("../functions/date.php");
 
    include("../src/load_prefs.php");
 
-   $imapConnection = loginToImapServer($username, $key, $imapServerAddress, 0);
-   selectMailbox($imapConnection, $mailbox, $numMessages);
+   $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
+   sqimap_mailbox_select($imapConnection, $mailbox);
 
    // $message contains all information about the message
    // including header and body
-   $message = fetchMessage($imapConnection, $passed_id, $mailbox);
+   $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
 
    echo "<HTML>";
    echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";

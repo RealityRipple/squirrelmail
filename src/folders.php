@@ -3,7 +3,6 @@
    include("../functions/strings.php");
    include("../functions/page_header.php");
    include("../functions/imap.php");
-   include("../functions/mailbox.php");
    include("../functions/array.php");
 
    include("../src/load_prefs.php");
@@ -20,8 +19,8 @@
    echo "   </TD></TR>\n";
    echo "</TABLE>\n";
 
-   $imapConnection = loginToImapServer($username, $key, $imapServerAddress, 0);
-   getFolderList($imapConnection, $boxes);
+   $imapConnection = sqimap_login ($username, $key, $imapServerAddress, 0);
+   $boxes = sqimap_mailbox_list($imapConnection);
 
    /** DELETING FOLDERS **/
    echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER>\n";
@@ -34,15 +33,15 @@
    for ($i = 0; $i < count($boxes); $i++) {
       $use_folder = true;
       for ($p = 0; $p < count($special_folders); $p++) {
-         if ($boxes[$i]["UNFORMATTED"] == $special_folders[$p]) {
+         if ($boxes[$i]["unformatted"] == $special_folders[$p]) {
             $use_folder = false;
-         } else if (substr($boxes[$i]["UNFORMATTED"], 0, strlen($trash_folder)) == $trash_folder) {
+         } else if (substr($boxes[$i]["unformatted"], 0, strlen($trash_folder)) == $trash_folder) {
             $use_folder = false;
          }
       }
       if ($use_folder == true) {
-         $box = $boxes[$i]["UNFORMATTED"];
-         $box2 = $boxes[$i]["FORMATTED"];
+         $box = $boxes[$i]["unformatted"];
+         $box2 = replace_spaces($boxes[$i]["formatted"]);
          echo "         <OPTION VALUE=\"$box\">$box2\n";
       }
    }
@@ -70,22 +69,23 @@
       echo "<OPTION>[ None ]\n";
 
    for ($i = 0; $i < count($boxes); $i++) {
-      if (($boxes[$i]["UNFORMATTED"] == $special_folders[0]) && ($default_sub_of_inbox == true)) {
-         $box = $boxes[$i]["UNFORMATTED"];
-         $box2 = $boxes[$i]["FORMATTED"];
+      if (($boxes[$i]["unformatted"] == $special_folders[0]) && ($default_sub_of_inbox == true)) {
+         $box = $boxes[$i]["unformatted"];
+         $box2 = replace_spaces($boxes[$i]["formatted"]);
          echo "<OPTION SELECTED VALUE=\"$box\">$box2\n";
       } else {
-         $box = $boxes[$i]["UNFORMATTED"];
-         $box2 = $boxes[$i]["FORMATTED"];
+         $box = $boxes[$i]["unformatted"];
+         $box2 = replace_spaces($boxes[$i]["formatted"]);
          echo "<OPTION VALUE=\"$box\">$box2\n";
       }
    }
    echo "</SELECT></TT><BR>\n";
    echo "<FONT FACE=\"Arial,Helvetica\">";
-   if ($show_contain_subfolders_option)
+   if ($show_contain_subfolders_option) {
       echo "<INPUT TYPE=CHECKBOX NAME=\"contain_subs\"><FONT FACE=\"Arial,Helvetica\"> &nbsp;";
       echo _("Let this folder contain subfolders");
       echo "</FONT><BR>";
+   }   
    echo "<INPUT TYPE=SUBMIT VALUE=Create></FONT>\n";
    echo "</FORM><BR></TD></TR><BR>\n";
 
@@ -99,15 +99,15 @@
    for ($i = 0; $i < count($boxes); $i++) {
       $use_folder = true;
       for ($p = 0; $p < count($special_folders); $p++) {
-         if ($boxes[$i]["UNFORMATTED"] == $special_folders[$p]) {
+         if ($boxes[$i]["unformatted"] == $special_folders[$p]) {
             $use_folder = false;
-         } else if (substr($boxes[$i]["UNFORMATTED"], 0, strlen($trash_folder)) == $trash_folder) {
+         } else if (substr($boxes[$i]["unformatted"], 0, strlen($trash_folder)) == $trash_folder) {
             $use_folder = false;
          }
       }
       if ($use_folder == true) {
-         $box = $boxes[$i]["UNFORMATTED"];
-         $box2 = $boxes[$i]["FORMATTED"];
+         $box = $boxes[$i]["unformatted"];
+         $box2 = replace_spaces($boxes[$i]["formatted"]);
          echo "         <OPTION VALUE=\"$box\">$box2\n";
       }
    }
