@@ -140,7 +140,6 @@
            '</center>'.
            '</form>';
 
-       sqimap_logout($imapConnection);
    }
 
    if (! isset($action) || $action != 'spam') {
