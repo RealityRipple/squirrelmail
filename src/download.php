@@ -139,17 +139,25 @@ if (!$filename) {
 if (strlen($filename) < 1) {
     if ($type1 == 'plain' && $type0 == 'text') {
         $suffix = 'txt';
+	$filename = $header->subject . '.txt';
     } else if ($type1 == 'richtext' && $type0 == 'text') {
         $suffix = 'rtf';
+	$filename = $header->subject . '.rtf';
     } else if ($type1 == 'postscript' && $type0 == 'application') {
         $suffix = 'ps';
+	$filename = $header->subject . '.ps';
     } else if ($type1 == 'rfc822' && $type0 == 'message') {
         $suffix = 'eml';
+	$filename = $header->subject . '.msg';
     } else {
         $suffix = $type1;
     }
 
+    if (strlen($filename) < 1) {
     $filename = "untitled$passed_ent_id.$suffix";
+    } else {
+    $filename = "$filename.$suffix";
+    }
 }
 
 /*
