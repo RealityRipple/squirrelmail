@@ -235,7 +235,15 @@ function load_optpage_data_display() {
 
     $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'editor_size',
-        'caption' => _("Size of Editor Window"),
+        'caption' => _("Width of Editor Window"),
+        'type'    => SMOPT_TYPE_INTEGER,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'size'    => SMOPT_SIZE_TINY
+    );
+
+    $optvals[SMOPT_GRP_MESSAGE][] = array(
+        'name'    => 'editor_height',
+        'caption' => _("Height of Editor Window"),
         'type'    => SMOPT_TYPE_INTEGER,
         'refresh' => SMOPT_REFRESH_NONE,
         'size'    => SMOPT_SIZE_TINY

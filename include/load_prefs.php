@@ -143,6 +143,7 @@ if ($left_size == '') {
 }
 
 $editor_size = getPref($data_dir, $username, 'editor_size', 76 );
+$editor_height = getPref($data_dir, $username, 'editor_height', 20 );
 $use_signature = getPref($data_dir, $username, 'use_signature', SMPREF_OFF );
 $prefix_sig = getPref($data_dir, $username, 'prefix_sig');
 
