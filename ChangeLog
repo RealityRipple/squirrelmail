@@ -1,361 +1,411 @@
-Version 1.2.0 -- DEVELOPMENT
-----------------------------
+****************************************************************
+*** Squirrelmail Development Series 1.1 and 1.1 Pre-Releases ***
+****************************************************************
+
+Version 1.2.0-rc3 -- December 2, 2001
+-------------------------------------
+  - Speed improvements and optimizations on much of the code
+  - Comments added, formatting cleaned up for much of the code
+  - Several plugins integrated into the Squirrelmail core
+    (focus change, attachment common, printer friendly, etc)
+  - Several plugins added as "Official Plugins" to the main
+    Squirrelmail distribution
+  - First half of a rewrite of the option pages code
+  - The Paginator!!!
+  - Other stuff that I don't recall (developers, please fill this in!) 
 
 Version 1.1.3 -- (never really released)
 ----------------------------
-- Added major speed improvements to IMAP functions by our friends at XS4ALL
-- Fixed MOTD
-- Fixed multipart/alternative messages
-- Updated Dutch translation
-- Added Indonesian translation
-- Added Portuguese (Portugal) translation
-- Added language aliasing
-- Added Turkish translation
+  - Added major speed improvements to IMAP functions by our friends at XS4ALL
+  - Fixed MOTD
+  - Fixed multipart/alternative messages
+  - Updated Dutch translation
+  - Added Indonesian translation
+  - Added Portuguese (Portugal) translation
+  - Added language aliasing
+  - Added Turkish translation
 
 Version 1.1.2 -- May 21, 2001 
 -----------------------------
-- Many bugs squashed
-- Several UI tweaks and improvements
-- Added option (3 -> 14 in conf.pl) to auto create sent and trash folders.
-- Updated Czech translation
-- Support for multiple identities
-- Support for Russian Apache removed. It is now deemed easier to just turn 
-  off Charset Recoding in the Russian Apache config. See doc/README.russian_apache
+  - Many bugs squashed
+  - Several UI tweaks and improvements
+  - Added option (3 -> 14 in conf.pl) to auto create sent and trash folders.
+  - Updated Czech translation
+  - Support for multiple identities
+  - Support for Russian Apache removed. It is now deemed easier to just
+    turn off Charset Recoding in the Russian Apache config. See the file 
+    doc/README.russian_apache
 
 Version 1.1.1 -- April 30, 2001
 -------------------------------
-- Added built-in support for gettext if compiled support isn't available
-- Made validate.php include a few more standard things
-- Corrected a bug when sending an email properly
+  - Added built-in support for gettext if compiled support isn't available
+  - Made validate.php include a few more standard things
+  - Corrected a bug when sending an email properly
 
 Version 1.1.0 -- April 21, 2000 
 -------------------------------
-- Added option to have signout page redirect to another page (patch from Scott Bronson)
-    This can be configured in conf.pl (Org Prefs)
-- Much improved SMTP error handling (patch from Jeff Evans)
-- Preferences are now cached instead of read in every page load.
-- Improved URL parser
-- Added ability to read HTML messages by default instead of plain text (Display Options)
-- Added authenticated SMTP server support (configure in conf.pl)
-- Rewrote attachment handling code in compose.php
-- If aliases are typed in To, Cc, or Bcc, they are automatically looked up in
+  - Added option to have signout page redirect to another page (patch from
+    Scott Bronson) This can be configured in conf.pl (Org Prefs)
+  - Much improved SMTP error handling (patch from Jeff Evans)
+  - Preferences are now cached instead of read in every page load.
+  - Improved URL parser
+  - Added ability to read HTML messages by default instead of plain text
+    (Display Options)
+  - Added authenticated SMTP server support (configure in conf.pl)
+  - Rewrote attachment handling code in compose.php
+  - If aliases are typed in To, Cc, or Bcc, they are automatically looked up
     in the addressbook and converted to the associated addresses.
-- Added collapseable folder listing (an option that can be turned on in Folder Options)
-- Added alternating row colors to improve interface (Display Options)
+  - Added collapseable folder listing (an option that can be turned on in
+    Folder Options)
+  - Added alternating row colors to improve interface (Display Options)
 
 
+**************************************
+*** Squirrelmail Stable Series 1.0 ***
+**************************************
 
 Version 1.0.6 -- April 19, 2001
 -------------------------------
-- Reworked validation for each page.  It's now standardized in validate.php
-- Fixed login bug that resulted from 1.0.5 security updates
-- Fixed plugin incompatibilities that were introduced in 1.0.5
-- Added more security checking to preference saving/loading
-- Updated German translation (thanks to Ronald Bauerschmidt <rb@debian.org>)
-- Updated Finnish help files
+  - Reworked validation for each page.  It's now standardized in validate.php
+  - Fixed login bug that resulted from 1.0.5 security updates
+  - Fixed plugin incompatibilities that were introduced in 1.0.5
+  - Added more security checking to preference saving/loading
+  - Updated German translation (thanks to Ronald Bauerschmidt <rb@debian.org>)
+  - Updated Finnish help files
 
 Version 1.0.5 -- April 17, 2001 
 -------------------------------
-- MAJOR security issues addressed.  Please upgrade as soon as possible.
-- Downloading attachments should work better due to a tip by Ray Black III.
-- Fixed bug with drop-down folder list not containing INBOX
-- Added Swedish help files Teemu Junnila <teejun@vallcom.com>
-- Added Italian help files Antonetti Roberto <antonr@piceniaweb.com>
-
+  - MAJOR security issues addressed.  Please upgrade as soon as possible.
+  - Downloading attachments should work better due to a tip by Ray Black III.
+  - Fixed bug with drop-down folder list not containing INBOX
+  - Added Swedish help files Teemu Junnila <teejun@vallcom.com>
+  - Added Italian help files Antonetti Roberto <antonr@piceniaweb.com>
+  
 Version 1.0.4 -- April 9, 2001 
 ------------------------------
-- Fixed some bugs with folder creation
-- Security fix for UW IMAP server to disallow folder paths outside of $folder_prefix
-- Some problems with header encoding/decoding fixed
-- Made subject column take up whatever width is available
-- Added bcc to html addressbook search
+  - Fixed some bugs with folder creation
+  - Security fix for UW IMAP server to disallow folder paths outside of
+    $folder_prefix
+  - Some problems with header encoding/decoding fixed
+  - Made subject column take up whatever width is available
+  - Added bcc to html addressbook search
 
 Version 1.0.3 -- March 9, 2001 
 ------------------------------
-- Many i18n enhancements/fixes
-- Fixed bug with default theme path being set incorrectly
-- Fixed problem when sending/forwarding multiple attachments
-- Made folder drop-down list consistant in look to the other drop-downs
-- Fixed problem where some attachment filenames would not be displayed
-- Added Finnish help files by Teemu Junnila <teejun@vallcom.com>
-- Updated Norwegian translation
-- Updated Brazillian Portuguise translation
+  - Many i18n enhancements/fixes
+  - Fixed bug with default theme path being set incorrectly
+  - Fixed problem when sending/forwarding multiple attachments
+  - Made folder drop-down list consistant in look to the other drop-downs
+  - Fixed problem where some attachment filenames would not be displayed
+  - Added Finnish help files by Teemu Junnila <teejun@vallcom.com>
+  - Updated Norwegian translation
+  - Updated Brazillian Portuguise translation
 
 Version 1.0.2 -- February 8, 2001 
 ---------------------------------
-- Added a workaround for RedHat's 4.0.4pl1-3 binary package  (It's also 
-  the same workaround for Konqueror and other PHP installations?)
-- Select All works through the search
-- Better escaped string handling from POST variables
-- Many more code cleanups and optimizations
-- Added Hungarian translation by Teemu Junnila <teejun@vallcom.com>
-- Added Icelandic translation by Karl Heiðar" <karlh@macho.is>
-- Updated Taiwan translation
-- Updated Sweedish translation
-- Updated Finnish translation
+  - Added a workaround for RedHat's 4.0.4pl1-3 binary package  (It's also 
+    the same workaround for Konqueror and other PHP installations?)
+  - Select All works through the search
+  - Better escaped string handling from POST variables
+  - Many more code cleanups and optimizations
+  - Added Hungarian translation by Teemu Junnila <teejun@vallcom.com>
+  - Added Icelandic translation by Karl Heiðar" <karlh@macho.is>
+  - Updated Taiwan translation
+  - Updated Sweedish translation
+  - Updated Finnish translation
 
 Version 1.0.1 -- February 1, 2001 
 ---------------------------------
-- Improved the way sqimap_read_data() is handled
-- Sped up "no sorting" even more 
-- Fixed problems with sending messages
-- Fixed some pass-by-reference calls that caused problems with newer PHP versions
-- Fixed bug that didn't display last folder subscribed to
-- Removed requirement of PHP 4.0.1 for array_unique() function
-- Removed unnecessary echo statements by breaking out of PHP
-- Changed evaluation method from using " to ' for speed improvements
-- If no plugin array set in config.php, now handled correctly
-- If subject is > 55 chars, trims it and puts "..." in message list
-- Hundreds of minor changes to remove all verbose PHP warning messages
+  - Improved the way sqimap_read_data() is handled
+  - Sped up "no sorting" even more 
+  - Fixed problems with sending messages
+  - Fixed some pass-by-reference calls that caused problems with newer
+    PHP versions
+  - Fixed bug that didn't display last folder subscribed to
+  - Removed requirement of PHP 4.0.1 for array_unique() function
+  - Removed unnecessary echo statements by breaking out of PHP
+  - Changed evaluation method from using " to ' for speed improvements
+  - If no plugin array set in config.php, now handled correctly
+  - If subject is > 55 chars, trims it and puts "..." in message list
+  - Hundreds of minor changes to remove all verbose PHP warning messages
 
 Version 1.0 -- January 30, 2001 
 -------------------------------
-- Updated config_default.php to include attachment_common plugin (now in distribution)
-- A few minor speed improvements
-- Fixed problems in sqimap_read_body(), made it more reliable
-- Added French translation of help files by  gore K <gore_k@ymca-cepiere.org>
-- Added Finnish translation by Teemu Junnila <teejun@vallcom.com>
-- Updated Sweedish translation
-- Updated Russian translation
+  - Updated config_default.php to include attachment_common plugin
+    (now in distribution)
+  - A few minor speed improvements
+  - Fixed problems in sqimap_read_body(), made it more reliable
+  - Added French translation of help files by  gore K <gore_k@ymca-cepiere.org>
+  - Added Finnish translation by Teemu Junnila <teejun@vallcom.com>
+  - Updated Sweedish translation
+  - Updated Russian translation
+
+
+********************************************************
+*** Squirrelmail Development Series 1.0 Pre-Releases ***
+********************************************************
 
 Version 1.0pre3 -- January 22, 2001 
 -----------------------------------
-- Fixed some "Select All" bugs
-- Finally fixed the IE/SSL download problem!!
-- Added Danish translation by Claus Rasmussen <claus@webclaus.com>
-- Updated Spanish translation
-- Updated Polish translation
-- Updated Taiwan translation
-- Updated Czech translation
-- Updated Korean translation
+  - Fixed some "Select All" bugs
+  - Finally fixed the IE/SSL download problem!!
+  - Added Danish translation by Claus Rasmussen <claus@webclaus.com>
+  - Updated Spanish translation
+  - Updated Polish translation
+  - Updated Taiwan translation
+  - Updated Czech translation
+  - Updated Korean translation
 
 Version 1.0pre2 -- January 15, 2001 
 -----------------------------------
-- A number of security fixes
-- Replaced error messages with better, formatted, and meaningful messages.
-- Fixed "reply all" so that it works intelligently now
-- Made deleted (but not expunged) messages easier to detect (only if $auto_expunge = false)
-- Fixed bug that didn't display size correctly in search results
-- Major memory management and speed improvements with downloading of attachments
-- Made $auto_expunge variable actually do something
-- Fixed bug that didn't display login failure message
-- Fixed minor bug in sqimap_mailbox_list
-- Added sqimap_capability function to check capabilities of server.
-- Rewrote sqimap_get_delim to use NAMESPACE capability (if available) to get delimiter.
-- Added Catalan translation of Help documents by Josep Sanz <jsanz@fa.upc.es>
-- Added Taiwan translation by "ching" <ching@kiwa.com.tw>
+  - A number of security fixes
+  - Replaced error messages with better, formatted, and meaningful messages.
+  - Fixed "reply all" so that it works intelligently now
+  - Made deleted (but not expunged) messages easier to detect (only if
+    $auto_expunge = false)
+  - Fixed bug that didn't display size correctly in search results
+  - Major memory management and speed improvements with downloading of
+    attachments
+  - Made $auto_expunge variable actually do something
+  - Fixed bug that didn't display login failure message
+  - Fixed minor bug in sqimap_mailbox_list
+  - Added sqimap_capability function to check capabilities of server.
+  - Rewrote sqimap_get_delim to use NAMESPACE capability (if available) to
+    get delimiter.
+  - Added Catalan translation of Help documents by Josep Sanz <jsanz@fa.upc.es>
+  - Added Taiwan translation by "ching" <ching@kiwa.com.tw>
 
 Version 1.0pre1 -- December 14, 2000 
 ------------------------------------
-- Fixed bug in sending messages with a blank line with a "."
-- Folder displays have been changed to be more readable in drop-down lists
-- For security, login verification happens, then we're redirected to webmail.php
-- Folder sorting now case insensative
-- added config option to set IMAP folder delimiter rather than always detecting it
-- Made session cookie parameter use PHP's settings rather than making assumptions
-- Select/Deslect all implemented using only HTML (not Javascript)
-- Fixed default charset that is sent with outbound messages (now user's preferred charset)
-- Sort method saving now transparent to user, and saves between sessions
-- Now replacing all \n with \r\n before sending the message.
-- Added sorting option for NO sorting.. 10000 times faster!
-- Using <pre> tags for viewing message body instead of <tt> and &nbsp;
-- Added redirection from subdirectories to login page
-- Attachments are shown in message index (shown as a "+")
-- Updated attachment plugin support and passing values to hooks (see plugins.txt)
-- Added file and message size in many locations
-- Made message index order customizable (from, subject, date) can be (date, from, subject)
-- Fixed some security problems with uploading attachments
-- When reading, attachments look better and have a better plugin interface
-- Some functions now pass values by reference to save on memory
-- Added Catalan translation from Josep Sanz <jsanz@fa.upc.es>
-- Added Serbian translation from Boris Manojlovic <steki@verat.net>
-- Added Polish translation of Help from Krystian Kanabrodzki <krys@voruta.eu.org>
+  - Fixed bug in sending messages with a blank line with a "."
+  - Folder displays have been changed to be more readable in drop-down lists
+  - For security, login verification happens, then we're redirected to
+    webmail.php
+  - Folder sorting now case insensative
+  - added config option to set IMAP folder delimiter rather than always
+    detecting it
+  - Made session cookie parameter use PHP's settings rather than making
+    assumptions
+  - Select/Deselect all implemented using only HTML (not Javascript)
+  - Fixed default charset that is sent with outbound messages (now user's
+    preferred charset)
+  - Sort method saving now transparent to user, and saves between sessions
+  - Now replacing all \n with \r\n before sending the message.
+  - Added sorting option for NO sorting.. 10000 times faster!
+  - Using <pre> tags for viewing message body instead of <tt> and &nbsp;
+  - Added redirection from subdirectories to login page
+  - Attachments are shown in message index (shown as a "+")
+  - Updated attachment plugin support and passing values to hooks (see
+    plugins.txt)
+  - Added file and message size in many locations
+  - Made message index order customizable (from, subject, date) can be (date,
+    from, subject)
+  - Fixed some security problems with uploading attachments
+  - When reading, attachments look better and have a better plugin interface
+  - Some functions now pass values by reference to save on memory
+  - Added Catalan translation from Josep Sanz <jsanz@fa.upc.es>
+  - Added Serbian translation from Boris Manojlovic <steki@verat.net>
+  - Added Polish translation of Help from Krystian Kanabrodzki
+    <krys@voruta.eu.org>
 
 
+*****************************************
+*** Squirrelmail 0.5 and Pre-Releases ***
+*****************************************
 
 Version 0.5 -- September 25, 2000 
 ---------------------------------
-- Fixed some problems with downloading attachments in IE
-- If no date is set in header, we take internal date of the imap server
-- Fixed some lingering bugs in mime parsing 
-- Searching specifies CHARSET option
-- Security fixes
-- Fixed hyperlink rendering problems
+  - Fixed some problems with downloading attachments in IE
+  - If no date is set in header, we take internal date of the imap server
+  - Fixed some lingering bugs in mime parsing 
+  - Searching specifies CHARSET option
+  - Security fixes
+  - Fixed hyperlink rendering problems
 
 Version 0.5pre2 -- September 6, 2000 
 ------------------------------------
-- Added quite a few new themes
-- Fixed double folder problem on some servers
-- Using encryption for passwords
-- Added a patch from Bill Thousand to allow easier virtual domains
-- Security updates with attachments
-- Added more hooks for plugins, updated plugin.txt
-- Improved HTML address book
-- Fixed bugs in parsing email addresses in smtp.php
-- Applied fixes for Courier IMAP server (by Andreas Dahl)
-- Fixed some buggy IMAP handling
-- Improved word wrapping
-- Fixed bugs with adding and not adding backslashes
-- Made message highlighting case insensative
-- Added Korean translation from Jong-II Kim <aporie@netian.com>
-- Added Italian translation from Aldo Moresco <moresco@idcm.it>
-- Added French translation from Ali Nedjimi <lrdfrx@club-internet.fr>
+  - Added quite a few new themes
+  - Fixed double folder problem on some servers
+  - Using encryption for passwords
+  - Added a patch from Bill Thousand to allow easier virtual domains
+  - Security updates with attachments
+  - Added more hooks for plugins, updated plugin.txt
+  - Improved HTML address book
+  - Fixed bugs in parsing email addresses in smtp.php
+  - Applied fixes for Courier IMAP server (by Andreas Dahl)
+  - Fixed some buggy IMAP handling
+  - Improved word wrapping
+  - Fixed bugs with adding and not adding backslashes
+  - Made message highlighting case insensative
+  - Added Korean translation from Jong-II Kim <aporie@netian.com>
+  - Added Italian translation from Aldo Moresco <moresco@idcm.it>
+  - Added French translation from Ali Nedjimi <lrdfrx@club-internet.fr>
 
 Version 0.5pre1 -- August 9, 2000 
 ---------------------------------
-- Searching folders functionality added 
-- Date display now is similar to Netscape Messenger
-- Many bugs have been reported to the list, and been squashed
-- Help system developed 
-- Folder list now shows configurable details about messages
-- It is now possible to select multiple subscribes/unsubscribes
-- Removed a bunch of annoying "success" screens, improved navigation
-- Better IMAP session handling
-- Redid the options section and split it into different parts
-- Added "view all headers" option when reading a message
-- In-Reply-To and References headers are inserted when replying to a message.
-- Changed how attachments are displayed and handled
-- Rewrote MIME support from scratch, optomizing it an unbelievable amount
-- Added support for message highlighting
-- Moved Address and Send buttons on Compose form for easier access 
-- Added Polish translation from Lukasz Klimek <casa@LO.Pila.PL>
-- Added Swedish translation from Tobias Ekbom
-- Added Brazilian Portuguse translation from Henrique Moura
-- Added Dutch translation from Arjen Halma
+  - Searching folders functionality added 
+  - Date display now is similar to Netscape Messenger
+  - Many bugs have been reported to the list, and been squashed
+  - Help system developed 
+  - Folder list now shows configurable details about messages
+  - It is now possible to select multiple subscribes/unsubscribes
+  - Removed a bunch of annoying "success" screens, improved navigation
+  - Better IMAP session handling
+  - Redid the options section and split it into different parts
+  - Added "view all headers" option when reading a message
+  - In-Reply-To and References headers are inserted when replying to a message.
+  - Changed how attachments are displayed and handled
+  - Rewrote MIME support from scratch, optomizing it an unbelievable amount
+  - Added support for message highlighting
+  - Moved Address and Send buttons on Compose form for easier access 
+  - Added Polish translation from Lukasz Klimek <casa@LO.Pila.PL>
+  - Added Swedish translation from Tobias Ekbom
+  - Added Brazilian Portuguse translation from Henrique Moura
+  - Added Dutch translation from Arjen Halma
 
 
+*****************************************
+*** Squirrelmail 0.4 and Pre-Releases ***
+*****************************************
 
 Version 0.4 -- May 15, 2000 
 ---------------------------
-- If subject is blank, displays "(no subject)"
-- Fixed a few minor bugs and typos reported to list
-- Changed <? to <?php in a few places
+  - If subject is blank, displays "(no subject)"
+  - Fixed a few minor bugs and typos reported to list
+  - Changed <? to <?php in a few places
 
 Version 0.4pre2 -- May 5, 2000
 ------------------------------
-- Replying sets the "Answered" flag on the original message
-- When message is sent, it sends you to the folder you were looking at.
-- HTML based address book search
-- Made folder listing look first at subscribed folders, making it
-     faster, even if you don't have $folder_prefix set.
-- Fixed some bugs with default sent and trash folders
-- Fixed some bugs with folder manipulating
+  - Replying sets the "Answered" flag on the original message
+  - When message is sent, it sends you to the folder you were looking at.
+  - HTML based address book search
+  - Made folder listing look first at subscribed folders, making it
+    faster, even if you don't have $folder_prefix set.
+  - Fixed some bugs with default sent and trash folders
+  - Fixed some bugs with folder manipulating
 
 Version 0.4pre1 -- April 29, 2000
 ---------------------------------
-- For speed's sake, unseen messages are only noted on INBOX in left
+  - For speed's sake, unseen messages are only noted on INBOX in left
     folder list.  This will change with 0.5.
-- Optomizations, fewer IMAP calls, more efficient sorting algorithms.
-- Fixed all bugs listed in BUG
-- When inside the Sent folder, it displays "To" instead of "From" 
-- Added ability to go to Next and Previous message while reading a message
-- Caching of the message headers in mailbox (much faster)
-- Added a preference that allows users to customize how many messages
-     they see when they index a mailbox
-- Added flag status showing on message list (Answered, Flagged, and Seen)
-- Now using PHP session management
-- Parsing the body for URLs and Email addrs
-- Added option to configure default folder directory. ie: ~/mail
-- Configuration script added: config/conf.pl
-- Addressbook with LDAP support
-- Big speed improvements with folder listing
-- Added Subscribe/Unsubscribe to folders
-- Fixed bug in UW that didn't mark unseen messages
-- Saving sent messages into $sent_folder
-- It doesn't bail out if PHP wasn't compiled with --with-gettext.  
+  - Optomizations, fewer IMAP calls, more efficient sorting algorithms.
+  - Fixed all bugs listed in BUG
+  - When inside the Sent folder, it displays "To" instead of "From" 
+  - Added ability to go to Next and Previous message while reading a message
+  - Caching of the message headers in mailbox (much faster)
+  - Added a preference that allows users to customize how many messages
+    they see when they index a mailbox
+  - Added flag status showing on message list (Answered, Flagged, and Seen)
+  - Now using PHP session management
+  - Parsing the body for URLs and Email addrs
+  - Added option to configure default folder directory. ie: ~/mail
+  - Configuration script added: config/conf.pl
+  - Addressbook with LDAP support
+  - Big speed improvements with folder listing
+  - Added Subscribe/Unsubscribe to folders
+  - Fixed bug in UW that didn't mark unseen messages
+  - Saving sent messages into $sent_folder
+  - It doesn't bail out if PHP wasn't compiled with --with-gettext.  
     It only uses english in this case.
-- Added support for Cyrillic (thanks to Artem Botchkov for help)
-- Included information on Russian Apache from Konstantin Riabitsev
-- Honoring charset parameter for the body.
-- Changed the way emptying of trash was done to work better
+  - Added support for Cyrillic (thanks to Artem Botchkov for help)
+  - Included information on Russian Apache from Konstantin Riabitsev
+  - Honoring charset parameter for the body.
+  - Changed the way emptying of trash was done to work better
     across different IMAP servers
 
 
+*****************************************
+*** Squirrelmail 0.3 and Pre-Releases ***
+*****************************************
 
 Version 0.3.1 -- March 13, 2000
 -------------------------------
-- Fixed a bug that didn't allow downloading of attachments
+  - Fixed a bug that didn't allow downloading of attachments
 
 Version 0.3 (final) -- March 10, 2000
 -------------------------------------
-- Fixed bug in smtp.php and made sending RFC complient
-- Fixed a bug that wouldn't let you rename folders with UW server.
-- Other minor bugfixes
+  - Fixed bug in smtp.php and made sending RFC complient
+  - Fixed a bug that wouldn't let you rename folders with UW server.
+  - Other minor bugfixes
 
 Version 0.3pre2 -- March 5, 2000 
 --------------------------------
-- Rewrote folder deletion.  It works much more flexably now.
-- Fixed message deletion that didn't always delete the right messages.
-- Removed font tags
-- Better character translation, especially for i18n
-- Added the choice of language as a user preference
-- Bug fixes, bug fixes, bug fixes
-- Fixed bugs in message moving and deleting
-- Rewrote all IMAP functions from scratch
+  - Rewrote folder deletion.  It works much more flexably now.
+  - Fixed message deletion that didn't always delete the right messages.
+  - Removed font tags
+  - Better character translation, especially for i18n
+  - Added the choice of language as a user preference
+  - Bug fixes, bug fixes, bug fixes
+  - Fixed bugs in message moving and deleting
+  - Rewrote all IMAP functions from scratch
 
 Version 0.3pre1 -- February 17, 2000
 ------------------------------------
-- Added user-specific preferences including:
-    Full Name (for outbound messages)
-    Reply-to address
-    Theme
-    Move messages to trash option (true/false)
-    Wrap incoming text at XX characters
-    Editor window size (in characters)
-    Time between reloads of the left folder list
-    Signature
-- Rewrote SMTP functions.  It now works and handles error correction.
-- Only folders that you're subscribed to will be listed
-- Fixed a bug in outbound messages that translated " into \"
-- Added themes in distribution (7 total)
-- Added option to send email via sendmail rather than SMTP
-- Increased speed of viewing folder by date about 25%, and viewing the folder by
-    Subject or Sender by up to 100%.
-- Added internationalization
-- Added sending of attachments
-- Left folder refreshing at intervals (with META tags)
+  - Added user-specific preferences including:
+      Full Name (for outbound messages)
+      Reply-to address
+      Theme
+      Move messages to trash option (true/false)
+      Wrap incoming text at XX characters
+      Editor window size (in characters)
+      Time between reloads of the left folder list
+      Signature
+  - Rewrote SMTP functions.  It now works and handles error correction.
+  - Only folders that you're subscribed to will be listed
+  - Fixed a bug in outbound messages that translated " into \"
+  - Added themes in distribution (7 total)
+  - Added option to send email via sendmail rather than SMTP
+  - Increased speed of viewing folder by date about 25%, and viewing the
+    folder by Subject or Sender by up to 100%.
+  - Added internationalization
+  - Added sending of attachments
+  - Left folder refreshing at intervals (with META tags)
 
 
-
+*****************************************
+*** Squirrelmail 0.2 and Pre-Releases ***
+*****************************************
 
 Version 0.2.1 -- January 05, 2000
 ---------------------------------
-- Rewrote how MULTIPART messages were handled and made it recursive
-- We now take into account the encoding type rather than guessing
-- Redesigned how attachments are displayed
-- Fixed the bug that wouldn't let you send messages (I hope)
-- Added a "download message" option
-- Added a plain text viewer for text messages
+  - Rewrote how MULTIPART messages were handled and made it recursive
+  - We now take into account the encoding type rather than guessing
+  - Redesigned how attachments are displayed
+  - Fixed the bug that wouldn't let you send messages (I hope)
+  - Added a "download message" option
+  - Added a plain text viewer for text messages
 
 Version 0.2 -- January 02, 2000
 -------------------------------
-- Attachment support (much better MIME support in general)
-- Themeable support replaced Custom Colors.  Themes are pluggable.
+  - Attachment support (much better MIME support in general)
+  - Themeable support replaced Custom Colors.  Themes are pluggable.
 
 
-
+*****************************************
+*** Squirrelmail 0.1 and Pre-Releases ***
+*****************************************
 
 Version 0.1.2  -- December 20, 1999
 -----------------------------------
-- Date translation to local time
-- Rewrote folder fetching code universally
-- Added attachment detection (no downloads yet)
-- Fixed many minor bugs that were reported
+  - Date translation to local time
+  - Rewrote folder fetching code universally
+  - Added attachment detection (no downloads yet)
+  - Fixed many minor bugs that were reported
 
 Version 0.1.1  -- December 16, 1999
 -----------------------------------
-- Reworked all the IMAP functions to make them RFC 2060 compliant
-  (should work with all IMAP servers)
-- Added color customization
-- Sorted folder list (on left bar)
-- Added MUCH better error correction and notification
+  - Reworked all the IMAP functions to make them RFC 2060 compliant
+    (should work with all IMAP servers)
+  - Added color customization
+  - Sorted folder list (on left bar)
+  - Added MUCH better error correction and notification
 
 Version 0.1 -- December 14, 1999
 --------------------------------
-- Message composing (with to, cc, bcc)
-- Message viewing, including HTML messages
-- Basic MIME support, no attachments...yet
-- Message sorting by Date, Name, or subject
-- Folder manipulation (deleting, creating, moving, and renaming)
-- IMAP email (currently only Cyrus IMAP server has been tested)
-- Many other features that are basic email functionality
+  - Message composing (with to, cc, bcc)
+  - Message viewing, including HTML messages
+  - Basic MIME support, no attachments...yet
+  - Message sorting by Date, Name, or subject
+  - Folder manipulation (deleting, creating, moving, and renaming)
+  - IMAP email (currently only Cyrus IMAP server has been tested)
+  - Many other features that are basic email functionality
