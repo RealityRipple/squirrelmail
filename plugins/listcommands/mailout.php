@@ -76,5 +76,7 @@ echo '<br />'
 . '<input type="hidden" name="body" value="' . htmlspecialchars($body) . '">'
 . '<input type="hidden" name="mailbox" value="' . htmlspecialchars($mailbox) . '">'
 . '<input type="submit" name="send" value="' . _("Send Mail") . '"><br /><br /></center>'
-. '</form></td></tr></table></p></body></html>';
+. '</form></td></tr></table></p>';
+noframes_bottom();
+
 ?>

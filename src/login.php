@@ -175,6 +175,39 @@ echo html_tag( 'table',
         'center' )
     ) ,
 '', $color[4], 'border="0" cellspacing="0" cellpadding="0" width="100%"' );
+
+switch ($allow_frames) {
+   case 4:    // if $use_frames unset, fall through to case 2
+      if (isset($_COOKIE['set_use_frames'])) {
+         $use_frames = $_COOKIE['set_use_frames'];
+         break;
+      }
+   case 2:    // Do not use frames
+      $use_frames = 0;
+      break;
+   case 3:    // if $use_frames unset, fall through to case 1
+      if (isset($_COOKIE['set_use_frames'])) {
+         $use_frames = $_COOKIE['set_use_frames'];
+         break;
+      }
+   default:   // default is also to use frames
+   case 1:    // use frames
+      $use_frames = 1;
+      break;
+}
+
+if ($allow_frames > 2) {
+   echo "<center><table border=0><tr><td>\n";
+   echo "<small><input type=radio name=set_use_frames value=1";
+   if ($use_frames) echo " checked=true";
+   echo '> ' . _("Frames") . "\n";
+   echo "</small></td><td nowrap>\n";
+   echo "<small><input type=radio name=set_use_frames value=0";
+   if (!$use_frames) echo " checked=true";
+   echo '> ' . _("No Frames") . "\n";
+   echo "</td></tr></table></center>\n";
+}
+
 do_hook('login_form');
 echo '</form>' . "\n";
 

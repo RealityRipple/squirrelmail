@@ -354,6 +354,9 @@ if (!$session_name ) {
 if (!$show_alternative_names ) {
 	$show_alternative_names = 'false';
 }
+if ( !$allow_frames ) {
+    $allow_frames = 1;
+}
 
 if (!$available_languages ) {
 	$available_languages = 'all';
@@ -539,11 +542,25 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "6.  Allow use of priority       : $WHT$default_use_priority$NRM\n";
         print "7.  Hide SM attributions        : $WHT$hide_sm_attributions$NRM\n";
         print "8.  Allow use of receipts       : $WHT$default_use_mdn$NRM\n";
-        print "9. Allow editing of identity   : $WHT$edit_identity$NRM/$WHT$edit_name$NRM\n";
+        print "9.  Allow editing of identity   : $WHT$edit_identity$NRM/$WHT$edit_name$NRM\n";
         print "10. Allow server thread sort    : $WHT$allow_thread_sort$NRM\n";
         print "11. Allow server-side sorting   : $WHT$allow_server_sort$NRM\n";
         print "12. Allow server charset search : $WHT$allow_charset_search$NRM\n";
 	print "13. PHP session name            : $WHT$session_name$NRM\n";
+	print "14. HTML Frame Settings         : $WHT";
+        if ( $allow_frames == 1) {
+	   print "Force Frames Only";
+        }
+        if ( $allow_frames == 2) {
+           print "Force No Frames Only";
+        }
+        if ( $allow_frames == 3) {
+           print "User Select, Default to Frames";
+        }
+        if ( $allow_frames == 4) {
+           print "User Select, Default to No Frames";
+        }
+        print "$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 5 ) {
@@ -758,7 +775,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             elsif ( $command == 10 ) { $allow_thread_sort        = command312(); }
             elsif ( $command == 11 ) { $allow_server_sort        = command313(); }
             elsif ( $command == 12 ) { $allow_charset_search     = command314(); }
-			elsif ( $command == 13 ) { $session_name             = command316(); }
+            elsif ( $command == 13 ) { $session_name             = command316(); }
+            elsif ( $command == 14 ) { $allow_frames             = command317(); }
         } elsif ( $menu == 5 ) {
             if ( $command == 1 ) { command41(); }
             elsif ( $command == 2 ) { $theme_css = command42(); }
@@ -2208,7 +2226,28 @@ sub command316 {
     return $new_session_name;
 }
 
-
+sub command317 {
+    print "This option allows you to select whether to allow or disallow frames\n";
+    print "or no frames usage, and what to default to on the login screen.\n";
+    print "Note: When a user selects to use Frames or No Frames, it is stored\n";
+    print "      in a cookie, which will override the site default when they\n";
+    print "      next visit the login page.\n";
+     if ($allow_frames == 1) { print "--> "; }else{print "    ";}
+    print "1.  Force Frames Only\n";
+    if ($allow_frames == 2) { print "--> "; }else{print "    ";}
+    print "2.  Force No Frames Only\n";
+    if ($allow_frames == 3) { print "--> "; }else{print "    ";}
+    print "3.  User Select, Default to Frames\n";
+    if ($allow_frames == 4) { print "--> "; }else{print "    ";}
+    print "4.  User Select, Default to No Frames\n";
+    print "(1-4): ";
+    $new_allow_frames = <STDIN>;
+    $new_allow_frames =~ tr/1-4//cd;  # only want digits!
+    if ( $new_allow_frames < 1 || $new_allow_frames > 4 ) {
+       $new_allow_frames = $allow_frames;
+    }
+    return $new_allow_frames;
+}
 
 sub command41 {
     print "\nDefine the themes that you wish to use.  If you have added ";
@@ -3096,12 +3135,16 @@ sub save_data {
 		print CF "\$smtp_auth_mech = '$smtp_auth_mech';\n";
 		print CF "\$imap_auth_mech = '$imap_auth_mech';\n";
 	# boolean
-	    print CF "\$use_imap_tls = $use_imap_tls;\n";
-		print CF "\$use_smtp_tls = $use_smtp_tls;\n";
+	print CF "\$use_imap_tls = $use_imap_tls;\n";
+	print CF "\$use_smtp_tls = $use_smtp_tls;\n";
 
-		print CF "\$session_name = '$session_name';\n";
+	print CF "\$session_name = '$session_name';\n";
 
-	    print CF "\n";
+	print CF "\n";
+
+	print CF "\$allow_frames = $allow_frames;\n";
+
+	print CF "\n";
 
 	# boolean
 	print CF "\$advanced_tree = $advanced_tree;\n";

@@ -103,7 +103,7 @@ function view_header($header, $mailbox, $color) {
            '</tt></nobr>',
            '</td></tr></table>'."\n" 
          ) );
-    echo '</body></html>';
+    noframes_bottom();
 }
 
 /* get global vars */

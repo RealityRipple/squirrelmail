@@ -149,4 +149,4 @@ displayPageHeader($color, 'None');
 
 </td></tr>
 </table>
-</body></html>
+<?php noframes_bottom(); ?>

@@ -88,9 +88,8 @@ if (!empty($_POST)) {
                '', '', 'width="100%" border="0" cellpadding="1" cellspacing="1"' ) ,
            'center', $color[0] )
        ) ,
-   'center', '', 'width="95%" border="0" cellpadding="2" cellspacing="0"' ) .
-
-   '</body></html>';
+   'center', '', 'width="95%" border="0" cellpadding="2" cellspacing="0"' );
+   noframes_bottom();
 
     function SaveUpdateFunction() {
         global $username, $data_dir, $full_name, $email_address, $reply_to, $signature;

@@ -1082,6 +1082,6 @@ if ($submit == $search_button_text) {
 
 do_hook('search_bottom');
 sqimap_logout($imapConnection);
-echo '</body></html>';
+noframes_bottom();
 
 ?>

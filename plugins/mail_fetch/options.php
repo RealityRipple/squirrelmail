@@ -384,6 +384,5 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
             ) ,
         'center', '', 'width="70%"' );
     }
-
-    ?>
-</body></html>
+    noframes_bottom();
+?>

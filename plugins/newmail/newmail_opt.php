@@ -158,7 +158,7 @@ if ($allowsound == "true") {
                  ) . "\n" .
       '</table>'. "\n" .
    '</form>'. "\n" .
-   '</td></tr></table>'. "\n" .
-'</body></html>';
+   '</td></tr></table>'. "\n";
+   noframes_bottom();
 
 ?>

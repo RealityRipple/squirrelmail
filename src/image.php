@@ -61,6 +61,6 @@ echo '</b></td></tr>' . "\n" .
     '<img src="' . $DownloadLink . '">' .
 
     '</TD></TR></TABLE>' . "\n";
-    '</body></html>' . "\n";
+    noframes_bottom();
 
 ?>
