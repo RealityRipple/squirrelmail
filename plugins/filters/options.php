@@ -102,7 +102,7 @@
                 echo "<a href=\"options.php?theid=$i&action=move_up\">" . _("Up") . '</a>';
             }
             echo ']</small></td><td> - ';
-            printf( _("If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"), $filters[$i]['where'], $filters[$i]['what'], $fdr );
+            printf( _("If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"), _($filters[$i]['where']), $filters[$i]['what'], $fdr );
             echo '</td></tr>';
 
         }
