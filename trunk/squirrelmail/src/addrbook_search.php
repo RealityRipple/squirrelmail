@@ -14,6 +14,7 @@
  *
  * @version $Id$ 
  * @package squirrelmail
+ * @subpackage addressbook
  */
 
 /**
