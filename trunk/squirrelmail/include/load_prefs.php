@@ -155,6 +155,12 @@ $reply_citation_style =
 $reply_citation_start = getPref($data_dir, $username, 'reply_citation_start');
 $reply_citation_end = getPref($data_dir, $username, 'reply_citation_end');
 
+// who is using those darn block comments?  poo!
+
+// Load preference for cursor behavior for replies
+//
+$reply_focus = getPref($data_dir, $username, 'reply_focus', '');
+
 /* left refresh rate, strtolower makes 1.0.6 prefs compatible */
 $left_refresh = getPref($data_dir, $username, 'left_refresh', SMPREF_NONE );
 $left_refresh = strtolower($left_refresh);
