@@ -1,11 +1,14 @@
 <?php
-/*
- *  event_create.php
+
+/**
+ * event_create.php
  *
- *  Copyright (c) 2001 Michal Szczotka <michal@tuxy.org>
- *  Licensed under the GNU GPL. For full terms see the file COPYING.
+ * Copyright (c) 2002 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- *  functions to create a event for calendar.
+ * Originally contrubuted by Michal Szczotka <michal@tuxy.org>
+ *
+ * functions to create a event for calendar.
  *
  * $Id$
  */

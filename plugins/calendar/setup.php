@@ -1,15 +1,17 @@
 <?php
-/*
- *  setup.php
+
+/**
+ * setup.php
  *
- *  Copyright (c) 2001 Michal Szczotka <michal@tuxy.org>
- *  Licensed under the GNU GPL. For full terms see the file COPYING.
+ * Copyright (c) 2002 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- *  init plugin into squirrelmail
+ * Originally contrubuted by Michal Szczotka <michal@tuxy.org>
+ *
+ * init plugin into squirrelmail
  *
  * $Id$ 
  */
-
 
 function squirrelmail_plugin_init_calendar() {
     global $squirrelmail_plugin_hooks;
@@ -17,7 +19,7 @@ function squirrelmail_plugin_init_calendar() {
 }
 
 function calendar() {
-    //Add Calendar link to upper menu
+    /* Add Calendar link to upper menu */
     displayInternalLink('plugins/calendar/calendar.php',_("Calendar"),'right');
     echo "&nbsp;&nbsp\n";
 }
