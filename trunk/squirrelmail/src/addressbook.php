@@ -295,6 +295,7 @@
       $alist = $abook->list_addr();
       usort($alist,'alistcmp');
       $prevbackend = -1;
+      $headerprinted = false;
 
       // List addresses
       while(list($key,$row) = each($alist)) {
@@ -319,6 +320,7 @@
 		   "<TH align=left>%s<TH align=left>%s</TR>\n",
 		   _("Nickname"), _("Name"), _("E-mail"), _("Info"));
 	    $line = 0;
+	    $headerprinted = true;
 	 } // End of header
 
 	 $prevbackend = $row["backend"];
@@ -343,12 +345,14 @@
       } 
 
       // End of list. Close table.
-      print "<TR><TD COLSPAN=5 ALIGN=center>\n";
-      printf("<INPUT TYPE=submit NAME=editaddr VALUE=\"%s\">\n",
-	     _("Edit selected"));
-      printf("<INPUT TYPE=submit NAME=deladdr VALUE=\"%s\">\n",
-	     _("Delete selected"));
-      print "</TR></TABLE></FORM>";
+      if($headerprinted) {
+	print "<TR><TD COLSPAN=5 ALIGN=center>\n";
+	printf("<INPUT TYPE=submit NAME=editaddr VALUE=\"%s\">\n",
+	       _("Edit selected"));
+	printf("<INPUT TYPE=submit NAME=deladdr VALUE=\"%s\">\n",
+	       _("Delete selected"));
+	print "</TR></TABLE></FORM>";
+      }
    } // end of addresslist
 
 
