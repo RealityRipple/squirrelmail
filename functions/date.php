@@ -200,12 +200,12 @@
 
    function getDateString($stamp) {
       $now = time();
-      $midnight = $now - ($now % 86400) + 14400;
+      $midnight = $now - ($now % 86400) - date("Z", $now);
 
       if ($midnight < $stamp) {
          // Today
          return date("g:i a", $stamp);
-      } else if ($midnight - 604800 < $stamp) {
+      } else if ($midnight - (60 * 60 * 24 * 6) < $stamp) {
          // This week
          return date("D, g:i a", $stamp);
       } else {
