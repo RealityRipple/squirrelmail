@@ -357,35 +357,66 @@
       return( $pos );
    }
 
-   function mime_fetch_body ($imap_stream, $id, $ent_id) {
-      // do a bit of error correction.  If we couldn't find the entity id, just guess
-      // that it is the first one.  That is usually the case anyway.
-      if (!$ent_id) $ent_id = 1;
-
-      fputs ($imap_stream, sqimap_session_id() . " FETCH $id BODY[$ent_id]\r\n");
-      $data = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
-      $topline = array_shift($data);
-      while (! ereg('\\* [0-9]+ FETCH ', $topline) && $data)
-          $topline = array_shift($data);
-      $wholemessage = implode('', $data);
-
-      if (ereg('\\{([^\\}]*)\\}', $topline, $regs)) {
-         return substr($wholemessage, 0, $regs[1]);
-      }
-      else if (ereg('"([^"]*)"', $topline, $regs)) {
-         return $regs[1];
-      }
-
-      $str = "Body retrieval error.  Please report this bug!\n" .
-             "Response:  $response\n" .
-             "Message:  $message\n" .
-             "FETCH line:  $topline" .
-             "---------------\n$wholemessage";
-      foreach ($data as $d) {
-          $str .= htmlspecialchars($d) . "\n";
-      }
-      return $str;
-   }
+    function mime_fetch_body ($imap_stream, $id, $ent_id ) {
+        // do a bit of error correction.  If we couldn't find the entity id, just guess
+        // that it is the first one.  That is usually the case anyway.
+        if (!$ent_id) 
+            $ent_id = 1;
+        $sid = sqimap_session_id();
+        fputs ($imap_stream, "$sid FETCH $id BODY[$ent_id]\r\n");
+        $data = sqimap_read_data ($imap_stream, $sid, true, $response, $message);
+        $topline = array_shift($data);
+        while (! ereg('\\* [0-9]+ FETCH ', $topline) && $data)
+            $topline = array_shift($data);
+        $wholemessage = implode('', $data);
+        if (ereg('\\{([^\\}]*)\\}', $topline, $regs)) {
+            $ret = substr( $wholemessage, 0, $regs[1] );
+            /*
+                There is some information in the content info header that could be important
+                in order to parse html messages. Let's get them here.
+            */
+            if( $ret{0} == '<' ) {
+                fputs ($imap_stream, "$sid FETCH $id BODY[$ent_id.MIME]\r\n");
+                $data = sqimap_read_data ($imap_stream, $sid, true, $response, $message);
+                $base = '';
+                $k = 10;
+                foreach( $data as $d ) {
+                    if( substr( $d, 0, 13 ) == 'Content-Base:' ) {
+                        $j = strlen( $d );
+                        $i = 13;
+                        $base = '';
+                        while( $i < $j &&
+                               ( !isNoSep( $d{$i} ) || $d{$i} == '"' )  )
+                            $i++;
+                        while( $i < $j ) {
+                            if( isNoSep( $d{$i} ) )
+                                $base .= $d{$i};
+                            $i++;
+                        }
+                        $k = 0;
+                    } elseif( $k == 1 && !isnosep( $d{0} ) ) {
+                        $base .= substr( $d, 1 );
+                    }
+                    $k++;
+                }
+                if( $base <> '' )
+                    $ret = "<base href=\"$base\">" . $ret;
+            }
+        } else if (ereg('"([^"]*)"', $topline, $regs)) {
+            $ret = $regs[1];
+        } else {
+            $ret = "Body retrival error.  Please report this bug!\n" .
+                   "Response:  $response\n" .
+                   "Message:  $message\n" .
+                   "FETCH line:  $topline" .
+                   "---------------\n$wholemessage";
+    
+            foreach ($data as $d) {
+              $ret .= htmlspecialchars($d) . "\n";
+            }
+        }
+        return( $ret );
+    }
 
    function mime_print_body_lines ($imap_stream, $id, $ent_id, $encoding) {
       // do a bit of error correction.  If we couldn't find the entity id, just guess
@@ -463,38 +494,39 @@
       }
    }
 
-   // figures out what entity to display and returns the $message object
-   // for that entity.
-   function findDisplayEntity ($message, $textOnly = 1)
-   {
-      global $show_html_default;
-
-      if (! $message)
-    return 0;
-
-      if ($message->header->type0 == 'multipart' &&
-          $message->header->type1 == 'alternative' &&
-      $show_html_default && ! $textOnly) {
-     $entity = findDisplayEntityHTML($message);
-     if ($entity != 0)
-        return $entity;
-      }
-
-      // Show text/plain or text/html -- the first one we find.
-      if ( $message->header->type0 == 'text' &&
-          ( $message->header->type1 == 'plain' ||
-            $message->header->type1 == 'html' ) &&
-          isset($message->header->entity_id) )
-         return $message->header->entity_id;
-
-      for ($i=0; isset($message->entities[$i]); $i++) {
-         $entity = findDisplayEntity($message->entities[$i], $textOnly);
-         if ($entity != 0)
-            return $entity;
-      }
-
-      return 0;
-   }
+    // figures out what entity to display and returns the $message object
+    // for that entity.
+    function findDisplayEntity ($message, $textOnly = 1)   {
+        global $show_html_default;
+        
+        $entity = 0;
+        
+        if ($message) {
+            if ( $message->header->type0 == 'multipart' &&
+                 ( $message->header->type1 == 'alternative' ||
+                   $message->header->type1 == 'related' ) &&
+                 $show_html_default && ! $textOnly ) {
+                $entity = findDisplayEntityHTML($message);
+            }
+            
+            // Show text/plain or text/html -- the first one we find.
+            if ( $entity == 0 &&
+                 $message->header->type0 == 'text' &&
+                 ( $message->header->type1 == 'plain' ||
+                   $message->header->type1 == 'html' ) &&
+                 isset($message->header->entity_id) ) {
+                $entity = $message->header->entity_id;
+            }
+            
+            $i = 0;
+            while ($entity == 0 && isset($message->entities[$i]) ) {
+                $entity = findDisplayEntity($message->entities[$i], $textOnly);
+                $i++;
+            }
+        }
+      
+        return( $entity );
+    }
 
    // Shows the HTML version
    function findDisplayEntityHTML ($message) {
@@ -539,7 +571,14 @@
 
          // If there are other types that shouldn't be formatted, add
          // them here
-         if ($body_message->header->type1 != "html" || ! $show_html_default) {
+         if ($body_message->header->type1 == 'html') {
+            if( $show_html_default <> 1 ) {
+                $body = strip_tags( $body );
+                translateText($body, $wrap_at, $body_message->header->charset);
+            } else {
+                $body = MagicHTML( $body, $id );
+            }
+         } else {
             translateText($body, $wrap_at, $body_message->header->charset);
          }
 
@@ -753,4 +792,325 @@
      return( $string );
  }
 
+   /*
+    Strips dangerous tags from html messages.
+   */
+
+   function MagicHTML( $body, $id ) {
+
+        global $message, $PHP_SELF, $HTTP_SERVER_VARS;
+
+        $j = strlen( $body );   // Legnth of the HTML
+        $ret = '';              // Returned string
+        $bgcolor = '#ffffff';   // Background style color (defaults to white)
+        $leftmargin = '';       // Left margin style
+        $title = '';            // HTML title if any
+
+        $i = 0;
+        while( $i < $j ) {
+            if( $body{$i} == '<' ) {
+                $tag = $body{$i+1}.$body{$i+2}.$body{$i+3}.$body{$i+4};
+                switch( strtoupper( $tag ) ) {
+                    // Strips the entire tag and contents
+                    case 'APPL':
+                    case 'EMBB':
+                    case 'FRAM':
+                    case 'SCRI':
+                    case 'OBJE':
+                        $etg = '/' . $tag;
+                        while( $body{$i+1}.$body{$i+2}.$body{$i+3}.$body{$i+4}.$body{$i+5} <> $etg  &&
+                               $i < $j  ) $i++;
+                        while( $i < $j && $body{++$i} <> '>' );
+                        // $ret .= "<!-- $tag removed -->";
+                        break;
+                    // Substitute Title
+                    case 'TITL':
+                        $i += 5;
+                        while( $body{$i} <> '>' &&  // </title>
+                               $i < $j )
+                                $i++;
+                        $i++;
+                        $title = '';
+                        while( $body{$i} <> '<' &&  // </title>
+                               $i < $j ) {
+                            $title .= $body{$i};
+                            $i++;
+                        }
+                        $i += 7;
+                        break;
+                    // Destroy these tags
+                    case 'HTML':
+                    case 'HEAD':
+                    case '/HTM':
+                    case '/HEA':
+                    case '!DOC':
+                    case 'META':
+                    case 'DIV ':
+                    case '/DIV':
+                    case '!-- ':
+                        $i += 4;
+                        while( $body{$i}  <> '>' &&
+                               $i < $j )
+                            $i++;
+                        // $i++;
+                        break;
+                    case 'STYL':
+                        $i += 5;
+                        while( $body{$i} <> '>' &&  // </title>
+                               $i < $j )
+                                $i++;
+                        $i++;
+                        // We parse the style to look for interesting stuff
+                        $styleblk = '';
+                        while( $body{$i} <> '>' &&
+                               $i < $j ) {
+                            // First we get the name of the style
+                            $style = '';
+                            while( $body{$i} <> '>' &&
+                                   $body{$i} <> '<' &&
+                                   $body{$i} <> '{' &&
+                                   $i < $j ) {
+                               if( isnoSep( $body{$i} ) )
+                                   $style .= $body{$i};
+                               $i++;
+                            }
+                            stripComments( &$i, $j, &$body );
+                            $style = strtoupper( trim( $style ) );
+                            if( $style == 'BODY' ) {
+                                // Next we look into the definitions of the body style
+                                while( $body{$i} <> '>' &&
+                                       $body{$i} <> '}' &&
+                                       $i < $j ) {
+                                    // We look for the background color if any.
+                                    if( substr( $body, $i, 17 ) == 'BACKGROUND-COLOR:' ) {
+                                        $i += 17;
+                                        $bgcolor = getStyleData( $i, $j, $body );
+                                    } elseif ( substr( $body, $i, 12 ) == 'MARGIN-LEFT:' ) {
+                                        $i += 12;
+                                        $leftmargin = getStyleData( $i, $j, $body );
+                                    }
+                                    $i++;
+                                }
+                            } else {
+                                // Other style are mantained
+                                $styleblk .= "$style ";
+                                while( $body{$i} <> '>' &&
+                                       $body{$i} <> '<' &&
+                                       $body{$i} <> '}' &&
+                                       $i < $j ) {
+                                    $styleblk .= $body{$i};
+                                    $i++;
+                                }
+                                $styleblk .= $body{$i};
+                            }
+                            stripComments( &$i, $j, &$body );
+                            if( $body{$i} <> '>' )
+                                $i++;
+                        }
+                        if( $styleblk <> '' )
+                            $ret .= "<style>$styleblk";
+                        break;
+                    case 'BODY':
+                        if( $title <> '' )
+                            $ret .= '<b>' . _("Title:") . " </b>$title<br>\n";
+                        $ret .= "<TABLE";
+                        $i += 5;
+                        $ret .= stripEvent( $i, $j, $body, $id, $base );
+                        //if( $bgcolor <> '' )
+                            $ret .= " bgcolor=$bgcolor";
+                        $ret .= ' width=100%><tr>';
+                        if( $leftmargin <> '' )
+                            $ret .= "<td width=$leftmargin>&nbsp;</td>";
+                        $ret .= '<td>';
+                        break;
+                    case 'BASE':
+                        $i += 5;
+                        $base = '';
+                        while( !isNoSep( $body{$i} ) &&
+                               $i < $j )
+                                $i++;
+                        if( strcasecmp( substr( $base, 0, 4 ), 'href'  ) ) {
+                                $i += 5;
+                                while( !isNoSep( $body{$i} ) &&
+                                       $i < $j )
+                                        $i++;
+                                while( $body{$i} <> '>' &&
+                                       $i < $j ) {
+                                    if( $body{$i} <> '"' )
+                                        $base .= $body{$i};
+                                        $i++;
+                                }
+                                // Debuging $ret .= "<!-- base == $base -->";
+                                if( strcasecmp( substr( $base, 0, 4 ), 'file' ) <> 0 )
+                                        $ret .= "\n<BASE HREF=\"$base\">\n";
+                        }
+                        break;
+                    case '/BOD':
+                        $ret .= '</td></tr></TABLE>';
+                        $i += 6;
+                        break;
+                    default:
+                        // Following tags can contain some event handler, lets search it
+                        stripComments( $i, $j, $body );
+                        $ret .= stripEvent( $i, $j, $body, $id, $base ) . '>';
+                        // $ret .= "<!-- $tag detected -->";
+                }
+            } else {
+                $ret .= $body{$i};
+            }
+            $i++;
+        }
+
+        return( "\n\n<!-- HTML Output ahead -->\n" .
+                $ret .
+                "\n<!-- END of HTML Output --><base href=\"".
+                $HTTP_SERVER_VARS["SERVER_NAME"] . substr( $PHP_SELF, 0, strlen( $PHP_SELF ) - 13 ) .
+                "\">\n\n" );
+   }
+
+   function isNoSep( $char ) {
+
+        switch( $char ) {
+            case ' ':
+            case "\n":
+            case "\t":
+            case "\r":
+            case '>':
+            case '"':
+                return( FALSE );
+                break;
+            default:
+                return( TRUE );
+        }
+
+   }
+
+   /*
+      The following function is usefull to remove extra data that can cause
+      html not to display properly. Especialy with MS stuff.
+   */
+
+   function stripComments( &$i, $j, &$body ) {
+
+        while( $body{$i}.$body{$i+1}.$body{$i+2}.$body{$i+3} == '<!--' &&
+               $i < $j ) {
+            $i += 5;
+            while( $body{$i-2}.$body{$i-1}.$body{$i} <> '-->' &&
+                   $i < $j )
+                $i++;
+            $i++;
+        }
+
+        return;
+
+   }
+
+   /* Gets the style data of a specific style */
+
+   function getStyleData( &$i, $j, &$body ) {
+
+        // We skip spaces
+        while( $body{$i} <> '>' && !isNoSep( $body{$i} ) &&
+               $i < $j ) {
+            $i++;
+        }
+        // And get the color
+        $ret = '';
+        while( isNoSep( $body{$i} ) &&
+               $i < $j ) {
+            $ret .= $body{$i};
+            $i++;
+        }
+
+        return( $ret );
+   }
+
+   /*
+   Private function for strip_dangerous_tag. Look for event based coded and "remove" it
+   change on with no (onload -> noload)
+   */
+
+   function stripEvent( &$i, $j, &$body, $id, $base ) {
+
+        global $message;
+
+        $ret = '';
+
+        while( $body{$i} <> '>' &&
+               $i < $j ) {
+            $etg = strtolower($body{$i}.$body{$i+1}.$body{$i+2});
+            switch( $etg ) {
+                case '../':
+                        // Retrolinks are not allowed without a base because they mess with SM security
+                        if( $base == '' ) {
+                                $i += 2;
+                        } else {
+                                $ret .= '.';
+                        }
+                        break;
+                case 'cid':
+                    // Internal link
+                    $k = $i-1;
+                    if( $body{$i+3} == ':') {
+                        $i +=4;
+                        $name = '';
+                        while( isNoSep( $body{$i} ) &&
+                               $i < $j  )
+                            $name .= $body{$i++};
+                        if( $name <> '' ) {
+                            $ret .= "../src/download.php?absolute_dl=true&passed_id=$id&mailbox=" .
+                                        urlencode( $message->header->mailbox ) .
+                                        "&passed_ent_id=" . find_ent_id( $name, $message );
+                            if( $body{$k} == '"' )
+                                $ret .= '" ';
+                            else
+                                $ret .= ' ';
+                        }
+                        if( $body{$i} == '>' )
+                            $i -= 1;
+                    }
+                    break;
+                case ' on':
+                case "\non":
+                case "\ron":
+                case "\ton":
+                    $ret .= ' no';
+                    $i += 2;
+                    break;
+                case 'pt:':
+                    if( strcasecmp( $body{$i-4}.$body{$i-3}.$body{$i-2}.$body{$i-1}.$body{$i}.$body{$i+1}.$body{$i+2}, 'script:') == 0 ) {
+                        $ret .= '_no/';
+                    } else {
+                        $ret .= $etg;
+                    }
+                    $i += 2;
+                    break;
+                default:
+                    $ret .= $body{$i};
+            }
+            $i++;
+        }
+        return( $ret );
+    }
+
+
+    /* This function trys to locate the entity_id of a specific mime element */
+
+    function find_ent_id( $id, $message ) {
+
+        $ret = '';
+        for ($i=0; $ret == '' && $i < count($message->entities); $i++) {
+
+            if( $message->entities[$i]->header->entity_id == '' ) {
+                $ret = find_ent_id( $id, $message->entities[$i] );
+            } else {
+                if( strcasecmp( $message->entities[$i]->header->id, $id ) == 0 )
+                    $ret = $message->entities[$i]->header->entity_id;
+            }
+
+        }
+
+        return( $ret );
+
+    }
 ?>
