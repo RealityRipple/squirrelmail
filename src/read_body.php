@@ -334,15 +334,15 @@
    echo '      </TABLE>';
    echo '   </TD></TR>';
    echo '   <TR><TD CELLSPACING="0" WIDTH="100%">';
-   echo '   <TABLE WIDTH="100%" BORDER="1" CELLSPACING="0" CELLPADDING="3">' . "\n";
+   echo '   <TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="3">' . "\n";
    echo '      <TR>' . "\n";
    /** subject **/
-   echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=5% ALIGN=RIGHT>\n";
+   echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=10% ALIGN=RIGHT>\n";
    echo _("Subject:");
    echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=90%>\n";
    echo "            <B>$subject</B>&nbsp;\n";
    echo "         </TD>\n";
-   echo '         <TD ROWSPAN="4" width=5% BGCOLOR="'.$color[0].'" ALIGN=right VALIGN=top NOWRAP><small>' . "\n";
+   echo '         <TD ROWSPAN="4" width=10% BGCOLOR="'.$color[0].'" ALIGN=right VALIGN=top NOWRAP><small>' . "\n";
    if ($where && $what) {
       // Got here from a search
       echo "<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what)."&view_hdr=1\">" . _("View full header") . "</a>\n";
