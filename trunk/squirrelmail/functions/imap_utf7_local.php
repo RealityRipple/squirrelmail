@@ -1,15 +1,31 @@
 <?php
 
 /**
- * imap_general.php
+ * imap_utf7_local.php
  *
  * Copyright (c) 1999-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * This implements all functions that do general imap functions.
+ * This implements all functions that do imap UTF7 conversions.
  *
  * $Id $
  */
+
+function sqimap_mb_convert_encoding($str, $to_encoding, $from_encoding, $default_charset)
+{
+  // Allows mbstring functions only with iso-8859-*, utf-8 and 
+  // iso-2022-jp (Japanese)
+  // koi8-r and gb2312 can be added only in php 4.3+
+  if ( stristr('iso-8859-',$default_charset) ||
+       stristr('utf-8',$default_charset) || 
+       stristr('iso-2022-jp',$default_charset) ) {
+    if (function_exists('mb_convert_encoding')) {
+      set_my_charset();
+      return mb_convert_encoding($s, $to_encoding, $from_encoding);
+    }
+  }
+  return '';
+}
 
 function imap_utf7_encode_local($s) {
     global $languages, $squirrelmail_language;
@@ -19,20 +35,14 @@ function imap_utf7_encode_local($s) {
         return $languages[$squirrelmail_language]['XTRA_CODE']('utf7-imap_encode', $s);
     }
 
-    global $default_charset;
-    set_my_charset();
+    if ($s == '')  //If empty, don't bother
+      return '';
 
-    if ( ! $default_charset == "iso-8859-1" ) {
-      // Allows mbstring functions only with iso-8859-*, utf-8 and 
-      // iso-2022-jp (Japanese)
-      // koi8-r and gb2312 can be added only in php 4.3+
-      if ( preg_match("/iso-8859-/i",$default_charset) ||
-	   preg_match("/utf-8/i",$default_charset) || 
-	   preg_match("/iso-2022-jp/i",$default_charset) ) {
-	if(function_exists("mb_convert_encoding")) {
-	  return mb_convert_encoding($s, "UTF7-IMAP", $default_charset);
-	}
-      }
+    global $default_charset;
+    if ($default_charset != 'iso-8859-1') {
+      $utf7_s = sqimap_mb_convert_encoding($s, 'UTF7-IMAP', $default_charset, $default_charset);
+      if ($utf7_s != '')
+        return $utf7_s;
     }
 
     // Later code works only for ISO-8859-1 
@@ -77,22 +87,15 @@ function imap_utf7_decode_local($s) {
         return $languages[$squirrelmail_language]['XTRA_CODE']('utf7-imap_decode', $s);
     }
 
-    global $default_charset;
-    set_my_charset();
+    if ($s == '')  //If empty, don't bother
+      return '';
 
-// FIXME: Something wrong. if I enable this test - decoding works incorrectly
-//    if ( ! $default_charset == "iso-8859-1" ) {
-      // Allows mbstring functions only with iso-8859-*, utf-8 and 
-      // iso-2022-jp (Japanese)
-      // koi8-r and gb2312 can be added only in php 4.3+
-      if ( preg_match("/iso-8859-/i",$default_charset) ||
-	   preg_match("/utf-8/i",$default_charset) || 
-	   preg_match("/iso-2022-jp/i",$default_charset) ) {
-	if(function_exists("mb_convert_encoding")) {
-	  return mb_convert_encoding($s, $default_charset, "UTF7-IMAP");
-	}
-      }
-//    }
+    global $default_charset;
+    if ($default_charset != 'iso-8859-1') {
+      $utf7_s = sqimap_mb_convert_encoding($s, $default_charset, 'UTF7-IMAP', $default_charset);
+      if ($utf7_s != '')
+        return $utf7_s;
+    }
 
     // Later code works only for ISO-8859-1
     
