@@ -17,22 +17,6 @@
  * $Id$
  */
 
-/*****************************************************************/
-/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
-/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
-/***    + Base level indent should begin at left margin, as    ***/
-/***      the require_once below looks.                        ***/
-/***    + All identation should consist of four space blocks   ***/
-/***    + Tab characters are evil.                             ***/
-/***    + all comments should use "slash-star ... star-slash"  ***/
-/***      style -- no pound characters, no slash-slash style   ***/
-/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
-/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
-/***    + Please use ' instead of ", when possible. Note "     ***/
-/***      should always be used in _( ) function calls.        ***/
-/*** Thank you for your help making the SM code more readable. ***/
-/*****************************************************************/
-
 require_once('../src/validate.php');
 require_once('../functions/imap.php');
 require_once('../functions/date.php');
@@ -45,6 +29,213 @@ if (!isset($attachments)) {
     $attachments = array();
     session_register('attachments');
 }
+
+if (!isset($mailbox) || $mailbox == '' || ($mailbox == 'None')) {
+    $mailbox = 'INBOX';
+}
+
+if (isset($draft)) {
+    require_once ('../src/draft_actions.php');
+    if (!saveMessageAsDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id)) {
+        showInputForm();
+        exit();
+    }
+    else {
+        $draft_message = _("Draft Email Saved");
+        /* If this is a resumed draft, then delete the original */
+        if(isset($delete_draft)) {
+            Header("Location: delete_message.php?mailbox=$draft_folder".
+                   "&message=$delete_draft&sort=$sort&startMessage=1");
+            exit();
+        }
+        else {
+            Header("Location: right_main.php?mailbox=$draft_folder&sort=$sort".
+                   "&startMessage=1&note=$draft_message");
+            exit();
+        }
+    }
+}
+
+if (isset($send)) {
+    if (isset($HTTP_POST_FILES['attachfile']) &&
+        $HTTP_POST_FILES['attachfile']['tmp_name'] &&
+        $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none') {
+        $AttachFailure = saveAttachedFiles();
+    }
+    if (checkInput(false) && !isset($AttachFailure)) {
+        $urlMailbox = urlencode (trim($mailbox));
+        if (! isset($reply_id)) {
+            $reply_id = 0;
+        }
+        /*
+         * Set $default_charset to correspond with the user's selection
+         * of language interface. 
+         */
+        set_my_charset();
+
+        /*
+         * This is to change all newlines to \n
+         * We'll change them to \r\n later (in the sendMessage function) 
+         */
+        $body = str_replace("\r\n", "\n", $body);
+        $body = str_replace("\r", "\n", $body);
+
+        /*
+         * Rewrap $body so that no line is bigger than $editor_size
+         * This should only really kick in the sqWordWrap function
+         * if the browser doesn't support "HARD" as the wrap type
+         * Or, in Opera's case, something goes wrong. 
+         */
+        $body = explode("\n", $body);
+        $newBody = '';
+        foreach ($body as $line) {
+            if( $line <> '-- ' ) {
+               $line = rtrim($line);
+            }
+            if (strlen($line) <= $editor_size + 1) {
+                $newBody .= $line . "\n";
+            }
+            else {
+                sqWordWrap($line, $editor_size) . "\n";
+                $newBody .= $line;
+            }
+        }
+        $body = $newBody;
+
+        do_hook("compose_send");
+
+        if (! isset($mailprio)) {
+            $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
+                                  $subject, $body, $reply_id);
+        }
+        else {
+            $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
+                                  $subject, $body, $reply_id, $mailprio);
+        }
+        if (! $Result) {
+            showInputForm();
+            exit();
+        }
+        if ( isset($delete_draft)) {
+            Header("Location: delete_message.php?mailbox=$draft_folder".
+                   "&message=$delete_draft&sort=$sort&startMessage=1");
+            exit();
+        }
+
+        Header("Location: right_main.php?mailbox=$urlMailbox&sort=$sort".
+               "&startMessage=1");
+    }
+    else {
+        /*
+         *$imapConnection = sqimap_login($username, $key, $imapServerAddress,
+         *                               $imapPort, 0);
+         */
+        displayPageHeader($color, $mailbox);
+
+        if (isset($AttachFailure)) {
+             plain_error_message(_("Could not move/copy file. File not attached"),
+                                 $color);
+        }
+
+        checkInput(true);
+        showInputForm();
+        /* sqimap_logout($imapConnection); */
+    }
+}
+elseif (isset($html_addr_search_done)) {
+    displayPageHeader($color, $mailbox);
+
+    if (isset($send_to_search) && is_array($send_to_search)) {
+        foreach ($send_to_search as $k => $v) {
+            if (substr($k, 0, 1) == 'T') {
+                if ($send_to) {
+                    $send_to .= ', ';
+                }
+                $send_to .= $v;
+            }
+            elseif (substr($k, 0, 1) == 'C') {
+                if ($send_to_cc) {
+                    $send_to_cc .= ', ';
+                }
+                $send_to_cc .= $v;
+            }
+            elseif (substr($k, 0, 1) == 'B') {
+                if ($send_to_bcc) {
+                    $send_to_bcc .= ', ';
+                }
+                $send_to_bcc .= $v;
+            }
+        }
+    }
+    showInputForm();
+}
+elseif (isset($html_addr_search)) {
+    if (isset($HTTP_POST_FILES['attachfile']) &&
+        $HTTP_POST_FILES['attachfile']['tmp_name'] &&
+        $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none') {
+        if (saveAttachedFiles()) {
+            plain_error_message(_("Could not move/copy file. File not attached"), $color);
+        }
+    }
+    /*
+     * I am using an include so as to elminiate an extra unnecessary
+     * click.  If you can think of a better way, please implement it.
+     */
+    include_once('./addrbook_search_html.php');
+}
+elseif (isset($attach)) {
+    if (saveAttachedFiles()) {
+        plain_error_message(_("Could not move/copy file. File not attached"), $color);
+    }
+    displayPageHeader($color, $mailbox);
+    showInputForm();
+}
+elseif (isset($do_delete)) {
+    displayPageHeader($color, $mailbox);
+
+    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+    if (isset($delete) && is_array($delete)) {
+        foreach($delete as $index) {
+            $attached_file = $hashed_attachment_dir . '/'
+                           . $attachments[$index]['localfilename'];
+            unlink ($attached_file);
+            unset ($attachments[$index]);
+        }
+    }
+
+    showInputForm();
+}
+else {
+    /*
+     * This handles the default case as well as the error case
+     * (they had the same code) --> if (isset($smtpErrors)) 
+     */
+    $imapConnection = sqimap_login($username, $key, $imapServerAddress,
+                                   $imapPort, 0);
+    displayPageHeader($color, $mailbox);
+
+    $newmail = true;
+
+    ClearAttachments();
+
+    if (isset($forward_id) && $forward_id && isset($ent_num) && $ent_num) {
+        getAttachments(0);
+    }
+
+    if (isset($draft_id) && $draft_id && isset($ent_num) && $ent_num) {
+        getAttachments(0);
+    }
+
+    newMail();
+    showInputForm();
+    sqimap_logout($imapConnection);
+}
+
+exit();
+
+
+/**************** Only function definitions go below *************/
+
 
 /* This function is used when not sending or adding attachments */
 function newMail () {
@@ -483,7 +674,7 @@ function checkInput ($show)
 } /* function checkInput() */
 
 
-// True if FAILURE
+/* True if FAILURE */
 function saveAttachedFiles() {
     global $HTTP_POST_FILES, $attachment_dir, $attachments, $username;
 
@@ -512,199 +703,6 @@ function saveAttachedFiles() {
     $attachments[] = $newAttachment;
 }
 
-if (!isset($mailbox) || $mailbox == '' || ($mailbox == 'None')) {
-    $mailbox = "INBOX";
-}
-
-if (isset($draft)) {
-    require_once ('../src/draft_actions.php');
-    if (!saveMessageAsDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id)) {
-        showInputForm();
-        exit();
-    }
-    else {
-        $draft_message = _("Draft Email Saved");
-        /* If this is a resumed draft, then delete the original */
-        if(isset($delete_draft)) {
-            Header("Location: delete_message.php?mailbox=$draft_folder&message=$delete_draft&sort=$sort&startMessage=1");
-            exit();
-        }
-        else {
-            Header("Location: right_main.php?mailbox=$draft_folder&sort=$sort&startMessage=1&note=$draft_message");
-            exit();
-        }
-    }
-}
-
-if (isset($send)) {
-    if (isset($HTTP_POST_FILES['attachfile']) &&
-        $HTTP_POST_FILES['attachfile']['tmp_name'] &&
-        $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none') {
-        $AttachFailure = saveAttachedFiles();
-    }
-    if (checkInput(false) && !isset($AttachFailure)) {
-        $urlMailbox = urlencode (trim($mailbox));
-        if (! isset($reply_id)) {
-            $reply_id = 0;
-        }
-        /*
-         * Set $default_charset to correspond with the user's selection
-         * of language interface. 
-         */
-        set_my_charset();
-
-        /*
-         * This is to change all newlines to \n
-         * We'll change them to \r\n later (in the sendMessage function) 
-         */
-        $body = str_replace("\r\n", "\n", $body);
-        $body = str_replace("\r", "\n", $body);
-
-        /*
-         * Rewrap $body so that no line is bigger than $editor_size
-         * This should only really kick in the sqWordWrap function
-         * if the browser doesn't support "HARD" as the wrap type
-         * Or, in Opera's case, something goes wrong. 
-         */
-        $body = explode("\n", $body);
-        $newBody = '';
-        foreach ($body as $line) {
-            if( $line <> '-- ' ) {
-               $line = rtrim($line);
-            }
-            if (strlen($line) <= $editor_size + 1) {
-                $newBody .= $line . "\n";
-            }
-            else {
-                sqWordWrap($line, $editor_size) . "\n";
-                $newBody .= $line;
-            }
-        }
-        $body = $newBody;
-
-        do_hook("compose_send");
-
-        if (! isset($mailprio)) {
-            $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
-                                  $subject, $body, $reply_id);
-        }
-        else {
-            $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
-                                  $subject, $body, $reply_id, $mailprio);
-        }
-        if (! $Result) {
-            showInputForm();
-            exit();
-        }
-        if ( isset($delete_draft)) {
-            Header("Location: delete_message.php?mailbox=$draft_folder&message=$delete_draft&sort=$sort&startMessage=1");
-            exit();
-        }
-
-        Header("Location: right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=1");
-    }
-    else {
-        /* $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0); */
-        displayPageHeader($color, $mailbox);
-
-        if (isset($AttachFailure)) {
-             plain_error_message(_("Could not move/copy file. File not attached"), $color);
-        }
-
-        checkInput(true);
-
-        showInputForm();
-        /* sqimap_logout($imapConnection); */
-    }
-}
-elseif (isset($html_addr_search_done)) {
-    displayPageHeader($color, $mailbox);
-
-    if (isset($send_to_search) && is_array($send_to_search)) {
-        foreach ($send_to_search as $k => $v) {
-            if (substr($k, 0, 1) == 'T') {
-                if ($send_to) {
-                    $send_to .= ', ';
-                }
-                $send_to .= $v;
-            }
-            elseif (substr($k, 0, 1) == 'C') {
-                if ($send_to_cc) {
-                    $send_to_cc .= ', ';
-                }
-                $send_to_cc .= $v;
-            }
-            elseif (substr($k, 0, 1) == 'B') {
-                if ($send_to_bcc) {
-                    $send_to_bcc .= ', ';
-                }
-                $send_to_bcc .= $v;
-            }
-        }
-    }
-    showInputForm();
-}
-elseif (isset($html_addr_search)) {
-    if (isset($HTTP_POST_FILES['attachfile']) &&
-        $HTTP_POST_FILES['attachfile']['tmp_name'] &&
-        $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none') {
-        if (saveAttachedFiles()) {
-            plain_error_message(_("Could not move/copy file. File not attached"), $color);
-        }
-    }
-    /*
-     * I am using an include so as to elminiate an extra unnecessary
-     * click.  If you can think of a better way, please implement it.
-     */
-    include_once('./addrbook_search_html.php');
-}
-elseif (isset($attach)) {
-    if (saveAttachedFiles()) {
-        plain_error_message(_("Could not move/copy file. File not attached"), $color);
-    }
-    displayPageHeader($color, $mailbox);
-    showInputForm();
-}
-elseif (isset($do_delete)) {
-    displayPageHeader($color, $mailbox);
-
-    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-    if (isset($delete) && is_array($delete)) {
-        foreach($delete as $index) {
-            $attached_file = $hashed_attachment_dir . '/'
-                           . $attachments[$index]['localfilename'];
-            unlink ($attached_file);
-            unset ($attachments[$index]);
-        }
-    }
-
-    showInputForm();
-}
-else {
-    /*
-     * This handles the default case as well as the error case
-     * (they had the same code) --> if (isset($smtpErrors)) 
-     */
-    $imapConnection = sqimap_login($username, $key, $imapServerAddress,
-                                   $imapPort, 0);
-    displayPageHeader($color, $mailbox);
-
-    $newmail = true;
-
-    ClearAttachments();
-
-    if (isset($forward_id) && $forward_id && isset($ent_num) && $ent_num) {
-        getAttachments(0);
-    }
-
-    if (isset($draft_id) && $draft_id && isset($ent_num) && $ent_num) {
-        getAttachments(0);
-    }
-
-    newMail();
-    showInputForm();
-    sqimap_logout($imapConnection);
-}
 
 function ClearAttachments()
 {
