@@ -193,6 +193,23 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id, $encoding) {
 /* -[ END MIME DECODING ]----------------------------------------------------------- */
 
 
+/* findDisplayEntity
+ * Checks to see if $message contains content of type $type0/$type1
+ * returns the first entity number it finds of that type, or NULL if
+ * none is found.  Takes optional argument $start to allow the caller
+ * to continue where they left off
+ */
+function findDisplayEntity($message, $type0, $type1, $start=0) {
+    if ($message) {
+        for ($i = $start;isset($message->entities[$i]); $i++) {
+            $entity = $message->entities[$i];
+            if ($entity->type0 == $type0 && $entity->type1 == $type1) {
+                return $i;
+            }
+        }
+    }
+    return NULL;
+}
 // This is here for debugging purposese.  It will print out a list
 // of all the entity IDs that are in the $message object.
 
