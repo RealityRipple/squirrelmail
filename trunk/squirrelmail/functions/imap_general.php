@@ -69,7 +69,7 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response,
         /* retrieve the response and the message */
         $response = $response[$tag];
         $message  = $message[$tag];
-	
+        
         if (!empty($read[$tag])) {
             return $read[$tag][0];
         } else {
@@ -96,9 +96,9 @@ function sqimap_prepare_pipelined_query($new_query,&$tag,&$aQuery,$unique_id) {
 
 function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors, 
                        &$aServerResponse, &$aServerMessage, $unique_id = false,
-                       $filter=false,$outputstream=false,$no_return=false) {
-		       
+                       $filter=false,$outputstream=false,$no_return=false) {    
     $aResponse = false;
+
     /* 
        Do not fire all calls at once to the imap-server but split the calls up
        in portions of $iChunkSize. If we do not do that I think we misbehave as 
@@ -112,18 +112,18 @@ function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors
     $aQueryChunks = array();
     $iLoops = floor($iQueryCount / $iChunkSize);
 
-    if ($iLoops * $iChunkSize !== $iQueryCount) ++$iLoops;
+    if ($iLoops * $iChunkSize != $iQueryCount) ++$iLoops;
 
     if (!function_exists('array_chunk')) { // arraychunk replacement
-	reset($aQueryList);
+        reset($aQueryList);
         for($i=0;$i<$iLoops;++$i) {
-	    for($j=0;$j<$iChunkSize;++$j) {
-		$key = key($aQueryList);
-	        $aTmp[$key] = $aQueryList[$key];
-	        if (next($aQueryList) === false) break;
-	    }
-	    $aQueryChunks[] = $aTmp;
-	} 
+            for($j=0;$j<$iChunkSize;++$j) {
+                $key = key($aQueryList);
+                $aTmp[$key] = $aQueryList[$key];
+                if (next($aQueryList) === false) break;
+            }
+            $aQueryChunks[] = $aTmp;
+        } 
     } else {
         $aQueryChunks = array_chunk($aQueryList,$iChunkSize,true);
     }
@@ -134,18 +134,18 @@ function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors
             fputs($imap_stream,$query);
             $aResults[$tag] = false;
         }
-   
+//        $aQuery = array_reverse($aQuery,true);
         foreach($aQuery as $tag => $query) {
-            if (!$aResults[$tag]) {
+            if ($aResults[$tag] == false) {
                 $aReturnedResponse = sqimap_retrieve_imap_response ($imap_stream, $tag, 
                                     $handle_errors, $response, $message, $query,
                                     $filter,$outputstream,$no_return);
                 foreach ($aReturnedResponse as $returned_tag => $aResponse) {
-	            if (!empty($aResponse)) {
+                    if (!empty($aResponse)) {
                         $aResults[$returned_tag] = $aResponse[0];
-	            } else {
-		        $aResults[$returned_tag] = $aResponse;
-	            }
+                    } else {
+                        $aResults[$returned_tag] = $aResponse;
+                    }
                     $aServerResponse[$returned_tag] = $response[$returned_tag];
                     $aServerMessage[$returned_tag] = $message[$returned_tag];
                 }
@@ -283,9 +283,9 @@ function sqimap_read_data_list($imap_stream, $tag, $handle_errors,
         _("Reason:") . ' '.
           'There is a plugin installed which make use of the  <br>' .
           'SquirrelMail internal function sqimap_read_data_list.<br>'.
-	  'Please adapt the installed plugin and let it use<br>'.
-	  'sqimap_run_command or sqimap_run_command_list instead<br><br>'.
-	  'The following query was issued:<br>'.
+          'Please adapt the installed plugin and let it use<br>'.
+          'sqimap_run_command or sqimap_run_command_list instead<br><br>'.
+          'The following query was issued:<br>'.
            htmlspecialchars($query) . '<br>' . "</font><br>\n";
     error_box($string,$color);
     echo '</body></html>';        
@@ -308,7 +308,7 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
     $resultlist = array();
     $data = array();
     $read = sqimap_fgets($imap_stream);
-    $i = 0;
+    $i = $k = 0;
     while ($read) {
         $char = $read{0};
         switch ($char)
@@ -328,7 +328,7 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
                 $arg = substr($s,0,$j);
             }
             $found_tag = substr($read,0,$i-1);
-            if ($arg && $found_tag==$tag) {
+            if ($found_tag) {
                 switch ($arg)
                 {
                   case 'OK':
@@ -341,8 +341,12 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
                     if (!empty($data)) {
                         $resultlist[] = $data;
                     }
-                    $aResponse[$tag] = $resultlist;
-                    break 3; /* switch switch while */
+                    $aResponse[$found_tag] = $resultlist;
+                    $data = $resultlist = array();
+                    if ($found_tag == $tag) {
+                        break 3; /* switch switch while */
+                    }
+                  break;
                   default: 
                     /* this shouldn't happen */
                     $response[$found_tag] = $arg;
@@ -351,21 +355,17 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
                         $resultlist[] = $data;
                     }
                     $aResponse[$found_tag] = $resultlist;
-                    break 3; /* switch switch while */
+                    $data = $resultlist = array();
+                    if ($found_tag == $tag) {
+                        break 3; /* switch switch while */
+                    }
                 }
-            } elseif($found_tag !== $tag) {
-                /* not the tag we are looking for, continue */
-                if (!empty($data)) {
-                    $resultlist[] = $data;
-                }
-                $aResponse[$found_tag] = $resultlist;
-                $resultlist = $data = array();
-                $read = sqimap_fgets($imap_stream);
-                if ($read === false) { /* error */
-                     break 3; /* switch switch while */
-                }
-                break;
             }
+            $read = sqimap_fgets($imap_stream);
+            if ($read === false) { /* error */
+                 break 3; /* switch switch while */
+            }
+            break;
           } // end case $tag{0}
 
           case '*':
@@ -450,7 +450,7 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
                     $s = substr($read,-3);
                 } while ($s === "}\r\n");
                 break 1;
-            }
+            }    
             break;
           } // end case '*'
         }   // end switch
