@@ -161,7 +161,7 @@ class abook_ldap_server extends addressbook_backend {
 
         $this->linkid = @ldap_connect($this->server, $this->port);
         if(!$this->linkid) {
-            if(function_exists('ldap_error')) {
+            if(function_exists('ldap_error') && is_object($this->linkid)) {
                 return $this->set_error(ldap_error($this->linkid));
             } else {
                 return $this->set_error('ldap_connect failed');
