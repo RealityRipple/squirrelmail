@@ -146,6 +146,78 @@
       echo "<INPUT TYPE=SUBMIT VALUE=\"";
       echo _("Rename");
       echo "\">\n";
+      echo "</FORM></TD></TR>\n";
+   } else {
+      echo _("No mailboxes found") . "<br><br></td></tr>";
+   }
+   $boxes_sub = $boxes;
+   
+   /** UNSUBSCRIBE FOLDERS **/
+   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><B>";
+   echo _("Unsubscribe/Subscribe");
+   echo "</B></TD></TR>";
+   echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
+   if ($count_special_folders < count($boxes)) {
+      echo "<FORM ACTION=\"folders_subscribe.php?method=unsub\" METHOD=POST>\n";
+      echo "<TT><SELECT NAME=mailbox>\n";
+      for ($i = 0; $i < count($boxes); $i++) {
+         $use_folder = true;
+         for ($p = 0; $p < count($special_folders); $p++) {
+            if ($boxes[$i]["unformatted"] == $special_folders[$p]) {
+               $use_folder = false;
+            } else if (substr($boxes[$i]["unformatted"], 0, strlen($trash_folder)) == $trash_folder) {
+               $use_folder = false;
+            }
+         }
+         if ($use_folder == true) {
+            $box = $boxes[$i]["unformatted-dm"];
+            $box2 = replace_spaces($boxes[$i]["formatted"]);
+            echo "         <OPTION VALUE=\"$box\">$box2\n";
+         }
+      }
+      echo "</SELECT></TT>\n";
+      echo "<INPUT TYPE=SUBMIT VALUE=\"";
+      echo _("Unsubscribe");
+      echo "\">\n";
+      echo "</FORM></TD></TR>\n";
+   } else {
+      echo _("No mailboxes found") . "<br><br></td></tr>";
+   }
+   $boxes_sub = $boxes;
+   
+   /** SUBSCRIBE TO FOLDERS **/
+
+   echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
+   if ($count_special_folders < count($boxes)) {
+      $imap_stream = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 1);
+      $boxes = sqimap_mailbox_list_all ($imap_stream);
+      
+      echo "<FORM ACTION=\"folders_subscribe.php?method=sub\" METHOD=POST>\n";
+      echo "<TT><SELECT NAME=mailbox>\n";
+      for ($i = 0; $i < count($boxes); $i++) {
+         $use_folder = true;
+         for ($p = 0; $p < count($special_folders); $p++) {
+            if ($boxes[$i]["unformatted"] == $special_folders[$p]) {
+               $use_folder = false;
+            } else if (substr($boxes[$i]["unformatted"], 0, strlen($trash_folder)) == $trash_folder) {
+               $use_folder = false;
+            }
+
+            for ($q = 0; $q < count($boxes_sub); $q++) {
+               if ($boxes[$i]["unformatted"] == $boxes_sub[$q]["unformatted"]) 
+                  $use_folder = false;
+            }
+         }
+         if ($use_folder == true) {
+            $box = $boxes[$i]["unformatted-dm"];
+            $box2 = replace_spaces($boxes[$i]["formatted"]);
+            echo "         <OPTION VALUE=\"$box\">$box2\n";
+         }
+      }
+      echo "</SELECT></TT>\n";
+      echo "<INPUT TYPE=SUBMIT VALUE=\"";
+      echo _("Subscribe");
+      echo "\">\n";
       echo "</FORM></TD></TR></TABLE><BR>\n";
    } else {
       echo _("No mailboxes found") . "<br><br></td></tr></table>";

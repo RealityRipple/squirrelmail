@@ -198,5 +198,58 @@
 
       return $boxesnew;
    }
+
+   
+   /******************************************************************************
+    **  Returns a list of all folders, subscribed or not
+    ******************************************************************************/
+   function sqimap_mailbox_list_all ($imap_stream) {
+      global $special_folders, $list_special_folders_first;
+      
+      if (!function_exists ("ary_sort"))
+         include ("../functions/array.php");
+      
+      $dm = sqimap_get_delimiter ($imap_stream);
+
+      fputs ($imap_stream, "a001 LIST \"\" *\r\n");
+      $read_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+      $g = 0;
+      $phase = "inbox"; 
+      for ($i = 0; $i < count($read_ary); $i++) {
+         if (substr ($read_ary[$i], 0, 4) != "a001") {
+            $boxes[$g]["raw"] = $read_ary[$i];
+
+            $mailbox = find_mailbox_name($read_ary[$i]);
+            $dm_count = countCharInString($mailbox, $dm);
+            if (substr($mailbox, -1) == $dm)
+               $dm_count--;
+               
+            for ($j = 0; $j < $dm_count; $j++)
+               $boxes[$g]["formatted"] = $boxes[$g]["formatted"] . "  ";
+            $boxes[$g]["formatted"] .= readShortMailboxName($mailbox, $dm);
+               
+            $boxes[$g]["unformatted-dm"] = $mailbox;
+            if (substr($mailbox, -1) == $dm)
+               $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
+            $boxes[$g]["unformatted"] = $mailbox;
+            $boxes[$g]["id"] = $g;
+
+            /** Now lets get the flags for this mailbox **/
+            fputs ($imap_stream, "a002 LIST \"\" \"$mailbox\"\r\n"); 
+            $read_mlbx = sqimap_read_data ($imap_stream, "a002", true, $response, $message);
+
+            $flags = substr($read_mlbx[0], strpos($read_mlbx[0], "(")+1);
+            $flags = substr($flags, 0, strpos($flags, ")"));
+            $flags = str_replace("\\", "", $flags);
+            $flags = trim(strtolower($flags));
+            if ($flags) {
+               $boxes[$g]["flags"] = explode(" ", $flags);
+            }
+         }
+         $g++;
+      }
+      $boxes = ary_sort ($boxes, "unformatted", 1);
+      return $boxes;
+   }
    
 ?>
