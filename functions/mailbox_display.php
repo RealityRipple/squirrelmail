@@ -129,6 +129,7 @@
                   $size[$q] = $hdr->size;
                   $type[$q] = $hdr->type0;
                   $flags[$q] = sqimap_get_flags ($imapConnection, $q+1);
+                  $id[$q] = $q + 1;
                }
             } else {
                // if it's not sorted
@@ -144,9 +145,12 @@
                      $startMessage = 1;
                }
 
-               $j = $startMessage - 1;;
-               echo $startMessage . " - " . $endMessage . "<br>";
-               for ($q = $startMessage; $q <= $endMessage; $q++) {
+
+               $real_startMessage = $numMessages - $startMessage + 1;
+               $real_endMessage = $numMessages - $startMessage - $show_num;
+               
+               $j = 0;
+               for ($q = $real_startMessage; $q >= $real_endMessage; $q--) {
                   if($mailbox == $sent_folder)
                      $hdr = sqimap_get_small_header ($imapConnection, $q, true);
                   else
@@ -161,6 +165,7 @@
                   $size[$j] = $hdr->size;
                   $type[$j] = $hdr->type0;
                   $flags[$j] = sqimap_get_flags ($imapConnection, $q);
+                  $id[$j] = $q;
                   $j++;
                }
             }   
@@ -178,7 +183,7 @@
 
             $messages[$j]["TIME_STAMP"] = getTimeStamp($tmpdate);
             $messages[$j]["DATE_STRING"] = getDateString($messages[$j]["TIME_STAMP"]);
-            $messages[$j]["ID"] = $j+1;
+            $messages[$j]["ID"] = $id[$j];
             $messages[$j]["FROM"] = decodeHeader($from[$j]);
             $messages[$j]["FROM-SORT"] = strtolower(sqimap_find_displayable_name(decodeHeader($from[$j])));
             $messages[$j]["SUBJECT"] = decodeHeader($subject[$j]);
@@ -329,6 +334,10 @@
          "move_messages.php?msg=$msg&mailbox=$urlMailbox&startMessage=$startMessage",
           $mailbox, $sort, $Message, $More);
 
+      if ($sort == 6)
+         $endVar = $show_num;
+      else
+         $endVar = $endMessage + 1;
       
       // loop through and display the info for each message.
       $t = 0; // $t is used for the checkbox number
@@ -336,7 +345,10 @@
          echo "<TR><TD BGCOLOR=\"$color[4]\" COLSPAN=" . count($index_order);
          echo "><CENTER><BR><B>". _("THIS FOLDER IS EMPTY") ."</B><BR>&nbsp;</CENTER></TD></TR>";
       } elseif ($startMessage == $endMessage) { // if there's only one message in the box, handle it different.
-         $i = $startMessage;
+         if ($sort != 6)
+            $i = $startMessage;
+         else
+            $i = 1;
          reset($msort);
          do {
             $key = key($msort);
@@ -345,7 +357,10 @@
          } while (isset ($key) && ($k < $i));
          printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage, 0, 0);
       } else {
-         $i = $startMessage;
+         if ($sort != 6)
+            $i = $startMessage;
+         else
+            $i = 1;
          reset($msort);
          do {
             $key = key($msort);
@@ -359,7 +374,7 @@
             $t++;
             $i++;
             next($msort);
-         } while ($i < ($endMessage+1));
+         } while ($i < $endVar);
       }
       echo "</TABLE>";
 
