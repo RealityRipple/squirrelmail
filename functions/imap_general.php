@@ -334,13 +334,17 @@ function sqimap_find_email ($string) {
 
 
 /*
-*  Takes the From: field, and creates a displayable name.
-*    Luke Ehresman <lkehresman@yahoo.com>
-*           becomes:   Luke Ehresman
-*    <lkehresman@yahoo.com>
-*           becomes:   lkehresman@yahoo.com
-*/
+ *  Takes the From: field, and creates a displayable name.
+ *    Luke Ehresman   <lkehresman@yahoo.com>
+ *    "Luke Ehresman" <lkehresman@yahoo.com>
+ *    lkehresman@yahoo.com (Luke Ehresman)
+ *           become:   Luke Ehresman
+ *    <lkehresman@yahoo.com>
+ *           becomes:   lkehresman@yahoo.com
+ */
 function sqimap_find_displayable_name ($string) {
+    $string = trim($string);
+    
     if ( ereg('^(.+)<.*>', $string, $regs) ) {
         $string = ereg_replace ('"', '', $regs[1] );
     }
