@@ -19,6 +19,8 @@ Version 1.4.0 CVS
     by register_globals = off.
   - Added Greek locale. Thanks to George P. Kremmydas 
     <george at kefalonia-ithaki.gr> and Alexandros Vellis <avel at noc.uoa.gr>
+  - Added notes about PHP 4.3.x to documentation, and a gaudy warning message
+    in src/login.php.  Warning can be disabled.
   
 Version 1.4.0 RC 2a
 -------------------

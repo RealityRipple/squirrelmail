@@ -5,6 +5,7 @@
 
 In this edition of SquirrelMail Release Notes:
    * All about this Release!!!
+   * A note on PHP 4.3.x
    * Major updates
    * A note on plugins
    * Reporting my favorite SquirrelMail 1.4 bug
@@ -32,6 +33,21 @@ to verify that this is true!
 So download it! Install it, and try to break it! We are hungry for any
 bug report you send. Even the smallest issue deserves to be fixed.
 
+A note on PHP 4.3.x
+===================
+
+While the developers realize that PHP 4.3.x is the "latest and greatest"
+version of PHP to be available, SquirrelMail has not been extensively
+tested with it.  There may be potential session issues with PHP 4.3.x,
+and PHP by default has a session warning which will need to be disabled
+if you wish to use it with SquirrelMail.
+
+Put simply: The SquirrelMail team does not recommend the use of
+PHP 4.3.x with SquirrelMail at this time.
+
+SquirrelMail will put a large ugly warning about the use of PHP 4.3.x on
+the login screen unless you add "$shootMyFootOff = true;" to 
+config/config_local.php, or downgrade PHP.
 
 Major updates
 ==============

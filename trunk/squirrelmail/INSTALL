@@ -26,6 +26,10 @@ Table of Contents:
   latest release version of PHP4.
 
 a. Obtaining and compiling PHP4
+  
+  SquirrelMail has not been tested for use with PHP 4.3.x.  The
+  development team does not recommend the use of this software with
+  PHP 4.3.x until further testing can be done.
 
   Point your favorite webserver at http://www.php.net/version4/ and
   download the source. Untar (tar xvfz filename-you-downloaded.tgz)
