@@ -43,6 +43,8 @@ function charset_decode ($charset, $string) {
             $ret = charset_decode_iso_8859_4 ($string);
         } else if ($res[1] == '5') {
             $ret = charset_decode_iso_8859_5 ($string);
+        } else if ($res[1] == '6') {
+            $ret = charset_decode_iso_8859_6 ($string);
         } else if ($res[1] == '7') {
             $ret = charset_decode_iso_8859_7 ($string);
         } else if ($res[1] == '9') {
@@ -531,6 +533,33 @@ function charset_decode_iso_8859_5 ($string) {
     $string = str_replace("\377", '&#1119;', $string);
 
     return $string;
+}
+
+/*
+ ISO/IEC 8859-6:1999 Latin/Arabic Alphabet
+*/
+function charset_decode_iso_8859_6 ($string) {
+    global $default_charset;
+
+    if (strtolower($default_charset) == 'iso-8859-6')
+        return $string;
+
+    /* Only do the slow convert if there are 8-bit characters */
+    if (! ereg("[\200-\377]", $string))
+        return $string;
+
+    $string = str_replace ("\240", '&#160;',  $string);
+    $string = str_replace ("\244", '&#164;',  $string);
+    $string = str_replace ("\254", '&#1548;', $string);
+    $string = str_replace ("\255", '&#173;',  $string);
+    $string = str_replace ("\273", '&#1563;', $string);
+    $string = str_replace ("\277", '&#1567;', $string);
+    // 193-218 -> 1569-1594 (+1376)
+    $string = preg_replace("/([\301-\332])/e","'&#' . (ord('\\1')+1376).';'",$string);
+    // 224-242 -> 1600-1618 (+1376)
+    $string = preg_replace("/([\340-\362])/e","'&#' . (ord('\\1')+1376).';'",$string);
+
+    return ($string);
 }
 
 /* iso-8859-7 is Greek. */
