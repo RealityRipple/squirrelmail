@@ -19,7 +19,7 @@ define('SMOPT_GRP_MESSAGE', 2);
 /* Define the optpage load function for the display options page. */
 function load_optpage_data_display() {
     global $theme, $language, $languages, $js_autodetect_results,
-           $default_use_mdn, $squirrelmail_language, $allow_thread_sort;
+    $compose_new_win, $default_use_mdn, $squirrelmail_language, $allow_thread_sort;
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -177,6 +177,7 @@ function load_optpage_data_display() {
                            SMPREF_LOC_BOTTOM  => _("After message body"))
     );
 
+
     $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'use_javascript_addr_book',
         'caption' => _("Addressbook Display Format"),
@@ -234,6 +235,7 @@ function load_optpage_data_display() {
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );
+
     if ($default_use_mdn) {
         $optvals[SMOPT_GRP_MESSAGE][] = array(
             'name'    => 'mdn_user_support',
@@ -242,18 +244,37 @@ function load_optpage_data_display() {
             'refresh' => SMOPT_REFRESH_NONE
         );
     }
+
     $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'compose_new_win',
         'caption' => _("Always compose in a new window"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_ALL
     );
+
+    $optvals[SMOPT_GRP_MESSAGE][] = array(
+        'name'    => 'compose_width',
+        'caption' => _("Width of compose window"),
+        'type'    => SMOPT_TYPE_INTEGER,
+        'refresh' => SMOPT_REFRESH_ALL,
+        'size'    => SMOPT_SIZE_TINY
+    );
+
+    $optvals[SMOPT_GRP_MESSAGE][] = array(
+        'name'    => 'compose_height',
+        'caption' => _("Height of compose window"),
+        'type'    => SMOPT_TYPE_INTEGER,
+        'refresh' => SMOPT_REFRESH_ALL,
+        'size'    => SMOPT_SIZE_TINY
+    );
+
     $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'sig_first',
         'caption' => _("Append signature before reply/forward text"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );
+
     $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'internal_date_sort',
         'caption' => _("Use receive date for sort"),

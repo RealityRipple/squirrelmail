@@ -599,6 +599,7 @@ function showInputForm ($session) {
     }
     echo '<TABLE WIDTH="100%" ALIGN=center CELLSPACING=0 BORDER=0>' . "\n";
     if ($compose_new_win == '1') {
+        echo '<TABLE ALIGN=CENTER BGCOLOR="'.$color[0].'" WIDTH="100%" BORDER=0>'."\n";
         echo '   <TR><TD></TD><TD ALIGN="RIGHT"><INPUT TYPE="BUTTON" NAME="Close" onClick="return self.close()" VALUE='._("Close").'></TD></TR>'."\n";
     }
     if ($location_of_buttons == 'top') {
@@ -750,7 +751,9 @@ function showInputForm ($session) {
              '</td></tr>';
     }
     /* End of attachment code */
-
+    if ($compose_new_win == '1') {
+        echo '</TABLE>'."\n";
+    }
     echo '</TABLE>' . "\n";
     if ($reply_id) {
         echo '<input type=hidden name=reply_id value=' . $reply_id . ">\n";
