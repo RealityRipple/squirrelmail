@@ -61,6 +61,24 @@ Valid language codes are:
 * zh_CN - Chinese Simplified, gb2312 charset
 * zh_TW - Chinese Traditional, big5 charset
 
+Charset totals:
+* iso-8859-1   = 21
+* iso-8859-2   = 8
+* utf-8        = 4 
+* iso-8859-15  = 2
+* iso-8859-7   = 1
+* iso-8859-9   = 1
+* koi8-r       = 1
+* koi8-u       = 1
+* windows-1251 = 1
+* windows-1255 = 1
+* windows-1256 = 1
+* tis-620      = 1
+* gb2312       = 1
+* big5         = 1
+* euc-jp       = 1
+* euc-kr       = 1
+
 -------------------
 2. $languages array
 -------------------
