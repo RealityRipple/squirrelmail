@@ -255,11 +255,9 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                                    ),
                              'center', '', 'width="100%" ' );
                         address_form("editaddr", _("Update address"), $olddata);
-                        echo '<INPUT TYPE=hidden NAME=oldnick VALUE="' . 
-                             htmlspecialchars($olddata["nickname"]) . "\">\n" .
-                             '<INPUT TYPE=hidden NAME=backend VALUE="' .
-                             htmlspecialchars($olddata["backend"]) . "\">\n" .
-                             '<INPUT TYPE=hidden NAME=doedit VALUE=1>' . "\n" .
+			echo addHidden('oldnick', $olddata['nickname']).
+                             addHidden('backend', $olddata['backend']).
+			     addHidden('doedit', '1').
                              '</FORM>';
                     }
                 } else {
