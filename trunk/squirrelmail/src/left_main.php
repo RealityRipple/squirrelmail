@@ -162,15 +162,44 @@ function compute_folder_children(&$parbox, $boxcount) {
  * currently appropriate.
  */
 function create_collapse_link($boxnum) {
-    global $boxes;
+    global $boxes, $imapConnection, $unseen_notify, $color;
     $mailbox = urlencode($boxes[$boxnum]['unformatted']);
-
+        
     /* Create the link for this collapse link. */
     $link = '<a target="left" style="text-decoration:none" ' .
             'href="left_main.php?';
     if ($boxes[$boxnum]['collapse'] == SM_BOX_COLLAPSED) {
-        $link .= "unfold=$mailbox\">+";
-    } else {
+
+    /* this code checks unseen_notify settings and displays
+     * a total next to a colapsed folder for the amount of 
+     * unread mail in its sunfolders
+     */
+        $box_count = count($boxes);
+        $cur_box = $boxes[$boxnum]['unformatted'];
+        $parent_unseen = 0;
+        $length = strlen($cur_box);
+        if (($unseen_notify == 2 && $cur_box == 'INBOX') || $unseen_notify == 3) {
+            for ($i=0;$i<$box_count;$i++) {
+                $this_unseen = 0;
+                if ($cur_box != $boxes[$i]['unformatted']) {
+                    if (substr($boxes[$i]['unformatted'], 0, $length) == $cur_box) {
+                        if (!in_array('noselect', $boxes[$i]['flags'])) {
+                            $this_unseen = sqimap_unseen_messages($imapConnection,
+                                            $boxes[$i]['unformatted']);
+                        }
+                    }
+                }
+                $parent_unseen += $this_unseen;
+            }
+        }
+        if ($parent_unseen > 0) {
+            $link .= "unfold=$mailbox\">+<font color=\"$color[11]\">($parent_unseen)</font>";
+        }
+        else {
+            $link .= "unfold=$mailbox\">+";
+        }
+    }
+    else {
         $link .= "fold=$mailbox\">-";
     }
     $link .= '</a>';
