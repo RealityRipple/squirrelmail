@@ -791,8 +791,17 @@ function mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $colo
 function printHeader($mailbox, $sort, $color, $showsort=true) {
     global $index_order;
     echo html_tag( 'tr' ,'' , 'center', $color[5] );
-    for ($i = 1; $i <= count($index_order); $i++) {
-        switch ($index_order[$i]) {
+
+    /* calculate the width of the subject column based on the
+     * widths of the other columns */
+    $widths = array(1=>1,2=>25,3=>5,4=>0,5=>1,6=>5);
+    $subjectwidth = 100;
+    foreach($index_order as $item) {
+        $subjectwidth -= $widths[$item]; 
+    }
+
+    foreach ($index_order as $item) {
+        switch ($item) {
         case 1: /* checkbox */
         case 5: /* flags */
             echo html_tag( 'td' ,'&nbsp;' , '', '', 'width="1%"' );
@@ -819,7 +828,7 @@ function printHeader($mailbox, $sort, $color, $showsort=true) {
             echo "</td>\n";
             break;
         case 4: /* subject */
-            echo html_tag( 'td' ,'' , 'left', '', '' )
+            echo html_tag( 'td' ,'' , 'left', '', 'width="'.$subjectwidth.'%"' )
                  . '<b>' . _("Subject") . '</b>';
             if ($showsort) {
                 ShowSortButton($sort, $mailbox, 4, 5);
