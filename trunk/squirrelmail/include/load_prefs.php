@@ -258,6 +258,10 @@ $forward_cc = getPref($data_dir, $username, 'forward_cc', 0);
 
 $mailbox_select_style = getPref($data_dir, $username, 'mailbox_select_style', 0);
 
+/* Allow user to customize, and display the full date, instead of day, or time based
+   on time distance from date of message */
+$show_full_date = getPref($data_dir, $username, 'show_full_date', 0);
+
 do_hook('loading_prefs');
 
 ?>

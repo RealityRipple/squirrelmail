@@ -281,7 +281,7 @@ function getLongDateString( $stamp ) {
 
 function getDateString( $stamp ) {
 
-    global $invert_time, $hour_format;
+    global $invert_time, $hour_format, $show_full_date;
 
     if ( $stamp == -1 ) {
        return '';
@@ -295,7 +295,9 @@ function getDateString( $stamp ) {
     }
     $midnight = $now - ($now % 86400) - $dateZ;
     
-    if ($midnight < $stamp) {
+    if ($show_full_date == 1) {
+        $date_format = _("M j, Y");
+    } else if ($midnight < $stamp) {
         /* Today */
         if ( $hour_format == SMPREF_TIME_12HR ) {
             $date_format = _("g:i a");
