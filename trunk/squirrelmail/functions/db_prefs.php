@@ -16,8 +16,8 @@
  * Database:
  * ---------
  *
- * The preferences table should have tree columns:
- *    username   char  \  primary
+ * The preferences table should have three columns:
+ *    user       char  \  primary
  *    prefkey    char  /  key
  *    prefval    blob
  *
@@ -69,6 +69,9 @@ function cachePrefValues($username) {
 
 class dbPrefs {
     var $table = 'userprefs';
+    var $user_field = 'user';
+    var $key_field = 'prefkey';
+    var $val_field = 'prefval';
 
     var $dbh   = NULL;
     var $error = NULL;
@@ -85,6 +88,15 @@ class dbPrefs {
 
         if (!empty($prefs_table)) {
             $this->table = $prefs_table;
+        }
+        if (!empty($prefs_user_field)) {
+            $this->user_field = $prefs_user_field;
+        }
+        if (!empty($prefs_key_field)) {
+            $this->key_field = $prefs_key_field;
+        }
+        if (!empty($prefs_val_field)) {
+            $this->val_field = $prefs_val_field;
         }
         $dbh = DB::connect($prefs_dsn, true);
 
@@ -131,9 +143,11 @@ class dbPrefs {
         if (!$this->open()) {
             return false;
         }
-        $query = sprintf("DELETE FROM %s WHERE user='%s' AND prefkey='%s'",
+        $query = sprintf("DELETE FROM %s WHERE %s='%s' AND %s='%s'",
                          $this->table,
+                         $this->user_field,
                          $this->dbh->quoteString($user),
+                         $this->key_field,
                          $this->dbh->quoteString($key));
 
         $res = $this->dbh->simpleQuery($query);
@@ -154,9 +168,12 @@ class dbPrefs {
         if (!$this->open()) {
             return false;
         }
-        $query = sprintf("REPLACE INTO %s (user,prefkey,prefval) ".
+        $query = sprintf("REPLACE INTO %s (%s, %s, %s) ".
                          "VALUES('%s','%s','%s')",
                          $this->table,
+                         $this->user_field,
+                         $this->key_field,
+                         $this->val_field,
                          $this->dbh->quoteString($user),
                          $this->dbh->quoteString($key),
                          $this->dbh->quoteString($value));
@@ -177,9 +194,12 @@ class dbPrefs {
         }
 
         $prefs_cache = array();
-        $query = sprintf("SELECT prefkey, prefval FROM %s ".
-                         "WHERE user = '%s'",
+        $query = sprintf("SELECT %s as prefkey, %s as prefval FROM %s ".
+                         "WHERE %s = '%s'",
+                         $this->key_field,
+                         $this->val_field,
                          $this->table,
+                         $this->user_field,
                          $this->dbh->quoteString($user));
         $res = $this->dbh->query($query);
         if (DB::isError($res)) {
@@ -200,10 +220,16 @@ class dbPrefs {
         if (!$this->open()) {
             return;
         }
-        $query = sprintf("SELECT * FROM %s WHERE user='%s' ".
-                         "AND prefkey LIKE 'highlight%%' ORDER BY prefkey",
+        $query = sprintf("SELECT %s, %s as prefkey, %s as prefval FROM %s WHERE %s='%s' ".
+                         "AND %s LIKE 'highlight%%' ORDER BY %s",
+                         $this->user_field,
+                         $this->key_field,
+                         $this->val_field,
                          $this->table,
-                         $this->dbh->quoteString($user));
+                         $this->user_field,
+                         $this->dbh->quoteString($user),
+                         $this->key_field,
+                         $this->key_field);
 
         $res = $this->dbh->query($query);
         if(DB::isError($res)) {
@@ -224,11 +250,14 @@ class dbPrefs {
             $hilinum++;
 
             if($oldkey != $newkey) {
-                $query = sprintf("UPDATE %s SET prefkey='%s' ".
-                                 "WHERE user ='%s' AND prefkey='%s'",
+                $query = sprintf("UPDATE %s SET %s='%s' ".
+                                 "WHERE %s ='%s' AND %s='%s'",
                                  $this->table,
+                                 $this->key_field,
                                  $this->dbh->quoteString($newkey),
+                                 $this->user_field,
                                  $this->dbh->quoteString($user),
+                                 $this->key_field,
                                  $this->dbh->quoteString($oldkey));
 
                 $res = $this->dbh->simpleQuery($query);
