@@ -4,6 +4,9 @@
     **
     **  Handle addressbook searching in the popup window.
     **
+    **  NOTE: A lot of this code is similar to the code in
+    **        addrbook_search_html.html -- If you change one,
+    **        change the other one too!
     **/
 
    // Function to include JavaScript code
@@ -95,20 +98,20 @@ function bcc_address($addr) {
       print "</TR>\n";
       
       while(list($key, $row) = each($res)) {
-	 printf("<tr%s nowrap><td nowrap align=center width=\"5%%\">".
+	 printf("<tr%s nowrap><td valign=top nowrap align=center width=\"5%%\">".
 		"<small><a href=\"javascript:to_address('%s');\">To</A> | ".
 		"<a href=\"javascript:cc_address('%s');\">Cc</A> | ".
 		"<a href=\"javascript:bcc_address('%s');\">Bcc</A></small>".
-		"<td nowrap>&nbsp;%s&nbsp;<td nowrap>&nbsp;".
-		"<a href=\"javascript:to_and_close('%s');\">%s</A>&nbsp;".
-		"<td nowrap>&nbsp;%s&nbsp;", 
+		"<td nowrap valign=top>&nbsp;%s&nbsp;<td nowrap valign=top>".
+		"&nbsp;<a href=\"javascript:to_and_close('%s');\">%s</A>&nbsp;".
+		"<td valign=top>&nbsp;%s&nbsp;", 
 		($line % 2) ? " bgcolor=\"$color[0]\"" : "", 
 		$row["email"], $row["email"], $row["email"], 
 		$row["name"],  $row["email"], $row["email"],
 		$row["label"]);
 
 	 if($includesource)
-	    printf("<td nowrap>&nbsp;%s", $row["source"]);
+	    printf("<td nowrap valign=top>&nbsp;%s", $row["source"]);
 
 	 print "</TR>\n";
 	 $line++;
@@ -175,7 +178,7 @@ function bcc_address($addr) {
       printf("<FORM NAME=sform TARGET=abookres ACTION=\"%s\" METHOD=\"POST\">\n",
 	     $PHP_SELF);
       printf("<TABLE BORDER=0 WIDTH=\"100%%\" HEIGHT=\"100%%\">");
-      printf("<TR><TD NOWRAP VALIGN=middle NOWRAP>\n");
+      printf("<TR><TD NOWRAP VALIGN=middle>\n");
       printf("  <STRONG>%s</STRONG>\n", _("Search for"));
       printf("  <INPUT TYPE=text NAME=query VALUE=\"%s\" SIZE=26>\n",
 	     htmlspecialchars($query));
@@ -188,7 +191,7 @@ function bcc_address($addr) {
 		_("All address books"));
 	 $ret = $abook->get_backend_list();
 	 while(list($k,$v) = each($ret)) 
-	    printf("<OPTION VALUE=%d SELECTED>%s\n", $v->bnum, $v->sname);
+	    printf("<OPTION VALUE=%d>%s\n", $v->bnum, $v->sname);
 	 printf("</SELECT>\n");
       } else {
 	 printf("<INPUT TYPE=hidden NAME=backend VALUE=-1>\n");
@@ -239,14 +242,14 @@ function bcc_address($addr) {
       }
 
       if(!is_array($res)) {
-	 printf("<P ALIGN=center><BR>%s:<br>%s</P>\n</BODY></HTML>\n",
+	 printf("<P ALIGN=center><B><BR>%s:<br>%s</B></P>\n</BODY></HTML>\n",
 		_("Your search failed with the following error(s)"),
 		$abook->error);
 	 exit;
       }
 
       if(sizeof($res) == 0) {
-	 printf("<P ALIGN=center><BR>%s.</P>\n</BODY></HTML>\n",
+	 printf("<P ALIGN=center><BR><B>%s.</B></P>\n</BODY></HTML>\n",
 		_("No persons matching your search was found"));
 	 exit;
       }
