@@ -50,7 +50,7 @@ function charset_decode ($charset, $string) {
     } else if ($charset == 'koi8-r') {
         $ret = charset_decode_koi8r ($string);
     } else if ($charset == 'windows-1251') {
-        $ret = charset_decode_koi8r ($string);
+        $ret = charset_decode_windows_1251 ($string);
     } else if ($charset == 'windows-1257') {
         $ret = charset_decode_windows_1257 ($string);
     } else {
@@ -1107,6 +1107,14 @@ function charset_decode_windows_1257 ($string) {
     // Rest of charset is like iso-8859-1
     return (charset_decode_iso_8859_1($string));
 }
+
+/* windows-1251 is Microsoft Cyrillic encoding */
+function charset_decode_windows_1251 ($string) {
+    // Convert to KOI8-R, then return this decoded.
+    $string = convert_cyr_string($string, 'w', 'k');
+    return charset_decode_koi8r($string);
+}
+
 
 
 /*
