@@ -43,6 +43,8 @@
     **  Selects a mailbox
     ******************************************************************************/
    function sqimap_mailbox_select ($imap_stream, $mailbox, $hide=true, $recent=false) {
+      global $auto_expunge;
+      
       fputs ($imap_stream, "a001 SELECT \"$mailbox\"\r\n");
      	$read = sqimap_read_data($imap_stream, "a001", true, $response, $message);
       if ($recent) {
@@ -53,6 +55,10 @@
          }
          return $r[1];
       }
+      if ($auto_expunge) {
+         fputs ($imap_stream, "a001 EXPUNGE\r\n");
+         $tmp = sqimap_read_data($imap_stream, "a001", $a, $b, true);
+      }   
    }
 
    

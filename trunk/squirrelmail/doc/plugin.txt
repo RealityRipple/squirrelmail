@@ -90,7 +90,7 @@ List of hooks
   * options_personal_save         src/options_personal.php
   * options_display_bottom        src/options_display.php
   * options_display_inside        src/options_display.php
-  * options_display_sav           src/options_display.php
+  * options_display_save          src/options_display.php
   * options_folders_bottom        src/options_folders.php
   * options_folders_inside        src/options_folders.php
   * options_folders_save          src/options_folders.php
@@ -100,6 +100,7 @@ List of hooks
   loading_prefs                   src/load_prefs.php
   mailbox_index_before            functions/mailbox_display.php
   mailbox_index_after             functions/mailbox_display.php
+  mailbox_form_before             functions/mailbox_display.php
   right_main_after_header         src/right_main.php
   right_main_bottom               src/right_main.php
   login_top                       src/login.php
@@ -114,6 +115,7 @@ List of hooks
   help_chapter                    src/help.php
   abook_html_search_below         src/addrbook_search_html.php
   addressbook_bottom              src/addressbook.php
+  attachment $type0/$type1        functions/mime.php
    
 (*) Options
 -----------
