@@ -57,6 +57,7 @@
     require_once('../functions/i18n.php');
     require_once('../functions/plugin.php');
     require_once('../functions/constants.php');
+    require_once('../functions/page_header.php');
 
     /*
      * $squirrelmail_language is set by a cookie when the user selects
@@ -73,36 +74,27 @@
      * In case the last session was not terminated properly, make sure
      * we get a new one.
      */
-    $cookie_params = session_get_cookie_params(); 
-    setcookie(session_name(),'',0,$cookie_params['path'].$cookie_params['domain']); 
+    $cookie_params = session_get_cookie_params();
+    setcookie(session_name(),'',0,$cookie_params['path'].$cookie_params['domain']);
     setcookie('username', '', 0, $base_uri);
     setcookie('key', '', 0, $base_uri);
     header ('Pragma: no-cache');
 
     do_hook('login_cookie');
 
-    echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">' .
-         "\n\n" .
-         "<HTML>\n" .
-         "<HEAD>\n";
-
-    if ($theme_css != '') {
-        echo "<LINK REL=\"stylesheet\" TYPE=\"text/css\" HREF=\"$theme_css\">\n";
-    }
-
     /* Output the javascript onload function. */
-    echo "<SCRIPT LANGUAGE=\"JavaScript\">\n" .
-         "<!--\n".
-         "  function squirrelmail_loginpage_onload() {\n".
-         "    document.forms[0].js_autodetect_results.value = '" . SMPREF_JS_ON . "';\n".
-         "    document.forms[0].elements[0].focus();\n".
-         "  }\n".
-         "// -->\n".
-         "</script>\n";
+    displayHtmlHeader( "$org_name - " . _("Login"),
+                 "<SCRIPT LANGUAGE=\"JavaScript\">\n" .
+                 "<!--\n".
+                 "  function squirrelmail_loginpage_onload() {\n".
+                 "    document.forms[0].js_autodetect_results.value = '" . SMPREF_JS_ON . "';\n".
+                 "    document.forms[0].elements[0].focus();\n".
+                 "  }\n".
+                 "// -->\n".
+                 "</script>\n", FALSE );
 
     /* Set the title of this page. */
-    echo "<TITLE>$org_name - " . _("Login") . "</TITLE></HEAD>\n".
-         "<BODY TEXT=#000000 BGCOLOR=#FFFFFF LINK=#0000CC VLINK=#0000CC ALINK=#0000CC onLoad='squirrelmail_loginpage_onload();'>\n".
+    echo "<BODY TEXT=#000000 BGCOLOR=#FFFFFF LINK=#0000CC VLINK=#0000CC ALINK=#0000CC onLoad='squirrelmail_loginpage_onload();'>\n".
          "<FORM ACTION=\"redirect.php\" METHOD=\"POST\" NAME=f>\n";
 
     $username_form_name = 'login_username';

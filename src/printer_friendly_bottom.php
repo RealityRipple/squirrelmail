@@ -19,6 +19,7 @@
     require_once('../config/config.php');
     require_once('../src/load_prefs.php');
     require_once('../functions/imap.php');
+    require_once('../functions/page_header.php');
 
 
     $pf_cleandisplay = getPref($data_dir, $username, 'pf_cleandisplay');
@@ -63,39 +64,25 @@
 
     } // end cleanup
 
-// --end display setup--
+    // --end display setup--
 
 
-// --start browser output--
+    // --start browser output--
+    displayHtmlHeader( _("Printer Friendly"), '', FALSE );
 
-?>
-
-<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">
-<html>
-<head><title>
-    <?php echo _("Printable View"); ?>
-</title></head>
-
-<?php
-
-    if ($theme_css != "")
-    {
-        printf ('<LINK REL="stylesheet" TYPE="text/css" HREF="%s">', $theme_css);
-        echo "\n";
+    echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\">\n" .
+         // headers (we use table becasue translations are not all the same width)
+         '<table>'.
+         '<tr><td>' . _("From") . ':</td><td>' . htmlentities($from) . "</td></td>\n".
+         '<tr><td>' . _("To") . ':</td><td>' . htmlentities($to) . "</td></td>\n";
+    if ( strlen($cc) > 0 ) { // only show CC: if it's there...
+         echo '<tr><td>' . _("CC") . ':</td><td>' . htmlentities($cc) . "</td></td>\n";
     }
+    echo '<tr><td>' . _("Date") . ':</td><td>' . htmlentities($date) . "</td></td>\n".
+         '<tr><td>' . _("Subject") . ':</td><td>' . htmlentities($subject) . "</td></td>\n".
+         '</table>'.
+         "\n<pre>";
 
-    printf('<body text="%s" bgcolor="%s" link="%s" vlink="%s" alink="%s">',
-            $color[8], $color[4], $color[7], $color[7], $color[7]);
-
-    echo "\n<pre>";
-
-     // headers
-    echo "   " . _("From") . ': ' . htmlentities($from) . "\n";
-    echo "     " . _("To") . ': ' . htmlentities($to) . "\n";
-    if ( strlen($cc) > 0 ) // only show CC: if it's there...
-        echo "     " . _("CC") . ': ' . htmlentities($cc) . "\n";
-    echo "   " . _("Date") . ': ' . htmlentities($date) . "\n";
-    echo _("Subject") . ': ' . htmlentities($subject) . "\n\n";
 
      // body
     echo "<hr noshade size=1>\n";
