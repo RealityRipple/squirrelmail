@@ -14,7 +14,7 @@
 
 global $mysql_server, $mysql_database, $mysql_table, $mysql_userid_field,
        $mysql_password_field, $mysql_manager_id, $mysql_manager_pw,
-       $mysql_saslcrypt, $mysql_unixcrypt, $mysql;
+       $mysql_saslcrypt, $mysql_unixcrypt, $cpw_mysql;
 
 // Initialize defaults
 $mysql_server = 'localhost';
@@ -33,16 +33,15 @@ $mysql_manager_pw = 'xxxxxxx';
 $mysql_saslcrypt = 0; // use MySQL password() function
 $mysql_unixcrypt = 0; // use UNIX crypt() function
 
-if ( isset($mysql) && is_array($mysql) && !empty($mysql) )
+// get overrides from config.
+if ( isset($cpw_mysql) && is_array($cpw_mysql) && !empty($cpw_mysql) )
 {
-  foreach ( $mysql as $key => $value )
+  foreach ( $cpw_mysql as $key => $value )
   {
     if ( isset(${'mysql_'.$key}) )
       ${'mysql_'.$key} = $value;
   }
 }
-
-// NO NEED TO CHANGE ANYTHING BELOW THIS LINE
 
 global $squirrelmail_plugin_hooks;
 $squirrelmail_plugin_hooks['change_password_dochange']['mysql'] =
@@ -75,6 +74,7 @@ function cpw_mysql_dochange($data)
            $mysql_password_field, $mysql_manager_id, $mysql_manager_pw,
            $mysql_saslcrypt, $mysql_unixcrypt;
 
+    // TODO: allow to choose between mysql_connect() and mysql_pconnect() functions.
     $ds = mysql_pconnect($mysql_server, $mysql_manager_id, $mysql_manager_pw);
     if (! $ds) {
         array_push($msgs, _("Cannot connect to Database Server, please try later!"));
@@ -93,6 +93,7 @@ function cpw_mysql_dochange($data)
     if ($mysql_saslcrypt) {
         $query_string  .= '=password("'.mysql_escape_string($curpw).'")';
     } elseif ($mysql_unixcrypt) {
+        // FIXME: why password field name is used for salting
         $query_string  .= '=encrypt("'.mysql_escape_string($curpw).'", '.$mysql_password_field . ')';
     } else {
         $query_string  .= '="' . mysql_escape_string($curpw) . '"';
@@ -119,6 +120,7 @@ function cpw_mysql_dochange($data)
     if ($mysql_saslcrypt) {
         $update_string  .= '=password("'.mysql_escape_string($newpw).'")';
     } elseif ($mysql_unixcrypt) {
+        // FIXME: use random salt when you create new password
         $update_string  .= '=encrypt("'.mysql_escape_string($newpw).'", '.$mysql_password_field . ')';
     } else {
         $update_string  .= '="' . mysql_escape_string($newpw) . '"';

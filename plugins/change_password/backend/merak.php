@@ -20,11 +20,45 @@ $merak_url = "http://localhost:32000/";
 $merak_selfpage = "self.html";
 $merak_action = "self_edit";
 
-// NO NEED TO CHANGE ANYTHING BELOW THIS LINE
+// get overrides from config.
+if ( isset($cpw_merak) && is_array($cpw_merak) && !empty($cpw_merak) ) {
+  foreach ( $cpw_merak as $key => $value ) {
+    if ( isset(${'merak_'.$key}) )
+      ${'merak_'.$key} = $value;
+  }
+}
 
 global $squirrelmail_plugin_hooks;
 $squirrelmail_plugin_hooks['change_password_dochange']['merak'] =
    'cpw_merak_dochange';
+$squirrelmail_plugin_hooks['change_password_init']['merak'] = 
+   'cpw_merak_init';
+
+/**
+ * Check if php install has all required extensions.
+ */
+function cpw_merak_init() {
+    global $color;
+
+    /**
+     * If SM_PATH isn't defined, define it.  Required to include files.
+     * @ignore
+     */
+    if (!defined('SM_PATH'))  {
+        define('SM_PATH','../../../');
+    }
+
+    // load error_box() function
+    include_once(SM_PATH . 'functions/display_messages.php');
+
+    if (!function_exists('curl_init')) {
+        // user_error('Curl module NOT available!', E_USER_ERROR);
+        error_box(_("PHP Curl extension is NOT available! Unable to change password!"),$color);
+        // close html and stop script execution
+        echo "</body></html>\n";
+        exit();
+    }
+}
 
 /**
  * This is the function that is specific to your backend. It takes
@@ -50,13 +84,6 @@ function cpw_merak_dochange($data)
    $msgs = array();
 
    global $merak_url, $merak_selfpage, $merak_action;
-
-   if (!function_exists('curl_init')) {
-
-      // user_error('Curl module NOT available!', E_USER_ERROR);
-      array_push($msgs, _("Curl module NOT available! Unable to change password!"));
-      return $msgs;
-   }
 
    $ch = curl_init();
    curl_setopt ($ch, CURLOPT_URL, $merak_url . $merak_selfpage);

@@ -21,21 +21,14 @@ global $poppassd_server;
 
 $poppassd_server = '';
 
+/* get overrides from config.php */
+if (isset($cpw_poppassd['server'])) $poppassd_server=$cpw_poppassd['server'];
+
 /**
  * Define here the name of your password changing function.
  */
 global $squirrelmail_plugin_hooks;
 $squirrelmail_plugin_hooks['change_password_dochange']['poppassd'] = 'cpw_poppassd_dochange';
-$squirrelmail_plugin_hooks['change_password_init']['template'] = 'cpw_poppassd_init';
-
-
-/**
- * Use this function to do any backend-specific initialization,
- * e.g. checking requirements, before the password change form
- * is displayed to the user.
- */
-function cpw_poppassd_init() {
-}
 
 /**
  * This is the function that is specific to your backend. It takes

@@ -73,15 +73,15 @@ $cpw_vmailmgrd_8bitpw=false;
 /* end of backend configuration */
 
 /** load configuration from config.php */
-if ( isset($vmailmgrd) && is_array($vmailmgrd) && !empty($vmailmgrd) ) {
-    if (isset($vmailmgrd['vmail_inc_path']))
-        $vmail_inc_path=$vmailmgrd['vmail_inc_path'];
-    if (isset($vmailmgrd['vm_tcphost']))
-        $vm_tcphost=$vmailmgrd['vm_tcphost'];
-    if (isset($vmailmgrd['vm_tcphost_port']))
-        $vm_tcphost_port=$vmailmgrd['vm_tcphost_port'];
-    if (isset($vmailmgrd['cpw_vmailmgrd_8bitpw']))
-        $cpw_vmailmgrd_8bitpw=$vmailmgrd['cpw_vmailmgrd_8bitpw'];
+if ( isset($cpw_vmailmgrd) && is_array($cpw_vmailmgrd) && !empty($cpw_vmailmgrd) ) {
+    if (isset($cpw_vmailmgrd['vmail_inc_path']))
+        $vmail_inc_path=$cpw_vmailmgrd['vmail_inc_path'];
+    if (isset($cpw_vmailmgrd['vm_tcphost']))
+        $vm_tcphost=$cpw_vmailmgrd['vm_tcphost'];
+    if (isset($cpw_vmailmgrd['vm_tcphost_port']))
+        $vm_tcphost_port=$cpw_vmailmgrd['vm_tcphost_port'];
+    if (isset($cpw_vmailmgrd['8bitpw']))
+        $cpw_vmailmgrd_8bitpw=$cpw_vmailmgrd['8bitpw'];
 }
 
 
