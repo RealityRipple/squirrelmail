@@ -35,7 +35,7 @@
       }
       $msg = $msgs[$key];
 
-      $senderName = sqimap_find_displayable_name($msg['FROM']);
+      $senderName = htmlentities(sqimap_find_displayable_name($msg['FROM']));
       if( $mailbox == _("None") ) {
          // $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
          $boxes = sqimap_mailbox_list($imapConnection);
