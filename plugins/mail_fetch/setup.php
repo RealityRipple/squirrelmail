@@ -181,13 +181,14 @@
                     }
 
                     if ($mailfetch_subfolder=="") {
-                        fputs($imap_stream, "A3$i APPEND INBOX {" . (strlen($Message) - 1) . "}\r\n");
+                        fputs($imap_stream, "A3$i APPEND INBOX {" . strlen($Message) . "}\r\n");
                     } else {
-                        fputs($imap_stream, "A3$i APPEND $mailfetch_subfolder {" . (strlen($Message) - 1) . "}\r\n");
+                        fputs($imap_stream, "A3$i APPEND $mailfetch_subfolder {" . strlen($Message) . "}\r\n");
                     }
                     $Line = fgets($imap_stream, 1024);
                     if (substr($Line, 0, 1) == '+') {
                         fputs($imap_stream, $Message);
+                        fputs($imap_stream, "\r\n");
                         sqimap_read_data($imap_stream, "A3$i", false, $response, $message);
 
                         if ($mailfetch_lmos != 'on') {
