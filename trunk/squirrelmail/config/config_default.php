@@ -16,7 +16,7 @@
 
     // don't change
     global $config_version;
-    $config_version = "x62";
+    $config_version = "x63";
 
 //  Organization's logo picture (blank if none)
     global $org_logo;
@@ -30,6 +30,13 @@
 //  This is the title that goes at the top of the browser window
     global $org_title;
     $org_title = "SquirrelMail $version";
+    
+//  Default language
+//  This is the default language.  It is used as a last resort if SquirrelMail
+//  can't figure out which language to display.
+//  Use the two-letter code.
+    global $squirrelmail_default_language;
+    $squirrelmail_default_language = 'en';
 
 //  The server that your imap server is on
     global $imapServerAddress, $imapPort;
@@ -70,6 +77,7 @@
 //  cyrus
 //  exchange
 //  uw
+//  other
     global $imap_server_type;
     $imap_server_type = "cyrus";
 
