@@ -31,42 +31,42 @@
       if (isset($msg['FLAG_FLAGGED']) && $msg['FLAG_FLAGGED'] == true) 
       { 
          $flag = "<font color=$color[2]>"; 
-	 $flag_end = '</font>'; 
+         $flag_end = '</font>'; 
       }
       else
       {
          $flag = '';
-	 $flag_end = '';
+         $flag_end = '';
       }
       if (!isset($msg['FLAG_SEEN']) && $msg['FLAG_SEEN'] == false) 
       { 
          $bold = '<b>'; 
-	 $bold_end = '</b>'; 
+         $bold_end = '</b>'; 
       }
       else
       {
          $bold = '';
-	 $bold_end = '';
+         $bold_end = '';
       }
       if ($mailbox == $sent_folder) 
       { 
          $italic = '<i>'; 
-	 $italic_end = '</i>'; 
+         $italic_end = '</i>'; 
       }
       else
       {
          $italic = '';
-	 $italic_end = '';
+         $italic_end = '';
       }
       if (isset($msg['FLAG_DELETED']) && $msg['FLAG_DELETED'])
       { 
          $fontstr = "<font color=\"$color[9]\">"; 
-	 $fontstr_end = '</font>'; 
+         $fontstr_end = '</font>'; 
       }
       else
       {
          $fontstr = '';
-	 $fontstr_end = '';
+         $fontstr_end = '';
       }
 
       for ($i=0; $i < count($message_highlight_list); $i++) {
@@ -108,7 +108,7 @@
                break;
             case 4: # subject
                echo "   <td bgcolor=$hlt_color>$bold";
-	           if (! isset($search_stuff)) { $search_stuff = ''; }
+                   if (! isset($search_stuff)) { $search_stuff = ''; }
                echo "<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0$search_stuff\"";
                do_hook("subject_link");
                echo ">$flag";
@@ -122,7 +122,7 @@
                $stuff = false;
                echo "   <td bgcolor=$hlt_color align=center width=1% nowrap><b><small>\n";
                if (isset($msg['FLAG_ANSWERED']) && 
-	           $msg['FLAG_ANSWERED'] == true) {
+                   $msg['FLAG_ANSWERED'] == true) {
                   echo "A\n";
                   $stuff = true;
                }
@@ -233,7 +233,7 @@
          } else {
             $end = $numMessages;
          }
-	 if ($end > $numMessages) $end = $numMessages;
+         if ($end > $numMessages) $end = $numMessages;
          while ($j < $end) {
             $date[$j] = ereg_replace('  ', ' ', $date[$j]);
             $tmpdate = explode(' ', trim($date[$j]));
@@ -280,7 +280,7 @@
          /* Only ignore messages flagged as deleted if we are using a
           * trash folder or auto_expunge */
          if (((isset($move_to_trash) && $move_to_trash) 
-	      || (isset($auto_expunge) && $auto_expunge)) && $sort != 6)
+              || (isset($auto_expunge) && $auto_expunge)) && $sort != 6)
          {
             /** Find and remove the ones that are deleted */
             $i = 0;
@@ -297,8 +297,8 @@
             }
             $numMessages = $i;
          } else {
-	    if (! isset($messages))
-	        $messages = array();
+            if (! isset($messages))
+                $messages = array();
             $msgs = $messages;
          }
       }         
@@ -420,7 +420,7 @@
          else
             $i = 1;
          reset($msort);
-	 $k = 0;
+         $k = 0;
          do {
             $key = key($msort);
             next($msort);
@@ -431,7 +431,7 @@
          $i = $startMessage;
 
          reset($msort);
-	 $k = 0;
+         $k = 0;
          do {
             $key = key($msort);
             next($msort);
@@ -514,13 +514,11 @@
 
       $boxes = sqimap_mailbox_list($imapConnection);
       for ($i = 0; $i < count($boxes); $i++) {
-         if ($boxes[$i]['flags'][0] != 'noselect' &&
-            $boxes[$i]['flags'][1] != 'noselect' &&
-            $boxes[$i]['flags'][2] != 'noselect') {
+         if (!in_array("noselect", $boxes[$i]["flags"])) {
             $box = $boxes[$i]['unformatted'];
             $box2 = replace_spaces($boxes[$i]['unformatted-disp']);
             echo "         <OPTION VALUE=\"$box\">$box2</option>\n";
-    }
+         }
       }
       echo '         </SELECT></SMALL></TT>';
       echo '         <SMALL><INPUT TYPE=SUBMIT NAME="moveButton" VALUE="'. _("Move") ."\"></SMALL></NOBR>\n";
