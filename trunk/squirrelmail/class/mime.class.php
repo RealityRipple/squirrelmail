@@ -848,6 +848,7 @@ class message
 	         /* multipart properties */
 		 $i++;
 		 $res = $this->parseProperties($read,$i);
+
 		 $arg_a[] = $res[0];
 		 $i = $res[1];
 		 $arg_no++;
@@ -1669,6 +1670,17 @@ class disposition
        $this->name = $name;
        $this->properties = array();
     }
+
+    function getProperty($par)
+    {
+        $value = strtolower($par);
+        if (isset($this->properties[$par]))
+	{
+           return $this->properties[$par];
+        }
+        return '';
+    }
+
 }
 
 class language
