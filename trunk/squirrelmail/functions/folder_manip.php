@@ -1,19 +1,19 @@
 <?php
 
 /**
-* folder_manip.php
-*
-* Copyright (c) 1999-2005 The SquirrelMail Project Team
-* Licensed under the GNU GPL. For full terms see the file COPYING.
-*
-* Functions for IMAP folder manipulation:
-* (un)subscribe, create, rename, delete.
-*
-* @version $Id$
-* @package squirrelmail
-* @see folders.php
-* @author Thijs Kinkhorst - kink@squirrelmail.org
-*/
+ * folder_manip.php
+ *
+ * Copyright (c) 1999-2005 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * Functions for IMAP folder manipulation:
+ * (un)subscribe, create, rename, delete.
+ *
+ * @version $Id$
+ * @package squirrelmail
+ * @see folders.php
+ * @author Thijs Kinkhorst - kink@squirrelmail.org
+ */
 
 
 /**
@@ -29,9 +29,9 @@ function folders_checkname($imapConnection, $folder_name, $delimiter)
         global $color;
         plain_error_message(_("Illegal folder name. Please select a different name.").
             '<br /><a href="../src/folders.php">'._("Click here to go back").'</a>.', $color);
-		    
+
         sqimap_logout($imapConnection);
-	    exit;
+        exit;
     }
 }
 
@@ -74,7 +74,7 @@ function folders_create ($imapConnection, $delimiter, $folder_name, $subfolder, 
  * folder should be renamed to.
  */
 function folders_rename_getname ($imapConnection, $delimiter, $old) {
-    global $color;
+    global $color,$default_folder_prefix;
 
     if ( $old == '' ) {
         plain_error_message(_("You have not selected a folder to rename. Please do so.").
@@ -94,7 +94,15 @@ function folders_rename_getname ($imapConnection, $delimiter, $old) {
 
     if (strpos($old, $delimiter)) {
         $old_name = substr($old, strrpos($old, $delimiter)+1, strlen($old));
-        $old_parent = substr($old, 0, strrpos($old, $delimiter));
+        // hide default prefix (INBOX., mail/ or other)
+        $quoted_prefix=preg_quote($default_folder_prefix,'/');
+        $prefix_length=(preg_match("/^$quoted_prefix/",$old) ? strlen($default_folder_prefix) : 0);
+        if ($prefix_length>strrpos($old, $delimiter)) {
+            $old_parent = '';
+        } else {
+            $old_parent = substr($old, $prefix_length, (strrpos($old, $delimiter)-$prefix_length))
+                . ' ' . $delimiter;
+        }
     } else {
         $old_name = $old;
         $old_parent = '';
@@ -110,7 +118,7 @@ function folders_rename_getname ($imapConnection, $delimiter, $old) {
             addForm('folders.php').
             addHidden('smaction', 'rename').
              _("New name:").
-             '<br /><b>' . htmlspecialchars($old_parent) . ' ' . htmlspecialchars($delimiter) . '</b>' .
+             '<br /><b>' . htmlspecialchars($old_parent) . '</b>' .
              addInput('new_name', $old_name, 25) . '<br /><br />' . "\n";
              if ( $isfolder ) {
                  echo addHidden('isfolder', 'true');
@@ -170,13 +178,19 @@ function folders_rename_do($imapConnection, $delimiter, $orig, $old_name, $new_n
  */
 function folders_delete_ask ($imapConnection, $folder_name)
 {
-    global $color;
+    global $color,$default_folder_prefix;
 
     if ($folder_name == '') {
         plain_error_message(_("You have not selected a folder to delete. Please do so.").
             '<br /><a href="../src/folders.php">'._("Click here to go back").'</a>.', $color);
         exit;
     }
+
+    // hide default folder prefix (INBOX., mail/ or other)
+    $visible_folder_name = imap_utf7_decode_local($folder_name);
+    $quoted_prefix = preg_quote($default_folder_prefix,'/');
+    $prefix_length = (preg_match("/^$quoted_prefix/",$visible_folder_name) ? strlen($default_folder_prefix) : 0);
+    $visible_folder_name = substr($visible_folder_name,$prefix_length);
 
     echo '<br />' .
         html_tag( 'table', '', 'center', '', 'width="95%" border="0"' ) .
@@ -186,8 +200,7 @@ function folders_delete_ask ($imapConnection, $folder_name)
         html_tag( 'tr' ) .
         html_tag( 'td', '', 'center', $color[4] ) .
         sprintf(_("Are you sure you want to delete %s?"),
-            str_replace(array(' ','<','>'),array('&nbsp;','&lt;','&gt;'),
-                imap_utf7_decode_local($folder_name))).
+            str_replace(array(' ','<','>'),array('&nbsp;','&lt;','&gt;'),$visible_folder_name)).
         addForm('folders.php', 'post')."<p>\n".
         addHidden('smaction', 'delete').
         addHidden('folder_name', $folder_name).
