@@ -98,6 +98,8 @@ Version 1.5.1 -- CVS
   - Fixes for nonpopulation of folder lists and errors when emptying the trash
     (provides fixes for #1019185 and #1017941)
   - Fixed $custom_css loading in squirrelspell plugin.
+  - Turkish translation uses C character case conversion rules. Fixes php and
+    squirrelmail functions are assume English conversion rules.
 
 Version 1.5.0
 --------------------
