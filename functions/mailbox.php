@@ -181,7 +181,7 @@
          $emailAddr = ereg_replace("--EMAILEND", "", $emailAddr);
          $from = $emailAddr;
       }
-      else if (strlen($name) > 0) {
+      else if (strlen(trim($name)) > 0) {
          $from = $name;
       }
       else if (strlen($emailAddr > 0)) {
