@@ -113,7 +113,13 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
         $char = $read{0};
         switch ($char)
         {
-        case $tag{0}:
+          case '+':
+          default:
+            $read = sqimap_fgets($imap_stream);
+            break;
+
+          case $tag{0}:
+          {
             /* get the command */
             $arg = '';
             $i = strlen($tag)+1;
@@ -125,15 +131,15 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
             if ($arg && $found_tag==$tag) {
                 switch ($arg)
                 {
-                case 'OK':
-                case 'BAD':
-                case 'NO':
-                case 'BYE':
-                case 'PREAUTH':
+                  case 'OK':
+                  case 'BAD':
+                  case 'NO':
+                  case 'BYE':
+                  case 'PREAUTH':
                     $response = $arg;
                     $message = trim(substr($read,$i+strlen($arg)));
                     break 3;
-                default: 
+                 default: 
                     /* this shouldn't happen */
                     $response = $arg;
                     $message = trim(substr($read,$i+strlen($arg)));
@@ -145,7 +151,10 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
                 $read = sqimap_fgets($imap_stream);
                 break;
             }
-            case '*':
+          } // end case $tag{0}
+
+          case '*':
+          {
             if (preg_match('/^\*\s\d+\sFETCH/',$read)) {
                 /* check for literal */
                 $s = substr($read,-3);
@@ -209,20 +218,19 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
                 break 1;
             }
             break;
-        case '+':
-            $read = sqimap_fgets($imap_stream);
-            break;
-        default:
-            $read = sqimap_fgets($imap_stream);
-            break;
-        }
+          } // end case '*'
+        }   // end switch
     }
+
+    /* Set $resultlist array */
     if (!empty($data)) {
         $resultlist[] = $data;
     }
     elseif (empty($resultlist)) {
         $resultlist[] = array(); 
     }
+
+    /* Return result or handle errors */
     if ($handle_errors == false) {
         return( $resultlist );
     } 
