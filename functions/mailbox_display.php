@@ -445,7 +445,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
   mail_message_listing_beginning($imapConnection, $mailbox, $sort, 
                                   $msg_cnt_str, $paginator_str, $start_msg);
 
-
+  
   printHeader($mailbox, $srt, $color, !$thread_sort_messages);
 
   displayMessageArray($imapConnection, $num_msgs, $start_msg, 
@@ -594,7 +594,7 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
   $t = 0;
 
   /* messages display */
-  echo  html_tag( 'table' ,'' , '', '', 'border="0" width="100%" cellpadding="1"  cellspacing="0"' );
+  
   if ($num_msgs == 0) {
     /* if there's no messages in this folder */
         echo html_tag( 'tr',
@@ -792,6 +792,7 @@ function mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $colo
 
 function printHeader($mailbox, $sort, $color, $showsort=true) {
   global $index_order;
+    echo html_tag( 'table' ,'' , '', '', 'border="0" width="100%" cellpadding="1"  cellspacing="0"' );
     echo html_tag( 'tr' ,'' , 'center', $color[5] );
     for ($i=1; $i <= count($index_order); $i++) {
         switch ($index_order[$i]) {
