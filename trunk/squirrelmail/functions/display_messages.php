@@ -111,8 +111,7 @@ function plain_error_message($message, $color) {
 }
 
 function logout_error( $errString, $errTitle = '' ) {
-
-    GLOBAL $frame_top, $org_logo, $org_name, $org_logo_width, $org_logo_height,
+    global $frame_top, $org_logo, $org_name, $org_logo_width, $org_logo_height,
            $hide_sm_attributions, $version, $squirrelmail_language;
 
     $base_uri = sqm_baseuri();
@@ -157,8 +156,9 @@ function logout_error( $errString, $errTitle = '' ) {
         $errTitle = $errString;
     }
     set_up_language($squirrelmail_language, true);
-    displayHtmlHeader( $errTitle );
-    
+
+    displayHtmlHeader( $errTitle, '', false );
+
     echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n\n" .
          '<CENTER>'.
          "<IMG SRC=\"$org_logo\" ALT=\"" . sprintf(_("%s Logo"), $org_name) .
@@ -178,7 +178,7 @@ function logout_error( $errString, $errTitle = '' ) {
                   $frame_top . '">' .
                   _("Go to the login page") . "</a></B></FONT>".
             '</TD></TR>'.
-         '</TABLE></td></tr></table></center></body></html>';
+            '</TABLE></td></tr></table></center></body></html>';
 }
 
 ?>
