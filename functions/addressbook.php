@@ -213,12 +213,10 @@ class AddressBook {
 
     function full_address($row) {
         global $addrsrch_fullname, $data_dir, $username;
-
-        if (($prefix = getPref($data_dir, $username, 'addrsrch_fullname') or
-            isset($addrsrch_fullname) and $prefix = $addrsrch_fullname)
-            and $prefix !== 'noprefix') {
-            $name = ($prefix === 'nickname') ? $row['nickname']
-                : $row['name'];
+        $prefix = getPref($data_dir, $username, 'addrsrch_fullname');
+        if (($prefix != "" || (isset($addrsrch_fullname) &&
+            $prefix == $addrsrch_fullname)) && $prefix != 'noprefix') {
+            $name = ($prefix == 'nickname' ? $row['nickname'] : $row['name']);
             return $name . ' <' . trim($row['email']) . '>';
         } else {
             return trim($row['email']);
