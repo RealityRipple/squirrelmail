@@ -67,33 +67,29 @@ function displayPageHeader($color, $mailbox) {
         $onload = "onLoad=\"document.forms[$pos].elements[2].focus();\"";
         break;
     default:
-        echo '
-<script language="JavaScript">
-<!--
-function checkForm() {
-
-    var f = document.forms.length;
-    var i = 0;
-    var pos = -1;
-    while( pos == -1 && i < f ) {
-        var e = document.forms[i].elements.length;
-        var j = 0;
-        while( pos == -1 && j < e ) {
-            if ( document.forms[i].elements[j].type == \'text\' ) {
-                pos = j;
-            }
-            j++;
-        }
-        i++;
-    }
-    if( pos >= 0 ) {
-        document.forms[i-1].elements[pos].focus();
-    }
-    
-}
-// -->
-</script>
-        ';
+        echo '<script language="JavaScript">' .
+             "\n<!--\n" .
+             "function checkForm() {\n".
+                "var f = document.forms.length;\n".
+                "var i = 0;\n".
+                "var pos = -1;\n".
+                "while( pos == -1 && i < f ) {\n".
+                    "var e = document.forms[i].elements.length;\n".
+                    "var j = 0;\n".
+                    "while( pos == -1 && j < e ) {\n".
+                        "if ( document.forms[i].elements[j].type == 'text' ) {\n".
+                            "pos = j;\n".
+                        "}\n".
+                        "j++;\n".
+                    "}\n".
+                "i++;\n".
+                "}\n".
+                "if( pos >= 0 ) {\n".
+                    "document.forms[i-1].elements[pos].focus();\n".
+                "}\n".
+            "}\n".
+            "// -->\n".
+            "</script>\n";
         $onload = "onLoad=\"checkForm();\"";
         break;   
 
