@@ -120,18 +120,18 @@ function printer_friendly_link($mailbox, $passed_id, $passed_ent_id, $color) {
     $result = '';
     /* Output the link. */
     if ($javascript_on) {
-        $result .= '<script language="javascript" type="text/javascript">' . "\n" .
-                   '<!--' . "\n" .
-                   "  function printFormat() {\n" .
-                   '    window.open("../src/printer_friendly_main.php' .
-                   $params . '","Print","width=800,height=600");' . "\n".
-                   "  }\n" .
-                   "// -->\n" .
-                   "</script>\n" .
-                   "<a href=\"javascript:printFormat();\">$print_text</a>\n";
+        $result = '<script language="javascript" type="text/javascript">' . "\n" .
+                  '<!--' . "\n" .
+                  "  function printFormat() {\n" .
+                  '    window.open("../src/printer_friendly_main.php' .
+                  $params . '","Print","width=800,height=600");' . "\n".
+                  "  }\n" .
+                  "// -->\n" .
+                  "</script>\n" .
+                  "<a href=\"javascript:printFormat();\">$print_text</a>\n";
     } else {
-        $result .= '<A target="_blank" HREF="../src/printer_friendly_bottom.php' .
-                   "$params\">$print_text</a>\n";
+        $result = '<A target="_blank" HREF="../src/printer_friendly_bottom.php' .
+                  "$params\">$print_text</a>\n";
     }
     return $result;
 }
@@ -304,7 +304,6 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
     }
     return $success;
 }
-
 
 function ToggleMDNflag ($set ,$imapConnection, $mailbox, $passed_id, $uid_support) {
     $sg   =  $set?'+':'-';
@@ -487,7 +486,6 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         $msgs_str  = _("Message List");
     }
     $s .= '<a href="' . $msgs_url . '">' . $msgs_str . '</a>';
-    $s .= $topbar_delimiter;
 
     $delete_url = $base_uri . 'src/delete_message.php?mailbox=' . $urlMailbox .
                   '&amp;message=' . $passed_id . '&amp;';
@@ -497,6 +495,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         } else {
             $delete_url .= 'sort=' . $sort . '&amp;startMessage=' . $startMessage;
         }
+        $s .= $topbar_delimiter;
         $s .= '<a href="' . $delete_url . '">' . _("Delete") . '</a>';
     }
 
@@ -555,11 +554,11 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         $c = 0;
 
         foreach($message->parent->entities as $ent) {
-	    if ($ent->type0 == 'message' && $ent->type1 == 'rfc822') {
-        	$c++;
-        	$entity_count[$c] = $ent->entity_id;
-        	$entities[$ent->entity_id] = $c;
-	    }
+            if ($ent->type0 == 'message' && $ent->type1 == 'rfc822') {
+                $c++;
+                $entity_count[$c] = $ent->entity_id;
+                $entities[$ent->entity_id] = $c;
+            }
         }
         $prev_link = _("Previous");
         $next_link = _("Next");
@@ -589,19 +588,19 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
     $s .= '</small></td>' . "\n" . '<td align="right" width="33%" nowrap><small>';
     $comp_action_uri = $comp_uri . '&amp;action=forward';
     $s .= $link_open . $comp_action_uri . $link_close . _("Forward") . '</a>';
-    $s .= $topbar_delimiter;
 
     if ($enable_forward_as_attachment) {
         $comp_action_uri = $comp_uri . '&amp;action=forward_as_attachment';
-        $s .= $link_open . $comp_action_uri . $link_close . _("Forward as Attachment") . '</a>';
         $s .= $topbar_delimiter;
+        $s .= $link_open . $comp_action_uri . $link_close . _("Forward as Attachment") . '</a>';
     }
 
     $comp_action_uri = decodeHeader($comp_uri . '&amp;action=reply');
-    $s .= $link_open . $comp_action_uri . $link_close . _("Reply") . '</a>';
     $s .= $topbar_delimiter;
+    $s .= $link_open . $comp_action_uri . $link_close . _("Reply") . '</a>';
 
     $comp_action_uri = $comp_uri . '&amp;action=reply_all';
+    $s .= $topbar_delimiter;
     $s .= $link_open . $comp_action_uri . $link_close . _("Reply All") . '</a>';
     $s .= '</small></td></tr></table>';
     do_hook("read_body_menu_top");
@@ -637,12 +636,12 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
 
 /* get the globals we may need */
 
-$username = $_SESSION['username'];
-$key = $_COOKIE['key'];
+$username   = $_SESSION['username'];
+$key        = $_COOKIE['key'];
 $onetimepad = $_SESSION['onetimepad'];
-$msgs = $_SESSION['msgs'];
-$base_uri = $_SESSION['base_uri'];
-$delimiter = $_SESSION['delimiter'];
+$msgs       = $_SESSION['msgs'];
+$base_uri   = $_SESSION['base_uri'];
+$delimiter  = $_SESSION['delimiter'];
 
 if (isset($_GET['passed_id'])) {
     $passed_id = $_GET['passed_id'];
@@ -729,7 +728,7 @@ if (isset($mailbox)) {
 }
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-$mbx_response = sqimap_mailbox_select($imapConnection, $mailbox, false, false, true);
+$mbx_response   = sqimap_mailbox_select($imapConnection, $mailbox, false, false, true);
 
 
 /**
@@ -738,10 +737,10 @@ $mbx_response = sqimap_mailbox_select($imapConnection, $mailbox, false, false, t
  */
 
 $uidvalidity = $mbx_response['UIDVALIDITY'];
- 
+
 if (!isset($messages[$uidvalidity])) {
    $messages[$uidvalidity] = array();
-}  
+}
 if (!isset($messages[$uidvalidity][$passed_id]) || !$uid_support) {
    $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
    $FirstTimeSee = !$message->is_seen;
@@ -799,8 +798,8 @@ if (isset($sendreceipt)) {
 /***********************************************/
 
 $msgs[$passed_id]['FLAG_SEEN'] = true;
- 
-$messagebody = ''; 
+
+$messagebody = '';
 do_hook('read_body_top');
 if ($show_html_default == 1) {
     $ent_ar = $message->findDisplayEntity(array());
