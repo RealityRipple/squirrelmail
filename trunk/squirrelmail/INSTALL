@@ -1,3 +1,13 @@
+Table of Contents:
+  1.  (PHP4)     Configure your webserver to work with PHP4
+  2.  (IMAP)     Setting up IMAP (not covered)
+  3.  (INSTALL)  Obtaining and installing SquirrelMail
+  4.  (RUN)      Running SquirrelMail
+  5.  (CHARSETS) Russian Charsets
+
+
+
+
 1. CONFIGURE YOUR WEBSERVER TO WORK WITH PHP4
 ---------------------------------------------
 
