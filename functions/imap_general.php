@@ -83,9 +83,9 @@ function sqimap_fgets($imap_stream) {
     $offset = 0;
     while (strpos($results, "\r\n", $offset) === false) {
         if (!($read = fgets($imap_stream, $buffer))) {
-	    /* this happens in case of an error */
-	    /* reset $results because it's useless */
-	    $results = false;
+        /* this happens in case of an error */
+        /* reset $results because it's useless */
+        $results = false;
             break;
         }
         if ( $results != '' ) {
@@ -141,7 +141,7 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
                     $response = $arg;
                     $message = trim(substr($read,$i+strlen($arg)));
                     break 3; /* switch switch while */
-                 default: 
+                  default: 
                     /* this shouldn't happen */
                     $response = $arg;
                     $message = trim(substr($read,$i+strlen($arg)));
@@ -172,9 +172,9 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
                             $iLit = substr($read,$j+1,-3);
                             $fetch_data[] = $read;
                             $sLiteral = fread($imap_stream,$iLit);
-			    if ($sLiteral === false) { /* error */
-				break 4; /* while while switch while */
-			    }
+                            if ($sLiteral === false) { /* error */
+                                break 4; /* while while switch while */
+                            }
                             /* backwards compattibility */
                             $aLiteral = explode("\n", $sLiteral);
                             /* release not neaded data */
@@ -187,20 +187,20 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
                             /* next fgets belongs to this fetch because
                                we just got the exact literalsize and there
                                must follow data to complete the response */
-			    $read = sqimap_fgets($imap_stream);
-			    if ($read === false) { /* error */
-				break 4; /* while while switch while */
-			    }
+                            $read = sqimap_fgets($imap_stream);
+                            if ($read === false) { /* error */
+                                break 4; /* while while switch while */
+                            }
                             $fetch_data[] = $read;
                         } else {
-                           $fetch_data[] = $read;
+                            $fetch_data[] = $read;
                         }
                         /* retrieve next line and check in the while
                            statements if it belongs to this fetch response */
                         $read = sqimap_fgets($imap_stream);
-			if ($read === false) { /* error */
-			    break 4; /* while while switch while */
-			}
+                        if ($read === false) { /* error */
+                            break 4; /* while while switch while */
+                        }
                         /* check for next untagged reponse and break */
                         if ($read{0} == '*') break 2;
                         $s = substr($read,-3);
@@ -208,7 +208,7 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
                     $s = substr($read,-3);
                 } while ($read{0} !== '*' &&
                          substr($read,0,strlen($tag)) !== $tag);
-                         $resultlist[] = $fetch_data;
+                $resultlist[] = $fetch_data;
                 /* release not neaded data */
                 unset ($fetch_data);
             } else {
@@ -218,20 +218,20 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
                         $j = strrpos($read,'{');
                         $iLit = substr($read,$j+1,-3);
                         $data[] = $read;
-			$sLiteral = fread($imap_stream,$iLit);
+                        $sLiteral = fread($imap_stream,$iLit);
                         if ($sLiteral === false) { /* error */
-			   $read = false;
-			   break 3; /* while switch while */
-			}
+                            $read = false;
+                            break 3; /* while switch while */
+                        }
                         $data[] = $sLiteral;
                         $fetch_data[] = sqimap_fgets($imap_stream);
                     } else {
-                        $data[] = $read;
+                         $data[] = $read;
                     }
                     $read = sqimap_fgets($imap_stream);
-		    if ($read === false) {
-		        break 3; /* while switch while */
-	            } else if ($read{0} == '*') {
+                    if ($read === false) {
+                        break 3; /* while switch while */
+                    } else if ($read{0} == '*') {
                         break;
                     }
                     $s = substr($read,-3);
@@ -249,10 +249,10 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
         set_up_language($squirrelmail_language);
         require_once(SM_PATH . 'functions/display_messages.php');
         $string = "<b><font color=$color[2]>\n" .
-            _("ERROR : Connection dropped by imap-server.") .
-            "</b><br>\n" .
-            _("Query:") . ' '.
-            htmlspecialchars($query) . '<br>' . "</font><br>\n";
+                  _("ERROR : Connection dropped by imap-server.") .
+                  "</b><br>\n" .
+                  _("Query:") . ' '.
+                  htmlspecialchars($query) . '<br>' . "</font><br>\n";
         error_box($string,$color);    
         exit;
     }
@@ -273,7 +273,7 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
     {
     case 'OK':
         return $resultlist;
-	break;
+        break;
     case 'NO': 
         /* ignore this error from M$ exchange, it is not fatal (aka bug) */
         if (strstr($message, 'command resulted in') === false) {
@@ -287,10 +287,10 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
                 _("Reason Given: ") .
                 htmlspecialchars($message) . "</font><br>\n";
             error_box($string,$color);
-	    echo '</body></html>';
+            echo '</body></html>';
             exit;
         }
-	break;
+        break;
     case 'BAD': 
         set_up_language($squirrelmail_language);
         require_once(SM_PATH . 'functions/display_messages.php');
@@ -302,7 +302,7 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
             _("Server responded: ") .
             htmlspecialchars($message) . "</font><br>\n";
         error_box($string,$color);
-	echo '</body></html>';	    
+        echo '</body></html>';        
         exit; 
     case 'BYE': 
         set_up_language($squirrelmail_language);
@@ -315,7 +315,7 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
             _("Server responded: ") .
             htmlspecialchars($message) . "</font><br>\n";
         error_box($string,$color);
-	echo '</body></html>';	    
+        echo '</body></html>';        
         exit;
     default: 
         set_up_language($squirrelmail_language);
@@ -328,16 +328,16 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
             _("Server responded: ") .
             htmlspecialchars($message) . "</font><br>\n";
         error_box($string,$color);
-	/* the error is displayed but because we don't know the reponse we
-	   return the result anyway */
-	return $resultlist;    
-        break;
+       /* the error is displayed but because we don't know the reponse we
+          return the result anyway */
+       return $resultlist;    
+       break;
     }
 }
 
 function sqimap_read_data ($imap_stream, $tag_uid, $handle_errors, &$response, &$message, $query = '') {
     $res = sqimap_read_data_list($imap_stream, $tag_uid, $handle_errors, $response, $message, $query);
-  
+ 
     /* sqimap_read_data should be called for one response
        but since it just calls sqimap_read_data_list which 
        handles multiple responses we need to check for that
@@ -597,141 +597,134 @@ function parseAddress($address, $max=0) {
     while ($i < $iCnt) {
         $cChar = $address{$i};
         switch($cChar)
-	{
-	case '<':
-	    $iEnd = strpos($address,'>',$i+1);
-	    if (!$iEnd) {
-	       $sToken = substr($address,$i);
-	       $i = $iCnt;
-	    } else {
-	       $sToken = substr($address,$i,$iEnd - $i +1);
-	       $i = $iEnd;
-	    }
-	    $sToken = str_replace($aReplace, $aSpecials,$sToken);
-	    $aTokens[] = $sToken;
-	    break;
-	    
-	case '"':
-	    $iEnd = strpos($address,$cChar,$i+1);
-	    if (!$iEnd) {
-	       $sToken = substr($address,$i);
-	       $i = $iCnt;
-	    } else {
-	       $sToken = substr($address,$i,$iEnd - $i +1);
-	       $i = $iEnd;
-	    }
-	    $sToken = str_replace($aReplace, $aSpecials,$sToken);
-	    $aTokens[] = $sToken;
-	    break;
-	case '(':
-	    $iEnd = strpos($address,')',$i);
-	    if (!$iEnd) {
-	       $sToken = substr($address,$i);
-	       $i = $iCnt;
-	    } else {
-	       $sToken = substr($address,$i,$iEnd - $i +1);
-	       $i = $iEnd;
-	    }
-	    $sToken = str_replace($aReplace, $aSpecials,$sToken);
-	    $aTokens[] = $sToken;
-	    break;
-	case ',':
-	case ';':
-	case ';':
-	    $aTokens[] = $cChar;
-	    break;
-        default:
-	    $iEnd = strpos($address,' ',$i+1);
-	    if ($iEnd) {
-	        $sToken = trim(substr($address,$i,$iEnd - $i));
-		$i = $iEnd;
+        {
+        case '<':
+            $iEnd = strpos($address,'>',$i+1);
+            if (!$iEnd) {
+               $sToken = substr($address,$i);
+               $i = $iCnt;
             } else {
-	        $sToken = trim(substr($address,$i));
-		$i = $iCnt;
+               $sToken = substr($address,$i,$iEnd - $i +1);
+               $i = $iEnd;
             }
-	    if ($sToken) $aTokens[] = $sToken;
+            $sToken = str_replace($aReplace, $aSpecials,$sToken);
+            $aTokens[] = $sToken;
+            break;
+        case '"':
+            $iEnd = strpos($address,$cChar,$i+1);
+            if (!$iEnd) {
+                $sToken = substr($address,$i);
+                $i = $iCnt;
+            } else {
+                // also remove the surrounding quotes
+                $sToken = substr($address,$i+1,$iEnd - $i -1);
+                $i = $iEnd;
+            }
+            $sToken = str_replace($aReplace, $aSpecials,$sToken);
+            $aTokens[] = $sToken;
+            break;
+        case '(':
+            $iEnd = strpos($address,')',$i);
+            if (!$iEnd) {
+                $sToken = substr($address,$i);
+                $i = $iCnt;
+            } else {
+                $sToken = substr($address,$i,$iEnd - $i + 1);
+                $i = $iEnd;
+            }
+            $sToken = str_replace($aReplace, $aSpecials,$sToken);
+            $aTokens[] = $sToken;
+            break;
+        case ',':
+        case ';':
+        case ';':
+        case ' ':
+            $aTokens[] = $cChar;
+            break;
+        default:
+            $iEnd = strpos($address,' ',$i+1);
+            if ($iEnd) {
+                $sToken = trim(substr($address,$i,$iEnd - $i));
+                $i = $iEnd-1;
+            } else {
+                $sToken = trim(substr($address,$i));
+                $i = $iCnt;
+            }
+            if ($sToken) $aTokens[] = $sToken;
         }
-	++$i;
+        ++$i;
     }
     $sPersonal = $sEmail = $sComment = $sGroup = '';
     $aStack = $aComment = array();
     foreach ($aTokens as $sToken) {
         if ($max && $max == count($aAddress)) {
-           return $aAddress;
+            return $aAddress;
         }
-	$cChar = $sToken{0};
+        $cChar = $sToken{0};
         switch ($cChar)
-	{
-	case '=':
-	case '"':
-	case ' ':
-	    $aStack[] = $sToken; 
-	    break;
-	case '(':
-	    $aComment[] = $sToken;
-	    break;
-        case ';':
-	    if ($sGroup) {
-	        $sEmail = trim(implode(' ',$aStack));
-		$aAddress[] = array($sGroup,$sEmail);
-		$aStack = $aComment = array();
-		$sGroup = '';
-		break;
+        {
+          case '=':
+          case '"':
+          case ' ':
+            $aStack[] = $sToken; 
+            break;
+          case '(':
+            $aComment[] = substr($sToken,1,-1);
+            break;
+          case ';':
+            if ($sGroup) {
+                $sEmail = trim(implode(' ',$aStack));
+                $aAddress[] = array($sGroup,$sEmail);
+                $aStack = $aComment = array();
+                $sGroup = '';
+                break;
             }
-	case ',':
-	     if (!$sEmail) {
-	         while (count($aStack) && !$sEmail) {
-	             $sEmail = array_pop($aStack);
-	         }
-	     }
-	     if (count($aStack)) {
-	         $sPersonal = implode(' ',$aStack);
-		 if ($sPersonal && $sPersonal{0} == '"') {
-		     $sPersonal = substr($sPersonal,1,-1);
-	         }
-	     } else { 
-	         $sPersonal = '';
-             }
-	     if (count($aComment)) {
-	         $sComment = implode(' ',$aComment);
-		 $sPersonal .= $sComment;
-	     }
-	     
-             $aAddress[] = array($sEmail,$sPersonal);
-	     $sPersonal = $sComment = $sEmail = '';
-	     $aStack = $aComment = array();
-	     break;
-	case ':': 
-	    $sGroup = implode(' ',$aStack); break;
-	    $aStack = array();
-	    break;
-	
-	case '<':
-	     $sEmail = trim(substr($sToken,1,-1));
-	     break;
-	case '>':
-	     /* skip */
-	     break; 
-        default: $aStack[] = $sToken; break;
+          case ',':
+            if (!$sEmail) {
+                while (count($aStack) && !$sEmail) {
+                    $sEmail = trim(array_pop($aStack));
+                }
+            }
+            if (count($aStack)) {
+                $sPersonal = trim(implode('',$aStack));
+            } else { 
+                $sPersonal = '';
+            }
+            if (!$sPersonal && count($aComment)) {
+                $sComment = implode(' ',$aComment);
+                $sPersonal .= $sComment;
+            }
+            $aAddress[] = array($sEmail,$sPersonal);
+            $sPersonal = $sComment = $sEmail = '';
+            $aStack = $aComment = array();
+            break;
+          case ':': 
+            $sGroup = implode(' ',$aStack); break;
+            $aStack = array();
+            break;
+          case '<':
+            $sEmail = trim(substr($sToken,1,-1));
+            break;
+          case '>':
+            /* skip */
+            break; 
+          default: $aStack[] = $sToken; break;
         }
     }
     /* now do the action again for the last address */
     if (!$sEmail) {
         while (count($aStack) && !$sEmail) {
-            $sEmail = array_pop($aStack);
+            $sEmail = trim(array_pop($aStack));
         }
     }
     if (count($aStack)) {
-        $sPersonal = implode(' ',$aStack);
-        if ($sPersonal && $sPersonal{0} == '"') {
-	     $sPersonal = substr($sPersonal,1,-1);
-	}
+        $sPersonal = trim(implode('',$aStack));
     } else {
         $sPersonal = '';
     }
-    if (count($aComment)) {
+    if (!$sPersonal && count($aComment)) {
         $sComment = implode(' ',$aComment);
-	$sPersonal .= $sComment;
+        $sPersonal .= $sComment;
     }
     $aAddress[] = array($sEmail,$sPersonal);
     return $aAddress;
