@@ -778,7 +778,7 @@ if ( sqgetGlobalVar('startMessage', $temp) ) {
 }
 
 /* end of get globals */
-global $uid_support, $sqimap_capabilities, $auto_expunge, $lastTargetMailbox;
+global $uid_support, $sqimap_capabilities, $lastTargetMailbox;
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response   = sqimap_mailbox_select($imapConnection, $mailbox, false, false, true);
@@ -788,11 +788,9 @@ $mbx_response   = sqimap_mailbox_select($imapConnection, $mailbox, false, false,
  * but only if delete_id was set
  */
 if ( sqgetGlobalVar('delete_id', $delete_id, SQ_GET) ) {
-//    sqimap_messages_delete($imapConnection, $delete_id, $delete_id, $mailbox);
+    sqimap_messages_delete($imapConnection, $delete_id, $delete_id, $mailbox);
 
-//    if ($auto_expunge) {
-//        sqimap_mailbox_expunge($imapConnection, $mailbox, true);
-//    }    
+    sqimap_mailbox_expunge_dmn($delete_id);
 }
 
 /**
@@ -802,17 +800,15 @@ if ( sqgetGlobalVar('delete_id', $delete_id, SQ_GET) ) {
 if ( sqgetGlobalVar('move_id', $move_id, SQ_POST) &&
      sqgetGlobalVar('targetMailbox', $targetMailbox, SQ_POST) ) {
     // Move message
-//    sqimap_messages_copy($imapConnection, $move_id, $move_id, $targetMailbox);
-//    sqimap_messages_flag($imapConnection, $move_id, $move_id, 'Deleted', true);
+    sqimap_messages_copy($imapConnection, $move_id, $move_id, $targetMailbox);
+    sqimap_messages_flag($imapConnection, $move_id, $move_id, 'Deleted', true);
 
-//    if ($auto_expunge) {
-//        sqimap_mailbox_expunge($imapConnection, $mailbox, true);
-//    }
+    sqimap_mailbox_expunge_dmn($move_id);
 
-//    if ($targetMailbox != $lastTargetMailbox) {
-//        $lastTargetMailbox = $targetMailbox;
-//        sqsession_register('lastTargetMailbox' , $lastTargetMailbox);
-//    }
+    if ($targetMailbox != $lastTargetMailbox) {
+        $lastTargetMailbox = $targetMailbox;
+        sqsession_register('lastTargetMailbox' , $lastTargetMailbox);
+    }
 }
 
 

@@ -249,6 +249,58 @@ function sqimap_mailbox_expunge ($imap_stream, $mailbox, $handle_errors = true, 
 }
 
 /**
+ * Expunge specified message, updated $msgs and $msort
+ * 
+ * Until Marc and I come up with a better way to maintain 
+ * these stupid arrays, we'll use this wrapper function to 
+ * remove the message with the matching UID .. the order
+ * won't be changed - the array element for the message
+ * will just be removed.
+ */
+function sqimap_mailbox_expunge_dmn($message_id)
+{
+    global $msgs, $msort, $sort, $imapConnection, 
+           $mailbox, $uid_support, $mbx_response, $auto_expunge, 
+           $sort, $allow_server_sort, $thread_sort_messages, $allow_thread_sort,
+           $username, $data_dir;
+
+    // Got to grab this out of prefs, since it isn't saved from mailbox_view.php
+    if ($allow_thread_sort) {
+        $thread_sort_messages = getPref($data_dir, $username, "thread_$mailbox",0); 
+    }
+
+    for ($i = 0; $i < count($msort); $i++) {
+        if ($msgs[$i]['ID'] == $message_id) {
+            break;   
+        }
+    }
+
+    unset($msgs[$i]);
+    unset($msort[$i]);
+
+    $msgs = array_values($msgs);
+    $msort = array_values($msort);
+
+    sqsession_register($msgs, 'msgs');
+    sqsession_register($msort, 'msort');
+
+    if ($auto_expunge) {
+         sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+    }
+
+    // And after all that mucking around, update the sort list!
+    // Remind me why the hell we need those two arrays again?!
+    if ( $allow_thread_sort && $thread_sort_messages ) {
+        $server_sort_array = get_thread_sort($imapConnection);
+    } elseif ( $allow_server_sort ) {
+        $server_sort_array = sqimap_get_sort_order($imapConnection, $sort, $mbx_response);
+    } elseif ( $uid_support ) {
+        $server_sort_array = sqimap_get_php_sort_order($imapConnection, $mbx_response);
+    }
+
+}
+
+/**
  * Checks whether or not the specified mailbox exists
  */
 function sqimap_mailbox_exists ($imap_stream, $mailbox) {
