@@ -106,7 +106,7 @@ function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors
        connection because the number of queries is to large. This isn't tested
        but a wild guess how it could work in the field.
        
-       After testing it on Exchange 2000 we discovered that a chucksize of 32 
+       After testing it on Exchange 2000 we discovered that a chunksize of 32 
        was quicker then when we raised it to 128.
     */
     $iQueryCount = count($aQueryList);
