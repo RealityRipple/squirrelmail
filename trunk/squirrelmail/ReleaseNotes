@@ -1,7 +1,7 @@
 /*****************************************************************
- * Release Notes: SquirrelMail 1.3.0                             *
- * The "Pasta" Release                                           *
- * 17 august 2002                                                *
+ * Release Notes: SquirrelMail 1.3.1                             *
+ * The "Marc for President!" Release                             *
+ * 19 august 2002                                                *
  *****************************************************************/
 
 In this edition of SquirrelMail Release Notes:
@@ -13,7 +13,7 @@ In this edition of SquirrelMail Release Notes:
 All about this Release!!!
 =========================
 
-This is the first release on our way to a new stable series.
+This is the second release on our way to a new stable series.
 On our way to, that is, this is a development release, which is not
 intended for production servers. We feel that releasing development
 versions will help us making the to-be stable release more stable, and
@@ -32,13 +32,12 @@ comment on version numbers. Our version numbers take the form of A.B.C
    if it is odd (1, 3, 5 etc), it is a development release
  C indicates small changes.
 Which is to say our version numbering system is the same as that of
-the linux kernel. So 1.2.7 is a stable version, and 1.3.0 (this one)
+the linux kernel. So 1.2.7 is a stable version, and 1.3.1 (this one)
 is a development release.
 
-We are excited to bring you the first fruits of a very good
-development series. Major rewrites of the back-end and the user
-interface have been happening since the 1.2 series. These rewrites
-have inspired me for the release alias (see down this document).
+We are excited to bring you the fruits of a very good development
+series. Major rewrites of the back-end and the user interface have
+been happening since the 1.2 series.
 
 
 A note on plugins
@@ -78,7 +77,7 @@ If you have problems with UID support, please do these 2 things:
      * The value of "sort" (as in conf.pl)
    bugs can be submitted at: http://www.squirrelmail.org/bugs
 2) For your own pleasure and comfort:
-   turn of UID support in conf.pl, so you can continue to use 1.3.0
+   turn of UID support in conf.pl, so you can continue to use 1.3.1
 
 
 A note on MIME
@@ -98,7 +97,7 @@ Reporting my favorite SquirrelMail 1.3 bug
 
 It is not unlikely you will experience some bugs while using this
 development version. Please submit these bugs. Also, please mention
-that the bug is in this 1.3.0 release.
+that the bug is in this 1.3.1 release.
 
    http://www.squirrelmail.org/bugs
 
@@ -120,24 +119,15 @@ things to share with the developers, join the development mailinglist:
 About our Release Aliases - By Wouter Teepe
 =========================
 
-Pasta is, as we all know, a group of Italian dishes. As most of us
-know, several types of pasta exist, two of which are:
+In the last months we have had our development team enlarged by,
+amongst others, Marc. Marc has been one of the greatest contributors
+to the stable series. After the release of 1.3.0, just 2 days ago, he
+managed to fix many many small bugs that were found. Almost when
+others (including myself) just thought "Huh, another release?" Marc
+was working hard to improve all kind of things. All fixes in this
+release (and possibly new bugs ;-)) are due to his hard work.
 
-* Spaghetti: Tastes good, but is very hard to untangle. Its structure
-  is unneccecarily complex, but it is relatively easy to cook.
-* Lasagne: Tastes excellent, and its structure is very elegant: it is
-  layered. Cooking it takes quite a bit more patience and design.
-
-I will not bore you with Italian cooking more except for this: The
-difference between spaghetti and lasagne applies to SquirrelMail as
-well. Where 1.2 is good, its inside is unneccecarily complex. Opposed
-to this, 1.3 is quite well structured from the inside. Its potential
-is true excellence. Its flavor is already excellent. Expect 1.4/2.0 to
-be, well...
-
-With the slicing up the internals of SquirrelMail, whole new
-possibilities will emerge. Listen on the development mailinglist to
-hear which!
+Keep up the good work, Marc!
 
 
                   Happy SquirrelMailing!
