@@ -162,22 +162,6 @@
 
       $dm = sqimap_get_delimiter ($imap_stream);
 
-      /** LIST array **/
-      fputs ($imap_stream, "a001 LIST \"\" \"$folder_prefix*\"\r\n");
-      $list_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
-
-      for ($i=0;$i < count($list_ary); $i++) {
-         $sorted_list_ary[$i]["name"] = find_mailbox_name($list_ary[$i]);
-         $sorted_list_ary[$i]["raw"]  = $list_ary[$i];
-         if ($sorted_list_ary[$i]["name"] == "INBOX")
-            $inbox_in_list = true;
-      }
-      if (isset($sorted_list_ary)) {
-         $list_sorted = array_cleave ($sorted_list_ary, "name");
-         asort($list_sorted);
-      }   
-
-
       /** LSUB array **/
       $inbox_subscribed = false;
       fputs ($imap_stream, "a001 LSUB \"\" \"*\"\r\n");
@@ -193,35 +177,28 @@
          sort($sorted_lsub_ary);
       }   
 
-      
+      /** LIST array **/
+		for ($i=0; $i < count($sorted_lsub_ary); $i++) {
+			if (substr($sorted_lsub_ary[$i], -1) == $dm)
+				$mbx = substr($sorted_lsub_ary[$i], 0, strlen($sorted_lsub_ary[$i])-1);
+			else
+				$mbx = $sorted_lsub_ary[$i];
+
+			fputs ($imap_stream, "a001 LIST \"\" \"$mbx\"\r\n");
+			$read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+			$sorted_list_ary[$i] = $read[0];
+         if (find_mailbox_name($sorted_list_ary[$i]) == "INBOX")
+            $inbox_in_list = true;
+		}
+		
       /** Just in case they're not subscribed to their inbox, we'll get it for them anyway **/
       if ($inbox_subscribed == false || $inbox_in_list == false) {
          fputs ($imap_stream, "a001 LIST \"\" \"INBOX\"\r\n");
          $inbox_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
-         $merged[0] = $inbox_ary[0];
-         $k = 1;
-      } else {
-         $k = 0;
+         $sorted_list_ary[count($sorted_list_ary)] = $inbox_ary[0];
       }
 
-      $i = $j = 0;
-      
-      if (isset($list_sorted) && isset($sorted_lsub_ary)) {
-	      reset ($list_sorted);
-	      for (reset($list_sorted); $key = key($list_sorted), isset($key);) {
-	         if ($sorted_lsub_ary[$i] == $list_sorted[$key]) {
-	            $merged[$k] = $sorted_list_ary[$key]["raw"];
-	            $k++;
-	            $i++;
-	            next($list_sorted);
-	         } else if (isset($sorted_lsub_ary[$i]) && isset($list_sorted[$key]) && $sorted_lsub_ary[$i] < $list_sorted[$key]) {
-	            $i++;
-	         } else {
-	            next($list_sorted);
-	         }
-	      }
-      }
-		$boxes = sqimap_mailbox_parse ($merged, $dm);
+		$boxes = sqimap_mailbox_parse ($sorted_list_ary, $dm);
 		
 		/** Now, lets sort for special folders **/
       for ($i = 0; $i < count($boxes); $i++) {
