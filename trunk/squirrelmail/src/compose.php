@@ -372,6 +372,7 @@
       printf("<INPUT TYPE=hidden NAME=mailbox VALUE=\"%s\">\n", htmlspecialchars($mailbox));      
       echo "</FORM>";
       do_hook("compose_bottom");
+      echo "</BODY></HTML>\n";
    }
 
    function showComposeButtonRow() {
