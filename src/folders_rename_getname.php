@@ -41,7 +41,7 @@
    $old_name = stripslashes($old_name);
 
    displayPageHeader($color, "None");
-   echo "<TABLE WIDTH=100% COLS=1>";
+   echo "<br><TABLE align=center border=0 WIDTH=95% COLS=1>";
    echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><B>";
    echo _("Rename a folder");
    echo "</B></TD></TR>";

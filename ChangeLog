@@ -1,6 +1,7 @@
 Version 0.5pre1 -- DEVELOPMENT
 ------------------------------
-- Removed a bunch of annoying "success" screens
+- It is now possible to select multiple subscribes/unsubscribes
+- Removed a bunch of annoying "success" screens, improved navigation
 - Better IMAP session handling
 - Redid the options section and split it into different parts
 - Added "view all headers" option when reading a message
@@ -10,6 +11,7 @@ Version 0.5pre1 -- DEVELOPMENT
 - Added support for message highlighting
 - Moved Address and Send buttons on Compose form for easier access 
 - Added Polish translation from Lukasz Klimek <casa@LO.Pila.PL>
+
 
 
 Version 0.4 -- May 15, 2000 

@@ -31,12 +31,16 @@ while ($line = <FILE>) {
       $line =~ s/^\s+\$//;
       $var = $line;
       
+      $var =~ s/=/EQUALS/;
       if ($var =~ /^([a-z]|[A-Z])/) {
-         @options = split(/\s*=\s*/, $var);
+         @options = split(/\s*EQUALS\s*/, $var);
          $options[1] =~ s/[\n|\r]//g;
-         $options[1] =~ s/^"//g;
-         $options[1] =~ s/;\s*$//g;
-         $options[1] =~ s/"$//g;
+         $options[1] =~ s/\";$//;
+         $options[1] =~ s/;$//;
+         $options[1] =~ s/^"//;
+#         if (/"$/) {
+#            $options[1] =~ s/"$//;
+#         }
 
          if ($options[0] =~ /^theme\[[0-9]+\]\["PATH"\]/) {
             $sub = $options[0];
@@ -463,6 +467,7 @@ sub command71 {
    print "every time a user logs on.  You can use HTML or just plain\n";
    print "text.\n\n(Type @ on a blank line to exit)\n";
    
+   $new_motd = "";
    do {
       print "] ";
       $line = <STDIN>;
@@ -471,7 +476,7 @@ sub command71 {
          $line =~ s/  /\&nbsp;\&nbsp;/g;
          $line =~ s/\t/\&nbsp;\&nbsp;\&nbsp;\&nbsp;/g;
          $line =~ s/$/ /;
-         $line =~ s/"/\"/g;
+         $line =~ s/\"/\\\"/g;
 
          $new_motd = $new_motd . $line;
       }
@@ -1212,7 +1217,7 @@ sub set_defaults {
    print "\n";
    print "Please note that you will still need to go through and make sure\n";
    print "everything is correct.  This does not change everything.  There are\n";
-   print "only a few settings that thils will change.\n";
+   print "only a few settings that this will change.\n";
    print "\n";
 
    $continue = 0;
@@ -1240,7 +1245,7 @@ sub set_defaults {
          print "         default_folder_prefix = INBOX\n";
          print "                  trash_folder = INBOX.Trash\n";
          print "                   sent_folder = INBOX.Sent\n";
-         print "             show_prefix_optin = false\n";
+         print "            show_prefix_option = false\n";
          print "          default_sub_of_inbox = true\n";
          print "show_contain_subfolders_option = false\n";
          print "              imap_server_type = cyrus\n";

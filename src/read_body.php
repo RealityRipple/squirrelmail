@@ -34,11 +34,12 @@
       $read = sqimap_read_data ($imapConnection, "a003", true, $a, $b); 
       
       echo "<br>";
-      echo "<table width=95% cellpadding=2 cellspacing=0 border=0 align=center>\n";
+      echo "<table width=100% cellpadding=2 cellspacing=0 border=0 align=center>\n";
       echo "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=100%><center><b>" . _("Viewing full header") . "</b> - ";
       echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more\">";
-      echo ""._("View message") . "</a></b></center></td></tr>\n";
-      echo "<tr><td><pre>";
+      echo ""._("View message") . "</a></b></center></td></tr></table>\n";
+      echo "<table width=99% cellpadding=2 cellspacing=0 border=0 align=center>\n";
+      echo "<tr><td><small><pre>";
       for ($i=1; $i < count($read)-1; $i++) {
          $read[$i] = htmlspecialchars($read[$i]);
          if (substr($read[$i], 0, 1) != "\t" && 
@@ -50,7 +51,7 @@
          }
          echo "$read[$i]";
       }
-      echo "</pre></td></tr></table>\n";
+      echo "</pre></small></td></tr></table>\n";
       echo "</body></html>";
       exit;
    }

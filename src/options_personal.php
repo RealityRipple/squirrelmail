@@ -34,7 +34,8 @@
    $email_address  = getPref($data_dir, $username, "email_address"); 
 
 ?>
-   <table width=100% align=center border=0 cellpadding=2 cellspacing=0><tr><td bgcolor="<? echo $color[0] ?>">
+   <br>
+   <table width=95% align=center border=0 cellpadding=2 cellspacing=0><tr><td bgcolor="<? echo $color[0] ?>">
       <center><b><? echo _("Options") . " - " . _("Personal Information"); ?></b></center>
    </td></tr></table>
 

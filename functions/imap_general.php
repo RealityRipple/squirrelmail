@@ -24,6 +24,7 @@
 //			echo "<small><tt><font color=cc0000>$read</font></tt></small><br>";
          $counter++;
       }       
+//      echo "--<br>";
       if (substr($read, 0, strlen("$pre OK")) == "$pre OK") {
          $response = "OK";
          $message = trim(substr($read, strlen("$pre OK"), strlen($read)));

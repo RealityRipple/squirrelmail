@@ -103,7 +103,7 @@
       do_hook("menuline");
 
       echo "      </TD><TD ALIGN=right WIDTH=\"30%\">\n";
-      echo "         <A HREF=\"http://squirrelmail.sourceforge.net/index.php3?from=1\" TARGET=\"_top\">SquirrelMail</A>\n";
+      echo "         <A HREF=\"http://www.squirrelmail.org/index.php3?from=1\" TARGET=\"_top\">SquirrelMail</A>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
       echo "</TABLE>\n\n";

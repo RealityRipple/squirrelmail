@@ -87,10 +87,17 @@
             $messages[$j]["DATE_STRING"] = getDateString($messages[$j]["TIME_STAMP"]);
             $messages[$j]["ID"] = $j+1;
             $messages[$j]["FROM"] = decodeHeader($from[$j]);
+            $messages[$j]["FROM-SORT"] = strtolower(sqimap_find_displayable_name(decodeHeader($from[$j])));
             $messages[$j]["SUBJECT"] = decodeHeader($subject[$j]);
+            $messages[$j]["SUBJECT-SORT"] = strtolower(decodeHeader($subject[$j]));
             $messages[$j]["TO"] = decodeHeader($to[$j]);
 				$messages[$j]["PRIORITY"] = $priority[$j];
             $messages[$j]["CC"] = $cc[$j];
+
+            # fix SUBJECT-SORT to remove Re:
+            if (substr($messages[$j]["SUBJECT-SORT"], 0, 3) == "re:" ||
+                substr($messages[$j]["SUBJECT-SORT"], 0, 3) == "aw:")
+               $messages[$j]["SUBJECT-SORT"] = trim(substr($messages[$j]["SUBJECT-SORT"], 3));    
    
             $num = 0;
             while ($num < count($flags[$j])) {
@@ -138,9 +145,9 @@
          if (($sort == 0) || ($sort == 1))
             $msort = array_cleave ($msgs, "TIME_STAMP");
          if (($sort == 2) || ($sort == 3))
-            $msort = array_cleave ($msgs, "FROM");
+            $msort = array_cleave ($msgs, "FROM-SORT");
          if (($sort == 4) || ($sort == 5))
-            $msort = array_cleave ($msgs, "SUBJECT");
+            $msort = array_cleave ($msgs, "SUBJECT-SORT");
 
          if(($sort % 2) == 1) {
             asort($msort);

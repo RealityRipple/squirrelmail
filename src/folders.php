@@ -29,14 +29,14 @@
 
    echo "<br>";
    echo "<TABLE WIDTH=95% COLS=1 ALIGN=CENTER>\n";
-   echo "   <TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER>\n";
+   echo "   <TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><b>\n";
    echo _("Folders");
-   echo "   </TD></TR>\n";
+   echo "   </b></TD></TR>\n";
    echo "</TABLE>\n";
 
    if ($success) {
       echo "<table width=100% align=center cellpadding=3 cellspacing=0 border=0>\n";
-      echo "   <tr><td><center><font color=\"$color[1]\">\n";
+      echo "   <tr><td><center>\n";
       if ($success == "subscribe") {
          echo "<b>" . _("Subscribed successfully!") . "</b><br>";
       } else if ($success == "unsubscribe") {
@@ -48,7 +48,7 @@
       } else if ($success == "rename") {
          echo "<b>" . _("Renamed successfully!") . "</b><br>";
       }
-      echo "</font><a href=\"../src/left_main.php\" target=left><font color=\"$color[1]\">" . _("refresh folder list") . "</font></a>";
+      echo "   <a href=\"../src/left_main.php\" target=left>" . _("refresh folder list") . "</a>";
       echo "   </center></td></tr>\n";
       echo "</table><br>\n";
    }
@@ -99,9 +99,9 @@
 
    /** DELETING FOLDERS **/
    echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER cellpadding=2 cellspacing=0 border=0>\n";
-   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
+   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER>";
    echo _("Delete Folder");
-   echo "</B></TD></TR>";
+   echo "</TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
 
    $count_special_folders = 0;
@@ -146,9 +146,9 @@
    echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr>\n";
 
    /** CREATING FOLDERS **/
-   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
+   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER>";
    echo _("Create Folder");
-   echo "</B></TD></TR>";
+   echo "</TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
    echo "<FORM ACTION=\"folders_create.php\" METHOD=\"POST\">\n";
    echo "<INPUT TYPE=TEXT SIZE=25 NAME=folder_name><BR>\n";
@@ -199,9 +199,9 @@
    echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr>\n";
 
    /** RENAMING FOLDERS **/
-   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
+   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER>";
    echo _("Rename a Folder");
-   echo "</B></TD></TR>";
+   echo "</TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
    if ($count_special_folders < count($boxes)) {
       echo "<FORM ACTION=\"folders_rename_getname.php\" METHOD=\"POST\">\n";
@@ -228,16 +228,17 @@
    }
    $boxes_sub = $boxes;
 
-   echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr>\n";
+   echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr></table>\n";
    
    /** UNSUBSCRIBE FOLDERS **/
-   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
+   echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER cellpadding=2 cellspacing=0 border=0>\n";
+   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER colspan=3>";
    echo _("Unsubscribe/Subscribe");
-   echo "</B></TD></TR>";
-   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
+   echo "</TD></TR>";
+   echo "<TR><TD BGCOLOR=\"$color[0]\" width=49% ALIGN=CENTER>";
    if ($count_special_folders < count($boxes)) {
       echo "<FORM ACTION=\"folders_subscribe.php?method=unsub\" METHOD=\"POST\">\n";
-      echo "<TT><SELECT NAME=mailbox>\n";
+      echo "<TT><SELECT NAME=mailbox[] multiple size=8>\n";
       for ($i = 0; $i < count($boxes); $i++) {
          $use_folder = true;
 			if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&
@@ -249,25 +250,26 @@
             echo "         <OPTION VALUE=\"$box\">$box2\n";
          }
       }
-      echo "</SELECT></TT>\n";
+      echo "</SELECT></TT><br>\n";
       echo "<INPUT TYPE=SUBMIT VALUE=\"";
       echo _("Unsubscribe");
       echo "\">\n";
-      echo "</FORM></TD></TR>\n";
+      echo "</FORM></TD>\n";
    } else {
-      echo _("No mailboxes found") . "<br><br></td></tr>";
+      echo _("No folders were found to unsubscribe from!") . "</td>";
    }
    $boxes_sub = $boxes;
+
+   echo "<td bgcolor=\"$color[9]\" width=2%>&nbsp;</td>";
    
    /** SUBSCRIBE TO FOLDERS **/
-   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
-   if ($count_special_folders <= count($boxes)) {
-      $imap_stream = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 1);
-      $boxes_all = sqimap_mailbox_list_all ($imap_stream);
-      
-      echo "<FORM ACTION=\"folders_subscribe.php?method=sub\" METHOD=\"POST\">\n";
-      echo "<tt><select name=mailbox>";
-      for ($i = 0; $i < count($boxes_all); $i++) {
+   echo "<TD BGCOLOR=\"$color[0]\" widtn=49% ALIGN=CENTER>";
+   $imap_stream = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 1);
+   $boxes_all = sqimap_mailbox_list_all ($imap_stream);
+
+      $box = "";
+      $box2 = "";
+      for ($i = 0, $q = 0; $i < count($boxes_all); $i++) {
          $use_folder = true;
 			for ($p = 0; $p < count ($boxes); $p++) {
 				if ($boxes_all[$i]["unformatted"] == $boxes[$p]["unformatted"]) {
@@ -278,19 +280,25 @@
 				}
 			}
 			if ($use_folder == true) {	
-            $box = $boxes_all[$i]["unformatted-dm"];
-            $box2 = replace_spaces($boxes_all[$i]["formatted"]);
-            echo "         <OPTION VALUE=\"$box\">$box2\n";
+            $box[$q] = $boxes_all[$i]["unformatted-dm"];
+            $box2[$q] = $boxes_all[$i]["formatted"];
+            $q++;
          }
       }
       sqimap_logout($imap_stream);
-      echo "</select></tt>";
-      echo "<INPUT TYPE=SUBMIT VALUE=\"";
-      echo _("Subscribe");
-      echo "\">\n";
+
+   if ($box && $box2) {
+      echo "<FORM ACTION=\"folders_subscribe.php?method=sub\" METHOD=\"POST\">\n";
+      echo "<tt><select name=mailbox[] multiple size=8>";
+
+      for ($q = 0; $q < count($box); $q++) {      
+         echo "         <OPTION VALUE=\"$box[$q]\">".$box2[$q]."\n";
+      }      
+      echo "</select></tt><br>";
+      echo "<INPUT TYPE=SUBMIT VALUE=\"". _("Subscribe") . "\">\n";
       echo "</FORM></TD></TR></TABLE><BR>\n";
    } else {
-      echo _("No mailboxes found") . "<br><br></td></tr></table>";
+      echo _("No folders were found to subscribe to!") . "</td></tr></table>";
    }
 
    sqimap_logout($imapConnection);

@@ -56,8 +56,8 @@
    // now lets go through the tree and delete the folders
    walkTreeInPreOrderEmptyTrash(0, $imap_stream, $foldersTree);
 
-   sqimap_mailbox_select($imap_stream, $trash_folder, $numMessages);
-   displayPageHeader($color, $mailbox);
-   messages_deleted_message($trash_folder, $sort, $startMessage, $color);
+   $location = get_location();
+   header ("Location: $location/left_main.php");
+
    sqimap_logout($imap_stream);
 ?>

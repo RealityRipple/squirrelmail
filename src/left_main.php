@@ -72,7 +72,7 @@
       if (($move_to_trash == true) && ($real_box == $trash_folder)) {
          $urlMailbox = urlencode($real_box);
          $line .= "\n<small>\n";
-         $line .= "  &nbsp;&nbsp;&nbsp;&nbsp;(<B><A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\" TARGET=right style=\"text-decoration:none\">"._("purge")."</A></B>)";
+         $line .= "  &nbsp;&nbsp;&nbsp;&nbsp;(<B><A HREF=\"empty_trash.php\" style=\"text-decoration:none\">"._("purge")."</A></B>)";
          $line .= "\n</small>\n";
       }
       $line .= "</NOBR>";

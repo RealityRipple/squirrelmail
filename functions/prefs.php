@@ -141,9 +141,6 @@
             $sig .= fgets($file, 1024);
          }
          fclose($file);
-      } else {
-         echo _("Signature file not found.");
-         exit;
       }
       return $sig;
    }

@@ -1,116 +1,52 @@
-Last revised:  December 26, 1999
+SquirrelMail
+http://www.squirrelmail.org
 
-Contents
+Introduction:
+-------------
+SquirrelMail is a standards-based webmail package written in PHP4. It includes 
+built-in pure PHP support for the IMAP and SMTP protocols, and all pages render 
+in pure HTML 4.0 (with no Javascript) for maximum compatibility across 
+browsers. It has very few requirements and is very easy to configure and 
+install. SquirrelMail has a all the functionality you would want from an email 
+client, including strong MIME support, address books, and folder manipulation.  
+
+Why did you guys create SquirrelMail?  The need arose in our organization for 
+the access of email and address books from anywhere in the world.  Obviously 
+a web interface is ideal for this, given that the user has access to the 
+Internet.  After reviewing several open source projects, we realized that 
+we were going to need to do some fairly major customizations to get things 
+to be a nice fit for our needs.  So the decision was made to create our 
+own for some of these reasons, and for fun (we really like PHP4).  We 
+decided to open source the project to contribute to the community that has 
+contributed so much to us.  Since then, it has grown much bigger than we ever
+imagined, and we have an awesome development team who are actively working
+on the project.
+
+We would love to hear from you!  The nature of open source projects make it
+hard to know who all is using your product.  It is always nice when we get
+emails from people just telling us that they're using SquirrelMail.  If you
+have a few minutes, please send us an email to let us know!  You can send
+it to our mailing list:  squirrelmail-list@sourceforge.net
+
+Contact:
 --------
-General Information ................................................. 1.0
-  About SquirrelMail ................................................ 1.1
-  History ........................................................... 1.2
-  Contact Information ............................................... 1.3
+It is pretty easy to get in contact with the developers if you need help or
+if you find bugs that need to be reported.  The best way to contact us would
+be through our mailing list which is actively monitored.  Just send an 
+email to:
+   
+   squirrelmail-list@sourceforge.net
 
-Installation ........................................................ 2.0
+If you wish to actually subscribe to our mailing list, please visit our web
+page for instructions (http://www.squirrelmail.org) and go to the section
+titled "Mailing List".
 
-Liscensing .......................................................... 3.0
+Installation:
+-------------
+  For detailed instructions on how to install SquirrelMail on your server,
+  please refer to the INSTALL document in the same directory as this document.
 
-FAQ ................................................................. 4.0
-  Can SquirrelMail run with PHP3? ................................... 4.1
-  Why PHP4 when it's only in BETA? .................................. 4.2
-  Where did you get the name "SquirrelMail?" ........................ 4.3
-  Is SquirrelMail stable enough to actually use? .................... 4.4
-
-
-
-
-
--- Section 1.0 --
-   General Information
-   ----------------------------------------------------------------------
-   1.1 - About SquirrelMail
-
-   So what exactly is SquirrelMail?  It's a web interface to email that's
-   written in PHP4.  It was designed to allow email access through your
-   server from anywhere in the world via the Web.
-
-
-
-   1.2 - History
-
-   The need arose in our organization for the access of email and address
-   books from anywhere in the world. Obviously a web interface is ideal
-   for this, given that the user has access to the Internet.  After
-   reviewing several open source projects we realized that we were going
-   to need to do some fairly major customizations to get things to be a
-   nice fit for our needs. So the decision was made to create our own for
-   some of these reasons, and for fun (we really like PHP4). We decided
-   to open source the project to contribute to the community that has
-   contributed so much to us.
-
-
-
-   1.3 - Contact Information
-
-   If you need to contact the developers of SquirrelMail for some reason,
-   please email the mailing list.  Bug reports and ideas should be sent
-   to the mailing list also.
-
-   Mailing List:  squirrelmail-list@sourceforge.net
-
-   If for some reason, you need to contact us directly, you can also
-   email us at:
-
-   Luke Ehresman:    luke@usa.om.org
-   Nathan Ehresman:  nathan@usa.om.org
-
-   Web Page:  squirrelmail.sourceforge.net
-
-
--- Section 2.0 --
-   Installation
-   ----------------------------------------------------------------------
-
-   Please view the INSTALL document that was included in this package.
-
-
-
-
-
--- Section 3.0 --
-   Liscensing
-   ----------------------------------------------------------------------
-
-   This product is distributed under the GPL liscense.  Please read
-   COPYING for more information.
-
-
-
-
-
--- Section 4.0 --
-   Frequently Asked Questions
-   ----------------------------------------------------------------------
-   Q: Can SquirrelMail be run with PHP3?
-
-      Yes, and No. It is fully developed under PHP4 BETA3, however PHP is
-      pretty good about backwards compatability. Theoretically, it
-      shouldn't be too hard to port it to PHP3, but you definately would
-      have to do some code tweaking. Let us know of any success or horror
-      stories if you attempt it.
-
-   Q: Why PHP4 when it's only in BETA?
-
-      PHP4 is significantly faster than PHP3. When we were viewing
-      mailboxes with 500-1000 messages in them, it would take about 15-30
-      seconds to sort them. With PHP4, that time has been cut down to 5-10
-      seconds for large boxes.
-
-   Q: Where did you get the name, "SquirrelMail"?
-
-      It's derived from the over-abundant squirrel population in Georgia
-      this year. We were playing volleyball one day, and saw a squirrel
-      try to jump between trees. He failed miserably and fell 40 feet to
-      the ground. So, we had squirrels on our mind the next day when we
-      were coming up with a name.
-      
-   Q: Is SquirrelMail stable enough to actually use?
-      SquirrelMail is stable, however, many of the features that are 
-      usually desired from an email client have not yet been implemented.
-
+Licensing: 
+----------
+  This product is distributed under the GPL.  Please read through the file
+  COPYING for more information about our license.
