@@ -118,39 +118,39 @@ function getforwardHeader($orig_header) {
  */
 //$session_expired = false; 
 if (session_is_registered('session_expired_post')) {
-   global $session_expired_post, $session_expired;
-   /* 
-    * extra check for username so we don't display previous post data from
-    * another user during this session.
-    */
-   if ($session_expired_post['username'] != $username) {
-      session_unregister('session_expired_post');
-      session_unregister('session_expired');      
-   } else {
-      foreach ($session_expired_post as $postvar => $val) {
-         if (isset($val)) {
-            $$postvar = $val;
-         } else {
-            $$postvar = '';
-         }
-      }
-      if (isset($send)) {
-         unset($send);
-      }
-      $session_expired = true;
-   }
-   session_unregister('session_expired_post');
-   session_unregister('session_expired');
-   if (!isset($mailbox)) {
-      $mailbox = '';
-   }
-   if ($compose_new_win == '1') {
-      compose_Header($color, $mailbox);
-   } else {
-      displayPageHeader($color, $mailbox);
-   }
-   showInputForm($session, false);
-   exit();
+    global $session_expired_post, $session_expired;
+    /* 
+     * extra check for username so we don't display previous post data from
+     * another user during this session.
+     */
+    if ($session_expired_post['username'] != $username) {
+        session_unregister('session_expired_post');
+        session_unregister('session_expired');      
+    } else {
+        foreach ($session_expired_post as $postvar => $val) {
+            if (isset($val)) {
+                $$postvar = $val;
+            } else {
+                $$postvar = '';
+            }
+        }
+        if (isset($send)) {
+            unset($send);
+        }
+        $session_expired = true;
+    }
+    session_unregister('session_expired_post');
+    session_unregister('session_expired');
+    if (!isset($mailbox)) {
+        $mailbox = '';
+    }
+    if ($compose_new_win == '1') {
+        compose_Header($color, $mailbox);
+    } else {
+        displayPageHeader($color, $mailbox);
+    }
+    showInputForm($session, false);
+    exit();
 }
 
 if (!isset($attachments)) {
@@ -172,7 +172,8 @@ if (!isset($session) || (isset($newmessage) && $newmessage)) {
 if (!isset($compose_messages)) {
   $compose_messages = array();
 }
-if (!array_key_exists($session, $compose_messages)) {
+if (!isset($compose_messages[$session]) || ($compose_messages[$session] == NULL)) {
+/* if (!array_key_exists($session, $compose_messages)) {  /* We can only do this in PHP >= 4.1 */
   $composeMessage = new message();
   $rfc822_header = new Rfc822Header();
   $composeMessage->rfc822_header = $rfc822_header;
