@@ -23,6 +23,7 @@ class Message {
         $type0='',
         $type1='',
         $entities = array(),
+	$entity_id = '',
         $parent_ent, $entity,
         $parent = '', $decoded_body='',
         $is_seen = 0, $is_answered = 0, $is_deleted = 0, $is_flagged = 0,
@@ -774,6 +775,25 @@ class Message {
         }
 
         return $result;
+    }
+    
+    function initAttachment($type, $name, $location) {
+        $attachment = new Message();
+        $mime_header = new MessageHeader();
+        $mime_header->setParameter('name', $name);
+	$pos = strpos($type, '/');
+	if ($pos > 0) {
+    	    $mime_header->type0 = substr($type, 0, $pos);
+    	    $mime_header->type1 = substr($type, $pos+1);
+	} else {
+    	    $mime_header->type0 = $type;
+	}
+	$attachment->att_local_name = $location;
+	$disposition = new Disposition('attachment');
+	$disposition->properties['filename'] = $name;
+	$mime_header->disposition = $disposition;
+	$attachment->mime_header = $mime_header;
+	$this->entities[]=$attachment;
     }
 }
 
