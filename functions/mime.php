@@ -358,9 +358,9 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
         $body = decodeBody($body, $body_message->header->encoding);
 
         if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-            function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+            function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_decode')) {
             if (mb_detect_encoding($body) != 'ASCII') {
-                $body = $languages[$squirrelmail_language]['XTRA_CODE']('decode', $body);
+                $body = call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_decode',$body);
             }
         }
         $hookResults = do_hook("message_body", $body);
@@ -625,8 +625,8 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
     }
 
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
-        $string = $languages[$squirrelmail_language]['XTRA_CODE']('decodeheader', $string);
+        function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_decodeheader')) {
+        $string = call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_decodeheader', $string);
         // Do we need to return at this point?
         // return $string;
     }
@@ -750,8 +750,8 @@ function encodeHeader ($string) {
     global $default_charset, $languages, $squirrelmail_language;
 
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
-        return  $languages[$squirrelmail_language]['XTRA_CODE']('encodeheader', $string);
+        function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_encodeheader')) {
+        return  call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_encodeheader', $string);
     }
 
     // Encode only if the string contains 8-bit characters or =?
@@ -1983,9 +1983,9 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
      }
 
      if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-         function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+         function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_downloadfilename')) {
          $filename =
-         $languages[$squirrelmail_language]['XTRA_CODE']('downloadfilename', $filename, $HTTP_USER_AGENT);
+         call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_downloadfilename', $filename, $HTTP_USER_AGENT);
      } else {
          $filename = ereg_replace('[\\/:\*\?"<>\|;]', '_', str_replace('&nbsp;', ' ', $filename));
      }
