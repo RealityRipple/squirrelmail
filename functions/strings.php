@@ -867,6 +867,19 @@ function sm_print_r() {
     foreach(func_get_args() as $var) {
         print_r($var);
         echo "\n";
+        // php has get_class_methods function that can print class methods
+        if (is_object($var)) {
+            // get class methods if $var is object
+            $aMethods=get_class_methods(get_class($var));
+            // make sure that array is not empty
+            if ($aMethods!=array()) {
+                echo "Object methods:\n";
+                foreach($aMethods as $method) {
+                    echo '* ' . $method . "\n";
+                }
+            }
+            echo "\n";
+        }
     }
     $buffer = ob_get_contents(); // Grab the print_r output
     ob_end_clean();  // Silently discard the output & stop buffering
