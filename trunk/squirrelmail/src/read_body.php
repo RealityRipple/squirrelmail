@@ -147,8 +147,7 @@ do_hook('html_top');
 displayPageHeader($color, $mailbox);
 
 if (isset($view_hdr)) {
-    fputs ($imapConnection, sqimap_session_id() . " FETCH $passed_id BODY[HEADER]\r\n");
-    $read = sqimap_read_data ($imapConnection, sqimap_session_id(), true, $a, $b);
+    $read = sqimap_run_command ($imapConnection, "FETCH $passed_id BODY[HEADER]", true, $a, $b);
 
     echo '<BR>' .
         '<TABLE WIDTH="100%" CELLPADDING="2" CELLSPACING="0" BORDER="0" ALIGN="CENTER">' . "\n" .
@@ -620,9 +619,7 @@ if ($default_use_priority) {
 }
 
 if ($show_xmailer_default) {
-    fputs ($imapConnection, sqimap_session_id() .
-        " FETCH $passed_id BODY.PEEK[HEADER.FIELDS (X-Mailer User-Agent)]\r\n");
-    $read = sqimap_read_data ($imapConnection, sqimap_session_id(), true,
+    $read = sqimap_run_command ($imapConnection, "FETCH $passed_id BODY.PEEK[HEADER.FIELDS (X-Mailer User-Agent)]", true,
                             $response, $readmessage);
     $mailer = substr($read[1], strpos($read[1], " "));
     if (trim($mailer)) {
