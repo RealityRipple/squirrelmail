@@ -245,7 +245,7 @@
          if (isset($read[0]))
          $sorted_list_ary[$i] = $read[0];
          else
-         $sorget_list_ary[$i] = "";
+         $sorted_list_ary[$i] = "";
          if (isset($sorted_list_ary[$i]) && find_mailbox_name($sorted_list_ary[$i]) == "INBOX")
             $inbox_in_list = true;
       }
