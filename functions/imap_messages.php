@@ -63,13 +63,34 @@
       $res = sqimap_get_small_header_list($imap_stream, array($id), $sent);
       return $res[0];
    }
+   
+   // Sort the message list and crunch to be as small as possible
+   // (overflow could happen, so make it small if possible)
+   function sqimap_message_list_squisher($messages_array) {
+      sort($messages_array, SORT_NUMERIC);
+      $msgs_str = '';
+      while ($messages_array) {
+         $start = array_shift($messages_array);
+	 $end = $start;
+	 while (isset($messages_array[0]) && $messages_array[0] == $end + 1)
+	    $end = array_shift($messages_array);
+	 if ($msgs_str != '')
+	    $msgs_str .= ',';
+	 $msgs_str .= $start;
+	 if ($start != $end)
+	    $msgs_str .= ':' . $end;
+      }
+      
+      return $msgs_str;
+   }   
 
    function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
+      global $squirrelmail_language, $color;
 
       /* Get the small headers for each message in $msg_list */
 
       $maxmsg = sizeof($msg_list);
-      $msgs_str = implode(",", $msg_list);
+      $msgs_str = sqimap_message_list_squisher($msg_list);
       $results = array();
       $read_list = array();
       $sizes_list = array();
@@ -82,9 +103,11 @@
          $id2index[$msg_list[$i]] = $i;
       }
 
+
       $query = "a001 FETCH $msgs_str BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject Message-Id X-Priority Content-Type)]\r\n";
       fputs ($imap_stream, $query);
       $readin_list = sqimap_read_data_list($imap_stream, "a001", true, $response, $message);
+
 
       foreach ($readin_list as $r) {
          if (!eregi("^\\* ([0-9]+) FETCH", $r[0], $regs)) {
@@ -96,12 +119,12 @@
             echo $r[0] . "</font><br>\n";
             exit;
          }
-         if (!count($id2index[$regs[1]])) {
+         if (! isset($id2index[$regs[1]]) || !count($id2index[$regs[1]])) {
             set_up_language($squirrelmail_language);
             echo "<br><b><font color=$color[2]>\n";
             echo _("ERROR : Could not complete request.");
             echo "</b><br>\n";
-            echo _("Unknown messagenumber in reply from server: ");
+            echo _("Unknown message number in reply from server: ");
             echo $regs[1] . "</font><br>\n";
             exit;
          }
@@ -222,8 +245,7 @@
    }
 
    function sqimap_get_flags_list ($imap_stream, $msg_list) {
-
-      $msgs_str = implode(",", $msg_list);
+      $msgs_str = sqimap_message_list_squisher($msg_list);
       for ($i = 0; $i < sizeof($msg_list); $i++) {
          $id2index[$msg_list[$i]] = $i;
       }
@@ -233,7 +255,7 @@
 
       for ($i = 0; $i < sizeof($result_list); $i++) {
          if (eregi("^\\* ([0-9]+).*FETCH.*FLAGS(.*)", $result_list[$i][0], $regs)
-             && count($id2index[$regs[1]])) {
+             && isset($id2index[$regs[1]]) && count($id2index[$regs[1]])) {
             $result_flags[$id2index[$regs[1]]] = explode(" ", trim(ereg_replace('[\\(\\)\\\\]', '', $regs[2])));
          } else {
             set_up_language($squirrelmail_language);
