@@ -131,7 +131,7 @@
 
        // Encode the expression
        $expr = $this->charset_encode($expr);
-       if(!ereg('\\*', $expr)) 
+       if(strstr($expr, "*") === false)
 	 $expr = "*$expr*";
        $expression = "cn=$expr";
 

@@ -85,7 +85,7 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
 
       $j = 0;
       while ($j < count($messagelist)) {
-         $date[$j] = ereg_replace("  ", " ", $date[$j]);
+         $date[$j] = ereg_replace('  ', ' ', $date[$j]);
          $tmpdate = explode(" ", trim($date[$j]));
 
          $messages[$j]["TIME_STAMP"] = getTimeStamp($tmpdate);

@@ -377,11 +377,11 @@
       fputs ($imap_stream, "a010 FETCH $id BODY[$ent_id]\r\n");
       $data = sqimap_read_data ($imap_stream, 'a010', true, $response, $message);
       $topline = array_shift($data);
-      while (! ereg('\* [0-9]+ FETCH ', $topline) && data)
+      while (! ereg('\\* [0-9]+ FETCH ', $topline) && data)
           $topline = array_shift($data);
       $wholemessage = implode('', $data);
 
-      if (ereg('\{([^\}]*)\}', $topline, $regs)) {
+      if (ereg('\\{([^\\}]*)\\}', $topline, $regs)) {
          return substr($wholemessage, 0, $regs[1]);
       }
       else if (ereg('"([^"]*)"', $topline, $regs)) {
@@ -651,7 +651,7 @@
    // This functions decode strings that is encoded according to 
    // RFC1522 (MIME Part Two: Message Header Extensions for Non-ASCII Text).
    function decodeHeader ($string) {
-      if (eregi('=\?([^?]+)\?(q|b)\?([^?]+)\?=', 
+      if (eregi('=\\?([^?]+)\\?(q|b)\\?([^?]+)\\?=', 
                 $string, $res)) {
          if (ucfirst($res[2]) == "B") {
             $replace = base64_decode($res[3]);
@@ -668,7 +668,7 @@
          $replace = charset_decode ($res[1], $replace);
 
          $string = eregi_replace
-            ('=\?([^?]+)\?(q|b)\?([^?]+)\?=',
+            ('=\\?([^?]+)\\?(q|b)\\?([^?]+)\\?=',
              $replace, $string);
          // In case there should be more encoding in the string: recurse
          return (decodeHeader($string));

@@ -511,8 +511,8 @@
       // In order to remove the problem of users not able to create
 	  // messages with "." on a blank line, RFC821 has made provision
 	  // in section 4.5.2 (Transparency).
-	  $body = ereg_replace("\n\.", "\n\.\.", $body);
-	  $body = ereg_replace("^\.", "\.\.", $body);
+	  $body = ereg_replace("\n\\.", "\n..", $body);
+	  $body = ereg_replace("^\\.", "..", $body);
 
       // this is to catch all plain \n instances and
       // replace them with \r\n.  

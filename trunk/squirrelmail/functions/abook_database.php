@@ -108,8 +108,8 @@
          if(is_array($expr)) return;
 
          // Make regexp from glob'ed expression 
-         $expr = ereg_replace('\?', '_', $expr);
-         $expr = ereg_replace('\*'. '%', $expr);
+         $expr = ereg_replace('\\?', '_', $expr);
+         $expr = ereg_replace('\\*'. '%', $expr);
          $expr = $this->dbh->quoteString($expr);
          $expr = "%$expr%";
 
