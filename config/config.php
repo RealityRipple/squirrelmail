@@ -37,7 +37,9 @@
 //  To add a new theme to the options that users can choose from, just add
 //  a new number to the array at the bottom, and follow the pattern.
 
-    $theme[0]["PATH"] = "../config/default_theme.php"; // This is your default theme.  Can be theme.
+    // The first one HAS to be here, and is your system's default theme.
+    // It can be any theme you want
+    $theme[0]["PATH"] = "../config/default_theme.php";
     $theme[0]["NAME"] = "Default";
 
     $theme[1]["PATH"] = "../config/sandstorm_theme.php";
@@ -69,9 +71,9 @@
  *           will get expunged, removing all messages marked "Deleted".
  */
 
-    $move_to_trash = true;
+    $default_move_to_trash = true;
     $trash_folder = "INBOX.Trash";
-    $auto_expunge = true;
+    $default_auto_expunge = true;
 
 //  Special Folders are folders that can't be manipulated like normal user created
 //  folders can.  A couple of examples would be "INBOX.Trash", "INBOX.Drafts".  We have
