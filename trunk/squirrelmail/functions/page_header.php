@@ -46,16 +46,16 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
         echo '<link rel="stylesheet" type="text/css" href="' .
              $base_uri . 'themes/css/'.$custom_css.'" />';
     }
-    
+
     if ($squirrelmail_language == 'ja_JP') {
         echo "<!-- \xfd\xfe -->\n";
         echo '<meta http-equiv="Content-type" content="text/html; charset=euc-jp" />' . "\n";
     }
-    
+
     if ($do_hook) {
         do_hook('generic_header');
     }
-    
+
     echo "\n<title>$title</title>$xtra\n";
 
     /* work around IE6's scrollbar bug */
@@ -63,9 +63,9 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
 <style type="text/css">
 <!--
   /* avoid stupid IE6 bug with frames and scrollbars */
-  body { 
-      voice-family: "\"}\""; 
-      voice-family: inherit; 
+  body {
+      voice-family: "\"}\"";
+      voice-family: inherit;
       width: expression(document.documentElement.clientWidth - 30);
   }
 -->
@@ -139,8 +139,8 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
         $compose_uri = $base_uri.'src/compose.php?newmessage=1';
     $session = 0;
     }
-  
-    if($javascript_on) { 
+
+    if($javascript_on) {
 
       switch ( $module ) {
         case 'src/read_body.php':
@@ -232,12 +232,12 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                         "document.forms[i-1].elements[pos].focus();\n".
                     "}\n".
                 "}\n";
-        
+
             $js .= "// -->\n".
                  "</script>\n";
             $onload = 'onload="checkForm();"';
             displayHtmlHeader ('SquirrelMail', $js);
-            break;   
+            break;
 
         default:
             $js = '<script language="JavaScript" type="text/javascript">' .
@@ -263,7 +263,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                     "}\n".
             "$xtra\n".
                 "}\n";
-        
+
                 if ($compose_new_win == '1') {
                     if (!preg_match("/^[0-9]{3,4}$/", $compose_width)) {
                         $compose_width = '640';
@@ -283,10 +283,10 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 
                 }
             $js .= "// -->\n". "</script>\n";
-    
+
             $onload = 'onload="checkForm();"';
             displayHtmlHeader ('SquirrelMail', $js);
-            break;   
+            break;
 
         }
     } else {
@@ -416,7 +416,7 @@ function compose_Header($color, $mailbox) {
                  "</script>\n";
             $onload = 'onload="checkForm();"';
             displayHtmlHeader (_("Compose"), $js);
-            break;   
+            break;
         }
     } else {
         /* javascript off */

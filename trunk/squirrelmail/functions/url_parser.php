@@ -85,8 +85,8 @@ $url_parser_url_tokens = array(
     'news://');
 
 global $url_parser_poss_ends;
-$url_parser_poss_ends = array(' ', "\n", "\r", '<', '>', ".\r", ".\n", 
-    '.&nbsp;', '&nbsp;', ')', '(', '&quot;', '&lt;', '&gt;', '.<', 
+$url_parser_poss_ends = array(' ', "\n", "\r", '<', '>', ".\r", ".\n",
+    '.&nbsp;', '&nbsp;', ')', '(', '&quot;', '&lt;', '&gt;', '.<',
     ']', '[', '{', '}', "\240", ', ', '. ', ",\n", ",\r");
 
 
@@ -197,5 +197,5 @@ function parseUrl (&$body) {
         $start   = $target_pos;
         $blength = strlen($body);
     }
-} 
+}
 ?>
