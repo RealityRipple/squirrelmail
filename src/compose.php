@@ -71,39 +71,43 @@
          
          if ($message->header->type1 == "html")
             $body = strip_tags($body);
-            
+         
+         sqUnWordWrap($body);   
          $body_ary = explode("\n", $body);
          $body = "";
          for ($i=0; $i < count($body_ary); $i++) {
-            sqWordWrap($body_ary[$i], $editor_size - 1);
-            $body .= $body_ary[$i];
-         }
-         $body_ary = array();
-         $body_ary = explode("\n", $body);
-         $body = "";
-         for ($i=0; $i < count($body_ary); $i++) {
-            if ($i==0 && $forward_id) {
-               $tmp = "-------- " . _("Original Message") . " --------\n";
-               $tmp .= _("Subject") . ": " . $orig_header->subject . "\n"; 
-               $tmp .= _("From") . ": " . $orig_header->from . "\n"; 
-               $tmp .= _("To") . ": " . $orig_header->to[0] . "\n"; 
-               if (count($orig_header->to) > 1) {
-                  for ($x=1; $x < count($orig_header->to); $x++) {
-                     $tmp .= "         " . $orig_header->to[$x] . "\n";
-                  }
-               }
-               $tmp .= "\n" . $body_ary[$i];
-            } else {
-               $tmp = $body_ary[$i];
+            if (! $forward_id)
+            {
+                if (preg_match('/^[\s>]+/', $body_ary[$i]))
+                {
+                    $body_ary[$i] = '>' . $body_ary[$i];
+                }
+                else
+                {
+                    $body_ary[$i] = '> ' . $body_ary[$i];
+                }
             }
-            if ($forward_id)
-               $body = "$body$tmp\n";
-            else
-               $body = "$body> $tmp\n";
+            sqWordWrap($body_ary[$i], $editor_size - 1);
+            $body .= $body_ary[$i] . "\n";
+            $body_ary[$i] = '';
+         }
+         if ($forward_id)
+         {
+             $bodyTop =  "-------- " . _("Original Message") . " --------\n";
+             $bodyTop .= _("Subject") . ": " . $orig_header->subject . "\n"; 
+             $bodyTop .= _("From") . ": " . $orig_header->from . "\n"; 
+             $bodyTop .= _("To") . ": " . $orig_header->to[0] . "\n"; 
+             if (count($orig_header->to) > 1) {
+                 for ($x=1; $x < count($orig_header->to); $x++) {
+                     $bodyTop .= "         " . $orig_header->to[$x] . "\n";
+                 }
+             }
+             $bodyTop .= "\n";
+             $body = $bodyTop . $body;
          }
 
          sqimap_mailbox_close($imapConnection);
-         return $body;   
+         return;
       }
 
       if (!$send_to) {
@@ -149,7 +153,7 @@
       $reply_subj = decodeHeader($reply_subj);
       $forward_subj = decodeHeader($forward_subj);
       $body = sqStripSlashes($body);
-
+      
       if ($use_javascript_addr_book) {
          echo "\n<SCRIPT LANGUAGE=JavaScript><!--\n";
          echo "function open_abook() { \n";
@@ -315,12 +319,12 @@
          sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id);
          header ("Location: right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=1");
       } else {
-         $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+         //$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
          displayPageHeader($color, $mailbox);
          checkInput(true);
          
          showInputForm();
-         sqimap_logout($imapConnection);
+         //sqimap_logout($imapConnection);
       }
    } else if ($html_addr_search_done) {
       is_logged_in();
