@@ -36,9 +36,18 @@ class Deliver {
     }
 
     function writeBody($message, $stream, &$length_raw, $boundary='') {
+        // calculate boundary in case of multidimensional mime structures
+        if ($boundary && $message->entity_id && count($message->entities)) {
+            if (strpos($boundary,'_part_')) {
+                $boundary = substr($boundary,0,strpos($boundary,'_part_'));
+            }
+            $boundary_new = $boundary . '_part_'.$message->entity_id;
+        } else {
+            $boundary_new = $boundary;
+        }
         if ($boundary && !$message->rfc822_header) {
             $s = '--'.$boundary."\r\n";
-            $s .= $this->prepareMIME_Header($message, $boundary);
+            $s .= $this->prepareMIME_Header($message, $boundary_new);
             $length_raw += strlen($s);
             if ($stream) {
                 $this->preWriteToStream($s);
@@ -46,13 +55,10 @@ class Deliver {
             }
         }
         $this->writeBodyPart($message, $stream, $length_raw);
-        $boundary_depth = substr_count($message->entity_id,'.');
-        if ($boundary_depth) {
-            $boundary .= '_part'.$boundary_depth;
-        }
+        
         $last = false;
         for ($i=0, $entCount=count($message->entities);$i<$entCount;$i++) {
-            $msg = $this->writeBody($message->entities[$i], $stream, $length_raw, $boundary);
+            $msg = $this->writeBody($message->entities[$i], $stream, $length_raw, $boundary_new);
             if ($i == $entCount-1) $last = true;
         }
         if ($boundary && $last) {
@@ -245,7 +251,7 @@ class Deliver {
         $date = date('D, j M Y H:i:s ', mktime()) . $this->timezone();
         /* Create a message-id */
         $message_id = '<' . $REMOTE_PORT . '.' . $REMOTE_ADDR . '.';
-        $message_id .= time() . '.squirrel@' . $SERVER_NAME .'>';
+        $message_id .= time() . '.squirrel@' . $REMOTE_ADDR .'>';
         /* Make an RFC822 Received: line */
         if (isset($REMOTE_HOST)) {
             $received_from = "$REMOTE_HOST ([$REMOTE_ADDR])";
@@ -260,7 +266,7 @@ class Deliver {
         }
         $header = array();
         $header[] = "Received: from $received_from" . $rn;
-        $header[] = "        (SquirrelMail authenticated user $username)" . $rn;
+        $header[] = "        (SquirrelMail authenticated user $username);" . $rn;
         $header[] = "        by $SERVER_NAME with HTTP;" . $rn;
         $header[] = "        $date" . $rn;
         /* Insert the rest of the header fields */
@@ -300,7 +306,9 @@ class Deliver {
             }
         }
         /* Identify SquirrelMail */    
-        $header[] = 'User-Agent: SquirrelMail/' . $version . $rn; 
+        $header[] = 'User-Agent: SquirrelMail/' . $version . $rn;
+	// Spamassassin complains about no X-Mailer in combination with X-Priority
+	$header[] = 'X-Mailer: SquirrelMail/' . $version . $rn; 
         /* Do the MIME-stuff */
         $header[] = 'MIME-Version: 1.0' . $rn;
         $contenttype = 'Content-Type: '. $rfc822_header->content_type->type0 .'/'.
@@ -325,7 +333,7 @@ class Deliver {
         }
         if ($rfc822_header->priority) {
             $prio = $rfc822_header->priority;
-            $header[] = 'X-Priority: '.$prio. $rn;
+            $header[] = 'X-Priority: '. $prio. $rn;
             switch($prio)
             {
             case 1: $header[] = 'Importance: High'. $rn; break;
