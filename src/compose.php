@@ -541,6 +541,15 @@ exit();
 
 /**************** Only function definitions go below *************/
 
+function getforwardSubject($subject)
+{
+    if ((substr(strtolower($subject), 0, 4) != 'fwd:') &&
+        (substr(strtolower($subject), 0, 5) != '[fwd:') &&
+        (substr(strtolower($subject), 0, 6) != '[ fwd:')) {
+        $subject = '[Fwd: ' . $subject . ']';
+    }
+    return $subject;
+}
 
 /* This function is used when not sending or adding attachments */
 function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $session='') {
@@ -678,18 +687,14 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             break;
         case ('forward'):
             $send_to = '';
-            $subject = decodeHeader($orig_header->subject,false,true);
-            if ((substr(strtolower($subject), 0, 4) != 'fwd:') &&
-                (substr(strtolower($subject), 0, 5) != '[fwd:') &&
-                (substr(strtolower($subject), 0, 6) != '[ fwd:')) {
-                $subject = '[Fwd: ' . $subject . ']';
-            }
+            $subject = getforwardSubject(decodeHeader($orig_header->subject,false,true));
             $body = getforwardHeader($orig_header) . $body;
             sqUnWordWrap($body);
             $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
             $body = "\n" . $body;
             break;
         case ('forward_as_attachment'):
+            $subject = getforwardSubject(decodeHeader($orig_header->subject,false,true));
             $composeMessage = getMessage_RFC822_Attachment($message, $composeMessage, $passed_id, $passed_ent_id, $imapConnection);
             $body = '';
             break;
@@ -769,10 +774,11 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
            switch ($message->type0) {
            case 'message':
                 if ($message->type1 == 'rfc822') {
-                    $filename = $message->rfc822_header->subject.'.msg';
+                    $filename = $message->rfc822_header->subject;
                     if ($filename == "") {
-                        $filename = "untitled-".$message->entity_id.'.msg';
+                        $filename = "untitled-".$message->entity_id;
                     }
+                    $filename .= '.msg';
                  } else {
                    $filename = $message->getFilename();
                  }
