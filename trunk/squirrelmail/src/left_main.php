@@ -722,7 +722,7 @@ if ($auto_create_special && !isset($auto_create_done)) {
 echo "\n<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\">\n";
 
 do_hook('left_main_before');
-if ($advanced_tree && $advanced_tree_frame_ctrl) {
+if ($advanced_tree) {
    /* nice future feature, needs layout !! volunteers?   */  
    $right_pos = $left_size - 20;
    echo '<div style="position:absolute;top:0;border=solid;border-width:0.1em;border-color:blue;"><div ID="hidef" style="width=20;font-size:12"><A HREF="javascript:hideframe(true)"><b><<</b></a></div>';
