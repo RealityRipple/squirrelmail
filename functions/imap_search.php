@@ -78,10 +78,7 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
     /* If nothing is found * SEARCH should be the first error else echo errors */
     if (isset($errors)) {
         if (strstr($errors,'* SEARCH')) {
-            if ($search_all != 'all') {
-                echo '<br><CENTER>' . _("No Messages Found") . '</CENTER>';
-            }
-            return;
+            return array();
         }
         echo "<!-- $errors -->";
     }
