@@ -51,6 +51,7 @@
    function sqWordWrap(&$line, $wrap) {
       preg_match("/^([\s>]*)([^\s>].*)$/", $line, $regs);
       $beginning_spaces = $regs[1];
+      $regs[2] .= "\n"; 
       $words = explode(" ", $regs[2]);
 
       $i = 0;
