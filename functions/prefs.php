@@ -29,6 +29,43 @@
       return "";
    }
 
+   function removePref($data_dir, $username, $string) {
+      $filename = "$data_dir$username.pref";
+      $found = false;
+      if (!file_exists($filename)) {
+         echo _("Preference file, ") . "\"$filename\"" . _(", does not exist.  Log out, and log back in to create a default preference file. ") ."<BR>";
+         exit;
+      }
+      $file = fopen($filename, "r");
+
+      for ($i=0; !feof($file); $i++) {
+         $pref[$i] = fgets($file, 1024);
+         if (substr($pref[$i], 0, strpos($pref[$i], "=")) == $string) {
+            $i--;
+         }
+      }
+      fclose($file);
+
+      for ($i=0,$j=0; $i < count($pref); $i++) {
+         if (substr($pref[$i], 0, 9) == "highlight") {
+            $hlt[$j] = substr($pref[$i], strpos($pref[$i], "=")+1);
+            $j++;
+         }
+      }
+
+      $file = fopen($filename, "w");
+      for ($i=0; $i < count($pref); $i++) {
+         if (substr($pref[$i], 0, 9) != "highlight") {
+            fwrite($file, "$pref[$i]", 1024);
+         }   
+      }
+      for ($i=0; $i < count($hlt); $i++) {
+         fwrite($file, "highlight$i=$hlt[$i]");
+      }
+
+      fclose($file);
+   }
+   
    /** sets the pref, $string, to $set_to **/
    function setPref($data_dir, $username, $string, $set_to) {
       $filename = "$data_dir$username.pref";
