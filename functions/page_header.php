@@ -38,7 +38,7 @@
    }
 
    function displayPageHeader($color, $mailbox) {
-      global $delimiter;
+      global $delimiter, $hide_sm_attributions;
       displayHtmlHeader ();
 
       echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\" onLoad='if ( ( document.forms.length > 0 ) && ( document.forms[0].elements[0].type == \"text\" ) ) { document.forms[0].elements[0].focus(); }'>\n\n";
@@ -74,7 +74,8 @@
       do_hook("menuline");
 
       echo "      </TD><TD ALIGN=right>\n";
-      echo "         <A HREF=\"http://www.squirrelmail.org/\" TARGET=\"_blank\">SquirrelMail</A>\n";
+      echo ($hide_sm_attributions ? '&nbsp;' :
+            "<A HREF=\"http://www.squirrelmail.org/\" TARGET=\"_blank\">SquirrelMail</A>\n");
       echo "      </TD>\n";
       echo "   </TR>\n";
       echo "</TABLE>\n\n";

@@ -111,12 +111,14 @@
 
     $loginname_value = (isset($loginname) ? htmlspecialchars($loginname) : '');
 
-    echo "<CENTER><SMALL>".
+    echo "<CENTER>".
          "  <IMG SRC=\"$org_logo\"><BR>\n".
-         '  ' . sprintf (_("SquirrelMail version %s"), $version) . "<BR>\n".
-         '  ' . _("By the SquirrelMail Development Team") . "<BR>\n".
-         "</SMALL><CENTER>\n".
+         ( $hide_sm_attributions ? '' :
+           '<SMALL>' . sprintf (_("SquirrelMail version %s"), $version) . "<BR>\n".
+           '  ' . _("By the SquirrelMail Development Team") . "<BR></SMALL>\n" ) .
+         "</CENTER>\n".
 
+         "<CENTER>\n".
          "<TABLE COLS=1 WIDTH=350>\n".
          "   <TR><TD BGCOLOR=#DCDCDC>\n".
          '      <B><CENTER>' . sprintf (_("%s Login"), $org_name) . "</CENTER></B>\n".
@@ -143,7 +145,8 @@
          "   <TR><TD>\n".
          '      <CENTER><INPUT TYPE=SUBMIT VALUE="' . _("Login") . "\"></CENTER>\n".
          "   </TD></TR>\n".
-         "</TABLE>\n";
+         "</TABLE>\n".
+         "</CENTER>\n";
 
     do_hook('login_form');
     echo "</FORM>\n";
