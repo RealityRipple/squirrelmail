@@ -138,7 +138,7 @@
          $attachments, $subject, $newmail, $use_javascript_addr_book,
          $send_to_bcc, $reply_id, $mailbox;
 
-      $subject = decodeHeader($subject);
+      $subject = sqStripSlashes(decodeHeader($subject));
       $reply_subj = decodeHeader($reply_subj);
       $forward_subj = decodeHeader($forward_subj);
 
@@ -234,9 +234,9 @@
       echo "      <TD BGCOLOR=\"$color[4]\" COLSPAN=3>\n";
       echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>";
       if ($use_signature == true && $newmail == true) {
-	 echo htmlspecialchars($body) . "\n\n-- \n" . htmlspecialchars($signature);
+	 echo sqStripSlashes(htmlspecialchars($body)) . "\n\n-- \n" . htmlspecialchars($signature);
       } else {
-	 echo htmlspecialchars($body);
+	 echo sqStripSlashes(htmlspecialchars($body));
       }
       echo "</TEXTAREA><BR>\n";
       echo "      </TD>\n";
