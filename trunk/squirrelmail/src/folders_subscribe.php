@@ -29,12 +29,17 @@
 
    $location = get_location();
    if ($method == "sub") {
-      $mailbox = trim($mailbox);
-      sqimap_subscribe ($imapConnection, $mailbox);
-      header("Location: $location/folders.php?success=subscribe");
+      for ($i=0; $i < count($mailbox); $i++) {
+         $mailbox[$i] = trim($mailbox[$i]);
+         sqimap_subscribe ($imapConnection, $mailbox[$i]);
+         header("Location: $location/folders.php?success=subscribe");
+      }
    } else {
-      sqimap_unsubscribe ($imapConnection, $mailbox);
-      header("Location: $location/folders.php?success=unsubscribe");
+      for ($i=0; $i < count($mailbox); $i++) {
+         $mailbox[$i] = trim($mailbox[$i]);
+         sqimap_unsubscribe ($imapConnection, $mailbox[$i]);
+         header("Location: $location/folders.php?success=unsubscribe");
+      }
    }
    sqimap_logout($imapConnection);
 

@@ -8,14 +8,9 @@ initials = taken by that person
   -     Filters
   -     Better inline HTML support including graphics (content-disposition)
   -     Foreground themes
-  -     Configurable so that after login, you go directly to INBOX
-(glp)   When deleting or moving messages (empty trash too), go back to the 
-            list for the mail box you were looking at without having to click
-            a link
 (mcp)   Spell checking
 (ssg)   Search mailbox(es) for given criteria
   -     Remove subject and body requirements in Compose
-  -     Select multiple Unsubscribe/Subscribe folders at one time
   -     decodeHeader on to_ary, cc_ary, and filename
   -     Decode folder names for non-standard characters
 
@@ -39,4 +34,9 @@ Finished:
 (lme) (18.6.00)  Fix conf.pl script and add more error checking so it doesn't throw parse errors
 (lme) (21.6.00)  Rewrite of mime.php (see Gustav before any work is done)
 (lrb) (30.6.00)  CSV import for address book.
-(pl)  (5.7.00)   Insert In-Reply-To and References headers when replying to a message.
+(pl)  (05.7.00)  Insert In-Reply-To and References headers when replying to a message.
+(lme) (09.7.00)  When deleting or moving messages (empty trash too), go back to the 
+                 list for the mail box you were looking at without having to click
+                 a link
+(lme) (09.7.00)  Select multiple Unsubscribe/Subscribe folders at one time
+(lme) (09.7.00)  Configurable so that after login, you go directly to INBOX

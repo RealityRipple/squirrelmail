@@ -48,7 +48,8 @@
    include("../src/load_prefs.php");
    displayPageHeader($color, "None");
 ?>
-   <table width=100% align=center border=0 cellpadding=2 cellspacing=0><tr><td bgcolor="<? echo $color[0] ?>">
+   <br>
+   <table width=95% align=center border=0 cellpadding=2 cellspacing=0><tr><td bgcolor="<? echo $color[0] ?>">
       <center><b><? echo _("Options") . " - " . _("Message Highlighting"); ?></b></center>
    </td></tr></table>
 
@@ -108,20 +109,20 @@
       echo "<form action=\"options_highlight.php\">\n";
       echo "<input type=\"hidden\" value=\"save\" name=\"action\">\n";
       echo "<input type=\"hidden\" value=\"$id\" name=\"id\">\n";
-      echo "<table width=80% align=center cellpadding=2 cellspacing=0 border=0>\n";
-      echo "   <tr>\n";
-      echo "      <td align=right width=25%>\n";
+      echo "<table width=80% align=center cellpadding=3 cellspacing=0 border=0>\n";
+      echo "   <tr bgcolor=\"$color[0]\">\n";
+      echo "      <td align=right width=25%><b>\n";
       echo _("Identifying name") . ":";
-      echo "      </td>\n";
+      echo "      </b></td>\n";
       echo "      <td width=75%>\n";
       echo "         <input type=\"text\" value=\"".$message_highlight_list[$id]["name"]."\" name=\"name\">";
       echo "      </td>\n";
       echo "   </tr>\n";
-      echo "   <tr><td><br><br></td></tr>\n";
-      echo "   <tr>\n";
-      echo "      <td align=right width=25%>\n";
+      echo "   <tr><td><small><small>&nbsp;</small></small></td></tr>\n";
+      echo "   <tr bgcolor=\"$color[0]\">\n";
+      echo "      <td align=right width=25%><b>\n";
       echo _("Color") . ":";
-      echo "      </td>\n";
+      echo "      </b></td>\n";
       echo "      <td width=75%>\n";
       echo "         <input type=\"radio\" name=color_type value=1$selected_choose> &nbsp;<select name=newcolor_choose>\n";
       echo "            <option value=\"$color_list[0]\"$selected0>" . _("Dark Blue") . "\n";
@@ -144,11 +145,11 @@
       echo "\" name=\"newcolor_input\" size=7> "._("Ex: 63aa7f")."<br>\n";
       echo "      </td>\n";
       echo "   </tr>\n";
-      echo "   <tr><td><br><br></td></tr>\n";
-      echo "   <tr>\n";
-      echo "      <td align=right width=25%>\n";
+      echo "   <tr><td><small><small>&nbsp;</small></small></td></tr>\n";
+      echo "   <tr bgcolor=\"$color[0]\">\n";
+      echo "      <td align=right width=25%><b>\n";
       echo _("Match") . ":";
-      echo "      </td>\n";
+      echo "      </b></td>\n";
       echo "      <td width=75%>\n";
       echo "         <select name=match_type>\n";
       if ($message_highlight_list[$id]["match_type"] == "from")    echo "            <option value=\"from\" selected>From\n";

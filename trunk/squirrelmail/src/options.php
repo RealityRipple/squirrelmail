@@ -39,11 +39,11 @@
    is_logged_in(); 
 ?>
 
-<table width=100% cellpadding=2 cellspacing=2 border=0>
+<br>
+<table width=95% align=center cellpadding=2 cellspacing=2 border=0>
 <tr><td bgcolor="<? echo $color[0] ?>">
    <center><b><? echo _("Options") ?></b></center>
 </td></tr></table>
-<br>
 
 <?
    if ($submit_personal) {
@@ -54,7 +54,7 @@
       setPref($data_dir, $username, "use_signature", stripslashes($usesignature));  
       if (isset($signature_edit)) setSig($data_dir, $username, stripslashes($signature_edit)); 
       
-      echo "<center><b>"._("Successfully saved personal information!")."</b></center><br>";
+      echo "<br><center><b>"._("Successfully saved personal information!")."</b></center><br>";
    } else if ($submit_display) {  
       # Save display preferences
       setPref($data_dir, $username, "chosen_theme", $chosentheme);
@@ -66,7 +66,7 @@
       setPref($data_dir, $username, "left_size", $leftsize);
       setPref($data_dir, $username, "use_javascript_addr_book", $javascript_abook);
     
-      echo "<center><b>"._("Successfully saved display preferences!")."</b><br>";
+      echo "<br><center><b>"._("Successfully saved display preferences!")."</b><br>";
       echo "<a href=\"webmail.php?right_frame=options.php\" target=_top>"._("Refresh Page")."</a></center><br>";
    } else if ($submit_folder) { 
       # Save folder preferences
@@ -85,7 +85,7 @@
          setPref($data_dir, $username, "sent_folder", "");
       } 
       setPref($data_dir, $username, "folder_prefix", $folderprefix);
-      echo "<center><b>"._("Successfully saved folder preferences!")."</b><br>";
+      echo "<br><center><b>"._("Successfully saved folder preferences!")."</b><br>";
       echo "<a href=\"left_main.php\" target=left>"._("Refresh Folders")."</a></center><br>";
    }
 ?>
@@ -93,7 +93,7 @@
 
 <table width=90% cellpadding=0 cellspacing=10 border=0 align=center>
 <tr>
-   <td valign=top>
+   <td width=50% valign=top>
       <table width=100% cellpadding=3 cellspacing=0 border=0>
          <tr>
             <td bgcolor="<? echo $color[9] ?>">
@@ -119,7 +119,7 @@
          </tr>   
       </table><br>
    </td>
-   <td valign=top>
+   <td valign=top width=50%>
       <table width=100% cellpadding=3 cellspacing=0 border=0>
          <tr>
             <td bgcolor="<? echo $color[9] ?>">
