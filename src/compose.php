@@ -323,17 +323,17 @@ if ($draft) {
         /* If this is a resumed draft, then delete the original */
         if(isset($delete_draft)) {
             Header("Location: $location/delete_message.php?mailbox=" . urlencode($draft_folder) .
-                    "&amp;message=$delete_draft&amp;startMessage=1&amp;saved_draft=yes");
+                    "&message=$delete_draft&startMessage=1&saved_draft=yes");
             exit();
         }
         else {
             if ($compose_new_win == '1') {
-                Header("Location: $location/compose.php?saved_draft=yes&amp;session=$composesession");
+                Header("Location: $location/compose.php?saved_draft=yes&session=$composesession");
                 exit();
             }
             else {
                 Header("Location: $location/right_main.php?mailbox=" . urlencode($draft_folder) .
-                        "&amp;startMessage=1&amp;note=".urlencode($draft_message));
+                        "&startMessage=1&note=".urlencode($draft_message));
                 exit();
             }
         }
@@ -397,7 +397,7 @@ if ($send) {
         unset($compose_messages[$session]);
         if ( isset($delete_draft)) {
             Header("Location: $location/delete_message.php?mailbox=" . urlencode( $draft_folder ).
-                    "&amp;message=$delete_draft&amp;startMessage=1&amp;mail_sent=yes");
+                    "&message=$delete_draft&startMessage=1&mail_sent=yes");
             exit();
         }
         if ($compose_new_win == '1') {
@@ -406,7 +406,7 @@ if ($send) {
         }
         else {
             Header("Location: $location/right_main.php?mailbox=$urlMailbox".
-                    "&amp;startMessage=$startMessage&amp;mail_sent=yes");
+                    "&startMessage=$startMessage&mail_sent=yes");
         }
     } else {
         if ($compose_new_win == '1') {
