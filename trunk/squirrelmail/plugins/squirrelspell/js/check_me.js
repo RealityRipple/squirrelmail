@@ -1,14 +1,14 @@
 /**
  * check_me.js
- * ------------
+ *
+ * Copyright (c) 1999-2003 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
  * This JavaScript app is the driving power of the SquirrelSpell's
  * main spellchecker window. Hope you have as much pain figuring
  * it out as it took to write. ;))
  *
  * $Id$
- * 
- * @author Konstantin Riabitsev <icon@duke.edu> ($Author$)
- * @version $Date$
  */
 
 var CurrentError=0;
@@ -278,8 +278,8 @@ function sqspellCommitChanges(){
     newBody += sqspell_lines[i];
   }
   
-  opener.document.forms[0].subject.value=newSubject;
-  opener.document.forms[0].body.value=newBody;
+  opener.document.compose.subject.value=newSubject;
+  opener.document.compose.body.value=newBody;
   
   /**
    * See if any words were added to the dictionary.
