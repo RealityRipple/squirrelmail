@@ -112,8 +112,8 @@ function printer_friendly_link($mailbox, $passed_id, $passed_ent_id, $color) {
     global $javascript_on;
 
     $params = '?passed_ent_id=' . $passed_ent_id .
-              '&amp;mailbox=' . urlencode($mailbox) .
-              '&amp;passed_id=' . $passed_id;
+              '&mailbox=' . urlencode($mailbox) .
+              '&passed_id=' . $passed_id;
 
     $print_text = _("View Printable Version");
 
@@ -130,7 +130,7 @@ function printer_friendly_link($mailbox, $passed_id, $passed_ent_id, $color) {
                   "</script>\n" .
                   "<a href=\"javascript:printFormat();\">$print_text</a>\n";
     } else {
-        $result = '<A target="_blank" HREF="../src/printer_friendly_bottom.php' .
+        $result = '<a target="_blank" href="../src/printer_friendly_bottom.php' .
                   "$params\">$print_text</a>\n";
     }
     return $result;
