@@ -18,12 +18,12 @@ function squirrelmail_plugin_init_administrator() {
         $adm = posix_getpwuid( $adm_id );
         if ( $username == $adm['name'] ) {
             $squirrelmail_plugin_hooks['optpage_register_block']['administrator'] =
-                                      'squirrelmail_plugin_optpage_register_block';
+                                      'squirrelmail_administrator_optpage_register_block';
         }
     }
 }
 
-function squirrelmail_plugin_optpage_register_block() {
+function squirrelmail_administrator_optpage_register_block() {
     global $optpage_blocks;
     global $AllowSpamFilters;
 
