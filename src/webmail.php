@@ -29,6 +29,8 @@ $base_uri = sqm_baseuri();
 session_start();
 is_logged_in();
 
+do_hook('webmail_top');
+
 /**
  * We'll need this to later have a noframes version
  *
