@@ -10,7 +10,7 @@
     $org_title = "SquirrelMail $version";
 
 //  The server that your imap server is on
-    $imapServerAddress = "localhost";
+    $imapServerAddress = "adam";
     $imapPort = 143;
 
 //  The domain where your email address is.
