@@ -12,7 +12,7 @@
  *  login first)
  *
  * Use the following url to use mailto:
- * http://<your server>/<squirrelmail base dir>/src/mailto.php?emailaddress="%1"
+ * http://<your server>/<squirrelmail base dir>/src/mailto.php?emailaddress=%1
  * see ../contrib/squirrelmail.mailto.reg for a Windows Registry file
  * @package squirrelmail
  */
@@ -25,52 +25,55 @@ require_once(SM_PATH . 'config/config.php');
 require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/strings.php');
 
-header('Pragma: no-cache');
-if(!sqgetGlobalVar('emailaddress', $emailaddress)) {
-    return;
-}
+/* Force users to login each time? */
+$force_login  = true;
+/* Open only the compose window, meaningless if $force_login is true */
+$compose_only = false;
 
-$mailto_pos = strpos(strtolower($emailaddress), 'mailto:');
-if($mailto_pos !== false) {
-    $emailaddress = substr($emailaddress, $mailto_pos+7);
-    $_GET['emailaddress'] = $emailaddress;
-}
-if(($pos = strpos($emailaddress, '?')) !== false) {
-    $a = substr($emailaddress, $pos+1);
-    list($emailaddress, $a) = explode('?', $emailaddress, 2);
-    $a = explode('=', $a, 2);
-    $_GET['emailaddress'] = $emailaddress;
-    $_GET[$a[0]] = $a[1];
-}
-$trtable = array('emailaddress' => 'send_to',
-                 'cc'           => 'send_to_cc',
+header('Pragma: no-cache');
+
+$trtable = array('cc'           => 'send_to_cc',
                  'bcc'          => 'send_to_bcc',
                  'body'         => 'body',
                  'subject'      => 'subject');
 $url = '';
-/* CC, BCC, etc could be any case, so we'll fix them here */
-foreach($_GET as $k=>$g) {
-    if($g != '') {
-        $k = strtolower($k);
-        $k = $trtable[$k];
-        $url .= $k . '=' . urlencode($g) . '&';
-    }
-}
-$url = substr($url, 0, -1);
 
-sqsession_is_active();
-/* Check to see if we're logged in */
-/*
-if (sqsession_is_registered('user_is_logged_in')) {
-    $redirect = 'webmail.php?right_frame=compose.php?';
-} else {
-    $redirect = 'login.php?mailto=';
+if(sqgetGlobalVar('emailaddress', $emailaddress)) {
+    $emailaddress = trim($emailaddress);
+    if(stristr($emailaddress, 'mailto:')) {
+        $emailaddress = substr($emailaddress, 7);
+    }
+    if(strpos($emailaddress, '?') !== false) {
+        list($emailaddress, $a) = explode('?', $emailaddress, 2);
+        if(strlen(trim($a)) > 0) {
+            $a = explode('=', $a, 2);
+            $url .= $trtable[strtolower($a[0])] . '=' . urlencode($a[1]) . '&';
+        }
+    }
+    $url = 'send_to=' . urlencode($emailaddress) . '&' . $url;
+
+    /* CC, BCC, etc could be any case, so we'll fix them here */
+    foreach($_GET as $k=>$g) {
+        $k = strtolower($k);
+        if(isset($trtable[$k])) {
+            $k = $trtable[$k];
+            $url .= $k . '=' . urlencode($g) . '&';
+        }
+    }
+    $url = substr($url, 0, -1);
 }
-*/
-$url = urlencode($url);
-/* $redirect .= $url; */
-$redirect = 'login.php?mailto=' . $url;
+sqsession_is_active();
+
+if($force_login == false && sqsession_is_registered('user_is_logged_in')) {
+    if($compose_only == true) {
+        $redirect = 'compose.php?' . $url;
+    } else {
+        $redirect = 'webmail.php?right_frame=compose.php?' . urlencode($url);
+    }
+} else {
+    $redirect = 'login.php?mailto=' . urlencode($url);
+}
+
 session_write_close();
 header('Location: ' . get_location() . '/' . $redirect);
-
 ?>
