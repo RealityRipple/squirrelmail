@@ -73,7 +73,7 @@
   
    $languages['ko']['NAME']    = 'Korean';
    $languages['ko']['CHARSET'] = 'euc-KR';
-   $languages['ko_KO']['CHARSET'] = 'ko';
+   $languages['ko_KO']['ALIAS'] = 'ko';
    
    $languages['no']['NAME']    = 'Norwegian (Bokm&aring;l)';
    $languages['no']['CHARSET'] = 'iso-8859-1';
@@ -84,11 +84,11 @@
    
    $languages['pl']['NAME']    = 'Polish';
    $languages['pl']['CHARSET'] = 'iso-8859-2';
-   $languages['pl_PL']['Alias'] = 'pl';
+   $languages['pl_PL']['ALIAS'] = 'pl';
    
    $languages['pt']['NAME'] = 'Português (Portugal)';
    $languages['pt']['CHARSET'] = 'iso-8859-1';
-   $languages['pt_PT']['CHARSET'] = 'pt';
+   $languages['pt_PT']['ALIAS'] = 'pt';
    
    $languages['pt_BR']['NAME']    = 'Portuguese (Brazil)';
    $languages['pt_BR']['CHARSET'] = 'iso-8859-1';
