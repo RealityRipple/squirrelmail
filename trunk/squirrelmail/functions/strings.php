@@ -1240,7 +1240,7 @@ function sq_strtoupper($string,$charset='auto') {
         $charset=$default_charset;
     }
     $charset = strtolower($charset);
-    if (function_exists('mb_internal_encoding') && 
+    if (function_exists('mb_strtoupper') && 
         in_array($charset,sq_mb_list_encodings())) {
         return mb_strtoupper($string,$charset);
     }
