@@ -281,9 +281,12 @@ function sqsession_destroy() {
  */
 
 function sqsession_is_active() {
-
+    
     $sessid = session_id();
     if ( empty( $sessid ) ) {
+        // Set the path again.
+        sqgetGlobalVar('base_uri',$base_uri,SQ_SESSION);
+        session_set_cookie_params (0, $base_uri);
         session_start();
     }
 }
