@@ -9,6 +9,15 @@ Version 1.1.0 -- DEVELOPMENT
 - Added collapseable folder listing (an option that can be turned on in Folder Options)
 - Added alternating row colors to improve interface (Display Options)
 
+Version 1.0.6 -- April 19, 2001
+-------------------------------
+- Reworked validation for each page.  It's now standardized in validate.php
+- Fixed login bug that resulted from 1.0.5 security updates
+- Fixed plugin incompatibilities that were introduced in 1.0.5
+- Added more security checking to preference saving/loading
+- Updated German translation (thanks to Ronald Bauerschmidt <rb@debian.org>)
+- Updated Finnish help files
+
 Version 1.0.5 -- April 17, 2001 
 -------------------------------
 - MAJOR security issues addressed.  Please upgrade as soon as possible.
@@ -27,10 +36,13 @@ Version 1.0.4 -- April 9, 2001
 
 Version 1.0.3 -- March 9, 2001 
 ------------------------------
+- Many i18n enhancements/fixes
+- Fixed bug with default theme path being set incorrectly
+- Fixed problem when sending/forwarding multiple attachments
 - Made folder drop-down list consistant in look to the other drop-downs
 - Fixed problem where some attachment filenames would not be displayed
 - Added Finnish help files by Teemu Junnila <teejun@vallcom.com>
-- Removed some regular expressions to help speed folder listings up
+- Updated Norwegian translation
 - Updated Brazillian Portuguise translation
 
 Version 1.0.2 -- February 8, 2001 
@@ -40,8 +52,8 @@ Version 1.0.2 -- February 8, 2001
 - Select All works through the search
 - Better escaped string handling from POST variables
 - Many more code cleanups and optimizations
-- Added Hungarian translation by István-Attila András <bergkatten@netscape.net> 
-- Added Icelandic translation by Karl Heiðar <karlh@macho.is>
+- Added Hungarian translation by Teemu Junnila <teejun@vallcom.com>
+- Added Icelandic translation by Karl Heiðar" <karlh@macho.is>
 - Updated Taiwan translation
 - Updated Sweedish translation
 - Updated Finnish translation

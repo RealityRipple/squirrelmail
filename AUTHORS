@@ -15,7 +15,7 @@
  Translations:
  -------------
    Norwegian:    Gustav Foseid <gustavf@squirrelmail.org>
-   German:       Chris Thil <cj@limburgerhof.de>
+   German:       Roland Bauerschmidt <rb@debian.org>
    Russian:      Konstantin Riabitsev <graf@relhum.org>
    Polish:       Lukasz Klimek <casa@lo.pila.pl>
    Swedish:      Tobias Ekbom <tobias@vallcom.net>    
@@ -23,6 +23,7 @@
    Portuguese (Brazil): Henrique Moura <henriquemoura@hotmail.com>
    French        Ali Nedjimi <lrdfrx@club-internet.fr>
    Italian       Aldo Moresco <moresco@idcm.it>
+                 Antonetti Roberto <antonr@piceniaweb.com> (help files)
    Spanish       Hernan Collazo <hernan_collazo@salutia.com>  
    Korean        Jong-II Kim <aporie@netian.com>
    Czech         Ondrej Sury <ondrej@sury.cz>
@@ -31,9 +32,8 @@
    Taiwan        Ching <ching@kiwa.com.tw>
    Danish        Claus Rasmussen <claus@webclaus.com>
    Finnish       Teemu Junnila <teejun@vallcom.com>
-   Hungarian     István-Attila András <bergkatten@netscape.net> 
+   Hungarian     Teemu Junnila <teejun@vallcom.com>
    Icelandic     Karl Heiðar <karlh@macho.is>
-   Croatian      Albert Novak <anovak@pu.carnet.hr>
 
  Significant Contributions:
  --------------------------
