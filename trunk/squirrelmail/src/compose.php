@@ -172,7 +172,7 @@ require_once('../functions/plugin.php');
 
    function getAttachments($message) {
       global $mailbox, $attachments, $attachment_dir, $imapConnection,
-             $ent_num, $forward_id, $draft_id;
+             $ent_num, $forward_id, $draft_id, $username;
  
      if (isset($draft_id))
          $id = $draft_id;
@@ -185,6 +185,7 @@ require_once('../functions/plugin.php');
                $mailbox);
       }
 
+      $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
       if (count($message->entities) == 0) {
           if ($message->header->entity_id != $ent_num) {
               $filename = decodeHeader($message->header->filename);
@@ -193,8 +194,11 @@ require_once('../functions/plugin.php');
                   $filename = "untitled-".$message->header->entity_id;
 
               $localfilename = GenerateRandomString(32, '', 7);
-              while (file_exists($attachment_dir . $localfilename))
+              $full_localfilename = "$hashed_attachment_dir/$localfilename";
+              while (file_exists($full_localfilename)) {
                   $localfilename = GenerateRandomString(32, '', 7);
+                  $full_localfilename = "$hashed_attachment_dir/$localfilename";
+              }
 
               $newAttachment = array();
               $newAttachment['localfilename'] = $localfilename;
@@ -203,7 +207,7 @@ require_once('../functions/plugin.php');
                  '/' . $message->header->type1);
 
               // Write Attachment to file
-              $fp = fopen ($attachment_dir.$localfilename, 'w');
+              $fp = fopen ("$hashed_attachment_dir/$localfilename", 'w');
               fputs ($fp, decodeBody(mime_fetch_body($imapConnection,
                   $id, $message->header->entity_id),
                   $message->header->encoding));
@@ -366,16 +370,16 @@ require_once('../functions/plugin.php');
       echo " value=\"" . _("Add") ."\">\n";
       echo "     </td>\n";
       echo "   </tr>\n";
-      if (count($attachments))
-      {
+      if (count($attachments)) {
+         $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
          echo "<tr><td bgcolor=\"$color[0]\" align=right>\n";
          echo "&nbsp;";
          echo "</td><td align=left bgcolor=\"$color[0]\">";
          foreach ($attachments as $key => $info) {
+            $attached_file = "$hashed_attachment_dir/$info[localfilename]";
             echo "<input type=\"checkbox\" name=\"delete[]\" value=\"$key\">\n";
             echo $info['remotefilename'] . " - " . $info['type'] . " (";
-            echo show_readable_size(filesize($attachment_dir .
-                $info['localfilename'])) . ")<br>\n";
+            echo show_readable_size(filesize($attached_file)) . ")<br>\n";
          }
 
          echo "<input type=\"submit\" name=\"do_delete\" value=\""._("Delete selected attachments")."\">\n";
@@ -447,14 +451,18 @@ require_once('../functions/plugin.php');
 
    // True if FAILURE
    function saveAttachedFiles() {
-      global $HTTP_POST_FILES, $attachment_dir, $attachments;
+      global $HTTP_POST_FILES, $attachment_dir, $attachments, $username;
       
+      $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
       $localfilename = GenerateRandomString(32, '', 7);
-      while (file_exists($attachment_dir . $localfilename))
+      $full_localfilename = "$hashed_attachment_dir/$localfilename";
+      while (file_exists($full_localfilename)) {
           $localfilename = GenerateRandomString(32, '', 7);
+          $full_localfilename = "$hashed_attachment_dir/$localfilename";
+      }
 
-      if (!@rename($HTTP_POST_FILES['attachfile']['tmp_name'], $attachment_dir.$localfilename)) {
-         if (!@copy($HTTP_POST_FILES['attachfile']['tmp_name'], $attachment_dir.$localfilename)) {
+      if (!@rename($HTTP_POST_FILES['attachfile']['tmp_name'], $full_localfilename)) {
+         if (!@copy($HTTP_POST_FILES['attachfile']['tmp_name'], $full_localfilename)) {
             return true;
          }
       }
@@ -600,11 +608,12 @@ require_once('../functions/plugin.php');
    } else if (isset($do_delete)) {
       displayPageHeader($color, $mailbox);
 
-      if (isset($delete) && is_array($delete))
-      {
-         foreach($delete as $index)
-         {
-            unlink ($attachment_dir.$attachments[$index]['localfilename']);
+      $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+      if (isset($delete) && is_array($delete)) {
+         foreach($delete as $index) {
+            $attached_file = $hashed_attachment_dir . '/'
+                           . $attachments[$index]['localfilename'];
+            unlink ($attached_file);
             unset ($attachments[$index]);
          }
       }
@@ -633,11 +642,13 @@ require_once('../functions/plugin.php');
    }
 
    function ClearAttachments() {
-       global $attachments, $attachment_dir;
+       global $username, $attachments, $attachment_dir;
+       $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
 
        foreach ($attachments as $info) {
-           if (file_exists($attachment_dir . $info['localfilename'])) {
-               unlink($attachment_dir . $info['localfilename']);
+           $attached_file = "$hashed_attachment_dir/$info[localfilename]";
+           if (file_exists($attached_file)) {
+               unlink($attached_file);
            }
        }
 

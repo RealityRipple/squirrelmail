@@ -42,11 +42,13 @@ require_once("../src/load_prefs.php");
 
 
    function ClearAttachments() {
-       global $attachments, $attachment_dir;
+       global $attachments, $attachment_dir, $username;
 
+       $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
        foreach ($attachments as $info) {
-           if (file_exists($attachment_dir . $info['localfilename'])) {
-               unlink($attachment_dir . $info['localfilename']);
+           $attached_file = "$hashed_attachment_dir/$info[localfilename]";
+           if (file_exists($attached_file)) {
+               unlink($attached_file);
            }
        }
 
@@ -63,12 +65,16 @@ require_once("../src/load_prefs.php");
    $thebastard = implode('', $data);
 
 
-
+   $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
    $localfilename = GenerateRandomString(32, '', 7);
-   while (file_exists($attachment_dir . $localfilename))
+   $full_localfilename = "$hashed_attachment_dir/$localfilename";
+   while (file_exists($full_localfilename)) {
        $localfilename = GenerateRandomString(32, '', 7);
+       $full_localfilename = "$hashed_attachment_dir/$localfilename";
+   }
+
    // Write Attachment to file
-   $fp = fopen ($attachment_dir.$localfilename, 'w');
+   $fp = fopen ($full_localfilename, 'w');
    fputs ($fp, $thebastard);
    fclose ($fp);
 

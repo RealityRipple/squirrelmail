@@ -79,7 +79,7 @@ require_once('../functions/abook_ldap_server.php');
 	 }
       } else {
 	 // File
-	 $filename = sprintf('%s%s.abook', $data_dir, $username);
+	 $filename = getHashedFile($username, $data_dir, "$username.abook");
 	 $r = $abook->add_backend('local_file', Array('filename' => $filename,
 						      'create'   => true));
 	 if(!$r && $showerr) {

@@ -33,6 +33,8 @@ require_once('../functions/display_messages.php');
  *    $key              pass                               *
  ***********************************************************/
 
+$bob = getHashedFile($username, $data_dir, "username.pref");
+
 /* Open a connection on the imap port (143) */
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 

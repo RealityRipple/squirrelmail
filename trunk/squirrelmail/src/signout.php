@@ -35,9 +35,11 @@ require_once('../functions/plugin.php');
    if (! isset($attachments)) {
        $attachments = array();
    }
+   $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
    foreach ($attachments as $info) {
-       if (file_exists($attachment_dir . $info['localfilename'])) {
-           unlink($attachment_dir . $info['localfilename']);
+       $attached_file = "$hashed_attachment_dir/$info[localfilename]";
+       if (file_exists($attached_file)) {
+           unlink($attached_file);
        }
    }
 

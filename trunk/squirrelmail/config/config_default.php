@@ -212,6 +212,10 @@
     global $attachment_dir;
     $attachment_dir = $data_dir;
 
+// Hash level used for data directory.
+    global $dir_hash_level;
+    $dir_hash_level = 0;
+
 //  This is the default size of the folder list.  Default is 150,
 //  but you can set it to whatever you wish.
    global $default_left_size;

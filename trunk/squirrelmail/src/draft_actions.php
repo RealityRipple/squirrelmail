@@ -142,20 +142,25 @@ function writeBodyForDraft ($fp, $passedBody) {
 
 
 function saveMessageAsDraft($t, $c, $b, $subject, $body, $reply_id) {
-    global $useSendmail, $msg_id, $is_reply, $mailbox, $onetimepad;
-    global $data_dir, $username, $domain, $key, $version, $sent_folder, $imapServerAddress, $imapPort;
-    global $draft_folder, $attachment_dir;
+    global $useSendmail, $msg_id, $is_reply, $mailbox, $onetimepad,
+           $data_dir, $username, $domain, $key, $version, $sent_folder,
+           $imapServerAddress, $imapPort, $draft_folder, $attachment_dir;
     $more_headers = Array();
 
     $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 1);
 
-    $tmpDraftFile = "draft-" . GenerateRandomString(32, '', 7);
-    while ( file_exists($attachment_dir .$tmpDraftFile)){
-         $tmpDraftFile = "draft-" . GenerateRandomString(32, '', 7);
-    }
-    $fp = fopen($attachment_dir . $tmpDraftFile, 'w');
+    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
 
-    $headerlength = write822HeaderForDraft ($fp, $t, $c, $b, $subject, $more_headers, FALSE);
+    $tmpDraftFile = "draft-" . GenerateRandomString(32, '', 7);
+    $full_tmpDraftFile = "$hashed_attachment_dir/$tmpDraftFile";
+    while (file_exists($full_tmpDraftFile)){
+         $tmpDraftFile = "draft-" . GenerateRandomString(32, '', 7);
+         $full_tmpDraftFile = "$hashed_attachment_dir/$tmpDraftFile";
+    }
+    $fp = fopen($full_tmpDraftFile, 'w');
+
+    $headerlength = write822HeaderForDraft
+        ($fp, $t, $c, $b, $subject, $more_headers, FALSE);
     $bodylength = writeBodyForDraft ($fp, $body, FALSE);
     fclose($fp);
 
@@ -163,7 +168,8 @@ function saveMessageAsDraft($t, $c, $b, $subject, $body, $reply_id) {
 
     if (sqimap_mailbox_exists ($imap_stream, $draft_folder)) {
         sqimap_append ($imap_stream, $draft_folder, $length);
-        write822HeaderForDraft ($imap_stream, $t, $c, $b, $subject, $more_headers, TRUE);
+        write822HeaderForDraft
+            ($imap_stream, $t, $c, $b, $subject, $more_headers, TRUE);
         writeBodyForDraft ($imap_stream, $body, TRUE);
         sqimap_append_done ($imap_stream);
     }
@@ -171,8 +177,8 @@ function saveMessageAsDraft($t, $c, $b, $subject, $body, $reply_id) {
     if ($length){
         ClearAttachments();
     }
-    if (file_exists($attachment_dir . $tmpDraftFile)){
-        unlink ($attachment_dir . $tmpDraftFile);
+    if (file_exists($full_tmpDraftFile)){
+        unlink ($full_tmpDraftFile);
     }
     return $length;
 }

@@ -20,7 +20,7 @@
         $lang_words = sqspell_getLang($words, $sqspell_use_app);
         $msg = '<p>'.
                sprintf( _("Deleting the following entries from <strong>%s</strong> dictionary:", $sqspell_use_app ) .
-               '</p>'.
+               '</p>' .
                "<ul>\n";
         for ($i=0; $i<sizeof($words_ary); $i++){
             // remove word by word...
