@@ -26,6 +26,7 @@ class Rfc822Header {
         $bcc = array(),
         $in_reply_to = '',
         $message_id = '',
+	$references = '',
         $mime = false,
         $content_type = '',
         $disposition = '',
@@ -141,6 +142,9 @@ class Rfc822Header {
             case 'message-id':
                 $this->message_id = $value;
                 break;
+	    case 'references':
+	        $this->references = $value;
+		break;
             case 'disposition-notification-to':
                 $this->dnt = $this->parseAddress($value);
                 break;
@@ -191,7 +195,7 @@ class Rfc822Header {
     }
 
     function parseAddress
-    ($address, $ar=false, $addr_ar = array(), $group = '') {
+    ($address, $ar=false, $addr_ar = array(), $group = '', $host='') {
         $pos = 0;
         $j = strlen($address);
         $name = '';
@@ -231,6 +235,7 @@ class Rfc822Header {
                     $pos = $addr_start + 1;
                     break;
                 case ',':  /* we reached a delimiter */
+//case ';':
                     if ($addr == '') {
                         $addr = substr($address, 0, $pos);
                     } else if ($name == '') {
@@ -246,6 +251,9 @@ class Rfc822Header {
                         $addr_structure->host = substr($addr, $at+1);
                     } else {
                         $addr_structure->mailbox = $addr;
+			if ($host) {
+			   $addr_structure->host = $host;
+			}
                     }
                     $address = trim(substr($address, $pos+1));
                     $j = strlen($address);
@@ -289,9 +297,12 @@ class Rfc822Header {
             $addr_structure->host = trim(substr($addr, $at+1));
         } else {
             $addr_structure->mailbox = trim($addr);
+            if ($host) {
+	       $addr_structure->host = $host;
+	    }
         }
         if ($group && $addr == '') { /* no addresses found in group */
-            $name = "$group: Undisclosed recipients;";
+            $name = "$group";
             $addr_structure->personal = $name;
             $addr_ar[] = $addr_structure;
             return (array($addr_ar, $pos+1));
