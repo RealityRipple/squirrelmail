@@ -692,7 +692,7 @@ if (($mailbox == $draft_folder) && ($save_as_draft)) {
 }
 if ($mailbox == $sent_folder) {
     echo '|&nbsp;<A HREF="' . $base_uri .
-         "src/compose.php?mailbox=$mailbox&amp;identity=$identity&amp;send_to=$url_to_string&amp;send_to_cc=$url_cc_string&amp;send_to_bcc=$url_bcc_string&amp;subject=$url_subj&amp;mailprio=$priority_level&amp;draft_id=$passed_id&amp;ent_num=$ent_num" . '"';
+         "src/compose.php?mailbox=$mailbox&amp;identity=$identity&amp;send_to=$url_to_string&amp;send_to_cc=$url_cc_string&amp;send_to_bcc=$url_bcc_string&amp;subject=$url_subj&amp;mailprio=$priority_level&amp;ent_num=$ent_num" . '"';
     if ($compose_new_win == '1') {
         echo ' TARGET="compose_window" onClick="comp_in_new()"';
     }
