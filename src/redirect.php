@@ -133,10 +133,6 @@ if (isset($_SERVER['HTTP_ACCEPT']) &&
     !isset($attachment_common_types_parsed[$_SERVER['HTTP_ACCEPT']])) {
     attachment_common_parse($_SERVER['HTTP_ACCEPT'], $debug);
 }
-if (isset($_SERVER['HTTP_ACCEPT']) &&
-    !isset($attachment_common_types_parsed[$_SERVER['HTTP_ACCEPT']])) {
-    attachment_common_parse($_SERVER['HTTP_ACCEPT'], $debug);
-}
 
 /* Complete autodetection of Javascript. */
 $javascript_setting = getPref
