@@ -3,22 +3,22 @@
 /**
  * plugins/fortune/setup.php
  *
- * Copyright (c) 1999-2004 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
  * Original code contributed by paulm@spider.org
  *
  * Simple SquirrelMail WebMail Plugin that displays the output of
  * fortune above the message listing.
  *
- * $Id$
+ * @copyright (c) 1999-2004 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package plugins
  * @subpackage fortune
  */
 
 /**
-*
-*/
+ * Init plugin
+ * @access private 
+ */
 function squirrelmail_plugin_init_fortune() {
   global $squirrelmail_plugin_hooks;
   
@@ -28,6 +28,10 @@ function squirrelmail_plugin_init_fortune() {
   $squirrelmail_plugin_hooks['loading_prefs']['fortune'] = 'fortune_load';  
 }
 
+/**
+ * Show fortune
+ * @access private 
+ */
 function fortune() {
     global $fortune_visible, $color;
 
@@ -49,12 +53,20 @@ function fortune() {
     echo '</pre></TD></TR></TABLE></td></tr></table></td></tr></table></center>';
 }
 
+/**
+ * Get fortune prefs
+ * @access private 
+ */
 function fortune_load() {
     global $username, $data_dir, $fortune_visible;
 
     $fortune_visible = getPref($data_dir, $username, 'fortune_visible');
 }
 
+/**
+ * Add fortune options
+ * @access private 
+ */
 function fortune_options() {
   global $fortune_visible;
 
@@ -62,9 +74,13 @@ function fortune_options() {
   echo '<td><input name="fortune_fortune_visible" type=CHECKBOX';
   if ($fortune_visible)
     echo ' CHECKED';
-  echo "> " . _("Show fortunes at top of mailbox") . "</td></tr>\n";
+  echo " /> " . _("Show fortunes at top of mailbox") . "</td></tr>\n";
 }
 
+/**
+ * Save fortune prefs
+ * @access private 
+ */
 function fortune_save() {
     global $username,$data_dir;
 
