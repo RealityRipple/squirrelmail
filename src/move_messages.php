@@ -50,7 +50,7 @@ function putSelectedMessagesIntoString($msg) {
 }
 
 function attachSelectedMessages($msg, $imapConnection) {
-    global $username, $attachment_dir,  
+    global $username, $attachment_dir, $startMessage,
            $data_dir, $composesession, $uid_support,
 	   $msgs, $thread_sort_messages, $allow_server_sort, $show_num,
 	   $compose_messages;
