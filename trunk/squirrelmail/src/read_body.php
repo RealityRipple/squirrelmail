@@ -324,7 +324,14 @@
       echo "               <A HREF=\"delete_message.php?mailbox=$urlMailbox&message=$passed_id&sort=$sort&startMessage=$startMessage\">";
    }
    echo _("Delete") .
-        '</A>&nbsp;&nbsp;' .
+        '</A>&nbsp;';
+   if (($mailbox == $draft_folder) && ($save_as_draft)) {
+      echo '|&nbsp;';
+      echo "               <A HREF=\"compose.php?mailbox=$mailbox&send_to=$to_string&send_to_cc=$cc_string&send_to_bcc=$
+      echo _("Resume") .
+           '</a>';
+   }
+   echo '&nbsp;&nbsp;' .
         '               </SMALL>' .
         '            </TD><TD WIDTH="33%" ALIGN="CENTER">' .
         '               <SMALL>' . "\n";
