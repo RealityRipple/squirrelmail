@@ -101,6 +101,8 @@ Version 1.5.0 -- CVS
     findings reported by stardust.
   - Disabled Vietnamese and Ukrainian translations. They are done in different 
     language.
+  - Removed all translations. SquirrelMail translations are distributed as
+    separate packages and kept in different cvs module.
 
 
 **************************************
