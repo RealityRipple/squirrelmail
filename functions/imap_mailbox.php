@@ -695,7 +695,7 @@ function sqimap_mailbox_tree($imap_stream) {
         require_once('../functions/array.php');
 
         /* LSUB array */
-        $lsub_ary = sqimap_run_command ($imap_stream, "LSUB \"\" \"*\"",
+        $lsub_ary = sqimap_run_command ($imap_stream, "LSUB \"$folder_prefix\" \"*\"",
                                         true, $response, $message);
 
         /*
