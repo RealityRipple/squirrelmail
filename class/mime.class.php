@@ -43,31 +43,33 @@ class rfc822_header
     function parseHeader($hdr)
     {
         if (is_array($hdr))
-	{
-	   $hdr = implode('',$hdr);
-	}
+        {
+            $hdr = implode('',$hdr);
+        }
         /* first we unfold the header */
-	$hdr = trim(str_replace(array("\r\n\t","\r\n "),array('',''),$hdr));
-	/* 
-	 * now we can make a new header array with each element representing 
-	 * a headerline
-	 */
-	$hdr = explode("\r\n" , $hdr);  
-	foreach ($hdr as $line)
-	{
-	   $pos = strpos($line,':');
-	   if ($pos > 0)
-	   {
-	      $field = substr($line,0,$pos);
-	      $value = trim(substr($line,$pos+1));
-	      $value = $this->stripComments($value);
-	      $this->parseField($field,$value);
-	   }
-	}
-	if ($this->content_type == '')
-	{
-	   $this->parseContentType('text/plain; charset=us-ascii');
-	}
+        $hdr = trim(str_replace(array("\r\n\t","\r\n "),array('',''),$hdr));
+        /* 
+         * now we can make a new header array with each element representing 
+         * a headerline
+         */
+        $hdr = explode("\r\n" , $hdr);  
+        foreach ($hdr as $line)
+        {
+            $pos = strpos($line,':');
+            if ($pos > 0)
+            {
+                $field = substr($line,0,$pos);
+                $value = trim(substr($line,$pos+1));
+                if(!preg_match('/^X.*/',$value)) {
+                    $value = $this->stripComments($value);
+                }
+                $this->parseField($field,$value);
+            }
+        }
+        if ($this->content_type == '')
+        {
+            $this->parseContentType('text/plain; charset=us-ascii');
+        }
     }
     
     function stripComments($value)
