@@ -133,12 +133,16 @@ function parseConfig( $cfg_file ) {
 /* ---------------------- main -------------------------- */
 
 chdir('..');
-require_once('../src/validate.php');
-require_once('../functions/page_header.php');
-require_once('../functions/imap.php');
-require_once('../src/load_prefs.php');
-require_once('../plugins/administrator/defines.php');
-require_once('../plugins/administrator/auth.php');
+chdir('..');
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'include/validate.php');
+require_once(SM_PATH . 'functions/page_header.php');
+require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'src/load_prefs.php');
+require_once(SM_PATH . 'plugins/administrator/defines.php');
+require_once(SM_PATH . 'plugins/administrator/auth.php');
 
 GLOBAL $data_dir, $username;
 
