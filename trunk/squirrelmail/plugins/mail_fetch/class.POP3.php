@@ -32,7 +32,7 @@ class POP3 {
 
     var $MAILSERVER = '';       // Set this to hard code the server name
 
-    var $DEBUG      = FASLE;    // set to true to echo pop3
+    var $DEBUG      = FALSE;    // set to true to echo pop3
                                 // commands and responses to error_log
                                 // this WILL log passwords!
 
