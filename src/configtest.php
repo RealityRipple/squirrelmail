@@ -101,11 +101,11 @@ echo $IND . "PHP extensions OK.<br />\n";
  * mbstring.func_overload allows to replace original string and regexp functions
  * with their equivalents from php mbstring extension. It causes problems when
  * scripts analyse 8bit strings byte after byte or use 8bit strings in regexp tests.
- * Setting can be controlled in php.ini (php 4.2.0), webserver config (php 4.2.0) 
+ * Setting can be controlled in php.ini (php 4.2.0), webserver config (php 4.2.0)
  * and .htaccess files (php 4.3.5).
  */
 if (function_exists('mb_internal_encoding') &&
-    check_php_version(4,2,0) && 
+    check_php_version(4,2,0) &&
     (int)ini_get('mbstring.func_overload')!=0) {
     $mb_error='You have enabled mbstring overloading.'
         .' It can cause problems with SquirrelMail scripts that rely on single byte string functions.';
