@@ -21,10 +21,7 @@
    if (CheckAndDoDefault() || CheckAndDoPromote()) {
       SaveUpdateFunction();
    }
-   if (isset($update) || isset($delete_0) || isset($delete_1) || 
-       isset($delete_2) || isset($delete_3) || isset($delete_4) || 
-	   isset($delete_5) || isset($delete_6) || isset($delete_7) || 
-	   isset($delete_8))
+   if (isset($update) || CheckForDelete())
       SaveUpdateFunction();
 
    LoadInfo($full_name, $email_address, $reply_to, '');
@@ -169,6 +166,28 @@ function CheckAndDoDefault()
           $reply_to = $$name;
           $$name = $temp;
           
+          return true;
+      }
+      
+      $i ++;
+      $name = 'form_for_' . $i;
+      global $$name;
+   }
+   return false;
+}
+
+function CheckForDelete()
+{
+   global $username, $data_dir, $full_name, $email_address, $reply_to;
+    
+   $i = 1;
+   $name = 'form_for_' . $i;
+   global $$name;
+   while (isset($$name))
+   {
+      $name = 'delete_' . $i;
+      global $$name;
+      if (isset($$name)) {
           return true;
       }
       
