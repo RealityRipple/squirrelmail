@@ -759,14 +759,20 @@ function sqimap_get_message ($imap_stream, $id, $mailbox) {
     $flags = array();
     $read = sqimap_run_command ($imap_stream, "FETCH $id (FLAGS BODYSTRUCTURE)", true, $response, $message, $uid_support);
     if ($read) {
-    if (preg_match('/.+FLAGS\s\((.*)\)\s/AUi',$read[0],$regs)) {
-       if (trim($regs[1])) {
-          $flags = preg_split('/ /', $regs[1],-1,'PREG_SPLIT_NI_EMPTY');
-       }
-    }
+        if (preg_match('/.+FLAGS\s\((.*)\)\s/AUi',$read[0],$regs)) {
+            if (trim($regs[1])) {
+                $flags = preg_split('/ /', $regs[1],-1,'PREG_SPLIT_NI_EMPTY');
+            }
+        }
     } else {
-      echo "ERROR Yeah I know, not a very usefull errormessage (id = $id, mailbox = $mailbox sqimap_get_message)";
-      exit;
+        /* the message was not found, maybe the mailbox was modified? */
+        global $sort, $startMessage, $color;
+
+        $errmessage = _("The server couldn't find the message you requested.") .
+              '<p>'._("Most probably your message list was out of date and the message has been moved away or deleted (perhaps by another program accessing the same mailbox).");
+        /* this will include a link back to the message list */
+        error_message($errmessage, $mailbox, $sort, $startMessage, $color);
+        exit;
     } 
     $bodystructure = implode('',$read);
     $msg =  mime_structure($bodystructure,$flags);
