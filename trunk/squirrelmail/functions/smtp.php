@@ -90,13 +90,6 @@
          fputs($smtpConnection, "Reply-To: $reply_to\n");
 
 
-      $body_ary = explode("\n", trim($body));
-      $body = "";
-      for ($i = 0; $i < count($body_ary); $i++) {
-         if ($body_ary[$i] == ".")
-            $body_ary[$i] = ".";
-         $body .= $body_ary[$i] . "\n";
-      }
       fputs($smtpConnection, "$body\n"); // send the body of the message
 
       fputs($smtpConnection, ".\n"); // end the DATA part
