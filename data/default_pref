@@ -1,4 +1,4 @@
 full_name=
 reply_to=
-chosen_theme=../config/default_theme.php
+chosen_theme=../themes/default_theme.php
 show_html_default=0
