@@ -1,5 +1,9 @@
-Version 1.1.1 -- DEVELOPMENT
+Version 1.1.2 -- DEVELOPMENT
 ----------------------------
+
+Version 1.1.1 -- April 30, 2001
+-------------------------------
+- Added built-in support for gettext if compiled support isn't available
 - Made validate.php include a few more standard things
 - Corrected a bug when sending an email properly
 
