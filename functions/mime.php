@@ -1200,7 +1200,7 @@ function isNoSep( $char ) {
 
 function stripComments( &$i, $j, &$body ) {
 
-    while ( $body{$i}.$body{$i+1} == '<!' &&
+    while ( $body{$i}.$body{$i+1}.$body{$i+2}.$body{$i+3} == '<!--' &&
            $i < $j ) {
         $i += 5;
         while ( $body{$i-2}.$body{$i-1}.$body{$i} <> '-->' &&
