@@ -69,7 +69,7 @@ foreach ($vcard as $l) {
         if ($attr == 'quoted-printable')
         $v = quoted_printable_decode($v);
         else
-            $k .= ';' . $attr;
+            $k .= ';' . strtolower($attr);
     }
 
     $v = str_replace(';', "\n", $v);
@@ -78,10 +78,15 @@ foreach ($vcard as $l) {
 
 if ($vcard_nice['version'] == '2.1') {
     // get firstname and lastname for sm addressbook
-    $vcard_nice["firstname"] = substr($vcard_nice["n"],
-    strpos($vcard_nice["n"], "\n") + 1, strlen($vcard_nice["n"]));
-    $vcard_nice["lastname"] = substr($vcard_nice["n"], 0,
-        strpos($vcard_nice["n"], "\n"));
+    $vcard_nice['firstname'] = substr($vcard_nice['n'],
+    strpos($vcard_nice['n'], "\n") + 1, strlen($vcard_nice['n']));
+    $vcard_nice['lastname'] = substr($vcard_nice['n'], 0,
+        strpos($vcard_nice['n'], "\n"));
+    // workaround for Outlook, should be fixed in a better way,
+    // maybe in new 'vCard' class.
+    if (isset($vcard_nice['email;pref;internet'])) {
+       $vcard_nice['email;internet'] = $vcard_nice['email;pref;internet'];
+    }
 } else {
     echo '<tr><td align=center>vCard Version ' . $vcard_nice['version'] .
         ' is not supported.  Some information might not be converted ' .
