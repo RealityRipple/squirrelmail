@@ -80,9 +80,9 @@ function bug_report_options() {
     global $bug_report_visible;
 
     echo '<tr>' . html_tag('td',_("Bug Reports:"),'right','','nowrap') . "\n" .
-         '<td><input name="bug_report_bug_report_visible" type=checkbox';
+         '<td><input name="bug_report_bug_report_visible" type="checkbox"';
     if ($bug_report_visible) {
-        echo ' checked';
+        echo ' checked="checked"';
     }
     echo ' /> ' . _("Show button in toolbar") . "</td></tr>\n";
 
