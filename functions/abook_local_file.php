@@ -125,7 +125,7 @@
 
      // Overwrite the file with data from $rows
      // NOTE! Previous locks are broken by this function
-     function overwrite($rows) {
+     function overwrite(&$rows) {
        $newfh = @fopen($this->filename, 'w');
        if(!$newfh)
 	 return $this->set_error("$file: " . _("Open failed"));
@@ -286,7 +286,7 @@
        }
 
        // Write data back
-       if(!$this->overwrite(&$rows)) {
+       if(!$this->overwrite($rows)) {
 	 $this->unlock();
 	 return false;
        }
@@ -330,7 +330,7 @@
        }
 
        // Write data back
-       if(!$this->overwrite(&$rows)) {
+       if(!$this->overwrite($rows)) {
 	 $this->unlock();
 	 return false;
        }

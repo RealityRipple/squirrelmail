@@ -109,7 +109,7 @@
    // --- End functions ---
 
    displayPageHeader($color, 'None');
-
+   
    // Initialize addressbook
    $abook = addressbook_init();
 
@@ -131,7 +131,7 @@
    printf("  <nobr><STRONG>%s</STRONG>\n", _("Search for"));
    addr_insert_hidden();
    if (! isset($addrquery))
-       $addrquery = "";
+       $addrquery = '';
    printf("  <INPUT TYPE=text NAME=addrquery VALUE=\"%s\" SIZE=26>\n",
           htmlspecialchars($addrquery));
 
@@ -166,10 +166,10 @@
    // End search form
 
    // Show personal addressbook
-   if(!isset($addrquery) || !empty($listall)) {
+   if($addrquery == '' || !empty($listall)) {
 
-      if(! isset($backend) || $backend != -1 || !isset($addrquery)) {
-         if(!isset($addrquery)) 
+      if(! isset($backend) || $backend != -1 || $addrquery == '') {
+         if($addrquery == '')
             $backend = $abook->localbackend;
 
          //printf("<H3 ALIGN=center>%s</H3>\n", $abook->backends[$backend]->sname);
@@ -212,7 +212,7 @@
       }
    }
 
-   if (!$addrquery || sizeof($res) == 0) {  
+   if ($addrquery == '' || sizeof($res) == 0) {  
       printf('<center><FORM METHOD=post NAME=k ACTION="compose.php">'."\n", $PHP_SELF);
       addr_insert_hidden();
       printf("<INPUT TYPE=submit VALUE=\"%s\" NAME=return>\n", _("Return"));

@@ -112,7 +112,7 @@
 	 $ret = array();
 	 for($i = 1 ; $i <= $this->numbackends ; $i++) {
 	    if(empty($type) || $type == $this->backends[$i]->btype) {
-	       array_push($ret, &$this->backends[$i]);
+	       $ret[] = &$this->backends[$i];
 	    }
 	 }
 	 return $ret;
