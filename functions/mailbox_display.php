@@ -155,7 +155,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                 break;
             case 2: /* from */
                 echo html_tag( 'td',
-                               $italic . $bold . $flag . $fontstr . $senderName .
+                               $italic . $bold . $flag . $fontstr . htmlentities($senderName) .
                                $fontstr_end . $flag_end . $bold_end . $italic_end,
                                'left',
                                $hlt_color );
