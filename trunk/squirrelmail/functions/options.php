@@ -208,7 +208,7 @@ class SquirrelOption {
                 $width = 25;
         }
 
-        $result = "<input name=\"new_$this->name\" value=\"" .
+        $result = "<input type=\"text\" name=\"new_$this->name\" value=\"" .
             htmlspecialchars($this->value) . 
             "\" size=\"$width\" $this->script />\n";
         return ($result);
