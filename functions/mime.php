@@ -32,7 +32,7 @@
                      $p++;
                   }
                   /** All of these values are getting passed back to us **/
-                  fetchEntityHeader($imapConnection, $entity_header, $ent_type0, $ent_type1, $ent_bound, $encoding, $charset, $filename);
+                  sqimap_get_entity_header($imapConnection, $entity_header, $ent_type0, $ent_type1, $ent_bound, $encoding, $charset, $filename);
                }
 
 

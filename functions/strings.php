@@ -20,7 +20,7 @@
       if (substr($haystack, -1) == $needle)
          $haystack = substr($haystack, 0, strlen($haystack) - 1);
 
-      if (strpos($haystack, $needle)) {
+      if (strrpos($haystack, $needle)) {
          $pos = strrpos($haystack, $needle) + 1;
          $data = substr($haystack, $pos, strlen($haystack));
       } else {
@@ -127,4 +127,25 @@
 
    /* SquirrelMail version number -- DO NOT CHANGE */
    $version = "0.3pre1";
+
+
+   function find_mailbox_name ($mailbox) {
+      $mailbox = trim($mailbox);
+      if (substr($mailbox, strlen($mailbox)-1, strlen($mailbox)) == "\"") {
+         $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
+         $pos = strrpos ($mailbox, "\"")+1;
+         $box = substr($mailbox, $pos);
+      } else {
+         $box = substr($mailbox, strrpos($mailbox, " ")+1, strlen($mailbox));
+      }
+      return $box;
+   }
+
+   function replace_spaces ($string) {
+      return str_replace(" ", "&nbsp;", $string);
+   }
+
+   function replace_escaped_spaces ($string) {
+      return str_replace("&nbsp;", " ", $string);
+   }
 ?>

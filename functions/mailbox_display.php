@@ -10,7 +10,7 @@
    function printMessageInfo($imapConnection, $t, $i, $from, $subject, $dateString, $answered, $seen, $mailbox, $sort, $startMessage) {
       require ("../config/config.php");
 
-      $senderName = getSenderName($from);
+      $senderName = $from;
       $urlMailbox = urlencode($mailbox);
       $subject = trim(stripslashes($subject));
       echo "<TR>\n";
@@ -34,9 +34,14 @@
    function showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color) {
       include ("../config/config.php");
 
-      if (1 <= $numMessages) {
-         getMessageHeaders($imapConnection, 1, $numMessages, $from, $subject, $date);
-         getMessageFlags($imapConnection, 1, $numMessages, $flags);
+      if ($numMessages >= 1) {
+         for ($q = 0; $q < $numMessages; $q++) {
+            sqimap_get_small_header ($imapConnection, $q+1, $f, $s, $d);
+            $from[$q] = $f;
+            $date[$q] = $d;
+            $subject[$q] = $s;
+         }
+         $flags = sqimap_get_flags ($imapConnection, 1, $numMessages);
       }
 
       $j = 0;
@@ -47,7 +52,7 @@
          $messages[$j]["TIME_STAMP"] = getTimeStamp($tmpdate);
          $messages[$j]["DATE_STRING"] = getDateString($messages[$j]["TIME_STAMP"]);
          $messages[$j]["ID"] = $j+1;
-         $messages[$j]["FROM"] = getSenderName($from[$j]);
+         $messages[$j]["FROM"] = $from[$j];
          $messages[$j]["SUBJECT"] = $subject[$j];
          $messages[$j]["FLAG_DELETED"] = false;
          $messages[$j]["FLAG_ANSWERED"] = false;
@@ -192,21 +197,21 @@
       echo "         <NOBR><FONT FACE=\"Arial,Helvetica\"><SMALL>". _("Move selected to:") ."</SMALL></FONT>";
       echo "         <TT><SMALL><SELECT NAME=\"targetMailbox\">";
 
-      getFolderList($imapConnection, $boxes);
+      $boxes = sqimap_mailbox_list($imapConnection, $boxes);
       for ($i = 0; $i < count($boxes); $i++) {
          $use_folder = true;
          for ($p = 0; $p < count($special_folders); $p++) {
-            if ($boxes[$i]["UNFORMATTED"] == $special_folders[0]) {
+            if ($boxes[$i]["unformatted"] == $special_folders[0]) {
                $use_folder = true;
-            } else if ($boxes[$i]["UNFORMATTED"] == $special_folders[$p]) {
+            } else if ($boxes[$i]["unformatted"] == $special_folders[$p]) {
                $use_folder = false;
-            } else if (substr($boxes[$i]["UNFORMATTED"], 0, strlen($trash_folder)) == $trash_folder) {
+            } else if (substr($boxes[$i]["unformatted"], 0, strlen($trash_folder)) == $trash_folder) {
                $use_folder = false;
             }
          }
          if ($use_folder == true) {
-            $box = $boxes[$i]["UNFORMATTED"];
-            $box2 = $boxes[$i]["FORMATTED"];
+            $box = $boxes[$i]["unformatted"];
+            $box2 = replace_spaces($boxes[$i]["formatted"]);
             echo "         <OPTION VALUE=\"$box\">$box2\n";
          }
       }
@@ -252,10 +257,11 @@
          echo "   <A HREF=\"right_main.php?sort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
       echo "</TR>";
 
+      
       // loop through and display the info for each message.
       $t = 0; // $t is used for the checkbox number
       if ($numMessages == 0) { // if there's no messages in this folder
-         echo "<TR><TD BGCOLOR=\"$color[4]\" COLSPAN=4><CENTER><BR><B>THIS FOLDER IS EMPTY</B><BR>&nbsp</CENTER></TD></TR>";
+         echo "<TR><TD BGCOLOR=\"$color[4]\" COLSPAN=4><CENTER><BR><B>". _("THIS FOLDER IS EMPTY") ."</B><BR>&nbsp</CENTER></TD></TR>";
       } else if ($startMessage == $endMessage) { // if there's only one message in the box, handle it different.
          $i = $startMessage - 1;
          printMessageInfo($imapConnection, $t, $msgs[$i]["ID"], $msgs[$i]["FROM"], $msgs[$i]["SUBJECT"], $msgs[$i]["DATE_STRING"], $msgs[$i]["FLAG_ANSWERED"], $msgs[$i]["FLAG_SEEN"], $mailbox, $sort, $startMessage);
