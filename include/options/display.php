@@ -310,6 +310,16 @@ function load_optpage_data_display() {
     );
 
     $optvals[SMOPT_GRP_MESSAGE][] = array(
+        'name'    => 'reply_focus',
+        'caption' => _("Cursor Position when Replying"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => array('' => _("To: field"),
+                           'focus' => _("Focus in body"),
+                           'select' => _("Select body"))
+    );
+
+    $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'strip_sigs',
         'caption' => _("Strip signature when replying"),
         'type'    => SMOPT_TYPE_BOOLEAN,
