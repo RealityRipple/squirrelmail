@@ -126,8 +126,6 @@
       echo "\n$line<BR>\n";
    }
 
-
-   fclose($imapConnection);
-
+   sqimap_logout($imapConnection);
 ?>
 </BODY></HTML>

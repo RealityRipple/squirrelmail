@@ -481,7 +481,7 @@
          writeBody ($imap_stream, $body); 
          sqimap_append_done ($imap_stream);
       }   
-
+      sqimap_logout($imap_stream); 
       // Delete the files uploaded for attaching (if any).
       deleteAttachments();
    }

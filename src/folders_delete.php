@@ -31,8 +31,6 @@
 
    include("../src/load_prefs.php");
 
-   displayPageHeader($color, "None");  
-
    
    $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    $boxes = sqimap_mailbox_list ($imap_stream);
@@ -86,6 +84,9 @@
    /** Log out this session **/
    sqimap_logout($imap_stream);
 
+   $location = get_location();
+   header ("Location: $location/folders.php?success=delete");
+   /*
    echo "<BR><BR><BR><CENTER><B>";
    echo _("Folder Deleted!");
    echo "</B><BR><BR>";
@@ -97,4 +98,5 @@
    echo "</CENTER>"; 
    
    echo "</BODY></HTML>";
+   */
 ?>

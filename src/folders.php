@@ -27,12 +27,31 @@
 
    displayPageHeader($color, "None");
 
-   echo "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
-   echo "   <TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>\n";
+   echo "<br>";
+   echo "<TABLE WIDTH=95% COLS=1 ALIGN=CENTER>\n";
+   echo "   <TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER>\n";
    echo _("Folders");
    echo "   </TD></TR>\n";
    echo "</TABLE>\n";
 
+   if ($success) {
+      echo "<table width=100% align=center cellpadding=3 cellspacing=0 border=0>\n";
+      echo "   <tr><td><center><font color=\"$color[1]\">\n";
+      if ($success == "subscribe") {
+         echo "<b>" . _("Subscribed successfully!") . "</b><br>";
+      } else if ($success == "unsubscribe") {
+         echo "<b>" . _("Unsubscribed successfully!") . "</b><br>";
+      } else if ($success == "delete") {
+         echo "<b>" . _("Deleted folder successfully!") . "</b><br>";
+      } else if ($success == "create") {
+         echo "<b>" . _("Created folder successfully!") . "</b><br>";
+      } else if ($success == "rename") {
+         echo "<b>" . _("Renamed successfully!") . "</b><br>";
+      }
+      echo "</font><a href=\"../src/left_main.php\" target=left><font color=\"$color[1]\">" . _("refresh folder list") . "</font></a>";
+      echo "   </center></td></tr>\n";
+      echo "</table><br>\n";
+   }
    $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
    $boxes = sqimap_mailbox_list($imapConnection);
 
@@ -61,10 +80,10 @@
     if ($imap_server_type == "cyrus") {
        if ((!sqimap_mailbox_exists ($imapConnection, $sent_folder)) || (!sqimap_mailbox_exists ($imapConnection, $trash_folder))) {
        echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER>\n";
-       echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><B>";
+       echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
        echo _("Special Folder Options");
        echo "</B></TD></TR>";
-       echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
+       echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
        echo _("In order for SquirrelMail to provide the full set of options you need to create the special folders listed below.  Just click the check box and hit the create button.");
        echo "<FORM ACTION=\"folders.php\" METHOD=\"POST\">\n";
            if (!sqimap_mailbox_exists ($imapConnection, $sent_folder)) {
@@ -79,11 +98,11 @@
    }
 
    /** DELETING FOLDERS **/
-   echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER>\n";
-   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><B>";
+   echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER cellpadding=2 cellspacing=0 border=0>\n";
+   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
    echo _("Delete Folder");
    echo "</B></TD></TR>";
-   echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
+   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
 
    $count_special_folders = 0;
 	$num_max = 1;
@@ -119,17 +138,18 @@
       echo "<INPUT TYPE=SUBMIT VALUE=\"";
       echo _("Delete");
       echo "\">\n";
-      echo "</FORM><BR></TD></TR>\n";
+      echo "</FORM></TD></TR>\n";
    } else {
       echo _("No mailboxes found") . "<br><br></td><tr>";
    }
 
+   echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr>\n";
 
    /** CREATING FOLDERS **/
-   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><B>";
+   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
    echo _("Create Folder");
    echo "</B></TD></TR>";
-   echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
+   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
    echo "<FORM ACTION=\"folders_create.php\" METHOD=\"POST\">\n";
    echo "<INPUT TYPE=TEXT SIZE=25 NAME=folder_name><BR>\n";
    echo _("as a subfolder of");
@@ -174,13 +194,15 @@
       echo "<BR>";
    }   
    echo "<INPUT TYPE=SUBMIT VALUE=Create>\n";
-   echo "</FORM><BR></TD></TR><BR>\n";
+   echo "</FORM></TD></TR>\n";
+
+   echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr>\n";
 
    /** RENAMING FOLDERS **/
-   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><B>";
+   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
    echo _("Rename a Folder");
    echo "</B></TD></TR>";
-   echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
+   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
    if ($count_special_folders < count($boxes)) {
       echo "<FORM ACTION=\"folders_rename_getname.php\" METHOD=\"POST\">\n";
       echo "<TT><SELECT NAME=old>\n";
@@ -205,12 +227,14 @@
       echo _("No mailboxes found") . "<br><br></td></tr>";
    }
    $boxes_sub = $boxes;
+
+   echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr>\n";
    
    /** UNSUBSCRIBE FOLDERS **/
-   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><B>";
+   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
    echo _("Unsubscribe/Subscribe");
    echo "</B></TD></TR>";
-   echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
+   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
    if ($count_special_folders < count($boxes)) {
       echo "<FORM ACTION=\"folders_subscribe.php?method=unsub\" METHOD=\"POST\">\n";
       echo "<TT><SELECT NAME=mailbox>\n";
@@ -236,8 +260,7 @@
    $boxes_sub = $boxes;
    
    /** SUBSCRIBE TO FOLDERS **/
-
-   echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
+   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
    if ($count_special_folders <= count($boxes)) {
       $imap_stream = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 1);
       $boxes_all = sqimap_mailbox_list_all ($imap_stream);
@@ -260,6 +283,7 @@
             echo "         <OPTION VALUE=\"$box\">$box2\n";
          }
       }
+      sqimap_logout($imap_stream);
       echo "</select></tt>";
       echo "<INPUT TYPE=SUBMIT VALUE=\"";
       echo _("Subscribe");
@@ -269,5 +293,6 @@
       echo _("No mailboxes found") . "<br><br></td></tr></table>";
    }
 
+   sqimap_logout($imapConnection);
 ?>
 </BODY></HTML>

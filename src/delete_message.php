@@ -27,12 +27,10 @@
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    sqimap_mailbox_select($imapConnection, $mailbox);
 
-   displayPageHeader($color, $mailbox);
-
    sqimap_messages_delete($imapConnection, $message, $message, $mailbox);
    if ($auto_expunge)
       sqimap_mailbox_expunge($imapConnection, $mailbox);
 
-   messages_deleted_message($mailbox, $sort, $startMessage, $color);
+   $location = get_location();
+   header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=".urlencode($mailbox));
 ?>
-</BODY></HTML>

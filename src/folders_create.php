@@ -53,9 +53,10 @@
    }
    fputs($imapConnection, "1 logout\n");
 
-//   if ($auto_forward == true) {
-//      header ("Location: webmail.php?right_frame=folders.php");
-//   } else {
+   $location = get_location();
+   header ("Location: $location/folders.php?success=create");
+   sqimap_logout($imapConnection);
+   /*   
       displayPageHeader($color, "None");
       echo "<BR><BR><BR><CENTER><B>";
       echo _("Folder Created!");
@@ -67,6 +68,6 @@
       echo _("to continue.");
       echo "</CENTER>";
       echo "</BODY></HTML>";
-//   }
+   */
 ?>
 

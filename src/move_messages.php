@@ -68,12 +68,8 @@
          if ($auto_expunge) {
             sqimap_mailbox_expunge($imapConnection, $mailbox);
          }
-         if ($auto_forward) {   
-            header ("Location: right_main.php");
-         } else {
-            displayPageHeader($color, $mailbox);
-            messages_deleted_message($mailbox, $sort, $startMessage, $color);
-         }
+         $location = get_location();
+         header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=". urlencode($mailbox));
       } else {
          displayPageHeader($color, $mailbox);
          error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);
@@ -98,12 +94,8 @@
          if ($auto_expunge == true)
             sqimap_mailbox_expunge($imapConnection, $mailbox);
 
-         if ($auto_forward) {   
-            header ("Location: right_main.php");
-         } else {
-            displayPageHeader($color, $mailbox);
-            messages_moved_message($mailbox, $sort, $startMessage, $color);
-         }
+         $location = get_location();
+         header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=". urlencode($mailbox));
       } else {
          displayPageHeader($color, $mailbox);
          error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);

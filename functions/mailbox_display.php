@@ -27,7 +27,12 @@
 		if ($mailbox == $sent_folder) { $italic = "<i>"; $italic_end = "</i>"; }
       
       for ($i=0; $i < count($message_highlight_list); $i++) {
-         if (eregi($message_highlight_list[$i]["value"],$msg[strtoupper($message_highlight_list[$i]["match_type"])])) {
+         if ($message_highlight_list[$i]["match_type"] == "to_cc") {
+            if (eregi($message_highlight_list[$i]["value"],$msg["TO"]) || eregi($message_highlight_list[$i]["value"],$msg["CC"])) {
+               $hlt_color = $message_highlight_list[$i]["color"];
+               continue;
+            }
+         } else if (eregi($message_highlight_list[$i]["value"],$msg[strtoupper($message_highlight_list[$i]["match_type"])])) {
             $hlt_color = $message_highlight_list[$i]["color"];
             continue;
          }   
@@ -67,6 +72,7 @@
 					$subject[$q] = $hdr->subject;
                $to[$q] = $hdr->to;
                $priority[$q] = $hdr->priority;
+               $cc[$q] = $hdr->cc;
 
                $flags[$q] = sqimap_get_flags ($imapConnection, $q+1);
             }
@@ -84,6 +90,7 @@
             $messages[$j]["SUBJECT"] = decodeHeader($subject[$j]);
             $messages[$j]["TO"] = decodeHeader($to[$j]);
 				$messages[$j]["PRIORITY"] = $priority[$j];
+            $messages[$j]["CC"] = $cc[$j];
    
             $num = 0;
             while ($num < count($flags[$j])) {

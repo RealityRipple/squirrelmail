@@ -49,6 +49,7 @@
       do_hook ("login_before");
       // verify that username and password are correct
       $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+      sqimap_logout($imapConnection);
       do_hook ("login_verified");
    }
 

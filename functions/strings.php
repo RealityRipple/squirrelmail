@@ -173,4 +173,38 @@
    function replace_escaped_spaces ($string) {
       return str_replace("&nbsp;", " ", $string);
    }
+
+   function get_location () {
+      # This determines the location to forward to relative
+      # to your server.  If this doesn't work correctly for
+      # you (although it should), you can remove all this 
+      # code except the last two lines, and change the header()
+      # function to look something like this, customized to
+      # the location of SquirrelMail on your server:
+      #
+      #   http://www.myhost.com/squirrelmail/src/login.php
+   
+      global $PHP_SELF, $SERVER_NAME, $HTTPS, $HTTP_HOST;
+
+      // Get the path
+      $path = substr($PHP_SELF, 0, strrpos($PHP_SELF, '/'));
+   
+      // Check if this is a HTTPS or regular HTTP request
+      $proto = "http://";
+      if(isset($HTTPS) && $HTTPS == 'on' ) {
+        $proto = "https://";
+      }
+   
+      // Get the hostname from the Host header or server config.
+      // Fallback is to omit the server name and use a relative URI,
+      // although this is not RFC 2616 compliant.
+      if(isset($HTTP_HOST) && !empty($HTTP_HOST)) {
+        $location = $proto . $HTTP_HOST . $path;
+      } else if(isset($SERVER_NAME) && !empty($SERVER_NAME)) {
+        $location = $proto . $SERVER_NAME . $path;
+      } else {
+        $location = $path;
+      }
+      return $location;
+   }   
 ?>

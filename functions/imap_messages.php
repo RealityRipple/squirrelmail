@@ -45,7 +45,7 @@
    }
 	 
    function sqimap_get_small_header ($imap_stream, $id, $sent) {
-      fputs ($imap_stream, "a001 FETCH $id BODY.PEEK[HEADER.FIELDS (Date To From Subject Message-Id X-Priority)]\r\n");
+      fputs ($imap_stream, "a001 FETCH $id BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject Message-Id X-Priority)]\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
 
       $subject = _("(no subject)");
@@ -65,6 +65,8 @@
             $priority = trim(substr($read[$i], 11));
          } else if (eregi ("^message-id:", $read[$i])) {
             $messageid = trim(substr($read[$i], 11));
+         } else if (eregi ("^cc:", $read[$i])) {
+            $cc = substr($read[$i], 3);
          } else if (eregi ("^date:", $read[$i])) {
             $date = substr($read[$i], 5);
          } else if (eregi ("^subject:", $read[$i])) {
@@ -78,13 +80,14 @@
       if ($sent == true)
          $header->from = $to;
       else   
-	 $header->from = $from;
+         $header->from = $from;
 
       $header->date = $date;
       $header->subject = $subject;
       $header->to = $to;
       $header->priority = $priority;
       $header->message_id = $messageid;
+      $header->cc = $cc;
 
       return $header;
    }
@@ -113,9 +116,8 @@
     **  the documentation folder for more information about this array.
     ******************************************************************************/
    function sqimap_get_message ($imap_stream, $id, $mailbox) {
-      
       $header = sqimap_get_message_header($imap_stream, $id, $mailbox);
-      $msg = sqimap_get_message_body($imap_stream, &$header);
+      $msg = sqimap_get_message_body(&$header);
       return $msg;
    }
 
@@ -324,11 +326,12 @@
    /******************************************************************************
     **  Returns the body of a message.
     ******************************************************************************/
-   function sqimap_get_message_body ($imap_stream, &$header) {
+   function sqimap_get_message_body (&$header) {
       $id = $header->id;
       //fputs ($imap_stream, "a001 FETCH $id:$id BODY[TEXT]\r\n");
       //$read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
        
+      /*
       $i = 0;
       $j = 0;
       while ($i < count($read)-1) {
@@ -338,6 +341,7 @@
          }
          $i++;
       }
+      */
       return decodeMime($body, &$header);
    }
 

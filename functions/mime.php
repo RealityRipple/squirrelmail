@@ -364,8 +364,9 @@
       global $username, $key, $imapServerAddress, $imapPort;
       $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
       sqimap_mailbox_select($imap_stream, $header->mailbox);
-
-      return mime_structure ($imap_stream, $header);
+      $struct = mime_structure ($imap_stream, $header);
+      sqimap_logout($imap_stream);
+      return $struct;
    }
 
    // This is here for debugging purposese.  It will print out a list
@@ -433,6 +434,7 @@
 
       $ent_num = findDisplayEntity ($message);
       $body = mime_fetch_body ($imap_stream, $id, $ent_num); 
+      sqimap_logout($imap_stream); 
 
       // If there are other types that shouldn't be formatted, add
       // them here 
