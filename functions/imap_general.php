@@ -109,12 +109,17 @@ function sqimap_run_pipelined_command ($imap_stream, $aQuery, $handle_errors,
                                     $handle_errors, $response, $message, $query,
                                     $filter,$outputstream,$no_return);
             foreach ($aReturnedResponse as $returned_tag => $aResponse) {
-                $aResults[$returned_tag] = $aResponse;
+	        if (!empty($aResponse)) {
+                    $aResults[$returned_tag] = $aResponse[0];
+	        } else {
+		    $aResults[$returned_tag] = $aResponse;
+	        }
                 $aServerResponse[$returned_tag] = $response[$returned_tag];
                 $aServerMessage[$returned_tag] = $message[$returned_tag];
             }
         }
     }
+    return $aResults;
 }
 
 /* 
@@ -381,7 +386,7 @@ function sqimap_read_data_list ($imap_stream, $tag, $handle_errors,
                             break 3; /* while switch while */
                         }
                         $data[] = $sLiteral;
-                        $fetch_data[] = sqimap_fgets($imap_stream);
+                        $data[] = sqimap_fgets($imap_stream);
                     } else {
                          $data[] = $read;
                     }
