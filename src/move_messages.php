@@ -1,4 +1,3 @@
-<HTML><BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EE" VLINK="#0000EE" ALINK="#0000EE">
 <?
    include("../config/config.php");
    include("../functions/mailbox.php");
@@ -7,6 +6,7 @@
    include("../functions/display_messages.php");
    include("../functions/imap.php");
 
+   echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
 
    function putSelectedMessagesIntoString($msg) {
       $j = 0;
@@ -37,7 +37,7 @@
 
    // If the delete button was pressed, the moveButton variable will not be set.
    if (!$moveButton) {
-      displayPageHeader($mailbox);
+      displayPageHeader($color, $mailbox);
       if (is_array($msg) == 1) {
          // Marks the selected messages ad 'Deleted'
          $j = 0;
@@ -58,7 +58,7 @@
          echo "<BR><BR><CENTER>No messages selected.</CENTER>";
       }
    } else {    // Move messages
-      displayPageHeader($mailbox);
+      displayPageHeader($color, $mailbox);
       // lets check to see if they selected any messages
       if (is_array($msg) == 1) {
          $j = 0;

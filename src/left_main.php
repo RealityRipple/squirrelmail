@@ -13,31 +13,14 @@
    }
 ?>
 <HTML>
-<HEAD>
-   <SCRIPT LANGUAGE="JavaScript">
-      function DeleteCookie (name) {
-         var exp = new Date();  
-         exp.setTime (exp.getTime() - 1);  
-         // This cookie is history  
-         var cval = GetCookie (name);  
-         document.cookie = name + "=" + cval + "; expires=" + exp.toGMTString();
-      }
-
-      function unSetCookies() {
-         DeleteCookie('username');
-         DeleteCookie('key');
-         DeleteCookie('logged_in');
-         alert(document.cookie);
-      }
-   </SCRIPT>
-</HEAD>
-<BODY BGCOLOR=A0B8C8 TEXT="#000000" LINK="#000000" VLINK="#000000" ALINK="#000000" onUnLoad="unSetCookies()">
-<FONT FACE="Arial,Helvetica">
 <?
    include("../config/config.php");
    include("../functions/strings.php");
    include("../functions/imap.php");
    include("../functions/mailbox.php");
+
+   echo "<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\">";
+   echo "<FONT FACE=\"Arial,Helvetica\">";
 
    // open a connection on the imap port (143)
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);

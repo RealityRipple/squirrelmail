@@ -43,7 +43,9 @@
    /** Log out this session **/
    fputs($imapConnection, "1 logout");
 
+   echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    echo "<BR><BR><A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>Return</A>";
+   echo "</BODY></HTML>";
 ?>
 
 
