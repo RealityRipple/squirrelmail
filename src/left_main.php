@@ -649,38 +649,56 @@ $xtra .= <<<ECHO
       }
     }
 
-    function hidechilds(el) {
-      id = el.id+".0000";
-      form_id = "mbx[" + el.id +"F]";
-      if (document.all) {
-        ele = document.all[id];
-        if (ele) {
-           if (ele.style.display == "none") {
-              el.src = "../images/minus.png";
-              for (i = 0; i < 200000; i++);
-              ele.style.display = "block";
-              document.all[form_id].value=0;
-           } else {
-              el.src = "../images/plus.png";
-              for (i = 0; i < 200000; i++);
-              ele.style.display = "none";
-              document.all[form_id].value=1;
+var vTreeImg;
+var vTreeDiv;
+var vTreeSrc;
+
+    function fTreeTimeout() {
+      if (vTreeDiv.readyState == "complete")
+        vTreeImg.src = vTreeSrc;
+      else
+        setTimeout("fTreeTimeout()", 100);
+    }
+
+    function hidechilds(img) {
+      id = img.id + ".0000";
+      form_id = "mbx[" + img.id +"F]";
+      if (document.all) {	//IE
+        div = document.all[id];
+        if (div) {
+           if (div.style.display == "none") {
+              vTreeSrc = "../images/minus.png";
+              style = "block";
+              value = 0;
            }
+           else {
+              vTreeSrc = "../images/plus.png";
+              style = "none";
+              value = 1;
+           }
+           vTreeImg = img;
+           vTreeDiv = div;
+           setTimeout("fTreeTimeout()",100);
+           div.style.display = style;
+           document.all[form_id].value = value;
         }
-      } else if (document.getElementById) {
-        ele = document.getElementById(id);
-        if (ele) {
-           if(ele.style.display == "none") {
-              ele.style.display = "block";
-//              ele.style.visibility = "visible";
-              el.src="../images/minus.png";
-              document.getElementById(form_id).value=0;
-           } else {
-              ele.style.display = "none";
-//              ele.style.visibility = "hidden";
-              el.src="../images/plus.png";
-              document.getElementById(form_id).value=1;
+      }
+      else if (document.getElementById) {	//Mozilla
+        div = document.getElementById(id);
+        if (div) {
+           if (div.style.display == "none") {
+              src = "../images/minus.png";
+              style = "block";
+              value = 0;
            }
+           else {
+              src = "../images/plus.png";
+              style = "none";
+              value = 1;
+           }
+           div.style.display = style;
+           img.src = src;
+           document.getElementById(form_id).value = value;
         }
       }
     }
