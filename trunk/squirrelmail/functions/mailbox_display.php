@@ -26,7 +26,7 @@
       echo "   <td width=1% align=center><input type=checkbox name=\"msg[$t]\" value=$i></TD>\n";
       echo "   <td>$bold$flag$senderName$flag_end$bold_end</td>\n";
       echo "   <td nowrap width=1%><center>$bold$flag".$msg["DATE_STRING"]."$flag_end$bold_end</center></td>\n";
-      echo "   <td>$bold<a href=\"read_body.php?PHPSESSID=$PHPSESSID&mailbox=$urlMailbox&passed_id=$i&sort=$sort&startMessage=$startMessage&show_more=0\">$flag$subject$flag_end</a>$ans$bold_end</td>\n";
+      echo "   <td>$bold<a href=\"read_body.php?PHPSESSID=$PHPSESSID&mailbox=$urlMailbox&passed_id=".$msg["ID"]."&sort=$sort&startMessage=$startMessage&show_more=0\">$flag$subject$flag_end</a>$ans$bold_end</td>\n";
 
       echo "</tr>\n";
    }

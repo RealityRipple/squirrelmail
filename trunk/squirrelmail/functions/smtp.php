@@ -428,7 +428,7 @@
    }
 
    function sendMessage($t, $c, $b, $subject, $body) {
-      global $useSendmail;
+      global $useSendmail, $msg_id, $is_reply;
       global $data_dir, $username, $domain, $key, $version, $sent_folder, $imapServerAddress, $imapPort;
 
       if ($useSendmail==true) {  
