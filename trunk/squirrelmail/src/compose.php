@@ -559,7 +559,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
            $use_signature, $composesession, $data_dir, $username,
            $username, $key, $imapServerAddress, $imapPort, $compose_messages,
            $composeMessage;
- 	global $languages, $squirrelmail_language;
+    global $languages, $squirrelmail_language;
 
     $send_to = $send_to_cc = $send_to_bcc = $subject = $identity = '';
     $mailprio = 3;
@@ -694,7 +694,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         case ('forward'):
             $send_to = '';
             $subject = decodeHeader($orig_header->subject,false,true);
-	    if ((substr(strtolower($subject), 0, 4) != 'fwd:') &&
+            if ((substr(strtolower($subject), 0, 4) != 'fwd:') &&
                 (substr(strtolower($subject), 0, 5) != '[fwd:') &&
                 (substr(strtolower($subject), 0, 6) != '[ fwd:')) {
                 $subject = '[Fwd: ' . $subject . ']';
@@ -1336,6 +1336,15 @@ function deliverMessage($composeMessage, $draft=false) {
            $request_mdn, $request_dr, $default_charset, $color, $useSendmail,
            $domain, $action, $default_move_to_sent, $move_to_sent;
     global $imapServerAddress, $imapPort, $sent_folder, $key;
+
+    /* some browsers replace <space> by nonbreaking spaces &nbsp;
+       by replacing them back to spaces addressparsing works */
+    /* FIXME: How to handle in case of other charsets where "\240"
+       is not a non breaking space ??? */
+        
+    $send_to = str_replace("\240",' ',$send_to);
+    $send_to_cc = str_replace("\240",' ',$send_to_cc);
+    $send_to_bcc = str_replace("\240",' ',$send_to_bcc);
 
     $rfc822_header = $composeMessage->rfc822_header;
 
