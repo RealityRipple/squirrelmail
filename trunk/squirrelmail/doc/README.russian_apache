@@ -1,4 +1,4 @@
-HOW TO CONFIGURE SQUIRREL-MAIL WITH RUSSIAN APACHE
+HOW TO CONFIGURE SQUIRRELMAIL WITH RUSSIAN APACHE
 --------------------------------------------------
 
 This text is available in Russian at 
@@ -8,6 +8,8 @@ http://www.mricon.com/SM/russian_apache.html
 NOTE: Russian Apache will recode all attachments, even if they
 are binary, thus corrupting them. To fix this problem, refer to
 Russian Apache FAQ: http://apache.lexa.ru/faq.html#5
+Turn multipart form recoding off in your apache config. If you
+don't, you're in for mucho trouble.
 *****
  
 This howto is for people who are using Russian Apache and
