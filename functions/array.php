@@ -18,13 +18,17 @@
          $col = array($col);
       }
       $GLOBALS['col'] = $col;  // Column or Columns as an array
+      if ($dir > 0)
+          $dir = 1;
+      else
+          $dir = -1;
       $GLOBALS['dir'] = $dir;  // Direction, a positive number for ascending a negative for descending
 
-      usort($ary,'comp2');
+      usort($ary,'array_comp2');
       return $ary;
   }
 
-  function comp2($a,$b,$i = 0) {
+  function array_comp2($a,$b,$i = 0) {
          global $col;
          global $dir;
          $c = count($col) -1;
@@ -35,11 +39,9 @@
                $r = comp2($a,$b,$i);
             }
          } elseif($a[$col[$i]] < $b[$col[$i]]){
-            $r = -1 * $dir; // Im not sure why you must * dir here, but it wont work just before the return...
-         } else {
-            $r = 1 * $dir;
-         }
-         return $r;
+            return (- $dir);
+         } 
+	 return $dir;
       }
 
    function removeElement($array, $element) {

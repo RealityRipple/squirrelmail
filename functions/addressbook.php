@@ -58,7 +58,7 @@
    
    // Had to move this function outside of the Addressbook Class
    // PHP 4.0.4 Seemed to be having problems with inline functions.
-   function cmp($a,$b) {   
+   function addressbook_cmp($a,$b) {   
       if($a['backend'] > $b['backend']) 
 	     return 1;
 	  else if($a['backend'] < $b['backend']) 
@@ -106,7 +106,7 @@
       // See each of the backend classes for valid parameters.
       function add_backend($backend, $param = '') {
 	 $backend_name = 'abook_' . $backend;
-	 eval("\$newback = new $backend_name(\$param);");
+	 eval('$newback = new ' . $backend_name . '($param);');
 	 if(!empty($newback->error)) {
 	    $this->error = $newback->error;
 	    return false;
@@ -174,7 +174,7 @@
     	 $ret = $this->search($expression, $bnum);
     	 if(!is_array($ret))
     	    return $ret;
-	     usort($ret, 'cmp');
+	     usort($ret, 'addressbook_cmp');
 	     return $ret;
       }
 
@@ -260,7 +260,7 @@
 	    $userdata['nickname'] = $userdata['email'];
 	 }
 
-	 if(eregi("[\: \|\#\"\!]", $userdata['nickname'])) {
+	 if(eregi('[\\: \\|\\#\"\\!]', $userdata['nickname'])) {
 	    $this->error = _("Nickname contain illegal characters");
 	    return false;
 	 }
@@ -338,7 +338,7 @@
 	    return false;
 	 }
 
-	 if(eregi("[\: \|\#\"\!]", $userdata['nickname'])) {
+	 if(eregi('[\\: \\|\\#"\\!]', $userdata['nickname'])) {
 	    $this->error = _("Nickname contain illegal characters");
 	    return false;
 	 }
