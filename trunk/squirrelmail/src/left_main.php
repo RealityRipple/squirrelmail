@@ -66,7 +66,7 @@ function formatMailboxName($imapConnection, $box_array) {
     if ($unseen > 0) { $line .= '<B>'; }
 
     /* Crate the link for this folder. */
-    $line .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" TARGET=\"right\" STYLE=\"text-decoration:none\">";
+    $line .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" TARGET=\"right\">";
     if ($special_color) {
         $line .= "<font color=\"$color[11]\">";
     }
@@ -253,7 +253,7 @@ function listBoxes ($boxes, $j=0 ) {
     	    }
 	} else {
 	    if (!$boxes->is_noselect) {
-		$pre .= "<A HREF=\"right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" TARGET=\"right\" STYLE=\"text-decoration:none\">";
+		$pre .= "<a HREF=\"right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" TARGET=\"right\">";
 		$end .= '</a>';
 	    }
 	}
@@ -286,12 +286,12 @@ function listBoxes ($boxes, $j=0 ) {
     }
 }
 
-function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0' ) {
+function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     global $data_dir, $username, $startmessage, $color, $unseen_notify, $unseen_type,
     $move_to_trash, $trash_folder, $collapse_folders;
 
     /* use_folder_images only works if the images exist in ../images */
-    $use_folder_images = false;
+    $use_folder_images = true;
 
     $pre = '';
     $end = '';
@@ -312,9 +312,22 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0' ) {
 	    }	    
 	} else $unseen = 0;
 
-
 	/* If there are unseen message, bold the line. */
 	if ($unseen > 0) { $pre .= '<B>'; }
+
+	/* color special boxes */
+	if ($boxes->is_special) {
+    	    $pre .= "<FONT COLOR=\"$color[11]\">";
+	    $end .= "</FONT>";    
+	}
+
+	/* If there are unseen message, close bolding. */
+	if ($unseen > 0) { $end .= "</B>"; }
+
+	/* Print unseen information. */
+	if (isset($unseen_found) && $unseen_found) {
+    	    $end .= "&nbsp;$unseen_string";
+	}
 
 	if (($move_to_trash) && ($mailbox == $trash_folder)) {
     	    if (! isset($numMessages)) {
@@ -323,32 +336,16 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0' ) {
     	    if ($numMessages > 0) {
         	$urlMailbox = urlencode($mailbox);
         	$pre .= "\n<small>\n" .
-                	"&nbsp;&nbsp;(<A HREF=\"empty_trash.php\" style=\"text-decoration:none\">"._("purge")."</A>)" .
+                	"&nbsp;&nbsp;(<a class=\"mbx_link\" HREF=\"empty_trash.php\">"._("purge")."</a>)" .
                 	"</small>";
     	    }
 	} else {
 	    if (!$boxes->is_noselect) { /* \Noselect boxes can't be selected */
-		$pre .= "<A HREF=\"right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" TARGET=\"right\" STYLE=\"text-decoration:none\">";
+		$pre .= "<a class=\"mbx_link\" HREF=\"right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" TARGET=\"right\">";
 		$end .= '</a>';
 	    }
 	}
 
-	/* If there are unseen message, close bolding. */
-	if ($unseen > 0) { $end .= "</B>"; }
-
-	/* Print unseen information. */
-	if (isset($unseen_found) && $unseen_found) {
-    	    $end .= "&nbsp;<SMALL>$unseen_string</SMALL>";
-	}
-
-	$font = '';
-	$fontend = '';
-
-	/* color special boxes */
-	if ($boxes->is_special) {
-    	    $font = "<FONT COLOR=\"$color[11]\">";
-	    $fontend = "</FONT>";    
-	}
 	if (!$boxes->is_root) {
 	    if ($use_folder_images) {
 	      if ($boxes->is_inbox) {
@@ -360,12 +357,12 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0' ) {
 	      } else if ($boxes->is_draft) {
 		$folder_img = '../images/draft.gif';
 	      } else $folder_img = '../images/folder.gif';
-	      $folder_img = '&nbsp<img src="'.$folder_img.'" heigth="15" valign="center">&nbsp';
+	      $folder_img = '&nbsp;<img src="'.$folder_img.'" height="15" valign="center">&nbsp;';
 	    } else $folder_img = '';
 	    if (!isset($boxes->mbxs[0])) {
 	        echo '   ' . html_tag( 'div',
-	                        $folder_img .$pre .$font. $boxes->mailboxname_sub .$fontend . $end ,
-	                'left', '', 'class="mbx_sub" id="' .$j. '" onmouseover="changerowcolor(this,true)" onmouseout="changerowcolor(this,false)"' )
+	                        $pre . $folder_img . $boxes->mailboxname_sub . $end ,
+	                'left', '', 'class="mbx_sub" id="' .$j. '"' )
 		        . "\n";
 	    } else {
     		/* get collapse information */
@@ -391,10 +388,10 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0' ) {
 		    $collapse_link = $link;
 		} else $collapse_link='';
 	        echo '   ' . html_tag( 'div',
-	                        $collapse_link . $folder_img .$pre.  $font. '&nbsp '. $boxes->mailboxname_sub .$fontend . $end ,
-	                'left', '', 'class="mbx_par" id="' .$j. 'P" onmouseover="changerowcolor(this,true)" onmouseout="changerowcolor(this,false)"' )
+	                        $collapse_link . $pre . $folder_img . '&nbsp;'. $boxes->mailboxname_sub . $end ,
+	                'left', '', 'class="mbx_par" id="' .$j. 'P"' )
 		        . "\n";
-		echo '   <INPUT TYPE="hidden" name=mbx['.$j. 'F] value="'.$collapse.'" id=mbx['.$j.'F>'."\n";
+		echo '   <INPUT TYPE="hidden" name=mbx['.$j. 'F] value="'.$collapse.'" id="mbx['.$j.'F]">'."\n";
 	    }
 	}
 	if ($collapse) {
@@ -404,10 +401,10 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0' ) {
 	}
 
 	if (isset($boxes->mbxs[0]) && !$boxes->is_root) /* mailbox contains childs */
-	    echo html_tag( 'div', '', 'left', '', 'class="par_area" id='.$j.'.0 '. $visible ) . "\n";
+	    echo html_tag( 'div', '', 'left', '', 'class="par_area" id='.$j.'.0000 '. $visible ) . "\n";
 
-	    if ($j !='ID.0') {
-	       $j = $j .'.0';
+	    if ($j !='ID.0000') {
+	       $j = $j .'.0000';
 	}
     	for ($i = 0; $i <count($boxes->mbxs); $i++) {
 	    $j++;
@@ -466,7 +463,7 @@ $xtra .= <<<ECHO
 <!--
 
     function hidechilds(el) {
-    	id = el.id +".0";
+    	id = el.id+".0000";
         form_id = "mbx[" + el.id +"F]";
 	if (document.all) {
 	    ele = document.all[id];
@@ -474,29 +471,27 @@ $xtra .= <<<ECHO
 	       if(ele.style.display == "none") {
                   ele.style.display = "block";
 	          ele.style.visibility = "visible"
-                  document.all[el.id].src="../images/minus.gif";
+                  el.src="../images/minus.gif";
                   document.all[form_id].value=0;
                } else {
                   ele.style.display = "none";
 	          ele.style.visibility = "hidden"
-	          document.all[el.id].src="../images/plus.gif";
+	          el.src="../images/plus.gif";
 	          document.all[form_id].value=1;
 	       }
 	    }
 	} else if (document.getElementById) {
-	    id = el.id+".0";
             ele = document.getElementById(id);
-	    img_ele = document.getElementById(el.id);
 	    if (ele) {
 	       if(ele.style.display == "none") {
 	          ele.style.display = "block";
 	          ele.style.visibility = "visible"
-	          img_ele.src="../images/minus.gif";
+	          el.src="../images/minus.gif";
                   document.getElementById(form_id).value=0;
 	       } else {
 	          ele.style.display = "none";
 	          ele.style.visibility = "hidden"
-	          img_ele.src="../images/plus.gif";
+	          el.src="../images/plus.gif";
                   document.getElementById(form_id).value=1;
 	       }
 	    }   
@@ -513,28 +508,6 @@ $xtra .= <<<ECHO
      }
    }        
 	    	  
-   function changerowcolor(el,on) {
-      id = el.id;
-ECHO;
-$xtra.= "\nvar color1 = \"$color[0]\";\n".
-        "var color2 = \"$color[9]\";\n";
-$xtra .= <<<ECHO
-      if (document.all) {
-         if(!on) {
-             document.all[id].style.background = color1;
-	  } else {
-             document.all[id].style.background = color2;
-	  }
-       } else if (document.getElementById) {
-         if (!on) {  
-	    document.getElementById(id).style.background=color1; 
-	 } else {  
-	    document.getElementById(id).style.background=color2; 
-
-	 }
-      }
-   }
-
    function buttonover(el,on) {
       if (!on) {
          el.style.borderColor="blue";}
@@ -643,12 +616,13 @@ ECHO;
 
 $xtra .= <<<ECHO
 
-<STYLE>
+<STYLE TYPE="text/css">
 <!--
   body {
      margin: 0px 0px 0px 0px;
      padding: 5px 5px 5px 5px;
   }
+
   .button {
      border:outset;
      border-color:blue;
@@ -661,12 +635,23 @@ $xtra .= <<<ECHO
      font-size:0.8em;
      margin-left:4px;
      margin-right:0px;
+  }
 
+  a.mbx_link {
+      text-decoration: none;
+      background-color: $color[0];
+      display: inline;
+  }
+
+  a:hover.mbx_link {
+      background-color: $color[9];
+  }
+
+  a.mbx_link img {
+      border-style: none;
   }
 
   .mbx_sub {
-     voice-family: "\"}\"";
-     voice-family: inherit;
      padding-left:5px;
      padding-right:0px;
      margin-left:4px;
@@ -686,7 +671,7 @@ $xtra .= <<<ECHO
      border-bottom: solid;
      border-bottom-width:0.1em;
      border-bottom-color:blue;
-     display:block;
+     display: block;
   }
 
   .mailboxes {
@@ -698,10 +683,7 @@ $xtra .= <<<ECHO
      border: groove;
      border-width:0.1em;
      border-color:green;
-     
-ECHO;
-$xtra .=  "     background:$color[0];";
-$xtra .= <<<ECHO
+     background: $color[0];
   }
 
 -->
@@ -738,7 +720,7 @@ if ($auto_create_special && !isset($auto_create_done)) {
 echo "\n<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\">\n";
 
 do_hook('left_main_before');
-if ($advanced_tree) {
+if ($advanced_tree && $advanced_tree_frame_ctrl) {
    /* nice future feature, needs layout !! volunteers?   */  
    $right_pos = $left_size - 20;
    echo '<div style="position:absolute;top:0;border=solid;border-width:0.1em;border-color:blue;"><div ID="hidef" style="width=20;font-size:12"><A HREF="javascript:hideframe(true)"><b><<</b></a></div>';
