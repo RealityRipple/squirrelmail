@@ -253,9 +253,7 @@
       echo "</TEXTAREA><BR>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
-      echo "   <TR><TD COLSPAN=2 ALIGN=CENTER><INPUT TYPE=SUBMIT NAME=send VALUE=\"";
-      echo _("Send");
-      echo "\"></TD></TR>\n";
+      echo "   <TR><TD>&nbsp;</TD><TD ALIGN=LEFT><INPUT TYPE=SUBMIT NAME=send VALUE=\""._("Send")."\"></TD></TR>\n";
       
       // This code is for attachments
       echo "   <tr>\n";

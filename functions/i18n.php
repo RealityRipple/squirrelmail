@@ -58,9 +58,9 @@
       if (ereg("iso-8859-(.*)", $charset, $res)) {
          if ($res[1] == "1")
             return charset_decode_iso_8859_1 ($string);
-         if ($res[1] == "2")
+         else if ($res[1] == "2")
             return charset_decode_iso_8859_2 ($string);
-         if ($res[1] == "7")
+         else if ($res[1] == "7")
             return charset_decode_iso_8859_7 ($string);
          else if ($res[1] == "15")
             return charset_decode_iso_8859_15 ($string);
@@ -221,7 +221,7 @@
    function charset_decode_iso_8859_2 ($string) {
       global $default_charset;
 
-      if (strtolower($default_charset) == "iso-8859-7") {
+      if (strtolower($default_charset) == "iso-8859-2") {
          return $string;
       } else {
          // Only do the slow convert if there are 8-bit characters
