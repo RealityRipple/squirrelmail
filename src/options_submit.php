@@ -16,6 +16,9 @@
    setPref($data_dir, $username, "full_name", $full_name);
    setPref($data_dir, $username, "reply_to", $reply_to);
    setPref($data_dir, $username, "chosen_theme", $chosentheme);
+   setPref($data_dir, $username, "move_to_trash", $movetotrash);
+   setPref($data_dir, $username, "wrap_at", $wrapat);
+   setPref($data_dir, $username, "editor_size", $editorsize);
 
    echo "<FONT FACE=\"Arial,Helvetica\">";
    echo "<BR><BR><BR><CENTER><B>Options Saved!</B><BR><BR>";

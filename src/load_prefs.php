@@ -17,4 +17,19 @@
          exit;
       }
    }
+
+
+   /** Load the user's trash folder preferences **/
+   $move_to_trash = getPref($data_dir, $username, "move_to_trash");
+   if ($move_to_trash == "")
+      $move_to_trash = $default_move_to_trash;
+
+   $wrap_at = getPref($data_dir, $username, "wrap_at");
+   if ($wrap_at == "")
+      $wrap_at = 86;
+
+   $editor_size = getPref($data_dir, $username, "editor_size");
+   if ($editor_size == "")
+      $editor_size = 76;
 ?>
+

@@ -10,6 +10,10 @@
    include("../src/load_prefs.php");
 
 
+   $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
+   getFolderList($imapConnection, $boxes);
+   fputs($imapConnection, "1 logout\n");
+
    echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    displayPageHeader($color, "None");
 
@@ -70,20 +74,72 @@
    echo "         </SELECT></TT>";
    echo "      </TD>";
    echo "   </TR>";
+   echo "</TABLE>";
 
-   echo "</SELECT></TT>\n";
 
 
-   // SUBMIT BUTTON
+   echo "<TABLE WIDTH=100% COLS=2 ALIGN=CENTER>\n";
+   // MOVE_TO_TRASH
    echo "   <TR>";
-   echo "      <TD WIDTH=20%>";
+   echo "      <TD WIDTH=60% ALIGN=RIGHT>";
+   echo "         <FONT FACE=\"Arial,Helvetica\">";
+   echo "         Move deleted messages to \"$trash_folder\"?";
+   echo "         </FONT>";
    echo "      </TD>";
-   echo "      <TD WIDTH=80% ALIGN=LEFT>";
-   echo "         <BR><INPUT TYPE=SUBMIT VALUE=\"Submit\">\n";
+   echo "      <TD WIDTH=40% ALIGN=LEFT>";
+   echo "         <FONT FACE=\"Arial,Helvetica\">";
+   if ($move_to_trash == true)
+      echo "         <INPUT TYPE=RADIO NAME=movetotrash VALUE=1 CHECKED>&nbsp;True<BR>";
+   else
+      echo "         <INPUT TYPE=RADIO NAME=movetotrash VALUE=1>&nbsp;True<BR>";
+
+   if ($move_to_trash == false)
+      echo "         <INPUT TYPE=RADIO NAME=movetotrash VALUE=0 CHECKED>&nbsp;False";
+   else
+      echo "         <INPUT TYPE=RADIO NAME=movetotrash VALUE=0>&nbsp;False";
+
+   echo "         </FONT>";
    echo "      </TD>";
    echo "   </TR>";
 
-   echo "</TABLE>\n";
+   // WRAP_AT
+   echo "   <TR>";
+   echo "      <TD WIDTH=60% ALIGN=RIGHT>";
+   echo "         <FONT FACE=\"Arial,Helvetica\">";
+   echo "         Wrap incoming text at:";
+   echo "         </FONT>";
+   echo "      </TD>";
+   echo "      <TD WIDTH=40% ALIGN=LEFT>";
+   echo "         <FONT FACE=\"Arial,Helvetica\">";
+   if (isset($wrap_at))
+      echo "         <TT><INPUT TYPE=TEXT SIZE=5 NAME=wrapat VALUE=\"$wrap_at\"></TT><BR>";
+   else
+      echo "         <TT><INPUT TYPE=TEXT SIZE=5 NAME=wrapat VALUE=\"86\"></TT><BR>";
+   echo "         </FONT>";
+   echo "      </TD>";
+   echo "   </TR>";
+
+   // EDITOR_SIZE
+   echo "   <TR>";
+   echo "      <TD WIDTH=60% ALIGN=RIGHT>";
+   echo "         <FONT FACE=\"Arial,Helvetica\">";
+   echo "         Size of editor window (in characters):";
+   echo "         </FONT>";
+   echo "      </TD>";
+   echo "      <TD WIDTH=40% ALIGN=LEFT>";
+   echo "         <FONT FACE=\"Arial,Helvetica\">";
+   if (isset($editor_size))
+      echo "         <TT><INPUT TYPE=TEXT SIZE=5 NAME=editorsize VALUE=\"$editor_size\"></TT><BR>";
+   else
+      echo "         <TT><INPUT TYPE=TEXT SIZE=5 NAME=editorsize VALUE=\"76\"></TT><BR>";
+   echo "         </FONT>";
+   echo "      </TD>";
+   echo "   </TR>";
+   echo "</TABLE>";
+
+
+   // SUBMIT BUTTON
+   echo "<BR><CENTER><INPUT TYPE=SUBMIT VALUE=\"Submit\"></CENTER>\n";
    echo "</FORM>";
 
    echo "</BODY></HTML>";

@@ -147,7 +147,7 @@
    echo "   </TR>\n";
    echo "   <TR>\n";
    echo "      <TD BGCOLOR=\"$color[4]\" COLSPAN=2>\n";
-   echo "         &nbsp;&nbsp;<TEXTAREA NAME=passed_body ROWS=20 COLS=76 WRAP=HARD>$body</TEXTAREA><BR>";
+   echo "         &nbsp;&nbsp;<TEXTAREA NAME=passed_body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>$body</TEXTAREA><BR>";
    echo "      </TD>";
    echo "   </TR>\n";
    echo "</TABLE>\n";

@@ -20,7 +20,7 @@
    include("../functions/imap.php");
    include("../functions/mailbox.php");
 
-   function formatMailboxName($imapConnection, $mailbox, $delimeter, $color) {
+   function formatMailboxName($imapConnection, $mailbox, $delimeter, $color, $move_to_trash) {
       require ("../config/config.php");
 
       $mailboxURL = urlencode($mailbox);
@@ -104,10 +104,10 @@
             $line .= readShortMailboxName($mailbox, $delimeter);
             $line .= "</FONT><FONT FACE=\"Arial,Helvetica\">";
          } else {
-            $line .= formatMailboxName($imapConnection, $mailbox, $delimeter, $color);
+            $line .= formatMailboxName($imapConnection, $mailbox, $delimeter, $color, $move_to_trash);
          }
       } else {
-         $line .= formatMailboxName($imapConnection, $mailbox, $delimeter, $color);
+         $line .= formatMailboxName($imapConnection, $mailbox, $delimeter, $color, $move_to_trash);
       }
       echo "$line<BR>";
    }
