@@ -441,11 +441,10 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
             }
             $from_o = $rfc822_header->from;
             if (is_object($from_o)) {
-                $from_name = $from_o->getAddress(false);
+                $from_name = decodeHeader($from_o->getAddress(false));
             } else {
                 $from_name = _("Unknown sender");
             }
-            $from_name = decodeHeader(($from_name));
             $description = $from_name;
         } else {
             $default_page = SM_PATH . 'src/download.php';
