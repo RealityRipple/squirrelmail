@@ -65,14 +65,15 @@ if ($my_language != $squirrelmail_language) {
 
 $err=set_up_language(getPref($data_dir, $username, 'language'));
 
-echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\">\n".
-     "<html><head>\n" .
-     "<title>$org_title</title>\n".
-     "</head>";
+$output = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\">\n".
+          "<html><head>\n" .
+          "<title>$org_title</title>\n".
+          "</head>";
 
 // Japanese translation used without mbstring support
 if ($err==2) {
-    echo "<body>\n".
+    echo $output.
+         "<body>\n".
 	 "<p>You need to have php4 installed with the multibyte string function \n".
 	 "enabled (using configure option --enable-mbstring).</p>\n".
 	 "<p>System assumed that you accidently switched to Japanese translation \n".
@@ -107,10 +108,10 @@ if ($left_size == "") {
 }
 
 if ($location_of_bar == 'right') {
-    echo "<frameset cols=\"*, $left_size\" id=\"fs1\">\n";
+    $output .= "<frameset cols=\"*, $left_size\" id=\"fs1\">\n";
 }
 else {
-    echo "<frameset cols=\"$left_size, *\" id=\"fs1\">\n";
+    $output .= "<frameset cols=\"$left_size, *\" id=\"fs1\">\n";
 }
 
 /*
@@ -150,12 +151,16 @@ $right_frame = '<frame src="'.$right_frame_url.'" name="right" frameborder="1" t
                _("Message List") ."\" />\n";
 
 if ($location_of_bar == 'right') {
-    echo $right_frame . $left_frame;
+    $output .= $right_frame . $left_frame;
 }
 else {
-    echo $left_frame . $right_frame;
+    $output .= $left_frame . $right_frame;
 }
-do_hook('webmail_bottom');
+$ret = concat_hook_function('webmail_bottom', $output);
+if($ret != '') {
+    $output = $ret;
+}
+echo $output;
 ?>
 </frameset>
 </html>
