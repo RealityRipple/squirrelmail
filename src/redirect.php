@@ -66,6 +66,7 @@
       // verify that username and password are correct
       if ($force_username_lowercase)
           $login_username = strtolower($login_username);
+
       $imapConnection = sqimap_login($login_username, $key, $imapServerAddress, $imapPort, 0);
 	  if (!$imapConnection) {
              echo "<html><body bgcolor=\"ffffff\">\n";
@@ -79,7 +80,8 @@
 	  }
       sqimap_logout($imapConnection);
 
-      setcookie('username', $login_username, 0, $base_uri);
+      $username = $login_username;
+      session_register ('username');
       setcookie('key', $key, 0, $base_uri);
       do_hook ('login_verified');
    }
