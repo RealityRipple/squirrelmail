@@ -554,13 +554,11 @@ class message {
 
     function getFilename() {
         $filename = '';
-
-        if (is_object($this->header->disposition)) {
-            $filename = $this->header->disposition->getproperty('filename');
-            if (!$filename) {
-                $filename = $this->header->disposition->getproperty('name');
-            }
+        $filename = $this->header->getParameter('filename');	
+        if (!$filename) {
+            $filename = $this->header->getParameter('name');
         }
+
         if (!$filename) {
             $filename = 'untitled-'.$this->entity_id;
         }
