@@ -343,23 +343,21 @@ function sqimap_find_email ($string) {
 function sqimap_find_displayable_name ($string) {
     $string = ' '.trim($string);
     $orig_string = $string;
-    if (strpos($string, '<') && strpos($string, '>')) {
-        if (strpos($string, '<') == 1) {
+    if (($angle1=strpos($string, '<')) && strpos($string, '>')) {
+        if ($angle1 == 1) {
             $string = sqimap_find_email($string);
         } else {
             $string = trim($string);
-            $string = substr($string, 0, strpos($string, '<'));
+            $string = substr($string, 0, $angle1);
             $string = ereg_replace ('"', '', $string);
         }
         
         if (trim($string) == '') {
             $string = sqimap_find_email($orig_string);
         }
-     } else if (strpos($string, '(') && strpos($string, ')')) {
-         $fn_start = strpos($string, '(') + 1;
-         $fn_len   = strpos($string, ')') - $fn_start;
- 
-         $string = substr($string, $fn_start, $fn_len);
+    } else if ( ($paren1=strpos($string, '('))
+                && ($paren2=strpos($string, ')'))) {
+        $string = substr($string, $paren1 + 1, $paren2 - $fn_start);
     }
     return $string;
 }
