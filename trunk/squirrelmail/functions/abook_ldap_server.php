@@ -231,6 +231,23 @@ class abook_ldap_server extends addressbook_backend {
         }
     }
 
+    /**
+     * Sanitizes ldap search strings.
+     * See rfc2254
+     * @link http://www.faqs.org/rfcs/rfc2254.html
+     * @since 1.5.1
+     * @param string $string
+     * @return string sanitized string
+     */
+    function ldapspecialchars($string) {
+        $sanitized=array('\\' => '\5c',
+                         '*' => '\2a',
+                         '(' => '\28',
+                         ')' => '\29',
+                         "\x00" => '\00');
+
+        return str_replace(array_keys($sanitized),array_values($sanitized),$string);
+    }
 
     /* ========================== Public ======================== */
 
@@ -240,14 +257,18 @@ class abook_ldap_server extends addressbook_backend {
      * @return array search results
      */
     function search($expr) {
-
         /* To be replaced by advanded search expression parsing */
         if(is_array($expr)) return false;
 
         /* Encode the expression */
         $expr = $this->charset_encode($expr);
-        if(strstr($expr, '*') === false) {
-            $expr = "*$expr*";
+
+        /*
+         * allow use of one asterisk in search. 
+         * Don't allow any ldap special chars if search is different
+         */
+        if($expr!='*') {
+            $expr = '*' . $this->ldapspecialchars($expr) . '*';
         }
         $expression = "cn=$expr";
 

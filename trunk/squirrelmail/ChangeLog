@@ -236,6 +236,12 @@ Version 1.5.1 -- CVS
   - Fixed bug #801060.  Removed option for INBOX in filters plugin as source
     is always INBOX.
   - Always show Purge link next to Trash, even when empty.
+  - errors in addressbook_init() function are no longer fatal. If function
+    fails to activate address book backend, it displays error box (with 
+    error_box() function). error box can be hidden by setting first
+    function argument to false.
+  - Sanitized search in ldap address book backend. Use of asterisk 
+    together with other symbols is not supported.
 
 Version 1.5.0
 --------------------
