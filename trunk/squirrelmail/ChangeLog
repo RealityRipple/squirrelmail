@@ -75,6 +75,7 @@ Version 1.5.1 -- CVS
   - Custom option page values now repopulate correctly
   - Added "no focus" option for compose page in display preferences (setting
     reply focus to "No focus" also affects composing new messages)
+  - Current hook name is now globally available when running a hook ($currentHookName)
 
 Version 1.5.0
 --------------------
