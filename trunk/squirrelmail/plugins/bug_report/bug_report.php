@@ -54,6 +54,11 @@ $browscap = ini_get('browscap');
 if(!empty($browscap)) {
     $browser = get_browser();
 }
+
+sqgetGlobalVar('HTTP_USER_AGENT', $HTTP_USER_AGENT, SQ_SERVER);
+if ( ! sqgetGlobalVar('HTTP_USER_AGENT', $HTTP_USER_AGENT, SQ_SERVER) )
+    $HTTP_USER_AGENT="Browser information is not available.";
+
 $body_top = "I subscribe to the squirrelmail-users mailing list.\n" .
                 "  [ ]  True - No need to CC me when replying\n" .
                 "  [ ]  False - Please CC me when replying\n" .
@@ -69,7 +74,7 @@ $body_top = "I subscribe to the squirrelmail-users mailing list.\n" .
                 "(Optional) I got really bored and here's a fix:\n\n\n" .
                 "----------------------------------------------\n" .
             "\nMy browser information:\n" .
-            '  '.$_SERVER['HTTP_USER_AGENT'] . "\n" ;
+            '  '.$HTTP_USER_AGENT . "\n" ;
 	    if(isset($browser)) {
                 $body_top .= "  get_browser() information (List)\n" .
                 Show_Array((array) $browser);
