@@ -151,7 +151,7 @@ function sqspell_crypto($mode, $ckey, $input){
    * Double-check if we have the mcrypt_generic function. Bail out if
    * not so.
    */
-  if (!function_exists(mcrypt_generic)) {
+  if (!function_exists('mcrypt_generic')) {
     return 'PANIC';
   }
   /**
@@ -183,7 +183,14 @@ function sqspell_crypto($mode, $ckey, $input){
   /**
    * Finish up the mcrypt routines and return the processed content.
    */
-  mcrypt_generic_end ($td);
+  if (function_exists('mcrypt_generic_deinit')) {
+      // php 4.1.1+ syntax
+      mcrypt_generic_deinit ($td);
+      mcrypt_module_close ($td);
+  } else {
+      // older depreciated function
+      mcrypt_generic_end ($td);
+  }
   return $crypto;
 }
 
