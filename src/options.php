@@ -78,6 +78,10 @@
       setPref($data_dir, $username, 'location_of_buttons', $button_new_location);
       setPref($data_dir, $username, 'left_size', $leftsize);
       setPref($data_dir, $username, 'use_javascript_addr_book', $javascript_abook);
+      if (isset($altIndexColors) && $altIndexColors == 1)
+         setPref($data_dir, $username, 'alt_index_colors', 1);
+      else
+         setPref($data_dir, $username, 'alt_index_colors', 0);
       if (isset($showhtmldefault))
          setPref($data_dir, $username, 'show_html_default', 1);
       else
@@ -86,7 +90,7 @@
       do_hook('options_display_save');
 
       echo '<br><center><b>'._("Successfully saved display preferences!").'</b><br>';
-      echo '<a href="../src/webmail.php" target=_top>' . _("Refresh Page") . '</a></center><br>';
+      echo '<a href="../src/webmail.php?right_frame=options.php" target=_top>' . _("Refresh Page") . '</a></center><br>';
    } else if (isset($submit_folder)) { 
       # Save folder preferences
       if ($trash != 'none') {
