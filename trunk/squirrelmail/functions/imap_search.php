@@ -24,9 +24,8 @@ require_once(SM_PATH . 'functions/mime.php');
 function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
                        $color, $search_position = '', $search_all, $count_all) {
 
-    global $message_highlight_list, $squirrelmail_language, $languages,
-           $index_order, $pos, $allow_charset_search,
-	   $imap_server_type;
+    global $squirrelmail_language, $languages, $pos, $allow_charset_search,
+	       $imap_server_type;
 
     $pos = $search_position;
 

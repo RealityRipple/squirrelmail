@@ -749,7 +749,7 @@ function sqimap_mailbox_list_all($imap_stream) {
 }
 
 function sqimap_mailbox_tree($imap_stream) {
-    global $default_folder_prefix, $unseen_notify, $unseen_type;
+    global $default_folder_prefix;
     if (true) {
         global $data_dir, $username, $list_special_folders_first,
                $folder_prefix, $delimiter, $trash_folder, $move_to_trash,

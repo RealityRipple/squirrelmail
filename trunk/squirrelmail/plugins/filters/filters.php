@@ -84,7 +84,7 @@ function filters_LoadCache () {
  * @access private
  */
 function filters_bulkquery($filters, $IPs) {
-    global $SpamFilters_YourHop, $attachment_dir, $username,
+    global $attachment_dir, $username,
            $SpamFilters_DNScache, $SpamFilters_BulkQuery,
            $SpamFilters_CacheTTL;
 
@@ -125,8 +125,7 @@ function filters_bulkquery($filters, $IPs) {
  * @access private
  */
 function start_filters() {
-    global $mailbox, $imapServerAddress, $imapPort, $imap,
-           $imap_general, $filters, $imap_stream, $imapConnection,
+    global $imapServerAddress, $imapPort, $imap_stream, $imapConnection,
            $UseSeparateImapConnection, $AllowSpamFilters;
 
     sqgetGlobalVar('username', $username, SQ_SESSION);
@@ -758,7 +757,7 @@ function update_for_folder ($args) {
     $old_folder = $args[0];
         $new_folder = $args[2];
         $action = $args[1];
-    global $plugins, $data_dir, $username;
+    global $data_dir, $username;
     $filters = array();
     $filters = load_filters();
     $filter_count = count($filters);

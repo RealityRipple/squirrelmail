@@ -35,11 +35,8 @@ define('SM_BOX_COLLAPSED',   1);
 
 function formatMailboxName($imapConnection, $box_array) {
 
-    global $folder_prefix, $trash_folder, $sent_folder,
-           $color, $move_to_sent, $move_to_trash,
-           $unseen_notify, $unseen_type, $collapse_folders,
-           $draft_folder, $save_as_draft,
-           $use_special_folder_color;
+    global $trash_folder, $color, $move_to_trash,
+           $unseen_notify, $unseen_type, $use_special_folder_color;
     $real_box = $box_array['unformatted'];
     $mailbox = str_replace('&nbsp;','',$box_array['formatted']);
     $mailboxURL = urlencode($real_box);
@@ -173,7 +170,7 @@ function compute_folder_children(&$parbox, $boxcount) {
  * currently appropriate.
  */
 function create_collapse_link($boxnum) {
-    global $boxes, $imapConnection, $unseen_notify, $color, $use_icons, $icon_theme;
+    global $boxes, $unseen_notify, $color, $use_icons, $icon_theme;
     $mailbox = urlencode($boxes[$boxnum]['unformatted']);
 
     /* Create the link for this collapse link. */
@@ -210,7 +207,7 @@ function create_collapse_link($boxnum) {
  * @return array unseen message string (for display), unseen message count
  */
 function create_unseen_string($boxName, $boxArray, $imapConnection, $unseen_type) {
-    global $boxes, $unseen_type, $color, $unseen_cum;
+    global $boxes, $color, $unseen_cum;
 
     /* Initialize the return value. */
     $result = array(0,0);
@@ -296,7 +293,7 @@ function is_parent_box($curbox_name, $parbox_name) {
 }
 
 function ListBoxes ($boxes, $j=0 ) {
-    global $data_dir, $username, $startmessage, $color, $unseen_notify, $unseen_type,
+    global $data_dir, $username, $color, $unseen_notify, $unseen_type,
            $move_to_trash, $trash_folder, $collapse_folders, $imapConnection,
            $use_icons, $icon_theme, $use_special_folder_color;
 
@@ -446,7 +443,7 @@ function ListBoxes ($boxes, $j=0 ) {
 }
 
 function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
-    global $data_dir, $username, $startmessage, $color, $unseen_notify, $unseen_type,
+    global $data_dir, $username, $color, $unseen_notify, $unseen_type,
         $move_to_trash, $trash_folder, $collapse_folders, $use_special_folder_color;
 
     if (!isset($boxes) || empty($boxes))

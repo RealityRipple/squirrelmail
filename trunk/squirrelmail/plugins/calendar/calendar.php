@@ -50,7 +50,7 @@ if (isset($_POST['month'])) {
 
 //display upper part of month calendar view
 function startcalendar() {
-    global $year, $month, $day, $color;
+    global $year, $month, $color;
 
     $prev_date = mktime(0, 0, 0, $month - 1, 1, $year);
     $act_date  = mktime(0, 0, 0, $month, 1, $year);

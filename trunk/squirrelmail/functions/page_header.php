@@ -124,9 +124,8 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 
     global $hide_sm_attributions, $PHP_SELF, $frame_top,
            $compose_new_win, $compose_width, $compose_height,
-           $attachemessages, $provider_name, $provider_uri,
-           $javascript_on, $default_use_mdn, $mdn_user_support,
-           $startMessage;
+           $provider_name, $provider_uri, $startMessage,
+           $javascript_on, $default_use_mdn, $mdn_user_support;
 
     sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION );
     sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION );
@@ -371,7 +370,7 @@ function compose_Header($color, $mailbox) {
      * Locate the first displayable form element (only when JavaScript on)
      */
     if($javascript_on) {
-        global $delimiter, $base_uri, $PHP_SELF, $data_dir, $username;
+        global $base_uri, $PHP_SELF, $data_dir, $username;
 
         $module = substr( $PHP_SELF, ( strlen( $PHP_SELF ) - strlen( $base_uri ) ) * -1 );
 

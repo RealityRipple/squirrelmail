@@ -146,7 +146,7 @@ function attachment_common_link_html(&$Args) {
 }
 
 function attachment_common_link_image(&$Args) {
-    global $attachment_common_show_images, $attachment_common_show_images_list;
+    global $attachment_common_show_images_list;
 
     sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 

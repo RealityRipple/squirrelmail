@@ -37,7 +37,7 @@ function squirrelmail_plugin_init_bug_report() {
  * @access private
  */
 function bug_report_button() {
-    global $color, $bug_report_visible;
+    global $bug_report_visible;
 
     if (! $bug_report_visible) {
         return;

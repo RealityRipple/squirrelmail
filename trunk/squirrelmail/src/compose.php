@@ -574,7 +574,7 @@ function getforwardSubject($subject)
 /* This function is used when not sending or adding attachments */
 function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $session='') {
     global $editor_size, $default_use_priority, $body, $idents,
-        $use_signature, $composesession, $data_dir, $username,
+        $use_signature, $data_dir, $username,
         $username, $key, $imapServerAddress, $imapPort, $compose_messages,
         $composeMessage, $body_quote;
     global $languages, $squirrelmail_language, $default_charset;
@@ -881,7 +881,7 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
 
 function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
         $passed_ent_id='', $imapConnection) {
-    global $attachments, $attachment_dir, $username, $data_dir;
+    global $attachment_dir, $username, $data_dir;
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     if (!$passed_ent_id) {
         $body_a = sqimap_run_command($imapConnection,
@@ -913,14 +913,13 @@ function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
 }
 
 function showInputForm ($session, $values=false) {
-    global $send_to, $send_to_cc, $body, $startMessage,
-        $passed_body, $color, $use_signature, $signature, $prefix_sig,
+    global $send_to, $send_to_cc, $body, $startMessage, $action,
+        $color, $use_signature, $signature, $prefix_sig,
         $editor_size, $editor_height, $attachments, $subject, $newmail,
         $use_javascript_addr_book, $send_to_bcc, $passed_id, $mailbox,
         $from_htmladdr_search, $location_of_buttons, $attachment_dir,
-        $username, $data_dir, $identity, $idents, $draft_id, $delete_draft,
-        $mailprio, $default_use_mdn, $mdn_user_support, $compose_new_win,
-        $saved_draft, $mail_sent, $sig_first, $edit_as_new, $action,
+        $username, $data_dir, $identity, $idents, $delete_draft,
+        $mailprio, $compose_new_win, $saved_draft, $mail_sent, $sig_first,
         $username, $compose_messages, $composesession, $default_charset;
 
     $composeMessage = $compose_messages[$session];
@@ -1463,7 +1462,7 @@ function deliverMessage($composeMessage, $draft=false) {
     if (!$useSendmail && !$draft) {
         require_once(SM_PATH . 'class/deliver/Deliver_SMTP.class.php');
         $deliver = new Deliver_SMTP();
-        global $smtpServerAddress, $smtpPort, $pop_before_smtp, $smtp_auth_mech;
+        global $smtpServerAddress, $smtpPort, $pop_before_smtp;
 
         $authPop = (isset($pop_before_smtp) && $pop_before_smtp) ? true : false;
         get_smtp_user($user, $pass);

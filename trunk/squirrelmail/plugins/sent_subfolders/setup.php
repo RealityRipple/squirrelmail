@@ -183,10 +183,10 @@ function save_option_sent_subfolders_setting($option) {
  * creates required imap folders
  */
 function sent_subfolders_update_sentfolder() {
-    global $sent_folder, $auto_create_special, $auto_create_done;
+    global $sent_folder;
     global $sent_subfolders_base, $sent_subfolders_setting;
     global $data_dir, $imapServerAddress, $imapPort;
-    global $use_sent_subfolders, $move_to_sent, $imap_server_type;
+    global $use_sent_subfolders, $move_to_sent;
 
     sqgetGlobalVar('username', $username, SQ_SESSION);
     sqgetGlobalVar('key', $key, SQ_COOKIE);

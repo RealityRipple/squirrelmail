@@ -49,7 +49,7 @@ function cpw_merak_dochange($data)
 
    $msgs = array();
 
-   global $merak_url, $merak_selfpage, $merak_action, $use_ssl_for_password_change, $debug;
+   global $merak_url, $merak_selfpage, $merak_action;
 
    if (!function_exists('curl_init')) {
 
