@@ -4,6 +4,7 @@
 
 Version 1.2.7 -- CVS
 --------------------
+  - Fix SpamCop plugin.
   - Fixed send MDN link.
   - Fixed dealing with \r\n and \n in smtp.php. 
   - Fixed to, cc, bcc arrays in message->header
