@@ -92,7 +92,7 @@ if (is_object($message->header->disposition)) {
     $filename = $header->getParameter('name');
 }
 
-$filename = decodeHeader($filename);
+$filename = decodeHeader($filename, true, false);	//Don't want html output
 if (strlen($filename) < 1) {
     if ($type1 == 'plain' && $type0 == 'text') {
         $suffix = 'txt';
@@ -167,9 +167,9 @@ function DumpHeaders($type0, $type1, $filename, $force) {
             $languages[$squirrelmail_language]['XTRA_CODE']('downloadfilename', $filename, $HTTP_USER_AGENT);
     } else {
 //     $filename = ereg_replace('[^-a-zA-Z0-9\.]', '_', $filename);
-       $filename = ereg_replace('[\\/:\*\?"<>\|;]', '_', str_replace('&nbsp;', ' ', $filename));
+       $filename = ereg_replace('[\\/:\*\?"<>\|;]', '_', $filename);
     }
-
+    // We don't need to care about " since they have been replaced by _
     // A Pox on Microsoft and it's Office!
     if (!$force) {
         // Try to show in browser window
