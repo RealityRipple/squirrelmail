@@ -737,7 +737,7 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
 
     $urlMailbox = urlencode($mailbox);
     if (sqgetGlobalVar('QUERY_STRING', $query_string, SQ_SERVER)) {                                                                 
-        $query_string = urlencode($query_string);                                                                                   
+        $query_string = $query_string;                                                                                   
     } else {                                                                                                                        
         $query_string = '';                                                                                                         
     } 
