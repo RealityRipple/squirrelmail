@@ -93,6 +93,7 @@
             else
                $body = "$body> $tmp\n";
          }
+         sqimap_mailbox_close($imapConnection);
          return $body;   
       }
 

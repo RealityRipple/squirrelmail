@@ -109,6 +109,7 @@
    }
 
    // Log out this session
+   sqimap_mailbox_close($imapConnection);
    sqimap_logout($imapConnection);
 
 ?>
