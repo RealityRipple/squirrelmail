@@ -63,9 +63,9 @@
 
    /** This checks if there is a pref file, if there isn't, it will create it. **/
    function checkForPrefs($username) {
-      $filename = "../data/default_pref";
+      $filename = "../data/$username.pref";
       if (!file_exists($filename)) {
-         if (!copy("../config/default.pref", $filename)) {
+         if (!copy("../data/default_pref", $filename)) {
             echo "Error opening $filename";
             exit;
          }
