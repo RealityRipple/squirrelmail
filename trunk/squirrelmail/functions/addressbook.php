@@ -208,10 +208,11 @@ class AddressBook {
      */
 
     function full_address($row) {
-        global $addrsrch_fullname;
+        global $addrsrch_fullname, $datadir, $user;
 
-        if ((isset($addrsrch_fullname)) && ($addrsrch_fullname)) {
-            $name = ($addrsrch_fullname === 'nickname') ? $row['nickname']
+        if ($prefix = getPref($datadir, $user, 'addrsrch_fullname') or
+            isset($addrsrch_fullname) and $prefix = $addrsrch_fullname) {
+            $name = ($prefix === 'nickname') ? $row['nickname']
                 : $row['name'];
             return $name . ' <' . trim($row['email']) . '>';
         } else {
