@@ -140,6 +140,13 @@
       }
       return $boxes;
    }
+
+	/* patch from dave_michmerhuizen@yahoo.com
+	 * allows case insensativity when sorting folders
+	 */
+	function _icmp ($a, $b) {
+		return strcasecmp($a, $b);
+	}
    
    /******************************************************************************
     **  Returns sorted mailbox lists in several different ways.
@@ -177,7 +184,8 @@
       }
       $sorted_lsub_ary = $new_ary;
       if (isset($sorted_lsub_ary)) {
-         sort($sorted_lsub_ary);
+			usort($sorted_lsub_ary, "_icmp");
+         //sort($sorted_lsub_ary);
       }   
 
       /** LIST array **/
