@@ -250,8 +250,8 @@ function date_intl( $date_format, $stamp ) {
     $ret = date('w#m#'. $ret, $stamp ); // to reduce the date calls we retrieve m and w in the same call
     $aParts = explode('#',$ret);        // extract day and month in order to replace later by intl day and month
     $ret = str_replace(array('$1','$4','$2','$3',), array(getDayAbrv($aParts[0]),
-                                                          getMonthAbrv($Parts[1]),
-                   				          getMonthName($Parts[1]),
+                                                          getMonthAbrv($aParts[1]),
+                   				          getMonthName($aParts[1]),
 						          getDayName($aParts[0])),
 						          $aParts[2]);
  return( $ret );
