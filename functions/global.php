@@ -53,7 +53,7 @@ function check_php_version ($a = '0', $b = '0', $c = '0')
     global $SQ_PHP_VERSION;
 
     if(!isset($SQ_PHP_VERSION))
-        $SQ_PHP_VERSION = str_pad( preg_replace('/\D/','', PHP_VERSION), 3, '0');
+        $SQ_PHP_VERSION = substr( str_pad( preg_replace('/\D/','', PHP_VERSION), 3, '0'), 0, 3);
 
     return $SQ_PHP_VERSION >= ($a.$b.$c);
 }
