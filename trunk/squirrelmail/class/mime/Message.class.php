@@ -166,9 +166,15 @@ class Message {
      * Ask for me (Marc Groot Koerkamp, stekkel@users.sourceforge.net)
      *
      */
-    function parseStructure($read, $i = 0) {
+    function parseStructure($read, &$i, $sub_msg = '') {
         $arg_no = 0;
         $arg_a  = array();
+	if ($sub_msg) {
+	    $message = $sub_msg;
+	} else {
+	    $message = new Message();
+	}
+	$this = $message;    
         for ($cnt = strlen($read); $i < $cnt; ++$i) {
             $char = strtoupper($read{$i});
             switch ($char) {
@@ -181,14 +187,12 @@ class Message {
                                 $hdr->type0 = 'text';
                                 $hdr->type1 = 'plain';
                                 $hdr->encoding = 'us-ascii';
-                                $msg->entity_id = $this->calcEntity($msg);
+                                $msg->entity_id = $message->calcEntity($msg);
                             } else {
                                 $msg->header->type0 = 'multipart';
                                 $msg->type0 = 'multipart';
                                 while ($read{$i} == '(') {
-                                    $res = $msg->parseStructure($read, $i);
-                                    $i = $res[1];
-                                    $msg->addEntity($res[0]);
+                                    $msg->addEntity($this->parseStructure($read, $i, $msg));
                                 }
                             }
                             break;
@@ -201,16 +205,16 @@ class Message {
                         case 2:
                             if (isset($msg->type0) && ($msg->type0 == 'multipart')) {
                                 ++$i;
-                                $arg_a[] = $msg->parseDisposition($read, $i);
+                                $arg_a[] = $this->parseDisposition($read, $i);
                             } else { /* properties */
-                                $arg_a[] = $msg->parseProperties($read, $i);
+                                $arg_a[] = $this->parseProperties($read, $i);
                             }
                             ++$arg_no;
                             break;
                         case 3:
                             if (isset($msg->type0) && ($msg->type0 == 'multipart')) {
                                 ++$i;
-                                $arg_a[]= $msg->parseLanguage($read, $i);
+                                $arg_a[]= $this->parseLanguage($read, $i);
                             }
                         case 7:
                             if (($arg_a[0] == 'message') && ($arg_a[1] == 'rfc822')) {
@@ -219,42 +223,40 @@ class Message {
                                 $msg->type0 = $arg_a[0];
                                 $msg->type1 = $arg_a[1];
                                 $rfc822_hdr = new Rfc822Header();
-                                $msg->rfc822_header = $msg->parseEnvelope($read, $i, $rfc822_hdr);
+                                $msg->rfc822_header = $this->parseEnvelope($read, $i, $rfc822_hdr);
                                 while (($i < $cnt) && ($read{$i} != '(')) {
                                     ++$i;
                                 }
-                                $res = $msg->parseStructure($read, $i);
-                                $i = $res[1];
-                                $msg->addEntity($res[0]);
+                                $msg->addEntity($this->parseStructure($read, $i,$msg));
                             }
                             break;
                         case 8:
                             ++$i;
-                            $arg_a[] = $msg->parseDisposition($read, $i);
+                            $arg_a[] = $this->parseDisposition($read, $i);
                             ++$arg_no;
                             break;
                         case 9:
                             ++$i;
                             if (($arg_a[0] == 'text') || (($arg_a[0] == 'message') && ($arg_a[1] == 'rfc822'))) {
-                                $arg_a[] = $msg->parseDisposition($read, $i);
+                                $arg_a[] = $this->parseDisposition($read, $i);
                             } else {
-                                $arg_a[] = $msg->parseLanguage($read, $i);
+                                $arg_a[] = $this->parseLanguage($read, $i);
                             }
                             ++$arg_no;
                             break;
                        case 10:
                            if (($arg_a[0] == 'text') || (($arg_a[0] == 'message') && ($arg_a[1] == 'rfc822'))) {
                                ++$i;
-                               $arg_a[] = $msg->parseLanguage($read, $i);
+                               $arg_a[] = $this->parseLanguage($read, $i);
                            } else {
-                               $i = $msg->parseParenthesis($read, $i);
+                               $i = $this->parseParenthesis($read, $i);
                                $arg_a[] = ''; /* not yet described in rfc2060 */
                            }
                            ++$arg_no;
                            break;
                        default:
                            /* unknown argument, skip this part */
-                           $i = $msg->parseParenthesis($read, $i);
+                           $i = $this->parseParenthesis($read, $i);
                            $arg_a[] = '';
                            ++$arg_no;
                            break;
@@ -262,8 +264,7 @@ class Message {
                    break;
                 case '"':
                     /* inside an entity -> start processing */
-                    $debug = substr($read, $i, 20);
-                    $arg_s = $msg->parseQuote($read, $i);
+                    $arg_s = $this->parseQuote($read, $i);
                     ++$arg_no;
                     if ($arg_no < 3) {
                         $arg_s = strtolower($arg_s); /* type0 and type1 */
@@ -281,19 +282,20 @@ class Message {
                     break;
                 case '{':
                     /* process the literal value */
-                    $arg_s = $msg->parseLiteral($read, $i);
+                    $arg_s = $this->parseLiteral($read, $i);
                     ++$arg_no;
                     break;
-		case '0':
+		case '0':    
                 case is_numeric($read{$i}):
                     /* process integers */
                     if ($read{$i} == ' ') { break; }
-                    $arg_s = $read{$i};;
-                    for (++$i; preg_match('/^[0-9]{1}$/', $read{$i}); ++$i) {
-                        $arg_s .= $read{$i};
-                    }
-                    ++$arg_no;
-                    $arg_a[] = $arg_s;
+		    ++$arg_no;
+		    if (preg_match('/^([0-9]+).*/',substr($read,$i), $regs)) {
+			$i += strlen($regs[1])-1;
+			$arg_a[] = $regs[1];
+		    } else {
+			$arg_a[] = 0;
+		    }
                     break;
                 case ')':
                     $multipart = (isset($msg->type0) && ($msg->type0 == 'multipart'));
@@ -324,7 +326,7 @@ class Message {
                         $hdr->language = (isset($arg_a[9+$s]) ? $arg_a[9+$s] : $hdr->language);
                         $msg->header = $hdr;
                         if ((strrchr($msg->entity_id, '.') == '.0') && ($msg->type0 !='multipart')) {
-                           $msg->entity_id = $this->entity_id . '.1';
+                           $msg->entity_id = $message->entity_id . '.1';
                         }
                     } else {
                         $hdr->type0 = 'multipart';
@@ -336,11 +338,9 @@ class Message {
                         $hdr->language = (isset($arg_a[3]) ? $arg_a[3] : $hdr->language);
                         $msg->header = $hdr;
                     }
-                    ++$i;
-                    return (array($msg, $i));
+                    return $msg;
                 default: break;
             } /* switch */
-
         } /* for */
     } /* parsestructure */
 
@@ -452,39 +452,43 @@ class Message {
 
     function parseLiteral($read, &$i) {
         $lit_cnt = '';
-        for (++$i; $read{$i} != '}'; ++$i) {
-            $lit_cnt .= $read{$i};
-        }
-
-        $lit_cnt +=2; /* add the { and } characters */
-        $s = '';
-        for ($j = 0; $j < $lit_cnt; ++$j) {
-            $s .= $read{++$i};
-        }
+	++$i;
+	$iPos = strpos($read,'}',$i);
+	if ($iPos) {
+	   $lit_cnt = substr($read, $i, $iPos - $i);
+	   $i += strlen($lit_cnt) + 3; /* } + \r + \n */
+	   $lit_cnt -= 2; /* lit_cnt includes \r\n */
+	   $s = ($lit_cnt ? substr($read,$i,$lit_cnt): '');
+	   $i += $lit_cnt;
+	} else { /* should never happen */
+	   $i += 3; /* } + \r + \n */
+	   $s = '';
+	}
         return $s;
     }
 
     function parseQuote($read, &$i) {
         $s = '';
-        for (++$i; $read{$i} != '"'; ++$i) {
-            if ($read{$i} == '\\') {
-                ++$i;
-             }
-             $s .= $read{$i};
-        }
+	$iPos = ++$i;
+	while (true) {
+	   $iPos = strpos($read,'"',$iPos);
+	   if ($iPos === false) break;
+	   if ($iPos && $read{$iPos -1} != '\\') {
+	      $s = substr($read,$i,($iPos-$i));
+	      $i = $iPos;
+	      break;
+	   }
+	}
         return $s;
     }
 
     function parseAddress($read, &$i) {
         $arg_a = array();
-
         for (; $read{$i} != ')'; ++$i) {
             $char = strtoupper($read{$i});
             switch ($char) {
-                case '"':
-                case '{':
-                    $arg_a[] = ($char == '"' ? $this->parseQuote($read, $i) : $this->parseLiteral($read, $i));
-                    break;
+                case '"': $arg_a[] = $this->parseQuote($read, $i); break;
+                case '{': $arg_a[] = $this->parseLiteral($read, $i); break;
                 case 'n':
                 case 'N':
                     if (strtoupper(substr($read, $i, 3)) == 'NIL') {
