@@ -535,7 +535,8 @@
       // this if statement checks for the entity to show as the
       // primary message. To add more of them, just put them in the
       // order that is their priority.
-      global $startMessage, $username, $key, $imapServerAddress, $imapPort;
+      global $startMessage, $username, $key, $imapServerAddress, $imapPort,
+          $show_html_default;
 
       $id = $message->header->id;
       $urlmailbox = urlencode($message->header->mailbox);
@@ -552,7 +553,7 @@
    
          // If there are other types that shouldn't be formatted, add
          // them here 
-         if ($body_message->header->type1 != "html") {   
+         if ($body_message->header->type1 != "html" && $show_html_default) {
             translateText($body, $wrap_at, $body_message->header->charset);
          }   
    
@@ -688,13 +689,6 @@
             $body = ereg_replace ("=\n", "", $body);
       } else if ($encoding == "base64") {
          $body = base64_decode($body);
-      }
-
-      if (!$show_html_default) {
-         $body = str_replace('<', '&lt;', $body);
-//         $body = str_replace('>', '&gt;', $body);
-// Both this and $body = htmlspecialchars($body); mess up inline
-//  quoting :-(  Anyway, just replacing < gets the job done.
       }
 
       // All other encodings are returned raw.
