@@ -74,7 +74,7 @@
       $dateZ = date("Z", $now);
       if ($invert_time)
           $dateZ = - $dateZ;
-      $midnight = $now - ($now % 86400) - 86400 - $dateZ;
+      $midnight = $now - ($now % 86400) - $dateZ;
 
       if ($midnight < $stamp) {
          // Today
