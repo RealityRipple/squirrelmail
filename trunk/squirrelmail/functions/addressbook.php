@@ -39,6 +39,7 @@ global $addrbook_dsn, $addrbook_global_dsn;
 function addressbook_init($showerr = true, $onlylocal = false) {
     global $data_dir, $username, $ldap_server, $address_book_global_filename;
     global $addrbook_dsn, $addrbook_table;
+    global $abook_global_file, $abook_global_file_writeable;
     global $addrbook_global_dsn, $addrbook_global_table, $addrbook_global_writeable, $addrbook_global_listing;
 
     /* Create a new addressbook object */
@@ -74,8 +75,22 @@ function addressbook_init($showerr = true, $onlylocal = false) {
     }
 
     /* This would be for the global addressbook */
-    if (isset($address_book_global_filename)) {
-        $r = $abook->add_backend('global_file');
+    if (isset($abook_global_file) && isset($abook_global_file_writeable)
+	&& trim($abook_global_file)!=''){
+        // Detect place of address book
+        if (! preg_match("/[\/\\\]/",$abook_global_file)) {
+            // no path chars
+            $abook_global_filename=$data_dir . $abook_global_file;
+        } elseif (preg_match("/^\/|\w:/",$abook_global_file)) {
+            // full path is set in options (starts with slash or x:)
+            $abook_global_filename=$abook_global_file;
+        } else {
+            $abook_global_filename=SM_PATH . $abook_global_file;
+        }
+        $r = $abook->add_backend('local_file',array('filename'=>$abook_global_filename,
+                                                    'name' => _("Global address book"),
+                                                    'detect_writeable' => false,
+                                                    'writeable'=> $abook_global_file_writeable));
         if (!$r && $showerr) {
             echo _("Error initializing global addressbook.");
             exit;
@@ -367,21 +382,44 @@ function show_abook_sort_button($abook_sort_order, $alt_tag, $Down, $Up ) {
  * @subpackage addressbook
  */
 class AddressBook {
-
+    /**
+     * Enabled address book backends
+     * @var array
+     */
     var $backends    = array();
+    /**
+     * Number of enabled backends
+     * @var integer
+     */
     var $numbackends = 0;
+    /**
+     * Error messages
+     * @var string
+     */
     var $error       = '';
+    /**
+     * id of backend with personal address book
+     * @var integer
+     */
     var $localbackend = 0;
+    /**
+     * Name of backend with personal address book
+     * @var string
+     */
     var $localbackendname = '';
 
-      // Constructor function.
+    /**
+     * Constructor function.
+     */
     function AddressBook() {
         $this->localbackendname = _("Personal address book");
     }
 
-    /*
+    /**
      * Return an array of backends of a given type,
      * or all backends if no type is specified.
+     * @param string $type backend type
+     * @return array list of backends
      */
     function get_backend_list($type = '') {
         $ret = array();
@@ -394,13 +432,15 @@ class AddressBook {
     }
 
 
-    /*
-       ========================== Public ========================
+    /* ========================== Public ======================== */
 
-        Add a new backend. $backend is the name of a backend
-        (without the abook_ prefix), and $param is an optional
-        mixed variable that is passed to the backend constructor.
-        See each of the backend classes for valid parameters.
+    /**
+     * Add a new backend.
+     *
+     * @param string $backend backend name (without the abook_ prefix)
+     * @param mixed optional variable that is passed to the backend constructor.
+     * See each of the backend classes for valid parameters
+     * @return integer number of backends
      */
     function add_backend($backend, $param = '') {
         $backend_name = 'abook_' . $backend;
@@ -425,12 +465,15 @@ class AddressBook {
     }
 
 
-    /*
+    /**
+     * create string with name and email address
+     *
      * This function takes a $row array as returned by the addressbook
      * search and returns an e-mail address with the full name or
      * nickname optionally prepended.
+     * @param array $row address book entry
+     * @return string email address with real name prepended
      */
-
     function full_address($row) {
         global $addrsrch_fullname, $data_dir, $username;
         $prefix = getPref($data_dir, $username, 'addrsrch_fullname');
@@ -443,10 +486,15 @@ class AddressBook {
         }
     }
 
-    /*
-        Return a list of addresses matching expression in
-        all backends of a given type.
-    */
+    /**
+     * Search for entries in address books
+     *
+     * Return a list of addresses matching expression in
+     * all backends of a given type.
+     * @param string $expression search expression
+     * @param integer $bnum backend number. default to search in all backends
+     * @return array search results
+     */
     function search($expression, $bnum = -1) {
         $ret = array();
         $this->error = '';
@@ -487,7 +535,12 @@ class AddressBook {
     }
 
 
-    /* Return a sorted search */
+    /**
+     * Sorted search
+     * @param string $expression search expression
+     * @param integer $bnum backend number. default to search in all backends
+     * @return array search results
+     */
     function s_search($expression, $bnum = -1) {
 
         $ret = $this->search($expression, $bnum);
@@ -498,9 +551,12 @@ class AddressBook {
     }
 
 
-    /*
-     *  Lookup an address by alias. Only possible in
-     *  local backends.
+    /**
+     * Lookup an address by alias.
+     * Only possible in local backends.
+     * @param string $alias
+     * @param integer backend number
+     * @return array lookup results. False, if not found.
      */
     function lookup($alias, $bnum = -1) {
 
@@ -534,12 +590,16 @@ class AddressBook {
     }
 
 
-    /* Return all addresses */
+    /**
+     * Return all addresses
+     * @param integer $bnum backend number
+     * @return array search results
+     */
     function list_addr($bnum = -1) {
         $ret = array();
 
         if ($bnum == -1) {
-            $sel = $this->get_backend_list('local');
+            $sel = $this->get_backend_list('');
         } else {
             $sel = array(0 => &$this->backends[$bnum]);
         }
@@ -559,9 +619,11 @@ class AddressBook {
         return $ret;
     }
 
-    /*
-     * Create a new address from $userdata, in backend $bnum.
-     * Return the backend number that the/ address was added
+    /**
+     * Create a new address 
+     * @param array $userdata added address record
+     * @param integer $bnum backend number
+     * @return integer the backend number that the/ address was added
      * to, or false if it failed.
      */
     function add($userdata, $bnum) {
@@ -607,9 +669,11 @@ class AddressBook {
     } /* end of add() */
 
 
-    /*
-     * Remove the user identified by $alias from backend $bnum
-     * If $alias is an array, all users in the array are removed.
+    /**
+     * Remove the entries from address book
+     * @param mixed $alias entries that have to be removed. Can be string with nickname or array with list of nicknames 
+     * @param integer $bnum backend number
+     * @return bool true if removed successfully. false if there s an error. $this->error contains error message
      */
     function remove($alias, $bnum) {
 
@@ -642,9 +706,11 @@ class AddressBook {
     } /* end of remove() */
 
 
-    /*
-     * Remove the user identified by $alias from backend $bnum
-     * If $alias is an array, all users in the array are removed.
+    /**
+     * Modify entry in address book
+     * @param string $alias nickname
+     * @param array $userdata newdata
+     * @param integer $bnum backend number
      */
     function modify($alias, $userdata, $bnum) {
 
@@ -705,18 +771,49 @@ class AddressBook {
 class addressbook_backend {
 
     /* Variables that all backends must provide. */
+    /**
+     * Backend type
+     *
+     * Can be 'local' or 'remote'
+     * @var string backend type
+     */
     var $btype      = 'dummy';
+    /**
+     * Internal backend name
+     * @var string
+     */
     var $bname      = 'dummy';
+    /**
+     * Displayed backend name
+     * @var string
+     */
     var $sname      = 'Dummy backend';
 
     /*
      * Variables common for all backends, but that
      * should not be changed by the backends.
      */
+    /**
+     * Backend number
+     * @var integer
+     */
     var $bnum       = -1;
+    /**
+     * Error messages
+     * @var string
+     */
     var $error      = '';
+    /**
+     * Writeable flag
+     * @var bool
+     */
     var $writeable  = false;
 
+    /**
+     * Set error message
+     * @param string $string error message
+     * @return bool
+     */
     function set_error($string) {
         $this->error = '[' . $this->sname . '] ' . $string;
         return false;
@@ -725,36 +822,65 @@ class addressbook_backend {
 
     /* ========================== Public ======================== */
 
+    /**
+     * Search for entries in backend
+     * @param string $expression
+     * @return bool
+     */
     function search($expression) {
         $this->set_error('search not implemented');
         return false;
     }
 
+    /**
+     * Find entry in backend by alias
+     * @param string $alias name used for id
+     * @return bool
+     */
     function lookup($alias) {
         $this->set_error('lookup not implemented');
         return false;
     }
 
+    /**
+     * List all entries in backend
+     * @return bool
+     */
     function list_addr() {
         $this->set_error('list_addr not implemented');
         return false;
     }
 
+    /**
+     * Add entry to backend
+     * @param array userdata
+     * @return bool
+     */
     function add($userdata) {
         $this->set_error('add not implemented');
         return false;
     }
 
+    /**
+     * Remove entry from backend
+     * @param string $alias name used for id
+     * @return bool
+     */
     function remove($alias) {
         $this->set_error('delete not implemented');
         return false;
     }
 
+    /**
+     * Modify entry in backend
+     * @param string $alias name used for id
+     * @param array $newuserdata new data
+     * @return bool
+     */
     function modify($alias, $newuserdata) {
         $this->set_error('modify not implemented');
         return false;
     }
-
 }
 
 /*
@@ -764,11 +890,6 @@ class addressbook_backend {
 
 require_once(SM_PATH . 'functions/abook_local_file.php');
 require_once(SM_PATH . 'functions/abook_ldap_server.php');
-
-/* Use this if you wanna have a global address book */
-if (isset($address_book_global_filename)) {
-    include_once(SM_PATH . 'functions/abook_global_file.php');
-}
 
 /* Only load database backend if database is configured */
 if((isset($addrbook_dsn) && !empty($addrbook_dsn)) ||

@@ -734,6 +734,17 @@ $theme[36]['NAME'] = 'Redmond';
  */
 $default_use_javascript_addr_book = false;
 
+/**
+ * Shared filebased address book
+ * @global string $abook_global_file
+ */
+$abook_global_file = '';
+
+/**
+ * Writing into shared address book control
+ * @global bool $abook_global_file_writeable
+ */
+$abook_global_file_writeable = false;
 
 /**
  * MOTD

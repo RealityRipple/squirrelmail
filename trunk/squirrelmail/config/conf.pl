@@ -299,6 +299,8 @@ $prefs_val_field = 'prefval'            if ( !$prefs_val_field );
 $addrbook_global_table = 'global_abook' if ( !$addrbook_global_table );
 $addrbook_global_writeable = 'false'    if ( !$addrbook_global_writeable );
 $addrbook_global_listing = 'false'      if ( !$addrbook_global_listing );
+$abook_global_file = ''                 if ( !$abook_global_file);
+$abook_global_file_writeable = 'false'  if ( !$abook_global_file_writeable);
 $use_smtp_tls= 'false'                  if ( !$use_smtp_tls);
 $smtp_auth_mech = 'none'                if ( !$smtp_auth_mech );
 $use_imap_tls = 'false'                 if ( !$use_imap_tls );
@@ -357,7 +359,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "3.  Folder Defaults\n";
         print "4.  General Options\n";
         print "5.  Themes\n";
-        print "6.  Address Books (LDAP)\n";
+        print "6.  Address Books\n";
         print "7.  Message of the Day (MOTD)\n";
         print "8.  Plugins\n";
         print "9.  Database\n";
@@ -498,13 +500,14 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 6 ) {
-        print $WHT. "Address Books (LDAP)\n" . $NRM;
-        print "1.  Change Servers\n";
+        print $WHT. "Address Books\n" . $NRM;
+        print "1.  Change LDAP Servers\n";
         for ( $count = 0 ; $count <= $#ldap_host ; $count++ ) {
             print "    >  $ldap_host[$count]\n";
         }
-        print
-          "2.  Use Javascript Address Book Search  : $WHT$default_use_javascript_addr_book$NRM\n";
+        print "2.  Use Javascript address book search  : $WHT$default_use_javascript_addr_book$NRM\n";
+        print "3.  Use global file address book        : $WHT$abook_global_file$NRM\n";
+        print "4.  Allow writing into global file address book : $WHT$abook_global_file_writeable$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 7 ) {
@@ -713,6 +716,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         } elsif ( $menu == 6 ) {
             if    ( $command == 1 ) { command61(); }
             elsif ( $command == 2 ) { command62(); }
+            elsif ( $command == 3 ) { $abook_global_file=command63(); }
+            elsif ( $command == 4 ) { command64(); }
         } elsif ( $menu == 7 ) {
             if ( $command == 1 ) { $motd = command71(); }
         } elsif ( $menu == 8 ) {
@@ -2565,6 +2570,46 @@ sub command62 {
     return $default_use_javascript_addr_book;
 }
 
+# global filebased address book
+sub command63 {
+    print "If you want to use global file address book, then you\n";
+    print "must set this option to a valid value. If option does\n";
+    print "not have path elements, system assumes that file is\n";
+    print "stored in data directory. If relative path is set, it is\n";
+    print "relative to main squirrelmail directory. If value is empty,\n";
+    print "address book is not enabled.\n";
+    print "\n";
+
+    print "[$WHT$abook_global_file$NRM]: $WHT";
+    $new_abook_global_file = <STDIN>;
+    if ( $new_abook_global_file eq "\n" ) {
+        $new_abook_global_file = $abook_global_file;
+    } else {
+        $new_abook_global_file =~ s/[\r\n]//g;
+    }
+    return $new_abook_global_file;
+}
+
+# writing into global filebased abook control
+sub command64 {
+    print "\n";
+
+    if ( lc($abook_global_file_writeable) eq 'true' ) {
+        $default_value = "y";
+    } else {
+        $abook_global_file_writeable = 'false';
+        $default_value               = "n";
+    }
+    print "Allow writting into global file address book (y/n) [$WHT$default_value$NRM]: $WHT";
+    $new_show = <STDIN>;
+    if ( ( $new_show =~ /^y\n/i ) || ( ( $new_show =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $abook_global_file_writeable = 'true';
+    } else {
+        $abook_global_file_writeable = 'false';
+    }
+    return $abook_global_file_writeable;
+}
+
 sub command91 {
     print "If you want to store your users address book details in a database then\n";
     print "you need to set this DSN to a valid value. The format for this is:\n";
@@ -3258,9 +3303,13 @@ sub save_data {
     # string
         print CF "\$addrbook_global_table = '$addrbook_global_table';\n";
     # boolean
-        print CF "\$addrbook_global_writeable = $addrbook_global_writeable;\n\n";
+        print CF "\$addrbook_global_writeable = $addrbook_global_writeable;\n";
     # boolean
         print CF "\$addrbook_global_listing = $addrbook_global_listing;\n\n";
+    # string
+        print CF "\$abook_global_file = '$abook_global_file';\n";
+    # boolean
+        print CF "\$abook_global_file_writeable = $abook_global_file_writeable;\n\n";
     # boolean
         print CF "\$no_list_for_subscribe = $no_list_for_subscribe;\n";
 
