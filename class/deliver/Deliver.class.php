@@ -412,16 +412,20 @@ class Deliver {
         }
         $header[] = "Date: $date" . $rn;
         $header[] = 'Subject: '.encodeHeader($rfc822_header->subject) . $rn;
-        $header[] = 'From: '. $rfc822_header->getAddr_s('from',',',true) . $rn;
-        /* RFC2822 if from contains more then 1 address */
+        $header[] = 'From: '. $rfc822_header->getAddr_s('from',",$rn ",true) . $rn;
+
+        // folding address list [From|To|Cc|Bcc] happens by using ",$rn<space>" as delimiter
+        // Do not use foldLine for that.
+
+        // RFC2822 if from contains more then 1 address
         if (count($rfc822_header->from) > 1) {
             $header[] = 'Sender: '. $rfc822_header->getAddr_s('sender',',',true) . $rn;
         }
         if (count($rfc822_header->to)) {
-            $header[] = 'To: '. $rfc822_header->getAddr_s('to',',',true) . $rn;
+            $header[] = 'To: '. $rfc822_header->getAddr_s('to',",$rn ",true) . $rn;
         }
         if (count($rfc822_header->cc)) {
-            $header[] = 'Cc: '. $rfc822_header->getAddr_s('cc',',',true) . $rn;
+            $header[] = 'Cc: '. $rfc822_header->getAddr_s('cc',",$rn ",true) . $rn;
         }
         if (count($rfc822_header->reply_to)) {
             $header[] = 'Reply-To: '. $rfc822_header->getAddr_s('reply_to',',',true) . $rn;
@@ -429,9 +433,8 @@ class Deliver {
         /* Sendmail should return true. Default = false */
         $bcc = $this->getBcc();
         if (count($rfc822_header->bcc)) {
-            $s = 'Bcc: '. $rfc822_header->getAddr_s('bcc',',',true) . $rn;
+            $s = 'Bcc: '. $rfc822_header->getAddr_s('bcc',",$rn ",true) . $rn;
             if (!$bcc) {
-                $s = $this->foldLine($s, 78, str_pad('',4));
                 $raw_length += strlen($s);
             } else {
                 $header[] = $s;
@@ -507,6 +510,12 @@ class Deliver {
                     }
                 }
                 $hdr_s .= $sLine;
+                break;
+            case 'To':
+            case 'Cc':
+            case 'Bcc':
+            case 'From':
+                $hdr_s .= $header[$i];
                 break;
             default: $hdr_s .= $this->foldLine($header[$i], 78, str_pad('',4)); break;
             }
