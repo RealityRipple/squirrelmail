@@ -8,7 +8,7 @@
  *
  * Pick your translator to translate the body of incoming mail messages
  *
- * $Id$
+ * @version $Id$
  * @package plugins
  * @subpackage translate
  */
@@ -27,77 +27,82 @@ require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'include/load_prefs.php');
 
-    displayPageHeader($color, 'None');
+displayPageHeader($color, 'None');
 
-    if (isset($_POST['submit_translate']) && $_POST['submit_translate'] ) {
-        if (isset($_POST['translate_translate_server'])) {
-            setPref($data_dir, $username, 'translate_server', $_POST['translate_translate_server']);
-        } else {
-            setPref($data_dir, $username, 'translate_server', 'babelfish');
-        }
-
-        if (isset($_POST['translate_translate_location'])) {
-            setPref($data_dir, $username, 'translate_location', $_POST['translate_translate_location']);
-        } else {
-            setPref($data_dir, $username, 'translate_location', 'center');
-        }
-
-        if (isset($_POST['translate_translate_show_read'])) {
-            setPref($data_dir, $username, 'translate_show_read', '1');
-        } else {
-            setPref($data_dir, $username, 'translate_show_read', '');
-        }
-
-        if (isset($_POST['translate_translate_show_send'])) {
-            setPref($data_dir, $username, 'translate_show_send', '1');
-        } else {
-            setPref($data_dir, $username, 'translate_show_send', '');
-        }
-
-        if (isset($_POST['translate_translate_same_window'])) {
-           setPref($data_dir, $username, 'translate_same_window', '1');
-        } else {
-            setPref($data_dir, $username, 'translate_same_window', '');
-        }
+if (isset($_POST['submit_translate']) && $_POST['submit_translate'] ) {
+    if (isset($_POST['translate_translate_server'])) {
+        setPref($data_dir, $username, 'translate_server', $_POST['translate_translate_server']);
+    } else {
+        setPref($data_dir, $username, 'translate_server', 'babelfish');
     }
 
-    $translate_server = getPref($data_dir, $username, 'translate_server');
-    if ($translate_server == '') {
+    if (isset($_POST['translate_translate_location'])) {
+        setPref($data_dir, $username, 'translate_location', $_POST['translate_translate_location']);
+    } else {
+        setPref($data_dir, $username, 'translate_location', 'center');
+    }
+
+    if (isset($_POST['translate_translate_show_read'])) {
+        setPref($data_dir, $username, 'translate_show_read', '1');
+    } else {
+        setPref($data_dir, $username, 'translate_show_read', '');
+    }
+
+    if (isset($_POST['translate_translate_show_send'])) {
+        setPref($data_dir, $username, 'translate_show_send', '1');
+    } else {
+        setPref($data_dir, $username, 'translate_show_send', '');
+    }
+
+    if (isset($_POST['translate_translate_same_window'])) {
+       setPref($data_dir, $username, 'translate_same_window', '1');
+    } else {
+        setPref($data_dir, $username, 'translate_same_window', '');
+    }
+}
+
+$translate_server = getPref($data_dir, $username, 'translate_server');
+if ($translate_server == '') {
     $translate_server = 'babelfish';
-    }
-    $translate_location = getPref($data_dir, $username, 'translate_location');
-    if ($translate_location == '') {
+}
+$translate_location = getPref($data_dir, $username, 'translate_location');
+if ($translate_location == '') {
     $translate_location = 'center';
-    }
-    $translate_show_read = getPref($data_dir, $username, 'translate_show_read');
-    $translate_show_send = getPref($data_dir, $username, 'translate_show_send');
-    $translate_same_window = getPref($data_dir, $username, 'translate_same_window');
+}
+$translate_show_read = getPref($data_dir, $username, 'translate_show_read');
+$translate_show_send = getPref($data_dir, $username, 'translate_show_send');
+$translate_same_window = getPref($data_dir, $username, 'translate_same_window');
   
+/**
+ * FIXME: undocumented function
+ * @access private
+ */
+function ShowOption($Var, $value, $Desc) {
+   $Var = 'translate_' . $Var;
 
-   function ShowOption($Var, $value, $Desc)
-   {
-       $Var = 'translate_' . $Var;
+   global $$Var;
 
-       global $$Var;
-
-       echo '<option value="' . $value . '"';
-       if ($$Var == $value)
-       {
-           echo ' SELECTED';
-       }
-       echo '>' . $Desc . "</option>\n";
+   echo '<option value="' . $value . '"';
+   if ($$Var == $value) {
+       echo ' selected';
    }
+   echo '>' . $Desc . "</option>\n";
+}
 
-    function ShowTrad( $tit, $com, $url ) {
+/**
+ * FIXME: undocumented function
+ * @access private
+ */
+function ShowTrad( $tit, $com, $url ) {
 
-        echo "<li><b>$tit</b> - ".
-             $com .
-             "[ <a href=\"$url\" target=\"_blank\">$tit</a> ]</li>";
+    echo "<li><b>$tit</b> - ".
+         $com .
+         "[ <a href=\"$url\" target=\"_blank\">$tit</a> ]</li>";
 
-    }
+}
 
 ?>
-   <table width="95%" align=center border=0 cellpadding=1 cellspacing=0><tr><td bgcolor="<?php echo $color[0] ?>">
+   <table width="95%" align="center" border=0 cellpadding=1 cellspacing=0><tr><td bgcolor="<?php echo $color[0] ?>">
       <center><b><?php echo _("Options") . ' - '. _("Translator"); ?></b></center>
    </td></tr></table>
 
@@ -147,7 +152,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
    echo _("You also decide if you want the translation box displayed, and where it will be located.") .
         "<form action=\"$PHP_SELF\" method=post>".
         '<table border=0 cellpadding=0 cellspacing=2>'.
-            '<tr><td align=right nowrap>' .
+            '<tr><td align="right" nowrap>' .
              _("Select your translator:") .
              '</td>'.
             '<td><select name="translate_translate_server">';
@@ -163,19 +168,19 @@ require_once(SM_PATH . 'include/load_prefs.php');
     echo '</select>' .
          '</td></tr>' .
          '<tr>'.html_tag('td',_("When reading:"),'right','','nowrap').
-         '<td><input type=checkbox name="translate_translate_show_read"';
+         '<td><input type="checkbox" name="translate_translate_show_read"';
     if ($translate_show_read)
-        echo " CHECKED";
-    echo '> - ' . _("Show translation box") .
+        echo " checked";
+    echo ' /> - ' . _("Show translation box") .
          ' <select name="translate_translate_location">';
     ShowOption('location', 'left', _("to the left"));
     ShowOption('location', 'center', _("in the center"));
     ShowOption('location', 'right', _("to the right"));
-    echo '</select><br>'.
-         '<input type=checkbox name="translate_translate_same_window"';
+    echo '</select><br />'.
+         '<input type="checkbox" name="translate_translate_same_window"';
     if ($translate_same_window)
-        echo " CHECKED";
-    echo '> - ' . _("Translate inside the SquirrelMail frames").
+        echo " checked";
+    echo ' /> - ' . _("Translate inside the SquirrelMail frames").
     "</td></tr>\n";
 
 $disable_compose_translate=true;
@@ -183,8 +188,8 @@ if (!$disable_compose_translate) {
    echo '<tr>'.html_tag('td',_("When composing:"),'right','','nowrap').
          '<td><input type=checkbox name="translate_translate_show_send"';
    if ($translate_show_send)
-      echo " CHECKED";
-   echo '> - ' . _("Not yet functional, currently does nothing") .
+      echo " checked";
+   echo ' /> - ' . _("Not yet functional, currently does nothing") .
       "</td></tr>\n";
 }
    echo '<tr><td></td><td>'.

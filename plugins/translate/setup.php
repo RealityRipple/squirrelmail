@@ -5,7 +5,7 @@
  * Copyright (c) 1999-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * $Id$
+ * @version $Id$
  * @package plugins
  * @subpackage translate
  */
@@ -21,6 +21,7 @@ Translation of composed messages is not supported.
 /**
  * Initialize the translation plugin
  * @return void
+ * @access private
  */
 function squirrelmail_plugin_init_translate() {
   global $squirrelmail_plugin_hooks;
@@ -34,6 +35,7 @@ function squirrelmail_plugin_init_translate() {
 
 /** 
  * Shows translation box in message display window 
+ * @access private
  */
 function translate_read_form() {
     global $color, $translate_server;
@@ -84,6 +86,7 @@ if ($trans_ar[0] != '') {
 
 /**
  * Closes table tags in translation box
+ * @access private
  */
 function translate_table_end() {                     
   ?></td>
@@ -97,8 +100,8 @@ function translate_table_end() {
 }
 
 /**
- * FIXME:
- * Undocumented function.
+ * FIXME: Undocumented function.
+ * @access private
  */
 function translate_button() {
     global $translate_show_send;
@@ -110,6 +113,7 @@ function translate_button() {
 
 /**
  * Adds translation option block
+ * @access private
  */
 function translate_optpage_register_block() {
     global $optpage_blocks;
@@ -123,6 +127,7 @@ function translate_optpage_register_block() {
 
 /**
  * Gets user's translation preferences
+ * @access private
  */
 function translate_pref() { 
     global $username, $data_dir;
@@ -148,13 +153,14 @@ function translate_pref() {
 
 /**
  * Tries to select default translation combination
- * 
- * @param string $test language code that has to be tested.
- * @returm boolean true if language code matches user's language.
  *
  * This function could be speed up.
  * It basically negates the process if a ! is found in the beginning and
  * matches a * at the end with 0 or more characters.
+ *
+ * @param string $test language code that has to be tested.
+ * @return boolean true if language code matches user's language.
+ * @access private
  */
 function translate_does_it_match_language($test) {
     global $squirrelmail_language;
@@ -193,6 +199,8 @@ function translate_does_it_match_language($test) {
 
 /**
  * Creates language option selection box.
+ *
+ * @access private
  */
 function translate_lang_opt($from, $to, $value, $text) {
     global $translate_dir;
@@ -216,6 +224,7 @@ function translate_lang_opt($from, $to, $value, $text) {
  * Starts translation box
  *
  * @param string $action url that has to recieve message for translation
+ * @access private
  */
 function translate_new_form($action) {
     global $translate_dir, $translate_new_window, $translate_location;
@@ -249,6 +258,7 @@ function translate_new_form($action) {
  * Babelfish translation engine functions
  *
  * @param string $message text that has to be translated.
+ * @access private
  */
 function translate_form_babelfish($message) {
     translate_new_form('http://babelfish.altavista.com/babelfish/tr');
@@ -306,6 +316,7 @@ function translate_form_babelfish($message) {
  * go.com translation engine (disabled)
  *
  * @param string $message text that has to be translated
+ * @access private
  */
 function translate_form_go($message) {
     translate_new_form('http://translator.go.com/cb/trans_entry');
@@ -343,6 +354,7 @@ function translate_form_go($message) {
  * intertran translation engine
  *
  * @param string $message text that has to be translated
+ * @access private
  */
 function translate_form_intertran($message) {
     translate_new_form('http://www.tranexp.com:2000/InterTran');
@@ -423,6 +435,7 @@ function translate_form_intertran($message) {
  * gpltrans translation engine
  *
  * @param string $message text that has to be translated
+ * @access private
  */
 function translate_form_gpltrans($message) {
     translate_new_form('http://www.translator.cx/cgi-bin/gplTrans');
@@ -449,6 +462,7 @@ function translate_form_gpltrans($message) {
  * reference.com (dictionary) translation engine
  *
  * @param string $message text that has to be translated
+ * @access private
  */
 function translate_form_dictionary($message) {
     translate_new_form('http://dictionary.reference.com/translate/text.html');
@@ -515,6 +529,7 @@ function translate_form_dictionary($message) {
  * otenet translation engine
  *
  * @param string $message text that has to be translated
+ * @access private
  */
 function translate_form_otenet($message) {
     translate_new_form('http://systran.otenet.gr/cgi-bin/systran.cgi');
@@ -574,6 +589,7 @@ function translate_form_otenet($message) {
  * promt translation engine
  *
  * @param string $message text that has to be translated
+ * @access private
  */
 function translate_form_promt($message) {
     translate_new_form('http://www.translate.ru/text.asp#tr_form');
@@ -626,6 +642,7 @@ function translate_form_promt($message) {
  * google translation engine
  *
  * @param string $message text that has to be translated
+ * @access private
  */
 function translate_form_google($message) {
     translate_new_form('http://www.google.com/translate_t');
