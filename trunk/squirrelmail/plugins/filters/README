@@ -21,7 +21,7 @@ you still require it.
 This is slow.  Yep.  Slow.
 
 
-To configure, first you need to rename config.php.sample to config.php.
+To configure, first you need to rename config.sample.php to config.php.
 You should then just take a peek at config.php and set
 $SpamFilters_YourHop to some string if you want to avoid tons of false
 hits on the RSS and DUL and ORBS databases.  It should also speed up the
