@@ -1,7 +1,6 @@
 <?php
-
 /**
- * imap_utf7_local.php
+ * functions/imap_utf7_local.php - utf7-imap functions
  *
  * Copyright (c) 1999-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
@@ -14,27 +13,29 @@
  */
 
 /**
- * @param string $str
- * @param string $to_encoding
- * @param string $from_encoding
- * @param string $default_charset
- * @return string
+ * Function that uses php mbstring functions to convert from and to utf7-imap charset
+ * @param string $str folder name
+ * @param string $to_encoding name of resulting charset
+ * @param string $from_encoding name of original charset
+ * @param string $default_charset default charset used by translation.
+ * @return string encoded folder name or ''
  */
-function sqimap_mb_convert_encoding($str, $to_encoding, $from_encoding, $default_charset)
-{
-    // Allows mbstring functions only with iso-8859-*, utf-8 and
-    // iso-2022-jp (Japanese)
-    // koi8-r and gb2312 can be added only in php 4.3+
-    if ( stristr($default_charset, 'iso-8859-') ||
-            stristr($default_charset, 'utf-8') ||
-            stristr($default_charset, 'iso-2022-jp') ) {
-        if (function_exists('mb_convert_encoding')) {
-            return mb_convert_encoding($str, $to_encoding, $from_encoding);
-        }
+function sqimap_mb_convert_encoding($str, $to_encoding, $from_encoding, $default_charset) {
+    $supported_encodings=sq_mb_list_encodings();
+    if ( in_array(strtolower($default_charset),$supported_encodings) &&
+         function_exists('mb_convert_encoding')) {
+        return mb_convert_encoding($str, $to_encoding, $from_encoding);
     }
     return '';
 }
 
+/**
+ * encode folder name to utf7-imap
+ * 
+ * If mbstring functions do not support charset used by translation, falls back to iso-8859-1
+ * @param string $s folder name
+ * @return string utf7-imap encoded folder name
+ */
 function imap_utf7_encode_local($s) {
     global $languages, $squirrelmail_language;
 
@@ -88,6 +89,13 @@ function imap_utf7_encode_local($s) {
     return $utf7_s;
 }
 
+/**
+ * converts folder name from utf7-imap to charset used by translation
+ *
+ * If mbstring functions do not support charset used by translation, falls back to iso-8859-1
+ * @param string $s folder name in utf7-imap
+ * @return string folder name in charset used by translation
+ */
 function imap_utf7_decode_local($s) {
     global $languages, $squirrelmail_language;
 
@@ -135,7 +143,11 @@ function imap_utf7_decode_local($s) {
     }
     return $iso_8859_1_s;
 }
-
+/**
+ * Converts string to base64
+ * @param string $s string
+ * @return string base64 encoded string
+ */
 function encodeBASE64($s) {
     $B64Chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+,';
     $p = 0;     // phase: 1 / 2 / 3 / 1 / 2 / 3...
@@ -168,6 +180,11 @@ function encodeBASE64($s) {
     return $e;
 }
 
+/**
+ * Converts string from base64
+ * @param string $s base64 encoded string
+ * @return string decoded string
+ */
 function decodeBASE64($s) {
     $B64Values = array(
             'A' =>  0, 'B' =>  1, 'C' =>  2, 'D' =>  3, 'E' =>  4, 'F' =>  5,
