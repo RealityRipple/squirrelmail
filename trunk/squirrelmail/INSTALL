@@ -201,3 +201,26 @@ c. Setting up SquirrelMail
 
   For information on how to make SquirrelMail work with Russian
   Apache, see the README.russian_apache in the doc/ subdirectory.
+
+6. TRANSLATIONS
+---------------
+
+  In order to use translated versions of SquirrelMail, you need 
+  to download and install locale packages that contain translations
+  that you want to use with squirrelmail.
+  
+  Locale packages can be downloaded from SquirrelMail SourceForge
+  project page.
+  
+  http://sourceforge.net/project/showfiles.php?group_id=311&package_id=110388
+  
+  Each translation contains install script that copies required files
+  into appropriate locations. If you can't run that script, you can extract
+  contents of translation packages into your squirrelmail directory.
+  
+  NOTE No.1: *-src.tar.gz, *-src.tar.bz2 and *-src.zip archives does not contain
+  compiled translation files. You will need to run compilelocales script
+  in order to get all gettext binary translations.
+  
+  NOTE No.2: You might need to restart your webserver before using translations.
+  If you can't do that, install your translations _before_ you use SquirrelMail.
