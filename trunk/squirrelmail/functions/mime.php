@@ -59,8 +59,13 @@
       $id = $header->id;
       fputs ($imap_stream, "a001 FETCH $id BODYSTRUCTURE\r\n");
       $read = fgets ($imap_stream, 10000);
-      $endline = fgets($imap_stream, 1024);
-      $read = strtolower($read);
+      $response = substr($read, 0, 4);
+      while ($response != "a001") {
+         $bodystructure = $read;
+         $read = fgets ($imap_stream, 10000);
+         $response = substr($read, 0, 4);
+      }
+      $read = strtolower($bodystructure);
 
       if ($debug_mime) echo "<tt>$read</tt><br><br>";
       // isolate the body structure and remove beginning and end parenthesis
