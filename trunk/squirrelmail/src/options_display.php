@@ -239,6 +239,12 @@ function load_optpage_data_display() {
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_ALL
     );
+    $optvals[SMOPT_GRP_MESSAGE][] = array(
+        'name'    => 'sig_first',
+        'caption' => _("Append signature before reply/forward text"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
     /* Assemble all this together and return it as our result. */
     $result = array(
         'grps' => $optgrps,
