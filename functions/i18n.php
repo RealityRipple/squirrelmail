@@ -19,20 +19,59 @@ require_once(SM_PATH . 'functions/global.php');
 
 /* Decodes a string to the internal encoding from the given charset */
 function charset_decode ($charset, $string) {
-    global $languages, $squirrelmail_language;
+    global $languages, $squirrelmail_language, $default_charset;
 
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
         function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
         $string = $languages[$squirrelmail_language]['XTRA_CODE']('decode', $string);
     }
 
+    $charset = strtolower($charset);
+
+    set_my_charset();
+
+    // Variables that allow to use functions without function_exist() calls
+    $use_php_recode=false;
+    $use_php_iconv=false;
+
+    // Don't do conversion if charset is the same.
+    if ( $charset == strtolower($default_charset) )
+          return htmlspecialchars($string);
+
+    // catch iso-8859-8-i thing
+    if ( $charset == "iso-8859-8-i" )
+              $charset = "iso-8859-8";
+
+    /*
+     * Recode converts html special characters automatically if you use 
+     * 'charset..html' decoding. There is no documented way to put -d option 
+     * into php recode function call.
+     */
+    if ( $use_php_recode ) {
+      if ( $default_charset == "utf-8" ) {
+	// other charsets can be converted to utf-8 without loss.
+	// and output string is smaller
+	$string = recode_string($charset . "..utf-8",$string);
+	return htmlspecialchars($string);
+      } else {
+	$string = recode_string($charset . "..html",$string);
+	// recode does not convert single quote, htmlspecialchars does.
+	$string = str_replace("'", '&#039;', $string);
+	return $string;
+      }
+    }
+
+    // iconv functions does not have html target and can be used only with utf-8
+    if ( $use_php_iconv && $default_charset=='utf-8') {
+      $string = iconv($charset,$default_charset,$string);
+      return htmlspecialchars($string);
+    }
+
+    // If we don't use recode and iconv, we'll do it old way.
+
     /* All HTML special characters are 7 bit and can be replaced first */
     
     $string = htmlspecialchars ($string);
-
-    $charset = strtolower($charset);
-
-    set_my_charset() ;
 
     /* controls cpu and memory intensive decoding cycles */
     $agresive_decoding = false;
@@ -202,6 +241,15 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
         $sm_language = $squirrelmail_default_language;
     }
     $sm_notAlias = $sm_language;
+ 
+    // Catching removed translation
+    // System reverts to English translation if user prefs contain translation
+    // that is not available in $languages array (admin removed directory
+    // with that translation)
+    if (!isset($languages[$sm_notAlias])) {
+      $sm_notAlias="en_US";
+    }
+
     while (isset($languages[$sm_notAlias]['ALIAS'])) {
         $sm_notAlias = $languages[$sm_notAlias]['ALIAS'];
     }
@@ -260,6 +308,10 @@ function set_my_charset(){
     $my_language = getPref($data_dir, $username, 'language');
     if (!$my_language) {
         $my_language = $squirrelmail_default_language ;
+    }
+    // Catch removed translation
+    if (!isset($languages[$my_language])) {
+      $my_language="en_US";
     }
     while (isset($languages[$my_language]['ALIAS'])) {
         $my_language = $languages[$my_language]['ALIAS'];
