@@ -303,15 +303,15 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
     $urlMailbox = urlencode($mailbox);
     echo makeComposeLink('src/compose.php?mailbox='.$urlMailbox.'&startMessage='.$startMessage);
     echo "&nbsp;&nbsp;\n";
-    displayInternalLink ('src/addressbook.php', _("Addresses"), 'right');
+    displayInternalLink ('src/addressbook.php', _("Addresses"));
     echo "&nbsp;&nbsp;\n";
-    displayInternalLink ('src/folders.php', _("Folders"), 'right');
+    displayInternalLink ('src/folders.php', _("Folders"));
     echo "&nbsp;&nbsp;\n";
-    displayInternalLink ('src/options.php', _("Options"), 'right');
+    displayInternalLink ('src/options.php', _("Options"));
     echo "&nbsp;&nbsp;\n";
-    displayInternalLink ("src/search.php?mailbox=$urlMailbox", _("Search"), 'right');
+    displayInternalLink ("src/search.php?mailbox=$urlMailbox", _("Search"));
     echo "&nbsp;&nbsp;\n";
-    displayInternalLink ('src/help.php', _("Help"), 'right');
+    displayInternalLink ('src/help.php', _("Help"));
     echo "&nbsp;&nbsp;\n";
 
     do_hook('menuline');
