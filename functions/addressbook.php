@@ -1,37 +1,50 @@
 <?php
 
-   /**
-    *   addressbook.php
-    *
-    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
-    *   Licensed under the GNU GPL. For full terms see the file COPYING.
-    *
-    *   Functions and classes for the addressbook system.
-    *
-    *   $Id$
-    */
+/**
+ * addressbook.php
+ *
+ * Copyright (c) 1999-2001 The Squirrelmail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * Functions and classes for the addressbook system.
+ *
+ * $Id$
+ */
 
+/*****************************************************************/
+/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
+/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
+/***    + Base level indent should begin at left margin, as    ***/
+/***      the require_once below looks.                        ***/
+/***    + All identation should consist of four space blocks   ***/
+/***    + Tab characters are evil.                             ***/
+/***    + all comments should use "slash-star ... star-slash"  ***/
+/***      style -- no pound characters, no slash-slash style   ***/
+/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
+/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
+/***    + Please use ' instead of ", when possible. Note "     ***/
+/***      should always be used in _( ) function calls.        ***/
+/*** Thank you for your help making the SM code more readable. ***/
+/*****************************************************************/
 
-   // This is the path to the global site-wide addressbook.
-   // It looks and feels just like a user's .abook file
-   // If this is in the data directory, use "$data_dir/global.abook"
-   // If not, specify the path as though it was accessed from the
-   // src/ directory ("../global.abook" -> in main directory)
-   //
-   // If you don't want a global site-wide addressbook, comment these
-   // two lines out.  (They are disabled by default.)
-   //
-   // The global addressbook is unmodifiable by anyone.  You must actually
-   // use a shell script or whatnot to modify the contents.
-   //
-   //global $data_dir;
-   //$address_book_global_filename = "$data_dir/global.abook";
+// This is the path to the global site-wide addressbook.
+// It looks and feels just like a user's .abook file
+// If this is in the data directory, use "$data_dir/global.abook"
+// If not, specify the path as though it was accessed from the
+// src/ directory ("../global.abook" -> in main directory)
+//
+// If you don't want a global site-wide addressbook, comment these
+// two lines out.  (They are disabled by default.)
+//
+// The global addressbook is unmodifiable by anyone.  You must actually
+// use a shell script or whatnot to modify the contents.
+//
+//global $data_dir;
+//$address_book_global_filename = "$data_dir/global.abook";
 
-
-
-   // Include backends here.
-   require_once('../functions/abook_local_file.php');
-   require_once('../functions/abook_ldap_server.php');
+// Include backends here.
+require_once('../functions/abook_local_file.php');
+require_once('../functions/abook_ldap_server.php');
 
    // Use this if you wanna have a global address book
    if (isset($address_book_global_filename))

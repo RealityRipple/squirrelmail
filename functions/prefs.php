@@ -1,21 +1,37 @@
 <?php
 
-   /**
-    *   prefs.php
-    *
-    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
-    *   Licensed under the GNU GPL. For full terms see the file COPYING.
-    *
-    *   This contains functions for manipulating user preferences
-    *
-    *   $Id$
-    */
+/**
+ * prefs.php
+ *
+ * Copyright (c) 1999-2001 The SquirrelMail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * This contains functions for manipulating user preferences
+ *
+ * $Id$
+ */
 
-   global $prefs_are_cached, $prefs_cache;
-   if (!session_is_registered('prefs_are_cached')) {
-      $prefs_are_cached = false;
-      $prefs_cache = array();
-   }
+/*****************************************************************/
+/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
+/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
+/***    + Base level indent should begin at left margin, as    ***/
+/***      the $prefs_are_cached and $prefs_cache stuff below.  ***/
+/***    + All identation should consist of four space blocks   ***/
+/***    + Tab characters are evil.                             ***/
+/***    + all comments should use "slash-star ... star-slash"  ***/
+/***      style -- no pound characters, no slash-slash style   ***/
+/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
+/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
+/***    + Please use ' instead of ", when possible. Note "     ***/
+/***      should always be used in _( ) function calls.        ***/
+/*** Thank you for your help making the SM code more readable. ***/
+/*****************************************************************/
+
+global $prefs_are_cached, $prefs_cache;
+if (!session_is_registered('prefs_are_cached')) {
+    $prefs_are_cached = false;
+    $prefs_cache = array();
+}
 
    function cachePrefValues($data_dir, $username) {
        global $prefs_are_cached, $prefs_cache;

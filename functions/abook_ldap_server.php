@@ -1,33 +1,49 @@
 <?php
 
-   /**
-    *   abook_ldap_server.php
-    *
-    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
-    *   Licensed under the GNU GPL. For full terms see the file COPYING.
-    *
-    *   Address book backend for LDAP server
-    *
-    *   An array with the following elements must be passed to
-    *   the class constructor (elements marked ? are optional):
-    *
-    *      host      => LDAP server hostname/IP-address
-    *      base      => LDAP server root (base dn). Empty string allowed.
-    *    ? port      => LDAP server TCP port number (default: 389)
-    *    ? charset   => LDAP server charset (default: utf-8)
-    *    ? name      => Name for LDAP server (default "LDAP: hostname")
-    *                   Used to tag the result data
-    *    ? maxrows   => Maximum # of rows in search result
-    *    ? timeout   => Timeout for LDAP operations (in seconds, default: 30)
-    *                   Might not work for all LDAP libraries or servers.
-    *
-    *   NOTE. This class should not be used directly. Use the
-    *         "AddressBook" class instead.
-    *
-    *  $Id$
-    */
+/**
+ * abook_ldap_server.php
+ *
+ * Copyright (c) 1999-2001 The Squirrelmail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * Address book backend for LDAP server
+ *
+ * An array with the following elements must be passed to
+ * the class constructor (elements marked ? are optional):
+ *
+ *    host      => LDAP server hostname/IP-address
+ *    base      => LDAP server root (base dn). Empty string allowed.
+ *  ? port      => LDAP server TCP port number (default: 389)
+ *  ? charset   => LDAP server charset (default: utf-8)
+ *  ? name      => Name for LDAP server (default "LDAP: hostname")
+ *                 Used to tag the result data
+ *  ? maxrows   => Maximum # of rows in search result
+ *  ? timeout   => Timeout for LDAP operations (in seconds, default: 30)
+ *                 Might not work for all LDAP libraries or servers.
+ *
+ * NOTE. This class should not be used directly. Use the
+ *       "AddressBook" class instead.
+ *
+ * $Id$
+ */
 
-   class abook_ldap_server extends addressbook_backend {
+/*****************************************************************/
+/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
+/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
+/***    + Base level indent should begin at left margin, as    ***/
+/***      the first line of the class definition below.        ***/
+/***    + All identation should consist of four space blocks   ***/
+/***    + Tab characters are evil.                             ***/
+/***    + all comments should use "slash-star ... star-slash"  ***/
+/***      style -- no pound characters, no slash-slash style   ***/
+/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
+/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
+/***    + Please use ' instead of ", when possible. Note "     ***/
+/***      should always be used in _( ) function calls.        ***/
+/*** Thank you for your help making the SM code more readable. ***/
+/*****************************************************************/
+
+class abook_ldap_server extends addressbook_backend {
      var $btype = 'remote';
      var $bname = 'ldap_server';
 

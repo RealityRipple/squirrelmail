@@ -1,15 +1,15 @@
 <?php
 
-   /**
-    **  options_personal.php
-    **
-    **  Copyright (c) 1999-2001 The SquirrelMail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  Displays all options relating to personal information
-    **
-    **  $Id$
-    **/
+/**
+ * options_personal.php
+ *
+ * Copyright (c) 1999-2001 The SquirrelMail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * Displays all options relating to personal information
+ *
+ * $Id$
+ */
 
 require_once('../functions/imap.php');
 require_once('../functions/array.php');

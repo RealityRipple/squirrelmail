@@ -1,27 +1,43 @@
 <?php
 
-   /**
-    *   abook_local_file.php
-    *
-    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
-    *   Licensed under the GNU GPL. For full terms see the file COPYING.
-    *
-    *   Backend for addressbook as a pipe separated file
-    *
-    *   An array with the following elements must be passed to
-    *   the class constructor (elements marked ? are optional):
-    *
-    *      filename  => path to addressbook file
-    *    ? create    => if true: file is created if it does not exist.
-    *    ? umask     => umask set before opening file.
-    *
-    *   NOTE. This class should not be used directly. Use the
-    *         "AddressBook" class instead.
-    *
-    *  $Id$
-    */
+/**
+ * abook_local_file.php
+ *
+ * Copyright (c) 1999-2001 The Squirrelmail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * Backend for addressbook as a pipe separated file
+ *
+ * An array with the following elements must be passed to
+ * the class constructor (elements marked ? are optional):
+ *
+ *    filename  => path to addressbook file
+ *  ? create    => if true: file is created if it does not exist.
+ *  ? umask     => umask set before opening file.
+ *
+ * NOTE. This class should not be used directly. Use the
+ *       "AddressBook" class instead.
+ *
+ * $Id$
+ */
 
-   class abook_local_file extends addressbook_backend {
+/*****************************************************************/
+/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
+/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
+/***    + Base level indent should begin at left margin, as    ***/
+/***      the first line of the class definition below.        ***/
+/***    + All identation should consist of four space blocks   ***/
+/***    + Tab characters are evil.                             ***/
+/***    + all comments should use "slash-star ... star-slash"  ***/
+/***      style -- no pound characters, no slash-slash style   ***/
+/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
+/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
+/***    + Please use ' instead of ", when possible. Note "     ***/
+/***      should always be used in _( ) function calls.        ***/
+/*** Thank you for your help making the SM code more readable. ***/
+/*****************************************************************/
+
+class abook_local_file extends addressbook_backend {
      var $btype = 'local';
      var $bname = 'local_file';
 

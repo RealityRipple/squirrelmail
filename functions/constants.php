@@ -1,23 +1,39 @@
 <?php
 
-    /**
-     *  constants.php
-     *
-     *  Copyright (c) 1999-2001 The SquirrelMail Development Team
-     *  Licensed under the GNU GPL. For full terms see the file COPYING.
-     *
-     *  Loads constants used by the rest of the Squirrelmail source.
-     *  This file is include by src/login.php, src/redirect.php and
-     *  src/load_prefs.php.
-     *
-     *  $Id$
-     */
+/**
+ * constants.php
+ *
+ * Copyright (c) 1999-2001 The SquirrelMail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * Loads constants used by the rest of the Squirrelmail source.
+ * This file is include by src/login.php, src/redirect.php and
+ * src/load_prefs.php.
+ *
+ * $Id$
+ */
 
-    /**************************************************************/
-    /* Set values for constants used by Squirrelmail preferences. */
-    /**************************************************************/
+/*****************************************************************/
+/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
+/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
+/***    + Base level indent should begin at left margin, as    ***/
+/***      the require_once below.                              ***/
+/***    + All identation should consist of four space blocks   ***/
+/***    + Tab characters are evil.                             ***/
+/***    + all comments should use "slash-star ... star-slash"  ***/
+/***      style -- no pound characters, no slash-slash style   ***/
+/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
+/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
+/***    + Please use ' instead of ", when possible. Note "     ***/
+/***      should always be used in _( ) function calls.        ***/
+/*** Thank you for your help making the SM code more readable. ***/
+/*****************************************************************/
 
-    require_once( '../functions/plugin.php' );      // Required for the hook
+require_once( '../functions/plugin.php' );      // Required for the hook
+
+/**************************************************************/
+/* Set values for constants used by Squirrelmail preferences. */
+/**************************************************************/
 
     /* Define basic, general purpose preference constants. */
     define('SMPREF_NO', 0);

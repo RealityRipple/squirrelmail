@@ -1,22 +1,38 @@
 <?php
 
-   /**
-    *  url_parser.php
-    *
-    *  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    *  Licensed under the GNU GPL. For full terms see the file COPYING.
-    *
-    *  This code provides various string manipulation functions that are
-    *  used by the rest of the Squirrelmail code.
-    *
-    *  $Id$
-    */
+/**
+ * url_parser.php
+ *
+ * Copyright (c) 1999-2001 The SquirrelMail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * This code provides various string manipulation functions that are
+ * used by the rest of the Squirrelmail code.
+ *
+ * $Id$
+ */
 
-   function replaceBlock (&$in, $replace, $start, $end) {
-      $begin = substr($in,0,$start);
-      $end   = substr($in,$end,strlen($in)-$end);
-      $in    = $begin.$replace.$end;
-   }
+/*****************************************************************/
+/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
+/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
+/***    + Base level indent should begin at left margin, as    ***/
+/***      the first line of the function definition below.     ***/
+/***    + All identation should consist of four space blocks   ***/
+/***    + Tab characters are evil.                             ***/
+/***    + all comments should use "slash-star ... star-slash"  ***/
+/***      style -- no pound characters, no slash-slash style   ***/
+/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
+/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
+/***    + Please use ' instead of ", when possible. Note "     ***/
+/***      should always be used in _( ) function calls.        ***/
+/*** Thank you for your help making the SM code more readable. ***/
+/*****************************************************************/
+
+function replaceBlock (&$in, $replace, $start, $end) {
+    $begin = substr($in,0,$start);
+    $end   = substr($in,$end,strlen($in)-$end);
+    $in    = $begin.$replace.$end;
+}
 
    // Having this defined in just one spot could help when changes need
    // to be made to the pattern
