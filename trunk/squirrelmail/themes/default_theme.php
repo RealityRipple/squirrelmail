@@ -35,5 +35,5 @@
     $color[13]  = '#800000'; // (dark red)       Color for quoted text -- > 1 quote
     $color[14]  = '#ff0000'; // (red)            Color for quoted text -- >> 2 or more
     $color[15]  = '#002266'; // (dark blue)      Unselectable folders
-    $color[16]  = '#FF9933'; // (orange)         Highlight color
+    $color[16]  = '#ff9933'; // (orange)         Highlight color
 ?>
