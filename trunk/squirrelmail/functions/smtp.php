@@ -39,7 +39,11 @@
 
    // looks up aliases in the addressbook and expands them to
    // the full address.
+   // Adds @$domain if it wasn't in the address book and if it
+   // doesn't have an @ symbol in it
    function expandAddrs ($array) {
+      global $domain;
+      
       $abook = addressbook_init();
       for ($i=0; $i < count($array); $i++) {
          $result = $abook->lookup($array[$i]);
@@ -54,6 +58,10 @@
 	 else
 	 {
 	    $array[$i] = '<' . $array[$i] . '>';
+	 }
+	 
+	 if (strpos($array[$i], '@') === false) {
+	    $array[$i] .= '@' . $domain;
 	 }
       }
       return $array;
