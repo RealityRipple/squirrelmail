@@ -298,7 +298,7 @@ Version 1.5.1 -- CVS
   - Add robots noindex/nofollow meta tag to SquirrelMail generated pages.
   - Fix incorrect folder hierarchy display (#1009654), thanks
     Awais Ahmad for the patch (#1082558).
-  - Deprecated src/delete_message.php script. It provided functions that
+  - src/delete_message.php script is disabled. It provided functions that
     could be implemented without playing with multiple redirects.
   
 Version 1.5.0 - 2 Februari 2004
