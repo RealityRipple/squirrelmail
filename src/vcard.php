@@ -42,9 +42,13 @@ sqimap_mailbox_select($imapConnection, $mailbox);
 
 displayPageHeader($color, 'None');
 
-echo '<br><table width="100%" border="0" cellspacing="0" cellpadding="2" ' .
-            'align="center">' . "\n" .
-        '<tr><td bgcolor="' . $color[0] . '">' .
+?>
+<br />
+<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center">
+<tr>
+<?php
+
+echo '<td bgcolor="' . $color[0] . '">' .
         '<b><center>' .
         _("Viewing a Business Card") . " - ";
 $msg_url = 'read_body.php?mailbox='.urlencode($mailbox).
@@ -116,7 +120,7 @@ $ShowValues = array(
     'tel;fax' =>        _("Fax"),
     'note' =>           _("Note"));
 
-echo '<tr><td><br>' .
+echo '<tr><td><br />' .
         '<TABLE border=0 cellpadding=2 cellspacing=0 align=center>' . "\n";
 
 if (isset($vcard_safe['email;internet'])) {
@@ -136,24 +140,23 @@ foreach ($ShowValues as $k => $v) {
     }
 }
 
-echo '</table>' .
-        '<br>' .
-        '</td></tr></table>' .
-        '<table width="100%" border="0" cellspacing="0" cellpadding="2" ' .
-        'align="center">' .
-        '<tr>' .
-        '<td bgcolor="' . $color[0] . '">' .
-        '<b><center>' .
-        _("Add to Addressbook") .
-        '</td></tr>' .
-        '<tr><td align=center>' .
-	addForm('../src/addressbook.php', 'POST', 'f_add') .
-        '<table border=0 cellpadding=2 cellspacing=0 align=center>' .
-        '<tr><td align=right><b>Nickname:</b></td>' .
-        '<td>'.
-	addInput('addaddr[nickname]', $vcard_safe['firstname'] . '-' . $vcard_safe['lastname'], '20').
-        '</td></tr>' .
-        '<tr><td align=right><b>Note Field Contains:</b></td><td>' ;
+?>
+</table>
+<br />
+</td></tr></table>
+<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center">
+<tr><td bgcolor="<?php echo $color[0]; ?>" align="center">
+<b><?php echo _("Add to Addressbook"); ?></b>
+</td></tr>
+<tr><td align="center">
+<?php addForm('../src/addressbook.php', 'POST', 'f_add') ?>
+<table border="0" cellpadding="2" cellspacing="0" align="center">
+<tr><td align="right"><b><?php echo _("Nickname:"); ?></b></td>
+<td>
+<?php addInput('addaddr[nickname]', $vcard_safe['firstname'] . '-' . $vcard_safe['lastname'], '20'); ?>
+</td></tr>
+<tr><td align="right"><b><?php echo _("Note Field Contains:"); ?></b></td><td>
+<?php
 
 $opts = array();
 if (isset($vcard_nice['url'])) {
@@ -187,27 +190,34 @@ if (isset($vcard_nice['note'])) {
     $opts[$vcard_nice['note']] = _("Note");
 }
 
-echo    addSelect('addaddr[label]', $opts, '', TRUE);
-echo    '</td></tr>' .
-        '<tr><td colspan=2 align=center>' .
-	addHidden('addaddr[email]', $vcard_nice['email;internet']).
-	addHidden('addaddr[firstname]', $vcard_safe['firstname']).
-	addHidden('addaddr[lastname]', $vcard_safe['lastname']).
-	addSubmit(_("Add to Address Book"), 'addaddr[SUBMIT]').
-        '</td></tr>' .
-        '</table>' .
-        '</form>' .
-        '</td></tr>' .
-        '<tr><td align=center>' .
-        '<a href="../src/download.php?absolute_dl=true&amp;passed_id=' .
-        urlencode($passed_id) . '&amp;mailbox=' . urlencode($mailbox) .
-        '&amp;ent_id=' . urlencode($ent_id) . '">' .
-        _("Download this as a file") . '</A>' .
-        '</TD></TR></TABLE>' .
-
-        '<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>' .
-        '<TR><TD BGCOLOR="' . $color[4] . '">' .
-        '</TD></TR></TABLE>' .
-        '</body></html>';
+echo addSelect('addaddr[label]', $opts, '', TRUE);
 
 ?>
+</td></tr>
+<tr><td colspan="2" align="center">
+<?php
+
+echo addHidden('addaddr[email]', $vcard_nice['email;internet']).
+     addHidden('addaddr[firstname]', $vcard_safe['firstname']).
+     addHidden('addaddr[lastname]', $vcard_safe['lastname']).
+     addSubmit(_("Add to Address Book"), 'addaddr[SUBMIT]');
+
+?>
+</td></tr>
+</table>
+</form>
+</td></tr>
+<tr><td align="center">
+<?php
+
+echo '<a href="../src/download.php?absolute_dl=true&amp;passed_id=' .
+     urlencode($passed_id) . '&amp;mailbox=' . urlencode($mailbox) .
+     '&amp;ent_id=' . urlencode($ent_id) . '">' .
+     _("Download this as a file") . '</a>';
+
+?>
+</td></tr></table>
+<table border="0" cellspacing="0" cellpadding="2" align="center">
+<tr><td bgcolor="<?php echo $color[4]; ?>"></td></tr>
+</table>
+</body></html>                                
