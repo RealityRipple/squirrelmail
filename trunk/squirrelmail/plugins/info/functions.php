@@ -1,25 +1,27 @@
-<?PHP
-
+<?php
 /**
  * functions for info plugin
- * Copyright (c) 1999-2004 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * Here are two functions for the info plugin
  * The first gets the CAPABILITY response from your IMAP server.
  * The second runs the passed IMAP test and returns the results 
  * The third prints the results of the IMAP command
  * to options.php.
- * by: Jason Munro jason@stdbev.com
  *
- * $Id$ 
+ * @copyright (c) 1999-2004 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @author Jason Munro jason@stdbev.com
+ * @version $Id$
  * @package plugins
  * @subpackage info
  */
 
 /**
  * Get the IMAP capabilities
+ *
+ * @param mixed $imap_stream
  * @return array
+ * @access private
  */
 function get_caps($imap_stream) {
     return sqimap_run_command_list($imap_stream, 'CAPABILITY',false, $responses, $message,false);
@@ -27,7 +29,11 @@ function get_caps($imap_stream) {
 
 /**
  * Run an IMAP test and return the results
+ *
+ * @param mixed $imap_stream
+ * @param string $string imap command
  * @return array Response from the IMAP server
+ * @access private
  */
 function imap_test($imap_stream, $string) {
     global $default_charset;
@@ -39,6 +45,9 @@ function imap_test($imap_stream, $string) {
 
 /**
  * Print the IMAP response to options.php
+ *
+ * @param array $response results of imap command
+ * @access private
  */
 function print_response($response) {
     foreach($response as $index=>$value) {
@@ -50,5 +59,18 @@ function print_response($response) {
         }
     }
 }
-                                                                                        
+
+/**
+ * Check if plugin is enabled
+ * @param string $plugin_name plugin name
+ * @return boolean
+ */
+function is_plugin_enabled($plugin_name) {
+  global $plugins;
+  if ( in_array($plugin_name,$plugins) ) {
+    return true;
+  } else {
+    return false;
+  }
+}
 ?>
