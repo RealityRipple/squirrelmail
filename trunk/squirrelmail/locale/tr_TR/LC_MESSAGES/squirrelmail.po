@@ -199,7 +199,7 @@ msgstr "Kimden"
 #: squirrelmail/src/printer_friendly_bottom.php:92
 #: squirrelmail/src/search.php:87
 msgid "To"
-msgstr ""
+msgstr "Kime"
 
 #: squirrelmail/src/compose.php:265 squirrelmail/src/read_body.php:551
 msgid "From:"
@@ -244,24 +244,24 @@ msgstr "Adresler"
 
 #: squirrelmail/src/compose.php:413
 msgid "Save Draft"
-msgstr ""
+msgstr "Taslaðý Kaydet"
 
 #: squirrelmail/src/compose.php:419 squirrelmail/src/read_body.php:598
 msgid "Priority"
-msgstr ""
+msgstr "Öncelik"
 
 #: squirrelmail/src/compose.php:420 squirrelmail/src/read_body.php:433
 #, fuzzy
 msgid "High"
-msgstr "Sað"
+msgstr "Yüksek"
 
 #: squirrelmail/src/compose.php:421 squirrelmail/src/read_body.php:436
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: squirrelmail/src/compose.php:422 squirrelmail/src/read_body.php:440
 msgid "Low"
-msgstr ""
+msgstr "Düþük"
 
 #: squirrelmail/src/compose.php:441
 msgid "You have not filled in the \"To:\" field."
@@ -269,7 +269,7 @@ msgstr "\"Kime:\" kýsmýný doldurmadýnýz."
 
 #: squirrelmail/src/compose.php:482
 msgid "Draft Email Saved"
-msgstr ""
+msgstr "Taslak E-postasý Kaydedildi"
 
 #: squirrelmail/src/compose.php:553 squirrelmail/src/compose.php:590
 #: squirrelmail/src/compose.php:597
@@ -278,15 +278,15 @@ msgstr "Dosya kopyalama/taþýma hatasý. Dosya eklenemedi."
 
 #: squirrelmail/src/compose.php:659
 msgid "said"
-msgstr ""
+msgstr "dedi"
 
 #: squirrelmail/src/compose.php:662
 msgid "quote"
-msgstr ""
+msgstr "alýntý"
 
 #: squirrelmail/src/compose.php:662
 msgid "who"
-msgstr ""
+msgstr "kim"
 
 #: squirrelmail/src/download.php:49
 msgid "Viewing a text attachment"
@@ -517,7 +517,7 @@ msgstr "Seçili mesaj yok."
 
 #: squirrelmail/src/options_display.php:32
 msgid "General Display Options"
-msgstr ""
+msgstr "Genel Görüntü Seçenekleri"
 
 #: squirrelmail/src/options_display.php:42
 msgid "Theme"
@@ -534,20 +534,20 @@ msgstr "JavaScript"
 
 #: squirrelmail/src/options_display.php:69
 msgid "Autodetect"
-msgstr ""
+msgstr "Otomatikbul"
 
 #: squirrelmail/src/options_display.php:70
 msgid "Always"
-msgstr ""
+msgstr "Herzaman"
 
 #: squirrelmail/src/options_display.php:71
 #: squirrelmail/src/options_folder.php:122
 msgid "Never"
-msgstr ""
+msgstr "Asla"
 
 #: squirrelmail/src/options_display.php:89
 msgid "Mailbox Display Options"
-msgstr ""
+msgstr "Postakutusu Görüntü Seçenekleri"
 
 #: squirrelmail/src/options_display.php:94
 msgid "Number of Messages to Index"
@@ -555,11 +555,11 @@ msgstr "Ýndekslenecek mesaj sayýsý"
 
 #: squirrelmail/src/options_display.php:102
 msgid "Enable Alternating Row Colors"
-msgstr ""
+msgstr "Deðiþken satýr renklerini geçerli kýl"
 
 #: squirrelmail/src/options_display.php:109
 msgid "Enable Page Selector"
-msgstr ""
+msgstr "Sayfa seçiciyi geçerli kýl"
 
 #: squirrelmail/src/options_display.php:116
 #, fuzzy
@@ -568,7 +568,7 @@ msgstr "Ýndekslenecek mesaj sayýsý"
 
 #: squirrelmail/src/options_display.php:123
 msgid "Message Display and Composition"
-msgstr ""
+msgstr "Mesaj Görüntüleme ve Oluþturma"
 
 #: squirrelmail/src/options_display.php:128
 #, fuzzy
@@ -613,27 +613,27 @@ msgstr "HTML"
 
 #: squirrelmail/src/options_display.php:163
 msgid "Show HTML Version by Default"
-msgstr ""
+msgstr "Varsayýlan olarak HTML versiyonu göster"
 
 #: squirrelmail/src/options_display.php:170
 msgid "Include Me in CC when I Reply All"
-msgstr ""
+msgstr "Herkese yanýtladýðýmda beni CC 'ye ekle"
 
 #: squirrelmail/src/options_display.php:177
 msgid "Enable Mailer Display"
-msgstr ""
+msgstr "Postaci Gösterimini etkinleþtir"
 
 #: squirrelmail/src/options_display.php:184
 msgid "Display Attached Images with Message"
-msgstr ""
+msgstr "Ekli Resimleri Mesaj içerisinde göster"
 
 #: squirrelmail/src/options_display.php:191
 msgid "Enable Subtle Printer Friendly Link"
-msgstr ""
+msgstr "Akýllý yazýcý dostu baglantýsýný etkinleþtir"
 
 #: squirrelmail/src/options_display.php:198
 msgid "Enable Printer Friendly Clean Display"
-msgstr ""
+msgstr "Yazýcý dostu temiz görünümü etkinleþtir"
 
 #: squirrelmail/src/options_folder.php:40
 msgid "Special Folder Options"
@@ -664,12 +664,12 @@ msgstr "Giden kutusu"
 #: squirrelmail/src/options_folder.php:85
 #, fuzzy
 msgid "Do not use Drafts"
-msgstr "Çöp kutusunu kullanma"
+msgstr "Taslaklarý Kullanma"
 
 #: squirrelmail/src/options_folder.php:89
 #, fuzzy
 msgid "Draft Folder"
-msgstr "Klasör Oluþtur"
+msgstr "Taslak Klasörü"
 
 #: squirrelmail/src/options_folder.php:97
 #, fuzzy
@@ -691,12 +691,12 @@ msgstr "Sað"
 
 #: squirrelmail/src/options_folder.php:111
 msgid "pixels"
-msgstr ""
+msgstr "piksel"
 
 #: squirrelmail/src/options_folder.php:115
 #, fuzzy
 msgid "Width of Folder List"
-msgstr "Klasör Listesini yenile"
+msgstr "Klasör Listesinin geniþliði"
 
 #: squirrelmail/src/options_folder.php:121
 msgid "Minutes"
@@ -713,7 +713,7 @@ msgstr "Dakika"
 #: squirrelmail/src/options_folder.php:134
 #, fuzzy
 msgid "Auto Refresh Folder List"
-msgstr "Klasör Listesini yenile"
+msgstr "Klasör Listesini otomatik yenile"
 
 #: squirrelmail/src/options_folder.php:142
 #, fuzzy
@@ -741,35 +741,35 @@ msgstr "Görünmeyen mesaj tipi"
 #: squirrelmail/src/options_folder.php:155
 #, fuzzy
 msgid "Only Unseen"
-msgstr "Sadece Görüntülenemeyen"
+msgstr "Sadece Görünmeyen"
 
 #: squirrelmail/src/options_folder.php:156
 msgid "Unseen and Total"
-msgstr "Görüntülenemeyen ve Toplam"
+msgstr "Görünmeyen ve Toplam"
 
 #: squirrelmail/src/options_folder.php:161
 msgid "Enable Collapsable Folders"
-msgstr ""
+msgstr "Daraltýlmýþ Klasörleri etkinleþtir"
 
 #: squirrelmail/src/options_folder.php:168
 msgid "Show Clock on Folders Panel"
-msgstr ""
+msgstr "Klasörler panelinde zamaný göster"
 
 #: squirrelmail/src/options_folder.php:176
 msgid "No Clock"
-msgstr ""
+msgstr "Saat Yok"
 
 #: squirrelmail/src/options_folder.php:181
 msgid "Hour Format"
-msgstr ""
+msgstr "Saat biçimi"
 
 #: squirrelmail/src/options_folder.php:184
 msgid "12-hour clock"
-msgstr ""
+msgstr "12 saatlik zaman biçimi"
 
 #: squirrelmail/src/options_folder.php:185
 msgid "24-hour clock"
-msgstr ""
+msgstr "24 saatlik zaman biçimi"
 
 #: squirrelmail/functions/page_header.php:86
 #: squirrelmail/plugins/filters/options.php:60
@@ -889,7 +889,7 @@ msgstr "Cc"
 #: squirrelmail/plugins/filters/options.php:92
 #: squirrelmail/src/options_highlight.php:326
 msgid "To or Cc"
-msgstr ""
+msgstr "To veya CC"
 
 #: squirrelmail/src/options_highlight.php:331
 #, fuzzy
@@ -898,20 +898,20 @@ msgstr "Eþlelen"
 
 #: squirrelmail/src/options_identities.php:58
 msgid "Advanced Identities"
-msgstr ""
+msgstr "Geliþmiþ Kimlikler"
 
 #: squirrelmail/src/options_identities.php:69
 msgid "Default Identity"
-msgstr ""
+msgstr "Varsayýlan Kimlik"
 
 #: squirrelmail/src/options_identities.php:80
 #, c-format
 msgid "Alternate Identity %d"
-msgstr ""
+msgstr "Alternatif Kimlik %d"
 
 #: squirrelmail/src/options_identities.php:90
 msgid "Add a New Identity"
-msgstr ""
+msgstr "Yeni Kimlik ekle"
 
 #: squirrelmail/src/options_identities.php:306
 #: squirrelmail/src/options_personal.php:49
@@ -929,11 +929,11 @@ msgstr "Yanitla"
 
 #: squirrelmail/src/options_identities.php:315
 msgid "Save / Update"
-msgstr ""
+msgstr "Kaydet / Güncelle"
 
 #: squirrelmail/src/options_identities.php:318
 msgid "Make Default"
-msgstr ""
+msgstr "Varsayýlan yap"
 
 #: squirrelmail/src/options_identities.php:324
 #, fuzzy
@@ -985,7 +985,7 @@ msgstr "Ayarlar sayfasýna dön"
 
 #: squirrelmail/src/options_personal.php:41
 msgid "Name and Address Options"
-msgstr ""
+msgstr "Ýsim ve Adres seçenekleri"
 
 #: squirrelmail/src/options_personal.php:57
 #, fuzzy
@@ -994,23 +994,23 @@ msgstr "E-posta adresi"
 
 #: squirrelmail/src/options_personal.php:72
 msgid "Edit Advanced Identities"
-msgstr ""
+msgstr "Geliþmiþ kimlikleri düzenle"
 
 #: squirrelmail/src/options_personal.php:74
 msgid "(discards changes made on this form so far)"
-msgstr ""
+msgstr "(þimdiye kadar yapýlmýs deðiþiklikleri gözardý eder)"
 
 #: squirrelmail/src/options_personal.php:77
 msgid "Multiple Identities"
-msgstr ""
+msgstr "Birden fazla kimlik"
 
 #: squirrelmail/src/options_personal.php:84
 msgid "Reply Citation Options"
-msgstr ""
+msgstr "Bildirim seçenekleri yanýtla"
 
 #: squirrelmail/src/options_personal.php:89
 msgid "Reply Citation Style"
-msgstr ""
+msgstr "Bildirim þekli yanýtla"
 
 #: squirrelmail/src/options_personal.php:92
 #, fuzzy
@@ -1019,23 +1019,23 @@ msgstr "Bildirim yok"
 
 #: squirrelmail/src/options_personal.php:93
 msgid "AUTHOR Said"
-msgstr ""
+msgstr "Yazar dedi ki"
 
 #: squirrelmail/src/options_personal.php:94
 msgid "Quote Who XML"
-msgstr ""
+msgstr "XML ile alýntý"
 
 #: squirrelmail/src/options_personal.php:95
 msgid "User-Defined"
-msgstr ""
+msgstr "Kullanýcý tanýmlý"
 
 #: squirrelmail/src/options_personal.php:100
 msgid "User-Defined Citation Start"
-msgstr ""
+msgstr "Kullanýcý tanýmlý bildirim baþlangýcý"
 
 #: squirrelmail/src/options_personal.php:108
 msgid "User-Defined Citation End"
-msgstr ""
+msgstr "Kullanýcý tanýmlý bildirim sonu"
 
 #: squirrelmail/src/options_personal.php:115
 #, fuzzy
@@ -1049,7 +1049,7 @@ msgstr "Ýmza kullanýyor musunuz?"
 
 #: squirrelmail/src/options_personal.php:127
 msgid "Prefix Signature with '-- ' Line"
-msgstr ""
+msgstr "Ýmzalarýn önüne '-- ' satýrýný ekle"
 
 #: squirrelmail/src/options_personal.php:134
 msgid "Signature"
@@ -1122,7 +1122,7 @@ msgstr ""
 #: squirrelmail/src/printer_friendly_main.php:31
 #: squirrelmail/src/printer_friendly_top.php:37
 msgid "Printer Friendly"
-msgstr ""
+msgstr "Yazýcý Dostu"
 
 #: squirrelmail/src/printer_friendly_bottom.php:94
 #, fuzzy
@@ -1131,7 +1131,7 @@ msgstr "CC:"
 
 #: squirrelmail/src/printer_friendly_top.php:52
 msgid "Print"
-msgstr ""
+msgstr "Yazdýr"
 
 #: squirrelmail/src/printer_friendly_top.php:53
 #, fuzzy
@@ -1161,7 +1161,7 @@ msgstr "Mesaj Listesi"
 
 #: squirrelmail/src/read_body.php:472
 msgid "Resume Draft"
-msgstr ""
+msgstr "Taslaða Devam et"
 
 #: squirrelmail/src/read_body.php:507
 msgid "Forward"
@@ -1173,7 +1173,7 @@ msgstr "Yanýtla"
 
 #: squirrelmail/src/read_body.php:513
 msgid "Reply All"
-msgstr "Hepsini yanýtla"
+msgstr "Herkese yanýtla"
 
 #: squirrelmail/src/read_body.php:534 squirrelmail/src/read_body.php:536
 #, fuzzy
@@ -1186,7 +1186,7 @@ msgstr "Tarih:"
 
 #: squirrelmail/src/read_body.php:615
 msgid "Mailer"
-msgstr ""
+msgstr "Postacý"
 
 #: squirrelmail/functions/auth.php:44 squirrelmail/src/redirect.php:81
 #: squirrelmail/src/redirect.php:85
@@ -1196,15 +1196,15 @@ msgstr "Bu sayfaya eriþmek için geçerli bir kullanýcý adý ve þifreniz olmalý!"
 
 #: squirrelmail/functions/auth.php:45 squirrelmail/src/redirect.php:86
 msgid "Go to the login page"
-msgstr ""
+msgstr "Kullanýcý giriþ sayfasýna git"
 
 #: squirrelmail/src/redirect.php:106 squirrelmail/src/redirect.php:110
 msgid "There was an error contacting the mail server."
-msgstr ""
+msgstr "Posta sunucusu ile baðlantýda hata oluþtu."
 
 #: squirrelmail/src/redirect.php:111
 msgid "Contact your administrator for help."
-msgstr ""
+msgstr "Yardým için Sistem yöneticinize baþvurun"
 
 #: squirrelmail/src/search.php:82
 msgid "Body"
@@ -1248,7 +1248,7 @@ msgstr "Sayfayý yenile"
 
 #: squirrelmail/src/vcard.php:111 squirrelmail/src/vcard.php:172
 msgid "Organization / Department"
-msgstr ""
+msgstr "Kurum / Bölüm"
 
 #: squirrelmail/src/vcard.php:112 squirrelmail/src/vcard.php:166
 #, fuzzy
@@ -1257,19 +1257,19 @@ msgstr "Adresler"
 
 #: squirrelmail/src/vcard.php:113 squirrelmail/src/vcard.php:179
 msgid "Work Phone"
-msgstr ""
+msgstr "Ýþ telefonu"
 
 #: squirrelmail/src/vcard.php:114 squirrelmail/src/vcard.php:182
 msgid "Home Phone"
-msgstr ""
+msgstr "Ev telefonu"
 
 #: squirrelmail/src/vcard.php:115 squirrelmail/src/vcard.php:185
 msgid "Cellular Phone"
-msgstr ""
+msgstr "Cep telefonu"
 
 #: squirrelmail/src/vcard.php:116 squirrelmail/src/vcard.php:188
 msgid "Fax"
-msgstr ""
+msgstr "Faks"
 
 #: squirrelmail/src/vcard.php:117 squirrelmail/src/vcard.php:191
 #, fuzzy
@@ -1283,7 +1283,7 @@ msgstr "Adres Ekle"
 
 #: squirrelmail/src/vcard.php:176
 msgid "Title & Org. / Dept."
-msgstr ""
+msgstr "Ünvan & Kurum / Bölüm"
 
 #: squirrelmail/functions/abook_database.php:50
 #: squirrelmail/functions/abook_local_file.php:53
@@ -1347,7 +1347,7 @@ msgstr "Açarken hata oluþtu"
 #: squirrelmail/functions/abook_global_file.php:184
 #: squirrelmail/functions/abook_global_file.php:190
 msgid "Can not modify global address book"
-msgstr ""
+msgstr "Genel adres defterini deðiþtirilemiyor"
 
 #: squirrelmail/functions/abook_local_file.php:61
 msgid "Not a file name"
@@ -1408,91 +1408,91 @@ msgstr "Takma ad içinde geçersiz karakterler bulundu"
 #: squirrelmail/functions/attachment_common.php:140
 #: squirrelmail/functions/attachment_common.php:164
 msgid "view"
-msgstr ""
+msgstr "göster"
 
 #: squirrelmail/functions/attachment_common.php:180
 msgid "Business Card"
-msgstr ""
+msgstr "Kart"
 
 #: squirrelmail/functions/date.php:101
 #, fuzzy
 msgid "Sunday"
-msgstr "Gönder"
+msgstr "Pazar"
 
 #: squirrelmail/functions/date.php:104
 #, fuzzy
 msgid "Monday"
-msgstr "Metin Gövdesi"
+msgstr "Pazartesi"
 
 #: squirrelmail/functions/date.php:107
 msgid "Tuesday"
-msgstr ""
+msgstr "Salý"
 
 #: squirrelmail/functions/date.php:110
 msgid "Wednesday"
-msgstr ""
+msgstr "Çarþamba"
 
 #: squirrelmail/functions/date.php:113
 msgid "Thursday"
-msgstr ""
+msgstr "Perþembe"
 
 #: squirrelmail/functions/date.php:116
 msgid "Friday"
-msgstr ""
+msgstr "Cuma"
 
 #: squirrelmail/functions/date.php:119
 msgid "Saturday"
-msgstr ""
+msgstr "Cumartesi"
 
 #: squirrelmail/functions/date.php:130
 msgid "January"
-msgstr ""
+msgstr "Ocak"
 
 #: squirrelmail/functions/date.php:133
 msgid "February"
-msgstr ""
+msgstr "Þubat"
 
 #: squirrelmail/functions/date.php:136
 #, fuzzy
 msgid "March"
-msgstr "Eþlelen"
+msgstr "Mart"
 
 #: squirrelmail/functions/date.php:139
 msgid "April"
-msgstr ""
+msgstr "Nisan"
 
 #: squirrelmail/functions/date.php:142
 msgid "May"
-msgstr ""
+msgstr "Mayýs"
 
 #: squirrelmail/functions/date.php:145
 msgid "June"
-msgstr ""
+msgstr "Haziran"
 
 #: squirrelmail/functions/date.php:148
 msgid "July"
-msgstr ""
+msgstr "Temmuz"
 
 #: squirrelmail/functions/date.php:151
 msgid "August"
-msgstr ""
+msgstr "Aðustos"
 
 #: squirrelmail/functions/date.php:154
 msgid "September"
-msgstr ""
+msgstr "Eylül"
 
 #: squirrelmail/functions/date.php:157
 #, fuzzy
 msgid "October"
-msgstr "Diðer:"
+msgstr "Ekim"
 
 #: squirrelmail/functions/date.php:160
 msgid "November"
-msgstr ""
+msgstr "Kasým"
 
 #: squirrelmail/functions/date.php:163
 msgid "December"
-msgstr ""
+msgstr "Aralýk"
 
 #: squirrelmail/functions/date.php:185
 msgid "D, F j, Y g:i a"
@@ -1589,15 +1589,15 @@ msgstr "Veriyi oku:"
 #: squirrelmail/functions/imap_messages.php:161
 #: squirrelmail/functions/imap_messages.php:282
 msgid "Unknown response from IMAP server: "
-msgstr ""
+msgstr "IMAP sunucusundan tanýmsýz yanýt"
 
 #: squirrelmail/functions/imap_messages.php:142
 msgid "Unknown message number in reply from server: "
-msgstr ""
+msgstr "Sunucudan gelen yanýtta bilinmeyen mesaj numarasý"
 
 #: squirrelmail/functions/imap_messages.php:170
 msgid "Unknown messagenumber in reply from server: "
-msgstr ""
+msgstr "Sunucudan gelen yanýtta bilinmeyen mesaj numarasý"
 
 #: squirrelmail/functions/imap_messages.php:179
 #: squirrelmail/functions/imap_messages.php:208
@@ -1623,7 +1623,7 @@ msgstr "(gönderen bilinmiyor)"
 #: squirrelmail/functions/imap_search.php:79
 #, fuzzy
 msgid "No Messages Found"
-msgstr "Ýndekslenecek mesaj sayýsý"
+msgstr "Mesaj bulunamadý"
 
 #: squirrelmail/functions/imap_search.php:163
 msgid "Found"
@@ -1643,7 +1643,7 @@ msgstr "Seçileni hedefe taþý :"
 
 #: squirrelmail/functions/mailbox_display.php:497
 msgid "Transform Selected Messages"
-msgstr ""
+msgstr "Seçili mesajlarý dönüþtür"
 
 #: squirrelmail/functions/mailbox_display.php:513
 msgid "Move"
@@ -1665,7 +1665,7 @@ msgstr "Yeniden Adlandýr"
 
 #: squirrelmail/functions/mailbox_display.php:520
 msgid "Unread"
-msgstr ""
+msgstr "Okunmamýþ"
 
 #: squirrelmail/functions/mailbox_display.php:616
 #, fuzzy
@@ -1688,11 +1688,11 @@ msgstr ""
 #: squirrelmail/functions/mailbox_display.php:655
 #, c-format
 msgid "Viewing Message: <B>%s</B> (1 total)"
-msgstr ""
+msgstr "Gösterilen mesajlar: <B>%s</B> (toplam 1)"
 
 #: squirrelmail/functions/mailbox_display.php:843
 msgid "Show All"
-msgstr ""
+msgstr "Hepsini göster"
 
 #: squirrelmail/functions/mime.php:647
 #, fuzzy
@@ -1702,25 +1702,25 @@ msgstr "Ýleti"
 #: squirrelmail/functions/mime.php:686
 #, fuzzy
 msgid "download"
-msgstr "aþagý"
+msgstr "indir"
 
 #: squirrelmail/functions/mime.php:960
 msgid "Title:"
-msgstr ""
+msgstr "Baþlýk:"
 
 #: squirrelmail/functions/options.php:167
 #, c-format
 msgid "Option Type '%s' Not Found"
-msgstr ""
+msgstr "Seçenek tipi '%s' bulanamadý"
 
 #: squirrelmail/functions/options.php:253
 msgid "Yes"
-msgstr ""
+msgstr "Evet"
 
 #: squirrelmail/functions/options.php:258
 #, fuzzy
 msgid "No"
-msgstr "Hiçbiri"
+msgstr "Hayýr"
 
 #: squirrelmail/functions/page_header.php:74
 msgid "Current Folder"
@@ -1890,7 +1890,7 @@ msgstr ""
 #: squirrelmail/plugins/filters/options.php:60
 #, fuzzy
 msgid "Message Filtering"
-msgstr "Mesaj Renklendirme"
+msgstr "Mesaj Filtreleme"
 
 #: squirrelmail/plugins/filters/options.php:76
 #, fuzzy
@@ -1899,7 +1899,7 @@ msgstr "Eþlelen"
 
 #: squirrelmail/plugins/filters/options.php:102
 msgid "Contains:"
-msgstr ""
+msgstr "Ýçeriði:"
 
 #: squirrelmail/plugins/filters/options.php:114
 #, fuzzy
@@ -1913,17 +1913,17 @@ msgstr "Tamamlandý"
 
 #: squirrelmail/plugins/filters/options.php:162
 msgid "Up"
-msgstr ""
+msgstr "Yukarý"
 
 #: squirrelmail/plugins/filters/options.php:165
 #, c-format
 msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
-msgstr ""
+msgstr "Eðer <b>%s</b> içeriðinde <b>%s</b> varsa  <b>%s</b> 'a taþý"
 
 #: squirrelmail/plugins/filters/setup.php:79
 #, fuzzy
 msgid "Message Filters"
-msgstr "Mesaj Listesi"
+msgstr "Mesaj Filtreleri"
 
 #: squirrelmail/plugins/filters/setup.php:81
 msgid ""
@@ -1934,7 +1934,7 @@ msgstr ""
 #: squirrelmail/plugins/filters/setup.php:87
 #, fuzzy
 msgid "SPAM Filters"
-msgstr "Bütün Klasörler"
+msgstr "SPAM Filtreleri"
 
 #: squirrelmail/plugins/filters/setup.php:89
 msgid ""
@@ -1944,7 +1944,7 @@ msgstr ""
 
 #: squirrelmail/plugins/filters/spamoptions.php:52
 msgid "Spam Filtering"
-msgstr ""
+msgstr "Spam Filtreleme"
 
 #: squirrelmail/plugins/filters/spamoptions.php:56
 msgid "WARNING! Tell your admin to set the SpamFilters_YourHop variable"
@@ -1966,17 +1966,17 @@ msgstr ""
 
 #: squirrelmail/plugins/filters/spamoptions.php:96
 msgid "What to Scan:"
-msgstr ""
+msgstr "Ne arayým:"
 
 #: squirrelmail/plugins/filters/spamoptions.php:101
 #, fuzzy
 msgid "All messages"
-msgstr "iletiler"
+msgstr "Bütün mesajlar"
 
 #: squirrelmail/plugins/filters/spamoptions.php:105
 #, fuzzy
 msgid "Only unread messages"
-msgstr "onaylanmýþ iletiler"
+msgstr "sadece okunmamýþ mesajlar"
 
 #: squirrelmail/plugins/filters/spamoptions.php:111
 msgid ""
@@ -1989,44 +1989,44 @@ msgstr ""
 
 #: squirrelmail/plugins/filters/spamoptions.php:137
 msgid "Save"
-msgstr ""
+msgstr "Kaydet"
 
 #: squirrelmail/plugins/filters/spamoptions.php:149
 #, c-format
 msgid "Spam is sent to <b>%s</b>"
-msgstr ""
+msgstr "Spam  <b>%s</b> 'e gönderilmis"
 
 #: squirrelmail/plugins/filters/spamoptions.php:149
 msgid "[<i>not set yet</i>]"
-msgstr ""
+msgstr "[<i>henüz belirlenmemiþ</i>]"
 
 #: squirrelmail/plugins/filters/spamoptions.php:151
 #, c-format
 msgid "Spam scan is limited to <b>%s</b>"
-msgstr ""
+msgstr "Spam arama <b>%s</b> 'e kadar sýnýrlý"
 
 #: squirrelmail/plugins/filters/spamoptions.php:151
 #, fuzzy
 msgid "New Messages Only"
-msgstr "Mesaj Görüntüleniyor"
+msgstr "Sadece Yeni mesajlar"
 
 #: squirrelmail/plugins/filters/spamoptions.php:151
 #, fuzzy
 msgid "All Messages"
-msgstr "iletiler"
+msgstr "Bütün Mesajlar"
 
 #: squirrelmail/plugins/filters/spamoptions.php:161
 msgid "ON"
-msgstr ""
+msgstr "Açýk"
 
 #: squirrelmail/plugins/filters/spamoptions.php:163
 msgid "OFF"
-msgstr ""
+msgstr "Kapalý"
 
 #: squirrelmail/plugins/squirrelspell/setup.php:46
 #, fuzzy
 msgid "SpellChecker Options"
-msgstr "Özel Klasör seçenekleri"
+msgstr "Yazým Kontrol seçenekleri"
 
 #: squirrelmail/plugins/squirrelspell/setup.php:48
 msgid ""
@@ -2036,7 +2036,7 @@ msgstr ""
 
 #: squirrelmail/plugins/squirrelspell/setup.php:64
 msgid "Check Spelling"
-msgstr ""
+msgstr "Yazým  hatalarýný kontrol et"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:37
 msgid "Back to &quot;SpellChecker Options&quot; page"
