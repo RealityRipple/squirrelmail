@@ -286,6 +286,7 @@ if ($recent_count > 0) {
 
 /* Search Form */
 echo '<B>Current Search</B>'
+   . '<FORM ACTION="search.php" NAME=s>'
    . '   <TABLE WIDTH="95%" CELLPADDING=0 CELLSPACING=0>'
    . '     <TR>'
    . '       <TD><SELECT NAME="mailbox">';
