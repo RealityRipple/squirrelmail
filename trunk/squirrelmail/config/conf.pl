@@ -255,7 +255,13 @@ while (($command ne "q") && ($command ne "Q")) {
       print "1.  Domain               : $WHT$domain$NRM\n";
       print "2.  IMAP Server          : $WHT$imapServerAddress$NRM\n";
       print "3.  IMAP Port            : $WHT$imapPort$NRM\n";
-      print "4.  Use Sendmail         : $WHT$useSendmail$NRM\n";
+      print "4.  Use Sendmail/SMTP    : $WHT";
+      if ($useSendmail eq "true") {
+         print "Sendmail";
+      } else {
+         print "SMTP";
+      }
+      print "$NRM\n";
       if ($useSendmail eq "true") {
          print "5.    Sendmail Path      : $WHT$sendmail_path$NRM\n";
       } else {
@@ -505,14 +511,16 @@ sub command14 {
    print "messages in SquirrelMail.  You can either connect to an SMTP server\n";
    print "or use sendmail directly.\n";
    if ($useSendmail eq "true") {
-      $default_value = "y";
+      $default_value = "1";
    } else {
-      $default_value = "n";
+      $default_value = "2";
    }
    print "\n";
-   print "Use Sendmail (y/n) [$WHT$default_value$NRM]: $WHT";
+   print "  1.  Sendmail\n";
+   print "  2.  SMTP\n";
+   print "Your choice [1/2] [$WHT$default_value$NRM]: $WHT";
    $use_sendmail = <STDIN>;
-   if (($use_sendmail =~ /^y\n/i) || (($use_sendmail =~ /^\n/) && ($default_value eq "y"))) {
+   if (($use_sendmail =~ /^1\n/i) || (($use_sendmail =~ /^\n/) && ($default_value eq "1"))) {
       $useSendmail = "true";
    } else {
       $useSendmail = "false";
