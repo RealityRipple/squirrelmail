@@ -58,7 +58,7 @@ $encoding = strtolower($header->encoding);
 
 $msg_url   = 'read_body.php?' . $QUERY_STRING;
 $msg_url   = set_url_var($msg_url, 'ent_id', 0);
-$dwnld_url = '../src/download.php?'. $QUERY_STRING . '&amp;absolute_dl=true';
+$dwnld_url = '../src/download.php?' . $QUERY_STRING . '&amp;absolute_dl=true';
 
 $body = mime_fetch_body($imapConnection, $passed_id, $ent_id);
 $body = decodeBody($body, $encoding);
@@ -78,11 +78,11 @@ if ($type1 == 'html' || (isset($override_type1) &&  $override_type1 == 'html')) 
 
 displayPageHeader($color, 'None');
 ?>
-<br /><table width="100%" border="0" cellspacing="0" cellpadding="0" align="center"><tr><td bgcolor="<?php echo $color[0]; ?>">
+<br /><table width="100%" border="0" cellspacing="0" cellpadding="2" align="center"><tr><td bgcolor="<?php echo $color[0]; ?>">
 <b><center>
 <?php
 echo _("Viewing a text attachment") . ' - ' .
-     '<a href="'.$msg_url.'">'. _("View message") . '</a>';
+    '<a href="'.$msg_url.'">' . _("View message") . '</a>';
 ?>
 </b></td><tr><tr><td><center>
 <?php
