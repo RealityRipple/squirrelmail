@@ -125,7 +125,7 @@ function writeBodyForDraft ($fp, $passedBody, $session) {
         $body .= $passedBody . "\r\n\r\n";
         fputs ($fp, $body);
 
-        $attachmentlength = attachFiles($fp);
+        $attachmentlength = attachFiles($fp, $session);
 
         if (!isset($postbody)) $postbody = "";
         $postbody .= "\r\n--".mimeBoundary()."--\r\n\r\n";
@@ -165,8 +165,8 @@ function saveMessageAsDraft($t, $c, $b, $subject, $body, $reply_id, $prio = 3, $
     $fp = fopen($full_tmpDraftFile, 'w');
 
     $headerlength = write822HeaderForDraft
-        ($fp, $t, $c, $b, $subject, $more_headers, FALSE, $session);
-    $bodylength = writeBodyForDraft ($fp, $body, FALSE, $session);
+        ($fp, $t, $c, $b, $subject, $more_headers, $session);
+    $bodylength = writeBodyForDraft ($fp, $body, $session);
     fclose($fp);
 
     $length = ($headerlength + $bodylength);
@@ -174,8 +174,8 @@ function saveMessageAsDraft($t, $c, $b, $subject, $body, $reply_id, $prio = 3, $
     if (sqimap_mailbox_exists ($imap_stream, $draft_folder)) {
         sqimap_append ($imap_stream, $draft_folder, $length);
         write822HeaderForDraft
-            ($imap_stream, $t, $c, $b, $subject, $more_headers, TRUE, $session);
-        writeBodyForDraft ($imap_stream, $body, TRUE, $session);
+            ($imap_stream, $t, $c, $b, $subject, $more_headers, $session);
+        writeBodyForDraft ($imap_stream, $body, $session);
         sqimap_append_done ($imap_stream);
     }
     sqimap_logout($imap_stream);
@@ -188,3 +188,5 @@ function saveMessageAsDraft($t, $c, $b, $subject, $body, $reply_id, $prio = 3, $
     return $length;
 }
 ?>
+
+
