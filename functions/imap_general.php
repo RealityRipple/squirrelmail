@@ -238,7 +238,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
     $password = OneTimePadDecrypt($password, $onetimepad);
 
 	if (($imap_auth_mech == 'cram-md5') OR ($imap_auth_mech == 'digest-md5')) {
-      // We're using some sort of authentication OTHER than plain
+      // We're using some sort of authentication OTHER than plain or login
 	  $tag=sqimap_session_id(false);
 	  if ($imap_auth_mech == 'digest-md5') {
 	    $query = $tag . " AUTHENTICATE DIGEST-MD5\r\n";
@@ -275,11 +275,13 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
 		$message='IMAP server does not appear to support the authentication method selected.';
 		$message .= '  Please contact your system administrator.';
       }
-    } else {
-	  // Original PLAIN login code
+    } elseif ($imap_auth_mech == 'login') {
+	  // Original IMAP login code
       $query = 'LOGIN "' . quoteIMAP($username) .  '" "' . quoteIMAP($password) . '"';
       $read = sqimap_run_command ($imap_stream, $query, false, $response, $message);
-    }
+    } else {
+	  // Insert SASL PLAIN code here, if it ever gets implemented
+	}
     
 	/* If the connection was not successful, lets see why */
     if ($response != 'OK') {
