@@ -64,11 +64,13 @@
     }
 
     function OptionText( $title, $name, $value, $size ) {
-
         echo "<tr><td align=right valign=middle nowrap>$title: </td><td>" .
              "<input name=\"$name\" value=\"$value\" size=\"$size\">" .
              "</td></tr>\n";
+    }
 
+    function OptionHidden( $name, $value ) {
+        echo "<INPUT TYPE=HIDDEN NAME=\"$name\" VALUE=\"$value\">\n";
     }
 
     function OptionCheck( $title, $name, $value, $comment ) {

@@ -1,13 +1,12 @@
 <?php
    /**
-    **  array.php
-    **
-    **  This contains functions that work with array manipulation.  They
-    **  will help sort, and do other types of things with arrays
-    **
-    **  $Id$
-    **/
-
+    * array.php
+    *
+    * This contains functions that work with array manipulation.  They
+    * will help sort, and do other types of things with arrays
+    *
+    *  $Id$
+    */
 
    if (defined ('array_php'))
        return; 

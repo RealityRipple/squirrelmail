@@ -1,0 +1,21 @@
+<?php
+    /**
+     * constants.php
+     *
+     * Copyright (c) 1999-2001 The SquirrelMail Development Team
+     * Licensed under the GNU GPL. For full terms see the file COPYING.
+     *
+     * Loads constants used by the rest of the Squirrelmail source.
+     * This file is include by src/login.php, src/redirect.php and
+     * src/load_prefs.php.
+     *
+     * $Id$
+     */
+
+    /* Define constants for javascript settings. */
+    define('SMPREF_JS_ON', 1);
+    define('SMPREF_JS_OFF', 2);
+    define('SMPREF_JS_AUTODETECT', 3);
+
+    do_hook("loading_constants");
+?>
