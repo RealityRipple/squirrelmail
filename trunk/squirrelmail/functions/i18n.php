@@ -26,12 +26,7 @@ function charset_decode ($charset, $string) {
 
     /* All HTML special characters are 7 bit and can be replaced first */
     
-    /* NOTE Marc Groot Koerkamp: This is the wrong place to do 
-       htmlspecialchars, It should be done before the echo.
-       By doing it here we get double htmlspecialchars calls which translates
-        < => &lt; => &amp;lt;
-    */
-    //$string = htmlspecialchars ($string);
+    $string = htmlspecialchars ($string);
 
     $charset = strtolower($charset);
 
