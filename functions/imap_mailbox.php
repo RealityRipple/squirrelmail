@@ -173,7 +173,12 @@
       if ($inbox_subscribed == false || $inbox_in_list == false) {
          fputs ($imap_stream, "a001 LIST \"\" \"INBOX\"\r\n");
          $inbox_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
-         $sorted_list_ary[count($sorted_list_ary)] = $inbox_ary[0];
+
+         $pos = count($sorted_list_ary);
+         $sorted_list_ary[$pos] = $inbox_ary[0];
+
+         $pos = count($sorted_lsub_ary);
+         $sorted_lsub_ary[$pos] = find_mailbox_name($inbox_ary[0]);
       }
 
 		$boxes = sqimap_mailbox_parse ($sorted_list_ary, $sorted_lsub_ary, $dm);
@@ -267,7 +272,9 @@
          }
          $g++;
       }
-      $boxes = ary_sort ($boxes, "unformatted", 1);
+      if ($boxes) {
+         $boxes = ary_sort ($boxes, "unformatted", 1);
+      }
       return $boxes;
    }
    

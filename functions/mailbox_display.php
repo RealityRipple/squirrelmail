@@ -296,5 +296,6 @@
          echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Next") . "</A>\n";
       }
       echo "</TD></TR></TABLE>"; /** End of message-list table */
+
    }
 ?>
