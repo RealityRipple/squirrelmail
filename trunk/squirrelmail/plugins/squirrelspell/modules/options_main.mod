@@ -3,15 +3,15 @@
  * options_main.mod
  * ----------------
  * Squirrelspell module
- * Copyright (c) 1999-2003 The SquirrelMail development team
+ * Copyright (c) 1999-2004 The SquirrelMail development team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * Default page called when accessing SquirrelSpell's options.
  *
- *  $Id$
- *
- * @author Konstantin Riabitsev <icon@duke.edu> ($Author$)
- * @version $Date$
+ * @author Konstantin Riabitsev <icon@duke.edu>
+ * @version $Id$
+ * @package plugins
+ * @subpackage squirrelspell
  */
     
 global $SQSPELL_APP;

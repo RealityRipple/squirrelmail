@@ -11,10 +11,10 @@
  * the message to the spell-checker, parses the output, and loads
  * the interface window.
  *
- * $Id$
- *
- * @author Konstantin Riabitsev <icon@duke.edu> ($Author$)
- * @version $Date$
+ * @author Konstantin Riabitsev <icon@duke.edu>
+ * @version $Id$
+ * @package plugins
+ * @subpackage squirrelspell
  */
 
 /**
@@ -99,7 +99,7 @@ if( check_php_version ( 4, 3 ) ) {
     for($i=1; $i<=2; $i++){
         while(!feof($pipes[$i]))
            array_push($sqspell_output, rtrim(fgetss($pipes[$i],999),"\n")); 
-    	fclose($pipes[$i]);
+        fclose($pipes[$i]);
     }
     $sqspell_exitcode=proc_close($spell_proc);
 } else {
@@ -196,15 +196,15 @@ for ($i=0; $i<sizeof($sqspell_output); $i++){
     if (!$SQSPELL_EREG("\n$sqspell_word\n", $words)){
       $sqspell_symb=intval($tmparray[2])-1;
       if (!isset($misses[$sqspell_word])) {
-	    $misses[$sqspell_word] = '_NONE';
-	    $missed_words[$errors] = $sqspell_word;
-	    $errors++;
+          $misses[$sqspell_word] = '_NONE';
+          $missed_words[$errors] = $sqspell_word;
+          $errors++;
       }
       if (isset($locations[$sqspell_word])) {
-	    $locations[$sqspell_word] .= ', ';
+          $locations[$sqspell_word] .= ', ';
       } else {
-	    $locations[$sqspell_word] = '';
-	  }
+          $locations[$sqspell_word] = '';
+      }
       $locations[$sqspell_word] .= "$current_line:$sqspell_symb";
     }
   break;
@@ -370,23 +370,23 @@ if ($errors){
        <tr>
         <td colspan="4">
          <table border="0" cellpadding="0" cellspacing="3" width="100%">
-	  <tr align="center" bgcolor="<?php echo $color[9] ?>">
+              <tr align="center" bgcolor="<?php echo $color[9] ?>">
            <?php
-	    SpellLink('sqspellChange()',
-		      _("Change this word"),
-		      _("Change"));
-	    SpellLink('sqspellChangeAll()',
-		      _("Change ALL occurances of this word"),
-		      _("Change All"));
-	    SpellLink('sqspellIgnore()',
-		      _("Ignore this word"),
-		      _("Ignore"));
-	    SpellLink('sqspellIgnoreAll()',
-		      _("Ignore ALL occurances this word"),
-		      _("Ignore All"));
-	    SpellLink('sqspellRemember()',
-		      _("Add this word to your personal dictionary"),
-		      _("Add to Dic"));
+              SpellLink('sqspellChange()',
+                  _("Change this word"),
+                  _("Change"));
+              SpellLink('sqspellChangeAll()',
+                  _("Change ALL occurances of this word"),
+                  _("Change All"));
+              SpellLink('sqspellIgnore()',
+                  _("Ignore this word"),
+                  _("Ignore"));
+              SpellLink('sqspellIgnoreAll()',
+                  _("Ignore ALL occurances this word"),
+                  _("Ignore All"));
+              SpellLink('sqspellRemember()',
+                  _("Add this word to your personal dictionary"),
+                  _("Add to Dic"));
            ?>
           </tr>
          </table>

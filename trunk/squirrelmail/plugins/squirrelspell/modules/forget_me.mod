@@ -4,16 +4,18 @@
  * --------------
  * Squirrelspell module
  *
- * Copyright (c) 1999-2003 The SquirrelMail development team
+ * Copyright (c) 1999-2004 The SquirrelMail development team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This module deletes the words from the user dictionary. Called
  * after EDIT_DIC module.                                        
  *
- * $Id$
+ * 
  *
- * @author Konstantin Riabitsev <icon@duke.edu> ($Author$)
- * @version $Date$
+ * @author Konstantin Riabitsev <icon@duke.edu>
+ * @version $Id$
+ * @package plugins
+ * @subpackage squirrelspell
  */
 
 global $SQSPELL_VERSION;
@@ -79,7 +81,7 @@ if (sizeof($words_ary)){
    * Click on some words first, Einstein!
    */
   sqspell_makePage(_("Personal Dictionary"), null, 
-		   '<p>' . _("No changes requested.") . '</p>');
+      '<p>' . _("No changes requested.") . '</p>');
 }
 
 /**
