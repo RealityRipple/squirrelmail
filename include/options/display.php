@@ -78,7 +78,7 @@ function load_optpage_data_display() {
         'posvals' => $theme_values,
         'save'    => 'save_option_theme'
     );
- 
+
     $css_values = array( 'none' => _("Default" ) );
 
     if (is_readable(SM_PATH . 'themes/css') && is_dir(SM_PATH . 'themes/css')) {
@@ -90,9 +90,9 @@ function load_optpage_data_display() {
         }
         closedir($handle);
     }
-    
+
     if ( count( $css_values ) > 1 ) {
-    
+
         $optvals[SMOPT_GRP_GENERAL][] = array(
             'name'    => 'custom_css',
             'caption' => _("Custom Stylesheet"),
@@ -100,13 +100,13 @@ function load_optpage_data_display() {
             'refresh' => SMOPT_REFRESH_ALL,
             'posvals' => $css_values
         );
-    
+
     }
 
     // config.php can be unupdated.
     if (! isset($available_languages) || $available_languages=="" ) {
      $available_languages="ALL"; }
-    
+
     $language_values = array();
     if ( strtoupper($available_languages)=='ALL') {
 	foreach ($languages as $lang_key => $lang_attributes) {
@@ -130,7 +130,7 @@ function load_optpage_data_display() {
 		 isset($languages[$lang_key]['ALTNAME']) ) {
     		    $language_values[$lang_key] .= " / " . $languages[$lang_key]['ALTNAME'];
         	}
-    	    }	    
+    	    }
 	}
     }
     asort($language_values);
@@ -444,7 +444,7 @@ function load_optpage_data_display() {
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_ALL
     );
-        
+
     }
     /* Assemble all this together and return it as our result. */
     $result = array(
@@ -458,13 +458,15 @@ function load_optpage_data_display() {
 /** Define any specialized save functions for this option page. ***/
 /******************************************************************/
 
+function save_option_header($option) {
+}
+
 /**
  * This function saves a new theme setting.
  * It updates the theme array.
  */
 function save_option_theme($option) {
     global $theme;
-
     /* Do checking to make sure $new_theme is in the array. */
     $theme_in_array = false;
     for ($i = 0; $i < count($theme); ++$i) {
@@ -492,7 +494,7 @@ function save_option_javascript_autodetect($option) {
     checkForJavascript(TRUE);
 }
 
-/** 
+/**
  * This function saves the user's icon theme setting
  */
 function icon_theme_save($option) {
@@ -500,8 +502,8 @@ function icon_theme_save($option) {
     global $icon_themes, $data_dir, $username;
 
 
-    // Don't assume the new value is there, double check 
-    // and only save if found 
+    // Don't assume the new value is there, double check
+    // and only save if found
     //
     if (isset($icon_themes[$option->new_value]['PATH']))
         setPref($data_dir, $username, 'icon_theme', $icon_themes[$option->new_value]['PATH']);
@@ -510,7 +512,7 @@ function icon_theme_save($option) {
 
 }
 
-/** 
+/**
  * This function saves the reply prefix (body_quote) character(s)
  */
 function save_option_reply_prefix($option) {
