@@ -43,6 +43,9 @@ sqgetGlobalVar('oldnick',   $oldnick,   SQ_POST);
 sqgetGlobalVar('backend',   $backend,   SQ_POST);
 sqgetGlobalVar('doedit',    $doedit,    SQ_POST);
 
+/* Get sorting order */
+$abook_sort_order = get_abook_sort();
+
 /**
  * Make an input field
  * @param string $label
@@ -377,28 +380,17 @@ if ($showaddrlist) {
                       html_tag( 'tr', "\n" .
                           html_tag( 'th', '&nbsp;', 'left', '', 'width="1%"' ) . "\n" .
                           html_tag( 'th', _("Nickname") .
-                                    " <a href=\"$form_url?abook_sort=nickname\">".
-                                    "<img src=\"../images/sort_none.png\" border=\"0\" width=\"12\" height=\"10\" alt=\"sort by nickname\" title=\"" .
-                                    _("Click here to change the sorting of the address list") . 
-                                    "\" /></a>", 'left', '', 'width="1%"' ) . "\n" .
+                                    show_abook_sort_button($abook_sort_order, _("sort by nickname"), 0, 1)
+                                    , 'left', '', 'width="1%"' ) . "\n" .
                           html_tag( 'th', _("Name") . 
-                                    " <a href=\"$form_url?abook_sort=name\">" .
-                                    "<img src=\"../images/sort_none.png\" border=\"0\" width=\"12\" height=\"10\" " .
-                                    "alt=\"sort by name\" title=\"" .
-                                    _("Click here to change the sorting of the address list") . 
-                                    "\" /></a>", 'left', '', 'width="1%"' ) . "\n" .
+                                    show_abook_sort_button($abook_sort_order, _("sort by name"), 2, 3)
+                                    , 'left', '', 'width="1%"' ) . "\n" .
                           html_tag( 'th', _("E-mail") . 
-                                    " <a href=\"$form_url?abook_sort=email\">" .
-                                    "<img src=\"../images/sort_none.png\" border=\"0\" width=\"12\" height=\"10\" " .
-                                    "alt=\"sort by email\" title=\"" .
-                                    _("Click here to change the sorting of the address list") . 
-                                    "\" /></a>", 'left', '', 'width="1%"' ) . "\n" .
+                                    show_abook_sort_button($abook_sort_order, _("sort by email"), 4, 5)
+                                    , 'left', '', 'width="1%"' ) . "\n" .
                           html_tag( 'th', _("Info") .
-                                    " <a href=\"$form_url?abook_sort=label\">" .
-                                    "<img src=\"../images/sort_none.png\" border=\"0\" width=\"12\" height=\"10\" " .
-                                    "alt=\"sort by info\" title=\"" .
-                                    _("Click here to change the sorting of the address list") . 
-                                    "\" /></a>", 'left', '', 'width="1%"' ) . "\n",
+                                    show_abook_sort_button($abook_sort_order, _("sort by info"), 6, 7)
+                                    , 'left', '', 'width="1%"' ) . "\n",
                                 '', $color[9] ) . "\n";
                 }
 
