@@ -838,7 +838,7 @@ function fetchMessageHeaders($imapConnection, &$aMailbox) {
     }
 
     // initialize the fields we want to retrieve:
-    $aHeaderFields = array('Date', 'To', 'Cc', 'From', 'Subject', 'X-Priority', 'Content-Type');
+    $aHeaderFields = array('Date', 'To', 'Cc', 'From', 'Subject', 'X-Priority', 'Importance', 'Priority', 'Content-Type');
     $aFetchItems = array('FLAGS', 'RFC822.SIZE');
 
     // Are we sorting on internaldate then retrieve the internaldate value as well
