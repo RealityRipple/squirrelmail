@@ -32,7 +32,7 @@
 	 {
 	    if ($plugin_general_debug)
 	       echo "plugin:  ---- Executing $function to init plugin<br>\n";
-            $function();
+            $function($plugin_general_debug);
 	 }
 	 elseif ($plugin_general_debug)
 	    echo "plugin:  -- Init function $function doesn't exist.<br>\n";
