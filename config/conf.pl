@@ -8,14 +8,6 @@
 $WHT = "\x1B[37;1m";
 $NRM = "\x1B[0m";
 
-system "clear";
-print "\n\n--------------------------------------------------------\n";
-print "SquirrelMail version 0.4 -- Configure script\n";
-print "by SquirrelMail Development Team\n";
-print "http://squirrelmail.sourceforge.net\n";
-print "--------------------------------------------------------\n";
-print "\n";
- 
 ############################################################				  
 # First, lets read in the data already in there...
 ############################################################				  
@@ -66,13 +58,109 @@ while ($line = <FILE>) {
 		}	
 	}
 }
-
-open (FILE, ">cf.php");
-print FILE "<?\n\t/** SquirrelMail configure script\n";
-print FILE "	 ** Created using the configure script, config.pl.\n\t **/\n\n";
+if ($useSendmail ne "true") {
+	$useSendmail = "false";
+}
+if (!$sendmail_path) {
+	$sendmail_path = "/usr/sbin/sendmail";
+}
 
 
 #####################################################################################
+
+while (($command ne "q") && ($command ne "Q")) {
+	system "clear";
+	if ($menu == 0) {
+		print $WHT."Main Menu --\n".$NRM;
+		print "1.  Organization Preferences\n";
+		print "2.  Server Settings\n";
+		print "3.  Folder Defaults\n";
+		print "4.  General Options\n";
+		print "5.  Themes\n";
+		print "6.  Address Books (LDAP)\n";
+		print "7.  Message of the Day (MOTD)\n";
+		print "\n";
+	} elsif ($menu == 1) {
+		print $WHT."Organization Preferences\n".$NRM;
+		print "1.  Organization Name    : $WHT$org_name$NRM\n";
+		print "2.  Organization Logo    : $WHT$org_logo$NRM\n";
+		print "3.  Organization Title   : $WHT$org_title$NRM\n";
+		print "\n";
+		print "R   Return to Main Menu\n";
+	} elsif ($menu == 2) {
+		print $WHT."Server Settings\n".$NRM;
+		print "1.  Domain               : $WHT$domain$NRM\n";
+		print "2.  IMAP Server          : $WHT$imapServerAddress$NRM\n";
+		print "3.  IMAP Port            : $WHT$imapPort$NRM\n";
+		print "4.  Use Sendmail         : $WHT$useSendmail$NRM\n";
+		if ($useSendmail eq "true") {
+			print "5.    Sendmail Path      : $WHT$sendmail_path$NRM\n";
+		} else {
+			print "6.    SMTP Server        : $WHT$smtpServerAddress$NRM\n";
+			print "7.    SMTP Port          : $WHT$smtpPort$NRM\n";
+		}
+		print "\n";
+		print "R   Return to Main Menu\n";
+	} elsif ($menu == 3) {
+		print $WHT."Folder Defaults\n".$NRM;
+		print "\n";
+		print "R   Return to Main Menu\n";
+	} elsif ($menu == 4) {
+		print $WHT."General Options\n".$NRM;
+		print "\n";
+		print "R   Return to Main Menu\n";
+	} elsif ($menu == 5) {
+		print $WHT."Themes\n".$NRM;
+		print "\n";
+		print "R   Return to Main Menu\n";
+	} elsif ($menu == 6) {
+		print $WHT."Address Books (LDAP)\n".$NRM;
+		print "\n";
+		print "R   Return to Main Menu\n";
+	} elsif ($menu == 7) {
+		print $WHT."Message of the Day (MOTD)\n".$NRM;
+		print "\n";
+		print "R   Return to Main Menu\n";
+	}
+	print "X   Quit without saving\n";
+	print "Q   Save and exit\n";
+
+	print "\n";
+	print "Command >> ".$WHT;
+	$command = <STDIN>;
+	$command =~ s/[\n|\r]//g; 
+	print "$NRM\n";
+
+	# Read the commands they entered.
+	if (($command eq "R") || ($command eq "r")) {
+		$menu = 0;
+	} else {
+		if ($menu == 0) {
+			if (($command > 0) && ($command < 7)) {
+				$menu = $command;
+			}
+		} elsif ($menu == 1) {
+			if    ($command == 1) { $org_name   = command1 (); }
+			elsif ($command == 2) { $org_logo   = command2 (); }
+			elsif ($command == 3) { $org_title  = command3 (); }
+		} elsif ($menu == 2) {
+			if    ($command == 1) { $domain             = command11 (); }
+			elsif ($command == 2) { $imapServerAddress  = command12 (); }
+			elsif ($command == 3) { $imapPort           = command13 (); }
+			elsif ($command == 4) { $useSendmail        = command14 (); }
+			elsif ($command == 5) { $sendmail_path      = command15 (); }
+			elsif ($command == 6) { $smtpServerAddress  = command16 (); }
+			elsif ($command == 7) { $smtpPort           = command17 (); }
+		} elsif ($menu == 3) {
+		} elsif ($menu == 4) {
+		} elsif ($menu == 5) {
+		} elsif ($menu == 6) {
+		} elsif ($menu == 7) {
+		}
+	}	
+}
+
+####################################################################################
 
 # org_name
 sub command1 {
@@ -80,15 +168,16 @@ sub command1 {
    print "possible.  If you set up an organization name, most places where\n";
    print "SquirrelMail would take credit will be credited to your organization.\n";
    print "\n";
-	print "What is the name of your organization [$org_name]: ";
-	$new_org_name = <STDIN>;
-	if ($new_org_name eq "\n") {
-   	$new_org_name = $org_name;
-	} else {
-	   $new_org_name =~ s/[\r|\n]//g;
-	}
+   print "[$WHT$org_name$NRM]: $WHT";
+   $new_org_name = <STDIN>;
+   if ($new_org_name eq "\n") {
+      $new_org_name = $org_name;
+   } else {
+      $new_org_name =~ s/[\r|\n]//g;
+   }
    return $new_org_name;
 }
+
 
 # org_logo
 sub command2 {
@@ -97,7 +186,7 @@ sub command2 {
    print "literal (/usr/local/squirrelmail/images/logo.jpg) or relative\n";
    print "(../images/logo.jpg) path to your logo.\n";
    print "\n";
-   print "Where is the logo for your organization [$org_logo]: ";
+   print "[$WHT$org_logo$NRM]: $WHT";
    $new_org_logo = <STDIN>;
    if ($new_org_logo eq "\n") {
       $new_org_logo = $org_logo;
@@ -113,7 +202,7 @@ sub command3 {
    print "the titlebar.  Usually this will end up looking something like:\n";
    print "\"Netscape: $org_title\"\n";
    print "\n";
-   print "The title of the web page [$org_title]: ";
+   print "[$WHT$org_title$NRM]: $WHT";
    $new_org_title = <STDIN>;
    if ($new_org_title eq "\n") {
       $new_org_title = $org_title;
@@ -122,67 +211,110 @@ sub command3 {
    }
    return $new_org_title;
 }
-		  
-# domain 
-sub command10 {
-   print "The domain is what is on the right side of the \@ in the email\n";
-   print "address.  If your address is somebody\@somewhere.com, then your\n";
-   print "domain would be \"somewhere.com\".\n";
-   print "\n";
-   print "Your domain [$WHT$domain$NRM]: ".$WHT;
-   $new_domain = <STDIN>;
-   if ($new_domain eq "\n") {
-      $new_domain = $domain;
-   } else {
-      $new_domain =~ s/[\r|\n]//g;
-   }
-   return $new_domain;
+
+####################################################################################
+
+# domain
+sub command11 {
+	print "The domain name is the suffix at the end of all email messages.  If\n";
+	print "for example, your email address is jdoe\@myorg.com, then your domain\n";
+	print "would be myorg.com.\n";
+	print "\n";
+	print "[$WHT$domain$NRM]: $WHT";
+	$new_domain = <STDIN>;
+	if ($new_domain eq "\n") {
+		$new_domain = $domain;
+	} else {
+		$new_domain =~ s/[\r|\n]//g;
+	}
+	return $new_domain;
 }
 
-#####################################################################################
-
-while (($command ne "q") && ($command ne "Q")) {
-	system "clear";
-	print $WHT."General Information --\n".$NRM;
-	print "1   Name of organization       : $WHT$org_name$NRM\n";
-	print "2   Where is your logo         : $WHT$org_logo$NRM\n";
-	print "3   Title of web page          : $WHT$org_title$NRM\n";
-	print "\n";
-	print $WHT."Server Information --\n".$NRM;
-	print "10  Domain                     : $WHT$domain$NRM\n";
-	print "11  IMAP server                : \n";
-	print "12  IMAP port                  : \n";
-	print "13  Use Sendmail?              : \n";
-	if (@vars[4] eq "true") {
-		print "14     Sendmail path           : \n";
+# imapServerAddress
+sub command12 {
+	print "This is the address where your IMAP server resides.\n";
+	print "[$WHT$imapServerAddress$NRM]: $WHT";
+	$new_imapServerAddress = <STDIN>;
+	if ($new_imapServerAddress eq "\n") {
+	   $new_imapServerAddress = $imapServerAddress;
 	} else {
-		print "15     SMTP server             : \n";
-		print "16     SMTP port               : \n";
+	   $new_imapServerAddress =~ s/[\r|\n]//g;
+	}
+	return $new_imapServerAddress;
+}
+
+# imapPort
+sub command13 {
+	print "This is the port that your IMAP server is on.  Usually this is 143.\n";
+	print "[$WHT$imapPort$NRM]: $WHT";
+	$new_imapPort = <STDIN>;
+	if ($new_imapPort eq "\n") {
+   	$new_imapPort = $imapPort;
+	} else {
+	   $new_imapPort =~ s/[\r|\n]//g;
+	}
+	return $new_imapPort;
+}
+
+# useSendmail
+sub command14 {
+	print "You now need to choose the method that you will use for sending\n";
+	print "messages in SquirrelMail.  You can either connect to an SMTP server\n";
+	print "or use sendmail directly.\n";
+	if ($useSendmail eq "true") {
+	   $default_value = "y";
+	} else {
+	   $default_value = "n";
 	}
 	print "\n";
-	print $WHT."General Options --\n".$NRM;
-	print "20  Welcome message\n";
-	print "21  Auto expunge               : @vars[10]\n";
-	print "22  Fodlers sub of INBOX       : @vars[11]\n";
-	print "\n";
-	print "x   Exit without saving\n";
-	print "q   Save and exit\n";
-	print "\n";
-	print "Command: ";
+	print "Use Sendmail (y/n) [$WHT$default_value$NRM]: $WHT";
+	$use_sendmail = <STDIN>;
+	if (($use_sendmail =~ /^y\n/i) || (($use_sendmail =~ /^\n/) && ($default_value eq "y"))) {
+		$useSendmail = "true";
+	} else {
+		$useSendmail = "false";
+	}
+	return $useSendmail;
+}
 
-	$command = <STDIN>;
-	$command =~ s/[\n|\r]//g; 
+# sendmail_path
+sub command15 {
+   if ($sendmail_path[0] !~ /./) {
+      $sendmail_path = "/usr/sbin/sendmail";
+   }
+	print "Specify where the sendmail executable is located.  Usually /usr/sbin/sendmail\n";
+   print "[$WHT$sendmail_path$NRM]: $WHT";
+   $new_sendmail_path = <STDIN>;
+   if ($new_sendmail_path eq "\n") {
+      $new_sendmail_path = $sendmail_path;
+   } else {
+      $new_sendmail_path =~ s/[\r|\n]//g;
+   }
+	return $new_sendmail_path;
+}
 
-	print "\n";
+# smtpServerAddress
+sub command16 {
+	print "This is the location of your SMTP server.\n";
+   print "[$WHT$smtpServerAddress$NRM]: $WHT";
+   $new_smtpServerAddress = <STDIN>;
+   if ($new_smtpServerAddress eq "\n") {
+      $new_smtpServerAddress = $smtpServerAddress;
+   } else {
+      $new_smtpServerAddress =~ s/[\r|\n]//g;
+   }
+	return $new_smtpServerAddress;
+}
 
-	if    ($command eq "1" ) { $org_name   = command1 (); }
-	elsif ($command eq "2" ) { $org_logo   = command2 (); }
-	elsif ($command eq "3" ) { $org_title  = command3 (); }
-
-	elsif ($command eq "10") { $domain             = command10 (); }
-	elsif ($command eq "11") { $imapServerAddress  = command11 (); }
-	elsif ($command eq "12") { $imapPort           = command12 (); }
-	elsif ($command eq "13") { $use_sendmail       = command3 (); }
-	elsif ($command eq "14") { $org_title  = command3 (); }
-	elsif ($command eq "15") { $org_title  = command3 (); }
+# smtpPort
+sub command17 {
+	print "This is the port to connect to for SMTP.  Usually 25.\n";
+   print "[$WHT$smtpPort$NRM]: $WHT";
+   $new_smtpPort = <STDIN>;
+   if ($new_smtpPort eq "\n") {
+      $new_smtpPort = $smtpPort;
+   } else {
+      $new_smtpPort =~ s/[\r|\n]//g;
+   }
+	return $new_smtpPort;
 }
