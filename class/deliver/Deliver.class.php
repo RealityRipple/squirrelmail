@@ -241,7 +241,7 @@ class Deliver {
 	global $version, $username;
 	$rn = "\r\n";
 	/* This creates an RFC 822 date */
-	$date = date("D, j M Y H:i:s ", mktime()) . $this->timezone();
+	$date = date('D, j M Y H:i:s ', mktime()) . $this->timezone();
 	/* Create a message-id */
 	$message_id = '<' . $REMOTE_PORT . '.' . $REMOTE_ADDR . '.';
 	$message_id .= time() . '.squirrel@' . $SERVER_NAME .'>';
@@ -252,7 +252,7 @@ class Deliver {
     	    $received_from = $REMOTE_ADDR;
 	}
 	if (isset($HTTP_VIA) || isset ($HTTP_X_FORWARDED_FOR)) {
-    	    if ($HTTP_X_FORWARDED_FOR == '') {
+    	    if (!isset($HTTP_X_FORWARDED_FOR) || $HTTP_X_FORWARDED_FOR == '') {
         	$HTTP_X_FORWARDED_FOR = 'unknown';
     	    }
     	    $received_from .= " (proxying for $HTTP_X_FORWARDED_FOR)";
