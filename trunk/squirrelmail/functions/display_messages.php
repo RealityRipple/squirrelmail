@@ -103,7 +103,7 @@
       echo "<TABLE COLS=1 WIDTH=70% NOBORDER BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
       echo "   <TR>";
       echo "      <TD BGCOLOR=\"$color[0]\">";
-      echo "         <FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[2]\"><B><CENTER>. _("ERROR") .</CENTER></B></FONT>";
+      echo "         <FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[2]\"><B><CENTER>" . _("ERROR") . "</CENTER></B></FONT>";
       echo "   </TD></TR><TR><TD>";
       echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>$message";
       echo "      </FONT></CENTER>";

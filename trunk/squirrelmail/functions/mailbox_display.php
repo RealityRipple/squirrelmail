@@ -268,16 +268,16 @@
 
       echo "<TR BGCOLOR=\"$color[4]\"><TD>";
       if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">". _("Previous") ."</FONT></A>\n";
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">". _"(Next") ."</FONT></A>\n";
+         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">" . _("Previous") . "</FONT></A>\n";
+         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">" . _("Next") . "</FONT></A>\n";
       }
       else if (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">". _("Previous") ."</FONT></A>\n";
-         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[9]\">". _"(Next") ."</FONT>\n";
+         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">" . _("Previous") . "</FONT></A>\n";
+         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[9]\">" . _("Next") . "</FONT>\n";
       }
       else if (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
          echo "<FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[9]\">Previous</FONT>\n";
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">". _("Next") ."</FONT></A>\n";
+         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">" . _("Next") . "</FONT></A>\n";
       }
       echo "</TD></TR></TABLE>"; /** End of message-list table */
    }
