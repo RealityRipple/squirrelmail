@@ -367,7 +367,10 @@ $theme[29]['PATH'] = '../themes/darkness.php';
 $theme[29]['NAME'] = 'Darkness (Changes)';
 
 $theme[30]['PATH'] = '../themes/random.php';
-$theme[30]['PATH'] = 'Random (Changes every login)';
+$theme[30]['NAME'] = 'Random (Changes every login)';
+
+$theme[31]['PATH'] = '../themes/midnight.php';
+$theme[31]['NAME'] = 'Midnight';
 
 /**
  * LDAP server(s)
