@@ -3,6 +3,8 @@
 
    if (!isset($imap_php))
       include("../functions/imap.php");
+   if (!isset($config_php))
+      include("../config/config.php");
 
    // Recursive function to find the correct parent for a new node
    function findParentForChild($value, $treeIndexToStart, $tree) {
@@ -45,6 +47,36 @@
       }
    }
 
+   function walkTreeInPreOrderEmptyTrash($index, $imap_stream, $tree) {
+      global $trash_folder;
+      if ($tree[$index]["doIHaveChildren"]) {
+         for ($j = 0; $j < count($tree[$index]["subNodes"]); $j++) {
+            walkTreeInPreOrderEmptyTrash($tree[$index]["subNodes"][$j], $imap_stream, $tree);
+         }
+         if ($tree[$index]["value"] != $trash_folder) {
+            sqimap_mailbox_delete($imap_stream, $tree[$index]["value"]);
+         } else {
+            $numMessages = sqimap_get_num_messages($imap_stream, $trash_folder);
+            if ($numMessages > 0) {
+               sqimap_mailbox_select($imap_stream, $trash_folder);
+               sqimap_messages_flag ($imap_stream, 1, $numMessages, "Deleted");
+               sqimap_mailbox_expunge($imap_stream, $trash_folder);
+            }
+         }
+      } else {
+         if ($tree[$index]["value"] != $trash_folder) {
+            sqimap_mailbox_delete($imap_stream, $tree[$index]["value"]);
+         } else {
+            $numMessages = sqimap_get_num_messages($imap_stream, $trash_folder);
+            if ($numMessages > 0) {
+               sqimap_mailbox_select($imap_stream, $trash_folder);
+               sqimap_messages_flag ($imap_stream, 1, $numMessages, "Deleted");
+               sqimap_mailbox_expunge($imap_stream, $trash_folder);
+            }
+         }
+      }
+   }
+   
    function walkTreeInPreOrderDeleteFolders($index, $imap_stream, $tree) {
       if ($tree[$index]["doIHaveChildren"]) {
          for ($j = 0; $j < count($tree[$index]["subNodes"]); $j++) {

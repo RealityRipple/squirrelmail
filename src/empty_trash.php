@@ -42,9 +42,7 @@
    }
    
    // now lets go through the tree and delete the folders
-   walkTreeInPreOrderDeleteFolders(0, $imap_stream, $foldersTree);
-   // now lets create a new, fresh trash folder
-   sqimap_mailbox_create($imap_stream, "$trash_folder", "");
+   walkTreeInPreOrderEmptyTrash(0, $imap_stream, $foldersTree);
 
    sqimap_mailbox_select($imap_stream, $trash_folder, $numMessages);
    echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
