@@ -690,7 +690,7 @@
             $rMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
         }
         if ($lMore <> '') {
-            $lMore .= ' | ';
+            $lMore .= '&nbsp;|&nbsp;';
         }
 
         /* Page selector block. Following code computes page links. */
