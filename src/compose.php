@@ -769,9 +769,9 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
            switch ($message->type0) {
            case 'message':
                 if ($message->type1 == 'rfc822') {
-                    $filename = $message->rfc822_header->subject.'.eml';
+                    $filename = $message->rfc822_header->subject.'.msg';
                     if ($filename == "") {
-                        $filename = "untitled-".$message->entity_id.'.eml';
+                        $filename = "untitled-".$message->entity_id.'.msg';
                     }
                  } else {
                    $filename = $message->getFilename();
@@ -784,7 +784,7 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
              $filename = $message->getFilename();
              break;
            }
-           $filename = decodeHeader($filename);
+           $filename = str_replace('&nbsp;', ' ', decodeHeader($filename));
            if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
                function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
                 $filename =  $languages[$squirrelmail_language]['XTRA_CODE']('encode', $filename);
@@ -842,7 +842,7 @@ function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
         $fp = fopen($full_localfilename, 'w');
         fwrite ($fp, $body);
         fclose($fp);
-        $composeMessage->initAttachment('message/rfc822',$subject.'.eml',
+        $composeMessage->initAttachment('message/rfc822',$subject.'.msg',
                          $full_localfilename);
     }
     return $composeMessage;
