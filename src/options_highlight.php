@@ -364,7 +364,7 @@ if ($action == 'edit' || $action == 'add') {
         }
     }
 
-    if (!isset($message_highlight_list[$theid]['color']))
+    if (isset($theid) && !isset($message_highlight_list[$theid]['color']))
         $selected_choose = ' checked';
     else if ($pre_defined_color)
         $selected_predefined = ' checked';
