@@ -40,8 +40,16 @@
    $send_to_bcc = stripslashes($send_to_bcc);
    $subject = stripslashes($subject);
 
+   echo "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
+   echo "   <TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>\n";
+   echo _("Address Book Search");
+   echo "   </TD></TR>\n";
+   echo "</TABLE>\n";
+
+
    echo "<center>";
    echo "<form method=post action=\"compose.php?html_addr_search=true\">";
+   echo _("Enter your search criteria:") . "<br>";
    echo "   <input type=text value=\"$query\"name=query>";
    echo "   <input type=submit value=Submit>";
    echo "   <input type=hidden value=\"$body\" name=body>";
@@ -101,7 +109,7 @@
       }
       print "</TABLE>";
       echo "<input type=hidden value=1 name=html_addr_search_done>";
-      echo "<center><input type=submit value=addr_search_done name=\"Use Addresses\"></center>";
+      echo "<center><input type=submit name=addr_search_done value=\"Use Addresses\"></center>";
       echo "</form>";
    }
 
