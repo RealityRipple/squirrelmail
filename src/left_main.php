@@ -24,11 +24,15 @@
    	  if (isset ($sent_folder) && $sent_folder != "none") {
 	  	 if (!sqimap_mailbox_exists ($imapConnection, $sent_folder)) {
 		 	sqimap_mailbox_create ($imapConnection, $sent_folder, "");
+		 } else {
+		    sqimap_subscribe($imapConnection, $sent_folder);
 		 }
 	  }
    	  if (isset ($trash_folder) && $trash_folder != "none") {
 	  	 if (!sqimap_mailbox_exists ($imapConnection, $trash_folder)) {
 		 	sqimap_mailbox_create ($imapConnection, $trash_folder, "");
+		 } else {
+		    sqimap_subscribe($imapConnection, $trash_folder);
 		 }
 	  }
 	  $auto_create_done = true;
