@@ -553,10 +553,13 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         $entities     = array();
         $entity_count = array();
         $c = 0;
+
         foreach($message->parent->entities as $ent) {
-            $c++;
-            $entity_count[$c] = $ent->entity_id;
-            $entities[$ent->entity_id] = $c;
+	    if ($ent->type0 == 'message' && $ent->type1 == 'rfc822') {
+        	$c++;
+        	$entity_count[$c] = $ent->entity_id;
+        	$entities[$ent->entity_id] = $c;
+	    }
         }
         $prev_link = _("Previous");
         $next_link = _("Next");
