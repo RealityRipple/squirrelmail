@@ -257,73 +257,75 @@ if ($showaddrlist) {
          _("Add address") . "</a></p>\n";
 
     /* List addresses */
-    echo '<FORM ACTION="' . $PHP_SELF . '" METHOD="POST">' . "\n";
-    while(list($undef,$row) = each($alist)) {
-
-        /* New table header for each backend */
-        if($prevbackend != $row['backend']) {
-            if($prevbackend >= 0) {
-                echo '<TR><TD COLSPAN=5 ALIGN=center>' . "\n" .
-                     '<INPUT TYPE=submit NAME=editaddr VALUE="' . 
-                     _("Edit selected") . "\">\n" .
-                     '<INPUT TYPE=submit NAME=deladdr VALUE="' .
-                     _("Delete selected") . "\">\n</tr>\n" .
-                     '<TR><TD COLSPAN="5" ALIGN=center>' .
-                     '&nbsp;<BR></TD></TR></TABLE>' . "\n";
+    if (count($alist) > 0) {
+        echo '<FORM ACTION="' . $PHP_SELF . '" METHOD="POST">' . "\n";
+        while(list($undef,$row) = each($alist)) {
+    
+            /* New table header for each backend */
+            if($prevbackend != $row['backend']) {
+                if($prevbackend >= 0) {
+                    echo '<TR><TD COLSPAN=5 ALIGN=center>' . "\n" .
+                         '<INPUT TYPE=submit NAME=editaddr VALUE="' . 
+                         _("Edit selected") . "\">\n" .
+                         '<INPUT TYPE=submit NAME=deladdr VALUE="' .
+                         _("Delete selected") . "\">\n</tr>\n" .
+                         '<TR><TD COLSPAN="5" ALIGN=center>' .
+                         '&nbsp;<BR></TD></TR></TABLE>' . "\n";
+                }
+    
+                echo '<TABLE WIDTH="95%" COLS=1 ALIGN=CENTER>' . "\n" .
+                     '<TR><TD BGCOLOR="' . $color[0] . '" ALIGN=CENTER>' . "\n" .
+                     '<STRONG>' . $row['source'] .
+                     "</STRONG>\n</TD></TR>\n</TABLE>\n" .
+                     '<TABLE COLS="5" BORDER="0" CELLPADDING="1" CELLSPACING="0"' .
+                     ' WIDTH="90%" ALIGN="center">' .
+                     '<TR BGCOLOR="' . $color[9] .
+                     '"><TH ALIGN=left WIDTH="1%">&nbsp;<TH ALIGN=left WIDTH="1%">' .
+                     _("Nickname") . '<TH ALIGN=left WIDTH="1%">' . _("Name") .
+                     '<TH ALIGN=left WIDTH="1%">' . _("E-mail") .
+                     '<TH ALIGN=left WIDTH="%">' . _("Info") . "</TR>\n";
+    
+                $line = 0;
+                $headerprinted = true;
+            } /* End of header */
+    
+            $prevbackend = $row['backend'];
+    
+            /* Check if this user is selected */
+            if(in_array($row['backend'] . ':' . $row['nickname'], $defselected)) {
+                $selected = 'CHECKED';
+            } else {
+                $selected = '';
             }
-
-            echo '<TABLE WIDTH="95%" COLS=1 ALIGN=CENTER>' . "\n" .
-                 '<TR><TD BGCOLOR="' . $color[0] . '" ALIGN=CENTER>' . "\n" .
-                 '<STRONG>' . $row['source'] .
-                 "</STRONG>\n</TD></TR>\n</TABLE>\n" .
-                 '<TABLE COLS="5" BORDER="0" CELLPADDING="1" CELLSPACING="0"' .
-                 ' WIDTH="90%" ALIGN="center">' .
-                 '<TR BGCOLOR="' . $color[9] .
-                 '"><TH ALIGN=left WIDTH="1%">&nbsp;<TH ALIGN=left WIDTH="1%">' .
-                 _("Nickname") . '<TH ALIGN=left WIDTH="1%">' . _("Name") .
-                 '<TH ALIGN=left WIDTH="1%">' . _("E-mail") .
-                 '<TH ALIGN=left WIDTH="%">' . _("Info") . "</TR>\n";
-
-            $line = 0;
-            $headerprinted = true;
-        } /* End of header */
-
-        $prevbackend = $row['backend'];
-
-        /* Check if this user is selected */
-        if(in_array($row['backend'] . ':' . $row['nickname'], $defselected)) {
-            $selected = 'CHECKED';
-        } else {
-            $selected = '';
+    
+            /* Print one row */
+            echo '<TR';
+            if ($line % 2) { echo ' bgcolor="' . $color[0]. '"'; }
+            echo '><TD VALIGN=top ALIGN=center WIDTH="1%"><SMALL>' .
+                 '<INPUT TYPE=checkbox ' . $selected . ' NAME="sel[]" VALUE="' .
+                 $row['backend'] . ':' . $row['nickname'] . '"></SMALL></TD>' .
+                 '<TD VALIGN=top NOWRAP WIDTH="1%">&nbsp;' . $row['nickname'] .
+                 '&nbsp;</TD>' .
+                 '<TD VALIGN=top NOWRAP WIDTH="1%">&nbsp;' . $row['name'] .
+                 '&nbsp;</TD>',
+                 '<TD VALIGN=top NOWRAP WIDTH="1%">&nbsp;' .
+                 '<A HREF="compose.php?send_to=' . rawurlencode($row['email']) .
+                 '">' . $row['email'] . '</A>&nbsp;</TD>'."\n",
+                 '<TD VALIGN=top WIDTH="1%">&nbsp;' . $row['label'] . '&nbsp;</TD>' .
+                 "</TR>\n";
+            $line++;
         }
-
-        /* Print one row */
-        echo '<TR';
-        if ($line % 2) { echo ' bgcolor="' . $color[0]. '"'; }
-        echo '><TD VALIGN=top ALIGN=center WIDTH="1%"><SMALL>' .
-             '<INPUT TYPE=checkbox ' . $selected . ' NAME="sel[]" VALUE="' .
-             $row['backend'] . ':' . $row['nickname'] . '"></SMALL></TD>' .
-             '<TD VALIGN=top NOWRAP WIDTH="1%">&nbsp;' . $row['nickname'] .
-             '&nbsp;</TD>' .
-             '<TD VALIGN=top NOWRAP WIDTH="1%">&nbsp;' . $row['name'] .
-             '&nbsp;</TD>',
-             '<TD VALIGN=top NOWRAP WIDTH="1%">&nbsp;' .
-             '<A HREF="compose.php?send_to=' . rawurlencode($row['email']) .
-             '">' . $row['email'] . '</A>&nbsp;</TD>'."\n",
-             '<TD VALIGN=top WIDTH="1%">&nbsp;' . $row['label'] . '&nbsp;</TD>' .
-             "</TR>\n";
-        $line++;
+    
+        /* End of list. Close table. */
+        if ($headerprinted) {
+            echo '<TR><TD COLSPAN=5 ALIGN=center>' . "\n" .
+                 '<INPUT TYPE=submit NAME=editaddr VALUE="' . _("Edit selected") .
+                 "\">\n" .
+                 '<INPUT TYPE=submit NAME=deladdr VALUE="' . _("Delete selected") .
+                 "\">\n" . '</TR></TABLE>';
+        }
+        echo '</FORM>';
     }
-
-    /* End of list. Close table. */
-    if ($headerprinted) {
-        echo '<TR><TD COLSPAN=5 ALIGN=center>' . "\n" .
-             '<INPUT TYPE=submit NAME=editaddr VALUE="' . _("Edit selected") .
-             "\">\n" .
-             '<INPUT TYPE=submit NAME=deladdr VALUE="' . _("Delete selected") .
-             "\">\n" . '</TR></TABLE>';
-    }
-    echo '</FORM>';
 } /* end of addresslist */
 
 
