@@ -13,6 +13,8 @@ Version 1.1.0 -- DEVELOPMENT
 - Added collapseable folder listing (an option that can be turned on in Folder Options)
 - Added alternating row colors to improve interface (Display Options)
 
+
+
 Version 1.0.6 -- April 19, 2001
 -------------------------------
 - Reworked validation for each page.  It's now standardized in validate.php
