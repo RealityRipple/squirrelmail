@@ -139,31 +139,31 @@ class SquirrelOption {
         /* Get the widget for this option type. */
         switch ($this->type) {
             case SMOPT_TYPE_STRING:
-                $result = $this->createWidget_String($this->script);
+                $result = $this->createWidget_String();
                 break;
             case SMOPT_TYPE_STRLIST:
-                $result = $this->createWidget_StrList($this->script);
+                $result = $this->createWidget_StrList();
                 break;
             case SMOPT_TYPE_TEXTAREA:
-                $result = $this->createWidget_TextArea($this->script);
+                $result = $this->createWidget_TextArea();
                 break;
             case SMOPT_TYPE_INTEGER:
-                $result = $this->createWidget_Integer($this->script);
+                $result = $this->createWidget_Integer();
                 break;
             case SMOPT_TYPE_FLOAT:
-                $result = $this->createWidget_Float($this->script);
+                $result = $this->createWidget_Float();
                 break;
             case SMOPT_TYPE_BOOLEAN:
-                $result = $this->createWidget_Boolean($this->script);
+                $result = $this->createWidget_Boolean();
                 break;
             case SMOPT_TYPE_HIDDEN:
-                $result = $this->createWidget_Hidden($this->script);
+                $result = $this->createWidget_Hidden();
                 break;
             case SMOPT_TYPE_COMMENT:
-                $result = $this->createWidget_Comment($this->script);
+                $result = $this->createWidget_Comment();
                 break;
             case SMOPT_TYPE_FLDRLIST:
-                $result = $this->createWidget_FolderList($this->script);
+                $result = $this->createWidget_FolderList();
                 break;
             default:
                $result = '<font color="' . $color[2] . '">'
@@ -175,7 +175,7 @@ class SquirrelOption {
         return ($result);
     }
 
-    function createWidget_String($script) {
+    function createWidget_String() {
         switch ($this->size) {
             case SMOPT_SIZE_TINY:
                 $width = 5;
@@ -194,13 +194,13 @@ class SquirrelOption {
                 $width = 25;
         }
 
-        $result = "<input name=\"new_$this->name\" value=\"$this->value\" size=\"$width\" $script>";
+        $result = "<input name=\"new_$this->name\" value=\"$this->value\" size=\"$width\" $this->script>";
         return ($result);
     }
 
-    function createWidget_StrList($script) {
+    function createWidget_StrList() {
         /* Begin the select tag. */
-        $result = "<select name=\"new_$this->name\" $script>";
+        $result = "<select name=\"new_$this->name\" $this->script>";
 
         /* Add each possible value to the select list. */
         foreach ($this->possible_values as $real_value => $disp_value) {
@@ -224,11 +224,11 @@ class SquirrelOption {
         return ($result);
     }
 
-    function createWidget_FolderList($script) {
+    function createWidget_FolderList() {
         $selected = array(strtolower($this->value));
 
         /* Begin the select tag. */
-        $result = "<select name=\"new_$this->name\" $script>";
+        $result = "<select name=\"new_$this->name\" $this->script>";
 
         /* Add each possible value to the select list. */
         foreach ($this->possible_values as $real_value => $disp_value) {
@@ -256,7 +256,7 @@ class SquirrelOption {
     }
 
 
-    function createWidget_TextArea($script) {
+    function createWidget_TextArea() {
         switch ($this->size) {
             case SMOPT_SIZE_TINY:  $rows = 3; $cols =  10; break;
             case SMOPT_SIZE_SMALL: $rows = 4; $cols =  30; break;
@@ -266,11 +266,11 @@ class SquirrelOption {
             default: $rows = 5; $cols =  50;
         }
         $result = "<textarea name=\"new_$this->name\" rows=\"$rows\" "
-                . "cols=\"$cols\" $script>$this->value</textarea>";
+                . "cols=\"$cols\" $this->script>$this->value</textarea>";
         return ($result);
     }
 
-    function createWidget_Integer($script) {
+    function createWidget_Integer() {
 
         global $javascript_on;
 
@@ -280,13 +280,15 @@ class SquirrelOption {
            return preg_replace('/>/', ' onChange="origVal=this.value; newVal=\'\'; '
                     . 'for (i=0;i<origVal.length;i++) { if (origVal.charAt(i)>=\'0\' '
                     . '&& origVal.charAt(i)<=\'9\') newVal += origVal.charAt(i); } '
-                    . 'this.value=newVal;">', $this->createWidget_String($script));
+                    . 'this.value=newVal;">', $this->createWidget_String());
         else
-           return $this->createWidget_String($script);
+           return $this->createWidget_String();
     }
 
-    function createWidget_Float($script) {
+    function createWidget_Float() {
         
+        global $javascript_on;
+
         // add onChange javascript handler to a regular string widget
         // which will strip out all non-numeric (period also OK) chars 
         if ($javascript_on)
@@ -294,12 +296,12 @@ class SquirrelOption {
                     . 'for (i=0;i<origVal.length;i++) { if ((origVal.charAt(i)>=\'0\' '
                     . '&& origVal.charAt(i)<=\'9\') || origVal.charAt(i)==\'.\') '
                     . 'newVal += origVal.charAt(i); } this.value=newVal;">'
-                , $this->createWidget_String($script));
+                , $this->createWidget_String());
         else
-           return $this->createWidget_String($script);
+           return $this->createWidget_String();
     }
 
-    function createWidget_Boolean($script) {
+    function createWidget_Boolean() {
         /* Do the whole current value thing. */
         if ($this->value != SMPREF_NO) {
             $yes_chk = ' checked';
@@ -311,12 +313,12 @@ class SquirrelOption {
 
         /* Build the yes choice. */
         $yes_option = '<input type="radio" name="new_' . $this->name
-                    . '" value="' . SMPREF_YES . "\"$yes_chk>&nbsp;"
+                    . '" value="' . SMPREF_YES . "\"$yes_chk $this->script>&nbsp;"
                     . _("Yes");
 
         /* Build the no choice. */
         $no_option = '<input type="radio" name="new_' . $this->name
-                   . '" value="' . SMPREF_NO . "\"$no_chk>&nbsp;"
+                   . '" value="' . SMPREF_NO . "\"$no_chk $this->script>&nbsp;"
                    . _("No");
 
         /* Build and return the combined "boolean widget". */
@@ -324,13 +326,13 @@ class SquirrelOption {
         return ($result);
     }
 
-    function createWidget_Hidden($script) {
+    function createWidget_Hidden() {
         $result = '<input type="hidden" name="new_' . $this->name
-                . '" value="' . $this->value . '">';
+                . '" value="' . $this->value . ' ' . $this->script . '">';
         return ($result);
     }
 
-    function createWidget_Comment($script) {
+    function createWidget_Comment() {
         $result = $this->comment;
         return ($result);
     }
