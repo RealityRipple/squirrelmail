@@ -48,6 +48,8 @@ Version 1.5.0 -- CVS
   - Replaced search with new version by Alex Lemaresquier. (Originally
     "asearch" plugin)
   - New debugging function: sm_print_r() in strings.php
+  - Use SM_PATH in config_default. Change default server type to 'other' in stead
+    of cyrus. (#766577)
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
