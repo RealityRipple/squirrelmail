@@ -58,39 +58,6 @@ function error_username_password_incorrect() {
             '</BODY></HTML>';
 }
 
-function general_info($motd, $org_logo, $version, $org_name, $color) {
-
-    echo '<BR>'.
-         "<TABLE COLS=1 WIDTH=\"80%\" CELLSPACING=0 CELLPADDING=2 BORDER=\"0\" ALIGN=CENTER><TR><TD BGCOLOR=\"$color[9]\">".
-         '<TABLE COLS=1 WIDTH="100%" CELLSPACING=0 CELLPADDING=3 BORDER="0" BGCOLOR="' .  $color[4] . '" ALIGN=CENTER>'.
-            '<TR>' .
-               "<TD BGCOLOR=\"$color[0]\">" .
-                  '<B><CENTER>';
-    printf (_("Welcome to %s's WebMail system"), $org_name);
-    echo          '</CENTER></B>'.
-            '<TR><TD BGCOLOR="' . $color[4] .  '">'.
-               '<TABLE COLS=2 WIDTH="90%" CELLSPACING=0 CELLPADDING=3 BORDER="0" align="center">'.
-                  '<TR>'.
-                     '<TD BGCOLOR="' . $color[4] .  '"><CENTER>';
-    if ( strlen($org_logo) > 3 ) {
-        echo                "<IMG SRC=\"$org_logo\">";
-    } else {
-        echo                "<B>$org_name</B>";
-    }
-    echo          '<BR><CENTER>';
-    printf (_("Running SquirrelMail version %s (c) 1999-2001."), $version);
-    echo             '</CENTER><BR>'.
-                     '</CENTER></TD></TR><TR>' .
-                     '<TD BGCOLOR="' . $color[4] .  '">' .
-                         $motd.
-                     '</TD>'.
-                  '</TR>'.
-               '</TABLE>'.
-            '</TD></TR>'.
-         '</TABLE>'.
-         '</TD></TR></TABLE>';
-}
-
 function error_message($message, $mailbox, $sort, $startMessage, $color) {
     $urlMailbox = urlencode($mailbox);
 
