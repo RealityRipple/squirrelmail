@@ -171,7 +171,8 @@ $colapse = array( 'Titles' => FALSE,
                   'Group4' => getPref($data_dir, $username, 'adm_Group4', TRUE ),
                   'Group5' => getPref($data_dir, $username, 'adm_Group5', TRUE ),
                   'Group6' => getPref($data_dir, $username, 'adm_Group6', TRUE ),
-                  'Group7' => getPref($data_dir, $username, 'adm_Group7', TRUE ) );
+                  'Group7' => getPref($data_dir, $username, 'adm_Group7', TRUE ),
+                  'Group8' => getPref($data_dir, $username, 'adm_Group8', TRUE ) );
 
 if ( isset( $switch ) ) {
     $colapse[$switch] = !$colapse[$switch];
@@ -358,7 +359,7 @@ foreach ( $newcfg as $k => $v ) {
 
 }
 
-if ( !($colapse['Group6']) ) {
+if ( !($colapse['Group7']) ) {
     $i = 0;
     echo '<tr><th>' . _("Theme Name") .
          '</th><th>' . _("Theme Path") .
@@ -391,7 +392,7 @@ if ( !($colapse['Group6']) ) {
     }
 }
 
-if ( $colapse['Group7'] ) {
+if ( $colapse['Group8'] ) {
     $sw = '(+)';
 } else {
     $sw = '(-)';
