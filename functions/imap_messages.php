@@ -193,8 +193,13 @@ function get_squirrel_sort ($imap_stream, $sSortField, $reverse = false) {
         if(!$walk) {
             array_walk($msgs, create_function('&$v,&$k,$f',
                 '$v[$f] = (isset($v[$f])) ? $v[$f] : "";
-                 $addr = parseAddress($v[$f]);
-                 $v[$f] = ($addr[0][1]) ? decodeHeader($addr[0][1]):$addr[0][0];'),$sSortField);
+                 $addr = reset(parseRFC822Address($v[$f],1));
+                 $sPersonal = (isset($addr[SQM_ADDR_PERSONAL]) && $addr[SQM_ADDR_PERSONAL]) ?
+                   $addr[SQM_ADDR_PERSONAL] : "";
+                 $sEmail = ($addr[SQM_ADDR_HOST]) ?
+                      $addr[SQM_ADDR_HOST] . "@".$addr[SQM_ADDR_HOST] :
+                      $addr[SQM_ADDR_HOST];
+                 $v[$f] = ($sPersonal) ? decodeHeader($sPersonal):$sEmail;'),$sSortField);
             $walk = true;
         }
         // nobreak
