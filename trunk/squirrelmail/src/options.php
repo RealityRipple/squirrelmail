@@ -300,13 +300,13 @@ if ($optpage == SMOPT_PAGE_MAIN) {
         }
 
         if (isset($optpage_save_error) && $optpage_save_error!=array()) {
-            echo "<font color=\"$color[2]\"><b>" . _("Error(s) happened while saving your options") . "</b></font><br />\n";
+            echo "<font color=\"$color[2]\"><b>" . _("Error(s) occurred while saving your options") . "</b></font><br />\n";
             echo "<ul>\n";
             foreach ($optpage_save_error as $error_message) {
                 echo '<li><small>' . $error_message . "</small></li>\n";
             }
             echo "</ul>\n";
-            echo '<b>' . _("Some of your preference changes are not applied.") . "</b><br />\n";
+            echo '<b>' . _("Some of your preference changes were not applied.") . "</b><br />\n";
         } else {
             /* Display a message indicating a successful save. */
             echo '<b>' . _("Successfully Saved Options") . ": $optpage_name</b><br />\n";
