@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2002-03-30 10:30+0100\n"
-"PO-Revision-Date: 2002-04-15 10:00+0200\n"
+"POT-Creation-Date: 2002-04-30 11:05+0200\n"
+"PO-Revision-Date: 2002-05-02 00:15+0200\n"
 "Last-Translator: M.J. Prinsen <translation@prinsenonline.com>\n"
 "Language-Team: Dutch <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -40,21 +40,21 @@ msgstr "Informatie"
 msgid "Source"
 msgstr "Bron"
 
-#: squirrelmail/functions/mailbox_display.php:667
-#: squirrelmail/plugins/filters/options.php:88
+#: squirrelmail/functions/mailbox_display.php:720
+#: squirrelmail/plugins/filters/options.php:120
 #: squirrelmail/src/addrbook_search_html.php:82
-#: squirrelmail/src/compose.php:431 squirrelmail/src/download.php:311
+#: squirrelmail/src/compose.php:436 squirrelmail/src/download.php:311
 #: squirrelmail/src/download.php:318
-#: squirrelmail/src/options_highlight.php:325
+#: squirrelmail/src/options_highlight.php:330
 #: squirrelmail/src/printer_friendly_bottom.php:96
-#: squirrelmail/src/search.php:345
+#: squirrelmail/src/search.php:351
 msgid "To"
 msgstr "Aan"
 
-#: squirrelmail/plugins/filters/options.php:91
+#: squirrelmail/plugins/filters/options.php:123
 #: squirrelmail/src/addrbook_search_html.php:84
-#: squirrelmail/src/compose.php:438 squirrelmail/src/options_highlight.php:328
-#: squirrelmail/src/search.php:344
+#: squirrelmail/src/compose.php:443 squirrelmail/src/options_highlight.php:333
+#: squirrelmail/src/search.php:350
 msgid "Cc"
 msgstr "CC"
 
@@ -85,13 +85,13 @@ msgstr "in"
 msgid "All address books"
 msgstr "Alle adresboeken"
 
-#: squirrelmail/functions/page_header.php:147
+#: squirrelmail/functions/page_header.php:142
 #: squirrelmail/src/addrbook_search.php:192
 #: squirrelmail/src/addrbook_search_html.php:155
-#: squirrelmail/src/search.php:179 squirrelmail/src/search.php:190
-#: squirrelmail/src/search.php:208 squirrelmail/src/search.php:349
-#: squirrelmail/src/search.php:380 squirrelmail/src/search.php:401
-#: squirrelmail/src/search.php:411
+#: squirrelmail/src/search.php:187 squirrelmail/src/search.php:191
+#: squirrelmail/src/search.php:211 squirrelmail/src/search.php:355
+#: squirrelmail/src/search.php:386 squirrelmail/src/search.php:407
+#: squirrelmail/src/search.php:417
 msgid "Search"
 msgstr "Zoek"
 
@@ -125,7 +125,7 @@ msgstr "Terug"
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:119
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:427
 #: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod:70
-#: squirrelmail/src/addrbook_search.php:195 squirrelmail/src/compose.php:597
+#: squirrelmail/src/addrbook_search.php:195 squirrelmail/src/compose.php:603
 msgid "Close"
 msgstr "Sluit"
 
@@ -168,10 +168,10 @@ msgstr "U mag maar &eacute;&eacute;n adres tegelijk bewerken"
 msgid "Update address"
 msgstr "Werk adresgegevens bij"
 
-#: squirrelmail/functions/display_messages.php:27
-#: squirrelmail/functions/display_messages.php:79
-#: squirrelmail/functions/display_messages.php:94
-#: squirrelmail/functions/display_messages.php:159
+#: squirrelmail/functions/display_messages.php:49
+#: squirrelmail/functions/display_messages.php:68
+#: squirrelmail/functions/display_messages.php:85
+#: squirrelmail/functions/display_messages.php:151
 #: squirrelmail/src/addressbook.php:191 squirrelmail/src/addressbook.php:239
 msgid "ERROR"
 msgstr "FOUT"
@@ -197,155 +197,155 @@ msgstr "Verwijder geselecteerd adres"
 msgid "Add to %s"
 msgstr "Voeg toe aan %s"
 
-#: squirrelmail/src/compose.php:94
+#: squirrelmail/src/compose.php:97
 msgid "Draft Email Saved"
 msgstr "Concept e-mail bewaard"
 
-#: squirrelmail/src/compose.php:198 squirrelmail/src/compose.php:242
-#: squirrelmail/src/compose.php:252
+#: squirrelmail/src/compose.php:200 squirrelmail/src/compose.php:244
+#: squirrelmail/src/compose.php:254
 msgid "Could not move/copy file. File not attached"
 msgstr "Kan het bestand niet verplaatsen/kopieren. Bestand niet toegevoegd."
 
-#: squirrelmail/src/compose.php:426
+#: squirrelmail/src/compose.php:431
 msgid "Original Message"
 msgstr "Oorspronkelijk bericht"
 
-#: squirrelmail/functions/mailbox_display.php:684
-#: squirrelmail/plugins/filters/options.php:97
-#: squirrelmail/src/compose.php:427 squirrelmail/src/download.php:309
+#: squirrelmail/functions/mailbox_display.php:737
+#: squirrelmail/plugins/filters/options.php:129
+#: squirrelmail/src/compose.php:432 squirrelmail/src/download.php:309
 #: squirrelmail/src/download.php:314
-#: squirrelmail/src/options_highlight.php:334
+#: squirrelmail/src/options_highlight.php:339
 #: squirrelmail/src/options_order.php:40
 #: squirrelmail/src/printer_friendly_bottom.php:101
-#: squirrelmail/src/search.php:342
+#: squirrelmail/src/search.php:348
 msgid "Subject"
 msgstr "Onderwerp"
 
-#: squirrelmail/functions/mailbox_display.php:669
-#: squirrelmail/plugins/filters/options.php:85
-#: squirrelmail/src/compose.php:428 squirrelmail/src/download.php:98
+#: squirrelmail/functions/mailbox_display.php:722
+#: squirrelmail/plugins/filters/options.php:117
+#: squirrelmail/src/compose.php:433 squirrelmail/src/download.php:98
 #: squirrelmail/src/download.php:310 squirrelmail/src/download.php:316
-#: squirrelmail/src/options_highlight.php:322
+#: squirrelmail/src/options_highlight.php:327
 #: squirrelmail/src/options_order.php:38
 #: squirrelmail/src/printer_friendly_bottom.php:95
-#: squirrelmail/src/search.php:343
+#: squirrelmail/src/search.php:349
 msgid "From"
 msgstr "Van"
 
-#: squirrelmail/functions/mailbox_display.php:677
-#: squirrelmail/src/compose.php:429 squirrelmail/src/download.php:312
+#: squirrelmail/functions/mailbox_display.php:730
+#: squirrelmail/src/compose.php:434 squirrelmail/src/download.php:312
 #: squirrelmail/src/download.php:320 squirrelmail/src/options_order.php:39
 #: squirrelmail/src/printer_friendly_bottom.php:100
 msgid "Date"
 msgstr "Datum"
 
-#: squirrelmail/src/compose.php:590
+#: squirrelmail/src/compose.php:595
 msgid "Draft Saved"
 msgstr "Concept e-mail bewaard"
 
-#: squirrelmail/src/compose.php:593
+#: squirrelmail/src/compose.php:598
 msgid "Your Message has been sent"
 msgstr "Uw bericht is verzonden"
 
 #: squirrelmail/plugins/listcommands/mailout.php:50
-#: squirrelmail/src/compose.php:608 squirrelmail/src/read_body.php:697
+#: squirrelmail/src/compose.php:614 squirrelmail/src/read_body.php:808
 msgid "From:"
 msgstr "Van:"
 
-#: squirrelmail/src/compose.php:636 squirrelmail/src/download.php:110
-#: squirrelmail/src/read_body.php:178 squirrelmail/src/read_body.php:714
+#: squirrelmail/src/compose.php:642 squirrelmail/src/download.php:110
+#: squirrelmail/src/read_body.php:220 squirrelmail/src/read_body.php:825
 msgid "To:"
 msgstr "Aan:"
 
-#: squirrelmail/src/compose.php:644
+#: squirrelmail/src/compose.php:650
 msgid "CC:"
 msgstr "CC:"
 
-#: squirrelmail/src/compose.php:652
+#: squirrelmail/src/compose.php:658
 msgid "BCC:"
 msgstr "BCC:"
 
-#: squirrelmail/src/compose.php:659 squirrelmail/src/download.php:103
-#: squirrelmail/src/read_body.php:179 squirrelmail/src/read_body.php:668
+#: squirrelmail/src/compose.php:665 squirrelmail/src/download.php:103
+#: squirrelmail/src/read_body.php:221 squirrelmail/src/read_body.php:779
 msgid "Subject:"
 msgstr "Onderwerp:"
 
-#: squirrelmail/src/compose.php:714 squirrelmail/src/compose.php:800
+#: squirrelmail/src/compose.php:727 squirrelmail/src/compose.php:818
 msgid "Send"
 msgstr "Zend"
 
-#: squirrelmail/src/compose.php:720
+#: squirrelmail/src/compose.php:733
 msgid "Attach:"
 msgstr "Bijlage:"
 
-#: squirrelmail/src/compose.php:725 squirrelmail/src/options_order.php:126
+#: squirrelmail/src/compose.php:738 squirrelmail/src/options_order.php:126
 msgid "Add"
 msgstr "Voeg toe"
 
-#: squirrelmail/src/compose.php:744
+#: squirrelmail/src/compose.php:757
 msgid "Delete selected attachments"
 msgstr "Verwijder geselecteerde bijlage(n)"
 
-#: squirrelmail/src/compose.php:771 squirrelmail/src/read_body.php:743
+#: squirrelmail/src/compose.php:787 squirrelmail/src/read_body.php:854
 msgid "Priority"
 msgstr "Prioriteit"
 
 #: squirrelmail/plugins/administrator/defines.php:201
 #: squirrelmail/plugins/calendar/functions.php:98
-#: squirrelmail/src/compose.php:772 squirrelmail/src/read_body.php:539
+#: squirrelmail/src/compose.php:788 squirrelmail/src/read_body.php:626
 msgid "High"
 msgstr "Hoog"
 
 #: squirrelmail/plugins/calendar/functions.php:97
-#: squirrelmail/src/compose.php:773 squirrelmail/src/read_body.php:552
+#: squirrelmail/src/compose.php:789 squirrelmail/src/read_body.php:639
 msgid "Normal"
 msgstr "Normaal"
 
 #: squirrelmail/plugins/administrator/defines.php:198
-#: squirrelmail/src/compose.php:774 squirrelmail/src/read_body.php:545
+#: squirrelmail/src/compose.php:790 squirrelmail/src/read_body.php:632
 msgid "Low"
 msgstr "Laag"
 
-#: squirrelmail/src/compose.php:780
+#: squirrelmail/src/compose.php:796
 msgid "Receipt"
 msgstr "Bevestiging"
 
-#: squirrelmail/src/compose.php:781
+#: squirrelmail/src/compose.php:798
 msgid "On read"
 msgstr "Bij lezen"
 
-#: squirrelmail/src/compose.php:782
+#: squirrelmail/src/compose.php:800
 msgid "On Delivery"
 msgstr "Bij ontvangst"
 
-#: squirrelmail/src/compose.php:787
+#: squirrelmail/src/compose.php:805
 #: squirrelmail/src/options_identities.php:329
 #: squirrelmail/src/options_personal.php:99
 msgid "Signature"
 msgstr "Handtekening"
 
-#: squirrelmail/functions/page_header.php:141 squirrelmail/src/compose.php:790
-#: squirrelmail/src/compose.php:794 squirrelmail/src/compose.php:798
+#: squirrelmail/functions/page_header.php:136 squirrelmail/src/compose.php:808
+#: squirrelmail/src/compose.php:812 squirrelmail/src/compose.php:816
 msgid "Addresses"
 msgstr "Adressen"
 
-#: squirrelmail/src/compose.php:803
+#: squirrelmail/src/compose.php:821
 msgid "Save Draft"
 msgstr "Bewaar concept"
 
-#: squirrelmail/src/compose.php:822
+#: squirrelmail/src/compose.php:840
 msgid "You have not filled in the \"To:\" field."
 msgstr "U heeft het \"Aan:\" veld niet ingevuld."
 
-#: squirrelmail/src/compose.php:911
+#: squirrelmail/src/compose.php:932
 msgid "said"
 msgstr "zei"
 
-#: squirrelmail/src/compose.php:914
+#: squirrelmail/src/compose.php:935
 msgid "quote"
 msgstr "citaat"
 
-#: squirrelmail/src/compose.php:914
+#: squirrelmail/src/compose.php:935
 msgid "who"
 msgstr "van"
 
@@ -355,12 +355,12 @@ msgstr "Bekijk een tekst bijlage"
 
 #: squirrelmail/src/download.php:34 squirrelmail/src/download.php:36
 #: squirrelmail/src/download.php:72 squirrelmail/src/image.php:31
-#: squirrelmail/src/image.php:35 squirrelmail/src/read_body.php:373
+#: squirrelmail/src/image.php:35 squirrelmail/src/read_body.php:438
 #: squirrelmail/src/vcard.php:35 squirrelmail/src/vcard.php:39
 msgid "View message"
 msgstr "Bekijk bericht"
 
-#: squirrelmail/functions/mime.php:701 squirrelmail/src/download.php:41
+#: squirrelmail/functions/mime.php:788 squirrelmail/src/download.php:41
 #: squirrelmail/src/download.php:77 squirrelmail/src/image.php:44
 #: squirrelmail/src/vcard.php:196
 msgid "Download this as a file"
@@ -375,7 +375,7 @@ msgstr "Bekijk een tekst bijlage"
 #: squirrelmail/plugins/calendar/event_edit.php:35
 #: squirrelmail/plugins/calendar/event_edit.php:93
 #: squirrelmail/plugins/calendar/event_edit.php:106
-#: squirrelmail/src/download.php:116 squirrelmail/src/read_body.php:705
+#: squirrelmail/src/download.php:116 squirrelmail/src/read_body.php:816
 msgid "Date:"
 msgstr "Datum:"
 
@@ -387,11 +387,11 @@ msgstr "CC"
 msgid "Bcc:"
 msgstr "BCC"
 
-#: squirrelmail/src/download.php:149 squirrelmail/src/read_body.php:503
+#: squirrelmail/src/download.php:149 squirrelmail/src/read_body.php:590
 msgid "more"
 msgstr "meer"
 
-#: squirrelmail/src/download.php:150 squirrelmail/src/read_body.php:504
+#: squirrelmail/src/download.php:150 squirrelmail/src/read_body.php:591
 msgid "less"
 msgstr "minder"
 
@@ -410,8 +410,8 @@ msgid "You have not selected a folder to delete. Please do so."
 msgstr ""
 "U heeft geen map geselecteerd om te verwijderen. Selecteer een map a.u.b."
 
-#: squirrelmail/functions/page_header.php:143 squirrelmail/src/folders.php:29
-#: squirrelmail/src/left_main.php:238
+#: squirrelmail/functions/page_header.php:138 squirrelmail/src/folders.php:29
+#: squirrelmail/src/left_main.php:241
 msgid "Folders"
 msgstr "Mappen"
 
@@ -435,7 +435,7 @@ msgstr "Map succesvol aangemaakt!"
 msgid "Renamed successfully!"
 msgstr "Succesvol hernoemd!"
 
-#: squirrelmail/src/folders.php:53 squirrelmail/src/left_main.php:277
+#: squirrelmail/src/folders.php:53 squirrelmail/src/left_main.php:280
 msgid "refresh folder list"
 msgstr "vernieuw mappenlijst"
 
@@ -479,13 +479,13 @@ msgstr "Geen mappen gevonden"
 msgid "Delete Folder"
 msgstr "Verwijder map"
 
-#: squirrelmail/functions/mailbox_display.php:642
-#: squirrelmail/plugins/filters/options.php:154
+#: squirrelmail/functions/mailbox_display.php:671
+#: squirrelmail/plugins/filters/options.php:189
 #: squirrelmail/plugins/mail_fetch/options.php:163
 #: squirrelmail/plugins/mail_fetch/options.php:170
 #: squirrelmail/src/folders.php:196 squirrelmail/src/options_highlight.php:76
 #: squirrelmail/src/options_identities.php:341
-#: squirrelmail/src/read_body.php:588
+#: squirrelmail/src/read_body.php:691
 msgid "Delete"
 msgstr "Verwijder"
 
@@ -520,15 +520,15 @@ msgid "New name:"
 msgstr "Nieuwe naam:"
 
 #: squirrelmail/functions/options.php:414
-#: squirrelmail/plugins/filters/options.php:138
+#: squirrelmail/plugins/filters/options.php:173
 #: squirrelmail/plugins/newmail/newmail_opt.php:146
 #: squirrelmail/plugins/translate/options.php:160
 #: squirrelmail/src/folders_rename_getname.php:59
-#: squirrelmail/src/options_highlight.php:347
+#: squirrelmail/src/options_highlight.php:352
 msgid "Submit"
 msgstr "Verstuur"
 
-#: squirrelmail/functions/page_header.php:149
+#: squirrelmail/functions/page_header.php:144
 #: squirrelmail/plugins/listcommands/setup.php:37 squirrelmail/src/help.php:91
 msgid "Help"
 msgstr "Help"
@@ -550,23 +550,23 @@ msgstr "Sommige of alle helppagina's zijn niet aanwezig!"
 msgid "Table of Contents"
 msgstr "Inhoudsopgave"
 
-#: squirrelmail/functions/mailbox_display.php:847
-#: squirrelmail/functions/mailbox_display.php:850
-#: squirrelmail/functions/mailbox_display.php:853
-#: squirrelmail/plugins/delete_move_next/setup.php:148
-#: squirrelmail/plugins/delete_move_next/setup.php:150
+#: squirrelmail/functions/mailbox_display.php:902
+#: squirrelmail/functions/mailbox_display.php:905
+#: squirrelmail/functions/mailbox_display.php:908
+#: squirrelmail/plugins/delete_move_next/setup.php:166
+#: squirrelmail/plugins/delete_move_next/setup.php:168
 #: squirrelmail/src/help.php:185 squirrelmail/src/help.php:189
-#: squirrelmail/src/read_body.php:614 squirrelmail/src/read_body.php:616
+#: squirrelmail/src/read_body.php:725 squirrelmail/src/read_body.php:727
 msgid "Previous"
 msgstr "Vorige"
 
-#: squirrelmail/functions/mailbox_display.php:848
-#: squirrelmail/functions/mailbox_display.php:851
-#: squirrelmail/functions/mailbox_display.php:854
-#: squirrelmail/plugins/delete_move_next/setup.php:153
-#: squirrelmail/plugins/delete_move_next/setup.php:155
+#: squirrelmail/functions/mailbox_display.php:903
+#: squirrelmail/functions/mailbox_display.php:906
+#: squirrelmail/functions/mailbox_display.php:909
+#: squirrelmail/plugins/delete_move_next/setup.php:171
+#: squirrelmail/plugins/delete_move_next/setup.php:173
 #: squirrelmail/src/help.php:193 squirrelmail/src/help.php:196
-#: squirrelmail/src/read_body.php:620 squirrelmail/src/read_body.php:622
+#: squirrelmail/src/read_body.php:731 squirrelmail/src/read_body.php:733
 msgid "Next"
 msgstr "Volgende"
 
@@ -578,57 +578,57 @@ msgstr "Top"
 msgid "Viewing an image attachment"
 msgstr "Bekijk een tekst bijlage"
 
-#: squirrelmail/functions/imap_search.php:198
-#: squirrelmail/functions/mailbox_display.php:624
-#: squirrelmail/functions/page_header.php:114
-#: squirrelmail/plugins/delete_move_next/setup.php:200
+#: squirrelmail/functions/imap_search.php:191
+#: squirrelmail/functions/mailbox_display.php:653
+#: squirrelmail/functions/page_header.php:109
+#: squirrelmail/plugins/delete_move_next/setup.php:218
 #: squirrelmail/plugins/mail_fetch/options.php:137
 #: squirrelmail/plugins/mail_fetch/options.php:214
-#: squirrelmail/src/left_main.php:73 squirrelmail/src/search.php:311
+#: squirrelmail/src/left_main.php:73 squirrelmail/src/search.php:312
 msgid "INBOX"
 msgstr "INBOX"
 
 #: squirrelmail/src/left_main.php:97
-msgid "empty"
+msgid "purge"
 msgstr "legen"
 
-#: squirrelmail/src/left_main.php:271
+#: squirrelmail/src/left_main.php:274
 msgid "Last Refresh"
 msgstr "Laatste vernieuwing"
 
-#: squirrelmail/src/login.php:97 squirrelmail/src/login.php:151
+#: squirrelmail/src/login.php:102 squirrelmail/src/login.php:156
 msgid "Login"
-msgstr "Inloggen"
+msgstr "Aanmelden"
 
-#: squirrelmail/functions/display_messages.php:151
-#: squirrelmail/src/login.php:119
+#: squirrelmail/functions/display_messages.php:143
+#: squirrelmail/src/login.php:124
 #, c-format
 msgid "%s Logo"
-msgstr "Inloggen op webmail %s"
+msgstr "%s Logo"
 
-#: squirrelmail/functions/display_messages.php:154
-#: squirrelmail/src/login.php:122
+#: squirrelmail/functions/display_messages.php:146
+#: squirrelmail/src/login.php:127
 #, c-format
 msgid "SquirrelMail version %s"
 msgstr "SquirrelMail versie %s"
 
-#: squirrelmail/functions/display_messages.php:155
-#: squirrelmail/src/login.php:123
+#: squirrelmail/functions/display_messages.php:147
+#: squirrelmail/src/login.php:128
 msgid "By the SquirrelMail Development Team"
 msgstr "Door het Squirrelmail ontwikkelingsteam"
 
-#: squirrelmail/src/login.php:129
+#: squirrelmail/src/login.php:134
 #, c-format
 msgid "%s Login"
-msgstr "Inloggen op webmail %s"
+msgstr "%s Webmail - Aanmelden"
 
-#: squirrelmail/src/login.php:133
+#: squirrelmail/src/login.php:138
 msgid "Name:"
-msgstr "Naam:"
+msgstr "Gebruikersnaam:"
 
 #: squirrelmail/plugins/mail_fetch/options.php:126
 #: squirrelmail/plugins/mail_fetch/options.php:202
-#: squirrelmail/src/login.php:139
+#: squirrelmail/src/login.php:144
 msgid "Password:"
 msgstr "Wachtwoord:"
 
@@ -636,9 +636,9 @@ msgstr "Wachtwoord:"
 msgid "<No subject>"
 msgstr "<geen onderwerp>"
 
-#: squirrelmail/src/move_messages.php:162
-#: squirrelmail/src/move_messages.php:206
-#: squirrelmail/src/move_messages.php:235
+#: squirrelmail/src/move_messages.php:163
+#: squirrelmail/src/move_messages.php:207
+#: squirrelmail/src/move_messages.php:236
 msgid "No messages were selected."
 msgstr "Geen berichten geselecteerd."
 
@@ -729,65 +729,73 @@ msgstr "Tussen berichtinformatie en berichttekst"
 msgid "After message body"
 msgstr "Na berichttekst"
 
-#: squirrelmail/src/options_display.php:182
+#: squirrelmail/src/options_display.php:183
 msgid "Addressbook Display Format"
 msgstr "Adresboek weergave"
 
-#: squirrelmail/src/options_display.php:185
+#: squirrelmail/src/options_display.php:186
 msgid "Javascript"
 msgstr "Javascript"
 
-#: squirrelmail/src/options_display.php:186
+#: squirrelmail/src/options_display.php:187
 msgid "HTML"
 msgstr "HTML"
 
-#: squirrelmail/src/options_display.php:191
+#: squirrelmail/src/options_display.php:192
 msgid "Show HTML Version by Default"
 msgstr "Toon HTML versie standaard"
 
-#: squirrelmail/src/options_display.php:198
+#: squirrelmail/src/options_display.php:199
 msgid "Include Me in CC when I Reply All"
 msgstr "Voeg Mij toe in CC als ik allen beantwoord"
 
-#: squirrelmail/src/options_display.php:205
+#: squirrelmail/src/options_display.php:206
 msgid "Include CCs when forwarding messages"
 msgstr "Voeg CCs toe bij forwarden berichten"
 
-#: squirrelmail/src/options_display.php:212
+#: squirrelmail/src/options_display.php:213
 msgid "Enable Mailer Display"
 msgstr "Activeer weergave mailprogramma"
 
-#: squirrelmail/src/options_display.php:219
+#: squirrelmail/src/options_display.php:220
 msgid "Display Attached Images with Message"
 msgstr "Geef bijgevoegde afbeeldingen weer bij bericht"
 
-#: squirrelmail/src/options_display.php:226
+#: squirrelmail/src/options_display.php:227
 msgid "Enable Subtle Printer Friendly Link"
 msgstr "Activeer subtiele printervriendelijke link"
 
-#: squirrelmail/src/options_display.php:233
+#: squirrelmail/src/options_display.php:234
 msgid "Enable Printer Friendly Clean Display"
 msgstr "Activeer printervriendelijk schoon scherm"
 
-#: squirrelmail/src/options_display.php:240
+#: squirrelmail/src/options_display.php:242
 msgid "Enable request/confirm reading"
 msgstr "Activeer ontvangst-/leesbevestiging"
 
-#: squirrelmail/src/options_display.php:247
+#: squirrelmail/src/options_display.php:250
 msgid "Always compose in a new window"
-msgstr "Altijd bericht opstellen in nieuw window"
+msgstr "Altijd bericht opstellen in nieuw venster"
 
-#: squirrelmail/src/options_display.php:253
+#: squirrelmail/src/options_display.php:257
+msgid "Width of compose window"
+msgstr "Breedte van berichtvenster"
+
+#: squirrelmail/src/options_display.php:265
+msgid "Height of compose window"
+msgstr "Hoogte van berichtvenster"
+
+#: squirrelmail/src/options_display.php:273
 msgid "Append signature before reply/forward text"
 msgstr "Voeg handtekening toe _voor_ de beantwoorde/geforwarde tekst"
 
-#: squirrelmail/src/options_display.php:259
+#: squirrelmail/src/options_display.php:280
 msgid "Use receive date for sort"
 msgstr "Gebruik datum van ontvangst voor sorteren"
 
-#: squirrelmail/src/options_display.php:266
+#: squirrelmail/src/options_display.php:287
 msgid "Use References header for thread sort"
-msgstr "Gebruik referentie-header voor sorteren in threads"
+msgstr "Gebruik referentie berichtkop voor sorteren in threads"
 
 #: squirrelmail/src/options_folder.php:40
 msgid "Special Folder Options"
@@ -931,8 +939,8 @@ msgstr "Onthoud aantal zoekopdrachten"
 msgid "Disabled"
 msgstr "Uitgeschakeld"
 
-#: squirrelmail/functions/page_header.php:145
-#: squirrelmail/plugins/filters/options.php:62
+#: squirrelmail/functions/page_header.php:140
+#: squirrelmail/plugins/filters/options.php:70
 #: squirrelmail/plugins/newmail/newmail_opt.php:37
 #: squirrelmail/plugins/translate/options.php:94
 #: squirrelmail/src/options.php:198 squirrelmail/src/options_highlight.php:62
@@ -946,19 +954,19 @@ msgstr "Opties"
 msgid "Message Highlighting"
 msgstr "Berichten weergave"
 
-#: squirrelmail/plugins/filters/options.php:64
+#: squirrelmail/plugins/filters/options.php:96
 #: squirrelmail/src/options_highlight.php:66
 msgid "New"
 msgstr "Nieuw"
 
-#: squirrelmail/plugins/filters/options.php:65
+#: squirrelmail/plugins/filters/options.php:97
 #: squirrelmail/plugins/filters/spamoptions.php:159
 #: squirrelmail/plugins/mail_fetch/fetch.php:225
 #: squirrelmail/src/options_highlight.php:67
 msgid "Done"
 msgstr "Klaar"
 
-#: squirrelmail/plugins/filters/options.php:152
+#: squirrelmail/plugins/filters/options.php:187
 #: squirrelmail/plugins/filters/spamoptions.php:158
 #: squirrelmail/src/options_highlight.php:74
 msgid "Edit"
@@ -1040,12 +1048,12 @@ msgstr "Anders:"
 msgid "Ex: 63aa7f"
 msgstr "Bijv: 63aa7f"
 
-#: squirrelmail/plugins/filters/options.php:94
-#: squirrelmail/src/options_highlight.php:331
+#: squirrelmail/plugins/filters/options.php:126
+#: squirrelmail/src/options_highlight.php:336
 msgid "To or Cc"
 msgstr "To of CC"
 
-#: squirrelmail/src/options_highlight.php:336
+#: squirrelmail/src/options_highlight.php:341
 msgid "Matches"
 msgstr "Selecteer"
 
@@ -1106,7 +1114,7 @@ msgstr "Aankruisvak"
 msgid "Flags"
 msgstr "Vlaggen"
 
-#: squirrelmail/functions/mailbox_display.php:691
+#: squirrelmail/functions/mailbox_display.php:744
 #: squirrelmail/src/options_order.php:42
 msgid "Size"
 msgstr "Omvang"
@@ -1242,7 +1250,7 @@ msgid ""
 "This contains personal information about yourself such as your name, your "
 "email address, etc."
 msgstr ""
-"Dit bevat persoonlijke informatie over uzelf, zoals uw naam en uw "
+"Dit bevat persoonlijke informatie over uzelf, zoals uw naam, uw "
 "e-mailadres, etc."
 
 #: squirrelmail/src/options.php:291
@@ -1296,81 +1304,85 @@ msgstr "Print"
 msgid "Close Window"
 msgstr "Sluit venster"
 
-#: squirrelmail/src/read_body.php:115
+#: squirrelmail/src/read_body.php:155
 msgid "View Printable Version"
 msgstr "Bekijk printervriendelijke versie"
 
-#: squirrelmail/src/read_body.php:177
+#: squirrelmail/src/read_body.php:219
 msgid "Your message"
 msgstr "Uw bericht:"
 
-#: squirrelmail/src/read_body.php:180
+#: squirrelmail/src/read_body.php:222
 msgid "Sent:"
 msgstr "Gezonden:"
 
-#: squirrelmail/src/read_body.php:182
+#: squirrelmail/src/read_body.php:224
 #, c-format
 msgid "Was displayed on %s"
 msgstr "Is gelezen op %s"
 
-#: squirrelmail/src/read_body.php:214
+#: squirrelmail/src/read_body.php:256
 msgid "Read:"
 msgstr "Gelezen:"
 
-#: squirrelmail/src/read_body.php:365
+#: squirrelmail/src/read_body.php:427
 msgid "Viewing Full Header"
 msgstr "Bekijk volledige berichtinformatie"
 
-#: squirrelmail/src/read_body.php:580
+#: squirrelmail/src/read_body.php:683
 msgid "Message List"
 msgstr "Berichtenlijst"
 
-#: squirrelmail/src/read_body.php:596
+#: squirrelmail/src/read_body.php:699
 msgid "Resume Draft"
 msgstr "Hervat Concept"
 
-#: squirrelmail/functions/mailbox_display.php:631
-#: squirrelmail/src/read_body.php:637
+#: squirrelmail/src/read_body.php:708
+msgid "Edit Message as New"
+msgstr "Bewerk als nieuw bericht"
+
+#: squirrelmail/functions/mailbox_display.php:660
+#: squirrelmail/src/read_body.php:748
 msgid "Forward"
 msgstr "Doorsturen"
 
-#: squirrelmail/src/read_body.php:646
+#: squirrelmail/src/read_body.php:757
 msgid "Reply"
 msgstr "Beantwoorden"
 
-#: squirrelmail/src/read_body.php:655
+#: squirrelmail/src/read_body.php:766
 msgid "Reply All"
 msgstr "Allen&nbsp;beantwoorden"
 
-#: squirrelmail/src/read_body.php:679 squirrelmail/src/read_body.php:682
+#: squirrelmail/src/read_body.php:790 squirrelmail/src/read_body.php:793
 msgid "View Full Header"
 msgstr "Bekijk volledige berichtinformatie"
 
-#: squirrelmail/src/read_body.php:757
+#: squirrelmail/src/read_body.php:868
 msgid "Mailer"
 msgstr "Mailprogramma"
 
-#: squirrelmail/src/read_body.php:807 squirrelmail/src/read_body.php:820
-#: squirrelmail/src/read_body.php:832 squirrelmail/src/read_body.php:857
-#: squirrelmail/src/read_body.php:901 squirrelmail/src/read_body.php:917
+#: squirrelmail/src/read_body.php:918 squirrelmail/src/read_body.php:931
+#: squirrelmail/src/read_body.php:943 squirrelmail/src/read_body.php:968
+#: squirrelmail/src/read_body.php:1012 squirrelmail/src/read_body.php:1028
 msgid "Read receipt"
 msgstr "Leesbevestiging"
 
-#: squirrelmail/src/read_body.php:809 squirrelmail/src/read_body.php:903
+#: squirrelmail/src/read_body.php:920 squirrelmail/src/read_body.php:1014
 msgid "send"
 msgstr "verzonden"
 
-#: squirrelmail/src/read_body.php:822 squirrelmail/src/read_body.php:834
-#: squirrelmail/src/read_body.php:859 squirrelmail/src/read_body.php:919
+#: squirrelmail/src/read_body.php:933 squirrelmail/src/read_body.php:945
+#: squirrelmail/src/read_body.php:970 squirrelmail/src/read_body.php:1030
 msgid "requested"
 msgstr "gevraagd"
 
-#: squirrelmail/src/read_body.php:835 squirrelmail/src/read_body.php:860
-#: squirrelmail/src/read_body.php:920
+#: squirrelmail/src/read_body.php:946 squirrelmail/src/read_body.php:971
+#: squirrelmail/src/read_body.php:1031
 msgid "Send read receipt now"
 msgstr "Verzend leesbevestiging nu"
 
-#: squirrelmail/src/read_body.php:847
+#: squirrelmail/src/read_body.php:958
 msgid ""
 "The message sender has requested a response to indicate that you have read "
 "this message. Would you like to send a receipt?"
@@ -1378,75 +1390,75 @@ msgstr ""
 "De afzender van dit bericht heeft u om een antwoord gevraagd, zodat hij kan "
 "zien dat u dit bericht heeft gelezen. Wilt u een leesbevestiging verzenden?"
 
-#: squirrelmail/functions/auth.php:29 squirrelmail/src/redirect.php:61
-#: squirrelmail/src/redirect.php:83
+#: squirrelmail/functions/auth.php:20 squirrelmail/src/redirect.php:64
+#: squirrelmail/src/redirect.php:86
 msgid "You must be logged in to access this page."
 msgstr ""
 "U heeft een geldige gebruikersnaam en wachtwoord nodig voor deze pagina!"
 
-#: squirrelmail/src/redirect.php:79
+#: squirrelmail/src/redirect.php:82
 msgid "There was an error contacting the mail server."
 msgstr "Er is een fout opgetreden bij het verbinden met de mailserver"
 
-#: squirrelmail/src/redirect.php:81
+#: squirrelmail/src/redirect.php:84
 msgid "Contact your administrator for help."
 msgstr "Neem contact op met uw systeembeheerder voor hulp."
 
-#: squirrelmail/src/search.php:243
+#: squirrelmail/src/search.php:241
 msgid "edit"
 msgstr "Wijzig"
 
-#: squirrelmail/src/search.php:250 squirrelmail/src/search.php:289
+#: squirrelmail/src/search.php:248 squirrelmail/src/search.php:290
 msgid "search"
 msgstr "Zoek"
 
-#: squirrelmail/src/search.php:253
+#: squirrelmail/src/search.php:251
 msgid "delete"
 msgstr "Verwijder"
 
-#: squirrelmail/src/search.php:264
+#: squirrelmail/src/search.php:262
 msgid "Recent Searches"
 msgstr "Recente zoekopdrachten"
 
-#: squirrelmail/src/search.php:281
+#: squirrelmail/src/search.php:282
 msgid "save"
 msgstr "Bewaar"
 
-#: squirrelmail/src/search.php:292
+#: squirrelmail/src/search.php:293
 msgid "forget"
 msgstr "vergeet"
 
-#: squirrelmail/src/search.php:301
+#: squirrelmail/src/search.php:302
 msgid "Current Search"
 msgstr "Huidige map"
 
-#: squirrelmail/src/search.php:340
+#: squirrelmail/src/search.php:346
 msgid "Body"
 msgstr "Inhoud"
 
-#: squirrelmail/src/search.php:341
+#: squirrelmail/src/search.php:347
 msgid "Everywhere"
 msgstr "Overal"
 
-#: squirrelmail/src/search.php:374 squirrelmail/src/search.php:403
+#: squirrelmail/src/search.php:380 squirrelmail/src/search.php:409
 msgid "Search Results"
 msgstr "Zoek resultaten:"
 
-#: squirrelmail/src/search.php:394
+#: squirrelmail/src/search.php:400
 msgid "No Messages found"
 msgstr "Geen berichten gevonden"
 
-#: squirrelmail/functions/page_header.php:127 squirrelmail/src/signout.php:72
+#: squirrelmail/functions/page_header.php:122 squirrelmail/src/signout.php:74
 msgid "Sign Out"
-msgstr "Log uit"
-
-#: squirrelmail/src/signout.php:78
-msgid "You have been successfully signed out."
-msgstr "U bent succesvol uitgelogd."
+msgstr "Afmelden"
 
 #: squirrelmail/src/signout.php:80
+msgid "You have been successfully signed out."
+msgstr "U bent succesvol afgemeld."
+
+#: squirrelmail/src/signout.php:82
 msgid "Click here to log back in."
-msgstr "Klik hier om opnieuw in te loggen."
+msgstr "Klik hier om opnieuw aan te melden."
 
 #: squirrelmail/src/vcard.php:30
 msgid "Viewing a Business Card"
@@ -1520,10 +1532,10 @@ msgstr "Databasefout: %s"
 #: squirrelmail/functions/abook_database.php:221
 #: squirrelmail/functions/abook_database.php:260
 #: squirrelmail/functions/abook_database.php:293
-#: squirrelmail/functions/abook_local_file.php:240
-#: squirrelmail/functions/abook_local_file.php:261
-#: squirrelmail/functions/abook_local_file.php:286
-#: squirrelmail/functions/abook_local_file.php:318
+#: squirrelmail/functions/abook_local_file.php:243
+#: squirrelmail/functions/abook_local_file.php:267
+#: squirrelmail/functions/abook_local_file.php:292
+#: squirrelmail/functions/abook_local_file.php:324
 #: squirrelmail/functions/addressbook.php:351
 #: squirrelmail/functions/addressbook.php:386
 #: squirrelmail/functions/addressbook.php:439
@@ -1531,13 +1543,13 @@ msgid "Addressbook is read-only"
 msgstr "Adresboek is alleen-lezen"
 
 #: squirrelmail/functions/abook_database.php:231
-#: squirrelmail/functions/abook_local_file.php:245
+#: squirrelmail/functions/abook_local_file.php:248
 #, c-format
 msgid "User '%s' already exist"
 msgstr "Gebruiker '%s' bestaat al"
 
 #: squirrelmail/functions/abook_database.php:303
-#: squirrelmail/functions/abook_local_file.php:324
+#: squirrelmail/functions/abook_local_file.php:330
 #, c-format
 msgid "User '%s' does not exist"
 msgstr "Gebruiker '%s' bestaat niet"
@@ -1567,13 +1579,13 @@ msgstr "Kan het adresboek niet wijzigen"
 msgid "Not a file name"
 msgstr "Geen bestandsnaam"
 
-#: squirrelmail/functions/abook_local_file.php:266
-#: squirrelmail/functions/abook_local_file.php:292
-#: squirrelmail/functions/abook_local_file.php:331
+#: squirrelmail/functions/abook_local_file.php:272
+#: squirrelmail/functions/abook_local_file.php:298
+#: squirrelmail/functions/abook_local_file.php:337
 msgid "Could not lock datafile"
 msgstr "Kan databestand niet beveiligen"
 
-#: squirrelmail/functions/abook_local_file.php:279
+#: squirrelmail/functions/abook_local_file.php:285
 msgid "Write to addressbook failed"
 msgstr "Schrijven naar adresboek mislukt"
 
@@ -1746,33 +1758,23 @@ msgstr "M j, Y"
 msgid "Preference database error (%s). Exiting abnormally"
 msgstr "Bestand met voorkeuren (%s) niet gevonden. Programma afgebroken."
 
-#: squirrelmail/functions/display_messages.php:30
+#: squirrelmail/functions/display_messages.php:52
 #: squirrelmail/functions/imap_general.php:252
 msgid "Unknown user or password incorrect."
 msgstr "Onbekende gebruiker of verkeerd wachtwoord"
 
-#: squirrelmail/functions/display_messages.php:32
+#: squirrelmail/functions/display_messages.php:54
 msgid "Click here to try again"
 msgstr "Klik hier om het nog eens te proberen "
 
-#: squirrelmail/functions/display_messages.php:47
-#, c-format
-msgid "Welcome to %s's WebMail system"
-msgstr "Welkom on %s WebMail systeem"
-
-#: squirrelmail/functions/display_messages.php:59
-#, c-format
-msgid "Running SquirrelMail version %s (c) 1999-2001."
-msgstr "SquirrelMail versie %s (c) 1999-2001."
-
-#: squirrelmail/functions/display_messages.php:84
+#: squirrelmail/functions/display_messages.php:75
 #, c-format
 msgid "Click here to return to %s"
 msgstr "Klik hier om terug te gaan naar %s"
 
-#: squirrelmail/functions/display_messages.php:165
+#: squirrelmail/functions/display_messages.php:158
 msgid "Go to the login page"
-msgstr "Ga naar de inlog-pagina"
+msgstr "Ga naar de aanmeldpagina"
 
 #: squirrelmail/functions/file_prefs.php:39
 #, c-format
@@ -1780,7 +1782,7 @@ msgid ""
 "Preference file, %s, does not exist. Log out, and log back in to create a "
 "default preference file."
 msgstr ""
-"Bestand met voorkeuren, %s, bestaat niet. Log uit, en log weer in om een "
+"Bestand met voorkeuren, %s, bestaat niet. Meld af, en meld weer aan om een "
 "standaard voorkeursbestand aan te maken."
 
 #: squirrelmail/functions/file_prefs.php:162
@@ -1794,7 +1796,7 @@ msgstr "Standaard voorkeursbestand niet gevonden!"
 
 #: squirrelmail/functions/file_prefs.php:166
 #: squirrelmail/functions/file_prefs.php:176
-#: squirrelmail/functions/prefs.php:93
+#: squirrelmail/functions/prefs.php:94
 msgid "Please contact your system administrator and report this error."
 msgstr "Neem contact op met uw systeembeheerder voor hulp."
 
@@ -1815,12 +1817,12 @@ msgstr ""
 "foutmelding:"
 
 #: squirrelmail/functions/imap_general.php:163
-#: squirrelmail/functions/imap_messages.php:259
-#: squirrelmail/functions/imap_messages.php:266
-#: squirrelmail/functions/imap_messages.php:284
-#: squirrelmail/functions/imap_messages.php:293
-#: squirrelmail/functions/imap_messages.php:412
-#: squirrelmail/plugins/filters/filters.php:236
+#: squirrelmail/functions/imap_messages.php:357
+#: squirrelmail/functions/imap_messages.php:364
+#: squirrelmail/functions/imap_messages.php:382
+#: squirrelmail/functions/imap_messages.php:391
+#: squirrelmail/functions/imap_messages.php:510
+#: squirrelmail/plugins/filters/filters.php:227
 msgid "ERROR : Could not complete request."
 msgstr "FOUT: Kan opdracht niet verwerken."
 
@@ -1830,17 +1832,17 @@ msgid "Query:"
 msgstr "Verzoek:"
 
 #: squirrelmail/functions/imap_general.php:167
-#: squirrelmail/plugins/filters/filters.php:238
+#: squirrelmail/plugins/filters/filters.php:229
 msgid "Reason Given: "
 msgstr "Reden: "
 
 #: squirrelmail/functions/imap_general.php:174
-#: squirrelmail/plugins/filters/filters.php:245
+#: squirrelmail/plugins/filters/filters.php:236
 msgid "ERROR : Bad or malformed request."
 msgstr "FOUT: Foute of corrupte aanvraag."
 
 #: squirrelmail/functions/imap_general.php:178
-#: squirrelmail/plugins/filters/filters.php:247
+#: squirrelmail/plugins/filters/filters.php:238
 msgid "Server responded: "
 msgstr "Server reageerde: "
 
@@ -1863,135 +1865,135 @@ msgstr "Onbekende fout: %s"
 msgid "Read data:"
 msgstr "Lees data:"
 
-#: squirrelmail/functions/imap_messages.php:261
-#: squirrelmail/functions/imap_messages.php:286
-#: squirrelmail/functions/imap_messages.php:414
+#: squirrelmail/functions/imap_messages.php:359
+#: squirrelmail/functions/imap_messages.php:384
+#: squirrelmail/functions/imap_messages.php:512
 msgid "Unknown response from IMAP server: "
 msgstr "Onbekend antwoord van IMAP server: "
 
-#: squirrelmail/functions/imap_messages.php:268
+#: squirrelmail/functions/imap_messages.php:366
 msgid "Unknown message number in reply from server: "
 msgstr "Onbekend berichtnummer in antwoord van server"
 
-#: squirrelmail/functions/imap_messages.php:295
+#: squirrelmail/functions/imap_messages.php:393
 msgid "Unknown messagenumber in reply from server: "
 msgstr "Onbekend berichtnummer in antwoord van server"
 
-#: squirrelmail/functions/imap_messages.php:304
-#: squirrelmail/functions/imap_messages.php:338
-#: squirrelmail/functions/imap_messages.php:584
-#: squirrelmail/functions/imap_messages.php:635
-#: squirrelmail/functions/mailbox_display.php:1010
+#: squirrelmail/functions/imap_messages.php:402
+#: squirrelmail/functions/imap_messages.php:436
+#: squirrelmail/functions/imap_messages.php:693
+#: squirrelmail/functions/imap_messages.php:744
+#: squirrelmail/functions/mailbox_display.php:1065
 msgid "(no subject)"
 msgstr "(geen onderwerp)"
 
-#: squirrelmail/functions/imap_messages.php:305
+#: squirrelmail/functions/imap_messages.php:403
 msgid "Unknown Sender"
 msgstr "Onbekende afzender"
 
-#: squirrelmail/functions/imap_messages.php:368
+#: squirrelmail/functions/imap_messages.php:466
 msgid "No To Address"
 msgstr "Geen AAN adres"
 
-#: squirrelmail/functions/imap_messages.php:638
+#: squirrelmail/functions/imap_messages.php:747
 msgid "(unknown sender)"
 msgstr "(onbekende afzender)"
 
-#: squirrelmail/functions/imap_search.php:90
+#: squirrelmail/functions/imap_search.php:83
 msgid "No Messages Found"
 msgstr "Bekijk bericht"
 
-#: squirrelmail/functions/imap_search.php:187
-#: squirrelmail/functions/imap_search.php:195
+#: squirrelmail/functions/imap_search.php:180
+#: squirrelmail/functions/imap_search.php:188
 msgid "Found"
 msgstr "Gevonden"
 
-#: squirrelmail/functions/imap_search.php:187
-#: squirrelmail/functions/imap_search.php:195
+#: squirrelmail/functions/imap_search.php:180
+#: squirrelmail/functions/imap_search.php:188
 msgid "messages"
 msgstr "berichten"
 
-#: squirrelmail/functions/imap_search.php:202
+#: squirrelmail/functions/imap_search.php:195
 msgid "Folder:"
 msgstr "Map:"
 
-#: squirrelmail/functions/mailbox_display.php:181
+#: squirrelmail/functions/mailbox_display.php:185
 msgid "A"
 msgstr "A"
 
-#: squirrelmail/functions/mailbox_display.php:503
+#: squirrelmail/functions/mailbox_display.php:546
 msgid "THIS FOLDER IS EMPTY"
 msgstr "DEZE MAP IS LEEG"
 
-#: squirrelmail/functions/mailbox_display.php:595
-msgid "$thread_name"
-msgstr ""
-
-#: squirrelmail/functions/mailbox_display.php:607
+#: squirrelmail/functions/mailbox_display.php:636
 msgid "Move Selected To:"
 msgstr "Verplaats geselecteerde naar:"
 
-#: squirrelmail/functions/mailbox_display.php:610
+#: squirrelmail/functions/mailbox_display.php:639
 msgid "Transform Selected Messages"
 msgstr "Wijzig geselecteerde berichten"
 
-#: squirrelmail/functions/mailbox_display.php:630
-#: squirrelmail/plugins/delete_move_next/setup.php:226
-#: squirrelmail/plugins/delete_move_next/setup.php:250
+#: squirrelmail/functions/mailbox_display.php:659
+#: squirrelmail/plugins/delete_move_next/setup.php:244
+#: squirrelmail/plugins/delete_move_next/setup.php:268
 msgid "Move"
 msgstr "Verplaats"
 
-#: squirrelmail/functions/mailbox_display.php:637
+#: squirrelmail/functions/mailbox_display.php:666
 msgid "Expunge"
 msgstr "Legen"
 
-#: squirrelmail/functions/mailbox_display.php:638
+#: squirrelmail/functions/mailbox_display.php:667
 msgid "mailbox"
 msgstr "postvak"
 
-#: squirrelmail/functions/mailbox_display.php:640
+#: squirrelmail/functions/mailbox_display.php:669
 msgid "Read"
 msgstr "Gelezen"
 
-#: squirrelmail/functions/mailbox_display.php:641
+#: squirrelmail/functions/mailbox_display.php:670
 msgid "Unread"
 msgstr "Ongelezen"
 
-#: squirrelmail/functions/mailbox_display.php:739
+#: squirrelmail/functions/mailbox_display.php:687
+msgid "$thread_name"
+msgstr "$thread_naam"
+
+#: squirrelmail/functions/mailbox_display.php:798
 msgid "Toggle All"
 msgstr "(de)Selecteer alles"
 
-#: squirrelmail/functions/mailbox_display.php:767
+#: squirrelmail/functions/mailbox_display.php:822
 msgid "Unselect All"
 msgstr "Alles deselecteren"
 
-#: squirrelmail/functions/mailbox_display.php:769
+#: squirrelmail/functions/mailbox_display.php:824
 msgid "Select All"
 msgstr "Alles selecteren"
 
-#: squirrelmail/functions/mailbox_display.php:786
+#: squirrelmail/functions/mailbox_display.php:841
 #, c-format
 msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
 msgstr "Bekijk berichten: <B>%s</B> t/m <B>%s</B> (%s totaal)"
 
-#: squirrelmail/functions/mailbox_display.php:789
+#: squirrelmail/functions/mailbox_display.php:844
 #, c-format
 msgid "Viewing Message: <B>%s</B> (1 total)"
 msgstr "Bekijk bericht: <B>%s</B> (1 totaal)"
 
-#: squirrelmail/functions/mailbox_display.php:973
+#: squirrelmail/functions/mailbox_display.php:1028
 msgid "Paginate"
 msgstr "Pagineer"
 
-#: squirrelmail/functions/mailbox_display.php:980
+#: squirrelmail/functions/mailbox_display.php:1035
 msgid "Show All"
 msgstr "Toon alle"
 
-#: squirrelmail/functions/mime.php:367
+#: squirrelmail/functions/mime.php:425
 msgid "Error decoding mime structure.  Report this as a bug!"
 msgstr "Fout decoderen mime structuur. Raporteer dit als een bug!"
 
-#: squirrelmail/functions/mime.php:441
+#: squirrelmail/functions/mime.php:499
 msgid ""
 "Body retrieval error. The reason for this is most probably that the message "
 "is malformed. Please help us making future versions better by submitting "
@@ -2002,19 +2004,19 @@ msgstr ""
 "toekomstige versies van squirrelmail te verbeteren door dit bericht achter "
 "te laten in de developers knowledgebase!"
 
-#: squirrelmail/functions/mime.php:443
+#: squirrelmail/functions/mime.php:501
 msgid "Submit message"
 msgstr "Voeg bericht toe"
 
-#: squirrelmail/functions/mime.php:445
+#: squirrelmail/functions/mime.php:503
 msgid "Command:"
 msgstr "Commando:"
 
-#: squirrelmail/functions/mime.php:446
+#: squirrelmail/functions/mime.php:504
 msgid "Response:"
 msgstr "Antwoord:"
 
-#: squirrelmail/functions/mime.php:447
+#: squirrelmail/functions/mime.php:505
 #: squirrelmail/plugins/calendar/event_create.php:118
 #: squirrelmail/plugins/calendar/event_delete.php:38
 #: squirrelmail/plugins/calendar/event_edit.php:101
@@ -2022,37 +2024,27 @@ msgstr "Antwoord:"
 msgid "Message:"
 msgstr "Bericht:"
 
-#: squirrelmail/functions/mime.php:448
+#: squirrelmail/functions/mime.php:506
 msgid "FETCH line:"
 msgstr "FETCH regel:"
 
-#: squirrelmail/functions/mime.php:704
+#: squirrelmail/functions/mime.php:791
 msgid "Hide Unsafe Images"
 msgstr "Verberg onveilige figuren"
 
-#: squirrelmail/functions/mime.php:706
+#: squirrelmail/functions/mime.php:793
 msgid "View Unsafe Images"
 msgstr "Bekijk onveilige figuren"
 
-#: squirrelmail/functions/mime.php:735
+#: squirrelmail/functions/mime.php:822
 msgid "Attachments"
 msgstr "Bijlagen"
 
-#: squirrelmail/functions/mime.php:769 squirrelmail/functions/mime.php:847
+#: squirrelmail/functions/mime.php:858 squirrelmail/functions/mime.php:936
 msgid "download"
 msgstr "download"
 
-#: squirrelmail/functions/mime.php:1146
-#: squirrelmail/plugins/calendar/event_create.php:53
-#: squirrelmail/plugins/calendar/event_create.php:116
-#: squirrelmail/plugins/calendar/event_delete.php:36
-#: squirrelmail/plugins/calendar/event_edit.php:71
-#: squirrelmail/plugins/calendar/event_edit.php:99
-#: squirrelmail/plugins/calendar/event_edit.php:112
-msgid "Title:"
-msgstr "Titel:"
-
-#: squirrelmail/functions/mime.php:1335
+#: squirrelmail/functions/mime.php:1662 squirrelmail/functions/mime.php:1969
 msgid "sec_remove_eng.png"
 msgstr "sec_remove_eng.png"
 
@@ -2075,27 +2067,27 @@ msgstr "Ja"
 msgid "No"
 msgstr "Nee"
 
-#: squirrelmail/functions/page_header.php:121
+#: squirrelmail/functions/page_header.php:116
 msgid "Current Folder"
 msgstr "Huidige map"
 
-#: squirrelmail/functions/page_header.php:135
-#: squirrelmail/functions/page_header.php:138
-#: squirrelmail/functions/page_header.php:180
-#: squirrelmail/functions/page_header.php:207
+#: squirrelmail/functions/page_header.php:130
+#: squirrelmail/functions/page_header.php:133
+#: squirrelmail/functions/page_header.php:175
+#: squirrelmail/functions/page_header.php:202
 msgid "Compose"
 msgstr "Nieuw bericht"
 
-#: squirrelmail/functions/prefs.php:91
+#: squirrelmail/functions/prefs.php:92
 #, c-format
 msgid "Error creating directory %s."
 msgstr "Fout bij aanmaken directory %s."
 
-#: squirrelmail/functions/prefs.php:92
+#: squirrelmail/functions/prefs.php:93
 msgid "Could not create hashed directory structure!"
 msgstr "Kan geen hashed directory structuur aanmaken!"
 
-#: squirrelmail/plugins/filters/filters.php:524
+#: squirrelmail/plugins/filters/filters.php:554
 msgid ""
 "COMMERCIAL - This list contains servers that are verified spam senders. It "
 "is a pretty reliable list to scan spam from."
@@ -2104,7 +2096,7 @@ msgstr ""
 "verzenders. Het is een behoorlijk betrouwbare lijst om spam mee te "
 "detecteren."
 
-#: squirrelmail/plugins/filters/filters.php:532
+#: squirrelmail/plugins/filters/filters.php:562
 msgid ""
 "COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
 "be relayed through their system will be banned with this.  Another good one "
@@ -2113,7 +2105,7 @@ msgstr ""
 "COMMERCIAL - Server die geconfigureerd zijn om spam door te geven zullen "
 "worden geblokkeerd met dit."
 
-#: squirrelmail/plugins/filters/filters.php:540
+#: squirrelmail/plugins/filters/filters.php:570
 msgid ""
 "COMMERCIAL - Dial-up users are often filtered out since they should use "
 "their ISP's mail servers to send mail.  Spammers typically get a dial-up "
@@ -2123,19 +2115,19 @@ msgstr ""
 "mailservers moeten gebruiken om mail te verzenden. Spammers nemen vaak een "
 "inbelaccount om spam te verzenden."
 
-#: squirrelmail/plugins/filters/filters.php:548
+#: squirrelmail/plugins/filters/filters.php:578
 msgid "COMMERCIAL - RBL+ Blackhole entries."
 msgstr "COMMERCIAL - RBL+ Blackhole entries."
 
-#: squirrelmail/plugins/filters/filters.php:556
+#: squirrelmail/plugins/filters/filters.php:586
 msgid "COMMERCIAL - RBL+ OpenRelay entries."
 msgstr "COMMERCIAL - RBL+ OpenRelay entries."
 
-#: squirrelmail/plugins/filters/filters.php:564
+#: squirrelmail/plugins/filters/filters.php:594
 msgid "COMMERCIAL - RBL+ Dial-up entries."
 msgstr "COMMERCIAL - RBL+ Dial-up entries."
 
-#: squirrelmail/plugins/filters/filters.php:573
+#: squirrelmail/plugins/filters/filters.php:603
 msgid ""
 "FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
 "include servers used by abuse@uunet.net auto-replies too."
@@ -2143,11 +2135,11 @@ msgstr ""
 "FREE - Osirusoft Relays - Osirusofts lijst van geverifieerde open relays. "
 "Lijkt ook servers gebruikt door abuse@uunet.net auto-replies te bevatten."
 
-#: squirrelmail/plugins/filters/filters.php:581
+#: squirrelmail/plugins/filters/filters.php:611
 msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
 msgstr "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
 
-#: squirrelmail/plugins/filters/filters.php:589
+#: squirrelmail/plugins/filters/filters.php:619
 msgid ""
 "FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
 "have been manually added after multiple nominations. Use with caution. Seems "
@@ -2157,7 +2149,7 @@ msgstr ""
 "handmatig zijn toegevoegd na herhaaldelijke meldingen. Gebruik voorzichtig. "
 "Lijkt abuse auto-replies van ISPs ook te weren."
 
-#: squirrelmail/plugins/filters/filters.php:597
+#: squirrelmail/plugins/filters/filters.php:627
 msgid ""
 "FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
 "other mail servers that are not secure."
@@ -2165,7 +2157,7 @@ msgstr ""
 "FREE - Osirusoft Smart Hosts - Lijst van hosts die beveiligd zijn, maar "
 "relayen voor andere mailservers die niet beveiligd zijn."
 
-#: squirrelmail/plugins/filters/filters.php:605
+#: squirrelmail/plugins/filters/filters.php:635
 msgid ""
 "FREE - Osirusoft Spamware Developers - It is believed that these are IP "
 "ranges of companies that are known to produce spam software. Seems to catch "
@@ -2175,7 +2167,7 @@ msgstr ""
 "bekend staan om het maken van spam software. Lijkt abuse auto-replies van "
 "sommige ISPs te weren."
 
-#: squirrelmail/plugins/filters/filters.php:613
+#: squirrelmail/plugins/filters/filters.php:643
 msgid ""
 "FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
 "users in without confirmation."
@@ -2183,7 +2175,7 @@ msgstr ""
 "FREE - Osirusoft Unconfirmed OptIn Servers - Lijst van listservers die "
 "gebruikers accepteren zonder bevestiging."
 
-#: squirrelmail/plugins/filters/filters.php:621
+#: squirrelmail/plugins/filters/filters.php:651
 msgid ""
 "FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure "
 "formmail.cgi scripts. (planned)."
@@ -2191,11 +2183,11 @@ msgstr ""
 "FREE - Osirusoft onveilige formmail.cgi scripts - Lijst van onveilige "
 "formmail.cgi scripts. (geplanned)."
 
-#: squirrelmail/plugins/filters/filters.php:629
+#: squirrelmail/plugins/filters/filters.php:659
 msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
 msgstr "FREE - Osirusoft Open Proxy Servers - Lijst van Open Proxy Servers."
 
-#: squirrelmail/plugins/filters/filters.php:637
+#: squirrelmail/plugins/filters/filters.php:667
 msgid ""
 "FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
 "false positives than ORBS did though."
@@ -2203,37 +2195,37 @@ msgstr ""
 "FREE - ORDB is opgericht toen ORBS uit de lucht ging. Het lijkt minder foute "
 "matches te hebben dan ORBS."
 
-#: squirrelmail/plugins/filters/filters.php:645
+#: squirrelmail/plugins/filters/filters.php:675
 msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
 msgstr "FREE - Five-Ten-sg.com - Direct SPAM sources."
 
-#: squirrelmail/plugins/filters/filters.php:653
+#: squirrelmail/plugins/filters/filters.php:683
 msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
 msgstr "FREE - Five-Ten-sg.com - Dial-up lists - bevat enkele DSL IPs."
 
-#: squirrelmail/plugins/filters/filters.php:661
+#: squirrelmail/plugins/filters/filters.php:691
 msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
 msgstr ""
 "FREE - Five-Ten-sg.com - Bulk mailers die geen bevestiging van gebruikers "
 "gebruiken."
 
-#: squirrelmail/plugins/filters/filters.php:669
+#: squirrelmail/plugins/filters/filters.php:699
 msgid "FREE - Five-Ten-sg.com - Other misc. servers."
 msgstr "FREE - Five-Ten-sg.com - Andere servers."
 
-#: squirrelmail/plugins/filters/filters.php:677
+#: squirrelmail/plugins/filters/filters.php:707
 msgid "FREE - Five-Ten-sg.com - Single Stage servers."
 msgstr "FREE - Five-Ten-sg.com - Single Stage servers."
 
-#: squirrelmail/plugins/filters/filters.php:685
+#: squirrelmail/plugins/filters/filters.php:715
 msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
 msgstr "FREE - Five-Ten-sg.com - SPAM Support servers."
 
-#: squirrelmail/plugins/filters/filters.php:693
+#: squirrelmail/plugins/filters/filters.php:723
 msgid "FREE - Five-Ten-sg.com - Web Form IPs."
 msgstr "FREE - Five-Ten-sg.com - Web Form IPs."
 
-#: squirrelmail/plugins/filters/filters.php:701
+#: squirrelmail/plugins/filters/filters.php:731
 msgid ""
 "FREE - Dorkslayers appears to include only really bad open relays outside "
 "the US to avoid being sued. Interestingly enough, their website recommends "
@@ -2243,41 +2235,41 @@ msgstr ""
 "aanklachten te vermijden. Interessant is dat hun website aanbeveelt om hun "
 "service NIET te gebruiken."
 
-#: squirrelmail/plugins/filters/filters.php:709
+#: squirrelmail/plugins/filters/filters.php:739
 msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
-msgstr ""
+msgstr "FREE - SPAMhaus - Een lijst van bekende SPAM bronnen."
 
-#: squirrelmail/plugins/filters/filters.php:717
+#: squirrelmail/plugins/filters/filters.php:747
 #, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
 msgstr ""
-"FREE, for now - SPAMCOP - Een interessant alternatief dat servers bevat die "
-"een erg hoge spam - email ratio hebben. (85% of meer)"
+"FREE - SPAMCOP - Een interessant alternatief dat servers bevat die "
+"een erg hoge spam - e-mail ratio hebben. (85% of meer)"
 
-#: squirrelmail/plugins/filters/filters.php:725
+#: squirrelmail/plugins/filters/filters.php:755
 msgid "FREE - dev.null.dk - I don't have any detailed info on this list."
 msgstr ""
 "FREE - dev.null.dk - Ik heb geen gedetailleerde informatie over deze lijst."
 
-#: squirrelmail/plugins/filters/filters.php:733
+#: squirrelmail/plugins/filters/filters.php:763
 msgid "FREE - visi.com - Relay Stop List. Very conservative OpenRelay List."
 msgstr "FREE - visi.com - Relay Stop Lijst. Erg conservatieve OpenRelay List."
 
-#: squirrelmail/plugins/filters/filters.php:741
+#: squirrelmail/plugins/filters/filters.php:771
 msgid "FREE - 2mbit.com Open Relays - Another list of Open Relays."
 msgstr "FREE - 2mbit.com Open Relays - Andere lijst van Open Relays."
 
-#: squirrelmail/plugins/filters/filters.php:749
+#: squirrelmail/plugins/filters/filters.php:779
 msgid "FREE - 2mbit.com SPAM Source - List of Direct SPAM Sources."
 msgstr "FREE - 2mbit.com SPAM Source - Lijst van Direct SPAM sources."
 
-#: squirrelmail/plugins/filters/filters.php:757
+#: squirrelmail/plugins/filters/filters.php:787
 msgid "FREE - 2mbit.com SPAM ISPs - List of SPAM-friendly ISPs."
 msgstr "FREE - 2mbit.com SPAM ISPs - Lijst van SPAM-vriendelijke ISPs."
 
-#: squirrelmail/plugins/filters/filters.php:765
+#: squirrelmail/plugins/filters/filters.php:795
 msgid ""
 "FREE - Leadmon DUL - Another list of Dial-up or otherwise dynamically "
 "assigned IPs."
@@ -2285,7 +2277,7 @@ msgstr ""
 "FREE - Leadmon DUL - Andere lijst van Dial-up of andere dynamisch toegewezen "
 "IPs."
 
-#: squirrelmail/plugins/filters/filters.php:773
+#: squirrelmail/plugins/filters/filters.php:803
 msgid ""
 "FREE - Leadmon SPAM Source - List of IPs Leadmon.net has received SPAM "
 "directly from."
@@ -2293,7 +2285,7 @@ msgstr ""
 "FREE - Leadmon SPAM Source - Lijst van IPs waar Leadmon.net direct SPAM van "
 "heeft gekregen."
 
-#: squirrelmail/plugins/filters/filters.php:781
+#: squirrelmail/plugins/filters/filters.php:811
 msgid ""
 "FREE - Leadmon Bulk Mailers - Bulk mailers that do not require confirmed "
 "opt-in or that have allowed known spammers to become clients and abuse their "
@@ -2303,7 +2295,7 @@ msgstr ""
 "vereisen of die bekende spammers toe hebben gestaan lid te worden en hun "
 "services te misbruiken."
 
-#: squirrelmail/plugins/filters/filters.php:789
+#: squirrelmail/plugins/filters/filters.php:819
 msgid ""
 "FREE - Leadmon Open Relays - Single Stage Open Relays that are not listed on "
 "other active RBLs."
@@ -2311,7 +2303,7 @@ msgstr ""
 "FREE - Leadmon Open Relays - Single Stage Open Relays die niet op de lijst "
 "staan van andere actieve RBLs."
 
-#: squirrelmail/plugins/filters/filters.php:797
+#: squirrelmail/plugins/filters/filters.php:827
 msgid ""
 "FREE - Leadmon Multi-stage - Multi-Stage Open Relays that are not listed on "
 "other active RBLs and that have sent SPAM to Leadmon.net."
@@ -2319,7 +2311,7 @@ msgstr ""
 "FREE - Leadmon Multi-stage - Multi-Stage Open Relays die niet op de lijst "
 "staan van andere actieve RBLs en die SPAM hebben verzonden aan Leadmon.net."
 
-#: squirrelmail/plugins/filters/filters.php:805
+#: squirrelmail/plugins/filters/filters.php:835
 msgid ""
 "FREE - Leadmon SpamBlock - Sites on this listing have sent Leadmon.net "
 "direct SPAM from IPs in netblocks where the entire block has no DNS "
@@ -2331,45 +2323,73 @@ msgstr ""
 "mappings heeft. Het is een lijst van BLOCKS van IPs die worden gebruikt door "
 "mensen die Leadmon.net hebben geSPAMmed"
 
-#: squirrelmail/plugins/filters/filters.php:813
+#: squirrelmail/plugins/filters/filters.php:843
 msgid ""
 "FREE, for now - Not Just Another Blacklist - Both Open Relays and Direct "
 "SPAM Sources."
 msgstr ""
-"FREE, momenteel - Weer een andere Blacklist - Beide Open Relays en Direct "
+"FREE - Een andere Blacklist - Beide Open Relays en Direct "
 "SPAM Sources."
 
-#: squirrelmail/plugins/filters/filters.php:821
+#: squirrelmail/plugins/filters/filters.php:851
 msgid "FREE, for now - Not Just Another Blacklist - Dial-up IPs."
-msgstr "FREE, momenteel - Weer een andere Blacklist - Dial-up IPs."
+msgstr "FREE - Een andere Blacklist - Dial-up IPs."
 
-#: squirrelmail/plugins/filters/options.php:62
+#: squirrelmail/plugins/filters/options.php:60
+msgid "Saved Scan type"
+msgstr "Bewaarde scan type"
+
+#: squirrelmail/plugins/filters/options.php:70
 msgid "Message Filtering"
 msgstr "Bericht filtering"
 
-#: squirrelmail/plugins/filters/options.php:78
+#: squirrelmail/plugins/filters/options.php:77
+#: squirrelmail/plugins/filters/spamoptions.php:105
+msgid "What to Scan:"
+msgstr "Wat te scannen:"
+
+#: squirrelmail/plugins/filters/options.php:83
+#: squirrelmail/plugins/filters/spamoptions.php:111
+msgid "All messages"
+msgstr "Alle berichten"
+
+#: squirrelmail/plugins/filters/options.php:88
+#: squirrelmail/plugins/filters/spamoptions.php:116
+msgid "Only unread messages"
+msgstr "Alleen ongelezen berichten"
+
+#: squirrelmail/plugins/filters/options.php:91
+#: squirrelmail/plugins/filters/spamoptions.php:149
+msgid "Save"
+msgstr "Bewaar"
+
+#: squirrelmail/plugins/filters/options.php:110
 msgid "Match:"
 msgstr "Selecteer op:"
 
-#: squirrelmail/plugins/filters/options.php:104
+#: squirrelmail/plugins/filters/options.php:132
+msgid "Header"
+msgstr "Berichtkop"
+
+#: squirrelmail/plugins/filters/options.php:139
 msgid "Contains:"
 msgstr "Bevat:"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:222
-#: squirrelmail/plugins/delete_move_next/setup.php:246
-#: squirrelmail/plugins/filters/options.php:116
+#: squirrelmail/plugins/delete_move_next/setup.php:240
+#: squirrelmail/plugins/delete_move_next/setup.php:264
+#: squirrelmail/plugins/filters/options.php:151
 msgid "Move to:"
 msgstr "Verplaats:"
 
-#: squirrelmail/plugins/filters/options.php:158
+#: squirrelmail/plugins/filters/options.php:193
 msgid "Down"
 msgstr "Omlaag"
 
-#: squirrelmail/plugins/filters/options.php:164
+#: squirrelmail/plugins/filters/options.php:199
 msgid "Up"
 msgstr "Omhoog"
 
-#: squirrelmail/plugins/filters/options.php:167
+#: squirrelmail/plugins/filters/options.php:202
 #, c-format
 msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
 msgstr "Als <b>%s</b> bevat <b>%s</b> verplaats dan naar <b>%s</b>"
@@ -2427,18 +2447,6 @@ msgstr ""
 "de map periodiek wordt geleegd, zodat u van een grote mailbox gevrijwaard "
 "blijft."
 
-#: squirrelmail/plugins/filters/spamoptions.php:105
-msgid "What to Scan:"
-msgstr "Wat te scannen:"
-
-#: squirrelmail/plugins/filters/spamoptions.php:111
-msgid "All messages"
-msgstr "Alle berichten"
-
-#: squirrelmail/plugins/filters/spamoptions.php:116
-msgid "Only unread messages"
-msgstr "Alleen ongelezen berichten"
-
 #: squirrelmail/plugins/filters/spamoptions.php:122
 msgid ""
 "The more messages you scan, the longer it takes.  I would suggest that you "
@@ -2453,10 +2461,6 @@ msgstr ""
 "kom terug en zet de optie -alleen nieuwe berichten- . Op deze manier zullen "
 "uw nieuwe spamfilters worden geactiveerd en u scanned zelfs de spam die u "
 "leest met de nieuwe spamfilters."
-
-#: squirrelmail/plugins/filters/spamoptions.php:149
-msgid "Save"
-msgstr "Bewaar"
 
 #: squirrelmail/plugins/filters/spamoptions.php:160
 #, c-format
@@ -2567,6 +2571,74 @@ msgstr "Fout ontcijferen woordenboek"
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:506
 msgid "Cute."
 msgstr "Cute."
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:33
+msgid "Your personal dictionary was erased."
+msgstr "Uw persoonlijk woordenboek is verwijderd"
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:34
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:47
+msgid "Dictionary Erased"
+msgstr "Woordenboek verwijderd"
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:41
+msgid ""
+"Your personal dictionary was erased. Please close this window and click "
+"\"Check Spelling\" button again to start your spellcheck over."
+msgstr ""
+"Uw persoonlijk woordenboek is verwijderd. Sluit dit venster en klik opnieuw "
+"op de \"Controleer spelling\" knop om uw spelling te controleren."
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:45
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:77
+msgid "Close this Window"
+msgstr "Sluit dit venster"
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:70
+msgid ""
+"Your personal dictionary was re-encrypted successfully. Now return to the "
+"&quot;SpellChecker options&quot; menu and make your selection again."
+msgstr ""
+"Uw persoonlijk woordenboek is succesvol beveiligd. Ga terug naar het "
+"&quot;Spellingscontrole opties&quot; menu en selecteer opnieuw."
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:72
+msgid "Successful Re-encryption"
+msgstr "Succesvolle beveiliging"
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:75
+msgid ""
+"Your personal dictionary was re-encrypted successfully. Please close this "
+"window and click \"Check Spelling\" button again to start your spellcheck "
+"over."
+msgstr ""
+"Uw persoonlijk woordenboek is succesvol beveiligd. Sluit dit venster en klik "
+"opnieuw op de \"Controleer spelling\" knop om uw spelling te controleren."
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:79
+msgid "Dictionary re-encrypted"
+msgstr "Woordenboek beveiligd"
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:39
+msgid ""
+"Your personal dictionary has been <strong>encrypted</strong> and is now "
+"stored in an <strong>encrypted format</strong>."
+msgstr ""
+"Uw persoonlijke woordenboek is <strong>beveiligd</strong> en is nu "
+"opgeslagen in <strong>beveiligd formaat</strong>."
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:54
+msgid ""
+"Your personal dictionary has been <strong>decrypted</strong> and is now "
+"stored as <strong>clear text</strong>."
+msgstr ""
+"Uw persoonlijke woordenboek is <strong>ontcijferd</strong> en is nu "
+"opgeslagen als <strong>platte tekst</strong>."
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:65
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:76
+msgid "Personal Dictionary Crypto Settings"
+msgstr "Persoonlijk woordenboek beveiligingsinstellingen"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:115
 #, c-format
@@ -2685,74 +2757,6 @@ msgstr ""
 msgid "No errors found"
 msgstr "Geen fouten gevonden"
 
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:33
-msgid "Your personal dictionary was erased."
-msgstr "Uw persoonlijk woordenboek is verwijderd"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:34
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:47
-msgid "Dictionary Erased"
-msgstr "Woordenboek verwijderd"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:41
-msgid ""
-"Your personal dictionary was erased. Please close this window and click "
-"\"Check Spelling\" button again to start your spellcheck over."
-msgstr ""
-"Uw persoonlijk woordenboek is verwijderd. Sluit dit venster en klik opnieuw "
-"op de \"Controleer spelling\" knop om uw spelling te controleren."
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:45
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:77
-msgid "Close this Window"
-msgstr "Sluit dit venster"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:70
-msgid ""
-"Your personal dictionary was re-encrypted successfully. Now return to the "
-"&quot;SpellChecker options&quot; menu and make your selection again."
-msgstr ""
-"Uw persoonlijk woordenboek is succesvol beveiligd. Ga terug naar het "
-"&quot;Spellingscontrole opties&quot; menu en selecteer opnieuw."
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:72
-msgid "Successful Re-encryption"
-msgstr "Succesvolle beveiliging"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:75
-msgid ""
-"Your personal dictionary was re-encrypted successfully. Please close this "
-"window and click \"Check Spelling\" button again to start your spellcheck "
-"over."
-msgstr ""
-"Uw persoonlijk woordenboek is succesvol beveiligd. Sluit dit venster en klik "
-"opnieuw op de \"Controleer spelling\" knop om uw spelling te controleren."
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:79
-msgid "Dictionary re-encrypted"
-msgstr "Woordenboek beveiligd"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:39
-msgid ""
-"Your personal dictionary has been <strong>encrypted</strong> and is now "
-"stored in an <strong>encrypted format</strong>."
-msgstr ""
-"Uw persoonlijke woordenboek is <strong>beveiligd</strong> en is nu "
-"opgeslagen in <strong>beveiligd formaat</strong>."
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:54
-msgid ""
-"Your personal dictionary has been <strong>decrypted</strong> and is now "
-"stored as <strong>clear text</strong>."
-msgstr ""
-"Uw persoonlijke woordenboek is <strong>ontcijferd</strong> en is nu "
-"opgeslagen als <strong>platte tekst</strong>."
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:65
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:76
-msgid "Personal Dictionary Crypto Settings"
-msgstr "Persoonlijk woordenboek beveiligingsinstellingen"
-
 #: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:28
 #: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:77
 msgid "Personal Dictionary"
@@ -2815,11 +2819,11 @@ msgstr ""
 "<p>Uw persoonlijk woordenboek is <strong>momenteel beveiligd</strong>. Dit "
 "zorgt voor bescherming van uw privacy in het geval dat het webmail systeem "
 "wordt gekraakt en uw persoonlijke woordenboek wordt gestolen. Het is "
-"momenteel beveiligd met het wachtwoord dat u ook gebruik bij het inloggen, "
+"momenteel beveiligd met het wachtwoord dat u ook gebruik bij het aanmelden, "
 "zodat niemand kan zien wat in uw persoonlijk woordenboek is opgenomen.</p> "
 "<p><strong>LET OP:</strong> Als u uw wachtwoord vergeet wordt uw persoonlijk "
 "woordenboek ontoegankelijk, omdat het dan niet meer ontcijferd kan worden. "
-"Als u uw inlog-wachtwoord verandert zal SquirrelSpel dit herkennen en u "
+"Als u uw wachtwoord verandert zal SquirrelSpel dit herkennen en u "
 "vragen naar uw oude wachtwoord om het woordenboek met het nieuwe wachtwoord "
 "te beveiligen.</p>"
 
@@ -2855,12 +2859,12 @@ msgstr ""
 "woordenboek wordt gestolen. Indien het bestand is beveiligd zal het vage "
 "tekens bevatten en niet te ontcijferen zijn zonder de juiste sleutel (uw "
 "inlog-wachtwoord).</p> <strong>LET OP:</strong> Als u besluit om uw "
-"woordenboek te beveiligen met uw inlog-wachtwoord dan mag u dat niet "
-"vergeten. Indien u uw inlog-wachtwoord vergeet en de systeembeheerder geeft "
-"u een nieuw inlog-wachtwoord dan wordt uw woordenboek onleesbaar en moet u "
-"een nieuwe aanmaken. Maar als u uw oude inlog-wachtwoord nog weet en u "
-"krijgt een nieuw inlog-wachtwoord dan kan u uw woordenboek nog ontcijferen "
-"en opnieuw beveiligen met het nieuwe inlog-wachtwoord.</p>"
+"woordenboek te beveiligen met uw wachtwoord dan mag u dat niet "
+"vergeten. Indien u uw wachtwoord vergeet en de systeembeheerder geeft "
+"u een nieuw wachtwoord dan wordt uw woordenboek onleesbaar en moet u "
+"een nieuwe aanmaken. Maar als u uw oude wachtwoord nog weet en u "
+"krijgt een nieuw wachtwoord dan kan u uw woordenboek nog ontcijferen "
+"en opnieuw beveiligen met het nieuwe wachtwoord.</p>"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:70
 msgid ""
@@ -2953,7 +2957,7 @@ msgstr "Kies welke opties u wilt configureren:"
 
 #: squirrelmail/plugins/squirrelspell/modules/options_main.mod:23
 msgid "Edit your personal dictionary"
-msgstr "Wijzig uw persoonlijk woordenboek"
+msgstr "Bewerk uw persoonlijk woordenboek"
 
 #: squirrelmail/plugins/squirrelspell/modules/options_main.mod:30
 msgid "Set up international dictionaries"
@@ -2983,16 +2987,16 @@ msgstr "Uw server opties zijn:"
 #: squirrelmail/plugins/translate/options.php:102
 msgid ""
 "13 language pairs, maximum of 1000 characters translated, powered by Systran"
-msgstr "13 talen paren, maximum van 1000 tekens vertaald, powered by Systran"
+msgstr "13 talen paren, maximum van 1000 tekens vertaald, powered by Systran "
 
 #: squirrelmail/plugins/translate/options.php:105
 msgid ""
 "10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
-msgstr "10 talen paren, maximum van 25 kilobytes vertaald, powered by Systran"
+msgstr "10 talen paren, maximum van 25 kilobytes vertaald, powered by Systran "
 
 #: squirrelmail/plugins/translate/options.php:108
 msgid "12 language pairs, no known limits, powered by Systran"
-msgstr "12 talen paren, geen limieten bekend, powered by Systran"
+msgstr "12 talen paren, geen limieten bekend, powered by Systran "
 
 #: squirrelmail/plugins/translate/options.php:111
 msgid ""
@@ -3000,13 +3004,13 @@ msgid ""
 "InterTran"
 msgstr ""
 "767 talen paren, geen limieten bekend, powered by Translation Experts's "
-"InterTran"
+"InterTran "
 
 #: squirrelmail/plugins/translate/options.php:114
 msgid ""
 "8 language pairs, no known limits, powered by GPLTrans (free, open source)"
 msgstr ""
-"8 talen paren, geen limieten bekend, powered by GPLTrans (free, open source)"
+"8 talen paren, geen limieten bekend, powered by GPLTrans (free, open source) "
 
 #: squirrelmail/plugins/translate/options.php:120
 msgid ""
@@ -3016,7 +3020,7 @@ msgstr "Waar en wanneer wilt u het vertaalkader weergegeven hebben?"
 
 #: squirrelmail/plugins/translate/options.php:124
 msgid "Select your translator:"
-msgstr "Selecteer u vertaler"
+msgstr "Selecteer uw vertaler"
 
 #: squirrelmail/plugins/translate/options.php:136
 msgid "When reading:"
@@ -3356,7 +3360,7 @@ msgid ""
 "Selecting the <b>Show popup</b> option will enable the showing of a popup "
 "window when unseen mail is in your folders (requires JavaScript)."
 msgstr ""
-"Selectie van <b>Toon popup window bij nieuw bericht</b> zorgt voor "
+"Selectie van <b>Toon popupvenster bij nieuw bericht</b> zorgt voor "
 "activering van een popup indien er een nieuw bericht in een van uw mappen "
 "verschijnt (Javascript is nodig!)."
 
@@ -3424,7 +3428,7 @@ msgstr "Javascript is nodig"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:100
 msgid "Show popup window on new mail"
-msgstr "Toon popup window bij nieuw bericht"
+msgstr "Toon popupvenster bij nieuw bericht"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:104
 msgid "Select server file:"
@@ -3467,7 +3471,7 @@ msgid ""
 "This configures settings for playing sounds and/or showing popup windows "
 "when new mail arrives."
 msgstr ""
-"Opties voor het afspelen van geluiden en/of het tonen van popup windows "
+"Opties voor het afspelen van geluiden en/of het tonen van popupvensters "
 "wanneer u een nieuw bericht ontvangt."
 
 #: squirrelmail/plugins/newmail/setup.php:129
@@ -3546,7 +3550,7 @@ msgstr "POP3 user:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:133
 msgid "no login ID submitted"
-msgstr "geen inlognaam opgegeven"
+msgstr "geen gebruikersnaam opgegeven"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:136
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:156
@@ -3585,7 +3589,7 @@ msgstr "POP3 apop:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:192
 msgid "No login ID submitted"
-msgstr "Geen inlognaam opgegeven"
+msgstr "Geen gebruikersnaam opgegeven"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:200
 msgid "No server banner"
@@ -3602,7 +3606,7 @@ msgstr "apop authorisatie mislukt"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:235
 msgid "POP3 login:"
-msgstr "POP3 inlognaam:"
+msgstr "POP3 gebruikersnaam:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:260
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:276
@@ -3712,19 +3716,19 @@ msgstr "Openen POP-server"
 #: squirrelmail/plugins/mail_fetch/fetch.php:134
 #: squirrelmail/plugins/mail_fetch/setup.php:123
 msgid "Login Failed:"
-msgstr "Inloggen mislukt:"
+msgstr "Aanmelden mislukt:"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:151
 msgid "Login OK: No new messages"
-msgstr "Inloggen OK: Geen nieuwe berichten"
+msgstr "Aanmelden OK: Geen nieuwe berichten"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:156
 msgid "Login OK: Inbox EMPTY"
-msgstr "Inloggen OK: Inbox LEEG"
+msgstr "Aanmelden OK: Inbox LEEG"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:161
 msgid "Login OK: Inbox contains ["
-msgstr "Inloggen OK: Inbox bevat ["
+msgstr "Aanmelden OK: Inbox bevat ["
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:161
 msgid "] messages"
@@ -3778,7 +3782,7 @@ msgstr "Sluiten POP"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:218
 msgid "Logging out from IMAP"
-msgstr "Uitloggen van IMAP"
+msgstr "Aanmelden van IMAP"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:221
 msgid "Saving UIDL"
@@ -3829,7 +3833,7 @@ msgstr "Alias:"
 #: squirrelmail/plugins/mail_fetch/options.php:125
 #: squirrelmail/plugins/mail_fetch/options.php:200
 msgid "Username:"
-msgstr "Inlognaam:"
+msgstr "Gebruikersnaam:"
 
 #: squirrelmail/plugins/mail_fetch/options.php:127
 #: squirrelmail/plugins/mail_fetch/options.php:204
@@ -3844,7 +3848,7 @@ msgstr "Bewaar mail op server"
 #: squirrelmail/plugins/mail_fetch/options.php:144
 #: squirrelmail/plugins/mail_fetch/options.php:226
 msgid "Check mail during login"
-msgstr "Check mail tijdens inloggen"
+msgstr "Check mail tijdens aanmelden"
 
 #: squirrelmail/plugins/mail_fetch/options.php:145
 #: squirrelmail/plugins/mail_fetch/options.php:228
@@ -3966,15 +3970,15 @@ msgstr "VANDAAG"
 
 #: squirrelmail/plugins/calendar/day.php:79
 msgid "ADD"
-msgstr "ADD"
+msgstr "VOEG TOE"
 
 #: squirrelmail/plugins/calendar/day.php:93
 msgid "EDIT"
-msgstr "EDIT"
+msgstr "WIJZIG"
 
 #: squirrelmail/plugins/calendar/day.php:95
 msgid "DEL"
-msgstr "DEL"
+msgstr "VERWIJDER"
 
 #: squirrelmail/plugins/calendar/event_create.php:31
 msgid "Start time:"
@@ -3991,6 +3995,15 @@ msgstr "Duur:"
 #: squirrelmail/plugins/calendar/event_edit.php:110
 msgid "Priority:"
 msgstr "Prioriteit"
+
+#: squirrelmail/plugins/calendar/event_create.php:53
+#: squirrelmail/plugins/calendar/event_create.php:116
+#: squirrelmail/plugins/calendar/event_delete.php:36
+#: squirrelmail/plugins/calendar/event_edit.php:71
+#: squirrelmail/plugins/calendar/event_edit.php:99
+#: squirrelmail/plugins/calendar/event_edit.php:112
+msgid "Title:"
+msgstr "Titel:"
 
 #: squirrelmail/plugins/calendar/event_create.php:61
 msgid "Set Event"
@@ -4028,7 +4041,7 @@ msgstr "Niets te verwijderen!"
 
 #: squirrelmail/plugins/calendar/event_edit.php:79
 msgid "Update Event"
-msgstr "Verander afspraak"
+msgstr "Wijzig afspraak"
 
 #: squirrelmail/plugins/calendar/event_edit.php:91
 msgid "Do you really want to change this event from:"
@@ -4157,30 +4170,30 @@ msgstr "Neem contact op met lijsteigenaar"
 msgid "Mailing List:"
 msgstr "Mailinglist"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:158
-#: squirrelmail/plugins/delete_move_next/setup.php:161
+#: squirrelmail/plugins/delete_move_next/setup.php:176
+#: squirrelmail/plugins/delete_move_next/setup.php:179
 msgid "Delete & Prev"
 msgstr "Verwijder & Vorige"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:164
-#: squirrelmail/plugins/delete_move_next/setup.php:166
+#: squirrelmail/plugins/delete_move_next/setup.php:182
+#: squirrelmail/plugins/delete_move_next/setup.php:184
 msgid "Delete & Next"
 msgstr "Verwijder & Volgende"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:287
+#: squirrelmail/plugins/delete_move_next/setup.php:305
 msgid "Delete/Move/Next Buttons:"
 msgstr "Verwijder/Verplaats/Volgende knoppen:"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:293
+#: squirrelmail/plugins/delete_move_next/setup.php:311
 msgid "Display at top"
 msgstr "toon boven"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:299
-#: squirrelmail/plugins/delete_move_next/setup.php:311
+#: squirrelmail/plugins/delete_move_next/setup.php:317
+#: squirrelmail/plugins/delete_move_next/setup.php:329
 msgid "with move option"
 msgstr "met verplaats optie"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:305
+#: squirrelmail/plugins/delete_move_next/setup.php:323
 msgid "Display at bottom"
 msgstr "toon onder"
 
@@ -4222,7 +4235,7 @@ msgstr "Titel organisatie"
 
 #: squirrelmail/plugins/administrator/defines.php:77
 msgid "Signout Page"
-msgstr "Log uit pagina"
+msgstr "Afmeldpagina"
 
 #: squirrelmail/plugins/administrator/defines.php:80
 msgid "Default Language"
@@ -4302,11 +4315,11 @@ msgstr "SMTP authorisatie"
 
 #: squirrelmail/plugins/administrator/defines.php:123
 msgid "Invert Time"
-msgstr "Pas de tijd aan"
+msgstr "Inverteer tijd"
 
 #: squirrelmail/plugins/administrator/defines.php:125
 msgid "Use Confirmation Flags"
-msgstr ""
+msgstr "Gebruik bevestigings-flags"
 
 #: squirrelmail/plugins/administrator/defines.php:128
 msgid "Folders Defaults"
@@ -4422,15 +4435,15 @@ msgstr "Verberg SM eigenschappen"
 
 #: squirrelmail/plugins/administrator/defines.php:211
 msgid "Enable use of delivery receipts"
-msgstr ""
+msgstr "Sta gebruik van ontvangstbevestigingen toe"
 
 #: squirrelmail/plugins/administrator/defines.php:213
 msgid "Allow editing of identities"
-msgstr ""
+msgstr "Sta wijzigen van identiteiten toe"
 
 #: squirrelmail/plugins/administrator/defines.php:215
 msgid "Allow editing of full name"
-msgstr ""
+msgstr "Sta wijzigen volledige naam toe"
 
 #: squirrelmail/plugins/administrator/defines.php:218
 #: squirrelmail/plugins/administrator/defines.php:220
@@ -4515,11 +4528,20 @@ msgstr ""
 
 #: squirrelmail/po/independent_strings.txt:18
 msgid "Delivery error report"
-msgstr ""
+msgstr "Bezorgingsfout rapportage"
 
 #: squirrelmail/po/independent_strings.txt:19
 msgid "Undelivered Message Headers"
-msgstr ""
+msgstr "Berichtkoppen onbestelbaar bericht"
+
+#~ msgid "empty"
+#~ msgstr "legen"
+
+#~ msgid "Welcome to %s's WebMail system"
+#~ msgstr "Welkom on %s WebMail systeem"
+
+#~ msgid "Running SquirrelMail version %s (c) 1999-2001."
+#~ msgstr "SquirrelMail versie %s (c) 1999-2001."
 
 #~ msgid ""
 #~ "FREE - Another ORBS replacement (just the INPUTS database used here)."
@@ -4581,16 +4603,13 @@ msgstr ""
 #~ "berichten verzonden van abuse@domain.name."
 
 #~ msgid "Enable display of images with email, below attachment box"
-#~ msgstr "Activeer weergave van afbeeldingen in email, onder bijlage-kader"
+#~ msgstr "Activeer weergave van afbeeldingen in e-mail, onder bijlage-kader"
 
 #~ msgid "Successfully saved display preferences!"
 #~ msgstr "Weergavevoorkeuren zijn opgeslagen!"
 
 #~ msgid "Successfully saved folder preferences!"
 #~ msgstr "Mapvoorkeuren zijn opgeslagen!"
-
-#~ msgid "purge"
-#~ msgstr "legen"
 
 #~ msgid "Yes, show me the HTML version of a mail message, if it is available."
 #~ msgstr ""
@@ -4642,4 +4661,4 @@ msgstr ""
 #~ msgstr "Maak Verwijderde Items aan"
 
 #~ msgid "You must login first."
-#~ msgstr "U moet eerst inloggen."
+#~ msgstr "U moet eerst aanmelden."
