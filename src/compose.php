@@ -140,6 +140,7 @@
       $subject = sqStripSlashes(decodeHeader($subject));
       $reply_subj = decodeHeader($reply_subj);
       $forward_subj = decodeHeader($forward_subj);
+      $body = sqStripSlashes($body);
 
       if ($use_javascript_addr_book) {
          echo "\n<SCRIPT LANGUAGE=JavaScript><!--\n";
@@ -257,7 +258,7 @@
       echo "     </td>\n";
       echo "   </tr>\n";
       if (isset($attachments) && count($attachments)>0) {
-         echo "</tr><tr><td bgcolor=\"$color[1]\" align=right>\n";
+         echo "<tr><td bgcolor=\"$color[0]\" align=right>\n";
          echo "&nbsp;";
          echo "</td><td align=left bgcolor=\"$color[0]\">";
          while (list($localname, $remotename) = each($attachments)) {
@@ -346,13 +347,16 @@
       $localfilename = $localfilename;
       
       // Put the file in a better place
-      $tmp=explode('/',$attachfile);
-      $attachfile=$tmp[count($tmp)-1];
-      $attachfile=ereg_replace('\.{2,}','',$attachfile);
+      // This shouldn't be here... Ondrej Sury <ondrej@sury.cz>
+      //$tmp=explode('/',$attachfile);
+      //$attachfile=$tmp[count($tmp)-1];
+      //$attachfile=ereg_replace('\.{2,}','',$attachfile);
 
-      error_reporting(0); // Rename will produce error output if it fails
-      if (!rename($attachfile, $attachment_dir.$localfilename)) {
-         if (!copy($attachfile, $attachment_dir.$localfilename)) {
+      //error_reporting(0); // Rename will produce error output if it fails
+      //if (!rename($attachfile, $attachment_dir.$localfilename)) {
+      //   if (!copy($attachfile, $attachment_dir.$localfilename)) {
+      if (!@rename($attachfile, $attachment_dir.$localfilename)) {
+         if (!@copy($attachfile, $attachment_dir.$localfilename)) {
             plain_error_message(_("Could not move/copy file. File not attached"), $color);
             $failed = true;
          }
