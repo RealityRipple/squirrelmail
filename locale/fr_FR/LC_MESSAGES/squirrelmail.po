@@ -210,7 +210,7 @@ msgstr "Supprimer la sélection"
 #: squirrelmail/src/addressbook.php:404
 #, c-format
 msgid "Add to %s"
-msgstr "Ajouter à  : %s"
+msgstr "Ajouter à : %s"
 
 #: squirrelmail/functions/mailbox_display.php:817
 #: squirrelmail/plugins/filters/options.php:164
@@ -520,7 +520,7 @@ msgstr "Valider"
 
 #: squirrelmail/src/help.php:75 squirrelmail/src/help.php:87
 msgid "ERROR: Help files are not in the right format!"
-msgstr ""
+msgstr "ERREUR : Les fichiers d'aides ne sont pas au bon format !"
 
 #: squirrelmail/functions/page_header.php:246
 #: squirrelmail/plugins/listcommands/setup.php:37
@@ -591,21 +591,21 @@ msgstr "Non disponible"
 #: squirrelmail/src/left_main.php:78 squirrelmail/src/search.php:198
 #: squirrelmail/src/search.php:446
 msgid "INBOX"
-msgstr "Boîte à lettres"
+msgstr "Boîte de réception"
 
 #: squirrelmail/src/left_main.php:104 squirrelmail/src/left_main.php:340
 #: squirrelmail/src/left_main.php:428
 msgid "purge"
 msgstr "Purger"
 
-# Espace à la fin car suivi d'un « : ».
+# Espace à la fin car suivi d'un « : ».
 #: squirrelmail/src/left_main.php:868
 msgid "Last Refresh"
 msgstr "Dernière mise à jour "
 
 #: squirrelmail/src/left_main.php:948
 msgid "Save folder tree"
-msgstr "Sauvegarder l'aborescence des dossiers"
+msgstr "Sauvegarder l'arborescence des dossiers"
 
 #: squirrelmail/src/login.php:64 squirrelmail/src/login.php:126
 msgid "Login"
@@ -872,7 +872,7 @@ msgstr "Préférences d'affichage"
 msgid "Folder Preferences"
 msgstr "Préférences des dossiers"
 
-# Espace insécable à la fin car suivi d'un « : » dans le code.
+# Espace insécable à la fin car suivi d'un « : » dans le code.
 # un %s serait le bienvenu.
 #: squirrelmail/src/options.php:298
 msgid "Successfully Saved Options"
@@ -979,12 +979,12 @@ msgstr "plus"
 msgid "Unknown sender"
 msgstr "Expéditeur inconnu"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/src/read_body.php:414
 msgid "Mailer"
 msgstr "Messagerie "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/src/read_body.php:420 squirrelmail/src/read_body.php:422
 #: squirrelmail/src/read_body.php:440
 msgid "Read receipt"
@@ -1721,11 +1721,11 @@ msgstr "Tous les messages"
 
 #: squirrelmail/functions/mime.php:41
 msgid "Squirrelmail could not decode the bodystructure of the message"
-msgstr ""
+msgstr "Squirrelmail ne comprend pas la structure du message"
 
 #: squirrelmail/functions/mime.php:42
 msgid "the provided bodystructure by your imap-server"
-msgstr ""
+msgstr "la structure de message fournie par votre serveur imap"
 
 #: squirrelmail/functions/mime.php:137
 msgid ""
@@ -1790,7 +1790,7 @@ msgstr "Oui"
 msgid "No"
 msgstr "Non"
 
-# espace insécable à la fin car suivi d'un « : »
+# espace insécable à la fin car suivi d'un « : »
 #: squirrelmail/functions/page_header.php:219
 msgid "Current Folder"
 msgstr "Dossier courant "
@@ -1815,7 +1815,7 @@ msgstr "Impossible de créer une arborescence de hachage !"
 msgid "General Display Options"
 msgstr "Options générales d'affichage"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:45
 msgid "Theme"
 msgstr "Thème "
@@ -1826,17 +1826,17 @@ msgstr "Thème "
 msgid "Default"
 msgstr "Par défaut"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:65
 msgid "Custom Stylesheet"
 msgstr "Feuille de style "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:85
 msgid "Language"
 msgstr "Langue "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:94
 msgid "Use Javascript"
 msgstr "Utiliser Javascript "
@@ -1858,22 +1858,22 @@ msgstr "Jamais"
 msgid "Mailbox Display Options"
 msgstr "Options de la boîte à lettres"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:122
 msgid "Number of Messages to Index"
 msgstr "Nombre de messages par page "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:130
 msgid "Enable Alternating Row Colors"
 msgstr "Couleurs alternées "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:137
 msgid "Enable Page Selector"
 msgstr "Sélection de pages "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:144
 msgid "Maximum Number of Pages to Show"
 msgstr "Nombre maximum de pages à afficher "
@@ -1882,17 +1882,17 @@ msgstr "Nombre maximum de pages à afficher "
 msgid "Message Display and Composition"
 msgstr "Affichage et composition de messages"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:156
 msgid "Wrap Incoming Text At"
-msgstr "Rogner le texte entrant à "
+msgstr "Rogner le texte saisi à "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:164
 msgid "Size of Editor Window"
 msgstr "Taille de la fenêtre d'édition "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:172
 msgid "Location of Buttons when Composing"
 msgstr "Position des boutons pendant la composition "
@@ -1921,77 +1921,77 @@ msgstr "Javascript"
 msgid "HTML"
 msgstr "HTML"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:192
 msgid "Show HTML Version by Default"
 msgstr "Voir la version HTML par défaut "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:199
 msgid "Enable Forward as Attachment"
 msgstr "Faire suivre en pièce jointe "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:206
 msgid "Include CCs when Forwarding Messages"
 msgstr "Inclure les personnes en copie lors des transferts "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:213
 msgid "Include Me in CC when I Reply All"
 msgstr "Mettre mon adresse en copie lors d'un Répondre à tous "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:220
 msgid "Enable Mailer Display"
 msgstr "Afficher la messagerie de l'expéditeur "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:227
 msgid "Display Attached Images with Message"
 msgstr "Afficher les images en pièces jointes "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:234
 msgid "Enable Subtle Printer Friendly Link"
 msgstr "Lien vers une version adaptée à l'impression "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:241
 msgid "Enable Printer Friendly Clean Display"
 msgstr "Nettoyage de la version adaptée à l'impression "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:249
 msgid "Enable Mail Delivery Notification"
 msgstr "Notification des messages non lus "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:257
 msgid "Compose Messages in New Window"
 msgstr "Composer les messages dans une nouvelle fenêtre "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:264
 msgid "Width of Compose Window"
 msgstr "Largeur du cadre de composition "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:272
 msgid "Height of Compose Window"
 msgstr "Hauteur du cadre de composition "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/display.php:280
 msgid "Append Signature before Reply/Forward Text"
 msgstr "Signature avant le texte cité dans les transferts et réponses "
 
-# espace insécable à la fin car suivi d'un « : »
+# espace insécable à la fin car suivi d'un « : »
 #: squirrelmail/include/options/display.php:287
 msgid "Enable Sort by of Receive Date"
 msgstr "Tri par date de réception "
 
-# espace insécable à la fin car suivi d'un « : »
+# espace insécable à la fin car suivi d'un « : »
 #: squirrelmail/include/options/display.php:294
 msgid "Enable Thread Sort by References Header"
 msgstr "Tri par files de discussion (en-tête <i>References</i>) "
@@ -2000,12 +2000,12 @@ msgstr "Tri par files de discussion (en-tête <i>References</i>) "
 msgid "Special Folder Options"
 msgstr "Options spéciales des dossiers"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/folder.php:48
 msgid "Folder Path"
 msgstr "Chemin des dossiers "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/folder.php:64
 msgid "Do not use Trash"
 msgstr "Ne pas utiliser la poubelle "
@@ -2015,7 +2015,7 @@ msgstr "Ne pas utiliser la poubelle "
 msgid "Trash Folder"
 msgstr "Poubelle"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/folder.php:75
 msgid "Do not use Sent"
 msgstr "Ne pas utiliser le dossier Éléments envoyés "
@@ -2025,7 +2025,7 @@ msgstr "Ne pas utiliser le dossier Éléments envoyés "
 msgid "Sent Folder"
 msgstr "Éléments envoyés"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/folder.php:86
 msgid "Do not use Drafts"
 msgstr "Ne pas utiliser le dossier Brouillons "
@@ -2039,7 +2039,7 @@ msgstr "Brouillons"
 msgid "Folder List Options"
 msgstr "Options de la liste des dossier"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/folder.php:103
 msgid "Location of Folder List"
 msgstr "Emplacement des dossiers "
@@ -2057,10 +2057,10 @@ msgstr "Droite"
 msgid "pixels"
 msgstr "pixels"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/folder.php:116
 msgid "Width of Folder List"
-msgstr "Largeur de la colonne « Liste des dossiers » "
+msgstr "Largeur de la liste des dossiers "
 
 #: squirrelmail/include/options/folder.php:122
 msgid "Minutes"
@@ -2074,12 +2074,12 @@ msgstr "Secondes"
 msgid "Minute"
 msgstr "Minute"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/folder.php:135
 msgid "Auto Refresh Folder List"
-msgstr "Rafraîchissement automatique des dossiers "
+msgstr "Rafraîchissement automatique de la liste des dossiers "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/folder.php:143
 msgid "Enable Unread Message Notification"
 msgstr "Notification des messages non lus "
@@ -2092,14 +2092,14 @@ msgstr "Pas de notification"
 #: squirrelmail/include/options/folder.php:147
 #: squirrelmail/plugins/administrator/defines.php:163
 msgid "Only INBOX"
-msgstr "INBOX uniquement"
+msgstr "Boîte de réception"
 
 #: squirrelmail/include/options/folder.php:148
 #: squirrelmail/plugins/administrator/defines.php:164
 msgid "All Folders"
 msgstr "Tous les dossiers"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/folder.php:153
 msgid "Unread Message Notification Type"
 msgstr "Type de notification des messages non lus "
@@ -2114,17 +2114,17 @@ msgstr "Nouveau uniquement"
 msgid "Unseen and Total"
 msgstr "Nouveaux et total"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/folder.php:162
 msgid "Enable Collapsable Folders"
 msgstr "Dossiers masquables "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/folder.php:169
 msgid "Enable Cumulative Unread Message Notification"
 msgstr "Notification cumulée des messages non lus "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/folder.php:177
 msgid "Show Clock on Folders Panel"
 msgstr "Montrer l'heure sur le panneau des dossiers "
@@ -2133,7 +2133,7 @@ msgstr "Montrer l'heure sur le panneau des dossiers "
 msgid "No Clock"
 msgstr "Pas d'horloge"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/folder.php:190
 msgid "Hour Format"
 msgstr "Format de l'heure "
@@ -2146,7 +2146,7 @@ msgstr "12 heures"
 msgid "24-hour clock"
 msgstr "24 heures"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/folder.php:199
 msgid "Memory Search"
 msgstr "Historique des recherche "
@@ -2185,7 +2185,7 @@ msgstr "Identique au serveur"
 msgid "Timezone Options"
 msgstr "Fuseau horaire"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/personal.php:138
 msgid "Your current timezone"
 msgstr "Votre fuseau horaire "
@@ -2194,7 +2194,7 @@ msgstr "Votre fuseau horaire "
 msgid "Reply Citation Options"
 msgstr "Options de la citation en réponse"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/personal.php:151
 msgid "Reply Citation Style"
 msgstr "Style de la citation en réponse "
@@ -2215,7 +2215,7 @@ msgstr "Citation XML"
 msgid "User-Defined"
 msgstr "Personnalisée"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #: squirrelmail/include/options/personal.php:162
 msgid "User-Defined Citation Start"
 msgstr "Début de la citation personnalisée "
@@ -2599,7 +2599,7 @@ msgid ""
 msgstr ""
 "Les filtres SPAM vous permettent de sélectionner plusieurs listes noires "
 "basées sur DNS pour détecter le courrier publicitaire et le déplacer vers "
-"d'autres répertoires de courrier."
+"d'autres dossiers."
 
 #: squirrelmail/plugins/filters/spamoptions.php:71
 msgid "Spam Filtering"
@@ -2656,7 +2656,7 @@ msgstr "[<i>non établi</i>]"
 #: squirrelmail/plugins/filters/spamoptions.php:196
 #, c-format
 msgid "Spam scan is limited to <b>%s</b>"
-msgstr "Limiter les recherches de publicités <b>%s</b>"
+msgstr "Appliquer la recherche de publicités <b>%s</b>"
 
 #: squirrelmail/plugins/filters/spamoptions.php:196
 msgid "New Messages Only"
@@ -2809,7 +2809,7 @@ msgstr "Changer en :"
 # TODO À vérifier
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:364
 msgid "Occurs times:"
-msgstr "Nombre d'occurence :"
+msgstr "Nombre d'occurrence :"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:381
 msgid "Change this word"
@@ -2859,7 +2859,7 @@ msgstr "Arrêter et corriger"
 msgid "The spellcheck is not finished. Really close and commit changes?"
 msgstr ""
 "La correction n'est pas terminée. Voulez-vous réellement arrêter et "
-"appliquer les changements ?"
+"appliquer les changements ?"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:412
 msgid "Close and Cancel"
@@ -2869,7 +2869,7 @@ msgstr "Arrêter sans corriger"
 msgid "The spellcheck is not finished. Really close and discard changes?"
 msgstr ""
 "La correction n'est pas terminée. Voulez-vous réellement arrêter et ignorer "
-"les changements ?"
+"les changements ?"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:433
 msgid "No errors found"
@@ -3553,8 +3553,8 @@ msgid ""
 "The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
 "folders for unseen mail, not just the inbox for notification."
 msgstr ""
-"L'option <b>Vérifier tous les dossiers, pas uniquement INBOX</b> permet "
-"d'effectuer une vérification de messages non lus dans tous les dossiers. "
+"L'option <b>Vérifier tous les dossiers</b> permet d'effectuer une "
+"vérification de messages non lus dans tous les dossiers. "
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:51
 msgid ""
@@ -3563,7 +3563,7 @@ msgid ""
 msgstr ""
 "Sélectionner l'option <b>Fenêtre d'alerte</b> pour activer l'affichage d'une "
 "fenêtre vous avertissant de l'arrivée de nouveaux messages (nécessite "
-"JavaScript)."
+"Javascript)."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:54
 msgid ""
@@ -3611,7 +3611,7 @@ msgstr "Activer la séquence sonore"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:84
 msgid "Check all boxes, not just INBOX"
-msgstr "Vérifier tous les dossiers, pas uniquement INBOX"
+msgstr "Vérifier tous les dossiers"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:93
 msgid "Count only messages that are RECENT"
@@ -3624,7 +3624,7 @@ msgstr "Changer le titre quand le navigateur le permet."
 #: squirrelmail/plugins/newmail/newmail_opt.php:102
 #: squirrelmail/plugins/newmail/newmail_opt.php:111
 msgid "requires JavaScript to work"
-msgstr "nécessite JavaScript"
+msgstr "nécessite Javascript"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:111
 msgid "Show popup window on new mail"
@@ -3668,7 +3668,7 @@ msgstr "Fermer la fenêtre"
 
 #: squirrelmail/plugins/newmail/setup.php:79
 msgid "NewMail Options"
-msgstr "Options de notificiation des nouveaux messages"
+msgstr "Options de notification des nouveaux messages"
 
 #: squirrelmail/plugins/newmail/setup.php:81
 msgid ""
@@ -3778,7 +3778,7 @@ msgstr "l'authentification a échouée"
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:185
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:195
 msgid "POP3 apop:"
-msgstr "POP3 apop : "
+msgstr "POP3 apop : "
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:177
 msgid "No login ID submitted"
@@ -3799,19 +3799,19 @@ msgstr "L'authentification POP a échouée"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:214
 msgid "POP3 login:"
-msgstr "Connexion POP3 : "
+msgstr "Connexion POP3 : "
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:239
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:255
 msgid "POP3 top:"
-msgstr "POP3 top : "
+msgstr "POP3 top : "
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:281
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:309
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:320
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:332
 msgid "POP3 pop_list:"
-msgstr "POP3 pop_list : "
+msgstr "POP3 pop_list : "
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:332
 msgid "Premature end of list"
@@ -3820,22 +3820,22 @@ msgstr "fin de liste prématurée"
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:355
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:368
 msgid "POP3 get:"
-msgstr "POP3 get : "
+msgstr "POP3 get : "
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:394
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:401
 msgid "POP3 last:"
-msgstr "POP3 last : "
+msgstr "POP3 last : "
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:424
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:434
 msgid "POP3 reset:"
-msgstr "POP3 reset : "
+msgstr "POP3 reset : "
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:458
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:464
 msgid "POP3 send_cmd:"
-msgstr "POP3 send_cmd : "
+msgstr "POP3 send_cmd : "
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:464
 msgid "Empty command string"
@@ -3843,7 +3843,7 @@ msgstr "commande vide"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:484
 msgid "POP3 quit:"
-msgstr "Déconnexion POP3 : "
+msgstr "Déconnexion POP3 : "
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:484
 msgid "connection does not exist"
@@ -3859,11 +3859,11 @@ msgstr "POP3 uidl :"
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:594
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:600
 msgid "POP3 delete:"
-msgstr "Suppression POP3 : "
+msgstr "Suppression POP3 : "
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:594
 msgid "No msg number submitted"
-msgstr "n° de message manquant"
+msgstr "n° de message manquant"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:600
 msgid "Command failed "
@@ -3908,19 +3908,19 @@ msgstr "Ouverture du serveur POP"
 #: squirrelmail/plugins/mail_fetch/fetch.php:229
 #: squirrelmail/plugins/mail_fetch/setup.php:132
 msgid "Login Failed:"
-msgstr "Échec de la connexion :"
+msgstr "Échec de la connexion :"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:182
 msgid "Login OK: No new messages"
-msgstr "Connexion réussie : Pas de nouveaux messages"
+msgstr "Connexion réussie : Pas de nouveaux messages"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:187
 msgid "Login OK: Inbox EMPTY"
-msgstr "Connexion réussie : la boite de réception est vide. "
+msgstr "Connexion réussie : la boite de réception est vide. "
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:192
 msgid "Login OK: Inbox contains ["
-msgstr "Connexion réussie : la boite de réception contient ["
+msgstr "Connexion réussie : la boite de réception contient ["
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:192
 msgid "] messages"
@@ -4121,7 +4121,7 @@ msgstr "Fonction non définie"
 
 #: squirrelmail/plugins/mail_fetch/options.php:384
 msgid "Hey! Wath do You are looking for?"
-msgstr "Hé ! Que cherchez-vous ?"
+msgstr "Hé ! Que cherchez-vous ?"
 
 #: squirrelmail/plugins/mail_fetch/setup.php:30
 msgid "Fetch"
@@ -4310,39 +4310,39 @@ msgstr "45 min."
 
 #: squirrelmail/plugins/calendar/functions.php:42
 msgid "1 hr."
-msgstr "1 hr."
+msgstr "1 heure"
 
 #: squirrelmail/plugins/calendar/functions.php:43
 msgid "1.5 hr."
-msgstr "1.5 hr."
+msgstr "1 heure 30"
 
 #: squirrelmail/plugins/calendar/functions.php:44
 msgid "2 hr."
-msgstr ""
+msgstr "2 heures"
 
 #: squirrelmail/plugins/calendar/functions.php:45
 msgid "2.5 hr."
-msgstr ""
+msgstr "2 heures 30"
 
 #: squirrelmail/plugins/calendar/functions.php:46
 msgid "3 hr."
-msgstr ""
+msgstr "3 heures"
 
 #: squirrelmail/plugins/calendar/functions.php:47
 msgid "3.5 hr."
-msgstr ""
+msgstr "3 heures 30"
 
 #: squirrelmail/plugins/calendar/functions.php:48
 msgid "4 hr."
-msgstr ""
+msgstr "4 heures"
 
 #: squirrelmail/plugins/calendar/functions.php:49
 msgid "5 hr."
-msgstr ""
+msgstr "5 heures"
 
 #: squirrelmail/plugins/calendar/functions.php:50
 msgid "6 hr."
-msgstr ""
+msgstr "6 heures"
 
 #: squirrelmail/plugins/calendar/setup.php:23
 msgid "Calendar"
@@ -4593,7 +4593,7 @@ msgstr "Effacement automatique"
 
 #: squirrelmail/plugins/administrator/defines.php:156
 msgid "Default Sub. of INBOX"
-msgstr "Tous les sous-dossier dans INBOX"
+msgstr "Tous les dossiers dans la boîte de réception"
 
 #: squirrelmail/plugins/administrator/defines.php:158
 msgid "Show 'Contain Sub.' Option"
@@ -4877,7 +4877,7 @@ msgstr "En-têtes du message non délivré"
 #~ "SLOOOOOOW!"
 #~ msgstr ""
 #~ "GRATUIT - ORBL est un autre dérivé de ORBS. Très certainement "
-#~ "LEEEEEEEEENT !"
+#~ "LEEEEEEEEENT !"
 
 # squirrelmail/plugins/filters/filters.php:568
 
@@ -4917,15 +4917,15 @@ msgstr "En-têtes du message non délivré"
 #~ msgid "<No subject>"
 #~ msgstr "< pas d'objet >"
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #~ msgid "Enable request/confirm reading"
 #~ msgstr "Demander et accepter les accusés de réception "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #~ msgid "Use receive date for sort"
 #~ msgstr "Trie par date de réception "
 
-# espace insécable à la fin car suivi d'un « : » 
+# espace insécable à la fin car suivi d'un « : » 
 #~ msgid "Use References header for thread sort"
 #~ msgstr "Tri par files de discussion (en-tête <i>References</i>) "
 
@@ -4938,7 +4938,7 @@ msgstr "En-têtes du message non délivré"
 #~ msgid "Error decoding mime structure.  Report this as a bug!"
 #~ msgstr ""
 #~ "Erreur lors de l'interprétation de la structure mime. Faites un rapport "
-#~ "de bogue !"
+#~ "de bogue !"
 
 #~ msgid "Notify:"
 #~ msgstr "Notifier :"
