@@ -4,7 +4,9 @@
 
 Version 1.2.6 -- CVS
 --------------------
-  - Changing "emtpy" to "expunge" for more clarity.
+  - Fix for cross-site scripting vulnerability (bug #545933)
+    Reported by Nick Cleaton.
+  - Changing "emtpy" to "purge" for more clarity.
   - Fix for cross-site scripting vulnerability (bug #544658)
     Reported by Nick Cleaton.
   - Fix for incorrect word wrap in Opera (bug #495073)
