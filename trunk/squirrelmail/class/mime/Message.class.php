@@ -138,7 +138,7 @@ class Message {
      */
     function parseStructure($read, &$i, $sub_msg = '') {
         $msg = Message::parseBodyStructure($read, $i, $sub_msg);
-        $msg->setEntIds($msg,false,0);
+        if($msg) $msg->setEntIds($msg,false,0);
         return $msg;
     }
     
@@ -279,7 +279,8 @@ class Message {
                 case 'n':
                 case 'N':
                     /* probably NIL argument */
-                    if (strtoupper(substr($read, $i, 4)) == 'NIL ') {
+                    $tmpnil = strtoupper(substr($read, $i, 4));
+                    if ($tmpnil == 'NIL ' || $tmpnil == 'NIL)') {
                         $arg_a[] = '';
                         ++$arg_no;
                         $i += 2;
@@ -458,8 +459,8 @@ class Message {
 	$iPos = strpos($read,'}',$i);
 	if ($iPos) {
 	   $lit_cnt = substr($read, $i, $iPos - $i);
-	   $i += strlen($lit_cnt) + 3; /* } + \r + \n */
-	   $lit_cnt -= 2; /* lit_cnt includes \r\n */
+	   $i += strlen($lit_cnt) + 3; /* skip } + \r + \n */
+	   /* Now read the literal */
 	   $s = ($lit_cnt ? substr($read,$i,$lit_cnt): '');
 	   $i += $lit_cnt;
 	} else { /* should never happen */
