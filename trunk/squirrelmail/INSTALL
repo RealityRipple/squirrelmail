@@ -118,7 +118,11 @@ b. Setting up directories
 
     $ chown -R nobody data
     $ chgrp -R nobody data
-  
+
+  Keep in mind that with different installations, the web server could
+  typically run as userid/groupid of apache/apache or www-data/www-data.
+  The best way to find out is to read the web server's configuration file.
+
   There also needs to be a directory where attachments are stored
   before they are sent. Since personal mail is stored in this
   directory you might want to be a bit careful about how you set it
@@ -137,14 +141,30 @@ b. Setting up directories
   not supposed to read change the last line to chmod 777 SomeDirectory
   or simply use /tmp as you attachments directory. 
   
-  If a user is aborting a mail but has uploaded som attachments to it 
+  If a user is aborting a mail but has uploaded some attachments to it 
   the files will be lying around in this directory forever if you do not 
   remove them.  To fix this, it is recommended to create a cron job that
   deletes everything in the attachment directory.  Something similar
-  to the folling will be good enough:
+  to the following will be good enough:
 
     $ cd /var/attach/directory
     $ rm -f *
+    
+  However, this will delete attachments that are currently in use by people
+  sending email when the cron job runs.  You can either (1) make sure that
+  the cron job runs at an obscure hour and hope that nobody gets upset, or
+  (2) you can run a modified version of the commands above.  Check out the
+  man pages for other commands such as 'find' or 'tmpreaper'.
+  
+  One sample script you could set up that would erase all attachments, but
+  wouldn't erase preferences, address books, or the like (just in case your
+  attachment directory is the same as your data directory) might look like 
+  this:
+   
+    $ rm `find /var/attach/directory -atime +2 | grep -v "\." | grep -v _`
+    
+  Remember to be careful with whatever method you do use, and to test out
+  the command before it potentially wipes out everyone's preferences.
 
 c. Setting up SquirrelMail
 
