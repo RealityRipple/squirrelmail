@@ -119,7 +119,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
 
     // Iterate sound files for options
 
-    $d = dir('../plugins/newmail/sounds');
+    $d = dir(SM_PATH . 'plugins/newmail/sounds');
     while($entry=$d->read()) {
         $fname = $d->path . "/" . $entry;
         if ($entry != '..' && $entry != '.') {

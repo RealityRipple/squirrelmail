@@ -10,7 +10,7 @@
  * $Id$
  */
 
-require_once('../functions/prefs.php');
+require_once(SM_PATH . 'functions/prefs.php');
 
 /* Just for poor wretched souls with E_ALL. :) */
 global $username, $data_dir;
@@ -28,7 +28,7 @@ $SQSPELL_WORDS_FILE =
    getHashedFile($username, $data_dir, "$username.words");
 
 $SQSPELL_EREG = 'ereg';
-$SQSPELL_SOUP_NAZI = 'Mozilla/3, Mozilla/2, Opera 4, Opera/4, '
-   . 'Macintosh, OmniWeb';
+#$SQSPELL_SOUP_NAZI = 'Mozilla/3, Mozilla/2, Opera 4, Opera/4, '
+#   . 'Macintosh, OmniWeb';
 
 ?>
