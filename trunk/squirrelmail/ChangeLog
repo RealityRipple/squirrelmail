@@ -6,6 +6,9 @@ Version 1.2.3 -- ??
 -------------------
 
   - Fixed Printer Friendly to print HTML messages.
+  - Disabled prefs caching under PHP 4.1
+  - Added "Search Memory". Enabling to store up to
+    9 predefined searchs.
 
 Version 1.2.2 -- 1 January 2002
 -------------------------------
