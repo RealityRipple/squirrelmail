@@ -14,6 +14,8 @@
 
    include ("../src/load_prefs.php");
 
+   if (!isset($config_php))
+      include("../config/config.php");
    if (!isset($i18n_php))
       include("../functions/i18n.php");
    if (!isset($prefs_php))
@@ -51,8 +53,15 @@
    session_destroy();
 ?>
 <HTML>
+   <HEAD>
 <?php
-   echo "<BODY TEXT=000000 BGCOLOR=$color[4] LINK=$color[7] VLINK=$color[7] ALINK=$color[7]>\n";
+   if ($theme_css != "") {
+      printf ('<LINK REL="stylesheet" TYPE="text/css" HREF="%s">', 
+               $theme_css);
+      echo "\n";
+   }
+   echo "<TITLE>$title - Signout</TITLE>\n";
+   echo "</HEAD><BODY TEXT=000000 BGCOLOR=$color[4] LINK=$color[7] VLINK=$color[7] ALINK=$color[7]>\n";
    echo "<BR><BR><TABLE BGCOLOR=FFFFFF BORDER=0 COLS=1 WIDTH=50% CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>";
    echo "   <TR BGCOLOR=$color[0] WIDTH=100%>";
    echo "      <TD ALIGN=CENTER>";

@@ -163,9 +163,8 @@
       if ($message_highlight_list[$theid]["match_type"] == "subject") echo "            <option value=\"subject\" selected>Subject\n";
       else                                                         echo "            <option value=\"subject\">Subject\n";
       echo "         </select>\n";
-      echo "         <nobr><input type=\"text\" value=\"".$message_highlight_list[$theid]["value"]."\" name=\"value\"> &nbsp;(";
-      echo _("Regular Expression");
-      echo ")\n      <nobr></td>\n";
+      echo "         <nobr><input type=\"text\" value=\"".$message_highlight_list[$theid]["value"]."\" name=\"value\">";
+      echo "        <nobr></td>\n";
       echo "   </tr>\n";
       echo "</table>\n";
       echo "<center><input type=\"submit\" value=\"" . _("Submit") . "\"></center>\n";
