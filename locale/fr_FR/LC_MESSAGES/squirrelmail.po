@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2003-08-29 15:40+0200\n"
+"POT-Creation-Date: 2003-09-04 03:11+0200\n"
 "PO-Revision-Date: 2001-12-27 15:58GMT+1\n"
 "Last-Translator: Alex Lemaresquier <alex@brainstorm.fr>\n"
 "Language-Team: French <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -123,12 +123,15 @@ msgstr "Supprimer la s&#233;lection"
 msgid "Add to %s"
 msgstr "Ajouter &#224;&#160;: %s"
 
+# Attention, pas HTML
 msgid "said"
 msgstr "a dit "
 
+# Attention, pas HTML
 msgid "quote"
 msgstr "citation"
 
+# Attention, pas HTML
 msgid "who"
 msgstr "de"
 
@@ -160,8 +163,9 @@ msgstr "Votre message est parti."
 msgid "From:"
 msgstr "De&#160;:"
 
+# msgstr "&#192;&#160;:"
 msgid "To:"
-msgstr "&#192;&#160;:"
+msgstr "À :"
 
 msgid "CC:"
 msgstr "Copie &#224;&#160;:"
@@ -170,7 +174,7 @@ msgid "BCC:"
 msgstr "Copie cach&#233;e &#224;&#160;:"
 
 msgid "Subject:"
-msgstr "Objet&#160;:"
+msgstr "Objet :"
 
 msgid "Send"
 msgstr "Envoyer"
@@ -208,7 +212,7 @@ msgid "On Delivery"
 msgstr "&#224; la r&#233;ception"
 
 msgid "Signature"
-msgstr "Signature"
+msgstr "Signature&#160;"
 
 msgid "Addresses"
 msgstr "Adresses"
@@ -379,9 +383,6 @@ msgstr "Vider"
 
 msgid "Last Refresh"
 msgstr "Mise &#224; jour&#160;"
-
-msgid "Save folder tree"
-msgstr "Enregistrer l'arborescence"
 
 msgid "Login"
 msgstr "Acc&#232;s Messagerie"
@@ -633,18 +634,19 @@ msgstr "Imprimer"
 msgid "View Printable Version"
 msgstr "Voir la version imprimante"
 
+# Attention, pas HTML
 msgid "Read:"
-msgstr "Lu&#160;:"
+msgstr "Lu :"
 
 msgid "Your message"
 msgstr "Votre message"
 
 msgid "Sent:"
-msgstr "Envoy&#233;&#160;:"
+msgstr "Envoyé le :"
 
 #, c-format
 msgid "Was displayed on %s"
-msgstr "a &#233;t&#233; vu le %s."
+msgstr "a été vu le %s."
 
 msgid "less"
 msgstr "moins"
@@ -659,20 +661,21 @@ msgid "Mailer"
 msgstr "Messagerie&#160;"
 
 msgid "Read receipt"
-msgstr "Accus&#233; de r&#233;ception&#160;"
+msgstr "Accus&#233;&nbsp;de&nbsp;r&#233;ception&#160;"
 
 msgid "sent"
-msgstr "envoy&#233;"
+msgstr "Envoy&#233;"
 
 msgid "requested"
-msgstr "demand&#233;"
+msgstr "Demand&#233;"
 
+# Attention, pas HTML
 msgid ""
 "The message sender has requested a response to indicate that you have read "
 "this message. Would you like to send a receipt?"
 msgstr ""
-"L'exp&#233;diteur du message a demand&#233; un accus&#233; indiquant que "
-"vous avez lu ce message. Voulez-vous l'envoyer&#160;?"
+"L'expéditeur du message a demandé un accusé indiquant que "
+"vous avez lu ce message. Voulez-vous l'envoyer ?"
 
 msgid "Send read receipt now"
 msgstr "Envoyer un avis de lecture maintenant."
@@ -696,7 +699,7 @@ msgid "Forward"
 msgstr "Faire suivre"
 
 msgid "Forward as Attachment"
-msgstr "Faire suivre en pi&#232;ces jointes"
+msgstr "Faire suivre en pi&#232;ce jointe"
 
 msgid "Reply"
 msgstr "R&#233;pondre"
@@ -1312,9 +1315,6 @@ msgstr ""
 msgid "(no subject)"
 msgstr "(pas d'objet)"
 
-msgid "Unknown Sender"
-msgstr "Exp&#233;diteur inconnu"
-
 msgid "Unknown response from IMAP server: "
 msgstr "R&#233;ponse du serveur IMAP inconnue&#160;: "
 
@@ -1377,10 +1377,10 @@ msgid "Unread"
 msgstr "Non Lu"
 
 msgid "Unthread View"
-msgstr "Sans file de discussion"
+msgstr "Ne pas voir les fils de discussion"
 
 msgid "Thread View"
-msgstr "File de discussion"
+msgstr "Voir les fils de discussion"
 
 msgid "Bypass Trash"
 msgstr "Sans mettre à la Corbeille"
@@ -1573,15 +1573,20 @@ msgid "Maximum Number of Pages to Show"
 msgstr "Nombre maximum de pages &#224; afficher&#160;"
 
 msgid "Always Show Full Date"
-msgstr "Afficher la date compl&#233;te du message&#160;"
+msgstr "Afficher la date compl&#232;te du message&#160;"
 
 msgid "Length of From/To Field (0 for full)"
 msgstr ""
-"Longueur du champ &#171;&#160;De&#160;&#187; / &#171;&#160;&#192;&#160;"
-"&#187; (0 = complet)&#160;"
+"Abbr&#233;ger le champ &#171;&#160;De&#160;&#187; / &#171;&#160;&#192;&#160;"
+"&#187; &#224; (0 pour ne pas abbr&#233;ger)&#160;"
+
+msgid "Length of Subject Field (0 for full)"
+msgstr ""
+"Abbr&#233;ger le champ &#171;&#160;Objet&#160;&#187; &#224; (0 pour ne pas "
+"abbr&#233;ger)&#160;"
 
 msgid "Message Display and Composition"
-msgstr "Affichage et composition de messages"
+msgstr "Affichage et composition des messages"
 
 msgid "Wrap Incoming Text At"
 msgstr "Rogner le texte saisi &#224;&#160;"
@@ -1785,7 +1790,7 @@ msgid "Name and Address Options"
 msgstr "Noms et adresses"
 
 msgid "Email Address"
-msgstr "Adresse &#233;lectronique"
+msgstr "Adresse &#233;lectronique&#160;"
 
 msgid "Edit Advanced Identities"
 msgstr "&#201;diter les identit&#233;s avanc&#233;es"
@@ -3825,3 +3830,9 @@ msgstr "Exp&#233;diteur hors liste noire"
 
 msgid "Whitelist To"
 msgstr "Destinataire sur liste blanche"
+
+msgid "Save folder tree"
+msgstr "Enregistrer l'arborescence"
+
+msgid "Unknown Sender"
+msgstr "Exp&#233;diteur inconnu"
