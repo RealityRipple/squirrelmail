@@ -84,11 +84,11 @@ if ($idents != '' && $idents > 1) {
     echo $defaultmail;
 }
 
-echo '<br>'
-. '<input type=hidden name="send_to" value="' . htmlspecialchars($send_to) . '">'
-. '<input type=hidden name="subject" value="' . htmlspecialchars($subject) . '">'
-. '<input type=hidden name="body" value="' . htmlspecialchars($body) . '">'
-. '<input type=hidden name="mailbox" value="' . htmlspecialchars($mailbox) . '">'
-. '<input type=submit name="send" value="' . _("Send Mail") . '"><BR><BR></CENTER>'
-. '</form></TD></TR></TABLE></P></BODY></HTML>';
+echo '<br />'
+. '<input type="hidden" name="send_to" value="' . htmlspecialchars($send_to) . '">'
+. '<input type="hidden" name="subject" value="' . htmlspecialchars($subject) . '">'
+. '<input type="hidden" name="body" value="' . htmlspecialchars($body) . '">'
+. '<input type="hidden" name="mailbox" value="' . htmlspecialchars($mailbox) . '">'
+. '<input type="submit" name="send" value="' . _("Send Mail") . '"><br /><br /></center>'
+. '</form></td></tr></table></p></body></html>';
 ?>

@@ -63,10 +63,10 @@ function plugin_listcommands_menu() {
             $url .= 'send_to=' . strtr($act,'?','&');
 
             if ($compose_new_win == '1') {
-                $output[] = "<a href=\"javascript:void(0)\" onclick=\"comp_in_new('$url')\">" . $fieldsdescr[$cmd] . '</A>';
+                $output[] = "<a href=\"javascript:void(0)\" onclick=\"comp_in_new('$url')\">" . $fieldsdescr[$cmd] . '</a>';
             }
             else {
-                $output[] = '<A HREF="' . $url . '">' . $fieldsdescr[$cmd] . '</A>';
+                $output[] = '<a href="' . $url . '">' . $fieldsdescr[$cmd] . '</a>';
             }
             if ($cmd == 'post') {
 	        $url .= '&amp;passed_id='.$passed_id.
@@ -74,24 +74,24 @@ function plugin_listcommands_menu() {
 		        (isset($passed_ent_id)?'&amp;passed_ent_id='.$passed_ent_id:'');
                 $url .= '&amp;action=reply';
                 if ($compose_new_win == '1') {
-                    $output[] = "<A HREF=\"javascript:void(0)\" onClick=\"comp_in_new('$url')\">" . $fieldsdescr['reply'] . '</A>';
+                    $output[] = "<a href=\"javascript:void(0)\" onclick=\"comp_in_new('$url')\">" . $fieldsdescr['reply'] . '</a>';
                 } else {
-                    $output[] = '<A HREF="' . $url . '">' . $fieldsdescr['reply'] . '</A>';
+                    $output[] = '<a href="' . $url . '">' . $fieldsdescr['reply'] . '</a>';
                 }
             }
         } else if ($proto == 'href') {
-            $output[] = '<A HREF="' . $act . '" TARGET="_blank">'
-                      . $fieldsdescr[$cmd] . '</A>';
+            $output[] = '<a href="' . $act . '" target="_blank">'
+                      . $fieldsdescr[$cmd] . '</a>';
         }
     }
 
     if (count($output) > 0) {
-        echo '<TR>';
-        echo html_tag('TD', '<B>' . _("Mailing List") . ':&nbsp;&nbsp;</B>',
-                      'right', '', 'VALIGN="MIDDLE" WIDTH="20%"') . "\n";
-        echo html_tag('TD', '<SMALL>' . implode('&nbsp;|&nbsp;', $output) . '</small>',
-                      'left', $color[0], 'VALIGN="MIDDLE" WIDTH="80%"') . "\n";
-        echo "</TR>";
+        echo '<tr>';
+        echo html_tag('td', '<b>' . _("Mailing List") . ':&nbsp;&nbsp;</b>',
+                      'right', '', 'valign="middle" width="20%"') . "\n";
+        echo html_tag('td', '<small>' . implode('&nbsp;|&nbsp;', $output) . '</small>',
+                      'left', $color[0], 'valign="middle" width="80%"') . "\n";
+        echo '</tr>';
     }
 }
 
