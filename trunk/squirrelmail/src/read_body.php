@@ -217,6 +217,7 @@
    $from_name = decodeHeader(htmlspecialchars($message->header->from));
    $subject = decodeHeader(htmlspecialchars(stripslashes($message->header->subject)));
 
+   do_hook("read_body_top");
    echo "<BR>";
    echo "<TABLE COLS=1 CELLSPACING=0 WIDTH=100% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n";
    echo "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=100%>";
@@ -341,5 +342,6 @@
    echo "   <TR><TD BGCOLOR=\"$color[9]\">&nbsp;</TD></TR>";
    echo "</TABLE>\n";
 
+   do_hook("read_body_bottom");
    sqimap_logout($imapConnection);
 ?>

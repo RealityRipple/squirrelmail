@@ -74,6 +74,8 @@
    sqimap_mailbox_select($imapConnection, $mailbox);
    displayPageHeader($color, $mailbox);
 
+   do_hook("right_main_after_header");
+   
    if ($just_logged_in == 1 && strlen(trim($motd)) > 0) {
       echo "<center><br>";
       echo "<table width=70% cellpadding=0 cellspacing=0 border=0><tr><td bgcolor=\"$color[9]\">";
@@ -113,6 +115,7 @@
       session_register("numMessages");
    }
 
+   do_hook("right_main_bottom");
    // close the connection
    sqimap_logout ($imapConnection);
 ?>

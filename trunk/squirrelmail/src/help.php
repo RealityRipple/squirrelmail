@@ -91,6 +91,7 @@
    <center><b><?php echo _("Help") ?></b></center>
 </td></tr></table>
 
+<? do_hook("help_top") ?>
 
 <table width=90% cellpadding=0 cellspacing=10 border=0 align=center><tr><td>
 <?php
@@ -145,6 +146,7 @@
       if (!$chapter) {
          echo "<table cellpadding=0 cellspacing=0 border=0 align=center><tr><td>\n";
          echo "<b><center>" . _("Table of Contents") . "</center></b><br>";
+         do_hook("help_chapter");
          echo "<ol>\n";
          for ($i=0; $i < count($helpdir); $i++) {
             $doc = file("../help/$user_language/$helpdir[$i]");
@@ -186,6 +188,7 @@
          echo "<br><center><a href=\"#pagetop\">" . _("Top") . "</a></center>";
       }
    }
+   do_hook("help_bottom"); 
 ?>
 <tr><td bgcolor="<?php echo $color[0] ?>">&nbsp;</td></tr></table>
 <td></tr></table>
