@@ -25,7 +25,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     global $theme_css, $custom_css;
 
     echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">' .
-         "\n\n<html>\n<head>\n";
+         "\n\n" . html_tag( 'html' ,'' , '', '', '' ) . "\n<head>\n";
 
     if ( !isset( $custom_css ) || $custom_css == 'none' ) {
         if ($theme_css != '') {
