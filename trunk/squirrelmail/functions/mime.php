@@ -640,9 +640,9 @@ function formatBody($imap_stream, $message, $color, $wrap_at) {
         $body .= "<CENTER><SMALL><A HREF=\"../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;passed_ent_id=$ent_num&amp;mailbox=$urlmailbox&amp;showHeaders=1\">". _("Download this as a file") ."</A></SMALL></CENTER><BR>";
 	if ($has_unsafe_images) {
 	    if ($view_unsafe_images) {
-                $body .= "<CENTER><SMALL><A HREF=\"read_body.php?passed_id=$id&amp;mailbox=$urlmailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">". _("Don't view unsafe images") ."</A></SMALL></CENTER><BR>\n";
+                $body .= "<CENTER><SMALL><A HREF=\"read_body.php?passed_id=$id&amp;mailbox=$urlmailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">". _("Hide Unsafe Images") ."</A></SMALL></CENTER><BR>\n";
             } else {
-                $body .= "<CENTER><SMALL><A HREF=\"read_body.php?passed_id=$id&amp;mailbox=$urlmailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0&amp;view_unsafe_images=1\">". _("View unsafe images") ."</A></SMALL></CENTER><BR>\n";
+                $body .= "<CENTER><SMALL><A HREF=\"read_body.php?passed_id=$id&amp;mailbox=$urlmailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0&amp;view_unsafe_images=1\">". _("View Unsafe Images") ."</A></SMALL></CENTER><BR>\n";
             }
 	}
 
