@@ -1,0 +1,3402 @@
+# Hungarian Squirrelmail Translation
+# Copyright (c) 1999-2002 The Squirrelmail Development Team
+# István-Attila András <bergkatten@netscape.net>, 2001.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: $Id$\n"
+"POT-Creation-Date: 2001-12-12 10:21+0100\n"
+"PO-Revision-Date: 2001-06-18 22:17+2\n"
+"Last-Translator: István-Attila András <bergkatten@netscape.net>\n"
+"Language-Team: Hungarian <squirrelmail-i18n@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-2\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: squirrelmail/src/addrbook_popup.php:22
+msgid "Address Book"
+msgstr "Címjegyzék"
+
+#: squirrelmail/src/addrbook_search.php:117
+#: squirrelmail/src/addrbook_search_html.php:84
+#: squirrelmail/src/addressbook.php:317 squirrelmail/src/vcard.php:107
+msgid "Name"
+msgstr "Név"
+
+#: squirrelmail/src/addrbook_search.php:117
+#: squirrelmail/src/addrbook_search_html.php:84
+#: squirrelmail/src/addressbook.php:318
+msgid "E-mail"
+msgstr "E-mail"
+
+#: squirrelmail/src/addrbook_search.php:117
+#: squirrelmail/src/addrbook_search_html.php:84
+#: squirrelmail/src/addressbook.php:319
+msgid "Info"
+msgstr "Megjegyzés"
+
+#: squirrelmail/src/addrbook_search.php:120
+#: squirrelmail/src/addrbook_search_html.php:87
+msgid "Source"
+msgstr "Forrás"
+
+#: squirrelmail/src/addrbook_search_html.php:112
+msgid "Use Addresses"
+msgstr "Címek választása"
+
+#: squirrelmail/src/addrbook_search_html.php:131
+msgid "Address Book Search"
+msgstr "Keresés a címjegyzékben"
+
+#: squirrelmail/src/addrbook_search.php:183
+#: squirrelmail/src/addrbook_search_html.php:141
+msgid "Search for"
+msgstr "Keresés"
+
+#: squirrelmail/src/addrbook_search.php:190
+#: squirrelmail/src/addrbook_search_html.php:152
+msgid "in"
+msgstr "ban"
+
+#: squirrelmail/src/addrbook_search.php:192
+#: squirrelmail/src/addrbook_search_html.php:155
+msgid "All address books"
+msgstr "Minden címjegyzék"
+
+#: squirrelmail/functions/page_header.php:88
+#: squirrelmail/src/addrbook_search.php:202
+#: squirrelmail/src/addrbook_search_html.php:167
+#: squirrelmail/src/search.php:47 squirrelmail/src/search.php:92
+msgid "Search"
+msgstr "Keresés"
+
+#: squirrelmail/src/addrbook_search.php:204
+#: squirrelmail/src/addrbook_search_html.php:169
+msgid "List all"
+msgstr "Mindent listáz"
+
+#: squirrelmail/src/addrbook_search.php:223
+#: squirrelmail/src/addrbook_search_html.php:192
+#, c-format
+msgid "Unable to list addresses from %s"
+msgstr "Ilyen cím nem található a %s-ben"
+
+#: squirrelmail/src/addrbook_search.php:245
+#: squirrelmail/src/addrbook_search_html.php:215
+msgid "Your search failed with the following error(s)"
+msgstr "A keresés eredménytelen. Hibakód: "
+
+#: squirrelmail/src/addrbook_search.php:171
+#: squirrelmail/src/addrbook_search.php:252
+#: squirrelmail/src/addrbook_search_html.php:219
+msgid "No persons matching your search was found"
+msgstr "A keresett személy nem található"
+
+#: squirrelmail/src/addrbook_search_html.php:228
+msgid "Return"
+msgstr "Vissza"
+
+#: squirrelmail/src/addrbook_search.php:207
+msgid "Close window"
+msgstr "Bezár"
+
+#: squirrelmail/src/addressbook.php:66 squirrelmail/src/addressbook.php:316
+msgid "Nickname"
+msgstr "Becenév"
+
+#: squirrelmail/src/addressbook.php:67
+msgid "Must be unique"
+msgstr "Egyértelmü kell legyen"
+
+#: squirrelmail/src/addressbook.php:68
+msgid "E-mail address"
+msgstr "E-mail cím"
+
+#: squirrelmail/src/addressbook.php:69
+msgid "First name"
+msgstr "Keresztnév"
+
+#: squirrelmail/src/addressbook.php:70
+msgid "Last name"
+msgstr "Vezetéknév"
+
+#: squirrelmail/src/addressbook.php:71
+msgid "Additional info"
+msgstr "Kiegészítö információ"
+
+#: squirrelmail/src/addressbook.php:85
+msgid "No personal address book is defined. Contact administrator."
+msgstr "A címjegyzék nincs definiálva. Értesitsd a rendszergazdát."
+
+#: squirrelmail/src/addressbook.php:181
+msgid "You can only edit one address at the time"
+msgstr "Egyidejüleg csak egy cím szerkeszthetö"
+
+#: squirrelmail/src/addressbook.php:193 squirrelmail/src/addressbook.php:196
+#: squirrelmail/src/addressbook.php:225 squirrelmail/src/addressbook.php:228
+msgid "Update address"
+msgstr "Címet frissít"
+
+#: squirrelmail/functions/display_messages.php:20
+#: squirrelmail/functions/display_messages.php:71
+#: squirrelmail/functions/display_messages.php:87
+#: squirrelmail/src/addressbook.php:216 squirrelmail/src/addressbook.php:266
+msgid "ERROR"
+msgstr "HIBA"
+
+#: squirrelmail/src/addressbook.php:241
+msgid "Unknown error"
+msgstr "Ismeretlen hiba"
+
+#: squirrelmail/src/addressbook.php:286 squirrelmail/src/addressbook.php:371
+msgid "Add address"
+msgstr "Új cím"
+
+#: squirrelmail/src/addressbook.php:297 squirrelmail/src/addressbook.php:355
+msgid "Edit selected"
+msgstr "Kijelöltet szerkeszteni"
+
+#: squirrelmail/src/addressbook.php:299 squirrelmail/src/addressbook.php:357
+msgid "Delete selected"
+msgstr "Töröl"
+
+#: squirrelmail/src/addressbook.php:368
+#, c-format
+msgid "Add to %s"
+msgstr "Új %s"
+
+#: squirrelmail/src/compose.php:118
+msgid "Original Message"
+msgstr "Eredeti üzenet"
+
+#: squirrelmail/functions/mailbox_display.php:565
+#: squirrelmail/plugins/filters/options.php:95
+#: squirrelmail/src/compose.php:119 squirrelmail/src/download.php:137
+#: squirrelmail/src/download.php:143
+#: squirrelmail/src/options_highlight.php:329
+#: squirrelmail/src/options_order.php:59
+#: squirrelmail/src/printer_friendly_bottom.php:97
+#: squirrelmail/src/search.php:84
+msgid "Subject"
+msgstr "Témakör"
+
+#: squirrelmail/functions/mailbox_display.php:551
+#: squirrelmail/plugins/filters/options.php:83
+#: squirrelmail/src/compose.php:120 squirrelmail/src/download.php:138
+#: squirrelmail/src/download.php:145
+#: squirrelmail/src/options_highlight.php:317
+#: squirrelmail/src/options_order.php:57
+#: squirrelmail/src/printer_friendly_bottom.php:91
+#: squirrelmail/src/search.php:85
+msgid "From"
+msgstr "Feladó"
+
+#: squirrelmail/functions/mailbox_display.php:549
+#: squirrelmail/plugins/filters/options.php:86
+#: squirrelmail/src/compose.php:121 squirrelmail/src/download.php:139
+#: squirrelmail/src/download.php:147
+#: squirrelmail/src/options_highlight.php:320
+#: squirrelmail/src/printer_friendly_bottom.php:92
+#: squirrelmail/src/search.php:87
+msgid "To"
+msgstr "Címzett"
+
+#: squirrelmail/src/compose.php:265 squirrelmail/src/read_body.php:551
+msgid "From:"
+msgstr "Feladó:"
+
+#: squirrelmail/src/compose.php:290 squirrelmail/src/read_body.php:568
+msgid "To:"
+msgstr "Címzett:"
+
+#: squirrelmail/src/compose.php:298
+msgid "CC:"
+msgstr "Másolat:"
+
+#: squirrelmail/src/compose.php:306
+msgid "BCC:"
+msgstr "B Másolat:"
+
+#: squirrelmail/src/compose.php:314 squirrelmail/src/read_body.php:526
+msgid "Subject:"
+msgstr "Témakör:"
+
+#: squirrelmail/src/compose.php:356 squirrelmail/src/compose.php:410
+msgid "Send"
+msgstr "Elküld"
+
+#: squirrelmail/src/compose.php:362
+msgid "Attach:"
+msgstr "Melléklet:"
+
+#: squirrelmail/src/compose.php:366 squirrelmail/src/options_order.php:145
+msgid "Add"
+msgstr "Hozzáad"
+
+#: squirrelmail/src/compose.php:381
+msgid "Delete selected attachments"
+msgstr "Kijelölt mellékletek törlése"
+
+#: squirrelmail/functions/page_header.php:82 squirrelmail/src/compose.php:403
+#: squirrelmail/src/compose.php:405 squirrelmail/src/compose.php:408
+msgid "Addresses"
+msgstr "Címek"
+
+#: squirrelmail/src/compose.php:413
+msgid "Save Draft"
+msgstr ""
+
+#: squirrelmail/src/compose.php:419 squirrelmail/src/read_body.php:598
+msgid "Priority"
+msgstr ""
+
+#: squirrelmail/src/compose.php:420 squirrelmail/src/read_body.php:433
+#, fuzzy
+msgid "High"
+msgstr "Jobboldal"
+
+#: squirrelmail/src/compose.php:421 squirrelmail/src/read_body.php:436
+msgid "Normal"
+msgstr ""
+
+#: squirrelmail/src/compose.php:422 squirrelmail/src/read_body.php:440
+msgid "Low"
+msgstr ""
+
+#: squirrelmail/src/compose.php:441
+msgid "You have not filled in the \"To:\" field."
+msgstr "Nem töltötted ki a \"Címzett:\" mezöt."
+
+#: squirrelmail/src/compose.php:482
+msgid "Draft Email Saved"
+msgstr ""
+
+#: squirrelmail/src/compose.php:553 squirrelmail/src/compose.php:590
+#: squirrelmail/src/compose.php:597
+msgid "Could not move/copy file. File not attached"
+msgstr "Az állomány hozzáférhetetlen. Mellélet nincs csatolva"
+
+#: squirrelmail/src/compose.php:659
+msgid "said"
+msgstr ""
+
+#: squirrelmail/src/compose.php:662
+msgid "quote"
+msgstr ""
+
+#: squirrelmail/src/compose.php:662
+msgid "who"
+msgstr ""
+
+#: squirrelmail/src/download.php:49
+msgid "Viewing a text attachment"
+msgstr "Szöveges melléklet megtekintése"
+
+#: squirrelmail/src/download.php:52 squirrelmail/src/download.php:54
+#: squirrelmail/src/image.php:47 squirrelmail/src/image.php:51
+#: squirrelmail/src/read_body.php:55 squirrelmail/src/vcard.php:51
+#: squirrelmail/src/vcard.php:55
+msgid "View message"
+msgstr "Üzenet megtekintése"
+
+#: squirrelmail/functions/mime.php:620 squirrelmail/src/download.php:59
+#: squirrelmail/src/image.php:60 squirrelmail/src/vcard.php:212
+msgid "Download this as a file"
+msgstr "Állományba menteni"
+
+#: squirrelmail/functions/mailbox_display.php:559
+#: squirrelmail/src/download.php:140 squirrelmail/src/download.php:149
+#: squirrelmail/src/options_order.php:58
+#: squirrelmail/src/printer_friendly_bottom.php:96
+msgid "Date"
+msgstr "Dátum"
+
+#: squirrelmail/src/folders_create.php:41
+msgid "Illegal folder name.  Please select a different name."
+msgstr "Hibás könyvtárnév. Válassz más nevet."
+
+#: squirrelmail/src/folders_create.php:41
+msgid "Click here to go back"
+msgstr "Vissza"
+
+#: squirrelmail/functions/page_header.php:84 squirrelmail/src/folders.php:45
+#: squirrelmail/src/left_main.php:261
+msgid "Folders"
+msgstr "Könyvtárak"
+
+#: squirrelmail/src/folders.php:58
+msgid "Subscribed successfully!"
+msgstr "Feliratkozás sikerrel járt!"
+
+#: squirrelmail/src/folders.php:60
+msgid "Unsubscribed successfully!"
+msgstr "Feliratkozás sikeresen törölve!"
+
+#: squirrelmail/src/folders.php:62
+msgid "Deleted folder successfully!"
+msgstr "Könyvtár sikeresen törölve!"
+
+#: squirrelmail/src/folders.php:64
+msgid "Created folder successfully!"
+msgstr "Könyvtár sikeresen létrehozva!"
+
+#: squirrelmail/src/folders.php:66
+msgid "Renamed successfully!"
+msgstr "Átnevezés sikerrel járt"
+
+#: squirrelmail/src/folders.php:69 squirrelmail/src/left_main.php:300
+msgid "refresh folder list"
+msgstr "listát frissíteni"
+
+#: squirrelmail/src/folders.php:79
+msgid "Delete Folder"
+msgstr "Könyvtárat töröl"
+
+#: squirrelmail/functions/mailbox_display.php:521
+#: squirrelmail/plugins/filters/options.php:152
+#: squirrelmail/plugins/mail_fetch/options.php:168
+#: squirrelmail/plugins/mail_fetch/options.php:175
+#: squirrelmail/src/folders.php:125 squirrelmail/src/options_highlight.php:71
+#: squirrelmail/src/options_identities.php:320
+#: squirrelmail/src/read_body.php:468
+msgid "Delete"
+msgstr "Töröl"
+
+#: squirrelmail/src/folders.php:129 squirrelmail/src/folders.php:205
+msgid "No folders found"
+msgstr "Nincsenek könyvtárak"
+
+#: squirrelmail/src/folders.php:136
+msgid "Create Folder"
+msgstr "Könyvtár létrehozása"
+
+#: squirrelmail/src/folders.php:141
+msgid "as a subfolder of"
+msgstr "mint alkönyvtár az alábbiban"
+
+#: squirrelmail/src/folders.php:146 squirrelmail/src/folders.php:148
+msgid "None"
+msgstr "Nincs"
+
+#: squirrelmail/src/folders.php:169
+msgid "Let this folder contain subfolders"
+msgstr "Az aktuális könyvtár tartalmazhat könyvtárakat"
+
+#: squirrelmail/src/folders.php:172
+msgid "Create"
+msgstr "Létrehoz"
+
+#: squirrelmail/src/folders.php:179
+msgid "Rename a Folder"
+msgstr "Könyvtár átkeresztelése"
+
+#: squirrelmail/src/folders.php:201
+msgid "Rename"
+msgstr "Átkeresztelés"
+
+#: squirrelmail/src/folders.php:214 squirrelmail/src/folders.php:234
+msgid "Unsubscribe"
+msgstr "Feliratkozás törlése"
+
+#: squirrelmail/src/folders.php:214 squirrelmail/src/folders.php:275
+msgid "Subscribe"
+msgstr "Feliratkozás"
+
+#: squirrelmail/src/folders.php:238
+msgid "No folders were found to unsubscribe from!"
+msgstr "Nincsenek könyvtárak amelyekröl feliratkozást törölni lehetne"
+
+#: squirrelmail/src/folders.php:278
+msgid "No folders were found to subscribe to!"
+msgstr "Nincsenek könyvtárak amelyekre fel lehetne iratkozni"
+
+#: squirrelmail/src/folders_rename_getname.php:53
+msgid "Rename a folder"
+msgstr "Könyvtár átkeresztelése"
+
+#: squirrelmail/src/folders_rename_getname.php:57
+msgid "New name:"
+msgstr "Új név:"
+
+#: squirrelmail/functions/options.php:404
+#: squirrelmail/plugins/filters/options.php:136
+#: squirrelmail/plugins/newmail/newmail_opt.php:132
+#: squirrelmail/plugins/translate/options.php:133
+#: squirrelmail/src/folders_rename_getname.php:63
+#: squirrelmail/src/options_highlight.php:342
+msgid "Submit"
+msgstr "Küld"
+
+#: squirrelmail/functions/page_header.php:90 squirrelmail/src/help.php:97
+msgid "Help"
+msgstr "Segítség"
+
+#: squirrelmail/src/help.php:131
+#, c-format
+msgid ""
+"The help has not been translated to %s.  It will be displayed in English "
+"instead."
+msgstr ""
+"A segítö dokumentáció nincs %s-ra fordítva, ezért csak angolul lapozható."
+
+#: squirrelmail/src/help.php:137
+msgid "Some or all of the help documents are not present!"
+msgstr "Részben vagy egészen hiányzik a dokumentáció!"
+
+#: squirrelmail/src/help.php:163 squirrelmail/src/help.php:182
+msgid "Table of Contents"
+msgstr "Tartalom"
+
+#: squirrelmail/functions/mailbox_display.php:714
+#: squirrelmail/functions/mailbox_display.php:717
+#: squirrelmail/functions/mailbox_display.php:720
+#: squirrelmail/src/help.php:180 squirrelmail/src/help.php:181
+#: squirrelmail/src/read_body.php:490 squirrelmail/src/read_body.php:492
+msgid "Previous"
+msgstr "Elözö"
+
+#: squirrelmail/functions/mailbox_display.php:715
+#: squirrelmail/functions/mailbox_display.php:718
+#: squirrelmail/functions/mailbox_display.php:721
+#: squirrelmail/src/help.php:183 squirrelmail/src/help.php:184
+#: squirrelmail/src/read_body.php:496 squirrelmail/src/read_body.php:498
+msgid "Next"
+msgstr "Következö"
+
+#: squirrelmail/src/help.php:204
+msgid "Top"
+msgstr "Fel"
+
+#: squirrelmail/src/image.php:42
+#, fuzzy
+msgid "Viewing an image attachment"
+msgstr "Szöveges melléklet megtekintése"
+
+#: squirrelmail/src/left_main.php:115
+#, fuzzy
+msgid "empty"
+msgstr "Válasz"
+
+#: squirrelmail/src/left_main.php:294
+msgid "Last Refresh"
+msgstr ""
+
+#: squirrelmail/src/login.php:105 squirrelmail/src/login.php:157
+msgid "Login"
+msgstr "Belépés"
+
+#: squirrelmail/src/login.php:128
+#, c-format
+msgid "SquirrelMail version %s"
+msgstr "SquirrelMail (MókusPosta) %s verzió"
+
+#: squirrelmail/src/login.php:129
+msgid "By the SquirrelMail Development Team"
+msgstr "A SquirrelMail Fejlesztöi Által"
+
+#: squirrelmail/src/login.php:135
+#, c-format
+msgid "%s Login"
+msgstr "%s Belépés"
+
+#: squirrelmail/src/login.php:139
+msgid "Name:"
+msgstr "Felhasználónév:"
+
+#: squirrelmail/plugins/mail_fetch/options.php:126
+#: squirrelmail/plugins/mail_fetch/options.php:207
+#: squirrelmail/src/login.php:145
+msgid "Password:"
+msgstr "Jelszó:"
+
+#: squirrelmail/src/move_messages.php:93
+#: squirrelmail/src/move_messages.php:128
+#: squirrelmail/src/move_messages.php:157
+msgid "No messages were selected."
+msgstr "Nincs üzenet kiválasztva."
+
+#: squirrelmail/src/options_display.php:32
+msgid "General Display Options"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:42
+msgid "Theme"
+msgstr "Téma"
+
+#: squirrelmail/src/options_display.php:57
+msgid "Language"
+msgstr "Nyelv"
+
+#: squirrelmail/src/options_display.php:66
+#, fuzzy
+msgid "Use Javascript"
+msgstr "JavaScriptet"
+
+#: squirrelmail/src/options_display.php:69
+msgid "Autodetect"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:70
+msgid "Always"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:71
+#: squirrelmail/src/options_folder.php:122
+msgid "Never"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:89
+msgid "Mailbox Display Options"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:94
+msgid "Number of Messages to Index"
+msgstr "Egyidejüleg mutatott üzenetek száma"
+
+#: squirrelmail/src/options_display.php:102
+msgid "Enable Alternating Row Colors"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:109
+msgid "Enable Page Selector"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:116
+#, fuzzy
+msgid "Maximum Number of Pages to Show"
+msgstr "Egyidejüleg mutatott üzenetek száma"
+
+#: squirrelmail/src/options_display.php:123
+msgid "Message Display and Composition"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:128
+#, fuzzy
+msgid "Wrap Incoming Text At"
+msgstr "Új sor beszúrása a szövegben -karakterek száma-"
+
+#: squirrelmail/src/options_display.php:136
+#, fuzzy
+msgid "Size of Editor Window"
+msgstr "A szerkesztöablak mérete -karakterek száma-"
+
+#: squirrelmail/src/options_display.php:144
+#, fuzzy
+msgid "Location of Buttons when Composing"
+msgstr "A gombok helye új üzenet szerkesztésekor"
+
+#: squirrelmail/src/options_display.php:147
+msgid "Before headers"
+msgstr "Fejlécek fölött"
+
+#: squirrelmail/src/options_display.php:148
+msgid "Between headers and message body"
+msgstr "Fejlécek és az üzenet között"
+
+#: squirrelmail/src/options_display.php:149
+msgid "After message body"
+msgstr "Az üzenet után"
+
+#: squirrelmail/src/options_display.php:154
+#, fuzzy
+msgid "Addressbook Display Format"
+msgstr "A címjegyzék csak olvasható de nem írható"
+
+#: squirrelmail/src/options_display.php:157
+#, fuzzy
+msgid "Javascript"
+msgstr "JavaScriptet"
+
+#: squirrelmail/src/options_display.php:158
+msgid "HTML"
+msgstr "HTML-t"
+
+#: squirrelmail/src/options_display.php:163
+msgid "Show HTML Version by Default"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:170
+msgid "Include Me in CC when I Reply All"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:177
+msgid "Enable Mailer Display"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:184
+msgid "Display Attached Images with Message"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:191
+msgid "Enable Subtle Printer Friendly Link"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:198
+msgid "Enable Printer Friendly Clean Display"
+msgstr ""
+
+#: squirrelmail/src/options_folder.php:40
+msgid "Special Folder Options"
+msgstr "Speciális könyvtárak opció"
+
+#: squirrelmail/src/options_folder.php:47
+msgid "Folder Path"
+msgstr "Könyvtár helye"
+
+#: squirrelmail/src/options_folder.php:63
+msgid "Do not use Trash"
+msgstr "Ne használj papírkosarat"
+
+#: squirrelmail/src/options_folder.php:67
+#, fuzzy
+msgid "Trash Folder"
+msgstr "Papírkosár"
+
+#: squirrelmail/src/options_folder.php:74
+msgid "Do not use Sent"
+msgstr "Ne használj küldemények könyvtárat"
+
+#: squirrelmail/src/options_folder.php:78
+#, fuzzy
+msgid "Sent Folder"
+msgstr "Küldemények könytára"
+
+#: squirrelmail/src/options_folder.php:85
+#, fuzzy
+msgid "Do not use Drafts"
+msgstr "Ne használj papírkosarat"
+
+#: squirrelmail/src/options_folder.php:89
+#, fuzzy
+msgid "Draft Folder"
+msgstr "Könyvtár létrehozása"
+
+#: squirrelmail/src/options_folder.php:97
+#, fuzzy
+msgid "Folder List Options"
+msgstr "Speciális könyvtárak opció"
+
+#: squirrelmail/src/options_folder.php:102
+#, fuzzy
+msgid "Location of Folder List"
+msgstr "A könyvtárlista helye"
+
+#: squirrelmail/src/options_folder.php:105
+msgid "Left"
+msgstr "Baloldal"
+
+#: squirrelmail/src/options_folder.php:106
+msgid "Right"
+msgstr "Jobboldal"
+
+#: squirrelmail/src/options_folder.php:111
+msgid "pixels"
+msgstr ""
+
+#: squirrelmail/src/options_folder.php:115
+#, fuzzy
+msgid "Width of Folder List"
+msgstr "A könyvtárlista mérete -pontokban-"
+
+#: squirrelmail/src/options_folder.php:121
+msgid "Minutes"
+msgstr "Perc"
+
+#: squirrelmail/src/options_folder.php:125
+msgid "Seconds"
+msgstr "Másodperc"
+
+#: squirrelmail/src/options_folder.php:127
+msgid "Minute"
+msgstr "Perc"
+
+#: squirrelmail/src/options_folder.php:134
+#, fuzzy
+msgid "Auto Refresh Folder List"
+msgstr "Könyvtárlistát frissít"
+
+#: squirrelmail/src/options_folder.php:142
+#, fuzzy
+msgid "Enable Unread Message Notification"
+msgstr "Láthatatlan üzenet jelzése"
+
+#: squirrelmail/src/options_folder.php:145
+#, fuzzy
+msgid "No Notification"
+msgstr "Nincs jelzés"
+
+#: squirrelmail/src/options_folder.php:146
+msgid "Only INBOX"
+msgstr "Csak INBOX"
+
+#: squirrelmail/src/options_folder.php:147
+msgid "All Folders"
+msgstr "Minden könyvtár"
+
+#: squirrelmail/src/options_folder.php:152
+#, fuzzy
+msgid "Unread Message Notification Type"
+msgstr "Láthatatlan üzenet jelzéstípus"
+
+#: squirrelmail/src/options_folder.php:155
+#, fuzzy
+msgid "Only Unseen"
+msgstr "Csak láthatatlan"
+
+#: squirrelmail/src/options_folder.php:156
+msgid "Unseen and Total"
+msgstr "Láthatatlan és az összes"
+
+#: squirrelmail/src/options_folder.php:161
+msgid "Enable Collapsable Folders"
+msgstr ""
+
+#: squirrelmail/src/options_folder.php:168
+msgid "Show Clock on Folders Panel"
+msgstr ""
+
+#: squirrelmail/src/options_folder.php:176
+msgid "No Clock"
+msgstr ""
+
+#: squirrelmail/src/options_folder.php:181
+msgid "Hour Format"
+msgstr ""
+
+#: squirrelmail/src/options_folder.php:184
+msgid "12-hour clock"
+msgstr ""
+
+#: squirrelmail/src/options_folder.php:185
+msgid "24-hour clock"
+msgstr ""
+
+#: squirrelmail/functions/page_header.php:86
+#: squirrelmail/plugins/filters/options.php:60
+#: squirrelmail/plugins/newmail/newmail_opt.php:33
+#: squirrelmail/plugins/translate/options.php:67
+#: squirrelmail/src/options.php:158 squirrelmail/src/options_highlight.php:57
+#: squirrelmail/src/options_identities.php:58
+#: squirrelmail/src/options_order.php:48
+msgid "Options"
+msgstr "Opciók"
+
+#: squirrelmail/src/options.php:110 squirrelmail/src/options.php:257
+#: squirrelmail/src/options_highlight.php:57
+msgid "Message Highlighting"
+msgstr "Üzenet kijelölése"
+
+#: squirrelmail/plugins/filters/options.php:62
+#: squirrelmail/src/options_highlight.php:61
+msgid "New"
+msgstr "Új"
+
+#: squirrelmail/plugins/filters/options.php:63
+#: squirrelmail/plugins/filters/spamoptions.php:148
+#: squirrelmail/plugins/mail_fetch/fetch.php:225
+#: squirrelmail/src/options_highlight.php:62
+msgid "Done"
+msgstr "Kész"
+
+#: squirrelmail/plugins/filters/options.php:150
+#: squirrelmail/plugins/filters/spamoptions.php:147
+#: squirrelmail/src/options_highlight.php:69
+msgid "Edit"
+msgstr "Szerkeszt"
+
+#: squirrelmail/src/options_highlight.php:82
+msgid "No highlighting is defined"
+msgstr "Kiemelés nincs definiálva"
+
+#: squirrelmail/src/options_highlight.php:254
+msgid "Identifying name"
+msgstr "Azonosító név"
+
+#: squirrelmail/src/options_highlight.php:268
+msgid "Color"
+msgstr "Szín"
+
+#: squirrelmail/src/options_highlight.php:272
+msgid "Dark Blue"
+msgstr "Sötétkék"
+
+#: squirrelmail/src/options_highlight.php:273
+msgid "Dark Green"
+msgstr "Sötétzöld"
+
+#: squirrelmail/src/options_highlight.php:274
+msgid "Dark Yellow"
+msgstr "Sötétsárga"
+
+#: squirrelmail/src/options_highlight.php:275
+msgid "Dark Cyan"
+msgstr "Méregzöld"
+
+#: squirrelmail/src/options_highlight.php:276
+msgid "Dark Magenta"
+msgstr "Lila"
+
+#: squirrelmail/src/options_highlight.php:277
+msgid "Light Blue"
+msgstr "Világoskék"
+
+#: squirrelmail/src/options_highlight.php:278
+msgid "Light Green"
+msgstr "Világoszöld"
+
+#: squirrelmail/src/options_highlight.php:279
+msgid "Light Yellow"
+msgstr "Sárga"
+
+#: squirrelmail/src/options_highlight.php:280
+msgid "Light Cyan"
+msgstr "Világoscián"
+
+#: squirrelmail/src/options_highlight.php:281
+msgid "Light Magenta"
+msgstr "Világoslila"
+
+#: squirrelmail/src/options_highlight.php:282
+msgid "Dark Gray"
+msgstr "Sötétszürke"
+
+#: squirrelmail/src/options_highlight.php:283
+msgid "Medium Gray"
+msgstr "Szürke"
+
+#: squirrelmail/src/options_highlight.php:284
+msgid "Light Gray"
+msgstr "Világosszürke"
+
+#: squirrelmail/src/options_highlight.php:285
+msgid "White"
+msgstr "Fehér"
+
+#: squirrelmail/src/options_highlight.php:287
+msgid "Other:"
+msgstr "Más:"
+
+#: squirrelmail/src/options_highlight.php:289
+msgid "Ex: 63aa7f"
+msgstr "Például: 63aa7f"
+
+#: squirrelmail/plugins/filters/options.php:89
+#: squirrelmail/src/options_highlight.php:323 squirrelmail/src/search.php:86
+msgid "Cc"
+msgstr "Másolat"
+
+#: squirrelmail/plugins/filters/options.php:92
+#: squirrelmail/src/options_highlight.php:326
+msgid "To or Cc"
+msgstr ""
+
+#: squirrelmail/src/options_highlight.php:331
+#, fuzzy
+msgid "Matches"
+msgstr "Minta"
+
+#: squirrelmail/src/options_identities.php:58
+msgid "Advanced Identities"
+msgstr ""
+
+#: squirrelmail/src/options_identities.php:69
+msgid "Default Identity"
+msgstr ""
+
+#: squirrelmail/src/options_identities.php:80
+#, c-format
+msgid "Alternate Identity %d"
+msgstr ""
+
+#: squirrelmail/src/options_identities.php:90
+msgid "Add a New Identity"
+msgstr ""
+
+#: squirrelmail/src/options_identities.php:306
+#: squirrelmail/src/options_personal.php:49
+msgid "Full Name"
+msgstr "Teljes név"
+
+#: squirrelmail/src/options_identities.php:307
+msgid "E-Mail Address"
+msgstr "E-Mail cím"
+
+#: squirrelmail/src/options_identities.php:308
+#: squirrelmail/src/options_personal.php:65
+msgid "Reply To"
+msgstr "Válasz küldendö"
+
+#: squirrelmail/src/options_identities.php:315
+msgid "Save / Update"
+msgstr ""
+
+#: squirrelmail/src/options_identities.php:318
+msgid "Make Default"
+msgstr ""
+
+#: squirrelmail/src/options_identities.php:324
+#, fuzzy
+msgid "Move Up"
+msgstr "Vidd"
+
+#: squirrelmail/src/options.php:120 squirrelmail/src/options.php:273
+#: squirrelmail/src/options_order.php:48
+msgid "Index Order"
+msgstr "Index sorrend"
+
+#: squirrelmail/src/options_order.php:56
+msgid "Checkbox"
+msgstr "Checkbox"
+
+#: squirrelmail/src/options_order.php:60
+msgid "Flags"
+msgstr "Melléklet jelzö"
+
+#: squirrelmail/functions/mailbox_display.php:571
+#: squirrelmail/src/options_order.php:61
+msgid "Size"
+msgstr "Méret"
+
+#: squirrelmail/src/options_order.php:104
+msgid ""
+"The index order is the order that the columns are arranged in the message "
+"index.  You can add, remove, and move columns around to customize them to "
+"fit your needs."
+msgstr ""
+"Az index sorrend az oszlopok sorrendje az üzenetek listázásakor. Az "
+"oszlopokat lehet hozzáadni, vatoztatni és törölni."
+
+#: squirrelmail/src/options_order.php:113
+msgid "up"
+msgstr "fel"
+
+#: squirrelmail/src/options_order.php:115
+msgid "down"
+msgstr "le"
+
+#: squirrelmail/src/options_order.php:120
+msgid "remove"
+msgstr "töröl"
+
+#: squirrelmail/src/options_order.php:149
+msgid "Return to options page"
+msgstr "Visszatérni az opciók oldalra"
+
+#: squirrelmail/src/options_personal.php:41
+msgid "Name and Address Options"
+msgstr ""
+
+#: squirrelmail/src/options_personal.php:57
+#, fuzzy
+msgid "Email Address"
+msgstr "E-Mail cím"
+
+#: squirrelmail/src/options_personal.php:72
+msgid "Edit Advanced Identities"
+msgstr ""
+
+#: squirrelmail/src/options_personal.php:74
+msgid "(discards changes made on this form so far)"
+msgstr ""
+
+#: squirrelmail/src/options_personal.php:77
+msgid "Multiple Identities"
+msgstr ""
+
+#: squirrelmail/src/options_personal.php:84
+msgid "Reply Citation Options"
+msgstr ""
+
+#: squirrelmail/src/options_personal.php:89
+msgid "Reply Citation Style"
+msgstr ""
+
+#: squirrelmail/src/options_personal.php:92
+#, fuzzy
+msgid "No Citation"
+msgstr "Nincs jelzés"
+
+#: squirrelmail/src/options_personal.php:93
+msgid "AUTHOR Said"
+msgstr ""
+
+#: squirrelmail/src/options_personal.php:94
+msgid "Quote Who XML"
+msgstr ""
+
+#: squirrelmail/src/options_personal.php:95
+msgid "User-Defined"
+msgstr ""
+
+#: squirrelmail/src/options_personal.php:100
+msgid "User-Defined Citation Start"
+msgstr ""
+
+#: squirrelmail/src/options_personal.php:108
+msgid "User-Defined Citation End"
+msgstr ""
+
+#: squirrelmail/src/options_personal.php:115
+#, fuzzy
+msgid "Signature Options"
+msgstr "Névjegykártya"
+
+#: squirrelmail/src/options_personal.php:120
+#, fuzzy
+msgid "Use Signature"
+msgstr "Névjegykártya használata"
+
+#: squirrelmail/src/options_personal.php:127
+msgid "Prefix Signature with '-- ' Line"
+msgstr ""
+
+#: squirrelmail/src/options_personal.php:134
+msgid "Signature"
+msgstr "Névjegykártya"
+
+#: squirrelmail/src/options.php:100 squirrelmail/src/options.php:241
+msgid "Personal Information"
+msgstr "Személyes adatok"
+
+#: squirrelmail/src/options.php:105 squirrelmail/src/options.php:249
+msgid "Display Preferences"
+msgstr "Általános beállítások"
+
+#: squirrelmail/src/options.php:115 squirrelmail/src/options.php:265
+msgid "Folder Preferences"
+msgstr "Könyvtárak beállításai"
+
+#: squirrelmail/src/options.php:225
+#, fuzzy
+msgid "Successfully Saved Options"
+msgstr "Személyes adatok sikeresen mentve!"
+
+#: squirrelmail/src/options.php:229
+msgid "Refresh Folder List"
+msgstr "Könyvtárlistát frissít"
+
+#: squirrelmail/src/options.php:231
+msgid "Refresh Page"
+msgstr "Oldalt frissít"
+
+#: squirrelmail/src/options.php:243
+msgid ""
+"This contains personal information about yourself such as your name, your "
+"email address, etc."
+msgstr "Ez tartalmazza a személyes adatokat úgy mint név, e-mail cím stb..."
+
+#: squirrelmail/src/options.php:251
+msgid ""
+"You can change the way that SquirrelMail looks and displays information to "
+"you, such as the colors, the language, and other settings."
+msgstr ""
+"Itt lehet konfigurálni SquirrelMail (MókusPosta) általános beállításait "
+"például a színeket, a használt nyelvet stb..."
+
+#: squirrelmail/src/options.php:259
+msgid ""
+"Based upon given criteria, incoming messages can have different background "
+"colors in the message list.  This helps to easily distinguish who the "
+"messages are from, especially for mailing lists."
+msgstr ""
+"Az üzenetek a felhasználó által definiált feltételek szerint más és más "
+"háttér szinnel autómatikusan kijelölhetök. Ez segít azonosítani a például "
+"levelezö listákról érkezett üzeneteket."
+
+#: squirrelmail/src/options.php:267
+msgid ""
+"These settings change the way your folders are displayed and manipulated."
+msgstr ""
+"A könyvtárak általános beállításai és azok kezelése konfigurálható itt."
+
+#: squirrelmail/src/options.php:275
+msgid ""
+"The order of the message index can be rearanged and changed to contain the "
+"headers in any order you want."
+msgstr ""
+"A sorrend amelyben az üzenetek jellemzöi megjelennek változtatható és "
+"tetszés szerint konfigurálható."
+
+#: squirrelmail/src/printer_friendly_bottom.php:86
+#: squirrelmail/src/printer_friendly_main.php:31
+#: squirrelmail/src/printer_friendly_top.php:37
+msgid "Printer Friendly"
+msgstr ""
+
+#: squirrelmail/src/printer_friendly_bottom.php:94
+#, fuzzy
+msgid "CC"
+msgstr "Másolat:"
+
+#: squirrelmail/src/printer_friendly_top.php:52
+msgid "Print"
+msgstr ""
+
+#: squirrelmail/src/printer_friendly_top.php:53
+#, fuzzy
+msgid "Close Window"
+msgstr "Bezár"
+
+#: squirrelmail/src/read_body.php:48
+#, fuzzy
+msgid "Viewing Full Header"
+msgstr "A teljes fejléc megmutatása"
+
+#: squirrelmail/src/read_body.php:180
+msgid "View Printable Version"
+msgstr ""
+
+#: squirrelmail/src/read_body.php:314
+msgid "more"
+msgstr "még"
+
+#: squirrelmail/src/read_body.php:315
+msgid "less"
+msgstr "kevesebb"
+
+#: squirrelmail/src/read_body.php:461
+msgid "Message List"
+msgstr "Üzenetek listája"
+
+#: squirrelmail/src/read_body.php:472
+msgid "Resume Draft"
+msgstr ""
+
+#: squirrelmail/src/read_body.php:507
+msgid "Forward"
+msgstr "Továbbít"
+
+#: squirrelmail/src/read_body.php:510
+msgid "Reply"
+msgstr "Válasz"
+
+#: squirrelmail/src/read_body.php:513
+msgid "Reply All"
+msgstr "Válasz mindenkinek"
+
+#: squirrelmail/src/read_body.php:534 squirrelmail/src/read_body.php:536
+#, fuzzy
+msgid "View Full Header"
+msgstr "A teljes fejléc megmutatása"
+
+#: squirrelmail/src/read_body.php:559
+msgid "Date:"
+msgstr "Dátum:"
+
+#: squirrelmail/src/read_body.php:615
+msgid "Mailer"
+msgstr ""
+
+#: squirrelmail/functions/auth.php:44 squirrelmail/src/redirect.php:81
+#: squirrelmail/src/redirect.php:85
+#, fuzzy
+msgid "You must be logged in to access this page."
+msgstr ""
+"Ennek az oldalnak a megtekintéséhez érvényes felhasználónév és jelszó "
+"szükséges!"
+
+#: squirrelmail/functions/auth.php:45 squirrelmail/src/redirect.php:86
+msgid "Go to the login page"
+msgstr ""
+
+#: squirrelmail/src/redirect.php:106 squirrelmail/src/redirect.php:110
+msgid "There was an error contacting the mail server."
+msgstr ""
+
+#: squirrelmail/src/redirect.php:111
+msgid "Contact your administrator for help."
+msgstr ""
+
+#: squirrelmail/src/search.php:82
+msgid "Body"
+msgstr "Szövegben"
+
+#: squirrelmail/src/search.php:83
+msgid "Everywhere"
+msgstr "Bárhol"
+
+#: squirrelmail/functions/page_header.php:72 squirrelmail/src/signout.php:81
+msgid "Sign Out"
+msgstr "Kilépés"
+
+#: squirrelmail/src/signout.php:87
+msgid "You have been successfully signed out."
+msgstr "Sikeresen kiléptél."
+
+#: squirrelmail/src/signout.php:89
+msgid "Click here to log back in."
+msgstr "Újra belépni."
+
+#: squirrelmail/src/vcard.php:46
+#, fuzzy
+msgid "Viewing a Business Card"
+msgstr "Üzenet elolvasása"
+
+#: squirrelmail/src/vcard.php:108 squirrelmail/src/vcard.php:169
+#, fuzzy
+msgid "Title"
+msgstr "Fehér"
+
+#: squirrelmail/src/vcard.php:109
+#, fuzzy
+msgid "Email"
+msgstr "E-mail"
+
+#: squirrelmail/src/vcard.php:110 squirrelmail/src/vcard.php:163
+#, fuzzy
+msgid "Web Page"
+msgstr "Oldalt frissít"
+
+#: squirrelmail/src/vcard.php:111 squirrelmail/src/vcard.php:172
+msgid "Organization / Department"
+msgstr ""
+
+#: squirrelmail/src/vcard.php:112 squirrelmail/src/vcard.php:166
+#, fuzzy
+msgid "Address"
+msgstr "Címek"
+
+#: squirrelmail/src/vcard.php:113 squirrelmail/src/vcard.php:179
+msgid "Work Phone"
+msgstr ""
+
+#: squirrelmail/src/vcard.php:114 squirrelmail/src/vcard.php:182
+msgid "Home Phone"
+msgstr ""
+
+#: squirrelmail/src/vcard.php:115 squirrelmail/src/vcard.php:185
+msgid "Cellular Phone"
+msgstr ""
+
+#: squirrelmail/src/vcard.php:116 squirrelmail/src/vcard.php:188
+msgid "Fax"
+msgstr ""
+
+#: squirrelmail/src/vcard.php:117 squirrelmail/src/vcard.php:191
+#, fuzzy
+msgid "Note"
+msgstr "Nincs"
+
+#: squirrelmail/src/vcard.php:149
+#, fuzzy
+msgid "Add to Addressbook"
+msgstr "Új cím"
+
+#: squirrelmail/src/vcard.php:176
+msgid "Title & Org. / Dept."
+msgstr ""
+
+#: squirrelmail/functions/abook_database.php:50
+#: squirrelmail/functions/abook_local_file.php:53
+#: squirrelmail/functions/addressbook.php:152
+msgid "Personal address book"
+msgstr "Személyes címtár"
+
+#: squirrelmail/functions/abook_database.php:96
+#: squirrelmail/functions/abook_database.php:136
+#: squirrelmail/functions/abook_database.php:171
+#: squirrelmail/functions/abook_database.php:201
+#: squirrelmail/functions/abook_database.php:253
+#: squirrelmail/functions/abook_database.php:286
+#: squirrelmail/functions/abook_database.php:327
+#, c-format
+msgid "Database error: %s"
+msgstr "Adatbázis hiba: %s"
+
+#: squirrelmail/functions/abook_database.php:221
+#: squirrelmail/functions/abook_database.php:260
+#: squirrelmail/functions/abook_database.php:293
+#: squirrelmail/functions/abook_local_file.php:247
+#: squirrelmail/functions/abook_local_file.php:267
+#: squirrelmail/functions/abook_local_file.php:290
+#: squirrelmail/functions/abook_local_file.php:319
+#: squirrelmail/functions/addressbook.php:337
+#: squirrelmail/functions/addressbook.php:368
+#: squirrelmail/functions/addressbook.php:419
+msgid "Addressbook is read-only"
+msgstr "A címjegyzék csak olvasható de nem írható"
+
+#: squirrelmail/functions/abook_database.php:231
+#: squirrelmail/functions/abook_local_file.php:252
+#, c-format
+msgid "User '%s' already exist"
+msgstr "'%s' nevü felhasználó már létezik"
+
+#: squirrelmail/functions/abook_database.php:303
+#: squirrelmail/functions/abook_local_file.php:324
+#, c-format
+msgid "User '%s' does not exist"
+msgstr "'%s' nevü felhasználó nem létezik"
+
+#: squirrelmail/functions/abook_global_file.php:51
+#, fuzzy
+msgid "Global address book"
+msgstr "Minden címjegyzék"
+
+#: squirrelmail/functions/abook_global_file.php:71
+#: squirrelmail/functions/abook_local_file.php:94
+msgid "No such file or directory"
+msgstr "Nincs ilyen nevü állomány vagy könytár"
+
+#: squirrelmail/functions/abook_global_file.php:81
+#: squirrelmail/functions/abook_local_file.php:114
+#: squirrelmail/functions/abook_local_file.php:150
+msgid "Open failed"
+msgstr "Megnyitás sikertelen"
+
+#: squirrelmail/functions/abook_global_file.php:178
+#: squirrelmail/functions/abook_global_file.php:184
+#: squirrelmail/functions/abook_global_file.php:190
+msgid "Can not modify global address book"
+msgstr ""
+
+#: squirrelmail/functions/abook_local_file.php:61
+msgid "Not a file name"
+msgstr "Nincs ilyen nevü állomány"
+
+#: squirrelmail/functions/abook_local_file.php:271
+#: squirrelmail/functions/abook_local_file.php:295
+#: squirrelmail/functions/abook_local_file.php:330
+msgid "Could not lock datafile"
+msgstr "Adtatállomány zárása sikertelen"
+
+#: squirrelmail/functions/abook_local_file.php:283
+msgid "Write to addressbook failed"
+msgstr "A címjegyzékbe való írás -vatoztatás- sikertelen"
+
+#: squirrelmail/functions/addressbook.php:77
+#, fuzzy
+msgid "Error initializing addressbook database."
+msgstr "Hiba történt az (%s) LDAP szerver inicializálásakor"
+
+#: squirrelmail/functions/addressbook.php:86
+#, c-format
+msgid "Error opening file %s"
+msgstr "Hiba a/az %s állomány megnyitásában"
+
+#: squirrelmail/functions/addressbook.php:96
+#, fuzzy
+msgid "Error initializing global addressbook."
+msgstr "Hiba történt az (%s) LDAP szerver inicializálásakor"
+
+#: squirrelmail/functions/addressbook.php:112
+#, c-format
+msgid "Error initializing LDAP server %s:"
+msgstr "Hiba történt az (%s) LDAP szerver inicializálásakor"
+
+#: squirrelmail/functions/addressbook.php:314
+#: squirrelmail/functions/addressbook.php:395
+msgid "Invalid input data"
+msgstr "Téves beérkezö adat"
+
+#: squirrelmail/functions/addressbook.php:319
+#: squirrelmail/functions/addressbook.php:400
+msgid "Name is missing"
+msgstr "A név hiányzik"
+
+#: squirrelmail/functions/addressbook.php:323
+#: squirrelmail/functions/addressbook.php:404
+msgid "E-mail address is missing"
+msgstr "Az E-mail cím hiányzik"
+
+#: squirrelmail/functions/addressbook.php:331
+#: squirrelmail/functions/addressbook.php:409
+#, fuzzy
+msgid "Nickname contains illegal characters"
+msgstr "A becenév szabványtalan karaktereket tartalmaz"
+
+#: squirrelmail/functions/attachment_common.php:116
+#: squirrelmail/functions/attachment_common.php:140
+#: squirrelmail/functions/attachment_common.php:164
+msgid "view"
+msgstr ""
+
+#: squirrelmail/functions/attachment_common.php:180
+msgid "Business Card"
+msgstr ""
+
+#: squirrelmail/functions/date.php:101
+#, fuzzy
+msgid "Sunday"
+msgstr "Elküld"
+
+#: squirrelmail/functions/date.php:104
+#, fuzzy
+msgid "Monday"
+msgstr "Szövegben"
+
+#: squirrelmail/functions/date.php:107
+msgid "Tuesday"
+msgstr ""
+
+#: squirrelmail/functions/date.php:110
+msgid "Wednesday"
+msgstr ""
+
+#: squirrelmail/functions/date.php:113
+msgid "Thursday"
+msgstr ""
+
+#: squirrelmail/functions/date.php:116
+msgid "Friday"
+msgstr ""
+
+#: squirrelmail/functions/date.php:119
+msgid "Saturday"
+msgstr ""
+
+#: squirrelmail/functions/date.php:130
+msgid "January"
+msgstr ""
+
+#: squirrelmail/functions/date.php:133
+msgid "February"
+msgstr ""
+
+#: squirrelmail/functions/date.php:136
+#, fuzzy
+msgid "March"
+msgstr "Minta"
+
+#: squirrelmail/functions/date.php:139
+msgid "April"
+msgstr ""
+
+#: squirrelmail/functions/date.php:142
+msgid "May"
+msgstr ""
+
+#: squirrelmail/functions/date.php:145
+msgid "June"
+msgstr ""
+
+#: squirrelmail/functions/date.php:148
+msgid "July"
+msgstr ""
+
+#: squirrelmail/functions/date.php:151
+msgid "August"
+msgstr ""
+
+#: squirrelmail/functions/date.php:154
+msgid "September"
+msgstr ""
+
+#: squirrelmail/functions/date.php:157
+#, fuzzy
+msgid "October"
+msgstr "Más:"
+
+#: squirrelmail/functions/date.php:160
+msgid "November"
+msgstr ""
+
+#: squirrelmail/functions/date.php:163
+msgid "December"
+msgstr ""
+
+#: squirrelmail/functions/date.php:185
+msgid "D, F j, Y g:i a"
+msgstr ""
+
+#: squirrelmail/functions/date.php:202
+msgid "g:i a"
+msgstr ""
+
+#: squirrelmail/functions/date.php:205
+msgid "D, g:i a"
+msgstr ""
+
+#: squirrelmail/functions/date.php:208
+msgid "M j, Y"
+msgstr ""
+
+#: squirrelmail/functions/db_prefs.php:82
+#: squirrelmail/functions/db_prefs.php:85
+#: squirrelmail/functions/db_prefs.php:204
+#, fuzzy, c-format
+msgid "Preference database error (%s). Exiting abnormally"
+msgstr ""
+"A beállításokat tartalmazó állomány: %s hiányzik. Ámokfutó módjára kilépek"
+
+#: squirrelmail/functions/display_messages.php:23
+#: squirrelmail/functions/imap_general.php:206
+msgid "Unknown user or password incorrect."
+msgstr "Istmeretlen felhasználó vagy jelszó."
+
+#: squirrelmail/functions/display_messages.php:25
+msgid "Click here to try again"
+msgstr "Kattints ide, hogy újra megpróbáld"
+
+#: squirrelmail/functions/display_messages.php:39
+#, c-format
+msgid "Welcome to %s's WebMail system"
+msgstr "Köszöntünk a %s webmail rendszerén"
+
+#: squirrelmail/functions/display_messages.php:51
+#, fuzzy, c-format
+msgid "Running SquirrelMail version %s (c) 1999-2001."
+msgstr "A SquirrelMail (MókusPosta) %s (c) 1999-2000 verziója"
+
+#: squirrelmail/functions/display_messages.php:76
+#, c-format
+msgid "Click here to return to %s"
+msgstr "Visszatérés %s"
+
+#: squirrelmail/functions/imap_general.php:119
+#: squirrelmail/functions/imap_messages.php:132
+#: squirrelmail/functions/imap_messages.php:140
+#: squirrelmail/functions/imap_messages.php:159
+#: squirrelmail/functions/imap_messages.php:168
+#: squirrelmail/functions/imap_messages.php:280
+#: squirrelmail/plugins/filters/filters.php:88
+msgid "ERROR : Could not complete request."
+msgstr "HIBA: A kérést nem sikerült teljesíteni."
+
+#: squirrelmail/functions/imap_general.php:121
+#: squirrelmail/plugins/filters/filters.php:90
+msgid "Reason Given: "
+msgstr "Az ok a következö: "
+
+#: squirrelmail/functions/imap_general.php:128
+#: squirrelmail/plugins/filters/filters.php:97
+msgid "ERROR : Bad or malformed request."
+msgstr "HIBA: rossz fomrámtumú kérés."
+
+#: squirrelmail/functions/imap_general.php:130
+#: squirrelmail/plugins/filters/filters.php:99
+msgid "Server responded: "
+msgstr "A szerver válasza: "
+
+#: squirrelmail/functions/imap_general.php:166
+#, c-format
+msgid "Error connecting to IMAP server: %s."
+msgstr "Hiba történt az IMAP szerver (%s) kapcsolatfelvételekor"
+
+#: squirrelmail/functions/imap_general.php:183
+#, c-format
+msgid "Bad request: %s"
+msgstr "Rossz kérés: %s"
+
+#: squirrelmail/functions/imap_general.php:185
+#, c-format
+msgid "Unknown error: %s"
+msgstr "Ismeretlen hiba: %s"
+
+#: squirrelmail/functions/imap_general.php:187
+msgid "Read data:"
+msgstr "Adatolvasás: "
+
+#: squirrelmail/functions/imap_messages.php:134
+#: squirrelmail/functions/imap_messages.php:161
+#: squirrelmail/functions/imap_messages.php:282
+msgid "Unknown response from IMAP server: "
+msgstr ""
+
+#: squirrelmail/functions/imap_messages.php:142
+msgid "Unknown message number in reply from server: "
+msgstr ""
+
+#: squirrelmail/functions/imap_messages.php:170
+msgid "Unknown messagenumber in reply from server: "
+msgstr ""
+
+#: squirrelmail/functions/imap_messages.php:179
+#: squirrelmail/functions/imap_messages.php:208
+#: squirrelmail/functions/imap_messages.php:452
+#: squirrelmail/functions/imap_messages.php:502
+#: squirrelmail/functions/mailbox_display.php:869
+msgid "(no subject)"
+msgstr "(nincs téma)"
+
+#: squirrelmail/functions/imap_messages.php:180
+msgid "Unknown Sender"
+msgstr "Ismeretlen Feladó"
+
+#: squirrelmail/functions/imap_messages.php:233
+#, fuzzy
+msgid "No To Address"
+msgstr "Címek"
+
+#: squirrelmail/functions/imap_messages.php:505
+msgid "(unknown sender)"
+msgstr "(ismeretlen feladó)"
+
+#: squirrelmail/functions/imap_search.php:79
+#, fuzzy
+msgid "No Messages Found"
+msgstr "Egyidejüleg mutatott üzenetek száma"
+
+#: squirrelmail/functions/imap_search.php:163
+msgid "Found"
+msgstr "Találat"
+
+#: squirrelmail/functions/imap_search.php:163
+msgid "messages"
+msgstr "üzenet"
+
+#: squirrelmail/functions/mailbox_display.php:410
+msgid "THIS FOLDER IS EMPTY"
+msgstr "EZ A KÖNYTÁR ÜRES"
+
+#: squirrelmail/functions/mailbox_display.php:494
+msgid "Move selected to:"
+msgstr "Kijelöltet vidd a:"
+
+#: squirrelmail/functions/mailbox_display.php:497
+msgid "Transform Selected Messages"
+msgstr ""
+
+#: squirrelmail/functions/mailbox_display.php:513
+msgid "Move"
+msgstr "Vidd"
+
+#: squirrelmail/functions/mailbox_display.php:517
+msgid "Expunge"
+msgstr "Kitöröl"
+
+#: squirrelmail/functions/mailbox_display.php:517
+msgid "mailbox"
+msgstr "levelezöláda"
+
+#: squirrelmail/functions/mailbox_display.php:519
+#, fuzzy
+msgid "Read"
+msgstr "Átkeresztelés"
+
+#: squirrelmail/functions/mailbox_display.php:520
+msgid "Unread"
+msgstr ""
+
+#: squirrelmail/functions/mailbox_display.php:616
+#, fuzzy
+msgid "Toggle All"
+msgstr "Mindent kijelölni"
+
+#: squirrelmail/functions/mailbox_display.php:634
+msgid "Unselect All"
+msgstr "Mindent nem kijelölni"
+
+#: squirrelmail/functions/mailbox_display.php:636
+msgid "Select All"
+msgstr "Mindent kijelölni"
+
+#: squirrelmail/functions/mailbox_display.php:653
+#, c-format
+msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
+msgstr ""
+
+#: squirrelmail/functions/mailbox_display.php:655
+#, c-format
+msgid "Viewing Message: <B>%s</B> (1 total)"
+msgstr ""
+
+#: squirrelmail/functions/mailbox_display.php:843
+msgid "Show All"
+msgstr ""
+
+#: squirrelmail/functions/mime.php:647
+#, fuzzy
+msgid "Attachments"
+msgstr "Melléklet:"
+
+#: squirrelmail/functions/mime.php:686
+#, fuzzy
+msgid "download"
+msgstr "le"
+
+#: squirrelmail/functions/mime.php:960
+msgid "Title:"
+msgstr ""
+
+#: squirrelmail/functions/options.php:167
+#, c-format
+msgid "Option Type '%s' Not Found"
+msgstr ""
+
+#: squirrelmail/functions/options.php:253
+msgid "Yes"
+msgstr ""
+
+#: squirrelmail/functions/options.php:258
+#, fuzzy
+msgid "No"
+msgstr "Nincs"
+
+#: squirrelmail/functions/page_header.php:74
+msgid "Current Folder"
+msgstr "Aktuális könyvtár"
+
+#: squirrelmail/functions/page_header.php:80
+msgid "Compose"
+msgstr "Új levél"
+
+#: squirrelmail/functions/prefs.php:33
+#, c-format
+msgid ""
+"Preference file, %s, does not exist. Log out, and log back in to create a "
+"default preference file."
+msgstr ""
+"A beállításokat tartalmazó állomány: %s hiányzik. Lépj ki majd újra be, hogy "
+"a standard beállításokat tartalmazó állományt betöltsed."
+
+#: squirrelmail/functions/prefs.php:142
+msgid "Error opening "
+msgstr "Hiba a megnyitásban "
+
+#: squirrelmail/plugins/filters/filters.php:359
+msgid ""
+"COMMERCIAL - This list contains servers that are verified spam senders. It "
+"is a pretty reliable list to scan spam from."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:367
+msgid ""
+"COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
+"be relayed through their system will be banned with this.  Another good one "
+"to use."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:375
+msgid ""
+"COMMERCIAL - Dial-up users are often filtered out since they should use "
+"their ISP's mail servers to send mail.  Spammers typically get a dial-up "
+"account and send spam directly from there."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:383
+msgid "COMMERCIAL - RBL+ Blackhole entries."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:391
+msgid "COMMERCIAL - RBL+ OpenRelay entries."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:399
+msgid "COMMERCIAL - RBL+ Dial-up entries."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:407
+msgid ""
+"FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
+"include servers used by abuse@uunet.net auto-replies too."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:415
+msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:423
+msgid ""
+"FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
+"have been manually added after multiple nominations. Use with caution. Seems "
+"to catch abuse auto-replies from some ISPs."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:431
+msgid ""
+"FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
+"other mail servers that are not secure."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:439
+msgid ""
+"FREE - Osirusoft Spamware Developers - It is believed that these are IP "
+"ranges of companies that are known to produce spam software. Seems to catch "
+"abuse auto-replies from some ISPs."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:447
+msgid ""
+"FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
+"users in without confirmation."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:455
+msgid ""
+"FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
+"false positives than ORBS did though."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:463
+msgid "FREE - Another ORBS replacement (just the INPUTS database used here)."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:471
+msgid "FREE - Another ORBS replacement (just the OUTPUTS database used here)."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:479
+msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:487
+msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:495
+msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:503
+msgid "FREE - Five-Ten-sg.com - Other misc. servers."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:511
+msgid "FREE - Five-Ten-sg.com - Single Stage servers."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:519
+msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:527
+msgid "FREE - Five-Ten-sg.com - Web Form IPs."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:535
+msgid ""
+"FREE - Dorkslayers appears to include only really bad open relays outside "
+"the US to avoid being sued. Interestingly enough, their website recommends "
+"you NOT use their service."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:543
+msgid ""
+"FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be "
+"SLOOOOOOW!"
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:551
+msgid "FREE - orbz.gst-group.co.uk - Inputs only."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:559
+msgid "FREE - orbz.gst-group.co.uk - Outputs only."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:567
+msgid ""
+"FREE - orbz.gst-group.co.uk - mailservers that refuse or bounce email "
+"addressed to postmaster@<theirdomain>."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:575
+#, c-format
+msgid ""
+"FREE, for now - SPAMCOP - An interesting solution that lists servers that "
+"have a very high spam to legit email ratio (85% or more)."
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:60
+#, fuzzy
+msgid "Message Filtering"
+msgstr "Üzenet kijelölése"
+
+#: squirrelmail/plugins/filters/options.php:76
+#, fuzzy
+msgid "Match:"
+msgstr "Minta"
+
+#: squirrelmail/plugins/filters/options.php:102
+msgid "Contains:"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:114
+#, fuzzy
+msgid "Move to:"
+msgstr "Vidd"
+
+#: squirrelmail/plugins/filters/options.php:156
+#, fuzzy
+msgid "Down"
+msgstr "Kész"
+
+#: squirrelmail/plugins/filters/options.php:162
+msgid "Up"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:165
+#, c-format
+msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
+msgstr ""
+
+#: squirrelmail/plugins/filters/setup.php:79
+#, fuzzy
+msgid "Message Filters"
+msgstr "Üzenetek listája"
+
+#: squirrelmail/plugins/filters/setup.php:81
+msgid ""
+"Filtering enables messages with different criteria to be automatically "
+"filtered into different folders for easier organization."
+msgstr ""
+
+#: squirrelmail/plugins/filters/setup.php:87
+#, fuzzy
+msgid "SPAM Filters"
+msgstr "Minden könyvtár"
+
+#: squirrelmail/plugins/filters/setup.php:89
+msgid ""
+"SPAM filters allow you to select from various DNS based blacklists to detect "
+"junk email in your INBOX and move it to another folder (like Trash)."
+msgstr ""
+
+#: squirrelmail/plugins/filters/spamoptions.php:52
+msgid "Spam Filtering"
+msgstr ""
+
+#: squirrelmail/plugins/filters/spamoptions.php:56
+msgid "WARNING! Tell your admin to set the SpamFilters_YourHop variable"
+msgstr ""
+
+#: squirrelmail/plugins/filters/spamoptions.php:76
+#, fuzzy
+msgid "Move spam to:"
+msgstr "Kijelöltet vidd a:"
+
+#: squirrelmail/plugins/filters/spamoptions.php:93
+msgid ""
+"Moving spam directly to the trash may not be a good idea at first, since "
+"messages from friends and mailing lists might accidentally be marked as "
+"spam. Whatever folder you set this to, make sure that it gets cleaned out "
+"periodically, so that you don't have an excessively large mailbox hanging "
+"around."
+msgstr ""
+
+#: squirrelmail/plugins/filters/spamoptions.php:96
+msgid "What to Scan:"
+msgstr ""
+
+#: squirrelmail/plugins/filters/spamoptions.php:101
+#, fuzzy
+msgid "All messages"
+msgstr "üzenet"
+
+#: squirrelmail/plugins/filters/spamoptions.php:105
+#, fuzzy
+msgid "Only unread messages"
+msgstr "kijelölt üzenetek"
+
+#: squirrelmail/plugins/filters/spamoptions.php:111
+msgid ""
+"The more messages you scan, the longer it takes.  I would suggest that you "
+"scan only new messages.  If you make a change to your filters, I would set "
+"it to scan all messages, then go view my INBOX, then come back and set it to "
+"scan only new messages.  That way, your new spam filters will be applied and "
+"you'll scan even the spam you read with the new filters."
+msgstr ""
+
+#: squirrelmail/plugins/filters/spamoptions.php:137
+msgid "Save"
+msgstr ""
+
+#: squirrelmail/plugins/filters/spamoptions.php:149
+#, c-format
+msgid "Spam is sent to <b>%s</b>"
+msgstr ""
+
+#: squirrelmail/plugins/filters/spamoptions.php:149
+msgid "[<i>not set yet</i>]"
+msgstr ""
+
+#: squirrelmail/plugins/filters/spamoptions.php:151
+#, c-format
+msgid "Spam scan is limited to <b>%s</b>"
+msgstr ""
+
+#: squirrelmail/plugins/filters/spamoptions.php:151
+#, fuzzy
+msgid "New Messages Only"
+msgstr "Üzenet megtekintése"
+
+#: squirrelmail/plugins/filters/spamoptions.php:151
+#, fuzzy
+msgid "All Messages"
+msgstr "üzenet"
+
+#: squirrelmail/plugins/filters/spamoptions.php:161
+msgid "ON"
+msgstr ""
+
+#: squirrelmail/plugins/filters/spamoptions.php:163
+msgid "OFF"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/setup.php:46
+#, fuzzy
+msgid "SpellChecker Options"
+msgstr "Speciális könyvtárak opció"
+
+#: squirrelmail/plugins/squirrelspell/setup.php:48
+msgid ""
+"Here you may set up how your personal dictionary is stored, edit it, or "
+"choose which languages should be available to you when spell-checking."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/setup.php:64
+msgid "Check Spelling"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:37
+msgid "Back to &quot;SpellChecker Options&quot; page"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:212
+msgid "ATTENTION:"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:213
+msgid ""
+"SquirrelSpell was unable to decrypt your personal dictionary. This is most "
+"likely due to the fact that you have changed your mailbox password. In order "
+"to proceed, you will have to supply your old password so that SquirrelSpell "
+"can decrypt your personal dictionary. It will be re-encrypted with your new "
+"password after this.<br>If you haven't encrypted your dictionary, then it "
+"got mangled and is no longer valid. You will have to delete it and start "
+"anew. This is also true if you don't remember your old password -- without "
+"it, the encrypted data is no longer accessible."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:219
+msgid "Delete my dictionary and start a new one"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:220
+msgid "Decrypt my dictionary with my old password:"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:223
+msgid "Proceed"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:229
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:231
+msgid "Error Decrypting Dictionary"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/sqspell_interface.php:43
+#: squirrelmail/plugins/squirrelspell/sqspell_options.php:41
+msgid "SECURITY BREACH ON DECK 5! CMDR TUVOK AND SECURITY TEAM REQUESTED."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:24
+msgid "Your personal dictionary was erased."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:25
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:32
+msgid "Dictionary Erased"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:30
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:57
+#, fuzzy
+msgid "Close this Window"
+msgstr "Bezár"
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:48
+msgid ""
+"Your personal dictionary was re-encrypted successfully. Now return to the "
+"&quot;SpellChecker options&quot; menu and make your selection again."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:51
+msgid "Successful Re-encryption"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:54
+msgid ""
+"Your personal dictionary was re-encrypted successfully. Please close this "
+"window and click \"Check Spelling\" button again to start your spellcheck "
+"over."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:59
+msgid "Dictionary re-encrypted"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:25
+msgid ""
+"Your personal dictionary has been <strong>encrypted</strong> and is now "
+"stored in an <strong>encrypted format</strong>."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:36
+msgid ""
+"Your personal dictionary has been <strong>decrypted</strong> and is now "
+"stored as <strong>clear text</strong>."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:44
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:45
+msgid "Personal Dictionary Crypto Settings"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:121
+msgid "SquirrelSpell Results"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:170
+#, c-format
+msgid "Found %s errors"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:183
+msgid "Line with an error:"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:192
+msgid "Error:"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:200
+msgid "Suggestions:"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:206
+msgid "Suggestions"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:214
+msgid "Change to:"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:223
+msgid "Occurs times:"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:239
+msgid "Change this word"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:240
+msgid "Change"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:242
+msgid "Change ALL occurances of this word"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:243
+msgid "Change All"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:245
+msgid "Ignore this word"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:246
+#, fuzzy
+msgid "Ignore"
+msgstr "még"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:248
+msgid "Ignore ALL occurances this word"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:249
+msgid "Ignore All"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:251
+msgid "Add this word to your personal dictionary"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:252
+#, fuzzy
+msgid "Add to Dic"
+msgstr "Új %s"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:264
+#, fuzzy
+msgid "Close and Commit"
+msgstr "Bezár"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:266
+msgid "The spellcheck is not finished. Really close and commit changes?"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:269
+msgid "Close and Cancel"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:271
+msgid "The spellcheck is not finished. Really close and discard changes?"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/testsound.php:33
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:285
+#: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod.php:50
+#, fuzzy
+msgid "Close"
+msgstr "Új levél"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:286
+#, fuzzy
+msgid "No errors found"
+msgstr "Nincsenek könyvtárak"
+
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:21
+#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:56
+#, fuzzy
+msgid "Personal Dictionary"
+msgstr "Személyes adatok"
+
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:21
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:61
+msgid "No words in your personal dictionary."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:24
+msgid "Please check any words you wish to delete from your dictionary."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:35
+#, c-format
+msgid "%s dictionary"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:54
+#, fuzzy
+msgid "Delete checked words"
+msgstr "Töröl"
+
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:65
+msgid "Edit your Personal Dictionary"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:22
+msgid ""
+"<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
+"helps protect your privacy in case the web-mail system gets compromized and "
+"your personal dictionary ends up stolen. It is currently encrypted with the "
+"password you use to access your mailbox, making it hard for anyone to see "
+"what is stored in your personal dictionary.</p> <p><strong>ATTENTION:</"
+"strong> If you forget your password, your personal dictionary will become "
+"unaccessible, since it can no longer be decrypted. If you change your "
+"mailbox password, SquirrelSpell will recognize it and prompt you for your "
+"old password in order to re-encrypt the dictionary with a new key.</p>"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:26
+msgid ""
+"Please decrypt my personal dictionary and store it in a clear-text format."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:29
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:42
+msgid "Change crypto settings"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:35
+msgid ""
+"<p>Your personal dictionary is <strong>currently not encrypted</strong>. You "
+"may wish to encrypt your personal dictionary to protect your privacy in case "
+"the webmail system gets compromized and your personal dictionary file gets "
+"stolen. When encrypted, the file's contents look garbled and are hard to "
+"decrypt without knowing the correct key (which is your mailbox password).</"
+"p> <strong>ATTENTION:</strong> If you decide to encrypt your personal "
+"dictionary, you must remember that it gets &quot;hashed&quot; with your "
+"mailbox password. If you forget your mailbox password and the administrator "
+"changes it to a new value, your personal dictionary will become useless and "
+"will have to be created anew. However, if you or your system administrator "
+"change your mailbox password but you still have the old password at hand, "
+"you will be able to enter the old key to re-encrypt the dictionary with the "
+"new value.</p>"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:39
+msgid ""
+"Please encrypt my personal dictionary and store it in an encrypted format."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:22
+#, c-format
+msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:52
+#, fuzzy
+msgid "All done!"
+msgstr "Minden könyvtár"
+
+#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:53
+#: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod.php:51
+msgid "Personal Dictionary Updated"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:56
+#, fuzzy
+msgid "No changes requested."
+msgstr "Nincs üzenet kiválasztva."
+
+#: squirrelmail/plugins/squirrelspell/modules/init.mod.php:25
+msgid "Please wait, communicating with the server..."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/init.mod.php:32
+msgid ""
+"Please choose which dictionary you would like to use to spellcheck this "
+"message:"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/init.mod.php:44
+msgid "Go"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/init.mod.php:48
+msgid "SquirrelSpell Initiating"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod.php:56
+#, c-format
+msgid ""
+"Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
+"default dictionary."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod.php:61
+#, c-format
+msgid "Using <strong>%s</strong> dictionary (system default) for spellcheck."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod.php:69
+msgid "International Dictionaries Preferences Updated"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:19
+msgid ""
+"Please check any available international dictionaries which you would like "
+"to use when spellchecking:"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:26
+msgid "Make this dictionary my default selection:"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:41
+msgid "Make these changes"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:42
+msgid "Add International Dictionaries"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:18
+msgid "Please choose which options you wish to set up:"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:22
+msgid "Edit your personal dictionary"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:27
+msgid "Set up international dictionaries"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:35
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:39
+msgid "Encrypt or decrypt your personal dictionary"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:39
+msgid "not available"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:43
+msgid "SquirrelSpell Options Menu"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:67
+msgid "Translator"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:70
+msgid "Your server options are as follows:"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:75
+msgid ""
+"13 language pairs, maximum of 1000 characters translated, powered by Systran"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:78
+msgid ""
+"10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:81
+msgid "12 language pairs, no known limits, powered by Systran"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:84
+msgid ""
+"767 language pairs, no known limits, powered by Translation Experts's "
+"InterTran"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:87
+msgid ""
+"8 language pairs, no known limits, powered by GPLTrans (free, open source)"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:93
+msgid ""
+"You also decide if you want the translation box displayed, and where it will "
+"be located."
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:98
+msgid "Select your translator:"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:109
+msgid "When reading:"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:114
+msgid "Show translation box"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:116
+msgid "to the left"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:117
+msgid "in the center"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:118
+msgid "to the right"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:123
+msgid "Translate inside the SquirrelMail frames"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:126
+msgid "When composing:"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:130
+msgid "Not yet functional, currently does nothing"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:96
+msgid "Translation Options"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:98
+msgid ""
+"Which translator should be used when you get messages in a different "
+"language?"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:266
+#: squirrelmail/plugins/translate/setup.php:270
+#: squirrelmail/plugins/translate/setup.php:274
+#: squirrelmail/plugins/translate/setup.php:278
+#: squirrelmail/plugins/translate/setup.php:282
+#: squirrelmail/plugins/translate/setup.php:286
+#: squirrelmail/plugins/translate/setup.php:290
+#: squirrelmail/plugins/translate/setup.php:294
+#: squirrelmail/plugins/translate/setup.php:298
+#: squirrelmail/plugins/translate/setup.php:302
+#: squirrelmail/plugins/translate/setup.php:306
+#: squirrelmail/plugins/translate/setup.php:310
+#: squirrelmail/plugins/translate/setup.php:314
+#: squirrelmail/plugins/translate/setup.php:329
+#: squirrelmail/plugins/translate/setup.php:333
+#: squirrelmail/plugins/translate/setup.php:337
+#: squirrelmail/plugins/translate/setup.php:341
+#: squirrelmail/plugins/translate/setup.php:345
+#: squirrelmail/plugins/translate/setup.php:349
+#: squirrelmail/plugins/translate/setup.php:353
+#: squirrelmail/plugins/translate/setup.php:357
+#: squirrelmail/plugins/translate/setup.php:361
+#: squirrelmail/plugins/translate/setup.php:365
+#: squirrelmail/plugins/translate/setup.php:440
+#: squirrelmail/plugins/translate/setup.php:473
+#: squirrelmail/plugins/translate/setup.php:477
+#: squirrelmail/plugins/translate/setup.php:481
+#: squirrelmail/plugins/translate/setup.php:485
+#: squirrelmail/plugins/translate/setup.php:489
+#: squirrelmail/plugins/translate/setup.php:493
+#: squirrelmail/plugins/translate/setup.php:497
+#: squirrelmail/plugins/translate/setup.php:501
+#: squirrelmail/plugins/translate/setup.php:505
+#: squirrelmail/plugins/translate/setup.php:509
+#: squirrelmail/plugins/translate/setup.php:513
+#: squirrelmail/plugins/translate/setup.php:517
+#, fuzzy, c-format
+msgid "%s to %s"
+msgstr "Új %s"
+
+#: squirrelmail/plugins/translate/setup.php:267
+#: squirrelmail/plugins/translate/setup.php:271
+#: squirrelmail/plugins/translate/setup.php:275
+#: squirrelmail/plugins/translate/setup.php:279
+#: squirrelmail/plugins/translate/setup.php:283
+#: squirrelmail/plugins/translate/setup.php:288
+#: squirrelmail/plugins/translate/setup.php:292
+#: squirrelmail/plugins/translate/setup.php:296
+#: squirrelmail/plugins/translate/setup.php:300
+#: squirrelmail/plugins/translate/setup.php:304
+#: squirrelmail/plugins/translate/setup.php:316
+#: squirrelmail/plugins/translate/setup.php:330
+#: squirrelmail/plugins/translate/setup.php:334
+#: squirrelmail/plugins/translate/setup.php:338
+#: squirrelmail/plugins/translate/setup.php:342
+#: squirrelmail/plugins/translate/setup.php:346
+#: squirrelmail/plugins/translate/setup.php:351
+#: squirrelmail/plugins/translate/setup.php:355
+#: squirrelmail/plugins/translate/setup.php:359
+#: squirrelmail/plugins/translate/setup.php:363
+#: squirrelmail/plugins/translate/setup.php:367
+#: squirrelmail/plugins/translate/setup.php:388
+#: squirrelmail/plugins/translate/setup.php:418
+#: squirrelmail/plugins/translate/setup.php:474
+#: squirrelmail/plugins/translate/setup.php:478
+#: squirrelmail/plugins/translate/setup.php:482
+#: squirrelmail/plugins/translate/setup.php:486
+#: squirrelmail/plugins/translate/setup.php:490
+#: squirrelmail/plugins/translate/setup.php:495
+#: squirrelmail/plugins/translate/setup.php:507
+#: squirrelmail/plugins/translate/setup.php:511
+#: squirrelmail/plugins/translate/setup.php:515
+#: squirrelmail/plugins/translate/setup.php:519
+msgid "English"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:268
+#: squirrelmail/plugins/translate/setup.php:287
+#: squirrelmail/plugins/translate/setup.php:308
+#: squirrelmail/plugins/translate/setup.php:311
+#: squirrelmail/plugins/translate/setup.php:335
+#: squirrelmail/plugins/translate/setup.php:354
+#: squirrelmail/plugins/translate/setup.php:391
+#: squirrelmail/plugins/translate/setup.php:421
+#: squirrelmail/plugins/translate/setup.php:453
+#: squirrelmail/plugins/translate/setup.php:475
+#: squirrelmail/plugins/translate/setup.php:494
+#: squirrelmail/plugins/translate/setup.php:498
+#: squirrelmail/plugins/translate/setup.php:503
+msgid "French"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:272
+#: squirrelmail/plugins/translate/setup.php:291
+#: squirrelmail/plugins/translate/setup.php:307
+#: squirrelmail/plugins/translate/setup.php:312
+#: squirrelmail/plugins/translate/setup.php:339
+#: squirrelmail/plugins/translate/setup.php:358
+#: squirrelmail/plugins/translate/setup.php:392
+#: squirrelmail/plugins/translate/setup.php:422
+#: squirrelmail/plugins/translate/setup.php:454
+#: squirrelmail/plugins/translate/setup.php:479
+#: squirrelmail/plugins/translate/setup.php:499
+#: squirrelmail/plugins/translate/setup.php:502
+#: squirrelmail/plugins/translate/setup.php:506
+msgid "German"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:276
+#: squirrelmail/plugins/translate/setup.php:295
+#: squirrelmail/plugins/translate/setup.php:343
+#: squirrelmail/plugins/translate/setup.php:362
+#: squirrelmail/plugins/translate/setup.php:396
+#: squirrelmail/plugins/translate/setup.php:426
+#: squirrelmail/plugins/translate/setup.php:456
+#: squirrelmail/plugins/translate/setup.php:483
+#: squirrelmail/plugins/translate/setup.php:510
+msgid "Italian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:280
+#: squirrelmail/plugins/translate/setup.php:299
+#: squirrelmail/plugins/translate/setup.php:347
+#: squirrelmail/plugins/translate/setup.php:366
+#: squirrelmail/plugins/translate/setup.php:401
+#: squirrelmail/plugins/translate/setup.php:431
+#: squirrelmail/plugins/translate/setup.php:458
+#: squirrelmail/plugins/translate/setup.php:487
+#: squirrelmail/plugins/translate/setup.php:514
+msgid "Portuguese"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:284
+#: squirrelmail/plugins/translate/setup.php:303
+#: squirrelmail/plugins/translate/setup.php:331
+#: squirrelmail/plugins/translate/setup.php:350
+#: squirrelmail/plugins/translate/setup.php:406
+#: squirrelmail/plugins/translate/setup.php:436
+#: squirrelmail/plugins/translate/setup.php:459
+#: squirrelmail/plugins/translate/setup.php:491
+#: squirrelmail/plugins/translate/setup.php:518
+msgid "Spanish"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:315
+#: squirrelmail/plugins/translate/setup.php:403
+#: squirrelmail/plugins/translate/setup.php:433
+msgid "Russian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:318
+#: squirrelmail/plugins/translate/setup.php:370
+#: squirrelmail/plugins/translate/setup.php:441
+#: squirrelmail/plugins/translate/setup.php:462
+#: squirrelmail/plugins/translate/setup.php:521
+msgid "Translate"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:382
+#: squirrelmail/plugins/translate/setup.php:412
+msgid "Brazilian Portuguese"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:383
+#: squirrelmail/plugins/translate/setup.php:413
+msgid "Bulgarian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:384
+#: squirrelmail/plugins/translate/setup.php:414
+msgid "Croatian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:385
+#: squirrelmail/plugins/translate/setup.php:415
+msgid "Czech"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:386
+#: squirrelmail/plugins/translate/setup.php:416
+msgid "Danish"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:387
+#: squirrelmail/plugins/translate/setup.php:417
+#: squirrelmail/plugins/translate/setup.php:452
+#, fuzzy
+msgid "Dutch"
+msgstr "Minta"
+
+#: squirrelmail/plugins/translate/setup.php:389
+#: squirrelmail/plugins/translate/setup.php:419
+msgid "European Spanish"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:390
+#: squirrelmail/plugins/translate/setup.php:420
+msgid "Finnish"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:393
+#: squirrelmail/plugins/translate/setup.php:423
+msgid "Greek"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:394
+#: squirrelmail/plugins/translate/setup.php:424
+msgid "Hungarian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:395
+#: squirrelmail/plugins/translate/setup.php:425
+msgid "Icelandic"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:397
+#: squirrelmail/plugins/translate/setup.php:427
+msgid "Japanese"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:398
+#: squirrelmail/plugins/translate/setup.php:428
+msgid "Latin American Spanish"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:399
+#: squirrelmail/plugins/translate/setup.php:429
+msgid "Norwegian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:400
+#: squirrelmail/plugins/translate/setup.php:430
+msgid "Polish"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:402
+#: squirrelmail/plugins/translate/setup.php:432
+msgid "Romanian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:404
+#: squirrelmail/plugins/translate/setup.php:434
+msgid "Serbian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:405
+#: squirrelmail/plugins/translate/setup.php:435
+msgid "Slovenian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:407
+#: squirrelmail/plugins/translate/setup.php:437
+msgid "Swedish"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:408
+#: squirrelmail/plugins/translate/setup.php:438
+msgid "Welsh"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:455
+msgid "Indonesian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:457
+#, fuzzy
+msgid "Latin"
+msgstr "Belépés"
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:33
+#, fuzzy
+msgid "New Mail Notification"
+msgstr "Nincs jelzés"
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:36
+msgid ""
+"Select <b>Enable Media Playing</b> to turn on playing a media file when "
+"unseen mail is in your folders. When enabled, you can specify the media file "
+"to play in the provided file box."
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:38
+msgid ""
+"The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
+"folders for unseen mail, not just the inbox for notification."
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:40
+msgid ""
+"Selecting the <b>Show popup</b> option will enable the showing of a popup "
+"window when unseen mail is in your folders (requires JavaScript)."
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:42
+msgid ""
+"Use the <b>Check RECENT</b> to only check for messages that are recent. "
+"Recent messages are those that have just recently showed up and have not "
+"been \"viewed\" or checked yet.  This can prevent being continuously annoyed "
+"by sounds or popups for unseen mail."
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:44
+msgid ""
+"Selecting the <b>Change title</b> option will change the title in some "
+"browsers to let you know when you have new mail (requires JavaScript, and "
+"only works in IE but you won't see errors with other browsers).  This will "
+"always tell you if you have new mail, even if you have <b>Check RECENT</b> "
+"enabled."
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:46
+msgid ""
+"Select from the list of <b>server files</b> the media file to play when new "
+"mail arrives.  Selecting <b>local media</b> will play the file specified in "
+"the <b>local media file</b> box to play from the local computer.  If no file "
+"is specified, the system will use a default from the server."
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:56
+msgid "Enable Media Playing"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:64
+msgid "Check all boxes, not just INBOX"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:72
+msgid "Count only messages that are RECENT"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:80
+msgid "Change title on supported browsers."
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:80
+#: squirrelmail/plugins/newmail/newmail_opt.php:88
+msgid "requires JavaScript to work"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:88
+msgid "Show popup window on new mail"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:91
+msgid "Select server file:"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:93
+msgid "(local media)"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:110
+msgid "Try"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:118
+msgid "Local Media File:"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:124
+#, fuzzy
+msgid "Current File:"
+msgstr "Aktuális könyvtár"
+
+#: squirrelmail/plugins/newmail/newmail.php:19
+msgid "New Mail"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail.php:26
+#, fuzzy
+msgid "SquirrelMail Notice:"
+msgstr "SquirrelMail (MókusPosta) %s verzió"
+
+#: squirrelmail/plugins/newmail/newmail.php:30
+msgid "You have new mail!"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/setup.php:76
+#, fuzzy
+msgid "NewMail Options"
+msgstr "Opciók"
+
+#: squirrelmail/plugins/newmail/setup.php:78
+msgid ""
+"This configures settings for playing sounds and/or showing popup windows "
+"when new mail arrives."
+msgstr ""
+
+#: squirrelmail/plugins/newmail/setup.php:127
+msgid "New Mail Notification options saved"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/setup.php:200
+#, fuzzy, c-format
+msgid "%s New Messages"
+msgstr "Üzenet megtekintése"
+
+#: squirrelmail/plugins/newmail/setup.php:204
+#, fuzzy, c-format
+msgid "%s New Message"
+msgstr "Üzenet megtekintése"
+
+#: squirrelmail/plugins/newmail/testsound.php:24
+msgid "Test Sound"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/testsound.php:30
+msgid "Loading the sound..."
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:81
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:89
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:101
+msgid "POP3 connect:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:81
+msgid "No server specified"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:89
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:101
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:140
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:275
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:329
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:340
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:388
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:421
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:454
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:553
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:576
+#, fuzzy
+msgid "Error "
+msgstr "Hiba a megnyitásban "
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:109
+msgid "POP3: premature NOOP OK, NOT an RFC 1939 Compliant server"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:119
+msgid "POP3 noop:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:119
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:185
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:234
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:259
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:301
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:375
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:414
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:444
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:478
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:541
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:609
+#, fuzzy
+msgid "No connection to server"
+msgstr "Hiba történt az IMAP szerver (%s) kapcsolatfelvételekor"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:132
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:135
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:140
+msgid "POP3 user:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:132
+msgid "no login ID submitted"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:135
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:155
+msgid "connection not established"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:152
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:155
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:160
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:169
+msgid "POP3 pass:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:152
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:194
+msgid "No password submitted"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:160
+msgid "authentication failed "
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:169
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:218
+msgid "NOOP failed. Server not RFC 1939 compliant"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:185
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:191
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:194
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:199
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:209
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:218
+msgid "POP3 apop:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:191
+msgid "No login ID submitted"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:199
+msgid "No server banner"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:199
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:209
+msgid "abort"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:209
+msgid "apop authentication failed"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:234
+msgid "POP3 login:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:259
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:275
+msgid "POP3 top:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:301
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:329
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:340
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:352
+msgid "POP3 pop_list:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:352
+msgid "Premature end of list"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:375
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:388
+msgid "POP3 get:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:414
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:421
+msgid "POP3 last:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:444
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:454
+msgid "POP3 reset:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:478
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:484
+msgid "POP3 send_cmd:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:484
+msgid "Empty command string"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:504
+msgid "POP3 quit:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:504
+#, fuzzy
+msgid "connection does not exist"
+msgstr "'%s' nevü felhasználó nem létezik"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:541
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:553
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:576
+msgid "POP3 uidl:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:609
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:614
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:620
+msgid "POP3 delete:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:614
+msgid "No msg number submitted"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:620
+#, fuzzy
+msgid "Command failed "
+msgstr "Megnyitás sikertelen"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:54
+msgid "Remote POP server Fetching Mail"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:63
+msgid "Select Server:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:65
+msgid "All"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:78
+#, fuzzy
+msgid "Password for"
+msgstr "Jelszó:"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:85
+msgid "Fetch Mail"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:117
+msgid "Fetching from "
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:124
+#: squirrelmail/plugins/mail_fetch/fetch.php:184
+msgid "Oops, "
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:128
+msgid "Opening IMAP server"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:131
+msgid "Opening POP server"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:134
+#: squirrelmail/plugins/mail_fetch/setup.php:123
+msgid "Login Failed:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:151
+msgid "Login OK: No new messages"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:156
+msgid "Login OK: Inbox EMPTY"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:161
+msgid "Login OK: Inbox contains ["
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:161
+#, fuzzy
+msgid "] messages"
+msgstr "üzenet"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:164
+msgid "Fetching UIDL..."
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:169
+#: squirrelmail/plugins/mail_fetch/setup.php:154
+msgid "Server does not support UIDL."
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:172
+msgid "Leaving Mail on Server..."
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:174
+msgid "Deleting messages from server..."
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:178
+#, fuzzy
+msgid "Fetching message "
+msgstr "Üzenet elolvasása"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:201
+msgid "Message appended to mailbox"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:205
+#, fuzzy
+msgid "Message "
+msgstr "Üzenetek listája"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:205
+msgid " deleted from Remote Server!"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:207
+#, fuzzy
+msgid "Delete failed:"
+msgstr "Töröl"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:212
+#: squirrelmail/plugins/mail_fetch/setup.php:185
+#, fuzzy
+msgid "Error Appending Message!"
+msgstr "Hiba a megnyitásban "
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:216
+msgid "Closing POP"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:218
+msgid "Logging out from IMAP"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:221
+msgid "Saving UIDL"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:105
+msgid "Remote POP server settings"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:107
+msgid ""
+"You should be aware that the encryption used to store your password is not "
+"perfectly secure.  However, if you are using pop, there is inherently no "
+"encryption anyway. Additionally, the encryption that we do to save it on the "
+"server can be undone by a hacker reading the source to this file."
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:109
+msgid "If you leave password empty, it will be required when you fetch mail."
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:113
+msgid "Encrypt passwords (informative only)"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:119
+#: squirrelmail/plugins/mail_fetch/options.php:151
+msgid "Add Server"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:123
+#: squirrelmail/plugins/mail_fetch/options.php:201
+msgid "Server:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:124
+#: squirrelmail/plugins/mail_fetch/options.php:203
+msgid "Alias:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:125
+#: squirrelmail/plugins/mail_fetch/options.php:205
+#, fuzzy
+msgid "Username:"
+msgstr "Új név:"
+
+#: squirrelmail/plugins/mail_fetch/options.php:127
+#: squirrelmail/plugins/mail_fetch/options.php:209
+#, fuzzy
+msgid "Store in Folder:"
+msgstr "Küldemények könytára"
+
+#: squirrelmail/plugins/mail_fetch/options.php:148
+#: squirrelmail/plugins/mail_fetch/options.php:233
+msgid "Leave Mail on Server"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:149
+#: squirrelmail/plugins/mail_fetch/options.php:235
+msgid "Check mail during login"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:150
+#: squirrelmail/plugins/mail_fetch/options.php:237
+msgid "Check mail during folder refresh"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:157
+#: squirrelmail/plugins/mail_fetch/options.php:238
+msgid "Modify Server"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:161
+#, fuzzy
+msgid "Server Name:"
+msgstr "A szerver válasza: "
+
+#: squirrelmail/plugins/mail_fetch/options.php:167
+#: squirrelmail/plugins/mail_fetch/options.php:190
+#, fuzzy
+msgid "Modify"
+msgstr "Szövegben"
+
+#: squirrelmail/plugins/mail_fetch/options.php:171
+msgid "No-one server in use. Try to add."
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:177
+#: squirrelmail/plugins/mail_fetch/options.php:192
+#: squirrelmail/plugins/mail_fetch/options.php:243
+msgid "Fetching Servers"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:181
+msgid "Confirm Deletion of a Server"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:185
+msgid "Selected Server:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:186
+msgid "Confirm delete of selected server?"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:187
+#, fuzzy
+msgid "Confirm Delete"
+msgstr "Töröl"
+
+#: squirrelmail/plugins/mail_fetch/options.php:196
+msgid "Mofify a Server"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:246
+msgid "Undefined Function"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:248
+msgid "Hey! Wath do You are looking for?"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/setup.php:30
+#, fuzzy
+msgid "Fetch"
+msgstr "Minta"
+
+#: squirrelmail/plugins/mail_fetch/setup.php:115
+#: squirrelmail/plugins/mail_fetch/setup.php:162
+msgid "Warning, "
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/setup.php:198
+msgid "Mail Fetch Result:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/setup.php:224
+msgid "Simple POP3 Fetch Mail"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/setup.php:226
+msgid ""
+"This configures settings for downloading email from a pop3 mailbox to your "
+"account on this server."
+msgstr ""
+
+#~ msgid "Folders created successfully!"
+#~ msgstr "Könyvtárak sikeresen létrehozva!"
+
+#~ msgid ""
+#~ "In order for SquirrelMail to provide the full set of options you need to "
+#~ "create the special folders listed below.  Just click the check box and "
+#~ "hit the create button."
+#~ msgstr ""
+#~ "A SquirrelMail (MókusPosta) müködéséhez az alábbi könyvtárak szükségesek. "
+#~ "Csak kattints a kijelölö majd a \"Létrehoz\" gombra"
+
+#~ msgid "Create Sent"
+#~ msgstr "Küldemények Létrehozása"
+
+#~ msgid "Create Trash"
+#~ msgstr "Papírkosár Létrehozása"
+
+#~ msgid "purge"
+#~ msgstr "ürít"
+
+#~ msgid "Successfully saved display preferences!"
+#~ msgstr "Személyes beállítások sikeresen mentve!"
+
+#~ msgid "Successfully saved folder preferences!"
+#~ msgstr "Könyvtárak beállításai sikeresen mentve!"
+
+#~ msgid "Use Javascript or HTML addressbook?"
+#~ msgstr "Javascript vagy HTML címjegyzéket használjak?"
+
+#~ msgid "Auto refresh folder list"
+#~ msgstr "Magától frissülö könyvtárlista"
+
+#~ msgid "Don't use Trash"
+#~ msgstr "Ne használj papírkosarat"
+
+#~ msgid "Don't use Sent"
+#~ msgstr "Ne használj küldemények könyvtárat"
+
+#~ msgid "Use a signature?"
+#~ msgstr "Névjegykártya használata?"
+
+#~ msgid "You must login first."
+#~ msgstr "Elöbb be kell lépni"
+
+#~ msgid "Viewing messages"
+#~ msgstr "Üzenet elolvasása"
+
+#~ msgid "to"
+#~ msgstr "címzett"
+
+#~ msgid "total"
+#~ msgstr "összesen"
