@@ -322,13 +322,14 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
     $body_message = getEntity($message, $ent_num);
     if (($body_message->header->type0 == 'text') ||
         ($body_message->header->type0 == 'rfc822')) {
-	$body = mime_fetch_body ($imap_stream, $id, $ent_num);
+	    $body = mime_fetch_body ($imap_stream, $id, $ent_num);
         $body = decodeBody($body, $body_message->header->encoding);
         $hookResults = do_hook("message_body", $body);
         $body = $hookResults[1];
 
         // If there are other types that shouldn't be formatted, add
         // them here
+        
         if ($body_message->header->type1 == 'html') {
             if ( $show_html_default <> 1 ) {
                 $entity_conv = array('&nbsp;' => ' ',
@@ -344,7 +345,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
             }
         } else {
             translateText($body, $wrap_at, 
-	       $body_message->header->getParameter('charset'));
+	                      $body_message->header->getParameter('charset'));
         }
 
         if ($has_unsafe_images) {
@@ -360,8 +361,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
 
 
 function formatAttachments($message, $exclude_id, $mailbox, $id) {
-    global $where, $what;
-    global $startMessage, $color;
+    global $where, $what, $startMessage, $color;
     static $ShownHTML = 0;
 
     $att_ar = $message->getAttachments($exclude_id);
@@ -479,29 +479,30 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
 function decodeBody($body, $encoding) {
     global $languages, $squirrelmail_language;
 
-  $body = str_replace("\r\n", "\n", $body);
-  $encoding = strtolower($encoding);
-
-  global $show_html_default;
-
-  if ($encoding == 'quoted-printable' ||
-      $encoding == 'quoted_printable') {
-     $body = quoted_printable_decode($body);
-
-     while (ereg("=\n", $body))
-        $body = ereg_replace ("=\n", "", $body);
-
-  } else if ($encoding == 'base64') {
-     $body = base64_decode($body);
-  }
-
-  if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-      function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
-      $body = $languages[$squirrelmail_language]['XTRA_CODE']('decode', $body);
-  }
-
-  // All other encodings are returned raw.
-  return $body;
+    $body = str_replace("\r\n", "\n", $body);
+    $encoding = strtolower($encoding);
+    
+    global $show_html_default;
+    
+    if ($encoding == 'quoted-printable' ||
+    $encoding == 'quoted_printable') {
+        $body = quoted_printable_decode($body);
+    
+        while (ereg("=\n", $body)) {
+            $body = ereg_replace ("=\n", '', $body);
+        }
+    
+    } else if ($encoding == 'base64') {
+        $body = base64_decode($body);
+    }
+    
+    if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
+        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+        $body = $languages[$squirrelmail_language]['XTRA_CODE']('decode', $body);
+    }
+    
+    // All other encodings are returned raw.
+    return( $body );
 }
 
 /*
@@ -625,7 +626,9 @@ function find_ent_id( $id, $message ) {
  * @return           a string with the final tag representation.
  */
 function sq_tagprint($tagname, $attary, $tagtype){
-    $me = "sq_tagprint";
+    
+    $me = 'sq_tagprint';
+    
     if ($tagtype == 2){
         $fulltag = '</' . $tagname . '>';
     } else {
@@ -638,9 +641,9 @@ function sq_tagprint($tagname, $attary, $tagtype){
             $fulltag .= ' ' . join(" ", $atts);
         }
         if ($tagtype == 3){
-            $fulltag .= " /";
+            $fulltag .= ' /';
         }
-        $fulltag .= ">";
+        $fulltag .= '>';
     }
     return $fulltag;
 }
@@ -667,7 +670,7 @@ function sq_casenormalize(&$val){
  *                 non-whitespace char is located.
  */
 function sq_skipspace($body, $offset){
-    $me = "sq_skipspace";
+    $me = 'sq_skipspace';
     preg_match("/^(\s*)/s", substr($body, $offset), $matches);
     if (sizeof($matches{1})){
         $count = strlen($matches{1});
@@ -688,7 +691,7 @@ function sq_skipspace($body, $offset){
  *                 strlen($body) if needle wasn't found.
  */
 function sq_findnxstr($body, $offset, $needle){
-    $me = "sq_findnxstr";
+    $me = 'sq_findnxstr';
     $pos = strpos($body, $needle, $offset);
     if ($pos === FALSE){
         $pos = strlen($body);
@@ -710,7 +713,7 @@ function sq_findnxstr($body, $offset, $needle){
  *                 - string with whatever it is we matched
  */
 function sq_findnxreg($body, $offset, $reg){
-    $me = "sq_findnxreg";
+    $me = 'sq_findnxreg';
     $matches = Array();
     $retarr = Array();
     preg_match("%^(.*?)($reg)%s", substr($body, $offset), $matches);
@@ -739,7 +742,7 @@ function sq_findnxreg($body, $offset, $reg){
  *                 first three members will be false, if the tag is invalid.
  */
 function sq_getnxtag($body, $offset){
-    $me = "sq_getnxtag";
+    $me = 'sq_getnxtag';
     if ($offset > strlen($body)){
         return false;
     }
@@ -767,11 +770,11 @@ function sq_getnxtag($body, $offset){
      */
     $tagtype = false;
     switch (substr($body, $pos, 1)){
-    case "/":
+    case '/':
         $tagtype = 2;
         $pos++;
         break;
-    case "!":
+    case '!':
         /**
          * A comment or an SGML declaration.
          */
@@ -818,7 +821,7 @@ function sq_getnxtag($body, $offset){
      * Whatever else we find there indicates an invalid tag.
      */
     switch ($match){
-    case "/":
+    case '/':
         /**
          * This is an xhtml-style tag with a closing / at the
          * end, like so: <img src="blah"/>. Check if it's followed
@@ -832,7 +835,7 @@ function sq_getnxtag($body, $offset){
             $retary = Array(false, false, false, $lt, $gt);
             return $retary;
         }
-    case ">":
+    case '>':
         return Array($tagname, false, $tagtype, $lt, $pos);
         break;
     default:
@@ -920,7 +923,7 @@ function sq_getnxtag($body, $offset){
          *      anything else means the attribute is invalid.
          */
         switch($match){
-        case "/":
+        case '/':
             /**
              * This is an xhtml-style tag with a closing / at the
              * end, like so: <img src="blah"/>. Check if it's followed
@@ -934,7 +937,7 @@ function sq_getnxtag($body, $offset){
                 $retary = Array(false, false, false, $lt, $gt);
                 return $retary;
             }
-        case ">":
+        case '>':
             $attary{$attname} = '"yes"';
             return Array($tagname, $attary, $tagtype, $lt, $pos);
             break;
@@ -1023,7 +1026,7 @@ function sq_getnxtag($body, $offset){
  * @return           Translated value.
  */
 function sq_deent($attvalue){
-    $me="sq_deent";
+    $me = 'sq_deent';
     /**
      * See if we have to run the checks first. All entities must start
      * with "&".
@@ -1082,7 +1085,7 @@ function sq_fixatts($tagname,
                     $id,
 		    $mailbox
                     ){
-    $me = "sq_fixatts";
+    $me = 'sq_fixatts';
     while (list($attname, $attvalue) = each($attary)){
         /**
          * See if this attribute should be removed.
@@ -1156,7 +1159,7 @@ function sq_fixatts($tagname,
  */
 function sq_fixstyle($message, $id, $content){
     global $view_unsafe_images;
-    $me = "sq_fixstyle";
+    $me = 'sq_fixstyle';
     /**
      * First look for general BODY style declaration, which would be
      * like so:
@@ -1232,23 +1235,23 @@ function sq_cid2http($message, $id, $cidurl, $mailbox){
  * @return          a modified array of attributes to be set for <div>
  */
 function sq_body2div($attary){
-    $me = "sq_body2div";
-    $divattary = Array("class"=>"'bodyclass'");
-    $bgcolor="#ffffff";
-    $text="#000000";
-    $styledef="";
+    $me = 'sq_body2div';
+    $divattary = Array( 'class' => "'bodyclass'" );
+    $bgcolor = '#ffffff';
+    $text = '#000000';
+    $styledef = '';
     if (is_array($attary) && sizeof($attary) > 0){
         foreach ($attary as $attname=>$attvalue){
             $quotchar = substr($attvalue, 0, 1);
             $attvalue = str_replace($quotchar, "", $attvalue);
             switch ($attname){
-            case "background":
+            case 'background':
                 $styledef .= "background-image: url('$attvalue'); ";
                 break;
-            case "bgcolor":
+            case 'bgcolor':
                 $styledef .= "background-color: $attvalue; ";
                 break;
-            case "text":
+            case 'text':
                 $styledef .= "color: $attvalue; ";
             }
         }
@@ -1291,7 +1294,7 @@ function sq_sanitize($body,
                      $id,
 		     $mailbox
                      ){
-    $me = "sq_sanitize";
+    $me = 'sq_sanitize';
     /**
      * Normalize rm_tags and rm_tags_with_content.
      */
