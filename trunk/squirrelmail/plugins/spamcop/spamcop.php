@@ -92,7 +92,7 @@ if(! sqgetGlobalVar('composesession', $composesession, SQ_SESSION) ) {
 // js_web variable is 1 only when link opens web based report page in new window
 // and in new window menu line or extra javascript code is not needed.
 if ($js_web) {
-  displayHTMLHeader('SpamCop reporting');
+  displayHTMLHeader(_("SpamCop reporting"));
   echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\">\n";
 } else {
   displayPageHeader($color,$mailbox);
@@ -149,16 +149,14 @@ echo "</p>";
 <tr>
 <td align="left" valign="top">
 <?PHP if (isset($js_web) && $js_web) {
-   ?><form method="post" action="javascript:return false">
-  <input type="button" value="Close Window" 
-  onClick="window.close(); return true;">
-   <?PHP
+  echo '<form method="post" action="javascript:return false">';
+  echo '<input type="button" value="' . _("Close Window") . "\" onClick=\"window.close(); return true;\" />\n";
 } else {
    ?><form method="post" action="../../src/right_main.php">
-  <input type="hidden" name="mailbox" value="<?PHP echo htmlspecialchars($mailbox) ?>">
-  <input type="hidden" name="startMessage" value="<?PHP echo htmlspecialchars($startMessage) ?>">
-  <input type="submit" value="Cancel / Done">
-   <?PHP
+  <input type="hidden" name="mailbox" value="<?PHP echo htmlspecialchars($mailbox) ?>" />
+  <input type="hidden" name="startMessage" value="<?PHP echo htmlspecialchars($startMessage) ?>" />
+<?PHP
+  echo '<input type="submit" value="' . _("Cancel / Done") . "\" />";
 }
   ?></form>
 </td>
@@ -171,14 +169,15 @@ echo "</p>";
       $report_email = 'quick.' . $spamcop_id . '@spam.spamcop.net';
    $form_action = SM_PATH . 'src/compose.php';
 ?>  <form method="post" action="<?PHP echo $form_action?>">
-  <input type="hidden" name="mailbox" value="<?PHP echo htmlspecialchars($mailbox) ?>">
-  <input type="hidden" name="spamcop_is_composing" value="<?PHP echo htmlspecialchars($passed_id) ?>">
-  <input type="hidden" name="send_to" value="<?PHP echo $report_email?>">
-  <input type="hidden" name="subject" value="reply anyway">
-  <input type="hidden" name="identity" value="0">
-  <input type="hidden" name="session" value="<?PHP echo $session?>">
-  <input type="submit" name="send" value="Send Spam Report">
-<?PHP } else {
+  <input type="hidden" name="mailbox" value="<?PHP echo htmlspecialchars($mailbox) ?>" />
+  <input type="hidden" name="spamcop_is_composing" value="<?PHP echo htmlspecialchars($passed_id) ?>" />
+  <input type="hidden" name="send_to" value="<?PHP echo $report_email?>" />
+  <input type="hidden" name="subject" value="reply anyway" />
+  <input type="hidden" name="identity" value="0" />
+  <input type="hidden" name="session" value="<?PHP echo $session?>" />
+<?php
+  echo '<input type="submit" name="send" value="' . _("Send Spam Report") . "\" />\n";
+} else {
    $spam_message = mime_fetch_body ($imap_stream, $passed_id, $passed_ent_id, 50000);
 
    if (strlen($spam_message) == 50000) {
@@ -197,15 +196,16 @@ echo "</p>";
      echo "<form method=\"post\" action=\"$action_url\" name=\"submitspam\"".
        " enctype=\"multipart/form-data\" target=\"_blank\">\n";
    } ?>
-  <input type="hidden" name="action" value="submit">
-  <input type="hidden" name="oldverbose" value="1">
-  <input type="hidden" name="code" value="<?PHP echo $spamcop_id ?>">
-  <input type="hidden" name="spam" value="<?PHP echo htmlspecialchars($spam_message); ?>">
-  <input type="submit" name="x1" value="Send Spam Report">
-<?PHP }
+  <input type="hidden" name="action" value="submit" />
+  <input type="hidden" name="oldverbose" value="1" />
+  <input type="hidden" name="code" value="<?PHP echo $spamcop_id ?>" />
+  <input type="hidden" name="spam" value="<?PHP echo htmlspecialchars($spam_message); ?>" />
+    <?php
+	echo '<input type="submit" name="x1" value="' . _("Send Spam Report") . "\" />\n";
+    }
 ?>  </form>
 </td>
 </tr>
 </table>
-  </body>
+</body>
 </html>
