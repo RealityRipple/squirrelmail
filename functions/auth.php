@@ -13,6 +13,15 @@
 
 require_once( '../functions/page_header.php' );
 
+/* If a user opens a new session then comes back to this one,
+ * $base_uri isn't set because it the session is invalid.
+ */
+
+if (! isset($base_uri)) {
+    ereg ('(^.*/)[^/]+/[^/]+$', $PHP_SELF, $regs);
+    $base_uri = $regs[1];
+}
+
 function is_logged_in () {
     global $squirrelmail_language, $frame_top, $base_uri;
 
