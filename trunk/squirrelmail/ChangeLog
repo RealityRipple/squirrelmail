@@ -103,7 +103,8 @@ Version 1.5.0 -- CVS
     language.
   - Removed all translations. SquirrelMail translations are distributed as
     separate packages and kept in different cvs module.
-
+  - New function: imap_general.php:create_imap_stream()
+  - Updated src/login.php to detect, handle, and warn on LOGINDISABLED from IMAP server.
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
