@@ -13,7 +13,7 @@
  *
  * This is a standard Squirrelmail-1.2 API for plugins.
  *
- * $Id$
+ * @version $Id$
  * @package plugins
  * @subpackage bug_report
  */
@@ -30,7 +30,13 @@ require_once(SM_PATH . 'functions/forms.php');
 
 displayPageHeader($color, 'None');
 
-
+/**
+ * converts array to string
+ *
+ * @param array $array array that has to be displayed
+ * @return string
+ * @access private
+ */
 function Show_Array($array) {
     $str = '';
     foreach ($array as $key => $value) {
