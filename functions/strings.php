@@ -576,5 +576,85 @@ function sq_fwrite($fp, $string) {
 	return $count;
 }
 
+/**
+ * sq_get_html_translation_table
+ *
+ * Returns the translation table used by sq_htmlentities()
+ *
+ * @param integer $table html translation table. Possible values (without quotes):
+ *                HTML_ENTITIES - full html entities table defined by charset
+ *                HTML_SPECIALCHARS - html special characters table
+ * @param integer $quote_style quote encoding style. Possible values (without quotes):
+ *                ENT_COMPAT - (default) encode double quotes
+ *                ENT_NOQUOTES -  don't encode double or single quotes
+ *                ENT_QUOTES - encode double and single quotes
+ * @param string $charset charset used for encoding. default to us-ascii, 'auto' uses $default_charset global value.
+ * @return array html translation array
+ */
+function sq_get_html_translation_table($table,$quote_style=ENT_COMPAT,$charset='us-ascii') {
+  global $default_charset;
+
+  if ($table == HTML_SPECIALCHARS) $charset='us-ascii';
+
+  // Start array with ampersand
+  $sq_html_ent_table = array( "&" => '&amp;' );
+
+  // < and >
+  $sq_html_ent_table = array_merge($sq_html_ent_table,
+			array("<" => '&lt;',
+			      ">" => '&gt;')
+			);
+  // double quotes
+  if ($quote_style == ENT_COMPAT)
+     $sq_html_ent_table = array_merge($sq_html_ent_table,
+			    array("\"" => '&quot;')
+			    );
+
+  // double and single quotes
+  if ($quote_style == ENT_QUOTES)
+     $sq_html_ent_table = array_merge($sq_html_ent_table,
+			    array("\"" => '&quot;',
+			      "'" => '&#39;')
+			    );
+
+  if ($charset=='auto') $charset=$default_charset;
+
+  // add entities that depend on charset
+  switch($charset){
+  case 'iso-8859-1':
+    include_once(SM_PATH . 'functions/htmlentities/iso-8859-1.php');
+    break;
+  case 'utf-8':
+    include_once(SM_PATH . 'functions/htmlentities/utf-8.php');
+    break;
+  case 'us-ascii':
+  default:
+    break;
+  }
+  // return table
+  return $sq_html_ent_table;
+}
+
+/**
+ * sq_htmlentities
+ *
+ * Convert all applicable characters to HTML entities.
+ * Minimal php requirement - v.4.0.5
+ *
+ * @param string $string string that has to be sanitized
+ * @param integer $quote_style quote encoding style. Possible values (without quotes):
+ *                ENT_COMPAT - (default) encode double quotes
+ *                ENT_NOQUOTES - don't encode double or single quotes
+ *                ENT_QUOTES - encode double and single quotes
+ * @param string $charset charset used for encoding. defaults to 'us-ascii', 'auto' uses $default_charset global value.
+ * @return string sanitized string
+ */
+function sq_htmlentities($string,$quote_style=ENT_COMPAT,$charset='us-ascii') {
+  // get translation table
+  $sq_html_ent_table=sq_get_html_translation_table(HTML_ENTITIES,$quote_style,$charset);
+  // convert characters
+  return str_replace(array_keys($sq_html_ent_table),array_values($sq_html_ent_table),$string);
+}
+
 $PHP_SELF = php_self();
 ?>
