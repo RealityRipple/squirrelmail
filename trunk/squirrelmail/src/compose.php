@@ -323,17 +323,17 @@ if ($draft) {
         /* If this is a resumed draft, then delete the original */
         if(isset($delete_draft)) {
             Header("Location: $location/delete_message.php?mailbox=" . urlencode($draft_folder) .
-                    "&message=$delete_draft&startMessage=1&saved_draft=yes");
+                    "&amp;message=$delete_draft&amp;startMessage=1&amp;saved_draft=yes");
             exit();
         }
         else {
             if ($compose_new_win == '1') {
-                Header("Location: $location/compose.php?saved_draft=yes&session=$composesession");
+                Header("Location: $location/compose.php?saved_draft=yes&amp;session=$composesession");
                 exit();
             }
             else {
                 Header("Location: $location/right_main.php?mailbox=" . urlencode($draft_folder) .
-                        "&startMessage=1&note=".urlencode($draft_message));
+                        "&amp;startMessage=1&amp;note=".urlencode($draft_message));
                 exit();
             }
         }
@@ -397,7 +397,7 @@ if ($send) {
         unset($compose_messages[$session]);
         if ( isset($delete_draft)) {
             Header("Location: $location/delete_message.php?mailbox=" . urlencode( $draft_folder ).
-                    "&message=$delete_draft&startMessage=1&mail_sent=yes");
+                    "&amp;message=$delete_draft&amp;startMessage=1&amp;mail_sent=yes");
             exit();
         }
         if ($compose_new_win == '1') {
@@ -406,7 +406,7 @@ if ($send) {
         }
         else {
             Header("Location: $location/right_main.php?mailbox=$urlMailbox".
-                    "&startMessage=$startMessage&mail_sent=yes");
+                    "&amp;startMessage=$startMessage&amp;mail_sent=yes");
         }
     } else {
         if ($compose_new_win == '1') {
@@ -978,7 +978,7 @@ function showInputForm ($session, $values=false) {
     if ($compose_new_win == '1') {
         echo '<table align="center" bgcolor="'.$color[0].'" width="100%" border="0">'."\n" .
             '   <tr><td></td>'.html_tag( 'td', '', 'right' ).
-            '<input type="button" name="Close" onClick="return self.close()" value="'.
+            '<input type="button" name="Close" onclick="return self.close()" value="'.
             _("Close").'" /></td></tr>'."\n";
     }
     if ($location_of_buttons == 'top') {
