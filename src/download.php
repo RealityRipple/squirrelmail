@@ -30,7 +30,7 @@
       echo "</TT></TD></TR></TABLE>";
    }
 
-   $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
+   $imapConnection = loginToImapServer($username, $key, $imapServerAddress, 0);
    selectMailbox($imapConnection, $mailbox, $numMessages);
 
    // $message contains all information about the message

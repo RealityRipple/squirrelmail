@@ -32,7 +32,7 @@
       }
    }
 
-   $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
+   $imapConnection = loginToImapServer($username, $key, $imapServerAddress, 0);
 
    // switch to the mailbox, and get the number of messages in it.
    selectMailbox($imapConnection, $mailbox, $numMessages, $imapServerAddress);
