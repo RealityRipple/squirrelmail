@@ -25,6 +25,8 @@ xgettext ${XGETTEXT_OPTIONS} -j \
     squirrelmail/include/*.php --output=squirrelmail/po/squirrelmail.pot
 xgettext ${XGETTEXT_OPTIONS} -j \
     squirrelmail/include/options/*.php --output=squirrelmail/po/squirrelmail.pot
+xgettext ${XGETTEXT_OPTIONS} -j \
+    squirrelmail/images/themes/*/*.php --output=squirrelmail/po/squirrelmail.pot
     
 # ** Plugins
     
