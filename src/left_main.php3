@@ -35,8 +35,8 @@
 <FONT FACE="Arial,Helvetica">
 <?
    include("../config/config.php3");
-   include("functions/strings.php3");
-   include("functions/imap.php3");
+   include("../functions/strings.php3");
+   include("../functions/imap.php3");
 
    // *****************************************
    //    Parse the incoming mailbox name and return a string that is the FOLDER.MAILBOX
