@@ -1214,7 +1214,7 @@ function sq_cid2http($message, $id, $cidurl, $mailbox){
     $cidurl = substr(trim($cidurl), 4);
     $httpurl = $quotchar . "../src/download.php?absolute_dl=true&amp;" .
         "passed_id=$id&amp;mailbox=" . urlencode($mailbox) .
-        "&amp;passed_ent_id=" . find_ent_id($cidurl, $message) . $quotchar;
+        "&amp;ent_id=" . find_ent_id($cidurl, $message) . $quotchar;
     return $httpurl;
 }
 
