@@ -203,6 +203,8 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
                 $special_encoding = '7bit';
             }
         }
+    } elseif (sq_is8bit($body)) {
+        $special_encoding = '8bit';
     }
     $part1 = new Message();
     $part1->setBody($body);
