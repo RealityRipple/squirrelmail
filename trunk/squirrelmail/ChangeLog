@@ -2,8 +2,8 @@
 *** Squirrelmail Stable Series 1.2 ***
 **************************************
 
-Version 1.2.2 -- ??
--------------------
+Version 1.2.2 -- 1 January 2002
+-------------------------------
 
   - Fixed an infinite loop in printer friendly when wrapping option 
     is not in the prefs. 
