@@ -21,7 +21,7 @@
  *
  * Also view plugins/README.plugins for more information.
  *
- * $Id$
+ * @version $Id$
  * @package plugins
  * @subpackage filters
  */
