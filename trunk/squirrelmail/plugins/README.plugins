@@ -16,12 +16,16 @@ install plugins.
 
   3.  Note the directory that the plugin was created into.  For this
       example, we will assume it was put in the directory: myplugin/.
+  
+  4.  Read the README or other documentation in your new plugin.  Follow
+      any important configuration instructions inside (usually there are
+      none).
 
-  4.  Go to the config directory and run conf.pl
+  5.  Go to the config directory and run conf.pl
 
         $ cd ../../config/
         $ ./conf.pl
 
-  5.  Choose option 8 and proceed to add the new plugin following
+  6.  Choose option 8 and proceed to add the new plugin following
       the instructions there.  Save and exit, and your plugin should
       be in place.
