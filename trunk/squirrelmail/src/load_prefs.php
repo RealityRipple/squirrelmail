@@ -14,6 +14,8 @@
       include("../config/config.php");
    if (!isset($prefs_php))
       include("../functions/prefs.php");
+   if (!isset($plugin_php))
+      include("../functions/plugin.php");
       
    $load_prefs_php = true;
    checkForPrefs($data_dir, $username);
@@ -153,4 +155,5 @@
       $message_highlight_list[$i]["match_type"] = $ary[3];
    }
 
+   do_hook("loading_prefs");
 ?>

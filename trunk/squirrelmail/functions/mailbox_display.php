@@ -190,6 +190,7 @@
       $prevGroup = $startMessage - $show_num;
       $urlMailbox = urlencode($mailbox);
 
+      do_hook("mailbox_index_before");
       /** This is the beginning of the message list table.  It wraps around all messages */
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=0>";
 
@@ -334,5 +335,7 @@
          echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Next") . "</A>\n";
       }
       echo "</TD></TR></table>"; /** End of message-list table */
+
+      do_hook("mailbox_index_after");
    }
 ?>

@@ -148,7 +148,7 @@
       }
       echo "\n$line<BR>\n";
    }
-
    sqimap_logout($imapConnection);
+   do_hook("left_main_after");
 ?>
 </BODY></HTML>

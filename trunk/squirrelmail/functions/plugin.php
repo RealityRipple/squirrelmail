@@ -19,9 +19,11 @@
 
    // This function adds a plugin
    function use_plugin ($name) {
-      include ('../plugins/'.$name.'/setup.php');
-      $function = 'squirrelmail_plugin_init_'.$name;
-      $function();
+      if (file_exists('../plugins/'.$name.'/setup.php')) {
+         include ('../plugins/'.$name.'/setup.php');
+         $function = 'squirrelmail_plugin_init_'.$name;
+         $function();
+      }
    }
 
    // This function executes a hook
