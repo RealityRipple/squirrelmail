@@ -150,18 +150,19 @@ function error_box($string, $color) {
         echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\">\n\n";
     }
 
-    echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[9].'">'
-       . '     <tr><td>'
-       . '       <table width="100%" cellpadding="0" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">'
-       . '        <tr><td ALIGN="center" bgcolor="'.$color[0].'">'
-       . '           <font color="' . $color[2].'"><b>' . $err . ':</b></font>'
-       . '        </td></tr>'
-       . '        <tr><td>'
-       . '            <table cellpadding="1" cellspacing="5" align="center" border="0">'
-       . '              <tr>' . html_tag( 'td', $string."\n", 'left') . '</tr>'
-       . '            </table>'
-       . '       </table></td></tr>'
-       . '    </table>'
-       . '  </td></tr>';
+   echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
+   echo '     <tr><td>';
+   echo '       <table width="100%" cellpadding="0" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
+   echo '        <tr><td ALIGN="center" bgcolor="'.$color[0].'">';
+   echo '           <font color="' . $color[2].'"><b>' . _("ERROR") . ':</b></font>';
+   echo '        </td></tr>';
+   echo '        <tr><td>';
+   echo '            <table cellpadding="1" cellspacing="5" align="center" border="0">';
+   echo '              <tr>' . html_tag( 'td', $string."\n", 'left')
+                    . '</tr>';
+   echo '            </table>';
+   echo '       </table></td></tr>';
+   echo '    </table>';
+   echo '  </td></tr>';
 }
 ?>
