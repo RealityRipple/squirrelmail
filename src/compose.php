@@ -390,27 +390,32 @@ function newMail () {
         sqimap_mailbox_select($imapConnection, $mailbox);
         $message = sqimap_get_message($imapConnection, $id, $mailbox);
         $orig_header = $message->header;
+	$body = '';
         if ($ent_num) {
-            $message = getEntity($message, $ent_num);
-        }
-        if ($message->header->type0 == 'text' ||
-            $message->header->type1 == 'message') {
-            if ($ent_num) {
-                $body = decodeBody(
-                    mime_fetch_body($imapConnection, $id, $ent_num),
-                    $message->header->encoding);
-            } else {
-                $body = decodeBody(
-                    mime_fetch_body($imapConnection, $id, 1),
-                    $message->header->encoding);
-            }
-        } else {
-            $body = '';
-        }
-
-        if ($message->header->type1 == 'html') {
-            $body = strip_tags($body);
-        }
+	    $ent_ar = preg_split('/_/',$ent_num);
+	    foreach($ent_ar as $ent_num) {
+        	$message = getEntity($message, $ent_num);
+    		if ($message->header->type0 == 'text' ||
+        	    $message->header->type1 == 'message') {
+            	    $bodypart = decodeBody(
+		        mime_fetch_body($imapConnection, $id, $ent_num),
+                	    $message->header->encoding);
+			if ($message->header->type1 == 'html') {
+        		    $bodypart = strip_tags($bodypart);
+    			}
+			$body .= $bodypart;
+		}
+	    }
+        } else if ($message->header->type0 == 'text' ||
+        	    $message->header->type1 == 'message') {
+                	$body .= decodeBody(
+                	mime_fetch_body($imapConnection, $id, 1),
+                	$message->header->encoding);
+    			if ($message->header->type1 == 'html') {
+        		    $body = strip_tags($body);
+    			}
+			
+        } 
 
         sqUnWordWrap($body);
         
