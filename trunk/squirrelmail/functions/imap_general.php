@@ -144,7 +144,7 @@
     **  Returns the delimeter between mailboxes:  INBOX/Test, or INBOX.Test... 
     ******************************************************************************/
    function sqimap_get_delimiter ($imap_stream) {
-      fputs ($imap_stream, ". LIST \"\" *\r\n");
+      fputs ($imap_stream, ". LSUB \"\" *\r\n");
       $read = sqimap_read_data($imap_stream, ".", true, $a, $b);
       $quote_position = strpos ($read[0], "\"");
       $delim = substr ($read[0], $quote_position+1, 1);
