@@ -1,5 +1,6 @@
 Version 0.4pre1 -- Development
 ------------------------------
+- Added option to configure default folder directory.  ex: ~/mail
 - Configuration script added: config/conf.pl
 - Addressbook with LDAP support
 - Big speed improvements with folder listing
