@@ -1,5 +1,6 @@
 Version 1.0pre2 -- DEVELOPMENT
 ------------------------------
+- A number of security fixes
 - Replaced error messages with better, formatted, and meaningful messages.
 - Fixed "reply all" so that it works intelligently now
 - Made deleted (but not expunged) messages easier to detect (only if $auto_expunge = false)

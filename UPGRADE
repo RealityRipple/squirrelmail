@@ -1,9 +1,10 @@
-Upgrading from 0.3 or 0.4
-=========================
-If you are upgrading from versions 0.3 or 0.4 of SquirrelMail, you can use
-this guide to make the transition a bit smoother.  If you have been using a
-previous version (0.1 or 0.2), it is suggested that you just start from
-scratch and configure your settings as if it was your first install.
+Upgrading from 0.3 or higher 
+============================
+
+If you are upgrading from versions 0.3 or higher of SquirrelMail, you can
+use this guide to make the transition a bit smoother.  If you have been
+using a previous version (0.1 or 0.2), it is suggested that you just start
+from scratch and configure your settings as if it was your first install.
 
 NOTE: The new plugin architecture required the use of some functions which
 are not in all versions of PHP4. You will need at least PHP4 beta2. If you
