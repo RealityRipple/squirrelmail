@@ -404,7 +404,7 @@
 
       fputs($smtpConnection, ".\r\n"); // end the DATA part
       $tmp = fgets($smtpConnection, 1024);
-      $num = errorCheck($tmp, $smtpConnection, verbose);
+      $num = errorCheck($tmp, $smtpConnection, true);
       if ($num != 250) {
          $tmp = nl2br(htmlspecialchars($tmp));
          displayPageHeader($color, 'None');
@@ -423,7 +423,7 @@
    }
 
 
-   function errorCheck($line, $smtpConnection) {
+   function errorCheck($line, $smtpConnection, $verbose = false) {
       global $color;
       include '../functions/page_header.php';
       
@@ -522,7 +522,7 @@
 		 $msg  = $message . "<br>\nServer replied: $lines";
 		 plain_error_message($msg, $color);
       }
-      if ($verbose == "") return $status;
+      if (! $verbose) return $status;
       return $err_num;
    }
 
