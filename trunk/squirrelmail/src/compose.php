@@ -102,8 +102,6 @@ if ( !sqgetGlobalVar('smaction',$action) )
   if ( sqgetGlobalVar('smaction_edit_new',$tmp) )   $action = 'edit_as_new';
 }
 
-sm_print_r($_POST);
-die();
 /* Location (For HTTP 1.1 Header("Location: ...") redirects) */
 $location = get_location();
 /* Identities (fetch only once) */
