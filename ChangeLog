@@ -2,6 +2,10 @@
 *** Squirrelmail Stable Series 1.2 ***
 **************************************
 
+Version 1.2.7 -- CVS
+--------------------
+  - Speed optimizements in generating message-lists.    
+
 Version 1.2.6 -- April 29 2002 
 --------------------
   - A complete MagicHTML rewrite since the existing codebase was
