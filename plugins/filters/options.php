@@ -1,27 +1,29 @@
 <?php
-   /**
-    * Message and Spam Filter Plugin
-    *
-    * Copyright (c) 1999-2001 The Squirrelmail Development Team
-    * Licensed under the GNU GPL. For full terms see the file COPYING.
-    *
-    * This plugin filters your inbox into different folders based upon given
-    * criteria. It is most useful for people who are subscibed to mailing lists
-    * to help organize their messages.  The argument stands that filtering is
-    * not the place of the client, which is why this has been made a plugin for
-    * SquirrelMail.  You may be better off using products such as Sieve or
-    * Procmail to do your filtering so it happens even when SquirrelMail isn't
-    * running.
-    *
-    * If you need help with this, or see improvements that can be made, please
-    * email me directly at the address above.  I definately welcome suggestions
-    * and comments.  This plugin, as is the case with all SquirrelMail plugins,
-    * is not directly supported by the developers.  Please come to me off the
-    * mailing list if you have trouble with it.
-    *
-    * Also view plugins/README.plugins for more information.
-    *
-    */
+
+/**
+ * Message and Spam Filter Plugin
+ *
+ * Copyright (c) 1999-2002 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * This plugin filters your inbox into different folders based upon given
+ * criteria. It is most useful for people who are subscibed to mailing lists
+ * to help organize their messages.  The argument stands that filtering is
+ * not the place of the client, which is why this has been made a plugin for
+ * SquirrelMail.  You may be better off using products such as Sieve or
+ * Procmail to do your filtering so it happens even when SquirrelMail isn't
+ * running.
+ *
+ * If you need help with this, or see improvements that can be made, please
+ * email me directly at the address above.  I definately welcome suggestions
+ * and comments.  This plugin, as is the case with all SquirrelMail plugins,
+ * is not directly supported by the developers.  Please come to me off the
+ * mailing list if you have trouble with it.
+ *
+ * Also view plugins/README.plugins for more information.
+ *
+ * $Id$
+ */
 
    chdir ('..');
    require_once('../src/validate.php');

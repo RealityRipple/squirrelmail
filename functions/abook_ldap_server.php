@@ -3,7 +3,7 @@
 /**
  * abook_ldap_server.php
  *
- * Copyright (c) 1999-2001 The Squirrelmail Development Team
+ * Copyright (c) 1999-2002 The Squirrelmail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * Address book backend for LDAP server

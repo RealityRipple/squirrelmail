@@ -1,15 +1,13 @@
 <?php
 
-   /**
-    **  sqspell_functions.php -- All SquirrelSpell-wide functions are in this file.
-    **
-    **  Copyright (c) 1999-2001 The SquirrelMail development team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **
-    **
-    **  $Id$
-    **/
+/**
+ * sqspell_functions.php -- All SquirrelSpell-wide functions are in this file.
+ *
+ * Copyright (c) 1999-2002 The SquirrelMail development team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * $Id$
+ */
 								
     function sqspell_makePage($title, $scriptsrc, $body){
     /*

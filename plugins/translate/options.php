@@ -1,10 +1,14 @@
 <?php
    /**
-    **  options.php
-    **
-    **  Pick your translator to translate the body of incoming mail messages
-    **
-    **/
+    * options.php
+    *
+    * Copyright (c) 1999-2002 The SquirrelMail Project Team
+    * Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    * Pick your translator to translate the body of incoming mail messages
+    *
+    * $Id$
+    */
 
    chdir('..');
 

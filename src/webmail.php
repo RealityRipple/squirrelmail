@@ -1,17 +1,17 @@
 <?php
 
 /**
- **  webmail.php -- Displays the main frameset
- **
- **  Copyright (c) 1999-2001 The SquirrelMail development team
- **  Licensed under the GNU GPL. For full terms see the file COPYING.
- **
- **  This file generates the main frameset. The files that are
- **  shown can be given as parameters. If the user is not logged in
- **  this file will verify username and password.
- **
- **  $Id$
- **/
+ * webmail.php -- Displays the main frameset
+ *
+ * Copyright (c) 1999-2002 The SquirrelMail development team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * This file generates the main frameset. The files that are
+ * shown can be given as parameters. If the user is not logged in
+ * this file will verify username and password.
+ *
+ * $Id$
+ */
 
 require_once('../functions/strings.php');
 require_once('../config/config.php');
@@ -27,7 +27,7 @@ $base_uri = $regs[1];
 session_start();
 is_logged_in();
 
-/*
+/**
  * We'll need this to later have a noframes version
  *
  * Check if the user has a language preference, but no cookie.

@@ -3,7 +3,7 @@
    /**
     **  EDIT_DIC.MOD.PHP -- Squirrelspell module
     **
-    **  Copyright (c) 1999-2001 The SquirrelMail development team
+    **  Copyright (c) 1999-2002 The SquirrelMail development team
     **  Licensed under the GNU GPL. For full terms see the file COPYING.
     **
     **   This module handles the encryption/decryption of the user dictionary

@@ -3,7 +3,7 @@
    /**
     **  FORGET_ME_NOT.MOD.PHP -- Squirrelspell module
     **
-    **  Copyright (c) 1999-2001 The SquirrelMail development team
+    **  Copyright (c) 1999-2002 The SquirrelMail development team
     **  Licensed under the GNU GPL. For full terms see the file COPYING.
     **
     **  This module saves the added words into the user dictionary. Called
