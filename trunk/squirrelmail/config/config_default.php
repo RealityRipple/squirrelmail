@@ -803,13 +803,11 @@ $squirrelmail_default_language = 'en_US';
 /**
  * Default Charset
  *
- * This option controls what character set is used when sending mail
- * and when sending HTML to the browser. Do not set this to US-ASCII,
- * use ISO-8859-1 instead.
- * 
- * You can set this option, only if $squirrelmail_default_language setting
- * contains 'en_US' string. In any other case system does not allow 
- * making mistakes with incorrect language and charset combinations.
+ * This option controls what character set is used when sending
+ * mail and when sending HTML to the browser. Option works only
+ * with US English (en_US) translation. Other translations use
+ * charsets that are set in functions/i18n.php.
+ *
  * @global string $default_charset
  */
 $default_charset = 'iso-8859-1';

@@ -93,6 +93,8 @@ Version 1.5.1 -- CVS
   - $agresive_decoding configuration option changed to $aggressive_decoding.
     Fixed spelling.
   - Added $loosy_encoding option (provides fix for #806698)
+  - Reenabled use of $default_charset option. Option works only with en_US 
+    translation in order to prevent language/charset misconfiguration.
 
 Version 1.5.0
 --------------------
