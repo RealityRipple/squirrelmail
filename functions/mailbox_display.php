@@ -399,9 +399,9 @@
 		echo "$More</td><td align=right>\n";
 		if (!$startMessage) $startMessage=1;
       if ( $checkall == "1")
-         echo "\n<A HREF=\"right_main.php?mailbox=$mailbox&startMessage=$startMessage&sort=$sort\">" . _("Unselect All") . "</A>\n";
+         echo "\n<A HREF=\"right_main.php?mailbox=$mailbox&startMessage=$real_startMessage&sort=$sort\">" . _("Unselect All") . "</A>\n";
       else
-         echo "\n<A HREF=\"right_main.php?mailbox=$mailbox&startMessage=$startMessage&sort=$sort&checkall=1\">" . _("Select All") . "</A>\n";
+         echo "\n<A HREF=\"right_main.php?mailbox=$mailbox&startMessage=$real_startMessage&sort=$sort&checkall=1\">" . _("Select All") . "</A>\n";
 
 		echo "</td></tr></table>";
 		echo "</td></tr>";
@@ -419,7 +419,7 @@
     * $More is a second line that is left aligned
     */
    function mail_message_listing_beginning($imapConnection, $moveURL,
-       $mailbox = '', $sort = -1, $Message = '', $More = '', $startmessage = 1)
+       $mailbox = '', $sort = -1, $Message = '', $More = '', $startMessage = 1)
    {
       global $color, $index_order, $auto_expunge, $move_to_trash;
 		global $checkall;
@@ -436,7 +436,6 @@
       echo "<TR BGCOLOR=\"$color[4]\"><TD>";
 		echo "<table width=100% cellpadding=0 cellspacing=0 border=0><tr><td>";
 		echo "$More</td><td align=right>\n";
-		if (!$startMessage) $startMessage=1;
       if ( $checkall == "1")
          echo "\n<A HREF=\"right_main.php?mailbox=$mailbox&startMessage=$startMessage&sort=$sort\">" . _("Unselect All") . "</A>\n";
       else
