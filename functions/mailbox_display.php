@@ -715,7 +715,7 @@ function mail_message_listing_beginning ($imapConnection,
         . html_tag( 'td' ,'' , 'left', $color[0], '' )
         . html_tag( 'table' ,'' , '', $color[0], 'border="0" width="100%" cellpadding="0"  cellspacing="0"' )
             . html_tag( 'tr',
-	        getSmallStringCell(_("Move Selected To"), 'left') .
+	        getSmallStringCell('&nbsp;' . _("Move Selected To"), 'left') .
 	        getSmallStringCell(_("Transform Selected Messages"), 'right')
             )
             . html_tag( 'tr' ) ."\n"
