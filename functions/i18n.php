@@ -129,6 +129,10 @@
    $languages['th']['NAME']    = 'Thai';
    $languages['th']['CHARSET'] = 'tis-620';
 
+   $languages['lt']['NAME']    = 'Lithuanian';
+   $languages['lt']['CHARSET'] = 'iso-8859-13';
+   $languages['lt_LT']['ALIAS'] = 'lt';
+
    // Decodes a string to the internal encoding from the given charset
    function charset_decode ($charset, $string) {
       global $debug_mime;
