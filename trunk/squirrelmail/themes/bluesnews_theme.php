@@ -1,18 +1,19 @@
 <?php
 
 /**
- * black_bean_burrito_theme.php
- *    Name:    BluesNews
- *    Author:  Ray Black
- *    Date:    August 15, 2000
- *    Comment: In the long tradition of mimicing popular sites, I bring
- *             you the 'inspired by BluesNews.com' theme. Simple, high-
- *             contrast colorset, easy to read with very little eye strain.
+ * Name:    BluesNews
+ * @author Ray Black
+ * Date:    August 15, 2000
+ * Comment: In the long tradition of mimicing popular sites, I bring
+ *          you the 'inspired by BluesNews.com' theme. Simple, high-
+ *          contrast colorset, easy to read with very little eye strain.
  *
  * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
+ * @package squirrelmail
+ * @subpackage themes
  */
 
 global $color;

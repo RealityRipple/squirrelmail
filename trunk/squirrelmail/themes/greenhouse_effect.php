@@ -1,17 +1,18 @@
 <?php
 
 /**
- * dompie_theme.php
- *    Name:    Greenhouse Effect
- *    Author:  Joey Bump
- *    Date:    October 20, 2001
- *    Comment: This theme generates random colors, featuring a
- *             light greenish background.
+ * Name:    Greenhouse Effect
+ * @author Joey Bump
+ * Date:    October 20, 2001
+ * Comment: This theme generates random colors, featuring a
+ *          light greenish background.
  *
  * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
+ * @package squirrelmail
+ * @subpackage themes
  */
 
 /** seed the random number generator **/

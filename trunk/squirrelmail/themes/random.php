@@ -1,18 +1,20 @@
 <?php
 
 /**
- * random.php
- *    Name:    Random Theme Every Login
- *    Author:  Tyler Akins
- *    Date:    December 24, 2001
- *    Comment: Guess what this does!
+ * Name:    Random Theme Every Login
+ * @author  Tyler Akins
+ * Date:    December 24, 2001
+ * Comment: Guess what this does!
  *
  * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
+ * @package squirrelmai
+ * @subpackage themes
  */
 
+/** Initialize the random number generator */
 sq_mt_randomize();
 
 require_once(SM_PATH . 'functions/global.php');

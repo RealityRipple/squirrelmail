@@ -3,7 +3,7 @@
 /**
  * christmas.php
  *    Name:    Christmas
- *    Author:  Jon Tai
+ * @author Jon Tai
  *    Date:    December 23, 2001
  *    Comment: This is a Christmas theme shipped with SquirrelMail 1.2.0.
  *
@@ -11,6 +11,8 @@
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
+ * @package squirrelmail
+ * @subpackage themes
  */
 
 global $color;

@@ -2,15 +2,16 @@
 
 /**
  * ice_theme.php
- *    Name:    Ice Theme
- *    Author:  Luke Ehresman
- *    Date:    January 7 2000
- *    Comment: 
+ * Name:    Ice Theme
+ * @author Luke Ehresman
+ * Date:    January 7 2000
  *
  * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
+ * @package squirrelmail
+ * @subpackage themes
  */
 
 global $color;

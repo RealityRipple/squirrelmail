@@ -2,15 +2,16 @@
 
 /**
  * high_contrast_theme.php
- *    Name:    High Contrast
- *    Author:  Casey A. Peel
- *    Date:    July 13, 2000
- *    Comment: 
+ * Name:    High Contrast
+ * @author Casey A. Peel
+ * Date:    July 13, 2000
  *
  * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
+ * @package squirrelmail
+ * @subpackage themes
  */
 
 global $color;

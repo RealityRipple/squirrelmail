@@ -2,16 +2,18 @@
  
 /**
  * penguin.php
- *    Name:    Penguin
- *    Author:  Peter J. Vasquez Sr.
- *    Date:    Jult 25, 2002
- *    Comment: This theme is my attempt at using the colors of the
- *             ever-popular Linux penguin.  :)
+ * Name:    Penguin
+ * @author Peter J. Vasquez Sr.
+ * Date:    Jult 25, 2002
+ * Comment: This theme is my attempt at using the colors of the
+ *          ever-popular Linux penguin.  :)
  *
  * Copyright (c) 2001-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
+ * @package squirrelmail
+ * @subpackage themes
  */
 
 $color[0]   = '#FFCC00'; // b  0: Title Bar at the top of the page header
