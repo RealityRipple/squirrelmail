@@ -2003,6 +2003,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
      // version
      //set all the Cache Control Headers for IE
      if ($isIE) {
+         $filename=urlencode($filename);
          header ("Pragma: public");
          header ("Cache-Control: no-store, max-age=0, no-cache, must-revalidate"); # HTTP/1.1
          header ("Cache-Control: post-check=0, pre-check=0", false);
