@@ -278,7 +278,7 @@ class Rfc822Header {
 				}
 			    }
 			}
-			if (!isset($addr_structure->mailbox)) {
+			if (!$addr_structure->mailbox) {
                     	    $addr_structure->mailbox = trim($addr);
 			    if ($host) {
 				$addr_structure->host = $host;
@@ -338,7 +338,7 @@ class Rfc822Header {
 		    }
 		}
 	    }
-	    if (!isset($addr_structure->mailbox)) {
+	    if (!$addr_structure->mailbox) {
                 $addr_structure->mailbox = trim($addr);
 	        if ($host) {
 		    $addr_structure->host = $host;
