@@ -548,7 +548,7 @@ as above, "demo" as our plugin name:
 
 The second way to add options to one of the SquirrelMail preferences page is
 to use one of the "optpage_loadhook_<pref page>" hooks.  The sent_subfolders
-plugin is an excellent example of this method.  Briefly, this way of adding
+plugin has an excellent example of this method.  Briefly, this way of adding
 options consists of adding some plugin-specific information to a predefined
 data structure which SquirrelMail then uses to build the HTML input forms
 for you.  This is the preferred method of building options lists going forward.
@@ -603,7 +603,7 @@ for you.  This is the preferred method of building options lists going forward.
                            SMOPT_TYPE_INTEGER    Integer input
                            SMOPT_TYPE_FLOAT      Floating point number input
                            SMOPT_TYPE_BOOLEAN    Boolean (yes/no radio buttons)
-                                                   input
+                                                 input
                            SMOPT_TYPE_HIDDEN     Hidden input (not actually
                                                  shown on preferences page)
                            SMOPT_TYPE_COMMENT    Text is shown (specified by the
@@ -643,6 +643,32 @@ for you.  This is the preferred method of building options lists going forward.
                         or other code to the user input
          post_script    You may specify some script (usually Javascript) that
                         will be placed after (outside of) the INPUT tag.
+
+      Note that you do not have to create a whole new section on the options
+      page if you merely want to add a simple input item or two to an options
+      section that already exists.  For example, the Display Options page has
+      these groups:
+
+         0  -  General Display Options
+         1  -  Mailbox Display Options
+         2  -  Message Display and Composition
+
+      To add our previous input drop-down to the Mailbox Display Options,
+      we would not have to create our own group; just add it to group
+      number one:
+
+         global $optpage_data;
+         $optpage_data['vals'][1][] = array(
+            'name'    => 'plugin_demo_favorite_color',
+            'caption' => 'Please Choose Your Favorite Color',
+            'type'    => SMOPT_TYPE_STRLIST,
+            'refresh' => SMOPT_REFRESH_ALL,
+            'posvals' => array(0 => 'red',
+                               1 => 'blue',
+                               2 => 'green',
+                               3 => 'orange'),
+            'save'    => 'save_plugin_demo_favorite_color'
+         );
 
   3.  If you indicated a 'save' attribute for any of your options, you must
       create that function (you'll only need to do this if you need to do
