@@ -458,7 +458,7 @@ function GenerateRandomString($size, $chars, $flags = 0) {
  * @return string the escaped string
  */
 function quoteimap($str) {
-    return ereg_replace('(["\\])', '\\\\1', $str);
+    return preg_replace("/([\"\\\\])/", "\\\\$1", $str);
 }
 
 /**
