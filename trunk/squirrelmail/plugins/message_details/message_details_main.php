@@ -29,6 +29,6 @@ sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
 
 echo "<frameset rows=\"60, *\" noresize border=\"0\">\n";
 echo '<frame src="message_details_top.php?mailbox=' . urlencode($mailbox) .'&amp;passed_id=' . "$passed_id". '" name="top_frame" scrolling="off" />';
-echo '<frame src="message_details_bottom.php?mailbox=' . urlencode($mailbox) .'&amp;passed_id=' . "$passed_id" . '" name="bottom_frame" />';
+echo '<frame src="message_details_bottom.php?mailbox=' . urlencode($mailbox) .'&amp;get_message_details=yes&amp;passed_id=' . "$passed_id" . '" name="bottom_frame" />';
 echo  '</frameset>'."\n"."</html>\n";
 ?>
