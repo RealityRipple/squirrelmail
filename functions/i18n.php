@@ -179,7 +179,7 @@ function charset_decode_ns_4551_1 ($string) {
  * if $do_search is true, then scan the browser information
  * for a possible language that we know
  */
-function set_up_language($sm_language, $do_search = false) {
+function set_up_language($sm_language, $do_search = false, $default = false) {
 
     static $SetupAlready = 0;
     global $use_gettext, $languages,
@@ -197,7 +197,7 @@ function set_up_language($sm_language, $do_search = false) {
         $sm_language = substr($accept_lang, 0, 2);
     }
     
-    if (!$sm_language && isset($squirrelmail_default_language)) {
+    if ((!$sm_language||$default) && isset($squirrelmail_default_language)) {
         $squirrelmail_language = $squirrelmail_default_language;
         $sm_language = $squirrelmail_default_language;
     }
