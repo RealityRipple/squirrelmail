@@ -632,6 +632,13 @@ elseif (isset($_POST['passed_id'])) {
     $passed_id = $_POST['passed_id'];
 }
 
+if (isset($_GET['passed_ent_id'])) {
+    $passed_ent_id = $_GET['passed_ent_id'];
+}
+elseif (isset($_POST['passed_ent_id'])) {
+    $passed_ent_id = $_POST['passed_ent_id'];
+}
+
 if (isset($_GET['sendreceipt'])) {
     $sendreceipt = $_GET['sendreceipt'];
 }
@@ -684,9 +691,15 @@ if (isset($_POST['move_id'])) {
 if (isset($_SESSION['lastTargetMailbox'])) {
     $lastTargetMailbox = $_SESSION['lastTargetMailbox'];
 }
+if (isset($_SESSION['messages'])) {
+    $messages = $_SESSION['messages'];
+} else {
+    $messages = array();
+}
+
+
 
 /* end of get globals */
-
 global $uid_support, $sqimap_capabilities;
 
 if (isset($mailbox)) {
@@ -696,10 +709,6 @@ if (isset($mailbox)) {
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response = sqimap_mailbox_select($imapConnection, $mailbox, false, false, true);
 
-if (!isset($messages)) {
-    $messages = array();
-    sqsession_register($messages,'messages');
-}
 
 /**
  * $message contains all information about the message
@@ -716,15 +725,11 @@ if (!isset($messages[$uidvalidity][$passed_id]) || !$uid_support) {
    $FirstTimeSee = !$message->is_seen;
    $message->is_seen = true;
    $messages[$uidvalidity][$passed_id] = $message;
-   sqsession_register($messages, 'messages');
 } else {
 //   $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
    $message = $messages[$uidvalidity][$passed_id];
    $FirstTimeSee = !$message->is_seen;
 }
-//$FirstTimeSee = !$message->is_seen;
-//$message->is_seen = true;
-//$messages[$uidvalidity][$passed_id] = $message;
 
 if (isset($passed_ent_id) && $passed_ent_id) {
    $message = $message->getEntity($passed_ent_id);
@@ -825,12 +830,11 @@ if ($attachmentsdisplay) {
 }
 echo '</table>';
 
-
 /* show attached images inline -- if pref'fed so */
 if (($attachment_common_show_images) &&
     is_array($attachment_common_show_images_list)) {
     foreach ($attachment_common_show_images_list as $img) {
-        $imgurl = '../src/download.php' .
+        $imgurl = SM_PATH . 'src/download.php' .
                 '?' .
                 'passed_id='     . urlencode($img['passed_id']) .
                 '&amp;mailbox='       . urlencode($mailbox) .
@@ -848,8 +852,11 @@ if (($attachment_common_show_images) &&
 
 do_hook('read_body_bottom');
 do_hook('html_bottom');
-//$message->clean_up();
 sqimap_logout($imapConnection);
+/* sessions are written at the end of the script. it's better to register 
+   them at the end so we avoid double session_register calls */
+sqsession_register($messages,'messages');
+
 ?>
 </body>
 </html>
