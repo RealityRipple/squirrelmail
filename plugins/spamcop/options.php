@@ -107,67 +107,47 @@ spamcop_load();
 	    <font size="-2">(see below)</font>
 	  </td>
 	  <form method="post" action="options.php"><td valign="top">
-	    <input type="text" size="30" name="ID" value="<?php
-	      echo htmlspecialchars($spamcop_id) ?>" />
+	    <input type="text" size="30" name="ID" value="<?php echo htmlspecialchars($spamcop_id) ?>" />
 	    <input type="hidden" name="action" value="save_id" />
 	    <input type="submit" value="Save ID" />
 	  </td></form>
 	</tr>
       </table>
+<?php
+echo "<p>";
+echo _("SpamCop is a free service that greatly assists in finding the true source of the spam and helps in letting the proper people know about the abuse.");
+echo "</p>\n";
 
-<p>SpamCop is a free service that greatly assists in finding the true source
-of the spam and helps in letting the proper people know about the abuse.</p>
+echo "<p>";
+echo _("To use it, you must get a SpamCop authorization code. There is a free <a href=\"http://spamcop.net/anonsignup.shtml\">sign up page</a> so you can use SpamCop.");
+echo "</p>\n";
 
-<p>To use it, you must get a SpamCop authorization code.  There is a free <a
-href="http://spamcop.net/anonsignup.shtml">sign up page</a> so you can use
-SpamCop.</p>
+echo "<p>";
+echo _("<b>Before you sign up, be warned:</b> Some users have reported that the email addresses used with SpamCop find their way onto spam lists. To be safe, you can just create an email forwarding account and have all SpamCop reports get sent to there. Also, if it gets flooded with spam, you can then just delete that account with no worries about losing your real email address. Just go create an email forwarder somewhere (<a href=\"http://www.yahoo.com/\">Yahoo!</a> has a <a href=\"http://dir.yahoo.com/Business_and_Economy/Business_to_Business/Communications_and_Networking/Internet_and_World_Wide_Web/Email_Providers/Forwarding_Services/Free_Forwarding/\">list of places</a>) so that messages from system administrators and whatnot can be sent to you.");
+echo "</p>\n";
 
-<p><b>Before you sign up, be warned:</b>  Some users have reported that the
-email addresses used with SpamCop find their way onto spam lists.  To be
-safe, you can just create an email forwarding account and have all SpamCop
-reports get sent to there.  Also, if it gets flooded with spam, you can then
-just delete that account with no worries about losing your real email address.
-Just go create an email forwarder somewhere (<a 
-href="http://www.yahoo.com/">Yahoo!</a> has a <a
-href="http://dir.yahoo.com/Business_and_Economy/Business_to_Business/Communications_and_Networking/Internet_and_World_Wide_Web/Email_Providers/Forwarding_Services/Free_Forwarding/">list
-of places</a>) so that messages from system administrators and whatnot can
-be sent to you.</p>
+echo "<p>";
+echo _("Once you have signed up with SpamCop and have received your SpamCop authorization code, you need to enable this plugin -- just click the link above.  Once enabled, you go about your normal life.  If you encounter a spam message in your mailbox, just view it.  On the right-hand side, near the top of where the message is displayed, you will see a link to report this message as spam.  Clicking on it brings you to a confirmation page. Confirming that you want the spam report sent will do different things with different reporting methods.");
+echo "</p>\n";
 
-<p>Once you have signed up with SpamCop and have received your SpamCop
-authorization code, you need to enable this plugin -- just click the link
-above.  Once enabled, you go about your normal life.  If you encounter a
-spam message in your mailbox, just view it.  On the right-hand side, near
-the top of where the message is displayed, you will see a link to report 
-this message as spam.  Clicking on it brings you to a confirmation page.
-Confirming that you want the spam report sent will do different things with
-different reporting methods.</p>
+echo "<p><b>" . _("Email-based Reporting") . "</b><br />";
+echo _("Pressing the button forwards the message to the SpamCop service and will optionally delete the message.  From there, you just need to go to your INBOX and quite soon a message should appear from SpamCop.  (It gets sent to the account you registered with, so make sure that your mail forwarder works!) Open it up, click on the appropriate link at the top, and a new browser window will open.");
+echo "</p>";
 
-<p><b>Email-based Reporting</b><br />
-Pressing the button forwards the message to the SpamCop service and will
-optionally delete the message.  From there, you just need to go to your 
-INBOX and quite soon a message should appear from SpamCop.  (It gets sent to
-the account you registered with, so make sure that your mail forwarder works!)
-Open it up, click on the appropriate link at the top, and a new browser 
-window will open.</p>
+echo "<p>";
+echo _("Currently, the quick reporting just forwards the request to the thorough reporting.  Also, it appears that this is for members (non-free) only. Hopefully this will change soon.");
+echo "</p>\n";
 
-<p>Currently, the quick reporting just forwards the request to the thorough
-reporting.  Also, it appears that this is for members (non-free) only.
-Hopefully this will change soon.</p>
+echo "<p><b>" . _("Web-based Reporting") . "</b><br />";
+echo _("When you press the button on the confirmation page, this will pop open a new browser window and the SpamCop service should appear inside. The message will not be deleted (working on that part), but you won't need to wait for a response email to start the spam reporting.");
+echo "</p>\n";
 
-<p><b>Web-based Reporting</b><br />
-When you press the button on the confirmation page, this will pop open a new
-browser window and the SpamCop service should appear inside.  The message
-will not be deleted (working on that part), but you won't need to wait for a
-response email to start the spam reporting.</p>
+echo "<p>";
+echo _("The SpamCop service will display information as it finds it, so scroll down until you see a form button.  It might pause a little while it is looking up information, so be a little patient.  Read what it says, and submit the spam.  Close the browser window.  Press Cancel or click on the appropriate mail folder to see messages and/or delete the spam.");
+echo "</p>\n";
 
-<p>The SpamCop service will display information as it finds it, so scroll
-down until you see a form button.  It might pause a little while it is
-looking up information, so be a little patient.  Read what it says, and 
-submit the spam.  Close the browser window.  Press Cancel or click on the
-appropriate mail folder to see messages and/or delete the spam.</p>
-
-<p><b>For more information</b> about SpamCop, it's services, spam in general, 
-and many related topics, try reading through SpamCop's <a
-href="http://spamcop.net/help.shtml">Help and Feedback</a> section.</p>
-
+echo "<p>";
+echo _("<b>For more information</b> about SpamCop, it's services, spam in general, and many related topics, try reading through SpamCop's <a href=\"http://spamcop.net/help.shtml\">Help and Feedback</a> section.";
+echo "</p>\n";
+?>
 </body></html>

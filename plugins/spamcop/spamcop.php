@@ -122,12 +122,12 @@ if(! sqgetGlobalVar('composesession', $composesession, SQ_SESSION) ) {
           $HowItLooks .= '<' . $em . '>';
      }
 
-?>
 
-<p>Sending this spam report will give you back a reply with URLs that you
-can click on to properly report this spam message to the proper authorities.
-This is a free service.  By pressing the "Send Spam Report" button, you
-agree to follow SpamCop's rules/terms of service/etc.</p>
+echo "<p>";
+echo _("Sending this spam report will give you back a reply with URLs that you can click on to properly report this spam message to the proper authorities. This is a free service.  By pressing the \"Send Spam Report\" button, you agree to follow SpamCop's rules/terms of service/etc.");
+echo "</p>";
+
+?>
 
 <table align="center" width="75%" border="0" cellpadding="0" cellspacing="0">
 <tr>
@@ -139,10 +139,8 @@ agree to follow SpamCop's rules/terms of service/etc.</p>
    <?PHP
 } else {
    ?><form method="post" action="../../src/right_main.php">
-  <input type="hidden" name="mailbox" value="<?PHP echo
-     htmlspecialchars($mailbox) ?>">
-  <input type="hidden" name="startMessage" value="<?PHP echo
-     htmlspecialchars($startMessage) ?>">
+  <input type="hidden" name="mailbox" value="<?PHP echo htmlspecialchars($mailbox) ?>">
+  <input type="hidden" name="startMessage" value="<?PHP echo htmlspecialchars($startMessage) ?>">
   <input type="submit" value="Cancel / Done">
    <?PHP
 }
@@ -157,10 +155,8 @@ agree to follow SpamCop's rules/terms of service/etc.</p>
       $report_email = 'quick.' . $spamcop_id . '@spam.spamcop.net';
    $form_action = SM_PATH . 'src/compose.php';
 ?>  <form method="post" action="<?PHP echo $form_action?>">
-  <input type="hidden" name="mailbox" value="<?PHP echo
-     htmlspecialchars($mailbox) ?>">
-  <input type="hidden" name="spamcop_is_composing" value="<?PHP echo
-     htmlspecialchars($passed_id) ?>">
+  <input type="hidden" name="mailbox" value="<?PHP echo htmlspecialchars($mailbox) ?>">
+  <input type="hidden" name="spamcop_is_composing" value="<?PHP echo htmlspecialchars($passed_id) ?>">
   <input type="hidden" name="send_to" value="<?PHP echo $report_email?>">
   <input type="hidden" name="subject" value="reply anyway">
   <input type="hidden" name="identity" value="0">
@@ -188,9 +184,7 @@ agree to follow SpamCop's rules/terms of service/etc.</p>
   <input type="hidden" name="action" value="submit">
   <input type="hidden" name="oldverbose" value="1">
   <input type="hidden" name="code" value="<?PHP echo $spamcop_id ?>">
-  <input type="hidden" name="spam" value="<?PHP
-          echo htmlspecialchars($Message);
-  ?>">
+  <input type="hidden" name="spam" value="<?PHP echo htmlspecialchars($Message); ?>">
   <input type="submit" name="x1" value="Send Spam Report">
 <?PHP }
 ?>  </form>

@@ -71,24 +71,17 @@ function spamcop_show_link() {
    
    if ($spamcop_method == 'web_form') {
 ?><script language="javascript" type="text/javascript">
-document.write('<a href="../plugins/spamcop/spamcop.php?passed_id=<?PHP
-echo urlencode($passed_id); ?>&amp;js_web=1&amp;mailbox=<?PHP
-echo urlencode($mailbox); ?>" target="_blank">');
+document.write('<a href="../plugins/spamcop/spamcop.php?passed_id=<?PHP echo urlencode($passed_id); ?>&amp;js_web=1&amp;mailbox=<?PHP echo urlencode($mailbox); ?>" target="_blank">');
 document.write("<?PHP echo _("Report as Spam"); ?>");
 document.write("</a>");
 </script><noscript>
-<a href="../plugins/spamcop/spamcop.php?passed_id=<?PHP
-echo urlencode($passed_id); ?>&amp;mailbox=<?PHP
-echo urlencode($mailbox); ?>&amp;startMessage=<?PHP
-echo urlencode($startMessage); ?>"><?PHP
-echo _("Report as Spam"); ?></a>
+<a href="../plugins/spamcop/spamcop.php?passed_id=<?PHP echo urlencode($passed_id); ?>&amp;mailbox=<?PHP echo urlencode($mailbox); ?>&amp;startMessage=<?PHP echo urlencode($startMessage); ?>">
+<?PHP echo _("Report as Spam"); ?></a>
 </noscript><?PHP
    } else {
-?><a href="../plugins/spamcop/spamcop.php?passed_id=<?PHP
-echo urlencode($passed_id); ?>&amp;mailbox=<?PHP
-echo urlencode($mailbox); ?>&amp;startMessage=<?PHP
-echo urlencode($startMessage); ?>"><?PHP
-echo _("Report as Spam"); ?></a><?PHP
+?><a href="../plugins/spamcop/spamcop.php?passed_id=<?PHP echo urlencode($passed_id); ?>&amp;mailbox=<?PHP echo urlencode($mailbox); ?>&amp;startMessage=<?PHP echo urlencode($startMessage); ?>">
+<?PHP echo _("Report as Spam"); ?></a>
+<?PHP
    }
 }
 
