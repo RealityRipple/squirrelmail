@@ -49,7 +49,7 @@
    // you do character translation.
    // Specifically, &#039 comes up as 5 characters instead of 1.
    function sqWordWrap(&$line, $wrap) {
-      preg_match("/^([\s>]*)([^\s>].*)$/", $line, $regs);
+      preg_match("/^([\s>]*)([^\s>].*)?$/", $line, $regs);
       $beginning_spaces = $regs[1];
       $regs[2] .= "\n"; 
       $words = explode(" ", $regs[2]);
@@ -57,33 +57,28 @@
       $i = 0;
       $line = $beginning_spaces;
       
-      if (count($words) > 1) {
-         while ($i < count($words)) {
-            // Force one word to be on a line (minimum)
-            $line .= $words[$i];
-            $line_len = strlen($beginning_spaces) + strlen($words[$i]) +
-                strlen($words[$i + 1]) + 2;
-            $i ++;
+      while ($i < count($words)) {
+         // Force one word to be on a line (minimum)
+         $line .= $words[$i];
+         $line_len = strlen($beginning_spaces) + strlen($words[$i]) +
+             strlen($words[$i + 1]) + 2;
+         $i ++;
             
-            // Add more words (as long as they fit)
-            while ($line_len < $wrap && $i < count($words)) {
-               $line .= ' ' . $words[$i];
-               $i++;
-               $line_len += strlen($words[$i]) + 1;
-            }
-            
-            // Skip spaces if they are the first thing on a continued line
-            while (!$words[$i] && $i < count($words))
-            {
-               $i ++;
-            }
-            
-            if ($i < count($words)) {
-               $line .= "\n$beginning_spaces";
-            }
+         // Add more words (as long as they fit)
+         while ($line_len < $wrap && $i < count($words)) {
+            $line .= ' ' . $words[$i];
+            $i++;
+            $line_len += strlen($words[$i]) + 1;
          }
-      } else {
-         $line .= $words[0];
+            
+         // Skip spaces if they are the first thing on a continued line
+         while (!$words[$i] && $i < count($words)) {
+            $i ++;
+         }
+            
+         if ($i < count($words)) {
+            $line .= "\n$beginning_spaces";
+         }
       }
    }
 
