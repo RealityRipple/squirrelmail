@@ -7,10 +7,8 @@
  *
  * Delivery backend for the Deliver class.
  *
- * $Id$
- *
+ * @version $Id$
  * @author Marc Groot Koerkamp
- *
  * @package squirrelmail
  */
 

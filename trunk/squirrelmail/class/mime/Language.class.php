@@ -8,7 +8,7 @@
  *
  * This contains functions needed to handle mime messages.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 
