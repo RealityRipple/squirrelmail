@@ -1,12 +1,16 @@
 Administrator Plugin
 -------------------- 2002 Philippe Mingo <philippe@squirrelmail.org>
 
-This is still untested and unfinished alpha code.
+This is Beta code.
 
 In order to use the plugin you must activate it through conf.pl
 and change its permissions to 660. That file must be owned by
 the user you want to have access to that plugin (only one) and
 the group of the user that is running php.
+
+An alternate method, bet less secure, is to add a file called
+admins into the plugin folder with the names of the users you
+want to authorize the use of the plugin.
 
 Use this plugin at your won risk, and never before to make a backup
 of the config.php file. The code is not tested and not finished.
