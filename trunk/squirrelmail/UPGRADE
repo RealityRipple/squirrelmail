@@ -66,7 +66,7 @@ the config file.
 
 C.  Copy plugins
 
-Like SquirrelMail, plugins are fequently updated for improvements, as well
+Like SquirrelMail, plugins are frequently updated for improvements, as well
 as to make them compatible with new SquirrelMail releases.  It is suggested
 that you download a new plugins archive at the same time you download your
 SquirrelMail install, and that you install your plugins fresh (it's easy,
@@ -82,7 +82,7 @@ plugins.
 D.  Copy themes
 
 If you've created or modified themes, you should copy just those to the new
-SquirrelMail themes direcory.  To just copy them all over to the new
+SquirrelMail themes directory.  To just copy them all over to the new
 SquirrelMail installation, you can run one command.
 
   $ cp squirrelmail-1.0.6.bak/themes/* squirrelmail-1.2.0/themes/
