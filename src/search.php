@@ -207,78 +207,88 @@ $saved_where_array = get_saved("saved_where", $username, $data_dir);
 $saved_folder_array = get_saved("saved_folder", $username, $data_dir);
 $saved_count = count($saved_what_array);
 
-//	saved search table
+/* Saved Search Table */
 if ($saved_count > 0) {
-    echo "<BR>\n".
-         "<TABLE WIDTH=\"95%\" BGCOLOR=\"$color[9]\" ALIGN=\"CENTER\" CELLPADDING=1 CELLSPACING=1>\n".
-		 "<TR><TD align=center><B>Saved Searches</B></TD></TR><TR><TD>\n".
-         "<TABLE WIDTH=\"100%\" ALIGN=\"CENTER\" CELLPADDING=0 CELLSPACING=0>\n";
-    for ($i=0;$i<$saved_count;$i++) {
-		echo "<TR ";
+    echo "<BR>\n"
+       . "<TABLE WIDTH=\"95%\" BGCOLOR=\"$color[9]\" ALIGN=\"CENTER\" CELLPADDING=1 CELLSPACING=1>"
+       . '<TR><TD align=center><B>Saved Searches</B></TD></TR><TR><TD>'
+       . '<TABLE WIDTH="100%" ALIGN="CENTER" CELLPADDING=0 CELLSPACING=0>';
+    for ($i=0; $i < $saved_count; ++$i) {
 		if ($i % 2) {
-			echo "BGCOLOR=\"$color[0]\"";
-		}
-		else { echo "BGCOLOR=\"$color[4]\""; }
-        echo "><TD WIDTH=35%>$saved_folder_array[$i]</TD>\n".
-             "<TD ALIGN=LEFT>$saved_what_array[$i]</TD>\n".
-             "<TD ALIGN=RIGHT>$saved_where_array[$i]&nbsp;&nbsp;&nbsp;\n".
-	     "<A HREF=search.php?".
-	     "mailbox=", urlencode($saved_folder_array[$i]), "&".
-	     "what=", urlencode($saved_what_array[$i]), "&".
-	     "where=", urlencode($saved_where_array[$i]), ">".
-	     "edit</A>\n".
-	     "&nbsp;|&nbsp;<A HREF=search.php?".
-	     "mailbox=", urlencode($saved_folder_array[$i]), "&".
-	     "what=", urlencode($saved_what_array[$i]), "&".
-	     "where=", urlencode($saved_where_array[$i]), "&".
-	     "submit=Search_no_update>search</A>\n".
-	     "&nbsp;|&nbsp;<A HREF=search.php?count=$i&submit=delete>delete</A>".
-	     "&nbsp;&nbsp;</tr>";
+			echo "<TR BGCOLOR=\"$color[0]\">";
+		} else {
+            echo "<TR BGCOLOR=\"$color[4]\">";
+        }
+        echo "<TD WIDTH=\"35%\">$saved_folder_array[$i]</TD>"
+           . "<TD ALIGN=LEFT>$saved_what_array[$i]</TD>"
+           . "<TD ALIGN=CENTER>$saved_where_array[$i]</TD>"
+           . '<TD ALIGN=RIGHT>'
+           .   '<A HREF=search.php'
+	       .     '?mailbox=' . urlencode($saved_folder_array[$i])
+	       .     '&what=' . urlencode($saved_what_array[$i])
+	       .     '&where=' . urlencode($saved_where_array[$i])
+	       .   '>' . _("edit") . '</A>'
+	       .   '&nbsp;|&nbsp;'
+           .   '<A HREF=search.php'
+	       .     '?mailbox=' . urlencode($saved_folder_array[$i])
+	       .     '&what=' . urlencode($saved_what_array[$i])
+	       .     '&where=' . urlencode($saved_where_array[$i])
+	       .     '&submit=Search_no_update'
+           .   '>' . _("search") . '</A>'
+	       .   '&nbsp;|&nbsp;'
+	       .   "<A HREF=search.php?count=$i&submit=delete>"
+           .     _("delete")
+           .   '</A>'
+	       . '</TD></TR>';
     }
-echo "</TABLE></TD></TR></TABLE>\n";
+    echo "</TABLE></TD></TR></TABLE>\n";
 }
 
-//	recent search table
-
+/* Recent Search Table */
 if ($recent_count > 0) {
-    echo "<BR>\n".
-         "<TABLE WIDTH=\"95%\" BGCOLOR=\"$color[9]\" ALIGN=\"CENTER\" CELLPADDING=1 CELLSPACING=1>\n".
-		 "<TR><TD align=center><B>Recent Searches</B></TD></TR><tr><td>\n".
-         "<TABLE WIDTH=\"100%\" ALIGN=\"CENTER\" CELLPADDING=0 CELLSPACING=0>\n";
-    for ($i=0;$i<$recent_count;$i++) {
+    echo "<BR>\n"
+       . "<TABLE WIDTH=\"95%\" BGCOLOR=\"$color[9]\" ALIGN=\"CENTER\" CELLPADDING=1 CELLSPACING=1>\n"
+       . '<TR><TD ALIGN=CENTER><B>Recent Searches</B></TD></TR><TR><TD>'
+       . '<TABLE WIDTH="100%" ALIGN="CENTER" CELLPADDING=0 CELLSPACING=0>';
+    for ($i=0; $i < $recent_count; ++$i) {
         if (!empty($what_array[$i])) {
-	    if ($folder_array[$i] == "") {
-	        $folder_array[$i] = "INBOX";
-	    }
-		echo "<TR ";
-		if ($i % 2) {
-			echo "BGCOLOR=\"$color[0]\"";
-		}
-		else { echo "BGCOLOR=\"$color[4]\""; }
-            echo "><TD WIDTH=35%>$folder_array[$i]</TD>\n".
-	         "<TD ALIGN=LEFT>$what_array[$i]</TD>\n".
-	         "<TD ALIGN=RIGHT>$where_array[$i]&nbsp;&nbsp;&nbsp;".
-                 "<A HREF=search.php?".
-		 "count=$i&submit=save".
-		 ">save</A>\n".
-                 "&nbsp;|&nbsp;<A HREF=search.php?".
-	         "mailbox=", urlencode($folder_array[$i]), "&".
-	         "what=", urlencode($what_array[$i]), "&".
-	         "where=", urlencode($where_array[$i]), "&".
-	         "submit=Search_no_update>search</A>\n".
-	         "&nbsp;|&nbsp;<A HREF=search.php?count=$i&submit=forget>forget</A>".
-	         "&nbsp;&nbsp;</TD></TR>\n";
+            if ($folder_array[$i] == "") {
+                $folder_array[$i] = "INBOX";
+            }
+            if ($i % 2) {
+                echo "<TR BGCOLOR=\"$color[0]\">";
+            } else {
+                echo "<TR BGCOLOR=\"$color[4]\">";
+            }
+            echo "<TD WIDTH=35%>$folder_array[$i]</TD>"
+               . "<TD ALIGN=LEFT>$what_array[$i]</TD>"
+               . "<TD ALIGN=CENTER>$where_array[$i]</TD>"
+               . '<TD ALIGN=RIGHT>'
+               .   "<A HREF=search.php?count=$i&submit=save>"
+               .     _("save")
+               .   '</A>'
+               .   '&nbsp;|&nbsp;'
+               .   '<A HREF=search.php'
+               .     '?mailbox=' . urlencode($folder_array[$i])
+               .     '&what=' . urlencode($what_array[$i])
+               .     '&where=' . urlencode($where_array[$i])
+               .     '&submit=Search_no_update'
+               .   '>' . _("search") . '</A>'
+               .   '&nbsp;|&nbsp;'
+               .   "<A HREF=search.php?count=$i&submit=forget>"
+               .     _("forget")
+               .   '</A>'
+               . '</TD></TR>';
         }
     }
-    echo "</table></td></tr></TABLE>\n".
-         "<BR>\n";
+    echo '</TABLE></TD></TR></TABLE><BR>';
 }
-//	search form
-echo "<B>Current Search</B>";
-echo "   <TABLE WIDTH=\"95%\" CELLPADDING=0 CELLSPACING=0>\n";
-echo "<FORM ACTION=\"search.php\" NAME=s>\n".
-     "     <TR >\n".
-     '       <TD><SELECT NAME="mailbox">';
+
+/* Search Form */
+echo '<B>Current Search</B>'
+   . '   <TABLE WIDTH="95%" CELLPADDING=0 CELLSPACING=0>'
+   . '     <TR>'
+   . '       <TD><SELECT NAME="mailbox">';
 for ($i = 0; $i < count($boxes); $i++) {
     if (!in_array('noselect', $boxes[$i]['flags'])) {
         $box = $boxes[$i]['unformatted'];
