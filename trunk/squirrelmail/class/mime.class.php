@@ -681,12 +681,12 @@ class message {
      *
      */
     function parseStructure($read, $i = 0) {
-       $arg_no = 0;
-       $arg_a = array();
-       $cnt = strlen($read);
+        $arg_no = 0;
+        $arg_a  = array();
+        $cnt    = strlen($read);
 
-       for (; $i < $cnt; ++$i) {
-           $char = strtoupper($read{$i});
+        for (; $i < $cnt; ++$i) {
+            $char = strtoupper($read{$i});
             switch ($char) {
                 case '(':
                     if ($arg_no == 0) {
@@ -885,9 +885,9 @@ class message {
     function parseProperties($read, $i) {
         $properties = array();
         $prop_name = '';
-        $arg_s = '';
 
         for (; $read{$i} != ')'; ++$i) {
+            $arg_s = '';
             if ($read{$i} == '"') {
                 $res = $this->parseQuote($read, $i);
                 $arg_s = $res[0];
@@ -898,18 +898,18 @@ class message {
                 $i = $res[1];
             }
 
-            if (($prop_name == '') && $arg_s) {
-                $prop_name = strtolower($arg_s);
-                $properties[$prop_name] = '';
-                $arg_s = '';
-            } else if (($prop_name != '') && ($arg_s != '')) {
-                $properties[$prop_name] = $arg_s;
-                $prop_name = '';
-                $arg_s = '';
+            if ($arg_s != '') {
+                if ($prop_name == '') {
+                    $prop_name = strtolower($arg_s);
+                    $properties[$prop_name] = '';
+                } else if ($prop_name != '') {
+                    $properties[$prop_name] = $arg_s;
+                    $prop_name = '';
+                }
             }
         }
 
-        return (array($properties, $i));
+        return array($properties, $i);
     }
 
     function parseEnvelope($read, $i, $hdr) {
