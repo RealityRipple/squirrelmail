@@ -97,11 +97,11 @@
    echo "         </TR>";
    echo "      </TABLE>";
    echo "   </TD></TR>";
-   echo "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=100%>";
-   echo "   <TABLE COLS=2 WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=2>\n";
+   echo "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=100%>";
+   echo "   <TABLE COLS=2 WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=3>\n";
    echo "      <TR>\n";
    /** subject **/
-   echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT>\n";
+   echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\">Subject:</FONT>\n";
    echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85%>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\"><B>$subject</B></FONT>\n";
@@ -109,7 +109,7 @@
    echo "      </TR>\n";
    /** from **/
    echo "      <TR>\n";
-   echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT>\n";
+   echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\">From:</FONT>\n";
    echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85%>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\"><B>$from_name</B></FONT>\n";
@@ -117,7 +117,7 @@
    echo "      </TR>\n";
    /** date **/
    echo "      <TR>\n";
-   echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT>\n";
+   echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\">Date:</FONT>\n";
    echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85%>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\"><B>$dateString</B></FONT>\n";
@@ -125,7 +125,7 @@
    echo "      </TR>\n";
    /** to **/
    echo "      <TR>\n";
-   echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
+   echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\">To:</FONT>\n";
    echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85% VALIGN=TOP>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\"><B>$to_string</B></FONT>\n";
@@ -134,7 +134,7 @@
    /** cc **/
    if ($message["HEADER"]["CC"][0]) {
       echo "      <TR>\n";
-      echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
+      echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
       echo "            <FONT FACE=\"Arial,Helvetica\">Cc:</FONT>\n";
       echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85% VALIGN=TOP>\n";
       echo "            <FONT FACE=\"Arial,Helvetica\"><B>$cc_string</B></FONT>\n";
