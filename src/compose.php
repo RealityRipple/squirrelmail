@@ -405,7 +405,7 @@ function newMail () {
             $body = strip_tags($body);
         }
 
-        sqUnWordWrap($body);
+        //sqUnWordWrap($body);
         $body_ary = explode("\n", $body);
         $i = count($body_ary) - 1;
         while ($i >= 0 && ereg("^[>\\s]*$", $body_ary[$i])) {
