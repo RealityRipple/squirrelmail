@@ -126,6 +126,9 @@
    $languages['ro']['CHARSET'] = 'iso-8859-2';
    $languages['ro_RO']['ALIAS'] = 'ro';
 
+   $languages['th']['NAME']    = 'Thai';
+   $languages['th']['CHARSET'] = 'tis-620';
+
    // Decodes a string to the internal encoding from the given charset
    function charset_decode ($charset, $string) {
       global $debug_mime;
