@@ -121,25 +121,29 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors, &$response, 
     /* ignore this error from M$ exchange, it is not fatal (aka bug) */
         if (strstr($message, 'command resulted in') === false) {
             set_up_language($squirrelmail_language);
-            echo "<br><b><font color=$color[2]>\n" .
+	    require_once(SM_PATH . 'functions/display_messages.php');
+	    $string = "<b><font color=$color[2]>\n" .
                 _("ERROR : Could not complete request.") .
                 "</b><br>\n" .
                 _("Query:") .
                 $query . '<br>' .
                 _("Reason Given: ") .
                 $message . "</font><br>\n";
+	    error_box($string,$color);
             exit;
         }
     } 
     elseif ($response == 'BAD') {
         set_up_language($squirrelmail_language);
-        echo "<br><b><font color=$color[2]>\n" .
+	require_once(SM_PATH . 'functions/display_messages.php');
+        $dtring = "<b><font color=$color[2]>\n" .
             _("ERROR : Bad or malformed request.") .
             "</b><br>\n" .
             _("Query:") .
             $query . '<br>' .
             _("Server responded: ") .
             $message . "</font><br>\n";
+	error_box($string,$color);    
         exit;
     } 
     else {
@@ -194,8 +198,11 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
     if (!$imap_stream) {
         if (!$hide) {
             set_up_language($squirrelmail_language, true);
-            printf (_("Error connecting to IMAP server: %s.")."<br>\r\n", $imap_server_address);
-            echo "$error_number : $error_string<br>\r\n";
+	    require_once(SM_PATH . 'functions/display_messages.php');
+	    $string = sprintf (_("Error connecting to IMAP server: %s.") .
+	                      "<br>\r\n", $imap_server_address) .
+                      "$error_number : $error_string<br>\r\n";
+	    error_box($string,$color);
         }
         exit;
     }
@@ -209,17 +216,19 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
             if ($response != 'NO') {
                 /* "BAD" and anything else gets reported here. */
                 set_up_language($squirrelmail_language, true);
+		require_once(SM_PATH . 'functions/display_messages.php');
                 if ($response == 'BAD') {
-                   printf (_("Bad request: %s")."<br>\r\n", $message);
+                   $string = sprintf (_("Bad request: %s")."<br>\r\n", $message);
                 } else {
-                   printf (_("Unknown error: %s") . "<br>\n", $message);
+                   $string = sprintf (_("Unknown error: %s") . "<br>\n", $message);
                 }
-                echo '<br>' . _("Read data:") . "<br>\n";
+                $string .= '<br>' . _("Read data:") . "<br>\n";
                 if (is_array($read)) {
                     foreach ($read as $line) {
-                        echo htmlspecialchars($line) . "<br>\n";
+                        $string .= htmlspecialchars($line) . "<br>\n";
                     }
                 }
+		error_box($string,$color);
                 exit;
             } else {
                 /*
@@ -325,13 +334,13 @@ function sqimap_get_delimiter ($imap_stream = false) {
 
 /* Gets the number of messages in the current mailbox. */
 function sqimap_get_num_messages ($imap_stream, $mailbox) {
-    $read_ary = sqimap_run_command ($imap_stream, "EXAMINE \"$mailbox\"", true, $result, $message);
+    $read_ary = sqimap_run_command ($imap_stream, "EXAMINE \"$mailbox\"", false, $result, $message);
     for ($i = 0; $i < count($read_ary); $i++) {
         if (ereg("[^ ]+ +([^ ]+) +EXISTS", $read_ary[$i], $regs)) {
             return $regs[1];
         }
     }
-    return "BUG! Couldn't get number of messages in $mailbox!";
+    return false; //"BUG! Couldn't get number of messages in $mailbox!";
 }
 
 
@@ -397,8 +406,9 @@ function sqimap_find_displayable_name ($string) {
  * Returns the number of unseen messages in this folder
  */
 function sqimap_unseen_messages ($imap_stream, $mailbox) {
-    $read_ary = sqimap_run_command ($imap_stream, "STATUS \"$mailbox\" (UNSEEN)", true, $result, $message);
+    $read_ary = sqimap_run_command ($imap_stream, "STATUS \"$mailbox\" (UNSEEN)", false, $result, $message);
     $i = 0;
+    $regs = array(false, false);
     while (isset($read_ary[$i])) {
         if (ereg("UNSEEN ([0-9]+)", $read_ary[$i], $regs)) {
             break;
@@ -406,6 +416,26 @@ function sqimap_unseen_messages ($imap_stream, $mailbox) {
         $i++;
     }
     return $regs[1];
+}
+
+/*
+ * Returns the number of unseen/total messages in this folder
+ */
+function sqimap_status_messages ($imap_stream, $mailbox) {
+    $read_ary = sqimap_run_command ($imap_stream, "STATUS \"$mailbox\" (MESSAGES UNSEEN)", false, $result, $message);
+    $i = 0;
+    $messages = $unseen = false;
+    $regs = array(false,false);
+    while (isset($read_ary[$i])) {
+        if (preg_match('/UNSEEN\s+([0-9]+)/i', $read_ary[$i], $regs)) {
+	    $unseen = $regs[1];
+	}
+        if (preg_match('/MESSAGES\s+([0-9]+)/i', $read_ary[$i], $regs)) {
+	    $messages = $regs[1];
+	}
+        $i++;
+    }
+    return array('MESSAGES' => $messages, 'UNSEEN'=>$unseen);
 }
 
 
@@ -418,25 +448,26 @@ function sqimap_append ($imap_stream, $sent_folder, $length) {
 }
 
 function sqimap_append_done ($imap_stream) {
+    global $squirrelmail_language, $color;
     fputs ($imap_stream, "\r\n");
     $tmp = fgets ($imap_stream, 1024);
     if (preg_match("/(.*)(BAD|NO)(.*)$/", $tmp, $regs)) {
         set_up_language($squirrelmail_language);
-        echo "<br><b><font color=$color[2]>\n" .
-            _("ERROR : Bad or malformed request.") .
-            "</b><br>\n" .
-            _("Server responded: ") .
-            $message . "</font><br>\n";
+        require_once(SM_PATH . 'functions/display_messages.php');
+        $string = "<b><font color=$color[2]>\n" .
+        	  _("ERROR : Bad or malformed request.") .
+        	  "</b><br>\n" .
+        	  _("Server responded: ") .
+        	  $tmp . "</font><br>\n";
+	error_box($string,$color);
         exit;
     }
 }
 
 function sqimap_get_user_server ($imap_server, $username) {
-
    if (substr($imap_server, 0, 4) != "map:") {
        return $imap_server;
    }
-
    $function = substr($imap_server, 4);
    return $function($username);
 }
