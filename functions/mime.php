@@ -395,44 +395,46 @@ function mime_fetch_body($imap_stream, $id, $ent_id ) {
         */
         if ( $ret{0} == '<' ) {
             $data = sqimap_run_command ($imap_stream, "FETCH $id BODY[$ent_id.MIME]", true, $response, $message);
-            $base = '';
-            $k = 10;
-            foreach( $data as $d ) {
-                if ( substr( $d, 0, 13 ) == 'Content-Base:' ) {
-                    $j = strlen( $d );
-                    $i = 13;
-                    $base = '';
-                    while ( $i < $j &&
-                           ( !isNoSep( $d{$i} ) || $d{$i} == '"' )  )
-                        $i++;
-                    while ( $i < $j ) {
-                        if ( isNoSep( $d{$i} ) )
-                            $base .= $d{$i};
-                        $i++;
-                    }
-                    $k = 0;
-                } elseif ( $k == 1 && !isnosep( $d{0} ) ) {
-                    $base .= substr( $d, 1 );
-                }
-                $k++;
-            }
-            if ( $base <> '' ) {
-                $ret = "<base href=\"$base\">" . $ret;
-            }
+            /* BASE within HTML documents is illegal (see w3 spec)
+*            $base = '';
+*            $k = 10;
+*            foreach( $data as $d ) {
+*                if ( substr( $d, 0, 13 ) == 'Content-Base:' ) {
+*                    $j = strlen( $d );
+*                    $i = 13;
+*                    $base = '';
+*                    while ( $i < $j &&
+*                           ( !isNoSep( $d{$i} ) || $d{$i} == '"' )  )
+*                        $i++;
+*                    while ( $i < $j ) {
+*                        if ( isNoSep( $d{$i} ) )
+*                            $base .= $d{$i};
+*                        $i++;
+*                    }
+*                    $k = 0;
+*                } elseif ( $k == 1 && !isnosep( $d{0} ) ) {
+*                    $base .= substr( $d, 1 );
+*                }
+*                $k++;
+*            }
+*            if ( $base <> '' ) {
+*                $ret = "<base href=\"$base\">" . $ret;
+*            }
+*	    */
         }
     } else if (ereg('"([^"]*)"', $topline, $regs)) {
         $ret = $regs[1];
     } else {
         global $where, $what, $mailbox, $passed_id, $startMessage;
-        $par = 'mailbox=' . urlencode($mailbox) . "&passed_id=$passed_id";
+        $par = 'mailbox=' . urlencode($mailbox) . "&amp;passed_id=$passed_id";
         if (isset($where) && isset($what)) {
-            $par .= '&where='. urlencode($where) . "&what=" . urlencode($what);
+            $par .= '&amp;where='. urlencode($where) . "&amp;what=" . urlencode($what);
         } else {
-            $par .= "&startMessage=$startMessage&show_more=0";
+            $par .= "&amp;startMessage=$startMessage&amp;show_more=0";
         }
-        $par .= '&response=' . urlencode($response) .
-                '&message=' . urlencode($message).
-                '&topline=' . urlencode($topline);
+        $par .= '&amp;response=' . urlencode($response) .
+                '&amp;message=' . urlencode($message).
+                '&amp;topline=' . urlencode($topline);
 
         echo   '<tt><br>' .
                '<table width="80%"><tr>' .
@@ -633,14 +635,12 @@ function formatBody($imap_stream, $message, $color, $wrap_at) {
             translateText($body, $wrap_at, $body_message->header->charset);
         }
 
-        $body .= "<SMALL><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_num&mailbox=$urlmailbox&showHeaders=1\">". _("Download this as a file") ."</A></CENTER><BR></SMALL>";
+        $body .= "<CENTER><SMALL><A HREF=\"../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;passed_ent_id=$ent_num&amp;mailbox=$urlmailbox&amp;showHeaders=1\">". _("Download this as a file") ."</A></SMALL></CENTER><BR>";
 
         /** Display the ATTACHMENTS: message if there's more than one part **/
-        $body .= "</TD></TR></TABLE>";
         if (isset($message->entities[0])) {
             $body .= formatAttachments ($message, $ent_num, $message->header->mailbox, $id);
         }
-        $body .= "</TD></TR></TABLE>";
     } else {
         $body = formatAttachments ($message, -1, $message->header->mailbox, $id);
     }
@@ -697,13 +697,13 @@ function formatAttachments($message, $ent_id, $mailbox, $id) {
             $ent = urlencode($message->header->entity_id);
 
             $DefaultLink =
-                "../src/download.php?startMessage=$startMessage&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent";
+                "../src/download.php?startMessage=$startMessage&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;passed_ent_id=$ent";
             if ($where && $what) {
-                $DefaultLink .= '&where=' . urlencode($where) . '&what=' . urlencode($what);
+                $DefaultLink .= '&amp;where=' . urlencode($where) . '&amp;what=' . urlencode($what);
             }
             $Links['download link']['text'] = _("download");
             $Links['download link']['href'] =
-                "../src/download.php?absolute_dl=true&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent";
+                "../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;passed_ent_id=$ent";
             $ImageURL = '';
 
             /* this executes the attachment hook with a specific MIME-type.
@@ -1059,9 +1059,12 @@ function MagicHTML( $body, $id ) {
 
 return( "\n\n<!-- HTML Output ahead -->\n" .
         $ret .
+	/* Base is illegal within HTML
         "\n<!-- END of HTML Output --><base href=\"".
         get_location() . '/'.
         "\">\n\n" );
+	*/
+        "\n<!-- END of HTML Output -->\n\n" );
 }
 
 function isNoSep( $char ) {
@@ -1161,9 +1164,9 @@ function stripEvent( &$i, $j, &$body, $id, $base ) {
                 }
                 if ( strtolower( substr( $src, 0, 4 ) ) == 'cid:' ) {
                     $src = substr( $src, 4 );
-                    $src = "../src/download.php?absolute_dl=true&passed_id=$id&mailbox=" .
+                    $src = "../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=" .
                            urlencode( $message->header->mailbox ) .
-                           "&passed_ent_id=" . find_ent_id( $src, $message );                       
+                           "&amp;passed_ent_id=" . find_ent_id( $src, $message );                       
                 } else if ( strtolower( substr( $src, 0, 4 ) ) <> 'http' || 
                             stristr( $src, $base_uri ) ) {
                     /* Javascript and local urls goes out */
@@ -1196,9 +1199,9 @@ function stripEvent( &$i, $j, &$body, $id, $base ) {
                     $name .= $body{$i++};
                 }
                 if ( $name <> '' ) {
-                    $ret .= "../src/download.php?absolute_dl=true&passed_id=$id&mailbox=" .
+                    $ret .= "../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=" .
                                 urlencode( $message->header->mailbox ) .
-                                "&passed_ent_id=" . find_ent_id( $name, $message );
+                                "&amp;passed_ent_id=" . find_ent_id( $name, $message );
                     if ( $body{$k} == '"' )
                         $ret .= '" ';
                     else
