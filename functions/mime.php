@@ -382,7 +382,7 @@
       fputs ($imap_stream, "a010 FETCH $id BODY[$ent_id]\r\n");
       $data = sqimap_read_data ($imap_stream, 'a010', true, $response, $message);
       $topline = array_shift($data);
-      while (! ereg('\\* [0-9]+ FETCH ', $topline) && data)
+      while (! ereg('\\* [0-9]+ FETCH ', $topline) && $data)
           $topline = array_shift($data);
       $wholemessage = implode('', $data);
 
