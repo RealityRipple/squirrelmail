@@ -20,8 +20,16 @@
             RemoveSlashes($HTTP_GET_VARS);
        }
    }
-   
-   if (isset($fix_form_endlines) && $fix_form_endlines) {
+
+   // Auto-detection
+   //
+   // if $send (the form button's name) contains "\n" as the first char
+   // and the script is compose.php, then trim everything.  Otherwise,
+   // we don't have to worry.
+   global $send, $PHP_SELF;
+   if (isset($send) && substr($send, 0, 1) == "\n" &&
+       substr($PHP_SELF, -12) == "/compose.php")
+   {
       if ($REQUEST_METHOD == "POST") {
          TrimArray($HTTP_POST_VARS);
       } else {
@@ -30,18 +38,17 @@
    }
 
    //**************************************************************************
-   // Trims every element in the array and returns a  new array.  
+   // Trims every element in the array
    //**************************************************************************
    function TrimArray(&$array) {
       foreach ($array as $k => $v) {
          global $$k;
          if (is_array($$k)) {
             foreach ($$k as $k2 => $v2) {
-               $newArray[trim($k2)] = trim($v2);
+	       $$k[$k2] = substr($v2, 1);
             }
-            $$k = $newArray;
          } else {
-            $$k = trim($v);
+            $$k = substr($v, 1);
          }
       }
    }

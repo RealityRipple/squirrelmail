@@ -1,7 +1,7 @@
 Version 1.0.2 -- DEVELOPMENT
 ----------------------------
-- Added $fix_form_endlines option in strings.php to workaround 
-    Konq/PHP4.0.3 problems
+- Added a workaround for RedHat's 4.0.4pl1-3 binary package  (It's also 
+  the same workaround for Konqueror and other PHP installations?)
 - Select All works through the search
 - Better escaped string handling from POST variables
 - Many more code cleanups and optimizations
