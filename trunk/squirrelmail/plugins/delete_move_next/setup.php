@@ -137,30 +137,31 @@ function delete_move_next_read($currloc) {
             }
         }    
         
-        $location = get_location();
-        echo "<base href=\"$location/\">" .
-             '<table cols=1 cellspacing=0 width=100% border=0 cellpadding=2>'.
+	/* Base is illegal within documents 
+        * $location = get_location();
+        * echo "<base href=\"$location/\">" . */
+        echo '<table cellspacing=0 width="100%" border=0 cellpadding=2>'.
              '<tr>'.
-                 "<td bgcolor=\"$color[9]\" width=100% align=center><small>";
+                 "<td bgcolor=\"$color[9]\" width=\"100%\" align=center><small>";
     
         if ($prev > 0) {
-            echo "<a href=\"read_body.php?passed_id=$prev&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage&show_more=0\">" . _("Previous") . "</A>&nbsp;|&nbsp;";
+            echo "<a href=\"read_body.php?passed_id=$prev&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">" . _("Previous") . "</A>&nbsp;|&nbsp;\n";
         } else {
             echo _("Previous") . "&nbsp;|&nbsp;";
         }
         if ($next > 0) {
-            echo "<a href=\"read_body.php?passed_id=$next&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage&show_more=0\">" . _("Next") . "</A>&nbsp;|&nbsp;";
+            echo "<a href=\"read_body.php?passed_id=$next&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">" . _("Next") . "</A>&nbsp;|&nbsp;\n";
         } else {
             echo _("Next") . "&nbsp;|&nbsp;";
         }
         if ($prev > 0){
-            echo "<a href=\"read_body.php?passed_id=$prev_if_del&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage&show_more=0&delete_id=$passed_id\">" . _("Delete & Prev") . "</a>" . "&nbsp;|&nbsp;";
+            echo "<a href=\"read_body.php?passed_id=$prev_if_del&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0&amp;delete_id=$passed_id\">" . _("Delete & Prev") . "</a>" . "&nbsp;|&nbsp;\n";
         }
         else {
             echo _("Delete & Prev") . "&nbsp;|&nbsp;";
         }
         if ($next > 0){
-            echo "<a href=\"read_body.php?passed_id=$next_if_del&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage&show_more=0&delete_id=$passed_id\">" . _("Delete & Next") . "</a>";
+            echo "<a href=\"read_body.php?passed_id=$next_if_del&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0&amp;delete_id=$passed_id\">" . _("Delete & Next") . "</a>\n";
         } else {
             echo _("Delete & Next");
         }
@@ -209,9 +210,9 @@ function delete_move_next_moveNextForm($next) {
            $urlMailbox, $sort, $startMessage, $delete_id, $move_id,
            $imapConnection;
 
-    echo '<form action="read_body.php" method="post">'.
-         '<tr>'.
-         "<td bgcolor=\"$color[9]\" width=\"100%\" align=\"center\"><small>".
+    echo '<tr>'.
+         "<td bgcolor=\"$color[9]\" width=\"100%\" align=\"center\">".
+           '<form action="read_body.php" method="post"><small>'.
             "<input type=\"hidden\" name=\"passed_id\" value=\"$next\">".
             "<input type=\"hidden\" name=\"mailbox\" value=\"$urlMailbox\">".
             "<input type=\"hidden\" name=\"sort\" value=\"$sort\">".
@@ -224,9 +225,9 @@ function delete_move_next_moveNextForm($next) {
     echo    '</select> '.
             '<input type="submit" value="' . _("Move") . '">'.
             '</small>'.
+           '</form>'.
          '</td>'.
-         '</tr>' .
-         '</form>';
+         '</tr>';
 
 }
 function delete_move_next_moveRightMainForm() {
@@ -235,9 +236,9 @@ function delete_move_next_moveRightMainForm() {
            $urlMailbox, $sort, $startMessage, $delete_id, $move_id,
            $imapConnection;
 
-    echo '<form action="right_main.php" method="post">' .
-         '<tr>' .      
-            "<td bgcolor=\"$color[9]\" width=\"100%\" align=\"center\"><small>".
+    echo '<tr>' .      
+            "<td bgcolor=\"$color[9]\" width=\"100%\" align=\"center\">".
+            '<form action="right_main.php" method="post"><small>' .
             "<input type=\"hidden\" name=\"mailbox\" value=\"$urlMailbox\">".
             "<input type=\"hidden\" name=\"sort\" value=\"$sort\">".
             "<input type=\"hidden\" name=\"startMessage\" value=\"$startMessage\">".
@@ -248,9 +249,9 @@ function delete_move_next_moveRightMainForm() {
     echo    ' </select>' .
             '<input type=submit value="' . _("Move") . '">'.
             '</small>'.
+         '</form>' .
          '</td>'.
-         '</tr>' .
-         '</form>';
+         '</tr>';
 
 }
 
