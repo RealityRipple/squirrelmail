@@ -23,15 +23,20 @@
    }   
 
    include('../src/load_prefs.php');
-   displayPageHeader($color, 'None');
+   displayPageHeader($color, _("None"));
 
 ?>
 
+<div align="center">
+
 <br>
-<table width="95%" align="center" cellpadding="2" cellspacing="2" border="0">
-<tr><td bgcolor="<?php echo $color[0] ?>">
-   <center><b><?php echo _("Options") ?></b></center>
-</td></tr></table>
+<table bgcolor="<?php echo $color[0] ?>" width="95%" align="center" cellpadding="2" cellspacing="0" border="0">
+<tr><td align="center">
+
+      <b><?php echo _("Options") ?></b><br>
+
+    <table width="100%" border="0" cellpadding="5" cellspacing="0">
+    <tr><td bgcolor="<?php echo $color[4] ?>" align="center">
 
 <?php
    if (isset($submit_personal)) {
@@ -52,7 +57,7 @@
       
       do_hook('options_personal_save');
       
-      echo '<br><center><b>'._("Successfully saved personal information!").'</b></center><br>';
+      echo '<br><b>'._("Successfully saved personal information!").'</b><br>';
    } else if (isset($submit_display)) {
       // Do checking to make sure $chosentheme is in the array
       $in_ary = false;
@@ -89,8 +94,8 @@
     
       do_hook('options_display_save');
 
-      echo '<br><center><b>'._("Successfully saved display preferences!").'</b><br>';
-      echo '<a href="../src/webmail.php?right_frame=options.php" target=_top>' . _("Refresh Page") . '</a></center><br>';
+      echo '<br><b>'._("Successfully saved display preferences!").'</b><br>';
+      echo '<a href="../src/webmail.php?right_frame=options.php" target=_top>' . _("Refresh Page") . '</a><br>';
    } else if (isset($submit_folder)) { 
       # Save folder preferences
       if ($trash != 'none') {
@@ -115,16 +120,15 @@
       else
           removePref($data_dir, $username, 'collapse_folders');
       do_hook('options_folders_save');
-      echo '<br><center><b>'._("Successfully saved folder preferences!").'</b><br>';
-      echo '<a href="../src/left_main.php" target=left>' . _("Refresh Folder List") . '</a></center><br>';
+      echo '<br><b>'._("Successfully saved folder preferences!").'</b><br>';
+      echo '<a href="../src/left_main.php" target=left>' . _("Refresh Folder List") . '</a><br>';
    } else {
       do_hook('options_save');
    }
    
 ?>
 
-
-<table width="90%" cellpadding="0" cellspacing="10" border="0" align="center">
+<table bgcolor="<?php echo $color[4] ?>" width="100%" cellpadding="5" cellspacing="0" border="0">
 <tr>
    <td width="50%" valign="top">
       <table width="100%" cellpadding="3" cellspacing="0" border="0">
@@ -192,7 +196,16 @@
    </td>
 </tr>
 </table>
-   <?php
-      do_hook('options_link_and_description')
-   ?>
+
+   <?php do_hook('options_link_and_description'); ?>
+
+
+    </td></tr>
+    </table>
+
+</td></tr>
+</table>
+
+
+</div>
 </body></html>

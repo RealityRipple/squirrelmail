@@ -75,7 +75,7 @@
       echo "</TABLE>\n\n";
       echo "<TABLE BGCOLOR=\"$color[4]\" BORDER=0 WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2>\n";
       echo "   <TR>\n";
-      echo "      <TD ALIGN=left WIDTH=\"99%\">\n";
+      echo "      <TD ALIGN=left WIDTH=\"90%\">\n";
       $urlMailbox = urlencode($mailbox);
       displayInternalLink ("src/compose.php?mailbox=$urlMailbox", _("Compose"), "right");
       echo "&nbsp;&nbsp;\n";
@@ -92,7 +92,7 @@
 
       do_hook("menuline");
 
-      echo "      </TD><TD ALIGN=right nowrap WIDTH=\"1%\">\n";
+      echo "      </TD><TD ALIGN=right nowrap WIDTH=\"10%\">\n";
       echo "         <A HREF=\"http://www.squirrelmail.org/\" TARGET=\"_blank\">SquirrelMail</A>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";

@@ -337,9 +337,9 @@
    echo '   <TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="3">' . "\n";
    echo '      <TR>' . "\n";
    /** subject **/
-   echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=10% ALIGN=RIGHT>\n";
+   echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=\"10%\" ALIGN=\"right\" VALIGN=\"top\">\n";
    echo _("Subject:");
-   echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=80%>\n";
+   echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=\"80%\" VALIGN=\"top\">\n";
    echo "            <B>$subject</B>&nbsp;\n";
    echo "         </TD>\n";
    echo '         <TD ROWSPAN="4" width=10% BGCOLOR="'.$color[0].'" ALIGN=right VALIGN=top NOWRAP><small>' . "\n";

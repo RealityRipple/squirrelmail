@@ -33,19 +33,18 @@
 ?>
 <br>
 <table width=95% align=center border=0 cellpadding=2 cellspacing=0>
-  <tr>
-    <th bgcolor="<?php echo $color[0] ?>" align=center>
-      <?php echo _("Options") . " - " . _("Advanced Identities"); ?>
-    </th>
-  </tr>
-</table>
+<tr><td bgcolor="<?php echo $color[0] ?>" align="center">
 
-<form name=f action="options_identities.php" method=post>
+      <b><?php echo _("Options") . ' - ' . _("Advanced Identities"); ?></b>
+
+    <table width="100%" border="0" cellpadding="1" cellspacing="1">
+    <tr><td bgcolor="<?php echo $color[4] ?>" align="center">
+
+<form name=f action="options_identities.php" method=post><br>
 
 <?PHP do_hook('options_identities_top'); ?>
 
-<center>
-<table width=80% cellpadding=0 cellspacing=0 border=0>
+<table width=80% cellpadding=2 cellspacing=0 border=0>
   <tr bgcolor="<?PHP echo $color[9] ?>">
     <th colspan=2 align=center><?PHP echo _("Default Identity") ?></th>
   </tr>
@@ -75,9 +74,15 @@
    ShowTableInfo('', '', '', $num);
 ?>
 </table>   
-</center>
 </form>
+
+    </td></tr>
+    </table>
+
+</td></tr>
+</table>
 </body></html>
+
 <?PHP
 
 function SaveUpdateFunction()
