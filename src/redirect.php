@@ -149,7 +149,7 @@ setPref($data_dir, $username, 'javascript_on', $js_pref);
 /* Compute the URL to forward the user to. */
 if(isset($rcptemail)) {
     $redirect_url = 'webmail.php?right_frame=compose.php&rcptaddress=';
-    $redirect_url .= urlencode($rcptemail);
+    $redirect_url .= $rcptemail;
 } else {
     $redirect_url = 'webmail.php';
 }
