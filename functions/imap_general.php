@@ -279,8 +279,13 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
 	  // Original IMAP login code
       $query = 'LOGIN "' . quoteIMAP($username) .  '" "' . quoteIMAP($password) . '"';
       $read = sqimap_run_command ($imap_stream, $query, false, $response, $message);
-    } else {
-	  // Insert SASL PLAIN code here, if it ever gets implemented
+    } elseif ($imap_auth_mech == 'plain') {
+		/* Replace this with SASL PLAIN if it ever gets implemented */
+		$response="BAD";
+		$message='SquirrelMail does not support SASL PLAIN yet. Rerun conf.pl and use login instead.';
+	} else {
+		$response="BAD";
+		$message="Internal SquirrelMail error - unknown IMAP authentication method chosen.  Please contact the developers.";
 	}
     
 	/* If the connection was not successful, lets see why */
@@ -296,8 +301,8 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
                 } else {
                    $string = sprintf (_("Unknown error: %s") . "<br>\n", $message);
                 }
-                $string .= '<br>' . _("Read data:") . "<br>\n";
-                if (is_array($read)) {
+                if (isset($read) && is_array($read)) {
+                	$string .= '<br>' . _("Read data:") . "<br>\n";
                     foreach ($read as $line) {
                         $string .= htmlspecialchars($line) . "<br>\n";
                     }
