@@ -27,12 +27,13 @@ require_once('../functions/smtp.php');
 * returns the index of the next valid message from the array
 */
 function findNextMessage() {
-    global $msort, $currentArrayIndex, $msgs, $sort, $thread_sort_messages;
+    global $msort, $currentArrayIndex, $msgs, $sort, 
+           $thread_sort_messages, $allow_server_sort;
     $result = -1;
 		if ($thread_sort_messages == 1) {
 				$sort = 0;
 		}
-    if ($sort == 6) {
+    if ($sort == 6 && $allow_server_sort != TRUE) {
         if ($currentArrayIndex != 1) {
             $result = $currentArrayIndex - 1;
         }
@@ -65,14 +66,15 @@ function RemoveAddress(&$addr_list, $addr) {
 /** returns the index of the previous message from the array. */
 function findPreviousMessage() {
     global $msort, $currentArrayIndex, $sort, $msgs, $imapConnection,
-           $mailbox, $data_dir, $username, $thread_sort_messages;
+           $mailbox, $data_dir, $username, $thread_sort_messages,
+           $allow_server_sort;
 		if ($thread_sort_messages == 1) {
 				$sort = 0;
 		}
 
     $result = -1;
 
-    if ($sort == 6) {
+    if ($sort == 6 && $allow_server_sort != TRUE) {
         $numMessages = sqimap_get_num_messages($imapConnection, $mailbox);
         if ($currentArrayIndex != $numMessages) {
             $result = $currentArrayIndex + 1;
