@@ -222,10 +222,6 @@
    do_hook("read_body_top");
    echo "<BR>";
 
-
-   echo "START: $startMessage<br>";
-
-
    echo "<TABLE COLS=1 CELLSPACING=0 WIDTH=100% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n";
    echo "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=100%>";
    echo "      <TABLE WIDTH=100% CELLSPACING=0 BORDER=0 COLS=2 CELLPADDING=3>";
