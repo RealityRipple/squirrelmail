@@ -28,13 +28,14 @@ require_once('../functions/strings.php');
 /* Insert hidden data */
 function addr_insert_hidden() {
     global $body, $subject, $send_to, $send_to_cc, $send_to_bcc, $mailbox,
-           $identity;
+           $identity, $session;
 
    echo '<input type=hidden value="';
    if (substr($body, 0, 1) == "\r") {
        echo "\n";
    }
    echo htmlspecialchars($body) . '" name=body>' . "\n" .
+        '<input type=hidden value="' . $session . '" name=session>' . "\n" .
         '<input type=hidden value="' . htmlspecialchars($subject) .
         '" name=subject>' . "\n" .
         '<input type=hidden value="' . htmlspecialchars($send_to) .
@@ -174,6 +175,10 @@ if ($abook->numbackends > 1) {
 } else {
     echo '<INPUT TYPE=hidden NAME=backend VALUE=-1>' . "\n";
 }
+if (isset($session)) {
+    echo "<input type=hidden name=\"session\" value=\"$session\">";
+}
+
 echo '<INPUT TYPE=submit VALUE="' . _("Search") . '">' .
      '&nbsp;|&nbsp;<INPUT TYPE=submit VALUE="' . _("List all") .
      '" NAME=listall>' . "\n" .
