@@ -35,6 +35,15 @@
 //  folders will be the same color as the other folders
     $use_special_folder_color = true;
 
+//  The type of IMAP server you are running
+//  Valid type are the following (case is important).
+//  
+//  courier
+//  cyrus
+//  exchange
+//  uw
+    $imap_server_type = "cyrus";
+
 //  Many servers store mail in your home directory.  With this, they
 //  store them in a subdirectory: mail/ or Mail/, etc.  If your
 //  server does this, please set this to what the default mail folder
