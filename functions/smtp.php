@@ -50,7 +50,7 @@
                $filetype = "application/octet-stream";
             
             $header = "--".mimeBoundary()."\r\n";
-            $header .= "Content-Type: $filetype\r\n";
+            $header .= "Content-Type: $filetype;name=\"$remotename\"\r\n";
             $header .= "Content-Disposition: attachment; filename=\"$remotename\"\r\n";
             $header .= "Content-Transfer-Encoding: base64\r\n\r\n";
             fputs ($fp, $header);
