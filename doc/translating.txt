@@ -17,13 +17,13 @@ b) Find the language code for the language you are going to translate
    there is a 2 letter code for the language, use this.
 
    Create a directory squirrelmail/locale/language_code/LC_MESSAGES/.
-   Copy squirrelmail/po/squirrelmail.po into this directory. This is the
-   file that is going to be translated.
+   Copy squirrelmail/po/squirrelmail.pot into this directory and rename 
+   it to squirrelmail.po. This is the file that is going to be translated.
 
 c) To translate the actual strings fill in the msgstr after each
    msgid with the appropriate translation. There are a few tools which
    can make this job a bit easier at
-   <URL:http://i18n.kde.org/translation-howto/gui-specialized-apps.html>.
+   <URL:http://i18n.kde.org/translation-howto/specialized-programs.html#gui-tools>.
 
    Convert the translated squirrelmail.po into a binary file by
    running the command "msgfmt -o squirrelmail.mo squirrelmail.po" in
@@ -44,16 +44,20 @@ strings that are already translated are no longer used and new strings
 are added. Therefore it is necessary to maintain the translations.
 
 a) There should always be an updated template containing all strings
-   in SquirrelMail in squirrelmail/squirrelmail.po. To merge all new
+   in SquirrelMail in squirrelmail/po/squirrelmail.pot. To merge all new
    strings in this file into an existing translation run the command
 
 msgmerge squirrelmail/locale/language/LC_MESSAGES/squirrelmail.po \
-squirrelmail/po/squirrelmail.po > \
+squirrelmail/po/squirrelmail.pot > \
 squirrelmail/locale/language/LC_MESSAGES/squirrelmail.po.new
 
    This should keep all strings that are unchanged and comment out all
    strings that are no longer in use. You might want to make a copy
    before doing this.
+
+SquirrelMail contains po/mergepo script that can merge strings without need
+to write that complex msgmerge command. Just put your translation name as 
+option.
 
 b) Run msgfmt again to create a new binary file.
 
@@ -61,17 +65,9 @@ b) Run msgfmt again to create a new binary file.
 3. Updating the template
 ------------------------
 
-This script comes from Serek:
-
-#!/bin/bash
-xgettext --keyword=_ -keyword=N_ \
-  --default-domain=squirrelmail/po/squirrelmail \
-  -C squirrelmail/src/*.php
-xgettext --keyword=_ -keyword=N_ \
-  --default-domain=squirrelmail/po/squirrelmail \
-  -C -j squirrelmail/functions/*.php
+SquirrelMail provides po/xgetpo script that extracts all the required 
+strings and updates po/squirrelmail.pot file.
 
 
 
-
-$ Id $
+$ Id: $
