@@ -680,8 +680,8 @@ function sqimap_mailbox_list($imap_stream, $force=false) {
 
         /* Find INBOX's children */
         for($k = 0; $k < $cnt; ++$k) {
-            if (isBoxBelow(strtolower($boxesall[$k]['unformatted']), 'inbox') && 
-            strtolower($boxesall[$k]['unformatted']) <> 'inbox') {
+            if (!$used[$k] && isBoxBelow(strtolower($boxesall[$k]['unformatted']), 'inbox') && 
+            strtolower($boxesall[$k]['unformatted']) != 'inbox') {
                 $boxesnew[] = $boxesall[$k];
                 $used[$k] = true;
             }   
