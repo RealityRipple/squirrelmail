@@ -273,24 +273,24 @@ class Deliver {
 	}	
 	$header[] = "Date: $date" . $rn;
         $header[] = 'Subject: '.encodeHeader($rfc822_header->subject) . $rn;
-        $header[] = 'From: '. encodeHeader($rfc822_header->getAddr_s('from')) . $rn;
+        $header[] = 'From: '. $rfc822_header->getAddr_s('from',',',true) . $rn;
 	/* RFC2822 if from contains more then 1 address */	
         if (count($rfc822_header->from) > 1) {
-	    $header[] = 'Sender: '. encodeHeader($rfc822_header->getAddr_s('sender')) . $rn;
+	    $header[] = 'Sender: '. $rfc822_header->getAddr_s('sender',',',true) . $rn;
 	}
 	if (count($rfc822_header->to)) {
-	    $header[] = 'To: '. encodeHeader($rfc822_header->getAddr_s('to')) . $rn;
+	    $header[] = 'To: '. $rfc822_header->getAddr_s('to',',',true) . $rn;
         }
 	if (count($rfc822_header->cc)) {
-	    $header[] = 'Cc: '. encodeHeader($rfc822_header->getAddr_s('cc')) . $rn;
+	    $header[] = 'Cc: '. $rfc822_header->getAddr_s('cc',',',true) . $rn;
 	}
 	if (count($rfc822_header->reply_to)) {
-	    $header[] = 'Reply-To: '. encodeHeader($rfc822_header->getAddr_s('reply_to')) . $rn;
+	    $header[] = 'Reply-To: '. $rfc822_header->getAddr_s('reply_to',',',true) . $rn;
 	}
 	/* Sendmail should return true. Default = false */
 	$bcc = $this->getBcc();
 	if (count($rfc822_header->bcc)) {
-	    $s = 'Bcc: '. encodeHeader($rfc822_header->getAddr_s('bcc')) . $rn;
+	    $s = 'Bcc: '. $rfc822_header->getAddr_s('bcc',',',true) . $rn;
 	    if (!$bcc) {
 	       $s = $this->foldLine($s, 78, str_pad('',4));
 	       $raw_length += strlen($s);
