@@ -293,7 +293,7 @@ class Rfc822Header {
                 // check the next token in case comments appear in the middle of email addresses
                 $prevToken = end($aTokens);
                 if (!in_array($prevToken,$aSpecials,true)) {
-                    if (isset($address{$i+1}) && !in_array($address{$i+1},$aSpecials,true)) {
+                    if ($i+1<strlen($address) && !in_array($address{$i+1},$aSpecials,true)) {
                         $iEnd = strpos($address,' ',$i+1);
                         if ($iEnd) {
                             $sNextToken = trim(substr($address,$i+1,$iEnd - $i -1));
