@@ -303,7 +303,7 @@
          else if (strtolower(substr($read[$i], 0, 5)) == "date:") {
             $d = substr($read[$i], 5);
             $d = trim($d);
-	    $d = strtr($d, array('  ', ' '));
+            $d = strtr($d, array('  ' => ' '));
             $d = explode(' ', $d);
             $hdr->date = getTimeStamp($d);
             $i++;
