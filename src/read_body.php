@@ -121,7 +121,20 @@
    $url_replyto = urlencode($message->header->replyto);
 
    $url_replytoall   = urlencode($message->header->replyto);
-   $url_replytoallcc = urlencode(getLineOfAddrs($message->header->to) . ", " . getLineOfAddrs($message->header->cc));
+   $url_replytoallcc = getLineOfAddrs($message->header->to);
+   $url_replytoallcc_cc = getLineOfAddrs($message->header->cc);
+   if ($url_replytoallcc) {
+      if ($url_replytoallcc_cc) {
+         $url_replytoallcc .= ", " . $url_replytoallcc_cc;
+      }
+   } else {
+      if ($url_replytoallcc_cc) {
+         $url_replytoallcc = $url_replytoallcc_cc;
+      } else {
+         $url_replytoallcc = "";
+      }
+   } 
+   $url_replytoallcc = urlencode($url_replytoallcc);
 
    $dateString = getLongDateString($message->header->date);
    $ent_num = findDisplayEntity($message);
