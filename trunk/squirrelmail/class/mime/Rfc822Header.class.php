@@ -361,7 +361,7 @@ class Rfc822Header {
         $props = '';
         if ($pos > 0) {
             $name = trim(substr($value, 0, $pos));
-            $props = trim(substr($type, $pos+1));
+            $props = trim(substr($value, $pos+1));
         } else {
             $name = $value;
         }
