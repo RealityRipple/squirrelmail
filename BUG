@@ -5,7 +5,7 @@ Known BUGS to be fixed before 0.4pre1:
        list, the space is allocated, but it is blank.
 (lme)  I'm not convinced that the cache gets deleted all the time.  I'll 
        look into this one.  
-  -    In UW, removing folders with a / at the end is broke
+(lme)  In UW, removing folders with a / at the end is broke
   -    When reading through 7 unread messages, every time I would read
        a message and click on "Message List" to go back, they would stay
 		 marked "unread".  The caching was doing too good of a job.  (:
