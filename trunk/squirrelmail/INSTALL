@@ -112,9 +112,9 @@ b. Setting up directories
 
   The data directory is used for storing user preferences, like
   signature, name and theme. When unpacking the sources this directory
-  is created as data/ in you SquirrelMail directory. This directory
+  is created as data/ in your SquirrelMail directory. This directory
   must be writable by the webserver. If your webserver is running as
-  the user nobody you can fix this by running:
+  the user "nobody" you can fix this by running:
 
     $ chown -R nobody data
     $ chgrp -R nobody data

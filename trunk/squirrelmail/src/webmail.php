@@ -33,6 +33,7 @@
       setcookie("squirrelmail_language", $squirrelmail_language, time()+2592000);
    }
 
+
    include ("../config/config.php");
    include ("../functions/prefs.php");
    include ("../functions/imap.php");

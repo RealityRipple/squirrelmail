@@ -149,4 +149,5 @@
    }
 
    do_hook("loading_prefs");
+
 ?>
