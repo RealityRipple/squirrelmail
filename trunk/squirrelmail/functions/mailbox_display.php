@@ -488,7 +488,7 @@
          } while ($i && $i < $endVar);
       }
 
-      echo '</table>;
+      echo '</table>';
       echo "<table width=100%><tr ><td>$lMore$mMore$rMore</td><td align=right>$Message</td></tr></table>";
       /** End of message-list table */
 
