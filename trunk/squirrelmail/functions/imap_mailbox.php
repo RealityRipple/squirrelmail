@@ -23,8 +23,12 @@ function isSpecialMailbox( $box ) {
 
     if ( $move_to_sent  ) {
         $i = strpos( $sent_folder, $delimiter, strlen( $folder_prefix ) );
+        if ( $i === FALSE ) {
+            $i = strlen( $box );
+        }
+        
     }
-     // echo '[' . substr( $sent_folder, 0, $i ) . '] (' . $box . ')'; 
+    
     $ret = ( (strtolower($box) == 'inbox') ||
              ($box == $trash_folder &&
               $move_to_trash) ||
