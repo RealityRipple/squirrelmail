@@ -31,7 +31,6 @@
       else
          $from = $from . " <$from_addr>";
 
-
       $smtpConnection = fsockopen($smtpServerAddress, $smtpPort, $errorNumber, $errorString);
       if (!$smtpConnection) {
          echo "Error connecting to SMTP Server.<br>";
