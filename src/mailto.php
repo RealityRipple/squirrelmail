@@ -23,6 +23,7 @@ define('SM_PATH','../');
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'config/config.php');
 require_once(SM_PATH . 'functions/global.php');
+require_once(SM_PATH . 'functions/strings.php');
 
 header('Pragma: no-cache');
 if(!sqgetGlobalVar('emailaddress', $emailaddress)) {
@@ -70,5 +71,6 @@ $url = urlencode($url);
 /* $redirect .= $url; */
 $redirect = 'login.php?mailto=' . $url;
 session_write_close();
-header('Location: ' .get_location(). $redirect);
+header('Location: ' . get_location() . '/' . $redirect);
+
 ?>
