@@ -486,6 +486,10 @@ class Message {
 	      $i = $iPos;
 	      break;
 	   }
+       $iPos++;
+       if ($iPos > strlen($read)) {
+          break;
+       }
 	}
         return $s;
     }
