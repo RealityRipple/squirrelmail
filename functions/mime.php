@@ -600,6 +600,61 @@ function findDisplayEntityHTML ($message) {
     return 0;
 }
 
+/*
+ * translateText
+ * Extracted from strings.php 23/03/2002
+ */
+
+function translateText(&$body, $wrap_at, $charset) {
+    global $where, $what; /* from searching */
+    global $color; /* color theme */
+
+    require_once('../functions/url_parser.php');
+
+    $body_ary = explode("\n", $body);
+    $PriorQuotes = 0;
+    for ($i=0; $i < count($body_ary); $i++) {
+        $line = $body_ary[$i];
+        if (strlen($line) - 2 >= $wrap_at) {
+            sqWordWrap($line, $wrap_at);
+        }
+        $line = charset_decode($charset, $line);
+        $line = str_replace("\t", '        ', $line);
+
+        parseUrl ($line);
+
+        $Quotes = 0;
+        $pos = 0;
+        $j = strlen( $line );
+
+        while ( $pos < $j ) {
+            if ($line[$pos] == ' ') {
+                $pos ++;
+            } else if (strpos($line, '&gt;', $pos) === $pos) {
+                $pos += 4;
+                $Quotes ++;
+            } else {
+                break;
+            }
+        }
+        
+        if ($Quotes > 1) {
+            if (! isset($color[14])) {
+                $color[14] = '#FF0000';
+            }
+            $line = '<FONT COLOR="' . $color[14] . '">' . $line . '</FONT>';
+        } elseif ($Quotes) {
+            if (! isset($color[13])) {
+                $color[13] = '#800000';
+            }
+            $line = '<FONT COLOR="' . $color[13] . '">' . $line . '</FONT>';
+        }
+        
+        $body_ary[$i] = $line;
+    }
+    $body = '<pre>' . implode("\n", $body_ary) . '</pre>';
+}
+
 /* This returns a parsed string called $body. That string can then
 be displayed as the actual message in the HTML. It contains
 everything needed, including HTML Tags, Attachments at the

@@ -72,56 +72,6 @@ function getLineOfAddrs($array) {
     return( $to_line );
 }
 
-function translateText(&$body, $wrap_at, $charset) {
-    global $where, $what; /* from searching */
-    global $color; /* color theme */
-
-    require_once('../functions/url_parser.php');
-
-    $body_ary = explode("\n", $body);
-    $PriorQuotes = 0;
-    for ($i=0; $i < count($body_ary); $i++) {
-        $line = $body_ary[$i];
-        if (strlen($line) - 2 >= $wrap_at) {
-            sqWordWrap($line, $wrap_at);
-        }
-        $line = charset_decode($charset, $line);
-        $line = str_replace("\t", '        ', $line);
-
-        parseUrl ($line);
-
-        $Quotes = 0;
-        $pos = 0;
-        $j = strlen( $line );
-
-        while ( $pos < $j ) {
-            if ($line[$pos] == ' ') {
-                $pos ++;
-            } else if (strpos($line, '&gt;', $pos) === $pos) {
-                $pos += 4;
-                $Quotes ++;
-            } else {
-                break;
-            }
-        }
-        
-        if ($Quotes > 1) {
-            if (! isset($color[14])) {
-                $color[14] = '#FF0000';
-            }
-            $line = '<FONT COLOR="' . $color[14] . '">' . $line . '</FONT>';
-        } elseif ($Quotes) {
-            if (! isset($color[13])) {
-                $color[13] = '#800000';
-            }
-            $line = '<FONT COLOR="' . $color[13] . '">' . $line . '</FONT>';
-        }
-        
-        $body_ary[$i] = $line;
-    }
-    $body = '<pre>' . implode("\n", $body_ary) . '</pre>';
-}
-
 function find_mailbox_name ($mailbox) {
     if (ereg(" *\"([^\r\n\"]*)\"[ \r\n]*$", $mailbox, $regs))
         return $regs[1];
