@@ -106,7 +106,7 @@
              $orig_from = trim(substr($orig_from,0,strpos($orig_from,'<')));
              $orig_from = str_replace('"','',$orig_from);
              $orig_from = str_replace("'",'',$orig_from);
-	     $body = getReplyCitation($orig_from) . $body;
+             $body = getReplyCitation($orig_from) . $body;
          }
          
          return;
@@ -195,7 +195,7 @@
          $editor_size, $attachments, $subject, $newmail, 
          $use_javascript_addr_book, $send_to_bcc, $reply_id, $mailbox, 
          $from_htmladdr_search, $location_of_buttons, $attachment_dir,
-	 $username, $data_dir, $identity;
+         $username, $data_dir, $identity;
 
       $subject = decodeHeader($subject);
       $reply_subj = decodeHeader($reply_subj);
@@ -224,30 +224,29 @@
       if ($location_of_buttons == 'top') showComposeButtonRow();
 
       $idents = getPref($data_dir, $username, 'identities');
-      if ($idents != '' && $idents > 1)
-      {
+      if ($idents != '' && $idents > 1) {
          echo "   <TR>\n";
          echo "      <TD BGCOLOR=\"$color[4]\" WIDTH=\"10%\" ALIGN=RIGHT>\n";
          echo _("From:");
          echo "      </TD><TD BGCOLOR=\"$color[4]\" WIDTH=\"90%\">\n";
-	 echo "<select name=identity>\n";
-	 echo "<option value=default>" . 
-	    htmlspecialchars(getPref($data_dir, $username, 'full_name'));
-	 $em = getPref($data_dir, $username, 'email_address');
-	 if ($em != '')
-	    echo htmlspecialchars(' <' . $em . '>') . "\n";
-	 for ($i = 1; $i < $idents; $i ++) {
- 	    echo '<option value="' . $i . '"';
-	    if (isset($identity) && $identity == $i)
-	       echo ' SELECTED';
-	    echo '>';
-	    echo htmlspecialchars(getPref($data_dir, $username, 'full_name' . 
-	                                  $i));
-  	    $em = getPref($data_dir, $username, 'email_address' . $i);
-	    if ($em != '')
-	       echo htmlspecialchars(' <' . $em . '>') . "\n";
-	 }
-	 echo "</select>\n";
+         echo "<select name=identity>\n";
+         echo "<option value=default>" . 
+         htmlspecialchars(getPref($data_dir, $username, 'full_name'));
+         $em = getPref($data_dir, $username, 'email_address');
+         if ($em != '')
+            echo htmlspecialchars(' <' . $em . '>') . "\n";
+         for ($i = 1; $i < $idents; $i ++) {
+            echo '<option value="' . $i . '"';
+            if (isset($identity) && $identity == $i)
+               echo ' SELECTED';
+            echo '>';
+            echo htmlspecialchars(getPref($data_dir, $username, 'full_name' . 
+                                        $i));
+            $em = getPref($data_dir, $username, 'email_address' . $i);
+            if ($em != '')
+               echo htmlspecialchars(' <' . $em . '>') . "\n";
+         }
+         echo "</select>\n";
          echo "      </TD>\n";
          echo "   </TR>\n";
       }
@@ -433,35 +432,35 @@
          set_my_charset();
 
          // This is to change all newlines to \n
-	 // We'll change them to \r\n later (in the sendMessage function)
-	 $body = str_replace("\r\n", "\n", $body);
-	 $body = str_replace("\r", "\n", $body);
-	 
-	 // Rewrap $body so that no line is bigger than $editor_size
-	 // This should only really kick in the sqWordWrap function
-	 // if the browser doesn't support "HARD" as the wrap type
-	 // Or, in Opera's case, something goes wrong.
-	 $body = explode("\n", $body);
-	 $newBody = '';
-	 foreach ($body as $line) {
-	    if( $line <> '-- ' )
-	       $line = rtrim($line);
-	    if (strlen($line) <= $editor_size + 1)
-	       $newBody .= $line . "\n";
-	    else {
-	       sqWordWrap($line, $editor_size) . "\n";
-	       $newBody .= $line;
-	    }
-	 }
-	 $body = $newBody;
-	 
+         // We'll change them to \r\n later (in the sendMessage function)
+         $body = str_replace("\r\n", "\n", $body);
+         $body = str_replace("\r", "\n", $body);
+         
+         // Rewrap $body so that no line is bigger than $editor_size
+         // This should only really kick in the sqWordWrap function
+         // if the browser doesn't support "HARD" as the wrap type
+         // Or, in Opera's case, something goes wrong.
+         $body = explode("\n", $body);
+         $newBody = '';
+         foreach ($body as $line) {
+            if( $line <> '-- ' )
+               $line = rtrim($line);
+            if (strlen($line) <= $editor_size + 1)
+               $newBody .= $line . "\n";
+            else {
+               sqWordWrap($line, $editor_size) . "\n";
+               $newBody .= $line;
+            }
+         }
+         $body = $newBody;
+         
          do_hook("compose_send");
-
+         
          if (! sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id)) {
-	    showInputForm(); 
-	    exit();
-	 }
-	 Header("Location: right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=1");
+            showInputForm(); 
+            exit();
+         }
+         Header("Location: right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=1");
       } else {
          //$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
          displayPageHeader($color, $mailbox);
@@ -479,21 +478,21 @@
 
       if (isset($send_to_search) && is_array($send_to_search)) {
          foreach ($send_to_search as $k => $v) {
-	    if (substr($k, 0, 1) == 'T') {
+       if (substr($k, 0, 1) == 'T') {
                if ($send_to)
                   $send_to .= ', ';
                $send_to .= $v;
-	    }
-	    elseif (substr($k, 0, 1) == 'C') {
-	       if ($send_to_cc)
-	          $send_to_cc .= ', ';
-	       $send_to_cc .= $v;
-	    }
-	    elseif (substr($k, 0, 1) == 'B') {
-	       if ($send_to_bcc)
-	          $send_to_bcc .= ', ';
-	       $send_to_bcc .= $v;
-	    }
+       }
+       elseif (substr($k, 0, 1) == 'C') {
+          if ($send_to_cc)
+             $send_to_cc .= ', ';
+          $send_to_cc .= $v;
+       }
+       elseif (substr($k, 0, 1) == 'B') {
+          if ($send_to_bcc)
+             $send_to_bcc .= ', ';
+          $send_to_bcc .= $v;
+       }
          }
       }
       
