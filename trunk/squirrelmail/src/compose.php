@@ -470,6 +470,13 @@
       
       showInputForm();
    } else if (isset($html_addr_search)) {
+      if (isset($HTTP_POST_FILES['attachfile']) &&
+          $HTTP_POST_FILES['attachfile']['tmp_name'] &&
+          $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none')
+      {
+          if (saveAttachedFiles())
+                plain_error_message(_("Could not move/copy file. File not attached"), $color);
+      }
       // I am using an include so as to elminiate an extra unnecessary click.  If you
       // can think of a better way, please implement it.
       include ("./addrbook_search_html.php");
