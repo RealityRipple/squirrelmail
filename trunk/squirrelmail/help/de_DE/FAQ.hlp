@@ -1,0 +1,123 @@
+<chapter>
+   <title>
+      H&auml;ufig gestellte Fragen
+   </title>   
+   <summary>
+      Meistens haben Menschen immer wieder die gleichen Fragen die andere
+      Menschen auch schon mal hatten. Hier eine Liste mit den meistgestellten
+      Fragen und den dazugeh&ouml;rigen Antworten.
+   </summary>
+</chapter>
+
+<section>
+   <title>
+      Kann ich mehrere Namen aus dem Adressbuch verwenden?
+   </title>
+   <description>
+      <p>
+      Ja. Das Adressbuch stellt alle Eintr&auml;ge dar, die den Kriterien aus
+      der Suche entsprechen. Wenn 10 Namen dargestellt werden kann jede
+      Kombination sowohl als <B>To:</B> oder <B>CC:</B> ausgew&auml;hlt werden. 
+      Die ausgew&auml;hlten Adressen werden eingef&uuml;gt, wenn die Adress-Schaltfl&auml;che
+      gedr&uuml;ckt wird.
+      </p>
+   </description>
+</section>   
+
+<section>
+   <title>
+      Kann ich direkt EMail-Adressen aus der Mail ins Adressbuch einf&uuml;gen?
+   </title>
+   <description>
+      <p>
+      Nein. Zur Zeit ist es noch nicht m&ouml;glich EMail-Adressen direkt aus der 
+      empfangenen Mail ins Adressbuch zu &uuml;bernehmen. Nat&uuml;rlich kann man mit 
+      Copy+Paste die Adressen dann kopieren und hinterher wieder ins 
+      Adressbuch einf&uuml;gen. Bitte nicht entt&auml;uscht sein, dass dieses Feature
+      noch fehlt. SquirrelMail wird immer noch weiterentwickelt und dies wird
+      sicherlich eines Tages gehen. 
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Wer hat SquirrelMail gemacht.
+   </title>
+   <description>
+      <p>
+      Eine ganze Menge Menschen haben bei der Entwicklung von SquirrelMail geholfen. 
+      Wenn Dich eine Liste interesstert, findest Du diese auf der Website unter
+      <a href="http://www.squirrelmail.org" target=_top>www.squirrelmail.org</a>.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Was ist Webmail?
+   </title>
+   <description>
+      <p>
+      Im Fall von SquirrelMail ist das die M&ouml;glichkeit &uuml;ber das IMAP-Protokoll
+      auf den pers&ouml;nlichen EMail-Account zuzugreifen. Das heist, man muss sich nicht 
+      drum k&uuml;mmern, komplizierte Software aufzusetzen um einfach seine Mail 
+      zu lesen.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Wo kann ich diese Webmail nutzen?
+   </title>
+   <description>
+      <p>
+      Grunds&auml;tzlich &uuml;berall dort, wo ein Webbrowser zur Verf&uuml;gung steht. Normalerweise
+      ist das z.B. <I>Internet Explorer</I>, <I>Netscape</I> oder auch <I>Opera</I> oder
+      <I>Mozilla</I> - aber auch textbasierte Browser, z.B. <I>Links</I> sind unterst&uuml;tzt. 
+      Eine der wenigen Bedingungen ist allerdings, dass der Browser <B>Cookies</B>
+      unterst&uuml;tzt.
+      Zugriff mit dem Handy (via WAP/WML) wird nicht unterst&uuml;tzt und ist auch nicht auf
+      der Planungsliste.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Warum sollte ich Webmail benutzen, wenn ich doch einen normalen EMail-Client
+      nutzen kann?
+   </title>
+   <description>
+      <p>
+      Es ist unwahrscheinlich, dass ein Webmail jemals ein kompletter Ersatz
+      f&uuml;r ein normales EMail-Progamm sein wird. Aber - wer weiss jetzt schon, 
+      was mal sein wird.
+      Wie auch immer - wer schon mal auf Reisen war, Freunde besucht auf der
+      Arbeit oder Zuhause mal eben kurz die EMail abrufen will, weiss ohnehin
+      schon warum ein Webmail praktisch ist: Weil es einfach eine doofe Arbeit
+      ist, woanders erst ein EMail-Programm zu konfigurieren und hinterher die 
+      ganzen Mails auch wieder vom fremden Computer zu l&ouml;schen. 
+      SquirrelMail kann hier helfen, alles was man nicht zuhause am Rechner
+      machen kann, komplett und einfach zu ersetzen. Es ist als Erweiterung 
+      zum normalen EMail-Programm zu verstehen.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Wie funktioniert das alles?
+   </title>
+   <description>
+      <p>
+      SquirrelMail benutzt das IMAP-Protokoll - Infos hier&uuml;ber findet man 
+      <A HREF="http://imap.org"/>hier</A>. Es benutzt hierzu eigene Routinen 
+      die extra f&uuml;r SquirrelMail geschrieben wurden. Die Routinen aus PHP4 
+      werden nicht benutzt. Dies ist aber im Allgemeinen nur f&uuml;r Menschen 
+      wichtig, die SquirrelMail aufsetzen, aber glaube uns, dass sie sich 
+      hierf&uuml;r dankbar zeigen.
+      </p>
+   </description>
+</section>
