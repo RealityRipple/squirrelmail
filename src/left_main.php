@@ -186,7 +186,7 @@
 		if (isset($boxes[$i]['parent']))
 		    $line .= FoldLink($boxes[$i]['unformatted'], 
 		        $boxes[$i]['parent']);
-		else
+		elseif ($collapse_folders)
 		    $line .= '<tt>&nbsp;</tt>&nbsp;';
 		$line .= str_replace(' ', '&nbsp;', $regs[2]);
 	    }
