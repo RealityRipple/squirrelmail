@@ -1,9 +1,10 @@
 Version 1.0.2 -- DEVELOPMENT
 ----------------------------
+- Added $fix_form_endlines option in strings.php to workaround 
+    Konq/PHP4.0.3 problems
 - Select All works through the search
 - Better escaped string handling from POST variables
-- Fixed bug that set all wrong.
-- Many more code cleanups and optomizations
+- Many more code cleanups and optimizations
 - Updated Sweedish translation
 - Updated Finnish translation
 

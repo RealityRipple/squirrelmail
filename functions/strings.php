@@ -3,6 +3,7 @@
    /* $Id$ */
 
    $strings_php = true;
+   $fix_form_endlines = false;
    
    // Remove all slashes for form values
    if (get_magic_quotes_gpc())
@@ -11,33 +12,61 @@
        if ($REQUEST_METHOD == "POST")
        {
            global $HTTP_POST_VARS;
-	   RemoveSlashes($HTTP_POST_VARS);
+            RemoveSlashes($HTTP_POST_VARS);
        }
        elseif ($REQUEST_METHOD == "GET")
        {
            global $HTTP_GET_VARS;
-	   RemoveSlashes($HTTP_GET_VARS);
+            RemoveSlashes($HTTP_GET_VARS);
        }
    }
    
+   if (isset($fix_form_endlines) && $fix_form_endlines) {
+      if ($REQUEST_METHOD == "POST") {
+         TrimArray($HTTP_POST_VARS);
+      } else {
+         TrimArray($HTTP_GET_VARS);
+      }
+   }
+
+   //**************************************************************************
+   // Trims every element in the array and returns a  new array.  
+   //**************************************************************************
+   function TrimArray(&$array) {
+      foreach ($array as $k => $v) {
+         global $$k;
+         if (is_array($$k)) {
+            foreach ($$k as $k2 => $v2) {
+               $newArray[trim($k2)] = trim($v2);
+            }
+            $$k = $newArray;
+         } else {
+            $$k = trim($v);
+         }
+      }
+   }
    
+   
+   //**************************************************************************
+   // Removes slashes from every element in the array
+   //**************************************************************************
    function RemoveSlashes($array)
    {
        foreach ($array as $k => $v)
        {
            global $$k;
-	   if (is_array($$k))
-	   {
-	       foreach ($$k as $k2 => $v2)
-	       {
-	           $newArray[stripslashes($k2)] = stripslashes($v2);
-	       }
-	       $$k = $newArray;
-	   }
-	   else
-	   {
-	       $$k = stripslashes($v);
-	   }
+            if (is_array($$k))
+            {
+                foreach ($$k as $k2 => $v2)
+                {
+                    $newArray[stripslashes($k2)] = stripslashes($v2);
+                }
+                $$k = $newArray;
+            }
+            else
+            {
+                $$k = stripslashes($v);
+            }
        }
    }
 
@@ -102,11 +131,11 @@
    function sqWordWrap(&$line, $wrap) {
       ereg("^([\t >]*)([^\t >].*)?$", $line, $regs);
       $beginning_spaces = $regs[1];
-	  if (isset($regs[2])) {
+           if (isset($regs[2])) {
          $words = explode(' ', $regs[2]);
       } else {
          $words = "";
-	  }
+           }
 
       $i = 0;
       $line = $beginning_spaces;
@@ -115,18 +144,18 @@
          // Force one word to be on a line (minimum)
          $line .= $words[$i];
          $line_len = strlen($beginning_spaces) + strlen($words[$i]) + 2;
-	 if (isset($words[$i + 1]))
-	     $line_len += strlen($words[$i + 1]);
+          if (isset($words[$i + 1]))
+              $line_len += strlen($words[$i + 1]);
          $i ++;
             
          // Add more words (as long as they fit)
          while ($line_len < $wrap && $i < count($words)) {
             $line .= ' ' . $words[$i];
             $i++;
-	    if (isset($words[$i]))
+             if (isset($words[$i]))
                 $line_len += strlen($words[$i]) + 1;
-	    else
-	        $line_len += 1;
+             else
+                 $line_len += 1;
          }
             
          // Skip spaces if they are the first thing on a continued line
@@ -152,7 +181,7 @@
        {
            ereg("^([\t >]*)([^\t >].*)?$", $lines[$i], $regs);
            $CurrentSpaces = $regs[1];
-	   if (isset($regs[2]))
+            if (isset($regs[2]))
                $CurrentRest = $regs[2];
            if ($i == 0)
            {
@@ -186,9 +215,9 @@
       $text = str_replace(',', ';', $text);
       $array = explode(';', $text);
       for ($i = 0; $i < count ($array); $i++) {
-			    $array[$i] = eregi_replace ("^.*[<]", '', $array[$i]);
-			    $array[$i] = eregi_replace ("[>].*$", '', $array[$i]);
-		  }
+                               $array[$i] = eregi_replace ("^.*[<]", '', $array[$i]);
+                               $array[$i] = eregi_replace ("[>].*$", '', $array[$i]);
+                    }
       return $array;
    }
 
@@ -205,7 +234,7 @@
 
    function translateText(&$body, $wrap_at, $charset) {
       global $where, $what; // from searching
-		global $url_parser_php;
+                  global $url_parser_php;
 
       if (!isset($url_parser_php)) {
          include '../functions/url_parser.php';
@@ -330,7 +359,7 @@
       $pad = base64_decode($epad);
       $encrypted = '';
       for ($i = 0; $i < strlen ($string); $i++) {
-	 $encrypted .= chr (ord($string[$i]) ^ ord($pad[$i]));
+          $encrypted .= chr (ord($string[$i]) ^ ord($pad[$i]));
       }
 
       return base64_encode($encrypted);
@@ -341,7 +370,7 @@
       $encrypted = base64_decode ($string);
       $decrypted = '';
       for ($i = 0; $i < strlen ($encrypted); $i++) {
-	 $decrypted .= chr (ord($encrypted[$i]) ^ ord($pad[$i]));
+          $decrypted .= chr (ord($encrypted[$i]) ^ ord($pad[$i]));
       }
 
       return $decrypted;
@@ -414,12 +443,12 @@
       // getrusage
       if (function_exists('getrusage')) {
          $dat = getrusage();
-	 $Str = '';
-	 foreach ($dat as $k => $v)
-	 {
-	     $Str .= $k . $v;
-	 }
-	 sq_mt_seed(md5($Str));
+          $Str = '';
+          foreach ($dat as $k => $v)
+          {
+              $Str .= $k . $v;
+          }
+          sq_mt_seed(md5($Str));
       }
       
       // Apache-specific
@@ -433,7 +462,7 @@
 
       $pad = '';
       for ($i = 0; $i < $length; $i++) {
-	 $pad .= chr(mt_rand(0,255));
+          $pad .= chr(mt_rand(0,255));
       }
 
       return base64_encode($pad);
@@ -454,11 +483,11 @@
       $vminor  = strval($regs[2]);
       $vrel    = $regs[3];
       if($vrel[0] == ".") 
-	 $vrel = strval(substr($vrel, 1));
+          $vrel = strval(substr($vrel, 1));
       if($vrel[0] == 'b' || $vrel[0] == 'B') 
-	 $vrel = - strval(substr($vrel, 1));
+          $vrel = - strval(substr($vrel, 1));
       if($vrel[0] == 'r' || $vrel[0] == 'R') 
-	 $vrel = - strval(substr($vrel, 2))/10;
+          $vrel = - strval(substr($vrel, 2))/10;
       
       // Compare major version
       if($vmajor < $major) return false;
@@ -471,13 +500,13 @@
       // Major and minor is the same as the required one.
       // Compare release
       if($vrel >= 0 && $release >= 0) {       // Neither are beta
-	 if($vrel < $release) return false;
+          if($vrel < $release) return false;
       } else if($vrel >= 0 && $release < 0){  // This is not beta, required is beta
-	 return true;
+          return true;
       } else if($vrel < 0 && $release >= 0){  // This is beta, require not beta
-	 return false;
+          return false;
       } else {                                // Both are beta
-	 if($vrel > $release) return false;
+          if($vrel > $release) return false;
       }
       
       return true;
@@ -529,7 +558,7 @@
           
       sq_mt_randomize(); // Initialize the random number generator
     
-	  $String = "";
+      $String = "";
       while (strlen($String) < $size) {
          $String .= $chars[mt_rand(0, strlen($chars))];
       }
