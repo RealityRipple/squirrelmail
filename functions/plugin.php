@@ -37,7 +37,7 @@
          foreach ($squirrelmail_plugin_hooks[$name] as $id => $function) {
             // Add something to set correct gettext domain for plugin
             if (function_exists($function)) {
-                $function(&$Data);
+                $function($Data);
             }
          }
       }
