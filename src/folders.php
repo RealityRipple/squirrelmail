@@ -1,14 +1,5 @@
 <HTML><BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EE" VLINK="#0000EE" ALINK="#0000EE">
 <?
-   function getBoxForCreate($mailbox) {
-      if (substr($mailbox, 0, 6) == "INBOX.")
-         $box = substr($mailbox, 6, strlen($mailbox));
-      else
-         $box = $mailbox;
-
-      return $box;
-   }
-
    include("../config/config.php");
    include("../functions/strings.php");
    include("../functions/page_header.php");

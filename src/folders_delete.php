@@ -16,12 +16,39 @@
    $read = fgets($imapConnection, 1024);
    echo $read;
 
-   if ($subfolder == "INBOX")
-      fputs($imapConnection, "1 create \"user.$username.$folder_name\"\n");
-   else
-      fputs($imapConnection, "1 create \"user.$username.$subfolder.$folder_name\"\n");
+   if (strpos($read, "NO")) {
+      error_username_password_incorrect();
+      exit;
+   }
 
-   fputs($imapConnection, "1 logout\n");
+   // switch to the mailbox, and get the number of messages in it.
+   selectMailbox($imapConnection, $mailbox, $numMessages);
+
+   // Marks the selected messages ad 'Deleted'
+   $j = 0;
+   $i = 0;
+
+   while ($j < count($msg)) {
+      if ($msg[$i]) {
+         /** check if they would like to move it to the trash folder or not */
+         if ($move_to_trash == true) {
+            createFolder($imapConnection, "user.$username.$folder");
+            $success = copyMessages($imapConnection, $msg[$i], $msg[$i], $trash_folder);
+            if ($success == true)
+               setMessageFlag($imapConnection, $msg[$i], $msg[$i], "Deleted");
+         } else {
+            setMessageFlag($imapConnection, $msg[$i], "Deleted");
+         }
+         $j++;
+      }
+      $i++;
+   }
+
+   if ($auto_expunge == true)
+      expungeBox($imapConnection, $mailbox, $numMessages);
+
+   // Log out this session
+   fputs($imapConnection, "1 logout");
 
    echo "<BR><BR><A HREF=\"folders.php\">Return</A>";
 ?>
