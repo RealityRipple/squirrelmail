@@ -27,23 +27,9 @@
   global $data_dir, $address_book_global_filename;
   $address_book_global_filename = "$data_dir/global.abook";
 
-  Include backends here.
 */
 
-require_once(SM_PATH . 'functions/abook_local_file.php');
-require_once(SM_PATH . 'functions/abook_ldap_server.php');
-
 global $addrbook_dsn;
-
-/* Use this if you wanna have a global address book */
-if (isset($address_book_global_filename)) {
-    include_once(SM_PATH . 'functions/abook_global_file.php');
-}
-
-/* Only load database backend if database is configured */
-if(isset($addrbook_dsn) && !empty($addrbook_dsn)) {
-  include_once(SM_PATH . 'functions/abook_database.php');
-}
 
 /*
    Create and initialize an addressbook object.
@@ -544,5 +530,25 @@ function alistcmp($a,$b) {
     }
     return (strtolower($a['name']) > strtolower($b['name'])) ? 1 : -1;
 }
+
+
+/*
+  PHP 5 requires that the class be made first, which seems rather
+  logical, and should have been the way it was generated the first time.
+*/
+
+require_once(SM_PATH . 'functions/abook_local_file.php');
+require_once(SM_PATH . 'functions/abook_ldap_server.php');
+
+/* Use this if you wanna have a global address book */
+if (isset($address_book_global_filename)) {
+    include_once(SM_PATH . 'functions/abook_global_file.php');
+}
+
+/* Only load database backend if database is configured */
+if(isset($addrbook_dsn) && !empty($addrbook_dsn)) {
+  include_once(SM_PATH . 'functions/abook_database.php');
+}
+
 
 ?>
