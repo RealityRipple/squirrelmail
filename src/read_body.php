@@ -205,6 +205,8 @@
    $echo_more = _("more");
    $echo_less = _("less");
 
+   if (!isset($show_more_cc)) $show_more_cc = false;
+
    /** FORMAT THE TO STRING **/
    $i = 0;
    $to_string = "";
