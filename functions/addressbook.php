@@ -393,7 +393,7 @@
 	 }
 
 	 if(eregi('[\\: \\|\\#"\\!]', $userdata['nickname'])) {
-	    $this->error = _("Nickname contain illegal characters");
+	    $this->error = _("Nickname contains illegal characters");
 	    return false;
 	 }
 
