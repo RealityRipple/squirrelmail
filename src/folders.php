@@ -108,7 +108,7 @@ echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>".
      _("Rename a Folder").
      "</B></TD></TR>".
      "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
-if ($count_special_folders < count($boxes)) {
+if (count($boxes)) {
     echo "<FORM ACTION=\"folders_rename_getname.php\" METHOD=\"POST\">\n".
          "<TT><SELECT NAME=old>\n";
     for ($i = 0; $i < count($boxes); $i++) {
