@@ -39,6 +39,8 @@ Version 1.4.0 CVS
     Naveed Saqib <naveed.saqib at biznas.com>.
   - Update required PHP version in documentation to 4.0.6.
   - Fixed delete_move_next plugin to remember where it moved mail to.
+  - Fixed compose to remember attachments.
+  - Fixed possible XSS in compose when replying to malicious sources.
 
 Version 1.4.0 RC 2a
 -------------------
