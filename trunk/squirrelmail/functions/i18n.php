@@ -8,6 +8,7 @@
  **
  ** Internally iso-8859-1 is used as character set. Other characters
  ** are encoded using Unicode entities according to HTML 4.0.
+ **
  **/
 
    $i18n_php = true;
@@ -22,6 +23,8 @@
       if (ereg("iso-8859-(.*)", $charset, $res)) {
          if ($res[1] == "1")
             return charset_decode_iso_8859_1 ($string);
+         if ($res[1] == "7")
+            return charset_decode_iso_8859_7 ($string);
          else if ($res[1] == "15")
             return charset_decode_iso_8859_15 ($string);
          else
@@ -43,6 +46,45 @@
          $string = ereg_replace ("\370", "&#248;", $string);
 
       return ($string);
+   }
+
+   // iso-8859-1 is Greek.
+   function charset_decode_iso_8859_1 ($string) {
+      // Could not find Unicode equivalent of 0xA1 and 0xA2
+      // 0xA4, 0xA5, 0xAA, 0xAE, 0xD2 and 0xFF should not be used
+      $string = strtr($string, "\241\242\244\245\252\256\322\377", 
+                      "????????");
+
+      // Horizontal bar (parentheki pavla)
+      while (ereg("\257", $string))
+         $string = ereg_replace ("\257", "&#8213;", $string);
+
+      // ISO-8859-7 characters from 11/04 (0xB4) to 11/06 (0xB6)
+      // These are Unicode 900-902
+      while (ereg("([\264-\266])", $string, $res)) {
+         $replace = "&#.".ord($res[1])+720.";";
+         ereg_repleace("[\264-\266]", $replace, $string);
+      }
+
+      // 11/07 (0xB7) Middle dot is the same in iso-8859-1
+
+      // ISO-8859-7 characters from 11/08 (0xB8) to 11/10 (0xBA)
+      // These are Unicode 900-902
+      while (ereg("([\270-\272])", $string, $res)) {
+         $replace = "&#.".ord($res[1])+720.";";
+         ereg_repleace("[\270-\272]", $replace, $string);
+      }
+
+      // 11/11 (0xBB) Right angle quotation mark is the same as in
+      // iso-8859-1
+
+      // And now the rest of the charset
+      while (ereg("([\273-\376])", $string, $res)) {
+         $replace = "&#.".ord($res[1])+720.";";
+         ereg_repleace("[\273-\376]", $replace, $string);
+      }
+
+      return $string;
    }
 
    // iso-8859-15 is Latin 15 and has very much the same use as Latin 1
@@ -76,7 +118,7 @@
       return ($string);
    }
 
-   // Remove al 8 bit characters from all other ISO-8859 character sets
+   // Remove all 8 bit characters from all other ISO-8859 character sets
    function charset_decode_iso_8859_default ($string) {
       return (strtr($string, "\240\241\242\243\244\245\246\247".
                     "\250\251\252\253\254\255\256\257".
