@@ -16,6 +16,9 @@
  * If it throws errors you need to adjust your config.      *
  ************************************************************/
 
+// This script could really use some restructuring as it has grown quite rapidly
+// but is not very 'clean'. Feel free to get some structure into this thing.
+
 function do_err($str, $exit = TRUE) {
     global $IND;
     echo '<p>'.$IND.'<font color="red"><b>ERROR:</b></font> ' .$str. "</p>\n";
@@ -217,8 +220,12 @@ if($useSendmail) {
     }
 }
 
+/**
+ * Check the IMAP server
+ */
 echo "Checking IMAP service....<br />\n";
 
+/** Can we open a connection? */
 $stream = fsockopen( ($use_imap_tls?'tls://':'').$imapServerAddress, $imapPort,
                        $errorNumber, $errorString);
 if(!$stream) {
@@ -227,17 +234,35 @@ if(!$stream) {
     htmlspecialchars($errorString));
 }
 
+/** Is the first response 'OK'? */
 $imapline = fgets($stream, 1024);
 if(substr($imapline, 0,4) != '* OK') {
    do_err('Error connecting to IMAP server. Server error: '.
        htmlspecialchars($imapline));
 }
 
-fputs($stream, '001 LOGOUT');
-fclose($stream);
-
-echo $IND . 'IMAP server OK (<tt><small>'.
+echo $IND . 'IMAP server ready (<tt><small>'.
     htmlspecialchars(trim($imapline))."</small></tt>)<br />\n";
+
+/** Check capabilities */
+fputs($stream, "A001 CAPABILITY\r\n");
+$capline = fgets($stream, 1024);
+
+echo $IND . 'Capabilities: <tt>'.htmlspecialchars($capline)."</tt><br />\n";
+
+if($imap_auth_mech == 'login' && stristr($capline, 'LOGINDISABLED') !== FALSE) {
+    do_err('Your server doesn\'t allow plaintext logins. '.
+        'Try enabling another authentication mechanism like CRAM-MD5, DIGEST-MD5 or TLS-encryption '.
+        'in the SquirrelMail configuration.', FALSE);
+}
+if($use_imap_tls && stristr($capline, 'STARTTLS') === FALSE) {
+    do_err('You have enabled TLS encryption in the config, but the server does not '.
+        'report STARTTLS capability. TLS is probably not supported.', FALSE);
+}
+
+/** OK, close connection */
+fputs($stream, "A002 LOGOUT\r\n");
+fclose($stream);
 
 echo "Checking internationalization (i18n) settings...<br />\n";
 echo "$IND gettext - ";
