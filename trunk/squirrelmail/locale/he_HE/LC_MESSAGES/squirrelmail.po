@@ -3857,11 +3857,11 @@ msgstr "כותרת:"
 
 #: squirrelmail/plugins/calendar/event_create.php:61
 msgid "Set Event"
-msgstr "צור מאורע"
+msgstr "צור ארוע"
 
 #: squirrelmail/plugins/calendar/event_create.php:111
 msgid "Event Has been added!"
-msgstr "מאורע הוסף!"
+msgstr "ארוע הוסף!"
 
 #: squirrelmail/plugins/calendar/event_create.php:114
 #: squirrelmail/plugins/calendar/event_delete.php:34
@@ -3879,11 +3879,11 @@ msgstr "תצוגת יום"
 
 #: squirrelmail/plugins/calendar/event_delete.php:31
 msgid "Do you really want to delete this event?"
-msgstr "האם ברצונך למחוק מאורע זה?"
+msgstr "האם ברצונך למחוק ארוע זה?"
 
 #: squirrelmail/plugins/calendar/event_delete.php:89
 msgid "Event deleted!"
-msgstr "מאורע נמחק!"
+msgstr "ארוע נמחק!"
 
 #: squirrelmail/plugins/calendar/event_delete.php:97
 msgid "Nothing to delete!"
@@ -3891,11 +3891,11 @@ msgstr "אין מה למחוק!"
 
 #: squirrelmail/plugins/calendar/event_edit.php:79
 msgid "Update Event"
-msgstr "עדכן מאורע"
+msgstr "עדכן ארוע"
 
 #: squirrelmail/plugins/calendar/event_edit.php:91
 msgid "Do you really want to change this event from:"
-msgstr "האם ברצונך לשנות מאורע זה מ:"
+msgstr "האם ברצונך לשנות ארוע זה מ:"
 
 #: squirrelmail/plugins/calendar/event_edit.php:104
 msgid "to:"
@@ -3903,7 +3903,7 @@ msgstr "ל:"
 
 #: squirrelmail/plugins/calendar/event_edit.php:187
 msgid "Event updated!"
-msgstr "מאורע עודכן!"
+msgstr "ארוע עודכן!"
 
 #: squirrelmail/plugins/calendar/functions.php:21
 msgid "Month View"

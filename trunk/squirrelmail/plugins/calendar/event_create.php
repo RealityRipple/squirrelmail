@@ -19,6 +19,7 @@ require_once('../functions/date.php');
 require_once('../config/config.php');
 require_once('../functions/page_header.php');
 require_once('../src/load_prefs.php');
+require_once('../functions/html.php');
 
 //main form to gather event info
 function show_event_form() {
@@ -28,8 +29,9 @@ function show_event_form() {
          "      <INPUT TYPE=hidden NAME=\"year\" VALUE=\"$year\">\n".
          "      <INPUT TYPE=hidden NAME=\"month\" VALUE=\"$month\">\n".
          "      <INPUT TYPE=hidden NAME=\"day\" VALUE=\"$day\">\n".
-         "      <TR><TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>" . _("Start time:") . "</TD>\n".
-         "      <TD BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n".
+         html_tag( 'tr' ) .
+         html_tag( 'td', _("Start time:"), 'right', $color[4] ) . "\n" .
+         html_tag( 'td', '', 'left', $color[4] ) . "\n" .
          "      <SELECT NAME=\"event_hour\">\n";
     select_option_hour($hour);
     echo "      </SELECT>\n" .
@@ -37,28 +39,37 @@ function show_event_form() {
          "      <SELECT NAME=\"event_minute\">\n";
     select_option_minute("00");
     echo "      </SELECT>\n".
-         "      </TD></TR>\n".
-         "      <TR><TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>" . _("Length:") . "</TD>\n".
-         "      <TD BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n".
+         "      </td></tr>\n".
+         html_tag( 'tr' ) .
+         html_tag( 'td', _("Length:"), 'right', $color[4] ) . "\n" .
+         html_tag( 'td', '', 'left', $color[4] ) . "\n" .
          "      <SELECT NAME=\"event_length\">\n";
     select_option_length("0");
     echo "      </SELECT>\n".
-         "      </TD></TR>\n".
-         "      <TR><TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>" . _("Priority:") . "</TD>\n".
-         "      <TD BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n".
+         "      </td></tr>\n".
+         html_tag( 'tr' ) .
+         html_tag( 'td', _("Priority:"), 'right', $color[4] ) . "\n" .
+         html_tag( 'td', '', 'left', $color[4] ) . "\n" .
          "      <SELECT NAME=\"event_priority\">\n";
     select_option_priority("0");
     echo "      </SELECT>\n".
-         "      </TD></TR>\n".
-         "      <TR><TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>" . _("Title:") . "</TD>\n".
-         "      <TD BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n".
+         "      </td></tr>\n".
+         html_tag( 'tr' ) .
+         html_tag( 'td', _("Title:"), 'right', $color[4] ) . "\n" .
+         html_tag( 'td', '', 'left', $color[4] ) . "\n" .
          "      <INPUT TYPE=text NAME=\"event_title\" VALUE=\"\" SIZE=30 MAXLENGTH=50><BR>\n".
-         "      </TD></TR>\n".
-         "      <TR><TD BGCOLOR=\"$color[4]\" ALIGN=LEFT COLSPAN=2>\n".
-         "      <TEXTAREA NAME=\"event_text\" ROWS=5 COLS=\"$editor_size\" WRAP=HARD></TEXTAREA>\n".
-         "      </TD></TR>\n".
-         "      <TR><TD ALIGN=LEFT BGCOLOR=\"$color[4]\" COLSPAN=2><INPUT TYPE=SUBMIT NAME=send VALUE=\"" .
-         _("Set Event") . "\"></TD></TR>\n";
+         "      </td></tr>\n".
+         html_tag( 'tr',
+             html_tag( 'td',
+                 "<TEXTAREA NAME=\"event_text\" ROWS=5 COLS=\"$editor_size\" WRAP=HARD></TEXTAREA>" ,
+             'left', $color[4], 'colspan="2"' )
+         ) ."\n" .
+         html_tag( 'tr',
+             html_tag( 'td',
+                 "<INPUT TYPE=SUBMIT NAME=send VALUE=\"" .
+                 _("Set Event") . "\">" ,
+             'left', $color[4], 'colspan="2"' )
+         ) ."\n";
     echo "</FORM>\n";
 }
 
@@ -83,12 +94,12 @@ displayPageHeader($color, 'None');
 //load calendar menu
 calendar_header();
 
-
-echo "<TR BGCOLOR=\"$color[0]\"><TD>" .
-     "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">" .
-     '<tr><td COLSPAN=2>' .
-     date_intl( 'l, F d Y', mktime(0, 0, 0, $month, $day, $year)) .
-     '</td></tr>';
+echo html_tag( 'tr', '', '', $color[0] ) .
+           html_tag( 'td', '', 'left' ) .
+               html_tag( 'table', '', '', $color[0], 'width="100%" border="0" cellpadding="2" cellspacing="1"' ) .
+                   html_tag( 'tr',
+                       html_tag( 'td', date_intl( 'l, F d Y', mktime(0, 0, 0, $month, $day, $year)), 'left', '', 'colspan="2"' )
+                   );
 //if form has not been filled in
 if(!isset($event_text)){
     show_event_form();
@@ -106,21 +117,32 @@ if(!isset($event_text)){
            'reminder' => '' );
     //save
     writecalendardata();
-    echo "  <TABLE BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">\n".
-         "    <TR><TH COLSPAN=2 BGCOLOR=\"$color[4]\">\n".
-         _("Event Has been added!") . "<br>\n".
-         "    <TR><TD ALIGN=RIGHT BGCOLOR=\"$color[4]\">" . _("Date:") . "</TD>\n".
-         "    <TD ALIGN=LEFT BGCOLOR=\"$color[4]\">$month/$day/$year</TD></TR>\n".
-         "    <TR><TD ALIGN=RIGHT BGCOLOR=\"$color[4]\">" . _("Time:") . "</TD>\n".
-         "    <TD ALIGN=LEFT BGCOLOR=\"$color[4]\">$event_hour:$event_minute</TD></TR>\n".
-         "    <TR><TD ALIGN=RIGHT BGCOLOR=\"$color[4]\">" . _("Title:") . "</TD>\n".
-         "    <TD ALIGN=LEFT BGCOLOR=\"$color[4]\">$event_title</TD></TR>\n".
-         "    <TR><TD ALIGN=RIGHT BGCOLOR=\"$color[4]\">" . _("Message:") . "</TD>\n".
-         "    <TD ALIGN=LEFT BGCOLOR=\"$color[4]\">$event_text</TD></TR>\n".
-         "    <TR><TD COLSPAN=2 BGCOLOR=\"$color[4]\">\n".
-         "<A HREF=\"day.php?year=$year&month=$month&day=$day\">" . _("Day View") . "</A>\n".
-         "    </TD></TR>\n".
-         "  </TABLE>\n";
+    echo html_tag( 'table',
+                html_tag( 'tr',
+                    html_tag( 'th', _("Event Has been added!") . "<br>\n", '', $color[4], 'colspan="2"' )
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'td', _("Date:"), 'right', $color[4] ) . "\n" .
+                    html_tag( 'td', $month .'/'.$day.'/'.$year, 'left', $color[4] ) . "\n"
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'td', _("Time:"), 'right', $color[4] ) . "\n" .
+                    html_tag( 'td', $event_hour.':'.$event_minute, 'left', $color[4] ) . "\n"
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'td', _("Title:"), 'right', $color[4] ) . "\n" .
+                    html_tag( 'td', $event_title, 'left', $color[4] ) . "\n"
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'td', _("Message:"), 'right', $color[4] ) . "\n" .
+                    html_tag( 'td', $event_text, 'left', $color[4] ) . "\n"
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'td',
+                        "<a href=\"day.php?year=$year&month=$month&day=$day\">" . _("Day View") . "</a>\n" ,
+                    'left', $color[4], 'colspan="2"' ) . "\n"
+                ) ,
+            '', $color[0], 'width="100%" border="0" cellpadding="2" cellspacing="1"' ) ."\n";
 }
 
 ?>

@@ -29,6 +29,7 @@ require_once('../src/validate.php');
 require_once('../functions/page_header.php');
 require_once('../functions/imap.php');
 require_once('../src/load_prefs.php');
+require_once('../functions/html.php');
 
 global $AllowSpamFilters;
 
@@ -53,14 +54,19 @@ $filters_spam_folder = getPref($data_dir, $username, 'filters_spam_folder');
 $filters_spam_scan = getPref($data_dir, $username, 'filters_spam_scan');
 $filters = load_filters();
 
-echo "<table width=95% align=center border=0 cellpadding=2 cellspacing=0 bgcolor=\"$color[0]\">".
-        '<tr><th align=center>' . _("Spam Filtering") . '</th></tr>'.
-    '</table>';
+echo html_tag( 'table',
+            html_tag( 'tr',
+                html_tag( 'th', _("Spam Filtering"), 'center' )
+            ) ,
+        'center', $color[0], 'width="95%" border="0" cellpadding="2" cellspacing="0"' );
 
 if ($SpamFilters_YourHop == ' ') {
-    echo '<BR><center><b>' .
-        _("WARNING! Tell your admin to set the SpamFilters_YourHop variable") .
-        '</b></center><BR>';
+    echo '<br>' .
+        html_tag( 'div', '<b>' .
+            _("WARNING! Tell your admin to set the SpamFilters_YourHop variable") .
+            '</b>' ,
+        'center' ) .
+        '<br>';
 }
 
 
@@ -79,10 +85,11 @@ if (isset($action) && $action == 'spam') {
 
     echo '<form method=post action="spamoptions.php">'.
         '<center>'.
-        '<table width=85% cellpadding=2 cellspacing=0 border=0>'.
-            '<tr>'.
-            '<th align=right nowrap>' . _("Move spam to:") . '</th>'.
-            '<td><select name="filters_spam_folder_set">';
+        html_tag( 'table', '', '', '', 'width="85%" border="0" cellpadding="2" cellspacing="0"' ) .
+            html_tag( 'tr' ) .
+                html_tag( 'th', _("Move spam to:"), 'right', '', 'nowrap' ) .
+                html_tag( 'td', '', 'left' ) .
+                    '<select name="filters_spam_folder_set">';
 
     for ($i = 0; $i < count($boxes); $i++) {
         if (! in_array('noselect', $boxes[$i]['flags'])) {
@@ -98,12 +105,16 @@ if (isset($action) && $action == 'spam') {
     echo    '</select>'.
         '</td>'.
         '</tr>'.
-        '<tr><td></td><td>' .
-        _("Moving spam directly to the trash may not be a good idea at first, since messages from friends and mailing lists might accidentally be marked as spam. Whatever folder you set this to, make sure that it gets cleaned out periodically, so that you don't have an excessively large mailbox hanging around.") .
-        '</td></tr>'.
-        '<tr>'.
-            '<th align=right nowrap>' . _("What to Scan:") . '</th>'.
-            '<td><select name="filters_spam_scan_set">'.
+        html_tag( 'tr',
+            html_tag( 'td', '&nbsp;' ) .
+            html_tag( 'td',
+                _("Moving spam directly to the trash may not be a good idea at first, since messages from friends and mailing lists might accidentally be marked as spam. Whatever folder you set this to, make sure that it gets cleaned out periodically, so that you don't have an excessively large mailbox hanging around.") ,
+            'left' )
+        ) .
+        html_tag( 'tr' ) .
+            html_tag( 'th', _("What to Scan:"), 'right', '', 'nowrap' ) .
+            html_tag( 'td' ) .
+            '<select name="filters_spam_scan_set">'.
             '<option value=""';
     if ($filters_spam_scan == '') {
         echo ' SELECTED';
@@ -117,16 +128,20 @@ if (isset($action) && $action == 'spam') {
             '</select>'.
         '</td>'.
     '</tr>'.
-    '<tr>'.
-        '<td></td><td>'.
-        _("The more messages you scan, the longer it takes.  I would suggest that you scan only new messages.  If you make a change to your filters, I would set it to scan all messages, then go view my INBOX, then come back and set it to scan only new messages.  That way, your new spam filters will be applied and you'll scan even the spam you read with the new filters.").
-        '</td></tr>';
+    html_tag( 'tr',
+          html_tag( 'td', '&nbsp;' ) .
+          html_tag( 'td',
+              _("The more messages you scan, the longer it takes.  I would suggest that you scan only new messages.  If you make a change to your filters, I would set it to scan all messages, then go view my INBOX, then come back and set it to scan only new messages.  That way, your new spam filters will be applied and you'll scan even the spam you read with the new filters.") ,
+          'left' )
+      );
 
     $spam_filters = load_spam_filters();
 
     foreach ($spam_filters as $Key => $Value) {
-        echo "<tr><th align=right nowrap>$Key</th>\n" .
-            '<td><input type=checkbox name="' .
+        echo html_tag( 'tr' ) .
+                   html_tag( 'th', $Key, 'right', '', 'nowrap' ) ."\n" .
+                   html_tag( 'td' ) .
+            '<input type=checkbox name="' .
             $spam_filters[$Key]['prefname'] .
             '_set"';
         if ($spam_filters[$Key]['enabled']) {
@@ -142,11 +157,16 @@ if (isset($action) && $action == 'spam') {
         if ($spam_filters[$Key]['link']) {
             echo '</a>';
         }
-        echo '</td></tr><tr><td></td><td>' .
-            $spam_filters[$Key]['comment'] .
-            "</td></tr>\n";
+        echo '</td></tr>' .
+        html_tag( 'tr',
+            html_tag( 'td', '&nbsp;' ) .
+            html_tag( 'td', $spam_filters[$Key]['comment'], 'left' )
+        ) . "\n";
+
     }
-    echo '<tr><td colspan=2 align=center><input type=submit name="spam_submit" value="' . _("Save") . '"></td></tr>'.
+    echo html_tag( 'tr',
+        html_tag( 'td', '<input type=submit name="spam_submit" value="' . _("Save") . '">', 'center', '', 'colspan="2"' )
+    ) . "\n" .
         '</table>'.
         '</center>'.
         '</form>';
@@ -155,7 +175,8 @@ if (isset($action) && $action == 'spam') {
 
 if (! isset($action) || $action != 'spam') {
 
-    echo '<p align=center>[<a href="spamoptions.php?action=spam">' . _("Edit") . '</a>]' .
+    echo html_tag( 'p', '', 'center' ) .
+         '[<a href="spamoptions.php?action=spam">' . _("Edit") . '</a>]' .
          ' - [<a href="../../src/options.php">' . _("Done") . '</a>]</center><br><br>';
     printf( _("Spam is sent to <b>%s</b>"), ($filters_spam_folder?$filters_spam_folder:_("[<i>not set yet</i>]") ) );
     echo '<br>';
@@ -166,7 +187,8 @@ if (! isset($action) || $action != 'spam') {
     $spam_filters = load_spam_filters();
 
     foreach ($spam_filters as $Key => $Value) {
-        echo '<tr><th align=center>';
+        echo html_tag( 'tr' ) .
+                    html_tag( 'th', '', 'center' );
 
         if ($spam_filters[$Key]['enabled']) {
             echo _("ON");
@@ -174,7 +196,9 @@ if (! isset($action) || $action != 'spam') {
             echo _("OFF");
         }
 
-        echo '</th><td>&nbsp;-&nbsp;</td><td>';
+        echo '</th>' . 
+               html_tag( 'td', '&nbsp;-&nbsp;', 'left' ) .
+               html_tag( 'td', '', 'left' );
 
         if ($spam_filters[$Key]['link']) {
         echo '<a href="' .

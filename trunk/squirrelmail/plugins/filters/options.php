@@ -65,36 +65,41 @@
    $filters_user_scan = getPref($data_dir, $username, 'filters_user_scan');
 
    echo '<br>' .
-        '<table width=95% align=center border=0 cellpadding=2 cellspacing=0>'.
-        "<tr><td bgcolor=\"$color[0]\">".
-        '<center><b>' . _("Options") . ' -  ' . _("Message Filtering") . '</b></center>'.
-        '</td></tr></table>'.
+        html_tag( 'table',
+            html_tag( 'tr',
+                html_tag( 'td',
+                    '<center><b>' . _("Options") . ' -  ' . _("Message Filtering") . '</b></center>' ,
+                'left', $color[0] )
+            ) ,
+         'center', '', 'width="95%" border="0" cellpadding="2" cellspacing="0"' ) .
 
         '<br><form method=post action="options.php">'.
         '<center>'.
-        '<table cellpadding=2 cellspacing=0 border=0>'.
-        '<tr>'.
-            '<th align=right nowrap>' . _("What to Scan:") . '</th>'.
-            '<td><select name="filters_user_scan_set">'.
+        html_tag( 'table', '', '', '', 'border="0" cellpadding="2" cellspacing="0"' )
+            html_tag( 'tr' ) .
+                html_tag( 'th', _("What to Scan:"), 'right', '', 'nowrap' ) .
+                html_tag( 'td', '', 'left' ) .
+            '<select name="filters_user_scan_set">'.
             '<option value=""';
     if ($filters_user_scan == '') {
-        echo ' SELECTED';
+        echo ' selected';
     }
     echo '>' . _("All messages") . '</option>'.
             '<option value="new"';
     if ($filters_user_scan == 'new') {
-        echo ' SELECTED';
+        echo ' selected';
     }
     echo '>' . _("Only unread messages") . '</option>' .
             '</select>'.
         '</td>'.
-        '<td><input type=submit name="user_submit" value="' . _("Save") . '"></td></tr>'.
+        html_tag( 'td', '<input type=submit name="user_submit" value="' . _("Save") . '">', 'left' ) .
         '</table>'.
         '</center>'.
         '</form>'.
 
-        '<center>[<a href="options.php?action=add">' . _("New") .
-        '</a>] - [<a href="../../src/options.php">' . _("Done") . '</a>]</center><br>';
+        html_tag( 'div', '[<a href="options.php?action=add">' . _("New") .
+            '</a>] - [<a href="../../src/options.php">' . _("Done") . '</a>]' ,
+        'center' ) . '<br>';
 
     if (isset($action) && ($action == 'add' || $action == 'edit')) {
         $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
@@ -103,12 +108,12 @@
         if ( !isset($theid) ) {
             $theid = count($filters);
         }
-        echo '<center>'.
+        echo html_tag( 'div', '', 'center' ) .
              '<form action="options.php" method=post>'.
-             '<table cellpadding=2 cellspacing=0 border=0>'.
-             '<tr>'.
-                '<td>' . _("Match:") . '</td>'.
-                '<td>'.
+             html_tag( 'table', '', '', '', 'border="0" cellpadding="2" cellspacing="0"' )
+             html_tag( 'tr' ) .
+                html_tag( 'td', _("Match:"), 'left' ) .
+                html_tag( 'td', '', 'left' ) .
                     '<select name=filter_where>';
 
         $L = isset($filters[$theid]['where']);
@@ -134,11 +139,9 @@
         echo         '</select>'.
                 '</td>'.
             '</tr>'.
-            '<tr>'.
-                '<td align=right>'.
-                    _("Contains:").
-                '</td>'.
-                '<td>'.
+            html_tag( 'tr' ) .
+                html_tag( 'td', _("Contains:"), 'right' ) .
+                html_tag( 'td', '', 'left' ) .
                     '<input type=text size=32 name=filter_what value="';
         if (isset($filters[$theid]['what'])) {
             echo $filters[$theid]["what"];
@@ -146,11 +149,9 @@
         echo '">'.
                 '</td>'.
             '</tr>'.
-            '<tr>'.
-                '<td>'.
-                    _("Move to:").
-                '</td>'.
-                '<td>'.
+            html_tag( 'tr' ) .
+                html_tag( 'td', _("Move to:"), 'left' ) .
+                html_tag( 'td', '', 'left' ) .
                     '<tt>'.
                     '<select name=filter_folder>';
 
@@ -173,21 +174,29 @@
             '<input type=submit name=filter_submit value=' . _("Submit") . '>'.
             "<input type=hidden name=theid value=$theid>".
             '</form>'.
-            '</center>';
+            '</div>';
 
     }
 
-	echo '<table border=0 cellpadding=3 cellspacing=0 align=center>';
+	echo html_tag( 'table', '', 'center', '', 'border="0" cellpadding="3" cellspacing="0"' )
 
     for ($i=0; $i < count($filters); $i++) {
 
         $clr = (($i % 2)?$color[0]:$color[9]);
         $fdr = ($folder_prefix)?str_replace($folder_prefix, "", $filters[$i]["folder"]):$filters[$i]["folder"];
         echo "<tr bgcolor=\"$clr\"><td><small>".
-            "[<a href=\"options.php?theid=$i&action=edit\">" . _("Edit") . '</a>]'.
-            '</small></td><td><small>'.
-            "[<a href=\"options.php?theid=$i&action=delete\">" . _("Delete") . '</a>]'.
-            '</small></td><td align=center><small>[';
+        echo html_tag( 'tr', '', $clr ) .
+                   html_tag( 'td',
+                       '<small>' .
+                       "[<a href=\"options.php?theid=$i&action=edit\">" . _("Edit") . '</a>]'.
+                       '</small>' ,
+                   'left' ) .
+                   html_tag( 'td',
+                       '<small>' .
+                       "[<a href=\"options.php?theid=$i&action=delete\">" . _("Delete") . '</a>]'.
+                       '</small>' ,
+                   'left' ) .
+                   html_tag( 'td', '', 'center' ) . '<small>[';
 
         if (isset($filters[$i + 1])) {
             echo "<a href=\"options.php?theid=$i&action=move_down\">" . _("Down") . '</a>';
@@ -198,14 +207,17 @@
         if ($i > 0) {
             echo "<a href=\"options.php?theid=$i&action=move_up\">" . _("Up") . '</a>';
         }
-        echo ']</small></td><td>-</td><td>';
+        echo ']</small></td>'.
+            html_tag( 'td', '-', 'left' ) .
+            html_tag( 'td', '', 'left' );
         printf( _("If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"), _($filters[$i]['where']), $filters[$i]['what'], $fdr );
         echo '</td></tr>';
 
     }
     echo '</table>'.
-        '<table width=80% align=center border=0 cellpadding=2 cellspacing=0">'.
-            '<tr><td>&nbsp</td></tr>'.
-        '</table>';
-
+        html_tag( 'table',
+            html_tag( 'tr',
+                html_tag( 'td', '&nbsp', 'left' )
+            ) ,
+        'center', '', 'width="80%" border="0" cellpadding="2" cellspacing="0"' );
 ?>
