@@ -26,7 +26,6 @@ $base_uri = $regs[1];
 
 session_start();
 is_logged_in();
-checkForPrefs($data_dir, $username);
 
 /*
  * We'll need this to later have a noframes version

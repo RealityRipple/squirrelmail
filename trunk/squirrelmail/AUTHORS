@@ -1,20 +1,20 @@
  Developers:
  -----------
    Paul Joseph Thompson <captbunzo@squirrelmail.org>
-   Peter Hutnick <peter@hutnick.com>
-   Luke Ehresman <luke@squirrelmail.org>     http://www.css.tayloru.edu/~lehresma
-   Nathan Ehresman <nathan@squirrelmail.org> http://www.css.tayloru.edu/~nehresma
-   Gustav Foseid <gustavf@squirrelmail.org>  http://www.initio.no
-   Pål Løberg <pallo@squirrelmail.org>       http://www.initio.no
-   Shane Wilson
-   Steve Gare                                http://www.xantara.co.uk
-   Gerrit Padgham <gpadgham@commnav.com>
-   Matt Phillips <mphillip@commnav.com>
-   Lewis Bergman
-   Bryan Stalcup <bryan@stalcup.net>
+   Luke Ehresman    <luke@squirrelmail.org> http://www.css.tayloru.edu/~lehresma
    Tyler Akins
-   Philippe Mingo <philippe@squirrelmail.org>
-   Stefan Sels <sm@sels.com> http://stefan.sels.com
+   Lewis Bergman
+   Nathan Ehresman  <nathan@squirrelmail.org> http://www.css.tayloru.edu/~nehresma
+   Gustav Foseid    <gustavf@squirrelmail.org> : http://www.initio.no
+   Steve Gare       http://www.xantara.co.uk
+   Peter Hutnick    <peter@hutnick.com>
+   Pål Løberg       <pallo@squirrelmail.org> : http://www.initio.no
+   Philippe Mingo   <philippe@squirrelmail.org>
+   Gerrit Padgham   <gpadgham@commnav.com>
+   Matt Phillips    <mphillip@commnav.com>
+   Stefan Sels      <sm@sels.com> http://stefan.sels.com
+   Bryan Stalcup    <bryan@stalcup.net>
+   Shane Wilson
 
  Translations:
  -------------
@@ -61,18 +61,20 @@
  --------------------------
    i18n support:        Sergiusz Pawlowicz 
    SquirrelMail logo:   Libor Kopecky <libor@globe.cz>
-   Web Site Admin/PR:   Paul Joseph Thompson <thomppj@okstate.edu>
+   Web Site Admin/PR:   Rick Castello <rick@squirrelmail.org>
 
-   Code contributions:  Konstantin Riabitsev <graf@relhum.org>
-                        Alex Bleeker <beheer@hackers.nl>
-                        Jan-Pieter Cornet <johnpc@xs4all.nl>
-                        John Williams <jw@netpimp.com> 
-                        Ondrej Sury <ondrej@globe.cz>
-                        Damien Sandras <dsandras@acm.org>
-                        Martin Jespersen <mbj@mbj.dk>
-                        David Whittington <dwhittin@css.tayloru.edu>
-                        Many, many others...
+   Paginator Help: Charles Scheidecker
+   Other Code contributions:
+       Konstantin Riabitsev <graf@relhum.org>
+       Alex Bleeker <beheer@hackers.nl>
+       Jan-Pieter Cornet <johnpc@xs4all.nl>
+       John Williams <jw@netpimp.com> 
+       Ondrej Sury <ondrej@globe.cz>
+       Damien Sandras <dsandras@acm.org>
+       Martin Jespersen <mbj@mbj.dk>
+       David Whittington <dwhittin@css.tayloru.edu>
+       Many, many others...
 
-(We have tried to keep this up to date to give credit where it is due.
-If you feel that you have wrongfully been left off this list, contact
-<captbunzo@squirrelmail.org>)
+( We have tried to keep this up to date to give credit where it
+  is due. If you feel that you have wrongfully been left off this
+  list, contact <captbunzo@squirrelmail.org> )
