@@ -33,8 +33,8 @@
       if($onlylocal)
 	return $abook;
 
-      // Load configured LDAP servers
-      if(is_array($ldap_server)) {
+      // Load configured LDAP servers (if PHP has LDAP support)
+      if(is_array($ldap_server) && function_exists("ldap_connect")) {
 	 reset($ldap_server);
 	 while(list($undef,$param) = each($ldap_server)) {
 	    if(is_array($param)) {
