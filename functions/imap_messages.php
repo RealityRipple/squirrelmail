@@ -9,7 +9,7 @@
     **  Copies specified messages to specified folder
     ******************************************************************************/
    function sqimap_messages_copy ($imap_stream, $start, $end, $mailbox) {
-      fputs ($imap_stream, "a001 COPY $start:$end \"$mailbox\"\n");
+      fputs ($imap_stream, "a001 COPY $start:$end \"$mailbox\"\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
    }
 
@@ -31,7 +31,7 @@
     **  Sets the specified messages with specified flag
     ******************************************************************************/
    function sqimap_messages_flag ($imap_stream, $start, $end, $flag) {
-      fputs ($imap_stream, "a001 STORE $start:$end +FLAGS (\\$flag)\n");
+      fputs ($imap_stream, "a001 STORE $start:$end +FLAGS (\\$flag)\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
    }
 
@@ -39,7 +39,7 @@
     **  Returns some general header information -- FROM, DATE, and SUBJECT
     ******************************************************************************/
    function sqimap_get_small_header ($imap_stream, $id, &$from, &$subject, &$date) {
-      fputs ($imap_stream, "a001 FETCH $id:$id BODY[HEADER.FIELDS (From Subject Date)]\n");
+      fputs ($imap_stream, "a001 FETCH $id:$id BODY[HEADER.FIELDS (From Subject Date)]\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
 
       for ($i = 0; $i < count($read); $i++) {
@@ -59,7 +59,7 @@
     **  Returns the flags for the specified messages 
     ******************************************************************************/
    function sqimap_get_flags ($imap_stream, $start, $end) {
-      fputs ($imap_stream, "a001 FETCH $start:$end FLAGS\n");
+      fputs ($imap_stream, "a001 FETCH $start:$end FLAGS\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
       $i = 0;
       while ($i < count($read)) {
@@ -94,7 +94,7 @@
     **  Wrapper function that reformats the header information.
     ******************************************************************************/
    function sqimap_get_message_header ($imap_stream, $id) {
-      fputs ($imap_stream, "a001 FETCH $id:$id BODY[HEADER]\n");
+      fputs ($imap_stream, "a001 FETCH $id:$id BODY[HEADER]\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
      
       return sqimap_get_header($imap_stream, $read); 
@@ -283,7 +283,7 @@
     **  Returns the body of a message.
     ******************************************************************************/
    function sqimap_get_message_body ($imap_stream, $bound, $id, $type0, $type1, $encoding) {
-      fputs ($imap_stream, "a001 FETCH $id:$id BODY[TEXT]\n");
+      fputs ($imap_stream, "a001 FETCH $id:$id BODY[TEXT]\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
        
       $i = 0;

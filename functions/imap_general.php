@@ -201,7 +201,9 @@
          if (strpos($string, "<") == 1) {
             $string = sqimap_find_email($string);
          } else {
+            $string = trim($string);
             $string = substr($string, 0, strpos($string, "<"));
+            $string = ereg_replace ("\"", "", $string);   
          }   
       }
       return $string; 

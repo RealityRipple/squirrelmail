@@ -10,7 +10,7 @@
     ******************************************************************************/
    function sqimap_mailbox_expunge ($imap_stream, $mailbox) {
       sqimap_mailbox_select ($imap_stream, $mailbox);
-      fputs ($imap_stream, "a001 EXPUNGE\n");
+      fputs ($imap_stream, "a001 EXPUNGE\r\n");
       $read = sqimap_read_data($imap_stream, "a001", true, $response, $message);
    }
 
@@ -34,7 +34,7 @@
     **  Selects a mailbox
     ******************************************************************************/
    function sqimap_mailbox_select ($imap_stream, $mailbox) {
-      fputs ($imap_stream, "a001 SELECT \"$mailbox\"\n");
+      fputs ($imap_stream, "a001 SELECT \"$mailbox\"\r\n");
       $read = sqimap_read_data($imap_stream, "a001", true, $response, $message);
    }
 
@@ -48,7 +48,7 @@
          $dm = sqimap_get_delimiter($imap_stream);
          $mailbox = $mailbox.$dm;
       }
-      fputs ($imap_stream, "a001 CREATE \"$mailbox\"\n");
+      fputs ($imap_stream, "a001 CREATE \"$mailbox\"\r\n");
       $read_ary = sqimap_read_data($imap_stream, "a001", true, $response, $message);
 
       sqimap_subscribe ($imap_stream, $mailbox);
@@ -60,7 +60,7 @@
     **  Subscribes to an existing folder 
     ******************************************************************************/
    function sqimap_subscribe ($imap_stream, $mailbox) {
-      fputs ($imap_stream, "a001 SUBSCRIBE \"$mailbox\"\n");
+      fputs ($imap_stream, "a001 SUBSCRIBE \"$mailbox\"\r\n");
       $read_ary = sqimap_read_data($imap_stream, "a001", true, $response, $message);
    }
 
@@ -71,7 +71,7 @@
     **  Unsubscribes to an existing folder 
     ******************************************************************************/
    function sqimap_unsubscribe ($imap_stream, $mailbox) {
-      fputs ($imap_stream, "a001 UNSUBSCRIBE \"$mailbox\"\n");
+      fputs ($imap_stream, "a001 UNSUBSCRIBE \"$mailbox\"\r\n");
       $read_ary = sqimap_read_data($imap_stream, "a001", true, $response, $message);
    }
 
@@ -82,7 +82,7 @@
     **  This function simply deletes the given folder
     ******************************************************************************/
    function sqimap_mailbox_delete ($imap_stream, $mailbox) {
-      fputs ($imap_stream, "a001 DELETE \"$mailbox\"\n");
+      fputs ($imap_stream, "a001 DELETE \"$mailbox\"\r\n");
       echo "mailbox: $mailbox<BR>";
       $read_ary = sqimap_read_data($imap_stream, "a001", true, $response, $message);
       sqimap_unsubscribe ($imap_stream, $mailbox);
@@ -102,7 +102,7 @@
       
       $dm = sqimap_get_delimiter ($imap_stream);
 
-      fputs ($imap_stream, "a001 LIST \"\" INBOX\n");
+      fputs ($imap_stream, "a001 LIST \"\" INBOX\r\n");
       $read_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
       $g = 0;
       $phase = "inbox"; 
@@ -126,7 +126,7 @@
             $boxes[$g]["id"] = $g;
 
             /** Now lets get the flags for this mailbox **/
-            fputs ($imap_stream, "a002 LIST \"\" \"$mailbox\"\n"); 
+            fputs ($imap_stream, "a002 LIST \"\" \"$mailbox\"\r\n"); 
             $read_mlbx = sqimap_read_data ($imap_stream, "a002", true, $response, $message);
 
             $flags = substr($read_mlbx[0], strpos($read_mlbx[0], "(")+1);
@@ -141,7 +141,7 @@
 
          if (!$read_ary[$i+1]) {
             if ($phase == "inbox") {
-               fputs ($imap_stream, "a001 LSUB \"\" *\n");
+               fputs ($imap_stream, "a001 LSUB \"\" *\r\n");
                $read_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
                $phase = "lsub";
                $i--;
