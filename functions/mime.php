@@ -382,8 +382,8 @@ function mime_fetch_body($imap_stream, $id, $ent_id ) {
     $data = sqimap_run_command ($imap_stream, $cmd, true, $response, $message);
 
     do {
-        $topline = array_shift( $data );
-    } while( $topline && $topline == '*' && !preg_match( '/\\* [0-9] FETCH.*/i', $topline )) ;
+        $topline = trim(array_shift( $data ));
+    } while( $topline && $topline[0] == '*' && !preg_match( '/\* [0-9]+ FETCH.*/i', $topline )) ;
     $wholemessage = implode('', $data);
     if (ereg('\\{([^\\}]*)\\}', $topline, $regs)) {
 
