@@ -40,6 +40,7 @@
 
    displayHtmlHeader();
 
+
    function formatMailboxName($imapConnection, $mailbox, $real_box, $delimeter, $unseen) {
 		global $folder_prefix, $trash_folder, $sent_folder;
 		global $color, $move_to_sent, $move_to_trash;
@@ -112,7 +113,7 @@
       echo "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"$left_refresh;URL=left_main.php\">\n";
    }
    
-   echo "\n<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\">\n\n";
+   echo "\n<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\">\n";
 
    do_hook("left_main_before");
 
@@ -146,7 +147,7 @@
       } else {
          $line .= formatMailboxName($imapConnection, $mailbox, $boxes[$i]["unformatted"], $delimeter, $boxes[$i]["unseen"]);
       }
-      echo "\n$line<BR>\n";
+      echo "$line<BR>\n";
    }
    sqimap_logout($imapConnection);
    do_hook("left_main_after");

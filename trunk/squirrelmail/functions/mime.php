@@ -68,7 +68,7 @@
    //   $read = strtolower($bodystructure);
       $read = $bodystructure;
 
-      if ($debug_mime) echo "<tt>$read</tt><br><br>";
+      if ($debug_mime) echo "<tt>$read</tt><br><br>\n";
       // isolate the body structure and remove beginning and end parenthesis
       $read = trim(substr ($read, strpos(strtolower($read), "bodystructure") + 13));
       $read = trim(substr ($read, 0, -1));
@@ -79,7 +79,7 @@
          $end = mime_match_parenthesis(0, $read);
       }
 
-      if ($debug_mime) echo "<tt>$read</tt><br><br>";
+      if ($debug_mime) echo "<tt>$read</tt><br><br>\n";
 
       $msg = mime_parse_structure ($read, 0);
       $msg->header = $header;
@@ -95,7 +95,7 @@
    // to mime_get_elements()
    function mime_parse_structure ($structure, $ent_id) {
       global $debug_mime;
-      if ($debug_mime) echo "<font color=008800><tt>START: mime_parse_structure()</tt></font><br>";
+      if ($debug_mime) echo "<font color=008800><tt>START: mime_parse_structure()</tt></font><br>\n";
       $msg = new message();
       if (substr($structure, 0, 1) == "(") {
          $ent_id = mime_new_element_level($ent_id);

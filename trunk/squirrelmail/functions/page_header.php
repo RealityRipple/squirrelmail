@@ -53,7 +53,7 @@
       
       do_hook ("generic_header");
 
-      echo "<TITLE>$title</TITLE>";
+      echo "<TITLE>$title</TITLE>\n";
       echo "</HEAD>\n\n";
    }
 
