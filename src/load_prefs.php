@@ -13,9 +13,9 @@
          require($theme[0]["PATH"]);
       } else {
          echo _("Theme: ");
-	 echo $theme[0]["PATH"];
-	 echo _(" was not found.");
-	 echo "<BR>";
+         echo $theme[0]["PATH"];
+         echo _(" was not found.");
+         echo "<BR>";
          echo _("Exiting abnormally");
          exit;
       }
@@ -43,7 +43,6 @@
    if ($use_signature == true) {
       $signature = getSig($data_dir, $username);
    } else {
-      $signature = "";
    }
 ?>
 
