@@ -78,8 +78,8 @@
             if ($i==0 && $forward_id) {
                $tmp = "-------- " . _("Original Message") . " --------\n";
                $tmp .= _("Subject") . ": " . $orig_header->subject . "\n"; 
-               $tmp .= "   " . _("From") . ": " . $orig_header->from . "\n"; 
-               $tmp .= "     " . _("To") . ": " . $orig_header->to[0] . "\n"; 
+               $tmp .= _("From") . ": " . $orig_header->from . "\n"; 
+               $tmp .= _("To") . ": " . $orig_header->to[0] . "\n"; 
                if (count($orig_header->to) > 1) {
                   for ($x=1; $x < count($orig_header->to); $x++) {
                      $tmp .= "         " . $orig_header->to[$x] . "\n";
