@@ -36,6 +36,8 @@ Version 1.4.0 CVS
   - Improved address parsing from addresses coming from the compose form.
   - Fixed uninitialized indices when parsing attachments.
   - Support text/directory MIME-type for vCards (RFC 2425).
+  - Added Arabic locale. Thanks to Asrar Abbasi <asrar at canasoft.net> and
+    Naveed Saqib <naveed.saqib at biznas.com>
 
 Version 1.4.0 RC 2a
 -------------------
