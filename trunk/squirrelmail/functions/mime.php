@@ -794,7 +794,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at) {
                 $body = strip_tags( $body );
                 translateText($body, $wrap_at, $body_message->header->charset);
             } else {
-                $body = MagicHTML( $body, $id );
+                $body = MagicHTML( $body, $id, $message );
             }
         } else {
             translateText($body, $wrap_at, $body_message->header->charset);
@@ -1942,7 +1942,7 @@ function sq_sanitize($body,
  * @param  $id    the id of the message
  * @return        a string with html safe to display in the browser.
  */
-function magicHTML($body, $id){
+function magicHTML($body, $id, $message){
     global $attachment_common_show_images, $view_unsafe_images,
         $has_unsafe_images, $message;
     /**
