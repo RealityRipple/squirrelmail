@@ -103,9 +103,13 @@ function checkForm() {
     echo "<A NAME=pagetop></A>\n"
         . "<TABLE BGCOLOR=\"$color[4]\" BORDER=0 WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2>\n"
         . "   <TR BGCOLOR=\"$color[9]\" >\n"
-        . "      <TD ALIGN=left>\n"
-        . '         ' . _("Current Folder") . ": <B>$shortBoxName&nbsp;</B>\n"
-        . "      </TD>\n"
+        . "      <TD ALIGN=left>\n";
+    if ( $shortBoxName <> '' && strtolower( $shortBoxName ) <> 'none' ) {
+        echo '         ' . _("Current Folder") . ": <B>$shortBoxName&nbsp;</B>\n";
+    } else {
+        echo '&nbsp;';
+    }
+    echo  "      </TD>\n"
         . "      <TD ALIGN=right><b>\n";
     displayInternalLink ('src/signout.php', _("Sign Out"), '_top');
     echo "      </b></TD>\n"
