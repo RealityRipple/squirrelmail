@@ -6,7 +6,9 @@ In order to use this plugin, you must first activate it using
 conf.pl and then you must change the config/config.php files
 permissions to 660. This file must be owned by the user who you
 want to have access to this plugin (only one user allowed) and
-the group must be the group of the user who is running php.
+the group must be the group of the user who is running php. This 
+authentication method requires posix support in php and doesn't 
+work, if user's uid equals to 0.
 
 An alternative method, but less secure, is to add a file called
 admins into the plugin folder with the names of the users that
