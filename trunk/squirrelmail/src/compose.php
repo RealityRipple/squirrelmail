@@ -396,7 +396,7 @@
    if (isset($subject))     $subject = trim($subject);
    if (isset($body))        $body = trim($body);
    if (isset($attachfile))  $attachfile = trim($attachfile);
-   
+
    if (!isset($mailbox) || $mailbox == "" || ($mailbox == "None"))
       $mailbox = "INBOX";
 
@@ -405,7 +405,7 @@
           $HTTP_POST_FILES['attachfile']['tmp_name'] &&
           $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none')
           $AttachFailure = saveAttachedFiles();
-      if (checkInput(false) && ! isset($AttachFailure)) {
+      if (checkInput(false) && !isset($AttachFailure)) {
          $urlMailbox = urlencode (trim($mailbox));
          if (! isset($reply_id))
              $reply_id = 0;

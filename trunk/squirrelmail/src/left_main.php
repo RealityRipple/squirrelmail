@@ -138,7 +138,7 @@
       $line = "";
       $mailbox = $boxes[$i]["formatted"];
       
-      if ($boxes[$i]["flags"]) {
+      if (isset($boxes[$i]["flags"])) {
          $noselect = false;
          for ($h = 0; $h < count($boxes[$i]["flags"]); $h++) {
             if (strtolower($boxes[$i]["flags"][$h]) == "noselect")
@@ -154,6 +154,8 @@
             $line .= formatMailboxName($imapConnection, $mailbox, $boxes[$i]["unformatted"], $delimeter, $boxes[$i]["unseen"]);
          }
       } else {
+        if (!isset($boxes[$i]["unseen"])) 
+            $boxes[$i]["unseen"] = "";
          $line .= formatMailboxName($imapConnection, $mailbox, $boxes[$i]["unformatted"], $delimeter, $boxes[$i]["unseen"]);
       }
       echo "$line<BR>\n";

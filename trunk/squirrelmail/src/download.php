@@ -107,16 +107,14 @@
    //    is displayable (text or html), it will load them up in a text
    //    viewer (built in to squirrelmail).  Otherwise, it sets the
    //    content-type as application/octet-stream
-
-   header("Pragma: ");
-   header("Content-Description: SquirrelMail Attachment");
+   
    if (isset($absolute_dl) && $absolute_dl == "true") {
       switch($type0) {
          case "text":
             $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
             $body = decodeBody($body, $header->encoding);
-            header("Content-Disposition: attachment; filename=$filename");
-            header("Content-type: application/octet-stream; name=$filename");
+            header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-type: application/octet-stream; name=\"$filename\"");
             set_up_language(getPref($data_dir, $username, "language"));
             if ($type1 == "plain") {
                echo _("Subject") . ": " . decodeHeader(sqStripSlashes($top_header->subject)) . "\n";
@@ -127,8 +125,8 @@
             echo trim($body);
             break;
          default:
-            header("Content-Disposition: attachment; filename=$filename");
-            header("Content-type: application/octet-stream; name=$filename");
+            header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-type: application/octet-stream; name=\"$filename\"");
             mime_print_body_lines ($imapConnection, $passed_id, $passed_ent_id, $header->encoding);
             break;
       }
@@ -143,8 +141,8 @@
             } else {
                 $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
                 $body = decodeBody($body, $header->encoding);
-                header("Content-type: $type0/$type1; name=$filename");
-                header("Content-Disposition: attachment; filename=$filename");
+                header("Content-type: $type0/$type1; name=\"$filename\"");
+                header("Content-Disposition: attachment; filename=\"$filename\"");
                 echo $body;
             }
             break;
