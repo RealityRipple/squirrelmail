@@ -9,11 +9,12 @@
  * This contains functions needed to handle mime messages.
  *
  * $Id$
+ * @package squirrelmail
  */
 
-/*
- * rdc822_header class
+/**
  * input: header_string or array
+ * @package squirrelmail
  */
 class Rfc822Header {
     var $date = '',

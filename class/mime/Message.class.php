@@ -6,17 +6,22 @@
  * Copyright (c) 2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
-  This contains functions needed to handle mime messages.
+ * This contains functions needed to handle mime messages.
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/**
+ * The object that contains a message
+ *
+ * message is the object that contains messages.  It is a recursive
+ * object in that through the $entities variable, it can contain
+ * more objects of type message.  See documentation in mime.txt for
+ * a better description of how this works.
+ * @package squirrelmail
+ */
 class Message {
-    /** message is the object that contains messages.  It is a recursive
-        object in that through the $entities variable, it can contain
-        more objects of type message.  See documentation in mime.txt for
-        a better description of how this works.
-    **/
     var $rfc822_header = '',
         $mime_header = '',
         $flags = '',

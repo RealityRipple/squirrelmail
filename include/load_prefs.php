@@ -10,9 +10,10 @@
  * every other script in the source directory and alswhere.
  *
  * $Id$
+ * @package squirrelmail
  */
 
-/* SquirrelMail required files. */
+/** SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/prefs.php');
 require_once(SM_PATH . 'functions/plugin.php');

@@ -9,9 +9,10 @@
  * Displays all optinos about display preferences
  *
  * $Id$
+ * @package squirrelmail
  */
 
-/* Define the group constants for the display options page. */
+/** Define the group constants for the display options page. */
 define('SMOPT_GRP_GENERAL', 0);
 define('SMOPT_GRP_MAILBOX', 1);
 define('SMOPT_GRP_MESSAGE', 2);

@@ -9,9 +9,10 @@
  * Displays all options relating to folders
  *
  * $Id$
+ * @package squirrelmail
  */
 
-/* SquirrelMail required files. */
+/** SquirrelMail required files. */
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/imap_general.php');
 

@@ -11,9 +11,13 @@
  * http://www.imc.org/pdi/vcard-21.txt
  *
  * $Id$
+ * @package squirrelmail
  */
 
-
+/**
+ * Undocumented class
+ * @package squirrelmail
+ */
 class VCard {
 
 function create_vcard ($value_array) {
