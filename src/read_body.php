@@ -416,7 +416,9 @@ if (isset ($message->header->bcc[0]) && trim($message->header->bcc[0])){
 }
 
 if ($default_use_priority) {
-    switch(substr($message->header->priority,0,1)) {
+    $priority_level = substr($message->header->priority,0,1);
+
+    switch($priority_level) {
         /* First, check for a higher then normal priority. */
         case "1":
         case "2": $priority_string = _("High"); break;
@@ -498,13 +500,19 @@ if ( !($where && $what) ) {
 echo '               </SMALL>' . "\n" .
     '            </TD><TD WIDTH="33%" ALIGN="RIGHT">' .
     '               <SMALL>' .
-    '               <A HREF="' . $base_uri . "src/compose.php?forward_id=$passed_id&forward_subj=$url_subj&mailbox=$urlMailbox&ent_num=$ent_num\">" .
+    '               <A HREF="' . $base_uri . "src/compose.php?forward_id=$passed_id&forward_subj=$url_subj&".
+                    (isset($default_use_priority)?"mailprio=$priority_level&":"")
+                    ."mailbox=$urlMailbox&ent_num=$ent_num\">" .
     _("Forward") .
     '</A>&nbsp;|&nbsp;' .
-    '               <A HREF="' . $base_uri . "src/compose.php?send_to=$url_replyto&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox&ent_num=$ent_num\">" .
+    '               <A HREF="' . $base_uri . "src/compose.php?send_to=$url_replyto&reply_subj=$url_subj&".
+                    (isset($default_use_priority)?"mailprio=$priority_level&":"").
+                    "reply_id=$passed_id&mailbox=$urlMailbox&ent_num=$ent_num\">" .
     _("Reply") .
     '</A>&nbsp;|&nbsp;' .
-    '               <A HREF="' . $base_uri . "src/compose.php?send_to=$url_replytoall&send_to_cc=$url_replytoallcc&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox&ent_num=$ent_num\">" .
+    '               <A HREF="' . $base_uri . "src/compose.php?send_to=$url_replytoall&send_to_cc=$url_replytoallcc&reply_subj=$url_subj&".
+                    (isset($default_use_priority)?"mailprio=$priority_level&":"").
+                    "reply_id=$passed_id&mailbox=$urlMailbox&ent_num=$ent_num\">" .
     _("Reply All") .
     '</A>&nbsp;&nbsp;' .
     '               </SMALL>' .
