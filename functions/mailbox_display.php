@@ -352,6 +352,16 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
     global $msgs, $msort, $auto_expunge, $thread_sort_messages,
            $allow_server_sort, $server_sort_order;
 
+    /*
+     * For some reason, on PHP 4.3+, this being unset, and set in the session causes havoc
+     * so setting it to an empty array beforehand seems to clean up the issue, and stopping the
+     * "Your script possibly relies on a session side-effect which existed until PHP 4.2.3" error
+     */
+
+    if (!isset($msort)) {
+        $msort = array();
+    }
+
     $start = microtime();
     /* If autoexpunge is turned on, then do it now. */
     $mbxresponse = sqimap_mailbox_select($imapConnection, $mailbox);
