@@ -13,7 +13,7 @@ require_once('../src/validate.php');
 require_once('../functions/imap.php');
 require_once('../functions/imap_search.php');
 require_once('../functions/array.php');
-include_once('../functions/strings.php');
+require_once('../functions/strings.php');
 
 function s_opt( $val, $sel, $tit ) {
     echo "            <option value=\"$val\"";

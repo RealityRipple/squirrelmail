@@ -11,7 +11,7 @@
  * $Id$
  */
 
-include_once('../functions/strings.php');
+require_once('../functions/strings.php');
 
 // Always set up the language before calling these functions
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE ) {
