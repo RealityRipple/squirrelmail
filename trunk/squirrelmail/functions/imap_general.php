@@ -188,62 +188,46 @@ function sqimap_fread($imap_stream,$iSize,$filter=false,
         $iBufferSize = $iSize;
     } else {
         // see php bug 24033. They changed fread behaviour %$^&$%
-        $iBufferSize = 780; // multiple of 78 in case of base64 decoding.
+        $iBufferSize = 7800; // multiple of 78 in case of base64 decoding.
     }
-    $iRet = $iSize - $iBufferSize;
+    if ($iSize < $iBufferSize) {
+        $iBufferSize = $iSize;
+    }
     $iRetrieved = 0;
-    $i = 0;
-    $results = $sReadRem = '';
-    $bFinished = $bBufferSizeAdapted =  $bBufferIsOk = false;
-    while (($iRetrieved < ($iSize - $iBufferSize))) {
+    $results = '';
+    $sRead = $sReadRem = '';
+    // NB: fread can also stop at end of a packet on sockets. 
+    while ($iRetrieved < $iSize) {
         $sRead = fread($imap_stream,$iBufferSize);
+        $iLength = strlen($sRead);
+        $iRetrieved += $iLength ;
+        $iRemaining = $iSize - $iRetrieved;
+        if ($iRemaining < $iBufferSize) {
+            $iBufferSize = $iRemaining;
+        }
         if (!$sRead) {
             $results = false;
             break;
         }
-        $iRetrieved += $iBufferSize;
-        if ($filter) {
-           // in case line-endings do not appear at position 78 we adapt the buffersize so we can base64 decode on the fly
-           if (!$bBufferSizeAdapted) {
-               $i = strpos($sRead,"\n");
-               if ($i) {
-                   ++$i;
-                   $iFragments = floor($iBufferSize / $i);
-                   $iNewBufferSize = $iFragments * $i;
-                   $iRemainder = $iNewBufferSize + $i - $iBufferSize;
-                   if ($iNewBufferSize == $iBufferSize) {
-                       $bBufferIsOk = true;
-                       $iRemainder = 0;
-                       $iNewBufferSize = $iBufferSize;
-                       $bBufferSizeAdapted = true;
-                   }
-                   if (!$bBufferIsOk && ($iRemainder + $iBufferSize)  < $iSize) {
-                       $sReadRem = fread($imap_stream,$iRemainder);
-                   } else if (!$bBufferIsOk) {
-                       $sReadRem = fread($imap_stream,$iSize - $iBufferSize);
-                       $bFinished = true;
-                   }
-                   if (!$sReadRem && $sReadRem !== '') {
-                        $results = false;
-                        break;
-                   }
-                   $iBufferSize = $iNewBufferSize;
-                   $bBufferSizeAdapted = true;
-               } else {
-                   $sReadRem = fread($imap_stream,$iSize - $iBufferSize);
-                   $bFinished = true;
-                   if (!$sReadRem) {
-                       $results = false;
-                       break;
-                   }
-               }
-               $sRead .= $sReadRem;
-               $iRetrieved += $iRemainder;
-               unset($sReadRem);
-           }
+        if ($sReadRem) {
+            $sRead = $sReadRem . $sRead;
+            $sReadRem = '';
+        }
+        if (substr($sRead,-1) !== "\n") {  
+            $i = strrpos($sRead,"\n");
+            if ($i !== false && $iRetrieved<$iSize) {
+                ++$i;
+                $sReadRem = substr($sRead,$i);
+                $sRead = substr($sRead,0,$i);
+            } else if ($iLength && $iRetrieved<$iSize) { // linelength > received buffer
+                $sReadRem = $sRead;
+                $sRead = '';
+            }
+        } 
+        if ($filter && $sRead) {
            $filter($sRead);
         }
-        if ($outputstream) {
+        if ($outputstream && $sRead) {
            if (is_resource($outputstream)) {
                fwrite($outputstream,$sRead);
            } else if ($outputstream == 'php://stdout') {
@@ -252,28 +236,13 @@ function sqimap_fread($imap_stream,$iSize,$filter=false,
         }
         if ($no_return) {
             $sRead = '';
-        }    
-        $results .= $sRead;
-    }
-    if (!$results && !$bFinished) {
-        $sRead = fread($imap_stream,($iSize - ($iRetrieved)));  
-        if ($filter) {
-           $filter($sRead);
+        } else {    
+            $results .= $sRead;
         }
-        if ($outputstream) {
-           if (is_resource($outputstream)) {      
-               fwrite($outputstream,$sRead);
-           } else if ($outputstream == 'php://stdout') { // FIXME
-               echo $sRead;
-           }
-        }
-        if ($no_return) {
-            $sRead = '';
-        }    
-        $results .= $sRead;
     }
     return $results;       
 }        
+
 /* obsolete function, inform plugins that use it */
 function sqimap_read_data_list($imap_stream, $tag, $handle_errors, 
           &$response, &$message, $query = '') {
