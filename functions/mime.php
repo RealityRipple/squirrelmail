@@ -238,4 +238,28 @@
          return ($string);
    }
 
+   // Encode a string according to RFC 1522 for use in headers if it
+   // contains 8-bit characters
+   function encodeHeader ($string) {
+      global $default_charset;
+
+      // Encode only if the string contains 8-bit characters
+      if (ereg("[\200-\377]", $string)) {
+         $newstring = "=?$default_charset?Q?";
+         $newstring .= str_replace(" ", "_", $string);
+         
+         while (ereg("([\200-\377])", $newstring, $regs)) {
+            $replace = $regs[1];
+            $insert = "=" . bin2hex($replace);
+            $newstring = str_replace($replace, $insert, $newstring);
+         }
+
+         $newstring .= "?=";
+
+         return $newstring;
+      }
+
+      return $string;
+   }
+
 ?>

@@ -134,6 +134,10 @@
             $from = "<$from_addr>";
          else
             $from = $from . " <$from_addr>";
+
+         /* Encoding 8-bit characters */
+         $subject = encodeHeader($subject);
+         $from = encodeHeader($from);
          
          /* This creates an RFC 822 date */
          $date = date("D, j M Y H:i:s ", mktime()) . timezone();
