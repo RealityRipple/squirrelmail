@@ -8,9 +8,11 @@
       if ((isset($tree[$treeIndexToStart])) && (strstr($value, $tree[$treeIndexToStart]["value"]))) {
          if ($tree[$treeIndexToStart]["doIHaveChildren"]) {
             for ($i=0;$i< count($tree[$treeIndexToStart]["subNodes"]);$i++) {
-               $result = findParentForChild($value, $tree[$treeIndexToStart]["subNodes"][$i]);
-               if ($result > -1)
+               $result = findParentForChild($value, $tree[$treeIndexToStart]["subNodes"][$i], $tree);
+               if ($result > -1) {
+                  echo "parent for $value is : " . $tree[$treeIndexToStart]["subNodes"][$i] . "<br>";
                   return $result;
+               }
             }
             return $treeIndexToStart;
          } else
@@ -20,11 +22,11 @@
       }
    }  
 
-   function addChildNodeToTree($value, &$tree) {
-      $parentNode = findParentForChild($value, 0, $tree);
+   function addChildNodeToTree($comparisonValue, $value, &$tree) {
+      $parentNode = findParentForChild($comparisonValue, 0, $tree);
 
       // create a new subNode
-      $newNodeIndex = count($tree) + 1;
+      $newNodeIndex = count($tree);
       $tree[$newNodeIndex]["value"] = $value;
       $tree[$newNodeIndex]["doIHaveChildren"] = false;
 
@@ -73,6 +75,17 @@
          $messageCount = sqimap_get_num_messages($imap_stream, $tree[$index]["value"]);
          if ($messageCount > 0)
             sqimap_messages_copy($imap_stream, 1, $messageCount, $trash_folder . $dm . $subFolderName);
+      }
+   }
+
+   function simpleWalkTreePre($index, $tree) {
+      if ($tree[$index]["doIHaveChildren"]) {
+         for ($j = 0; $j < count($tree[$index]["subNodes"]); $j++) {
+            simpleWalkTreePre($tree[$index]["subNodes"][$j], $tree);
+         }
+         echo $tree[$index]["value"] . "<br>";
+      } else {
+         echo $tree[$index]["value"] . "<br>";
       }
    }
 ?>

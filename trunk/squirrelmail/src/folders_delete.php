@@ -27,6 +27,10 @@
    $imap_stream = sqimap_login($username, $key, $imapServerAddress, 0);
    $boxes = sqimap_mailbox_list ($imap_stream);
    $dm = sqimap_get_delimiter($imap_stream);
+   if (substr($mailbox, -1) == $dm)
+      $mailbox_no_dm = substr($mailbox, 0, strlen($mailbox) - 1); 
+   else
+      $mailbox_no_dm = $mailbox;
 
    /** lets see if we CAN move folders to the trash.. otherwise, just delete them **/
    for ($i = 0; $i < count($boxes); $i++) {
@@ -42,7 +46,7 @@
 
    /** First create the top node in the tree **/
    for ($i = 0;$i < count($boxes);$i++) {
-      if (($boxes[$i]["unformatted"] == $mailbox) && (strlen($boxes[$i]["unformatted"]) == strlen($mailbox))) {
+      if (($boxes[$i]["unformatted-dm"] == $mailbox) && (strlen($boxes[$i]["unformatted-dm"]) == strlen($mailbox))) {
          $foldersTree[0]["value"] = $mailbox;
          $foldersTree[0]["doIHaveChildren"] = false;
          continue;
@@ -53,10 +57,12 @@
    //    on the end of the $mailbox string, and compare to that.
    $j = 0;
    for ($i = 0;$i < count($boxes);$i++) {
-      if (substr($boxes[$i]["unformatted"], 0, strlen($mailbox . $dm)) == ($mailbox . $dm)) {
-         addChildNodeToTree($boxes[$i]["unformatted"], $foldersTree);
+      if (substr($boxes[$i]["unformatted"], 0, strlen($mailbox_no_dm . $dm)) == ($mailbox_no_dm . $dm)) {
+//         echo "<B>".$boxes[$i]["unformatted-dm"] . "</b><BR>";
+         addChildNodeToTree($boxes[$i]["unformatted"], $boxes[$i]["unformatted-dm"], $foldersTree);
       }
    }
+//   simpleWalkTreePre(0, $foldersTree);
 
    /** Lets start removing the folders and messages **/
    if (($move_to_trash == true) && ($can_move_to_trash == true)) { /** if they wish to move messages to the trash **/
