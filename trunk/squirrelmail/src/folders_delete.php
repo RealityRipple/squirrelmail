@@ -58,7 +58,6 @@
    $j = 0;
    for ($i = 0;$i < count($boxes);$i++) {
       if (substr($boxes[$i]["unformatted"], 0, strlen($mailbox_no_dm . $dm)) == ($mailbox_no_dm . $dm)) {
-//         echo "<B>".$boxes[$i]["unformatted-dm"] . "</b><BR>";
          addChildNodeToTree($boxes[$i]["unformatted"], $boxes[$i]["unformatted-dm"], $foldersTree);
       }
    }
