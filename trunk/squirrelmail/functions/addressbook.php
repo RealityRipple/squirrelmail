@@ -139,7 +139,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
 
     if (! $onlylocal) {
         /* Load configured LDAP servers (if PHP has LDAP support) */
-        if (isset($ldap_server) && is_array($ldap_server) && function_exists('ldap_connect')) {
+        if (isset($ldap_server) && is_array($ldap_server)) {
             reset($ldap_server);
             while (list($undef,$param) = each($ldap_server)) {
                 if (is_array($param)) {
