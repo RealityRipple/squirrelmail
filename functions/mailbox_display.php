@@ -236,13 +236,14 @@
             $end = $startMessage + $show_num - 1;
             if ($numMessages < $show_num)
                 $end_loop = $numMessages;
-            else
+            elseif ($end > $numMessages)
+	        $end_loop = $numMessages - $startMessage + 1;
+	    else
                 $end_loop = $show_num;
          } else {
             $end = $numMessages;
             $end_loop = $end;
          }
-         if ($end > $numMessages) $end = $numMessages;
          while ($j < $end_loop) {
             if (isset($date[$j])) {
                 $date[$j] = ereg_replace('  ', ' ', $date[$j]);
