@@ -158,20 +158,37 @@
    $url_replyto = urlencode($message->header->replyto);
 
    $url_replytoall   = urlencode($message->header->replyto);
-   $url_replytoallcc = $message->header->from . ", ";
-   $url_replytoallcc .= getLineOfAddrs($message->header->to);
-   $url_replytoallcc_cc = getLineOfAddrs($message->header->cc);
-   if ($url_replytoallcc) {
-      if ($url_replytoallcc_cc) {
-         $url_replytoallcc .= ", " . $url_replytoallcc_cc;
-      }
-   } else {
-      if ($url_replytoallcc_cc) {
-         $url_replytoallcc = $url_replytoallcc_cc;
-      } else {
-         $url_replytoallcc = "";
-      }
-   } 
+
+   // If we are replying to all, then find all other addresses and
+   // add them to the list.  Remove duplicates.
+   // This is somewhat messy, so I'll explain:
+   // 1) Take all addresses (from, to, cc) (avoid nasty join errors here)
+   $url_replytoall_extra_addrs = array_merge(array($message->header->from),
+      $message->header->to, $message->header->cc);
+
+   // 2) Make one big string out of them
+   $url_replytoall_extra_addrs = join(';', $url_replytoall_extra_addrs);
+   
+   // 3) Parse that into an array of addresses
+   $url_replytoall_extra_addrs = parseAddrs($url_replytoall_extra_addrs);
+   
+   // 4) Make them unique -- weed out duplicates
+   $url_replytoall_extra_addrs = array_unique($url_replytoall_extra_addrs);
+   
+   // 5) Remove the addresses we'll be sending the message 'to'
+   $url_replytoall_avoid_addrs = parseAddrs($message->header->replyto);
+   foreach ($url_replytoall_avoid_addrs as $addr)
+   {
+       foreach (array_keys($url_replytoall_extra_addrs, $addr) as $key_to_delete)
+       {
+           unset($url_replytoall_extra_addrs[$key_to_delete]);
+       }
+   }
+   
+   // 6) Smoosh back into one nice line
+   $url_replytoallcc = getLineOfAddrs($url_replytoall_extra_addrs);
+   
+   // 7) urlencode() it
    $url_replytoallcc = urlencode($url_replytoallcc);
 
    $dateString = getLongDateString($message->header->date);
