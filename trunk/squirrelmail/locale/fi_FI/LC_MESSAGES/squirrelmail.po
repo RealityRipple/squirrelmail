@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$ \n"
-"POT-Creation-Date: 2002-01-22 10:12+0100\n"
-"PO-Revision-Date: 2002-01-22 22:05+2\n"
+"POT-Creation-Date: 2002-01-24 15:07+0100\n"
+"PO-Revision-Date: 2002-01-25 22:15+2\n"
 "Last-Translator: Teemu Junnila <teejun@vallcom.com>\n"
 "Language-Team: Finnish <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -17,25 +17,25 @@ msgstr ""
 msgid "Address Book"
 msgstr "Osoitekirja"
 
-#: squirrelmail/src/addrbook_search.php:97
+#: squirrelmail/src/addrbook_search.php:98
 #: squirrelmail/src/addrbook_search_html.php:66
-#: squirrelmail/src/addressbook.php:285 squirrelmail/src/vcard.php:107
+#: squirrelmail/src/addressbook.php:285 squirrelmail/src/vcard.php:85
 msgid "Name"
 msgstr "Nimi"
 
-#: squirrelmail/src/addrbook_search.php:98
+#: squirrelmail/src/addrbook_search.php:99
 #: squirrelmail/src/addrbook_search_html.php:67
 #: squirrelmail/src/addressbook.php:286
 msgid "E-mail"
 msgstr "Sähköposti"
 
-#: squirrelmail/src/addrbook_search.php:99
+#: squirrelmail/src/addrbook_search.php:100
 #: squirrelmail/src/addrbook_search_html.php:68
 #: squirrelmail/src/addressbook.php:287
 msgid "Info"
 msgstr "Tietoja"
 
-#: squirrelmail/src/addrbook_search.php:102
+#: squirrelmail/src/addrbook_search.php:103
 #: squirrelmail/src/addrbook_search_html.php:71
 msgid "Source"
 msgstr "Lähde"
@@ -48,46 +48,46 @@ msgstr "Käytä Osoitteita"
 msgid "Address Book Search"
 msgstr "Haku Osoitekirjasta"
 
-#: squirrelmail/src/addrbook_search.php:172
+#: squirrelmail/src/addrbook_search.php:173
 #: squirrelmail/src/addrbook_search_html.php:126
 msgid "Search for"
 msgstr "Etsi"
 
-#: squirrelmail/src/addrbook_search.php:178
+#: squirrelmail/src/addrbook_search.php:179
 #: squirrelmail/src/addrbook_search_html.php:136
 msgid "in"
 msgstr "seuraavista:"
 
-#: squirrelmail/src/addrbook_search.php:179
+#: squirrelmail/src/addrbook_search.php:180
 #: squirrelmail/src/addrbook_search_html.php:139
 msgid "All address books"
 msgstr "Kaikista osoitekirjoista"
 
-#: squirrelmail/functions/page_header.php:124
-#: squirrelmail/src/addrbook_search.php:189
+#: squirrelmail/functions/page_header.php:128
+#: squirrelmail/src/addrbook_search.php:190
 #: squirrelmail/src/addrbook_search_html.php:150
 #: squirrelmail/src/search.php:45 squirrelmail/src/search.php:124
 msgid "Search"
 msgstr "Etsi"
 
-#: squirrelmail/src/addrbook_search.php:190
+#: squirrelmail/src/addrbook_search.php:191
 #: squirrelmail/src/addrbook_search_html.php:151
 msgid "List all"
 msgstr "Näytä kaikki"
 
-#: squirrelmail/src/addrbook_search.php:212
+#: squirrelmail/src/addrbook_search.php:213
 #: squirrelmail/src/addrbook_search_html.php:176
 #, c-format
 msgid "Unable to list addresses from %s"
 msgstr "Osoitteita ei löytynyt: %s"
 
-#: squirrelmail/src/addrbook_search.php:235
+#: squirrelmail/src/addrbook_search.php:236
 #: squirrelmail/src/addrbook_search_html.php:201
 msgid "Your search failed with the following error(s)"
 msgstr "Hakusi epäonnistui seuraavin virheilmoituksin"
 
-#: squirrelmail/src/addrbook_search.php:158
-#: squirrelmail/src/addrbook_search.php:242
+#: squirrelmail/src/addrbook_search.php:159
+#: squirrelmail/src/addrbook_search.php:243
 #: squirrelmail/src/addrbook_search_html.php:206
 msgid "No persons matching your search was found"
 msgstr "Ketään hakemaasi ei löytynyt"
@@ -96,7 +96,7 @@ msgstr "Ketään hakemaasi ei löytynyt"
 msgid "Return"
 msgstr "Paluu"
 
-#: squirrelmail/src/addrbook_search.php:193
+#: squirrelmail/src/addrbook_search.php:194
 msgid "Close window"
 msgstr "Sulje ikkuna"
 
@@ -180,8 +180,8 @@ msgstr "Alkuperäinen viesti"
 
 #: squirrelmail/functions/mailbox_display.php:581
 #: squirrelmail/plugins/filters/options.php:97
-#: squirrelmail/src/compose.php:305 squirrelmail/src/download.php:143
-#: squirrelmail/src/download.php:149
+#: squirrelmail/src/compose.php:305 squirrelmail/src/download.php:130
+#: squirrelmail/src/download.php:135
 #: squirrelmail/src/options_highlight.php:334
 #: squirrelmail/src/options_order.php:57
 #: squirrelmail/src/printer_friendly_bottom.php:118
@@ -191,8 +191,8 @@ msgstr "Aihe"
 
 #: squirrelmail/functions/mailbox_display.php:567
 #: squirrelmail/plugins/filters/options.php:85
-#: squirrelmail/src/compose.php:306 squirrelmail/src/download.php:144
-#: squirrelmail/src/download.php:151
+#: squirrelmail/src/compose.php:306 squirrelmail/src/download.php:131
+#: squirrelmail/src/download.php:137
 #: squirrelmail/src/options_highlight.php:322
 #: squirrelmail/src/options_order.php:55
 #: squirrelmail/src/printer_friendly_bottom.php:112
@@ -201,23 +201,23 @@ msgid "From"
 msgstr "Lähettäjä"
 
 #: squirrelmail/functions/mailbox_display.php:575
-#: squirrelmail/src/compose.php:307 squirrelmail/src/download.php:146
-#: squirrelmail/src/download.php:155 squirrelmail/src/options_order.php:56
+#: squirrelmail/src/compose.php:307 squirrelmail/src/download.php:133
+#: squirrelmail/src/download.php:141 squirrelmail/src/options_order.php:56
 #: squirrelmail/src/printer_friendly_bottom.php:117
 msgid "Date"
 msgstr "Päiväys"
 
 #: squirrelmail/functions/mailbox_display.php:565
 #: squirrelmail/plugins/filters/options.php:88
-#: squirrelmail/src/compose.php:309 squirrelmail/src/download.php:145
-#: squirrelmail/src/download.php:153
+#: squirrelmail/src/compose.php:309 squirrelmail/src/download.php:132
+#: squirrelmail/src/download.php:139
 #: squirrelmail/src/options_highlight.php:325
 #: squirrelmail/src/printer_friendly_bottom.php:113
 #: squirrelmail/src/search.php:119
 msgid "To"
 msgstr "Vastaanottaja"
 
-#: squirrelmail/plugins/listcommands/mailout.php:47
+#: squirrelmail/plugins/listcommands/mailout.php:50
 #: squirrelmail/src/compose.php:462 squirrelmail/src/read_body.php:566
 msgid "From:"
 msgstr "Lähettäjä:"
@@ -254,7 +254,7 @@ msgstr "Lisää liite"
 msgid "Delete selected attachments"
 msgstr "Poista valitut liitteet"
 
-#: squirrelmail/functions/page_header.php:118 squirrelmail/src/compose.php:609
+#: squirrelmail/functions/page_header.php:122 squirrelmail/src/compose.php:609
 #: squirrelmail/src/compose.php:613 squirrelmail/src/compose.php:617
 msgid "Addresses"
 msgstr "Osoitteet"
@@ -297,19 +297,19 @@ msgstr "lainaus"
 msgid "who"
 msgstr "kuka"
 
-#: squirrelmail/src/download.php:49
+#: squirrelmail/src/download.php:31
 msgid "Viewing a text attachment"
 msgstr "Näytössä tekstiliite"
 
-#: squirrelmail/src/download.php:52 squirrelmail/src/download.php:54
+#: squirrelmail/src/download.php:34 squirrelmail/src/download.php:36
 #: squirrelmail/src/image.php:31 squirrelmail/src/image.php:35
-#: squirrelmail/src/read_body.php:162 squirrelmail/src/vcard.php:51
-#: squirrelmail/src/vcard.php:55
+#: squirrelmail/src/read_body.php:162 squirrelmail/src/vcard.php:35
+#: squirrelmail/src/vcard.php:39
 msgid "View message"
 msgstr "Näytä viesti"
 
-#: squirrelmail/functions/mime.php:620 squirrelmail/src/download.php:59
-#: squirrelmail/src/image.php:44 squirrelmail/src/vcard.php:212
+#: squirrelmail/functions/mime.php:620 squirrelmail/src/download.php:41
+#: squirrelmail/src/image.php:44 squirrelmail/src/vcard.php:196
 msgid "Download this as a file"
 msgstr "Lataa tämä tiedostona"
 
@@ -321,7 +321,7 @@ msgstr "Epäkelpo nimi kansiolle. Ole hyvä ja valitse joku toinen nimi."
 msgid "Click here to go back"
 msgstr "Klikkaa tästä päästäksesi takaisin"
 
-#: squirrelmail/functions/page_header.php:120 squirrelmail/src/folders.php:29
+#: squirrelmail/functions/page_header.php:124 squirrelmail/src/folders.php:29
 #: squirrelmail/src/left_main.php:234
 msgid "Folders"
 msgstr "Kansiot"
@@ -396,12 +396,12 @@ msgstr "Poista Kansio"
 msgid "Delete"
 msgstr "Poista"
 
-#: squirrelmail/plugins/listcommands/setup.php:31
+#: squirrelmail/plugins/listcommands/setup.php:33
 #: squirrelmail/src/folders.php:201 squirrelmail/src/folders.php:220
 msgid "Unsubscribe"
 msgstr "Poista käytöstä"
 
-#: squirrelmail/plugins/listcommands/setup.php:32
+#: squirrelmail/plugins/listcommands/setup.php:34
 #: squirrelmail/src/folders.php:201 squirrelmail/src/folders.php:261
 msgid "Subscribe"
 msgstr "Ota käyttöön"
@@ -431,8 +431,8 @@ msgstr "Uusi nimi:"
 msgid "Submit"
 msgstr "Aktivoi"
 
-#: squirrelmail/functions/page_header.php:126
-#: squirrelmail/plugins/listcommands/setup.php:30 squirrelmail/src/help.php:91
+#: squirrelmail/functions/page_header.php:130
+#: squirrelmail/plugins/listcommands/setup.php:32 squirrelmail/src/help.php:91
 msgid "Help"
 msgstr "Apua"
 
@@ -455,6 +455,8 @@ msgstr "Sisältö"
 #: squirrelmail/functions/mailbox_display.php:735
 #: squirrelmail/functions/mailbox_display.php:738
 #: squirrelmail/functions/mailbox_display.php:741
+#: squirrelmail/plugins/delete_move_next/setup.php:149
+#: squirrelmail/plugins/delete_move_next/setup.php:151
 #: squirrelmail/src/help.php:187 squirrelmail/src/help.php:191
 #: squirrelmail/src/read_body.php:495 squirrelmail/src/read_body.php:497
 msgid "Previous"
@@ -463,6 +465,8 @@ msgstr "Edellinen"
 #: squirrelmail/functions/mailbox_display.php:736
 #: squirrelmail/functions/mailbox_display.php:739
 #: squirrelmail/functions/mailbox_display.php:742
+#: squirrelmail/plugins/delete_move_next/setup.php:154
+#: squirrelmail/plugins/delete_move_next/setup.php:156
 #: squirrelmail/src/help.php:195 squirrelmail/src/help.php:198
 #: squirrelmail/src/read_body.php:501 squirrelmail/src/read_body.php:503
 msgid "Next"
@@ -512,9 +516,9 @@ msgstr "Nimi:"
 msgid "Password:"
 msgstr "Tunnussana:"
 
-#: squirrelmail/src/move_messages.php:93
-#: squirrelmail/src/move_messages.php:128
-#: squirrelmail/src/move_messages.php:157
+#: squirrelmail/src/move_messages.php:79
+#: squirrelmail/src/move_messages.php:114
+#: squirrelmail/src/move_messages.php:143
 msgid "No messages were selected."
 msgstr "Ei valittuja viestejä."
 
@@ -773,7 +777,7 @@ msgstr "Muistietsintä"
 msgid "Disabled"
 msgstr "Ei käytössä"
 
-#: squirrelmail/functions/page_header.php:122
+#: squirrelmail/functions/page_header.php:126
 #: squirrelmail/plugins/filters/options.php:62
 #: squirrelmail/plugins/newmail/newmail_opt.php:34
 #: squirrelmail/plugins/translate/options.php:97
@@ -1175,9 +1179,9 @@ msgstr "Näytä kaikki otsaketiedot"
 
 #: squirrelmail/plugins/calendar/event_create.php:107
 #: squirrelmail/plugins/calendar/event_delete.php:32
-#: squirrelmail/plugins/calendar/event_edit.php:36
-#: squirrelmail/plugins/calendar/event_edit.php:94
-#: squirrelmail/plugins/calendar/event_edit.php:107
+#: squirrelmail/plugins/calendar/event_edit.php:35
+#: squirrelmail/plugins/calendar/event_edit.php:93
+#: squirrelmail/plugins/calendar/event_edit.php:106
 #: squirrelmail/src/read_body.php:574
 msgid "Date:"
 msgstr "Päiväys:"
@@ -1211,7 +1215,7 @@ msgstr "Viesti"
 msgid "Everywhere"
 msgstr "Kaikki kentät"
 
-#: squirrelmail/functions/page_header.php:110 squirrelmail/src/signout.php:84
+#: squirrelmail/functions/page_header.php:114 squirrelmail/src/signout.php:84
 msgid "Sign Out"
 msgstr "Poistu"
 
@@ -1223,55 +1227,55 @@ msgstr "Olet poistunut systeemistä."
 msgid "Click here to log back in."
 msgstr "Klikkaa tästä kirjautuaksesi uudestaan sisään."
 
-#: squirrelmail/src/vcard.php:46
+#: squirrelmail/src/vcard.php:30
 msgid "Viewing a Business Card"
 msgstr "Näytössä Käyntikortti"
 
-#: squirrelmail/src/vcard.php:108 squirrelmail/src/vcard.php:169
+#: squirrelmail/src/vcard.php:86 squirrelmail/src/vcard.php:146
 msgid "Title"
 msgstr "Otsikko:"
 
-#: squirrelmail/src/vcard.php:109
+#: squirrelmail/src/vcard.php:87
 msgid "Email"
 msgstr "Sähköposti"
 
-#: squirrelmail/src/vcard.php:110 squirrelmail/src/vcard.php:163
+#: squirrelmail/src/vcard.php:88 squirrelmail/src/vcard.php:138
 msgid "Web Page"
 msgstr "Web-Sivu"
 
-#: squirrelmail/src/vcard.php:111 squirrelmail/src/vcard.php:172
+#: squirrelmail/src/vcard.php:89 squirrelmail/src/vcard.php:150
 msgid "Organization / Department"
 msgstr "Organisaatio / Osasto"
 
-#: squirrelmail/src/vcard.php:112 squirrelmail/src/vcard.php:166
+#: squirrelmail/src/vcard.php:90 squirrelmail/src/vcard.php:142
 msgid "Address"
 msgstr "Osoite"
 
-#: squirrelmail/src/vcard.php:113 squirrelmail/src/vcard.php:179
+#: squirrelmail/src/vcard.php:91 squirrelmail/src/vcard.php:159
 msgid "Work Phone"
 msgstr "Työpuhelin"
 
-#: squirrelmail/src/vcard.php:114 squirrelmail/src/vcard.php:182
+#: squirrelmail/src/vcard.php:92 squirrelmail/src/vcard.php:163
 msgid "Home Phone"
 msgstr "Kotipuhelin"
 
-#: squirrelmail/src/vcard.php:115 squirrelmail/src/vcard.php:185
+#: squirrelmail/src/vcard.php:93 squirrelmail/src/vcard.php:167
 msgid "Cellular Phone"
 msgstr "Kännykkä"
 
-#: squirrelmail/src/vcard.php:116 squirrelmail/src/vcard.php:188
+#: squirrelmail/src/vcard.php:94 squirrelmail/src/vcard.php:171
 msgid "Fax"
 msgstr "Faksi"
 
-#: squirrelmail/src/vcard.php:117 squirrelmail/src/vcard.php:191
+#: squirrelmail/src/vcard.php:95 squirrelmail/src/vcard.php:175
 msgid "Note"
 msgstr "Merkintä"
 
-#: squirrelmail/src/vcard.php:149
+#: squirrelmail/src/vcard.php:124
 msgid "Add to Addressbook"
 msgstr "Lisää Osoitekirjaan"
 
-#: squirrelmail/src/vcard.php:176
+#: squirrelmail/src/vcard.php:155
 msgid "Title & Org. / Dept."
 msgstr "Titteli ja Organisaatio / Osasto"
 
@@ -1734,8 +1738,8 @@ msgstr "Vastaus:"
 #: squirrelmail/functions/mime.php:434
 #: squirrelmail/plugins/calendar/event_create.php:113
 #: squirrelmail/plugins/calendar/event_delete.php:38
-#: squirrelmail/plugins/calendar/event_edit.php:102
-#: squirrelmail/plugins/calendar/event_edit.php:115
+#: squirrelmail/plugins/calendar/event_edit.php:101
+#: squirrelmail/plugins/calendar/event_edit.php:114
 msgid "Message:"
 msgstr "Viesti"
 
@@ -1755,9 +1759,9 @@ msgstr "lataa"
 #: squirrelmail/plugins/calendar/event_create.php:53
 #: squirrelmail/plugins/calendar/event_create.php:111
 #: squirrelmail/plugins/calendar/event_delete.php:36
-#: squirrelmail/plugins/calendar/event_edit.php:72
-#: squirrelmail/plugins/calendar/event_edit.php:100
-#: squirrelmail/plugins/calendar/event_edit.php:113
+#: squirrelmail/plugins/calendar/event_edit.php:71
+#: squirrelmail/plugins/calendar/event_edit.php:99
+#: squirrelmail/plugins/calendar/event_edit.php:112
 msgid "Title:"
 msgstr "Otsikko:"
 
@@ -1771,20 +1775,22 @@ msgid "Option Type '%s' Not Found"
 msgstr "Asetustyyppiä '%s' Ei Löydy"
 
 #: squirrelmail/functions/options.php:253
-#: squirrelmail/plugins/calendar/event_edit.php:135
+#: squirrelmail/plugins/calendar/event_delete.php:51
+#: squirrelmail/plugins/calendar/event_edit.php:134
 msgid "Yes"
 msgstr "Kyllä"
 
 #: squirrelmail/functions/options.php:258
-#: squirrelmail/plugins/calendar/event_edit.php:142
+#: squirrelmail/plugins/calendar/event_delete.php:58
+#: squirrelmail/plugins/calendar/event_edit.php:141
 msgid "No"
 msgstr "Ei"
 
-#: squirrelmail/functions/page_header.php:107
+#: squirrelmail/functions/page_header.php:108
 msgid "Current Folder"
 msgstr "Tämänhetkinen Kansio"
 
-#: squirrelmail/functions/page_header.php:116
+#: squirrelmail/functions/page_header.php:120
 msgid "Compose"
 msgstr "Uusi Viesti"
 
@@ -1794,8 +1800,8 @@ msgid ""
 "Preference file, %s, does not exist. Log out, and log back in to create a "
 "default preference file."
 msgstr ""
-"Asetustiedostoa %s ei löydy. Poistu ja kirjaudu uudestaan sisään "
-"luodaksesi uuden asetustiedoston."
+"Asetustiedostoa %s ei löydy. Poistu ja kirjaudu uudestaan sisään luodaksesi "
+"uuden asetustiedoston."
 
 #: squirrelmail/functions/prefs.php:169 squirrelmail/functions/prefs.php:174
 msgid "Error opening "
@@ -1900,49 +1906,61 @@ msgstr ""
 
 #: squirrelmail/plugins/filters/filters.php:456
 msgid ""
+"FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure "
+"formmail.cgi scripts. (planned)."
+msgstr ""
+"VAPAA - Osirusof Insecure formmail.cgi scripts - Lista epävarmoista "
+"formmail.cgi skripteistä (suunnitteilla)."
+
+#: squirrelmail/plugins/filters/filters.php:464
+msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
+msgstr "VAPAA - Osirusoft Open Proxy Servers - Lista avoimista Välittäjistä."
+
+#: squirrelmail/plugins/filters/filters.php:472
+msgid ""
 "FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
 "false positives than ORBS did though."
 msgstr ""
 "VAPAA - ORDB syntyi kun ORBS poistui. Näyttää sisältävän vähemmän vääriä "
 "ilmoituksia kuin ORBS."
 
-#: squirrelmail/plugins/filters/filters.php:464
+#: squirrelmail/plugins/filters/filters.php:480
 msgid "FREE - Another ORBS replacement (just the INPUTS database used here)."
 msgstr "VAPAA - Toinen ORBS sijainen (vain syötetyt tiedot)."
 
-#: squirrelmail/plugins/filters/filters.php:472
+#: squirrelmail/plugins/filters/filters.php:488
 msgid "FREE - Another ORBS replacement (just the OUTPUTS database used here)."
 msgstr "VAPAA - Toinen ORBS sijainen (vain tulostetut tiedot)."
 
-#: squirrelmail/plugins/filters/filters.php:480
+#: squirrelmail/plugins/filters/filters.php:496
 msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
 msgstr "VAPAA - Five-Ten-sg.com - Suorat roskapostilähteet."
 
-#: squirrelmail/plugins/filters/filters.php:488
+#: squirrelmail/plugins/filters/filters.php:504
 msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
 msgstr "VAPAA - Five-Ten-sg.com - Puhelinverkkoroskapostilähteet."
 
-#: squirrelmail/plugins/filters/filters.php:496
+#: squirrelmail/plugins/filters/filters.php:512
 msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
 msgstr "VAPAA - Five-Ten-sg.com - Massapostittajia."
 
-#: squirrelmail/plugins/filters/filters.php:504
+#: squirrelmail/plugins/filters/filters.php:520
 msgid "FREE - Five-Ten-sg.com - Other misc. servers."
 msgstr "VAPAA - Five-Ten-sg.com - Muita sekalaisia."
 
-#: squirrelmail/plugins/filters/filters.php:512
+#: squirrelmail/plugins/filters/filters.php:528
 msgid "FREE - Five-Ten-sg.com - Single Stage servers."
 msgstr "VAPAA - Five-Ten-sg.com - Yksivaiheisia palvelimia."
 
-#: squirrelmail/plugins/filters/filters.php:520
+#: squirrelmail/plugins/filters/filters.php:536
 msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
 msgstr "VAPAA - Five-Ten-sg.com - Roskapostin tukijoita."
 
-#: squirrelmail/plugins/filters/filters.php:528
+#: squirrelmail/plugins/filters/filters.php:544
 msgid "FREE - Five-Ten-sg.com - Web Form IPs."
 msgstr "VAPAA - Five-Ten-sg.com - WWW osoitteita."
 
-#: squirrelmail/plugins/filters/filters.php:536
+#: squirrelmail/plugins/filters/filters.php:552
 msgid ""
 "FREE - Dorkslayers appears to include only really bad open relays outside "
 "the US to avoid being sued. Interestingly enough, their website recommends "
@@ -1953,23 +1971,15 @@ msgstr ""
 "Mielenkiintoista on se että heidän websivunsa suosittelevat olemaan "
 "käyttämättä heidän palvelujaan."
 
-#: squirrelmail/plugins/filters/filters.php:544
-msgid ""
-"FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be "
-"SLOOOOOOW!"
-msgstr ""
-"VAPAA - ORBL on myös yksi ORBS sivupolku ORBS:än hävittyä. Voi olla erittäin "
-"hidas."
-
-#: squirrelmail/plugins/filters/filters.php:552
+#: squirrelmail/plugins/filters/filters.php:560
 msgid "FREE - orbz.gst-group.co.uk - Inputs only."
 msgstr "VAPAA - orbz.gst-group.co.uk - Vain syöttötietoja."
 
-#: squirrelmail/plugins/filters/filters.php:560
+#: squirrelmail/plugins/filters/filters.php:568
 msgid "FREE - orbz.gst-group.co.uk - Outputs only."
 msgstr "VAPAA - orbz.gst-group.co.uk - Vain tulostustietoja."
 
-#: squirrelmail/plugins/filters/filters.php:568
+#: squirrelmail/plugins/filters/filters.php:576
 msgid ""
 "FREE - orbz.gst-group.co.uk - mailservers that refuse or bounce email "
 "addressed to postmaster@<theirdomain>."
@@ -1977,7 +1987,7 @@ msgstr ""
 "VAPAA - orbz.gst-group.co.uk - palvelimia jotka eivät ota vastaan postia "
 "joka on lähetetty osoitteeseen postmaster@<heidänosoitteensa>."
 
-#: squirrelmail/plugins/filters/filters.php:576
+#: squirrelmail/plugins/filters/filters.php:584
 #, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
@@ -3540,14 +3550,14 @@ msgid "Start time:"
 msgstr "Alkuaika:"
 
 #: squirrelmail/plugins/calendar/event_create.php:41
-#: squirrelmail/plugins/calendar/event_edit.php:60
+#: squirrelmail/plugins/calendar/event_edit.php:59
 msgid "Length:"
 msgstr "Kesto:"
 
 #: squirrelmail/plugins/calendar/event_create.php:47
-#: squirrelmail/plugins/calendar/event_edit.php:66
-#: squirrelmail/plugins/calendar/event_edit.php:98
-#: squirrelmail/plugins/calendar/event_edit.php:111
+#: squirrelmail/plugins/calendar/event_edit.php:65
+#: squirrelmail/plugins/calendar/event_edit.php:97
+#: squirrelmail/plugins/calendar/event_edit.php:110
 msgid "Priority:"
 msgstr "Prioriteetti:"
 
@@ -3561,12 +3571,14 @@ msgstr "Tapahtuma lisätty!"
 
 #: squirrelmail/plugins/calendar/event_create.php:109
 #: squirrelmail/plugins/calendar/event_delete.php:34
-#: squirrelmail/plugins/calendar/event_edit.php:50
-#: squirrelmail/plugins/calendar/event_edit.php:96
+#: squirrelmail/plugins/calendar/event_edit.php:49
+#: squirrelmail/plugins/calendar/event_edit.php:95
 msgid "Time:"
 msgstr "Aika:"
 
 #: squirrelmail/plugins/calendar/event_create.php:116
+#: squirrelmail/plugins/calendar/event_delete.php:91
+#: squirrelmail/plugins/calendar/event_edit.php:189
 #: squirrelmail/plugins/calendar/functions.php:23
 msgid "Day View"
 msgstr "Päivänäyttö"
@@ -3579,21 +3591,25 @@ msgstr "Haluatko varmasti poistaa tämän tapahtuman?"
 msgid "Event deleted!"
 msgstr "Tapahtuma poistettu!"
 
-#: squirrelmail/plugins/calendar/event_delete.php:96
+#: squirrelmail/plugins/calendar/event_delete.php:97
 msgid "Nothing to delete!"
 msgstr "Ei poistettavaa!"
 
-#: squirrelmail/plugins/calendar/event_edit.php:80
+#: squirrelmail/plugins/calendar/event_edit.php:79
 msgid "Update Event"
 msgstr "Päivitä tapahtuma"
 
-#: squirrelmail/plugins/calendar/event_edit.php:92
+#: squirrelmail/plugins/calendar/event_edit.php:91
 msgid "Do you really want to change this event from:"
 msgstr "Haluatko varmasti vaihtaa tapahtuman:"
 
-#: squirrelmail/plugins/calendar/event_edit.php:105
+#: squirrelmail/plugins/calendar/event_edit.php:104
 msgid "to:"
 msgstr "Seuraavasti:"
+
+#: squirrelmail/plugins/calendar/event_edit.php:187
+msgid "Event updated!"
+msgstr "Tapahtuma päivitetty!"
 
 #: squirrelmail/plugins/calendar/functions.php:21
 msgid "Month View"
@@ -3651,15 +3667,15 @@ msgstr "5 tuntia"
 msgid "6 hr."
 msgstr "6 tuntia"
 
-#: squirrelmail/plugins/calendar/setup.php:20
+#: squirrelmail/plugins/calendar/setup.php:21
 msgid "Calendar"
 msgstr "Kalenteri"
 
-#: squirrelmail/plugins/listcommands/mailout.php:16
+#: squirrelmail/plugins/listcommands/mailout.php:19
 msgid "Mailinglist"
 msgstr "Postituslista"
 
-#: squirrelmail/plugins/listcommands/mailout.php:22
+#: squirrelmail/plugins/listcommands/mailout.php:25
 #, c-format
 msgid ""
 "This will send a message to %s requesting help for this list. You will "
@@ -3668,43 +3684,71 @@ msgstr ""
 "Lähettää viestin vastaanottajalle %s ja pyytää apua listan käytöstä. Saat "
 "vastauksen allaolevaan osoitteeseen."
 
-#: squirrelmail/plugins/listcommands/mailout.php:25
+#: squirrelmail/plugins/listcommands/mailout.php:28
 #, c-format
 msgid ""
 "This will send a message to %s requesting that you will be subscribed to "
 "this list. You will be subscribed with the address below."
 msgstr ""
-"Lähettää viestin vastaanottajalle %s ja ilmoittaa sinut listan tilaajaksi."
-" Tilausosoitteesi on allaoleva osoite."
+"Lähettää viestin vastaanottajalle %s ja ilmoittaa sinut listan tilaajaksi. "
+"Tilausosoitteesi on allaoleva osoite."
 
-#: squirrelmail/plugins/listcommands/mailout.php:28
+#: squirrelmail/plugins/listcommands/mailout.php:31
 #, c-format
 msgid ""
 "This will send a message to %s requesting that you will be unsubscribed from "
 "this list. It will try to unsubscribe the adress below."
 msgstr ""
-"Lähettää viestin vastaanottajalle %s ja peruuttaa tilauksesi. "
-"Osoite joka yritetään poistaa on allaoleva osoite."
-#: squirrelmail/plugins/listcommands/mailout.php:76
+"Lähettää viestin vastaanottajalle %s ja peruuttaa tilauksesi. Osoite joka "
+"yritetään poistaa on allaoleva osoite."
+
+#: squirrelmail/plugins/listcommands/mailout.php:79
 msgid "Send Mail"
 msgstr "Lähetä Viesti"
 
-#: squirrelmail/plugins/listcommands/setup.php:33
+#: squirrelmail/plugins/listcommands/setup.php:35
 msgid "Post to the list"
 msgstr "Lähetä listaosoitteeseen"
 
-#: squirrelmail/plugins/listcommands/setup.php:34
+#: squirrelmail/plugins/listcommands/setup.php:36
 msgid "List Archives"
 msgstr "Listaa Arkkiivit"
 
-#: squirrelmail/plugins/listcommands/setup.php:35
+#: squirrelmail/plugins/listcommands/setup.php:37
 msgid "Contact Listowner"
 msgstr "Ota yhteys listan omistajaan"
 
-#: squirrelmail/plugins/listcommands/setup.php:37
+#: squirrelmail/plugins/listcommands/setup.php:39
 msgid "Reply to the list"
 msgstr "Vastaa listaosoitteeseen"
 
-#: squirrelmail/plugins/listcommands/setup.php:88
+#: squirrelmail/plugins/listcommands/setup.php:90
 msgid "Mailinglist options:"
 msgstr "Postilista-asetukset"
+
+#: squirrelmail/plugins/delete_move_next/setup.php:159
+#: squirrelmail/plugins/delete_move_next/setup.php:162
+msgid "Delete & Prev"
+msgstr "Poista & Edellinen"
+
+#: squirrelmail/plugins/delete_move_next/setup.php:165
+#: squirrelmail/plugins/delete_move_next/setup.php:167
+msgid "Delete & Next"
+msgstr "Poista & Seuraava"
+
+#: squirrelmail/plugins/delete_move_next/setup.php:290
+msgid "delete_move_next:"
+msgstr "poista_mene_seuraavaan:"
+
+#: squirrelmail/plugins/delete_move_next/setup.php:296
+msgid "display at top"
+msgstr "näytä ylälaidassa"
+
+#: squirrelmail/plugins/delete_move_next/setup.php:302
+#: squirrelmail/plugins/delete_move_next/setup.php:314
+msgid "with move option"
+msgstr "siirtomahdollisuudella"
+
+#: squirrelmail/plugins/delete_move_next/setup.php:308
+msgid "display at bottom"
+msgstr "näytä alalaidassa"
