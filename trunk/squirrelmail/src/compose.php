@@ -39,8 +39,8 @@ if (isset($draft)) {
     if (! isset($reply_id)) {
          $reply_id = 0;
     }
-	if (! isset($MDN)) {
-	     $MDN = 'False';
+    if (! isset($MDN)) {
+        $MDN = 'False';
     }
     if (!saveMessageAsDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id, $MDN)) {
         showInputForm();
@@ -49,10 +49,10 @@ if (isset($draft)) {
         $draft_message = _("Draft Email Saved");
         /* If this is a resumed draft, then delete the original */
         if(isset($delete_draft)) {
-            Header("Location: delete_message.php?mailbox=$draft_folder".
+            Header("Location: delete_message.php?mailbox=" . urlencode($draft_folder) .
                    "&message=$delete_draft&sort=$sort&startMessage=1&saved_draft=yes");
             exit();
-        } 
+        }
         else {
             if ($compose_new_win == '1') {
                 Header("Location: compose.php?saved_draft=yes");
@@ -80,13 +80,13 @@ if (isset($send)) {
         }
         /*
          * Set $default_charset to correspond with the user's selection
-         * of language interface. 
+         * of language interface.
          */
         set_my_charset();
 
         /*
          * This is to change all newlines to \n
-         * We'll change them to \r\n later (in the sendMessage function) 
+         * We'll change them to \r\n later (in the sendMessage function)
          */
         $body = str_replace("\r\n", "\n", $body);
         $body = str_replace("\r", "\n", $body);
@@ -95,7 +95,7 @@ if (isset($send)) {
          * Rewrap $body so that no line is bigger than $editor_size
          * This should only really kick in the sqWordWrap function
          * if the browser doesn't support "HARD" as the wrap type
-         * Or, in Opera's case, something goes wrong. 
+         * Or, in Opera's case, something goes wrong.
          */
         $body = explode("\n", $body);
         $newBody = '';
@@ -127,7 +127,7 @@ if (isset($send)) {
             exit();
         }
         if ( isset($delete_draft)) {
-            Header("Location: delete_message.php?mailbox=$draft_folder".
+            Header("Location: delete_message.php?mailbox=" . urlencode( $draft_folder ).
                    "&message=$delete_draft&sort=$sort&startMessage=1&mail_sent=yes");
             exit();
         }

@@ -32,6 +32,7 @@ if (!isset($mail_sent)) {
 }
 
 $location = get_location();
+
 if (isset($where) && isset($what)) {
     header("Location: $location/search.php?where=" . urlencode($where) .
            '&what=' . urlencode($what) . '&mailbox=' . urlencode($mailbox));
