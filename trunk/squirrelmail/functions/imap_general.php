@@ -20,15 +20,12 @@
     */
     function sqimap_session_id() {
 
-        if (session_id() == '')
-            global $RememberedSessionID;
+        $IMAPSessionID = substr(session_id(), -4);
+        if( $IMAPSessionID == '' ) {
+            $IMAPSessionID = GenerateRandomString(4, '', 7);
+        }
 
-            if (! isset($RememberedSessionID))
-                $RememberedSessionID = GenerateRandomString(4, '', 7);
-        else
-            $RememberedSessionID = substr(session_id(), -4);
-
-        return( $RememberedSessionID );
+        return( $IMAPSessionID );
    }
 
 
@@ -142,12 +139,13 @@
     **  will be displayed.  This function returns the imap connection handle.
     ******************************************************************************/
    function sqimap_login ($username, $password, $imap_server_address, $imap_port, $hide) {
+      
       global $color, $squirrelmail_language, $HTTP_ACCEPT_LANGUAGE, $onetimepad;
 
-      $imap_stream = fsockopen ($imap_server_address, $imap_port,
-         $error_number, $error_string, 15);
+      $imap_stream = fsockopen ( $imap_server_address, $imap_port,
+                                 $error_number, $error_string, 15);
       $server_info = fgets ($imap_stream, 1024);
-
+        
       // Decrypt the password
       $password = OneTimePadDecrypt($password, $onetimepad);
 
