@@ -81,7 +81,7 @@ function sqimap_mailbox_select ($imap_stream, $mailbox,
         return $r[1];
     }
     if ($auto_expunge) {
-        $tmp = sqimap_run_command($imap_stream, "EXPUNGE",
+        $tmp = sqimap_run_command($imap_stream, 'EXPUNGE',
                                   false, $a, $b);
     }
 }
@@ -110,7 +110,7 @@ function sqimap_mailbox_create ($imap_stream, $mailbox, $type)
  ******************************************************************************/
 function sqimap_subscribe ($imap_stream, $mailbox)
 {
-    $read_ary = sqimap_run_command($imap_stream, " SUBSCRIBE \"$mailbox\"",
+    $read_ary = sqimap_run_command($imap_stream, "SUBSCRIBE \"$mailbox\"",
                                  TRUE, $response, $message);
 }
 
@@ -123,7 +123,7 @@ function sqimap_unsubscribe ($imap_stream, $mailbox)
 {
     global $imap_server_type;
     
-    $read_ary = sqimap_run_command($imap_stream, " UNSUBSCRIBE \"$mailbox\"",
+    $read_ary = sqimap_run_command($imap_stream, "UNSUBSCRIBE \"$mailbox\"",
                                  TRUE, $response, $message);
 }
 

@@ -387,7 +387,7 @@ function sqimap_find_displayable_name ($string) {
 */
 function sqimap_unseen_messages ($imap_stream, $mailbox) {
     //fputs ($imap_stream, sqimap_session_id() . " SEARCH UNSEEN NOT DELETED\r\n");
-    $read_ary = sqimap_run_command ($imap_stream, " STATUS \"$mailbox\" (UNSEEN)", true, $result, $message);
+    $read_ary = sqimap_run_command ($imap_stream, "STATUS \"$mailbox\" (UNSEEN)", true, $result, $message);
     ereg("UNSEEN ([0-9]+)", $read_ary[0], $regs);
     return $regs[1];
 }
