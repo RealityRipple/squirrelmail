@@ -985,6 +985,7 @@ function showInputForm ($session, $values=false) {
     }
 
     /* This code is for attachments */
+	if ((bool) ini_get('file_uploads')) {
     echo '   <TR>' . "\n" .
          '      <TD COLSPAN=2>' . "\n" .
          '         <table width="100%" cellpadding="1" cellspacing="0" align="center"'.
@@ -1033,11 +1034,12 @@ function showInputForm ($session, $values=false) {
          '         </TABLE>' . "\n" .
          '      </TD>' . "\n" .
          '   </TR>' . "\n";
-
+	} // End of file_uploads if-block
     /* End of attachment code */
     if ($compose_new_win == '1') {
         echo '</TABLE>'."\n";
     }
+
     echo '</TABLE>' . "\n" .
          '<input type="hidden" name="username" value="'. $username . "\">\n" .   
          '<input type=hidden name=action value="' . $action . "\">\n" .
@@ -1051,6 +1053,14 @@ function showInputForm ($session, $values=false) {
     echo '<input type=hidden name=composesession value="' . $composesession . "\">\n";
     echo '<input type=hidden name=querystring value="' . $_SERVER['QUERY_STRING'] . "\">\n";
     echo '</FORM>';
+    if (!(bool) ini_get('file_uploads')) {
+      /* File uploads are off, so we didn't show that part of the form.
+         To avoid bogus bug reports, tell the user why. */
+      echo 'Because PHP file uploads are turned off, you can not attach files ';
+      echo "to this message.  Please see your system administrator for details.\r\n";
+    }
+
+
     do_hook('compose_bottom');
     echo '</BODY></HTML>' . "\n";
 }
