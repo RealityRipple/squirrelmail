@@ -22,6 +22,8 @@ Version 1.5.1 -- CVS
     Some SpamAssassin rule triggers on the absence of such a comment.
   - Corrected moving of last message in a folder using Delete-Move-Next 
     functionality added to core in 1.5.0.
+  - Fix test for LOGINDISABLED, should only test when the auth_mech actually
+    is 'login'.
 
 Version 1.5.0
 --------------------
