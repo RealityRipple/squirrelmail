@@ -47,4 +47,22 @@
       echo "</TABLE>";
       echo "</BODY></HTML>";
    }
+
+    function messages_deleted_message($mailbox, $sort, $startMessage) {
+      $urlMailbox = urlencode($mailbox);
+      echo "<BR>";
+      echo "<TABLE COLS=1 WIDTH=70% NOBORDER BGCOLOR=FFFFFF ALIGN=CENTER>";
+      echo "   <TR>";
+      echo "      <TD BGCOLOR=DCDCDC>";
+      echo "         <FONT FACE=\"Arial,Helvetica\"><B><CENTER>Messages Deleted</CENTER></B></FONT>";
+      echo "   </TD></TR><TR><TD>";
+      echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>The selected messages were deleted successfully.<BR>\n";
+      echo "              <A HREF=\"right_main.php?sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\" TARGET=\"right\">";
+      echo "              Click here to return to $mailbox";
+      echo "              </A>.";
+      echo "      </FONT></CENTER>";
+      echo "   </TD></TR>";
+      echo "</TABLE>";
+      echo "</BODY></HTML>";
+    }
 ?>

@@ -48,9 +48,14 @@
       }
    }
 
+   function setMessageFlag($imapConnection, $i, $flag) {
+      fputs($imapConnection, "messageStore STORE $i:$i +FLAGS (\\$flag)\n");
+   }
+
    function getMessageFlags($imapConnection, $i, &$flags) {
       /**   * 2 FETCH (FLAGS (\Answered \Seen))   */
       fputs($imapConnection, "messageFetch FETCH $i:$i FLAGS\n");
+      $read = fgets($imapConnection, 1024);
       while ((substr($read, 0, 15) != "messageFetch OK") && (substr($read, 0, 16) != "messageFetch BAD")) {
          if (strpos($read, "FLAGS")) {
             $read = ereg_replace("\(", "", $read);
@@ -119,5 +124,26 @@
          $from = substr($from, 1, strlen($from) - 2);
 
       return $from;
+   }
+
+   /** returns "true" if the copy was completed successfully.
+    ** returns "false" with an error message if unsuccessful.
+    **/
+   function copyMessages($imapConnection, $from_id, $to_id, $folder) {
+      fputs($imapConnection, "mailboxStore COPY $from_id:$to_id \"$folder\"\n");
+      $read = fgets($imapConnection, 1024);
+      while ((substr($read, 0, 15) != "mailboxStore OK") && (substr($read, 0, 15) != "mailboxStore NO")) {
+         $read = fgets($imapConnection, 1024);
+      }
+
+      if (substr($read, 0, 15) == "mailboxStore NO") {
+         echo "ERROR... $read<BR>";
+         return false;
+      } else if (substr($read, 0, 15) == "mailboxStore OK") {
+         return true;
+      }
+
+      echo "UNKNOWN ERROR copying messages $from_id to $to_id to folder $folder.<BR>";
+      return false;
    }
 ?>
