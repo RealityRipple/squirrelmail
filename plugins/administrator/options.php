@@ -299,20 +299,24 @@ foreach ( $newcfg as $k => $v ) {
                     fwrite( $fp, ', ' );
                 }
                 fwrite( $fp, substr( $k, 0, $i) );
-                $not_first = TRUE;
             }
         } else {
             if( $not_first ) {
                 fwrite( $fp, ', ' );
-            }
+            }        
             fwrite( $fp, $k );
-            $not_first = TRUE;
         }
+        $not_first = TRUE;
     }
 }
 fwrite( $fp, ";\n" );
 foreach ( $newcfg as $k => $v ) {
     if ( $k{0} == '$' ) {
+        if ( substr( $k, 1, 11 ) == 'ldap_server' ) {
+            $v = substr( $v, 0, strlen( $v ) - 1 ) . "\n)";
+            $v = str_replace( 'array(', "array(\n\t", $v );
+            $v = str_replace( "',", "',\n\t", $v );
+        }
         fwrite( $fp, "$k = $v;\n" );
     }
 }
