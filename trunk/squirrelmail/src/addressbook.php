@@ -75,6 +75,7 @@ $formerror = '';
 $abortform = false;
 $showaddrlist = true;
 $defselected  = array();
+$form_url = 'addressbook.php';
 
 
 /* Handle user's actions */
@@ -167,7 +168,7 @@ if($REQUEST_METHOD == 'POST') {
                         $olddata = $abook->lookup($enick, $ebackend);
 
                         /* Display the "new address" form */
-                        echo '<FORM ACTION="' . $PHP_SELF . '" METHOD="POST">' .
+                        echo '<FORM ACTION="' . $form_url . '" METHOD="POST">' .
                              "\n" .
                              html_tag( 'table',
                                 html_tag( 'tr',
@@ -204,7 +205,7 @@ if($REQUEST_METHOD == 'POST') {
                              'center', '', 'width="100%"' );
 
                             /* Display the "new address" form again */
-                            echo '<FORM ACTION="' . $PHP_SELF .
+                            echo '<FORM ACTION="' . $form_url .
                                  '" METHOD="POST">' . "\n" .
                                  html_tag( 'table',
                                      html_tag( 'tr',
@@ -276,7 +277,7 @@ if ($showaddrlist) {
 
     /* List addresses */
     if (count($alist) > 0) {
-        echo '<FORM ACTION="' . $PHP_SELF . '" METHOD="POST">' . "\n";
+        echo '<FORM ACTION="' . $form_url . '" METHOD="POST">' . "\n";
         while(list($undef,$row) = each($alist)) {
     
             /* New table header for each backend */
@@ -367,7 +368,7 @@ if ($showaddrlist) {
 
 /* Display the "new address" form */
 echo '<a name="AddAddress"></a>' . "\n" .
-    '<FORM ACTION="' . $PHP_SELF . '" NAME=f_add METHOD="POST">' . "\n" .
+    '<FORM ACTION="' . $form_url . '" NAME=f_add METHOD="POST">' . "\n" .
     html_tag( 'table',
         html_tag( 'tr',
             html_tag( 'td', "\n". '<strong>' . sprintf(_("Add to %s"), $abook->localbackendname) . '</strong>' . "\n",
