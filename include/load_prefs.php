@@ -283,6 +283,8 @@ $truncate_subject = getPref($data_dir, $username, 'truncate_subject', 50);
 /* Allow user to show recipient name if the message is from default identity */
 $show_recipient_instead = getPref($data_dir, $username, 'show_recipient_instead', 0);
 
+$delete_prev_next_display = getPref($data_dir, $username, 'delete_prev_next_display', 1);
+
 do_hook('loading_prefs');
 
 ?>
