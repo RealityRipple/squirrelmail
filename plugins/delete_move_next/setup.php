@@ -120,10 +120,16 @@ function delete_move_next_read($currloc) {
     global $delete_move_next_formATtop, $delete_move_next_formATbottom,
            $color, $where, $what, $currentArrayIndex, $passed_id,
            $urlMailbox, $sort, $startMessage, $delete_id, $move_id,
-           $imapConnection, $auto_expunge, $move_to_trash;
+           $imapConnection, $auto_expunge, $move_to_trash, $server_sort_array,
+           $allow_thread_sort, $allow_server_sort;
 
     if (!(($where && $what) || ($currentArrayIndex == -1))) {
-    
+        if ($allow_server_sort == true) {
+            $server_sort_array = sqimap_get_sort_order($imapConnection, $sort);
+        }
+        if ($allow_thread_sort == true) {
+            $server_sort_array = get_thread_sort($imapConnection);
+        }
         $next = findNextMessage();
         $prev = findPreviousMessage();
         $prev_if_del = $prev;
