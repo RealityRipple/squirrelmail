@@ -53,7 +53,7 @@
       <center><b><?php echo _("Options") . " - " . _("Message Highlighting"); ?></b></center>
    </td></tr></table>
 
-<?
+<?php
    echo "<br><center>[<a href=\"options_highlight.php?action=add\">" . _("New") . "</a>]";
    echo " - [<a href=\"options.php\">"._("Done")."</a>]</center><br>\n";
    if (count($message_highlight_list) >= 1) {

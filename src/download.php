@@ -25,7 +25,7 @@
    include("../src/load_prefs.php");
 
    function viewText($color, $body, $id, $entid, $mailbox, $type1, $wrap_at) {
-      global $where, $what;
+      global $where, $what, $charset;
       displayPageHeader($color, "None");
 
       echo "<BR><TABLE WIDTH=90% BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">";
@@ -46,7 +46,7 @@
       if ($type1 == "html")
          echo $body;
       else
-         echo translateText($body, $wrap_at);
+         echo translateText($body, $wrap_at, $charset);
 
       echo "</TT></TD></TR></TABLE>";
    }
@@ -67,6 +67,7 @@
    $header = $message->header;
    $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
 
+   $charset = $header->charset;
    $type0 = $header->type0;
    $type1 = $header->type1;
    $filename = decodeHeader($header->filename);

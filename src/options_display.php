@@ -40,7 +40,7 @@
          <tr>
             <td align=right nowrap><?php echo _("Theme"); ?>:
             </td><td>
-<?
+<?php
    echo "         <tt><select name=chosentheme>\n";
    for ($i = 0; $i < count($theme); $i++) {
       if ($theme[$i]["PATH"] == $chosen_theme)
@@ -55,7 +55,7 @@
          <tr>
             <td align=right nowrap><?php echo _("Language"); ?>:
             </td><td>
-<?
+<?php
    echo "         <tt><select name=language>\n";
    reset ($languages);
    while (list($code, $name)=each($languages)) {
@@ -85,7 +85,7 @@
          <tr>
             <td align=right nowrap><?php echo _("Number of Messages to Index"); ?>:
             </td><td>
-<?
+<?php
    if (isset($show_num))
       echo "         <tt><input type=text size=5 name=shownum value=\"$show_num\"></tt><br>";
    else
@@ -96,7 +96,7 @@
          <tr>
             <td align=right nowrap><?php echo _("Wrap incoming text at"); ?>:
             </td><td>
-<?
+<?php
    if (isset($wrap_at))
       echo "         <tt><input type=text size=5 name=wrapat value=\"$wrap_at\"></tt><br>";
    else
@@ -107,7 +107,7 @@
          <tr>
             <td align=right nowrap><?php echo _("Size of editor window"); ?>:
             </td><td>
-<?
+<?php
    if ($editor_size >= 10 && $editor_size <= 255)
       echo "         <tt><input type=text size=5 name=editorsize value=\"$editor_size\"></tt><br>";
    else
@@ -118,7 +118,7 @@
          <tr>
             <td align=right nowrap><?php echo _("Width of left folder list"); ?>:
             </td><td>
-<?
+<?php
    echo "         <select name=leftsize>\n";
    if ($left_size == 100)
       echo "<option value=100 selected>100 pixels\n";
@@ -172,7 +172,7 @@
          <tr>
             <td align=right nowrap><?php echo _("Auto refresh folder list"); ?>:
             </td><td>
-<?
+<?php
    echo "               <SELECT name=leftrefresh>";
    if (($left_refresh == "None") || ($left_refresh == ""))
       echo "                  <OPTION VALUE=None SELECTED>None";

@@ -170,15 +170,12 @@
       global $folder_prefix, $sent_folder;
 		global $imapServerAddress;
 
-      // do a check to see if the config stuff has already been included or not
-//      if (!isset($imapServerAddress))
-//         include("../config/config.php");
-
       // if cache isn't already set, do it now
       if (!session_is_registered("msgs"))
          session_register("msgs");
       if (!session_is_registered("msort"))
          session_register("msort");
+
 
       if ($startMessage + ($show_num - 1) < $numMessages) {
          $endMessage = $startMessage + ($show_num-1);
@@ -186,6 +183,13 @@
          $endMessage = $numMessages;
       }
 
+      
+      if ($endMessage < $startMessage) {
+         $startMessage = $startMessage - $show_num;
+         if ($startMessage < 1)
+            $startMessage = 1;
+      }
+      
       $nextGroup = $startMessage + $show_num;
       $prevGroup = $startMessage - $show_num;
       $urlMailbox = urlencode($mailbox);

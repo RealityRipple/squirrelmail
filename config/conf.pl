@@ -1155,8 +1155,60 @@ sub command41 {
                $theme_default--;
             }   
          }
+      } elsif ($input =~ /^\s*t\s*/i) {
+         print "\nStarting detection...\n\n";
+         
+         opendir(DIR, "../themes");
+         @files = grep { /\.php$/i } readdir(DIR);
+         $cnt = 0;
+         while ($cnt <= $#files) {
+            $filename = "../themes/" . $files[$cnt];
+            $found = 0;
+            for ($x=0; $x <= $#theme_path; $x++) {
+               if ($theme_path[$x] eq $filename) {
+                  $found = 1;
+               }
+            }
+            if ($found != 1) {
+               print "** Found theme: $filename\n";
+               print "   What is its name? ";
+               $nm = <STDIN>;
+               $nm =~ s/[\n|\r]//g;
+               $theme_name[$#theme_name+1] = $nm;
+               $theme_path[$#theme_path+1] = $filename;
+            }
+            $cnt++;
+         }
+         print "\n";
+         for ($cnt=0; $cnt <= $#theme_path; $cnt++) {
+            $filename = $theme_path[$cnt];
+            if (! (-e $filename)) {
+               print "  Removing $filename (file not found)\n";
+               $offset = 0;
+               @new_theme_name = ();
+               @new_theme_path = ();
+               for ($x=0; $x < $#theme_path; $x++) {
+                  if ($theme_path[$x] eq $filename) {
+                     $offset = 1;
+                  }
+                  if ($offset == 1) {
+                     $new_theme_name[$x] = $theme_name[$x+1];
+                     $new_theme_path[$x] = $theme_path[$x+1];
+                  } else {
+                     $new_theme_name[$x] = $theme_name[$x];
+                     $new_theme_path[$x] = $theme_path[$x];
+                  }
+               }
+               @theme_name = @new_theme_name;
+               @theme_path = @new_theme_path;
+            }
+         }
+         print "\nDetection complete!\n\n";
+         
+         closedir DIR;  
       } elsif ($input =~ /^\s*\?\s*/) {
          print ".-------------------------.\n";
+         print "| t       (detect themes) |\n";
          print "| +           (add theme) |\n";
          print "| - N      (remove theme) |\n";
          print "| m N      (mark default) |\n";
