@@ -1113,6 +1113,22 @@ code generates (it's OK, really, it happens to the best of us... except me!).
 Please make sure to fix them all before you release the plugin.
 
 
+Compatibility with register_globals=Off
+---------------------------------------
+
+Most sensible systems administrators now run their PHP systems with the
+setting "register_globals" as OFF.  This is a prudent security setting,
+and as the SquirrelMail core code has long since been upgraded to work
+in such an environment, we are now requiring that all plugins do the same.
+Compatibility with this setting amounts to little more than explicitly
+gathering any and all variables you sent from a <form> tag as GET or POST
+values instead of just assuming that they will be placed in the global
+scope automatically.  There is nothing more to do than this:
+
+   global $favorite_color;
+   sqgetGlobalVar('favorite_color', $favorite_color, SQ_FORM);
+
+
 Extra Blank Lines
 -----------------
 
