@@ -958,7 +958,7 @@ if ($default_use_mdn) {
                     _("The message sender has requested a response to indicate that you have read this message. Would you like to send a receipt?") .
                     "\")) {  \n" .
                     "                       window.location=($url); \n" .
-                    '                       location.reload()' . "\n" .
+                    '                       window.location.reload()' . "\n" .
                     '               }' . "\n" .
                     '// -->' . "\n" .
                     '</script>' . "\n";
