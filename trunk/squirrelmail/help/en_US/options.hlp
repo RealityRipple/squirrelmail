@@ -11,8 +11,9 @@
       One of the great things about SquirrelMail is the degree to which it may be customized.
       Depending on the configuration, you may have several choices of themes, languages,
       folders, and other preferences.  All of these may be changed without affecting any other
-      users on the system.  There are four main parts to the Options:  Personal, Display,
-      Message Highlighting, and Folders.
+      users on the system.  There are <DEL>four</DEL><INS> at least five</INS> main parts to the Options:
+      Personal, Display, Message Highlighting, <DEL>and </DEL>Folders<INS> and Index Order.
+      More parts may be available depending on your SquirrelMail installation</INS>.
       </p>
    </description>
 </chapter>
@@ -41,6 +42,34 @@
       Yahoo account rather than your office address.
       <br><br>
       
+      <INS><b>Multiple Identities</b><BR>
+      Click this link to edit multiple identities. This is useful if you want to
+      choose between different From-lines for different message (for example
+      containing your work or your home emailaddress. On the page that appears,
+      you can add as many identities as you like. You will be offered a choice
+      of these when composing a message.<br><br>
+      
+      <b>Reply Citation</b><BR>
+      If you press Reply on a message, you will be presented with the Compose
+      form with the original message quoted. Before this quoted message, a text
+      like <TT>John Doe wrote:</TT> might be prepended (if the message you're replying
+      to originated from John Doe). This is called the citation line. Here you
+      can choose how this line looks.<BR>
+      <UL>
+      <LI><B>No Citation</B><br>
+      Prepends no citation line whatsoever.<br><br>
+      <LI><B>Author Said</B><br>
+      This produces the line: <TT>John Doe Said:</TT> where John Doe will be replaced
+      by whoever the message you're replying to was from.<br><br>
+      <LI><B>Quote Who XML</B><br>
+      This produces the line: <TT>&lt;quote who="John Doe"&gt;</TT>.<br><br>
+      <LI><B>User-Defined</B><br>
+      Enables you to define your own citation line. In the two text boxes below, you
+      can type in the citation start and end. Between these the author name will be
+      inserted.
+      </UL><br><br>
+      </INS>
+      
       <b>Signature</b><br>
       <i>Optional</i> - Signatures are attached at the bottom of all messages you send 
       out.  If you want a signature, you must make sure that the checkbox beside
@@ -60,6 +89,11 @@
       choose between the many listed there if you so desire.
       <br><br>
 
+      <INS><b>Custom Stylesheet</b><br>
+      Changing a theme only changes the colors, a stylesheet may change more, for
+      example the font size used by SquirrelMail.
+      <br><br></INS>
+
       <b>Language</b><br>
       If English isn't your native tongue, you can easily change the language that
       most things display in.  If your desired language is in the list, you can choose
@@ -67,13 +101,15 @@
       that this doesn't translate incoming email messages or folder names.
       <br><br>
 
-      <b>Use Javascript address book?</b><br>
+      <b>Use Javascript<DEL> address book?</DEL></b><br>
       One of our main goals in creating SquirrelMail was to have no Javascript in
       any of our pages.  However, some of our developers made a very good address
-      book searching utility that uses Javascript.  Rather than remove it, we now
-      give you the option of using the HTML address book or the Javascript one.  If
-      you don't know what this means, you are safest to choose the HTML address book,
-      but most likely Javascript will work for you.
+      book searching utility that uses Javascript. <INS>Some other Javascript functions
+      were added aswell.</INS> Rather than remove it, we now
+      give you the option of using <DEL>the HTML address book or the Javascript one</DEL>
+      <INS>pure HTML or allow Javascript aswell</INS>.  If
+      you don't know what this means, you are safest to choose <DEL>the HTML address book,
+      but most likely Javascript will work for you</DEL><INS>Autodetect</INS>.
       <br><br>
       
       <b>Number of Messages to Index</b><br>
@@ -82,6 +118,14 @@
       above and below the listing which will take you to the previous or next
       messages.
       <br><br>
+      
+      <INS>
+      <b>Enable Page Selector</b><br>
+      Setting this to Yes shows page numbers above and below the message list to
+      quickly jump to a specific page of messages. The number <B>Maximum pages to show</B>
+      can limit how many page numbers will be displayed above and below the
+      message list.<br><br>
+      </INS>      
       
       <b>Wrap incoming text at</b><br>
       How many characters should we allow before wrapping the text.  This prevents
@@ -94,7 +138,49 @@
       per line that you will be able to type before wrapping in the Compose section.
       <br><br>
       
-      <b>Width of left folder list</b><br>
+      <INS><b>Location of Buttons when Composing</b><br>
+      Where are the buttons Addresses, Save Draft and Send located?<br><br>
+      
+      <b>Addressbook Display Format</B><br>
+      Choose how you want the addressbook to be displayed. If you want maximum
+      compatibility with all browsers, use HTML. Select Javascript if you
+      know your browser supports it, it will display a nicer addressbook.
+      <br><br>
+      
+      <b>Show HTML Version by Default</b><br>
+      If a message you receive is in both text and HTML format, you can choose
+      if you want to see the HTML version (Yes) or the text version (No) by
+      default.<br><br>
+      
+      <b>Include Me in CC when I Reply All</b><br>
+      Reply All sends your reply to all recepients of the original message,
+      including yourself. To leave your own email address out, set this to No.
+      <br><br>
+      
+      <b>Enable Mailer Display</b><BR>
+      When viewing a message, this displays which email program the sender used.
+      <br><br>
+      
+      <b>Display Attached Images with Message</b><br>
+      If someone sends you a message with one or more images attached and you've
+      set this to Yes, the images will be displayed right away when you view
+      the message.
+      <br><br>
+      
+      <b>Enable Subtle Printer Friendly Link</b><br>
+      This determines the way the Printable Version-link will be displayed.
+      <br><br>
+      
+      <b>Enable Printer Friendly Clean Display</b><br>
+      This will clean out the message so the print looks nicer.
+      <br><br>
+      
+      <b>Other Options</b><br>
+      Depending on the configuration of your SquirrelMail installation, some more
+      options might be displayed here. They hopefully should be self-explanatory.
+      <br><br></INS>
+      
+      <DEL><b>Width of left folder list</b><br>
       On the left side of your browser window, you will see the list of folders.  With
       this option, you can select how wide that will be.  If you have very long folder
       names or large fonts, it is good to set this pretty high.  Otherwise, you should
@@ -106,7 +192,7 @@
       on the left side of your browser window.  This will also update the number of
       unseen messages that are in each folder.  This is a good way to check for unseen
       messages in the INBOX without having to click on it every time.
-      <br><br>
+      <br><br></DEL>
    </description>
 </section>
 
@@ -168,8 +254,31 @@
       You can choose which folder your sent messages will go to.  If you don't want
       these, just set it to "Don't use Sent".
       <br><br>
+
+      <INS><b>Draft Folder</b><br>
+      You can choose which folder the messages you save as draft will go to.
+      If you don't want to use this, just set it to "Don't use Drafts".
+      <br><br></INS>
       
-      <b>Unseen message notification</b><br>
+      <INS><b>Location of folder list</b><br>
+      Determines wether you want the list of folders on the left or right of your
+      window.
+      <br><br>
+      
+      <b>Width of folder list</b><br>
+      With this option, you can select how wide the list of folders will be.
+      If you have very long folder names or large fonts, it is good to set this
+      pretty high.  Otherwise, you should set it low so you don't waste screen space.
+      <br><br>
+      
+      <b>Auto refresh folder list</b><br>
+      SquirrelMail has the functionality to automatically refresh the folder listing
+      on the left side of your browser window.  This will also update the number of
+      unseen messages that are in each folder.  This is a good way to check for unseen
+      messages in the INBOX without having to click on it every time.
+      <br><br></INS>
+
+      <b><DEL>Unseen</DEL><INS>Enable Unread</INS> Message Notification</b><br>
       This option specifies how to display unseen messages in the folder listing on the
       right side of your browser window.  If you set this to No Notification, you will
       not be notified of unseen messages.  If you set it to INBOX, when you have new
@@ -180,7 +289,44 @@
       <br><br>
       
       <b>Unseen message notification type</b><br>
-      When new messages are in a folder, this option tells how to notify you of that.
+      When new messages are in a folder, this option tells
+      <DEL>how to notify you of that</DEL>
+      <INS>either to only display the number of new messages or also display the
+      total number of messages in that folder</INS>.
       <br><br>
+      
+      <INS><b>Enable Collapsable Folders</b><br>
+      Collapsable Folders allow you to 'fold' or collapse a folder which contains
+      subfolders so the subfolders will not be displayed. You can collapse a
+      folder by clicking the "-" next to it and expand it again with the "+" sign.
+      Setting this to No disables collapsing.
+      <br><br>
+      
+      <b>Show Clock on Folders Panel</b><br>
+      Choose if you want a clock to be displayed above the folder list and how
+      it should look (Y=year, D=day, H=hour, M=minute, S=second). The option
+      <B>Hour Format</B> below gives you the choice of a 12- or 24-hour clock.
+      <br><br>
+      
+      <b>Memory Search</b><br>
+      If you search a mailbox, the search will be saved for quick access later.
+      This defines how many mailbox searches will be saved.
+      <br><br>
+      </INS>
+      
+   </description>
+</section>
+
+<section>
+   <title>
+      <INS>Index Order</INS>
+   </title>
+   <description>
+      <INS>This section gives you control over the message list. You can choose how
+      much information you want in the message list and in what order it should
+      be displayed.
+      <br><br>
+      Use the Up and Down links to move columns around, Del to remove a column
+      from the display and Add to add one.</INS>
    </description>
 </section>
