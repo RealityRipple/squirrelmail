@@ -2,9 +2,9 @@
 
 /**
  * christmas.php
- *    Name:   Christmas
- *    Author: Jon Tai
- *    Date:   December 23, 2001
+ *    Name:    Christmas
+ *    Author:  Jon Tai
+ *    Date:    December 23, 2001
  *    Comment: This is a Christmas theme shipped with SquirrelMail 1.2.0.
  *
  * Copyright (c) 2001-2002 The SquirrelMail Project Team
