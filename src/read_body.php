@@ -288,7 +288,9 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
         $success = $deliver->finalizeStream($stream);
     }
     if (!$success) {
-        $msg  = $deliver->dlv_msg . '<br>Server replied: '.$deliver->dlv_ret_nr;
+        $msg  = $deliver->dlv_msg . '<br>' .
+                _("Server replied: ") . $deliver->dlv_ret_nr . ' '.
+                $deliver->dlv_server_msg;
         require_once(SM_PATH . 'functions/display_messages.php');
         plain_error_message($msg, $color);
     } else {
@@ -456,7 +458,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
     echo '<TR><TD HEIGHT="5" COLSPAN="2" BGCOLOR="'.
           $color[4].'"></TD></TR><TR><TD align=center>'."\n";
     echo $s;
-    do_hook("read_body_header");
+    do_hook('read_body_header');
     formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color);
     echo '</TABLE>';
     echo '</TD></TR><TR><TD HEIGHT="5" COLSPAN="2" BGCOLOR="'.$color[4].'"></TD></TR>'."\n";

@@ -1394,7 +1394,9 @@ function deliverMessage($composeMessage, $draft=false) {
 	$succes = $deliver->finalizeStream($stream);
     }
     if (!$succes) {
-        $msg  = $deliver->dlv_msg . '<br>Server replied: '.$deliver->dlv_ret_nr;
+        $msg  = $deliver->dlv_msg . '<br>' .
+                _("Server replied: ") . $deliver->dlv_ret_nr . ' '.
+                $deliver->dlv_server_msg;
         plain_error_message($msg, $color);
     } else {
         unset ($deliver);
