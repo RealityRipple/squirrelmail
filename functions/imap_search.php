@@ -27,11 +27,31 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
     $urlMailbox = urlencode($mailbox);
 
     /* Construct the Search QuERY */
+
+#  account for multiple search terms
+
+        $multi_search = array ();
+        $search_what = ereg_replace("[ ]{2,}", " ", $search_what);
+        $multi_search = split (" ", $search_what);
+        if (count($multi_search)==1) {
+                $search_string = $search_where . " " . "\"" . $multi_search[0] . "\"";
+        }
+        else {
+                $search_string = "";
+		$count = count($multi_search);
+                for ($x=0;$x<$count;$x++) {
+                	$search_string = $search_string . " " . $search_where . " " . "\"" . $multi_search[$x] . "\"";
+                }
+        }
+	$search_string = ereg_replace("^ ", "", $search_string);
+
+# now use $search_string in the imap search
+
     if (isset($languages[$squirrelmail_language]['CHARSET']) &&
         $languages[$squirrelmail_language]['CHARSET']) {
-        $ss = "SEARCH CHARSET ".$languages[$squirrelmail_language]['CHARSET']." ALL $search_where \"$search_what\"";
+        $ss = "SEARCH CHARSET ".$languages[$squirrelmail_language]['CHARSET']." ALL $search_string";
     } else {
-        $ss .= "SEARCH ALL $search_where \"$search_what\"";
+        $ss .= "SEARCH ALL $search_string\"";
     }
 
     /* Read Data Back From IMAP */
