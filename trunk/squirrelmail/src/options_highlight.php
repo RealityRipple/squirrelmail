@@ -298,7 +298,12 @@ if ($action == 'edit' || $action == 'add') {
     # Show grid of color choices
     echo "<tr bgcolor=\"$color[0]\"><td colspan='2'>\n";
     echo "<table border=0 cellpadding=\"2\" align=\"center\" cellspacing=\"1\">\n";
-    $current_color = $message_highlight_list[$theid]['color'];
+    if (isset($message_highlight_list[$theid]['color'])) {
+        $current_color = $message_highlight_list[$theid]['color'];
+    }
+    else {
+        $current_color = '63aa7f';
+    }
     for($x = 0; $x < 5; $x++) {
         echo "<tr>\n";
         for($y = 0; $y < 19; $y++) {
