@@ -9,8 +9,6 @@ Version 0.3pre2 -- Development
 - Fixed bugs in message moving and deleting
 - Rewrote all IMAP functions from scratch
 
-
-
 Version 0.3pre1 -- February 17, 2000
 ------------------------------------
 - Added user-specific preferences including:
