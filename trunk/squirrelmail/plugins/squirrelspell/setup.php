@@ -73,14 +73,14 @@ function squirrelspell_setup() {
      * use document.write() so the "Check Spelling" button is not
      * displayed if js is off in the browser.
      */
-    echo '<script type="text/javascript">\n'
-      . '<!--\n'
+    echo "<script type=\"text/javascript\">\n"
+      . "<!--\n"
       . 'document.write("<input type=\"button\" value=\"'
       . _("Check Spelling") 
       . '\" onclick=\"window.open(\'../plugins/squirrelspell/sqspell_'
       . 'interface.php\', \'sqspell\', \'status=yes,width=550,height=370,'
-      . 'resizable=yes\')\">");\n'
-      . '//-->\n'
+      . 'resizable=yes\')\">");' . "\n"
+      . "//-->\n"
       . "</script>\n";
   }
 }
