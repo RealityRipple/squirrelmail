@@ -18,6 +18,7 @@
    include ('../functions/prefs.php');
    include ('../functions/imap.php');
    include ('../functions/plugin.php');
+   include ('../functions/i18n.php');
    include ('../functions/auth.php');
 
    session_start();
