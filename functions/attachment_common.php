@@ -120,12 +120,14 @@ function attachment_common_link_text(&$Args)
 
 function attachment_common_link_message(&$Args)
 {
-    $Args[1]['attachment_common']['href'] = '../src/download.php?startMessage=' .
+    $Args[1]['attachment_common']['href'] = '../src/read_body.php?startMessage=' .
         $Args[2] . '&amp;passed_id=' . $Args[3] . '&amp;mailbox=' . $Args[4] .
         '&amp;passed_ent_id=' . $Args[5] . '&amp;override_type0=message&amp;override_type1=rfc822';
     /* The link that we created needs a name.  "view" will be displayed for
        all text attachments handled by this plugin. */
     $Args[1]['attachment_common']['text'] = _("view");
+
+    $Args[6] = $Args[1]['attachment_common']['href'];    
 }
 
 
@@ -168,7 +170,7 @@ function attachment_common_link_image(&$Args)
     $Args[1]['attachment_common']['text'] = _("view");
     
     $Args[6] = $Args[1]['attachment_common']['href'];
-    
+
 }
 
 
