@@ -8,12 +8,13 @@
     **  This a simple login screen. Some housekeeping is done to clean
     **  cookies and find language.
     **
+    **  $Id$
     **/
 
-   if (!isset($config_php))
-      include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
+   if (!isset($config_php))
+      include("../config/config.php");
    if (!isset($i18n_php))
       include("../functions/i18n.php");
    if (!isset($plugin_php))
