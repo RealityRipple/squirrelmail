@@ -13,7 +13,7 @@
  */
 
 /**
- * Needs documentation
+ * FIXME Needs phpDocumentator style documentation
  */
 require_once(SM_PATH . 'functions/global.php');
 
@@ -56,7 +56,6 @@ if (isset($attachment_common_types)) {
 }
 
 /* Register text-type attachments */
-//register_attachment_common('message/rfc822', 'link_text');
 register_attachment_common('message/rfc822', 'link_message');
 register_attachment_common('text/plain',     'link_text');
 register_attachment_common('text/richtext',  'link_text');
@@ -87,30 +86,26 @@ function register_attachment_common($type, $func) {
 }
 
 
-function attachment_common_link_text(&$Args)
-{
-    /* If there is a text attachment, we would like to create a 'view' button
+function attachment_common_link_text(&$Args) {
+    /* If there is a text attachment, we would like to create a "View" button
        that links to the text attachment viewer.
 
        $Args[1] = the array of actions
 
-       Use our plugin name for adding an action
-       $Args[1]['attachment_common'] = array for href and text
+       Use the name of this file for adding an action
+       $Args[1]['attachment_common'] = Array for href and text
 
        $Args[1]['attachment_common']['text'] = What is displayed
-       $Args[1]['attachment_common']['href'] = Where it links to
-
-       This sets the 'href' of this plugin for a new link. */
+       $Args[1]['attachment_common']['href'] = Where it links to */
     sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 
     $Args[1]['attachment_common']['href'] = SM_PATH . 'src/view_text.php?'. $QUERY_STRING;
     $Args[1]['attachment_common']['href'] =
           set_url_var($Args[1]['attachment_common']['href'],
-	  'ent_id',$Args[5]);
+          'ent_id',$Args[5]);
 
-    /* The link that we created needs a name.  "view" will be displayed for
-       all text attachments handled by this plugin. */
-    $Args[1]['attachment_common']['text'] = _("view");
+    /* The link that we created needs a name. */
+    $Args[1]['attachment_common']['text'] = _("View");
 
     /* Each attachment has a filename on the left, which is a link.
        Where that link points to can be changed.  Just in case the link above
@@ -123,21 +118,18 @@ function attachment_common_link_text(&$Args)
     $Args[6] = $Args[1]['attachment_common']['href'];
 }
 
-function attachment_common_link_message(&$Args)
-{
+function attachment_common_link_message(&$Args) {
     $Args[1]['attachment_common']['href'] = SM_PATH . 'src/read_body.php?startMessage=' .
         $Args[2] . '&amp;passed_id=' . $Args[3] . '&amp;mailbox=' . $Args[4] .
         '&amp;passed_ent_id=' . $Args[5] . '&amp;override_type0=message&amp;override_type1=rfc822';
-    /* The link that we created needs a name.  "view" will be displayed for
-       all text attachments handled by this plugin. */
-    $Args[1]['attachment_common']['text'] = _("view");
+
+    $Args[1]['attachment_common']['text'] = _("View");
 
     $Args[6] = $Args[1]['attachment_common']['href'];
 }
 
 
-function attachment_common_link_html(&$Args)
-{
+function attachment_common_link_html(&$Args) {
     sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 
     $Args[1]['attachment_common']['href'] = SM_PATH . 'src/view_text.php?'. $QUERY_STRING.
@@ -145,15 +137,14 @@ function attachment_common_link_html(&$Args)
        '&amp;override_type0=text&amp;override_type1=html';
     $Args[1]['attachment_common']['href'] =
           set_url_var($Args[1]['attachment_common']['href'],
-	  'ent_id',$Args[5]);
+          'ent_id',$Args[5]);
 
-    $Args[1]['attachment_common']['text'] = _("view");
+    $Args[1]['attachment_common']['text'] = _("View");
 
     $Args[6] = $Args[1]['attachment_common']['href'];
 }
 
-function attachment_common_link_image(&$Args)
-{
+function attachment_common_link_image(&$Args) {
     global $attachment_common_show_images, $attachment_common_show_images_list;
 
     sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
@@ -167,23 +158,21 @@ function attachment_common_link_image(&$Args)
     $Args[1]['attachment_common']['href'] = SM_PATH . 'src/image.php?'. $QUERY_STRING;
     $Args[1]['attachment_common']['href'] =
           set_url_var($Args[1]['attachment_common']['href'],
-	  'ent_id',$Args[5]);
+          'ent_id',$Args[5]);
 
-    $Args[1]['attachment_common']['text'] = _("view");
+    $Args[1]['attachment_common']['text'] = _("View");
 
     $Args[6] = $Args[1]['attachment_common']['href'];
-
 }
 
 
-function attachment_common_link_vcard(&$Args)
-{
+function attachment_common_link_vcard(&$Args) {
     sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 
     $Args[1]['attachment_common']['href'] = SM_PATH . 'src/vcard.php?'. $QUERY_STRING;
     $Args[1]['attachment_common']['href'] =
           set_url_var($Args[1]['attachment_common']['href'],
-	  'ent_id',$Args[5]);
+          'ent_id',$Args[5]);
 
     $Args[1]['attachment_common']['text'] = _("Business Card");
 
@@ -191,8 +180,7 @@ function attachment_common_link_vcard(&$Args)
 }
 
 
-function attachment_common_octet_stream(&$Args)
-{
+function attachment_common_octet_stream(&$Args) {
     global $FileExtensionToMimeType;
 
     do_hook('attachment_common-load_mime_types');

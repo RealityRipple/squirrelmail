@@ -438,7 +438,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         $type0 = strtolower($header->type0);
         $type1 = strtolower($header->type1);
         $name = '';
-        $links['download link']['text'] = _("download");
+        $links['download link']['text'] = _("Download");
         $links['download link']['href'] = SM_PATH .
                 "src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;ent_id=$ent";
         $ImageURL = '';
@@ -506,6 +506,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         if ($where && $what) {
            $defaultlink .= '&amp;where='. urlencode($where).'&amp;what='.urlencode($what);
         }
+
         /* This executes the attachment hook with a specific MIME-type.
          * If that doesn't have results, it tries if there's a rule
          * for a more generic type.

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-09-28 08:40+0200\n"
+"POT-Creation-Date: 2004-10-03 03:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1058,7 +1058,7 @@ msgstr ""
 msgid "Click here to change the sorting of the address list"
 msgstr ""
 
-msgid "view"
+msgid "View"
 msgstr ""
 
 msgid "Business Card"
@@ -1442,7 +1442,7 @@ msgstr ""
 msgid "View Unsafe Images"
 msgstr ""
 
-msgid "download"
+msgid "Download"
 msgstr ""
 
 msgid "sec_remove_eng.png"
@@ -2851,7 +2851,8 @@ msgstr ""
 msgid "OFF"
 msgstr ""
 
-msgid " not found."
+#, c-format
+msgid "%s is not found."
 msgstr ""
 
 msgid "Today's Fortune"

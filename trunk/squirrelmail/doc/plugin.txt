@@ -471,7 +471,10 @@ This is a breakdown of the data passed in the array to the hook that is called:
 To set up links for actions, you assign them like this:
 
   $Args[1]['<plugin_name>']['href'] = 'URL to link to';
-  $Args[1]['<plugin_name>']['text'] = 'What to display';
+  $Args[1]['<plugin_name>']['text'] = _("What to display");
+
+Note: _("What to display") is explained in the section about
+internationalization.
 
 It's also possible to specify a hook as "attachment type0/*",
 for example "attachment text/*". This hook will be executed whenever there's
@@ -495,7 +498,7 @@ display a custom link:
       $Args[1]['demo']['href'] = SM_PATH . 'plugins/demo/zip_handler.php?'
          . 'passed_id=' . $Args[3] . '&mailbox=' . $Args[4]
          . '&passed_ent_id=' . $Args[5];
-      $Args[1]['demo']['text'] = 'show zip contents';
+      $Args[1]['demo']['text'] = _("Show zip contents");
    }
 
 The file plugins/demo/zip_handler.php can now do whatever it needs with the
