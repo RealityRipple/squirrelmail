@@ -315,9 +315,6 @@ if ( !$allow_thread_sort ) {
 if ( !$allow_server_sort ) {
     $allow_server_sort = 'false';
 }
-if ( !$uid_support ) {
-    $uid_support = 'true';
-}
 if ( !$no_list_for_subscribe ) {
     $no_list_for_subscribe = 'false';
 }
@@ -2792,8 +2789,6 @@ sub save_data {
         print CF "\$allow_server_sort        = $allow_server_sort;\n";
         # boolean
         print CF "\$allow_charset_search     = $allow_charset_search;\n";
-        # boolean
-        print CF "\$uid_support              = true;\n";
         print CF "\n";
 	
 	# all plugins are strings
