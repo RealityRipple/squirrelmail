@@ -27,17 +27,19 @@ displayHtmlHeader( _("Message details"),
              "-->\n".
              "</script>\n", FALSE );
 
-$passed_id = $_GET['passed_id'];
-$mailbox = $_GET['mailbox'];
+sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
+sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
 
 echo "<body text=\"$color[8]\" bgcolor=\"$color[3]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\">\n" .
-     '<center><b>'.
-     '<FORM name=rfc822 action="message_details_download.php?savemessage=1&passed_id='."$passed_id".'" METHOD=POST>' .     
-     '<input type="button" value="' . _("Print") . '" onClick="printPopup()">&nbsp&nbsp '.
-     '<input type="button" value="' . _("Close Window") . '" onClick="window.parent.close()">&nbsp&nbsp'.
-// disable for now because it doesn't work
-//     '<input type="submit" value="' . _("Save Message") . '"> '.
-     '<input type="hidden" name="mailbox" value="'. "$mailbox" . '"> ' .
+     '<center><b>' .
+     '<form action="' . SM_PATH . 'src/download.php" method="GET">' .     
+     '<input type="button" value="' . _("Print") . '" onClick="printPopup()" />&nbsp;&nbsp;'.
+     '<input type="button" value="' . _("Close Window") . '" onClick="window.parent.close()" />&nbsp;&nbsp;'.
+     '<input type="submit" value="' . _("Save Message") . '" /> '.
+     '<input type="hidden" name="mailbox" value="' . urlencode($mailbox) . '" />' .
+     '<input type="hidden" name="passed_id" value="' . urlencode($passed_id) . '" />' .
+     '<input type="hidden" name="ent_id" value="0" />' .
+     '<input type="hidden" name="absolute_dl" value="true" />' .
      '</form>'.
      '</b>'.
      '</body>'.
