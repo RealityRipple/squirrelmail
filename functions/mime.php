@@ -1978,7 +1978,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
 
     $add_attr_to_tag = Array(
         "/^a$/i" =>
-            Array('target'=>'"_new"',
+            Array('target'=>'"_blank"',
                 'title'=>'"'._("This external link will open in a new window").'"'
             )
     );
