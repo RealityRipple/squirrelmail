@@ -8,10 +8,10 @@
 
    echo "<HTML><BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000EE\" VLINK=\"#0000EE\" ALINK=\"#0000EE\">\n";
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
-   displayPageHeader($mailbox);
-   selectMailbox($imapConnection, $mailbox, $numMessages);
+   displayPageHeader("None");
 
    if ($reply_id) {
+      selectMailbox($imapConnection, $mailbox, $numMessages);
       $body_ary = fetchBody($imapConnection, $reply_id);
       for ($i=0;$i < count($body_ary);$i++) {
          $tmp = strip_tags($body_ary[$i]);
@@ -19,6 +19,7 @@
          $body = "$body> $tmp";
       }
    } else if ($forward_id) {
+      selectMailbox($imapConnection, $mailbox, $numMessages);
       $body_ary = fetchBody($imapConnection, $forward_id);
       for ($i=0;$i < count($body_ary);$i++) {
          $tmp = strip_tags($body_ary[$i]);
@@ -61,7 +62,7 @@
    if ($reply_subj)
       echo "         <INPUT TYPE=TEXT NAME=passed_subject SIZE=60 VALUE=\"Re: $reply_subj\"><BR>";
    else if ($forward_subj)
-      echo "         <INPUT TYPE=TEXT NAME=passed_subject SIZE=60 VALUE=\"Fwd: $forward_subj\"><BR>";
+      echo "         <INPUT TYPE=TEXT NAME=passed_subject SIZE=60 VALUE=\"[Fwd: $forward_subj]\"><BR>";
    else
       echo "         <INPUT TYPE=TEXT NAME=passed_subject SIZE=60><BR>";
    echo "      </TD>\n";

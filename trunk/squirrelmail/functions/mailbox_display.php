@@ -16,12 +16,12 @@
          echo "   <TD><FONT FACE=\"Arial,Helvetica\"><nobr><B><input type=checkbox name=\"msg[$t]\" value=$i></B></nobr></FONT></TD>\n";
          echo "   <TD><FONT FACE=\"Arial,Helvetica\"><B>$senderName</B></FONT></TD>\n";
          echo "   <TD><CENTER><B><FONT FACE=\"Arial,Helvetica\">$dateString</FONT></B></CENTER></TD>\n";
-         echo "   <TD><FONT FACE=\"Arial,Helvetica\"><B><A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$i&sort=$sort&startMessage=$startMessage\">$subject</A></B></FONT></TD>\n";
+         echo "   <TD><FONT FACE=\"Arial,Helvetica\"><B><A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$i&sort=$sort&startMessage=$startMessage&show_more=0\">$subject</A></B></FONT></TD>\n";
       } else {
          echo "   <TD><FONT FACE=\"Arial,Helvetica\"><nobr><input type=checkbox name=\"msg[$t]\" value=$i></nobr></FONT></TD>\n";
          echo "   <TD><FONT FACE=\"Arial,Helvetica\">$senderName</FONT></TD>\n";
          echo "   <TD><FONT FACE=\"Arial,Helvetica\"><CENTER>$dateString</CENTER></FONT></TD>\n";
-         echo "   <TD><FONT FACE=\"Arial,Helvetica\"><A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$i&sort=$sort&startMessage=$startMessage\">$subject</A></FONT></TD>\n";
+         echo "   <TD><FONT FACE=\"Arial,Helvetica\"><A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$i&sort=$sort&startMessage=$startMessage&show_more=0\">$subject</A></FONT></TD>\n";
       }
       echo "</TR>\n";
    }
