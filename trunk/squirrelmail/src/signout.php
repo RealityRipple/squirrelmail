@@ -8,28 +8,39 @@
 	 **
 	 **/
 
-	// Quick Fix for Gettext in LogOut Screen
-if (!function_exists("_")) {
+   include ("../src/load_prefs.php");
+
+   if (!isset($i18n_php))
+      include("../functions/i18n.php");
+   if (!isset($prefs_php))
+      include ("../functions/prefs.php");
+
+   // Quick Fix for Gettext in LogOut Screen
+   if (!function_exists("_")) {
       function _($string) {
          return $string;
       }
    }
 
-   // $squirrelmail_language is set by a cookie when the user
-   // selects language
+   $squirrelmail_language = getPref ($data_dir, $username, "language");
    if (isset($squirrelmail_language)) {
-      if ($squirrelmail_language != "en") {
-         putenv("LANG=".$squirrelmail_language);
+      if ($squirrelmail_language != "en" && $squirrelmail_language != "") {
+         putenv("LC_ALL=".$squirrelmail_language);
          bindtextdomain("squirrelmail", "../locale/");
          textdomain("squirrelmail");
+         header ("Content-Type: text/html; charset=".$languages[$squirrelmail_language]["CHARSET"]);
+
+         // Setting cookie to use on the login screen the next time the
+         // same user logs in.
+         setcookie("squirrelmail_language", $squirrelmail_language, 
+                   time()+2592000);
+
       }
    }
 
-   include ("../src/load_prefs.php");
-	
-	setcookie("username", "", time(), "/");
-	setcookie("key", "", time(), "/");
-	setcookie("logged_in", 0, time(), "/");
+   setcookie("username", "", time(), "/");
+   setcookie("key", "", time(), "/");
+   setcookie("logged_in", 0, time(), "/");
    session_destroy();
 ?>
 <HTML>
@@ -48,9 +59,8 @@ if (!function_exists("_")) {
    echo "         <BR>";
    echo _("You have been successfully signed out.");
    echo "<BR>";
-   echo _("Click here to ");
    echo "<A HREF=\"login.php\" TARGET=_top>";
-   echo _("log back in.");
+   echo _("Click here to log back in.");
    echo "</A><BR><BR>";
    echo "      </TD>";
    echo "   </TR>";
