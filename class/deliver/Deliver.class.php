@@ -336,12 +336,13 @@ class Deliver {
     	    foreach ($rfc822_header->more_headers as $k => $v) {
     		$header[] = $k.': '.$v .$rn;
     	    }	       
-	}        
+	}
 	$cnt = count($header);
 	$hdr_s = '';
 	for ($i = 0 ; $i < $cnt ; $i++) {
     	    $hdr_s .= $this->foldLine($header[$i], 78, str_pad('',4));
 	}
+
 //	$debug = "Debug: <123456789012345678901234567890123456789012345678901234567890123456789>\r\n";
 //	$this->foldLine($debug, 78, str_pad('',4));
 	$header = $hdr_s;
@@ -368,7 +369,8 @@ class Deliver {
                     $fold_tmp = $regs[1];
                     $iPosEnc = strpos($line,$fold_tmp);
                     $iLengthEnc = strlen($fold_tmp);
-                    if ($iPosEnc < $length && (($iPosEnc + $iLengthEnc) > $length)) {
+                    $iPosEncEnd = $iPosEnc+$iLengthEnc;
+                    if ($iPosEnc < $length && (($iPosEncEnd) > $length)) {
                         $fold = true;
                         /* fold just before the start of the encoded string */
                         $aFoldLine[] = substr($line,0,$iPosEnc);
@@ -384,11 +386,10 @@ class Deliver {
                             $aFoldLine[] = substr($line,0,$iLengthEnc);
                             $line = substr($line,$iLengthEnc);
                         } 
-                    } else { /* the encoded string fits into the foldlength */
+                    } else if ($iPosEnc < $length) { /* the encoded string fits into the foldlength */
                         /*remainder */
-                        $iPosEncEnd = $iPosEnc+$iLengthEnc;
                         $sLineRem = substr($line,$iPosEncEnd,$length - $iPosEncEnd);
-                        if (preg_match('/(=\?([^?]*)\?(Q|B)\?([^?]*)\?=)(.*)/Ui',$slineRem) || !preg_match('/[=,;\s]/',$sLineRem)) {
+                        if (preg_match('/^(=\?([^?]*)\?(Q|B)\?([^?]*)\?=)(.*)/Ui',$sLineRem) || !preg_match('/[=,;\s]/',$sLineRem)) {
                             /*impossible to fold clean in the next part -> fold after the enc string */
                             $aFoldLine[] = substr($line,0,$iPosEncEnd+1);
                             $line = substr($line,$iPosEncEnd+1);
