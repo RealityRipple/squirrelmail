@@ -11,6 +11,9 @@
  * $Id$
  */
 
+/* include this for error messages */
+include_once(SM_PATH . 'functions/display_messages.php');
+
 /**
  * Check the preferences into the session cache.
  */
@@ -33,7 +36,6 @@ function cachePrefValues($data_dir, $username) {
 
     /* Make sure that the preference file now DOES exist. */
     if (!file_exists($filename)) {
-        include_once(SM_PATH . 'functions/display_messages.php');
         logout_error( sprintf( _("Preference file, %s, does not exist. Log out, and log back in to create a default preference file."), $filename)  );
         exit;
     }
@@ -41,7 +43,6 @@ function cachePrefValues($data_dir, $username) {
     /* Open the file, or else display an error to the user. */
     if(!$file = @fopen($filename, 'r'))
     {
-        include_once(SM_PATH . 'functions/display_messages.php');
         logout_error( sprintf( _("Preference file, %s, could not be opened. Contact your system administrator to resolve this issue."), $filename) );
         exit;
     }
@@ -82,7 +83,7 @@ function cachePrefValues($data_dir, $username) {
 }
    
 /**
- * Return the value for the prefernce given by $string.
+ * Return the value for the preference given by $string.
  */
 function getPref($data_dir, $username, $string, $default = '') {
     global $prefs_cache;
@@ -113,7 +114,6 @@ function savePrefValues($data_dir, $username) {
     /* Open the file for writing, or else display an error to the user. */
     if(!$file = @fopen($filename.'.tmp', 'w'))
     {
-        include_once(SM_PATH . 'functions/display_messages.php');
         logout_error( sprintf( _("Preference file, %s, could not be opened. Contact your system administrator to resolve this issue."), $filename.'.tmp') );
         exit;
     }
@@ -127,7 +127,11 @@ function savePrefValues($data_dir, $username) {
         }
     }
     fclose($file);
-    @copy($filename . '.tmp',$filename);
+    $tmpcopy = @copy($filename . '.tmp',$filename);
+    if ($tmpcopy == -1) {
+        logout_error( sprintf( _("Preference file, %s, could not be copied from temporary file, %s. Contact your system administrator to resolve this issue."), $filename, $filename . '.tmp') );
+        exit;
+    }
     @unlink($filename . '.tmp');
     chmod($filename, 0600);
 }
@@ -192,7 +196,6 @@ function checkForPrefs($data_dir, $username, $filename = '') {
             $errString = $errTitle . "<br>\n" .
                          _("Default preference file not found or not readable!") . "<br>\n" .
                          _("Please contact your system administrator and report this error.") . "<br>\n";
-            include_once(SM_PATH . 'functions/display_messages.php' );
             logout_error( $errString, $errTitle );
             exit;
         } else if (!@copy($default_pref, $filename)) {
@@ -205,7 +208,6 @@ function checkForPrefs($data_dir, $username, $filename = '') {
                        _("Could not create initial preference file!") . "<br>\n" .
                        sprintf( _("%s should be writable by user %s"), $data_dir, $uid ) .
                        "<br>\n" . _("Please contact your system administrator and report this error.") . "<br>\n";
-            include_once(SM_PATH . 'functions/display_messages.php' );
             logout_error( $errString, $errTitle );
             exit;
         }
@@ -219,13 +221,11 @@ function setSig($data_dir, $username, $number, $value) {
     $filename = getHashedFile($username, $data_dir, "$username.si$number");
     /* Open the file for writing, or else display an error to the user. */
     if(!$file = @fopen("$filename.tmp", 'w')) {
-        include_once( '../functions/display_messages.php' );
         logout_error( sprintf( _("Signature file, %s, could not be opened. Contact your system administrator to resolve this issue."), $filename . '.tmp') );
         exit;
     }
     $tmpwrite = @fwrite($file, $value);
     if ($tmpwrite == -1) {
-       include_once( '../functions/display_messages.php' );
        logout_error( sprintf( _("Signature file, %s, could not be written. Contact your system administrator to resolve this issue.") , $filename . '.tmp'));
        exit;
     }
@@ -246,7 +246,6 @@ function getSig($data_dir, $username, $number) {
         /* Open the file, or else display an error to the user. */
         if(!$file = @fopen($filename, 'r'))
         {
-            include_once(SM_PATH . 'functions/display_messages.php');
             logout_error( sprintf( _("Signature file, %s, could not be opened. Contact your system administrator to resolve this issue."), $filename) );
             exit;
         }
