@@ -160,6 +160,7 @@
               while (file_exists($attachment_dir . $localfilename))
                   $localfilename = GenerateRandomString(32, '', 7);
 
+              $newAttachment = array();
               $newAttachment['localfilename'] = $localfilename;
               $newAttachment['remotefilename'] = $filename;
               $newAttachment['type'] = strtolower($message->header->type0 .
@@ -432,7 +433,7 @@
          //$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
          displayPageHeader($color, $mailbox);
          
-         if ($AttachFailure)
+         if (isset($AttachFailure))
              plain_error_message(_("Could not move/copy file. File not attached"), $color);
 
          checkInput(true);
