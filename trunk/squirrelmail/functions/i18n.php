@@ -17,7 +17,7 @@
    $languages["en"]["NAME"]    = "English";
    $languages["no"]["NAME"]    = "Norsk";
    $languages["no"]["CHARSET"] = "iso-8859-1";
-   $languages["de"]["NAME"]    = "Deutcsh";
+   $languages["de"]["NAME"]    = "Deutsch";
    $languages["de"]["CHARSET"] = "iso-8859-1";
    $languages["ru"]["NAME"]    = "Russian KOI8-R";
    $languages["ru"]["CHARSET"] = "koi8-r";
