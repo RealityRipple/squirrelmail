@@ -380,528 +380,6 @@ function set_my_charset(){
     }
 }
 
-/* ------------------------------ main --------------------------- */
-
-global $squirrelmail_language, $languages, $use_gettext;
-
-if (! isset($squirrelmail_language)) {
-    $squirrelmail_language = '';
-}
-
-/**
- * Array specifies the available translations.
- *
- * Structure of array:
- * $languages['language']['variable'] = 'value'
- *
- * Possible 'variable' names:
- *  NAME      - Translation name in English
- *  CHARSET   - Encoding used by translation
- *  ALIAS     - used when 'language' is only short name and 'value' should provide long language name
- *  ALTNAME   - Native translation name. Any 8bit symbols must be html encoded.
- *  LOCALE    - Full locale name (in xx_XX.charset format)
- *  DIR       - Text direction. Used to define Right-to-Left languages. Possible values 'rtl' or 'ltr'. If undefined - defaults to 'ltr'
- *  XTRA_CODE - translation uses special functions. See doc/i18n.txt
- *
- * Each 'language' definition requires NAME+CHARSET or ALIAS variables.
- *
- * @name $languages
- * @global array $languages
- */
-$languages['bg_BG']['NAME']    = 'Bulgarian';
-$languages['bg_BG']['ALTNAME'] = '&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1080;';
-$languages['bg_BG']['CHARSET'] = 'windows-1251';
-$languages['bg_BG']['LOCALE']  = 'bg_BG.CP1251';
-$languages['bg']['ALIAS'] = 'bg_BG';
-
-$languages['bn_IN']['NAME']    = 'Bengali';
-$languages['bn_IN']['CHARSET'] = 'utf-8';
-$languages['bn_IN']['LOCALE']  = 'bn_IN.UTF-8';
-$languages['bn']['ALIAS'] = 'bn_IN';
-
-$languages['ca_ES']['NAME']    = 'Catalan';
-$languages['ca_ES']['CHARSET'] = 'iso-8859-1';
-$languages['ca_ES']['LOCALE']  = 'ca_ES.ISO8859-1';
-$languages['ca']['ALIAS'] = 'ca_ES';
-
-$languages['cs_CZ']['NAME']    = 'Czech';
-$languages['cs_CZ']['ALTNAME'] = '&#268;e&scaron;tina';
-$languages['cs_CZ']['CHARSET'] = 'iso-8859-2';
-$languages['cs_CZ']['LOCALE']  = 'cs_CZ.ISO8859-2';
-$languages['cs']['ALIAS']      = 'cs_CZ';
-
-$languages['cy_GB']['NAME']    = 'Welsh';
-$languages['cy_GB']['ALTNAME'] = 'Cymraeg';
-$languages['cy_GB']['CHARSET'] = 'iso-8859-1';
-$languages['cy_GB']['LOCALE']  = 'cy_GB.ISO8859-1';
-$languages['cy']['ALIAS'] = 'cy_GB';
-
-// Danish locale is da_DK.
-$languages['da_DK']['NAME']    = 'Danish';
-$languages['da_DK']['ALTNAME'] = 'Dansk';
-$languages['da_DK']['CHARSET'] = 'iso-8859-1';
-$languages['da_DK']['LOCALE']  = 'da_DK.ISO8859-1';
-$languages['da']['ALIAS'] = 'da_DK';
-
-$languages['de_DE']['NAME']    = 'German';
-$languages['de_DE']['ALTNAME']    = 'Deutsch';
-$languages['de_DE']['CHARSET'] = 'iso-8859-1';
-$languages['de_DE']['LOCALE']  = 'de_DE.ISO8859-1';
-$languages['de']['ALIAS'] = 'de_DE';
-
-$languages['el_GR']['NAME']    = 'Greek';
-$languages['el_GR']['ALTNAME'] = '&Epsilon;&lambda;&lambda;&eta;&nu;&iota;&kappa;&#940;';
-$languages['el_GR']['CHARSET'] = 'iso-8859-7';
-$languages['el_GR']['LOCALE']  = 'el_GR.ISO8859-7';
-$languages['el']['ALIAS'] = 'el_GR';
-
-$languages['en_GB']['NAME']    = 'British';
-$languages['en_GB']['CHARSET'] = 'iso-8859-15';
-$languages['en_GB']['LOCALE']  = 'en_GB.ISO8859-15';
-
-$languages['en_US']['NAME']    = 'English';
-$languages['en_US']['CHARSET'] = 'iso-8859-1';
-$languages['en_US']['LOCALE']  = 'en_US.ISO8859-1';
-$languages['en']['ALIAS'] = 'en_US';
-
-$languages['es_ES']['NAME']    = 'Spanish';
-$languages['es_ES']['ALTNAME'] = 'Espa&ntilde;ol';
-$languages['es_ES']['CHARSET'] = 'iso-8859-1';
-$languages['es_ES']['LOCALE']  = 'es_ES.ISO8859-1';
-$languages['es']['ALIAS'] = 'es_ES';
-
-$languages['et_EE']['NAME']    = 'Estonian';
-$languages['et_EE']['CHARSET'] = 'iso-8859-15';
-$languages['et_EE']['LOCALE']  = 'et_EE.ISO8859-15';
-$languages['et']['ALIAS'] = 'et_EE';
-
-$languages['eu_ES']['NAME']    = 'Basque';
-$languages['eu_ES']['CHARSET'] = 'iso-8859-1';
-$languages['eu_ES']['LOCALE']  = 'eu_ES.ISO8859-1';
-$languages['eu']['ALIAS'] = 'eu_ES';
-
-$languages['fo_FO']['NAME']    = 'Faroese';
-$languages['fo_FO']['CHARSET'] = 'iso-8859-1';
-$languages['fo_FO']['LOCALE']  = 'fo_FO.ISO8859-1';
-$languages['fo']['ALIAS'] = 'fo_FO';
-
-$languages['fi_FI']['NAME']    = 'Finnish';
-$languages['fi_FI']['ALTNAME'] = 'Suomi';
-$languages['fi_FI']['CHARSET'] = 'iso-8859-1';
-$languages['fi_FI']['LOCALE']  = 'fi_FI.ISO8859-1';
-$languages['fi']['ALIAS'] = 'fi_FI';
-
-$languages['fr_FR']['NAME']    = 'French';
-$languages['fr_FR']['ALTNAME'] = 'Fran&#231;ais';
-$languages['fr_FR']['CHARSET'] = 'iso-8859-1';
-$languages['fr_FR']['LOCALE']  = 'fr_FR.ISO8859-1';
-$languages['fr']['ALIAS'] = 'fr_FR';
-
-$languages['hr_HR']['NAME']    = 'Croatian';
-$languages['hr_HR']['CHARSET'] = 'iso-8859-2';
-$languages['hr_HR']['LOCALE']  = 'hr_HR.ISO8859-2';
-$languages['hr']['ALIAS'] = 'hr_HR';
-
-$languages['hu_HU']['NAME']    = 'Hungarian';
-$languages['hu_HU']['ALTNAME'] = 'Magyar';
-$languages['hu_HU']['CHARSET'] = 'iso-8859-2';
-$languages['hu_HU']['LOCALE']  = 'hu_HU.ISO8859-2';
-$languages['hu']['ALIAS'] = 'hu_HU';
-
-$languages['id_ID']['NAME']    = 'Indonesian';
-$languages['id_ID']['ALTNAME'] = 'Bahasa Indonesia';
-$languages['id_ID']['CHARSET'] = 'iso-8859-1';
-$languages['id_ID']['LOCALE']  = 'id_ID.ISO8859-1';
-$languages['id']['ALIAS'] = 'id_ID';
-
-$languages['is_IS']['NAME']    = 'Icelandic';
-$languages['is_IS']['ALTNAME'] = '&Iacute;slenska';
-$languages['is_IS']['CHARSET'] = 'iso-8859-1';
-$languages['is_IS']['LOCALE']  = 'is_IS.ISO8859-1';
-$languages['is']['ALIAS'] = 'is_IS';
-
-$languages['it_IT']['NAME']    = 'Italian';
-$languages['it_IT']['CHARSET'] = 'iso-8859-1';
-$languages['it_IT']['LOCALE']  = 'it_IT.ISO8859-1';
-$languages['it']['ALIAS'] = 'it_IT';
-
-$languages['ja_JP']['NAME']    = 'Japanese';
-$languages['ja_JP']['ALTNAME'] = '&#26085;&#26412;&#35486;';
-$languages['ja_JP']['CHARSET'] = 'iso-2022-jp';
-$languages['ja_JP']['LOCALE'] = 'ja_JP.EUC-JP';
-$languages['ja_JP']['XTRA_CODE'] = 'japanese_xtra';
-$languages['ja']['ALIAS'] = 'ja_JP';
-
-$languages['ko_KR']['NAME']    = 'Korean';
-$languages['ko_KR']['CHARSET'] = 'euc-KR';
-$languages['ko_KR']['LOCALE']  = 'ko_KR.EUC-KR';
-$languages['ko_KR']['XTRA_CODE'] = 'korean_xtra';
-$languages['ko']['ALIAS'] = 'ko_KR';
-
-$languages['lt_LT']['NAME']    = 'Lithuanian';
-$languages['lt_LT']['ALTNAME'] = 'Lietuvi&#371;';
-$languages['lt_LT']['CHARSET'] = 'utf-8';
-$languages['lt_LT']['LOCALE'] = 'lt_LT.UTF-8';
-$languages['lt']['ALIAS'] = 'lt_LT';
-
-$languages['nl_NL']['NAME']    = 'Dutch';
-$languages['nl_NL']['ALTNAME'] = 'Nederlands';
-$languages['nl_NL']['CHARSET'] = 'iso-8859-1';
-$languages['nl_NL']['LOCALE']  = 'nl_NL.ISO8859-1';
-$languages['nl']['ALIAS'] = 'nl_NL';
-
-$languages['ms_MY']['NAME']    = 'Malay';
-$languages['ms_MY']['ALTNAME'] = 'Bahasa Melayu';
-$languages['ms_MY']['CHARSET'] = 'iso-8859-1';
-$languages['ms_MY']['LOCALE']  = 'ms_MY.ISO8859-1';
-$languages['my']['ALIAS'] = 'ms_MY';
-
-$languages['nb_NO']['NAME']    = 'Norwegian (Bokm&aring;l)';
-$languages['nb_NO']['ALTNAME'] = 'Norsk (Bokm&aring;l)';
-$languages['nb_NO']['CHARSET'] = 'iso-8859-1';
-$languages['nb_NO']['LOCALE']  = 'nb_NO.ISO8859-1';
-$languages['nb']['ALIAS'] = 'nb_NO';
-
-$languages['nn_NO']['NAME']    = 'Norwegian (Nynorsk)';
-$languages['nn_NO']['ALTNAME'] = 'Norsk (Nynorsk)';
-$languages['nn_NO']['CHARSET'] = 'iso-8859-1';
-$languages['nn_NO']['LOCALE']  = 'nn_NO.ISO8859-1';
-
-$languages['pl_PL']['NAME']    = 'Polish';
-$languages['pl_PL']['ALTNAME'] = 'Polski';
-$languages['pl_PL']['CHARSET'] = 'iso-8859-2';
-$languages['pl_PL']['LOCALE']  = 'pl_PL.ISO8859-2';
-$languages['pl']['ALIAS'] = 'pl_PL';
-
-$languages['pt_PT']['NAME'] = 'Portuguese (Portugal)';
-$languages['pt_PT']['CHARSET'] = 'iso-8859-1';
-$languages['pt_PT']['LOCALE']  = 'pt_PT.ISO8859-1';
-$languages['pt']['ALIAS'] = 'pt_PT';
-
-$languages['pt_BR']['NAME']    = 'Portuguese (Brazil)';
-$languages['pt_BR']['ALTNAME'] = 'Portugu&ecirc;s do Brasil';
-$languages['pt_BR']['CHARSET'] = 'iso-8859-1';
-$languages['pt_BR']['LOCALE']  = 'pt_BR.ISO8859-1';
-
-$languages['ro_RO']['NAME']    = 'Romanian';
-$languages['ro_RO']['ALTNAME'] = 'Rom&acirc;n&#259;';
-$languages['ro_RO']['CHARSET'] = 'iso-8859-2';
-$languages['ro_RO']['LOCALE']  = 'ro_RO.ISO8859-2';
-$languages['ro']['ALIAS'] = 'ro_RO';
-
-$languages['ru_RU']['NAME']    = 'Russian';
-$languages['ru_RU']['ALTNAME'] = '&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;';
-$languages['ru_RU']['CHARSET'] = 'utf-8';
-$languages['ru_RU']['LOCALE']  = 'ru_RU.UTF-8';
-$languages['ru']['ALIAS'] = 'ru_RU';
-
-$languages['sk_SK']['NAME']    = 'Slovak';
-$languages['sk_SK']['CHARSET'] = 'iso-8859-2';
-$languages['sk_SK']['LOCALE']  = 'sk_SK.ISO8859-2';
-$languages['sk']['ALIAS'] = 'sk_SK';
-
-$languages['sl_SI']['NAME']    = 'Slovenian';
-$languages['sl_SI']['ALTNAME'] = 'Sloven&scaron;&#269;ina';
-$languages['sl_SI']['CHARSET'] = 'iso-8859-2';
-$languages['sl_SI']['LOCALE']  = 'sl_SI.ISO8859-2';
-$languages['sl']['ALIAS'] = 'sl_SI';
-
-$languages['sr_YU']['NAME']    = 'Serbian';
-$languages['sr_YU']['ALTNAME'] = 'Srpski';
-$languages['sr_YU']['CHARSET'] = 'iso-8859-2';
-$languages['sr_YU']['LOCALE']  = 'sr_YU.ISO8859-2';
-$languages['sr']['ALIAS'] = 'sr_YU';
-
-$languages['sv_SE']['NAME']    = 'Swedish';
-$languages['sv_SE']['ALTNAME'] = 'Svenska';
-$languages['sv_SE']['CHARSET'] = 'iso-8859-1';
-$languages['sv_SE']['LOCALE']  = 'sv_SE.ISO8859-1';
-$languages['sv']['ALIAS'] = 'sv_SE';
-
-$languages['th_TH']['NAME']    = 'Thai';
-$languages['th_TH']['CHARSET'] = 'tis-620';
-$languages['th_TH']['LOCALE']  = 'th_TH.TIS-620';
-$languages['th']['ALIAS'] = 'th_TH';
-
-$languages['tl_PH']['NAME']    = 'Tagalog';
-$languages['tl_PH']['CHARSET'] = 'iso-8859-1';
-$languages['tl_PH']['LOCALE']  = 'tl_PH.ISO8859-1';
-$languages['tl']['ALIAS'] = 'tl_PH';
-
-$languages['tr_TR']['NAME']    = 'Turkish';
-$languages['tr_TR']['CHARSET'] = 'iso-8859-9';
-$languages['tr_TR']['LOCALE']  = 'tr_TR.ISO8859-9';
-$languages['tr']['ALIAS'] = 'tr_TR';
-
-$languages['zh_TW']['NAME']    = 'Chinese Trad';
-$languages['zh_TW']['CHARSET'] = 'big5';
-$languages['zh_TW']['LOCALE']  = 'zh_TW.BIG5';
-$languages['tw']['ALIAS'] = 'zh_TW';
-
-$languages['zh_CN']['NAME']    = 'Chinese Simp';
-$languages['zh_CN']['CHARSET'] = 'gb2312';
-$languages['zh_CN']['LOCALE']  = 'zh_CN.GB2312';
-$languages['cn']['ALIAS'] = 'zh_CN';
-
-$languages['uk_UA']['NAME']    = 'Ukrainian';
-$languages['uk_UA']['CHARSET'] = 'koi8-u';
-$languages['uk_UA']['LOCALE']  = 'uk_UA.KOI8-U';
-$languages['uk']['ALIAS'] = 'uk_UA';
-
-$languages['ru_UA']['NAME']    = 'Russian (Ukrainian)';
-$languages['ru_UA']['CHARSET'] = 'koi8-r';
-$languages['ru_UA']['LOCALE']  = 'ru_UA.KOI8-R';
-
-/*
-$languages['vi_VN']['NAME']    = 'Vietnamese';
-$languages['vi_VN']['CHARSET'] = 'utf-8';
-$languages['vi']['ALIAS'] = 'vi_VN';
-*/
-
-// Right to left languages
-$languages['ar']['NAME']    = 'Arabic';
-$languages['ar']['CHARSET'] = 'windows-1256';
-$languages['ar']['DIR']     = 'rtl';
-
-$languages['fa_IR']['NAME']    = 'Farsi';
-$languages['fa_IR']['CHARSET'] = 'utf-8';
-$languages['fa_IR']['DIR']     = 'rtl';
-$languages['fa_IR']['LOCALE']  = 'fa_IR.UTF-8';
-$languages['fa']['ALIAS']      = 'fa_IR';
-
-$languages['he_IL']['NAME']    = 'Hebrew';
-$languages['he_IL']['CHARSET'] = 'windows-1255';
-$languages['he_IL']['LOCALE']  = 'he_IL.CP1255';
-$languages['he_IL']['DIR']     = 'rtl';
-$languages['he']['ALIAS']      = 'he_IL';
-
-$languages['ug']['NAME']    = 'Uighur';
-$languages['ug']['CHARSET'] = 'utf-8';
-$languages['ug']['DIR']     = 'rtl';
-
-/* Detect whether gettext is installed. */
-$gettext_flags = 0;
-if (function_exists('_')) {
-    $gettext_flags += 1;
-}
-if (function_exists('bindtextdomain')) {
-    $gettext_flags += 2;
-}
-if (function_exists('textdomain')) {
-    $gettext_flags += 4;
-}
-if (function_exists('ngettext')) {
-    $gettext_flags += 8;
-}
-
-/* If gettext is fully loaded, cool */
-if ($gettext_flags == 15) {
-    $use_gettext = true;
-}
-
-/* If ngettext support is missing, load it */
-elseif ($gettext_flags == 7) {
-    $use_gettext = true;
-    // load internal ngettext functions
-    include_once(SM_PATH . 'class/l10n.class.php');
-    include_once(SM_PATH . 'functions/ngettext.php');
-}
-
-/* If we can fake gettext, try that */
-elseif ($gettext_flags == 0) {
-    $use_gettext = true;
-    include_once(SM_PATH . 'functions/gettext.php');
-} else {
-    /* Uh-ho.  A weird install */
-    if (! $gettext_flags & 1) {
-      /**
-       * Function is used as replacement in broken installs
-       * @ignore
-       */
-        function _($str) {
-            return $str;
-        }
-    }
-    if (! $gettext_flags & 2) {
-      /**
-       * Function is used as replacement in broken installs
-       * @ignore
-       */
-        function bindtextdomain() {
-            return;
-        }
-    }
-    if (! $gettext_flags & 4) {
-      /**
-       * Function is used as replacemet in broken installs
-       * @ignore
-       */
-        function textdomain() {
-            return;
-        }
-    }
-    if (! $gettext_flags & 8) {
-        /**
-         * Function is used as replacemet in broken installs
-         * @ignore
-         */
-        function ngettext($str,$str2,$number) {
-            if ($number>1) {
-                return $str2;
-            } else {
-                return $str;
-            }
-        }
-    }
-}
-
-
-/**
- * Japanese charset extra function
- *
- * Action performed by function is defined by first argument.
- * Default return value is defined by second argument.
- * Use of third argument depends on action.
- *
- * @param string $action action performed by this function.
- *    possible values:
- *  decode - convert returned string to euc-jp. third argument unused
- *  encode - convert returned string to jis. third argument unused
- *  strimwidth - third argument=$width. trims string to $width symbols.
- *  encodeheader - create base64 encoded header in iso-2022-jp. third argument unused
- *  decodeheader - return human readable string from mime header. string is returned in euc-jp. third argument unused
- *  downloadfilename - third argument $useragent. Arguments provide browser info. Returns shift-jis or euc-jp encoded file name
- *  wordwrap - third argument=$wrap. wraps text at $wrap symbols
- *  utf7-imap_encode - returns string converted from euc-jp to utf7-imap. third argument unused
- *  utf7-imap_decode - returns string converted from utf7-imap to euc-jp. third argument unused
- * @param string $ret default return value
- */
-function japanese_xtra() {
-    $ret = func_get_arg(1);  /* default return value */
-    if (function_exists('mb_detect_encoding')) {
-        switch (func_get_arg(0)) { /* action */
-        case 'decode':
-            $detect_encoding = @mb_detect_encoding($ret);
-            if ($detect_encoding == 'JIS' ||
-                $detect_encoding == 'EUC-JP' ||
-                $detect_encoding == 'SJIS' ||
-                $detect_encoding == 'UTF-8') {
-
-                $ret = mb_convert_kana(mb_convert_encoding($ret, 'EUC-JP', 'AUTO'), "KV");
-            }
-            break;
-        case 'encode':
-            $detect_encoding = @mb_detect_encoding($ret);
-            if ($detect_encoding == 'JIS' ||
-                $detect_encoding == 'EUC-JP' ||
-                $detect_encoding == 'SJIS' ||
-                $detect_encoding == 'UTF-8') {
-
-                $ret = mb_convert_encoding(mb_convert_kana($ret, "KV"), 'JIS', 'AUTO');
-            }
-            break;
-        case 'strimwidth':
-            $width = func_get_arg(2);
-            $ret = mb_strimwidth($ret, 0, $width, '...');
-            break;
-        case 'encodeheader':
-            $result = '';
-            if (strlen($ret) > 0) {
-                $tmpstr = mb_substr($ret, 0, 1);
-                $prevcsize = strlen($tmpstr);
-                for ($i = 1; $i < mb_strlen($ret); $i++) {
-                    $tmp = mb_substr($ret, $i, 1);
-                    if (strlen($tmp) == $prevcsize) {
-                        $tmpstr .= $tmp;
-                    } else {
-                        if ($prevcsize == 1) {
-                            $result .= $tmpstr;
-                        } else {
-                            $result .= str_replace(' ', '',
-                                                   mb_encode_mimeheader($tmpstr,'iso-2022-jp','B',''));
-                        }
-                        $tmpstr = $tmp;
-                        $prevcsize = strlen($tmp);
-                    }
-                }
-                if (strlen($tmpstr)) {
-                    if (strlen(mb_substr($tmpstr, 0, 1)) == 1)
-                        $result .= $tmpstr;
-                    else
-                        $result .= str_replace(' ', '',
-                                               mb_encode_mimeheader($tmpstr,'iso-2022-jp','B',''));
-                }
-            }
-            $ret = $result;
-            break;
-        case 'decodeheader':
-            $ret = str_replace("\t", "", $ret);
-            if (eregi('=\\?([^?]+)\\?(q|b)\\?([^?]+)\\?=', $ret))
-                $ret = @mb_decode_mimeheader($ret);
-            $ret = @mb_convert_encoding($ret, 'EUC-JP', 'AUTO');
-            break;
-        case 'downloadfilename':
-            $useragent = func_get_arg(2);
-            if (strstr($useragent, 'Windows') !== false ||
-                strstr($useragent, 'Mac_') !== false) {
-                $ret = mb_convert_encoding($ret, 'SJIS', 'AUTO');
-            } else {
-                $ret = mb_convert_encoding($ret, 'EUC-JP', 'AUTO');
-}
-            break;
-        case 'wordwrap':
-            $no_begin = "\x21\x25\x29\x2c\x2e\x3a\x3b\x3f\x5d\x7d\xa1\xf1\xa1\xeb\xa1" .
-                "\xc7\xa1\xc9\xa2\xf3\xa1\xec\xa1\xed\xa1\xee\xa1\xa2\xa1\xa3\xa1\xb9" .
-                "\xa1\xd3\xa1\xd5\xa1\xd7\xa1\xd9\xa1\xdb\xa1\xcd\xa4\xa1\xa4\xa3\xa4" .
-                "\xa5\xa4\xa7\xa4\xa9\xa4\xc3\xa4\xe3\xa4\xe5\xa4\xe7\xa4\xee\xa1\xab" .
-                "\xa1\xac\xa1\xb5\xa1\xb6\xa5\xa1\xa5\xa3\xa5\xa5\xa5\xa7\xa5\xa9\xa5" .
-                "\xc3\xa5\xe3\xa5\xe5\xa5\xe7\xa5\xee\xa5\xf5\xa5\xf6\xa1\xa6\xa1\xbc" .
-                "\xa1\xb3\xa1\xb4\xa1\xaa\xa1\xf3\xa1\xcb\xa1\xa4\xa1\xa5\xa1\xa7\xa1" .
-                "\xa8\xa1\xa9\xa1\xcf\xa1\xd1";
-            $no_end = "\x5c\x24\x28\x5b\x7b\xa1\xf2\x5c\xa1\xc6\xa1\xc8\xa1\xd2\xa1" .
-                "\xd4\xa1\xd6\xa1\xd8\xa1\xda\xa1\xcc\xa1\xf0\xa1\xca\xa1\xce\xa1\xd0\xa1\xef";
-            $wrap = func_get_arg(2);
-
-            if (strlen($ret) >= $wrap &&
-                substr($ret, 0, 1) != '>' &&
-                strpos($ret, 'http://') === FALSE &&
-                strpos($ret, 'https://') === FALSE &&
-                strpos($ret, 'ftp://') === FALSE) {
-
-                $ret = mb_convert_kana($ret, "KV");
-
-                $line_new = '';
-                $ptr = 0;
-
-                while ($ptr < strlen($ret) - 1) {
-                    $l = mb_strcut($ret, $ptr, $wrap);
-                    $ptr += strlen($l);
-                    $tmp = $l;
-
-                    $l = mb_strcut($ret, $ptr, 2);
-                    while (strlen($l) != 0 && mb_strpos($no_begin, $l) !== FALSE ) {
-                        $tmp .= $l;
-                        $ptr += strlen($l);
-                        $l = mb_strcut($ret, $ptr, 1);
-                    }
-                    $line_new .= $tmp;
-                    if ($ptr < strlen($ret) - 1)
-                        $line_new .= "\n";
-                }
-                $ret = $line_new;
-            }
-            break;
-        case 'utf7-imap_encode':
-            $ret = mb_convert_encoding($ret, 'UTF7-IMAP', 'EUC-JP');
-            break;
-        case 'utf7-imap_decode':
-            $ret = mb_convert_encoding($ret, 'EUC-JP', 'UTF7-IMAP');
-            break;
-        }
-    }
-    return $ret;
-}
-
 /**************************
  * Japanese extra functions
  **************************/
@@ -1291,5 +769,381 @@ case "koi8-u":
 default:
    return false;
 endswitch;
+}
+
+
+/* ------------------------------ main --------------------------- */
+
+global $squirrelmail_language, $languages, $use_gettext;
+
+if (! isset($squirrelmail_language)) {
+    $squirrelmail_language = '';
+}
+
+/**
+ * Array specifies the available translations.
+ *
+ * Structure of array:
+ * $languages['language']['variable'] = 'value'
+ *
+ * Possible 'variable' names:
+ *  NAME      - Translation name in English
+ *  CHARSET   - Encoding used by translation
+ *  ALIAS     - used when 'language' is only short name and 'value' should provide long language name
+ *  ALTNAME   - Native translation name. Any 8bit symbols must be html encoded.
+ *  LOCALE    - Full locale name (in xx_XX.charset format)
+ *  DIR       - Text direction. Used to define Right-to-Left languages. Possible values 'rtl' or 'ltr'. If undefined - defaults to 'ltr'
+ *  XTRA_CODE - translation uses special functions. See doc/i18n.txt
+ *
+ * Each 'language' definition requires NAME+CHARSET or ALIAS variables.
+ *
+ * @name $languages
+ * @global array $languages
+ */
+$languages['bg_BG']['NAME']    = 'Bulgarian';
+$languages['bg_BG']['ALTNAME'] = '&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1080;';
+$languages['bg_BG']['CHARSET'] = 'windows-1251';
+$languages['bg_BG']['LOCALE']  = 'bg_BG.CP1251';
+$languages['bg']['ALIAS'] = 'bg_BG';
+
+$languages['bn_IN']['NAME']    = 'Bengali';
+$languages['bn_IN']['CHARSET'] = 'utf-8';
+$languages['bn_IN']['LOCALE']  = 'bn_IN.UTF-8';
+$languages['bn']['ALIAS'] = 'bn_IN';
+
+$languages['ca_ES']['NAME']    = 'Catalan';
+$languages['ca_ES']['CHARSET'] = 'iso-8859-1';
+$languages['ca_ES']['LOCALE']  = 'ca_ES.ISO8859-1';
+$languages['ca']['ALIAS'] = 'ca_ES';
+
+$languages['cs_CZ']['NAME']    = 'Czech';
+$languages['cs_CZ']['ALTNAME'] = '&#268;e&scaron;tina';
+$languages['cs_CZ']['CHARSET'] = 'iso-8859-2';
+$languages['cs_CZ']['LOCALE']  = 'cs_CZ.ISO8859-2';
+$languages['cs']['ALIAS']      = 'cs_CZ';
+
+$languages['cy_GB']['NAME']    = 'Welsh';
+$languages['cy_GB']['ALTNAME'] = 'Cymraeg';
+$languages['cy_GB']['CHARSET'] = 'iso-8859-1';
+$languages['cy_GB']['LOCALE']  = 'cy_GB.ISO8859-1';
+$languages['cy']['ALIAS'] = 'cy_GB';
+
+// Danish locale is da_DK.
+$languages['da_DK']['NAME']    = 'Danish';
+$languages['da_DK']['ALTNAME'] = 'Dansk';
+$languages['da_DK']['CHARSET'] = 'iso-8859-1';
+$languages['da_DK']['LOCALE']  = 'da_DK.ISO8859-1';
+$languages['da']['ALIAS'] = 'da_DK';
+
+$languages['de_DE']['NAME']    = 'German';
+$languages['de_DE']['ALTNAME']    = 'Deutsch';
+$languages['de_DE']['CHARSET'] = 'iso-8859-1';
+$languages['de_DE']['LOCALE']  = 'de_DE.ISO8859-1';
+$languages['de']['ALIAS'] = 'de_DE';
+
+$languages['el_GR']['NAME']    = 'Greek';
+$languages['el_GR']['ALTNAME'] = '&Epsilon;&lambda;&lambda;&eta;&nu;&iota;&kappa;&#940;';
+$languages['el_GR']['CHARSET'] = 'iso-8859-7';
+$languages['el_GR']['LOCALE']  = 'el_GR.ISO8859-7';
+$languages['el']['ALIAS'] = 'el_GR';
+
+$languages['en_GB']['NAME']    = 'British';
+$languages['en_GB']['CHARSET'] = 'iso-8859-15';
+$languages['en_GB']['LOCALE']  = 'en_GB.ISO8859-15';
+
+$languages['en_US']['NAME']    = 'English';
+$languages['en_US']['CHARSET'] = 'iso-8859-1';
+$languages['en_US']['LOCALE']  = 'en_US.ISO8859-1';
+$languages['en']['ALIAS'] = 'en_US';
+
+$languages['es_ES']['NAME']    = 'Spanish';
+$languages['es_ES']['ALTNAME'] = 'Espa&ntilde;ol';
+$languages['es_ES']['CHARSET'] = 'iso-8859-1';
+$languages['es_ES']['LOCALE']  = 'es_ES.ISO8859-1';
+$languages['es']['ALIAS'] = 'es_ES';
+
+$languages['et_EE']['NAME']    = 'Estonian';
+$languages['et_EE']['CHARSET'] = 'iso-8859-15';
+$languages['et_EE']['LOCALE']  = 'et_EE.ISO8859-15';
+$languages['et']['ALIAS'] = 'et_EE';
+
+$languages['eu_ES']['NAME']    = 'Basque';
+$languages['eu_ES']['CHARSET'] = 'iso-8859-1';
+$languages['eu_ES']['LOCALE']  = 'eu_ES.ISO8859-1';
+$languages['eu']['ALIAS'] = 'eu_ES';
+
+$languages['fo_FO']['NAME']    = 'Faroese';
+$languages['fo_FO']['CHARSET'] = 'iso-8859-1';
+$languages['fo_FO']['LOCALE']  = 'fo_FO.ISO8859-1';
+$languages['fo']['ALIAS'] = 'fo_FO';
+
+$languages['fi_FI']['NAME']    = 'Finnish';
+$languages['fi_FI']['ALTNAME'] = 'Suomi';
+$languages['fi_FI']['CHARSET'] = 'iso-8859-1';
+$languages['fi_FI']['LOCALE']  = 'fi_FI.ISO8859-1';
+$languages['fi']['ALIAS'] = 'fi_FI';
+
+$languages['fr_FR']['NAME']    = 'French';
+$languages['fr_FR']['ALTNAME'] = 'Fran&#231;ais';
+$languages['fr_FR']['CHARSET'] = 'iso-8859-1';
+$languages['fr_FR']['LOCALE']  = 'fr_FR.ISO8859-1';
+$languages['fr']['ALIAS'] = 'fr_FR';
+
+$languages['hr_HR']['NAME']    = 'Croatian';
+$languages['hr_HR']['CHARSET'] = 'iso-8859-2';
+$languages['hr_HR']['LOCALE']  = 'hr_HR.ISO8859-2';
+$languages['hr']['ALIAS'] = 'hr_HR';
+
+$languages['hu_HU']['NAME']    = 'Hungarian';
+$languages['hu_HU']['ALTNAME'] = 'Magyar';
+$languages['hu_HU']['CHARSET'] = 'iso-8859-2';
+$languages['hu_HU']['LOCALE']  = 'hu_HU.ISO8859-2';
+$languages['hu']['ALIAS'] = 'hu_HU';
+
+$languages['id_ID']['NAME']    = 'Indonesian';
+$languages['id_ID']['ALTNAME'] = 'Bahasa Indonesia';
+$languages['id_ID']['CHARSET'] = 'iso-8859-1';
+$languages['id_ID']['LOCALE']  = 'id_ID.ISO8859-1';
+$languages['id']['ALIAS'] = 'id_ID';
+
+$languages['is_IS']['NAME']    = 'Icelandic';
+$languages['is_IS']['ALTNAME'] = '&Iacute;slenska';
+$languages['is_IS']['CHARSET'] = 'iso-8859-1';
+$languages['is_IS']['LOCALE']  = 'is_IS.ISO8859-1';
+$languages['is']['ALIAS'] = 'is_IS';
+
+$languages['it_IT']['NAME']    = 'Italian';
+$languages['it_IT']['CHARSET'] = 'iso-8859-1';
+$languages['it_IT']['LOCALE']  = 'it_IT.ISO8859-1';
+$languages['it']['ALIAS'] = 'it_IT';
+
+$languages['ja_JP']['NAME']    = 'Japanese';
+$languages['ja_JP']['ALTNAME'] = '&#26085;&#26412;&#35486;';
+$languages['ja_JP']['CHARSET'] = 'iso-2022-jp';
+$languages['ja_JP']['LOCALE'] = 'ja_JP.EUC-JP';
+$languages['ja_JP']['XTRA_CODE'] = 'japanese_xtra';
+$languages['ja']['ALIAS'] = 'ja_JP';
+
+$languages['ko_KR']['NAME']    = 'Korean';
+$languages['ko_KR']['CHARSET'] = 'euc-KR';
+$languages['ko_KR']['LOCALE']  = 'ko_KR.EUC-KR';
+$languages['ko_KR']['XTRA_CODE'] = 'korean_xtra';
+$languages['ko']['ALIAS'] = 'ko_KR';
+
+$languages['lt_LT']['NAME']    = 'Lithuanian';
+$languages['lt_LT']['ALTNAME'] = 'Lietuvi&#371;';
+$languages['lt_LT']['CHARSET'] = 'utf-8';
+$languages['lt_LT']['LOCALE'] = 'lt_LT.UTF-8';
+$languages['lt']['ALIAS'] = 'lt_LT';
+
+$languages['nl_NL']['NAME']    = 'Dutch';
+$languages['nl_NL']['ALTNAME'] = 'Nederlands';
+$languages['nl_NL']['CHARSET'] = 'iso-8859-1';
+$languages['nl_NL']['LOCALE']  = 'nl_NL.ISO8859-1';
+$languages['nl']['ALIAS'] = 'nl_NL';
+
+$languages['ms_MY']['NAME']    = 'Malay';
+$languages['ms_MY']['ALTNAME'] = 'Bahasa Melayu';
+$languages['ms_MY']['CHARSET'] = 'iso-8859-1';
+$languages['ms_MY']['LOCALE']  = 'ms_MY.ISO8859-1';
+$languages['my']['ALIAS'] = 'ms_MY';
+
+$languages['nb_NO']['NAME']    = 'Norwegian (Bokm&aring;l)';
+$languages['nb_NO']['ALTNAME'] = 'Norsk (Bokm&aring;l)';
+$languages['nb_NO']['CHARSET'] = 'iso-8859-1';
+$languages['nb_NO']['LOCALE']  = 'nb_NO.ISO8859-1';
+$languages['nb']['ALIAS'] = 'nb_NO';
+
+$languages['nn_NO']['NAME']    = 'Norwegian (Nynorsk)';
+$languages['nn_NO']['ALTNAME'] = 'Norsk (Nynorsk)';
+$languages['nn_NO']['CHARSET'] = 'iso-8859-1';
+$languages['nn_NO']['LOCALE']  = 'nn_NO.ISO8859-1';
+
+$languages['pl_PL']['NAME']    = 'Polish';
+$languages['pl_PL']['ALTNAME'] = 'Polski';
+$languages['pl_PL']['CHARSET'] = 'iso-8859-2';
+$languages['pl_PL']['LOCALE']  = 'pl_PL.ISO8859-2';
+$languages['pl']['ALIAS'] = 'pl_PL';
+
+$languages['pt_PT']['NAME'] = 'Portuguese (Portugal)';
+$languages['pt_PT']['CHARSET'] = 'iso-8859-1';
+$languages['pt_PT']['LOCALE']  = 'pt_PT.ISO8859-1';
+$languages['pt']['ALIAS'] = 'pt_PT';
+
+$languages['pt_BR']['NAME']    = 'Portuguese (Brazil)';
+$languages['pt_BR']['ALTNAME'] = 'Portugu&ecirc;s do Brasil';
+$languages['pt_BR']['CHARSET'] = 'iso-8859-1';
+$languages['pt_BR']['LOCALE']  = 'pt_BR.ISO8859-1';
+
+$languages['ro_RO']['NAME']    = 'Romanian';
+$languages['ro_RO']['ALTNAME'] = 'Rom&acirc;n&#259;';
+$languages['ro_RO']['CHARSET'] = 'iso-8859-2';
+$languages['ro_RO']['LOCALE']  = 'ro_RO.ISO8859-2';
+$languages['ro']['ALIAS'] = 'ro_RO';
+
+$languages['ru_RU']['NAME']    = 'Russian';
+$languages['ru_RU']['ALTNAME'] = '&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;';
+$languages['ru_RU']['CHARSET'] = 'utf-8';
+$languages['ru_RU']['LOCALE']  = 'ru_RU.UTF-8';
+$languages['ru']['ALIAS'] = 'ru_RU';
+
+$languages['sk_SK']['NAME']    = 'Slovak';
+$languages['sk_SK']['CHARSET'] = 'iso-8859-2';
+$languages['sk_SK']['LOCALE']  = 'sk_SK.ISO8859-2';
+$languages['sk']['ALIAS'] = 'sk_SK';
+
+$languages['sl_SI']['NAME']    = 'Slovenian';
+$languages['sl_SI']['ALTNAME'] = 'Sloven&scaron;&#269;ina';
+$languages['sl_SI']['CHARSET'] = 'iso-8859-2';
+$languages['sl_SI']['LOCALE']  = 'sl_SI.ISO8859-2';
+$languages['sl']['ALIAS'] = 'sl_SI';
+
+$languages['sr_YU']['NAME']    = 'Serbian';
+$languages['sr_YU']['ALTNAME'] = 'Srpski';
+$languages['sr_YU']['CHARSET'] = 'iso-8859-2';
+$languages['sr_YU']['LOCALE']  = 'sr_YU.ISO8859-2';
+$languages['sr']['ALIAS'] = 'sr_YU';
+
+$languages['sv_SE']['NAME']    = 'Swedish';
+$languages['sv_SE']['ALTNAME'] = 'Svenska';
+$languages['sv_SE']['CHARSET'] = 'iso-8859-1';
+$languages['sv_SE']['LOCALE']  = 'sv_SE.ISO8859-1';
+$languages['sv']['ALIAS'] = 'sv_SE';
+
+$languages['th_TH']['NAME']    = 'Thai';
+$languages['th_TH']['CHARSET'] = 'tis-620';
+$languages['th_TH']['LOCALE']  = 'th_TH.TIS-620';
+$languages['th']['ALIAS'] = 'th_TH';
+
+$languages['tl_PH']['NAME']    = 'Tagalog';
+$languages['tl_PH']['CHARSET'] = 'iso-8859-1';
+$languages['tl_PH']['LOCALE']  = 'tl_PH.ISO8859-1';
+$languages['tl']['ALIAS'] = 'tl_PH';
+
+$languages['tr_TR']['NAME']    = 'Turkish';
+$languages['tr_TR']['CHARSET'] = 'iso-8859-9';
+$languages['tr_TR']['LOCALE']  = 'tr_TR.ISO8859-9';
+$languages['tr']['ALIAS'] = 'tr_TR';
+
+$languages['zh_TW']['NAME']    = 'Chinese Trad';
+$languages['zh_TW']['CHARSET'] = 'big5';
+$languages['zh_TW']['LOCALE']  = 'zh_TW.BIG5';
+$languages['tw']['ALIAS'] = 'zh_TW';
+
+$languages['zh_CN']['NAME']    = 'Chinese Simp';
+$languages['zh_CN']['CHARSET'] = 'gb2312';
+$languages['zh_CN']['LOCALE']  = 'zh_CN.GB2312';
+$languages['cn']['ALIAS'] = 'zh_CN';
+
+$languages['uk_UA']['NAME']    = 'Ukrainian';
+$languages['uk_UA']['CHARSET'] = 'koi8-u';
+$languages['uk_UA']['LOCALE']  = 'uk_UA.KOI8-U';
+$languages['uk']['ALIAS'] = 'uk_UA';
+
+$languages['ru_UA']['NAME']    = 'Russian (Ukrainian)';
+$languages['ru_UA']['CHARSET'] = 'koi8-r';
+$languages['ru_UA']['LOCALE']  = 'ru_UA.KOI8-R';
+
+/*
+$languages['vi_VN']['NAME']    = 'Vietnamese';
+$languages['vi_VN']['CHARSET'] = 'utf-8';
+$languages['vi']['ALIAS'] = 'vi_VN';
+*/
+
+// Right to left languages
+$languages['ar']['NAME']    = 'Arabic';
+$languages['ar']['CHARSET'] = 'windows-1256';
+$languages['ar']['DIR']     = 'rtl';
+
+$languages['fa_IR']['NAME']    = 'Farsi';
+$languages['fa_IR']['CHARSET'] = 'utf-8';
+$languages['fa_IR']['DIR']     = 'rtl';
+$languages['fa_IR']['LOCALE']  = 'fa_IR.UTF-8';
+$languages['fa']['ALIAS']      = 'fa_IR';
+
+$languages['he_IL']['NAME']    = 'Hebrew';
+$languages['he_IL']['CHARSET'] = 'windows-1255';
+$languages['he_IL']['LOCALE']  = 'he_IL.CP1255';
+$languages['he_IL']['DIR']     = 'rtl';
+$languages['he']['ALIAS']      = 'he_IL';
+
+$languages['ug']['NAME']    = 'Uighur';
+$languages['ug']['CHARSET'] = 'utf-8';
+$languages['ug']['DIR']     = 'rtl';
+
+/* Detect whether gettext is installed. */
+$gettext_flags = 0;
+if (function_exists('_')) {
+    $gettext_flags += 1;
+}
+if (function_exists('bindtextdomain')) {
+    $gettext_flags += 2;
+}
+if (function_exists('textdomain')) {
+    $gettext_flags += 4;
+}
+if (function_exists('ngettext')) {
+    $gettext_flags += 8;
+}
+
+/* If gettext is fully loaded, cool */
+if ($gettext_flags == 15) {
+    $use_gettext = true;
+}
+
+/* If ngettext support is missing, load it */
+elseif ($gettext_flags == 7) {
+    $use_gettext = true;
+    // load internal ngettext functions
+    include_once(SM_PATH . 'class/l10n.class.php');
+    include_once(SM_PATH . 'functions/ngettext.php');
+}
+
+/* If we can fake gettext, try that */
+elseif ($gettext_flags == 0) {
+    $use_gettext = true;
+    include_once(SM_PATH . 'functions/gettext.php');
+} else {
+    /* Uh-ho.  A weird install */
+    if (! $gettext_flags & 1) {
+      /**
+       * Function is used as replacement in broken installs
+       * @ignore
+       */
+        function _($str) {
+            return $str;
+        }
+    }
+    if (! $gettext_flags & 2) {
+      /**
+       * Function is used as replacement in broken installs
+       * @ignore
+       */
+        function bindtextdomain() {
+            return;
+        }
+    }
+    if (! $gettext_flags & 4) {
+      /**
+       * Function is used as replacemet in broken installs
+       * @ignore
+       */
+        function textdomain() {
+            return;
+        }
+    }
+    if (! $gettext_flags & 8) {
+        /**
+         * Function is used as replacemet in broken installs
+         * @ignore
+         */
+        function ngettext($str,$str2,$number) {
+            if ($number>1) {
+                return $str2;
+            } else {
+                return $str;
+            }
+        }
+    }
 }
 ?>
