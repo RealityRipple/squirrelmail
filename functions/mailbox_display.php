@@ -15,13 +15,13 @@
 require_once('../functions/strings.php');
 require_once('../functions/html.php');
 require_once('../class/html.class.php');
-require_once('../functions/imap_utf7_decode_local.php');
+require_once('../functions/imap_mailbox.php');
 
 /* Default value for page_selector_max. */
 define('PG_SEL_MAX', 10);
 
 function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, 
-                          $start_msg) {
+                          $start_msg, $where, $what) {
     global $checkall,
            $color, $msgs, $msort,
            $default_use_priority,
@@ -109,6 +109,11 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
         $fontstr_end = '';
     }
 
+    if ($where && $what) {
+        $searchstr = '&amp;where='.$where.'&amp;what='.$what;
+    } else {
+        $searchstr = '';
+    }	
     /**
     * AAAAH! Make my eyes stop bleeding!
     * Who wrote this?!
@@ -178,8 +183,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
                 }
                 $td_str .= '<a href="read_body.php?mailbox='.$urlMailbox
 		             .'&amp;passed_id='. $msg["ID"]
-                             . '&amp;startMessage='.$start_msg
-			     .'&amp;show_more=0"';
+                             . '&amp;startMessage='.$start_msg.$searchstr.'"';
                 do_hook("subject_link");
                 if ($subject != $msg['SUBJECT']) {
                     $title = get_html_translation_table(HTML_SPECIALCHARS);
@@ -628,7 +632,7 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
     } while (isset ($key) && ($k < $i));
     do {
       printMessageInfo($imapConnection, $t, $i, $key, $mailbox, 
-		       $real_startMessage);
+		       $real_startMessage, $where, $what);
       $key = key($msort);
       $t++;
       $i++;

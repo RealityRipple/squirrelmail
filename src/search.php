@@ -12,7 +12,7 @@
 require_once('../src/validate.php');
 require_once('../functions/imap.php');
 require_once('../functions/imap_search.php');
-require_once('../functions/imap_utf7_decode_local.php');
+require_once('../functions/imap_mailbox.php');
 require_once('../functions/array.php');
 require_once('../functions/strings.php');
 
@@ -159,7 +159,7 @@ function save_recent($save_index, $username, $data_dir) {
     }
 }
 
-function printSearchMessages($msgs,$mailbox, $cnt, $imapConnection, $usecache = false, $newsort = false) {
+function printSearchMessages($msgs,$mailbox, $cnt, $imapConnection, $where, $what, $usecache = false, $newsort = false) {
     global $sort, $color;
     
     $msort = calc_msort($msgs, $sort);
@@ -181,7 +181,7 @@ function printSearchMessages($msgs,$mailbox, $cnt, $imapConnection, $usecache = 
        printHeader($mailbox, 6, $color, false);
 
        displayMessageArray($imapConnection, $cnt, 1, 
-		          $msort, $mailbox, $sort, $color, $cnt);
+		          $msort, $mailbox, $sort, $color, $cnt, $where, $what);
 
        mail_message_listing_end($cnt, '', $msg_cnt_str, $color); 
     }
@@ -448,7 +448,7 @@ if ($search_all == 'all') {
             $msgs = sqimap_search($imapConnection, $where, $what, $mailbox, $color, 0, $search_all, $count_all);
 	    $count_all = count($msgs);
             printSearchMessages($msgs, $mailbox, $count_all, $imapConnection, 
-	                        false, false);
+	                        $where, $what, false, false);
             array_push($perbox_count, $count_all);
         }
     }
@@ -472,7 +472,7 @@ else {
         $msgs = sqimap_search($imapConnection, $where, $what, $mailbox, $color, 0, $search_all, $count_all);
 	if (count($msgs)) {
            printSearchMessages($msgs, $mailbox, count($msgs), $imapConnection,
-	                       false, false);
+	                       $where, $what, false, false);
 	} else {
            echo '<br><center>' . _("No Messages Found") . '</center>';
 	}
