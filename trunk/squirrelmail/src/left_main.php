@@ -66,7 +66,6 @@
       global $use_special_folder_color;
 
       $real_box = $box_array['unformatted'];
-      $fm = $box_array['formatted'];
       $mailbox = str_replace('&nbsp;','',$box_array['formatted']);
       $mailboxURL = urlencode($real_box);
 
