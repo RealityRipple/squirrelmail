@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-02-04 21:30+0100\n"
+"POT-Creation-Date: 2002-02-07 13:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -814,15 +814,14 @@ msgstr ""
 #: squirrelmail/functions/page_header.php:128
 #: squirrelmail/plugins/filters/options.php:62
 #: squirrelmail/plugins/newmail/newmail_opt.php:34
-#: squirrelmail/plugins/spamcop/options.php:28
 #: squirrelmail/plugins/translate/options.php:94
-#: squirrelmail/src/options.php:165 squirrelmail/src/options_highlight.php:62
+#: squirrelmail/src/options.php:198 squirrelmail/src/options_highlight.php:62
 #: squirrelmail/src/options_identities.php:44
 #: squirrelmail/src/options_order.php:31
 msgid "Options"
 msgstr ""
 
-#: squirrelmail/src/options.php:113 squirrelmail/src/options.php:268
+#: squirrelmail/src/options.php:146 squirrelmail/src/options.php:297
 #: squirrelmail/src/options_highlight.php:62
 msgid "Message Highlighting"
 msgstr ""
@@ -973,7 +972,7 @@ msgstr ""
 msgid "Move Up"
 msgstr ""
 
-#: squirrelmail/src/options.php:125 squirrelmail/src/options.php:284
+#: squirrelmail/src/options.php:158 squirrelmail/src/options.php:313
 #: squirrelmail/src/options_order.php:31
 msgid "Index Order"
 msgstr ""
@@ -1082,55 +1081,55 @@ msgstr ""
 msgid "Signature"
 msgstr ""
 
-#: squirrelmail/src/options.php:101 squirrelmail/src/options.php:252
+#: squirrelmail/src/options.php:134 squirrelmail/src/options.php:281
 msgid "Personal Information"
 msgstr ""
 
-#: squirrelmail/src/options.php:107 squirrelmail/src/options.php:260
+#: squirrelmail/src/options.php:140 squirrelmail/src/options.php:289
 msgid "Display Preferences"
 msgstr ""
 
-#: squirrelmail/src/options.php:119 squirrelmail/src/options.php:276
+#: squirrelmail/src/options.php:152 squirrelmail/src/options.php:305
 msgid "Folder Preferences"
 msgstr ""
 
-#: squirrelmail/src/options.php:235
+#: squirrelmail/src/options.php:264
 msgid "Successfully Saved Options"
 msgstr ""
 
-#: squirrelmail/src/options.php:240
+#: squirrelmail/src/options.php:269
 msgid "Refresh Folder List"
 msgstr ""
 
-#: squirrelmail/src/options.php:242
+#: squirrelmail/src/options.php:271
 msgid "Refresh Page"
 msgstr ""
 
-#: squirrelmail/src/options.php:254
+#: squirrelmail/src/options.php:283
 msgid ""
 "This contains personal information about yourself such as your name, your "
 "email address, etc."
 msgstr ""
 
-#: squirrelmail/src/options.php:262
+#: squirrelmail/src/options.php:291
 msgid ""
 "You can change the way that SquirrelMail looks and displays information to "
 "you, such as the colors, the language, and other settings."
 msgstr ""
 
-#: squirrelmail/src/options.php:270
+#: squirrelmail/src/options.php:299
 msgid ""
 "Based upon given criteria, incoming messages can have different background "
 "colors in the message list.  This helps to easily distinguish who the "
 "messages are from, especially for mailing lists."
 msgstr ""
 
-#: squirrelmail/src/options.php:278
+#: squirrelmail/src/options.php:307
 msgid ""
 "These settings change the way your folders are displayed and manipulated."
 msgstr ""
 
-#: squirrelmail/src/options.php:286
+#: squirrelmail/src/options.php:315
 msgid ""
 "The order of the message index can be rearranged and changed to contain the "
 "headers in any order you want."
@@ -2211,6 +2210,64 @@ msgstr ""
 msgid "Cute."
 msgstr ""
 
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:33
+msgid "Your personal dictionary was erased."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:34
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:47
+msgid "Dictionary Erased"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:41
+msgid ""
+"Your personal dictionary was erased. Please close this window and click "
+"\"Check Spelling\" button again to start your spellcheck over."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:45
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:77
+msgid "Close this Window"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:70
+msgid ""
+"Your personal dictionary was re-encrypted successfully. Now return to the "
+"&quot;SpellChecker options&quot; menu and make your selection again."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:72
+msgid "Successful Re-encryption"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:75
+msgid ""
+"Your personal dictionary was re-encrypted successfully. Please close this "
+"window and click \"Check Spelling\" button again to start your spellcheck "
+"over."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:79
+msgid "Dictionary re-encrypted"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:39
+msgid ""
+"Your personal dictionary has been <strong>encrypted</strong> and is now "
+"stored in an <strong>encrypted format</strong>."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:54
+msgid ""
+"Your personal dictionary has been <strong>decrypted</strong> and is now "
+"stored as <strong>clear text</strong>."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:65
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:76
+msgid "Personal Dictionary Crypto Settings"
+msgstr ""
+
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:196
 msgid "SquirrelSpell Results"
 msgstr ""
@@ -2314,64 +2371,6 @@ msgstr ""
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:414
 msgid "No errors found"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:33
-msgid "Your personal dictionary was erased."
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:34
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:47
-msgid "Dictionary Erased"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:41
-msgid ""
-"Your personal dictionary was erased. Please close this window and click "
-"\"Check Spelling\" button again to start your spellcheck over."
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:45
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:77
-msgid "Close this Window"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:70
-msgid ""
-"Your personal dictionary was re-encrypted successfully. Now return to the "
-"&quot;SpellChecker options&quot; menu and make your selection again."
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:72
-msgid "Successful Re-encryption"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:75
-msgid ""
-"Your personal dictionary was re-encrypted successfully. Please close this "
-"window and click \"Check Spelling\" button again to start your spellcheck "
-"over."
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:79
-msgid "Dictionary re-encrypted"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:39
-msgid ""
-"Your personal dictionary has been <strong>encrypted</strong> and is now "
-"stored in an <strong>encrypted format</strong>."
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:54
-msgid ""
-"Your personal dictionary has been <strong>decrypted</strong> and is now "
-"stored as <strong>clear text</strong>."
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:65
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:76
-msgid "Personal Dictionary Crypto Settings"
 msgstr ""
 
 #: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:28
@@ -4009,20 +4008,4 @@ msgstr ""
 msgid ""
 "This module allows administrators to manage SquirrelMail main configuration "
 "remotely."
-msgstr ""
-
-#: squirrelmail/plugins/spamcop/setup.php:72
-#: squirrelmail/plugins/spamcop/setup.php:79
-msgid "Report as Spam"
-msgstr ""
-
-#: squirrelmail/plugins/spamcop/setup.php:90
-msgid "SpamCop - Spam Reporting"
-msgstr ""
-
-#: squirrelmail/plugins/spamcop/setup.php:92
-msgid ""
-"Help fight the battle against unsolicited email.  SpamCop reads the spam "
-"email and determines the correct addresses to send complaints to.  Quite "
-"fast, really smart, and easy to use."
 msgstr ""
