@@ -15,6 +15,8 @@ require_once('../src/validate.php');
 require_once('../functions/display_messages.php');
 require_once('../functions/imap.php');
 
+global $compose_new_win;
+
 function putSelectedMessagesIntoString($msg) {
     $j = 0;
     $i = 0;
@@ -39,6 +41,86 @@ function putSelectedMessagesIntoString($msg) {
     }
 }
 
+function attachSelectedMessages($msg, $imapConnection) {
+
+    global $mailbox, $username, $attachment_dir, $attachments, $identity, $data_dir, $composesession;
+
+
+    if (!isset($attachments)) {
+	$attachments = array();
+	session_register('attachments');
+    }
+
+    if (!isset($composesession)) {
+	$composesession = 1;
+	session_register('$composesession');
+    } else {
+	$composesession++;
+    }
+
+    $hashed_attachment_dir = getHashedDir($username, $attachment_dir,$composesession);
+
+    $rem_attachments = array();
+    foreach ($attachments as $info) {
+	if ($info['session'] == $composesession) {
+    	    $attached_file = "$hashed_attachment_dir/$info[localfilename]";
+    	    if (file_exists($attached_file)) {
+        	unlink($attached_file);
+    	    }
+	} else {
+	    $rem_attachments[] = $info;
+	}
+    }
+
+    $attachments = $rem_attachments;
+
+
+    $i = 0;
+    $j = 0;
+    
+    while ($j < count($msg)) {
+        if (isset($msg[$i])) {
+	    $id = $msg[$i];
+	    $body_a = sqimap_run_command($imapConnection, "FETCH $id RFC822",true, $response, $readmessage);
+	    if ($response = 'OK') {
+		// get subject so we can set the remotefilename
+    		$read = sqimap_run_command ($imapConnection, "FETCH $id BODY.PEEK[HEADER.FIELDS (Subject)]", true, $response, $readmessage);
+    		$subject = substr($read[1], strpos($read[1], ' '));
+		$subject = trim($subject);
+
+		if (isset($subject) && $subject != '') {
+		    $subject = htmlentities($subject);
+		} else {
+		    $subject = _("<No subject>");
+		    $subject = htmlentities($subject);
+		}
+
+		array_shift($body_a);
+		$body = implode('', $body_a);
+		
+		$localfilename = GenerateRandomString(32, 'FILE', 7);
+		$full_localfilename = "$hashed_attachment_dir/$localfilename";
+	    
+		$fp = fopen( $full_localfilename, 'w');
+		fwrite ($fp, $body);
+		fclose($fp);
+
+		$newAttachment = array();
+		$newAttachment['localfilename'] = $localfilename;
+		$newAttachment['type'] = "message/rfc822";
+	    	$newAttachment['remotefilename'] = "$subject".".eml";
+	    	$newAttachment['session'] = $composesession;
+		$attachments[] = $newAttachment;
+		flush();
+    	    }
+    	    $j++;	    
+	}
+	$i++;	
+	
+    }
+    return $composesession;
+}
+
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 sqimap_mailbox_select($imapConnection, $mailbox);
 
@@ -46,7 +128,7 @@ sqimap_mailbox_select($imapConnection, $mailbox);
 if(isset($expungeButton)) {
     sqimap_mailbox_expunge($imapConnection, $mailbox, true);
     $location = get_location();
-    if ($where && $what) {
+    if (isset($where) && isset($what)) {
         header ("Location: $location/search.php?mailbox=".urlencode($mailbox)."&what=".urlencode($what)."&where=".urlencode($where));
     } else {
         header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=". urlencode($mailbox));
@@ -94,7 +176,9 @@ if(isset($expungeButton)) {
                     sqimap_messages_flag($imapConnection, $msg[$i], $msg[$i], "Seen");
                 } else if (isset($markUnread)) {
                     sqimap_messages_remove_flag($imapConnection, $msg[$i], $msg[$i], "Seen");
-                } else {
+                } else if (isset($attache)) {
+		    break;
+                } else  {
                     sqimap_messages_delete($imapConnection, $msg[$i], $msg[$i], $mailbox);
                 }
                 $j++;
@@ -107,6 +191,13 @@ if(isset($expungeButton)) {
         $location = get_location();
         if (isset($where) && isset($what)) {
             header ("Location: $location/search.php?mailbox=".urlencode($mailbox)."&what=".urlencode($what)."&where=".urlencode($where));
+	} elseif(isset($attache)) {
+	    $composesession = attachSelectedMessages($msg, $imapConnection);
+	    if ($compose_new_win == '1') {
+        	header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=". urlencode($mailbox)."&composenew=1&session=$composesession&attachedmessages=true");
+	    } else {
+		header ("Location: $location/compose.php?startMessage=$startMessage&mailbox=". urlencode($mailbox)."&session=$composesession&attachedmessages=true");
+	    }
         } else {
             header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=". urlencode($mailbox));
         }
