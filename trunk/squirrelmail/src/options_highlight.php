@@ -70,9 +70,9 @@ if (count($message_highlight_list) >= 1) {
     for ($i=0; $i < count($message_highlight_list); $i++) {
         echo '<tr bgcolor="' . $message_highlight_list[$i]['color'] . '">'.
                 "<td width=\"20%\" bgcolor=\"$color[4]\" nowrap>".
-                "<small>[<a href=\"options_highlight.php?action=edit&theid=$i\">".
+                "<small>[<a href=\"options_highlight.php?action=edit&amp;theid=$i\">".
             _("Edit") .
-            '</a>]&nbsp;[<a href="options_highlight.php?action=delete&theid='.
+            '</a>]&nbsp;[<a href="options_highlight.php?action=delete&amp;theid='.
             $i . '">' . _("Delete") . '</a>]</small>'.
             '</td><td>'.
             htmlspecialchars($message_highlight_list[$i]['name']) .

@@ -39,13 +39,13 @@ if (isset($emailaddress)) {
         $key = strtolower($k);
         $value = urlencode($v);
         if ($key == 'cc') {
-            $rcptaddress .= '&send_to_cc=' . $value;
+            $rcptaddress .= '&amp;send_to_cc=' . $value;
         } else if ($key == 'bcc') {
-            $rcptaddress .= '&send_to_bcc=' . $value;
+            $rcptaddress .= '&amp;send_to_bcc=' . $value;
         } else if ($key == 'subject') {
-            $rcptaddress .= '&subject=' . $value;
+            $rcptaddress .= '&amp;subject=' . $value;
         } else if ($key == 'body') {
-            $rcptaddress .= '&body=' . $value;
+            $rcptaddress .= '&amp;body=' . $value;
         }
     }
     

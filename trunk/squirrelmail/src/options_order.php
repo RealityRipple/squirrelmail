@@ -91,14 +91,14 @@ displayPageHeader($color, 'None');
         for ($i=1; $i <= count($index_order); $i++) {
             $tmp = $index_order[$i];
             echo '<tr>';
-            echo "<td><small><a href=\"options_order.php?method=up&num=$i\">". _("up") ."</a></small></td>\n";
+            echo "<td><small><a href=\"options_order.php?method=up&amp;num=$i\">". _("up") ."</a></small></td>\n";
             echo '<td><small>&nbsp;|&nbsp;</small></td>' . "\n";
-            echo "<td><small><a href=\"options_order.php?method=down&num=$i\">". _("down") . "</a></small></td>\n";
+            echo "<td><small><a href=\"options_order.php?method=down&amp;num=$i\">". _("down") . "</a></small></td>\n";
             echo '<td><small>&nbsp;|&nbsp;</small></td>' . "\n";
             echo '<td>';
             /* Always show the subject */
             if ($tmp != 4)
-               echo "<small><a href=\"options_order.php?method=remove&num=$i\">" . _("remove") . '</a></small>';
+               echo "<small><a href=\"options_order.php?method=remove&amp;num=$i\">" . _("remove") . '</a></small>';
             echo "</td>\n";
             echo '<td><small>&nbsp;-&nbsp;</small></td>' . "\n";
             echo '<td>' . $available[$tmp] . "</td>\n";

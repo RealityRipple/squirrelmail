@@ -25,10 +25,11 @@ function putSelectedMessagesIntoString($msg) {
     // see if msg[0] is set or not to fix this.
     while (($j < count($msg)) && ($msg[0])) {
         if ($msg[$i]) {
-            if ($firstLoop != true)
-            $selectedMessages .= "&";
-            else
-            $firstLoop = false;
+            if ($firstLoop != true) {
+                $selectedMessages .= "&amp;";
+            } else {
+                $firstLoop = false;
+            }
 
             $selectedMessages .= "selMsg[$j]=$msg[$i]";
 
@@ -46,9 +47,9 @@ if(isset($expungeButton)) {
     sqimap_mailbox_expunge($imapConnection, $mailbox, true);
     $location = get_location();
     if ($where && $what) {
-        header ("Location: $location/search.php?mailbox=".urlencode($mailbox)."&what=".urlencode($what)."&where=".urlencode($where));
+        header ("Location: $location/search.php?mailbox=".urlencode($mailbox)."&amp;what=".urlencode($what)."&amp;where=".urlencode($where));
     } else {
-        header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=". urlencode($mailbox));
+        header ("Location: $location/right_main.php?sort=$sort&amp;startMessage=$startMessage&amp;mailbox=". urlencode($mailbox));
     }
 
 } elseif(isset($undeleteButton)) {
@@ -71,9 +72,9 @@ if(isset($expungeButton)) {
         $location = get_location();
 
         if ($where && $what)
-            header ("Location: $location/search.php?mailbox=".urlencode($mailbox)."&what=".urlencode($what)."&where=".urlencode($where));
+            header ("Location: $location/search.php?mailbox=".urlencode($mailbox)."&amp;what=".urlencode($what)."&amp;where=".urlencode($where));
         else
-            header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=". urlencode($mailbox));
+            header ("Location: $location/right_main.php?sort=$sort&amp;startMessage=$startMessage&amp;mailbox=". urlencode($mailbox));
     } else {
         displayPageHeader($color, $mailbox);
         error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);
@@ -105,9 +106,9 @@ if(isset($expungeButton)) {
         }
         $location = get_location();
         if (isset($where) && isset($what)) {
-            header ("Location: $location/search.php?mailbox=".urlencode($mailbox)."&what=".urlencode($what)."&where=".urlencode($where));
+            header ("Location: $location/search.php?mailbox=".urlencode($mailbox)."&amp;what=".urlencode($what)."&amp;where=".urlencode($where));
         } else {
-            header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=". urlencode($mailbox));
+            header ("Location: $location/right_main.php?sort=$sort&amp;startMessage=$startMessage&amp;mailbox=". urlencode($mailbox));
         }
     } else {
         displayPageHeader($color, $mailbox);
@@ -135,9 +136,9 @@ if(isset($expungeButton)) {
 
         $location = get_location();
         if (isset($where) && isset($what))
-            header ("Location: $location/search.php?mailbox=".urlencode($mailbox)."&what=".urlencode($what)."&where=".urlencode($where));
+            header ("Location: $location/search.php?mailbox=".urlencode($mailbox)."&amp;what=".urlencode($what)."&amp;where=".urlencode($where));
         else
-            header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=". urlencode($mailbox));
+            header ("Location: $location/right_main.php?sort=$sort&amp;startMessage=$startMessage&amp;mailbox=". urlencode($mailbox));
     } else {
         displayPageHeader($color, $mailbox);
         error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);
