@@ -662,9 +662,9 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         case ('reply'):
             $send_to = $orig_header->reply_to;
             if (is_array($send_to) && count($send_to)) {
-                $send_to = decodeHeader($send_to->getAddr_s('reply_to'));
+                $send_to = decodeHeader($orig_header->getAddr_s('reply_to'));
             } else if (is_object($send_to)) { /* unnessecarry, just for falesafe purpose */
-		$send_to = decodeHeader($send_to->getAddr_s('reply_to'));
+                $send_to = decodeHeader($orig_header->getAddr_s('reply_to'));
 	    } else {
                 $send_to = decodeHeader($orig_header->getAddr_s('from'));
             }
