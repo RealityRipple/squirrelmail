@@ -90,7 +90,7 @@ $sqspell_command=$SQSPELL_APP[$sqspell_use_app];
  * QUITE remote.
  */
 do {
-  $floc = SM_PATH . "$attachment_dir/" . md5($sqspell_new_text . microtime());
+  $floc = "$attachment_dir/" . md5($sqspell_new_text . microtime());
 } while (file_exists($floc));
 /**
  * Write the contents to the file.

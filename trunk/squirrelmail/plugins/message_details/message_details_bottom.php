@@ -10,8 +10,8 @@
  * $Id$
  */
 
-#chdir ('..');
-define('SM_PATH','../../');
+chdir ('..');
+define('SM_PATH','../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
@@ -25,15 +25,15 @@ global $color, $uid_support;
 function CalcEntity($entString, $direction) {
     $result = $entString;
     if ($direction == -1) {
-	  $pos = strrpos($entString,'.');
-	  $result = substr($entString,0,$pos);
+        $pos = strrpos($entString,'.');
+        $result = substr($entString,0,$pos);
     }
 
     switch ($direction) {
        case 0:
           $pos = strrpos($entString,'.');
           if ($pos === false) {
-	     $entString++;
+         $entString++;
 	     $result= $entString;
           } 
 	  else {
