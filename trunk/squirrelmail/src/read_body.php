@@ -589,7 +589,7 @@
 
     if ($show_xmailer_default) {
         fputs ($imapConnection, sqimap_session_id() .
-               " FETCH $passed_id BODY.PEEK[HEADER.FIELDS (X-Mailer)]\r\n");
+               " FETCH $passed_id BODY.PEEK[HEADER.FIELDS (X-Mailer User-Agent)]\r\n");
         $read = sqimap_read_data ($imapConnection, sqimap_session_id(), true, 
                                   $response, $readmessage);
         $mailer = substr($read[1], strpos($read[1], " "));
