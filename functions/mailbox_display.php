@@ -39,7 +39,7 @@
       echo "   <td width=30% bgcolor=$hlt_color>$italic$bold$flag$senderName$flag_end$bold_end$italic_end</td>\n";
       echo "   <td nowrap width=1% bgcolor=$hlt_color><center>$bold$flag".$msg["DATE_STRING"]."$flag_end$bold_end</center></td>\n";
 		if ($msg["FLAG_ANSWERED"] == true) echo "   <td bgcolor=$hlt_color width=1%><b><small>A</small></b></td>";
-		elseif ($msg["PRIORITY"] == 1) echo "   <td bgcolor=$hlt_color width=1%><b><small>!</small></b></td>";
+		elseif (ereg("(1|2)",substr($msg["PRIORITY"],0,1))) echo "   <td bgcolor=$hlt_color width=1%><b><small><font color=$color[1]>!</font></small></b></td>";
 		else	echo "   <td bgcolor=$hlt_color width=1%>&nbsp;</td>";
       echo "   <td bgcolor=$hlt_color width=%>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0\">$flag$subject$flag_end</a>$bold_end</td>\n";
 
