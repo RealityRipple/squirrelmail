@@ -110,6 +110,9 @@ Version 1.5.0 -- CVS
     accidentally disappeared in the past.
   - Disabled Quick-email-reporting feature in spamcop plugin. Bug.809452. Admin
     can enable it by setting variable in plugins/spamcop/setup.php
+  - Fix again for Internet Explorer's stupidity of decoding characters, then
+    executing it blindly. See http://www.securityfocus.com/archive/1/340118.
+
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
