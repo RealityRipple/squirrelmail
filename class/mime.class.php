@@ -11,7 +11,7 @@
  * $Id$
  */
 
-/* 
+/*
  * rdc822_header class
  * input: header_string or array
  */
@@ -33,7 +33,7 @@ class rfc822_header {
         $priority = 3,
         $dnt = '',
         $mlist = array(),
-        $more_headers = array(); /* only needed for constructing headers 
+        $more_headers = array(); /* only needed for constructing headers
                                     in smtp.php */
     function parseHeader($hdr) {
         if (is_array($hdr)) {
@@ -45,7 +45,7 @@ class rfc822_header {
 
         /* Now we can make a new header array with */
         /* each element representing a headerline  */
-        $hdr = explode("\r\n" , $hdr);  
+        $hdr = explode("\r\n" , $hdr);
         foreach ($hdr as $line) {
             $pos = strpos($line, ':');
             if ($pos > 0) {
@@ -62,39 +62,39 @@ class rfc822_header {
             $this->parseContentType('text/plain; charset=us-ascii');
         }
     }
-    
+
     function stripComments($value) {
         $result = '';
 
         $cnt = strlen($value);
         for ($i = 0; $i < $cnt; ++$i) {
-           switch ($value{$i}) {
-               case '"':
-                   $result .= '"';
-                   ++$i;
-                   while ($value{$i} != '"') {
-                       if ($value{$i} == '\\s') {
-                           $result .= '\\'; 
-                           ++$i;
-                       }
-                       $result .= $value{$i}; 
-                       if (++$i > $cnt) { break; }
-                   }
-                   $result .= $value{$i};
-                   break;
-               case '(':
-                   while ($value{$i} != ')') {
-                       $i += ($value{$i} == '\\' ? 2 : 1);
-                   }
-                   break;
-               default:
-                   $result .= $value{$i};
-                   break;
-           }
-       }
-       return $result;
+            switch ($value{$i}) {
+                case '"':
+                    $result .= '"';
+                    ++$i;
+                    while ($value{$i} != '"') {
+                        if ($value{$i} == '\\') {
+                            $result .= '\\';
+                            ++$i;
+                        }
+                        $result .= $value{$i};
+                        if (++$i > $cnt) { break; }
+                    }
+                    $result .= $value{$i};
+                    break;
+                case '(':
+                    while ($value{$i} != ')') {
+                        $i += ($value{$i} == '\\' ? 2 : 1);
+                    }
+                    break;
+                default:
+                    $result .= $value{$i};
+                    break;
+            }
+        }
+        return $result;
     }
-    
+
     function parseField($field, $value) {
         $field = strtolower($field);
         switch($field) {
@@ -127,13 +127,13 @@ class rfc822_header {
             case 'in-reply-to':
                 $this->in_reply_to = $value;
                 break;
-            case 'message_id':
+            case 'message-id':
                 $this->message_id = $value;
                 break;
             case 'disposition-notification-to':
                 $this->dnt = $this->parseAddress($value);
                 break;
-            case 'mime-Version':
+            case 'mime-version':
                 $value = str_replace(' ', '', $value);
                 $this->mime = ($value == '1.0' ? true : $this->mime);
                 break;
@@ -142,7 +142,7 @@ class rfc822_header {
                 break;
             case 'content-disposition':
                 $this->parseDisposition($value);
-                break;    
+                break;
             case 'user-agent':
             case 'x-mailer':
                 $this->xmailer = $value;
@@ -154,7 +154,7 @@ class rfc822_header {
                 $this->mlist('post', $value);
                 break;
             case 'list-reply':
-                $this->mlist('reply', $value);    
+                $this->mlist('reply', $value);
                 break;
             case 'list-subscribe':
                 $this->mlist('subscribe', $value);
@@ -177,7 +177,7 @@ class rfc822_header {
             default:
                 break;
         }
-    } 
+    }
 
     function parseAddress
     ($address, $ar=false, $addr_ar = array(), $group = '') {
@@ -211,11 +211,11 @@ class rfc822_header {
                 case '(':  /* rip off comments */
                     $addr_start = $pos;
                     for (++$pos; $pos < $j && $address{$pos} != ')'; ++$pos) {
-                        $addr .= $address{$pos};    
+                        $addr .= $address{$pos};
                     }
                     $address_start = substr($address, 0, $addr_start);
                     $address_end   = substr($address, $pos + 1);
-                    $address       = $address_start . $address_end; 
+                    $address       = $address_start . $address_end;
                     $j = strlen($address);
                     $pos = $addr_start + 1;
                     break;
@@ -251,7 +251,7 @@ class rfc822_header {
                     $addr_ar = $result[0];
                     $pos = $result[1];
                     $address = substr($address, $pos++);
-                    $j = strlen($address);    
+                    $j = strlen($address);
                     $group = '';
                     break;
                 case ';':
@@ -282,21 +282,20 @@ class rfc822_header {
         if ($group && $addr == '') { /* no addresses found in group */
             $name = "$group: Undisclosed recipients;";
             $addr_structure->personal = $name;
-            $addr_ar[] = $addr_structure;     
-            return (array($addr_ar, $pos+1)); 
+            $addr_ar[] = $addr_structure;
+            return (array($addr_ar, $pos+1));
         } else {
             $addr_structure->personal = $name;
             if ($name || $addr) {
                 $addr_ar[] = $addr_structure;
-            } 
+            }
         }
         if ($ar) {
             return ($addr_ar);
         }
-
         return ($addr_ar[0]);
     }
-   
+
     function parseContentType($value) {
         $pos = strpos($value, ';');
         $props = '';
@@ -316,7 +315,7 @@ class rfc822_header {
         }
         $this->content_type = $content_type;
     }
-   
+
     function parseProperties($value) {
         $propArray = explode(';', $value);
         $propResultArray = array();
@@ -334,7 +333,7 @@ class rfc822_header {
         }
         return $propResultArray;
     }
-   
+
     function parseDisposition($value) {
         $pos = strpos($value, ';');
         $props = '';
@@ -349,7 +348,7 @@ class rfc822_header {
         $disp->properties = $props_a;
         $this->disposition = $disp;
     }
-   
+
     function mlist($field, $value) {
         $res_a = array();
         $value_a = explode(',', $value);
@@ -367,7 +366,7 @@ class rfc822_header {
         $this->mlist[$field] = $res_a;
     }
 
-    /* 
+    /*
      * function to get the addres strings out of the header.
      * Arguments: string or array of strings !
      * example1: header->getAddr_s('to').
@@ -401,7 +400,7 @@ class rfc822_header {
 
         return $s;
     }
-    
+
     function getAddr_a($arg, $excl_arr = array(), $arr = array()) {
         if (is_array($arg)) {
             foreach($arg as $argument) {
@@ -427,20 +426,20 @@ class rfc822_header {
                 if (is_object($addr)) {
                     $email  = $addr->mailbox;
                     $email .= (isset($addr->host) ? '@' . $addr->host : '');
-                    $email  = strtolower($email);          
+                    $email  = strtolower($email);
                     if ($email && !isset($arr[$email]) && !isset($excl_arr[$email])) {
                         $arr[$email] = $addr->personal;
                     }
                 }
             }
         }
-        return ($arr);
+        return $arr;
     }
-    
+
     function getContentType($type0, $type1) {
         $type0 = $this->content_type->type0;
         $type1 = $this->content_type->type1;
-        return ($this->content_type->properties);
+        return $this->content_type->properties;
     }
 }
 
@@ -448,32 +447,32 @@ class msg_header {
     /** msg_header contains all variables available in a bodystructure **/
     /** entity like described in rfc2060                               **/
 
-    var $type0 = '', 
-        $type1 = '', 
+    var $type0 = '',
+        $type1 = '',
         $parameters = array(),
-        $id = 0, 
-        $description = '', 
-        $encoding='', 
+        $id = 0,
+        $description = '',
+        $encoding='',
         $size = 0,
-        $md5='', 
-        $disposition = '', 
+        $md5='',
+        $disposition = '',
         $language='';
-    
-    /* 
+
+    /*
      * returns addres_list of supplied argument
      * arguments: array('to', 'from', ...) or just a string like 'to'.
      * result: string: address1, addres2, ....
-     */ 
-    
+     */
+
     function setVar($var, $value) {
         $this->{$var} = $value;
     }
-    
+
     function getParameter($p) {
         $value = strtolower($p);
         return (isset($this->parameters[$p]) ? $this->parameters[$p] : '');
     }
-    
+
     function setParameter($parameter, $value) {
         $this->parameters[strtolower($parameter)] = $value;
     }
@@ -511,7 +510,7 @@ class address_structure {
             $result = ($full ? $addr : $best_dpl);
         }
 
-        return ($result);
+        return $result;
     }
 }
 
@@ -521,13 +520,13 @@ class message {
         more objects of type message.  See documentation in mime.txt for
         a better description of how this works.
     **/
-    var $rfc822_header = '', 
+    var $rfc822_header = '',
         $mime_header = '',
         $flags = '',
         $type0='',
-        $type1='',         
-        $entities = array(), 
-        $parent_ent, $entity, 
+        $type1='',
+        $entities = array(),
+        $parent_ent, $entity,
         $parent = '', $decoded_body='',
         $is_seen = 0, $is_answered = 0, $is_deleted = 0, $is_flagged = 0,
         $is_mdnsent = 0,
@@ -538,7 +537,7 @@ class message {
     function setEnt($ent) {
         $this->entity_id= $ent;
     }
-    
+
     function addEntity ($msg) {
         $msg->parent = &$this;
         $this->entities[] = $msg;
@@ -576,7 +575,7 @@ class message {
             $cur_ent_a = explode('.', $this->entity_id);
         }
         $ent_a = explode('.', $ent);
-        
+
         $cnt = count($ent_a);
 
         for ($i = 0; $i < $cnt -1; ++$i) {
@@ -614,7 +613,7 @@ class message {
     function setBody($s) {
         $this->body_part = $s;
     }
-    
+
     function clean_up() {
         $msg = $this;
         $msg->body_part = '';
@@ -623,7 +622,7 @@ class message {
             $msg->entities[$i]->clean_up();
         }
     }
-    
+
     function getMailbox() {
         $msg = $this;
         while (is_object($msg->parent)) {
@@ -631,7 +630,7 @@ class message {
         }
         return $msg->mailbox;
     }
-    
+
     function calcEntity($msg) {
         if (($this->type0 == 'message') && ($this->type1 == 'rfc822')) {
             $msg->entity_id = $this->entity_id .'.0'; /* header of message/rfc822 */
@@ -649,7 +648,7 @@ class message {
                     $msg->entity_id = $ent;
                 } else {
                     $msg->entity_id = $ent_no;
-                }   
+                }
             } else {
                 $ent = $this->entity_id . ".$ent_no";
                 $msg->entity_id = $ent;
@@ -660,17 +659,17 @@ class message {
 
         return $msg->entity_id;
     }
-    
-    
-    /* 
-     * Bodystructure parser, a recursive function for generating the 
+
+
+    /*
+     * Bodystructure parser, a recursive function for generating the
      * entity-tree with all the mime-parts.
-     * 
+     *
      * It follows RFC2060 and stores all the described fields in the
-     * message object. 
+     * message object.
      *
      * Question/Bugs:
-     * 
+     *
      * Ask for me (Marc Groot Koerkamp, stekkel@users.sourceforge.net.
      *
      */
@@ -680,7 +679,7 @@ class message {
        $cnt = strlen($read);
 
        for (; $i < $cnt; ++$i) {
-           $char = strtoupper($read{$i});   
+           $char = strtoupper($read{$i});
             switch ($char) {
                 case '(':
                     if ($arg_no == 0) {
@@ -777,7 +776,7 @@ class message {
                                    $arg_a[] = ''; /* not yet desribed in rfc2060 */
                                }
                                ++$arg_no;
-                               break;  
+                               break;
                            default:
                                /* unknown argument, skip this part */
                                $i = $msg->parseParenthesis($read, $i);
@@ -799,10 +798,10 @@ class message {
                    }
                    $arg_a[] = $arg_s;
                    break;
-               case 'n':   
+               case 'n':
                case 'N':
                    /* probably NIL argument */
-                   if (strtoupper(substr($read, $i, 4)) == 'NIL ') { 
+                   if (strtoupper(substr($read, $i, 4)) == 'NIL ') {
                        $arg_a[] = '';
                        ++$arg_no;
                        $i += 2;
@@ -830,7 +829,7 @@ class message {
                     if (!$multipart) {
                         $shifted_args = (($arg_a[0] == 'text') || (($arg_a[0] == 'message') && ($arg_a[1] == 'rfc822')));
                         $hdr->type0 = $arg_a[0];
-                        $hdr->type1 = $arg_a[1];          
+                        $hdr->type1 = $arg_a[1];
 
                         $msg->type0 = $arg_a[0];
                         $msg->type1 = $arg_a[1];
@@ -843,7 +842,7 @@ class message {
                         $hdr->description = $arg_a[4];
                         $hdr->encoding = strtolower($arg_a[5]);
                         $hdr->entity_id = $msg->entity_id;
-                        $hdr->size = $arg_a[6];                                            
+                        $hdr->size = $arg_a[6];
                         if ($shifted_args) {
                             $hdr->lines = $arg_a[7];
                             $s = 1;
@@ -875,7 +874,7 @@ class message {
 
         } /* for */
     } /* parsestructure */
-    
+
     function parseProperties($read, $i) {
         $properties = array();
         $prop_name = '';
@@ -905,7 +904,7 @@ class message {
 
         return (array($properties, $i));
     }
-    
+
     function parseEnvelope($read, $i, $hdr) {
         $arg_no = 0;
         $arg_a = array();
@@ -927,13 +926,13 @@ class message {
                     $i = $res[1];
                     ++$arg_no;
                     break;
-                case 'N':   
+                case 'N':
                     /* probably NIL argument */
                     if (strtoupper(substr($read, $i, 3)) == 'NIL') {
                         $arg_a[] = '';
                         ++$arg_no;
                         $i += 2;
-                    }      
+                    }
                     break;
                 case '(':
                     /* Address structure (with group support)
@@ -996,7 +995,7 @@ class message {
         }
         return (array($hdr, $i));
     }
-    
+
     function parseLiteral($read, $i) {
         $lit_cnt = '';
         for (++$i; $read{$i} != '}'; ++$i) {
@@ -1010,18 +1009,18 @@ class message {
         }
         return (array($s, $i));
     }
-    
+
     function parseQuote($read, $i) {
         $s = '';
         for (++$i; $read{$i} != '"'; ++$i) {
             if ($read{$i} == '\\') {
                 ++$i;
-             } 
+             }
              $s .= $read{$i};
         }
-        return (array($s, $i));    
+        return (array($s, $i));
     }
-    
+
     function parseAddress($read, $i) {
         $arg_a = array();
 
@@ -1029,13 +1028,13 @@ class message {
             $char = strtoupper($read{$i});
             switch ($char) {
                 case '"':
-                case '{': 
+                case '{':
                     $res = ($char == '"' ? $this->parseQuote($read, $i) : $this->parseLiteral($read, $i));
                     $arg_a[] = $res[0];
                     $i = $res[1];
                     break;
                 case 'n':
-                case 'N':   
+                case 'N':
                     if (strtoupper(substr($read, $i, 3)) == 'NIL') {
                         $arg_a[] = '';
                         $i += 2;
@@ -1056,14 +1055,14 @@ class message {
         }
         return (array($adr, $i));
     }
-    
+
     function parseDisposition($read, $i) {
         $arg_a = array();
 
         for (; $read{$i} != ')'; ++$i) {
             switch ($read{$i}) {
                 case '"':
-                case '{': 
+                case '{':
                 case '(':
                     switch ($read{$i}) {
                         case '"': $res = $this->parseQuote($read, $i); break;
@@ -1086,7 +1085,7 @@ class message {
 
         return (is_object($disp) ? array($disp, $i) : array('', $i));
     }
-    
+
     function parseLanguage($read, $i) {
         /* no idea how to process this one without examples */
         $arg_a = array();
@@ -1094,7 +1093,7 @@ class message {
         for (; $read{$i} != ')'; ++$i) {
             switch ($read{$i}) {
                 case '"':
-                case '{': 
+                case '{':
                 case '(':
                     switch ($read{$i}) {
                         case '"': $res = $this->parseQuote($read, $i); break;
@@ -1117,12 +1116,12 @@ class message {
 
         return (is_object($lang) ? array($lang, $i) : array('', $i));
     }
-    
+
     function parseParenthesis($read, $i) {
         for (; $read{$i} != ')'; ++$i) {
             switch ($read{$i}) {
                 case '"':
-                case '{': 
+                case '{':
                 case '(':
                     switch ($read{$i}) {
                         case '"': $res = $this->parseQuote($read, $i); break;
@@ -1133,7 +1132,7 @@ class message {
                     break;
                 default: break;
             }
-        } 
+        }
         return $i;
     }
 
@@ -1154,14 +1153,14 @@ class message {
 
         for ($i = 1; $i < $count; ++$i) {
             $line = trim($body[$i]);
-            if (($mime_header || $rfc822_header) && 
+            if (($mime_header || $rfc822_header) &&
                 (preg_match("/^.*boundary=\"?(.+(?=\")|.+).*/i", $line, $reg))) {
                 $bnd = $reg[1];
-                $bndreg = $bnd;    
-                $bndreg = str_replace("\\", "\\\\", $bndreg);    
+                $bndreg = $bnd;
+                $bndreg = str_replace("\\", "\\\\", $bndreg);
                 $bndreg = str_replace("?", "\\?", $bndreg);
-                $bndreg = str_replace("+", "\\+", $bndreg);        
-                $bndreg = str_replace(".", "\\.", $bndreg);            
+                $bndreg = str_replace("+", "\\+", $bndreg);
+                $bndreg = str_replace(".", "\\.", $bndreg);
                 $bndreg = str_replace("/", "\\/", $bndreg);
                 $bndreg = str_replace("-", "\\-", $bndreg);
                 $bndreg = str_replace("(", "\\(", $bndreg);
@@ -1171,17 +1170,17 @@ class message {
                 if ($msg->type0 == 'multipart') {
                     $mime_header = true;
                 }
-            }    
-    
+            }
+
             if ((($line{0} == '-') || $rfc822_header)  && isset($boundaries[0])) {
                 $cnt=count($boundaries)-1;
                 $bnd = $boundaries[$cnt]['bnd'];
                 $bndreg = $boundaries[$cnt]['bndreg'];
-      
+
                 $regstr = '/^--'."($bndreg)".".*".'/';
                 if (preg_match($regstr, $line, $reg)) {
                     $bndlen = strlen($reg[1]);
-                    $bndend = false;        
+                    $bndend = false;
                     if (strlen($line) > ($bndlen + 3)) {
                         if (($line{$bndlen+2} == '-') && ($line{$bndlen+3} == '-')) {
                             $bndend = true;
@@ -1202,7 +1201,7 @@ class message {
                 } else {
                     if ($header) { }
                 }
-            }  
+            }
         }
     }
 
@@ -1286,9 +1285,9 @@ class message {
 
         return $entity;
     }
-    
+
     function findRelatedEntity() {
-        $msgs = array(); 
+        $msgs = array();
         $entcount = count($this->entities);
 
         for ($i = 0; $i < $entcount; ++$i) {
@@ -1300,7 +1299,7 @@ class message {
 
         return $msgs;
     }
-    
+
     function getAttachments($exclude_id=array(), $result = array()) {
         if (($this->type0 == 'message') && ($this->type1 == 'rfc822')) {
             $this = $this->entities[0];
@@ -1317,7 +1316,7 @@ class message {
                 }
 
                 if (!$exclude) {
-                    if (($entity->type0 == 'multipart') && 
+                    if (($entity->type0 == 'multipart') &&
                         ($entity->type1 != 'related')) {
                         $result = $entity->getAttachments($exclude_id, $result);
                     } else if ($entity->type0 != 'multipart') {
@@ -1337,7 +1336,7 @@ class message {
         }
 
         return $result;
-    }           
+    }
 }
 
 class smime_message {
@@ -1367,8 +1366,8 @@ class language {
 }
 
 class content_type {
-    var $type0      = 'text', 
-        $type1      = 'plain', 
+    var $type0      = 'text',
+        $type1      = 'plain',
         $properties = '';
 
     function content_type($type) {
