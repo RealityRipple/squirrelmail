@@ -354,7 +354,8 @@
       $mailbox = "INBOX";
 
    if(isset($send)) {
-      if ($HTTP_POST_FILES['attachfile']['tmp_name'])
+      if ($HTTP_POST_FILES['attachfile']['tmp_name'] &&
+          $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none')
           $AttachFailure = saveAttachedFiles();
       if (checkInput(false) && ! $AttachFailure) {
          $urlMailbox = urlencode ($mailbox);
