@@ -139,25 +139,8 @@ function printer_friendly_link() {
 }
 
 function ServerMDNSupport( $read ) {
-
-    $num = 0;
-    $resp = '';
-    while ($num < count($read) ) {
-        $resp .= $read[$num];
-        $num++;
-    }
-    $read[] = split(' * ', $resp);
-    $num = 0;
-    $ret = FALSE;
-    while ( !$ret && $num < count($read) ) {
-        $ret = preg_match( '/.*PERMANENTFLAGS.*(MDNSent|\\\*).*/i', $read[$num] );
-        /*
-        if ( ereg('PERMANENTFLAGS', $read[$num] ) ) {
-            $ret = ( ereg('mdnsent',strtolower($read[$num]) ) || ereg("\\\*", $read[$num] ) );
-        }
-        */
-        $num++;
-    }
+    /* escaping $ doesn't work -> \x36 */    
+    $ret = preg_match( '/(\x36MDNSent|\\\*)/i', $read );
     return ( $ret );
 }
 
@@ -186,12 +169,7 @@ function SendMDN ( $recipient , $sender) {
             "\t" . _("Sent:") . ' ' . $senton . "\r\n" .
             "\r\n" .
             sprintf( _("Was displayed on %s"), $now );
-/*
-    $body = sprintf( _("This message sent on %s to %s with subject \"%s\" has been displayed on %s."),
-                      $senton, $to, $subject, $now ) .
-            "\r\n" .
-            _("This is no guarantee that the message has been read or understood.") . "\r\n";
-*/
+
     // part2  (RFC2298)
 
     $original_recipient = $to;
@@ -227,20 +205,13 @@ function SendMDN ( $recipient , $sender) {
 
 
 function ToggleMDNflag ( $set ) {
-
     global $imapConnection, $passed_id, $mailbox;
-
-    if ( $set ) {
-        $sg = '+';
-
-    } else {
-        $sg = '-';
-    }
-
-    $cmd = 'STORE ' . $passed_id . ' ' . $sg . 'FLAGS ($MDNSent)';
     sqimap_mailbox_select($imapConnection, $mailbox);
-    $read = sqimap_run_command ($imapConnection, $cmd, true, $response, $readmessage);
-
+    if ( $set ) {
+        sqimap_messages_flag ($imapConnection,$passed_id,$passed_id,"\$MDNSent");    
+    } else {
+        sqimap_messages_remove_flag ($imapConnection,$passed_id,$passed_id,"\$MDNSent");    
+    }
 }
 
 function ClearAttachments() {
@@ -270,7 +241,7 @@ function ClearAttachments() {
 */
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-$read = sqimap_mailbox_select($imapConnection, $mailbox);
+$read = sqimap_mailbox_select($imapConnection, $mailbox, false, true);
 
 do_hook('html_top');
 
@@ -280,9 +251,9 @@ do_hook('html_top');
 if( $default_use_mdn &&
     ( $mdn_user_support = getPref($data_dir, $username, 'mdn_user_support', $default_use_mdn) ) ) {
 
-    $supportMDN = ServerMDNSupport($read);
+    $supportMDN = ServerMDNSupport($read["PERMANENTFLAGS"]);
     $flags = sqimap_get_flags ($imapConnection, $passed_id);
-    $FirstTimeSee = !(in_array( 'Seen', $flags ));
+    $FirstTimeSee = !(in_array( '\\Seen', $flags ));
 }
 
 displayPageHeader($color, $mailbox);
@@ -848,7 +819,7 @@ if ($default_use_mdn) {
                 }
 
             } // when deleted or draft flag is set don't offer to send a MDN response
-            else if ( ereg('Draft',$read[0] || ereg('Deleted',$read[0])) ) {
+            else if ( ereg('\\Draft',$read[0] || ereg('\\Deleted',$read[0])) ) {
                 echo       '<TR>' .
                             "<TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>" .
                                 _("Read receipt") . ': '.

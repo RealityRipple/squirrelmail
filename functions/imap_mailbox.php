@@ -85,14 +85,14 @@ function sqimap_mailbox_exists ($imap_stream, $mailbox)
  **  Selects a mailbox
  ******************************************************************************/
 function sqimap_mailbox_select ($imap_stream, $mailbox,
-                                $hide=TRUE, $recent=false)
+                                $hide=TRUE, $recent=false, $extrainfo=false)
 {
     global $auto_expunge;
-    
+
     if ( $mailbox == 'None' ) {
         return;
     }
-    
+
     $read = sqimap_run_command($imap_stream, "SELECT \"$mailbox\"",
                                TRUE, $response, $message);
     if ($recent) {
@@ -107,14 +107,37 @@ function sqimap_mailbox_select ($imap_stream, $mailbox,
             $tmp = sqimap_run_command($imap_stream, 'EXPUNGE',
                                   false, $a, $b);
         }
-        return( $read );
+        if (isset( $extroinfo ) && $extroinfo) {
+            $result = array();
+            for ($i=0; $i<count($read); $i++) {
+                if (preg_match("/PERMANENTFLAGS(.*)/i",$read[$i], $regs)) {
+                    $regs[1]=trim(preg_replace (  array ("/\(/","/\)/","/\]/") ,'', $regs[1])) ;
+                    $result['PERMANENTFLAGS'] = $regs[1];
+                }
+                else if (preg_match("/FLAGS(.*)/i",$read[$i], $regs)) {
+                    $regs[1]=trim(preg_replace (  array ("/\(/","/\)/") ,'', $regs[1])) ;
+                    $result["FLAGS"] = $regs[1];
+                }
+                else if (preg_match("/(.*)EXISTS/i",$read[$i], $regs)) {
+                    $result['EXISTS']=trim($regs[1]);
+                }
+                else if (preg_match("/(.*)RECENT/i",$read[$i], $regs)) {
+                    $result['RECENT']=trim($regs[1]);
+                }
+                else if (preg_match("/\[UNSEEN(.*)\]/i",$read[$i], $regs)) {
+                    $result['UNSEEN']=trim($regs[1]);
+                }
+
+            }
+            return( $result );
+        }
     }
 }
 
 
 
 /******************************************************************************
- **  Creates a folder 
+ **  Creates a folder
  ******************************************************************************/
 function sqimap_mailbox_create ($imap_stream, $mailbox, $type)
 {
@@ -124,7 +147,7 @@ function sqimap_mailbox_create ($imap_stream, $mailbox, $type)
     }
     $read_ary = sqimap_run_command($imap_stream, "CREATE \"$mailbox\"",
                                    TRUE, $response, $message);
-    
+
     sqimap_subscribe ($imap_stream, $mailbox);
 }
 
