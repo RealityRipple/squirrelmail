@@ -263,9 +263,41 @@ echo "$IND timezone - ";
 if ( (!ini_get('safe_mode')) ||
     !strcmp(ini_get('safe_mode_allowed_env_vars'),'') ||
     preg_match('/^([\w_]+,)*TZ/', ini_get('safe_mode_allowed_env_vars')) ) {
-	echo "Webmail users can change their time zone settings.";
+	echo "Webmail users can change their time zone settings.<br />\n";
 } else {
-    echo "Webmail users can't change their time zone settings.";
+    echo "Webmail users can't change their time zone settings.<br />\n";
+}
+
+// Pear DB tests
+echo "Checking PHP Pear DB support:<br />\n";
+@include_once('DB.php');
+if (class_exists('DB')) {
+    echo "$IND PHP Pear DB support is present.<br />\n";
+    $db_functions=array(
+	'dbase' => 'dbase_open', 
+	'fbsql' => 'fbsql_connect', 
+	'interbase' => 'ibase_connect', 
+	'informix' => 'ifx_connect',
+	'msql' => 'msql_connect',
+	'mssql' => 'mssql_connect',
+	'mysql' => 'mysql_connect',
+	'mysqli' => 'mysqli_connect',
+	'oci8' => 'ocilogon',
+	'odbc' => 'odbc_connect',
+	'pgsql' => 'pgsql_connect',
+	'sqlite' => 'sqlite_open',
+	'sybase' => 'sybase_connect'
+    );
+    $pear_db_support="";
+    foreach ($db_functions as $db => $function)
+	if (function_exists($function)) $pear_db_support .= $db . " ";
+    if ($pear_db_support!="") {
+	echo "$IND Supported backends: $pear_db_support <br />\n";
+    } else {
+	echo "$IND Pear DB support is present, but none of database backends is supported <br />\n";
+    }
+} else {
+    echo "$IND PHP Pear DB support is not available.<br />\n";
 }
 
 // other possible checks:
