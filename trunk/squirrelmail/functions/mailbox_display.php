@@ -591,24 +591,34 @@
    {
        global $checkall, $PHP_SELF, $what, $where, $mailbox;
        
-?>
-<script language="JavaScript">
-<!--
-   function CheckAll() {
-      for (var i = 0; i < document.List.elements.length; i++) {
-         var e = document.List.elements[i];
-	 if (e.name != 'allbox')
-	    e.checked = document.List.allbox.checked;
-      }
-   }
-//-->
-<input name="allbox" type="checkbox"
-    value="Check All" onClick="CheckAll();"> <B>Select all</B>
-</script>
-<noscript>
-<a href="<?PHP echo $PHP_SELF ?>?mailbox=<?PHP echo urlencode($mailbox)
-?>&startMessage=<?PHP echo $startMessage ?>&sort=<?PHP echo $sort
-?>&checkall=<?PHP
+       // If you can figure out some working javascript,
+       // feel free to put it in here!
+       // Allegedly this stuff works for someone somewhere
+       // Don't forget to uncomment the </noscript> at the end!
+       
+       // This code is from Kevin Cawthorne <kevin at intuitive.net>
+       // It was adapted by Tyler to use a document.write for drawing the
+       // input checkbox and to use the <noscript> and old style selection
+       // for non-javascript browsers.
+
+       // echo "<script language=\"JavaScript\">\n";
+       // echo "<!--\n";
+       // echo "function CheckAll() {\n";
+       // echo "   for (var i = 0; i < document.List.elements.length; i++) {\n";
+       // echo "      var e = document.List.elements[i];\n";
+       // echo "      if (e.name != 'allbox')\n";
+       // echo "         e.checked = document.List.allbox.checked;\n";
+       // echo "   }\n";
+       // echo "}\n";
+       // echo "document.write(\"<input name=\\\"allbox\\\" " .
+       //    "type=\\\"checkbox\\\" value=\\\"Check All\\\" " .
+       //    "onClick=\\\"CheckAll();\\\"> <B>" . _("Select All") .
+       //    "</B>\n");
+       // echo "//-->\n";
+       // echo "</script><noscript>\n";
+
+       echo "<a href=\"$PHP_SELF?mailbox=" . urlencode($mailbox) .
+          "&startMessage=$startMessage&sort=$sort&checkall=";
        if (isset($checkall) && $checkall == '1')
            echo '0';
        else
@@ -620,7 +630,10 @@
            echo _("Unselect All");
        else
            echo _("Select All");
-       echo "</A>\n</noscript>\n";
+	   
+       // If a javascript selection solution can be created eventually,
+       // do not forget to uncomment this line too!
+       // echo "</A>\n</noscript>\n";
    }
 
    function processSubject($subject)
