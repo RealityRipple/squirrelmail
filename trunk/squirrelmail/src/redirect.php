@@ -141,7 +141,7 @@ if ( sqgetGlobalVar('session_expired_location', $session_expired_location, SQ_SE
 }
 if($mailto != '') {
     $redirect_url  = $location . '/webmail.php?right_frame=compose.php&mailto=';
-    $redirect_url .= $mailto;
+    $redirect_url .= urlencode($mailto);
 }
 
 /* Write session data and send them off to the appropriate page. */
