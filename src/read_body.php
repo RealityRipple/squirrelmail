@@ -13,7 +13,8 @@
    displayPageHeader($mailbox);
    $body = fetchBody($imapConnection, $passed_id);
    getMessageHeaders($imapConnection, $passed_id, $passed_id, $f, $s, $d);
-   getMessageHeadersTo($imapConnection, $passed_id, $passed_id, $t);
+   getMessageHeadersTo($imapConnection, $passed_id, $t);
+   getMessageHeadersCc($imapConnection, $passed_id, $c);
 
    $subject = $s[0];
    $url_subj = urlencode(trim($subject));
@@ -28,20 +29,10 @@
    $url_from = trim(decodeEmailAddr($f[0]));
    $url_from = urlencode($url_from);
 
-   $to_left = trim($t[0]);
-   for ($i = 0; $to_left;$i++) {
-      if (strpos($to_left, ",")) {
-         $to_ary[$i] = trim(substr($to_left, 0, strpos($to_left, ",")));
-         $to_left = substr($to_left, strpos($to_left, ",")+1, strlen($to_left));
-      }
-      else {
-         $to_ary[$i] = trim($to_left);
-         $to_left = "";
-      }
-   }
-
+   /** FORMAT THE TO STRING **/
    $i = 0;
    $to_string = "";
+   $to_ary = $t;
    while ($i < count($to_ary)) {
       if ($to_string)
          $to_string = "$to_string<BR>$to_ary[$i]";
@@ -52,14 +43,39 @@
       if (count($to_ary) > 1) {
          if ($show_more == false) {
             if ($i == 1) {
-               $to_string = "$to_string&nbsp;&nbsp;&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more=1\">more</A>)";
+               $to_string = "$to_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more=1&show_more_cc=$show_more_cc\">more</A>)";
                $i = count($to_ary);
             }
          } else if ($i == 1) {
-            $to_string = "$to_string&nbsp;&nbsp;&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more=0\">less</A>)";
+            $to_string = "$to_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more=0&show_more_cc=$show_more_cc\">less</A>)";
          }
       }
    }
+
+   /** FORMAT THE CC STRING **/
+   $i = 0;
+   $cc_string = "";
+   $cc_ary = $c;
+   while ($i < count($cc_ary)) {
+      if ($cc_string)
+         $cc_string = "$cc_string<BR>$cc_ary[$i]";
+      else
+         $cc_string = "$cc_ary[$i]";
+
+      $i++;
+      if (count($cc_ary) > 1) {
+         if ($show_more_cc == false) {
+            if ($i == 1) {
+               $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=1&show_more=$show_more\">more</A>)";
+               $i = count($cc_ary);
+            }
+         } else if ($i == 1) {
+            $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=0&show_more=$show_more\">less</A>)";
+         }
+      }
+   }
+
+
 
    echo "<BR>";
    echo "<TABLE COLS=1 WIDTH=95% BORDER=0 ALIGN=CENTER CELLPADDING=2>\n";
@@ -114,7 +130,16 @@
    echo "            <FONT FACE=\"Arial,Helvetica\"><B>$to_string</B></FONT>\n";
    echo "         </TD>\n";
    echo "      </TR>\n";
-
+   /** cc **/
+   if ($c[0]) {
+      echo "      <TR>\n";
+      echo "         <TD BGCOLOR=FFFFFF WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
+      echo "            <FONT FACE=\"Arial,Helvetica\">Cc:</FONT>\n";
+      echo "         </TD><TD BGCOLOR=FFFFFF WIDTH=85% VALIGN=TOP>\n";
+      echo "            <FONT FACE=\"Arial,Helvetica\"><B>$cc_string</B></FONT>\n";
+      echo "         </TD>\n";
+      echo "      </TR>\n";
+   }
    echo "   </TABLE></TD></TR>\n";
 
    echo "   <TR><TD BGCOLOR=FFFFFF WIDTH=100%><BR>\n";
