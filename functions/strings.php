@@ -265,4 +265,43 @@
       return $pad;
    }
 
+   // Check if we have a required PHP-version. Return TRUE if we do,
+   // or FALSE if we don't.
+   // To check for 4.0.1, use sqCheckPHPVersion(4,0,1)
+   // To check for 4.0b3, use sqCheckPHPVersion(4,0,-3)
+   // Does not handle betas like 4.0.1b1 or development versions
+   function sqCheckPHPVersion($major, $minor, $release) {
+
+      $ver = phpversion();
+      eregi("^([0-9]+)\.([0-9]+)(.*)", $ver, $regs);
+
+      // Parse the version string
+      $vmajor  = strval($regs[1]);
+      $vminor  = strval($regs[2]);
+      $vrel    = $regs[3];
+      if($vrel[0] == ".") 
+	 $vrel = strval(substr($vrel, 1));
+      if($vrel[0] == "b" || $vrel[0] == "B") 
+	 $vrel = - strval(substr($vrel, 1));
+      if($vrel[0] == "r" || $vrel[0] == "R") 
+	 $vrel = - strval(substr($vrel, 2))/10;
+      
+      // Compare major and minor
+      if($vmajor < $major) return false;
+      if($vminor < $minor) return false;
+      
+      // Compare release
+      if($vrel >= 0 && $release >= 0) {       // Neither are beta
+	 if($vrel < $release) return false;
+      } else if($vrel >= 0 && $release < 0){  // This is not beta, required is beta
+	 return true;
+      } else if($vrel < 0 && $release >= 0){  // This is beta, require not beta
+	 return false;
+      } else {                                // Both are beta
+	 if($vrel > $release) return false;
+      }
+      
+      return true;
+   }
+
 ?>
