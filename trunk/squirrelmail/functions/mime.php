@@ -428,11 +428,12 @@
 
       $ent_num = findDisplayEntity ($message);
       $body = mime_fetch_body ($imap_stream, $id, $ent_num); 
+      $body = decodeBody($body, $message->header->encoding);
 
       // If there are other types that shouldn't be formatted, add
       // them here 
       if ($message->header->type1 != "html") {   
-         $body = translateText($body, $wrap_at, $charset);
+         $body = translateText($body, $wrap_at, $message->header->charset);
       }   
 
       $body .= "<SMALL><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_num&mailbox=$urlmailbox\">". _("Download this as a file") ."</A></CENTER><BR></SMALL>";
