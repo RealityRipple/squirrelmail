@@ -230,13 +230,6 @@ function load_optpage_data_display() {
     );
 
     $optvals[SMOPT_GRP_MESSAGE][] = array(
-        'name'    => 'pf_subtle_link',
-        'caption' => _("Enable Subtle Printer Friendly Link"),
-        'type'    => SMOPT_TYPE_BOOLEAN,
-        'refresh' => SMOPT_REFRESH_NONE
-    );
-
-    $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'pf_cleandisplay',
         'caption' => _("Enable Printer Friendly Clean Display"),
         'type'    => SMOPT_TYPE_BOOLEAN,
