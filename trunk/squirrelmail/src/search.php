@@ -526,6 +526,7 @@ function asearch_print_form($imapConnection, $boxes, $mailbox_array, $biop_array
 	global $color;
 
 	/* Search Form */
+	echo "<br>\n";
 	echo '<form action="search.php" name="form_asearch">' . "\n";
 
 	echo html_tag( 'table', '', 'center', $color[9], 'width="100%" cellpadding="1" cellspacing="1" border="0"' );
