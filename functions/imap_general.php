@@ -45,139 +45,100 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response, &
 }
 
 
+/* 
+ * custom fgets function. gets a line from IMAP
+ * no matter how big it may be
+ */
+
+function sqimap_fgets($imap_stream) {
+    $read = '';
+    $buffer = 4096;
+    $results = '';
+    while (strpos($read, "\n") === false) {
+        if (!($read = fgets($imap_stream, $buffer))) {
+            break;
+        }
+        $results .= $read;
+    }
+    return $results;
+}
+
 /*
  * Reads the output from the IMAP stream.  If handle_errors is set to true,
  * this will also handle all errors that are received.  If it is not set,
  * the errors will be sent back through $response and $message
  */
+
 function sqimap_read_data_list ($imap_stream, $pre, $handle_errors, &$response, &$message, $query = '') {
     global $color, $squirrelmail_language;
-
     $read = '';
-    $bufsize = 9096;
-    $resultlist = array();
     $pre_a = explode(' ',trim($pre));
     $pre = $pre_a[0];
-    $more_msgs = true;
-    while ($more_msgs) {
-        $data = array();
-        $total_size = 0;
-
-        while (strpos($read, "\n") === false) {
-            if(!($read .= fgets($imap_stream, $bufsize))) {
-                break;
-            }
-        }
-        if (preg_match('/^\* [0-9]+ FETCH.*\{([0-9]+)\}/', $read, $regs)) {
-           $size = $regs[1];
-        } else if (preg_match('/^\* [0-9]+ FETCH/', $read, $regs)) {
-            /* Sizeless response, probably single-line */
-            $size = -1;
-            $data[] = $read;
-            $read = fgets($imap_stream, $bufsize);
-        } else {
-            $size = -1;
-        }
-        while (1) {
-            while (strpos($read, "\n") === false) {
-                if(!($read .= fgets($imap_stream, $bufsize))) {
-                    break;
+    $resultlist = array();
+    $data = array();
+    $read = sqimap_fgets($imap_stream);
+    while (1) {
+        switch (true) { 
+            case preg_match("/^$pre (OK|BAD|NO)(.*)$/", $read, $regs):
+            case preg_match('/^\* (BYE \[ALERT\])(.*)$/', $read, $regs):
+                $response = $regs[1];
+                $message = trim($regs[2]);
+                break 2;
+            case preg_match("/^\* (OK \[PARSE\])(.*)$/", $read):
+                $read = sqimap_fgets($imap_stream);
+                break 1;
+            case preg_match('/^\* [0-9]+ FETCH.*/', $read):
+                $fetch_data = array();
+                $fetch_data[] = $read;
+                $read = sqimap_fgets($imap_stream);
+                while (!preg_match('/^\* [0-9]+ FETCH.*/', $read) && 
+                       !preg_match("/^$pre (OK|BAD|NO)(.*)$/", $read)) {
+                    $fetch_data[] = $read;
+                    $read = sqimap_fgets($imap_stream);
                 }
-            }
-            /* If we know the size, no need to look at the end parameters */
-	    /* In case of a totalsize > size we do have to look at the end
-	       parameters because there can exists literals inside bodystructures.
-	    */  
-            if ($size > 0) {
-                if ($total_size == $size) {
-                    /* We've reached the end of this 'message', switch to the next one. */
-                    $data[] = $read;
-                    break;
-                } else if ($total_size > $size) {
-		    $size = -1; /* switch to end parameters in case of literals inside a bodystructure */
-                    $difference = $total_size - $size;
-                    $total_size = $total_size - strlen($read);
-                    $data[] = substr ($read, 0, strlen($read)-$difference);
-                    $read = substr ($read, strlen($read)-$difference, strlen($read));
-                } else {
-                    $data[] = $read;
-                    $read = fgets($imap_stream, $bufsize);
-                    while (strpos($read, "\n") === false) {
-                      $read .= fgets($imap_stream, $bufsize);
-                    }
-                }
-                $total_size += strlen($read);
-            } else {
-                if (preg_match("/^$pre (OK|BAD|NO)(.*)/", $read, $regs) ||
-                    (($size == -1) && preg_match('/^\* [0-9]+ FETCH.*/', $read, $regs))) {
-                    break;
-                } else if ( preg_match('/^\* OK \[PARSE.*/', $read, $regs ) ) {
-                    /*
-                     * This block has been added in order to avoid the problem
-                     * caused by the * OK [PARSE] Missing parameter answer
-                     * Please, replace it with a better parsing if you know how.
-                     * This block has been updated by
-                     * Seth E. Randall <sethr@missoulafcu.org>.  Once we see
-                     * one OK [PARSE line, we just go through and keep
-                     * tossing them out until we get something different.
-                     */
-                    while ( preg_match('/^\* OK \[PARSE.*/', $read, $regs ) ) {
-                        $read = fgets($imap_stream, $bufsize);
-                    }
-                    $data[] = $read;
-                    $read = fgets ($imap_stream, $bufsize);
-                } else if (preg_match('/^\* BYE \[ALERT\](.*)/', $read, $regs)) {
-                    /*
-                     * It seems that the IMAP server has coughed up a lung
-                     * and hung up the connection.  Print any info we have
-                     * and abort.
-                     */
-                    echo _("Please contact your system administrator and report the following error:") . "<br>\n";
-                    echo $regs[1];
-                    exit;
-                } else {
-                    $data[] = $read;
-                    $read = fgets ($imap_stream, $bufsize);
-                }
-            }
+                $resultlist[] = $fetch_data;
+                break 1;
+            default:
+                $data[] = $read;
+                $read = sqimap_fgets($imap_stream);
+                break 1;
         }
-
-        while (($more_msgs = !preg_match("/^$pre (OK|BAD|NO)(.*)$/", $read, $regs)) &&
-            !preg_match("/^\* [0-9]+ FETCH.*/", $read, $regs)) {
-            $read = fgets($imap_stream, $bufsize);
-        }
+    }
+    if (!empty($data)) {
         $resultlist[] = $data;
     }
-
-    $response = $regs[1];
-    $message = trim($regs[2]);
-
+    elseif (empty($resultlist)) {
+        $resultlist[] = array(); 
+    }
     if ($handle_errors == false) {
         return( $resultlist );
-    } else if ($response == 'NO') {
-        /* ignore this error from M$ exchange, it is not fatal (aka bug) */
+    } 
+    elseif ($response == 'NO') {
+    /* ignore this error from M$ exchange, it is not fatal (aka bug) */
         if (strstr($message, 'command resulted in') === false) {
             set_up_language($squirrelmail_language);
             echo "<br><b><font color=$color[2]>\n" .
-                 _("ERROR : Could not complete request.") .
-                 "</b><br>\n" .
-                 _("Query:") .
-                 $query . '<br>' .
-                 _("Reason Given: ") .
-                 $message . "</font><br>\n";
+                _("ERROR : Could not complete request.") .
+                "</b><br>\n" .
+                _("Query:") .
+                $query . '<br>' .
+                _("Reason Given: ") .
+                $message . "</font><br>\n";
             exit;
         }
-    } else if ($response == 'BAD') {
+    } 
+    elseif ($response == 'BAD') {
         set_up_language($squirrelmail_language);
         echo "<br><b><font color=$color[2]>\n" .
-             _("ERROR : Bad or malformed request.") .
-             "</b><br>\n" .
-             _("Query:") .
-             $query . '<br>' .
-             _("Server responded: ") .
-             $message . "</font><br>\n";
+            _("ERROR : Bad or malformed request.") .
+            "</b><br>\n" .
+            _("Query:") .
+            $query . '<br>' .
+            _("Server responded: ") .
+            $message . "</font><br>\n";
         exit;
-    } else {
+    } 
+    else {
         return $resultlist;
     }
 }
