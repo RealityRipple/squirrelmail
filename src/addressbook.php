@@ -52,6 +52,8 @@ displayPageHeader($color, 'None');
  remote backends (LDAP) are enabled because they can be used. (list_addr function)
 */
 $abook = addressbook_init(true, false);
+
+// FIXME: do we have to stop use of address book, when localbackend is not present.
 if($abook->localbackend == 0) {
     plain_error_message(
             _("No personal address book is defined. Contact administrator."),
