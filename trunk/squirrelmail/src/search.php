@@ -39,11 +39,21 @@ if( !isset( $search_memory ) ) {
 
 do_hook('search_before_form');
 echo "<br>\n".
-     "      <table width=\"95%\" align=center cellpadding=2 cellspacing=0 border=0>\n".
+     "      <table width=\"100%\" align=center cellpadding=2 cellspacing=0 border=0>\n".
      "      <tr><td bgcolor=\"$color[0]\">\n".
      "          <center><b>"._("Search")."</b></center>\n".
      "      </td></tr>\n".
      '      <tr><td align=center>';
+
+if( $search_memory > 0 ) {
+
+    if( isset( $pos) ) {
+        setpref( $data_dir, $username, 'search_pos', $pos );
+    } else {
+        $pos = getPref($data_dir, $username, 'search_pos', 0 );
+    }
+
+}
 
 for ( $form = 0; $form <= $search_memory; $form++ ) {
 
@@ -63,11 +73,16 @@ for ( $form = 0; $form <= $search_memory; $form++ ) {
     echo "   <TABLE WIDTH=\"75%\" cellpadding=0 cellspacing=0>\n";
     if( !($form == 0 && $search_memory > 0) ) {
 
+        if( $form == $pos ) {
+            $act = $color[5];
+        } else {
+            $act = $color[4];
+        }
+
         echo "<FORM ACTION=\"$PHP_SELF\" NAME=s>\n".
              "<input type=hidden name=pos value=\"$frm\">".
-             "     <TR>\n".
-             "       <TD WIDTH=\"33%\">\n".
-             '         <TT><SMALL><SELECT NAME="mailbox">';
+             "     <TR bgcolor=$act><td width=10></td>\n".
+             '       <TD><SELECT NAME="mailbox">';
         
         for ($i = 0; $i < count($boxes); $i++) {
             if (!in_array('noselect', $boxes[$i]['flags'])) {
@@ -80,9 +95,9 @@ for ( $form = 0; $form <= $search_memory; $form++ ) {
                 }   
             }
         }
-        echo '         </SELECT></SMALL></TT>'.
+        echo '         </SELECT>'.
              "       </TD>\n".
-             "        <TD ALIGN=\"CENTER\" WIDTH=\"33%\">\n";
+             "        <TD ALIGN=\"CENTER\">\n";
         if (!isset($$what)) {
            $$what = '';
         }
@@ -92,7 +107,7 @@ for ( $form = 0; $form <= $search_memory; $form++ ) {
         $what_disp = str_replace('"', '&quot;', $what_disp);
         echo "          <INPUT TYPE=\"TEXT\" SIZE=\"20\" NAME=\"what$frm\" VALUE=\"$what_disp\">\n".
                     '</TD>'.
-                   "<TD ALIGN=\"RIGHT\" WIDTH=\"33%\">\n".
+                   "<TD ALIGN=\"RIGHT\">\n".
                      "<SELECT NAME=\"where$frm\">";
         
         s_opt( 'BODY', $$where, _("Body") );
