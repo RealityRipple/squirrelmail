@@ -169,7 +169,7 @@ if (isset($action) && $action == 'spam') {
             $spam_filters[$Key]['prefname'] .
             '_set"';
         if ($spam_filters[$Key]['enabled']) {
-            echo ' checked';
+            echo ' checked="checked"';
         }
         echo ' /> - ';
         if ($spam_filters[$Key]['link']) {
