@@ -13,7 +13,7 @@
     $sid = 'a010';
     if ($uid_support) $sid .= ' UID';
     
-    $read = sqimap_read_data($imap_stream, 'a010', true, $response, $message);
+    $read = sqimap_read_data($imap_stream, $sid, true, $response, $message);
     array_shift($read);
 
     if ($spamcop_method == 'quick_email' || 
