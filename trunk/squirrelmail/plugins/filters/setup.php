@@ -149,7 +149,7 @@ function squirrelmail_plugin_init_filters() {
 }
 
 /**
- * Report spam folter as special mailbox
+ * Report spam folder as special mailbox
  * @param string $mb variable used by hook
  * @return string spam folder name
  * @access private 
