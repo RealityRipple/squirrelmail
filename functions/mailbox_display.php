@@ -544,9 +544,6 @@ function showMessagesForMailbox($imapConnection, $aMailbox) {
     // and use a properties array as function argument to provide user preferences
     global $data_dir, $username;
 
-    // retrieve indent array for thread sort
-
-
     /* if there's no messages in this folder */
     if ($aMailbox['EXISTS'] == 0) {
         $string = '<b>' . _("THIS FOLDER IS EMPTY") . '</b>';
@@ -562,11 +559,9 @@ function showMessagesForMailbox($imapConnection, $aMailbox) {
         echo '       </table></td></tr>';
         echo '    </table>';
         return;
-    }
-
-    if ($aMailbox['EXISTS'] > 0) {
-        /* if $start_msg is lower than $num_msgs, we probably deleted all messages
-        * in the last page. We need to re-adjust the start_msg
+    } else {
+        /*
+        * Adjust the start_msg
         */
         $start_msg = $aMailbox['PAGEOFFSET'];
         if($aMailbox['PAGEOFFSET'] > $aMailbox['EXISTS']) {
@@ -585,20 +580,6 @@ function showMessagesForMailbox($imapConnection, $aMailbox) {
         if ($internaldate) {
             $aFetchItems[] = 'INTERNALDATE';
         }
-        if ($aMailbox['SORT'] == SQSORT_NONE) {
-            /**
-             * retrieve messages by sequence id's and fetch the UID to retrieve
-             * the UID. for sorted lists this is not needed because a UID FETCH
-             * automaticly add the UID value in fetch results
-             **/
-             $aFetchItems[] = 'UID';
-        }
-
-        /* This code and the next if() block check for
-        * server-side sorting methods. The $id array is
-        * formatted and $sort is set to 6 to disable
-        * SM internal sorting
-        */
 
         if ($aMailbox['SORT'] != SQSORT_NONE && isset($aMailbox['UIDSET']) &&
                       $aMailbox['UIDSET'] ) {
@@ -629,10 +610,23 @@ function showMessagesForMailbox($imapConnection, $aMailbox) {
                         $msgs = sqimap_get_small_header_list($imapConnection,$id_slice,$aMailbox['LIMIT'],
                               $aHeaderFields,$aFetchItems);
                     } else {
+                        // FIX ME do error handling
                         return false;
+                    }
+                } else {
+                    // FIX ME, format message and fallback to squirrel sort
+                    if ($error) {
+                        echo $error;
                     }
                 }
             } else {
+                /**
+                * retrieve messages by sequence id's and fetch the UID to retrieve
+                * the UID. for sorted lists this is not needed because a UID FETCH
+                * automaticly add the UID value in fetch results
+                **/
+                $aFetchItems[] = 'UID';
+
                 //create id range
                 $iRangeEnd = (($aMailbox['EXISTS'] - $aMailbox['OFFSET']) > $aMailbox['LIMIT']) ?
                                  $aMailbox['EXISTS'] - $aMailbox['OFFSET'] +1 - $aMailbox['LIMIT']:
@@ -657,6 +651,7 @@ function showMessagesForMailbox($imapConnection, $aMailbox) {
         $aMailbox['UIDSET'] =& $id;
         $aMailbox['MSG_HEADERS'] =& $msgs;
         if ($aMailbox['SORT_METHOD'] == 'THREAD') {
+            // retrieve indent array for thread sort
             sqgetGlobalVar('indent_array',$indent_array,SQ_SESSION);
             $aMailbox['THREAD_INDENT'] =& $indent_array;
         }
