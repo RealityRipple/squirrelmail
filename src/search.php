@@ -968,7 +968,6 @@ $search_memory = getPref($data_dir, $username, 'search_memory', 0);
 * - 1 => allow advanced interface only
 * - 2 => allow both
 * Default 2
-* @global integer $allow_advanced_search
 */
 $allow_advanced_search = asearch_nz($allow_advanced_search, 2);
 
