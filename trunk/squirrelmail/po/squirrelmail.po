@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-07-04 12:19+0300\n"
+"POT-Creation-Date: 2002-07-04 12:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4407,14 +4407,6 @@ msgid ""
 "remotely."
 msgstr ""
 
-#: squirrelmail/po/independent_strings.txt:18
-msgid "Delivery error report"
-msgstr ""
-
-#: squirrelmail/po/independent_strings.txt:19
-msgid "Undelivered Message Headers"
-msgstr ""
-
 #: squirrelmail/plugins/abook_take/setup.php:109
 msgid "Take Address"
 msgstr ""
@@ -4445,4 +4437,12 @@ msgstr ""
 
 #: squirrelmail/plugins/abook_take/setup.php:163
 msgid "Try to verify addresses"
+msgstr ""
+
+#: squirrelmail/po/independent_strings.txt:18
+msgid "Delivery error report"
+msgstr ""
+
+#: squirrelmail/po/independent_strings.txt:19
+msgid "Undelivered Message Headers"
 msgstr ""
