@@ -1,99 +1,98 @@
 # Indonesian Squirrelmail Translation
 # Copyright (C) SquirrelMail Development Project , 1999-2002
 # Arief S Fitrianto <arief@fisika.ui.ac.id>, 2001.
-#
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2002-01-19 12:15+0100\n"
-"PO-Revision-Date: 2002-01-21 15:31+07\n"
+"Project-Id-Version: $Id\n"
+"POT-Creation-Date: 2002-01-22 10:12+0100\n"
+"PO-Revision-Date: 2002-01-22 21:00+0700\n"
 "Last-Translator: Arief S Fitrianto <arief@fisika.ui.ac.id>\n"
 "Language-Team: Indonesia <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.5\n"
 
 #: squirrelmail/src/addrbook_popup.php:22
 msgid "Address Book"
 msgstr "Buku Alamat"
 
 #: squirrelmail/src/addrbook_search.php:97
-#: squirrelmail/src/addrbook_search_html.php:65
-#: squirrelmail/src/addressbook.php:284 squirrelmail/src/vcard.php:107
+#: squirrelmail/src/addrbook_search_html.php:66
+#: squirrelmail/src/addressbook.php:285 squirrelmail/src/vcard.php:107
 msgid "Name"
 msgstr "Nama"
 
 #: squirrelmail/src/addrbook_search.php:98
-#: squirrelmail/src/addrbook_search_html.php:66
-#: squirrelmail/src/addressbook.php:285
+#: squirrelmail/src/addrbook_search_html.php:67
+#: squirrelmail/src/addressbook.php:286
 msgid "E-mail"
 msgstr "Surat-E"
 
 #: squirrelmail/src/addrbook_search.php:99
-#: squirrelmail/src/addrbook_search_html.php:67
-#: squirrelmail/src/addressbook.php:286
+#: squirrelmail/src/addrbook_search_html.php:68
+#: squirrelmail/src/addressbook.php:287
 msgid "Info"
 msgstr "Keterangan"
 
 #: squirrelmail/src/addrbook_search.php:102
-#: squirrelmail/src/addrbook_search_html.php:70
+#: squirrelmail/src/addrbook_search_html.php:71
 msgid "Source"
 msgstr "Sumber"
 
-#: squirrelmail/src/addrbook_search_html.php:97
+#: squirrelmail/src/addrbook_search_html.php:98
 msgid "Use Addresses"
 msgstr "Gunakan alamat"
 
-#: squirrelmail/src/addrbook_search_html.php:116
+#: squirrelmail/src/addrbook_search_html.php:117
 msgid "Address Book Search"
 msgstr "Menelusuri Buku Alamat"
 
 #: squirrelmail/src/addrbook_search.php:172
-#: squirrelmail/src/addrbook_search_html.php:125
+#: squirrelmail/src/addrbook_search_html.php:126
 msgid "Search for"
 msgstr "Cari untuk"
 
 #: squirrelmail/src/addrbook_search.php:178
-#: squirrelmail/src/addrbook_search_html.php:135
+#: squirrelmail/src/addrbook_search_html.php:136
 msgid "in"
 msgstr "di"
 
 #: squirrelmail/src/addrbook_search.php:179
-#: squirrelmail/src/addrbook_search_html.php:138
+#: squirrelmail/src/addrbook_search_html.php:139
 msgid "All address books"
 msgstr "Semua buku alamat"
 
-#: squirrelmail/functions/page_header.php:122
+#: squirrelmail/functions/page_header.php:124
 #: squirrelmail/src/addrbook_search.php:189
-#: squirrelmail/src/addrbook_search_html.php:149
-#: squirrelmail/src/search.php:44 squirrelmail/src/search.php:123
+#: squirrelmail/src/addrbook_search_html.php:150
+#: squirrelmail/src/search.php:45 squirrelmail/src/search.php:124
 msgid "Search"
 msgstr "Cari"
 
 #: squirrelmail/src/addrbook_search.php:190
-#: squirrelmail/src/addrbook_search_html.php:150
+#: squirrelmail/src/addrbook_search_html.php:151
 msgid "List all"
 msgstr "Tampilkan semua"
 
 #: squirrelmail/src/addrbook_search.php:212
-#: squirrelmail/src/addrbook_search_html.php:175
+#: squirrelmail/src/addrbook_search_html.php:176
 #, c-format
 msgid "Unable to list addresses from %s"
 msgstr "Tidak dapat menampilkan alamat dari %s"
 
 #: squirrelmail/src/addrbook_search.php:235
-#: squirrelmail/src/addrbook_search_html.php:200
+#: squirrelmail/src/addrbook_search_html.php:201
 msgid "Your search failed with the following error(s)"
 msgstr "Penelusuran Anda gagal dengan kesalahan berikut:"
 
 #: squirrelmail/src/addrbook_search.php:158
 #: squirrelmail/src/addrbook_search.php:242
-#: squirrelmail/src/addrbook_search_html.php:205
+#: squirrelmail/src/addrbook_search_html.php:206
 msgid "No persons matching your search was found"
 msgstr "Tidak ada orang yang sesuai dengan yang Anda cari"
 
-#: squirrelmail/src/addrbook_search_html.php:218
+#: squirrelmail/src/addrbook_search_html.php:219
 msgid "Return"
 msgstr "Kembali"
 
@@ -101,67 +100,67 @@ msgstr "Kembali"
 msgid "Close window"
 msgstr "Tutup jendela"
 
-#: squirrelmail/src/addressbook.php:38 squirrelmail/src/addressbook.php:284
+#: squirrelmail/src/addressbook.php:39 squirrelmail/src/addressbook.php:285
 msgid "Nickname"
 msgstr "Nama singkat"
 
-#: squirrelmail/src/addressbook.php:39
+#: squirrelmail/src/addressbook.php:40
 msgid "Must be unique"
 msgstr "Harus tunggal ( unik )"
 
-#: squirrelmail/src/addressbook.php:40
+#: squirrelmail/src/addressbook.php:41
 msgid "E-mail address"
 msgstr "Alamat Surat-E"
 
-#: squirrelmail/src/addressbook.php:41
+#: squirrelmail/src/addressbook.php:42
 msgid "First name"
 msgstr "Nama Depan"
 
-#: squirrelmail/src/addressbook.php:42
+#: squirrelmail/src/addressbook.php:43
 msgid "Last name"
 msgstr "Nama Belakang"
 
-#: squirrelmail/src/addressbook.php:43
+#: squirrelmail/src/addressbook.php:44
 msgid "Additional info"
 msgstr "Keterangan tambahan"
 
-#: squirrelmail/src/addressbook.php:57
+#: squirrelmail/src/addressbook.php:58
 msgid "No personal address book is defined. Contact administrator."
 msgstr "Tidak ada buku alamat yang didefinisikan. Hubungi administrator!"
 
-#: squirrelmail/src/addressbook.php:153
+#: squirrelmail/src/addressbook.php:154
 msgid "You can only edit one address at the time"
 msgstr "Anda hanya dapat mengubah satu alamat dalam satu waktu"
 
-#: squirrelmail/src/addressbook.php:167 squirrelmail/src/addressbook.php:169
-#: squirrelmail/src/addressbook.php:199 squirrelmail/src/addressbook.php:201
+#: squirrelmail/src/addressbook.php:168 squirrelmail/src/addressbook.php:170
+#: squirrelmail/src/addressbook.php:200 squirrelmail/src/addressbook.php:202
 msgid "Update address"
 msgstr "Perbaharui alamat"
 
 #: squirrelmail/functions/display_messages.php:20
 #: squirrelmail/functions/display_messages.php:71
 #: squirrelmail/functions/display_messages.php:87
-#: squirrelmail/src/addressbook.php:190 squirrelmail/src/addressbook.php:238
+#: squirrelmail/src/addressbook.php:191 squirrelmail/src/addressbook.php:239
 msgid "ERROR"
 msgstr "SALAH"
 
-#: squirrelmail/src/addressbook.php:213
+#: squirrelmail/src/addressbook.php:214
 msgid "Unknown error"
 msgstr "Kesalahan tidak diketahui"
 
-#: squirrelmail/src/addressbook.php:257 squirrelmail/src/addressbook.php:340
+#: squirrelmail/src/addressbook.php:258 squirrelmail/src/addressbook.php:341
 msgid "Add address"
 msgstr "Tambah alamat"
 
-#: squirrelmail/src/addressbook.php:269 squirrelmail/src/addressbook.php:322
+#: squirrelmail/src/addressbook.php:270 squirrelmail/src/addressbook.php:323
 msgid "Edit selected"
 msgstr "Ubah yang dipilih"
 
-#: squirrelmail/src/addressbook.php:271 squirrelmail/src/addressbook.php:324
+#: squirrelmail/src/addressbook.php:272 squirrelmail/src/addressbook.php:325
 msgid "Delete selected"
 msgstr "Hapus yang dipilih"
 
-#: squirrelmail/src/addressbook.php:337
+#: squirrelmail/src/addressbook.php:338
 #, c-format
 msgid "Add to %s"
 msgstr "Tambahkan ke %s"
@@ -179,45 +178,46 @@ msgstr "Tidak dapat memindah/menyalin file. File tidak disisipkan"
 msgid "Original Message"
 msgstr "Pesan Asli"
 
-#: squirrelmail/functions/mailbox_display.php:579
+#: squirrelmail/functions/mailbox_display.php:581
 #: squirrelmail/plugins/filters/options.php:97
 #: squirrelmail/src/compose.php:305 squirrelmail/src/download.php:143
 #: squirrelmail/src/download.php:149
-#: squirrelmail/src/options_highlight.php:333
+#: squirrelmail/src/options_highlight.php:334
 #: squirrelmail/src/options_order.php:57
 #: squirrelmail/src/printer_friendly_bottom.php:118
-#: squirrelmail/src/search.php:115
+#: squirrelmail/src/search.php:116
 msgid "Subject"
 msgstr "Subyek"
 
-#: squirrelmail/functions/mailbox_display.php:565
+#: squirrelmail/functions/mailbox_display.php:567
 #: squirrelmail/plugins/filters/options.php:85
 #: squirrelmail/src/compose.php:306 squirrelmail/src/download.php:144
 #: squirrelmail/src/download.php:151
-#: squirrelmail/src/options_highlight.php:321
+#: squirrelmail/src/options_highlight.php:322
 #: squirrelmail/src/options_order.php:55
 #: squirrelmail/src/printer_friendly_bottom.php:112
-#: squirrelmail/src/search.php:116
+#: squirrelmail/src/search.php:117
 msgid "From"
 msgstr "Dari"
 
-#: squirrelmail/functions/mailbox_display.php:573
+#: squirrelmail/functions/mailbox_display.php:575
 #: squirrelmail/src/compose.php:307 squirrelmail/src/download.php:146
 #: squirrelmail/src/download.php:155 squirrelmail/src/options_order.php:56
 #: squirrelmail/src/printer_friendly_bottom.php:117
 msgid "Date"
 msgstr "Tanggal"
 
-#: squirrelmail/functions/mailbox_display.php:563
+#: squirrelmail/functions/mailbox_display.php:565
 #: squirrelmail/plugins/filters/options.php:88
 #: squirrelmail/src/compose.php:309 squirrelmail/src/download.php:145
 #: squirrelmail/src/download.php:153
-#: squirrelmail/src/options_highlight.php:324
+#: squirrelmail/src/options_highlight.php:325
 #: squirrelmail/src/printer_friendly_bottom.php:113
-#: squirrelmail/src/search.php:118
+#: squirrelmail/src/search.php:119
 msgid "To"
 msgstr "Untuk"
 
+#: squirrelmail/plugins/listcommands/mailout.php:47
 #: squirrelmail/src/compose.php:462 squirrelmail/src/read_body.php:566
 msgid "From:"
 msgstr "Dari:"
@@ -254,7 +254,7 @@ msgstr "Tambah"
 msgid "Delete selected attachments"
 msgstr "Hapus sisipan yang dipilih"
 
-#: squirrelmail/functions/page_header.php:116 squirrelmail/src/compose.php:609
+#: squirrelmail/functions/page_header.php:118 squirrelmail/src/compose.php:609
 #: squirrelmail/src/compose.php:613 squirrelmail/src/compose.php:617
 msgid "Addresses"
 msgstr "Alamat"
@@ -267,10 +267,12 @@ msgstr "Simpan Konsep"
 msgid "Priority"
 msgstr "Prioritas"
 
+#: squirrelmail/plugins/calendar/functions.php:98
 #: squirrelmail/src/compose.php:629 squirrelmail/src/read_body.php:424
 msgid "High"
 msgstr "Segera"
 
+#: squirrelmail/plugins/calendar/functions.php:97
 #: squirrelmail/src/compose.php:630 squirrelmail/src/read_body.php:437
 msgid "Normal"
 msgstr "Biasa"
@@ -319,7 +321,7 @@ msgstr "Nama laci tidak sah. Silahkan pilih nama lain"
 msgid "Click here to go back"
 msgstr "Klik di sini untuk kembali"
 
-#: squirrelmail/functions/page_header.php:118 squirrelmail/src/folders.php:29
+#: squirrelmail/functions/page_header.php:120 squirrelmail/src/folders.php:29
 #: squirrelmail/src/left_main.php:234
 msgid "Folders"
 msgstr "Laci"
@@ -384,20 +386,22 @@ msgstr "Tidak ditemukan suatu laci "
 msgid "Delete Folder"
 msgstr "Hapus Laci"
 
-#: squirrelmail/functions/mailbox_display.php:536
+#: squirrelmail/functions/mailbox_display.php:538
 #: squirrelmail/plugins/filters/options.php:154
 #: squirrelmail/plugins/mail_fetch/options.php:168
 #: squirrelmail/plugins/mail_fetch/options.php:175
-#: squirrelmail/src/folders.php:190 squirrelmail/src/options_highlight.php:75
+#: squirrelmail/src/folders.php:190 squirrelmail/src/options_highlight.php:76
 #: squirrelmail/src/options_identities.php:320
 #: squirrelmail/src/read_body.php:473
 msgid "Delete"
 msgstr "Hapus"
 
+#: squirrelmail/plugins/listcommands/setup.php:31
 #: squirrelmail/src/folders.php:201 squirrelmail/src/folders.php:220
 msgid "Unsubscribe"
 msgstr "Buang"
 
+#: squirrelmail/plugins/listcommands/setup.php:32
 #: squirrelmail/src/folders.php:201 squirrelmail/src/folders.php:261
 msgid "Subscribe"
 msgstr "Daftarkan"
@@ -423,11 +427,12 @@ msgstr "Nama baru:"
 #: squirrelmail/plugins/newmail/newmail_opt.php:133
 #: squirrelmail/plugins/translate/options.php:163
 #: squirrelmail/src/folders_rename_getname.php:53
-#: squirrelmail/src/options_highlight.php:346
+#: squirrelmail/src/options_highlight.php:347
 msgid "Submit"
 msgstr "Kirim"
 
-#: squirrelmail/functions/page_header.php:124 squirrelmail/src/help.php:91
+#: squirrelmail/functions/page_header.php:126
+#: squirrelmail/plugins/listcommands/setup.php:30 squirrelmail/src/help.php:91
 msgid "Help"
 msgstr "Panduan"
 
@@ -448,17 +453,17 @@ msgstr "Beberapa atau semua dokumen panduan tidak ada!"
 msgid "Table of Contents"
 msgstr "Daftar Isi"
 
-#: squirrelmail/functions/mailbox_display.php:733
-#: squirrelmail/functions/mailbox_display.php:736
-#: squirrelmail/functions/mailbox_display.php:739
+#: squirrelmail/functions/mailbox_display.php:735
+#: squirrelmail/functions/mailbox_display.php:738
+#: squirrelmail/functions/mailbox_display.php:741
 #: squirrelmail/src/help.php:187 squirrelmail/src/help.php:191
 #: squirrelmail/src/read_body.php:495 squirrelmail/src/read_body.php:497
 msgid "Previous"
 msgstr "Sebelumnya"
 
-#: squirrelmail/functions/mailbox_display.php:734
-#: squirrelmail/functions/mailbox_display.php:737
-#: squirrelmail/functions/mailbox_display.php:740
+#: squirrelmail/functions/mailbox_display.php:736
+#: squirrelmail/functions/mailbox_display.php:739
+#: squirrelmail/functions/mailbox_display.php:742
 #: squirrelmail/src/help.php:195 squirrelmail/src/help.php:198
 #: squirrelmail/src/read_body.php:501 squirrelmail/src/read_body.php:503
 msgid "Next"
@@ -480,31 +485,31 @@ msgstr "kosong"
 msgid "Last Refresh"
 msgstr "Peninjauan Terakhir"
 
-#: squirrelmail/src/login.php:97 squirrelmail/src/login.php:139
+#: squirrelmail/src/login.php:97 squirrelmail/src/login.php:141
 msgid "Login"
 msgstr "Masuk"
 
-#: squirrelmail/src/login.php:110
+#: squirrelmail/src/login.php:112
 #, c-format
 msgid "SquirrelMail version %s"
 msgstr "SquirrelMail versi %s"
 
-#: squirrelmail/src/login.php:111
+#: squirrelmail/src/login.php:113
 msgid "By the SquirrelMail Development Team"
 msgstr "Oleh Team Pengembangan SquirrelMail"
 
-#: squirrelmail/src/login.php:117
+#: squirrelmail/src/login.php:119
 #, c-format
 msgid "%s Login"
 msgstr "Masuk %s"
 
-#: squirrelmail/src/login.php:121
+#: squirrelmail/src/login.php:123
 msgid "Name:"
 msgstr "Nama:"
 
 #: squirrelmail/plugins/mail_fetch/options.php:126
 #: squirrelmail/plugins/mail_fetch/options.php:207
-#: squirrelmail/src/login.php:127
+#: squirrelmail/src/login.php:129
 msgid "Password:"
 msgstr "Sandi:"
 
@@ -525,7 +530,7 @@ msgstr "Tema"
 #: squirrelmail/src/options_display.php:51
 #: squirrelmail/src/options_display.php:80
 msgid "Default"
-msgstr "Asli"
+msgstr "Utama"
 
 #: squirrelmail/src/options_display.php:64
 msgid "Custom Stylesheet"
@@ -769,126 +774,126 @@ msgstr "Cari Memori"
 msgid "Disabled"
 msgstr "Tidak perlu"
 
-#: squirrelmail/functions/page_header.php:120
+#: squirrelmail/functions/page_header.php:122
 #: squirrelmail/plugins/filters/options.php:62
 #: squirrelmail/plugins/newmail/newmail_opt.php:34
 #: squirrelmail/plugins/translate/options.php:97
-#: squirrelmail/src/options.php:164 squirrelmail/src/options_highlight.php:61
+#: squirrelmail/src/options.php:165 squirrelmail/src/options_highlight.php:62
 #: squirrelmail/src/options_identities.php:58
 #: squirrelmail/src/options_order.php:48
 msgid "Options"
 msgstr "Pilihan"
 
-#: squirrelmail/src/options.php:112 squirrelmail/src/options.php:263
-#: squirrelmail/src/options_highlight.php:61
+#: squirrelmail/src/options.php:113 squirrelmail/src/options.php:264
+#: squirrelmail/src/options_highlight.php:62
 msgid "Message Highlighting"
 msgstr "Penyorotan Pesan"
 
 #: squirrelmail/plugins/filters/options.php:64
-#: squirrelmail/src/options_highlight.php:65
+#: squirrelmail/src/options_highlight.php:66
 msgid "New"
 msgstr "Baru"
 
 #: squirrelmail/plugins/filters/options.php:65
 #: squirrelmail/plugins/filters/spamoptions.php:149
 #: squirrelmail/plugins/mail_fetch/fetch.php:225
-#: squirrelmail/src/options_highlight.php:66
+#: squirrelmail/src/options_highlight.php:67
 msgid "Done"
 msgstr "Selesai"
 
 #: squirrelmail/plugins/filters/options.php:152
 #: squirrelmail/plugins/filters/spamoptions.php:148
-#: squirrelmail/src/options_highlight.php:73
+#: squirrelmail/src/options_highlight.php:74
 msgid "Edit"
 msgstr "Ubah"
 
-#: squirrelmail/src/options_highlight.php:86
+#: squirrelmail/src/options_highlight.php:87
 msgid "No highlighting is defined"
 msgstr "Tidak ada penyorotan yang didefinisikan"
 
-#: squirrelmail/src/options_highlight.php:258
+#: squirrelmail/src/options_highlight.php:259
 msgid "Identifying name"
 msgstr "Nama identifikasi"
 
-#: squirrelmail/src/options_highlight.php:272
+#: squirrelmail/src/options_highlight.php:273
 msgid "Color"
 msgstr "Warna"
 
-#: squirrelmail/src/options_highlight.php:276
+#: squirrelmail/src/options_highlight.php:277
 msgid "Dark Blue"
 msgstr "Biru Gelap"
 
-#: squirrelmail/src/options_highlight.php:277
+#: squirrelmail/src/options_highlight.php:278
 msgid "Dark Green"
 msgstr "Hijau Gelap"
 
-#: squirrelmail/src/options_highlight.php:278
+#: squirrelmail/src/options_highlight.php:279
 msgid "Dark Yellow"
 msgstr "Kuning Gelap"
 
-#: squirrelmail/src/options_highlight.php:279
+#: squirrelmail/src/options_highlight.php:280
 msgid "Dark Cyan"
 msgstr "Hijau Telur Gelap"
 
-#: squirrelmail/src/options_highlight.php:280
+#: squirrelmail/src/options_highlight.php:281
 msgid "Dark Magenta"
 msgstr "Ungu Muda Gelap"
 
-#: squirrelmail/src/options_highlight.php:281
+#: squirrelmail/src/options_highlight.php:282
 msgid "Light Blue"
 msgstr "Biru Terang"
 
-#: squirrelmail/src/options_highlight.php:282
+#: squirrelmail/src/options_highlight.php:283
 msgid "Light Green"
 msgstr "Hijau Terang"
 
-#: squirrelmail/src/options_highlight.php:283
+#: squirrelmail/src/options_highlight.php:284
 msgid "Light Yellow"
 msgstr "Kuning Terang"
 
-#: squirrelmail/src/options_highlight.php:284
+#: squirrelmail/src/options_highlight.php:285
 msgid "Light Cyan"
 msgstr "Hijau Telur Terang"
 
-#: squirrelmail/src/options_highlight.php:285
+#: squirrelmail/src/options_highlight.php:286
 msgid "Light Magenta"
 msgstr "Ungu Muda Terang"
 
-#: squirrelmail/src/options_highlight.php:286
+#: squirrelmail/src/options_highlight.php:287
 msgid "Dark Gray"
 msgstr "Abu-abu Gelap"
 
-#: squirrelmail/src/options_highlight.php:287
+#: squirrelmail/src/options_highlight.php:288
 msgid "Medium Gray"
 msgstr "Abu-abu Sedang"
 
-#: squirrelmail/src/options_highlight.php:288
+#: squirrelmail/src/options_highlight.php:289
 msgid "Light Gray"
 msgstr "Abu-abu Terang"
 
-#: squirrelmail/src/options_highlight.php:289
+#: squirrelmail/src/options_highlight.php:290
 msgid "White"
 msgstr "Putih"
 
-#: squirrelmail/src/options_highlight.php:291
+#: squirrelmail/src/options_highlight.php:292
 msgid "Other:"
 msgstr "Lainnya:"
 
-#: squirrelmail/src/options_highlight.php:293
+#: squirrelmail/src/options_highlight.php:294
 msgid "Ex: 63aa7f"
 msgstr "Misal: 63aa7f"
 
 #: squirrelmail/plugins/filters/options.php:91
-#: squirrelmail/src/options_highlight.php:327 squirrelmail/src/search.php:117
+#: squirrelmail/src/options_highlight.php:328 squirrelmail/src/search.php:118
 msgid "Cc"
 msgstr "Tembusan"
 
 #: squirrelmail/plugins/filters/options.php:94
-#: squirrelmail/src/options_highlight.php:330
+#: squirrelmail/src/options_highlight.php:331
 msgid "To or Cc"
 msgstr "Untuk atau Tembusan"
 
-#: squirrelmail/src/options_highlight.php:335
+#: squirrelmail/src/options_highlight.php:336
 msgid "Matches"
 msgstr "Cocok"
 
@@ -935,7 +940,7 @@ msgstr "Jadikan Identitas Utama"
 msgid "Move Up"
 msgstr "Pindah ke atas"
 
-#: squirrelmail/src/options.php:124 squirrelmail/src/options.php:279
+#: squirrelmail/src/options.php:125 squirrelmail/src/options.php:280
 #: squirrelmail/src/options_order.php:48
 msgid "Index Order"
 msgstr "Urutan Index"
@@ -948,7 +953,7 @@ msgstr "Kotak Periksa"
 msgid "Flags"
 msgstr "'Flag'"
 
-#: squirrelmail/functions/mailbox_display.php:585
+#: squirrelmail/functions/mailbox_display.php:587
 #: squirrelmail/src/options_order.php:59
 msgid "Size"
 msgstr "Ukuran"
@@ -1047,37 +1052,37 @@ msgstr "Awali tanda tangan dengan Garis '--'"
 msgid "Signature"
 msgstr "Tanda tangan"
 
-#: squirrelmail/src/options.php:100 squirrelmail/src/options.php:247
+#: squirrelmail/src/options.php:101 squirrelmail/src/options.php:248
 msgid "Personal Information"
 msgstr "Data Pribadi"
 
-#: squirrelmail/src/options.php:106 squirrelmail/src/options.php:255
+#: squirrelmail/src/options.php:107 squirrelmail/src/options.php:256
 msgid "Display Preferences"
 msgstr "Acuan Tampilan"
 
-#: squirrelmail/src/options.php:118 squirrelmail/src/options.php:271
+#: squirrelmail/src/options.php:119 squirrelmail/src/options.php:272
 msgid "Folder Preferences"
 msgstr "Acuan Laci"
 
-#: squirrelmail/src/options.php:231
+#: squirrelmail/src/options.php:232
 msgid "Successfully Saved Options"
 msgstr "Berhasil menyimpan Pilihan"
 
-#: squirrelmail/src/options.php:235
+#: squirrelmail/src/options.php:236
 msgid "Refresh Folder List"
 msgstr "Perbarui daftar laci"
 
-#: squirrelmail/src/options.php:237
+#: squirrelmail/src/options.php:238
 msgid "Refresh Page"
 msgstr "Perbarui Halaman"
 
-#: squirrelmail/src/options.php:249
+#: squirrelmail/src/options.php:250
 msgid ""
 "This contains personal information about yourself such as your name, your "
 "email address, etc."
 msgstr "Di sini berisi data tentang Anda seperti: Nama, alamat surate, dll."
 
-#: squirrelmail/src/options.php:257
+#: squirrelmail/src/options.php:258
 msgid ""
 "You can change the way that SquirrelMail looks and displays information to "
 "you, such as the colors, the language, and other settings."
@@ -1085,7 +1090,7 @@ msgstr ""
 "Anda dapat mengubah cara SquirrelMail tampak dan menampilkan informasi untuk "
 "Anda, seperti: warna, bahasa, dan lain-lain."
 
-#: squirrelmail/src/options.php:265
+#: squirrelmail/src/options.php:266
 msgid ""
 "Based upon given criteria, incoming messages can have different background "
 "colors in the message list.  This helps to easily distinguish who the "
@@ -1095,12 +1100,12 @@ msgstr ""
 "berbeda dalam daftar pesan. Pilihan ini memudahkan Anda membedakan asal "
 "suatu pesan, khususnya dari suatu milis."
 
-#: squirrelmail/src/options.php:273
+#: squirrelmail/src/options.php:274
 msgid ""
 "These settings change the way your folders are displayed and manipulated."
 msgstr "Pilihan ini mengubah cara laci Anda ditampilkan dan dimanipulasi."
 
-#: squirrelmail/src/options.php:281
+#: squirrelmail/src/options.php:282
 msgid ""
 "The order of the message index can be rearranged and changed to contain the "
 "headers in any order you want."
@@ -1170,6 +1175,11 @@ msgstr "Balas Semua"
 msgid "View Full Header"
 msgstr "Lihat 'header' lengkap"
 
+#: squirrelmail/plugins/calendar/event_create.php:107
+#: squirrelmail/plugins/calendar/event_delete.php:32
+#: squirrelmail/plugins/calendar/event_edit.php:36
+#: squirrelmail/plugins/calendar/event_edit.php:94
+#: squirrelmail/plugins/calendar/event_edit.php:107
 #: squirrelmail/src/read_body.php:574
 msgid "Date:"
 msgstr "Tanggal:"
@@ -1195,23 +1205,23 @@ msgstr "Ada kesalahan saat menghubungi server."
 msgid "Contact your administrator for help."
 msgstr "Hubungi administrator Anda untuk minta bantuan."
 
-#: squirrelmail/src/search.php:113
+#: squirrelmail/src/search.php:114
 msgid "Body"
 msgstr "Badan pesan"
 
-#: squirrelmail/src/search.php:114
+#: squirrelmail/src/search.php:115
 msgid "Everywhere"
 msgstr "Di mana saja"
 
-#: squirrelmail/functions/page_header.php:108 squirrelmail/src/signout.php:83
+#: squirrelmail/functions/page_header.php:110 squirrelmail/src/signout.php:84
 msgid "Sign Out"
 msgstr "Keluar"
 
-#: squirrelmail/src/signout.php:89
+#: squirrelmail/src/signout.php:90
 msgid "You have been successfully signed out."
 msgstr "Terima kasih telah menggunakan SquirrelMail."
 
-#: squirrelmail/src/signout.php:91
+#: squirrelmail/src/signout.php:92
 msgid "Click here to log back in."
 msgstr "Klik di sini untuk masuk lagi."
 
@@ -1393,30 +1403,37 @@ msgid "Business Card"
 msgstr "Kartu Bisnis"
 
 #: squirrelmail/functions/date.php:91
+#: squirrelmail/plugins/calendar/calendar.php:48
 msgid "Sunday"
 msgstr "Minggu"
 
 #: squirrelmail/functions/date.php:94
+#: squirrelmail/plugins/calendar/calendar.php:49
 msgid "Monday"
 msgstr "Senin"
 
 #: squirrelmail/functions/date.php:97
+#: squirrelmail/plugins/calendar/calendar.php:50
 msgid "Tuesday"
 msgstr "Selasa"
 
 #: squirrelmail/functions/date.php:100
+#: squirrelmail/plugins/calendar/calendar.php:51
 msgid "Wednesday"
 msgstr "Rabu"
 
 #: squirrelmail/functions/date.php:103
+#: squirrelmail/plugins/calendar/calendar.php:52
 msgid "Thursday"
 msgstr "Kamis"
 
 #: squirrelmail/functions/date.php:106
+#: squirrelmail/plugins/calendar/calendar.php:53
 msgid "Friday"
 msgstr "Jum'at"
 
 #: squirrelmail/functions/date.php:109
+#: squirrelmail/plugins/calendar/calendar.php:54
 msgid "Saturday"
 msgstr "Sabtu"
 
@@ -1510,7 +1527,7 @@ msgstr "Acuan gudang data salah ( %s ). Terpaksa keluar segera."
 #: squirrelmail/functions/prefs.php:268
 #, c-format
 msgid "Error creating directory %s."
-msgstr "Gagal mendekripsi Kamus"
+msgstr "Gagal membuat direktori %s ."
 
 #: squirrelmail/functions/db_prefs.php:378
 #: squirrelmail/functions/prefs.php:269
@@ -1540,7 +1557,7 @@ msgstr "Selamat Datang di sistem Webmail %s"
 #: squirrelmail/functions/display_messages.php:51
 #, c-format
 msgid "Running SquirrelMail version %s (c) 1999-2001."
-msgstr "Menggunakan SquirrelMail versi %s (c) 1999-2001."
+msgstr "Menggunakan SquirrelMail versi %s (c) 1999-2002."
 
 #: squirrelmail/functions/display_messages.php:76
 #, c-format
@@ -1570,7 +1587,7 @@ msgstr "SALAH : Perintah jelek atau salah."
 #: squirrelmail/functions/imap_general.php:147
 #: squirrelmail/plugins/filters/filters.php:100
 msgid "Server responded: "
-msgstr "Tanggapan dari server: "
+msgstr "Jawaban dari server: "
 
 #: squirrelmail/functions/imap_general.php:183
 #, c-format
@@ -1609,13 +1626,13 @@ msgstr "Nomor pesan tidak dikenal dalam balasan dari server: "
 #: squirrelmail/functions/imap_messages.php:195
 #: squirrelmail/functions/imap_messages.php:440
 #: squirrelmail/functions/imap_messages.php:495
-#: squirrelmail/functions/mailbox_display.php:892
+#: squirrelmail/functions/mailbox_display.php:894
 msgid "(no subject)"
 msgstr "( tidak ada subyek )"
 
 #: squirrelmail/functions/imap_messages.php:167
 msgid "Unknown Sender"
-msgstr "Pengirim tak dikenal"
+msgstr "Pengirim Misterius"
 
 #: squirrelmail/functions/imap_messages.php:222
 msgid "No To Address"
@@ -1623,7 +1640,7 @@ msgstr "Tidak ada Alamat 'Untuk:'"
 
 #: squirrelmail/functions/imap_messages.php:498
 msgid "(unknown sender)"
-msgstr "( pengirim tak dikenal )"
+msgstr "( pengirim misterius )"
 
 #: squirrelmail/functions/imap_search.php:61
 msgid "No Messages Found"
@@ -1637,65 +1654,65 @@ msgstr "Ditemukan"
 msgid "messages"
 msgstr "pesan"
 
-#: squirrelmail/functions/mailbox_display.php:425
+#: squirrelmail/functions/mailbox_display.php:427
 msgid "THIS FOLDER IS EMPTY"
 msgstr "LACI INI KOSONG"
 
-#: squirrelmail/functions/mailbox_display.php:509
+#: squirrelmail/functions/mailbox_display.php:511
 msgid "Move Selected To:"
 msgstr "Pindahkan ke:"
 
-#: squirrelmail/functions/mailbox_display.php:512
+#: squirrelmail/functions/mailbox_display.php:514
 msgid "Transform Selected Messages"
 msgstr "Transformasikan Pesan Terpilih"
 
-#: squirrelmail/functions/mailbox_display.php:528
+#: squirrelmail/functions/mailbox_display.php:530
 msgid "Move"
 msgstr "Pindahkan"
 
-#: squirrelmail/functions/mailbox_display.php:532
+#: squirrelmail/functions/mailbox_display.php:534
 msgid "Expunge"
 msgstr "Kosongkan"
 
-#: squirrelmail/functions/mailbox_display.php:532
+#: squirrelmail/functions/mailbox_display.php:534
 msgid "mailbox"
 msgstr "Kotak surat"
 
-#: squirrelmail/functions/mailbox_display.php:534
+#: squirrelmail/functions/mailbox_display.php:536
 msgid "Read"
 msgstr "Sudah Dibaca"
 
-#: squirrelmail/functions/mailbox_display.php:535
+#: squirrelmail/functions/mailbox_display.php:537
 msgid "Unread"
 msgstr "Belum Dibaca"
 
-#: squirrelmail/functions/mailbox_display.php:631
+#: squirrelmail/functions/mailbox_display.php:633
 msgid "Toggle All"
 msgstr "Pilih semua"
 
-#: squirrelmail/functions/mailbox_display.php:653
+#: squirrelmail/functions/mailbox_display.php:655
 msgid "Unselect All"
 msgstr "Batal pilih semua"
 
-#: squirrelmail/functions/mailbox_display.php:655
+#: squirrelmail/functions/mailbox_display.php:657
 msgid "Select All"
 msgstr "Pilih semua"
 
-#: squirrelmail/functions/mailbox_display.php:672
+#: squirrelmail/functions/mailbox_display.php:674
 #, c-format
 msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
 msgstr "Menampilkan Pesan: <B>%s</B> sampai <B>%s</B> ( seluruhnya %s )"
 
-#: squirrelmail/functions/mailbox_display.php:674
+#: squirrelmail/functions/mailbox_display.php:676
 #, c-format
 msgid "Viewing Message: <B>%s</B> (1 total)"
 msgstr "Menampilkan Pesan <B>%s</B> ( hanya 1 (satu))"
 
-#: squirrelmail/functions/mailbox_display.php:859
+#: squirrelmail/functions/mailbox_display.php:861
 msgid "Paginate"
 msgstr "Per Halaman"
 
-#: squirrelmail/functions/mailbox_display.php:866
+#: squirrelmail/functions/mailbox_display.php:868
 msgid "Show All"
 msgstr "Tampilkan Semua"
 
@@ -1718,6 +1735,10 @@ msgid "Response:"
 msgstr "Jawaban: "
 
 #: squirrelmail/functions/mime.php:434
+#: squirrelmail/plugins/calendar/event_create.php:113
+#: squirrelmail/plugins/calendar/event_delete.php:38
+#: squirrelmail/plugins/calendar/event_edit.php:102
+#: squirrelmail/plugins/calendar/event_edit.php:115
 msgid "Message:"
 msgstr "Pesan:"
 
@@ -1734,6 +1755,12 @@ msgid "download"
 msgstr "simpan"
 
 #: squirrelmail/functions/mime.php:967
+#: squirrelmail/plugins/calendar/event_create.php:53
+#: squirrelmail/plugins/calendar/event_create.php:111
+#: squirrelmail/plugins/calendar/event_delete.php:36
+#: squirrelmail/plugins/calendar/event_edit.php:72
+#: squirrelmail/plugins/calendar/event_edit.php:100
+#: squirrelmail/plugins/calendar/event_edit.php:113
 msgid "Title:"
 msgstr "Judul:"
 
@@ -1747,18 +1774,20 @@ msgid "Option Type '%s' Not Found"
 msgstr "Jenis Pilihan '%s' Tidak Ada"
 
 #: squirrelmail/functions/options.php:253
+#: squirrelmail/plugins/calendar/event_edit.php:135
 msgid "Yes"
 msgstr "Ya"
 
 #: squirrelmail/functions/options.php:258
+#: squirrelmail/plugins/calendar/event_edit.php:142
 msgid "No"
 msgstr "Tidak"
 
-#: squirrelmail/functions/page_header.php:105
+#: squirrelmail/functions/page_header.php:107
 msgid "Current Folder"
 msgstr "Laci saat ini"
 
-#: squirrelmail/functions/page_header.php:114
+#: squirrelmail/functions/page_header.php:116
 msgid "Compose"
 msgstr "Tulis surat"
 
@@ -2104,11 +2133,11 @@ msgstr "Semua Pesan"
 
 #: squirrelmail/plugins/filters/spamoptions.php:162
 msgid "ON"
-msgstr "HIDUP"
+msgstr "AKTIF"
 
 #: squirrelmail/plugins/filters/spamoptions.php:164
 msgid "OFF"
-msgstr "MATI"
+msgstr "TIDAK AKTIF"
 
 #: squirrelmail/plugins/squirrelspell/setup.php:31
 msgid "SpellChecker Options"
@@ -2459,6 +2488,7 @@ msgstr ""
 "Silahkan pilih kamus yang akan digunakan untuk memeriksa ejaan dalam pesan "
 "ini:"
 
+#: squirrelmail/plugins/calendar/calendar.php:112
 #: squirrelmail/plugins/squirrelspell/modules/init.mod.php:44
 msgid "Go"
 msgstr "Ayo"
@@ -3513,3 +3543,195 @@ msgstr "Tahunan"
 #: squirrelmail/plugins/sent_subfolders/setup.php:120
 msgid "Base Sent Folder"
 msgstr "Laci Kirim Utama"
+
+#: squirrelmail/plugins/calendar/calendar.php:74
+msgid "TODAY"
+msgstr "HARI INI"
+
+#: squirrelmail/plugins/calendar/day.php:79
+msgid "ADD"
+msgstr "TAMBAH"
+
+#: squirrelmail/plugins/calendar/day.php:93
+msgid "EDIT"
+msgstr "UBAH"
+
+#: squirrelmail/plugins/calendar/day.php:95
+msgid "DEL"
+msgstr "HAPUS"
+
+#: squirrelmail/plugins/calendar/event_create.php:31
+msgid "Start time:"
+msgstr "Waktu Mulai:"
+
+#: squirrelmail/plugins/calendar/event_create.php:41
+#: squirrelmail/plugins/calendar/event_edit.php:60
+msgid "Length:"
+msgstr "Panjang:"
+
+#: squirrelmail/plugins/calendar/event_create.php:47
+#: squirrelmail/plugins/calendar/event_edit.php:66
+#: squirrelmail/plugins/calendar/event_edit.php:98
+#: squirrelmail/plugins/calendar/event_edit.php:111
+msgid "Priority:"
+msgstr "Prioritas:"
+
+#: squirrelmail/plugins/calendar/event_create.php:61
+msgid "Set Event"
+msgstr "Tentukan Event"
+
+#: squirrelmail/plugins/calendar/event_create.php:106
+msgid "Event Has been added!"
+msgstr "Event telah ditambahkan!"
+
+#: squirrelmail/plugins/calendar/event_create.php:109
+#: squirrelmail/plugins/calendar/event_delete.php:34
+#: squirrelmail/plugins/calendar/event_edit.php:50
+#: squirrelmail/plugins/calendar/event_edit.php:96
+msgid "Time:"
+msgstr "Waktu:"
+
+#: squirrelmail/plugins/calendar/event_create.php:116
+#: squirrelmail/plugins/calendar/functions.php:23
+msgid "Day View"
+msgstr "Lihat Hari"
+
+#: squirrelmail/plugins/calendar/event_delete.php:31
+msgid "Do you really want to delete this event?"
+msgstr "Apakah Anda sungguh-sungguh ingin menghapus event ini?"
+
+#: squirrelmail/plugins/calendar/event_delete.php:89
+msgid "Event deleted!"
+msgstr "Event telah dihapus!"
+
+#: squirrelmail/plugins/calendar/event_delete.php:96
+msgid "Nothing to delete!"
+msgstr "Tidak ada yang bisa dihapus!"
+
+#: squirrelmail/plugins/calendar/event_edit.php:80
+msgid "Update Event"
+msgstr "Perbarui Event"
+
+#: squirrelmail/plugins/calendar/event_edit.php:92
+msgid "Do you really want to change this event from:"
+msgstr "Apakah Anda sungguh-sungguh ingin mengubah event ini dari:"
+
+#: squirrelmail/plugins/calendar/event_edit.php:105
+msgid "to:"
+msgstr "Untuk:"
+
+#: squirrelmail/plugins/calendar/functions.php:21
+msgid "Month View"
+msgstr "Lihat Bulan"
+
+#: squirrelmail/plugins/calendar/functions.php:34
+msgid "0 min."
+msgstr "0 menit"
+
+#: squirrelmail/plugins/calendar/functions.php:35
+msgid "15 min."
+msgstr "15 menit."
+
+#: squirrelmail/plugins/calendar/functions.php:36
+msgid "35 min."
+msgstr "35 menit."
+
+#: squirrelmail/plugins/calendar/functions.php:37
+msgid "45 min."
+msgstr "45 menit."
+
+#: squirrelmail/plugins/calendar/functions.php:38
+msgid "1 hr."
+msgstr "1 jam."
+
+#: squirrelmail/plugins/calendar/functions.php:39
+msgid "1.5 hr."
+msgstr "1,5 jam"
+
+#: squirrelmail/plugins/calendar/functions.php:40
+msgid "2 hr."
+msgstr "2 jam."
+
+#: squirrelmail/plugins/calendar/functions.php:41
+msgid "2.5 hr."
+msgstr "2.5 jam."
+
+#: squirrelmail/plugins/calendar/functions.php:42
+msgid "3 hr."
+msgstr "3 jam."
+
+#: squirrelmail/plugins/calendar/functions.php:43
+msgid "3.5 hr."
+msgstr "3.5 jam."
+
+#: squirrelmail/plugins/calendar/functions.php:44
+msgid "4 hr."
+msgstr "4 jam."
+
+#: squirrelmail/plugins/calendar/functions.php:45
+msgid "5 hr."
+msgstr "5 jam."
+
+#: squirrelmail/plugins/calendar/functions.php:46
+msgid "6 hr."
+msgstr "6 jam."
+
+#: squirrelmail/plugins/calendar/setup.php:20
+msgid "Calendar"
+msgstr "Kalender"
+
+#: squirrelmail/plugins/listcommands/mailout.php:16
+msgid "Mailinglist"
+msgstr "Milis"
+
+#: squirrelmail/plugins/listcommands/mailout.php:22
+#, c-format
+msgid ""
+"This will send a message to %s requesting help for this list. You will "
+"receive an emailed response at the address below."
+msgstr ""
+"Hal ini akan mengirimkan suatu pesan ke %s untuk meminta bantuan atas milis "
+"ini. Anda akan menerima sebuah surat jawaban pada alamat di bawah ini."
+
+#: squirrelmail/plugins/listcommands/mailout.php:25
+#, c-format
+msgid ""
+"This will send a message to %s requesting that you will be subscribed to "
+"this list. You will be subscribed with the address below."
+msgstr ""
+"Hal ini akan mengirimkan suatu pesan ke %s untuk mendaftarkan Anda di milis "
+"ini. Anda akan didaftarkan dengan alamat di bawah ini."
+
+#: squirrelmail/plugins/listcommands/mailout.php:28
+#, c-format
+msgid ""
+"This will send a message to %s requesting that you will be unsubscribed from "
+"this list. It will try to unsubscribe the adress below."
+msgstr ""
+"Hal ini akan mengirimkan suatu pesan ke %s untuk mencabut keanggotaan Anda "
+"di milis ini. Milis tersebut akan mencoba untuk mencabut keanggotaan alamat "
+"di bawah ini."
+
+#: squirrelmail/plugins/listcommands/mailout.php:76
+msgid "Send Mail"
+msgstr "Kirim Surat"
+
+#: squirrelmail/plugins/listcommands/setup.php:33
+msgid "Post to the list"
+msgstr "Kirimkam ke milis"
+
+#: squirrelmail/plugins/listcommands/setup.php:34
+msgid "List Archives"
+msgstr "Arsip Milis"
+
+#: squirrelmail/plugins/listcommands/setup.php:35
+msgid "Contact Listowner"
+msgstr "Hubungi Pemilik Milis"
+
+#: squirrelmail/plugins/listcommands/setup.php:37
+msgid "Reply to the list"
+msgstr "Balas ke milis"
+
+#: squirrelmail/plugins/listcommands/setup.php:88
+msgid "Mailinglist options:"
+msgstr "Pilihan Milis:"
