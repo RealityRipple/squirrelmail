@@ -59,15 +59,24 @@
 
    do_hook('right_main_after_header');
    
-   if (isset($just_logged_in) && $just_logged_in == 1 && 
-       strlen(trim($motd)) > 0) {
-      echo "<center><br>\n";
-      echo "<table width=70% cellpadding=0 cellspacing=0 border=0><tr><td bgcolor=\"$color[9]\">\n";
-      echo "<table width=100% cellpadding=5 cellspacing=1 border=0><tr><td bgcolor=\"$color[4]\">\n";
-      echo "$motd\n";
-      echo "</td></tr></table>\n";
-      echo "</td></tr></table>\n";
-      echo "</center><br>\n";
+   if ($just_logged_in == true) {
+      $just_logged_in = false;
+      
+      if (strlen(trim($motd)) > 0) {
+?><br>
+<table align=center width=70% cellpadding=0 cellspacing=3 border=0
+bgcolor="<?PHP echo $color[9] ?>">
+<tr><td>
+  <table width=100% cellpadding=5 cellspacing=1 border=0 bgcolor="<?PHP
+    echo $color[4] ?>">
+    <tr><td align=center><?PHP 
+       echo $motd;
+       do_hook('motd');
+    ?></td></tr>
+  </table>
+</td></tr></table>
+<?PHP
+      }
    }
 
 	if (isset($newsort)) {
