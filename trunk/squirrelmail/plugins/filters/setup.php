@@ -72,7 +72,7 @@
       $squirrelmail_plugin_hooks['special_mailbox']['filters'] = 'filters_special_mailbox';
    }
 
-   function filters_special_mailbox( $data, $mb ) {
+   function filters_special_mailbox( $mb ) {
 
        if ( $mb == getPref($data_dir, $username, 'filters_spam_folder', 'na' ) ) {
            return( TRUE );
