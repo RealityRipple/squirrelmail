@@ -121,10 +121,6 @@
 //  since this implementation is faster than the alternatives.
     $default_charset = "iso-8859-1";
 
-//  Whether or not to use META tags and automatically forward after an
-//  action has been completed.
-    $auto_forward = true;
-
 //  Path to the data/ directory
 //    It is a possible security hole to have a writable directory
 //    under the web server's root directory (ex: /home/httpd/html).

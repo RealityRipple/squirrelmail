@@ -352,7 +352,12 @@
 
 
    function errorCheck($line) {
+      global $page_header_php;
       global $color;
+      if (!isset($page_header_php)) {
+         include "../functions/page_header.php";
+      }
+      
       // Status:  0 = fatal
       //          5 = ok
 
@@ -434,9 +439,9 @@
       }
 
       if ($status == 0) {
-         echo "<HTML><BODY BGCOLOR=#ffffff>";
+         displayPageHeader($color, "None");
          echo "<TT>";
-         echo "<BR><B>ERROR</B><BR><BR>";
+         echo "<br><b><font color=\"$color[1]\">ERROR</font></b><br><br>";
          echo "&nbsp;&nbsp;&nbsp;<B>Error Number: </B>$err_num<BR>";
          echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Reason: </B>$message<BR>";
          echo "<B>Server Response: </B>$line<BR>";
