@@ -195,7 +195,7 @@ function getforwardHeader($orig_header) {
    $subject = decodeHeader($orig_header->subject,false,false);
    $subject = str_replace('&nbsp;',' ',$subject);
    $bodyTop =  str_pad(' '._("Original Message").' ',$editor_size -2,'-',STR_PAD_BOTH) .
-               "\n\n". $display[_("Subject")] . $subject . "\n" .
+               "\n". $display[_("Subject")] . $subject . "\n" .
                $display[_("From")] . $from . "\n" .
                $display[_("Date")] . getLongDateString( $orig_header->date ). "\n" .
                $display[_("To")] . $to . "\n";
