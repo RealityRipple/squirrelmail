@@ -86,43 +86,40 @@
 
     function newmail_sav() {
 
-        global $username,$data_dir;
-        global $submit_newmail,$media_file,$media_reset,$media_enable,$media_popup;
-        global $media_recent,$media_sel;
-        global $media_allbox, $media_changetitle;
+        global $data_dir, $username, $_POST;
+     
+        if ( isset($_POST['submit_newmail']) ) {
 
-        if ( isset($submit_newmail) ) {
-         
-            if(isset($media_enable)) {
-                setPref($data_dir,$username,'newmail_enable',$media_enable);
+            if(isset($_POST['media_enable'])) {
+                setPref($data_dir,$username,'newmail_enable',$_POST['media_enable']);
             } else {
                 setPref($data_dir,$username,'newmail_enable','');
             }
-            if(isset($media_popup)) {
-                setPref($data_dir,$username,'newmail_popup',$media_popup);
+            if(isset($_POST['media_popup'])) {
+                setPref($data_dir,$username,'newmail_popup',$_POST['media_popup']);
             } else {
                 setPref($data_dir,$username,'newmail_popup','');
             }
-            if(isset($media_allbox)) {
-                setPref($data_dir,$username,'newmail_allbox',$media_allbox);
+            if(isset($_POST['media_allbox'])) {
+                setPref($data_dir,$username,'newmail_allbox',$_POST['media_allbox']);
             } else {
                 setPref($data_dir,$username,'newmail_allbox','');
             }
-            if(isset($media_recent)) {
-                setPref($data_dir,$username,'newmail_recent',$media_recent);
+            if(isset($_POST['media_recent'])) {
+                setPref($data_dir,$username,'newmail_recent',$_POST['media_recent']);
             } else {
                 setPref($data_dir,$username,'newmail_recent','');
             }
-            if(isset($media_changetitle)) {
-                setPref($data_dir,$username,'newmail_changetitle',$media_changetitle);
+            if(isset($_POST['media_changetitle'])) {
+                setPref($data_dir,$username,'newmail_changetitle',$_POST['media_changetitle']);
             } else {
                 setPref($data_dir,$username,'newmail_changetitle','');
             }
-            if(isset($media_sel)) {
-                if($media_sel == '(local media)') {
-                    setPref($data_dir,$username,'newmail_media',StripSlashes($media_file));
+            if(isset($_POST['media_sel'])) {
+                if($_POST['media_sel'] == '(local media)') {
+                    setPref($data_dir,$username,'newmail_media',StripSlashes($_POST['media_file']));
                 } else {
-                    setPref($data_dir,$username,'newmail_media',$media_sel);
+                    setPref($data_dir,$username,'newmail_media',$_POST['media_sel']);
                 }
             } else {
                 setPref($data_dir,$username,'newmail_media','');

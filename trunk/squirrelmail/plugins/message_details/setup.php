@@ -14,13 +14,12 @@ function squirrelmail_plugin_init_message_details()
 {
   global $squirrelmail_plugin_hooks;
 
-  do_hook("read_body_header_right");
-  $squirrelmail_plugin_hooks['read_body_header_right']['message_details'] = "show_message_details";
+  do_hook('read_body_header_right');
+  $squirrelmail_plugin_hooks['read_body_header_right']['message_details'] = 'show_message_details';
 }
 
 function show_message_details() {
     global $passed_id, $mailbox, $ent_num, $color,
-           $pf_subtle_link,
            $javascript_on;
 
     if (strlen(trim($mailbox)) < 1) {
@@ -33,15 +32,14 @@ function show_message_details() {
 
     $print_text = _("View Message details");
 
-
     $result = '';
     /* Output the link. */
     if ($javascript_on) {
-        $result = '<script language="javascript">' . "\n" .
+        $result = '<script type="text/javascript" language="javascript">' . "\n" .
                 '<!--' . "\n" .
                 "  function MessageSource() {\n" .
                 '    window.open("../plugins/message_details/message_details_main.php' .
-                        $params . '","Print","width=800,height=600");' . "\n".
+                        $params . '","MessageDetails","width=800,height=600");' . "\n".
                 "  }\n" .
                 "// -->\n" .
                 "</script>\n" .
@@ -50,3 +48,4 @@ function show_message_details() {
     echo $result;
 }
  
+?>

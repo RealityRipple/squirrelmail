@@ -481,7 +481,7 @@ function translate_form_dictionary($message) {
                             sprintf( _("%s to %s"),
                                      _("Spanish"),
                                      _("English"))) .
-         '<\SELECT>'.
+         '</SELECT>'.
          'Dictionary.com: <INPUT TYPE="submit" VALUE="'._("Translate").'">';
 
   translate_table_end();

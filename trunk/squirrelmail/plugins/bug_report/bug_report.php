@@ -16,17 +16,10 @@
  * $Id$
  */
 
-session_start();
 define('SM_PATH','../../');
 
-require_once(SM_PATH . 'config/config.php');
-require_once(SM_PATH . 'functions/strings.php');
-require_once(SM_PATH . 'functions/page_header.php');
-require_once(SM_PATH . 'functions/display_messages.php');
-require_once(SM_PATH . 'functions/imap.php');
-require_once(SM_PATH . 'functions/array.php');
-require_once(SM_PATH . 'functions/i18n.php');
-require_once(SM_PATH . 'include/load_prefs.php');
+require_once(SM_PATH . 'include/validate.php');
+
 displayPageHeader($color, 'None');
 
 
@@ -59,7 +52,7 @@ $body_top = "I subscribe to the squirrelmail-users mailing list.\n" .
                 "(Optional) I got really bored and here's a fix:\n\n\n" .
                 "----------------------------------------------\n" .
             "\nMy browser information:\n" .
-            "  $HTTP_USER_AGENT\n" .
+            '  '.$_SERVER['HTTP_USER_AGENT'] . "\n" .
             "  get_browser() information (List)\n" .
             Show_Array((array) $browser) .
             "\nMy web server information:\n" .

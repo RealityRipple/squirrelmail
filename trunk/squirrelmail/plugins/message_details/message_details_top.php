@@ -27,6 +27,8 @@ displayHtmlHeader( _("Message details"),
              "-->\n".
              "</script>\n", FALSE );
 
+$passed_id = $_GET['passed_id'];
+$mailbox = $_GET['mailbox'];
 
 echo "<body text=\"$color[8]\" bgcolor=\"$color[3]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\">\n" .
      '<center><b>'.
