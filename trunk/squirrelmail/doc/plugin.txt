@@ -203,8 +203,8 @@ name of the hook.  After that, things get complicated.
    they are anything AFTER the hook name in the actual hook call in the
    source.
 
-   bool_hook_function
-   ------------------
+   boolean_hook_function
+   ---------------------
    The newest of the SquirrelMail hooks, this type is used to let all
    plugins registered against the hook to "vote" for some action.  What
    that action is is entirely dependent on how the hook is used in the
