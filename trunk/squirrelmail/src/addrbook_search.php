@@ -91,7 +91,7 @@ function bcc_address($addr) {
       insert_javascript();
 
       $line = 0;
-      print "<TABLE BORDER=0 WIDTH=\"98%\" ALIGN=center>";
+      print '<TABLE BORDER="0" WIDTH="98%" ALIGN=center>';
       printf("<TR BGCOLOR=\"$color[9]\"><TH ALIGN=left>&nbsp;".
 	     "<TH ALIGN=left>&nbsp;%s<TH ALIGN=left>&nbsp;%s".
 	     "<TH ALIGN=left>&nbsp;%s",
@@ -121,7 +121,7 @@ function bcc_address($addr) {
 	 print "</TR>\n";
 	 $line++;
       }
-      print "</TABLE>";
+      print '</TABLE>';
    }
 
    /* ================= End of functions ================= */
@@ -129,42 +129,42 @@ function bcc_address($addr) {
    session_start();
    
    if (!isset($i18n_php))
-      include("../functions/i18n.php");
+      include('../functions/i18n.php');
 
    if(!isset($logged_in) || !isset($username) || !isset($key)) {
-      include ("../themes/default_theme.php");
-      include ("../functions/display_messages.php");
+      include ('../themes/default_theme.php');
+      include ('../functions/display_messages.php');
       printf('<html><BODY TEXT="%s" BGCOLOR="%s" LINK="%s" VLINK="%s" ALINK="%s">',
               $color[8], $color[4], $color[7], $color[7], $color[7]);
       plain_error_message(_("You need a valid user and password to access this page!")
-                          . "<br><a href=\"../src/login.php\">"
+                          . '<br><a href="../src/login.php">'
                           . _("Click here to log back in.") . "</a>.", $color);
-      echo "</body></html>";
+      echo '</body></html>';
       exit;
    }
    if (!isset($config_php))
-      include("../config/config.php");
+      include('../config/config.php');
    if (!isset($array_php))
-      include("../functions/array.php");
+      include('../functions/array.php');
    if (!isset($auth_php))
-      include("../functions/auth.php");
+      include('../functions/auth.php');
    if (!isset($strings_php))
-      include("../functions/strings.php");
+      include('../functions/strings.php');
    if (!isset($page_header_php))
-      include("../functions/page_header.php");
+      include('../functions/page_header.php');
    if (!isset($addressbook_php))
-      include("../functions/addressbook.php");
+      include('../functions/addressbook.php');
 
    is_logged_in();
-   include("../src/load_prefs.php");
+   include('../src/load_prefs.php');
 
    displayHtmlHeader();
 
    // Choose correct colors for top and bottom frame
-   if($show == "form") {
+   if($show == 'form') {
       echo "<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" ";
       echo "LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\" ";
-      echo "OnLoad=\"document.sform.query.focus();\">";  
+      echo 'OnLoad="document.sform.query.focus();">';  
    } else {
       echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" ";
       echo "LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
@@ -181,11 +181,11 @@ function bcc_address($addr) {
    $abook = addressbook_init();
 
    // Create search form 
-   if($show == "form") {
+   if($show == 'form') {
       printf("<FORM NAME=sform TARGET=abookres ACTION=\"%s\" METHOD=\"POST\">\n",
 	     $PHP_SELF);
-      printf("<TABLE BORDER=0 WIDTH=\"100%%\" HEIGHT=\"100%%\">");
-      printf("<TR><TD NOWRAP VALIGN=middle>\n");
+      print('<TABLE BORDER="0" WIDTH="100%" HEIGHT="100%">');
+      print("<TR><TD NOWRAP VALIGN=middle>\n");
       printf("  <STRONG>%s</STRONG>\n", _("Search for"));
       printf("  <INPUT TYPE=text NAME=query VALUE=\"%s\" SIZE=26>\n",
 	     htmlspecialchars($query));
@@ -199,26 +199,26 @@ function bcc_address($addr) {
 	 $ret = $abook->get_backend_list();
 	 while(list($undef,$v) = each($ret)) 
 	    printf("<OPTION VALUE=%d>%s\n", $v->bnum, $v->sname);
-	 printf("</SELECT>\n");
+	 print "</SELECT>\n";
       } else {
-	 printf("<INPUT TYPE=hidden NAME=backend VALUE=-1>\n");
+	 print "<INPUT TYPE=hidden NAME=backend VALUE=-1>\n";
       }
 
       printf("<INPUT TYPE=submit VALUE=\"%s\">",
 	     _("Search"));
       printf("&nbsp;|&nbsp;<INPUT TYPE=submit VALUE=\"%s\" NAME=listall>\n",
              _("List all"));
-      printf("</TD><TD ALIGN=right>\n");
+      print "</TD><TD ALIGN=right>\n";
       printf("<INPUT TYPE=button VALUE=\"%s\" onclick=\"parent.close();\">\n",
              _("Close window"));
-      printf("</TD></TR></TABLE></FORM>\n");
+      print "</TD></TR></TABLE></FORM>\n";
    } else
 
    // Show personal addressbook
-   if($show == "blank" || !empty($listall)) {
+   if($show == 'blank' || !empty($listall)) {
 
-      if($backend != -1 || $show == "blank") {
-	 if($show == "blank") 
+      if($backend != -1 || $show == 'blank') {
+	 if($show == 'blank') 
 	    $backend = $abook->localbackend;
 
 	 //printf("<H3 ALIGN=center>%s</H3>\n", $abook->backends[$backend]->sname);
