@@ -1764,39 +1764,43 @@ sub command214 {
 
 # Automatically delete folders 
 sub command215 {
-    if ( $imap_server_type == "courier" ) {
-        print "Courier(or Courier-IMAP) IMAP servers do not support ";
-        print "subfolders of Trash. \n";
-        print "Deleting folders will bypass the trash folder and ";
-        print "be immediately deleted.\n\n";
-        print "If this is not the correct value for your server,\n";
-        print "please use option D on the Main Menu to configure your server correctly.\n\n";
-        print "Press any key to continue...\n";
-        $new_delete = <STDIN>;
-        $delete_folder = "true";
-    } elsif ( $imap_server_type == "uw" ) {
-        print "UW IMAP servers will not allow folders containing";
-        print "mail to also contain folders.\n";
-        print "Deleting folders will bypass the trash folder and";
-        print "be immediately deleted\n\n";
+    if ( $imap_server_type eq "uw" ) {
+        print "UW IMAP servers will not allow folders containing mail to also contain folders.\n";
+        print "Deleting folders will bypass the trash folder and be immediately deleted\n\n";
         print "If this is not the correct value for your server,\n";
         print "please use option D on the Main Menu to configure your server correctly.\n\n";
         print "Press any key to continue...\n";
         $new_delete = <STDIN>;
         $delete_folder = "true";
     } else { 
-        print "Should folders selected for deletion bypass the Trash folder?\n\n";
-        if ( lc($delete_folder) eq "true" ) {
-            $default_value = "y";
-        } else {
-            $default_value = "n";
+        if ( $imap_server_type eq "courier" ) {
+            print "Courier (or Courier-IMAP) IMAP servers may not support ";
+            print "subfolders of Trash. \n";
+            print "Specifically, if Courier is set to always move messages to Trash, \n";
+            print "Trash will be treated by Courier as a special folder that does not \n";
+            print "allow subfolders. \n\n";
+            print "Please verify your Courier configuration, and test folder deletion \n";
+            print "when changing this setting.\n\n";                                                             
         }
-        print "Auto delete folders? (y/n) [$WHT$default_value$NRM]: $WHT";
+
+        print "Are subfolders of the Trash supported by your IMAP server?\n";
+        print "If so, should deleted folders be sent to Trash?\n";
+        print "If not, say no (deleted folders should not be sent to Trash)\n\n";
+        # reversal of logic.
+        # question was: Should folders be automatically deleted instead of sent to trash..
+        # we've changed the question to make it more clear, 
+        # and are here handling that to avoid changing the answers.. 
+        if ( lc($delete_folder) eq "true" ) {
+            $default_value = "n";
+        } else {
+            $default_value = "y";
+        }
+        print "Send deleted folders to Trash? (y/n) [$WHT$default_value$NRM]: $WHT";
         $new_delete = <STDIN>;
         if ( ( $new_delete =~ /^y\n/i ) || ( ( $new_delete =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
-            $delete_folder = "true";
-        } else {
             $delete_folder = "false";
+        } else {
+            $delete_folder = "true";
         }
     }
     return $delete_folder;
