@@ -108,7 +108,10 @@ if( isset($do_hook) && $do_hook ) {
 sqimap_mailbox_select($imapConnection, $mailbox);
 
 if (isset($composenew) && $composenew) {
-    displayPageHeader($color, $mailbox, 'comp_in_new();', $session);
+    $comp_uri = "../src/compose.php?mailbox=". urlencode($mailbox).
+		"&amp;session=$composesession&amp;attachedmessages=true&amp";
+
+    displayPageHeader($color, $mailbox, "comp_in_new(false,'$comp_uri');", false);
 } else {
     displayPageHeader($color, $mailbox);
 }

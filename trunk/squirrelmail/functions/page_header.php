@@ -65,7 +65,8 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
     if ($session !== false) {
 	$compose_uri = 'src/compose.php?mailbox='. urlencode($mailbox).'&attachedmessages=true&session='."$session";
     } else {
-        $compose_uri = 'src/compose.php';
+        $compose_uri = 'src/compose.php?newmessage=1';
+	$session = 0;
     }
 
     switch ( $module ) {
@@ -79,12 +80,20 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                 }
                 $js = "\n".'<script language="JavaScript" type="text/javascript">' .
                     "\n<!--\n";
-                $js .= "function comp_in_new() {\n".
-                     "    var newwin = window.open(\"".$base_uri.$compose_uri. '"'.
-                     ", \"compose_window\",
-                \"width=".$compose_width.",height=$compose_height".
+                $js .= "function comp_in_new(new_mes, comp_uri) {\n".
+		     '    if (new_mes) { '."\n".
+		     "       comp_uri = \"../src/compose.php?newmessage=1\";\n".
+		     '    } else { '."\n".
+		     "       if (comp_uri =='') {\n".
+		     '           comp_uri = "'.$base_uri.$compose_uri."\";\n".
+		     '       }'. "\n".
+		     '    }'. "\n".
+                     '    var newwin = window.open(comp_uri' .
+                     ', "_blank",
+                "width='.$compose_width.",height=$compose_height".
                      ",scrollbars=yes,resizable=yes\");\n".
                      "}\n";
+
         $js .= "// -->\n".
         	 "</script>\n";
         displayHtmlHeader ('Squirrelmail', $js);
@@ -92,6 +101,35 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
         displayHtmlHeader();
         $onload = $xtra;
         break;
+    case 'src/compose.php':
+        $js = '<script language="JavaScript" type="text/javascript">' .
+             "\n<!--\n" .
+             "function checkForm() {\n".
+                "var f = document.forms.length;\n".
+                "var i = 0;\n".
+                "var pos = -1;\n".
+                "while( pos == -1 && i < f ) {\n".
+                    "var e = document.forms[i].elements.length;\n".
+                    "var j = 0;\n".
+                    "while( pos == -1 && j < e ) {\n".
+                        "if ( document.forms[i].elements[j].type == 'text' ) {\n".
+                            "pos = j;\n".
+                        "}\n".
+                        "j++;\n".
+                    "}\n".
+                "i++;\n".
+                "}\n".
+                "if( pos >= 0 ) {\n".
+                    "document.forms[i-1].elements[pos].focus();\n".
+                "}\n".
+            "}\n";
+	    
+        $js .= "// -->\n".
+        	 "</script>\n";
+        $onload = "onLoad=\"checkForm();\"";
+        displayHtmlHeader ('Squirrelmail', $js);
+        break;   
+
     default:
         $js = '<script language="JavaScript" type="text/javascript">' .
              "\n<!--\n" .
@@ -123,9 +161,17 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                 if (!preg_match("/^[0-9]{3,4}$/", $compose_height)) {
                     $compose_height = '550';
                 }
-                $js .= "function comp_in_new() {\n".
-                     '    var newwin = window.open("'.$base_uri.$compose_uri . '"' .
-                     ', "compose_window",
+                $js .= "function comp_in_new(new_mes, comp_uri) {\n".
+		     '    if (new_mes) { '."\n".
+		     "       comp_uri = \"../src/compose.php?newmessage=1\";\n".
+		     '    } else { '."\n".
+		     "       if (comp_uri =='') {\n".
+		     '           comp_uri = "'.$base_uri.$compose_uri."\";\n".
+		     '       }'. "\n".
+		     '    }'. "\n".
+		     '    window.alert(comp_uri);'.
+                     '    var newwin = window.open(comp_uri' .
+                     ', "_blank",
                 "width='.$compose_width.",height=$compose_height".
                      ",scrollbars=yes,resizable=yes\");\n".
                      "}\n";
@@ -163,8 +209,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
         . "      <TD ALIGN=left>\n";
     $urlMailbox = urlencode($mailbox);
     if ($compose_new_win == '1') {
-        echo "<a href=$base_uri". "src/compose.php?mailbox=$urlMailbox target=".
-             '"compose_window" onClick="comp_in_new()">'. _("Compose"). '</a>';
+        echo "<a href=\"javascript:void(0)\" onclick=\"comp_in_new(true,'')\">". _("Compose"). '</a>';
     }
     else {
         displayInternalLink ("src/compose.php?mailbox=$urlMailbox", _("Compose"), 'right');

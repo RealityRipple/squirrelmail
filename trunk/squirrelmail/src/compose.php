@@ -70,10 +70,10 @@ if (!isset($composesession)) {
     session_register('composesession');
 }
 
-if (!isset($session)) {
+if (!isset($session) || (isset($newmessage) && $newmessage)) {
     $session = "$composesession" +1; 
     $composesession = $session;        
-}    
+}     
 
 if (!isset($mailbox) || $mailbox == '' || ($mailbox == 'None')) {
     $mailbox = 'INBOX';
@@ -179,7 +179,7 @@ if (isset($send)) {
             exit();
         }
         if ($compose_new_win == '1') {
-            Header("Location: compose.php?mail_sent=yes&session=$composesession");
+            Header("Location: compose.php?mail_sent=yes");
         }
         else {
             Header("Location: right_main.php?mailbox=$urlMailbox&sort=$sort".
@@ -341,6 +341,10 @@ elseif (isset($sigappend)) {
     }
 
     if (isset($draft_id) && $draft_id && isset($ent_num) && $ent_num) {
+        getAttachments(0, $session);
+    }
+
+    if (isset($passed_id) && $passed_id && isset($ent_num) && $ent_num) {
         getAttachments(0, $session);
     }
 
@@ -510,12 +514,14 @@ function newMail () {
 
 function getAttachments($message, $session) {
     global $mailbox, $attachments, $attachment_dir, $imapConnection,
-           $ent_num, $forward_id, $draft_id, $username;
+           $ent_num, $forward_id, $draft_id, $username, $passed_id;
 
     if (isset($draft_id)) {
         $id = $draft_id;
-    } else {
+    } else if (isset($forward_id)) {
         $id = $forward_id;
+    } else {
+        $id = $passed_id;
     }
 
     if (!$message) {
