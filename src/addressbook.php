@@ -15,7 +15,7 @@ require_once('../src/validate.php');
 require_once('../functions/array.php');
 require_once('../functions/display_messages.php');
 require_once('../functions/addressbook.php');
-include_once('../functions/strings.php');
+require_once('../functions/strings.php');
 
 /* Make an input field */
 function adressbook_inp_field($label, $field, $name, $size, $values, $add) {
