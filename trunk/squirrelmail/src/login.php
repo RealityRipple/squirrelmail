@@ -64,11 +64,11 @@ if($imap_auth_mech == 'login') {
     $logindisabled = sqimap_capability($imap,'LOGINDISABLED');
     sqimap_logout($imap);
     if ($logindisabled) {
-        $string = "The IMAP server is reporting that logins are disabled.<br>";
+        $string = _("The IMAP server is reporting that logins are disabled.").'<br />';
         if (!$use_imap_tls) {
-            $string .= "The use of TLS may allow SquirrelMail to login.<br>";
+            $string .= _("The use of TLS may allow SquirrelMail to login.").'<br />';
         }
-        $string .= "Please contact your system administrator.";
+        $string .= _("Please contact your system administrator and report this error.");
         error_box($string,$color);
         exit;
     }
