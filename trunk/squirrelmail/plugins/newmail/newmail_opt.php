@@ -85,7 +85,7 @@ _("Select from the list of <b>server files</b> the media file to play when new m
     if ($media_changetitle == 'on') {
               echo 'checked ';
     }
-    echo 'name=media_changetitle><b> ' . _("Change title on supported browsers.") . '</b> &nbsp; (' . _("requires IE and JavaScript to work") . ')</td>'.
+    echo 'name=media_changetitle><b> ' . _("Change title on supported browsers.") . '</b> &nbsp; (' . _("requires JavaScript to work") . ')</td>'.
             '</tr>'.
             '<tr>'.
                 '<td align=right nowrap>&nbsp</td>'.

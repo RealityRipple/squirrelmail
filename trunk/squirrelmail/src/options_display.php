@@ -71,11 +71,10 @@ function load_optpage_data_display() {
                            SMPREF_JS_OFF        => _("Never"))
     );
 
-    $js_autodetect_script = "
-        <SCRIPT LANGUAGE=\"JavaScript\"><!--
-           document.forms[0].new_js_autodetect_results.value = '" . SMPREF_JS_ON . "';
-        // --></SCRIPT>
-    ";
+    $js_autodetect_script =
+        "<SCRIPT LANGUAGE=\"JavaScript\"><!--\n".
+           "document.forms[0].new_js_autodetect_results.value = '" . SMPREF_JS_ON . "';\n".
+        "// --></SCRIPT>\n";
     $js_autodetect_results = SMPREF_JS_OFF;
     $optvals[SMOPT_GRP_GENERAL][] = array(
         'name'    => 'js_autodetect_results',
