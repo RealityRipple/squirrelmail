@@ -468,7 +468,12 @@ function sqimap_mailbox_list($imap_stream) {
                     $used[$k] = true;
                 }
                 $spec_sub = str_replace('&nbsp;', '', $box['formatted']);
-                if (!$used[$k] && preg_match("/^$default_folder_prefix(Sent|Drafts|Trash).{1}$spec_sub$/", $box['unformatted']) ) {
+
+               /* In case of problems with preg
+                  here is a ereg version
+                 if (!$used[$k] && ereg("^$default_folder_prefix(Sent|Drafts|Trash).{1}$spec_sub$", $box['unformatted']) ) { */
+                 
+                if (!$used[$k] && preg_match("?^$default_folder_prefix(Sent|Drafts|Trash).{1}$spec_sub$?", $box['unformatted']) ) {
                     $boxesnew[] = $box;
                     $used[$k] = true;
                 }
