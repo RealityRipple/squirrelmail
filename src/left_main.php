@@ -972,7 +972,7 @@ echo "\n\n" . html_tag( 'table', '', 'left', '', 'border="0" cellspacing="0" cel
 if ($date_format != 6) {
     /* First, display the clock. */
     if ($hour_format == 1) {
-        $hr = 'G:i';
+        $hr = 'H:i';
         if ($date_format == 4) {
             $hr .= ':s';
         }
