@@ -82,7 +82,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                     "\n<!--\n";
                 $js .= "function comp_in_new(new_mes, comp_uri) {\n".
 		     '    if (new_mes) { '."\n".
-		     "       comp_uri = \"".$base_uri."/src/compose.php?newmessage=1\";\n".
+		     "       comp_uri = \"".$base_uri."src/compose.php?newmessage=1\";\n".
 		     '    } else { '."\n".
 		     "       if (comp_uri =='') {\n".
 		     '           comp_uri = "'.$base_uri.$compose_uri."\";\n".
