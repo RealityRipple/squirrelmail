@@ -400,6 +400,15 @@ function load_optpage_data_display() {
     );
 
     $optvals[SMOPT_GRP_MESSAGE][] = array(
+        'name'    => 'body_quote',
+        'caption' => _("Prefix for Original Message when Replying"),
+        'type'    => SMOPT_TYPE_STRING,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'size'    => SMOPT_SIZE_TINY,
+        'save'    => 'save_option_reply_prefix'
+    );
+
+    $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'reply_focus',
         'caption' => _("Cursor Position when Replying"),
         'type'    => SMOPT_TYPE_STRLIST,
@@ -498,6 +507,23 @@ function icon_theme_save($option) {
         setPref($data_dir, $username, 'icon_theme', $icon_themes[$option->new_value]['PATH']);
     else
        setPref($data_dir, $username, 'icon_theme', 'none');
+
+}
+
+/** 
+ * This function saves the reply prefix (body_quote) character(s)
+ */
+function save_option_reply_prefix($option) {
+    global $data_dir, $username, $new_javascript_setting;
+
+    // save as "NONE" if it was blanked out
+    //
+    if (empty($option->new_value)) $option->new_value = 'NONE';
+
+
+    // Save the option like normal.
+    //
+    save_option($option);
 
 }
 

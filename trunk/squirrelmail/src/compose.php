@@ -580,7 +580,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
     global $editor_size, $default_use_priority, $body, $idents,
            $use_signature, $composesession, $data_dir, $username,
            $username, $key, $imapServerAddress, $imapPort, $compose_messages,
-           $composeMessage;
+           $composeMessage, $body_quote;
     global $languages, $squirrelmail_language, $default_charset;
 
     /*
@@ -800,9 +800,9 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 sqWordWrap($line, ($editor_size));
                 if (preg_match("/^(>+)/", $line, $matches)) {
                     $gt = $matches[1];
-                    $body .= '>' . str_replace("\n", "\n>$gt ", rtrim($line)) ."\n";
+                    $body .= $body_quote . str_replace("\n", "\n$body_quote$gt ", rtrim($line)) ."\n";
                 } else {
-                    $body .= '> ' . str_replace("\n", "\n> ", rtrim($line)) . "\n";
+                    $body .= $body_quote . (!empty($body_quote) ? ' ' : '') . str_replace("\n", "\n$body_quote" . (!empty($body_quote) ? ' ' : ''), rtrim($line)) . "\n";
                 }
             }
             $body = getReplyCitation($from , $orig_header->date) . $body;
