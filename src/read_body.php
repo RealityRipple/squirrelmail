@@ -284,7 +284,7 @@ function ClearAttachments() {
 		$rem_attachments[] = $info;
 	    }
 	}
-        $attachments = rem_attachments;
+        $attachments = $rem_attachments;
 }
 
 function formatRecipientString($recipients, $item ) {
