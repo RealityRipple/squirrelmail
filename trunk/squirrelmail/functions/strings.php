@@ -439,15 +439,18 @@ function makeComposeLink($url, $text = null)
 }
 
 /** 
-* sm_print_r($some_variable);
+* sm_print_r($some_variable, [$some_other_variable [, ...]]);
 * Debugging function - does the same as print_r, but makes sure special
 * characters are converted to htmlentities first.  This will allow
 * values like <some@email.address> to be displayed.
 * The output is wrapped in <pre> and </pre> tags.
 */
-function sm_print_r($var) {
+function sm_print_r() {
     ob_start();  // Buffer output
-    print_r($var);
+    foreach(func_get_args() as $var) {
+        print_r($var);
+        echo "\n";
+    }
     $buffer = ob_get_contents(); // Grab the print_r output
     ob_end_clean();  // Silently discard the output & stop buffering
     print "<pre>";
