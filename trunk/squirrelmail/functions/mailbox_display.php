@@ -323,6 +323,8 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                     }
                     if (isset($msg['FLAG_ANSWERED']) && ($msg['FLAG_ANSWERED']) == true)
                     {
+                        $msg_alt = '(' . _("Answered") . ')';
+                        $msg_title = '(' . _("Answered") . ')';
                         $msg_icon .= '_reply';
                     }
                     $td_str .= '<IMG SRC="' . $msg_icon . '.gif" border="0" alt="'. $msg_alt . '" title="' . $msg_title . '" height="12" width="18" >';
