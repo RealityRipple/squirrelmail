@@ -34,6 +34,12 @@ function fix_sort_array () {
     global $username, $data_dir, $allow_server_sort, $allow_thread_sort,
     $thread_sort_messages, 
     $mailbox, $imapConnection, $sort, $uid_support, $mbx_response;
+    
+    // Got to grab this out of prefs, since it isn't saved from mailbox_view.php
+    if ($allow_thread_sort) {
+        $thread_sort_messages = getPref($data_dir, $username, "thread_$mailbox",0); 
+    }
+    
     switch (true) {
       case ($allow_thread_sort && $thread_sort_messages):
           $server_sort_array = get_thread_sort($imapConnection);
