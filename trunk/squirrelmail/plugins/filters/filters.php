@@ -25,6 +25,7 @@
  * $Id$
  */
 
+
 function filters_SaveCache () {
     global $data_dir, $SpamFilters_DNScache;
 
@@ -162,94 +163,11 @@ function filters_bulkquery($filters_spam_scan, $filters, $read) {
     }
 }
 
-
-function filters_sqimap_read_data ($imap_stream, $pre, $handle_errors, &$response, &$message) {
-    global $color, $squirrelmail_language, $imap_general_debug;
-
-    $data = array();
-    $size = 0;
-
-    do {
-        $read = fgets($imap_stream, 9096);
-        if (ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs)) {
-            break;  // found end of reply
-        }
-
-        // Continue if needed for this single line
-        while (strpos($read, "\n") === false) {
-            $read .= fgets($imap_stream, 9096);
-        }
-
-        $data[] = $read;
-
-        if (ereg("^\\* [0-9]+ FETCH.*\\{([0-9]+)\\}", $read, $regs)) {
-            $size = $regs[1];
-            if ($imap_general_debug) {
-                echo "<small><tt><font color=\"#CC0000\">Size is $size</font></tt></small><br>\n";
-            }
-
-            $total_size = 0;
-            do {
-                $read = fgets($imap_stream, 9096);
-                if ($imap_general_debug) {
-                    echo "<small><tt><font color=\"#CC0000\">$read</font></tt></small><br>\n";
-                    flush();
-                }
-                $data[] = $read;
-                $total_size += strlen($read);
-            } while ($total_size < $size);
-
-            $size = 0;
-        }
-        // For debugging purposes
-        if ($imap_general_debug) {
-            echo "<small><tt><font color=\"#CC0000\">$read</font></tt></small><br>\n";
-            flush();
-        }
-    } while (true);
-
-    $response = $regs[1];
-    $message = trim($regs[2]);
-
-    if ($imap_general_debug) {
-        echo '--<br>';
-    }
-
-    if (!$handle_errors) {
-        return $data;
-    }
-
-    if ($response == 'NO') {
-        // ignore this error from m$ exchange, it is not fatal (aka bug)
-        if (strstr($message, 'command resulted in') === false) {
-            set_up_language($squirrelmail_language);
-            echo "<br><b><font color=$color[2]>\n" .
-                 _("ERROR : Could not complete request.") .
-                 "</b><br>\n" .
-                 _("Reason Given: ") .
-                 $message . "</font><br>\n";
-            exit;
-        }
-    } else if ($response == 'BAD') {
-        set_up_language($squirrelmail_language);
-        echo "<br><b><font color=$color[2]>\n" .
-             _("ERROR : Bad or malformed request.") .
-             "</b><br>\n" .
-             _("Server responded: ") .
-             $message . "</font><br>\n";
-        exit;
-    }
-
-    return $data;
-}
-
-
 function start_filters() {
     global $mailbox, $username, $key, $imapServerAddress, $imapPort, $imap,
         $imap_general, $filters, $imap_stream, $imapConnection,
     $UseSeparateImapConnection, $AllowSpamFilters;
 
-# We really want to do this for ALL mailbox.
 #    if ($mailbox == 'INBOX') {
         // Detect if we have already connected to IMAP or not.
         // Also check if we are forced to use a separate IMAP connection
@@ -290,83 +208,82 @@ function user_filters($imap_stream) {
     $filters_user_scan = getPref($data_dir, $username, 'filters_user_scan');
 
     sqimap_mailbox_select($imap_stream, 'INBOX');
-
-    /* For every rule */
+    $id = array();
+    // For every rule
     for ($i=0; $i < count($filters); $i++) {
         // If it is the "combo" rule
         if ($filters[$i]['where'] == 'To or Cc') {
-
-            /* If it's "TO OR CC", we have to do two     */
-            /* searches one for TO and the other for CC. */
-            filter_search_and_delete($imap_stream,
-                                     'TO',
-                                     $filters[$i]['what'],
-                                     $filters[$i]['folder'],
-                                     $filters_user_scan);
-            filter_search_and_delete($imap_stream,
-                                     'CC',
-                                     $filters[$i]['what'],
-                                     $filters[$i]['folder'],
-                                     $filters_user_scan);
+            /*
+            *  If it's "TO OR CC", we have to do two searches, one for TO
+            *  and the other for CC.
+            */
+            $id = filter_search_and_delete($imap_stream, 'TO',
+                  $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan, $id);
+            $id = filter_search_and_delete($imap_stream, 'CC',
+                  $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan, $id);
         } else {
-
-            /* If it's a normal TO, CC, SUBJECT, */
-            /* or FROM, then handle it normally. */
-            filter_search_and_delete($imap_stream,
-                                     $filters[$i]['where'],
-                                     $filters[$i]['what'],
-                                     $filters[$i]['folder'],
-                                     $filters_user_scan);
+            /*
+            *  If it's a normal TO, CC, SUBJECT, or FROM, then handle it
+            *  normally.
+            */
+            $id = filter_search_and_delete($imap_stream, $filters[$i]['where'],
+                 $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan);
         }
     }
-
-    /* Clean out the mailbox whether or not auto_expunge is */
-    /* on That way it looks like it was redirected properly */
-    sqimap_mailbox_expunge($imap_stream, 'INBOX');
+    // Clean out the mailbox whether or not auto_expunge is on
+    // That way it looks like it was redirected properly
+    if (count($id)) {
+	sqimap_mailbox_expunge($imap_stream, 'INBOX');
+    }
 }
 
-function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan) {
-    global $languages, $squirrelmail_language, $allow_charset_search,
-           $uid_support;
+function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan, $del_id)
+{
+    global $languages, $squirrelmail_language, $allow_charset_search, $uid_support;
     if ($user_scan == 'new') {
         $category = 'UNSEEN';
     } else {
         $category = 'ALL';
     }
 
-    if ($allow_charset_search
-     && isset($languages[$squirrelmail_language]['CHARSET'])
-     && $languages[$squirrelmail_language]['CHARSET']) {
-        $search_str = 'SEARCH CHARSET "'
+    if ($allow_charset_search && isset($languages[$squirrelmail_language]['CHARSET']) &&
+        $languages[$squirrelmail_language]['CHARSET']) {
+        $search_str = "SEARCH CHARSET "
             . strtoupper($languages[$squirrelmail_language]['CHARSET']) 
-            . '" ' . $category . ' ';
+            . ' ' . $category . ' ';
     } else {
-        $search_str = 'SEARCH CHARSET "US-ASCII" ' . $category . ' ';
+        $search_str = 'SEARCH CHARSET US-ASCII ' . $category . ' ';
     }
     if ($where == "Header") {
        $what = explode(':', $what);
        $where = trim($where . ' ' . $what[0]);
        $what = addslashes(trim($what[1]));
     }
-    $search_str .= $where . ' {' . strlen($what) . "}\r\n" . $what . "\r\n";
-    $readin = sqimap_run_command($imap, $search_str, false, $result, $message, $uid_support);
 
-    for ($r=0; $r < count($readin) && substr($readin[$r], 0, 8) != '* SEARCH'; ++$r) {}
-    if ($result == 'OK') {
-        $ids = explode(' ', $readin[$r]);
+    /* read data back from IMAP */
+    $read = sqimap_run_command($imap, $search_str, true, $reponse, $message, $uid_support);
+    
+    // This may have problems with EIMS due to it being goofy
+
+    for ($r=0; $r < count($read) &&
+                substr($read[$r], 0, 8) != '* SEARCH'; $r++) {}
+    if ($response == 'OK') {
+        $ids = explode(' ', $read[$r]);
         if (sqimap_mailbox_exists($imap, $where_to)) {
             for ($j=2; $j < count($ids); $j++) {
                 $id = trim($ids[$j]);
+		$del_id[] = $id;
                 sqimap_messages_copy ($imap, $id, $id, $where_to);
-                sqimap_messages_flag ($imap, $id, $id, 'Deleted', true);
+                sqimap_messages_flag ($imap, $id, $id, 'Deleted',false);
             }
         }
     }
+    return $del_id;
 }
 
 // These are the spam filters
 function spam_filters($imap_stream) {
-    global $data_dir, $username;
+    global $data_dir, $username, $uid_support;
     global $SpamFilters_YourHop;
     global $SpamFilters_DNScache;
     global $SpamFilters_SharedCache;
@@ -397,21 +314,14 @@ function spam_filters($imap_stream) {
 
     // Ask for a big list of all "Received" headers in the inbox with
     // flags for each message.  Kinda big.
-    //fputs($imap_stream, 'A3999 FETCH 1:* (FLAGS BODY.PEEK[HEADER.FIELDS ' .
-    //    "(RECEIVED)])\r\n");
-    $sid = sqimap_session_id();
     if ($filters_spam_scan != 'new') {
-        fputs($imap_stream, $sid.' FETCH 1:* (FLAGS BODY.PEEK[HEADER.FIELDS ' .
-            "(RECEIVED)])\r\n");
+        $read = sqimap_run_command($imap_stream, 'FETCH 1:* (FLAGS BODY.PEEK[HEADER.FIELDS ' .
+            '(RECEIVED)])', true, $reponse, $message, $uid_support);
     } else {
-        fputs ($imap_stream, $sid.' SEARCH UNSEEN' . "\r\n");
-        $read = filters_sqimap_read_data ($imap_stream, $sid, true,
-                                          $response, $message);
-        $sid = sqimap_session_id();
+        $read = sqimap_run_command($imap_stream, 'SEARCH UNSEEN', true, $reponse, $message, $uid_support);
         if ($response != 'OK' || trim($read[0]) == '* SEARCH') {
-            fputs($imap_stream,
-                  $sid.' FETCH 1:* (FLAGS BODY.PEEK[HEADER.FIELDS ' .
-                     "(RECEIVED)])\r\n");
+    	    $read = sqimap_run_command($imap_stream, 'FETCH 1:* (FLAGS BODY.PEEK[HEADER.FIELDS ' .
+            '(RECEIVED)])', true, $reponse, $message, $uid_support);
         } else {
 	    $read[0] = trim($read[0]);
             $i = 0;
@@ -422,14 +332,12 @@ function spam_filters($imap_stream) {
             }
             $imap_query .= $Chunks[count($Chunks)-1];
             $imap_query .= ' (FLAGS BODY.PEEK[HEADER.FIELDS ';
-            $imap_query .= "(RECEIVED)])\r\n";
-            fputs($imap_stream, $imap_query);
+            $imap_query .= '(RECEIVED)])';//\r\n";
+	    $read = sqimap_run_command($imap_stream,$imap_query, true, $reponse, $message, $uid_support);
         }
     }
     
-    $read = filters_sqimap_read_data ($imap_stream, $sid, true,
-                                    $response, $message);
-    if ($response != 'OK') {
+    if (isset($response) && $response != 'OK') {
         return;
     }
 
@@ -493,7 +401,7 @@ function spam_filters($imap_stream) {
                 sqimap_messages_copy ($imap_stream, $MsgNum, $MsgNum,
                                     $filters_spam_folder);
                 sqimap_messages_flag ($imap_stream, $MsgNum, $MsgNum,
-                                    'Deleted');
+                                    'Deleted', false);
             }
         } else {
         }
@@ -506,6 +414,7 @@ function spam_filters($imap_stream) {
     } else {
        session_register('SpamFilters_DNScache');
     }
+
 }
 
 
