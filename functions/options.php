@@ -275,33 +275,14 @@ class SquirrelOption {
 
     function createWidget_Integer() {
 
-        global $javascript_on;
+        return $this->createWidget_String();
 
-        // add onChange javascript handler to a regular string widget
-        // which will strip out all non-numeric chars
-        if ($javascript_on)
-           return preg_replace('/>/', ' onChange="a=this.value; b=\'\'; '
-                    . 'for (i=0;i<a.length;i++) { if (a.charAt(i)>=\'0\' '
-                    . '&& a.charAt(i)<=\'9\') b += a.charAt(i); } '
-                    . 'this.value=b;">', $this->createWidget_String());
-        else
-           return $this->createWidget_String();
     }
 
     function createWidget_Float() {
         
-        global $javascript_on;
+        return $this->createWidget_String();
 
-        // add onChange javascript handler to a regular string widget
-        // which will strip out all non-numeric (period also OK) chars 
-        if ($javascript_on)
-           return preg_replace('/>/', ' onChange="a=this.value; b=\'\'; '
-                    . 'for (i=0;i<a.length;i++) { if ((a.charAt(i)>=\'0\' '
-                    . '&& a.charAt(i)<=\'9\') || a.charAt(i)==\'.\') '
-                    . 'b += a.charAt(i); } this.value=b;">'
-                , $this->createWidget_String());
-        else
-           return $this->createWidget_String();
     }
 
     function createWidget_Boolean() {
