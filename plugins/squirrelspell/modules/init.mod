@@ -45,7 +45,7 @@ if (sizeof($langs)==1){
   for ($i=0; $i<sizeof($langs); $i++){
     $msg .= "<option";
     if (!$i) {
-      $msg .= ' selected';
+      $msg .= ' selected="selected"';
     }
     $msg .= " value=\"$langs[$i]\"> " . _($langs[$i]) . "</option>\n";
   }  

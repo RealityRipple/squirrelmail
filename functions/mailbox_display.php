@@ -300,7 +300,7 @@ function printMessageInfo($aMsg) {
     $sSubject = str_replace('&nbsp;', ' ', decodeHeader($sSubject));
     $subject = processSubject($sSubject, $iIndent);
 
-    echo html_tag( 'tr','','','','VALIGN="top"') . "\n";
+    echo html_tag( 'tr','','','','valign="top"') . "\n";
 
     if (sizeof($index_order)) {
         foreach ($index_order as $index_order_part) {
@@ -1189,24 +1189,24 @@ function mail_message_listing_beginning ($imapConnection,
     // display flag buttons only if supported
     if ($show_flag_buttons  &&
         in_array('\\flagged',$aMailbox['PERMANENTFLAGS'], true) ) {
-        $button_str .= getButton('SUBMIT', 'markUnflagged', _("Unflag"));
-        $button_str .= getButton('SUBMIT', 'markFlagged',   _("Flag"));
+        $button_str .= getButton('submit', 'markUnflagged', _("Unflag"));
+        $button_str .= getButton('submit', 'markFlagged',   _("Flag"));
         $button_str .= "&nbsp;\n";
     }
     if (in_array('\\seen',$aMailbox['PERMANENTFLAGS'], true)) {
-        $button_str .= getButton('SUBMIT', 'markUnread', _("Unread"));
-        $button_str .= getButton('SUBMIT', 'markRead',   _("Read"));
+        $button_str .= getButton('submit', 'markUnread', _("Unread"));
+        $button_str .= getButton('submit', 'markRead',   _("Read"));
         $button_str .= "&nbsp;\n";
     }
-    $button_str .= getButton('SUBMIT', 'attache',_("Forward")) .
+    $button_str .= getButton('submit', 'attache',_("Forward")) .
                    "&nbsp;\n";
     if (in_array('\\deleted',$aMailbox['PERMANENTFLAGS'], true)) {
-        $button_str .= getButton('SUBMIT', 'delete',_("Delete"));
+        $button_str .= getButton('submit', 'delete',_("Delete"));
         $button_str .= '<input type="checkbox" name="bypass_trash" />' . _("Bypass Trash");
         $button_str .= "&nbsp;\n";
     }
     if (!$aMailbox['AUTO_EXPUNGE'] && $aMailbox['RIGHTS'] != 'READ-ONLY') {
-        $button_str .= getButton('SUBMIT', 'expungeButton',_("Expunge"))  .'&nbsp;' . _("mailbox") . "\n";
+        $button_str .= getButton('submit', 'expungeButton',_("Expunge"))  .'&nbsp;' . _("mailbox") . "\n";
         $button_str .= '&nbsp;';
     }
 ?>
@@ -1240,7 +1240,7 @@ function mail_message_listing_beginning ($imapConnection,
                         <select name="targetMailbox">
                             <?php echo sqimap_mailbox_option_list($imapConnection, array(strtolower($lastTargetMailbox)), 0, $boxes); ?>
                         </select></tt>&nbsp;
-                        <?php echo getButton('SUBMIT', 'moveButton',_("Move")); ?>
+                        <?php echo getButton('submit', 'moveButton',_("Move")); ?>
                     </small>
                 <?php
                 }

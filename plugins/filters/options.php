@@ -126,12 +126,12 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
             '<select name="filters_user_scan_set">'.
             '<option value=""';
     if ($filters_user_scan == '') {
-        echo ' selected';
+        echo ' selected="selected"';
     }
     echo '>' . _("All messages") . '</option>'.
             '<option value="new"';
     if ($filters_user_scan == 'new') {
-        echo ' selected';
+        echo ' selected="selected"';
     }
     echo '>' . _("Only unread messages") . '</option>' .
             '</select>'.
@@ -163,23 +163,23 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
 
         $L = isset($filters[$theid]['where']);
 
-        $sel = (($L && $filters[$theid]['where'] == 'From')?'selected':'');
-        echo "<option value=\"From\" $sel>" . _("From") . '</option>';
+        $sel = (($L && $filters[$theid]['where'] == 'From')?' selected="selected"':'');
+        echo "<option value=\"From\"$sel>" . _("From") . '</option>';
 
-        $sel = (($L && $filters[$theid]['where'] == 'To')?'selected':'');
-        echo "<option value=\"To\" $sel>" . _("To") . '</option>';
+        $sel = (($L && $filters[$theid]['where'] == 'To')?' selected="selected"':'');
+        echo "<option value=\"To\"$sel>" . _("To") . '</option>';
 
-        $sel = (($L && $filters[$theid]['where'] == 'Cc')?'selected':'');
-        echo "<option value=\"Cc\" $sel>" . _("Cc") . '</option>';
+        $sel = (($L && $filters[$theid]['where'] == 'Cc')?' selected="selected"':'');
+        echo "<option value=\"Cc\"$sel>" . _("Cc") . '</option>';
 
-        $sel = (($L && $filters[$theid]['where'] == 'To or Cc')?'selected':'');
-        echo "<option value=\"To or Cc\" $sel>" . _("To or Cc") . '</option>';
+        $sel = (($L && $filters[$theid]['where'] == 'To or Cc')?' selected="selected"':'');
+        echo "<option value=\"To or Cc\"$sel>" . _("To or Cc") . '</option>';
 
-        $sel = (($L && $filters[$theid]['where'] == 'Subject')?'selected':'');
-        echo "<option value=\"Subject\" $sel>" . _("Subject") . '</option>';
+        $sel = (($L && $filters[$theid]['where'] == 'Subject')?' selected="selected"':'');
+        echo "<option value=\"Subject\"$sel>" . _("Subject") . '</option>';
 
-        $sel = (($L && $filters[$theid]['where'] == 'Header')?'selected':'');
-        echo "<option value=\"Header\" $sel>" . _("Header") . '</option>';
+        $sel = (($L && $filters[$theid]['where'] == 'Header')?' selected="selected"':'');
+        echo "<option value=\"Header\"$sel>" . _("Header") . '</option>';
 
         echo         '</select>'.
                 '</td>'.

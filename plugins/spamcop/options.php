@@ -113,20 +113,20 @@ spamcop_load();
 		<?php
 		    if ($spamcop_quick_report) {
 			echo '<option value="quick_email"';
-    	    		if ($spamcop_method == 'quick_email') echo ' selected';
+    	    		if ($spamcop_method == 'quick_email') echo ' selected="selected"';
 			echo ">"._("Quick email-based reporting");
 			echo '</option>';
 		    }
 	        ?>
 	      <option value="thorough_email"
 		<?php
-	    	  if ($spamcop_method == 'thorough_email') echo ' selected';
+	    	  if ($spamcop_method == 'thorough_email') echo ' selected="selected"';
 	    	  echo ">"._("Thorough email-based reporting");
 		?>
 	      </option>
 	      <option value="web_form"
 	        <?php
-	          if ($spamcop_method == 'web_form') echo ' selected';
+	          if ($spamcop_method == 'web_form') echo ' selected="selected"';
 	    	  echo ">"._("Web-based form");
 		?>
 	      </option>
@@ -146,13 +146,13 @@ spamcop_load();
 	    <select name="type">
 	      <option value="free"
 		<?php
-	    	  if ($spamcop_type == 'free') echo ' selected';
+	    	  if ($spamcop_type == 'free') echo ' selected="selected"';
 	    	  echo ">"._("Free reporting");
 		?>
 	      </option>
 	      <option value="member"
 	        <?php
-	          if ($spamcop_type == 'member') echo ' selected';
+	          if ($spamcop_type == 'member') echo ' selected="selected"';
 	    	  echo ">"._("Member services");
 		?>
 	      </option>

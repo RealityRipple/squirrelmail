@@ -661,7 +661,7 @@ function asearch_print_recent(&$boxes)
 */
 function asearch_opt($val, $sel, $tit)
 {
-    return '<option value="' . $val . '"' . ($sel == $val ? ' selected' : '') . '>' . $tit . '</option>' . "\n";
+    return '<option value="' . $val . '"' . ($sel == $val ? ' selected="selected"' : '') . '>' . $tit . '</option>' . "\n";
 }
 
 /** Build a <select> statement from an array
@@ -797,10 +797,10 @@ function asearch_print_form($imapConnection, &$boxes, $mailbox_array, $biop_arra
 //Submit buttons
     echo html_tag('table', '', 'center', $color[9], 'width="100%" cellpadding="1" cellspacing="0" border="0"');
     echo html_tag('tr',
-                html_tag('td', getButton('SUBMIT', 'submit', $search_button_html), 'center') . "\n"
-            . html_tag('td', getButton('SUBMIT', 'submit', $add_criteria_button_html), 'center') . "\n"
-            . html_tag('td', getButton('SUBMIT', 'submit', $del_all_button_html), 'center') . "\n"
-            . html_tag('td', getButton('SUBMIT', 'submit', $del_excluded_button_html), 'center') . "\n"
+                html_tag('td', getButton('submit', 'submit', $search_button_html), 'center') . "\n"
+            . html_tag('td', getButton('submit', 'submit', $add_criteria_button_html), 'center') . "\n"
+            . html_tag('td', getButton('submit', 'submit', $del_all_button_html), 'center') . "\n"
+            . html_tag('td', getButton('submit', 'submit', $del_excluded_button_html), 'center') . "\n"
             );
     echo '</table>' . "\n";
     echo '</form>' . "\n";
@@ -825,7 +825,7 @@ function asearch_print_form_row_basic($imapConnection, &$boxes, $mailbox, $biop,
     echo html_tag('td', asearch_get_form_what($what), 'center') . "\n";
 
 //Submit button
-    echo html_tag('td', getButton('SUBMIT', 'submit', $search_button_html), 'center') . "\n";
+    echo html_tag('td', getButton('submit', 'submit', $search_button_html), 'center') . "\n";
 
     echo "</tr>\n";
 }
@@ -892,7 +892,7 @@ function asearch_print_mailbox_msgs($imapConnection, &$aMailbox, $color)
     mail_message_listing_beginning($imapConnection, $aMailbox, $msg_cnt_str, $mailbox_title . " $paginator_str");
     echo '</td></tr>';
 
-    echo '<tr><td HEIGHT="5" BGCOLOR="'.$color[4].'"></td></tr>';
+    echo '<tr><td height="5" bgcolor="'.$color[4].'"></td></tr>';
 
     echo '<tr><td>';
     echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
