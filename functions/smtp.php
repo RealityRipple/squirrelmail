@@ -6,9 +6,6 @@
     **/
 
 
-   /* These next 2 functions are stub functions for implementations of 
-      attachments */
-
    // Returns true only if this message is multipart
    function isMultipart () {
       global $attachments;
