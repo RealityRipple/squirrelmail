@@ -151,14 +151,14 @@ echo "<TR><TD BGCOLOR=\"$color[0]\">";
       echo "   <TD WIDTH=1%><B>&nbsp;</B></TD>";
       /** FROM HEADER **/
       if ($mailbox == $sent_folder)
-         echo "   <TD WIDTH=30%><B>". _("To") ."</B>";
+         echo "   <TD WIDTH=30%><B>". _("To") ."</B></td>";
       else
-         echo "   <TD WIDTH=30%><B>". _("From") ."</B>";
+         echo "   <TD WIDTH=30%><B>". _("From") ."</B></td>";
       /** DATE HEADER **/
-      echo "   <TD nowrap WIDTH=1%><B>". _("Date") ."</B>";
+      echo "   <TD nowrap WIDTH=1%><B>". _("Date") ."</B></td>";
 		echo "   <TD WIDTH=1%>&nbsp;</TD>\n";
       /** SUBJECT HEADER **/
-      echo "   <TD WIDTH=%><B>". _("Subject") ."</B>\n";
+      echo "   <TD WIDTH=%><B>". _("Subject") ."</B></td>\n";
       echo "</TR>";
  	
 while ($j < count($msgs)) {
@@ -167,6 +167,7 @@ while ($j < count($msgs)) {
 		$j++;
  	}
 echo "</table>";
+echo "</tr></td></table>";
 	}
 }
 
