@@ -1057,6 +1057,41 @@ files.
       and change your Language setting to see the translations in action!
 
 
+
+Documenting the Code (Optional)
+-------------------------------
+
+If you wish, you can use phpdoc (Javadoc-style) comments, when documenting your
+code.
+
+If you follow the standards that are followed between Squirrelmail core &
+plugin developers, the resulted documentation can be included with the rest of
+the Squirrelmail code & API documentation. Specifically, in the page-level
+docblock, declare the package to be 'plugins', and the subpackage to be the
+name of your plugin. For instance:
+  
+/**
+ * demo.php
+ *
+ * Copyright (c) 2003 My Name <my-email-address>
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * @package plugins
+ * @subpackage demo
+ */
+
+The rest is up to you. Try to follow some common sense and document what is
+really needed. Documenting the code properly can be a big help not only to
+yourself, but to those who will take a look at your code, fix the bugs and even
+improve it, in the true open-source spirit that Squirrelmail was built upon.
+
+For more information about phpdocumentor and how to write proper-tagged
+comments, you are directed at:
+
+http://phpdocu.sourceforge.net/
+
+
+
 PLUGIN STANDARDS AND REQUIREMENTS
 =================================
 
