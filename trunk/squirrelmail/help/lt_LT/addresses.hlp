@@ -3,24 +3,24 @@
       Adresai
    </title>
    <summary>
-      Adresù knygos gali sutaupyti daug laiko ir spausdinimo. Jşs galite
-      i¹saugoti adresus ¾moniù, kuriems ra¹ote da¾niausiai ir vìliau juos
+      AdresÅ³ knygos gali sutaupyti daug laiko ir spausdinimo. JÅ«s galite
+      iÅ¡saugoti adresus Å¾moniÅ³, kuriems raÅ¡ote daÅ¾niausiai ir vÄ—liau juos
       panaudoti.
    </summary>
    <description>
       <p>
-      Adresù knygos yra geros priemonìs taupyti laik±. Jose gali bşti 
-      saugomi da¾niausiai naudojami adresai. LDAP serveriai (da¾nai 
-      naudojami privaèiose kompanijose ir universitetuose, kad 
-      standartiniai organizacijù adresai bştù lengvai pasiekiami) taip
+      AdresÅ³ knygos yra geros priemonÄ—s taupyti laikÄ…. Jose gali bÅ«ti 
+      saugomi daÅ¾niausiai naudojami adresai. LDAP serveriai (daÅ¾nai 
+      naudojami privaÄiose kompanijose ir universitetuose, kad 
+      standartiniai organizacijÅ³ adresai bÅ«tÅ³ lengvai pasiekiami) taip
       pat yra palaikomi Squirrelmail.
       </p>
       <p>
-      Jei jşsù nar¹yklì palaiko Javascript, tada jums bştù geriau çjungti
-      javascript naudojanèi± adresù knyg± savo pa¹to Nustatymù meniu. Ji 
-      veikia nedideliù i¹¹okanèiù langù principu. Paprasti HTML adresù 
-      s±ra¹ai yra palaikomi tam atvejui, kad Squirrelmail galìtù naudoti
-      ir paèios paprasèiausios Interneto nar¹yklìs.
+      Jei jÅ«sÅ³ narÅ¡yklÄ— palaiko Javascript, tada jums bÅ«tÅ³ geriau Ä¯jungti
+      javascript naudojanÄiÄ… adresÅ³ knygÄ… savo paÅ¡to NustatymÅ³ meniu. Ji 
+      veikia nedideliÅ³ iÅ¡Å¡okanÄiÅ³ langÅ³ principu. Paprasti HTML adresÅ³ 
+      sÄ…raÅ¡ai yra palaikomi tam atvejui, kad Squirrelmail galÄ—tÅ³ naudoti
+      ir paÄios paprasÄiausios Interneto narÅ¡yklÄ—s.
       </p>
    </description>
 </chapter>
@@ -31,31 +31,31 @@
    </title>
    <description>
       <p>
-      Èia çra¹ykite kokç nors ¾inom± vard±. K± nors kas jums primintù kam
-      priklauso ¹is adresas.
+      ÄŒia Ä¯raÅ¡ykite kokÄ¯ nors Å¾inomÄ… vardÄ…. KÄ… nors kas jums primintÅ³ kam
+      priklauso Å¡is adresas.
       </p>
    </description>
 </section>
 
 <section>
    <title>
-      E-pa¹to adresas
+      E-paÅ¡to adresas
    </title>
    <description>
       <p>
-      Èia ra¹omas pilnas to asmens elektroninio pa¹to adresas. Spìlioti èia 
-      negalima. Elektroninio pa¹to adres± sudaro trys dalys. Pirmiausia ra¹omas
+      ÄŒia raÅ¡omas pilnas to asmens elektroninio paÅ¡to adresas. SpÄ—lioti Äia 
+      negalima. Elektroninio paÅ¡to adresÄ… sudaro trys dalys. Pirmiausia raÅ¡omas
       adresato identifikatorius, pvz. "petrasp". Toliau po @ simbolio eina
-      pa¹to serverio adresù srities apra¹ymas, pvz. "pastas". Galiausiai ra¹omi
-      vir¹utinio lygio srities simboliai, kurie gali bşti patys çvairiausi 
-      trumpiniai, tokie kaip lt, au, cc, us, com, org, net ar net edu. ©ie 
-      trumpiniai paprastai nustato kokiai bendrinei srièiai priklauso antroje 
-      dalyje apra¹ytas adresas. lt naudojamas lietuvi¹kù serveriù vardams, 
-      com - komercinìms organizacijoms, org - nekomercinìms organizacijoms,
-      net - interneto paslaugù tiekìjù tinklams. Pilnas elektroninio pa¹to 
-      adresas turetù atrodyti pana¹iai ç petrasp@pastas.lt. (be paskutinio 
-      ta¹ko). Jei suklysite, pa¹tas turìtù grç¾ti su Mailer Daemon prane¹imu
-      arba nukeliauti pas kit± ¾mogù.
+      paÅ¡to serverio adresÅ³ srities apraÅ¡ymas, pvz. "pastas". Galiausiai raÅ¡omi
+      virÅ¡utinio lygio srities simboliai, kurie gali bÅ«ti patys Ä¯vairiausi 
+      trumpiniai, tokie kaip lt, au, cc, us, com, org, net ar net edu. Å ie 
+      trumpiniai paprastai nustato kokiai bendrinei sriÄiai priklauso antroje 
+      dalyje apraÅ¡ytas adresas. lt naudojamas lietuviÅ¡kÅ³ serveriÅ³ vardams, 
+      com - komercinÄ—ms organizacijoms, org - nekomercinÄ—ms organizacijoms,
+      net - interneto paslaugÅ³ tiekÄ—jÅ³ tinklams. Pilnas elektroninio paÅ¡to 
+      adresas turetÅ³ atrodyti panaÅ¡iai Ä¯ petrasp@pastas.lt. (be paskutinio 
+      taÅ¡ko). Jei suklysite, paÅ¡tas turÄ—tÅ³ grÄ¯Å¾ti su Mailer Daemon praneÅ¡imu
+      arba nukeliauti pas kitÄ… Å¾mogÅ³.
       </p>
    </description>
 </section>
@@ -66,9 +66,9 @@
    </title>
    <description>
       <p>
-      Tai dar vienas laukas, kur jşs galite para¹yti ka¾k± primenanèio apie 
-      asmenç. Ir jame tilps daugiau nei "trumpo vardo" lauke. Pvz. jei tai
-      verslo kontaktas, galima para¹yti "Sutikau bulviù augintojù simpoziume"
+      Tai dar vienas laukas, kur jÅ«s galite paraÅ¡yti kaÅ¾kÄ… primenanÄio apie 
+      asmenÄ¯. Ir jame tilps daugiau nei "trumpo vardo" lauke. Pvz. jei tai
+      verslo kontaktas, galima paraÅ¡yti "Sutikau bulviÅ³ augintojÅ³ simpoziume"
       </p>
    </description>
 </section>
@@ -79,20 +79,20 @@
    </title>
    <description>
       <p>
-      ©ie mygtukai leid¾ia pataisyti vien± pasirinkt± adres± arba i¹trinti 
-      kelis pasirinktus çra¹us adresù knygoje
+      Å ie mygtukai leidÅ¾ia pataisyti vienÄ… pasirinktÄ… adresÄ… arba iÅ¡trinti 
+      kelis pasirinktus Ä¯raÅ¡us adresÅ³ knygoje
       </p>
    </description>
 </section>
 
 <section>
    <title>
-      Çtraukti ç adresù knyg±
+      Ä®traukti Ä¯ adresÅ³ knygÄ…
    </title>
    <description>
       <p>
-      Reikia u¾pildyti auk¹èiau apra¹ytus laukus. Trys pirmus (trumpas vardas, 
-      E-pa¹to adresas, ir vardas) turi bşti bştinai u¾pildyti. Pavardì ir
+      Reikia uÅ¾pildyti aukÅ¡Äiau apraÅ¡ytus laukus. Trys pirmus (trumpas vardas, 
+      E-paÅ¡to adresas, ir vardas) turi bÅ«ti bÅ«tinai uÅ¾pildyti. PavardÄ— ir
       papildoma informacija yra papildomi laukai.
       </p>
    </description>
@@ -104,19 +104,19 @@
    </title>
    <description>
       <p>
-      LDAP yra specialus centralizuoto informacijos saugojimo ir jos paìmimo
-      protokolas. Pavyzd¾iui, universitetas gali naudoti LDAP saugoti visiems
-      savo studentù, dìstytojù ir personalo adresams. Tinkamai sukonfiguruoti
-      LDAP nustatymai leistù SquirrelMail pateikti visus mokymo çstaigos 
-      el-pa¹to adresus. Squirrelmail LDAP galimybìs yra pakankamai didelìs ir
-      leid¾ia <I>vienoje vietoje</I> rodyti asmeninê adresù knyg± ir LDAP 
+      LDAP yra specialus centralizuoto informacijos saugojimo ir jos paÄ—mimo
+      protokolas. PavyzdÅ¾iui, universitetas gali naudoti LDAP saugoti visiems
+      savo studentÅ³, dÄ—stytojÅ³ ir personalo adresams. Tinkamai sukonfiguruoti
+      LDAP nustatymai leistÅ³ SquirrelMail pateikti visus mokymo Ä¯staigos 
+      el-paÅ¡to adresus. Squirrelmail LDAP galimybÄ—s yra pakankamai didelÄ—s ir
+      leidÅ¾ia <I>vienoje vietoje</I> rodyti asmeninÄ™ adresÅ³ knygÄ… ir LDAP 
       adresus.
       </p><p>
-      LDAP gali bşti sukonfiguruotas naudoti kokç nors LDAP serverç arba 
-      visi¹kai atjungtas. Viskas priklauso nuo pa¹to administatoriaus.
+      LDAP gali bÅ«ti sukonfiguruotas naudoti kokÄ¯ nors LDAP serverÄ¯ arba 
+      visiÅ¡kai atjungtas. Viskas priklauso nuo paÅ¡to administatoriaus.
       </p><p>
-      Kadangi LDAP nustatymai galioja visai SquirrelMail pa¹to sistemai, juos
-      turìtù sutvarkyti administratorius, kuris çrengì www pa¹to sistem±.
+      Kadangi LDAP nustatymai galioja visai SquirrelMail paÅ¡to sistemai, juos
+      turÄ—tÅ³ sutvarkyti administratorius, kuris Ä¯rengÄ— www paÅ¡to sistemÄ….
       </p>
    </description>
 </section>

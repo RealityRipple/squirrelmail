@@ -3,15 +3,15 @@
       Squirrelmail pristatymas
    </title>
    <summary>
-      SquirrelMail leid¾ia patikrinti savo elektroninç pa¹t± per WWW.
+      SquirrelMail leidÅ¾ia patikrinti savo elektroninÄ¯ paÅ¡tÄ… per WWW.
    </summary>
    <description>
       <p>
       Taigi kas per daiktas tas <A HREF="http://www.squirrelmail.org/index.php3?from=1">
-      SquirrelMail</A>? Tai yra pa¹to sistemos www interfeisas, para¹ytas naudojant 
-      <A HREF="http://www.php.net">PHP4</A> kalb±. Tikslas yra leisti skaityti pa¹t±, 
-      esantç jşsù pa¹to serveryje, i¹ bet kurios vietos Internete, naudojant standartinê 
-      www nar¹yklê. Detalesnê informacij± apie tai, kaip viskas vyksta ir kas tai yra 
+      SquirrelMail</A>? Tai yra paÅ¡to sistemos www interfeisas, paraÅ¡ytas naudojant 
+      <A HREF="http://www.php.net">PHP4</A> kalbÄ…. Tikslas yra leisti skaityti paÅ¡tÄ…, 
+      esantÄ¯ jÅ«sÅ³ paÅ¡to serveryje, iÅ¡ bet kurios vietos Internete, naudojant standartinÄ™ 
+      www narÅ¡yklÄ™. DetalesnÄ™ informacijÄ… apie tai, kaip viskas vyksta ir kas tai yra 
       IMAP protokolas, galite rasti <A HREF="http://imap.org">http://imap.org</A>.
       </p>
    </description>
@@ -23,30 +23,30 @@
    </title>
    <description>
       <p>
-      Jei nori greitai gauti atsakym± ç klausim±, galite pabandyti ¾vilgtelìti ç DUK 
-      (Da¾niausiai u¾duodamù klausimù / FAQ) skyriù. 
+      Jei nori greitai gauti atsakymÄ… Ä¯ klausimÄ…, galite pabandyti Å¾vilgtelÄ—ti Ä¯ DUK 
+      (DaÅ¾niausiai uÅ¾duodamÅ³ klausimÅ³ / FAQ) skyriÅ³. 
       </p>
       <p>
-      Squirrelmail yra suskirstytas ç dvi pagrindines sekcijas (frames).  Kairioji
+      Squirrelmail yra suskirstytas Ä¯ dvi pagrindines sekcijas (frames).  Kairioji
       sekcija parodo naudojamus aplankus. Daugiau informacijos apie tai galima rasti
-      pagalbos sistemos skyriuje "Aplankai". Priklausomai nuo nustatymù ta siauroji
-      juosta gali persikraustyti ç de¹inê pusê.
+      pagalbos sistemos skyriuje "Aplankai". Priklausomai nuo nustatymÅ³ ta siauroji
+      juosta gali persikraustyti Ä¯ deÅ¡inÄ™ pusÄ™.
       </p>
       <p>
-      De¹inìje sekcijoje vyksta visas veiksmas. Puslapio vir¹uje yra meniu eilutì. 
-      Punktas "Atsijungti" leis jums pabaigus i¹eiti i¹ ¹iù puslapiù pabaigus darb±
-      "Dabartinis aplankas" parodo, kuriame i¹ kairìje nurodytù aplankù esate.
-      Paprastai prisijungê jşs patenkate ç INBOX aplank±.
+      DeÅ¡inÄ—je sekcijoje vyksta visas veiksmas. Puslapio virÅ¡uje yra meniu eilutÄ—. 
+      Punktas "Atsijungti" leis jums pabaigus iÅ¡eiti iÅ¡ Å¡iÅ³ puslapiÅ³ pabaigus darbÄ…
+      "Dabartinis aplankas" parodo, kuriame iÅ¡ kairÄ—je nurodytÅ³ aplankÅ³ esate.
+      Paprastai prisijungÄ™ jÅ«s patenkate Ä¯ INBOX aplankÄ….
       </p>
       <p>
-      Antroje meniu eilutìje yra kiti meniu punktai:
+      Antroje meniu eilutÄ—je yra kiti meniu punktai:
          <ul>
-            <li><b>Ra¹yti</b> - Leid¾ia ra¹yti ir siùsti lai¹kus
-            <li><b>Adresai</b> - Parodo adresus saugomus jşsù adresù knygoje.
-            <li><b>Aplankai</b> - Leid¾ia tvarkyti aplankus. Jşs galite juos kurti, trinti ir pervardinti. 
-            <li><b>Nustatymai</b> - Leid¾ia pakeisti bendr± Squirrelmail i¹vaizd± ir kitus nustatymus. 
-            <li><b>Paie¹ka</b> - Leid¾ia vykdyti paie¹k± savo pa¹to dì¾ìje. 
-            <li><b>Pagalba</b> - Pagalbos sistema, kuriuoje jşs dabar esate.
+            <li><b>RaÅ¡yti</b> - LeidÅ¾ia raÅ¡yti ir siÅ³sti laiÅ¡kus
+            <li><b>Adresai</b> - Parodo adresus saugomus jÅ«sÅ³ adresÅ³ knygoje.
+            <li><b>Aplankai</b> - LeidÅ¾ia tvarkyti aplankus. JÅ«s galite juos kurti, trinti ir pervardinti. 
+            <li><b>Nustatymai</b> - LeidÅ¾ia pakeisti bendrÄ… Squirrelmail iÅ¡vaizdÄ… ir kitus nustatymus. 
+            <li><b>PaieÅ¡ka</b> - LeidÅ¾ia vykdyti paieÅ¡kÄ… savo paÅ¡to dÄ—Å¾Ä—je. 
+            <li><b>Pagalba</b> - Pagalbos sistema, kuriuoje jÅ«s dabar esate.
          </ul>
       </p>
    </description>

@@ -545,8 +545,8 @@ if ( file_exists( SM_PATH . 'locale/th_TH') ) {
 }
 if ( file_exists( SM_PATH . 'locale/lt_LT') ) {
     $languages['lt_LT']['NAME']    = 'Lithuanian';
-    $languages['lt_LT']['CHARSET'] = 'iso-8859-4';
-    $languages['lt_LT']['LOCALE'] = 'lt_LT.ISO-8859-4';
+    $languages['lt_LT']['CHARSET'] = 'utf-8';
+    $languages['lt_LT']['LOCALE'] = 'lt_LT.UTF-8';
     $languages['lt']['ALIAS'] = 'lt_LT';
 }
 if ( file_exists( SM_PATH . 'locale/sl_SI') ) {
