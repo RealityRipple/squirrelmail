@@ -1,0 +1,25 @@
+SQCalendar 0.1
+GPL (C) 2001  Michal Szczotka <michal@tuxy.org>
+http://www.tuxy.org/index.php?path=/projects/sqcalendar/index.php
+
+********** DESCRIPTION ************
+
+Simple calendar plugin for Squirrel Mail (squirrelmail.org). As of now it has 
+month view and day view. Events can be created, deleted and updated.
+
+
+********** REQUIREMENTS  **********
+
+It works with squirrelmail 1.0.6 and 1.2.0-rc2 which are latest at the time 
+of writing
+
+********** INSTALLATION  **********
+
+SEE INSTALL
+
+*************** TODO **************
+
+- single entry of repetitve events (ex. birthday repeats every year)
+- reminder email/javascript/etc
+- weekly view
+
