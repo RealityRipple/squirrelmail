@@ -1,10 +1,13 @@
-This plugin is used to play sounds (currently a WAV file) through the
-browser whenever the user has unseen messages flagged in the left window
-pane.  There are options available (on the options page of course) to
-disable this feature for each user, and to select different media files
-from the users local computer.  The default is that this is NOT enabled,
-so you'll need to go to the options menu to turn it on first! There are
-also options to show a popup window via JavaScript.
+This plugin is used to play sounds (currently a WAV, SWF or MP3 files) 
+through the browser whenever the user has unseen messages flagged in the 
+left window pane.  There are options available (on the options page of 
+course) to disable this feature for each user, and to select different 
+media files from the users local computer. The default is that this is 
+NOT enabled, so you'll need to go to the options menu to turn it on first! 
+There are also options to show a popup window via JavaScript.
+
+Plugin options are visible only when Javascript is enabled or detected by
+SquirrelMail JavaScript detection functions.
 
 From SquirrelMail 1.5.1 newmail plugin's site configuration can be stored in
 config/newmail_config.php or plugins/newmail/config.php.
