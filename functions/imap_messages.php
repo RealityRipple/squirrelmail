@@ -1,27 +1,27 @@
 <?php
 
 /**
- * imap_messages.php
- *
- * Copyright (c) 1999-2004 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * This implements functions that manipulate messages
- * NOTE: Quite a few functions in this file are obsolete
- *
- * @version $Id$
- * @package squirrelmail
- * @subpackage imap
- */
+* imap_messages.php
+*
+* Copyright (c) 1999-2004 The SquirrelMail Project Team
+* Licensed under the GNU GPL. For full terms see the file COPYING.
+*
+* This implements functions that manipulate messages
+* NOTE: Quite a few functions in this file are obsolete
+*
+* @version $Id$
+* @package squirrelmail
+* @subpackage imap
+*/
 
 /**
- * Copies specified messages to specified folder
- * @param int $imap_stream The resource ID for the IMAP connection
- * @param string $start Beginning of range to copy
- * @param string $end End of the range to copy
- * @param string $mailbox Which box to copy to
- * @deprecated This function is obsolete and should not be used
- */
+* Copies specified messages to specified folder
+* @param int $imap_stream The resource ID for the IMAP connection
+* @param string $start Beginning of range to copy
+* @param string $end End of the range to copy
+* @param string $mailbox Which box to copy to
+* @deprecated This function is obsolete and should not be used
+*/
 function sqimap_messages_copy ($imap_stream, $start, $end, $mailbox) {
     $read = sqimap_run_command ($imap_stream, "COPY $start:$end " . sqimap_encode_mailbox_name($mailbox), true, $response, $message, TRUE);
 }
@@ -53,14 +53,14 @@ function sqimap_msgs_list_move ($imap_stream, $id, $mailbox) {
 
 
 /**
- * Deletes specified messages and moves them to trash if possible
- * @deprecated This function is obsolete and should no longer be used
- * @param int $imap_steam The resource ID for the IMAP connection
- * @param string $start Start of range
- * @param string $end End of range
- * @param string $mailbox Mailbox messages are being deleted from
- * @return void
- */
+* Deletes specified messages and moves them to trash if possible
+* @deprecated This function is obsolete and should no longer be used
+* @param int $imap_steam The resource ID for the IMAP connection
+* @param string $start Start of range
+* @param string $end End of range
+* @param string $mailbox Mailbox messages are being deleted from
+* @return void
+*/
 function sqimap_messages_delete ($imap_stream, $start, $end, $mailbox, $bypass_trash=false) {
     global $move_to_trash, $trash_folder, $auto_expunge;
 
@@ -83,8 +83,8 @@ function sqimap_msgs_list_delete ($imap_stream, $mailbox, $id, $bypass_trash=fal
 
 
 /**
- * Sets the specified messages with specified flag
- */
+* Sets the specified messages with specified flag
+*/
 function sqimap_messages_flag ($imap_stream, $start, $end, $flag, $handle_errors) {
     $read = sqimap_run_command ($imap_stream, "STORE $start:$end +FLAGS (\\$flag)", $handle_errors, $response, $message, TRUE);
 }
@@ -102,9 +102,9 @@ function sqimap_get_small_header ($imap_stream, $id, $sent) {
 }
 
 /**
- * Sort the message list and crunch to be as small as possible
- * (overflow could happen, so make it small if possible)
- */
+* Sort the message list and crunch to be as small as possible
+* (overflow could happen, so make it small if possible)
+*/
 function sqimap_message_list_squisher($messages_array) {
     if( !is_array( $messages_array ) ) {
         return $messages_array;
@@ -130,8 +130,8 @@ function sqimap_message_list_squisher($messages_array) {
 }
 
 /**
- * Get sort order from server and return it as the $id array for mailbox_display.
- */
+* Get sort order from server and return it as the $id array for mailbox_display.
+*/
 function sqimap_get_sort_order ($imap_stream, $sort, $mbxresponse) {
     global  $default_charset, $thread_sort_messages,
             $internal_date_sort, $server_sort_array,
@@ -169,11 +169,11 @@ function sqimap_get_sort_order ($imap_stream, $sort, $mbxresponse) {
     }
 
     $sort_on = array (0=> 'DATE',
-                      1=> 'DATE',
-                      2=> 'FROM',
-                      3=> 'FROM',
-                      4=> 'SUBJECT',
-                      5=> 'SUBJECT');
+                    1=> 'DATE',
+                    2=> 'FROM',
+                    3=> 'FROM',
+                    4=> 'SUBJECT',
+                    5=> 'SUBJECT');
     if ($internal_date_sort == true) {
         $sort_on[0] = 'ARRIVAL';
         $sort_on[1] = 'ARRIVAL';
@@ -187,31 +187,31 @@ function sqimap_get_sort_order ($imap_stream, $sort, $mbxresponse) {
         $sort_test = sqimap_run_command ($imap_stream, $query, true, $response, $message, TRUE);
     }
     if (isset($sort_test[0])) {
-      for ($i=0,$iCnt=count($sort_test);$i<$iCnt;++$i) {
+    for ($i=0,$iCnt=count($sort_test);$i<$iCnt;++$i) {
         if (preg_match("/^\* SORT (.+)$/", $sort_test[$i], $regs)) {
             $server_sort_array = preg_split("/ /", trim($regs[1]));
-	    break;
+        break;
         }
-      }
+    }
     }
     if ($sort == 0 || $sort == 2 || $sort == 4) {
-       $server_sort_array = array_reverse($server_sort_array);
+    $server_sort_array = array_reverse($server_sort_array);
     }
     if (!preg_match("/OK/", $response)) {
-       $server_sort_array = 'no';
+    $server_sort_array = 'no';
     }
     sqsession_register($server_sort_array, 'server_sort_array');
     return $server_sort_array;
 }
 
 /**
- * Get sort order from server if server does not have the SORT extension
- * and return it as array for mailbox_display.
- *
- * @param  resource $imap_stream
- * @param  array    $mbxresponse response from a sqimap_mailbox_select
- * @return array    $php_sort_array
- */
+* Get sort order from server if server does not have the SORT extension
+* and return it as array for mailbox_display.
+*
+* @param  resource $imap_stream
+* @param  array    $mbxresponse response from a sqimap_mailbox_select
+* @return array    $php_sort_array
+*/
 function sqimap_get_php_sort_order ($imap_stream, $mbxresponse) {
 
     if (sqsession_is_registered('php_sort_array')) {
@@ -232,7 +232,7 @@ function sqimap_get_php_sort_order ($imap_stream, $mbxresponse) {
         // EIMS workaround. EIMS returns the result as multiple untagged SEARCH responses
         foreach($uids as $line) {
             if (preg_match("/^\* SEARCH (.+)$/", $line, $regs)) {
-                 $php_sort_array += preg_split("/ /", trim($regs[1]));
+                $php_sort_array += preg_split("/ /", trim($regs[1]));
             }
         }
     }
@@ -245,10 +245,10 @@ function sqimap_get_php_sort_order ($imap_stream, $mbxresponse) {
 
 
 /**
- * Returns an indent array for printMessageinfo()
- * This represents the amount of indent needed (value),
- * for this message number (key)
- */
+* Returns an indent array for printMessageinfo()
+* This represents the amount of indent needed (value),
+* for this message number (key)
+*/
 function get_parent_level ($imap_stream) {
     global $sort_by_ref, $default_charset, $thread_new;
     $parent = '';
@@ -256,8 +256,8 @@ function get_parent_level ($imap_stream) {
     $cutoff = 0;
 
     /* loop through the threads and take unwanted characters out
-       of the thread string then chop it up
-     */
+    of the thread string then chop it up
+    */
     for ($i=0;$i<count($thread_new);$i++) {
         $thread_new[$i] = preg_replace("/\s\(/", "(", $thread_new[$i]);
         $thread_new[$i] = preg_replace("/(\d+)/", "$1|", $thread_new[$i]);
@@ -280,8 +280,8 @@ function get_parent_level ($imap_stream) {
         $indent_array[$parent] = 0;
 
     /* now the children, checking each thread portion for
-       ),(, and space, adjusting the level and space values
-       to get the indent level
+    ),(, and space, adjusting the level and space values
+    to get the indent level
     */
         $level = 0;
         $spaces = array();
@@ -297,7 +297,7 @@ function get_parent_level ($imap_stream) {
                 $level = $level - $chars['41'];
                 $spaces[$level] = 0;
                 /* if we were faking lets stop, this portion
-                   of the thread is over
+                of the thread is over
                 */
                 if ($level == $cutoff) {
                     $fake = FALSE;
@@ -316,7 +316,7 @@ function get_parent_level ($imap_stream) {
             }
             $indent = $level + $spaces_total;
             /* must have run into a message that broke the thread
-               so we are adjusting for that portion
+            so we are adjusting for that portion
             */
             if ($fake == TRUE) {
                 $indent = $indent +1;
@@ -325,7 +325,7 @@ function get_parent_level ($imap_stream) {
                 $child = $regs[1];
             }
             /* the thread must be broken if $indent == 0
-               so indent the message once and start faking it
+            so indent the message once and start faking it
             */
             if ($indent == 0) {
                 $indent = 1;
@@ -333,7 +333,7 @@ function get_parent_level ($imap_stream) {
                 $cutoff = $level;
             }
             /* dont need abs but if indent was negative
-               errors would occur
+            errors would occur
             */
             $indent_array[$child] = abs($indent);
             $spaces_total = 0;
@@ -344,9 +344,9 @@ function get_parent_level ($imap_stream) {
 
 
 /**
- * Returns an array with each element as a string representing one
- * message-thread as returned by the IMAP server.
- */
+* Returns an array with each element as a string representing one
+* message-thread as returned by the IMAP server.
+*/
 function get_thread_sort ($imap_stream) {
     global $thread_new, $sort_by_ref, $default_charset, $server_sort_array;
     if (sqsession_is_registered('thread_new')) {
@@ -366,18 +366,18 @@ function get_thread_sort ($imap_stream) {
     $thread_test = sqimap_run_command ($imap_stream, $query, true, $response, $message, TRUE);
     if (isset($thread_test[0])) {
         for ($i=0,$iCnt=count($thread_test);$i<$iCnt;++$i) {
-           if (preg_match("/^\* THREAD (.+)$/", $thread_test[$i], $regs)) {
-              $thread_list = trim($regs[1]);
-	      break;
-           }
+        if (preg_match("/^\* THREAD (.+)$/", $thread_test[$i], $regs)) {
+            $thread_list = trim($regs[1]);
+        break;
+        }
         }
     }
     else {
-       $thread_list = "";
+    $thread_list = "";
     }
     if (!preg_match("/OK/", $response)) {
-       $server_sort_array = 'no';
-       return $server_sort_array;
+    $server_sort_array = 'no';
+    return $server_sort_array;
     }
     if (isset($thread_list)) {
         $thread_temp = preg_split("//", $thread_list, -1, PREG_SPLIT_NO_EMPTY);
@@ -421,9 +421,9 @@ function get_thread_sort ($imap_stream) {
 
 
 function elapsedTime($start) {
- $stop = gettimeofday();
- $timepassed =  1000000 * ($stop['sec'] - $start['sec']) + $stop['usec'] - $start['usec'];
- return $timepassed;
+    $stop = gettimeofday();
+    $timepassed =  1000000 * ($stop['sec'] - $start['sec']) + $stop['usec'] - $start['usec'];
+    return $timepassed;
 }
 
 // only used in sqimap_get_small_header_list
@@ -431,39 +431,39 @@ function parseString($read,&$i) {
     $char = $read{$i};
     $s = '';
     if ($char == '"') {
-       $iPos = ++$i;
-       while (true) {
-          $iPos = strpos($read,'"',$iPos);
-          if (!$iPos) break;
-             if ($iPos && $read{$iPos -1} != '\\') {
-                $s = substr($read,$i,($iPos-$i));
-                $i = $iPos;
-                break;
-             }
-             $iPos++;
-             if ($iPos > strlen($read)) {
-                break;
-             }
-       }
+        $iPos = ++$i;
+        while (true) {
+            $iPos = strpos($read,'"',$iPos);
+            if (!$iPos) break;
+                if ($iPos && $read{$iPos -1} != '\\') {
+                    $s = substr($read,$i,($iPos-$i));
+                    $i = $iPos;
+                    break;
+                }
+                $iPos++;
+                if ($iPos > strlen($read)) {
+                    break;
+                }
+        }
     } else if ($char == '{') {
         $lit_cnt = '';
         ++$i;
         $iPos = strpos($read,'}',$i);
         if ($iPos) {
-           $lit_cnt = substr($read, $i, $iPos - $i);
-           $i += strlen($lit_cnt) + 3; /* skip } + \r + \n */
-           /* Now read the literal */
-           $s = ($lit_cnt ? substr($read,$i,$lit_cnt): '');
-           $i += $lit_cnt;
-           /* temp bugfix (SM 1.5 will have a working clean version)
-              too much work to implement that version right now */
-           --$i;
-         } else { /* should never happen */
+        $lit_cnt = substr($read, $i, $iPos - $i);
+        $i += strlen($lit_cnt) + 3; /* skip } + \r + \n */
+        /* Now read the literal */
+        $s = ($lit_cnt ? substr($read,$i,$lit_cnt): '');
+        $i += $lit_cnt;
+        /* temp bugfix (SM 1.5 will have a working clean version)
+            too much work to implement that version right now */
+        --$i;
+        } else { /* should never happen */
             $i += 3; /* } + \r + \n */
             $s = '';
-         }
+        }
     } else {
-       return false;
+        return false;
     }
     ++$i;
     return $s;
@@ -497,10 +497,10 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false)
     $read_list = array();
 
     /*
-     * We need to return the data in the same order as the caller supplied
-     * in $msg_list, but IMAP servers are free to return responses in
-     * whatever order they wish... So we need to re-sort manually
-     */
+    * We need to return the data in the same order as the caller supplied
+    * in $msg_list, but IMAP servers are free to return responses in
+    * whatever order they wish... So we need to re-sort manually
+    */
     for ($i = 0; $i < sizeof($msg_list); $i++) {
         $messages["$msg_list[$i]"] = array();
     }
@@ -520,7 +520,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false)
         $from = _("Unknown sender");
         $priority = 0;
         $messageid = '<>';
-	$type = array('','');
+        $type = array('','');
         $cc = $to = $inrepto = '';
         // use unset because we do isset below
         unset($date);
@@ -539,11 +539,11 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false)
         if (!is_numeric($id) && $fetch !== 'FETCH') {
             set_up_language($squirrelmail_language);
             echo '<br><b><font color=$color[2]>' .
-                 _("ERROR : Could not complete request.") .
-                 '</b><br>' .
-                 _("Unknown response from IMAP server: ") . ' 1.' .
-                 htmlspecialchars($read) . "</font><br>\n";
-                 break;
+                _("ERROR : Could not complete request.") .
+                '</b><br>' .
+                _("Unknown response from IMAP server: ") . ' 1.' .
+                htmlspecialchars($read) . "</font><br>\n";
+                break;
         }
         $i = strpos($read,'(',$i_space+5);
         $read = substr($read,$i+1);
@@ -682,34 +682,30 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false)
 
         /* non server sort stuff */
         if (!$allow_server_sort) {
-           $from = parseAddress($from);
-           if ($from[0][1]) {
-              $from = decodeHeader($from[0][1]);
-           } else {
-              $from = $from[0][0];
-           }
-           $messages[$msgi]['FROM-SORT'] = $from;
-           $subject_sort = strtolower(decodeHeader($subject));
-           if (preg_match("/^(vedr|sv|re|aw):\s*(.*)$/si", $subject_sort, $matches)){
+        $from = parseAddress($from);
+        if ($from[0][1]) {
+            $from = decodeHeader($from[0][1]);
+        } else {
+            $from = $from[0][0];
+        }
+        $messages[$msgi]['FROM-SORT'] = $from;
+        $subject_sort = strtolower(decodeHeader($subject));
+        if (preg_match("/^(vedr|sv|re|aw):\s*(.*)$/si", $subject_sort, $matches)){
                 $messages[$msgi]['SUBJECT-SORT'] = $matches[2];
-           } else {
-               $messages[$msgi]['SUBJECT-SORT'] = $subject_sort;
-           }
+        } else {
+            $messages[$msgi]['SUBJECT-SORT'] = $subject_sort;
+        }
         }
         ++$msgi;
     }
     array_reverse($messages);
-//    $new_messages = array();
-//    foreach ($messages as $i =>$message) {
-//        $new_messages[] = $message;
-//    }
     return $messages;
 }
 
 /**
- * Returns a message array with all the information about a message.
- * See the documentation folder for more information about this array.
- */
+* Returns a message array with all the information about a message.
+* See the documentation folder for more information about this array.
+*/
 function sqimap_get_message ($imap_stream, $id, $mailbox) {
     // typecast to int to prohibit 1:* msgs sets
     $id = (int) $id;
@@ -726,7 +722,7 @@ function sqimap_get_message ($imap_stream, $id, $mailbox) {
         global $sort, $startMessage, $color;
 
         $errmessage = _("The server couldn't find the message you requested.") .
-              '<p>'._("Most probably your message list was out of date and the message has been moved away or deleted (perhaps by another program accessing the same mailbox).");
+            '<p>'._("Most probably your message list was out of date and the message has been moved away or deleted (perhaps by another program accessing the same mailbox).");
         /* this will include a link back to the message list */
         error_message($errmessage, $mailbox, $sort, (int) $startMessage, $color);
         exit;
