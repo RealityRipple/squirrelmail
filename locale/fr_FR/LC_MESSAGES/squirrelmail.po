@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2003-08-26 01:20+0300\n"
+"POT-Creation-Date: 2003-08-27 17:10+0200\n"
 "PO-Revision-Date: 2001-12-27 15:58GMT+1\n"
 "Last-Translator: Alex Lemaresquier <alex@brainstorm.fr>\n"
 "Language-Team: French <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -1655,22 +1655,22 @@ msgid "Folder Path"
 msgstr "Chemin des dossiers&#160;"
 
 msgid "Do not use Trash"
-msgstr "Ne pas utiliser de dossier Corbeille&#160;"
+msgstr "Ne pas utiliser de dossier Corbeille"
 
 msgid "Trash Folder"
-msgstr "Dossier Corbeille"
+msgstr "Dossier Corbeille&#160;"
 
 msgid "Do not use Sent"
-msgstr "Ne pas utiliser de dossier Courrier envoy&#233;&#160;"
+msgstr "Ne pas utiliser de dossier Courrier envoy&#233;"
 
 msgid "Sent Folder"
-msgstr "Dossier Courrier envoy&#233;"
+msgstr "Dossier Courrier envoy&#233;&#160;"
 
 msgid "Do not use Drafts"
-msgstr "Ne pas utiliser de dossier Brouillons&#160;"
+msgstr "Ne pas utiliser de dossier Brouillons"
 
 msgid "Draft Folder"
-msgstr "Dossier Brouillons"
+msgstr "Dossier Brouillons&#160;"
 
 msgid "Folder List Options"
 msgstr "Options de la liste des dossiers"
@@ -1754,13 +1754,22 @@ msgid "Selection List Style"
 msgstr "Style de la liste de s&#233;lection&#160;"
 
 msgid "Long: "
-msgstr "Long&#160;:"
+msgstr "Long&#160;: "
+
+msgid "Folder"
+msgstr "Dossier"
+
+msgid "Subfolder"
+msgstr "Sous-dossier"
+
+msgid "Use Sent Subfolders"
+msgstr "Activer les sous-dossiers de Courrier envoy&#233;"
 
 msgid "Indented: "
-msgstr "Indent&#233;&#160;:"
+msgstr "Indent&#233;&#160;: "
 
 msgid "Delimited: "
-msgstr "D&#233;limit&#233;&#160;:"
+msgstr "D&#233;limit&#233;&#160;: "
 
 msgid "Name and Address Options"
 msgstr "Noms et adresses"
@@ -3133,9 +3142,6 @@ msgstr "Chargement du son..."
 
 msgid "Sent Subfolders Options"
 msgstr "Options des sous-dossiers de Courrier envoy&#233;"
-
-msgid "Use Sent Subfolders"
-msgstr "Activer les sous-dossiers de Courrier envoy&#233;"
 
 msgid "Monthly"
 msgstr "Mensuellement"
