@@ -78,7 +78,7 @@ function error_message($message, $mailbox, $sort, $startMessage, $color) {
             '</TD></TR><TR><TD>'.
                "<CENTER><BR>$message<BR>\n".
                '<BR>'.
-                  "<A HREF=\"right_main.php?sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\">";
+                  "<A HREF=\"right_main.php?sort=$sort&amp;startMessage=$startMessage&amp;mailbox=$urlMailbox\">";
     printf (_("Click here to return to %s"), $mailbox);
     echo '</A>.'.
             '</TD></TR>'.

@@ -117,7 +117,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start
         if( !isset( $pos ) || $pos == '' ) {
             $pos = '0';
         }
-        $search_stuff = "&pos=" . urlencode( $pos ) . "&where=".urlencode($where).'&what='.urlencode($what);
+        $search_stuff = "&amp;pos=" . urlencode( $pos ) . "&amp;where=".urlencode($where).'&amp;what='.urlencode($what);
     }
 
     $checked = ($checkall == 1 ?' checked' : '');
@@ -136,7 +136,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start
         case 4: /* subject */
             echo "   <td bgcolor=\"$hlt_color\">$bold";
                 if (! isset($search_stuff)) { $search_stuff = ''; }
-            echo "<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$start_msg&show_more=0$search_stuff\"";
+            echo "<a href=\"read_body.php?mailbox=$urlMailbox&amp;passed_id=".$msg["ID"]."&amp;startMessage=$start_msg&amp;show_more=0$search_stuff\"";
             do_hook("subject_link");
 
             if ($subject != $msg['SUBJECT']) {
@@ -406,7 +406,7 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg, &$msgs, $ms
     }
 
     mail_message_listing_beginning( $imapConnection,
-        "move_messages.php?msg=$msg&mailbox=$urlMailbox&startMessage=$start_msg",
+        "move_messages.php?msg=$msg&amp;mailbox=$urlMailbox&amp;startMessage=$start_msg",
         $mailbox, $sort, $msg_cnt_str, $paginator_str, $start_msg);
 
     $groupNum = $start_msg % ($show_num - 1);
@@ -614,7 +614,7 @@ function ShowSortButton($sort, $mailbox, $Up, $Down) {
 
     /* Now that we have everything figured out, show the actual button. */
     echo ' <a href="right_main.php?newsort=' . $which .
-        '&startMessage=1&mailbox=' . urlencode($mailbox) .
+        '&amp;startMessage=1&amp;mailbox=' . urlencode($mailbox) .
         '"><IMG SRC="../images/' . $img .
         '" BORDER=0 WIDTH=12 HEIGHT=10></a>';
 }
@@ -626,7 +626,7 @@ function get_selectall_link($start_msg, $sort) {
     $result = '';
     if ($javascript_on) {
         $result =
-            '<script language="JavaScript">' .
+            '<script language="JavaScript" type="text/javascript">' .
             "\n<!-- \n" .
             "function CheckAll() {\n" .
             "   for (var i = 0; i < document.messageList.elements.length; i++) {\n" .
@@ -639,12 +639,12 @@ function get_selectall_link($start_msg, $sort) {
             '</script><a href="#" onClick="CheckAll();">' . _("Toggle All") . "</a>\n";
     } else {
         if (strpos($PHP_SELF, "?")) {
-            $result .= "<a href=\"$PHP_SELF&mailbox=" . urlencode($mailbox)
-                    . "&startMessage=$start_msg&sort=$sort&checkall=";
+            $result .= "<a href=\"$PHP_SELF&amp;mailbox=" . urlencode($mailbox)
+                    . "&amp;startMessage=$start_msg&amp;sort=$sort&amp;checkall=";
         }
 		else {
             $result .= "<a href=\"$PHP_SELF?mailbox=" . urlencode($mailbox)
-                    . "&startMessage=$start_msg&sort=$sort&checkall=";
+                    . "&amp;startMessage=$start_msg&amp;sort=$sort&amp;checkall=";
         }
         if (isset($checkall) && $checkall == '1') {
             $result .= '0';
@@ -653,12 +653,12 @@ function get_selectall_link($start_msg, $sort) {
         }
 
         if (isset($where) && isset($what)) {
-            $result .= '&where=' . urlencode($where)
-                    . '&what=' . urlencode($what);
+            $result .= '&amp;where=' . urlencode($where)
+                    . '&amp;what=' . urlencode($what);
         }
 
         if ($PG_SHOWNUM == 999999) {
-            $result .= '&PG_SHOWNUM=999999';
+            $result .= '&amp;PG_SHOWNUM=999999';
         }
 
         $result .= "\">";
@@ -700,7 +700,7 @@ function get_msgcnt_str($start_msg, $end_msg, $num_msgs) {
 function get_paginator_link
 ($box, $start_msg, $use, $text) {
     $result = "<A HREF=\"right_main.php?use_mailbox_cache=$use"
-            . "&startMessage=$start_msg&mailbox=$box\" "
+            . "&amp;startMessage=$start_msg&amp;mailbox=$box\" "
             . "TARGET=\"right\">$text</A>";
     return ($result);
 }
@@ -869,14 +869,14 @@ function get_paginator_str
         }
     } else if ($PG_SHOWNUM == 999999) {
         $pg_str = "<A HREF=\"right_main.php?use_mailbox_cache=$use"
-                . "&startMessage=1&mailbox=$box\" TARGET=\"right\">"
+                . "&amp;startMessage=1&amp;mailbox=$box\" TARGET=\"right\">"
                 . _("Paginate") . '</A>' . $spc;
     }
 
     /* If necessary, compute the 'show all' string. */
     if (($prv_str != '') || ($nxt_str != '')) {
         $all_str = "<A HREF=\"right_main.php?PG_SHOWNUM=999999"
-                 . "&use_mailbox_cache=$use&startMessage=1&mailbox=$box\" "
+                 . "&amp;use_mailbox_cache=$use&amp;startMessage=1&amp;mailbox=$box\" "
                  . "TARGET=\"right\">" . _("Show All") . '</A>';
     }
 
