@@ -6,7 +6,7 @@
 
 
    function decodeMime($body, $bound, $type0, $type1) {
-      echo "<TT>decodeMime: $type0/$type1</TT><BR>";
+//      echo "<TT>decodeMime: $type0/$type1</TT><BR>";
       if ($type0 == "multipart") {
          if ($body[0] == "")
             $i = 1;
@@ -58,7 +58,7 @@
 
    /** This gets one entity's properties **/
    function getEntity($body, $bound, $type0, $type1, $encoding, $charset) {
-      echo "<TT>getEntity: $type0/$type1</TT><BR>";
+//      echo "<TT>getEntity: $type0/$type1</TT><BR>";
       $msg[0]["TYPE0"] = $type0;
       $msg[0]["TYPE1"] = $type1;
       $msg[0]["ENCODING"] = $encoding;
