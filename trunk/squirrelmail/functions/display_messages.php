@@ -167,7 +167,7 @@ function error_box($string, $color) {
 /**
  * Adds message that informs about non fatal error that can happen while saving preferences
  * @param string $message error message
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.5
  */
 function error_option_save($message) {
     global $optpage_save_error;
