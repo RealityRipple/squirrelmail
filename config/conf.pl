@@ -2199,16 +2199,16 @@ sub save_data {
         if ($print_config_version) {
             print CF "\$config_version = '$print_config_version';\n";
         }
-        print CF "\$config_use_color = $config_use_color;\n";
+        print CF "\$config_use_color = '$config_use_color';\n";
         print CF "\n";
 
-        print CF "\$org_name      = \"$org_name\";\n";
+        print CF "\$org_name      = '$org_name';\n";
         print CF "\$org_logo      = '$org_logo';\n";
         $org_logo_width |= 0;
         $org_logo_height |= 0;
-        print CF "\$org_logo_width  = $org_logo_width;\n";
-        print CF "\$org_logo_height = $org_logo_height;\n";
-        print CF "\$org_title     = \"$org_title\";\n";
+        print CF "\$org_logo_width  = '$org_logo_width';\n";
+        print CF "\$org_logo_height = '$org_logo_height';\n";
+        print CF "\$org_title     = '$org_title';\n";
         print CF "\$signout_page  = '$signout_page';\n";
         print CF "\$frame_top     = '$frame_top';\n";
         print CF "\n";
@@ -2221,15 +2221,15 @@ sub save_data {
 
         print CF "\$domain                 = '$domain';\n";
         print CF "\$imapServerAddress      = '$imapServerAddress';\n";
-        print CF "\$imapPort               = $imapPort;\n";
-        print CF "\$useSendmail            = $useSendmail;\n";
+        print CF "\$imapPort               = '$imapPort';\n";
+        print CF "\$useSendmail            = '$useSendmail';\n";
         print CF "\$smtpServerAddress      = '$smtpServerAddress';\n";
-        print CF "\$smtpPort               = $smtpPort;\n";
+        print CF "\$smtpPort               = '$smtpPort';\n";
         print CF "\$sendmail_path          = '$sendmail_path';\n";
-        print CF "\$use_authenticated_smtp = $use_authenticated_smtp;\n";
-        print CF "\$pop_before_smtp        = $pop_before_smtp;\n";
+        print CF "\$use_authenticated_smtp = '$use_authenticated_smtp';\n";
+        print CF "\$pop_before_smtp        = '$pop_before_smtp';\n";
         print CF "\$imap_server_type       = '$imap_server_type';\n";
-        print CF "\$invert_time            = $invert_time;\n";
+        print CF "\$invert_time            = '$invert_time';\n";
         print CF "\$optional_delimiter     = '$optional_delimiter';\n";
         print CF "\n";
 
@@ -2237,34 +2237,34 @@ sub save_data {
         print CF "\$trash_folder                   = '$trash_folder';\n";
         print CF "\$sent_folder                    = '$sent_folder';\n";
         print CF "\$draft_folder                   = '$draft_folder';\n";
-        print CF "\$default_move_to_trash          = $default_move_to_trash;\n";
-        print CF "\$default_move_to_sent           = $default_move_to_sent;\n";
-        print CF "\$default_save_as_draft          = $default_save_as_draft;\n";
-        print CF "\$show_prefix_option             = $show_prefix_option;\n";
-        print CF "\$list_special_folders_first     = $list_special_folders_first;\n";
-        print CF "\$use_special_folder_color       = $use_special_folder_color;\n";
-        print CF "\$auto_expunge                   = $auto_expunge;\n";
-        print CF "\$default_sub_of_inbox           = $default_sub_of_inbox;\n";
-        print CF "\$show_contain_subfolders_option = $show_contain_subfolders_option;\n";
-        print CF "\$default_unseen_notify          = $default_unseen_notify;\n";
-        print CF "\$default_unseen_type            = $default_unseen_type;\n";
-        print CF "\$auto_create_special            = $auto_create_special;\n";
-        print CF "\$delete_folder                  = $delete_folder;\n";
+        print CF "\$default_move_to_trash          = '$default_move_to_trash';\n";
+        print CF "\$default_move_to_sent           = '$default_move_to_sent';\n";
+        print CF "\$default_save_as_draft          = '$default_save_as_draft';\n";
+        print CF "\$show_prefix_option             = '$show_prefix_option';\n";
+        print CF "\$list_special_folders_first     = '$list_special_folders_first';\n";
+        print CF "\$use_special_folder_color       = '$use_special_folder_color';\n";
+        print CF "\$auto_expunge                   = '$auto_expunge';\n";
+        print CF "\$default_sub_of_inbox           = '$default_sub_of_inbox';\n";
+        print CF "\$show_contain_subfolders_option = '$show_contain_subfolders_option';\n";
+        print CF "\$default_unseen_notify          = '$default_unseen_notify';\n";
+        print CF "\$default_unseen_type            = '$default_unseen_type';\n";
+        print CF "\$auto_create_special            = '$auto_create_special';\n";
+        print CF "\$delete_folder                  = '$delete_folder';\n";
         print CF "\n";
 
         print CF "\$default_charset          = '$default_charset';\n";
         print CF "\$data_dir                 = '$data_dir';\n";
-        print CF "\$attachment_dir           = \"$attachment_dir\";\n";
-        print CF "\$dir_hash_level           = $dir_hash_level;\n";
-        print CF "\$default_left_size        = $default_left_size;\n";
-        print CF "\$force_username_lowercase = $force_username_lowercase;\n";
-        print CF "\$default_use_priority     = $default_use_priority;\n";
-        print CF "\$hide_sm_attributions     = $hide_sm_attributions;\n";
-        print CF "\$default_use_mdn          = $default_use_mdn;\n";
-        print CF "\$edit_identity            = $edit_identity;\n";
-        print CF "\$edit_name                = $edit_name;\n";
-        print CF "\$allow_thread_sort        = $allow_thread_sort;\n";
-        print CF "\$allow_server_sort        = $allow_server_sort;\n";
+        print CF "\$attachment_dir           = '$attachment_dir';\n";
+        print CF "\$dir_hash_level           = '$dir_hash_level';\n";
+        print CF "\$default_left_size        = '$default_left_size';\n";
+        print CF "\$force_username_lowercase = '$force_username_lowercase';\n";
+        print CF "\$default_use_priority     = '$default_use_priority';\n";
+        print CF "\$hide_sm_attributions     = '$hide_sm_attributions';\n";
+        print CF "\$default_use_mdn          = '$default_use_mdn';\n";
+        print CF "\$edit_identity            = '$edit_identity';\n";
+        print CF "\$edit_name                = '$edit_name';\n";
+        print CF "\$allow_thread_sort        = '$allow_thread_sort';\n";
+        print CF "\$allow_server_sort        = '$allow_server_sort';\n";
         print CF "\n";
 
         for ( $ct = 0 ; $ct <= $#plugins ; $ct++ ) {
