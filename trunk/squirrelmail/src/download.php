@@ -36,7 +36,6 @@ if ( sqgetGlobalVar('passed_id', $temp, SQ_GET) ) {
 }  
 
 /* end globals */
-$mailbox = urldecode($mailbox);
 
 global $uid_support;
 

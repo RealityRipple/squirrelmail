@@ -694,10 +694,6 @@ if ( sqgetGlobalVar('startMessage', $temp) ) {
 /* end of get globals */
 global $uid_support, $sqimap_capabilities;
 
-if (isset($mailbox)) {
-    $mailbox = urldecode( $mailbox );
-}
-
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response   = sqimap_mailbox_select($imapConnection, $mailbox, false, false, true);
 
