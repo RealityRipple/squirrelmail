@@ -234,8 +234,8 @@ $colapse = array( 'Titles' => 'off',
                   'Group7' => getPref($data_dir, $username, 'adm_Group7', 'on' ),
                   'Group8' => getPref($data_dir, $username, 'adm_Group8', 'on' ) );
 
-if ( isset( $_GET['switch'] ) ) {
-    $switch = $_GET['switch'];
+/* look in $_GET array for 'switch' */
+if ( sqgetGlobalVar('switch', $switch, SQ_GET) ) {
     if ( $colapse[$switch] == 'on' ) {
        $colapse[$switch] = 'off';
     } else {
@@ -331,8 +331,9 @@ foreach ( $newcfg as $k => $v ) {
             echo "</td></tr>\n";
             break;
         case SMOPT_TYPE_INTEGER:
-            if ( isset( $HTTP_POST_VARS[$e] ) ) {
-                $v = intval( $HTTP_POST_VARS[$e] );
+	    /* look for variable $e in POST, fill into $v */
+            if ( sqgetGlobalVar($e, $v, SQ_POST) ) {
+                $v = intval( $v );
                 $newcfg[$k] = $v;
             }
             echo "<tr><td>$name</td><td>".
@@ -343,8 +344,7 @@ foreach ( $newcfg as $k => $v ) {
             echo "</td></tr>\n";
             break;
         case SMOPT_TYPE_NUMLIST:
-            if ( isset( $HTTP_POST_VARS[$e] ) ) {
-                $v = $HTTP_POST_VARS[$e];
+            if (  sqgetGlobalVar($e, $v, SQ_POST) ) {
                 $newcfg[$k] = $v;
             }
             echo "<tr><td>$name</td><td>";
@@ -363,8 +363,8 @@ foreach ( $newcfg as $k => $v ) {
             echo "</td></tr>\n";
             break;
         case SMOPT_TYPE_STRLIST:
-            if ( isset( $HTTP_POST_VARS[$e] ) ) {
-                $v = '"' . $HTTP_POST_VARS[$e] . '"';
+            if (  sqgetGlobalVar($e, $v, SQ_POST) ) {
+                $v = '"' . $v . '"';
                 $newcfg[$k] = $v;
             }
             echo "<tr><td>$name</td><td>".
@@ -384,8 +384,8 @@ foreach ( $newcfg as $k => $v ) {
             break;
 
         case SMOPT_TYPE_TEXTAREA:
-            if ( isset( $HTTP_POST_VARS[$e] ) ) {
-                $v = '"' . $HTTP_POST_VARS[$e] . '"';
+            if (  sqgetGlobalVar($e, $v, SQ_POST) ) {
+                $v = '"' . $v . '"';
                 $newcfg[$k] = str_replace( "\n", '', $v );
             }
             echo "<tr><td valign=top>$name</td><td>".
@@ -396,8 +396,8 @@ foreach ( $newcfg as $k => $v ) {
             echo "</td></tr>\n";
             break;
         case SMOPT_TYPE_STRING:
-            if ( isset( $HTTP_POST_VARS[$e] ) ) {
-                $v = '"' . $HTTP_POST_VARS[$e] . '"';
+            if (  sqgetGlobalVar($e, $v, SQ_POST) ) {
+                $v = '"' . $v . '"';
                 $newcfg[$k] = $v;
             }
             if ( $v == '""' && isset( $defcfg[$k]['default'] ) ) {
@@ -412,8 +412,7 @@ foreach ( $newcfg as $k => $v ) {
             echo "</td></tr>\n";
             break;
         case SMOPT_TYPE_BOOLEAN:
-            if ( isset( $HTTP_POST_VARS[$e] ) ) {
-                $v = $HTTP_POST_VARS[$e];
+            if (  sqgetGlobalVar($e, $v, SQ_POST) ) {
                 $newcfg[$k] = $v;
             } else {
                 $v = strtoupper( $v );
@@ -434,8 +433,8 @@ foreach ( $newcfg as $k => $v ) {
             echo "</td></tr>\n";
             break;
 	case SMOPT_TYPE_PATH:
-	    if ( isset( $HTTP_POST_VARS[$e] ) ) {
-               $v = change_to_sm_path($HTTP_POST_VARS[$e]);
+            if (  sqgetGlobalVar($e, $v, SQ_POST) ) {
+               $v = change_to_sm_path($v);
                $newcfg[$k] = $v;
             }
             if ( $v == "''" && isset( $defcfg[$k]['default'] ) ) {
@@ -469,8 +468,8 @@ if ( $colapse['Group7'] == 'off' ) {
     while ( isset( $newcfg["\$theme[$i]['NAME']"] ) ) {
         $k1 = "\$theme[$i]['NAME']";
         $e1 = "theme_name_$i";
-        if ( isset( $HTTP_POST_VARS[$e1] ) ) {
-            $v1 = '"' . str_replace( '\"', '"', $HTTP_POST_VARS[$e1] ) . '"';
+        if (  sqgetGlobalVar($e, $v1, SQ_POST) ) {
+            $v1 = '"' . str_replace( '\"', '"', $v1 ) . '"';
             $v1 = '"' . str_replace( '"', '\"', $v1 ) . '"';
             $newcfg[$k1] = $v1;
         } else {
@@ -478,8 +477,8 @@ if ( $colapse['Group7'] == 'off' ) {
         }
         $k2 = "\$theme[$i]['PATH']";
         $e2 = "theme_path_$i";
-        if ( isset( $HTTP_POST_VARS[$e2] ) ) {
-            $v2 = change_to_sm_path($HTTP_POST_VARS[$e2]);
+        if (  sqgetGlobalVar($e, $v2, SQ_POST) ) {
+            $v2 = change_to_sm_path($v2);
 	    $newcfg[$k2] = $v2;
         } else {
             $v2 = $newcfg[$k2];
@@ -523,10 +522,9 @@ if( $colapse['Group8'] == 'off' ) {
 
       /* Lets get the plugins that are active */
       $plugins = array();
-      if ( isset( $HTTP_POST_VARS['plg'] ) ) {
+      if (  sqgetGlobalVar('plg', $v, SQ_POST) ) {
         foreach ( $op_plugin as $plg ) {
-            if ( isset( $HTTP_POST_VARS["plgs_$plg"] ) &&
-                 $HTTP_POST_VARS["plgs_$plg"] == 'on' ) {
+            if (  sqgetGlobalVar("plgs_$plg", $v, SQ_POST) && $v == 'on' ) {
                 $plugins[] = $plg;
             }
         }

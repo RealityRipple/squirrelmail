@@ -158,6 +158,58 @@ function sqsession_is_registered ($name) {
 }
 
 
+define('SQ_INORDER',0);
+define('SQ_GET',1);
+define('SQ_POST',2);
+define('SQ_SESSION',3);
+
+/**
+ * Search for the var $name in $_SESSION, $_POST, $_GET
+ * and set it in provided var. 
+ * If $search is not provided,  or == SQ_INORDER, it will search
+ * $_SESSION, then $_POST, then $_GET. Otherwise,
+ * use one of the defined constants to look for 
+ * a var in one place specifically.
+ * Returns FALSE if variable is not found.
+ * Returns TRUE if it is.
+ */
+function sqgetGlobalVar($name, &$value, $search = SQ_INORDER) {
+    if ( !check_php_version(4,1) ) {
+        global $_SESSION, $_GET, $_POST;
+    }
+    
+    switch ($search) {
+        /* we want the default case to be first here,  
+	   so that if a valid value isn't specified, 
+	   all three arrays will be searched. */
+        default:
+	case SQ_INORDER:
+	case SQ_SESSION:
+	  if( isset($_SESSION[$name]) ) {
+            $value = $_SESSION[$name];
+	    return TRUE;
+          } elseif ( $search == SQ_SESSION ) {
+	    break;
+	  }
+	case SQ_POST:
+	  if( isset($_POST[$name]) ) {
+            $value = $_POST[$name];
+	    return TRUE;
+	  } elseif ( $search == SQ_POST ) {
+	    break;
+	  }
+       	case SQ_GET:
+	  if ( isset($_GET[$name]) ) {
+            $value = $_GET[$name];
+	    return TRUE;
+	  } elseif ( $search == SQ_GET ) {
+	    break;
+	  }
+    }
+    return FALSE;
+}
+
+ 
 /**
  *  Search for the var $name in $_SESSION, $_POST, $_GET
  *  (in that order) and register it as a global var.
