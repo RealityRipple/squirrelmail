@@ -22,15 +22,16 @@ class mailboxes {
 
     function addMbx($mbx, $delimiter, $start, $specialfirst) {
         $ary = explode($delimiter, $mbx->mailboxname_full);
-        $mbx_parent = &$this;
+        $mbx_parent =& $this;
         for ($i = $start, $c = count($ary)-1; $i < $c; $i++) {
-            $mbx_childs = &$mbx_parent->mbxs;
+            $mbx_childs =& $mbx_parent->mbxs;
             $found = false;
             if ($mbx_childs) {
                 foreach ($mbx_childs as $key => $parent) {
                     if ($parent->mailboxname_sub == $ary[$i]) {
-                        $mbx_parent = &$mbx_parent->mbxs[$key];
+                        $mbx_parent =& $mbx_parent->mbxs[$key];
                         $found = true;
+                        break;
                     }
                 }
             }
@@ -41,7 +42,7 @@ class mailboxes {
                 } else {
                     $no_select_mbx->mailboxname_full = $ary[$i];
                 }
-                $no_select_mbx->mailboxname_sub = $ary[$i];
+                $no_select_mbx->mailboxname_sub = imap_utf7_decode_local($ary[$i]);
                 $no_select_mbx->is_noselect = true;
                 $mbx_parent->mbxs[] = $no_select_mbx;
                 $i--;
@@ -794,7 +795,6 @@ function sqimap_mailbox_tree($imap_stream) {
                 }
             }
         }
-
         $boxesnew = sqimap_fill_mailbox_tree($sorted_lsub_ary);
         return $boxesnew;
     }
@@ -869,9 +869,9 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false) {
 
             $r_del_pos = strrpos($mbx_ary[$i]['mbx'], $delimiter);
             if ($r_del_pos) {
-                $mbx->mailboxname_sub = substr($mbx_ary[$i]['mbx'],$r_del_pos+1);
+                $mbx->mailboxname_sub = imap_utf7_decode_local(substr($mbx_ary[$i]['mbx'],$r_del_pos+1));
             } else {   /* mailbox is root folder */
-                $mbx->mailboxname_sub = $mbx_ary[$i]['mbx'];
+                $mbx->mailboxname_sub = imap_utf7_decode_local($mbx_ary[$i]['mbx']);
             }
             $mbx->mailboxname_full = $mbx_ary[$i]['mbx'];
 
