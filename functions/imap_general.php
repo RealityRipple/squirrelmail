@@ -302,7 +302,10 @@ function sqimap_error_box($title, $query = '', $message_title = '', $message = '
     set_up_language($squirrelmail_language);
     require_once(SM_PATH . 'functions/display_messages.php');
     $string = "<font color=$color[2]><b>\n" . $title . "</b><br>\n";
-    if ($query != '')
+    $cmd = explode(' ',$query);
+    $cmd= strtolower($cmd[0]);
+
+    if ($query != '' &&  $cmd != 'login')
         $string .= _("Query:") . ' ' . htmlspecialchars($query) . '<br>';
     if ($message_title != '')
         $string .= $message_title;
