@@ -309,7 +309,9 @@ if ( !$allow_server_sort ) {
 if ( !$uid_support ) {
     $uid_support = 'true';
 }
-
+if ( !$no_list_for_subscribe ) {
+    $no_list_for_subscribe = 'false';
+}
 if ( !$allow_charset_search ) {
     $allow_charset_search = 'true';
 }
