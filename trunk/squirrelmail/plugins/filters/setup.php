@@ -65,9 +65,20 @@
       global $mailbox, $imap_stream, $imapConnection;
 
       $squirrelmail_plugin_hooks['left_main_before']['filters'] = 'start_filters';
-      if ($mailbox == 'INBOX')
-         $squirrelmail_plugin_hooks["right_main_after_header"]['filters'] = 'start_filters';
+      if ($mailbox == 'INBOX') {
+          $squirrelmail_plugin_hooks['right_main_after_header']['filters'] = 'start_filters';
+      }
       $squirrelmail_plugin_hooks['optpage_register_block']['filters'] = 'squirrelmail_plugin_optpage_register_block';
+      $squirrelmail_plugin_hooks['special_mailbox']['filters'] = 'filters_special_mailbox';
+   }
+
+   function filters_special_mailbox( $data, $mb ) {
+
+       if ( $mb == getPref($data_dir, $username, 'filters_spam_folder', 'na' ) ) {
+           return( TRUE );
+       } else {
+           return( FALSE );
+       }
    }
 
    function squirrelmail_plugin_optpage_register_block() {

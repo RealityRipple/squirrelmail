@@ -50,6 +50,10 @@ function isSpecialMailbox( $box ) {
              ( $move_to_sent && isBoxBelow( $box, $sent_folder )) ||
              ($save_as_draft && $box == $draft_folder ) );
 
+    if ( !$ret ) {
+        $ret = do_hook( 'special_mailbox', $box );
+    }
+
     return( $ret );
 
 }
