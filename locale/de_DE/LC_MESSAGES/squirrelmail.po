@@ -1,24 +1,22 @@
 # SquirrelMail German Strings
 # Copyright (c) 1999-2002 The Squirrelmail Development Team
 # Roland Bauerschmidt <rb@debian.org>, 1999.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
 "POT-Creation-Date: 2003-01-01 18:33+0100\n"
-"PO-Revision-Date: 2001-12-03 14:50GMT+1\n"
-"Last-Translator: Klaus Brunner <klaus@winf.at>\n"
+"PO-Revision-Date: 2002-12-07 18:06+0100\n"
+"Last-Translator: Jürgen Edner <juergen.edner@epost.de>\n"
 "Language-Team: German <squirrelmail-i18n@lists.squirrelmail.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.5\n"
 
 msgid "Delivery error report"
-msgstr ""
+msgstr "Zustellungsfehlerreport"
 
 msgid "Undelivered Message Headers"
-msgstr ""
+msgstr "Nicht zugestellter Nachrichtenkopf"
 
 msgid "(no subject)"
 msgstr "(kein Betreff)"
@@ -51,24 +49,22 @@ msgid "Open failed"
 msgstr "&Ouml;ffnen fehlgeschlagen"
 
 msgid "Can not modify global address book"
-msgstr "Kann das globale Adressbuch nicht verändern"
+msgstr "Kann das globale Adressbuch nicht ver&auml;ndern"
 
 msgid "Not a file name"
 msgstr "Ung&uuml;ltiger Dateiname"
 
-#, fuzzy
 msgid "Write failed"
 msgstr "&Ouml;ffnen fehlgeschlagen"
 
-#, fuzzy
 msgid "Unable to update"
-msgstr "Speichern / Übernehmen"
+msgstr "Aktualisierung nicht m&ouml;glich"
 
 msgid "Could not lock datafile"
 msgstr "Kann nicht exklusiv auf die Datei zugreifen"
 
 msgid "Write to addressbook failed"
-msgstr "Konnte das Adreßbuch nicht schreiben"
+msgstr "Konnte das Adressbuch nicht schreiben"
 
 msgid "Error initializing addressbook database."
 msgstr "Fehler beim Initialisieren der Adressbuch-Datenbank"
@@ -103,7 +99,8 @@ msgid "Business Card"
 msgstr "Visitenkarte"
 
 msgid "You must be logged in to access this page."
-msgstr "Sie müssen angemeldet sein um Zugriff auf diese Seite zu bekommen!"
+msgstr ""
+"Sie m&uuml;ssen angemeldet sein um Zugriff auf diese Seite zu bekommen!"
 
 msgid "Sunday"
 msgstr "Sonntag"
@@ -133,7 +130,7 @@ msgid "February"
 msgstr "Februar"
 
 msgid "March"
-msgstr "März"
+msgstr "M&auml;rz"
 
 msgid "April"
 msgstr "April"
@@ -185,7 +182,7 @@ msgstr "d.m.Y"
 
 #, c-format
 msgid "Preference database error (%s). Exiting abnormally"
-msgstr ""
+msgstr "Einstellungsdatenbank fehlerhaft (%s). Abbruch."
 
 msgid "Unknown user or password incorrect."
 msgstr "Ung&uuml;ltiger Benutzername oder Passwort nicht korrekt."
@@ -197,9 +194,9 @@ msgstr "Klicken Sie hier f&uuml;r einen neuen Versuch"
 msgid "Click here to return to %s"
 msgstr "Klicken Sie hier um zu %s zur&uuml;ckzukehren"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s Logo"
-msgstr "%s Login"
+msgstr "%s Logo"
 
 #, c-format
 msgid "SquirrelMail version %s"
@@ -222,42 +219,42 @@ msgstr ""
 "Einstellungsdatei %s wurde nicht gefunden.  Bitte loggen sie sich aus und "
 "nochmals ein um eine neue Einstellungsdatei zu erstellen."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Preference file, %s, could not be opened. Contact your system administrator "
 "to resolve this issue."
 msgstr "Kontaktieren Sie Ihren Administrator, um Hilfe zu erhalten."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Preference file, %s, could not be written. Contact your system administrator "
 "to resolve this issue."
 msgstr "Kontaktieren Sie Ihren Administrator, um Hilfe zu erhalten."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening %s"
 msgstr "Fehler beim &Ouml;ffnen von "
 
 msgid "Default preference file not found or not readable!"
-msgstr ""
+msgstr "Standard Konfigurationsdatei nicht gefunden oder nicht lesbar!"
 
 msgid "Please contact your system administrator and report this error."
 msgstr "Kontaktieren Sie Ihren Administrator, um Hilfe zu erhalten."
 
 msgid "Could not create initial preference file!"
-msgstr ""
+msgstr "Konnte initiale Einstellungsdatei nicht erstellen!"
 
 #, c-format
 msgid "%s should be writable by user %s"
-msgstr ""
+msgstr "%s sollte von %s beschreibbar sein"
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Signature file, %s, could not be opened. Contact your system administrator "
 "to resolve this issue."
 msgstr "Kontaktieren Sie Ihren Administrator, um Hilfe zu erhalten."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Signature file, %s, could not be written. Contact your system administrator "
 "to resolve this issue."
@@ -274,18 +271,17 @@ msgstr ""
 msgid "ERROR : Could not complete request."
 msgstr "FEHLER : Aktion konnte nicht ausgef&uuml;hrt werden."
 
-#, fuzzy
 msgid "Query:"
-msgstr "Quartalsweise"
+msgstr "Anfrage:"
 
 msgid "Reason Given: "
 msgstr "Grund: "
 
 msgid "ERROR : Bad or malformed request."
-msgstr ""
+msgstr "FEHLER: Falsche oder ung&uuml;ltige Anfrage."
 
 msgid "Server responded: "
-msgstr ""
+msgstr "Server antwortete: "
 
 #, c-format
 msgid "Error connecting to IMAP server: %s."
@@ -293,11 +289,11 @@ msgstr "Fehler beim Verbinden mit dem IMAP-Server: %s."
 
 #, c-format
 msgid "Bad request: %s"
-msgstr ""
+msgstr "Unzul&auml;ssige Anfrage: %s"
 
 #, c-format
 msgid "Unknown error: %s"
-msgstr ""
+msgstr "Unbekannter Fehler: %s"
 
 msgid "Read data:"
 msgstr "Lese Daten:"
@@ -315,15 +311,14 @@ msgid ""
 "folder."
 msgstr ""
 
-#, fuzzy
 msgid "INBOX"
-msgstr "Nur INBOX"
+msgstr "INBOX"
 
 msgid "Unknown response from IMAP server: "
 msgstr "Unbekannte Antwort vom IMAP-Server: "
 
 msgid "Unknown message number in reply from server: "
-msgstr ""
+msgstr "Unbekannte Nachrichtennummer in der Antwort vom Server: "
 
 msgid "Unknown Sender"
 msgstr "Unbekannter Absender"
@@ -336,17 +331,23 @@ msgid "Unknown date"
 msgstr "Unbekannter Absender"
 
 msgid "A"
-msgstr ""
+msgstr "A"
 
+#, fuzzy
 msgid ""
 "Thread sorting is not supported by your IMAP server.<br>Please report this "
 "to the system administrator."
 msgstr ""
+"Server-seitige Sortierung wird von Ihrem IMAP-Server nicht<br>unterst&uuml;"
+"tzt. Bitte melden Sie dies an den System-Administrator"
 
+#, fuzzy
 msgid ""
 "Server-side sorting is not supported by your IMAP server.<br>Please report "
 "this to the system administrator."
 msgstr ""
+"Server-seitige Sortierung wird von Ihrem IMAP-Server nicht<br>unterst&uuml;"
+"tzt. Bitte melden Sie dies an den System-Administrator"
 
 msgid "THIS FOLDER IS EMPTY"
 msgstr "DIESER ORDNER IST LEER"
@@ -356,7 +357,7 @@ msgid "Move Selected To"
 msgstr "Verschiebe markierte Nachrichten nach:"
 
 msgid "Transform Selected Messages"
-msgstr "Ausgewählte Nachrichten markieren als"
+msgstr "Ausgew&auml;hlte Nachrichten markieren als"
 
 msgid "Move"
 msgstr "Verschieben"
@@ -379,12 +380,11 @@ msgstr "ungelesen"
 msgid "Delete"
 msgstr "L&ouml;schen"
 
-#, fuzzy
 msgid "Unthread View"
-msgstr "ungelesen"
+msgstr "Keine Thread-Anzeige"
 
 msgid "Thread View"
-msgstr ""
+msgstr "Thread-Anzeige"
 
 msgid "To"
 msgstr "An"
@@ -399,16 +399,16 @@ msgid "Subject"
 msgstr "Betreff"
 
 msgid "Size"
-msgstr "Gr&ouml;&szlig;e"
+msgstr "Gr&ouml;sse"
 
 msgid "Toggle All"
-msgstr "Alle Markierungen ändern"
+msgstr "Alle Markierungen &auml;ndern"
 
 msgid "Unselect All"
-msgstr "Alle abwählen"
+msgstr "Alle abw&auml;hlen"
 
 msgid "Select All"
-msgstr "Alle anwählen"
+msgstr "Alle anw&auml;hlen"
 
 #, c-format
 msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
@@ -440,20 +440,20 @@ msgid ""
 "Body retrieval error. The reason for this is most probably that the message "
 "is malformed."
 msgstr ""
+"Fehler beim Mail-Body-Empfang. Der Grund f&uuml;r dies ist meisstens eine "
+"falsch formatierte Nachricht."
 
 msgid "Command:"
-msgstr ""
+msgstr "Beefehl:"
 
-#, fuzzy
 msgid "Response:"
-msgstr "Grund: "
+msgstr "Grund:"
 
-#, fuzzy
 msgid "Message:"
-msgstr "Nachricht "
+msgstr "Nachricht:"
 
 msgid "FETCH line:"
-msgstr ""
+msgstr "FETCH Zeile:"
 
 msgid "High"
 msgstr "Hoch"
@@ -465,9 +465,8 @@ msgid "Normal"
 msgstr "Normal"
 
 msgid "Hide Unsafe Images"
-msgstr ""
+msgstr "Verstecke unsichere Bilder"
 
-#, fuzzy
 msgid "View Unsafe Images"
 msgstr "Nachricht anzeigen"
 
@@ -479,11 +478,11 @@ msgid "Unknown sender"
 msgstr "Unbekannter Absender"
 
 msgid "sec_remove_eng.png"
-msgstr ""
+msgstr "sec_remove_eng.png"
 
 #, c-format
 msgid "Option Type '%s' Not Found"
-msgstr ""
+msgstr "Optionstyp '%s' nicht gefunden"
 
 msgid "Yes"
 msgstr "Ja"
@@ -523,7 +522,7 @@ msgid "Error creating directory %s."
 msgstr "Fehler beim Erstellen von Verzeichnis %s"
 
 msgid "Could not create hashed directory structure!"
-msgstr ""
+msgstr "Hash-Verzeichnisstruktur kann nicht angelegt werden!"
 
 msgid "General Display Options"
 msgstr "Allgemeine Anzeigeoptionen"
@@ -535,7 +534,7 @@ msgid "Default"
 msgstr "Standard"
 
 msgid "Custom Stylesheet"
-msgstr ""
+msgstr "Individuelles Stylesheet"
 
 msgid "Language"
 msgstr "Sprache"
@@ -544,7 +543,7 @@ msgid "Use Javascript"
 msgstr "JavaScript benutzen"
 
 msgid "Autodetect"
-msgstr "Automatisch"
+msgstr "Automatische Erkennung"
 
 msgid "Always"
 msgstr "Immer"
@@ -553,13 +552,13 @@ msgid "Never"
 msgstr "Nie"
 
 msgid "Mailbox Display Options"
-msgstr "Voreinstellungen für die Anzeige der Mailbox"
+msgstr "Optionen f&uuml;r die Mailbox-Anzeige"
 
 msgid "Number of Messages to Index"
 msgstr "Anzahl von Nachrichten im Index"
 
 msgid "Enable Alternating Row Colors"
-msgstr "Wechselnde Farben für Tabellenzeilen aktivieren"
+msgstr "Wechselnde Farben f&uuml;r Tabellenzeilen aktivieren"
 
 msgid "Enable Page Selector"
 msgstr "Seitenauswahl aktivieren"
@@ -589,7 +588,7 @@ msgid "After message body"
 msgstr "Nach dem Nachrichtentext"
 
 msgid "Addressbook Display Format"
-msgstr "Anzeigeformat des Adre&szlig;buches"
+msgstr "Anzeigeformat des Adressbuches"
 
 msgid "Javascript"
 msgstr "JavaScript"
@@ -598,46 +597,49 @@ msgid "HTML"
 msgstr "HTML"
 
 msgid "Show HTML Version by Default"
-msgstr "Zeige standardmäßig die HTML Fassung"
+msgstr "Standardm&auml;ssig die HTML-Version anzeigen:"
 
 msgid "Enable Forward as Attachment"
 msgstr ""
 
+#, fuzzy
 msgid "Include CCs when Forwarding Messages"
-msgstr ""
+msgstr "Adressen aus dem CC bei Weiterleitung einbeziehen"
 
 msgid "Include Me in CC when I Reply All"
 msgstr "Eigene Adresse im CC, wenn an alle geantwortet wird"
 
 msgid "Enable Mailer Display"
-msgstr "Mailprogramm anzeigen"
+msgstr "Name des Mailprogramm anzeigen"
 
 msgid "Display Attached Images with Message"
-msgstr "Angehängte Bilder mit der Nachricht anzeigen"
+msgstr "Angeh&auml;ngte Bilder mit der Nachricht anzeigen"
 
 msgid "Enable Subtle Printer Friendly Link"
-msgstr "Subtilen Link auf druckerfreundliche Anzeige aktivieren"
+msgstr "Link auf druckerfreundliche Anzeige aktivieren"
 
 msgid "Enable Printer Friendly Clean Display"
-msgstr "druckerfreundliche Anzeige aktivieren"
+msgstr "Druckerfreundliche Anzeige aktivieren"
 
 #, fuzzy
 msgid "Enable Mail Delivery Notification"
-msgstr "Benachrichtung für ungesehene Nachrichten"
+msgstr "Benachrichtung f&uuml;r ungesehene Nachrichten"
 
+#, fuzzy
 msgid "Compose Messages in New Window"
-msgstr ""
+msgstr "Mail immer in neuem Fenster schreiben"
 
 #, fuzzy
 msgid "Width of Compose Window"
-msgstr "Fenster schlie&szlig;en"
+msgstr "Breite des Fensters f&uuml;r neue Mail"
 
 #, fuzzy
 msgid "Height of Compose Window"
-msgstr "Fenster schlie&szlig;en"
+msgstr "H&ouml;he des Fensters f&uuml;r neue Mail"
 
+#, fuzzy
 msgid "Append Signature before Reply/Forward Text"
-msgstr ""
+msgstr "Signatur vor Antworten/Weiterleiten-Text"
 
 msgid "Enable Sort by of Receive Date"
 msgstr ""
@@ -649,19 +651,19 @@ msgid "Special Folder Options"
 msgstr "Spezielle Ordner-Optionen"
 
 msgid "Folder Path"
-msgstr "Ordner-Pfad"
+msgstr "Ordnerpfad"
 
 msgid "Do not use Trash"
-msgstr "Benutze keinen Papierkorb"
+msgstr "Keinen Papierkorb benutzen"
 
 msgid "Trash Folder"
 msgstr "Papierkorb-Ordner"
 
 msgid "Do not use Sent"
-msgstr "Benutze keinen Ordner f&uuml;r gesendete Nachrichten"
+msgstr "Keinen Ordner f&uuml;r gesendete Nachrichten benutzen"
 
 msgid "Sent Folder"
-msgstr "Ordner für gesendete Nachrichten"
+msgstr "Ordner f&uuml;r gesendete Nachrichten"
 
 msgid "Do not use Drafts"
 msgstr "Keinen Ordner f&uuml;r Entw&uuml;rfe benutzen"
@@ -670,7 +672,7 @@ msgid "Draft Folder"
 msgstr "Ordner f&uuml;r Entw&uuml;rfe"
 
 msgid "Folder List Options"
-msgstr "Optionen für die Ordnerliste"
+msgstr "Optionen f&uuml;r die Ordnerliste"
 
 msgid "Location of Folder List"
 msgstr "Ort der Ordnerliste"
@@ -700,7 +702,7 @@ msgid "Auto Refresh Folder List"
 msgstr "Ordnerliste automatisch aktualisieren"
 
 msgid "Enable Unread Message Notification"
-msgstr "Benachrichtung für ungesehene Nachrichten"
+msgstr "Benachrichtung f&uuml;r ungesehene Nachrichten"
 
 msgid "No Notification"
 msgstr "Keine Benachrichtigung"
@@ -725,16 +727,16 @@ msgstr "Einklappbare Ordner aktivieren"
 
 #, fuzzy
 msgid "Enable Cumulative Unread Message Notification"
-msgstr "Benachrichtung für ungesehene Nachrichten"
+msgstr "Benachrichtung f&uuml;r ungesehene Nachrichten"
 
 msgid "Show Clock on Folders Panel"
-msgstr "Zeige Uhr in der Ordnerübersicht"
+msgstr "Zeige Uhr in der Ordner&uuml;bersicht"
 
 msgid "No Clock"
 msgstr "keine Uhr"
 
 msgid "Hour Format"
-msgstr "Format für Stunden"
+msgstr "Stundenformat"
 
 msgid "12-hour clock"
 msgstr "12-Stunden"
@@ -742,23 +744,23 @@ msgstr "12-Stunden"
 msgid "24-hour clock"
 msgstr "24-Stunden"
 
-#, fuzzy
 msgid "Memory Search"
-msgstr "Suchen"
+msgstr "Speicher durchsuchen"
 
 msgid "Disabled"
 msgstr "Deaktiviert"
 
 #, fuzzy
 msgid "Folder Selection Options"
-msgstr "Optionen für die Ordnerliste"
+msgstr "Optionen f&uuml;r die Ordnerliste"
 
 #, fuzzy
 msgid "Selection List Style"
-msgstr "Zitierungsstil für Antworten"
+msgstr "Zitierungsstil f&uuml;r Antworten"
 
+#, fuzzy
 msgid "Long: "
-msgstr ""
+msgstr "L&auml;nge:"
 
 msgid "Indented: "
 msgstr ""
@@ -767,7 +769,7 @@ msgid "Delimited: "
 msgstr ""
 
 msgid "Name and Address Options"
-msgstr "Optionen für Namen und Adressen"
+msgstr "Optionen f&uuml;r Namen und Adressen"
 
 msgid "Full Name"
 msgstr "Vollst&auml;ndiger Name"
@@ -776,44 +778,43 @@ msgid "Email Address"
 msgstr "E-Mail-Adresse"
 
 msgid "Reply To"
-msgstr "Antwort An"
+msgstr "Antwort an"
 
 msgid "Signature"
 msgstr "Signatur"
 
 msgid "Edit Advanced Identities"
-msgstr "Mehrere Identitäten einstellen"
+msgstr "Mehrere Identit&auml;ten einstellen"
 
 msgid "(discards changes made on this form so far)"
-msgstr "(verwirft Änderungen an diesem Formular)"
+msgstr "(verwirft &Auml;nderungen an diesem Formular)"
 
 msgid "Multiple Identities"
-msgstr "Mehrere Identitäten"
+msgstr "Mehrere Identit&auml;ten"
 
 msgid "Same as server"
-msgstr ""
+msgstr "Selbe wie Server"
 
-#, fuzzy
 msgid "Timezone Options"
-msgstr "Übersetzungsoptionen"
+msgstr "Zeitzoneneinstellungen"
 
 msgid "Your current timezone"
-msgstr ""
+msgstr "Ihre derzeitige Zeitzone"
 
 msgid "Reply Citation Options"
 msgstr "Optionen f&uuml;r den Zitierungsstil f&uuml;r Antworten"
 
 msgid "Reply Citation Style"
-msgstr "Zitierungsstil für Antworten"
+msgstr "Zitierungsstil f&uuml;r Antworten"
 
 msgid "No Citation"
 msgstr "Keine Zitierung"
 
 msgid "AUTHOR Said"
-msgstr "VERFASSER sagte"
+msgstr "Verfasser sagte"
 
 msgid "Quote Who XML"
-msgstr ""
+msgstr "Verfasser in XML-Zitierung"
 
 msgid "User-Defined"
 msgstr "Benutzerdefiniert"
@@ -833,294 +834,254 @@ msgstr "Signatur verwenden"
 msgid "Prefix Signature with '-- ' Line"
 msgstr "'-- ' vor die Signatur schreiben"
 
-#, fuzzy
 msgid "Config File Version"
-msgstr "Druckversion zeigen"
+msgstr "Version der Konfigurationsdatei"
 
-#, fuzzy
 msgid "Squirrelmail Version"
 msgstr "SquirrelMail Version %s"
 
 msgid "PHP Version"
-msgstr ""
+msgstr "PHP Version"
 
-#, fuzzy
 msgid "Organization Preferences"
 msgstr "Organisation / Abteilung"
 
-#, fuzzy
 msgid "Organization Name"
 msgstr "Organisation / Abteilung"
 
-#, fuzzy
 msgid "Organization Logo"
 msgstr "Organisation / Abteilung"
 
-#, fuzzy
 msgid "Organization Logo Width"
 msgstr "Organisation / Abteilung"
 
-#, fuzzy
 msgid "Organization Logo Height"
 msgstr "Organisation / Abteilung"
 
-#, fuzzy
 msgid "Organization Title"
 msgstr "Organisation / Abteilung"
 
-#, fuzzy
 msgid "Signout Page"
-msgstr "Abmelden"
+msgstr "Abmeldeseite"
 
-#, fuzzy
 msgid "Default Language"
-msgstr "Sprache"
+msgstr "Standardsprache"
 
 msgid "Top Frame"
-msgstr ""
+msgstr "Oberster Rahmen"
 
-#, fuzzy
 msgid "Server Settings"
-msgstr "Einstellungen für den POP3 Server"
+msgstr "Servereinstellungen"
 
 msgid "Mail Domain"
-msgstr ""
+msgstr "Mail Dom&auml;ne"
 
 msgid "IMAP Server Address"
-msgstr ""
+msgstr "IMAP-Serveradresse"
 
-#, fuzzy
 msgid "IMAP Server Port"
-msgstr "Server hinzufügen"
+msgstr "IMAP-Serverport"
 
-#, fuzzy
 msgid "IMAP Server Type"
-msgstr "Server hinzufügen"
+msgstr "IMAP-Servertypn"
 
-#, fuzzy
 msgid "Cyrus IMAP server"
-msgstr "Öffne IMAP Server"
+msgstr "Cyrus IMAP-Server"
 
 msgid "University of Washington's IMAP server"
-msgstr ""
+msgstr "IMAP-Server der Universit&auml;t von Washington"
 
-#, fuzzy
 msgid "Microsoft Exchange IMAP server"
-msgstr "Öffne IMAP Server"
+msgstr "Microsoft Exchange IMAP-Server"
 
-#, fuzzy
 msgid "Courier IMAP server"
-msgstr "Öffne IMAP Server"
+msgstr "Courier IMAP-Server"
 
 msgid "Not one of the above servers"
-msgstr ""
+msgstr "Keiner der obigen Server"
 
 msgid "IMAP Folder Delimiter"
-msgstr ""
+msgstr "Trennzeichen f&uuml;r IMAP-Ordner"
 
 msgid "Use \"detect\" to auto-detect."
-msgstr ""
+msgstr "Benutze \"detect\" f&uuml;r automatischer Erkennung."
 
 msgid "Use Sendmail"
-msgstr ""
+msgstr "Sendmail benutzen"
 
 msgid "Sendmail Path"
-msgstr ""
+msgstr "Sendmail-Pfad"
 
 msgid "SMTP Server Address"
-msgstr ""
+msgstr "SMTP Serveradresse"
 
 msgid "SMTP Server Port"
-msgstr ""
+msgstr "SMTP Serverport"
 
 msgid "Authenticated SMTP"
-msgstr ""
+msgstr "Authentifiziertes SMTP"
 
 msgid "Invert Time"
-msgstr ""
+msgstr "Zeit umkehren"
 
 msgid "Use Confirmation Flags"
-msgstr ""
+msgstr "Best&auml;tigungsmerker benutzen"
 
-#, fuzzy
 msgid "Folders Defaults"
-msgstr "Ordner-Pfad"
+msgstr "Ordner-Standardoptionen"
 
-#, fuzzy
 msgid "Default Folder Prefix"
-msgstr "Ordner l&ouml;schen"
+msgstr "Standard Ordnerprefix"
 
-#, fuzzy
 msgid "Show Folder Prefix Option"
-msgstr "Optionen für die Ordnerliste"
+msgstr "Ordnerprefix-Option anzeigen"
 
 msgid "By default, move to trash"
-msgstr ""
+msgstr "Standardm&auml;ssig in den Papierkorb verschieben"
 
 msgid "By default, move to sent"
-msgstr ""
+msgstr "Standardm&auml;ssig in den Sendeordner verschieben"
 
 msgid "By default, save as draft"
-msgstr ""
+msgstr "Standardm&auml;ssig als Entwurf speichern"
 
-#, fuzzy
 msgid "List Special Folders First"
-msgstr "Spezielle Ordner-Optionen"
+msgstr "Spezielle Ordner als erstes anzeigen"
 
-#, fuzzy
 msgid "Show Special Folders Color"
-msgstr "Spezielle Ordner-Optionen"
+msgstr "Farbe f&uuml;r spezielle Ordner verwenden"
 
-#, fuzzy
 msgid "Auto Expunge"
 msgstr "L&ouml;schen"
 
 msgid "Default Sub. of INBOX"
-msgstr ""
+msgstr "Standard-Unterverzeichnis von INBOX"
 
 msgid "Show 'Contain Sub.' Option"
-msgstr ""
+msgstr "Zeige 'Enth&auml;lt Unterverzeichnis'-Option"
 
-#, fuzzy
 msgid "Default Unseen Notify"
-msgstr "Standardidentität"
+msgstr "Standardm&auml;ssige Neue-Mail-Benachrichtigung"
 
-#, fuzzy
 msgid "Default Unseen Type"
-msgstr "Standardidentität"
+msgstr "Standardm&auml;ssiger Neue-Mail-Typ"
 
-#, fuzzy
 msgid "Auto Create Special Folders"
-msgstr "Ordner erstellen"
+msgstr "Automatisch spezielle Ordner erstellen"
 
 msgid "Default Javascript Adrressbook"
-msgstr ""
+msgstr "Standard JavaScript-Adressbuch"
 
-#, fuzzy
 msgid "Auto delete folders"
 msgstr "Ordner l&ouml;schen"
 
-#, fuzzy
 msgid "General Options"
 msgstr "Allgemeine Anzeigeoptionen"
 
-#, fuzzy
 msgid "Default Charset"
-msgstr "Standardidentität"
+msgstr "Standardzeichensatz"
 
 msgid "Data Directory"
-msgstr ""
+msgstr "Datenverzeichnis"
 
 msgid "Temp Directory"
-msgstr ""
+msgstr "Tempor&auml;res Verzeichnis"
 
 msgid "Hash Level"
-msgstr ""
+msgstr "Hash-Grad"
 
-#, fuzzy
 msgid "Hash Disabled"
-msgstr "Deaktiviert"
+msgstr "Hash deaktiviert"
 
-#, fuzzy
 msgid "Moderate"
-msgstr "Ordner-Pfad"
+msgstr "Moderate"
 
-#, fuzzy
 msgid "Medium"
-msgstr "Mittelgrau"
+msgstr "Mittel"
 
-#, fuzzy
 msgid "Default Left Size"
-msgstr "Standardidentität"
+msgstr "Standardrandbreite links"
 
 msgid "Usernames in Lowercase"
-msgstr ""
+msgstr "Benutzername in Kleinbuchstaben"
 
 msgid "Allow use of priority"
-msgstr ""
+msgstr "Benutzung von Priorit&auml;ten erlauben"
 
 msgid "Hide SM attributions"
-msgstr ""
+msgstr "SM-Attribute verstecken"
 
 msgid "Enable use of delivery receipts"
-msgstr ""
+msgstr "Zustellbest&auml;tigungen aktivieren"
 
 msgid "Allow editing of identities"
-msgstr ""
+msgstr "Bearbeiten der pers&ouml;nlichen Optionen erlauben"
 
 msgid "Allow editing of full name"
-msgstr ""
+msgstr "Bearbeiten des Namens erlauben"
 
-#, fuzzy
 msgid "Message of the Day"
-msgstr "Nachricht "
+msgstr "Nachricht des Tages"
 
-#, fuzzy
 msgid "Database"
-msgstr "Datum"
+msgstr "Datenbank"
 
-#, fuzzy
 msgid "Address book DSN"
-msgstr "Adressbuch"
+msgstr "Adressbuch DSN"
 
-#, fuzzy
 msgid "Address book table"
-msgstr "Adressbuch"
+msgstr "Adressbuch Tabelle"
 
-#, fuzzy
 msgid "Preferences DSN"
-msgstr "Voreinstellungen für Ordner"
+msgstr "Voreinstellungen f&uuml;r DSN"
 
-#, fuzzy
 msgid "Preferences table"
-msgstr "Voreinstellungen für Ordner"
+msgstr "Voreinstellungetabelle"
 
 msgid "Preferences username field"
-msgstr ""
+msgstr "Voreinstellung Benutzernamensfeld"
 
 msgid "Preferences key field"
-msgstr ""
+msgstr "Voreinstellung Schl&uuml;sselfeld"
 
 msgid "Preferences value field"
-msgstr ""
+msgstr "Voreinstellung Wertefeld"
 
-#, fuzzy
 msgid "Themes"
-msgstr "Thema"
+msgstr "Themen"
 
 msgid "Style Sheet URL (css)"
-msgstr ""
+msgstr "Style Sheet URL (css)"
 
-#, fuzzy
 msgid "Configuration Administrator"
 msgstr "Kontaktieren Sie Ihren Administrator um Hilfe zu erhalten."
 
-#, fuzzy
 msgid "Theme Name"
 msgstr "Thema"
 
-#, fuzzy
 msgid "Theme Path"
-msgstr "Thema"
+msgstr "Themenpfad"
 
-#, fuzzy
 msgid "Plugins"
-msgstr "Polnisch"
+msgstr "Plugins"
 
-#, fuzzy
 msgid "Change Settings"
-msgstr "Dieses Wort &auml;ndern"
+msgstr "Einstellungen &auml;ndern"
 
 msgid "Config file can't be opened. Please check config.php."
 msgstr ""
+"Konfigurationsdatei konnte nicht ge&ouml;ffnet werden. Bitte &uuml;"
+"berpr&uuml;fen Sie die Datei config.php."
 
 msgid "Administration"
-msgstr ""
+msgstr "Administration"
 
 msgid ""
 "This module allows administrators to manage SquirrelMail main configuration "
 "remotely."
 msgstr ""
+"Dieses Modul erlaubt es den Administratoren die Squirrelmail-Konfiguration "
+"aus der Ferne zu verwalten."
 
 msgid "Bug Reports:"
 msgstr "Softwarefehler Berichte:"
@@ -1129,31 +1090,29 @@ msgid "Show button in toolbar"
 msgstr "Zeige den Knopf im Toolbar"
 
 msgid "TODAY"
-msgstr ""
+msgstr "HEUTE"
 
 msgid "Go"
-msgstr ""
+msgstr "Go"
 
-#, fuzzy
 msgid "l, F j Y"
 msgstr "D, j.m.Y, H:i"
 
 msgid "ADD"
-msgstr ""
+msgstr "HINZUF&Uuml;GEN"
 
 msgid "EDIT"
-msgstr ""
+msgstr "BEARBEITEN"
 
 msgid "DEL"
-msgstr ""
+msgstr "L&Ouml;SCHEN"
 
 msgid "Start time:"
-msgstr ""
+msgstr "Startzeit:"
 
 msgid "Length:"
-msgstr ""
+msgstr "L&auml;nge:"
 
-#, fuzzy
 msgid "Priority:"
 msgstr "Priorit&auml;t"
 
@@ -1161,150 +1120,154 @@ msgid "Title:"
 msgstr "Titel:"
 
 msgid "Set Event"
-msgstr ""
+msgstr "Ereignis speichern"
 
 msgid "Event Has been added!"
-msgstr ""
+msgstr "Ereignis wurde hinzugef&uuml;gt!"
 
 msgid "Date:"
 msgstr "Datum:"
 
-#, fuzzy
 msgid "Time:"
 msgstr "Titel:"
 
 msgid "Day View"
-msgstr ""
+msgstr "Tagesansicht"
 
 msgid "Do you really want to delete this event?"
-msgstr ""
+msgstr "Wollen Sie dieses Ereignis wirklich l&ouml;schen?"
 
-#, fuzzy
 msgid "Event deleted!"
-msgstr "Bearbeite markierte Eintr&auml;ge"
+msgstr "Ereignis gel&ouml;scht!"
 
 msgid "Nothing to delete!"
-msgstr ""
+msgstr "Nichts zu l&ouml;schen!"
 
-#, fuzzy
 msgid "Update Event"
-msgstr "Adresse aktualisieren"
+msgstr "Ereignis aktualisieren"
 
 msgid "Do you really want to change this event from:"
-msgstr ""
+msgstr "Wollen Sie dieses Ereignis wirklich &auml;ndern von:"
 
-#, fuzzy
 msgid "to:"
-msgstr "An:"
+msgstr "nach:"
 
 msgid "Event updated!"
-msgstr ""
+msgstr "Ereignis aktualisiert!"
 
 msgid "Month View"
-msgstr ""
+msgstr "Monatsansicht"
 
 msgid "0 min."
-msgstr ""
+msgstr " 0 min"
 
 msgid "15 min."
-msgstr ""
+msgstr "15 min"
 
 msgid "35 min."
-msgstr ""
+msgstr "35 min"
 
 msgid "45 min."
-msgstr ""
+msgstr "45 min"
 
 msgid "1 hr."
-msgstr ""
+msgstr "1,0 Std."
 
 msgid "1.5 hr."
-msgstr ""
+msgstr "1,5 Std."
 
 msgid "2 hr."
-msgstr ""
+msgstr "2,0 Std."
 
 msgid "2.5 hr."
-msgstr ""
+msgstr "2,5 Std."
 
 msgid "3 hr."
-msgstr ""
+msgstr "3,0 Std."
 
 msgid "3.5 hr."
-msgstr ""
+msgstr "3,5 Std."
 
 msgid "4 hr."
-msgstr ""
+msgstr "4,0 Std."
 
 msgid "5 hr."
-msgstr ""
+msgstr "5,0 Std."
 
 msgid "6 hr."
-msgstr ""
+msgstr "6,0 Std."
 
 msgid "Calendar"
-msgstr ""
+msgstr "Kalender"
 
-#, fuzzy
 msgid "Delete & Prev"
 msgstr "L&ouml;schen"
 
-#, fuzzy
 msgid "Delete & Next"
 msgstr "Ausgew&auml;hlte Eintr&auml;ge l&ouml;schen"
 
 msgid "Move to:"
-msgstr "Nach oben"
+msgstr "Verschiebe nach:"
 
 msgid "Delete/Move/Next Buttons:"
-msgstr ""
+msgstr "L&ouml;schen/Verschieben/N&auml;chster-Kn&ouml;pfe:"
 
 msgid "Display at top"
-msgstr ""
+msgstr "Oben anzeigen"
 
 msgid "with move option"
-msgstr ""
+msgstr "mit Verschiebeoption"
 
 msgid "Display at bottom"
-msgstr ""
+msgstr "Unten anzeigen"
 
 msgid ""
 "COMMERCIAL - This list contains servers that are verified spam senders. It "
 "is a pretty reliable list to scan spam from."
 msgstr ""
-"KOMMERZIELL - Diese Liste enthält Server, bei denen überprüft wurde, daß Sie "
-"Quellen von Spam sind. Es ist eine recht zuverlässige Liste."
+"KOMMERZIELL - Diese Liste enth&auml;lt Server, bei denen &uuml;berpr&uuml;ft "
+"wurde, dass Sie Quellen von Spam sind. Es ist eine recht zuverl&auml;ssige "
+"Liste."
 
 msgid ""
 "COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
 "be relayed through their system will be banned with this.  Another good one "
 "to use."
 msgstr ""
-"KOMMERZIELL - (Fehl)konfigurierte Server, über die Spam an andere versendet "
-"wird bzw. werden kann. "
+"KOMMERZIELL - (Fehl)konfigurierte Server, &uuml;ber die Spam an andere "
+"versendet wird bzw. werden kann. "
 
 msgid ""
 "COMMERCIAL - Dial-up users are often filtered out since they should use "
 "their ISP's mail servers to send mail.  Spammers typically get a dial-up "
 "account and send spam directly from there."
 msgstr ""
+"KOMMERZIELL - Anwender, die &uuml;ber eine Einwahlverbindung ins Internet "
+"gelangen werden sehr h&auml;ufig herausgefiltert, da sie den Mail-Server "
+"ihres ISP's f&uuml;r den Versand von Nachrichten nutzen sollen. Spammer "
+"verschicken typischerweise ihre Nachrichten direkt &uuml;ber eine "
+"Einwahlverbindung."
 
 msgid "COMMERCIAL - RBL+ Blackhole entries."
-msgstr ""
+msgstr "KOMMERZIELL - RBL+ Blackhole-Eintr&auml;ge."
 
 msgid "COMMERCIAL - RBL+ OpenRelay entries."
-msgstr ""
+msgstr "KOMMERZIELL - RBL+ OpenRelay-Eintr&auml;ge."
 
 msgid "COMMERCIAL - RBL+ Dial-up entries."
-msgstr ""
+msgstr "KOMMERZIELL - RBL+ Einwahlverbindungseintr&auml;ge."
 
 msgid ""
 "FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
 "include servers used by abuse@uunet.net auto-replies too."
 msgstr ""
+"KOSTENLOS - Osirusoft Relays - Osirusofts Liste von überprüften offenen "
+"Relays. Scheint Server zu enthalten, die auch von abuse@uunet.net "
+"Autoantworten verwendet wird."
 
 msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
 msgstr ""
+"KOSTENLOS - Osirusoft Dialups - Osirusofts Liste von Einwahl-SPAM-Quellen."
 
 msgid ""
 "FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
@@ -1316,6 +1279,8 @@ msgid ""
 "FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
 "other mail servers that are not secure."
 msgstr ""
+"KOSTENLOS - Osirusoft Smart Hosts - Liste von Hosts welche sicher sind aber "
+"Mails von anderen Servern weiterleiten, die nicht sicher sind."
 
 msgid ""
 "FREE - Osirusoft Spamware Developers - It is believed that these are IP "
@@ -1332,9 +1297,12 @@ msgid ""
 "FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail."
 "cgi scripts. (planned)."
 msgstr ""
+"KOSTENLOS - Osirusoft unsichere formmail.cgi Skripte - Liste von unsicheren "
+"formmail.cgi Skripten. (geplant)."
 
 msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
 msgstr ""
+"KOSTENLOS - Osirusoft Offene Proxy Servers - Liste von offenen Proxy-Servern."
 
 msgid ""
 "FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
@@ -1342,25 +1310,27 @@ msgid ""
 msgstr ""
 
 msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
-msgstr ""
+msgstr "KOSTENLOS - Five-Ten-sg.com - Direkte SPAM-Quelle."
 
 msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
-msgstr ""
+msgstr "KOSTENLOS - Five-Ten-sg.com - Einwahlliste - inklusiv einiger DSL IPs."
 
 msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
 msgstr ""
+"KOSTENLOS - Five-Ten-sg.com - Massenversender, welche keine best&auml;tigten "
+"'opt-in' verwenden."
 
 msgid "FREE - Five-Ten-sg.com - Other misc. servers."
-msgstr ""
+msgstr "KOSTENLOS - Five-Ten-sg.com - Andere verschiedene Server."
 
 msgid "FREE - Five-Ten-sg.com - Single Stage servers."
 msgstr ""
 
 msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
-msgstr ""
+msgstr "KOSTENLOS - Five-Ten-sg.com - SPAM-unterstützende Server."
 
 msgid "FREE - Five-Ten-sg.com - Web Form IPs."
-msgstr ""
+msgstr "KOSTENLOS - Five-Ten-sg.com - Web-Formular IPs."
 
 msgid ""
 "FREE - Dorkslayers appears to include only really bad open relays outside "
@@ -1369,38 +1339,50 @@ msgid ""
 msgstr ""
 
 msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
-msgstr ""
+msgstr "KOSTENLOS - SPAMhaus - Eine Liste von allseits bekannten SPAM-Quellen."
 
 #, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
 msgstr ""
+"KOSTENLOS, bis jetzt - SPAMCOP - Eine interessante L&ouml;sung welche Server "
+"auflistet, die eine sehr hohe SPAM-zu-legitiemer-Email-Rate besitzen (85% "
+"oder mehr)"
 
 msgid "FREE - dev.null.dk - I don't have any detailed info on this list."
 msgstr ""
+"\"KOSTENLOS - dev.null.dk - Ich besitze keine detaillierteren Informationen "
+"zu dieser Liste."
 
 msgid "FREE - visi.com - Relay Stop List. Very conservative OpenRelay List."
 msgstr ""
+"KOSTENLOS - visi.com - Relay Stoppliste. Sehr konservative Offene Relay "
+"Liste."
 
 msgid "FREE - 2mbit.com Open Relays - Another list of Open Relays."
 msgstr ""
+"KOSTENLOS - 2mbit.com Open Relays - Eine weitere Liste von offenen Relays."
 
 msgid "FREE - 2mbit.com SPAM Source - List of Direct SPAM Sources."
-msgstr ""
+msgstr "KOSTENLOS - 2mbit.com SPAM Source - Liste von direkten SPAM-Quellen."
 
 msgid "FREE - 2mbit.com SPAM ISPs - List of SPAM-friendly ISPs."
-msgstr ""
+msgstr "KOSTENLOS - 2mbit.com SPAM ISPs - Liste von SPAM-freundlichen ISPs."
 
 msgid ""
 "FREE - Leadmon DUL - Another list of Dial-up or otherwise dynamically "
 "assigned IPs."
 msgstr ""
+"KOSTENLOS - Leadmon DUL - Eine weitere Liste von Einwahl- oder anderweitig "
+"dynamisch zugewiesenen IP-Adressen."
 
 msgid ""
 "FREE - Leadmon SPAM Source - List of IPs Leadmon.net has received SPAM "
 "directly from."
 msgstr ""
+"KOSTENLOS - Leadmon SPAM-Quelle - Liste von IPs von denen Leadmon.net direkt "
+"SPAM empfangen hat."
 
 msgid ""
 "FREE - Leadmon Bulk Mailers - Bulk mailers that do not require confirmed opt-"
@@ -1424,14 +1406,23 @@ msgid ""
 "mappings. It's a list of BLOCKS of IPs being used by people who have SPAMmed "
 "Leadmon.net."
 msgstr ""
+"KOSTENLOS - Leadmon SpamBlock - Sites in dieser Liste haben Leadmon.net "
+"direkt SPAM von IP-Adressen geschickt, deren vollst&auml;ndige Netzbl&ouml;"
+"cke nicht im DNS aufgef&uuml;hrt sind.. Es ist eine Liste von BLOCKIERTEN IP-"
+"Adressen, die von Leuten benutzt werden, die SPAM an Leadmon.net geschickt "
+"haben."
 
 msgid ""
 "FREE, for now - Not Just Another Blacklist - Both Open Relays and Direct "
 "SPAM Sources."
 msgstr ""
+"KOSTENLOS, bis jetzt - Nicht einfach nur eine weitere schwarze Liste - "
+"Offene Relays und direkte SPAM-Quellen."
 
 msgid "FREE, for now - Not Just Another Blacklist - Dial-up IPs."
 msgstr ""
+"KOSTENLOS, bis jetzt - Nicht einfach nur eine weitere schwarze Liste - "
+"Einwahl IPs."
 
 msgid "FREE - Distributed Sender Boycott List - Confirmed Relays"
 msgstr ""
@@ -1443,7 +1434,7 @@ msgid "FREE - Distributed Sender Boycott List - UN-Confirmed Relays"
 msgstr ""
 
 msgid "Saved Scan type"
-msgstr ""
+msgstr "Gespeicherter Scan-Typ"
 
 msgid "Message Filtering"
 msgstr "Nachrichten filtern"
@@ -1475,12 +1466,11 @@ msgstr "Cc"
 msgid "To or Cc"
 msgstr "An oder CC"
 
-#, fuzzy
 msgid "Header"
-msgstr "gelesen"
+msgstr "Nachrichtenkopf"
 
 msgid "Contains:"
-msgstr "Enthält:"
+msgstr "Enth&auml;lt:"
 
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -1494,6 +1484,8 @@ msgstr "Hoch"
 #, c-format
 msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
 msgstr ""
+"Wenn <b>%s</b> folgendes enth&auml;lt <b>%s</b>, dann verschiebe nach <b>%s</"
+"b>"
 
 msgid "Message Filters"
 msgstr "Nachrichtenfilter"
@@ -1521,6 +1513,8 @@ msgstr "Spamfilter"
 
 msgid "WARNING! Tell your admin to set the SpamFilters_YourHop variable"
 msgstr ""
+"WARNUNG! Teilen Sie Ihrem Administrator mit, dass er die SpamFilters_YourHop-"
+"Variable setzen soll"
 
 msgid "Move spam to:"
 msgstr "Verschiebe Spam nach:"
@@ -1532,6 +1526,12 @@ msgid ""
 "periodically, so that you don't have an excessively large mailbox hanging "
 "around."
 msgstr ""
+"Spam direkt in den Trash-Ordner zu verschieben muss nicht immer eine gute "
+"Idee sein, da auch Nachrichten von Freunden oder Mailing-Listen f&auml;"
+"lschlicherweise als Spam markiert werden k&ouml;nnen. Egal welchen Ordner "
+"Sie ausw&auml;hlen, stellen Sie nur sicher, dass dieser regelm&auml;ssig "
+"geleert wird um einen &uuml;berm&auml;ssig schnell anwachsenden Mail-Ordner "
+"zu vermeiden."
 
 msgid ""
 "The more messages you scan, the longer it takes.  I would suggest that you "
@@ -1540,14 +1540,14 @@ msgid ""
 "scan only new messages.  That way, your new spam filters will be applied and "
 "you'll scan even the spam you read with the new filters."
 msgstr ""
-"Je mehr Nachrichten Sie scannen lassen, desto länger dauert es. Ich würde "
-"vorschlagen, nur neue Mails zu scannen. Wenn Sie Ihre Filter ändern, würde "
-"ich alle Mails scannen lassen, dann in die Inbox gehen und dann nur noch "
-"neue Mails scannen lassen."
+"Je mehr Nachrichten Sie scannen lassen, desto l&auml;nger dauert es. Ich "
+"w&uuml;rde vorschlagen, nur neue Mails zu scannen. Wenn Sie Ihre Filter "
+"&auml;ndern, w&uuml;rde ich alle Mails scannen lassen, dann in die Inbox "
+"gehen und dann nur noch neue Mails scannen lassen."
 
 #, c-format
 msgid "Spam is sent to <b>%s</b>"
-msgstr ""
+msgstr "Spam wird an <b>%s</b> gesendet"
 
 msgid "[<i>not set yet</i>]"
 msgstr "[<i>noch nicht gesetzt</i>]"
@@ -1569,40 +1569,43 @@ msgid "OFF"
 msgstr "AUS"
 
 msgid "Mailinglist"
-msgstr ""
+msgstr "Mailingliste"
 
 #, c-format
 msgid ""
 "This will send a message to %s requesting help for this list. You will "
 "receive an emailed response at the address below."
 msgstr ""
+"Dies wird eine Nachricht an %s senden und Hilfe zu dieser Liste anfordern. "
+"Eine Antwortnachricht wird an die oben genannte Adresse geschickt werden."
 
 #, c-format
 msgid ""
 "This will send a message to %s requesting that you will be subscribed to "
 "this list. You will be subscribed with the address below."
 msgstr ""
+"Dies wird eine Nachricht an %s senden und um Eintragung in diese Liste "
+"bitten.Sie werden mit der oben genannten Adresse eingetragen."
 
 #, c-format
 msgid ""
 "This will send a message to %s requesting that you will be unsubscribed from "
 "this list. It will try to unsubscribe the adress below."
 msgstr ""
+"Dies wird eine Nachricht an %s senden und um Austragung aus dieser Liste "
+"bitten.Es wird die oben genannte Adresse ausgetragen."
 
 msgid "From:"
 msgstr "Von:"
 
-#, fuzzy
 msgid "Send Mail"
 msgstr "Neue Mail"
 
-#, fuzzy
 msgid "Post to List"
 msgstr "%s nach %s"
 
-#, fuzzy
 msgid "Reply to List"
-msgstr "Antwort An"
+msgstr "Liste antworten"
 
 msgid "Subscribe"
 msgstr "Eintragen"
@@ -1611,119 +1614,119 @@ msgid "Unsubscribe"
 msgstr "Austragen"
 
 msgid "List Archives"
-msgstr ""
+msgstr "Listenarchiv"
 
 msgid "Contact Listowner"
-msgstr ""
+msgstr "Listeninhaber kontaktieren"
 
 #, fuzzy
 msgid "Mailing List"
 msgstr "Nachrichtenliste"
 
 msgid "POP3 connect:"
-msgstr ""
+msgstr "POP3 connect:"
 
 msgid "No server specified"
-msgstr ""
+msgstr "Kein Server ausgew&auml;hlt"
 
 msgid "Error "
-msgstr ""
+msgstr "Fehler "
 
 msgid "POP3 noop:"
-msgstr ""
+msgstr "POP3 noop:"
 
 msgid "No connection to server"
-msgstr ""
+msgstr "Keine Verbindung zum Server"
 
 msgid "POP3 user:"
-msgstr ""
+msgstr "POP3 user:"
 
 msgid "no login ID submitted"
-msgstr ""
+msgstr "keine Login-ID &uuml;bermittelt"
 
 msgid "connection not established"
-msgstr ""
+msgstr "Verbindung nicht hergestellt"
 
 msgid "POP3 pass:"
-msgstr ""
+msgstr "POP3 pass:"
 
 msgid "No password submitted"
-msgstr ""
+msgstr "Kein passwort &uuml;bermittelt"
 
 msgid "authentication failed "
-msgstr ""
+msgstr "Authentifizierung fehlgeschlagen "
 
 msgid "POP3 apop:"
-msgstr ""
+msgstr "POP3 apop:"
 
 msgid "No login ID submitted"
-msgstr ""
+msgstr "Keine Login-ID &uuml;bermittelt"
 
 msgid "No server banner"
-msgstr ""
+msgstr "Kein Server-Banner"
 
 msgid "abort"
-msgstr ""
+msgstr "abbrechen"
 
 msgid "apop authentication failed"
-msgstr ""
+msgstr "APOP-Authentifizierung fehlgeschlagen"
 
 msgid "POP3 login:"
 msgstr "POP3 Login:"
 
 msgid "POP3 top:"
-msgstr ""
+msgstr "POP3 top:"
 
 msgid "POP3 pop_list:"
-msgstr ""
+msgstr "POP3 pop_list:"
 
 msgid "Premature end of list"
-msgstr ""
+msgstr "Vorzeitiges Ende der Liste"
 
 msgid "POP3 get:"
-msgstr ""
+msgstr "POP3 get:"
 
 msgid "POP3 last:"
-msgstr ""
+msgstr "POP3 last:"
 
 msgid "POP3 reset:"
-msgstr ""
+msgstr "POP3 reset:"
 
 msgid "POP3 send_cmd:"
-msgstr ""
+msgstr "POP3 send_cmd:"
 
 msgid "Empty command string"
-msgstr ""
+msgstr "Leere Befehlszeichenkette"
 
 msgid "POP3 quit:"
-msgstr ""
+msgstr "POP3 quit:"
 
 msgid "connection does not exist"
 msgstr "Verbindung besteht nicht"
 
 msgid "POP3 uidl:"
-msgstr ""
+msgstr "POP3 uidl:"
 
 msgid "POP3 delete:"
-msgstr ""
+msgstr "POP3 delete:"
 
 msgid "No msg number submitted"
-msgstr ""
+msgstr "Keine Nachrichtennummer &uuml;bermittelt"
 
 msgid "Command failed "
-msgstr ""
+msgstr "Befehl fehlgeschlagen "
 
 msgid "Remote POP server Fetching Mail"
-msgstr ""
+msgstr "Entfernter POP-Server holt Mail"
 
 msgid "Select Server:"
-msgstr "Wählen Sie den Server:"
+msgstr "W&auml;hlen Sie den Server:"
 
 msgid "All"
 msgstr "Alle"
 
 msgid "Password for"
-msgstr "Passwort für"
+msgstr "Passwort f&uuml;r"
 
 msgid "Fetch Mail"
 msgstr "Hole Mail"
@@ -1735,10 +1738,10 @@ msgid "Oops, "
 msgstr "Ups, "
 
 msgid "Opening IMAP server"
-msgstr "Öffne IMAP Server"
+msgstr "&Ouml;ffne IMAP Server"
 
 msgid "Opening POP server"
-msgstr "Öffne POP Server"
+msgstr "&Ouml;ffne POP Server"
 
 msgid "Login Failed:"
 msgstr "Login fehlgeschlagen:"
@@ -1750,7 +1753,7 @@ msgid "Login OK: Inbox EMPTY"
 msgstr "Login OK: Inbox LEER"
 
 msgid "Login OK: Inbox contains ["
-msgstr "Login OK: Inbox enthält ["
+msgstr "Login OK: Inbox enth&auml;lt ["
 
 msgid "] messages"
 msgstr "] Nachrichten"
@@ -1759,13 +1762,13 @@ msgid "Fetching UIDL..."
 msgstr "Hole UIDL..."
 
 msgid "Server does not support UIDL."
-msgstr "Server unterstützt kein UIDL."
+msgstr "Server unterst&uuml;tzt kein UIDL."
 
 msgid "Leaving Mail on Server..."
 msgstr "Belasse Mail auf dem Server..."
 
 msgid "Deleting messages from server..."
-msgstr "Lösche Mails vom Server..."
+msgstr "L&ouml;sche Mails vom Server..."
 
 msgid "Fetching message "
 msgstr "Hole Nachricht "
@@ -1784,28 +1787,28 @@ msgid "Refetching message "
 msgstr "Hole Nachricht "
 
 msgid "Error Appending Message!"
-msgstr "Fehler beim Anhängen der Nachricht"
+msgstr "Fehler beim Anh&auml;ngen der Nachricht"
 
 msgid "Closing POP"
-msgstr ""
+msgstr "Schliesse POP"
 
 msgid "Logging out from IMAP"
-msgstr ""
+msgstr "Aus IMAP ausloggen"
 
 msgid "Message appended to mailbox"
-msgstr "Nachricht an Mailbox angefügt"
+msgstr "Nachricht an Mailbox angef&uuml;gt"
 
 msgid "Message "
 msgstr "Nachricht "
 
 msgid " deleted from Remote Server!"
-msgstr " vom Server gelöscht!"
+msgstr " vom Server gel&ouml;scht!"
 
 msgid "Delete failed:"
-msgstr "Löschen fehlgeschlagen:"
+msgstr "L&ouml;schen fehlgeschlagen:"
 
 msgid "Remote POP server settings"
-msgstr "Einstellungen für den POP3 Server"
+msgstr "Einstellungen f&uuml;r den POP3 Server"
 
 msgid ""
 "You should be aware that the encryption used to store your password is not "
@@ -1813,23 +1816,28 @@ msgid ""
 "encryption anyway. Additionally, the encryption that we do to save it on the "
 "server can be undone by a hacker reading the source to this file."
 msgstr ""
+"Sie sollten wissen dass die Verschl&uuml;sselung, welche zum Speichern Ihres "
+"Kennwortes verwendet wird, nicht uneingeschr&auml;nkt sicher ist. Wie auch "
+"immer, Wenn Sie zum Nachrichtenabruf das POP3-Protokoll verwenden wird "
+"sowieso keine Verschl&uuml;sselung verwenet. Ausserdem kann die verwendete "
+"Verschl&uuml;sselung zum Speichern der Dateien von einem Hacker aufgehoben "
+"werden, der den Quellcode zu dieser Datei liest."
 
 msgid "If you leave password empty, it will be required when you fetch mail."
 msgstr ""
 "Wenn Sie das Passwort leer lassen, werden Sie beim Abrufen danach gefragt."
 
 msgid "Encrypt passwords (informative only)"
-msgstr "Passwort verschlüsseln (nur zur Information)"
+msgstr "Passwort verschl&uuml;sseln (nur zur Information)"
 
 msgid "Add Server"
-msgstr "Server hinzufügen"
+msgstr "Server hinzuf&uuml;gen"
 
 msgid "Server:"
 msgstr "Server:"
 
-#, fuzzy
 msgid "Port:"
-msgstr "Priorit&auml;t"
+msgstr "Port:"
 
 msgid "Alias:"
 msgstr "Alias:"
@@ -1847,10 +1855,11 @@ msgid "Leave Mail on Server"
 msgstr "Mail auf Server belassen"
 
 msgid "Check mail during login"
-msgstr "Auf neue Mail prüfen während des Einloggens"
+msgstr "Auf neue Mail pr&uuml;fen w&auml;hrend des Einloggens"
 
 msgid "Check mail during folder refresh"
-msgstr "Auf neue Mail prüfen während Ordernübersicht erneuert wird"
+msgstr ""
+"Auf neue Mail pr&uuml;fen w&auml;hrend Ordern&uuml;bersicht erneuert wird"
 
 msgid "Modify Server"
 msgstr "Server modifizieren"
@@ -1859,7 +1868,7 @@ msgid "Server Name:"
 msgstr "Name des Servers:"
 
 msgid "Modify"
-msgstr "Verändern"
+msgstr "Ver&auml;ndern"
 
 msgid "No-one server in use. Try to add."
 msgstr ""
@@ -1868,34 +1877,34 @@ msgid "Fetching Servers"
 msgstr "Hole Server"
 
 msgid "Confirm Deletion of a Server"
-msgstr "Löschen eines Servers bestätigen"
+msgstr "L&ouml;schen eines Servers best&auml;tigen"
 
 msgid "Selected Server:"
-msgstr "Ausgewählter Server:"
+msgstr "Ausgew&auml;hlter Server:"
 
 msgid "Confirm delete of selected server?"
-msgstr "Soll der ausgewählte Server gelöscht werden?"
+msgstr "Soll der ausgew&auml;hlte Server gel&ouml;scht werden?"
 
 msgid "Confirm Delete"
-msgstr "Löschen bestätigen"
+msgstr "L&ouml;schen best&auml;tigen"
 
 msgid "Mofify a Server"
 msgstr "Server modifizieren"
 
 msgid "Undefined Function"
-msgstr ""
+msgstr "Undefinierte Funktion"
 
 msgid "Hey! Wath do You are looking for?"
-msgstr ""
+msgstr "Hey! Wonach schauen Sie?"
 
 msgid "Fetch"
 msgstr "Abholen"
 
 msgid "Warning, "
-msgstr ""
+msgstr "Warnung, "
 
 msgid "Mail Fetch Result:"
-msgstr ""
+msgstr "Resultat des Mail-Abrufs:"
 
 msgid "Simple POP3 Fetch Mail"
 msgstr "Einfacher POP3 Client"
@@ -1904,8 +1913,8 @@ msgid ""
 "This configures settings for downloading email from a pop3 mailbox to your "
 "account on this server."
 msgstr ""
-"Hiermit können Sie den Download von Inhalten einer beliebigen POP3 Mailbox "
-"in dieses Konto auf diesem Server konfigurieren."
+"Hiermit k&ouml;nnen Sie den Download von Inhalten einer beliebigen POP3 "
+"Mailbox in dieses Konto auf diesem Server konfigurieren."
 
 msgid "New Mail Notification"
 msgstr "Benachrichtigung bei neuer Mail"
@@ -1915,21 +1924,25 @@ msgid ""
 "unseen mail is in your folders. When enabled, you can specify the media file "
 "to play in the provided file box."
 msgstr ""
-"Wählen Sie <b>Enable Media Playing</b> wenn Sie wollen, daß eine Mediendatei "
-"abgespielt wird, wenn sich neue Mail in Ihren Mailordnern befindet. Wenn "
-"aktiviert, können Sie auswählen, welche Mediendatei abgespielt wird."
+"W&auml;hlen Sie <b>Enable Media Playing</b> wenn Sie wollen, dass eine "
+"Mediendatei abgespielt wird, wenn sich neue Mail in Ihren Mailordnern "
+"befindet. Wenn aktiviert, k&ouml;nnen Sie ausw&auml;hlen, welche Mediendatei "
+"abgespielt wird."
 
 msgid ""
 "The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
 "folders for unseen mail, not just the inbox for notification."
 msgstr ""
-"Die Option <b>Prüfe alle Mailboxen, nicht nur Inbox</b> prüft alle "
+"Die Option <b>Pr&uuml;fe alle Mailboxen, nicht nur Inbox</b> pr&uuml;ft alle "
 "Mailordner auf neue Mail, anstatt nur der Inbox."
 
 msgid ""
 "Selecting the <b>Show popup</b> option will enable the showing of a popup "
 "window when unseen mail is in your folders (requires JavaScript)."
 msgstr ""
+"Die Option <b>Zeige pop-up Fenster bei neuer Mail</b> aktiviert die Anzeige "
+"eines Popup-Fensters, wenn sich ungelesene Nachrichten in Ihren Ordnern "
+"befinden (ben&ouml;tigt JavaScript)."
 
 msgid ""
 "Use the <b>Check RECENT</b> to only check for messages that are recent. "
@@ -1937,6 +1950,11 @@ msgid ""
 "been \"viewed\" or checked yet.  This can prevent being continuously annoyed "
 "by sounds or popups for unseen mail."
 msgstr ""
+"Benutzen Sie die Option <b>Z&auml;hle nur aktuelle Nachrichten</b> um nur "
+"dann die Signalisierung zu aktivieren, wenn aktuelle, ungelesenen und bisher "
+"nicht gepr&uuml;fte Nachrichten in einem Ordner enthalten sind. Dies "
+"verhindert, dass Sie ununterbrochen von nervt&ouml;tenden T&ouml;nen oder "
+"Popup-Fenstern gest&ouml;rt werden, wenn neue Nachrichten eingetroffen sind."
 
 msgid ""
 "Selecting the <b>Change title</b> option will change the title in some "
@@ -1945,6 +1963,12 @@ msgid ""
 "always tell you if you have new mail, even if you have <b>Check RECENT</b> "
 "enabled."
 msgstr ""
+"Die Option <b>&Auml;ndere Titel bei unterst&uuml;tzten Webbrowsern</b> &auml;"
+"ndert den Titel einiger Web-Browser um anzuzeigen, dass neue Nachrichten "
+"eingetroffen sind (ben&ouml;tigt JavaScript und funktioniert nur mit dem IE, "
+"bei anderen Browsern wird kein Fehler angezeigt). Dies signalisiert immer "
+"neu eingetroffene Nachrichten auch wenn die Option <b>Z&auml;hle nur "
+"aktuelle Nachrichten</b> aktiviert wurde."
 
 msgid ""
 "Select from the list of <b>server files</b> the media file to play when new "
@@ -1952,33 +1976,39 @@ msgid ""
 "the <b>local media file</b> box to play from the local computer.  If no file "
 "is specified, the system will use a default from the server."
 msgstr ""
+"W&auml;hlen Sie aus der Liste der <b>Serverdateien</b> die Tondatei, die zur "
+"Signalisierung eintreffender neuer Nachrichten genutzt werden soll oder "
+"w&auml;hlen Sie die Option <b>lokale Tondatei</b> um &uuml;ber die <b>Lokale "
+"Tondatei</b>-Eingabezeile eine Datei anzugeben die vom lokalen Computer "
+"geladen werden soll. Wurde keine Datei gew&auml;hlt, so wird eine "
+"Standarddatei vom Server zur Signalisierung genutzt."
 
 msgid "Enable Media Playing"
 msgstr "Aktiviere das Spielen von Medien"
 
 msgid "Check all boxes, not just INBOX"
-msgstr "Prüfe alle Mailboxen, nicht nur Inbox"
+msgstr "Pr&uuml;fe alle Mailboxen, nicht nur Inbox"
 
 msgid "Count only messages that are RECENT"
-msgstr "Zähle nur aktuelle Nachrichten"
+msgstr "Z&auml;hle nur aktuelle Nachrichten"
 
 msgid "Change title on supported browsers."
-msgstr "Ändere Titel bei unterstützten Webbrowsern."
+msgstr "&Auml;ndere Titel bei unterst&uuml;tzten Webbrowsern."
 
 msgid "requires JavaScript to work"
-msgstr "benötigt JavaScript"
+msgstr "ben&ouml;tigt JavaScript"
 
 msgid "Show popup window on new mail"
 msgstr "Zeige pop-up Fenster bei neuer Mail"
 
 msgid "Select server file:"
-msgstr "Wählen Sie die Serverdatei:"
+msgstr "W&auml;hlen Sie die Serverdatei:"
 
 msgid "(local media)"
-msgstr "(lokale Medien)"
+msgstr "(lokale Tondatei)"
 
 msgid "Try"
-msgstr "Versuch"
+msgstr "Test"
 
 msgid "Local Media File:"
 msgstr "Lokale Tondatei:"
@@ -1996,20 +2026,20 @@ msgid "You have new mail!"
 msgstr "Sie haben neue Mail!"
 
 msgid "Close Window"
-msgstr "Fenster schlie&szlig;en"
+msgstr "Fenster schliessen"
 
 msgid "NewMail Options"
-msgstr "Optionen für Neue Mail"
+msgstr "Optionen f&uuml;r Neue Mail"
 
 msgid ""
 "This configures settings for playing sounds and/or showing popup windows "
 "when new mail arrives."
 msgstr ""
-"Hiermit können Sie einstellen, ob bei neuer Mail Töne abgespielt werden und/"
-"oder Fenster erscheinen."
+"Hiermit k&ouml;nnen Sie einstellen, ob bei neuer Mail T&ouml;ne abgespielt "
+"werden und/oder Fenster erscheinen."
 
 msgid "New Mail Notification options saved"
-msgstr "Optionen für Neue Mail gespeichert"
+msgstr "Optionen f&uuml;r Neue Mail gespeichert"
 
 #, c-format
 msgid "%s New Messages"
@@ -2026,13 +2056,13 @@ msgid "Loading the sound..."
 msgstr "Lade den Ton..."
 
 msgid "Close"
-msgstr "Schließen"
+msgstr "Schliessen"
 
 msgid "Sent Subfolders Options"
-msgstr "Optionen für den Unterordner Sent"
+msgstr "Optionen f&uuml;r den Unterordner Sent"
 
 msgid "Use Sent Subfolders"
-msgstr "Ordner für gesendete Nachrichten verwenden"
+msgstr "Ordner f&uuml;r gesendete Nachrichten verwenden"
 
 msgid "Monthly"
 msgstr "Monatlich"
@@ -2044,7 +2074,7 @@ msgid "Yearly"
 msgstr "J&auml;hrlich"
 
 msgid "Base Sent Folder"
-msgstr "Ordner für gesendete Nachrichten"
+msgstr "Ordner f&uuml;r gesendete Nachrichten"
 
 msgid "Report as Spam"
 msgstr ""
@@ -2059,21 +2089,22 @@ msgid ""
 msgstr ""
 
 msgid "SpellChecker Options"
-msgstr "Optionen für die Rechtschreibprüfung"
+msgstr "Optionen f&uuml;r die Rechtschreibpr&uuml;fung"
 
 msgid ""
 "Here you may set up how your personal dictionary is stored, edit it, or "
 "choose which languages should be available to you when spell-checking."
 msgstr ""
-"Hier können Sie einstellen wie Ihr persönliches Wörterbuch gespeichert wird, "
-"es editieren oder wählen, welche Sprachen Ihnen zur Verfügung stehen,wenn "
-"Sie eine Nachricht auf Ihrer Rechtschreibung prüfen."
+"Hier k&ouml;nnen Sie einstellen wie Ihr pers&ouml;nliches W&ouml;rterbuch "
+"gespeichert wird, es editieren oder w&auml;hlen, welche Sprachen Ihnen zur "
+"Verf&uuml;gung stehen,wenn Sie eine Nachricht auf Ihrer Rechtschreibung "
+"pr&uuml;fen."
 
 msgid "Check Spelling"
-msgstr "Rechtschreibprüfung"
+msgstr "Rechtschreibpr&uuml;fung"
 
 msgid "Back to &quot;SpellChecker Options&quot; page"
-msgstr "Zurück zu den Optionen der &quot;Rechtschreibprüfung&quot;"
+msgstr "Zur&uuml;ck zu den Optionen der &quot;Rechtschreibpr&uuml;fung&quot;"
 
 msgid "ATTENTION:"
 msgstr "ACHTUNG:"
@@ -2088,51 +2119,61 @@ msgid ""
 "anew. This is also true if you don't remember your old password -- without "
 "it, the encrypted data is no longer accessible."
 msgstr ""
+"SquirrelSpell war nicht in der Lage Ihr persönliches Wörterbuch zu "
+"entschlüsseln. Dies ist meisstens darauf zurückzuführen, dass Sie Ihr "
+"Postfach-Passwort geändert haben Damit Squirrelspell Ihr persönliches "
+"Wörterbuch entschlüsseln kann müssen Sie Ihr vorheriges Passwort eingeben, "
+"danach wird das Wörterbuch es mit dem neuen Passwort wieder "
+"verschlüsselt<br>Wenn Sie Ihr persönliches Wörterbuch nie verschlüsselt "
+"haben, ist es unlesbar und somit unbrauchbar geworden. Sie müssen es löschen "
+"und ein neues Wörterbuch anlegen. Dies ist ebenfalls notwendig, wenn Sie Ihr "
+"vorheriges Passwort vergessen haben - ohne dies ist kein Zugriff auf die "
+"verschlüsselte Daten möglich."
 
 msgid "Delete my dictionary and start a new one"
-msgstr "Lösche mein Wörterbuch und lege ein neues an."
+msgstr "L&ouml;sche mein W&ouml;rterbuch und lege ein neues an."
 
 msgid "Decrypt my dictionary with my old password:"
-msgstr "Entschlüssele mein Wörterbuch mit meinem alten Passwort:"
+msgstr "Entschl&uuml;ssele mein W&ouml;rterbuch mit meinem alten Passwort:"
 
 msgid "Proceed"
 msgstr "Fortsetzen"
 
 msgid "You must make a choice"
-msgstr ""
+msgstr "Sie m&uuml;ssen eine Auswahl treffen"
 
 msgid ""
 "You can either delete your dictionary or type in the old password. Not both."
 msgstr ""
+"Sie k&ouml;nnen entweder Ihr W&ouml;rterbuch l&ouml;schen oder Ihr altes "
+"Kennwort eingeben, nicht beides zusammen."
 
-#, fuzzy
 msgid "This will delete your personal dictionary file. Proceed?"
-msgstr "Dieses Wort Ihrem persönlichen Wörterbuch hinzufügen"
+msgstr "Dieses Wort Ihrem pers&ouml;nlichen W&ouml;rterbuch hinzuf&uuml;gen"
 
 msgid "Error Decrypting Dictionary"
-msgstr ""
+msgstr "Fehler beim Entschl&uuml;sseln des W&ouml;rterbuches"
 
-#, fuzzy
 msgid "Cute."
 msgstr "Zitiere"
 
 msgid "Translator"
-msgstr "Übersetzer"
+msgstr "&Uuml;bersetzer"
 
-#, fuzzy
 msgid "Saved Translation Options"
-msgstr "Übersetzungsoptionen"
+msgstr "&Uuml;bersetzungsoptionen"
 
 msgid "Your server options are as follows:"
 msgstr "Ihre Optionen sehen wie folgt aus:"
 
 msgid ""
 "13 language pairs, maximum of 1000 characters translated, powered by Systran"
-msgstr "13 Sprachenpaare, maximal 1000 Zeichen werden übersetzt, von Systran"
+msgstr ""
+"13 Sprachenpaare, maximal 1000 Zeichen werden &uuml;bersetzt, von Systran"
 
 msgid ""
 "10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
-msgstr "10 Sprachenpaare, maximal 25 kB werden übersetzt, von Systran"
+msgstr "10 Sprachenpaare, maximal 25 kB werden &uuml;bersetzt, von Systran"
 
 msgid "12 language pairs, no known limits, powered by Systran"
 msgstr "12 Sprachenpaare, keine bekannten Limitierungen, von Systran"
@@ -2154,11 +2195,11 @@ msgid ""
 "You also decide if you want the translation box displayed, and where it will "
 "be located."
 msgstr ""
-"Sie können außerdem entscheiden, ob und wo die &Uuml;bersetzung angezeigt "
-"wird."
+"Sie k&ouml;nnen ausserdem entscheiden, ob und wo die &Uuml;bersetzung "
+"angezeigt wird."
 
 msgid "Select your translator:"
-msgstr "Wählen Sie Ihren &Uuml;bersetzer:"
+msgstr "W&auml;hlen Sie Ihren &Uuml;bersetzer:"
 
 msgid "When reading:"
 msgstr "Beim Lesen:"
@@ -2176,7 +2217,7 @@ msgid "to the right"
 msgstr "zur Rechten"
 
 msgid "Translate inside the SquirrelMail frames"
-msgstr "Übersetze im Inneren der SquirrelMail Frames"
+msgstr "&Uuml;bersetze im Inneren der SquirrelMail Frames"
 
 msgid "When composing:"
 msgstr "Beim Schreiben:"
@@ -2188,13 +2229,13 @@ msgid "Download this as a file"
 msgstr "Datei herunterladen"
 
 msgid "Translation Options"
-msgstr "Übersetzungsoptionen"
+msgstr "&Uuml;bersetzungsoptionen"
 
 msgid ""
 "Which translator should be used when you get messages in a different "
 "language?"
 msgstr ""
-"Welcher Übersetzer soll verwendet werden, wenn Sie Nachrichten in einer "
+"Welcher &Uuml;bersetzer soll verwendet werden, wenn Sie Nachrichten in einer "
 "unterschiedlichen Sprache erhalten?"
 
 #, c-format
@@ -2205,7 +2246,7 @@ msgid "English"
 msgstr "Englisch"
 
 msgid "French"
-msgstr "Französisch"
+msgstr "Franz&ouml;sisch"
 
 msgid "German"
 msgstr "Deutsch"
@@ -2223,7 +2264,7 @@ msgid "Russian"
 msgstr "Russisch"
 
 msgid "Translate"
-msgstr "Übersetze"
+msgstr "&Uuml;bersetze"
 
 msgid "Brazilian Portuguese"
 msgstr "Brasilianisches Portugiesisch"
@@ -2238,13 +2279,13 @@ msgid "Czech"
 msgstr "Tschechisch"
 
 msgid "Danish"
-msgstr "Dänisch"
+msgstr "D&auml;nisch"
 
 msgid "Dutch"
-msgstr "Holländisch"
+msgstr "Holl&auml;ndisch"
 
 msgid "European Spanish"
-msgstr "Europäisches Spanisch"
+msgstr "Europ&auml;isches Spanisch"
 
 msgid "Finnish"
 msgstr "Finnisch"
@@ -2256,7 +2297,7 @@ msgid "Hungarian"
 msgstr "Ungarisch"
 
 msgid "Icelandic"
-msgstr "Isländisch"
+msgstr "Isl&auml;ndisch"
 
 msgid "Japanese"
 msgstr "Japanisch"
@@ -2271,7 +2312,7 @@ msgid "Polish"
 msgstr "Polnisch"
 
 msgid "Romanian"
-msgstr "Rumänisch"
+msgstr "Rum&auml;nisch"
 
 msgid "Serbian"
 msgstr "Serbisch"
@@ -2307,7 +2348,7 @@ msgid "Source"
 msgstr "Quelltext"
 
 msgid "Bcc"
-msgstr ""
+msgstr "Bcc"
 
 msgid "Use Addresses"
 msgstr "Benutze Adressen"
@@ -2344,7 +2385,7 @@ msgid "Nickname"
 msgstr "K&uuml;rzel"
 
 msgid "Must be unique"
-msgstr "muss eindeutig sein"
+msgstr "Muss eindeutig sein"
 
 msgid "E-mail address"
 msgstr "E-Mail-Adresse"
@@ -2389,18 +2430,16 @@ msgid "Original Message"
 msgstr "Urspr&uuml;ngliche Nachricht"
 
 msgid "Draft Email Saved"
-msgstr "Email-Entwurf gespeichert"
+msgstr "E-Mail-Entwurf gespeichert"
 
 msgid "Could not move/copy file. File not attached"
 msgstr "Kann Datei nicht verschieben/kopieren. Datei nicht angeh&auml;ngt."
 
-#, fuzzy
 msgid "Draft Saved"
-msgstr "Email-Entwurf gespeichert"
+msgstr "E-Mail-Entwurf gespeichert"
 
-#, fuzzy
 msgid "Your Message has been sent"
-msgstr "Keine Nachrichten ausgew&auml;hlt."
+msgstr "Ihre Nachrichten wurde verschickt"
 
 msgid "To:"
 msgstr "An:"
@@ -2430,14 +2469,14 @@ msgid "Priority"
 msgstr "Priorit&auml;t"
 
 msgid "Receipt"
-msgstr ""
+msgstr "Empfangsbest&auml;tigung"
 
 #, fuzzy
 msgid "On Read"
-msgstr "gelesen"
+msgstr "Bei Lesen"
 
 msgid "On Delivery"
-msgstr ""
+msgstr "Bei Auslieferung"
 
 msgid "Save Draft"
 msgstr "Entwurf speichern"
@@ -2449,7 +2488,7 @@ msgid "said"
 msgstr "sagte"
 
 msgid "quote"
-msgstr "Zitiere"
+msgstr "zitiere"
 
 msgid "who"
 msgstr "wer"
@@ -2459,20 +2498,21 @@ msgid "Draft folder"
 msgstr "Ordner f&uuml;r Entw&uuml;rfe"
 
 msgid "Illegal folder name.  Please select a different name."
-msgstr "Unm&ouml;glicher Ordnername. Bitte geben Sie einen anderen Namen an."
+msgstr ""
+"Unzul&auml;ssiger Ordnername. Bitte w&auml;hlen Sie einen anderen Namen."
 
 msgid "Click here to go back"
 msgstr "Hier klicken um zur&uuml;ckzugehen"
 
 msgid "You have not selected a folder to delete. Please do so."
-msgstr ""
+msgstr "Kein Ordner zum l&ouml;schen angegeben. Bitte ausw&auml;hlen."
 
 msgid "Delete Folder"
 msgstr "Ordner l&ouml;schen"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Are you sure you want to delete %s?"
-msgstr ""
+msgstr "Wollen Sie dieses Ereignis wirklich l&ouml;schen?"
 
 msgid "Subscribed successfully!"
 msgstr "Erfolgreich eingetragen!"
@@ -2502,7 +2542,7 @@ msgid "as a subfolder of"
 msgstr "als Unterordner von"
 
 msgid "None"
-msgstr "keiner"
+msgstr "Keiner"
 
 msgid "Let this folder contain subfolders"
 msgstr "Dieser Ordner kann Unterordner enthalten"
@@ -2513,9 +2553,8 @@ msgstr "Erstellen"
 msgid "Rename a Folder"
 msgstr "Ordner umbenennen"
 
-#, fuzzy
 msgid "Select a folder"
-msgstr "Ordner umbenennen"
+msgstr "Ordner ausw&auml;hlen"
 
 msgid "Rename"
 msgstr "Umbenennen"
@@ -2524,10 +2563,10 @@ msgid "No folders found"
 msgstr "Keine Ordner gefunden"
 
 msgid "No folders were found to unsubscribe from!"
-msgstr "Es wurden keine Ordner gefunden, die abgemeldet hätten werden können!"
+msgstr "Keine austragbaren Ordner gefunden!"
 
 msgid "No folders were found to subscribe to!"
-msgstr "Es wurden keine Ordner gefunden, die angemeldet hätten werden können!"
+msgstr "Keine eintragbaren Ordner gefunden!"
 
 #, fuzzy
 msgid "Subscribe to:"
@@ -2535,6 +2574,7 @@ msgstr "Eintragen"
 
 msgid "You have not selected a folder to rename. Please do so."
 msgstr ""
+"Sie haben keine Ordner zum umbenennen ausgewählt. Bitte ausw&auml;hlen."
 
 msgid "Rename a folder"
 msgstr "Ordner umbenennen"
@@ -2543,7 +2583,7 @@ msgid "New name:"
 msgstr "Neuer Name:"
 
 msgid "ERROR: Help files are not in the right format!"
-msgstr ""
+msgstr "FEHLER: Die Hilfedateien haben nicht das richtige Format!"
 
 #, c-format
 msgid ""
@@ -2570,14 +2610,13 @@ msgstr "Nachricht anzeigen"
 
 #, fuzzy
 msgid "Not available"
-msgstr "Ung&uuml;ltiger Dateiname"
+msgstr "nicht verf&uuml;gbar"
 
-#, fuzzy
 msgid "purge"
-msgstr "L&ouml;schen"
+msgstr "leeren"
 
 msgid "Last Refresh"
-msgstr "Letztes Update"
+msgstr "Letzte Aktualisierung"
 
 msgid "Save folder tree"
 msgstr ""
@@ -2590,7 +2629,7 @@ msgid "%s Login"
 msgstr "%s Login"
 
 msgid "Name:"
-msgstr "Benutzername:"
+msgstr "Name:"
 
 msgid "No messages were selected."
 msgstr "Keine Nachrichten ausgew&auml;hlt."
@@ -2615,7 +2654,7 @@ msgid "Dark Blue"
 msgstr "Dunkelblau"
 
 msgid "Dark Green"
-msgstr "Dunkelgrün"
+msgstr "Dunkelgr&uuml;n"
 
 msgid "Dark Yellow"
 msgstr "dunkles Geld"
@@ -2630,7 +2669,7 @@ msgid "Light Blue"
 msgstr "Hellblau"
 
 msgid "Light Green"
-msgstr "Hellgrün"
+msgstr "Hellgr&uuml;n"
 
 msgid "Light Yellow"
 msgstr "helles Gelb"
@@ -2657,29 +2696,29 @@ msgid "Other:"
 msgstr "Andere:"
 
 msgid "Ex: 63aa7f"
-msgstr "Z.B.: 64aa7f"
+msgstr "Z.B.: 63aa7f"
 
 msgid "Matches"
 msgstr "Kriterium"
 
 #, c-format
 msgid "Alternate Identity %d"
-msgstr "Alternative Identität %d"
+msgstr "Alternative Identit&auml;t %d"
 
 msgid "Advanced Identities"
-msgstr "Erweiterte Indentitäten"
+msgstr "Erweiterte Indentit&auml;ten"
 
 msgid "Default Identity"
-msgstr "Standardidentität"
+msgstr "Standardidentit&auml;t"
 
 msgid "Add a New Identity"
-msgstr "Neue Identität hinzufügen"
+msgstr "Neue Identit&auml;t hinzuf&uuml;gen"
 
 msgid "E-Mail Address"
 msgstr "E-Mail-Adresse"
 
 msgid "Save / Update"
-msgstr "Speichern / Übernehmen"
+msgstr "Speichern / Aktualisieren"
 
 msgid "Make Default"
 msgstr "Zum Standard machen"
@@ -2715,16 +2754,16 @@ msgid "remove"
 msgstr "entfernen"
 
 msgid "Return to options page"
-msgstr "Zurück zu den Optionen"
+msgstr "Zur&uuml;ck zu den Optionen"
 
 msgid "Personal Information"
 msgstr "Pers&ouml;nliche Informationen"
 
 msgid "Display Preferences"
-msgstr "Voreinstellungen für Anzeige"
+msgstr "Voreinstellungen f&uuml;r Anzeige"
 
 msgid "Folder Preferences"
-msgstr "Voreinstellungen für Ordner"
+msgstr "Voreinstellungen f&uuml;r Ordner"
 
 msgid "Successfully Saved Options"
 msgstr "Optionen wurden erfolgreich gespeichert!"
@@ -2754,7 +2793,7 @@ msgid ""
 "colors in the message list.  This helps to easily distinguish who the "
 "messages are from, especially for mailing lists."
 msgstr ""
-"Aufgrund von anzugebenen Kriterien können eingehende Nachrichten in der "
+"Aufgrund von anzugebenen Kriterien k&ouml;nnen eingehende Nachrichten in der "
 "Nachrichtenliste unterschiedliche Hintergrundfarben erhalten. Dies macht es "
 "einfacher zu sehen, von wem die Nachrichten sind, inbesondere f&uuml;r "
 "Mailing-Listen."
@@ -2769,10 +2808,9 @@ msgid ""
 "The order of the message index can be rearranged and changed to contain the "
 "headers in any order you want."
 msgstr ""
-"Die Reihenfolge des Nachrichtenindex kann ge&auml;ndert werden, so daß die "
+"Die Reihenfolge des Nachrichtenindex kann ge&auml;ndert werden, so dass die "
 "Kopfzeilen in einer beliebigen Reihenfolge angezeigt werden."
 
-#, fuzzy
 msgid "Message not printable"
 msgstr "Nachrichten filtern"
 
@@ -2788,21 +2826,18 @@ msgstr "Drucken"
 msgid "View Printable Version"
 msgstr "Druckversion zeigen"
 
-#, fuzzy
 msgid "Read:"
-msgstr "gelesen"
+msgstr "Gelesen"
 
-#, fuzzy
 msgid "Your message"
-msgstr "] Nachrichten"
+msgstr "Ihre Nachrichten"
 
-#, fuzzy
 msgid "Sent:"
-msgstr "Senden"
+msgstr "Gesendet:"
 
 #, c-format
 msgid "Was displayed on %s"
-msgstr ""
+msgstr "Wurde angezeigt am %s"
 
 msgid "less"
 msgstr "weniger"
@@ -2814,27 +2849,28 @@ msgid "Mailer"
 msgstr "Mailprogramm"
 
 msgid "Read receipt"
-msgstr ""
+msgstr "Empfangsbest&auml;tigung"
 
-#, fuzzy
 msgid "send"
 msgstr "Senden"
 
-#, fuzzy
 msgid "requested"
-msgstr "Keine Änderungen gewünscht."
+msgstr "abgerufen"
 
 msgid ""
 "The message sender has requested a response to indicate that you have read "
 "this message. Would you like to send a receipt?"
 msgstr ""
+"Der Absender hat eine Empfangsbestaetigung fuer diese Nachricht angefordert "
+"um zu erfahren, ob sie gelesen wurde. Wollen Sie die Bestaetigung jetzt "
+"senden ?"
 
 msgid "Send read receipt now"
-msgstr ""
+msgstr "Lesebest&auml;tigung jetzt senden"
 
 #, fuzzy
 msgid "Search results"
-msgstr "Suchen nach"
+msgstr "Suchergebnis"
 
 msgid "Message List"
 msgstr "Nachrichtenliste"
@@ -2843,7 +2879,7 @@ msgid "Resume Draft"
 msgstr "Entwurf fortsetzen"
 
 msgid "Edit Message as New"
-msgstr ""
+msgstr "Bearbeite Nachricht als neue Mail"
 
 #, fuzzy
 msgid "View Message"
@@ -2851,7 +2887,7 @@ msgstr "Nachricht anzeigen"
 
 #, fuzzy
 msgid "Forward as Attachment"
-msgstr "Anhänge"
+msgstr "Anh&auml;nge"
 
 msgid "Reply"
 msgstr "Antworten"
@@ -2863,38 +2899,31 @@ msgid "View Full Header"
 msgstr "Alle Kopfzeilen anzeigen"
 
 msgid "Attachments"
-msgstr "Anhänge"
+msgstr "Anh&auml;nge"
 
-#, fuzzy
 msgid "Folder:"
 msgstr "Ordner"
 
-#, fuzzy
 msgid "edit"
 msgstr "Bearbeiten"
 
-#, fuzzy
 msgid "search"
 msgstr "Suchen"
 
-#, fuzzy
 msgid "delete"
 msgstr "L&ouml;schen"
 
 msgid "Recent Searches"
-msgstr ""
+msgstr "k&uuml;rzliche Suchanfragen"
 
-#, fuzzy
 msgid "save"
 msgstr "Speichern"
 
-#, fuzzy
 msgid "forget"
 msgstr "mehr"
 
-#, fuzzy
 msgid "Current Search"
-msgstr "Aktueller Ordner"
+msgstr "Aktuelle Suche"
 
 msgid "Body"
 msgstr "Nachrichtentext"
@@ -2902,9 +2931,8 @@ msgstr "Nachrichtentext"
 msgid "Everywhere"
 msgstr "&Uuml;berall"
 
-#, fuzzy
 msgid "Search Results"
-msgstr "Suchen"
+msgstr "Suchergebnis"
 
 msgid "No Messages Found"
 msgstr "Keine Nachrichten gefunden"
@@ -2940,7 +2968,7 @@ msgid "Home Phone"
 msgstr "Telefon (privat)"
 
 msgid "Cellular Phone"
-msgstr "Handy"
+msgstr "Mobiltelefon"
 
 msgid "Fax"
 msgstr "Fax"
@@ -2949,7 +2977,7 @@ msgid "Note"
 msgstr "Notiz"
 
 msgid "Add to Addressbook"
-msgstr "Zum Adre&szlig;buch hinzuf&uuml;gen"
+msgstr "Zum Adressbuch hinzuf&uuml;gen"
 
 msgid "Title & Org. / Dept."
 msgstr "Titel u. Organisation / Abt."
@@ -2960,20 +2988,92 @@ msgstr "Zeige vollst&auml;ndige Kopfzeilen an"
 msgid "Viewing a text attachment"
 msgstr "Text Anhang anzeigen"
 
-#~ msgid "Close window"
-#~ msgstr "Fenster schlie&szlig;en"
+#~ msgid "Viewing a message attachment"
+#~ msgstr "Zeige ein angeh&auml;ngtes Bild an"
 
-#~ msgid "empty"
-#~ msgstr "leeren"
+#~ msgid "Cc:"
+#~ msgstr "Cc"
+
+#~ msgid "Bcc:"
+#~ msgstr "Bcc:"
+
+#~ msgid "<No subject>"
+#~ msgstr "<kein Betreff>"
+
+#~ msgid "Enable request/confirm reading"
+#~ msgstr "Lese- und Empfangsbest&auml;tigung einschalten"
+
+#~ msgid "Use receive date for sort"
+#~ msgstr "Sortierung nach Datum des Maileingangs"
+
+#~ msgid "Use References header for thread sort"
+#~ msgstr "Benutze References-Kopfeile f&uuml;r Thread-Sortierung"
 
 #~ msgid "There was an error contacting the mail server."
 #~ msgstr "Es gab einen Fehler beim Verbindungsaufbau zum Mailserver."
 
-#~ msgid "Welcome to %s's WebMail system"
-#~ msgstr "Willkommen im WebMail-System von %s"
+#~ msgid "Contact your administrator for help."
+#~ msgstr "Kontaktieren Sie Ihren Administrator um Hilfe zu erhalten."
 
-#~ msgid "Running SquirrelMail version %s (c) 1999-2001."
-#~ msgstr "SquirrelMail Version $version (c) 1999-2001."
+#~ msgid "No Messages found"
+#~ msgstr "Keine Nachrichten gefunden"
+
+#~ msgid "Note Field Contains"
+#~ msgstr "Notizfeld enth&auml;lt"
+
+#~ msgid "Sun"
+#~ msgstr "Son"
+
+#~ msgid "Mon"
+#~ msgstr "Mon"
+
+#~ msgid "Tue"
+#~ msgstr "Die"
+
+#~ msgid "Wed"
+#~ msgstr "Mit"
+
+#~ msgid "Thu"
+#~ msgstr "Don"
+
+#~ msgid "Fri"
+#~ msgstr "Fre"
+
+#~ msgid "Sat"
+#~ msgstr "Sam"
+
+#~ msgid "Jan"
+#~ msgstr "Jan"
+
+#~ msgid "Feb"
+#~ msgstr "Feb"
+
+#~ msgid "Mar"
+#~ msgstr "M&auml;r"
+
+#~ msgid "Apr"
+#~ msgstr "Apr"
+
+#~ msgid "Jun"
+#~ msgstr "Jun"
+
+#~ msgid "Jul"
+#~ msgstr "Jul"
+
+#~ msgid "Aug"
+#~ msgstr "Aug"
+
+#~ msgid "Sep"
+#~ msgstr "Sep"
+
+#~ msgid "Oct"
+#~ msgstr "Okt"
+
+#~ msgid "Nov"
+#~ msgstr "Nov"
+
+#~ msgid "Dec"
+#~ msgstr "Dez"
 
 #~ msgid "No To Address"
 #~ msgstr "Keine An: Adresse angegeben"
@@ -2984,26 +3084,28 @@ msgstr "Text Anhang anzeigen"
 #~ msgid "messages"
 #~ msgstr "Nachrichten"
 
-#~ msgid "Dictionary Erased"
-#~ msgstr "Wörterbuch gelöscht"
+#~ msgid "Error decoding mime structure.  Report this as a bug!"
+#~ msgstr "Fehler beim Dekodieren der MIME-Struktur. Melden Sie diesen Fehler!"
 
-#~ msgid "Close this Window"
-#~ msgstr "Dieses Fenster schlie&szlig;en"
-
-#~ msgid "Successful Re-encryption"
-#~ msgstr "Neuverschlüsselung erfolgreich"
-
-#~ msgid ""
-#~ "Your personal dictionary was re-encrypted successfully. Please close this "
-#~ "window and click \"Check Spelling\" button again to start your spellcheck "
-#~ "over."
+#~ msgid "I tried to execute '%s', but it returned:"
 #~ msgstr ""
-#~ "Ihr persönliches Wörterbuch wurde erfolgreich neu verschlüsselt. Bitte "
-#~ "schließen Sie dieses Fenster und klicken Sie auf \"Rechtschreibprüfung\", "
-#~ "um die Prüfung zu wiederholen."
+#~ "Ich versuchte '%s' auszuf&uurl;hren, aber ich erhielt folgende Antwort:"
 
-#~ msgid "Dictionary re-encrypted"
-#~ msgstr "Wörterbuch neu verschlüsselt"
+#~ msgid "SquirrelSpell is misconfigured."
+#~ msgstr "SquirrelSpell ist flasch konfiguriert."
+
+#~ msgid "SquirrelSpell Results"
+#~ msgstr "SquirrelSpell Ergebnis"
+
+#~ msgid "Spellcheck completed. Commit changes?"
+#~ msgstr ""
+#~ "Rechtschreibpr&uuml;fung abgeschlossen. &Auml;nderungen &uuml;bernehmen?"
+
+#~ msgid "No changes were made."
+#~ msgstr "Keine &Auml;nderungen wurden durchgef&uuml;hrt."
+
+#~ msgid "Now saving your personal dictionary... Please wait."
+#~ msgstr "Speichere Ihr pers&ouml;nlichses W&ouml;rterbuch... Bitte warten."
 
 #~ msgid "Found %s errors"
 #~ msgstr "%s Fehler gefunden"
@@ -3018,19 +3120,22 @@ msgstr "Text Anhang anzeigen"
 #~ msgstr "Vorschl&auml;ge:"
 
 #~ msgid "Change to:"
-#~ msgstr "Ändern in:"
+#~ msgstr "&Auml;ndern in:"
 
 #~ msgid "Occurs times:"
 #~ msgstr "Tritt so oft auf:"
 
+#~ msgid "Change this word"
+#~ msgstr "Dieses Wort &auml;ndern"
+
 #~ msgid "Change"
-#~ msgstr "Ändern"
+#~ msgstr "&Auml;ndern"
 
 #~ msgid "Change ALL occurances of this word"
-#~ msgstr "Alle Vorkommnisse dieses Wortes ändern"
+#~ msgstr "Alle Vorkommnisse dieses Wortes &auml;ndern"
 
 #~ msgid "Change All"
-#~ msgstr "Alle Markierungen ändern"
+#~ msgstr "Alle Markierungen &auml;ndern"
 
 #~ msgid "Ignore this word"
 #~ msgstr "Dieses Wort ignorieren"
@@ -3039,38 +3144,284 @@ msgstr "Text Anhang anzeigen"
 #~ msgstr "Ignorieren"
 
 #~ msgid "Ignore ALL occurances this word"
-#~ msgstr "Alle Vorkommnisse dieses Wortes ändern"
+#~ msgstr "Alle Vorkommnisse dieses Wortes &auml;ndern"
 
 #~ msgid "Ignore All"
 #~ msgstr "Alle Ignorieren"
 
+#~ msgid "Add this word to your personal dictionary"
+#~ msgstr "Dieses Wort Ihrem pers&ouml;nlichen W&ouml;rterbuch hinzuf&uuml;gen"
+
 #~ msgid "Add to Dic"
-#~ msgstr "Zum Wörterbuch hinzuf&uuml;gen"
+#~ msgstr "Zum W&ouml;rterbuch hinzuf&uuml;gen"
 
 #~ msgid "Close and Commit"
-#~ msgstr "Schlie&szlig;en und bestätigen"
+#~ msgstr "Schliessen und best&auml;tigen"
 
 #~ msgid "The spellcheck is not finished. Really close and commit changes?"
 #~ msgstr ""
-#~ "Die Rechtschreibprüfung ist nicht beendet. Wirklich schließen und "
-#~ "Änderungen übernehmen?"
+#~ "Die Rechtschreibpr&uuml;fung ist nicht beendet. Wirklich schliessen und "
+#~ "&Auml;nderungen &uuml;bernehmen?"
 
 #~ msgid "Close and Cancel"
-#~ msgstr "Schließen und Abbrechen"
+#~ msgstr "Schliessen und Abbrechen"
 
 #~ msgid "The spellcheck is not finished. Really close and discard changes?"
 #~ msgstr ""
-#~ "Die Rechtschreibprüfung ist nicht beendet. Wirklich schließen und "
-#~ "Änderungen verwerfen?"
+#~ "Die Rechtschreibpr&uuml;fung ist nicht beendet. Wirklich schliessen und "
+#~ "&Auml;nderungen verwerfen?"
 
 #~ msgid "No errors found"
 #~ msgstr "Keine Fehler gefunden"
 
+#~ msgid "Your personal dictionary was erased."
+#~ msgstr "Ihr pers&ouml;nliches W&ouml;rterbuch wurde gelöscht."
+
+#~ msgid "Dictionary Erased"
+#~ msgstr "W&ouml;rterbuch gel&ouml;scht"
+
+#~ msgid ""
+#~ "Your personal dictionary was erased. Please close this window and click "
+#~ "\"Check Spelling\" button again to start your spellcheck over."
+#~ msgstr ""
+#~ "Ihr pers&ouml;nliches W&ouml;rterbuch wurde erfolgreich neu verschl&uuml;"
+#~ "sselt. Bitte schliessen Sie dieses Fenster und klicken Sie auf "
+#~ "\"Rechtschreibpr&uuml;fung\", um die Pr&uuml;fung zu wiederholen."
+
+#~ msgid "Close this Window"
+#~ msgstr "Dieses Fenster schliessen"
+
+#~ msgid ""
+#~ "Your personal dictionary was re-encrypted successfully. Now return to the "
+#~ "&quot;SpellChecker options&quot; menu and make your selection again."
+#~ msgstr ""
+#~ "Ihr pers&ouml;nliches W&ouml;rterbuch wurde erfolgreich neuverschl&uuml;"
+#~ "sselt. Kehren Sie zum &quot;SpellChecker Optionsmen&uuml;&quot; zur&uuml;"
+#~ "ck und treffen Ihre Auswahl erneut."
+
+#~ msgid "Successful Re-encryption"
+#~ msgstr "Neuverschl&uuml;sselung erfolgreich"
+
+#~ msgid ""
+#~ "Your personal dictionary was re-encrypted successfully. Please close this "
+#~ "window and click \"Check Spelling\" button again to start your spellcheck "
+#~ "over."
+#~ msgstr ""
+#~ "Ihr pers&ouml;nliches W&ouml;rterbuch wurde erfolgreich neu verschl&uuml;"
+#~ "sselt. Bitte schliessen Sie dieses Fenster und klicken Sie auf "
+#~ "\"Rechtschreibpr&uuml;fung\", um die Pr&uuml;fung zu wiederholen."
+
+#~ msgid "Dictionary re-encrypted"
+#~ msgstr "W&ouml;rterbuch neu verschl&uuml;sselt"
+
+#~ msgid ""
+#~ "Your personal dictionary has been <strong>encrypted</strong> and is now "
+#~ "stored in an <strong>encrypted format</strong>."
+#~ msgstr ""
+#~ "Ihr pers&ouml;nliches W&ouml;rterbuch wurde <strong>verschl&uuml;sselt</"
+#~ "strong> und wird nun im <strong>verschl&uuml;sseltem Format</strong> "
+#~ "gespeichert."
+
+#~ msgid ""
+#~ "Your personal dictionary has been <strong>decrypted</strong> and is now "
+#~ "stored as <strong>clear text</strong>."
+#~ msgstr ""
+#~ "Ihr pers&ouml;nliches W&ouml;rterbuch wurde <strong>entschl&uuml;sselt</"
+#~ "strong> und wird nun als <strong>reine</strong> Textdatei gespeichert."
+
+#~ msgid "Personal Dictionary Crypto Settings"
+#~ msgstr ""
+#~ "Verschl&uuml;sselungseinstellungen f&uuml;r pers&ouml;nliches W&ouml;"
+#~ "rterbuch"
+
 #~ msgid "Personal Dictionary"
-#~ msgstr "Pers&ouml;nliches Wörterbuch"
+#~ msgstr "Pers&ouml;nliches W&ouml;rterbuch"
+
+#~ msgid "No words in your personal dictionary."
+#~ msgstr ""
+#~ "Es befindenen sich keine W&ouml;rter in Ihrem pers&ouml;nlichen W&ouml;"
+#~ "rterbuch."
+
+#~ msgid "Please check any words you wish to delete from your dictionary."
+#~ msgstr ""
+#~ "Bitte pr&uml;fen Sie alle W&ouml;rter, die Sie aus Ihrem W&ouml;rterbuch "
+#~ "l&ouml;schen wollen."
+
+#~ msgid "%s dictionary"
+#~ msgstr "%s W&ouml;rterbuch"
 
 #~ msgid "Delete checked words"
-#~ msgstr "Ausgew&auml;hlte Wörter l&ouml;schen"
+#~ msgstr "Ausgew&auml;hlte W&ouml;rter l&ouml;schen"
+
+#~ msgid "Edit your Personal Dictionary"
+#~ msgstr "Pers&ouml;nliches W&ouml;rterbuch bearbeiten"
+
+#~ msgid "Please make your selection first."
+#~ msgstr "Bitte treffen Sie erst Ihre Auswahl"
+
+#~ msgid ""
+#~ "This will encrypt your personal dictionary and store it in an encrypted "
+#~ "format. Proceed?"
+#~ msgstr ""
+#~ "Dies wird Ihr pers&ouml;nliches W&ouml;rterbuch verschl&uuml;sseln und im "
+#~ "verschl&uuml;sselten Format speichern. Durchf&uuml;hren?"
+
+#~ msgid ""
+#~ "This will decrypt your personal dictionary and store it in a clear-text "
+#~ "format. Proceed?"
+#~ msgstr ""
+#~ "Dies wird Ihr pers&ouml;nliches W&ouml;rterbuch entschl&uuml;sseln und im "
+#~ "klartext-Format speichern. Durchf&uuml;hren?"
+
+#~ msgid ""
+#~ "<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
+#~ "helps protect your privacy in case the web-mail system gets compromized "
+#~ "and your personal dictionary ends up stolen. It is currently encrypted "
+#~ "with the password you use to access your mailbox, making it hard for "
+#~ "anyone to see what is stored in your personal dictionary.</p> "
+#~ "<p><strong>ATTENTION:</strong> If you forget your password, your personal "
+#~ "dictionary will become unaccessible, since it can no longer be decrypted. "
+#~ "If you change your mailbox password, SquirrelSpell will recognize it and "
+#~ "prompt you for your old password in order to re-encrypt the dictionary "
+#~ "with a new key.</p>"
+#~ msgstr ""
+#~ "<p>Ihr pers&ouml;nliches W&ouml;rterbuch ist zur Zeit "
+#~ "<strong>verschl&uuml;sselt</strong>. Dies sch&uuml;tzt Ihre "
+#~ "Privatssph&auml;re im Falle dass das Webmail-System komprometiert und Ihr "
+#~ "pers&ouml;nliches W&ouml;rterbuch gestohlen wird. Es ist zur Zeit mit dem "
+#~ "gleichen Passwort verschl&uuml;sselt, welches Sie auch für den Zugang zu "
+#~ "Ihrer Postfach nutzen und erschwert Anderen so, zu sehen was in Ihrem "
+#~ "pers&ouml;nlichen W&ouml;rterbuch gespeichert ist.</p> <p><strong>ACHTUNG:"
+#~ "</strong> Wenn Sie Ihr Passwort vergessen ist kein Zugriff auf Ihr "
+#~ "pers&ouml;nliches W&ouml;rterbuch mehr m&ouml;glich, da es nicht mehr "
+#~ "entschl&uuml;sselt werden kann. Wenn Sie das Postfach-Passwort &auml;"
+#~ "ndern wird Squirrelmail dies erkennen und Sie nach Ihrem alten Passwort "
+#~ "fragen um dann das W&ouml;rterbuch mit dem neuen Passwort zu verschl&uuml;"
+#~ "sseln.</p>"
+
+#~ msgid ""
+#~ "Please decrypt my personal dictionary and store it in a clear-text format."
+#~ msgstr ""
+#~ "Bitte entschl&uuml;ssele mein pers&ouml;nliches W&ouml;rterbuch und "
+#~ "speichere es im klartext-Format."
+
+#~ msgid "Change crypto settings"
+#~ msgstr "Verschl&uuml;sselungseinstellungen &auml;ndern"
+
+#~ msgid ""
+#~ "<p>Your personal dictionary is <strong>currently not encrypted</strong>. "
+#~ "You may wish to encrypt your personal dictionary to protect your privacy "
+#~ "in case the webmail system gets compromized and your personal dictionary "
+#~ "file gets stolen. When encrypted, the file's contents look garbled and "
+#~ "are hard to decrypt without knowing the correct key (which is your "
+#~ "mailbox password).</p> <strong>ATTENTION:</strong> If you decide to "
+#~ "encrypt your personal dictionary, you must remember that it gets &quot;"
+#~ "hashed&quot; with your mailbox password. If you forget your mailbox "
+#~ "password and the administrator changes it to a new value, your personal "
+#~ "dictionary will become useless and will have to be created anew. However, "
+#~ "if you or your system administrator change your mailbox password but you "
+#~ "still have the old password at hand, you will be able to enter the old "
+#~ "key to re-encrypt the dictionary with the new value.</p>"
+#~ msgstr ""
+#~ "<p>Ihr pers&ouml;nliches W&ouml;rterbuch ist zur Zeit <strong>nicht "
+#~ "verschl&uuml;sselt</strong>. Sie sollten Ihr pers&ouml;nliches W&ouml;"
+#~ "rterbuch verschl&uuml;sseln um Ihre Privatssph&auml;re zu sch&uuml;tzen, "
+#~ "falls das Webmail-System komprometiert und Ihr pers&ouml;nliches W&ouml;"
+#~ "rterbuch gestohlen wird. Wenn das W&ouml;rterbuch verschl&uuml;sselt ist, "
+#~ "ist der Dateiinhalt nicht mehr in einem lesbaren Format und ohne das "
+#~ "Passwort schwer zu entschl&uuml;sseln (welches Ihr Postfach-Passwort ist)."
+#~ "</p> <p><strong>ACHTUNG:</strong> Wenn Sie Sich entscheiden Ihr pers&ouml;"
+#~ "nliches W&ouml;rterbuch zu verschl&uuml;sseln, bedenken Sie, dass dies "
+#~ "mit Ihrem &quot;Postfach-Kennwort&quot; geschieht. Wenn Sie Ihr Postfach-"
+#~ "Passwort vergessen oder der Administrator es neu setzt, wird Ihr "
+#~ "pers&ouml;nliches W&ouml;rterbuch nutzlos und Sie m&uuml;ssen ein neues "
+#~ "W&ouml;rterbuch erstellen. Wie auch immer, wenn Sie oder der System-"
+#~ "Administrator Ihr Postfach-Passwort &auml;ndert und Sie noch das "
+#~ "vorherige Passwort kennen kann das W&ouml;rterbuch entschl&uuml;sselt und "
+#~ "dann mit dem neuen Passwort wieder verschl&uuml;sselt werden.</p>"
+
+#~ msgid ""
+#~ "Please encrypt my personal dictionary and store it in an encrypted format."
+#~ msgstr ""
+#~ "Bitte mein pers&ouml;nliches W&ouml;rterbuch verschl&uuml;sseln und im "
+#~ "verschl&uuml;sselten Format speichern."
+
+#~ msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
+#~ msgstr ""
+#~ "L&ouml;sche die folgenden Eintr&auml;ge aus dem <strong>%s</strong> "
+#~ "W&ouml;rterbuch:"
 
 #~ msgid "All done!"
 #~ msgstr "Alles fertig!"
+
+#~ msgid "Personal Dictionary Updated"
+#~ msgstr "Pers&ouml;nliches W&ouml;rterbuch aktualisiert"
+
+#~ msgid "No changes requested."
+#~ msgstr "Keine &Auml;nderungen gew&uuml;nscht."
+
+#~ msgid "Please wait, communicating with the server..."
+#~ msgstr "Bitte warten, kommuniziere mit dem Server..."
+
+#~ msgid ""
+#~ "Please choose which dictionary you would like to use to spellcheck this "
+#~ "message:"
+#~ msgstr ""
+#~ "Bitte w&auml;hlen Sie das W&ouml;rterbuch welches Sie zur "
+#~ "Rechtschreibpr&uuml;fung dieser Nachricht verwenden wollen:"
+
+#~ msgid "SquirrelSpell Initiating"
+#~ msgstr "SquirrelSpell initialisiert"
+
+#~ msgid ""
+#~ "Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
+#~ "default dictionary."
+#~ msgstr ""
+#~ "Einstellungen ge&auml;ndert in: <strong>%s</strong> mit <strong>%s</"
+#~ "strong> als Standard-W&ouml;rterbuch."
+
+#~ msgid ""
+#~ "Using <strong>%s</strong> dictionary (system default) for spellcheck."
+#~ msgstr ""
+#~ "Benutze <strong>%s</strong>-W&ouml;rterbuch (Systemstandard) f&uuml;r die "
+#~ "Rechtschreibpr&uuml;fung."
+
+#~ msgid "International Dictionaries Preferences Updated"
+#~ msgstr ""
+#~ "Voreinstellungen f&uuml;r internationale W&ouml;rterb&uuml;cher "
+#~ "aktualisiert"
+
+#~ msgid ""
+#~ "Please check any available international dictionaries which you would "
+#~ "like to use when spellchecking:"
+#~ msgstr ""
+#~ "Bitte pr&uuml;fen Sie alle verf&uuml;gbaren internationalen W&ouml;"
+#~ "rterbücher welche Sie zur Rechtschreibpr&uuml;fung verwenden wollen."
+
+#~ msgid "Make this dictionary my default selection:"
+#~ msgstr "Dieses W&ouml;rterbuch zu meinem Standard-W&ouml;rterbuch machen:"
+
+#~ msgid "Make these changes"
+#~ msgstr "Diese &Auml;nderungen durchf&uuml;hren"
+
+#~ msgid "Add International Dictionaries"
+#~ msgstr "Internationale W&ouml;rterb&uuml;cher hinzuf&uuml;gen"
+
+#~ msgid "Please choose which options you wish to set up:"
+#~ msgstr "Bitte w&auml;hlen Sie die Option, welche Sie einrichten wollen:"
+
+#~ msgid "Edit your personal dictionary"
+#~ msgstr "Pers&ouml;nliches W&ouml;rterbuch bearbeiten"
+
+#~ msgid "Set up international dictionaries"
+#~ msgstr "Internationale W&ouml;rterb&uuml;cher einrichten"
+
+#~ msgid "Encrypt or decrypt your personal dictionary"
+#~ msgstr ""
+#~ "Ver- oder Entschl&uuml;sseln Sie Ihr pers&ouml;nliches W&ouml;rterbuch"
+
+#~ msgid "SquirrelSpell Options Menu"
+#~ msgstr "SquirrelSpell Optionsmen&uuml;"
+
+#~ msgid "l, F d Y"
+#~ msgstr "l, F d Y"
