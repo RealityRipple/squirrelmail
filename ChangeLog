@@ -85,6 +85,7 @@ Version 1.5.1 -- CVS
   - Alignment of title text above folder list fixed.
   - Changed structure of xtra_code functions that are used by some translations.
   - Added Uighur language support.
+  - Added status bar to compose window when "Compose In New Window" is used.
 
 Version 1.5.0
 --------------------
