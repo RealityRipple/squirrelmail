@@ -189,11 +189,12 @@ elseif ($submit == "delete") {
 do_hook('search_before_form');
 
 echo "<BR>\n".
-     "      <table width=\"100%\" align=center cellpadding=2 cellspacing=0 border=0>\n".
+     "      <table width=\"100%\">\n".
      "      <TR><td bgcolor=\"$color[0]\">\n".
      "          <CENTER><B>"._("Search")."</B></CENTER>\n".
      "      </TD></TR>\n".
-     '      <TR><td align=center>';
+	 "		</TABLE>\n";
+#     '      <TR><td align=center>';
 
 //	update the recent and saved searches from the pref files
 
@@ -208,10 +209,17 @@ $saved_count = count($saved_what_array);
 
 //	saved search table
 if ($saved_count > 0) {
-    echo "<BR><B>Saved Searches</B>\n".
-         "<TABLE WIDTH=\"95%\" CELLPADDING=0 CELLSPACING=0 BGCOLOR=\"$color[0]\">\n";
+    echo "<BR>\n".
+         "<TABLE WIDTH=\"95%\" BGCOLOR=\"$color[9]\" ALIGN=\"CENTER\" CELLPADDING=1 CELLSPACING=1>\n".
+		 "<TR><TD align=center><B>Saved Searches</B></TD></TR><TR><TD>\n".
+         "<TABLE WIDTH=\"100%\" ALIGN=\"CENTER\" CELLPADDING=0 CELLSPACING=0>\n";
     for ($i=0;$i<$saved_count;$i++) {
-        echo "<TR><TD WIDTH=35%>$saved_folder_array[$i]</TD>\n".
+		echo "<TR ";
+		if ($i % 2) {
+			echo "BGCOLOR=\"$color[0]\"";
+		}
+		else { echo "BGCOLOR=\"$color[4]\""; }
+        echo "><TD WIDTH=35%>$saved_folder_array[$i]</TD>\n".
              "<TD ALIGN=LEFT>$saved_what_array[$i]</TD>\n".
              "<TD ALIGN=RIGHT>$saved_where_array[$i]&nbsp;&nbsp;&nbsp;\n".
 	     "<A HREF=search.php?".
@@ -225,22 +233,29 @@ if ($saved_count > 0) {
 	     "where=", urlencode($saved_where_array[$i]), "&".
 	     "submit=Search_no_update>search</A>\n".
 	     "&nbsp;|&nbsp;<A HREF=search.php?count=$i&submit=delete>delete</A>".
-	     "&nbsp;&nbsp;";
+	     "&nbsp;&nbsp;</tr>";
     }
-echo "</TABLE>\n";
+echo "</TABLE></TD></TR></TABLE>\n";
 }
 
 //	recent search table
 
 if ($recent_count > 0) {
-    echo "<BR><B>Recent Searches</B>\n".
-         "<TABLE WIDTH=\"95%\" CELLPADDING=0 CELLSPACING=0 BGCOLOR=\"$color[0]\">\n";
+    echo "<BR>\n".
+         "<TABLE WIDTH=\"95%\" BGCOLOR=\"$color[9]\" ALIGN=\"CENTER\" CELLPADDING=1 CELLSPACING=1>\n".
+		 "<TR><TD align=center><B>Recent Searches</B></TD></TR><tr><td>\n".
+         "<TABLE WIDTH=\"100%\" ALIGN=\"CENTER\" CELLPADDING=0 CELLSPACING=0>\n";
     for ($i=0;$i<$recent_count;$i++) {
         if (!empty($what_array[$i])) {
 	    if ($folder_array[$i] == "") {
 	        $folder_array[$i] = "INBOX";
 	    }
-            echo "<TR><TD WIDTH=35%>$folder_array[$i]</TD>\n".
+		echo "<TR ";
+		if ($i % 2) {
+			echo "BGCOLOR=\"$color[0]\"";
+		}
+		else { echo "BGCOLOR=\"$color[4]\""; }
+            echo "<TD WIDTH=35%>$folder_array[$i]</TD>\n".
 	         "<TD ALIGN=LEFT>$what_array[$i]</TD>\n".
 	         "<TD ALIGN=RIGHT>$where_array[$i]&nbsp;&nbsp;&nbsp;".
                  "<A HREF=search.php?".
@@ -255,7 +270,7 @@ if ($recent_count > 0) {
 	         "&nbsp;&nbsp;</TD></TR>\n";
         }
     }
-    echo "</TABLE>\n".
+    echo "</table></td></tr></TABLE>\n".
          "<BR>\n";
 }
 //	search form
