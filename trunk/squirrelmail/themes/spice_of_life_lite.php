@@ -11,7 +11,7 @@
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
- * @package squirrelmai
+ * @package squirrelmail
  * @subpackage themes
  */
 
