@@ -166,6 +166,9 @@ function checkForPrefs($data_dir, $username, $filename = '') {
         } else if (!@copy($default_pref, $filename)) {
             echo _("Error opening ") . $default_pref . '<br>';
             echo _("Could not create initial preference file!") . "<br>\n";
+            $user_data = posix_getpwuid(posix_getuid());
+            $uid = $user_data['name'];
+            echo $data_dir . ' ' . _("should be writable by user") . ' ' . $uid . "<br>\n";
             echo _("Please contact your system administrator and report this error.") . "<br>\n";
             exit;
         }
