@@ -43,13 +43,17 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = true
     }
     echo "\n\n" . html_tag( 'html' ,'' , '', '', 'lang="'.$squirrelmail_language.'"' ) . "\n<head>\n";
 
+    /*
+     * Add closing / to link and meta elements only after switching to xhtml 1.0 Transitional.
+     * It is not compatible with html 4.01 Transitional
+     */
     if ( !isset( $custom_css ) || $custom_css == 'none' ) {
         if ($theme_css != '') {
-            echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$theme_css\" />";
+            echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$theme_css\">";
         }
     } else {
         echo '<link rel="stylesheet" type="text/css" href="' .
-             $base_uri . 'themes/css/'.$custom_css.'" />';
+             $base_uri . 'themes/css/'.$custom_css.'">';
     }
 
     if ($squirrelmail_language == 'ja_JP') {
@@ -61,7 +65,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = true
          * recommendations and switch to unicode.
          */
         echo "<!-- \xfd\xfe -->\n";
-        echo '<meta http-equiv="Content-type" content="text/html; charset=euc-jp" />' . "\n";
+        echo '<meta http-equiv="Content-type" content="text/html; charset=euc-jp">' . "\n";
     }
 
     if ($do_hook) {
