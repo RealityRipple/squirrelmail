@@ -218,6 +218,9 @@
     $theme[12]["PATH"] = "../themes/black_bean_burrito_theme.php";
     $theme[12]["NAME"] = "Black Bean Burrito";
 
+    $theme[13]["PATH"] = "../themes/servery_theme.php";
+    $theme[13]["NAME"] = "Servery";
+
 //  LDAP server(s)
 //
 //    Array of arrays with LDAP server parameters. See

@@ -252,7 +252,7 @@
       echo "      </td><td ALIGN=left BGCOLOR=\"$color[0]\">\n";
       //      echo "      <INPUT TYPE=\"hidden\" name=\"MAX_FILE_SIZE\"\n";
       //      echo "      value=\"10000\">\n";
-      echo "      <INPUT NAME=\"attachfile\" TYPE=\"file\">\n";
+      echo "      <INPUT NAME=\"attachfile\" SIZE=48 TYPE=\"file\">\n";
       echo "      &nbsp;&nbsp;<input type=\"submit\" name=\"attach\"";
       echo " value=\"" . _("Add") ."\">\n";
       echo "     </td>\n";
