@@ -126,7 +126,10 @@ function error_box($string, $color) {
 
     $err = _("ERROR");
 
-    $string = concat_hook_function('error_box', $string);
+    $ret = concat_hook_function('error_box', $string);
+    if($ret != '') {
+        $string = $ret;
+    }
 
     /* check if the page header has been sent; if not, send it! */
     if(!isset($pageheader_sent) && !$pageheader_sent) {
