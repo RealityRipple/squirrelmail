@@ -303,17 +303,17 @@ if ($action == 'edit' || $action == 'add') {
     for ($i=0; $i < 14; $i++) {
         ${"selected".$i} = '';
     }
-    if ($action == 'edit' && isset($message_highlight_list[$theid]['color'])) {
+    if ($action == 'edit' && isset($theid) && isset($message_highlight_list[$theid]['color'])) {
         for ($i=0; $i < 14; $i++) {
             if ($color_list[$i] == $message_highlight_list[$theid]['color']) {
-            $selected_choose = ' checked';
-            ${"selected".$i} = ' selected';
-            continue;
+                $selected_choose = ' checked';
+                ${"selected".$i} = ' selected';
+                continue;
             }
-    }
+        }
     }
 
-    if ($action == 'edit' && isset($message_highlight_list[$theid]['color'])) {
+    if ($action == 'edit' && isset($theid) && isset($message_highlight_list[$theid]['color'])) {
         $current_color = $message_highlight_list[$theid]['color'];
     }
     else {
@@ -341,14 +341,14 @@ if ($action == 'edit' || $action == 'add') {
     echo '<form name="f" action="options_highlight.php">' . "\n";
     echo '<input type="hidden" value="save" name="action">' . "\n";
     if($action == 'edit')
-        echo '<input type="hidden" value="'.$theid.'" name="theid">' . "\n";
+        echo '<input type="hidden" value="'.(isset($theid)?$theid:'').'" name="theid">' . "\n";
     echo html_tag( 'table', '', 'center', '', 'width="80%" cellpadding="3" cellspacing="0" border="0"' ) . "\n";
     echo html_tag( 'tr', '', '', $color[0] ) . "\n";
     echo html_tag( 'td', '', 'right', '', 'nowrap' ) . "<b>\n";
     echo _("Identifying name") . ":";
     echo '      </b></td>' . "\n";
     echo html_tag( 'td', '', 'left' ) . "\n";
-    if ($action == 'edit' && isset($message_highlight_list[$theid]['name']))
+    if ($action == 'edit' && isset($theid) && isset($message_highlight_list[$theid]['name']))
         $disp = $message_highlight_list[$theid]['name'];
     else
         $disp = '';
@@ -377,7 +377,7 @@ if ($action == 'edit' || $action == 'add') {
     echo "            <option value=\"$color_list[13]\"$selected13>" . _("White") . "\n";
     echo "         </select><br>\n";
     echo "         <input type=\"radio\" name=color_type value=2$selected_input> &nbsp;". _("Other:") ."<input type=\"text\" value=\"";
-    if ($selected_input) echo $message_highlight_list[$theid]["color"];
+    if ($selected_input && isset($theid)) echo $message_highlight_list[$theid]["color"];
     echo '" name="newcolor_input" size="7"> '._("Ex: 63aa7f")."<br>\n";
     echo "      </td>\n";
     echo "   </tr>\n";
@@ -405,23 +405,23 @@ if ($action == 'edit' || $action == 'add') {
     echo html_tag( 'td', '', 'center', '', 'colspan="2"' ) . "\n";
     echo "         <select name=match_type>\n";
     oh_opt( 'from',
-            ($message_highlight_list[$theid]['match_type'] == 'from'),
+            (isset($theid)?$message_highlight_list[$theid]['match_type'] == 'from':1),
             _("From") );
     oh_opt( 'to',
-            ($message_highlight_list[$theid]['match_type'] == 'to'),
+            (isset($theid)?$message_highlight_list[$theid]['match_type'] == 'to':0),
             _("To") );
     oh_opt( 'cc',
-            ($message_highlight_list[$theid]['match_type'] == 'cc'),
+            (isset($theid)?$message_highlight_list[$theid]['match_type'] == 'cc':0),
             _("Cc") );
     oh_opt( 'to_cc',
-            ($message_highlight_list[$theid]['match_type'] == 'to_cc'),
+            (isset($theid)?$message_highlight_list[$theid]['match_type'] == 'to_cc':0),
             _("To or Cc") );
     oh_opt( 'subject',
-            ($message_highlight_list[$theid]['match_type'] == 'subject'),
+            (isset($theid)?$message_highlight_list[$theid]['match_type'] == 'subject':0),
             _("Subject") );
     echo "         </select>\n";
     echo '<b>' . _("Matches") . ':</b> ';
-    if ($action == 'edit' && isset($message_highlight_list[$theid]['value']))
+    if ($action == 'edit' && isset($theid) && isset($message_highlight_list[$theid]['value']))
         $disp = $message_highlight_list[$theid]['value'];
     else
         $disp = '';
