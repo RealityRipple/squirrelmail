@@ -1,5 +1,7 @@
 Version 0.5pre1 -- DEVELOPMENT
 ------------------------------
+- Redid the options section and split it into different parts
+- Added "view all headers" option when reading a message
 - In-Reply-To and References headers are inserted when replying to a message.
 - Changed how attachments are displayed and handled
 - Rewrote MIME support from scratch, optomizing it an unbelievable amount
