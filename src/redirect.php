@@ -1,15 +1,16 @@
 <?php
+
     /**
-     * redirect.php
-     * Derived from webmail.php by Ralf Kraudelt <kraude@wiwi.uni-rostock.de>
-     *
-     * Copyright (c) 1999-2001 The Squirrelmail Development Team
-     * Licensed under the GNU GPL. For full terms see the file COPYING.
-     *
-     * Prevents users from reposting their form data after a successful logout.
-     *
-     * $Id$
-     */
+     **  redirect.php
+     **  Derived from webmail.php by Ralf Kraudelt <kraude@wiwi.uni-rostock.de>
+     **
+     **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+     **  Licensed under the GNU GPL. For full terms see the file COPYING.
+     **
+     **  Prevents users from reposting their form data after a successful logout.
+     **
+     **  $Id$
+     **/
 
     require_once('../functions/i18n.php');
     require_once('../functions/strings.php');

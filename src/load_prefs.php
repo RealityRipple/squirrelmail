@@ -1,14 +1,15 @@
 <?php
+
     /**
-     * load_prefs.php
-     *
-     * Copyright (c) 1999-2001 The SquirrelMail Development Team
-     * Licensed under the GNU GPL. For full terms see the file COPYING.
-     *
-     * Loads preferences from the $username.pref file used by almost
-     * every other script in the source directory and alswhere.
-     *
-     * $Id$
+     **  load_prefs.php
+     **
+     **  Copyright (c) 1999-2001 The SquirrelMail Development Team
+     **  Licensed under the GNU GPL. For full terms see the file COPYING.
+     **
+     **  Loads preferences from the $username.pref file used by almost
+     **  every other script in the source directory and alswhere.
+     **
+     **  $Id$
      **/
 
     require_once('../src/validate.php');

@@ -1,14 +1,15 @@
 <?php
+
    /**
-    * left_main.php
-    *
-    * Copyright (c) 1999-2001 The Squirrelmail Development Team
-    * Licensed under the GNU GPL. For full terms see the file COPYING.
-    *
-    * This is the code for the left bar.  The left bar shows the folders
-    * available, and has cookie information.
-    *
-    * $Id$
+    **  left_main.php
+    **
+    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  This is the code for the left bar.  The left bar shows the folders
+    **  available, and has cookie information.
+    **
+    **  $Id$
     */
 
     require_once('../src/validate.php');

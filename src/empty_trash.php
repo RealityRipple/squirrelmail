@@ -1,8 +1,9 @@
 <?php
+
    /**
     **  empty_trash.php
     **
-    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Copyright (c) 1999-2001 The SquirrelMail development team
     **  Licensed under the GNU GPL. For full terms see the file COPYING.
     **
     **  Handles deleting messages from the trash folder without

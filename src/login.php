@@ -1,15 +1,16 @@
 <?php
+
     /**
-     * login.php -- simple login screen
-     * 
-     * Copyright (c) 1999-2001 The Squirrelmail Development Team
-     * Licensed under the GNU GPL. For full terms see the file COPYING.
-     *
-     * This a simple login screen. Some housekeeping is done to clean
-     * cookies and find language.
-     *
-     * $Id$
-     */
+     **  login.php -- simple login screen
+     **
+     **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+     **  Licensed under the GNU GPL. For full terms see the file COPYING.
+     **
+     **  This a simple login screen. Some housekeeping is done to clean
+     **  cookies and find language.
+     **
+     **  $Id$
+     **/
 
     $rcptaddress = '';
     if (isset($emailaddress)) {
