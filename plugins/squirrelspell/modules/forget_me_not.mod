@@ -79,6 +79,7 @@ sqspell_makeWindow($onload, _("Personal Dictionary Updated"), null, $msg);
  * Local variables:
  * mode: php
  * End:
+ * vim: syntax=php
  */
 
 ?>

@@ -116,7 +116,7 @@ if ($sqspell_exitcode){
   $msg= "<div align='center'>"
      . sprintf(_("I tried to execute '%s', but it returned:"),
                $sqspell_command) . "<pre>"
-     . nl2br(join("\n", $sqspell_output)) . "</pre>"
+     . join("\n", htmlspecialchars($sqspell_output)) . "</pre>"
      . "<form onsubmit=\"return false\">"
      . "<input type=\"submit\" value=\"  " . _("Close")
      . "  \" onclick=\"self.close()\"></form></div>";
@@ -442,5 +442,6 @@ if ($errors){
  * Local variables:
  * mode: php
  * End:
+ * vim: syntax=php
  */
 ?>
