@@ -148,7 +148,7 @@ function isSpecialMailbox( $box ) {
 
 /* Expunges a mailbox */
 function sqimap_mailbox_expunge ($imap_stream, $mailbox, $handle_errors = true, $id='') {
-  global $uid_support;
+    global $uid_support;
     if ($id) {
        if (is_array($id)) {
           $id = sqimap_message_list_squisher($id);
@@ -160,11 +160,14 @@ function sqimap_mailbox_expunge ($imap_stream, $mailbox, $handle_errors = true, 
     }
     $read = sqimap_run_command($imap_stream, 'EXPUNGE'.$id, $handle_errors,
                                $response, $message, $uid);
-    $cnt = 0;			       
-    foreach ($read as $r) {
-       if (preg_match('/^\*\s[0-9]+\sEXPUNGE/AUi',$r,$regs)) {
-          $cnt++;
-       }
+    $cnt = 0;
+    
+    if ( is_array( $read ) ) {
+        foreach ($read as $r) {
+           if (preg_match('/^\*\s[0-9]+\sEXPUNGE/AUi',$r,$regs)) {
+              $cnt++;
+           }
+        }
     }
     return $cnt; 
 }
