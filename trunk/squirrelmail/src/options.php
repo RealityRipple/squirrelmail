@@ -85,6 +85,8 @@
          setPref($data_dir, $username, "sent_folder", "");
       } 
       setPref($data_dir, $username, "folder_prefix", $folderprefix);
+      setPref($data_dir, $username, "unseen_notify", $unseennotify);
+      setPref($data_dir, $username, "unseen_type", $unseentype);
       echo "<br><center><b>"._("Successfully saved folder preferences!")."</b><br>";
       echo "<a href=\"left_main.php\" target=left>"._("Refresh Folders")."</a></center><br>";
    }

@@ -46,9 +46,9 @@
             <td align=right nowrap><? echo _("Folder Path"); ?>:
             </td><td>
 <? if (isset ($folder_prefix))
-      echo "         <input type=text name=folderprefix value=\"$folder_prefix\" size=50><br>";
+      echo "         <input type=text name=folderprefix value=\"$folder_prefix\" size=35><br>";
    else
-      echo "         <input type=text name=folderprefix value=\"$default_folder_prefix\" size=50><br>";
+      echo "         <input type=text name=folderprefix value=\"$default_folder_prefix\" size=35><br>";
 ?>
             </td>
          </tr>
@@ -109,6 +109,28 @@
       echo "</SELECT></TT>\n";
    echo "</td></tr>";  
 ?>
+         <tr>
+            <td valign=top align=right>
+               <br>
+               <? echo _("Unseen message notification"); ?>:
+            </td>
+            <td>
+               <input type=radio name=unseennotify value=1<? if ($unseen_notify == 1) echo " checked"; ?>> <? echo _("No notification") ?><br>
+               <input type=radio name=unseennotify value=2<? if ($unseen_notify != 1 && $unseen_notify != 3) echo " checked"; ?>> <? echo _("Only INBOX") ?><br>
+               <input type=radio name=unseennotify value=3<? if ($unseen_notify == 3) echo " checked"; ?>> <? echo _("All Folders") ?><br>
+               <br>
+            </td>
+         </tr>
+         <tr>
+            <td valign=top align=right>
+               <br>
+               <? echo _("Unseen message notification type"); ?>:
+            </td>
+            <td>
+               <input type=radio name=unseentype value=1<? if ($unseen_type < 2 || $unseen_type > 2) echo " checked"; ?>> <? echo _("Only unseen"); ?> - (4)<br> 
+               <input type=radio name=unseentype value=2<? if ($unseen_type == 2) echo " checked"; ?>> <? echo _("Unseen and Total"); ?> - (4/27)
+            </td>
+         </tr>
          <tr>
             <td>&nbsp;
             </td><td>

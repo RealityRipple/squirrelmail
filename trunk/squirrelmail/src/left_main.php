@@ -36,11 +36,31 @@
    function formatMailboxName($imapConnection, $mailbox, $real_box, $delimeter, $unseen) {
 		global $folder_prefix, $trash_folder, $sent_folder;
 		global $color, $move_to_sent, $move_to_trash;
+      global $unseen_notify, $unseen_type;
 
       $mailboxURL = urlencode($real_box);
-		if($real_box=="INBOX") {
+
+      if ($unseen_notify == 2 && $real_box == "INBOX") {
 	      $unseen = sqimap_unseen_messages($imapConnection, $numUnseen, $real_box);
-		}
+         if ($unseen_type == 1 && $unseen > 0) {
+            $unseen_string = "($unseen)";
+            $unseen_found = true;
+         } else if ($unseen_type == 2) {
+            $numMessages = sqimap_get_num_messages($imapConnection, $real_box);
+            $unseen_string = "<font color=\"$color[11]\">($unseen/$numMessages)</font>";
+            $unseen_found = true;
+         }
+      } else if ($unseen_notify == 3) {
+	      $unseen = sqimap_unseen_messages($imapConnection, $numUnseen, $real_box);
+         if ($unseen_type == 1 && $unseen > 0) {
+            $unseen_string = "($unseen)";
+            $unseen_found = true;
+         } else if ($unseen_type == 2) {
+            $numMessages = sqimap_get_num_messages($imapConnection, $real_box);
+            $unseen_string = "<font color=\"$color[11]\">($unseen/$numMessages)</font>";
+            $unseen_found = true;
+         }
+      }
 
       $line .= "<NOBR>";
       if ($unseen > 0)
@@ -65,14 +85,14 @@
       if ($unseen > 0)
          $line .= "</B>";
 
-      if ($unseen > 0) {
-         $line .= "&nbsp;<small>($unseen)</small>";
+      if ($unseen_found) {
+         $line .= "&nbsp;<small>$unseen_string</small>";
       }
 
       if (($move_to_trash == true) && ($real_box == $trash_folder)) {
          $urlMailbox = urlencode($real_box);
          $line .= "\n<small>\n";
-         $line .= "  &nbsp;&nbsp;&nbsp;&nbsp;(<B><A HREF=\"empty_trash.php\" style=\"text-decoration:none\">"._("purge")."</A></B>)";
+         $line .= "  &nbsp;&nbsp;(<B><A HREF=\"empty_trash.php\" style=\"text-decoration:none\">"._("purge")."</A></B>)";
          $line .= "\n</small>\n";
       }
       $line .= "</NOBR>";

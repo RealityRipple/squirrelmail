@@ -199,6 +199,9 @@
     $theme[9]["PATH"] = "../config/bluesteel_theme.php";
     $theme[9]["NAME"] = "Blue Steel";
 
+    $theme[10]["PATH"] = "../config/high_contrast_theme.php";
+    $theme[10]["NAME"] = "High Contrast";
+
 //  LDAP server(s)
 //
 //    Array of arrays with LDAP server parameters. See
@@ -223,4 +226,16 @@
 
  $default_use_javascript_addr_book = false;
 
+ // these next two options set the defaults for the way that the users see
+ // their folder list.
+ //   $default_unseen_notify   specifies whether or not the users will see
+ //                            the number of unseen in each folder by default
+ //                            and alsy which folders to do this to.
+ //                            1=none, 2=inbox, 3=all
+ //   $default_unseen_type     specifies the type of notification to give the
+ //                            users by default.
+ //                            1=(4), 2=(4,25)
+
+ $default_unseen_notify = 2;
+ $default_unseen_type   = 1;
 ?>
