@@ -555,7 +555,7 @@ function charset_decode_iso_8859_7 ($string) {
 }
 
 /*
- ISOIEC 8859-9:1999 Latin Alphabet No. 5require_once(SM_PATH . 'functions/global.php');
+ ISOIEC 8859-9:1999 Latin Alphabet No. 5
 
 */
 function charset_decode_iso_8859_9 ($string) {

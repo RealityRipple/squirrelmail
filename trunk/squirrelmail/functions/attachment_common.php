@@ -11,6 +11,8 @@
  * $Id$
  */
 
+require_once(SM_PATH . 'functions/global.php');
+
 global $attachment_common_show_images_list;
 $attachment_common_show_images_list = array();
 
