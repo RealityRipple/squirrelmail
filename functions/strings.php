@@ -871,8 +871,8 @@ function sm_print_r() {
         if (is_object($var)) {
             // get class methods if $var is object
             $aMethods=get_class_methods(get_class($var));
-            // make sure that array is not empty
-            if ($aMethods!=array()) {
+            // make sure that $aMethods is array and array is not empty
+            if (is_array($aMethods) && $aMethods!=array()) {
                 echo "Object methods:\n";
                 foreach($aMethods as $method) {
                     echo '* ' . $method . "\n";
