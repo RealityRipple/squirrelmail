@@ -310,9 +310,9 @@
 
 	    print "<TABLE COLS=5 BORDER=0 CELLPADDING=1 CELLSPACING=0 ".
 	          "WIDTH=\"90%\" ALIGN=center>";
-	    printf("<tr bgcolor=\"$color[9]\"><TH align=left width=\"3%%\">".
-		   "&nbsp;<TH align=left width=\"10%%\">%s<TH align=left>%s".
-		   "<TH align=left>%s<TH align=left>%s</TR>\n",
+	    printf("<tr bgcolor=\"$color[9]\"><TH align=left width=\"1%%\">".
+		   "&nbsp;<TH align=left width=\"1%%\">%s<TH align=left width=\"1%%\">%s".
+		   "<TH align=left width=\"1%%\">%s<TH align=left width=\"%%\">%s</TR>\n",
 		   _("Nickname"), _("Name"), _("E-mail"), _("Info"));
 	    $line = 0;
 	    $headerprinted = true;
@@ -327,15 +327,13 @@
 	    $selected = "";
       
 	 // Print one row
-	 printf("<TR%s NOWRAP>\n <TD align=center><SMALL>".
-		"<INPUT TYPE=checkbox %s NAME=\"sel[]\" VALUE=\"%d:%s\">".
-		"</SMALL><TD NOWRAP>&nbsp;%s&nbsp;<TD NOWRAP>&nbsp;%s&nbsp;".
-		"<TD NOWRAP>&nbsp;<A HREF=\"compose.php?send_to=%s\">%s</A>".
-		"&nbsp;<TD NOWRAP>&nbsp;%s</TR>\n", 
-		($line % 2) ? " bgcolor=\"$color[0]\"" : "", 
-		$selected, $row["backend"], $row["nickname"], 
-		$row["nickname"], $row["name"], 
-		rawurlencode($row["email"]), $row["email"], $row["label"]);
+    echo "<tr" . (($line % 2) ? " bgcolor=\"$color[0]\"" : "") . ">\n";
+    echo "  <td valign=top align=center width=1%><small><input type=checkbox $selected name=\"sel[]\" value=\"".$row["backend"].":".$row["nickname"]."\"></small></td>\n";
+    echo "  <td valign=top nowrap width=1%>&nbsp;".$row["nickname"]."&nbsp;</td>\n";
+    echo "  <td valign=top nowrap width=1%>&nbsp;".$row["name"]."&nbsp;</td>\n";
+    echo "  <td valign=top nowrap width=1%>&nbsp;<a href=\"compose.php?send_to=".rawurlencode($row["email"])."\">".$row["email"]."</a>&nbsp;</td>\n";
+    echo "  <td valign=top width=%>&nbsp;".$row["label"]."&nbsp;</td>\n";
+    echo "</tr>\n";
 	 $line++;
       } 
 
