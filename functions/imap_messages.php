@@ -412,7 +412,6 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
     } else {
 	$query = "$sid FETCH $msgs_str (FLAGS UID RFC822.SIZE BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject X-Priority Content-Type)])\r\n";
     }
-    echo $query;
     fputs ($imap_stream, $query);
     $readin_list = sqimap_read_data_list($imap_stream, $sid, false, $response, $message);
     $i = 0;
@@ -636,10 +635,15 @@ function sqimap_get_message ($imap_stream, $id, $mailbox) {
     
     $flags = array();
     $read = sqimap_run_command ($imap_stream, "FETCH $id (FLAGS BODYSTRUCTURE)", true, $response, $message, $uid_support);
+    if ($read) {
     if (preg_match('/.+FLAGS\s\((.*)\)\s/AUi',$read[0],$regs)) {
        if (trim($regs[1])) {
           $flags = preg_split('/ /', $regs[1],-1,'PREG_SPLIT_NI_EMPTY');
        }
+    }
+    } else {
+      echo "ERROR Yeah I know, not a very usefull errormessage (sqimap_get_message)";
+      exit;
     } 
     $bodystructure = implode('',$read);
     $msg =  mime_structure($bodystructure,$flags);
