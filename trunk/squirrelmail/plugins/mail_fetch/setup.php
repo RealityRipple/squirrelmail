@@ -61,11 +61,11 @@
 
     function mail_fetch_login() {
 
-        require_once ('../src/validate.php');
+        require_once ('../include/validate.php');
         require_once ('../functions/imap.php');
         require_once ('../plugins/mail_fetch/class.POP3.php');
         require_once ('../plugins/mail_fetch/functions.php');
-        require_once('../functions/i18n.php');
+        require_once ('../functions/i18n.php');
 
         global $username, $data_dir, $key,$imapServerAddress,$imapPort;
 
