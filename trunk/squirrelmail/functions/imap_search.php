@@ -34,21 +34,10 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
     $multi_search = explode(' ', $search_what);
     $search_string = '';
     foreach ($multi_search as $multi_search_part) {
-        $search_string .= $search_where . ' "' . $multi_search_part . '" ';
+        $search_string .= $search_where . ' {' . strlen($multi_search_part)
+            . "}\r\n" . $multi_search_part . ' ';
     }
-/*
-    if (count($multi_search)==1) {
-            $search_string = $search_where . ' ' . '"' . $multi_search[0] . '"';
-    }
-    else {
-            $search_string = '';
-            $count = count($multi_search);
-            for ($x=0;$x<$count;$x++) {
-                trim($multi_search[$x]);
-                $search_string = $search_string . ' ' . $search_where . ' "' . $multi_search[$x] . '"';
-            }
-    }
-*/
+
     $search_string = trim($search_string);
 
     /* now use $search_string in the imap search */
