@@ -736,13 +736,6 @@ function sqimap_mailbox_tree($imap_stream) {
                 $lsub_ary[$i] = $regs[1] . '"' . addslashes(trim($lsub_ary[$i])) . '"' . $regs[2];
             }
 
-            /*
-            if (preg_match("/^\*\s+LSUB\s+\((.*)\)\s+\"(.*)\"\s+\"?(.+(?=\")|.+).*$/",$lsub_ary[$i],$regs)) {
-                $flag = $regs[1];
-                $mbx = trim($regs[3]);
-                $sorted_lsub_ary[] = array ('mbx' => $mbx, 'flag' => $flag); 
-            }
-            */
             $mbx = find_mailbox_name($lsub_ary[$i]);
             $noselect = check_is_noselect($lsub_ary[$i]);
             if (substr($mbx, -1) == $delimiter) {
@@ -778,28 +771,18 @@ function sqimap_mailbox_tree($imap_stream) {
                 $mbx = substr($mbx, 0, strlen($mbx) - 1);
             }
             if ($mbx == 'INBOX') {
-                $sorted_lsub_ary[] = array ('mbx' => $mbx, 'flag' => ''); 
+                $sorted_lsub_ary[] = array ('mbx' => $mbx, 'noselect' => '0'); 
                 sqimap_subscribe($imap_stream, 'INBOX');
                 $cnt++;
             }
-
-            /*
-            if (preg_match("/^\*\s+LIST\s+\((.*)\)\s+\"(.*)\"\s+\"?(.+(?=\")|.+).*$/",$inbox_ary[0],$regs)) {
-                $flag = $regs[1];
-                $mbx = trim($regs[3]);
-                if (substr($mbx, -1) == $delimiter) {
-                    $mbx = substr($mbx, 0, strlen($mbx) - 1);
-                }
-                $sorted_lsub_ary[] = array ('mbx' => $mbx, 'flag' => $flag); 
-            }
-            */
         }
+
         for ($i = 0 ; $i < $cnt; $i++) {
             $mbx = $sorted_lsub_ary[$i]['mbx'];
             if (($unseen_notify == 2 && $mbx == 'INBOX') ||
                 ($unseen_notify == 3) ||
                 ($move_to_trash && ($mbx == $trash_folder))) {
-                if(isset($sorted_lsub_ary[$i]['noselect']) && $sorted_lsub_ary[$i]['noselect']) {
+                if( $sorted_lsub_ary[$i]['noselect'] ) {
                     $sorted_lsub_ary[$i]['unseen'] = 0;
                 } else {
                     $sorted_lsub_ary[$i]['unseen'] = 
@@ -855,6 +838,11 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false) {
             $mailbox = $mbx_ary[$i]['mbx'];
             switch ($mailbox) {
                 case 'INBOX':
+                    // $mailboxes IS the INBOX, change $mbx to refer to $mailboxes
+                    // for unread count, attribute setting, etc.
+                    unset($mbx);
+                    $mbx =& $mailboxes;
+
                     $mbx->is_inbox = true;
                     $mbx->is_special = true;
                     break;
@@ -888,10 +876,12 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false) {
                 $mbx->mailboxname_sub = $mbx_ary[$i]['mbx'];
             }
             $mbx->mailboxname_full = $mbx_ary[$i]['mbx'];
-            $mailboxes->addMbx($mbx, $delimiter, $start, $list_special_folders_first);
+
+            // Don't add INBOX to itself
+            if ( $mailbox != 'INBOX' )
+                $mailboxes->addMbx($mbx, $delimiter, $start, $list_special_folders_first);
         }
     }
-
     return $mailboxes;
 }
 
