@@ -674,8 +674,7 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
   foreach ($boxes as $boxes_part) {
     if (!in_array('noselect', $boxes_part['flags'])) {
       $box = $boxes_part['unformatted'];
-      $box2 = imap_utf7_decode_local(
-		str_replace(' ', '&nbsp;', $boxes_part['unformatted-disp']));
+      $box2 = str_replace(' ', '&nbsp;', imap_utf7_decode_local($boxes_part['unformatted-disp']));
       if( $box2 == 'INBOX' ) {
 	$box2 = _("INBOX");
       }
