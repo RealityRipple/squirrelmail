@@ -21,7 +21,19 @@ define('SMOPT_GRP_SPCFOLDER', 0);
 define('SMOPT_GRP_FOLDERLIST', 1);
 define('SMOPT_GRP_FOLDERSELECT', 2);
 
-/* Define the optpage load function for the folder options page. */
+/**
+ * This function builds an array with all the information about
+ * the options available to the user, and returns it. The options
+ * are grouped by the groups in which they are displayed.
+ * For each option, the following information is stored:
+ * - name: the internal (variable) name
+ * - caption: the description of the option in the UI
+ * - type: one of SMOPT_TYPE_*
+ * - refresh: one of SMOPT_REFRESH_*
+ * - size: one of SMOPT_SIZE_*
+ * - save: the name of a function to call when saving this option
+ * @return array all option information
+ */
 function load_optpage_data_folder() {
     global $username, $key, $imapServerAddress, $imapPort;
     global $folder_prefix, $default_folder_prefix, $show_prefix_option;
@@ -232,6 +244,10 @@ function load_optpage_data_folder() {
 /******************************************************************/
 /** Define any specialized save functions for this option page. ***/
 /******************************************************************/
+
+/**
+ * Saves the trash folder option.
+ */
 function save_option_trash_folder($option) {
     global $data_dir, $username;
 
@@ -243,6 +259,9 @@ function save_option_trash_folder($option) {
     save_option($option);
 }
 
+/**
+ * Saves the sent folder option.
+ */
 function save_option_sent_folder($option) {
     global $data_dir, $username;
 
@@ -254,6 +273,9 @@ function save_option_sent_folder($option) {
     save_option($option);
 }
 
+/**
+ * Saves the draft folder option.
+ */
 function save_option_draft_folder($option) {
     global $data_dir, $username;
 

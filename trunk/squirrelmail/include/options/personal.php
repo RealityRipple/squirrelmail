@@ -21,7 +21,19 @@ define('SMOPT_GRP_REPLY', 1);
 define('SMOPT_GRP_SIG', 2);
 define('SMOPT_GRP_TZ', 3);
 
-/* Define the optpage load function for the personal options page. */
+/**
+ * This function builds an array with all the information about
+ * the options available to the user, and returns it. The options
+ * are grouped by the groups in which they are displayed.
+ * For each option, the following information is stored:
+ * - name: the internal (variable) name
+ * - caption: the description of the option in the UI
+ * - type: one of SMOPT_TYPE_*
+ * - refresh: one of SMOPT_REFRESH_*
+ * - size: one of SMOPT_SIZE_*
+ * - save: the name of a function to call when saving this option
+ * @return array all option information
+ */
 function load_optpage_data_personal() {
     global $data_dir, $username, $edit_identity, $edit_name,
            $full_name, $reply_to, $email_address, $signature, $tzChangeAllowed,
@@ -211,6 +223,9 @@ function load_optpage_data_personal() {
 /** Define any specialized save functions for this option page. ***/
 /******************************************************************/
 
+/**
+ * Saves the signature option.
+ */
 function save_option_signature($option) {
     global $data_dir, $username;
     setSig($data_dir, $username, 'g', $option->new_value);

@@ -85,7 +85,7 @@ function sortSpecialMbx($a, $b) {
     } else {
         $bcmp = '2' . $b->mailboxname_full;
     }
-    return user_strcasecmp($acmp, $bcmp);	
+    return strnatcasecmp($acmp, $bcmp);	
 }
 
 function compact_mailboxes_response($ary)
@@ -108,20 +108,11 @@ function compact_mailboxes_response($ary)
     return array_values(array_unique($ary));
 }
 
-/*
-function find_mailbox_name ($mailbox) {
-    if (preg_match('/\*.+\"([^\r\n\"]*)\"[\s\r\n]*$/', $mailbox, $regs)) 
-        return $regs[1];
-    if (ereg(" *\"([^\r\n\"]*)\"[ \r\n]*$", $mailbox, $regs))
-        return $regs[1];
-    ereg(" *([^ \r\n\"]*)[ \r\n]*$",$mailbox,$regs);
-    return $regs[1];
-}
-*/
-
-// Extract the mailbox name from an untagged LIST (7.2.2) or LSUB (7.2.3) answer
-// * (LIST|LSUB) (<Flags list>) (NIL|"<separator atom>") <mailbox name string>\r\n
-// mailbox name in quoted string MUST be unquoted and stripslashed (sm API)
+/**
+ * Extract the mailbox name from an untagged LIST (7.2.2) or LSUB (7.2.3) answer
+ * (LIST|LSUB) (<Flags list>) (NIL|"<separator atom>") <mailbox name string>\r\n
+ * mailbox name in quoted string MUST be unquoted and stripslashed (sm API)
+ */
 function find_mailbox_name($line)
 {
     if (preg_match('/^\* (?:LIST|LSUB) \([^\)]*\) (?:NIL|\"[^\"]*\") ([^\r\n]*)[\r\n]*$/i', $line, $regs)) {
@@ -132,10 +123,16 @@ function find_mailbox_name($line)
     return '';
 }
 
+/**
+ * @return bool whether this is a Noselect mailbox.
+ */
 function check_is_noselect ($lsub_line) {
     return preg_match("/^\* (LSUB|LIST) \([^\)]*\\\\Noselect[^\)]*\)/i", $lsub_line);
 }
 
+/**
+ * @return bool whether this is a Noinferiors mailbox.
+ */
 function check_is_noinferiors ($lsub_line) {
     return preg_match("/^\* (LSUB|LIST) \([^\)]*\\\\Noinferiors[^\)]*\)/i", $lsub_line);
 }
@@ -182,7 +179,10 @@ function isBoxBelow( $subbox, $parentbox ) {
         }
 }
 
-/* Defines special mailboxes */
+/**
+ * Defines special mailboxes: given a mailbox name, it checks if this is a
+ * "special" one: INBOX, Trash, Sent or Draft.
+ */
 function isSpecialMailbox( $box ) {
     $ret = ( (strtolower($box) == 'inbox') ||
              isTrashMailbox($box) || isSentMailbox($box) || isDraftMailbox($box) );
@@ -193,25 +193,36 @@ function isSpecialMailbox( $box ) {
     return $ret;
 }
 
+/**
+ * @return bool whether this is a Trash folder
+ */
 function isTrashMailbox ($box) {
     global $trash_folder, $move_to_trash;
     return $move_to_trash && $trash_folder &&
            ( $box == $trash_folder || isBoxBelow($box, $trash_folder) );
 }
 
+/**
+ * @return bool whether this is a Sent folder
+ */
 function isSentMailbox($box) {
    global $sent_folder, $move_to_sent;
    return $move_to_sent && $sent_folder &&
           ( $box == $sent_folder || isBoxBelow($box, $sent_folder) );
 }
 
+/**
+ * @return bool whether this is a Draft folder
+ */
 function isDraftMailbox($box) {
    global $draft_folder, $save_as_draft;
    return $save_as_draft &&
           ( $box == $draft_folder || isBoxBelow($box, $draft_folder) );
 }
 
-/* Expunges a mailbox */
+/**
+ * Expunges a mailbox, ie. delete all contents.
+ */
 function sqimap_mailbox_expunge ($imap_stream, $mailbox, $handle_errors = true, $id='') {
     global $uid_support;
     if ($id) {
@@ -237,7 +248,9 @@ function sqimap_mailbox_expunge ($imap_stream, $mailbox, $handle_errors = true, 
     return $cnt;
 }
 
-/* Checks whether or not the specified mailbox exists */
+/**
+ * Checks whether or not the specified mailbox exists
+ */
 function sqimap_mailbox_exists ($imap_stream, $mailbox) {
     if (!isset($mailbox) || empty($mailbox)) {
         return false;
@@ -247,7 +260,9 @@ function sqimap_mailbox_exists ($imap_stream, $mailbox) {
     return isset($mbx[0]);
 }
 
-/* Selects a mailbox */
+/**
+ * Selects a mailbox
+ */
 function sqimap_mailbox_select ($imap_stream, $mailbox) {
     global $auto_expunge;
 
@@ -283,41 +298,55 @@ function sqimap_mailbox_select ($imap_stream, $mailbox) {
     return $result;
 }
 
-/* Creates a folder */
+/**
+ * Creates a folder.
+ */
 function sqimap_mailbox_create ($imap_stream, $mailbox, $type) {
     global $delimiter;
     if (strtolower($type) == 'noselect') {
         $mailbox .= $delimiter;
     }
 
-    $read_ary = sqimap_run_command($imap_stream, 'CREATE ' . sqimap_encode_mailbox_name($mailbox),
+    $read_ary = sqimap_run_command($imap_stream, 'CREATE ' .
+                                   sqimap_encode_mailbox_name($mailbox),
                                    true, $response, $message);
     sqimap_subscribe ($imap_stream, $mailbox);
 }
 
-/* Subscribes to an existing folder */
+/**
+ * Subscribes to an existing folder.
+ */
 function sqimap_subscribe ($imap_stream, $mailbox) {
-    $read_ary = sqimap_run_command($imap_stream, 'SUBSCRIBE ' . sqimap_encode_mailbox_name($mailbox),
+    $read_ary = sqimap_run_command($imap_stream, 'SUBSCRIBE ' .
+                                   sqimap_encode_mailbox_name($mailbox),
                                    true, $response, $message);
 }
 
-/* Unsubscribes to an existing folder */
+/**
+ * Unsubscribes from an existing folder
+ */
 function sqimap_unsubscribe ($imap_stream, $mailbox) {
-    $read_ary = sqimap_run_command($imap_stream, 'UNSUBSCRIBE ' . sqimap_encode_mailbox_name($mailbox),
+    $read_ary = sqimap_run_command($imap_stream, 'UNSUBSCRIBE ' .
+                                   sqimap_encode_mailbox_name($mailbox),
                                    true, $response, $message);
 }
 
-/* Deletes the given folder */
+/**
+ * Deletes the given folder
+ */
 function sqimap_mailbox_delete ($imap_stream, $mailbox) {
     global $data_dir, $username;
-    $read_ary = sqimap_run_command($imap_stream, 'DELETE ' . sqimap_encode_mailbox_name($mailbox),
+    $read_ary = sqimap_run_command($imap_stream, 'DELETE ' .
+                                   sqimap_encode_mailbox_name($mailbox),
                                    true, $response, $message);
     sqimap_unsubscribe ($imap_stream, $mailbox);
     do_hook_function('rename_or_delete_folder', $args = array($mailbox, 'delete', ''));
     removePref($data_dir, $username, "thread_$mailbox");
 }
 
-/* Determines if the user is subscribed to the folder or not */
+/**
+ * Determines if the user is subscribed to the folder or not
+ */
 function sqimap_mailbox_is_subscribed($imap_stream, $folder) {
     $boxesall = sqimap_mailbox_list ($imap_stream);
     foreach ($boxesall as $ref) {
@@ -328,7 +357,9 @@ function sqimap_mailbox_is_subscribed($imap_stream, $folder) {
     return false;
 }
 
-/* Renames a mailbox */
+/**
+ * Renames a mailbox.
+ */
 function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
     if ( $old_name != $new_name ) {
         global $delimiter, $imap_server_type, $data_dir, $username;
@@ -341,7 +372,8 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
         }
 
         $boxesall = sqimap_mailbox_list($imap_stream);
-        $cmd = 'RENAME ' . sqimap_encode_mailbox_name($old_name) . ' ' . sqimap_encode_mailbox_name($new_name);
+        $cmd = 'RENAME ' . sqimap_encode_mailbox_name($old_name) .
+	             ' ' . sqimap_encode_mailbox_name($new_name);
         $data = sqimap_run_command($imap_stream, $cmd, true, $response, $message);
         sqimap_unsubscribe($imap_stream, $old_name.$postfix);
         $oldpref = getPref($data_dir, $username, 'thread_'.$old_name.$postfix);
@@ -372,7 +404,7 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
     }
 }
 
-/*
+/**
  * Formats a mailbox into parts for the $boxesall array
  *
  * The parts are:
@@ -447,23 +479,7 @@ function sqimap_mailbox_parse ($line, $line_lsub) {
     return $boxesall;
 }
 
-/*
- * Sorting function used to sort mailbox names.
- *     + Original patch from dave_michmerhuizen@yahoo.com
- *     + Allows case insensitivity when sorting folders
- *     + Takes care of the delimiter being sorted to the end, causing
- *       subfolders to be listed in below folders that are prefixed
- *       with their parent folders name.
- *
- *       For example: INBOX.foo, INBOX.foobar, and INBOX.foo.bar
- *       Without special sort function: foobar between foo and foo.bar
- *       With special sort function: foobar AFTER foo and foo.bar :)
- */
-function user_strcasecmp($a, $b) {
-    return  strnatcasecmp($a, $b);
-}
-
-/*
+/**
  * Returns list of options (to be echoed into select statement
  * based on available mailboxes and separators
  * Caller should surround options with <SELECT..> </SELECT> and
@@ -532,7 +548,7 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
     return $mbox_options;
 }
 
-/*
+/**
  * Returns sorted mailbox lists in several different ways. 
  * See comment on sqimap_mailbox_parse() for info about the returned array.
  */
@@ -571,7 +587,7 @@ function sqimap_mailbox_list($imap_stream) {
 
         /* natural sort mailboxes */
         if (isset($sorted_lsub_ary)) {
-            usort($sorted_lsub_ary, 'user_strcasecmp');
+            usort($sorted_lsub_ary, 'strnatcasecmp');
         }
         /*
          * The LSUB response doesn't provide us information about \Noselect
@@ -645,7 +661,7 @@ function sqimap_mailbox_list($imap_stream) {
     return $boxesnew;
 }
 
-/*
+/**
  *  Returns a list of all folders, subscribed or not
  */
 function sqimap_mailbox_list_all($imap_stream) {
@@ -929,22 +945,6 @@ function sqimap_tree_to_ref_array(&$mbx_tree,&$aMbxs) {
       }
    }
 } 
-
-
-/* Define preferences for folder settings. */
-/* FIXME, we should load constants.php
-unseen_notify
-define('SMPREF_UNSEEN_NONE', 1);
-define('SMPREF_UNSEEN_INBOX', 2);
-define('SMPREF_UNSEEN_ALL', 3);
-
-define('SMPREF_UNSEEN_SPECIAL', 4); // Only special folders
-define('SMPREF_UNSEEN_NORMAL', 5);  // Only normal folders
-
-unseen_type
-define('SMPREF_UNSEEN_ONLY', 1);
-define('SMPREF_UNSEEN_TOTAL', 2);
-*/
 
 function sqimap_get_status_mbx_tree($imap_stream,&$mbx_tree) {
     global $unseen_notify, $unseen_type, $trash_folder,$move_to_trash;
