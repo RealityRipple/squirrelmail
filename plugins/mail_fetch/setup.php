@@ -229,9 +229,9 @@
       global $optpage_blocks;
 
       $optpage_blocks[] = array(
-         'name' => _("Simple POP3 Fetch Mail"),
+         'name' => _("POP3 Fetch Mail"),
          'url'  => '../plugins/mail_fetch/options.php',
-         'desc' => _("This configures settings for downloading email from a pop3 mailbox to your account on this server."),
+         'desc' => _("This configures settings for downloading email from a POP3 mailbox to your account on this server."),
          'js'   => false
       );
    }
