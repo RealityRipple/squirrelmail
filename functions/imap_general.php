@@ -128,6 +128,13 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response,
     }
 }
 
+/**
+ * @param mixed $new_query
+ * @param string $tag
+ * @param array $aQuery
+ * @param boolean $unique_id
+ * @since 1.5.0
+ */
 function sqimap_prepare_pipelined_query($new_query,&$tag,&$aQuery,$unique_id) {
     $sid = sqimap_session_id($unique_id);
     $tag_uid_a = explode(' ',trim($sid));
@@ -136,6 +143,18 @@ function sqimap_prepare_pipelined_query($new_query,&$tag,&$aQuery,$unique_id) {
     $aQuery[$tag] = $query;
 }
 
+/**
+ * @param stream $imap_stream
+ * @param array $aQueryList
+ * @param boolean $handle_errors
+ * @param array $aServerResponse
+ * @param array $aServerMessage
+ * @param boolean $unique_id
+ * @param mixed $filter see sqimap_retrieve_imap_response()
+ * @param mixed $outputstream see sqimap_retrieve_imap_response()
+ * @param mixed $no_return see sqimap_retrieve_imap_response()
+ * @since 1.5.0
+ */
 function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors,
                        &$aServerResponse, &$aServerMessage, $unique_id = false,
                        $filter=false,$outputstream=false,$no_return=false) {
@@ -204,6 +223,7 @@ function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors
  * no matter how big it may be.
  * @param stream imap_stream the stream to read from
  * @return string a line
+ * @since 1.2.8
  */
 function sqimap_fgets($imap_stream) {
     $read = '';
@@ -225,6 +245,15 @@ function sqimap_fgets($imap_stream) {
     return $results;
 }
 
+/**
+ * @param stream $imap_stream
+ * @param integer $iSize
+ * @param mixed $filter see sqimap_retrieve_imap_response()
+ * @param mixed $outputstream see sqimap_retrieve_imap_response()
+ * @param mixed $no_return see sqimap_retrieve_imap_response()
+ * @return string
+ * @since 1.4.1
+ */
 function sqimap_fread($imap_stream,$iSize,$filter=false,
                       $outputstream=false, $no_return=false) {
     if (!$filter || !$outputstream) {
@@ -312,6 +341,7 @@ function sqimap_read_data_list($imap_stream, $tag, $handle_errors,
  * @param string message optional error message
  * @param string $link an optional link to try again
  * @return void
+ * @since 1.5.0
  */
 function sqimap_error_box($title, $query = '', $message_title = '', $message = '', $link = '')
 {
@@ -339,6 +369,16 @@ function sqimap_error_box($title, $query = '', $message_title = '', $message = '
  * Reads the output from the IMAP stream.  If handle_errors is set to true,
  * this will also handle all errors that are received.  If it is not set,
  * the errors will be sent back through $response and $message.
+ * @param stream $imap_stream
+ * @param mixed $tag
+ * @param boolean $handle_errors
+ * @param array $response
+ * @param array $message
+ * @param mixed $query
+ * @param mixed $filter
+ * @param mixed $outputstream
+ * @param mixed $no_return
+ * @since 1.5.0
  */
 function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
           &$response, &$message, $query = '',
@@ -558,6 +598,17 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
     }
 }
 
+/**
+ * @param stream $imap_stream
+ * @param string $tag_uid
+ * @param boolean $handle_errors
+ * @param array $response
+ * @param array $message
+ * @param mixed $query (since 1.2.5)
+ * @param mixed $filter (since 1.4.1) see sqimap_retrieve_imap_response()
+ * @param mixed $outputstream (since 1.4.1) see sqimap_retrieve_imap_response()
+ * @param mixed $no_return (since 1.4.1) see sqimap_retrieve_imap_response()
+ */
 function sqimap_read_data ($imap_stream, $tag_uid, $handle_errors,
                            &$response, &$message, $query = '',
                            $filter=false,$outputstream=false,$no_return=false) {
@@ -577,6 +628,7 @@ function sqimap_read_data ($imap_stream, $tag_uid, $handle_errors,
  * @param int port port number to connect to
  * @param bool tls whether to use TLS when connecting.
  * @return imap-stream resource identifier
+ * @since 1.5.0 (usable only in 1.5.1 or later)
  */
 function sqimap_create_stream($server,$port,$tls=false) {
     global $squirrelmail_language;
@@ -612,6 +664,12 @@ function sqimap_create_stream($server,$port,$tls=false) {
 /**
  * Logs the user into the imap server.  If $hide is set, no error messages
  * will be displayed.  This function returns the imap connection handle.
+ * @param string $username user name
+ * @param string $password encrypted password
+ * @param string $imap_server_address address of imap server
+ * @param integer $imap_port port of imap server
+ * @param boolean $hide controls display connection errors
+ * @return stream
  */
 function sqimap_login ($username, $password, $imap_server_address, $imap_port, $hide) {
     global $color, $squirrelmail_language, $onetimepad, $use_imap_tls,
@@ -779,6 +837,11 @@ function sqimap_logout ($imap_stream) {
  * Retreive the CAPABILITY string from the IMAP server.
  * If capability is set, returns only that specific capability,
  * else returns array of all capabilities.
+ * @param $imap_stream
+ * @param string $capability (optional since 1.3.0)
+ * @return mixed (string if $capability is set and found, 
+ *  false, if $capability is set and not found,
+ *  array if $capability not set)
  */
 function sqimap_capability($imap_stream, $capability='') {
     global $sqimap_capabilities;
@@ -809,6 +872,8 @@ function sqimap_capability($imap_stream, $capability='') {
 
 /**
  * Returns the delimeter between mailboxes: INBOX/Test, or INBOX.Test
+ * @param stream $imap_stream
+ * @return string
  */
 function sqimap_get_delimiter ($imap_stream = false) {
     global $sqimap_delimiter, $optional_delimiter;
@@ -859,6 +924,7 @@ function sqimap_get_delimiter ($imap_stream = false) {
  * This encodes a mailbox name for use in IMAP commands.
  * @param string what the mailbox to encode
  * @return string the encoded mailbox string
+ * @since 1.5.0
  */
 function sqimap_encode_mailbox_name($what)
 {
