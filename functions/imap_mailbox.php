@@ -262,6 +262,7 @@ function sqimap_mailbox_expunge_dmn($message_id)
            $mailbox, $mbx_response, $auto_expunge, 
            $sort, $allow_server_sort, $thread_sort_messages, $allow_thread_sort,
            $username, $data_dir;
+    $cnt = 0;
 
     // Got to grab this out of prefs, since it isn't saved from mailbox_view.php
     if ($allow_thread_sort) {
@@ -273,18 +274,21 @@ function sqimap_mailbox_expunge_dmn($message_id)
             break;   
         }
     }
+    
+    if ( isset($msgs) ) {
+        unset($msgs[$i]);
+        $msgs = array_values($msgs);
+        sqsession_register($msgs, 'msgs');
+    }
 
-    unset($msgs[$i]);
-    unset($msort[$i]);
-
-    $msgs = array_values($msgs);
-    $msort = array_values($msort);
-
-    sqsession_register($msgs, 'msgs');
-    sqsession_register($msort, 'msort');
+    if ( isset($msort) ) {
+        unset($msort[$i]);
+        $msort = array_values($msort);
+        sqsession_register($msort, 'msort');
+    }
 
     if ($auto_expunge) {
-         sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+         $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
     }
 
     // And after all that mucking around, update the sort list!
@@ -296,7 +300,7 @@ function sqimap_mailbox_expunge_dmn($message_id)
     } else {
         $server_sort_array = sqimap_get_php_sort_order($imapConnection, $mbx_response);
     }
-
+    return $cnt;
 }
 
 /**
