@@ -837,7 +837,6 @@ class message {
 
                         $msg->type0 = $arg_a[0];
                         $msg->type1 = $arg_a[1];
-
                         $arr = $arg_a[2];
                         if (is_array($arr)) {
                             $hdr->parameters = $arg_a[2];
@@ -871,6 +870,7 @@ class message {
                         $hdr->disposition = (isset($arg_a[2]) ? $arg_a[2] : $hdr->disposition);
                         $hdr->language = (isset($arg_a[3]) ? $arg_a[3] : $hdr->language);
                         $msg->header = $hdr;
+			++$i;
                     }
                     return (array($msg, $i));
                 default: break;
@@ -905,7 +905,6 @@ class message {
                 }
             }
         }
-
         return array($properties, $i);
     }
 
