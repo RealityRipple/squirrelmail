@@ -65,13 +65,11 @@
    ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);
    $base_uri = $regs[1];
 
-   if ( session_id() <> '' ) {
-       session_destroy();
-       // In case the last session was not terminated properly, make sure
-       // we get a new one.
-       $cookie_params = session_get_cookie_params(); 
-       setcookie(session_name(),'',0,$cookie_params['path'].$cookie_params['domain']); 
-   }
+   @session_destroy();
+   // In case the last session was not terminated properly, make sure
+   // we get a new one.
+   $cookie_params = session_get_cookie_params(); 
+   setcookie(session_name(),'',0,$cookie_params['path'].$cookie_params['domain']); 
    setcookie('username', '', 0, $base_uri);
    setcookie('key', '', 0, $base_uri);
    header ('Pragma: no-cache');
