@@ -1,4 +1,14 @@
 <?php
+   /**
+    **  folders_create.php
+    **
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  Creates folders on the IMAP server. 
+    **  Called from folders.php
+    **/
+
    session_start();
 
    if (!isset($config_php))

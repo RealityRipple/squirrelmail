@@ -2,6 +2,9 @@
    /**
     **  addrbook_popup.php
     **
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
     **  Frameset for the JavaScript version of the address book.
     **
     **/

@@ -1,4 +1,14 @@
 <?php
+   /**
+    **  download.php
+    **
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  Handles attachment downloads to the users computer.
+    **  Also allows displaying of attachments when possible.
+    **/
+
    session_start();
 
    if (!isset($config_php))

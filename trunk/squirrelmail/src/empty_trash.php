@@ -1,4 +1,14 @@
 <?php
+   /**
+    **  empty_trash.php
+    **
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  Handles deleting messages from the trash folder without
+    **  deleting subfolders.
+    **/
+
    session_start();
 
    include("../config/config.php");

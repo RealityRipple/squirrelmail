@@ -1,4 +1,15 @@
 <?php
+   /**
+    **  options.php
+    **
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  Displays the options page. Pulls from proper user preference files
+    **  and config.php. Displays preferences as selected and other options.
+    **
+    **/
+
    session_start();
 
    if (!isset($config_php))

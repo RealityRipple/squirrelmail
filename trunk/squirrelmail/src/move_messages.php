@@ -1,4 +1,13 @@
 <?php
+   /**
+    **  move_messages.php
+    **
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  Enables message moving between folders on the IMAP server.
+    **/
+
    session_start();
 
    if (!isset($config_php))

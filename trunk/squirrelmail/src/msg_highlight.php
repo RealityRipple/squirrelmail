@@ -1,4 +1,16 @@
 <?php
+   /**
+    **  msg_highlight.php
+    **
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  Called from the options page, this script presents the user with
+    **  the available choices and entry fields associated with the
+    **  highlighting option.
+    **/
+
+
    session_start();
 
    if (!isset($config_php))
