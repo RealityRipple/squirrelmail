@@ -517,11 +517,10 @@
       global $color, $index_order, $auto_expunge, $move_to_trash;
       global $checkall, $sent_folder;
       $urlMailbox = urlencode($mailbox);
-         /** This is the beginning of the message list table.  It wraps around all messages */
-      echo '<TABLE WIDTH="100%" BORDER="0" CELLPADDING="2" CELLSPACING="0">';
 
-      if ($Message)
-      {
+      /** This is the beginning of the message list table.  It wraps around all messages */
+      echo '<TABLE WIDTH="100%" BORDER="0" CELLPADDING="2" CELLSPACING="0">';
+      if ($Message) {
          echo "<TR BGCOLOR=\"$color[4]\"><TD align=center>$Message</td></tr>\n";
       }
 
@@ -529,7 +528,6 @@
       echo '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td>';
       echo "$More</td><td align=right>\n";
       ShowSelectAllLink($startMessage, $sort);
-
       echo '</td></tr></table></td></tr>';
 
       /** The delete and move options */
@@ -537,12 +535,19 @@
 
       echo "\n<FORM name=messageList method=post action=\"$moveURL\">\n";
       echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=100%>\n";
+
       echo "   <TR>\n";
-      echo "      <TD WIDTH=60% ALIGN=LEFT VALIGN=CENTER>\n";
-
-
-      echo '         <NOBR><SMALL>'. _("Move selected to:") .'</SMALL>';
-      echo '         <TT><SMALL><SELECT NAME="targetMailbox">';
+      echo "      <TD WIDTH=60% ALIGN=LEFT VALIGN=CENTER NOWRAP>\n";
+      echo '         <SMALL>&nbsp;' . _("Move selected to:") . "</SMALL>\n";
+      echo "      </TD>\n";
+      echo "      <TD>&nbsp;</TD>\n";
+      echo "      <TD WIDTH=\"1%\" ALIGN=LEFT NOWRAP>\n";
+      echo '         <SMALL>&nbsp;' . _("Transform Selected Messages") . ":</SMALL><BR>\n";
+      echo "      </TD>\n";
+      echo "   </TR>\n";
+      echo "   <TR>\n";
+      echo "      <TD ALIGN=LEFT VALIGN=CENTER NOWRAP>\n";
+      echo '         <TT><SMALL>&nbsp;&nbsp;&nbsp;<SELECT NAME="targetMailbox">';
 
       $boxes = sqimap_mailbox_list($imapConnection);
       for ($i = 0; $i < count($boxes); $i++) {
@@ -553,16 +558,18 @@
          }
       }
       echo '         </SELECT></SMALL></TT>';
-      echo '         <SMALL><INPUT TYPE=SUBMIT NAME="moveButton" VALUE="'. _("Move") ."\"></SMALL></NOBR>\n";
+      echo "         <SMALL><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"" . _("Move") . "\"></SMALL>\n";
       echo "      </TD>\n";
-      echo "      <TD WIDTH=40% ALIGN=RIGHT>\n";
+      echo "      <TD>&nbsp;</TD>\n";
+      echo "      <TD ALIGN=RIGHT NOWRAP>&nbsp;&nbsp;&nbsp;\n";
       if (! $auto_expunge) {
-         echo '         <NOBR><SMALL><INPUT TYPE=SUBMIT NAME="expungeButton" VALUE="'. _("Expunge") .'">&nbsp;'. _("mailbox") ."</SMALL></NOBR>&nbsp;&nbsp;\n";
+         echo '         <INPUT TYPE=SUBMIT NAME="expungeButton" VALUE="'. _("Expunge") .'">&nbsp;'. _("mailbox") ."&nbsp;\n";
       }
-      echo "         <NOBR><SMALL><INPUT TYPE=SUBMIT VALUE=\"". _("Delete") ."\">&nbsp;". _("checked messages") ."</SMALL></NOBR>\n";
+      echo "         <INPUT TYPE=SUBMIT NAME=\"markRead\" VALUE=\"". _("Read")."\">\n";
+      echo "         <INPUT TYPE=SUBMIT NAME=\"markUnread\" VALUE=\"". _("Unread")."\">\n";
+      echo "         <INPUT TYPE=SUBMIT VALUE=\"". _("Delete") . "\">&nbsp;\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
-
       echo "</TABLE>\n";
       do_hook('mailbox_form_before');
       echo '</TD></TR>';
