@@ -1426,7 +1426,7 @@ function sq_getnxtag($body, $offset){
                 $pos++;
                 $tagtype = 3;
             } else {
-                $gt = sq_getnxstr($body, $pos, ">");
+                $gt = sq_findnxstr($body, $pos, ">");
                 $retary = Array(false, false, false, $lt, $gt);
                 return $retary;
             }
