@@ -64,7 +64,7 @@ function sqWordWrap(&$line, $wrap) {
         
         /* Go to the next line if we have more to process */
         if ($i < count($words)) {
-            $line .= "\n" . $beginning_spaces;
+            $line .= "\n";
         }
     }
 }
