@@ -188,6 +188,8 @@
        $location_of_buttons = 'between';
        
    $collapse_folders = getPref($data_dir, $username, 'collapse_folders');
+   
+   $show_html_default = getPref($data_dir, $username, 'show_html_default');
 
    do_hook("loading_prefs");
 

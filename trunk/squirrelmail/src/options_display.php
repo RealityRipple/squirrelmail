@@ -293,6 +293,19 @@
 ?>
             </td>
          </tr>
+         <tr>
+            <td valign=top align=right>
+               <?php echo _("Show HTML version by default"); ?>:
+            </td>
+            <td>
+               <input type=checkbox name=showhtmldefault <?php 
+	       if (isset($show_html_default) && $show_html_default) 
+	       echo " checked"; ?>>
+	         <?php 
+echo _("Yes, show me the HTML version of a mail message, if it is available."); 
+                 ?>
+            </td>
+         </tr>
          <?php do_hook('options_display_inside'); ?>
          <tr>
             <td>&nbsp;
