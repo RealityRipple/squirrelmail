@@ -32,7 +32,7 @@ $imap_general_debug = false;
    function sqimap_read_data_list ($imap_stream, $pre, $handle_errors,
                                    &$response, &$message) {
       global $color, $squirrelmail_language;
-global $imap_general_debug;
+      global $imap_general_debug;
 
       $read = '';
       $resultlist = array();
@@ -49,11 +49,13 @@ global $imap_general_debug;
             $size = $regs[1];
          } else if (ereg("^\\* [0-9]+ FETCH", $read, $regs)) {
             // Sizeless response, probably single-line
-// For debugging purposes
-if ($imap_general_debug) {
-    echo "<small><tt><font color=\"#CC0000\">$read</font></tt></small><br>\n";
-    flush();
-}
+
+            // For debugging purposes
+            if ($imap_general_debug) {
+                echo "<small><tt><font color=\"#CC0000\">$read</font></tt></small><br>\n";
+                flush();
+            }
+
             $size = 0;
             $data[] = $read;
             $read = fgets($imap_stream, 9096);
@@ -64,11 +66,13 @@ if ($imap_general_debug) {
             while (strpos($read, "\n") === false) {
                $read .= fgets($imap_stream, 9096);
             }
-// For debugging purposes
-if ($imap_general_debug) {
-    echo "<small><tt><font color=\"#CC0000\">$read</font></tt></small><br>\n";
-    flush();
-}
+
+            // For debugging purposes
+            if ($imap_general_debug) {
+                echo "<small><tt><font color=\"#CC0000\">$read</font></tt></small><br>\n";
+                flush();
+            }
+
             // If we know the size, no need to look at the end parameters
             if ($size > 0) {
                if ($total_size == $size) {
@@ -109,10 +113,8 @@ if ($imap_general_debug) {
       $response = $regs[1];
       $message = trim($regs[2]);
       
-if ($imap_general_debug) echo '--<br>';
-
-      if ($handle_errors == false)
-          return $resultlist;
+      if ($imap_general_debug) { echo '--<br>'; }
+      if ($handle_errors == false) { return $resultlist; }
      
       if ($response == 'NO') {
          // ignore this error from m$ exchange, it is not fatal (aka bug)

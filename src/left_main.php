@@ -24,7 +24,9 @@
    
     displayHtmlHeader();
 
-   if ($auto_create_special && ! isset($auto_create_done)) {
+    /* If requested and not yet complete, attempt to autocreate folders. */
+    if ($auto_create_special && ! isset($auto_create_done)) {
+          /* Autocreate the sent folder, if needed. */
    	  if (isset ($sent_folder) && $sent_folder != 'none') {
 	  	 if (!sqimap_mailbox_exists ($imapConnection, $sent_folder)) {
 		 	sqimap_mailbox_create ($imapConnection, $sent_folder, '');
@@ -32,12 +34,17 @@
 		    sqimap_subscribe($imapConnection, $sent_folder);
 		 }
 	  }
+
+          /* Autocreate the trash folder, if needed. */
    	  if (isset ($trash_folder) && $trash_folder != 'none') {
 	  	 if (!sqimap_mailbox_exists ($imapConnection, $trash_folder)) {
 		 	sqimap_mailbox_create ($imapConnection, $trash_folder, '');
 		 } else if (! sqimap_mailbox_is_subscribed($imapConnection, $trash_folder)) {
 		    sqimap_subscribe($imapConnection, $trash_folder);
 		 }
+          }
+
+          /* Autocreate the drafts folder, if needed. */
           if (isset ($draft_folder) && $draft_folder != 'none') {
                  if (!sqimap_mailbox_exists ($imapConnection, $draft_folder)) {
                         sqimap_mailbox_create ($imapConnection, $draft_folder, '');
@@ -45,7 +52,8 @@
                     sqimap_subscribe($imapConnection, $draft_folder);
                  }
           }
-     }
+
+          /* Let the world know that autocreation is complete! Hurrah! */
 	  $auto_create_done = true;
 	  session_register('auto_create_done');
    }
@@ -55,6 +63,7 @@
       global $color, $move_to_sent, $move_to_trash;
       global $unseen_notify, $unseen_type, $collapse_folders;
       global $draft_folder, $save_as_draft;
+      global $use_special_folder_color;
 
       $real_box = $box_array['unformatted'];
       $mailbox = str_replace('&nbsp;','',$box_array['formatted']);
@@ -81,11 +90,14 @@
       }
       
       $special_color = false;
-      if ((strtolower($real_box) == 'inbox') ||
-          (($real_box == $trash_folder) && ($move_to_trash)) ||
-          (($real_box == $sent_folder) && ($move_to_sent)) ||
-          (($real_box == $draft_folder) && ($save_as_draft)))
-          $special_color = true;
+      if ($use_special_folder_color) {
+          if ((strtolower($real_box) == 'inbox')
+                || (($real_box == $trash_folder) && ($move_to_trash))
+                || (($real_box == $sent_folder) && ($move_to_sent))
+                || (($real_box == $draft_folder) && ($save_as_draft))) {
+              $special_color = true;
+          }
+      }
          
       /* Start off with a blank line. */
       $line = '';
@@ -126,6 +138,10 @@
       /* Return the final product. */
       return ($line);
    }
+
+   /**********************************/
+   /* END OF FUNCTION - BACK TO MAIN */
+   /**********************************/
 
     if (isset($left_refresh) && ($left_refresh != 'None') && ($left_refresh != '')) {
         echo "<META HTTP-EQUIV=\"Expires\" CONTENT=\"Thu, 01 Dec 1994 16:00:00 GMT\">\n";

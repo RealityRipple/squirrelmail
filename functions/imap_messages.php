@@ -96,10 +96,11 @@
       $read_list = array();
       $sizes_list = array();
 
-      /* We need to return the data in the same order as the caller supplied
-         in $msg_list, but IMAP servers are free to return responses in
-         whatever order they wish... So we need to re-sort manually */
-
+      /**
+       * We need to return the data in the same order as the caller supplied
+       * in $msg_list, but IMAP servers are free to return responses in
+       * whatever order they wish... So we need to re-sort manually
+       */
       for ($i = 0; $i < sizeof($msg_list); $i++) {
          $id2index[$msg_list[$i]] = $i;
       }
@@ -107,7 +108,6 @@
       $query = "$sid FETCH $msgs_str BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject Message-Id X-Priority Content-Type)]\r\n";
       fputs ($imap_stream, $query);
       $readin_list = sqimap_read_data_list($imap_stream, $sid, true, $response, $message);
-
 
       foreach ($readin_list as $r) {
          if (!eregi("^\\* ([0-9]+) FETCH", $r[0], $regs)) {
@@ -213,10 +213,11 @@
          $size = $regs[1];
          
          $header = new small_header;
-         if ($issent == true)
-            $header->from = (trim($to) != '')? $to : _("(only Cc/Bcc)");
-         else   
+         if ($issent == true) {
+            $header->from = (trim($to) != '' ? $to : '(' ._("No To Address") . ')');
+         } else {
             $header->from = $from;
+         }
 
          $header->date = $date;
          $header->subject = $subject;

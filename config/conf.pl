@@ -315,20 +315,22 @@ while (($command ne "q") && ($command ne "Q")) {
       print "R   Return to Main Menu\n";
    } elsif ($menu == 3) {
       print $WHT."Folder Defaults\n".$NRM;
-      print "1.  Default Folder Prefix      : $WHT$default_folder_prefix$NRM\n";
-      print "2.  Show Folder Prefix Option  : $WHT$show_prefix_option$NRM\n";
-      print "3.  Trash Folder               : $WHT$trash_folder$NRM\n";
-      print "4.  Sent Folder                : $WHT$sent_folder$NRM\n";
-      print "5.  By default, move to trash  : $WHT$default_move_to_trash$NRM\n";
-      print "6.  By default, move to sent   : $WHT$default_move_to_sent$NRM\n";
-      print "7.  List Special Folders First : $WHT$list_special_folders_first$NRM\n";
-      print "8.  Show Special Folders Color : $WHT$use_special_folder_color$NRM\n";
-      print "9.  Auto Expunge               : $WHT$auto_expunge$NRM\n";
-      print "10. Default Sub. of INBOX      : $WHT$default_sub_of_inbox$NRM\n";
-      print "11. Show 'Contain Sub.' Option : $WHT$show_contain_subfolders_option$NRM\n";
-      print "12. Default Unseen Notify      : $WHT$default_unseen_notify$NRM\n";
-      print "13. Default Unseen Type        : $WHT$default_unseen_type$NRM\n";
-	  print "14. Auto create Sent and Trash : $WHT$auto_create_special$NRM\n";
+      print "1.  Default Folder Prefix       : $WHT$default_folder_prefix$NRM\n";
+      print "2.  Show Folder Prefix Option   : $WHT$show_prefix_option$NRM\n";
+      print "3.  Trash Folder                : $WHT$trash_folder$NRM\n";
+      print "4.  Sent Folder                 : $WHT$sent_folder$NRM\n";
+      print "5.  Drafts Folder               : $WHT$draft_folder$NRM\n";
+      print "6.  By default, move to trash   : $WHT$default_move_to_trash$NRM\n";
+      print "7.  By default, move to sent    : $WHT$default_move_to_sent$NRM\n";
+      print "8.  By default, save as draft   : $WHT$default_save_as_draft$NRM\n";
+      print "9.  List Special Folders First  : $WHT$list_special_folders_first$NRM\n";
+      print "10. Show Special Folders Color  : $WHT$use_special_folder_color$NRM\n";
+      print "11. Auto Expunge                : $WHT$auto_expunge$NRM\n";
+      print "12. Default Sub. of INBOX       : $WHT$default_sub_of_inbox$NRM\n";
+      print "13. Show 'Contain Sub.' Option  : $WHT$show_contain_subfolders_option$NRM\n";
+      print "14. Default Unseen Notify       : $WHT$default_unseen_notify$NRM\n";
+      print "15. Default Unseen Type         : $WHT$default_unseen_type$NRM\n";
+      print "16. Auto Create Special Folders : $WHT$auto_create_special$NRM\n";
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 4) {
@@ -459,32 +461,34 @@ while (($command ne "q") && ($command ne "Q")) {
          elsif ($command == 4) { $signout_page  = command4 (); }
 	 elsif ($command == 5) { $squirrelmail_default_language = command5(); }
       } elsif ($menu == 2) {
-         if    ($command == 1)  { $domain             = command11 (); }
-         elsif ($command == 2)  { $imapServerAddress  = command12 (); }
-         elsif ($command == 3)  { $imapPort           = command13 (); }
-         elsif ($command == 4)  { $useSendmail        = command14 (); }
-         elsif ($command == 5)  { $sendmail_path      = command15 (); }
-         elsif ($command == 6)  { $smtpServerAddress  = command16 (); }
-         elsif ($command == 7)  { $smtpPort           = command17 (); }
-         elsif ($command == 8)  { $use_authenticated_smtp   = command18 (); }
-         elsif ($command == 9)  { $imap_server_type   = command19 (); }
-         elsif ($command == 10) { $invert_time        = command110 (); }
-         elsif ($command == 11) { $optional_delimiter = command111 (); }
+         if    ($command == 1)  { $domain                 = command11 (); }
+         elsif ($command == 2)  { $imapServerAddress      = command12 (); }
+         elsif ($command == 3)  { $imapPort               = command13 (); }
+         elsif ($command == 4)  { $useSendmail            = command14 (); }
+         elsif ($command == 5)  { $sendmail_path          = command15 (); }
+         elsif ($command == 6)  { $smtpServerAddress      = command16 (); }
+         elsif ($command == 7)  { $smtpPort               = command17 (); }
+         elsif ($command == 8)  { $use_authenticated_smtp = command18 (); }
+         elsif ($command == 9)  { $imap_server_type       = command19 (); }
+         elsif ($command == 10) { $invert_time            = command110 (); }
+         elsif ($command == 11) { $optional_delimiter     = command111 (); }
       } elsif ($menu == 3) {
-         if    ($command == 1) { $default_folder_prefix          = command21 (); }
-         elsif ($command == 2) { $show_prefix_option             = command22 (); }
-         elsif ($command == 3) { $trash_folder                   = command23 (); }
-         elsif ($command == 4) { $sent_folder                    = command24 (); }
-         elsif ($command == 5) { $default_move_to_trash          = command25 (); }
-         elsif ($command == 6) { $default_move_to_sent           = command26 (); }
-         elsif ($command == 7) { $list_special_folders_first     = command27 (); }
-         elsif ($command == 8) { $use_special_folder_color       = command28 (); }
-         elsif ($command == 9) { $auto_expunge                   = command29 (); }
-         elsif ($command == 10){ $default_sub_of_inbox           = command210(); }
-         elsif ($command == 11){ $show_contain_subfolders_option = command211(); }
-         elsif ($command == 12){ $default_unseen_notify          = command212(); }
-         elsif ($command == 13){ $default_unseen_type            = command213(); }
-         elsif ($command == 14){ $auto_create_special            = command214(); }
+         if    ($command == 1)  { $default_folder_prefix          = command21 (); }
+         elsif ($command == 2)  { $show_prefix_option             = command22 (); }
+         elsif ($command == 3)  { $trash_folder                   = command23a (); }
+         elsif ($command == 4)  { $sent_folder                    = command23b (); }
+         elsif ($command == 5)  { $draft_folder                   = command23c (); }
+         elsif ($command == 6)  { $default_move_to_trash          = command24a (); }
+         elsif ($command == 7)  { $default_move_to_sent           = command24b (); }
+         elsif ($command == 8)  { $default_save_as_draft          = command24c (); }
+         elsif ($command == 9)  { $list_special_folders_first     = command27 (); }
+         elsif ($command == 10) { $use_special_folder_color       = command28 (); }
+         elsif ($command == 11) { $auto_expunge                   = command29 (); }
+         elsif ($command == 12) { $default_sub_of_inbox           = command210(); }
+         elsif ($command == 13) { $show_contain_subfolders_option = command211(); }
+         elsif ($command == 14) { $default_unseen_notify          = command212(); }
+         elsif ($command == 15) { $default_unseen_type            = command213(); }
+         elsif ($command == 16) { $auto_create_special            = command214(); }
       } elsif ($menu == 4) {
          if    ($command == 1) { $default_charset          = command31 (); }
          elsif ($command == 2) { $data_dir                 = command33 (); }
@@ -897,7 +901,7 @@ sub command22 {
 }
 
 # Trash Folder 
-sub command23 {
+sub command23a {
    print "You can now specify where the default trash folder is located.\n";
    print "On servers where you do not want this, you can set it to anything\n";
    print "and set option 7 to false.\n";
@@ -919,7 +923,7 @@ sub command23 {
 }
 
 # Sent Folder 
-sub command24 {
+sub command23b {
    print "This is where messages that are sent will be stored.  SquirrelMail\n";
    print "by default puts a copy of all outgoing messages in this folder.\n";
    print "\n";
@@ -939,8 +943,30 @@ sub command24 {
    return $new_sent_folder;
 }
 
+# Draft Folder 
+sub command23c {
+   print "You can now specify where the default draft folder is located.\n";
+   print "On servers where you do not want this, you can set it to anything\n";
+   print "and set option 9 to false.\n";
+   print "\n";
+   print "This is relative to where the rest of your email is kept.  You do\n";
+   print "not need to worry about their mail directory.  If this folder\n";
+   print "would be ~/mail/drafts on the filesystem, you only need to specify\n";
+   print "that this is 'drafts', and be sure to put 'mail/' in option 1.\n";
+   print "\n";
+
+   print "[$WHT$draft_folder$NRM]: $WHT";
+   $new_draft_folder = <STDIN>;
+   if ($new_draft_folder eq "\n") {
+      $new_draft_folder = $draft_folder;
+   } else {
+      $new_draft_folder =~ s/[\r|\n]//g;
+   }
+   return $new_draft_folder;
+}
+
 # default move to trash 
-sub command25 {
+sub command24a {
    print "By default, should messages get moved to the trash folder?  You\n";
    print "can specify the default trash folder in option 3.  If this is set\n";
    print "to false, messages will get deleted immediately without moving\n";
@@ -965,7 +991,7 @@ sub command25 {
 }
 
 # default move to sent 
-sub command26 {
+sub command24b {
    print "By default, should messages get moved to the sent folder?  You\n";
    print "can specify the default sent folder in option 4.  If this is set\n";
    print "to false, messages will get sent an no copy will be made.\n";
@@ -986,6 +1012,30 @@ sub command26 {
       $default_move_to_sent = "false";
    }
    return $default_move_to_sent;
+}
+
+# default save as draft
+sub command24c {
+   print "By default, should the save to draft option be shown? You can\n";
+   print "specify the default drafts folder in option 5. If this is set\n";
+   print "to false, users will not be shown the save to draft option.\n";
+   print "\n";
+   print "Drafts folder is currently: $draft_folder\n";
+   print "\n";
+   
+   if ($default_move_to_draft eq "true") {
+      $default_value = "y";
+   } else {
+      $default_value = "n";
+   }
+   print "By default, save as draft (y/n) [$WHT$default_value$NRM]: $WHT";
+   $new_show = <STDIN>;
+   if (($new_show =~ /^y\n/i) || (($new_show =~ /^\n/) && ($default_value eq "y"))) {
+      $default_save_as_draft = "true";
+   } else {
+      $default_save_as_draft = "false";
+   }
+   return $default_save_as_draft;
 }
 
 # List special folders first 
@@ -1148,9 +1198,10 @@ sub command213 {
 
 # Auto create special folders
 sub command214 {
-   print "Would you like the Sent and Trash folders to be created automatically for\n";
-   print "you when a user loggs in?  If the user accidentally deletes their special\n";
-   print "folders, this option will automatically create it again for them.\n";
+   print "Would you like the Sent, Trash, and Drafts folders to be created\n";
+   print "automatically print for you when a user logs in?  If the user\n";
+   print "accidentally deletes their special folders, this option will\n";
+   print "automatically create it again for them.\n";
    print "\n";
    
    if ($auto_create_special eq "true") {
@@ -1652,8 +1703,10 @@ sub save_data {
    
    print FILE "\n";
 
-   print FILE "\tglobal \$default_folder_prefix, \$trash_folder, \$sent_folder;\n";
-   print FILE "\tglobal \$default_move_to_trash, \$default_move_to_sent;\n";
+   print FILE "\tglobal \$default_folder_prefix;\n";
+   print FILE "\tglobal \$trash_folder, \$default_move_to_trash;\n";
+   print FILE "\tglobal \$sent_folder, \$default_move_to_sent;\n";
+   print FILE "\tglobal \$draft_folder, \$default_save_to_draft;\n";
    print FILE "\tglobal \$show_prefix_option, \$list_special_folders_first;\n";
    print FILE "\tglobal \$use_special_folder_color, \$auto_expunge, \$default_sub_of_inbox;\n";
    print FILE "\tglobal \$show_contain_subfolders_option, \$default_unseen_notify;\n";
@@ -1661,8 +1714,10 @@ sub save_data {
    print FILE "\t\$default_folder_prefix            = \"$default_folder_prefix\";\n";
    print FILE "\t\$trash_folder                     = \"$trash_folder\";\n";
    print FILE "\t\$sent_folder                      = \"$sent_folder\";\n";
+   print FILE "\t\$draft_folder                     = \"$draft_folder\";\n";
    print FILE "\t\$default_move_to_trash            =  $default_move_to_trash;\n";
    print FILE "\t\$default_move_to_sent             =  $default_move_to_sent;\n";
+   print FILE "\t\$default_save_as_draft            =  $default_save_as_draft;\n";
    print FILE "\t\$show_prefix_option               =  $show_prefix_option;\n";
    print FILE "\t\$list_special_folders_first       =  $list_special_folders_first;\n";
    print FILE "\t\$use_special_folder_color         =  $use_special_folder_color;\n";
@@ -1765,17 +1820,19 @@ sub set_defaults {
 
       print "\n";
       if ($server eq "cyrus") { 
-			$default_folder_prefix = "INBOX";
+			$default_folder_prefix = "";
 			$trash_folder = "INBOX.Trash";
 			$sent_folder = "INBOX.Sent";
+			$draft_folder = "INBOX.Drafts";
 			$show_prefix_option = false;
 			$default_sub_of_inbox = true;
 			$show_contain_subfolders_option = false;
 			$imap_server_type = "cyrus";
 
-         print "         default_folder_prefix = INBOX\n";
+         print "         default_folder_prefix = none\n";
          print "                  trash_folder = INBOX.Trash\n";
          print "                   sent_folder = INBOX.Sent\n";
+         print "                  draft_folder = INBOX.Drafts\n";
          print "            show_prefix_option = false\n";
          print "          default_sub_of_inbox = true\n";
          print "show_contain_subfolders_option = false\n";
@@ -1786,6 +1843,7 @@ sub set_defaults {
 			$default_folder_prefix = "mail/";
 			$trash_folder = "Trash";
 			$sent_folder = "Sent";
+			$draft_folder = "Drafts";
 			$show_prefix_option = true;
 			$default_sub_of_inbox = false;
 			$show_contain_subfolders_option = true;
@@ -1794,6 +1852,7 @@ sub set_defaults {
          print "         default_folder_prefix = mail/\n";
          print "                  trash_folder = Trash\n";
          print "                   sent_folder = Sent\n";
+         print "                  draft_folder = Drafts\n";
          print "            show_prefix_option = true\n";
          print "          default_sub_of_inbox = false\n";
          print "show_contain_subfolders_option = true\n";
@@ -1805,6 +1864,7 @@ sub set_defaults {
 			$default_sub_of_inbox = true;
 			$trash_folder = "INBOX/Deleted Items";
 			$sent_folder = "INBOX/Sent Items";
+			$drafts_folder = "INBOX/Drafts";
 			$show_prefix_option = false;
 			$show_contain_subfolders_option = false;
 			$imap_server_type = "exchange";
@@ -1813,6 +1873,7 @@ sub set_defaults {
          print "           default_sub_of_inbox = true\n";
          print "                   trash_folder = \"INBOX/Deleted Items\"\n";
          print "                    sent_folder = \"INBOX/Sent Items\"\n";
+         print "                   draft_folder = \"INBOX/Drafts\"\n";
          print "             show_prefix_option = false\n";
          print " show_contain_subfolders_option = false\n";
          print "               imap_server_type = exchange\n";
