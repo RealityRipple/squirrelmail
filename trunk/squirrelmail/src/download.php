@@ -164,11 +164,12 @@ function DumpHeaders($type0, $type1, $filename, $force) {
         $isIE6 = 1;
     }
 
-    if (function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+    if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
+        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
         $filename = 
             $languages[$squirrelmail_language]['XTRA_CODE']('downloadfilename', $filename, $HTTP_USER_AGENT);
     } else {
-    $filename = ereg_replace('[^-a-zA-Z0-9\.]', '_', $filename);
+       $filename = ereg_replace('[^-a-zA-Z0-9\.]', '_', $filename);
     }
 
     // A Pox on Microsoft and it's Office!
