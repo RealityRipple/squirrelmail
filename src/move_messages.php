@@ -16,6 +16,16 @@
  * Path for SquirrelMail required files.
  * @ignore
  */
+
+
+/**
+ * FIX ME REMOVE ME FIX ME REMOVE ME I DON'T DESERVE TO EXIST
+ *
+ * Integrate this is a clean manner in right_main.php and rename right_main to
+ * messageslist or whatever
+ **/
+
+
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
@@ -120,10 +130,31 @@ sqgetGlobalVar('location',        $location,        SQ_POST);
 sqgetGlobalVar('bypass_trash',    $bypass_trash,    SQ_POST);
 sqgetGlobalVar('dmn',             $is_dmn,          SQ_POST);
 
+
+
 /* end of get globals */
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response=sqimap_mailbox_select($imapConnection, $mailbox);
+
+
+global $allow_thread_sort, $auto_expunge;
+
+if ($allow_thread_sort && getPref($data_dir, $username, "thread_$mailbox",0)) {
+    $aMailbox['SORT_METHOD'] = 'THREAD';
+} else if ($allow_server_sort) {
+    $aMailbox['SORT_METHOD'] = 'SERVER';
+} else {
+    $aMailbox['SORT_METHOD'] = 'SQUIRREL';
+}
+sqgetGlobalVar('aLastSelectedMailbox',$aMailbox,SQ_SESSION);
+sqgetGlobalVar('server_sort_array', $server_sort_array, SQ_SESSION);
+$aMailbox['UIDSET'] = $server_sort_array;
+$aMailbox['SORT'] = $sort;
+$aMailbox['NAME'] = $mailbox;
+$aMailbox['EXISTS'] = $mbx_response['EXISTS'];
+$aMailbox['AUTO_EXPUNGE'] = $auto_expunge;
+$aMailbox['MSG_HEADERS'] = $msgs;
 
 $location = set_url_var($location,'composenew',0,false);
 $location = set_url_var($location,'composesession',0,false);
@@ -204,7 +235,7 @@ if(isset($expungeButton)) {
     if ( $num_ids > 0 ) {
         if ( $is_dmn && $num_ids == 1 ) {
             sqimap_msgs_list_move($imapConnection,$id[0],$targetMailbox);
-            $num_ids = sqimap_mailbox_expunge_dmn($id[0]);
+            $num_ids = sqimap_mailbox_expunge_dmn($imapConnection,$aMailbox, $id[0]);
         } else {
             sqimap_msgs_list_move($imapConnection,$id,$targetMailbox);
             if ($auto_expunge) {
