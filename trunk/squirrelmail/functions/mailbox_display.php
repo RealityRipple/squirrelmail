@@ -433,7 +433,9 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
      } // switch
   } /* if exists > 0 */
 
-  $end_msg = getEndMessage(&$start_msg, $show_num, $num_msgs);
+  $res = getEndMessage($start_msg, $show_num, $num_msgs);
+  $start_msg = $res[0]; 
+  $end_msg = $res[1];
 
   $paginator_str = get_paginator_str($mailbox, $start_msg, $end_msg, 
 				     $num_msgs, $show_num, $sort);
@@ -565,7 +567,9 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
     $indent_array, $thread_sort_messages, $allow_server_sort, 
     $server_sort_order, $PHP_SELF;
 
-  $end_msg = getEndMessage(&$start_msg, $show_num, $num_msgs);
+  $res = getEndMessage($start_msg, $show_num, $num_msgs);
+  $start_msg = $res[0]; 
+  $end_msg = $res[1];
 
   $urlMailbox = urlencode($mailbox);
 
@@ -1237,7 +1241,7 @@ function getEndMessage($start_msg, $show_num, $num_msgs) {
       $start_msg = 1;
     }
   }
-  return $end_msg;
+  return (array($start_msg,$end_msg));
 }
 
 function handleAsSent($mailbox) {
