@@ -21,18 +21,26 @@
 
    displayPageHeader($color, _("None"));
 
-   echo "<br>";
-   echo "<TABLE WIDTH=95% COLS=1 ALIGN=CENTER>\n";
-   echo "   <TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><b>\n";
-   echo _("Folders");
-   echo "   </b></TD></TR>\n";
-   echo "</TABLE>\n";
+?>
+
+<div align="center">
+
+<br>
+<table bgcolor="<?php echo $color[0] ?>" width="95%" align="center" cellpadding="2" cellspacing="0" border="0">
+<tr><td align="center">
+
+      <b><?php echo _("Folders"); ?></b>
+
+    <table width="100%" border="0" cellpadding="5" cellspacing="0">
+    <tr><td bgcolor="<?php echo $color[4] ?>" align="center">
+
+<?php
 
    if ((isset($success) && $success) || 
        (isset($sent_create) && $sent_create == "true") || 
        (isset($trash_create) && $trash_create == "true")) {
-      echo "<table width=100% align=center cellpadding=3 cellspacing=0 border=0>\n";
-      echo "   <tr><td><center>\n";
+      echo "<table width=100% align=center cellpadding=2 cellspacing=0 border=0>\n";
+      echo "   <tr><td align=center>\n";
       if ($success == "subscribe") {
          echo "<b>" . _("Subscribed successfully!") . "</b><br>";
       } else if ($success == "unsubscribe") {
@@ -56,7 +64,7 @@
       }
 
       echo "   <a href=\"../src/left_main.php\" target=left>" . _("refresh folder list") . "</a>";
-      echo "   </center></td></tr>\n";
+      echo "   </td></tr>\n";
       echo "</table><br>\n";
    }
    $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
@@ -169,9 +177,9 @@
          }
       }
    }
-   echo "</SELECT></TT><BR>\n";
+   echo "</SELECT></TT>\n";
    if ($show_contain_subfolders_option) {
-      echo "<INPUT TYPE=CHECKBOX NAME=\"contain_subs\"> &nbsp;";
+      echo "<br><INPUT TYPE=CHECKBOX NAME=\"contain_subs\"> &nbsp;";
       echo _("Let this folder contain subfolders");
       echo "<BR>";
    }   
@@ -214,11 +222,11 @@
    echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr></table>\n";
    
    /** UNSUBSCRIBE FOLDERS **/
-   echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER cellpadding=2 cellspacing=0 border=0>\n";
-   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER colspan=3><B>";
+   echo "<TABLE WIDTH=70% COLS=2 ALIGN=CENTER cellpadding=2 cellspacing=1 border=0>\n";
+   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER colspan=2><B>";
    echo _("Unsubscribe") . "/" . _("Subscribe");
-   echo "</B></TD></TR>";
-   echo "<TR><TD BGCOLOR=\"$color[0]\" width=49% ALIGN=CENTER>";
+   echo "</B></TD></TR>\n";
+   echo "<TR><TD BGCOLOR=\"$color[0]\" width=50% ALIGN=CENTER>\n";
    if ($count_special_folders < count($boxes)) {
       echo "<FORM ACTION=\"folders_subscribe.php?method=unsub\" METHOD=\"POST\">\n";
       echo "<TT><SELECT NAME=mailbox[] multiple size=8>\n";
@@ -243,10 +251,8 @@
    }
    $boxes_sub = $boxes;
 
-   echo "<td bgcolor=\"$color[9]\" width=2%>&nbsp;</td>";
-   
    /** SUBSCRIBE TO FOLDERS **/
-   echo "<TD BGCOLOR=\"$color[0]\" widtn=49% ALIGN=CENTER>";
+   echo "<TD BGCOLOR=\"$color[0]\" widtn=50% ALIGN=CENTER>";
    $imap_stream = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 1);
    $boxes_all = sqimap_mailbox_list_all ($imap_stream);
 
@@ -283,8 +289,21 @@
    } else {
       echo _("No folders were found to subscribe to!") . "</td></tr></table>";
    }
+?>
 
-   do_hook("folders_bottom");
+
+  <?php do_hook("folders_bottom"); ?>
+
+
+    </td></tr>
+    </table>
+
+</td></tr>
+</table>
+
+<?php
    sqimap_logout($imapConnection);
 ?>
-</BODY></HTML>
+
+</div>
+</body></html>

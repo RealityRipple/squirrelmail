@@ -222,9 +222,9 @@
       if ($idents != '' && $idents > 1)
       {
          echo "   <TR>\n";
-         echo "      <TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
+         echo "      <TD BGCOLOR=\"$color[4]\" WIDTH=\"10%\" ALIGN=RIGHT>\n";
          echo _("From:");
-         echo "      </TD><TD BGCOLOR=\"$color[4]\">\n";
+         echo "      </TD><TD BGCOLOR=\"$color[4]\" WIDTH=\"90%\">\n";
 	 echo "<select name=identity>\n";
 	 echo "<option value=default>" . 
 	    htmlspecialchars(getPref($data_dir, $username, 'full_name'));
@@ -247,9 +247,9 @@
          echo "   </TR>\n";
       }
       echo "   <TR>\n";
-      echo "      <TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
+      echo "      <TD BGCOLOR=\"$color[4]\" WIDTH=\"10%\" ALIGN=RIGHT>\n";
       echo _("To:");
-      echo "      </TD><TD BGCOLOR=\"$color[4]\">\n";
+      echo "      </TD><TD BGCOLOR=\"$color[4]\" WIDTH=\"90%\">\n";
       printf("         <INPUT TYPE=text NAME=\"send_to\" VALUE=\"%s\" SIZE=60><BR>\n",
              htmlspecialchars($send_to));
       echo "      </TD>\n";

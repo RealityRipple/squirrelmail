@@ -25,12 +25,17 @@
    sqimap_logout($imapConnection);
 ?>
    <br>
-   <table width="95%" align="center" border="0" cellpadding="2" cellspacing="0"><tr><td bgcolor="<?php echo $color[0] ?>">
-      <center><b><?php echo _("Options") . " - " . _("Folder Preferences"); ?></b></center>
-   </td></tr></table>
+<table width="95%" align="center" border="0" cellpadding="2" cellspacing="0">
+<tr><td bgcolor="<?php echo $color[0] ?>" align="center">
 
-   <form name="f" action="options.php" method="post">
-      <table width="100%" cellpadding="0" cellspacing="5" border="0">
+      <b><?php echo _("Options") . " - " . _("Folder Preferences"); ?></b>
+
+    <table width="100%" border="0" cellpadding="1" cellspacing="1">
+    <tr><td bgcolor="<?php echo $color[4] ?>" align="center">
+
+   <form name="f" action="options.php" method="post"><br>
+
+      <table width="100%" cellpadding="2" cellspacing="0" border="0">
 
 <?php if ($show_prefix_option == true) {   ?>   
          <tr>
@@ -137,5 +142,12 @@
          </tr>
       </table>
    </form>
+
    <?php do_hook('options_folders_bottom'); ?>
+
+    </td></tr>
+    </table>
+
+</td></tr>
+</table>
 </body></html>

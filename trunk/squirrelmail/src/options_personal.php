@@ -26,12 +26,16 @@
 
 ?>
    <br>
-   <table width=95% align=center border=0 cellpadding=2 cellspacing=0><tr><td bgcolor="<?php echo $color[0] ?>">
-      <center><b><?php echo _("Options") . " - " . _("Personal Information"); ?></b></center>
-   </td></tr></table>
+<table width=95% align=center border=0 cellpadding=2 cellspacing=0>
+<tr><td align="center" bgcolor="<?php echo $color[0] ?>">
 
-   <form name=f action="options.php" method=post>
-      <table width=100% cellpadding=0 cellspacing=2 border=0>
+      <b><?php echo _("Options") . " - " . _("Personal Information"); ?></b>
+
+    <table width="100%" border="0" cellpadding="1" cellspacing="1">
+    <tr><td bgcolor="<?php echo $color[4] ?>" align="center">
+
+   <form name=f action="options.php" method=post><br>
+      <table width=100% cellpadding=2 cellspacing=0 border=0>
          <tr>
             <td align=right nowrap><?php echo _("Full Name"); ?>:
             </td><td>
@@ -51,9 +55,10 @@
             </td>
          </tr>
 	 <tr>
-	    <td align=right nowrap>&nbsp;
+	    <td align=right nowrap><?PHP echo _("Multiple Identities"); ?>:
 	    </td><td>
-	       <a href="options_identities.php"><?php echo _("Edit multiple identities"); ?></a>
+	       <a href="options_identities.php">Edit Advanced Identities</a>
+               (discards changes made on this form so far)
 	    </td>
 	 </tr>
          <tr><td colspan=2><hr size=1 width=80%></td></tr>
@@ -83,6 +88,13 @@
             </td>
          </tr>
       </table>   
-   </form>
+</form>
+
    <?php do_hook('options_personal_bottom'); ?>
+
+    </td></tr>
+    </table>
+
+</td></tr>
+</table>
 </body></html>
