@@ -16,13 +16,16 @@
 require_once('calendar_data.php');
 require_once('functions.php');
 chdir('..');
-require_once('../src/validate.php');
-require_once('../functions/strings.php');
-require_once('../functions/date.php');
-require_once('../config/config.php');
-require_once('../functions/page_header.php');
-require_once('../src/load_prefs.php');
-require_once('../functions/html.php');
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'include/validate.php');
+require_once(SM_PATH . 'functions/strings.php');
+require_once(SM_PATH . 'functions/date.php');
+require_once(SM_PATH . 'config/config.php');
+require_once(SM_PATH . 'functions/page_header.php');
+require_once(SM_PATH . 'src/load_prefs.php');
+require_once(SM_PATH . 'functions/html.php');
 
 //main form to gather event info
 function show_event_form() {
