@@ -59,7 +59,7 @@
    }
 
    /** must be sent in the form:  user.<USER>.<FOLDER> **/
-   function deleteFolder($imapConnection, $folder) {
+   function removeFolder($imapConnection, $folder) {
       fputs($imapConnection, "1 delete \"$folder\"\n");
    }
 ?>
