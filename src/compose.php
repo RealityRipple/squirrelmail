@@ -853,6 +853,10 @@ function showInputForm ($session, $values=false) {
        $mailprio = $values['mailprio'];
        $body = $values['body'];
        $identity = (int) $values['identity'];
+    } else {
+       $send_to = decodeHeader($send_to);
+       $send_to_cc = decodeHeader($send_to_cc);
+       $send_to_bcc = decodeHeader($send_to_bcc);
     }
     
     if ($use_javascript_addr_book) {
