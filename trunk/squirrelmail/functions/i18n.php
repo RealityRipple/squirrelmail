@@ -121,6 +121,10 @@
    
    $languages['sk_SK']['NAME']     = 'Slovak';
    $languages['sk_SK']['CHARSET']  = 'iso-8859-2';
+   
+   $languages['ro']['NAME']    = 'Romanian';
+   $languages['ro']['CHARSET'] = 'iso-8859-2';
+   $languages['ro_RO']['ALIAS'] = 'ro';
 
    // Decodes a string to the internal encoding from the given charset
    function charset_decode ($charset, $string) {
