@@ -158,6 +158,8 @@ Version 1.5.1 -- CVS
   - Fix two time zone calculation bugs, thanks to David White
   - 'Priority' and 'Importance' headers are now also recognised, next to the
     'X-Priority' header that we've supported since a long time.
+  - Handle a reload of the signout page gracefully: do not present an error
+    about having to be logged in to be able to sign out.
 
 Version 1.5.0
 --------------------

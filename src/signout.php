@@ -18,21 +18,40 @@
  */
 define('SM_PATH','../');
 
-/* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/prefs.php');
+/* check if we're already logged out (e.g. when this page is reloaded),
+ * so we can skip to the output and not give error messages */
+if( ! isset($_SESSION) || empty($_SESSION['user_is_logged_in']) ) {
+    $loggedin = false;
+} else {
+    $loggedin = true;
+}
+
+if($loggedin) {
+    require_once(SM_PATH . 'include/validate.php');
+    require_once(SM_PATH . 'functions/prefs.php');
+} else {
+    // this comes in through validate.php usually
+    require_once(SM_PATH . 'config/config.php');
+    require_once(SM_PATH . 'functions/i18n.php');
+    require_once(SM_PATH . 'functions/page_header.php');
+    if (@file_exists($theme[$theme_default]['PATH'])) {
+        @include ($theme[$theme_default]['PATH']);
+    }
+}
 require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/html.php');
 
-/* Erase any lingering attachments */
-if (isset($attachments) && is_array($attachments)
-    && sizeof($attachments)){
-    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-    foreach ($attachments as $info) {
-        $attached_file = "$hashed_attachment_dir/$info[localfilename]";
-        if (file_exists($attached_file)) {
-            unlink($attached_file);
+if($loggedin) {
+    /* Erase any lingering attachments */
+    if (isset($attachments) && is_array($attachments)
+        && sizeof($attachments)){
+        $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+        foreach ($attachments as $info) {
+            $attached_file = "$hashed_attachment_dir/$info[localfilename]";
+            if (file_exists($attached_file)) {
+                unlink($attached_file);
+            }
         }
     }
 }
