@@ -391,6 +391,8 @@
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">";
       echo "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
 
+      $urlMailbox=urlencode($mailbox);
+      
       // Print the headers
       for ($i=1; $i <= count($index_order); $i++) {
          switch ($index_order[$i]) {
