@@ -131,15 +131,12 @@ function load_optpage_data_folder() {
         'posvals' => $left_size_values
     );
 
-    $minute_str = _("Minutes");
     $left_refresh_values = array(SMPREF_NONE => _("Never"));
     foreach (array(30,60,120,180,300,600,1200) as $lr_val) {
         if ($lr_val < 60) {
             $left_refresh_values[$lr_val] = "$lr_val " . _("Seconds");
-        } else if ($lr_val == 60) {
-            $left_refresh_values[$lr_val] = "1 " . _("Minute");
         } else {
-            $left_refresh_values[$lr_val] = ($lr_val/60) . " $minute_str";
+            $left_refresh_values[$lr_val] = sprintf(ngettext("%d Minute","%d Minutes",($lr_val/60)),($lr_val/60));
         }
     }
     $optvals[SMOPT_GRP_FOLDERLIST][] = array(
