@@ -191,12 +191,29 @@
          $newbody = $body; // if only they all were this easy
 
       } else if ($encoding == "quoted-printable") {
-         echo "$body";
-         $body = ereg_replace("=3D", "=", $body);
-         $body = ereg_replace("=\n", "", $body);
-         $body = ereg_replace("=20", "\n", $body);
-         $newbody= $body;
+         $body_ary = explode("\n", $body);
 
+         for ($q=0; $q < count($body_ary); $q++) {
+            if (substr(trim($body_ary[$q]), -1) == "=") {
+               $body_ary[$q] = trim($body_ary[$q]);
+               $body_ary[$q] = substr($body_ary[$q], 0, strlen($body_ary[$q])-1);
+            } else if (substr(trim($body_ary[$q]), -3) == "=20") {
+               $body_ary[$q] = trim($body_ary[$q]);
+               $body_ary[$q] = substr($body_ary[$q], 0, strlen($body_ary[$q])-3);
+               $body_ary[$q] = "$body_ary[$q]\n";
+            }
+         }
+
+         for ($q=0;$q < count($body_ary);$q++) {
+            $body_ary[$q] = ereg_replace("=3D", "=", $body_ary[$q]);
+         }
+
+         $body = "";
+         for ($i = 0; $i < count($body_ary); $i++) {
+            $body .= "$body_ary[$i]\n";
+         }
+
+         $newbody = $body;
       } else if ($encoding == "base64") {
          $newbody = base64_decode($body);
 
