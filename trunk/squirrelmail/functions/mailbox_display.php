@@ -21,10 +21,8 @@ require_once(SM_PATH . 'functions/mime.php');
 
 /* Constants:
  *   PG_SEL_MAX:   default value for page_selector_max
- *   SUBJ_TRIM_AT: the length at which we trim off subjects
  */
 define('PG_SEL_MAX', 10);
-define('SUBJ_TRIM_AT', 50);
 
 function elapsed($start)
 {
@@ -1260,7 +1258,8 @@ function processSubject($subject, $threadlevel = 0) {
         return _("(no subject)");
     }
 
-    $trim_at = SUBJ_TRIM_AT;
+    global $truncate_subject;     /* number of characters for Subject field (<= 0 for unchanged) */
+    $trim_at = $truncate_subject;
 
     /* if this is threaded, subtract two chars per indentlevel */
     if (($threadlevel > 0) && ($threadlevel <= 10))

@@ -159,6 +159,14 @@ function load_optpage_data_display() {
         'size'    => SMOPT_SIZE_TINY
     );
 
+    $optvals[SMOPT_GRP_MAILBOX][] = array(
+        'name'    => 'truncate_subject',
+        'caption' => _("Length of Subject Field (0 for full)"),
+        'type'    => SMOPT_TYPE_INTEGER,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'size'    => SMOPT_SIZE_TINY
+    );
+
 
     /*** Load the General Options into the array ***/
     $optgrps[SMOPT_GRP_MESSAGE] = _("Message Display and Composition");
