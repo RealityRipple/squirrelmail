@@ -35,6 +35,20 @@
 //  folders will be the same color as the other folders
     $use_special_folder_color = true;
 
+//  Many servers store mail in your home directory.  With this, they
+//  store them in a subdirectory: ~/mail or ~/Mail, etc.  If your
+//  server does this, please set this to what the default mail folder
+//  should be.  This is still a user preference, so they can change
+//  it if it is different for each user.
+//
+//  Example:
+//     $folder_prefix = "mail/";
+//        -- or --
+//     $folder_prefix = "Mail/folders/";
+//
+//  If you do not use this, please set it to "".
+    $folder_prefix = "";
+
 //  The following are related to deleting messages.
 //    $move_to_trash
 //         - if this is set to "true", when "delete" is pressed, it

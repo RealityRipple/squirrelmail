@@ -12,7 +12,7 @@
 
    include("../src/load_prefs.php");
 
-   echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+//   echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
 
    function putSelectedMessagesIntoString($msg) {
       $j = 0;
@@ -42,7 +42,7 @@
 
    // If the delete button was pressed, the moveButton variable will not be set.
    if (!$moveButton) {
-      displayPageHeader($color, $mailbox);
+ //     displayPageHeader($color, $mailbox);
       if (is_array($msg) == 1) {
          // Marks the selected messages ad 'Deleted'
          $j = 0;
@@ -59,12 +59,21 @@
          }
          if ($auto_expunge)
             sqimap_mailbox_expunge($imapConnection, $mailbox);
-         messages_deleted_message($mailbox, $sort, $startMessage, $color);
+
+         if ($auto_forward) {   
+            header ("Location: right_main.php");
+         } else {
+            echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+            displayPageHeader($color, $mailbox);
+            messages_deleted_message($mailbox, $sort, $startMessage, $color);
+         }
       } else {
+         echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+         displayPageHeader($color, $mailbox);
          error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);
       }
    } else {    // Move messages
-      displayPageHeader($color, $mailbox);
+//      displayPageHeader($color, $mailbox);
       // lets check to see if they selected any messages
       if (is_array($msg) == 1) {
          $j = 0;
@@ -84,8 +93,16 @@
          if ($auto_expunge == true)
             sqimap_mailbox_expunge($imapConnection, $mailbox);
 
-         messages_moved_message($mailbox, $sort, $startMessage, $color);
+         if ($auto_forward) {   
+            header ("Location: right_main.php");
+         } else {
+            echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+            displayPageHeader($color, $mailbox);
+            messages_moved_message($mailbox, $sort, $startMessage, $color);
+         }
       } else {
+         echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+         displayPageHeader($color, $mailbox);
          error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);
       }
    }

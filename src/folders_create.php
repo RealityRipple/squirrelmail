@@ -25,8 +25,16 @@
    if ($contain_subs == true)
       $folder_name = "$folder_name$dm";
 
-   if (trim($subfolder) == "[ None ]") {
-      sqimap_mailbox_create ($imapConnection, $folder_name, "");
+   if ($folder_prefix && (substr($folder_prefix, -1) != $dm)) {
+      $folder_prefix = $folder_prefix . $dm;
+   }
+   if ($folder_prefix && (substr($subfolder, 0, strlen($folder_prefix)) != $folder_prefix)){
+      $subfolder_orig = $subfolder;
+      $subfolder = $folder_prefix . $subfolder;
+   }
+
+   if (trim($subfolder_orig) == "[ None ]") {
+      sqimap_mailbox_create ($imapConnection, $folder_prefix.$folder_name, "");
    } else {
       sqimap_mailbox_create ($imapConnection, $subfolder.$dm.$folder_name, "");
    }
