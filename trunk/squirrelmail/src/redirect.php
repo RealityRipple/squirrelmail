@@ -182,6 +182,14 @@ function attachment_common_parse($str, $debug) {
     global $attachment_common_types, $attachment_common_types_parsed;
 
     $attachment_common_types_parsed[$str] = true;
+    
+    /* 
+     * Replace ", " with "," and explode on that as Mozilla 1.x seems to  
+     * use "," to seperate whilst IE, and earlier versions of Mozilla use
+     * ", " to seperate
+     */
+    
+    $str = str_replace( ', ' , ',' , $str );
     $types = explode(', ', $str);
 
     foreach ($types as $val) {
