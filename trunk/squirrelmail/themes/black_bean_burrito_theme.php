@@ -16,6 +16,8 @@
     $color[8]   = "#D0D0D0"; // (off-white)			Normal text
     $color[9]   = "#414141"; // (dark gray)			Darker version of #0
     $color[10]  = "#292929"; // (darker gray)		Darker version of #9
-    $color[11]  = "#AAAA44"; // (light red)			Special Folders color
+    $color[11]  = "#AAAA44"; // (gold)			Special Folders color
     $color[12]  = "#202020"; // (dark gray)             Alternate color for message backround in index table
+    $color[13]  = "#FF7733"; // (orange-ish)  Single-quoted text
+    $color[14]  = "#FF3377"; // (pink-ish)  2 or more quotes
 ?>
