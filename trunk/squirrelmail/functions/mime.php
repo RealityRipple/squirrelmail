@@ -407,11 +407,12 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
                 $from_name = _("Unknown sender");
             }
             $from_name = decodeHeader(htmlspecialchars($from_name));
+	    $description = $from_name;
         } else {
             $default_page = '../src/download.php';
-            $filename = decodeHeader($header->getParameter('filename'));
+            $filename = decodeHeader($header->disposition->getProperty('filename'));
             if (trim($filename) == '') {
-                $name = decodeHeader($header->getParameter('name'));
+                $name = decodeHeader($header->disposition->getProperty('name'));
                 if (trim($name) == '') {
                     if ( trim( $header->id ) == '' )
                         $filename = 'untitled-[' . $ent . ']' ;
@@ -421,9 +422,11 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
                     $filename = $name;
                 }
             }
-            if ($message->header->description) {
-                $from_name = htmlspecialchars(_($header->description));
-            }
+            if ($header->description) {
+                $description = htmlspecialchars($header->description);
+            } else {
+	        $description = '';
+	    }
         }
 
         $display_filename = $filename;
@@ -454,7 +457,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
                         '</b>&nbsp;&nbsp;</small></TD>' .
                         "<TD><SMALL>[ $type0/$type1 ]&nbsp;</SMALL></TD>" .
                         '<TD><SMALL>';
-        $attachments .= '<b>' . $from_name . '</b>';
+        $attachments .= '<b>' . $description . '</b>';
         $attachments .= '</SMALL></TD><TD><SMALL>&nbsp;';
 
         $SkipSpaces = 1;
