@@ -1161,18 +1161,20 @@ function processSubject($subject, $threadlevel = 0) {
      * the real number of characters, and if more
      * than 55, substr with an updated trim value. 
      */
-    while ((($ent_loc = strpos(substr($subject,$ent_offset-1,$trim_val), '&', $ent_offset)) !== false) &&
-           (($ent_loc_end = strpos(substr($subject,$ent_offset+1,$trim_val+5), ';', $ent_loc)) !== false) ) {
-        $trim_val   += ($ent_loc_end-$ent_loc+1);
-        $ent_strlen -= $ent_loc_end-$ent_loc;
+    $step = $ent_loc = 0;
+    while ( $ent_loc < $trim_val && (($ent_loc = strpos($subject, '&', $ent_offset)) !== false) &&
+            (($ent_loc_end = strpos($subject, ';', $ent_loc+3)) !== false) ) {
+        $trim_val += ($ent_loc_end-$ent_loc);
         $ent_offset  = $ent_loc_end+1;
+        ++$step;
     }
-    /* fix cut in the middle special chars */
-    if (strpos($subject,';',$trim_val) < (6+$trim_val) && strpos($subject,'&',$trim_val-4)<$trim_val+1) {
-        $trim_val = strpos($subject,';',$trim_val);
+    
+    if (($trim_val > 50) && (strlen($subject) > ($trim_val))&& (strpos($subject,';',$trim_val) < ($trim_val +6))) {
+        $i = strpos($subject,';',$trim_val);
+        if ($i) {
+            $trim_val = strpos($subject,';',$trim_val);
+        }
     }
-
-
     if ($ent_strlen <= $trim_at){
         return $subject;
     }
@@ -1181,7 +1183,6 @@ function processSubject($subject, $threadlevel = 0) {
         function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
         return $languages[$squirrelmail_language]['XTRA_CODE']('strimwidth', $subject, $trim_val);
     }
-
     return substr($subject, 0, $trim_val) . '...';
 }
 
