@@ -213,6 +213,9 @@ function sqimap_read_data ($imap_stream, $pre, $handle_errors, &$response, &$mes
 function sqimap_login ($username, $password, $imap_server_address, $imap_port, $hide) {
     global $color, $squirrelmail_language, $onetimepad, $use_imap_tls, $imap_auth_mech;
 
+    if (!isset($onetimepad) || empty($onetimepad)) {
+        sqgetglobalvar('onetimepad' , $onetimepad , SQ_SESSION );
+    }
     $imap_server_address = sqimap_get_user_server($imap_server_address, $username);
 	$host=$imap_server_address;
 	
