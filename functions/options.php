@@ -274,34 +274,34 @@ class SquirrelOption {
     }
 
     function createWidget_Integer() {
-        return ($this->createWidget_String());
 
-        /*  FIXME: Paul, weren't you going to make this browser safe
-                   ie, if JS was off, or browser didn't support it?
+        global $javascript_on;
 
         // add onChange javascript handler to a regular string widget
         // which will strip out all non-numeric chars
-        return preg_replace('/>/', ' onChange="a=this.value; b=\'\'; '
+        if ($javascript_on)
+           return preg_replace('/>/', ' onChange="a=this.value; b=\'\'; '
                     . 'for (i=0;i<a.length;i++) { if (a.charAt(i)>=\'0\' '
                     . '&& a.charAt(i)<=\'9\') b += a.charAt(i); } '
                     . 'this.value=b;">', $this->createWidget_String());
-        */
+        else
+           return $this->createWidget_String();
     }
 
     function createWidget_Float() {
-        return ($this->createWidget_String());
         
-        /*  FIXME: Paul, weren't you going to make this browser safe
-                   ie, if JS was off, or browser didn't support it?
+        global $javascript_on;
 
         // add onChange javascript handler to a regular string widget
         // which will strip out all non-numeric (period also OK) chars 
-        return preg_replace('/>/', ' onChange="a=this.value; b=\'\'; '
+        if ($javascript_on)
+           return preg_replace('/>/', ' onChange="a=this.value; b=\'\'; '
                     . 'for (i=0;i<a.length;i++) { if ((a.charAt(i)>=\'0\' '
                     . '&& a.charAt(i)<=\'9\') || a.charAt(i)==\'.\') '
                     . 'b += a.charAt(i); } this.value=b;">'
                 , $this->createWidget_String());
-        */
+        else
+           return $this->createWidget_String();
     }
 
     function createWidget_Boolean() {
