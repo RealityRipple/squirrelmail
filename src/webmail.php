@@ -19,7 +19,14 @@
 
    if(!isset($username)) {
       set_up_language($squirrelmail_language);
-      echo _("You need a valid user and password to access this page!");
+	  include ("../themes/default_theme.php");
+	  include ("../functions/display_messages.php");
+	  printf('<html><BODY TEXT="%s" BGCOLOR="%s" LINK="%s" VLINK="%s" ALINK="%s">',
+			  $color[8], $color[4], $color[7], $color[7], $color[7]);
+	  plain_error_message(_("You need a valid user and password to access this page!") 
+	                      . "<br><a href=\"../src/login.php\">" 
+						  . _("Click here to log back in.") . "</a>.", $color);
+	  echo "</body></html>";
       exit;
    }
 
