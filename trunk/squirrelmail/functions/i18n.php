@@ -420,6 +420,11 @@ $languages['et_EE']['CHARSET'] = 'iso-8859-15';
 $languages['et_EE']['LOCALE']  = 'et_EE.ISO8859-15';
 $languages['et']['ALIAS'] = 'et_EE';
 
+$languages['eu_ES']['NAME']    = 'Basque';
+$languages['eu_ES']['CHARSET'] = 'iso-8859-1';
+$languages['eu_ES']['LOCALE']  = 'eu_ES.ISO8859-1';
+$languages['eu']['ALIAS'] = 'eu_ES';
+
 $languages['fo_FO']['NAME']    = 'Faroese';
 $languages['fo_FO']['CHARSET'] = 'iso-8859-1';
 $languages['fo_FO']['LOCALE']  = 'fo_FO.ISO8859-1';
