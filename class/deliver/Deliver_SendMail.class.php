@@ -31,6 +31,7 @@ class Deliver_SendMail extends Deliver {
 	} else {
     	    $stream = popen (escapeshellcmd("$sendmail_path -t -f$envelopefrom"), "w");
 	}
+	return $stream;
     }
     
     function finalizeStream($stream) {
