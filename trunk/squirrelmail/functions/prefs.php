@@ -8,6 +8,11 @@
    /** returns the value for $string **/
    function getPref($username, $string) {
       $filename = "../data/$username.pref";
+      if (!file_exists($filename)) {
+         echo "Preference file \"$filename\" not found.  Exiting abnormally";
+         exit;
+      }
+
       $file = fopen($filename, "r");
 
       /** read in all the preferences **/
