@@ -105,30 +105,41 @@ function readMailboxParent($haystack, $needle) {
     return( $ret );
 }
 
+/** 
+ * Check if $subbox is below the specified $parentbox
+ */
+function isBoxBelow( $subbox, $parentbox ) {
+    global $delimiter, $folder_prefix, $imap_server_type;
 
-function isBoxBelow( $box2, $box1 ) {
-global $delimiter, $folder_prefix, $imap_server_type;
+    /* 
+     * Eliminate the obvious mismatch, where the 
+     * subfolder path is shorter than that of the potential parent
+     */
+    if ( strlen($subbox) < strlen($parentbox) ) {
+      return false;
+    }
+
 	if ( $imap_server_type == 'uw' ) {
-		$boxs = $box2;
-		$i = strpos( $box1, $delimiter, strlen( $folder_prefix ) );
+		$boxs = $parentbox;
+		$i = strpos( $subbox, $delimiter, strlen( $folder_prefix ) );
 		if ( $i === false ) {
-			$i = strlen( $box2 );
+			$i = strlen( $parentbox );
 		}
 	} else {
-		if (substr($box2,0,strlen($box1)) == $box1) {
+		if (substr($parentbox,0,strlen($subbox)) == $subbox) {
 			return true;
 		}
-		$boxs = $box2 . $delimiter;
+		$boxs = $parentbox . $delimiter;
 		/* Skip next second delimiter */
-		$i = strpos( $box1, $delimiter );
-		$i = strpos( $box1, $delimiter, $i + 1  );
+		$i = strpos( $subbox, $delimiter );
+		$i = strpos( $subbox, $delimiter, $i + 1  );
 		if ( $i === false ) {
-			$i = strlen( $box2 );
+			$i = strlen( $parentbox );
 		} else {
 			$i++;
 		}
 	}
-	return ( substr( $box1, 0, $i ) == substr( $boxs, 0, $i ) );
+	return ( substr( $subbox, 0, $i ) == substr( $boxs, 0, $i ) );
 }
 
 /* Defines special mailboxes */
@@ -137,14 +148,30 @@ function isSpecialMailbox( $box ) {
            $move_to_trash, $move_to_sent, $save_as_draft;
 
     $ret = ( (strtolower($box) == 'inbox') ||
-             ( $move_to_trash && $trash_folder && isBoxBelow( $box, $trash_folder )) ||
-             ( $move_to_sent  && $sent_folder  && isBoxBelow( $box, $sent_folder  )) ||
-             ($save_as_draft && $box == $draft_folder ) );
+             isTrashMailbox($box) || isSentMailbox($box) || isDraftMailbox($box) );
 
     if ( !$ret ) {
         $ret = do_hook_function( 'special_mailbox', $box );
     }
     return $ret;
+}
+
+function isTrashMailbox ($box) {
+    global $trash_folder, $move_to_trash;
+    return $move_to_trash && $trash_folder &&
+           ( $box == $trash_folder || isBoxBelow($box, $trash_folder) );
+}
+
+function isSentMailbox($box) {
+   global $sent_folder, $move_to_sent;
+   return $move_to_sent && $sent_folder &&
+          ( $box == $sent_folder || isBoxBelow($box, $sent_folder) );
+}
+
+function isDraftMailbox($box) {
+   global $draft_folder, $save_as_draft;
+   return $save_as_draft &&
+          ( $box == $draft_folder || isBoxBelow($box, $draft_folder) );
 }
 
 /* Expunges a mailbox */
