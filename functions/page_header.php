@@ -88,7 +88,7 @@ function checkForm() {
     }
     
 }
--->
+// -->
 </script>
         ';
         $onload = "onLoad=\"checkForm();\"";
