@@ -22,7 +22,8 @@
 
     function general_info($motd, $org_logo, $version, $org_name, $color) {
       echo "<BR>";
-      echo "<TABLE COLS=1 WIDTH=80% CELLSPACING=3 CELLPADDING=3 NOBORDER BGCOLOR=\"FFFFFF\" ALIGN=CENTER>";
+      echo "<TABLE COLS=1 WIDTH=80% CELLSPACING=0 CELLPADDING=2 NOBORDER ALIGN=CENTER><TR><TD BGCOLOR=\"$color[10]\">";
+      echo "<TABLE COLS=1 WIDTH=100% CELLSPACING=0 CELLPADDING=3 NOBORDER BGCOLOR=\"FFFFFF\" ALIGN=CENTER>";
       echo "   <TR>";
       echo "      <TD BGCOLOR=\"$color[0]\">";
       echo "         <FONT FACE=\"Arial,Helvetica\"><B><CENTER>Welcome to $org_name's WebMail system</CENTER></B></FONT>";
@@ -43,6 +44,7 @@
       echo "      </TABLE>";
       echo "   </TD></TR>";
       echo "</TABLE>";
+      echo "</TD></TR></TABLE>";
    }
 
     function messages_deleted_message($mailbox, $sort, $startMessage, $color) {
