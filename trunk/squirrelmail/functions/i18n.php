@@ -475,7 +475,8 @@ $languages['ja']['ALIAS'] = 'ja_JP';
 $languages['ko_KR']['NAME']    = 'Korean';
 $languages['ko_KR']['CHARSET'] = 'euc-KR';
 $languages['ko_KR']['LOCALE']  = 'ko_KR.EUC-KR';
-$languages['ko_KR']['XTRA_CODE'] = 'korean_charset_xtra';
+// Function does not provide all needed options
+// $languages['ko_KR']['XTRA_CODE'] = 'korean_charset_xtra';
 $languages['ko']['ALIAS'] = 'ko_KR';
 
 $languages['lt_LT']['NAME']    = 'Lithuanian';

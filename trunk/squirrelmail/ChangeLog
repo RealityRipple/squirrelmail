@@ -54,6 +54,8 @@ Version 1.5.1 -- CVS
     written by Bryan Loniewski.
   - Use Special Folder Color config option works again (#931956).
   - In POP3-class, be more liberal regarding RFC-incompliant POP3-servers.
+  - Disabled Korean extra functions, because they don't provide all required 
+    options and message composition is broken.
 
 Version 1.5.0
 --------------------
