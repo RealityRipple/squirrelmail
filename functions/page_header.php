@@ -173,7 +173,8 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                     "var e = document.forms[i].elements.length;\n".
                     "var j = 0;\n".
                     "while( pos == -1 && j < e ) {\n".
-                        "if ( document.forms[i].elements[j].type == 'text' ) {\n".
+                        "if ( document.forms[i].elements[j].type == 'text' " .
+                        "|| document.forms[i].elements[j].type == 'password' ) {\n".
                             "pos = j;\n".
                         "}\n".
                         "j++;\n".
