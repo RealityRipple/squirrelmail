@@ -102,7 +102,6 @@ require_once ('../src/validate.php');
 
          $header .= "X-Mailer: SquirrelMail (version $version)\r\n"; // Identify SquirrelMail
 
-
          // Do the MIME-stuff
          $header .= "MIME-Version: 1.0\r\n";
 
@@ -160,4 +159,3 @@ require_once ('../src/validate.php');
       return $length;
 }
 ?>
-
