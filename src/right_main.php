@@ -36,6 +36,7 @@ require_once('../functions/display_messages.php');
 $bob = getHashedFile($username, $data_dir, "username.pref");
 
 /* Open a connection on the imap port (143) */
+
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 
 if( isset( $PG_SHOWNUM ) ) {
@@ -62,9 +63,29 @@ if ($imap_server_type == 'uw' && (strstr($mailbox, '../') ||
                                   substr($mailbox, 0, 1) == '/')) {
    $mailbox = 'INBOX';
 }
+    global $color;
+
+    if( isset($do_hook) && $do_hook ) {
+        do_hook ("generic_header");
+    }
 
 sqimap_mailbox_select($imapConnection, $mailbox);
-displayPageHeader($color, $mailbox);
+
+if (isset($composenew)) {
+    $width= getPref($username, $data_dir, 'editor_size', 76);
+    if ($width < 65) {
+        $pix_width = 560;
+    } else {
+        $width = (.9*$width);
+        $pix_width = intval($width).'0';
+    }
+    $features = "toolbar=no, width=$pix_width, height=650, scrollbars=yes, resizable=yes target=_blank";
+    $location = 'compose.php?mailbox='. urlencode($mailbox).'&attachedmessages=true&session='."$session";
+    $onload= "window.open(\"$location\",\"compose_window_$session\", \"$features\");";
+    displayPageHeader($color, $mailbox, $onload);
+} else {
+    displayPageHeader($color, $mailbox);
+}
 echo "<br>\n";
 
 do_hook('right_main_after_header');
