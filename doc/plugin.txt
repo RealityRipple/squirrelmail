@@ -404,7 +404,7 @@ options_identities_buttons
       function demo_identities_button(&$args)
       {
          return '<input type="submit" name="demo_button_' . $args[1]
-              . '" value="Press Me">';
+              . '" value="Press Me" />';
       }
 
 

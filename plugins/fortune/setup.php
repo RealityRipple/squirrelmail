@@ -73,9 +73,9 @@ function fortune_options() {
   global $fortune_visible;
 
   echo "<tr>" . html_tag('td',_("Fortunes:"),'right','','nowrap') . "\n";
-  echo '<td><input name="fortune_fortune_visible" type=CHECKBOX';
+  echo '<td><input name="fortune_fortune_visible" type="checkbox"';
   if ($fortune_visible)
-    echo ' CHECKED';
+    echo ' checked="checked"';
   echo " /> " . _("Show fortunes at top of mailbox") . "</td></tr>\n";
 }
 

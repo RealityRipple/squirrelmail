@@ -35,12 +35,12 @@ while (list($avail_lang, $junk) = each($SQSPELL_APP)){
   $msg .= "<input type=\"checkbox\" name=\"use_langs[]\" "
     . "value=\"$avail_lang\"";
   if (in_array($avail_lang, $langs)) {
-    $msg .= ' checked';
+    $msg .= ' checked="checked"';
   }
   $msg .= ' /> ' . _($avail_lang) . "<br />\n";
   $add .= "<option";
   if ($avail_lang==$langs[0]) {
-    $add .= ' selected';
+    $add .= ' selected="selected"';
   }
   $add .= " value=\"$avail_lang\" >" . _($avail_lang) . "</option>\n";
 }
