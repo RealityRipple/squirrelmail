@@ -6,29 +6,17 @@
    // Count the number of occurances of $needle are in $haystack.
    //*************************************************************************
    function countCharInString($haystack, $needle) {
-      $len = strlen($haystack);
-      for ($i = 0; $i < $len; $i++) {
-         if ($haystack[$i] == $needle)
-            $count++;
-      }
-      return $count;
+      $haystack = ereg_replace("[^$needle]","",$haystack);
+      return strlen($haystack);
    }
 
    //*************************************************************************
    // Read from the back of $haystack until $needle is found, or the begining
-   //    of the $haystack is reached.
+   //    of the $haystack is reached.  $needle is a single character
    //*************************************************************************
    function readShortMailboxName($haystack, $needle) {
-      if (substr($haystack, -1) == $needle)
-         $haystack = substr($haystack, 0, strlen($haystack) - 1);
-
-      if (strrpos($haystack, $needle)) {
-         $pos = strrpos($haystack, $needle) + 1;
-         $data = substr($haystack, $pos, strlen($haystack));
-      } else {
-         $data = $haystack;
-      }
-      return $data;
+      ereg("^$needle?([^$needle]+)$needle*",strrev($haystack),$regs);
+        return strrev($regs[1]);
    }
 
    // Searches for the next position in a string minus white space
@@ -120,15 +108,8 @@
       if (trim($text) == "") {
          return;
       }
-      $text = str_replace(" ", "", $text);
-      $text = ereg_replace( '"[^"]*"', "", $text);
-      $text = str_replace(",", ";", $text);
-      $array = explode(";", $text);
-      for ($i = 0; $i < count ($array); $i++) {
-			    $array[$i] = eregi_replace ("^.*[<]", "", $array[$i]);
-			    $array[$i] = eregi_replace ("[>].*$", "", $array[$i]);
-		  }
-      return $array;
+      $text=ereg_replace("[;,][^<]*<* *([^>]*) *>*",";\\1",",$text");
+      return split("[;]", substr($text,1));
    }
 
    /** Returns a line of comma separated email addresses from an array **/
@@ -160,8 +141,7 @@
          
          // We need to do it twice to catch times where there
          // are an odd number of spaces
-         if (ereg("^ (.*)$", $line, $regs))
-             $line = "&nbsp;" . $regs[1];
+         $line = ereg_replace("^ ", "&nbsp;", $line);
          $line = str_replace('  ', '&nbsp; ', $line);
          $line = str_replace('  ', '&nbsp; ', $line);
          $line = nl2br($line);
@@ -208,6 +188,7 @@
 
 
    function find_mailbox_name ($mailbox) {
+/*
       $mailbox = trim($mailbox);
       if (substr($mailbox, strlen($mailbox)-1, strlen($mailbox)) == "\"") {
          $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
@@ -217,6 +198,13 @@
          $box = substr($mailbox, strrpos($mailbox, " ")+1, strlen($mailbox));
       }
       return $box;
+*/      
+
+      if (ereg(" *\"([^\r\n\"]*)\"[ \r\n]*$", $mailbox, $regs))
+          return $regs[1];
+      ereg(" *([^ \r\n\"]*)[ \r\n]*$",$mailbox,$regs);
+      return $regs[1];
+
    }
 
    function replace_spaces ($string) {

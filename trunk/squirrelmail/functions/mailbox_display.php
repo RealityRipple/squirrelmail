@@ -12,7 +12,7 @@
 
    function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage, $where, $what) {
       global $color, $msgs, $msort;
-		global $sent_folder;
+      global $sent_folder;
       global $message_highlight_list;
       global $index_order;
 
@@ -80,6 +80,11 @@
                   echo "<font color=$color[1]>!</font>\n";
                   $stuff = true;
                }
+               if ($msg["FLAG_DELETED"]) {
+                  echo "<font color=\"$color[1]\">D</font>\n";
+                  $stuff = true;
+               }
+               
                if (!$stuff) echo "&nbsp;\n";
                echo "</small></b></td>\n";
                break;
@@ -98,7 +103,7 @@
     **/
    function showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color,$show_num, $use_cache) {
       global $msgs, $msort;
-		global $sent_folder;
+      global $sent_folder;
       global $message_highlight_list;
       global $auto_expunge;
 
@@ -110,20 +115,20 @@
       if (!$use_cache) {
          if ($numMessages >= 1) {
             for ($q = 0; $q < $numMessages; $q++) {
-					if ($mailbox == $sent_folder)
-   	           	$hdr = sqimap_get_small_header ($imapConnection, $q+1, true);
-					else
-         	     	$hdr = sqimap_get_small_header ($imapConnection, $q+1, false);
+               if($mailbox == $sent_folder)
+                  $hdr = sqimap_get_small_header ($imapConnection, $q+1, true);
+               else
+                  $hdr = sqimap_get_small_header ($imapConnection, $q+1, false);
+         	     	
 						
-					$from[$q] = $hdr->from;
-					$date[$q] = $hdr->date;
-					$subject[$q] = $hdr->subject;
+ 	       $from[$q] = $hdr->from;
+	       $date[$q] = $hdr->date;
+	       $subject[$q] = $hdr->subject;
                $to[$q] = $hdr->to;
                $priority[$q] = $hdr->priority;
                $cc[$q] = $hdr->cc;
                $size[$q] = $hdr->size;
                $type[$q] = $hdr->type0;
-
                $flags[$q] = sqimap_get_flags ($imapConnection, $q+1);
             }
          }
@@ -141,7 +146,7 @@
             $messages[$j]["SUBJECT"] = decodeHeader($subject[$j]);
             $messages[$j]["SUBJECT-SORT"] = strtolower(decodeHeader($subject[$j]));
             $messages[$j]["TO"] = decodeHeader($to[$j]);
-				$messages[$j]["PRIORITY"] = $priority[$j];
+	    $messages[$j]["PRIORITY"] = $priority[$j];
             $messages[$j]["CC"] = $cc[$j];
             $messages[$j]["SIZE"] = $size[$j];
             $messages[$j]["TYPE0"] = $type[$j];
@@ -159,38 +164,43 @@
                if ($flags[$j][$num] == "Deleted") {
                   $messages[$j]["FLAG_DELETED"] = true;
                }
-               else if ($flags[$j][$num] == "Answered") {
+               elseif ($flags[$j][$num] == "Answered") {
                   $messages[$j]["FLAG_ANSWERED"] = true;
                }
-               else if ($flags[$j][$num] == "Seen") {
+               elseif ($flags[$j][$num] == "Seen") {
                   $messages[$j]["FLAG_SEEN"] = true;
                }
-               else if ($flags[$j][$num] == "Flagged") {
+               elseif ($flags[$j][$num] == "Flagged") {
                   $messages[$j]["FLAG_FLAGGED"] = true;
                }
                $num++;
             }
             $j++;
          }
-      
-         /** Find and remove the ones that are deleted */
-         $i = 0;
-         $j = 0;
-         while ($j < $numMessages) {
-            if ($messages[$j]["FLAG_DELETED"] == true) {
-               $j++;
-               continue;
-            }
-            $msgs[$i] = $messages[$j];
+
+         /* Only ignore messages flagged as deleted if we are using a
+          * trash folder or auto_expunge */
+         if ($move_to_trash || $auto_expunge)
+         {      
+            /** Find and remove the ones that are deleted */
+            $i = 0;
+            $j = 0;
+            while ($j < $numMessages) {
+               if ($messages[$j]["FLAG_DELETED"] == true) {
+                  $j++;
+                  continue;
+               }
+               $msgs[$i] = $messages[$j];
    
-            $i++;
-            $j++;
+               $i++;
+               $j++;
+            }
+            $numMessages = $i;
          }
-         $numMessages = $i;
       }         
 
       // There's gotta be messages in the array for it to sort them.
-      if (($numMessages > 0) && (!$use_cache)) {
+      if ($numMessages > 0 && ! $use_cache) {
          /** 0 = Date (up)      4 = Subject (up)
           ** 1 = Date (dn)      5 = Subject (dn)
           ** 2 = Name (up)
@@ -204,7 +214,7 @@
          if (($sort == 4) || ($sort == 5))
             $msort = array_cleave ($msgs, "SUBJECT-SORT");
 
-         if(($sort % 2) == 1) {
+         if($sort % 2) {
             asort($msort);
          } else {
             arsort($msort);
@@ -218,7 +228,7 @@
    // generic function to convert the msgs array into an HTML table
    function displayMessageArray($imapConnection, $numMessages, $startMessage, &$msgs, $msort, $mailbox, $sort, $color,$show_num) {
       global $folder_prefix, $sent_folder;
-		global $imapServerAddress;
+      global $imapServerAddress;
       global $index_order;
 
       // if cache isn't already set, do it now
@@ -249,7 +259,7 @@
       $Message = '';
       if ($startMessage < $endMessage) {
          $Message = _("Viewing messages") ." <B>$startMessage</B> ". _("to") ." <B>$endMessage</B> ($numMessages " . _("total") . ")\n";
-      } else if ($startMessage == $endMessage) {
+      } elseif ($startMessage == $endMessage) {
          $Message = _("Viewing message") ." <B>$startMessage</B> ($numMessages " . _("total") . ")\n";
       }
 
@@ -258,11 +268,11 @@
          $More = "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A> | \n";
          $More .= "<A HREF=\"right_main.php?use_mailbox_cache=1&&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
       }
-      else if (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
+      elseif (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
          $More = "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A> | \n";
          $More .= "<FONT COLOR=\"$color[9]\">"._("Next")."</FONT>\n";
       }
-      else if (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
+      elseif (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
          $More = "<FONT COLOR=\"$color[9]\">"._("Previous")."</FONT> | \n";
          $More .= "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
       }
@@ -277,7 +287,7 @@
       if ($numMessages == 0) { // if there's no messages in this folder
          echo "<TR><TD BGCOLOR=\"$color[4]\" COLSPAN=" . count($index_order);
          echo "><CENTER><BR><B>". _("THIS FOLDER IS EMPTY") ."</B><BR>&nbsp;</CENTER></TD></TR>";
-      } else if ($startMessage == $endMessage) { // if there's only one message in the box, handle it different.
+      } elseif ($startMessage == $endMessage) { // if there's only one message in the box, handle it different.
          $i = $startMessage;
          reset($msort);
          do {
@@ -327,7 +337,7 @@
    function mail_message_listing_beginning($imapConnection, $moveURL, 
        $mailbox = '', $sort = -1, $Message = '', $More = '')
    {
-      global $color, $index_order;
+      global $color, $index_order, $auto_expunge, $move_to_trash;
        
          /** This is the beginning of the message list table.  It wraps around all messages */
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=0>";
@@ -366,6 +376,9 @@
       echo "         <SMALL><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"". _("Move") ."\"></SMALL></NOBR>\n";
       echo "      </TD>\n";
       echo "      <TD WIDTH=40% ALIGN=RIGHT>\n";
+      if (! $move_to_trash && ! $auto_expunge) {
+         echo "         <NOBR><SMALL><INPUT TYPE=SUBMIT NAME=\"expungeButton\" VALUE=\"". _("Expunge") ."\">&nbsp;". _("mailbox") ."</SMALL></NOBR>&nbsp;&nbsp;\n";
+      }
       echo "         <NOBR><SMALL><INPUT TYPE=SUBMIT VALUE=\"". _("Delete") ."\">&nbsp;". _("checked messages") ."</SMALL></NOBR>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
@@ -394,9 +407,9 @@
          
                if ($sort == 2)
                   echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
-               else if ($sort == 3)
+               elseif ($sort == 3)
                   echo "   <A HREF=\"right_main.php?newsort=2&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
-               else if ($sort != -1)
+               elseif ($sort != -1)
                   echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
                break;
                
@@ -404,9 +417,9 @@
                echo "   <TD nowrap WIDTH=1%><B>". _("Date") ."</B>";
                if ($sort == 0)
                   echo "   <A HREF=\"right_main.php?newsort=1&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
-               else if ($sort == 1)
+               elseif ($sort == 1)
                   echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
-               else if ($sort != -1)
+               elseif ($sort != -1)
                   echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
                break;
                
@@ -414,9 +427,9 @@
                echo "   <TD WIDTH=%><B>". _("Subject") ."</B>\n";
                if ($sort == 4)
                  echo "   <A HREF=\"right_main.php?newsort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
-               else if ($sort == 5)
+               elseif ($sort == 5)
                   echo "   <A HREF=\"right_main.php?newsort=4&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
-               else if ($sort != -1)
+               elseif ($sort != -1)
                   echo "   <A HREF=\"right_main.php?newsort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
                break;
                
