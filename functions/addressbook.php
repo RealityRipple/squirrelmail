@@ -34,17 +34,19 @@
 	return $abook;
 
       // Load configured LDAP servers
-      reset($ldap_server);
-      while(list($key,$param) = each($ldap_server)) {
-	 if(is_array($param)) {
-	    $r = $abook->add_backend("ldap_server", $param);
-            if(!$r && $showerr) {
-              printf("&nbsp;"._("Error initializing LDAP server %s:")."<BR>\n",
-                     $param["host"]);
-              printf("&nbsp;".$abook->error);
-              exit;
-            }
-         }
+      if(is_array($ldap_server)) {
+	 reset($ldap_server);
+	 while(list($key,$param) = each($ldap_server)) {
+	    if(is_array($param)) {
+	       $r = $abook->add_backend("ldap_server", $param);
+	       if(!$r && $showerr) {
+		  printf("&nbsp;"._("Error initializing LDAP server %s:").
+			 "<BR>\n", $param["host"]);
+		  printf("&nbsp;".$abook->error);
+		  exit;
+	       }
+	    }
+	 }
       }
 
       // Return the initialized object
@@ -63,9 +65,11 @@
       var $numbackends = 0;
       var $error       = "";
       var $localbackend = 0;
+      var $localbackendname = "";
 
       // Constructor function.
       function AddressBook() {
+	 $localbackendname = _("Personal address book");
       }
 
       // Return an array of backends of a given type, 
@@ -101,8 +105,10 @@
 	 $this->backends[$this->numbackends] = $newback;
 
 	 // Store ID of first local backend added
-	 if($this->localbackend == 0 && $newback->btype == "local")
+	 if($this->localbackend == 0 && $newback->btype == "local") {
 	    $this->localbackend = $this->numbackends;
+	    $this->localbackendname = $newback->sname;
+	 }
 
 	 return $this->numbackends;
       }
@@ -160,8 +166,18 @@
 
       // Lookup an address by alias. Only possible in
       // local backends.
-      function lookup($alias) {
+      function lookup($alias, $bnum = -1) {
 	 $ret = array();
+
+	 if($bnum > -1) {
+	    $res = $this->backends[$bnum]->lookup($alias);
+	    if(is_array($res)) {
+	       return $res;
+	    } else {
+	       $this->error = $backend->error;
+	       return false;
+	    }
+	 }     
 
 	 $sel = $this->get_backend_list("local");
 	 for($i = 0 ; $i < sizeof($sel) ; $i++) {
@@ -169,7 +185,8 @@
 	    $backend->error = "";
 	    $res = $backend->lookup($alias);
 	    if(is_array($res)) {
-	       return $res;
+	       if(!empty($res))
+		  return $res;
 	    } else {
 	       $this->error = $backend->error;
 	       return false;
@@ -224,6 +241,11 @@
 	    $userdata["nickname"] = $userdata["email"];
 	 }
 
+	 if(eregi("[\: \|\#\"\!]", $userdata["nickname"])) {
+	    $this->error = _("Nickname contain illegal characters");
+	    return false;
+	 }
+
 	 // Check that specified backend accept new entries
 	 if(!$this->backends[$bnum]->writeable) {
 	    $this->error = _("Addressbook is read-only");
@@ -240,9 +262,85 @@
 	 }
 
 	 return false;  // Not reached
-      }
+      } // end of add()
 
-   }
+
+      // Remove the user identified by $alias from backend $bnum
+      // If $alias is an array, all users in the array are removed.
+      function remove($alias, $bnum) {
+
+	 // Check input
+	 if(empty($alias))
+	    return true;
+
+	 // Convert string to single element array
+	 if(!is_array($alias))
+	   $alias = array(0 => $alias);
+
+	 // Check that specified backend is writable
+	 if(!$this->backends[$bnum]->writeable) {
+	    $this->error = _("Addressbook is read-only");
+	    return false;
+	 }
+
+	 // Remove user from backend
+	 $res = $this->backends[$bnum]->remove($alias);
+	 if($res) {
+	    return $bnum;
+	 } else {
+	    $this->error = $this->backends[$bnum]->error;
+	    return false;
+	 }
+
+	 return false;  // Not reached
+      } // end of remove()
+
+
+      // Remove the user identified by $alias from backend $bnum
+      // If $alias is an array, all users in the array are removed.
+      function modify($alias, $userdata, $bnum) {
+
+	 // Check input
+	 if(empty($alias) || !is_string($alias))
+	    return true;
+
+	 // Validate data
+	 if(!is_array($userdata)) {
+	    $this->error = _("Invalid input data");
+	    return false;
+	 }
+	 if(empty($userdata["firstname"]) &&
+	    empty($userdata["lastname"])) {
+	    $this->error = _("Name is missing");
+	    return false;
+	 }
+	 if(empty($userdata["email"])) {
+	    $this->error = _("E-mail address is missing");
+	    return false;
+	 }
+	 if(empty($userdata["nickname"])) {
+	    $userdata["nickname"] = $userdata["email"];
+	 }
+
+	 // Check that specified backend is writable
+	 if(!$this->backends[$bnum]->writeable) {
+	    $this->error = _("Addressbook $bnum is read-only");
+	    return false;
+	 }
+
+	 // Modify user in backend
+	 $res = $this->backends[$bnum]->modify($alias, $userdata);
+	 if($res) {
+	    return $bnum;
+	 } else {
+	    $this->error = $this->backends[$bnum]->error;
+	    return false;
+	 }
+
+	 return false;  // Not reached
+      } // end of modify()
+
+   } // End of class Addressbook
 
 
   /**
@@ -286,6 +384,16 @@
 
       function add($userdata) {
 	 $this->set_error("add not implemented");
+	 return false;
+      }
+
+      function remove($alias) {
+	 $this->set_error("delete not implemented");
+	 return false;
+      }
+
+      function modify($alias, $newuserdata) {
+	 $this->set_error("modify not implemented");
 	 return false;
       }
 
