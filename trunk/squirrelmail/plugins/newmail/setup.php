@@ -277,7 +277,7 @@ function newmail_plugin() {
         // will play the sound as follows:
 
         if ($newmail_changetitle) {
-            echo "<script language=\"javascript\">\n" .
+            echo "<script language=\"javascript\" type=\"text/javascript\">\n" .
                 "function ChangeTitleLoad() {\n";
             echo 'window.parent.document.title = "' .
                 sprintf(ngettext("%s New Message","%s New Messages",$totalNew), $totalNew) .
