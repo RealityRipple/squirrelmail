@@ -132,7 +132,7 @@ class abook_local_file extends addressbook_backend {
         $this->error = '';
         $file   = $this->filename;
         $create = $this->create;
-        $fopenmode = ($this->writeable ? 'a+' : 'r');
+        $fopenmode = (($this->writeable && is_writable($file)) ? 'a+' : 'r');
 
         /* Return true is file is open and $new is unset */
         if($this->filehandle && !$new) {
