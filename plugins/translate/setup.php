@@ -34,7 +34,9 @@ function squirrelmail_plugin_init_translate() {
   $squirrelmail_plugin_hooks['read_body_bottom']['translate'] = 'translate_read_form';
   $squirrelmail_plugin_hooks['optpage_register_block']['translate'] = 'translate_optpage_register_block';
   $squirrelmail_plugin_hooks['loading_prefs']['translate'] = 'translate_pref';
-//  $squirrelmail_plugin_hooks['compose_button_row']['translate'] = 'translate_button';
+  $squirrelmail_plugin_hooks['options_save']['translate'] = 'translate_save';
+  $squirrelmail_plugin_hooks['optpage_set_loadinfo']['translate'] = 'translate_set_loadinfo';
+  //  $squirrelmail_plugin_hooks['compose_button_row']['translate'] = 'translate_button';
 }
 
 /**
@@ -73,5 +75,23 @@ function translate_optpage_register_block() {
 function translate_pref() {
     include_once(SM_PATH . 'plugins/translate/functions.php');
     translate_pref_function();
+}
+
+/**
+ * Calls user's translation preferences saving function
+ * @access private
+ */
+function translate_save() {
+    include_once(SM_PATH . 'plugins/translate/functions.php');
+    translate_save_function();
+}
+
+/**
+ * Calls user's translation preferences set_loadinfo function
+ * @access private
+ */
+function translate_set_loadinfo() {
+    include_once(SM_PATH . 'plugins/translate/functions.php');
+    translate_set_loadinfo_function();
 }
 ?>

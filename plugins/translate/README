@@ -59,6 +59,8 @@ Questions/comments/flames/etc can be sent to the Squirrelmail Plugins list
 Changes
 =======
   * Plugin included into squirrelmail distribution
+  * Added site configuration options
+
 1.3 -> 1.4
   * Modified to use new option page hook.
     Paul Joseph Thompson <captbunzo@squirrelmail.org>

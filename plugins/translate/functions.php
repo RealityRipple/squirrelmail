@@ -10,6 +10,14 @@
  * @subpackage translate
  */
 
+/**
+ * Define for wrecked souls accessing functions script directly
+ * @ignore
+ */
+if (!defined('SM_PATH'))  {
+    define('SM_PATH','../../');
+}
+
 /** Load default config */
 if (file_exists(SM_PATH . 'plugins/translate/config_default.php')) {
     include_once(SM_PATH . 'plugins/translate/config_default.php');
@@ -39,6 +47,8 @@ if (file_exists(SM_PATH . 'plugins/translate/config_default.php')) {
     $translate_gpltrans_enabled=true;
     global $translate_custom_enabled;
     $translate_custom_enabled=false;
+    // This is logged error message. Don't translate it.
+    error_log('SquirrelMail: default configuration file removed in translate plugin.');
 }
 
 /** Load site config */
@@ -65,6 +75,7 @@ function translate_read_form_function() {
         $translate_dictionary_enabled, $translate_google_enabled,
         $translate_gpltrans_enabled, $translate_intertran_enabled,
         $translate_promt_enabled, $translate_otenet_enabled;
+    global $translate_custom_enabled;
 
     if (!$translate_show_read) {
         return;
@@ -139,10 +150,7 @@ function translate_pref_function() {
 
     $translate_server = getPref($data_dir, $username, 'translate_server',$translate_default_engine);
 
-    $translate_location = getPref($data_dir, $username, 'translate_location');
-    if ($translate_location == '') {
-        $translate_location = 'center';
-    }
+    $translate_location = getPref($data_dir, $username, 'translate_location','center');
 
     $translate_show_send = getPref($data_dir, $username, 'translate_show_send');
     $translate_show_read = getPref($data_dir, $username, 'translate_show_read');
@@ -163,10 +171,61 @@ function translate_button_function() {
     }
 }
 
+/**
+ * Save translation options
+ */
+function translate_save_function() {
+    global $username, $data_dir;
+    // Save preferences
+    if (sqgetGlobalVar('submit_translate',$tmp,SQ_POST)) {
+        if (sqgetGlobalVar('translate_translate_server',$translate_server,SQ_POST)) {
+            setPref($data_dir, $username, 'translate_server', $translate_server);
+        } else {
+            setPref($data_dir, $username, 'translate_server', $translate_default_engine);
+        }
+
+        if (sqgetGlobalVar('translate_translate_location',$translate_location,SQ_POST)) {
+            setPref($data_dir, $username, 'translate_location', $translate_location);
+        } else {
+            setPref($data_dir, $username, 'translate_location', 'center');
+        }
+
+        if (sqgetGlobalVar('translate_translate_show_read',$translate_show_read,SQ_POST)) {
+            setPref($data_dir, $username, 'translate_show_read', '1');
+        } else {
+            setPref($data_dir, $username, 'translate_show_read', '');
+        }
+
+        if (sqgetGlobalVar('translate_translate_show_send',$translate_show_send,SQ_POST)) {
+            setPref($data_dir, $username, 'translate_show_send', '1');
+        } else {
+            setPref($data_dir, $username, 'translate_show_send', '');
+        }
+
+        if (sqgetGlobalVar('translate_translate_same_window',$translate_same_windows,SQ_POST)) {
+            setPref($data_dir, $username, 'translate_same_window', '1');
+        } else {
+            setPref($data_dir, $username, 'translate_same_window', '');
+        }
+    }
+}
+
+/**
+ * Set option page name
+ * @access private
+ */
+function translate_set_loadinfo_function() {
+    global $optpage, $optpage_name;
+    if ($optpage=='translate') {
+        $optpage_name=_("Translation Preferences");
+    }
+}
+
 /** Option functions */
 
 /**
- *
+ * Creates server selection options
+ * @access private
  */
 function translate_showoption() {
     global $translate_babelfish_enabled, $translate_go_enabled,
@@ -190,7 +249,8 @@ function translate_showoption() {
 }
 
 /**
- *
+ * Displays comments about available translation engines
+ * @access private
  */
 function translate_showtrad() {
     global $translate_babelfish_enabled, $translate_go_enabled,
@@ -200,8 +260,8 @@ function translate_showtrad() {
     global $translate_gpltrans_url, $translate_custom_enabled;
 
     if ($translate_babelfish_enabled) translate_showtrad_internal( 'Babelfish',
-              _("Maximum of 1000 characters translated, powered by Systran").
-              '<br />'.sprintf(_("Number of supported language pairs: %s"),'19').' ' ,
+              _("Maximum of 150 words translated, powered by Systran").
+              '<br />'.sprintf(_("Number of supported language pairs: %s"),'36').' ' ,
               'http://babelfish.altavista.com/' );
     if ($translate_go_enabled) translate_showtrad_internal( 'Translator.Go.com',
               _("Maximum of 25 kilobytes translated, powered by Systran").
@@ -229,7 +289,7 @@ function translate_showtrad() {
               'http://systran.otenet.gr/' );
     if ($translate_promt_enabled) translate_showtrad_internal( 'PROMT',
               _("Russian translations, maximum of 500 characters translated").
-              '<br />'.sprintf(_("Number of supported language pairs: %s"),'13').' ' ,
+              '<br />'.sprintf(_("Number of supported language pairs: %s"),'16').' ' ,
               'http://www.online-translator.com/' );
 
     if ($translate_custom_enabled && function_exists('translate_custom_showtrad')) {
@@ -407,14 +467,22 @@ function translate_form_babelfish($message) {
     <input type="hidden" name="tt" value="urltext" />
     <input type="hidden" name="trtext" value="<?php echo $message; ?>" />
     <select name="lp"><?php
-        echo translate_lang_opt('en_US', 'zh_CN', 'en_zh',
-                                sprintf( _("%s to %s"),_("English"),_("Chinese Simplified"))) .
+        echo translate_lang_opt('zh_CN',  '',     'zh_en',
+                            sprintf( _("%s to %s"),_("Chinese Simplified"),_("English"))) .
+         translate_lang_opt('zh_TW',  '',     'zt_en',
+                            sprintf( _("%s to %s"),_("Chinese Traditional"),_("English"))) .
+         translate_lang_opt('en_US', 'zh_CN', 'en_zh',
+                            sprintf( _("%s to %s"),_("English"),_("Chinese Simplified"))) .
          translate_lang_opt('en_US', 'zh_TW', 'en_zt',
                             sprintf( _("%s to %s"),_("English"),_("Chinese Traditional"))) .
+         translate_lang_opt('en_US', 'nl_NL',  'en_nl',
+                            sprintf( _("%s to %s"),_("English"),_("Dutch"))) .
          translate_lang_opt('en_US', 'fr_FR',  'en_fr',
                             sprintf( _("%s to %s"),_("English"),_("French"))) .
          translate_lang_opt('en_US', 'de_DE', 'en_de',
                             sprintf( _("%s to %s"),_("English"),_("German"))) .
+         translate_lang_opt('en_US', 'el_GR',  'en_el',
+                            sprintf( _("%s to %s"),_("English"),_("Greek"))) .
          translate_lang_opt('en_US', 'it_IT', 'en_it',
                             sprintf( _("%s to %s"),_("English"),_("Italian"))) .
          translate_lang_opt('en_US', 'ja_JP', 'en_ja',
@@ -423,32 +491,54 @@ function translate_form_babelfish($message) {
                             sprintf( _("%s to %s"),_("English"),_("Korean"))) .
          translate_lang_opt('en_US', 'pt*',   'en_pt',
                             sprintf( _("%s to %s"),_("English"),_("Portuguese"))) .
+         translate_lang_opt('en_US', 'ru_RU',  'en_ru',
+                            sprintf( _("%s to %s"),_("English"),_("Russian"))) .
          translate_lang_opt('en_US', 'es_ES', 'en_es',
                             sprintf( _("%s to %s"),_("English"),_("Spanish"))) .
-         translate_lang_opt('zh_CN',  '',     'zh_en',
-                            sprintf( _("%s to %s"),_("Chinese Simplified"),_("English"))) .
-         translate_lang_opt('zh_TW',  '',     'zt_en',
-                            sprintf( _("%s to %s"),_("Chinese Traditional"),_("English"))) .
+         translate_lang_opt('nl_NL', '',      'nl_en',
+                            sprintf( _("%s to %s"),_("Dutch"),_("English"))) .
+         translate_lang_opt('nl_NL', '',      'nl_fr',
+                            sprintf( _("%s to %s"),_("Dutch"),_("French"))) .
          translate_lang_opt('fr_FR', '',      'fr_en',
                             sprintf( _("%s to %s"),_("French"),_("English"))) .
+         translate_lang_opt('fr_FR',  '',     'fr_de',
+                            sprintf( _("%s to %s"),_("French"),_("German"))) .
+         translate_lang_opt('fr_FR',  '',     'fr_el',
+                            sprintf( _("%s to %s"),_("French"),_("Greek"))) .
+         translate_lang_opt('fr_FR',  '',     'fr_it',
+                            sprintf( _("%s to %s"),_("French"),_("Italian"))) .
+         translate_lang_opt('fr_FR',  '',     'fr_pt',
+                            sprintf( _("%s to %s"),_("French"),_("Portuguese"))) .
+         translate_lang_opt('fr_FR',  '',     'fr_nl',
+                            sprintf( _("%s to %s"),_("French"),_("Dutch"))) .
+         translate_lang_opt('fr_FR',  '',     'fr_es',
+                            sprintf( _("%s to %s"),_("French"),_("Spanish"))) .
          translate_lang_opt('de_DE', 'en_US', 'de_en',
                             sprintf( _("%s to %s"),_("German"),_("English"))) .
+         translate_lang_opt('de_DE',  '',     'de_fr',
+                            sprintf( _("%s to %s"),_("German"),_("French"))) .
+         translate_lang_opt('el_GR', '',      'el_en',
+                            sprintf( _("%s to %s"),_("Greek"),_("English"))) .
+         translate_lang_opt('el_GR', '',      'el_fr',
+                            sprintf( _("%s to %s"),_("Greek"),_("French"))) .
          translate_lang_opt('it_IT', '',      'it_en',
                             sprintf( _("%s to %s"),_("Italian"),_("English"))) .
-         translate_lang_opt('ja_JP',  '',    'ja_en',
+         translate_lang_opt('it_IT', '',      'it_fr',
+                            sprintf( _("%s to %s"),_("Italian"),_("French"))) .
+         translate_lang_opt('ja_JP',  '',     'ja_en',
                             sprintf( _("%s to %s"),_("Japanese"),_("English"))) .
-         translate_lang_opt('ko_KR',  '',    'ko_en',
+         translate_lang_opt('ko_KR',  '',     'ko_en',
                             sprintf( _("%s to %s"),_("Korean"),_("English"))) .
-         translate_lang_opt('pt*',    '',    'pt_en',
+         translate_lang_opt('pt*',    '',     'pt_en',
                             sprintf( _("%s to %s"),_("Portuguese"),_("English"))) .
-         translate_lang_opt('es_ES',  '',    'es_en',
+         translate_lang_opt('pt*',    '',     'pt_fr',
+                            sprintf( _("%s to %s"),_("Portuguese"),_("French"))) .
+         translate_lang_opt('ru_RU',  '',     'ru_en',
+                            sprintf( _("%s to %s"),_("Russian"),_("English"))) .
+         translate_lang_opt('es_ES',  '',     'es_en',
                             sprintf( _("%s to %s"),_("Spanish"),_("English"))) .
-         translate_lang_opt('de_DE',  '',    'de_fr',
-                            sprintf( _("%s to %s"),_("German"),_("French"))) .
-         translate_lang_opt('fr_FR',  '',    'fr_de',
-                            sprintf( _("%s to %s"),_("French"),_("German"))) .
-         translate_lang_opt('ru_RU',  '',    'ru_en',
-                            sprintf( _("%s to %s"),_("Russian"),_("English")));
+         translate_lang_opt('es_ES',  '',     'es_fr',
+                            sprintf( _("%s to %s"),_("Spanish"),_("French")));
     echo '</select>'.
          'Babelfish: <input type="submit" value="' . _("Translate") . '" />';
 
@@ -503,6 +593,7 @@ function translate_form_intertran($message) {
     translate_new_form('http://www.tranexp.com:2000/InterTran');
     echo '<input type="hidden" name="topframe" value="yes" />'.
          '<input type="hidden" name="type" value="text" />'.
+         '<input type="hidden" name="keyb" value="non" />'.
          '<input type="hidden" name="text" value="'.$message.'" />';
 
     $left = '<select name="from">' .
@@ -612,7 +703,7 @@ function translate_form_dictionary($message) {
     list($usec, $sec) = explode(' ',microtime());
     $time = $sec . (float)$usec*100000000;
     echo '<input type="hidden" name="text" value="'.$message.'" />'.
-         '<input type="hidden" name="r" value="'.$time.'" />'.
+         '<input type="hidden" name="ts" value="'.$time.'" />'.
          '<select name="lp">'.
          translate_lang_opt('en_US', 'zh_CN', 'en_zh',
                             sprintf( _("%s to %s"),_("English"),_("Simplified Chinese"))) .
@@ -773,9 +864,16 @@ function translate_form_promt($message) {
             translate_lang_opt('en_US', '',      'es',
                                sprintf( _("%s to %s"),_("English"),_("Spanish"))) .
             translate_lang_opt('es_ES', '',  'se',
-                               sprintf( _("%s to %s"),_("Spanish"),_("English"))) ;
+                               sprintf( _("%s to %s"),_("Spanish"),_("English"))) .
+            translate_lang_opt('en_US', '',  'ef',
+                               sprintf( _("%s to %s"),_("English"),_("French"))) .
+            translate_lang_opt('fr_FR', '',  'fe',
+                               sprintf( _("%s to %s"),_("French"),_("English"))) .
+            translate_lang_opt('en_US', '',  'ep',
+                               sprintf( _("%s to %s"),_("English"),_("Portuguese")));
     echo "</select><br />\n";
     echo "<input type=\"hidden\" name=\"template\" value=\"General\" />\n";
+    echo _("Transliterate unknown words:") . '<input type="checkbox" id="transliterate" name="transliterate" /><br />';
     echo 'PROMT: <input type="submit" value="' . _("Translate") . '" />';
 
     translate_table_end();
@@ -789,14 +887,13 @@ function translate_form_promt($message) {
  */
 function translate_form_google($message) {
     translate_new_form('http://www.google.com/translate_t');
-?>
-    <input type="hidden" name="ie" value="Unknown" />
-    <input type="hidden" name="oe" value="ASCII" />
-    <input type="hidden" name="hl" value="en" />
-    <input type="hidden" name="text" value="<?php echo $message; ?>" />
-    <select name="langpair"><?php
-        echo translate_lang_opt('en_US', 'de_DE', 'en|de',
-                                sprintf( _("%s to %s"),_("English"),_("German"))) .
+    echo '<input type="hidden" name="ie" value="Unknown" />' .
+         '<input type="hidden" name="oe" value="ASCII" />' .
+         '<input type="hidden" name="hl" value="en" />' .
+         '<input type="hidden" name="text" value="' . $message . '" />';
+    echo '<select name="langpair">'.
+         translate_lang_opt('en_US', 'de_DE', 'en|de',
+                            sprintf( _("%s to %s"),_("English"),_("German"))) .
          translate_lang_opt('en_US', 'es_ES',  'en|es',
                             sprintf( _("%s to %s"),_("English"),_("Spanish"))) .
          translate_lang_opt('en_US', 'fr_FR', 'en|fr',
