@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2003-01-01 18:33+0100\n"
-"PO-Revision-Date: 2002-08-24 14:26+0200\n"
+"PO-Revision-Date: 2003-01-03 11:24+0100\n"
 "Last-Translator: Kent B. Hansen <kent@squirrelmail.dk>\n"
-"Language-Team: \n"
+"Language-Team: Danish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -56,13 +56,11 @@ msgstr "Kan ikke ændre i den globale adressebog"
 msgid "Not a file name"
 msgstr "Ikke et filnavn"
 
-#, fuzzy
 msgid "Write failed"
-msgstr "Kunne ikke åbne filen"
+msgstr "Kunne ikke skrive"
 
-#, fuzzy
 msgid "Unable to update"
-msgstr "Gem / Opdater"
+msgstr "Kunne ikke opdatere"
 
 msgid "Could not lock datafile"
 msgstr "Kunne ikke låse filen"
@@ -230,21 +228,20 @@ msgstr ""
 "Filen med de gemte indstillinger (%s) kunne ikke åbnes. Kontakt "
 "systemadministratoren."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Preference file, %s, could not be written. Contact your system administrator "
 "to resolve this issue."
 msgstr ""
-"Filen med de gemte indstillinger (%s) kunne ikke åbnes. Kontakt "
+"Filen med indstillinger (%s) kunne ikke gemmes. Kontakt "
 "systemadministratoren."
 
 #, c-format
 msgid "Error opening %s"
 msgstr "Fejl ved åbning af %s"
 
-#, fuzzy
 msgid "Default preference file not found or not readable!"
-msgstr "Kunne ikke finde filen med standardindstillinger!"
+msgstr "Kunne ikke finde eller læse filen med standardindstillinger!"
 
 msgid "Please contact your system administrator and report this error."
 msgstr "Rapportér denne fejl til systemadministratoren."
@@ -262,11 +259,11 @@ msgid ""
 "to resolve this issue."
 msgstr "Signaturfilen (%s) kunne ikke åbnes. Kontakt systemadministratoren."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Signature file, %s, could not be written. Contact your system administrator "
 "to resolve this issue."
-msgstr "Signaturfilen (%s) kunne ikke åbnes. Kontakt systemadministratoren."
+msgstr "Signaturfilen (%s) kunne ikke gemmes. Kontakt systemadministratoren."
 
 msgid ""
 "You need to have php4 installed with the multibyte string function enabled "
@@ -276,7 +273,7 @@ msgstr ""
 "(brug konfigurationsparameteren --with-mbstring)."
 
 msgid "ERROR : No available imapstream."
-msgstr ""
+msgstr "FEJL : Ingen IMAP-strøm tilgængelig."
 
 msgid "ERROR : Could not complete request."
 msgstr "FEJL : Kunne ikke fuldføre handlingen."
@@ -308,18 +305,18 @@ msgstr "Ukendt fejl: %s"
 msgid "Read data:"
 msgstr "Læste data:"
 
-#, fuzzy
 msgid "ERROR : Could not append message to"
-msgstr "FEJL : Kunne ikke fuldføre handlingen."
+msgstr "FEJL : Kunne ikke tilføje meddelelsen til"
 
-#, fuzzy
 msgid "Solution: "
-msgstr "Forslag:"
+msgstr "Løsning:"
 
 msgid ""
 "Remove unneccessary messages from your folder and start with your Trash "
 "folder."
 msgstr ""
+"Flyt ikke nødvendige beskedder fra din mappe og start med din "
+"papirkurv."
 
 msgid "INBOX"
 msgstr "Indbakke"
@@ -336,9 +333,8 @@ msgstr "Ukendt afsender"
 msgid "(unknown sender)"
 msgstr "(ukendt afsender)"
 
-#, fuzzy
 msgid "Unknown date"
-msgstr "Ukendt afsender"
+msgstr "Ukendt dato"
 
 msgid "A"
 msgstr "B"
@@ -361,7 +357,7 @@ msgid "THIS FOLDER IS EMPTY"
 msgstr "Denne mappe er tom"
 
 msgid "Move Selected To"
-msgstr "Flyt valgte til:"
+msgstr "Flyt valgte til"
 
 msgid "Transform Selected Messages"
 msgstr "Formattér de valgte beskeder"
@@ -438,19 +434,17 @@ msgid "Show All"
 msgstr "Vis alle"
 
 msgid "SquirrelMail could not decode the bodystructure of the message"
-msgstr ""
+msgstr "SquirrelMail kunne ikke afkode strukturen i meddelelsens brødtekst"
 
 msgid "the provided bodystructure by your imap-server"
-msgstr ""
+msgstr "brødtekstens struktur fra din IMAP-server"
 
-#, fuzzy
 msgid ""
 "Body retrieval error. The reason for this is most probably that the message "
 "is malformed."
 msgstr ""
 "Kunne ikke hente beskedens tekst. Årsagen er formodentlig at beskeden ikke "
-"er formatteret korrekt. Vær venlig at sende denne besked til udviklerne, så "
-"fremtidige versioner kan forbedres!"
+"er formatteret korrekt."
 
 msgid "Command:"
 msgstr "Kommando:"
@@ -632,7 +626,7 @@ msgid "Enable Mail Delivery Notification"
 msgstr "Gør opmærksom på ulæste beskeder"
 
 msgid "Compose Messages in New Window"
-msgstr "Skriv altid i et nyt vindue"
+msgstr "Skriv meddelelser i et nyt vindue"
 
 msgid "Width of Compose Window"
 msgstr "Bredde på skrivevinduet"
@@ -727,7 +721,6 @@ msgstr "Vis antal ulæste og samlet antal"
 msgid "Enable Collapsable Folders"
 msgstr "Aktivér sammenklappelige mapper"
 
-#, fuzzy
 msgid "Enable Cumulative Unread Message Notification"
 msgstr "Gør opmærksom på ulæste beskeder"
 
@@ -752,23 +745,20 @@ msgstr "Hukommelsessøgning"
 msgid "Disabled"
 msgstr "Deaktiveret"
 
-#, fuzzy
 msgid "Folder Selection Options"
 msgstr "Mappeliste-indstillinger"
 
-#, fuzzy
 msgid "Selection List Style"
 msgstr "Citationsstil"
 
-#, fuzzy
 msgid "Long: "
-msgstr "Længde:"
+msgstr "Længde: "
 
 msgid "Indented: "
-msgstr ""
+msgstr "Indrykket: "
 
 msgid "Delimited: "
-msgstr ""
+msgstr "Afgrænset: "
 
 msgid "Name and Address Options"
 msgstr "Navn- og adresseindstillinger"
@@ -1071,8 +1061,7 @@ msgid "Change Settings"
 msgstr "Gem indstillingerne"
 
 msgid "Config file can't be opened. Please check config.php."
-msgstr ""
-"Konfigurationsfilen kan ikke åbnes. Vær venlig at kontrollere config.php."
+msgstr "Konfigurationsfilen kan ikke åbnes. Vær venlig at kontrollere config.php."
 
 msgid "Administration"
 msgstr "Administration"
@@ -1361,8 +1350,7 @@ msgstr ""
 "servere som har et meget højt spam/ikke spam forhold (85% eller mere)."
 
 msgid "FREE - dev.null.dk - I don't have any detailed info on this list."
-msgstr ""
-"GRATIS - dev.null.dk - Jeg har ingen detaljerede oplysninger om denne liste."
+msgstr "GRATIS - dev.null.dk - Jeg har ingen detaljerede oplysninger om denne liste."
 
 msgid "FREE - visi.com - Relay Stop List. Very conservative OpenRelay List."
 msgstr ""
@@ -1376,8 +1364,7 @@ msgid "FREE - 2mbit.com SPAM Source - List of Direct SPAM Sources."
 msgstr "GRATIS - 2mbit.com SPAM Source - En liste over direkte spamkilder."
 
 msgid "FREE - 2mbit.com SPAM ISPs - List of SPAM-friendly ISPs."
-msgstr ""
-"GRATIS - 2mbit.com SPAM ISPs - En liste over spamvenlige internetudbydere."
+msgstr "GRATIS - 2mbit.com SPAM ISPs - En liste over spamvenlige internetudbydere."
 
 msgid ""
 "FREE - Leadmon DUL - Another list of Dial-up or otherwise dynamically "
@@ -1435,19 +1422,16 @@ msgstr ""
 "servere samt direkte spamkilder."
 
 msgid "FREE, for now - Not Just Another Blacklist - Dial-up IPs."
-msgstr ""
-"GRATIS, indtil videre - Not Just Another Blacklist - Dial-up ip-adresser."
+msgstr "GRATIS, indtil videre - Not Just Another Blacklist - Dial-up ip-adresser."
 
 msgid "FREE - Distributed Sender Boycott List - Confirmed Relays"
 msgstr "GRATIS - Distributed Sender Boycott List - Bekræftede åbne servere"
 
 msgid "FREE - Distributed Sender Boycott List - Confirmed Multi-stage Relays"
-msgstr ""
-"GRATIS - Distributed Sender Boycott List - Bekræftede flertrins åbne servere"
+msgstr "GRATIS - Distributed Sender Boycott List - Bekræftede flertrins åbne servere"
 
 msgid "FREE - Distributed Sender Boycott List - UN-Confirmed Relays"
-msgstr ""
-"GRATIS - Distributed Sender Boycott List - Ikke-bekræftede åbne servere"
+msgstr "GRATIS - Distributed Sender Boycott List - Ikke-bekræftede åbne servere"
 
 msgid "Saved Scan type"
 msgstr "Skanningstype gemt"
@@ -1788,16 +1772,14 @@ msgstr "Henter besked "
 msgid "Server error...Disconnect"
 msgstr "Serverfejl...Afbryder"
 
-#, fuzzy
 msgid "Reconnect from dead connection"
 msgstr "Gentilslut død forbindelse"
 
 msgid "Saving UIDL"
 msgstr "Gemmer UIDL"
 
-#, fuzzy
 msgid "Refetching message "
-msgstr "Genhenter besked "
+msgstr "Henter besked igen "
 
 msgid "Error Appending Message!"
 msgstr "Fejl under tilføjning af besked!"
@@ -1848,9 +1830,8 @@ msgstr "Tilføj server"
 msgid "Server:"
 msgstr "Server:"
 
-#, fuzzy
 msgid "Port:"
-msgstr "Prioritet:"
+msgstr "Port:"
 
 msgid "Alias:"
 msgstr "Kaldenavn:"
@@ -2083,16 +2064,19 @@ msgid "Base Sent Folder"
 msgstr "Basis Sendt-mappe"
 
 msgid "Report as Spam"
-msgstr ""
+msgstr "Rapportér som spam"
 
 msgid "SpamCop - Spam Reporting"
-msgstr ""
+msgstr "SpamCop - Spam-rapportering"
 
 msgid ""
 "Help fight the battle against unsolicited email.  SpamCop reads the spam "
 "email and determines the correct addresses to send complaints to.  Quite "
 "fast, really smart, and easy to use."
 msgstr ""
+"Hjælp i kampen mod post som man ikke har anmodet om. SpamCop "
+"læser spam-posten, og finder de rette adresser, som man kan klage "
+"til. Hurtigt, smart og let at bruge."
 
 msgid "SpellChecker Options"
 msgstr "Stavekontrolindstillinger"
@@ -2144,8 +2128,7 @@ msgstr "Fortsæt"
 msgid "You must make a choice"
 msgstr "Du skal foretage et valg"
 
-msgid ""
-"You can either delete your dictionary or type in the old password. Not both."
+msgid "You can either delete your dictionary or type in the old password. Not both."
 msgstr ""
 "Du kan enten slette din ordbog eller angive din gamle adgangskode. Ikke "
 "begge dele."
@@ -2162,19 +2145,16 @@ msgstr "Sødt."
 msgid "Translator"
 msgstr "Oversætter"
 
-#, fuzzy
 msgid "Saved Translation Options"
-msgstr "Oversættelsesindstillinger"
+msgstr "Gemte oversættelsesindstillinger"
 
 msgid "Your server options are as follows:"
 msgstr "Dine serverindstillinger er som følger:"
 
-msgid ""
-"13 language pairs, maximum of 1000 characters translated, powered by Systran"
+msgid "13 language pairs, maximum of 1000 characters translated, powered by Systran"
 msgstr "13 sprogpar, maksimum 1000 tegn oversat, drevet af Systran"
 
-msgid ""
-"10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
+msgid "10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
 msgstr "10 sprogpar, maksimum 25 kilobytes oversat, drevet af Systran"
 
 msgid "12 language pairs, no known limits, powered by Systran"
@@ -2183,13 +2163,10 @@ msgstr "12 sprogpar, ingen kendte grænser, drevet af Systran"
 msgid ""
 "767 language pairs, no known limits, powered by Translation Experts's "
 "InterTran"
-msgstr ""
-"767 sprogpar, ingen kendte grænser, drevet af Translation Expert's InterTran"
+msgstr "767 sprogpar, ingen kendte grænser, drevet af Translation Expert's InterTran"
 
-msgid ""
-"8 language pairs, no known limits, powered by GPLTrans (free, open source)"
-msgstr ""
-"8 sprogpar, ingen kendte grænser, drevet af GPLTrans (gratis, åben source)"
+msgid "8 language pairs, no known limits, powered by GPLTrans (free, open source)"
+msgstr "8 sprogpar, ingen kendte grænser, drevet af GPLTrans (gratis, åben source)"
 
 msgid ""
 "You also decide if you want the translation box displayed, and where it will "
@@ -2234,8 +2211,7 @@ msgstr "Oversættelsesindstillinger"
 msgid ""
 "Which translator should be used when you get messages in a different "
 "language?"
-msgstr ""
-"Hvilken oversætter skal benyttes når du modtager beskeder på et andet sprog?"
+msgstr "Hvilken oversætter skal benyttes når du modtager beskeder på et andet sprog?"
 
 #, c-format
 msgid "%s to %s"
@@ -2489,7 +2465,6 @@ msgstr "citat"
 msgid "who"
 msgstr "hvem"
 
-#, fuzzy
 msgid "Draft folder"
 msgstr "Kladder"
 
@@ -2505,9 +2480,9 @@ msgstr "Du har ikke valgt hvilken mappe, som skal slettes."
 msgid "Delete Folder"
 msgstr "Slet mappe"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete %s?"
-msgstr "Er du sikker på, at du vil slette denne hændelse?"
+msgstr "Er du sikker på, at du vil slette %s?"
 
 msgid "Subscribed successfully!"
 msgstr "Mappen er gjort aktiv!"
@@ -2576,7 +2551,7 @@ msgid "New name:"
 msgstr "Nyt navn:"
 
 msgid "ERROR: Help files are not in the right format!"
-msgstr ""
+msgstr "FEJL: Hjælpefilerne er ikke i det rigtige format!"
 
 #, c-format
 msgid ""
@@ -2599,7 +2574,6 @@ msgstr "Viser vedhæftet billede"
 msgid "View message"
 msgstr "Vis meddelelse"
 
-#, fuzzy
 msgid "Not available"
 msgstr "ikke tilgængelig"
 
@@ -2768,8 +2742,7 @@ msgstr "Opdatér siden"
 msgid ""
 "This contains personal information about yourself such as your name, your "
 "email address, etc."
-msgstr ""
-"Her er dine personlige oplysninger, såsom dit navn, din e-mail-adresse m.v."
+msgstr "Her er dine personlige oplysninger, såsom dit navn, din e-mail-adresse m.v."
 
 msgid ""
 "You can change the way that SquirrelMail looks and displays information to "
@@ -2784,8 +2757,7 @@ msgstr ""
 "Her kan du vælge en bestemt baggrundsfarve til bestemte typer e-mails, så de "
 "træder ud fra mængden."
 
-msgid ""
-"These settings change the way your folders are displayed and manipulated."
+msgid "These settings change the way your folders are displayed and manipulated."
 msgstr "Her bestemmer du, hvordan mapperne skal vises i mappelisten."
 
 msgid ""
@@ -2968,14 +2940,106 @@ msgstr "Viser hele headeren"
 msgid "Viewing a text attachment"
 msgstr "Viser vedhæftet tekst"
 
+#~ msgid "Viewing a message attachment"
+#~ msgstr "Viser vedhæftet fil"
+
+#~ msgid "Cc:"
+#~ msgstr "Cc:"
+
+#~ msgid "Bcc:"
+#~ msgstr "Bcc:"
+
+#~ msgid "<No subject>"
+#~ msgstr "<intet emne>"
+
+#~ msgid "Enable request/confirm reading"
+#~ msgstr "Aktivér forespørg/bekræft læsning"
+
+#~ msgid "Use receive date for sort"
+#~ msgstr "Sortér efter modtagelsesdato"
+
+#~ msgid "Use References header for thread sort"
+#~ msgstr "Brug reference-headeren for at sortere i tråde"
+
 #~ msgid "There was an error contacting the mail server."
 #~ msgstr "Der opstod en fejl under kommunikationen med mailserveren"
 
 #~ msgid "Contact your administrator for help."
 #~ msgstr "Kontakt din systemadministrator for hjælp."
 
-#~ msgid "Submit message"
-#~ msgstr "Send besked"
+#~ msgid "No Messages found"
+#~ msgstr "Ingen beskeder fundet"
+
+#~ msgid "Note Field Contains"
+#~ msgstr "Notitsfeltet indeholder"
+
+#~ msgid "Sun"
+#~ msgstr "Søn"
+
+#~ msgid "Mon"
+#~ msgstr "Man"
+
+#~ msgid "Tue"
+#~ msgstr "Tirs"
+
+#~ msgid "Wed"
+#~ msgstr "Ons"
+
+#~ msgid "Thu"
+#~ msgstr "Tors"
+
+#~ msgid "Fri"
+#~ msgstr "Fre"
+
+#~ msgid "Sat"
+#~ msgstr "Lør"
+
+#~ msgid "Jan"
+#~ msgstr "Jan"
+
+#~ msgid "Feb"
+#~ msgstr "Feb"
+
+#~ msgid "Mar"
+#~ msgstr "Mar"
+
+#~ msgid "Apr"
+#~ msgstr "Apr"
+
+#~ msgid "Jun"
+#~ msgstr "Jun"
+
+#~ msgid "Jul"
+#~ msgstr "Jul"
+
+#~ msgid "Aug"
+#~ msgstr "Aug"
+
+#~ msgid "Sep"
+#~ msgstr "Sep"
+
+#~ msgid "Oct"
+#~ msgstr "Okt"
+
+#~ msgid "Nov"
+#~ msgstr "Nov"
+
+#~ msgid "Dec"
+#~ msgstr "Dec"
+
+#~ msgid "No To Address"
+#~ msgstr "Ingen til-adresse"
+
+#~ msgid "Found"
+#~ msgstr "Fandt"
+
+#~ msgid "messages"
+#~ msgstr "beskeder"
+
+#~ msgid "Error decoding mime structure.  Report this as a bug!"
+#~ msgstr ""
+#~ "Fejl under dekodningen af mime-strukturen. Rapportér venligst dette til "
+#~ "udviklingsteamet."
 
 #~ msgid "I tried to execute '%s', but it returned:"
 #~ msgstr "Jeg forsøgte at udføre: '%s', men den svarede:"
@@ -3272,6 +3336,12 @@ msgstr "Viser vedhæftet tekst"
 #~ msgid "SquirrelSpell Options Menu"
 #~ msgstr "SquirrelSpell indstillingsmenu"
 
+#~ msgid "l, F d Y"
+#~ msgstr "l, j/n Y, H:i"
+
+#~ msgid "Submit message"
+#~ msgstr "Send besked"
+
 #~ msgid "POP3: premature NOOP OK, NOT an RFC 1939 Compliant server"
 #~ msgstr "POP3: for tidlig NOOP OK, serveren overholder Ikke RFC-1939"
 
@@ -3302,17 +3372,3 @@ msgstr "Viser vedhæftet tekst"
 #~ msgid "Try to verify addresses"
 #~ msgstr "Forsøg at verificere adresser"
 
-#~ msgid "<No subject>"
-#~ msgstr "<intet emne>"
-
-#~ msgid "Enable request/confirm reading"
-#~ msgstr "Aktivér forespørg/bekræft læsning"
-
-#~ msgid "Use receive date for sort"
-#~ msgstr "Sortér efter modtagelsesdato"
-
-#~ msgid "Use References header for thread sort"
-#~ msgstr "Brug reference-headeren for at sortere i tråde"
-
-#~ msgid "No To Address"
-#~ msgstr "Ingen til-adresse"
