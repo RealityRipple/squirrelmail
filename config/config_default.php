@@ -151,21 +151,6 @@ $draft_folder = 'INBOX.Drafts';
 $auto_expunge = true;
 
 /**
- * Special Folders are folders that can't be manipulated like normal user
- * created folders can. A couple of examples would be 'INBOX.Trash', 
- * 'INBOX.Drafts'. We have them set to Netscape's default mailboxes, but
- * this obviously can be changed. To add one, just add a new number to the
- * array.
- */
-global $special_folders;
-$special_folders[0] = 'INBOX'; /* The first special folder should always */
-                               /* be the inbox (whatever it is named).   */
-$special_folders[1] = $trash_folder;
-$special_folders[2] = $sent_folder;
-$special_folders[3] = $draft_folder;
-$special_folders[4] = 'INBOX.Templates';
-
-/**
  * Should I create the Sent and Trash folders automatically for
  * a new user that doesn't already have them created?
  */
