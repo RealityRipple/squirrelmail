@@ -165,7 +165,7 @@ if (empty($query) && empty($show) && empty($listall)) {
 $abook = addressbook_init();
 
 /* Create search form */
-if ($show == 'form') {
+if ($show == 'form' && empty($listall)) {
     echo '<FORM NAME=sform TARGET=abookres ACTION="' . $PHP_SELF .
          '" METHOD="POST">' . "\n" .
          '<TABLE BORDER="0" WIDTH="100%" HEIGHT="100%">' .
@@ -187,7 +187,7 @@ if ($show == 'form') {
         echo '<INPUT TYPE=hidden NAME=backend VALUE=-1>' . "\n";
     }
         
-    echo '<INPUT TYPE=submit VALUE="' . _("Search") . '">' .
+    echo '<INPUT TYPE=submit VALUE="' . _("Search") . '" NAME=show>' .
          '&nbsp;|&nbsp;<INPUT TYPE=submit VALUE="' . _("List all") .
          '" NAME=listall>' . "\n" .
          '</TD><TD ALIGN=right>' . "\n" .
