@@ -1151,24 +1151,25 @@ function sendMessage($composeMessage, $draft=false) {
     }
     $reply_to = '';
     if (isset($identity) && $identity != 'default') {
-        $from_mail = getPref($data_dir, $username, 
-                     'email_address' . $identity);
-        $full_name = getPref($data_dir, $username, 
-                     'full_name' . $identity);
-        $from_addr = '"'.$full_name.'" <'.$from_mail.'>';
-        $reply_to = getPref($data_dir, $username, 
-                     'reply_to' . $identity);
+        $from_mail = getPref($data_dir, $username,'email_address' . $identity);
+        $full_name = getPref($data_dir, $username,'full_name' . $identity);
+        $reply_to = getPref($data_dir, $username,'reply_to' . $identity);
     } else {
         $from_mail = getPref($data_dir, $username, 'email_address');
         $full_name = getPref($data_dir, $username, 'full_name');
-        $from_addr = '"'.$full_name.'" <'.$from_mail.'>';
         $reply_to = getPref($data_dir, $username,'reply_to');
     }
-    if (!$from_addr) {
-       $from_addr = "$popuser@$domain";
-       $from_mail = $from_addr;
+    if (!$from_mail) {
+       $from_mail = "$popuser@$domain";
+       $full_name = '';
     }
-    $rfc822_header->from = $rfc822_header->parseAddress($from_addr,true);
+    $rfc822_header->from = $rfc822_header->parseAddress($from_mail,true);
+    if ($full_name) {
+        $from = $rfc822_header->from;
+	if (!$from->host) $from->host = $domain;
+	$from_addr = $full_name .' <'.$from->mailbox.'@'.$from->host.'>';
+        $rfc822_header->from = $rfc822_header->parseAddress($from_addr,true);
+    }
     if ($reply_to) {
        $rfc822_header->reply_to = $rfc822_header->parseAddress($reply_to,true);
     }
@@ -1232,7 +1233,7 @@ function sendMessage($composeMessage, $draft=false) {
     } elseif ($draft) {
        global $draft_folder;
        require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
-       $imap_deliver = new Deliver_IMAP();
+//       $imap_deliver = new Deliver_IMAP();
        $imap_stream = sqimap_login($username, $key, $imapServerAddress,
                       $imapPort, 0);
        if (sqimap_mailbox_exists ($imap_stream, $draft_folder)) {
