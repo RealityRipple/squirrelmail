@@ -5,14 +5,14 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: $Id$\n"
 "POT-Creation-Date: 2000-12-13 16:52-0500\n"
 "PO-Revision-Date: 2001-01-19 21:00-0300\n"
 "Last-Translator: Henrique MOura <henrique@fournet.inf.br>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: Portuguese (Brazilian) <squirrelmail-translations@lists.sourceforge.net\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: ENCODING\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: squirrelmail/src/addrbook_popup.php:37
 msgid "Address Book"
