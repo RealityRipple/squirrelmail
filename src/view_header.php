@@ -12,7 +12,7 @@
  */
 
 
-function  parse_viewheader($imapConnection,$id,$template_vars) {
+function  parse_viewheader($imapConnection,$id) {
    global $uid_support;
 
    $header_full = array();
@@ -56,12 +56,8 @@ function  parse_viewheader($imapConnection,$id,$template_vars) {
             $header_output[] = array($f,$s);
         }
     }
-
     sqimap_logout($imapConnection);
-
-    $template_vars['full_header'] = $header_output;
-
-    return $template_vars;
+    return $header_output;
 }
 
 function view_header($template_vars, $pageheader='', $pagefooter='') {
