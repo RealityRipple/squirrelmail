@@ -136,6 +136,8 @@ Version 1.5.1 -- CVS
   - Added site configuration and custom translation engine support to translate 
     plugin.
   - Fixed SquirrelSpell error output.  Patch courtesy David Boone.
+  - Fixed bug in IMAP read routines that treated "0" as false instead of
+    a string (patch courtesy Maurice Makaay).
 
 Version 1.5.0
 --------------------

@@ -219,20 +219,20 @@ function sqimap_fread($imap_stream,$iSize,$filter=false,
         if ($iRemaining < $iBufferSize) {
             $iBufferSize = $iRemaining;
         }
-        if (!$sRead) {
+        if ($sRead == '') {
             $results = false;
             break;
         }
-        if ($sReadRem) {
+        if ($sReadRem != '') {
             $sRead = $sReadRem . $sRead;
             $sReadRem = '';
         }
 
-        if ($filter && $sRead) {
+        if ($filter && $sRead != '') {
            // in case the filter is base64 decoding we return a remainder
            $sReadRem = $filter($sRead);
         }
-        if ($outputstream && $sRead) {
+        if ($outputstream && $sRead != '') {
            if (is_resource($outputstream)) {
                fwrite($outputstream,$sRead);
            } else if ($outputstream == 'php://stdout') {
