@@ -162,6 +162,16 @@
 
       return $boxes;
    }
+   
+   /* Apparently you must call a user function with usort instead
+    * of calling a built-in directly.  Stupid.
+    * Patch from dave_michmerhuizen@yahoo.com
+    * Allows case insensitivity when sorting folders
+    */
+   function user_strcasecmp($a, $b)
+   {
+       return strcasecmp($a, $b);
+   }
 
 
    /******************************************************************************
@@ -204,7 +214,7 @@
       }
       $sorted_lsub_ary = $new_ary;
       if (isset($sorted_lsub_ary)) {
-         usort($sorted_lsub_ary, "strcasecmp");
+         usort($sorted_lsub_ary, "user_strcasecmp");
          //sort($sorted_lsub_ary);
       }   
 
