@@ -159,9 +159,9 @@
    echo "<TT><SELECT NAME=subfolder>\n";
    if (strtolower($imap_server_type) != "courier"){
      if ($default_sub_of_inbox == false)
-       echo '<OPTION SELECTED>[ '._("None")." ]\n";
+       echo '<OPTION SELECTED VALUE="">[ '._("None")." ]\n";
      else
-       echo '<OPTION>[ '._("None")." ]\n";
+       echo '<OPTION VALUE="">[ '._("None")." ]\n";
    }
 
    for ($i = 0; $i < count($boxes); $i++) {
