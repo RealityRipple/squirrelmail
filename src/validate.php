@@ -17,11 +17,6 @@
    session_start();
    include ('../functions/auth.php');
    
-   // Everyone needs stuff from config, and config needs stuff from
-   // strings.php, so include them both here.
-   include ('../functions/strings.php');
-   include ('../config/config.php');
-   
    is_logged_in();
 
 
@@ -105,4 +100,11 @@
        }
    }
 
+   // Everyone needs stuff from config, and config needs stuff from
+   // strings.php, so include them both here.
+   // Include them down here instead of at the top so that all config
+   // variables overwrite any passed in variables (for security)
+   include ('../functions/strings.php');
+   include ('../config/config.php');
+   
 ?>
