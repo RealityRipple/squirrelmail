@@ -791,7 +791,8 @@ $UIpref = 'captbunzo';
 /* handy preference utility to easy switch between preferences */
 if ($UIpref== 'captbunzo') {
     $align= 'center';
-    $vert_lines = '<td bgcolor="'.$color[0].'"></td>'; /* test! Delete it when you are not satisfied */
+    $vert_lines= '';
+//    $vert_lines = '<td bgcolor="'.$color[0].'"></td>'; /* test! Delete it when you are not satisfied */
 } else { 
     $align= 'left';
     $vert_lines = '';
