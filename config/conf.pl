@@ -3023,11 +3023,7 @@ sub change_to_SM_path() {
                 push @abs_path, $subdir;
             }
         }
-        $new_path = "\'";
-	foreach $subdir (@abs_path) {
-          $new_path .= '/' . $subdir;
-        }
-        $new_path .= "\'";
+        $new_path = "\'" . join('/', @abs_path) . "\'";
     } elsif ( $#rel_path > 0 ) {
         # it's within the SM tree, prepend SM_PATH
         $new_path = $old_path;
