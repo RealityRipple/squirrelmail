@@ -2801,7 +2801,7 @@ sub commandB1 {
 }
 # Oldway
 sub commandB2 {
-    print "Setting $oldway to false causes left_main.php to use the new\n";
+    print "Setting \$oldway to false causes left_main.php to use the new\n";
     print "experimental way of getting the mailbox-tree.\n";
     print "\n";
 
