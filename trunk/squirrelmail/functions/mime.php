@@ -944,16 +944,16 @@
                             $ret .= '<b>' . _("Title:") . " </b>$title<br>\n";
                         $ret .= "<TABLE";
                         $i += 5;
-			if (! isset($base))
-			   $base = '';
-		        $ret .= stripEvent( $i, $j, $body, $id, $base );
-                        $ret .= " bgcolor=$bgcolor width=100%><tr>";
+                        if (! isset($base))
+                            $base = '';
+                        $ret .= stripEvent( $i, $j, $body, $id, $base );
+                        $ret .= " bgcolor=$bgcolor width=\"100%\"><tr>";
                         if( $leftmargin <> '' )
                             $ret .= "<td width=$leftmargin>&nbsp;</td>";
                         $ret .= '<td>';
-			if (strtolower($bgcolor) == 'ffffff' || 
-			    strtolower($bgcolor) == '#ffffff')
-			   $ret .= '<font color=#000000>';
+                        if (strtolower($bgcolor) == 'ffffff' ||
+                            strtolower($bgcolor) == '#ffffff')
+                            $ret .= '<font color=#000000>';
                         break;
                     case 'BASE':
                         $i += 5;
