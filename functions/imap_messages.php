@@ -15,8 +15,7 @@
  **  Copies specified messages to specified folder
  ****************************************************************************/
 function sqimap_messages_copy ($imap_stream, $start, $end, $mailbox) {
-    fputs ($imap_stream, sqimap_session_id() . " COPY $start:$end \"$mailbox\"\r\n");
-    $read = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
+    $read = sqimap_run_command ($imap_stream, "COPY $start:$end \"$mailbox\"", true, $response, $message);
 }
 
 /****************************************************************************
@@ -37,8 +36,7 @@ function sqimap_messages_delete ($imap_stream, $start, $end, $mailbox) {
  **  Sets the specified messages with specified flag
  ****************************************************************************/
 function sqimap_messages_flag ($imap_stream, $start, $end, $flag) {
-    fputs ($imap_stream, sqimap_session_id() . " STORE $start:$end +FLAGS (\\$flag)\r\n");
-    $read = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
+    $read = sqimap_run_command ($imap_stream, "STORE $start:$end +FLAGS (\\$flag)", true, $response, $message);
 }
 
 
@@ -46,8 +44,7 @@ function sqimap_messages_flag ($imap_stream, $start, $end, $flag) {
  **  Remove specified flag from specified messages
  ****************************************************************************/
 function sqimap_messages_remove_flag ($imap_stream, $start, $end, $flag) {
-    fputs ($imap_stream, sqimap_session_id() . " STORE $start:$end -FLAGS (\\$flag)\r\n");
-    $read = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
+    $read = sqimap_run_command ($imap_stream, "STORE $start:$end -FLAGS (\\$flag)", true, $response, $message);
 }
 
 
@@ -246,8 +243,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
  **  Returns the flags for the specified messages 
  ****************************************************************************/
 function sqimap_get_flags ($imap_stream, $i) {
-    fputs ($imap_stream, sqimap_session_id() . " FETCH $i:$i FLAGS\r\n");
-    $read = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
+    $read = sqimap_run_command ($imap_stream, "FETCH $i:$i FLAGS", true, $response, $message);
     if (ereg("FLAGS(.*)", $read[0], $regs)) {
         return explode(" ", trim(ereg_replace('[\\(\\)\\\\]', '', $regs[1])));
     }
@@ -259,8 +255,7 @@ function sqimap_get_flags_list ($imap_stream, $msg_list) {
     for ($i = 0; $i < sizeof($msg_list); $i++) {
         $id2index[$msg_list[$i]] = $i;
     }
-    fputs ($imap_stream, sqimap_session_id() . " FETCH $msgs_str FLAGS\r\n");
-    $result_list = sqimap_read_data_list ($imap_stream, sqimap_session_id(), true, $response, $message);
+    $result_list = sqimap_run_command_list ($imap_stream, "FETCH $msgs_str FLAGS", true, $response, $message);
     $result_flags = array();
 
     for ($i = 0; $i < sizeof($result_list); $i++) {
@@ -294,8 +289,7 @@ function sqimap_get_message ($imap_stream, $id, $mailbox) {
  **  Wrapper function that reformats the header information.
  ****************************************************************************/
 function sqimap_get_message_header ($imap_stream, $id, $mailbox) {
-    fputs ($imap_stream, sqimap_session_id() . " FETCH $id:$id BODY[HEADER]\r\n");
-    $read = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
+    $read = sqimap_run_command ($imap_stream, "FETCH $id:$id BODY[HEADER]", true, $response, $message);
      
     $header = sqimap_get_header($imap_stream, $read); 
     $header->id = $id;

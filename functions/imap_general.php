@@ -38,8 +38,14 @@ function sqimap_session_id() {
 ** to allow proper session number handling.
 ******************************************************************************/
 
+function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$response, &$message) {
+    fputs ($imap_stream, sqimap_session_id() . ' ' . $query . "\r\n");
+    $read = sqimap_read_data_list ($imap_stream, sqimap_session_id(), $handle_errors, $response, $message);
+    return $read;
+}
+
 function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response, &$message) {
-    fputs ($imap_stream, sqimap_session_id() . $query . "\r\n");
+    fputs ($imap_stream, sqimap_session_id() . ' ' . $query . "\r\n");
     $read = sqimap_read_data ($imap_stream, sqimap_session_id(), $handle_errors, $response, $message);
     return $read;
 }
@@ -180,9 +186,8 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
         exit;
     }
 
-    fputs ($imap_stream, sqimap_session_id() . ' LOGIN "' . quoteIMAP($username) .
-           '" "' . quoteIMAP($password) . "\"\r\n");
-    $read = sqimap_read_data ($imap_stream, sqimap_session_id(), false, $response, $message);
+    $query = 'LOGIN "' . quoteIMAP($username) .  '" "' . quoteIMAP($password) . '"';
+    $read = sqimap_run_command ($imap_stream, $query, false, $response, $message);
 
     /** If the connection was not successful, lets see why **/
     if ($response != 'OK') {
@@ -203,14 +208,16 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
                 }
                 exit;
             } else {
-                // If the user does not log in with the correct
-                // username and password it is not possible to get the
-                // correct locale from the user's preferences.
-                // Therefore, apply the same hack as on the login
-                // screen.
+                /* If the user does not log in with the correct
+                 * username and password it is not possible to get the
+                 * correct locale from the user's preferences.
+                 * Therefore, apply the same hack as on the login
+                 * screen.
+		 */
                 
-                // $squirrelmail_language is set by a cookie when
-                // the user selects language and logs out
+                /* $squirrelmail_language is set by a cookie when
+                 * the user selects language and logs out
+		 */
                 
                 set_up_language($squirrelmail_language, true);
                 
@@ -232,16 +239,16 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
  *  Simply logs out the imap session
  */
 function sqimap_logout ($imap_stream) {
-    fputs ($imap_stream, sqimap_session_id() . " LOGOUT\r\n");
+    /* Logout is not valid until the server returns 'BYE' */
+    sqimap_run_command($imap_stream, 'LOGOUT', false, $response, $message);
 }
 
 function sqimap_capability($imap_stream, $capability) {
     global $sqimap_capabilities;
     
     if (!is_array($sqimap_capabilities)) {
-        fputs ($imap_stream, sqimap_session_id() . " CAPABILITY\r\n");
-        $read = sqimap_read_data($imap_stream, sqimap_session_id(), true, $a, $b);
-    
+        $read = sqimap_run_command($imap_stream, 'CAPABILITY', true, $a, $b);
+
         $c = explode(' ', $read[0]);
         for ($i=2; $i < count($c); $i++) {
             $cap_list = explode('=', $c[$i]);
@@ -280,8 +287,7 @@ function sqimap_get_delimiter ($imap_stream = false) {
             OS:  * NAMESPACE (PERSONAL NAMESPACES) (OTHER_USERS NAMESPACE) (SHARED NAMESPACES)
             OS:  We want to lookup all personal NAMESPACES...
             */
-            fputs ($imap_stream, sqimap_session_id() . " NAMESPACE\r\n");
-            $read = sqimap_read_data($imap_stream, sqimap_session_id(), true, $a, $b);
+            $read = sqimap_run_command($imap_stream, 'NAMESPACE', true, $a, $b);
             if (eregi('\\* NAMESPACE +(\\( *\\(.+\\) *\\)|NIL) +(\\( *\\(.+\\) *\\)|NIL) +(\\( *\\(.+\\) *\\)|NIL)', $read[0], $data)) {
                 if (eregi('^\\( *\\((.*)\\) *\\)', $data[1], $data2)) {
                     $pn = $data2[1];
@@ -313,8 +319,7 @@ function sqimap_get_delimiter ($imap_stream = false) {
  */
 function sqimap_get_num_messages ($imap_stream, $mailbox) {
 
-    fputs ($imap_stream, sqimap_session_id() . " EXAMINE \"$mailbox\"\r\n");
-    $read_ary = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $result, $message);
+    $read_ary = sqimap_run_command ($imap_stream, " EXAMINE \"$mailbox\"", true, $result, $message);
     for ($i = 0; $i < count($read_ary); $i++) {
      if (ereg("[^ ]+ +([^ ]+) +EXISTS", $read_ary[$i], $regs)) {
         return $regs[1];
@@ -382,8 +387,7 @@ function sqimap_find_displayable_name ($string) {
 */
 function sqimap_unseen_messages ($imap_stream, $mailbox) {
     //fputs ($imap_stream, sqimap_session_id() . " SEARCH UNSEEN NOT DELETED\r\n");
-    fputs ($imap_stream, sqimap_session_id() . " STATUS \"$mailbox\" (UNSEEN)\r\n");
-    $read_ary = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $result, $message);
+    $read_ary = sqimap_run_command ($imap_stream, " STATUS \"$mailbox\" (UNSEEN)", true, $result, $message);
     ereg("UNSEEN ([0-9]+)", $read_ary[0], $regs);
     return $regs[1];
 }
@@ -394,7 +398,7 @@ function sqimap_unseen_messages ($imap_stream, $mailbox) {
 */
 function sqimap_append ($imap_stream, $sent_folder, $length) {
     fputs ($imap_stream, sqimap_session_id() . " APPEND \"$sent_folder\" (\\Seen) \{$length}\r\n");
-    $tmp = fgets ($imap_stream, 1024);
+    $tmp = fgets ($imap_stream, 1024);    
 }
 
 function sqimap_append_done ($imap_stream) {
