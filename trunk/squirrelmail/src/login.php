@@ -13,6 +13,7 @@
 
    include("../functions/strings.php");
    include("../config/config.php");
+   include('../functions/i18n.php');
    include("../functions/plugin.php");
 
    // $squirrelmail_language is set by a cookie when the user selects
