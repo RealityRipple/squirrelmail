@@ -274,13 +274,13 @@ function sqimap_asearch_build_criteria($opcode, $what, $charset)
 			if ($what != '') {
 				switch (substr($what, -1)) {
 					case 'G':
-						$what <<= 10;
-					//nobreak;
+						$what = substr($what, 0, -1) << 30;
+					break;
 					case 'M':
-						$what <<= 10;
-					//nobreak;
+						$what = substr($what, 0, -1) << 20;
+					break;
 					case 'K':
-						$what <<= 10;
+						$what = substr($what, 0, -1) << 10;
 					break;
 				}
 				$criteria = $opcode . ' ' . $what . ' ';
