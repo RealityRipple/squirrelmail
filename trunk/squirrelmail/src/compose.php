@@ -31,7 +31,6 @@ require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'class/deliver/Deliver.class.php');
 
 /* --------------------- Specific Functions ------------------------------ */
-
 function replyAllString($header) {
    global $include_self_reply_all, $username, $data_dir;
    $excl_arr = array();
@@ -112,6 +111,8 @@ function getforwardHeader($orig_header) {
 }
 /* ----------------------------------------------------------------------- */
 
+/* OLD: should be adapted to composeMessage */
+
 /*
  * If the session is expired during a post this restores the compose session 
  * vars.
@@ -153,11 +154,6 @@ if (session_is_registered('session_expired_post')) {
     exit();
 }
 
-if (!isset($attachments)) {
-    $attachments = array();
-    sqsession_register(array(), 'attachments');
-}
-
 if (!isset($composesession)) {
     $composesession = 0;
     sqsession_register(0,'composesession');
@@ -174,13 +170,15 @@ if (!isset($compose_messages)) {
 }
 if (!isset($compose_messages[$session]) || ($compose_messages[$session] == NULL)) {
 /* if (!array_key_exists($session, $compose_messages)) {  /* We can only do this in PHP >= 4.1 */
-  $composeMessage = new message();
+  $composeMessage = new Message();
   $rfc822_header = new Rfc822Header();
   $composeMessage->rfc822_header = $rfc822_header;
   $composeMessage->reply_rfc822_header = '';
   $compose_messages[$session] = $composeMessage;
+  sqsession_register($compose_messages,'compose_messages');  
+} else {
+  $composeMessage=$compose_messages[$session];
 }
-sqsession_register($compose_messages,'compose_messages');
 
 if (!isset($mailbox) || $mailbox == '' || ($mailbox == 'None')) {
     $mailbox = 'INBOX';
@@ -1234,7 +1232,6 @@ function sendMessage($composeMessage, $draft=false) {
     } elseif ($draft) {
        global $draft_folder;
        require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
-//       $imap_deliver = new Deliver_IMAP();
        $imap_stream = sqimap_login($username, $key, $imapServerAddress,
                       $imapPort, 0);
        if (sqimap_mailbox_exists ($imap_stream, $draft_folder)) {
