@@ -18,6 +18,7 @@ Version 1.4.0 RC 2
   - Changed SquirrelMail identification to use User-Agent in stead of X-Mailer.
   - Prevent endless loop when timezone config is not found. Thanks Joshua Colson.
   - Fix IMAP error when returning to message from viewing image attachment.
+  - Do more trimming to indented subjects in threadview so they don't wrap.
 
 	
 Version 1.4.0 RC 1
