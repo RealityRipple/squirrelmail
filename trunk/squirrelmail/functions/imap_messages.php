@@ -243,8 +243,8 @@
             if (strpos(strtolower(trim($line)), "charset=")) {
                $pos = strpos($line, "charset=") + 8;
                $charset = trim($line);
-               if (strpos($line, " ", $pos) > 0) {
-                  $charset = substr($charset, $pos, strpos($line, " ", $pos));
+               if (strpos($line, ";", $pos) > 0) {
+                  $charset = substr($charset, $pos, strpos($line, ";", $pos)-$pos);
                } else {
                   $charset = substr($charset, $pos);
                }
