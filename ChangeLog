@@ -1,5 +1,7 @@
 Version 1.0.1 -- DEVELOPMENT
 ----------------------------
+- Removed unnecessary echo statements by breaking out of PHP
+- Changed evaluation method from using " to ' for speed improvements
 - If no plugin array set in config.php, now handled correctly
 - If subject is > 55 chars, trims it and puts "..." in message list
 - Hundreds of minor changes to remove all verbose PHP warning messages

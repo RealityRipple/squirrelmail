@@ -22,7 +22,7 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
    
    # Construct the Search QuERY
    
-   if ($languages[$squirrelmail_language]["CHARSET"]) {
+   if (isset($languages[$squirrelmail_language]["CHARSET"]) && $languages[$squirrelmail_language]["CHARSET"]) {
       $ss = "a001 SEARCH CHARSET ".$languages[$squirrelmail_language]["CHARSET"]." ALL $search_where \"$search_what\"\r\n";
    } else {
       $ss = "a001 SEARCH ALL $search_where \"$search_what\"\r\n";
@@ -45,10 +45,10 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
    }
 
    #If nothing is found * SEARCH should be the first error else echo errors
-   if (strstr($errors,"* SEARCH")) {
+   if (isset($errors) && strstr($errors,"* SEARCH")) {
       echo "<br><CENTER>No Messages Found</CENTER>";
       return;
-   } else {
+   } else if (isset($errors)) {
       echo "<!-- ".$errors." -->";
    }
 
@@ -117,7 +117,7 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
       $i = 0;
       $j = 0;
       while ($j < count($messagelist)) {
-         if ($messages[$j]["FLAG_DELETED"] == true) {
+         if (isset($messages[$j]["FLAG_DELETED"]) && $messages[$j]["FLAG_DELETED"] == true) {
             $j++;
             continue;
          }
@@ -132,6 +132,7 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
 
       if (count($messagelist) > 0) {
          $j=0;
+		 if (!isset ($msg)) { $msg = ""; }
          mail_message_listing_beginning($imapConnection, 
             "move_messages.php?msg=$msg&mailbox=$urlMailbox&where=".urlencode($search_where)."&what=".urlencode($search_what),
              '', -1, '<b>' . _("Found") . ' ' . count($messagelist) . ' ' . _("messages") . '</b>',

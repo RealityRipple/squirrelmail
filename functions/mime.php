@@ -27,7 +27,7 @@
       var $type0 = '', $type1 = '', $boundary = '', $charset = '';
       var $encoding = '', $size = 0, $to = '', $from = '', $date = '';
       var $cc = '', $bcc = '', $reply_to = '', $subject = '';
-      var $id = 0, $mailbox = '', $description = '';
+      var $id = 0, $mailbox = '', $description = '', $filename = '';
       var $entity_id = 0, $message_id = 0;
    }
    
@@ -37,11 +37,11 @@
           more objects of type message.  See documentation in mime.txt for
           a better description of how this works.
        **/   
-      var $header;
-      var $entities;
+      var $header = '';
+      var $entities = '';
       
       function addEntity ($msg) {
-         $this->entities[count($this->entities)] = $msg;
+         $this->entities[] = $msg;
       }
    }
 
@@ -537,6 +537,7 @@
       global $startMessage, $color;
       static $ShownHTML;
       
+	  $body = "";
       if ($ShownHTML == 0)
       {
             $ShownHTML = 1;

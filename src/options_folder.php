@@ -12,10 +12,10 @@
 
    session_start();
 
-   if (!isset($config_php))
-      include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
+   if (!isset($config_php))
+      include("../config/config.php");
    if (!isset($page_header_php))
       include("../functions/page_header.php");
    if (!isset($display_messages_php))
@@ -33,7 +33,7 @@
    displayPageHeader($color, "None");
 
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-   $boxes = sqimap_mailbox_list($imapConnection, $boxes);
+   $boxes = sqimap_mailbox_list($imapConnection, $boxes="");
    sqimap_logout($imapConnection);
 ?>
    <br>
