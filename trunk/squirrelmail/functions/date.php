@@ -315,7 +315,7 @@ function getLongDateString( $stamp ) {
     if ( $hour_format == SMPREF_TIME_12HR ) {
         $date_format = _("D, F j, Y g:i a");
     } else {
-        $date_format = _("D, F j, Y G:i");
+        $date_format = _("D, F j, Y H:i");
     }
 
     return( date_intl( $date_format, $stamp ) );
@@ -367,14 +367,14 @@ function getDateString( $stamp ) {
         if ( $hour_format == SMPREF_TIME_12HR ) {
             $date_format = _("g:i a");
         } else {
-            $date_format = _("G:i");
+            $date_format = _("H:i");
         }
     } else if ($midnight - 518400 < $stamp) {
         /* This week */
         if ( $hour_format == SMPREF_TIME_12HR ) {
             $date_format = _("D, g:i a");
         } else {
-            $date_format = _("D, G:i");
+            $date_format = _("D, H:i");
         }
     } else {
         /* before this week */
