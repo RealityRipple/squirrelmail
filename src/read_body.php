@@ -522,20 +522,19 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
    $urlMailbox = urlencode($mailbox);
    $url = $base_uri.'src/view_header.php?'.$QUERY_STRING;
 
-   $s  = "<TR>\n";
-   $s .= '<TD VALIGN="MIDDLE" ALIGN="RIGHT" WIDTH="20%"><B>' . _("Options") . ":&nbsp;&nbsp;</B></TD>\n";
-   $s .= '<TD VALIGN="MIDDLE" ALIGN="LEFT" WIDTH="80%"><SMALL>';
-   $s .= '<a href="'.$url.'">'.("View Full Header").'</a>';
+   $s  = "<TR>\n" .
+         '<TD VALIGN="MIDDLE" ALIGN="RIGHT" WIDTH="20%"><B>' . _("Options") . ":&nbsp;&nbsp;</B></TD>\n" .
+         '<TD VALIGN="MIDDLE" ALIGN="LEFT" WIDTH="80%"><SMALL>' .
+         '<a href="'.$url.'">'._("View Full Header").'</a>';
 
    /* Output the printer friendly link if we are in subtle mode. */
-   $s .= '&nbsp;|&nbsp;';
-   $s .= printer_friendly_link($mailbox, $passed_id, $passed_ent_id, $color);
+   $s .= '&nbsp;|&nbsp;' .
+         printer_friendly_link($mailbox, $passed_id, $passed_ent_id, $color);
    echo $s;
    do_hook("read_body_header_right");
-   $s = "</SMALL></TD>\n";   
-   $s .= "</TR>\n";
+   $s = "</SMALL></TD>\n" .  
+        "</TR>\n";
    echo $s;
-
 
 }
 
