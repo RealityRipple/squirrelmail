@@ -125,7 +125,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
               'http://www.translator.cx/' );
     ShowTrad( 'OTEnet',
               _("Hellenic translations, no known limits, powered by Systran").
-	      "<br>".sprintf(_("Number of supported language pairs: %s"),"4")." " ,
+	      "<br>".sprintf(_("Number of supported language pairs: %s"),"20")." " ,
               'http://systran.otenet.gr/' );
     ShowTrad( 'PROMT',
               _("Russian translations, maximum of 500 characters translated").
