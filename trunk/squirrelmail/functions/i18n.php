@@ -142,6 +142,8 @@
          return charset_decode_ns_4551_1 ($string);
       } else if ($charset == 'koi8-r') {
         return charset_decode_koi8r ($string);
+      } else if ($charset == 'windows-1251') {
+        return charset_decode_koi8r ($string);
       } else
          return $string;
    }
