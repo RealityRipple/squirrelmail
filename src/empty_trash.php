@@ -20,6 +20,8 @@
       for ($i = 0; $i < count($boxes); $i++) {
          if (($boxes[$i]["UNFORMATTED"] == $mailbox) ||
              (substr($boxes[$i]["UNFORMATTED"], 0, strlen($mailbox . $dm)) == $mailbox . $dm)) {
+            echo "\nDEBUG - Removing folder " . $boxes[$i]["UNFORMATTED"] . "<BR>\n";
+            echo "DEBUG - mailbox is : $mailbox<br>\n";
             removeFolder($imapConnection, $boxes[$i]["UNFORMATTED"]);
          }
       }
