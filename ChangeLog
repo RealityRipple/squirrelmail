@@ -209,6 +209,8 @@ Version 1.5.1 -- CVS
     folders instead of only subscribed ones (#1105756, #1105250).
   - Add workaround for Mercury/32 servers that will subscribe again to
     an already subscribed folder (#1115409).
+  - Added blank.png for missing image support.
+
 
 Version 1.5.0
 --------------------
