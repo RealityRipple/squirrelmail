@@ -3078,10 +3078,10 @@ sub save_data {
 	print CF "\$org_logo      = " . &change_to_SM_path($org_logo) . ";\n";
         $org_logo_width |= 0;
         $org_logo_height |= 0;
-	# integer
-        print CF "\$org_logo_width  = $org_logo_width;\n";
-        # integer
-	print CF "\$org_logo_height = $org_logo_height;\n";
+	# string
+        print CF "\$org_logo_width  = '$org_logo_width';\n";
+        # string
+	print CF "\$org_logo_height = '$org_logo_height';\n";
 	# string that can contain variables.
         print CF "\$org_title     = \"$org_title\";\n";
 	# string
