@@ -91,8 +91,8 @@ function imap_utf7_decode_local($s) {
       return '';
 
     global $default_charset;
-    set_my_charset();
-    if (strtolower($default_charset) != 'iso-8859-1') {
+    set_my_charset();	//must be called before using $default_charset
+    if ((strtolower($default_charset) != 'iso-8859-1') && ($default_charset != '')) {
       $utf7_s = sqimap_mb_convert_encoding($s, $default_charset, 'UTF7-IMAP', $default_charset);
       if ($utf7_s != '')
         return $utf7_s;
