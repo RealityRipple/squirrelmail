@@ -340,7 +340,9 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
 	      $env[_("Read receipt")] = _("send");
 	   } else {
 	      if ( !($mailbox == $draft_folder || 
-	             $mailbox == $sent_folder  || $message->is_deleted)) {
+	             $mailbox == $sent_folder  || 
+		     $message->is_deleted ||
+		     $passed_ent_id)) {
 		$mdn_url = $PHP_SELF . '&sendreceipt=1';
 		if ($FirstTimeSee && $javascript_on) {
 		   $script  = '<script language="JavaScript" type="text/javascript">' ."\n";
