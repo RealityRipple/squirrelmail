@@ -49,7 +49,7 @@ function is_logged_in() {
         if (!sqsession_is_registered('session_expired_location')) {
            sqsession_register($session_expired_location,'session_expired_location');
         }
-        include_once( '../functions/display_messages.php' );
+        include_once( SM_PATH . 'functions/display_messages.php' );
         logout_error( _("You must be logged in to access this page.") );
         exit;
     }
