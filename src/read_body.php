@@ -320,6 +320,10 @@
    $body = formatBody($imapConnection, $message, $color, $wrap_at);
    echo "<BR>";
 
+   $whatnew = str_replace(" ", "&nbsp;", $what);
+   if ($where == "BODY" || $where == "TEXT") {
+      $body = eregi_replace($whatnew, "<b><font color=\"$color[2]\">\\0</font></b>", $body);
+   }
    echo "$body";
 
    echo "   </TD></TR>\n";
