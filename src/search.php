@@ -390,7 +390,7 @@ function asearch_edit_recent($index)
 	}
 }
 
-/** Edit the last recent search if the prefs permit it
+/** Get last search criteria from session or prefs
  */
 function asearch_edit_last()
 {
@@ -407,9 +407,9 @@ function asearch_edit_last()
 		sqsession_unregister(ASEARCH_CRITERIA);
 	}
 	else {
-/*		global $search_memory;
+		global $search_memory;
 		if ($search_memory > 0)
-			asearch_edit_recent(0);*/
+			asearch_edit_recent(0);
 	}
 }
 
@@ -498,7 +498,7 @@ function asearch_get_query_display(&$color, &$mailbox_array, &$biop_array, &$uno
 				$cur_mailbox = 'INBOX';
 			$biop = asearch_nz($biop_array[$crit_num]);
 			if (($query_display == '') || ($cur_mailbox != $last_mailbox)) {
-				$mailbox_display = ' <B>' . asearch_get_mailbox_display($cur_mailbox) . '</B>';
+				$mailbox_display = ' <b>' . asearch_get_mailbox_display($cur_mailbox) . '</b>';
 				if ($query_display == '')
 					$biop_display = _("In");
 				else
@@ -525,7 +525,7 @@ function asearch_get_query_display(&$color, &$mailbox_array, &$biop_array, &$uno
 						$what_display = asearch_get_date_display($what);
 					else
 						$what_display = htmlspecialchars($what);
-					$what_display = ' <B>' . $what_display . '</B>';
+					$what_display = ' <b>' . $what_display . '</b>';
 				}
 			}
 			else {
@@ -535,9 +535,9 @@ function asearch_get_query_display(&$color, &$mailbox_array, &$biop_array, &$uno
 					$what_display = '';
 			}
 			if ($mailbox_display != '')
-				$query_display .= ' <U><I>' . $biop_display . '</I></U>' . $mailbox_display . ' <U><I>' . $where_display . '</I></U>' . $what_display;
+				$query_display .= ' <u><i>' . $biop_display . '</i></u>' . $mailbox_display . ' <u><i>' . $where_display . '</i></u>' . $what_display;
 			else
-				$query_display .= ' <U><I>' . $biop_display . ' ' . $where_display . '</I></U>' . $what_display;
+				$query_display .= ' <u><i>' . $biop_display . ' ' . $where_display . '</i></u>' . $what_display;
 		}
 	}
 	return $query_display;
@@ -571,15 +571,15 @@ function asearch_print_query_array(&$boxes, &$query_array, &$query_keys, &$actio
 	$show_flag = getPref($data_dir, $username, $show_pref, 0) & 1;
 	$use_icons_flag = ($use_icons) && ($icon_theme != 'none');
 	if ($use_icons_flag)
-		$text_array = array('<img src="' . SM_PATH . 'images/minus.png" border="0" height="7" width="7">',
-			'<img src="' . SM_PATH . 'images/plus.png" border="0" height="7" width="7">');
+		$text_array = array('<img src="' . SM_PATH . 'images/minus.png" border="0" height="7" width="7" />',
+			'<img src="' . SM_PATH . 'images/plus.png" border="0" height="7" width="7" />');
 	else
 		$text_array = array('-', '+');
 	$toggle_link = asearch_get_toggle_link(!$show_flag, $show_pref, $text_array, array(_("Fold"), _("Unfold")));
 	if (!$use_icons_flag)
 		$toggle_link = '<small>[' . $toggle_link . ']</small>';
 
-	echo "<br>\n";
+	echo "<br />\n";
 	echo html_tag('table', '', 'center', $color[9], 'width="95%" cellpadding="1" cellspacing="1" border="0"');
 	echo html_tag('tr',
 		html_tag('td', $toggle_link, 'center', $color[5], 'width="5%"')
@@ -701,7 +701,7 @@ function asearch_get_form_mailbox($imapConnection, &$boxes, $mailbox, $row_num =
 function asearch_get_form_sub($sub, $row_num = 0)
 {
 	return function_exists('addCheckBox') ? addCheckBox('sub[' . $row_num .']', $sub)
-	: '<input type=checkbox name="sub[' . $row_num .']"' . ($sub ? ' CHECKED' : '') . '>';
+	: '<input type="checkbox" name="sub[' . $row_num .']"' . ($sub ? ' checked="checked"' : '') . ' />';
 }
 
 /** Build the 2 unop and where selects
@@ -719,7 +719,7 @@ function asearch_get_form_location($unop, $where, $row_num = 0)
 function asearch_get_form_what($what, $row_num = 0)
 {
 	return function_exists('addInput') ? addInput('what[' . $row_num . ']', $what, '35')
-	: '<input type="text" size="35" name="what[' . $row_num . ']" value="' . htmlspecialchars($what) . '">';
+	: '<input type="text" size="35" name="what[' . $row_num . ']" value="' . htmlspecialchars($what) . '" />';
 }
 
 /** Build the Exclude criteria checkbox
@@ -727,7 +727,7 @@ function asearch_get_form_what($what, $row_num = 0)
 function asearch_get_form_exclude($exclude, $row_num = 0)
 {
 	return function_exists('addCheckBox') ? addCheckBox('exclude['.$row_num.']', $exclude)
-	: '<input type=checkbox name="exclude[' . $row_num .']"' . ($exclude ? ' CHECKED' : '') . '>';
+	: '<input type="checkbox" name="exclude[' . $row_num .']"' . ($exclude ? ' checked="checked"' : '') . ' />';
 }
 
 /** Print one advanced form row
@@ -769,7 +769,7 @@ function asearch_print_form($imapConnection, &$boxes, $mailbox_array, $biop_arra
 	global $color;
 
 //Search Form
-	echo "<br>\n";
+	echo "<br />\n";
 	echo '<form action="' . asearch_get_href() . '" name="form_asearch">' . "\n";
 
 	echo html_tag('table', '', 'center', $color[9], 'width="100%" cellpadding="1" cellspacing="1" border="0"');
@@ -830,7 +830,7 @@ function asearch_print_form_basic($imapConnection, &$boxes, $mailbox_array, $bio
 	global $color;
 
 //Search Form
-	echo "<br>\n";
+	echo "<br />\n";
 	echo '<form action="' . asearch_get_href() . '" name="form_asearch">' . "\n";
 
 	echo html_tag('table', '', 'center', $color[9], 'width="100%" cellpadding="1" cellspacing="1" border="0"');
@@ -1355,7 +1355,7 @@ if ($submit == $search_button_text) {
 
 	$query_error = asearch_check_query($where_array, $what_array, $exclude_array);
 	if ($query_error != '')
-		echo '<br>' . html_tag('div', asearch_get_error_display($color, $query_error), 'center') . "\n";
+		echo '<br />' . html_tag('div', asearch_get_error_display($color, $query_error), 'center') . "\n";
 	else {
 		// Disable thread sort for now if there is more than one mailbox or at least one 'All Folders'
 		global $allow_thread_sort;
@@ -1365,10 +1365,10 @@ if ($submit == $search_button_text) {
 		$mboxes_array = sqimap_asearch_get_selectable_unformatted_mailboxes($boxes);
 		$mboxes_msgs = sqimap_asearch($imapConnection, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array, $mboxes_array);
 		if (empty($mboxes_msgs))
-			echo '<br>' . html_tag('div', asearch_get_error_display($color, _("No Messages Found")), 'center') . "\n";
+			echo '<br />' . html_tag('div', asearch_get_error_display($color, _("No Messages Found")), 'center') . "\n";
 		else {
 			foreach($mboxes_msgs as $mailbox => $msgs) {
-				echo '<br>';
+				echo '<br />';
 				$mbxresponse = sqimap_mailbox_select($imapConnection, $mailbox);
 				$msgs = fillMessageArray($imapConnection, $msgs, count($msgs));
 /* For now just keep the first criteria to make the regular search happy if the user tries to come back to search */
