@@ -66,12 +66,13 @@ echo '<br>' .
             html_tag( 'td', '', 'center', $color[4] ) .
             '<FORM ACTION="folders_rename_do.php" METHOD="POST">'.
      _("New name:").
-     "<br><B>$old_parent $delimiter </B><INPUT TYPE=TEXT SIZE=25 NAME=new_name VALUE=\"$old_name\"><BR>\n";
+     '<br><b>' . htmlspecialchars($old_parent) . ' ' . htmlspecialchars($delimiter) . '</b>' .
+     '<INPUT TYPE="TEXT" SIZE="25" NAME="new_name" VALUE="' . htmlspecialchars($old_name) . '"><BR>' . "\n";
 if ( $isfolder ) {
     echo '<INPUT TYPE=HIDDEN NAME="isfolder" VALUE="true">';
 }
-printf("<INPUT TYPE=HIDDEN NAME=\"orig\" VALUE=\"%s\">\n", $old);
-printf("<INPUT TYPE=HIDDEN NAME=\"old_name\" VALUE=\"%s\">\n", $old_name);
+printf("<INPUT TYPE=HIDDEN NAME=\"orig\" VALUE=\"%s\">\n", htmlspecialchars($old));
+printf("<INPUT TYPE=HIDDEN NAME=\"old_name\" VALUE=\"%s\">\n", htmlspecialchars($old_name));
 echo '<INPUT TYPE=SUBMIT VALUE="'._("Submit")."\">\n".
      '</FORM><BR></td></tr></table>';
 
