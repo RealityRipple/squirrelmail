@@ -376,7 +376,7 @@
       do_hook('mailbox_index_before');
 
       $msg_cnt_str = get_msgcnt_str($start_msg, $end_msg, $num_msgs);
-      $paginator_str = get_paginator_str($urlMailbox, $start_msg, $end_msg, $num_msgs, $show_num);
+      $paginator_str = get_paginator_str($urlMailbox, $start_msg, $end_msg, $num_msgs, $show_num, $sort);
 
       if (! isset($msg)) {
           $msg = '';
@@ -666,7 +666,9 @@
      * This function computes the paginator string.
      */
     function get_paginator_str
-    ($urlMailbox, $start_msg, $end_msg, $num_msgs, $show_num) {
+    ($urlMailbox, $start_msg, $end_msg, $num_msgs, $show_num, $sort) {
+        global $username, $data_dir, $use_mailbox_cache;
+
         $nextGroup = $start_msg + $show_num;
         $prevGroup = $start_msg - $show_num;
 
@@ -701,25 +703,25 @@
                 $j++;
             }
             $start_msgs = min( $start_msgs, $num_msgs );
-            $p = intval( $start_msgs / $show_num ) + 1;
+            $p = intval( $start_msg / $show_num ) + 1;
             $i = 1;
             while( $i < $p ) {
                 $pg = intval( $i );
                 $start = ( ($pg-1) * $show_num ) + 1;
                 $mMore .= "<a href=\"right_main.php?use_mailbox_cache=$use_mailbox_cache&startMessage=$start" .
-                          "&mailbox=$urlMailbox\" TARGET=\"right\">$pg</a> ";
+                          "&mailbox=$urlMailbox\" TARGET=\"right\">$pg</a>&nbsp;";
                 $i += $k;
             }
-            $mMore .= "<b>$p</b> ";
+            $mMore .= "<B>$p</B>&nbsp;";
             $i += $k;
             while( $i <= $j ) {
                $pg = intval( $i );
                $start = ( ($pg-1) * $show_num ) + 1;
                $mMore .= "<a href=\"right_main.php?use_mailbox_cache=$use_mailbox_cache&startMessage=$start"
-                       . "&mailbox=$urlMailbox\" TARGET=\"right\">$pg</a> ";
+                       . "&mailbox=$urlMailbox\" TARGET=\"right\">$pg</a>&nbsp;";
                $i+=$k;
             }
-            $mMore .= ' | ';
+            $mMore .= '&nbsp;|&nbsp;';
         }
 
         /* Return the resulting string. */
