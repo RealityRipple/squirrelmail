@@ -90,7 +90,7 @@ function formatMailboxName($imapConnection, $box_array) {
 
     /* Print unseen information. */
     if ($unseen_string != '') {
-        $line .= "&nbsp;<SMALL>$unseen_string</SMALL>";
+        $line .= "&nbsp;<small>$unseen_string</small>";
     }
 
     /* If it's the trash folder, show a purge link when needed */
@@ -181,13 +181,13 @@ function create_collapse_link($boxnum) {
             'href="left_main.php?';
     if ($boxes[$boxnum]['collapse'] == SM_BOX_COLLAPSED) {
         if ($use_icons && $icon_theme != 'none') {
-            $link .= "unfold=$mailbox\"><IMG src=\"" . SM_PATH . "images/plus.png\" border=\"0\" height=\"7\" width=\"7\">";
+            $link .= "unfold=$mailbox\"><img src=\"" . SM_PATH . 'images/plus.png" border="0" height="7" width="7" />';
         } else {
             $link .= "unfold=$mailbox\">+";
         }
     } else {
         if ($use_icons && $icon_theme != 'none') {
-            $link .= "fold=$mailbox\"><IMG src=\"" . SM_PATH . "images/minus.png\" border=\"0\" height=\"7\" width=\"7\">";
+            $link .= "fold=$mailbox\"><img src=\"" . SM_PATH . 'images/minus.png" border="0" height="7" width="7" />';
         } else {
             $link .= "fold=$mailbox\">-";
         }
@@ -355,13 +355,13 @@ function ListBoxes ($boxes, $j=0 ) {
         $link = '<a target="left" style="text-decoration:none" ' .'href="left_main.php?';
         if ($collapse) {
             if ($use_icons && $icon_theme != 'none') {
-                $link .= "unfold=$mailboxURL\">$leader<IMG src=\"" . SM_PATH . "images/plus.png\" border=\"0\" height=\"7\" width=\"7\">&nbsp;</tt>";
+                $link .= "unfold=$mailboxURL\">$leader<img src=\"" . SM_PATH . 'images/plus.png" border="0" height="7" width="7" />&nbsp;</tt>';
             } else {
                 $link .= "unfold=$mailboxURL\">$leader+&nbsp;</tt>";
             }
         } else {
             if ($use_icons && $icon_theme != 'none') {
-                $link .= "fold=$mailboxURL\">$leader<IMG src=\"" . SM_PATH . "images/minus.png\" border=\"0\" height=\"7\" width=\"7\">&nbsp;</tt>";
+                $link .= "fold=$mailboxURL\">$leader<img src=\"" . SM_PATH . 'images/minus.png" border="0" height="7" width="7" />&nbsp;</tt>';
             } else {
                 $link .= "fold=$mailboxURL\">$leader-&nbsp;</tt>";
             }

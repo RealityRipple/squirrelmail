@@ -37,11 +37,11 @@ sqgetGlobalVar('ent_id',        $ent_id,        SQ_GET);
 sqgetGlobalVar('QUERY_STRING',  $QUERY_STRING,  SQ_SERVER);
 /* end globals */
 
-echo '<BR>' . 
-    '<TABLE WIDTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>' .
+echo '<br />' . 
+    '<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center">' .
     "\n" .
-    '<TR><TD BGCOLOR="' . $color[0] . '">' .
-    '<B><CENTER>' .
+    '<tr><td bgcolor="' . $color[0] . '">' .
+    '<b><center>' .
     _("Viewing an image attachment") . " - ";
 
 $msg_url = 'read_body.php?' . $QUERY_STRING;
@@ -52,18 +52,15 @@ echo '<a href="'.$msg_url.'">'. _("View message") . '</a>';
 $DownloadLink = '../src/download.php?passed_id=' . $passed_id .
                '&amp;mailbox=' . urlencode($mailbox) . 
                '&amp;ent_id=' . urlencode($ent_id) . '&amp;absolute_dl=true';
-
-echo '</b></td></tr>' . "\n" .
-    '<tr><td align=center><A HREF="' . $DownloadLink . '">' .
-    _("Download this as a file") .
-    '</A></B><BR>&nbsp;' . "\n" .
-    '</TD></TR></TABLE>' . "\n" .
-
-    '<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>' . "\n" .
-    '<TR><TD BGCOLOR="' . $color[4] . '">' .
-    '<img src="' . $DownloadLink . '">' .
-
-    '</TD></TR></TABLE>' . "\n";
-    '</body></html>' . "\n";
-
 ?>
+</b></td></tr>
+<tr><td align="center">
+<a href="<?php echo $DownloadLink; ?>"><?php echo _("Download this as a file"); ?></a>
+<br />&nbsp;</td></tr></table>
+
+<table border="0" cellspacing="0" cellpadding="2" align="center">
+<tr><td bgcolor="<?php echo $color[4]; ?>">
+<img src="<?php echo $DownloadLink; ?>" />
+
+</td></tr></table>
+</body></html>

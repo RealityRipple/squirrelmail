@@ -639,7 +639,7 @@ function show_abook_sort_button($abook_sort_order, $alt_tag, $Down, $Up ) {
     return ' <a href="' . $form_url .'?abook_sort_order=' . $which
          . '"><img src="../images/' . $img
          . '" border="0" width="12" height="10" alt="' . $alt_tag . '" title="'
-         . _("Click here to change the sorting of the address list") .'"></a>';
+         . _("Click here to change the sorting of the address list") .'" /></a>';
 }
 
 /*

@@ -1081,7 +1081,7 @@ function sq_getnxtag($body, $offset){
      * 2. Closing tag, e.g.:
      *    </a>
      * 3. XHTML-style content-less tag, e.g.:
-     *    <img src="blah"/>
+     *    <img src="blah" />
      */
     $tagtype = false;
     switch (substr($body, $pos, 1)){
@@ -1139,7 +1139,7 @@ function sq_getnxtag($body, $offset){
         case '/':
             /**
              * This is an xhtml-style tag with a closing / at the
-             * end, like so: <img src="blah"/>. Check if it's followed
+             * end, like so: <img src="blah" />. Check if it's followed
              * by the closing bracket. If not, then this tag is invalid
              */
             if (substr($body, $pos, 2) == "/>"){
@@ -1241,7 +1241,7 @@ function sq_getnxtag($body, $offset){
             case '/':
                 /**
                  * This is an xhtml-style tag with a closing / at the
-                 * end, like so: <img src="blah"/>. Check if it's followed
+                 * end, like so: <img src="blah" />. Check if it's followed
                  * by the closing bracket. If not, then this tag is invalid
                  */
                 if (substr($body, $pos, 2) == "/>"){
