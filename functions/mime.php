@@ -144,18 +144,11 @@
                $display_filename = $filename;
             }
 
-            $body[$pos] .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../data/$filename\">" . $display_filename . "</A>&nbsp;&nbsp;<SMALL>(TYPE: $type0/$type1)</SMALL></TT><BR>";
-            $file = fopen("../data/$filename", "w");
 
-            /** Determine what encoding type is used **/
-            if ($message["ENTITIES"][$i]["ENCODING"] == "base64") {
-               $thefile = base64_decode($message["ENTITIES"][$i]["BODY"][0]);
-            } else {
-               $thefile = $message["ENTITIES"][$i]["BODY"][0];
-            }
+            $urlMailbox = urlencode($message["INFO"]["MAILBOX"]);
+            $id = $message["INFO"]["ID"];
+            $body[$pos] .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$i\">" . $display_filename . "</A>&nbsp;&nbsp;<SMALL>(TYPE: $type0/$type1)</SMALL></TT><BR>";
 
-            fwrite($file, $thefile);
-            fclose($file);
          }
       }
 
@@ -181,6 +174,8 @@
             $body[$q] = ereg_replace("=3D", "=", $body[$q]);
          }
          $newbody = $body;
+      } else if ($encoding == "base64") {
+         $newbody = base64_decode($body);
       } else {
          $newbody = $body;
       }

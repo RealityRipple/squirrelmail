@@ -14,7 +14,7 @@
 
    if ($forward_id) {
       selectMailbox($imapConnection, $mailbox, $numMessages);
-      $msg = fetchMessage($imapConnection, $forward_id);
+      $msg = fetchMessage($imapConnection, $forward_id, $mailbox);
 
       $body_ary = formatBody($msg);
       $tmp = "-------- Original Message ---------\n";
@@ -28,7 +28,7 @@
 
    if ($reply_id) {
       selectMailbox($imapConnection, $mailbox, $numMessages);
-      $msg = fetchMessage($imapConnection, $reply_id);
+      $msg = fetchMessage($imapConnection, $reply_id, $mailbox);
 
       $body_ary = formatBody($msg);
       for ($i=0;$i < count($body_ary);$i++) {

@@ -27,6 +27,7 @@
       selectMailbox($imapConnection, $mailbox, $numNessages);
       $unseen = unseenMessages($imapConnection, $numUnseen);
 
+      echo "<NOBR>";
       if ($unseen)
          $line .= "<B>";
 
@@ -59,6 +60,8 @@
          $line .= "&nbsp;&nbsp;&nbsp;&nbsp;(<B><A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\" TARGET=right style=\"text-decoration:none\">empty</A></B>)";
          $line .= "</FONT></a>\n";
       }
+
+      echo "</NOBR>";
       return $line;
    }
 
