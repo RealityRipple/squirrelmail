@@ -147,6 +147,8 @@ Version 1.5.1 -- CVS
   - Global file based address book is controled in configuration. Removed
     global_file address book backend (use 'local_file' instead). 
   - Added Net-Style theme by Gabriele Maidecchi. Closes patch #1041323.
+  - Fix: Messages shown with bad times in message list due to misinterpreted 
+    UW IMAP internal date
 
 Version 1.5.0
 --------------------
