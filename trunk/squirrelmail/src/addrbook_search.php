@@ -150,7 +150,10 @@ function bcc_address($addr) {
       // List search results
       $line = 0;
       print "<table border=0 width=100%>";
-      print "<tr bgcolor=\"$color[9]\"><TH align=left>&nbsp;<TH align=left>Name<TH align=left>E-mail<TH align=left>Info<TH align=left>Source</tr>\n";
+      printf("<tr bgcolor=\"$color[9]\"><TH align=left>&nbsp;".
+             "<TH align=left>%s<TH align=left>%s<TH align=left>%s".
+             "<TH align=left>%s</tr>\n",
+             _("Name"), _("E-mail"), _("Info"), _("Source"));
 
       while(list($key, $row) = each($res)) {
 	 printf("<tr%s nowrap><td nowrap><a href=\"javascript:to_address('%s');\">To</A> | <a href=\"javascript:cc_address('%s');\">Cc</A><td nowrap>%s&nbsp;<td nowrap>%s&nbsp;<td nowrap>%s&nbsp;<td nowrap>%s</tr>\n", 
