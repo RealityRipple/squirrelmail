@@ -21,14 +21,14 @@
 <FONT FACE="Arial,Helvetica">
 <?
    include("../config/config.php3");
-   include("functions/imap.php3");
-   include("functions/strings.php3");
-   include("functions/date.php3");
-   include("functions/page_header.php3");
-   include("functions/array.php3");
-   include("functions/mailbox.php3");
-   include("functions/mailbox_display.php3");
-   include("functions/display_messages.php3");
+   include("../functions/imap.php3");
+   include("../functions/strings.php3");
+   include("../functions/date.php3");
+   include("../functions/page_header.php3");
+   include("../functions/array.php3");
+   include("../functions/mailbox.php3");
+   include("../functions/mailbox_display.php3");
+   include("../functions/display_messages.php3");
 
    /////////////////////////////////////////////////////////////////////////////////
    //
