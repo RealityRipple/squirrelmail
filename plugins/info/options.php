@@ -9,12 +9,14 @@
  * Written by: Jason Munro 
  * jason@stdbev.com
  */
+chdir('..');
+define('SM_PATH','../');
 
-chdir ('..');
-  require_once('../src/validate.php');
-  require_once('../functions/page_header.php');
-  require_once('../functions/imap.php');
-  require_once('../plugins/info/functions.php');
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'include/validate.php');
+require_once(SM_PATH . 'functions/page_header.php');
+require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'plugins/info/functions.php');
 
 global $username, $color, $folder_prefix, $default_charset;
 $default_charset = strtoupper($default_charset);

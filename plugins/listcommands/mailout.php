@@ -9,10 +9,13 @@
  */
 
 chdir('..');
-include_once ('../src/validate.php');
-include_once ('../functions/page_header.php');
-include_once ('../src/load_prefs.php');
-include_once('../functions/html.php');
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'functions/page_header.php');
+include_once(SM_PATH . 'src/load_prefs.php');
+include_once(SM_PATH . 'functions/html.php');
 
 displayPageHeader($color, $mailbox);
 
