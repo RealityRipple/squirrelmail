@@ -10,7 +10,7 @@
  * the right to left implementation by "functionize" some
  * html outputs.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 

@@ -9,7 +9,7 @@
  * This code provides various string manipulation functions that are
  * used by the rest of the Squirrelmail code.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 

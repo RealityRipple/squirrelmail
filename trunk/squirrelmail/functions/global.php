@@ -10,7 +10,7 @@
  * It also has some session register functions that work across various
  * php versions. 
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 

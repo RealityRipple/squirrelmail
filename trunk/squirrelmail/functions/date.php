@@ -11,7 +11,7 @@
  *       <Tue,> 29 Jun 1999 09:52:11 -0500 (EDT)
  * (as specified in RFC 822) -- 'Tue' is optional
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 

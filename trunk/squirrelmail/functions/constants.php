@@ -10,7 +10,7 @@
  * This file is include by src/login.php, src/redirect.php and
  * src/load_prefs.php.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 

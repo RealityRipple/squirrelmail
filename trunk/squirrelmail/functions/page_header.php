@@ -8,7 +8,7 @@
  *
  * Prints the page header (duh)
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 

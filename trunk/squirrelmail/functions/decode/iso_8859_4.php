@@ -1,7 +1,6 @@
 <?php
 /**
  * decode/iso8859-4.php
- * $Id$
  *
  * Copyright (c) 2003-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
@@ -35,6 +34,8 @@
  *	Unicode Standard, and to make copies of this file in any form for
  *	internal or external distribution as long as this notice remains
  *	attached.
+ *
+ * @version $Id$
  * @package squirrelmail
  * @subpackage decode
  */

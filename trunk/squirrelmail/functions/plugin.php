@@ -10,7 +10,7 @@
  *
  * Documentation on how to write plugins might show up some time.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 

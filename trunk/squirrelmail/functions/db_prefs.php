@@ -25,7 +25,7 @@
  * Configuration of databasename, username and password is done
  * by using conf.pl or the administrator plugin
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 
