@@ -21,10 +21,10 @@ is_logged_in();
 if (get_magic_quotes_gpc()) {
     global $REQUEST_METHOD;
 
-    if ($REQUEST_METHOD == "POST") {
+    if ($REQUEST_METHOD == 'POST') {
         global $HTTP_POST_VARS;
         RemoveSlashes($HTTP_POST_VARS);
-    } else if ($REQUEST_METHOD == "GET") {
+    } else if ($REQUEST_METHOD == 'GET') {
         global $HTTP_GET_VARS;
         RemoveSlashes($HTTP_GET_VARS);
     }
@@ -43,7 +43,7 @@ global $send, $PHP_SELF;
 if (isset($send)
     && (substr($send, 0, 1) == "\n")
     && (substr($PHP_SELF, -12) == '/compose.php')) {
-    if ($REQUEST_METHOD == "POST") {
+    if ($REQUEST_METHOD == 'POST') {
         global $HTTP_POST_VARS;
         TrimArray($HTTP_POST_VARS);
     } else {
@@ -69,4 +69,5 @@ require_once('../functions/prefs.php');
 /* Set up the language (i18n.php was included by auth.php). */
 global $username, $data_dir;
 set_up_language(getPref($data_dir, $username, 'language'));
+
 ?>

@@ -104,11 +104,17 @@ require_once('../functions/date.php');
    }
 
    if (strlen($filename) < 1) {
-      if ($type1 == "plain" && $type0 == "text")                  $suffix = "txt";
-      else if ($type1 == "richtext" && $type0 == "text")          $suffix = "rtf";
-      else if ($type1 == "postscript" && $type0 == "application") $suffix = "ps";
-      else if ($type1 == "message" && $type0 == "rfc822")         $suffix = "msg";
-      else $suffix = $type1;
+      if ($type1 == 'plain' && $type0 == 'text') {
+          $suffix = 'txt';
+      } else if ($type1 == 'richtext' && $type0 == 'text') {
+          $suffix = 'rtf';
+      } else if ($type1 == 'postscript' && $type0 == 'application') {
+          $suffix = 'ps';
+      } else if ($type1 == 'message' && $type0 == 'rfc822') {
+          $suffix = 'msg';
+      } else {
+          $suffix = $type1;
+      }
 
       $filename = "untitled$passed_ent_id.$suffix";
    }

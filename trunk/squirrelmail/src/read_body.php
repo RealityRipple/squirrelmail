@@ -17,7 +17,7 @@ require_once('../functions/imap.php');
 require_once('../functions/mime.php');
 require_once('../functions/date.php');
 require_once('../functions/url_parser.php');
-   
+
 /**
 * Given an IMAP message id number, this will look it up in the cached
 * and sorted msgs array and return the index. Used for finding the next
@@ -420,23 +420,23 @@ if ($default_use_priority) {
     switch($priority_level) {
         /* check for a higher then normal priority. */
         case '1':
-        case '2': 
-            $priority_string = _("High"); 
+        case '2':
+            $priority_string = _("High");
             break;
 
         /* check for a lower then normal priority. */
         case '4':
-        case '5': 
-            $priority_string = _("Low"); 
+        case '5':
+            $priority_string = _("Low");
             break;
-            
+
         /* check for a normal priority. */
-        case '3': 
+        case '3':
         default:
             $priority_level = '3';
-            $priority_string = _("Normal"); 
+            $priority_string = _("Normal");
             break;
-            
+
     }
 }
 
@@ -638,11 +638,12 @@ if (!$pf_subtle_link) {
     echo printer_friendly_link(true);
 }
 
-do_hook("read_body_header");
+do_hook('read_body_header');
 echo '</TABLE>' .
     '   </TD></TR>' .
     '</TABLE>';
 flush();
+
 echo "<TABLE CELLSPACING=0 WIDTH=\"97%\" BORDER=0 ALIGN=CENTER CELLPADDING=0>\n" .
     "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=\"100%\">\n" .
     '<BR>'.
@@ -653,22 +654,28 @@ echo "<TABLE CELLSPACING=0 WIDTH=\"97%\" BORDER=0 ALIGN=CENTER CELLPADDING=0>\n"
     '</TABLE>' . "\n";
 
 /* show attached images inline -- if pref'fed so */
-if (($attachment_common_show_images) and
+if (($attachment_common_show_images) &&
     is_array($attachment_common_show_images_list)) {
+
     foreach ($attachment_common_show_images_list as $img) {
+        $imgurl = '../src/download.php' .
+                "?startMessage=$startMessage".
+                '&passed_id='     . urlencode($img['passed_id']) .
+                '&mailbox='       . urlencode($img['mailbox']) .
+                '&passed_ent_id=' . urlencode($img['ent_id']) .
+                '&absolute_dl=true';
+
         echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>\n" .
             "  <TR>\n" .
             "    <TD>\n" .
-            '      <img src="../src/download.php' .
-                '?passed_id='     . urlencode($img['passed_id']) .
-                '&mailbox='       . urlencode($img['mailbox']) .
-                '&passed_ent_id=' . urlencode($img['ent_id']) .
-                '&absolute_dl=true">' . "\n" .
+            "      <img src=\"$imgurl\">\n" .
             "    </TD>\n" .
             "  </TR>\n" .
             "</TABLE>\n";
+
     }
 }
+
 
 do_hook('read_body_bottom');
 do_hook('html_bottom');

@@ -2,9 +2,9 @@
 *** Squirrelmail Stable Series 1.2 ***
 **************************************
 
-Version 1.2.3 -- ??
--------------------
-  - Fixed focus system on pages that contains forms.
+Version 1.2.3 -- cvs
+--------------------
+  - Fixed focus system on pages that contain forms.
   - Fixed IMAP code to send different command identifiers as per 
     section 2.2.1 of RFC 2060.
   - Fixed 'sticky priority' so that replies are set to the same
@@ -20,7 +20,6 @@ Version 1.2.3 -- ??
     make it bigger or smaller depending on their screen size. Sysops may add
     or remove these system-defined css located in themes/css/
   
-
 Version 1.2.2 -- 1 January 2002
 -------------------------------
 
