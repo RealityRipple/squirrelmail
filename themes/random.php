@@ -19,7 +19,7 @@ sq_mt_randomize();
 
 require_once(SM_PATH . 'functions/global.php');
    
-global $theme, $random_theme_good_themes;
+global $theme;
    
 if (!sqsession_is_registered('random_theme_good_theme')) {
     $good_themes = array();
@@ -34,6 +34,9 @@ if (!sqsession_is_registered('random_theme_good_theme')) {
     $which = mt_rand(0, count($good_themes));
     $random_theme_good_theme = $good_themes[$which];
     sqsession_register($random_theme_good_theme, 'random_theme_good_theme');
+} else {
+    // get random theme stored in session
+    sqgetGlobalVar('random_theme_good_theme',$random_theme_good_theme);
 }
    
 @include_once ($random_theme_good_theme);
