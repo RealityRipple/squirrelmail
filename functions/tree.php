@@ -72,7 +72,7 @@ function walkTreeInPreOrderEmptyTrash($index, $imap_stream, $tree) {
             $numMessages = sqimap_get_num_messages($imap_stream, $trash_folder);
             if ($numMessages > 0) {
             sqimap_mailbox_select($imap_stream, $trash_folder);
-            sqimap_messages_flag ($imap_stream, 1, $numMessages, 'Deleted');
+            sqimap_messages_flag ($imap_stream, 1, $numMessages, 'Deleted', true);
             sqimap_mailbox_expunge($imap_stream, $trash_folder, true);
             }
         }
@@ -83,7 +83,7 @@ function walkTreeInPreOrderEmptyTrash($index, $imap_stream, $tree) {
             $numMessages = sqimap_get_num_messages($imap_stream, $trash_folder);
             if ($numMessages > 0) {
             sqimap_mailbox_select($imap_stream, $trash_folder);
-            sqimap_messages_flag ($imap_stream, 1, $numMessages, 'Deleted');
+            sqimap_messages_flag ($imap_stream, 1, $numMessages, 'Deleted', true);
             sqimap_mailbox_expunge($imap_stream, $trash_folder, true);
             }
         }

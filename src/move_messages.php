@@ -147,7 +147,7 @@ if(isset($expungeButton)) {
         //    loop because we never increment j.  so check to see if msg[0] is set or not to fix this.
         while ($j < count($msg)) {
             if ($msg[$i]) {
-                sqimap_messages_remove_flag ($imapConnection, $msg[$i], $msg[$i], "Deleted");
+                sqimap_messages_remove_flag ($imapConnection, $msg[$i], $msg[$i], "Deleted", true);
                 $j++;
             }
             $i++;
@@ -168,9 +168,9 @@ if(isset($expungeButton)) {
         while ($j < count($msg)) {
             if (isset($msg[$i])) {
                 if (isset($markRead)) {
-                    sqimap_messages_flag($imapConnection, $msg[$i], $msg[$i], "Seen");
+                    sqimap_messages_flag($imapConnection, $msg[$i], $msg[$i], "Seen", true);
                 } else if (isset($markUnread)) {
-                    sqimap_messages_remove_flag($imapConnection, $msg[$i], $msg[$i], "Seen");
+                    sqimap_messages_remove_flag($imapConnection, $msg[$i], $msg[$i], "Seen", true);
                 } else if (isset($attache)) {
 		    break;
                 } else  {
@@ -210,7 +210,7 @@ if(isset($expungeButton)) {
             if (isset($msg[$i])) {
                 /** check if they would like to move it to the trash folder or not */
                 sqimap_messages_copy($imapConnection, $msg[$i], $msg[$i], $targetMailbox);
-                sqimap_messages_flag($imapConnection, $msg[$i], $msg[$i], "Deleted");
+                sqimap_messages_flag($imapConnection, $msg[$i], $msg[$i], "Deleted", true);
                 $j++;
             }
             $i++;

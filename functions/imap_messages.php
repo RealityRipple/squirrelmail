@@ -24,19 +24,19 @@ function sqimap_messages_delete ($imap_stream, $start, $end, $mailbox) {
     if (($move_to_trash == true) && (sqimap_mailbox_exists($imap_stream, $trash_folder) && ($mailbox != $trash_folder))) {
         sqimap_messages_copy ($imap_stream, $start, $end, $trash_folder);
     }
-    sqimap_messages_flag ($imap_stream, $start, $end, "Deleted");
+    sqimap_messages_flag ($imap_stream, $start, $end, "Deleted", true);
 }
 
 /* Sets the specified messages with specified flag */
-function sqimap_messages_flag ($imap_stream, $start, $end, $flag) {
+function sqimap_messages_flag ($imap_stream, $start, $end, $flag, $handle_errors) {
     global $uid_support;
-    $read = sqimap_run_command ($imap_stream, "STORE $start:$end +FLAGS (\\$flag)", true, $response, $message, $uid_support);
+    $read = sqimap_run_command ($imap_stream, "STORE $start:$end +FLAGS (\\$flag)", $handle_errors, $response, $message, $uid_support);
 }
 
 /* Remove specified flag from specified messages */
-function sqimap_messages_remove_flag ($imap_stream, $start, $end, $flag) {
+function sqimap_messages_remove_flag ($imap_stream, $start, $end, $flag, $handle_errors) {
     global $uid_support;
-    $read = sqimap_run_command ($imap_stream, "STORE $start:$end -FLAGS (\\$flag)", true, $response, $message, $uid_support);
+    $read = sqimap_run_command ($imap_stream, "STORE $start:$end -FLAGS (\\$flag)", $handle_errors, $response, $message, $uid_support);
 }
 
 /* Returns some general header information -- FROM, DATE, and SUBJECT */

@@ -789,7 +789,7 @@ function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN,
 
     if (isset($reply_id) && $reply_id) {
         sqimap_mailbox_select ($imap_stream, $mailbox);
-        sqimap_messages_flag ($imap_stream, $reply_id, $reply_id, 'Answered');
+        sqimap_messages_flag ($imap_stream, $reply_id, $reply_id, 'Answered', false);
 
         /* Insert In-Reply-To and References headers if the
          * message-id of the message we reply to is set (longer than "<>")
