@@ -147,7 +147,7 @@
 
       echo "\n<FORM action=\"compose.php\" METHOD=POST\n";
       echo "ENCTYPE=\"multipart/form-data\">\n";
-      echo "<TABLE COLS=2 WIDTH=50 ALIGN=CENTER CELLSPACING=0 BORDER=0>\n";
+      echo "<TABLE COLS=2 WIDTH=50 ALIGN=center CELLSPACING=0 BORDER=0>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
       echo "         <FONT FACE=\"Arial,Helvetica\">";
@@ -201,10 +201,11 @@
              (substr(strtolower($forward_subj), 0, 5) != "[fwd:") &&
              (substr(strtolower($forward_subj), 0, 6) != "[ fwd:"))
             $forward_subj = "[Fwd: $forward_subj]";
-         echo "         <INPUT TYPE=TEXT NAME=subject SIZE=60 VALUE=\"$forward_subj\">";
+         echo "         <INPUT TYPE=TEXT NAME=subject SIZE=50 VALUE=\"$forward_subj\">";
       } else {
-         echo "         <INPUT TYPE=TEXT NAME=subject VALUE=\"$subject\" SIZE=60>";
+         echo "         <INPUT TYPE=TEXT NAME=subject VALUE=\"$subject\" SIZE=50>";
       }
+      echo "&nbsp;&nbsp;<INPUT TYPE=SUBMIT NAME=send VALUE=\"". _("Send") . "\">";
       echo "      </TD>\n";
       echo "   </TR>\n";
 
