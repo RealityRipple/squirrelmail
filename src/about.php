@@ -11,6 +11,7 @@
  * TODO:
  * - Insert org_name, provider_url?
  * - What more information is needed?
+ * - Display of system information might be restricted
  *
  * @version $Id$
  * @package squirrelmail
