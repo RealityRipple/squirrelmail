@@ -389,6 +389,8 @@
       }
     }
 
+   // Workaround for RedHat PHP 4.0.4pl1-3
+   // Also for Konq problems?
    if (isset($mailbox))     $mailbox = trim($mailbox);
    if (isset($send_to))     $send_to = trim($send_to);
    if (isset($send_to_cc))  $send_to_cc = trim($send_to_cc);
@@ -396,7 +398,8 @@
    if (isset($subject))     $subject = trim($subject);
    if (isset($body))        $body = trim($body);
    if (isset($attachfile))  $attachfile = trim($attachfile);
-
+   // End of workaround
+   
    if (!isset($mailbox) || $mailbox == "" || ($mailbox == "None"))
       $mailbox = "INBOX";
 
