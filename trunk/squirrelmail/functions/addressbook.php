@@ -26,7 +26,7 @@
       $r = $abook->add_backend("local_file", Array("filename" => $filename,
 						   "create"   => true));
       if(!$r) {
-	 print _("Error opening ") ."$filename";
+	 printf(_("Error opening file %s"), $filename);
 	 exit;
       }
      
@@ -201,7 +201,7 @@
 
 	 // Check that specified backend accept new entries
 	 if(!$this->backends[$bnum]->writeable) {
-	    $this->error = _("Addressbook is not writable");
+	    $this->error = _("Addressbook is read-only");
 	    return false;
 	 }
 

@@ -48,7 +48,7 @@
 
 	 $this->open(true);
        } else {
-	 $this->set_error(_("Invalid argument to constructor"));
+	 $this->set_error("Invalid argument to constructor");
        }
      }
 
