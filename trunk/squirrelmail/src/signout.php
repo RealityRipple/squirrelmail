@@ -13,6 +13,9 @@
 
    session_start();
 
+   if (!isset($strings_php))
+      include("../functions/strings.php");
+
    include ("../src/load_prefs.php");
 
    if (!isset($config_php))
@@ -25,6 +28,14 @@
       include ("../functions/plugin.php");
 
    set_up_language(getPref($data_dir, $username, "language"));
+
+   // If a user hits reload on the last page, $base_uri isn't set
+   // because it was deleted with the session.
+   if (! isset($base_uri))
+   {
+       ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);
+       $base_uri = $regs[1];
+   }
 
    do_hook("logout");
    setcookie("username", "", 0, $base_uri);
@@ -40,7 +51,8 @@
                $theme_css);
       echo "\n";
    }
-   echo "<TITLE>$title - Signout</TITLE>\n";
+   
+   echo "<TITLE>$org_title - Signout</TITLE>\n";
    echo "</HEAD><BODY TEXT=$color[8] BGCOLOR=$color[4] LINK=$color[7] VLINK=$color[7] ALINK=$color[7]>\n";
    echo "<BR><BR><TABLE BGCOLOR=FFFFFF BORDER=0 COLS=1 WIDTH=50% CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>";
    echo "   <TR BGCOLOR=$color[0] WIDTH=100%>";
