@@ -148,7 +148,6 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
              * Update/modify address                       *
              ***********************************************/
             if (!empty($editaddr)) {
-
                 /* Stage one: Copy data into form */
                 if (isset($sel) && sizeof($sel) > 0) {
                     if(sizeof($sel) > 1) {
@@ -167,40 +166,40 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                             addHidden('doedit', '1').
                             '</form>';
                     }
-                } else {
-
+                } elseif ($doedit == 1) {
                     /* Stage two: Write new data */
-                    if ($doedit = 1) {
-                        $newdata = $editaddr;
-                        $r = $abook->modify($oldnick, $newdata, $backend);
+                    $newdata = $editaddr;
+                    $r = $abook->modify($oldnick, $newdata, $backend);
 
-                        /* Handle error messages */
-                        if (!$r) {
-                            /* Display error */
-                            echo html_tag( 'table',
-                                    html_tag( 'tr',
-                                        html_tag( 'td',
-                                            "\n". '<strong><font color="' . $color[2] .
-                                            '">' . _("ERROR") . ': ' . $abook->error . '</font></strong>' ."\n",
-                                            'center' )
-                                        ),
-                                    'center', '', 'width="100%"' );
+                    /* Handle error messages */
+                    if (!$r) {
+                        /* Display error */
+                        echo html_tag( 'table',
+                                       html_tag( 'tr',
+                                                 html_tag( 'td',
+                                                           "\n". '<strong><font color="' . $color[2] .
+                                                           '">' . _("ERROR") . ': ' . $abook->error . '</font></strong>' ."\n",
+                                                           'center' )
+                                                 ),
+                                       'center', '', 'width="100%"' );
 
-                            /* Display the "new address" form again */
-                            abook_create_form($form_url,'editaddr',_("Update address"),_("Update address"),$newdata);
-                            echo addHidden('oldnick', $oldnick).
-                                addHidden('backend', $backend).
-                                addHidden('doedit',  '1').
-                                "\n" . '</form>';
-                            $abortform = true;
-                        }
-                    } else {
-
-                        /* Should not get here... */
-                        plain_error_message(_("Unknown error"), $color);
+                        /* Display the "new address" form again */
+                        abook_create_form($form_url,'editaddr',_("Update address"),_("Update address"),$newdata);
+                        echo addHidden('oldnick', $oldnick).
+                            addHidden('backend', $backend).
+                            addHidden('doedit',  '1').
+                            "\n" . '</form>';
                         $abortform = true;
                     }
-                }
+                } else {
+                    /**
+                     * $editaddr is set, but $sel (address selection in address listing) 
+                     * and $doedit (address edit form) are not set. 
+                     * Assume that user clicked on "Edit address" without selecting any address.
+                     */
+                    $formerror = _("Please select address that you want to edit");
+                    $showaddrlist = true;
+                } /* end of edit stage detection */
             } /* !empty($editaddr)                  - Update/modify address */
         } /* (!empty($deladdr)) && sizeof($sel) > 0 - Delete address(es) */
     } /* !empty($addaddr['nickname'])               - Add new address */
