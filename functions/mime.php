@@ -371,14 +371,19 @@ function mime_match_parenthesis ($pos, $structure) {
 }
 
 function mime_fetch_body ($imap_stream, $id, $ent_id ) {
-    // do a bit of error correction.  If we couldn't find the entity id, just guess
-    // that it is the first one.  That is usually the case anyway.
-    if (!$ent_id)
+
+    /*
+     * do a bit of error correction.  If we couldn't find the entity id, just guess
+     * that it is the first one.  That is usually the case anyway.
+     */
+    if (!$ent_id) {
         $ent_id = 1;
+    }
     $data = sqimap_run_command ($imap_stream, "FETCH $id BODY[$ent_id]", true, $response, $message);
     $topline = array_shift($data);
-    while (! ereg('\\* [0-9]+ FETCH ', $topline) && $data)
+    while (! ereg('\\* [0-9]+ FETCH ', $topline) && $data) {
         $topline = array_shift($data);
+    }
     $wholemessage = implode('', $data);
     if (ereg('\\{([^\\}]*)\\}', $topline, $regs)) {
         $ret = substr( $wholemessage, 0, $regs[1] );
@@ -431,14 +436,15 @@ function mime_fetch_body ($imap_stream, $id, $ent_id ) {
                "<A HREF=\"../src/retrievalerror.php?$par\">Submit message</A><BR>" .
                '<tt>' . _("Response:") . "$response<BR>" .
                _("Message:") . " $message<BR>" .
-               _("FETCH line:") . " $topline<BR></tt></font></b>";
-
+               _("FETCH line:") . " $topline ....<BR></tt></font></b>";
+               
+/*
         $data = sqimap_run_command ($imap_stream, "FETCH $passed_id BODY[]", true, $response, $message);
         array_shift($data);
         $wholemessage = implode('', $data);
 
         $ret = "---------------\n$wholemessage";
-
+*/
     }
     return( $ret );
 }
