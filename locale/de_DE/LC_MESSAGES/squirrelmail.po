@@ -1287,7 +1287,7 @@ msgid "Include CCs when Forwarding Messages"
 msgstr "Adressen aus dem CC bei Weiterleitung einbeziehen"
 
 msgid "Include Me in CC when I Reply All"
-msgstr "Eigene Adresse im CC, wenn Allen geantwortet wird"
+msgstr "Eigene Adresse im CC, wenn Antwort an Alle"
 
 msgid "Enable Mailer Display"
 msgstr "Name des Mailprogramm anzeigen"
@@ -1908,10 +1908,10 @@ msgid "Calendar"
 msgstr "Kalender"
 
 msgid "Delete & Prev"
-msgstr "L&ouml;schen und N&auml;chste"
+msgstr "L&ouml;schen und Vorige"
 
 msgid "Delete & Next"
-msgstr "L&ouml;schen und Vorige"
+msgstr "L&ouml;schen und N&auml;chste"
 
 msgid "Move to:"
 msgstr "Verschiebe nach:"
