@@ -77,14 +77,14 @@
       }
       
       if ($unseen > 0)
-          $line .= "<B>";
+          $line .= '&nbsp;<B>';
       $line .= str_replace(' ', '&nbsp;', $spaces);
       
       if ($collapse_folders) {
          if (isset($box_array['parent']))
             $line .= FoldLink($box_array['unformatted'], $box_array['parent']);
          else
-            $line .= '<tt>&nbsp;</tt>&nbsp;';
+            $line .= '<tt>&nbsp;</tt>&nbsp;&nbsp;';
       }
       
       $line .= "<a href=\"right_main.php?sort=0&startMessage=1&mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
@@ -93,7 +93,7 @@
       $line .= str_replace(' ','&nbsp;',$mailbox);
       if ($special_color == true)
          $line .= "</font>";
-      $line .= "</a>";
+      $line .= '</a>';
 
       if ($unseen > 0)
          $line .= "</B>";
@@ -189,7 +189,7 @@
 
    function FoldLink($mailbox, $folded) {
        $mailbox = urlencode($mailbox);
-       $link = '<tt><a target="left" style="text-decoration:none" ';
+       $link = '&nbsp;<tt><a target="left" style="text-decoration:none" ';
        $link .= 'href="left_main.php?';
        if ($folded)
            $link .= "unfold=$mailbox\">+";
