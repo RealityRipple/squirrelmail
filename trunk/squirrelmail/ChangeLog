@@ -300,8 +300,9 @@ Version 1.5.1 -- CVS
     Awais Ahmad for the patch (#1082558).
   - src/delete_message.php script is disabled. It provided functions that
     could be implemented without playing with multiple redirects.
+  - Remove lots of obsoleted code from left_main.php.
   
-Version 1.5.0 - 2 Februari 2004
+Version 1.5.0 - 2 February 2004
 -------------------------------
   - Added new preference that determines cursor focus when replying
   - Added support in conf.pl for MS cls command.

@@ -920,15 +920,6 @@ $lossy_encoding = false;
 $advanced_tree = false;
 
 /**
- * Older listing way control
- *
- * Use older way of folder listing
- * @global bool $oldway
- * @since 1.5.0
- */
-$oldway = false;
-
-/**
  * Message Icons control
  *
  * Use icons for message and folder markers
