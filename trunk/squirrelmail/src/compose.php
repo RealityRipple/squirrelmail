@@ -129,12 +129,13 @@ function replyAllString($header) {
    $url_replytoallcc = '';
    foreach( $url_replytoall_ar as $email => $personal) {
       if ($personal) {
-         $url_replytoallcc .= ", \"$personal\" <$email>";
+         $url_replytoallcc .= ", $personal <$email>";
       } else {
          $url_replytoallcc .= ', '. $email;    
       }
    }
    $url_replytoallcc = substr($url_replytoallcc,2);
+   
    return $url_replytoallcc;
 }
 
