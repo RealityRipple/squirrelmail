@@ -590,32 +590,25 @@
    function ShowSelectAllLink($startMessage, $sort)
    {
        global $checkall, $PHP_SELF, $what, $where, $mailbox;
-       
-       // If you can figure out some working javascript,
-       // feel free to put it in here!
-       // Allegedly this stuff works for someone somewhere
-       // Don't forget to uncomment the </noscript> at the end!
-       
-       // This code is from Kevin Cawthorne <kevin at intuitive.net>
-       // It was adapted by Tyler to use a document.write for drawing the
-       // input checkbox and to use the <noscript> and old style selection
-       // for non-javascript browsers.
 
-       // echo "<script language=\"JavaScript\">\n";
-       // echo "<!--\n";
-       // echo "function CheckAll() {\n";
-       // echo "   for (var i = 0; i < document.List.elements.length; i++) {\n";
-       // echo "      var e = document.List.elements[i];\n";
-       // echo "      if (e.name != 'allbox')\n";
-       // echo "         e.checked = document.List.allbox.checked;\n";
-       // echo "   }\n";
-       // echo "}\n";
-       // echo "document.write(\"<input name=\\\"allbox\\\" " .
-       //    "type=\\\"checkbox\\\" value=\\\"Check All\\\" " .
-       //    "onClick=\\\"CheckAll();\\\"> <B>" . _("Select All") .
-       //    "</B>\n");
-       // echo "//-->\n";
-       // echo "</script><noscript>\n";
+       // This code is from Philippe Mingo <mingo@rotedic.com>
+    
+       ?>
+<script language="JavaScript">
+<!--
+function CheckAll() {
+  for (var i = 0; i < document.messageList.elements.length; i++) {
+    if( document.messageList.elements[i].name.substr( 0, 3 ) == 'msg') {
+      document.messageList.elements[i].checked =
+        !(document.messageList.elements[i].checked);
+    }
+  }
+}
+window.document.write('<a href="#" onClick="CheckAll();"><?php echo
+ _("Toggle All") ?></A>');
+//-->
+</script><noscript>
+<?PHP
 
        echo "<a href=\"$PHP_SELF?mailbox=" . urlencode($mailbox) .
           "&startMessage=$startMessage&sort=$sort&checkall=";
@@ -631,9 +624,7 @@
        else
            echo _("Select All");
 	   
-       // If a javascript selection solution can be created eventually,
-       // do not forget to uncomment this line too!
-       // echo "</A>\n</noscript>\n";
+       echo "</A>\n</noscript>\n";
    }
 
    function processSubject($subject)
