@@ -82,6 +82,10 @@
    $charset = $header->charset;
    $type0 = $header->type0;
    $type1 = $header->type1;
+   if (isset($override_type0))
+       $type0 = $override_type0;
+   if (isset($override_type1))
+       $type1 = $override_type1;
    $filename = decodeHeader($header->filename);
 
    if (strlen($filename) < 1) {
