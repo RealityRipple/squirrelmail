@@ -155,6 +155,5 @@
       }
    }    
     
-   sqimap_mailbox_close($imapConnection);
    sqimap_logout($imapConnection);
 ?>

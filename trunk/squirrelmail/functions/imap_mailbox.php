@@ -12,7 +12,6 @@
       sqimap_mailbox_select ($imap_stream, $mailbox);
       fputs ($imap_stream, "a001 EXPUNGE\r\n");
       $read = sqimap_read_data($imap_stream, "a001", $handle_errors, $response, $message);
-      sqimap_mailbox_close ($imap_stream);
    }
 
 
@@ -25,14 +24,6 @@
       if ($mailbox) {
          return !!(ereg ("$mailbox", $mbx[0]));  // To force into true/false
       }
-   }
-
-   /******************************************************************************
-    **  Closes an open mailbox 
-    ******************************************************************************/
-   function sqimap_mailbox_close ($imap_stream) {
-      fputs ($imap_stream, "a001 CLOSE\r\n");
-      $tmp = sqimap_read_data($imap_stream, "a001", false, $response, $message);
    }
 
    /******************************************************************************

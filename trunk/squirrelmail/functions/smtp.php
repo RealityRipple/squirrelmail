@@ -501,7 +501,6 @@
             $more_headers["In-Reply-To"] = $hdr->message_id;
             $more_headers["References"]  = $hdr->message_id;
          }
-         sqimap_mailbox_close($imap_stream);
       }
 
       // In order to remove the problem of users not able to create

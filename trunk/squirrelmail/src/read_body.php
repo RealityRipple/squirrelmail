@@ -80,7 +80,6 @@
       }
       echo "</td></tr></table>\n";
       echo "</body></html>";
-      sqimap_mailbox_close($imapConnection);
       sqimap_logout($imapConnection);
       exit;
    }

@@ -37,6 +37,5 @@
    else   
       header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=".urlencode($mailbox));
 
-   sqimap_mailbox_close($imapConnection);
    sqimap_logout($imapConnection);
 ?>
