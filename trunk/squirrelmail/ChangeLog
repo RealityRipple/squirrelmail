@@ -9,6 +9,9 @@ Version 1.2.5 -- CVS
   - Fixed a small bug in db_prefs
   - Allowed SquirrelMail to work from within a frame, eg. not using _top
     this is configureable. (thanks to Simon Dick)
+  - Added options to conf.pl to enable automated plugin installation:
+    ./conf.pl --install-plugin <pluginname>. This allows plugins to be
+    distributed in packages. Conf.pl now also reports when saving fails.
 	
 Version 1.2.4 -- 25 January 2002
 --------------------------------
