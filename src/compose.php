@@ -53,7 +53,6 @@ sqgetGlobalVar('mailbox',$mailbox);
 if(!sqgetGlobalVar('identity',$identity)) {
     $identity=0;
 }
-sqgetGlobalVar('custom_from',$custom_from);
 sqgetGlobalVar('send_to',$send_to);
 sqgetGlobalVar('send_to_cc',$send_to_cc);
 sqgetGlobalVar('send_to_bcc',$send_to_bcc);
@@ -979,18 +978,6 @@ function showInputForm ($session, $values=false) {
         showComposeButtonRow();
     }
 
-    // additions for custom from plugin
-    //
-    $use_custom_from = getPref($data_dir, $username, 'use_custom_from', '0');
-    global $restrict_access_to_users_file;
-    include_once(SM_PATH . 'plugins/custom_from/config/config.php');
-    include_once(SM_PATH . 'plugins/custom_from/functions.php');
-    if (!empty($restrict_access_to_users_file)
-       && file_exists($restrict_access_to_users_file))
-    {
-       $use_custom_from = findUser($username, $restrict_access_to_users_file);
-    }
-
     /* display select list for identities */
     if (count($idents) > 1) {
     	$ident_list = array();
@@ -1002,49 +989,10 @@ function showInputForm ($session, $values=false) {
                     html_tag( 'td', '', 'right', $color[4], 'width="10%"' ) .
                     _("From:") . '</td>' . "\n" .
                     html_tag( 'td', '', 'left', $color[4], 'width="90%"' ) .
-             '         <select name="identity" '
-             ($use_custom_from ? 'onChange="for (i=0; i<document.forms[0].identity.length; i++) { if (document.forms[0].identity.options[i].selected) { document.forms[0].custom_from.value=document.forms[0].identity.options[i].text; break; } }"' : '') . '>' . "\n";
-        foreach($idents as $id=>$data) {
-            echo '<option value="'.$id.'"';
-            if($id == $identity) {
-                echo ' selected';
-            }
-            echo '>'.htmlspecialchars($data['full_name'].' <'.$data['email_address'].'>').
-                 "</option>\n";
-        }
+              '         '.
+              addSelect('identity', $ident_list, $identity, TRUE);
 
         echo '      </td>' . "\n" .
-             '   </tr>' . "\n";
-    }
-
-    // additions for custom from plugin
-    //
-    if ($use_custom_from)
-    {
-        echo '   <tr>' . "\n" .
-                    html_tag( 'td', '', 'right', $color[4], 'width="10%"' ) .
-                    _("From:") . '</td>' . "\n" .
-             '   <td align="left" bgcolor="' . $color[4] . '" width="90%">' .
-             '     <input type="text" name="custom_from" size="60" value="';
-        global $custom_from;
-        if (isset($custom_from))
-            echo $custom_from;
-        else
-        {
-            $fn = getPref($data_dir, $username, 'full_name');
-            $em = getPref($data_dir, $username, 'email_address');
-            echo htmlspecialchars($fn);
-            if ($em != '') {
-                if($fn != '') {
-                    echo htmlspecialchars(' <' . $em . '>');
-                } else {
-                    echo htmlspecialchars($em);
-                }
-            }
-        }
-
-        echo '">' .
-             '      </td>' . "\n" .
              '   </tr>' . "\n";
     }
 
@@ -1402,8 +1350,7 @@ function deliverMessage($composeMessage, $draft=false) {
     global $send_to, $send_to_cc, $send_to_bcc, $mailprio, $subject, $body,
            $username, $popuser, $usernamedata, $identity, $idents, $data_dir,
            $request_mdn, $request_dr, $default_charset, $color, $useSendmail,
-           $domain, $action, $default_move_to_sent, $move_to_sent,
-           $custom_from;
+           $domain, $action, $default_move_to_sent, $move_to_sent;
     global $imapServerAddress, $imapPort, $sent_folder, $key;
 
     /* some browsers replace <space> by nonbreaking spaces &nbsp;
@@ -1448,14 +1395,7 @@ function deliverMessage($composeMessage, $draft=false) {
     $from_mail = $idents[$identity]['email_address'];
     $full_name = $idents[$identity]['full_name'];
     $reply_to  = $idents[$identity]['reply_to'];
-
-    // additions for custom from plugin
-    //
-    if (isset($custom_from) && !empty($custom_from)) {
-        $from_mail = $custom_from;
-        $full_name = '';
-        $reply_to = $custom_from;
-    } else if (!$from_mail) {
+    if (!$from_mail) {
        $from_mail = "$popuser@$domain";
     }
     $rfc822_header->from = $rfc822_header->parseAddress($from_mail,true);
