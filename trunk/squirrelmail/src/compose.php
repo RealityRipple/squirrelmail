@@ -896,7 +896,7 @@ function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
 function showInputForm ($session, $values=false) {
     global $send_to, $send_to_cc, $body, $startMessage,
            $passed_body, $color, $use_signature, $signature, $prefix_sig,
-           $editor_size, $attachments, $subject, $newmail,
+           $editor_size, $editor_height, $attachments, $subject, $newmail,
            $use_javascript_addr_book, $send_to_bcc, $passed_id, $mailbox,
            $from_htmladdr_search, $location_of_buttons, $attachment_dir,
            $username, $data_dir, $identity, $idents, $draft_id, $delete_draft,
@@ -1029,14 +1029,14 @@ function showInputForm ($session, $values=false) {
     if ($compose_new_win == '1') {
         echo '   <TR>' . "\n" .
              '      <TD BGCOLOR="' . $color[0] . '" COLSPAN=2 ALIGN=CENTER>' . "\n" .
-             '         <TEXTAREA NAME=body ID=body ROWS=20 COLS="' .
-                       $editor_size . '" WRAP="VIRTUAL">';
+             '         <TEXTAREA NAME="body" ID="body" ROWS="' . $editor_height .
+             '" COLS="' . $editor_size . '" WRAP="VIRTUAL">';
     }
     else {
         echo '   <TR>' . "\n" .
             '      <TD BGCOLOR="' . $color[4] . '" COLSPAN=2>' . "\n" .
-            '         &nbsp;&nbsp;<TEXTAREA NAME=body ID=body ROWS=20 COLS="' .
-                      $editor_size . '" WRAP="VIRTUAL">';
+            '         &nbsp;&nbsp;<TEXTAREA NAME="body" ID="body" ROWS="' . $editor_height .
+            '" COLS="' . $editor_size . '" WRAP="VIRTUAL">';
     }
 
     if ($use_signature == true && $newmail == true && !isset($from_htmladdr_search)) {
