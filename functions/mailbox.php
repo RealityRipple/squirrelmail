@@ -244,7 +244,7 @@
    }
 
    function fetchHeader($imapConnection, $id) {
-      fputs($imapConnection, "messageFetch FETCH $id:$id RFC822.HEADER.LINES (From Subject Date To Cc Content-Type MIME-Version)\n");
+      fputs($imapConnection, "messageFetch FETCH $id:$id RFC822.HEADER\n");
       $read = fgets($imapConnection, 1024);
 
       /** defaults... if the don't get overwritten, it will display text **/
@@ -309,9 +309,18 @@
             }
 
          }
+
+         /** REPLY-TO **/
+         else if (substr($read, 0, 9) == "Reply-To:") {
+            $header["REPLYTO"] = trim(substr($read, 9, strlen($read)));
+            $read = fgets($imapConnection, 1024);
+         }
+
          /** FROM **/
          else if (substr($read, 0, 5) == "From:") {
             $header["FROM"] = trim(substr($read, 5, strlen($read) - 6));
+            if ($header["REPLYTO"] == "")
+               $header["REPLYTO"] = $header["FROM"];
             $read = fgets($imapConnection, 1024);
          }
          /** DATE **/
