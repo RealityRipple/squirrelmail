@@ -17,6 +17,7 @@ Version 1.5.1 -- CVS
   - sqimap_create_stream() was not obeying passed params properly.  Fixed.
   - Fix non selectable inbox.
   - Add src/configtest.php script which checks for common errors in the config.
+  - Improve display of some unparsable/absent dates (#891354).
   
 
 Version 1.5.0
