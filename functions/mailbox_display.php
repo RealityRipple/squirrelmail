@@ -21,6 +21,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start
     global $default_use_priority;
     global $message_highlight_list;
     global $index_order;
+    global $pos;            /* Search postion (if any)  */
 
     $color_string = $color[4];
     if ($GLOBALS['alt_index_colors']) {

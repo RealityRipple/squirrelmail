@@ -448,12 +448,17 @@ function sqimap_messages_copy ($imap_stream, $start, $end, $mailbox) {
          /** SUBJECT **/
          else if (strtolower(substr($read[$i], 0, 8)) == "subject:") {
             $hdr->subject = trim(substr($read[$i], 8, strlen($read[$i]) - 9));
-            if (strlen(Chop($hdr->subject)) == 0)
+            if (strlen(Chop($hdr->subject)) == 0) {
                $hdr->subject = _("(no subject)");
-
-            if ($where == "SUBJECT") {
-               $hdr->subject = eregi_replace($what, "<b>\\0</b>", $hdr->subject);
             }
+            
+            /*  
+            if ($where == 'SUBJECT') {
+                $hdr->subject = $what;
+               // $hdr->subject = eregi_replace($what, "<b>\\0</b>", $hdr->subject);
+            }
+            */
+            
             $i++;
          }
          /** CC **/
