@@ -68,9 +68,9 @@ C.  Copy plugins
 
 Like SquirrelMail, plugins are frequently updated for improvements, as well
 as to make them compatible with new SquirrelMail releases.  It is suggested
-that you download a new plugins archive at the same time you download your
-SquirrelMail install, and that you install your plugins fresh (it's easy,
-don't panic!).
+that you download new versions of your plugins at the same time you download
+your SquirrelMail install, and that you install your plugins fresh (it's
+easy, don't panic!).
 
 If you prefer to just copy your old plugins over (if it's the same version
 or if you are lazy), you may do so.  If you notice irregularities with the
