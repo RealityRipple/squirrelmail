@@ -11,9 +11,6 @@
  * $Id$
  */
 
-/* Path for SquirrelMail required files. */
-define('SM_PATH','../');
-
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/array.php');
