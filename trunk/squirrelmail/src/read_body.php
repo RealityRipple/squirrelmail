@@ -518,7 +518,7 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
    $url = $base_uri.'src/view_header.php?'.$QUERY_STRING;
 
    $s  = "<TR>\n";
-   $s .= '<TD VALIGN="MIDDLE" ALIGN="RIGHT" WIDTH="20%"><B>' . _("Other") . ":&nbsp;&nbsp;</B></TD>\n";
+   $s .= '<TD VALIGN="MIDDLE" ALIGN="RIGHT" WIDTH="20%"><B>' . _("Options") . ":&nbsp;&nbsp;</B></TD>\n";
    $s .= '<TD VALIGN="MIDDLE" ALIGN="LEFT" WIDTH="80%"><SMALL>';
    $s .= '<a href="'.$url.'">'.("View Full Header").'</a>';
 
