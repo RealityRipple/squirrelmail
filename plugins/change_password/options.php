@@ -20,6 +20,11 @@ require_once (SM_PATH . 'plugins/change_password/functions.php');
 require_once (SM_PATH . 'plugins/change_password/config.php');
 require_once (SM_PATH . 'functions/forms.php');
 
+// you must load backend configuration here in order to get working change_password_init hook.
+if (file_exists(SM_PATH . 'plugins/change_password/backend/'.$cpw_backend.'.php')) {
+   include_once(SM_PATH . 'plugins/change_password/backend/'.$cpw_backend.'.php');
+}
+
 /* the form was submitted, go for it */
 if(sqgetGlobalVar('cpw_go', $cpw_go, SQ_POST)) {
 
