@@ -109,7 +109,7 @@ function select_option_priority($selected) {
 
 function select_option_year($selected) {
 
-    for ($i=1900;$i<2100;$i++){
+    for ($i=1902;$i<2038;$i++){
         if ($i==$selected){
             echo "            <OPTION VALUE=\"$i\" SELECTED>$i</OPTION>\n";
         } else {
