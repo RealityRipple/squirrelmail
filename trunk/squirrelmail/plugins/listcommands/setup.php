@@ -70,26 +70,23 @@ function plugin_listcommands_menu() {
                 $url .= '&amp;action=reply';
                 if ($compose_new_win == '1') {
                     $output[] = "<A HREF=\"javascript:void(0)\" onClick=\"comp_in_new('$url')\">" . $fieldsdescr['reply'] . '</A>';
-                }
-                else {
+                } else {
                     $output[] = '<A HREF="' . $url . '">' . $fieldsdescr['reply'] . '</A>';
                 }
             }
-        } elseif ($proto == 'href') {
+        } else if ($proto == 'href') {
             $output[] = '<A HREF="' . $act . '" TARGET="_blank">'
                       . $fieldsdescr[$cmd] . '</A>';
         }
     }
 
     if (count($output) > 0) {
-        echo '<table width="100%" cellpadding="3" cellspacing="0" align="center"'.
-             ' border="0" bgcolor="'.$color[0].'">'. "\n";
-        echo '<tr>';
-        echo html_tag( 'td', '<b>'._("Mailing List").':&nbsp;&nbsp;</b>', 'right', $color[0], 'valign="top" width="20%"') . "\n";
-        echo html_tag( 'td', 
-	         '<small>' . implode('&nbsp;|&nbsp;', $output) . '</small>', 'left', $color[0], 'valign="top" width="80%"');
-        echo "\n</tr>";
-	echo '</table>'."\n";
+        echo '<TR>';
+        echo html_tag('TD', '<B>' . _("Mailing List") . ':&nbsp;&nbsp;</B>',
+                      'right', '', 'VALIGN="MIDDLE" WIDTH="20%"') . "\n";
+        echo html_tag('TD', '<SMALL>' . implode('&nbsp;|&nbsp;', $output) . '</small>',
+                      'left', $color[0], 'VALIGN="MIDDLE" WIDTH="80%"') . "\n";
+        echo "</TR>";
     }
 }
 
