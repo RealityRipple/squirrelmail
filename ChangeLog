@@ -4,6 +4,7 @@
 
 Version 1.2.6 -- CVS
 --------------------
+  - Fix for jumping buttons in Mozilla (bug #522149)
   - Logout error system unified.
   - Fix for a "theme passed as cookie" exploit.
   - PostgreSQL is now supported for database backed use
