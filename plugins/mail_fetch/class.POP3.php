@@ -43,7 +43,7 @@ class POP3 {
     var $RFC1939    = TRUE;     //  Set by noop(). See rfc1939.txt
                                 //
 
-    var $ALLOWAPOP  = FASLE;    //  Allow or disallow apop()
+    var $ALLOWAPOP  = FALSE;    //  Allow or disallow apop()
                                 //  This must be set to true
                                 //  manually
 
