@@ -1,0 +1,83 @@
+<chapter>
+   <title>
+      Nejèastìji pokládané otázky
+   </title>   
+   <summary>
+      
+   </summary>
+</chapter>
+
+<section>
+   <title>
+      Mohu použít hromadné adresování zpráv?
+      </title>
+   <description>
+      <p>
+      Ano, zadáním klíèového slova v adresáøi se Vám zobrazí výsledky vyhledání. 
+      Pøi zobrazení napø. 10 položek pak mùžete do pole <B>Komu:</B> or <B>Kopie:</B> vložit libovolný poèet adres. 
+      </p>
+   </description>
+</section>   
+
+<section>
+   <title>
+      Mohu ze zprávy pøidávat jména do adresáøe?
+   </title>
+   <description>
+      <p>
+      Tato možnost není v souèasné dobì povolena. Mùžete však na adresu kliknout 
+      pravým tlaèítkem myši, uložit ji na clipboard a vložit ji do adresáøe. 
+      SquirrelMail se neustále vyvíjí a tato funkce mùže být v budoucnu k dispozici. 
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Kdo vytvoøil SquirrelMail? 
+   </title>
+   <description>
+      <p>
+      Seznam lidí, kteøí spolupracovali na systému SquirrelMail, naleznete zde
+      <a href="http://www.squirrelmail.org" target=_top>www.squirrelmail.org</a>.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+     Co je webmail?
+   </title>
+   <description>
+      <p>
+      SquirrelMail Vám umožòuje pøístup k Vašemu úètu pøes IMAP protokol. 
+      To znamená, že nemusíte vždy nastavovat údaje o Vašem úètu, když si chcete zkontrolovat novou poštu. 
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Kde mohu používat webmail?
+   </title>
+   <description>
+      <p>
+      Všude tam, kde je k dispozici prohlížeè. Bezdrátový pøístup (WAP/WML) 
+      není v souèasné dobì dostupný. 
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Proè používat webmail místo bìžného poštovního klienta?
+   </title>
+   <description>
+      <p>
+      Není jisté, zda webmail v budoucnu bude dokonalou náhradou za poštovního klienta. 
+      Dobrým dùvodem pro jeho používání však mùže být snadný pøístup k Vaší poštì, 
+      bez ohledu na to, zda jste u pøátel, na výletì, doma èi v práci. SquirrelMail je 
+      navržen jako doplnìk Vašeho poštovního klienta. 
+      </p>
+   </description>
+</section>
