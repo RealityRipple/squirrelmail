@@ -363,6 +363,6 @@
 <INPUT TYPE="hidden" NAME="max_file_size" value="5000">
 Import CSV File: <INPUT NAME="smusercsv" TYPE="file">
 <INPUT TYPE="submit" VALUE="Import CSV File">
-</FORM
+</FORM>
 
 </BODY></HTML>
