@@ -30,61 +30,21 @@ $username = $_SESSION['username'];
 $onetimepad = $_SESSION['onetimepad'];
 $mailbox = $_GET['mailbox'];
 $passed_id = $_GET['passed_id'];
-$passed_ent_id = $_GET['passed_ent_id'];
-$base_uri = $base_uri = $_SESSION['base_uri'];
+$messages = $_SESSION['messages'];
+if (!isset($passed_ent_id)) {
+   $passed_ent_id = '';
+} else {
+    $passed_ent_id = $_GET['passed_ent_id'];
+}
 
-if (isset($_GET['startMessage'])) {
-    $startMessage = $_GET['startMessage'];
-}
-if(isset($_GET['where'])) {
-    $where = $_GET['where'];
-}
-if(isset($_GET['what'])) {
-    $what = $_GET['what'];
-}
-if(isset($_GET['showHeaders'])) {
-    $showHeaders = $_GET['showHeaders'];
-}
-if(isset($_GET['absolute_dl'])) {
-    $absolute_dl = $_GET['absolute_dl'];
-}
-if (isset($_GET['show_more_cc'])) {
-    $show_more = $_GET['show_more_cc'];
-}
-if(isset($_GET['show_more_bcc'])) {
-    $show_more = $_GET['show_more_bcc'];
-}
-if(isset($_GET['show_more'])) {
-    $show_more = $_GET['show_more'];
-}
-if(isset($_GET['sort'])) {
-    $sort = $_GET['sort'];
-}    
- 
 /* end globals */
 
-function get_extract_to_target_list($imapConnection) {
-    $boxes = sqimap_mailbox_list($imapConnection);
-    for ($i = 0; $i < count($boxes); $i++) {  
-        if (!in_array('noselect', $boxes[$i]['flags'])) {
-            $box = $boxes[$i]['unformatted'];
-            $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
-            if ( $box2 == 'INBOX' ) {
-                $box2 = _("INBOX");
-            }
-            echo "<option value=\"$box\">$box2</option>\n";
-        }
-    }
-}
 $mailbox = decodeHeader($mailbox);
 
-global $messages, $uid_support;
+global $uid_support;
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response =  sqimap_mailbox_select($imapConnection, $mailbox);
-if (!isset($passed_ent_id)) {
-   $passed_ent_id = '';
-}
 
 $message = &$messages[$mbx_response['UIDVALIDITY']]["$passed_id"];
 if (!is_object($message)) {
@@ -104,28 +64,6 @@ $type0 = $header->type0;
 $type1 = $header->type1;
 $encoding = strtolower($header->encoding);
 
-/*
-$extracted = false;
-if (isset($extract_message) && $extract_message) {
-  $cmd = "FETCH $passed_id BODY[$passed_ent_id]";
-  $read = sqimap_run_command ($imapConnection, $cmd, true, $response, $message, $uid_support);
-  $cnt = count($read);
-  $body = '';
-  $length = 0;
-  for ($i=1;$i<$cnt;$i++) {
-      $length = $length + strlen($read[$i]);
-      $body .= $read[$i];
-  }
-  if (isset($targetMailbox) && $length>0) {
-      sqimap_append ($imapConnection, $targetMailbox, $length);
-      fputs($imapConnection,$body);
-      sqimap_append_done ($imapConnection);
-      $extracted = true;
-  }
-}   
-
-
-*/
 /*
  * lets redefine message as this particular entity that we wish to display.
  * it should hold only the header for this entity.  We need to fetch the body
