@@ -23,12 +23,7 @@ define('SM_PATH','../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/strings.php');
-require_once(SM_PATH . 'config/config.php');
-require_once(SM_PATH . 'include/load_prefs.php');
 require_once(SM_PATH . 'functions/imap.php');
-require_once(SM_PATH . 'functions/page_header.php');
-require_once(SM_PATH . 'functions/html.php');
 
 /* get some of these globals */
 sqgetGlobalVar('username', $username, SQ_SESSION);
@@ -43,7 +38,7 @@ if (! sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET) ) {
 } 
 /* end globals */
 
-$pf_cleandisplay = getPref($data_dir, $username, 'pf_cleandisplay');
+$pf_cleandisplay = getPref($data_dir, $username, 'pf_cleandisplay', false);
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response = sqimap_mailbox_select($imapConnection, $mailbox);
 if (isset($messages[$mbx_response['UIDVALIDITY']][$passed_id])) {
@@ -86,7 +81,7 @@ if ($ent_ar[0] != '') {
 
  /* now, if they choose to, we clean up the display a bit... */
  
-if ( empty($pf_cleandisplay) || $pf_cleandisplay != 'no' ) {
+if ($pf_cleandisplay) {
 
     $num_leading_spaces = 9; // nine leading spaces for indentation
 
@@ -155,7 +150,16 @@ echo '<body text="#000000" bgcolor="#FFFFFF" link="#000000" vlink="#000000" alin
 
 /* --start pf-specific functions-- */
 
-/* $string = pf_clean_string($string, 9); */
+/**
+ * Function should clean layout of printed messages when user
+ * enables "Printer Friendly Clean Display" option.
+ *
+ * @param string unclean_string
+ * @param integer num_leading_spaces
+ * @return string
+ * @example $string = pf_clean_string($string, 9);
+ * @access private 
+ */
 function pf_clean_string ( $unclean_string, $num_leading_spaces ) {
     global $data_dir, $username;
     $unclean_string = str_replace('&nbsp;',' ',$unclean_string);
@@ -190,5 +194,4 @@ function pf_clean_string ( $unclean_string, $num_leading_spaces ) {
 } /* end pf_clean_string() function */
 
 /* --end pf-specific functions */
-
 ?>
