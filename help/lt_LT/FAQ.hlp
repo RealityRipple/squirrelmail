@@ -1,0 +1,107 @@
+<chapter>
+   <title>
+      Daþniausiai uþduodami klausimai
+   </title>   
+   <summary>
+      Kartais iðkyla klausimø, kuriuos jau uþdavë daug kas prieð tai.
+      Èia pateikiama bent dalis atsakymø á tokius klausimus.
+   </summary>
+</chapter>
+
+<section>
+   <title>
+      Ar galima átraukti kelis adresus ið adresø knygos?
+   </title>
+   <description>
+      <p>
+      Taip. Adresø knyga pateikia visø adresø, atitinkanèiø paieðkos kriterijus,
+      sàraðà. Esant 10 vardø gali bûti pasirinkta bet kokia <B>Kam:</B> ar 
+      <B>CC:</B> laukø kombinacija. Visi pasirinkti adresai bus sudëlioti á
+      atitinkamus laukus.
+      </p>
+   </description>
+</section>   
+
+<section>
+   <title>
+      Ar galima átraukti á adresø knygà adresus ið atëjusiø laiðkø?
+   </title>
+   <description>
+      <p>
+      Ne. Ðiuo metu to padaryti neámanoma. Taèiau jûs galite nusikopijuoti 
+      adresà á savo kompiuterio atmintá ir paskui ákelti já á adresø knygà.
+      Paprastai tai galima padaryti naudojant deðiná palës klaviðà. Per daug 
+      nenuliûskite.  SquirrelMail yra toliau vystomas ir ði galimybë gali bûti
+      sukurta vëlesnëse versijose.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Kas sukûrë SquirrelMail? 
+   </title>
+   <description>
+      <p>
+      Prie to prisidëjo nemaþai þmoniø. Pilnà sàraðà galite gauti apsilankæ
+      adresu <a href="http://www.squirrelmail.org" target=_top>www.squirrelmail.org</a>.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Kas yra www paðtas?
+   </title>
+   <description>
+      <p>
+      SquirrelMail atveju jûs gaunate galimybæ per IMAP protokolà þiûrëti á savo paðto 
+      dëþës turiná. Ir jums nereikia narstyti kaþkieno kompiuterio, kai jûs tik norite
+      pasitikrinti paðtà.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Kur galima naudotis ðiuo www paðtu?
+   </title>
+   <description>
+      <p>
+      Bet kur, kur galite rasti Interneto ryðá ir www narðyklæ. Galimybë pasinaudoti 
+      mobiliu ryðiu (WAP/WML) ðiuo metu nëra numatyta bei neplanuojama.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Kodël turëèiau naudoti www paðtà vietoj áprastos paðto programos?
+   </title>
+   <description>
+      <p>
+      Labai abejotina, kad www paðtas savo galimybëmis sugebës pralenkti 
+      áprastà paðto programà. Taèiau kas þino, mes juk gyvename pakankamai 
+      kintanèiame pasaulyje?  Bet kuriuo atveju bûnant kur nors toli nuo 
+      savo kompiuterio kartais bûna  naudinga turëti galimybæ patikrinti,
+      ar niekas neatsiuntë kokios nors svarbios þinutës. Ir jums nereikia 
+      nieko darkyti draugo kompiuteryje. SquirrelMail yra tik priedas prie 
+      áprastos programos.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Kaip visa tai veikia?
+   </title>
+   <description>
+      <p>
+      SquirrelMail naudoja IMAP protokolà, informacijà apie já galima rasti
+      <A HREF="http://imap.org"/>http://imap.org</A>. Programa naudoja 
+      nuosavas IMAP funkcijas, o ne tas kurios átaisytos á PHP4. Taèiau tai
+      paprastai rûpi tik tiems, kurie árengia sistemà, bet patikëkite, jiems
+      tikrai patinka tokios galimybës.
+      </p>
+   </description>
+</section>

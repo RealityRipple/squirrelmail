@@ -1,0 +1,103 @@
+<chapter>
+   <title>   
+      Aplankai
+   </title>   
+   <summary>
+      Þinutes galima saugoti skirtinguose aplankuose. Tai gali bûti 
+      naudinga, kai gaunate daug paðto ir norite já kaip nors sutvarkyti.
+   </summary>
+</chapter>
+
+<section>
+   <title>
+      Uzsiprenumeruoti aplankai ir kairioji sekcija
+   </title>
+   <description>
+      <p>
+      Dabar uþsiprenumeruoti aplankai yra iðvardinti sekcijoje kairëje. 
+      Ði sekcija gali bûti automatiðkai atnaujima priklausomai nuo to, 
+      kas yra nustatyta Nustatymø puslapyje. Sekcijos virðuje yra didelë
+      riebi antraðtë. Jei yra padaryti kokie nors pakeitimai aplankø 
+      saraðe, jis gali bûti atnaujintas naudojant þemiau esanèià nuorodà,
+      kuri vadinama "atnaujinti aplankø sàraðà".
+      </p>
+      <p>
+      Pirmasis aplankas saugo atëjusias þinutes. Ðalia jo galite matyti 
+      skaièiø  skliaustuose "( )", kuris parodo kiek <I>neperskaitytø</I> 
+      þinuèiø turite. Ðis skaièius gali kisti priklausomai nuo þinuèiø, 
+      rodomø deðinëje, skaièiaus. Þemiau pagrindinio aplanko gali matytis 
+      kiti aplankai. Aplankø spalvos priklauso nuo pasirinktos temos 
+      nustatymø puslapuje.
+      </p>
+   </description>
+</section>   
+
+<section>
+   <title>
+      Iðtrinti
+   </title>
+   <description>
+      <p>
+      Jûs galite iðtrinti bet koká aplankà ið sàraðo, esanèio kairëje nuo
+      mygtuko "Iðtrinti aplankà". Taèiau ðiame sàraðe bus oarodyti ne visi 
+      aplankai. Negalima iðtrinti specialiø aplankø, tokiø kaip jûsø 
+      iðsiøstø laiðkø aplankas ar ðiukðliadëþë (Trash) ir tikrai negalima 
+      iðtrinti pagrindinio aplanko INBOX.
+      </p>
+   </description>
+</section>
+
+
+<section>
+   <title>
+      Sukurti
+   </title>
+   <description>
+      <p>
+      Aplankai sukuriami paprasèiausiai ávedus norimà aplanko pavadinimà á 
+      virð mygtuko esantá laukà ir paspaudus mygtukà "Sukurti aplankà". Taip 
+      pat galima sukurti aplankà, kuris egzistuotø kitame aplanke tereikia 
+      pasirinkti tà aplankà ið iððokanèio sàraðo.
+      </p>
+      <p>
+      Dalyje paðto serveriø yra dviejø tipø aplankai. Vieni saugo þinutes, 
+      kiti saugo kitus aplankus.  Jûs tada turëtumëte matyti opcijà 
+      "Let this folder contain subfolders."  Paþymëjus aplankas saugos kitus 
+      aplankus, bet ne þinutes. Kitais atvejais jûs galësite tik saugoti 
+      þinutes.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Pervadinti
+   </title>
+   <description>
+      <p>
+      Jûs galite pervadinti bet koká aplankà ið ðalia esanèio sàraðo. 
+      Taèiau sàraðe bus parodyti ne visi kairëje esantys aplankai. 
+      Iðsiøstø laiðkø, ðiukðliadëþës (trash), ir INBOX aplankø 
+      nepervardinsite.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Atðaukti prenumeratà ir uþsiprenumeruoti
+   </title>
+   <description>
+      Terminai:<br>
+      <i>Uþsiprenumeruoti</i>: Uþregistruoja aplankà serveryje, kad jûs já matytumëte
+                               sàraðe kairëje.<br>
+      <i>Atðaukti prenumeratà</i>: Atvirðtinis veiksmas. Iðregistruoja aplankà paðto 
+                               serveryje.<br>
+      <br><p>
+      Manipuliuojant prenumerata galima pasirinkti kiek tik norite aplankø, paspaudus 
+      atitinkamà mygtukà aplankas persikels á kitoje pusëje esantá laukà. Aplankø 
+      sàraðas susitvarkys, kai jûs já atnaujinsite arba jis automatiðkai atsinaujins. 
+      Vëliau jûs galësite vël uþsiprenumeruoti aplankus arba atðaukti prenumeratà.
+      </p>
+   </description>
+</section>

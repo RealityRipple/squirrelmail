@@ -1,0 +1,53 @@
+<chapter>
+   <title>
+      Squirrelmail pristatymas
+   </title>
+   <summary>
+      SquirrelMail leidþia patikrinti savo elektroniná paðtà per WWW.
+   </summary>
+   <description>
+      <p>
+      Taigi kas per daiktas tas <A HREF="http://www.squirrelmail.org/index.php3?from=1">
+      SquirrelMail</A>? Tai yra paðto sistemos www interfeisas, paraðytas naudojant 
+      <A HREF="http://www.php.net">PHP4</A> kalbà. Tikslas yra leisti skaityti paðtà, 
+      esantá jûsø paðto serveryje, ið bet kurios vietos Internete, naudojant standartinæ 
+      www narðyklæ. Detalesnæ informacijà apie tai, kaip viskas vyksta ir kas tai yra 
+      IMAP protokolas, galite rasti <A HREF="http://imap.org">http://imap.org</A>.
+      </p>
+   </description>
+</chapter>   
+
+<section>
+   <title>
+      Pagrindai
+   </title>
+   <description>
+      <p>
+      Jei nori greitai gauti atsakymà á klausimà, galite pabandyti þvilgtelëti á DUK 
+      (Daþniausiai uþduodamø klausimø / FAQ) skyriø. 
+      </p>
+      <p>
+      Squirrelmail yra suskirstytas á dvi pagrindines sekcijas (frames).  Kairioji
+      sekcija parodo naudojamus aplankus. Daugiau informacijos apie tai galima rasti
+      pagalbos sistemos skyriuje "Aplankai". Priklausomai nuo nustatymø ta siauroji
+      juosta gali persikraustyti á deðinæ pusæ.
+      </p>
+      <p>
+      Deðinëje sekcijoje vyksta visas veiksmas. Puslapio virðuje yra meniu eilutë. 
+      Punktas "Atsijungti" leis jums pabaigus iðeiti ið ðiø puslapiø pabaigus darbà
+      "Dabartinis aplankas" parodo, kuriame ið kairëje nurodytø aplankø esate.
+      Paprastai prisijungæ jûs patenkate á INBOX aplankà.
+      </p>
+      <p>
+      Antroje meniu eilutëje yra kiti meniu punktai:
+         <ul>
+            <li><b>Raðyti</b> - Leidþia raðyti ir siøsti laiðkus
+            <li><b>Adresai</b> - Parodo adresus saugomus jûsø adresø knygoje.
+            <li><b>Aplankai</b> - Leidþia tvarkyti aplankus. Jûs galite juos kurti, trinti ir pervardinti. 
+            <li><b>Nustatymai</b> - Leidþia pakeisti bendrà Squirrelmail iðvaizdà ir kitus nustatymus. 
+            <li><b>Paieðka</b> - Leidþia vykdyti paieðkà savo paðto dëþëje. 
+            <li><b>Pagalba</b> - Pagalbos sistema, kuriuoje jûs dabar esate.
+         </ul>
+      </p>
+   </description>
+</section>   

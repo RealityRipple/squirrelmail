@@ -1,0 +1,157 @@
+<chapter>
+   <title>
+      Paðto þinuèiø skaitymas
+   </title>
+   <summary>
+      Gebëjimas skaityti paðto þinutes yra privaloma kiekvienos paðto
+      programos savybë. Squirrelmail turi kelias paprastas galimybes.
+      Ðioje pagalbos sistemos dalyje jûs galite rasti, kà tokio ir kaip 
+		galima padaryti.
+   </summary>
+   <description>
+      <p>
+	Þinutës turinys yra parodomas spragtelëjus ant jos antraðtës. Paðto
+	ir interneto adresai paprastai atrodo kaip nuorodos ir spragtelëjæ 
+	ant jø jûs galite pradëti raðyti laiðkà arba nukeliauti á koká nors
+	puslapá. Be to susijusios þinutës paprastai yra skiriamos spalviniais
+	kodais. Atsakymo á þinutæ standartas yra paþymëti anktesnës þinutës
+	tekstus su ">" simboliu. Sàuirrelmail atpaþásta ðá simbolá ir 
+  	nuspalvina visa kita tos eilutes tekstà kita spalva. Visa tai veikia 
+	dviem lygiais (antra ir aukðtesnë þinutë turës tà paèià spalvà). Be to
+	pasirodo dar viena meniu juosta, kuri leidþia iðtrinti þinutæ arba
+	gráþti á þinuèiø sàraðà. Taip pat pateikiamos judëjimo tarp þinuèiø 
+	nuorodos bei galimybës atsakyti á þinutes arba jas persiøsti treèiam
+	asmeniui.
+      </p>
+   </description>
+</chapter>
+
+<section>
+   <title>
+      Þinuèiø sàraðas
+   </title>
+   <description>
+      <p>
+      Paspaudæ èia jûs gráðite á þinuèiø sàraðà.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Iðtrinti
+   </title>
+   <description>
+      <p>
+      Nuoroda leidþia iðtrinti tà þinutæ, kurià ðiuo metu skaitote. Bus
+	iðtrinta ne tik þinutë bet ir visi prie jos prikabinti failai. Todël
+	jei nenorite prarasti tø dokumentø - nepamirðkite jø parsisiøsti
+	arba netrinkite svarbiø þinuèiø.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Judëjimas
+   </title>
+   <description>
+      <p>
+      Juostos viduryje yra judëjimo mygtukai. Nuoroda "Ankstesnis" parodys jums
+	þinutæ, atëjusià anksèiau. Nuoroda veiks tik tuo atveju, jei atitinkama 
+	þinutë egzistuos. Kitu atveju ji niekur neves ir bus neaktyvi.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Kitas
+   </title>
+   <description>
+      <p>
+	Nuoroda "Kitas" naujesnæ þinutæ (laiðkà). Nuoroda veiks tik tuo atveju, 
+	jei atitinkama  þinutë egzistuos. Kitu atveju ji niekur neves ir bus neaktyvi.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Persiøsti
+   </title>
+   <description>
+      <p>
+      Nuoroda Persiøsti atidarys þinutës raðymo langà kuriame bus iðvestas 
+	laiðko turinys atskirtas þyme "--Originali þinutë--".  Fwd: bus áterptas
+	naujojo laiðko temoje prieðais senojo laiðko temos pavadinimà. Visos kitos 
+	atsiverusio puslapio opcijos atitiks standartiná þinuèiø raðymo puslapá 
+	apie kurá yra paraðytas atskiras pagalbos sistemos puslapis.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Atsakyti
+   </title>
+   <description>
+      <p>
+      Paspaudæ ant ðios nuorodos jûs galite paraðyti naujà þinutæ þmogui,
+		kuris atsiuntë jums laiðkà. "Re:" uþraðas yra automatiðkai pridedamas
+		prie ankstesnës þinutës pavadinimo. Senoji þinutë yra cituojama naujoje
+		po ">" simboliø. Atsakydami jûs galite raðyti tekstà bet kurioje þinutës
+		lango dalyje bei prikabinti papildomus priedus prie laiðko.
+		</p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Atsakyti visiems
+   </title>
+   <description>
+      <p>
+      Visas taip pat kaip ir paprasto "Atsakyti" atveju, tik laiðkà gaus visi
+		kuriø adresai yra laiðko antraðtëse.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+	Perþiûrëti visas antraðtes
+   </title>
+   <description>
+      <p>
+	Nuoroda parodys pilnas laiðko antraðtes. Ten paprastai bûna nurodyta,
+	per kur ëjo laiðkas ir tam tikra tarnybinë laiðko informacija.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Parsisiøsti kaip failà
+   </title>
+   <description>
+      <p>
+      Ði nuoroda leidþia iðsaugoti laiðkà kaip paprasta tekstiná dokumentà
+	tame kompiuteryje su kuriuo jûs dirbate. Kartu bus iðsaugota ir trumpa
+	laiðko antraðtë.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Priedai
+   </title>
+   <description>
+      <p>
+	Bet kokie su laiðku atëjæ priedai parodomi þemiau þinutës teksto. Kartu yra
+	nusakomas priedo tipas ir duodama nuoroda, kuri leidþia parsisiøsti prikabintà
+	failà arba já perþiûrëti.
+      </p>
+   </description>
+</section>

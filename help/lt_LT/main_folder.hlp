@@ -1,0 +1,55 @@
+<chapter>
+   <title>
+      Þinuèiø perþiûra
+   </title>
+   <summary>
+      Vardas gali atrodyti keistas, taèiau tai tëra þinuèiø esanèiø konkreèiame 
+      aplanke sàraðas
+   </summary>
+</chapter>
+
+<section>
+   <title>
+      Þinuèiø perþiûros puslapis
+   </title>
+   <description>
+      <p>
+      Kairëje pasirinkus koká nors aplankà, deðinëje atsiranda þinuèiø 
+      esanèiø tame aplanke sàraðas.  Þemiau meniu esanti eilutë pasako
+      kurias þinutes jûs skaitote ir kiek jø yra ið viso..
+      </p>
+      <p>
+      Pavyzdþiui: Þinuèiø perþiûra <B>20</B> iki <B>30</B> (45 viso).
+      </p>
+      <p>
+      Atkreipkite dëmesá, kad bendras þinuèiø skaièius gali skirtis nuo
+      skaièiaus kairëje sekcijoje ðalia aplanko vardo, kuris rodo tik 
+      neperskaitytø þinuèiø skaièiø.
+      </p>
+      <p>
+      Toliau eina juosta su trim mygtukais. Kairëje yra iðsiskleidþiantis meniu
+      su dabar uþprenumeruotais aplankais. Bet kokia paþymëta þinutë gali bûti
+      perkelta á pasirinktà aplankà paspaudus mygtukà "Perkelti". Vienu metu 
+      galima perkelti kelias þinutes. Toliau eina þinuèiø trynimo mygtukas.
+      Pakanka pasirinkti nereikalingas þinutes ir paspausti "Iðtrinti".
+      </p>
+      <p>
+      Toliau eina juosta, apraðanti atskirus laukus á kuriuos skirtomi laiðkai.
+      Ðiuos antraðtes suskirto þinuèiø sàraðà á atskiras dalis. "Nuo" pasako
+      laiðko siuntëjà arba su kieno vardu adresu atëjo laiðkas. "Data" parodo,
+      kada atëjo laiðkas. "Tema" pasako, kà siuntëjas norëjo pasakyti arba bent
+      jau tai kaip jis pavadino savo laiðkà. <b>Pastaba:</b> Tarp datos ir temos
+      stulpeliø yra maþas bevardis stulpelis. Jame gali bûti áraðyti "+", "!"
+      arba "A" simboliai.  "+" reiðkia, kad prie þinutës yra prikabintø failø.
+      "A" - kad jûs jau atsakëte á ðá laiðkà. "!" - kad laiðkas paþymëtas kaip 
+      skubus!  
+      </p>
+      <p>
+      Likusià puslapio dalá uþima þinuèiø sàraðas. Neperskaitytos þinutës yra
+      þymimos <B>riebiu</B> ðriftu, tuo tarpu perskaitytos - paprastu. Kiekvienos
+      þinutës kairëje yra jos pasirinkimo laukas. Galima pasirinkti vienà ar kelias
+      þinutes ir atlikti su jomis aukðèiau apraðytas manipuliacijas (trinti ar 
+      perkelti á kità aplankà).
+      </p>
+   </description>
+</section>

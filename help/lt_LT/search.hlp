@@ -1,0 +1,78 @@
+<chapter>
+   <title>
+      Paieðka
+   </title>
+   <summary>
+      Ieðko aplanke pagal pasirinktus kriterijus.
+   </summary>
+   <description>
+      <p>
+      Naudodami ðá áranká jûs galite vykdyti ávairiausià paieðkà po jûsø
+		turimas þinutes. Galima pasirinkti ávairius paieðkos kriterijus ir
+		vietà, kur bus vykdoma paieðka.
+		</p>
+   </description>
+</chapter>
+
+<section>
+   <title>
+      Bendrai
+   </title>
+   <description>
+      <p>
+      Jûs paprasèiausiai pasirenkate aplankà, kuriame norite vykdyti paieðkà,
+		nurodote, ko ieðkoti ir pasirenkate tà þinutës dalá, kuriuoje norite 
+		vykdyti paieðkà. Paieðka turëtø iðvesti surastø þinuèiø sàraðà, kurá
+		jûs galësite perþiûrëti taip pat, kaip jûs parþiûrite bet kuri savo 
+		paðto dëþës aplankà.
+		</p>
+      <p>
+      Atkreipkite dëmesá, kad jei jûs esate kokiame nors paðto dëþës aplanke
+		ir persijungiate á paieðkos langà, bûtent tas aplankas, kuriame jûs 
+		buvote yra laikomas aktyviu ir bûtent jis ið pradþiu pasirenkamas kaip
+		vieta, kuriuoje reikia vykdyti paieðkà.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Kaip ieðkoti
+   </title>
+   <description>
+      <p>
+      Kairëje pusëje nuo ávedimo lauko esantis iððokantis sàraðas leidþia
+      pasirinkti, kur jûs vykdysite paieðkà. Galima vykdyti paieðkà
+      þinuèiø tekste, visose þinutëse, jø temose, nuo ko atëjo þinutës, 
+      kokiu adresu jos buvo siøstos, kam buvo nusiustos kopijos.
+      </p>
+      <p>
+      <b>Tekstas</b> - Ieðko pasirinktos frazës þinuèiø tekste. Tai yra
+      pagrindinëje vietoje, kur galima rasti kaþkà svarbaus.
+      </p>
+      <p>
+      <b>Bet kur</b> - Ieðko pasirinktos frazës visoje þinutëje. Áskaitant
+      ir antraðtes. Ði paieðka yra detaliausia, taèiau daþnai gali gràþinti
+      tokius rezultatus, kokiø jûs nesitikëjote arba kuriø jums niekada
+      nereiks.
+      </p>
+      <p>
+      <b>Tema</b> - Frazës ieðkoma vien tik laiðkø pavadinimuose.
+      </p>
+      <p>
+      <b>Nuo</b> - Paieðka vykdoma þinutës siuntëjo lauke. Realiai lauko 
+      turinys ðiek tiek skiriasi nuo to, kà jûs matote aplankø sàraðuose.
+      Paprastai "Nuo" laukas saugo vardà IR elektroninio paðto adresà. Taèiau 
+      Squirrelmail parodo tik vardà. Todël paieðkos kriterijus gali sutapti 
+      ne tik su kieno nors vardu, bet ir su elektroninio paðto adresu.
+      </p>
+      <p>
+      <b>Kam</b> - Paieðka vykdoma þinutës gavëjo lauke. Nors laiskai atsidurë
+      jûsø paðto dëþëje taèiau jie galëjo bûti iðsiøsti ne tik jums.
+      </p>
+      <p>
+      <b>Cc</b> - Tas pats, kaip ir "Kam", iðskyrus tai, kad ieðkome tø, 
+      kurie gavo laiðko kopijas.
+      </p>
+   </description>
+</section>
