@@ -24,6 +24,17 @@
       }
    }
 
+   /** Load the user's sent folder preferences **/
+   $move_to_sent = getPref($data_dir, $username, "move_to_sent");
+   if ($move_to_sent == "")
+      $move_to_sent = $default_move_to_sent;
+
+   /** Load the user's trash folder preferences **/
+   $move_to_trash = getPref($data_dir, $username, "move_to_trash");
+   if ($move_to_trash == "")
+      $move_to_trash = $default_move_to_trash;
+
+
    $folder_prefix = getPref($data_dir, $username, "folder_prefix");
    if ($folder_prefix == "")
       $folder_prefix = $default_folder_prefix;
@@ -41,16 +52,6 @@
 		$sent_folder = $folder_prefix . $sent_folder;
 	else
 		$sent_folder = $new_sent_folder;
-	
-   /** Load the user's sent folder preferences **/
-   $move_to_sent = getPref($data_dir, $username, "move_to_sent");
-   if ($move_to_sent == "")
-      $move_to_sent = $default_move_to_sent;
-
-   /** Load the user's trash folder preferences **/
-   $move_to_trash = getPref($data_dir, $username, "move_to_trash");
-   if ($move_to_trash == "")
-      $move_to_trash = $default_move_to_trash;
 
    $show_num = getPref($data_dir, $username, "show_num");
    if ($show_num == "")

@@ -1,9 +1,11 @@
 Known BUGS to be fixed before 0.4pre2:
--------------------------------------------------------
-  -    Sent and Trash are not set to defaults.
+---------------------TO BE FIXED-----------------------
+
+
 
 -----------------------SQUASHED------------------------
 --Fixed for 0.4pre2--
+(lme)  Sent and Trash are not set to defaults.
 (lme)  Does not delete folders correctly in UW that end in /
 (lme)  In "Sent" folder, "from" is "Unknown Sender"
 
