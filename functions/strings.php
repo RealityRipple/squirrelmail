@@ -96,11 +96,11 @@ function sqMakeNewLine (&$str, $citeLevel, &$column) {
  * @return bool true when only whitespace symbols are present in test string
  */
 function sm_ctype_space($string) {
-  if ( preg_match('/^[\x09-\x0D]|^\x20/', $string) || $string=='') {
-    return true;
-  } else {
-    return false;
-  }
+    if ( preg_match('/^[\x09-\x0D]|^\x20/', $string) || $string=='') {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 /**
@@ -350,14 +350,15 @@ function &sqBodyWrap (&$body, $wrap) {
  * Has a problem with special HTML characters, so call this before
  * you do character translation.
  *
- * Specifically, &#039 comes up as 5 characters instead of 1.
+ * Specifically, &#039; comes up as 5 characters instead of 1.
  * This should not add newlines to the end of lines.
  *
  * @param string line the line of text to wrap, by ref
  * @param int wrap the maximum line lenth
+ * @param string charset name of charset used in $line string. Available since v.1.5.1.
  * @return void
  */
-function sqWordWrap(&$line, $wrap) {
+function sqWordWrap(&$line, $wrap, $charset='') {
     global $languages, $squirrelmail_language;
 
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
@@ -382,9 +383,9 @@ function sqWordWrap(&$line, $wrap) {
     while ($i < count($words)) {
         /* Force one word to be on a line (minimum) */
         $line .= $words[$i];
-        $line_len = strlen($beginning_spaces) + strlen($words[$i]) + 2;
+        $line_len = strlen($beginning_spaces) + sq_strlen($words[$i],$charset) + 2;
         if (isset($words[$i + 1]))
-            $line_len += strlen($words[$i + 1]);
+            $line_len += sq_strlen($words[$i + 1],$charset);
         $i ++;
 
         /* Add more words (as long as they fit) */
@@ -392,7 +393,7 @@ function sqWordWrap(&$line, $wrap) {
             $line .= ' ' . $words[$i];
             $i++;
             if (isset($words[$i]))
-                $line_len += strlen($words[$i]) + 1;
+                $line_len += sq_strlen($words[$i],$charset) + 1;
             else
                 $line_len += 1;
         }
@@ -739,7 +740,7 @@ function show_readable_size($bytes) {
 }
 
 /**
- * Generates a random string from the caracter set you pass in
+ * Generates a random string from the character set you pass in
  *
  * @param int size the size of the string to generate
  * @param string chars a string containing the characters to use
@@ -1070,6 +1071,113 @@ function sq_mb_list_encodings() {
     sqsession_register($supported_encodings,'mb_supported_encodings');
 
     return $supported_encodings;
+}
+
+/**
+ * Function returns number of characters in string.
+ *
+ * Returned number might be different from number of bytes in string,
+ * if $charset is multibyte charset. Currently only utf-8 charset is 
+ * supported.
+ * @param string $str string
+ * @param string $charset charset
+ * @since 1.5.1
+ * @return integer number of characters in string 
+ */
+function sq_strlen($str, $charset=''){
+    // default option
+    if ($charset=='') return strlen($str);
+
+    // use automatic charset detection, if function call asks for it
+    if ($charset=='auto') {
+        global $default_charset;
+        set_my_charset();
+        $charset=$default_charset;
+    }
+
+    // lowercase charset name
+    $charset=strtolower($charset);
+
+    // set initial returned length number
+    $real_length=0;
+
+    // calculate string length according to charset
+    // function can be modulized same way we modulize decode/encode/htmlentities
+    if ($charset=='utf-8') {
+        if (function_exists('mb_strlen')) {
+            $real_length = mb_strlen($str,'utf-8');
+        } else {
+            // function needs length of string in bytes.
+            // mbstring overloading might break it
+            $str_length=strlen($str);
+            $str_index=0;
+            while ($str_index < $str_length) {
+                // start of utf-8 multibyte character detection
+                if (preg_match("/[\xC0-\xDF]/",$str[$str_index]) &&
+                    isset($str[$str_index+1]) && 
+                    preg_match("/[\x80-\xBF]/",$str[$str_index+1])) {
+                    // two byte utf-8
+                    $str_index=$str_index+2;
+                    $real_length++;
+                } elseif (preg_match("/[\xE0-\xEF]/",$str[$str_index]) &&
+                    isset($str[$str_index+2]) && 
+                    preg_match("/[\x80-\xBF][\x80-\xBF]/",$str[$str_index+1].$str[$str_index+2])) {
+                    // three byte utf-8
+                    $str_index=$str_index+3;
+                    $real_length++;
+                } elseif (preg_match("/[\xF0-\xF7]/",$str[$str_index]) &&
+                    isset($str[$str_index+3]) && 
+                    preg_match("/[\x80-\xBF][\x80-\xBF][\x80-\xBF]/",$str[$str_index+1].$str[$str_index+2].$str[$str_index+3])) {
+                    // four byte utf-8
+                    $str_index=$str_index+4;
+                    $real_length++;
+                } elseif (preg_match("/[\xF8-\xFB]/",$str[$str_index]) &&
+                    isset($str[$str_index+4]) && 
+                    preg_match("/[\x80-\xBF][\x80-\xBF][\x80-\xBF][\x80-\xBF]/",
+                               $str[$str_index+1].$str[$str_index+2].$str[$str_index+3].$str[$str_index+4])) {
+                    // five byte utf-8
+                    $str_index=$str_index+5;
+                    $real_length++;
+                } elseif (preg_match("/[\xFC-\xFD]/",$str[$str_index]) &&
+                    isset($str[$str_index+5]) && 
+                    preg_match("/[\x80-\xBF][\x80-\xBF][\x80-\xBF][\x80-\xBF]/",
+                               $str[$str_index+1].$str[$str_index+2].$str[$str_index+3].$str[$str_index+4].$str[$str_index+5])) {
+                    // six byte utf-8
+                    $str_index=$str_index+6;
+                    $real_length++;
+                } else {
+                    $str_index++;
+                    $real_length++;
+                }
+                // end of utf-8 multibyte character detection
+            }
+        }
+        // end of utf-8 length detection
+    } elseif ($charset=='big5') {
+        // TODO: add big5 string length detection
+        $real_length=strlen($str);
+    } elseif ($charset=='gb2312') {
+        // TODO: add gb2312 string length detection
+        $real_length=strlen($str);
+    } elseif ($charset=='gb18030') {
+        // TODO: add gb18030 string length detection
+        $real_length=strlen($str);
+    } elseif ($charset=='euc-jp') {
+        // TODO: add euc-jp string length detection
+        $real_length=strlen($str);
+    } elseif ($charset=='euc-cn') {
+        // TODO: add euc-cn string length detection
+        $real_length=strlen($str);
+    } elseif ($charset=='euc-tw') {
+        // TODO: add euc-tw string length detection
+        $real_length=strlen($str);
+    } elseif ($charset=='euc-kr') {
+        // TODO: add euc-kr string length detection
+        $real_length=strlen($str);
+    } else {
+        $real_length=strlen($str);
+    }
+    return $real_length;
 }
 
 $PHP_SELF = php_self();

@@ -292,7 +292,7 @@ function translateText(&$body, $wrap_at, $charset) {
     for ($i=0; $i < count($body_ary); $i++) {
         $line = $body_ary[$i];
         if (strlen($line) - 2 >= $wrap_at) {
-            sqWordWrap($line, $wrap_at);
+            sqWordWrap($line, $wrap_at, $charset);
         }
         $line = charset_decode($charset, $line);
         $line = str_replace("\t", '        ', $line);
