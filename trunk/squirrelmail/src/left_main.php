@@ -92,12 +92,13 @@ function formatMailboxName($imapConnection, $box_array) {
         $line .= "&nbsp;<SMALL>$unseen_string</SMALL>";
     }
 
+	/* If it's the trash folder, show a purge link when needed */
     if (($move_to_trash) && ($real_box == $trash_folder)) {
         if (! isset($numMessages)) {
             $numMessages = sqimap_get_num_messages($imapConnection, $real_box);
         }
 
-        if ($numMessages > 0) {
+        if (($numMessages > 0) or (sqimap_mailbox_has_children($trash_folder))) {
             $urlMailbox = urlencode($real_box);
             $line .= "\n<small>\n" .
                     "&nbsp;&nbsp;(<A HREF=\"empty_trash.php\" style=\"text-decoration:none\">"._("purge")."</A>)" .

@@ -15,10 +15,12 @@ Version 1.4.0 RC 2
     the more accurate name "login" (Plain to be implemented soon)
   - Fix for compose after search bug.  (Closes #662346)
   - Improved error reporting when sending mail with SMTP.
-  - Changed SquirrelMail identification to use User-Agent in stead of X-Mailer.
+  - Changed SquirrelMail identification to use User-Agent instead of X-Mailer.
   - Prevent endless loop when timezone config is not found. Thanks Joshua Colson.
   - Fix IMAP error when returning to message from viewing image attachment.
   - Do more trimming to indented subjects in threadview so they don't wrap.
+  - New function in imap_mailbox.php: sqimap_mailbox_has_children.
+  - Trash folder now displays purge link in all cases. (Closes #655943)
 
 	
 Version 1.4.0 RC 1
