@@ -561,7 +561,7 @@
             $body .= formatAttachments ($message, $ent_num, $message->header->mailbox, $id);
          }
       } else {
-         $body .= formatAttachments ($message, -1, $message->header->mailbox, $id);
+         $body = formatAttachments ($message, -1, $message->header->mailbox, $id);
       }
       return $body;
    }
