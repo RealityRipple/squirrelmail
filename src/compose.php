@@ -219,7 +219,6 @@ if (sqsession_is_registered('session_expired_post')) {
     if (!isset($mailbox)) {
         $mailbox = '';
     }
-
     if ($compose_new_win == '1') {
         compose_Header($color, $mailbox);
     } else {
@@ -298,6 +297,10 @@ if ($send) {
         $AttachFailure = saveAttachedFiles($session);
     }
     if (checkInput(false) && !isset($AttachFailure)) {
+		if ($mailbox == "All Folders") {
+			/* We entered compose via the search results page */
+			$mailbox="INBOX"; /* Send 'em to INBOX, that's safe enough */
+		}
         $urlMailbox = urlencode (trim($mailbox));
         if (! isset($passed_id)) {
             $passed_id = 0;
