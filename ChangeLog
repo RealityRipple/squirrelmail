@@ -75,6 +75,7 @@ Version 1.5.0 -- CVS
   - new function sqimap_msgs_list_move() to replace sqimap_msgs_list_copy()
   - sqimap_msgs_list_copy() no longer deletes messages copied.
   - Workaround for Mozilla bug #200412 in order to show multipart/related html mail.
+  - Fix for disapearing '0' from decoded strings (bug #784193)
   
 
 **************************************
