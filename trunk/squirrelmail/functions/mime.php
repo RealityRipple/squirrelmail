@@ -539,23 +539,30 @@
    }
 
    // Encode a string according to RFC 1522 for use in headers if it
-   // contains 8-bit characters
+   // contains 8-bit characters or anything that looks like it should
+   // be encoded.
    function encodeHeader ($string) {
       global $default_charset;
 
-      // Encode only if the string contains 8-bit characters
-      if (ereg("[\200-\377]", $string)) {
+      // Encode only if the string contains 8-bit characters or =?
+      if (ereg("([\200-\377])|=\\?", $string)) {
          $newstring = "=?$default_charset?Q?";
-         $newstring .= str_replace(" ", "_", $string);
          
-         while (ereg("([\200-\377])", $newstring, $regs)) {
+         // First the special characters
+         $string = str_replace("=", "=3D", $string);
+         $string = str_replace("?", "=3F", $string);
+         $string = str_replace("_", "=5F", $string);
+         $string = str_replace(" ", "_", $string);
+
+
+         while (ereg("([\200-\377])", $string, $regs)) {
             $replace = $regs[1];
-            $insert = "=" . bin2hex($replace);
-            $newstring = str_replace($replace, $insert, $newstring);
+            $insert = "=" . strtoupper(bin2hex($replace));
+            $string = str_replace($replace, $insert, $string);
          }
 
-         $newstring .= "?=";
-
+         $newstring = "=?$default_charset?Q?".$string."?=";
+         
          return $newstring;
       }
 
