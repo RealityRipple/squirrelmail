@@ -282,7 +282,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                 if ($use_icons && $icon_theme != 'none') {
                     $td_str = "<b><small>";
                     if (isset($msg['FLAG_FLAGGED']) && $msg['FLAG_FLAGGED'] == true) {
-                        $td_str .= _('<IMG SRC="' . SM_PATH . 'images/themes/' . $icon_theme . '/flagged.gif" border="0" height="10" width="10"> ');
+                        $td_str .= '<IMG SRC="' . SM_PATH . 'images/themes/' . $icon_theme . '/flagged.gif" border="0" height="10" width="10"> ';
                     }
                     if ($default_use_priority) {
                         if ( ($msg['PRIORITY'] == 1) || ($msg['PRIORITY'] == 2) ) {
