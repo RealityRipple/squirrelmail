@@ -151,7 +151,7 @@
    /** to **/
    echo "      <TR>\n";
    echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
-   echo "            <FONT FACE=\"Arial,Helvetica\">;
+   echo "            <FONT FACE=\"Arial,Helvetica\">";
    echo _("To:");
    echo "</FONT>\n";
    echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85% VALIGN=TOP>\n";
