@@ -11,8 +11,23 @@
 
 /* include the mime class before the session start ! otherwise we can't store
  * messages with a session_register.
+ *
+ * From http://www.php.net/manual/en/language.oop.serialization.php:
+ *   In case this isn't clear:
+ *   In 4.2 and below: 
+ *      session.auto_start and session objects are mutually exclusive.
+ *
+ * We need to load the classes before the session is started, 
+ * except that the session could be started automatically 
+ * via session.auto_start. So, we'll close the session, 
+ * then load the classes, and reopen the session which should 
+ * make everything happy.  
+ *
+ * ** Note this means that for the 1.3.2 release, we should probably
+ * recommend that people set session.auto_start=0 to avoid this altogether.
  */
- 
+session_write_close();
+
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'class/mime.class.php');
 
