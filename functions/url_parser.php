@@ -22,7 +22,16 @@
       $done=False;
       while (!$done) {
          #Look for when a URL starts
-         $where = strpos(strtolower($body),"http://",$start);
+         $url_tokens = array(
+                         "http://",
+                         "https://",
+                         "ftp://",
+                         "telnet://");
+         for($i = 0; $i < sizeof($url_tokens); $i++) {
+           if($where = strpos(strtolower($body), $url_tokens[$i], $start))
+             break;
+         }
+         //$where = strpos(strtolower($body),"http://",$start);
          if ($where) {
             # Find the end of that URL
             reset($poss_ends); $end=0; 
