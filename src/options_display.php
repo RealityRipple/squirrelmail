@@ -118,29 +118,29 @@
             </td>
          </tr>
          <tr>
-            <td align=right nowrap><?PHP echo _('Location of folder list') ?>:</td>
+            <td align=right nowrap><?PHP echo _("Location of folder list") ?>:</td>
             <td><select name="folder_new_location">
                 <option value="left"<?PHP
                     if ($location_of_bar != 'right') echo ' SELECTED';
-                    ?>><?PHP echo _('Left'); ?></option>
+                    ?>><?PHP echo _("Left"); ?></option>
                 <option value="right"<?PHP
                     if ($location_of_bar == 'right') echo ' SELECTED';
-                    ?>><?PHP echo _('Right'); ?></option>
+                    ?>><?PHP echo _("Right"); ?></option>
                 </select>
             </td>
          </tr>
          <tr>
-            <td align=right nowrap><?PHP echo _('Location of buttons when composing') ?>:</td>
+            <td align=right nowrap><?PHP echo _("Location of buttons when composing") ?>:</td>
             <td><select name="button_new_location">
                 <option value="top"<?PHP
                     if ($location_of_buttons == 'top') echo ' SELECTED';
-                    ?>><?PHP echo _('Before headers'); ?></option>
+                    ?>><?PHP echo _("Before headers"); ?></option>
                 <option value="between"<?PHP
                     if ($location_of_buttons == 'between') echo ' SELECTED';
-                    ?>><?PHP echo _('Between headers and message body'); ?></option>
+                    ?>><?PHP echo _("Between headers and message body"); ?></option>
                 <option value="bottom"<?PHP
                     if ($location_of_buttons == 'bottom') echo ' SELECTED';
-                    ?>><?PHP echo _('After message body'); ?></option>
+                    ?>><?PHP echo _("After message body"); ?></option>
                 </select>
             </td>
          </tr>
