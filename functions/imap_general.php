@@ -19,7 +19,15 @@ $imap_general_debug = false;
     ******************************************************************************/
 
    function sqimap_session_id() {
-      return( substr( session_id(), -4 ) );
+      if (session_id() != '')
+         return substr(session_id(), -4);
+	 
+      global $RememberedSessionID;
+      
+      if (! isset($RememberedSessionID))
+         $RememberedSessionID = GenerateRandomString(4, '', 7);
+	 
+      return $RememberedSessionID;
    }
 
 
