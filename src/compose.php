@@ -93,6 +93,7 @@
    $send_to = stripslashes($send_to);
 
    /** This formats a CC string if they hit "reply all" **/
+   echo "TO: $send_to<BR>CC: $send_to_cc<BR>";
    if ($send_to_cc != "") {
       $send_to_cc = ereg_replace(";", ",", $send_to_cc);
       $sendcc = explode(",", $send_to_cc);
