@@ -133,7 +133,7 @@ while (($command ne "q") && ($command ne "Q")) {
       print $WHT."Themes\n".$NRM;
       print "1.  Change Themes\n";
       for ($count = 0; $count <= $#theme_name; $count++) {
-         print "    |  $theme_name[$count]\n";
+         print "    >  $theme_name[$count]\n";
       }
       print "\n";
       print "R   Return to Main Menu\n";
