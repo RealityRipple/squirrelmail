@@ -12,12 +12,14 @@
  * $Id$
  */
 
+
+
 /* 
  * rdc822_header class
  * input: header_string or array
  */
- 
-class rfc822_header {
+class rfc822_header
+{
     var $date = '',
         $subject = '',
 	$from = array(),
@@ -43,7 +45,7 @@ class rfc822_header {
 	   $hdr = implode('',$hdr);
 	}
         /* first we unfold the header */
-	$hdr = str_replace(array("\r\n\t","\r\n\s"),array('',''),$hdr);
+	$hdr = str_replace(array("\r\n\t","\r\n "),array('',''),$hdr);
 	/* 
 	 * now we can make a new header array with each element representing 
 	 * a headerline
@@ -100,7 +102,8 @@ class rfc822_header {
         return $s;
     }     
     
-    function parseField($field,$value) {
+    function parseField($field,$value)
+    {
         $field = strtolower($field);
         switch($field)
 	{
@@ -186,7 +189,8 @@ class rfc822_header {
 	}
     } 
 
-    function parseAddress($address, $ar=false, $addr_ar = array(), $group = '') {
+    function parseAddress($address, $ar=false, $addr_ar = array(), $group = '')
+    {
         $pos = 0;
         $j = strlen( $address );
         $name = '';
