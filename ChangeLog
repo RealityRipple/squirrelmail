@@ -24,6 +24,7 @@ Version 1.4.0 CVS
   - Fixed \Noselect mailbox detection.
   - Fixed charset decode of base64 encoded strings
   - Fixed encoding of email addresses in our composed messages
+  - Fixed folder creation for Courier using Autoconfig options
   
 Version 1.4.0 RC 2a
 -------------------
