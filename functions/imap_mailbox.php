@@ -513,7 +513,7 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
                     $box2 = $boxes_part['formatted'];
                     break;
                   default:  /* default, long names, style = 0 */
-                    $box2 = str_replace(' ', '&nbsp;', htmlentities(imap_utf7_decode_local($boxes_part['unformatted-disp'])));
+                    $box2 = str_replace(' ', '&nbsp;', htmlspecialchars(imap_utf7_decode_local($boxes_part['unformatted-disp'])));
                     break;
                 }
             }
