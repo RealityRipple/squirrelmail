@@ -26,26 +26,28 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
 
     $urlMailbox = urlencode($mailbox);
 
-    /* Construct the Search QuERY */
+    /*
+        Construct the Search QuERY
 
-#  account for multiple search terms
+        account for multiple search terms
+    */
 
-        $multi_search = array ();
-        $search_what = ereg_replace("[ ]{2,}", ' ', $search_what);
-        $multi_search = split (' ', $search_what);
-        if (count($multi_search)==1) {
-                $search_string = $search_where . ' ' . '"' . $multi_search[0] . '"';
-        }
-        else {
-                $search_string = '';
-        $count = count($multi_search);
-                for ($x=0;$x<$count;$x++) {
-                	$search_string = $search_string . ' ' . $search_where . " " . '"' . $multi_search[$x] . '" ';
-                }
-        }
-	$search_string = trim($search_string);
+    $multi_search = array ();
+    $search_what = ereg_replace("[ ]{2,}", ' ', $search_what);
+    $multi_search = split (' ', $search_what);
+    if (count($multi_search)==1) {
+            $search_string = $search_where . ' ' . '"' . $multi_search[0] . '"';
+    }
+    else {
+            $search_string = '';
+    $count = count($multi_search);
+            for ($x=0;$x<$count;$x++) {
+                $search_string = $search_string . ' ' . $search_where . ' "' . $multi_search[$x] . '" ';
+            }
+    }
+    $search_string = trim($search_string);
 
-# now use $search_string in the imap search
+    /* now use $search_string in the imap search */
 
     if (isset($languages[$squirrelmail_language]['CHARSET']) &&
         $languages[$squirrelmail_language]['CHARSET']) {
@@ -62,7 +64,9 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
         $readin = sqimap_run_command ($imapConnection, $ss, true, $result, $message);
     }
 
-    unset($messagelist); $msgs=""; $c = 0;
+    unset($messagelist);
+    $msgs = '';
+    $c = 0;
 
     /* Keep going till we find the SEARCH responce */
     while ($c < count( $readin )) {
@@ -79,18 +83,15 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
 
     /* If nothing is found * SEARCH should be the first error else echo errors */
     if (isset($errors) && strstr($errors,"* SEARCH")) {
-		if ($search_all != "all") {
-        echo '<br><CENTER>' . _("No Messages Found") . '</CENTER>';
-        return;
-		}
-		else {
-        return;
-		}
+        if ($search_all != "all") {
+            echo '<br><CENTER>' . _("No Messages Found") . '</CENTER>';
+            return;
+        }
+        else {
+            return;
+        }
     }
-//	else if ($search_all == 'all') {
-//		return;
-//	}
-	else if (isset($errors)) {
+    else if (isset($errors)) {
         echo "<!-- ".$errors." -->";
     }
 
@@ -155,7 +156,7 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
     $i = 0;
     $j = 0;
     while ($j < count($messagelist)) {
-        if (isset($messages[$j]["FLAG_DELETED"]) && $messages[$j]["FLAG_DELETED"] == true) {
+        if (isset($messages[$j]['FLAG_DELETED']) && $messages[$j]['FLAG_DELETED']) {
             $j++;
             continue;
         }
@@ -170,16 +171,16 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
 
     if (count($messagelist) > 0) {
         $j=0;
-        if (!isset ($msg)) { 
-            $msg = ''; 
+        if (!isset ($msg)) {
+            $msg = '';
         }
         if ($search_all != 'all') {
-	    if ( !isset( $start_msg ) ) {
-	        $start_msg =0;
-	    }
-	    if ( !isset( $sort ) ) {
-                $sort = 0;
-	    }
+            if ( !isset( $start_msg ) ) {
+                $start_msg =0;
+            }
+            if ( !isset( $sort ) ) {
+                    $sort = 0;
+            }
             mail_message_listing_beginning( $imapConnection,
                 "move_messages.php?msg=$msg&mailbox=$urlMailbox&pos=$pos&where=" . urlencode($search_where) . "&what=".urlencode($search_what),
             $mailbox,
@@ -194,16 +195,16 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
                 -1,
                 '<b>' . _("Found") . ' ' . count($messagelist) . ' ' . _("messages") . '</b></tr><tr>');
         }
-		echo "<b><big>Folder: $mailbox</big></b>";
+        echo '<b><big>' . _("Folder:") . " $mailbox</big></b>";
         while ($j < count($msgs)) {
             printMessageInfo($imapConnection, $msgs[$j]["ID"], 0, $j, $mailbox, '', 0, $search_where, $search_what);
             $j++;
-			echo '</td></tr>';
+            echo '</td></tr>';
         }
         echo '</table></td></tr></table></form>';
-		$count_all = count($msgs);
+        $count_all = count($msgs);
     }
-		return $count_all;
+    return $count_all;
 }
 
 ?>

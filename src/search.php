@@ -56,19 +56,19 @@ function get_saved($pref_name, $username, $data_dir) {
 
 /*  function to update recent pref arrays  */
 function update_recent($what, $where, $mailbox, $username, $data_dir) {
-    $what_array = get_recent("search_what", $username, $data_dir);
-    $where_array = get_recent("search_where", $username, $data_dir);
-    $folder_array = get_recent("search_folder", $username, $data_dir);
-    $dupe = "no";
+    $what_array = get_recent('search_what', $username, $data_dir);
+    $where_array = get_recent('search_where', $username, $data_dir);
+    $folder_array = get_recent('search_folder', $username, $data_dir);
+    $dupe = 'no';
     for ($i=0;$i<count($what_array);$i++) {
         if ($what == $what_array[$i] &&
             $where == $where_array[$i] &&
             $mailbox == $folder_array[$i]) {
-            
-            $dupe = "yes";
+
+            $dupe = 'yes';
         }
     }
-    if ($dupe == "no") {    
+    if ($dupe == 'no') {
     array_push ($what_array, $what);
     array_push ($where_array, $where);
     array_push ($folder_array, $mailbox);
@@ -78,9 +78,9 @@ function update_recent($what, $where, $mailbox, $username, $data_dir) {
     $recent_count = getPref($data_dir, $username, 'search_memory', 0);
     $n=0;
     for ($i=1;$i<=$recent_count;$i++) {
-        setPref($data_dir, $username, "search_what" . "$i", $what_array[$n]);
-        setPref($data_dir, $username, "search_where" . "$i", $where_array[$n]);
-        setPref($data_dir, $username, "search_folder" . "$i", $folder_array[$n]);
+        setPref($data_dir, $username, "search_what$i", $what_array[$n]);
+        setPref($data_dir, $username, "search_where$i", $where_array[$n]);
+        setPref($data_dir, $username, "search_folder$i", $folder_array[$n]);
        $n++;
        }
     }
@@ -88,30 +88,30 @@ function update_recent($what, $where, $mailbox, $username, $data_dir) {
 
 /*  function to forget a recent search  */
 function forget_recent($forget_index, $username, $data_dir) {
-    $what_array = get_recent("search_what", $username, $data_dir);
-    $where_array = get_recent("search_where", $username, $data_dir);
-    $folder_array = get_recent("search_folder", $username, $data_dir);
+    $what_array = get_recent('search_what', $username, $data_dir);
+    $where_array = get_recent('search_where', $username, $data_dir);
+    $folder_array = get_recent('search_folder', $username, $data_dir);
     array_splice($what_array, $forget_index, 1);
     array_splice($where_array, $forget_index, 1);
     array_splice($folder_array, $forget_index, 1);
-    array_unshift($what_array, "");
-    array_unshift($where_array, "");
-    array_unshift($folder_array, "");
+    array_unshift($what_array, '');
+    array_unshift($where_array, '');
+    array_unshift($folder_array, '');
     $recent_count = getPref($data_dir, $username, 'search_memory', 0);
     $n=0;
     for ($i=1;$i<=$recent_count;$i++) {
-        setPref($data_dir, $username, "search_what" . "$i", $what_array[$n]);
-        setPref($data_dir, $username, "search_where" . "$i", $where_array[$n]);
-        setPref($data_dir, $username, "search_folder" . "$i", $folder_array[$n]);
+        setPref($data_dir, $username, "search_what$i", $what_array[$n]);
+        setPref($data_dir, $username, "search_where$i", $where_array[$n]);
+        setPref($data_dir, $username, "search_folder$i", $folder_array[$n]);
         $n++;
     }
 }
 
 /*  function to delete a saved search  */
 function delete_saved($delete_index, $username, $data_dir) {
-    $saved_what_array = get_saved("saved_what", $username, $data_dir); 
-    $saved_where_array = get_saved("saved_where", $username, $data_dir);
-    $saved_folder_array = get_saved("saved_folder", $username, $data_dir);
+    $saved_what_array = get_saved('saved_what', $username, $data_dir);
+    $saved_where_array = get_saved('saved_where', $username, $data_dir);
+    $saved_folder_array = get_saved('saved_folder', $username, $data_dir);
     array_splice($saved_what_array, $delete_index, 1);
     array_splice($saved_where_array, $delete_index, 1);
     array_splice($saved_folder_array, $delete_index, 1);
@@ -120,30 +120,30 @@ function delete_saved($delete_index, $username, $data_dir) {
     $last_element = $saved_count + 1;
     if ($last_element < 1) {
         for ($i=1;$i<=$saved_count;$i++) {
-            setPref($data_dir, $username, "saved_what" . "$i", $saved_what_array[$n]);
-        setPref($data_dir, $username, "saved_where" . "$i", $saved_where_array[$n]);
-        setPref($data_dir, $username, "saved_folder" . "$i", $saved_folder_array[$n]);
+            setPref($data_dir, $username, "saved_what$i", $saved_what_array[$n]);
+        setPref($data_dir, $username, "saved_where$i", $saved_where_array[$n]);
+        setPref($data_dir, $username, "saved_folder$i", $saved_folder_array[$n]);
         $n++;
         }
     }
-    removePref($data_dir, $username, "saved_what" . "$last_element");
-    removePref($data_dir, $username, "saved_where" . "$last_element");
-    removePref($data_dir, $username, "saved_folder" . "$last_element");
-}    
+    removePref($data_dir, $username, "saved_what$last_element");
+    removePref($data_dir, $username, "saved_where$last_element");
+    removePref($data_dir, $username, "saved_folder$last_element");
+}
 
 /*  function to save a search from recent to saved  */
 function save_recent($save_index, $username, $data_dir) {
-    $what_array = get_recent("search_what", $username, $data_dir);
-    $where_array = get_recent("search_where", $username, $data_dir);
-    $folder_array = get_recent("search_folder", $username, $data_dir);
+    $what_array = get_recent('search_what', $username, $data_dir);
+    $where_array = get_recent('search_where', $username, $data_dir);
+    $folder_array = get_recent('search_folder', $username, $data_dir);
     $saved_what_once = array_slice($what_array, $save_index, 1);
     $saved_where_once = array_slice($where_array, $save_index, 1);
     $saved_folder_once = array_slice($folder_array, $save_index, 1);
-    $saved_array = get_saved("saved_what", $username, $data_dir);
+    $saved_array = get_saved('saved_what', $username, $data_dir);
     $saved_count = (count($saved_array) + 1);
-    setPref($data_dir, $username, "saved_what" . "$saved_count", $saved_what_once[0]);
-    setPref($data_dir, $username, "saved_where" . "$saved_count", $saved_where_once[0]);
-    setPref($data_dir, $username, "saved_folder" . "$saved_count", $saved_folder_once[0]);
+    setPref($data_dir, $username, "saved_what$saved_count", $saved_what_once[0]);
+    setPref($data_dir, $username, "saved_where$saved_count", $saved_where_once[0]);
+    setPref($data_dir, $username, "saved_folder$saved_count", $saved_folder_once[0]);
 }
 
 /* ------------------------ main ------------------------ */
@@ -155,13 +155,12 @@ $folder_array = array ();
 $saved_what_array = array ();
 $saved_where_array = array ();
 $saved_folder_array = array ();
-$search_all = "none";
+$search_all = 'none';
 $perbox_count = array ();
 
 /*  get mailbox names  */
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $boxes = sqimap_mailbox_list($imapConnection);
-
 
 /*  set current mailbox to INBOX if none was selected or if page
     was called to search all folders.  */
@@ -169,20 +168,26 @@ if ($mailbox == 'None' || $mailbox == '' ) {
     $mailbox = $boxes[0]['unformatted'];
 }
 if ($mailbox == 'All Folders') {
-    $search_all = "all";
+    $search_all = 'all';
 }
 
 displayPageHeader($color, $mailbox);
 
 /*  See how the page was called and fire off correct function  */
-//if ( !isset( $submit ) ) {
-//    $submit = '';
-//} else if ($submit == 'Search' && !empty($what)) {
 if ((!isset($submit) || empty($submit)) && !empty($what)) {
-    $submit = 'Search';
+    $submit = _("Search");
 }
-if ($submit == 'Search' && !empty($what)) {
-    update_recent($what, $where, $mailbox, $username, $data_dir); 
+if ( !isset( $submit ) ) {
+    /*
+        Jason, leave E_ALL only on error reporting in php.ini
+        Variables must contain a value befor to check them,
+        or else there are compilation slow down as PHP has
+        to guess.
+        Remove this comment once read 8-)
+    */
+    $submit = '';
+} else if ($submit == _("Search") && !empty($what)) {
+    update_recent($what, $where, $mailbox, $username, $data_dir);
 }
 elseif ($submit == 'forget') {
     forget_recent($count, $username, $data_dir);
@@ -204,13 +209,13 @@ echo "<BR>\n".
      "</TABLE>\n";
 
 /*  update the recent and saved searches from the pref files  */
-$what_array = get_recent("search_what", $username, $data_dir);
-$where_array = get_recent("search_where", $username, $data_dir);
-$folder_array = get_recent("search_folder", $username, $data_dir);
+$what_array = get_recent('search_what', $username, $data_dir);
+$where_array = get_recent('search_where', $username, $data_dir);
+$folder_array = get_recent('search_folder', $username, $data_dir);
 $recent_count = getPref($data_dir, $username, 'search_memory', 0);
-$saved_what_array = get_saved("saved_what", $username, $data_dir);
-$saved_where_array = get_saved("saved_where", $username, $data_dir);
-$saved_folder_array = get_saved("saved_folder", $username, $data_dir);
+$saved_what_array = get_saved('saved_what', $username, $data_dir);
+$saved_where_array = get_saved('saved_where', $username, $data_dir);
+$saved_folder_array = get_saved('saved_folder', $username, $data_dir);
 $saved_count = count($saved_what_array);
 $count_all = 0;
 
@@ -303,7 +308,7 @@ for ($i = 0; $i < count($boxes); $i++) {
         $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
         if( $box2 == 'INBOX' ) {
             $box2 = _("INBOX");
-        }        
+        }
         if ($mailbox == $box) {
             echo "         <OPTION VALUE=\"$box\" SELECTED>$box2</OPTION>\n";
         }
@@ -340,7 +345,7 @@ s_opt( 'TO', $where, _("To") );
 echo "         </SELECT>\n" .
      "        </TD>\n".
      "       <TD COLSPAN=\"3\" ALIGN=\"CENTER\">\n".
-     "         <INPUT TYPE=\"submit\" NAME=\"submit\" VALUE=\"Search\">\n".
+     "         <INPUT TYPE=\"submit\" NAME=\"submit\" VALUE=\"" . _("Search") . "\">\n".
      "       </TD>\n".
      "     </TR>\n".
      "</FORM>\n".
@@ -352,7 +357,7 @@ do_hook('search_after_form');
 
 /*
     search all folders option still in the works. returns a table for each
-    folder it finds a match in. 
+    folder it finds a match in.
 */
 
 if ($search_all == 'all') {
@@ -365,7 +370,7 @@ if ($search_all == 'all') {
         if (!in_array('noselect', $boxes[$x]['flags'])) {
             $mailbox = $boxes[$x]['unformatted'];
         }
-        if (($submit == "Search" || $submit == "Search_no_update") && !empty($what)) {
+        if (($submit == _("Search") || $submit == 'Search_no_update') && !empty($what)) {
             sqimap_mailbox_select($imapConnection, $mailbox);
             $count_all = sqimap_search($imapConnection, $where, $what, $mailbox, $color, 0, $search_all, $count_all);
         array_push($perbox_count, $count_all);
@@ -386,7 +391,7 @@ if ($search_all == 'all') {
 
 /*  search one folder option  */
 else {
-    if (($submit == 'Search' || $submit == 'Search_no_update') && !empty($what)) {
+    if (($submit == _("Search") || $submit == 'Search_no_update') && !empty($what)) {
         echo '<BR><CENTER><B>' .
              _("Search Results") .
              "</B></CENTER>\n";
@@ -396,11 +401,11 @@ else {
 }
 
 /*  must have search terms to search  */
-if ($submit == 'Search' && empty($what)) {
+if ($submit == _("Search") && empty($what)) {
     echo "<BR><CENTER><B>Please enter something to search for</B></CENTER>\n";
 }
 
-do_hook("search_bottom");
+do_hook('search_bottom');
 sqimap_logout ($imapConnection);
 echo '</body></html>';
 
