@@ -20,17 +20,18 @@
  */
 
 global $color;
-$color[0]   = "#B0B0B0"; // (gray)				TitleBar
-$color[1]   = "#A04040"; // (dull red)			Quoted Replies in Emails
-$color[2]   = "#F04040"; // (bright red)		Warning/Error Messages
-$color[3]   = "#DFCFBF"; // (antique white)		Left Bar Background
-$color[4]   = "#DFCFBF"; // (antique white)		Normal Background
-$color[5]   = "#755A45"; // (light brown)		Table Headers
-$color[6]   = "#101010"; // (off-black)			Text on left bar
-$color[7]   = "#800000"; // (red)				Links
-$color[8]   = "#000000"; // (black)				Normal text
-$color[9]   = "#909090"; // (darker gray)		Darker version of #0
-$color[10]  = "#606060"; // (darkest gray)		Darker version of #9
-$color[11]  = "#600000"; // (lighter red)		Special Folders color
+$color[0]   = '#B0B0B0'; // (gray)				TitleBar
+$color[1]   = '#A04040'; // (dull red)			Quoted Replies in Emails
+$color[2]   = '#F04040'; // (bright red)		Warning/Error Messages
+$color[3]   = '#DFCFBF'; // (antique white)		Left Bar Background
+$color[4]   = '#DFCFBF'; // (antique white)		Normal Background
+$color[5]   = '#755A45'; // (light brown)		Table Headers
+$color[6]   = '#101010'; // (off-black)			Text on left bar
+$color[7]   = '#800000'; // (red)				Links
+$color[8]   = '#000000'; // (black)				Normal text
+$color[9]   = '#909090'; // (darker gray)		Darker version of #0
+$color[10]  = '#606060'; // (darkest gray)		Darker version of #9
+$color[11]  = '#600000'; // (lighter red)		Special Folders color
+$color[15]  = '#602020'; // (some brown)                Unselectable folders
 
 ?>

@@ -45,7 +45,7 @@ b  3: Left folder list background color
 b  4: Normal background color
 b  5: Header of the message index [From, Date, Subject]
 f  6: Normal text on the left folder list
-f  7: Links in the right frame, Folders with subfolders in left frame
+f  7: Links in the right frame
 f  8: Normal text [usually black]
 b  9: Darker version of #0
 b 10: Darker version of #9
@@ -53,8 +53,9 @@ f 11: Special folders color [Inbox, Trash, Sent]
 b 12: Alternate color for message list [alters between 4 and this one]
 f 13: Color for single-quoted text ("> text") when reading (default:  #800000)
 f 14: Color for text with more than one quote (default: #FF0000)
+f 15: Non-selectable folders in the left frame (defaults to $color[6])
 
 Next all you have to do is run conf.pl and add the theme to the list
 of themes available to you.  If you would like your theme to be 
 included in the distribution of SquirrelMail, just email it to
-<luke@squirrelmail.org> and I will review it.
+<captbunzo@squirrelmail.org>.

@@ -25,8 +25,8 @@ $color[7]   = '#00FFCC'; // Links
 $color[8]   = '#FFFFFF'; // Normal text
 $color[9]   = '#000099'; // Darker version of #0
 $color[10]  = '#33FF66'; // Dimmed out folder color
-$color[11]  = '#000060'; // Special folders / Unseen messages color
+$color[11]  = '#7070FF'; // Special folders / Unseen messages color
 $color[12]  = '#3300CC'; // Alternate table row color
 $color[13]  = '#3333CC';
-
+$color[15]  = '#33FF66'; // Unselectable folders
 ?>

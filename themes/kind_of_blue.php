@@ -17,13 +17,13 @@
 /* seed the random number generator */
 sq_mt_randomize();
 
-for ($i = 0; $i <= 14; $i++) {
+for ($i = 0; $i <= 15; $i++) {
     /* background/foreground toggle */
     if ($i == 0 or $i == 3 or $i == 4 or $i == 5 or $i == 9 or $i == 10 or $i == 12) {
         /* background */
-        $r = mt_rand(248,255);
-        $b = mt_rand(180,255);
-        $g = mt_rand(178,$g);
+        $b = mt_rand(248,255);
+        $r = mt_rand(180,255);
+        $g = mt_rand(178,$r);
     } else {
         /* text */
         $cmin = 0;
