@@ -2,12 +2,128 @@
 
 class Deliver {
 
-    function prepareMIME_Header($message, $rn) {
+    function mail($message, $stream) {
+    
+       $rfc822_header = $message->rfc822_header;
+       if (count($message->entities)) {
+          $boundary = mimeBoundary();
+	  $rfc822_header->contenttype->properties['boundary']=$boundary;
+       } else {
+          $boundary='';
+       }
+       $header = prepareRFC822_Header($rfc822_header);
+       $raw_length = strlen($header);
+       if ($stream) {
+            $this->preWriteToStream($s);
+            $this->writeToStream($stream, $s);
+       }
+       writeBody($message, $stream, $length_raw, $boundary);
+       return $raw_length;
+    }
+    
+    function writeBody($message, $stream, &$length_raw, $boundary='') {
+        if ($boundary) {
+	    $s = '--'.$boundary."\r\n";
+	    $s .= $this->prepareMIME_Header($message, $boundary);
+	    $length_raw += strlen($s);
+	    if ($stream) {
+                $this->preWriteToStream($s);
+		$this->writeToStream($stream, $s);
+	    }
+        }
+	writeBodyPart($message, $stream, $length_raw);
+	$boundary_depth = substr_count($message->entity_id,'.');
+	if ($boundary_depth) {
+	   $boundary .= '_part'.$boundary_depth;
+	}
+	for ($i=0, $entCount=count($message->entities);$i<$entCount;$i++) {
+    	    $msg = writeBody($message->entities[$i], $stream, $length_raw, $boundary);
+	}
+        if ($boundary) {
+	    $s = '--'.$boundary."--\r\n";
+	    $length_raw += strlen($s);
+	    if ($stream) {
+                $this->preWriteToStream($s);
+		$this->writeToStream($stream, $s);
+	    }
+	}
+    }
+
+    function writeBodyPart($message, $stream, &$length) {
+        $body_part = '';
+	switch ($message->type0) {
+	case 'text':
+	case 'message':
+	    if ($message->body_part) {
+	       $body_part = $message->body_part;
+	       $length += $this->clean_crlf($body_part);
+	       if ($stream) {
+                  $this->preWriteToStream($body_part);     
+	          $this->writeToStream($stream, $body_part)
+	       }
+	    } elseif ($message->att_local_name) {
+	        $filename = $message->att_local_name;
+		$file = fopen ($filename, 'rb');
+		while ($tmp = fgets($file, 4096)) {
+		   $length += $this->clean_crlf($tmp);
+		   if ($stream) {
+		      $this->preWriteToStream($tmp);
+		      $this->writeToStream($stream, $tmp);
+		   }
+		}
+		fclose($file);
+            }
+	    break;
+	default:
+	    if ($message->body_part) {
+	       $body_part = $message->body_part;
+	       $length += $this->clean_crlf($body_part);
+	       if ($stream) {
+	          $this->writeToStream($stream, $body_part)
+	       }
+	    } elseif ($message->att_local_name) {
+	        $filename = $message->att_local_name;
+		$file = fopen ($filename, 'rb');
+		while ($tmp = fread($file, 1520)) {
+		   $encoded = chunk_split(base64_encode($tmp));
+		   $length += strlen($encoded);
+		   if ($stream) {
+		      $this->writeToStream($stream, $encoded);
+		   }
+		}
+		fclose($file);
+	    }
+	    break;
+	}
+    }
+    
+    function clean_crlf($s) {
+        $s = str_replace("\r\n", "\n", $s);
+        $s = str_replace("\r", "\n", $s);
+        $s = str_replace("\n", "\r\n", $s);
+	return strlen($s);
+    }
+
+    function preWriteToStream($&s) {
+    }
+    
+    function writeToStream($stream, $data) {
+    }
+    
+    function initStream($message, $length=0, $host='', $port='', $user='', $pass='') {
+       return $stream;
+    }
+
+    function prepareMIME_Header($message, $boundary) {
 	$mime_header = $message->header;
+	$rn="\r\n"
 	$header = array();
-        
+	
 	$contenttype = 'Content-Type: '. $mime_header->contenttype->type0 .'/'.
     	               $mime_header->contenttype->type1;
+	if (count($message->entities)) {
+	    $contenttype .= ";\r\n " . 'boundary="'.$boundary.'"';
+	}		       
 	if (isset($mime_header->parameters['name'])) {
     	    $contenttype .= ";\r\n " . 'name="'.
         	encodeHeader($mime_header->parameters['name']). '"';
@@ -43,7 +159,8 @@ class Deliver {
     	    $hdr_s .= foldLine($header[$i], 78, '    ');
 	}
 	$header = $hdr_s;
-	$header .= $rn; /* One blank line to separate header and body */
+	$header .= $rn; /* One blank line to separate mimeheader and body-entity */
+	return $header;
     }    
 
     function prepareRFC822_Header($rfc822_header) {
@@ -161,12 +278,8 @@ class Deliver {
     }
     $header = $hdr_s;
     $header .= $rn; /* One blank line to separate header and body */
-    $headerlength = strlen($header);
     
-    /* Write the header */
-    if ($fp) fputs ($fp, $header);
-    
-    return $headerlength;
+    return $header;
     }
 
     /*
@@ -231,5 +344,45 @@ class Deliver {
     return $line;
     }	   
 }
+
+function mimeBoundary () {
+    static $mimeBoundaryString;
+
+    if ( !isset( $mimeBoundaryString ) ||
+         $mimeBoundaryString == '') {
+        $mimeBoundaryString = '----=_' . date( 'YmdHis' ) . '_' .
+            mt_rand( 10000, 99999 );
+    }
+
+    return $mimeBoundaryString;
+}
+
+/* Time offset for correct timezone */
+function timezone () {
+    global $invert_time;
+    
+    $diff_second = date('Z');
+    if ($invert_time) {
+        $diff_second = - $diff_second;
+    }
+    if ($diff_second > 0) {
+        $sign = '+';
+    }
+    else {
+        $sign = '-';
+    }
+
+    $diff_second = abs($diff_second);
+    
+    $diff_hour = floor ($diff_second / 3600);
+    $diff_minute = floor (($diff_second-3600*$diff_hour) / 60);
+    
+    $zonename = '('.strftime('%Z').')';
+    $result = sprintf ("%s%02d%02d %s", $sign, $diff_hour, $diff_minute, 
+                       $zonename);
+    return ($result);
+}
+
+
 ?>
 
