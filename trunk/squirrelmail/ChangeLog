@@ -54,6 +54,8 @@ Version 1.5.1 -- CVS
     written by Bryan Loniewski.
   - Use Special Folder Color config option works again (#931956).
   - In POP3-class, be more liberal regarding RFC-incompliant POP3-servers.
+  - Set up language before outputing errors in auth.php to make them appear in
+    the correct language.
   - Added Basque translation support.
   - Remove flag buttons / links from display if mailbox doesn't allow it.
   - Make used of cached ordered uid list in case of server_side_sorting.
@@ -163,6 +165,8 @@ Version 1.5.1 -- CVS
   - Prevent & being eaten in set_url_var, thanks Marcin Orlowski. Fixes #1053725.
   - Removed internal_link hook.
   - Added sq_setlocale function in order to use multiple locale names.
+  - Set up language before outputing errors in signout.php to make them appear
+    in the correct language.
   - Added size attributes to new_mail sound tags. Fixes #818958.
   - Removed extra ; in SquirrelMail added Received header per RFC 822. Fixes #1088548.
   - Add IMAP server type "hmailserver" to make search work with hMailServer.
