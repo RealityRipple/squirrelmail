@@ -189,7 +189,11 @@
 
    
    /******************************************************************************
-    **  Returns a displayable email address 
+    **  Takes the From: field, and creates a displayable name.
+    **    Luke Ehresman <lkehresman@yahoo.com>
+    **           becomes:   Luke Ehresman
+    **    <lkehresman@yahoo.com>
+    **           becomes:   lkehresman@yahoo.com
     ******************************************************************************/
    function sqimap_find_displayable_name ($string) {
       if (strpos($string, "<") && strpos($string, ">")) {
