@@ -34,8 +34,21 @@
 //
 //     You can download themes from http://squirrelmail.sourceforge.net/index.php3?page=10
 //
-//   Example:   require("../config/default_theme.php");
-    require("../config/default_theme.php");
+//  To add a new theme to the options that users can choose from, just add
+//  a new number to the array at the bottom, and follow the pattern.
+
+    $theme[0]["PATH"] = "../config/default_theme.php"; // This is your default theme.  Can be theme.
+    $theme[0]["NAME"] = "Default";
+
+    $theme[1]["PATH"] = "../config/sandstorm_theme.php";
+    $theme[1]["NAME"] = "Sand Storm";
+
+    $theme[2]["PATH"] = "../config/deepocean_theme.php";
+    $theme[2]["NAME"] = "Deep Ocean";
+
+    $theme[3]["PATH"] = "../config/slashdot_theme.php";
+    $theme[3]["NAME"] = "Slashdot";
+
 
 //  Whether or not to use $color[11] for special folders.  If not, special
 //  folders will be the same color as the other folders

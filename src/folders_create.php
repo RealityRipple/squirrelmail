@@ -6,6 +6,8 @@
    include("../functions/imap.php");
    include("../functions/display_messages.php");
 
+   include("../src/load_prefs.php");
+
    echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    displayPageHeader($color, "None");
 

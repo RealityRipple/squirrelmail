@@ -7,6 +7,8 @@
    include("../functions/imap.php");
    include("../functions/array.php");
 
+   include("../src/load_prefs.php");
+
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
 
    getFolderList($imapConnection, $boxes);

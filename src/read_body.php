@@ -7,6 +7,8 @@
    include("../functions/mailbox.php");
    include("../functions/date.php");
 
+   include("../src/load_prefs.php");
+
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
    selectMailbox($imapConnection, $mailbox, $numMessages);
 
@@ -144,7 +146,7 @@
    echo "   </TD></TR>";
 
    echo "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=100%>\n";
-   $body = formatBody($message);
+   $body = formatBody($message, $color);
    echo "<BR>";
 
    echo "$body";
