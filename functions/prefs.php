@@ -7,8 +7,11 @@
     **  $Id$
     **/
 
-   $prefs_php = true;
-   
+   if (defined('prefs_php'))
+      return;
+   define('prefs_php', true);
+
+   global $prefs_are_cached, $prefs_cache;
    $prefs_are_cached = false;
    $prefs_cache = array();
 

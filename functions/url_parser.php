@@ -2,7 +2,9 @@
    /* URL Passing code to allow links from with in emails */
    /* $Id$ */
 
-   $url_parser_php = true;
+   if (defined('url_parser_php'))
+      return;
+   define('url_parser_php', true);
 
    function replaceBlock (&$in, $replace, $start, $end) {
       $begin = substr($in,0,$start);
@@ -19,6 +21,7 @@
    // $IPMatch = '\[?' . $IPMatch . '(\.' . $IPMatch . '){3}\]?';
    //
    // Here's enough:
+   global $IP_RegExp_Match, $Host_RegExp_Match, $Email_RegExp_Match;
    $IP_RegExp_Match = '\\[?[0-9]{1,3}(\\.[0-9]{1,3}){3}\\]?';
    $Host_RegExp_Match = '(' . $IP_RegExp_Match . 
        '|[0-9a-z]([-.]?[0-9a-z])*\\.[a-z][a-z]+)';
@@ -56,6 +59,7 @@
 
    // We don't want to re-initialize this stuff for every line.  Save work
    // and just do it once here.
+   global $url_parser_url_tokens;
    $url_parser_url_tokens = array(
        'http://',
        'https://',
@@ -64,6 +68,7 @@
        'gopher://',
        'news://');
 
+   global $url_parser_poss_ends;
    $url_parser_poss_ends = array(' ', "\n", "\r", '<', '>', ".\r", ".\n", 
        '.&nbsp;', '&nbsp;', ')', '(', '&quot;', '&lt;', '&gt;', '.<', 
        ']', '[', '{', '}', "\240");

@@ -28,7 +28,10 @@
     **  $Id$
     **/
 
-   $prefs_php = true;
+   if (defined('prefs_php'))
+       return;
+   define('prefs_php', true);
+
    require_once('DB.php');
 
    class dbPrefs {

@@ -9,7 +9,9 @@
     **  $Id$
     **/
 
-   $mailbox_display_php = true;
+   if (defined('mailbox_display_php'))
+       return;
+   define('mailbox_display_php', true);
 
    function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage, $where, $what) {
       global $checkall;
@@ -543,7 +545,7 @@
       echo '</TD></TR>';
 
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
-      echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=1 CELLSPACING=0 BGCOLOR=\"$color[0]\">";
+      echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">";
       echo "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
 
       $urlMailbox=urlencode($mailbox);
