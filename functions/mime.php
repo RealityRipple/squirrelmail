@@ -26,7 +26,7 @@
       var $type0, $type1, $boundary, $charset, $encoding;
       var $to, $from, $date, $cc, $bcc, $reply_to, $subject;
       var $id, $mailbox, $description;
-      var $entity_id, $message_id;
+      var $entity_id, $message_id, $charset;
    }
    
    class message {
@@ -255,6 +255,7 @@
             if ($debug_mime) echo "<tt>".$properties[$i]["name"]." = " . $properties[$i]["value"] . "</tt><br>";
          }
       }
+
       return $msg;
    }
 
@@ -426,7 +427,10 @@
       $id = $message->header->id;
       $urlmailbox = urlencode($message->header->mailbox);
 
+      // Get the right entity and redefine message to be this entity
       $ent_num = findDisplayEntity ($message);
+      $message = getEntity($message, $ent_num);
+
       $body = mime_fetch_body ($imap_stream, $id, $ent_num); 
       $body = decodeBody($body, $message->header->encoding);
 
