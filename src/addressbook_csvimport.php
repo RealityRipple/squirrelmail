@@ -31,7 +31,8 @@
       include("../functions/strings.php");
 
    include("../src/load_prefs.php");
-
+   
+/** commented out until a way to deal with file rnaming is figured out.
    displayPageHeader($color, "None");
 
    if (!isset($smusercsv) || $smusercsv == "none") {
@@ -44,12 +45,16 @@
       echo "</body></html>\n";
       exit;
    }
+**/
 
    /** 
     ** Script-wide vars. Used all over the place or something you might want to change later.
     **	$example -->Sets how many rows of user data the script will use to play with before final write.
     **   $abook ---->Setup the addressbook functions for Pallo's Addressbook.
+    **   $tabindex ->A starting value for the loop to assign a tabindex value for the generated text input fields.
+    **               As long as this value is greater than the number of static submit buttons all should work fine.
     **/
+   $tabindex = 10;
    $example = 6;
    $abook = addressbook_init(true, true);
 
@@ -104,17 +109,17 @@
    	echo "       <TD>", _("Arrange your data to fit the 5 address book fields. "), _("Do this by inserting the data's field number under the field for which you wish it to be included into the address book. "), _("For example: fields 5, 6, and 7 need to go into the info field 5. "), _("The boxes under field 5 would contain 5, 6, and 7 in seperate boxes. "), "</TD>\n";
    	echo "   <TR>\n";
    	echo "       <TD>", _("Submit Your reorganized data."), "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp", "\n";
-   	echo "           <INPUT TYPE=\"submit\" NAME=\"submit\" VALUE=\"Submit\">", "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp\n";
+   	echo "           <INPUT TYPE=\"submit\" NAME=\"submit\" VALUE=\"Submit\" TABINDEX=\"1\">", "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp\n";
    	echo "           <INPUT TYPE=\"hidden\" NAME=\"flag\" VALUE=\"2\">\n";
    	echo "           <INPUT TYPE=\"hidden\" NAME=\"nameholder\" VALUE=$nameholder>\n";
    	echo "           <INPUT TYPE=\"hidden\" NAME=\"email\" VALUE=$email>\n";
    	echo "           ", _("Erase entries and re-enter field numbers."), "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp", "\n";
-   	echo "           <INPUT TYPE=reset VALUE=reset>\n";
+   	echo "           <INPUT TYPE=reset VALUE=reset TABINDEX=\"2\">\n";
    	echo "       </TD>\n";
    	echo "   </TR>\n";
    	echo "   <TR>\n";
    	echo "       <TD>", _("View full set of imported records in their new format."), "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp\n";
-   	echo "           <INPUT TYPE=\"submit\" NAME=\"all\" VALUE=\"Show all Records\">\n";
+   	echo "           <INPUT TYPE=\"submit\" NAME=\"all\" VALUE=\"Show all Records\" TABINDEX=\"3\">\n";
    	echo "           <INPUT TYPE=\"hidden\" NAME=\"submit\" VALUE=\"Submit\">";	
    	echo "       </TD>";
    	echo "   </TR>\n";
@@ -127,7 +132,7 @@
    	echo "   <TR>\n";
    	echo "       <TD>", _("Final approval. ");
    	echo "           ", _("After reviewing the rearranged data for accuracy, click \"Finish\"."), "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp\n";
-   	echo "           <INPUT TYPE=\"submit\" NAME=\"finish\" VALUE=\"Finish\">\n";
+   	echo "           <INPUT TYPE=\"submit\" NAME=\"finish\" VALUE=\"Finish\" TABINDEX=\"4\">\n";
    	echo "       </TD>";
    	echo "   </TR>\n";
    	echo "</TABLE>\n";
@@ -179,28 +184,33 @@
                echo "         <TD>", _("Field Number: "), "0", "<BR>\n";      // number the fields so they know what to put where
                reset($nickname);
                while(list($k,$v)=each($nickname)) {                           // print out the text boxes for this var
-                  echo"             <INPUT TYPE=text NAME=nickname[$k] MAXLENGTH=2 SIZE=2 VALUE=\"".$v."\"><BR>\n";
+                  echo"             <INPUT TYPE=text NAME=nickname[$k] MAXLENGTH=2 SIZE=2 TABINDEX=\"".$tabindex."\" VALUE=\"".$v."\"><BR>\n";
+                  $tabindex++;
                }
                echo "         </TD>\n";
                echo "         <TD>", _("Field Number: "), "1", "<BR>\n";      // number the fields so they know what to put where
                reset($firstname);
                while(list($k,$v)=each($firstname)) {                          // print out the text boxes for this var
-                  echo"             <INPUT TYPE=text NAME=firstname[$k] MAXLENGTH=2 SIZE=2 VALUE=\"".$v."\"><BR>\n";
+                  echo"             <INPUT TYPE=text NAME=firstname[$k] MAXLENGTH=2 SIZE=2 TABINDEX=\"".$tabindex."\" VALUE=\"".$v."\"><BR>\n";
+                  $tabindex++;
                }
                echo "         </TD>\n";
                echo "         <TD>", _("Field Number: "), "2", "<BR>\n";      // number the fields so they know what to put where
                reset($lastname);
                while(list($k,$v)=each($lastname)) {                           // print out the text boxes for this var
-                  echo"             <INPUT TYPE=text NAME=lastname[$k] MAXLENGTH=2 SIZE=2 VALUE=\"".$v."\"><BR>\n";
+                  echo"             <INPUT TYPE=text NAME=lastname[$k] MAXLENGTH=2 SIZE=2 TABINDEX=\"".$tabindex."\" VALUE=\"".$v."\"><BR>\n";
+                  $tabindex++;
                }
                echo "         </TD>\n";                                       // email isn't an array so no loop needed
                echo "         <TD>", _("Field Number: "), "3", "<BR>\n";      // number the fields so they know what to put where
-               echo "             <INPUT TYPE=text NAME=email MAXLENGTH=\"2\" SIZE=\"2\" VALUE=$email>\n";
+               echo "             <INPUT TYPE=text NAME=email MAXLENGTH=\"2\" SIZE=\"2\" TABINDEX=\"".$tabindex."\" VALUE=$email>\n";
+               $tabindex++;
                echo "         </TD>\n";
                echo "         <TD>", _("Field Number: "), "4", "<BR>\n";      // number the fields so they know what to put where
                reset($label);
                while(list($k,$v)=each($label)) {                               // print out the text boxes for this var
-                  echo"             <INPUT TYPE=text NAME=label[$k] MAXLENGTH=2 SIZE=2 VALUE=\"".$v."\"><BR>\n";
+                  echo"             <INPUT TYPE=text NAME=label[$k] MAXLENGTH=2 SIZE=2 TABINDEX=\"".$tabindex."\" VALUE=\"".$v."\"><BR>\n";
+                  $tabindex++;
                }
                echo "         </TD>\n";
 
