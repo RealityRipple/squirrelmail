@@ -81,6 +81,10 @@
          include ('../src/load_prefs.php');
       }
    } else if ($method == 'add' && $add) {
+      // User should not be able to insert PHP-code here
+      $add = str_replace ('<?', '..', $add);
+      $add = ereg_replace ('<.*script.*language.*php.*>', '..', $add);
+      $add = str_replace ('<%', '..', $add);
       $index_order[count($index_order)+1] = $add;
    }
 
