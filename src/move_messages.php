@@ -133,6 +133,12 @@ if (isset($_POST['msg'])) {
 elseif (isset($_GET['msg'])) {
     $msg = $_GET['msg'];
 }
+
+if (isset($_SESSION['msgs'])) {
+    $msgs = $_SESSION['msgs'];
+}
+
+
 if (isset($_POST['expungeButton'])) {
     $expungeButton = $_POST['expungeButton'];
 }
@@ -162,6 +168,9 @@ if (isset($_POST['location'])) {
     $location = $_POST['location'];
 }
 
+if (isset($_SESSION['composesession'])) {
+    $composesession = $_SESSION['composesession'];
+}
 /* end of get globals */
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
