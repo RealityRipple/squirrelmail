@@ -214,7 +214,7 @@
 	            $k++;
 	            $i++;
 	            next($list_sorted);
-	         } else if ($sorted_lsub_ary[$i] < $list_sorted[$key]) {
+	         } else if (isset($sorted_lsub_ary[$i]) && isset($list_sorted[$key]) && $sorted_lsub_ary[$i] < $list_sorted[$key]) {
 	            $i++;
 	         } else {
 	            next($list_sorted);
