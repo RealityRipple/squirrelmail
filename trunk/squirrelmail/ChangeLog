@@ -1,5 +1,5 @@
-Version 1.0pre2 -- DEVELOPMENT
-------------------------------
+Version 1.0pre2 -- January 15, 2000 
+-----------------------------------
 - A number of security fixes
 - Replaced error messages with better, formatted, and meaningful messages.
 - Fixed "reply all" so that it works intelligently now
