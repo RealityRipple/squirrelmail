@@ -57,7 +57,7 @@
    <description>
       <p>
       In SquirrelMail's case it gives you access through the IMAP protocol 
-      to your email account.  These means you don't have to figure out how 
+      to your email account.  This means that you don't have to figure out how 
       to setup someone else's stuff just to check your mail.
       </p>
    </description>
