@@ -43,9 +43,17 @@
    // including header and body
    $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
 
-   $type0 = $message["ENTITIES"][$passed_ent_id]["TYPE0"];
-   $type1 = $message["ENTITIES"][$passed_ent_id]["TYPE1"];
-   $filename = $message["ENTITIES"][$passed_ent_id]["FILENAME"];
+   // lets redefine message as this particular entity that we wish to display.
+   // it should hold only the header for this entity.  We need to fetch the body
+   // yet before we can display anything.
+   $message = getEntity($message, $passed_ent_id);
+
+   $header = $message->header;
+   $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
+
+   $type0 = $header->type0;
+   $type1 = $header->type1;
+   $filename = $header->filename;
 
    if (strlen($filename) < 1) {
       $filename = "untitled$passed_ent_id";
@@ -54,13 +62,13 @@
    if ($absolute_dl == "true") {
       switch($type0) {
          case "text":
-            $body = decodeBody($message["ENTITIES"][$passed_ent_id]["BODY"], $message["ENTITIES"][$passed_ent_id]["ENCODING"]);
+            $body = decodeBody($body, $header->encoding);
             header("Content-type: $type0/$type1; name=\"$filename\"");
             header("Content-Disposition: attachment; filename=\"$filename\"");
             echo trim($body);
             break;
          default:
-            $body = decodeBody($message["ENTITIES"][$passed_ent_id]["BODY"], $message["ENTITIES"][$passed_ent_id]["ENCODING"]);
+            $body = decodeBody($body, $header->encoding);
             header("Content-type: $type0/$type1; name=\"$filename\"");
             header("Content-Disposition: attachment; filename=\"$filename\"");
             echo $body;
@@ -69,15 +77,15 @@
    } else {
       switch ($type0) {
          case "text":
-            $body = decodeBody($message["ENTITIES"][$passed_ent_id]["BODY"], $message["ENTITIES"][$passed_ent_id]["ENCODING"]);
+            $body = decodeBody($body, $header->encoding);
             viewText($color, $body, $passed_id, $passed_ent_id, $mailbox, $type1, $wrap_at);
             break;
          case "message":
-            $body = decodeBody($message["ENTITIES"][$passed_ent_id]["BODY"], $message["ENTITIES"][$passed_ent_id]["ENCODING"]);
+            $body = decodeBody($body, $header->encoding);
             viewText($color, $body, $passed_id, $passed_ent_id, $mailbox, $type1, $wrap_at);
             break;
          default:
-            $body = decodeBody($message["ENTITIES"][$passed_ent_id]["BODY"], $message["ENTITIES"][$passed_ent_id]["ENCODING"]);
+            $body = decodeBody($body, $header->encoding);
             header("Content-type: $type0/$type1; name=\"$filename\"");
             header("Content-Disposition: attachment; filename=\"$filename\"");
             echo $body;

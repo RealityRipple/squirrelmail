@@ -75,14 +75,14 @@
    displayPageHeader($color, $mailbox);
 
    /** translate the subject and mailbox into url-able text **/
-   $url_subj = urlencode(trim(stripslashes($message["HEADER"]["SUBJECT"])));
+   $url_subj = urlencode(trim(stripslashes($message->header->subject)));
    $urlMailbox = urlencode($mailbox);
-   $url_replyto = urlencode($message["HEADER"]["REPLYTO"]);
+   $url_replyto = urlencode($message->header->replyto);
 
-   $url_replytoall   = urlencode($message["HEADER"]["REPLYTO"]);
-   $url_replytoallcc = urlencode(getLineOfAddrs($message["HEADER"]["TO"]) . ", " . getLineOfAddrs($message["HEADER"]["CC"]));
+   $url_replytoall   = urlencode($message->header->replyto);
+   $url_replytoallcc = urlencode(getLineOfAddrs($message->header->to) . ", " . getLineOfAddrs($message->header->cc));
 
-   $dateString = getLongDateString($message["HEADER"]["DATE"]);
+   $dateString = getLongDateString($message->header->date);
 
    /** TEXT STRINGS DEFINITIONS **/
    $echo_more = _("more");
@@ -91,7 +91,7 @@
    /** FORMAT THE TO STRING **/
    $i = 0;
    $to_string = "";
-   $to_ary = $message["HEADER"]["TO"];
+   $to_ary = $message->header->to;
    while ($i < count($to_ary)) {
       $to_ary[$i] = htmlspecialchars($to_ary[$i]);
 
@@ -116,7 +116,7 @@
    /** FORMAT THE CC STRING **/
    $i = 0;
    $cc_string = "";
-   $cc_ary = $message["HEADER"]["CC"];
+   $cc_ary = $message->header->cc;
    while ($i < count($cc_ary)) {
       $cc_ary[$i] = htmlspecialchars($cc_ary[$i]);
       if ($cc_string)
@@ -138,8 +138,8 @@
    }
 
    /** make sure everything will display in HTML format **/
-   $from_name = decodeHeader(htmlspecialchars($message["HEADER"]["FROM"]));
-   $subject = decodeHeader(htmlspecialchars(stripslashes($message["HEADER"]["SUBJECT"])));
+   $from_name = decodeHeader(htmlspecialchars($message->header->from));
+   $subject = decodeHeader(htmlspecialchars(stripslashes($message->header->subject)));
 
    echo "<BR>";
    echo "<TABLE COLS=1 CELLSPACING=0 WIDTH=98% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n";
@@ -223,7 +223,7 @@
    echo "         </TD>\n";
    echo "      </TR>\n";
    /** cc **/
-   if ($message["HEADER"]["CC"][0]) {
+   if ($message->header->cc) {
       echo "      <TR>\n";
       echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
       echo "            Cc:\n";

@@ -1,5 +1,11 @@
 Known BUGS to be fixed before 0.5pre1:
 ---------------------TO BE FIXED-----------------------
+   -   Attachments cannot be downloaded with IE.  This report was sent to
+       the mailing list:
+         What i noticed is that if your downlaoding an attachemnt with 
+         squirrel that netscape is ok with it but IE explorer have an 
+         error that he can't download file not found and a weird error 
+         that i can't resolve..
 
 
 

@@ -10,116 +10,340 @@
 
    if (!isset($i18n_php))
       include "../functions/i18n.php";
+   if (!isset($imap_php))
+      include "../functions/imap.php";
+   if (!isset($config_php))
+      include "../config/config.php";
+
+
+   /** Setting up the object that has the structure for the message **/
+
+   class msg_header {
+      /** msg_header contains generic variables for values that **/
+      /** could be in a header.                                 **/
+      
+      var $type0, $type1, $boundary, $charset, $encoding;
+      var $to, $from, $date, $cc, $bcc, $reply_to, $subject;
+      var $id, $mailbox;
+      var $entity_id;
+   }
+   
+   class message {
+      /** message is the object that contains messages.  It is a recursive
+          object in that through the $entities variable, it can contain 
+          more objects of type message.  See documentation in mime.txt for
+          a better description of how this works.
+       **/   
+      var $header;
+      var $entities;
+      
+      function addEntity ($msg) {
+         $this->entities[count($this->entities)] = $msg;
+      }
+   }
+
+
+
+   /* --------------------------------------------------------------------------------- */
+   /* MIME DECODING                                                                     */
+   /* --------------------------------------------------------------------------------- */
+   
+   /** This function gets the structure of a message and stores it in the "message" class.
+       It will return this object for use with all relevant header information and
+       fully parsed into the standard "message" object format.
+    **/   
+   function mime_structure ($imap_stream, $header) {
+      sqimap_messages_flag ($imap_stream, $header->id, $header->id, "Seen");
+      
+      $id = $header->id;
+      fputs ($imap_stream, "a001 FETCH $id BODYSTRUCTURE\r\n");
+      $read = sqimap_read_data ($imap_stream, "a001", true, $a, $b);
+      $read = strtolower($read[0]);
+
+      //echo $read."<br><br>";
+      // isolate the body structure and remove beginning and end parenthesis
+      $read = trim(substr ($read, strpos($read, "bodystructure") + 13));
+      $read = trim(substr ($read, 0, -2));
+      $read = trim(substr ($read, 1));
+
+      $msg = mime_parse_structure ($read);
+      $msg->header = $header;
+      return $msg;
+   }
+
+   function mime_parse_structure ($structure, $ent_id) {
+      //echo "<font color=008800><tt>START: mime_parse_structure()</tt></font><br>";
+      $msg = new message();
+      if (substr($structure, 0, 1) == "(") {
+         $ent_id = mime_new_element_level($ent_id);
+         $start = $end = -1;
+         do {
+            //echo "<font color=008800><tt>Found entity...</tt></font><br>";
+            $start = $end+1;
+            $end = mime_match_parenthesis ($start, $structure);
+            
+            $element = substr($structure, $start+1, ($end - $start)-1);
+            $ent_id = mime_increment_id($ent_id);
+            $newmsg = mime_parse_structure ($element, $ent_id);
+            $msg->addEntity ($newmsg);
+         } while (substr($structure, $end+1, 1) == "(");
+      } else {
+         // parse the elements
+         //echo "<br><font color=0000aa><tt>$structure</tt></font><br>";
+         $msg->header = new msg_header();
+         $msg->header = mime_get_element (&$structure, $header);
+         $msg->header->entity_id = $ent_id;
+         //echo "<br>";
+      }
+      return $msg;
+      //echo "<font color=008800><tt>&nbsp;&nbsp;END: mime_parse_structure()</tt></font><br>";
+   }
+
+   // Increments the element ID.  An element id can look like any of
+   // the following:  1, 1.2, 4.3.2.4.1, etc.  This function increments
+   // the last number of the element id, changing 1.2 to 1.3.
+   function mime_increment_id ($id) {
+      if (strpos($id, ".")) {
+         $first = substr($id, 0, strrpos($id, "."));
+         $last = substr($id, strlen($id) - strlen($first));
+         $last++;
+         $new = $first . $last;
+      } else {
+         $new = $id + 1;
+      }
+      return $new;
+   }
+
+   // See comment for mime_increment_id().
+   // This adds another level on to the entity_id changing 1.3 to 1.3.0
+   // NOTE:  1.3.0 is not a valid element ID.  It MUST be incremented 
+   //        before it can be used.  I left it this way so as not to have
+   //        to make a special case if it is the first entity_id.  It
+   //        always increments it, and that works fine.
+   function mime_new_element_level ($id) {
+      if (!$id)
+         $id = 0;
+      else 
+         $id . ".0";
+      return $id;   
+   }
+
+   function mime_get_element (&$structure, $header) {
+      $elem_num = 1;
+      
+      while (strlen($structure) > 0) {
+         $structure = trim($structure);
+         $char = substr($structure, 0, 1);
+
+         if (substr($structure, 0, 3) == "nil") {
+            $text = "";
+            $structure = substr($structure, 3);
+         } else if ($char == "\"") {
+            // loop through until we find the matching quote, and return that as a string
+            $pos = 1;
+            $char = substr($structure, $pos, 1);
+            while ($char != "\"" && $pos < strlen($structure)) {
+               $text .= $char;
+               $pos++;
+               $char = substr($structure, $pos, 1);
+            }   
+            $structure = substr($structure, strlen($text) + 2);
+         } else if ($char == "(") {
+            // comment me
+            $end = mime_match_parenthesis (0, $structure);
+            $sub = substr($structure, 1, $end-1);
+            $properties = mime_get_props($properties, $sub);
+            $structure = substr($structure, strlen($sub) + 2);
+         } else {
+            // loop through until we find a space or an end parenthesis
+            $pos = 0;
+            $char = substr($structure, $pos, 1);
+            while ($char != " " && $char != ")" && $pos < strlen($structure)) {
+               $text .= $char;
+               $pos++;
+               $char = substr($structure, $pos, 1);
+            }
+            $structure = substr($structure, strlen($text));
+         }
+         //echo "$elem_num : $text<br>";
+
+         // This is where all the text parts get put into the header
+         switch ($elem_num) {
+            case 1: 
+               $header->type0 = $text;
+               //echo "<tt>type0 = $text</tt><br>";
+               break;
+            case 2: 
+               $header->type1 = $text;
+               //echo "<tt>type1 = $text</tt><br>";
+               break;
+            case 6:
+               $header->encoding = $text;
+               //echo "<tt>encoding = $text</tt><br>";
+               break;
+            case 7:
+               $header->size = $text;
+               //echo "<tt>size = $text</tt><br>";
+               break;
+            default:
+               if ($header->type0 == "text" && $elem_num == 8) {
+                  $header->num_lines = $text;
+                  //echo "<tt>num_lines = $text</tt><br>";
+               }
+               break;
+         }
+         $elem_num++;
+         $text = "";
+      }
+      // loop through the additional properties and put those in the various headers
+      for ($i=0; $i < count($properties); $i++) {
+         $header->{$properties[$i]["name"]} = $properties[$i]["value"];
+         //echo "<tt>".$properties[$i]["name"]." = " . $properties[$i]["value"] . "</tt><br>";
+      }
+      return $header;
+   }
+
+   // I did most of the MIME stuff yesterday (June 20, 2000), but I couldn't
+   // figure out how to do this part, so I decided to go to bed.  I woke up
+   // in the morning and had a flash of insight.  I went to the white-board
+   // and scribbled it out, then spent a bit programming it, and this is the
+   // result.  Nothing complicated, but I think my brain was fried yesterday.
+   //
+   // This gets properties in a nested parenthesisized list.  For example,
+   // this would get passed something like:  ("attachment" ("filename" "luke.tar.gz"))
+   // This returns an array called $props with all paired up properties.
+   // It ignores the "attachment" for now, maybe that should change later 
+   // down the road.  In this case, what is returned is:
+   //    $props[0]["name"] = "filename";
+   //    $props[0]["value"] = "luke.tar.gz";
+   function mime_get_props ($props, $structure) {
+      while (strlen($structure) > 0) {
+         $structure = trim($structure);
+         $char = substr($structure, 0, 1);
+
+         if ($char == "\"") {
+            $pos = 1;
+            $char = substr($structure, $pos, 1);
+            while ($char != "\"" && $pos < strlen($structure)) {
+               $tmp .= $char;
+               $pos++;
+               $char = substr($structure, $pos, 1);
+            }   
+            $structure = trim(substr($structure, strlen($tmp) + 2));
+            $char = substr($structure, 0, 1);
+
+            if ($char == "\"") {
+               $pos = 1;
+               $char = substr($structure, $pos, 1);
+               while ($char != "\"" && $pos < strlen($structure)) {
+                  $value .= $char;
+                  $pos++;
+                  $char = substr($structure, $pos, 1);
+               }   
+               $structure = trim(substr($structure, strlen($tmp) + 2));
+               
+               $k = count($props);
+               $props[$k]["name"] = $tmp;
+               $props[$k]["value"] = $value;
+            } else if ($char == "(") {
+               $end = mime_match_parenthesis (0, $structure);
+               $sub = substr($structure, 1, $end-1);
+               $props = mime_get_props($props, $sub);
+               $structure = substr($structure, strlen($sub) + 2);
+            }
+            return $props;
+         } else if ($char == "(") {
+            $end = mime_match_parenthesis (0, $structure);
+            $sub = substr($structure, 1, $end-1);
+            $props = mime_get_props($props, $sub);
+            $structure = substr($structure, strlen($sub) + 2);
+         } else {
+            return $props;
+         }
+      }
+   }
+
+   //  Matches parenthesis.  It will return the position of the matching
+   //  parenthesis in $structure.  For instance, if $structure was:
+   //     ("text" "plain" ("val1name", "1") nil ... )
+   //     x                                         x
+   //  then this would return 42 to match up those two.
+   function mime_match_parenthesis ($pos, $structure) {
+      $char = substr($structure, $pos, 1); 
+
+      // ignore all extra characters
+      while ($pos < strlen($structure)) {
+         $pos++;
+         $char = substr($structure, $pos, 1); 
+         if ($char == ")") {
+            return $pos;
+         } else if ($char == "(") {
+            $pos = mime_match_parenthesis ($pos, $structure);
+         }
+      }
+   }
+
+   function mime_fetch_body ($imap_stream, $id, $ent_id) {
+      // do a bit of error correction.  If we couldn't find the entity id, just guess
+      // that it is the first one.  That is usually the case anyway.
+      if (!$ent_id) $ent_id = 1;
+
+      fputs ($imap_stream, "a001 FETCH $id BODY[$ent_id]\r\n");
+      $read = sqimap_read_data ($imap_stream, "a001", true, $a, $b);
+      for ($i=1; $i < count($read)-1; $i++) {
+         // This fixes a bug in UW.  UW doesn't return what would normall be
+         // expected from the BODY fetch command.  It has an extra line at the
+         // end.  So if the second from the last line is a ), then remove it.
+         if (trim($read[$i]) == ")" && $i == count($read)-2) {
+            continue;
+         }
+         $text .= $read[$i];
+      }
+      return $text;
+   }
+
+   /* -[ END MIME DECODING ]----------------------------------------------------------- */
+
+
 
    /** This is the first function called.  It decides if this is a multipart
        message or if it should be handled as a single entity
     **/
-   function decodeMime($body, $bound, $type0, $type1, $encoding, $charset, &$entities) {
-      if ($type0 == "multipart") {
-         $bound = trim($bound);
-         $i = 0;
-         while (($i < count($body)) && (substr($body[$i], 0, strlen("--$bound--")) != "--$bound--")) {
-            if (trim($body[$i]) == "--$bound") {
-               $j = $i+1;
-               $p = 0;
+   function decodeMime ($body, $header) {
+      global $username, $key, $imapServerAddress, $imapPort;
+      $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+      sqimap_mailbox_select($imap_stream, $header->mailbox);
 
-               /** Lets find the header for this entity **/
-               /** If the first line after the boundary is blank, we
-                   use default values **/
-               if (trim($body[$j]) == "") {
-                  $ent_type0 = "text";
-                  $ent_type1 = "plain";
-                  $charset = "us-ascii";
-                  $j++;
-               /** If the first line ISNT blank, read in the header
-                   for this entity **/
-               } else {
-                  while ((substr(trim($body[$j]), 0, strlen("--$bound")) != "--$bound") && (trim($body[$j]) != "")) {
-                     $entity_header[$p] = $body[$j];
-                     $j++;
-                     $p++;
-                  }
-                  /** All of these values are getting passed back to us **/
-                  sqimap_get_entity_header($imapConnection, $entity_header, $ent_type0, $ent_type1, $ent_bound, $encoding, $charset, $filename);
-               }
-
-
-               /** OK, we have the header information, now lets decide
-                   what to do with it **/
-               if ($ent_type0 == "multipart") {
-                  $y = 0;
-                  while (substr($body[$j], 0, strlen("--$bound--")) != "--$bound--") {
-                     $ent_body[$y] = $body[$j];
-                     $y++;
-                     $j++;
-                  }
-                  $ent = decodeMime($ent_body, $ent_bound, $ent_type0, $ent_type1, $charset, $entities);
-                  $entities = $ent;
-               } else {
-                  $j++;
-                  $entity_body = "";
-                  while (substr(trim($body[$j]), 0, strlen("--$bound")) != "--$bound") {
-                     $entity_body .= $body[$j];
-                     $j++;
-                  }
-                  $count = count($entities);
-                  $entities[$count] = getEntity($entity_body, $ent_bound, $ent_type0, $ent_type1, $encoding, $charset, $filename);
-               }
-            }
-            $i++;
-         }
-      } else {
-         /** If this isn't a multipart message **/
-         $j = 0;
-         $entity_body = "";
-         while ($j < count($body)) {
-            $entity_body .= $body[$j];
-            $j++;
-         }
-
-         $count = count($entities);
-         $entities[$count] = getEntity($entity_body, $bound, $type0, $type1, $encoding, $charset, $filename);
-      }
-
-      return $entities;
+      return mime_structure ($imap_stream, $header);
    }
 
-   /** This gets one entity's properties **/
-   function getEntity($body, $bound, $type0, $type1, $encoding, $charset, $filename) {
-      $msg["TYPE0"] = $type0;
-      $msg["TYPE1"] = $type1;
-      $msg["ENCODING"] = $encoding;
-      $msg["CHARSET"] = $charset;
-      $msg["FILENAME"] = $filename;
-
-      $msg["BODY"] = $body;
-
-      return $msg;
-   }
-
-   /** This will check whether or not the message contains a certain type.  It
-       searches through all the entities for a match.
-    **/
-   function containsType($message, $type0, $type1, &$ent_num) {
-      $type0 = strtolower($type0);
-      $type1 = strtolower($type1);
-      for ($i = 0; $i < count($message["ENTITIES"]); $i++) {
-         /** Check only on type0 **/
-         if ( $type1 == "any_type" ) {
-            if ( ($message["ENTITIES"][$i]["TYPE0"] == $type0) ) {
-               $ent_num = $i;
-               return true;
-            }
-
-         /** Check on type0 and type1 **/
+   function getEntity ($message, $ent_id) {
+      if ($message) {
+         if ($message->header->entity_id == $ent_id) {
+            return $message;
          } else {
-            if ( ($message["ENTITIES"][$i]["TYPE0"] == $type0) && ($message["ENTITIES"][$i]["TYPE1"] == $type1) ) {
-               $ent_num = $i;
-               return true;
+            for ($i = 0; $message->entities[$i]; $i++) {
+               $msg = getEntity ($message->entities[$i], $ent_id);
+               if ($msg)
+                  return $msg;
             }
-         }
+         }   
       }
-      return false;
+   }
+
+   function findDisplayEntity ($message) {
+      if ($message) {
+         if ($message->header->type0 == "text") {
+            if ($message->header->type1 == "plain" ||
+                $message->header->type1 == "html") {
+               return $message->header->entity_id; 
+            }
+         } else {
+            for ($i=0; $message->entities[$i]; $i++) {
+               return findDisplayEntity($message->entities[$i]);
+            }   
+         }   
+      }
    }
 
    /** This returns a parsed string called $body. That string can then
@@ -132,68 +356,70 @@
           primary message. To add more of them, just put them in the
           order that is their priority.
        **/
-      $id = $message["INFO"]["ID"];
-      $urlmailbox = urlencode($message["INFO"]["MAILBOX"]);
+      global $username, $key, $imapServerAddress, $imapPort;
 
-      if (containsType($message, "text", "html", $ent_num)) {
-         $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
-         $charset = $message["ENTITIES"][$ent_num]["CHARSET"];
-      } else if (containsType($message, "text", "plain", $ent_num)) {
-         $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
-         $charset = $message["ENTITIES"][$ent_num]["CHARSET"];
-      }
-      // add other primary displaying message types here
-      else {
-         // find any type that's displayable
-         if (containsType($message, "text", "any_type", $ent_num)) {
-            $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
-            $charset = $message["ENTITIES"][$ent_num]["CHARSET"];
-         } else if (containsType($message, "message", "any_type", $ent_num)) {
-            $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
-            $charset = $message["ENTITIES"][$ent_num]["CHARSET"];
-         }
-      }
+
+      $id = $message->header->id;
+      $urlmailbox = urlencode($message->header->mailbox);
+
+      $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+      sqimap_mailbox_select($imap_stream, $message->header->mailbox);
+
+      $ent_num = findDisplayEntity ($message);
+      $body = mime_fetch_body ($imap_stream, $id, $ent_num); 
 
       /** If there are other types that shouldn't be formatted, add
           them here **/
-      if ($message["ENTITIES"][$ent_num]["TYPE1"] != "html")
+      //if ($->type1 != "html") {   
          $body = translateText($body, $wrap_at, $charset);
-
+      //}   
 
       $body .= "<BR><SMALL><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_num&mailbox=$urlmailbox\">". _("Download this as a file") ."</A></CENTER><BR></SMALL>";
 
       /** Display the ATTACHMENTS: message if there's more than one part **/
-      if (count($message["ENTITIES"]) > 1) {
+      if ($message->entities) {
          $body .= "<TABLE WIDTH=100% CELLSPACING=0 CELLPADDING=4 BORDER=0><TR><TD BGCOLOR=\"$color[0]\">";
          $body .= "<TT><B>ATTACHMENTS:</B></TT>";
          $body .= "</TD></TR><TR><TD BGCOLOR=\"$color[0]\">";
          $num = 0;
 
-         for ($i = 0; $i < count($message["ENTITIES"]); $i++) {
-            /** If we've displayed this entity, go to the next one **/
-            if ($ent_num == $i)
-               continue;
-
-            $type0 = strtolower($message["ENTITIES"][$i]["TYPE0"]);
-            $type1 = strtolower($message["ENTITIES"][$i]["TYPE1"]);
-
-            $num++;
-            $filename = $message["ENTITIES"][$i]["FILENAME"];
-            if (trim($filename) == "") {
-               $display_filename = "untitled$i";
-            } else {
-               $display_filename = $filename;
-            }
-
-            $urlMailbox = urlencode($message["INFO"]["MAILBOX"]);
-            $id = $message["INFO"]["ID"];
-            $body .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$i\">" . $display_filename . "</A>&nbsp;&nbsp;<SMALL>(TYPE: $type0/$type1)</SMALL></TT><BR>";
-         }
+         /** make this recurisve at some point **/
+         $body .= formatAttachments ($message, $ent_num, $message->header->mailbox, $id);
          $body .= "</TD></TR></TABLE>";
       }
       return $body;
    }
 
+   // A recursive function that returns a list of attachments with links
+   // to where to download these attachments
+   function formatAttachments ($message, $ent_id, $mailbox, $id) {
+      if ($message) {
+         if (!$message->entities) {
+            $type0 = strtolower($message->header->type0);
+            $type1 = strtolower($message->header->type1);
+            
+            if ($message->header->entity_id != $ent_id) {
+               $filename = $message->header->filename;
+               if (trim($filename) == "") {
+                  $display_filename = "untitled-$ent_id";
+               } else {
+                  $display_filename = $filename;
+               }
+   
+               $urlMailbox = urlencode($mailbox);
+               $ent = urlencode($message->header->entity_id);
+               $body .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">" . $display_filename . "</A>&nbsp;&nbsp;<SMALL>(TYPE: $type0/$type1)</SMALL></TT><BR>";
+               $num++;
+            }
+            return $body;
+         } else {
+            for ($i = 0; $i < count($message->entities); $i++) {
+               $body .= formatAttachments ($message->entities[$i], $ent_id, $mailbox, $id);
+            }
+            return $body;
+         }
+      }
+   }
 
 
    /** this function decodes the body depending on the encoding type. **/

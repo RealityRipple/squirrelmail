@@ -31,6 +31,19 @@
       return $data;
    }
 
+   // Searches for the next position in a string minus white space
+   function next_pos_minus_white ($haystack, $pos) {
+      while (substr($haystack, $pos, 1) == " " ||
+             substr($haystack, $pos, 1) == "\t" ||
+             substr($haystack, $pos, 1) == "\n" ||
+             substr($haystack, $pos, 1) == "\r") {
+         if ($pos >= strlen($haystack))
+            return -1;
+         $pos++;
+      }        
+      return $pos;        
+   }
+
    // Wraps text at $wrap characters
    function wordWrap($passed, $wrap) {
       $passed = str_replace("&gt;", ">", $passed);
