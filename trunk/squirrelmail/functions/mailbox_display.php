@@ -94,11 +94,11 @@ function printMessageInfo($aMsg) {
         $default_use_priority,
         $message_highlight_list,
         $index_order,
-        $truncate_sender,      /* number of characters for From/To field (<= 0 for unchanged) */
+        $truncate_sender,           /* number of characters for From/To field (<= 0 for unchanged) */
         $email_address,
-        $show_recipient_instead,	/* show recipient name instead of default identity */
-        $use_icons,            /* indicates to use icons or text markers */
-        $icon_theme;           /* icons theming */
+        $show_recipient_instead,    /* show recipient name instead of default identity */
+        $use_icons,                 /* indicates to use icons or text markers */
+        $icon_theme;                /* icons theming */
 
     $color_string = $color[4];
 
@@ -1408,7 +1408,7 @@ function ShowSortButton($aMailbox, $Down, $Up ) {
         . '&amp;startMessage=1&amp;mailbox=' . urlencode($aMailbox['NAME'])
         . '"><img src="../images/' . $img
         . '" border="0" width="12" height="10" alt="sort" title="'
-        . _("Click here to change the sorting of the message list") .' /"></a>';
+        . _("Click here to change the sorting of the message list") .'" /></a>';
 }
 
 /**
