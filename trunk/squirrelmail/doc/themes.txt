@@ -28,6 +28,8 @@ description of what the different entries are for.
    $color[10]  = "#xxxxxx";
    $color[11]  = "#xxxxxx";
    $color[12]  = "#xxxxxx";
+   $color[13]  = "#xxxxxx";
+   $color[14]  = "#xxxxxx";
 
 ?>
 ---<END>---
@@ -48,6 +50,8 @@ are color of:
  10: Darker version of #9
  11: Special folders color (Inbox, Trash, Sent)
  12: Alternate color for message list (alters between 4 and this one)
+ 13: Color for single-quoted text ("> text") when reading (default:  #FF0000)
+ 14: Color for text with more than one quote (default: #800000)
 
 Next all you have to do is run conf.pl and add the theme to the list
 of themes available to you.  If you would like your theme to be 
