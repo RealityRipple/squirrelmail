@@ -18,6 +18,13 @@ include_once(SM_PATH . 'functions/html.php');
 
 displayPageHeader($color, $mailbox);
 
+/* get globals */
+$mailbox = $_GET['mailbox'];
+$send_to = $_GET['send_to'];
+$subject = $_GET['subject'];
+$body    = $_GET['body'];
+$action  = $_GET['action'];
+
 echo html_tag('p', '', 'left' ) .
 html_tag( 'table', '', 'center', $color[0], 'border="0" width="75%"' ) . "\n" .
     html_tag( 'tr',

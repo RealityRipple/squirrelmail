@@ -10,6 +10,9 @@
  * The third prints the results of the IMAP command
  * to options.php.
  * by: Jason Munro jason@stdbev.com
+ *
+ * $Id$ 
+ *
  */
 
 function get_caps($imap_stream) {

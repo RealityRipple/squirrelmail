@@ -5,7 +5,9 @@
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *   
  * by: Jason Munro jason@stdbev.com
- *
+ * 
+ * $Id$
+ * 
  */
 
 require_once (SM_PATH . 'plugins/info/functions.php');
