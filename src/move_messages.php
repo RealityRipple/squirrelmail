@@ -67,26 +67,34 @@ function attachSelectedMessages($msg, $imapConnection) {
         if (isset($msg[$i])) {
             $id = $msg[$i];
             $body_a = sqimap_run_command($imapConnection, "FETCH $id RFC822",true, $response, $readmessage, $uid_support);
+
             if ($response == 'OK') {
-            $k = $i + $start_index;
-            $subject = $msgs[$k]['SUBJECT'];
 
-            array_shift($body_a);
-            $body = implode('', $body_a);
-            $body .= "\r\n";
+                // fetch the subject for the message with $id from msgs.
+                // is there a more efficient way to do this?
+                foreach($msgs as $k => $vals) {
+                    if($vals['ID'] == $id) {
+                        $subject = $msgs[$k]['SUBJECT'];
+                        break;
+                    }
+                }
 
-            $localfilename = GenerateRandomString(32, 'FILE', 7);
-            $full_localfilename = "$hashed_attachment_dir/$localfilename";
+                array_shift($body_a);
+                $body = implode('', $body_a);
+                $body .= "\r\n";
 
-            $fp = fopen( $full_localfilename, 'wb');
-            fwrite ($fp, $body);
-            fclose($fp);
-            $composeMessage->initAttachment('message/rfc822',$subject.'.eml',
+                $localfilename = GenerateRandomString(32, 'FILE', 7);
+                $full_localfilename = "$hashed_attachment_dir/$localfilename";
+
+                $fp = fopen( $full_localfilename, 'wb');
+                fwrite ($fp, $body);
+                fclose($fp);
+                $composeMessage->initAttachment('message/rfc822',$subject.'.eml',
                      $full_localfilename);
             }
-        $j++;
-    }
-    $i++;
+            $j++;
+        }
+        $i++;
     }
     $compose_messages[$composesession] = $composeMessage;
     sqsession_register($compose_messages,'compose_messages');
