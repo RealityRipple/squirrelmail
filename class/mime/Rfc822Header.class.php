@@ -480,6 +480,7 @@ class Rfc822Header {
 		++$i;	
             }
 	} else {
+	    if (!is_array($this->cc)) $this->cc = array();
 	    $srch_addr = $this->parseAddress($address);
 	    $results = array();
 	    foreach ($this->to as $to) {
