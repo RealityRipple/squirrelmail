@@ -831,11 +831,22 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
             $mbx = new mailboxes();
             $mailbox = $mbx_ary[$i]['mbx'];
 
-            /* @@@ FIXME @@@
+            /* 
                 sent subfolders messes up using existing code as subfolders
                 were marked, but the parents were ordered somewhere else in
                 the list, despite having "special folders at top" option set.
                 Need a better method than this.
+            */
+
+            if ($mailbox == 'INBOX') {
+                $mbx->is_special = true;
+            } elseif (stristr($trash_folder , $mailbox)) {
+                $mbx->is_special = true;
+            } elseif (stristr($sent_folder , $mailbox)) {
+                $mbx->is_special = true;
+            } elseif (stristr($draft_folder , $mailbox)) {
+                $mbx->is_special = true;
+            }
 
             switch ($mailbox) {
                 case 'INBOX':
@@ -856,8 +867,6 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
                     break;
             }
             
-            /FIXME/
-            */
 
             if ($mailbox == 'INBOX') {
                 $mbx->is_inbox = true;
