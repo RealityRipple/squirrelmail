@@ -303,7 +303,7 @@ function asearch_push_recent($data_dir, $username, $mailbox_array, $biop_array, 
 
 /**
  * Edit a recent search
- * @global array $mailbox_array
+ * @global array mailbox_array searched mailboxes
  */
 function asearch_edit_recent($data_dir, $username, $index)
 {
@@ -785,26 +785,29 @@ $imap_asearch_biops = array(
 	'OR' => _("Or")
 );
 
-/*
-	unset : Enter key, or called from outside (eg read_body)
-	$search_button_text : Search button
-	'Search_no_update' : Search but don't update recent
-	'Search_last' : Same as no_update but reload and search last
-	'Search_silent' : Same as no_update but only display results
-	$add_criteria_button_text : Add New Criteria button
-	$del_excluded_button_text : Remove Excluded Criteria button
-	$del_all_button_text : Remove All Criteria button
-	'save_recent'
-	'search_recent'
-	'forget_recent'
-	'edit_saved'
-	'search_saved'
-	'delete_saved'
-*/
+/** How we did enter the form
+ * - unset : Enter key, or called from outside (eg read_body)
+ * - $search_button_text : Search button
+ * - 'Search_no_update' : Search but don't update recent
+ * - 'Search_last' : Same as no_update but reload and search last
+ * - 'Search_silent' : Same as no_update but only display results
+ * - $add_criteria_button_text : Add New Criteria button
+ * - $del_excluded_button_text : Remove Excluded Criteria button
+ * - $del_all_button_text : Remove All Criteria button
+ * - 'save_recent'
+ * - 'search_recent'
+ * - 'forget_recent'
+ * - 'edit_saved'
+ * - 'search_saved'
+ * - 'delete_saved'
+ * @global string $submit
+ */
 if (isset($_GET['submit']))
 	$submit = strip_tags($_GET['submit']);
 
-/* Used by search */
+/** Searched mailboxes
+ * @global array $mailbox_array
+ */
 if (isset($_GET['mailbox'])) {
 	$mailbox_array = $_GET['mailbox'];
 	if (!is_array($mailbox_array))
@@ -813,6 +816,9 @@ if (isset($_GET['mailbox'])) {
 else
 	$mailbox_array = array();
 
+/** Binary operators
+ * @global array $biop_array
+ */
 if (isset($_GET['biop'])) {
 	$biop_array = $_GET['biop'];
 	if (!is_array($biop_array))
@@ -821,6 +827,9 @@ if (isset($_GET['biop'])) {
 else
 	$biop_array = array();
 
+/** Unary operators
+ * @global array $unop_array
+ */
 if (isset($_GET['unop'])) {
 	$unop_array = $_GET['unop'];
 	if (!is_array($unop_array))
@@ -829,6 +838,9 @@ if (isset($_GET['unop'])) {
 else
 	$unop_array = array();
 
+/** Where to search
+ * @global array $where_array
+ */
 if (isset($_GET['where'])) {
 	$where_array = $_GET['where'];
 	if (!is_array($where_array))
@@ -837,6 +849,9 @@ if (isset($_GET['where'])) {
 else
 	$where_array = array();
 
+/** What to search
+ * @global array $what_array
+ */
 if (isset($_GET['what'])) {
 	$what_array = $_GET['what'];
 	if (!is_array($what_array))
@@ -845,21 +860,29 @@ if (isset($_GET['what'])) {
 else
 	$what_array = array();
 
+/** Whether to exclude this criteria from search
+ * @global array $exclude_array
+ */
 if (isset($_GET['exclude']))
 	$exclude_array = $_GET['exclude'];
 else
 	$exclude_array = array();
 
+/** Search within subfolders
+ * @global array $sub_array
+ */
 if (isset($_GET['sub']))
 	$sub_array = $_GET['sub'];
 else
 	$sub_array = array();
 
-/* Used by recent and saved stuff */
+/** Row number used by recent and saved stuff
+ */
 if (isset($_GET['rownum']))
     $submit_rownum = strip_tags($_GET['rownum']);
 
-/* Change global sort */
+/** Change global sort
+ */
 if (sqgetGlobalVar('newsort', $newsort, SQ_GET)) {
 	setPref($data_dir, $username, 'sort', $newsort);
 	$sort = $newsort;
@@ -867,7 +890,8 @@ if (sqgetGlobalVar('newsort', $newsort, SQ_GET)) {
 	asearch_edit_last($data_dir, $username);
 }
 
-/* Change mailbox threading */
+/** Change mailbox threading
+ */
 if (sqgetGlobalVar('set_thread', $set_thread, SQ_GET)) {
 	setPref($data_dir, $username, 'thread_' . $mailbox_array[0], ($set_thread == 1) ? 1 : 0 );
 	asearch_edit_last($data_dir, $username);
