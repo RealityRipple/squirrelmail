@@ -683,9 +683,12 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false,
                                     $type = substr($type, 0, $pos);
                                 }
                                 $type = explode("/", $type);
-                                if(!is_array($type)) {
+                                if(!is_array($type) || count($type) < 2) {
                                     $msg['TYPE0'] = 'text';
                                     $msg['TYPE1'] = 'plain';
+                                } else {
+                                    $msg['TYPE0'] = strtolower($type[0]);
+                                    $msg['TYPE1'] = strtolower($type[1]);
                                 }
                                 break;
                             case 'received':
