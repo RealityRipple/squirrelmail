@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * decode/cp10000.php
  * $Id$
  *
@@ -19,8 +19,15 @@
  *  Date:          04/24/96
  *  Authors:       Lori Brownell <loribr@microsoft.com>
  *                 K.D. Chang    <a-kchang@microsoft.com>
+ * @package squirrelmail
+ * @subpackage decode
  */
 
+/**
+ * Decode cp10000 (MacRoman) string
+ * @param string $string String to decode
+ * @return string $string Decoded string
+ */
 function charset_decode_cp10000 ($string) {
     global $default_charset;
 

@@ -10,8 +10,10 @@
  * messages.
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/** The typical includes... */
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/attachment_common.php');
 
@@ -19,11 +21,13 @@ require_once(SM_PATH . 'functions/attachment_common.php');
 /* MIME DECODING                                                              */
 /* -------------------------------------------------------------------------- */
 
-/* This function gets the structure of a message and stores it in the "message" class.
+/**
+ * Get the MIME structure
+ * 
+ * This function gets the structure of a message and stores it in the "message" class.
  * It will return this object for use with all relevant header information and
  * fully parsed into the standard "message" object format.
  */
-
 function mime_structure ($bodystructure, $flags=array()) {
 
     /* Isolate the body structure and remove beginning and end parenthesis. */

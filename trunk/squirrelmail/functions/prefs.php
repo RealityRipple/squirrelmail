@@ -9,8 +9,10 @@
  * This contains functions for manipulating user preferences
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/** Include global.php */
 require_once(SM_PATH . 'functions/global.php');
 
 sqgetGlobalVar('prefs_cache', $prefs_cache, SQ_SESSION );

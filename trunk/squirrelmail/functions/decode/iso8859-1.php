@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * decode/iso8859-1.php
  * $Id$
  *
@@ -8,7 +8,14 @@
  *
  * This file contains iso-8859-1 decoding function that is needed to read
  * iso-8859-1 encoded mails in non-iso-8859-1 locale.
- * 
+ * @package squirrelmail
+ * @subpackage decode
+ */
+
+/**
+ * Decode iso8859-1 string
+ * @param string $string Encoded string
+ * @return string $string Decoded string
  */
 function charset_decode_iso8859_1 ($string) {
     global $default_charset;

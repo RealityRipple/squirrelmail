@@ -13,8 +13,10 @@
  *   $sm_language, I think
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/** Almost everything requires global.php... */
 require_once(SM_PATH . 'functions/global.php');
 
 global $gettext_php_domain, $gettext_php_dir, $gettext_php_loaded,

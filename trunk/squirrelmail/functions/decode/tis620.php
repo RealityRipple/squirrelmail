@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * decode/tis620.php
  * $Id$
  *
@@ -34,6 +34,14 @@
  *  5. http://charts.unicode.org/Unicode.charts/normal/U0E00.html
  *  6. http://www.unicode.org/
  *
+ * @package squirrelmail
+ * @subpackage decode
+ */
+
+/**
+ * Decode tis620 encoded strings
+ * @param string $string Encoded string
+ * @return string Decoded string
  */
 function charset_decode_tis620 ($string) {
     global $default_charset;

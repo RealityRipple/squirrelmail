@@ -11,14 +11,20 @@
  * Documentation on how to write plugins might show up some time.
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/** Everything needs global.. */
 require_once(SM_PATH . 'functions/global.php');
 
 global $squirrelmail_plugin_hooks;
 $squirrelmail_plugin_hooks = array();
 
-/* This function adds a plugin. */
+/**
+ * This function adds a plugin.
+ * @param string $name Internal plugin name (ie. delete_move_next)
+ * @return void
+ */
 function use_plugin ($name) {
     if (file_exists(SM_PATH . "plugins/$name/setup.php")) {
         include_once(SM_PATH . "plugins/$name/setup.php");
@@ -29,7 +35,11 @@ function use_plugin ($name) {
     }
 }
 
-/* This function executes a hook. */
+/**
+ * This function executes a hook.
+ * @param string $name Name of hook to fire
+ * @return mixed $data
+ */
 function do_hook ($name) {
     global $squirrelmail_plugin_hooks;
     $data = func_get_args();

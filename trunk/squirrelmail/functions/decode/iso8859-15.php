@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * decode/iso8859-15.php
  * $Id$
  *
@@ -36,7 +36,14 @@
  *	Unicode Standard, and to make copies of this file in any form for
  *	internal or external distribution as long as this notice remains
  *	attached.
- *
+ * @package squirrelmail
+ * @subpackage decode
+ */
+
+/**
+ * Decode iso8859-15 encoded string
+ * @param string $string Encoded string
+ * @return string $string Decoded string
  */
 function charset_decode_iso8859_15 ($string) {
     global $default_charset;

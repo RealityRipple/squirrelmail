@@ -9,18 +9,24 @@
  * This impliments all functions that manipulate mailboxes
  *
  * $Id$
+ * @package squirrelmail
  */
+
+/** UTF7 support */
 require_once(SM_PATH . 'functions/imap_utf7_local.php');
 
 global $boxesnew;
 
-/*
-   FIXME. This class should be extracted and placed in a separate file that 
-   can be included before we start the session. That makes caching of the tree
-   possible. On a refresh mailboxes from left_main.php the only function that 
-   should be called is the sqimap_get_status_mbx_tree. In case of subscribe 
-   / rename / delete / new we have to create methods for adding/changing the 
-   mailbox in the mbx_tree without the need for a refresh.
+/**
+ * Mailboxes class
+ * 
+ * FIXME. This class should be extracted and placed in a separate file that 
+ * can be included before we start the session. That makes caching of the tree
+ * possible. On a refresh mailboxes from left_main.php the only function that 
+ * should be called is the sqimap_get_status_mbx_tree. In case of subscribe 
+ * / rename / delete / new we have to create methods for adding/changing the 
+ * mailbox in the mbx_tree without the need for a refresh.
+ * @package squirrelmail
 */
 
 class mailboxes {

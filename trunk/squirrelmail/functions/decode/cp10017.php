@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * decode/cp10017.php
  * $Id$
  *
@@ -18,8 +18,15 @@
  * 1. ftp://ftp.unicode.org/Public/MAPPINGS/VENDORS/MICSFT/MAC/CYRILLIC.TXT
  * 2. http://developer.apple.com/documentation/macos8/TextIntlSvcs/TextEncodingConversionManager/TEC1.5/TEC.b0.html
  * 3. http://shlimazl.nm.ru/rus/cptable.htm (page in Russian)
+ * @package squirrelmail
+ * @subpackage decode
  */
 
+/**
+ * Decode a cp10017 (MacUkrainian) string
+ * @param string $string Encoded string
+ * @return string $string Decoded string
+ */
 function charset_decode_cp10017 ($string) {
     global $default_charset;
 

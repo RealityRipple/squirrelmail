@@ -19,8 +19,12 @@
  *       "AddressBook" class instead.
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/**
+ * Store the addressbook in a local file
+ */
 class abook_local_file extends addressbook_backend {
     var $btype = 'local';
     var $bname = 'local_file';

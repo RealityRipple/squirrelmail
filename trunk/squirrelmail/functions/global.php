@@ -11,21 +11,23 @@
  * php versions. 
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/** Bring in the config file. */
 require_once(SM_PATH . 'config/config.php');
 
-/* set the name of the session cookie */
+/** set the name of the session cookie */
 if(isset($session_name) && $session_name) {  
     ini_set('session.name' , $session_name);  
 } else {  
     ini_set('session.name' , 'SQMSESSID');  
 }
 
-/* If magic_quotes_runtime is on, SquirrelMail breaks in new and creative ways.
- * Force magic_quotes_runtime off.
- * tassium@squirrelmail.org - I put it here in the hopes that all SM code includes this.
- * If there's a better place, please let me know.
+/** If magic_quotes_runtime is on, SquirrelMail breaks in new and creative ways.
+ *  Force magic_quotes_runtime off.
+ *  tassium@squirrelmail.org - I put it here in the hopes that all SM code includes this.
+ *  If there's a better place, please let me know.
  */
 ini_set('magic_quotes_runtime','0');
 

@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * decode/koi8-u.php
  * $Id$
  *
@@ -39,6 +39,14 @@
  * HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
  * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
  *
+ * @package squirrelmail
+ * @subpackage decode
+ */
+
+/**
+ * Decode koi8-u encoded strings
+ * @param string $string Encoded string
+ * @return string Decoded string
  */
 function charset_decode_koi8u ($string) {
     global $default_charset;

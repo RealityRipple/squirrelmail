@@ -11,8 +11,11 @@
  * the person is logged or not.
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/** Redirect back to the login page
+ * @ignore */
 header("Location:../index.php");
 
 /* pretty impressive huh? */

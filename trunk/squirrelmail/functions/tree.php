@@ -10,13 +10,13 @@
  * used by the rest of the Squirrelmail code.
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/** Clearly, this needs the IMAP functions.. */
 require_once(SM_PATH . 'functions/imap.php');
 
 /**
- * findParentForChild
- *
  * Recursive function to find the correct parent for a new node
  */
 

@@ -10,8 +10,12 @@
  * used by the rest of the Squirrelmail code.
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/**
+ * Undocumented - complain, then patch.
+ */
 function replaceBlock (&$in, $replace, $start, $end) {
     $begin = substr($in,0,$start);
     $end   = substr($in,$end,strlen($in)-$end);

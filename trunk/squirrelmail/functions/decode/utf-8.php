@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * decode/utf-8.php
  * $Id$
  *
@@ -17,6 +17,14 @@
  *
  * decoding cycle is unfinished. please test and report problems to tokul@users.sourceforge.net
  * 
+ * @package squirrelmail
+ * @subpackage decode
+ */
+
+/**
+ * Decode utf-8 strings
+ * @param string $string Encoded string
+ * @return string Decoded string
  */
 function charset_decode_utf8 ($string) {
   global $default_charset;
