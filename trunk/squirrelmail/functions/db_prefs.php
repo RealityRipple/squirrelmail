@@ -108,7 +108,7 @@ class dbPrefs {
         }
         $dbh = DB::connect($prefs_dsn, true);
 
-        if(DB::isError($dbh) || DB::isWarning($dbh)) {
+        if(DB::isError($dbh)) {
             $this->error = DB::errorMessage($dbh);
             return false;
         }
