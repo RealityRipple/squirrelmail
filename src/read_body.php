@@ -1039,8 +1039,8 @@ $body->htmlAdd($envtable);
 $body->htmlAdd($rb_tools_table);
 $body->htmlAdd($rb_message_table);
 
-$page->html_el[0]->htmlAdd($head);
-$page->html_el[0]->htmlAdd($body);
+$page->html_el[1]->htmlAdd($head);
+$page->html_el[1]->htmlAdd($body);
 
 $page->echoHtml();
 
