@@ -56,11 +56,11 @@
       if (count($to_ary) > 1) {
          if ($show_more == false) {
             if ($i == 1) {
-               $to_string = "$to_string&nbsp;(<A HREF=\"read_body.php?PHPSESSID=$PHPSESSID&mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more=1&show_more_cc=$show_more_cc\">$echo_more</A>)";
+               $to_string = "$to_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more=1&show_more_cc=$show_more_cc\">$echo_more</A>)";
                $i = count($to_ary);
             }
          } else if ($i == 1) {
-            $to_string = "$to_string&nbsp;(<A HREF=\"read_body.php?PHPSESSID=$PHPSESSID&mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more=0&show_more_cc=$show_more_cc\">$echo_less</A>)";
+            $to_string = "$to_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more=0&show_more_cc=$show_more_cc\">$echo_less</A>)";
          }
       }
    }
@@ -80,11 +80,11 @@
       if (count($cc_ary) > 1) {
          if ($show_more_cc == false) {
             if ($i == 1) {
-               $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?PHPSESSID=$PHPSESSID&mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
+               $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
                $i = count($cc_ary);
             }
          } else if ($i == 1) {
-            $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?PHPSESSID=$PHPSESSID&mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
+            $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
          }
       }
    }
@@ -100,22 +100,22 @@
    echo "         <TR>";
    echo "            <TD ALIGN=LEFT WIDTH=50%>";
    echo "               <SMALL>";
-   echo "               <A HREF=\"right_main.php?PHPSESSID=$PHPSESSID&sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\">";
+   echo "               <A HREF=\"right_main.php?sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\">";
    echo _("Message List");
    echo "</A>&nbsp;|&nbsp;";
-   echo "               <A HREF=\"delete_message.php?PHPSESSID=$PHPSESSID&mailbox=$urlMailbox&message=$passed_id&sort=$sort&startMessage=1\">";
+   echo "               <A HREF=\"delete_message.php?mailbox=$urlMailbox&message=$passed_id&sort=$sort&startMessage=1\">";
    echo _("Delete");
    echo "</A>&nbsp;&nbsp;";
    echo "               </SMALL>";
    echo "            </TD><TD WIDTH=50% ALIGN=RIGHT>";
    echo "               <SMALL>";
-   echo "               <A HREF=\"compose.php?PHPSESSID=$PHPSESSID&forward_id=$passed_id&forward_subj=$url_subj&mailbox=$urlMailbox\">";
+   echo "               <A HREF=\"compose.php?forward_id=$passed_id&forward_subj=$url_subj&mailbox=$urlMailbox\">";
    echo _("Forward");
    echo "</A>&nbsp;|&nbsp;";
-   echo "               <A HREF=\"compose.php?PHPSESSID=$PHPSESSID&send_to=$url_replyto&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox\">";
+   echo "               <A HREF=\"compose.php?send_to=$url_replyto&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox\">";
    echo _("Reply");
    echo "</A>&nbsp;|&nbsp;";
-   echo "               <A HREF=\"compose.php?PHPSESSID=$PHPSESSID&send_to=$url_replytoall&send_to_cc=$url_replytoallcc&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox\">";
+   echo "               <A HREF=\"compose.php?send_to=$url_replytoall&send_to_cc=$url_replytoallcc&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox\">";
    echo _("Reply All");
    echo "</A>&nbsp;&nbsp;";
    echo "               </SMALL>";

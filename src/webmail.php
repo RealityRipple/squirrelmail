@@ -13,21 +13,13 @@
       exit;
    }
 
-#   setcookie("username", $username, 0, "/");
-#   setcookie("key", $key, 0, "/");
-#   setcookie("logged_in", 1, 0, "/");
-   
-   $logged_in = 1;
-   session_register("username");
-   session_register("key");
-   session_register("logged_in");
-
-   $PHPSESSID = session_id();
+   setcookie("username", $username, 0, "/");
+   setcookie("key", $key, 0, "/");
+   setcookie("logged_in", 1, 0, "/");
    
    // Refresh the language cookie.
    if (isset($squirrelmail_language)) {
-      session_register("squirrelmail_language");
-#      setcookie("squirrelmail_language", $squirrelmail_language, time()+2592000);
+      setcookie("squirrelmail_language", $squirrelmail_language, time()+2592000);
    }
 ?>
 <HTML><HEAD>
@@ -60,15 +52,15 @@
 **/
    if ($right_frame == "right_main.php") {
       $urlMailbox = urlencode($mailbox);
-      echo "<FRAME SRC=\"left_main.php?PHPSESSID=$PHPSESSID\" NAME=\"left\">";
-      echo "<FRAME SRC=\"right_main.php?PHPSESSID=$PHPSESSID&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage\" NAME=\"right\">";
+      echo "<FRAME SRC=\"left_main.php\" NAME=\"left\">";
+      echo "<FRAME SRC=\"right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage\" NAME=\"right\">";
    } else if ($right_frame == "folders.php") {
       $urlMailbox = urlencode($mailbox);
-      echo "<FRAME SRC=\"left_main.php?PHPSESSID=$PHPSESSID\" NAME=\"left\">";
-      echo "<FRAME SRC=\"folders.php?PHPSESSID=$PHPSESSID\" NAME=\"right\">";
+      echo "<FRAME SRC=\"left_main.php\" NAME=\"left\">";
+      echo "<FRAME SRC=\"folders.php\" NAME=\"right\">";
    } else {
-      echo "<FRAME SRC=\"left_main.php?PHPSESSID=$PHPSESSID\" NAME=\"left\">";
-      echo "<FRAME SRC=\"right_main.php?PHPSESSID=$PHPSESSID\" NAME=\"right\">";
+      echo "<FRAME SRC=\"left_main.php\" NAME=\"left\">";
+      echo "<FRAME SRC=\"right_main.php\" NAME=\"right\">";
    }
 ?>
 </FRAMESET>

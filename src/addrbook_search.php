@@ -67,7 +67,7 @@
    // Create search form 
    if($show == "form") {
       printf("<FORM NAME=sform TARGET=abookres ACTION=\"%s\" METHOD=\"POST\">\n",
-	     $PHP_SELF . "?PHPSESSID=$PHPSESSID");
+	     $PHP_SELF);
       printf("<TABLE BORDER=0 WIDTH=\"100%%\" HEIGHT=\"100%%\">");
       printf("<TR><TD NOWRAP VALIGN=middle>\n");
       printf("  <STRONG>%s:</STRONG>\n</TD><TD VALIGN=middle>\n",

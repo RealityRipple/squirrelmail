@@ -337,7 +337,7 @@
 	 printf("<TR%s NOWRAP>\n <TD align=center><SMALL>".
 		"<INPUT TYPE=checkbox %s NAME=\"sel[]\" VALUE=\"%d:%s\">".
 		"</SMALL><TD NOWRAP>&nbsp;%s&nbsp;<TD NOWRAP>&nbsp;%s&nbsp;".
-		"<TD NOWRAP>&nbsp;<A HREF=\"compose.php?PHPSESSID=$PHPSESSID&send_to=%s\">%s</A>".
+		"<TD NOWRAP>&nbsp;<A HREF=\"compose.php?send_to=%s\">%s</A>".
 		"&nbsp;<TD NOWRAP>&nbsp;%s</TR>\n", 
 		($line % 2) ? " bgcolor=\"$color[0]\"" : "", 
 		$selected, $row["backend"], $row["nickname"], 

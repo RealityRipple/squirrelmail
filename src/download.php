@@ -26,7 +26,7 @@
       echo "</CENTER></B>";
       echo "</TD></TR><TR><TD BGCOLOR=\"$color[4]\">";
       $urlmailbox = urlencode($mailbox);
-      echo "<CENTER><A HREF=\"../src/download.php?PHPSESSID=$PHPSESSID&absolute_dl=true&passed_id=$id&passed_ent_id=$entid&mailbox=$urlmailbox\">";
+      echo "<CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$entid&mailbox=$urlmailbox\">";
       echo _("Download this as a file");
       echo "</A></CENTER><BR><BR><TT>";
       if ($type1 == "html")

@@ -6,9 +6,9 @@
     **
     **/
 
-#   setcookie("username", "", time(), "/");
-#   setcookie("key", "", time(), "/");
-#   setcookie("logged_in", 0, time(), "/");
+   setcookie("username", "", time(), "/");
+   setcookie("key", "", time(), "/");
+   setcookie("logged_in", 0, time(), "/");
 
    if (!isset($config_php))
       include("../config/config.php");
