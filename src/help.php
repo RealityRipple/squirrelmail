@@ -152,7 +152,6 @@ if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
 	        html_tag( 'tr' ) .
                     html_tag( 'td' ) .
                          '<b><center>' . _("Table of Contents") . '</center></b><br>';
-    do_hook('help_chapter');
     echo html_tag( 'ol' );
     for ($i=0, $cnt = count($helpdir); $i < $cnt; $i++) {
         $doc = file("../help/$user_language/$helpdir[$i]");
@@ -161,6 +160,7 @@ if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
              . '">' . $help_info[0] . '</a>' .
              html_tag( 'ul', $help_info[2] );
     }
+    do_hook('help_chapter');
     echo '</ol></td></tr></table>';
 } else {
     $doc = file("../help/$user_language/" . $helpdir[$chapter-1]);
