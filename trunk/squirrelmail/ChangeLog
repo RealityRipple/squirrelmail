@@ -67,6 +67,8 @@ Version 1.5.1 -- CVS
   - Give proper error when PEAR DB not found.
   - Remove inappropriate strip_tags() from add-to-addressbook (#968475).
   - Prefs caching didn't work properly with register_globals off (#995102).
+  - Security: fix SQL injection vulnerability in addressbook
+    (CVE ID: CAN-2004-0521).
 
 Version 1.5.0
 --------------------
