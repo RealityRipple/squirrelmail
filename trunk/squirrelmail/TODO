@@ -3,8 +3,6 @@ Ideas to be implemented
 
 initials = taken by that person
 
-(lme)   Saving sent mail into folder "Sent"
-  -     POP suport (maybe)
   -     LDAP support for address books
   -     Importing of address books
   -     Better email message body parsing
@@ -20,3 +18,9 @@ initials = taken by that person
 (lme)   Fix "Seen" bug with UW IMAP server
   -     Add "subscribe" to folders section.
   -     Make Location redirects absolute rather than relative (index.php)
+  -     POP suport (maybe)
+
+
+Finished:
+------------------------------------------------------
+ (lme)  Saving sent messages

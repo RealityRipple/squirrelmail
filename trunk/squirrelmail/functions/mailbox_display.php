@@ -20,12 +20,12 @@
       if ($seen == false) {
          echo "   <TD><nobr><B><input type=checkbox name=\"msg[$t]\" value=$i></B></nobr></TD>\n";
          echo "   <TD><B>$senderName</B></TD>\n";
-         echo "   <TD><CENTER><B>$dateString</B></CENTER></TD>\n";
+         echo "   <TD NOWRAP><CENTER><B>$dateString</B></CENTER></TD>\n";
          echo "   <TD><B><A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$i&sort=$sort&startMessage=$startMessage&show_more=0\">$subject</A></B></TD>\n";
       } else {
          echo "   <TD><nobr><input type=checkbox name=\"msg[$t]\" value=$i></nobr></TD>\n";
          echo "   <TD>$senderName</TD>\n";
-         echo "   <TD><CENTER>$dateString</CENTER></TD>\n";
+         echo "   <TD NOWRAP><CENTER>$dateString</CENTER></TD>\n";
          echo "   <TD><A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$i&sort=$sort&startMessage=$startMessage&show_more=0\">$subject</A></TD>\n";
       }
       echo "</TR>\n";
@@ -43,8 +43,8 @@
             $from[$q] = $f;
             $date[$q] = $d;
             $subject[$q] = $s;
+            $flags[$q] = sqimap_get_flags ($imapConnection, $q+1);
          }
-         $flags = sqimap_get_flags ($imapConnection, 1, $numMessages);
       }
 
       $j = 0;
