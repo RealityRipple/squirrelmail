@@ -39,8 +39,8 @@ function imap_utf7_encode_local($s) {
     global $languages, $squirrelmail_language;
     
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
-        return $languages[$squirrelmail_language]['XTRA_CODE']('utf7-imap_encode', $s);
+        function_exists($languages[$squirrelmail_language]['XTRA_CODE'].'_utf7_imap_encode')) {
+        return call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_utf7_imap_encode', $s);
     }
 
     if ($s == '')  //If empty, don't bother
@@ -92,8 +92,8 @@ function imap_utf7_decode_local($s) {
     global $languages, $squirrelmail_language;
     
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
-        return $languages[$squirrelmail_language]['XTRA_CODE']('utf7-imap_decode', $s);
+        function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_utf7_imap_decode')) {
+        return call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_utf7_imap_decode', $s);
     }
 
     if ($s == '')  //If empty, don't bother
