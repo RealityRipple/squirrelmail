@@ -1,10 +1,13 @@
 <?php
 
-/* Change Password plugin configuration vars
+/**
+ * Change Password plugin configuration vars
  *
  * NOTE: probably you need to configure your specific backend too!
  *
- * $Id $
+ * @version $Id$
+ * @package plugins
+ * @subpackage change_password
  */
 
 // the password changing mechanism you're using
