@@ -2,6 +2,13 @@
 *** SquirrelMail Stable Series 1.4 ***
 **************************************
 
+Version 1.4.0 CVS
+-------------------
+  - Fixed the newmail plugin.
+  - Added RECENT response to sqimap_get_status.
+  - Fixed attachment filename resolving.
+  - Added check for X-Confirm-Reading-To to make MDN work messages send by Pine.
+  
 Version 1.4.0 RC 2a
 -------------------
   - Fix broken themes box in display options.
