@@ -837,12 +837,13 @@ else {
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 /* get mailbox names once here */
 $boxes = sqimap_mailbox_list($imapConnection);
-
-if (isset($mailbox_array[0])) {
-    $mailbox = strip_tags($mailbox_array[0]);
-}
-if (empty($mailbox))
+/* ensure we have a valid default mailbox name */
+$mailbox = strip_tags(asearch_nz($mailbox_array[0]));
+if (($mailbox == '') || ($mailbox == 'None'))	{	//Workaround for sm quirk IMHO (what if I really have a mailbox called None?)
 	$mailbox = $boxes[0]['unformatted'];
+	$mailbox_array[0] = $mailbox;
+}
+
 if (isset($composenew) && $composenew) {
 	$comp_uri = "../src/compose.php?mailbox=" . urlencode($mailbox) .
 		"&amp;session=$composesession&amp;attachedmessages=true&amp";
