@@ -13,10 +13,10 @@
 
    define('download_php', true);  // Used for preferences
 
-   include('../src/validate.php');
-   include("../functions/imap.php");
-   include("../functions/mime.php");
-   include("../functions/date.php");
+   require_once('../src/validate.php');
+   require_once('../functions/imap.php');
+   require_once('../functions/mime.php');
+   require_once('../functions/date.php');
 
    header("Pragma: ");
    header("Cache-Control: cache");

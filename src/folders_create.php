@@ -11,9 +11,9 @@
     **  $Id$
     **/
 
-   include('../src/validate.php');
-   include("../functions/imap.php");
-   include("../functions/display_messages.php");
+   require_once('../src/validate.php');
+   require_once('../functions/imap.php');
+   require_once('../functions/display_messages.php');
 
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    $dm = sqimap_get_delimiter($imapConnection);
@@ -49,4 +49,3 @@
    header ("Location: $location/folders.php?success=create");
    sqimap_logout($imapConnection);
 ?>
-

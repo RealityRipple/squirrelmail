@@ -5,8 +5,8 @@
     **  $Id$
     **/
 
-   include('../src/validate.php');
-   include('../functions/display_messages.php');
+   require_once('../src/validate.php');
+   require_once('../functions/display_messages.php');
 
    if (isset($return)) {
       SaveUpdateFunction();
@@ -335,3 +335,4 @@ function ShowTableInfo($full_name, $email_address, $reply_to, $post)
   </tr>
 <?PHP
 }
+?>

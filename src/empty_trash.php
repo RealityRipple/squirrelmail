@@ -11,11 +11,11 @@
     **  $Id$
     **/
 
-   include('../src/validate.php');
-   include("../functions/display_messages.php");
-   include("../functions/imap.php");
-   include("../functions/array.php");
-   include("../functions/tree.php");
+   require_once('../src/validate.php');
+   require_once('../functions/display_messages.php');
+   require_once('../functions/imap.php');
+   require_once('../functions/array.php');
+   require_once('../functions/tree.php');
 
    $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 

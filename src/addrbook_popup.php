@@ -10,8 +10,8 @@
     **  $Id$
     **/
 
-   include('../src/validate.php');
-   include('../functions/addressbook.php');
+   require_once('../src/validate.php');
+   require_once('../functions/addressbook.php');
    
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Frameset//EN">
@@ -19,7 +19,7 @@
 <HTML>
 <HEAD>
 <TITLE><?php 
-   printf("%s: %s", $org_title, _("Address Book")); 
+   echo "$org_title: " . _("Address Book"); 
 ?></TITLE>
 </HEAD>
 

@@ -13,9 +13,9 @@
     **  $Id$
     **/
 
-   include('../functions/i18n.php');
-   include('../functions/strings.php');
-   include('../config/config.php');
+   require_once('../functions/i18n.php');
+   require_once('../functions/strings.php');
+   require_once('../config/config.php');
 
    // Before starting the session, the base URI must be known.
    // Assuming that this file is in the src/ subdirectory (or
@@ -53,9 +53,9 @@
    }
 
 
-   include ('../functions/prefs.php');
-   include ('../functions/imap.php');
-   include ('../functions/plugin.php');
+   require_once('../functions/prefs.php');
+   require_once('../functions/imap.php');
+   require_once('../functions/plugin.php');
 
    if (!session_is_registered('user_is_logged_in')) {
       do_hook ('login_before');

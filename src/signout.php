@@ -11,9 +11,9 @@
     **  $Id$
     **/
 
-   include('../src/validate.php');
-   include ('../functions/prefs.php');
-   include ('../functions/plugin.php');
+   require_once('../src/validate.php');
+   require_once('../functions/prefs.php');
+   require_once('../functions/plugin.php');
 
    // Erase any lingering attachments
    if (! isset($attachments)) {

@@ -15,13 +15,13 @@
     ** $Id$
     **/
 
-   include('../src/validate.php');
-   include("../functions/imap.php");
-   include("../functions/date.php");
-   include("../functions/mime.php");
-   include("../functions/smtp.php");
-   include("../functions/display_messages.php");
-   include ("../functions/plugin.php");
+   require_once('../src/validate.php');
+   require_once('../functions/imap.php');
+   require_once('../functions/date.php');
+   require_once('../functions/mime.php');
+   require_once('../functions/smtp.php');
+   require_once('../functions/display_messages.php');
+   require_once('../functions/plugin.php');
 
    if (!isset($attachments))
    {
@@ -508,7 +508,7 @@
       }
       // I am using an include so as to elminiate an extra unnecessary click.  If you
       // can think of a better way, please implement it.
-      include ("./addrbook_search_html.php");
+      include_once('./addrbook_search_html.php');
    } else if (isset($attach)) {
       if (saveAttachedFiles())
             plain_error_message(_("Could not move/copy file. File not attached"), $color);

@@ -10,10 +10,10 @@
     **  $Id$
     **/
 
-   include('../src/validate.php');
-   include('../functions/array.php');
-   include('../functions/display_messages.php');
-   include('../functions/addressbook.php');
+   require_once('../src/validate.php');
+   require_once('../functions/array.php');
+   require_once('../functions/display_messages.php');
+   require_once('../functions/addressbook.php');
 
    // Sort array by the key "name"
    function alistcmp($a,$b) {   

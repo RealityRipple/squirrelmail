@@ -11,19 +11,22 @@
     **  $Id$
     **/
 
-   include('../src/validate.php');
+   require_once('../src/validate.php');
 
+   // ----------------------------------------------------------
+   // Following code should be removed in the next foo_once step
    if (defined('load_prefs_php'))
        return;
    define('load_prefs_php', true);
+   // ----------------------------------------------------------
 
    global $theme, $chosen_theme, $color;
    if (! isset($theme))
       $theme = array();
    if (! isset($color))
       $color = array();
-   include("../functions/prefs.php");
-   include("../functions/plugin.php");
+   require_once('../functions/prefs.php');
+   require_once('../functions/plugin.php');
       
    if (!isset($username))
        $username = '';
@@ -42,10 +45,10 @@
        $chosen_theme = "";
 
    if (isset($chosen_theme) && $in_ary && (file_exists($chosen_theme))) {
-      @include($chosen_theme);
+      @include_once($chosen_theme);
    } else {
       if (isset($theme) && isset($theme[0]) && file_exists($theme[0]["PATH"])) {
-         @include($theme[0]["PATH"]);
+         @include_once($theme[0]["PATH"]);
       } else {
           #
           #  I hard coded the theme as a failsafe if no themes were
