@@ -1374,7 +1374,6 @@ function deliverMessage($composeMessage, $draft=false) {
     }
     if (!$from_mail) {
        $from_mail = "$popuser@$domain";
-       $full_name = '';
     }
     $rfc822_header->from = $rfc822_header->parseAddress($from_mail,true);
     if ($full_name) {
