@@ -115,6 +115,8 @@
 
    // generic function to convert the msgs array into an HTML table
    function displayMessageArray($imapConnection, $numMessages, $startMessage, &$msgs, $msort, $mailbox, $sort, $color,$show_num) {
+      global $folder_prefix;
+
       // do a check to see if the config stuff has already been included or not
       if (!isset($imapServerAddress))
          include("../config/config.php");
@@ -175,21 +177,9 @@
 
       $boxes = sqimap_mailbox_list($imapConnection);
       for ($i = 0; $i < count($boxes); $i++) {
-         $use_folder = true;
-         for ($p = 0; $p < count($special_folders); $p++) {
-            if ($boxes[$i]["unformatted"] == $special_folders[0]) {
-               $use_folder = true;
-            } else if ($boxes[$i]["unformatted"] == $special_folders[$p]) {
-               $use_folder = false;
-            } else if (substr($boxes[$i]["unformatted"], 0, strlen($trash_folder)) == $trash_folder) {
-               $use_folder = false;
-            }
-         }
-         if ($use_folder == true) {
-            $box = $boxes[$i]["unformatted"];
-            $box2 = replace_spaces($boxes[$i]["formatted"]);
-            echo "         <OPTION VALUE=\"$box\">$box2\n";
-         }
+         $box = $boxes[$i]["unformatted"];
+         $box2 = replace_spaces($boxes[$i]["formatted"]);
+         echo "         <OPTION VALUE=\"$box\">$box2\n";
       }
       echo "         </SELECT></SMALL></TT>";
       echo "         <SMALL><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"". _("Move") ."\"></SMALL></NOBR>\n";

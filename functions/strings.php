@@ -146,6 +146,7 @@
       } else {
          $box = substr($mailbox, strrpos($mailbox, " ")+1, strlen($mailbox));
       }
+      echo "$box<br>";
       return $box;
    }
 

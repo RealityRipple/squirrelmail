@@ -95,7 +95,7 @@
          for ($p = 0; $p < count($special_folders); $p++) {
             if ($boxes[$i]["unformatted"] == $special_folders[$p]) {
                $use_folder = false;
-            } else if (substr($boxes[$i]["unformatted"], 0, strlen($trash_folder)) == $trash_folder) {
+            } else if (($trash_folder) && (substr($boxes[$i]["unformatted"], 0, strlen($trash_folder)) == $trash_folder)) {
                $use_folder = false;
             }
          }
@@ -179,7 +179,7 @@
          for ($p = 0; $p < count($special_folders); $p++) {
             if ($boxes[$i]["unformatted"] == $special_folders[$p]) {
                $use_folder = false;
-            } else if (substr($boxes[$i]["unformatted"], 0, strlen($trash_folder)) == $trash_folder) {
+            } else if (($trash_folder) && (substr($boxes[$i]["unformatted"], 0, strlen($trash_folder)) == $trash_folder)) {
                $use_folder = false;
             }
          }
@@ -212,7 +212,7 @@
          for ($p = 0; $p < count($special_folders); $p++) {
             if ($boxes[$i]["unformatted"] == $special_folders[$p]) {
                $use_folder = false;
-            } else if (substr($boxes[$i]["unformatted"], 0, strlen($trash_folder)) == $trash_folder) {
+            } else if (($trash_folder) && (substr($boxes[$i]["unformatted"], 0, strlen($trash_folder)) == $trash_folder)) {
                $use_folder = false;
             }
          }
