@@ -33,6 +33,17 @@ function sqimap_session_id() {
     return( $IMAPSessionID );
 }
 
+/******************************************************************************
+** Both send a command and accept the result from the command.  This is
+** to allow proper session number handling.
+******************************************************************************/
+
+function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response, &$message) {
+    fputs ($imap_stream, sqimap_session_id() . $query . "\r\n");
+    $read = sqimap_read_data ($imap_stream, sqimap_session_id(), $handle_errors, $response, $message);
+    return $read;
+}
+
 
 /******************************************************************************
 **  Reads the output from the IMAP stream.  If handle_errors is set to true,
