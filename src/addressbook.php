@@ -283,7 +283,7 @@
       $headerprinted = false;
 
       // List addresses
-      while(list($key,$row) = each($alist)) {
+      while(list($undef,$row) = each($alist)) {
 
 	 // New table header for each backend
 	 if($prevbackend != $row["backend"]) {

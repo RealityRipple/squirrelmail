@@ -100,7 +100,7 @@ function bcc_address($addr) {
 
       print "</TR>\n";
       
-      while(list($key, $row) = each($res)) {
+      while(list($undef, $row) = each($res)) {
 	 printf("<tr%s nowrap><td valign=top nowrap align=center width=\"5%%\">".
 		"<small><a href=\"javascript:to_address('%s');\">To</A> | ".
 		"<a href=\"javascript:cc_address('%s');\">Cc</A> | ".
@@ -190,7 +190,7 @@ function bcc_address($addr) {
 	 printf("<OPTION VALUE=-1 SELECTED>%s\n", 
 		_("All address books"));
 	 $ret = $abook->get_backend_list();
-	 while(list($k,$v) = each($ret)) 
+	 while(list($undef,$v) = each($ret)) 
 	    printf("<OPTION VALUE=%d>%s\n", $v->bnum, $v->sname);
 	 printf("</SELECT>\n");
       } else {

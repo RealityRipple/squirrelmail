@@ -75,7 +75,7 @@
 
       print "</TR>\n";
       
-      while(list($key, $row) = each($res)) {
+      while(list($undef, $row) = each($res)) {
          printf("<tr%s nowrap><td nowrap align=center width=\"5%%\">".
                 "<input type=checkbox name=\"send_to_search[]\" value=\"%s\">&nbsp;To".
                 "<input type=checkbox name=\"send_to_cc_search[]\" value=\"%s\">&nbsp;Cc&nbsp;".
@@ -138,7 +138,7 @@
 	     ($backend == -1) ? "SELECTED" : "",
 	     _("All address books"));
       $ret = $abook->get_backend_list();
-      while(list($k,$v) = each($ret)) 
+      while(list($undef,$v) = each($ret)) 
 	 printf("<OPTION VALUE=%d %s>%s\n", 
 		$v->bnum, 
 		($backend == $v->bnum) ? "SELECTED" : "",
