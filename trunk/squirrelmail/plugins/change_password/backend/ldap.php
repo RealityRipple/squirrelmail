@@ -534,7 +534,7 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
             $ret = '{CRYPT}' . crypt($pass,GenerateRandomString(2,$extra_salt_chars,7));
         } else {
             array_push($msgs,sprintf(_("Unsupported crypto: %s"),'crypt')
-                       . _("System crypt library doesn't support standard des crypt."));
+                       . _("System crypt library doesn't support standard DES crypt."));
         }
         break;
     case 'md5crypt':
@@ -543,7 +543,7 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
             $ret = '{CRYPT}' . crypt($pass,'$1$' . GenerateRandomString(9,$extra_salt_chars,7));
         } else {
             array_push($msgs,sprintf(_("Unsupported crypto: %s"),'md5crypt')
-                       . _("System crypt library doesn't have md5 support."));
+                       . _("System crypt library doesn't have MD5 support."));
         }
         break;
     case 'extcrypt':
@@ -553,7 +553,7 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
             $ret = '{CRYPT}' . crypt($pass,'_' . GenerateRandomString(8,$extra_salt_chars,7));
         } else {
             array_push($msgs,sprintf(_("Unsupported crypto: %s"),'ext_des')
-                       . _("System crypt library doesn't support extended des crypt."));
+                       . _("System crypt library doesn't support extended DES crypt."));
         }
         break;
     case 'blowfish':
@@ -562,8 +562,8 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
             // FIXME: guinea pigs with blowfish support needed.
             $ret = '{CRYPT}' . crypt($pass,'$2$' . GenerateRandomString(13,$extra_salt_chars,7));
         } else {
-            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'blowfish')
-                       . _("System crypt library doesn't have blowfish support."));
+            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'Blowfish')
+                       . _("System crypt library doesn't have Blowfish support."));
         }
         break;
     case 'plaintext':
