@@ -530,7 +530,7 @@ function asearch_print_form($imapConnection, $boxes, $mailbox_array, $biop_array
 	echo '<form action="search.php" name="form_asearch">' . "\n";
 
 	echo html_tag( 'table', '', 'center', $color[9], 'width="100%" cellpadding="1" cellspacing="1" border="0"' );
-	echo html_tag( 'tr', html_tag( 'td', asearch_title_display($color, _("Search Criterias")), 'center', $color[5], 'colspan=5'));
+	echo html_tag( 'tr', html_tag( 'td', asearch_title_display($color, _("Search Criteria")), 'center', $color[5], 'colspan=5'));
 	$row_count = count($where_array) + $add_criteria;
 	$mailbox = '';
 	for ($row_num = 0; $row_num < $row_count; $row_num++) {
@@ -619,9 +619,9 @@ $search_button_html = _("Search");
 $search_button_text = asearch_unhtmlentities($search_button_html);
 $add_criteria_button_html = _("Add New Criteria");
 $add_criteria_button_text = asearch_unhtmlentities($add_criteria_button_html);
-$del_excluded_button_html = _("Remove Excluded Criteria(s)");
+$del_excluded_button_html = _("Remove Excluded Criteria");
 $del_excluded_button_text = asearch_unhtmlentities($del_excluded_button_html);
-$del_all_button_html = _("Remove All Criteria(s)");
+$del_all_button_html = _("Remove All Criteria");
 $del_all_button_text = asearch_unhtmlentities($del_all_button_html);
 
 $imap_asearch_options = array(
@@ -686,8 +686,8 @@ $imap_asearch_biops = array(
 	'Search_last' : Same as no_update but reload and search last
 	'Search_silent' : Same as no_update but only display results
 	$add_criteria_button_text : Add New Criteria button
-	$del_excluded_button_text : Remove Excluded Criteria(s) button
-	$del_all_button_text : Remove All Criteria(s) button
+	$del_excluded_button_text : Remove Excluded Criteria button
+	$del_all_button_text : Remove All Criteria button
 	'save_recent'
 	'search_recent'
 	'forget_recent'
