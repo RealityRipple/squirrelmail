@@ -11,6 +11,7 @@
  * $Id$
  */
 
+require_once( '../functions/constants.php' );
 
 /* Define constants for the various option types. */
 define('SMOPT_TYPE_UNDEFINED', -1);
@@ -140,9 +141,14 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                  '$show_contain_subfolders_option' => array( 'name' => _("Show 'Contain Sub.' Option"),
                                                              'type' => SMOPT_TYPE_BOOLEAN ),
                  '$default_unseen_notify' => array( 'name' => _("Default Unseen Notify"),
-                                                    'type' => SMOPT_TYPE_INTEGER ),
+                                                    'type' => SMOPT_TYPE_NUMLIST,
+                                                    'posvals' => array( SMPREF_UNSEEN_NONE  => _("No Notification"),
+                                                                        SMPREF_UNSEEN_INBOX => _("Only INBOX"),
+                                                                        SMPREF_UNSEEN_ALL   => _("All Folders")) ),
                  '$default_unseen_type'  => array( 'name' => _("Default Unseen Type"),
-                                                   'type' => SMOPT_TYPE_INTEGER ),
+                                                   'type' => SMOPT_TYPE_NUMLIST ,
+                                                   'posvals' => array( SMPREF_UNSEEN_ONLY  => _("Only Unseen"),
+                                                                       SMPREF_UNSEEN_TOTAL => _("Unseen and Total") ) ),
                  '$auto_create_special' => array( 'name' => _("Auto Create Special Folders"),
                                                   'type' => SMOPT_TYPE_BOOLEAN ),
                  '$default_use_javascript_addr_book' => array( 'name' => _("Default Javascript Adrressbook"),
