@@ -161,7 +161,7 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id=1, $encoding) {
 
     /* Don't kill the connection if the browser is over a dialup
      * and it would take over 30 seconds to download it.
-     * Dont call set_time_limit in safe mode.
+     * Don't call set_time_limit in safe mode.
      */
 
     if (!ini_get('safe_mode')) {
@@ -552,18 +552,18 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
 
 function sqimap_base64_decode(&$string) {
 
-    // base64 enoded data goes in pairs of 4 bytes. To achieve on the
+    // Base64 encoded data goes in pairs of 4 bytes. To achieve on the
     // fly decoding (to reduce memory usage) you have to check if the
     // data has incomplete pairs
 
-    // remove the noise in order to check if the 4 bytes pairs are complete
+    // Remove the noise in order to check if the 4 bytes pairs are complete
     $string = str_replace(array("\r\n","\n", "\r", " "),array('','','',''),$string);
 
     $sStringRem = '';
     $iMod = strlen($string) % 4;
     if ($iMod) {
         $sStringRem = substr($string,-$iMod);
-        // check if $sStringRem contains padding characters
+        // Check if $sStringRem contains padding characters
         if (substr($sStringRem,-1) != '=') {
             $string = substr($string,0,-$iMod);
         } else {
