@@ -171,6 +171,9 @@ while ( $line = <FILE> ) {
         $options[1] =~ s/[\'|\"];\s*$//;
         $options[1] =~ s/;$//;
         $options[1] =~ s/^[\'|\"]//;
+        # de-escape escaped strings
+        $options[1] =~ s/\\'/'/g;
+        $options[1] =~ s/\\\\/\\/g;
 
         if ( $options[0] =~ /^theme\[[0-9]+\]\[['|"]PATH['|"]\]/ ) {
             $sub = $options[0];
@@ -3155,7 +3158,11 @@ sub save_data {
 
         for ( $count = 0 ; $count <= $#theme_name ; $count++ ) {
             print CF "\$theme[$count]['PATH'] = " . &change_to_SM_path($theme_path[$count]) . ";\n";
-            print CF "\$theme[$count]['NAME'] = '$theme_name[$count]';\n";
+            # escape theme name so it can contain single quotes.
+            $esc_name =  $theme_name[$count];
+            $esc_name =~ s/\\/\\\\/g;
+            $esc_name =~ s/'/\\'/g;
+            print CF "\$theme[$count]['NAME'] = '$esc_name';\n";
         }
         print CF "\n";
 
