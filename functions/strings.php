@@ -15,6 +15,7 @@
    //    of the $haystack is reached.  $needle is a single character
    //*************************************************************************
    function readShortMailboxName($haystack, $needle) {
+      if ($needle == "") return $haystack;
       if ($needle == ".") $needle = "\.";
       ereg("([^$needle]+)$needle?$", $haystack, $regs);
       return $regs[1];
