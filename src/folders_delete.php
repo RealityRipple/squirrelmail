@@ -62,11 +62,7 @@
    else {
       for ($i = 0; $i < count($boxes); $i++) {
          if ($boxes[$i]["unformatted"] == $trash_folder) {
-            $can_move_to_trash = true;
-            for ($j = 0; $j < count($boxes[$i]["flags"]); $j++) {
-               if (strtolower($boxes[$i]["flags"][$j]) == "noinferiors")
-		  $can_move_to_trash = false;
-            }
+            $can_move_to_trash = !in_array('noinferiors', $boxes[$i]['flags']);
          }
       }
    }
