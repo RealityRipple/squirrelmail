@@ -33,24 +33,21 @@ sqGetGlobalVar('numnew', $numnew, SQ_GET);
             ) .
             html_tag( 'tr', "\n" .
                 html_tag( 'td',
-                    '<br /><big><font color="' . $color[2] . '">'.
-        	    sprintf( ( $numnew == 1 ?
-        	        _("You have %s new message") :
-        		_("You have %s new messages") ), $numnew ) .
-                    '</font><br /></big><br />' . "\n" .
-                    '<form name="nm">' . "\n".
-                    '<input type="button" name="bt" value="' . _("Close Window") .
-                    '" onClick="javascript:window.close();" />'."\n".
-                    '</form>',
-                'center' )
-            ) ,
-        '', '', 'width="100%" cellpadding="2" cellspacing="2" border="0"' ) .
-        '</center>' .
-        "<script language=javascript>\n".
-        "<!--\n".
-            "document.nm.bt.focus();\n".
-        "-->\n".
-        "</script>\n".
-        "</body></html>\n";
-
+                          '<br /><big><font color="' . $color[2] . '">'.
+                          sprintf(ngettext("You have %s new message","You have %s new messages",$numnew), $numnew ) .
+                          '</font><br /></big><br />' . "\n" .
+                          '<form name="nm">' . "\n".
+                          '<input type="button" name="bt" value="' . _("Close Window") .
+                          '" onClick="javascript:window.close();" />'."\n".
+                          '</form>',
+                          'center' )
+                      ) ,
+                  '', '', 'width="100%" cellpadding="2" cellspacing="2" border="0"' ) .
+   '</center>' .
+   "<script language=javascript>\n".
+   "<!--\n".
+   "document.nm.bt.focus();\n".
+   "-->\n".
+   "</script>\n".
+   "</body></html>\n";
 ?>
