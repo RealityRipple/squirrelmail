@@ -850,6 +850,30 @@ function load_spam_filters() {
     $filters['NJABL DUL']['comment'] =
         _("FREE, for now - Not Just Another Blacklist - Dial-up IPs.");
 
+    $filters['Conf DSBL.ORG Relay']['prefname'] = 'filters_spam_dsbl_conf_ss';
+    $filters['Conf DSBL.ORG Relay']['name'] = 'DSBL.org Confirmed Relay List';
+    $filters['Conf DSBL.ORG Relay']['link'] = 'http://www.dsbl.org/';
+    $filters['Conf DSBL.ORG Relay']['dns'] = 'list.dsbl.org';
+    $filters['Conf DSBL.ORG Relay']['result'] = '127.0.0.2';
+    $filters['Conf DSBL.ORG Relay']['comment'] =
+        _("FREE - Distributed Sender Boycott List - Confirmed Relays");
+
+    $filters['Conf DSBL.ORG Multi-Stage']['prefname'] = 'filters_spam_dsbl_conf_ms';
+    $filters['Conf DSBL.ORG Multi-Stage']['name'] = 'DSBL.org Confirmed Multi-Stage Relay List';
+    $filters['Conf DSBL.ORG Multi-Stage']['link'] = 'http://www.dsbl.org/';
+    $filters['Conf DSBL.ORG Multi-Stage']['dns'] = 'multihop.dsbl.org';
+    $filters['Conf DSBL.ORG Multi-Stage']['result'] = '127.0.0.2';
+    $filters['Conf DSBL.ORG Multi-Stage']['comment'] =
+        _("FREE - Distributed Sender Boycott List - Confirmed Multi-stage Relays");
+
+    $filters['UN-Conf DSBL.ORG']['prefname'] = 'filters_spam_dsbl_unc';
+    $filters['UN-Conf DSBL.ORG']['name'] = 'DSBL.org UN-Confirmed Relay List';
+    $filters['UN-Conf DSBL.ORG']['link'] = 'http://www.dsbl.org/';
+    $filters['UN-Conf DSBL.ORG']['dns'] = 'unconfirmed.dsbl.org';
+    $filters['UN-Conf DSBL.ORG']['result'] = '127.0.0.2';
+    $filters['UN-Conf DSBL.ORG']['comment'] =
+        _("FREE - Distributed Sender Boycott List - UN-Confirmed Relays");
+
     foreach ($filters as $Key => $Value) {
         $filters[$Key]['enabled'] = getPref($data_dir, $username,
             $filters[$Key]['prefname']);
