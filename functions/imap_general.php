@@ -64,7 +64,7 @@
                if ($total_size == $size) {
                   // We've reached the end of this 'message', switch to the next one.
                   $data[] = $read;
-                  $break;
+                  break;
                } else if ($total_size > $size) {
                   $difference = $total_size - $size;
                   $total_size = $total_size - strlen($read);
