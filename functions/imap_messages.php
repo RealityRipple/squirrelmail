@@ -353,7 +353,7 @@ function get_thread_sort ($imap_stream) {
     $thread_test = sqimap_run_command ($imap_stream, $query, true, $response, $message, $uid_support);
     if (isset($thread_test[0])) {
         for ($i=0,$iCnt=count($thread_test);$i<$iCnt;++$i) {
-           if (preg_match("/^\* THREAD (.+)$/", $thread_test[0], $regs)) {
+           if (preg_match("/^\* THREAD (.+)$/", $thread_test[$i], $regs)) {
               $thread_list = trim($regs[1]);
 	      break;
            }
