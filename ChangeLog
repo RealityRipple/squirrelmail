@@ -97,6 +97,9 @@ Version 1.5.0 -- CVS
   - conf.pl will no longer offer to detect login methods if TLS is enabled.
   - conf.pl no longer offers UID support toggle, which is forced true in
     global.php
+  - HTML Filter bugfixes and further strengthening in response to some
+    findings reported by stardust.
+
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
