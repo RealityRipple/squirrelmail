@@ -16,7 +16,7 @@
    echo "</TABLE>\n";
 
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
-   getFolderList($imapConnection, $boxesFormatted, $boxesUnformatted);
+   getFolderList($imapConnection, $boxesFormatted, $boxesUnformatted, $boxesRaw);
 
    /** DELETING FOLDERS **/
    echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER>\n";
@@ -48,15 +48,23 @@
    echo "<INPUT TYPE=TEXT SIZE=25 NAME=folder_name><BR>\n";
    echo "&nbsp;&nbsp;as a subfolder of<BR>";
    echo "<SELECT NAME=subfolder><FONT FACE=\"Arial,Helvetica\">\n";
+   if ($default_sub_of_inbox == false)
+      echo "<OPTION SELECTED>[ None ]\n";
+   else
+      echo "<OPTION>[ None ]\n";
+
    for ($i = 0;$i < count($boxesUnformatted); $i++) {
-      echo "<OPTION>$boxesUnformatted[$i]\n";
+      if (($boxesUnformatted[$i] == $special_folders[0]) && ($default_sub_of_inbox == true))
+         echo "<OPTION SELECTED>$boxesUnformatted[$i]\n";
+      else
+         echo "<OPTION>$boxesUnformatted[$i]\n";
    }
    echo "</SELECT><BR>\n";
    echo "<INPUT TYPE=SUBMIT VALUE=Create>\n";
    echo "</FORM><BR></TD></TR><BR>\n";
 
    /** RENAMING FOLDERS **/
-   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Rename or Move Folder</B></FONT></TD></TR>";
+   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Rename a Folder</B></FONT></TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
    echo "<FORM ACTION=folders_rename_getname.php METHOD=POST>\n";
    echo "<SELECT NAME=old><FONT FACE=\"Arial,Helvetica\">\n";
@@ -71,7 +79,7 @@
          echo "   <OPTION>$boxesUnformatted[$i]\n";
    }
    echo "</SELECT>\n";
-   echo "<INPUT TYPE=SUBMIT VALUE=\"Rename or Move\">\n";
+   echo "<INPUT TYPE=SUBMIT VALUE=\"Rename\">\n";
    echo "</FORM></TD></TR></TABLE><BR>\n";
 
 ?>

@@ -14,6 +14,6 @@
    displayPageHeader($color, $mailbox);
 
    deleteMessages($imapConnection, $message, $message, $numMessages, $trash_folder, $move_to_trash, $auto_expunge, $mailbox);
-   messages_deleted_message($mailbox, $sort, $startMessage);
+   messages_deleted_message($mailbox, $sort, $startMessage, $color);
 ?>
 </BODY></HTML>

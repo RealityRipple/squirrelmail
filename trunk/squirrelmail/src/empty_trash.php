@@ -8,47 +8,27 @@
 
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
 
-   // switch to the mailbox, and get the number of messages in it.
-   selectMailbox($imapConnection, $mailbox, $numMessages);
+   getFolderList($imapConnection, $boxesFormatted, $boxesUnformatted, $boxesRaw);
 
-   if ($mailbox != $trash_folder) {
-      echo "ERROR -- I'm not in the trash folder!<BR>";
-      exit;
-   }
-
-
-   /** GET FOLDER ARRAY OF TRASH SUBFOLDERS **/
-   fputs($imapConnection, "1 list \"\" *\n");
-   $str = imapReadData($imapConnection);
-
-   for ($i = 0;$i < count($str); $i++) {
-      $box = Chop($str[$i]);
-      $mailbox = findMailboxName($box);
-
-      if (strpos($box, $trash_folder) > 0) {
-         $folders[$i] = $mailbox;
-      } else {
-         $folders[$i] = "NOPE";
+   $mailbox = $trash_folder;
+   fputs($imapConnection, "1 LIST \"$mailbox\" *\n");
+   $data = imapReadData($imapConnection , "1", false, $response, $message);
+   while (substr($data[0], strpos($data[0], " ")+1, 4) == "LIST") {
+      for ($i = 0; $i < count($boxesUnformatted); $i++) {
+         if (($boxesUnformatted[$i] == $mailbox) ||
+             (substr($boxesUnformatted[$i], 0, strlen($mailbox . $dm)) == $mailbox . $dm)) {
+            removeFolder($imapConnection, "$boxesUnformatted[$i]");
+         }
       }
+      fputs($imapConnection, "1 LIST \"$mailbox\" *\n");
+      $data = imapReadData($imapConnection , "1", false, $response, $message);
    }
 
-   // mark them as deleted
-   setMessageFlag($imapConnection, 1, $numMessages, "Deleted");
-   expungeBox($imapConnection, $mailbox);
-
-   // remove subfolders
-   for ($i = 0; $i < count($folders); $i++) {
-      if (($folders[$i] == "NOPE") || ($folders[$i] == "$trash_folder")) {
-      } else {
-         $thisfolder = getFolderNameMinusINBOX($folders[$i]);
-         $thisfolder = "user.$username.$thisfolder";
-         removeFolder($imapConnection, $thisfolder);
-      }
-   }
+   createFolder($imapConnection, "$trash_folder", "");
 
    selectMailbox($imapConnection, $trash_folder, $numMessages);
    echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    displayPageHeader($color, $mailbox);
-   messages_deleted_message($trash_folder, $sort, $startMessage);
+   messages_deleted_message($trash_folder, $sort, $startMessage, $color);
    fputs($imapConnection, "1 logout");
 ?>
