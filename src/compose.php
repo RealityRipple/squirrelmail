@@ -129,6 +129,9 @@ if (session_is_registered('session_expired_post')) {
    }
    session_unregister('session_expired_post');
    session_unregister('session_expired');
+   if (!isset($mailbox)) {
+      $mailbox = '';
+   }
    if ($compose_new_win == '1') {
       compose_Header($color, $mailbox);
    } else {
@@ -159,8 +162,8 @@ if (!isset($mailbox) || $mailbox == '' || ($mailbox == 'None')) {
 
 if (isset($draft)) {
     include_once ('../src/draft_actions.php');
-    if (! isset($reply_id)) {
-         $reply_id = 0;
+    if (! isset($passed_id)) {
+         $passed_id = 0;
     }
     if (! isset($MDN)) {
         $MDN = 'False';
@@ -168,7 +171,7 @@ if (isset($draft)) {
     if (! isset($mailprio)) {
         $mailprio = '';
     }
-    if (!saveMessageAsDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id, $mailprio, $session)) {
+    if (!saveMessageAsDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $passed_id, $mailprio, $session)) {
         showInputForm($session);
         exit();
     } else {
@@ -201,8 +204,8 @@ if (isset($send)) {
     }
     if (checkInput(false) && !isset($AttachFailure)) {
         $urlMailbox = urlencode (trim($mailbox));
-        if (! isset($reply_id)) {
-            $reply_id = 0;
+        if (! isset($passed_id)) {
+            $passed_id = 0;
         }
         /*
          * Set $default_charset to correspond with the user's selection
@@ -242,10 +245,10 @@ if (isset($send)) {
         $MDN = False;  // we are not sending a mdn response
         if (! isset($mailprio)) {
             $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
-                                  $subject, $body, $reply_id, $MDN, '', $session);
+                                  $subject, $body, $passed_id, $MDN, '', $session);
         } else {
             $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
-                                  $subject, $body, $reply_id, $MDN, $mailprio, $session);
+                                  $subject, $body, $passed_id, $MDN, $mailprio, $session);
         }
         if (! $Result) {
             showInputForm($session);
@@ -371,41 +374,10 @@ elseif (isset($sigappend)) {
     	    unlink ($attached_file);
     	    unset ($attachments[$index]);
         }
+        setPref($data_dir, $username, 'attachments', serialize($attachments));
     }
 
     showInputForm($session);
-    
-} elseif (isset($attachedmessages)) {
-
-    /*
-     * This handles the case if we attache message 
-     */
-    if ($compose_new_win == '1') {
-        compose_Header($color, $mailbox);
-    } else {
-        displayPageHeader($color, $mailbox);
-    }
-
-    $newmail = true;
-
-    if (!isset($passed_ent_id)) $passed_ent_id = '';
-    if (!isset($passed_id)) $passed_id = '';    
-    if (!isset($mailbox)) $mailbox = '';
-    if (!isset($action)) $action = '';
-
-    $values = newMail($mailbox,$passed_id,$passed_ent_id, $action, $session);
-    /* in case the origin is not read_body.php */
-    if (isset($send_to)) {
-       $values['send_to'] = $send_to;
-    }
-    if (isset($send_to_cc)) {
-       $values['send_to_cc'] = $send_cc;
-    }
-    if (isset($send_to_bcc)) {
-       $values['send_to_bcc'] = $send_bcc;
-    }
-    
-    showInputForm($session, $values);
 } else {
     /*
      * This handles the default case as well as the error case
@@ -623,7 +595,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
 
 
 function getAttachments($message, $session, $passed_id, $entities, $imapConnection) {
-    global $attachments, $attachment_dir, $username;
+    global $attachments, $attachment_dir, $username, $data_dir;
     
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     if (!count($message->entities) || 
@@ -663,6 +635,7 @@ function getAttachments($message, $session, $passed_id, $entities, $imapConnecti
             fclose ($fp);
 
             $attachments[] = $newAttachment;
+            setPref($data_dir, $username, 'javascript_on', $js_pref);
         }
     } else {
         for ($i = 0; $i < count($message->entities); $i++) {
@@ -959,7 +932,8 @@ function checkInput ($show) {
 
 /* True if FAILURE */
 function saveAttachedFiles($session) {
-    global $HTTP_POST_FILES, $attachment_dir, $attachments, $username;
+    global $HTTP_POST_FILES, $attachment_dir, $attachments, $username,
+           $data_dir;
 
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     $localfilename = GenerateRandomString(32, '', 7);
@@ -975,7 +949,6 @@ function saveAttachedFiles($session) {
             return true;
         	}
 	} else {
-
 		if (!@copy($HTTP_POST_FILES['attachfile']['tmp_name'], $full_localfilename)) {
 	            return true;
        		}
@@ -990,14 +963,14 @@ function saveAttachedFiles($session) {
     if ($newAttachment['type'] == "") {
          $newAttachment['type'] = 'application/octet-stream';
     }
-
     $attachments[] = $newAttachment;
+    setPref($data_dir, $username, 'attachments', serialize($attachments));
 }
 
 
 function ClearAttachments($session)
 {
-    global $username, $attachments, $attachment_dir;
+    global $username, $attachments, $attachment_dir, $data_dir;
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
 
     $rem_attachments = array();
@@ -1015,6 +988,7 @@ function ClearAttachments($session)
         }
     }
     $attachments = $rem_attachments;
+    setPref($data_dir, $username, 'attachments', serialize($attachments));    
 }
 
 
