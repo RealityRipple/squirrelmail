@@ -190,11 +190,11 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort,
 	  $stuff = true;
 	}
 	if ($default_use_priority) {
-	  if ( ($msg['PRIORITY'][0] == 1) || ($msg['PRIORITY'][0] == 2) ) {
+	  if ( ($msg['PRIORITY'] == 1) || ($msg['PRIORITY'] == 2) ) {
 	    echo "<font color=\"$color[1]\">!</font>\n";
 	    $stuff = true;
 	  }
-	  if ($msg['PRIORITY'][0] == 5) {
+	  if ($msg['PRIORITY'] == 5) {
 	    echo "<font color=\"$color[8]\">?</font>\n";
 	    $stuff = true;
 	  }
@@ -412,8 +412,9 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
 	}
 	$num++;
       }
-      $j++;
 */
+      $j++;
+
     }
 
     /*
