@@ -184,7 +184,7 @@
          $string = substr($string, strpos($string, "<")+1);
          $string = substr($string, 0, strpos($string, ">"));
       }
-      return $string; 
+      return trim($string); 
    }
 
    
@@ -196,8 +196,9 @@
     **           becomes:   lkehresman@yahoo.com
     ******************************************************************************/
    function sqimap_find_displayable_name ($string) {
+      $string = " ".trim($string);
       if (strpos($string, "<") && strpos($string, ">")) {
-         if (strpos($string, "<") == 0) {
+         if (strpos($string, "<") == 1) {
             $string = sqimap_find_email($string);
          } else {
             $string = substr($string, 0, strpos($string, "<"));
