@@ -508,7 +508,8 @@ function decodeBody($body, $encoding) {
      $body = base64_decode($body);
   }
 
-  if (function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+  if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
+      function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
       $body = $languages[$squirrelmail_language]['XTRA_CODE']('decode', $body);
   }
 
@@ -527,7 +528,8 @@ function decodeHeader ($string, $utfencode=true) {
         $string = implode("\n", $string);
     }
 
-    if (function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+    if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
+        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
         $string = $languages[$squirrelmail_language]['XTRA_CODE']('decodeheader', $string);
     }
 
@@ -566,7 +568,8 @@ function decodeHeader ($string, $utfencode=true) {
 function encodeHeader ($string) {
     global $default_charset, $languages, $squirrelmail_language;
 
-    if (function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+    if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
+        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
         return  $languages[$squirrelmail_language]['XTRA_CODE']('encodeheader', $string);
     }
 
