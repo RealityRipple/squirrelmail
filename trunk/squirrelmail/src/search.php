@@ -921,7 +921,7 @@ function asearch_print_mailbox_msgs($imapConnection, &$aMailbox, $color) {
     mail_message_listing_end($cnt, '', $msg_cnt_str);
     echo '</td></tr>';
 
-    echo '</table>';
+    echo '</table></form>';
 }
 
 /**
