@@ -1,55 +1,88 @@
 <?php
+/**
+ * setup.php
+ * -----------
+ * Squirrelspell setup file, as defined by the SquirrelMail-1.2 API.
+ * 
+ * Copyright (c) 1999-2002 The SquirrelMail development team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * $Id$
+ *
+ * @author Konstantin Riabitsev <icon@duke.edu> ($Author$)
+ * @version $Date$
+ */
 
-   /**
-    **  setup.php -- Squirrelspell setup file
-    **
-    **  Copyright (c) 1999-2002 The SquirrelMail development team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  This is a standard Squirrelmail-1.2 API for plugins.
-    **
-    **  $Id$
-    **/
+/**
+ * Standard squirrelmail plugin initialization API.
+ *
+ * @return void
+ */
+function squirrelmail_plugin_init_squirrelspell() {
+  global $squirrelmail_plugin_hooks;
+  $squirrelmail_plugin_hooks['compose_button_row']['squirrelspell'] = 
+     'squirrelspell_setup';
+  $squirrelmail_plugin_hooks['optpage_register_block']['squirrelspell'] = 
+     'squirrelspell_optpage_register_block';
+  $squirrelmail_plugin_hooks['options_link_and_description']['squirrelspell'] =
+     'squirrelspell_options';
+}
 
-    function squirrelmail_plugin_init_squirrelspell() {
-        /* Standard initialization API. */
-        global $squirrelmail_plugin_hooks;
+/**
+ * This function formats and adds the plugin and its description to the
+ * Options screen.
+ *
+ * @return void
+ */
+function squirrelspell_optpage_register_block() {
+  global $optpage_blocks;
+  /**
+   * soupNazi checks if this browser is capable of using the plugin.
+   */
+  if (!soupNazi()) {
+    /**
+     * The browser checks out.
+     * Register Squirrelspell with the $optionpages array. 
+     */
+    $optpage_blocks[] =
+       array(
+	     'name' => _("SpellChecker Options"),
+	     'url'  => '../plugins/squirrelspell/sqspell_options.php',
+	     'desc' => _("Here you may set up how your personal dictionary "
+			 . "is stored, edit it, or choose which languages "
+			 . "should be available to you when spell-checking."),
+	     'js'   => TRUE);
+  }
+}
 
-        $squirrelmail_plugin_hooks['compose_button_row']['squirrelspell'] = 'squirrelspell_setup';
-        $squirrelmail_plugin_hooks['optpage_register_block']['squirrelspell'] = 'squirrelspell_optpage_register_block';
-        $squirrelmail_plugin_hooks['options_link_and_description']['squirrelspell'] = 'squirrelspell_options';
-    }
-
-    function squirrelspell_optpage_register_block() {
-       // Gets added to the user's OPTIONS page.
-       global $optpage_blocks;
-
-       if ( !soupNazi() ) {
-
-           /* Register Squirrelspell with the $optionpages array. */
-           $optpage_blocks[] = array(
-               'name' => _("SpellChecker Options"),
-               'url'  => '../plugins/squirrelspell/sqspell_options.php',
-               'desc' => _("Here you may set up how your personal dictionary is stored, edit it, or choose which languages should be available to you when spell-checking."),
-               'js'   => TRUE
-            );
-        }
-    }
-
-    function squirrelspell_setup() {
-        /* Gets added to the COMPOSE buttons row. */
-        if ( !soupNazi() ) {
-            /*
-            ** using document.write to hide this functionality from people
-            ** with JavaScript turned off.        
-            */
-            echo "<script type=\"text/javascript\">\n".
-                    "<!--\n".
-                    'document.write("<input type=\"button\" value=\"' .
-                        _("Check Spelling") . '\" onclick=\"window.open(\'../plugins/squirrelspell/sqspell_interface.php\', \'sqspell\', \'status=yes,width=550,height=370,resizable=yes\')\">");'. "\n" .
-                    "//-->\n".
-                    "</script>\n";
-        }
-    }
+/**
+ * This function adds a "Check Spelling" link to the "Compose" row
+ * during message composition.
+ *
+ * @return void
+ */
+function squirrelspell_setup() {
+  /**
+   * Check if this browser is capable of displaying SquirrelSpell
+   * correctly.
+   */
+  if (!soupNazi()) {
+    /**
+     * Some people may choose to disable javascript even though their
+     * browser is capable of using it. So these freaks don't complain,
+     * use document.write() so the "Check Spelling" button is not
+     * displayed if js is off in the browser.
+     */
+    echo '<script type="text/javascript">\n'
+      . '<!--\n'
+      . 'document.write("<input type=\"button\" value=\"'
+      . _("Check Spelling") 
+      . '\" onclick=\"window.open(\'../plugins/squirrelspell/sqspell_'
+      . 'interface.php\', \'sqspell\', \'status=yes,width=550,height=370,'
+      . 'resizable=yes\')\">");\n'
+      . '//-->\n'
+      . "</script>\n";
+  }
+}
 
 ?>

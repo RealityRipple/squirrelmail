@@ -13,7 +13,7 @@
  * $Id$
  */
 
-header("Location:../../index.php");
+header("Location: ../../index.php");
 
 /* pretty impressive huh? */
 

@@ -1,309 +1,509 @@
 <?php
-
 /**
- * sqspell_functions.php -- All SquirrelSpell-wide functions are in this file.
+ * sqspell_functions.php 
+ * ----------------------
+ * All SquirrelSpell-wide functions are in this file.
  *
  * Copyright (c) 1999-2002 The SquirrelMail development team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
+ *
+ * @author Konstantin Riabitsev <icon@duke.edu> ($Author$)
+ * @version $Date$
  */
-								
-    function sqspell_makePage($title, $scriptsrc, $body){
-    /*
-    ** GUI wrap-around for the OPTIONS page.
-    */
-    global $color, $SQSPELL_VERSION, $MOD;
-    displayPageHeader($color, 'None');
-     
-    echo "&nbsp;<br>\n";
-    if($scriptsrc) { 
-        echo "<script type=\"text/javascript\" src=\"js/$scriptsrc\"></script>\n";
-    }
-    echo '<table width="95%" align="center" border="0" cellpadding="2" cellspacing="0">'.
-            '<tr>'.
-                "<td bgcolor=\"$color[9]\" align=center>".
-                "<strong>$title</strong>".
-                '</td>'.
-            '</tr>'.
-            '<tr><td><hr></td></tr>'.
-            "<tr><td>$body</td></tr>";
-    if ($MOD!="options_main"){ 
-        // Generate a nice return-to-main link.
-        echo '<tr><td><hr></td></tr>'.
-             '<tr><td align="center"><a href="sqspell_options.php">' .
-                _("Back to &quot;SpellChecker Options&quot; page") . '</a></td></tr>';
-    }
-    echo '<tr><td><hr></td></tr>'.
-         '<tr>'.
-            "<td bgcolor=\"$color[9]\" align=center>".
-                "SquirrelSpell $SQSPELL_VERSION".
-            '</td>'.
-         '</tr>'.
-        '</table>';
-    }
-    
-    function sqspell_makeWindow($onload, $title, $scriptsrc, $body){
-    
-        /*
-        ** GUI wrap-around for the pop-up window interface.
-        */
-        global $color, $SQSPELL_VERSION, $theme_css;
-        
-        echo "<html>\n".
-              "<head>\n".
-              "<title>$title</title>\n";
-        if ($theme_css != "") {
-            echo "<LINK REL=\"stylesheet\" TYPE=\"text/css\" HREF=\"$theme_css\">\n";
-        }          
-        if ($scriptsrc){
-            echo "<script type=\"text/javascript\" src=\"js/$scriptsrc\"></script>\n";
-        }
-        echo "</head>\n".
-             "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\"";
-        if ($onload) {
-            echo " onload=\"$onload\"";
-        }
-        echo '>'.
-             '<table width="100%" border="0" cellpadding="2">'.
-                '<tr>'.
-                    "<td bgcolor=\"$color[9]\" align=center>".
-                        "<strong>$title</strong>".
-                    '</td>'.
-                '</tr>'.
-                '<tr><td><hr></td></tr>'.
-                '<tr>'.
-                    "<td>$body</td>".
-                '</tr>'.
-                '<tr><td><hr></td></tr>'.
-                '<tr>'.
-                    "<td bgcolor=\"$color[9]\" align=center>".
-                        "SquirrelSpell $SQSPELL_VERSION".
-                    '</td>'.
-                '</tr>'.
-            '</table>'.
-            "</body>\n</html>\n";
-    }
-    
-    function sqspell_crypto($mode, $ckey, $input){
-        //
-        // This function does the encryption and decryption of the user
-        // dictionary. It is only available when PHP is compiled
-        // --with-mcrypt. See doc/CRYPTO for more information.
-        //
-        if (!function_exists(mcrypt_generic)) {
-            return 'PANIC';
-        }
-        $td = mcrypt_module_open(MCRYPT_Blowfish, "", MCRYPT_MODE_ECB, "");
-        $iv = mcrypt_create_iv(mcrypt_enc_get_iv_size ($td), MCRYPT_RAND);
-        mcrypt_generic_init($td, $ckey, $iv);
-        switch ($mode){
-        case 'encrypt':
-            $crypto = mcrypt_generic($td, $input);
-            break;
-        case 'decrypt':
-            $crypto = mdecrypt_generic($td, $input);
-            // See if it decrypted successfully. If so, it should contain
-            // the string "# SquirrelSpell".
-            if (!strstr($crypto, "# SquirrelSpell")) 
-                $crypto='PANIC';
-            break;
-        }
-        mcrypt_generic_end ($td);
-        return $crypto;
-    }
-    
-    function sqspell_upgradeWordsFile($words_string){
-        /*
-        ** This function transparently upgrades the 0.2 dictionary format to 
-        ** 0.3, since user-defined languages have been added in 0.3 and
-        ** the new format keeps user dictionaries selection in the file.
-        */
-        global $SQSPELL_APP_DEFAULT, $SQSPELL_VERSION;
-        
-        /* Define just one dictionary for this user -- the default.
-        ** If the user wants more, s/he can set them up in personal
-        ** preferences. See doc/UPGRADING for more info.
-        */
-        $new_words_string=substr_replace($words_string, "# SquirrelSpell User Dictionary $SQSPELL_VERSION\n# Last Revision: " . date("Y-m-d") . "\n# LANG: $SQSPELL_APP_DEFAULT\n# $SQSPELL_APP_DEFAULT", 0, strpos($words_string, "\n")) . "# End\n";
-        sqspell_writeWords($new_words_string);
-        return $new_words_string;
-    }
-    
-    function sqspell_getSettings($words){
-        /*
-        ** Right now it just returns an array with the dictionaries 
-        ** available to the user for spell-checking. It will probably
-        ** do more in the future, as features are added.
-        */
-        global $SQSPELL_APP, $SQSPELL_APP_DEFAULT;
-        if (sizeof($SQSPELL_APP) > 1){
-            // OK, so there are more than one dictionary option.
-            // Now load the user prefs.
-            if(!$words) 
-                $words=sqspell_getWords();
-            if ($words){
-                // find which dictionaries user wants to use
-                preg_match("/# LANG: (.*)/i", $words, $matches);
-                $langs=explode(", ", $matches[1]);
-            } else {
-                // User doesn't have a personal dictionary. Set him up with
-                // a default setting.
-                $langs[0]=$SQSPELL_APP_DEFAULT;
-            }
-        } else {
-            // There is only one dictionary defined system-wide.
-            $langs[0]=$SQSPELL_APP_DEFAULT;
-        }
-        return $langs;
-    }
-    
-    function sqspell_getLang($words, $lang){
-        //
-        // Returns words of a specific user dictionary.
-        //
-        $start=strpos($words, "# $lang\n");
-        if (!$start) return '';
-        $end=strpos($words, "#", $start+1);
-        $lang_words = substr($words, $start, $end-$start);
-        return $lang_words;
-    }
-     
-    function sqspell_getWords(){
-        //
-        // This baby operates the user dictionary. If the format is clear-text,
-        // then it just reads the file and returns it. However, if the file is
-        // encrypted, then it decrypts it, checks whether the decryption was 
-        // successful, troubleshoots if not, then returns the clear-text dictionary
-        // to the app.
-        //
-        global $SQSPELL_WORDS_FILE, $SQSPELL_CRYPTO;
-        $words="";
-        if (file_exists($SQSPELL_WORDS_FILE)){
-            // Gobble it up.
-            $fp=fopen($SQSPELL_WORDS_FILE, 'r');
-            $words=fread($fp, filesize($SQSPELL_WORDS_FILE));
-            fclose($fp);
-        }
-        // Check if this is an encrypted file by looking for
-        // the string "# SquirrelSpell" in it.
-        if ($words && !strstr($words, "# SquirrelSpell")){
-            // This file is encrypted or mangled. Try to decrypt it.
-            // If fails, raise hell.
-            global $key, $onetimepad, $old_key;
-            if ($old_key) {
-                // an override in case user is trying to decrypt a dictionary
-                // with his old password
-                $clear_key=$old_key;
-            } else {
-                // get user's password (the key).
-                $clear_key = OneTimePadDecrypt($key, $onetimepad);
-            }
-            // decrypt
-            $words=sqspell_crypto("decrypt", $clear_key, $words);
-            if ($words=="PANIC"){
-                // AAAAAAAAAAAH!!!!! OK, ok, breathe!
-                // Let's hope the decryption failed because the user changed his
-                // password. Bring up the option to key in the old password
-                // or wipe the file and start over if everything else fails.
-                $msg='<p>'.
-                '<strong>' . _("ATTENTION:") . '</strong><br>' .
-                _("SquirrelSpell was unable to decrypt your personal dictionary. This is most likely due to the fact that you have changed your mailbox password. In order to proceed, you will have to supply your old password so that SquirrelSpell can decrypt your personal dictionary. It will be re-encrypted with your new password after this.<br>If you haven't encrypted your dictionary, then it got mangled and is no longer valid. You will have to delete it and start anew. This is also true if you don't remember your old password -- without it, the encrypted data is no longer accessible.").
-                '</p>' .
-                '<blockquote>'.
-                '<form method="post" onsubmit="return AYS()">'.
-                '<input type="hidden" name="MOD" value="crypto_badkey">'.
-                '<p><input type="checkbox" name="delete_words" value="ON">' . 
-                _("Delete my dictionary and start a new one") . '<br>'.
-                _("Decrypt my dictionary with my old password:") . 
-                '<input name="old_key" size=\"10\"></p>'.
-                '</blockquote>'.
-                '<p align="center"><input type="submit" value="' . _("Proceed") . ' &gt;&gt;"></p>'.
-                '</form>';
-                // See if this happened in the pop-up window or when accessing
-                // the SpellChecker options page. 
-                global $SCRIPT_NAME;
-                if (strstr($SCRIPT_NAME, "sqspell_options"))
-                    sqspell_makePage( _("Error Decrypting Dictionary"), "decrypt_error.js", $msg);
-                else 
-                    sqspell_makeWindow(null, _("Error Decrypting Dictionary"), "decrypt_error.js", $msg); 
-                exit;
-            } else {
-                // OK! Phew. Set the encryption flag to true so we can later on 
-                // encrypt it again before saving to HDD.
-                $SQSPELL_CRYPTO=true;
-            }
-        } else {
-            // No encryption is used. Set $SQSPELL_CRYPTO to false, in case we have to
-            // save the dictionary later.
-            $SQSPELL_CRYPTO=false;
-        }
-        // Check if we need to upgrade the dictionary from version 0.2.x
-        if (strstr($words, "Dictionary v0.2")) $words=sqspell_upgradeWordsFile($words);
-        return $words;
-    }
-    
-    function sqspell_writeWords($words){
-        //
-        // Writes user dictionary into the $username.words file, then changes mask
-        // to 0600. If encryption is needed -- does that, too.
-        //
-        global $SQSPELL_WORDS_FILE, $SQSPELL_CRYPTO;
-        // if $words is empty, create a template entry.
-        if (!$words) $words=sqspell_makeDummy();
-        if ($SQSPELL_CRYPTO){
-            // User wants to encrypt the file. So be it.
-            // get his password to use as a key.
-            global $key, $onetimepad;
-            $clear_key=OneTimePadDecrypt($key, $onetimepad);
-            // Try encrypting it. If fails, scream bloody hell.
-            $save_words = sqspell_crypto("encrypt", $clear_key, $words);
-            if ($save_words == 'PANIC'){
-                /*
-                ** AAAAAAAAH! I'm not handling this yet, since obviously
-                ** the admin of the site forgot to compile the MCRYPT support in.
-                ** I will add a handler for this case later, when I can come up
-                ** with some work-around... Right now, do nothing. Let the Admin's
-                ** head hurt.. ;)))
-                */
-            }
-        } else {
-            $save_words = $words;
-        }
-        $fp=fopen($SQSPELL_WORDS_FILE, "w");
-        fwrite($fp, $save_words);
-        fclose($fp);
-        chmod($SQSPELL_WORDS_FILE, 0600);
-    }
-    
-    function sqspell_deleteWords(){
-        /*
-        ** so I open the door to my enemies,
-        ** and I ask can we wipe the slate clean,
-        ** but they tell me to please go...
-        ** uhm... Well, this just erases the user dictionary file.
-        */
-        global $SQSPELL_WORDS_FILE;
-        if (file_exists($SQSPELL_WORDS_FILE)) unlink($SQSPELL_WORDS_FILE);
-    }
-    
-    function sqspell_makeDummy(){
-        //
-        // Creates an empty user dictionary for the sake of saving prefs or
-        // whatever.
-        //
-        global $SQSPELL_VERSION, $SQSPELL_APP_DEFAULT;
-        $words="# SquirrelSpell User Dictionary $SQSPELL_VERSION\n# Last Revision: " . date('Y-m-d') . "\n# LANG: $SQSPELL_APP_DEFAULT\n# End\n"; 
-        return $words;
-    }
-    
+
+/**
+ * This function is the GUI wrapper for the options page. SquirrelSpell
+ * uses it for creating all Options pages.
+ *
+ * @param  $title     The title of the page to display
+ * @param  $scriptsrc This is used to link a file.js into the 
+ *                    <script src="file.js"></script> format. This
+ *                    allows to separate javascript from the rest of the
+ *                    plugin and place it into the js/ directory.
+ * @param  $body      The body of the message to display.
+ * @return            void
+ */
+function sqspell_makePage($title, $scriptsrc, $body){
+  global $color, $SQSPELL_VERSION, $MOD;
+  displayPageHeader($color, 'None');  
+  echo "&nbsp;<br>\n";
+  /**
+   * Check if we need to link in a script.
+   */
+  if($scriptsrc) { 
+    echo "<script type=\"text/javascript\" src=\"js/$scriptsrc\"></script>\n";
+  }
+  echo '<table width="95%" align="center" border="0" cellpadding="2" '
+    . 'cellspacing="0">'
+    . '<tr>'
+    . "<td bgcolor=\"$color[9]\" align=center>"
+    . "<strong>$title</strong>"
+    . '</td>'
+    . '</tr>'
+    . '<tr><td><hr></td></tr>'
+    . "<tr><td>$body</td></tr>";
+  /**
+   * Generate a nice "Return to Options" link, unless this is the
+   * starting page.
+   */
+  if ($MOD != "options_main"){ 
+    echo '<tr><td><hr></td></tr>'
+      . '<tr><td align="center"><a href="sqspell_options.php">'
+      . _("Back to &quot;SpellChecker Options&quot; page") 
+      . '</a></td></tr>';
+  }
+  /**
+   * Close the table and display the version.
+   */
+  echo '<tr><td><hr></td></tr>'
+    . '<tr>'
+    . "<td bgcolor=\"$color[9]\" align=center>"
+    . "SquirrelSpell $SQSPELL_VERSION"
+    . '</td>'
+    . '</tr>'
+    . '</table>';
+}
+
+/**
+ * Function similar to the one above. This one is a general wrapper
+ * for the Squirrelspell pop-up window. It's called form nearly
+ * everywhere, except the check_me module, since that one is highly
+ * customized.
+ *
+ * @param  $onload    Used to indicate and pass the name of a js function
+ *                    to call in a <body onload="function()" for automatic
+ *                    onload script execution.
+ * @param  $title     Title of the page.
+ * @param  $scriptsrc If defined, link this javascript source page into
+ *                    the document using <script src="file.js"> format.
+ * @param  $body      The content to include.
+ * @return            void
+ */
+function sqspell_makeWindow($onload, $title, $scriptsrc, $body){
+  global $color, $SQSPELL_VERSION, $theme_css;
+  echo "<html>\n"
+    . "<head>\n"
+    . "<title>$title</title>\n";
+  /**
+   * Check if we have a defined css theme to use.
+   */
+  if ($theme_css != "") {
+    echo "<LINK REL=\"stylesheet\" TYPE=\"text/css\" HREF=\"$theme_css\">\n";
+  }
+  /**
+   * Link in the .js file if needed
+   */         
+  if ($scriptsrc){
+    echo "<script type=\"text/javascript\" src=\"js/$scriptsrc\"></script>\n";
+  }
+  echo "</head>\n"
+    . "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" "
+    . "vlink=\"$color[7]\" alink=\"$color[7]\"";
+  /**
+   * Provide an onload="jsfunction()" if asked to.
+   */
+  if ($onload) {
+    echo " onload=\"$onload\"";
+  }
+  /**
+   * Draw the rest of the page.
+   */
+  echo '>'
+    . '<table width="100%" border="0" cellpadding="2">'
+    . '<tr>'
+    . "<td bgcolor=\"$color[9]\" align=center>"
+    . "<strong>$title</strong>"
+    . '</td>'
+    . '</tr>'
+    . '<tr><td><hr></td></tr>'
+    . '<tr>'
+    . "<td>$body</td>"
+    . '</tr>'
+    . '<tr><td><hr></td></tr>'
+    . '<tr>'
+    . "<td bgcolor=\"$color[9]\" align=center>"
+    . "SquirrelSpell $SQSPELL_VERSION"
+    . '</td>'
+    . '</tr>'
+    . '</table>'
+    . "</body>\n</html>\n";
+}
+
+/**
+ * This function does the encryption and decryption of the user
+ * dictionary. It is only available when PHP is compiled with 
+ * mcrypt support (--with-mcrypt). See doc/CRYPTO for more
+ * information.
+ *
+ * @param  $mode  A string with either of the two recognized values:
+ *                "encrypt" or "decrypt".
+ * @param  $ckey  The key to use for processing (the user's password
+ *                in our case.
+ * @param  $input Content to decrypt or encrypt, according to $mode.
+ * @return        encrypted/decrypted content, or "PANIC" if the
+ *                process bails out.
+ */
+function sqspell_crypto($mode, $ckey, $input){
+  /**
+   * Double-check if we have the mcrypt_generic function. Bail out if
+   * not so.
+   */
+  if (!function_exists(mcrypt_generic)) {
+    return 'PANIC';
+  }
+  /**
+   * Setup mcrypt routines.
+   */
+  $td = mcrypt_module_open(MCRYPT_Blowfish, "", MCRYPT_MODE_ECB, "");
+  $iv = mcrypt_create_iv(mcrypt_enc_get_iv_size ($td), MCRYPT_RAND);
+  mcrypt_generic_init($td, $ckey, $iv);
+  /**
+   * See what we have to do depending on $mode.
+   * 'encrypt' -- Encrypt the content.
+   * 'decrypt' -- Decrypt the content.
+   */
+  switch ($mode){
+  case 'encrypt':
+    $crypto = mcrypt_generic($td, $input);
+    break;
+  case 'decrypt':
+    $crypto = mdecrypt_generic($td, $input);
     /** 
-       VERSION:
-       ---------
-       SquirrelSpell version. Don't modify, since it identifies the format
-       of the user dictionary files and messing with this can do ugly 
-       stuff. :)
-       								**/
-    $SQSPELL_VERSION="v0.3.6";
+     * See if it decrypted successfully. If so, it should contain
+     * the string "# SquirrelSpell". If not, then bail out.
+     */
+    if (!strstr($crypto, "# SquirrelSpell")){
+      $crypto='PANIC';
+    }
+    break;
+  }
+  /**
+   * Finish up the mcrypt routines and return the processed content.
+   */
+  mcrypt_generic_end ($td);
+  return $crypto;
+}
+
+/**
+ * This function transparently upgrades the 0.2 dictionary format to the
+ * 0.3 format, since user-defined languages have been added in 0.3 and
+ * the new format keeps user dictionaries selection in the file.
+ *
+ * This function will be retired soon, as it's been a while since anyone
+ * has been using SquirrelSpell-0.2.
+ *
+ * @param  $words_string Contents of the 0.2-style user dictionary.
+ * @return               Contents of the 0.3-style user dictionary.
+ */   
+function sqspell_upgradeWordsFile($words_string){
+  global $SQSPELL_APP_DEFAULT, $SQSPELL_VERSION;
+  /**
+   * Define just one dictionary for this user -- the default.
+   * If the user wants more, s/he can set them up in personal
+   * preferences. See doc/UPGRADING for more info.
+   */
+  $new_words_string = 
+     substr_replace($words_string, 
+		    "# SquirrelSpell User Dictionary $SQSPELL_VERSION\n# "
+		    . "Last Revision: " . date("Y-m-d") 
+		    . "\n# LANG: $SQSPELL_APP_DEFAULT\n# $SQSPELL_APP_DEFAULT",
+		    0, strpos($words_string, "\n")) . "# End\n";
+  sqspell_writeWords($new_words_string);
+  return $new_words_string;
+}
+
+/**
+ * Right now it just returns an array with the dictionaries 
+ * available to the user for spell-checking. It will probably
+ * do more in the future, as features are added.
+ *
+ * @param  $words The contents of the user's ".words" file.
+ * @return        a strings array with dictionaries available
+ *                to this user, e.g. {"English", "Spanish"}, etc.
+ */
+function sqspell_getSettings($words){
+  global $SQSPELL_APP, $SQSPELL_APP_DEFAULT;
+  /**
+   * Check if there is more than one dictionary configured in the
+   * system config.
+   */
+  if (sizeof($SQSPELL_APP) > 1){
+    /**
+     * Now load the user prefs. Check if $words was empty -- a bit of
+     * a dirty fall-back. TODO: make it so this is not required.
+     */
+    if(!$words){
+      $words=sqspell_getWords();
+    }
+    if ($words){
+      /**
+       * This user has a ".words" file.
+       * Find which dictionaries s/he wants to use and load them into
+       * the $langs array.
+       */
+      preg_match("/# LANG: (.*)/i", $words, $matches);
+      $langs=explode(", ", $matches[1]);
+    } else {
+      /**
+       * User doesn't have a personal dictionary. Grab the default
+       * system setting.
+       */
+      $langs[0]=$SQSPELL_APP_DEFAULT;
+    }
+  } else {
+    /**
+     * There is no need to read the ".words" file as there is only one
+     * dictionary defined system-wide.
+     */
+    $langs[0]=$SQSPELL_APP_DEFAULT;
+  }
+  return $langs;
+}
+
+/**
+ * This function returns only user-defined dictionary words that correspond
+ * to the requested language.
+ *
+ * @param  $words The contents of the user's ".words" file.
+ * @param  $lang  Which language words to return, e.g. requesting 
+ *                "English" will return ONLY the words from user's
+ *                English dictionary, disregarding any others.
+ * @return        The list of words corresponding to the language
+ *                requested.
+ */    
+function sqspell_getLang($words, $lang){
+  $start=strpos($words, "# $lang\n");
+  /**
+   * strpos() will return -1 if no # $lang\n string was found.
+   * Use this to return a zero-length value and indicate that no
+   * words are present in the requested dictionary.
+   */
+  if (!$start) return '';
+  /**
+   * The words list will end with a new directive, which will start
+   * with "#". Locate the next "#" and thus find out where the
+   * words end.
+   */
+  $end=strpos($words, "#", $start+1);
+  $lang_words = substr($words, $start, $end-$start);
+  return $lang_words;
+}
+
+/**
+ * This function operates the user dictionary. If the format is
+ * clear-text, then it just reads the file and returns it. However, if
+ * the file is encrypted (well, "garbled"), then it tries to decrypt
+ * it, checks whether the decryption was successful, troubleshoots if
+ * not, then returns the clear-text dictionary to the app.
+ * 
+ * @return the contents of the user's ".words" file, decrypted if 
+ *         necessary.
+ */
+function sqspell_getWords(){
+  global $SQSPELL_WORDS_FILE, $SQSPELL_CRYPTO;
+  $words="";
+  if (file_exists($SQSPELL_WORDS_FILE)){
+    /**
+     * Gobble it up.
+     */
+    $fp=fopen($SQSPELL_WORDS_FILE, 'r');
+    $words=fread($fp, filesize($SQSPELL_WORDS_FILE));
+    fclose($fp);
+  }
+  /**
+   * Check if this is an encrypted file by looking for
+   * the string "# SquirrelSpell" in it (the crypto
+   * function does that).
+   */
+  if ($words && !strstr($words, "# SquirrelSpell")){
+    /**
+     * This file is encrypted or mangled. Try to decrypt it.
+     * If fails, complain loudly.
+     *
+     * $old_key would be a value submitted by one of the modules with
+     * the user's old mailbox password. I admin, this is rather dirty,
+     * but efficient. ;)
+     */
+    global $key, $onetimepad, $old_key;
+    if ($old_key) {
+      $clear_key=$old_key;
+    } else {
+      /**
+       * Get user's password (the key).
+       */
+      $clear_key = OneTimePadDecrypt($key, $onetimepad);
+    }
+    /**
+     * Invoke the decryption routines.
+     */
+    $words=sqspell_crypto("decrypt", $clear_key, $words);
+    /**
+     * See if decryption failed.
+     */
+    if ($words=="PANIC"){
+      /**
+       * AAAAAAAAAAAH!!!!! OK, ok, breathe!
+       * Let's hope the decryption failed because the user changed his
+       * password. Bring up the option to key in the old password
+       * or wipe the file and start over if everything else fails.
+       *
+       * The _("SquirrelSpell...) line has to be on one line, otherwise
+       * gettext will bork. ;(
+       */
+      $msg='<p>'
+	 . '<strong>' . _("ATTENTION:") . '</strong><br>'
+	 .  _("SquirrelSpell was unable to decrypt your personal dictionary. This is most likely due to the fact that you have changed your mailbox password. In order to proceed, you will have to supply your old password so that SquirrelSpell can decrypt your personal dictionary. It will be re-encrypted with your new password after this.<br>If you haven't encrypted your dictionary, then it got mangled and is no longer valid. You will have to delete it and start anew. This is also true if you don't remember your old password -- without it, the encrypted data is no longer accessible.")
+	 . '</p>'
+	 . '<blockquote>'
+	 . '<form method="post" onsubmit="return AYS()">'
+	 . '<input type="hidden" name="MOD" value="crypto_badkey">'
+	 . '<p><input type="checkbox" name="delete_words" value="ON">'
+	 . _("Delete my dictionary and start a new one") . '<br>'
+	 . _("Decrypt my dictionary with my old password:")
+	 . '<input name="old_key" size=\"10\"></p>'
+	 . '</blockquote>'
+	 . '<p align="center"><input type="submit" value="' 
+	 . _("Proceed") . ' &gt;&gt;"></p>'
+	 . '</form>';
+      /**
+       * See if this happened in the pop-up window or when accessing
+       * the SpellChecker options page. 
+       * This is a dirty solution, I agree. TODO: make this prettier.
+       */
+      global $SCRIPT_NAME;
+      if (strstr($SCRIPT_NAME, "sqspell_options")){
+	sqspell_makePage( _("Error Decrypting Dictionary"), 
+			  "decrypt_error.js", $msg);
+      } else {
+	sqspell_makeWindow(null, _("Error Decrypting Dictionary"), 
+			   "decrypt_error.js", $msg); 
+      }
+      exit;
+    } else {
+      /**
+       * OK! Phew. Set the encryption flag to true so we can later on 
+       * encrypt it again before saving to HDD.
+       */
+      $SQSPELL_CRYPTO=true;
+    }
+  } else {
+    /**
+     * No encryption is/was used. Set $SQSPELL_CRYPTO to false, 
+     * in case we have to save the dictionary later.
+     */
+    $SQSPELL_CRYPTO=false;
+  }
+  /**
+   * Check if we need to upgrade the dictionary from version 0.2.x
+   * This is going away soon.
+   */
+  if (strstr($words, "Dictionary v0.2")){
+    $words=sqspell_upgradeWordsFile($words);
+  }
+  return $words;
+}
+   
+/**
+ * Writes user dictionary into the $username.words file, then changes mask
+ * to 0600. If encryption is needed -- does that, too.
+ *
+ * @param  $words The contents of the ".words" file to write.
+ * @return        void
+ */
+function sqspell_writeWords($words){
+  global $SQSPELL_WORDS_FILE, $SQSPELL_CRYPTO;
+  /**
+   * if $words is empty, create a template entry by calling the
+   * sqspell_makeDummy() function.
+   */
+  if (!$words){
+    $words=sqspell_makeDummy();
+  }
+  if ($SQSPELL_CRYPTO){
+    /**
+     * User wants to encrypt the file. So be it.
+     * Get the user's password to use as a key.
+     */
+    global $key, $onetimepad;
+    $clear_key=OneTimePadDecrypt($key, $onetimepad);
+    /**
+     * Try encrypting it. If fails, scream bloody hell.
+     */
+    $save_words = sqspell_crypto("encrypt", $clear_key, $words);
+    if ($save_words == 'PANIC'){
+      /**
+       * AAAAAAAAH! I'm not handling this yet, since obviously
+       * the admin of the site forgot to compile the MCRYPT support in
+       * when upgrading an existing PHP installation.
+       * I will add a handler for this case later, when I can come up
+       * with some work-around... Right now, do nothing. Let the Admin's
+       * head hurt.. ;)))
+       */
+    }
+  } else {
+    $save_words = $words;
+  }
+  /**
+   * Do the actual writing.
+   */
+  $fp=fopen($SQSPELL_WORDS_FILE, "w");
+  fwrite($fp, $save_words);
+  fclose($fp);
+  chmod($SQSPELL_WORDS_FILE, 0600);
+}
     
+function sqspell_deleteWords(){
+  /**
+   * So I open the door to my enemies,
+   * and I ask can we wipe the slate clean,
+   * but they tell me to please go...
+   * uhm... Well, this just erases the user dictionary file.
+   */
+  global $SQSPELL_WORDS_FILE;
+  if (file_exists($SQSPELL_WORDS_FILE)){
+    unlink($SQSPELL_WORDS_FILE);
+  }
+}
+/**
+ * Creates an empty user dictionary for the sake of saving prefs or
+ * whatever.
+ *
+ * @return The template to use when storing the user dictionary.
+ */    
+function sqspell_makeDummy(){
+  global $SQSPELL_VERSION, $SQSPELL_APP_DEFAULT;
+  $words = "# SquirrelSpell User Dictionary $SQSPELL_VERSION\n"
+     . "# Last Revision: " . date('Y-m-d') 
+     . "\n# LANG: $SQSPELL_APP_DEFAULT\n# End\n"; 
+  return $words;
+}
+
+/**
+ * This function checks for security attacks. A $MOD variable is
+ * provided in the QUERY_STRING and includes one of the files from the
+ * modules directory ($MOD.mod). See if someone is trying to get out
+ * of the modules directory by providing dots, unicode strings, or
+ * slashes.
+ *
+ * @param  $rMOD the name of the module requested to include.
+ * @return       void, since it bails out with an access error if needed.
+ */
+function sqspell_ckMOD($rMOD){
+  if (strstr($rMOD, '.') 
+      || strstr($rMOD, '/') 
+      || strstr($rMOD, '%')
+      || strstr($rMOD, "\\")){ 
+    echo _("Cute.");
+    exit;
+  }
+}
+
+/**
+ * SquirrelSpell version. Don't modify, since it identifies the format
+ * of the user dictionary files and messing with this can do ugly 
+ * stuff. :)
+ */
+$SQSPELL_VERSION="v0.3.7";
 ?>
