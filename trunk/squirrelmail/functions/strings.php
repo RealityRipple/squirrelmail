@@ -1,22 +1,38 @@
 <?php
 
-   /**
-    *   strings.php
-    *
-    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
-    *   Licensed under the GNU GPL. For full terms see the file COPYING.
-    *
-    *   This code provides various string manipulation functions that are
-    *   used by the rest of the Squirrelmail code.
-    *
-    *   $Id$
-    */
+/**
+ * strings.php
+ *
+ * Copyright (c) 1999-2001 The Squirrelmail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * This code provides various string manipulation functions that are
+ * used by the rest of the Squirrelmail code.
+ *
+ * $Id$
+ */
 
-   /**
-    * SquirrelMail version number -- DO NOT CHANGE
-    */
-   global $version;
-   $version = '1.2.0 [cvs]';
+/*****************************************************************/
+/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
+/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
+/***    + Base level indent should begin at left margin, as    ***/
+/***      the comment and $version stuff below.                ***/
+/***    + All identation should consist of four space blocks   ***/
+/***    + Tab characters are evil.                             ***/
+/***    + all comments should use "slash-star ... star-slash"  ***/
+/***      style -- no pound characters, no slash-slash style   ***/
+/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
+/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
+/***    + Please use ' instead of ", when possible. Note "     ***/
+/***      should always be used in _( ) function calls.        ***/
+/*** Thank you for your help making the SM code more readable. ***/
+/*****************************************************************/
+
+/**
+ * SquirrelMail version number -- DO NOT CHANGE
+ */
+global $version;
+$version = '1.2.0 [cvs]';
 
    /**
     * Count the number of occurances of $needle are in $haystack.

@@ -1,20 +1,36 @@
 <?php
 
-   /**
-    *   imap_messages.php
-    *
-    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
-    *   Licensed under the GNU GPL. For full terms see the file COPYING.
-    *
-    *   This implements functions that manipulate messages
-    *
-    *   $Id$
-    */
+/**
+ * imap_messages.php
+ *
+ * Copyright (c) 1999-2001 The Squirrelmail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * This implements functions that manipulate messages
+ *
+ * $Id$
+ */
 
-   /******************************************************************************
-    **  Copies specified messages to specified folder
-    ******************************************************************************/
-   function sqimap_messages_copy ($imap_stream, $start, $end, $mailbox) {
+/*****************************************************************/
+/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
+/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
+/***    + Base level indent should begin at left margin, as    ***/
+/***      the function definition starts below.                ***/
+/***    + All identation should consist of four space blocks   ***/
+/***    + Tab characters are evil.                             ***/
+/***    + all comments should use "slash-star ... star-slash"  ***/
+/***      style -- no pound characters, no slash-slash style   ***/
+/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
+/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
+/***    + Please use ' instead of ", when possible. Note "     ***/
+/***      should always be used in _( ) function calls.        ***/
+/*** Thank you for your help making the SM code more readable. ***/
+/*****************************************************************/
+
+/****************************************************
+ **  Copies specified messages to specified folder **
+ ****************************************************/
+function sqimap_messages_copy ($imap_stream, $start, $end, $mailbox) {
       fputs ($imap_stream, sqimap_session_id() . " COPY $start:$end \"$mailbox\"\r\n");
       $read = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
    }

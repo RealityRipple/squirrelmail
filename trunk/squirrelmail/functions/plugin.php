@@ -1,21 +1,36 @@
 <?php
 
-   /**
-    *   plugin.php
-    *
-    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
-    *   Licensed under the GNU GPL. For full terms see the file COPYING.
-    *
-    *   This file provides the framework for a plugin architecture.
-    *
-    *   Documentation on how to write plugins might show up some time.
-    *
-    *   $Id$
-    */
+/**
+ * plugin.php
+ *
+ * Copyright (c) 1999-2001 The SquirrelMail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * This file provides the framework for a plugin architecture.
+ *
+ * Documentation on how to write plugins might show up some time.
+ *
+ * $Id$
+ */
 
-    global $squirrelmail_plugin_hooks;
+/*****************************************************************/
+/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
+/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
+/***    + Base level indent should begin at left margin, as    ***/
+/***      the $squirrelmail_plugin_hooks stuff below.          ***/
+/***    + All identation should consist of four space blocks   ***/
+/***    + Tab characters are evil.                             ***/
+/***    + all comments should use "slash-star ... star-slash"  ***/
+/***      style -- no pound characters, no slash-slash style   ***/
+/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
+/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
+/***    + Please use ' instead of ", when possible. Note "     ***/
+/***      should always be used in _( ) function calls.        ***/
+/*** Thank you for your help making the SM code more readable. ***/
+/*****************************************************************/
 
-    $squirrelmail_plugin_hooks = array();
+global $squirrelmail_plugin_hooks;
+squirrelmail_plugin_hooks = array();
 
     // This function adds a plugin
     function use_plugin ($name) {

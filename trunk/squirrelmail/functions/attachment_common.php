@@ -1,18 +1,34 @@
 <?php
 
-   /**
-    *  attachment_common.php
-    *
-    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
-    *   Licensed under the GNU GPL. For full terms see the file COPYING.
-    *
-    *  This file provides the handling of often-used attachment types.
-    *
-    *  $Id$
-    */
+/**
+ * attachment_common.php
+ *
+ * Copyright (c) 1999-2001 The Squirrelmail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * This file provides the handling of often-used attachment types.
+ *
+ * $Id$
+ */
 
-  global $attachment_common_show_images_list;
-  $attachment_common_show_images_list = array();
+/*****************************************************************/
+/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
+/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
+/***    + Base level indent should begin at left margin, as    ***/
+/***      the $attachment_common_show_images_list stuff below. ***/
+/***    + All identation should consist of four space blocks   ***/
+/***    + Tab characters are evil.                             ***/
+/***    + all comments should use "slash-star ... star-slash"  ***/
+/***      style -- no pound characters, no slash-slash style   ***/
+/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
+/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
+/***    + Please use ' instead of ", when possible. Note "     ***/
+/***      should always be used in _( ) function calls.        ***/
+/*** Thank you for your help making the SM code more readable. ***/
+/*****************************************************************/
+
+global $attachment_common_show_images_list;
+$attachment_common_show_images_list = array();
 
   global $FileExtensionToMimeType, $attachment_common_types;
   $FileExtensionToMimeType = array('bmp'  => 'image/x-bitmap',

@@ -1,24 +1,34 @@
 <?php
 
-    /**
-     **  load_prefs.php
-     **
-     **  Copyright (c) 1999-2001 The SquirrelMail Development Team
-     **  Licensed under the GNU GPL. For full terms see the file COPYING.
-     **
-     **  Loads preferences from the $username.pref file used by almost
-     **  every other script in the source directory and alswhere.
-     **
-     **  $Id$
-     **/
+/**
+ * load_prefs.php
+ *
+ * Copyright (c) 1999-2001 The Squirrelmail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * Loads preferences from the $username.pref file used by almost
+ * every other script in the source directory and alswhere.
+ *
+ * $Id$
+ */
 
-    require_once('../src/validate.php');
+/*****************************************************************/
+/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
+/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
+/***    + Base level indent should begin at left margin, as    ***/
+/***      the require_once below looks.                        ***/
+/***    + All identation should consist of four space blocks   ***/
+/***    + Tab characters are evil.                             ***/
+/***    + all comments should use "slash-star ... star-slash"  ***/
+/***      style -- no pound characters, no slash-slash style   ***/
+/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
+/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
+/***    + Please use ' instead of ", when possible. Note "     ***/
+/***      should always be used in _( ) function calls.        ***/
+/*** Thank you for your help making the SM code more readable. ***/
+/*****************************************************************/
 
-    /**************************************************************/
-    /* Following code should be removed in the next foo_once step */
-    if (defined('load_prefs_php')) { return; }
-    define('load_prefs_php', true);
-    /**************************************************************/
+require_once('../src/validate.php');
 
     global $theme, $chosen_theme, $color;
     if (! isset($theme)) { $theme = array(); }

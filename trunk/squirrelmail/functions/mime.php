@@ -1,33 +1,48 @@
 <?php
 
-   /**
-    *  mime.php
-    *
-    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
-    *   Licensed under the GNU GPL. For full terms see the file COPYING.
-    *
-    *  This contains the functions necessary to detect and decode MIME
-    *  messages.
-    *
-    *  $Id$
-    */
+/**
+ * mime.php
+ *
+ * Copyright (c) 1999-2001 The SquirrelMail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * This contains the functions necessary to detect and decode MIME
+ * messages.
+ *
+ * $Id$
+ */
 
-   require_once('../functions/imap.php');
-   require_once('../functions/attachment_common.php');
+/*****************************************************************/
+/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
+/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
+/***    + Base level indent should begin at left margin, as    ***/
+/***      the require_once below.                              ***/
+/***    + All identation should consist of four space blocks   ***/
+/***    + Tab characters are evil.                             ***/
+/***    + all comments should use "slash-star ... star-slash"  ***/
+/***      style -- no pound characters, no slash-slash style   ***/
+/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
+/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
+/***    + Please use ' instead of ", when possible. Note "     ***/
+/***      should always be used in _( ) function calls.        ***/
+/*** Thank you for your help making the SM code more readable. ***/
+/*****************************************************************/
 
-   /** Setting up the objects that have the structure for the message **/
+require_once('../functions/imap.php');
+require_once('../functions/attachment_common.php');
 
-   class msg_header {
-      /** msg_header contains generic variables for values that **/
-      /** could be in a header.                                 **/
+/** Setting up the objects that have the structure for the message **/
+class msg_header {
+    /** msg_header contains generic variables for values that **/
+    /** could be in a header.                                 **/
 
-      var $type0 = '', $type1 = '', $boundary = '', $charset = '';
-      var $encoding = '', $size = 0, $to = array(), $from = '', $date = '';
-      var $cc = array(), $bcc = array(), $reply_to = '', $subject = '';
-      var $id = 0, $mailbox = '', $description = '', $filename = '';
-      var $entity_id = 0, $message_id = 0, $name = '';
-      // var $priority = "";
-   }
+    var $type0 = '', $type1 = '', $boundary = '', $charset = '';
+    var $encoding = '', $size = 0, $to = array(), $from = '', $date = '';
+    var $cc = array(), $bcc = array(), $reply_to = '', $subject = '';
+    var $id = 0, $mailbox = '', $description = '', $filename = '';
+    var $entity_id = 0, $message_id = 0, $name = '';
+    // var $priority = "";
+}
 
    class message {
       /** message is the object that contains messages.  It is a recursive

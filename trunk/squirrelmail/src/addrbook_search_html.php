@@ -1,28 +1,44 @@
 <?php
 
-   /**
-    **  addrbook_search_html.php
-    **
-    **  Copyright (c) 1999-2000 The SquirrelMail development team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  Handle addressbook searching with pure html.
-    **
-    **  This file is included from compose.php
-    **
-    **  NOTE: A lot of this code is similar to the code in
-    **        addrbook_search.html -- If you change one, change
-    **        the other one too!
-    **
-    **  $Id$
-    **/
+/**
+ * addrbook_search_html.php
+ *
+ * Copyright (c) 1999-2001 The Squirrelmail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * Handle addressbook searching with pure html.
+ *
+ * This file is included from compose.php
+ *
+ * NOTE: A lot of this code is similar to the code in
+ *       addrbook_search.html -- If you change one, change
+ *       the other one too!
+ *
+ * $Id$
+ */
 
-   require_once('../src/validate.php');
-   require_once('../functions/date.php');
-   require_once('../functions/smtp.php');
-   require_once('../functions/display_messages.php');
-   require_once('../functions/addressbook.php');
-   require_once('../functions/plugin.php');
+/*****************************************************************/
+/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
+/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
+/***    + Base level indent should begin at left margin, as    ***/
+/***      the require_once below looks.                        ***/
+/***    + All identation should consist of four space blocks   ***/
+/***    + Tab characters are evil.                             ***/
+/***    + all comments should use "slash-star ... star-slash"  ***/
+/***      style -- no pound characters, no slash-slash style   ***/
+/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
+/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
+/***    + Please use ' instead of ", when possible. Note "     ***/
+/***      should always be used in _( ) function calls.        ***/
+/*** Thank you for your help making the SM code more readable. ***/
+/*****************************************************************/
+
+require_once('../src/validate.php');
+require_once('../functions/date.php');
+require_once('../functions/smtp.php');
+require_once('../functions/display_messages.php');
+require_once('../functions/addressbook.php');
+require_once('../functions/plugin.php');
 
    // Insert hidden data
    function addr_insert_hidden() {

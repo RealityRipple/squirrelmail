@@ -1,20 +1,35 @@
 <?php
 
-   /**
-    **  signout.php -- cleans up session and logs the user out
-    **
-    **  Copyright (c) 1999-2001 The SquirrelMail development team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  Cleans up after the user. Resets cookies and terminates
-    **  session.
-    **
-    **  $Id$
-    **/
+/**
+ * signout.php -- cleans up session and logs the user out
+ *
+ * Copyright (c) 1999-2001 The SquirrelMail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ *  Cleans up after the user. Resets cookies and terminates session.
+ *
+ * $Id$
+ */
 
-   require_once('../src/validate.php');
-   require_once('../functions/prefs.php');
-   require_once('../functions/plugin.php');
+/*****************************************************************/
+/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
+/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
+/***    + Base level indent should begin at left margin, as    ***/
+/***      the require_once below looks.                        ***/
+/***    + All identation should consist of four space blocks   ***/
+/***    + Tab characters are evil.                             ***/
+/***    + all comments should use "slash-star ... star-slash"  ***/
+/***      style -- no pound characters, no slash-slash style   ***/
+/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
+/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
+/***    + Please use ' instead of ", when possible. Note "     ***/
+/***      should always be used in _( ) function calls.        ***/
+/*** Thank you for your help making the SM code more readable. ***/
+/*****************************************************************/
+
+require_once('../src/validate.php');
+require_once('../functions/prefs.php');
+require_once('../functions/plugin.php');
 
    // Erase any lingering attachments
    if (! isset($attachments)) {

@@ -1,36 +1,52 @@
 <?php {
    
-   /**
-    *   abook_database.php
-    *
-    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
-    *   Licensed under the GNU GPL. For full terms see the file COPYING.
-    *
-    *   Backend for personal addressbook stored in a database,
-    *   accessed using the DB-classes in PEAR.
-    *
-    *   IMPORTANT:  The PEAR modules must be in the include path
-    *   for this class to work.
-    *
-    *   An array with the following elements must be passed to
-    *   the class constructor (elements marked ? are optional):
-    *
-    *      dsn       => database DNS (see PEAR for syntax)
-    *      table     => table to store addresses in (must exist)
-    *      owner     => current user (owner of address data)
-    *    ? writeable => set writeable flag (true/false)
-    *
-    *  The table used should have the following columns:
-    *   owner, nickname, firstname, lastname, email, label
-    *  The pair (owner,nickname) should be unique (primary key).
-    *
-    *   NOTE. This class should not be used directly. Use the
-    *         "AddressBook" class instead.
-    *
-    *  $Id$
-    */
+/**
+ * abook_database.php
+ *
+ * Copyright (c) 1999-2001 The Squirrelmail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * Backend for personal addressbook stored in a database,
+ * accessed using the DB-classes in PEAR.
+ *
+ * IMPORTANT:  The PEAR modules must be in the include path
+ * for this class to work.
+ *
+ * An array with the following elements must be passed to
+ * the class constructor (elements marked ? are optional):
+ *
+ *    dsn       => database DNS (see PEAR for syntax)
+ *    table     => table to store addresses in (must exist)
+ *    owner     => current user (owner of address data)
+ *  ? writeable => set writeable flag (true/false)
+ *
+ * The table used should have the following columns:
+ * owner, nickname, firstname, lastname, email, label
+ * The pair (owner,nickname) should be unique (primary key).
+ *
+ *  NOTE. This class should not be used directly. Use the
+ *        "AddressBook" class instead.
+ *
+ * $Id$
+ */
    
-   require_once('DB.php');
+/*****************************************************************/
+/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
+/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
+/***    + Base level indent should begin at left margin, as    ***/
+/***      the require_once below looks.                        ***/
+/***    + All identation should consist of four space blocks   ***/
+/***    + Tab characters are evil.                             ***/
+/***    + all comments should use "slash-star ... star-slash"  ***/
+/***      style -- no pound characters, no slash-slash style   ***/
+/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
+/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
+/***    + Please use ' instead of ", when possible. Note "     ***/
+/***      should always be used in _( ) function calls.        ***/
+/*** Thank you for your help making the SM code more readable. ***/
+/*****************************************************************/
+
+require_once('DB.php');
    
    class abook_database extends addressbook_backend {
       var $btype = 'local';

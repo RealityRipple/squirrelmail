@@ -1,22 +1,38 @@
 <?php
 
-   /**
-    *  i18n.php
-    *
-    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
-    *   Licensed under the GNU GPL. For full terms see the file COPYING.
-    *
-    *  This file contains variuos functions that are needed to do
-    *  internationalization of SquirrelMail.
-    *
-    *  Internally the output character set is used. Other characters are
-    *  encoded using Unicode entities according to HTML 4.0.
-    *
-    *  $Id$
-    */
+/**
+ * i18n.php
+ *
+ * Copyright (c) 1999-2001 The SquirrelMail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * This file contains variuos functions that are needed to do
+ * internationalization of SquirrelMail.
+ *
+ * Internally the output character set is used. Other characters are
+ * encoded using Unicode entities according to HTML 4.0.
+ *
+ * $Id$
+ */
 
-   global $squirrelmail_language, $languages;
-   if (! isset($squirrelmail_language)) { $squirrelmail_language = ''; }
+/*****************************************************************/
+/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
+/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
+/***    + Base level indent should begin at left margin, as    ***/
+/***      the global definition below.                         ***/
+/***    + All identation should consist of four space blocks   ***/
+/***    + Tab characters are evil.                             ***/
+/***    + all comments should use "slash-star ... star-slash"  ***/
+/***      style -- no pound characters, no slash-slash style   ***/
+/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
+/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
+/***    + Please use ' instead of ", when possible. Note "     ***/
+/***      should always be used in _( ) function calls.        ***/
+/*** Thank you for your help making the SM code more readable. ***/
+/*****************************************************************/
+
+global $squirrelmail_language, $languages;
+if (! isset($squirrelmail_language)) { $squirrelmail_language = ''; }
 
    // This array specifies the available languages.
    $languages['ca']['NAME']    = 'Catalan';
