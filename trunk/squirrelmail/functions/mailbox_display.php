@@ -169,10 +169,11 @@
       }
       echo "</TD></TR>\n";
 
-      /** The "DELETE" button */
+      /** The delete and move options */
       echo "<TR><TD BGCOLOR=DCDCDC>";
       echo "<FORM name=messageList method=post action=\"move_messages.php?mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage\">";
-      echo "<NOBR><INPUT TYPE=SUBMIT VALUE=\"Delete Selected\">";
+      echo "<SELECT NAME=move_or_delete><OPTION>Delete selected messages<OPTION>Move selected messages</SELECT>";
+      echo "<NOBR><INPUT TYPE=SUBMIT VALUE=\"Go\">";
       if (($move_to_trash == true) && ($mailbox == $trash_folder))
          echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\">Empty Trash</A></NOBR>";
       echo "</TD></TR>";
@@ -220,16 +221,9 @@
             $t++;
          }
       }
-      echo "</TABLE>";
+      echo "</FORM></TABLE>";
 
-      /** The "DELETE" button */
-      echo "<TR><TD BGCOLOR=DCDCDC>";
-      echo "<INPUT TYPE=SUBMIT VALUE=\"Delete Selected\">";
-      if (($move_to_trash == true) && ($mailbox == $trash_folder))
-         echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF=\"empty_trash.php\">Empty Trash</A></NOBR>";
-      echo "</TD></TR>";
-
-      echo "</FORM></TABLE>\n";
+      echo "</TABLE>\n";
       echo "</TD></TR>\n";
 
       echo "<TR BGCOLOR=FFFFFF><TD>";
