@@ -24,6 +24,10 @@
       global $attachments, $attachment_dir;
 
       while (list($localname, $remotename) = each($attachments)) {
+         // This is to make sure noone is giving a filename in another
+         // directory
+         $localname = ereg_replace ("\\/", "", $localname);
+
          $fileinfo = fopen ($attachment_dir.$localname.".info", "r");
          $filetype = fgets ($fileinfo, 8192);
          fclose ($fileinfo);
