@@ -39,6 +39,8 @@ Version 1.5.0 -- CVS
     dropped.
   - Rewrite of email address parser and solve the infinite loops issues due to
     bad formatted addresses.
+  - Modified conf.pl: default to force usernames lowercase for servers which
+    are case-insensitive
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
