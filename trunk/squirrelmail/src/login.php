@@ -66,7 +66,10 @@
    echo "               <TD WIDTH=30% ALIGN=right>\n";
    echo _("Name:");
    echo "               </TD><TD WIDTH=* ALIGN=left>\n";
-   echo "                  <INPUT TYPE=TEXT NAME=\"$username_form_name\">\n";
+   echo "                  <INPUT TYPE=TEXT NAME=\"$username_form_name\"";
+   if (isset($loginname))
+      echo " value=\"" . htmlspecialchars($loginname) . "\"";
+   echo ">\n";
    echo "               </TD>\n";
    echo "            </TR><TR>\n";
    echo "               <TD WIDTH=30% ALIGN=right>\n";
