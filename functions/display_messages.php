@@ -106,7 +106,7 @@ function logout_error( $errString, $errTitle = '' ) {
              "\"$width_and_height /><br />\n";
     }
     echo ( $hide_sm_attributions ? '' :
-            '<small>' . sprintf (_("SquirrelMail version %s"), $version) . '<br />'.
+            '<small>' .  _("SquirrelMail Webmail Application") . '<br />'.
             _("By the SquirrelMail Development Team") . "<br /></small>\n" ).
          '<table cellspacing="1" cellpadding="0" bgcolor="'.$color[1].'" width="70%">'.
          '<tr><td>'.
