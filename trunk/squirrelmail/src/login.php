@@ -72,7 +72,8 @@ $header = "<script language=\"JavaScript\" type=\"text/javascript\">\n" .
 $custom_css = 'none';          
 displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 
-echo '<body text="#000000" bgcolor="#FFFFFF" link="#0000CC" vlink="#0000CC" alink="#0000CC" onload="squirrelmail_loginpage_onload();">';
+echo '<body text="#000000" bgcolor="#FFFFFF" link="#0000CC" vlink="#0000CC" alink="#0000CC" onload="squirrelmail_loginpage_onload();">' .
+     "\n" . '<form action="redirect.php" method="post">' . "\n";
 
 $username_form_name = 'login_username';
 $password_form_name = 'secretkey';
@@ -106,8 +107,7 @@ if (check_php_version(4,3) and !isset($shootMyFootOff)) {
     echo "\n";
 }
 
-echo "\n" . '<form action="redirect.php" method="post">' . "\n" .
-html_tag( 'table',
+echo html_tag( 'table',
     html_tag( 'tr',
         html_tag( 'td',
             '<center>'.
