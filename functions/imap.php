@@ -93,4 +93,17 @@
          setMessageFlag($imapConnection, $a, $b, "Deleted");
       }
    }
+   function stripComments($line) {
+      if (strpos($line, ";")) {
+         $line = substr($line, 0, strpos($line, ";"));
+      }
+
+      if (strpos($line, "(") && strpos($line, ")")) {
+         $full_line = $full_line . substr($line, 0, strpos($line, "("));
+         $full_line = $full_line . substr($line, strpos($line, ")")+1, strlen($line) - strpos($line, ")"));
+      } else {
+         $full_line = $line;
+      }
+      return $full_line;
+   }
 ?>

@@ -9,6 +9,33 @@
     **
     **/
 
+   function getMinutes($hour) {
+      $date = $hour;
+
+      if (($hour == 0) || ($hour == "00"))
+         $date = "00";
+      else if (($hour == 1) || ($hour == "01"))
+         $date = "01";
+      else if (($hour == 2) || ($hour == "02"))
+         $date = "02";
+      else if (($hour == 3) || ($hour == "03"))
+         $date = "03";
+      else if (($hour == 4) || ($hour == "04"))
+         $date = "04";
+      else if (($hour == 5) || ($hour == "05"))
+         $date = "05";
+      else if (($hour == 6) || ($hour == "06"))
+         $date = "06";
+      else if (($hour == 7) || ($hour == "07"))
+         $date = "07";
+      else if (($hour == 8) || ($hour == "08"))
+         $date = "08";
+      else if (($hour == 9) || ($hour == "09"))
+         $date = "09";
+
+      return $date;
+   }
+
    function getHour($hour) {
       $time = explode(":", $hour);
       return $time[0];
@@ -159,31 +186,25 @@
       return mktime($d[0], $d[1], $d[2], $d[3], $d[4], $d[5]);
    }
 
-   function getLongDateString($dateParts) {
-      if (eregi("mon|tue|wed|thu|fri|sat|sun", trim($dateParts[0]), $tmp)) {
-         $date[0] = getDayOfMonth(trim($dateParts[1]));
-         $date[1] = getMonth(trim($dateParts[2]));
-         $date[2] = getYear(trim($dateParts[3]));
-         $date[3] = getHour(trim($dateParts[4]));
-         $date[4] = getMinute(trim($dateParts[4]));
+   function getLongDateString($stamp) {
+      $dateArray = getDate($stamp);
+
+      if ($dateArray["hours"] >= 12) {
+         $am_pm = "p.m.";
       } else {
-         $date[0] = getDayOfMonth(trim($dateParts[0]));
-         $date[1] = getMonth(trim($dateParts[1]));
-         $date[2] = getYear(trim($dateParts[2]));
-         $date[3] = getHour(trim($dateParts[3]));
-         $date[4] = getMinute(trim($dateParts[4]));
+         $am_pm = "a.m.";
       }
 
-      if ($date[3] >= 12) {
-         $date[5] = "p.m.";
-         if ($date[3] >= 13)
-            $date[3] = $date[3] - 12;
-      } else {
-         $date[5] = "a.m.";
-         if ($date[3] < 1)
-            $date[3] = 12;
+      if ($dateArray["hours"] >= 13) {
+         $dateArray["hours"] = $dateArray["hours"] - 12;
       }
 
-      return "$date[1] $date[0], $date[2]&nbsp;&nbsp;&nbsp;$date[3]:$date[4] $date[5]";
+      $dateParts[0] = getDayOfMonth($dateArray["mday"]);
+      $dateParts[1] = getMonth($dateArray["month"]);
+      $dateParts[2] = getYear($dateArray["year"]);
+      $dateParts[3] = $dateArray["hours"]; // hour
+      $dateParts[4] = getMinutes($dateArray["minutes"]); // minute
+
+      return "$dateParts[1] $dateParts[0], $dateParts[2] at $dateParts[3]:$dateParts[4] $am_pm";
    }
 ?>
