@@ -169,7 +169,7 @@ function translate_does_it_match_language($test) {
         return $true;
     }
       
-    while ($test[$index]) {
+    while (isset($test[$index]) && $test[$index]) {
         if ($test[$index] == '*') {
             return $true;
         }
