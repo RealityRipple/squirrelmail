@@ -142,6 +142,9 @@ class abook_local_file extends addressbook_backend {
         
         for($i = 0 ; $i < sizeof($rows) ; $i++) {
             if(is_array($rows[$i])) {
+                for($j = 0 ; $j < count($rows[$i]) ; $j++) {
+                    $rows[$i][$j] = $this->quotevalue($rows[$i][$j]);
+                }
                 fwrite($newfh, join('|', $rows[$i]) . "\n");
             }
         }       
@@ -247,9 +250,12 @@ class abook_local_file extends addressbook_backend {
         }
   
         /* Here is the data to write */
-        $data = $userdata['nickname'] . '|' . $userdata['firstname'] . '|' .
-                $userdata['lastname'] . '|' . $userdata['email'] . '|' .
-                $userdata['label'];
+        $data = $this->quotevalue($userdata['nickname']) . '|' .
+                $this->quotevalue($userdata['firstname']) . '|' .
+                $this->quotevalue($userdata['lastname']) . '|' .
+                $this->quotevalue($userdata['email']) . '|' .
+                $this->quotevalue($userdata['label']);
+
         /* Strip linefeeds */
         $data = ereg_replace("[\r\n]", ' ', $data);
         /* Add linefeed at end */
@@ -359,5 +365,15 @@ class abook_local_file extends addressbook_backend {
         return true;
     }
      
+    /* Function for quoting values before saving */
+    function quotevalue($value) {
+        /* Quote the field if it contains | or ". Double quotes need to
+         * be replaced with "" */
+        if(ereg("[|\"]", $value)) {
+            $value = '"' . str_replace('"', '""', $value) . '"';
+        }
+        return $value;
+    }
+
 } /* End of class abook_local_file */
 ?>
