@@ -397,33 +397,23 @@ function checkForPrefs($data_dir, $username) {
 
 /* Writes the Signature */
 function setSig($data_dir, $username, $number, $string) {
-    $db = new dbPrefs;
-    if(isset($db->error)) {
-        $db->failQuery();
-    }
-
     if ($number == "g") {
         $key = '___signature___';
     } else {
         $key = sprintf('___sig%s___', $number);
     }
-    $db->setKey($username, $key, $string);
+    setPref($data_dir, $username, $key, $string);
     return;
 }
 
 /* Gets the signature */
 function getSig($data_dir, $username, $number) {
-    $db = new dbPrefs;
-    if(isset($db->error)) {
-        $db->failQuery();
-    }
-
     if ($number == "g") {
         $key = '___signature___';
     } else {
         $key = sprintf('___sig%d___', $number);
     }
-    return $db->getKey($username, $key);
+    return getPref($data_dir, $username, $key);
 }
 
 ?>
