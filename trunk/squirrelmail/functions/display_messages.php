@@ -92,13 +92,13 @@ function plain_error_message($message, $color) {
 function logout_error( $errString, $errTitle = '' ) {
 
     GLOBAL $frame_top, $org_logo, $org_name, $org_logo_width, $org_logo_height,
-           $hide_sm_attributions, $version, $DOCUMENT_ROOT,
-           $squirrelmail_language;
+           $hide_sm_attributions, $version, $squirrelmail_language;
+
     $base_uri = sqm_baseuri();
-    include_once($DOCUMENT_ROOT . $base_uri . 'functions/page_header.php' );
+    include_once( '../functions/page_header.php' );
     if ( !isset( $org_logo ) ) {
         // Don't know yet why, but in some accesses $org_logo is not set.
-        include( $DOCUMENT_ROOT . $base_uri . 'config/config.php' );
+        include( '../config/config.php' );
     }
     /* Display width and height like good little people */
     $width_and_height = '';
