@@ -385,6 +385,9 @@ function sqimap_mailbox_parse ($line, $line_lsub) {
         $boxesall[$g]['flags'] = array();
         if (isset($line[$g])) {
             ereg("\(([^)]*)\)",$line[$g],$regs);
+	    // FIXME Flags do contain the \ character. \NoSelect \NoInferiors 
+	    // and $MDNSent <= last one doesn't have the \
+	    // It's better to follow RFC3501 instead of using our own naming.
             $flags = trim(strtolower(str_replace('\\', '',$regs[1])));
             if ($flags) {
                 $boxesall[$g]['flags'] = explode(' ', $flags);
@@ -424,13 +427,14 @@ function user_strcasecmp($a, $b) {
  *           'noselect' by default to remove unselectable mailboxes.
  *           'noinferiors' used to filter out folders that can not contain subfolders.
  *           NULL to avoid flag check entirely.
+ *           NOTE: noselect and noiferiors are used internally. The IMAP representation is
+ *                 \NoSelect and \NoInferiors
  *   $use_long_format - override folder display preference and always show full folder name.
  */
 function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_skip = 0, $boxes = 0, 
                                     $flag = 'noselect', $use_long_format = false ) {
     global $username, $data_dir;
     $mbox_options = '';
-
     if ( $use_long_format ) {
         $shorten_box_names = 0;
     } else {
@@ -444,19 +448,29 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
     foreach ($boxes as $boxes_part) {
         if ($flag == NULL || !in_array($flag, $boxes_part['flags'])) {
             $box = $boxes_part['unformatted'];
-            $lowerbox = strtolower($box);
 
-            if ($folder_skip != 0 && in_array($lowerbox, $folder_skip) ) {
+            if ($folder_skip != 0 && in_array($box, $folder_skip) ) {
                 continue;
             }
-            if ($lowerbox == 'inbox'){
+            $lowerbox = strtolower($box); 
+	    // mailboxes are casesensitive => inbox.sent != inbox.Sent
+	    // nevermind, to many dependencies this should be fixed!
+	    
+            if (strtolower($box) == 'inbox') { // inbox is special and not casesensitive
                 $box2 = _("INBOX");
-            } else if ( $shorten_box_names == 2 ) {  /* delimited, style = 2 */
-                $box2 = str_replace('&nbsp;&nbsp;', '.&nbsp;', $boxes_part['formatted']);
-            } else if ( $shorten_box_names == 1 ) {     /* indent, style = 1 */
-                $box2 = $boxes_part['formatted'];
-            } else  {                      /* default, long names, style = 0 */
-                $box2 = str_replace(' ', '&nbsp;', imap_utf7_decode_local($boxes_part['unformatted-disp']));
+            } else { 
+	        switch ($shorten_box_names)
+		{
+		  case 2:   /* delimited, style = 2 */
+                    $box2 = str_replace('&nbsp;&nbsp;', '.&nbsp;', $boxes_part['formatted']);
+		    break;
+                  case 1:   /* indent, style = 1 */
+                    $box2 = $boxes_part['formatted'];
+		    break;
+                  default:  /* default, long names, style = 0 */
+                    $box2 = str_replace(' ', '&nbsp;', imap_utf7_decode_local($boxes_part['unformatted-disp']));
+		    break;
+		}
             }
             if ($show_selected != 0 && in_array($lowerbox, $show_selected) ) {
                 $mbox_options .= '<OPTION VALUE="'.$box.'" SELECTED>'.$box2.'</OPTION>' . "\n";
