@@ -104,6 +104,12 @@ function sqimap_get_sort_order ($imap_stream, $sort) {
     if (session_is_registered('server_sort_array')) {
         session_unregister('server_sort_array');
     }
+    if ($sort == 6) {
+        $qty = sqimap_get_num_messages ($imap_stream, $mailbox);
+        $server_sort_array = range(1, $qty);
+        session_register('server_sort_array');
+        return $server_sort_array;
+    }
     $sid = sqimap_session_id();
     $sort_on = array();
     $reverse = 0;
@@ -115,8 +121,7 @@ function sqimap_get_sort_order ($imap_stream, $sort) {
                       2=> 'FROM',
                       3=> 'FROM',
                       4=> 'SUBJECT',
-                      5=> 'SUBJECT',
-                      6=> 'DATE');
+                      5=> 'SUBJECT');
     if ($internal_date_sort == true) {
         $sort_on[0] = 'ARRIVAL';
         $sort_on[1] = 'ARRIVAL';
