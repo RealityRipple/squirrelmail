@@ -2,7 +2,6 @@ Version 1.0.1 -- DEVELOPMENT
 ----------------------------
 - Fixed problems with sending messages
 - Fixed some pass-by-reference calls that caused problems with newer PHP versions
-- Fixed bug that crashed some web servers
 - Fixed bug that didn't display last folder subscribed to
 - Removed requirement of PHP 4.0.1 for array_unique() function
 - Removed unnecessary echo statements by breaking out of PHP
