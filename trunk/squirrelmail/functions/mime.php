@@ -120,8 +120,8 @@
          $msg = mime_get_element ($structure, $msg, $ent_id);
          if ($debug_mime) echo "<br>";
       }
-      return $msg;
       if ($debug_mime) echo "<font color=008800><tt>&nbsp;&nbsp;END: mime_parse_structure()</tt></font><br>";
+      return $msg;
    }
 
    // Increments the element ID.  An element id can look like any of
@@ -403,8 +403,6 @@
           $str .= htmlspecialchars($d) . "\n";
       }
       return $str;
-      
-      return "Body retrival error, please report this bug!\n\nTop line is \"$topline\"\n";
    }
 
    function mime_print_body_lines ($imap_stream, $id, $ent_id, $encoding) {
