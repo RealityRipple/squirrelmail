@@ -32,7 +32,7 @@
       if (file_exists('../plugins/'.$name.'/setup.php')) {
          if ($plugin_general_debug)
 	    echo "plugin:  --  Loading $name/setup.php<br>\n";
-         include ('../plugins/'.$name.'/setup.php');
+         include_once('../plugins/'.$name.'/setup.php');
          $function = 'squirrelmail_plugin_init_'.$name;
          if (function_exists($function))
 	 {

@@ -11,8 +11,8 @@
       return;
    define('smtp_php', true);
 
-   include('../functions/addressbook.php');
-   include('../functions/plugin.php');
+   require_once('../functions/addressbook.php');
+   require_once('../functions/plugin.php');
 
    global $username, $popuser, $domain;
 
@@ -448,7 +448,7 @@
       if ($num != 250) {
          $tmp = nl2br(htmlspecialchars($tmp));
          displayPageHeader($color, 'None');
-         include ("../functions/display_messages.php");
+         include_once('../functions/display_messages.php');
          $msg  = "Message not sent!<br>\nReason given: $tmp";
          plain_error_message($msg, $color);
          return(0);
@@ -554,9 +554,9 @@
       }
 
       if ($status == 0) {
-         include '../functions/page_header.php';
+         include_once('../functions/page_header.php');
          displayPageHeader($color, 'None');
-		 include ("../functions/display_messages.php");
+         include_once('../functions/display_messages.php');
          $lines = nl2br(htmlspecialchars($lines));
 		 $msg  = $message . "<br>\nServer replied: $lines";
 		 plain_error_message($msg, $color);

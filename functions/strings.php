@@ -172,7 +172,7 @@
       global $where, $what; // from searching
       global $color; // color theme
 
-      include '../functions/url_parser.php';
+      require_once('../functions/url_parser.php');
       
       $body_ary = explode("\n", $body);
       $PriorQuotes = 0;

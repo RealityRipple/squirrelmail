@@ -14,7 +14,7 @@
    global $debug_mime;
    $debug_mime = false;
    
-   include "../functions/imap.php";
+   require_once('../functions/imap.php');
 
    /** Setting up the objects that have the structure for the message **/
 
