@@ -64,7 +64,8 @@
          while (!$words[$i] && $i < count($words)) {
             $i ++;
          }
-            
+
+         // Go to the next line if we have more to process            
          if ($i < count($words)) {
             $line .= "\n$beginning_spaces";
          }
@@ -139,6 +140,7 @@
       }
       
       $body_ary = explode("\n", $body);
+      $PriorQuotes = 0;
       for ($i=0; $i < count($body_ary); $i++) {
          $line = $body_ary[$i];
          if (strlen($line) - 2 >= $wrap_at) {
@@ -147,22 +149,15 @@
          $line = charset_decode($charset, $line);
          $line = str_replace("\t", '        ', $line);
          
-         // We need to do it twice to catch times where there
-         // are an odd number of spaces
-         $line = ereg_replace("^ ", "&nbsp;", $line);
-         $line = str_replace('  ', '&nbsp; ', $line);
-         $line = str_replace('  ', '&nbsp; ', $line);
-         $line = nl2br($line);
-
          parseUrl ($line);
          
          $Quotes = 0;
          $pos = 0;
          while (1)
          {
-             if (strpos($line, '&nbsp;', $pos) === $pos)
+             if ($line[$pos] == ' ')
              {
-                $pos += 6;
+                $pos ++;
              }
              else if (strpos($line, '&gt;', $pos) === $pos)
              {
@@ -175,20 +170,14 @@
              }
          }
          
-         if ($Quotes > 1) {
-            $line = "<FONT COLOR=FF0000>$line</FONT>\n";
-         } else if ($Quotes) {
-            $line = "<FONT COLOR=800000>$line</FONT>\n";
-         }
+         if ($Quotes > 1)
+            $line = "<FONT COLOR=FF0000>$line</FONT>";
+         elseif ($Quotes)
+            $line = "<FONT COLOR=800000>$line</FONT>";
 
-         if ($line)
-         {
-             $line = '<tt>' . $line . '</tt>';
-         }
-
-         $body_ary[$i] = $line . '<br>';
+         $body_ary[$i] = $line;
       }
-      $body = implode("\n", $body_ary);
+      $body = "<pre>" . implode("\n", $body_ary) . "</pre>";
    }
 
    /* SquirrelMail version number -- DO NOT CHANGE */
