@@ -199,6 +199,10 @@ class Rfc822Header {
                 $value = $this->stripComments($value);
                 $this->mlist('help', $value);
                 break;
+            case 'list-id':
+                $value = $this->stripComments($value);
+                $this->mlist('id', $value);
+                break;
             default:
                 break;
         }
