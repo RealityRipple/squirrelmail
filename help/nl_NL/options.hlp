@@ -11,8 +11,9 @@
       Een van de goede eigenschappen van SquirrelMail is de mate waarin het aanpasbaar is
       aan uw wensen. Afhankelijk van de instellingen heeft u brede keus uit stijlen,
       talen, mappen en andere voorkeuren. Deze kunnen allemaal gewijzigd worden zonder van
-      invloed te zijn op de rest van de gebruikers van uw systeem. Er zijn vier hoofdonderdelen
-      van de Instellingen: persoonlijke informatie, weergave, berichtkleuren en mappen.
+      invloed te zijn op de rest van de gebruikers van uw systeem. Er zijn minstens vijf hoofdonderdelen
+      van de Instellingen: persoonlijke informatie, weergave, berichtkleuren, mappen en
+      berichtvolgorde.
       Afhankelijk van uw installatie kunnen er nog extra opties zijn toegevoegd.
       </p>
    </description>
@@ -42,6 +43,32 @@
       ander dan uw normale adres wilt laten sturen.
       <br><br>
       
+      <b>Meerdere identiteiten</b><BR>
+      Door op deze link te klikken kunt u meerdere identiteiten aanmaken. Dit is handig
+      als u wilt kiezen tussen verschillende afzenders voor verschillende berichten
+      (bijvoorbeeld uw werk- of thuis e-mailadres). Op de pagina die verschijnt kunt
+      u zoveel identiteiten toevoegen als u wilt. Hiertussen krijgt u bij het opstellen van een
+      nieuw bericht een keuze.<br><br>
+      
+      <b>Antwoordstijl Citering</b><BR>
+      Wanneer u op Beantwoorden drukt bij een bericht, krijgt u het nieuw-bericht-scherm
+      met het oorspronkelijke bericht aangehaald. Bovenaan het oorspronkelijke bericht
+      staat een tekst als <TT>Jan Pietersen schreef:</TT> (als het bericht waar u op
+      antwoordt van Jan Pietersen afkomstig was). Deze regel heet de citering. Hier
+      kunt u kiezen hoe die eruit ziet.<BR>
+      <UL>
+      <LI><B>Geen citering</B><br>
+      Voegt geen enkele citering toe.<br><br>
+      <LI><B>Schijver zei</B><br>
+      Dit geeft de regel <TT>Jan Pietersen zei:</TT><br><br>
+      <LI><B>Citaat van XML</B><br>
+      Dit geeft de regel: <TT>&lt;quote who="Jan Pietersen"&gt;</TT>.<br><br>
+      <LI><B>Gedefinieerd door gebruiker</B><br>
+      Dit stelt u in staat uw eigen regel samen te stellen. In de twee invoervelden
+      hieronder kunt u het begin en eind invoeren. Daartussen zal de naam van de
+      schrijver ingevoegd worden.
+      </UL><br><br>
+      
       <b>Handtekening</b><br>
       <i>Optioneel</i> - Onderaan elk bericht dat u verstuurd kunt u automatisch
       een vooringestelde 'handtekening' laten plaatsen. Als u dat wilt, kunt u
@@ -62,6 +89,11 @@
       voorgedefinieerde stijlen kiezen.
       <br><br>
 
+      <b>Aangepaste opmaak</b><br>
+      Een thema kiezen verandert alleen de kleuren, hier kunt u kiezen voor bijvoorbeeld
+      een andere tekstgrootte.
+      <br><br>
+
       <b>Taal</b><br>
       Als u deze handleiding leest staat uw taal ingesteld op Nederlands. Als u een
       andere taal uit de lijst kiest zal alles in SquirrelMail in het vervolg in
@@ -69,14 +101,14 @@
       niet door uzelf gedefinieerde zaken zoals mapnamen en binnenkomende berichten.
       <br><br>
 
-      <b>JavaScript adresboek gebruiken?</b><br>
+      <b>Gebruik Javascript</b><br>
       Een van de hoofddoelen bij het ontwerp van SquirrelMail is dat er standaard
       nergens JavaScript gebruikt wordt. Dit omdat niet alle browsers ondersteuning
       hebben voor JavaScript. Er is echter een heel goed zoeksysteem voor het adresboek
-      gemaakt in JavaScript, dus is besloten om dit als een optie weer te geven.
-      Als u niet precies begrijpt wat hier bedoeld wordt, is kiezen voor HTML de
-      veiligste optie (dit werkt altijd), maar u kunt proberen of JavaScript ook
-      werkt (waarschijnlijk wel).
+      gemaakt in JavaScript, en zijn er nog wat andere handigheidjes toegevoegd. 
+      Er is besloten om dit als een optie weer te geven.
+      Als u niet precies begrijpt wat hier bedoeld wordt, is kiezen voor Autodetect de
+      veiligste optie.
       <br><br>
       
       <b>Aantal berichten te indexeren</b><br>
@@ -85,6 +117,12 @@
       en "Volgende" weergegeven boven en onder de lijst zodat u naar de vorige
       en volgende pagina met berichten kunt bladeren.
       <br><br>
+      
+      <b>Pagina selectie</b><br>
+      Als u deze optie aanzet worden boven en onder de berichtenlijst paginanummers
+      weergegeven zodat u direct naar die pagina met berichten kunt springen. Het getal
+      <B>Maximum aantal te tonen pagina's</B> bepaalt hoeveel van die paginanummers
+      worden weergegeven.<br><br>
       
       <b>Inkomende tekst afbreken op</b><br>
       Hier kunt u opgeven na hoeveel tekens tekstregels afgebroken worden. Dit voorkomt
@@ -97,19 +135,45 @@
       per regel kunt typen voordat u naar de volgende regel springt.
       <br><br>
       
-      <b>Breedte van de mappenlijst</b><br>
-      Aan de linkerkant van uw scherm vindt u de lijst met uw mappen. Met deze optie
-      kunt u instellen hoe breed u deze wilt laten zijn. Als u erg lange mapnamen
-      of een groot lettertype heeft, is het een idee om deze wat hoger te zetten.
-      Anders kunt u het beter zou laag mogelijk houden, des te meer ruimte is er voor
-      de rest van het scherm.
+      <b>Positie van de knoppen bij schrijven nieuw bericht</b><br>
+      Waar staan de knoppen Adresboek, Concept opslaan en Verstuur?<br><br>
+      
+      <b>Adresboek weergave</B><br>
+      Kies hoe u uw adressenboek weergegeven wilt hebben. Als u maximale compatibiliteit
+      met alle browsers wilt, kiest u voor HTML. Kies voor Javascript als u weet dat uw
+      browser het ondersteunt, het geeft een verbeterd adresboek.
       <br><br>
       
-      <b>Automatisch verversen mappenlijst</b><br>
-      SquirrelMail heeft de mogelijkheid om automatisch de mappenlijst aan de linker
-      kant van het scherm te verversen. Dit zorgt er ook voor dat het aantal ongelezen
-      berichten in die folders ververst wordt. Dit is een goede manier om te zien of
-      er nieuwe berichten zijn in de Inbox zonder daar telkens op te hoeven klikken.
+      <b>Toon HTML versie standaard</b><br>
+      Als u een bericht ontvangt dat zowel in text als HTML formaat is, kun u kiezen
+      of u de HTML of tekstversie standaard wilt zien.<br><br>
+      
+      <b>Voeg Mij toe in CC als ik allen beantwoord</b><br>
+      Allen Antwoorden stuurt uw antwoord naar alle ontvangers van het oorspronkelijke
+      bericht, inclusief uzelf. Om uw eigen e-mailadres niet op te nemen, kunt u hier Nee kiezen.
+      <br><br>
+      
+      <b>Activeer weergave mailprogramma</b><BR>
+      Dit geeft het e-mailprogramma weer dat de afzender van een bericht gebruikt heeft.
+      <br><br>
+      
+      <b>Geef bijgevoegde afbeeldingen weer bij bericht</b><br>
+      Als iemand u een bericht stuurt met een of meer afbeeldingen als bijlage
+      en u zet dit op Ja, zullen de afbeeldingen gelijk weergegeven worden als
+      u het bericht leest.
+      <br><br>
+      
+      <b>Activeer subtiele printervriendelijke link</b><br>
+      Dit bepaalt hoe de link Printvriendelijke versie wordt weergegeven.
+      <br><br>
+      
+      <b>Activeer printervriendelijk schoon scherm</b><br>
+      Dit schoont het bericht op zodat het beter geprint kan worden.
+      <br><br>
+      
+      <b>Andere opties</b><br>
+      Afhankelijk van de instellingen van uw SquirrelMail installatie kunnen hier
+      nog meer opties weergegeven worden.
       <br><br>
    </description>
 </section>
@@ -175,7 +239,27 @@
       niet dat uitgaande berichten bewaard worden, kies dan voor "Gebruik Verzonden Items niet".
       <br><br>
       
-      <b>Nieuwe mail</b><br>
+      <b>Concept map</b><br>
+      Hier kunt u opgeven in welke map de berichten die u opslaat als concept
+      worden opgeslagen. Als u deze functie niet wilt gebruiken, kiest u voor
+      "Gebruik Concept map niet".
+      <br><br>
+      
+      <b>Positie van de mappenlijst</b><br>
+      Bepaalt of de mappenlijst links of rechts in uw scherm staat.
+      <br><br>
+      
+      <b>Breedte van mappenlijst:</b><br>
+      Bepaalt hoe breed uw mappenlijst is. Heeft u mappen met een lange naam, dan kunt u
+      dit wat breder zetten, anders kunt u het zo laten om meer schermruimte over te houden.
+      <br><br>
+      
+      <b>Automatisch verversen mappenlijst om de</b><br>
+      U kunt hier instellen om de hoeveel tijd de mappenlijst ververst wordt. Handig om te
+      zien of er al nieuwe berichten in uw INBOX zitten.
+      <br><br>
+      
+      <b>Activeer Ongelezen bericht notificatie</b><br>
       Bij deze optie kunt u instellen hoe er aangegeven moet worden dat u nieuwe mail
       hebt ontvangen. Als u dit instelt op "Geen notificatie", wordt het feit dat er nieuwe
       berichten zijn niet apart aangegeven. De instelling "INBOX" leidt er toe dat bij
@@ -187,9 +271,41 @@
       versnellen.
       <br><br>
       
-      <b>Nieuwe mail notificatie type</b><br>
+      <b>Ongelezen bericht notificatie type</b><br>
       Hier kunt u aangeven hoe u weergegeven wilt hebben dat een folder nieuwe
-      berichten bevat.
+      berichten bevat: het aantal ongelezen berichten of het aantal ongelezen en
+      het totaal aantal berichten.
       <br><br>
+      
+      <b>Maak uitklapbare mappen mogelijk</b><br>
+      Dit stelt u in staat een map die submappen bevat in elkaar te vouwen zodat
+      de submappen niet weergegeven worden. U kunt een map inklappen door de "-"
+      links van de naam aan te klikken en weer uitklappen door op het "+"-teken
+      te klikken.
+      <br><br>
+      
+      <b>Toon klok in mappenbalk</b><br>
+      U kunt kiezen of u een klok wilt bovenaan de mappenlijst en hoe die eruit
+      zou moeten zien (Y=jaar, D=dag, H=uur, M=minuut, S=seconde). De optie
+      <B>Uur Format</B> geeft u de keus tussen een 12- of 24-uur klok.
+      <br><br>
+      
+      <b>Onthoud aantal zoekopdrachten</b><br>
+      Als u een mailbox doorzoekt, wordt de zoekopdracht opgeslagen zodat u die
+      later snel kunt herhalen. Hier kunt u aangeven hoeveel er worden opgeslagen.
+      <br><br>
+   </description>
+</section>
+
+<section>
+   <title>
+      Kolomvolgorde
+   </title>
+   <description>
+      Hier kunt u instellen hoe de berichtenlijst eruit ziet. U kunt kiezen welke
+      informatie wordt weergegeven en in welke volgorde.
+      <br><br>
+      Gebruik de Omhoog en Omlaag-links om kolommen te verplaatsen, verwijder om
+      ze niet weer te geven en toevoegen om er een toe te voegen.
    </description>
 </section>
