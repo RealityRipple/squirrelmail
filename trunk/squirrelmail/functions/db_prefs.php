@@ -128,7 +128,9 @@ class dbPrefs {
     function deleteKey($user, $key) {
         global $prefs_cache;
 
-        $this->open();
+        if (!$this->open()) {
+            return false;
+        }
         $query = sprintf("DELETE FROM %s WHERE user='%s' AND prefkey='%s'",
                          $this->table,
                          $this->dbh->quoteString($user),
@@ -149,7 +151,9 @@ class dbPrefs {
     }
 
     function setKey($user, $key, $value) {
-        $this->open();
+        if (!$this->open()) {
+            return false;
+        }
         $query = sprintf("REPLACE INTO %s (user,prefkey,prefval) ".
                          "VALUES('%s','%s','%s')",
                          $this->table,
@@ -168,7 +172,9 @@ class dbPrefs {
     function fillPrefsCache($user) {
         global $prefs_cache;
 
-        $this->open();
+        if (!$this->open()) {
+            return;
+        }
 
         $prefs_cache = array();
         $query = sprintf("SELECT prefkey, prefval FROM %s ".
@@ -191,7 +197,9 @@ class dbPrefs {
      * but it is not, so....
      */
     function renumberHighlightList($user) {
-        $this->open();
+        if (!$this->open()) {
+            return;
+        }
         $query = sprintf("SELECT * FROM %s WHERE user='%s' ".
                          "AND prefkey LIKE 'highlight%%' ORDER BY prefkey",
                          $this->table,
