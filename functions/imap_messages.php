@@ -711,7 +711,8 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false)
  * See the documentation folder for more information about this array.
  */
 function sqimap_get_message ($imap_stream, $id, $mailbox) {
-
+    // typecast to int to prohibit 1:* msgs sets
+    $id = (int) $id;
     $flags = array();
     $read = sqimap_run_command ($imap_stream, "FETCH $id (FLAGS BODYSTRUCTURE)", true, $response, $message, TRUE);
     if ($read) {
@@ -727,7 +728,7 @@ function sqimap_get_message ($imap_stream, $id, $mailbox) {
         $errmessage = _("The server couldn't find the message you requested.") .
               '<p>'._("Most probably your message list was out of date and the message has been moved away or deleted (perhaps by another program accessing the same mailbox).");
         /* this will include a link back to the message list */
-        error_message($errmessage, $mailbox, $sort, $startMessage, $color);
+        error_message($errmessage, $mailbox, $sort, (int) $startMessage, $color);
         exit;
     } 
     $bodystructure = implode('',$read);
