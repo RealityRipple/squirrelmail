@@ -26,7 +26,7 @@ class Rfc822Header {
         $bcc = array(),
         $in_reply_to = '',
         $message_id = '',
-	$references = '',
+        $references = '',
         $mime = false,
         $content_type = '',
         $disposition = '',
@@ -51,10 +51,10 @@ class Rfc822Header {
             $pos = strpos($line, ':');
             if ($pos > 0) {
                 $field = substr($line, 0, $pos);
-		if (!strstr($field,' ')) { /* valid field */
-            	    $value = trim(substr($line, $pos+1));
-            	    $this->parseField($field, $value);
-		}
+                if (!strstr($field,' ')) { /* valid field */
+                        $value = trim(substr($line, $pos+1));
+                        $this->parseField($field, $value);
+                }
             }
         }
         if ($this->content_type == '') {
@@ -108,7 +108,7 @@ class Rfc822Header {
         $field = strtolower($field);
         switch($field) {
             case 'date':
-		$value = $this->stripComments($value);
+                $value = $this->stripComments($value);
                 $d = strtr($value, array('  ' => ' '));
                 $d = explode(' ', $d);
                 $this->date = getTimeStamp($d);
@@ -138,69 +138,69 @@ class Rfc822Header {
                 $this->in_reply_to = $value;
                 break;
             case 'message-id':
-		$value = $this->stripComments($value);
+                $value = $this->stripComments($value);
                 $this->message_id = $value;
                 break;
-	    case 'references':
-		$value = $this->stripComments($value);
-	        $this->references = $value;
-		break;
-	    case 'x-confirm-reading-to':
-	    case 'return-receipt-to':
+            case 'references':
+                $value = $this->stripComments($value);
+                $this->references = $value;
+                break;
+            case 'x-confirm-reading-to':
+            case 'return-receipt-to':
             case 'disposition-notification-to':
-		$value = $this->stripComments($value);
+                $value = $this->stripComments($value);
                 $this->dnt = $this->parseAddress($value);
                 break;
             case 'mime-version':
-		$value = $this->stripComments($value);
+                $value = $this->stripComments($value);
                 $value = str_replace(' ', '', $value);
                 $this->mime = ($value == '1.0' ? true : $this->mime);
                 break;
             case 'content-type':
-		$value = $this->stripComments($value);
+                $value = $this->stripComments($value);
                 $this->parseContentType($value);
                 break;
             case 'content-disposition':
-		$value = $this->stripComments($value);
+                $value = $this->stripComments($value);
                 $this->parseDisposition($value);
                 break;
             case 'user-agent':
             case 'x-mailer':
-        	$this->xmailer = $value;
+                $this->xmailer = $value;
                 break;
             case 'x-priority':
                 $this->priority = $value;
                 break;
             case 'list-post':
-		$value = $this->stripComments($value);
+                $value = $this->stripComments($value);
                 $this->mlist('post', $value);
                 break;
             case 'list-reply':
-		$value = $this->stripComments($value);	    
+                $value = $this->stripComments($value);            
                 $this->mlist('reply', $value);
                 break;
             case 'list-subscribe':
-		$value = $this->stripComments($value);	    
+                $value = $this->stripComments($value);            
                 $this->mlist('subscribe', $value);
                 break;
             case 'list-unsubscribe':
-		$value = $this->stripComments($value);
+                $value = $this->stripComments($value);
                 $this->mlist('unsubscribe', $value);
                 break;
             case 'list-archive':
-		$value = $this->stripComments($value);
+                $value = $this->stripComments($value);
                 $this->mlist('archive', $value);
                 break;
             case 'list-owner':
-		$value = $this->stripComments($value);
+                $value = $this->stripComments($value);
                 $this->mlist('owner', $value);
                 break;
             case 'list-help':
-		$value = $this->stripComments($value);
+                $value = $this->stripComments($value);
                 $this->mlist('help', $value);
                 break;
             case 'list-id':
-		$value = $this->stripComments($value);
+                $value = $this->stripComments($value);
                 $this->mlist('id', $value);
                 break;
             default:
@@ -222,115 +222,241 @@ class Rfc822Header {
      *                                 (without @ ) ) 
      *               output: array with addressstructure objects or only one
      *                       address_structure object.
+     *  personal name: encoded: =?charset?Q|B?string?=
+     *                 quoted:  "string"
+     *                 normal:  string
+     *  email        : <mailbox@host>
+     *               : mailbox@host
+     *  This function is also used for validating addresses returned from compose
+     *  That's also the reason that the function became a little bit huge and horrible
+     *  Todo: Find a way to clean up this mess a bit (Marc Groot Koerkamp)
      */
     function parseAddress
     ($address, $ar=false, $addr_ar = array(), $group = '', $host='',$lookup=false) {
         $pos = 0;
+        $name = $addr = $comment = $is_encoded = '';
+        /* 
+         * in case of 8 bit addresses some how <SPACE> is represented as 
+         * NON BRAKING SPACE
+         * This only happens when we validate addresses from the compose form.
+         *
+         * Note: when other charsets have dificulties with characters 
+         * =,;:<>()"<SPACE>
+         * then we should find out the value for those characters ans replace
+         * them by proper ASCII values before we start parsing.
+         * 
+         */
+        $address = str_replace("\240",' ',$address);
+        
+        $address = trim($address);
         $j = strlen($address);
-        $name = '';
-        $addr = '';
-	$comment = '';
+
         while ($pos < $j) {
-            switch ($address{$pos}) {
-                case '"': /* get the personal name */
-                    if ($address{++$pos} == '"') {
-                        ++$pos;
-                    } else {
-                        while ($pos < $j && $address{$pos} != '"') {
-                            if ((substr($address, $pos, 2) == '\\"') ||
-                                (substr($address, $pos, 2) == '\\\\')) {
-                                $name .= $address{$pos++};
-                            }
-                            $name .= $address{$pos++};
+            $char = $address{$pos};
+            switch ($char)
+            {
+            case '=':
+                /* get the encoded personal name */
+                if (preg_match('/^(=\?([^?]*)\?(Q|B)\?([^?]*)\?=)(.*)/Ui',substr($address,$pos),$reg)) {
+                    $name .= $reg[1];
+                    $pos += strlen($reg[1]);
+                }
+                ++$pos;
+                $addr_start = $pos;
+                $is_encoded = true;
+                break;
+            case '"': /* get the personal name */
+                $start_encoded = $pos;
+                ++$pos;
+                if ($address{$pos} == '"') {
+                    ++$pos;
+                } else {
+                    $personal_start = $personal_end = $pos;
+                    while ($pos < $j) {
+                        $personal_end = strpos($address,'"',$pos);
+                        if (($personal_end-2)>0 && (substr($address,$personal_end-2,2) === '\\"' ||
+                            substr($address,$personal_end-2,2) === '\\\\')) {
+                            $pos = $personal_end+1;
+                        } else {
+                            $name .= substr($address,$personal_start,$personal_end-$personal_start);
+                            break;
                         }
                     }
-                    ++$pos;
-                    break;
-                case '<':  /* get email address */
-                    $addr_start = $pos++;
-                    while ($pos < $j && $address{$pos} != '>') {
-                        $addr .= $address{$pos++};
-                    }
-                    ++$pos;
-                    break;
-                case '(':  /* rip off comments */
-                    $addr_start = $pos;
-		    $pos = strpos($address,')');
-		    if ($pos !== false) {
-			$comment = substr($address, $addr_start+1,($pos-$addr_start-1));
-                	$address_start = substr($address, 0, $addr_start);
-                	$address_end   = substr($address, $pos + 1);
-                	$address       = $address_start . $address_end;
-		    }
-                    $j = strlen($address);
-                    $pos = $addr_start + 1;
-                    break;
-                case ',':  /* we reached a delimiter */
-                    if ($addr == '') {
-                        $addr = substr($address, 0, $pos);
-                    } else if ($name == '') {
-                        $name = trim(substr($address, 0, $addr_start));
-                    }
-
-                    $at = strpos($addr, '@');
-                    $addr_structure = new AddressStructure();
-		    if (!$name && $comment) $name = $comment;
-                    $addr_structure->personal = $name;
-                    $addr_structure->group = $group;
-                    if ($at) {
-                        $addr_structure->mailbox = substr($addr, 0, $at);
-                        $addr_structure->host = substr($addr, $at+1);
+                    if ($personal_end) {
+                        $pos = $personal_end+1;
                     } else {
-			/* if lookup function */
-			if ($lookup) {
-			    $aAddr = call_user_func_array($lookup,array($addr));
-			    if (isset($aAddr['email'])) {
-				$at = strpos($aAddr['email'], '@');
-                    		$addr_structure->mailbox = substr($aAddr['email'], 0, $at);
-                    		$addr_structure->host = substr($aAddr['email'], $at+1);
-				if (isset($aAddr['name'])) {
-				    $addr_structure->personal = $aAddr['name'];
-				}
-			    }
-			}
-			if (!$addr_structure->mailbox) {
-                    	    $addr_structure->mailbox = trim($addr);
-			    if ($host) {
-				$addr_structure->host = $host;
-			    }
-			}
+                        $pos = $j;
                     }
-                    $address = trim(substr($address, $pos+1));
-                    $j = strlen($address);
-                    $pos = 0;
-                    $name = '';
-                    $addr = '';
-                    $addr_ar[] = $addr_structure;
-                    break;
-                case ':':  /* process the group addresses */
-                    /* group marker */
-                    $group = substr($address, 0, $pos);
-                    $address = substr($address, $pos+1);
-                    $result = $this->parseAddress($address, $ar, $addr_ar, $group);
-                    $addr_ar = $result[0];
-                    $pos = $result[1];
-                    $address = substr($address, $pos++);
-                    $j = strlen($address);
-                    $group = '';
-                    break;
-                case ';':
-                    if ($group) {
-                        $address = substr($address, 0, $pos - 1);
+                }
+                $addr_start = $pos;
+                break;
+            case '<':  /* get email address */
+                $addr_start = $pos;
+                $addr_end = strpos($address,'>',$addr_start);
+                $addr = substr($address,$addr_start+1,$addr_end-$addr_start-1);
+                if ($addr_end) {
+                    $pos = $addr_end+1;
+                } else {
+                    $addr = substr($address,$addr_start+1);
+                    $pos = $j;
+                }
+                break;
+            case '(':  /* rip off comments */
+                $addr_start = $pos;
+                $pos = strpos($address,')');
+                if ($pos !== false) {
+                    $comment = substr($address, $addr_start+1,($pos-$addr_start-1));
+                    $address_start = substr($address, 0, $addr_start);
+                    $address_end   = substr($address, $pos + 1);
+                    $address       = $address_start . $address_end;
+                }
+                $j = strlen($address);
+                $pos = $addr_start + 1;
+                break;
+            case ',':  /* we reached a delimiter */
+                if (!$name && !$addr) {
+                    $addr = substr($address, 0, $pos);
+                } else if (!$addr) {
+                    $addr = trim(substr($address, $addr_start, $pos));
+                } else if ($name == '') {
+                    $name = trim(substr($address, 0, $addr_start));
+                }                
+                $at = strpos($addr, '@');
+                $addr_structure = new AddressStructure();
+                if (!$name && $comment) $name = $comment;
+                if (!$is_encoded) {
+                    $addr_structure->personal = encodeHeader($name);
+                } else {
+                    $addr_structure->personal = $name;
+                }
+                $is_encoded = false;
+                $addr_structure->group = $group;
+                if ($at) {
+                    $addr_structure->mailbox = substr($addr, 0, $at);
+                    $addr_structure->host = substr($addr, $at+1);
+                } else {
+                    /* if lookup function */
+                    if ($lookup) {
+                        $aAddr = call_user_func_array($lookup,array($addr));
+                        if (isset($aAddr['email'])) {
+                            $at = strpos($aAddr['email'], '@');
+                            $addr_structure->mailbox = substr($aAddr['email'], 0, $at);
+                            $addr_structure->host = substr($aAddr['email'], $at+1);
+                            if (isset($aAddr['name'])) {
+                                $addr_structure->personal = $aAddr['name'];
+                            } else {
+                                $addr_structure->personal = encodeHeader($addr);
+                            }
+                        }
                     }
-                    ++$pos;
-                    break;
-                default:
-                    ++$pos;
-                    break;
+                    if (!$addr_structure->mailbox) {
+                        $addr_structure->mailbox = trim($addr);
+                        if ($host) {
+                            $addr_structure->host = $host;
+                        }
+                    }
+                }
+                $address = trim(substr($address, $pos+1));
+                $j = strlen($address);
+                $pos = 0;
+                $name = '';
+                $addr = '';
+                $addr_ar[] = $addr_structure;
+                break;
+            case ':':  /* process the group addresses */
+                /* group marker */
+                $group = substr($address, 0, $pos);
+                $address = substr($address, $pos+1);
+                $result = $this->parseAddress($address, $ar, $addr_ar, $group);
+                $addr_ar = $result[0];
+                $pos = $result[1];
+                $address = substr($address, $pos++);
+                $j = strlen($address);
+                $group = '';
+                break;
+            case ';':
+                if ($group) {
+                    $address = substr($address, 0, $pos - 1);
+                }
+                ++$pos;
+                break;
+            case ' ':
+                ++$pos;
+                break;
+            default:
+                /* 
+                 * this happens in the folowing situations :
+                 * 1: unquoted personal name
+                 * 2: emailaddress without < and >
+                 * 3: unquoted personal name from compose that should be encoded.
+                 * if it's a personal name then an emailaddress should follow
+                 * the personal name may not have ',' inside it
+                 * If it's a emailaddress then the personal name is not set.
+                 * we should look for the delimiter ',' or a SPACE
+                 */
+                /* check for emailaddress */
+                $i_space = strpos($address,' ',$pos);
+                $i_del = strpos($address,',',$pos);
+                if ($i_space || $i_del) {
+                    if ($i_del) {
+                        $address_part = substr($address,$pos,$i_del-$pos);
+                    } else {
+                        $address_part = substr($address,$pos);
+                    }
+                    if ($i = strpos($address_part,'@')) {
+                        /* an email address is following */
+                        if (($i+$pos) < $i_space) {
+                            $addr_start = $pos;
+                            if ($i_space < $i_del && $i_del) {
+                                if ($i_space) {
+                                    $addr = substr($address,$pos,$i_space-$pos);
+                                    $pos = $i_space;
+                                } else {
+                                    $addr = substr($address,$pos);
+                                    $pos = $j;
+                                }
+                            } else {
+                                if ($i_del) {
+                                    $addr = substr($address,$pos,$i_del-$pos);
+                                    $pos = $i_del;
+                                } else {
+                                    $addr = substr($address,$pos);
+                                    $pos = $j;
+                                }
+                            }
+                        } else {
+                            if ($i_space) {
+                                $name .= substr($address,$pos,$i_space-$pos) .  ' ';
+                                $addr_start = $i_space+1;
+                                $pos = $i_space+1;
+                            } else {
+                                $addr = substr($address,$pos,$i_del-$pos);
+                                $addr_start = $pos;
+                                if ($i_del) {
+                                    $pos = $i_del;
+                                } else {
+                                    $pos = $j;
+                                }
+                            }
+                        }
+                    } else {
+                        /* email address without domain name, could be an alias */
+                        $addr_start = $pos;
+                        $addr = $address_part;
+                        $pos = strlen($address_part) + $pos;
+                    }
+                } else {
+                    $addr = substr($address,$pos);
+                    $addr_start = $pos;
+                    $pos = $j;
+                }
+                break;
             }
         }
-        if ($addr == '') {
+        if (!$name && !$addr) {
             $addr = substr($address, 0, $pos);
+        } else if (!$addr) {
+            $addr = trim(substr($address, $addr_start, $pos));
         } else if ($name == '') {
             $name = trim(substr($address, 0, $addr_start));
         }
@@ -342,34 +468,40 @@ class Rfc822Header {
             $addr_structure->mailbox = trim(substr($addr, 0, $at));
             $addr_structure->host = trim(substr($addr, $at+1));
         } else {
-	    /* if lookup function */
-	    if ($lookup) {
-		$aAddr = call_user_func_array($lookup,array($addr));
-	        if (isset($aAddr['email'])) {
-		    $at = strpos($aAddr['email'], '@');
+            /* if lookup function */
+            if ($lookup) {
+                $aAddr = call_user_func_array($lookup,array($addr));
+                if (isset($aAddr['email'])) {
+                    $at = strpos($aAddr['email'], '@');
                     $addr_structure->mailbox = substr($aAddr['email'], 0, $at);
                     $addr_structure->host = substr($aAddr['email'], $at+1);
-		    if (isset($aAddr['name'])) {
-		        $addr_structure->personal = $aAddr['name'];
-		    }
-		}
-	    }
-	    if (!$addr_structure->mailbox) {
+                    if (isset($aAddr['name']) && $aAddr['name']) {
+                        $name = $aAddr['name'];
+                    } else {
+                        $name = $addr;
+                    }
+                }
+            }
+            if (!$addr_structure->mailbox) {
                 $addr_structure->mailbox = trim($addr);
-	        if ($host) {
-		    $addr_structure->host = $host;
-		}
-	    }
+                if ($host) {
+                    $addr_structure->host = $host;
+                }
+            }
+        }
+        $name = trim($name);
+        if (!$is_encoded && !$group) {
+            $name = encodeHeader($name);
         }
         if ($group && $addr == '') { /* no addresses found in group */
-            $name = "$group";
+            $name = $group;
             $addr_structure->personal = $name;
             $addr_ar[] = $addr_structure;
             return (array($addr_ar,$pos+1 ));
-	} elseif ($group) {
+        } elseif ($group) {
             $addr_structure->personal = $name;
             $addr_ar[] = $addr_structure;
-	    return (array($addr_ar,$pos+1 ));
+            return (array($addr_ar,$pos+1 ));
         } else {
             $addr_structure->personal = $name;
             if ($name || $addr) {
@@ -470,7 +602,6 @@ class Rfc822Header {
             $s = ($s ? substr($s, 2) : $s);
         } else {
             $addr = $this->{$arr};
-            //eval('$addr = $this->' . $arr . ';') ;
             if (is_array($addr)) {
                 foreach ($addr as $addr_o) {
                     if (is_object($addr_o)) {
@@ -501,7 +632,7 @@ class Rfc822Header {
                 $arr = $this->getAddr_a($argument, $excl_arr, $arr);
             }
         } else {
-	    $addr = $this->{$arg};
+            $addr = $this->{$arg};
             if (is_array($addr)) {
                 foreach ($addr as $next_addr) {
                     if (is_object($next_addr)) {
@@ -531,63 +662,63 @@ class Rfc822Header {
     }
     
     function findAddress($address, $recurs = false) {
-	$result = false;
+        $result = false;
         if (is_array($address)) {
-	    $i=0;
+            $i=0;
             foreach($address as $argument) {
                 $match = $this->findAddress($argument, true);
-		$last = end($match);
-		if ($match[1]) {
-		    return $i;
-		} else {
-		    if (count($match[0]) && !$result) {
-			$result = $i;
-		    }
-		}
-		++$i;	
+                $last = end($match);
+                if ($match[1]) {
+                    return $i;
+                } else {
+                    if (count($match[0]) && !$result) {
+                        $result = $i;
+                    }
+                }
+                ++$i;        
             }
-	} else {
-	    if (!is_array($this->cc)) $this->cc = array();
-	    $srch_addr = $this->parseAddress($address);
-	    $results = array();
-	    foreach ($this->to as $to) {
-		if ($to->host == $srch_addr->host) {
-		    if ($to->mailbox == $srch_addr->mailbox) {
-			$results[] = $srch_addr;
-			if ($to->personal == $srch_addr->personal) {
-			    if ($recurs) {
-				return array($results, true);
-			    } else {
-				return true;
-			    }
-			}
-		    }
-		}
-	    }
- 	    foreach ($this->cc as $cc) {
-	        if ($cc->host == $srch_addr->host) {
-		    if ($cc->mailbox == $srch_addr->mailbox) {
-		        $results[] = $srch_addr;
-		        if ($cc->personal == $srch_addr->personal) {
-			    if ($recurs) {
-			        return array($results, true);
-			    } else {
-			        return true;
-			    }
-		        }
-		    }
-		}
-	    }
-	    if ($recurs) {
-		return array($results, false);
-	    } elseif (count($result)) {
-		return true;
-	    } else {
-		return false;
-	    }	
-	}
+        } else {
+            if (!is_array($this->cc)) $this->cc = array();
+            $srch_addr = $this->parseAddress($address);
+            $results = array();
+            foreach ($this->to as $to) {
+                if ($to->host == $srch_addr->host) {
+                    if ($to->mailbox == $srch_addr->mailbox) {
+                        $results[] = $srch_addr;
+                        if ($to->personal == $srch_addr->personal) {
+                            if ($recurs) {
+                                return array($results, true);
+                            } else {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+             foreach ($this->cc as $cc) {
+                if ($cc->host == $srch_addr->host) {
+                    if ($cc->mailbox == $srch_addr->mailbox) {
+                        $results[] = $srch_addr;
+                        if ($cc->personal == $srch_addr->personal) {
+                            if ($recurs) {
+                                return array($results, true);
+                            } else {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            if ($recurs) {
+                return array($results, false);
+            } elseif (count($result)) {
+                return true;
+            } else {
+                return false;
+            }        
+        }
         //exit;
-	return $result;
+        return $result;
     }
 
     function getContentType($type0, $type1) {
