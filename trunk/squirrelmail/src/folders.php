@@ -14,6 +14,7 @@
  */
 
 require_once('../src/validate.php');
+require_once('../functions/imap_utf7_decode_local.php');
 require_once('../functions/imap.php');
 require_once('../functions/array.php');
 require_once('../functions/plugin.php');
@@ -80,12 +81,15 @@ for ($i = 0; $i < count($boxes); $i++) {
     if (!in_array('noinferiors', $boxes[$i]['flags'])) {
         if ((strtolower($boxes[$i]['unformatted']) == 'inbox') &&
             $default_sub_of_inbox) {
+
             $box = $boxes[$i]['unformatted'];
-            $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
+            $box2 = imap_utf7_decode_local(
+		      str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']));
             echo "<OPTION SELECTED VALUE=\"$box\">$box2</option>\n";
         } else {
             $box = $boxes[$i]['unformatted'];
-            $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
+            $box2 = imap_utf7_decode_local(
+		      str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']));
             if (strtolower($imap_server_type) != 'courier' ||
                   strtolower($box) != "inbox.trash")
                 echo "<OPTION VALUE=\"$box\">$box2</option>\n";
@@ -149,7 +153,8 @@ if ($count_special_folders < count($boxes)) {
             ($boxes[$i]['unformatted'] != $draft_folder)) {
             $box = $boxes[$i]['unformatted-dm'];
 
-            $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
+            $box2 = imap_utf7_decode_local(
+		      str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']));
             if (strtolower($imap_server_type) != 'courier' || strtolower($box) != 'inbox.trash') {
                 echo "<OPTION VALUE=\"$box\">$box2</option>\n";
             }
@@ -187,7 +192,8 @@ if ($count_special_folders < count($boxes)) {
             ((strtolower($imap_server_type) != 'courier') ||
              (strtolower($boxes[$i]['unformatted']) != 'inbox.trash'))) {
             $box = $boxes[$i]['unformatted-dm'];
-            $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
+            $box2 = imap_utf7_decode_local(
+		      str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']));
             echo "         <OPTION VALUE=\"$box\">$box2</option>\n";
         }
     }
@@ -217,7 +223,8 @@ if ($count_special_folders < count($boxes)) {
             ($boxes[$i]["unformatted"] != $sent_folder) &&
             ($boxes[$i]["unformatted"] != $draft_folder)) {
             $box = $boxes[$i]["unformatted-dm"];
-            $box2 = str_replace(' ', '&nbsp;', $boxes[$i]["unformatted-disp"]);
+            $box2 = imap_utf7_decode_local(
+		      str_replace(' ', '&nbsp;', $boxes[$i]["unformatted-disp"]));
             echo "         <OPTION VALUE=\"$box\">$box2\n";
         }
     }
@@ -250,7 +257,7 @@ for ($i = 0, $q = 0; $i < count($boxes_all); $i++) {
     }
     if ($use_folder == true) {
         $box[$q] = $boxes_all[$i]["unformatted-dm"];
-        $box2[$q] = $boxes_all[$i]["unformatted-disp"];
+        $box2[$q] = imap_utf7_decode_local($boxes_all[$i]["unformatted-disp"]);
         $q++;
     }
 }
