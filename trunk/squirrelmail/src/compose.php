@@ -92,18 +92,38 @@
    $send_to = ereg_replace("\"", "", $send_to);
    $send_to = stripslashes($send_to);
 
+   /** This formats a CC string if they hit "reply all" **/
    if ($send_to_cc != "") {
       $send_to_cc = ereg_replace(";", ",", $send_to_cc);
       $sendcc = explode(",", $send_to_cc);
       $send_to_cc = "";
 
       for ($i = 0; $i < count($sendcc); $i++) {
+         $sendcc[$i] = trim($sendcc[$i]);
+         if ($sendcc[$i] == "")
+            continue;
+
          $sendcc[$i] = encodeEmailAddr($sendcc[$i]);
          $sendcc[$i] = decodeEmailAddr($sendcc[$i]);
-         if ($i == count($send_cc) - 1)
-            $send_to_cc .= trim($sendcc[$i]);
-         else
-            $send_to_cc .= trim($sendcc[$i]) . ", ";
+
+         $whofrom = encodeEmailAddr($msg["HEADER"]["FROM"]);
+         $whofrom = decodeEmailAddr($whofrom);
+
+         $whoreplyto = encodeEmailAddr($msg["HEADER"]["REPLYTO"]);
+         $whoreplyto = decodeEmailAddr($whoreplyto);
+
+         if ((strtolower(trim($sendcc[$i])) != strtolower(trim($whofrom))) &&
+             (strtolower(trim($sendcc[$i])) != strtolower(trim($whoreplyto))) &&
+             (trim($sendcc[$i]) != "")) {
+            if ($i == count($send_cc))
+               $send_to_cc .= trim($sendcc[$i]);
+            else
+               $send_to_cc .= trim($sendcc[$i]) . ", ";
+         }
+      }
+      $send_to_cc = trim($send_to_cc);
+      if (substr($send_to_cc, -1) == ",") {
+         $send_to_cc = substr($send_to_cc, 0, strlen($send_to_cc) - 1);
       }
    }
 
