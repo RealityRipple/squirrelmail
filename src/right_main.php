@@ -104,7 +104,7 @@ if (! isset($use_mailbox_cache)) {
 }
 
 /* There is a problem with registered vars in 4.1 */
-if( substr( phpversion(), 0, 3 ) == '4.1'  ) ) {
+if( substr( phpversion(), 0, 3 ) == '4.1'  ) {
     $use_mailbox_cache = FALSE;
 }
 
