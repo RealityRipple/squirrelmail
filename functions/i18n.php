@@ -1260,7 +1260,7 @@ $languages['hu_HU']['NAME']    = 'Hungarian';
 $languages['hu_HU']['CHARSET'] = 'iso-8859-2';
 $languages['hu']['ALIAS'] = 'hu_HU';
 
-$languages['id_ID']['NAME']    = 'Indonesian';
+$languages['id_ID']['NAME']    = 'Bahasa Indonesia';
 $languages['id_ID']['CHARSET'] = 'iso-8859-1';
 $languages['id']['ALIAS'] = 'id_ID';
 
@@ -1358,6 +1358,9 @@ $languages['cy_GB']['NAME']    = 'Welsh';
 $languages['cy_GB']['CHARSET'] = 'iso-8859-1';
 $languages['cy']['ALIAS'] = 'cy_GB';
 
+$languages['vi_VN']['NAME']    = 'Vietnamese';
+$languages['vi_VN']['CHARSET'] = 'utf-8';
+$languages['vi']['ALIAS'] = 'vi_VN';
 
 // Right to left languages
 
@@ -1369,10 +1372,6 @@ $languages['he_IL']['NAME']    = 'Hebrew';
 $languages['he_IL']['CHARSET'] = 'windows-1255';
 $languages['he_IL']['DIR']     = 'rtl';
 $languages['he']['ALIAS']      = 'he_IL';
-
-$languages['vi_VN']['NAME']    = 'Vietnamese';
-$languages['vi_VN']['CHARSET'] = 'utf-8';
-$languages['vi']['ALIAS'] = 'vi_VN';
 
 /* Detect whether gettext is installed. */
 $gettext_flags = 0;
