@@ -617,16 +617,19 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         $type0 = $message->type0;
         $type1 = $message->type1;
         foreach ($entities as $ent) {
+            $msg = $message->getEntity($ent);
+            $type0 = $msg->type0;
+            $type1 = $msg->type1;
             $unencoded_bodypart = mime_fetch_body($imapConnection, $passed_id, $ent);
             $body_part_entity = $message->getEntity($ent);
             $bodypart = decodeBody($unencoded_bodypart,
             $body_part_entity->header->encoding);
             if ($type1 == 'html') {
                 $bodypart = str_replace("\n", ' ', $bodypart);
-                $bodypart = preg_replace(array('/<p>/i','/<br\s*(\/)*>/i'), "\n", $bodypart);
+                $bodypart = preg_replace(array('/<p>/i','/<div><\/div>/i','/<br\s*(\/)*>/i','/<\/?div>/i'), "\n", $bodypart);
+                
                 $bodypart = str_replace(array('&nbsp;','&gt;','&lt;'),array(' ','>','<'),$bodypart);
                 $bodypart = strip_tags($bodypart);
-
             }
             if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
                 function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
