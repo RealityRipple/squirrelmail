@@ -12,6 +12,7 @@ Version 1.4.0 RC 2
   - conf.pl fixes for certain uses of SM_PATH, esp. $signout_page
   - SMTP & IMAP auth method "plain" was a misnomer - now corrected to 
     the more accurate name "login" (Plain to be implemented soon)
+  - Fix for compose after search bug.  (Closes #662346)
 	
 Version 1.4.0 RC 1
 ------------------
