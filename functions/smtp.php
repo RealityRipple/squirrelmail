@@ -279,14 +279,28 @@ function timezone () {
 
 /* Print all the needed RFC822 headers */
 function write822Header ($fp, $t, $c, $b, $subject, $body, $more_headers, $session, $rn="\r\n") {
-    global $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
-    global $data_dir, $username, $popuser, $domain, $version, $useSendmail;
-    global $default_charset, $HTTP_VIA, $HTTP_X_FORWARDED_FOR;
-    global $REMOTE_HOST, $identity;
+    global $data_dir, $username, $popuser, $domain, $version, $useSendmail,
+        $default_charset, $identity, $_SERVER;
 
     /* Storing the header to make sure the header is the same
      * everytime the header is printed.
      */
+
+    /* get those globals */
+    $REMOTE_ADDR = $_SERVER['REMOTE_ADDR'];
+    $SERVER_NAME = $_SERVER['SERVER_NAME'];
+    $REMOTE_PORT = $_SERVER['REMOTE_PORT'];
+
+    if(isset($_SERVER['REMOTE_HOST'])) {
+        $REMOTE_HOST = $_SERVER['REMOTE_HOST'];
+    }
+    if(isset($_SERVER['HTTP_VIA'])) {
+        $HTTP_VIA = $_SERVER['HTTP_VIA'];
+    }
+    if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $HTTP_X_FORWARDED_FOR = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }
+
     static $header, $headerlength, $headerrn;
     
     if ($header == '') {

@@ -77,12 +77,10 @@ function do_hook_function($name,$parm=NULL) {
  */
 function soupNazi(){
 
-    global $HTTP_USER_AGENT;
-
     $soup_menu = array('Mozilla/3','Mozilla/2','Mozilla/1', 'Opera 4',
                        'Opera/4', 'OmniWeb', 'Lynx');
     foreach($soup_menu as $browser) {
-        if(stristr($HTTP_USER_AGENT, $browser)) {
+        if(stristr($_SERVER['HTTP_USER_AGENT'], $browser)) {
             return 1;
         }
     }

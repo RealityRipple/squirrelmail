@@ -14,11 +14,21 @@
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/imap_mailbox.php');
+require_once(SM_PATH . 'functions/global.php');
 
 /* Always set up the language before calling these functions */
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE ) {
 
-    global $theme_css, $custom_css, $base_uri;
+    if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+            global $_SESSION;
+    }
+    if (isset($_SESSION['base_uri'])) {
+        $base_uri = $_SESSION['base_uri'];
+    }
+    else {
+        global $base_uri;
+    }
+    global $theme_css, $custom_css;
 
     echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">' .
          "\n\n<HTML>\n<HEAD>\n";
@@ -41,8 +51,11 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
 
 
 function displayInternalLink($path, $text, $target='') {
-    global $base_uri;
+    if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+            global $_SESSION;
+    }
 
+    $base_uri = $_SESSION['base_uri']; 
     if ($target != '') {
         $target = " target=\"$target\"";
     }
@@ -51,10 +64,16 @@ function displayInternalLink($path, $text, $target='') {
 
 function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 
-    global $delimiter, $hide_sm_attributions, $base_uri, $PHP_SELF, $frame_top,
+    global $hide_sm_attributions, $PHP_SELF, $frame_top,
            $compose_new_win, $username, $datadir, $compose_width, $compose_height,
            $attachemessages, $session;
 
+    if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+            global $_SESSION;
+    }
+
+    $base_uri = $_SESSION['base_uri'];
+    $delimiter = $_SESSION['delimiter'];
     $module = substr( $PHP_SELF, ( strlen( $PHP_SELF ) - strlen( $base_uri ) ) * -1 );
     if ($qmark = strpos($module, '?')) {
         $module = substr($module, 0, $qmark);

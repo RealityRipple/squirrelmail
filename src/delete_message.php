@@ -19,6 +19,29 @@ require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/imap.php');
 
+$key = $_COOKIE['key'];
+$username = $_SESSION['username'];
+$onetimepad = $_SESSION['onetimepad'];
+
+$message = $_GET['message'];
+$mailbox = $_GET['mailbox'];
+
+if (isset($_GET['saved_draft'])) {
+    $saved_draft = $_GET['saved_draft'];
+}
+if (isset($_GET['mail_sent'])) {
+    $mail_sent = $_GET['mail_sent'];
+}
+$sort = $_GET['sort'];
+$startMessage = $_GET['startMessage'];
+
+if(isset($_GET['where'])) {
+    $where = $_GET['where'];
+}
+if(isset($_GET['what'])) {
+    $what = $_GET['what'];
+}
+
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 
 sqimap_mailbox_select($imapConnection, $mailbox);

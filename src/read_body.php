@@ -157,10 +157,12 @@ function ServerMDNSupport($read) {
 }
 
 function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
-    global $username, $attachment_dir, $SERVER_NAME,
+    global $username, $attachment_dir, $_SERVER,
            $version, $attachments, $squirrelmail_language, $default_charset,
            $languages, $useSendmail, $domain, $sent_folder,
            $popuser, $data_dir, $username;
+
+    $SERVER_NAME = $_SERVER['SERVER_NAME'];
 
     $header = $message->rfc822_header;
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
@@ -614,11 +616,76 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
 /*   Main of read_body.php */
 /***************************/
 
-/*
-    Urled vars
-    ----------
-    $passed_id
-*/
+/* get the globals we may need */
+
+$username = $_SESSION['username'];
+$key = $_COOKIE['key'];
+$onetimepad = $_SESSION['onetimepad'];
+$msgs = $_SESSION['msgs'];
+$base_uri = $_SESSION['base_uri'];
+$delimiter = $_SESSION['delimiter'];
+
+if (isset($_GET['passed_id'])) {
+    $passed_id = $_GET['passed_id'];
+}
+elseif (isset($_POST['passed_id'])) {
+    $passed_id = $_POST['passed_id'];
+}
+
+if (isset($_GET['sendreceipt'])) {
+    $sendreceipt = $_GET['sendreceipt'];
+}
+
+if (isset($_GET['sort'])) {
+    $sort = $_GET['sort'];
+}
+elseif (isset($_POST['sort'])) {
+    $sort = $_POST['sort'];
+}
+if (isset($_GET['startMessage'])) {
+    $startMessage = $_GET['startMessage'];
+}
+elseif (isset($_POST['startMessage'])) {
+    $startMessage = $_POST['startMessage'];
+}
+if (isset($_GET['show_more'])) {
+    $show_more = $_GET['show_more'];
+}
+elseif (isset($_POST['show_more'])) {
+    $show_more = $_POST['show_more'];
+}
+if (isset($_GET['mailbox'])) {
+    $mailbox = $_GET['mailbox'];
+}
+elseif (isset($_POST['mailbox'])) {
+    $mailbox = $_POST['mailbox'];
+}
+if (isset($_GET['where'])) {
+    $where = $_GET['where'];
+}
+if (isset($_GET['what'])) {
+    $what = $_GET['what'];
+}
+if (isset($_GET['view_hdr'])) {
+    $view_hdr = $_GET['view_hdr'];
+}
+if (isset($_SESSION['server_sort_array'])) {
+    $server_sort_array = $_SESSION['server_sort_array'];
+}
+if (isset($_SESSION['msgs'])) {
+    $msgs = $_SESSION['msgs'];
+}
+if (isset($_SESSION['msort'])) {
+    $msort = $_SESSION['msort'];
+}
+if (isset($_POST['move_id'])) {
+    $move_id = $_POST['move_id'];
+}
+if (isset($_SESSION['lastTargetMailbox'])) {
+    $lastTargetMailbox = $_SESSION['lastTargetMailbox'];
+}
+
+/* end of get globals */
 
 global $uid_support, $sqimap_capabilities;
 

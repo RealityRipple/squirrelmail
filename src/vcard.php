@@ -21,6 +21,17 @@ require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'include/load_prefs.php');
 
+/* globals */
+$key  = $_COOKIE['key'];
+$username = $_SESSION['username'];
+$onetimepad = $_SESISON['onetimepad'];
+
+$mailbox = $_GET['mailbox'];
+$passed_id = $_GET['passed_id'];
+$passed_ent_id = $_GET['passed_ent_id'];
+
+/* end globals */
+
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 sqimap_mailbox_select($imapConnection, $mailbox);
 

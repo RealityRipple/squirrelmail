@@ -17,10 +17,23 @@ require_once(SM_PATH . 'include/validate.php');
 
 /* Print all the needed RFC822 headers */
 function write822HeaderForDraft ($fp, $t, $c, $b, $subject, $more_headers, $session) {
-    global $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
-    global $data_dir, $username, $popuser, $domain, $version, $useSendmail;
-    global $default_charset, $HTTP_VIA, $HTTP_X_FORWARDED_FOR;
-    global $REMOTE_HOST, $identity;
+    global $data_dir, $username, $popuser, $domain, $version, $useSendmail,
+           $default_charset, $identity, $_SERVER;
+
+    /* get those globals */
+    $REMOTE_ADDR = $_SERVER['REMOTE_ADDR'];
+    $SERVER_NAME = $_SERVER['SERVER_NAME'];
+    $REMOTE_PORT = $_SERVER['REMOTE_PORT'];
+
+    if(isset($_SERVER['REMOTE_HOST'])) {
+        $REMOTE_HOST = $_SERVER['REMOTE_HOST'];
+    }
+    if(isset($_SERVER['HTTP_VIA'])) {
+        $HTTP_VIA = $_SERVER['HTTP_VIA'];
+    }
+    if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $HTTP_X_FORWARDED_FOR = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }
 
     /* Storing the header to make sure the header is the same */
     /* everytime the header is printed. */
@@ -147,10 +160,13 @@ function writeBodyForDraft ($fp, $passedBody, $session) {
 
 function saveMessageAsDraft($t, $c, $b, $subject, $body, $reply_id, $prio = 3, $session) {
     global $useSendmail, $msg_id, $is_reply, $mailbox, $onetimepad,
-           $data_dir, $username, $domain, $key, $version, $sent_folder,
+           $data_dir, $domain, $version, $sent_folder,
            $imapServerAddress, $imapPort, $draft_folder, $attachment_dir,
-           $default_use_priority;
+           $default_use_priority, $_SESSION, $_COOKIE;
     $more_headers = Array();
+
+    $username = $_SESSION['username'];
+    $key = $_COOKIE['key'];
 
     if ($default_use_priority) {
         $more_headers = array_merge($more_headers, createPriorityHeaders($prio));

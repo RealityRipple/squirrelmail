@@ -23,6 +23,23 @@ require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/html.php');
 
+/* lets get the global vars we may need */
+$key  = $_COOKIE['key'];
+$username = $_SESSION['username'];
+$onetimepad = $_SESSION['onetimepad'];
+$base_uri = $_SESSION['base_uri'];
+
+sqextractGlobalVar('show');
+if ( isset($_POST['query']) ) {
+    $query = $_POST['query'];
+}
+if ( isset($_POST['listall']) ) {
+    $listall = $_POST['listall'];
+}
+if ( isset($_POST['backend'] ) ) {
+    $backend = $_POST['backend'];
+}
+
 /* Function to include JavaScript code */
 function insert_javascript() {
     ?>
