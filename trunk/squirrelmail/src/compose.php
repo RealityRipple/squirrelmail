@@ -632,7 +632,7 @@ function showInputForm ($session) {
     }
     echo html_tag( 'table', '', 'center', '', 'width="100%" cellspacing="0" border="0"' ) . "\n";
     if ($compose_new_win == '1') {
-        echo html_tag( 'table', 'center', $color[0], 'width="100%" border="0"' ) .
+        echo html_tag( 'table', '', 'center', $color[0], 'width="100%" border="0"' ) .
                         html_tag( 'tr',
                             html_tag( 'td' ) . 
                             html_tag( 'td',
@@ -988,3 +988,4 @@ function getReplyCitation($orig_from)
 }
 
 ?>
+)
