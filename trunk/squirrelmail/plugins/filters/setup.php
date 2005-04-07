@@ -1,5 +1,7 @@
 <?php
 /**
+ * Message and Spam Filter Plugin - Setup
+ *
  * @version $Id$
  * @copyright (c) 1999-2005 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
