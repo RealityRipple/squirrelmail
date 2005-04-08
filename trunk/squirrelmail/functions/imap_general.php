@@ -825,7 +825,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
 	 * Check RFC 2221 for details. Since we do not support login referrals yet
 	 * we log the user out.
 	 */
-    if ( strpos($message, "REFERRAL") ) {
+    if ( stristr($message, 'REFERRAL imap') === TRUE ) {
         sqimap_logout($imap_stream);   
         set_up_language($squirrelmail_language, true);
         include_once(SM_PATH . 'functions/display_messages.php' );
