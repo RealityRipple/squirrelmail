@@ -290,11 +290,35 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
     $SetupAlready = TRUE;
     sqgetGlobalVar('HTTP_ACCEPT_LANGUAGE',  $accept_lang, SQ_SERVER);
 
-    if ($do_search && ! $sm_language && isset($accept_lang)) {
+    /**
+     * If function is asked to detect preferred language
+     *  OR squirrelmail default language is set to empty string
+     *    AND
+     * squirrelmail language ($sm_language) is empty string 
+     * (not set in user's prefs and no cookie with language info)
+     *    AND
+     * browser provides list of preferred languages
+     *  THEN
+     * get preferred language from HTTP_ACCEPT_LANGUAGE header
+     */
+    if (($do_search || empty($squirrelmail_default_language)) && 
+        ! $sm_language && 
+        isset($accept_lang)) {
+        // TODO: use more than one language, if first language is not available
+        // FIXME: function assumes that string contains two or more characters.
+        // FIXME: some languages use 5 chars
         $sm_language = substr($accept_lang, 0, 2);
     }
 
-    if ((!$sm_language||$default) && isset($squirrelmail_default_language)) {
+    /**
+     * If language preference is not set OR script asks to use default language
+     *  AND
+     * default squirrelmail language is not set to empty string
+     *  THEN
+     * use default squirrelmail language value from configuration.
+     */
+    if ((!$sm_language||$default) && 
+        ! empty($squirrelmail_default_language)) {
         $squirrelmail_language = $squirrelmail_default_language;
         $sm_language = $squirrelmail_default_language;
     }
@@ -442,8 +466,8 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
  * Sets default_charset variable according to the one that is used by user's translations.
  *
  * Function changes global $default_charset variable in order to be sure, that it
- * contains charset used by user's translation. Sanity of $squirrelmail_default_language
- * and $default_charset combination provided in SquirrelMail config is also tested.
+ * contains charset used by user's translation. Sanity of $squirrelmail_language
+ * and $default_charset combination is also tested.
  *
  * There can be a $default_charset setting in the
  * config.php file, but the user may have a different language
@@ -454,11 +478,11 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
  * message blindly with the system-wide $default_charset.
  */
 function set_my_charset(){
-    global $data_dir, $username, $default_charset, $languages, $squirrelmail_default_language;
+    global $data_dir, $username, $default_charset, $languages, $squirrelmail_language;
 
     $my_language = getPref($data_dir, $username, 'language');
     if (!$my_language) {
-        $my_language = $squirrelmail_default_language ;
+        $my_language = $squirrelmail_language ;
     }
     // Catch removed translation
     if (!isset($languages[$my_language])) {
@@ -871,7 +895,7 @@ endswitch;
 
 global $squirrelmail_language, $languages, $use_gettext;
 
-if (! isset($squirrelmail_language)) {
+if (! sqgetGlobalVar('squirrelmail_language',$squirrelmail_language,SQ_COOKIE)) {
     $squirrelmail_language = '';
 }
 
@@ -892,6 +916,7 @@ if (! isset($squirrelmail_language)) {
  *
  * Each 'language' definition requires NAME+CHARSET or ALIAS variables.
  *
+ * @todo TODO: make language loading modular (similar to plugins, with locale/xx_XX/setup.php files)
  * @name $languages
  * @global array $languages
  */
