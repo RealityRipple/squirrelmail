@@ -40,14 +40,12 @@ function sqimap_session_id($unique_id = FALSE) {
 /**
  * Both send a command and accept the result from the command.
  * This is to allow proper session number handling.
- * @param resource $imap_stream imap connection resource
+ * @param stream $imap_stream imap connection resource
  * @param string $query imap command
  * @param boolean $handle_errors see sqimap_retrieve_imap_response()
- * @param mixed $response
- * @param mixed $message
- * @param boolean $unique_id (since 1.3.0) controls use of unique 
- *  identifiers/message sequence numbers in IMAP commands. See IMAP
- *  rfc 'UID command' chapter.
+ * @param array $response
+ * @param array $message
+ * @param boolean $unique_id (since 1.3.0) see sqimap_session_id().
  * @return mixed returns false on imap error. displays error message 
  *  if imap stream is not available.
  * @since 1.2.3
@@ -76,17 +74,15 @@ function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$respon
 }
 
 /**
- * @param resource $imap_stream imap connection resource
+ * @param stream $imap_stream imap connection resource
  * @param string $query imap command
  * @param boolean $handle_errors see sqimap_retrieve_imap_response()
- * @param mixed $response
- * @param mixed $message
- * @param boolean $unique_id (since 1.3.0) controls use of unique 
- *  identifiers/message sequence numbers in IMAP commands. See IMAP
- *  rfc 'UID command' chapter.
- * @param mixed $filter (since 1.4.1 and 1.5.0)
- * @param mixed $outputstream (since 1.4.1 and 1.5.0)
- * @param mixed $no_return (since 1.4.1 and 1.5.0)
+ * @param array $response empty string, if return = false
+ * @param array $message empty string, if return = false
+ * @param boolean $unique_id (since 1.3.0) see sqimap_session_id()
+ * @param boolean $filter (since 1.4.1 and 1.5.0) see sqimap_fread()
+ * @param mixed $outputstream (since 1.4.1 and 1.5.0) see sqimap_fread()
+ * @param boolean $no_return (since 1.4.1 and 1.5.0) see sqimap_fread()
  * @return mixed returns false on imap error. displays error message 
  *  if imap stream is not available.
  * @since 1.2.3
@@ -132,7 +128,7 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response,
  * @param mixed $new_query
  * @param string $tag
  * @param array $aQuery
- * @param boolean $unique_id
+ * @param boolean $unique_id see sqimap_session_id()
  * @since 1.5.0
  */
 function sqimap_prepare_pipelined_query($new_query,&$tag,&$aQuery,$unique_id) {
@@ -144,15 +140,15 @@ function sqimap_prepare_pipelined_query($new_query,&$tag,&$aQuery,$unique_id) {
 }
 
 /**
- * @param stream $imap_stream
+ * @param stream $imap_stream imap stream
  * @param array $aQueryList
  * @param boolean $handle_errors
  * @param array $aServerResponse
  * @param array $aServerMessage
- * @param boolean $unique_id
- * @param mixed $filter see sqimap_retrieve_imap_response()
- * @param mixed $outputstream see sqimap_retrieve_imap_response()
- * @param mixed $no_return see sqimap_retrieve_imap_response()
+ * @param boolean $unique_id see sqimap_session_id()
+ * @param boolean $filter see sqimap_fread()
+ * @param mixed $outputstream see sqimap_fread()
+ * @param boolean $no_return see sqimap_fread()
  * @since 1.5.0
  */
 function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors,
@@ -221,7 +217,7 @@ function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors
 /**
  * Custom fgets function: gets a line from the IMAP-server,
  * no matter how big it may be.
- * @param stream imap_stream the stream to read from
+ * @param stream $imap_stream the stream to read from
  * @return string a line
  * @since 1.2.8
  */
@@ -248,9 +244,9 @@ function sqimap_fgets($imap_stream) {
 /**
  * @param stream $imap_stream
  * @param integer $iSize
- * @param mixed $filter see sqimap_retrieve_imap_response()
- * @param mixed $outputstream see sqimap_retrieve_imap_response()
- * @param mixed $no_return see sqimap_retrieve_imap_response()
+ * @param boolean $filter
+ * @param mixed $outputstream stream or 'php://stdout' string
+ * @param boolean $no_return controls data returned by function 
  * @return string
  * @since 1.4.1
  */
@@ -310,6 +306,12 @@ function sqimap_fread($imap_stream,$iSize,$filter=false,
 
 /**
  * Obsolete function, inform plugins that use it
+ * @param stream $imap_stream
+ * @param string $tag
+ * @param boolean $handle_errors
+ * @param array $response
+ * @param array $message
+ * @param string $query
  * @since 1.1.3
  * @deprecated (since 1.5.0) use sqimap_run_command or sqimap_run_command_list instead
  */
@@ -369,15 +371,15 @@ function sqimap_error_box($title, $query = '', $message_title = '', $message = '
  * Reads the output from the IMAP stream.  If handle_errors is set to true,
  * this will also handle all errors that are received.  If it is not set,
  * the errors will be sent back through $response and $message.
- * @param stream $imap_stream
- * @param mixed $tag
- * @param boolean $handle_errors
+ * @param stream $imap_stream imap stream
+ * @param string $tag
+ * @param boolean $handle_errors handle errors internally or send them in $response and $message.
  * @param array $response
  * @param array $message
- * @param mixed $query
- * @param mixed $filter
- * @param mixed $outputstream
- * @param mixed $no_return
+ * @param string $query command that can be printed if something fails
+ * @param boolean $filter see sqimap_fread()
+ * @param mixed $outputstream  see sqimap_fread()
+ * @param boolean $no_return  see sqimap_fread()
  * @since 1.5.0
  */
 function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
@@ -599,15 +601,15 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
 }
 
 /**
- * @param stream $imap_stream
+ * @param stream $imap_stream imap string
  * @param string $tag_uid
  * @param boolean $handle_errors
  * @param array $response
  * @param array $message
- * @param mixed $query (since 1.2.5)
- * @param mixed $filter (since 1.4.1) see sqimap_retrieve_imap_response()
- * @param mixed $outputstream (since 1.4.1) see sqimap_retrieve_imap_response()
- * @param mixed $no_return (since 1.4.1) see sqimap_retrieve_imap_response()
+ * @param string $query (since 1.2.5)
+ * @param boolean $filter (since 1.4.1) see sqimap_fread()
+ * @param mixed $outputstream (since 1.4.1) see sqimap_fread()
+ * @param boolean $no_return (since 1.4.1) see sqimap_fread()
  */
 function sqimap_read_data ($imap_stream, $tag_uid, $handle_errors,
                            &$response, &$message, $query = '',
@@ -839,7 +841,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
 
 /**
  * Simply logs out the IMAP session
- * @param stream imap_stream the IMAP connection to log out.
+ * @param stream $imap_stream the IMAP connection to log out.
  * @return void
  */
 function sqimap_logout ($imap_stream) {
@@ -850,10 +852,10 @@ function sqimap_logout ($imap_stream) {
 }
 
 /**
- * Retreive the CAPABILITY string from the IMAP server.
+ * Retrieve the CAPABILITY string from the IMAP server.
  * If capability is set, returns only that specific capability,
  * else returns array of all capabilities.
- * @param $imap_stream
+ * @param stream $imap_stream
  * @param string $capability (optional since 1.3.0)
  * @return mixed (string if $capability is set and found, 
  *  false, if $capability is set and not found,
@@ -887,7 +889,7 @@ function sqimap_capability($imap_stream, $capability='') {
 }
 
 /**
- * Returns the delimeter between mailboxes: INBOX/Test, or INBOX.Test
+ * Returns the delimiter between mailboxes: INBOX/Test, or INBOX.Test
  * @param stream $imap_stream
  * @return string
  */
@@ -938,7 +940,7 @@ function sqimap_get_delimiter ($imap_stream = false) {
 
 /**
  * This encodes a mailbox name for use in IMAP commands.
- * @param string what the mailbox to encode
+ * @param string $what the mailbox to encode
  * @return string the encoded mailbox string
  * @since 1.5.0
  */
@@ -953,6 +955,9 @@ function sqimap_encode_mailbox_name($what)
  * Gets the number of messages in the current mailbox.
  *
  * OBSOLETE use sqimap_status_messages instead.
+ * @param stream $imap_stream imap stream
+ * @param string $mailbox
+ * @deprecated
  */
 function sqimap_get_num_messages ($imap_stream, $mailbox) {
     $read_ary = sqimap_run_command ($imap_stream, 'EXAMINE ' . sqimap_encode_mailbox_name($mailbox), false, $result, $message);
@@ -963,11 +968,18 @@ function sqimap_get_num_messages ($imap_stream, $mailbox) {
     }
     return false; //"BUG! Couldn't get number of messages in $mailbox!";
 }
+
+/** FIXME: include is inserted in the middle of the code */
 include_once(SM_PATH . 'functions/rfc822address.php');
 
 /**
  * OBSOLETE FUNCTION should be removed after mailbox_display,
  * printMessage function is adapted
+ * $addr_ar = array(), $group = '' and $host='' arguments are used in 1.4.0
+ * @param string $address
+ * @param integer $max
+ * @since 1.4.0
+ * @deprecated See Rfc822Address.php
  */
 function parseAddress($address, $max=0) {
     $aAddress = parseRFC822Address($address,array('limit'=> $max));
@@ -983,6 +995,13 @@ function parseAddress($address, $max=0) {
 /**
  * OBSOLETE FUNCTION should be removed after mailbox_display,
  * printMessage function is adapted
+ *
+ * callback function used for formating of addresses array in 
+ * parseAddress() function
+ * @param array $aAddr
+ * @param integer $k array key
+ * @since 1.5.1
+ * @deprecated
  */
 function _adaptAddress(&$aAddr,$k) {
    $sPersonal = (isset($aAddr[SQM_ADDR_PERSONAL]) && $aAddr[SQM_ADDR_PERSONAL]) ?
@@ -996,6 +1015,11 @@ function _adaptAddress(&$aAddr,$k) {
 /**
  * Returns the number of unseen messages in this folder.
  * obsoleted by sqimap_status_messages !
+ * Arguments differ in 1.0.x
+ * @param stream $imap_stream
+ * @param string $mailbox
+ * @return integer
+ * @deprecated
  */
 function sqimap_unseen_messages ($imap_stream, $mailbox) {
     $aStatus = sqimap_status_messages($imap_stream,$mailbox,array('UNSEEN'));
@@ -1005,7 +1029,13 @@ function sqimap_unseen_messages ($imap_stream, $mailbox) {
 /**
  * Returns the status items of a mailbox.
  * Default it returns MESSAGES,UNSEEN and RECENT
- * Supported status items are MESSAGES, UNSEEN, RECENT, UIDNEXT and UIDVALIDITY
+ * Supported status items are MESSAGES, UNSEEN, RECENT (since 1.4.0), 
+ * UIDNEXT (since 1.5.1) and UIDVALIDITY (since 1.5.1)
+ * @param stream $imap_stream imap stream
+ * @param string $mailbox mail folder
+ * @param array $aStatusItems status items
+ * @return array
+ * @since 1.3.2
  */
 function sqimap_status_messages ($imap_stream, $mailbox,
                        $aStatusItems = array('MESSAGES','UNSEEN','RECENT')) {
@@ -1044,6 +1074,9 @@ function sqimap_status_messages ($imap_stream, $mailbox,
 
 /**
  * Saves a message to a given folder -- used for saving sent messages
+ * @param stream $imap_stream
+ * @param string $sent_folder
+ * @param $length
  */
 function sqimap_append ($imap_stream, $sent_folder, $length) {
     fputs ($imap_stream, sqimap_session_id() . ' APPEND ' . sqimap_encode_mailbox_name($sent_folder) . " (\\Seen) \{$length}\r\n");
@@ -1051,12 +1084,23 @@ function sqimap_append ($imap_stream, $sent_folder, $length) {
     sqimap_append_checkresponse($tmp, $sent_folder);
 }
 
+/**
+ * @param stream imap_stream
+ * @param string $folder (since 1.3.2)
+ */
 function sqimap_append_done ($imap_stream, $folder='') {
     fputs ($imap_stream, "\r\n");
     $tmp = fgets ($imap_stream, 1024);
     sqimap_append_checkresponse($tmp, $folder);
 }
 
+/**
+ * Displays error messages, if there are errors in responses to 
+ * commands issues by sqimap_append() and sqimap_append_done() functions.
+ * @param string $response
+ * @param string $folder
+ * @since 1.5.1
+ */
 function sqimap_append_checkresponse($response, $folder) {
     
     if (preg_match("/(.*)(BAD|NO)(.*)$/", $response, $regs)) {
@@ -1090,6 +1134,14 @@ function sqimap_append_checkresponse($response, $folder) {
     }
 }
 
+/**
+ * Allows mapping of imap server address with custom function
+ * see map_yp_alias()
+ * @param string $imap_server imap server address or mapping
+ * @param string $username
+ * @return string
+ * @since 1.3.0
+ */
 function sqimap_get_user_server ($imap_server, $username) {
    if (substr($imap_server, 0, 4) != "map:") {
        return $imap_server;
@@ -1103,6 +1155,12 @@ function sqimap_get_user_server ($imap_server, $username) {
  * you can simple put map:map_yp_alias in your $imap_server_address
  * in config.php use your own function instead map_yp_alias to map your
  * LDAP whatever way to find the users imapserver.
+ * 
+ * Requires access to external ypmatch program
+ * FIXME: it can be implemented in php yp extension or pecl (since php 5.1.0)
+ * @param string $username
+ * @return string
+ * @since 1.3.0
  */
 function map_yp_alias($username) {
    $yp = `ypmatch $username aliases`;
