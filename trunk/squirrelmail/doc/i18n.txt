@@ -1,4 +1,10 @@
-SquirrelMail internationalization
+
+    *************************************
+    * SquirrelMail internationalization *
+    *************************************
+
+$Date$
+$Revision$
 
 This document should explain how SquirrelMail internationalization works and
 provide information about some aspects of implementation.
@@ -9,6 +15,8 @@ provide information about some aspects of implementation.
 4. Display of different charsets
 5. IMAP folder names
 6. Plural forms
+7. Language setup
+8. Time zones
 
 -------------------------------
 1. Supported languages
@@ -158,7 +166,7 @@ Used in functions/strings.php (sqWordWrap)
 --------------------------------
 4. Display of different charsets
 --------------------------------
-When SquirrelMail generates html pages, it uses charset set by translation
+When SquirrelMail generates html pages, it uses charset defined in translation
 selected by end user. Interface can display emails encoded in different
 charsets. In order to display characters that might be unsupported by user's
 charset, SquirrelMail uses decoding functions that convert non us-ascii symbols
@@ -169,11 +177,14 @@ By default SquirrelMail includes decoding functions that support iso-8859-x,
 windows-125x, utf-8, us-ascii, koi8-r, koi8-u, tis-620, ns-4551_1, iso-ir-111,
 cp855 and cp866 charsets. Other decoding functions are distributed in separate
 packages. Separate packaging of decoding functions is supported from
-SquirrelMail 1.4.4 and 1.5.0.
+SquirrelMail 1.4.4 and 1.5.0. us-ascii decoding replaces all 8bit symbols with
+question marks. utf-8 decoding function does not enable decoding of five and six
+byte utf-8 symbols by default (code is commented) and replaces all incorrectly
+formated 8bit symbols with question marks.
 
-Some decoding functions might require php recode support. If your php
-installation does not support recode, you might be using slower and cpu/memory
-intensive functions.
+Some decoding functions might require php recode extension or php 4.3+ mbstring
+extension. If your php installation does not support them, you might be using 
+slower and cpu/memory intensive functions.
 
 --------------------
 5. IMAP folder names
@@ -205,9 +216,63 @@ bindtextdomain and textdomain wrappers that load missing functions.
 If plugins want to use ngettext functions without increasing php requirements
 to 4.2.0 with gettext support, they should require SquirrelMail 1.5.1, use 
 sq_bindtextdomain function instead of bindtextdomain and use sq_textdomain 
-function instead of text domain function. If SquirrelMail wrapper functions 
+function instead of textdomain function. If SquirrelMail wrapper functions 
 are used, there is no need to issue sq_bindtextdomain when plugins reverts to
 SquirrelMail domain.
 
 More information about ngettext and plural forms can be found at:
 http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
+
+-----------------
+7. Language setup
+-----------------
+SquirrelMail uses set_up_language() function to setup language environment.
+Environment is setup automatically when include/validate.php is loaded.
+
+SquirrelMail gets interface language from three places:
+ a) user preference. It is set in Options -> Display Preferences -> Language.
+    preference uses language key. If user's preferences are not available (user
+    is not logged in), system tries to extract language value from 
+    'squirrelmail_language' cookie.
+ b) default squirrelmail language that is set in configuration 
+    ($squirrelmail_default_language variable).
+ c) preferred language setting provided by browser. It is used only when default 
+    squirrelmail language is set to empty string
+
+If language information is not available, SquirrelMail falls back to US English
+translation.
+
+-------------
+8. Time zones
+-------------
+If php install allows modifying environment variable TZ, SquirrelMail allows
+end users to select different time zone in their preferences. It can be set in
+Options -> Personal Information -> Your current timezone. Time zone is
+setup automatically when include/validate.php is loaded.
+
+If TZ variable can't be modified (php is running is safe mode and variable 
+is not listed in php safe_mode_allowed_env_vars), user's time zone options are
+not visible and interface use default webserver's time zone.
+
+List of available time zones is stored in locale/timezones.cfg. Current list
+of time zones uses some time zone names that depend on webserver's system 
+libraries. These names are not compatible with Windows operating system.
+
+TODO: move time zone information to php array in order to be able to translate 
+it and make sure that time zone names are compatible with Windows operating
+system. Or at least provide 'default' and 'strict' time zone options in
+SquirrelMail configuration. Maybe even provide 'custom' time zone list
+options.
+
+If modifications in TZ environment are visible in your webserver's logs (time
+offset is changed), make sure that you can reproduce such behavior in latest php
+version and report bug to php developers. Issue can be fixed by blocking use of
+time zone (php safe mode and TZ is not listed in safe_mode_allowed_env_vars
+setting or forced_prefs plugin) or by attaching special php script with 
+putenv('TZ=some time zone') call in php auto_append_file setting (suggestion is
+not tested and you might have to fix all SquirrelMail exit calls).
+
+Please note, that use of auto_append_file provides only temporally workaround
+and does not fix your php setup. Script that runs as unprivileged user, should
+be unable to affect webserver's logging system.
+

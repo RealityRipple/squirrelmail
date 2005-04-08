@@ -10,8 +10,12 @@ For instance, if you want RFC 822, you can jump directly to it at
 
 NUMBER     DESCRIPTION
 -----------------------------------------------------------
-RFC 1730   IMAP version 4
-RFC 2060   IMAP version 4rev1
+RFC 822    Format of ARPA Internet text messages
+RFC 1730   IMAP version 4 (obsoleted by 2060)
+RFC 2045   MIME Part One: Format of Internet Message Bodies
+RFC 2046   MIME Part Two: Media Types
+RFC 2047   MIME Part Three: Message Header Extensions for Non-ASCII Text
+RFC 2060   IMAP version 4rev1 (obsoleted by 3501)
 RFC 2183   Content-Disposition MIME header
 RFC 2195   IMAP/POP AUTHorize Extension for Simple Challenge/Response
 RFC 2221   IMAP4 Login Referrals
@@ -21,3 +25,4 @@ RFC 2616   HTTP/1.1
 RFC 2683   IMAP4 Implementation Recommendations
 RFC 2822   Format of an email message (sendmail)
 RFC 2831   Using Digest Authentication as a SASL Mechanism (digest-md5)
+RFC 3501   IMAP version 4rev1
