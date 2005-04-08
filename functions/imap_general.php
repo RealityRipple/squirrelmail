@@ -830,8 +830,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
         set_up_language($squirrelmail_language, true);
         include_once(SM_PATH . 'functions/display_messages.php' );
         sqsession_destroy();
-        logout_error( _("Your mailbox is not located on this server.<br>".
-	                   "Try a different server or consult your Administrator") );
+        logout_error( _("Your mailbox is not located at this server. Try a different server or consult your system administrator") );
         exit;
     }
     
