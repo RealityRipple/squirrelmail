@@ -304,6 +304,10 @@ Version 1.5.1 -- CVS
   - Partial support of IMAP REFERRAL: do not fail on IMAP REFERRAL response
     (RFC 2221) but log the user out with a hint. Patch by Ariel Arjona
     (#1006242).
+  - Fixed SquirrelMail language cookie detection in php register_globals=off.
+  - If default SquirrelMail language is set to empty string, interface will 
+    try to follow browser's HTTP_ACCEPT_LANGUAGE header or fallback to en_US
+    (#764709).
   
 Version 1.5.0 - 2 February 2004
 -------------------------------
