@@ -7,8 +7,8 @@
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * Loads constants used by the rest of the SquirrelMail source.
- * This file is include by src/login.php, src/redirect.php and
- * src/load_prefs.php.
+ * This file is included by functions/date.php, include/load_prefs.php,
+ * plugins/administrator/defines.php, src/login.php and src/redirect.php.
  *
  * @version $Id$
  * @package squirrelmail
@@ -17,9 +17,9 @@
 /** Need to enable plugin functions for a hook */
 require_once(SM_PATH . 'functions/plugin.php');  /* Required for the hook */
 
-/**************************************************************/
-/* Set values for constants used by SquirrelMail preferences. */
-/**************************************************************/
+////////////////////////////////////////////////////////////////
+// Set values for constants used by SquirrelMail preferences. //
+////////////////////////////////////////////////////////////////
 
 /* Define basic, general purpose preference constants. */
 define('SMPREF_NO', 0);
