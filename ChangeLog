@@ -308,6 +308,8 @@ Version 1.5.1 -- CVS
   - If default SquirrelMail language is set to empty string, interface will 
     try to follow browser's HTTP_ACCEPT_LANGUAGE header or fallback to en_US
     (#764709).
+  - If From: field is unset in an email, header object for from field is not
+    correctly set, and generates an error on reply (#1179754).
   
 Version 1.5.0 - 2 February 2004
 -------------------------------
