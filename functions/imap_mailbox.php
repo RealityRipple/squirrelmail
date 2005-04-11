@@ -28,8 +28,9 @@ global $boxesnew;
  * / rename / delete / new we have to create methods for adding/changing the
  * mailbox in the mbx_tree without the need for a refresh.
  * @package squirrelmail
-*/
-
+ * @subpackage imap
+ * @since 1.3.0
+ */
 class mailboxes {
     var $mailboxname_full = '', $mailboxname_sub= '', $is_noselect = false, $is_noinferiors = false,
         $is_special = false, $is_root = false, $is_inbox = false, $is_sent = false,
@@ -71,6 +72,12 @@ class mailboxes {
     }
 }
 
+/**
+ * array callback used for sorting in mailboxes class
+ * @param object $a
+ * @param object $b
+ * @since 1.3.0
+ */
 function sortSpecialMbx($a, $b) {
     if ($a->is_inbox) {
         $acmp = '0'. $a->mailboxname_full;
@@ -89,8 +96,12 @@ function sortSpecialMbx($a, $b) {
     return strnatcasecmp($acmp, $bcmp);
 }
 
-function compact_mailboxes_response($ary)
-{
+/**
+ * @param array $ary
+ * @return array
+ * @since 1.5.0
+ */
+function compact_mailboxes_response($ary) {
     /*
      * Workaround for mailboxes returned as literal
      * FIXME : Doesn't work if the mailbox name is multiple lines
@@ -113,9 +124,13 @@ function compact_mailboxes_response($ary)
  * Extract the mailbox name from an untagged LIST (7.2.2) or LSUB (7.2.3) answer
  * (LIST|LSUB) (<Flags list>) (NIL|"<separator atom>") <mailbox name string>\r\n
  * mailbox name in quoted string MUST be unquoted and stripslashed (sm API)
+ *
+ * Originally stored in functions/strings.php. Since 1.2.6 stored in 
+ * functions/imap_mailbox.php
+ * @param string $line imap LIST/LSUB response line
+ * @return string mailbox name
  */
-function find_mailbox_name($line)
-{
+function find_mailbox_name($line) {
     if (preg_match('/^\* (?:LIST|LSUB) \([^\)]*\) (?:NIL|\"[^\"]*\") ([^\r\n]*)[\r\n]*$/i', $line, $regs)) {
         if (substr($regs[1], 0, 1) == '"')
             return stripslashes(substr($regs[1], 1, -1));
@@ -125,14 +140,20 @@ function find_mailbox_name($line)
 }
 
 /**
+ * Detects if mailbox has noselect flag (can't store messages)
+ * @param string $lsub_line mailbox line from untagged LIST or LSUB response
  * @return bool whether this is a Noselect mailbox.
+ * @since 1.3.2
  */
 function check_is_noselect ($lsub_line) {
     return preg_match("/^\* (LSUB|LIST) \([^\)]*\\\\Noselect[^\)]*\)/i", $lsub_line);
 }
 
 /**
+ * Detects if mailbox has noinferiors flag (can't store subfolders)
+ * @param string $lsub_line mailbox line from untagged LIST or LSUB response
  * @return bool whether this is a Noinferiors mailbox.
+ * @since 1.5.0
  */
 function check_is_noinferiors ($lsub_line) {
     return preg_match("/^\* (LSUB|LIST) \([^\)]*\\\\Noinferiors[^\)]*\)/i", $lsub_line);
