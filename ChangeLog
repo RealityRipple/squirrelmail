@@ -311,6 +311,8 @@ Version 1.5.1 -- CVS
   - If From: field is unset in an email, header object for from field is not
     correctly set, and generates an error on reply (#1179754).
   - Add Cancel button to addressbook (#1180565).
+  - Workaround for Courier IMAP; send mixed messages with multiparts
+    with nested boundaries that Courier is able to parse
   
 Version 1.5.0 - 2 February 2004
 -------------------------------
