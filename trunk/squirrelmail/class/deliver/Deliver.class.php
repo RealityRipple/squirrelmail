@@ -76,8 +76,17 @@ class Deliver {
         if ($boundary && $message->entity_id && count($message->entities)) {
             if (strpos($boundary,'_part_')) {
                 $boundary = substr($boundary,0,strpos($boundary,'_part_'));
+
+            // the next four lines use strrev to reverse any nested boundaries 
+            // as a workaround for Courier-IMAP, which will stop parsing 
+            // when it sees the original outer boundary string and ignore
+            // our "_part_..." addition to that string.  a bug report has been
+            // made, but in the meantime...
+            //
+            } else if (strpos($boundary,'_trap_')) {
+                $boundary = substr(strrev($boundary),0,strpos(strrev($boundary),'_part_'));
             }
-            $boundary_new = $boundary . '_part_'.$message->entity_id;
+            $boundary_new = strrev($boundary . '_part_'.$message->entity_id);
         } else {
             $boundary_new = $boundary;
         }
