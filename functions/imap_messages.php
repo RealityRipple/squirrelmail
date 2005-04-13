@@ -580,11 +580,15 @@ function parseArray($read,&$i) {
 
 /**
  * Retrieves a list with headers, flags, size or internaldate from the imap server
- * @param resource $imap_stream imap connection
- * @param array    $msg_list array with id's to create a msgs set from
- * @param array    $aHeaderFields requested header fields
- * @param array    $aFetchItems   requested other fetch items like FLAGS, RFC822.SIZE
- * @return array   $aMessages associative array with messages. Key is the UID, value is an associative array
+ *
+ * WARNING: function is not portable between SquirrelMail 1.2.x, 1.4.x and 1.5.x. 
+ * Output format, third argument and $msg_list array format requirements differ.
+ * @param stream $imap_stream imap connection
+ * @param array  $msg_list array with id's to create a msgs set from
+ * @param array  $aHeaderFields (since 1.5.0) requested header fields
+ * @param array  $aFetchItems (since 1.5.0) requested other fetch items like FLAGS, RFC822.SIZE
+ * @return array $aMessages (since 1.5.0) associative array with messages. Key is the UID, value is an associative array
+ * @since 1.1.3
  */
 function sqimap_get_small_header_list($imap_stream, $msg_list,
     $aHeaderFields = array('Date', 'To', 'Cc', 'From', 'Subject', 'X-Priority', 'Importance', 'Priority', 'Content-Type'),

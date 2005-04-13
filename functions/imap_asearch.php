@@ -338,6 +338,7 @@ function sqimap_array_merge_unique(&$to, $from)
 * @param string $search_string the full search expression eg "ALL RECENT"
 * @param string $search_charset charset to use or zls ('')
 * @return array an IDs or UIDs array of matching messages or an empty array
+* @since 1.5.0
 */
 function sqimap_run_search($imapConnection, $search_string, $search_charset)
 {
