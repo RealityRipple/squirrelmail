@@ -160,9 +160,17 @@ function check_is_noinferiors ($lsub_line) {
 }
 
 /**
+ * Detects mailbox's parent folder
+ *
  * If $haystack is a full mailbox name, and $needle is the mailbox
  * separator character, returns the second last part of the full
  * mailbox name (i.e. the mailbox's parent mailbox)
+ *
+ * Originally stored in functions/strings.php. Since 1.2.6 stored in 
+ * functions/imap_mailbox.php
+ * @param string $haystack full mailbox name
+ * @param string $needle delimiter
+ * @return string parent mailbox 
  */
 function readMailboxParent($haystack, $needle) {
     if ($needle == '') {
@@ -180,6 +188,10 @@ function readMailboxParent($haystack, $needle) {
 
 /**
  * Check if $subbox is below the specified $parentbox
+ * @param string $subbox potential sub folder
+ * @param string $parentbox potential parent
+ * @return boolean
+ * @since 1.2.3
  */
 function isBoxBelow( $subbox, $parentbox ) {
     global $delimiter;
@@ -201,6 +213,12 @@ function isBoxBelow( $subbox, $parentbox ) {
 /**
  * Defines special mailboxes: given a mailbox name, it checks if this is a
  * "special" one: INBOX, Trash, Sent or Draft.
+ * 
+ * Since 1.2.5 function includes special_mailbox hook.<br>
+ * Since 1.4.3 hook supports more than one plugin.
+ * @param string $box mailbox name
+ * @return boolean
+ * @since 1.2.3
  */
 function isSpecialMailbox( $box ) {
     $ret = ( (strtolower($box) == 'inbox') ||
@@ -213,7 +231,10 @@ function isSpecialMailbox( $box ) {
 }
 
 /**
+ * Detects if mailbox is a Trash folder or subfolder of Trash
+ * @param string $box mailbox name
  * @return bool whether this is a Trash folder
+ * @since 1.4.0
  */
 function isTrashMailbox ($box) {
     global $trash_folder, $move_to_trash;
@@ -222,7 +243,10 @@ function isTrashMailbox ($box) {
 }
 
 /**
+ * Detects if mailbox is a Sent folder or subfolder of Sent
+ * @param string $box mailbox name
  * @return bool whether this is a Sent folder
+ * @since 1.4.0
  */
 function isSentMailbox($box) {
    global $sent_folder, $move_to_sent;
@@ -231,7 +255,10 @@ function isSentMailbox($box) {
 }
 
 /**
+ * Detects if mailbox is a Drafts folder or subfolder of Drafts
+ * @param string $box mailbox name
  * @return bool whether this is a Draft folder
+ * @since 1.4.0
  */
 function isDraftMailbox($box) {
    global $draft_folder, $save_as_draft;
@@ -240,7 +267,19 @@ function isDraftMailbox($box) {
 }
 
 /**
- * Expunges a mailbox, ie. delete all contents.
+ * Expunges a mailbox
+ * 
+ * WARNING: Select mailbox before calling this function.
+ * 
+ * permanently removes all messages that have the \Deleted flag 
+ * set from the selected mailbox. See EXPUNGE command chapter in 
+ * IMAP RFC.
+ * @param stream $imap_stream imap connection resource
+ * @param string $mailbox mailbox name (unused since 1.1.3).
+ * @param boolean $handle_errors error handling control (displays error_box on error).
+ * @param mixed $id (since 1.3.0) integer message id or array with integer ids
+ * @return integer number of expunged messages
+ * 
  */
 function sqimap_mailbox_expunge ($imap_stream, $mailbox, $handle_errors = true, $id='') {
     if ($id) {
@@ -268,6 +307,10 @@ function sqimap_mailbox_expunge ($imap_stream, $mailbox, $handle_errors = true, 
 
 /**
  * Checks whether or not the specified mailbox exists
+ * @param stream $imap_stream imap connection resource
+ * @param string $mailbox mailbox name
+ * @return boolean
+ * @since 1.0 or older
  */
 function sqimap_mailbox_exists ($imap_stream, $mailbox) {
     if (!isset($mailbox) || empty($mailbox)) {
@@ -280,6 +323,11 @@ function sqimap_mailbox_exists ($imap_stream, $mailbox) {
 
 /**
  * Selects a mailbox
+ * Before 1.3.0 used more arguments and returned data depended on those argumements.
+ * @param stream $imap_stream imap connection resource
+ * @param string $mailbox mailbox name
+ * @return array results of select command (on success - permanentflags, flags and rights) 
+ * @since 1.0 or older
  */
 function sqimap_mailbox_select ($imap_stream, $mailbox) {
     if ($mailbox == 'None') {
@@ -316,6 +364,17 @@ function sqimap_mailbox_select ($imap_stream, $mailbox) {
 
 /**
  * Creates a folder.
+ *
+ * Mailbox is automatically subscribed.
+ * 
+ * Set $type to string that does not match 'noselect' (case insensitive), 
+ * if you don't want to prepend delimiter to mailbox name. Please note 
+ * that 'noinferiors' might be used someday as keyword for folders 
+ * that store only messages.
+ * @param stream $imap_steam imap connection resource
+ * @param string $mailbox mailbox name
+ * @param string $type folder type.
+ * @since 1.0 or older
  */
 function sqimap_mailbox_create ($imap_stream, $mailbox, $type) {
     global $delimiter;
@@ -331,6 +390,10 @@ function sqimap_mailbox_create ($imap_stream, $mailbox, $type) {
 
 /**
  * Subscribes to an existing folder.
+ * @param stream $imap_stream imap connection resource
+ * @param string $mailbox mailbox name
+ * @param boolean $debug (since 1.5.1)
+ * @since 1.0 or older
  */
 function sqimap_subscribe ($imap_stream, $mailbox,$debug=true) {
     $read_ary = sqimap_run_command($imap_stream, 'SUBSCRIBE ' .
@@ -340,6 +403,9 @@ function sqimap_subscribe ($imap_stream, $mailbox,$debug=true) {
 
 /**
  * Unsubscribes from an existing folder
+ * @param stream $imap_stream imap connection resource
+ * @param string $mailbox mailbox name
+ * @since 1.0 or older
  */
 function sqimap_unsubscribe ($imap_stream, $mailbox) {
     $read_ary = sqimap_run_command($imap_stream, 'UNSUBSCRIBE ' .
