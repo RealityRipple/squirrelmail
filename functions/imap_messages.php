@@ -587,7 +587,7 @@ function parseArray($read,&$i) {
  * @param array  $msg_list array with id's to create a msgs set from
  * @param array  $aHeaderFields (since 1.5.0) requested header fields
  * @param array  $aFetchItems (since 1.5.0) requested other fetch items like FLAGS, RFC822.SIZE
- * @return array $aMessages (since 1.5.0) associative array with messages. Key is the UID, value is an associative array
+ * @return array $aMessages associative array with messages. Key is the UID, value is an associative array
  * @since 1.1.3
  */
 function sqimap_get_small_header_list($imap_stream, $msg_list,
