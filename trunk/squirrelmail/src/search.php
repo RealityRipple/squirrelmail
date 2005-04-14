@@ -1503,7 +1503,7 @@ if ($submit == $search_button_text) {
                     $aNewOrder[] = $iCol;
                 }
                 $aMailboxPref[MBX_PREF_COLUMNS] = $aNewOrder;
-                setUserPref($username,'pref_'.$account.'_'.$mbx,serialize($aMailboxPref));
+                setUserPref($username,'pref_'.$iAccount.'_'.$mbx,serialize($aMailboxPref));
             }
 
             $aConfig['search'] = $search['search'];
