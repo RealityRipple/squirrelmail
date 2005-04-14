@@ -29,6 +29,7 @@ require_once(SM_PATH . 'functions/url_parser.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/identity.php');
+include_once(SM_PATH . 'functions/arrays.php');
 require_once(SM_PATH . 'functions/mailbox_display.php');
 
 /**
@@ -45,18 +46,12 @@ function findNextMessage($uidset,$passed_id='backwards') {
     if ($passed_id=='backwards' || !is_array($uidset)) { // check for backwards compattibilty gpg plugin
         $passed_id = $uidset;
     }
-    $result = -1;
-    $count = count($uidset) - 1;
-    foreach($uidset as $key=>$value) {
-        if ($passed_id == $value) {
-            if ($key == $count) {
-                break;
-            }
-            $result = $uidset[$key + 1];
-            break;
-        }
+    $result = sqm_array_get_value_by_offset($uidset,$passed_id,1);
+    if ($result === false) {
+        return -1;
+    } else {
+        return $result;
     }
-    return $result;
 }
 
 /**
@@ -71,17 +66,12 @@ function findPreviousMessage($uidset, $passed_id) {
     if (!is_array($uidset)) {
         return -1;
     }
-    $result = -1;
-    foreach($uidset as $key=>$value) {
-        if ($passed_id == $value) {
-            if ($key != 0) {
-                $result = $uidset[$key - 1];
-            }
-            break;
-        }
+    $result = sqm_array_get_value_by_offset($uidset,$passed_id,-1);
+    if ($result === false) {
+        return -1;
+    } else {
+        return $result;
     }
-
-    return $result;
 }
 
 /**
@@ -469,7 +459,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
            $startMessage, $PHP_SELF, $save_as_draft,
            $enable_forward_as_attachment, $imapConnection, $lastTargetMailbox,
            $username, $delete_prev_next_display,
-           $compose_new_win, $javascript_on;
+           $compose_new_win, $javascript_on, $compose_width, $compose_height;
 
     //FIXME cleanup argument list, use $aMailbox where possible
     $mailbox = $aMailbox['NAME'];
@@ -501,7 +491,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
         }
 
         $prev_link = _("Previous");
-        if($entities[$passed_ent_id] > 1) {
+        if(isset($entities[$passed_ent_id]) && $entities[$passed_ent_id] > 1) {
             $prev_ent_id = $entity_count[$entities[$passed_ent_id] - 1];
             $prev_link   = '<a href="'
                          . set_url_var($PHP_SELF, 'passed_ent_id', $prev_ent_id)
@@ -509,7 +499,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
         }
 
         $next_link = _("Next");
-        if($entities[$passed_ent_id] < $c) {
+        if(isset($entities[$passed_ent_id]) && $entities[$passed_ent_id] < $c) {
             $next_ent_id = $entity_count[$entities[$passed_ent_id] + 1];
             $next_link   = '<a href="'
                          . set_url_var($PHP_SELF, 'passed_ent_id', $next_ent_id)
@@ -617,8 +607,14 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
     $method='method="post" ';
     $onsubmit='';
     if ($compose_new_win == '1') {
+        if (!preg_match("/^[0-9]{3,4}$/", $compose_width)) {
+            $compose_width = '640';
+        }
+        if (!preg_match("/^[0-9]{3,4}$/", $compose_height)) {
+            $compose_height = '550';
+        }
         if ( $javascript_on ) {
-          $on_click=' onclick="comp_in_new_form(\''.$comp_uri.'\', this, this.form)"';
+          $on_click=' onclick="comp_in_new_form(\''.$comp_uri.'\', this, this.form,'. $compose_width .',' . $compose_height .')"';
           $comp_uri = 'javascript:void(0)';
           $method='method="get" ';
           $onsubmit = 'onsubmit="return false" ';
@@ -743,6 +739,27 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
 
 }
 
+/**
+ * Creates button
+ *
+ * @deprecated see form functions available in 1.5.1 and 1.4.3.
+ * @param string $type
+ * @param string $name
+ * @param string $value
+ * @param string $js
+ * @param bool $enabled
+ */
+function getButton($type, $name, $value, $js = '', $enabled = TRUE) {
+    $disabled = ( $enabled ? '' : 'disabled ' );
+    $js = ( $js ? $js.' ' : '' );
+    return '<input '.$disabled.$js.
+            'type="'.$type.
+            '" name="'.$name.
+            '" value="'.$value .
+            '" style="padding: 0px; margin: 0px" />';
+}
+
+
 /***************************/
 /*   Main of read_body.php */
 /***************************/
@@ -780,6 +797,12 @@ if ( sqgetGlobalVar('view_hdr', $temp,  SQ_GET) ) {
     $view_hdr = (int) $temp;
 }
 
+if ( sqgetGlobalVar('account', $temp,  SQ_GET) ) {
+    $iAccount = (int) $temp;
+} else {
+    $iAccount = 0;
+}
+
 /** GET/POST VARS */
 sqgetGlobalVar('passed_ent_id', $passed_ent_id);
 sqgetGlobalVar('mailbox',       $mailbox);
@@ -804,7 +827,19 @@ sqgetGlobalVar('mailbox_cache',$mailbox_cache,SQ_SESSION);
 global $sqimap_capabilities, $lastTargetMailbox;
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-$aMailbox = sqm_api_mailbox_select($imapConnection, $mailbox,array('setindex' => $what),array());
+$aMailbox = sqm_api_mailbox_select($imapConnection, $iAccount, $mailbox,array('setindex' => $what, 'offset' => $startMessage),array());
+
+/**
+ * Check if cache is still valid
+ */
+$iSetIndex = $aMailbox['SETINDEX'];
+$aMailbox['CURRENT_MSG'][$iSetIndex] = $passed_id;
+//$aMailbox['OFFSET'] = $startMessage -1;
+
+sqgetGlobalVar('aFetchColumns',$aFetchColumns,SQ_SESSION);
+if (!is_array($aMailbox['UIDSET'][$what])) {
+    fetchMessageHeaders($imapConnection, $aMailbox, $aFetchColumns);
+}
 
 /**
  * Update the seen state
@@ -820,8 +855,6 @@ if (isset($aMailbox['MSG_HEADERS'][$passed_id]['FLAGS'])) {
  */
 if ( sqgetGlobalVar('delete_id', $delete_id, SQ_GET) ) {
     handleMessageListForm($imapConnection,$aMailbox,$sButton='setDeleted', array($delete_id));
-//    sqimap_messages_delete($imapConnection, $delete_id, $delete_id, $mailbox);
-//    sqimap_mailbox_expunge_dmn($imapConnection,$aMailbox,$delete_id);
 }
 
 /**
@@ -848,9 +881,16 @@ if (isset($passed_ent_id) && $passed_ent_id) {
     $rfc822_header = new Rfc822Header();
     $rfc822_header->parseHeader($read);
     $message->rfc822_header = $rfc822_header;
+} else if ($message->type0 == 'message'  && $message->type1 == 'rfc822' && isset($message->entities[0])) {
+    $read = sqimap_run_command ($imapConnection, "FETCH $passed_id BODY[1.HEADER]", true, $response, $msg, TRUE);
+    $rfc822_header = new Rfc822Header();
+    $rfc822_header->parseHeader($read);
+    $message->rfc822_header = $rfc822_header;
 } else {
     $passed_ent_id = 0;
 }
+$header = $message->header;
+
 $header = $message->header;
 
 
@@ -961,10 +1001,11 @@ formatMenuBar($aMailbox, $passed_id, $passed_ent_id, $message, false, FALSE);
 
 do_hook('read_body_bottom');
 sqimap_logout($imapConnection);
-/* sessions are written at the end of the script. it's better to register
-   them at the end so we avoid double session_register calls */
-/* add the mailbox to the cache */
-$mailbox_cache[$aMailbox['NAME']] = $aMailbox;
+
+/**
+ * Write mailbox with updated seen flag information back to cache.
+ */
+$mailbox_cache[$iAccount.'_'.$aMailbox['NAME']] = $aMailbox;
 sqsession_register($mailbox_cache,'mailbox_cache');
 ?>
 </body></html>

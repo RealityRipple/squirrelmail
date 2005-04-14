@@ -735,7 +735,7 @@ function show_readable_size($bytes) {
         settype($bytes, 'integer');
     }
 
-    return $bytes . '<small>&nbsp;' . $type . '</small>';
+    return $bytes . '&nbsp;' . $type;
 }
 
 /**
@@ -859,6 +859,7 @@ function makeComposeLink($url, $text = null, $target='')
  * The output is wrapped in <<pre>> and <</pre>> tags.
  * Since 1.4.2 accepts unlimited number of arguments.
  * @since 1.4.1
+ *
  * @return void
  */
 function sm_print_r() {
@@ -1094,13 +1095,13 @@ function sq_mb_list_encodings() {
  * Function returns number of characters in string.
  *
  * Returned number might be different from number of bytes in string,
- * if $charset is multibyte charset. Detection depends on mbstring 
+ * if $charset is multibyte charset. Detection depends on mbstring
  * functions. If mbstring does not support tested multibyte charset,
- * vanilla string length function is used. 
+ * vanilla string length function is used.
  * @param string $str string
  * @param string $charset charset
  * @since 1.5.1
- * @return integer number of characters in string 
+ * @return integer number of characters in string
  */
 function sq_strlen($str, $charset=''){
     // default option
@@ -1123,7 +1124,7 @@ function sq_strlen($str, $charset=''){
     if (in_array($charset,$aList_of_mb_charsets) && in_array($charset,sq_mb_list_encodings())) {
         $real_length = mb_strlen($str,$charset);
     } else {
-        // own strlen detection code is removed because missing strpos, 
+        // own strlen detection code is removed because missing strpos,
         // strtoupper and substr implementations break string wrapping.
         $real_length=strlen($str);
     }
@@ -1137,7 +1138,7 @@ function sq_strlen($str, $charset=''){
  * @param string $string original string
  * @param integer $width padded string width
  * @param string $pad padding symbols
- * @param integer $padtype padding type 
+ * @param integer $padtype padding type
  *  (internal php defines, see str_pad() description)
  * @param string $charset charset used in original string
  * @return string padded string
@@ -1183,7 +1184,7 @@ function sq_substr($string,$start,$length,$charset='auto') {
         $charset=$default_charset;
     }
     $charset = strtolower($charset);
-    if (function_exists('mb_internal_encoding') && 
+    if (function_exists('mb_internal_encoding') &&
         in_array($charset,sq_mb_list_encodings())) {
         return mb_substr($string,$start,$length,$charset);
     }
@@ -1213,7 +1214,7 @@ function sq_strpos($haystack,$needle,$offset,$charset='auto') {
         $charset=$default_charset;
     }
     $charset = strtolower($charset);
-    if (function_exists('mb_internal_encoding') && 
+    if (function_exists('mb_internal_encoding') &&
         in_array($charset,sq_mb_list_encodings())) {
         return mb_strpos($haystack,$needle,$offset,$charset);
     }
@@ -1241,7 +1242,7 @@ function sq_strtoupper($string,$charset='auto') {
         $charset=$default_charset;
     }
     $charset = strtolower($charset);
-    if (function_exists('mb_strtoupper') && 
+    if (function_exists('mb_strtoupper') &&
         in_array($charset,sq_mb_list_encodings())) {
         return mb_strtoupper($string,$charset);
     }
