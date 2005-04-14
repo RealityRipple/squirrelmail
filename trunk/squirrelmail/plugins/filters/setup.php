@@ -52,9 +52,9 @@ function start_filters_hook($args) {
  * Called by hook to Update filters when Folders Change
  * @access private
  */
-function update_for_folder_hook() {
+function update_for_folder_hook($args) {
     include_once(SM_PATH . 'plugins/filters/filters.php');
-    update_for_folder ();
+    update_for_folder ($args);
 }
 
 ?>
