@@ -77,11 +77,11 @@ class Deliver {
             if (strpos($boundary,'_part_')) {
                 $boundary = substr($boundary,0,strpos($boundary,'_part_'));
 
-            // the next four lines use strrev to reverse any nested boundaries 
-            // as a workaround for Courier-IMAP, which will stop parsing 
-            // when it sees the original outer boundary string and ignore
-            // our "_part_..." addition to that string.  a bug report has been
-            // made, but in the meantime...
+            // the next four lines use strrev to reverse any nested boundaries
+            // because RFC 2046 (5.1.1) says that if a line starts with the outer
+            // boundary string (doesn't matter what the line ends with), that
+            // can be considered a match for the outer boundary; thus the nested
+            // boundary needs to be unique from the outer one
             //
             } else if (strpos($boundary,'_trap_')) {
                 $boundary = substr(strrev($boundary),0,strpos(strrev($boundary),'_part_'));
