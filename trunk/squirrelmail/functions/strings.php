@@ -857,7 +857,8 @@ function makeComposeLink($url, $text = null, $target='')
  * characters are converted to htmlentities first.  This will allow
  * values like <some@email.address> to be displayed.
  * The output is wrapped in <<pre>> and <</pre>> tags.
- *
+ * Since 1.4.2 accepts unlimited number of arguments.
+ * @since 1.4.1
  * @return void
  */
 function sm_print_r() {
