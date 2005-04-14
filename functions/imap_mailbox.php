@@ -76,6 +76,7 @@ class mailboxes {
  * array callback used for sorting in mailboxes class
  * @param object $a
  * @param object $b
+ * @return integer see php strnatcasecmp()
  * @since 1.3.0
  */
 function sortSpecialMbx($a, $b) {
@@ -279,7 +280,7 @@ function isDraftMailbox($box) {
  * @param boolean $handle_errors error handling control (displays error_box on error).
  * @param mixed $id (since 1.3.0) integer message id or array with integer ids
  * @return integer number of expunged messages
- * 
+ * @since 1.0 or older
  */
 function sqimap_mailbox_expunge ($imap_stream, $mailbox, $handle_errors = true, $id='') {
     if ($id) {
@@ -415,6 +416,10 @@ function sqimap_unsubscribe ($imap_stream, $mailbox) {
 
 /**
  * Deletes the given folder
+ * Since 1.2.6 and 1.3.0 contains rename_or_delete_folder hook
+ * @param stream $imap_stream imap connection resource
+ * @param string $mailbox mailbox name
+ * @since 1.0 or older
  */
 function sqimap_mailbox_delete ($imap_stream, $mailbox) {
     global $data_dir, $username;
@@ -434,6 +439,10 @@ function sqimap_mailbox_delete ($imap_stream, $mailbox) {
 
 /**
  * Determines if the user is subscribed to the folder or not
+ * @param stream $imap_stream imap connection resource
+ * @param string $mailbox mailbox name
+ * @return boolean
+ * @since 1.2.0
  */
 function sqimap_mailbox_is_subscribed($imap_stream, $folder) {
     $boxesall = sqimap_mailbox_list ($imap_stream);
@@ -447,6 +456,11 @@ function sqimap_mailbox_is_subscribed($imap_stream, $folder) {
 
 /**
  * Renames a mailbox.
+ * Since 1.2.6 and 1.3.0 contains rename_or_delete_folder hook
+ * @param stream $imap_stream imap connection resource
+ * @param string $old_name mailbox name
+ * @param string $new_name new mailbox name
+ * @since 1.2.3
  */
 function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
     if ( $old_name != $new_name ) {
@@ -508,12 +522,21 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
  * Formats a mailbox into parts for the $boxesall array
  *
  * The parts are:
- *
- *     raw            - Raw LIST/LSUB response from the IMAP server
- *     formatted      - nicely formatted folder name
- *     unformatted    - unformatted, but with delimiter at end removed
- *     unformatted-dm - folder name as it appears in raw response
- *     unformatted-disp - unformatted without $folder_prefix
+ * <ul>
+ *   <li>raw            - Raw LIST/LSUB response from the IMAP server
+ *   <li>formatted      - nicely formatted folder name
+ *   <li>unformatted    - unformatted, but with delimiter at end removed
+ *   <li>unformatted-dm - folder name as it appears in raw response
+ *   <li>unformatted-disp - unformatted without $folder_prefix
+ *   <li>id             - TODO: document me
+ *   <li>flags          - TODO: document me
+ * </ul>
+ * Before 1.2.0 used third argument for delimiter.
+ * @param $line
+ * @param $line_lsub
+ * @return array
+ * @since 1.0 or older
+ * @todo document id and flags keys in boxes array and function arguments.
  */
 function sqimap_mailbox_parse ($line, $line_lsub) {
     global $folder_prefix, $delimiter;
@@ -584,18 +607,20 @@ function sqimap_mailbox_parse ($line, $line_lsub) {
  * based on available mailboxes and separators
  * Caller should surround options with <select ...> </select> and
  * any formatting.
- *   $imap_stream - $imapConnection to query for mailboxes
- *   $show_selected - array containing list of mailboxes to pre-select (0 if none)
- *   $folder_skip - array of folders to keep out of option list (compared in lower)
- *   $boxes - list of already fetched boxes (for places like folder panel, where
+ * @param stream $imap_stream imap connection resource to query for mailboxes
+ * @param array $show_selected array containing list of mailboxes to pre-select (0 if none)
+ * @param array $folder_skip array of folders to keep out of option list (compared in lower)
+ * @param $boxes list of already fetched boxes (for places like folder panel, where
  *            you know these options will be shown 3 times in a row.. (most often unset).
- *   $flag - flag to check for in mailbox flags, used to filter out mailboxes.
+ * @param string $flag (since 1.4.1) flag to check for in mailbox flags, used to filter out mailboxes.
  *           'noselect' by default to remove unselectable mailboxes.
  *           'noinferiors' used to filter out folders that can not contain subfolders.
  *           NULL to avoid flag check entirely.
  *           NOTE: noselect and noiferiors are used internally. The IMAP representation is
  *                 \NoSelect and \NoInferiors
- *   $use_long_format - override folder display preference and always show full folder name.
+ * @param boolean $use_long_format (since 1.4.1) override folder display preference and always show full folder name.
+ * @return string html formated mailbox selection options
+ * @since 1.3.2
  */
 function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_skip = 0, $boxes = 0,
                                     $flag = 'noselect', $use_long_format = false ) {
@@ -655,6 +680,7 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
  * @param resource $imap_stream imap connection resource
  * @param boolean $force force update of mailbox listing. available since 1.4.2 and 1.5.0
  * @return array list of mailboxes
+ * @since 1.0 or older
  */
 function sqimap_mailbox_list($imap_stream, $force=false) {
     if (!sqgetGlobalVar('boxesnew',$boxesnew,SQ_SESSION) || $force) {
@@ -786,7 +812,10 @@ function sqimap_mailbox_list($imap_stream, $force=false) {
 }
 
 /**
- *  Returns a list of all folders, subscribed or not
+ * Returns a list of all folders, subscribed or not
+ * @param stream $imap_stream imap connection resource
+ * @return array see sqimap_mailbox_parse()
+ * @since 1.0 or older
  */
 function sqimap_mailbox_list_all($imap_stream) {
     global $list_special_folders_first, $folder_prefix, $delimiter;
@@ -853,6 +882,11 @@ function sqimap_mailbox_list_all($imap_stream) {
     return $boxes;
 }
 
+/**
+ * @param stream $imap_stream imap connection resource
+ * @return object see mailboxes class.
+ * @since 1.3.0
+ */
 function sqimap_mailbox_tree($imap_stream) {
     global $default_folder_prefix;
     if (true) {
@@ -960,10 +994,24 @@ function sqimap_mailbox_tree($imap_stream) {
     }
 }
 
+/**
+ * Callback function used for sorting mailboxes in sqimap_mailbox_tree
+ * @param string $a
+ * @param string $b
+ * @return integer see php strnatcasecmp()
+ * @since 1.5.1
+ */
 function mbxSort($a, $b) {
     return strnatcasecmp($a['mbx'], $b['mbx']);
 }
 
+/**
+ * @param array $mbx_ary
+ * @param $mbxs
+ * @param stream $imap_stream (since 1.5.0) imap connection resource
+ * @return object see mailboxes class
+ * @since 1.3.0
+ */
 function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
     global $data_dir, $username, $list_special_folders_first,
            $folder_prefix, $trash_folder, $sent_folder, $draft_folder,
@@ -1068,6 +1116,10 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
     return $mailboxes;
 }
 
+/**
+ * @param object $mbx_tree
+ * @since 1.5.0
+ */
 function sqimap_utf7_decode_mbx_tree(&$mbx_tree) {
    if (strtoupper($mbx_tree->mailboxname_full) == 'INBOX')
        $mbx_tree->mailboxname_sub = _("INBOX");
@@ -1081,7 +1133,11 @@ function sqimap_utf7_decode_mbx_tree(&$mbx_tree) {
    }
 }
 
-
+/**
+ * @param object $mbx_tree
+ * @param array $aMbxs
+ * @since 1.5.0
+ */
 function sqimap_tree_to_ref_array(&$mbx_tree,&$aMbxs) {
    if ($mbx_tree)
    $aMbxs[] =& $mbx_tree;
@@ -1093,6 +1149,11 @@ function sqimap_tree_to_ref_array(&$mbx_tree,&$aMbxs) {
    }
 }
 
+/**
+ * @param stream $imap_stream imap connection resource
+ * @param object $mbx_tree
+ * @since since 1.5.0
+ */
 function sqimap_get_status_mbx_tree($imap_stream,&$mbx_tree) {
     global $unseen_notify, $unseen_type, $trash_folder,$move_to_trash;
     $aMbxs = $aQuery = array();
