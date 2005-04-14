@@ -2,7 +2,7 @@
 /**
  * rfc822address.php
  *
- * Copyright (c) 2004-2005 The SquirrelMail Project Team
+ * Copyright (c) 2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * Contains rfc822 email address function parsing functions.
@@ -12,39 +12,21 @@
  * @package squirrelmail
  */
 
-/**
- * Undocumented defines
- */
-if (!defined('SQM_ADDR_PERSONAL')) define('SQM_ADDR_PERSONAL', 0);
-if (!defined('SQM_ADDR_ADLL'))     define('SQM_ADDR_ADL',      1);
-if (!defined('SQM_ADDR_MAILBOX'))  define('SQM_ADDR_MAILBOX',  2);
-if (!defined('SQM_ADDR_HOST'))     define('SQM_ADDR_HOST',     3);
 
 /**
  * parseRFC822Address: function for parsing RFC822 email address strings and store
  *               them in an address array
  *
- * @param string $address The email address string to parse
- * @param array  $aProps  associative array with properties
+ * @param string  $address The email address string to parse
+ * @param integer $iLimit stop on $iLimit parsed addresses
  * @public
  * @author Marc Groot Koerkamp
  *
  **/
-
-function parseRFC822Address($sAddress,$aProps) {
-//    $aPropsDefault = array (
-//                            'domain' => '',         //
-//                            'limit'  => 0,          // limits returned addresses
-//                            'abooklookup' => false); // callback function for addressbook lookup
-//
-//    $aProps = is_array($aProps) ? array_merge($aPropsDefault,$aProps) : $aPropsDefault;
-
-//    $cbLookup = $aProps['abooklookup'];
-//    $sDomain  = $aProps['domain'];
-    $iLimit   = $aProps['limit'];
+function parseRFC822Address($sAddress,$iLimit = 0) {
 
     $aTokens = _getAddressTokens($sAddress);
-    $sEmail = $sGroup = '';
+    $sPersonal = $sEmail = $sComment = $sGroup = '';
     $aStack = $aComment = $aAddress = array();
     foreach ($aTokens as $sToken) {
         if ($iLimit && $iLimit == count($aAddress)) {
@@ -94,6 +76,7 @@ function parseRFC822Address($sAddress,$aProps) {
     $aAddress[] = _createAddressElement($aStack,$aComment,$sEmail);
     return $aAddress;
 }
+
 
 /**
  * Do the address array to string translation
@@ -163,7 +146,7 @@ function getAddressString($aAddressList,$aProps) {
             $aNewAddressList[] = $s;
         }
     }
-    return explode($aProps['seperator'],$aNewAddressList);
+    return implode($aProps['separator'],$aNewAddressList);
 }
 
 
@@ -180,7 +163,7 @@ function getAddressString($aAddressList,$aProps) {
  * @return string
  * @public
  * @see parseRFC822Address
- * $see Rfc822Header
+ * @see Rfc822Header
  * @author Marc Groot Koerkamp
  *
  **/
