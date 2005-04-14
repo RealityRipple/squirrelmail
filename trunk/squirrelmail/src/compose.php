@@ -175,6 +175,7 @@ function getReplyCitation($orig_from, $orig_date) {
     } else {
         $orig_from = decodeHeader($orig_from->getAddress(false),false,false,true);
     }
+
 //    $from = decodeHeader($orig_header->getAddr_s('from',"\n$indent"),false,false);
 
     /* First, return an empty string when no citation style selected. */
@@ -204,7 +205,7 @@ function getReplyCitation($orig_from, $orig_date) {
     case 'date_time_author':
         /**
          * To translators:
-         *  first %s is for date string, second %s is for author's name. Date uses 
+         *  first %s is for date string, second %s is for author's name. Date uses
          *  formating from "D, F j, Y g:i a" and "D, F j, Y H:i" translations.
          * Example string:
          *  "On Sat, December 24, 2004 23:59, Santa said:"
@@ -230,9 +231,9 @@ function getReplyCitation($orig_from, $orig_date) {
 /**
  * Creates header fields in forwarded email body
  *
- * $default_charset global must be set correctly before you call this function. 
+ * $default_charset global must be set correctly before you call this function.
  * @param object $orig_header
- * @return $string 
+ * @return $string
  */
 function getforwardHeader($orig_header) {
     global $editor_size, $default_charset;
@@ -311,7 +312,13 @@ if (sqsession_is_registered('session_expired_post')) {
     if ($compose_new_win == '1') {
         compose_Header($color, $mailbox);
     } else {
-        displayPageHeader($color, $mailbox);
+        $sHeaderJs = (isset($sHeaderJs)) ? $sHeaderJs : '';
+        if (strpos($action, 'reply') !== false && $reply_focus) {
+            $sBodyTagJs = 'onload="checkForm(\''.$replyfocus.'\');"';
+        } else {
+            $sBodyTagJs = 'onload="checkForm();"';
+        }
+        displayPageHeader($color, $mailbox,$sHeaderJs,$sBodyTagJs);
     }
     showInputForm($session, false);
     exit();
@@ -330,6 +337,7 @@ if (!isset($session) || (isset($newmessage) && $newmessage)) {
 if (!isset($compose_messages)) {
     $compose_messages = array();
 }
+
 if (!isset($compose_messages[$session]) || ($compose_messages[$session] == NULL)) {
     /* if (!array_key_exists($session, $compose_messages)) {  /* We can only do this in PHP >= 4.1 */
     $composeMessage = new Message();
@@ -337,6 +345,7 @@ if (!isset($compose_messages[$session]) || ($compose_messages[$session] == NULL)
     $composeMessage->rfc822_header = $rfc822_header;
     $composeMessage->reply_rfc822_header = '';
     $compose_messages[$session] = $composeMessage;
+
     sqsession_register($compose_messages,'compose_messages');
 } else {
     $composeMessage=$compose_messages[$session];
@@ -364,7 +373,7 @@ if ($draft) {
             $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, false);
             sqimap_mailbox_select($imap_stream, $draft_folder);
             // force bypass_trash=true because message should be saved when deliverMessage() returns true.
-            // in current implementation of sqimap_msgs_list_flag() single message id can 
+            // in current implementation of sqimap_msgs_list_flag() single message id can
             // be submitted as string. docs state that it should be array.
             sqimap_msgs_list_delete($imap_stream, $draft_folder, $delete_draft, true);
             if ($auto_expunge) {
@@ -443,7 +452,7 @@ if ($send) {
             $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, false);
             sqimap_mailbox_select($imap_stream, $draft_folder);
             // bypass_trash=true because message should be saved when deliverMessage() returns true.
-            // in current implementation of sqimap_msgs_list_flag() single message id can 
+            // in current implementation of sqimap_msgs_list_flag() single message id can
             // be submitted as string. docs state that it should be array.
             sqimap_msgs_list_delete($imap_stream, $draft_folder, $delete_draft, true);
             if ($auto_expunge) {
@@ -793,6 +802,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 // forwarded message text should be as undisturbed as possible, so commenting out this call
                 // sqUnWordWrap($body);
                 $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
+
                 //add a blank line after the forward headers
                 $body = "\n" . $body;
                 break;
@@ -878,7 +888,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
  * @param integer $passed_id
  * @param mixed $entities
  * @param mixed $imapConnection
- * @return object  
+ * @return object
  */
 function getAttachments($message, &$composeMessage, $passed_id, $entities, $imapConnection) {
     global $attachment_dir, $username, $data_dir, $squirrelmail_language, $languages;
@@ -923,9 +933,7 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
 
             /* Write Attachment to file */
             $fp = fopen ("$hashed_attachment_dir/$localfilename", 'wb');
-            fputs($fp, decodeBody(mime_fetch_body($imapConnection,
-                            $passed_id, $message->entity_id),
-                        $message->header->encoding));
+            mime_print_body_lines ($imapConnection, $passed_id, $message->entity_id, $message->header->encoding, $fp);
             fclose ($fp);
         }
     } else {
@@ -978,6 +986,7 @@ function showInputForm ($session, $values=false) {
         $username, $data_dir, $identity, $idents, $delete_draft,
         $mailprio, $compose_new_win, $saved_draft, $mail_sent, $sig_first,
         $username, $compose_messages, $composesession, $default_charset;
+
 
     $composeMessage = $compose_messages[$session];
     if ($values) {
@@ -1116,7 +1125,7 @@ function showInputForm ($session, $values=false) {
             /*
              * FIXME: test is specific to ja_JP translation implementation.
              * This test might apply incorrect conversion to other translations, but
-             * use of 7bit iso-2022-jp charset in other translations might have other 
+             * use of 7bit iso-2022-jp charset in other translations might have other
              * issues too.
              */
             if ($default_charset == 'iso-2022-jp') {
@@ -1342,7 +1351,6 @@ function checkInput ($show) {
 function saveAttachedFiles($session) {
     global $_FILES, $attachment_dir, $attachments, $username,
         $data_dir, $compose_messages;
-
     /* get out of here if no file was attached at all */
     if (! is_uploaded_file($_FILES['attachfile']['tmp_name']) ) {
         return true;
@@ -1615,7 +1623,7 @@ function deliverMessage($composeMessage, $draft=false) {
         ClearAttachments($composeMessage);
         if ($action == 'reply' || $action == 'reply_all') {
             sqimap_mailbox_select ($imap_stream, $mailbox);
-            sqimap_messages_flag ($imap_stream, $passed_id, $passed_id, 'Answered', false);
+            sqimap_toggle_flag($imap_stream, array($passed_id), '\\Answered', true, false);
         }
         sqimap_logout($imap_stream);
     }

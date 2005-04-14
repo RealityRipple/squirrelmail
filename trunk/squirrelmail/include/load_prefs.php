@@ -156,7 +156,7 @@ $timezone = getPref($data_dir, $username, 'timezone', SMPREF_NONE );
 /* Load preferences for reply citation style. */
 
 $reply_citation_style =
-    getPref($data_dir, $username, 'reply_citation_style', 'date_time_author' );
+    getPref($data_dir, $username, 'reply_citation_style', SMPREF_NONE );
 $reply_citation_start = getPref($data_dir, $username, 'reply_citation_start');
 $reply_citation_end = getPref($data_dir, $username, 'reply_citation_end');
 
@@ -196,19 +196,68 @@ if( $ser = getPref($data_dir, $username, 'hililist') ) {
     setPref($data_dir, $username, 'hililist', serialize($message_highlight_list));
 }
 
+/* use the internal date of the message for sorting instead of the supplied header date */
+/* OBSOLETE */
+
+$internal_date_sort = getPref($data_dir, $username, 'internal_date_sort', SMPREF_ON);
+
 /* Index order lets you change the order of the message index */
 $order = getPref($data_dir, $username, 'order1');
-for ($i = 1; $order; ++$i) {
-    $index_order[$i] = $order;
-    $order = getPref($data_dir, $username, 'order'.($i+1));
+if (isset($order1)) {
+    removePref($data_dir, $username, 'order1');
+    for ($i = 1; $order; ++$i) {
+        $index_order[$i-1] = $order -1;
+        $order = getPref($data_dir, $username, 'order'.($i+1));
+        removePref($data_dir, $username, 'order'.($i+1));
+    }
+    if (isset($internal_date_sort) && $internal_date_sort) {
+        if (in_array(SQM_COL_DATE,$index_order)) {
+            $k = array_search(SQM_COL_DATE,$index_order,true);
+            $index_order[$k] = SQM_COL_INT_DATE;
+        }
+    }
+    setPref($data_dir, $username, 'index_order', serialize($index_order));
 }
-if (!isset($index_order)) {
-    $index_order[1] = 1;
-    $index_order[2] = 2;
-    $index_order[3] = 3;
-    $index_order[4] = 5;
-    $index_order[5] = 4;
+$index_order = getPref($data_dir, $username, 'index_order');
+if (is_string($index_order)) {
+    $index_order = unserialize($index_order);
 }
+
+
+// new Index order handling
+//$default_mailbox_pref = unserialize(getPref($data_dir, $username, 'default_mailbox_pref'));
+
+if (!$index_order) {
+    if (isset($internal_date_sort) && $internal_date_sort == false) {
+        $index_order = array(SQM_COL_CHECK,SQM_COL_FROM,SQM_COL_DATE,SQM_COL_FLAGS,SQM_COL_ATTACHMENT,SQM_COL_PRIO,SQM_COL_SUBJ);
+    } else {
+        $index_order = array(SQM_COL_CHECK,SQM_COL_FROM,SQM_COL_INT_DATE,SQM_COL_FLAGS,SQM_COL_ATTACHMENT,SQM_COL_PRIO,SQM_COL_SUBJ);
+    }
+    setPref($data_dir, $username, 'index_order', serialize($index_order));
+}
+
+
+
+if (!isset($default_mailbox_pref)) {
+    $show_num = (isset($show_num)) ? $show_num : 15;
+
+    $default_mailbox_pref = array (
+        MBX_PREF_SORT => 0,
+        MBX_PREF_LIMIT => $show_num,
+        MBX_PREF_AUTO_EXPUNGE => $auto_expunge,
+        MBX_PREF_COLUMNS => $index_order);
+    // setPref($data_dir, $username, 'default_mailbox_pref', serialize($default_mailbox_pref));
+    // clean up the old prefs
+//    if (isset($prefs_cache['internal_date_sort'])) {
+//        unset($prefs_cache['internal_date_sort']);
+//        removePref($data_dir,$username,'internal_date_sort');
+//    }
+//    if (isset($prefs_cache['show_num'])) {
+//        unset($prefs_cache['show_num']);
+//        removePref($data_dir,$username,'show_num');
+//    }
+}
+
 
 $alt_index_colors =
     getPref($data_dir, $username, 'alt_index_colors', SMPREF_ON );
@@ -235,6 +284,7 @@ $show_xmailer_default =
     getPref($data_dir, $username, 'show_xmailer_default', SMPREF_OFF );
 $attachment_common_show_images = getPref($data_dir, $username, 'attachment_common_show_images', SMPREF_OFF );
 
+
 /* message disposition notification support setting */
 $mdn_user_support = getPref($data_dir, $username, 'mdn_user_support', SMPREF_ON);
 
@@ -251,7 +301,7 @@ $date_format = getPref($data_dir, $username, 'date_format', 3);
 $hour_format = getPref($data_dir, $username, 'hour_format', SMPREF_TIME_12HR);
 
 /*  compose in new window setting */
-$compose_new_win = getPref($data_dir, $username, 'compose_new_win', 0);
+$compose_new_win = getPref($data_dir, $username, 'compose_new_win', SMPREF_OFF);
 $compose_height = getPref($data_dir, $username, 'compose_height', 550);
 $compose_width = getPref($data_dir, $username, 'compose_width', 640);
 
@@ -284,11 +334,12 @@ $search_memory = getPref($data_dir, $username, 'search_memory', SMPREF_OFF);
 $show_only_subscribed_folders =
     getPref($data_dir, $username, 'show_only_subscribed_folders', SMPREF_ON);
 
+
 $forward_cc = getPref($data_dir, $username, 'forward_cc', SMPREF_OFF);
 
 /* How are mailbox select lists displayed: 0. full names, 1. indented (default),
  * 3. delimited) */
-$mailbox_select_style = getPref($data_dir, $username, 'mailbox_select_style', 1);
+$mailbox_select_style = getPref($data_dir, $username, 'mailbox_select_style', SMPREF_ON);
 
 /* Allow user to customize, and display the full date, instead of day, or time based
    on time distance from date of message */

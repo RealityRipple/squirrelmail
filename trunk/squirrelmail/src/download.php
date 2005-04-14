@@ -39,6 +39,9 @@ sqgetGlobalVar('absolute_dl',$absolute_dl,  SQ_GET);
 if ( sqgetGlobalVar('passed_id', $temp, SQ_GET) ) {
     $passed_id = (int) $temp;
 }
+if (!sqgetGlobalVar('account', $account, SQ_GET) ) {
+    $account = 0;
+}
 
 global $default_charset;
 set_my_charset();
@@ -46,7 +49,7 @@ set_my_charset();
 /* end globals */
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-$aMailbox = sqm_api_mailbox_select($imapConnection, $mailbox,array(),array());
+$aMailbox = sqm_api_mailbox_select($imapConnection, $account, $mailbox,array(),array());
 
 if (isset($aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT']) &&
     is_object($aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT']) ) {

@@ -277,7 +277,8 @@ function load_optpage_data_display() {
         'refresh' => SMOPT_REFRESH_NONE,
         'size'    => SMOPT_SIZE_TINY
     );
-
+/*
+  disabled because the template doesn't support it (yet?)
     $optvals[SMOPT_GRP_MAILBOX][] = array(
         'name'    => 'show_recipient_instead',
         'caption' => _("Show recipient name if the message is from your default identity"),
@@ -285,13 +286,8 @@ function load_optpage_data_display() {
         'refresh' => SMOPT_REFRESH_NONE,
         'size'    => SMOPT_SIZE_TINY
     );
+*/
 
-    $optvals[SMOPT_GRP_MAILBOX][] = array(
-        'name'    => 'internal_date_sort',
-        'caption' => _("Sort by Received Date"),
-        'type'    => SMOPT_TYPE_BOOLEAN,
-        'refresh' => SMOPT_REFRESH_ALL
-    );
     if ($allow_thread_sort == TRUE) {
         $optvals[SMOPT_GRP_MAILBOX][] = array(
             'name'    => 'sort_by_ref',

@@ -3,7 +3,7 @@
 /**
  * options_order.php
  *
- * Copyright (c) 1999-2005 The SquirrelMail Project Team
+ * Copyright (c) 1999-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * Displays messagelist column order options
@@ -26,133 +26,216 @@ require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/forms.php');
+require_once(SM_PATH . 'functions/arrays.php');
+require_once(SM_PATH . 'functions/options.php');
 
 /* get globals */
-sqgetGlobalVar('num',       $num,       SQ_GET);
-sqgetGlobalVar('add',       $add,       SQ_POST);
+if (sqgetGlobalVar('num',       $num,       SQ_GET)) {
+   $num = (int) $num;
+} else {
+   $num = false;
+}
+if (!sqgetGlobalVar('method', $method)) {
+    $method = '';
+} else {
+    $method = htmlspecialchars($method);
+}
+if (!sqgetGlobalVar('positions', $pos, SQ_GET)) {
+    $pos = 0;
+} else {
+    $pos = (int) $pos;
+}
 
-sqgetGlobalVar('submit',    $submit);
-sqgetGlobalVar('method',    $method);
+if (!sqgetGlobalVar('account', $account, SQ_GET)) {
+    $iAccount = 0;
+} else {
+    $iAccount = (int) $account;
+}
+
+if (sqgetGlobalVar('mailbox', $mailbox, SQ_GET)) {
+   $aMailboxPrefs = unserialize(getPref($data_dir, $username, "pref_".$iAccount.'_'.urldecode($mailbox)));
+   if (isset($aMailboxPrefs[MBX_PREF_COLUMNS])) {
+       $index_order = $aMailboxPrefs[MBX_PREF_COLUMNS];
+   }
+} else {
+    $index_order_ser = getPref($data_dir, $username, 'index_order');
+    if ($index_order_ser) {
+        $index_order=unserialize($index_order_ser);
+    }
+}
+if (!isset($index_order)) {
+    if (isset($internal_date_sort) && $internal_date_sort == false) {
+        $index_order = array(SQM_COL_CHECK,SQM_COL_FROM,SQM_COL_DATE,SQM_COL_FLAGS,SQM_COL_ATTACHMENT,SQM_COL_PRIO,SQM_COL_SUBJ);
+    } else {
+        $index_order = array(SQM_COL_CHECK,SQM_COL_FROM,SQM_COL_INT_DATE,SQM_COL_FLAGS,SQM_COL_ATTACHMENT,SQM_COL_PRIO,SQM_COL_SUBJ);
+    }    
+}
+
+if (!sqgetGlobalVar('account', $account,  SQ_GET)) {
+   $account = 0; // future work, multiple imap accounts
+} else {
+   $account = (int) $account;
+}
+
 /* end of get globals */
 
-displayPageHeader($color, 'None');
+/***************************************************************/
+/* Finally, display whatever page we are supposed to show now. */
+/***************************************************************/
 
-   echo
-   html_tag( 'table', '', 'center', '', 'width="95%" border="0" cellpadding="1" cellspacing="0"' ) .
-   html_tag( 'tr' ) .
-   html_tag( 'td', '', 'center', $color[0] ) .
-   '<b>' . _("Options") . ' - ' . _("Index Order") . '</b>' .
-   html_tag( 'table', '', '', '', 'width="100%" border="0" cellpadding="8" cellspacing="0"' ) .
-   html_tag( 'tr' ) .
-   html_tag( 'td', '', 'center', $color[4] );
+displayPageHeader($color, 'None', (isset($optpage_data['xtra']) ? $optpage_data['xtra'] : ''));
 
-    $available[1] = _("Checkbox");
-    $available[2] = _("From");
-    $available[3] = _("Date");
-    $available[4] = _("Subject");
-    $available[5] = _("Flags");
-    $available[6] = _("Size");
 
-    if (! isset($method)) { $method = ''; }
-
-    if ($method == 'up' && $num > 1) {
-        $prev = $num-1;
-        $tmp = $index_order[$prev];
-        $index_order[$prev] = $index_order[$num];
-        $index_order[$num] = $tmp;
-    } else if ($method == 'down' && $num < count($index_order)) {
-        $next = $num++;
-        $tmp = $index_order[$next];
-        $index_order[$next] = $index_order[$num];
-        $index_order[$num] = $tmp;
-    } else if ($method == 'remove' && $num) {
-        for ($i=1; $i < 8; $i++) {
-            removePref($data_dir, $username, "order$i");
+/**
+ * Change the column order of a mailbox
+ *
+ * @param array  $index_order (reference) contains an ordered list with columns
+ * @param string $method action to take, move, add and remove are supported
+ * @param int    $num target column
+ * @param int    $pos positions to move a column in the index_order array
+ * @return bool  $r A change in the ordered list took place.
+ */
+function change_columns_list(&$index_order,$method,$num,$pos=0) {
+    $r = false;
+    switch ($method) {
+      case 'move': $r = sqm_array_move_value($index_order,$num,$pos); break;
+      case 'add':  
+          $index_order[] = (int) $num; $r = true; 
+          /**
+           * flush the cache in order to retrieve the new columns
+           */
+          sqsession_unregister('mailbox_cache');
+          break;
+      case 'remove':
+        if(in_array($num, $index_order)) {
+            unset($index_order[array_search($num, $index_order)]);
+            $index_order = array_values($index_order);
+            $r = true;
         }
-        for ($j=1,$i=1; $i <= count($index_order); $i++) {
-           if ($i != $num) {
-               $new_ary[$j] = $index_order[$i];
-               $j++;
-           }
-        }
-        $index_order = array();
-        $index_order = $new_ary;
-        if (count($index_order) < 1) {
-           include_once(SM_PATH . 'include/load_prefs.php');
-        }
-    } else if ($method == 'add' && $add) {
-        /* User should not be able to insert PHP-code here */
-        $add = str_replace ('<?', '..', $add);
-        $add = ereg_replace ('<.*script.*language.*php.*>', '..', $add);
-        $add = str_replace ('<%', '..', $add);
-        $index_order[count($index_order)+1] = $add;
+        break;
+      default: break;
     }
+    return $r;
+}
 
+/**
+ * Column to string translation array
+ */
+$available[SQM_COL_CHECK]      = _("Checkbox");
+$available[SQM_COL_FROM]       = _("From");
+$available[SQM_COL_DATE]       = _("Date");
+$available[SQM_COL_SUBJ]       = _("Subject");
+$available[SQM_COL_FLAGS]      = _("Flags");
+$available[SQM_COL_SIZE]       = _("Size");
+$available[SQM_COL_PRIO]       = _("Priority");
+$available[SQM_COL_ATTACHMENT] = _("Attachments");
+$available[SQM_COL_INT_DATE]   = _("Received");
+$available[SQM_COL_TO]         = _("To");
+$available[SQM_COL_CC]         = _("Cc");
+$available[SQM_COL_BCC]        = _("bcc");
+
+if (change_columns_list($index_order,$method,$num,$pos)) {
     if ($method) {
-        for ($i=1; $i <= count($index_order); $i++) {
-           setPref($data_dir, $username, "order$i", $index_order[$i]);
-        }
+        // TODO, bound index_order to mailbox and make a difference between the global index_order and mailbox bounded index_order
+        setPref($data_dir, $username, 'index_order', serialize($index_order));
     }
-    echo html_tag( 'table',
-                html_tag( 'tr',
-                    html_tag( 'td',
-                        _("The index order is the order that the columns are arranged in the message index. You can add, remove, and move columns around to customize them to fit your needs.")
-                    )
-                ) ,
-            '', '', '', 'width="65%" border="0" cellpadding="0" cellspacing="0"' ) . "<br />\n";
+}
 
-    if (count($index_order))
-    {
-        echo html_tag( 'table', '', '', '', ' cellspacing="0" cellpadding="0" border="0"' ) . "\n";
-        for ($i=1; $i <= count($index_order); $i++) {
-            $tmp = $index_order[$i];
-            echo html_tag( 'tr' );
-            echo html_tag( 'td', '<small><a href="options_order.php?method=up&amp;num=' . $i . '">'. _("up") .'</a></small>' );
-            echo html_tag( 'td', '<small>&nbsp;|&nbsp;</small>' );
-            echo html_tag( 'td', '<small><a href="options_order.php?method=down&amp;num=' . $i . '">'. _("down") .'</a></small>' );
-            echo html_tag( 'td', '<small>&nbsp;|&nbsp;</small>' );
-            echo html_tag( 'td' );
-            /* Always show the subject */
-            if ($tmp != 4)
-               echo '<small><a href="options_order.php?method=remove&amp;num=' . $i . '">' . _("remove") . '</a></small>';
-            else
-               echo '&nbsp;';
-            echo '</td>';
-            echo html_tag( 'td', '<small>&nbsp;-&nbsp;</small>' );
-            echo html_tag( 'td', $available[$tmp] );
-            echo '</tr>' . "\n";
-        }
-        echo '</table>' . "\n";
+
+$opts = array();
+if (count($index_order) != count($available)) {
+    for ($i=0; $i < count($available); $i++) {
+        if (!in_array($i,$index_order)) {
+             $opts[$i] = $available[$i];
+         }
     }
+}
 
-    if (count($index_order) != count($available)) {
 
-        $opts = array();
-        for ($i=1; $i <= count($available); $i++) {
-            $found = false;
-            for ($j=1; $j <= count($index_order); $j++) {
-                if ($index_order[$j] == $i) {
-                    $found = true;
-                }
-            }
-            if (!$found) {
-                $opts[$i] = $available[$i];
-            }
-        }
 
-        echo addForm('options_order.php', 'post', 'f');
-        echo addSelect('add', $opts, '', TRUE);
+viewOrderForm($available, $index_order,$opts,urldecode($mailbox));
+
+
+
+// FOOD for html designers
+function viewOrderForm($aColumns, $aOrder, $aOpts, $mailbox) {
+   global $color;
+?>
+
+  <table align="center" width="95%" border="0" cellpadding="1" cellspacing="0">
+    <tr>
+      <td align="center" bgcolor="<?php echo $color[0];?>">
+        <b> <?php echo _("Options");?> - <?php echo _("Index Order");?> </b>
+        <table width="100%" border="0" cellpadding="8" cellspacing="0">
+          <tr>
+            <td align="center" bgcolor="<?php echo $color[4];?>">
+              <table width="65%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td>
+                    <?php echo _("The index order is the order that the columns are arranged in the message index. You can add, remove, and move columns around to customize them to fit your needs.");?>
+                  </td>
+                </tr>
+              </table>
+              <br>
+
+<?php if (count($aOrder)) { ?>
+              <table cellspacing="0" cellpadding="0" border="0">
+<?php     foreach($aOrder as $i => $iCol) {
+             $sQuery = "&amp;num=$iCol";
+             if (isset($mailbox) && $mailbox) {
+                 $sQuery .= '&amp;mailbox='.urlencode($mailbox);
+             }
+
+?>
+                <tr>
+<?php         if ($i) { ?>
+                  <td><small><a href="options_order.php?method=move&amp;positions=-1&amp;num=<?php echo $sQuery; ?>"> <?php echo _("up");?> </a></small></td>
+<?php         } else { ?>
+                  <td>&nbsp;</td>
+<?php         } // else ?>
+                  <td><small>&nbsp;|&nbsp;</small></td>
+<?php         if ($i < count($aOrder) -1) { ?>
+                  <td><small><a href="options_order.php?method=move&amp;positions=1&amp;num=<?php echo $sQuery; ?>"> <?php echo _("down");?> </a></small></td>
+<?php         } else { ?>
+                  <td>&nbsp;</td>
+<?php         } // else ?>
+                  <td><small>&nbsp;|&nbsp;</small></td>
+<?php
+              /* Always show the subject */
+              if ($iCol != SQM_COL_SUBJ) {
+?>
+                  <td><small><a href="options_order.php?method=remove&amp;num=<?php echo $sQuery; ?>"> <?php echo _("remove");?> </a></small></td>
+<?php         } else { ?>
+                  <td>&nbsp;</td>
+<?php         } // else ?>
+                  <td><small>&nbsp;|&nbsp;</small></td>
+                  <td><?php echo $aColumns[$iCol]; ?></td>
+                </tr>
+<?php
+          } // foreach
+      } // if
+?>
+              </table>
+
+<?php
+    if (count($aOpts)) {
+        echo addForm('options_order.php', 'get', 'f');
+        echo addSelect('num', $aOpts, '', TRUE);
         echo addHidden('method', 'add');
+        if (isset($mailbox) && $mailbox) {
+            echo addHidden('mailbox', urlencode($mailbox));
+        }
         echo addSubmit(_("Add"), 'submit');
         echo '</form>';
     }
-
-    echo html_tag( 'p', '<a href="../src/options.php">' . _("Return to options page") . '</a></p><br />' );
-
 ?>
+          <p><a href="../src/options.php"><?php echo _("Return to options page");?></a></p><br>
+        </td></tr>
+      </table>
     </td></tr>
-    </table>
-
-</td></tr>
-</table>
+  </table>
 </body></html>
+
+<?php
+}
+?>

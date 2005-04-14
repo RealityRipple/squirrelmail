@@ -31,6 +31,7 @@ require_once(SM_PATH . 'functions/imap_mailbox.php');
 require_once(SM_PATH . 'functions/imap_messages.php');
 require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'functions/mailbox_display.php'); //getButton()...
+include_once(SM_PATH . 'class/template/template.class.php');
 
 /** Prefs array ordinals. Must match $recent_prefkeys and $saved_prefkeys
  */
@@ -91,6 +92,7 @@ function asearch_unhtml_strcoll($a, $b)
     return strcoll(asearch_unhtmlentities($a), asearch_unhtmlentities($b));
 }
 
+
 /**
  * @param string $mailbox mailbox name utf7 encoded inc. special case INBOX
  * @return string mailbox name ready to display (utf7 decoded or localized INBOX)
@@ -122,7 +124,6 @@ function asearch_get_title_display(&$color, $txt)
 {
     return '<b><big>' . $txt . '</big></b>';
 }
-
 /**
  * @param array $color color array
  * @param string $txt text to display
@@ -549,6 +550,27 @@ function asearch_get_query_display(&$color, &$mailbox_array, &$biop_array, &$uno
     return $query_display;
 }
 
+/**
+ * Creates button
+ *
+ * @deprecated see form functions available in 1.5.1 and 1.4.3.
+ * @param string $type
+ * @param string $name
+ * @param string $value
+ * @param string $js
+ * @param bool $enabled
+ */
+function getButton($type, $name, $value, $js = '', $enabled = TRUE) {
+    $disabled = ( $enabled ? '' : 'disabled ' );
+    $js = ( $js ? $js.' ' : '' );
+    return '<input '.$disabled.$js.
+            'type="'.$type.
+            '" name="'.$name.
+            '" value="'.$value .
+            '" style="padding: 0px; margin: 0px" />';
+}
+
+
 /** Handle the alternate row colors
  * @return string color value
  */
@@ -857,72 +879,6 @@ function asearch_print_form_basic($imapConnection, &$boxes, $mailbox_array, $bio
     echo '</form>' . "\n";
 }
 
-/** Print the $msgs messages from $mailbox mailbox
- */
-
-function asearch_print_mailbox_msgs($imapConnection, &$aMailbox, $color) {
-    global $javascript_on, $compact_paginator;
-    /**
-     * A mailbox can contain different sets with uid's. Default, for normal
-     * message list view we use '0' as setindex and for search a different
-     * setindex.
-     */
-    $iSetIndx = $aMailbox['SETINDEX'];
-
-    $mailbox_display = asearch_get_mailbox_display($aMailbox['NAME']);
-    $mailbox_title = '<b><big>' . _("Folder:") . ' '. $mailbox_display . '&nbsp;</big></b>';
-
-    /**
-     * UIDSET contains the array with uid's returned by a search
-     */
-    $cnt = count($aMailbox['UIDSET'][$iSetIndx]);
-
-    $iLimit = ($aMailbox['SHOWALL'][$iSetIndx]) ? $cnt : $aMailbox['LIMIT'];
-    $iEnd = ($aMailbox['PAGEOFFSET'] + ($iLimit - 1) < $cnt) ?
-            $aMailbox['PAGEOFFSET'] + ($iLimit - 1) : $cnt;
-
-    $paginator_str = get_paginator_str($aMailbox['NAME'], $aMailbox['PAGEOFFSET'],
-                                    $cnt, $aMailbox['LIMIT'], $aMailbox['SHOWALL'][$iSetIndx]);
-
-    if ($javascript_on && $compact_paginator) {
-    echo "\n<!-- start of compact paginator javascript -->\n"
-    . "<script language=\"JavaScript\">\n"
-    . "function SubmitOnSelect(select, URL)\n"
-    . "{\n"
-    . "   URL += select.options[select.selectedIndex].value;\n"
-    . "   window.location.href = URL;\n"
-    . "}\n"
-    . "</script>\n"
-    . "<!-- end of compact paginator javascript -->\n";
-    }
-
-    $msg_cnt_str = get_msgcnt_str($aMailbox['PAGEOFFSET'], $iEnd,$cnt);
-
-    echo '<table border="0" width="100%" cellpadding="0" cellspacing="0">';
-
-    echo '<tr><td>';
-    mail_message_listing_beginning($imapConnection, $aMailbox, $msg_cnt_str, $mailbox_title . " $paginator_str");
-    echo '</td></tr>';
-
-    echo '<tr><td height="5" bgcolor="'.$color[4].'"></td></tr>';
-
-    echo '<tr><td>';
-    echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
-    echo '     <tr><td>';
-
-    echo '       <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[5].'">';
-    echo '        <tr><td>';
-    printHeader($aMailbox);
-    displayMessageArray($imapConnection, $aMailbox);
-    echo '        </td></tr>';
-    echo '       </table>';
-    echo '     </td></tr>';
-    echo '    </table>';
-    mail_message_listing_end($cnt, '', $msg_cnt_str);
-    echo '</td></tr>';
-
-    echo '</table></form>';
-}
 
 /**
  * @param array $boxes mailboxes array (reference)
@@ -1059,7 +1015,7 @@ $aConfig = array(
                 'allow_thread_sort' => $allow_thread_sort,
                 'allow_server_sort' => $allow_server_sort,
                 'user'              => $username,
-                'max_cache_size'
+                'setindex'          => 1
                 );
 
 /** Binary operators
@@ -1130,19 +1086,32 @@ if (isset($_GET['rownum'])) {
 if (sqgetGlobalVar('srt', $temp, SQ_GET)) {
     $srt = (int) $temp;
     asearch_edit_last(1);
-    asearch_push_recent($mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array);
+//    asearch_push_recent($mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array);
 }
 if (sqgetGlobalVar('startMessage', $temp, SQ_GET)) {
     $startMessage = (int) $temp;
     asearch_edit_last(1);
-    asearch_push_recent($mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array);
+//    asearch_push_recent($mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array);
 }
 
 if ( sqgetGlobalVar('showall', $temp, SQ_GET) ) {
     $showall = (int) $temp;
     asearch_edit_last(1);
-    asearch_push_recent($mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array);
+//    asearch_push_recent($mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array);
 }
+
+if ( sqgetGlobalVar('account', $temp,  SQ_GET) ) {
+    $iAccount = (int) $temp;
+} else {
+    $iAccount = 0;
+}
+
+/**
+ * Which templatedir are we using. TODO, add make a config var of this and make it possible to switch templates
+ */
+$sTplDir = SM_PATH . 'templates/default/';
+
+
 /**
  * Incoming submit buttons from the message list with search results
  */
@@ -1346,13 +1315,77 @@ $mailbox = asearch_nz($mailbox_array[0]);
 if (($mailbox == '') || ($mailbox == 'None')) //Workaround for sm quirk IMHO (what if I really have a mailbox called None?)
     $mailbox = $boxes[0]['unformatted']; //Usually INBOX ;)
 
-if (isset($composenew) && $composenew) {
-    $comp_uri = "../src/compose.php?mailbox=" . urlencode($mailbox)
-        . "&amp;session=$composesession&amp;attachedmessages=true&amp";
-    displayPageHeader($color, $mailbox, "comp_in_new('$comp_uri');", false);
+
+/**
+* Handle form actions like flag / unflag, seen / unseen, delete
+*/
+if (sqgetGlobalVar('mailbox',$postMailbox,SQ_POST)) {
+    if ($postMailbox) {
+        /**
+        * system wide admin settings and incoming vars.
+        */
+        $aConfig = array(
+                        'user'              => $username,
+                        );
+        $aConfig['setindex'] = 1; // $what $where = 'search'
+        /**
+         * Set the max cache size to the number of mailboxes to avoid cache cleanups
+         * when searching all mailboxes
+         */
+        $aConfig['max_cache_size'] = count($boxes) +1;
+
+        $aMailbox = sqm_api_mailbox_select($imapConnection, $iAccount, $postMailbox,$aConfig,array());
+        $sError = handleMessageListForm($imapConnection,$aMailbox);
+        /* add the mailbox to the cache */
+        $mailbox_cache[$iAccount.'_'.$aMailbox['NAME']] = $aMailbox;
+
+        if ($sError) {
+            $note = $sError;
+        }
+    }
+}
+
+if (isset($aMailbox['FORWARD_SESSION'])) {
+    /* add the mailbox to the cache */
+    $mailbox_cache[$iAccount.'_'.$aMailbox['NAME']] = $aMailbox;
+    sqsession_register($mailbox_cache,'mailbox_cache');
+
+    if ($compose_new_win) {
+        // write the session in order to make sure that the compose window has
+        // access to the composemessages array which is stored in the session
+        session_write_close();
+        sqsession_is_active();
+
+        if (!preg_match("/^[0-9]{3,4}$/", $compose_width)) {
+            $compose_width = '640';
+        }
+        if (!preg_match("/^[0-9]{3,4}$/", $compose_height)) {
+            $compose_height = '550';
+        }
+        // do not use &amp;, it will break the query string and $session will not be detected!!!
+        $comp_uri = SM_PATH . 'src/compose.php?mailbox='. urlencode($mailbox).
+                    '&session='.$aMailbox['FORWARD_SESSION'];
+        displayPageHeader($color, $mailbox, "comp_in_new('$comp_uri', $compose_width, $compose_height);", false);
+    } else {
+        // save mailboxstate
+        sqsession_register($aMailbox,'aLastSelectedMailbox');
+        session_write_close();
+        // we have to redirect to the compose page
+        $location = SM_PATH . 'src/compose.php?mailbox='. urlencode($mailbox).
+                    '&amp;session='.$aMailbox['FORWARD_SESSION'];
+        header("Location: $location");
+        exit;
+    }
 } else {
     displayPageHeader($color, $mailbox);
+//    $compose_uri = $base_uri.'src/compose.php?newmessage=1';
 }
+
+if (isset($note)) {
+    echo html_tag( 'div', '<b>' . $note .'</b>', 'center' ) . "<br />\n";
+}
+
+
 do_hook('search_before_form');
 
 if (!$search_silent) {
@@ -1425,32 +1458,28 @@ if ($submit == $search_button_text) {
          */
         $mboxes_mailbox = sqimap_asearch($imapConnection, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array, $mboxes_array);
         foreach($mboxes_mailbox as $mbx => $search) {
-            $aMailboxPrefSer=getPref($data_dir, $username, "pref_$mbx");
 
+            /**
+            * until there is no per mailbox option screen to set prefs we override
+            * the mailboxprefs by the default ones
+            */
+
+            $aMailboxPrefSer=getPref($data_dir, $username,'pref_'.$iAccount.'_'.$mbx);
             if ($aMailboxPrefSer) {
                 $aMailboxPref = unserialize($aMailboxPrefSer);
+                $aMailboxPref[MBX_PREF_COLUMNS] = $index_order;
             } else {
-                setUserPref($username,"pref_$mbx",serialize($aMailboxGlobalPref));
-                $aMailboxPref = $aMailboxGlobalPref;
+                setUserPref($username,'pref_'.$iAccount.'_'.$mbx,serialize($default_mailbox_pref));
+                $aMailboxPref = $default_mailbox_pref;
             }
             if (isset($srt) && $targetmailbox == $mbx) {
                 $aMailboxPref[MBX_PREF_SORT] = (int) $srt;
             }
-            if (isset($startMessage) && $targetmailbox == $mbx) {
-                $aConfig['offset'] = $startMessage;
-            } else if (isset($aConfig['offset'])) {
-                unset($aConfig['offset']);
-            }
-            if (isset($showall) && $targetmailbox == $mbx) {
-                $aConfig['showall'] = $showall;
-            } else if (isset($aConfig['showall'])) {
-                unset($aConfig['showall']);
-            }
-            /**
-             * Set the max cache size to the number of mailboxes to avoid cache cleanups
-             * when searching all mailboxes
-             */
-            $aConfig['max_cache_size'] = count($mboxes_mailbox) +1;
+
+            $trash_folder = (isset($trash_folder)) ? $trash_folder : false;
+            $sent_folder = (isset($sent_folder)) ? $sent_folder : false;
+            $draft_folder = (isset($draft_folder)) ? $draft_folder : false;
+
 
             /**
             * until there is no per mailbox option screen to set prefs we override
@@ -1459,28 +1488,141 @@ if ($submit == $search_button_text) {
             $aMailboxPref[MBX_PREF_LIMIT] = (int)  $show_num;
             $aMailboxPref[MBX_PREF_AUTO_EXPUNGE] = (bool) $auto_expunge;
             $aMailboxPref[MBX_PREF_INTERNALDATE] = (bool) getPref($data_dir, $username, 'internal_date_sort');
+            $aMailboxPref[MBX_PREF_COLUMNS] = $index_order;
+
+            /**
+            * Replace From => To  in case it concerns a draft or sent folder
+            */
+            if (($mbx == $sent_folder || $mbx == $draft_folder) &&
+                !in_array(SQM_COL_TO,$aMailboxPref[MBX_PREF_COLUMNS])) {
+                $aNewOrder = array(); // nice var name ;)
+                foreach($aMailboxPref[MBX_PREF_COLUMNS] as $iCol) {
+                    if ($iCol == SQM_COL_FROM) {
+                        $iCol = SQM_COL_TO;
+                    }
+                    $aNewOrder[] = $iCol;
+                }
+                $aMailboxPref[MBX_PREF_COLUMNS] = $aNewOrder;
+                setUserPref($username,'pref_'.$account.'_'.$mbx,serialize($aMailboxPref));
+            }
 
             $aConfig['search'] = $search['search'];
             $aConfig['charset'] = $search['charset'];
-            $aConfig['setindex'] = 1; // $what $where = 'search'
 
-            $aMailbox = sqm_api_mailbox_select($imapConnection,$mbx,$aConfig,$aMailboxPref);
             /**
-            * Handle form actions like flag / unflag, seen / unseen, delete
+             * Set the max cache size to the number of mailboxes to avoid cache cleanups
+             * when searching all mailboxes
+             */
+            $aConfig['max_cache_size'] = count($mboxes_mailbox) +1;
+            if (isset($startMessage) && $targetmailbox == $mbx) {
+                $aConfig['offset'] = $startMessage;
+            } else if (isset($aConfig['offset'])) {
+                unset($aConfig['offset']);
+            }
+            if (isset($showall) && $targetmailbox == $mbx) {
+                $aConfig['showall'] = $showall;
+            } else {
+                if (isset($aConfig['showall'])) {
+                    unset($aConfig['showall']);
+                }
+                $showall = false;
+            }
+
+            /**
+            * Set the config options for the messages list
             */
-            if (sqgetGlobalVar('mailbox',$postMailbox,SQ_POST)) {
-                if ($postMailbox === $mbx) {
-                    handleMessageListForm($imapConnection,$aMailbox);
+            $aColumns = array();
+            foreach ($aMailboxPref[MBX_PREF_COLUMNS] as $iCol) {
+                $aColumns[$iCol] = array();
+                switch ($iCol) {
+                    case SQM_COL_SUBJ:
+                        if ($truncate_subject) {
+                            $aColumns[$iCol]['truncate'] = $truncate_subject;
+                        }
+                        break;
+                    case SQM_COL_FROM:
+                    case SQM_COL_TO:
+                    case SQM_COL_CC:
+                    case SQM_COL_BCC:
+                        if ($truncate_sender) {
+                            $aColumns[$iCol]['truncate'] = $truncate_sender;
+                        }
+                        break;
                 }
             }
-            if (fetchMessageHeaders($imapConnection, $aMailbox)) {
-                $msgsfound = true;
-                echo '<br />';
-                asearch_print_mailbox_msgs($imapConnection, $aMailbox, $color);
-                flush();
+
+
+            $aProps = array(
+                'columns' => $aColumns,
+                'config'  => array('alt_index_colors'      => $alt_index_colors,
+                                    'highlight_list'        => $message_highlight_list,
+                                    'fancy_index_highlite'  => $fancy_index_highlite,
+                                    'show_flag_buttons'     => (isset($show_flag_buttons)) ? $show_flag_buttons : true,
+                                    'lastTargetMailbox'     => (isset($lastTargetMailbox)) ? $lastTargetMailbox : '',
+                                    'trash_folder'          => $trash_folder,
+                                    'sent_folder'           => $sent_folder,
+                                    'draft_folder'          => $draft_folder,
+                                    'enablesort'            => true,
+                                    'color'                 => $color
+                            ),
+                'mailbox' => $mbx,
+                'account' => (isset($iAccount)) ? $iAccount : 0,
+                'module' => 'read_body',
+                'email'  => false);
+
+
+            $aMailbox = sqm_api_mailbox_select($imapConnection, $iAccount, $mbx,$aConfig,$aMailboxPref);
+
+            $iError = 0;
+            $aTemplate = showMessagesForMailbox($imapConnection, $aMailbox,$aProps, $iError);
+            if ($iError) {
+                // error handling
+            } else {
+                /**
+                * In the future, move this the the initialisation area
+                */
+                sqgetGlobalVar('align',$align,SQ_SESSION);
+
+                $oTemplate = new Template($sTplDir);
+
+                if ($aMailbox['EXISTS'] > 0) {
+                    // $aTemplate =& showMessagesForMailbox($imapConnection,$aMailbox,$aProps,$iError);
+                    if ($iError) {
+
+                    }
+                    foreach ($aTemplate as $k => $v) {
+                        $oTemplate->assign($k, $v);
+                    }
+                    $oTemplate->assign('page_selector',  $page_selector);
+                    $oTemplate->assign('page_selector_max', $page_selector_max);
+                    $oTemplate->assign('compact_paginator', $compact_paginator);
+                    $oTemplate->assign('javascript_on', $javascript_on);
+                    $oTemplate->assign('enablesort', (isset($aProps['config']['enablesort'])) ? $aProps['config']['enablesort'] : false);
+                    // Aaaaaahhhhhhh FIX ME DO NOT USE the string "none" for a var when you mean the boolean false or null
+                    $oTemplate->assign('icon_theme', (isset($icon_theme) && $icon_theme !== 'none') ? $icon_theme : false);
+                    $oTemplate->assign('use_icons', (isset($use_icons)) ? $use_icons : false);
+                    $oTemplate->assign('aOrder', array_keys($aColumns));
+                    $oTemplate->assign('alt_index_colors', isset($alt_index_colors) ? $alt_index_colors: false);
+                    $oTemplate->assign('color', $color);
+                    $oTemplate->assign('align', $align);
+                    $oTemplate->assign('showall', $showall);
+
+                    $mailbox_display = asearch_get_mailbox_display($aMailbox['NAME']);
+                    if (strtoupper($mbx) == 'INBOX') {
+                        $mailbox_display = _("INBOX");
+                    } else {
+                        $mailbox_display = imap_utf7_decode_local($mbx);
+                    }
+
+                    echo '<br /><b><big>' . _("Folder:") . ' '. $mailbox_display . '&nbsp;</big></b>';
+
+
+                    $oTemplate->display('message_list.tpl');
+                }
             }
+
             /* add the mailbox to the cache */
-            $mailbox_cache[$aMailbox['NAME']] = $aMailbox;
+            $mailbox_cache[$iAccount.'_'.$aMailbox['NAME']] = $aMailbox;
 
         }
     }

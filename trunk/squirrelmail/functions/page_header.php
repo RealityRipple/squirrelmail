@@ -68,7 +68,6 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = true
         echo "<!-- \xfd\xfe -->\n";
         echo '<meta http-equiv="Content-type" content="text/html; charset=euc-jp">' . "\n";
     }
-
     if ($do_hook) {
         do_hook('generic_header');
     }
@@ -137,375 +136,40 @@ function displayInternalLink($path, $text, $target='') {
  *
  * @param array color the array of theme colors
  * @param string mailbox the current mailbox name to display
- * @param string xtra extra html code to add
- * @param bool session
+ * @param string sHeaderJs javascipt code to be inserted in a script block in the header
+ * @param string sBodyTagJs js events to be inserted in the body tag
  * @return void
  */
-function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 
-    global $hide_sm_attributions, $PHP_SELF, $frame_top,
-           $compose_new_win, $compose_width, $compose_height,
+function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = 'onload="checkForm();"') {
+    global $hide_sm_attributions, $frame_top,
            $provider_name, $provider_uri, $startMessage,
-           $javascript_on, $default_use_mdn, $mdn_user_support;
+           $javascript_on;
 
-    sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION );
     sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION );
-    $module = substr( $PHP_SELF, ( strlen( $PHP_SELF ) - strlen( $base_uri ) ) * -1 );
-    if ($qmark = strpos($module, '?')) {
-        $module = substr($module, 0, $qmark);
-    }
+
     if (!isset($frame_top)) {
         $frame_top = '_top';
     }
 
-    if ($session) {
-    $compose_uri = $base_uri.'src/compose.php?mailbox='.urlencode($mailbox).'&amp;attachedmessages=true&amp;session='."$session";
-    } else {
-        $compose_uri = $base_uri.'src/compose.php?newmessage=1';
-    $session = 0;
-    }
-
     if( $javascript_on || strpos($xtra, 'new_js_autodetect_results.value') ) {
-
-      switch ( $module ) {
-        case 'src/read_body.php':
-                $js ='';
-
-                // compose in new window code
-                if ($compose_new_win == '1') {
-                    if (!preg_match("/^[0-9]{3,4}$/", $compose_width)) {
-                        $compose_width = '640';
-                    }
-                    if (!preg_match("/^[0-9]{3,4}$/", $compose_height)) {
-                        $compose_height = '550';
-                    }
-                    $js .= "function comp_in_new_form(comp_uri, button, myform) {\n".
-                           '   if (!comp_uri) {'."\n".
-                           '       comp_uri = "'.$compose_uri."\";\n".
-                           '   }'. "\n".
-                           '   comp_uri += "&" + button.name + "=1";'."\n".
-                           '   for ( var i=0; i < myform.elements.length; i++ ) {'."\n".
-                           '      if ( myform.elements[i].type == "checkbox"  && myform.elements[i].checked )'."\n".
-                           '         comp_uri += "&" + myform.elements[i].name + "=1";'."\n".
-                           '   }'."\n".
-                           '   var newwin = window.open(comp_uri' .
-                           ', "_blank",'.
-                           '"width='.$compose_width. ',height='.$compose_height.
-                           ',scrollbars=yes,resizable=yes,status=yes");'."\n".
-                           "}\n\n";
-                    $js .= "function comp_in_new(comp_uri) {\n".
-                           "       if (!comp_uri) {\n".
-                           '           comp_uri = "'.$compose_uri."\";\n".
-                           '       }'. "\n".
-                           '    var newwin = window.open(comp_uri' .
-                           ', "_blank",'.
-                           '"width='.$compose_width. ',height='.$compose_height.
-                           ',scrollbars=yes,resizable=yes,status=yes");'."\n".
-                           "}\n\n";
-                }
-
-                // javascript for sending read receipts
-                if($default_use_mdn && $mdn_user_support) {
-                    $js .= 'function sendMDN() {'."\n".
-                           "    mdnuri=window.location+'&sendreceipt=1'; ".
-                           "var newwin = window.open(mdnuri,'right');".
-                       "\n}\n\n";
-                }
-
-                // if any of the above passes, add the JS tags too.
-                if($js) {
-                    $js = "\n".'<script language="JavaScript" type="text/javascript">' .
-                        "\n<!--\n" . $js . "// -->\n</script>\n";
-                }
-
-                displayHtmlHeader ('SquirrelMail', $js);
-                $onload = $xtra;
-            break;
-        case 'src/compose.php':
-            $js = '<script language="JavaScript" type="text/javascript">' .
-                 "\n<!--\n" .
-             "function checkForm() {\n";
-
-            global $action, $reply_focus;
-            if (strpos($action, 'reply') !== FALSE && $reply_focus)
-            {
-                if ($reply_focus == 'select') $js .= "document.forms['compose'].body.select();}\n";
-                else if ($reply_focus == 'focus') $js .= "document.forms['compose'].body.focus();}\n";
-                else if ($reply_focus == 'none') $js .= "}\n";
-            }
-            // no reply focus also applies to composing new messages
-            else if ($reply_focus == 'none')
-            {
-                $js .= "}\n";
-            }
-            else
-                $js .= "var f = document.forms.length;\n".
-                    "var i = 0;\n".
-                    "var pos = -1;\n".
-                    "while( pos == -1 && i < f ) {\n".
-                        "var e = document.forms[i].elements.length;\n".
-                        "var j = 0;\n".
-                        "while( pos == -1 && j < e ) {\n".
-                            "if ( document.forms[i].elements[j].type == 'text' ) {\n".
-                                "pos = j;\n".
-                            "}\n".
-                            "j++;\n".
-                        "}\n".
-                    "i++;\n".
-                    "}\n".
-                    "if( pos >= 0 ) {\n".
-                        "document.forms[i-1].elements[pos].focus();\n".
-                    "}\n".
-                "}\n";
-
-            $js .= "// -->\n".
-                 "</script>\n";
-            $onload = 'onload="checkForm();"';
-            displayHtmlHeader ('SquirrelMail', $js);
-            break;
-
-        case 'src/right_main.php':
-            global $fancy_index_highlite;
-            if (!$fancy_index_highlite) {
-                $js = '';
-            } else //{ putting braces around this block creats strange PHP errors
-                // following code graciously borrowed from 
-                // phpMyAdmin project at:
-                // http://www.phpmyadmin.net
-                $js = <<<EOS
-/**
- * This array is used to remember mark status of rows in browse mode
- */
-var marked_row = new Array;
-
-
-/* 
- * (un)Checks checkbox for the row that the current table cell is in
- * when it gets clicked.
- *
- * @param   string   the name of the checkbox that should be (un)checked
- */
-function row_click(chkboxName) {
-    chkbox = document.getElementById(chkboxName);
-    if (chkbox) { 
-        chkbox.checked = (chkbox.checked ? false : true); 
-    }
-}
-
-
-
-/*
- * Sets/unsets the pointer and marker in browse mode
- *
- * @param   object    the table row
- * @param   integer  the row number
- * @param   string    the action calling this script (over, out or click)
- * @param   string    the default background color
- * @param   string    the color to use for mouseover
- * @param   string    the color to use for marking a row
- *
- * @return  boolean  whether pointer is set or not
- */
-function setPointer(theRow, theRowNum, theAction, theDefaultColor, thePointerColor, theMarkColor)
-{
-    var theCells = null;
-
-    // 1. Pointer and mark feature are disabled or the browser can't get the
-    //    row -> exits
-    if ((thePointerColor == '' && theMarkColor == '')
-        || typeof(theRow.style) == 'undefined') {
-        return false;
-    }
-
-    // 2. Gets the current row and exits if the browser can't get it
-    if (typeof(document.getElementsByTagName) != 'undefined') {
-        theCells = theRow.getElementsByTagName('td');
-    }
-    else if (typeof(theRow.cells) != 'undefined') {
-        theCells = theRow.cells;
-    }
-    else {
-        return false;
-    }
-
-    // 3. Gets the current color...
-    var rowCellsCnt  = theCells.length;
-    var domDetect    = null;
-    var currentColor = null;
-    var newColor     = null;
-    // 3.1 ... with DOM compatible browsers except Opera that does not return
-    //         valid values with "getAttribute"
-    if (typeof(window.opera) == 'undefined'
-        && typeof(theCells[0].getAttribute) != 'undefined') {
-        currentColor = theCells[0].getAttribute('bgcolor');
-        domDetect    = true;
-    }
-    // 3.2 ... with other browsers
-    else {
-        currentColor = theCells[0].style.backgroundColor;
-        domDetect    = false;
-    } // end 3
-
-    // 3.3 ... Opera changes colors set via HTML to rgb(r,g,b) format so fix it
-    if (currentColor.indexOf("rgb") >= 0)
-    {
-        var rgbStr = currentColor.slice(currentColor.indexOf('(') + 1,
-                                     currentColor.indexOf(')'));
-        var rgbValues = rgbStr.split(",");
-        currentColor = "#";
-        var hexChars = "0123456789ABCDEF";
-        for (var i = 0; i < 3; i++)
-        {
-            var v = rgbValues[i].valueOf();
-            currentColor += hexChars.charAt(v/16) + hexChars.charAt(v%16);
+        if ($sHeaderJs) {
+            $sJsBlock = "\n<script language=\"JavaScript\" type=\"text/javascript\">" .
+                        "\n<!--\n" .
+                        $sJsHeader . "\n\n// -->\n</script>\n";
+        } else {
+           $sJsBlock = '';
         }
-    }
-
-    // 4. Defines the new color
-    // 4.1 Current color is the default one
-    if (currentColor == ''
-        || currentColor.toLowerCase() == theDefaultColor.toLowerCase()) {
-        if (theAction == 'over' && thePointerColor != '') {
-            newColor              = thePointerColor;
-        }
-        else if (theAction == 'click' && theMarkColor != '') {
-            newColor              = theMarkColor;
-            marked_row[theRowNum] = true;
-            // deactivated onclick marking of the checkbox because it's also executed
-            // when an action (clicking on the checkbox itself) on a single item is 
-            // performed. Then the checkbox would get deactived, even though we need 
-            // it activated. Maybe there is a way to detect if the row was clicked, 
-            // and not an item therein...
-            //document.getElementById('msg[' + theRowNum + ']').checked = true;
-        }
-    }
-    // 4.1.2 Current color is the pointer one
-    else if (currentColor.toLowerCase() == thePointerColor.toLowerCase()
-             && (typeof(marked_row[theRowNum]) == 'undefined' || !marked_row[theRowNum])) {
-        if (theAction == 'out') {
-            newColor              = theDefaultColor;
-        }
-        else if (theAction == 'click' && theMarkColor != '') {
-            newColor              = theMarkColor;
-            marked_row[theRowNum] = true;
-            //document.getElementById('msg[' + theRowNum + ']').checked = true;
-        }
-    }
-    // 4.1.3 Current color is the marker one
-    else if (currentColor.toLowerCase() == theMarkColor.toLowerCase()) {
-        if (theAction == 'click') {
-            newColor              = (thePointerColor != '')
-                                  ? thePointerColor
-                                  : theDefaultColor;
-            marked_row[theRowNum] = (typeof(marked_row[theRowNum]) == 'undefined' || !marked_row[theRowNum])
-                                  ? true
-                                  : null;
-            //document.getElementById('msg[' + theRowNum + ']').checked = false;
-        }
-    } // end 4
-
-    // 5. Sets the new color...
-    if (newColor) {
-        var c = null;
-        // 5.1 ... with DOM compatible browsers except Opera
-        if (domDetect) {
-            for (c = 0; c < rowCellsCnt; c++) {
-                theCells[c].setAttribute('bgcolor', newColor, 0);
-            } // end for
-        }
-        // 5.2 ... with other browsers
-        else {
-            for (c = 0; c < rowCellsCnt; c++) {
-                theCells[c].style.backgroundColor = newColor;
-            }
-        }
-    } // end 5
-
-    return true;
-} // end of the 'setPointer()' function
-EOS;
-            //} putting braces around this block creats strange PHP errors
-            $js = "\n".'<script language="JavaScript" type="text/javascript">' .
-                        "\n<!--\n" . $js;
-            if ($compose_new_win == '1') {
-                if (!preg_match("/^[0-9]{3,4}$/", $compose_width)) {
-                    $compose_width = '640';
-                }
-                if (!preg_match("/^[0-9]{3,4}$/", $compose_height)) {
-                    $compose_height = '550';
-                }
-                $js .= "\n\nfunction comp_in_new(comp_uri) {\n".
-                     "       if (!comp_uri) {\n".
-                     '           comp_uri = "'.$compose_uri."\";\n".
-                     '       }'. "\n".
-                     '    var newwin = window.open(comp_uri' .
-                     ', "_blank",'.
-                     '"width='.$compose_width. ',height='.$compose_height.
-                     ',scrollbars=yes,resizable=yes,status=yes");'."\n".
-                     "}\n\n";
-            }
-            $js .= $xtra . "\n\n// -->\n</script>\n";
-            $onload = '';
-            displayHtmlHeader ('SquirrelMail', $js);
-            break;
-
-        default:
-            $js = '<script language="JavaScript" type="text/javascript">' .
-                 "\n<!--\n" .
-                 "function checkForm() {\n".
-                    "var f = document.forms.length;\n".
-                    "var i = 0;\n".
-                    "var pos = -1;\n".
-                    "while( pos == -1 && i < f ) {\n".
-                        "var e = document.forms[i].elements.length;\n".
-                        "var j = 0;\n".
-                        "while( pos == -1 && j < e ) {\n".
-                            "if ( document.forms[i].elements[j].type == 'text' " .
-                            "|| document.forms[i].elements[j].type == 'password' ) {\n".
-                                "pos = j;\n".
-                            "}\n".
-                            "j++;\n".
-                        "}\n".
-                    "i++;\n".
-                    "}\n".
-                    "if( pos >= 0 ) {\n".
-                        "document.forms[i-1].elements[pos].focus();\n".
-                    "}\n".
-            "$xtra\n".
-                "}\n";
-
-                if ($compose_new_win == '1') {
-                    if (!preg_match("/^[0-9]{3,4}$/", $compose_width)) {
-                        $compose_width = '640';
-                    }
-                    if (!preg_match("/^[0-9]{3,4}$/", $compose_height)) {
-                        $compose_height = '550';
-                    }
-                    $js .= "function comp_in_new(comp_uri) {\n".
-                         "       if (!comp_uri) {\n".
-                         '           comp_uri = "'.$compose_uri."\";\n".
-                         '       }'. "\n".
-                         '    var newwin = window.open(comp_uri' .
-                         ', "_blank",'.
-                         '"width='.$compose_width. ',height='.$compose_height.
-                         ',scrollbars=yes,resizable=yes,status=yes");'."\n".
-                         "}\n\n";
-
-                }
-            $js .= "// -->\n". "</script>\n";
-
-            $onload = 'onload="checkForm();"';
-            displayHtmlHeader ('SquirrelMail', $js);
-            break;
-
-        }
-    } else {
+        $sJsBlock .= "\n" . '<script src="'. SM_PATH .'templates/default/js/default.js" type="text/javascript" language="JavaScript"></script>' ."\n";
+        displayHtmlHeader ('SquirrelMail', $sJsBlock);
+   } else {
         /* do not use JavaScript */
         displayHtmlHeader ('SquirrelMail');
-        $onload = '';
+        $sBodyTagJs = '';
     }
 
-    echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" $onload>\n\n";
+    echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" $sBodyTagJs>\n\n";
+
     /** Here is the header and wrapping table **/
     $shortBoxName = htmlspecialchars(imap_utf7_decode_local(
                 readShortMailboxName($mailbox, $delimiter)));
@@ -569,75 +233,30 @@ EOS;
  *
  * @param array color the array of theme colors
  * @param string mailbox the current mailbox name to display
+ * @param string sHeaderJs javascipt code to be inserted in a script block in the header
+ * @param string sBodyTagJs js events to be inserted in the body tag
  * @return void
  */
-function compose_Header($color, $mailbox) {
-
+function compose_Header($color, $mailbox, $sHeaderJs='', $sBodyTagJs = 'onload="checkForm();"') {
     global $javascript_on;
-
     /*
      * Locate the first displayable form element (only when JavaScript on)
      */
     if($javascript_on) {
-        global $base_uri, $PHP_SELF, $data_dir, $username;
-
-        $module = substr( $PHP_SELF, ( strlen( $PHP_SELF ) - strlen( $base_uri ) ) * -1 );
-
-        switch ( $module ) {
-        case 'src/search.php':
-            $pos = getPref($data_dir, $username, 'search_pos', 0 ) - 1;
-            $onload = "onload=\"document.forms[$pos].elements[2].focus();\"";
-            displayHtmlHeader (_("Compose"));
-            break;
-        default:
-            $js = '<script language="JavaScript" type="text/javascript">' .
-                 "\n<!--\n" .
-             "function checkForm() {\n";
-
-            global $action, $reply_focus;
-            if (strpos($action, 'reply') !== FALSE && $reply_focus)
-            {
-                if ($reply_focus == 'select') $js .= "document.forms['compose'].body.select();}\n";
-                else if ($reply_focus == 'focus') $js .= "document.forms['compose'].body.focus();}\n";
-                else if ($reply_focus == 'none') $js .= "}\n";
-            }
-            // no reply focus also applies to composing new messages
-            else if ($reply_focus == 'none')
-            {
-                $js .= "}\n";
-            }
-            else
-                $js .= "var f = document.forms.length;\n".
-                    "var i = 0;\n".
-                    "var pos = -1;\n".
-                    "while( pos == -1 && i < f ) {\n".
-                        "var e = document.forms[i].elements.length;\n".
-                        "var j = 0;\n".
-                        "while( pos == -1 && j < e ) {\n".
-                            "if ( document.forms[i].elements[j].type == 'text' ) {\n".
-                                "pos = j;\n".
-                            "}\n".
-                            "j++;\n".
-                        "}\n".
-                    "i++;\n".
-                    "}\n".
-                    "if( pos >= 0 ) {\n".
-                        "document.forms[i-1].elements[pos].focus();\n".
-                    "}\n".
-                "}\n";
-            $js .= "// -->\n".
-                 "</script>\n";
-            $onload = 'onload="checkForm();"';
-            displayHtmlHeader (_("Compose"), $js);
-            break;
+        if ($sHeaderJs) {
+            $sJsBlock = "\n<script language=\"JavaScript\" type=\"text/javascript\">" .
+                        "\n<!--\n" .
+                        $sJsHeader . "\n\n// -->\n</script>\n";
+        } else {
+           $sJsBlock = '';
         }
+        $sJsBlock .= "\n" . '<script src="'. SM_PATH .'templates/default/js/default.js" type="text/javascript" language="JavaScript"></script>' ."\n";
+        displayHtmlHeader (_("Compose"), $sJsBlock);
     } else {
         /* javascript off */
         displayHtmlHeader(_("Compose"));
         $onload = '';
     }
-
-    echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" $onload>\n\n";
+    echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" $sBodyTagJs>\n\n";
 }
-
 ?>
