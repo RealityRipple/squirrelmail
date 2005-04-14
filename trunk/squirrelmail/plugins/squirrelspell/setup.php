@@ -77,7 +77,7 @@ function squirrelspell_setup() {
              "<!--\n".
              'document.write("<input type=\"button\" value=\"'.
              _("Check Spelling").
-             '\" onclick=\"window.open(\'../plugins/squirrelspell/sqspell_'.
+             '\" name=\"check_spelling\" onclick=\"window.open(\'../plugins/squirrelspell/sqspell_'.
              'interface.php\', \'sqspell\', \'status=yes,width=550,height=370,'.
              'resizable=yes\')\" />");' . "\n".
              "//-->\n".
