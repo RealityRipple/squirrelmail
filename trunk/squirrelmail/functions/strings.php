@@ -881,9 +881,9 @@ function sm_print_r() {
     }
     $buffer = ob_get_contents(); // Grab the print_r output
     ob_end_clean();  // Silently discard the output & stop buffering
-    print '<pre>';
+    print '<div align="left"><pre>';
     print htmlentities($buffer);
-    print '</pre>';
+    print '</pre></div>';
 }
 
 /**
