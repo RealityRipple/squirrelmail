@@ -185,9 +185,6 @@ define('SQ_FORM',6);
  *    sqgetGlobalVar('username',$username,SQ_SESSION);
  *  -- no quotes around last param!
  *
- * WARNING: Since 1.4.5 and 1.5.1 function nulls $value, 
- * if variable is not available.
- *
  * @param string name the name of the var to search
  * @param mixed value the variable to return
  * @param int search constant defining where to look
@@ -240,8 +237,7 @@ function sqgetGlobalVar($name, &$value, $search = SQ_INORDER) {
         }
         break;
     }
-    /* Nothing found, reset $value and return FALSE */
-    $value = null;
+    /* Nothing found, return FALSE */
     return FALSE;
 }
 
