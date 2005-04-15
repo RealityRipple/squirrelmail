@@ -517,13 +517,17 @@ function prepareMessageList(&$aMailbox, $aProps) {
                     $value = ($sTmp) ? htmlspecialchars($sTmp) : $sUnknown;
                     break;
                 case SQM_COL_SUBJ:
+                    // subject is mime encoded, decode it. 
+                    // value is sanitized in decoding function.
+                    $value=decodeHeader($value);
                     if ($highlight_list && !$bHighLight) {
                         $bHighLight = highlightMessage('SUBJECT', $value, $highlight_list, $aFormattedMessages[$iUid]);
                     }
                     $iIndent = (isset($aIndentArray[$aId[$i]])) ? $aIndentArray[$aId[$i]] : 0;
+                    // FIXME: don't break 8bit symbols and html entities during truncation
                     if (isset($aColumnDesc[$k]['truncate']) && $aColumnDesc[$k]['truncate']) {
                         $sTmp = truncateWithEntities($value, $aColumnDesc[$k]['truncate']-$iIndent);
-                        $title = ($sTmp != $value) ? htmlspecialchars($value) : '';
+                        $title = ($sTmp != $value) ? $value : '';
                         $value = $sTmp;
                     }
                     /* generate the link to the message */
@@ -531,11 +535,9 @@ function prepareMessageList(&$aMailbox, $aProps) {
                         // TODO, $sTargetModule should be a query parameter so that we can use a single entrypoint
                         $link = $sTargetModule.'.php?' . implode('&amp;',$aQuery);
                     }
-
                     $value = (trim($value)) ? $value : _("(no subject)");
                     /* add thread indentation */
                     $aColumns[$k]['indent']  = $iIndent;
-                    $value = htmlspecialchars($value);
                     break;
                 case SQM_COL_SIZE:
                     $value = show_readable_size($value);
