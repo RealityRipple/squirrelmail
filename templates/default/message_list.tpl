@@ -202,7 +202,7 @@ else
         switch ($iCol) {
           case SQM_COL_CHECK:
               if ($javascript_on) {
-                  echo '<input type="checkbox" name="toggleAll" title="'._("Toggle All").'" onclick="toggle_all(\''.$form_id."','".$fancy_index_highlite."','".$clickedColor.'\');" />';
+                  echo '<input type="checkbox" name="toggleAll" title="'._("Toggle All").'" onclick="toggle_all(\''.$form_id."',".$fancy_index_highlite.",'".$clickedColor.'\');" />';
               } else {
                   $link = $baseurl . "&amp;startMessage=$pageOffset&amp;&amp;checkall=";
                   if (sqgetGlobalVar('checkall',$checkall,SQ_GET)) {
@@ -271,7 +271,7 @@ else
                 $clickedColor = (!empty($color[16])) ? $color[16] : $color[2];
             }
             if ($javascript_on) {
-                $checkbox_javascript = ' onClick="this.checked = !this.checked;"';
+//                $checkbox_javascript = ' onClick="this.checked = !this.checked;"';
             }
             foreach ($aMessages as $iUid => $aMsg) {
                 echo $sLine;
