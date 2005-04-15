@@ -627,6 +627,10 @@ function highlightMessage($sCol, $sVal, $highlight_list, &$aFormat) {
         }
     }
     if ($hlt_color) {
+        // Bug in highlight color??? 
+        if ($hlt_color{0} != '#') {
+            $hlt_color = '#'. $hlt_color;
+        }
         $aFormat['row']['color'] = $hlt_color;
         return true;
     } else {
