@@ -945,7 +945,7 @@ echo '      <tr><td>';
 echo '        <table width="100%" cellpadding="3" cellspacing="0" align="center" border="0">';
 echo '          <tr bgcolor="'.$color[4].'"><td>';
 // echo '            <table cellpadding="1" cellspacing="5" align="left" border="0">';
-echo html_tag( 'table' ,'' , 'left', '', 'cellpadding="1" cellspacing="5" border="0"' );
+echo html_tag( 'table' ,'' , 'left', '', 'width="100%" cellpadding="1" cellspacing="5" border="0"' );
 echo '              <tr>' . html_tag( 'td', '<br />'. $messagebody."\n", 'left')
                         . '</tr>';
 echo '            </table>';
