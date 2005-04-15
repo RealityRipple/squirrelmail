@@ -453,13 +453,13 @@ else
             break;
           case SQM_COL_SIZE:
           case SQM_COL_FLAGS:
-            $sText = "    <td class=\"col_flags\" align=\"$align[right]\" $javascript_auto_click bgcolor=\"$bgcolor\" style="white-space:nowrap">";
+            $sText = "    <td class=\"col_flags\" align=\"$align[right]\" $javascript_auto_click bgcolor=\"$bgcolor\" style=\"white-space:nowrap\">";
             $sText .= "<small>$value</small></td>\n";
             echo $sText;
             break;
           case SQM_COL_INT_DATE:
           case SQM_COL_DATE:
-            $sText = "    <td class=\"col_date\" align=\"center\" $javascript_auto_click  bgcolor=\"$bgcolor\" style="white-space:nowrap">";
+            $sText = "    <td class=\"col_date\" align=\"center\" $javascript_auto_click  bgcolor=\"$bgcolor\" style=\"white-space:nowrap\">";
             $sText .= $value. "</td>\n";
             echo $sText;
             break;
