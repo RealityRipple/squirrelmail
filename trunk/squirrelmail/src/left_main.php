@@ -124,40 +124,29 @@ function ListBoxes ($boxes, $j=0 ) {
         if (! isset($boxes->total)) {
             $boxes->total = sqimap_status_messages($imapConnection, $mailbox);
         }
+        $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
         if ($unseen > 0) {
             $pre .= '<b>';
-        }
-        $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
-        $end .= '</a>';
-        if ($unseen > 0) {
             $end .= '</b>';
         }
+        $end .= '</a>';
         if ($boxes->total > 0) {
-            if ($unseen > 0) {
-                $pre .= '<b>';
-            }
-            $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
-            if ($unseen > 0) {
-                $end .= '</b>';
-            }
             /* Print unseen information. */
             if ($unseen_found) {
                 $end .= "&nbsp;<small>$unseen_string</small>";
             }
+            $end .= "\n\t<small>" .
+                 '&nbsp;&nbsp;[<a href="empty_trash.php">'._("Purge").'</a>]'.
+                 '</small>';
         }
-        $end .= "\n\t<small>" .
-                '&nbsp;&nbsp;[<a href="empty_trash.php">'._("Purge").'</a>]'.
-                '</small>';
     } else {
         if (!$boxes->is_noselect) {
+            $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
             if ($unseen > 0) {
                 $pre .= '<b>';
-            }
-            $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
-            $end .= '</a>';
-            if ($unseen > 0) {
                 $end .= '</b>';
             }
+            $end .= '</a>';
         }
         /* Print unseen information. */
         if ($unseen_found) {
