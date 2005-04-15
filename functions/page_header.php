@@ -152,7 +152,7 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = 'onloa
         $frame_top = '_top';
     }
 
-    if( $javascript_on || strpos($xtra, 'new_js_autodetect_results.value') ) {
+    if( $javascript_on || strpos($sHeaderJs, 'new_js_autodetect_results.value') ) {
         if ($sHeaderJs) {
             $sJsBlock = "\n<script language=\"JavaScript\" type=\"text/javascript\">" .
                         "\n<!--\n" .
