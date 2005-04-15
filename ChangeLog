@@ -310,7 +310,11 @@ Version 1.5.1 -- CVS
     correctly set, and generates an error on reply (#1179754).
   - Add Cancel button to addressbook (#1180565).
   - RFC 2046: Send mixed messages with multipart/alternative nested boundaries
-    with correct boundary strings
+    with correct boundary strings.
+  - WARNING: if same user data storage location is used to store SquirrelMail 
+    1.4.x and 1.5.1+ user settings, SquirrelMail 1.5.1+ will reset mailbox
+    display order (Options->Index Options) in stable. Backup your data before
+    testing 1.5.1+ or use different storage location.
   
 Version 1.5.0 - 2 February 2004
 -------------------------------
