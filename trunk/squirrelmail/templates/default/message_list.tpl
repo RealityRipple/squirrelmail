@@ -464,7 +464,7 @@ else
             echo $sText;
             break;
           default:
-            $sText = "    <td class=\"col_text\" align=\"$align[left]\" style="white-space:nowrap" $javascript_auto_click bgcolor=\"$bgcolor\"";
+            $sText = "    <td class=\"col_text\" align=\"$align[left]\" style=\"white-space:nowrap\" $javascript_auto_click bgcolor=\"$bgcolor\"";
             if ($link) {
                 $sText .= "><a href=\"$link\"";
                 if ($target) { $sText .= " target=\"$target\"";}
