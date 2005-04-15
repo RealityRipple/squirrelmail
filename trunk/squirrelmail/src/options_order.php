@@ -132,7 +132,7 @@ $available[SQM_COL_ATTACHMENT] = _("Attachments");
 $available[SQM_COL_INT_DATE]   = _("Received");
 $available[SQM_COL_TO]         = _("To");
 $available[SQM_COL_CC]         = _("Cc");
-$available[SQM_COL_BCC]        = _("bcc");
+$available[SQM_COL_BCC]        = _("Bcc");
 
 if (change_columns_list($index_order,$method,$num,$pos)) {
     if ($method) {
