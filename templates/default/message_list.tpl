@@ -216,7 +216,7 @@ else
           case SQM_COL_FROM:       echo _("From");     break;
           case SQM_COL_DATE:       echo _("Date");     break;
           case SQM_COL_SUBJ:       echo _("Subject");  break;
-          case SQM_COL_FLAGS:      echo '&nbsp';       break;
+          case SQM_COL_FLAGS:      echo '&nbsp;';       break;
           case SQM_COL_SIZE:       echo  _("Size");    break;
           case SQM_COL_PRIO:       echo  '!';          break;
           case SQM_COL_ATTACHMENT: echo '+';           break;
