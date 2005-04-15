@@ -103,7 +103,7 @@ function walkTreeInPreOrderEmptyFolder($index, $imap_stream, $tree, $mailbox) {
         } else {
             $mbx_response = sqimap_mailbox_select($imap_stream, $mailbox);
             if ($mbx_response['EXISTS'] > 0) {
-               sqimap_messages_flag ($imap_stream, 1, '*', 'Deleted', true);
+                sqimap_toggle_flag($imap_stream, '1:*', '\\Deleted', true, true);
                // CLOSE === EXPUNGE and UNSELECT
                sqimap_run_command($imap_stream,'CLOSE',false,$response,$message);
             }
@@ -114,7 +114,7 @@ function walkTreeInPreOrderEmptyFolder($index, $imap_stream, $tree, $mailbox) {
         } else {
             $mbx_response = sqimap_mailbox_select($imap_stream, $mailbox);
             if ($mbx_response['EXISTS'] > 0) {
-                sqimap_messages_flag ($imap_stream, 1, '*', 'Deleted', true);
+                sqimap_toggle_flag($imap_stream, '1:*', '\\Deleted', true, true);
                 // CLOSE === EXPUNGE and UNSELECT
                 sqimap_run_command($imap_stream,'CLOSE',false,$response,$message);
             }
@@ -193,4 +193,5 @@ function simpleWalkTreePre($index, $tree) {
         echo $tree[$index]['value'] . '<br />';
     }
 }
+
 ?>
