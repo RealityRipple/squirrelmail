@@ -196,7 +196,7 @@ else
     foreach($aOrder as $iCol) {
 
 ?>
-                    <td align="<?php echo $align['left']; ?>" width="<?php echo $aWidth[$iCol]; ?>%">
+                    <td align="<?php echo $align['left']; ?>" width="<?php echo $aWidth[$iCol]; ?>%" nowrap>
                         <b>
 <?php
         switch ($iCol) {
@@ -426,7 +426,7 @@ else
 
         switch ($iCol) {
           case SQM_COL_CHECK:
-            echo '<td align="' .$align['left'] .'"'. $javascript_auto_click. ' bgcolor="'.$bgcolor.'">' ?>
+            echo '<td align="' .$align['left'] .'"'. $javascript_auto_click. ' bgcolor="'.$bgcolor.'" nowrap>' ?>
             <input type="checkbox" name="<?php echo "msg[$i]";?>" id="<?php echo $form_id."_msg$i";?>" value="<?php echo $iUid;?>" <?php echo $checkbox_javascript;?> /></td>
             <?php
             break;
@@ -453,18 +453,18 @@ else
             break;
           case SQM_COL_SIZE:
           case SQM_COL_FLAGS:
-            $sText = "    <td class=\"col_\" align=\"$align[right]\" $javascript_auto_click bgcolor=\"$bgcolor\">";
+            $sText = "    <td class=\"col_\" align=\"$align[right]\" $javascript_auto_click bgcolor=\"$bgcolor\" nowrap>";
             $sText .= "<small>$value</small></td>\n";
             echo $sText;
             break;
           case SQM_COL_INT_DATE:
           case SQM_COL_DATE:
-            $sText = "    <td class=\"col_\" align=\"center\" $javascript_auto_click  bgcolor=\"$bgcolor\">";
+            $sText = "    <td class=\"col_\" align=\"center\" $javascript_auto_click  bgcolor=\"$bgcolor\" nowrap>";
             $sText .= $value. "</td>\n";
             echo $sText;
             break;
           default:
-            $sText = "    <td class=\"col_\" align=\"$align[left]\" $javascript_auto_click bgcolor=\"$bgcolor\"";
+            $sText = "    <td class=\"col_\" align=\"$align[left]\" nowrap $javascript_auto_click bgcolor=\"$bgcolor\"";
             if ($link) {
                 $sText .= "><a href=\"$link\"";
                 if ($target) { $sText .= " target=\"$target\"";}
