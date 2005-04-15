@@ -3,7 +3,7 @@
 /**
  * options_order.php
  *
- * Copyright (c) 1999-2004 The SquirrelMail Project Team
+ * Copyright (c) 1999-2005 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * Displays messagelist column order options
@@ -68,7 +68,7 @@ if (!isset($index_order)) {
         $index_order = array(SQM_COL_CHECK,SQM_COL_FROM,SQM_COL_DATE,SQM_COL_FLAGS,SQM_COL_ATTACHMENT,SQM_COL_PRIO,SQM_COL_SUBJ);
     } else {
         $index_order = array(SQM_COL_CHECK,SQM_COL_FROM,SQM_COL_INT_DATE,SQM_COL_FLAGS,SQM_COL_ATTACHMENT,SQM_COL_PRIO,SQM_COL_SUBJ);
-    }    
+    }
 }
 
 if (!sqgetGlobalVar('account', $account,  SQ_GET)) {
@@ -99,8 +99,8 @@ function change_columns_list(&$index_order,$method,$num,$pos=0) {
     $r = false;
     switch ($method) {
       case 'move': $r = sqm_array_move_value($index_order,$num,$pos); break;
-      case 'add':  
-          $index_order[] = (int) $num; $r = true; 
+      case 'add':
+          $index_order[] = (int) $num; $r = true;
           /**
            * flush the cache in order to retrieve the new columns
            */
