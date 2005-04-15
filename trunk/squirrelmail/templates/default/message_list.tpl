@@ -286,7 +286,6 @@ else
 
     /**
      * Check usage of images for attachments, flags and priority
-     * Aaaaaaaaaah fix me. DO NOT USE the string "None" if you mean FALSE, no icon theme
      */
     $bIcons = ($use_icons && $icon_theme) ? true : false;
 
@@ -408,8 +407,7 @@ else
      * we have to do some php coding to display the columns in the right order
      */
     foreach ($aOrder as $iCol) {
-        // FIXME: first parameter cannot be an array in PHP < 4.2
-        if (in_array($index_order_part, $show_label_columns)) {
+        if (in_array($iCol, $show_label_columns)) {
             $sLabelStart = '<label for="msg[' . $i . ']">';
             $sLabelEnd = '</label>';
         } else {
