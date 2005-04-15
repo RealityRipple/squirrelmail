@@ -408,6 +408,7 @@ else
      * we have to do some php coding to display the columns in the right order
      */
     foreach ($aOrder as $iCol) {
+        // FIXME: first parameter cannot be an array in PHP < 4.2
         if (in_array($index_order_part, $show_label_columns)) {
             $sLabelStart = '<label for="msg[' . $i . ']">';
             $sLabelEnd = '</label>';
@@ -415,7 +416,7 @@ else
             $sLabelStart = '';
             $sLabelEnd = '';
         }
-        $aCol = (isset($aColumns[$iCol])) ? $aColumns[$iCol] : '';
+        $aCol = (isset($aColumns[$iCol])) ? $aColumns[$iCol] : array();
         $title  = (isset($aCol['title']))  ? $aCol['title']  : '';
         $link   = (isset($aCol['link']))   ? $aCol['link']   : '';
         $value  = (isset($aCol['value']))  ? $aCol['value']  : '';
