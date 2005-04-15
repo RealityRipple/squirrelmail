@@ -3,7 +3,7 @@
 /**
  * message_list.tpl
  *
- * Copyright (c) 1999-2004 The SquirrelMail Project Team
+ * Copyright (c) 1999-2005 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * Template for viewing a messages list
@@ -12,6 +12,7 @@
  * @package squirrelmail
  */
 
+/** add required includes */
 include_once(SM_PATH . 'templates/util_message_list.php');
 
 /* retrieve the template vars */
@@ -390,16 +391,19 @@ else
 <?php
     // flag style mumbo jumbo
     $sPre = $sEnd = '';
-    if (!in_array('seen',$aFlags)) {
-        $sPre = '<b>'; $sEnd = '</b>';
-    }
-    if (in_array('deleted',$aFlags) && $aFlags['deleted']) {
-        $sPre = "<font color=\"$color[9]\">" . $sPre;
-        $sEnd .= '</font>';
-    } else {
-        if (in_array('flagged',$aFlags) && $aFlags['flagged']) {
-            $sPre = "<font color=\"$color[2]\">" . $sPre;
+    // make sure that flags column is used by end user
+    if (isset($aFlags)) {
+        if (!in_array('seen',$aFlags)) {
+            $sPre = '<b>'; $sEnd = '</b>';
+        }
+        if (in_array('deleted',$aFlags) && $aFlags['deleted']) {
+            $sPre = "<font color=\"$color[9]\">" . $sPre;
             $sEnd .= '</font>';
+        } else {
+            if (in_array('flagged',$aFlags) && $aFlags['flagged']) {
+                $sPre = "<font color=\"$color[2]\">" . $sPre;
+                $sEnd .= '</font>';
+            }
         }
     }
     /**
