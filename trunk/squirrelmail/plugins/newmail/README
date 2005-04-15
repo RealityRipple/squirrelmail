@@ -1,10 +1,11 @@
-This plugin is used to play sounds (currently a WAV, SWF or MP3 files) 
-through the browser whenever the user has unseen messages flagged in the 
-left window pane.  There are options available (on the options page of 
-course) to disable this feature for each user, and to select different 
-media files from the users local computer. The default is that this is 
-NOT enabled, so you'll need to go to the options menu to turn it on first! 
-There are also options to show a popup window via JavaScript.
+This plugin is used to notify the user when a new mail arrives. There are
+several ways to do this. One is to play a sound (currently a WAV, SWF or MP3
+file) through the browser whenever the user has unseen messages flagged in the
+left window pane. There are options available (on the options page of course) to
+disable this feature for each user, and to select different media files from the
+users local computer. The default is that this is NOT enabled, so you'll need to
+go to the options menu to turn it on first! There are also options to show a
+popup window via JavaScript.
 
 Plugin options are visible only when Javascript is enabled or detected by
 SquirrelMail JavaScript detection functions.
@@ -18,6 +19,6 @@ inside plugin's site configuration file.
 
 CREDITS
 
-This plugin has been originally created by Mike Huttinger, with contributions
-by Tyler Akins and Seth Randall. It's now maintained by the SquirrelMail
-Project Team.
+This plugin has been originally created by Mike Huttinger, with contributions by
+Tyler Akins and Seth Randall. It's now maintained by the SquirrelMail Project
+Team.
