@@ -91,7 +91,7 @@ else
 <table border="0" width="100%" cellpadding="0" cellspacing="0">
   <tr>
     <td>
-    <table width="100%" cellpadding="1"  cellspacing="0" style="border: 1px solid <?php echo $color[0]; ?>">
+    <table width="100%" cellpadding="1"  cellspacing="0" style="border: 1px solid <?php echo $color[0]; ?>;">
       <tr>
         <td>
           <table bgcolor="<?php echo $color[4]; ?>" border="0" width="100%" cellpadding="1"  cellspacing="0">
@@ -132,7 +132,7 @@ else
             case 'submit':
                 if ($key != 'moveButton') { // add move in a different table cell
 ?>
-                  <input type="submit" name="<?php echo $key; ?>" value="<?php echo $value[0]; ?>" style="padding: 0px; margin: 0px" />&nbsp;
+                  <input type="submit" name="<?php echo $key; ?>" value="<?php echo $value[0]; ?>" style="padding: 0px; margin: 0px;" />&nbsp;
 <?php
             }
                 break;
@@ -161,7 +161,7 @@ else
                        <?php echo $aFormElements['targetMailbox'][0];?>
                     </select>
                   </tt>
-                  <input type="submit" name="moveButton" value="<?php echo $aFormElements['moveButton'][0]; ?>" style="padding: 0px; margin: 0px" />
+                  <input type="submit" name="moveButton" value="<?php echo $aFormElements['moveButton'][0]; ?>" style="padding: 0px; margin: 0px;" />
                 </small>
 <?php
         } // if (isset($aFormElements['move']))
@@ -197,7 +197,7 @@ else
     foreach($aOrder as $iCol) {
 
 ?>
-                    <td align="<?php echo $align['left']; ?>" width="<?php echo $aWidth[$iCol]; ?>%" style="white-space:nowrap">
+                    <td align="<?php echo $align['left']; ?>" width="<?php echo $aWidth[$iCol]; ?>%" style="white-space: nowrap;">
                         <b>
 <?php
         switch ($iCol) {
@@ -430,7 +430,7 @@ else
 
         switch ($iCol) {
           case SQM_COL_CHECK:
-            echo '<td align="' .$align['left'] .'"'. $javascript_auto_click. ' bgcolor="'.$bgcolor.'" style="white-space:nowrap">' ?>
+            echo '<td align="' .$align['left'] .'"'. $javascript_auto_click. ' bgcolor="'.$bgcolor.'" style="white-space: nowrap;">' ?>
             <input type="checkbox" name="<?php echo "msg[$i]";?>" id="<?php echo $form_id."_msg$i";?>" value="<?php echo $iUid;?>" <?php echo $checkbox_javascript;?> /></td>
             <?php
             break;
@@ -457,18 +457,18 @@ else
             break;
           case SQM_COL_SIZE:
           case SQM_COL_FLAGS:
-            $sText = "    <td class=\"col_flags\" align=\"$align[right]\" $javascript_auto_click bgcolor=\"$bgcolor\" style=\"white-space:nowrap\">";
+            $sText = "    <td class=\"col_flags\" align=\"$align[right]\" $javascript_auto_click bgcolor=\"$bgcolor\" style=\"white-space: nowrap;\">";
             $sText .= "<small>$value</small></td>\n";
             echo $sText;
             break;
           case SQM_COL_INT_DATE:
           case SQM_COL_DATE:
-            $sText = "    <td class=\"col_date\" align=\"center\" $javascript_auto_click  bgcolor=\"$bgcolor\" style=\"white-space:nowrap\">";
+            $sText = "    <td class=\"col_date\" align=\"center\" $javascript_auto_click  bgcolor=\"$bgcolor\" style=\"white-space: nowrap;\">";
             $sText .= $value. "</td>\n";
             echo $sText;
             break;
           default:
-            $sText = "    <td class=\"col_text\" align=\"$align[left]\" style=\"white-space:nowrap\" $javascript_auto_click bgcolor=\"$bgcolor\"";
+            $sText = "    <td class=\"col_text\" align=\"$align[left]\" style=\"white-space: nowrap;\" $javascript_auto_click bgcolor=\"$bgcolor\"";
             if ($link) {
                 $sText .= "><a href=\"$link\"";
                 if ($target) { $sText .= " target=\"$target\"";}
@@ -506,7 +506,7 @@ else
       <tr><td height="5" bgcolor="<?php echo $color[4]; ?>" colspan="1"></td></tr>
       <tr>
         <td>
-          <table width="100%" cellpadding="1"  cellspacing="0" style="border: 1px solid <?php echo $color[0]; ?>">
+          <table width="100%" cellpadding="1"  cellspacing="0" style="border: 1px solid <?php echo $color[0]; ?>;">
             <tr>
               <td>
                 <table bgcolor="<?php echo $color[4]; ?>" border="0" width="100%" cellpadding="1"  cellspacing="0">
