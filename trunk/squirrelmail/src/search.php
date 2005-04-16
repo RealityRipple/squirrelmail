@@ -1354,7 +1354,9 @@ if (isset($aMailbox['FORWARD_SESSION'])) {
         // write the session in order to make sure that the compose window has
         // access to the composemessages array which is stored in the session
         session_write_close();
-        sqsession_is_active();
+        // restart the session. Do not use sqsession_is_active because the session_id
+        // isn't empty after a session_write_close
+        session_start();
 
         if (!preg_match("/^[0-9]{3,4}$/", $compose_width)) {
             $compose_width = '640';

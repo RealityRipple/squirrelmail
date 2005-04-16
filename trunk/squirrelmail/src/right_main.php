@@ -254,8 +254,9 @@ if (isset($aMailbox['FORWARD_SESSION'])) {
         // write the session in order to make sure that the compose window has
         // access to the composemessages array which is stored in the session
         session_write_close();
-        sqsession_is_active();
-
+        // restart the session. Do not use sqsession_is_active because the session_id
+        // isn't empty after a session_write_close
+        session_start();
         if (!preg_match("/^[0-9]{3,4}$/", $compose_width)) {
             $compose_width = '640';
         }
@@ -265,7 +266,7 @@ if (isset($aMailbox['FORWARD_SESSION'])) {
         // do not use &amp;, it will break the query string and $session will not be detected!!!
         $comp_uri = SM_PATH . 'src/compose.php?mailbox='. urlencode($mailbox).
                     '&session='.$aMailbox['FORWARD_SESSION'];
-        displayPageHeader($color, $mailbox, "comp_in_new('$comp_uri', $compose_width, $compose_height);", false);
+        displayPageHeader($color, $mailbox, "comp_in_new('$comp_uri', $compose_width, $compose_height);", '');
     } else {
         $mailbox_cache[$account.'_'.$aMailbox['NAME']] = $aMailbox;
         sqsession_register($mailbox_cache,'mailbox_cache');
@@ -281,7 +282,6 @@ if (isset($aMailbox['FORWARD_SESSION'])) {
     }
 } else {
     displayPageHeader($color, $mailbox);
-//    $compose_uri = $base_uri.'src/compose.php?newmessage=1';
 }
 
 do_hook('right_main_after_header');
