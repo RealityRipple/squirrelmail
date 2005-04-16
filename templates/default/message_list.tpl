@@ -391,8 +391,7 @@ else
 <?php
     // flag style mumbo jumbo
     $sPre = $sEnd = '';
-    // make sure that flags column is used by end user
-    if (isset($aFlags)) {
+    if (isset($aColumns[SQM_COL_FLAGS])) {
         if (!in_array('seen',$aFlags)) {
             $sPre = '<b>'; $sEnd = '</b>';
         }
