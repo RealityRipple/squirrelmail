@@ -513,17 +513,19 @@ function prepareMessageList(&$aMailbox, $aProps) {
                             $bHighLight = highlightMessage($aCol[$k], $value, $highlight_list,$aFormattedMessages[$iUid]);
                         }
                         $sTmp = getAddressString(parseRFC822Address($value),array('best' => true));
+                        $sTmp = decodeHeader($sTmp);
                         if (isset($aColumnDesc[$k]['truncate']) && $aColumnDesc[$k]['truncate']) {
                             $sTrunc = truncateWithEntities($sTmp, $aColumnDesc[$k]['truncate']);
                             $title = ($sTrunc != $sTmp) ? htmlspecialchars($sTmp) : '';
                             $sTmp = $sTrunc;
                         }
                     }
-                    $value = ($sTmp) ? htmlspecialchars($sTmp) : $sUnknown;
+                    $value = ($sTmp) ? $sTmp : $sUnknown;
                     break;
                 case SQM_COL_SUBJ:
                     // subject is mime encoded, decode it.
                     // value is sanitized in decoding function.
+                    // TODO, verify if it should be done before or after the highlighting
                     $value=decodeHeader($value);
                     if ($highlight_list && !$bHighLight) {
                         $bHighLight = highlightMessage('SUBJECT', $value, $highlight_list, $aFormattedMessages[$iUid]);
@@ -549,7 +551,7 @@ function prepareMessageList(&$aMailbox, $aProps) {
                     break;
                 case SQM_COL_DATE:
                 case SQM_COL_INT_DATE:
-                    $value = getDateString(getTimeStamp(explode(' ',trim($value))));
+                    $value = htmlspecialchars(getDateString(getTimeStamp(explode(' ',trim($value)))));
                     break;
                 case SQM_COL_FLAGS:
                     $aFlagColumn = array('seen' => false,
