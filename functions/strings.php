@@ -817,14 +817,12 @@ function TrimArray(&$array) {
  * @param string text the link text, default "Compose"
  * @return string a link to the compose page
  */
-function makeComposeLink($url, $text = null, $target='')
-{
-    global $compose_new_win,$javascript_on;
+function makeComposeLink($url, $text = null, $target='') {
+    global $compose_new_win,$javascript_on, $compose_width, $compose_height;
 
     if(!$text) {
         $text = _("Compose");
     }
-
 
     // if not using "compose in new window", make
     // regular link and be done with it
@@ -832,20 +830,18 @@ function makeComposeLink($url, $text = null, $target='')
         return makeInternalLink($url, $text, $target);
     }
 
-
     // build the compose in new window link...
 
 
     // if javascript is on, use onclick event to handle it
     if($javascript_on) {
         sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION);
-        return '<a href="javascript:void(0)" onclick="comp_in_new(\''.$base_uri.$url.'\')">'. $text.'</a>';
+        $compuri = $base_uri.$url;
+        return "<a href=\"javascript:void(0)\" onclick=\"comp_in_new('$compuri','$compose_width','$compose_height')\">$text</a>";
     }
-
 
     // otherwise, just open new window using regular HTML
     return makeInternalLink($url, $text, '_blank');
-
 }
 
 /**

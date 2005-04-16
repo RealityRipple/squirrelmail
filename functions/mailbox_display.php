@@ -205,6 +205,11 @@ function sqm_api_mailbox_select($imapConnection,$account,$mailbox,$aConfig,$aPro
             array(SQM_COL_FLAGS,SQM_COL_FROM, SQM_COL_SUBJ, SQM_COL_FLAGS);
     }
 
+    /**
+     * Restore the headers we fetch the last time. Saves intitialisation stuff in read_body.
+     */
+    $aMailbox['FETCHHEADERS'] = (isset($aCachedMailbox['FETCHHEADERS'])) ? $aCachedMailbox['FETCHHEADERS'] : null;
+
     if (!isset($aProps[MBX_PREF_AUTO_EXPUNGE]) && isset($aCachedMailbox['AUTO_EXPUNGE'])) {
         $aMailbox['AUTO_EXPUNGE'] = $aCachedMailbox['AUTO_EXPUNGE'];
     } else {
@@ -255,7 +260,7 @@ function sqm_api_mailbox_select($imapConnection,$account,$mailbox,$aConfig,$aPro
  * @return error   $error error number
  * @author Marc Groot Koerkamp
  */
-function fetchMessageHeaders($imapConnection, &$aMailbox, $aFetchHeaders) {
+function fetchMessageHeaders($imapConnection, &$aMailbox) {
 
     /* FIX ME, this function is kind of big, maybe we can split it up in
        a couple of functions. Make sure the functions are private and starts with _
@@ -280,12 +285,13 @@ function fetchMessageHeaders($imapConnection, &$aMailbox, $aFetchHeaders) {
             $start_msg = 1;
         }
     }
-    //sm_print_r($aMailbox);
+
     if (is_array($aMailbox['UIDSET'])) {
         $aUid =& $aMailbox['UIDSET'][$iSetIndx];
     } else {
         $aUid = false;
     }
+    $aFetchHeaders = $aMailbox['FETCHHEADERS'];
 
     $iError = 0;
     $aFetchItems = $aHeaderItems = array();
@@ -310,7 +316,6 @@ function fetchMessageHeaders($imapConnection, &$aMailbox, $aFetchHeaders) {
      * A uidset with sorted uid's is available. We can use the cache
      */
     if (isset($aUid) && $aUid ) {
-
         // limit the cache to SQM_MAX_PAGES_IN_CACHE
         if (!$aMailbox['SHOWALL'][$iSetIndx] && isset($aMailbox['MSG_HEADERS'])) {
             $iMaxMsgs = $iLimit * SQM_MAX_PAGES_IN_CACHE;
@@ -517,7 +522,7 @@ function prepareMessageList(&$aMailbox, $aProps) {
                     $value = ($sTmp) ? htmlspecialchars($sTmp) : $sUnknown;
                     break;
                 case SQM_COL_SUBJ:
-                    // subject is mime encoded, decode it. 
+                    // subject is mime encoded, decode it.
                     // value is sanitized in decoding function.
                     $value=decodeHeader($value);
                     if ($highlight_list && !$bHighLight) {
@@ -599,8 +604,6 @@ function prepareMessageList(&$aMailbox, $aProps) {
 
 
 function highlightMessage($sCol, $sVal, $highlight_list, &$aFormat) {
-
-
     if (!is_array($highlight_list) && count($highlight_list) == 0) {
         return false;
     }
@@ -629,7 +632,7 @@ function highlightMessage($sCol, $sVal, $highlight_list, &$aFormat) {
         }
     }
     if ($hlt_color) {
-        // Bug in highlight color??? 
+        // Bug in highlight color???
         if ($hlt_color{0} != '#') {
             $hlt_color = '#'. $hlt_color;
         }
@@ -837,11 +840,11 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
         }
     }
     $aFetchColumns = array_keys($aFetchColumns);
-    // store the columns to fetch to the session so we can pick them up in read_body
+    // store the columns to fetch so we can pick them up in read_body
     // where we validate the cache.
-    /////// sqsession_register($aFetchColumns,'aFetchColumns');
+    $aMailbox['FETCHHEADERS'] = $aFetchColumns;
 
-    $iError = fetchMessageHeaders($imapConnection, $aMailbox, $aFetchColumns);
+    $iError = fetchMessageHeaders($imapConnection, $aMailbox);
     if ($iError) {
         return array();
     } else {

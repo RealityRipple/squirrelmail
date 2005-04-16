@@ -522,12 +522,6 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
 
     // Prev/Next links for regular messages
     } else if ( true ) { //!(isset($where) && isset($what)) ) {
-        /**
-         * Check if cache is still valid
-         */
-        if (!is_array($aMailbox['UIDSET'][$what])) {
-            fetchMessageHeaders($imapConnection, $aMailbox);
-        }
         $prev = findPreviousMessage($aMailbox['UIDSET'][$what], $passed_id);
         $next = findNextMessage($aMailbox['UIDSET'][$what],$passed_id);
 
@@ -781,6 +775,10 @@ sqgetGlobalVar('sendreceipt',   $sendreceipt,   SQ_GET);
 if (!sqgetGlobalVar('where',         $where,         SQ_GET) ) {
     $where = 'right_main.php';
 }
+/*
+ * Used as entry key to the list of uid's cached in the mailbox cache
+ * we use the cached uid's to get the next and prev  message.
+ */
 if (!sqgetGlobalVar('what',          $what,          SQ_GET) ){
     $what = 0;
 }
@@ -830,16 +828,20 @@ $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0
 $aMailbox = sqm_api_mailbox_select($imapConnection, $iAccount, $mailbox,array('setindex' => $what, 'offset' => $startMessage),array());
 
 /**
- * Check if cache is still valid
- */
+    * Check if cache is still valid, $what contains the key
+    * which gives us acces to the array with uid's. At this moment
+    * 0 is used for a normal message list and search uses 1 as key. This can be
+    * changed / extended in the future.
+    * If on a select of a mailbox we detect that the cache should be invalidated due to
+    * the delete of messages or due to new messages we empty the list with uid's and
+    * that's what we detect below.
+    */
+if (!is_array($aMailbox['UIDSET'][$what])) {
+    fetchMessageHeaders($imapConnection, $aMailbox);
+}
+
 $iSetIndex = $aMailbox['SETINDEX'];
 $aMailbox['CURRENT_MSG'][$iSetIndex] = $passed_id;
-//$aMailbox['OFFSET'] = $startMessage -1;
-
-sqgetGlobalVar('aFetchColumns',$aFetchColumns,SQ_SESSION);
-if (!is_array($aMailbox['UIDSET'][$what])) {
-    fetchMessageHeaders($imapConnection, $aMailbox, $aFetchColumns);
-}
 
 /**
  * Update the seen state
