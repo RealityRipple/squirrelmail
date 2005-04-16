@@ -441,19 +441,14 @@ function prepareMessageList(&$aMailbox, $aProps) {
           default: break;
         }
     }
-    foreach ($aExtraColumns as $k) {
-        switch ($k) {
-          case SQM_COL_FROM:       $aCol[SQM_COL_FROM]       = 'from';         break;
-          case SQM_COL_DATE:       $aCol[SQM_COL_DATE]       = 'date';         break;
-          case SQM_COL_SUBJ:       $aCol[SQM_COL_SUBJ]       = 'subject';      break;
-          case SQM_COL_FLAGS:      $aCol[SQM_COL_FLAGS]      = 'FLAGS';        break;
-          case SQM_COL_SIZE:       $aCol[SQM_COL_SIZE]       = 'SIZE';         break;
-          case SQM_COL_PRIO:       $aCol[SQM_COL_PRIO]       = 'x-priority';   break;
-          case SQM_COL_ATTACHMENT: $aCol[SQM_COL_ATTACHMENT] = 'content-type'; break;
-          case SQM_COL_INT_DATE:   $aCol[SQM_COL_INT_DATE]   = 'INTERNALDATE'; break;
-          case SQM_COL_TO:         $aCol[SQM_COL_TO]         = 'to';           break;
-          case SQM_COL_CC:         $aCol[SQM_COL_CC]         = 'cc';           break;
-          case SQM_COL_BCC:        $aCol[SQM_COL_BCC]        = 'bcc';          break;
+    $aExtraHighLightColumns = array();
+    foreach ($aExtraColumns as $v) {
+        switch ($v) {
+          case SQM_COL_FROM:       $aExtraHighLightColumns[] = 'from';         break;
+          case SQM_COL_SUBJ:       $aExtraHighLightColumns[] = 'subject';      break;
+          case SQM_COL_TO:         $aExtraHighLightColumns[] = 'to';           break;
+          case SQM_COL_CC:         $aExtraHighLightColumns[] = 'cc';           break;
+          case SQM_COL_BCC:        $aExtraHighLightColumns[] = 'bcc';          break;
           default: break;
         }
     }
@@ -605,9 +600,9 @@ function prepareMessageList(&$aMailbox, $aProps) {
             }
             /* columns which will not be displayed but should be inspected
                because the highlight list contains rules with those columns */
-            foreach ($aExtraColumns as $v) {
-                if ($highlight_list && !$bHighLight) {
-                    $bHighLight = highlightMessage($aCol[$v], $value, $highlight_list,$aFormattedMessages[$iUid]);
+            foreach ($aExtraHighLightColumns as $v) {
+                if ($highlight_list && !$bHighLight && isset($aMsg[$v])) {
+                    $bHighLight = highlightMessage($v, $aMsg[$v], $highlight_list,$aFormattedMessages[$iUid]);
                 }
             }
             $aFormattedMessages[$iUid]['columns'] = $aColumns;
@@ -627,7 +622,7 @@ function highlightMessage($sCol, $sVal, $highlight_list, &$aFormat) {
     }
     $hlt_color = false;
     $sCol = strtoupper($sCol);
-    //echo "$sCol $sVal<br>";
+
     foreach ($highlight_list as $highlight_list_part) {
         if (trim($highlight_list_part['value'])) {
             $high_val   = strtolower($highlight_list_part['value']);
@@ -833,15 +828,14 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
         foreach ($highlight_list as $highlight_list_part) {
             if (trim($highlight_list_part['value'])) {
                 $match_type = strtoupper($highlight_list_part['match_type']);
-                $aHighlightColumns = array();
                 switch ($match_type) {
                     case 'TO_CC':
                         $aHighlightColumns[SQM_COL_TO] = true;
                         $aHighlightColumns[SQM_COL_CC] = true;
                         break;
-                    case 'TO': $aHighlightColumns[SQM_COL_TO] = true; break;
-                    case 'CC': $aHighlightColumns[SQM_COL_CC] = true; break;
-                    case 'FROM': $aHighlightColumns[SQM_COL_FROM] = true; break;
+                    case 'TO':     $aHighlightColumns[SQM_COL_TO] = true; break;
+                    case 'CC':     $aHighlightColumns[SQM_COL_CC] = true; break;
+                    case 'FROM':   $aHighlightColumns[SQM_COL_FROM] = true; break;
                     case 'SUBJECT':$aHighlightColumns[SQM_COL_SUBJ] = true; break;
                 }
             }
