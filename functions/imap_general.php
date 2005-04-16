@@ -6,7 +6,7 @@
  * Copyright (c) 1999-2005 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * This implements all functions that do general imap functions.
+ * This implements all functions that do general IMAP functions.
  *
  * @version $Id$
  * @package squirrelmail
@@ -21,7 +21,7 @@ require_once(SM_PATH . 'functions/auth.php');
 /**
  * Generates a new session ID by incrementing the last one used;
  * this ensures that each command has a unique ID.
- * @param bool $unique_id (since 1.3.0) controls use of unique 
+ * @param bool $unique_id (since 1.3.0) controls use of unique
  *  identifiers/message sequence numbers in IMAP commands. See IMAP
  *  rfc 'UID command' chapter.
  * @return string IMAP session id of the form 'A000'.
@@ -46,7 +46,7 @@ function sqimap_session_id($unique_id = FALSE) {
  * @param array $response
  * @param array $message
  * @param boolean $unique_id (since 1.3.0) see sqimap_session_id().
- * @return mixed returns false on imap error. displays error message 
+ * @return mixed returns false on imap error. displays error message
  *  if imap stream is not available.
  * @since 1.2.3
  */
@@ -66,7 +66,7 @@ function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$respon
         set_up_language($squirrelmail_language);
         require_once(SM_PATH . 'functions/display_messages.php');
         $string = "<b><font color=\"$color[2]\">\n" .
-                _("ERROR : No available imapstream.") .
+                _("ERROR: No available IMAP stream.") .
                 "</b></font>\n";
         error_box($string,$color);
         return false;
@@ -83,7 +83,7 @@ function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$respon
  * @param boolean $filter (since 1.4.1 and 1.5.0) see sqimap_fread()
  * @param mixed $outputstream (since 1.4.1 and 1.5.0) see sqimap_fread()
  * @param boolean $no_return (since 1.4.1 and 1.5.0) see sqimap_fread()
- * @return mixed returns false on imap error. displays error message 
+ * @return mixed returns false on imap error. displays error message
  *  if imap stream is not available.
  * @since 1.2.3
  */
@@ -98,7 +98,7 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response,
 
         $read = sqimap_read_data ($imap_stream, $tag, $handle_errors, $response,
                                   $message, $query,$filter,$outputstream,$no_return);
-        if (empty($read)) {    //Imap server dropped its connection
+        if (empty($read)) {    //IMAP server dropped its connection
             $response = '';
             $message = '';
             return false;
@@ -117,7 +117,7 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response,
         set_up_language($squirrelmail_language);
         require_once(SM_PATH . 'functions/display_messages.php');
         $string = "<b><font color=\"$color[2]\">\n" .
-                _("ERROR : No available imapstream.") .
+                _("ERROR: No available IMAP stream.") .
                 "</b></font>\n";
         error_box($string,$color);
         return false;
@@ -157,9 +157,9 @@ function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors
     $aResponse = false;
 
     /*
-       Do not fire all calls at once to the imap-server but split the calls up
+       Do not fire all calls at once to the IMAP server but split the calls up
        in portions of $iChunkSize. If we do not do that I think we misbehave as
-       IMAP client or should handle BYE calls if the IMAP-server drops the
+       IMAP client or should handle BYE calls if the IMAP server drops the
        connection because the number of queries is to large. This isn't tested
        but a wild guess how it could work in the field.
 
@@ -215,7 +215,7 @@ function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors
 }
 
 /**
- * Custom fgets function: gets a line from the IMAP-server,
+ * Custom fgets function: gets a line from the IMAP server,
  * no matter how big it may be.
  * @param stream $imap_stream the stream to read from
  * @return string a line
@@ -246,7 +246,7 @@ function sqimap_fgets($imap_stream) {
  * @param integer $iSize
  * @param boolean $filter
  * @param mixed $outputstream stream or 'php://stdout' string
- * @param boolean $no_return controls data returned by function 
+ * @param boolean $no_return controls data returned by function
  * @return string
  * @since 1.4.1
  */
@@ -321,7 +321,7 @@ function sqimap_read_data_list($imap_stream, $tag, $handle_errors,
     set_up_language($squirrelmail_language);
     require_once(SM_PATH . 'functions/display_messages.php');
     $string = "<b><font color=\"$color[2]\">\n" .
-        _("ERROR : Bad function call.") .
+        _("ERROR: Bad function call.") .
         "</b><br />\n" .
         _("Reason:") . ' '.
           'There is a plugin installed which make use of the  <br />' .
@@ -336,7 +336,7 @@ function sqimap_read_data_list($imap_stream, $tag, $handle_errors,
 }
 
 /**
- * Function to display an error related to an IMAP-query.
+ * Function to display an error related to an IMAP query.
  * @param string title the caption of the error box
  * @param string query the query that went wrong
  * @param string message_title optional message title
@@ -549,12 +549,12 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
             if (!$handle_errors) {
                 $query = '';
             }
-            sqimap_error_box(_("ERROR : Imap server closed the connection."), $query, _("Server responded:"),$sResponse);
+            sqimap_error_box(_("ERROR: IMAP server closed the connection."), $query, _("Server responded:"),$sResponse);
             echo '</body></html>';
             exit;
         } else if ($handle_errors) {
             unset($data);
-            sqimap_error_box(_("ERROR : Connection dropped by imap-server."), $query);
+            sqimap_error_box(_("ERROR: Connection dropped by IMAP server."), $query);
             exit;
         }
     }
@@ -578,21 +578,21 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
     case 'NO':
         /* ignore this error from M$ exchange, it is not fatal (aka bug) */
         if (strstr($message[$tag], 'command resulted in') === false) {
-            sqimap_error_box(_("ERROR : Could not complete request."), $query, _("Reason Given: "), $message[$tag]);
+            sqimap_error_box(_("ERROR: Could not complete request."), $query, _("Reason Given:") . ' ', $message[$tag]);
             echo '</body></html>';
             exit;
         }
         break;
     case 'BAD':
-        sqimap_error_box(_("ERROR : Bad or malformed request."), $query, _("Server responded: "), $message[$tag]);
+        sqimap_error_box(_("ERROR: Bad or malformed request."), $query, _("Server responded:") . ' ', $message[$tag]);
         echo '</body></html>';
         exit;
     case 'BYE':
-        sqimap_error_box(_("ERROR : Imap server closed the connection."), $query, _("Server responded: "), $message[$tag]);
+        sqimap_error_box(_("ERROR: IMAP server closed the connection."), $query, _("Server responded:") . ' ', $message[$tag]);
         echo '</body></html>';
         exit;
     default:
-        sqimap_error_box(_("ERROR : Unknown imap response."), $query, _("Server responded: "), $message[$tag]);
+        sqimap_error_box(_("ERROR: Unknown IMAP response."), $query, _("Server responded:") . ' ', $message[$tag]);
        /* the error is displayed but because we don't know the reponse we
           return the result anyway */
        return $aResponse;
@@ -664,8 +664,8 @@ function sqimap_create_stream($server,$port,$tls=false) {
 }
 
 /**
- * Logs the user into the imap server.  If $hide is set, no error messages
- * will be displayed.  This function returns the imap connection handle.
+ * Logs the user into the IMAP server.  If $hide is set, no error messages
+ * will be displayed.  This function returns the IMAP connection handle.
  * @param string $username user name
  * @param string $password encrypted password
  * @param string $imap_server_address address of imap server
@@ -823,19 +823,19 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
 
     /* Special error case:
      * Login referrals. The server returns:
-	 * ? OK [REFERRAL <imap url>]
-	 * Check RFC 2221 for details. Since we do not support login referrals yet
-	 * we log the user out.
-	 */
+     * ? OK [REFERRAL <imap url>]
+     * Check RFC 2221 for details. Since we do not support login referrals yet
+     * we log the user out.
+     */
     if ( stristr($message, 'REFERRAL imap') === TRUE ) {
-        sqimap_logout($imap_stream);   
+        sqimap_logout($imap_stream);
         set_up_language($squirrelmail_language, true);
         include_once(SM_PATH . 'functions/display_messages.php' );
         sqsession_destroy();
         logout_error( _("Your mailbox is not located at this server. Try a different server or consult your system administrator") );
         exit;
     }
-    
+
     return $imap_stream;
 }
 
@@ -857,7 +857,7 @@ function sqimap_logout ($imap_stream) {
  * else returns array of all capabilities.
  * @param stream $imap_stream
  * @param string $capability (optional since 1.3.0)
- * @return mixed (string if $capability is set and found, 
+ * @return mixed (string if $capability is set and found,
  *  false, if $capability is set and not found,
  *  array if $capability not set)
  */
@@ -996,7 +996,7 @@ function parseAddress($address, $max=0) {
  * OBSOLETE FUNCTION should be removed after mailbox_display,
  * printMessage function is adapted
  *
- * callback function used for formating of addresses array in 
+ * callback function used for formating of addresses array in
  * parseAddress() function
  * @param array $aAddr
  * @param integer $k array key
@@ -1029,7 +1029,7 @@ function sqimap_unseen_messages ($imap_stream, $mailbox) {
 /**
  * Returns the status items of a mailbox.
  * Default it returns MESSAGES,UNSEEN and RECENT
- * Supported status items are MESSAGES, UNSEEN, RECENT (since 1.4.0), 
+ * Supported status items are MESSAGES, UNSEEN, RECENT (since 1.4.0),
  * UIDNEXT (since 1.5.1) and UIDVALIDITY (since 1.5.1)
  * @param stream $imap_stream imap stream
  * @param string $mailbox mail folder
@@ -1095,14 +1095,14 @@ function sqimap_append_done ($imap_stream, $folder='') {
 }
 
 /**
- * Displays error messages, if there are errors in responses to 
+ * Displays error messages, if there are errors in responses to
  * commands issues by sqimap_append() and sqimap_append_done() functions.
  * @param string $response
  * @param string $folder
  * @since 1.5.1
  */
 function sqimap_append_checkresponse($response, $folder) {
-    
+
     if (preg_match("/(.*)(BAD|NO)(.*)$/", $response, $regs)) {
         global $squirrelmail_language, $color;
         set_up_language($squirrelmail_language);
@@ -1111,12 +1111,12 @@ function sqimap_append_checkresponse($response, $folder) {
         $reason = $regs[3];
         if ($regs[2] == 'NO') {
            $string = "<b><font color=\"$color[2]\">\n" .
-                  _("ERROR : Could not append message to") ." $folder." .
+                  _("ERROR: Could not append message to") ." $folder." .
                   "</b><br />\n" .
-                  _("Server responded: ") .
+                  _("Server responded:") . ' ' .
                   $reason . "<br />\n";
            if (preg_match("/(.*)(quota)(.*)$/i", $reason, $regs)) {
-              $string .= _("Solution: ") .
+              $string .= _("Solution:") . ' ' .
             _("Remove unneccessary messages from your folder and start with your Trash folder.")
               ."<br />\n";
            }
@@ -1124,9 +1124,9 @@ function sqimap_append_checkresponse($response, $folder) {
            error_box($string,$color);
         } else {
            $string = "<b><font color=\"$color[2]\">\n" .
-                  _("ERROR : Bad or malformed request.") .
+                  _("ERROR: Bad or malformed request.") .
                   "</b><br />\n" .
-                  _("Server responded: ") .
+                  _("Server responded:") . ' ' .
                   $reason . "</font><br />\n";
            error_box($string,$color);
            exit;
@@ -1135,7 +1135,7 @@ function sqimap_append_checkresponse($response, $folder) {
 }
 
 /**
- * Allows mapping of imap server address with custom function
+ * Allows mapping of IMAP server address with custom function
  * see map_yp_alias()
  * @param string $imap_server imap server address or mapping
  * @param string $username
@@ -1151,11 +1151,11 @@ function sqimap_get_user_server ($imap_server, $username) {
 }
 
 /**
- * This is an example that gets imapservers from yellowpages (NIS).
+ * This is an example that gets IMAP servers from yellowpages (NIS).
  * you can simple put map:map_yp_alias in your $imap_server_address
  * in config.php use your own function instead map_yp_alias to map your
- * LDAP whatever way to find the users imapserver.
- * 
+ * LDAP whatever way to find the users IMAP server.
+ *
  * Requires access to external ypmatch program
  * FIXME: it can be implemented in php yp extension or pecl (since php 5.1.0)
  * @param string $username

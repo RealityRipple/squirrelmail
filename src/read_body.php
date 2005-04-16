@@ -264,7 +264,7 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
     }
     if (!$success) {
         $msg  = $deliver->dlv_msg . '<br />' .
-                _("Server replied: ") . $deliver->dlv_ret_nr . ' '.
+                _("Server replied:") . ' ' . $deliver->dlv_ret_nr . ' ' .
                 $deliver->dlv_server_msg;
         require_once(SM_PATH . 'functions/display_messages.php');
         plain_error_message($msg, $color);

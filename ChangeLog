@@ -195,7 +195,7 @@ Version 1.5.1 -- CVS
   - Fix undefined variables in src/webmail.php.
   - 24hr clock format should include a leading 0.
   - Removed numeric keys for plugin array in config.php.
-  - Fixed translations of "On DATE, AUTHOR said" and "AUTHOR said" replies.
+  - Fixed translations of "On DATE, AUTHOR Wrote" and "AUTHOR Wrote" replies.
   - Added sq_str_pad function for padding of multi-byte strings.
   - Added sq_strlen function for calculation of multi-byte string length.
   - Quoted "INBOX" in check for the status of INBOX in a LIST call. Fixes an

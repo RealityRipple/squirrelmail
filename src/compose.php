@@ -194,7 +194,7 @@ function getReplyCitation($orig_from, $orig_date) {
         /**
          * To translators: %s is for author's name
          */
-        $full_reply_citation = sprintf(_("%s said:"),$orig_from);
+        $full_reply_citation = sprintf(_("%s wrote:"),$orig_from);
         break;
     case 'quote_who':
         // FIXME: do we have to translate xml formating?
@@ -208,11 +208,11 @@ function getReplyCitation($orig_from, $orig_date) {
          *  first %s is for date string, second %s is for author's name. Date uses
          *  formating from "D, F j, Y g:i a" and "D, F j, Y H:i" translations.
          * Example string:
-         *  "On Sat, December 24, 2004 23:59, Santa said:"
+         *  "On Sat, December 24, 2004 23:59, Santa wrote:"
          * If you have to put author's name in front of date string, check comments about
          * argument swapping at http://www.php.net/sprintf
          */
-        $full_reply_citation = sprintf(_("On %s, %s said:"), getLongDateString($orig_date), $orig_from);
+        $full_reply_citation = sprintf(_("On %s, %s wrote:"), getLongDateString($orig_date), $orig_from);
         break;
     case 'user-defined':
         $start = $reply_citation_start .
@@ -1576,7 +1576,7 @@ function deliverMessage($composeMessage, $draft=false) {
     }
     if (!$succes) {
         $msg  = $deliver->dlv_msg . '<br />' .
-            _("Server replied: ") . $deliver->dlv_ret_nr . ' '.
+            _("Server replied:") . ' ' . $deliver->dlv_ret_nr . ' ' .
             $deliver->dlv_server_msg;
         plain_error_message($msg, $color);
     } else {
