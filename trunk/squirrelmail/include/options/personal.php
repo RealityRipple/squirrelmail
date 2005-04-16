@@ -172,8 +172,8 @@ function load_optpage_data_personal() {
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
         'posvals' => array(SMPREF_NONE    => _("No Citation"),
-                           'author_said'  => _("AUTHOR Said"),
-                           'date_time_author' => _("On DATE, AUTHOR Said"),
+                           'author_said'  => _("AUTHOR Wrote"),
+                           'date_time_author' => _("On DATE, AUTHOR Wrote"),
                            'quote_who'    => _("Quote Who XML"),
                            'user-defined' => _("User-Defined"))
     );

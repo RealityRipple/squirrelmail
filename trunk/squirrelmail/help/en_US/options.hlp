@@ -58,8 +58,8 @@
       <ul>
       <li><b>No Citation</b><br />
       Prepends no citation line whatsoever.<br /><br />
-      <li><b>Author Said</b><br />
-      This produces the line: <tt>John Doe Said:</tt> where John Doe will be replaced
+      <li><b>Author Wrote</b><br />
+      This produces the line: <tt>John Doe Wrote:</tt> where John Doe will be replaced
       by whoever the message you're replying to was from.<br /><br />
       <li><b>Quote Who XML</b><br />
       This produces the line: <tt>&lt;quote who="John Doe"&gt;</tt>.<br /><br />
