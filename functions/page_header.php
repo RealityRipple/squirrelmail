@@ -153,14 +153,12 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = 'onloa
     }
 
     if( $javascript_on || strpos($sHeaderJs, 'new_js_autodetect_results.value') ) {
+        $sJsBlock = '<script src="'. SM_PATH .'templates/default/js/default.js" type="text/javascript" language="JavaScript"></script>' ."\n";
         if ($sHeaderJs) {
-            $sJsBlock = "\n<script language=\"JavaScript\" type=\"text/javascript\">" .
+            $sJsBlock .= "\n<script language=\"JavaScript\" type=\"text/javascript\">" .
                         "\n<!--\n" .
-                        $sJsHeader . "\n\n// -->\n</script>\n";
-        } else {
-           $sJsBlock = '';
+                        $sHeaderJs . "\n\n// -->\n</script>\n";
         }
-        $sJsBlock .= "\n" . '<script src="'. SM_PATH .'templates/default/js/default.js" type="text/javascript" language="JavaScript"></script>' ."\n";
         displayHtmlHeader ('SquirrelMail', $sJsBlock);
    } else {
         /* do not use JavaScript */
@@ -246,7 +244,7 @@ function compose_Header($color, $mailbox, $sHeaderJs='', $sBodyTagJs = 'onload="
         if ($sHeaderJs) {
             $sJsBlock = "\n<script language=\"JavaScript\" type=\"text/javascript\">" .
                         "\n<!--\n" .
-                        $sJsHeader . "\n\n// -->\n</script>\n";
+                        $sHeaderJs . "\n\n// -->\n</script>\n";
         } else {
            $sJsBlock = '';
         }
