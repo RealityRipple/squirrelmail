@@ -920,6 +920,16 @@ $lossy_encoding = false;
 $advanced_tree = false;
 
 /**
+ * Iframe sandbox code control
+ *
+ * Use iframe to render html emails
+ * (temp option used during debuging of new code)
+ * @global bool $use_iframe
+ * @since 1.5.1
+ */
+$use_iframe = false;
+
+/**
  * Message Icons control
  *
  * Use icons for message and folder markers
