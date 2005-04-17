@@ -16,6 +16,8 @@
 /** The typical includes... */
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/attachment_common.php');
+/** add sqm_baseuri()*/
+include_once(SM_PATH . 'functions/display_messages.php');
 
 /* -------------------------------------------------------------------------- */
 /* MIME DECODING                                                              */
@@ -356,7 +358,10 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
     * order that is their priority.
     */
     global $startMessage, $languages, $squirrelmail_language,
-        $show_html_default, $sort, $has_unsafe_images, $passed_ent_id;
+        $show_html_default, $sort, $has_unsafe_images, $passed_ent_id, $use_iframe,$iframe_height;
+
+    // workaround for not updated config.php
+    if (! isset($use_iframe)) $use_iframe = false;
 
     if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
         $view_unsafe_images = false;
@@ -399,8 +404,42 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
                 $body = trim($body);
                 translateText($body, $wrap_at,
                             $body_message->header->getParameter('charset'));
+            } elseif ($use_iframe && ! $clean) {
+                // $clean is used to remove iframe in printable view.
+
+                // creating iframe url
+                $iframeurl=sqm_baseuri().'src/view_html.php?'
+                    . 'mailbox=' . $urlmailbox 
+                    . '&amp;passed_id=' . $id
+                    . '&amp;ent_id=' . $ent_num
+                    . '&amp;view_unsafe_images=' . (int) $view_unsafe_images;
+
+                // adding warning message
+                $body = html_tag('div',_("Viewing HTML formatted email"),'center');
+
+                /**
+                 * height can't be set to 100%, because it does not work as expected when 
+                 * iframe is inside the table. Browsers do not create full height objects 
+                 * even when iframe is not nested. Maybe there is some way to get full size 
+                 * with CSS. Tested in firefox 1.02 and opera 7.53
+                 *
+                 * width="100%" does not work as expected, when table width is not set (automatic)
+                 *
+                 * tokul: I think <iframe> are safer sandbox than <object>. Objects might
+                 * need special handling for IE and IE6SP2.
+                 */
+                $body.= "<div><iframe name=\"message_frame\" width=\"100%\" height=\"$iframe_height\" src=\"$iframeurl\""
+                    .' frameborder="1" marginwidth="0" marginheight="0" scrolling="auto">' . "\n";
+
+                // Message for browsers without iframe support
+                $body.= _("Your browser does not support inline frames. You can view HTML formated message by following below link.");
+                $body.= "<br /><a href=\"$iframeurl\">"._("View HTML Message")."</a>"; 
+
+                // close iframe
+                $body.="</iframe></div>\n";
             } else {
-                $body = magicHTML($body, $id, $message, $mailbox);
+                // old way of html rendering
+                $body = magicHTML($body, $id, $message, $mailbox);   
             }
         } else {
             translateText($body, $wrap_at,
@@ -440,7 +479,6 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
 
 /**
  * Displays attachment links and information
- * FIXME: SM_PATH is used in URLs
  *
  * Since 1.3.0 function is not included in formatBody() call.
  *
@@ -472,10 +510,10 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         $type1 = strtolower($header->type1);
         $name = '';
         $links['download link']['text'] = _("Download");
-        $links['download link']['href'] = SM_PATH .
+        $links['download link']['href'] = sqm_baseuri() .
                 "src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;ent_id=$ent";
         if ($type0 =='message' && $type1 == 'rfc822') {
-            $default_page = SM_PATH . 'src/read_body.php';
+            $default_page = sqm_baseuri() . 'src/read_body.php';
             $rfc822_header = $att->rfc822_header;
             $filename = $rfc822_header->subject;
             if (trim( $filename ) == '') {
@@ -489,7 +527,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
             }
             $description = $from_name;
         } else {
-            $default_page = SM_PATH . 'src/download.php';
+            $default_page = sqm_baseuri() . 'src/download.php';
             $filename = $att->getFilename();
             if ($header->description) {
                 $description = decodeHeader($header->description);
@@ -543,7 +581,10 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
             } else {
                 $attachments .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
             }
-            $attachments .= '<a href="' . $val['href'] . '">' . (isset($val['text']) && !empty($val['text']) ? $val['text'] : '') . (isset($val['extra']) && !empty($val['extra']) ? $val['extra'] : '') . '</a>';
+            $attachments .= '<a href="' . $val['href'] . '">' 
+                . (isset($val['text']) && !empty($val['text']) ? $val['text'] : '') 
+                . (isset($val['extra']) && !empty($val['extra']) ? $val['extra'] : '') 
+                . '</a>';
         }
         unset($links);
         $attachments .= "</td></tr>\n";
