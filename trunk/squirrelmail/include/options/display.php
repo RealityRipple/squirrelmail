@@ -33,6 +33,9 @@ if ($use_icons) {
     }
 }
 
+global $use_iframe;
+if (! isset($use_iframe)) $use_iframe=false;
+
 /**
  * This function builds an array with all the information about
  * the options available to the user, and returns it. The options
@@ -49,7 +52,7 @@ if ($use_icons) {
 function load_optpage_data_display() {
     global $theme, $language, $languages,
     $default_use_mdn, $squirrelmail_language, $allow_thread_sort,
-    $show_alternative_names, $available_languages, $use_icons;
+    $show_alternative_names, $available_languages, $use_icons, $use_iframe;
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -318,6 +321,16 @@ function load_optpage_data_display() {
         'refresh' => SMOPT_REFRESH_NONE
     );
 
+    if ($use_iframe) {
+        // Type is set to string in order to be able to use 100%.
+        $optvals[SMOPT_GRP_MESSAGE][] = array(
+            'name'    => 'iframe_height',
+            'caption' => _("Height of inline frame"),
+            'type'    => SMOPT_TYPE_STRING,
+            'size'    => SMOPT_SIZE_TINY,
+            'refresh' => SMOPT_REFRESH_NONE
+        );
+    }
     $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'enable_forward_as_attachment',
         'caption' => _("Enable Forward as Attachment"),

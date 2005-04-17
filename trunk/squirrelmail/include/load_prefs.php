@@ -354,6 +354,12 @@ $show_recipient_instead = getPref($data_dir, $username, 'show_recipient_instead'
 
 $delete_prev_next_display = getPref($data_dir, $username, 'delete_prev_next_display', SMPREF_ON);
 
+/**
+ * Height of iframe that displays html formated emails
+ * @since 1.5.1
+ */
+$iframe_height = getPref($data_dir, $username, 'iframe_height', '300');
+
 do_hook('loading_prefs');
 
 ?>
