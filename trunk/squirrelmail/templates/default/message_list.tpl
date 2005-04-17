@@ -235,14 +235,14 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
           case SQM_COL_SIZE:       echo  _("Size");    break;
           case SQM_COL_PRIO:
                if ($bIcons) {
-                  echo '<img src="' . $sImageLocation. 'prio_high.png" border="0" height="10" width="5" alt="!" title="'. _("Attachment") . '" />';
+                  echo '<img src="' . $sImageLocation. 'prio_high.png" border="0" height="10" width="5" alt="!" title="'. _("Priority") . '" />';
                } else {
                   echo  '!';
                }
                break;
           case SQM_COL_ATTACHMENT:
                if ($bIcons) {
-                  echo '<img src="' . $sImageLocation. 'attach.png" border="0" height="10" width="6" alt="+" title="' . _("Priority") . '"/>';
+                  echo '<img src="' . $sImageLocation. 'attach.png" border="0" height="10" width="6" alt="+" title="' . _("Attachment") . '"/>';
                } else {
                   echo  '+';
                }
