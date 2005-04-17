@@ -328,6 +328,7 @@ $use_php_recode = 'false'               if ( !$use_php_recode );
 $use_php_iconv = 'false'                if ( !$use_php_iconv );
 # since 1.5.1
 $use_icons = 'false'                    if ( !$use_icons );
+$use_iframe = 'false'                   if ( !$use_frame );
 $lossy_encoding = 'false'               if ( !$lossy_encoding );
 $allow_remote_configtest = 'false'      if ( !$allow_remote_configtest );
 $addrbook_global_table = 'global_abook' if ( !$addrbook_global_table );
@@ -603,15 +604,16 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 11 ) {
     print $WHT. "Interface tweaks\n" . $NRM;
-    print "1.  Advanced tree            : $WHT$advanced_tree$NRM\n";
-    print "3.  Use Icons                : $WHT$use_icons$NRM\n";
+    print "1.  Advanced tree                : $WHT$advanced_tree$NRM\n";
+    print "2.  Display html mails in iframe : $WHT$use_iframe$NRM\n";
+    print "3.  Use Icons                    : $WHT$use_icons$NRM\n";
     print "\n";
     print $WHT. "PHP tweaks\n" . $NRM;
-    print "4.  Use php recode functions : $WHT$use_php_recode$NRM\n";
-    print "5.  Use php iconv functions  : $WHT$use_php_iconv$NRM\n";
+    print "4.  Use php recode functions     : $WHT$use_php_recode$NRM\n";
+    print "5.  Use php iconv functions      : $WHT$use_php_iconv$NRM\n";
     print "\n";
     print $WHT. "Configuration tweaks\n" . $NRM;
-    print "6.  Allow remote configtest  : $WHT$allow_remote_configtest$NRM\n";
+    print "6.  Allow remote configtest     : $WHT$allow_remote_configtest$NRM\n";
     print "\n";
         print "R   Return to Main Menu\n";
     }
@@ -767,6 +769,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 6 ) { $lossy_encoding         = commandA6(); }
         } elsif ( $menu == 11 ) {
             if    ( $command == 1 ) { $advanced_tree  = commandB1(); }
+            if    ( $command == 2 ) { $use_iframe     = commandB2(); }
             elsif ( $command == 3 ) { $use_icons      = commandB3(); }
             elsif ( $command == 4 ) { $use_php_recode = commandB4(); }
             elsif ( $command == 5 ) { $use_php_iconv  = commandB5(); }
@@ -3045,6 +3048,28 @@ sub commandB1 {
     }
     return $advanced_tree;
 }
+# display html emails in iframe
+sub commandB2 {
+    print "This option can enable html email rendering inside iframe.\n";
+    print "Inline frames are used in order to provide sandbox environment";
+    print "for html code included in html formated emails.";
+    print "Option is experimental and might have glitches in some parts of code.";
+    print "\n";
+
+    if ( lc($use_iframe) eq 'true' ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Display html emails in iframe? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $use_iframe = <STDIN>;
+    if ( ( $use_iframe =~ /^y\n/i ) || ( ( $use_iframe =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $use_iframe = 'true';
+    } else {
+        $use_iframe = 'false';
+    }
+    return $use_iframe;
+}
 # use icons
 sub commandB3 {
     print "Enabling this option will cause icons to be used instead of text\n";
@@ -3426,6 +3451,9 @@ sub save_data {
 
     # boolean
     print CF "\$advanced_tree = $advanced_tree;\n";
+    print CF "\n";
+    # boolean
+    print CF "\$use_iframe = $use_iframe;\n";
     print CF "\n";
     # boolean
     print CF "\$use_icons = $use_icons;\n";
