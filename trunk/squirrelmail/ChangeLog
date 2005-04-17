@@ -315,6 +315,9 @@ Version 1.5.1 -- CVS
     1.4.x and 1.5.1+ user settings, SquirrelMail 1.5.1+ will reset mailbox
     display order (Options->Index Options) in stable. Backup your data before
     testing 1.5.1+ or use different storage location.
+  - Added experimental iframe sandbox for display of html formated emails.
+  - Disabled LOGINDISABLED check in src/login.php when IMAP server mapping is
+    used.
   
 Version 1.5.0 - 2 February 2004
 -------------------------------
