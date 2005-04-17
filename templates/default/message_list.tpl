@@ -76,15 +76,23 @@ if (!($javascript_on && $fancy_index_highlite)) {
     }
 }
 
+/**
+ * Check usage of images for attachments, flags and priority
+ */
+$bIcons = ($use_icons && $icon_theme) ? true : false;
+
+/**
+ * Location of icon images
+ */
+if ($bIcons) {
+    $sImageLocation = SM_PATH . 'images/themes/' . $icon_theme . '/';
+}
+
 // set this to an empty string to turn off extra
 // highlighting of checked rows
 //
 //$clickedColor = '';
-if (!empty($color[16]))
-    $clickedColor = $color[16];
-else
-    $clickedColor = $color[2];
-
+$clickedColor = (empty($color[16])) ? $color[2] : $color[16];
 
 ?>
 <form id="<?php echo $form_id;?>" name="<?php echo $form_name;?>" method="post" action="<?php echo $php_self;?>">
@@ -217,10 +225,28 @@ else
           case SQM_COL_FROM:       echo _("From");     break;
           case SQM_COL_DATE:       echo _("Date");     break;
           case SQM_COL_SUBJ:       echo _("Subject");  break;
-          case SQM_COL_FLAGS:      echo '&nbsp;';       break;
+          case SQM_COL_FLAGS:
+               if ($bIcons) {
+                  echo '<img src="' . $sImageLocation. 'msg_new.png" border="0" height="12" width="18" alt="!" title="'. _("Message Flags") . '" />';
+               } else {
+                  echo  '&nbsp;';
+               }
+               break;
           case SQM_COL_SIZE:       echo  _("Size");    break;
-          case SQM_COL_PRIO:       echo  '!';          break;
-          case SQM_COL_ATTACHMENT: echo '+';           break;
+          case SQM_COL_PRIO:
+               if ($bIcons) {
+                  echo '<img src="' . $sImageLocation. 'prio_high.png" border="0" height="10" width="5" alt="!" title="'. _("Attachment") . '" />';
+               } else {
+                  echo  '!';
+               }
+               break;
+          case SQM_COL_ATTACHMENT:
+               if ($bIcons) {
+                  echo '<img src="' . $sImageLocation. 'attach.png" border="0" height="10" width="6" alt="+" title="' . _("Priority") . '"/>';
+               } else {
+                  echo  '+';
+               }
+               break;
           case SQM_COL_INT_DATE:   echo _("Received"); break;
           case SQM_COL_TO:         echo _("To");       break;
           case SQM_COL_CC:         echo _("Cc");       break;
@@ -285,17 +311,6 @@ else
 
     $aColumns = $aMsg['columns'];
 
-    /**
-     * Check usage of images for attachments, flags and priority
-     */
-    $bIcons = ($use_icons && $icon_theme) ? true : false;
-
-    /**
-     * Location of icon images
-     */
-    if ($bIcons) {
-        $sImageLocation = SM_PATH . 'images/themes/' . $icon_theme . '/';
-    }
 
     /**
      * Check the flags and set a class var.
@@ -456,7 +471,7 @@ else
             break;
           case SQM_COL_SIZE:
           case SQM_COL_FLAGS:
-            $sText = "    <td class=\"col_flags\" align=\"$align[right]\" $javascript_auto_click bgcolor=\"$bgcolor\" style=\"white-space: nowrap;\">";
+            $sText = "    <td class=\"col_flags\" align=\"$align[left]\" $javascript_auto_click bgcolor=\"$bgcolor\" style=\"white-space: nowrap;\">";
             $sText .= "<small>$value</small></td>\n";
             echo $sText;
             break;
