@@ -60,18 +60,24 @@ header('Pragma: no-cache');
  * explaining the situation.
  */
 if($imap_auth_mech == 'login') {
-    $imap = sqimap_create_stream($imapServerAddress, $imapPort, $use_imap_tls);
-    $logindisabled = sqimap_capability($imap,'LOGINDISABLED');
-    sqimap_logout($imap);
-    if ($logindisabled) {
-        $string = _("The IMAP server is reporting that plain text logins are disabled.").'<br />'.
-            _("Using CRAM-MD5 or DIGEST-MD5 authentication instead may work.").'<br />';
-        if (!$use_imap_tls) {
-            $string .= _("Also, the use of TLS may allow SquirrelMail to login.").'<br />';
+    /**
+     * detect disabled login, only when imapServerAddress contains 
+     * server address and not mapping. See sqimap_get_user_server()
+     */
+    if (substr($imapServerAddress, 0, 4) != "map:") {
+        $imap = sqimap_create_stream($imapServerAddress, $imapPort, $use_imap_tls);
+        $logindisabled = sqimap_capability($imap,'LOGINDISABLED');
+        sqimap_logout($imap);
+        if ($logindisabled) {
+            $string = _("The IMAP server is reporting that plain text logins are disabled.").'<br />'.
+                _("Using CRAM-MD5 or DIGEST-MD5 authentication instead may work.").'<br />';
+            if (!$use_imap_tls) {
+                $string .= _("Also, the use of TLS may allow SquirrelMail to login.").'<br />';
+            }
+            $string .= _("Please contact your system administrator and report this error.");
+            error_box($string,$color);
+            exit;
         }
-        $string .= _("Please contact your system administrator and report this error.");
-        error_box($string,$color);
-        exit;
     }
 }
 
