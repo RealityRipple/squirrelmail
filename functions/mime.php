@@ -407,6 +407,12 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
             } elseif ($use_iframe && ! $clean) {
                 // $clean is used to remove iframe in printable view.
 
+                /**
+                 * If we don't add html message between iframe tags,
+                 * we must detect unsafe images and modify $has_unsafe_images.
+                 */                
+                $html_body =  magicHTML($body, $id, $message, $mailbox);
+
                 // creating iframe url
                 $iframeurl=sqm_baseuri().'src/view_html.php?'
                     . 'mailbox=' . $urlmailbox 
@@ -432,8 +438,12 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
                     .' frameborder="1" marginwidth="0" marginheight="0" scrolling="auto">' . "\n";
 
                 // Message for browsers without iframe support
-                $body.= _("Your browser does not support inline frames. You can view HTML formated message by following below link.");
-                $body.= "<br /><a href=\"$iframeurl\">"._("View HTML Message")."</a>"; 
+                //$body.= _("Your browser does not support inline frames. 
+                // You can view HTML formated message by following below link.");
+                //$body.= "<br /><a href=\"$iframeurl\">"._("View HTML Message")."</a>"; 
+
+                // if browser can't render iframe, it renders html message.
+                $body.= $html_body;
 
                 // close iframe
                 $body.="</iframe></div>\n";
