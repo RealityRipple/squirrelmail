@@ -523,11 +523,35 @@ function prepareMessageList(&$aMailbox, $aProps) {
                         if ($highlight_list && !$bHighLight) {
                             $bHighLight = highlightMessage($aCol[$k], $value, $highlight_list,$aFormattedMessages[$iUid]);
                         }
-                        $sTmp = getAddressString(parseRFC822Address($value),array('best' => true));
+                        $aAddressList = parseRFC822Address($value);
+                        $sTmp = getAddressString($aAddressList,array('best' => true));
+                        $title = $title_maybe = '';
+                        foreach ($aAddressList as $aAddr) {
+                            $sPersonal = (isset($aAddr[SQM_ADDR_PERSONAL])) ? $aAddr[SQM_ADDR_PERSONAL] : '';
+                            $sMailbox  = (isset($aAddr[SQM_ADDR_MAILBOX]))  ? $aAddr[SQM_ADDR_MAILBOX]  : '';
+                            $sHost     = (isset($aAddr[SQM_ADDR_HOST]))     ? $aAddr[SQM_ADDR_HOST]     : '';
+                            if ($sPersonal) {
+                                $title .= htmlspecialchars($sMailbox.'@'.$sHost).', ';
+                            } else {
+                                // if $value gets truncated we need to add the addresses with no
+                                // personal name as well
+                                $title_maybe .= htmlspecialchars($sMailbox.'@'.$sHost).', ';
+                            }
+                        }
+                        if ($title) {
+                            $title = substr($title,0,-2); // strip ', ';
+                        }
                         $sTmp = decodeHeader($sTmp);
                         if (isset($aColumnDesc[$k]['truncate']) && $aColumnDesc[$k]['truncate']) {
                             $sTrunc = truncateWithEntities($sTmp, $aColumnDesc[$k]['truncate']);
-                            $title = ($sTrunc != $sTmp) ? htmlspecialchars($sTmp) : '';
+                            if ($sTrunc != $sTmp) {
+                                if (!$title) {
+                                    $title = htmlspecialchars($sTmp);
+                                } else if ($title_maybe) {
+                                    $title = $title .', '.$title_maybe;
+                                    $title = substr($title,0,-2); // strip ', ';
+                                }
+                            }
                             $sTmp = $sTrunc;
                         }
                     }
