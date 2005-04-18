@@ -3,7 +3,8 @@
  * Template logic
  *
  * The following functions are utility functions for this template. Do not
- * echo output in those functions. Output is generated abbove this comment block
+ * echo output in those functions. Output is generated above this comment block
+ * @package squirrelmail
  */
 
  /**
