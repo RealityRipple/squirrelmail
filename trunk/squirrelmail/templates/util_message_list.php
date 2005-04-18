@@ -1,12 +1,16 @@
 <?php
-
 /**
  * Template logic
  *
  * The following functions are utility functions for this template. Do not
  * echo output in those functions.
+ * @package squirrelmail
  */
 
+/**
+ * @param array $aOrder
+ * @return array
+ */
 function calcMessageListColumnWidth($aOrder) {
     /**
      * Width of the displayed columns
