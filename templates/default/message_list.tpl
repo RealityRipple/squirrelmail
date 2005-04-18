@@ -139,16 +139,18 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
         foreach ($aFormElements as $key => $value) {
             switch ($value[1]) {
             case 'submit':
-                if ($key != 'moveButton') { // add move in a different table cell
+                if ($key != 'moveButton' && $key != 'delete' && $key != 'undeleteButton') { // add move in a different table cell
 ?>
                   <input type="submit" name="<?php echo $key; ?>" value="<?php echo $value[0]; ?>" style="padding: 0px; margin: 0px;" />&nbsp;
 <?php
-            }
+                }
                 break;
             case 'checkbox':
+                if ($key != 'bypass_trash') {
 ?>
                   <input type="checkbox" name="<?php echo $key; ?>" /><?php echo $value[0]; ?>&nbsp;
 <?php
+                }
                 break;
             case 'hidden':
                  echo '<input type="hidden" name="'.$key.'" value="'. $value[0]."\">\n";
@@ -163,8 +165,31 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
 
 
 <?php
+        if (isset($aFormElements['delete'])) {
+?>
+              <td align="<?php echo $align['right']; ?>">
+                <small>
+                  <input type="submit" name="delete" value="<?php echo $aFormElements['delete'][0]; ?>" style="padding: 0px; margin: 0px;" />&nbsp;
+ <?php
+            if (isset($aFormElements['bypass_trash'])) {
+?>
+                  <input type="checkbox" name="bypass_trash" /><?php echo $aFormElements['bypass_trash'][0]; ?>&nbsp;
+<?php
+            }
+            if (isset($aFormElements['undeleteButton'])) {
+?>
+                  <input type="submit" name="undeleteButton" value="<?php echo $aFormElements['undeleteButton'][0]; ?>" style="padding: 0px; margin: 0px;" />&nbsp;
+<?php
+            }
+?>
+               </small>
+              </td>
+<?php
+        } // if (isset($aFormElements['delete']))
         if (isset($aFormElements['moveButton'])) {
-?>              <small>&nbsp;
+?>
+              <td align="<?php echo $align['right']; ?>">
+                <small>&nbsp;
                   <tt>
                     <select name="targetMailbox">
                        <?php echo $aFormElements['targetMailbox'][0];?>
@@ -172,10 +197,11 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
                   </tt>
                   <input type="submit" name="moveButton" value="<?php echo $aFormElements['moveButton'][0]; ?>" style="padding: 0px; margin: 0px;" />
                 </small>
+              </td>
+
 <?php
         } // if (isset($aFormElements['move']))
 ?>
-              </td>
             </tr>
           </table>
         </td>
@@ -345,7 +371,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
             switch ($aColumns[SQM_COL_PRIO]['value']) {
                 case 1:
                 case 2: $sValue .= "<font color=\"$color[1]\">!</font>"; break;
-		// use downwards arrow for low priority emails
+        // use downwards arrow for low priority emails
                 case 5: $sValue .= "<font color=\"$color[8]\">&#8595;</font>"; break;
                 default: break;
             }
