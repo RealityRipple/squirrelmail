@@ -937,7 +937,7 @@ for ($i = 0; $i < $cnt; $i++) {
    }
 }
 
-displayPageHeader($color, $mailbox);
+displayPageHeader($color, $mailbox,'','');
 formatMenuBar($aMailbox, $passed_id, $passed_ent_id, $message,false);
 formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message, $color, $FirstTimeSee);
 echo '<table width="100%" cellpadding="0" cellspacing="0" align="center" border="0">';
