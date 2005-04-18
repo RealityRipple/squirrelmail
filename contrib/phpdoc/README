@@ -18,7 +18,8 @@ configure --enable-cli --with-pear --disable-cgi \
   --with-zlib
 
 php is installed in user's space in order to avoid
-modifications in stock php install.
+modifications in stock php install. You need php 4.3.0
+or better in order to use tokenizer functions in phpdoc.
 
 Output of php 'pear list' command:
 ----------------------------------
