@@ -11,7 +11,7 @@
  * Derived from the foowd template implementation and adapted
  * for squirrelmail
  * @version $Id$
- * @package SquirrelMail
+ * @package squirrelmail
  */
 
 /**
