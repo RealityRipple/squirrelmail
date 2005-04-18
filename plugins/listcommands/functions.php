@@ -16,6 +16,9 @@
  * @subpackage listcommands
  */
 
+/**
+ * internal function that builds mailing list links
+ */
 function plugin_listcommands_menu_do() {
     global $passed_id, $passed_ent_id, $color, $mailbox, $message, $startMessage;
 

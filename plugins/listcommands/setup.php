@@ -25,6 +25,9 @@ function squirrelmail_plugin_init_listcommands () {
     $squirrelmail_plugin_hooks['read_body_header']['listcommands'] = 'plugin_listcommands_menu';
 }
 
+/**
+ * Main function added to read_body_header
+ */
 function plugin_listcommands_menu() {
     include_once(SM_PATH . 'plugins/listcommands/functions.php');
     plugin_listcommands_menu_do();
