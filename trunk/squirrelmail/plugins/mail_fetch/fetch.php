@@ -154,9 +154,6 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
         $mailfetch_login  = $mailfetch[$i_loop]['login'];
         $mailfetch_uidl   = $mailfetch[$i_loop]['uidl'];
         $mailfetch_subfolder = $mailfetch[$i_loop]['subfolder'];
-        if($mailfetch_subfolder == '') {
-            $mailfetch_subfolder == 'INBOX';
-        }
 
         $pop3 = new POP3($mailfetch_server, 60);
 
@@ -179,6 +176,12 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
 
         Mail_Fetch_Status(_("Opening IMAP server"));
         $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10);
+
+        // check if destination folder is not set, is not subscribed and is not \noselect folder
+        if($mailfetch_subfolder == '' || 
+           ! mail_fetch_check_folder($imap_stream,$mailfetch_subfolder)) {
+            $mailfetch_subfolder = 'INBOX';
+        }
 
         Mail_Fetch_Status(_("Opening POP server"));
         $Count = $pop3->login($mailfetch_user, $mailfetch_pass);

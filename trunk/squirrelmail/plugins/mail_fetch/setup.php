@@ -27,7 +27,7 @@ function squirrelmail_plugin_init_mail_fetch() {
     $squirrelmail_plugin_hooks['login_verified']['mail_fetch'] = 'mail_fetch_setnew';
     $squirrelmail_plugin_hooks['left_main_before']['mail_fetch'] = 'mail_fetch_login';
     $squirrelmail_plugin_hooks['optpage_register_block']['mail_fetch'] = 'mailfetch_optpage_register_block';
-
+    $squirrelmail_plugin_hooks['rename_or_delete_folder']['mail_fetch'] = 'mail_fetch_folderact';
 }
 
 function mail_fetch_link() {
@@ -177,8 +177,10 @@ function mail_fetch_login() {
                 while (list($lineNum, $line) = each ($MessArray)) {
                     $Message .= $line;
                 }
-
-                if ($mailfetch_subfolder=="") {
+                
+                // check if mail folder is not null and subscribed (There is possible issue with /noselect mail folders)
+                if ($mailfetch_subfolder=='' || 
+                    ! mail_fetch_check_folder($imap_stream,$mailfetch_subfolder)) {
                     fputs($imap_stream, "A3$i APPEND INBOX {" . strlen($Message) . "}\r\n");
                 } else {
                     fputs($imap_stream, "A3$i APPEND $mailfetch_subfolder {" . strlen($Message) . "}\r\n");
@@ -235,4 +237,34 @@ function mailfetch_optpage_register_block() {
             );
 }
 
+function mail_fetch_folderact($args) {
+    global $username, $data_dir;
+
+    if (empty($args) || !is_array($args)) {
+        return;
+    }
+
+    /* Should be 3 ars, 1: old folder, 2: action, 3: new folder */
+    if (count($args) != 3) {
+        return;
+    }
+
+    list($old_folder, $action, $new_folder) = $args;
+
+    $mailfetch_server_number = getPref($data_dir, $username, 'mailfetch_server_number');
+
+    for ($i = 0; $i < $mailfetch_server_number; $i++) {
+        $mailfetch_subfolder = getPref($data_dir, $username, 'mailfetch_subfolder_' . $i);
+
+        if ($mailfetch_subfolder != $old_folder) {
+            continue;
+        }
+
+        if ($action == 'delete') {
+            setPref($data_dir, $username, 'mailfetch_subfolder_' . $i, 'INBOX');
+        } elseif ($action == 'rename') {
+            setPref($data_dir, $username, 'mailfetch_subfolder_' . $i, $new_folder);
+        }
+    }
+}
 ?>
