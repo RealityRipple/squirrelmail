@@ -10,9 +10,10 @@
  *
  * @version $Id$
  * @package squirrelmail
+ * @subpackage templates
  */
 
- 
+/** include functions */
 include_once(SM_PATH.'templates/util_paginator.php');
 
 static $bScriptAdded;
