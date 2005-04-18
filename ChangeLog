@@ -311,6 +311,10 @@ Version 1.5.1 -- CVS
   - Add Cancel button to addressbook (#1180565).
   - RFC 2046: Send mixed messages with multipart/alternative nested boundaries
     with correct boundary strings.
+  - EXPERIMENTAL: Mailbox listing converted to templated layout. Added 
+    template support functions and classes. Rewrote some page header and 
+    mailbox listing functions. Disabled 'show_recipient_instead' option. 
+    Added more columns to mailbox listing and index order options.
   - WARNING: if same user data storage location is used to store SquirrelMail 
     1.4.x and 1.5.1+ user settings, SquirrelMail 1.5.1+ will reset mailbox
     display order (Options->Index Options) in stable. Backup your data before
