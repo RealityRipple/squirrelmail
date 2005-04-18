@@ -27,7 +27,7 @@ require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/forms.php');
 require_once(SM_PATH . 'functions/arrays.php');
-require_once(SM_PATH . 'functions/options.php');
+//require_once(SM_PATH . 'functions/options.php');
 
 /* get globals */
 if (sqgetGlobalVar('num',       $num,       SQ_GET)) {
@@ -100,7 +100,8 @@ function change_columns_list(&$index_order,$method,$num,$pos=0) {
     switch ($method) {
       case 'move': $r = sqm_array_move_value($index_order,$num,$pos); break;
       case 'add':
-          $index_order[] = (int) $num; $r = true;
+          $index_order[] = (int) $num;
+          $r = true;
           /**
            * flush the cache in order to retrieve the new columns
            */
@@ -156,7 +157,6 @@ if (count($index_order) != count($available)) {
 viewOrderForm($available, $index_order,$opts,urldecode($mailbox));
 
 
-
 // FOOD for html designers
 function viewOrderForm($aColumns, $aOrder, $aOpts, $mailbox) {
    global $color;
@@ -202,7 +202,7 @@ function viewOrderForm($aColumns, $aOrder, $aOpts, $mailbox) {
                   <td><small>&nbsp;|&nbsp;</small></td>
 <?php
               /* Always show the subject */
-              if ($iCol != SQM_COL_SUBJ) {
+              if ($iCol !== SQM_COL_SUBJ && $iCol !== SQM_COL_FLAGS) {
 ?>
                   <td><small><a href="options_order.php?method=remove&amp;num=<?php echo $sQuery; ?>"> <?php echo _("remove");?> </a></small></td>
 <?php         } else { ?>
