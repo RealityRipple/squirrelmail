@@ -328,7 +328,7 @@ $use_php_recode = 'false'               if ( !$use_php_recode );
 $use_php_iconv = 'false'                if ( !$use_php_iconv );
 # since 1.5.1
 $use_icons = 'false'                    if ( !$use_icons );
-$use_iframe = 'false'                   if ( !$use_frame );
+$use_iframe = 'false'                   if ( !$use_iframe );
 $lossy_encoding = 'false'               if ( !$lossy_encoding );
 $allow_remote_configtest = 'false'      if ( !$allow_remote_configtest );
 $addrbook_global_table = 'global_abook' if ( !$addrbook_global_table );
