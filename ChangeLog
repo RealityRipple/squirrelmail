@@ -9,7 +9,7 @@ Version 1.5.1 -- CVS
   - Norwegian Bokmal translation uses nb_NO.
   - Integrated Msg_Flags plugin - turn on/off icons using configuration tool,
     menu number 11 (Tweaks), option number 3, after which users must select an
-    icon theme in Options/Display Preferences. 
+    icon theme in Options/Display Preferences.
     "Flag"/"Unflag" buttons are implemented as separate plugin.
   - Added Farsi and Tagalog translation support.
   - Enabled Ukrainian and Russian-Ukrainian support
@@ -238,17 +238,17 @@ Version 1.5.1 -- CVS
     is always INBOX.
   - Always show Purge link next to Trash, even when empty.
   - errors in addressbook_init() function are no longer fatal. If function
-    fails to activate address book backend, it displays error box (with 
+    fails to activate address book backend, it displays error box (with
     error_box() function). error box can be hidden by setting first
     function argument to false.
-  - Sanitized search in ldap address book backend. Use of asterisk 
+  - Sanitized search in ldap address book backend. Use of asterisk
     together with other symbols is not supported.
   - Added ldap backend to change_password plugin.
   - Change defaults of some prefs to more sensible / usable settings.
   - Revise the documentation of the packaged plugins.
   - Fixed edit form checks in address listing (#1124018).
   - After sending resumed draft, return to message list.
-  - Parse and replace mailto: links with internal compose links when 
+  - Parse and replace mailto: links with internal compose links when
     viewing in HTML format.
   - Plugins may now define an "extra" array element to return to the attachment
     types hook, which will be also inserted in the attachment link for the
@@ -284,9 +284,9 @@ Version 1.5.1 -- CVS
     is specific to Microsoft ADS (#1035454). Thanks to Michael Brown.
   - Missing PHP LDAP extension errors are now handled by ldap backend and
     errors are displayed after address book initialization.
-  - LDAP connections are opened during search and not during address book 
+  - LDAP connections are opened during search and not during address book
     initialization.
-  - Fixed wrapping of multibyte strings in message view and replies 
+  - Fixed wrapping of multibyte strings in message view and replies
     (#1043576).
   - mbstring internal encoding is switched to ASCII, if mbstring.func_overload
     is enabled (#929644).
@@ -303,7 +303,7 @@ Version 1.5.1 -- CVS
     (RFC 2221) but log the user out with a hint. Patch by Ariel Arjona
     (#1006242).
   - Fixed SquirrelMail language cookie detection in php register_globals=off.
-  - If default SquirrelMail language is set to empty string, interface will 
+  - If default SquirrelMail language is set to empty string, interface will
     try to follow browser's HTTP_ACCEPT_LANGUAGE header or fallback to en_US
     (#764709).
   - If From: field is unset in an email, header object for from field is not
@@ -311,11 +311,13 @@ Version 1.5.1 -- CVS
   - Add Cancel button to addressbook (#1180565).
   - RFC 2046: Send mixed messages with multipart/alternative nested boundaries
     with correct boundary strings.
-  - EXPERIMENTAL: Mailbox listing converted to templated layout. Added 
-    template support functions and classes. Rewrote some page header and 
-    mailbox listing functions. Disabled 'show_recipient_instead' option. 
+  - EXPERIMENTAL: Mailbox listing converted to templated layout. Added
+    template support functions and classes. Rewrote some page header and
+    mailbox listing functions. Disabled 'show_recipient_instead' option.
     Added more columns to mailbox listing and index order options.
-  - WARNING: if same user data storage location is used to store SquirrelMail 
+  - Removed sort by internal date option. Now you can use the Received column
+    in the index order option page for that.
+  - WARNING: if same user data storage location is used to store SquirrelMail
     1.4.x and 1.5.1+ user settings, SquirrelMail 1.5.1+ will reset mailbox
     display order (Options->Index Options) in stable. Backup your data before
     testing 1.5.1+ or use different storage location.
@@ -325,6 +327,11 @@ Version 1.5.1 -- CVS
   - Check destination folder in mail_fetch plugin before storing messages
     in it. Modify destination folder, if it is renamed or deleted within
     SquirrelMail (#584658).
+  - Made the Flags column a required column in the index order options page to
+    prohibit missing seen/unseen info in the messages list.
+  - Fixed disabled prev/next links in the message display when you reach the
+    end of the page (message set).
+  - Moved delete button to the right in the message list.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
@@ -940,7 +947,7 @@ Version 1.0.2 -- February 8, 2001
   - Better escaped string handling from POST variables
   - Many more code cleanups and optimizations
   - Added Hungarian translation by Teemu Junnila <teejun@vallcom.com>
-  - Added Icelandic translation by Karl Heiðar <karlh@macho.is>
+  - Added Icelandic translation by Karl Heiï¿½r <karlh@macho.is>
   - Updated Taiwan translation
   - Updated Swedish translation
   - Updated Finnish translation
