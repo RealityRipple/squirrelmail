@@ -28,13 +28,6 @@
  *
  * @version $Id$
  * @package squirrelmail
- * @todo Integrate it in formatBody() function after template stuff is 
- *  in. original html display code has to be wrapped with iframe code. 
- *  View Unsafe Images (target=iframe frame) and Download this as a file 
- *  should be part of read_body page. Iframe code should be activated 
- *  only for show_html_default=true
- * @todo fix formating of read_body.php in order to get iframe width=100% 
- *  working.
  */
 
 /**
