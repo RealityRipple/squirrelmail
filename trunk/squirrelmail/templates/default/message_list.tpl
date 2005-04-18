@@ -10,6 +10,7 @@
  *
  * @version $Id$
  * @package squirrelmail
+ * @subpackage templates
  */
 
 /** add required includes */
@@ -344,7 +345,8 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
             switch ($aColumns[SQM_COL_PRIO]['value']) {
                 case 1:
                 case 2: $sValue .= "<font color=\"$color[1]\">!</font>"; break;
-                case 5: $sValue .= "<font color=\"$color[8]\">?</font>"; break;
+		// use downwards arrow for low priority emails
+                case 5: $sValue .= "<font color=\"$color[8]\">&#8595;</font>"; break;
                 default: break;
             }
         }
