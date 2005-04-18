@@ -217,6 +217,12 @@ function sqm_api_mailbox_select($imapConnection,$account,$mailbox,$aConfig,$aPro
     }
     if (!isset($aConfig['search']) && isset($aCachedMailbox['SEARCH'][$iSetIndx])) {
         $aMailbox['SEARCH'][$iSetIndx] = $aCachedMailbox['SEARCH'][$iSetIndx];
+    } else if (isset($aConfig['search']) && isset($aCachedMailbox['SEARCH'][$iSetIndx]) &&
+        $aConfig['search'] != $aCachedMailbox['SEARCH'][$iSetIndx]) {
+        // reset the pageindex
+        $aMailbox['SEARCH'][$iSetIndx] = $aConfig['search'];
+        $aMailbox['OFFSET'] = 0;
+        $aMailbox['PAGEOFFSET'] = 1;
     } else {
         $aMailbox['SEARCH'][$iSetIndx] =  (isset($aConfig['search'])) ? $aConfig['search'] : 'ALL';
     }
