@@ -914,32 +914,35 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
                            'markFlagged'   => 1,
                            'markRead'      => 1,
                            'markUnread'    => 1,
+                           'forward'       => 1,
                            'delete'        => 1,
                            'undeleteButton'=> 1,
                            'bypass_trash'  => 1,
                            'expungeButton' => 1,
-                           'moveButton'    => 1,
-                           'forward'       => 1
+                           'moveButton'    => 1
                            );
     /* user prefs control */
     $aUserControl = array (
+
                            'markUnflagged' => $show_flag_buttons,
                            'markFlagged'   => $show_flag_buttons,
                            'markRead'      => 1,
                            'markUnread'    => 1,
+                           'forward'       => 1,
                            'delete'        => 1,
                            'undeleteButton'=> 1,
                            'bypass_trash'  => 1,
                            'expungeButton' => 1,
-                           'moveButton'    => 1,
-                           'forward'       => 1
+                           'moveButton'    => 1
+
                           );
 
     $showDelete = ($aMailbox['RIGHTS'] != 'READ-ONLY' &&
                    in_array('\\deleted',$aMailbox['PERMANENTFLAGS'], true)) ? true : false;
-    $showByPassTrash = (!$aMailbox['AUTO_EXPUNGE'] && $aMailbox['RIGHTS'] != 'READ-ONLY' &&
+    $showByPassTrash = (($aMailbox['AUTO_EXPUNGE'] && $aMailbox['RIGHTS'] != 'READ-ONLY' &&
                    in_array('\\deleted',$aMailbox['PERMANENTFLAGS'], true)) &&
-                   $trash_folder ? true : false; //
+                   $trash_folder) ? true : false; //
+
     $showUndelete = (!$aMailbox['AUTO_EXPUNGE'] && $aMailbox['RIGHTS'] != 'READ-ONLY' &&
                    in_array('\\deleted',$aMailbox['PERMANENTFLAGS'], true) && !$trash_folder) ? true : false;
     $showMove   = ($aMailbox['RIGHTS'] != 'READ-ONLY') ? true : false;
@@ -950,25 +953,27 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
                            'markFlagged'   => in_array('\\flagged',$aMailbox['PERMANENTFLAGS'], true),
                            'markRead'      => in_array('\\seen',$aMailbox['PERMANENTFLAGS'], true),
                            'markUnread'    => in_array('\\seen',$aMailbox['PERMANENTFLAGS'], true),
+                           'forward'       => 1,
                            'delete'        => $showDelete,
                            'undeleteButton'=> $showUndelete,
                            'bypass_trash'  => $showByPassTrash,
                            'expungeButton' => $showExpunge,
-                           'moveButton'    => $showMove,
-                           'forward'       => 1
+                           'moveButton'    => $showMove
                           );
     $aButtonStrings = array(
                            'markUnflagged' => _("Unflag"),
                            'markFlagged'   => _("Flag"),
                            'markRead'      => _("Read"),
                            'markUnread'    => _("Unread"),
+                           'forward'       => _("Forward"),
                            'delete'    => _("Delete"),
                            'undeleteButton'  => _("Undelete"),
                            'bypass_trash'  => _("Bypass Trash"),
                            'expungeButton' => _("Expunge"),
-                           'moveButton'          => _("Move"),
-                           'forward'       => _("Forward")
+                           'moveButton'          => _("Move")
                            );
+
+
     /**
      * Register buttons in order to an array
      * The key is the "name", the first element of the value array is the "value", second argument is the type.
