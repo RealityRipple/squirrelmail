@@ -7,13 +7,10 @@
  * This file contains some methods from the Smarty templating engine version
  * 2.5.0 by Monte Ohrt <monte@ispi.net> and Andrei Zmievski <andrei@php.net>.
  *
- * @version $Id$
- */
-
-/**
  * The SquirrelMail (Foowd) template implementation.
  * Derived from the foowd template implementation and adapted
  * for squirrelmail
+ * @version $Id$
  * @package SquirrelMail
  */
 
@@ -26,7 +23,7 @@
  * @author Paul James
  * @author Monte Ohrt <monte@ispi.net>
  * @author Andrei Zmievski <andrei@php.net>
- * @package SquirrelMail
+ * @package squirrelmail
  */
 class Template
 {
