@@ -17,6 +17,16 @@
  * @subpackage mail_fetch
  */
 
+/** declare plugin globals */
+global $mail_fetch_allow_unsubscribed;
+
+/**
+ * Controls use of unsubscribed folders in plugin
+ * @global boolean $mail_fetch_allow_unsubscribed
+ * @since 1.5.1
+ */
+$mail_fetch_allow_unsubscribed = false;
+
 /**
  * hex2bin - document me
  */
@@ -79,4 +89,49 @@ function decrypt( $txt ) {
     return $tmp;
 }
 
+/**
+ * check mail folder
+ * @param stream $imap_stream imap connection resource
+ * @param string $imap_folder imap folder name
+ * @return boolean true, when folder can be used to store messages.
+ * @since 1.5.1
+ */
+function mail_fetch_check_folder($imap_stream,$imap_folder) {
+    global $mail_fetch_allow_unsubscribed;
+
+    // check if folder is subscribed or only exists.
+    if (sqimap_mailbox_is_subscribed($imap_stream,$imap_folder)) {
+        $ret = true;
+    } elseif ($mail_fetch_allow_unsubscribed && sqimap_mailbox_exists($imap_stream,$imap_folder)) {
+        $ret = true;
+    } else {
+        $ret = false;
+    }
+
+    // make sure that folder can store messages
+    if ($ret && mail_fetch_check_noselect($imap_stream,$imap_folder)) {
+        $ret = false;
+    }
+
+    return $ret;
+}
+
+/**
+ * Checks if folder is noselect (can't store messages)
+ * 
+ * Function does not check if folder subscribed.
+ * @param stream $imap_stream imap connection resource
+ * @param string $imap_folder imap folder name
+ * @return boolean true, when folder has noselect flag. false in any other case.
+ * @since 1.5.1
+ */
+function mail_fetch_check_noselect($imap_stream,$imap_folder) {
+    $boxes=sqimap_mailbox_list($imap_stream);
+    foreach($boxes as $box) {
+        if ($box['unformatted']==$imap_folder) {
+            return (bool) check_is_noselect($box['raw']);
+        }
+    }
+    return false;
+}
 ?>
