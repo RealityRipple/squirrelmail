@@ -318,7 +318,10 @@ Version 1.5.1 -- CVS
   - Added experimental iframe sandbox for display of html formated emails.
   - Disabled LOGINDISABLED check in src/login.php when IMAP server mapping is
     used.
-  
+  - Check destination folder in mail_fetch plugin before storing messages
+    in it. Modify destination folder, if it is renamed or deleted within
+    SquirrelMail (#584658).
+
 Version 1.5.0 - 2 February 2004
 -------------------------------
   - Added new preference that determines cursor focus when replying
