@@ -84,8 +84,15 @@ function cpw_poppassd_go($username, $old_pw, $new_pw, $debug = 0) {
     global $poppassd_server;
     global $imapServerAddress;
 
+    /** @ignore */
+    if (!defined('SM_PATH')) define('SM_PATH','../../../');
+    /** sqimap_get_user_server() function */
+    include_once(SM_PATH . 'functions/imap_general.php');
+
     if($poppassd_server == '') {
-        $poppassd_server = $imapServerAddress;
+        // if poppassd address is not set, use imap server's address
+        // make sure that setting contains address and not mapping
+        $poppassd_server = sqimap_get_user_server($imapServerAddress,$username);
     }
 
     $messages = array();
