@@ -7,8 +7,21 @@
  * @subpackage change_password
  */
 
-/** get imap server global */
-global $imapServerAddress;
+/**
+ * If SM_PATH isn't defined, define it.  Required to include files.
+ * @ignore
+ */
+if (!defined('SM_PATH')) define('SM_PATH','../../../');
+
+/** load required functions */
+
+/** error_box() function */
+include_once(SM_PATH . 'functions/display_messages.php');
+/** sqimap_get_user_server() function */
+include_once(SM_PATH . 'functions/imap_general.php');
+
+/** get imap server and username globals */
+global $imapServerAddress, $username;
 
 /** Default plugin configuration.*/
 /**
@@ -78,7 +91,7 @@ $cpw_ldap_bindpw='';
 
 /**
  * BindDN that should be able to change password.
- * WARNING: usually user has enough privileges to change own password.
+ * WARNING: sometimes user has enough privileges to change own password.
  * If you leave default value, plugin will try to connect with DN that
  * is detected in $cpw_ldap_username_attr=$username search and current
  * user password will be used for authentication.
@@ -125,6 +138,9 @@ if (isset($cpw_ldap['adminpw'])) $cpw_ldap_adminpw=$cpw_ldap['adminpw'];
 if (isset($cpw_ldap['userid_attr'])) $cpw_ldap_userid_attr=$cpw_ldap['userid_attr'];
 if (isset($cpw_ldap['default_crypto'])) $cpw_ldap_default_crypto=$cpw_ldap['default_crypto'];
 
+/** make sure that setting does not contain mapping */
+$cpw_ldap_server=sqimap_get_user_server($cpw_ldap_server,$username);
+
 /**
  * Adding plugin hooks
  */
@@ -140,15 +156,6 @@ $squirrelmail_plugin_hooks['change_password_init']['ldap'] =
 function cpw_ldap_init() {
     global $color;
     global $cpw_ldap_basedn;
-
-    /**
-     * If SM_PATH isn't defined, define it.  Required to include files.
-     * @ignore
-     */
-    if (!defined('SM_PATH')) define('SM_PATH','../../../');
-
-    // load error_box() function
-    include_once(SM_PATH . 'functions/display_messages.php');
 
     // set initial value for error tracker
     $cpw_ldap_initerr=false;
@@ -525,12 +532,22 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
 
     // encrypt/hash password
     switch ($crypto) {
+    case 'md4':
+        // minimal requirement = php with mhash extension
+        if ( function_exists( 'mhash' ) && defined('MHASH_MD4')) {
+            $ret = '{MD4}' . base64_encode( mhash( MHASH_MD4, $pass) );
+        } else {
+            array_push($msgs,
+                       sprintf(_("Unsupported crypto: %s"),'md4'),
+                       _("PHP mhash extension is missing or does not support selected crypto."));
+        }
+        break;
     case 'md5':
         $ret='{MD5}' . base64_encode(pack('H*',md5($pass)));
         break;
     case 'smd5':
-        // minimal requirement mhash extension and php 4.0.4.
-        if( function_exists( 'mhash' ) && function_exists( 'mhash_keygen_s2k' ) ) {
+        // minimal requirement = mhash extension with md5 support and php 4.0.4.
+        if( function_exists( 'mhash' ) && function_exists( 'mhash_keygen_s2k' ) && defined('MHASH_MD5')) {
             sq_mt_seed( (double) microtime() * 1000000 );
             if ($forced_salt!='') {
                 $salt=$forced_salt;
@@ -542,12 +559,22 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
             // use two array_push calls in order to display messages in different lines.
             array_push($msgs,
                        sprintf(_("Unsupported crypto: %s"),'smd5'),
-                       _("PHP mhash extension is missing."));
+                       _("PHP mhash extension is missing or does not support selected crypto."));
+        }
+        break;
+    case 'rmd160':
+        // minimal requirement = php with mhash extension
+        if ( function_exists( 'mhash' ) && defined('MHASH_RIPEMD160')) {
+            $ret = '{RMD160}' . base64_encode( mhash( MHASH_RIPEMD160, $pass) );
+        } else {
+            array_push($msgs,
+                       sprintf(_("Unsupported crypto: %s"),'ripe-md160'),
+                       _("PHP mhash extension is missing or does not support selected crypto."));
         }
         break;
     case 'sha':
         // minimal requirement = php 4.3.0+ or php with mhash extension
-        if ( function_exists('sha1') ) {
+        if ( function_exists('sha1') && defined('MHASH_SHA1')) {
             // use php 4.3.0+ sha1 function, if it is available.
             $ret = '{SHA}' . base64_encode(pack('H*',sha1($pass)));
         } elseif( function_exists( 'mhash' ) ) {
@@ -555,12 +582,12 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
         } else {
             array_push($msgs,
                        sprintf(_("Unsupported crypto: %s"),'sha'),
-                       _("PHP mhash extension is missing."));
+                       _("PHP mhash extension is missing or does not support selected crypto."));
         }
         break;
     case 'ssha':
         // minimal requirement = mhash extension and php 4.0.4
-        if( function_exists( 'mhash' ) && function_exists( 'mhash_keygen_s2k' ) ) {
+        if( function_exists( 'mhash' ) && function_exists( 'mhash_keygen_s2k' ) && defined('MHASH_SHA1')) {
             sq_mt_seed( (double) microtime() * 1000000 );
             if ($forced_salt!='') {
                 $salt=$forced_salt;
@@ -571,7 +598,7 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
         } else {
             array_push($msgs,
                        sprintf(_("Unsupported crypto: %s"),'ssha'),
-                       _("PHP mhash extension is missing."));
+                       _("PHP mhash extension is missing or does not support selected crypto."));
         }
         break;
     case 'crypt':
@@ -631,9 +658,9 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
  * Code reuse. See phpldapadmin password_compare() function.
  * Some parts of code was rewritten to backend specifics.
  * @link http://phpldapadmin.sf.net
- * @param string $pass_hash
- * @param string $pass_clear
- * @param array $msgs
+ * @param string $pass_hash hashed password string with password type indicators
+ * @param string $pass_clear plain text password
+ * @param array $msgs error messages
  * @return boolean true, if passwords match
  */
 function cpw_ldap_compare_pass($pass_hash,$pass_clear,&$msgs) {
@@ -650,7 +677,7 @@ function cpw_ldap_compare_pass($pass_hash,$pass_clear,&$msgs) {
     case 'ssha':
         // Salted SHA
         // check for mhash support
-        if ( function_exists('mhash') ) {
+        if ( function_exists('mhash') && defined('MHASH_SHA1')) {
             $hash = base64_decode($pass_hash);
             $salt = substr($hash, -4);
             $new_hash = base64_encode( mhash( MHASH_SHA1, $pass_clear.$salt).$salt );
@@ -659,13 +686,13 @@ function cpw_ldap_compare_pass($pass_hash,$pass_clear,&$msgs) {
         } else {
             array_push($msgs,
                        _("Unable to validate user's password."),
-                       _("PHP mhash extension is missing."));
+                       _("PHP mhash extension is missing or does not support selected crypto."));
         }
         break;
     case 'smd5':
         // Salted MD5
         // check for mhash support
-        if ( function_exists('mhash') ) {
+        if ( function_exists('mhash') && defined('MHASH_MD5')) {
             $hash = base64_decode($pass_hash);
             $salt = substr($hash, -4);
             $new_hash = base64_encode( mhash( MHASH_MD5, $pass_clear.$salt).$salt );
@@ -674,7 +701,7 @@ function cpw_ldap_compare_pass($pass_hash,$pass_clear,&$msgs) {
         } else {
             array_push($msgs,
                        _("Unable to validate user's password."),
-                       _("PHP mhash extension is missing."));
+                       _("PHP mhash extension is missing or does not support selected crypto."));
         }
         break;
     case 'sha':
@@ -682,9 +709,19 @@ function cpw_ldap_compare_pass($pass_hash,$pass_clear,&$msgs) {
         if( strcasecmp( cpw_ldap_password_hash($pass_clear,'sha',$msgs), "{SHA}".$pass_hash ) == 0)
             $ret=true;
         break;
+    case 'rmd160':
+        // RIPE-MD160 crypted passwords
+        if( strcasecmp( cpw_ldap_password_hash($pass_clear,'rmd160',$msgs), "{RMD160}".$pass_hash ) == 0 )
+            $ret=true;
+        break;
     case 'md5':
         // MD5 crypted passwords
         if( strcasecmp( cpw_ldap_password_hash($pass_clear,'md5',$msgs), "{MD5}".$pass_hash ) == 0 )
+            $ret=true;
+        break;
+    case 'md4':
+        // MD4 crypted passwords
+        if( strcasecmp( cpw_ldap_password_hash($pass_clear,'md4',$msgs), "{MD4}".$pass_hash ) == 0 )
             $ret=true;
         break;
     case 'crypt':
