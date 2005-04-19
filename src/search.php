@@ -984,9 +984,11 @@ if ($search_advanced) {
  * - 'delete_saved'
  * @global string $submit
  */
+$searchpressed = false;
 if (isset($_GET['submit'])) {
     $submit = strip_tags($_GET['submit']);
 }
+
 /** Searched mailboxes
  * @global array $mailbox_array
  */
@@ -1449,7 +1451,7 @@ if ($submit == $search_button_text) {
     echo '</table>' . "\n";
 
     flush();
-
+    $iMsgCnt = 0;
     $query_error = asearch_check_query($where_array, $what_array, $exclude_array);
     if ($query_error != '') {
         echo '<br />' . html_tag('div', asearch_get_error_display($color, $query_error), 'center') . "\n";
@@ -1518,8 +1520,8 @@ if ($submit == $search_button_text) {
             $aConfig['max_cache_size'] = count($mboxes_mailbox) +1;
             if (isset($startMessage) && $targetmailbox == $mbx) {
                 $aConfig['offset'] = $startMessage;
-            } else if (isset($aConfig['offset'])) {
-                unset($aConfig['offset']);
+            } else {
+                $aConfig['offset'] = 0;
             }
             if (isset($showall) && $targetmailbox == $mbx) {
                 $aConfig['showall'] = $showall;
@@ -1577,6 +1579,12 @@ if ($submit == $search_button_text) {
 
             $iError = 0;
             $aTemplate = showMessagesForMailbox($imapConnection, $aMailbox,$aProps, $iError);
+
+            // in th future we can make use of multiple message sets, now set it to 1 for search.
+            $iSetIndex = 1;
+            if (isset($aMailbox['UIDSET'][$iSetIndex])) {
+                $iMsgCnt += count($aMailbox['UIDSET'][$iSetIndex]);
+            }
             if ($iError) {
                 // error handling
             } else {
@@ -1588,38 +1596,38 @@ if ($submit == $search_button_text) {
                 $oTemplate = new Template($sTplDir);
 
                 if ($aMailbox['EXISTS'] > 0) {
-                    // $aTemplate =& showMessagesForMailbox($imapConnection,$aMailbox,$aProps,$iError);
                     if ($iError) {
-
-                    }
-                    foreach ($aTemplate as $k => $v) {
-                        $oTemplate->assign($k, $v);
-                    }
-                    $oTemplate->assign('page_selector',  $page_selector);
-                    $oTemplate->assign('page_selector_max', $page_selector_max);
-                    $oTemplate->assign('compact_paginator', $compact_paginator);
-                    $oTemplate->assign('javascript_on', $javascript_on);
-                    $oTemplate->assign('enablesort', (isset($aProps['config']['enablesort'])) ? $aProps['config']['enablesort'] : false);
-                    // Aaaaaahhhhhhh FIX ME DO NOT USE the string "none" for a var when you mean the boolean false or null
-                    $oTemplate->assign('icon_theme', (isset($icon_theme) && $icon_theme !== 'none') ? $icon_theme : false);
-                    $oTemplate->assign('use_icons', (isset($use_icons)) ? $use_icons : false);
-                    $oTemplate->assign('aOrder', array_keys($aColumns));
-                    $oTemplate->assign('alt_index_colors', isset($alt_index_colors) ? $alt_index_colors: false);
-                    $oTemplate->assign('color', $color);
-                    $oTemplate->assign('align', $align);
-                    $oTemplate->assign('showall', $showall);
-
-                    $mailbox_display = asearch_get_mailbox_display($aMailbox['NAME']);
-                    if (strtoupper($mbx) == 'INBOX') {
-                        $mailbox_display = _("INBOX");
+                       // TODO
+                       echo "ERROR occured, errorhandler will be implemented very soon";
                     } else {
-                        $mailbox_display = imap_utf7_decode_local($mbx);
+                        foreach ($aTemplate as $k => $v) {
+                            $oTemplate->assign($k, $v);
+                        }
+                        $oTemplate->assign('page_selector',  $page_selector);
+                        $oTemplate->assign('page_selector_max', $page_selector_max);
+                        $oTemplate->assign('compact_paginator', $compact_paginator);
+                        $oTemplate->assign('javascript_on', $javascript_on);
+                        $oTemplate->assign('enablesort', (isset($aProps['config']['enablesort'])) ? $aProps['config']['enablesort'] : false);
+                        // Aaaaaahhhhhhh FIX ME DO NOT USE the string "none" for a var when you mean the boolean false or null
+                        $oTemplate->assign('icon_theme', (isset($icon_theme) && $icon_theme !== 'none') ? $icon_theme : false);
+                        $oTemplate->assign('use_icons', (isset($use_icons)) ? $use_icons : false);
+                        $oTemplate->assign('aOrder', array_keys($aColumns));
+                        $oTemplate->assign('alt_index_colors', isset($alt_index_colors) ? $alt_index_colors: false);
+                        $oTemplate->assign('color', $color);
+                        $oTemplate->assign('align', $align);
+                        $oTemplate->assign('showall', $showall);
+
+                        $mailbox_display = asearch_get_mailbox_display($aMailbox['NAME']);
+                        if (strtoupper($mbx) == 'INBOX') {
+                            $mailbox_display = _("INBOX");
+                        } else {
+                            $mailbox_display = imap_utf7_decode_local($mbx);
+                        }
+
+                        echo '<br /><b><big>' . _("Folder:") . ' '. $mailbox_display . '&nbsp;</big></b>';
+
+                        $oTemplate->display('message_list.tpl');
                     }
-
-                    echo '<br /><b><big>' . _("Folder:") . ' '. $mailbox_display . '&nbsp;</big></b>';
-
-
-                    $oTemplate->display('message_list.tpl');
                 }
             }
 
@@ -1628,7 +1636,7 @@ if ($submit == $search_button_text) {
 
         }
     }
-    if(!$msgsfound) {
+    if(!$iMsgCnt) {
         echo '<br />' . html_tag('div', asearch_get_error_display($color, _("No Messages Found")), 'center') . "\n";
     }
 }
