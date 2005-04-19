@@ -899,6 +899,7 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
              $aMailbox['PAGEOFFSET'] + $iLimit - 1 : $aMailbox['EXISTS'];
 
     $iNumberOfMessages = $aMailbox['TOTAL'][$iSetIndx];
+    $iEnd = min ( $iEnd, $iNumberOfMessages );
 
     $php_self = $PHP_SELF;
 
