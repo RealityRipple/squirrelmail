@@ -115,6 +115,10 @@ BACKENDS
 
   $cpw_vmailmgrd['vmail_inc_path'] setting is required.
 
+  Tested configurations:
+  - Linux Debian Woody, vmailmgr 0.96.9, stock Woody's courier-imap 
+    with vmailmgr authentication module.
+
 
 AUTHORS:
 ldap backend      - Tomas Kuliavas <tokul@users.sourceforge.net>
@@ -180,9 +184,11 @@ ABOUT LDAP BACKEND
     crypto that is used to encode new password. If set to empty string, 
     system tries to keep same encoding/hashing algorithm. Currently 
     backend supports:
+    - md4 - used name 'md4'. Implemented in php mhash extension functions.
     - md5 - used name 'md5'. Implemented in standard php functions.
     - smd5 - used name 'smd5'. Implemented in php mhash extension functions. 
       Minimal php version = 4.0.4.
+    - ripe-md160 - used name 'rmd160'. Implemented in php mhash extension functions.
     - sha - used name 'sha'. Implemented in php mhash extension functions 
       and php 4.3.0+ sha1() function. mhash extension is used only when 
       sha1() function is unavailable.
@@ -206,7 +212,8 @@ ABOUT LDAP BACKEND
     algorithms used in your ldap server.
 
     WARNINGS:
-    * don't enforce any crypto that is not supported by ldap server.
+    * don't enforce any crypto that is not supported by ldap server, if admindn 
+      override is not used in backend configuration.
     * don't enforce extcrypt, md5crypt or blowfish, if they are not supported 
       by ldap server and web server crypt libraries.
 
@@ -217,16 +224,21 @@ ABOUT LDAP BACKEND
       not present, enforce md5 passwords or any crypt password algorithm 
       supported by your os. Remember that standard des crypt is limited
       to eight symbols.  Don't use admindn override, if ldap server 
-      supports sha, ssha or smd5.
+      supports md4, rmd160, sha, ssha or smd5.
     * If crypt libraries differ on web server and ldap server -
       enforce md5 passwords or any crypt password algorithm supported by
       web server and ldap server. Don't use admindn override, if ldap 
-      server supports sha, ssha or smd5 and mhash extension is not 
-      present.
+      server supports md4, rmd160, sha, ssha or smd5 and mhash extension 
+      is not present.
 
   Configuration example:
   $cpw_ldap['base_dn']='ou=users,dc=example,dc=com'; // sets base dn
   $cpw_ldap['connect_opts']['PROTOCOL_VERSION']=3;   // forces v3 bind protocol
+
+  Tested configurations:
+  - Linux Debian Sarge, OpenLDAP v.2.1.30, Qmail LDAP 20050401a, courier-imap 
+    v.3.0.8 using qmail-ldap auth-imap authentication. ns-mta-md5 crypto is not
+    implemented in backend. 
 
 -------------------
 ABOUT MYSQL BACKEND
