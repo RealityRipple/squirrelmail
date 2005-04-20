@@ -454,7 +454,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
      */
     foreach ($aOrder as $iCol) {
         if (in_array($iCol, $show_label_columns)) {
-            $sLabelStart = '<label for="'.$form_id."_msg$i>";
+            $sLabelStart = '<label for="'.$form_id."_msg$i\">";
             $sLabelEnd = '</label>';
         } else {
             $sLabelStart = '';
