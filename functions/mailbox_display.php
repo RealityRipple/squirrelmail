@@ -702,7 +702,7 @@ function setUserPref($username, $pref, $value) {
 */
 function _get_sorted_msgs_list($imapConnection,&$aMailbox) {
     $iSetIndx = (isset($aMailbox['SETINDEX'])) ? $aMailbox['SETINDEX'] : 0;
-    $bDirection = ($aMailbox['SORT'] % 2);
+    $bDirection = !($aMailbox['SORT'] % 2);
     $error = 0;
     if (!$aMailbox['SEARCH'][$iSetIndx]) {
         $aMailbox['SEARCH'][$iSetIndx] = 'ALL';
@@ -1055,7 +1055,6 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
     // FIX ME, before we support multiple templates we must review the names of the vars
 
 
-
     $aTemplate['color']     = $color;
     $aTemplate['form_name'] = "FormMsgs" . $safe_name;
     $aTemplate['form_id']   = 'mbx_'.$iFormId;
@@ -1084,6 +1083,7 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
     $aTemplate['use_icons'] = (isset($aProps['config']['use_icons'])) ? $aProps['config']['use_icons'] : false;
     $aTemplate['alt_index_colors'] = (isset($aProps['config']['alt_index_colors'])) ? $aProps['config']['alt_index_colors'] : false;
     $aTemplate['fancy_index_highlite'] = $fancy_index_highlite;
+
 
     return $aTemplate;
 }

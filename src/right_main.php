@@ -347,7 +347,6 @@ if ($aMailbox['EXISTS'] > 0) {
     $oTemplate->assign('alt_index_colors', isset($alt_index_colors) ? $alt_index_colors: false);
     $oTemplate->assign('color', $color);
     $oTemplate->assign('align', $align);
-    $oTemplate->assign('showall', $showall);
 
     $oTemplate->display('message_list.tpl');
 

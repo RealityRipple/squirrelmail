@@ -35,13 +35,13 @@ if ($pageOffset < $end_msg) {
 
 
 if (!($sort & SQSORT_THREAD) && $enablesort) {
-    $aSortSupported = array(SQM_COL_SUBJ =>     array(SQSORT_SUBJ_ASC    , SQSORT_SUBJ_DESC),
-                            SQM_COL_DATE =>     array(SQSORT_DATE_ASC    , SQSORT_DATE_DESC),
-                            SQM_COL_INT_DATE => array(SQSORT_INT_DATE_ASC, SQSORT_INT_DATE_DESC),
-                            SQM_COL_FROM =>     array(SQSORT_FROM_ASC    , SQSORT_FROM_DESC),
-                            SQM_COL_TO =>       array(SQSORT_TO_ASC      , SQSORT_TO_DESC),
-                            SQM_COL_CC =>       array(SQSORT_CC_ASC      , SQSORT_CC_DESC),
-                            SQM_COL_SIZE =>     array(SQSORT_SIZE_ASC    , SQSORT_SIZE_DESC));
+    $aSortSupported = array(SQM_COL_SUBJ =>     array(SQSORT_SUBJ_ASC     , SQSORT_SUBJ_DESC),
+                            SQM_COL_DATE =>     array(SQSORT_DATE_DESC    , SQSORT_DATE_ASC),
+                            SQM_COL_INT_DATE => array(SQSORT_INT_DATE_DESC, SQSORT_INT_DATE_ASC),
+                            SQM_COL_FROM =>     array(SQSORT_FROM_ASC     , SQSORT_FROM_DESC),
+                            SQM_COL_TO =>       array(SQSORT_TO_ASC       , SQSORT_TO_DESC),
+                            SQM_COL_CC =>       array(SQSORT_CC_ASC       , SQSORT_CC_DESC),
+                            SQM_COL_SIZE =>     array(SQSORT_SIZE_ASC     , SQSORT_SIZE_DESC));
 } else {
     $aSortSupported = array();
 }
@@ -454,7 +454,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
      */
     foreach ($aOrder as $iCol) {
         if (in_array($iCol, $show_label_columns)) {
-            $sLabelStart = '<label for="msg[' . $i . ']">';
+            $sLabelStart = '<label for="'.$form_id."_msg$i>";
             $sLabelEnd = '</label>';
         } else {
             $sLabelStart = '';
