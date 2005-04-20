@@ -1615,7 +1615,6 @@ if ($submit == $search_button_text) {
                         $oTemplate->assign('alt_index_colors', isset($alt_index_colors) ? $alt_index_colors: false);
                         $oTemplate->assign('color', $color);
                         $oTemplate->assign('align', $align);
-                        $oTemplate->assign('showall', $showall);
 
                         $mailbox_display = asearch_get_mailbox_display($aMailbox['NAME']);
                         if (strtoupper($mbx) == 'INBOX') {
