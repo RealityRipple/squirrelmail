@@ -57,8 +57,7 @@ function ListBoxes ($boxes, $j=0 ) {
     $unseen = 0;
 
     $mailbox = $boxes->mailboxname_full;
-    $leader = '<tt>';
-    $leader .= str_repeat('&nbsp;&nbsp;',$j);
+    $leader = str_repeat('&nbsp;&nbsp;',$j);
     $mailboxURL = urlencode($mailbox);
 
     /* get unseen/total messages information */
@@ -102,21 +101,21 @@ function ListBoxes ($boxes, $j=0 ) {
         $link = '<a target="left" style="text-decoration:none" ' .'href="left_main.php?';
         if ($collapse) {
             if ($use_icons && $icon_theme != 'none') {
-                $link .= "unfold=$mailboxURL\">$leader<img src=\"" . SM_PATH . 'images/plus.png" border="0" height="7" width="7" />&nbsp;</tt>';
+                $link .= "unfold=$mailboxURL\">$leader<img src=\"" . SM_PATH . 'images/plus.png" border="0" height="7" width="7" />&nbsp;';
             } else {
-                $link .= "unfold=$mailboxURL\">$leader+&nbsp;</tt>";
+                $link .= "unfold=$mailboxURL\">$leader+&nbsp;";
             }
         } else {
             if ($use_icons && $icon_theme != 'none') {
-                $link .= "fold=$mailboxURL\">$leader<img src=\"" . SM_PATH . 'images/minus.png" border="0" height="7" width="7" />&nbsp;</tt>';
+                $link .= "fold=$mailboxURL\">$leader<img src=\"" . SM_PATH . 'images/minus.png" border="0" height="7" width="7" />&nbsp;';
             } else {
-                $link .= "fold=$mailboxURL\">$leader-&nbsp;</tt>";
+                $link .= "fold=$mailboxURL\">$leader-&nbsp;";
             }
         }
         $link .= '</a>';
         $pre .= $link;
     } else {
-        $pre.= $leader . '&nbsp;&nbsp;</tt>';
+        $pre.= $leader . '&nbsp;&nbsp;';
     }
 
     /* If there are unseen message, bold the line. */
@@ -294,13 +293,13 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
             } else {
                 $folder_img = '../images/folder.png';
             }
-            $folder_img = '&nbsp;<img src="'.$folder_img.'" height="15" valign="center" />&nbsp;';
+            $folder_img = '&nbsp;<img src="'.$folder_img.'" height="15" />&nbsp;';
         } else {
             $folder_img = '';
         }
         if (!isset($boxes->mbxs[0])) {
             echo '   ' . html_tag( 'div',
-                            '<tt>'. $pre . $folder_img . '</tt>' .
+                            $pre . $folder_img .
                                 str_replace( array(' ','<','>'),
                                              array('&nbsp;','&lt;','&gt;'),
                                              $boxes->mailboxname_sub) .
@@ -403,226 +402,235 @@ if (empty($advanced_tree)) {
 }
 
 if ($advanced_tree) {
-$xtra .= '<script language="Javascript" type="text/javascript">'."\n".
-'<!--'."\n".
-'    function preload() {'."\n".
-'      if (document.images) {'."\n".
-'        var treeImages = new Array;'."\n".
-'        var arguments = preload.arguments;'."\n".
-'        for (var i = 0; i<arguments.length; i++) {'."\n".
-'          treeImages[i] = new Image();'."\n".
-'          treeImages[i].src = arguments[i];'."\n".
-'        }'."\n".
-'      }'."\n".
-'    }'."\n".
-'var vTreeImg;'."\n".
-'var vTreeDiv;'."\n".
-'var vTreeSrc;'."\n".
-'    function fTreeTimeout() {'."\n".
-'      if (vTreeDiv.readyState == "complete")'."\n".
-'        vTreeImg.src = vTreeSrc;'."\n".
-'      else'."\n".
-'        setTimeout("fTreeTimeout()", 100);'."\n".
-'    }'."\n".
-'    function hidechilds(img) {'."\n".
-'      id = img.id + ".0000";'."\n".
-'      form_id = "mbx[" + img.id +"F]";'."\n".
-'      if (document.all) { //IE, Opera7'."\n".
-'        div = document.all[id];'."\n".
-'        if (div) {'."\n".
-'           if (div.style.display == "none") {'."\n".
-'              vTreeSrc = "../images/minus.png";'."\n".
-'              style = "block";'."\n".
-'              value = 0;'."\n".
-'           }'."\n".
-'           else {'."\n".
-'              vTreeSrc = "../images/plus.png";'."\n".
-'              style = "none";'."\n".
-'              value = 1;'."\n".
-'           }'."\n".
-'           vTreeImg = img;'."\n".
-'           vTreeDiv = div;'."\n".
-'           if (typeof vTreeDiv.readyState != "undefined") //IE'."\n".
-'              setTimeout("fTreeTimeout()",100);'."\n".
-'           else //Non IE'."\n".
-'              vTreeImg.src = vTreeSrc;'."\n".
-'           div.style.display = style;'."\n".
-'           document.all[form_id].value = value;'."\n".
-'        }'."\n".
-'      }'."\n".
-'      else if (document.getElementById) { //Gecko'."\n".
-'        div = document.getElementById(id);'."\n".
-'        if (div) {'."\n".
-'           if (div.style.display == "none") {'."\n".
-'              src = "../images/minus.png";'."\n".
-'              style = "block";'."\n".
-'              value = 0;'."\n".
-'           }'."\n".
-'           else {'."\n".
-'              src = "../images/plus.png";'."\n".
-'              style = "none";'."\n".
-'              value = 1;'."\n".
-'           }'."\n".
-'           div.style.display = style;'."\n".
-'           img.src = src;'."\n".
-'           document.getElementById(form_id).value = value;'."\n".
-'        }'."\n".
-'      }'."\n".
-'    }'."\n".
-'   function buttonover(el,on) {'."\n".
-'      if (!on) {'."\n".
-"//         el.style.borderColor=\"$color[9]\";}\n".
-"         el.style.background=\"$color[0]\";}\n".
-'      else {'."\n".
-"         el.style.background=\"$color[9]\";}\n".
-'   }'."\n".
-'   function buttonclick(el,on) {'."\n".
-'      if (!on) {'."\n".
-'         el.style.border="groove";}'."\n".
-'      else {'."\n".
-'         el.style.border="ridge";}'."\n".
-'   }'."\n".
-'   function hideframe(hide) {'."\n".
-'      left_size = "' . $left_size . '";'."\n".
-'      if (document.all) {'."\n".
-'        masterf = window.parent.document.all["fs1"];'."\n".
-'        leftf = window.parent.document.all["left"];'."\n".
-'        leftcontent = document.all["leftframe"];'."\n".
-'        leftbutton = document.all["showf"];'."\n".
-'      } else if (document.getElementById) {'."\n".
-'        masterf = window.parent.document.getElementById("fs1");'."\n".
-'        leftf = window.parent.document.getElementById("left");'."\n".
-'        leftcontent = document.getElementById("leftframe");'."\n".
-'        leftbutton = document.getElementById("showf");'."\n".
-'      } else {'."\n".
-'        return false;'."\n".
-'      }'."\n".
-'      if(hide) {'."\n".
-'         new_col = calc_col("20");'."\n".
-'         masterf.cols = new_col;'."\n".
-'         document.body.scrollLeft=0;'."\n".
-'         document.body.style.overflow="hidden";'."\n".
-'         leftcontent.style.display = "none";'."\n".
-'         leftbutton.style.display="block";'."\n".
-'      } else {'."\n".
-'         masterf.cols = calc_col(left_size);'."\n".
-'         document.body.style.overflow="";'."\n".
-'         leftbutton.style.display="none";'."\n".
-'         leftcontent.style.display="block";'."\n".
-'      }'."\n".
-'   }'."\n".
-'   function calc_col(c_w) {'."\n";
-
+$xtra .= <<<HEREDOC
+<script language="Javascript" type="text/javascript">
+<!--
+    function preload() {
+      if (document.images) {
+        var treeImages = new Array;
+        var arguments = preload.arguments;
+        for (var i = 0; i<arguments.length; i++) {
+          treeImages[i] = new Image();
+          treeImages[i].src = arguments[i];
+        }
+      }
+    }
+    var vTreeImg;
+    var vTreeDiv;
+    var vTreeSrc;
+    function fTreeTimeout() {
+      if (vTreeDiv.readyState == "complete")
+        vTreeImg.src = vTreeSrc;
+      else
+        setTimeout("fTreeTimeout()", 100);
+    }
+    function hidechilds(img) {
+      id = img.id + ".0000";
+      form_id = "mbx[" + img.id +"F]";
+      if (document.all) { //IE, Opera7
+        div = document.all[id];
+        if (div) {
+           if (div.style.display == "none") {
+              vTreeSrc = "../images/minus.png";
+              style = "block";
+              value = 0;
+           }
+           else {
+              vTreeSrc = "../images/plus.png";
+              style = "none";
+              value = 1;
+           }
+           vTreeImg = img;
+           vTreeDiv = div;
+           if (typeof vTreeDiv.readyState != "undefined") //IE
+              setTimeout("fTreeTimeout()",100);
+           else //Non IE
+              vTreeImg.src = vTreeSrc;
+           div.style.display = style;
+           document.all[form_id].value = value;
+        }
+      }
+      else if (document.getElementById) { //Gecko
+        div = document.getElementById(id);
+        if (div) {
+           if (div.style.display == "none") {
+              src = "../images/minus.png";
+              style = "block";
+              value = 0;
+           }
+           else {
+              src = "../images/plus.png";
+              style = "none";
+              value = 1;
+           }
+           div.style.display = style;
+           img.src = src;
+           document.getElementById(form_id).value = value;
+        }
+      }
+    }
+   function buttonover(el,on) {
+      if (!on) {
+         el.style.background="$color[0]";}
+      else {
+         el.style.background="$color[9]";}
+   }
+   function buttonclick(el,on) {
+      if (!on) {
+         el.style.border="groove";}
+      else {
+         el.style.border="ridge";}
+   }
+   function hideframe(hide) {
+      left_size = "$left_size";
+      if (document.all) {
+        masterf = window.parent.document.all["fs1"];
+        leftf = window.parent.document.all["left"];
+        leftcontent = document.all["leftframe"];
+        leftbutton = document.all["showf"];
+      } else if (document.getElementById) {
+        masterf = window.parent.document.getElementById("fs1");
+        leftf = window.parent.document.getElementById("left");
+        leftcontent = document.getElementById("leftframe");
+        leftbutton = document.getElementById("showf");
+      } else {
+        return false;
+      }
+      if(hide) {
+         new_col = calc_col("20");
+         masterf.cols = new_col;
+         document.body.scrollLeft=0;
+         document.body.style.overflow="hidden";
+         leftcontent.style.display = "none";
+         leftbutton.style.display="block";
+      } else {
+         masterf.cols = calc_col(left_size);
+         document.body.style.overflow="";
+         leftbutton.style.display="none";
+         leftcontent.style.display="block";
+      }
+   }
+   function calc_col(c_w) {
+HEREDOC;
    if ($location_of_bar == 'right') {
        $xtra .= '     right=true;';
    } else {
        $xtra .= '     right=false;';
    }
-   $xtra .= "\n";
-
-$xtra .= 'if (right) {'."\n".
-"         new_col = '*,'+c_w;"."\n".
-'     } else {'."\n".
-"         new_col = c_w+',*';"."\n".
-'     }'."\n".
-'     return new_col;'."\n".
-'   }'."\n".
-'   function resizeframe(direction) {'."\n".
-'     if (document.all) {'."\n".
-'        masterf = window.parent.document.all["fs1"];'."\n".
-'     } else if (document.getElementById) {'."\n".
-'        window.parent.document.getElementById("fs1");'."\n".
-'     } else {'."\n".
-'        return false;'."\n".
-'     }'."\n";
-
+$xtra .= <<<HEREDOC
+   if (right) {
+         new_col = '*,'+c_w;
+     } else {
+         new_col = c_w+',*';
+     }
+     return new_col;
+   }
+   function resizeframe(direction) {
+     if (document.all) {
+        masterf = window.parent.document.all["fs1"];
+     } else if (document.getElementById) {
+        window.parent.document.getElementById("fs1");
+     } else {
+        return false;
+     }
+HEREDOC;
    if ($location_of_bar == 'right') {
        $xtra .= '  colPat=/^\*,(\d+)$/;';
    } else {
        $xtra .= '  colPat=/^(\d+),.*$/;';
    }
-   $xtra .= "\n";
+$xtra .= <<<HEREDOC
+     old_col = masterf.cols;
+     colPat.exec(old_col);
+     if (direction) {
+        new_col_width = parseInt(RegExp.$1) + 25;
+     } else {
+        if (parseInt(RegExp.$1) > 35) {
+           new_col_width = parseInt(RegExp.$1) - 25;
+        }
+     }
+     masterf.cols = calc_col(new_col_width);
+   }
+//-->
+</script>
 
-$xtra .= 'old_col = masterf.cols;'."\n".
-'     colPat.exec(old_col);'."\n".
-'     if (direction) {'."\n".
-'        new_col_width = parseInt(RegExp.$1) + 25;'."\n".
-'     } else {'."\n".
-'        if (parseInt(RegExp.$1) > 35) {'."\n".
-'           new_col_width = parseInt(RegExp.$1) - 25;'."\n".
-'        }'."\n".
-'     }'."\n".
-'     masterf.cols = calc_col(new_col_width);'."\n".
-'   }'."\n".
-'//-->'."\n".
-'</script>'."\n";
+HEREDOC;
 
 /* style definitions */
 
-$xtra .= '<style type="text/css">'."\n".
-'<!--'."\n".
-'  body {'."\n".
-'     margin: 0px 0px 0px 0px;'."\n".
-'     padding: 5px 5px 5px 5px;'."\n".
-'  }'."\n".
-'  .button {'."\n".
-'     border:outset;'."\n".
-"     border-color: $color[9];\n".
-"     background:$color[0];\n".
-"     color:$color[6];\n".
-'     width:99%;'."\n".
-'     heigth:99%;'."\n".
-'  }'."\n".
-'  .mbx_par {'."\n".
-'     font-size:1.0em;'."\n".
-'     margin-left:4px;'."\n".
-'     margin-right:0px;'."\n".
-'  }'."\n".
-'  a.mbx_link {'."\n".
-'      text-decoration: none;'."\n".
-"      background-color: $color[0];\n".
-'      display: inline;'."\n".
-'  }'."\n".
-'  a:hover.mbx_link {'."\n".
-"      background-color: $color[9];\n".
-'  }'."\n".
-'  a.mbx_link img {'."\n".
-'      border-style: none;'."\n".
-'  }'."\n".
-'  .mbx_sub {'."\n".
-'     padding-left:5px;'."\n".
-'     padding-right:0px;'."\n".
-'     margin-left:4px;'."\n".
-'     margin-right:0px;'."\n".
-'     font-size:0.9em;'."\n".
-'  }'."\n".
-'  .par_area {'."\n".
-'     margin-top:0px;'."\n".
-'     margin-left:4px;'."\n".
-'     margin-right:0px;'."\n".
-'     padding-left:10px;'."\n".
-'     padding-bottom:5px;'."\n".
-'     border-left: solid;'."\n".
-'     border-left-width:0.1em;'."\n".
-"     border-left-color:$color[9];\n".
-'     border-bottom: solid;'."\n".
-'     border-bottom-width:0.1em;'."\n".
-"     border-bottom-color:$color[9];\n".
-'     display: block;'."\n".
-'  }'."\n".
-'  .mailboxes {'."\n".
-'     padding-bottom:3px;'."\n".
-'     margin-right:4px;'."\n".
-'     padding-right:4px;'."\n".
-'     margin-left:4px;'."\n".
-'     padding-left:4px;'."\n".
-'     border: groove;'."\n".
-'     border-width:0.1em;'."\n".
-"     border-color:$color[9];\n".
-"     background: $color[0];\n".
-'  }'."\n".
-'-->'."\n".
-'</style>'."\n";
+$xtra .= <<<HEREDOC
+<style type="text/css">
+<!--
+  body {
+     margin: 0px 0px 0px 0px;
+     padding: 5px 5px 5px 5px;
+  }
+  img {
+     vertical-align: middle;
+  }
+  .button {
+     border:outset;
+     border-color: $color[9];
+     background:$color[0];
+     color:$color[6];
+     width:99%;
+     heigth:99%;
+  }
+  .mbx_par {
+     font-size:1.0em;
+     margin-left:4px;
+     margin-right:0px;
+     white-space: nowrap;
+  }
+  a.mbx_link {
+      text-decoration: none;
+      background-color: $color[0];
+      display: inline;
+  }
+  a:hover.mbx_link {
+      background-color: $color[9];
+  }
+  a.mbx_link img {
+      border-style: none;
+  }
+  .mbx_sub {
+     padding-left:5px;
+     padding-right:0px;
+     margin-left:4px;
+     margin-right:0px;
+     font-size:0.9em;
+     white-space: nowrap;
+  }
+  .par_area {
+     margin-top:0px;
+     margin-left:4px;
+     margin-right:0px;
+     padding-left:10px;
+     padding-bottom:5px;
+     border-left: solid;
+     border-left-width:0.1em;
+     border-left-color:$color[9];
+     border-bottom: solid;
+     border-bottom-width:0.1em;
+     border-bottom-color:$color[9];
+     display: block;
+  }
+  .mailboxes {
+     padding-bottom:3px;
+     margin-right:4px;
+     padding-right:4px;
+     margin-left:4px;
+     padding-left:4px;
+     border: groove;
+     border-width:0.1em;
+     border-color:$color[9];
+     background: $color[0];
+     font-size: smaller;
+  }
+-->
+</style>
+
+HEREDOC;
 }
 
 displayHtmlHeader( 'SquirrelMail', $xtra );
@@ -750,15 +758,13 @@ if (empty($unseen_notify)) {
 $boxes = sqimap_mailbox_tree($imapConnection);
 if (isset($advanced_tree) && $advanced_tree) {
     echo '<form name="collapse" action="left_main.php" method="post" ' .
-         'enctype="multipart/form-data"'."\n";
-    echo '<small>';
+         'enctype="multipart/form-data">'."\n";
     echo '<button type="submit" class="button" onmouseover="buttonover(this,true)" onmouseout="buttonover(this,false)" onmousedown="buttonclick(this,true)" onmouseup="buttonclick(this,false)">'. _("Save folder tree") .'</button><br /><br />';
     echo '<div id="mailboxes" class="mailboxes">'."\n\n";
     sqgetGlobalVar('mbx', $mbx, SQ_POST);
     if (!isset($mbx)) $mbx=NULL;
     ListAdvancedBoxes($boxes, $mbx);
     echo '</div>';
-    echo '</small>';
     echo '</form>'."\n";
 } else {
     ListBoxes($boxes);
