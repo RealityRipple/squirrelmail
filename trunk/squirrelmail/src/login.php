@@ -61,7 +61,7 @@ header('Pragma: no-cache');
  */
 if($imap_auth_mech == 'login') {
     /**
-     * detect disabled login, only when imapServerAddress contains 
+     * detect disabled login, only when imapServerAddress contains
      * server address and not mapping. See sqimap_get_user_server()
      */
     if (substr($imapServerAddress, 0, 4) != "map:") {

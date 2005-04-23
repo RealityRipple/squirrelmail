@@ -9,7 +9,7 @@
  *
  * LDAP filtering code by Tim Bell
  *   <bhat at users.sourceforge.net> (#539534)
- * ADS limit_scope code by Michael Brown 
+ * ADS limit_scope code by Michael Brown
  *   <mcb30 at users.sourceforge.net> (#1035454)
  *
  * @version $Id$
@@ -307,7 +307,7 @@ class abook_ldap_server extends addressbook_backend {
         $expr = $this->charset_encode($expr);
 
         /*
-         * allow use of one asterisk in search. 
+         * allow use of one asterisk in search.
          * Don't allow any ldap special chars if search is different
          */
         if($expr!='*') {

@@ -169,7 +169,7 @@ function attachment_common_link_html(&$Args) {
 }
 
 /**
- * Adds href and text keys to attachment_common array for image attachments 
+ * Adds href and text keys to attachment_common array for image attachments
  * @param array $Args attachment $type hook arguments
  * @since 1.2.0
  */
@@ -195,7 +195,7 @@ function attachment_common_link_image(&$Args) {
 }
 
 /**
- * Adds href and text keys to attachment_common array for vcard attachments 
+ * Adds href and text keys to attachment_common array for vcard attachments
  * @param array $Args attachment $type hook arguments
  * @since 1.2.0
  */
@@ -214,7 +214,7 @@ function attachment_common_link_vcard(&$Args) {
 
 /**
  * Processes octet-stream attachments.
- * Calls attachment_common-load_mime_types and attachment $type hooks. 
+ * Calls attachment_common-load_mime_types and attachment $type hooks.
  * @param array $Args attachment $type hook arguments
  * @since 1.2.0
  */

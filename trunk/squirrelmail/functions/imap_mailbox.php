@@ -126,7 +126,7 @@ function compact_mailboxes_response($ary) {
  * (LIST|LSUB) (<Flags list>) (NIL|"<separator atom>") <mailbox name string>\r\n
  * mailbox name in quoted string MUST be unquoted and stripslashed (sm API)
  *
- * Originally stored in functions/strings.php. Since 1.2.6 stored in 
+ * Originally stored in functions/strings.php. Since 1.2.6 stored in
  * functions/imap_mailbox.php
  * @param string $line imap LIST/LSUB response line
  * @return string mailbox name
@@ -167,11 +167,11 @@ function check_is_noinferiors ($lsub_line) {
  * separator character, returns the second last part of the full
  * mailbox name (i.e. the mailbox's parent mailbox)
  *
- * Originally stored in functions/strings.php. Since 1.2.6 stored in 
+ * Originally stored in functions/strings.php. Since 1.2.6 stored in
  * functions/imap_mailbox.php
  * @param string $haystack full mailbox name
  * @param string $needle delimiter
- * @return string parent mailbox 
+ * @return string parent mailbox
  */
 function readMailboxParent($haystack, $needle) {
     if ($needle == '') {
@@ -214,7 +214,7 @@ function isBoxBelow( $subbox, $parentbox ) {
 /**
  * Defines special mailboxes: given a mailbox name, it checks if this is a
  * "special" one: INBOX, Trash, Sent or Draft.
- * 
+ *
  * Since 1.2.5 function includes special_mailbox hook.<br>
  * Since 1.4.3 hook supports more than one plugin.
  * @param string $box mailbox name
@@ -269,11 +269,11 @@ function isDraftMailbox($box) {
 
 /**
  * Expunges a mailbox
- * 
+ *
  * WARNING: Select mailbox before calling this function.
- * 
- * permanently removes all messages that have the \Deleted flag 
- * set from the selected mailbox. See EXPUNGE command chapter in 
+ *
+ * permanently removes all messages that have the \Deleted flag
+ * set from the selected mailbox. See EXPUNGE command chapter in
  * IMAP RFC.
  * @param stream $imap_stream imap connection resource
  * @param string $mailbox mailbox name (unused since 1.1.3).
@@ -327,7 +327,7 @@ function sqimap_mailbox_exists ($imap_stream, $mailbox) {
  * Before 1.3.0 used more arguments and returned data depended on those argumements.
  * @param stream $imap_stream imap connection resource
  * @param string $mailbox mailbox name
- * @return array results of select command (on success - permanentflags, flags and rights) 
+ * @return array results of select command (on success - permanentflags, flags and rights)
  * @since 1.0 or older
  */
 function sqimap_mailbox_select ($imap_stream, $mailbox) {
@@ -367,10 +367,10 @@ function sqimap_mailbox_select ($imap_stream, $mailbox) {
  * Creates a folder.
  *
  * Mailbox is automatically subscribed.
- * 
- * Set $type to string that does not match 'noselect' (case insensitive), 
- * if you don't want to prepend delimiter to mailbox name. Please note 
- * that 'noinferiors' might be used someday as keyword for folders 
+ *
+ * Set $type to string that does not match 'noselect' (case insensitive),
+ * if you don't want to prepend delimiter to mailbox name. Please note
+ * that 'noinferiors' might be used someday as keyword for folders
  * that store only messages.
  * @param stream $imap_steam imap connection resource
  * @param string $mailbox mailbox name
@@ -793,13 +793,13 @@ function sqimap_mailbox_list($imap_stream, $force=false) {
 
         /* Find INBOX's children */
         for($k = 0; $k < $cnt; ++$k) {
-            if (!$used[$k] && isBoxBelow(strtolower($boxesall[$k]['unformatted']), 'inbox') && 
+            if (!$used[$k] && isBoxBelow(strtolower($boxesall[$k]['unformatted']), 'inbox') &&
             strtolower($boxesall[$k]['unformatted']) != 'inbox') {
                 $boxesnew[] = $boxesall[$k];
                 $used[$k] = true;
-            }   
+            }
         }
-        
+
         /* Rest of the folders */
         for($k = 0; $k < $cnt; $k++) {
             if (!$used[$k]) {

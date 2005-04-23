@@ -105,14 +105,14 @@ echo 'name="media_popup" />&nbsp;<small>('._("requires JavaScript to work").')</
 
 echo html_tag( 'tr' )
      . html_tag('td',_("Width of popup window:"),'right','', 'style="white-space: nowrap;"')
-     . html_tag('td','<input type="text" name="popup_width" value="' 
+     . html_tag('td','<input type="text" name="popup_width" value="'
                 . (int)$newmail_popup_width . '" size="3" maxlengh="3" />'
                 . '&nbsp;<small>(' . _("If set to 0, reverts to default value") . ')</small>','left')
      . "</tr>\n";
 
 echo html_tag( 'tr' )
      . html_tag('td',_("Height of popup window:"),'right','', 'style="white-space: nowrap;"')
-     . html_tag('td','<input type="text" name="popup_height" value="' 
+     . html_tag('td','<input type="text" name="popup_height" value="'
                 . (int)$newmail_popup_height . '" size="3" maxlengh="3" />'
                 . '&nbsp;<small>(' . _("If set to 0, reverts to default value") . ')</small>','left')
      . "</tr>\n";

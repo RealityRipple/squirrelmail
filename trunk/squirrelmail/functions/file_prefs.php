@@ -186,7 +186,7 @@ function checkForPrefs($data_dir, $username, $filename = '') {
     if (!@file_exists($filename) ) {
 
         /* If it does not exist, check for default_prefs */
-        
+
         /* First, check legacy locations: data dir */
         if(substr($data_dir,-1) != '/') {
             $data_dir .= '/';
@@ -203,7 +203,7 @@ function checkForPrefs($data_dir, $username, $filename = '') {
         if (!@file_exists($default_pref)) {
             $default_pref = SM_PATH . 'config/default_pref';
         }
-        
+
         /* If a default_pref file found, try to copy it, if none found,
          * try to create an empty one. If that fails, report an error.
          */

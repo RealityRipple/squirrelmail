@@ -163,7 +163,7 @@ function ListBoxes ($boxes, $j=0 ) {
         $font = "<font color=\"$color[15]\">";
         $fontend = '</font>';
     }
-        
+
     // let plugins fiddle with end of line
     $end .= concat_hook_function('left_main_after_each_folder',
         array(isset($numMessages) ? $numMessages : '',
@@ -173,7 +173,7 @@ function ListBoxes ($boxes, $j=0 ) {
 
     if (!$boxes->is_root) {
         echo "" . $pre .$font.
-            str_replace( 
+            str_replace(
                 array(' ','<','>'),
                 array('&nbsp;','&lt;','&gt;'),
                 $boxes->mailboxname_sub) .
@@ -679,7 +679,7 @@ if ($advanced_tree) {
    echo '<div id="leftframe"><br /><br />';*/
 }
 
-echo "\n\n" . 
+echo "\n\n" .
     '<center><font size="4"><b>'. _("Folders") . "</b><br /></font>\n\n";
 
 if ($date_format != 6) {
@@ -716,8 +716,8 @@ if ($date_format != 6) {
     }
     $clk = str_replace(' ','&nbsp;',$clk);
 
-    echo '<small><span style="white-space: nowrap;">' 
-       . str_replace(' ', '&nbsp;', _("Last Refresh")) 
+    echo '<small><span style="white-space: nowrap;">'
+       . str_replace(' ', '&nbsp;', _("Last Refresh"))
        . ":</span><br /><span style=\"white-space: nowrap;\">$clk</span></small><br />\n";
 }
 

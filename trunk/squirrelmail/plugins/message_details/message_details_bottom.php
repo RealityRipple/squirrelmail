@@ -46,7 +46,7 @@ if (!empty($md_action))
 /**
  * Converts 8bit string to hex
  *
- * Replaces 8bit symbols with their hex strings, 
+ * Replaces 8bit symbols with their hex strings,
  * encloses them in curly brackets and uses different color.
  * @param string $string text
  * @return string
@@ -115,8 +115,8 @@ function returnTime($start) {
  * Returns actual message details
  * @param string $mailbox
  * @param string $passed_id
- * @param boolean $stripHTML If TRUE, only plain text is returned, 
- *                           default is FALSE, wherein output contains 
+ * @param boolean $stripHTML If TRUE, only plain text is returned,
+ *                           default is FALSE, wherein output contains
  *                           pretty-HTMLification of message body
  * @return string The formatted message details
  * @access public
@@ -402,7 +402,7 @@ if (!$stripHTML) {
 
 $returnValue .= $message_body;
 
-if (!$stripHTML) 
+if (!$stripHTML)
     $returnValue .= '</div></div></font></code></body></html>';
 
 return $returnValue;

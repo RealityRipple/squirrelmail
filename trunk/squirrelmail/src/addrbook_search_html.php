@@ -158,8 +158,8 @@ if ($javascript_on) {
                 html_tag( 'td',
                         '<input type="submit" name="addr_search_done" value="' .
                         _("Use Addresses") . '" /> ' .
-			'<input type="submit" name="addr_search_cancel" value="' .
-			_("Cancel") . '" />',
+                        '<input type="submit" name="addr_search_cancel" value="' .
+                        _("Cancel") . '" />',
                 'center', '', 'colspan="'. $td_colspan .'"' )
             ) .
          '</table>' .

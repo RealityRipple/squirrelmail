@@ -178,7 +178,7 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
         $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10);
 
         // check if destination folder is not set, is not subscribed and is not \noselect folder
-        if($mailfetch_subfolder == '' || 
+        if($mailfetch_subfolder == '' ||
            ! mail_fetch_check_folder($imap_stream,$mailfetch_subfolder)) {
             $mailfetch_subfolder = 'INBOX';
         }

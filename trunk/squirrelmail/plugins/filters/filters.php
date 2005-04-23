@@ -43,7 +43,7 @@ function filters_init_hooks () {
 function filters_optpage_register_block() {
     global $optpage_blocks, $AllowSpamFilters;
     if (!file_exists(SM_PATH . 'plugins/filters/config.php')) return;
-    
+
     $optpage_blocks[] = array(
         'name' => _("Message Filters"),
         'url'  => SM_PATH . 'plugins/filters/options.php',
@@ -164,9 +164,9 @@ function filters_bulkquery($filters, $IPs) {
 function start_filters() {
     global $imapServerAddress, $imapPort, $imap_stream, $imapConnection,
            $UseSeparateImapConnection, $AllowSpamFilters;
-           
+
     if (!file_exists(SM_PATH . 'plugins/filters/config.php')) return;
-    
+
     sqgetGlobalVar('username', $username, SQ_SESSION);
     sqgetGlobalVar('key',      $key,      SQ_COOKIE);
 
@@ -231,7 +231,7 @@ function user_filters($imap_stream) {
                   $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan, $expunge);
         } else if ($filters[$i]['where'] == 'Message Body') {
             $expunge = filter_search_and_delete($imap_stream, 'BODY',
-                  $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan, $expunge);                  
+                  $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan, $expunge);
         } else {
             /*
             *  If it's a normal TO, CC, SUBJECT, or FROM, then handle it
@@ -254,7 +254,7 @@ function user_filters($imap_stream) {
  * @param string $what String to search for
  * @param string $where_to Folder it will move to
  * @param string $user_scan Whether to search all or just unseen
- * @param string $should_expunge 
+ * @param string $should_expunge
  * @param boolean $where Which part of location to search
  * @access private
  */
@@ -800,7 +800,7 @@ function remove_filter ($id) {
 /**
  * Swaps two filters
  * @param int $id1 ID of first filter to swap
- * @param int $id2 ID of second filter to swap 
+ * @param int $id2 ID of second filter to swap
  * @access private
  */
 function filter_swap($id1, $id2) {
@@ -823,7 +823,7 @@ function filter_swap($id1, $id2) {
 function update_for_folder ($args) {
 
     if (!file_exists(SM_PATH . 'plugins/filters/config.php')) return;
-    
+
     $old_folder = $args[0];
     $new_folder = $args[2];
     $action = $args[1];

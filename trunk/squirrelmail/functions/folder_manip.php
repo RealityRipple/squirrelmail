@@ -25,14 +25,14 @@ function folders_checkname($imapConnection, $folder_name, $delimiter)
 {
     if (substr_count($folder_name, '"') || substr_count($folder_name, "\\") ||
         substr_count($folder_name, $delimiter) || ($folder_name == '')) {
-        
+
         global $color;
         error_box(_("Illegal folder name.") . "<br />\n" .
-	    sprintf(_("The name may not contain any of the following: %s"), '<tt>" \\ '.$delimiter.'</tt>')
-	    . "<br />\n" .
-	    _("Please select a different name.").
-            '<br /><a href="folders.php">'.
-	    _("Click here to go back") . '</a>.', $color);
+                sprintf(_("The name may not contain any of the following: %s"), '<tt>" \\ '.$delimiter.'</tt>')
+                . "<br />\n" .
+                _("Please select a different name.").
+                '<br /><a href="folders.php">'.
+                _("Click here to go back") . '</a>.', $color);
 
         sqimap_logout($imapConnection);
         exit;
@@ -49,7 +49,7 @@ function folders_create ($imapConnection, $delimiter, $folder_name, $subfolder, 
     global $folder_prefix;
 
     $folder_name = imap_utf7_encode_local($folder_name);
-   
+
     if ( ! empty($contain_subs) ) {
         $folder_name = $folder_name . $delimiter;
     }
@@ -83,7 +83,7 @@ function folders_rename_getname ($imapConnection, $delimiter, $old) {
     if ( $old == '' ) {
         plain_error_message(_("You have not selected a folder to rename. Please do so.").
             '<br /><a href="../src/folders.php">'._("Click here to go back").'</a>.', $color);
-        sqimap_logout($imapConnection);    
+        sqimap_logout($imapConnection);
         exit;
     }
 
@@ -133,8 +133,8 @@ function folders_rename_getname ($imapConnection, $delimiter, $old) {
              '<input type="submit" name="cancelbutton" value="'._("Cancel")."\" />\n".
              '</form><br /></td></tr></table>';
     echo "\n</td></tr></table>\n</td></tr></table>\n\n</body></html>";
-    
-    sqimap_logout($imapConnection);    
+
+    sqimap_logout($imapConnection);
     exit;
 }
 
@@ -148,7 +148,7 @@ function folders_rename_do($imapConnection, $delimiter, $orig, $old_name, $new_n
     $orig = imap_utf7_encode_local($orig);
     $old_name = imap_utf7_encode_local($old_name);
     $new_name = imap_utf7_encode_local($new_name);
-    
+
     if ($old_name != $new_name) {
 
         if (strpos($orig, $delimiter)) {
@@ -214,7 +214,7 @@ function folders_delete_ask ($imapConnection, $folder_name)
 
     echo "\n</td></tr></table>\n</td></tr></table>\n\n</body></html>";
 
-    sqimap_logout($imapConnection);    
+    sqimap_logout($imapConnection);
     exit;
 }
 
@@ -224,7 +224,7 @@ function folders_delete_ask ($imapConnection, $folder_name)
 function folders_delete_do ($imapConnection, $delimiter, $folder_name)
 {
     require_once(SM_PATH . 'functions/tree.php');
-    
+
     $boxes = sqimap_mailbox_list ($imapConnection);
 
     global $delete_folder, $imap_server_type, $trash_folder, $move_to_trash;
@@ -310,7 +310,7 @@ function folders_subscribe($imapConnection, $folder_names)
                 '<br /><a href="../src/folders.php">'._("Click here to go back").'</a>.', $color);
             sqimap_logout($imapConnection);
             exit;
-            
+
         }
     }
     foreach ( $folder_names as $folder_name ) {

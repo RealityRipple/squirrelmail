@@ -79,7 +79,7 @@ if(!in_array('strings.php', $included)) {
 if (! $allow_remote_configtest) {
     sqGetGlobalVar('REMOTE_ADDR',$client_ip,SQ_SERVER);
     if (! isset($client_ip) || $client_ip!='127.0.0.1') {
-	do_err('Enable "Allow remote configtest" option in squirrelmail configuration in order to use this script.');
+        do_err('Enable "Allow remote configtest" option in squirrelmail configuration in order to use this script.');
     }
 }
 /* checking PHP specs */
@@ -206,12 +206,12 @@ echo $IND . "Themes OK.<br />\n";
 if ( $squirrelmail_default_language != 'en_US' ) {
     $loc_path = SM_PATH .'locale/'.$squirrelmail_default_language.'/LC_MESSAGES/squirrelmail.mo';
     if( ! file_exists( $loc_path ) ) {
-        do_err('You have set <i>' . $squirrelmail_default_language . 
+        do_err('You have set <i>' . $squirrelmail_default_language .
             '</i> as your default language, but I cannot find this translation (should be '.
             'in <tt>' . $loc_path . '</tt>). Please note that you have to download translations '.
             'separately from the main SquirrelMail package.', FALSE);
     } elseif ( ! is_readable( $loc_path ) ) {
-        do_err('You have set <i>' . $squirrelmail_default_language . 
+        do_err('You have set <i>' . $squirrelmail_default_language .
             '</i> as your default language, but I cannot read this translation (file '.
             'in <tt>' . $loc_path . '</tt> unreadable).', FALSE);
     } else {
@@ -487,6 +487,3 @@ if( empty($ldap_server) ) {
 
 </body>
 </html>
-<?php
-// vim: et ts=4
-?>

@@ -99,7 +99,7 @@ if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
             folders_unsubscribe($imapConnection, $folder_names);
             $td_str =  _("Unsubscribed successfully.");
             break;
-    } 
+    }
 
     // if there are any messages, output them.
     if ( !empty($td_str) ) {
@@ -293,7 +293,7 @@ if ($show_only_subscribed_folders) {
             echo addForm('folders.php')
                . addHidden('smaction', 'unsubscribe')
                . "<tt><select name=\"folder_names[]\" multiple=\"multiple\" size=\"8\">\n";
-	    foreach ( $boxes as $box ) {
+            foreach ( $boxes as $box ) {
                 $use_folder = true;
                 if ((strtolower($box["unformatted"]) != "inbox") &&
                     ($box['unformatted'] != $trash_folder) &&
@@ -323,7 +323,7 @@ if ($show_only_subscribed_folders) {
             // here we filter out all boxes we're already subscribed to,
             // so we keep only the unsubscribed ones.
             foreach ($boxes_all as $box_a) {
-            
+
                 $use_folder = true;
                 foreach ( $boxes as $box ) {
                     if ($box_a['unformatted'] == $box['unformatted'] ||
@@ -331,14 +331,14 @@ if ($show_only_subscribed_folders) {
                         $use_folder = false;
                     }
                 }
-            
+
                 if ($use_folder == true) {
-	                $box_enc  = htmlspecialchars($box_a['unformatted-dm']);
+                    $box_enc  = htmlspecialchars($box_a['unformatted-dm']);
                     $box_disp = htmlspecialchars(imap_utf7_decode_local($box_a['unformatted-disp']));
                     $subboxes[$box_enc] = $box_disp;
                 }
             }
-            
+
             if ( count($subboxes) > 0 ) {
                 echo addForm('folders.php')
                  . addHidden('smaction', 'subscribe')
