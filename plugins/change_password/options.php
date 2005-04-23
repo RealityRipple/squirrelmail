@@ -30,7 +30,7 @@ if (file_exists(SM_PATH . 'plugins/change_password/config_default.php')) {
 }
 
 /**
- * prevent possible corruption of configuration overrides in 
+ * prevent possible corruption of configuration overrides in
  * register_globals=on and preloaded php scripts.
  */
 $cpw_ldap=array();

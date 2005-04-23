@@ -212,7 +212,7 @@ function cpw_vmailmgrd_passwd($user,$domain,$oldpass,$newpass) {
 }
 
 /**
- * Function is used to translate messages returned by vmailmgr 
+ * Function is used to translate messages returned by vmailmgr
  * php library and vmailmgr daemon.
  * @param string $string vmailmrgd message.
  * @return string translated string.
