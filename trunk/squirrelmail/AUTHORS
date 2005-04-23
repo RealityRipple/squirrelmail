@@ -3,21 +3,21 @@ THE SQUIRRELMAIL TEAM
 
  Project Leader:
  ---------------
-   Rick Castello	<rick@squirrelmail.org>
+   Rick Castello        <rick@squirrelmail.org>
 
  Main Developers:
  ----------------
-   Alex Lemaresquier	<alex@brainstorm.fr>
-   Chris Hilts		<tassium@squirrelmail.org>	http://www.birdbrained.org
-   Erin Schnabel	<ebullient@squirrelmail.org>	http://ebullient.haaser.com
-   Jonathan Angliss	<jon@squirrelmail.org>
-   Jimmy Conner		<jimmy@sqmail.org>		http://sqmail.org
-   Marc Groot Koerkamp	<marc@squirrelmail.org>
-   Paul Lesneiwski	<pdontthink@angrynerds.com>
-   Philippe Mingo	<philippe@squirrelmail.org>	http://mingo.ath.cx
-   Seth E. Randall	<sethr@missoulafcu.org>
-   Thijs Kinkhorst	<kink@squirrelmail.org>		http://thijs.kinkhorst.nl
-   Tomas Kuliavas	<tokul@users.sourceforge.net>	http://www.topolis.lt
+   Alex Lemaresquier    <alex@brainstorm.fr>
+   Chris Hilts          <tassium@squirrelmail.org>     http://www.birdbrained.org
+   Erin Schnabel        <ebullient@squirrelmail.org>   http://ebullient.haaser.com
+   Jonathan Angliss     <jon@squirrelmail.org>
+   Jimmy Conner         <jimmy@sqmail.org>             http://sqmail.org
+   Marc Groot Koerkamp  <marc@squirrelmail.org>
+   Paul Lesneiwski      <pdontthink@angrynerds.com>
+   Philippe Mingo       <philippe@squirrelmail.org>    http://mingo.ath.cx
+   Seth E. Randall      <sethr@missoulafcu.org>
+   Thijs Kinkhorst      <kink@squirrelmail.org>        http://thijs.kinkhorst.nl
+   Tomas Kuliavas       <tokul@users.sourceforge.net>  http://www.topolis.lt
 
  Past Developers, now retired:
  -----------------------------
@@ -64,7 +64,7 @@ THE SQUIRRELMAIL TEAM
    Hebrew        Yoav Bagno <yoavb at zavit.net.il>
    Hungarian     István-Attila András <bergkatten at netscape.net>
                  KADI Gergo <gergo at kapu.hu>
-            	 Zoltan Levardy <zoltan at levardy.org>
+                 Zoltan Levardy <zoltan at levardy.org>
    Icelandic     Karl Heiðar <karlh at macho.is>
                  Hordur Mar Gestsson <zbot at kuntnet.org>
    Indonesian    Arief S Fitrianto <arief at fisika.ui.ac.id>
@@ -97,13 +97,13 @@ THE SQUIRRELMAIL TEAM
    Thai          Nartpong Ampornaramweth <yongnarak at yahoo.com>  
    Turkish       Kerem Erkan <kerem.erkan at basari.com.tr>
    Uighur        Mamatjan Tursun <oghri at 163.com>
-   Ukrainian 	 Oleg Baranovsky <oleg at uazone.net>
+   Ukrainian     Oleg Baranovsky <oleg at uazone.net>
      (Ukrainian is not supported unless someone updates translation. 
      translation is not in Ukrainian)
    Vietnamese    Le Viet Hung <heros at hcm.fpt.vn>
      (Vietnamese is not supported unless someone updates translation. 
      translation is not in Vietnamese)
-   Welsh	 Andrew Rawlins <awr at aber.ac.uk> 
+   Welsh         Andrew Rawlins <awr at aber.ac.uk> 
 
  Significant Contributions:
  --------------------------
