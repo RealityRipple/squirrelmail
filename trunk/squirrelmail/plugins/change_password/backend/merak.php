@@ -31,7 +31,7 @@ if ( isset($cpw_merak) && is_array($cpw_merak) && !empty($cpw_merak) ) {
 global $squirrelmail_plugin_hooks;
 $squirrelmail_plugin_hooks['change_password_dochange']['merak'] =
    'cpw_merak_dochange';
-$squirrelmail_plugin_hooks['change_password_init']['merak'] = 
+$squirrelmail_plugin_hooks['change_password_init']['merak'] =
    'cpw_merak_init';
 
 /**
