@@ -462,7 +462,7 @@ foreach ( $newcfg as $k => $v ) {
             break;
         case SMOPT_TYPE_PATH:
             if (  sqgetGlobalVar($e, $new_v, SQ_POST) ) {
-                // FIXME: fix use of $data_dir in $attachment_dir 
+                // FIXME: fix use of $data_dir in $attachment_dir
                 $v = change_to_sm_path($new_v);
                 $newcfg[$k] = $v;
             }

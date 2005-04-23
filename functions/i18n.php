@@ -104,7 +104,7 @@ function sq_setlocale($category,$locale) {
  *
  * @param string $charset
  * @param string $string Text to be decoded
- * @param boolean $force_decode converts string to html without $charset!=$default_charset check. 
+ * @param boolean $force_decode converts string to html without $charset!=$default_charset check.
  * Argument is available since 1.5.1 and 1.4.5.
  * @return string decoded string
  */
@@ -294,15 +294,15 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
      * If function is asked to detect preferred language
      *  OR squirrelmail default language is set to empty string
      *    AND
-     * squirrelmail language ($sm_language) is empty string 
+     * squirrelmail language ($sm_language) is empty string
      * (not set in user's prefs and no cookie with language info)
      *    AND
      * browser provides list of preferred languages
      *  THEN
      * get preferred language from HTTP_ACCEPT_LANGUAGE header
      */
-    if (($do_search || empty($squirrelmail_default_language)) && 
-        ! $sm_language && 
+    if (($do_search || empty($squirrelmail_default_language)) &&
+        ! $sm_language &&
         isset($accept_lang)) {
         // TODO: use more than one language, if first language is not available
         // FIXME: function assumes that string contains two or more characters.
@@ -317,7 +317,7 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
      *  THEN
      * use default squirrelmail language value from configuration.
      */
-    if ((!$sm_language||$default) && 
+    if ((!$sm_language||$default) &&
         ! empty($squirrelmail_default_language)) {
         $squirrelmail_language = $squirrelmail_default_language;
         $sm_language = $squirrelmail_default_language;
@@ -441,18 +441,18 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
         /**
          * mbstring.func_overload fix (#929644).
          *
-         * php mbstring extension can replace standard string functions with their multibyte 
+         * php mbstring extension can replace standard string functions with their multibyte
          * equivalents. See http://www.php.net/ref.mbstring#mbstring.overload.
          *
          * Some SquirrelMail functions work with 8bit strings in bytes. If interface is forced
          * to use mbstring functions and mbstring internal encoding is set to multibyte charset,
-         * interface can't trust regular string functions. Due to mbstring overloading design 
+         * interface can't trust regular string functions. Due to mbstring overloading design
          * limits php scripts can't control this setting.
          *
          * This hack should fix some issues related to 8bit strings in passwords. Correct fix is
          * to disable mbstring overloading. Japanese translation uses different internal encoding.
          */
-        if ($squirrelmail_language != 'ja_JP' && 
+        if ($squirrelmail_language != 'ja_JP' &&
             function_exists('mb_internal_encoding') &&
             check_php_version(4,2,0) &&
             (int)ini_get('mbstring.func_overload')!=0) {

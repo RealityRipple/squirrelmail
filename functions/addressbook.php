@@ -27,7 +27,7 @@ global $addrbook_dsn, $addrbook_global_dsn;
 
 /**
  * Create and initialize an addressbook object.
- * @param boolean $showerr display any address book init errors. html page header 
+ * @param boolean $showerr display any address book init errors. html page header
  * must be created before calling addressbook_init() with $showerr enabled.
  * @param boolean $onlylocal enable only local address book backends
  * @return object address book object.
@@ -73,7 +73,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
     }
 
     /* Global file based addressbook */
-    if (isset($abook_global_file) && 
+    if (isset($abook_global_file) &&
         isset($abook_global_file_writeable) &&
         isset($abook_global_file_listing) &&
         trim($abook_global_file)!=''){
@@ -81,7 +81,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
         // Detect place of address book
         if (! preg_match("/[\/\\\]/",$abook_global_file)) {
             /* no path chars, address book stored in data directory
-             * make sure that there is a slash between data directory 
+             * make sure that there is a slash between data directory
              * and address book file name
              */
             $abook_global_filename=$data_dir

@@ -177,9 +177,9 @@ function mail_fetch_login() {
                 while (list($lineNum, $line) = each ($MessArray)) {
                     $Message .= $line;
                 }
-                
+
                 // check if mail folder is not null and subscribed (There is possible issue with /noselect mail folders)
-                if ($mailfetch_subfolder=='' || 
+                if ($mailfetch_subfolder=='' ||
                     ! mail_fetch_check_folder($imap_stream,$mailfetch_subfolder)) {
                     fputs($imap_stream, "A3$i APPEND INBOX {" . strlen($Message) . "}\r\n");
                 } else {

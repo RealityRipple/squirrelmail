@@ -118,7 +118,7 @@ function mail_fetch_check_folder($imap_stream,$imap_folder) {
 
 /**
  * Checks if folder is noselect (can't store messages)
- * 
+ *
  * Function does not check if folder subscribed.
  * @param stream $imap_stream imap connection resource
  * @param string $imap_folder imap folder name

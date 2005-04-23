@@ -9,7 +9,7 @@
  */
 
 /**
- * define SM_PATH 
+ * define SM_PATH
  * @ignore
  */
 define('SM_PATH','../../');
@@ -25,7 +25,7 @@ global $data_dir;
 $media = getPref($data_dir,$username,'newmail_media', '(none)');
 // get other prefs
 $newmail_userfile_type=getPref($data_dir,$username,'newmail_userfile_type',false);
-    
+
 $newmail_userfile_location=getHashedFile($username, $data_dir, $username . '.sound');
 
 if ($newmail_userfile_type!=false && file_exists($newmail_userfile_location)) {

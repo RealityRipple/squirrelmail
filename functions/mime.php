@@ -315,7 +315,7 @@ function translateText(&$body, $wrap_at, $charset) {
  * be displayed as the actual message in the HTML. It contains
  * everything needed, including HTML Tags, Attachments at the
  * bottom, etc.
- * 
+ *
  * Since 1.2.0 function uses message_body hook.
  * Till 1.3.0 function included output of formatAttachments().
  *
@@ -387,12 +387,12 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
                 /**
                  * If we don't add html message between iframe tags,
                  * we must detect unsafe images and modify $has_unsafe_images.
-                 */                
+                 */
                 $html_body =  magicHTML($body, $id, $message, $mailbox);
 
                 // creating iframe url
                 $iframeurl=sqm_baseuri().'src/view_html.php?'
-                    . 'mailbox=' . $urlmailbox 
+                    . 'mailbox=' . $urlmailbox
                     . '&amp;passed_id=' . $id
                     . '&amp;ent_id=' . $ent_num
                     . '&amp;view_unsafe_images=' . (int) $view_unsafe_images;
@@ -401,9 +401,9 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
                 $body = html_tag('div',_("Viewing HTML formatted email"),'center');
 
                 /**
-                 * height can't be set to 100%, because it does not work as expected when 
-                 * iframe is inside the table. Browsers do not create full height objects 
-                 * even when iframe is not nested. Maybe there is some way to get full size 
+                 * height can't be set to 100%, because it does not work as expected when
+                 * iframe is inside the table. Browsers do not create full height objects
+                 * even when iframe is not nested. Maybe there is some way to get full size
                  * with CSS. Tested in firefox 1.02 and opera 7.53
                  *
                  * width="100%" does not work as expected, when table width is not set (automatic)
@@ -415,9 +415,9 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
                     .' frameborder="1" marginwidth="0" marginheight="0" scrolling="auto">' . "\n";
 
                 // Message for browsers without iframe support
-                //$body.= _("Your browser does not support inline frames. 
+                //$body.= _("Your browser does not support inline frames.
                 // You can view HTML formated message by following below link.");
-                //$body.= "<br /><a href=\"$iframeurl\">"._("View HTML Message")."</a>"; 
+                //$body.= "<br /><a href=\"$iframeurl\">"._("View HTML Message")."</a>";
 
                 // if browser can't render iframe, it renders html message.
                 $body.= $html_body;
@@ -426,7 +426,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
                 $body.="</iframe></div>\n";
             } else {
                 // old way of html rendering
-                $body = magicHTML($body, $id, $message, $mailbox);   
+                $body = magicHTML($body, $id, $message, $mailbox);
             }
         } else {
             translateText($body, $wrap_at,
@@ -472,7 +472,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
  * Since 1.0.2 uses attachment $type0/$type1 hook.
  * Since 1.2.5 uses attachment $type0/* hook.
  * Since 1.5.0 uses attachments_bottom hook.
- * 
+ *
  * @param object $message SquirrelMail message object
  * @param array $exclude_id message parts that are not attachments.
  * @param string $mailbox mailbox name
@@ -568,9 +568,9 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
             } else {
                 $attachments .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
             }
-            $attachments .= '<a href="' . $val['href'] . '">' 
-                . (isset($val['text']) && !empty($val['text']) ? $val['text'] : '') 
-                . (isset($val['extra']) && !empty($val['extra']) ? $val['extra'] : '') 
+            $attachments .= '<a href="' . $val['href'] . '">'
+                . (isset($val['text']) && !empty($val['text']) ? $val['text'] : '')
+                . (isset($val['extra']) && !empty($val['extra']) ? $val['extra'] : '')
                 . '</a>';
         }
         unset($links);
@@ -1654,7 +1654,7 @@ function sq_cid2http($message, $id, $cidurl, $mailbox){
             }
         }
     }
- 
+
     if (!empty($linkurl)) {
         $httpurl = $quotchar . SM_PATH . 'src/download.php?absolute_dl=true&amp;' .
                    "passed_id=$id&amp;mailbox=" . urlencode($mailbox) .
@@ -1666,7 +1666,7 @@ function sq_cid2http($message, $id, $cidurl, $mailbox){
          */
         $httpurl = $quotchar . SM_PATH . 'images/blank.png';
     }
- 
+
     return $httpurl;
 }
 
@@ -2073,14 +2073,14 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
         if ((preg_match_all($MailTo_PReg_Match, $trusted, $regs)) && ($regs[0][0] != '')) {
             foreach ($regs[0] as $i => $mailto_before) {
                 $mailto_params = $regs[10][$i];
-     
+
                 // get rid of any tailing quote since we have to add send_to to the end
                 //
                 if (substr($mailto_before, strlen($mailto_before) - 1) == '"')
                     $mailto_before = substr($mailto_before, 0, strlen($mailto_before) - 1);
                 if (substr($mailto_params, strlen($mailto_params) - 1) == '"')
                     $mailto_params = substr($mailto_params, 0, strlen($mailto_params) - 1);
-    
+
                 if ($regs[1][$i]) {    //if there is an email addr before '?', we need to merge it with the params
                     $to = 'to=' . $regs[1][$i];
                     if (strpos($mailto_params, 'to=') > -1)    //already a 'to='
@@ -2092,9 +2092,9 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
                             $mailto_params .= '?' . $to;
                     }
                 }
-    
+
                 $url_str = preg_replace(array('/to=/i', '/(?<!b)cc=/i', '/bcc=/i'), array('send_to=', 'send_to_cc=', 'send_to_bcc='), $mailto_params);
-    
+
                 // we'll already have target=_blank, no need to allow comp_in_new
                 // here (which would be a lot more work anyway)
                 //
@@ -2103,7 +2103,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
                 $compose_new_win = 0;
                 $comp_uri = makeComposeLink('src/compose.php' . $url_str, $mailto_before);
                 $compose_new_win = $temp_comp_in_new;
-    
+
                 // remove <a href=" and anything after the next quote (we only
                 // need the uri, not the link HTML) in compose uri
                 //

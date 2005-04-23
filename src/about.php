@@ -56,7 +56,7 @@ echo "<br />\n<br />\n";
 echo sprintf(_("SquirrelMail is a feature rich, standards compliant webmail application written in PHP. It was made by a group of volunteers united in the SquirrelMail Project Team and is released as open source, free software under the %sGNU General Public License%s."),'<a href="http://www.gnu.org/copyleft/gpl.html" target="_blank">','</a>');
 
 // add space between two sentences.
-// Don't want to join two sprintf strings. 
+// Don't want to join two sprintf strings.
 echo ' ';
 
 // i18n: %s tags are used in order to remove html URL attributes from translation

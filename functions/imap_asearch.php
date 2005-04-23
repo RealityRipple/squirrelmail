@@ -176,7 +176,7 @@ function asearch_unhtmlentities($string) {
  * @global bool imap_asearch_debug_dump
  * @param string $var_name
  * @param string $var_var
- * @deprecated contains workarounds for 1.4.0 and older code. 
+ * @deprecated contains workarounds for 1.4.0 and older code.
  *   code without workarounds uses regular sm 1.4.2+ functions.
  *   it is not compatible with 1.4.1
  * @todo remove debugging function

@@ -60,7 +60,7 @@ function br_show_plugins() {
             }
         }
         // compatibility plugin can be used without need to enable it in sm config
-        if (file_exists(SM_PATH . 'plugins/compatibility/setup.php') 
+        if (file_exists(SM_PATH . 'plugins/compatibility/setup.php')
             && ! in_array('compatibility',$plugins)) {
             $str.= '    * compatibility';
             include_once(SM_PATH . 'plugins/compatibility/setup.php');

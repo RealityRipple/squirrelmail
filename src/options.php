@@ -367,7 +367,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
         'desc' => _("The order of the message index can be rearranged and changed to contain the headers in any order you want."),
         'js'   => false
     );
-    
+
     /* Build a section for Compose Options. */
     $optpage_blocks[] = array(
         'name' => _("Compose Preferences"),

@@ -193,8 +193,8 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                     }
                 } else {
                     /**
-                     * $editaddr is set, but $sel (address selection in address listing) 
-                     * and $doedit (address edit form) are not set. 
+                     * $editaddr is set, but $sel (address selection in address listing)
+                     * and $doedit (address edit form) are not set.
                      * Assume that user clicked on "Edit address" without selecting any address.
                      */
                     $formerror = _("Please select address that you want to edit");

@@ -421,7 +421,7 @@ function newmail_media_objects($object,$types,$path,$args=array(),$extra='',$add
 
     if (isset($newmail_mediacompat_mode) && $newmail_mediacompat_mode)
         $ret.= newmail_media_embed($object,$types[0],$path,$args,$addsuffix);
-    // add $extra code inside objects 
+    // add $extra code inside objects
     if ($extra!='')
         $ret.=$extra . "\n";
 
@@ -552,7 +552,7 @@ function newmail_media_object_ie($object,$type,$path,$args=array(),$addsuffix) {
 
 /**
  * Creates embed tags of multimedia object
- *        
+ *
  * docs about embed
  * Apple: http://www.apple.com/quicktime/authoring/embed.html
  *
@@ -597,7 +597,7 @@ function newmail_media_embed($object,$type,$path,$args=array(),$addsuffix=true) 
     case SM_NEWMAIL_FILETYPE_MP3:
     case SM_NEWMAIL_FILETYPE_SVG:
     default:
-        $ret_embed='';    
+        $ret_embed='';
     }
     return $ret_embed;
 }
@@ -605,7 +605,7 @@ function newmail_media_embed($object,$type,$path,$args=array(),$addsuffix=true) 
 /**
  * Adds closing tags for ie object
  * Warning:
- * * This is internal function, use newmail_media_objects() instead 
+ * * This is internal function, use newmail_media_objects() instead
  * @param integer $type media object type
  * @return string closing tag of media object
  */
@@ -620,7 +620,7 @@ function newmail_media_object_ie_close($type) {
     case SM_NEWMAIL_FILETYPE_OGG:
     case SM_NEWMAIL_FILETYPE_SVG:
     default:
-        $ret_end='';    
+        $ret_end='';
     }
     return $ret_end;
 }
@@ -628,7 +628,7 @@ function newmail_media_object_ie_close($type) {
 /**
  * Adds closing tags for object
  * Warning:
- * * This is internal function, use newmail_media_objects() instead 
+ * * This is internal function, use newmail_media_objects() instead
  * @param integer $type media object type
  * @return string closing tag of media object
  */
@@ -643,7 +643,7 @@ function newmail_media_object_close($type) {
         $ret_end="</object>\n";
         break;
     default:
-        $ret_end='';    
+        $ret_end='';
     }
     return $ret_end;
 }
@@ -651,7 +651,7 @@ function newmail_media_object_close($type) {
 /**
  * Adds closing tags for object
  * Warning:
- * * This is internal function, use newmail_media_objects() instead 
+ * * This is internal function, use newmail_media_objects() instead
  * @param integer $type media object type
  * @return string closing tag of media object
  */
@@ -666,7 +666,7 @@ function newmail_media_embed_close($type) {
     case SM_NEWMAIL_FILETYPE_MP3:
     case SM_NEWMAIL_FILETYPE_SVG:
     default:
-        $ret_end='';    
+        $ret_end='';
     }
     return $ret_end;
 }
@@ -675,14 +675,14 @@ function newmail_media_embed_close($type) {
  * Converts media attributes to string
  * Warning:
  * * attribute values are automatically sanitized by htmlspecialchars()
- * * This is internal function, use newmail_media_objects() instead 
+ * * This is internal function, use newmail_media_objects() instead
  * @param array $args array with object attributes
  * @return string string with object attributes
  */
 function newmail_media_prepare_args($args) {
     $ret_args='';
     foreach ($args as $arg => $value) {
-        $ret_args.= $arg . '="' . htmlspecialchars($value) . '" '; 
+        $ret_args.= $arg . '="' . htmlspecialchars($value) . '" ';
     }
     return $ret_args;
 }

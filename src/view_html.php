@@ -4,14 +4,14 @@
  * Displays html message parts
  *
  * File is used to display html message parts. Usually inside iframe.
- * It should be called with passed_id, ent_id and mailbox options in 
- * GET request. passed_ent_id and view_unsafe_images options are 
- * optional. User must be authenticated ($key in cookie. $username and 
+ * It should be called with passed_id, ent_id and mailbox options in
+ * GET request. passed_ent_id and view_unsafe_images options are
+ * optional. User must be authenticated ($key in cookie. $username and
  * $onetimepad in session).
- * 
+ *
  * Copyright (c) 1999-2005 The SquirrelMail Project Team
  * This file is part of SquirrelMail webmail interface.
- * 
+ *
  * SquirrelMail is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
