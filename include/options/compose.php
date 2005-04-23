@@ -38,7 +38,7 @@ function load_optpage_data_compose() {
     /******************************************************/
     /* LOAD EACH GROUP OF OPTIONS INTO THE OPTIONS ARRAY. */
     /******************************************************/
-    
+
     /*** Load the General Compose Options into the array ***/
     $optgrps[SMOPT_GRP_COMPOSE] = _("General Message Composition");
     $optvals[SMOPT_GRP_COMPOSE] = array();
@@ -78,8 +78,8 @@ function load_optpage_data_compose() {
         'posvals' => array('1' => _("Javascript"),
                            '0' => _("HTML"))
     );
-    
-    
+
+
     $optvals[SMOPT_GRP_COMPOSE][] = array(
         'name'    => 'compose_new_win',
         'caption' => _("Compose Messages in New Window"),
@@ -103,11 +103,11 @@ function load_optpage_data_compose() {
         'size'    => SMOPT_SIZE_TINY
     );
 
-    
+
     /*** Load the General Options into the array ***/
     $optgrps[SMOPT_GRP_COMPOSE_REPLY] = _("Replying and Forwarding Messages");
     $optvals[SMOPT_GRP_COMPOSE_REPLY] = array();
-    
+
     $optvals[SMOPT_GRP_COMPOSE_REPLY][] = array(
         'name'    => 'forward_cc',
         'caption' => _("Include CCs when Forwarding Messages"),
@@ -121,7 +121,7 @@ function load_optpage_data_compose() {
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );
-    
+
     $optvals[SMOPT_GRP_COMPOSE_REPLY][] = array(
         'name'    => 'sig_first',
         'caption' => _("Append Signature before Reply/Forward Text"),
