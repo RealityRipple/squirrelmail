@@ -109,3 +109,5 @@ function cpw_do_change()
     header('Location: '.SM_PATH. 'src/options.php?optmode=submit&optpage=change_password&plugin_change_password=1');
     exit;
 }
+
+?>

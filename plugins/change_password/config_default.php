@@ -20,3 +20,4 @@ $cpw_pass_max_length = 25;
 /** whether we require the use of SSL/https to change a password */
 $cpw_require_ssl = FALSE;
 
+?>
