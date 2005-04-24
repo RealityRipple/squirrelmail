@@ -17,8 +17,7 @@
 define('SM_PATH','../../');
 
 require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/imap.php');
-require_once(SM_PATH . 'include/load_prefs.php');
+include_once(SM_PATH . 'functions/imap.php');
 
 /* globals */
 sqgetGlobalVar('username',   $username,   SQ_SESSION);
@@ -390,5 +389,5 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
         'center', '', 'width="70%"' );
     }
 
-    ?>
+?>
 </body></html>
