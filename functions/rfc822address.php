@@ -46,8 +46,8 @@ function parseRFC822Address($sAddress,$iLimit = 0) {
         case ';':
             if ($sGroup) {
                 $aAddress[] = _createAddressElement($aStack,$aComment,$sEmail);
-                $oAddr = end($aAddress);
-                if(!$oAddr || ((isset($oAddr)) && !$oAddr->mailbox && !$oAddr->personal)) {
+                $aAddr = end($aAddress);
+                if(!$aAddr || ((isset($aAddr)) && !$aAddr[SQM_ADDR_MAILBOX] && !$aAddr[SQM_ADDR_PERSONAL])) {
                     $sEmail = $sGroup . ':;';
                 }
                 $aAddress[] = _createAddressElement($aStack,$aComment,$sEmail);
