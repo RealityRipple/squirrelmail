@@ -17,7 +17,8 @@
  * load required libraries
  */
 include_once(SM_PATH . 'include/validate.php');
-global $body;
+include_once(SM_PATH . 'functions/imap.php');
+global $body, $username;
 
 
 /**
@@ -111,23 +112,18 @@ if (isset($ldap_server) && $ldap_server[0] && ! extension_loaded('ldap')) {
 
 $body = "\nMy IMAP server information:\n" .
             "  Server type:  $imap_server_type\n";
-$imap_stream = fsockopen ($imapServerAddress, $imapPort, $error_number, $error_string);
-$server_info = fgets ($imap_stream, 1024);
+
+$imapServerAddress = sqimap_get_user_server($imapServerAddress, $username);
+$imap_stream = sqimap_create_stream($imapServerAddress, $imapPort, $use_imap_tls);
 if ($imap_stream) {
-    // SUPRESS HOST NAME
-    $list = explode(' ', $server_info);
-    $list[2] = '[HIDDEN]';
-    $server_info = implode(' ', $list);
-    $body .=  "  Server info:  $server_info";
-    fputs ($imap_stream, "a001 CAPABILITY\r\n");
-    $read = fgets($imap_stream, 1024);
-    $list = explode(' ', $read);
-    array_shift($list);
-    array_shift($list);
-    $read = implode(' ', $list);
-    $body .= "  Capabilities:  $read";
-    fputs ($imap_stream, "a002 LOGOUT\r\n");
-    fclose($imap_stream);
+    $body.= '  Capabilities: ';
+    if ($imap_capabilities = sqimap_capability($imap_stream)) {
+        foreach ($imap_capabilities as $capability => $value) {
+            $body.= $capability . (is_bool($value) ? ' ' : "=$value ");
+        }
+    }
+    $body.="\n";
+    sqimap_logout($imap_stream);
 } else {
     $body .= "  Unable to connect to IMAP server to get information.\n";
     $warning = 1;
