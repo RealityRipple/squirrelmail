@@ -1,0 +1,65 @@
+    ******************************
+    * Change Password plugin API *
+    ******************************
+
+Document should explain how to create change_password plugin backends and 
+provide details about plugin structure.
+
+Plugin uses standard SquirrelMail plugin architecture and implements backends
+with two hooks.
+
+change_password_init hook
+-------------------------
+change_password_init hook is used to execute some code before displaying 
+change password form. Plugin can use this hook to check if install has all 
+required components, or to check if backend is configured correctly, or 
+display some messages to end user. Maybe some background information about 
+password security and how to choose good password. If backend detects some 
+configuration errors that make backend unusable, it can stop execution of the 
+script with PHP exit() call.
+
+change_password_dochange hook
+-----------------------------
+change_password_dochange hook is used when user submits old and new passwords. 
+Plugin checks if old password matches current session password and checks new 
+password satisfies requirements set in plugin's configuration. All data is 
+provided in array submitted via hook. 'username' key contains user's login 
+name, 'curpw' contains current session password, 'newpw' contains new password.
+Function that is attached to plugin should return empty array or array filled 
+with error messages. If array is empty - plugin assumes that password was 
+changed and updates current session password.
+
+common strings
+--------------
+Backends can use constants for some error messages. CPW_CURRENT_NOMATCH 
+constant sets 'Your current password is not correct.' error. CPW_INVALID_PW 
+constant sets 'Your new password contains invalid characters.' error.
+
+Recommendations
+---------------
+Backend should check, if current password matches stored password. 
+Internal plugin functions only check if password matches the one that 
+was used to login into SquirrelMail. Password is validated against IMAP 
+server and not against used backend.
+
+Backend should store only default configuration variables that don't 
+have any information specific to developer's server or these variables
+should be set to sane default values.
+
+Backend's configuration should be controlled with configuration overrides
+that are set config.php. It is recommended to use array with
+configuration overrides and make sure that array is set to empty value 
+before loading plugin's configuration file.
+
+Backend should not use generic function names. It is recommended to use 
+'cpw_' prefix.
+
+If backend must load other SquirrelMail functions, it must use SM_PATH 
+constant in include_once() calls and make sure that SM_PATH is defined
+in any case when backend file is loaded. In most cases constant is 
+already defined, but some unusual use of php files might cause php 
+warnings, if constant is used inside backend functions and not defined 
+in backend file.
+
+Overrides used by backend and backend requirements must be documented 
+in README file.
