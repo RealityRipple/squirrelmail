@@ -703,7 +703,7 @@ class Message {
                 }
             } else { /* Treat as multipart/mixed */
                 foreach ($this->entities as $ent) {
-                    if((strtolower($ent->header->disposition->name) != 'attachment') &&
+                    if(!(is_object($ent->header->disposition) && strtolower($ent->header->disposition->name) == 'attachment') &&
                 (!isset($ent->header->parameters['filename'])) &&
                 (!isset($ent->header->parameters['name'])) &&
                        (($ent->type0 != 'message') && ($ent->type1 != 'rfc822'))) {
@@ -718,9 +718,10 @@ class Message {
             foreach ($alt_order as $alt) {
                 if( ($alt == $type) && isset($this->entity_id) ) {
                     if ((count($this->entities) == 0) &&
-                (!isset($ent->header->parameters['filename'])) &&
-                (!isset($ent->header->parameters['name'])) &&
-                        (strtolower($this->header->disposition->name) != 'attachment')) {
+                (!isset($this->header->parameters['filename'])) &&
+                (!isset($this->header->parameters['name'])) &&
+                isset($this->header->disposition) && is_object($this->header->disposition) &&
+                        !(is_object($this->header->disposition) && strtolower($this->header->disposition->name) == 'attachment')) {
                         $entity[] = $this->entity_id;
                         $found = true;
                     }
@@ -729,7 +730,7 @@ class Message {
         }
         if(!$found) {
             foreach ($this->entities as $ent) {
-                if((strtolower($ent->header->disposition->name) != 'attachment') &&
+                if(!(is_object($ent->header->disposition) && strtolower($ent->header->disposition->name) == 'attachment') &&
                    (($ent->type0 != 'message') && ($ent->type1 != 'rfc822'))) {
                     $entity = $ent->findDisplayEntity($entity, $alt_order, $strict);
                     $found = true;
@@ -741,7 +742,7 @@ class Message {
                 in_array($this->type1, array('plain', 'html', 'message')) &&
                 isset($this->entity_id)) {
                 if (count($this->entities) == 0) {
-                    if (strtolower($this->header->disposition->name) != 'attachment') {
+                    if (!is_object($this->header->disposition) || strtolower($this->header->disposition->name) != 'attachment') {
                         $entity[] = $this->entity_id;
                     }
                 }
