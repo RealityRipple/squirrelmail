@@ -142,6 +142,8 @@ function find_mailbox_name($line) {
 
 /**
  * Detects if mailbox has noselect flag (can't store messages)
+ * In versions older than 1.4.5 function checks only LSUB responses 
+ * and can produce pcre warnings. 
  * @param string $lsub_line mailbox line from untagged LIST or LSUB response
  * @return bool whether this is a Noselect mailbox.
  * @since 1.3.2
