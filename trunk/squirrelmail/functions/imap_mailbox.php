@@ -142,8 +142,8 @@ function find_mailbox_name($line) {
 
 /**
  * Detects if mailbox has noselect flag (can't store messages)
- * In versions older than 1.4.5 function checks only LSUB responses 
- * and can produce pcre warnings. 
+ * In versions older than 1.4.5 function checks only LSUB responses
+ * and can produce pcre warnings.
  * @param string $lsub_line mailbox line from untagged LIST or LSUB response
  * @return bool whether this is a Noselect mailbox.
  * @since 1.3.2
@@ -1049,46 +1049,15 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
             $mailbox = $mbx_ary[$i]['mbx'];
 
             /*
-                sent subfolders messes up using existing code as subfolders
-                were marked, but the parents were ordered somewhere else in
-                the list, despite having "special folders at top" option set.
-                Need a better method than this.
-            */
-/*
-            if ($mailbox == 'INBOX') {
-                $mbx->is_special = true;
-            } elseif (stristr($trash_folder , $mailbox)) {
-                $mbx->is_special = true;
-            } elseif (stristr($sent_folder , $mailbox)) {
-                $mbx->is_special = true;
-            } elseif (stristr($draft_folder , $mailbox)) {
-                $mbx->is_special = true;
-            }
-
-            switch ($mailbox) {
-                case 'INBOX':
-                    $mbx->is_inbox = true;
-                    $mbx->is_special = true;
-                    $mbx_ary[$i]['noselect'] = false;
-                    break;
-                case $trash_folder:
-                    $mbx->is_trash = true;
-                    $mbx->is_special = true;
-                    break;
-                case $sent_folder:
-                    $mbx->is_sent = true;
-                    $mbx->is_special = true;
-                    break;
-                case $draft_folder:
-                    $mbx->is_draft = true;
-                    $mbx->is_special = true;
-                    break;
-            }
-*/
+             * Set the is_special flag if it concerned a special mailbox.
+             * Used for displaying the special folders on top in the mailbox
+             * tree displaying code.
+             */
             $mbx->is_special |= ($mbx->is_inbox = (strtoupper($mailbox) == 'INBOX'));
             $mbx->is_special |= ($mbx->is_trash = isTrashMailbox($mailbox));
             $mbx->is_special |= ($mbx->is_sent = isSentMailbox($mailbox));
             $mbx->is_special |= ($mbx->is_draft = isDraftMailbox($mailbox));
+
             if (!$mbx->is_special)
                 $mbx->is_special = boolean_hook_function('special_mailbox', $mailbox, 1);
 
