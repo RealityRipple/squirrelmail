@@ -23,7 +23,7 @@ global $mail_fetch_allow_unsubscribed;
 /**
  * Controls use of unsubscribed folders in plugin
  * @global boolean $mail_fetch_allow_unsubscribed
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.5
  */
 $mail_fetch_allow_unsubscribed = false;
 
@@ -94,7 +94,7 @@ function decrypt( $txt ) {
  * @param stream $imap_stream imap connection resource
  * @param string $imap_folder imap folder name
  * @return boolean true, when folder can be used to store messages.
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.5
  */
 function mail_fetch_check_folder($imap_stream,$imap_folder) {
     global $mail_fetch_allow_unsubscribed;
@@ -123,7 +123,7 @@ function mail_fetch_check_folder($imap_stream,$imap_folder) {
  * @param stream $imap_stream imap connection resource
  * @param string $imap_folder imap folder name
  * @return boolean true, when folder has noselect flag. false in any other case.
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.5
  */
 function mail_fetch_check_noselect($imap_stream,$imap_folder) {
     $boxes=sqimap_mailbox_list($imap_stream);
