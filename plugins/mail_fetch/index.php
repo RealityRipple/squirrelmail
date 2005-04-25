@@ -1,5 +1,4 @@
 <?php
-
 /**
  * index.php -- Displays the main frameset
  *
@@ -13,7 +12,7 @@
  * @subpackage mail_fetch
  **/
 
-header("Location:../../src/login.php\n\n");
+header("Location:../index.php\n\n");
 exit();
 
 ?>

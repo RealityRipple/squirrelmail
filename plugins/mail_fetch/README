@@ -88,14 +88,10 @@ Installation
 
 Go back to the main directory, run configure and add the plugin.
 
+Some plugin settings can be adjusted in config/mail_fetch_config.php or
+plugins/mail_fetch/config.php files. 
 
-Translations
-============
-Translation is made in the same manner as SquirrelMail's core.
-You need to take <plugin_name>.po file, fill the template, store it
-in the appropriate locale folder under the plugin and compile the po
-file. Better than this fill the po file and send it back to the author.
-The translation will be included in the next release of the plugin.
+See plugins/mail_fetch/config_sample.php
 
 
 Note for mod_gzip users
