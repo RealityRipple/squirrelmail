@@ -9,6 +9,7 @@ Table of Contents:
   4.  (RUN)      Running SquirrelMail
   5.  (CHARSETS) Russian Charsets
   6.  (LOCALES)  Translations of SquirrelMail
+  7.  (PLUGINS)  Installation of included plugins
 
 
 0. QUICK INSTALL GUIDE
@@ -203,3 +204,22 @@ c. Setting up SquirrelMail
 
   NOTE No.2: You might need to restart your webserver before using translations.
   If you can't do that, install your translations _before_ you use SquirrelMail.
+
+7. PLUGINS
+----------
+
+  SquirrelMail package includes some standard plugins. These plugins can be 
+  enabled in SquirrelMail configuration script.
+
+  Included plugins can use additional configuration files:
+  * change_password
+    configuration file is required. Without it plugin defaults to invalid
+    backend. See plugins/change_password/README
+  * filters, fortune, mail_fetch, newmail, translate
+    configuration files are optional. See README files in plugin directories.
+  * squirrelspell
+    configuration is stored in plugins/squirrelspell/sqspell_config.php
+    Default configuration might not work on your server.
+  * administrator
+    plugin must be setup correctly in order to detect administrative user. 
+    See plugins/administrator/INSTALL
