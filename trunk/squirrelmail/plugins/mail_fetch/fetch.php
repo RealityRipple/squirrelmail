@@ -1,5 +1,4 @@
 <?php
-
 /**
  * mail_fetch/fetch.php
  *

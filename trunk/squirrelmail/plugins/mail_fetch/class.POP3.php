@@ -1,5 +1,4 @@
 <?php
-
 /**
  * mail_fetch/class.POP3.php
  *
@@ -20,7 +19,8 @@
 
 /**
  * This is the POP3 class - DOCUMENT ME
- * @package squirrelmail
+ * @package plugins
+ * @subpackage mail_fetch
  */
 class POP3 {
     var $ERROR      = '';       //  Error string.
