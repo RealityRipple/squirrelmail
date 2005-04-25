@@ -334,6 +334,8 @@ Version 1.5.1 -- CVS
   - Moved delete button to the right in the message list.
   - Fixed imap capability detection in bug_report plugin. It was broken
     when IMAP TLS was enabled or imap server mapping was used.
+  - Added mail_fetch plugin configuration file and moved plugin functions
+    from setup.php to functions.php file.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
