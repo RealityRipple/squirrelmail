@@ -6,15 +6,18 @@
  * Copyright (c) 2003-2005 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * This contains functions needed to handle mime messages.
+ * This file contains class needed to handle SMIME mime messages.
  *
+ * @link http://www.ietf.org/html.charters/smime-charter.html
  * @version $Id$
  * @package squirrelmail
+ * @since 1.3.2
  */
 
 /**
- * Incomplete class, undocumented.
+ * Unimplemented class.
  * @package squirrelmail
+ * @todo implement smime parsing
  */
 class SMimeMessage {
 
