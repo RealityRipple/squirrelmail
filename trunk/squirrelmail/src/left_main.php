@@ -726,6 +726,9 @@ echo '<div style="white-space: nowrap;"><small>[<a href="../src/left_main.php" t
      _("Check mail") . "</a>]</small></div></center><br />\n\n";
 
 /* Lastly, display the folder list. */
+echo "<center><table><tr><td>\n";
+
+
 if ( $collapse_folders ) {
     /* If directed, collapse or uncollapse a folder. */
     if (isset($fold)) {
@@ -769,6 +772,8 @@ if (isset($advanced_tree) && $advanced_tree) {
 } else {
     ListBoxes($boxes);
 }
+
+echo "</td></tr></table></center>\n";
 
 do_hook('left_main_after');
 sqimap_logout($imapConnection);
