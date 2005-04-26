@@ -156,7 +156,7 @@ $timezone = getPref($data_dir, $username, 'timezone', SMPREF_NONE );
 /* Load preferences for reply citation style. */
 
 $reply_citation_style =
-    getPref($data_dir, $username, 'reply_citation_style', SMPREF_NONE );
+    getPref($data_dir, $username, 'reply_citation_style', 'date_time_author' );
 $reply_citation_start = getPref($data_dir, $username, 'reply_citation_start');
 $reply_citation_end = getPref($data_dir, $username, 'reply_citation_end');
 
