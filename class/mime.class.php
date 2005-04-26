@@ -12,6 +12,9 @@
  * @package squirrelmail
  */
 
+/** @ignore */
+if (! defined('SM_PATH')) define('SM_PATH','../');
+
 /** Load in the entire MIME system */
 require_once(SM_PATH . 'class/mime/Rfc822Header.class.php');
 require_once(SM_PATH . 'class/mime/MessageHeader.class.php');
