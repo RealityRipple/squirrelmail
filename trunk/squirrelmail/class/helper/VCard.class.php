@@ -12,24 +12,33 @@
  *
  * @version $Id$
  * @package squirrelmail
+ * @since 1.3.2
  */
 
 /**
- * Undocumented class
+ * Unimplemented class that should handle vcards
+ * Don't use it unless it is marked as implemented.
  * @package squirrelmail
  */
 class VCard {
+    /**
+     * Create vcard from information stored in array
+     * @todo implement vcard creation from array
+     * @param array $value_array
+     * @return string
+     */
+    function create_vcard ($value_array) {
+        return $vcard;
+    }
 
-function create_vcard ($value_array) {
-
-return $vcard;
+    /**
+     * Read vcard and convert it to array
+     * @todo implement vcard parsing
+     * @param string $vcard
+     * @return array
+     */
+    function parse_vcard ($vcard) {
+        return $array;
+    }
 }
-
-function parse_vcard ($vcard) {
-
-return $array;
-}
-
-}
-
 ?>
