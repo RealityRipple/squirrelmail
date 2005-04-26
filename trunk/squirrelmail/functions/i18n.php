@@ -437,12 +437,12 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
         } else {
             header( 'Content-Type: text/html; charset=' . $languages[$sm_notAlias]['CHARSET'] );
         }
-
         /**
          * mbstring.func_overload fix (#929644).
          *
          * php mbstring extension can replace standard string functions with their multibyte
-         * equivalents. See http://www.php.net/ref.mbstring#mbstring.overload.
+         * equivalents. See http://www.php.net/ref.mbstring#mbstring.overload. This feature 
+         * was added in php v.4.2.0
          *
          * Some SquirrelMail functions work with 8bit strings in bytes. If interface is forced
          * to use mbstring functions and mbstring internal encoding is set to multibyte charset,

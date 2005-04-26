@@ -6,19 +6,26 @@
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This implements all functions that do imap UTF7 conversions.
+ * Before 1.3.2 functions were stored in imap_utf7_decode_local.php and
+ * imap_utf7_encode_local.php files.
  *
  * @version $Id$
  * @package squirrelmail
  * @subpackage imap
+ * @since 1.3.2
  */
 
 /**
  * Function that uses php mbstring functions to convert from and to utf7-imap charset
+ *
+ * Since 1.5.1 list of supported charsets depends sq_mb_list_encoding function.
+ * Before that it was hardcoded to iso-8859-x, utf-8 and iso-2022-jp.
  * @param string $str folder name
  * @param string $to_encoding name of resulting charset
  * @param string $from_encoding name of original charset
  * @param string $default_charset default charset used by translation.
  * @return string encoded folder name or ''
+ * @since 1.4.2
  */
 function sqimap_mb_convert_encoding($str, $to_encoding, $from_encoding, $default_charset) {
     $supported_encodings=sq_mb_list_encodings();
@@ -35,6 +42,7 @@ function sqimap_mb_convert_encoding($str, $to_encoding, $from_encoding, $default
  * If mbstring functions do not support charset used by translation, falls back to iso-8859-1
  * @param string $s folder name
  * @return string utf7-imap encoded folder name
+ * @since 1.2.7
  */
 function imap_utf7_encode_local($s) {
     global $languages, $squirrelmail_language;
@@ -95,6 +103,7 @@ function imap_utf7_encode_local($s) {
  * If mbstring functions do not support charset used by translation, falls back to iso-8859-1
  * @param string $s folder name in utf7-imap
  * @return string folder name in charset used by translation
+ * @since 1.2.7
  */
 function imap_utf7_decode_local($s) {
     global $languages, $squirrelmail_language;
@@ -147,6 +156,7 @@ function imap_utf7_decode_local($s) {
  * Converts string to base64
  * @param string $s string
  * @return string base64 encoded string
+ * @since 1.2.7
  */
 function encodeBASE64($s) {
     $B64Chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+,';
@@ -184,6 +194,7 @@ function encodeBASE64($s) {
  * Converts string from base64
  * @param string $s base64 encoded string
  * @return string decoded string
+ * @since 1.2.7
  */
 function decodeBASE64($s) {
     $B64Values = array(
