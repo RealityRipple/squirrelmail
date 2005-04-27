@@ -154,6 +154,8 @@ class Deliver {
                 $filename = $message->att_local_name;
                 $file = fopen ($filename, 'rb');
                 while ($body_part = fgets($file, 4096)) {
+                    // remove NUL characters
+                    $body_part = str_replace("\0",'',$body_part);
                     $length += $this->clean_crlf($body_part);
                     if ($stream) {
                         $this->preWriteToStream($body_part);
@@ -167,6 +169,8 @@ class Deliver {
         default:
             if ($message->body_part) {
                 $body_part = $message->body_part;
+                // remove NUL characters
+                $body_part = str_replace("\0",'',$body_part);
                 $length += $this->clean_crlf($body_part);
                 if ($stream) {
                     $this->writeToStream($stream, $body_part);
