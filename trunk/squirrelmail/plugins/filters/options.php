@@ -17,13 +17,8 @@ define('SM_PATH','../../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/imap.php');
-require_once(SM_PATH . 'plugins/filters/filters.php');
-
-if (!file_exists(SM_PATH . 'plugins/filters/config.php')) return;
-include_once (SM_PATH . 'plugins/filters/config.php');
-
-global $AllowSpamFilters;
+include_once(SM_PATH . 'functions/imap.php');
+include_once(SM_PATH . 'plugins/filters/filters.php');
 
 displayPageHeader($color, 'None');
 

@@ -9,9 +9,35 @@
  * @subpackage filters
  */
 
-/** load config */
-if (file_exists(SM_PATH . 'plugins/filters/config.php'))
+/** @ignore */
+if (! defined('SM_PATH')) define('SM_PATH','../../');
+
+/** load globals */
+global $UseSeparateImapConnection, 
+    $AllowSpamFilters, $SpamFilters_YourHop, $SpamFilters_ShowCommercial, 
+    $SpamFilters_DNScache, $SpamFilters_BulkQuery, $SpamFilters_SharedCache, 
+    $SpamFilters_CacheTTL;
+
+/** load default config */
+if (file_exists(SM_PATH . 'plugins/filters/config_default.php')) {
+    include_once (SM_PATH . 'plugins/filters/config_default.php');
+} else {
+    // default config was removed.
+    $UseSeparateImapConnection = false;
+    $AllowSpamFilters = true;
+    $SpamFilters_YourHop = ' ';
+    $SpamFilters_ShowCommercial = false;
+    $SpamFilters_DNScache = array();
+    $SpamFilters_BulkQuery = '';
+    $SpamFilters_SharedCache = true;
+    $SpamFilters_CacheTTL = 7200;
+}
+
+if (file_exists(SM_PATH . 'config/filters_config.php')) {
+    include_once (SM_PATH . 'config/filters_config.php');
+} elseif (file_exists(SM_PATH . 'plugins/filters/config.php')) {
     include_once (SM_PATH . 'plugins/filters/config.php');
+}
 
 /**
  * Init Hooks
@@ -19,10 +45,8 @@ if (file_exists(SM_PATH . 'plugins/filters/config.php'))
  */
 function filters_init_hooks () {
     global $squirrelmail_plugin_hooks;
-    if (!file_exists(SM_PATH . 'plugins/filters/config.php')) return;
-    if (sqgetGlobalVar('mailbox',$mailbox,SQ_FORM)) {
-        sqgetGlobalVar('mailbox',$mailbox,SQ_FORM);
-    } else {
+
+    if (! sqgetGlobalVar('mailbox',$mailbox,SQ_FORM)) {
         $mailbox = 'INBOX';
     }
 
@@ -42,7 +66,6 @@ function filters_init_hooks () {
  */
 function filters_optpage_register_block() {
     global $optpage_blocks, $AllowSpamFilters;
-    if (!file_exists(SM_PATH . 'plugins/filters/config.php')) return;
 
     $optpage_blocks[] = array(
         'name' => _("Message Filters"),
@@ -164,8 +187,6 @@ function filters_bulkquery($filters, $IPs) {
 function start_filters() {
     global $imapServerAddress, $imapPort, $imap_stream, $imapConnection,
            $UseSeparateImapConnection, $AllowSpamFilters;
-
-    if (!file_exists(SM_PATH . 'plugins/filters/config.php')) return;
 
     sqgetGlobalVar('username', $username, SQ_SESSION);
     sqgetGlobalVar('key',      $key,      SQ_COOKIE);
@@ -821,8 +842,6 @@ function filter_swap($id1, $id2) {
  * @access private
  */
 function update_for_folder ($args) {
-
-    if (!file_exists(SM_PATH . 'plugins/filters/config.php')) return;
 
     $old_folder = $args[0];
     $new_folder = $args[2];
