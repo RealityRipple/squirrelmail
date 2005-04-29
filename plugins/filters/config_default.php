@@ -17,8 +17,6 @@
  *        Seems to be related to UW
  * @global bool $UseSeparateImapConnection
  */
-
-global $UseSeparateImapConnection;
 $UseSeparateImapConnection = false;
 
 /**
@@ -28,8 +26,6 @@ $UseSeparateImapConnection = false;
  * spam filters
  * @global bool $AllowSpamFilters
  */
-
-global $AllowSpamFilters;
 $AllowSpamFilters = true;
 
 /**
@@ -49,8 +45,6 @@ $AllowSpamFilters = true;
  * the header (lots of false alarms here tho).
  * @global string $SpamFilters_YourHop
  */
-
-global $SpamFilters_YourHop;
 $SpamFilters_YourHop = ' ';
 
 /**
@@ -62,12 +56,10 @@ $SpamFilters_YourHop = ' ';
  * should set SpamFilters_ShowCommercial to false.
  * @global bool $SpamFilters_ShowCommercial
  */
-
-global $SpamFilters_ShowCommercial;
 $SpamFilters_ShowCommercial = false;
 
 /**
- * SpamFiltring Cache
+ * SpamFiltering Cache
  *
  * A cache of IPs we've already checked or are known bad boys or good boys
  * ie. $SpamFilters_DNScache["210.54.220.18"] = true;
@@ -76,8 +68,7 @@ $SpamFilters_ShowCommercial = false;
  * email coming from it would NOT be SPAM
  * @global array $SpamFilters_DNScache
  */
-
-global $SpamFilters_DNScache;
+$SpamFilters_DNScache=array();
 
 /**
  * Path to bulkquery program
@@ -87,8 +78,6 @@ global $SpamFilters_DNScache;
  * in the bulkquery directory for more information on using bulkquery.
  * @global string $SpamFilters_BulkQuery
  */
-
-global $SpamFilters_BulkQuery;
 $SpamFilters_BulkQuery = '';
 
 /**
@@ -100,8 +89,6 @@ $SpamFilters_BulkQuery = '';
  * data directory.
  * @global bool $SpamFilters_SharedCache
  */
-
-global $SpamFilters_SharedCache;
 $SpamFilters_SharedCache = true;
 
 /**
@@ -110,8 +97,6 @@ $SpamFilters_SharedCache = true;
  * How long should DNS query results be cached for by default (in seconds)?
  * @global integer $SpamFilters_CacheTTL
  */
-
-global $SpamFilters_CacheTTL;
 $SpamFilters_CacheTTL = 7200;
 
 ?>
