@@ -456,7 +456,7 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
             function_exists('mb_internal_encoding') &&
             check_php_version(4,2,0) &&
             (int)ini_get('mbstring.func_overload')!=0) {
-            mb_internal_encoding('ASCII');
+            mb_internal_encoding('pass');
         }
     }
     return 0;
