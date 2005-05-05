@@ -232,7 +232,7 @@ ABOUT LDAP BACKEND
       is not present.
 
   Configuration example:
-  $cpw_ldap['base_dn']='ou=users,dc=example,dc=com'; // sets base dn
+  $cpw_ldap['basedn']='ou=users,dc=example,dc=com'; // sets base dn
   $cpw_ldap['connect_opts']['PROTOCOL_VERSION']=3;   // forces v3 bind protocol
 
   Tested configurations:
