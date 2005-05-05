@@ -41,8 +41,8 @@ if (function_exists("mcrypt_generic")) {
     . "</a></li>\n";
 } else {
   $msg .= '<li>'
-    . _("Encrypt or decrypt your personal dictionary") . ' <em>('
-    . _("not available") . ')</em></li>';
+    . _("Personal dictionary encryption options are not available") 
+    . ')</em></li>';
 }
 $msg .= "</ul>\n";
 sqspell_makePage( _("SquirrelSpell Options Menu"), null, $msg);

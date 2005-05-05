@@ -18,8 +18,12 @@
 
 global $SQSPELL_VERSION, $SQSPELL_APP_DEFAULT;
 
-$words = $_POST['words'];
-$sqspell_use_app = $_POST['sqspell_use_app'];
+if (! sqgetGlobalVar('words',$words,SQ_POST)) {
+    $words='';
+}
+if (! sqgetGlobalVar('sqspell_use_app',$sqspell_use_app,SQ_POST)) {
+    $sqspell_use_app = $SQSPELL_APP_DEFAYLT;
+}
 
 /**
  * Because of the nature of Javascript, there is no way to efficiently
@@ -27,45 +31,25 @@ $sqspell_use_app = $_POST['sqspell_use_app'];
  * "%". To get the array, we explode the "%"'s.
  * Dirty: yes. Is there a better solution? Let me know. ;)
  */
-$new_words = ereg_replace("%", "\n", $words);
+$new_words = explode("%",$words);
 /**
  * Load the user dictionary and see if there is anything in it.
  */
-$words=sqspell_getWords();
-if (!$words){
-  /**
-   * First time.
-   */
-  $words_dic="# SquirrelSpell User Dictionary $SQSPELL_VERSION\n# Last "
-     . "Revision: " . date("Y-m-d")
-     . "\n# LANG: $SQSPELL_APP_DEFAULT\n# $SQSPELL_APP_DEFAULT\n";
-  $words_dic .= $new_words . "# End\n";
+$old_words=sqspell_getLang($sqspell_use_app);
+if (empty($old_words)){
+    $word_dic = $new_words;
 } else {
-  /**
-   * Do some fancy stuff in order to save the dictionary and not mangle the
-   * rest.
-   */
-  $langs=sqspell_getSettings($words);
-  $words_dic = "# SquirrelSpell User Dictionary $SQSPELL_VERSION\n# "
-     . "Last Revision: " . date("Y-m-d") . "\n# LANG: " . join(", ", $langs)
-     . "\n";
-  for ($i=0; $i<sizeof($langs); $i++){
-    $lang_words=sqspell_getLang($words, $langs[$i]);
-    if ($langs[$i]==$sqspell_use_app){
-      if (!$lang_words) {
-          $lang_words="# $langs[$i]\n";
-      }
-      $lang_words .= $new_words;
+    foreach($new_words as $new_word) {
+        $old_words[].=$new_word;
     }
-    $words_dic .= $lang_words;
-  }
-  $words_dic .= "# End\n";
+    // make sure that dictionary contains only unique values
+    $word_dic = array_unique($old_words);
 }
 
 /**
  * Write out the file
  */
-sqspell_writeWords($words_dic);
+sqspell_writeWords($word_dic,$sqspell_use_app);
 /**
  * display the splash screen, then close it automatically after 2 sec.
  */

@@ -6,7 +6,7 @@ user dictionaries. However, this option is only available when PHP
 is compiled with support for MCRYPT. This is relatively easy -- to enable
 MCRYPT support, follow instructions at:
 
-http://www.php.net/manual/en/ref.mcrypt.php
+http://www.php.net/mcrypt
 
 NOTE: You will need libmcrypt version 2.4.x or above for SquirrelSpell
 to work.
