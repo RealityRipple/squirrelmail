@@ -336,6 +336,12 @@ Version 1.5.1 -- CVS
     when IMAP TLS was enabled or imap server mapping was used.
   - Added mail_fetch plugin configuration file and moved plugin functions
     from setup.php to functions.php file.
+  - SquirrelSpell plugin was modified to use standard SquirrelMail
+    preference system. User dictionaries that are stored in $username.words
+    files should be automatically updated to new format, when user logs in.
+    Fixed possible php script errors caused by $SQSPELL_APP configuration 
+    variable changes. Removed $SQSPELL_EREG configuration option. Plugin's
+    version increased to 0.5.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
