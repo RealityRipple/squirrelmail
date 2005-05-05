@@ -31,13 +31,19 @@ $msg = '<script type="text/javascript"><!--'."\n"
     . "\";\n"
     . "//-->\n</script>";
 
-$words=sqspell_getWords();
+$crypted=false;
+$langs=sqspell_getSettings();
+foreach ($langs as $lang) {
+    $words=sqspell_getLang($lang);
+    if ($SQSPELL_CRYPTO) $crypted = true;
+}
+
 /**
  * When getting the user dictionary, the SQSPELL_CRYPTO flag will be
  * set to "true" if the dictionary is encrypted, or "false" if it is
  * in plain text.
  */
-if ($SQSPELL_CRYPTO){
+if ($crypted){
     /**
      * Current format is encrypted.
      * Unfortunately, the following text needs to be all on one line,

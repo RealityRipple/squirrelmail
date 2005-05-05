@@ -36,10 +36,14 @@ function SpellLink($jscode, $title, $link) {
 /**
  * Declaring globals for users with E_ALL set.
  */
-global $SQSPELL_APP, $attachment_dir, $SQSPELL_EREG, $color;
+global $SQSPELL_APP_DEFAULT, $SQSPELL_APP, $attachment_dir, $color;
 
-$sqspell_text = $_POST['sqspell_text'];
-$sqspell_use_app = $_POST['sqspell_use_app'];
+if (! sqgetGlobalVar('sqspell_text',$sqspell_text,SQ_POST)) {
+  $sqspell_text = '';
+}
+if (! sqgetGlobalVar('sqspell_use_app',$sqspell_use_app,SQ_POST)) {
+  $sqspell_use_app = $SQSPELL_APP_DEFAULT;
+}
 
 /**
  * Now we explode the lines for three reasons:
@@ -146,7 +150,7 @@ if ($sqspell_exitcode){
 /**
  * Load the user dictionary.
  */
-$words=sqspell_getLang(sqspell_getWords(), $sqspell_use_app);
+$words=sqspell_getLang($sqspell_use_app);
 /**
  * Define some variables to be used during the processing.
  */
@@ -182,7 +186,7 @@ for ($i=0; $i<sizeof($sqspell_output); $i++){
     /**
      * Check if the word is in user dictionary.
      */
-    if (!$SQSPELL_EREG("\n$sqspell_word\n", $words)){
+    if (! in_array($sqspell_word,$words)){
       $sqspell_symb=intval($tmparray[3])-1;
       if (!isset($misses[$sqspell_word])) {
         $misses[$sqspell_word] = $right;
@@ -208,7 +212,7 @@ for ($i=0; $i<sizeof($sqspell_output); $i++){
      *
      * Check if the word is in user dictionary.
      */
-    if (!$SQSPELL_EREG("\n$sqspell_word\n", $words)){
+    if (!in_array($sqspell_word,$words)){
       $sqspell_symb=intval($tmparray[2])-1;
       if (!isset($misses[$sqspell_word])) {
           $misses[$sqspell_word] = '_NONE';
@@ -307,7 +311,7 @@ if ($errors){
    <tr>
     <td bgcolor="<?php echo $color[9] ?>" align="center">
      <b>
-      <?php printf( _("Found %s errors"), $errors ) ?>
+      <?php printf( ngettext(_("Found %d error"),_("Found %d errors"),$errors), $errors ) ?>
      </b>
     </td>
    </tr>

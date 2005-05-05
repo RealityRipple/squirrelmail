@@ -18,62 +18,41 @@
  * @subpackage squirrelspell
  */
 
-global $SQSPELL_VERSION;
+global $SQSPELL_VERSION, $SQSPELL_APP_DEFAULT;
 
-$words_ary = $_POST['words_ary'];
-$sqspell_use_app = $_POST['sqspell_use_app'];
+if (! sqgetGlobalVar('words_ary',$words_ary,SQ_POST) || ! is_array($words_ary)) {
+    $words_ary = array();
+}
+
+if (! sqgetGlobalVar('sqspell_use_app',$sqspell_use_app,SQ_POST)){
+    $sqspell_use_app = $SQSPELL_APP_DEFAULT;
+}
 
 /**
  * If something needs to be deleted, then $words_ary will be
  * non-zero length.
  */
-if (sizeof($words_ary)){
-  $words=sqspell_getWords();
-  $lang_words = sqspell_getLang($words, $sqspell_use_app);
+if (! empty($words_ary)){
+  $lang_words = sqspell_getLang($sqspell_use_app);
   $msg = '<p>'
      . sprintf(_("Deleting the following entries from %s dictionary:"), '<strong>'.$sqspell_use_app.'</strong>')
      . '</p>'
      . "<ul>\n";
-  for ($i=0; $i<sizeof($words_ary); $i++){
-    /**
-     * Remove word by word...
-     */
-    $lang_words=str_replace("$words_ary[$i]\n", "", $lang_words);
-    $msg .= '<li>' . htmlspecialchars($words_ary[$i]) . "</li>\n";
+
+  // print list of deleted words
+  foreach ($words_ary as $deleted_word) {
+    $msg.= '<li>'.htmlspecialchars($deleted_word)."</li>\n";
   }
-  $new_words_ary=split("\n", $lang_words);
-  /**
-   * Wipe this lang, if only 2 members in array (no words left).
-   * # Language
-   * # End
-   */
-  if (sizeof($new_words_ary)<=2) {
-    $lang_words='';
+
+  // rebuild dictionary
+  $new_words_ary = array();
+  foreach ($lang_words as $word){
+      if (! in_array($word,$words_ary)) {
+          $new_words_ary[].= $word;
+      }
   }
-  $new_lang_words = $lang_words;
-  /**
-   * Write the dictionary back to the disk.
-   */
-  $langs=sqspell_getSettings($words);
-  $words_dic = "# SquirrelSpell User Dictionary $SQSPELL_VERSION\n# "
-     . "Last Revision: " . date("Y-m-d") . "\n# LANG: "
-     . join(", ", $langs) . "\n";
-  for ($i=0; $i<sizeof($langs); $i++){
-    /**
-     * Only rewrite the contents of the selected language.
-     * Otherwise just write the contents back.
-     */
-    if ($langs[$i]==$sqspell_use_app) {
-      $lang_words = $new_lang_words;
-    } else {
-      $lang_words = sqspell_getLang($words, $langs[$i]);
-    }
-    if ($lang_words) {
-      $words_dic .= $lang_words;
-    }
-  }
-  $words_dic .= "# End\n";
-  sqspell_writeWords($words_dic);
+  // save it
+  sqspell_writeWords($new_words_ary,$sqspell_use_app);
   $msg .= '</ul><p>' . _("All done!") . "</p>\n";
   sqspell_makePage(_("Personal Dictionary Updated"), null, $msg);
 } else {

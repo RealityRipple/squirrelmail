@@ -2,7 +2,7 @@ SquirrelSpell
 --------------
 
 SquirrelSpell is a JavaScript-powered spellchecker written to work with
-SquirrelMail versions 0.5 and higher.
+SquirrelMail webmail interface.
 
 LICENSE: 
 --------- 
@@ -14,7 +14,7 @@ license at http://www.gnu.org/
 FEATURES:
 ----------
 SquirrelSpell works with UN*X's ISPELL or ASPELL libraries and
-SquirrelMail version 0.5 and higher. No PHP recompilation required,
+SquirrelMail version 1.4 and higher. No PHP recompilation required,
 unless you wish to enable MCRYPT support.
 
 * SpellChecker:
@@ -39,13 +39,13 @@ in English.
 
 AUTHOR:
 --------
-This plugin was origintally authored by Konstantin Riabitsev
+This plugin was originally authored by Konstantin Riabitsev
 (http://www.mricon.com/) and is now maintained by the SquirrelMail Project
 Team.
 
 SUPPORT:
 ---------
-Send suppot questions and bug reports to the plugins mailing list:
+Send support questions and bug reports to the plugins mailing list:
 squirrelmail-plugins@lists.sourceforge.net. When reporting a bug
 don't forget to mention your browser version, SquirrelMail and
 SquirrelSpell versions, as well as any other useful info.

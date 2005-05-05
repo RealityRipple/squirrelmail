@@ -19,7 +19,7 @@
  * See if we need to give user the option of choosing which dictionary
  * s/he wants to use to spellcheck his message.
  */
-$langs=sqspell_getSettings(null);
+$langs=sqspell_getSettings();
 $msg = '<form method="post">'
   . '<input type="hidden" name="MOD" value="check_me" />'
   . '<input type="hidden" name="sqspell_text" />'
