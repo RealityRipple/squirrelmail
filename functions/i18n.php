@@ -322,6 +322,10 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
         $squirrelmail_language = $squirrelmail_default_language;
         $sm_language = $squirrelmail_default_language;
     }
+
+    /** provide failsafe language when detection fails */
+    if (! $sm_language) $sm_language='en_US';
+
     $sm_notAlias = $sm_language;
 
     // Catching removed translation
