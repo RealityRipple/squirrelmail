@@ -342,6 +342,12 @@ Version 1.5.1 -- CVS
     Fixed possible php script errors caused by $SQSPELL_APP configuration 
     variable changes. Removed $SQSPELL_EREG configuration option. Plugin's
     version increased to 0.5.
+  - $skip_SM_header option was replaced with $encode_header_key and 
+    $hide_auth_header options. First option allows to encode user's information
+    with provided encryption key (set in 2. Server settings -> B. Update SMTP / 
+    Sendmail settings). Second option allows to disable authenticated user part
+    in Received: header, when user can't force used email address. It is set in
+    4. General Options -> 9. Allow editing of identity.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
