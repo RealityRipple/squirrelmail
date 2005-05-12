@@ -373,7 +373,7 @@ class Deliver {
      * @return string $header
      */
     function prepareRFC822_Header($rfc822_header, $reply_rfc822_header, &$raw_length) {
-        global $domain, $version, $username, $skip_SM_header;
+        global $domain, $version, $username, $encode_header_key, $edit_identity, $hide_auth_header;
 
         /* if server var SERVER_NAME not available, use $domain */
         if(!sqGetGlobalVar('SERVER_NAME', $SERVER_NAME, SQ_SERVER)) {
@@ -391,8 +391,14 @@ class Deliver {
         /* This creates an RFC 822 date */
         $date = date('D, j M Y H:i:s ', mktime()) . $this->timezone();
         /* Create a message-id */
-        $message_id = '<' . $REMOTE_PORT . '.' . $REMOTE_ADDR . '.';
-        $message_id .= time() . '.squirrel@' . $SERVER_NAME .'>';
+        $message_id = '<' . $REMOTE_PORT . '.';
+        if (isset($encode_header_key) && trim($encode_header_key)!='') {
+            // use encrypted form of remote address
+            $message_id.= OneTimePadEncrypt($this->ip2hex($REMOTE_ADDR),base64_encode($encode_header_key));
+        } else {
+            $message_id.= $REMOTE_ADDR;
+        }
+        $message_id .= '.' . time() . '.squirrel@' . $SERVER_NAME .'>';
         /* Make an RFC822 Received: line */
         if (isset($REMOTE_HOST)) {
             $received_from = "$REMOTE_HOST ([$REMOTE_ADDR])";
@@ -406,13 +412,32 @@ class Deliver {
             $received_from .= " (proxying for $HTTP_X_FORWARDED_FOR)";
         }
         $header = array();
-        if ( !isset($skip_SM_header) || !$skip_SM_header )
-        {
-          $header[] = "Received: from $received_from" . $rn;
-          $header[] = "        (SquirrelMail authenticated user $username)" . $rn;
-          $header[] = "        by $SERVER_NAME with HTTP;" . $rn;
-          $header[] = "        $date" . $rn;
+
+        /**
+         * SquirrelMail header
+         *
+         * This Received: header provides information that allows to track
+         * user and machine that was used to send email. Don't remove it
+         * unless you understand all possible forging issues or your
+         * webmail installation does not prevent changes in user's email address.
+         * See SquirrelMail bug tracker #847107 for more details about it.
+         */
+        if (isset($encode_header_key) && 
+            trim($encode_header_key)!='') {
+            // use encoded headers, if encryption key is set and not empty
+            $header[].= 'X-Squirrel-UserHash: '.OneTimePadEncrypt($username,base64_encode($encode_header_key)).$rn;
+            $header[].= 'X-Squirrel-FromHash: '.OneTimePadEncrypt($this->ip2hex($REMOTE_ADDR),base64_encode($encode_header_key)).$rn;
+            if (isset($HTTP_X_FORWARDED_FOR))
+                $header[].= 'X-Squirrel-ProxyHash:'.OneTimePadEncrypt($this->ip2hex($HTTP_X_FORWARDED_FOR),base64_encode($encode_header_key)).$rn;
+        } else {
+            // use default received headers
+            $header[] = "Received: from $received_from" . $rn;
+            if ($edit_identity || ! isset($hide_auth_header) || ! $hide_auth_header)
+                $header[] = "        (SquirrelMail authenticated user $username)" . $rn;
+            $header[] = "        by $SERVER_NAME with HTTP;" . $rn;
+            $header[] = "        $date" . $rn;
         }
+
         /* Insert the rest of the header fields */
         $header[] = 'Message-ID: '. $message_id . $rn;
         if ($reply_rfc822_header->message_id) {
@@ -696,6 +721,67 @@ class Deliver {
         }
         trim($refer);
         return $refer;
+    }
+
+    /**
+     * Converts ip address to hexadecimal string
+     *
+     * Function is used to convert ipv4 and ipv6 addresses to hex strings.
+     * It removes all delimiter symbols from ip addresses, converts decimal
+     * ipv4 numbers to hex and pads strings in order to present full length
+     * address. ipv4 addresses are represented as 8 byte strings, ipv6 addresses 
+     * are represented as 32 byte string.
+     *
+     * If function fails to detect address format, it returns unprocessed string.
+     * @param string $string ip address string
+     * @return string processed ip address string
+     * @since 1.5.1
+     */
+    function ip2hex($string) {
+        if (preg_match("/^(\d+)\.(\d+)\.(\d+)\.(\d+)$/",$string,$match)) {
+            // ipv4 address
+            $ret = str_pad(dechex($match[1]),2,'0',STR_PAD_LEFT)
+                . str_pad(dechex($match[2]),2,'0',STR_PAD_LEFT)
+                . str_pad(dechex($match[3]),2,'0',STR_PAD_LEFT)
+                . str_pad(dechex($match[4]),2,'0',STR_PAD_LEFT);
+        } elseif (preg_match("/^([0-9a-h]+)\:([0-9a-h]+)\:([0-9a-h]+)\:([0-9a-h]+)\:([0-9a-h]+)\:([0-9a-h]+)\:([0-9a-h]+)\:([0-9a-h]+)$/i",$string,$match)) {
+            // full ipv6 address
+            $ret = str_pad($match[1],4,'0',STR_PAD_LEFT)
+                . str_pad($match[2],4,'0',STR_PAD_LEFT)
+                . str_pad($match[3],4,'0',STR_PAD_LEFT)
+                . str_pad($match[4],4,'0',STR_PAD_LEFT)
+                . str_pad($match[5],4,'0',STR_PAD_LEFT)
+                . str_pad($match[6],4,'0',STR_PAD_LEFT)
+                . str_pad($match[7],4,'0',STR_PAD_LEFT)
+                . str_pad($match[8],4,'0',STR_PAD_LEFT);
+        } elseif (preg_match("/^\:\:([0-9a-h\:]+)$/i",$string,$match)) {
+            // short ipv6 with all starting symbols nulled
+            $aAddr=explode(':',$match[1]);
+            $ret='';
+            foreach ($aAddr as $addr) {
+                $ret.=str_pad($addr,4,'0',STR_PAD_LEFT);
+            }
+            $ret=str_pad($ret,32,'0',STR_PAD_LEFT);
+        } elseif (preg_match("/^([0-9a-h\:]+)::([0-9a-h\:]+)$/i",$string,$match)) {
+            // short ipv6 with middle part nulled
+            $aStart=explode(':',$match[1]);
+            $sStart='';
+            foreach($aStart as $addr) {
+                $sStart.=str_pad($addr,4,'0',STR_PAD_LEFT);
+            }
+            $aEnd = explode(':',$match[2]);
+            $sEnd='';
+            foreach($aEnd as $addr) {
+                $sEnd.=str_pad($addr,4,'0',STR_PAD_LEFT);
+            }
+            $ret = $sStart
+                . str_pad('',(32 - strlen($sStart . $sEnd)),'0',STR_PAD_LEFT)
+                . $sEnd;
+        } else {
+            // unknown addressing
+            $ret = $string;
+        }
+        return $ret;
     }
 }
 ?>

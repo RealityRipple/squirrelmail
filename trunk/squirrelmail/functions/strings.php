@@ -588,6 +588,16 @@ function get_location () {
  */
 function OneTimePadEncrypt ($string, $epad) {
     $pad = base64_decode($epad);
+
+    if (strlen($pad)>0) {
+        // make sure that pad is longer than string
+        while (strlen($string)>strlen($pad)) {
+            $pad.=$pad;
+        }
+    } else {
+        // FIXME: what should we do when $epad is not base64 encoded or empty.
+    }
+
     $encrypted = '';
     for ($i = 0; $i < strlen ($string); $i++) {
         $encrypted .= chr (ord($string[$i]) ^ ord($pad[$i]));
@@ -608,6 +618,16 @@ function OneTimePadEncrypt ($string, $epad) {
  */
 function OneTimePadDecrypt ($string, $epad) {
     $pad = base64_decode($epad);
+
+    if (strlen($pad)>0) {
+        // make sure that pad is longer than string
+        while (strlen($string)>strlen($pad)) {
+            $pad.=$pad;
+        }
+    } else {
+        // FIXME: what should we do when $epad is not base64 encoded or empty.
+    }
+
     $encrypted = base64_decode ($string);
     $decrypted = '';
     for ($i = 0; $i < strlen ($encrypted); $i++) {

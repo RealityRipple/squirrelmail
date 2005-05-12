@@ -337,6 +337,8 @@ $addrbook_global_listing = 'false'      if ( !$addrbook_global_listing );
 $abook_global_file = ''                 if ( !$abook_global_file);
 $abook_global_file_writeable = 'false'  if ( !$abook_global_file_writeable);
 $abook_global_file_listing = 'true'     if ( !$abook_global_file_listing );
+$encode_header_key = ''                 if ( !$encode_header_key );
+$hide_auth_header = 'false'             if ( !$hide_auth_header );
 
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
@@ -430,7 +432,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
           if ( lc($useSendmail) eq 'true' ) {
             print $WHT . "Sendmail" . $NRM . "\n--------\n";
             print "4.   Sendmail Path         : $WHT$sendmail_path$NRM\n";
-            print "5.   Suppress SM header    : $WHT$skip_SM_header$NRM\n";
+            print "5.   Header encryption key : $WHT$encode_header_key$NRM\n";
             print "\n";
           } else {
             print $WHT . "SMTP Settings" . $NRM . "\n-------------\n";
@@ -439,7 +441,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             print "6.   POP before SMTP       : $WHT$pop_before_smtp$NRM\n";
             print "7.   SMTP Authentication   : $WHT$smtp_auth_mech$NRM\n";
             print "8.   Secure SMTP (TLS)     : $WHT$use_smtp_tls$NRM\n";
-            print "9.   Suppress SM header    : $WHT$skip_SM_header$NRM\n";
+            print "9.   Header encryption key : $WHT$encode_header_key$NRM\n";
             print "\n";
           }
         }
@@ -500,7 +502,9 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "6.  Allow use of priority       : $WHT$default_use_priority$NRM\n";
         print "7.  Hide SM attributions        : $WHT$hide_sm_attributions$NRM\n";
         print "8.  Allow use of receipts       : $WHT$default_use_mdn$NRM\n";
-        print "9.  Allow editing of identity   : $WHT$edit_identity$NRM/$WHT$edit_name$NRM\n";
+        print "9.  Allow editing of identity   : $WHT$edit_identity$NRM\n";
+        print "    Allow editing of name       : $WHT$edit_name$NRM\n";
+        print "    Remove username from header : $WHT$hide_auth_header$NRM\n";
         print "10. Allow server thread sort    : $WHT$allow_thread_sort$NRM\n";
         print "11. Allow server-side sorting   : $WHT$allow_server_sort$NRM\n";
         print "12. Allow server charset search : $WHT$allow_charset_search$NRM\n";
@@ -692,14 +696,15 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
               elsif ( $command == 8 )  { $imap_server_type       = command19(); }
               elsif ( $command == 9 )  { $optional_delimiter     = command111(); }
             } elsif ( $show_smtp_settings && lc($useSendmail) eq 'true' ) {
-              if ( $command == 4 )  { $sendmail_path          = command15(); }
+              if    ( $command == 4 )  { $sendmail_path          = command15(); }
+              elsif ( $command == 5 )  { $encode_header_key      = command114(); }
             } elsif ( $show_smtp_settings ) {
               if    ( $command == 4 )  { $smtpServerAddress      = command16(); }
               elsif ( $command == 5 )  { $smtpPort               = command17(); }
               elsif ( $command == 6 )  { $pop_before_smtp        = command18a(); }
               elsif ( $command == 7 )  { $smtp_auth_mech    = command112b(); }
               elsif ( $command == 8 )  { $use_smtp_tls      = command113("SMTP",$use_smtp_tls); }
-              elsif ( $command == 9 )  { $skip_SM_header    = command114(); }
+              elsif ( $command == 9 )  { $encode_header_key      = command114(); }
             }
         } elsif ( $menu == 3 ) {
             if    ( $command == 1 )  { $default_folder_prefix          = command21(); }
@@ -1358,20 +1363,28 @@ sub command113 {
     return $default_val;
 }
 
+# $encode_header_key
 sub command114{
-    print "\nUse this to suppress insertion of SquirrelMail Received: headers\n";
-    print "in outbound messages.\n\n";
-
-    $YesNo = 'n';
-    $YesNo = 'y' if ( lc($skip_SM_header) eq 'true' );
-
-    print "Suppress SM header (y/n) [$WHT$YesNo$NRM]: $WHT";
-    $new_skip_SM_header = <STDIN>;
-    chomp($new_skip_SM_header);
-
-    return 'true'  if ( lc($new_skip_SM_header) eq 'y' );
-    return 'false'  if ( lc($new_skip_SM_header) eq 'n' );
-    return $skip_SM_header;
+    print "Encryption key allows to hide SquirrelMail Received: headers\n";
+    print "in outbound messages. Interface uses encryption key to encode\n";
+    print "username, remote address and proxied address, then stores encoded\n";
+    print "information in X-Squirrel-* headers.\n";
+    print "\n";
+    print "Warning: used encryption function is not bulletproof. When used\n";
+    print "with static encryption keys, it provides only minimal security\n";
+    print "measures and information can be decoded quickly.\n";
+    print "\n";
+    print "Encoded information can be decoded with decrypt_headers.php script\n";
+    print "from SquirrelMail contrib/ directory.\n";
+    print "\n";
+    print "Enter encryption key: ";
+    $new_encode_header_key = <STDIN>;
+    if ( $new_encode_header_key eq "\n" ) {
+        $new_encode_header_key = $encode_header_key;
+    } else {
+        $new_encode_header_key =~ s/[\r\n]//g;
+    }
+    return $new_encode_header_key;
 }
 
 # MOTD
@@ -2079,6 +2092,7 @@ sub command39 {
     return 'false';
 }
 
+
 sub command310 {
     print "This allows you to prevent the editing of the user's name and ";
     print "email address. This is mainly useful when used with the ";
@@ -2095,9 +2109,11 @@ sub command310 {
     if ( ( $new_edit =~ /^y\n/i ) || ( ( $new_edit =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
         $edit_identity = 'true';
         $edit_name = 'true';
+        $hide_auth_header = 'false';
     } else {
         $edit_identity = 'false';
         $edit_name = command311();
+        $hide_auth_header = command311b();
     }
     return $edit_identity;
 }
@@ -2119,6 +2135,32 @@ sub command311 {
         $edit_name = 'true';
     } else {
         $edit_name = 'false';
+    }
+    return $edit_name;
+}
+
+sub command311b {
+    print "SquirrelMail adds username information to every sent email.";
+    print "It is done in order to prevent possible sender forging when ";
+    print "end users are allowed to change their email and name ";
+    print "information.\n";
+    print "\n";
+    print "You can disable this header, if you think that it violates ";
+    print "user's privacy or security. Please note, that setting will ";
+    print "work only when users are not allowed to change their identity.\n";
+    print "\n";
+
+    if ( lc($hide_auth_header) eq "true" ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Remove username from email headers? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $new_header = <STDIN>;
+    if ( ( $new_header =~ /^y\n/i ) || ( ( $new_header =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $hide_auth_header = "true";
+    } else {
+        $hide_auth_header = "false";
     }
     return $edit_name;
 }
@@ -3255,8 +3297,8 @@ sub save_data {
         print CF "\$invert_time            = $invert_time;\n";
         # string
         print CF "\$optional_delimiter     = '$optional_delimiter';\n";
-        #boolean
-        print CF "\$skip_SM_header         = $skip_SM_header;\n";
+        # string
+        print CF "\$encode_header_key      = '$encode_header_key';\n";
         print CF "\n";
 
     # string
@@ -3318,6 +3360,8 @@ sub save_data {
         print CF "\$edit_identity            = $edit_identity;\n";
     # boolean
         print CF "\$edit_name                = $edit_name;\n";
+    # boolean
+        print CF "\$hide_auth_header         = $hide_auth_header;\n";
     # boolean
         print CF "\$allow_thread_sort        = $allow_thread_sort;\n";
     # boolean
