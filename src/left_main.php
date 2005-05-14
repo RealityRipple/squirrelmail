@@ -683,8 +683,13 @@ if ($advanced_tree) {
    echo '<div id="leftframe"><br /><br />';*/
 }
 
-echo "\n\n" .
-    '<center><font size="4"><b>'. _("Folders") . "</b><br /></font>\n\n";
+echo "\n\n" . html_tag( 'table', '', 'left', '', 'border="0" cellspacing="0" cellpadding="0" width="99%"' ) .
+    html_tag( 'tr' ) .
+    html_tag( 'td', '', 'left' ) .
+    html_tag( 'table', '', '', '', 'border="0" cellspacing="0" cellpadding="0"' ) .
+    html_tag( 'tr' ) .
+    html_tag( 'td', '', 'center' ) .
+    '<font size="4"><b>'. _("Folders") . "</b><br /></font>\n\n";
 
 if ($date_format != 6) {
     /* First, display the clock. */
@@ -727,11 +732,9 @@ if ($date_format != 6) {
 
 /* Next, display the refresh button. */
 echo '<div style="white-space: nowrap;"><small>[<a href="../src/left_main.php" target="left">'.
-     _("Check mail") . "</a>]</small></div></center><br />\n\n";
+     _("Check mail") . "</a>]</small></div></td></tr></table><br />\n\n";
 
 /* Lastly, display the folder list. */
-echo "<center><table><tr><td>\n";
-
 
 if ( $collapse_folders ) {
     /* If directed, collapse or uncollapse a folder. */
@@ -777,10 +780,9 @@ if (isset($advanced_tree) && $advanced_tree) {
     ListBoxes($boxes);
 }
 
-echo "</td></tr></table></center>\n";
-
 do_hook('left_main_after');
 sqimap_logout($imapConnection);
 
 ?>
+</td></tr></table>
 </body></html>
