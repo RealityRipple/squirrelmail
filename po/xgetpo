@@ -80,6 +80,12 @@ xgettext ${XGETTEXT_OPTIONS} -j \
 xgettext ${XGETTEXT_OPTIONS} -j \
     plugins/translate/*.php --output=po/squirrelmail.pot
 
+# ** templates
+xgettext ${XGETTEXT_OPTIONS} -j \
+    templates/*.php --output=po/squirrelmail.pot
+xgettext ${XGETTEXT_OPTIONS} -j \
+    templates/default/*.tpl --output=po/squirrelmail.pot
+
 xgettext ${XGETTEXT_OPTIONS} -j \
     po/independent_strings.txt --output=po/squirrelmail.pot
 
