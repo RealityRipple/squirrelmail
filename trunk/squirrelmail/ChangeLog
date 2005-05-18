@@ -348,6 +348,8 @@ Version 1.5.1 -- CVS
     Sendmail settings). Second option allows to disable authenticated user part
     in Received: header, when user can't force used email address. It is set in
     4. General Options -> 9. Allow editing of identity.
+  - Added dovecot preset to configuration utility.
+  - Modified mercury32 preset in order to remove INBOX prefix in mercury32 4.01.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
