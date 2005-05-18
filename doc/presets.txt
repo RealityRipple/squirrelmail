@@ -13,13 +13,14 @@ Possible server values are:
  macosx      = Mac OS X Mailserver
  hmailserver = hMailServer
  mercury32   = Mercury/32
+ dovecot     = Dovecot Secure IMAP server
 
 -----------------
 default settings:
 -----------------
 
               imap_server_type = other
-         default_folder_prefix =
+         default_folder_prefix = <none> (is set to empty string)
                   trash_folder = INBOX.Trash
                    sent_folder = INBOX.Sent
                   draft_folder = INBOX.Drafts
@@ -34,7 +35,7 @@ show_contain_subfolders_option = false
 'cyrus' settings:
 -----------------
               imap_server_type = cyrus
-         default_folder_prefix = <none> (is not set)
+         default_folder_prefix = <none> (is set to empty string)
                   trash_folder = INBOX.Trash
                    sent_folder = INBOX.Sent
                   draft_folder = INBOX.Drafts
@@ -64,7 +65,7 @@ show_contain_subfolders_option = true
 'exchange' settings:
 --------------------
               imap_server_type = exchange
-         default_folder_prefix = <none>  (is not set)
+         default_folder_prefix = <none> (is set to empty string)
                   trash_folder = INBOX/Deleted Items
                    sent_folder = INBOX/Sent Items
                   draft_folder = Drafts
@@ -109,7 +110,7 @@ show_contain_subfolders_option = false
 'hmailserver' settings:
 -----------------------
               imap_server_type = hmailserver   (used in imap_search.php)
-         default_folder_prefix =
+         default_folder_prefix = <none> (is set to empty string)
                   trash_folder = INBOX.Trash
                    sent_folder = INBOX.Sent
                   draft_folder = INBOX.Drafts
@@ -123,7 +124,7 @@ show_contain_subfolders_option = false
 ---------------------
 'mercury32' settings:
 ---------------------
-Preset is used for Mercury Mail Transport System
+Preset is used for Mercury Mail Transport System. Available since 1.5.0
 Free email server for Win32 and Netware.
 Tested Win32 v.4.01b
 CAPABILITY IMAP4rev1 X-MERCURY
@@ -139,8 +140,10 @@ Comments:
 $imap_server_type variable is used to handle imap folder subscription
 differences.
 
+Site URL: http://www.pmail.com
+
               imap_server_type = mercury32
-         default_folder_prefix = <none> is set to empty string
+         default_folder_prefix = <none> (is set to empty string)
                   trash_folder = Trash
                    sent_folder = Sent
                   draft_folder = Drafts
@@ -150,4 +153,36 @@ show_contain_subfolders_option = true
             optional_delimiter = detect
                  delete_folder = true
       force_username_lowercase = true
+
+-------------------
+'dovecot' settings:
+-------------------
+Preset used for Dovecot Secure IMAP server. Available since 1.5.1.
+
+There is no code specific to Dovecot IMAP server. Preset provides only a quick
+way to set correct folder settings.
+
+Tested v.0.99.14
+
+CAPABILITY IMAP4rev1 SORT THREAD=REFERENCES MULTIAPPEND UNSELECT LITERAL+ IDLE 
+  CHILDREN LISTEXT LIST-SUBSCRIBED NAMESPACE
+
+PERMANENTFLAGS (\Answered \Flagged \Deleted \Seen \Draft \*)
+
+IMAP server supports server side sorting and threading.
+
+Site URL: http://www.dovecot.org
+
+              imap_server_type = dovecot
+         default_folder_prefix = <none> (is set to empty string)
+                  trash_folder = Trash
+                   sent_folder = Sent
+                  draft_folder = Drafts
+            show_prefix_option = false
+          default_sub_of_inbox = false
+show_contain_subfolders_option = false
+            optional_delimiter = detect
+                 delete_folder = false
+      force_username_lowercase = true
+
 
