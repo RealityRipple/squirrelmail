@@ -1110,6 +1110,7 @@ sub command19 {
     print "    exchange    = Microsoft Exchange IMAP server\n";
     print "    hmailserver = hMailServer\n";
     print "    macosx      = Mac OS X Mailserver\n";
+    print "    mercury32   = Mercury Mail Transport System\n";
     print "    uw          = University of Washington's IMAP server\n";
     print "\n";
     print "    other       = Not one of the above servers\n";
@@ -3662,9 +3663,9 @@ sub set_defaults {
         } elsif ( $server eq "mercury32" ) {
             $imap_server_type               = "mercury32";
             $default_folder_prefix          = "";
-            $trash_folder                   = "INBOX.Trash";
-            $sent_folder                    = "INBOX.Sent";
-            $draft_folder                   = "INBOX.Drafts";
+            $trash_folder                   = "Trash";
+            $sent_folder                    = "Sent";
+            $draft_folder                   = "Drafts";
             $show_prefix_option             = false;
             $default_sub_of_inbox           = true;
             $show_contain_subfolders_option = true;
