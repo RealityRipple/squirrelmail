@@ -10,17 +10,19 @@ STATUS
 Development
 
 REQUIREMENTS:
-- SquirrelMail 1.4.3 or later. (plugin is included in squirrelmail 
+- SquirrelMail 1.4.3 or later. (plugin is included in SquirrelMail 
   1.5.0 and later versions).
-- ldap backend needs php ldap extension. It might need php
-  mhash extension and system crypt libraries that support crypto
-  used on ldap server. It might need php ldap extension with ssl
-  support, if ldap server requires it.
-- mysql backend needs php mysql extension.
-- merak backend needs php curl extension.
-- poppass backend needs poppassd server that supports authentication
-  used by imap server.
-- vmailmgrd backend needs vmailmgr php library (vmail.inc) and
+- ldap backend needs PHP LDAP extension. It might need PHP
+  Mhash extension and system crypt libraries that support crypto
+  used on LDAP server. It might need PHP LDAP extension with SSL
+  support, if LDAP server requires it.
+- mysql backend needs PHP MySQL extension.
+- merak backend needs PHP Curl extension.
+- peardb backend needs PHP Pear DB libraries and PHP extension that
+  is used to connect to database.
+- poppassd backend needs poppassd server that supports authentication
+  used by IMAP server.
+- vmailmgrd backend needs vmailmgr PHP library (vmail.inc) and
   vmailmgrd service running on tcp port or unix socket. It also 
   requires SquirrelMail 1.4.4 or 1.5.1.
 
@@ -40,7 +42,7 @@ BACKENDS
   backend/ldap.php - instead, create an $cpw_ldap array in 
   config.php containing the variable you want to override.
 
-  See more information in "About ldap backend" chapter.
+  See more information in "About LDAP backend" chapter.
 
 - mysql
 
@@ -55,7 +57,7 @@ BACKENDS
     $cpw_mysql['server'] = 'remote_servername';
   to config.php.
 
-  See more information in "About mysql backend" chapter.
+  See more information in "About MySQL backend" chapter.
 
 - merak
 
@@ -69,7 +71,7 @@ BACKENDS
     override sets address of merak interface. URL is used 
     by webserver's libraries. If it points at localhost, 
     plugin tries to connect to administrative interface on
-    same machine that hosts squirrelmail scripts.
+    same machine that hosts SquirrelMail scripts.
     Defaults to 'http://localhost:32000/'.
 
   * 'selfpage'
@@ -83,6 +85,52 @@ BACKENDS
   For example:
   $cpw_merak['url']='http://example.com:32000';
 
+- peardb
+
+  Default settings are supplied in backends/peardb.php.
+
+  Site configuration is controlled in config.php $cpw_peardb
+  array. Used configuration overrides:
+  * 'dsn' - (required) DSN used for connection to database.
+      See PHP Pear DB manual.
+  * 'connect_opts' - (optional) Pear DB connection options.
+      See PHP Pear DB manual.
+  * 'table' - (required) table that stores user information.
+  * 'uid_field' - (optional) field that stores username. 
+      Defaults to 'userid'.
+  * 'domain_field' - (optional) field that stores domain 
+      information. Used for setups that split username into
+      user and domain parts. Option is ignored if set to empty 
+      string. Defaults to empty string.
+  * 'password_field' - (optional) field that stores password.
+      Defaults to 'password'.
+  * 'crypted_passwd' - (optional) boolean variable that is 
+      used to switch between plaintext and encoded passwords.
+      If variable is set to false, backend works with plain 
+      text passwords. If variable is set to true, backend
+      tries to detect crypto used in password and uses 
+      detected crypto. Backend defaults to plain text 
+      passwords.
+  * 'debug' - (optional) boolean variable that is used to control
+      display of debugging information. If set to true, backend
+      might display more information about connection errors.
+      Debug information can contain SQL connection options and 
+      password information. Don't enable it on production system.
+      Backend disables display of debug information by default.
+
+  Supported password schemas:
+  * plaintext - passwords are stored as clear text.
+  * crypt - passwords use system crypt libraries. Backend should be
+      able to use standard DES, extended DES, MD5 crypt and blowfish
+      algorithms, if system libraries support them. {crypt} prefix
+      is optional.
+  * plain-md5 - passwords are hashed with MD5 and use {plain-md5} 
+      prefix.
+  * digest-md5 - hash stores MD5 hash of username:domain:password 
+      string and is prefixed with {digest-md5} string.
+
+  Tested configurations:
+  * Dovecot 0.99.14 with mysql authentication module.
 
 - poppassd
 
@@ -90,12 +138,26 @@ BACKENDS
 
   Site configuration is controlled in config.php $cpw_poppassd 
   array. You can use 'server' array key to override address
-  of poppassd server. Backend uses address of imap server, if
-  variable is set to empty string. It uses address of imap 
+  of poppassd server. Backend uses address of IMAP server, if
+  variable is set to empty string. It uses address of IMAP 
   server by default.
 
   For example:
   $cpw_poppassd['server'] = 'remote_servername';
+
+  Available poppass servers:
+  * Qualcomm qpopper's poppassd
+  * poppassd-seti 
+      poppass server with shadow password and PAM support
+  * courier poppassd
+      poppass server used with courier authentication system.
+  * ldap poppassd
+  * nis/yp poppassd
+  * Mercury32 poppassd - http://www.pmail.com
+      poppass server that is part of Mercury Mail Transport 
+      System.
+  * FreeBSD includes two poppass servers in ports collection.
+
 
 - vmailmgrd
 
@@ -121,28 +183,28 @@ BACKENDS
 
 
 AUTHORS:
-ldap backend      - Tomas Kuliavas <tokul@users.sourceforge.net>
-                    used code from phpldapadmin and squirrelmail
+ldap, peardb and  - Tomas Kuliavas <tokul@users.sourceforge.net>
+vmailmgrd backends  used code from phpldapadmin and squirrelmail
                     ldapquery plugin.
 merak backend     - Edwin van Elk <Edwin@eve-software.com>
 mysql backend     - Thijs Kinkhorst <kink@squirrelmail.org>
 poppassd backend  - Seth Randall <sethr@missoulafcu.org>
-vmailmgrd backend - Tomas Kuliavas <tokul@users.sourceforge.net>
+
 
 ------------------
 ABOUT LDAP BACKEND
 ------------------
   List of supported overrides
   * 'server'
-    overrides address of ldap server. use any syntax that is supported 
-    by your php ldap extension. Defaults to address of imap server.
+    overrides address of LDAP server. use any syntax that is supported 
+    by your PHP LDAP extension. Defaults to address of IMAP server.
 
   * 'port'
-    overrides port of ldap server. Defaults to 389.
+    overrides port of LDAP server. Defaults to 389.
 
   * 'basedn'
-    (required) ldap basedn used for binding to ldap server. If set to
-    empty string, blocks use of backend. Defaults to empty string.
+    (required) LDAP BaseDN used for binding to LDAP server. If set to
+    empty string, it blocks use of backend. Defaults to empty string.
 
   * 'connect_opts'
     controls LDAP_OPT_* settings that are set with ldap_set_option() 
@@ -150,18 +212,19 @@ ABOUT LDAP BACKEND
     LDAP_OPT_ prefix must be omitted in $cpw_ldap['connect_opts'] 
     overrides. No connection options are enabled by default.
     
-    You can use this option only when your ldap extension supports 
+    You can use this option only when your PHP LDAP extension supports 
     ldap_set_option() function.
 
   * 'use_tls'
-    enables or disables use of tls in ldap connection. Requires php 
-    4.2+, php ldap extension with ssl support and PROTOCOL_VERSION => 3 
-    setting in $cpw_ldap_connect_opts. Does not enable tls by default.
+    enables or disables use of TLS in LDAP connection. Requires PHP 
+    4.2+, PHP LDAP extension with SSL support and PROTOCOL_VERSION => 3 
+    setting in $cpw_ldap_connect_opts. Backend does not enable TLS by 
+    default.
 
   * 'binddn'
-    unprivileged binddn. should be able to search ldap directory and 
+    unprivileged BindDN. should be able to search LDAP directory and 
     find DN used by user. Uses anonymous bind, if set to empty string.
-    You should not use DN with write access to ldap directory here.
+    You should not use DN with write access to LDAP directory here.
     Defaults to anonymous bind.
 
   * 'bindpw'
@@ -170,7 +233,7 @@ ABOUT LDAP BACKEND
   * 'admindn'
     bind DN that should be able to change password.
     WARNING: usually user has enough privileges to change own password.
-    If you leave default value, plugin will try to connect with dn that 
+    If you leave default value, plugin will try to connect with DN that 
     is detected in $cpw_ldap_username_attr=$username search and current
     user password will be used for authentication.
 
@@ -178,57 +241,57 @@ ABOUT LDAP BACKEND
     password for binding with 'admindn'
 
   * 'userid_attr'
-    ldap attribute that stores username. Defaults to 'uid'
+    LDAP attribute that stores username. Defaults to 'uid'
 
   * 'default_crypto'
     crypto that is used to encode new password. If set to empty string, 
     system tries to keep same encoding/hashing algorithm. Currently 
     backend supports:
-    - md4 - used name 'md4'. Implemented in php mhash extension functions.
-    - md5 - used name 'md5'. Implemented in standard php functions.
-    - smd5 - used name 'smd5'. Implemented in php mhash extension functions. 
+    - MD4 - used name 'md4'. Implemented in PHP Mhash extension functions.
+    - MD5 - used name 'md5'. Implemented in standard PHP functions.
+    - SMD5 - used name 'smd5'. Implemented in PHP Mhash extension functions. 
       Minimal php version = 4.0.4.
-    - ripe-md160 - used name 'rmd160'. Implemented in php mhash extension functions.
-    - sha - used name 'sha'. Implemented in php mhash extension functions 
-      and php 4.3.0+ sha1() function. mhash extension is used only when 
+    - RIPEMD-160 - used name 'rmd160'. Implemented in PHP Mhash extension functions.
+    - SHA - used name 'sha'. Implemented in PHP Mhash extension functions 
+      and PHP 4.3.0+ sha1() function. Mhash extension is used only when 
       sha1() function is unavailable.
-    - ssha - used name 'ssha'. Implemented in php mhash extension functions.
-      Minimal php version = 4.0.4.
-    - md5 crypt - used name 'md5crypt'. Uses php crypt function. Depends on
-      md5 support in system crypt libraries. Should work on linux glibc2 systems
-      and bsd systems.
-    - blowfish crypt - used name 'blowfish'. Uses php crypt function. Depends on
-      blowfish support in system crypt libraries. Should work on bsd systems. 
+    - SSHA - used name 'ssha'. Implemented in PHP Mhash extension functions.
+      Minimal PHP version = 4.0.4.
+    - MD5 crypt - used name 'md5crypt'. Uses PHP crypt function. Depends on
+      MD5 support in system crypt libraries. Should work on Linux glibc2 systems
+      and BSD systems.
+    - blowfish crypt - used name 'blowfish'. Uses PHP crypt function. Depends on
+      blowfish support in system crypt libraries. Should work on BSD systems. 
       Is not supported by glibc 2.3.2. (Tested on OpenBSD 3.5)
-    - extended des crypt - used name 'extcrypt'. Uses php crypt function. Depends on
-      extended des support in system crypt libraries. Should work on bsd systems.
+    - extended DES crypt - used name 'extcrypt'. Uses PHP crypt function. Depends on
+      extended DES support in system crypt libraries. Should work on BSD systems.
       Is not supported by glibc 2.3.2. (Tested on OpenBSD 3.5)
-    - standard des crypt - used name 'crypt'. Uses php crypt function. Depends on
-      standard des support in system crypt libraries. Should work on libc systems
-      and bsd systems.
+    - standard DES crypt - used name 'crypt'. Uses PHP crypt function. Depends on
+      standard DES support in system crypt libraries. Should work on libc systems
+      and BSD systems.
     - plain text passwords - used name 'plaintext'.
 
     If you use admindn, plugin should support all encryption/hashing 
-    algorithms used in your ldap server.
+    algorithms used in your LDAP server.
 
     WARNINGS:
-    * don't enforce any crypto that is not supported by ldap server, if admindn 
+    * don't enforce any crypto that is not supported by LDAP server, if admindn 
       override is not used in backend configuration.
     * don't enforce extcrypt, md5crypt or blowfish, if they are not supported 
-      by ldap server and web server crypt libraries.
+      by LDAP server and web server crypt libraries.
 
     Safest setting options:
-    * If web server and ldap server is on same OS, make sure that mhash 
-      extension is present in php.
-    * If web server and ldap server is on same OS and mhash extension is 
-      not present, enforce md5 passwords or any crypt password algorithm 
-      supported by your os. Remember that standard des crypt is limited
-      to eight symbols.  Don't use admindn override, if ldap server 
-      supports md4, rmd160, sha, ssha or smd5.
-    * If crypt libraries differ on web server and ldap server -
-      enforce md5 passwords or any crypt password algorithm supported by
-      web server and ldap server. Don't use admindn override, if ldap 
-      server supports md4, rmd160, sha, ssha or smd5 and mhash extension 
+    * If web server and LDAP server is on same OS, make sure that Mhash 
+      extension is present in PHP.
+    * If web server and LDAP server is on same OS and Mhash extension is 
+      not present, enforce MD5 passwords or any crypt password algorithm 
+      supported by your OS. Remember that standard DES crypt is limited
+      to eight symbols.  Don't use admindn override, if LDAP server 
+      supports MD4, RIPEMD-160, SHA, SSHA or SMD5.
+    * If crypt libraries differ on web server and LDAP server -
+      enforce MD5 passwords or any crypt password algorithm supported by
+      web server and LDAP server. Don't use admindn override, if LDAP 
+      server supports MD4, RIPEMD-160, SHA, SSHA or SMD5 and Mhash extension 
       is not present.
 
   Configuration example:
@@ -237,8 +300,8 @@ ABOUT LDAP BACKEND
 
   Tested configurations:
   - Linux Debian Sarge, OpenLDAP v.2.1.30, Qmail LDAP 20050401a, courier-imap 
-    v.3.0.8 using qmail-ldap auth-imap authentication. ns-mta-md5 crypto is not
-    implemented in backend. 
+    v.3.0.8 using qmail-ldap auth-imap authentication. NS-MTA-MD5 crypto is not
+    implemented in backend. Crypted passwords need {crypt} prefix.
 
 -------------------
 ABOUT MYSQL BACKEND
