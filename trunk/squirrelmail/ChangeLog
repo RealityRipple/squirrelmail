@@ -350,6 +350,7 @@ Version 1.5.1 -- CVS
     4. General Options -> 9. Allow editing of identity.
   - Added dovecot preset to configuration utility.
   - Modified mercury32 preset in order to remove INBOX prefix in mercury32 4.01.
+  - Added peardb backend to change_password plugin.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
