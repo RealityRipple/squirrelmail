@@ -351,6 +351,7 @@ Version 1.5.1 -- CVS
   - Added dovecot preset to configuration utility.
   - Modified mercury32 preset in order to remove INBOX prefix in mercury32 4.01.
   - Added peardb backend to change_password plugin.
+  - Tweak IMAP connection error display (#1203154).
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
