@@ -645,7 +645,8 @@ function sqimap_create_stream($server,$port,$tls=false) {
                 '<br />'.
                 _("TLS is enabled, but this version of PHP does not support TLS sockets, or is missing the openssl extension.").
                 '<br /><br />'.
-                _("Please contact your system administrator and report this error.") );
+                _("Please contact your system administrator and report this error."),
+		sprintf(_("Error connecting to IMAP server: %s."), $server));
         }
     }
 
@@ -656,7 +657,8 @@ function sqimap_create_stream($server,$port,$tls=false) {
         set_up_language($squirrelmail_language, true);
         require_once(SM_PATH . 'functions/display_messages.php');
         logout_error( sprintf(_("Error connecting to IMAP server: %s."), $server).
-            "<br />\r\n$error_number : $error_string<br />\r\n" );
+            "<br />\r\n$error_number : $error_string<br />\r\n",
+	    sprintf(_("Error connecting to IMAP server: %s."), $server) );
         exit;
     }
     $server_info = fgets ($imap_stream, 1024);
