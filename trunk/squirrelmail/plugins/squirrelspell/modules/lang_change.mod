@@ -32,7 +32,7 @@ if (! sqgetGlobalVar('lang_default',$lang_default,SQ_POST)) {
 $new_langs = array($lang_default);
 foreach ($use_langs as $lang) {
     if (! in_array($lang,$new_langs)) {
-        $new_langs[].=$lang;
+        $new_langs[]=$lang;
     }
 }
 

@@ -107,7 +107,7 @@ function squirrelspell_upgrade() {
       $new_words=array();
       foreach($aLang_words as $word) {
         if (! preg_match("/^#/",$word) && trim($word)!='') {
-          $new_words[].=$word;
+          $new_words[]=$word;
         }
       }
       sqspell_writeWords($new_words,$lang);
