@@ -48,7 +48,7 @@ if (! empty($words_ary)){
   $new_words_ary = array();
   foreach ($lang_words as $word){
       if (! in_array($word,$words_ary)) {
-          $new_words_ary[].= $word;
+          $new_words_ary[]=$word;
       }
   }
   // save it

@@ -305,7 +305,7 @@ function sqspell_getSettings(){
         $aLangs = explode(',',$sLangs);
         foreach ($aLangs as $lang) {
             if (array_key_exists($lang,$SQSPELL_APP)) {
-                $ret[].=$lang;
+                $ret[]=$lang;
             }
         }
     }
@@ -357,17 +357,6 @@ function sqspell_getSettings_old($words){
        */
       preg_match("/# LANG: (.*)/i", $words, $matches);
       $langs=explode(", ", $matches[1]);
-
-      // make sure that langs are contains values that are present in
-      /*
-      $rebuild_langs=array();
-      foreach ($langs as $lang) {
-          if (array_key_exists($lang,$SQSPELL_APP)) {
-              $rebuild_langs[].=$lang;
-          }
-      }
-      $langs=$rebuild_langs;
-      */
     } else {
       /**
        * User doesn't have a personal dictionary. Grab the default
@@ -442,7 +431,7 @@ function sqspell_getLang($lang) {
   $aWords=array();
   foreach (explode(',',$sWords) as $word) {
     if (trim($word) !='') {
-      $aWords[].=trim($word);
+      $aWords[]=trim($word);
       }
   }
   return $aWords;

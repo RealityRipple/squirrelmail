@@ -40,7 +40,7 @@ if (empty($old_words)){
     $word_dic = $new_words;
 } else {
     foreach($new_words as $new_word) {
-        $old_words[].=$new_word;
+        $old_words[]=$new_word;
     }
     // make sure that dictionary contains only unique values
     $word_dic = array_unique($old_words);
