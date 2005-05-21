@@ -221,8 +221,9 @@ if ($show == 'form' && empty($listall)) {
 
     /* List all backends to allow the user to choose where to search */
     if ($abook->numbackends > 1) {
-        echo '<strong>' . _("in") . '</strong>&nbsp;'."\n".
-             $selopts['-1'] = _("All address books");
+        echo '<strong>' . _("in") . '</strong>&nbsp;'."\n";
+        $selopts = array();
+        $selopts['-1'] = _("All address books");
 
         $ret = $abook->get_backend_list();
         while (list($undef,$v) = each($ret)) {
