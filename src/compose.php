@@ -382,11 +382,24 @@ if ($draft) {
             sqimap_logout($imap_stream);
         }
         if ($compose_new_win == '1') {
-            Header("Location: $location/compose.php?saved_draft=yes&session=$composesession");
+            if ( !isset($pageheader_sent) || !$pageheader_sent ) {
+                Header("Location: $location/compose.php?saved_draft=yes&session=$composesession");
+            } else {
+                echo '   <br><br><center><a href="' . $location
+                    . '/compose.php?saved_sent=yes&amp;session=' . $composesession . '">'
+                    . _("Return") . '</a></center>';
+            }            
             exit();
         } else {
-            Header("Location: $location/right_main.php?mailbox=" . urlencode($draft_folder) .
+            if ( !isset($pageheader_sent) || !$pageheader_sent ) {
+                Header("Location: $location/right_main.php?mailbox=" . urlencode($draft_folder) .
                    "&startMessage=1&note=".urlencode($draft_message));
+            } else {
+                echo '   <br><br><center><a href="' . $location
+                    . '/right_main.php?mailbox=' . urlencode($draft_folder)
+                    . '&amp;startMessage=1&amp;note=' . urlencode($draft_message) .'">'
+                    . _("Return") . '</a></center>';
+            }            
             exit();
         }
     }
@@ -461,10 +474,25 @@ if ($send) {
             sqimap_logout($imap_stream);
         }
         if ($compose_new_win == '1') {
-            Header("Location: $location/compose.php?mail_sent=yes");
-        }else {
-            Header("Location: $location/right_main.php?mailbox=$urlMailbox".
-                   "&startMessage=$startMessage&mail_sent=yes");
+            if ( !isset($pageheader_sent) || !$pageheader_sent ) {
+                Header("Location: $location/compose.php?mail_sent=yes");
+            } else {
+                echo '   <br><br><center><a href="' . $location
+                    . '/compose.php?mail_sent=yes">'
+                    . _("Return") . '</a></center>';
+            }
+            exit();
+        } else {
+            if ( !isset($pageheader_sent) || !$pageheader_sent ) {
+                Header("Location: $location/right_main.php?mailbox=$urlMailbox".
+                    "&startMessage=$startMessage&mail_sent=yes");
+            } else {
+                echo '   <br><br><center><a href="' . $location
+                    . "/right_main.php?mailbox=$urlMailbox"
+                    . "&amp;startMessage=$startMessage&amp;mail_sent=yes\">"
+                    . _("Return") . '</a></center>';
+            }
+            exit();
         }
     } else {
         if ($compose_new_win == '1') {

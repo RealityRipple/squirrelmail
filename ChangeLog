@@ -352,6 +352,7 @@ Version 1.5.1 -- CVS
   - Modified mercury32 preset in order to remove INBOX prefix in mercury32 4.01.
   - Added peardb backend to change_password plugin.
   - Tweak IMAP connection error display (#1203154).
+  - Gracefully recover from over quota error while sending a mail (#1145144).
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
