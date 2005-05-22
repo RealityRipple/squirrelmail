@@ -41,7 +41,7 @@ include_once(SM_PATH.'functions/strings.php');
  * @param string $hex hexadecimal string created with squirrelmail ip2hex 
  *  function in delivery class.
  * @return string ip address
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.5
  */
 function hex2ip($hex) {
     if (strlen($hex)==8) {
