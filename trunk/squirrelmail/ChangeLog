@@ -353,7 +353,9 @@ Version 1.5.1 -- CVS
   - Added peardb backend to change_password plugin.
   - Tweak IMAP connection error display (#1203154).
   - Gracefully recover from over quota error while sending a mail (#1145144).
-
+  - Fix get_identities() for the case where the user has not set an email
+    address: use the fallback $username@$domain that's used in compose aswell.
+    
 Version 1.5.0 - 2 February 2004
 -------------------------------
   - Added new preference that determines cursor focus when replying

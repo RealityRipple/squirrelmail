@@ -26,17 +26,20 @@ include_once(SM_PATH . 'include/load_prefs.php');
 */
 function get_identities() {
 
-    global $username, $data_dir;
+    global $username, $data_dir, $domain;
 
-    $num_ids = getPref($data_dir,$username,'identities');
+    $em = getPref($data_dir,$username,'email_address');
+    if ( ! $em )  $em = $username.'@'.$domain;
+
     $identities = array();
     /* We always have this one, even if the user doesn't use multiple identities */
     $identities[] = array('full_name' => getPref($data_dir,$username,'full_name'),
-        'email_address' => getPref($data_dir,$username,'email_address'),
+        'email_address' => $em,
         'reply_to' => getPref($data_dir,$username,'reply_to'),
         'signature' => getSig($data_dir,$username,'g'),
         'index' => 0 );
 
+    $num_ids = getPref($data_dir,$username,'identities');
     /* If there are any others, add them to the array */
     if (!empty($num_ids) && $num_ids > 1) {
         for ($i=1;$i<$num_ids;$i++) {
