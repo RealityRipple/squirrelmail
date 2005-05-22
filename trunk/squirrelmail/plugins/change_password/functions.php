@@ -100,7 +100,7 @@ function cpw_do_change()
 
     /* update our password stored in the session */
     $onetimepad = OneTimePadCreate(strlen($newpw));
-    $_SESSION['onetimepad'] = $onetimepad;
+    sqsession_register($onetimepad,'onetimepad');
     $key = OneTimePadEncrypt($newpw, $onetimepad);
     setcookie('key', $key, 0, $base_uri);
 
