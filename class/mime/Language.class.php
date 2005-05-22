@@ -11,6 +11,7 @@
  *
  * @version $Id$
  * @package squirrelmail
+ * @subpackage mime
  * @since 1.3.2
  */
 
@@ -18,6 +19,7 @@
  * Class that can be used to handle language properties in MIME headers.
  *
  * @package squirrelmail
+ * @subpackage mime
  * @since 1.3.0
  */
 class Language {
