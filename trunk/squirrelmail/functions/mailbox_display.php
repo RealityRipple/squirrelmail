@@ -302,6 +302,7 @@ function fetchMessageHeaders($imapConnection, &$aMailbox) {
     $iError = 0;
     $aFetchItems = $aHeaderItems = array();
     // initialize the fields we want to retrieve:
+    $aHeaderFields = array();
     foreach ($aFetchHeaders as $v) {
       switch ($v) {
         case SQM_COL_DATE:       $aHeaderFields[] = 'Date';         break;
