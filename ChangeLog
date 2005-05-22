@@ -355,7 +355,9 @@ Version 1.5.1 -- CVS
   - Gracefully recover from over quota error while sending a mail (#1145144).
   - Fix get_identities() for the case where the user has not set an email
     address: use the fallback $username@$domain that's used in compose aswell.
-    
+  - Fix "Include me in CC on Reply All" for the case where email address was
+    not set in the prefs (#781202, #1093363).
+
 Version 1.5.0 - 2 February 2004
 -------------------------------
   - Added new preference that determines cursor focus when replying
