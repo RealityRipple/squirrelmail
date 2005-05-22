@@ -10,6 +10,8 @@
  *
  * @version $Id$
  * @package squirrelmail
+ * @subpackage mime
+ * @since 1.3.2
  */
 
 /**
@@ -20,6 +22,8 @@
  * more objects of type message.  See documentation in mime.txt for
  * a better description of how this works.
  * @package squirrelmail
+ * @subpackage mime
+ * @since 1.3.0
  */
 class Message {
     var $rfc822_header = '',
@@ -39,14 +43,25 @@ class Message {
         $att_local_name = ''; /* location where the tempory attachment
                              is stored. For future usage in smtp.php */
 
+    /**
+     * @param mixed $ent entity id
+     */
     function setEnt($ent) {
         $this->entity_id= $ent;
     }
 
+    /**
+     * @param mixed $msg
+     */
     function addEntity ($msg) {
         $this->entities[] = $msg;
     }
 
+    /**
+     * Get file name used for mime part
+     * @return string file name
+     * @since 1.3.2
+     */
     function getFilename() {
          $filename = '';
          $header = $this->header;
@@ -85,12 +100,20 @@ class Message {
          return $filename;
     }
 
-
+    /**
+     * Add header object to message object.
+     * WARNING: Unfinished code. Don't expect it to work in older sm versions.
+     * @param mixed $read array or string with message headers
+     * @todo FIXME: rfc822header->parseHeader() does not return rfc822header object
+     */
     function addRFC822Header($read) {
         $header = new Rfc822Header();
         $this->rfc822_header = $header->parseHeader($read);
     }
 
+    /**
+     * @param string $ent
+     */
     function getEntity($ent) {
         $cur_ent = $this->entity_id;
         $msg = $this;
@@ -133,10 +156,17 @@ class Message {
         return $msg;
     }
 
+    /**
+     * Set message body
+     * @param string $s message body
+     */
     function setBody($s) {
         $this->body_part = $s;
     }
 
+    /**
+     * Clean message object
+     */
     function clean_up() {
         $msg = $this;
         $msg->body_part = '';
@@ -146,6 +176,9 @@ class Message {
         }
     }
 
+    /**
+     * @return string
+     */
     function getMailbox() {
         $msg = $this;
         while (is_object($msg->parent)) {
@@ -164,7 +197,11 @@ class Message {
      * Question/Bugs:
      *
      * Ask for me (Marc Groot Koerkamp, stekkel@users.sourceforge.net)
-     *
+     * @param string $read
+     * @param integer $i
+     * @param mixed $sub_msg
+     * @return object Message object
+     * @todo define argument and return types
      */
     function parseStructure($read, &$i, $sub_msg = '') {
         $msg = Message::parseBodyStructure($read, $i, $sub_msg);
@@ -172,6 +209,13 @@ class Message {
         return $msg;
     }
 
+    /**
+     * @param object $msg
+     * @param mixed $init
+     * @param integer $i
+     * @todo document me
+     * @since 1.4.0
+     */
     function setEntIds(&$msg,$init=false,$i=0) {
         $iCnt = count($msg->entities);
         if ($init !==false) {
@@ -201,6 +245,14 @@ class Message {
         }
     }
 
+    /**
+     * @param string $read
+     * @param integer $i
+     * @param mixed $sub_msg
+     * @return object Message object
+     * @todo document me
+     * @since 1.4.0 (code was part of parseStructure() in 1.3.x)
+     */
     function parseBodyStructure($read, &$i, $sub_msg = '') {
         $arg_no = 0;
         $arg_a  = array();
@@ -376,6 +428,11 @@ class Message {
         } /* for */
     } /* parsestructure */
 
+    /**
+     * @param string $read
+     * @param integer $i
+     * @return array
+     */
     function parseProperties($read, &$i) {
         $properties = array();
         $prop_name = '';
@@ -401,6 +458,12 @@ class Message {
         return $properties;
     }
 
+    /**
+     * @param string $read
+     * @param integer $i
+     * @param object $hdr MessageHeader object
+     * @return object MessageHeader object
+     */
     function parseEnvelope($read, &$i, $hdr) {
         $arg_no = 0;
         $arg_a = array();
@@ -484,6 +547,12 @@ class Message {
         return $hdr;
     }
 
+    /**
+     * @param string $read
+     * @param integer $i
+     * @return string
+     * @todo document me
+     */
     function parseLiteral($read, &$i) {
         $lit_cnt = '';
         ++$i;
@@ -504,6 +573,12 @@ class Message {
         return $s;
     }
 
+    /**
+     * @param string $read
+     * @param integer $i
+     * @return string
+     * @todo document me
+     */
     function parseQuote($read, &$i) {
         $s = '';
         $iPos = ++$i;
@@ -523,6 +598,11 @@ class Message {
         return $s;
     }
 
+    /**
+     * @param string $read
+     * @param integer $i
+     * @return object AddressStructure object
+     */
     function parseAddress($read, &$i) {
         $arg_a = array();
         for (; $read{$i} != ')'; ++$i) {
@@ -553,6 +633,11 @@ class Message {
         return $adr;
     }
 
+    /**
+     * @param string $read
+     * @param integer $i
+     * @param object Disposition object or empty string
+     */
     function parseDisposition($read, &$i) {
         $arg_a = array();
         for (; $read{$i} != ')'; ++$i) {
@@ -574,6 +659,11 @@ class Message {
         return (is_object($disp) ? $disp : '');
     }
 
+    /**
+     * @param string $read
+     * @param integer $i
+     * @return object Language object or empty string
+     */
     function parseLanguage($read, &$i) {
         /* no idea how to process this one without examples */
         $arg_a = array();
@@ -597,6 +687,12 @@ class Message {
         return (is_object($lang) ? $lang : '');
     }
 
+    /**
+     * Parse message text enclosed in parenthesis
+     * @param string $read
+     * @param integer $i
+     * @return integer
+     */
     function parseParenthesis($read, $i) {
         for (; $read{$i} != ')'; ++$i) {
             switch ($read{$i}) {
@@ -609,8 +705,15 @@ class Message {
         return $i;
     }
 
-    /* Function to fill the message structure in case the */
-    /* bodystructure is not available NOT FINISHED YET    */
+    /**
+     * Function to fill the message structure in case the
+     * bodystructure is not available
+     * NOT FINISHED YET
+     * @param string $read
+     * @param string $type0 message part type
+     * @param string $type1 message part subtype
+     * @return string
+     */
     function parseMessage($read, $type0, $type1) {
         switch ($type0) {
             case 'message':
@@ -678,6 +781,12 @@ class Message {
         }
     }
 
+    /**
+     * @param array $entity
+     * @param array $alt_order
+     * @param boolean $strict
+     * @return array
+     */
     function findDisplayEntity($entity = array(), $alt_order = array('text/plain', 'text/html'), $strict=false) {
         $found = false;
         if ($this->type0 == 'multipart') {
@@ -751,6 +860,10 @@ class Message {
         return $entity;
     }
 
+    /**
+     * @param array $alt_order
+     * @return array
+     */
     function findAlternativeEntity($alt_order) {
         /* If we are dealing with alternative parts then we  */
         /* choose the best viewable message supported by SM. */
@@ -775,6 +888,9 @@ class Message {
         return $entity;
     }
 
+    /**
+     * @return array
+     */
     function findRelatedEntity() {
         $msgs = array();
         $related_type = $this->header->getParameter('type');
@@ -790,6 +906,11 @@ class Message {
         return $msgs;
     }
 
+    /**
+     * @param array $exclude_id
+     * @param array $result
+     * @return array
+     */
     function getAttachments($exclude_id=array(), $result = array()) {
 /*
         if (($this->type0 == 'message') &&
@@ -829,10 +950,17 @@ class Message {
         return $result;
     }
 
+    /**
+     * Add attachment to message object
+     * @param string $type attachment type
+     * @param string $name attachment name
+     * @param string $location path to attachment
+     */
     function initAttachment($type, $name, $location) {
         $attachment = new Message();
         $mime_header = new MessageHeader();
         $mime_header->setParameter('name', $name);
+        // FIXME: duplicate code. see ContentType class
         $pos = strpos($type, '/');
         if ($pos > 0) {
             $mime_header->type0 = substr($type, 0, $pos);

@@ -6,23 +6,54 @@
  * Copyright (c) 2003-2005 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * This contains functions needed to handle mime messages.
+ * This file contains functions needed to extract email address headers from 
+ * mime messages.
  *
  * @version $Id$
  * @package squirrelmail
+ * @subpackage mime
+ * @since 1.3.2
  */
 
 /**
- * Undocumented class
+ * Class used to work with email address headers
  * @package squirrelmail
+ * @subpackage mime
+ * @since 1.3.2
  */
 class AddressStructure {
-    var $personal = '',
-        $adl      = '',
-        $mailbox  = '',
-        $host     = '',
-        $group    = '';
+    /**
+     * Personal information
+     * @var string
+     */
+    var $personal = '';
+    /**
+     * @todo check use of this variable. var is not used in class.
+     * @var string
+     */
+    var $adl      = '';
+    /**
+     * Mailbox name.
+     * @var string
+     */
+    var $mailbox  = '';
+    /**
+     * Server address.
+     * @var string
+     */
+    var $host     = '';
+    /**
+     * @todo check use of this variable. var is not used in class.
+     * @var string
+     */
+    var $group    = '';
 
+    /**
+     * Return address information from mime headers.
+     * @param boolean $full return full address (true) or only email (false)
+     * @param boolean $encoded (since 1.4.0) return rfc2047 encoded address (true) or plain text (false).
+     * @return string
+     */
     function getAddress($full = true, $encoded = false) {
         $result = '';
         if (is_object($this)) {
@@ -58,9 +89,14 @@ class AddressStructure {
         return $result;
     }
 
+    /**
+     * Shorter version of getAddress() function
+     * Returns full encoded address.
+     * @return string
+     * @since 1.4.0
+     */
     function getEncodedAddress() {
         return $this->getAddress(true, true);
     }
 }
-
 ?>

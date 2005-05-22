@@ -6,20 +6,25 @@
  * Copyright (c) 2003-2005 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * This contains functions needed to handle mime messages.
+ * This file contains functions needed to handle headers in mime messages.
  *
  * @version $Id$
  * @package squirrelmail
+ * @subpackage mime
+ * @since 1.3.2
  */
 
 /**
- * Contains all variables available in a bodystructure
+ * Message header class
+ * Class contains all variables available in a bodystructure
+ * entity like described in rfc2060
+ * It was called msg_header in 1.3.0 and 1.3.1.
  * @package squirrelmail
+ * @subpackage mime
+ * @since 1.3.2
+ * @todo document vars
  */
 class MessageHeader {
-    /** msg_header contains all variables available in a bodystructure **/
-    /** entity like described in rfc2060                               **/
-
     var $type0 = '',
         $type1 = '',
         $parameters = array(),
@@ -31,21 +36,30 @@ class MessageHeader {
         $disposition = '',
         $language='';
 
-    /*
-     * returns addres_list of supplied argument
-     * arguments: array('to', 'from', ...) or just a string like 'to'.
-     * result: string: address1, addres2, ....
+    /**
+     * Sets header variable
+     * @param string $var
+     * @param mixed $value
      */
-
     function setVar($var, $value) {
         $this->{$var} = $value;
     }
 
+    /**
+     * Gets parameter value from $parameters array
+     * @param string $p
+     * @return mixed
+     */
     function getParameter($p) {
         $value = strtolower($p);
         return (isset($this->parameters[$p]) ? $this->parameters[$p] : '');
     }
 
+    /**
+     * Sets parameter value in $parameters array
+     * @param string $parameter
+     * @param mixed $value
+     */
     function setParameter($parameter, $value) {
         $this->parameters[strtolower($parameter)] = $value;
     }

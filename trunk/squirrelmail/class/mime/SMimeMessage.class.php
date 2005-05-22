@@ -11,12 +11,14 @@
  * @link http://www.ietf.org/html.charters/smime-charter.html
  * @version $Id$
  * @package squirrelmail
+ * @subpackage mime
  * @since 1.3.2
  */
 
 /**
  * Unimplemented class.
  * @package squirrelmail
+ * @subpackage mime
  * @todo implement smime parsing
  */
 class SMimeMessage {
