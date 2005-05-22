@@ -600,6 +600,8 @@ function prepareMessageList(&$aMailbox, $aProps) {
                                          'answered'=>false,
                                          'flagged' => false,
                                          'draft' => false);
+                                         
+                    if(!is_array($value)) $value = array();                     
                     foreach ($value as $sFlag => $value) {
                         switch ($sFlag) {
                           case '\\seen'    : $aFlagColumn['seen']     = true; break;
