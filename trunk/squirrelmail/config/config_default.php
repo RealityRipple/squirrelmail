@@ -157,7 +157,7 @@ $smtpPort = 25;
  * Encoded information can be decoded with decrypt_headers.php script
  * from SquirrelMail contrib/ directory.
  * @global string $encode_header_key
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.5
  */
 $encode_header_key = '';
 
@@ -543,6 +543,7 @@ $edit_name = true;
  *
  * See SquirrelMail bug tracker #847107 for more details about it.
  * @global bool $hide_auth_header
+ * @since 1.5.1 and 1.4.5
  */
 $hide_auth_header = false;
 

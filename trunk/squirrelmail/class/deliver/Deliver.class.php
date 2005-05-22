@@ -735,7 +735,7 @@ class Deliver {
      * If function fails to detect address format, it returns unprocessed string.
      * @param string $string ip address string
      * @return string processed ip address string
-     * @since 1.5.1
+     * @since 1.5.1 and 1.4.5
      */
     function ip2hex($string) {
         if (preg_match("/^(\d+)\.(\d+)\.(\d+)\.(\d+)$/",$string,$match)) {
