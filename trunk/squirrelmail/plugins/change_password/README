@@ -18,8 +18,8 @@ REQUIREMENTS:
   support, if LDAP server requires it.
 - mysql backend needs PHP MySQL extension.
 - merak backend needs PHP Curl extension.
-- peardb backend needs PHP Pear DB libraries and PHP extension that
-  is used to connect to database.
+- peardb backend needs PHP Pear DB libraries (v.1.6.0 or newer) and 
+  PHP extension that is used to connect to database.
 - poppassd backend needs poppassd server that supports authentication
   used by IMAP server.
 - vmailmgrd backend needs vmailmgr PHP library (vmail.inc) and
@@ -146,17 +146,32 @@ BACKENDS
   $cpw_poppassd['server'] = 'remote_servername';
 
   Available poppass servers:
-  * Qualcomm qpopper's poppassd
-  * poppassd-seti 
+  * Qualcomm qpopper's poppassd - 
+    http://www.eudora.com/products/unsupported/qpopper/index.html
+      original implementation of poppass protocol
+
+  * poppassd-seti - http://echelon.pl/pubs/poppassd.html
       poppass server with shadow password and PAM support
-  * courier poppassd
+
+  * courierpassd - http://www.arda.homeunix.net/store/
       poppass server used with courier authentication system.
-  * ldap poppassd
-  * nis/yp poppassd
-  * Mercury32 poppassd - http://www.pmail.com
+
+  * ldap poppassd - http://works.agni.com/ldap-poppassd.html
+      poppass server for LDAP
+
+  * yppoppassd - http://cns.georgetown.edu/~ric/software/yppoppassd/
+      poppass server for NIS/YP
+
+  * kpoppassd - http://kpoppassd.sourceforge.net/
+      poppass server for Kerberos
+
+  * Mercury32 poppassd - http://www.pmail.com/
       poppass server that is part of Mercury Mail Transport 
       System.
+
   * FreeBSD includes two poppass servers in ports collection.
+      http://www.freebsd.org/cgi/cvsweb.cgi/ports/mail/poppassd
+      http://www.freebsd.org/cgi/cvsweb.cgi/ports/mail/poppwd
 
 
 - vmailmgrd
