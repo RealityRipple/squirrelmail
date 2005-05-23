@@ -32,6 +32,8 @@ TLS
 * The "STARTTLS" command is NOT supported.  The server you wish to use TLS
   on must have a dedicated port listening for TLS connections. (ie. port
   993 for IMAP, 465 for SMTP)
+* If you use PHP 4.3.x, OpenSSL support must be compiled staticly. See
+  PHP bug #29934 (http://bugs.php.net/bug.php?id=29934)
 
 CONFIGURATION
 -------------
