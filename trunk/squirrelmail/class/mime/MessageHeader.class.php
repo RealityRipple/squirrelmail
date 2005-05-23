@@ -22,19 +22,52 @@
  * @package squirrelmail
  * @subpackage mime
  * @since 1.3.2
- * @todo document vars
  */
 class MessageHeader {
-    var $type0 = '',
-        $type1 = '',
-        $parameters = array(),
-        $id = 0,
-        $description = '',
-        $encoding='',
-        $size = 0,
-        $md5='',
-        $disposition = '',
-        $language='';
+    /**
+     * Media type
+     * @var string
+     */
+    var $type0 = '';
+    /**
+     * Media subtype
+     * @var string
+     */
+    var $type1 = '';
+    /**
+     * Content type parameters
+     * @var array
+     */
+    var $parameters = array();
+    /**
+     * @var mixed
+     */
+    var $id = 0;
+    /**
+     * @var string
+     */
+    var $description = '';
+    /**
+     * @var string
+     */
+    var $encoding='';
+    /**
+     * Message size
+     * @var integer
+     */
+    var $size = 0;
+    /**
+     * @var string
+     */
+    var $md5='';
+    /**
+     * @var mixed
+     */
+    var $disposition = '';
+    /**
+     * @var mixed
+     */
+    var $language='';
 
     /**
      * Sets header variable

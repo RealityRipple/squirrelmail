@@ -25,30 +25,114 @@
  * @since 1.3.0
  */
 class Rfc822Header {
-    var $date = -1,
-        $subject = '',
-        $from = array(),
-        $sender = '',
-        $reply_to = array(),
-        $mail_followup_to = array(),
-        $to = array(),
-        $cc = array(),
-        $bcc = array(),
-        $in_reply_to = '',
-        $message_id = '',
-        $references = '',
-        $mime = false,
-        $content_type = '',
-        $disposition = '',
-        $xmailer = '',
-        $priority = 3,
-        $dnt = '',
-        $encoding = '',
-        $content_id = '',
-        $content_desc = '',
-        $mlist = array(),
-        $more_headers = array(); /* only needed for constructing headers
-                                    in smtp.php */
+    /**
+     * Date header
+     * @var mixed
+     */
+    var $date = -1;
+    /**
+     * Subject header
+     * @var string
+     */
+    var $subject = '';
+    /**
+     * From header
+     * @var array
+     */
+    var $from = array();
+    /**
+     * @var mixed
+     */
+    var $sender = '';
+    /**
+     * Reply-To header
+     * @var array
+     */
+    var $reply_to = array();
+    /**
+     * Mail-Followup-To header
+     * @var array
+     */
+    var $mail_followup_to = array();
+    /**
+     * To header
+     * @var array
+     */
+    var $to = array();
+    /**
+     * Cc header
+     * @var array
+     */
+    var $cc = array();
+    /**
+     * Bcc header
+     * @var array
+     */
+    var $bcc = array();
+    /**
+     * In-reply-to header
+     * @var string
+     */
+    var $in_reply_to = '';
+    /**
+     * Message-ID header
+     * @var string
+     */
+    var $message_id = '';
+    /**
+     * References header
+     * @var string
+     */
+    var $references = '';
+    /**
+     * @var mixed
+     */
+    var $mime = false;
+    /**
+     * @var mixed
+     */
+    var $content_type = '';
+    /**
+     * @var mixed
+     */
+    var $disposition = '';
+    /**
+     * X-Mailer header
+     * @var string
+     */
+    var $xmailer = '';
+    /**
+     * Priority header
+     * @var integer
+     */
+    var $priority = 3;
+    /**
+     * @var mixed
+     */
+    var $dnt = '';
+    /**
+     * @var mixed
+     */
+    var $encoding = '';
+    /**
+     * @var mixed
+     */
+    var $content_id = '';
+    /**
+     * @var mixed
+     */
+    var $content_desc = '';
+    /**
+     * @var mixed
+     */
+    var $mlist = array();
+    /**
+     * Extra header
+     * only needed for constructing headers in delivery class
+     * @var array
+     */
+    var $more_headers = array();
+
     /**
      * @param mixed $hdr string or array with message headers
      */
