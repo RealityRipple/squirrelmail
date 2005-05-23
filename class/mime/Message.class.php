@@ -6,7 +6,7 @@
  * Copyright (c) 2003-2005 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * This contains functions needed to handle mime messages.
+ * This file contains functions needed to handle mime messages.
  *
  * @version $Id$
  * @package squirrelmail
@@ -26,32 +26,117 @@
  * @since 1.3.0
  */
 class Message {
-    var $rfc822_header = '',
-        $mime_header = '',
-        $flags = '',
-        $type0='',
-        $type1='',
-        $entities = array(),
-        $entity_id = '',
-        $parent_ent, $entity,
-        $parent = '', $decoded_body='',
-        $is_seen = 0, $is_answered = 0, $is_deleted = 0, $is_flagged = 0,
-        $is_mdnsent = 0,
-        $body_part = '',
-        $offset = 0,  /* for fetching body parts out of raw messages */
-        $length = 0,  /* for fetching body parts out of raw messages */
-        $att_local_name = ''; /* location where the tempory attachment
-                             is stored. For future usage in smtp.php */
+    /**
+     * rfc822header object
+     * @var object
+     */
+    var $rfc822_header = '';
+    /**
+     * MessageHeader object
+     * @var object
+     */
+    var $mime_header = '';
+    /**
+     * @var mixed
+     */
+    var $flags = '';
+    /**
+     * Media type
+     * @var string
+     */
+    var $type0='';
+    /**
+     * Media subtype
+     * @var string
+     */
+    var $type1='';
+    /**
+     * Nested mime parts
+     * @var array
+     */
+    var $entities = array();
+    /**
+     * Message part id
+     * @var string
+     */
+    var $entity_id = '';
+    /**
+     * Parent message part id
+     * @var string
+     */
+    var $parent_ent;
+    /**
+     * @var mixed
+     */
+    var $entity;
+    /**
+     * @var mixed
+     */
+    var $parent = '';
+    /**
+     * @var string
+     */
+    var $decoded_body='';
+    /**
+     * Message \seen status
+     * @var boolean
+     */
+    var $is_seen = 0;
+    /**
+     * Message \answered status
+     * @var boolean
+     */
+    var $is_answered = 0;
+    /**
+     * Message \deleted status
+     * @var boolean
+     */
+    var $is_deleted = 0;
+    /**
+     * Message \flagged status
+     * @var boolean
+     */
+    var $is_flagged = 0;
+    /**
+     * Message mdn status
+     * @var boolean
+     */
+    var $is_mdnsent = 0;
+    /**
+     * Message text body
+     * @var string
+     */
+    var $body_part = '';
+    /**
+     * Message part offset
+     * for fetching body parts out of raw messages
+     * @var integer
+     */
+    var $offset = 0;
+    /**
+     * Message part length
+     * for fetching body parts out of raw messages
+     * @var integer
+     */
+    var $length = 0;
+    /**
+     * Local attachment filename
+     * location where the tempory attachment
+     * is stored. For use in delivery class.
+     * @var string
+     */
+    var $att_local_name = '';
 
     /**
-     * @param mixed $ent entity id
+     * @param string $ent entity id
      */
     function setEnt($ent) {
         $this->entity_id= $ent;
     }
 
     /**
-     * @param mixed $msg
+     * Add nested message part
+     * @param object $msg
      */
     function addEntity ($msg) {
         $this->entities[] = $msg;
@@ -113,6 +198,7 @@ class Message {
 
     /**
      * @param string $ent
+     * @return mixed (object or string?)
      */
     function getEntity($ent) {
         $cur_ent = $this->entity_id;
@@ -655,7 +741,6 @@ class Message {
                 $disp->properties = $arg_a[1];
             }
         }
-
         return (is_object($disp) ? $disp : '');
     }
 
@@ -683,7 +768,6 @@ class Message {
                 $lang->properties = $arg_a[1];
             }
         }
-
         return (is_object($lang) ? $lang : '');
     }
 
@@ -712,7 +796,7 @@ class Message {
      * @param string $read
      * @param string $type0 message part type
      * @param string $type1 message part subtype
-     * @return string
+     * @return string (only when type0 is not message or multipart)
      */
     function parseMessage($read, $type0, $type1) {
         switch ($type0) {
@@ -884,7 +968,6 @@ class Message {
                 }
             }
         }
-
         return $entity;
     }
 
