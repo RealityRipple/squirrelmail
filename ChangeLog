@@ -357,7 +357,7 @@ Version 1.5.1 -- CVS
     address: use the fallback $username@$domain that's used in compose aswell.
   - Fix "Include me in CC on Reply All" for the case where email address was
     not set in the prefs (#781202, #1093363).
-  - Move documentation for SquirrelMail developers to doc/Developers.
+  - Move documentation for SquirrelMail developers to doc/Development.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
