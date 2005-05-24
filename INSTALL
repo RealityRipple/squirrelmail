@@ -179,7 +179,7 @@ c. Setting up SquirrelMail
 -------------------
 
   For information on how to make SquirrelMail work with Russian
-  Apache, see the README.russian_apache in the doc/ subdirectory.
+  Apache, see the russian_apache.txt in the doc/ subdirectory.
 
 
 6. TRANSLATIONS
