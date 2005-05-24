@@ -576,7 +576,8 @@ function prepareMessageList(&$aMailbox, $aProps) {
                     // FIXME: don't break 8bit symbols and html entities during truncation
                     if (isset($aColumnDesc[$k]['truncate']) && $aColumnDesc[$k]['truncate']) {
                         $sTmp = truncateWithEntities($value, $aColumnDesc[$k]['truncate']-$iIndent);
-                        $title = ($sTmp != $value) ? $value : '';
+                        // drop any double spaces since these will be displayed in the title
+                        $title = ($sTmp != $value) ? preg_replace('/\s{2,}/', ' ', $value) : '';
                         $value = $sTmp;
                     }
                     /* generate the link to the message */
