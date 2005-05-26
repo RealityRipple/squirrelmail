@@ -1,0 +1,221 @@
+<!doctype linuxdoc system>
+<!--
+ Copyright (c) 2005 The SquirrelMail Project Team
+ This file is part of SquirrelMail webmail interface documentation.
+
+ SquirrelMail is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+
+ SquirrelMail is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with SquirrelMail; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+-->
+<article>
+
+<title>SquirrelMail Administrator's Manual
+<author>
+by the SquirrelMail Project Team:
+<!-- put your name here -->
+</author>
+<date>$Date$
+<abstract>
+This document provides information about SquirrelMail webmail interface 
+install procedures.
+</abstract>
+
+<toc>
+
+<p>
+Document version: $Revision$
+
+<sect>SquirrelMail overview
+<p>
+SquirrelMail is a standards-based webmail package written in PHP4. It includes 
+built-in pure PHP support for the IMAP and SMTP protocols, and all pages render
+in pure HTML 4.0 (with no JavaScript required) for maximum compatibility across
+browsers. It has very few requirements and is very easy to configure and 
+install. SquirrelMail has all the functionality you would want from an email 
+client, including strong MIME support, address books, and folder manipulation.
+
+<sect1>SquirrelMail Requirements
+<sect2>Requirements for running SquirrelMail:
+<p>
+<itemize>
+  <item>UNIX/Linux or Windows (UNIX/Linux version may be more functional)
+  <item>IMAP4rev1 server (e.g. uw-imap, courier-imap, cyrus-imap, hMailServer, 
+    Binc IMAP, CommuniGate, MS Exchange Server, MercuryMail 32, Dovecot)
+  <item>Web server with PHP4 installed (preferably <url
+    url="http://httpd.apache.org/" name="Apache httpd">)
+  <item>You need at least PHP 4.1.2. If you are using PHP 4.1.2 or 4.1.4, please 
+    upgrade to the latest version ( >= 4.1.2.11, >= 4.1.4.1 final).
+  <item>Perl installed on the system. (If you don't have Perl, SquirrelMail will 
+    work fine but it's very helpful for the initial configuration. 
+    Alternatively, you can manually edit the configuration files.)
+  <item>Unlike many PHP applications, SquirrelMail does not require MySQL or
+    other database type.
+  <item>If you use MySQL for the address book or for prefs, note that Pear DB
+    lib is required to be installed and available in the include
+    path.
+  <item>Aspell installed if using the SquirrelSpell plugin, For UNIX/Linux see:
+    <url url="http://aspell.sourceforge.net/" name="http://aspell.sourceforge.net/">
+    or for Windows, see: <url url="http://aspell.net/win32/" name="http://aspell.net/win32/">
+  <item>Japanese language support: PHP must be compiled with the
+    <tt/--enable-mbstring/ option for SquirrelMail to read and write Japanese
+    emails. Each user must also set their language option to Japanese.
+</itemize>
+
+<sect2>Preferred configuration:
+<p>
+<itemize>
+  <item>php with gettext and mbstring support. Without gettext you lose in
+    performance. mbstring is actually required if you want a good i18n webmail
+    system.
+  <item>imap server that supports sort and thread imap extensions. Without these
+    extensions you lose in performance.
+  <item>imap server should support unicode. CourierIMAP must be compiled with
+    <tt/--enable-unicode/ option. Without it some translations might be unable to use
+    sorting and threading.
+</itemize>
+
+<sect2>Browser Requirements:
+<p>
+<itemize>
+  <item>Cookies must be enabled in your browser.
+</itemize>
+
+<sect>Quick Start Guide
+<p>
+download it, configure it, use it.
+
+<sect>Installing SquirrelMail
+<sect1>Quick and Dirty install
+<p>
+QuickAndDirty
+
+<sect1>Installing SquirrelMail on Unix and Linux systems
+<p>
+SquirrelMailInstallUnix
+
+<sect1>Installing Squirrelmail on Windows systems with Apache webserver
+<p>
+SquirrelMailInstallWin32Apache
+
+<sect1>Installing SquirrelMail on Windows systems with IIS webserver
+<p>
+SquirrelMailInstallIIS
+
+<sect1>Installing SquirrelMail on MaxOS X systems
+<p>
+MacInfoHere
+
+<sect>Upgrading SquirrelMail
+<p>
+Information for upgraders.
+
+<sect>Configuring SquirrelMail
+<p>
+run conf.pl script.
+
+<sect1>basic configuration
+<p>
+essential configuration steps.
+
+<sect1>Selecting IMAP server
+<p>
+Recommend use of presets. List main presets. Explain why setting only
+$imap_server_type does not work.
+
+<sect1>Authentication
+<p>
+login, cram-md5, digest-md5.
+
+<sect1>StartTLS, IMAPS, SSMTP
+<p>
+secure connection ways. supported and not supported. minimal requirements.
+
+<sect1>Using database backends
+<p>
+SquirrelMail can store preferences and address books in database.
+
+<sect1>Using more than one imap server
+<p>
+How to do that.
+
+<sect1>Other configuration issues
+<p>
+Other configuration issues.
+
+<sect>Optimizing SquirrelMail
+<p>
+What to do in order to make it fast without toasting the server.
+
+<sect>Customizing SquirrelMail
+<sect1>Plugins
+<p>
+SquirrelMail is modular system. Interface can be extented with extra features
+provided by various plugins.
+
+<sect1>Themes
+<p>
+Which color is da best.
+
+<sect1>Site customizations
+<p>
+Own login page. Site control with vlogin plugin.
+
+<sect1>Internationalization
+<p>
+Using interface with different languages.
+
+<sect1>Personal and shared address books
+<p>
+Information about global address books here.
+
+<sect>FAQ
+<p>
+Daily questions
+
+<sect>Solving problems
+<sect1>Common PHP error messages
+<sect2>unknown function session_id() call
+<p>
+missing session support
+
+<sect1>Common interface error messsages
+<sect2>Unknown username or password
+<p>
+password is not ********. you need cookies.
+
+<sect2>Session timeout
+<p>
+session.gc_maxlifetime
+
+<sect2>Can't delete emails. Quota exceeded.
+<p>
+DisableTrash
+
+<sect>Support
+<p>
+Where do I get support? How do I provide feedback, patches, feature 
+suggestions, bug reports.
+
+<sect1>SquirrelMail bugtracker
+<p>
+We have it on SF.
+
+<sect1>SquirrelMail mailing lists
+<p>
+We have them too.
+
+<sect1>Security contacts
+<p>
+address used for security contact.
+
+</article>
