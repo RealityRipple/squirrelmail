@@ -1,0 +1,51 @@
+<!doctype linuxdoc system>
+<!--
+ Copyright (c) 2005 The SquirrelMail Project Team
+ This file is part of SquirrelMail webmail interface documentation.
+
+ SquirrelMail is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+
+ SquirrelMail is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with SquirrelMail; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+-->
+<article>
+
+<title>SquirrelMail User's Manual
+<author>
+by the SquirrelMail Project Team:
+<!-- put your name here -->
+</author>
+<date>$Date$
+<abstract>
+This document provides information about usage of SquirrelMail webmail interface.
+</abstract>
+
+<toc>
+
+<p>
+Document version: $Revision$
+
+<sect>SquirrelMail overview
+<p>
+SquirrelMail is a standards-based webmail package written in PHP4. It includes 
+built-in pure PHP support for the IMAP and SMTP protocols, and all pages render
+in pure HTML 4.0 (with no JavaScript required) for maximum compatibility across
+browsers. It has very few requirements and is very easy to configure and 
+install. SquirrelMail has all the functionality you would want from an email 
+client, including strong MIME support, address books, and folder manipulation.
+
+<sect>Using SquirrelMail
+<sect1>How do we to use SquirrelMail
+<p>
+See UserManual wiki sections.
+
+</article>

@@ -1,0 +1,20 @@
+This directory contains sgml formated SquirrelMail documentation.
+
+In order to use it, you must compile appropriate documentation with 
+linuxdoc-tools or other sgml processor.
+
+You can find information about SGML at
+http://www.linuxdocs.org/HOWTOs/mini/DocBook-Install/index.html
+
+You can find information about linuxdoc-tools at 
+http://packages.debian.org/linuxdoc-tools/. If you don't have access 
+to linuxdoc-tools, you might be able to use original SGMLTools or 
+SGMLTools-lite http://sourceforge.net/projects/sgmltools-lite/
+
+Documentation can be compiled with 'make' command issued in this 
+directory. You will need linuxdoc-tools package with txt, html, 
+latex (tex, dvi, ps, pdf), info, lyx and rtf support.
+
+Minimal documentation can be compiled with 'make html' command.
+
+Documentation formating can be checked with 'make check' command.
