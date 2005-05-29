@@ -10,6 +10,7 @@
  *
  * @version $Id$
  * @package squirrelmail
+ * @subpackage prefs
  */
 
 /**********************************************/
