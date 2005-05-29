@@ -6,11 +6,11 @@
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * Functions to build HTML forms in a safe and consistent manner.
- * All name, value attributes are sanitized with htmlspecialchars().
+ * All attribute values are sanitized with htmlspecialchars().
  *
  * Currently functions don't provide simple wrappers for file and 
  * image input fields, support only submit and reset buttons and use 
- * input fields for buttons.
+ * html input tags for buttons.
  *
  * Since 1.5.1 all form functions should support id tags. Original 
  * idea by dugan <at> passwall.com. Tags can be used for Section 508 
