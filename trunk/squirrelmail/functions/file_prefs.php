@@ -10,13 +10,21 @@
  *
  * @version $Id$
  * @package squirrelmail
+ * @subpackage prefs
+ * @since 1.2.5
  */
+
+/** @ignore */
+if (! defined('SM_PATH')) define('SM_PATH','../');
 
 /** include this for error messages */
 include_once(SM_PATH . 'functions/display_messages.php');
 
 /**
  * Check the preferences into the session cache.
+ * @param string $data_dir
+ * @param string $username
+ * @since 1.1.3
  */
 function cachePrefValues($data_dir, $username) {
     global $prefs_are_cached, $prefs_cache;
@@ -87,6 +95,11 @@ function cachePrefValues($data_dir, $username) {
 
 /**
  * Return the value for the preference given by $string.
+ * @param string $data_dir data directory
+ * @param string $username user name
+ * @param string $string preference name
+ * @param string $default (since 1.2.0) default preference value
+ * @return mixed
  */
 function getPref($data_dir, $username, $string, $default = '') {
     global $prefs_cache;
@@ -108,6 +121,9 @@ function getPref($data_dir, $username, $string, $default = '') {
 
 /**
  * Save the preferences for this user.
+ * @param string $data_dir data directory
+ * @param string $username user name
+ * @since 1.1.3
  */
 function savePrefValues($data_dir, $username) {
     global $prefs_cache;
@@ -140,6 +156,9 @@ function savePrefValues($data_dir, $username) {
 
 /**
  * Remove a preference for the current user.
+ * @param string $data_dir data directory
+ * @param string $username user name
+ * @param string $string preference name
  */
 function removePref($data_dir, $username, $string) {
     global $prefs_cache;
@@ -155,6 +174,10 @@ function removePref($data_dir, $username, $string) {
 
 /**
  * Set a there preference $string to $value.
+ * @param string $data_dir data directory
+ * @param string $username user name
+ * @param string $string preference name
+ * @param mixed $value preference value
  */
 function setPref($data_dir, $username, $string, $value) {
     global $prefs_cache;
@@ -175,6 +198,10 @@ function setPref($data_dir, $username, $string, $value) {
 
 /**
  * Check for a preferences file. If one can not be found, create it.
+ * @param string $data_dir data directory
+ * @param string $username user name
+ * @param string $filename (since 1.2.0) preference file name.
+ *  detects file name, if set to empty string.
  */
 function checkForPrefs($data_dir, $username, $filename = '') {
     /* First, make sure we have the filename. */
@@ -228,6 +255,11 @@ function checkForPrefs($data_dir, $username, $filename = '') {
 
 /**
  * Write the User Signature.
+ * @param string $data_dir data directory
+ * @param string $username user name
+ * @param integer $number (since 1.2.5) identity number.
+ *  parameter was used for signature text before 1.2.5.
+ * @param string $value (since 1.2.5) signature text
  */
 function setSig($data_dir, $username, $number, $value) {
     // Limit signature size to 64KB (database BLOB limit)
@@ -257,6 +289,10 @@ function setSig($data_dir, $username, $number, $value) {
 
 /**
  * Get the signature.
+ * @param string $data_dir data directory
+ * @param string $username user name
+ * @param integer $number (since 1.2.5) identity number
+ * @return string signature
  */
 function getSig($data_dir, $username, $number) {
     $filename = getHashedFile($username, $data_dir, "$username.si$number");

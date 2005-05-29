@@ -10,7 +10,11 @@
  *
  * @version $Id$
  * @package squirrelmail
+ * @subpackage prefs
  */
+
+/** @ignore */
+if (!defined('SM_PATH')) define('SM_PATH','../');
 
 /** Include global.php */
 require_once(SM_PATH . 'functions/global.php');
@@ -47,6 +51,7 @@ if (isset($prefs_backend) && !empty($prefs_backend) && file_exists(SM_PATH . $pr
  * @param string datafile the name of the file to open
  * @param bool hash_seach default true
  * @return string the hashed location of datafile
+ * @since 1.2.0
  */
 function getHashedFile($username, $dir, $datafile, $hash_search = true) {
 
@@ -96,6 +101,7 @@ function getHashedFile($username, $dir, $datafile, $hash_search = true) {
  * @param string dir the SquirrelMail datadir
  * @param string hash_dirs default ''
  * @return the path to the hash dir for username
+ * @since 1.2.0
  */
 function getHashedDir($username, $dir, $hash_dirs = '') {
     global $dir_hash_level;
@@ -133,6 +139,7 @@ function getHashedDir($username, $dir, $hash_dirs = '') {
  *
  * @param string username the username to calculate the hash dir for
  * @return array a list of hash dirs for this username
+ * @since 1.2.0
  */
 function computeHashDirs($username) {
     /* Compute the hash for this user and extract the hash directories. */
@@ -147,10 +154,12 @@ function computeHashDirs($username) {
 }
 
 /**
- * FIXME: Undocumented function
+ * Javascript support detection function
+ * @param boolean $reset recheck javascript support if set to true.
+ * @return integer SMPREF_JS_* constants
+ * @since 1.5.1
  */
-function checkForJavascript($reset = FALSE)
-{
+function checkForJavascript($reset = FALSE) {
   global $data_dir, $username, $javascript_on, $javascript_setting;
 
   if ( !$reset && sqGetGlobalVar('javascript_on', $javascript_on, SQ_SESSION) )
