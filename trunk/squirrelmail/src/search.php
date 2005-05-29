@@ -12,6 +12,7 @@
  *
  * @version $Id$
  * @package squirrelmail
+ * @subpackage search
  * @link http://www.ietf.org/rfc/rfc3501.txt
  * @author Alex Lemaresquier - Brainstorm - alex at brainstorm.fr
  */
@@ -25,12 +26,12 @@ define('SM_PATH','../');
 /** SquirrelMail required files.
  */
 require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/strings.php');
-require_once(SM_PATH . 'functions/imap_asearch.php');
-require_once(SM_PATH . 'functions/imap_mailbox.php');
-require_once(SM_PATH . 'functions/imap_messages.php');
-require_once(SM_PATH . 'functions/mime.php');
-require_once(SM_PATH . 'functions/mailbox_display.php'); //getButton()...
+include_once(SM_PATH . 'functions/strings.php');
+include_once(SM_PATH . 'functions/imap_asearch.php');
+include_once(SM_PATH . 'functions/imap_mailbox.php');
+include_once(SM_PATH . 'functions/imap_messages.php');
+include_once(SM_PATH . 'functions/mime.php');
+include_once(SM_PATH . 'functions/mailbox_display.php'); //getButton()...
 include_once(SM_PATH . 'class/template/template.class.php');
 
 /** Prefs array ordinals. Must match $recent_prefkeys and $saved_prefkeys
