@@ -358,6 +358,8 @@ Version 1.5.1 -- CVS
   - Fix "Include me in CC on Reply All" for the case where email address was
     not set in the prefs (#781202, #1093363).
   - Move documentation for SquirrelMail developers to doc/Development.
+  - Added id attribute support to form functions. It can be used for Section 
+    508 or WAI fixes. Original idea and patch by dugan <at> passwall.com.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
