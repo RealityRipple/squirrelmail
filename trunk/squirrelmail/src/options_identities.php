@@ -10,6 +10,7 @@
  *
  * @version $Id$
  * @package squirrelmail
+ * @subpackage prefs
  */
 
 /**
@@ -20,9 +21,9 @@ define('SM_PATH','../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/global.php');
-require_once(SM_PATH . 'functions/display_messages.php');
-require_once(SM_PATH . 'functions/html.php');
+include_once(SM_PATH . 'functions/global.php');
+include_once(SM_PATH . 'functions/display_messages.php');
+include_once(SM_PATH . 'functions/html.php');
 
 /* POST data var names are dynamic because
    of the possible multiple idents so lets get
