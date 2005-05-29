@@ -184,6 +184,7 @@ function boolean_hook_function($name,$parm=NULL,$priority=0,$tie=false) {
  * FIXME: This function needs to have its name changed!
  *
  * @return bool whether this browser properly supports JavaScript
+ * @deprecated use checkForJavascript() since 1.5.1
  */
 function soupNazi(){
     return !checkForJavascript();
