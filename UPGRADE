@@ -72,12 +72,9 @@ that you download new versions of your plugins at the same time you download
 your SquirrelMail install, and that you install your plugins fresh (it's
 easy, don't panic!).
 
-If you prefer to just copy your old plugins over (if it's the same version
-or if you are lazy), you may do so.  If you notice irregularities with the
-plugins under the new SquirrelMail, try installing new versions of the
-plugins.
-
-  $ cp -Rp squirrelmail-1.0.6.bak/plugins/* squirrelmail-1.2.0/plugins
+You should not try replacing plugins that are already included in SquirrelMail
+package. Download latest versions of plugins that are not included in new
+SquirrelMail package or copy them from older SquirrelMail install.
   
 D.  Copy themes
 
@@ -85,7 +82,11 @@ If you've created or modified themes, you should copy just those to the new
 SquirrelMail themes directory.  To just copy them all over to the new
 SquirrelMail installation, you can run one command.
 
-  $ cp squirrelmail-1.0.6.bak/themes/* squirrelmail-1.2.0/themes/
+  $ cp -ui squirrelmail-1.0.6.bak/themes/* squirrelmail-1.2.0/themes/
+
+When -u flag is used, command copies only missing and newer files. 
+When -i flag is used, command asks for confirmation before replacing
+existing files.
 
 (While you are at it, you should send them to us!  We might add them to the
 themes in the standard install!)
