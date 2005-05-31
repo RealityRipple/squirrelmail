@@ -6,12 +6,15 @@
  * Copyright (c) 1999-2005 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * This impliments all functions that manipulate mailboxes
+ * This implements all functions that manipulate mailboxes
  *
  * @version $Id$
  * @package squirrelmail
  * @subpackage imap
  */
+
+/** @ignore */
+if (! defined('SM_PATH')) define('SM_PATH','../');
 
 /** UTF7 support */
 require_once(SM_PATH . 'functions/imap_utf7_local.php');
@@ -27,9 +30,11 @@ global $boxesnew;
  * should be called is the sqimap_get_status_mbx_tree. In case of subscribe
  * / rename / delete / new we have to create methods for adding/changing the
  * mailbox in the mbx_tree without the need for a refresh.
+ *
+ * Some code fragments are present in 1.3.0 - 1.4.4.
  * @package squirrelmail
  * @subpackage imap
- * @since 1.3.0
+ * @since 1.5.0
  */
 class mailboxes {
     var $mailboxname_full = '', $mailboxname_sub= '', $is_noselect = false, $is_noinferiors = false,
@@ -885,115 +890,115 @@ function sqimap_mailbox_list_all($imap_stream) {
 }
 
 /**
+ * Fills mailbox object
+ *
+ * Some code fragments are present in 1.3.0 - 1.4.4.
  * @param stream $imap_stream imap connection resource
  * @return object see mailboxes class.
- * @since 1.3.0
+ * @since 1.5.0
  */
 function sqimap_mailbox_tree($imap_stream) {
-    global $default_folder_prefix;
-    if (true) {
-        global $data_dir, $username, $list_special_folders_first,
-               $folder_prefix, $delimiter, $trash_folder, $move_to_trash,
-               $imap_server_type, $show_only_subscribed_folders;
+    global $default_folder_prefix, $data_dir, $username, $list_special_folders_first,
+        $folder_prefix, $delimiter, $trash_folder, $move_to_trash,
+        $imap_server_type, $show_only_subscribed_folders;
 
-        $noselect = false;
-        $noinferiors = false;
+    $noselect = false;
+    $noinferiors = false;
 
-        require_once(SM_PATH . 'include/load_prefs.php');
+    require_once(SM_PATH . 'include/load_prefs.php');
 
-        if ($show_only_subscribed_folders) {
-            $lsub_cmd = 'LSUB';
-        } else {
-            $lsub_cmd = 'LIST';
-        }
-
-        /* LSUB array */
-        $lsub_ary = sqimap_run_command ($imap_stream, "$lsub_cmd \"$folder_prefix\" \"*\"",
-                                        true, $response, $message);
-        $lsub_ary = compact_mailboxes_response($lsub_ary);
-
-        /* Check to see if we have an INBOX */
-        $has_inbox = false;
-
-        for ($i = 0, $cnt = count($lsub_ary); $i < $cnt; $i++) {
-            if (preg_match("/^\*\s+$lsub_cmd.*\s\"?INBOX\"?[^(\/\.)].*$/i",$lsub_ary[$i])) {
-                $lsub_ary[$i] = strtoupper($lsub_ary[$i]);
-                // in case of an unsubscribed inbox an imap server can
-                // return the inbox in the lsub results with a \NoSelect
-                // flag.
-                if (!preg_match("/\*\s+$lsub_cmd\s+\(.*\\\\NoSelect.*\).*/i",$lsub_ary[$i])) {
-                    $has_inbox = true;
-                } else {
-                    // remove the result and request it again  with a list
-                    // response at a later stage.
-                    unset($lsub_ary[$i]);
-                    // re-index the array otherwise the addition of the LIST
-                    // response will fail in PHP 4.1.2 and probably other older versions
-                    $lsub_ary = array_values($lsub_ary);
-                }
-                break;
-            }
-        }
-
-        if ($has_inbox == false) {
-            // do a list request for inbox because we should always show
-            // inbox even if the user isn't subscribed to it.
-            $inbox_ary = sqimap_run_command ($imap_stream, 'LIST "" "INBOX"',
-                                             true, $response, $message);
-            $inbox_ary = compact_mailboxes_response($inbox_ary);
-            if (count($inbox_ary)) {
-                $lsub_ary[] = $inbox_ary[0];
-            }
-        }
-
-        /*
-         * Section about removing the last element was removed
-         * We don't return "* OK" anymore from sqimap_read_data
-         */
-
-        $sorted_lsub_ary = array();
-        $cnt = count($lsub_ary);
-        for ($i = 0; $i < $cnt; $i++) {
-            $mbx = find_mailbox_name($lsub_ary[$i]);
-
-            // only do the noselect test if !uw, is checked later. FIX ME see conf.pl setting
-            if ($imap_server_type != "uw") {
-                $noselect = check_is_noselect($lsub_ary[$i]);
-                $noinferiors = check_is_noinferiors($lsub_ary[$i]);
-            }
-            if (substr($mbx, -1) == $delimiter) {
-                $mbx = substr($mbx, 0, strlen($mbx) - 1);
-            }
-            $sorted_lsub_ary[] = array ('mbx' => $mbx, 'noselect' => $noselect, 'noinferiors' => $noinferiors);
-        }
-        // FIX ME this requires a config setting inside conf.pl instead of checking on server type
-        if ($imap_server_type == "uw") {
-           $aQuery = array();
-           $aTag = array();
-           // prepare an array with queries
-           foreach ($sorted_lsub_ary as $aMbx) {
-               $mbx = stripslashes($aMbx['mbx']);
-               sqimap_prepare_pipelined_query('LIST "" ' . sqimap_encode_mailbox_name($mbx), $tag, $aQuery, false);
-               $aTag[$tag] = $mbx;
-           }
-           $sorted_lsub_ary = array();
-           // execute all the queries at once
-           $aResponse = sqimap_run_pipelined_command ($imap_stream, $aQuery, false, $aServerResponse, $aServerMessage);
-           foreach($aTag as $tag => $mbx) {
-               if ($aServerResponse[$tag] == 'OK') {
-                   $sResponse = implode('', $aResponse[$tag]);
-                   $noselect = check_is_noselect($sResponse);
-                   $noinferiors = check_is_noinferiors($sResponse);
-                   $sorted_lsub_ary[] = array ('mbx' => $mbx, 'noselect' => $noselect, 'noinferiors' => $noinferiors);
-               }
-           }
-           $cnt = count($sorted_lsub_ary);
-       }
-       $sorted_lsub_ary = array_values($sorted_lsub_ary);
-       usort($sorted_lsub_ary, 'mbxSort');
-       $boxestree = sqimap_fill_mailbox_tree($sorted_lsub_ary,false,$imap_stream);
-       return $boxestree;
+    if ($show_only_subscribed_folders) {
+        $lsub_cmd = 'LSUB';
+    } else {
+        $lsub_cmd = 'LIST';
     }
+
+    /* LSUB array */
+    $lsub_ary = sqimap_run_command ($imap_stream, "$lsub_cmd \"$folder_prefix\" \"*\"",
+                                    true, $response, $message);
+    $lsub_ary = compact_mailboxes_response($lsub_ary);
+
+    /* Check to see if we have an INBOX */
+    $has_inbox = false;
+
+    for ($i = 0, $cnt = count($lsub_ary); $i < $cnt; $i++) {
+        if (preg_match("/^\*\s+$lsub_cmd.*\s\"?INBOX\"?[^(\/\.)].*$/i",$lsub_ary[$i])) {
+            $lsub_ary[$i] = strtoupper($lsub_ary[$i]);
+            // in case of an unsubscribed inbox an imap server can
+            // return the inbox in the lsub results with a \NoSelect
+            // flag.
+            if (!preg_match("/\*\s+$lsub_cmd\s+\(.*\\\\NoSelect.*\).*/i",$lsub_ary[$i])) {
+                $has_inbox = true;
+            } else {
+                // remove the result and request it again  with a list
+                // response at a later stage.
+                unset($lsub_ary[$i]);
+                // re-index the array otherwise the addition of the LIST
+                // response will fail in PHP 4.1.2 and probably other older versions
+                $lsub_ary = array_values($lsub_ary);
+            }
+            break;
+        }
+    }
+
+    if ($has_inbox == false) {
+        // do a list request for inbox because we should always show
+        // inbox even if the user isn't subscribed to it.
+        $inbox_ary = sqimap_run_command ($imap_stream, 'LIST "" "INBOX"',
+                                         true, $response, $message);
+        $inbox_ary = compact_mailboxes_response($inbox_ary);
+        if (count($inbox_ary)) {
+            $lsub_ary[] = $inbox_ary[0];
+        }
+    }
+
+    /*
+     * Section about removing the last element was removed
+     * We don't return "* OK" anymore from sqimap_read_data
+     */
+
+    $sorted_lsub_ary = array();
+    $cnt = count($lsub_ary);
+    for ($i = 0; $i < $cnt; $i++) {
+        $mbx = find_mailbox_name($lsub_ary[$i]);
+
+        // only do the noselect test if !uw, is checked later. FIX ME see conf.pl setting
+        if ($imap_server_type != "uw") {
+            $noselect = check_is_noselect($lsub_ary[$i]);
+            $noinferiors = check_is_noinferiors($lsub_ary[$i]);
+        }
+        if (substr($mbx, -1) == $delimiter) {
+            $mbx = substr($mbx, 0, strlen($mbx) - 1);
+        }
+        $sorted_lsub_ary[] = array ('mbx' => $mbx, 'noselect' => $noselect, 'noinferiors' => $noinferiors);
+    }
+    // FIX ME this requires a config setting inside conf.pl instead of checking on server type
+    if ($imap_server_type == "uw") {
+        $aQuery = array();
+        $aTag = array();
+        // prepare an array with queries
+        foreach ($sorted_lsub_ary as $aMbx) {
+            $mbx = stripslashes($aMbx['mbx']);
+            sqimap_prepare_pipelined_query('LIST "" ' . sqimap_encode_mailbox_name($mbx), $tag, $aQuery, false);
+            $aTag[$tag] = $mbx;
+        }
+        $sorted_lsub_ary = array();
+        // execute all the queries at once
+        $aResponse = sqimap_run_pipelined_command ($imap_stream, $aQuery, false, $aServerResponse, $aServerMessage);
+        foreach($aTag as $tag => $mbx) {
+            if ($aServerResponse[$tag] == 'OK') {
+                $sResponse = implode('', $aResponse[$tag]);
+                $noselect = check_is_noselect($sResponse);
+                $noinferiors = check_is_noinferiors($sResponse);
+                $sorted_lsub_ary[] = array ('mbx' => $mbx, 'noselect' => $noselect, 'noinferiors' => $noinferiors);
+            }
+        }
+        $cnt = count($sorted_lsub_ary);
+    }
+    $sorted_lsub_ary = array_values($sorted_lsub_ary);
+    usort($sorted_lsub_ary, 'mbxSort');
+    $boxestree = sqimap_fill_mailbox_tree($sorted_lsub_ary,false,$imap_stream);
+    return $boxestree;
 }
 
 /**
@@ -1008,11 +1013,14 @@ function mbxSort($a, $b) {
 }
 
 /**
+ * Fills mailbox object
+ *
+ * Some code fragments are present in 1.3.0 - 1.4.4.
  * @param array $mbx_ary
  * @param $mbxs
- * @param stream $imap_stream (since 1.5.0) imap connection resource
+ * @param stream $imap_stream imap connection resource
  * @return object see mailboxes class
- * @since 1.3.0
+ * @since 1.5.0
  */
 function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
     global $data_dir, $username, $list_special_folders_first,
