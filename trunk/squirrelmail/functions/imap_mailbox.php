@@ -902,6 +902,8 @@ function sqimap_mailbox_tree($imap_stream) {
         $folder_prefix, $delimiter, $trash_folder, $move_to_trash,
         $imap_server_type, $show_only_subscribed_folders;
 
+    // TODO: implement mailbox tree caching. maybe store object in session?
+
     $noselect = false;
     $noinferiors = false;
 
