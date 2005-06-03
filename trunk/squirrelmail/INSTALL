@@ -50,7 +50,10 @@ Each of these steps is covered in detail below.
     Required for LDAP addressbooks
   
   --with-pear and --with-mysql
-    For MySQL storage of preferences or addressbooks
+    For MySQL storage of preferences or addressbooks. You will need php 
+    compiled with --with-pgsql option, if you want to use PostgreSQL instead
+    of MySQL. You will need php with appropriate database extension, if you 
+    want to use any other database.
 
   --with-openssl
     Required for encrypted IMAP or SMTP connections (TLS)
