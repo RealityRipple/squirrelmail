@@ -46,14 +46,25 @@ Each of these steps is covered in detail below.
   The PHP IMAP extension is NOT necessary at all (but won't harm)!
   Below is a list of optional PHP extensions:
 
-  --with-ldap     Required for LDAP addressbooks
-  --with-mhash    Will improve charset decoding if present
-  --with-mysql    For MySQL storage of preferences or addressbooks
-  --with-openssl  When you want to use encrypted IMAP connections (TLS)
+  --with-ldap
+    Required for LDAP addressbooks
+  
+  --with-pear and --with-mysql
+    For MySQL storage of preferences or addressbooks
 
-  If you're going to use LDAP in the addressbook, you must compile PHP
-  with the LDAP extension. Include the MHASH extension to improve
-  performance in character set decoding.
+  --with-openssl
+    Required for encrypted IMAP or SMTP connections (TLS)
+
+  --with-mcrypt
+    Can be used by SquirrelSpell plugin for encryption of personal
+    dictionaries
+
+  --with-iconv or --with-recode
+    Can be used by Eastern charset decoding functions
+
+  --enable-mbstring
+    Required for Japanese translation. Optional for translations that 
+    use non-ISO-8859-1 charset
 
   If you want your users to attach files to their mails, make sure
   File Uploads in php.ini is set to On.
