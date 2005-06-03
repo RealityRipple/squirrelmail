@@ -179,7 +179,12 @@ class Deliver {
                 $filename = $message->att_local_name;
                 $file = fopen ($filename, 'rb');
                 while ($tmp = fread($file, 570)) {
-                   $body_part = chunk_split(base64_encode($tmp));
+                    $body_part = chunk_split(base64_encode($tmp));
+                    // Up to 4.3.10 chunk_split always appends a newline,
+                    // while in 4.3.11 it doesn't if the string to split
+                    // is shorter than the chunk length.
+                    if( substr($body_part, -1 , 1 ) != "\n" )
+                        $body_part .= "\n";
                     $length += $this->clean_crlf($body_part);
                     if ($stream) {
                         $this->writeToStream($stream, $body_part);
