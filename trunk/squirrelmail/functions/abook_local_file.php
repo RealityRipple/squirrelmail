@@ -357,7 +357,7 @@ class abook_local_file extends addressbook_backend {
         /* See if user exists already */
         $ret = $this->lookup($userdata['nickname']);
         if(!empty($ret)) {
-            return $this->set_error(sprintf(_("User '%s' already exist"),
+            return $this->set_error(sprintf(_("User '%s' already exists"),
                    $ret['nickname']));
         }
 
