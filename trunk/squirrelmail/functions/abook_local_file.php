@@ -357,8 +357,8 @@ class abook_local_file extends addressbook_backend {
         /* See if user exists already */
         $ret = $this->lookup($userdata['nickname']);
         if(!empty($ret)) {
-            return $this->set_error(sprintf(_("User '%s' already exists"),
-                   $ret['nickname']));
+            return $this->set_error(sprintf(_("User %s already exists"),
+                        '&quot;' . $ret['nickname'] . '&quot;'));
         }
 
         /* Here is the data to write */
@@ -450,8 +450,8 @@ class abook_local_file extends addressbook_backend {
         /* See if user exists */
         $ret = $this->lookup($alias);
         if(empty($ret)) {
-            return $this->set_error(sprintf(_("User '%s' does not exist"),
-                $alias));
+            return $this->set_error(sprintf(_("User %s does not exist"),
+                        '&quot;' . $alias . '&quot;'));
         }
 
         /* Lock the file to make sure we're the only process working
