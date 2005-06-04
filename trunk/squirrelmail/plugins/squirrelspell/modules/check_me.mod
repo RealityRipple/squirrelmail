@@ -389,23 +389,23 @@ if ($errors){
        <tr>
         <td colspan="4">
          <table border="0" cellpadding="0" cellspacing="3" width="100%">
-              <tr align="center" bgcolor="<?php echo $color[9] ?>">
+          <tr align="center" bgcolor="<?php echo $color[9] ?>">
            <?php
-              SpellLink('sqspellChange()',
-                  _("Change this word"),
-                  _("Change"));
-              SpellLink('sqspellChangeAll()',
-                  _("Change ALL occurances of this word"),
-                  _("Change All"));
-              SpellLink('sqspellIgnore()',
-                  _("Ignore this word"),
-                  _("Ignore"));
-              SpellLink('sqspellIgnoreAll()',
-                  _("Ignore ALL occurances this word"),
-                  _("Ignore All"));
-              SpellLink('sqspellRemember()',
-                  _("Add this word to your personal dictionary"),
-                  _("Add to Dic"));
+           SpellLink('sqspellChange()',
+                   _("Change this word"),
+                   _("Change"));
+         SpellLink('sqspellChangeAll()',
+                 _("Change ALL occurances of this word"),
+                 _("Change All"));
+         SpellLink('sqspellIgnore()',
+                 _("Ignore this word"),
+                 _("Ignore"));
+         SpellLink('sqspellIgnoreAll()',
+                 _("Ignore ALL occurances this word"),
+                 _("Ignore All"));
+         SpellLink('sqspellRemember()',
+                 _("Add this word to your personal dictionary"),
+                 _("Add to Dic"));
            ?>
           </tr>
          </table>
@@ -418,15 +418,15 @@ if ($errors){
         <td colspan="4" align="center" bgcolor="<?php echo $color[9] ?>">
          <?php
              echo '<input type="button" value="  '
-                . _("Close and Commit")
-                . '  " onclick="if (confirm(\''
-                . _("The spellcheck is not finished. Really close and commit changes?")
-                . '\')) sqspellCommitChanges()" />'
-                . ' <input type="button" value="  '
-                . _("Close and Cancel")
-                . '  " onclick="if (confirm(\''
-                . _("The spellcheck is not finished. Really close and discard changes?")
-                . '\')) self.close()" />';
+                 . _("Close and Commit")
+                 . '  " onclick="if (confirm(\''
+                 . _("The spellcheck is not finished. Really close and commit changes?")
+                 . '\')) sqspellCommitChanges()" />'
+                 . ' <input type="button" value="  '
+                 . _("Close and Cancel")
+                 . '  " onclick="if (confirm(\''
+                 . _("The spellcheck is not finished. Really close and discard changes?")
+                 . '\')) self.close()" />';
          ?>
         </td>
        </tr>
@@ -441,7 +441,7 @@ if ($errors){
   /**
    * AREN'T YOU SUCH A KNOW-IT-ALL!
    */
-  $msg='<form onsubmit="return false"><div align="center">'.
+  $msg='<form onsubmit="return false"><div align="center">' .
        '<input type="submit" value="  ' . _("Close") .
        '  " onclick="self.close()" /></div></form>';
   sqspell_makeWindow(null, _("No errors found"), null, $msg);

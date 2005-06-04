@@ -60,7 +60,7 @@ if (! empty($words_ary)){
    * Click on some words first, Einstein!
    */
   sqspell_makePage(_("Personal Dictionary"), null,
-      '<p>' . _("No changes requested.") . '</p>');
+          '<p>' . _("No changes requested.") . '</p>');
 }
 
 /**

@@ -18,23 +18,25 @@ if (! defined('SM_PATH')) define('SM_PATH','../../');
 
 /**
  * Standard SquirrelMail plugin initialization API.
+ *
  * @return void
  */
 function squirrelmail_plugin_init_squirrelspell() {
   global $squirrelmail_plugin_hooks;
   $squirrelmail_plugin_hooks['compose_button_row']['squirrelspell'] =
-    'squirrelspell_setup';
+      'squirrelspell_setup';
   $squirrelmail_plugin_hooks['optpage_register_block']['squirrelspell'] =
-    'squirrelspell_optpage_register_block';
+      'squirrelspell_optpage_register_block';
   $squirrelmail_plugin_hooks['options_link_and_description']['squirrelspell'] =
-    'squirrelspell_options';
+      'squirrelspell_options';
   $squirrelmail_plugin_hooks['right_main_after_header']['squirrelspell'] =
-    'squirrelspell_upgrade';
+      'squirrelspell_upgrade';
 }
 
 /**
  * This function formats and adds the plugin and its description to the
  * Options screen.
+ *
  * @return void
  */
 function squirrelspell_optpage_register_block() {
@@ -59,6 +61,7 @@ function squirrelspell_optpage_register_block() {
 /**
  * This function adds a "Check Spelling" link to the "Compose" row
  * during message composition.
+ *
  * @return void
  */
 function squirrelspell_setup() {
@@ -127,4 +130,5 @@ function squirrelspell_upgrade() {
 function squirrelspell_version() {
   return '0.5cvs';
 }
+
 ?>

@@ -94,7 +94,7 @@ if ($crypted){
         . '</form>';
 }
 sqspell_makePage(_("Personal Dictionary Crypto Settings"),
-    "crypto_settings.js", $msg);
+        "crypto_settings.js", $msg);
 
 /**
  * For Emacs weenies:

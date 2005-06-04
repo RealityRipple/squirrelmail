@@ -84,10 +84,10 @@ function sqspell_dict_reencrypted() {
     sqspell_makePage(_("Successful re-encryption"), null, $msg);
   } else {
     $msg = '<p>'
-      . _("Your personal dictionary was re-encrypted successfully. Please close this window and click \"Check Spelling\" button again to start your spellcheck over.")
-      . '</p><form><p align="center"><input type="button" value=" '
-      . _("Close this Window") . ' "'
-      . 'onclick="self.close()" /></p></form>';
+        . _("Your personal dictionary was re-encrypted successfully. Please close this window and click \"Check Spelling\" button again to start your spellcheck over.")
+        . '</p><form><p align="center"><input type="button" value=" '
+        . _("Close this Window") . ' "'
+        . 'onclick="self.close()" /></p></form>';
     sqspell_makeWindow(null, _("Dictionary re-encrypted"), null, $msg);
   }
   exit;

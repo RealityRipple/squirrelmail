@@ -67,7 +67,7 @@ if (sizeof($new_langs)>1) {
 sqspell_saveSettings($new_langs);
 
 sqspell_makePage(_("International Dictionaries Preferences Updated"),
-    null, $msg);
+        null, $msg);
 
 /**
  * For Emacs weenies:
