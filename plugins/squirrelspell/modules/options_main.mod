@@ -42,7 +42,7 @@ if (function_exists("mcrypt_generic")) {
 } else {
   $msg .= '<li>'
     . _("Personal dictionary encryption options are not available") 
-    . ')</em></li>';
+    . '</li>';
 }
 $msg .= "</ul>\n";
 sqspell_makePage( _("SquirrelSpell Options Menu"), null, $msg);
