@@ -611,14 +611,14 @@ function create_option_groups($optgrps, $optvals) {
         foreach ($grpopts as $optset) {
             /* Create a new option with all values given. */
             $next_option = new SquirrelOption(
-                 $optset['name'],
-                 $optset['caption'],
-                 $optset['type'],
-                 (isset($optset['refresh']) ? $optset['refresh'] : SMOPT_REFRESH_NONE),
-                 (isset($optset['initial_value']) ? $optset['initial_value'] : ''),
-                 (isset($optset['posvals']) ? $optset['posvals'] : ''),
-                 (isset($optset['htmlencoded']) ? $optset['htmlencoded'] : false)
-            );
+                    $optset['name'],
+                    $optset['caption'],
+                    $optset['type'],
+                    (isset($optset['refresh']) ? $optset['refresh'] : SMOPT_REFRESH_NONE),
+                    (isset($optset['initial_value']) ? $optset['initial_value'] : ''),
+                    (isset($optset['posvals']) ? $optset['posvals'] : ''),
+                    (isset($optset['htmlencoded']) ? $optset['htmlencoded'] : false)
+                    );
 
             /* If provided, set the size for this option. */
             if (isset($optset['size'])) {

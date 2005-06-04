@@ -313,8 +313,8 @@ class abook_database extends addressbook_backend {
         /* See if user exist already */
         $ret = $this->lookup($userdata['nickname']);
         if (!empty($ret)) {
-            return $this->set_error(sprintf(_("User '%s' already exists"),
-                                            $ret['nickname']));
+            return $this->set_error(sprintf(_("User %s already exists"),
+                        '&quot;' . $ret['nickname'] . '&quot;'));
         }
 
         /* Create query */
@@ -394,8 +394,8 @@ class abook_database extends addressbook_backend {
          /* See if user exist */
         $ret = $this->lookup($alias);
         if (empty($ret)) {
-            return $this->set_error(sprintf(_("User '%s' does not exist"),
-                                            $alias));
+            return $this->set_error(sprintf(_("User %s does not exist"),
+                        '&qout;' . $alias . '&qout;'));
         }
 
         /* Create query */

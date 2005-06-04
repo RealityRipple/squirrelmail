@@ -1,4 +1,5 @@
 <?php
+
 /**
  * functions/addressbook.php - Functions and classes for the addressbook system
  *
@@ -69,7 +70,6 @@ function addressbook_init($showerr = true, $onlylocal = false) {
             // no need to use $abook->error, because message explains error.
             $abook_init_error.=sprintf( _("Error opening file %s"), $filename );
         }
-
     }
 
     /* Global file based addressbook */
@@ -131,7 +131,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
      * hook allows to include different address book backends.
      * plugins should extract $abook and $r from arguments
      * and use same add_backend commands as above functions.
-     * @since 1.5.1
+     * @since 1.5.1 and 1.4.5
      */
     $hookReturn = do_hook('abook_init', $abook, $r);
     $abook = $hookReturn[1];
@@ -147,7 +147,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
                     if (!$r && $showerr) {
                         if ($abook_init_error!='') $abook_init_error.="<br />\n";
                         $abook_init_error.=sprintf(_("Error initializing LDAP server %s:") .
-                                                   "<br />\n", $param['host']);
+                                "<br />\n", $param['host']);
                         $abook_init_error.= $abook->error;
                     }
                 }
@@ -161,6 +161,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
     if ($abook_init_error!='' && $showerr) {
         error_box($abook_init_error,$color);
     }
+
     /* Return the initialized object */
     return $abook;
 }
@@ -925,8 +926,8 @@ require_once(SM_PATH . 'functions/abook_ldap_server.php');
 
 /* Only load database backend if database is configured */
 if((isset($addrbook_dsn) && !empty($addrbook_dsn)) ||
- (isset($addrbook_global_dsn) && !empty($addrbook_global_dsn)) ) {
-  include_once(SM_PATH . 'functions/abook_database.php');
+        (isset($addrbook_global_dsn) && !empty($addrbook_global_dsn))) {
+    include_once(SM_PATH . 'functions/abook_database.php');
 }
 
 /*
@@ -934,7 +935,7 @@ if((isset($addrbook_dsn) && !empty($addrbook_dsn)) ||
  * class must follow address book class coding standards.
  *
  * see addressbook_backend class and functions/abook_*.php files.
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.5
  */
 do_hook('abook_add_class');
 
