@@ -486,6 +486,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
         do_hook($bottom_hook_name);
     }
 }
+
 ?>
 </td></tr>
 </table>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * delete_message.php
  *
@@ -23,5 +24,6 @@ include_once(SM_PATH . 'functions/display_messages.php');
 
 global $color;
 error_box('delete_message.php script is obsolete since 1.5.1.',$color);
+
 ?>
 </body></html>

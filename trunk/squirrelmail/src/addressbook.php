@@ -61,7 +61,6 @@ if($abook->localbackend == 0) {
     exit();
 }
 
-
 $defdata   = array();
 $formerror = '';
 $abortform = false;
@@ -158,6 +157,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                         $abortform = true;
                         list($ebackend, $enick) = explode(':', $sel[0]);
                         $olddata = $abook->lookup($enick, $ebackend);
+                        // FIXME: Test if $olddata really contains anything and return an error message if it doesn't
 
                         /* Display the "new address" form */
                         abook_create_form($form_url,'editaddr',_("Update address"),_("Update address"),$olddata);
@@ -175,13 +175,13 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                     if (!$r) {
                         /* Display error */
                         echo html_tag( 'table',
-                                       html_tag( 'tr',
-                                                 html_tag( 'td',
-                                                           "\n". '<strong><font color="' . $color[2] .
-                                                           '">' . _("ERROR") . ': ' . $abook->error . '</font></strong>' ."\n",
-                                                           'center' )
-                                                 ),
-                                       'center', '', 'width="100%"' );
+                                html_tag( 'tr',
+                                    html_tag( 'td',
+                                        "\n". '<strong><font color="' . $color[2] .
+                                        '">' . _("ERROR") . ': ' . $abook->error . '</font></strong>' ."\n",
+                                        'center' )
+                                    ),
+                                'center', '', 'width="100%"' );
 
                         /* Display the "new address" form again */
                         abook_create_form($form_url,'editaddr',_("Update address"),_("Update address"),$newdata);
@@ -291,7 +291,7 @@ if ($showaddrlist) {
                 }
 
                 // Print backend name
-                echo  html_tag( 'tr',
+                echo html_tag( 'tr',
                         html_tag( 'td', "\n" . '<strong>' . $row['source'] . '</strong>' . "\n", 'center', $color[0] ,'colspan="5"' )
                         );
 
@@ -379,5 +379,6 @@ echo "</form>\n";
 echo "<!-- start of addressbook_bottom hook-->\n";
 do_hook('addressbook_bottom');
 echo "\n<!-- end of addressbook_bottom hook-->\n";
+
 ?>
 </body></html>

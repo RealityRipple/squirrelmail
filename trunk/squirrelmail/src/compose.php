@@ -34,8 +34,8 @@ require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'class/deliver/Deliver.class.php');
 require_once(SM_PATH . 'functions/addressbook.php');
-require_once(SM_PATH . 'functions/identity.php');
 require_once(SM_PATH . 'functions/forms.php');
+require_once(SM_PATH . 'functions/identity.php');
 
 /* --------------------- Get globals ------------------------------------- */
 /** COOKIE VARS */
@@ -1658,5 +1658,4 @@ function deliverMessage($composeMessage, $draft=false) {
     return $succes;
 }
 
-// vim: et ts=4
 ?>

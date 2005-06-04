@@ -211,5 +211,6 @@ do_hook('help_bottom');
 echo html_tag( 'tr',
             html_tag( 'td', '&nbsp;', 'left', $color[0] )
         );
+
 ?>
 </table></body></html>

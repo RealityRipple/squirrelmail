@@ -40,5 +40,6 @@ if ( ! sqgetGlobalVar('mailbox',$mailbox,SQ_GET) ||
         . '" name="bottom_frame" frameborder="0" />' . "\n";
     echo "</frameset>\n";
 }
+
 ?>
 </html>

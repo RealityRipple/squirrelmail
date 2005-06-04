@@ -1645,4 +1645,5 @@ do_hook('search_bottom');
 sqimap_logout($imapConnection);
 echo '</body></html>';
 sqsession_register($mailbox_cache,'mailbox_cache');
+
 ?>

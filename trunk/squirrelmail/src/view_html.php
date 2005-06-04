@@ -1,4 +1,5 @@
 <?php
+
 /**
  * $Source$
  * Displays html message parts
@@ -97,4 +98,5 @@ $body = MagicHTML( $body, $passed_id, $message, $mailbox);
 /** TODO: charset might be part of html code. */
 header('Content-Type: text/html; charset=' . $charset);
 echo $body;
+
 ?>
