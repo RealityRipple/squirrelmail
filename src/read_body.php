@@ -1009,5 +1009,6 @@ sqimap_logout($imapConnection);
  */
 $mailbox_cache[$iAccount.'_'.$aMailbox['NAME']] = $aMailbox;
 sqsession_register($mailbox_cache,'mailbox_cache');
+
 ?>
 </body></html>

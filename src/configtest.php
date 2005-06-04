@@ -479,6 +479,7 @@ if( empty($ldap_server) ) {
         }
     }
 }
+
 ?>
 
 <p>Congratulations, your SquirrelMail setup looks fine to me!</p>

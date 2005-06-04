@@ -52,6 +52,7 @@ echo '<a href="'.$msg_url.'">'. _("View message") . '</a>';
 $DownloadLink = '../src/download.php?passed_id=' . $passed_id .
                '&amp;mailbox=' . urlencode($mailbox) .
                '&amp;ent_id=' . urlencode($ent_id) . '&amp;absolute_dl=true';
+
 ?>
 </b></td></tr>
 <tr><td align="center">

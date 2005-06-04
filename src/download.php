@@ -159,4 +159,5 @@ if (isset($absolute_dl) && $absolute_dl) {
 mime_print_body_lines ($imapConnection, $passed_id, $ent_id, $encoding);
 $mailbox_cache[$aMailbox['NAME']] = $aMailbox;
 sqsession_register($mailbox_cache,'mailbox_cache');
+
 ?>

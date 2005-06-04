@@ -49,7 +49,7 @@ if (sqgetGlobalVar('startMessage', $startMessage)) {
     $startMessage = (int) $startMessage;
 }
 
-if (!sqgetGlobalVar('mailbox',$mailbox)) {
+if (!sqgetGlobalVar('mailbox', $mailbox)) {
     $mailbox = 'INBOX';
 }
 
@@ -180,6 +180,7 @@ if($ret != '') {
     $output = $ret;
 }
 echo $output;
+
 ?>
 </frameset>
 </html>

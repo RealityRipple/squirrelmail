@@ -83,6 +83,7 @@ if ( count ($plugins) > 0 ) {
 } else {
     echo '<em>'._("none installed")."</em>\n\n";
 }
+
 ?>
 </small>
 <br /><br />

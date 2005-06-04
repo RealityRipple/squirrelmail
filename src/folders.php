@@ -367,6 +367,7 @@ if ($show_only_subscribed_folders) {
 
 do_hook('folders_bottom');
 sqimap_logout($imapConnection);
+
 ?>
     </td></tr>
     </table>

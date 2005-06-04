@@ -39,5 +39,6 @@ echo '<body text="'.$color[8].'" bgcolor="'.$color[3].'" link="'.$color[7].'" vl
          '<input type="button" value="' . _("Close") . '" onclick="window.parent.close()" />'.
          '</form>',
      'right' );
+
 ?>
 </body></html>

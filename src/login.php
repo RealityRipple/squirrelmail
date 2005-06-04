@@ -173,23 +173,24 @@ echo html_tag( 'table',
                                     addHidden('js_autodetect_results', SMPREF_JS_OFF).
                                     $rcptaddress .
                                     addHidden('just_logged_in', '1'),
-                                'left', '', 'width="*"' )
-                            ) ,
-                        'center', $color[4], 'border="0" width="100%"' ) ,
-                    'left', $color[4] )
-                ) .
-                html_tag( 'tr',
-                    html_tag( 'td',
-                        '<center>'. addSubmit(_("Login")) .'</center>',
-                    'left' )
-                ),
-            '', $color[4], 'border="0" width="350"' ) . '</center>',
-        'center' )
-    ) ,
-'', $color[4], 'border="0" cellspacing="0" cellpadding="0" width="100%"' );
+                                    'left', '', 'width="*"' )
+                                ) ,
+                            'center', $color[4], 'border="0" width="100%"' ) ,
+                        'left', $color[4] )
+                        ) .
+                        html_tag( 'tr',
+                                html_tag( 'td',
+                                    '<center>'. addSubmit(_("Login")) .'</center>',
+                                    'left' )
+                                ),
+                        '', $color[4], 'border="0" width="350"' ) . '</center>',
+                        'center' )
+                        ) ,
+                        '', $color[4], 'border="0" cellspacing="0" cellpadding="0" width="100%"' );
 do_hook('login_form');
 echo '</form>' . "\n";
 
 do_hook('login_bottom');
+
 ?>
 </body></html>

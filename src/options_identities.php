@@ -357,4 +357,5 @@ function ShowTableInfo($full_name, $email_address, $reply_to, $signature, $post)
 
     return ($return_val);
 }
+
 ?>

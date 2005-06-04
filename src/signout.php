@@ -95,6 +95,7 @@ html_tag( 'table',
          html_tag( 'td', '<br />', 'center' ) ,
     '', $color[0] ) ,
 'center', $color[4], 'width="50%" cellpadding="2" cellspacing="0" border="0"' )
+
 ?>
 </body>
 </html>
