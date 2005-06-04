@@ -48,11 +48,11 @@ Each of these steps is covered in detail below.
 
   --with-ldap
     Required for LDAP addressbooks
-  
+
   --with-pear and --with-mysql
-    For MySQL storage of preferences or addressbooks. You will need php 
+    For MySQL storage of preferences or addressbooks. You will need PHP
     compiled with --with-pgsql option, if you want to use PostgreSQL instead
-    of MySQL. You will need php with appropriate database extension, if you 
+    of MySQL. You will need PHP with appropriate database extension, if you
     want to use any other database.
 
   --with-openssl
@@ -66,7 +66,7 @@ Each of these steps is covered in detail below.
     Can be used by Eastern charset decoding functions
 
   --enable-mbstring
-    Required for Japanese translation. Optional for translations that 
+    Required for Japanese translation. Optional for translations that
     use non-ISO-8859-1 charset
 
   If you want your users to attach files to their mails, make sure
@@ -183,7 +183,7 @@ c. Setting up SquirrelMail
 
   Point your browser at the URL at which SquirrelMail is installed.  A
   possible example of this is:
-     http://www.yourdomain.com/squirrelmail
+     http://www.example.com/squirrelmail
 
   It should be pretty straight forward to use. Some more documentation
   might show up one day or another.
@@ -206,7 +206,7 @@ c. Setting up SquirrelMail
   Locale packages can be downloaded from SquirrelMail SourceForge
   project page.
 
-  http://sourceforge.net/project/showfiles.php?group_id=311&package_id=110388
+     http://sourceforge.net/project/showfiles.php?group_id=311&package_id=110388
 
   Each translation contains an install script that copies the required files
   into their appropriate locations. If you can't run that script, you can
@@ -220,10 +220,11 @@ c. Setting up SquirrelMail
   NOTE No.2: You might need to restart your webserver before using translations.
   If you can't do that, install your translations _before_ you use SquirrelMail.
 
+
 7. PLUGINS
 ----------
 
-  The SquirrelMail package includes some standard plugins. These plugins can be 
+  The SquirrelMail package includes some standard plugins. These plugins can be
   enabled in the SquirrelMail configuration script.
 
   Included plugins can use additional configuration files:
@@ -236,5 +237,5 @@ c. Setting up SquirrelMail
     configuration is stored in plugins/squirrelspell/sqspell_config.php
     Default configuration might not work on your server.
   * administrator
-    plugin must be setup correctly in order to detect administrative user. 
+    plugin must be setup correctly in order to detect administrative user.
     See plugins/administrator/INSTALL
