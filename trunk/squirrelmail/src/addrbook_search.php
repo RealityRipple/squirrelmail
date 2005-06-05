@@ -132,7 +132,7 @@ function display_result($res, $includesource = true) {
     html_tag( 'th', '&nbsp;' . _("Info"), 'left' );
 
     if ($includesource) {
-        echo html_tag( 'th', '&nbsp;' . _("Source"), 'left', 'width="10%"' );
+        echo html_tag( 'th', '&nbsp;' . _("Source"), 'left', '', 'width="10%"' );
     }
     echo "</tr>\n";
 
