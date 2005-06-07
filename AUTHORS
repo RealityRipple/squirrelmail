@@ -36,73 +36,152 @@ THE SQUIRRELMAIL TEAM
  
    Arabic        Asrar Abbasi <asrar at canasoft.net>
                  Naveed Saqib <naveed.saqib at biznas.com>
+                 Mohamed H. Tawfiq <mhtawfiq at creative-e.net>
+
    Basque        Iker Etxaniz ietxaniz at csiss.jesuitak.org
                  Eneko Harreguy eharreguy at csiss.jesuitak.org
                  Jabier Martinez jmartinez at csiss.jesuitak.org
+
    Bengali       Uttiya Chowdhury <chowdhury_uttiya at yahoo.com>
-   Bulgarian     Stanislav Yordanov <stanprog at yahoo.com>  
+
+   British       Mark Boddington <mark.boddington at transactgroup.net>
+
+   Bulgarian     Stanislav Yordanov <stanprog at yahoo.com>
+
    Catalan       Josep Sanz <jsanz at fa.upc.es>
+
+   Chinese (Simplified)
+                 Bo Jin <bensonjin at yahoo.com>
+
+   Chinese (Traditional)
+                 Ching <ching at kiwa.com.tw>
+                 Ray Liao <ray6 at mail2000.com.tw>
+
    Croatian      Albert Novak <Albert.Novak at CARNet.hr> 
+                 Zoran Dzelajlija <jelly+i18n at srk.fer.hr> (last translator)
+
    Czech         Ondrej Sury <ondrej at sury.cz>
                  Tomas Zvala <fox at murder.cz>
                  Tomas Drbohlav <tomas.drbohlav at mff.cuni.cz>
+
    Danish        Claus Rasmussen <claus at webclaus.com>
+
    Dutch         M.J. Prinsen <translation at prinsenonline.com>
                  Arjen Halma <arjen at halma.nl>
+
    Estonian      Lauri Jesmin <jesmin at ut.ee>
                  Peeter Russak <pezz at tkwcy.ee>
+
    Faroese       Danial Olsen <danial at linux.com-data.fo>
-   Finnish       Teemu Junnila <teejun at vallcom.com>   
+
+   Farsi         Reza Mohammadi <remohammadi at users.sourceforge.net>
+
+   Finnish       Teemu Junnila <teejun at vallcom.com>
+                 Jaakko Heusala <jaakko.heusala at kapsi.fi>
+                 Juha Ojaniemi <juha.ojaniemi at netello.com>
+
    French        Ali Nedjimi <lrdfrx at club-internet.fr>
                  Nicolas Cartron <nc at ncartron.com>
-                 Olivier Piquerez <piquerez at topd.ch>  
+                 Olivier Piquerez <piquerez at topd.ch>
+                 Antoine Hulin <antoine at origan.fdn.org>
+                 Alex Lemaresquier <alex at brainstorm.fr> (current maintainer)
+                 Laurent Pozza <laurent at pozza.org>
+
    German        Roland Bauerschmidt <rb at debian.org>
-                 Ralf Hildebrandt <Ralf.Hildebrandt at charite.de>
+                 Ralf Hildebrandt <Ralf.Hildebrandt at charite.de> (coordinator)
                  Klaus Brunner <klaus at winf.at>
+                 Ferdie Ferdsen <ferdie at despam.de>
+
    Greek         George P. Kremmydas <george at kefalonia-ithaki.gr>
                  Alexandros Vellis <avel at noc.uoa.gr>
+
    Hebrew        Yoav Bagno <yoavb at zavit.net.il>
+
    Hungarian     István-Attila András <bergkatten at netscape.net>
                  KADI Gergo <gergo at kapu.hu>
                  Zoltan Levardy <zoltan at levardy.org>
+
    Icelandic     Karl Heiðar <karlh at macho.is>
-                 Hordur Mar Gestsson <zbot at kuntnet.org>
+                 H.M.Gestsson <skvirrelmail at kuntnet.org>
+
    Indonesian    Arief S Fitrianto <arief at fisika.ui.ac.id>
+
    Italian       Aldo Moresco <moresco at idcm.it>
                  Antonetti Roberto <antonr at piceniaweb.com> (help files)
+                 Gianmichele Murano <gingia at email.it>
+                 Valerio Felici <valerio at bgweb.it> (last translator)
+
    Japanese      HIGASHIYAMA Masato <masato at yamaai-tech.com>
+
    Korean        Jong-II Kim <aporie at netian.com>
+
    Lithuanian    Tomas Kuliavas <tokul at users.sourceforge.net>
+
    Malay         Sapuan bin Samion <sapuan at pc.jaring.my>
-   Norwegian     Gustav Foseid <gustavf at squirrelmail.org>
+
+   Norwegian Bokmal
+                 Gustav Foseid <gustavf at squirrelmail.org>
+                 Frode Nordahl <frode at powertech.no>
+                 Robin Smidsrød <robin at smidsrod.no> (last translator)
+                 Hans Fredrik Nordhaug <hans at nordhaug.priv.no>
+
+   Norwegian Nynorsk
+                 Magni Onsøien <magnio-squirrel at initio.no>
+                 Ola Ketil Siqveland <ola.k.siqveland at tn.his.no>
+                 Hans Fredrik Nordhaug <hans at nordhaug.priv.no>
+
    Polish        Lukasz Klimek <casa at lo.pila.pl>
                  Horus <horus at dronet.pl>
                  Andrzej Pruszynski <donkiszot (at) fiz,coi,waw,pl>
-   Portuguese (Brazil) Henrique Moura <henriquemoura at hotmail.com>
+
+   Portuguese (Brazil)
+                 Henrique Moura <henriquemoura at hotmail.com>
                  Gleydson Mazioli da Silva <gleydson.mazioli at ima.sp.gov.br>
-   Portuguese (Portugal) Ruben Leote Mendes <ruben at nocturno.org>
+                 Marcos Tadeu <marcos at v2r.com.br>
+                 Fabio Mengue <fabio at unicamp.br>
+
+   Portuguese (Portugal)
+                 Ruben Leote Mendes <ruben at nocturno.org>
+
    Romanian      Mircea Ilie <mrx at tep.ro>
-   Russian       Grisha Mokhin <mok at kde.ru>
+
+   Russian       Gregory Mokhin <mok at kde.ru>
+
    Serbian       Boris Manojlovic <steki at verat.net>
+                 Nenad Peric <nesha at teleport.co.yu>
+
    Slovak        Ondrej Sury <ondrej at sury.cz>
+                 Peter Kubicko <Booster13 at centrum.cz>
+
    Slovenian     Tomaz Zupan <tomaz.zupan at orpo.si>
+
    Spanish       Hernan Collazo <hcollazo at opengeeks.com.ar>
                  Philippe Mingo <philippe at squirrelmail.org> 
+                 Dirk Enrique Seiffert <ds at caribenet.com>
+
    Swedish       Tobias Ekbom <tobias at vallcom.net>
                  Teemu Junnila <teejun at vallcom.com>
                  Olle Hällnäs <olle at xmms.org> 
                  Johan Fernberger <johan at fernberger.com>
-                 Fredrik Jervfors <sqm_admin at fimbul.net>
-   Taiwan        Ching <ching at kiwa.com.tw>
+                 Fredrik Jervfors <sqm_admin at fimbul.net> (translation coordinator)
+
    Thai          Nartpong Ampornaramweth <yongnarak at yahoo.com>  
+    (Thai translation is not supported until someone updates translation)
+
    Turkish       Kerem Erkan <kerem.erkan at basari.com.tr>
+                 Volkan Yildirim <volkan at ozzmosis.pleksus.net.tr>
+                 Dr.Hikmet Gumus <gumush at hitstar.org>
+
    Uighur        Mamatjan Tursun <oghri at 163.com>
+
    Ukrainian     Oleg Baranovsky <oleg at uazone.net>
-     (Ukrainian is not supported unless someone updates translation. 
+    (Ukrainian is not supported until someone updates translation.
      translation is not in Ukrainian)
+
    Vietnamese    Le Viet Hung <heros at hcm.fpt.vn>
-     (Vietnamese is not supported unless someone updates translation. 
+    (Vietnamese is not supported until someone updates translation.
      translation is not in Vietnamese)
+
    Welsh         Andrew Rawlins <awr at aber.ac.uk> 
 
  Significant Contributions:
