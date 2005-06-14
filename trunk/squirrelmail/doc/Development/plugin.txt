@@ -1316,6 +1316,34 @@ scope automatically.  There is nothing more to do than this:
    sqgetGlobalVar('favorite_color', $favorite_color, SQ_FORM);
 
 
+Security considerations
+-----------------------
+
+All plugins should consider the security implications of their plugin.
+Of course, if you call external programs you have to use great care,
+but the following issues are important to nearly every plugin.
+
+- Escape any untrusted data before you output it. This is to prevent
+cross site scripting attachs. It means that you have to htmlspecialchar()
+every variable that comes in through the URL, a mail message or other
+external factors, before outputting it.
+
+- Make sure that your plugin doesn't perform its function when it's not
+enabled. If you just call hooks, your hooks won't be called when the
+plugin is disabled, but if you also supply extra .php files, you should
+check if they perform any function if accessed directly. If they do, you
+should check at the start of that file if the plugin is enabled in the
+config, and if not, exit the script. Example:
+  global $plugins;
+  if ( !in_array('mypluginname', $plugins) ) {
+      die("Plugin not enabled in SquirrelMail configuration.");
+  }
+
+If you have any questions about this or are unsure, please contact the
+mailinglist or IRC channel, because security is very important for a
+widely used application like SquirrelMail!
+
+
 Extra Blank Lines
 -----------------
 
