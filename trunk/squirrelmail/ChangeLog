@@ -364,6 +364,8 @@ Version 1.5.1 -- CVS
     Thanks to Roalt Zijlstra.
   - Identity code was not checking for domain part in username before setting
     email address (Bug #1219184).
+  - Disallow access to the administrator plugin screens when the plugin is
+    not enabled in the config.
 
 
 Version 1.5.0 - 2 February 2004
