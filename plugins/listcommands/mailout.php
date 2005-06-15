@@ -33,14 +33,6 @@ sqgetGlobalVar('action',  $action,  SQ_GET);
 displayPageHeader($color, $mailbox);
 $fieldsdescr = listcommands_fieldsdescr();
 
-echo html_tag('p', '', 'left' ) .
-    html_tag( 'table', '', 'center', $color[0], 'border="0" width="75%"' ) . "\n" .
-    html_tag( 'tr',
-            html_tag( 'th', _("Mailinglist") . ': ' . $fieldsdescr[$action], '', $color[9] )
-            ) .
-    html_tag( 'tr' ) .
-    html_tag( 'td', '', 'left' );
-
 switch ( $action ) {
     case 'help':
         $out_string = _("This will send a message to %s requesting help for this list. You will receive an emailed response at the address below.");
@@ -50,7 +42,19 @@ switch ( $action ) {
         break;
     case 'unsubscribe':
         $out_string = _("This will send a message to %s requesting that you will be unsubscribed from this list. It will try to unsubscribe the adress below.");
+        break;
+    default:
+        error_box(sprintf(_("Unknown action: %s"),htmlspecialchars($action)), $color);
+        exit;
 }
+
+echo html_tag('p', '', 'left' ) .
+    html_tag( 'table', '', 'center', $color[0], 'border="0" width="75%"' ) . "\n" .
+    html_tag( 'tr',
+            html_tag( 'th', _("Mailinglist") . ': ' . $fieldsdescr[$action], '', $color[9] )
+            ) .
+    html_tag( 'tr' ) .
+    html_tag( 'td', '', 'left' );
 
 printf($out_string, '&quot;' . htmlspecialchars($send_to) . '&quot;');
 

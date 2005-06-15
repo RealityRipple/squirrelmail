@@ -34,25 +34,40 @@ require_once(SM_PATH . 'functions/html.php');
 
 /* get globals */
 
+// undo rg = on effects
+if (isset($month)) unset($month);
+if (isset($year))  unset($year);
+if (isset($day))  unset($day);
+if (isset($hour))  unset($hour);
+if (isset($minute))  unset($minute);
+if (isset($event_year))  unset($event_year);
+if (isset($event_month))  unset($event_month);
+if (isset($event_day))  unset($event_day);
+if (isset($event_hour))  unset($event_hour);
+if (isset($event_minute))  unset($event_minute);
+if (isset($event_length))  unset($event_length);
+if (isset($event_priority))  unset($event_priority);
+
 if (isset($_POST['updated'])) {
     $updated = $_POST['updated'];
 }
-if (isset($_POST['event_year'])) {
+
+if (isset($_POST['event_year']) && is_numeric($_POST['event_year'])) {
     $event_year = $_POST['event_year'];
 }
-if (isset($_POST['event_month'])) {
+if (isset($_POST['event_month']) && is_numeric($_POST['event_month'])) {
     $event_month = $_POST['event_month'];
 }
-if (isset($_POST['event_day'])) {
+if (isset($_POST['event_day']) && is_numeric($_POST['event_day'])) {
     $event_day = $_POST['event_day'];
 }
-if (isset($_POST['event_hour'])) {
+if (isset($_POST['event_hour']) && is_numeric($_POST['event_hour'])) {
     $event_hour = $_POST['event_hour'];
 }
-if (isset($_POST['event_minute'])) {
+if (isset($_POST['event_minute']) && is_numeric($_POST['event_minute'])) {
     $event_minute = $_POST['event_minute'];
 }
-if (isset($_POST['event_length'])) {
+if (isset($_POST['event_length']) && is_numeric($_POST['event_length'])) {
     $event_length = $_POST['event_length'];
 }
 if (isset($_POST['event_title'])) {
@@ -64,40 +79,37 @@ if (isset($_POST['event_text'])) {
 if (isset($_POST['send'])) {
     $send = $_POST['send'];
 }
-if (isset($_POST['event_priority'])) {
+if (isset($_POST['event_priority']) && is_numeric($_POST['event_priority'])) {
     $event_priority = $_POST['event_priority'];
 }
 if (isset($_POST['confirmed'])) {
     $confirmed = $_POST['confirmed'];
 }
-if (isset($_POST['year'])) {
+
+if (isset($_POST['year']) && is_numeric($_POST['year'])) {
     $year = $_POST['year'];
-}
-elseif (isset($_GET['year'])) {
+} elseif (isset($_GET['year']) && is_numeric($_GET['year'])) {
     $year = $_GET['year'];
 }
-if (isset($_POST['month'])) {
+if (isset($_POST['month']) && is_numeric($_POST['month'])) {
     $month = $_POST['month'];
-}
-elseif (isset($_GET['month'])) {
+} elseif (isset($_GET['month']) && is_numeric($_GET['month'])) {
     $month = $_GET['month'];
 }
-if (isset($_POST['day'])) {
+if (isset($_POST['day']) && is_numeric($_POST['day'])) {
     $day = $_POST['day'];
-}
-elseif (isset($_GET['day'])) {
+} elseif (isset($_GET['day']) && is_numeric($_GET['day'])) {
     $day = $_GET['day'];
 }
-if (isset($_POST['hour'])) {
+if (isset($_POST['hour']) && is_numeric($_POST['hour'])) {
     $hour = $_POST['hour'];
-}
-elseif (isset($_GET['hour'])) {
+} elseif (isset($_GET['hour']) && is_numeric($_GET['hour'])) {
     $hour = $_GET['hour'];
 }
-if (isset($_POST['minute'])) {
+if (isset($_POST['minute']) && is_numeric($_POST['minute'])) {
     $minute = $_POST['minute'];
 }
-elseif (isset($_GET['minute'])) {
+elseif (isset($_GET['minute']) && is_numeric($_GET['minute'])) {
     $minute = $_GET['minute'];
 }
 /* got 'em */

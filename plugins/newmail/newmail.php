@@ -19,6 +19,7 @@ define('SM_PATH','../../');
 require_once(SM_PATH . 'include/validate.php');
 
 sqGetGlobalVar('numnew', $numnew, SQ_GET);
+$numnew = (int)$numnew;
 
    displayHtmlHeader( _("New Mail"), '', FALSE );
 

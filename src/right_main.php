@@ -17,6 +17,7 @@
  * Path for SquirrelMail required files.
  * @ignore
  */
+//xdebug_start_profiling();
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
@@ -292,7 +293,7 @@ if (isset($mail_sent) && $mail_sent == 'yes') {
     $note = _("Your Message has been sent.");
 }
 if (isset($note)) {
-    echo html_tag( 'div', '<b>' . $note .'</b>', 'center' ) . "<br />\n";
+    echo html_tag( 'div', '<b>' . htmlspecialchars($note) .'</b>', 'center' ) . "<br />\n";
 }
 
 if ( sqgetGlobalVar('just_logged_in', $just_logged_in, SQ_SESSION) ) {
@@ -373,5 +374,8 @@ echo '</body></html>';
 /* add the mailbox to the cache */
 $mailbox_cache[$account.'_'.$aMailbox['NAME']] = $aMailbox;
 sqsession_register($mailbox_cache,'mailbox_cache');
+echo "<br>".__FILE__;
+//xdebug_dump_function_profile(4);
+
 
 ?>
