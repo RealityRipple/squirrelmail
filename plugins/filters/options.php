@@ -187,7 +187,7 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
                 html_tag( 'td', '', 'left' ) .
                     '<input type="text" size="32" name="filter_what" value="';
         if (isset($filters[$theid]['what'])) {
-            echo $filters[$theid]['what'];
+            echo htmlspecialchars($filters[$theid]['what']);
         }
         echo '" />'.
                 '</td>'.
