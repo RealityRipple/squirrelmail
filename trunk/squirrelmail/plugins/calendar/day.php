@@ -32,22 +32,28 @@ require_once(SM_PATH . 'include/load_prefs.php');
 require_once(SM_PATH . 'functions/html.php');
 
 /* get globals */
-if (isset($_GET['year'])) {
+
+// undo rg = on effects
+if (isset($month)) unset($month);
+if (isset($year))  unset($year);
+if (isset($day))  unset($day);
+
+if (isset($_GET['year']) && is_numeric($_GET['year'])) {
     $year = $_GET['year'];
 }
-elseif (isset($_POST['year'])) {
+elseif (isset($_POST['year']) && is_numeric($_POST['year'])) {
     $year = $_POST['year'];
 }
-if (isset($_GET['month'])) {
+if (isset($_GET['month']) && is_numeric($_GET['month'])) {
     $month = $_GET['month'];
 }
-elseif (isset($_POST['month'])) {
+elseif (isset($_POST['month'])  && is_numeric($_POST['month'])) {
     $month = $_POST['month'];
 }
-if (isset($_GET['day'])) {
+if (isset($_GET['day']) && is_numeric($_GET['day'])) {
     $day = $_GET['day'];
 }
-elseif (isset($_POST['day'])) {
+elseif (isset($_POST['day'])  && is_numeric($_POST['day'])) {
     $day = $_POST['day'];
 }
 

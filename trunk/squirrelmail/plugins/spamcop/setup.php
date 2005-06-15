@@ -83,7 +83,9 @@ function spamcop_show_link() {
     sqgetGlobalVar('passed_id',    $passed_id,    SQ_FORM);
     sqgetGlobalVar('passed_ent_id',$passed_ent_id,SQ_FORM);
     sqgetGlobalVar('mailbox',      $mailbox,      SQ_FORM);
-    sqgetGlobalVar('startMessage', $startMessage, SQ_FORM);
+    if ( sqgetGlobalVar('startMessage', $startMessage, SQ_FORM) ) {
+        $startMessage = (int)$startMessage;
+    }
     /* END GLOBALS */
 
     // catch unset passed_ent_id

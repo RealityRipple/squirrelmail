@@ -1387,7 +1387,7 @@ if (isset($aMailbox['FORWARD_SESSION'])) {
 }
 
 if (isset($note)) {
-    echo html_tag( 'div', '<b>' . $note .'</b>', 'center' ) . "<br />\n";
+    echo html_tag( 'div', '<b>' . htmlspecialchars($note) .'</b>', 'center' ) . "<br />\n";
 }
 
 

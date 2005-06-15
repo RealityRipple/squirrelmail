@@ -34,16 +34,20 @@ require_once(SM_PATH . 'functions/html.php');
 
 /* get globals */
 
-if (isset($_GET['month'])) {
+// undo rg = on effects
+if (isset($month)) unset($month);
+if (isset($year))  unset($year);
+
+if (isset($_GET['month']) && is_numeric($_GET['month'])) {
     $month = $_GET['month'];
 }
-if (isset($_GET['year'])) {
+if (isset($_GET['year']) && is_numeric($_GET['year'])) {
     $year = $_GET['year'];
 }
-if (isset($_POST['year'])) {
+if (isset($_POST['year']) && is_numeric($_POST['year'])) {
     $year = $_POST['year'];
 }
-if (isset($_POST['month'])) {
+if (isset($_POST['month']) && is_numeric($_POST['month'])) {
     $month = $_POST['month'];
 }
 /* got 'em */

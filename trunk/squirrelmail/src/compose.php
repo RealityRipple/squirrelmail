@@ -77,7 +77,11 @@ sqgetGlobalVar('draft_id',$draft_id);
 sqgetGlobalVar('ent_num',$ent_num);
 sqgetGlobalVar('saved_draft',$saved_draft);
 sqgetGlobalVar('delete_draft',$delete_draft);
-sqgetGlobalVar('startMessage',$startMessage);
+if ( sqgetGlobalVar('startMessage',$startMessage) ) {
+    $startMessage = (int)$startMessage;
+} else {
+    $startMessage = 1;
+}
 
 /** POST VARS */
 sqgetGlobalVar('sigappend',             $sigappend,             SQ_POST);
@@ -388,7 +392,7 @@ if ($draft) {
                 echo '   <br><br><center><a href="' . $location
                     . '/compose.php?saved_sent=yes&amp;session=' . $composesession . '">'
                     . _("Return") . '</a></center>';
-            }            
+            }
             exit();
         } else {
             if ( !isset($pageheader_sent) || !$pageheader_sent ) {
@@ -399,7 +403,7 @@ if ($draft) {
                     . '/right_main.php?mailbox=' . urlencode($draft_folder)
                     . '&amp;startMessage=1&amp;note=' . urlencode($draft_message) .'">'
                     . _("Return") . '</a></center>';
-            }            
+            }
             exit();
         }
     }
