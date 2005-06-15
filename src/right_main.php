@@ -17,7 +17,6 @@
  * Path for SquirrelMail required files.
  * @ignore
  */
-//xdebug_start_profiling();
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
@@ -374,8 +373,4 @@ echo '</body></html>';
 /* add the mailbox to the cache */
 $mailbox_cache[$account.'_'.$aMailbox['NAME']] = $aMailbox;
 sqsession_register($mailbox_cache,'mailbox_cache');
-echo "<br>".__FILE__;
-//xdebug_dump_function_profile(4);
-
-
 ?>
