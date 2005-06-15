@@ -366,7 +366,8 @@ Version 1.5.1 -- CVS
     email address (Bug #1219184).
   - Disallow access to the administrator plugin screens when the plugin is
     not enabled in the config.
-
+  - Security: fix several cross site scripting (XSS) attacks. Thanks go to
+    Martijn Brinkers for finding a lot of these. [CAN-2005-1769]
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
