@@ -415,6 +415,15 @@ function show_abook_sort_button($abook_sort_order, $alt_tag, $Down, $Up ) {
  * @subpackage addressbook
  */
 class AddressBook {
+
+    /*
+       Cleaning errors from html with htmlspecialchars:
+       Errors from the backend are cleaned up in this class because we not always
+       have control over it when error output is generated in the backend.
+       If this appears to be wrong place then clean it up at the source (the backend)
+       Possible problems, translated strings in utf8?  (stekkel)
+    */
+
     /**
      * Enabled address book backends
      * @var array
@@ -543,7 +552,7 @@ class AddressBook {
                 if (is_array($res)) {
                     $ret = array_merge($ret, $res);
                 } else {
-                    $this->error .= "<br />\n" . $backend->error;
+                    $this->error .= "<br />\n" . htmlspecialchars($backend->error);
                     $failed++;
                 }
             }
@@ -559,7 +568,7 @@ class AddressBook {
 
             $ret = $this->backends[$bnum]->search($expression);
             if (!is_array($ret)) {
-                $this->error .= "<br />\n" . $this->backends[$bnum]->error;
+                $this->error .= "<br />\n" . htmlspecialchars($this->backends[$bnum]->error);
                 $ret = FALSE;
             }
         }
@@ -600,7 +609,7 @@ class AddressBook {
             if (is_array($res)) {
                return $res;
             } else {
-               $this->error = $backend->error;
+               $this->error = htmlspecialchars($backend->error);
                return false;
             }
         }
@@ -614,7 +623,7 @@ class AddressBook {
                if(!empty($res))
               return $res;
             } else {
-               $this->error = $backend->error;
+               $this->error = htmlspecialchars($backend->error);
                return false;
             }
         }
@@ -644,7 +653,7 @@ class AddressBook {
             if (is_array($res)) {
                $ret = array_merge($ret, $res);
             } else {
-               $this->error = $backend->error;
+               $this->error = htmlspecialchars($backend->error);
                return false;
             }
         }
@@ -694,7 +703,7 @@ class AddressBook {
         if ($res) {
             return $bnum;
         } else {
-            $this->error = $this->backends[$bnum]->error;
+            $this->error = htmlspecialchars($this->backends[$bnum]->error);
             return false;
         }
 
@@ -731,7 +740,7 @@ class AddressBook {
         if ($res) {
             return $bnum;
         } else {
-            $this->error = $this->backends[$bnum]->error;
+            $this->error = htmlspecialchars($this->backends[$bnum]->error);
             return false;
         }
 
@@ -786,7 +795,7 @@ class AddressBook {
         if ($res) {
             return $bnum;
         } else {
-            $this->error = $this->backends[$bnum]->error;
+            $this->error = htmlspecialchars($this->backends[$bnum]->error);
             return false;
         }
 

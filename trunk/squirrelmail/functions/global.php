@@ -14,8 +14,6 @@
  * @package squirrelmail
  */
 
-/** Bring in the config file. */
-require_once(SM_PATH . 'config/config.php');
 
 /** set the name of the session cookie */
 if(isset($session_name) && $session_name) {

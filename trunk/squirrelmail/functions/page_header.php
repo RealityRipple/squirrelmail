@@ -193,6 +193,8 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = 'onloa
                                  : html_tag( 'td', '', 'left' ) )
         . "\n";
     $urlMailbox = urlencode($mailbox);
+    $startMessage = (int)$startMessage;
+
     echo makeComposeLink('src/compose.php?mailbox='.$urlMailbox.'&amp;startMessage='.$startMessage);
     echo "&nbsp;&nbsp;\n";
     displayInternalLink ('src/addressbook.php', _("Addresses"));

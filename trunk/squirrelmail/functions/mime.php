@@ -949,23 +949,30 @@ function sq_check_save_extension($message) {
  */
 
 /**
- * This function is more or less a wrapper around stripslashes. Apparently
- * Explorer is stupid enough to just remove the backslashes and then
- * execute the content of the attribute as if nothing happened.
- * Who does that?
+ * This function checks attribute values for entity-encoded values
+ * and returns them translated into 8-bit strings so we can run
+ * checks on them.
  *
- * @param  attvalue   The value of the attribute
- * @return attvalue   The value of the attribute stripslashed.
+ * @param  $attvalue A string to run entity check against.
+ * @return           Nothing, modifies a reference value.
  */
-function sq_unbackslash($attvalue){
+function sq_defang(&$attvalue){
+    $me = 'sq_defang';
     /**
-     * Remove any backslashes. See if there are any first.
+     * Skip this if there aren't ampersands or backslashes.
      */
-
-    if (strstr($attvalue, '\\') !== false){
-        $attvalue = stripslashes($attvalue);
+    if (strpos($attvalue, '&') === false
+        && strpos($attvalue, '\\') === false){
+        return;
     }
-    return $attvalue;
+    $m = false;
+    do {
+        $m = false;
+        $m = $m || sq_deent($attvalue, '/\&#0*(\d+);*/s');
+        $m = $m || sq_deent($attvalue, '/\&#x0*((\d|[a-f])+);*/si', true);
+        $m = $m || sq_deent($attvalue, '/\\\\(\d+)/s', true);
+    } while ($m == true);
+    $attvalue = stripslashes($attvalue);
 }
 
 /**
@@ -974,14 +981,14 @@ function sq_unbackslash($attvalue){
  * be funny to make "java[tab]script" be just as good as "javascript".
  *
  * @param  attvalue  The attribute value before extraneous spaces removed.
- * @return attvalue  The attribute value after extraneous spaces removed.
+ * @return attvalue  Nothing, modifies a reference value.
  */
-function sq_unspace($attvalue){
-    if (strcspn($attvalue, "\t\r\n") != strlen($attvalue)){
-        $attvalue = str_replace(Array("\t", "\r", "\n"), Array('', '', ''),
-                $attvalue);
+function sq_unspace(&$attvalue){
+    $me = 'sq_unspace';
+    if (strcspn($attvalue, "\t\r\n\0 ") != strlen($attvalue)){
+        $attvalue = str_replace(Array("\t", "\r", "\n", "\0", " "),
+                                Array('',   '',   '',   '',   ''), $attvalue);
     }
-    return $attvalue;
 }
 
 /**
@@ -1168,6 +1175,7 @@ function sq_getnxtag($body, $offset){
             break;
     }
 
+    $tag_start = $pos;
     $tagname = '';
     /**
      * Look for next [\W-_], which will indicate the end of the tag name.
@@ -1227,6 +1235,7 @@ function sq_getnxtag($body, $offset){
      * At this point we loop in order to find all attributes.
      */
     $attname = '';
+    $atttype = false;
     $attary = Array();
 
     while ($pos <= strlen($body)){
@@ -1385,51 +1394,31 @@ function sq_getnxtag($body, $offset){
 }
 
 /**
- * This function checks attribute values for entity-encoded values
- * and returns them translated into 8-bit strings so we can run
- * checks on them.
+ * Translates entities into literal values so they can be checked.
  *
- * @param  $attvalue A string to run entity check against.
- * @return           Translated value.
+ * @param $attvalue the by-ref value to check.
+ * @param $regex    the regular expression to check against.
+ * @param $hex      whether the entites are hexadecimal.
+ * @return          True or False depending on whether there were matches.
  */
-
-function sq_deent($attvalue){
+function sq_deent(&$attvalue, $regex, $hex=false){
     $me = 'sq_deent';
-    /**
-     * See if we have to run the checks first. All entities must start
-     * with "&".
-     */
-    if (strpos($attvalue, '&') === false){
-        return $attvalue;
-    }
-    /**
-     * Check named entities first.
-     */
-    $trans = get_html_translation_table(HTML_ENTITIES);
-    /**
-     * Leave &quot; in, as it can mess us up.
-     */
-    $trans = array_flip($trans);
-    unset($trans{'&quot;'});
-    while (list($ent, $val) = each($trans)){
-        $attvalue = preg_replace('/' . $ent . '*/si', $val, $attvalue);
-    }
-    /**
-     * Now translate numbered entities from 1 to 255 if needed.
-     */
-    if (strpos($attvalue, '#') !== false){
-        $omit = Array(34, 39);
-        for ($asc = 256; $asc >= 0; $asc--){
-            if (!in_array($asc, $omit)){
-                $chr = chr($asc);
-                $octrule = '/\&#0*' . $asc . ';*/si';
-                $hexrule = '/\&#x0*' . dechex($asc) . ';*/si';
-                $attvalue = preg_replace($octrule, $chr, $attvalue);
-                $attvalue = preg_replace($hexrule, $chr, $attvalue);
+    $ret_match = false;
+    preg_match_all($regex, $attvalue, $matches);
+    if (is_array($matches) && sizeof($matches[0]) > 0){
+        $repl = Array();
+        for ($i = 0; $i < sizeof($matches[0]); $i++){
+            $numval = $matches[1][$i];
+            if ($hex){
+                $numval = hexdec($numval);
             }
+            $repl{$matches[0][$i]} = chr($numval);
         }
+        $attvalue = strtr($attvalue, $repl);
+        return true;
+    } else {
+        return false;
     }
-    return $attvalue;
 }
 
 /**
@@ -1471,15 +1460,8 @@ function sq_fixatts($tagname,
         /**
          * Remove any backslashes, entities, and extraneous whitespace.
          */
-        $attvalue = sq_unbackslash($attvalue);
-        $attvalue = sq_deent($attvalue);
-        $attvalue = sq_unspace($attvalue);
-
-        /**
-         * Remove \r \n \t \0 " " "\\"
-         */
-        $attvalue = str_replace(Array("\r", "\n", "\t", "\0", " ", "\\"),
-                Array('', '','','','',''), $attvalue);
+        sq_defang($attvalue);
+        sq_unspace($attvalue);
 
         /**
          * Now let's run checks on the attvalues.
@@ -1565,50 +1547,83 @@ function sq_fixstyle($body, $pos, $message, $id, $mailbox){
     $newpos = $ret[0] + strlen($ret[2]);
     $content = $ret[1];
     /**
-     * First look for general BODY style declaration, which would be
-     * like so:
-     * body {background: blah-blah}
-     * and change it to .bodyclass so we can just assign it to a <div>
-     */
+    * First look for general BODY style declaration, which would be
+    * like so:
+    * body {background: blah-blah}
+    * and change it to .bodyclass so we can just assign it to a <div>
+    */
     $content = preg_replace("|body(\s*\{.*?\})|si", ".bodyclass\\1", $content);
     $secremoveimg = '../images/' . _("sec_remove_eng.png");
     /**
-     * Fix url('blah') declarations.
-     */
-    $content = preg_replace("|url\s*\(\s*([\'\"])\s*\S+script\s*:.*?([\'\"])\s*\)|si",
-            "url(\\1$secremoveimg\\2)", $content);
-    /**
-     * Fix url('https*://.*) declarations but only if $view_unsafe_images
-     * is false.
-     */
-    if (!$view_unsafe_images){
-        $content = preg_replace("|url\s*\(\s*([\'\"])\s*https*:.*?([\'\"])\s*\)|si",
-                "url(\\1$secremoveimg\\2)", $content);
+    * Fix url('blah') declarations.
+    */
+    //   $content = preg_replace("|url\s*\(\s*([\'\"])\s*\S+script\s*:.*?([\'\"])\s*\)|si",
+    //                           "url(\\1$secremoveimg\\2)", $content);
+    // remove NUL
+    $content = str_replace("\0", "", $content);
+    // NB I insert NUL characters to keep to avoid an infinite loop. They are removed after the loop.
+    while (preg_match("/url\s*\(\s*[\'\"]?([^:]+):(.*)?[\'\"]?\s*\)/si", $content, $matches)) {
+        $sProto = strtolower($matches[1]);
+        switch ($sProto) {
+          /**
+           * Fix url('https*://.*) declarations but only if $view_unsafe_images
+           * is false.
+           */
+          case 'https':
+          case 'http':
+            if (!$view_unsafe_images){
+                $sExpr = "/url\s*\(\s*([\'\"])\s*$sProto*:.*?([\'\"])\s*\)/si";
+                $content = preg_replace($sExpr, "u\0r\0l(\\1$secremoveimg\\2)", $content);
+            }
+            break;
+          /**
+           * Fix urls that refer to cid:
+           */
+          case 'cid':
+            $cidurl = 'cid:'. $matches[2];
+            $httpurl = sq_cid2http($message, $id, $cidurl, $mailbox);
+            $content = preg_replace("|url\s*\(\s*$cidurl\s*\)|si",
+                                "u\0r\0l($httpurl)", $content);
+            break;
+          default:
+            /**
+             * replace url with protocol other then the white list
+             * http,https and cid by an empty string.
+             */
+            $content = preg_replace("/url\s*\(\s*[\'\"]?([^:]+):(.*)?[\'\"]?\s*\)/si",
+                                "", $content);
+            break;
+        }
+        break;
     }
+    // remove NUL
+    $content = str_replace("\0", "", $content);
 
-    /**
-     * Fix urls that refer to cid:
-     */
-    while (preg_match("|url\s*\(\s*([\'\"]\s*cid:.*?[\'\"])\s*\)|si",
-                $content, $matches)){
-        $cidurl = $matches{1};
-        $httpurl = sq_cid2http($message, $id, $cidurl, $mailbox);
-        $content = preg_replace("|url\s*\(\s*$cidurl\s*\)|si",
-                "url($httpurl)", $content);
-    }
+   /**
+    * Remove any backslashes, entities, and extraneous whitespace.
+    */
+    $contentTemp = $content;
+    sq_defang($contentTemp);
+    sq_unspace($contentTemp);
 
     /**
      * Fix stupid css declarations which lead to vulnerabilities
      * in IE.
      */
     $match   = Array('/expression/i',
-                     '/behaviou*r/i',
-                     '/binding/i',
-                     '/include-source/i');
+                    '/behaviou*r/i',
+                    '/binding/i',
+                    '/include-source/i');
     $replace = Array('idiocy', 'idiocy', 'idiocy', 'idiocy');
-    $content = preg_replace($match, $replace, $content);
+    $contentNew = preg_replace($match, $replace, $contentTemp);
+    if ($contentNew !== $contentTemp) {
+        // insecure css declarations are used. From now on we don't care
+        // anymore if the css is destroyed by sq_deent, sq_unspace or sq_unbackslash
+        $content = $contentNew;
+    }
     return array($content, $newpos);
 }
+
 
 /**
  * This function converts cid: url's into the ones that can be viewed in
@@ -1631,6 +1646,11 @@ function sq_cid2http($message, $id, $cidurl, $mailbox){
         $quotchar = '';
     }
     $cidurl = substr(trim($cidurl), 4);
+
+    $match_str = '/\{.*?\}\//';
+    $str_rep = '';
+    $cidurl = preg_replace($match_str, $str_rep, $cidurl);
+
     $linkurl = find_ent_id($cidurl, $message);
     /* in case of non-save cid links $httpurl should be replaced by a sort of
        unsave link image */
@@ -1682,8 +1702,8 @@ function sq_cid2http($message, $id, $cidurl, $mailbox){
 function sq_body2div($attary, $mailbox, $message, $id){
     $me = 'sq_body2div';
     $divattary = Array('class' => "'bodyclass'");
+    $bgcolor = '#ffffff';
     $text = '#000000';
-    $has_bgc_stl = $has_txt_stl = false;
     $styledef = '';
     if (is_array($attary) && sizeof($attary) > 0){
         foreach ($attary as $attname=>$attvalue){
@@ -1695,19 +1715,12 @@ function sq_body2div($attary, $mailbox, $message, $id){
                     $styledef .= "background-image: url('$attvalue'); ";
                     break;
                 case 'bgcolor':
-                    $has_bgc_stl = true;
                     $styledef .= "background-color: $attvalue; ";
                     break;
                 case 'text':
-                    $has_txt_stl = true;
                     $styledef .= "color: $attvalue; ";
                     break;
             }
-        }
-        // Outlook defines a white bgcolor and no text color. This can lead to
-        // white text on a white bg with certain themes.
-        if ($has_bgc_stl && !$has_txt_stl) {
-            $styledef .= "color: $text; ";
         }
         if (strlen($styledef) > 0){
             $divattary{"style"} = "\"$styledef\"";
@@ -1896,20 +1909,11 @@ function sq_sanitize($body,
  *
  * @param  $body  the body of the message
  * @param  $id    the id of the message
- * @param  $message
- * @param  $mailbox
- * @param  boolean $take_mailto_links When TRUE, converts mailto: links
- *                                    into internal SM compose links
- *                                    (optional; default = TRUE)
  * @return        a string with html safe to display in the browser.
  */
-function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links = true) {
-
-    require_once(SM_PATH . 'functions/url_parser.php');  // for $MailTo_PReg_Match
-
+function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
     global $attachment_common_show_images, $view_unsafe_images,
            $has_unsafe_images;
-
     /**
      * Don't display attached images in HTML mode.
      */
@@ -1934,6 +1938,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
             "embed",
             "title",
             "frameset",
+            "xmp",
             "xml"
             );
 
@@ -2013,6 +2018,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
                     "url(\\1#\\1)",
                     "url(\\1#\\1)",
                     "url(\\1#\\1)",
+                    "url(\\1#\\1)",
                     "\\1:url(\\2#\\3)"
                     )
                 )
@@ -2057,61 +2063,6 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
     if (preg_match("|$secremoveimg|i", $trusted)){
         $has_unsafe_images = true;
     }
-
-
-    // we want to parse mailto's in HTML output, change to SM compose links
-    // this is a modified version of code from url_parser.php... but Marc is
-    // right: we need a better filtering implementation; adding this randomly
-    // here is not a great solution
-    //
-    if ($take_mailto_links) {
-        // parseUrl($trusted);   // this even parses URLs inside of tags... too aggressive
-        global $MailTo_PReg_Match;
-        $MailTo_PReg_Match = '/mailto:' . substr($MailTo_PReg_Match, 1);
-        if ((preg_match_all($MailTo_PReg_Match, $trusted, $regs)) && ($regs[0][0] != '')) {
-            foreach ($regs[0] as $i => $mailto_before) {
-                $mailto_params = $regs[10][$i];
-
-                // get rid of any tailing quote since we have to add send_to to the end
-                //
-                if (substr($mailto_before, strlen($mailto_before) - 1) == '"')
-                    $mailto_before = substr($mailto_before, 0, strlen($mailto_before) - 1);
-                if (substr($mailto_params, strlen($mailto_params) - 1) == '"')
-                    $mailto_params = substr($mailto_params, 0, strlen($mailto_params) - 1);
-
-                if ($regs[1][$i]) {    //if there is an email addr before '?', we need to merge it with the params
-                    $to = 'to=' . $regs[1][$i];
-                    if (strpos($mailto_params, 'to=') > -1)    //already a 'to='
-                        $mailto_params = str_replace('to=', $to . '%2C%20', $mailto_params);
-                    else {
-                        if ($mailto_params)    //already some params, append to them
-                            $mailto_params .= '&amp;' . $to;
-                        else
-                            $mailto_params .= '?' . $to;
-                    }
-                }
-
-                $url_str = preg_replace(array('/to=/i', '/(?<!b)cc=/i', '/bcc=/i'), array('send_to=', 'send_to_cc=', 'send_to_bcc='), $mailto_params);
-
-                // we'll already have target=_blank, no need to allow comp_in_new
-                // here (which would be a lot more work anyway)
-                //
-                global $compose_new_win;
-                $temp_comp_in_new = $compose_new_win;
-                $compose_new_win = 0;
-                $comp_uri = makeComposeLink('src/compose.php' . $url_str, $mailto_before);
-                $compose_new_win = $temp_comp_in_new;
-
-                // remove <a href=" and anything after the next quote (we only
-                // need the uri, not the link HTML) in compose uri
-                //
-                $comp_uri = substr($comp_uri, 9);
-                $comp_uri = substr($comp_uri, 0, strpos($comp_uri, '"', 1));
-                $trusted = str_replace($mailto_before, $comp_uri, $trusted);
-            }
-        }
-    }
-
     return $trusted;
 }
 

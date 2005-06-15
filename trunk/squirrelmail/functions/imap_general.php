@@ -864,7 +864,8 @@ function sqimap_logout ($imap_stream) {
  *  array if $capability not set)
  */
 function sqimap_capability($imap_stream, $capability='') {
-    global $sqimap_capabilities;
+    sqgetGlobalVar('sqimap_capabilities', $sqimap_capabilities, SQ_SESSION);
+
     if (!is_array($sqimap_capabilities)) {
         $read = sqimap_run_command($imap_stream, 'CAPABILITY', true, $a, $b);
 
