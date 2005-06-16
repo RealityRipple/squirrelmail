@@ -421,7 +421,6 @@ class AddressBook {
        Errors from the backend are cleaned up in this class because we not always
        have control over it when error output is generated in the backend.
        If this appears to be wrong place then clean it up at the source (the backend)
-       Possible problems, translated strings in utf8?  (stekkel)
     */
 
     /**
