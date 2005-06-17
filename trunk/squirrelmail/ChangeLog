@@ -369,6 +369,7 @@ Version 1.5.1 -- CVS
   - Security: fix several cross site scripting (XSS) attacks. Thanks go to
     Martijn Brinkers for finding a lot of these. [CAN-2005-1769]
   - Update COPYING with new address of the FSF.
+  - Fixed missing quote character when trying to build cid: urls.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
