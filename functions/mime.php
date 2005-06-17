@@ -1683,7 +1683,7 @@ function sq_cid2http($message, $id, $cidurl, $mailbox){
          * If we couldn't generate a proper img url, drop in a blank image
          * instead of sending back empty, otherwise it causes unusual behaviour
          */
-        $httpurl = $quotchar . SM_PATH . 'images/blank.png';
+        $httpurl = $quotchar . SM_PATH . 'images/blank.png' . $quotchar;
     }
 
     return $httpurl;
