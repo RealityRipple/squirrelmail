@@ -25,17 +25,18 @@ if (! defined('SM_PATH') ) {
 
 /** SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/global.php');
-require_once(SM_PATH . 'functions/date.php');
-require_once(SM_PATH . 'functions/display_messages.php');
-require_once(SM_PATH . 'functions/addressbook.php');
-require_once(SM_PATH . 'functions/plugin.php');
-require_once(SM_PATH . 'functions/strings.php');
-require_once(SM_PATH . 'functions/html.php');
+include_once(SM_PATH . 'functions/global.php');
+include_once(SM_PATH . 'functions/date.php');
+include_once(SM_PATH . 'functions/display_messages.php');
+include_once(SM_PATH . 'functions/addressbook.php');
+include_once(SM_PATH . 'functions/plugin.php');
+include_once(SM_PATH . 'functions/strings.php');
+include_once(SM_PATH . 'functions/html.php');
 
 sqgetGlobalVar('session',   $session,   SQ_POST);
 sqgetGlobalVar('mailbox',   $mailbox,   SQ_POST);
-sqgetGlobalVar('addrquery', $addrquery, SQ_POST);
+if (! sqgetGlobalVar('addrquery', $addrquery, SQ_POST))
+     $addrquery='';
 sqgetGlobalVar('listall',   $listall,   SQ_POST);
 sqgetGlobalVar('backend',   $backend,   SQ_POST);
 
@@ -201,8 +202,6 @@ echo '<center>' .
     "\n<center>\n" .
     '  <nobr><strong>' . _("Search for") . "</strong>\n";
 addr_insert_hidden();
-if (! isset($addrquery))
-    $addrquery = '';
 echo addInput('addrquery', $addrquery, 26);
 
 /* List all backends to allow the user to choose where to search */
@@ -228,21 +227,15 @@ echo '<input type="submit" value="' . _("Search") . '" />' .
      '&nbsp;|&nbsp;<input type="submit" value="' . _("List all") .
      '" name="listall" />' . "\n" .
      '</form></center></td></tr></table>' . "\n";
-addr_insert_hidden();
 echo '</center>';
 do_hook('addrbook_html_search_below');
 /* End search form */
 
-/* Show personal addressbook */
-
-if ( !empty( $listall ) ){
-    $addrquery = '*';
-}
-
-if ($addrquery == '' && empty($listall)) {
-
+/* List addresses. Show personal addressbook */
+if ($addrquery == '' || ! empty($listall)) {
+    // TODO: recheck all conditions and simplity if statements
     if (! isset($backend) || $backend != -1 || $addrquery == '') {
-        if ($addrquery == '') {
+        if ($addrquery == '' && empty($listall)) {
             $backend = $abook->localbackend;
         }
 
@@ -265,40 +258,41 @@ if ($addrquery == '' && empty($listall)) {
         usort($res,'alistcmp');
         addr_display_result($res, true);
     }
+    echo "\n</body></html>";
     exit;
-}
-else {
-
+} elseif (!empty($addrquery)) {
     /* Do the search */
-    if (!empty($addrquery)) {
+    if ($backend == -1) {
+        $res = $abook->s_search($addrquery);
+    } else {
+        $res = $abook->s_search($addrquery, $backend);
+    }
 
-        if ($backend == -1) {
-            $res = $abook->s_search($addrquery);
-        } else {
-            $res = $abook->s_search($addrquery, $backend);
-        }
-
-        if (!is_array($res)) {
-            echo html_tag( 'p', '<b><br />' .
-                             _("Your search failed with the following error(s)") .
-                            ':<br />' . $abook->error . "</b>\n" ,
-                   'center' ) .
-            "\n</body></html>\n";
-        } else {
-            if (sizeof($res) == 0) {
-                echo html_tag( 'p', '<br /><b>' .
-                                 _("No persons matching your search were found") . "</b>\n" ,
+    if (!is_array($res)) {
+        echo html_tag( 'p', '<b><br />' .
+                       _("Your search failed with the following error(s)") .
+                       ':<br />' . $abook->error . "</b>\n" ,
                        'center' ) .
+            "\n</body></html>\n";
+    } else {
+        if (sizeof($res) == 0) {
+            echo html_tag( 'p', '<br /><b>' .
+                           _("No persons matching your search were found") . "</b>\n" ,
+                           'center' ) .
                 "\n</body></html>\n";
-            } else {
-                addr_display_result($res);
-            }
+        } else {
+            addr_display_result($res);
         }
     }
+} else {
+    // not first time display, not listall and search is empty
+    // TODO: I think, this part of control structure is never reached.
+    echo html_tag( 'p', '<br /><b>' .
+                   _("Nothing to search") . "</b>\n" ,
+                   'center' );
 }
 
 if ($addrquery == '' || sizeof($res) == 0) {
-    /* printf('<center><form method="post" name="k" action="compose.php">'."\n", $PHP_SELF); */
     echo '<center>'.
         addForm('compose.php','post','k');
     addr_insert_hidden();
