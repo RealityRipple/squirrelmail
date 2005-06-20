@@ -21,7 +21,9 @@
  * Address book backend for LDAP server
  *
  * An array with the following elements must be passed to
- * the class constructor (elements marked ? are optional):
+ * the class constructor (elements marked ? are optional)
+ *
+ * Main settings:
  * <pre>
  *    host      => LDAP server hostname/IP-address
  *    base      => LDAP server root (base dn). Empty string allowed.
@@ -30,13 +32,17 @@
  *  ? name      => Name for LDAP server (default "LDAP: hostname")
  *                 Used to tag the result data
  *  ? maxrows   => Maximum # of rows in search result
- *  ? filter    => Filter expression to limit ldap searches
  *  ? timeout   => Timeout for LDAP operations (in seconds, default: 30)
  *                 Might not work for all LDAP libraries or servers.
  *  ? binddn    => LDAP Bind DN.
  *  ? bindpw    => LDAP Bind Password.
  *  ? protocol  => LDAP Bind protocol.
- *  ? limit_scope => Limits scope to base DN.
+ * </pre>
+ * Advanced settings:
+ * <pre>
+ *  ? filter    => Filter expression to limit ldap searches
+ *  ? limit_scope => Limits scope to base DN (Specific to Win2k3 ADS).
+ *  ? listing   => Controls listing of LDAP directory.
  * </pre>
  * NOTE. This class should not be used directly. Use the
  *       "AddressBook" class instead.
@@ -115,6 +121,11 @@ class abook_ldap_server extends addressbook_backend {
      * @since 1.5.1
      */
     var $limit_scope = false;
+    /**
+     * @var boolean controls listing of directory
+     * @since 1.5.1
+     */
+    var $listing = false;
 
     /**
      * Constructor. Connects to database
@@ -155,6 +166,9 @@ class abook_ldap_server extends addressbook_backend {
 
             if(isset($param['limit_scope']))
                 $this->limit_scope = $param['limit_scope'];
+
+            if(isset($param['listing']))
+                $this->listing = $param['listing'];
 
             if(empty($param['name'])) {
                 $this->sname = 'LDAP: ' . $param['host'];
@@ -292,37 +306,22 @@ class abook_ldap_server extends addressbook_backend {
         return str_replace(array_keys($sanitized),array_values($sanitized),$string);
     }
 
-    /* ========================== Public ======================== */
-
     /**
-     * Search the LDAP server
-     * @param string $expr search expression
-     * @return array search results
+     * Search LDAP server.
+     *
+     * Warning: You must make sure that ldap query is correctly formated and 
+     * sanitize use of special ldap keywords.
+     * @param string $expression ldap query
+     * @return array search results (false on error)
+     * @since 1.5.1
      */
-    function search($expr) {
-        /* To be replaced by advanded search expression parsing */
-        if(is_array($expr)) return false;
-
-        /* Encode the expression */
-        $expr = $this->charset_encode($expr);
-
-        /*
-         * allow use of one asterisk in search.
-         * Don't allow any ldap special chars if search is different
-         */
-        if($expr!='*') {
-            $expr = '*' . $this->ldapspecialchars($expr) . '*';
-        }
-        $expression = "(cn=$expr)";
-
-        if ($this->filter!='')
-            $expression = '(&' . $this->filter . $expression . ')';
-
+    function ldap_search($expression) {
         /* Make sure connection is there */
         if(!$this->open()) {
             return false;
         }
 
+        // TODO: ldap_search() | ldap_list() | ldap_read() option
         $sret = @ldap_search($this->linkid, $this->basedn, $expression,
             array('dn', 'o', 'ou', 'sn', 'givenname', 'cn', 'mail'),
             0, $this->maxrows, $this->timeout);
@@ -351,6 +350,8 @@ class abook_ldap_server extends addressbook_backend {
             /* Extract data common for all e-mail addresses
              * of an object. Use only the first name */
             $nickname = $this->charset_decode($row['dn']);
+            // TODO: remove basedn from $nickname
+
             $fullname = $this->charset_decode($row['cn'][0]);
 
             if(!empty($row['ou'][0])) {
@@ -402,22 +403,58 @@ class abook_ldap_server extends addressbook_backend {
 
         ldap_free_result($sret);
         return $ret;
-    } /* end search() */
+    }
+
+    /* ========================== Public ======================== */
+
+    /**
+     * Search the LDAP server
+     * @param string $expr search expression
+     * @return array search results
+     */
+    function search($expr) {
+        /* To be replaced by advanded search expression parsing */
+        if(is_array($expr)) return false;
+
+        // don't allow wide search when listing is disabled.
+        if ($expr=='*' && ! $this->listing)
+             return array();
+
+        /* Convert search from user's charset to the one used in ldap */
+        $expr = $this->charset_encode($expr);
+
+        /* Make sure that search does not contain ldap special chars */
+        $expression = '(cn=*' . $this->ldapspecialchars($expr) . '*)';
+
+        /* Add search filtering */
+        if ($this->filter!='')
+            $expression = '(&' . $this->filter . $expression . ')';
+
+        /* Use internal search function and return search results */
+        return $this->ldap_search($expression);
+    }
 
 
     /**
      * List all entries present in LDAP server
      *
-     * If you run a tiny LDAP server and you want the "List All" button
-     * to show EVERYONE, disable first return call and enable the second one.
-     * Remember that maxrows setting might limit list of returned entries.
-     *
+     * maxrows setting might limit list of returned entries.
      * Careful with this -- it could get quite large for big sites.
      * @return array all entries in ldap server
      */
      function list_addr() {
-         return array();
-         // return $this->search('*');
+         if (! $this->listing)
+             return array();
+
+         /* set wide search expression */
+         $expression = '(cn=*)';
+
+         /* add filtering */
+         if ($this->filter!='')
+             $expression = '(&' . $this->filter . $expression .')';
+
+         /* use internal search function and return search results */
+         return $this->ldap_search($expression);
      }
 }
 ?>
