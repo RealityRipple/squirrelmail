@@ -370,6 +370,12 @@ Version 1.5.1 -- CVS
     Martijn Brinkers for finding a lot of these. [CAN-2005-1769]
   - Update COPYING with new address of the FSF.
   - Fixed missing quote character when trying to build cid: urls.
+  - Added address listing functions and listing controls to address
+    book LDAP backend. Blocked wildcard searches in file and database
+    backends when listing is disabled (#529563).
+  - Some LDAP address book backend configuration options (listing
+    controls, filtering, scope limit) are moved to 'advanced
+    configuration' subsection.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------

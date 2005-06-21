@@ -417,14 +417,22 @@ class abook_ldap_server extends addressbook_backend {
         if(is_array($expr)) return false;
 
         // don't allow wide search when listing is disabled.
-        if ($expr=='*' && ! $this->listing)
-             return array();
+        if ($expr=='*' && ! $this->listing) {
+            return array();
+        } elseif ($expr=='*') {
+            // allow use of wildcard when listing is enabled.
+            $expression = '(cn=*)';
+        } else {
+            /* Convert search from user's charset to the one used in ldap */
+            $expr = $this->charset_encode($expr);
 
-        /* Convert search from user's charset to the one used in ldap */
-        $expr = $this->charset_encode($expr);
+            /* Make sure that search does not contain ldap special chars */
+            $expression = '(cn=*' . $this->ldapspecialchars($expr) . '*)';
 
-        /* Make sure that search does not contain ldap special chars */
-        $expression = '(cn=*' . $this->ldapspecialchars($expr) . '*)';
+            /* Undo sanitizing of * symbol */
+            $expression = str_replace('\2a','*',$expression);
+            /* TODO: implement any single character (?) matching */
+        }
 
         /* Add search filtering */
         if ($this->filter!='')
