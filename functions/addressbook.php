@@ -191,7 +191,7 @@ function abook_create_form($form_url,$name,$title,$button,$defdata=array()) {
 }
 
 
-/*
+/**
  *   Had to move this function outside of the Addressbook Class
  *   PHP 4.0.4 Seemed to be having problems with inline functions.
  *   Note: this can return now since we don't support 4.0.4 anymore.
@@ -865,6 +865,10 @@ class addressbook_backend {
 
     /**
      * Search for entries in backend
+     *
+     * Working backend should support use of wildcards. * symbol 
+     * should match one or more symbols. ? symbol should match any
+     * single symbol.  
      * @param string $expression
      * @return bool
      */
@@ -885,6 +889,9 @@ class addressbook_backend {
 
     /**
      * List all entries in backend
+     *
+     * Working backend should provide this function or at least
+     * dummy function that returns empty array.
      * @return bool
      */
     function list_addr() {

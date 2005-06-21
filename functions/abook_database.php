@@ -190,6 +190,10 @@ class abook_database extends addressbook_backend {
             return;
         }
 
+        // don't allow wide search when listing is disabled.
+        if ($expr=='*' && ! $this->listing)
+            return array();
+
         /* Make regexp from glob'ed expression  */
         $expr = str_replace('?', '_', $expr);
         $expr = str_replace('*', '%', $expr);

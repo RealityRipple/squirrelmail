@@ -259,6 +259,10 @@ class abook_local_file extends addressbook_backend {
         /* To be replaced by advanded search expression parsing */
         if(is_array($expr)) { return; }
 
+        // don't allow wide search when listing is disabled.
+        if ($expr=='*' && ! $this->listing)
+            return array();
+
         /* Make regexp from glob'ed expression
          * May want to quote other special characters like (, ), -, [, ], etc. */
         $expr = str_replace('?', '.', $expr);

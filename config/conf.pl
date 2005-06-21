@@ -262,6 +262,11 @@ while ( $line = <FILE> ) {
                     $tmp =~ s/[\'\"]?,?\s*$//;
                     $tmp =~ s/[\'\"]?\);\s*$//;
                     $limit_scope = $tmp;
+                } elsif ( $tmp =~ /^\s*[\'\"]listing[\'\"]/i ) {
+                    $tmp =~ s/^\s*[\'\"]listing[\'\"]\s*=>\s*[\'\"]?//i;
+                    $tmp =~ s/[\'\"]?,?\s*$//;
+                    $tmp =~ s/[\'\"]?\);\s*$//;
+                    $listing = $tmp;
                 }
             }
             $ldap_host[$sub]    = $host;
@@ -275,6 +280,7 @@ while ( $line = <FILE> ) {
             $ldap_bindpw[$sub]  = $bindpw;
             $ldap_protocol[$sub] = $protocol;
             $ldap_limit_scope[$sub] = $limit_scope;
+            $ldap_listing[$sub] = $listing;
         } elsif ( $options[0] =~ /^(data_dir|attachment_dir|theme_css|org_logo|signout_page)$/ ) {
             ${ $options[0] } = &change_to_rel_path($options[1]);
         } else {
@@ -2472,6 +2478,9 @@ sub command61 {
                 if ( $ldap_limit_scope[$count] ) {
                     print " limit_scope: $ldap_limit_scope[$count]\n";
                 }
+                if ( $ldap_listing[$count] ) {
+                    print "     listing: $ldap_listing[$count]\n";
+                }
 
                 print "\n";
                 $count++;
@@ -2526,21 +2535,12 @@ sub command61 {
             print "\n";
 
             print "You can specify the maximum number of rows in the search result.\n";
-            print "Default is unlimited.  Press ENTER for default.\n";
+            print "Default value is equal to 250 rows.  Press ENTER for default.\n";
             print "maxrows: ";
             $name = <STDIN>;
             $name =~ s/[\r\n]//g;
             $ldap_maxrows[$sub] = $name;
 
-            print "\n";
-
-            print "You can specify an additional search filter.\n";
-            print "This could be something like \"(objectclass=posixAccount)\".\n";
-            print "Default is no extra filter.  Press ENTER for default.\n";
-            print "filter: ";
-            $name = <STDIN>;
-            $name =~ s/[\r|\n]//g;
-            $ldap_filter[$sub] = $name;
 
             print "\n";
 
@@ -2574,20 +2574,63 @@ sub command61 {
 
             print "\n";
 
-            print "You can control search scope here.\n";
-            print "This option is specific to Microsoft ADS implementation.\n";
-            print "It requires use of v3 or newer LDAP protocol.\n";
-            print "Don't enable it, if you use other LDAP server.\n";
+            print "This configuration section allows to set some rarely used\n";
+            print "options and options specific to some LDAP implementations.\n";
             print "\n";
-            print "Limit ldap scope? (y/N):";
-            $name = <STDIN>;
-            if ( $name =~ /^y\n/i ) {
-                $name = 'true';
+            print "Do you want to set advanced LDAP directory settings? (y/N):";
+            $ldap_advanced_settings = <STDIN>;
+            if ( $ldap_advanced_settings =~ /^y\n/i ) {
+                $ldap_advanced_settings = 'true';
             } else {
-                $name = 'false';
+                $ldap_advanced_settings = 'false';
             }
-            $ldap_limit_scope[$sub] = $name;
 
+            if ($ldap_advanced_settings eq 'true') {
+              print "\n";
+
+              print "You can control LDAP directory listing here. This option can\n";
+              print "be useful if you run small LDAP server and want to provide listing\n";
+              print "of all addresses stored in LDAP to users of webmail interface.\n";
+              print "Number of displayed entries is limited by maxrows setting.\n";
+              print "\n";
+              print "Don't enable this option for public LDAP directories.\n";
+              print "This feature is experimental.\n";
+              print "\n";
+              print "Allow listing of LDAP directory? (y/N):";
+              $name = <STDIN>;
+              if ( $name =~ /^y\n/i ) {
+                $name = 'true';
+              } else {
+                $name = 'false';
+              }
+              $ldap_listing[$sub] = $name;
+
+              print "\n";
+
+              print "You can specify an additional search filter.\n";
+              print "This could be something like \"(objectclass=posixAccount)\".\n";
+              print "No filtering is performed by default. Press ENTER for default.\n";
+              print "filter: ";
+              $name = <STDIN>;
+              $name =~ s/[\r|\n]//g;
+              $ldap_filter[$sub] = $name;
+
+              print "\n";
+
+              print "You can control search scope here.\n";
+              print "This option is specific to Microsoft ADS implementation.\n";
+              print "It requires use of v3 or newer LDAP protocol.\n";
+              print "Don't enable it, if you use other LDAP server.\n";
+              print "\n";
+              print "Limit ldap scope? (y/N):";
+              $name = <STDIN>;
+              if ( $name =~ /^y\n/i ) {
+                $name = 'true';
+              } else {
+                $name = 'false';
+              }
+              $ldap_limit_scope[$sub] = $name;
+            }
             print "\n";
 
         } elsif ( $input =~ /^\s*-\s*[0-9]?/ ) {
@@ -2610,6 +2653,7 @@ sub command61 {
             @new_ldap_binddn  = ();
             @new_ldap_protocol = ();
             @new_ldap_limit_scope = ();
+            @new_ldap_listing = ();
 
             while ( $count <= $#ldap_host ) {
                 if ( $count != $rem_num ) {
@@ -2624,6 +2668,7 @@ sub command61 {
                     @new_ldap_bindpw  = ( @new_ldap_bindpw,  $ldap_bindpw[$count] );
                     @new_ldap_protocol  = ( @new_ldap_protocol,  $ldap_protocol[$count] );
                     @new_ldap_limit_scope = ( @new_ldap_limit_scope,  $ldap_limit_scope[$count] );
+                    @new_ldap_listing = ( @new_ldap_listing, $ldap_listing[$count] );
                 }
                 $count++;
             }
@@ -2638,6 +2683,7 @@ sub command61 {
             @ldap_bindpw  = @new_ldap_bindpw;
             @ldap_protocol = @new_ldap_protocol;
             @ldap_limit_scope = @new_ldap_limit_scope;
+            @ldap_listing = @new_ldap_listing;
 
         } elsif ( $input =~ /^\s*\?\s*/ ) {
             print ".-------------------------.\n";
@@ -3440,13 +3486,18 @@ sub save_data {
             }
             if ( $ldap_protocol[$count] ) {
                 print CF ",\n";
-        # integer
+                # integer
                 print CF "    'protocol' => $ldap_protocol[$count]";
             }
             if ( $ldap_limit_scope[$count] ) {
                 print CF ",\n";
                 # boolean
                 print CF "    'limit_scope' => $ldap_limit_scope[$count]";
+            }
+            if ( $ldap_listing[$count] ) {
+                print CF ",\n";
+                # boolean
+                print CF "    'listing' => $ldap_listing[$count]";
             }
             print CF "\n";
             print CF ");\n";
