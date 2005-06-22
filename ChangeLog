@@ -376,6 +376,8 @@ Version 1.5.1 -- CVS
   - Some LDAP address book backend configuration options (listing
     controls, filtering, scope limit) are moved to 'advanced
     configuration' subsection.
+  - Javascript relied on rg=1 in the login page to force focus to
+    password box if username was supplied as a url arg (#1222617).
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
