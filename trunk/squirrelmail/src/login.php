@@ -83,6 +83,8 @@ if($imap_auth_mech == 'login') {
 
 do_hook('login_cookie');
 
+$loginname_value = (sqGetGlobalVar('loginname', $loginname) ? htmlspecialchars($loginname) : '');
+
 /* Output the javascript onload function. */
 
 $header = "<script language=\"JavaScript\" type=\"text/javascript\">\n" .
@@ -113,8 +115,6 @@ echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"
 $username_form_name = 'login_username';
 $password_form_name = 'secretkey';
 do_hook('login_top');
-
-$loginname_value = (sqGetGlobalVar('loginname', $loginname) ? htmlspecialchars($loginname) : '');
 
 /* If they don't have a logo, don't bother.. */
 if (isset($org_logo) && $org_logo) {
