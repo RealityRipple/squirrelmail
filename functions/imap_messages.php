@@ -798,7 +798,7 @@ function parseFetch($aResponse,$aMessageList = array()) {
             }
         }
         $msgi ="$unique_id";
-        $msg['UID'] = $unique_id;
+        $aMsg['UID'] = $unique_id;
         $aMessageList[$msgi] = $aMsg;
     }
     return $aMessageList;
