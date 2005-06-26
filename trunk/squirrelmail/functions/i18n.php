@@ -1137,7 +1137,7 @@ $languages['sv']['ALIAS'] = 'sv_SE';
 
 $languages['th_TH']['NAME']    = 'Thai';
 $languages['th_TH']['CHARSET'] = 'tis-620';
-$languages['th_TH']['LOCALE']  = 'th_TH.TIS-620';
+$languages['th_TH']['LOCALE']  = array('th_TH.TIS-620','th_TH');
 $languages['th']['ALIAS'] = 'th_TH';
 
 $languages['tl_PH']['NAME']    = 'Tagalog';
@@ -1152,12 +1152,12 @@ $languages['tr']['ALIAS'] = 'tr_TR';
 
 $languages['zh_TW']['NAME']    = 'Chinese Trad';
 $languages['zh_TW']['CHARSET'] = 'big5';
-$languages['zh_TW']['LOCALE']  = 'zh_TW.BIG5';
+$languages['zh_TW']['LOCALE']  = array('zh_TW.BIG5','zh_TW');
 $languages['tw']['ALIAS'] = 'zh_TW';
 
 $languages['zh_CN']['NAME']    = 'Chinese Simp';
 $languages['zh_CN']['CHARSET'] = 'gb2312';
-$languages['zh_CN']['LOCALE']  = 'zh_CN.GB2312';
+$languages['zh_CN']['LOCALE']  = array('zh_CN.GB2312','zh_CN');
 $languages['cn']['ALIAS'] = 'zh_CN';
 
 $languages['uk_UA']['NAME']    = 'Ukrainian';
@@ -1183,12 +1183,12 @@ $languages['ar']['DIR']     = 'rtl';
 $languages['fa_IR']['NAME']    = 'Farsi';
 $languages['fa_IR']['CHARSET'] = 'utf-8';
 $languages['fa_IR']['DIR']     = 'rtl';
-$languages['fa_IR']['LOCALE']  = 'fa_IR.UTF-8';
+$languages['fa_IR']['LOCALE']  = array('fa_IR.UTF-8','fa_IR');
 $languages['fa']['ALIAS']      = 'fa_IR';
 
 $languages['he_IL']['NAME']    = 'Hebrew';
 $languages['he_IL']['CHARSET'] = 'windows-1255';
-$languages['he_IL']['LOCALE']  = 'he_IL.CP1255';
+$languages['he_IL']['LOCALE']  = array('he_IL.CP1255','he_IL');
 $languages['he_IL']['DIR']     = 'rtl';
 $languages['he']['ALIAS']      = 'he_IL';
 
