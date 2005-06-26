@@ -25,6 +25,14 @@ global $attachment_common_show_images_list;
 $attachment_common_show_images_list = array();
 
 global $FileExtensionToMimeType, $attachment_common_types;
+/**
+ * Mapping of file extensions to mime types
+ *
+ * Used for application/octet-stream mime type detection.
+ * Supported extensions: bmp, gif, htm, html, jpg, jpeg, php,
+ * png, rtf, txt, patch (since 1.4.2), vcf
+ * @global array $FileExtensionToMimeType
+ */
 $FileExtensionToMimeType = array('bmp'  => 'image/x-bitmap',
                                  'gif'  => 'image/gif',
                                  'htm'  => 'text/html',
@@ -40,7 +48,10 @@ $FileExtensionToMimeType = array('bmp'  => 'image/x-bitmap',
 
 /* Register browser-supported image types */
 sqgetGlobalVar('attachment_common_types', $attachment_common_types);
+// FIXME: do we use $attachment_common_types that is not extracted by sqgetGlobalVar() ?
 if (isset($attachment_common_types)) {
+    // var is used to detect activation of jpeg image types
+    unset($jpeg_done);
     /* Don't run this before being logged in. That may happen
        when plugins include mime.php */
     foreach ($attachment_common_types as $val => $v) {
@@ -51,11 +62,31 @@ if (isset($attachment_common_types)) {
             $jpeg_done = 1;
             register_attachment_common('image/jpeg',      'link_image');
             register_attachment_common('image/pjpeg',     'link_image');
+            // register_attachment_common('image/jpg',       'link_image');
         }
         elseif ($val == 'image/png')
             register_attachment_common('image/png',       'link_image');
         elseif ($val == 'image/x-xbitmap')
             register_attachment_common('image/x-xbitmap', 'link_image');
+        elseif ($val == '*/*' || $val == 'image/*') {
+            /**
+             * browser (Firefox) declared that anything is acceptable. 
+             * Lets register some common image types.
+             */
+            if (! isset($jpeg_done)) {
+                $jpeg_done = 1;
+                register_attachment_common('image/jpeg',  'link_image');
+                register_attachment_common('image/pjpeg', 'link_image');
+                // register_attachment_common('image/jpg',       'link_image');
+            }
+            register_attachment_common('image/gif',       'link_image');
+            register_attachment_common('image/png',       'link_image');
+            register_attachment_common('image/x-xbitmap', 'link_image');
+            // register_attachment_common('image/x-ico',     'link_image');
+            // register_attachment_common('image/x-icon',    'link_image');
+            // register_attachment_common('image/bmp',       'link_image');
+            // register_attachment_common('image/x-ms-bmp',  'link_image');
+        }
     }
     unset($jpeg_done);
 }
