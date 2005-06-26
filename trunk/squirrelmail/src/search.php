@@ -727,6 +727,7 @@ function asearch_get_form_mailbox($imapConnection, &$boxes, $mailbox, $row_num =
 }
 
 /** Build the Include subfolders checkbox
+ * @todo if(function_exists('addCheckBox')) ? 
  */
 function asearch_get_form_sub($sub, $row_num = 0)
 {
@@ -753,6 +754,7 @@ function asearch_get_form_what($what, $row_num = 0)
 }
 
 /** Build the Exclude criteria checkbox
+ * @todo if(function_exists('addCheckBox')) ?
  */
 function asearch_get_form_exclude($exclude, $row_num = 0)
 {
