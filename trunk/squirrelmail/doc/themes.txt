@@ -3,7 +3,7 @@ Themes
 
 To create a theme, it is very simple.  Just go into the themes/ directory
 and create a file called yourtheme_theme.php.  You then need to create an
-array with 13 elements (0-12).  Below is an example followed by a
+array with 16 elements (0-15).  Below is an example followed by a
 description of what the different entries are for.
 
 ---<START>--- 
