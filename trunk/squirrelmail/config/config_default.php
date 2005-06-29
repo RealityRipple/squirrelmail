@@ -742,6 +742,9 @@ $theme[39]['NAME'] = 'Simple Green';
 $theme[40]['PATH'] = SM_PATH . 'themes/wood_theme.php';
 $theme[40]['NAME'] = 'Wood';
 
+$theme[41]['PATH'] = SM_PATH . 'themes/bluesome.php';
+$theme[41]['NAME'] = 'Bluesome';
+
 /**
  * LDAP server(s)
  *   Array of arrays with LDAP server parameters. See
