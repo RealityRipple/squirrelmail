@@ -381,6 +381,8 @@ Version 1.5.1 -- CVS
   - Fix variable typo in parseFetch which caused IMAP errors on Exchange.
     Thanks Christian Froemmel.
   - Added Bluesome theme by Saku Lehtiö (#1188209).
+  - Rewrite of advanced identity handlying to remove stupid extraction
+    of all post variables.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
