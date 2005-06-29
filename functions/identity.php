@@ -36,7 +36,6 @@ function get_identities() {
             $em = $username;
         }
     }
-
     $identities = array();
     /* We always have this one, even if the user doesn't use multiple identities */
     $identities[] = array('full_name' => getPref($data_dir,$username,'full_name'),
@@ -58,6 +57,141 @@ function get_identities() {
     }
 
     return $identities;
+}
+
+/**
+ * Function to save the identities array
+ *
+ * @param  array     $identities     Array of identities
+ */
+function save_identities($identities) {
+
+    global $username, $data_dir, $domain;
+
+    if (empty($identities) || !is_array($identities)) {
+        return;
+    }
+
+
+    $num_cur = getPref($data_dir, $username, 'identities');
+    
+    $cnt = count($identities);
+
+    // Remove any additional identities in prefs //
+    for($i=$cnt; $i <= $num_cur; $i++) {
+        removePref($data_dir, $username, 'full_name' . $i);
+        removePref($data_dir, $username, 'email_address' . $i);
+        removePref($data_dir, $username, 'reply_to' . $i);
+        setSig($data_dir, $username, $i, '');
+    }
+
+    foreach($identities as $id=>$ident) {
+
+        $key = ($id?$id:'');
+
+        setPref($data_dir, $username, 'full_name' . $key, $ident['full_name']);
+        setPref($data_dir, $username, 'email_address' . $key, $ident['email_address']);
+        setPref($data_dir, $username, 'reply_to' . $key, $ident['reply_to']);
+
+        if ($id === 0) {
+            setSig($data_dir, $username, 'g', $ident['signature']);
+        } else {
+            setSig($data_dir, $username, $key, $ident['signature']);
+        }
+
+    }
+
+    setPref($data_dir, $username, 'identities', $cnt);
+
+}
+
+/**
+ * Returns an array with a fixed set of identities
+ *
+ * @param   array       $identities      Array of identities
+ * @param   int         $id             Identity to modify
+ * @param   string      $action         Action to perform
+ * @return  array
+ */
+function sqfixidentities( $identities, $id, $action ) {
+
+    $fixed = array();
+    $tmp_hold = array();
+    $i = 0;
+
+    if (empty($identities) || !is_array($identities)) {
+        return $fixed;
+    }
+
+    foreach( $identities as $key=>$ident ) {
+
+        if (empty_identity($ident)) {
+            continue;
+        }
+
+        switch($action) {
+
+            case 'makedefault':
+
+                if ($key == $id) {
+                    $fixed[0] = $ident;
+                    continue 2;
+                } else {
+                    $fixed[$i+1] = $ident;
+                }
+                break;
+
+            case 'move':
+
+                if ($key == ($id - 1)) {
+                    $tmp_hold = $ident;
+                    continue 2;
+                } else {
+                    $fixed[$i] = $ident;
+
+                    if ($key == $id) {
+                        $i++;
+                        $fixed[$i] = $tmp_hold;
+                    }
+                }
+                break;
+
+            case 'delete':
+
+                if ($key == $id) {
+                    continue 2;
+                } else {
+                    $fixed[$i] = $ident;
+                }
+                break;
+
+            // we should never hit this but just in case //
+            default:
+                $fixed[$i] = $ident;
+
+        }
+
+        // Inc array index //
+        $i++;
+    }
+
+    ksort($fixed);
+    return $fixed;
+
+}
+
+/**
+ * Function to test if identity is empty
+ *
+ * @param   array   $identity   Identitiy Array
+ * @return  boolean
+ */
+function empty_identity($ident) {
+    if (empty($ident['full_name']) && empty($ident['email_address']) && empty($ident['signature']) && empty($ident['reply_to'])) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 ?>
