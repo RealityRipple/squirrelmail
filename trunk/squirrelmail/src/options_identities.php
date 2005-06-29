@@ -24,338 +24,155 @@ require_once(SM_PATH . 'include/validate.php');
 include_once(SM_PATH . 'functions/global.php');
 include_once(SM_PATH . 'functions/display_messages.php');
 include_once(SM_PATH . 'functions/html.php');
+include_once(SM_PATH . 'functions/identity.php');
 
-/* POST data var names are dynamic because
-   of the possible multiple idents so lets get
-   them all
-   FIXME! This circumvents the benefits of rg=0
-*/
-if (!empty($_POST)) {
-    extract($_POST);
+if (!sqgetGlobalVar('identities', $identities, SQ_SESSION)) {
+    $identities = get_identities();
 }
-/* got 'em all */
+sqgetGlobalVar('newidentities', $newidentities, SQ_POST);
+sqgetGlobalVar('smaction', $smaction, SQ_POST);
+sqgetGlobalVar('return', $return, SQ_POST);
 
-    if (isset($return)) {
-       SaveUpdateFunction();
-       header('Location: '.get_location().'/options_personal.php');
-       exit();
-    }
+// First lets see if there are any actions to perform //
+if (!empty($smaction) && is_array($smaction)) {
 
-    displayPageHeader($color, 'None');
+    $doaction = '';
+    $identid = 0;
 
-    $Info = do_hook('options_identities_process', 0);
-    if ($Info[1]) {
-        SaveUpdateFunction();
-    }
+    foreach($smaction as $action=>$row) {
+        // we only need to extract the action and the identity we are
+        // altering
 
-    if (CheckAndDoDefault() || CheckAndDoPromote()) {
-       SaveUpdateFunction();
-    }
-    if (isset($update) || CheckForDelete()) {
-        SaveUpdateFunction();
-    }
-
-   do_hook('options_identities_top');
-   LoadInfo($full_name, $email_address, $reply_to, $signature, '');
-   $td_str = '';
-   $td_str .= '<form name="f" action="options_identities.php" method="post"><br />';
-   $td_str .= ShowTableInfo($full_name, $email_address, $reply_to, $signature, '');
-
-   $num = 1;
-   while (LoadInfo($full_name, $email_address, $reply_to, $signature, $num)) {
-       $td_str .= html_tag( 'tr',
-                          html_tag( 'th', sprintf (_("Alternate Identity %d"), $num), 'center', '', 'colspan="2"' ) ,
-                      '', $color[9]);
-       $td_str .= ShowTableInfo($full_name, $email_address, $reply_to, $signature, $num);
-       $num ++;
-       }
-
-   echo '<br />' .
-   html_tag( 'table', "\n" .
-       html_tag( 'tr', "\n" .
-           html_tag( 'td', "\n" .
-               '<b>'. _("Options") . ' - ' . _("Advanced Identities") .'</b><br />' .
-               html_tag( 'table', "\n" .
-                   html_tag( 'tr', "\n" .
-                       html_tag( 'td', "\n" .
-                           html_tag( 'table', "\n" .
-                               html_tag( 'tr', "\n" .
-                                   html_tag( 'th', _("Default Identity"), 'center', '', 'colspan="2"' ) ,
-                                   '', $color[9]) . "\n" .
-                                   $td_str . "\n" .
-                               html_tag( 'tr',
-                                   html_tag( 'th', _("Add a New Identity") . ShowTableInfo('', '', '', '', $num), 'center', '', 'colspan="2"' ) ,
-                               '', $color[9]) ,
-                            '', '', 'width="80%" cellpadding="2" cellspacing="0" border="0"' ) ,
-                       'center', $color[4] )
-                   ) ,
-               '', '', 'width="100%" border="0" cellpadding="1" cellspacing="1"' ) ,
-           'center', $color[0] )
-       ) ,
-   'center', '', 'width="95%" border="0" cellpadding="2" cellspacing="0"' ) .
-
-   '</body></html>';
-
-    function SaveUpdateFunction() {
-        global $username, $data_dir, $full_name, $email_address, $reply_to, $signature;
-
-        $i = 1;
-        $fakeI = 1;
-        $name = 'form_for_' . $i;
-        global $$name;
-        while (isset($$name))
-        {
-            $name = 'delete_' . $i;
-            global $$name;
-            if (isset($$name)) {
-                $fakeI --;
-            } else {
-                do_hook('options_identities_renumber', $i, $fakeI);
-                $filled = 0;
-
-                $name = 'full_name' . $i;
-                global $$name;
-            if ($$name != '')
-                $filled ++;
-                setPref($data_dir, $username, 'full_name' . $fakeI, $$name);
-
-                $name = 'email_address' . $i;
-                global $$name;
-            if ($$name != '')
-                $filled ++;
-                setPref($data_dir, $username, 'email_address' . $fakeI, $$name);
-
-                $name = 'reply_to' . $i;
-                global $$name;
-            if ($$name != '')
-                $filled ++;
-                setPref($data_dir, $username, 'reply_to' . $fakeI, $$name);
-
-                $name = 'signature' . $i;
-                global $$name;
-            if ($$name != '')
-                $filled ++;
-                setSig($data_dir, $username, $fakeI, $$name);
-
-            if ($filled == 0)
-                $fakeI --;
-            }
-
-            $fakeI ++;
-            $i ++;
-            $name = 'form_for_' . $i;
-            global $$name;
+        foreach($row as $key=>$data) {
+            $identid = $key;
         }
 
-        setPref($data_dir, $username, 'identities', $fakeI);
-
-        while ($fakeI != $i)
-        {
-            removePref($data_dir, $username, 'full_name' . $fakeI);
-            removePref($data_dir, $username, 'email_address' . $fakeI);
-            removePref($data_dir, $username, 'reply_to' . $fakeI);
-            setSig($data_dir, $username, $fakeI, "");
-            $fakeI ++;
-        }
-
-        setPref($data_dir, $username, 'full_name', $full_name);
-        setPref($data_dir, $username, 'email_address', $email_address);
-        setPref($data_dir, $username, 'reply_to', $reply_to);
-        setSig($data_dir, $username, "g", $signature);
-
+        $doaction = $action;
     }
 
-    function CheckAndDoDefault() {
-        global $username, $data_dir, $full_name, $email_address, $reply_to, $signature;
-
-        $i = 1;
-        $name = 'form_for_' . $i;
-        global $$name;
-        while (isset($$name))
-        {
-            $name = 'make_default_' . $i;
-            global $$name;
-            if (isset($$name)) {
-                do_hook('options_identities_renumber', $i, 'default');
-                global $full_name, $email_address, $reply_to, $signature;
-
-                $name = 'full_name' . $i;
-                global $$name;
-                $temp = $full_name;
-                $full_name = $$name;
-                $$name = $temp;
-
-                $name = 'email_address' . $i;
-                global $$name;
-                $temp = $email_address;
-                $email_address = $$name;
-                $$name = $temp;
-
-                $name = 'reply_to' . $i;
-                global $$name;
-                $temp = $reply_to;
-                $reply_to = $$name;
-                $$name = $temp;
-
-                $name = 'signature' . $i;
-                global $$name;
-                $temp = $signature;
-                $signature = $$name;
-                $$name = $temp;
-
-
-                return true;
-            }
-
-            $i ++;
-            $name = 'form_for_' . $i;
-            global $$name;
-        }
-        return FALSE;
-    }
-
-    function CheckForDelete() {
-        global $username, $data_dir, $full_name, $email_address, $reply_to, $signature;
-
-        $i = 1;
-        $name = 'form_for_' . $i;
-        global $$name;
-        while (isset($$name))
-        {
-            $name = 'delete_' . $i;
-            global $$name;
-            if (isset($$name)) {
-                return true;
-            }
-
-            $i ++;
-            $name = 'form_for_' . $i;
-            global $$name;
-        }
-        return false;
-    }
-
-    function CheckAndDoPromote() {
-        global $username, $data_dir, $full_name, $email_address, $reply_to;
-
-        $i = 1;
-        $name = 'form_for_' . $i;
-        global $$name;
-        while (isset($$name)) {
-            $name = 'promote_' . $i;
-            global $$name;
-            if (isset($$name) && $i > 1) {
-                do_hook('options_identities_renumber', $i, $i - 1);
-
-                $nameA = 'full_name' . $i;
-                $nameB = 'full_name' . ($i - 1);
-                global $$nameA, $$nameB;
-                $temp = $$nameA;
-                $$nameA = $$nameB;
-                $$nameB = $temp;
-
-                $nameA = 'email_address' . $i;
-                $nameB = 'email_address' . ($i - 1);
-                global $$nameA, $$nameB;
-                $temp = $$nameA;
-                $$nameA = $$nameB;
-                $$nameB = $temp;
-
-                $nameA = 'reply_to' . $i;
-                $nameB = 'reply_to' . ($i - 1);
-                global $$nameA, $$nameB;
-                $temp = $$nameA;
-                $$nameA = $$nameB;
-                $$nameB = $temp;
-
-            $nameA = 'signature' . $i;
-            $nameB = 'signature' . ($i - 1);
-            global $$nameA, $$nameB;
-            $temp = $$nameA;
-            $$nameA = $$nameB;
-            $$nameB = $temp;
-
-                return true;
-            }
-
-            $i ++;
-            $name = 'form_for_' . $i;
-            global $$name;
-        }
-        return false;
-    }
-
-    function LoadInfo(&$n, &$e, &$r, &$s, $post) {
-        global $username, $data_dir;
-
-        $n = getPref($data_dir, $username, 'full_name' . $post);
-        $e = getPref($data_dir, $username, 'email_address' . $post);
-        $r = getPref($data_dir, $username, 'reply_to' . $post);
-        if ($post == '')
-           $post = 'g';
-        $s = getSig($data_dir,$username,$post);
-
-        if ($n != '' || $e != '' || $r != '' || $s != '')
-            return true;
-    }
-
-function sti_input( $title, $hd, $data, $post, $bg ) {
-    $return_val = html_tag( 'tr',
-                           html_tag( 'td', $title . ':', 'right', '', 'style="white-space: nowrap;"' ) .
-                           html_tag( 'td', '<input size="50" type="text" value="' . htmlspecialchars($data) . '" name="' . $hd . $post . '" />' , 'left' ) ,
-                       '', $bg );
-     return ($return_val);
+    $identities = sqfixidentities( $newidentities , $identid , $action );
+    save_identities($identities);
 }
 
-function sti_textarea( $title, $hd, $data, $post, $bg ) {
-    $return_val = html_tag( 'tr',
-                           html_tag( 'td', $title . ':', 'right', '', 'style="white-space: nowrap;"' ) .
-                           html_tag( 'td', '<textarea cols="50" rows="5" name="' . $hd . $post . '">' . htmlspecialchars($data) . '</textarea>' , 'left' ) ,
-                       '', $bg );
-     return ($return_val);
+if (!empty($return)) {
+    header('Location: ' . get_location() . '/options_personal.php');
+    exit;
 }
 
-function ShowTableInfo($full_name, $email_address, $reply_to, $signature, $post) {
+displayPageHeader($color, 'None');
+
+do_hook('options_identities_top');
+
+$td_str = '';
+$td_str .= '<form name="f" action="options_identities.php" method="post"><br />' . "\n";
+$td_str .= '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n";
+$cnt = count($identities);
+foreach( $identities as $key=>$ident ) {
+
+    if ($key == 0) {
+        $hdr_str = _("Default Identity");
+    } else {
+        $hdr_str = sprintf( _("Alternate Identity %d"), $key);
+    }
+
+    $td_str .= ShowIdentityInfo( $hdr_str, $ident, $key );
+
+}
+
+$td_str .= ShowIdentityInfo( _("Add a New Identity"), array('full_name'=>'','email_address'=>'','reply_to'=>'','signature'=>''), $cnt);
+$td_str .= '</table>' . "\n";
+$td_str .= '</form>';
+
+echo '<br /> ' . "\n" .
+    html_tag('table', "\n" .
+        html_tag('tr', "\n" .
+            html_tag('td' , "\n" . 
+            '<b>' . _("Options") . ' - ' . _("Advanced Identities") . '</b><br />' .
+            html_tag('table', "\n" .
+                html_tag('tr', "\n" .
+                    html_tag('td', "\n" .
+                        html_tag('table' , "\n" .
+                            html_tag('tr' , "\n" .
+                                html_tag('td', "\n" .  $td_str ,'','', 'style="text-align:center;"')
+                            ),
+                        '', '', 'width="80%" cellpadding="2" cellspacing="0" border="0"' ) ,
+                    'center', $color[4])
+                ),
+            '', '', 'width="100%" border="0" cellpadding="1" cellspacing="1"' )) ,
+        'center', $color[0]),
+    'center', '', 'width="95%" border="0" cellpadding="2" cellspacing="0"' ) . '</body></html>';
+                    
+
+function ShowIdentityInfo($title, $identity, $id ) {
     global $color;
 
-    $OtherBG = $color[0];
-    if ($full_name == '' && $email_address == '' && $reply_to == '' && $signature == '')
-        $OtherBG = '';
-
-    if ($full_name == '' && $email_address == '' && $reply_to == '' && $signature == '')
-        $isEmptySection = true;
-    else
-        $isEmptySection = false;
-
-    $return_val = '';
-    $return_val .= sti_input( _("Full Name"), 'full_name', $full_name, $post, $OtherBG );
-    $return_val .= sti_input( _("E-Mail Address"), 'email_address', $email_address, $post, $OtherBG );
-    $return_val .= sti_input( _("Reply To"), 'reply_to', $reply_to, $post, $OtherBG );
-    $return_val .= sti_textarea( _("Signature"), 'signature', $signature, $post, $OtherBG );
-
-    $return_val .= concat_hook_function('options_identities_table', array($OtherBG, $isEmptySection, $post));
-    $return_val .= html_tag( 'tr', '', '', $OtherBG);
-    $return_val .= html_tag( 'td', '&nbsp;', 'left' );
-    $return_val .= html_tag( 'td', '', 'left' );
-    $return_val .= '<input type="hidden" name="form_for_'. $post .'" value="1" />';
-    $return_val .= '<input type="submit" name="update" value="' . _("Save / Update") . '" />';
-
-
-    if (! $isEmptySection && $post != '') {
-        $return_val .= '<input type="submit" name="make_default_' . $post . '" value="'.
-             _("Make Default") . '" />'.
-             '<input type="submit" name="delete_' . $post . '" value="'.
-             _("Delete") . '" />';
+    if (empty($identity['full_name']) && empty($identity['email_address']) && empty($identity['reply_to']) && empty($identity['signature'])) {
+        $bg = '';
+        $empty = true;
+    } else {
+        $bg = ' style="background-color:' . $color[0] . ';"';
+    
     }
-    if (! $isEmptySection && $post != '' && $post > 1) {
-        $return_val .= '<input type="submit" name="promote_' . $post . '" value="'.
-             _("Move Up") . '" />';
-    }
-    $return_val .= concat_hook_function('options_identities_buttons', array($isEmptySection, $post));
-    $return_val .=  '</td></tr>'.
-         html_tag( 'tr', html_tag( 'td', '&nbsp;', 'left', '', 'colspan="2"' ));
 
-    return ($return_val);
+    $name = 'newidentities[%d][%s]';
+
+
+    $return_str = '';
+
+    $return_str .= '<tr>' . "\n";
+    $return_str .= '  <th style="text-align:center;background-color:' . $color[9] . ';" colspan="2">' . $title . '</th> '. "\n";
+    $return_str .= '</tr>' . "\n";
+    $return_str .= sti_input( _("Full Name") , sprintf($name, $id, 'full_name'), $identity['full_name'], $bg);
+    $return_str .= sti_input( _("E-Mail Address") , sprintf($name, $id, 'email_address'), $identity['email_address'], $bg);
+    $return_str .= sti_input( _("Reply To"), sprintf($name, $id, 'reply_to'), $identity['reply_to'], $bg);
+    $return_str .= sti_textarea( _("Signature"), sprintf($name, $id, 'signature'), $identity['signature'], $bg);
+    $return_str .= concat_hook_function('options_identities_table', array($bg, $empty, $id));
+    $return_str .= '<tr' . $bg . '> ' . "\n";
+    $return_str .= '  <td> &nbsp; </td>' . "\n";
+    $return_str .= '  <td>' . "\n";
+    $return_str .= '    <input type="submit" name="smaction[save][' . $id . ']" value="' . _("Save / Update") . '" />' . "\n";
+
+    if (!$empty && $id > 0) {
+        $return_str .= '    <input type="submit" name="smaction[makedefault][' . $id . ']" value="' . _("Make Default") . '" />' . "\n";
+        $return_str .= '    <input type="submit" name="smaction[delete]['.$id.']" value="' . _("Delete") . '" />' . "\n";
+
+        if ($id > 1) {
+            $return_str .= '    <input type="submit" name="smaction[move]['.$id.']" value="' . _("Move Up") . '" />' . "\n";
+        }
+
+    }
+
+    $return_str .= concat_hook_function('options_identities_buttons', array($empty, $id));
+    $return_str .= '  </td>' . "\n";
+    $return_str .= '</tr>' . "\n";
+    $return_str .= '<tr>' . "\n";
+    $return_str .= '  <td colspan="2"> &nbsp; </td>' . "\n";
+    $return_str .= '</tr>';
+
+    return $return_str;
+
+}
+
+function sti_input( $title, $name, $data, $bgcolor ) {
+    $str = '';
+    $str .= '<tr' . $bgcolor . ">\n";
+    $str .= '  <td style="white-space: nowrap;text-align:right;">' . $title . ' </td>' . "\n";
+    $str .= '  <td> <input type="text" name="' . $name . '" size="50" value="'. htmlspecialchars($data) . '"> </td>' . "\n";
+    $str .= '</tr>';
+    
+    return $str;
+
+}
+
+function sti_textarea( $title, $name, $data, $bgcolor ) {
+    $str = '';
+    $str .= '<tr' . $bgcolor . ">\n";
+    $str .= '  <td style="white-space: nowrap;text-align:right;">' . $title . ' </td>' . "\n";
+    $str .= '  <td> <textarea name="' . $name . '" cols="50" rows="5">'. htmlspecialchars($data) . '</textarea> </td>' . "\n";
+    $str .= '</tr>';
+    
+    return $str;
+
 }
 
 ?>
