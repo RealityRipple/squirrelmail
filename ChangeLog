@@ -380,6 +380,7 @@ Version 1.5.1 -- CVS
     password box if username was supplied as a url arg (#1222617).
   - Fix variable typo in parseFetch which caused IMAP errors on Exchange.
     Thanks Christian Froemmel.
+  - Added Bluesome theme by Saku Lehtiö (#1188209).
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
