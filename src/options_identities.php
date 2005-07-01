@@ -111,7 +111,7 @@ function ShowIdentityInfo($title, $identity, $id ) {
         $empty = true;
     } else {
         $bg = ' style="background-color:' . $color[0] . ';"';
-    
+        $empty = false;
     }
 
     $name = 'newidentities[%d][%s]';
