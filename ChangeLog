@@ -387,6 +387,8 @@ Version 1.5.1 -- CVS
     by John Lane.
   - Added subtree/one level search options to address book LDAP backend 
     (#1212618).
+  - Added Simple Green 2 and Simple Purple themes by Vicky Pyne (#1217066 
+    and #1217069).
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
