@@ -13,10 +13,13 @@
  * @package squirrelmail
  */
 
+/** @ignore */
+if (! defined('SM_PATH')) define('SM_PATH','../');
+
 /**
  * including plugin functions
  */
-require_once(SM_PATH . 'functions/plugin.php');
+include_once(SM_PATH . 'functions/plugin.php');
 
 /**
  * Find out where SquirrelMail lives and try to be smart about it.
@@ -25,6 +28,7 @@ require_once(SM_PATH . 'functions/plugin.php');
  * to be beaten with a steel pipe anyway.
  *
  * @return string the base uri of SquirrelMail installation.
+ * @since 1.2.6
  */
 function sqm_baseuri(){
     global $base_uri, $PHP_SELF;
@@ -40,6 +44,15 @@ function sqm_baseuri(){
     return $base_uri;
 }
 
+/**
+ * Displays error message and URL to message listing
+ * @param string $message error message
+ * @param string $mailbox mailbox name
+ * @param integer $sort sort order
+ * @param integer $startMessage first message
+ * @param array $color color theme
+ * @since 1.0
+ */
 function error_message($message, $mailbox, $sort, $startMessage, $color) {
     $urlMailbox = urlencode($mailbox);
     $string = '<tr><td align="center">' . $message . '</td></tr>'.
@@ -51,10 +64,24 @@ function error_message($message, $mailbox, $sort, $startMessage, $color) {
     error_box($string, $color);
 }
 
+/**
+ * Displays error message
+ * @param string $message error message
+ * @param array $color color theme
+ * @since 1.0
+ */
 function plain_error_message($message, $color) {
     error_box($message, $color);
 }
 
+/**
+ * Displays error when user is logged out
+ * 
+ * Error strings can be overriden by logout_error hook
+ * @param string $errString error message
+ * @param string $errTitle title of page with error message
+ * @since 1.2.6
+ */
 function logout_error( $errString, $errTitle = '' ) {
     global $frame_top, $org_logo, $org_name, $org_logo_width, $org_logo_height,
            $hide_sm_attributions, $version, $squirrelmail_language, $color;
@@ -79,6 +106,7 @@ function logout_error( $errString, $errTitle = '' ) {
         $frame_top = '_top';
     }
 
+    // TODO: load default theme if possible
     if ( !isset( $color ) ) {
         $color = array();
         $color[0]  = '#dcdcdc';  /* light gray    TitleBar               */
@@ -122,6 +150,17 @@ function logout_error( $errString, $errTitle = '' ) {
          '</table></td></tr></table></center></body></html>';
 }
 
+/**
+ * Displays error message
+ * 
+ * Since 1.4.1 function checks if page header is already displayed.
+ * Since 1.4.3 and 1.5.1 function contains error_box hook.
+ * Use plain_error_message() and make sure that page header is created,
+ * if you want compatibility with 1.4.0 and older.
+ * @param string $string
+ * @param array $color
+ * @since 1.3.2
+ */
 function error_box($string, $color) {
     global $pageheader_sent;
 
