@@ -267,6 +267,16 @@ while ( $line = <FILE> ) {
                     $tmp =~ s/[\'\"]?,?\s*$//;
                     $tmp =~ s/[\'\"]?\);\s*$//;
                     $listing = $tmp;
+                } elsif ( $tmp =~ /^\s*[\'\"]search_tree[\'\"]/i ) {
+                    $tmp =~ s/^\s*[\'\"]search_tree[\'\"]\s*=>\s*[\'\"]?//i;
+                    $tmp =~ s/[\'\"]?,?\s*$//;
+                    $tmp =~ s/[\'\"]?\);\s*$//;
+                    $search_tree = $tmp;
+                } elsif ( $tmp =~ /^\s*[\'\"]starttls[\'\"]/i ) {
+                    $tmp =~ s/^\s*[\'\"]starttls[\'\"]\s*=>\s*[\'\"]?//i;
+                    $tmp =~ s/[\'\"]?,?\s*$//;
+                    $tmp =~ s/[\'\"]?\);\s*$//;
+                    $starttls = $tmp;
                 }
             }
             $ldap_host[$sub]    = $host;
@@ -281,6 +291,8 @@ while ( $line = <FILE> ) {
             $ldap_protocol[$sub] = $protocol;
             $ldap_limit_scope[$sub] = $limit_scope;
             $ldap_listing[$sub] = $listing;
+            $ldap_search_tree[$sub] = $search_tree;
+            $ldap_starttls[$sub] = $starttls;
         } elsif ( $options[0] =~ /^(data_dir|attachment_dir|theme_css|org_logo|signout_page)$/ ) {
             ${ $options[0] } = &change_to_rel_path($options[1]);
         } else {
@@ -2481,6 +2493,12 @@ sub command61 {
                 if ( $ldap_listing[$count] ) {
                     print "     listing: $ldap_listing[$count]\n";
                 }
+                if ( $ldap_search_tree[$count] ) {
+                    print " search_tree: $ldap_search_tree[$count]\n";
+                }
+                if ( $ldap_starttls[$count] ) {
+                    print "    starttls: $ldap_starttls[$count]\n";
+                }
 
                 print "\n";
                 $count++;
@@ -2630,6 +2648,35 @@ sub command61 {
                 $name = 'false';
               }
               $ldap_limit_scope[$sub] = $name;
+
+              print "\n";
+
+              print "You can control ldap search type here.\n";
+              print "Addresses can be searched in entire LDAP subtree (default)\n";
+              print "or only first level entries are returned.\n";
+              print "\n";
+              print "Search entire LDAP subtree? (Y/n):";
+              $name = <STDIN>;
+              if ( $name =~ /^n\n/i ) {
+                $name = 'false';
+              } else {
+                $name = 'true';
+              }
+              $ldap_search_tree[$sub] = $name;
+
+              print "\n";
+
+              print "You can control use of StartTLS on LDAP connection here.\n";
+              print "This option requires use of v3 or newer LDAP protocol and php 4.2+.\n";
+              print "\n";
+              print "Use StartTLS? (y/N):";
+              $name = <STDIN>;
+              if ( $name =~ /^y\n/i ) {
+                $name = 'true';
+              } else {
+                $name = 'false';
+              }
+              $ldap_starttls[$sub] = $name;
             }
             print "\n";
 
@@ -2654,6 +2701,8 @@ sub command61 {
             @new_ldap_protocol = ();
             @new_ldap_limit_scope = ();
             @new_ldap_listing = ();
+            @new_ldap_search_tree = ();
+            @new_ldap_starttls = ();
 
             while ( $count <= $#ldap_host ) {
                 if ( $count != $rem_num ) {
@@ -2669,6 +2718,8 @@ sub command61 {
                     @new_ldap_protocol  = ( @new_ldap_protocol,  $ldap_protocol[$count] );
                     @new_ldap_limit_scope = ( @new_ldap_limit_scope,  $ldap_limit_scope[$count] );
                     @new_ldap_listing = ( @new_ldap_listing, $ldap_listing[$count] );
+                    @new_ldap_search_tree = ( @new_ldap_search_tree, $ldap_search_tree[$count] );
+                    @new_ldap_starttls = ( @new_ldap_starttls, $ldap_starttls[$count] );
                 }
                 $count++;
             }
@@ -2684,6 +2735,8 @@ sub command61 {
             @ldap_protocol = @new_ldap_protocol;
             @ldap_limit_scope = @new_ldap_limit_scope;
             @ldap_listing = @new_ldap_listing;
+            @ldap_search_tree = @new_ldap_search_tree;
+            @ldap_starttls = @new_ldap_starttls;
 
         } elsif ( $input =~ /^\s*\?\s*/ ) {
             print ".-------------------------.\n";
@@ -3498,6 +3551,16 @@ sub save_data {
                 print CF ",\n";
                 # boolean
                 print CF "    'listing' => $ldap_listing[$count]";
+            }
+            if ( $ldap_search_tree[$count] ) {
+                print CF ",\n";
+                # integer
+                print CF "    'search_tree' => $ldap_search_tree[$count]";
+            }
+            if ( $ldap_listing[$count] ) {
+                print CF ",\n";
+                # boolean
+                print CF "    'starttls' => $ldap_starttls[$count]";
             }
             print CF "\n";
             print CF ");\n";
