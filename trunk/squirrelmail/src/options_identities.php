@@ -11,6 +11,7 @@
  * @version $Id$
  * @package squirrelmail
  * @subpackage prefs
+ * @since 1.1.3
  */
 
 /**
@@ -61,6 +62,7 @@ if (!empty($return)) {
 
 displayPageHeader($color, 'None');
 
+/* since 1.1.3 */
 do_hook('options_identities_top');
 
 $td_str = '';
@@ -102,7 +104,30 @@ echo '<br /> ' . "\n" .
         'center', $color[0]),
     'center', '', 'width="95%" border="0" cellpadding="2" cellspacing="0"' ) . '</body></html>';
                     
-
+/**
+ * Returns html formated identity form fields
+ * 
+ * Contains options_identities_buttons and option_identities_table hooks.
+ * Before 1.4.5/1.5.1 hooks were placed in ShowTableInfo() function. 
+ * In 1.1.3-1.4.1 they were called in do_hook function with two or 
+ * three arguments. Since 1.4.1 hooks are called in concat_hook_function.
+ * Arguments are moved to array.
+ *
+ * options_identities_buttons hook uses array with two keys. First array key is
+ * boolean variable used to indicate empty identity field. Second array key 
+ * is integer variable used to indicate identity number
+ *
+ * options_identities_table hook uses array with three keys. First array key is
+ * a string containing background color style CSS (1.4.1-1.4.4/1.5.0 uses only 
+ * html color code). Second array key is boolean variable used to indicate empty 
+ * identity field. Third array key is integer variable used to indicate identity 
+ * number
+ * @param string $title Name displayed in header row
+ * @param array $identity Identity information
+ * @param integer $id identity ID
+ * @return string html formatted table rows with form fields for identity management
+ * @since 1.5.1 and 1.4.5 (was called ShowTableInfo() in 1.1.3-1.4.4 and 1.5.0)
+ */
 function ShowIdentityInfo($title, $identity, $id ) {
     global $color;
 
@@ -153,6 +178,17 @@ function ShowIdentityInfo($title, $identity, $id ) {
 
 }
 
+/**
+ * Creates html formated table row with input field
+ * @param string $title Name displayed next to input field
+ * @param string $name Name of input field
+ * @param string $data Default value of input field (data is sanitized with htmlspecialchars)
+ * @param string $bgcolor html attributes added to row element (tr)
+ * @return string html formated table row with text input field
+ * @since 1.2.0 (arguments differ since 1.4.5/1.5.1)
+ * @todo check right-to-left language issues
+ * @access private
+ */
 function sti_input( $title, $name, $data, $bgcolor ) {
     $str = '';
     $str .= '<tr' . $bgcolor . ">\n";
@@ -164,6 +200,17 @@ function sti_input( $title, $name, $data, $bgcolor ) {
 
 }
 
+/**
+ * Creates html formated table row with textarea field
+ * @param string $title Name displayed next to textarea field
+ * @param string $name Name of textarea field
+ * @param string $data Default value of textarea field  (data is sanitized with htmlspecialchars)
+ * @param string $bgcolor html attributes added to row element (tr)
+ * @return string html formated table row with textarea
+ * @since 1.2.5 (arguments differ since 1.4.5/1.5.1)
+ * @todo check right-to-left language issues
+ * @access private
+ */
 function sti_textarea( $title, $name, $data, $bgcolor ) {
     $str = '';
     $str .= '<tr' . $bgcolor . ">\n";
