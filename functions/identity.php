@@ -13,8 +13,9 @@
  * @since 1.4.2
  */
 
-/** @ignore
- * Used to simplify includes */
+/** Used to simplify includes
+ * @ignore
+ */
 if (!defined('SM_PATH')) {
     define('SM_PATH','../');
 }
