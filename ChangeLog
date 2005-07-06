@@ -392,6 +392,7 @@ Version 1.5.1 -- CVS
   - sqimap_messages_delete|copy|flag and sqimap_get_small_header()
     functions are removed from SquirrelMail IMAP API. Use sqimap_msgs_*
     and sqimap_get_small_header_list() functions instead.
+  - Fix for bad cache on massive expunge/delete/move operations.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
