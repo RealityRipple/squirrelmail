@@ -159,6 +159,7 @@ function walkTreeInPostOrderCreatingFoldersUnderTrash($index, $imap_stream, $tre
         $mbx_response = sqimap_mailbox_select($imap_stream, $tree[$index]['value']);
         $messageCount = $mbx_response['EXISTS'];
         if ($messageCount > 0) {
+            // FIXME: broken call
             sqimap_messages_copy($imap_stream, 1, '*', $trash_folder . $delimiter . $subFolderName);
         }
         // after copy close the mailbox to get in unselected state
@@ -170,6 +171,7 @@ function walkTreeInPostOrderCreatingFoldersUnderTrash($index, $imap_stream, $tre
         $mbx_response = sqimap_mailbox_select($imap_stream, $tree[$index]['value']);
         $messageCount = $mbx_response['EXISTS'];
         if ($messageCount > 0) {
+            // FIXME: broken call
             sqimap_messages_copy($imap_stream, 1, '*', $trash_folder . $delimiter . $subFolderName);
         }
         // after copy close the mailbox to get in unselected state
