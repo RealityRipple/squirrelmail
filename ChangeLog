@@ -389,6 +389,9 @@ Version 1.5.1 -- CVS
     (#1212618).
   - Added Simple Green 2 and Simple Purple themes by Vicky Pyne (#1217066 
     and #1217069).
+  - sqimap_messages_delete|copy|flag and sqimap_get_small_header()
+    functions are removed from SquirrelMail IMAP API. Use sqimap_msgs_*
+    and sqimap_get_small_header_list() functions instead.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
