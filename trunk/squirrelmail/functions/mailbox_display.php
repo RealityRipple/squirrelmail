@@ -342,7 +342,7 @@ function fetchMessageHeaders($imapConnection, &$aMailbox) {
 
         $id_slice = array_slice($aUid,$start_msg-1,$iLimit);
         /* do some funky cache checks */
-        if (isset($aMailbox['MSG_HEADERS'])) {
+        if (isset($aMailbox['MSG_HEADERS']) && is_array($aMailbox['MSG_HEADERS'])) {
             $aUidCached = array_keys($aMailbox['MSG_HEADERS']);
         } else {
             $aMailbox['MSG_HEADERS'] = array();
