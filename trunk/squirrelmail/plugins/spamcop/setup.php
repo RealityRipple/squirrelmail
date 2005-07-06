@@ -149,8 +149,7 @@ function spamcop_while_sending()
         $imapConnection = sqimap_login($username, $key, $imapServerAddress,
                 $imapPort, 0);
         sqimap_mailbox_select($imapConnection, $mailbox);
-        sqimap_messages_delete($imapConnection, $spamcop_is_composing,
-                $spamcop_is_composing, $mailbox);
+        sqimap_msgs_list_delete($imapConnection, $mailbox, array($spamcop_is_composing));
         if ($auto_expunge)
             sqimap_mailbox_expunge($imapConnection, $mailbox, true);
     }
