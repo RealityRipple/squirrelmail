@@ -252,7 +252,7 @@ setup automatically when include/validate.php is loaded.
 
 If TZ variable can't be modified (php is running is safe mode and variable 
 is not listed in php safe_mode_allowed_env_vars), user's time zone options are
-not visible and interface use default webserver's time zone.
+not visible and interface uses default webserver's time zone.
 
 List of available time zones is stored in locale/timezones.cfg. Current list
 of time zones uses some time zone names that depend on webserver's system 
