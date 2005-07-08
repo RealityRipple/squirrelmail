@@ -940,6 +940,29 @@ $aggressive_decoding = false;
  */
 $lossy_encoding = false;
 
+/**
+ * Controls use of time zone libraries
+ *
+ * Possible values:
+ * <ul>
+ *  <li>0 - default, SquirrelMail uses GNU C timezone names in
+ *          TZ environment variables
+ *  <li>1 - strict, SquirrelMail uses 'TZ' subkey values in TZ
+ *          environment variables
+ *  <li>2 - custom, SquirrelMail loads time zone data from
+ *          config/timezones.php and uses time zone array keys in
+ *          TZ enviroment variables
+ *  <li>3 - custom strict, SquirrelMail loads time zone data from
+ *          config/timezones.php and uses TZ subkey values in
+ *          TZ enviroment variables
+ * </ul>
+ * Use of any other value switches to default SquirrelMail time zone
+ * handling ($time_zone_type).
+ * @global integer $time_zone_type
+ * @since 1.5.1
+ */
+$time_zone_type = 0;
+
 /*** Tweaks ***/
 /**
  * Advanced DHTML tree control
