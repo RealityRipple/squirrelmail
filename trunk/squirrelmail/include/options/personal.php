@@ -14,6 +14,7 @@
 
 /** SquirrelMail required files. */
 require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'include/timezones.php');
 
 /* Define the group constants for the personal options page. */
 define('SMOPT_GRP_CONTACT', 0);
@@ -37,7 +38,7 @@ define('SMOPT_GRP_TZ', 3);
 function load_optpage_data_personal() {
     global $data_dir, $username, $edit_identity, $edit_name,
            $full_name, $reply_to, $email_address, $signature, $tzChangeAllowed,
-           $color;
+           $color, $timeZone;
 
     /* Set the values of some global variables. */
     $full_name = getPref($data_dir, $username, 'full_name');
@@ -133,22 +134,47 @@ function load_optpage_data_personal() {
 
     if ( $tzChangeAllowed ) {
         $TZ_ARRAY[SMPREF_NONE] = _("Same as server");
-        $tzfile = SM_PATH . 'locale/timezones.cfg';
-        if ((!is_readable($tzfile)) or (!$fd = fopen($tzfile,'r'))) {
+
+        $aTimeZones = sq_get_tz_array();
+        unset($message);
+        if (! empty($aTimeZones)) {
+            // check if current timezone is linked to other TZ and update it
+            if ($timeZone != SMPREF_NONE && $timeZone != "" &&
+                isset($aTimeZones[$timeZone]['LINK'])) {
+                $timeZone = $aTimeZones[$timeZone]['LINK'];
+                // TODO: recheck setting of $timeZone
+                // setPref($data_dir,$username,'timezone',$timeZone);
+            }
+
+            // sort time zones by name. sq_get_tz_array() returns sorted by key.
+            // asort($aTimeZones);
+
+            // add all 'TZ' entries to TZ_ARRAY
+            foreach ($aTimeZones as $TzKey => $TzData) {
+                if (! isset($TzData['LINK'])) {
+                    // Old display format
+                    $TZ_ARRAY[$TzKey] = $TzKey;
+
+                    // US Eastern standard time (America/New_York) - needs asort($aTimeZones)
+                    //$TZ_ARRAY[$TzKey] = (isset($TzData['NAME']) ? $TzData['NAME']." ($TzKey)" : "($TzKey)");
+
+                    // US Eastern standard time if NAME is present or America/New_York if NAME not present
+                    // needs sorting after all data is added or uasort()
+                    //$TZ_ARRAY[$TzKey] = (isset($TzData['NAME']) ? $TzData['NAME'] : $TzKey);
+
+                    // (America/New_Your) US Eastern standard time
+                    //$TZ_ARRAY[$TzKey] = "($TzKey)" . (isset($TzData['NAME']) ? ' '.$TzData['NAME'] : '');
+                }
+            }
+        } else {
             $message = _("Error opening timezone config, contact administrator.");
         }
+
+        // TODO: make error user friendly
         if (isset($message)) {
             plain_error_message($message, $color);
             exit;
         }
-        while (!feof ($fd)) {
-            $zone = fgets($fd, 1024);
-            if( $zone ) {
-                $zone = trim($zone);
-                $TZ_ARRAY[$zone] = $zone;
-            }
-        }
-        fclose ($fd);
 
         $optgrps[SMOPT_GRP_TZ] = _("Timezone Options");
         $optvals[SMOPT_GRP_TZ] = array();
