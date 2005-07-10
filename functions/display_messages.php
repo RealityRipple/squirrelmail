@@ -84,7 +84,8 @@ function plain_error_message($message, $color) {
  */
 function logout_error( $errString, $errTitle = '' ) {
     global $frame_top, $org_logo, $org_name, $org_logo_width, $org_logo_height,
-           $hide_sm_attributions, $version, $squirrelmail_language, $color;
+           $hide_sm_attributions, $version, $squirrelmail_language, 
+           $color, $theme, $theme_default;
 
     $base_uri = sqm_baseuri();
 
@@ -106,7 +107,10 @@ function logout_error( $errString, $errTitle = '' ) {
         $frame_top = '_top';
     }
 
-    // TODO: load default theme if possible
+    // load default theme if possible
+    if (!isset($color) && @file_exists($theme[$theme_default]['PATH']))
+        @include ($theme[$theme_default]['PATH']);
+
     if ( !isset( $color ) ) {
         $color = array();
         $color[0]  = '#dcdcdc';  /* light gray    TitleBar               */

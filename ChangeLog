@@ -398,6 +398,7 @@ Version 1.5.1 -- CVS
   - Moved time zone configuration from locale/timezones.cfg to php array.
     Adds time zone name localization options and fixes problems on systems
     that don't support GNU C time zone mappings (#1177067).
+  - Use default color theme in logout_error function when possible.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
