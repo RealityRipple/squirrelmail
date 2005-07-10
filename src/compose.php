@@ -173,11 +173,10 @@ function replyAllString($header) {
 function getReplyCitation($orig_from, $orig_date) {
     global $reply_citation_style, $reply_citation_start, $reply_citation_end;
 
-    // FIXME: why object is rewritten with string.
     if (!is_object($orig_from)) {
-        $orig_from = '';
+        $sOrig_from = '';
     } else {
-        $orig_from = decodeHeader($orig_from->getAddress(false),false,false,true);
+        $sOrig_from = decodeHeader($orig_from->getAddress(false),false,false,true);
     }
 
 //    $from = decodeHeader($orig_header->getAddr_s('from',"\n$indent"),false,false);
@@ -188,7 +187,7 @@ function getReplyCitation($orig_from, $orig_date) {
     }
 
     /* Make sure our final value isn't an empty string. */
-    if ($orig_from == '') {
+    if ($sOrig_from == '') {
         return '';
     }
 
@@ -198,13 +197,13 @@ function getReplyCitation($orig_from, $orig_date) {
         /**
          * To translators: %s is for author's name
          */
-        $full_reply_citation = sprintf(_("%s wrote:"),$orig_from);
+        $full_reply_citation = sprintf(_("%s wrote:"),$sOrig_from);
         break;
     case 'quote_who':
         // FIXME: do we have to translate xml formating?
         $start = '<' . _("quote") . ' ' . _("who") . '="';
         $end   = '">';
-        $full_reply_citation = $start . $orig_from . $end;
+        $full_reply_citation = $start . $sOrig_from . $end;
         break;
     case 'date_time_author':
         /**
@@ -216,13 +215,13 @@ function getReplyCitation($orig_from, $orig_date) {
          * If you have to put author's name in front of date string, check comments about
          * argument swapping at http://www.php.net/sprintf
          */
-        $full_reply_citation = sprintf(_("On %s, %s wrote:"), getLongDateString($orig_date), $orig_from);
+        $full_reply_citation = sprintf(_("On %s, %s wrote:"), getLongDateString($orig_date), $sOrig_from);
         break;
     case 'user-defined':
         $start = $reply_citation_start .
             ($reply_citation_start == '' ? '' : ' ');
         $end   = $reply_citation_end;
-        $full_reply_citation = $start . $orig_from . $end;
+        $full_reply_citation = $start . $sOrig_from . $end;
         break;
     default:
         return '';
