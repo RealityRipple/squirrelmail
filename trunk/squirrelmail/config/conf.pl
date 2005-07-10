@@ -357,6 +357,7 @@ $abook_global_file_writeable = 'false'  if ( !$abook_global_file_writeable);
 $abook_global_file_listing = 'true'     if ( !$abook_global_file_listing );
 $encode_header_key = ''                 if ( !$encode_header_key );
 $hide_auth_header = 'false'             if ( !$hide_auth_header );
+$time_zone_type = '0'                   if ( !$time_zone_type );
 
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
@@ -528,6 +529,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "12. Allow server charset search : $WHT$allow_charset_search$NRM\n";
         print "13. Allow advanced search       : $WHT$allow_advanced_search$NRM\n";
         print "14. PHP session name            : $WHT$session_name$NRM\n";
+        print "15. Time zone configuration     : $WHT$time_zone_type$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 5 ) {
@@ -549,7 +551,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             print "    >  $ldap_host[$count]\n";
         }
         print "2.  Use Javascript address book search          : $WHT$default_use_javascript_addr_book$NRM\n";
-        print "3.  Use global file address book                : $WHT$abook_global_file$NRM\n";
+        print "3.  Global address book file                    : $WHT$abook_global_file$NRM\n";
         print "4.  Allow writing into global file address book : $WHT$abook_global_file_writeable$NRM\n";
         print "5.  Allow listing of global file address book   : $WHT$abook_global_file_listing$NRM\n";
         print "\n";
@@ -752,12 +754,13 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 6 )  { $default_use_priority     = command37(); }
             elsif ( $command == 7 )  { $hide_sm_attributions     = command38(); }
             elsif ( $command == 8 )  { $default_use_mdn          = command39(); }
-            elsif ( $command == 9 ) { $edit_identity            = command310(); }
+            elsif ( $command == 9 )  { $edit_identity            = command310(); }
             elsif ( $command == 10 ) { $allow_thread_sort        = command312(); }
             elsif ( $command == 11 ) { $allow_server_sort        = command313(); }
             elsif ( $command == 12 ) { $allow_charset_search     = command314(); }
             elsif ( $command == 13 ) { $allow_advanced_search    = command316(); }
             elsif ( $command == 14 ) { $session_name             = command317(); }
+            elsif ( $command == 15 ) { $time_zone_type           = command318(); }
         } elsif ( $menu == 5 ) {
             if ( $command == 1 ) { command41(); }
             elsif ( $command == 2 ) { $theme_css = command42(); }
@@ -2278,6 +2281,29 @@ sub command317 {
     return $new_session_name;
 }
 
+# time zone config (since 1.5.1)
+sub command318 {
+    print "This option allows you to control the use of time zones.\n";
+    print "  0 = (default) standard, GNU C time zone names\n";
+    print "  1 = strict, generic time zone codes with offsets\n";
+    print "  2 = custom, GNU C time zones loaded from config/timezones.php\n";
+    print "  3 = custom strict, generic time zone codes with offsets loaded \n";
+    print "      from config/timezones.php\n";
+    print "See SquirrelMail documentation about format of config/timezones.php file.\n";
+    print "\n";
+
+    print "Used time zone configuration (0,1,2,3)? [$WHT$time_zone_type$NRM]: $WHT";
+    $new_time_zone_type = <STDIN>;
+    if ( $new_time_zone_type =~ /^[0123]\n/i ) {
+        $time_zone_type = $new_time_zone_type;
+    } else {
+        print "\nInvalid configuration value.\n";
+        print "\nPress enter to continue...";
+        $tmp = <STDIN>;
+    }
+    $time_zone_type =~ s/[\r\n]//g;
+    return $time_zone_type;
+}
 
 
 sub command41 {
@@ -3470,6 +3496,9 @@ sub save_data {
         print CF "\$allow_charset_search     = $allow_charset_search;\n";
     # integer
         print CF "\$allow_advanced_search    = $allow_advanced_search;\n";
+        print CF "\n";
+        # integer
+        print CF "\$time_zone_type           = $time_zone_type;\n";
         print CF "\n";
 
     # all plugins are strings
