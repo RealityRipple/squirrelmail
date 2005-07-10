@@ -254,15 +254,95 @@ If TZ variable can't be modified (php is running is safe mode and variable
 is not listed in php safe_mode_allowed_env_vars), user's time zone options are
 not visible and interface uses default webserver's time zone.
 
-List of available time zones is stored in locale/timezones.cfg. Current list
-of time zones uses some time zone names that depend on webserver's system 
-libraries. These names are not compatible with Windows operating system.
+SquirrelMail 1.5.0 and older store list of available time zones in 
+locale/timezones.cfg. Since 1.5.1 standard times zones are moved to 
+include/timezones/standard.php and time zone handling differs from older
+SquirrelMail versions. Time zone configuration is controlled in SquirrelMail
+configuration utility (conf.pl), 4. General Options -> 15. Time zone
+configuration menu option. Administrator can select standard, strict, custom 
+and custom strict time zone handling.
 
-TODO: move time zone information to php array in order to be able to translate 
-it and make sure that time zone names are compatible with Windows operating
-system. Or at least provide 'default' and 'strict' time zone options in
-SquirrelMail configuration. Maybe even provide 'custom' time zone list
-options.
+Standard handling does not differ from previous SquirrelMail versions and
+SquirrelMail uses GNU C geographical location based time zone names. Strict
+handling uses time zone codes with offset from GMT. Strict time zones should
+work on systems that don't support GNU C time zone naming. Custom and custom
+strict handling uses config/timezones.php file instead of
+include/timezones/standard.php.
+
+config/timezones.php file should store $aTimeZones array with different set of
+time zones. See default time zone set in include/timezones/standard.php.For
+example:
+
+<?php
+// World outside US border is a mirage
+
+$aTimeZones=array();
+$aTimeZones['America/New_York']['NAME']='US Eastern standard time';
+$aTimeZones['America/New_York']['TZ']='EST5EDT';
+
+$aTimeZones['America/Chicago']['NAME']='US Central standard time';
+$aTimeZones['America/Chicago']['TZ']='CST6CDT';
+
+// Oliver County, ND
+$aTimeZones['America/North_Dakota/Center']['NAME']='US, Oliver County [ND]';
+$aTimeZones['America/North_Dakota/Center']['TZ']='CST6CDT'; // CST since 1992
+
+$aTimeZones['America/Denver']['NAME']='US Mountain standard time';
+$aTimeZones['America/Denver']['TZ']='MST7MDT';
+
+$aTimeZones['America/Los_Angeles']['NAME']='US Pacific standard time';
+$aTimeZones['America/Los_Angeles']['TZ']='PST8PDT';
+
+// Aliaska
+$aTimeZones['America/Juneau']['NAME']='Aliaska, Juneau';
+$aTimeZones['America/Juneau']['TZ']='NAST9NADT';
+$aTimeZones['America/Yakutat']['NAME']='Aliaska, Yakutat';
+$aTimeZones['America/Yakutat']['TZ']='NAST9NADT';
+$aTimeZones['America/Anchorage']['NAME']='Aliaska, Anchorage';
+$aTimeZones['America/Anchorage']['TZ']='NAST9NADT';
+$aTimeZones['America/Nome']['NAME']='Aliaska, Nome';
+$aTimeZones['America/Nome']['TZ']='NAST9NADT';
+$aTimeZones['America/Adak']['NAME']='US, Aleutian Islands';
+$aTimeZones['America/Adak']['TZ']='AST10ADT';
+
+$aTimeZones['Pacific/Honolulu']['NAME']='US, Hawaii';
+$aTimeZones['Pacific/Honolulu']['TZ']='UCT10';
+$aTimeZones['America/Phoenix']['NAME']='US, Arizona';
+$aTimeZones['America/Phoenix']['TZ']='MST7'; // gmt-7
+$aTimeZones['America/Shiprock']['LINK']='America/Denver';
+
+$aTimeZones['America/Boise']['NAME']='US, South Idaho';
+$aTimeZones['America/Boise']['TZ']='MST7MDT';
+$aTimeZones['America/Indianapolis']['NAME']='US, Indiana';
+$aTimeZones['America/Indianapolis']['TZ']='EST5';
+$aTimeZones['America/Indiana/Indianapolis']['LINK']='America/Indianapolis';
+// Crawford County, Indiana
+$aTimeZones['America/Indiana/Marengo']['NAME']='US, Crawford County [IN]';
+$aTimeZones['America/Indiana/Marengo']['TZ']='EST5';
+// Starke County, Indiana
+$aTimeZones['America/Indiana/Knox']['NAME']='US, Starke County [IN]';
+$aTimeZones['America/Indiana/Knox']['TZ']='EST5';
+// Switzerland County, Indiana
+$aTimeZones['America/Indiana/Vevay']['NAME']='US, Switzerland County [IN]';
+$aTimeZones['America/Indiana/Vevay']['TZ']='EST5';
+$aTimeZones['America/Louisville']['NAME']='US, Louisville [KY]';
+$aTimeZones['America/Louisville']['TZ']='EST5EDT';
+$aTimeZones['America/Kentucky/Louisville']['LINK']='America/Louisville';
+// Wayne, Clinton, and Russell Counties, Kentucky
+$aTimeZones['America/Kentucky/Monticello']['NAME']='US, Wayne, Clinton, and Russell Counties [KY]';
+$aTimeZones['America/Kentucky/Monticello']['TZ']='EST5EDT';
+// Michigan
+$aTimeZones['America/Detroit']['NAME']='US, Michigan';
+$aTimeZones['America/Detroit']['TZ']='EST5EDT';
+// The Michigan border with Wisconsin switched from EST to CST/CDT in 1973.
+$aTimeZones['America/Menominee']['NAME']='US, Menominee [MI]';
+$aTimeZones['America/Menominee']['TZ']='CST6CDT';
+?>
+
+GNU C time zone naming should be supported by many Unix OSes. It is recommended
+way of setting time zone, because it handles historical changes and daylight
+savings specific to selected geographical location. Strict time zones might
+provide inaccurate or outdated time zone settings.
 
 If modifications in TZ environment are visible in your webserver's logs (time
 offset is changed), make sure that you can reproduce such behavior in latest php
