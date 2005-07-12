@@ -417,8 +417,9 @@ options_identities_table
    This hook allows you to insert additional rows into the table that
    holds each identity.  The arguments to this hook are:
 
-      [0] = color of table (use it like this in your plugin:
-               <tr bgcolor="<?php echo $info[1]; ?>">
+      [0] = additional html attributes applied to table row.
+            use it like this in your plugin:
+               <tr "<?php echo $args[0]; ?>">
       [1] = is this an empty section (the one at the end of the list)?
       [2] = what is the 'post' value? (ident # or empty string if default)
 
@@ -430,6 +431,10 @@ options_identities_table
          return '<tr bgcolor="' . $args[0] . '"><td>&nbsp;</td><td>'
               . 'YOUR CODE HERE' . '</td></tr>' . "\n";
       }
+
+   First hook argument was modified in 1.4.5/1.5.1. In SquirrelMail 1.4.1-1.4.4 
+   and 1.5.0 argument contains only background color. You should use 
+   <tr bgcolor="<?php echo $args[0]; ?>"> in these SquirrelMail versions.
 
 options_identities_buttons
 
