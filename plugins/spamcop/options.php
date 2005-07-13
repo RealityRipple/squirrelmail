@@ -22,9 +22,9 @@ require_once(SM_PATH . 'include/validate.php');
  */
 function spamcop_enable_disable($option,$disable_action,$enable_action) {
     if ($option) {
-        $ret= _("Enabled") . "(<a href=\"options.php?action=$disable_action\">" . _("Disable it") . "</a>)\n";
+        $ret= _("Enabled") . " (<a href=\"options.php?action=$disable_action\">" . _("Disable it") . "</a>)\n";
     } else {
-        $ret = _("Disabled") . "(<a href=\"options.php?action=$enable_action\">" . _("Enable it") . "</a>)\n";
+        $ret = _("Disabled") . " (<a href=\"options.php?action=$enable_action\">" . _("Enable it") . "</a>)\n";
     }
     return $ret;
 }
@@ -55,6 +55,12 @@ switch ($action) {
     case 'delete':
         setPref($data_dir, $username, 'spamcop_delete', 1);
         break;
+    case 'keep':
+        setPref($data_dir, $username, 'spamcop_save', 0);
+        break;
+    case 'dontkeep':
+        setPref($data_dir, $username, 'spamcop_save', 1);
+        break;
     case 'meth':
         if (isset($meth)) {
             setPref($data_dir, $username, 'spamcop_method', $meth);
@@ -75,7 +81,7 @@ switch ($action) {
         break;
 }
 
-global $spamcop_enabled, $spamcop_delete, $spamcop_quick_report;
+global $spamcop_enabled, $spamcop_delete, $spamcop_save, $spamcop_quick_report;
 spamcop_load();
 
 ?>
@@ -101,6 +107,14 @@ spamcop_load();
             '<small>(' . _("Only works with email-based reporting") . ')</small>',
             'right','','valign="top"');
             echo html_tag('td', spamcop_enable_disable($spamcop_delete,'save','delete'),'','','valign="top"');
+          ?>
+        </tr>
+        <tr>
+          <?php
+            echo html_tag('td',_("Save emails submitted to spamcop:") . "<br />\n" .
+            '<small>(' . _("Only works with email-based reporting") . ')</small>',
+            'right','','valign="top"');
+            echo html_tag('td', spamcop_enable_disable($spamcop_save,'keep','dontkeep'),'','','valign="top"');
           ?>
         </tr>
         <tr>

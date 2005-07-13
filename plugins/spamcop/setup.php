@@ -9,10 +9,8 @@
  * @subpackage spamcop
  */
 
-/** @ignore */
-require_once(SM_PATH . 'functions/global.php');
-
 /** Disable Quick Reporting by default */
+global $spamcop_quick_report;
 $spamcop_quick_report = false;
 
 /**
@@ -20,7 +18,7 @@ $spamcop_quick_report = false;
  * @access private
  */
 function squirrelmail_plugin_init_spamcop() {
-    global $squirrelmail_plugin_hooks, $spamcop_is_composing;
+    global $squirrelmail_plugin_hooks;
 
     $squirrelmail_plugin_hooks['optpage_register_block']['spamcop'] =
         'spamcop_options';
@@ -28,13 +26,8 @@ function squirrelmail_plugin_init_spamcop() {
         'spamcop_load';
     $squirrelmail_plugin_hooks['read_body_header_right']['spamcop'] =
         'spamcop_show_link';
-
-    sqgetGlobalVar('spamcop_is_composing' , $spamcop_is_composing);
-
-    if (isset($spamcop_is_composing)) {
-        $squirrelmail_plugin_hooks['compose_send']['spamcop'] =
-            'spamcop_while_sending';
-    }
+    $squirrelmail_plugin_hooks['compose_send']['spamcop'] =
+        'spamcop_while_sending';
 }
 
 
@@ -43,11 +36,12 @@ function squirrelmail_plugin_init_spamcop() {
  * @access private
  */
 function spamcop_load() {
-    global $username, $data_dir, $spamcop_enabled, $spamcop_delete,
+    global $username, $data_dir, $spamcop_enabled, $spamcop_delete, $spamcop_save,
            $spamcop_method, $spamcop_id, $spamcop_quick_report, $spamcop_type;
 
     $spamcop_enabled = getPref($data_dir, $username, 'spamcop_enabled');
     $spamcop_delete = getPref($data_dir, $username, 'spamcop_delete');
+    $spamcop_save = getPref($data_dir, $username, 'spamcop_save',true);
     $spamcop_method = getPref($data_dir, $username, 'spamcop_method');
     $spamcop_type = getPref($data_dir, $username, 'spamcop_type');
     $spamcop_id = getPref($data_dir, $username, 'spamcop_id');
@@ -96,7 +90,7 @@ function spamcop_show_link() {
     echo "<br />\n";
 
     /*
-       Catch situation when user use quick_email and does not update
+       Catch situation when user uses quick_email and does not update
        preferences. User gets web_form link. If prefs are set to
        quick_email format - they will be updated after clicking the link
      */
@@ -123,8 +117,7 @@ document.write("</a>");
  * Show spamcop options block
  * @access private
  */
-function spamcop_options()
-{
+function spamcop_options() {
     global $optpage_blocks;
 
     $optpage_blocks[] = array(
@@ -140,19 +133,30 @@ function spamcop_options()
  * When we send the email, we optionally trash it then too
  * @access private
  */
-function spamcop_while_sending()
-{
-    global $mailbox, $spamcop_delete, $spamcop_is_composing, $auto_expunge,
+function spamcop_while_sending() {
+    global $mailbox, $spamcop_delete, $spamcop_save, $spamcop_is_composing, $auto_expunge,
            $username, $key, $imapServerAddress, $imapPort;
 
-    if ($spamcop_delete) {
-        $imapConnection = sqimap_login($username, $key, $imapServerAddress,
+    if (sqgetGlobalVar('spamcop_is_composing' , $spamcop_is_composing)) {
+        // delete spam message
+        if ($spamcop_delete) {
+            $imapConnection = sqimap_login($username, $key, $imapServerAddress,
                 $imapPort, 0);
-        sqimap_mailbox_select($imapConnection, $mailbox);
-        sqimap_msgs_list_delete($imapConnection, $mailbox, array($spamcop_is_composing));
-        if ($auto_expunge)
-            sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+            sqimap_mailbox_select($imapConnection, $mailbox);
+            sqimap_msgs_list_delete($imapConnection, $mailbox, array($spamcop_is_composing));
+            if ($auto_expunge)
+                sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+        }
+        if (! $spamcop_save) {
+            // disable use of send folder.
+            // Temporally override in order to disable saving of 'reply anyway' messages.
+            global $default_move_to_sent;
+            $default_move_to_sent=false;
+        }
+        // change default email composition setting. Plugin always operates in right frame.
+        // make sure that compose.php redirects to right page. Temporally override.
+        global $compose_new_win;
+        $compose_new_win = false;
     }
 }
-
 ?>
