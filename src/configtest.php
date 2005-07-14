@@ -351,7 +351,7 @@ if (function_exists('mb_detect_encoding')) {
 echo "$IND recode - ";
 if (function_exists('recode')) {
     echo "Recode functions are available.<br />\n";
-} elseif ($use_php_recode) {
+} elseif (isset($use_php_recode) && $use_php_recode) {
     echo "Recode functions are unavailable.<br />\n";
     do_err('Your configuration requires recode support, but recode support is missing.');
 } else {
@@ -360,7 +360,7 @@ if (function_exists('recode')) {
 echo "$IND iconv - ";
 if (function_exists('iconv')) {
     echo "Iconv functions are available.<br />\n";
-} elseif ($use_php_iconv) {
+} elseif (isset($use_php_iconv) && $use_php_iconv) {
     echo "Iconv functions are unavailable.<br />\n";
     do_err('Your configuration requires iconv support, but iconv support is missing.');
 } else {
@@ -411,7 +411,8 @@ if($addrbook_dsn || $prefs_dsn || $addrbook_global_dsn) {
         }
 
         foreach($dsns as $type => $dsn) {
-            $dbtype = array_shift(explode(':', $dsn));
+            $aDsn = explode(':', $dsn);
+            $dbtype = array_shift($aDsn);
             if(isset($db_functions[$dbtype]) && function_exists($db_functions[$dbtype])) {
                 echo "$IND$dbtype database support present.<br />\n";
 
@@ -426,7 +427,7 @@ if($addrbook_dsn || $prefs_dsn || $addrbook_global_dsn) {
                 echo "$IND$type database connect successful.<br />\n";
 
             } else {
-                do_err($db.' database support not present!');
+                do_err($dbtype.' database support not present!');
             }
         }
     } else {

@@ -489,12 +489,14 @@ function elapsedTime($start) {
  * X-MS-Mail-Priority is not parsed because it always coincides
  * with one of the other headers.
  *
- * DUPLICATE CODE ALERT:
+ * FIXME: DUPLICATE CODE ALERT:
  * NOTE: this is actually a duplicate from the function in
  * class/mime/Rfc822Header.php.
+ * @todo obsolate function or use it instead of code block in parseFetch()
  */
-function parsePriority($value) {
-    $value = strtolower(array_shift(split('/\w/',trim($value))));
+function parsePriority($sValue) {
+    $aValue = split('/\w/',trim($sValue));
+    $value = strtolower(array_shift($aValue));
     if ( is_numeric($value) ) {
         return $value;
     }
@@ -755,18 +757,19 @@ function parseFetch($aResponse,$aMessageList = array()) {
                                 case 'priority':
                                 case 'importance':
                                     if (!isset($aMsg['x-priority'])) {
-                                        $value = strtolower(array_shift(split('/\w/',trim($value))));
-                                        if  (is_numeric($value)) {
-                                            $value = (int) $value;
-                                        } elseif ( $value == 'non-urgent' || $value == 'low' ) {
-                                            $value = 3;
-                                        } elseif ( $value == 'urgent' || $value == 'high' ) {
-                                            $value = 1;
+                                        $aPrio = split('/\w/',trim($value));
+                                        $sPrio = strtolower(array_shift($aPrio));
+                                        if  (is_numeric($sPrio)) {
+                                            $iPrio = (int) $sPrio;
+                                        } elseif ( $sPrio == 'non-urgent' || $sPrio == 'low' ) {
+                                            $iPrio = 3;
+                                        } elseif ( $sPrio == 'urgent' || $sPrio == 'high' ) {
+                                            $iPrio = 1;
                                         } else {
                                             // default is normal priority
-                                            $value = 3;
+                                            $iPrio = 3;
                                         }
-                                        $aMsg['x-priority'] = $value;
+                                        $aMsg['x-priority'] = $iPrio;
                                     }
                                     break;
                                 case 'content-type':
