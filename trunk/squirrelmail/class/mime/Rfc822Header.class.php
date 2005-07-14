@@ -626,11 +626,14 @@ class Rfc822Header {
      * NOTE: this is actually a duplicate from the function in
      * functions/imap_messages. I'm not sure if it's ok here to call
      * that function?
-     * @param string $value literal priority name
+     * @param string $sValue literal priority name
      * @return integer
      */
-    function parsePriority($value) {
-        $value = strtolower(array_shift(split('/\w/',trim($value))));
+    function parsePriority($sValue) {
+        // don't use function call inside array_shift.
+        $aValue = split('/\w/',trim($sValue));
+        $value = strtolower(array_shift($aValue));
+
         if ( is_numeric($value) ) {
             return $value;
         }

@@ -37,8 +37,9 @@ function plugin_listcommands_menu_do() {
         }
 
         /* proto = {mailto,href} */
-        $proto = array_shift(array_keys($actions));
-        $act   = array_shift($actions);
+        $aActions = array_keys($actions);
+        $proto = array_shift($aActions);
+        $act   = array_shift($aActions);
 
         if ($proto == 'mailto') {
 
