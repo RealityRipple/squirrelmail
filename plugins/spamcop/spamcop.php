@@ -12,53 +12,12 @@
 /** @ignore */
 define('SM_PATH','../../');
 
- /* SquirrelMail required files. */
+/* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/imap.php');
-
-/**
- * Stores message in attachment directory, when email based reports are used
- * @access private
- */
-function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
-                                      $passed_ent_id='', $imapConnection) {
-    global $attachment_dir, $username;
-
-    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-    if (!$passed_ent_id) {
-        $body_a = sqimap_run_command($imapConnection,
-                                    'FETCH '.$passed_id.' RFC822',
-                                    TRUE, $response, $readmessage,
-                                    TRUE);
-    } else {
-        $body_a = sqimap_run_command($imapConnection,
-                                     'FETCH '.$passed_id.' BODY['.$passed_ent_id.']',
-                                     TRUE, $response, $readmessage,TRUE);
-        $message = $message->parent;
-    }
-    if ($response == 'OK') {
-        array_shift($body_a);
-        $body = implode('', $body_a) . "\r\n";
-
-        $localfilename = GenerateRandomString(32, 'FILE', 7);
-        $full_localfilename = "$hashed_attachment_dir/$localfilename";
-        $fp = fopen( $full_localfilename, 'w');
-        fwrite ($fp, $body);
-        fclose($fp);
-
-        /* dirty relative dir fix */
-        if (substr($attachment_dir,0,3) == '../') {
-           $attachment_dir = substr($attachment_dir,3);
-           $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-        }
-        $full_localfilename = "$hashed_attachment_dir/$localfilename";
-
-        $composeMessage->initAttachment('message/rfc822','email.txt',
-                         $full_localfilename);
-    }
-    return $composeMessage;
-}
-
+include_once(SM_PATH . 'functions/display_messages.php');
+include_once(SM_PATH . 'functions/imap.php');
+/* plugin functions */
+include_once(SM_PATH . 'plugins/spamcop/functions.php');
 
 /* GLOBALS */
 
@@ -95,6 +54,13 @@ if ($js_web) {
   echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\">\n";
 } else {
   displayPageHeader($color,$mailbox);
+}
+
+/** is spamcop plugin disabled */
+if (! is_plugin_enabled('spamcop')) {
+    error_box(_("Plugin is disabled."),$color);
+    echo "\n</body></html>\n";
+    exit();
 }
 
     $imap_stream = sqimap_login($username, $key, $imapServerAddress,

@@ -11,7 +11,6 @@
  * @subpackage spamcop
  */
 
-   header("Location:../../src/login.php\n\n");
-   exit();
-
+header("Location:../../index.php\n\n");
+exit();
 ?>

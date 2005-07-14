@@ -12,24 +12,15 @@
 
 /** @ignore */
 define('SM_PATH','../../');
+/* SquirrelMail functions */
 require_once(SM_PATH . 'include/validate.php');
-
-/**
- * Internal spamcop plugin function.
- *
- * It is used to display similar action links.
- * @access private
- */
-function spamcop_enable_disable($option,$disable_action,$enable_action) {
-    if ($option) {
-        $ret= _("Enabled") . " (<a href=\"options.php?action=$disable_action\">" . _("Disable it") . "</a>)\n";
-    } else {
-        $ret = _("Disabled") . " (<a href=\"options.php?action=$enable_action\">" . _("Enable it") . "</a>)\n";
-    }
-    return $ret;
-}
+/* plugin functions */
+include_once(SM_PATH . 'plugins/spamcop/functions.php');
 
 displayPageHeader($color, 'None');
+
+/** is spamcop plugin disabled */
+// option changes do nothing, if read_body_header_right hook is not active.
 
 /* globals */
 sqgetGlobalVar('action', $action);
@@ -82,7 +73,7 @@ switch ($action) {
 }
 
 global $spamcop_enabled, $spamcop_delete, $spamcop_save, $spamcop_quick_report;
-spamcop_load();
+spamcop_load_function();
 
 ?>
       <br />
