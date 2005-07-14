@@ -189,6 +189,26 @@ function boolean_hook_function($name,$parm=NULL,$priority=0,$tie=false) {
 function soupNazi(){
     return !checkForJavascript();
 }
+
+/**
+ * Check if plugin is enabled
+ * @param string $plugin_name plugin name
+ * @since 1.5.1
+ * @return boolean
+ */
+function is_plugin_enabled($plugin_name) {
+  global $plugins;
+
+  if (! isset($plugins) || ! is_array($plugins) || empty($plugins))
+    return false;
+
+  if ( in_array($plugin_name,$plugins) ) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 /*************************************/
 /*** MAIN PLUGIN LOADING CODE HERE ***/
 /*************************************/
