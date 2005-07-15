@@ -89,7 +89,7 @@ if (! is_plugin_enabled('spamcop')) {
 
 
         $message = sqimap_get_message($imap_stream, $passed_id, $mailbox);
-        $composeMessage = getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
+        $composeMessage = spamcop_getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
                                       $passed_ent_id, $imap_stream);
 
             $compose_messages[$session] = $composeMessage;

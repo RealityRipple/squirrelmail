@@ -173,8 +173,9 @@ function spamcop_enable_disable($option,$disable_action,$enable_action) {
 /**
  * Stores message in attachment directory, when email based reports are used
  * @access private
+ * @todo Duplicate code in src/compose.php
  */
-function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
+function spamcop_getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
                                       $passed_ent_id='', $imapConnection) {
     global $attachment_dir, $username;
 
