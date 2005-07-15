@@ -44,15 +44,13 @@ function newmail_optpage_register_block_function() {
     // Gets added to the user's OPTIONS page.
     global $optpage_blocks;
 
-    if ( checkForJavascript() ) {
-        /* Register Squirrelspell with the $optionpages array. */
-        $optpage_blocks[] = array(
-            'name' => _("NewMail Options"),
-            'url'  => sqm_baseuri() . 'plugins/newmail/newmail_opt.php',
-            'desc' => _("This configures settings for playing sounds and/or showing popup windows when new mail arrives."),
-            'js'   => TRUE
-            );
-    }
+    /* Register Squirrelspell with the $optionpages array. */
+    $optpage_blocks[] = array(
+        'name' => _("NewMail Options"),
+        'url'  => sqm_baseuri() . 'plugins/newmail/newmail_opt.php',
+        'desc' => _("This configures settings for playing sounds and/or showing popup windows when new mail arrives."),
+        'js'   => TRUE
+        );
 }
 
 /**
