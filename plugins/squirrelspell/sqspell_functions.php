@@ -13,6 +13,101 @@
  * @subpackage squirrelspell
  */
 
+/** @ignore */
+if (! defined('SM_PATH')) define('SM_PATH','../../');
+
+/** globalize configuration vars **/
+global $SQSPELL_APP, $SQSPELL_APP_DEFAULT, $SQSPELL_WORDS_FILE, $SQSPELL_CRYPTO;
+
+/** 
+ * load plugin configuration
+ * @todo allow storing configuration file in config/ directory
+ */
+include_once(SM_PATH . 'plugins/squirrelspell/sqspell_config.php');
+
+/** Hooked functions **/
+
+/**
+ * Register option page block (internal function)
+ * @since 1.5.1 (sqspell 0.5)
+ * @return void
+ */
+function squirrelspell_optpage_block_function() {
+  global $optpage_blocks;
+
+  /**
+   * Dependency on JavaScript is checked by SquirrelMail scripts
+   * Register Squirrelspell with the $optpage_blocks array.
+   */
+  $optpage_blocks[] =
+    array(
+      'name' => _("SpellChecker Options"),
+      'url'  => '../plugins/squirrelspell/sqspell_options.php',
+      'desc' => _("Here you may set up how your personal dictionary is stored, edit it, or choose which languages should be available to you when spell-checking."),
+      'js'   => TRUE);
+}
+
+/**
+ * This function adds a "Check Spelling" link to the "Compose" row
+ * during message composition (internal function).
+ * @since 1.5.1 (sqspell 0.5)
+ * @return void
+ */
+function squirrelspell_setup_function() {
+  /**
+   * Check if this browser is capable of displaying SquirrelSpell
+   * correctly.
+   */
+  if (checkForJavascript()) {
+    /**
+     * Some people may choose to disable javascript even though their
+     * browser is capable of using it. So these freaks don't complain,
+     * use document.write() so the "Check Spelling" button is not
+     * displayed if js is off in the browser.
+     */
+    echo "<script type=\"text/javascript\">\n".
+      "<!--\n".
+      'document.write("<input type=\"button\" value=\"'.
+      _("Check Spelling").
+      '\" name=\"check_spelling\" onclick=\"window.open(\'../plugins/squirrelspell/sqspell_'.
+      'interface.php\', \'sqspell\', \'status=yes,width=550,height=370,'.
+      'resizable=yes\')\" />");' . "\n".
+      "//-->\n".
+      "</script>\n";
+  }
+}
+
+/**
+ * Upgrade dictionaries (internal function)
+ *
+ * Transparently upgrades user's dictionaries when message listing is loaded
+ * @since 1.5.1 (sqspell 0.5)
+ */
+function squirrelspell_upgrade_function() {
+  global $data_dir, $username;
+
+  if (! sqspell_check_version(0,5)) {
+    $langs=sqspell_getSettings_old(null);
+    $words=sqspell_getWords_old();
+    sqspell_saveSettings($langs);
+    foreach ($langs as $lang) {
+      $lang_words=sqspell_getLang_old($words,$lang);
+      $aLang_words=explode("\n",$lang_words);
+      $new_words=array();
+      foreach($aLang_words as $word) {
+        if (! preg_match("/^#/",$word) && trim($word)!='') {
+          $new_words[]=$word;
+        }
+      }
+      sqspell_writeWords($new_words,$lang);
+    }
+    // bump up version number
+    setPref($data_dir,$username,'sqspell_version','0.5');
+  }
+}
+
+/** Internal functions **/
+
 /**
  * This function is the GUI wrapper for the options page. SquirrelSpell
  * uses it for creating all Options pages.
