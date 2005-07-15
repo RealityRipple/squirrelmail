@@ -16,6 +16,7 @@
 /**
  * Set a couple of constants and defaults. Don't change these,
  * the configurable stuff is in sqspell_config.php
+ * @todo do we really need $SQSPELL_DIR var?
  */
 $SQSPELL_DIR='plugins/squirrelspell/';
 $SQSPELL_CRYPTO=FALSE;
@@ -29,7 +30,6 @@ define('SM_PATH','../../');
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
 include_once(SM_PATH . 'functions/display_messages.php');
-include_once(SM_PATH . $SQSPELL_DIR . 'sqspell_config.php');
 include_once(SM_PATH . $SQSPELL_DIR . 'sqspell_functions.php');
 
 /**

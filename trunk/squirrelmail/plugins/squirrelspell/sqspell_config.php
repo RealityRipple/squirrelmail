@@ -89,7 +89,7 @@ $SQSPELL_WORDS_FILE =
    getHashedFile($username, $data_dir, "$username.words");
 
 /**
- * Function used cheching words in user's dictionary
+ * Function used for checking words in user's dictionary
  * @global string $SQSPELL_EREG
  * @deprecated It is not used since 1.5.1 (sqspell 0.5)
  */
