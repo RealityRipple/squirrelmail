@@ -1923,7 +1923,7 @@ sub command33a {
     print "Specify the location for your data directory.\n";
     print "The path name can be absolute or relative (to the config directory).\n";
     print "It doesn't matter.  Here are two examples:\n";
-    print "  Absolute:    /var/spool/data/\n";
+    print "  Absolute:    /var/lib/squirrelmail/data/\n";
     print "  Relative:    ../data/\n";
     print "Relative paths to directories outside of the SquirrelMail distribution\n";
     print "will be converted to their absolute path equivalents in config.php.\n\n";
@@ -1954,7 +1954,7 @@ sub command33b {
     print "Path to directory used for storing attachments while a mail is\n";
     print "being sent. The path name can be absolute or relative (to the config directory).\n";
     print "It doesn't matter.  Here are two examples:\n";
-    print "  Absolute:    /var/spool/attach/\n";
+    print "  Absolute:    /var/spool/squirrelmail/attach/\n";
     print "  Relative:    ../attach/\n";
     print "Relative paths to directories outside of the SquirrelMail distribution\n";
     print "will be converted to their absolute path equivalents in config.php.\n\n";
