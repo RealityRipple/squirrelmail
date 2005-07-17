@@ -13,6 +13,9 @@
  * @subpackage bug_report
  */
 
+/** @ignore */
+if (!defined('SM_PATH')) define('SM_PATH','../../');
+
 /**
  * load required libraries
  */
