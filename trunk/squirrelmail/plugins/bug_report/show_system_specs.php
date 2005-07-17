@@ -19,6 +19,12 @@
 define('SM_PATH','../../');
 include_once(SM_PATH . 'include/validate.php');
 
+/** is bug_report plugin disabled */
+if (! is_plugin_enabled('bug_report')) {
+    error_box(_("Plugin is disabled."),$color);
+    echo "\n</body></html>\n";
+    exit();
+}
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>

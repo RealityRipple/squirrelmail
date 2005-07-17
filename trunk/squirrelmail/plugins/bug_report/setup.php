@@ -13,10 +13,6 @@
  * @subpackage bug_report
  */
 
-/* This button fills out a form with your setup information already
-   gathered -- all you have to do is type. */
-
-
 /**
  * Initialize the bug report plugin
  * @return void
@@ -26,9 +22,8 @@ function squirrelmail_plugin_init_bug_report() {
     global $squirrelmail_plugin_hooks;
 
     $squirrelmail_plugin_hooks['menuline']['bug_report'] = 'bug_report_button';
-    $squirrelmail_plugin_hooks['options_display_inside']['bug_report'] = 'bug_report_options';
-    $squirrelmail_plugin_hooks['options_display_save']['bug_report'] = 'bug_report_save';
     $squirrelmail_plugin_hooks['loading_prefs']['bug_report'] = 'bug_report_load';
+    $squirrelmail_plugin_hooks['optpage_loadhook_display']['bug_report'] = 'bug_report_block';
 }
 
 
@@ -48,20 +43,6 @@ function bug_report_button() {
 }
 
 /**
- * Saves bug report options
- * @access private
- */
-function bug_report_save() {
-    global $username,$data_dir;
-
-    if( sqgetGlobalVar('bug_report_bug_report_visible', $vis, SQ_POST) ) {
-        setPref($data_dir, $username, 'bug_report_visible', '1');
-    } else {
-        setPref($data_dir, $username, 'bug_report_visible', '');
-    }
-}
-
-/**
  * Loads bug report options
  * @access private
  */
@@ -69,22 +50,28 @@ function bug_report_load() {
     global $username, $data_dir;
     global $bug_report_visible;
 
-    $bug_report_visible = getPref($data_dir, $username, 'bug_report_visible');
+    $bug_report_visible = (bool) getPref($data_dir, $username, 'bug_report_visible',false);
 }
 
 /**
- * Adds bug report options to display page
+ * Register bug report option block
+ * @since 1.5.1
  * @access private
  */
-function bug_report_options() {
-    global $bug_report_visible;
-
-    echo '<tr>' . html_tag('td',_("Bug Reports:"),'right','','style="white-space: nowrap;"') . "\n" .
-         '<td><input name="bug_report_bug_report_visible" type="checkbox"';
-    if ($bug_report_visible) {
-        echo ' checked="checked"';
-    }
-    echo ' /> ' . _("Show button in toolbar") . "</td></tr>\n";
+function bug_report_block() {
+    global $optpage_data;
+    $optpage_data['grps']['bug_report'] = _("Bug Reports");
+    $optionValues = array();
+    // FIXME: option needs refresh in SMOPT_REFRESH_RIGHT 
+    // (menulink is processed before options are saved/loaded)
+    $optionValues[] = array(
+        'name'    => 'bug_report_visible',
+        'caption' => _("Show button in toolbar"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_ALL,
+        'initial_value' => false
+        );
+    $optpage_data['vals']['bug_report'] = $optionValues;
 }
 
 ?>

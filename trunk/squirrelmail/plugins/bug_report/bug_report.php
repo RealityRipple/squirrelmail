@@ -25,8 +25,15 @@ define('SM_PATH','../../');
 
 require_once(SM_PATH . 'include/validate.php');
 
+/** is bug_report plugin disabled */
+if (! is_plugin_enabled('bug_report')) {
+    error_box(_("Plugin is disabled."),$color);
+    echo "\n</body></html>\n";
+    exit();
+}
+
 // loading form functions
-require_once(SM_PATH . 'functions/forms.php');
+include_once(SM_PATH . 'functions/forms.php');
 
 displayPageHeader($color, 'None');
 
