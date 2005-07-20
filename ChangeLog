@@ -402,7 +402,9 @@ Version 1.5.1 -- CVS
   - Fixes for increased error checking in PHP 5.1 array_shift() (#1237160).
   - Added extra checks in delivery class for In-Reply-To header. Fixes
     E_NOTICE level warnings in php 5.0.4 and later (#1206474). [php5]
-	
+  - Added extra checks in SquirrelMail charset_encode() function in case
+    somebody removed html to us-ascii conversion library (#1239782).
+
 Version 1.5.0 - 2 February 2004
 -------------------------------
   - Added new preference that determines cursor focus when replying
