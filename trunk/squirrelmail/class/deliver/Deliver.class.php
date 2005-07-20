@@ -445,7 +445,9 @@ class Deliver {
 
         /* Insert the rest of the header fields */
         $header[] = 'Message-ID: '. $message_id . $rn;
-        if ($reply_rfc822_header->message_id) {
+        if (is_object($reply_rfc822_header) && 
+            isset($reply_rfc822_header->message_id) &&
+            $reply_rfc822_header->message_id) {
             $rep_message_id = $reply_rfc822_header->message_id;
         //        $this->strip_crlf($message_id);
             $header[] = 'In-Reply-To: '.$rep_message_id . $rn;
