@@ -924,7 +924,7 @@ function sqimap_mailbox_tree($imap_stream) {
     $has_inbox = false;
 
     for ($i = 0, $cnt = count($lsub_ary); $i < $cnt; $i++) {
-        if (preg_match("/^\*\s+$lsub_cmd.*\s\"?INBOX\"?[^(\/\.)].*$/i",$lsub_ary[$i])) {
+        if (preg_match("/^\*\s+$lsub_cmd.*\s\"?INBOX\"?\s*$/i",$lsub_ary[$i])) {
             $lsub_ary[$i] = strtoupper($lsub_ary[$i]);
             // in case of an unsubscribed inbox an imap server can
             // return the inbox in the lsub results with a \NoSelect
