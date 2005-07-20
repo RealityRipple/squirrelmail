@@ -197,9 +197,16 @@ function charset_encode($string,$charset,$htmlencode=true) {
     if (file_exists($encodefile)) {
         include_once($encodefile);
         $ret = call_user_func('charset_encode_'.$encode, $string);
-    } else {
+    } elseif(file_exists(SM_PATH . 'functions/encode/us_ascii.php')) {
+        // function replaces all 8bit html entities with question marks.
+        // it is used when other encoding functions are unavailable
         include_once(SM_PATH . 'functions/encode/us_ascii.php');
         $ret = charset_encode_us_ascii($string);
+    } else {
+        /**
+         * fix for yahoo users that remove all us-ascii related things
+         */
+        $ret = $string;
     }
 
     /**
