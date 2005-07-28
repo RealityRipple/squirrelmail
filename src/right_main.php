@@ -29,10 +29,39 @@ require_once(SM_PATH . 'functions/mailbox_display.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/plugin.php');
+include_once(SM_PATH . 'class/error.class.php');
+
 
 //include_once(SM_PATH . 'templates/default/message_list.tpl');
 include_once(SM_PATH . 'class/template/template.class.php');
 
+/**
+ * Which templatedir are we using. TODO, add make a config var of this and make it possible to switch templates
+ */
+$sTplDir = SM_PATH . 'templates/default/';
+
+/*
+ * Initialize the template object
+ */
+$oTemplate = new Template($sTplDir);
+
+/*
+ * Initialize our custom error handler object
+ */
+$oErrorHandler = new ErrorHandler($oTemplate,'error_message.tpl');
+
+/*
+ * Activate custom error handling
+ */
+if (version_compare(PHP_VERSION, "4.3.0", ">=")) {
+    $oldErrorHandler = set_error_handler(array($oErrorHandler, 'SquirrelMailErrorhandler'));
+} else {
+    $oldErrorHandler = set_error_handler('SquirrelMailErrorhandler');
+}
+
+// Trigger Developers to look at CSS ;)
+trigger_error("This layout sucks. Adapt squirrelmail.css!!!",E_USER_WARNING);
+//sqm_trigger_imap_error('SQM_IMAP_NO_THREAD',"BLA1",'BAD', 'BLA2', array('test1'=>'test1'));
 
 /* lets get the global vars we may need */
 sqgetGlobalVar('key',       $key,           SQ_COOKIE);
@@ -237,10 +266,6 @@ if ($sError) {
    $note = $sError;
 }
 
-/**
- * Which templatedir are we using. TODO, add make a config var of this and make it possible to switch templates
- */
-$sTplDir = SM_PATH . 'templates/default/';
 
 
 /*
@@ -316,12 +341,6 @@ if ( sqgetGlobalVar('just_logged_in', $just_logged_in, SQ_SESSION) ) {
     }
 }
 
-/**
- * In the future, move this the the initialisation area
- */
-
-
-$oTemplate = new Template($sTplDir);
 
 if ($aMailbox['EXISTS'] > 0) {
     $aTemplateVars =& showMessagesForMailbox($imapConnection,$aMailbox,$aProps,$iError);
@@ -368,7 +387,8 @@ if ($aMailbox['EXISTS'] > 0) {
 
 do_hook('right_main_bottom');
 sqimap_logout ($imapConnection);
-echo '</body></html>';
+$oTemplate->display('footer.tpl');
+
 
 /* add the mailbox to the cache */
 $mailbox_cache[$account.'_'.$aMailbox['NAME']] = $aMailbox;
