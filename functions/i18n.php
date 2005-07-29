@@ -927,7 +927,6 @@ if (! sqgetGlobalVar('squirrelmail_language',$squirrelmail_language,SQ_COOKIE)) 
  *
  * Each 'language' definition requires NAME+CHARSET or ALIAS variables.
  *
- * @todo TODO: make language loading modular (similar to plugins, with locale/xx_XX/setup.php files)
  * @name $languages
  * @global array $languages
  */
@@ -1202,6 +1201,27 @@ $languages['he']['ALIAS']      = 'he_IL';
 $languages['ug']['NAME']    = 'Uighur';
 $languages['ug']['CHARSET'] = 'utf-8';
 $languages['ug']['DIR']     = 'rtl';
+
+/**
+ * Automatic translation loading from setup.php files.
+ * Solution for bug. 1240889.
+ * setup.php file can contain $languages array entries and XTRA_CODE functions.
+ * I don't want to enable it, because it allows to keep own translations without
+ * submitting them to SquirrelMail.
+ */
+/*
+foreach(glob(SM_PATH.'locale/*') as $lang_dir) {
+    // remove trailing slash, if present
+    if (substr($lang_dir,-1)=='/') {
+        $lang_dir = substr($lang_dir,0,-1);
+    }
+    // load language setup
+    if (is_dir(SM_PATH.'locale/'.$lang_dir) && 
+        file_exists(SM_PATH.'locale/'.$lang_dir.'/setup.php')) {
+        include_once(SM_PATH.'locale/'.$lang_dir.'/setup.php');
+    }
+}
+*/
 
 /* Detect whether gettext is installed. */
 $gettext_flags = 0;
