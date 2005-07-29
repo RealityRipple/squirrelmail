@@ -57,7 +57,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = true
              $base_uri . 'themes/css/'.$custom_css.'">';
     }
 
-    echo '<link rel="stylesheet" type="text/css" href="'. SM_PATH .'templates/default/squirrelmail.css">';
+    echo '<link rel="stylesheet" type="text/css" href="'. $base_uri .'templates/default/squirrelmail.css">';
 
     if ($squirrelmail_language == 'ja_JP') {
         /*
