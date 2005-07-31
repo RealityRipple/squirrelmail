@@ -30,7 +30,43 @@
  */
 function ngettext($single, $plural, $number) {
     global $l10n, $gettext_domain;
-    if ($l10n[$gettext_domain]->error==1) return $single;
+    if (! isset($l10n[$gettext_domain]) ||
+        ! is_object($l10n[$gettext_domain]) ||
+        $l10n[$gettext_domain]->error==1)
+        return ($number==1 ? $single : $plural);
     return $l10n[$gettext_domain]->ngettext($single, $plural, $number);
+}
+
+/**
+ * safety check. 
+ * freaky setup where ngettext is not available and dngettext is available.
+ */
+if (! function_exists('dngettext')) {
+    /**
+     * internal dngettext wrapper.
+     *
+     * provides dngettext support
+     * @since 1.5.1
+     * @link http://www.php.net/function.dngettext
+     * @param string $domain Gettext domain
+     * @param string $single English string, singular form
+     * @param string $plural English string, plural form
+     * @param integer $number number that shows used quantity
+     * @return string translated string
+     */
+    function dngettext($domain, $single, $plural, $number) {
+        global $l10n;
+        // Make sure that $number is integer
+        $number = (int) $number;
+        
+        // Make sure that domain is initialized
+        if (! isset($l10n[$domain]) || 
+            ! is_object($l10n[$domain]) || 
+            $l10n[$domain]->error==1)
+            return ($number==1 ? $single : $plural);
+
+        // use ngettext class function
+        return $l10n[$domain]->ngettext($single, $plural, $number);
+    }
 }
 ?>

@@ -1297,5 +1297,23 @@ elseif ($gettext_flags == 0) {
             }
         }
     }
+    if (! function_exists('dgettext')) {
+        /**
+         * Replacement for broken setups.
+         * @ignore
+         */
+        function dgettext($domain,$str) {
+            return $str;
+        }
+    }
+    if (! function_exists('dngettext')) {
+        /**
+         * Replacement for broken setups
+         * @ignore
+         */
+        function dngettext($domain,$str1,$strn,$number) {
+            return ($number==1 ? $str1 : $strn);
+        }
+    }
 }
 ?>
