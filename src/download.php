@@ -67,7 +67,8 @@ if (isset($aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT']) &&
 //}
 $subject = $message->rfc822_header->subject;
 if ($ent_id) {
-    $message = &$message->getEntity($ent_id);
+    // replace message with message part, if message part is requested.
+    $message = $message->getEntity($ent_id);
     $header = $message->header;
 
     if ($message->rfc822_header) {
