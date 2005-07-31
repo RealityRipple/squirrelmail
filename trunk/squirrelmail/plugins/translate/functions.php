@@ -94,7 +94,7 @@ function translate_read_form_function() {
     $body = '';
     if ($trans_ar[0] != '') {
         for ($i = 0; $i < count($trans_ar); $i++) {
-            $body .= formatBody($imapConnection, $message, $color, $wrap_at, $trans_ar[$i], $passed_id, $mailbox);
+            $body .= formatBody($imapConnection, $message, $color, $wrap_at, $trans_ar[$i], $passed_id, $mailbox, true);
         }
         $hookResults = do_hook('message_body', $body);
         $body = $hookResults[1];
@@ -103,11 +103,6 @@ function translate_read_form_function() {
     }
 
     $new_body = $body;
-    $pos = strpos($new_body,
-        '">'. _("Download this as a file") . '</a></center><br /></small>');
-    if (is_int($pos)) {
-        $new_body = substr($new_body, 0, $pos);
-    }
 
     $trans = get_html_translation_table(HTML_ENTITIES);
     $trans[' '] = '&nbsp;';
@@ -424,9 +419,11 @@ function translate_lang_opt($from, $to, $value, $text) {
  * Starts translation box
  *
  * @param string $action url that has to recieve message for translation
+ * @param string $charset (since sm 1.5.1) character set, that should be used 
+ * to submit 8bit information.
  * @access private
  */
-function translate_new_form($action) {
+function translate_new_form($action,$charset=null) {
     global $translate_dir, $translate_location;
     global $color, $translate_same_window;
 
@@ -443,6 +440,9 @@ function translate_new_form($action) {
     if (!$translate_same_window) {
         echo ' target="_blank"';
     }
+    
+    if (! is_null($charset))
+        echo ' accept-charset="'.htmlspecialchars($charset).'"';
 
     echo ">\n";
 
@@ -461,7 +461,7 @@ function translate_new_form($action) {
  * @access private
  */
 function translate_form_babelfish($message) {
-    translate_new_form('http://babelfish.altavista.com/babelfish/tr');
+    translate_new_form('http://babelfish.altavista.com/babelfish/tr','utf-8');
 ?>
     <input type="hidden" name="doit" value="done" />
     <input type="hidden" name="intl" value="1" />
@@ -773,7 +773,7 @@ function translate_form_dictionary($message) {
  * @access private
  */
 function translate_form_otenet($message) {
-    translate_new_form('http://trans.otenet.gr/systran/box');
+    translate_new_form('http://trans.otenet.gr/systran/box','windows-1253');
 ?>
     <input type="hidden" name="doit" value="done" />
     <input type="hidden" name="partner" value="OTEnet-en" />
@@ -833,7 +833,7 @@ function translate_form_otenet($message) {
  * @access private
  */
 function translate_form_promt($message) {
-    translate_new_form('http://www.online-translator.com/text.asp#tr_form');
+    translate_new_form('http://www.online-translator.com/text.asp#tr_form','windows-1251');
     echo '<input type="hidden" name="status" value="translate" />';
     echo '<input type="hidden" name="source" value="'.$message.'" />';
     echo _("Interface language")." : ";
@@ -893,7 +893,7 @@ function translate_form_promt($message) {
  * @access private
  */
 function translate_form_google($message) {
-    translate_new_form('http://www.google.com/translate_t');
+    translate_new_form('http://www.google.com/translate_t','utf-8');
     echo '<input type="hidden" name="ie" value="Unknown" />' .
          '<input type="hidden" name="oe" value="ASCII" />' .
          '<input type="hidden" name="hl" value="en" />' .
