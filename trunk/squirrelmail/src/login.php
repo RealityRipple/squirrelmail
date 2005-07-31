@@ -107,6 +107,17 @@ $header = "<script language=\"JavaScript\" type=\"text/javascript\">\n" .
 if (@file_exists($theme[$theme_default]['PATH']))
    @include ($theme[$theme_default]['PATH']);
 
+if (! isset($color) || ! is_array($color)) {
+    // Add default color theme, if theme loading fails
+    $color = array();
+    $color[0]  = '#dcdcdc';  /* light gray    TitleBar               */
+    $color[1]  = '#800000';  /* red                                  */
+    $color[2]  = '#cc0000';  /* light red     Warning/Error Messages */
+    $color[4]  = '#ffffff';  /* white         Normal Background      */
+    $color[7]  = '#0000cc';  /* blue          Links                  */
+    $color[8]  = '#000000';  /* black         Normal text            */
+}
+
 displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 
 echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" onLoad=\"squirrelmail_loginpage_onload()\">" .
