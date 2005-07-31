@@ -32,7 +32,10 @@ include_once(SM_PATH . 'functions/ngettext.php');
  */
 function _($str) {
     global $l10n, $gettext_domain;
-    if ($l10n[$gettext_domain]->error==1) return $str;
+    if (! isset($l10n[$gettext_domain]) ||
+        ! is_object($l10n[$gettext_domain]) ||
+        $l10n[$gettext_domain]->error==1) 
+        return $str;
     return $l10n[$gettext_domain]->translate($str);
 }
 
@@ -73,5 +76,29 @@ function textdomain($name = false) {
     global $gettext_domain;
     if ($name) $gettext_domain=$name;
     return $gettext_domain;
+}
+
+/**
+ * Safety check.
+ * Setup where three standard gettext functions don't exist and dgettext() exists.
+ */
+if (! function_exists('dgettext')) {
+    /**
+     * Alternative php dgettext function
+     *
+     * @link http://www.php.net/function.dgettext
+     * @param string $domain Gettext domain
+     * @param string $str English string
+     * @return string translated string
+     * @since 1.5.1
+     */
+    function dgettext($domain, $str) {
+        global $l10n;
+        if (! isset($l10n[$domain]) ||
+            ! is_object($l10n[$domain]) ||
+            $l10n[$domain]->error==1) 
+            return $str;
+        return $l10n[$domain]->translate($str);
+    }
 }
 ?>
