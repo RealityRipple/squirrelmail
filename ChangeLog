@@ -404,6 +404,13 @@ Version 1.5.1 -- CVS
     E_NOTICE level warnings in php 5.0.4 and later (#1206474). [php5]
   - Added extra checks in SquirrelMail charset_encode() function in case
     somebody removed html to us-ascii conversion library (#1239782).
+  - Fixed invalid reference in src/download.php. E_NOTICE level warnings
+    could corrupt attachments in php 4.4.0.
+  - Added internal dgettext() and dngettext() functions.
+  - Added display of attachments on printer friendly page.
+  - Added workarounds for encoding of long multibyte headers (#1246305) 
+    and sq_count8bit() function.
+  - Added custom error handling class and related functions.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------

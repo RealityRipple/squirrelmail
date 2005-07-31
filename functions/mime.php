@@ -781,11 +781,16 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
 }
 
 /**
- * Encodes header as quoted-printable
+ * Encodes header
  *
- * Encode a string according to RFC 1522 for use in headers if it
- * contains 8-bit characters or anything that looks like it should
- * be encoded.
+ * Function uses XTRA_CODE _encodeheader function, if such function exists.
+ * 
+ * mb_encode_mimeheader is used, if function is present, 50% or more bytes 
+ * are 8bit and multibyte character set is used.
+ *
+ * Function uses Q encoding by default and encodes a string according to RFC 
+ * 1522 for use in headers if it contains 8-bit characters or anything that 
+ * looks like it should be encoded.
  *
  * @param string $string header string, that has to be encoded
  * @return string quoted-printable encoded string
@@ -796,6 +801,15 @@ function encodeHeader ($string) {
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
             function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_encodeheader')) {
         return  call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_encodeheader', $string);
+    }
+
+    // Use B encoding for multibyte charsets
+    $mb_charsets = array('utf-8','big-5','gb2313','euc-kr');
+    if (function_exists('mb_encode_mimeheader') && 
+        in_array($default_charset,$mb_charsets) &&
+        in_array($default_charset,sq_mb_list_encodings()) &&
+        sq_count8bit($string)>=(strlen($string)/2)) {
+        return mb_encode_mimeheader($string,$default_charset,'B',"\r\n");
     }
 
     // Encode only if the string contains 8-bit characters or =?
