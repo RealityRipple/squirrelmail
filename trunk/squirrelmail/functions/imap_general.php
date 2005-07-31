@@ -16,6 +16,7 @@
 /** Includes.. */
 require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/auth.php');
+include_once(SM_PATH . 'functions/rfc822address.php');
 
 
 /**
@@ -971,9 +972,6 @@ function sqimap_get_num_messages ($imap_stream, $mailbox) {
     }
     return false; //"BUG! Couldn't get number of messages in $mailbox!";
 }
-
-/** FIXME: include is inserted in the middle of the code */
-include_once(SM_PATH . 'functions/rfc822address.php');
 
 /**
  * OBSOLETE FUNCTION should be removed after mailbox_display,
