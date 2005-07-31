@@ -623,7 +623,6 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
     case 'extcrypt':
         // check if crypt() supports extended des
         if (defined('CRYPT_EXT_DES') && CRYPT_EXT_DES==1) {
-            // FIXME: guinea pigs with extended des support needed.
             $ret = '{CRYPT}' . crypt($pass,'_' . GenerateRandomString(8,$extra_salt_chars,7));
         } else {
             array_push($msgs,
@@ -634,7 +633,6 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
     case 'blowfish':
         // check if crypt() supports blowfish
         if (defined('CRYPT_BLOWFISH') && CRYPT_BLOWFISH==1) {
-            // FIXME: guinea pigs with blowfish support needed.
             $ret = '{CRYPT}' . crypt($pass,'$2a$12$' . GenerateRandomString(13,$extra_salt_chars,7));
         } else {
             array_push($msgs,
