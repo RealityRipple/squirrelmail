@@ -1311,5 +1311,18 @@ function sq_strtoupper($string,$charset='auto') {
     // use vanilla string functions as last option
     return strtoupper($string);
 }
+
+/**
+ * Counts 8bit bytes in string
+ * @param string $string tested string
+ * @return integer number of 8bit bytes
+ */
+function sq_count8bit($string) {
+    $count=0;
+    for ($i=0; $i<strlen($string); $i++) {
+        if (ord($string[$i]) > 127) $count++;
+    }
+    return $count;
+}
 $PHP_SELF = php_self();
 ?>
