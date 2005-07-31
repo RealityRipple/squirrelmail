@@ -173,6 +173,23 @@ if (! $error) {
 
 echo "\n";
 
+/** Test NAME subkeys */
+$error = false;
+echo "  Time zones with empty NAME subkeys:\n";
+foreach ($aTimeZones as $TzKey => $TzData) {
+    if (isset($TzData['NAME']) && empty($TzData['NAME'])) {
+        echo '    '.$TzKey."\n";
+        $error = true;
+    }
+}
+if (! $error) {
+    echo "    none. Looking good\n";
+} else {
+    // error is fatal. NAME should not be empty string.
+}
+
+echo "\n";
+
 /** Test TZ subkeys with UCT/UTC/GMT offsets */
 $error = false;
 echo "Testing TZ subkeys with UCT/UTC/GMT offsets:\n"

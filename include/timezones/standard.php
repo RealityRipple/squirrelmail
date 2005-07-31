@@ -859,7 +859,7 @@ $aTimeZones['America/Chicago']['NAME']='US Central standard time';
 $aTimeZones['America/Chicago']['TZ']='CST6CDT';
 
 // Oliver County, ND
-//$aTimeZones['America/North_Dakota/Center']['NAME']='';
+$aTimeZones['America/North_Dakota/Center']['NAME']='US, Oliver County [ND]';
 $aTimeZones['America/North_Dakota/Center']['TZ']='CST6CDT'; // CST since 1992
 
 $aTimeZones['America/Denver']['NAME']='US Mountain standard time';
@@ -868,15 +868,15 @@ $aTimeZones['America/Los_Angeles']['NAME']='US Pacific standard time';
 $aTimeZones['America/Los_Angeles']['TZ']='PST8PDT';
 
 // Aliaska
-//$aTimeZones['America/Juneau']['NAME']='';
+//$aTimeZones['America/Juneau']['NAME']='US, Juneau [AL]';
 $aTimeZones['America/Juneau']['TZ']='NAST9NADT';
-//$aTimeZones['America/Yakutat']['NAME']='';
+//$aTimeZones['America/Yakutat']['NAME']='US, Yakutat [AL]';
 $aTimeZones['America/Yakutat']['TZ']='NAST9NADT';
-//$aTimeZones['America/Anchorage']['NAME']='';
+//$aTimeZones['America/Anchorage']['NAME']='US, Anchorage [AL]';
 $aTimeZones['America/Anchorage']['TZ']='NAST9NADT';
-//$aTimeZones['America/Nome']['NAME']='';
+//$aTimeZones['America/Nome']['NAME']='US, Nome [AL]';
 $aTimeZones['America/Nome']['TZ']='NAST9NADT';
-// $aTimeZones['America/Adak']['NAME']='';
+// $aTimeZones['America/Adak']['NAME']='US, Aleutian Islands';
 $aTimeZones['America/Adak']['TZ']='AST10ADT';
 
 $aTimeZones['Pacific/Honolulu']['NAME']='US, Hawaii';
@@ -891,25 +891,25 @@ $aTimeZones['America/Indianapolis']['NAME']='US, Indiana';
 $aTimeZones['America/Indianapolis']['TZ']='EST5';
 $aTimeZones['America/Indiana/Indianapolis']['LINK']='America/Indianapolis';
 // Crawford County, Indiana
-// $aTimeZones['America/Indiana/Marengo']['NAME']='';
+$aTimeZones['America/Indiana/Marengo']['NAME']='US, Crawford County [IN]';
 $aTimeZones['America/Indiana/Marengo']['TZ']='EST5';
 // Starke County, Indiana
-//$aTimeZones['America/Indiana/Knox']['NAME']='';
+$aTimeZones['America/Indiana/Knox']['NAME']='US, Starke County [IN]';
 $aTimeZones['America/Indiana/Knox']['TZ']='EST5';
 // Switzerland County, Indiana
-//$aTimeZones['America/Indiana/Vevay']['NAME']='';
+$aTimeZones['America/Indiana/Vevay']['NAME']='US, Switzerland County [IN]';
 $aTimeZones['America/Indiana/Vevay']['TZ']='EST5';
-//$aTimeZones['America/Louisville']['NAME']='';
+$aTimeZones['America/Louisville']['NAME']='US, Louisville [KY';
 $aTimeZones['America/Louisville']['TZ']='EST5EDT';
 $aTimeZones['America/Kentucky/Louisville']['LINK']='America/Louisville';
 // Wayne, Clinton, and Russell Counties, Kentucky
-//$aTimeZones['America/Kentucky/Monticello']['NAME']='';
+$aTimeZones['America/Kentucky/Monticello']['NAME']='US, Wayne, Clinton, and Russell Counties [KY]';
 $aTimeZones['America/Kentucky/Monticello']['TZ']='EST5EDT';
 // Michigan
 $aTimeZones['America/Detroit']['NAME']='US, Michigan';
 $aTimeZones['America/Detroit']['TZ']='EST5EDT';
 // The Michigan border with Wisconsin switched from EST to CST/CDT in 1973.
-//$aTimeZones['America/Menominee']['NAME']='';
+$aTimeZones['America/Menominee']['NAME']='US, Menominee [MI]';
 $aTimeZones['America/Menominee']['TZ']='CST6CDT';
 
 $aTimeZones['EST5EDT']['LINK']='America/New_York';
@@ -930,9 +930,9 @@ $aTimeZones['America/St_Johns']['NAME']='Canada, Newfoundland';
 $aTimeZones['America/St_Johns']['TZ']='NST3:30NDT';
 $aTimeZones['America/Goose_Bay']['NAME']='Canada, Atlantic';
 $aTimeZones['America/Goose_Bay']['TZ']='AST4ADT'; // gmt-4 StJohns daylight savings
-$aTimeZones['America/Halifax']['NAME']='';
+//$aTimeZones['America/Halifax']['NAME']='';
 $aTimeZones['America/Halifax']['TZ']='AST4ADT'; // gmt-4 Canada daylight savings
-$aTimeZones['America/Glace_Bay']['NAME']='';
+//$aTimeZones['America/Glace_Bay']['NAME']='';
 $aTimeZones['America/Glace_Bay']['TZ']='AST4ADT'; // gmt-4 Canada daylight savings
 // Ontario, Quebec
 //$aTimeZones['America/Montreal']['NAME']='';
