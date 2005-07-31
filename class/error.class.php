@@ -14,6 +14,11 @@
 define('SQM_NOTICE',0);
 define('SQM_WARNING',1);
 define('SQM_ERROR',2);
+define('SQM_STRICT',3);
+// php5 E_STRICT constant (compatibility with php4)
+if (! defined('E_STRICT')) define('E_STRICT',2048);
+// Set docref_root (fixes URLs that link to php manual)
+if (ini_get('docref_root')=='') ini_set('docref_root','http://www.php.net/');
 
 /**
  * Error Handler class
@@ -62,11 +67,21 @@ class ErrorHandler {
                   );
         $iType = NULL;
         $aErrorCategory = array();
-        /*
-         * The following errors cannot be handled by a user defined error handler:
-         * E_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR, E_COMPILE_WARNING
+
+        /**
+         * Check error_reporting value before logging error.
+         * Don't log errors that are disabled by @ (error_reporting = 0). Some SquirrelMail scripts
+         * (sq_mb_list_encodings(), ldap function calls in functions/abook_ldap_server.php)
+         * handle errors themselves and @ is used to disable generic php error messages.
          */
-        switch ($iErrNo) {
+        if ((bool) ini_get('error_reporting')) {
+            /*
+             * The following errors cannot be handled by a user defined error handler:
+             * E_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR, E_COMPILE_WARNING
+             */
+            switch ($iErrNo) {
+            case E_STRICT:
+                $iType = (is_null($iType)) ? SQM_STRICT : $iType;
             case E_NOTICE:
                 $iType = (is_null($iType)) ? SQM_NOTICE : $iType;
             case E_WARNING:
@@ -74,8 +89,8 @@ class ErrorHandler {
                 $aErrorCategory[] = 'PHP';
                 $aError['message'] = $sErrStr;
                 $aError['extra'] = array(
-                                          'FILE' => $sErrFile,
-                                          'LINE' => $iErrLine) ;;
+                                         'FILE' => $sErrFile,
+                                         'LINE' => $iErrLine) ;;
                 // what todo with $aContext?
                 break;
             case E_USER_ERROR:
@@ -93,29 +108,29 @@ class ErrorHandler {
                         $aError = array_merge($aError,$aErrorTemp);
                         // special error handling below
                         if ($aError['category'] & SQM_ERROR_IMAP) {
-                             $aErrorCategory[] = 'IMAP';
-                             // imap related error handling inside
+                            $aErrorCategory[] = 'IMAP';
+                            // imap related error handling inside
                         }
                         if ($aError['category'] & SQM_ERROR_FS) {
-                             $aErrorCategory[] = 'FILESYSTEM';
-                             // filesystem related error handling inside
+                            $aErrorCategory[] = 'FILESYSTEM';
+                            // filesystem related error handling inside
                         }
                         if ($aError['category'] & SQM_ERROR_SMTP) {
-                             $aErrorCategory[] = 'SMTP';
-                             // smtp related error handling inside
+                            $aErrorCategory[] = 'SMTP';
+                            // smtp related error handling inside
                         }
                         if ($aError['category'] & SQM_ERROR_LDAP) {
-                             $aErrorCategory[] = 'LDAP';
-                             // ldap related error handling inside
+                            $aErrorCategory[] = 'LDAP';
+                            // ldap related error handling inside
                         }
                         if ($aError['category'] & SQM_ERROR_DB) {
-                             $aErrorCategory[] = 'DATABASE';
-                             // db related error handling inside
+                            $aErrorCategory[] = 'DATABASE';
+                            // db related error handling inside
                         }
                         if ($aError['category'] & SQM_ERROR_PLUGIN) {
-                             $aErrorCategory[] = 'PLUGIN';
-                             do_hook_function('error_handler_plugin',$aError);
-                             // plugin related error handling inside
+                            $aErrorCategory[] = 'PLUGIN';
+                            do_hook_function('error_handler_plugin',$aError);
+                            // plugin related error handling inside
                         }
                         //if ($aError['category'] & SQM_ERROR_X) {
                         //     $aErrorCategory[] = 'X';
@@ -129,17 +144,20 @@ class ErrorHandler {
                 }
                 break;
             default: break;
+            }
+
+            $aErrorTpl = array(
+                'type'      => $iType,
+                'category'  => $aErrorCategory,
+                'message'   => $aError['message'],
+                'link'      => $aError['link'],
+                'tip'       => $aError['tip'],
+                'extra'     => $aError['extra']);
+            // Add the notice/warning/error to the existing list of notices/warnings
+            $this->aErrors[] = $aErrorTpl;
+            $this->Template->assign('aErrors',$this->aErrors);
         }
-        $aErrorTpl = array(
-                    'type'      => $iType,
-                    'category'  => $aErrorCategory,
-                    'message'   => $aError['message'],
-                    'link'      => $aError['link'],
-                    'tip'       => $aError['tip'],
-                    'extra'     => $aError['extra']);
-        // Add the notice/warning/error to the existing list of notices/warnings
-        $this->aErrors[] = $aErrorTpl;
-        $this->Template->assign('aErrors',$this->aErrors);
+
         // Show the error immediate in case of fatal errors
         if ($iType == SQM_ERROR) {
             $this->DisplayErrors();
