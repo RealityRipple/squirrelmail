@@ -389,9 +389,16 @@ class abook_ldap_server extends addressbook_backend {
             $row = $res[$i];
 
             /* Extract data common for all e-mail addresses
-             * of an object. Use only the first name */
+             * of an object. Use only the first name */      
             $nickname = $this->charset_decode($row['dn']);
-            // TODO: remove basedn from $nickname
+
+            /**
+             * calculate length of basedn and remove it from nickname
+             * ignore whitespaces between RDNs
+             * Nicknames are shorter and still unique
+             */ 
+            $basedn_len=strlen(preg_replace('/,\s*/',',',trim($this->basedn)));
+            $nickname=substr(preg_replace('/,\s*/',',',$nickname),0,(-1 - $basedn_len));
 
             $fullname = $this->charset_decode($row['cn'][0]);
 
