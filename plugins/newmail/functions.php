@@ -6,6 +6,7 @@
  * @version $Id$
  * @package plugins
  * @subpackage newmail
+ * @todo add midi support
  */
 
 /** @ignore */
@@ -57,7 +58,7 @@ function newmail_optpage_register_block_function() {
  * Save newmail plugin settings
  */
 function newmail_sav_function() {
-    global $data_dir, $username, $_FILES;
+    global $data_dir, $username, $_FILES, $newmail_uploadsounds;
 
     if ( sqgetGlobalVar('submit_newmail', $submit, SQ_POST) ) {
         $media_enable = '';
@@ -99,7 +100,7 @@ function newmail_sav_function() {
         }
 
         // process uploaded file
-        if (isset($_FILES['media_file']['tmp_name']) && $_FILES['media_file']['tmp_name']!='') {
+        if ($newmail_uploadsounds && isset($_FILES['media_file']['tmp_name']) && $_FILES['media_file']['tmp_name']!='') {
             // set temp file and get media file name
             $newmail_tempmedia=getHashedDir($username, $data_dir) . "/$username.tempsound";
             $newmail_mediafile=getHashedFile($username, $data_dir, $username . '.sound');
@@ -142,6 +143,10 @@ function newmail_pref_function() {
     $newmail_recent = getPref($data_dir,$username,'newmail_recent');
     $newmail_enable = getPref($data_dir,$username,'newmail_enable');
     $newmail_media = getPref($data_dir, $username, 'newmail_media', '(none)');
+    // remove full location from setting (since SM 1.5.1 plugin uses only filename).
+    if ($newmail_media!='(none)')
+        $newmail_media = basename($newmail_media);
+
     $newmail_popup = getPref($data_dir, $username, 'newmail_popup');
     $newmail_popup_width = getPref($data_dir, $username, 'newmail_popup_width',200);
     $newmail_popup_height = getPref($data_dir, $username, 'newmail_popup_height',130);
@@ -423,9 +428,11 @@ function newmail_media_objects($object,$types,$path,$args=array(),$extra='',$add
     if ($extra!='')
         $ret.=$extra . "\n";
 
+    // close embed tags
     if (isset($newmail_mediacompat_mode) && $newmail_mediacompat_mode)
         $ret.= newmail_media_embed_close($types[0]);
 
+    // close w3.org nested objects
     foreach (array_reverse($types) as $type) {
         $ret.= newmail_media_object_close($type);
     }
@@ -509,6 +516,7 @@ function newmail_media_object($object,$type,$path,$args=array(),$addsuffix=true)
  * @param array $args media object attributes
  * @param bool $addsuffix controls addition of suffix to media object url
  * @return string object html tags and attributes required by selected media type.
+ * @todo add ogg and svg support 
  */
 function newmail_media_object_ie($object,$type,$path,$args=array(),$addsuffix) {
     $ret_ie='';
@@ -591,9 +599,31 @@ function newmail_media_embed($object,$type,$path,$args=array(),$addsuffix=true) 
             .' name="' . $object .'" ' . "\n"
             .' type="audio/x-wav">' . "\n";
         break;
-    case SM_NEWMAIL_FILETYPE_OGG:
-    case SM_NEWMAIL_FILETYPE_MP3:
     case SM_NEWMAIL_FILETYPE_SVG:
+        if ($addsuffix) $suffix='.svg';
+        $ret_embed='<embed src="' . $path . $object . $suffix . '" '. "\n"
+            .'hidden="true" autostart="true" '. "\n"
+            .$sArgs . "\n"
+            .'name="' . $object .'" ' . "\n"
+            .'type="image/svg-xml" ' . "\n"
+            .'pluginspage="http://www.adobe.com/svg/viewer/install/">' . "\n";
+        break;
+    case SM_NEWMAIL_FILETYPE_OGG:
+        if ($addsuffix) $suffix='.ogg';
+        $ret_embed='<embed src="' . $path . $object . $suffix . '" '. "\n"
+            .' hidden="true" autostart="true" '. "\n"
+            .' ' .$sArgs . "\n"
+            .' name="' . $object .'" ' . "\n"
+            .' type="application/ogg">' . "\n";
+        break;
+    case SM_NEWMAIL_FILETYPE_MP3:
+        if ($addsuffix) $suffix='.mp3';
+        $ret_embed='<embed src="' . $path . $object . $suffix . '" '. "\n"
+            .' hidden="true" autostart="true" '. "\n"
+            .' ' .$sArgs . "\n"
+            .' name="' . $object .'" ' . "\n"
+            .' type="audio/mpeg">' . "\n";
+        break;
     default:
         $ret_embed='';
     }
@@ -658,11 +688,11 @@ function newmail_media_embed_close($type) {
     switch ($type) {
     case SM_NEWMAIL_FILETYPE_SWF:
     case SM_NEWMAIL_FILETYPE_WAV:
-       $ret_end="</embed>\n";
-        break;
     case SM_NEWMAIL_FILETYPE_OGG:
     case SM_NEWMAIL_FILETYPE_MP3:
     case SM_NEWMAIL_FILETYPE_SVG:
+       $ret_end="</embed>\n";
+        break;
     default:
         $ret_end='';
     }
