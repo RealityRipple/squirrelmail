@@ -8,8 +8,15 @@
  * @subpackage newmail
  */
 
-// Set $allowsound to false if you don't want sound files available
+// Set $newmail_allowsound to false if you don't want sound files available
 $newmail_allowsound = true;
+
+/**
+ * Don't allow custom sounds 
+ * prefs are stored in DB and data directory is not shared between
+ * web cluster hosts.
+ */
+$newmail_uploadsounds = false;
 
 // controls insertion of embed tags
 $newmail_mediacompat_mode=false;

@@ -141,13 +141,13 @@ if ($newmail_allowsound) {
     // Iterate sound files for options
     $d = dir(SM_PATH . 'plugins/newmail/sounds');
     while($entry=$d->read()) {
-        $fname = get_location () . '/sounds/' . $entry;
+        // $fname = get_location () . '/sounds/' . $entry;
         if ($entry != '..' && $entry != '.' && $entry != 'CVS') {
             echo '<option ';
-            if ($fname == $newmail_media) {
+            if ($entry == $newmail_media) {
                 echo 'selected="selected" ';
             }
-            echo 'value="' . htmlspecialchars($fname) . '">' .
+            echo 'value="' . htmlspecialchars($entry) . '">' .
                 htmlspecialchars($entry) . "</option>\n";
         }
     }
@@ -161,14 +161,17 @@ if ($newmail_allowsound) {
         echo 'value="mmedia_' . $newmail_mm_name . '">'
             .htmlspecialchars($newmail_mm_name) . "</option>\n";
     }
-    // display local file option
-    echo '<option ';
-    if ($newmail_media=='(userfile)') {
-        echo 'selected="selected" ';
+
+    if($newmail_uploadsounds) {
+        // display local file option
+        echo '<option ';
+        if ($newmail_media=='(userfile)') {
+            echo 'selected="selected" ';
+        }
+        echo 'value="(userfile)">'.
+            _("uploaded media file") . "</option>\n";
+        // end of local file option
     }
-    echo 'value="(userfile)">'.
-        _("uploaded media file") . "</option>\n";
-    // end of local file option
 
     // Set media file name
     if ($newmail_media == '(none)') {
@@ -178,7 +181,7 @@ if ($newmail_allowsound) {
     } elseif (preg_match("/^mmedia_+/",$newmail_media)) {
         $media_output = preg_replace("/^mmedia_/",'',$newmail_media);
     } else {
-        $media_output = substr($newmail_media, strrpos($newmail_media, '/')+1);
+        $media_output = basename($newmail_media);
     }
 
     echo '</select>'.
@@ -187,21 +190,24 @@ if ($newmail_allowsound) {
             "'width=150,height=30,scrollbars=no');" .
             'return false;' .
             '" /></td></tr>';
-    echo  html_tag('tr')
-        . html_tag('td',_("Upload Media File:"),'right','','style="white-space: nowrap;"')
-        . html_tag('td','<input type="file" size="40" name="media_file">')
-        . "</tr>\n";
-
-    echo  html_tag('tr')
-        . html_tag('td',_("Uploaded Media File:"),'right','','style="white-space: nowrap;"')
-        . html_tag('td',($newmail_userfile_name!='' ? htmlspecialchars($newmail_userfile_name) : _("unavailable")))
-        ."</tr>\n";
-
-    if ($newmail_userfile_name!='') {
-        echo '<tr>'
-            .'<td colspan="2" align="center">'
-            .sprintf(_("Media file %s will be removed, if you upload other media file."),basename($newmail_userfile_name))
-            .'</td></tr>';
+    if ($newmail_uploadsounds) {
+        // upload form
+        echo  html_tag('tr')
+            . html_tag('td',_("Upload Media File:"),'right','','style="white-space: nowrap;"')
+            . html_tag('td','<input type="file" size="40" name="media_file">')
+            . "</tr>\n";
+        // display currently uploaded file information
+        echo  html_tag('tr')
+            . html_tag('td',_("Uploaded Media File:"),'right','','style="white-space: nowrap;"')
+            . html_tag('td',($newmail_userfile_name!='' ? htmlspecialchars($newmail_userfile_name) : _("unavailable")))
+            ."</tr>\n";
+    
+        if ($newmail_userfile_name!='') {
+            echo '<tr>'
+                .'<td colspan="2" align="center">'
+                .sprintf(_("Media file %s will be removed, if you upload other media file."),basename($newmail_userfile_name))
+                .'</td></tr>';
+        }
     }
     echo html_tag( 'tr', "\n" .
                 html_tag( 'td', _("Current File:"), 'right', '', 'style="white-space: nowrap;"' ) .

@@ -28,7 +28,7 @@ $newmail_userfile_type=getPref($data_dir,$username,'newmail_userfile_type',false
 
 $newmail_userfile_location=getHashedFile($username, $data_dir, $username . '.sound');
 
-if ($newmail_userfile_type!=false && file_exists($newmail_userfile_location)) {
+if ($newmail_uploadsounds && $newmail_userfile_type!=false && file_exists($newmail_userfile_location)) {
     // open media file
     $newmail_userfile_handle = fopen($newmail_userfile_location,'rb');
     if ($newmail_userfile_handle) {

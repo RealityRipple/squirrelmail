@@ -9,11 +9,19 @@
  */
 
 /**
- * Set $allowsound to false if you don't want sound files available
+ * Set $newmail_allowsound to false if you don't want sound files available
  * @global boolean $newmail_allowsound
  */
 global $newmail_allowsound;
 $newmail_allowsound = true;
+
+/**
+ * Set $newmail_uploadsounds to false if you don't want to allow uploading 
+ * of custom sound files.
+ * @global boolean $newmail_uploadsounds
+ */
+global $newmail_uploadsounds;
+$newmail_uploadsounds = true;
 
 /**
  * controls insertion of embed tags
@@ -30,9 +38,9 @@ $newmail_mediacompat_mode=false;
  * $newmail_mmedia['notify']['args']  = array('width'=>0,'height'=>0);
  *
  * These two entries say that media/ directory contains notify.swf, notify.mp3 and notify.wav files
- * Object entities for these files should be use zero width and height attributes
+ * Object elements for these files should use zero width and height attributes
  * @global array $newmail_mmedia
  */
- global $newmail_mmedia;
+global $newmail_mmedia;
 $newmail_mmedia=array();
 ?>
