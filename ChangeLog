@@ -403,7 +403,7 @@ Version 1.5.1 -- CVS
   - Added extra checks in delivery class for In-Reply-To header. Fixes
     E_NOTICE level warnings in php 5.0.4 and later (#1206474). [php5]
   - Added extra checks in SquirrelMail charset_encode() function in case
-    somebody removed html to us-ascii conversion library (#1239782).
+    somebody removes HTML to US-ASCII conversion library (#1239782).
   - Fixed invalid reference in src/download.php. E_NOTICE level warnings
     could corrupt attachments in php 4.4.0.
   - Added internal dgettext() and dngettext() functions.
@@ -411,6 +411,10 @@ Version 1.5.1 -- CVS
   - Added workarounds for encoding of long multibyte headers (#1246305) 
     and sq_count8bit() function.
   - Added custom error handling class and related functions.
+  - Added option to disable upload of sounds in newmail plugin.
+  - Removed full URL from sound file preferences in newmail plugin 
+    (#1233530).
+  - Stripped BaseDN from nicknames in address book's ldap_server backend.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
