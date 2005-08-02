@@ -408,8 +408,6 @@ Version 1.5.1 -- CVS
     could corrupt attachments in php 4.4.0.
   - Added internal dgettext() and dngettext() functions.
   - Added display of attachments on printer friendly page.
-  - Added workarounds for encoding of long multibyte headers (#1246305) 
-    and sq_count8bit() function.
   - Added custom error handling class and related functions.
   - Added option to disable upload of sounds in newmail plugin.
   - Removed full URL from sound file preferences in newmail plugin 
@@ -417,6 +415,8 @@ Version 1.5.1 -- CVS
   - Stripped BaseDN from nicknames in address book's ldap_server backend.
   - Fixed error handling in SquirrelSpell plugin. sprintf and gettext
     formating errors in check_me.mod. Reported by Edward Chapman.
+  - Translations are loaded automatically from locale/<localename>/setup.php 
+    files (#1240889).
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
