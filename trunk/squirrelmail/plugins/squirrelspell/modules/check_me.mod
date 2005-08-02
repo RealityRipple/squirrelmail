@@ -98,12 +98,24 @@ if( check_php_version ( 4, 3 ) ) {
     );
     $spell_proc = @proc_open($sqspell_command, $descriptorspec, $pipes);
     if ( ! is_resource ( $spell_proc ) ) {
-        error_box ( _("Could not run the spellchecker command (%s).",
+        // TODO: replace error_box() with sqspell_makeWindow()
+        error_box ( sprintf(_("Could not run the spellchecker command (%s)."),
             htmlspecialchars($sqspell_command) ) , $color );
+        // close html tags and abort script.
+        echo "</body></html>";
+        exit();
     }
     if ( ! @fwrite($pipes[0], $sqspell_new_text) ) {
-        error_box ( _("Error while writing to pipe.",
-            htmlspecialchars($floc) ) , $color );
+        // TODO: replace error_box() with sqspell_makeWindow()
+        error_box ( _("Error while writing to pipe.") , $color );
+        // close all three $pipes here.
+        for($i=0; $i<=2; $i++) {
+            // disable all fclose error messages
+            @fclose($pipes[$i]);
+        }
+        // close html tags and abort script.
+        echo "</body></html>";
+        exit();
     }
     fclose($pipes[0]);
     $sqspell_output = array();
@@ -115,17 +127,33 @@ if( check_php_version ( 4, 3 ) ) {
     }
     $sqspell_exitcode=proc_close($spell_proc);
 } else {
+    // add slash to attachment directory, if it does not end with slash. 
+    if (substr($attachment_dir, -1) != '/')
+        $attachment_dir = $attachment_dir . '/';
+
+    // find unused file in attachment directory
     do {
-      $floc = "$attachment_dir/" . md5($sqspell_new_text . microtime());
+        $floc = $attachment_dir . md5($sqspell_new_text . microtime());
     } while (file_exists($floc));
+
     $fp = @fopen($floc, 'w');
     if ( ! is_resource ($fp) ) {
-        error_box ( _("Could not open temporary file '%s'.",
+        // TODO: replace error_box() with sqspell_makeWindow()
+        error_box ( sprintf(_("Could not open temporary file '%s'."),
             htmlspecialchars($floc) ) , $color );
+        // failed to open temp file. abort script.
+        echo "</body></html>";
+        exit();
     }
     if ( ! @fwrite($fp, $sqspell_new_text) ) {
-        error_box ( _("Error while writing to temporary file '%s'.",
+        // TODO: replace error_box() with sqspell_makeWindow()
+        error_box ( sprintf(_("Error while writing to temporary file '%s'."),
             htmlspecialchars($floc) ) , $color );
+        // close file descriptor
+        fclose($fp);
+        // failed writing to temp file. abort script.
+        echo "</body></html>";
+        exit();
     }
     fclose($fp);
     exec("$sqspell_command < $floc 2>&1", $sqspell_output, $sqspell_exitcode);
