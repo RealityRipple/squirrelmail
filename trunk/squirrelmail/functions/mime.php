@@ -326,7 +326,7 @@ function translateText(&$body, $wrap_at, $charset) {
  * @param string $ent_num (since 1.3.0) message part id
  * @param integer $id (since 1.3.0) message id
  * @param string $mailbox (since 1.3.0) imap folder name
- * @param boolean $clean (since 1.5.1 and 1.4.6) Do not output stuff that's irrelevant for the printable version.
+ * @param boolean $clean (since 1.5.1) Do not output stuff that's irrelevant for the printable version.
  * @return string html formated message text
  */
 function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $mailbox='INBOX', $clean=FALSE) {
