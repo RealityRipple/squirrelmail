@@ -2,6 +2,4 @@
 #
 # Redirects to the config directory and runs conf.pl
 
-cd config
-./conf.pl
-cd ..
+cd `dirname $0`/config && ./conf.pl

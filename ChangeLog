@@ -417,6 +417,7 @@ Version 1.5.1 -- CVS
     formating errors in check_me.mod. Reported by Edward Chapman.
   - Translations are loaded automatically from locale/<localename>/setup.php 
     files (#1240889).
+  - Allow configure to be ran from any directory, thanks Ceri Davies.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
