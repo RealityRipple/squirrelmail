@@ -415,6 +415,8 @@ Version 1.5.1 -- CVS
   - Removed full URL from sound file preferences in newmail plugin 
     (#1233530).
   - Stripped BaseDN from nicknames in address book's ldap_server backend.
+  - Fixed error handling in SquirrelSpell plugin. sprintf and gettext
+    formating errors in check_me.mod. Reported by Edward Chapman.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
