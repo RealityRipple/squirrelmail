@@ -326,7 +326,7 @@ function translateText(&$body, $wrap_at, $charset) {
  * @param string $ent_num (since 1.3.0) message part id
  * @param integer $id (since 1.3.0) message id
  * @param string $mailbox (since 1.3.0) imap folder name
- * @param boolean $clean (since 1.5.1) Do not output stuff that's irrelevant for the printable version.
+ * @param boolean $clean (since 1.5.1 and 1.4.6) Do not output stuff that's irrelevant for the printable version.
  * @return string html formated message text
  */
 function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $mailbox='INBOX', $clean=FALSE) {
@@ -804,13 +804,13 @@ function encodeHeader ($string) {
     }
 
     // Use B encoding for multibyte charsets
+    /*
     $mb_charsets = array('utf-8','big-5','gb2313','euc-kr');
     if (function_exists('mb_encode_mimeheader') && 
         in_array($default_charset,$mb_charsets) &&
-        in_array($default_charset,sq_mb_list_encodings()) &&
-        sq_count8bit($string)>=(strlen($string)/2)) {
+        in_array($default_charset,sq_mb_list_encodings())) {
         return mb_encode_mimeheader($string,$default_charset,'B',"\r\n");
-    }
+    }*/
 
     // Encode only if the string contains 8-bit characters or =?
     $j = strlen($string);
