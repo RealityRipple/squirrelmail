@@ -69,12 +69,22 @@ class ErrorHandler {
         $aErrorCategory = array();
 
         /**
+         * Get current error reporting level.
+         *
+         * PHP 4.1.2 does not return current error reporting level in ini_get (php 5.1b3 and 
+         * 4.3.10 does). Retrieve current error reporting level while setting error reporting 
+         * to ini value and reset it to retrieved value.
+         */
+        $iCurErrLevel = error_reporting(ini_get('error_reporting'));
+        error_reporting($iCurErrLevel);
+
+        /**
          * Check error_reporting value before logging error.
          * Don't log errors that are disabled by @ (error_reporting = 0). Some SquirrelMail scripts
          * (sq_mb_list_encodings(), ldap function calls in functions/abook_ldap_server.php)
          * handle errors themselves and @ is used to disable generic php error messages.
          */
-        if ((bool) ini_get('error_reporting')) {
+        if ((bool) $iCurErrLevel) {
             /*
              * The following errors cannot be handled by a user defined error handler:
              * E_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR, E_COMPILE_WARNING
