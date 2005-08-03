@@ -90,7 +90,7 @@ $output = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\">\n".
 if ($err==2) {
     echo $output.
          "<body>\n".
-         "<p>You need to have php4 installed with the multibyte string function \n".
+         "<p>You need to have PHP installed with the multibyte string function \n".
          "enabled (using configure option --enable-mbstring).</p>\n".
          "<p>System assumed that you accidently switched to Japanese translation \n".
          "and reverted your language preference to English.</p>\n".

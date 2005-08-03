@@ -3,7 +3,7 @@ http://www.squirrelmail.org
 
 Introduction:
 -------------
-SquirrelMail is a standards-based webmail package written in PHP4. It
+SquirrelMail is a standards-based webmail package written in PHP. It
 includes built-in pure PHP support for the IMAP and SMTP protocols, and all
 pages render in pure HTML 4.0 (with no Javascript) for maximum compatibility
 across browsers. It has very few requirements and is very easy to configure
@@ -17,7 +17,7 @@ Obviously a web interface is ideal for this, given that the user has access
 to the Internet.  After reviewing several open source projects, we realized
 that we were going to need to do some fairly major customizations to get
 things to be a nice fit for our needs.  So the decision was made to create
-our own for some of these reasons, and for fun (we really like PHP4).  We
+our own for some of these reasons, and for fun (we really like PHP).  We
 decided to open source the project to contribute to the community that has
 contributed so much to us.  Since then, it has grown much bigger than we
 ever imagined, and we have an awesome development team who are actively
