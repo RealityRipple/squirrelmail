@@ -682,16 +682,21 @@ $languages['en']['ALIAS'] = 'en_US';
  * Solution for bug. 1240889.
  * setup.php file can contain $languages array entries and XTRA_CODE functions.
  */
-foreach(glob(SM_PATH.'locale/*') as $lang_dir) {
-    // remove trailing slash, if present
-    if (substr($lang_dir,-1)=='/') {
-        $lang_dir = substr($lang_dir,0,-1);
+if (is_dir(SM_PATH . 'locale') &&
+    is_readable(SM_PATH . 'locale')) {
+    $localedir = dir(SM_PATH . 'locale');
+    while($lang_dir=$localedir->read()) {
+        // remove trailing slash, if present
+        if (substr($lang_dir,-1)=='/') {
+            $lang_dir = substr($lang_dir,0,-1);
+        }
+        if ($lang_dir != '..' && $lang_dir != '.' && $lang_dir != 'CVS' &&
+            is_dir(SM_PATH.'locale/'.$lang_dir) && 
+            file_exists(SM_PATH.'locale/'.$lang_dir.'/setup.php')) {
+            include_once(SM_PATH.'locale/'.$lang_dir.'/setup.php');
+        }
     }
-    // load language setup
-    if (is_dir(SM_PATH.'locale/'.$lang_dir) && 
-        file_exists(SM_PATH.'locale/'.$lang_dir.'/setup.php')) {
-        include_once(SM_PATH.'locale/'.$lang_dir.'/setup.php');
-    }
+    $localedir->close();
 }
 
 /* Detect whether gettext is installed. */
