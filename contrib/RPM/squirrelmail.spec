@@ -27,13 +27,13 @@ Group: Applications/Internet
 Source: %{name}-%{version}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildArch: noarch
-Requires: %{webserver}, php >= 4.0.4, perl, tmpwatch >= 2.8, aspell
+Requires: %{webserver}, php >= 4.1.0, perl, tmpwatch >= 2.8, aspell
 Requires: /usr/sbin/sendmail
 Prereq: %{webserver}, perl
 BuildPrereq: perl
 
 %description
-SquirrelMail is a standards-based webmail package written in PHP4. It
+SquirrelMail is a standards-based webmail package written in PHP. It
 includes built-in pure PHP support for the IMAP and SMTP protocols, and
 all pages render in pure HTML 4.0 (with no Javascript) for maximum
 compatibility across browsers.  It has very few requirements and is very

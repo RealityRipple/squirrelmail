@@ -100,7 +100,7 @@
       <p>
       SquirrelMail uses the IMAP protocol, info on it can be found 
       <a href="http://imap.org"/>here</a>.  The program also uses 
-      its own IMAP functions, not those built in to PHP4.  This won't 
+      its own IMAP functions, not those built in to PHP.  This won't 
       matter to anybody except those responsible for installing it, 
       but trust us when we say they appreciate it.
       </p>
