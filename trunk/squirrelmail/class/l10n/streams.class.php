@@ -58,7 +58,8 @@ class FileReader {
      * @return boolean false there is a problem with $filename
      */
     function FileReader($filename) {
-        if (file_exists($filename)) {
+        // disable stat warnings for unreadable directories
+        if (@file_exists($filename)) {
 
             $this->_length=filesize($filename);
             $this->_pos = 0;
