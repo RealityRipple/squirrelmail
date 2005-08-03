@@ -2109,7 +2109,6 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
                         "\\1$secremoveimg\\2",
                         "\\1$secremoveimg\\2",
                         "\\1$secremoveimg\\2",
-                        "\\1$secremoveimg\\2"
                         )
                     ),
                 "/^href|action/i" =>
@@ -2120,7 +2119,6 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
                         "/^([\'\"])\s*about\s*:.*([\'\"])/si"
                         ),
                     Array(
-                        "\\1#\\1",
                         "\\1#\\1",
                         "\\1#\\1",
                         "\\1#\\1"
@@ -2148,8 +2146,6 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
                     "url(\\1#\\1)",
                     "url(\\1#\\1)",
                     "url(\\1#\\1)",
-                    "url(\\1#\\1)",
-                    "url(\\1#\\1)",
                     "\\1:url(\\2#\\3)"
                     )
                 )
@@ -2168,7 +2164,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
         array_push($bad_attvals{'/.*/'}{'/^src|background/i'}[1],
                 "\\1$secremoveimg\\1");
         array_push($bad_attvals{'/.*/'}{'/^style/i'}[0],
-                '/url\(([\'\"])\s*https*:.*([\'\"])\)/si');
+                '/url\([\'\"]?https?:[^\)]*[\'\"]?\)/si');
         array_push($bad_attvals{'/.*/'}{'/^style/i'}[1],
                 "url(\\1$secremoveimg\\1)");
     }
