@@ -12,9 +12,6 @@
  * @subpackage administrator
  */
 
-/** @ignore */
-require_once(SM_PATH . 'plugins/administrator/auth.php');
-
 /**
  * Init the plugin
  * @access private
@@ -22,10 +19,8 @@ require_once(SM_PATH . 'plugins/administrator/auth.php');
 function squirrelmail_plugin_init_administrator() {
     global $squirrelmail_plugin_hooks;
 
-    if ( adm_check_user() ) {
-        $squirrelmail_plugin_hooks['optpage_register_block']['administrator'] =
-                                  'squirrelmail_administrator_optpage_register_block';
-    }
+    $squirrelmail_plugin_hooks['optpage_register_block']['administrator'] =
+        'squirrelmail_administrator_optpage_register_block';
 }
 
 /**
@@ -33,13 +28,18 @@ function squirrelmail_plugin_init_administrator() {
  * @access private
  */
 function squirrelmail_administrator_optpage_register_block() {
-    global $optpage_blocks;
+    /** add authentication functions */
+    include_once(SM_PATH . 'plugins/administrator/auth.php');
 
-    $optpage_blocks[] = array(
-        'name' => _("Administration"),
-        'url'  => SM_PATH . 'plugins/administrator/options.php',
-        'desc' => _("This module allows administrators to manage SquirrelMail main configuration remotely."),
-        'js'   => false
-    );
+    if ( adm_check_user() ) {
+        global $optpage_blocks;
+
+        $optpage_blocks[] = array(
+            'name' => _("Administration"),
+            'url'  => SM_PATH . 'plugins/administrator/options.php',
+            'desc' => _("This module allows administrators to manage SquirrelMail main configuration remotely."),
+            'js'   => false
+            );
+    }
 }
 ?>
