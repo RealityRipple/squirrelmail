@@ -73,8 +73,8 @@ class ErrorHandler {
         /**
          * Get current error reporting level.
          *
-         * PHP 4.1.2 does not return current error reporting level in ini_get (php 5.1b3 and 
-         * 4.3.10 does). Retrieve current error reporting level while setting error reporting 
+         * PHP 4.1.2 does not return current error reporting level in ini_get (php 5.1b3 and
+         * 4.3.10 does). Retrieve current error reporting level while setting error reporting
          * to ini value and reset it to retrieved value.
          */
         $iCurErrLevel = error_reporting(ini_get('error_reporting'));
@@ -86,7 +86,7 @@ class ErrorHandler {
          * (sq_mb_list_encodings(), ldap function calls in functions/abook_ldap_server.php)
          * handle errors themselves and @ is used to disable generic php error messages.
          */
-        if ((bool) $iCurErrLevel) {
+        if ($iErrNo & $iCurErrLevel) {
             /*
              * The following errors cannot be handled by a user defined error handler:
              * E_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR, E_COMPILE_WARNING
