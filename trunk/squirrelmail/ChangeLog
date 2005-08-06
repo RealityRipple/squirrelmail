@@ -418,6 +418,10 @@ Version 1.5.1 -- CVS
   - Translations are loaded automatically from locale/<localename>/setup.php 
     files (#1240889).
   - Allow configure to be ran from any directory, thanks Ceri Davies.
+  - Removed $available_languages configuration option. List is limited to
+    installed translations. Similar feature is implemented in limit_languages
+    plugin.
+  - Don't load plugins/administrator/auth.php during plugin initiation.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------

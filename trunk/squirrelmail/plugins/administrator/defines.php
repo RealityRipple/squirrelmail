@@ -10,6 +10,9 @@
  * @subpackage administrator
  */
 
+/** @ignore */
+if (!defined('SM_PATH')) define('SM_PATH','../../');
+
 /** */
 require_once( SM_PATH . 'functions/constants.php' );
 
@@ -31,7 +34,7 @@ define('SMOPT_TYPE_LDAP', 12);
 define('SMOPT_TYPE_EXTERNAL', 32);
 define('SMOPT_TYPE_PATH',33);
 
-global $languages;
+global $languages, $version;
 
 $language_values = array( );
 foreach ($languages as $lang_key => $lang_attributes) {
@@ -331,9 +334,6 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                                                                   'iso-2022-jp' => 'iso-2022-jp' ) ),
                  '$show_alternative_names'  => array( 'name' => _("Show alternative language names"),
                                                       'type' => SMOPT_TYPE_BOOLEAN ),
-                 '$available_languages' => array( 'name' => _("Available languages"),
-                                                  'type' => SMOPT_TYPE_STRING,
-                                                  'size' => 40 ),
                  '$aggressive_decoding'  => array( 'name' => _("Enable aggressive decoding"),
                                                  'type' => SMOPT_TYPE_BOOLEAN ),
                  '$lossy_encoding'  => array( 'name' => _("Enable lossy encoding"),
