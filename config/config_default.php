@@ -896,19 +896,6 @@ $squirrelmail_default_language = 'en_US';
 $default_charset = 'iso-8859-1';
 
 /**
- * Available Languages
- *
- * This option controls number of languages available to end user in
- * language selection preferences. You can use space separated list
- * of translations installed in locale/ directory or special keys
- * 'all' (all languages are available) and 'none' (language selection
- * is disabled, interface is set to $squirrelmail_default_language
- * @global string $available_languages
- * @since 1.5.0
- */
-$available_languages   = 'all';
-
-/**
  * Alternative Language Names Control
  *
  * This options allows displaying native language names in language

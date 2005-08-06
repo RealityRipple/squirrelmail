@@ -339,7 +339,9 @@ $skip_SM_header = 'false'               if ( !$skip_SM_header );
 $default_use_javascript_addr_book = 'false' if (! $default_use_javascript_addr_book);
 # since 1.5.0
 $show_alternative_names = 'false'       if ( !$show_alternative_names );
-$available_languages = 'all'            if ( !$available_languages );
+# $available_languages option available only in 1.5.0. removed due to $languages
+# implementation changes. options are provided by limit_languages plugin
+# $available_languages = 'all'            if ( !$available_languages );
 $aggressive_decoding = 'false'          if ( !$aggressive_decoding );
 $advanced_tree = 'false'                if ( !$advanced_tree );
 $use_php_recode = 'false'               if ( !$use_php_recode );
@@ -621,9 +623,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
     print "1.  Default Language                : $WHT$squirrelmail_default_language$NRM\n";
     print "2.  Default Charset                 : $WHT$default_charset$NRM\n";
     print "3.  Show alternative language names : $WHT$show_alternative_names$NRM\n";
-    print "4.  Available languages             : $WHT$available_languages$NRM\n";
-    print "5.  Enable aggressive decoding      : $WHT$aggressive_decoding$NRM\n";
-    print "6.  Enable lossy encoding           : $WHT$lossy_encoding$NRM\n";
+    print "4.  Enable aggressive decoding      : $WHT$aggressive_decoding$NRM\n";
+    print "5.  Enable lossy encoding           : $WHT$lossy_encoding$NRM\n";
     print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 11 ) {
@@ -788,11 +789,10 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 11 ) { $addrbook_global_listing  = command911(); }
         } elsif ( $menu == 10 ) {
             if    ( $command == 1 ) { $squirrelmail_default_language = commandA1(); }
-            elsif ( $command == 2 ) { $default_charset           = commandA2(); }
+            elsif ( $command == 2 ) { $default_charset               = commandA2(); }
             elsif ( $command == 3 ) { $show_alternative_names        = commandA3(); }
-            elsif ( $command == 4 ) { $available_languages         = commandA4(); }
-            elsif ( $command == 5 ) { $aggressive_decoding         = commandA5(); }
-            elsif ( $command == 6 ) { $lossy_encoding         = commandA6(); }
+            elsif ( $command == 4 ) { $aggressive_decoding           = commandA4(); }
+            elsif ( $command == 5 ) { $lossy_encoding                = commandA5(); }
         } elsif ( $menu == 11 ) {
             if    ( $command == 1 ) { $advanced_tree  = commandB1(); }
             if    ( $command == 2 ) { $use_iframe     = commandB2(); }
@@ -3110,9 +3110,8 @@ sub commandA2 {
 # Alternative language names
 sub commandA3 {
     print "Enable this option if you want to see localized language names in\n";
-    print "language selection box. Note, that if don't limit list of available\n";
-    print "languages, this option can trigger installation of foreign language\n";
-    print "support modules in some browsers.\n";
+    print "language selection box. Note, that this option can trigger\n";
+    print "installation of foreign language support modules in some browsers.\n";
     print "\n";
 
     if ( lc($show_alternative_names) eq 'true' ) {
@@ -3129,30 +3128,9 @@ sub commandA3 {
     }
     return $show_alternative_names;
 }
-# Available languages
-sub commandA4 {
-    print "This option allows to limit number of languages available in\n";
-    print "language selection box. You can enter as code of every language that\n";
-    print "you want to enable. Language codes should be separated by space. If you\n";
-    print "enter name unsupported by SquirrelMail, it will be ignored. If you enter\n";
-    print "special key \'all\' - all languages available in SquirrelMail will be\n";
-    print "listed. If you enter special key \'none\' - user won't be able to change";
-    print "language and interface will use language set it \"Default language\" option.\n";
-    print "\n";
-    print "You can find valid language names in doc/i18n.txt.\n";
-    print "\n";
-    print "[$WHT$available_languages$NRM]: $WHT";
-    $new_available_languages = <STDIN>;
-    if ( $new_available_languages eq "\n" ) {
-        $new_available_languages = $available_languages;
-    } else {
-        $new_available_languages =~ s/[\r\n]//g;
-        $new_available_languages =~ s/^\s+$//g;
-    }
-    return $new_available_languages;
-}
+
 # Aggressive decoding
-sub commandA5 {
+sub commandA4 {
     print "Enable this option if you want to use CPU and memory intensive decoding\n";
     print "functions. This option allows reading multibyte charset, that are used\n";
     print "in Eastern Asia. SquirrelMail will try to use recode functions here,\n";
@@ -3175,7 +3153,7 @@ sub commandA5 {
 }
 
 # Lossy encoding
-sub commandA6 {
+sub commandA5 {
     print "Enable this option if you want to allow lossy charset encoding in message\n";
     print "composition pages. This option allows charset conversions when output\n";
     print "charset does not support all symbols used in original charset. Symbols\n";
@@ -3391,8 +3369,6 @@ sub save_data {
         print CF "\$default_charset          = '$default_charset';\n";
         # boolean
         print CF "\$show_alternative_names   = $show_alternative_names;\n";
-        # string
-        print CF "\$available_languages   = '$available_languages';\n";
         # boolean
         print CF "\$aggressive_decoding   = $aggressive_decoding;\n";
         # boolean
