@@ -11,10 +11,12 @@
  * @package squirrelmail
  */
 
+/** Used defines */
 define('SQM_NOTICE',0);
 define('SQM_WARNING',1);
 define('SQM_ERROR',2);
 define('SQM_STRICT',3);
+
 // php5 E_STRICT constant (compatibility with php4)
 if (! defined('E_STRICT')) define('E_STRICT',2048);
 // Set docref_root (fixes URLs that link to php manual)

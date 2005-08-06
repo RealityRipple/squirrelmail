@@ -1,15 +1,16 @@
 <?php
 
 /**
-* errors.php
-*
-* Copyright (c) 2005 The SquirrelMail Project Team
-* Licensed under the GNU GPL. For full terms see the file COPYING.
-*
-* @version $Id$
-* @package squirrelmail
-*/
+ * errors.php
+ *
+ * Copyright (c) 2005 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * @version $Id$
+ * @package squirrelmail
+ */
 
+/** init error array */
 $aError = array();
 
 define('SQM_ERROR_IMAP',1);
