@@ -36,4 +36,4 @@ fi
 
 echo "Compiling $LOCALEDIR/LC_MESSAGES/squirrelmail.po"
 msgfmt -o $LOCALEDIR/LC_MESSAGES/squirrelmail.mo \
-     $LOCALEDIR/LC_MESSAGES/squirrelmail.po
+     -c $LOCALEDIR/LC_MESSAGES/squirrelmail.po
