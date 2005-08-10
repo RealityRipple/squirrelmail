@@ -179,7 +179,7 @@ class abook_database extends addressbook_backend {
      * @param string $expr search expression
      * @return array search results
      */
-    function &search($expr) {
+    function search($expr) {
         $ret = array();
         if(!$this->open()) {
             return false;
@@ -228,7 +228,7 @@ class abook_database extends addressbook_backend {
      * @param string $alias alias
      * @return array search results
      */
-    function &lookup($alias) {
+    function lookup($alias) {
         if (empty($alias)) {
             return array();
         }
@@ -266,7 +266,7 @@ class abook_database extends addressbook_backend {
      * List all addresses
      * @return array search results
      */
-    function &list_addr() {
+    function list_addr() {
         $ret = array();
         if (!$this->open()) {
             return false;
