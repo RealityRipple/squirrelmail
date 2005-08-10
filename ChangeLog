@@ -422,6 +422,9 @@ Version 1.5.1 -- CVS
     installed translations. Similar feature is implemented in limit_languages
     plugin.
   - Don't load plugins/administrator/auth.php during plugin initiation.
+  - Removed function references from address book database backend class, 
+    list_addr(), lookup() and search() functions. Referenced lookup() 
+    function caused E_NOTICE warnings in php 4.4.0. Reported by Cor Bosman.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
