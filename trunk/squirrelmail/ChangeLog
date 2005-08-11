@@ -425,6 +425,8 @@ Version 1.5.1 -- CVS
   - Removed function references from address book database backend class, 
     list_addr(), lookup() and search() functions. Referenced lookup() 
     function caused E_NOTICE warnings in php 4.4.0. Reported by Cor Bosman.
+  - Test to ensure folder exists before attempting to delete it, otherwise
+    IMAP server will return an error.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------

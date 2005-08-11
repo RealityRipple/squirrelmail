@@ -431,16 +431,20 @@ function sqimap_unsubscribe ($imap_stream, $mailbox) {
 function sqimap_mailbox_delete ($imap_stream, $mailbox) {
     global $data_dir, $username;
     sqimap_unsubscribe ($imap_stream, $mailbox);
-    $read_ary = sqimap_run_command($imap_stream, 'DELETE ' .
-                                   sqimap_encode_mailbox_name($mailbox),
-                                   true, $response, $message);
-    if ($response !== 'OK') {
-        // subscribe again
-        sqimap_subscribe ($imap_stream, $mailbox);
-    } else {
-        do_hook_function('rename_or_delete_folder', $args = array($mailbox, 'delete', ''));
-        removePref($data_dir, $username, "thread_$mailbox");
-        removePref($data_dir, $username, "collapse_folder_$mailbox");
+
+    if (sqimap_mailbox_exists($imap_stream, $mailbox)) {
+
+        $read_ary = sqimap_run_command($imap_stream, 'DELETE ' .
+                                       sqimap_encode_mailbox_name($mailbox),
+                                       true, $response, $message);
+        if ($response !== 'OK') {
+            // subscribe again
+            sqimap_subscribe ($imap_stream, $mailbox);
+        } else {
+            do_hook_function('rename_or_delete_folder', $args = array($mailbox, 'delete', ''));
+            removePref($data_dir, $username, "thread_$mailbox");
+            removePref($data_dir, $username, "collapse_folder_$mailbox");
+        }
     }
 }
 
