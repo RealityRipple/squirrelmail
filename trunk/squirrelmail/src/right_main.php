@@ -343,7 +343,7 @@ if ( sqgetGlobalVar('just_logged_in', $just_logged_in, SQ_SESSION) ) {
 
 
 if ($aMailbox['EXISTS'] > 0) {
-    $aTemplateVars =& showMessagesForMailbox($imapConnection,$aMailbox,$aProps,$iError);
+    $aTemplateVars = showMessagesForMailbox($imapConnection,$aMailbox,$aProps,$iError);
     if ($iError) {
 
     }
