@@ -348,7 +348,7 @@ Version 1.5.1 -- CVS
     $hide_auth_header options. First option allows to encode user's information
     with provided encryption key (set in 2. Server settings -> B. Update SMTP / 
     Sendmail settings). Second option allows to disable authenticated user part
-    in Received: header, when user can't force used email address. It is set in
+    in Received: header, when user can't forge used email address. It is set in
     4. General Options -> 9. Allow editing of identity.
   - Added dovecot preset to configuration utility.
   - Modified mercury32 preset in order to remove INBOX prefix in mercury32 4.01.
