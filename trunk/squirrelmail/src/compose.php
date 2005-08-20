@@ -734,6 +734,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 }
             }
 
+            // charset encoding in compose form stuff
             if (isset($body_part_entity->header->parameters['charset'])) {
                 $actual = $body_part_entity->header->parameters['charset'];
             } else {
@@ -743,6 +744,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             if ( $actual && is_conversion_safe($actual) && $actual != $default_charset){
                 $bodypart = charset_convert($actual,$bodypart,$default_charset,false);
             }
+            // end of charset encoding in compose
 
             $body .= $bodypart;
         }
@@ -1018,7 +1020,6 @@ function showInputForm ($session, $values=false) {
         $mailprio, $compose_new_win, $saved_draft, $mail_sent, $sig_first,
         $username, $compose_messages, $composesession, $default_charset;
 
-
     $composeMessage = $compose_messages[$session];
     if ($values) {
         $send_to = $values['send_to'];
@@ -1073,12 +1074,13 @@ function showInputForm ($session, $values=false) {
     if ($mail_sent == 'yes') {
         echo '<br /><center><b>'. _("Your Message has been sent.").'</center></b>';
     }
-    echo '<table align="center" cellspacing="0" border="0">' . "\n";
     if ($compose_new_win == '1') {
         echo '<table align="center" bgcolor="'.$color[0].'" width="100%" border="0">'."\n" .
             '   <tr><td></td>'.html_tag( 'td', '', 'right' ).
             '<input type="button" name="Close" onclick="return self.close()" value="'.
             _("Close").'" /></td></tr>'."\n";
+    } else {
+        echo '<table align="center" cellspacing="0" border="0">' . "\n";
     }
     if ($location_of_buttons == 'top') {
         showComposeButtonRow();
@@ -1271,10 +1273,6 @@ function showInputForm ($session, $values=false) {
             '   </tr>' . "\n";
     } // End of file_uploads if-block
     /* End of attachment code */
-    if ($compose_new_win == '1') {
-        echo '</table>'."\n";
-    }
-
     echo '</table>' . "\n" .
         addHidden('username', $username).
         addHidden('smaction', $action).
@@ -1382,6 +1380,7 @@ function checkInput ($show) {
 function saveAttachedFiles($session) {
     global $_FILES, $attachment_dir, $attachments, $username,
         $data_dir, $compose_messages;
+
     /* get out of here if no file was attached at all */
     if (! is_uploaded_file($_FILES['attachfile']['tmp_name']) ) {
         return true;
