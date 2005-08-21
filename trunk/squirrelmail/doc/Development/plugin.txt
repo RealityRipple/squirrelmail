@@ -314,7 +314,8 @@ but may be out of date soon thereafter.  You never know.  ;-)
   left_main_after                src/left_main.php               do_hook
   login_cookie                   src/login.php                   do_hook
   login_top                      src/login.php                   do_hook
-  login_form                     src/login.php                   do_hook
+  login_form                     src/login.php                   concat_hook
+    (was do_hook before 1.5.1)
   login_bottom                   src/login.php                   do_hook
 * optpage_set_loadinfo           src/options.php                 do_hook
 * optpage_loadhook_personal      src/options.php                 do_hook

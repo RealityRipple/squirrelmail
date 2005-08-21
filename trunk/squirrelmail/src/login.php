@@ -185,7 +185,8 @@ echo html_tag( 'table',
                                     $rcptaddress .
                                     addHidden('just_logged_in', '1'),
                                     'left', '', 'width="*"' )
-                                ) ,
+                                ) .
+                                concat_hook_function('login_form') ,
                             'center', $color[4], 'border="0" width="100%"' ) ,
                         'left', $color[4] )
                         ) .
@@ -198,7 +199,6 @@ echo html_tag( 'table',
                         'center' )
                         ) ,
                         '', $color[4], 'border="0" cellspacing="0" cellpadding="0" width="100%"' );
-do_hook('login_form');
 echo '</form>' . "\n";
 
 do_hook('login_bottom');
