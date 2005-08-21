@@ -427,6 +427,10 @@ Version 1.5.1 -- CVS
     function caused E_NOTICE warnings in php 4.4.0. Reported by Cor Bosman.
   - Test to ensure folder exists before attempting to delete it, otherwise
     IMAP server will return an error.
+  - Added $save_html argument to charset_decode() function in order to be
+    able to convert html formated mails to different character set. Initial
+    patch by Peter Draganov (#1195232). Fixed display of html formated emails
+    in formatBody() function (#1258925).
 
 Version 1.5.0 - 2 February 2004
 -------------------------------

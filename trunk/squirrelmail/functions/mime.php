@@ -388,7 +388,9 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
                  * If we don't add html message between iframe tags,
                  * we must detect unsafe images and modify $has_unsafe_images.
                  */
-                $html_body =  magicHTML($body, $id, $message, $mailbox);
+                $html_body = magicHTML($body, $id, $message, $mailbox); 
+                // Convert character set in order to display html mails in different character set
+                $html_body = charset_decode($body_message->header->getParameter('charset'),$html_body,false,true);
 
                 // creating iframe url
                 $iframeurl=sqm_baseuri().'src/view_html.php?'
@@ -427,6 +429,12 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
             } else {
                 // old way of html rendering
                 $body = magicHTML($body, $id, $message, $mailbox);
+                /**
+                 * convert character set. charset_decode does not remove html special chars 
+                 * applied by magicHTML functions and does not sanitize them second time if
+                 * fourth argument is true. 
+                 */ 
+                $body = charset_decode($body_message->header->getParameter('charset'),$body,false,true);
             }
         } else {
             translateText($body, $wrap_at,
