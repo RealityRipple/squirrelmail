@@ -246,16 +246,17 @@ class abook_ldap_server extends addressbook_backend {
          * http://www.php.net/ldap-start-tls
          * Check if v3 or newer protocol is used,
          * check if ldap_start_tls function is available.
-         * Silently ignore setting, if requirements are not satisfied
+         * Silently ignore setting, if these requirements are not satisfied.
+         * Break with error message if somebody tries to start TLS on
+         * ldaps or socket connection.
          */
         if($this->starttls && 
            !empty($this->protocol) && $this->protocol >= 3 &&
            function_exists('ldap_start_tls') ) {
-            // make sure that $this->host is not ldaps:// URL.
-            if (preg_match("/^ldaps:\/\/.+/i",$this->server)) {
-                return $this->set_error("you can't enable starttls on ldaps connection.");
+            // make sure that $this->server is not ldaps:// or ldapi:// URL.
+            if (preg_match("/^ldap[si]:\/\/.+/i",$this->server)) {
+                return $this->set_error("you can't enable starttls on ldaps and ldapi connections.");
             }
-            // TODO: starttls and ldapi:// tests are needed
             
             // try starting tls
             if (! @ldap_start_tls($this->linkid)) {
