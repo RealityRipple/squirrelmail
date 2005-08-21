@@ -431,6 +431,8 @@ Version 1.5.1 -- CVS
     able to convert html formated mails to different character set. Initial
     patch by Peter Draganov (#1195232). Fixed display of html formated emails
     in formatBody() function (#1258925).
+  - login_form hook changed from do_hook to concat_hook_function in order to
+    place form elements before login button (#1245070).
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
