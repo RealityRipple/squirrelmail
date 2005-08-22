@@ -134,7 +134,7 @@ function charset_decode ($charset, $string, $force_decode=false, $save_html=fals
 
     // Don't do conversion if charset is the same.
     if ( ! $force_decode && $charset == strtolower($default_charset) )
-        return ($save_html ? $strings : htmlspecialchars($string));
+        return ($save_html ? $string : htmlspecialchars($string));
 
     // catch iso-8859-8-i thing
     if ( $charset == "iso-8859-8-i" )
@@ -150,7 +150,7 @@ function charset_decode ($charset, $string, $force_decode=false, $save_html=fals
             // other charsets can be converted to utf-8 without loss.
             // and output string is smaller
             $string = recode_string($charset . "..utf-8",$string);
-            return ($save_html ? $strings : htmlspecialchars($string));
+            return ($save_html ? $string : htmlspecialchars($string));
         } else {
             $string = recode_string($charset . "..html",$string);
             // recode does not convert single quote, htmlspecialchars does.
@@ -166,7 +166,7 @@ function charset_decode ($charset, $string, $force_decode=false, $save_html=fals
     // iconv functions does not have html target and can be used only with utf-8
     if ( $use_php_iconv && $default_charset=='utf-8') {
         $string = iconv($charset,$default_charset,$string);
-        return ($save_html ? $strings : htmlspecialchars($string));
+        return ($save_html ? $string : htmlspecialchars($string));
     }
 
     // If we don't use recode and iconv, we'll do it old way.
