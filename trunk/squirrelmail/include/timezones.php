@@ -13,7 +13,7 @@
  * key name is used.
  *
  * @package squirrelmail
- * @subpackage timezone
+ * @subpackage timezones
  */
 
 /**
