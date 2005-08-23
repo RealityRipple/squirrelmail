@@ -433,6 +433,7 @@ Version 1.5.1 -- CVS
     in formatBody() function (#1258925).
   - login_form hook changed from do_hook to concat_hook_function in order to
     place form elements before login button (#1245070).
+  - Forwarding broken when not using compose in new window (#1222436).
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
