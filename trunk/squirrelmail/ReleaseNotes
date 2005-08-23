@@ -26,6 +26,16 @@ Major updates
 as well as a new "save replies to the same folder as the original"
 option. 
 
+
+Data directory
+==============
+
+The directory data/ used to be included in our tarball. Since placing this
+dir under a web accessible directory is not very wise, we've decided to not
+pack it anymore; you need to create it yourself. Please choose a location
+that's safe, e.g. somewhere under /var.
+
+
 Reporting my favorite SquirrelMail 1.4 bug
 ==========================================
 

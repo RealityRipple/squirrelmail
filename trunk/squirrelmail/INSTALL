@@ -106,13 +106,14 @@ b. Setting up directories
   directories outside of your web tree.
 
   The data directory is used for storing user preferences, like
-  signature, name and theme. When unpacking the sources this directory
-  is created as data/ in your SquirrelMail directory. This directory
-  must be writable by the webserver. If your webserver is running as
-  the user "nobody" you can fix this by running:
+  signature, name and theme. You need to create this directory yourself.
+  Recommended location is under /var, for example:
+  /var/local/squirrelmail/data
+  This directory must be writable by the webserver. If your webserver is
+  running as the user "nobody" and group "nobody" you can fix this by
+  running:
 
-    $ chown -R nobody data
-    $ chgrp -R nobody data
+    $ chown -R nobody:nobody /path/to/your/datadir
 
   Keep in mind that with different installations, the web server could
   typically run as userid/groupid of nobody/nobody, nobody/nogroup,
@@ -134,8 +135,8 @@ b. Setting up directories
     $ chmod 730 SomeDirectory
 
   If you trust all the users on you system not to read mail they are
-  not supposed to read change the last line to chmod 777 SomeDirectory
-  or simply use /tmp as you attachments directory.
+  not supposed to read, you can simply use /tmp as you attachments
+  directory.
 
   If a user is aborting a mail but has uploaded some attachments to it
   the files will be lying around in this directory forever if you do not
@@ -143,7 +144,7 @@ b. Setting up directories
   deletes everything in the attachment directory.  Something similar
   to the following will be good enough:
 
-    $ cd /var/attach/directory
+    $ cd /var/local/squirrelmail/attach
     $ rm -f *
 
   However, this will delete attachments that are currently in use by people
@@ -157,7 +158,7 @@ b. Setting up directories
   attachment directory is the same as your data directory) might look like
   this:
 
-    $ rm `find /var/attach/directory -atime +2 | grep -v "\." | grep -v _`
+    $ rm `find /var/local/squirrelmail/attach -atime +2 | grep -v "\." | grep -v _`
 
   Remember to be careful with whatever method you do use, and to test out
   the command before it potentially wipes out everyone's preferences.
