@@ -55,9 +55,9 @@ function fortune_function() {
     if (!$exist) {
         printf(_("%s is not found."),$fortune_location);
     } else {
-        echo "<center><em>" . _("Today's Fortune") . "</em></center><pre>\n";
-        htmlspecialchars(system($fortune_command));
-        echo "</pre>\n";
+        echo "<center><em>" . _("Today's Fortune") . "</em></center><pre>\n" .
+            htmlspecialchars(shell_exec($fortune_command)) .
+            "</pre>\n";
     }
 
     echo '</td></tr></table></td></tr></table></td></tr></table></center>';
