@@ -467,7 +467,7 @@ options_identities_buttons
       }
 
    Input element should use 'smaction[action_name][identity_no]' value in 
-   'name' attribute, if you want to be process your button actions in
+   'name' attribute, if you want to process your button actions in
    SquirrelMail 1.4.6+ and 1.5.1+ options_identity_process hook.
 
 
