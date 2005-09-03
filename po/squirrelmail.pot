@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-06 09:08+0300\n"
+"POT-Creation-Date: 2005-09-04 00:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,15 +73,6 @@ msgstr ""
 msgid "Address Book"
 msgstr ""
 
-msgid "All"
-msgstr ""
-
-msgid "To"
-msgstr ""
-
-msgid "Cc"
-msgstr ""
-
 msgid "Name"
 msgstr ""
 
@@ -94,16 +85,16 @@ msgstr ""
 msgid "Source"
 msgstr ""
 
+msgid "To"
+msgstr ""
+
+msgid "Cc"
+msgstr ""
+
 msgid "Bcc"
 msgstr ""
 
-msgid "Use Addresses"
-msgstr ""
-
-msgid "Cancel"
-msgstr ""
-
-msgid "Address Book Search"
+msgid "No persons matching your search were found"
 msgstr ""
 
 msgid "Search for"
@@ -121,14 +112,14 @@ msgstr ""
 msgid "List all"
 msgstr ""
 
+msgid "Close"
+msgstr ""
+
 #, php-format
 msgid "Unable to list addresses from %s"
 msgstr ""
 
 msgid "Your search failed with the following error(s)"
-msgstr ""
-
-msgid "No persons matching your search were found"
 msgstr ""
 
 #. *
@@ -138,10 +129,19 @@ msgstr ""
 msgid "Nothing to search"
 msgstr ""
 
-msgid "Return"
+msgid "All"
 msgstr ""
 
-msgid "Close"
+msgid "Use Addresses"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Address Book Search"
+msgstr ""
+
+msgid "Return"
 msgstr ""
 
 msgid "No personal address book is defined. Contact administrator."
@@ -464,10 +464,71 @@ msgstr ""
 msgid "Password:"
 msgstr ""
 
-msgid "Options"
+msgid "Personal Information"
+msgstr ""
+
+msgid "Display Preferences"
+msgstr ""
+
+msgid "Compose Preferences"
 msgstr ""
 
 msgid "Message Highlighting"
+msgstr ""
+
+msgid "Folder Preferences"
+msgstr ""
+
+msgid "Index Order"
+msgstr ""
+
+msgid "Options"
+msgstr ""
+
+msgid "Error(s) occurred while saving your options"
+msgstr ""
+
+msgid "Some of your preference changes were not applied."
+msgstr ""
+
+#. Display a message indicating a successful save.
+msgid "Successfully Saved Options"
+msgstr ""
+
+msgid "Refresh Folder List"
+msgstr ""
+
+msgid "Refresh Page"
+msgstr ""
+
+msgid ""
+"This contains personal information about yourself such as your name, your "
+"email address, etc."
+msgstr ""
+
+msgid ""
+"You can change the way that SquirrelMail looks and displays information to "
+"you, such as the colors, the language, and other settings."
+msgstr ""
+
+msgid ""
+"Based upon given criteria, incoming messages can have different background "
+"colors in the message list. This helps to easily distinguish who the "
+"messages are from, especially for mailing lists."
+msgstr ""
+
+msgid ""
+"These settings change the way your folders are displayed and manipulated."
+msgstr ""
+
+msgid ""
+"The order of the message index can be rearranged and changed to contain the "
+"headers in any order you want."
+msgstr ""
+
+msgid ""
+"Control the behaviour and layout of writing new mail messages, replying to "
+"and forwarding messages."
 msgstr ""
 
 msgid "New"
@@ -603,9 +664,6 @@ msgstr ""
 msgid "Received"
 msgstr ""
 
-msgid "Index Order"
-msgstr ""
-
 msgid ""
 "The index order is the order that the columns are arranged in the message "
 "index. You can add, remove, and move columns around to customize them to fit "
@@ -625,80 +683,13 @@ msgstr ""
 msgid "Return to options page"
 msgstr ""
 
-msgid "Personal Information"
-msgstr ""
-
-msgid "Display Preferences"
-msgstr ""
-
-msgid "Compose Preferences"
-msgstr ""
-
-msgid "Folder Preferences"
-msgstr ""
-
-msgid "Error(s) occurred while saving your options"
-msgstr ""
-
-msgid "Some of your preference changes were not applied."
-msgstr ""
-
-#. Display a message indicating a successful save.
-msgid "Successfully Saved Options"
-msgstr ""
-
-msgid "Refresh Folder List"
-msgstr ""
-
-msgid "Refresh Page"
-msgstr ""
-
-msgid ""
-"This contains personal information about yourself such as your name, your "
-"email address, etc."
-msgstr ""
-
-msgid ""
-"You can change the way that SquirrelMail looks and displays information to "
-"you, such as the colors, the language, and other settings."
-msgstr ""
-
-msgid ""
-"Based upon given criteria, incoming messages can have different background "
-"colors in the message list. This helps to easily distinguish who the "
-"messages are from, especially for mailing lists."
-msgstr ""
-
-msgid ""
-"These settings change the way your folders are displayed and manipulated."
-msgstr ""
-
-msgid ""
-"The order of the message index can be rearranged and changed to contain the "
-"headers in any order you want."
-msgstr ""
-
-msgid ""
-"Control the behaviour and layout of writing new mail messages, replying to "
-"and forwarding messages."
-msgstr ""
-
 msgid "Message not printable"
-msgstr ""
-
-msgid "Attachments:"
 msgstr ""
 
 msgid "Unknown sender"
 msgstr ""
 
-msgid "Info:"
-msgstr ""
-
-msgid "Size:"
-msgstr ""
-
-msgid "Type:"
+msgid "Type"
 msgstr ""
 
 msgid "Invalid URL"
@@ -1089,12 +1080,14 @@ msgstr ""
 msgid "Addressbook is read-only"
 msgstr ""
 
+#. i18n: don't use html formating in translation
 #, php-format
-msgid "User %s already exists"
+msgid "User \"%s\" already exists"
 msgstr ""
 
+#. i18n: don't use html formating in translation
 #, php-format
-msgid "User %s does not exist"
+msgid "User \"%s\" does not exist"
 msgstr ""
 
 msgid "PHP install does not have LDAP support."
@@ -1661,7 +1654,7 @@ msgstr ""
 
 msgid ""
 "Run \"configure\", choose option 4 (General options) and set option 10 "
-"(Allow server thread sort to false"
+"(Allow server thread sort to false)."
 msgstr ""
 
 msgid "Server-side sorting is not supported by your IMAP server."
@@ -1669,7 +1662,7 @@ msgstr ""
 
 msgid ""
 "Run \"configure\", choose option 4 (General options) and set option 11 "
-"(Allow server-side sorting to false"
+"(Allow server-side sorting to false)."
 msgstr ""
 
 #. ****************************************************
@@ -2667,14 +2660,14 @@ msgstr ""
 msgid "Show button in toolbar"
 msgstr ""
 
-#, php-format
-msgid "Could not write calendar file %s"
-msgstr ""
-
 msgid "TODAY"
 msgstr ""
 
 msgid "Go"
+msgstr ""
+
+#, php-format
+msgid "Could not write calendar file %s"
 msgstr ""
 
 msgid "l, F j Y"
@@ -3686,6 +3679,18 @@ msgid_plural "%s New Messages"
 msgstr[0] ""
 msgstr[1] ""
 
+msgid "New Mail"
+msgstr ""
+
+msgid "SquirrelMail Notice:"
+msgstr ""
+
+#, php-format
+msgid "You have %s new message"
+msgid_plural "You have %s new messages"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "New Mail Notification"
 msgstr ""
 
@@ -3788,18 +3793,6 @@ msgstr ""
 msgid "Current File:"
 msgstr ""
 
-msgid "New Mail"
-msgstr ""
-
-msgid "SquirrelMail Notice:"
-msgstr ""
-
-#, php-format
-msgid "You have %s new message"
-msgid_plural "You have %s new messages"
-msgstr[0] ""
-msgstr[1] ""
-
 msgid "Test Sound"
 msgstr ""
 
@@ -3861,7 +3854,7 @@ msgstr ""
 msgid "Only works with email-based reporting"
 msgstr ""
 
-msgid "Save emails submitted to spamcop:"
+msgid "Save emails submitted to SpamCop:"
 msgstr ""
 
 msgid "Spam Reporting Method:"
@@ -4183,6 +4176,24 @@ msgstr ""
 msgid "No errors found"
 msgstr ""
 
+msgid ""
+"Your personal dictionary has been encrypted and is now stored in an "
+"encrypted format."
+msgstr ""
+
+msgid ""
+"Your personal dictionary has been decrypted and is now stored as plain text."
+msgstr ""
+
+#. *
+#. * Wait, this shouldn't happen! :)
+#.
+msgid "No action requested."
+msgstr ""
+
+msgid "Personal Dictionary Crypto Settings"
+msgstr ""
+
 msgid "Your personal dictionary was erased."
 msgstr ""
 
@@ -4212,24 +4223,6 @@ msgid ""
 msgstr ""
 
 msgid "Dictionary re-encrypted"
-msgstr ""
-
-msgid ""
-"Your personal dictionary has been encrypted and is now stored in an "
-"encrypted format."
-msgstr ""
-
-msgid ""
-"Your personal dictionary has been decrypted and is now stored as plain text."
-msgstr ""
-
-#. *
-#. * Wait, this shouldn't happen! :)
-#.
-msgid "No action requested."
-msgstr ""
-
-msgid "Personal Dictionary Crypto Settings"
 msgstr ""
 
 msgid "Please check any words you wish to delete from your dictionary."
@@ -4607,19 +4600,16 @@ msgstr ""
 msgid "SquirrelMail notice messages"
 msgstr ""
 
-msgid "Category"
-msgstr ""
-
-msgid "Message"
+msgid "Category:"
 msgstr ""
 
 #. foreach ($aError['extra'] as sKkey => $sValue)
 #. isset($aError['extra']) && is_array($aError['extra']))
-msgid "Tip"
+msgid "Tip:"
 msgstr ""
 
 #. (isset($aError['tip']) && ($aError['tip']))
-msgid "More info"
+msgid "More info:"
 msgstr ""
 
 #, php-format
