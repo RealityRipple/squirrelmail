@@ -282,6 +282,8 @@ but may be out of date soon thereafter.  You never know.  ;-)
   error_box                      functions/display_messages.php  concat_hook
   get_pref_override              functions/file_prefs.php        hook_func
   get_pref                       functions/file_prefs.php        hook_func
+& options_identities_process     functions/identity.php          do_hook
+&% options_identities_renumber   functions/identity.php          do_hook
   special_mailbox                functions/imap_mailbox.php      hook_func
 % rename_or_delete_folder        functions/imap_mailbox.php      hook_func
   mailbox_index_before           functions/mailbox_display.php   do_hook
@@ -340,9 +342,7 @@ but may be out of date soon thereafter.  You never know.  ;-)
 * options_folder_bottom          src/options.php                 do_hook
 * options_order_bottom           src/options.php                 do_hook
 * options_highlight_bottom       src/options_highlight.php       do_hook
-& options_identities_process     src/options_identities.php      do_hook
 & options_identities_top         src/options_identities.php      do_hook
-&% options_identities_renumber   src/options_identities.php      do_hook
 & options_identities_table       src/options_identities.php      concat_hook
 & options_identities_buttons     src/options_identities.php      concat_hook
   message_body                   src/printer_friendly_bottom.php do_hook
@@ -354,7 +354,6 @@ but may be out of date soon thereafter.  You never know.  ;-)
   read_body_bottom               src/read_body.php               do_hook
   login_before                   src/redirect.php                do_hook
   login_verified                 src/redirect.php                do_hook
-  generic_header                 src/right_main.php              do_hook
   right_main_after_header        src/right_main.php              do_hook
   right_main_bottom              src/right_main.php              do_hook
   search_before_form             src/search.php                  do_hook
@@ -394,12 +393,22 @@ options_identities_process
    for each identity or catch any custom submit buttons that you may
    have added to the identities page.  The arguments to this hook are:
 
+    (SquirrelMail 1.4.4 or older and 1.5.0)
       [0] = hook name (always "options_identities_process")
       [1] = should I run the SaveUpdateFunction() (alterable)
 
    Obviously, set the second array element to 1/true if you want to
    trigger SaveUpdateFunction() after the hook is finished - by default,
    it will not be called.
+
+    (SquirrelMail 1.4.6+ or 1.5.1+)
+      [0] = hook name (always "options_identities_process")
+      [1] = action (hook is used only in 'update' action and any custom 
+            action added to form with option_identities_table and 
+            option_identities_buttons hooks)
+      [2] = processed identity number
+
+   Hook is not available in SquirrelMail 1.4.5.
 
 options_identities_renumber
 
@@ -412,6 +421,9 @@ options_identities_renumber
       [0] = hook name (always "options_identities_renumber")
       [1] = being renumbered from ('default' or 1 through (# idents) - 1)
       [2] = being renumbered to ('default' or 1 through (# idents) - 1)
+
+   Hook is not available in SquirrelMail 1.4.5. Renumbering order differs
+   in 1.4.5+ and 1.5.1+.
 
 options_identities_table
 
@@ -453,6 +465,16 @@ options_identities_buttons
          return '<input type="submit" name="demo_button_' . $args[1]
               . '" value="Press Me" />';
       }
+
+   Input element should use 'smaction[action_name][identity_no]' value in 
+   'name' attribute, if you want to be process your button actions in
+   SquirrelMail 1.4.6+ and 1.5.1+ options_identity_process hook.
+
+
+See sample implementation of identity hooks in SquirrelMail demo plugin.
+
+  cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/squirrelmail \
+    co plugins/demo
 
 
 (^) Attachment Hooks

@@ -435,6 +435,9 @@ Version 1.5.1 -- CVS
     place form elements before login button (#1245070).
   - Forwarding broken when not using compose in new window (#1222436).
   - Drop data/ dir from distributed tarball.
+  - Readded options_identity_process and options_identity_renumber hooks
+    broken by CAN-2005-2095 fixes.
+  - Removed duplicate generic_header hook call in src/right_main.php (#1269189).
 
 Version 1.5.0 - 2 February 2004
 -------------------------------

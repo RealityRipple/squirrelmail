@@ -122,10 +122,6 @@ if ($imap_server_type == 'uw' && (strstr($mailbox, '../') ||
  * preferences.
  */
 
-
-/* not sure if this hook should be capable to alter the global pref array */
-do_hook ('generic_header');
-
 $aMailboxPrefSer=getPref($data_dir, $username,'pref_'.$account.'_'.$mailbox);
 if ($aMailboxPrefSer) {
     $aMailboxPref = unserialize($aMailboxPrefSer);
