@@ -142,6 +142,10 @@ function sqfixidentities( $identities, $id, $action ) {
 
                 if ($key == $id) {
                     $fixed[0] = $ident;
+
+                    // inform plugins about renumbering of ids
+                    do_hook('options_identities_renumber', $id, 'default');
+
                     continue 2;
                 } else {
                     $fixed[$i+1] = $ident;
@@ -152,6 +156,10 @@ function sqfixidentities( $identities, $id, $action ) {
 
                 if ($key == ($id - 1)) {
                     $tmp_hold = $ident;
+
+                    // inform plugins about renumbering of ids
+                    do_hook('options_identities_renumber', $id , $id - 1);
+
                     continue 2;
                 } else {
                     $fixed[$i] = $ident;
@@ -172,8 +180,16 @@ function sqfixidentities( $identities, $id, $action ) {
                 }
                 break;
 
-            // we should never hit this but just in case //
+            // Process actions from plugins and save/update action //
             default:
+                /**
+                 * send action and id information. number of hook arguments 
+                 * differs from 1.4.4 or older and 1.5.0. count($args) can 
+                 * be used to detect modified hook. Older hook does not 
+                 * provide information that can be useful for plugins.
+                 */
+                do_hook('options_identities_process', $action, $id);
+
                 $fixed[$i] = $ident;
 
         }
