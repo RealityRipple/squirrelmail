@@ -102,7 +102,7 @@ spamcop_load_function();
         </tr>
         <tr>
           <?php
-            echo html_tag('td',_("Save emails submitted to spamcop:") . "<br />\n" .
+            echo html_tag('td',_("Save emails submitted to SpamCop:") . "<br />\n" .
             '<small>(' . _("Only works with email-based reporting") . ')</small>',
             'right','','valign="top"');
             echo html_tag('td', spamcop_enable_disable($spamcop_save,'keep','dontkeep'),'','','valign="top"');
