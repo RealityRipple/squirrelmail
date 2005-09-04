@@ -99,6 +99,10 @@ if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
             folders_unsubscribe($imapConnection, $folder_names);
             $td_str =  _("Unsubscribed successfully.");
             break;
+        default:
+            // TODO: add hook for plugin action processing.
+            $td_str = '';
+            break;
     }
 
     // if there are any messages, output them.
@@ -134,11 +138,22 @@ echo html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="4" cellspaci
 $show_selected = array();
 $skip_folders = array();
 $server_type = strtolower($imap_server_type);
+
+// Special handling for courier
 if ( $server_type == 'courier' ) {
-  array_push($skip_folders, 'inbox.trash');
-  if ( $default_folder_prefix == 'INBOX.' ) {
-    array_push($skip_folders, 'INBOX');
-  }
+    /**
+     * If we use courier, we should hide system trash folder
+     * FIXME: (tokul) Who says that courier does not allow storing folders in 
+     * INBOX.Trash or inbox.trash? Can't reproduce it 3.0.8. This entry is 
+     * useless, because in_array() check is case sensitive and INBOX is in 
+     * upper case.
+     */
+    array_push($skip_folders, 'inbox.trash');
+
+    if ( $default_folder_prefix == 'INBOX.' ) {
+        // We don't need INBOX, since it is top folder
+        array_push($skip_folders, 'INBOX');
+    }
 }
 
 if ( $default_sub_of_inbox == false ) {
@@ -169,50 +184,25 @@ echo html_tag( 'tr',
         ) ."\n";
 
 /** count special folders **/
-
-// FIX ME, why not check if the folders are defined IMHO move_to_sent, move_to_trash has nothing todo with it
-$count_special_folders = 0;
-$num_max = 1;
-if (strtolower($imap_server_type) == "courier" || $move_to_trash) {
-    $num_max++;
-}
-if ($move_to_sent) {
-    $num_max++;
-}
-if ($save_as_draft) {
-    $num_max++;
+foreach ($boxes as $index => $aBoxData) {
+    if (isSpecialMailbox($aBoxData['unformatted']) &&
+        ! in_array($aBoxData['unformatted'],$skip_folders)) {
+        $skip_folders[] = $aBoxData['unformatted'];
+    } 
 }
 
-// What if move_to_sent = false and $sent_folder is set? Should it still be skipped?
-
-for ($p = 0, $cnt = count($boxes); $p < $cnt && $count_special_folders < $num_max; $p++) {
-    switch ($boxes[$p]['unformatted']) {
-        case (strtoupper($boxes[$p]['unformatted']) == 'INBOX'):
-            ++$count_special_folders;
-            $skip_folders[] = $boxes[$p]['unformatted'];
-            break;
-        // FIX ME inbox.trash should be set in conf.pl
-        case 'inbox.trash':
-            if (strtolower($imap_server_type) == 'courier') {
-                ++$count_special_folders;
-            }
-            break;
-        case $trash_folder:
-            ++$count_special_folders;
-            $skip_folders[] = $trash_folder;
-            break;
-        case $sent_folder:
-            ++$count_special_folders;
-            $skip_folders[] = $sent_folder;
-            break;
-        case $draft_folder:
-            ++$count_special_folders;
-            $skip_folders[] = $draft_folder;
-            break;
-        default: break;
-    }
-}
-
+/**
+ * Retrieve list of folders when special folders are excluded. Special folders
+ * should be unavailable in rename/delete/unsubscribe. Theoretically user can
+ * modify form and perform these operations with special folders, but if user 
+ * manages to delete/rename/unsubscribe special folder by hacking form... 
+ *
+ * If script or program depends on special folder, they should not assume that
+ * folder is available.
+ *
+ * $filtered_folders contains empty string or html formated option list.
+ */
+$filtered_folders = sqimap_mailbox_option_list($imapConnection, 0, $skip_folders, $boxes, NULL, true);
 
 /** RENAMING FOLDERS **/
 echo html_tag( 'tr',
@@ -222,7 +212,7 @@ echo html_tag( 'tr',
         html_tag( 'td', '', 'center', $color[0] );
 
 /* show only if we have folders to rename */
-if ($count_special_folders < count($boxes)) {
+if (! empty($filtered_folders)) {
     echo addForm('folders.php')
        . addHidden('smaction', 'rename')
        . "<tt><select name=\"old_name\">\n"
@@ -232,7 +222,7 @@ if ($count_special_folders < count($boxes)) {
     // but we do include values to skip. Use the pre-created $boxes to save an IMAP query.
     // send NULL for the flag - ALL folders are eligible for rename!
     // use long format to make sure folder names make sense when parents may be missing.
-    echo sqimap_mailbox_option_list($imapConnection, 0, $skip_folders, $boxes, NULL, true);
+    echo $filtered_folders;
 
     echo "</select></tt>\n".
          '<input type="submit" value="'.
@@ -255,7 +245,7 @@ echo html_tag( 'tr',
         html_tag( 'td', '', 'center', $color[0] );
 
 /* show only if we have folders to delete */
-if ($count_special_folders < count($boxes)) {
+if (!empty($filtered_folders)) {
     echo addForm('folders.php')
        . addHidden('smaction', 'delete')
        . "<tt><select name=\"folder_name\">\n"
@@ -263,7 +253,7 @@ if ($count_special_folders < count($boxes)) {
 
     // send NULL for the flag - ALL folders are eligible for delete (except what we've got in skiplist)
     // use long format to make sure folder names make sense when parents may be missing.
-    echo sqimap_mailbox_option_list($imapConnection, 0, $skip_folders, $boxes, NULL, true);
+    echo $filtered_folders;
 
     echo "</select></tt>\n"
        . '<input type="submit" value="'
@@ -280,6 +270,8 @@ echo html_tag( 'tr',
 
 
 if ($show_only_subscribed_folders) {
+    // FIXME: fix subscription options when top folder is not subscribed and sub folder is subscribed
+    // TODO: use checkboxes instead of select options.
 
         /** UNSUBSCRIBE FOLDERS **/
         echo html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="4" cellspacing="0" border="0"' ) .
@@ -289,23 +281,12 @@ if ($show_only_subscribed_folders) {
                     html_tag( 'tr' ) .
                         html_tag( 'td', '', 'center', $color[0], 'width="50%"' );
 
-        if ($count_special_folders < count($boxes)) {
+        if (!empty($filtered_folders)) {
             echo addForm('folders.php')
                . addHidden('smaction', 'unsubscribe')
-               . "<tt><select name=\"folder_names[]\" multiple=\"multiple\" size=\"8\">\n";
-            foreach ( $boxes as $box ) {
-                $use_folder = true;
-                if ((strtolower($box["unformatted"]) != "inbox") &&
-                    ($box['unformatted'] != $trash_folder) &&
-                    ($box['unformatted'] != $sent_folder) &&
-                    ($box['unformatted'] != $draft_folder)) {
-                    $box_enc  = htmlspecialchars($box['unformatted-dm']);
-                    $box_disp = str_replace(' ', '&nbsp;',
-                                        htmlspecialchars(imap_utf7_decode_local($box["unformatted-disp"])));
-                    echo "         <option value=\"$box_enc\">$box_disp</option>\n";
-                }
-            }
-            echo "</select></tt><br /><br />\n"
+               . "<tt><select name=\"folder_names[]\" multiple=\"multiple\" size=\"8\">\n"
+               . $filtered_folders
+               . "</select></tt><br /><br />\n"
                . '<input type="submit" value="'
                . _("Unsubscribe")
                . "\" />\n"
