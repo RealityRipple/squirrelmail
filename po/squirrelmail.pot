@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-04 01:12+0200\n"
+"POT-Creation-Date: 2005-09-04 11:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -686,10 +686,19 @@ msgstr ""
 msgid "Message not printable"
 msgstr ""
 
+msgid "Attachments:"
+msgstr ""
+
 msgid "Unknown sender"
 msgstr ""
 
-msgid "Type"
+msgid "Info:"
+msgstr ""
+
+msgid "Size:"
+msgstr ""
+
+msgid "Type:"
 msgstr ""
 
 msgid "Invalid URL"
