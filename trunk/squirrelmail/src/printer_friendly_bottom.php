@@ -139,7 +139,7 @@ echo '<body text="#000000" bgcolor="#FFFFFF" link="#000000" vlink="#000000" alin
      if (! empty($attachments)) {
          // attachments title
          echo html_tag( 'tr',
-             html_tag( 'td','<b>'._("Attachments").':</b>', 'left', '', 'colspan="2"' )
+             html_tag( 'td','<b>'._("Attachments:").'</b>', 'left', '', 'colspan="2"' )
          ) . "\n" ;
          // list of attachments
          echo html_tag( 'tr',
@@ -250,7 +250,7 @@ function pf_show_attachments($message, $exclude_id, $mailbox, $id) {
             $filename = $att->getFilename();
             if ($header->description) {
                 $description = '<tr>'.
-                    html_tag( 'td',_("Info").':', 'right') .
+                    html_tag( 'td',_("Info:"), 'right') .
                     html_tag( 'td',decodeHeader($header->description), 'left') .
                     '</tr>';
             } else {
@@ -263,10 +263,10 @@ function pf_show_attachments($message, $exclude_id, $mailbox, $id) {
         // TODO: maybe make it nicer?
         $attachments .= '<table border="1"><tr><th colspan="2">'.decodeHeader($display_filename).'</th></tr>' .
             '<tr border="0">'.
-            html_tag( 'td',_("Size").':', 'right') .
+            html_tag( 'td',_("Size:"), 'right') .
             html_tag( 'td',show_readable_size($header->size), 'left') .
             '</tr><tr>' .
-            html_tag( 'td',_("Type").':', 'right') .
+            html_tag( 'td',_("Type:"), 'right') .
             html_tag( 'td',htmlspecialchars($type0).'/'.htmlspecialchars($type1), 'left') . 
             '</tr>';
         if (! empty($description)) {
