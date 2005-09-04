@@ -438,6 +438,8 @@ Version 1.5.1 -- CVS
   - Readded options_identity_process and options_identity_renumber hooks
     broken by CAN-2005-2095 fixes.
   - Removed duplicate generic_header hook call in src/right_main.php (#1269189).
+  - Removed other special folders from rename/delete/unsubscribe folder forms.
+    Suggested by Florian Daumling.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
