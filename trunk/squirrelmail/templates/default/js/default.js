@@ -226,7 +226,11 @@ function sendMDN() {
     var newwin = window.open(mdnuri,'right');
 }
 
+var alreadyFocused = false;
 function checkForm(smaction) {
+
+    if (alreadyFocused) return;
+
     /*
      * this part is used for setting the focus in the compose screen
      */
