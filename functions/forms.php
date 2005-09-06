@@ -130,7 +130,8 @@ function addHidden($sName, $sValue, $aAttribs=array()) {
  * @param string $sValue initial field value
  * @param integer $iSize field size (number of characters)
  * @param integer $iMaxlength maximum number of characters the user may enter
- * @param array $aAttribs (since 1.5.1) extra attributes
+ * @param array $aAttribs (since 1.5.1) extra attributes - should be given
+ *                        in the form array('attribute_name' => 'attribute_value', ...)
  * @return string html formated text input field
  */
 function addInput($sName, $sValue = '', $iSize = 0, $iMaxlength = 0, $aAttribs=array()) {
