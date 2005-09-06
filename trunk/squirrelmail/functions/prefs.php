@@ -156,7 +156,7 @@ function computeHashDirs($username) {
 /**
  * Javascript support detection function
  * @param boolean $reset recheck javascript support if set to true.
- * @return integer SMPREF_JS_* constants
+ * @return integer SMPREF_JS_ON or SMPREF_JS_OFF ({@see functions/constants.php})
  * @since 1.5.1
  */
 function checkForJavascript($reset = FALSE) {
