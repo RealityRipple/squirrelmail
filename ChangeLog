@@ -440,6 +440,8 @@ Version 1.5.1 -- CVS
   - Removed duplicate generic_header hook call in src/right_main.php (#1269189).
   - Removed other special folders from rename/delete/unsubscribe folder forms.
     Suggested by Florian Daumling.
+  - Focus on compose screen no longer shifts automatically if user has manually
+    focused somewhere herself.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
