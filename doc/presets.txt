@@ -186,3 +186,49 @@ show_contain_subfolders_option = false
       force_username_lowercase = true
 
 
+--------------------
+'bincimap' settings:
+--------------------
+
+Tested v.1.2.13 and 1.3.4
+
+CAPABILITY IMAP4rev1 STARTTLS AUTH=LOGIN AUTH=PLAIN (1.2.13)
+CAPABILITY IMAP4rev1 STARTTLS AUTH=LOGIN AUTH=PLAIN IDLE LITERAL+ NAMESPACE CHILDREN (1.3.4)
+
+PERMANENTFLAGS (\Answered \Flagged \Deleted \Seen \Draft) - 1.2.13
+PERMANENTFLAGS (\Answered \Flagged \Deleted \Seen \Draft \*) - 1.3.4
+
+IMAP server does not support server side sorting and threading. Plain text 
+logins are disabled by default. Due to available storage backend configuration 
+options it is impossible to create single preset, which covers all setups.
+
+Site URL: http://www.bincimap.org
+
+* Default (1.2.13) configuration with Maildir++ depot and / delimiter
+              imap_server_type = bincimap (is used to handle INBOX in folder management)
+         default_folder_prefix = INBOX/
+                  trash_folder = Trash
+                   sent_folder = Sent
+                  draft_folder = Drafts
+            show_prefix_option = false
+          default_sub_of_inbox = false
+show_contain_subfolders_option = false
+            optional_delimiter = / (can be set to 'detect')
+                 delete_folder = true
+      force_username_lowercase = false (depends on checkpassword)
+
+* Default (1.3.4) configuration with IMAPdir depot - same as dovecot ?
+              imap_server_type = bincimap
+         default_folder_prefix = <none> (is set to empty string)
+                  trash_folder = Trash
+                   sent_folder = Sent
+                  draft_folder = Drafts
+            show_prefix_option = false
+          default_sub_of_inbox = false
+show_contain_subfolders_option = false
+            optional_delimiter = / (can be set to 'detect')
+                 delete_folder = true
+      force_username_lowercase = false (depends on checkpassword)
+
+
+* Configuration with Maildir++ depot and . delimiter - use courier preset.
