@@ -122,6 +122,21 @@ if (function_exists('mb_internal_encoding') &&
     do_err($mb_error);
 }
 
+/**
+ * We code with register_globals = off. SquirrelMail should work in such setup
+ * since 1.2.9 and 1.3.0. Running SquirrelMail with register_globals = on can
+ * cause variable corruption and security issues. Globals can be turned off in
+ * php.ini, webserver config and .htaccess files. Scripts can turn off globals only
+ * in php 4.2.3 or older.
+ */
+if ((bool) ini_get('register_globals')) {
+    $rg_error='You have enabled php register_globals.'
+        .' Running PHP installation with register_globals=on can cause problems.'
+        .' See <a href="http://www.php.net/manual/en/security.registerglobals.php">'
+        .'security information about register_globals</a>.';
+    do_err($rg_error);
+}
+
 /* checking paths */
 
 echo "Checking paths...<br />\n";
