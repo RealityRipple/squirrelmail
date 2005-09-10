@@ -118,3 +118,24 @@ database.
 
 Default preferences can be set by altering the $default array in
 db_prefs.php.
+
+Troubleshooting
+---------------
+1. Oversized field values. Preferences are not/can't be saved
+
+Database fields have size limits. Preference table example sets 128 
+character limit to owner field, 64 character limit to preference key 
+field and 64KB (database BLOB field size) limit to value field.
+
+If interface tries to insert data without checking field limits, it
+can cause data loss or database errors. Table information functions
+provided by Pear DB libraries are not accurate and some database 
+backends don't support them. Since 1.5.1 SquirrelMail provides
+configuration options that set allowed field sizes.
+
+If you see oversized field errors in your error logs - check your 
+database structure. Issue can be solved by increasing database field 
+sizes.
+
+If you want to get more debugging information - check setKey() function 
+in dbPrefs class. Class is stored in functions/db_prefs.php
