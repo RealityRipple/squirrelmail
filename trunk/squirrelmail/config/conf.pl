@@ -360,6 +360,9 @@ $abook_global_file_listing = 'true'     if ( !$abook_global_file_listing );
 $encode_header_key = ''                 if ( !$encode_header_key );
 $hide_auth_header = 'false'             if ( !$hide_auth_header );
 $time_zone_type = '0'                   if ( !$time_zone_type );
+$prefs_user_size = 128                  if ( !$prefs_user_size );
+$prefs_key_size = 64                    if ( !$prefs_key_size );
+$prefs_val_size = 65536                 if ( !$prefs_val_size );
 
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
@@ -608,9 +611,9 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "\n";
         print "3.  DSN for Preferences    : $WHT$prefs_dsn$NRM\n";
         print "4.  Table for Preferences  : $WHT$prefs_table$NRM\n";
-        print "5.  Field for username     : $WHT$prefs_user_field$NRM\n";
-        print "6.  Field for prefs key    : $WHT$prefs_key_field$NRM\n";
-        print "7.  Field for prefs value  : $WHT$prefs_val_field$NRM\n";
+        print "5.  Field for username     : $WHT$prefs_user_field$NRM ($prefs_user_size)\n";
+        print "6.  Field for prefs key    : $WHT$prefs_key_field$NRM ($prefs_key_size)\n";
+        print "7.  Field for prefs value  : $WHT$prefs_val_field$NRM ($prefs_val_size)\n";
         print "\n";
         print "8.  DSN for Global Address Book            : $WHT$addrbook_global_dsn$NRM\n";
         print "9.  Table for Global Address Book          : $WHT$addrbook_global_table$NRM\n";
@@ -2964,6 +2967,7 @@ sub command95 {
     } else {
         $new_field =~ s/[\r\n]//g;
     }
+    $prefs_user_size = db_pref_size($prefs_user_size);
     return $new_field;
 }
 
@@ -2978,6 +2982,7 @@ sub command96 {
     } else {
         $new_field =~ s/[\r\n]//g;
     }
+    $prefs_key_size = db_pref_size($prefs_key_size);
     return $new_field;
 }
 
@@ -2992,7 +2997,24 @@ sub command97 {
     } else {
         $new_field =~ s/[\r\n]//g;
     }
+    $prefs_val_size = db_pref_size($prefs_val_size);
     return $new_field;
+}
+
+# routine is used to set database field limits
+# it needs one argument
+sub db_pref_size() {
+    my ($size) = $_[0];
+    print "\nDatabase fields have size limits.\n";
+    print "\n";
+    print "What limit is set for this field? [$WHT$size$NRM]: $WHT";
+    $new_size = <STDIN>;
+    if ( $new_size eq "\n" ) {
+        $new_size = $size;
+    } else {
+        $new_size =~ s/[\r\n]//g;
+    }
+    return $new_size;
 }
 
 sub command98 {
@@ -3583,10 +3605,16 @@ sub save_data {
         print CF "\$prefs_table = '$prefs_table';\n";
     # string
         print CF "\$prefs_user_field = '$prefs_user_field';\n";
+    # integer
+        print CF "\$prefs_user_size = $prefs_user_size;\n";
     # string
         print CF "\$prefs_key_field = '$prefs_key_field';\n";
+    # integer
+        print CF "\$prefs_key_size = $prefs_key_size;\n";
     # string
-        print CF "\$prefs_val_field = '$prefs_val_field';\n\n";
+        print CF "\$prefs_val_field = '$prefs_val_field';\n";
+    # integer
+        print CF "\$prefs_val_size = $prefs_val_size;\n\n";
     # string
         print CF "\$addrbook_global_dsn = '$addrbook_global_dsn';\n";
     # string

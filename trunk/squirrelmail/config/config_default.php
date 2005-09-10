@@ -845,9 +845,39 @@ $addrbook_table = 'address';
  */
 $prefs_dsn = '';
 $prefs_table = 'userprefs';
+/**
+ * Preference key field 
+ * @global string $prefs_key_field
+ */
 $prefs_key_field = 'prefkey';
+/**
+ * Size of preference key field
+ * @global integer $prefs_key_size
+ * @since 1.5.1
+ */
+$prefs_key_size = 64;
+/**
+ * Preference owner field 
+ * @global string $prefs_user_field
+ */
 $prefs_user_field = 'user';
+/**
+ * Size of preference owner field
+ * @global integer $prefs_user_size
+ * @since 1.5.1
+ */
+$prefs_user_size = 128;
+/**
+ * Preference value field 
+ * @global string $prefs_val_field
+ */
 $prefs_val_field = 'prefval';
+/**
+ * Size of preference key field
+ * @global integer $prefs_val_size
+ * @since 1.5.1
+ */
+$prefs_val_size = 65536;
 
 /*** Global sql database options ***/
 /**

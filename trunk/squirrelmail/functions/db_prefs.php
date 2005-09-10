@@ -143,12 +143,32 @@ class dbPrefs {
                          'show_html_default' => '0');
 
     /**
+     * Preference owner field size
+     * @var integer
+     * @since 1.5.1
+     */
+    var $user_size = 128;
+    /**
+     * Preference key field size
+     * @var integer
+     * @since 1.5.1
+     */
+    var $key_size = 64;
+    /**
+     * Preference value field size
+     * @var integer
+     * @since 1.5.1
+     */
+    var $val_size = 65536;
+
+    /**
      * initialize DB connection object
      * @return boolean true, if object is initialized
      */
     function open() {
         global $prefs_dsn, $prefs_table;
         global $prefs_user_field, $prefs_key_field, $prefs_val_field;
+        global $prefs_user_size, $prefs_key_size, $prefs_val_size;
 
         if(isset($this->dbh)) {
             return true;
@@ -171,6 +191,15 @@ class dbPrefs {
         }
         if (!empty($prefs_val_field)) {
             $this->val_field = $prefs_val_field;
+        }
+        if (!empty($prefs_user_size)) {
+            $this->user_size = (int) $prefs_user_size;
+        }
+        if (!empty($prefs_key_size)) {
+            $this->key_size = (int) $prefs_key_size;
+        }
+        if (!empty($prefs_val_size)) {
+            $this->val_size = (int) $prefs_val_size;
         }
         $dbh = DB::connect($prefs_dsn, true);
 
@@ -261,6 +290,46 @@ class dbPrefs {
         if (!$this->open()) {
             return false;
         }
+
+        /**
+         * Check if username fits into db field
+         */
+        if (strlen($user) > $this->user_size) {
+            $this->error = "Oversized username value."
+                ." User's preferences can't be saved. See doc/db-backend.txt troubleshooting documentation.";
+
+            /**
+             * Debugging function. Can be used to log all issues that trigger 
+             * oversized field errors. Function should be enabled in all three 
+             * strlen checks. See http://www.php.net/error-log
+             */
+            // error_log($user.'|'.$key.'|'.$value."\n",3,'/tmp/oversized_log');
+
+            // error is fatal
+            $this->failQuery(null);
+        }
+        /**
+         * Check if preference key fits into db field
+         */
+        if (strlen($key) > $this->key_size) {
+            $err_msg = "Oversized user's preference key."
+                ." Some user preferences are not saved. See doc/db-backend.txt troubleshooting documentation.";
+            // error is not fatal. Only some preference is not saved.
+            trigger_error($err_msg,E_USER_WARNING);
+            return false;
+        }
+        /**
+         * Check if preference value fits into db field
+         */
+        if (strlen($value) > $this->val_size) {
+            $err_msg = "Oversized user's preference value."
+                ." Some user preferences are not saved. See doc/db-backend.txt troubleshooting documentation.";
+            // error is not fatal. Only some preference is not saved.
+            trigger_error($err_msg,E_USER_WARNING);
+            return false;
+        }
+
+
         if ($this->db_type == SMDB_MYSQL) {
             $query = sprintf("REPLACE INTO %s (%s, %s, %s) ".
                              "VALUES('%s','%s','%s')",
