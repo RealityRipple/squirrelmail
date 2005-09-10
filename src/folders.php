@@ -154,6 +154,11 @@ if ( $server_type == 'courier' ) {
         // We don't need INBOX, since it is top folder
         array_push($skip_folders, 'INBOX');
     }
+} elseif ( $server_type == 'bincimap' ) {
+    if ( $default_folder_prefix == 'INBOX/' ) {
+        // We don't need INBOX, since it is top folder
+        array_push($skip_folders, 'INBOX');
+    }
 }
 
 if ( $default_sub_of_inbox == false ) {

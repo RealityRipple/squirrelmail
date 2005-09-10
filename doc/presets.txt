@@ -189,7 +189,7 @@ show_contain_subfolders_option = false
 --------------------
 'bincimap' settings:
 --------------------
-
+Preset is used with Binc IMAP server. Available since 1.5.1.
 Tested v.1.2.13 and 1.3.4
 
 CAPABILITY IMAP4rev1 STARTTLS AUTH=LOGIN AUTH=PLAIN (1.2.13)
