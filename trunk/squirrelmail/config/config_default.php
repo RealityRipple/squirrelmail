@@ -192,14 +192,15 @@ $imapPort = 143;
  *
  * The type of IMAP server you are running.
  * Valid type are the following (case is important):
+ *   bincimap
  *   courier
  *   cyrus
- *   exchange
- *   uw
- *   macosx
- *   hmailserver
- *   mercury32
  *   dovecot
+ *   exchange
+ *   hmailserver
+ *   macosx
+ *   mercury32
+ *   uw
  *   other
  *
  * Please note that this changes only some of server settings.

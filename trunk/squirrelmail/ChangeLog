@@ -445,6 +445,7 @@ Version 1.5.1 -- CVS
   - Running SquirrelMail with PHP register_globals = on will cause fatal error 
     in src/configtest.php.
   - Added field size controls to database preference backend (#1233721).
+  - Added bincimap preset (#1285099).
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
