@@ -399,7 +399,7 @@ Version 1.5.1 -- CVS
     Adds time zone name localization options and fixes problems on systems
     that don't support GNU C time zone mappings (#1177067).
   - Use default color theme in logout_error function when possible.
-  - Fixes for increased error checking in PHP 5.1 array_shift() (#1237160).
+  - Fixes for increased error checking in PHP 5.0.5+ array_shift() (#1237160).
   - Added extra checks in delivery class for In-Reply-To header. Fixes
     E_NOTICE level warnings in php 5.0.4 and later (#1206474). [php5]
   - Added extra checks in SquirrelMail charset_encode() function in case
@@ -442,6 +442,9 @@ Version 1.5.1 -- CVS
     Suggested by Florian Daumling.
   - Focus on compose screen no longer shifts automatically if user has manually
     focused somewhere herself.
+  - Running SquirrelMail with PHP register_globals = on will cause fatal error 
+    in src/configtest.php.
+  - Added field size controls to database preference backend (#1233721).
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
