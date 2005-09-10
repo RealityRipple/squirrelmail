@@ -296,7 +296,8 @@ class dbPrefs {
          */
         if (strlen($user) > $this->user_size) {
             $this->error = "Oversized username value."
-                ." User's preferences can't be saved. See doc/db-backend.txt troubleshooting documentation.";
+                ." Your preferences can't be saved."
+                ." See doc/db-backend.txt or contact your system administrator.";
 
             /**
              * Debugging function. Can be used to log all issues that trigger 
@@ -313,7 +314,8 @@ class dbPrefs {
          */
         if (strlen($key) > $this->key_size) {
             $err_msg = "Oversized user's preference key."
-                ." Some user preferences are not saved. See doc/db-backend.txt troubleshooting documentation.";
+                ." Some preferences were not saved."
+                ." See doc/db-backend.txt or contact your system administrator.";
             // error is not fatal. Only some preference is not saved.
             trigger_error($err_msg,E_USER_WARNING);
             return false;
@@ -323,7 +325,8 @@ class dbPrefs {
          */
         if (strlen($value) > $this->val_size) {
             $err_msg = "Oversized user's preference value."
-                ." Some user preferences are not saved. See doc/db-backend.txt troubleshooting documentation.";
+                ." Some preferences were not saved."
+                ." See doc/db-backend.txt or contact your system administrator.";
             // error is not fatal. Only some preference is not saved.
             trigger_error($err_msg,E_USER_WARNING);
             return false;
