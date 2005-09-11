@@ -8,7 +8,7 @@
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * @copyright (c) 2004-2005 The SquirrelMail Project Team
- * @license http://opensource.org/licenses/gpl-license.php GNU Public Licens
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link http://www.php.net/gettext Original php gettext manual
  * @link http://savannah.nongnu.org/projects/php-gettext php-gettext classes
  * @version $Id$
