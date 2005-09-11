@@ -174,6 +174,9 @@ function sqfixidentities( $identities, $id, $action ) {
             case 'delete':
 
                 if ($key == $id) {
+                    // inform plugins about deleted id
+                    do_hook('options_identities_process', $action, $id);
+
                     continue 2;
                 } else {
                     $fixed[$i] = $ident;
