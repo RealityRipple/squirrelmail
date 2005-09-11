@@ -507,7 +507,7 @@ Version 1.5.0 - 2 February 2004
     was wrong (appearing to the user that the wrong messages were attached).
     Closes #772371.
   - Fix that when user has no theme preference set, Alien Glow would be selected under
-    display preferences in stead of Default.
+    display preferences instead of Default.
   - Updated 'action' to be 'smaction' so that plugins can modify the submit/action of
     forms.  This was suggested for the gpg plugin, but might be useful elsewhere.
   - Add support for Mail-Followup-To header.
@@ -521,7 +521,7 @@ Version 1.5.0 - 2 February 2004
   - new function sqimap_msgs_list_move() to replace sqimap_msgs_list_copy()
   - sqimap_msgs_list_copy() no longer deletes messages copied.
   - Workaround for Mozilla bug #200412 in order to show multipart/related html mail.
-  - Fix for disapearing '0' from decoded strings (bug #784193)
+  - Fix for disappearing '0' from decoded strings (bug #784193).
   - Replace all session_start() calls with sqsession_is_active() to be compatible
     with upcoming PHP 4.3.3.
   - Encoding of Russian translation changed to utf-8. Lithuanian translation changed
@@ -738,7 +738,6 @@ Version 1.3.0
     E. Randall.
   - Moved the generic_header hook back to page_header.php. bug #554278
   - Make default theme work. Bug #557313, thanks Tyler Bannister.
-
 
 Version 1.2.7 -- June 21 2002
 -----------------------------
