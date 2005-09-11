@@ -11,7 +11,7 @@
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
- * @subpackage bug_report
+ * @subpackage abook_take
  */
 
 header('Location: ../index.php');

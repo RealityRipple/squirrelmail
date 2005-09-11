@@ -1,8 +1,11 @@
 <?php
+
 /**
- *  index.php -- Displays the main frameset
+ * index.php
  *
- * Redirects to the login page.
+ * This file simply takes any attempt to view source files and sends those
+ * people to the login screen. At this point no attempt is made to see if the
+ * person is logged in or not.
  *
  * @copyright (c) 1999-2005 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -11,6 +14,6 @@
  * @subpackage spamcop
  */
 
-header("Location:../../index.php\n\n");
-exit();
+header('Location: ../index.php');
+
 ?>

@@ -1,19 +1,19 @@
 <?php
 
 /**
- * index.php -- Displays the main frameset
+ * index.php
  *
- * Copyright (c) 2002-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
+ * This file simply takes any attempt to view source files and sends those
+ * people to the login screen. At this point no attempt is made to see if the
+ * person is logged in or not.
  *
- * Redirects to the login page.
- *
- * $Id$
+ * @copyright (c) 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package plugins
  * @subpackage calendar
  */
 
-header("Location:../../src/login.php\n\n");
-exit();
+header('Location: ../index.php');
 
 ?>
