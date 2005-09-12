@@ -3,7 +3,8 @@
 # flat2sql.pl v1.0
 # 
 # Copyright (c) 2002,  Michael Blandford and Tal Yardeni
-
+#
+# This script is licensed under GPL.
 ##### Conf Section #####
 
 $data_dir = "/home/www/mail.topolis.inet/www/squirrelmail-devel-20050911/data";
