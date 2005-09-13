@@ -7,7 +7,7 @@
 # This script is licensed under GPL.
 ##### Conf Section #####
 
-$data_dir = "/home/www/mail.topolis.inet/www/squirrelmail-devel-20050911/data";
+$data_dir = "/var/local/squirrelmail/data";
 $db = "squirrelmail";
 $abook_table = "address";
 $pref_table = "userprefs";
