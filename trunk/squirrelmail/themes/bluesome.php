@@ -1,14 +1,17 @@
 <?php
+
 /**
- *    Theme Name: Bluesome Theme
- *    Author:     Saku LehtiÃ¶
- *    Date:       April 22, 2005
+ * Name: Bluesome Theme
+ * Date: April 22, 2005
  *
- * Copyright (c) 2005 Saku LehtiÃ¶
  * Published on SquirrelMail SourceForge tracker (#1188209).
  * Modified by SquirrelMail developers to match documentation guidelines.
- * Copyright (c) 2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * @author Saku Lehtiö
+ * @copyright &copy; 2005 Saku Lehtiö
+ * @copyright &copy; 2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package squirrelmail
  * @subpackage themes
  */

@@ -1,14 +1,14 @@
 <?php
+
 /**
  * functions/imap_utf7_local.php - utf7-imap functions
- *
- * Copyright (c) 1999-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This implements all functions that do imap UTF7 conversions.
  * Before 1.3.2 functions were stored in imap_utf7_decode_local.php and
  * imap_utf7_encode_local.php files.
  *
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  * @subpackage imap

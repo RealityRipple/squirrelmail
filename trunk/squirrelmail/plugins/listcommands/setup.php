@@ -3,14 +3,13 @@
 /**
  * setup.php
  *
- * Copyright (c) 1999-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
  * Implementation of RFC 2369 for SquirrelMail.
  * When viewing a message from a mailinglist complying with this RFC,
  * this plugin displays a menu which gives the user a choice of mailinglist
  * commands such as (un)subscribe, help and list archives.
  *
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
  * @subpackage listcommands

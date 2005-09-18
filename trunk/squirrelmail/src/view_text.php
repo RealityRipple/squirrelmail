@@ -3,13 +3,12 @@
 /**
  * view_text.php -- Displays the main frameset
  *
- * Copyright (c) 1999-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
  * Who knows what this file does. However PUT IT HERE DID NOT PUT
  * A SINGLE FREAKING COMMENT IN! Whoever is responsible for this,
  * be very ashamed.
  *
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  */

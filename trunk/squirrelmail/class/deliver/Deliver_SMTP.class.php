@@ -1,23 +1,23 @@
 <?php
+
 /**
-* Deliver_SMTP.class.php
-*
-* Copyright (c) 1999-2005 The SquirrelMail Project Team
-* Licensed under the GNU GPL. For full terms see the file COPYING.
-*
-* Delivery backend for the Deliver class.
-*
-* @version $Id$
-* @package squirrelmail
-*/
+ * Deliver_SMTP.class.php
+ *
+ * Delivery backend for the Deliver class.
+ *
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
+ * @package squirrelmail
+ */
 
 /** This of course depends upon Deliver */
 require_once(SM_PATH . 'class/deliver/Deliver.class.php');
 
 /**
-* Deliver messages using SMTP
-* @package squirrelmail
-*/
+ * Deliver messages using SMTP
+ * @package squirrelmail
+ */
 class Deliver_SMTP extends Deliver {
 
     function preWriteToStream(&$s) {
@@ -69,9 +69,9 @@ class Deliver_SMTP extends Deliver {
         }
 
         /*
-        * If $_SERVER['HTTP_HOST'] is set, use that in our HELO to the SMTP
-        * server.  This should fix the DNS issues some people have had
-        */
+         * If $_SERVER['HTTP_HOST'] is set, use that in our HELO to the SMTP
+         * server.  This should fix the DNS issues some people have had
+         */
         if (sqgetGlobalVar('HTTP_HOST', $HTTP_HOST, SQ_SERVER)) { // HTTP_HOST is set
             // optionally trim off port number
             if($p = strrpos($HTTP_HOST, ':')) {

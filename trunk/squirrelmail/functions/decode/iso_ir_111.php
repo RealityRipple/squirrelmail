@@ -1,9 +1,7 @@
 <?php
+
 /**
  * decode/iso-ir-111.php
- *
- * Copyright (c) 2003-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This file contains iso-ir-111 decoding function that is needed to read
  * iso-ir-111 encoded mails in non-iso-ir-111 locale.
@@ -39,6 +37,8 @@
  * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
+ * @copyright &copy; 2003-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  * @subpackage decode

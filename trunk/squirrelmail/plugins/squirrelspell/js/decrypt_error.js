@@ -1,12 +1,12 @@
 /**
  * decrypt_error.js
- * -----------------
+ *
  * Some client-side form-checks. Trivial stuff.
  *
- * $Id$
- *
- * @author Konstantin Riabitsev <icon@duke.edu> ($Author$)
- * @version $Date$
+ * @author Konstantin Riabitsev <icon at duke.edu>
+ * @copyright &copy; 2001-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  */
 
 function AYS(){
@@ -23,4 +23,3 @@ function AYS(){
     return confirm(ui_willdel);
   return true;
 }
-

@@ -1,13 +1,15 @@
 <?php
+
 /**
  * SquirrelMail internal gettext functions
  *
  * Since 1.5.1 uses php-gettext classes.
  * Original implementation was done by Tyler Akins (fidian)
- * @copyright (c) 1999-2005 The SquirrelMail Project Team
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
  * @link http://www.php.net/gettext Original php gettext manual
  * @link http://savannah.nongnu.org/projects/php-gettext php-gettext classes
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @since 1.1.2
  * @package squirrelmail

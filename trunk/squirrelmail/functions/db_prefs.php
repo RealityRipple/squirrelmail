@@ -3,14 +3,10 @@
 /**
  * db_prefs.php
  *
- * Copyright (c) 1999-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
  * This contains functions for manipulating user preferences
  * stored in a database, accessed though the Pear DB layer.
  *
  * Database:
- * ---------
  *
  * The preferences table should have three columns:
  *    user       char  \  primary
@@ -25,6 +21,8 @@
  * Configuration of databasename, username and password is done
  * by using conf.pl or the administrator plugin
  *
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  * @subpackage prefs

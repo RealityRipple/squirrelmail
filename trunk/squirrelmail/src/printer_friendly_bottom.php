@@ -3,14 +3,13 @@
 /**
  * printer_friendly_bottom.php
  *
- * Copyright (c) 1999-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
  * with javascript on, it is the bottom frame of printer_friendly_main.php
  * else, it is alone in a new window
  *
  * - this is the page that does all the work, really.
  *
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  */

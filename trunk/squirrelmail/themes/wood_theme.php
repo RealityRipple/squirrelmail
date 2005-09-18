@@ -1,10 +1,12 @@
 <?php
 
 /**
- * wood_theme.php
- *    Name:   Wood
- *    Author: Pavel Spatny
- *    Date:   2004/11/16
+ * Name: Wood
+ * Date: 2004/11/16
+ *
+ * @author Pavel Spatny
+ * @copyright &copy; 2004-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  * @subpackage themes

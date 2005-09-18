@@ -1,10 +1,12 @@
 <?php
 
 /**
- * silver_steel_theme.php
- *    Name:   Silver-Steel
- *    Author: Pavel Spatny
- *    Date:   2004/11/16
+ * Name: Silver-Steel
+ * Date: 2004/11/16
+ *
+ * @author Pavel Spatny
+ * @copyright &copy; 2004-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  * @subpackage themes
@@ -13,7 +15,7 @@
 global $color;
 $color[0]   = '#d0d4de'; //       addit. text background
 $color[1]   = '#900000'; //        ??
-$color[2]   = '#C00000'; //        warnings
+$color[2]   = '#c00000'; //        warnings
 $color[3]   = '#d0d4de'; //       Left Bar Background
 $color[4]   = '#e8ecf6'; //       Normal Background
 $color[5]   = '#b0b8d0'; //       Table Headers
@@ -26,6 +28,6 @@ $color[11]  = '#307090'; //       Special Folders color
 $color[12]  = '#d0d4de'; //       odd message background
 $color[13]  = '#ffffff'; //
 $color[14]  = '#ffffff'; //
-$color[15]  = '#D0D0D0'; //       Unselectable folders
+$color[15]  = '#d0d0d0'; //       Unselectable folders
 
 ?>

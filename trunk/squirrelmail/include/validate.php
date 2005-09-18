@@ -1,14 +1,13 @@
 <?php
 
 /**
-* validate.php
-*
-* Copyright (c) 1999-2005 The SquirrelMail Project Team
-* Licensed under the GNU GPL. For full terms see the file COPYING.
-*
-* @version $Id$
-* @package squirrelmail
-*/
+ * validate.php
+ *
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
+ * @package squirrelmail
+ */
 
 /** include the mime class before the session start ! otherwise we can't store
  * messages with a session_register.
@@ -59,14 +58,14 @@ require_once(SM_PATH . 'functions/auth.php');
 is_logged_in();
 
 /**
-* Auto-detection
-*
-* if $send (the form button's name) contains "\n" as the first char
-* and the script is compose.php, then trim everything. Otherwise, we
-* don't have to worry.
-*
-* This is for a RedHat package bug and a Konqueror (pre 2.1.1?) bug
-*/
+ * Auto-detection
+ *
+ * if $send (the form button's name) contains "\n" as the first char
+ * and the script is compose.php, then trim everything. Otherwise, we
+ * don't have to worry.
+ *
+ * This is for a RedHat package bug and a Konqueror (pre 2.1.1?) bug
+ */
 global $send, $PHP_SELF;
 if (isset($send)
     && (substr($send, 0, 1) == "\n")

@@ -1,13 +1,13 @@
 <?php
+
 /**
  * This gathers system specification details for use with bug reporting
  * and anyone else who needs it.
  *
- * Copyright (c) 1999-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
  * This is a standard SquirrelMail 1.2 API for plugins.
  *
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
  * @subpackage bug_report

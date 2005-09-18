@@ -1,12 +1,14 @@
 <?php
+
 /**
  * tis-620 encoding functions
  *
  * takes a string of unicode entities and converts it to a tis-620 encoded string
  * Unsupported characters are replaced with ?.
  *
+ * @copyright &copy; 2004-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
- * @copyright Copyright &copy; 2004-2005 The SquirrelMail Project Team
  * @package squirrelmail
  * @subpackage encode
  */

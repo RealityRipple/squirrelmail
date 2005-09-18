@@ -1,9 +1,7 @@
 <?php
+
 /**
  * functions/decode/utf-8.php - utf-8 decoding functions
- *
- * Copyright (c) 2003-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This file contains utf-8 decoding function that is needed to read
  * utf-8 encoded mails in non-utf-8 locale.
@@ -37,6 +35,8 @@
  *  octdec(a-374)*64^5 + octdec(b-200)*64^4 + octdec(c-200)*64^3 +
  *  + octdec(d-200)*64^2 + octdec(e-200)*64 + octdec(f-200)
  *</pre>
+ * @copyright &copy; 2003-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  * @subpackage decode

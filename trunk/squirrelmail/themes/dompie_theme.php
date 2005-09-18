@@ -3,14 +3,13 @@
 /**
  * dompie_theme.php
  * Name:    Dompie
- * @author M.J. Prinsen
  * Date:    November 19, 2001
  * Comment: Has a dark blue left-bar and a white/grey right frame.
  *
- * Copyright (c) 2001-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * $Id$
+ * @author M.J. Prinsen
+ * @copyright &copy; 2001-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package squirrelmail
  * @subpackage themes
  */

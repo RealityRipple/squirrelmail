@@ -3,7 +3,6 @@
 /**
  * maize_theme.php
  * Name:    Maize
- * @author Ray Black
  * Date:    August 15, 2000
  * Comment: Staying with the 'South of the border food' theme,
  *          Staying with the 'South of the border food' theme,
@@ -13,10 +12,10 @@
  *          #7a6a50, bumping up the red, green and blue where
  *          necessary.
  *
- * Copyright (c) 2000-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * $Id$
+ * @author Ray Black
+ * @copyright &copy; 2000-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package squirrelmail
  * @subpackage themes
  */

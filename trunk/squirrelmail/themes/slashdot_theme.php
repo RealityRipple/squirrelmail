@@ -2,15 +2,14 @@
 
 /**
  * Name:   Slashdot Theme
- * @author Luke Ehresman
  * Date:   January 3, 2000
  * Comment This theme tries to mimic the color scheme from the
  *         "News for Nerds" web site, www.slashdot.org.
  *
- * Copyright (c) 2000-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * $Id$
+ * @author Luke Ehresman
+ * @copyright &copy; 2000-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package squirrelmail
  * @subpackage themes
  */

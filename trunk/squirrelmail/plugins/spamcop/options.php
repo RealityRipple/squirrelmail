@@ -1,9 +1,9 @@
 <?php
 
 /**
- *  options.php -- SpamCop options page
+ * options.php -- SpamCop options page
  *
- * @copyright (c) 1999-2005 The SquirrelMail Project Team
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

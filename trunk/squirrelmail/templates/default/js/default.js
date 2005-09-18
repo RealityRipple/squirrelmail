@@ -1,5 +1,9 @@
 /**
  * This array is used to remember mark status of rows in browse mode
+ *
+ * @copyright &copy; 2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  */
 var marked_row = new Array;
 var orig_row_colors = new Array();

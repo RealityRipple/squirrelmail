@@ -1,10 +1,11 @@
 <?php
+
 /**
  * functions for bug_report plugin
  *
  * functions/forms.php and functions/html.php have to be loaded before including this file.
  *
- * @copyright (c) 2004-2005 The SquirrelMail Project Team
+ * @copyright &copy; 2004-2005 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

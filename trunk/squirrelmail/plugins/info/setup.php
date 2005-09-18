@@ -1,11 +1,12 @@
 <?php
+
 /**
  * setup file for the IMAP server info plugin
  *
- * @copyright (c) 1999-2005 The SquirrelMail Project Team
+ * @author Jason Munro <jason at stdbev.com>
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
- * @author Jason Munro jason@stdbev.com
  * @package plugins
  * @subpackage info
  */

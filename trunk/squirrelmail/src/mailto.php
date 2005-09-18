@@ -3,9 +3,6 @@
 /**
  * mailto.php -- mailto: url handler
  *
- * Copyright (c) 1999-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
  * This checks to see if we're logged in.  If we are we open up a new
  * compose window for this email, otherwise we go to login.php
  * (the above functionality has been disabled, by default you are required to
@@ -14,6 +11,8 @@
  * Use the following url to use mailto:
  * http://<your server>/<squirrelmail base dir>/src/mailto.php?emailaddress=%1
  * see ../contrib/squirrelmail.mailto.reg for a Windows Registry file
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  */

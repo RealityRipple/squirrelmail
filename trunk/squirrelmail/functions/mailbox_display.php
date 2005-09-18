@@ -1,17 +1,16 @@
 <?php
 
 /**
-* mailbox_display.php
-*
-* Copyright (c) 1999-2005 The SquirrelMail Project Team
-* Licensed under the GNU GPL. For full terms see the file COPYING.
-*
-* This contains functions that display mailbox information, such as the
-* table row that has sender, date, subject, etc...
-*
-* @version $Id$
-* @package squirrelmail
-*/
+ * mailbox_display.php
+ *
+ * This contains functions that display mailbox information, such as the
+ * table row that has sender, date, subject, etc...
+ *
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
+ * @package squirrelmail
+ */
 
 /** The standard includes.. */
 require_once(SM_PATH . 'functions/strings.php');
@@ -696,14 +695,14 @@ function setUserPref($username, $pref, $value) {
 }
 
 /**
-* Execute the sorting for a mailbox
-*
-* @param  resource $imapConnection Imap connection
-* @param  array    $aMailbox (reference) Mailbox retrieved with sqm_api_mailbox_select
-* @return int      $error (reference) Error number
-* @private
-* @author Marc Groot Koerkamp
-*/
+ * Execute the sorting for a mailbox
+ *
+ * @param  resource $imapConnection Imap connection
+ * @param  array    $aMailbox (reference) Mailbox retrieved with sqm_api_mailbox_select
+ * @return int      $error (reference) Error number
+ * @private
+ * @author Marc Groot Koerkamp
+ */
 function _get_sorted_msgs_list($imapConnection,&$aMailbox) {
     $iSetIndx = (isset($aMailbox['SETINDEX'])) ? $aMailbox['SETINDEX'] : 0;
     $bDirection = !($aMailbox['SORT'] % 2);
@@ -750,13 +749,13 @@ function _get_sorted_msgs_list($imapConnection,&$aMailbox) {
 }
 
 /**
-* Does the $srt $_GET var to field mapping
-*
-* @param int $srt Field to sort on
-* @param bool $bServerSort Server sorting is true
-* @return string $sSortField Field to sort on
-* @private
-*/
+ * Does the $srt $_GET var to field mapping
+ *
+ * @param int $srt Field to sort on
+ * @param bool $bServerSort Server sorting is true
+ * @return string $sSortField Field to sort on
+ * @private
+ */
 function _getSortField($sort,$bServerSort) {
     switch($sort) {
         case SQSORT_NONE:
@@ -803,14 +802,14 @@ function _getSortField($sort,$bServerSort) {
 
 
 /**
-* This function loops through a group of messages in the mailbox
-* and shows them to the user.
-*
-* @param resource $imapConnection
-* @param array    $aMailbox associative array with mailbox related vars
-* @param array    $aProps
-* @param int      $iError error code, 0 is no error
-*/
+ * This function loops through a group of messages in the mailbox
+ * and shows them to the user.
+ *
+ * @param resource $imapConnection
+ * @param array    $aMailbox associative array with mailbox related vars
+ * @param array    $aProps
+ * @param int      $iError error code, 0 is no error
+ */
 function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
     global $PHP_SELF;
     global $boxes;
@@ -1043,9 +1042,9 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
     }
 
     /*
-    * This is the beginning of the message list table.
-    * It wraps around all messages
-    */
+     * This is the beginning of the message list table.
+     * It wraps around all messages
+     */
     $safe_name = preg_replace("/[^0-9A-Za-z_]/", '_', $aMailbox['NAME']);
     $form_name = "FormMsgs" . $safe_name;
 
@@ -1094,12 +1093,12 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
 
 
 /**
-* Truncates a string and take care of html encoded characters
-*
-* @param string  $s string to truncate
-* @param int $iTrimAt Trim at nn characters
-* @return string  Trimmed string
-*/
+ * Truncates a string and take care of html encoded characters
+ *
+ * @param string  $s string to truncate
+ * @param int $iTrimAt Trim at nn characters
+ * @return string  Trimmed string
+ */
 function truncateWithEntities($s, $iTrimAt) {
     global $languages, $squirrelmail_language;
 
@@ -1112,11 +1111,11 @@ function truncateWithEntities($s, $iTrimAt) {
         return call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_strimwidth', $s, $iTrimAt);
     } else {
         /*
-        * see if this is entities-encoded string
-        * If so, Iterate through the whole string, find out
-        * the real number of characters, and if more
-        * than $iTrimAt, substr with an updated trim value.
-        */
+         * see if this is entities-encoded string
+         * If so, Iterate through the whole string, find out
+         * the real number of characters, and if more
+         * than $iTrimAt, substr with an updated trim value.
+         */
         $trim_val = $iTrimAt;
         $ent_offset = 0;
         $ent_loc = 0;
@@ -1141,9 +1140,9 @@ function truncateWithEntities($s, $iTrimAt) {
 
 
 /**
-* This should go in imap_mailbox.php
-* @param string $mailbox
-*/
+ * This should go in imap_mailbox.php
+ * @param string $mailbox
+ */
 function handleAsSent($mailbox) {
     global $handleAsSent_result;
 
@@ -1308,7 +1307,7 @@ function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = ar
             /**
              * on expunge we do not know which messages will be deleted
              * so it's useless to try to sync the cache
-
+             *
              * Close the mailbox so we do not need to parse the untagged expunge
              * responses which do not contain uid info.
              * NB: Closing a mailbox is faster then expunge because the imap

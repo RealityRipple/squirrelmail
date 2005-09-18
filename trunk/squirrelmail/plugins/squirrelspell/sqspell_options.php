@@ -1,13 +1,13 @@
 <?php
+
 /**
  * sqspell_options.php
  *
  * Main wrapper for the options interface.
  *
- * Copyright (c) 1999-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * @author Konstantin Riabitsev <icon@duke.edu>
+ * @author Konstantin Riabitsev <icon at duke.edu>
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
  * @subpackage squirrelspell

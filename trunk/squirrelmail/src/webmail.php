@@ -3,13 +3,12 @@
 /**
  * webmail.php -- Displays the main frameset
  *
- * Copyright (c) 1999-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
  * This file generates the main frameset. The files that are
  * shown can be given as parameters. If the user is not logged in
  * this file will verify username and password.
  *
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  */

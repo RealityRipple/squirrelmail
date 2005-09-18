@@ -1,16 +1,16 @@
 <?php
+
 /**
  * enc_setup.mod
- * --------------
- * Squirrelspell module
  *
- * Copyright (c) 1999-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
+ * Squirrelspell module
  *
  * This module shows the user a nice invitation to encrypt or decypt
  * his/her personal dictionary and explains the caveats of such a decision.
  *
- * @author Konstantin Riabitsev <icon@duke.edu>
+ * @author Konstantin Riabitsev <icon at duke.edu>
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
  * @subpackage squirrelspell

@@ -1,9 +1,7 @@
 <?php
+
 /**
  * decode/koi8-r.php
- *
- * Copyright (c) 2003-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This file contains koi8-r decoding function that is needed to read
  * koi8-r encoded mails in non-koi8-r locale.
@@ -34,6 +32,8 @@
  * internal or external distribution as long as this notice remains
  * attached.
  *
+ * @copyright &copy; 2003-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  * @subpackage decode

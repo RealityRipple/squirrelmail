@@ -1,8 +1,11 @@
 <?php
+
 /**
  * Merakchange password backend
  *
- * @author Edwin van Elk <Edwin@eve-software.com>
+ * @author Edwin van Elk <edwin at eve-software.com>
+ * @copyright &copy; 2004-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
  * @subpackage change_password

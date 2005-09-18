@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Change password vmailmgrd backend
  *
@@ -20,7 +21,9 @@
  * Backend might require functions, that are available only in SquirrelMail
  * v.1.5.1 and v.1.4.4.
  *
- * @author Tomas Kuliavas <tokul@users.sourceforge.net>
+ * @author Tomas Kuliavas <tokul at users.sourceforge.net>
+ * @copyright &copy; 2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @link http://www.vmailmgr.org vmailmgr site
  * @package plugins
