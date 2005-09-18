@@ -1,8 +1,7 @@
 <?php
+
 /**
  * Copyright 2003, Paul James
- * Copyright (c) 2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This file contains some methods from the Smarty templating engine version
  * 2.5.0 by Monte Ohrt <monte@ispi.net> and Andrei Zmievski <andrei@php.net>.
@@ -10,6 +9,8 @@
  * The SquirrelMail (Foowd) template implementation.
  * Derived from the foowd template implementation and adapted
  * for squirrelmail
+ * @copyright &copy; 2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  */
@@ -21,8 +22,8 @@
  * This class uses a similar API to Smarty.
  *
  * @author Paul James
- * @author Monte Ohrt <monte@ispi.net>
- * @author Andrei Zmievski <andrei@php.net>
+ * @author Monte Ohrt <monte at ispi.net>
+ * @author Andrei Zmievski <andrei at php.net>
  * @package squirrelmail
  */
 class Template

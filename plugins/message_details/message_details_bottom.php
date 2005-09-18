@@ -1,14 +1,13 @@
 <?php
+
 /**
  * Message Details plugin - bottom frame with message structure and rfc822 body
  *
  * Plugin to view the RFC822 raw message output and the bodystructure of a message
  *
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
  * @author Marc Groot Koerkamp
- * @copyright Copyright &copy; 2002 Marc Groot Koerkamp, The Netherlands
- * @copyright Copyright &copy; 2004-2005 The SquirrelMail Project Team
+ * @copyright &copy; 2002 Marc Groot Koerkamp, The Netherlands
+ * @copyright &copy; 2002-2005 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

@@ -3,9 +3,6 @@
 /**
  * about.php
  *
- * Copyright (c) 1999-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
  * An "about box" detailing SquirrelMail info.
  *
  * TODO:
@@ -13,6 +10,8 @@
  * - What more information is needed?
  * - Display of system information might be restricted
  *
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  */

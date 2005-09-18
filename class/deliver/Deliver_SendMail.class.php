@@ -1,14 +1,14 @@
 <?php
+
 /**
  * Deliver_SendMail.class.php
  *
- * @copyright Copyright (c) 1999-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
  * Delivery backend for the Deliver class.
  *
- * @version $Id$
  * @author Marc Groot Koerkamp
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package squirrelmail
  */
 

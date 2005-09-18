@@ -1,14 +1,17 @@
 <?php
+
 /**
- * Author:       Vicky Pyne <dotvicky@dotvicky.net>
  * Date:         June 7, 2005
  * Theme Name:   'Simple Green'
- * Copyright:    Vicky Pyne <dotvicky@dotvicky.net>, 2005
- * Licence:      GNU Public License
  *
  * Published on SquirrelMail SourceForge tracker (#1217066).
  * Modified by SquirrelMail developers to match documentation guidelines.
- * Copyright (c) 2005 The SquirrelMail Project Team
+ *
+ * @author Vicky Pyne <dotvicky at dotvicky.net>
+ * @copyright &copy; 2005 Vicky Pyne <dotvicky at dotvicky.net>
+ * @copyright &copy; 2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package squirrelmail
  * @subpackage themes
  */

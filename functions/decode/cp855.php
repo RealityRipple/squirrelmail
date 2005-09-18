@@ -1,9 +1,7 @@
 <?php
+
 /**
  * decode/cp855.php
- *
- * Copyright (c) 2003-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This file contains cp855 decoding function that is needed to read
  * cp855 encoded mails in non-cp855 locale.
@@ -18,6 +16,8 @@
  *   Authors:       Lori Brownell <loribr@microsoft.com>
  *                  K.D. Chang    <a-kchang@microsoft.com>
  *
+ * @copyright &copy; 2003-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  * @subpackage decode

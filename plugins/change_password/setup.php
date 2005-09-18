@@ -3,12 +3,11 @@
 /**
  * setup.php - Generic Change Password plugin
  *
- * Copyright (c) 2003-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
  * This plugin aims to provide a general framework for all password
  * changing methods that currently have their own plugins.
  *
+ * @copyright &copy; 2003-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
  * @subpackage change_password

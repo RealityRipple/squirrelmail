@@ -3,13 +3,12 @@
 /**
  * blue_grey_theme.php
  *    Name:   Blue-grey
- * @author M.J. Prinsen
  *    Date:   July 20, 2001
  *
- * Copyright (c) 2001-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * $Id$
+ * @author M.J. Prinsen
+ * @copyright &copy; 2001-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package squirrelmail
  * @subpackage themes
  */

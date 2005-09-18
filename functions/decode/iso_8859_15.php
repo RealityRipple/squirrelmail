@@ -1,9 +1,7 @@
 <?php
+
 /**
  * decode/iso8859-15.php
- *
- * Copyright (c) 2003-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This file contains iso-8859-15 decoding function that is needed to read
  * iso-8859-15 encoded mails in non-iso-8859-15 locale.
@@ -36,6 +34,8 @@
  *  internal or external distribution as long as this notice remains
  *  attached.
  *
+ * @copyright &copy; 2003-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  * @subpackage decode

@@ -3,14 +3,13 @@
 /**
  * christmas.php
  *    Name:    Christmas
- * @author Jon Tai
  *    Date:    December 23, 2001
  *    Comment: This is a Christmas theme shipped with SquirrelMail 1.2.0.
  *
- * Copyright (c) 2001-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * $Id$
+ * @author Jon Tai
+ * @copyright &copy; 2001-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package squirrelmail
  * @subpackage themes
  */

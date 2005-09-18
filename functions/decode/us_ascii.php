@@ -3,14 +3,13 @@
 /**
  * functions/decode/us_ascii.php
  *
- * Copyright (c) 2004-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
  * This file contains us-ascii decoding function that is needed to read
  * us-ascii encoded mails in non-us-ascii locale.
  *
  * Function replaces all 8bit symbols with '?' marks
  *
+ * @copyright &copy; 2004-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  * @subpackage decode

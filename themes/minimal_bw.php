@@ -1,12 +1,17 @@
 <?php
+
 /**
- * @author Tomas Kuliavas
  * Date:         July 26, 2003
  * Theme Name:   'Minimal BW Theme'
  *
  * This theme uses black color for text and white for background.
  *
  * Problem: $color[9] is used for background and for disabled links.
+ *
+ * @author Tomas Kuliavas
+ * @copyright &copy; 2003-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package squirrelmail
  * @subpackage themes
  */

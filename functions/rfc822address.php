@@ -1,13 +1,12 @@
 <?php
+
 /**
  * rfc822address.php
  *
- * Copyright (c) 2004-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
  * Contains rfc822 email address function parsing functions.
  *
- *
+ * @copyright &copy; 2004-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  */

@@ -1,9 +1,7 @@
 <?php
+
 /**
  * mail_fetch/functions.php
- *
- * Copyright (c) 1999-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * Functions for the mail_fetch plugin.
  *
@@ -11,6 +9,8 @@
  * and josh@superfork.com (extracted from php manual)
  * Adapted for MailFetch by Philippe Mingo <mingo@rotedic.com>
  *
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
  * @subpackage mail_fetch

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * utf-8 encoding functions
  *
@@ -9,8 +10,9 @@
  * Original code is taken from www.php.net manual comments
  * Original author: ronen at greyzone dot com
  *
+ * @copyright &copy; 2004-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
- * @copyright Copyright &copy; 2004-2005 The SquirrelMail Project Team
  * @package squirrelmail
  * @subpackage encode
  */

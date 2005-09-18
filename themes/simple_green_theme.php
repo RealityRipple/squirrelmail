@@ -1,10 +1,12 @@
 <?php
 
 /**
- * simple_green_theme.php
- *    Name:   Simple-Green
- *    Author: Paul Lesneiwski
- *    Date:   2004/09/20
+ * Name: Simple-Green
+ * Date: 2004/09/20
+ *
+ * @author Paul Lesneiwski
+ * @copyright &copy; 2004-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  * @subpackage themes

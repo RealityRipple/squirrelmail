@@ -1,8 +1,13 @@
 <?php
+
 /**
- * @author Todd Hammer <thammer@rtccom.com>
  * Name: Alien Glow Theme
  * Date: May 2, 2002
+ *
+ * @author Todd Hammer <thammer at rtccom.com>
+ * @copyright &copy; 2002-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package squirrelmail
  * @subpackage themes
  */

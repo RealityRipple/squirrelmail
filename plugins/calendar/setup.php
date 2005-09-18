@@ -3,14 +3,13 @@
 /**
  * setup.php
  *
- * Copyright (c) 2002-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
  * Originally contrubuted by Michal Szczotka <michal@tuxy.org>
  *
  * Init plugin into SquirrelMail
  *
- * $Id$
+ * @copyright &copy; 2002-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package plugins
  * @subpackage calendar
  */

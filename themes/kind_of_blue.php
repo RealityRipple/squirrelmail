@@ -3,15 +3,14 @@
 /**
  * kind_of_blue.php
  * Name:    Kind of Blue
- * @author Jorey Bump
  * Date:    October 20, 2001
  * Comment: This theme generates random colors, featuring a
  *          light bluish background with dark text.
  *
- * Copyright (c) 2000-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * $Id$
+ * @author Jorey Bump
+ * @copyright &copy; 2000-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package squirrelmail
  * @subpackage themes
  */

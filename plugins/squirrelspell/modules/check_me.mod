@@ -1,17 +1,17 @@
 <?php
+
 /**
  * check_me.mod
- * -------------
- * Squirrelspell module.
  *
- * Copyright (c) 1999-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
+ * Squirrelspell module.
  *
  * This module is the main workhorse of SquirrelSpell. It submits
  * the message to the spell-checker, parses the output, and loads
  * the interface window.
  *
- * @author Konstantin Riabitsev <icon@duke.edu>
+ * @author Konstantin Riabitsev <icon at duke.edu>
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
  * @subpackage squirrelspell

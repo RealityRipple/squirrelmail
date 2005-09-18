@@ -3,14 +3,13 @@
 /**
  * deepocean_theme.php
  * Name:    Deep Ocean
- * @author M.J. Prinsen
  * Date:    January 3, 2000
  * Comment: Deep Ocean is a theme that is very blue.
  *
- * Copyright (c) 2000-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * $Id$
+ * @author M.J. Prinsen
+ * @copyright &copy; 2000-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package squirrelmail
  * @subpackage themes
  */

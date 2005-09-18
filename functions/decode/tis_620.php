@@ -1,9 +1,7 @@
 <?php
+
 /**
  * decode/tis620.php
- *
- * Copyright (c) 2003-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This file contains tis620 decoding function that is needed to read
  * tis620 encoded mails in non-tis620 locale.
@@ -33,6 +31,8 @@
  *  5. http://charts.unicode.org/Unicode.charts/normal/U0E00.html
  *  6. http://www.unicode.org/
  *
+ * @copyright &copy; 2003-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  * @subpackage decode

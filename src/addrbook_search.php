@@ -3,15 +3,14 @@
 /**
  * addrbook_search.php
  *
- * Copyright (c) 1999-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
  * Handle addressbook searching in the popup window.
  *
  * NOTE: A lot of this code is similar to the code in
  *       addrbook_search_html.html -- If you change one,
  *       change the other one too!
  *
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  * @subpackage addressbook

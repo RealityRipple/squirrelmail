@@ -2,14 +2,13 @@
 
 /**
  * Name:    Random Theme Every Login
- * @author  Tyler Akins
  * Date:    December 24, 2001
  * Comment: Guess what this does!
  *
- * Copyright (c) 2000-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * $Id$
+ * @author Tyler Akins
+ * @copyright &copy; 2000-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package squirrelmail
  * @subpackage themes
  */

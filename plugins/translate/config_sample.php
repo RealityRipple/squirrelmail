@@ -1,13 +1,13 @@
 <?php
+
 /**
  * SquirrelMail translate plugin sample configuration
  *
  * WARNING: This is only an example config. Don't use it for your
  * configuration. Almisbar translation engine is not public.
  *
- * Copyright (c) 2004-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
+ * @copyright &copy; 2004-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
  * @subpackage translate

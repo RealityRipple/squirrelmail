@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SquirrelMail time zone library
  *
@@ -15,25 +16,11 @@
  * in same array key. 'NAME' subkeys are optional and used only in display 
  * of 'TZ' key entries.
  *
- * Copyright (c) 2005 The SquirrelMail Project Team
- * This file is part of SquirrelMail webmail interface.
- *
- * SquirrelMail is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * SquirrelMail is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with SquirrelMail; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  * @link ftp://elsie.nci.nih.gov/pub/ GNU C time zone implementation
  * @link some source of POSIX TZ names
+ * @copyright &copy; 2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package squirrelmail
  * @subpackage timezones
  */

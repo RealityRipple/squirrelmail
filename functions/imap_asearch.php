@@ -3,19 +3,18 @@
 /**
  * imap_search.php
  *
- * Copyright (c) 1999-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
  * IMAP asearch routines
  *
  * Subfolder search idea from Patch #806075 by Thomas Pohl xraven at users.sourceforge.net. Thanks Thomas!
  *
+ * @author Alex Lemaresquier - Brainstorm <alex at brainstorm.fr>
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  * @subpackage imap
  * @see search.php
  * @link http://www.ietf.org/rfc/rfc3501.txt
- * @author Alex Lemaresquier - Brainstorm - alex at brainstorm.fr
  */
 
 /** This functionality requires the IMAP and date functions

@@ -3,14 +3,13 @@
 /**
  * midnight.php
  * Name:   Midnight
- * @author Jim Riffle
  * Date:   November 14, 2001
  * Comment: A popular theme with Jim's users
  *
- * Copyright (c) 2001-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * $Id$
+ * @author Jim Riffle
+ * @copyright &copy; 2001-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package squirrelmail
  * @subpackage themes
  */

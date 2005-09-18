@@ -3,13 +3,12 @@
 /**
  * high_contrast_theme.php
  * Name:    High Contrast
- * @author Casey A. Peel
  * Date:    July 13, 2000
  *
- * Copyright (c) 2000-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * $Id$
+ * @author Casey A. Peel
+ * @copyright &copy; 2000-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
  * @package squirrelmail
  * @subpackage themes
  */

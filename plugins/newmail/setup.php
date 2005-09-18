@@ -1,10 +1,9 @@
 <?php
+
 /**
  * newmail.php
  *
- * Copyright (c) 1999-2005 The SquirrelMail Project Team
  * Copyright (c) 2000 by Michael Huttinger
- * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * Quite a hack -- but my first attempt at a plugin.  We were
  * looking for a way to play a sound when there was unseen
@@ -21,6 +20,8 @@
  * This was tested with IE5.0 - but I hear Netscape works well,
  * too (with a plugin).
  *
+ * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
  * @subpackage newmail

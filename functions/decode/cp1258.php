@@ -1,9 +1,7 @@
 <?php
+
 /**
  * decode/cp1258.php
- *
- * Copyright (c) 2003-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This file contains cp1258 decoding function that is needed to read
  * cp1258 encoded mails in non-cp1258 locale.
@@ -18,6 +16,8 @@
  *   Date:          04/15/98
  *   Contact:       cpxlate@microsoft.com
  *
+ * @copyright &copy; 2003-2005 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  * @subpackage decode
