@@ -14,6 +14,7 @@ Possible server values are:
  hmailserver = hMailServer
  mercury32   = Mercury/32
  dovecot     = Dovecot Secure IMAP server
+ bincimap    = Binc IMAP server
 
 -----------------
 default settings:
