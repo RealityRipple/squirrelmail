@@ -1,22 +1,26 @@
 #!/usr/bin/perl
 #
+# Converts file based preferences into SQL statements.
+#
+# WARNING: this script is experimental. Don't use it as
+# privileged user or backup your data directory before using it.
+#
 # Copyright (c) 2002, Michael Blandford and Tal Yardeni
 # Copyright (c) 2005, The SquirrelMail Project Team
 #
 # This script is licensed under GPL.
 # $Id$
-##### Conf Section #####
+#
 
-$data_dir = "/var/local/squirrelmail/data";
+##### Default values #####
 $db = "squirrelmail";
 $abook_table = "address";
 $pref_table = "userprefs";
-
 ##### ##### #####
 
 use Getopt::Long;
 
-&GetOptions( \%opts, qw( abook data_dir:s delete h help pref sig user:s ) );
+&GetOptions( \%opts, qw( abook data_dir:s delete h help pref sig user:s db:s pref_table:s abook_table:s) );
 
 &Usage if ( defined $opts{h} or defined $opts{help} );
 
@@ -26,8 +30,23 @@ unless ( defined $opts{abook} or defined $opts{pref} or defined $opts{sig}) {
     $opts{sig}=TRUE;
 }
 
-# Override the data directory if passed as an argument
-$data_dir = $opts{data_dir} if ( defined $opts{data_dir} );
+
+if ( defined $opts{db} and $opts{db} ) {
+    $db = $opts{db};
+}
+if ( defined $opts{pref_table} and $opts{pref_table} ) {
+    $pref_table = $opts{pref_table};
+}
+if ( defined $opts{abook_table} and $opts{abook_table}) {
+    $abook_table = $opts{abook_table};
+}
+
+# Get data directory option and display help if it is not defined
+if ( defined $opts{data_dir} and $opts{data_dir} ) {
+    $data_dir = $opts{data_dir};
+} else {
+    &Usage;
+}
 
 # Are we looking for specific users or all users?
 # There has to be a better way to do this - Below
@@ -62,7 +81,7 @@ closedir ( DIR );
 # Process a user address file
 
 sub abook {
-  print "DELETE FROM $db.$abook_table WHERE owner = '$username;\n"
+  print "DELETE FROM $db.$abook_table WHERE owner = '$username';\n"
     if ( defined $opts{delete} );
 
   open(ABOOK, "<$data_dir/$filename") or 
@@ -130,7 +149,7 @@ sub sig {
     $prefkey .= "$1___";
   }
 
-  print "INSERT INTO $db.$sig_table (user,prefkey,prefval) "
+  print "INSERT INTO $db.$pref_table (user,prefkey,prefval) "
     . "VALUES ('$username','$prefkey','".join("", @lines)."');\n";
 }
 
@@ -141,10 +160,32 @@ sub Usage {
 $0 =~ /.*\/(.*)/;
 $prog = $1;
   print <<EOL;
-This program generates SQL statements to aid importing squirrelmail 
+
+This program generates SQL statements to aid importing SquirrelMail 
 user config into a database.
 
-Usage: $prog [--delete] [--abook] [--pref] [--sig] [--data_dir=<>] [--user=<username0[,username1[,username2]...]]
+WARNING: this script is experimental. Don't use it as
+privileged user or backup your data directory before using it.
+
+Usage: $prog --data_dir=<data_dir> [--delete] [--abook] [--pref] [--sig]  
+  [--user=<username0[,username1[,username2]...]]
+  [--db=<database>] [--pref_table=<userprefs>] [--abook_table=<address>]
+
+--data_dir option must define path to SquirrelMail data directory. If
+option is not defined, script displays this help message.
+
+--abook option is used to generate SQL with address books.
+--pref option is used to generate SQL with user preferences.
+--sig option is used to generate SQL with signatures.
+
+--db option can be used to set database name. Script defaults to 
+'squirrelmail'.
+
+--pref_table option can be used to set preference table name. Script
+defaults to 'userprefs'.
+
+--abook_table option can be used to set address book table name. Script
+defaults to 'address'.
 
 Prefs --abook, --pref, and --sig are assumed if none of them as passed
 
@@ -152,7 +193,7 @@ Prefs --abook, --pref, and --sig are assumed if none of them as passed
 the database.  This is useful to reimport users.  
 It respects --abook, --pref, and --sig.
 
-If --user is not specified, it will try to do all users.
+If --user is not specified, script extracts all user data.
 
 EOL
   exit 1;
