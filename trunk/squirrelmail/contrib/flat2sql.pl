@@ -1,10 +1,10 @@
 #!/usr/bin/perl
-
-# flat2sql.pl v1.0
-# 
-# Copyright (c) 2002,  Michael Blandford and Tal Yardeni
+#
+# Copyright (c) 2002, Michael Blandford and Tal Yardeni
+# Copyright (c) 2005, The SquirrelMail Project Team
 #
 # This script is licensed under GPL.
+# $Id$
 ##### Conf Section #####
 
 $data_dir = "/var/local/squirrelmail/data";
@@ -20,11 +20,10 @@ use Getopt::Long;
 
 &Usage if ( defined $opts{h} or defined $opts{help} );
 
-unless ( defined $opts{abook} or defined $opts{pref} or
-         defined $opts{sig}) {
-	$opts{abook}=TRUE;
-	$opts{pref}=TRUE;
-        $opts{sig}=TRUE;
+unless ( defined $opts{abook} or defined $opts{pref} or defined $opts{sig}) {
+    $opts{abook}=TRUE;
+    $opts{pref}=TRUE;
+    $opts{sig}=TRUE;
 }
 
 # Override the data directory if passed as an argument
@@ -66,7 +65,7 @@ sub abook {
   print "DELETE FROM $db.$abook_table WHERE owner = '$username;\n"
     if ( defined $opts{delete} );
 
-  open(ABOOK, ">$data_dir/$filename") or 
+  open(ABOOK, "<$data_dir/$filename") or 
     die "FILE READ ERROR: Could not open $filename!!\n";
 
   while (my $line = <ABOOK> ) {
