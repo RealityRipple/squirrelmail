@@ -142,10 +142,25 @@ function displayInternalLink($path, $text, $target='') {
  * @return void
  */
 
-function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = 'onload="checkForm();"') {
-    global $hide_sm_attributions, $frame_top,
+function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
+
+    global $reply_focus, $hide_sm_attributions, $frame_top,
            $provider_name, $provider_uri, $startMessage,
-           $javascript_on;
+           $javascript_on, $action;
+
+    if (empty($sBodyTagJs)) {
+        if (strpos($action, 'reply') !== FALSE && $reply_focus) {
+          if ($reply_focus == 'select')
+              $sBodyTagJs = 'onload="checkForm(\'select\');"';
+          else if ($reply_focus == 'focus')
+              $sBodyTagJs = 'onload="checkForm(\'focus\');"';
+          else if ($reply_focus != 'none')
+              $sBodyTagJs = 'onload="checkForm();"';
+        }
+        else
+          $sBodyTagJs = 'onload="checkForm();"';
+    }
+
 
     sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION );
 
@@ -238,8 +253,24 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = 'onloa
  * @param string sBodyTagJs js events to be inserted in the body tag
  * @return void
  */
-function compose_Header($color, $mailbox, $sHeaderJs='', $sBodyTagJs = 'onload="checkForm();"') {
-    global $javascript_on;
+function compose_Header($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
+
+    global $reply_focus, $javascript_on, $action;
+
+    if (empty($sBodyTagJs)) {
+        if (strpos($action, 'reply') !== FALSE && $reply_focus) {
+          if ($reply_focus == 'select')
+              $sBodyTagJs = 'onload="checkForm(\'select\');"';
+          else if ($reply_focus == 'focus')
+              $sBodyTagJs = 'onload="checkForm(\'focus\');"';
+          else if ($reply_focus != 'none')
+              $sBodyTagJs = 'onload="checkForm();"';
+        }
+        else
+          $sBodyTagJs = 'onload="checkForm();"';
+    }
+
+
     /*
      * Locate the first displayable form element (only when JavaScript on)
      */
