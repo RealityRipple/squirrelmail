@@ -446,6 +446,8 @@ Version 1.5.1 -- CVS
     in src/configtest.php.
   - Added field size controls to database preference backend (#1233721).
   - Added bincimap preset (#1285099).
+  - Fixed IMAP search command in filters plugin. Command was breaking 
+    sqimap_mailbox_exists() check. Reported by Daniel Watts.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------

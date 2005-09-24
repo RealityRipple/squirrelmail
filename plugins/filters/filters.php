@@ -315,7 +315,7 @@ function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_
         $search_str .= ' ' . $where . ' ' . $what;
     } else {
         $search_str .= ' ' . $where . ' {' . strlen($what) . "}\r\n"
-                    . $what . "\r\n";
+                    . $what;
     }
 
     /* read data back from IMAP */
