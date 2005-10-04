@@ -199,11 +199,12 @@ function is_plugin_enabled($plugin_name) {
   global $plugins;
 
   /**
-   * check if variable is set. can't do is_array(), if variable is not set
-   * check if it is an array
-   * there is no need to call in_array() if $plugins array is empty
+   * check if variable is empty. if var is not set, php empty 
+   * returns true without error notice.
+   *
+   * then check if it is an array
    */
-  if (! isset($plugins) || ! is_array($plugins) || empty($plugins))
+  if (empty($plugins) || ! is_array($plugins))
     return false;
 
   if ( in_array($plugin_name,$plugins) ) {
