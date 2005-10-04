@@ -198,6 +198,11 @@ function soupNazi(){
 function is_plugin_enabled($plugin_name) {
   global $plugins;
 
+  /**
+   * check if variable is set. can't do is_array(), if variable is not set
+   * check if it is an array
+   * there is no need to call in_array() if $plugins array is empty
+   */
   if (! isset($plugins) || ! is_array($plugins) || empty($plugins))
     return false;
 
