@@ -613,10 +613,18 @@ function sqimap_base64_decode(&$string) {
     return $sStringRem;
 }
 
-
-/* This function decodes the body depending on the encoding type. */
+/**
+ * Decodes encoded message body
+ *
+ * This function decodes the body depending on the encoding type.
+ * Currently quoted-printable and base64 encodings are supported.
+ * decode_body hook was added to this function in 1.4.2/1.5.0
+ * @param string $body encoded message body
+ * @param string $encoding used encoding
+ * @return string decoded string
+ * @since 1.0
+ */
 function decodeBody($body, $encoding) {
-    global $show_html_default;
 
     $body = str_replace("\r\n", "\n", $body);
     $encoding = strtolower($encoding);
@@ -629,15 +637,16 @@ function decodeBody($body, $encoding) {
     if (!empty($encoding_handler) && function_exists($encoding_handler)) {
         $body = $encoding_handler('decode', $body);
 
-    } else if ($encoding == 'quoted-printable' ||
+    } elseif ($encoding == 'quoted-printable' ||
             $encoding == 'quoted_printable') {
+        /**
+         * quoted_printable_decode() function is broken in older
+         * php versions. Text with \r\n decoding was fixed only
+         * in php 4.3.0. Minimal code requirement 4.0.4 + 
+         * str_replace("\r\n", "\n", $body); call.
+         */
         $body = quoted_printable_decode($body);
-
-        while (ereg("=\n", $body)) {
-            $body = ereg_replace ("=\n", '', $body);
-        }
-
-    } else if ($encoding == 'base64') {
+    } elseif ($encoding == 'base64') {
         $body = base64_decode($body);
     }
 
