@@ -448,6 +448,8 @@ Version 1.5.1 -- CVS
   - Added bincimap preset (#1285099).
   - Fixed IMAP search command in filters plugin. Command was breaking 
     sqimap_mailbox_exists() check. Reported by Daniel Watts.
+  - Fixed decoding of quoted-printable text in decodeBody function.
+    Reported by João Carlos Mendes Luís.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
