@@ -71,6 +71,9 @@ if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
 
 if ($type1 == 'html' || (isset($override_type1) &&  $override_type1 == 'html')) {
     $body = MagicHTML( $body, $passed_id, $message, $mailbox);
+    // html attachment with character set information
+    if (! empty($charset))
+        $body = charset_decode($charset,$body,false,true);
 } else {
     translateText($body, $wrap_at, $charset);
 }
