@@ -74,7 +74,7 @@ do_hook('webmail_top');
  */
 $my_language = getPref($data_dir, $username, 'language');
 if ($my_language != $squirrelmail_language) {
-    setcookie('squirrelmail_language', $my_language, time()+2592000, $base_uri);
+    sqsetcookie('squirrelmail_language', $my_language, time()+2592000, $base_uri);
 }
 
 $err=set_up_language(getPref($data_dir, $username, 'language'));
