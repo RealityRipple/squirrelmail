@@ -454,6 +454,8 @@ Version 1.5.1 -- CVS
     Windows systems.
   - Sanitized names displayed in address book listing.
   - Added extra field controls to address book class.
+  - HttpOnly cookie support (cookies inaccessible by JS). This will protect 
+    IE6 browsers.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
