@@ -257,9 +257,9 @@ function sqsession_destroy() {
 
     global $base_uri;
 
-    if (isset($_COOKIE[session_name()])) setcookie(session_name(), '', time() - 5, $base_uri);
-    if (isset($_COOKIE['username'])) setcookie('username','',time() - 5,$base_uri);
-    if (isset($_COOKIE['key'])) setcookie('key','',time() - 5,$base_uri);
+    if (isset($_COOKIE[session_name()])) sqsetcookie(session_name(), '', 0, $base_uri);
+    if (isset($_COOKIE['username'])) sqsetcookie('username','',0,$base_uri);
+    if (isset($_COOKIE['key'])) sqsetcookie('key','',0,$base_uri);
 
     $sessid = session_id();
     if (!empty( $sessid )) {
@@ -275,14 +275,67 @@ function sqsession_destroy() {
  * (even though autoglobal), is not created unless a session is
  * started, unlike $_POST, $_GET and such
  */
-
 function sqsession_is_active() {
-
     $sessid = session_id();
     if ( empty( $sessid ) ) {
-        session_start();
+        sqsession_start();
     }
 }
 
+/**
+ * Function to start the session and store the cookie with the session_id as
+ * HttpOnly cookie which means that the cookie isn't accessible by javascript
+ * (IE6 only)
+ */
+function sqsession_start() {
+    global $PHP_SELF;
+
+    $dirs = array('|src/.*|', '|plugins/.*|', '|functions/.*|');
+    $repl = array('', '', '');
+    $base_uri = preg_replace($dirs, $repl, $PHP_SELF);
+
+    session_start();
+    $sessid = session_id();
+    // session_starts sets the sessionid cookie buth without the httponly var
+    // setting the cookie again sets the httponly cookie attribute
+    sqsetcookie(session_name(),$sessid,false,$base_uri);
+}
+
+
+/**
+ * Set a cookie
+ * @param string  $sName     The name of the cookie.
+ * @param string  $sValue    The value of the cookie.
+ * @param int     $iExpire   The time the cookie expires. This is a Unix timestamp so is in number of seconds since the epoch.
+ * @param string  $sPath     The path on the server in which the cookie will be available on.
+ * @param string  $sDomain   The domain that the cookie is available.
+ * @param boolean $bSecure   Indicates that the cookie should only be transmitted over a secure HTTPS connection.
+ * @param boolean $bHttpOnly Disallow JS to access the cookie (IE6 only)
+ * @return void
+ */
+function sqsetcookie($sName,$sValue,$iExpire=false,$sPath="",$sDomain="",$bSecure=false,$bHttpOnly=true) {
+    $sHeader = "Set-Cookie: $sName=$sValue";
+    if ($sPath) {
+        $sHeader .= "; Path=\"$sPath\"";
+    }
+    if ($iExpire !==false) {
+        $sHeader .= "; Max-Age=$iExpire";
+    }
+    if ($sPath) {
+        $sHeader .= "; Path=$sPath";
+    }
+    if ($sDomain) {
+        $sHeader .= "; Domain=$sDomain";
+    }
+    if ($bSecure) {
+        $sHeader .= "; Secure";
+    }
+    if ($bHttpOnly) {
+        $sHeader .= "; HttpOnly";
+    }
+    $sHeader .= "; Version=1";
+
+    header($sHeader);
+}
 // vim: et ts=4
 ?>

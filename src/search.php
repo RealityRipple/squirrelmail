@@ -726,7 +726,7 @@ function asearch_get_form_mailbox($imapConnection, &$boxes, $mailbox, $row_num =
 }
 
 /** Build the Include subfolders checkbox
- * @todo if(function_exists('addCheckBox')) ? 
+ * @todo if(function_exists('addCheckBox')) ?
  */
 function asearch_get_form_sub($sub, $row_num = 0)
 {
@@ -1360,7 +1360,7 @@ if (isset($aMailbox['FORWARD_SESSION'])) {
         session_write_close();
         // restart the session. Do not use sqsession_is_active because the session_id
         // isn't empty after a session_write_close
-        session_start();
+        sqsession_start();
 
         if (!preg_match("/^[0-9]{3,4}$/", $compose_width)) {
             $compose_width = '640';

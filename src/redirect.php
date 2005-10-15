@@ -58,7 +58,7 @@ if (!sqgetGlobalVar('mailto', $mailto)) {
 
 set_up_language($squirrelmail_language, true);
 /* Refresh the language cookie. */
-setcookie('squirrelmail_language', $squirrelmail_language, time()+2592000,
+sqsetcookie('squirrelmail_language', $squirrelmail_language, time()+2592000,
           $base_uri);
 
 if (!isset($login_username)) {
@@ -93,7 +93,7 @@ if (!sqsession_is_registered('user_is_logged_in')) {
 
     $username = $login_username;
     sqsession_register ($username, 'username');
-    setcookie('key', $key, 0, $base_uri);
+    sqsetcookie('key', $key, false, $base_uri);
     do_hook ('login_verified');
 
 }
