@@ -447,6 +447,20 @@ class AddressBook {
      * @var string
      */
     var $localbackendname = '';
+    /**
+     * Controls use of 'extra' field
+     * 
+     * Extra field can be used to add link to form, which allows 
+     * to modify all fields supported by backend. This is the only field 
+     * that is not sanitized with htmlspecialchars. Backends MUST make
+     * sure that field data is sanitized and displayed correctly inside
+     * table cell. Use of html formating in other address book fields is
+     * not allowed. Backends that don't return 'extra' row in address book 
+     * data should not modify this object property.
+     * @var boolean
+     * @since 1.5.1
+     */
+    var $add_extra_field = false;
 
     /**
      * Constructor function.
