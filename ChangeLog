@@ -452,6 +452,8 @@ Version 1.5.1 -- CVS
     Reported by João Carlos Mendes Luís.
   - Added CR trimming to SquirrelSpell plugin in order to fix problems on
     Windows systems.
+  - Sanitized names displayed in address book listing.
+  - Added extra field controls to address book class.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------

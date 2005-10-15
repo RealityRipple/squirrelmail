@@ -247,6 +247,11 @@ if ($showaddrlist) {
     /* List addresses */
     if (count($alist) > 0) {
         echo addForm($form_url, 'post');
+        if ($abook->add_extra_field) {
+            $abook_fields = 6;
+        } else {
+            $abook_fields = 5;
+        }
         while(list($undef,$row) = each($alist)) {
 
             /* New table header for each backend */
@@ -257,10 +262,10 @@ if ($showaddrlist) {
                                 html_tag( 'td',
                                     addSubmit(_("Edit selected"), 'editaddr').
                                     addSubmit(_("Delete selected"), 'deladdr'),
-                                    'center', '', 'colspan="5"' )
+                                    'center', '', "colspan=\"$abook_fields\"" )
                                 ) .
                             html_tag( 'tr',
-                                html_tag( 'td', '&nbsp;<br />', 'center', '', 'colspan="5"' )
+                                html_tag( 'td', '&nbsp;<br />', 'center', '', "colspan=\"$abook_fields\"" )
                                 ),
                             'center' );
                     echo "\n<!-- start of address book table -->\n" .
@@ -278,20 +283,22 @@ if ($showaddrlist) {
                                     'left', '', 'width="1%"' ) . "\n" .
                                 html_tag( 'th', _("Info") .
                                     show_abook_sort_button($abook_sort_order, _("sort by info"), 6, 7),
-                                    'left', '', 'width="1%"' ) . "\n",
+                                    'left', '', 'width="1%"' ) .
+                                  ($abook->add_extra_field ? html_tag( 'th', '&nbsp;','left', '', 'width="1%"'): '') . 
+                                "\n",
                                 '', $color[9] ) . "\n";
                 }
 
                 // Separate different backends with <hr />
                 if($prevbackend > 0) {
                     echo  html_tag( 'tr',
-                            html_tag( 'td', "<hr />", 'center', '' ,'colspan="5"' )
+                            html_tag( 'td', "<hr />", 'center', '' ,"colspan=\"$abook_fields\"" )
                             );
                 }
 
                 // Print backend name
                 echo html_tag( 'tr',
-                        html_tag( 'td', "\n" . '<strong>' . $row['source'] . '</strong>' . "\n", 'center', $color[0] ,'colspan="5"' )
+                        html_tag( 'td', "\n" . '<strong>' . $row['source'] . '</strong>' . "\n", 'center', $color[0] ,"colspan=\"$abook_fields\"" )
                         );
 
                 $line = 0;
@@ -309,45 +316,54 @@ if ($showaddrlist) {
             } else {
                 $tr_bgcolor = $color[4];
             }
-            if ($squirrelmail_language == 'ja_JP') {
-                echo html_tag( 'tr', '', '', $tr_bgcolor);
-                if ($abook->backends[$row['backend']]->writeable) {
-                    echo html_tag( 'td',
-                            '<small>' .
-                            addCheckBox('sel[]', $selected, $row['backend'].':'.$row['nickname']).
-                            '</small>' ,
-                            'center', '', 'valign="top" width="1%"' );
-                } else {
-                    echo html_tag( 'td',
-                            '&nbsp;' ,
-                            'center', '', 'valign="top" width="1%"' );
-                }
-                echo html_tag( 'td', '&nbsp;' . $row['nickname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' ) .
-                    html_tag( 'td', '&nbsp;' . $row['lastname'] . ' ' . $row['firstname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' ) .
-                    html_tag( 'td', '', 'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' ) . '&nbsp;';
+            echo html_tag( 'tr', '', '', $tr_bgcolor);
+            if ($abook->backends[$row['backend']]->writeable) {
+                echo html_tag( 'td',
+                               '<small>' .
+                               addCheckBox('sel[]', $selected, $row['backend'].':'.$row['nickname']).
+                               '</small>' ,
+                               'center', '', 'valign="top" width="1%"' );
             } else {
-                echo html_tag( 'tr', '', '', $tr_bgcolor);
-                if ($abook->backends[$row['backend']]->writeable) {
-                    echo html_tag( 'td',
-                            '<small>' .
-                            addCheckBox('sel[]', $selected, $row['backend'] . ':' . $row['nickname']).
-                            '</small>' ,
-                            'center', '', 'valign="top" width="1%"' );
-                } else {
-                    echo html_tag( 'td',
-                            '&nbsp;' ,
-                            'center', '', 'valign="top" width="1%"' );
-                }
-                echo html_tag( 'td', '&nbsp;' . $row['nickname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' ) .
-                    html_tag( 'td', '&nbsp;' . $row['name'] . '&nbsp;', 'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' ) .
-                    html_tag( 'td', '', 'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' ) . '&nbsp;';
+                echo html_tag( 'td',
+                               '&nbsp;' ,
+                               'center', '', 'valign="top" width="1%"' );
             }
+            echo html_tag( 'td', 
+                           '&nbsp;' . htmlspecialchars($row['nickname']) . '&nbsp;', 
+                           'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' );
+
+            // different full name display formating for Japanese translation
+            if ($squirrelmail_language == 'ja_JP') {
+                /*
+                 * translation uses euc-jp character set internally.
+                 * htmlspecialchars() should not break any characters.
+                 */
+                echo html_tag( 'td', 
+                               '&nbsp;' . htmlspecialchars($row['lastname']) . ' ' . htmlspecialchars($row['firstname']) . '&nbsp;',
+                               'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' );
+            } else {
+                echo html_tag( 'td',
+                               '&nbsp;' . htmlspecialchars($row['name']) . '&nbsp;',
+                               'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' );
+            }
+
+            // email address column
+            echo html_tag( 'td', '', 'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' ) . '&nbsp;';
             $email = $abook->full_address($row);
             echo makeComposeLink('src/compose.php?send_to='.rawurlencode($email),
                     htmlspecialchars($row['email'])).
-                '&nbsp;</td>'."\n".
-                html_tag( 'td', '&nbsp;' . htmlspecialchars($row['label']) . '&nbsp;', 'left', '', 'valign="top" width="1%"' ) .
-                "</tr>\n";
+                '&nbsp;</td>'."\n";
+
+            // info column
+            echo html_tag( 'td', '&nbsp;' . htmlspecialchars($row['label']) . '&nbsp;', 'left', '', 'valign="top" width="1%"' );
+
+            // add extra column if third party backend needs it
+            if ($abook->add_extra_field) {
+                echo html_tag( 'td', 
+                               '&nbsp;' . (isset($row['extra']) ? $row['extra'] : '') . '&nbsp;',
+                               'left', '', 'valign="top" width="1%"' );
+            }
+            echo "</tr>\n";
             $line++;
         }
         echo "</table>" .
@@ -360,7 +376,7 @@ if ($showaddrlist) {
                         html_tag( 'td',
                             addSubmit(_("Edit selected"), 'editaddr') .
                             addSubmit(_("Delete selected"), 'deladdr'),
-                            'center', '', 'colspan="5"' )
+                            'center', '', "colspan=\"$abook_fields\"" )
                         ),
                     'center' );
         }
