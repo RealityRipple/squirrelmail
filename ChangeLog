@@ -450,6 +450,8 @@ Version 1.5.1 -- CVS
     sqimap_mailbox_exists() check. Reported by Daniel Watts.
   - Fixed decoding of quoted-printable text in decodeBody function.
     Reported by João Carlos Mendes Luís.
+  - Added CR trimming to SquirrelSpell plugin in order to fix problems on
+    Windows systems.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
