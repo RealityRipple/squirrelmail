@@ -413,7 +413,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
                  * need special handling for IE and IE6SP2.
                  */
                 $body.= "<div><iframe name=\"message_frame\" width=\"100%\" height=\"$iframe_height\" src=\"$iframeurl\""
-                    .' frameborder="1" marginwidth="0" marginheight="0" scrolling="auto" security="restricted">' . "\n";
+                    .' frameborder="1" marginwidth="0" marginheight="0" scrolling="auto">' . "\n";
 
                 // Message for browsers without iframe support
                 //$body.= _("Your browser does not support inline frames.
