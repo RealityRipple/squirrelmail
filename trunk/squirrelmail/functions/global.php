@@ -13,44 +13,15 @@
  * @package squirrelmail
  */
 
-
-/** set the name of the session cookie */
-if(isset($session_name) && $session_name) {
-    ini_set('session.name' , $session_name);
-} else {
-    ini_set('session.name' , 'SQMSESSID');
-}
-
 /**
- * If magic_quotes_runtime is on, SquirrelMail breaks in new and creative ways.
- * Force magic_quotes_runtime off.
- * tassium@squirrelmail.org - I put it here in the hopes that all SM code includes this.
- * If there's a better place, please let me know.
  */
-ini_set('magic_quotes_runtime','0');
-
-/* Since we decided all IMAP servers must implement the UID command as defined in
- * the IMAP RFC, we force $uid_support to be on.
- */
-
-global $uid_support;
-$uid_support = true;
-
-sqsession_is_active();
-
-/* if running with magic_quotes_gpc then strip the slashes
-   from POST and GET global arrays */
-
-if (get_magic_quotes_gpc()) {
-    sqstripslashes($_GET);
-    sqstripslashes($_POST);
-}
-
-/* strip any tags added to the url from PHP_SELF.
-   This fixes hand crafted url XXS expoits for any
-   page that uses PHP_SELF as the FORM action */
-
-$_SERVER['PHP_SELF'] = strip_tags($_SERVER['PHP_SELF']);
+define('SQ_INORDER',0);
+define('SQ_GET',1);
+define('SQ_POST',2);
+define('SQ_SESSION',3);
+define('SQ_COOKIE',4);
+define('SQ_SERVER',5);
+define('SQ_FORM',6);
 
 /**
  * returns true if current php version is at mimimum a.b.c
@@ -156,15 +127,6 @@ function sqsession_is_registered ($name) {
 
     return $result;
 }
-
-
-define('SQ_INORDER',0);
-define('SQ_GET',1);
-define('SQ_POST',2);
-define('SQ_SESSION',3);
-define('SQ_COOKIE',4);
-define('SQ_SERVER',5);
-define('SQ_FORM',6);
 
 /**
  * Search for the var $name in $_SESSION, $_POST, $_GET,
@@ -294,6 +256,7 @@ function sqsession_start() {
     $repl = array('', '', '');
     $base_uri = preg_replace($dirs, $repl, $PHP_SELF);
 
+
     session_start();
     $sessid = session_id();
     // session_starts sets the sessionid cookie buth without the httponly var
@@ -337,5 +300,74 @@ function sqsetcookie($sName,$sValue,$iExpire=false,$sPath="",$sDomain="",$bSecur
 
     header($sHeader);
 }
+
+/**
+ * php_self
+ *
+ * Creates an URL for the page calling this function, using either the PHP global
+ * REQUEST_URI, or the PHP global PHP_SELF with QUERY_STRING added. Before 1.5.1
+ * function was stored in function/strings.php.
+ *
+ * @return string the complete url for this page
+ * @since 1.2.3
+ */
+function php_self () {
+    if ( sqgetGlobalVar('REQUEST_URI', $req_uri, SQ_SERVER) && !empty($req_uri) ) {
+      return $req_uri;
+    }
+
+    if ( sqgetGlobalVar('PHP_SELF', $php_self, SQ_SERVER) && !empty($php_self) ) {
+
+      // need to add query string to end of PHP_SELF to match REQUEST_URI
+      //
+      if ( sqgetGlobalVar('QUERY_STRING', $query_string, SQ_SERVER) && !empty($query_string) ) {
+         $php_self .= '?' . $query_string;
+      }
+
+      return $php_self;
+    }
+
+    return '';
+}
+
+/** set the name of the session cookie */
+if(isset($session_name) && $session_name) {
+    ini_set('session.name' , $session_name);
+} else {
+    ini_set('session.name' , 'SQMSESSID');
+}
+
+/**
+ * If magic_quotes_runtime is on, SquirrelMail breaks in new and creative ways.
+ * Force magic_quotes_runtime off.
+ * tassium@squirrelmail.org - I put it here in the hopes that all SM code includes this.
+ * If there's a better place, please let me know.
+ */
+ini_set('magic_quotes_runtime','0');
+
+/* Since we decided all IMAP servers must implement the UID command as defined in
+ * the IMAP RFC, we force $uid_support to be on.
+ */
+
+global $uid_support;
+$uid_support = true;
+
+/* if running with magic_quotes_gpc then strip the slashes
+   from POST and GET global arrays */
+
+if (get_magic_quotes_gpc()) {
+    sqstripslashes($_GET);
+    sqstripslashes($_POST);
+}
+
+/* strip any tags added to the url from PHP_SELF.
+   This fixes hand crafted url XXS expoits for any
+   page that uses PHP_SELF as the FORM action */
+$_SERVER['PHP_SELF'] = strip_tags($_SERVER['PHP_SELF']);
+
+$PHP_SELF = php_self();
+
+sqsession_is_active();
+
 // vim: et ts=4
 ?>
