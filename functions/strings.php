@@ -478,35 +478,6 @@ function readShortMailboxName($haystack, $needle) {
 }
 
 /**
- * php_self
- *
- * Creates an URL for the page calling this function, using either the PHP global
- * REQUEST_URI, or the PHP global PHP_SELF with QUERY_STRING added.
- *
- * @return string the complete url for this page
- * @since 1.2.3
- */
-function php_self () {
-    if ( sqgetGlobalVar('REQUEST_URI', $req_uri, SQ_SERVER) && !empty($req_uri) ) {
-      return $req_uri;
-    }
-
-    if ( sqgetGlobalVar('PHP_SELF', $php_self, SQ_SERVER) && !empty($php_self) ) {
-
-      // need to add query string to end of PHP_SELF to match REQUEST_URI
-      //
-      if ( sqgetGlobalVar('QUERY_STRING', $query_string, SQ_SERVER) && !empty($query_string) ) {
-         $php_self .= '?' . $query_string;
-      }
-
-      return $php_self;
-    }
-
-    return '';
-}
-
-
-/**
  * get_location
  *
  * Determines the location to forward to, relative to your server.
@@ -1323,5 +1294,5 @@ function sq_count8bit($string) {
     }
     return $count;
 }
-$PHP_SELF = php_self();
+
 ?>
