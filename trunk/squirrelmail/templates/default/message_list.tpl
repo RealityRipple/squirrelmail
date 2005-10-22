@@ -323,7 +323,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
                 //$clickedColor = '';
                 $clickedColor = (!empty($color[16])) ? $color[16] : $color[2];
 
-                $checkbox_javascript = ' onClick="this.checked = !this.checked;"';
+                $checkbox_javascript = ' onclick="this.checked = !this.checked;"';
             } else {
                 $checkbox_javascript = '';
             }
