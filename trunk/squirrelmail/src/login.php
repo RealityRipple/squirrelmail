@@ -50,7 +50,7 @@ $base_uri = sqm_baseuri();
  */
 
 sqsession_destroy();
-
+sqsession_start();
 header('Pragma: no-cache');
 
 /**

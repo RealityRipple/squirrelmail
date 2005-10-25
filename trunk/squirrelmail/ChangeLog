@@ -456,6 +456,8 @@ Version 1.5.1 -- CVS
   - Added extra field controls to address book class.
   - HttpOnly cookie support (cookies inaccessible by JS). This will protect 
     IE6 browsers.
+  - Rare case of session being destroyed causing PHP errors, so ensure session
+    is restarted.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
