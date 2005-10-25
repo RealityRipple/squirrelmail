@@ -458,6 +458,8 @@ Version 1.5.1 -- CVS
     IE6 browsers.
   - Rare case of session being destroyed causing PHP errors, so ensure session
     is restarted.
+  - If you don't have any filters defined, and spam filters are disabled, no
+    point issuing a STATUS call on INBOX for the filters plugin.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
