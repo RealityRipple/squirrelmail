@@ -71,7 +71,7 @@ Version 1.5.1 -- CVS
   - Remove inappropriate strip_tags() from add-to-addressbook (#968475).
   - Prefs caching didn't work properly with register_globals off (#995102).
   - Security: fix SQL injection vulnerability in addressbook.
-    [CAN-2004-0521]
+    [CVE-2004-0521]
   - Removed html_top and html_bottom hooks.  No longer used/needed.
   - Added "trailing text" for options built by SquirrelMail (text placed
     after text and select list inputs on options pages)
@@ -138,7 +138,7 @@ Version 1.5.1 -- CVS
     8bit symbols. (provides fix for #934033).
   - Fixed decoding function problems when mbstring.func_override has
     MB_OVERLOAD_REGEX enabled.
-  - Security: Fixed XSS exploit in decodeHeader function. [CAN-2004-1036]
+  - Security: Fixed XSS exploit in decodeHeader function. [CVE-2004-1036]
   - Added site configuration and custom translation engine support to translate
     plugin.
   - Fixed SquirrelSpell error output.  Patch courtesy David Boone.
@@ -185,15 +185,15 @@ Version 1.5.1 -- CVS
   - Max upload file size now correctly handles a '-1' value, meaning
     unlimited. (#1094569).
   - Security: Added hook for Preferences Backend to resolve potential
-    file inclusions. [CAN-2005-0075]
+    file inclusions. [CVE-2005-0075]
   - Remove Printer Friendly Clean Display config option, the cleaning
     is now always done.
   - Create new Options section "Compose Preferences" and move some
     options from Display Preferences there; also move some around within
     Display Preferences.
   - Security: Fix possible file/offsite inclusion in src/webmail.php.
-    [CAN-2005-0103]
-  - Security: Fix possible XSS issues in src/webmail.php. [CAN-2005-0104]
+    [CVE-2005-0103]
+  - Security: Fix possible XSS issues in src/webmail.php. [CVE-2005-0104]
   - Fix undefined variables in src/webmail.php.
   - 24hr clock format should include a leading 0.
   - Removed numeric keys for plugin array in config.php.
@@ -369,7 +369,7 @@ Version 1.5.1 -- CVS
   - Disallow access to the administrator plugin screens when the plugin is
     not enabled in the config.
   - Security: fix several cross site scripting (XSS) attacks. Thanks go to
-    Martijn Brinkers for finding a lot of these. [CAN-2005-1769]
+    Martijn Brinkers for finding a lot of these. [CVE-2005-1769]
   - Update COPYING with new address of the FSF.
   - Fixed missing quote character when trying to build cid: urls.
   - Added address listing functions and listing controls to address
@@ -384,7 +384,7 @@ Version 1.5.1 -- CVS
     Thanks Christian Froemmel.
   - Added Bluesome theme by Saku Lehtiö (#1188209).
   - Rewrite of advanced identity handlying to remove stupid extraction
-    of all post variables. [CAN-2005-2095]
+    of all post variables. [CVE-2005-2095]
   - Added StartTLS support to address book LDAP backend (#1197703). Patch
     by John Lane.
   - Added subtree/one level search options to address book LDAP backend 
@@ -436,7 +436,7 @@ Version 1.5.1 -- CVS
   - Forwarding broken when not using compose in new window (#1222436).
   - Drop data/ dir from distributed tarball.
   - Readded options_identity_process and options_identity_renumber hooks
-    broken by CAN-2005-2095 fixes.
+    broken by CVE-2005-2095 fixes.
   - Removed duplicate generic_header hook call in src/right_main.php (#1269189).
   - Removed other special folders from rename/delete/unsubscribe folder forms.
     Suggested by Florian Daumling.
@@ -798,7 +798,7 @@ Version 1.2.6 -- April 29 2002
   - Added a server-side sorting global option
   - Compose in new window size can be set in Display prefs.
   - Logout error system unified.
-  - Security: Fix for a "theme passed as cookie" exploit. [CAN-2002-0516]
+  - Security: Fix for a "theme passed as cookie" exploit. [CVE-2002-0516]
   - PostgreSQL is now supported for database backed use
   - Added user option to sort messages by internal date
   - Changed attachment handling now attachments are adressed to
@@ -1040,7 +1040,7 @@ Version 1.0.6 -- April 19, 2001
 Version 1.0.5 -- April 17, 2001
 -------------------------------
   - MAJOR security issues addressed.  Please upgrade as soon as possible.
-    [CAN-2001-1159]
+    [CVE-2001-1159]
   - Downloading attachments should work better due to a tip by Ray Black III.
   - Fixed bug with drop-down folder list not containing INBOX
   - Added Swedish help files Teemu Junnila <teejun@vallcom.com>
