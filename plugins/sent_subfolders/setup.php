@@ -136,7 +136,8 @@ function sent_subfolders_optpage_loadhook_folders() {
         'caption' => _("Base Sent Folder"),
         'type'    => SMOPT_TYPE_FLDRLIST,
         'refresh' => SMOPT_REFRESH_FOLDERLIST,
-        'posvals' => $sent_subfolders_base_values
+        'posvals' => $sent_subfolders_base_values,
+        'folder_filter' => 'noinferiors'
     );
 
     /* Add our option data to the global array. */
@@ -195,19 +196,12 @@ function sent_subfolders_update_sentfolder() {
         $month = date('m');
         $quarter = sent_subfolder_getQuarter($month);
 
-        /*
-            Regarding the structure we've got three main possibilities.
-            One sent holder. level 0.
-            Multiple year holders with messages in it. level 1.
-            Multiple year folders with holders in it. level 2.
-        */
-/*
-        if( $imap_server_type == 'uw' ) {
-            $cnd_delimiter = '';
-        } else {
-            $cnd_delimiter = $delimiter;
-        }
-*/
+        /**
+         * Regarding the structure we've got three main possibilities.
+         * One sent holder. level 0.
+         * Multiple year holders with messages in it. level 1.
+         * Multiple year folders with holders in it. level 2.
+         */
         $cnd_delimiter = $delimiter;
 
         switch ($sent_subfolders_setting) {
@@ -221,7 +215,7 @@ function sent_subfolders_update_sentfolder() {
             $sent_subfolder = $sent_subfolders_base . $cnd_delimiter
                             . $year
                             . $delimiter . $quarter;
-            $year_folder = $sent_subfolders_base
+            $year_folder = $sent_subfolders_base . $cnd_delimiter
                             . $year;
             break;
         case SMPREF_SENT_SUBFOLDERS_MONTHLY:
@@ -229,7 +223,7 @@ function sent_subfolders_update_sentfolder() {
             $sent_subfolder = $sent_subfolders_base . $cnd_delimiter
                             . $year
                             . $delimiter . $month;
-            $year_folder = $sent_subfolders_base . $year;
+            $year_folder = $sent_subfolders_base. $cnd_delimiter . $year;
             break;
         case SMPREF_SENT_SUBFOLDERS_DISABLED:
         default:
@@ -240,8 +234,16 @@ function sent_subfolders_update_sentfolder() {
 
         /* If this folder is NOT the current sent folder, update stuff. */
         if ($sent_subfolder != $sent_folder) {
-            /* First, update the sent folder. */
+            /**
+             * $sent_subfolder should not have \noselect flag or folder should 
+             * not exist.
+             * if $level=2, $year_folder should not have \noinferiors or folder
+             * should not exist.
+             *
+             * If some condition fails - sent_subfolders is misconfigured
+             */
 
+            /* Update sent_folder setting. */
             setPref($data_dir, $username, 'sent_folder', $sent_subfolder);
             setPref($data_dir, $username, 'move_to_sent', SMPREF_ON);
             $sent_folder = $sent_subfolder;
@@ -250,19 +252,20 @@ function sent_subfolders_update_sentfolder() {
             /* Auto-create folders, if they do not yet exist. */
             if ($sent_folder != 'none') {
                 /* Create the imap connection. */
-                $ic = sqimap_login
-                ($username, $key, $imapServerAddress, $imapPort, 10);
+                $ic = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10);
 
-                /* Auto-create the year folder, if it does not yet exist. */
-                if (!sqimap_mailbox_exists($ic, $year_folder)) {
-                    sqimap_mailbox_create($ic, $year_folder, ($level==1)?'':'noselect');
-                } else if (!sqimap_mailbox_is_subscribed($ic, $year_folder)) {
-                    sqimap_subscribe($ic, $year_folder);
+                if ($level==2) {
+                    /* Auto-create the year folder, if it does not yet exist. */
+                    if (!sqimap_mailbox_exists($ic, $year_folder)) {
+                        sqimap_mailbox_create($ic, $year_folder, 'noselect');
+                    } else if (!sqimap_mailbox_is_subscribed($ic, $year_folder)) {
+                        sqimap_subscribe($ic, $year_folder);
+                    }
                 }
 
                 /* Auto-create the subfolder, if it does not yet exist. */
-                if (!sqimap_mailbox_exists($ic, $sent_folder)) {
-                    sqimap_mailbox_create($ic, $sent_folder, '');
+                if (!sqimap_mailbox_exists($ic, $sent_subfolder)) {
+                    sqimap_mailbox_create($ic, $sent_subfolder, '');
                 } else if (!sqimap_mailbox_is_subscribed($ic, $sent_subfolder)) {
                     sqimap_subscribe($ic, $sent_subfolder);
                 }
@@ -270,6 +273,7 @@ function sent_subfolders_update_sentfolder() {
                 /* Close the imap connection. */
                 sqimap_logout($ic);
             }
+
         }
     }
 }

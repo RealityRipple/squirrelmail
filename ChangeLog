@@ -460,6 +460,7 @@ Version 1.5.1 -- CVS
     is restarted.
   - If you don't have any filters defined, and spam filters are disabled, no
     point issuing a STATUS call on INBOX for the filters plugin.
+  - Added folder filtering controls to SMOPT_TYPE_FLDRLIST option widget. 
 
 Version 1.5.0 - 2 February 2004
 -------------------------------

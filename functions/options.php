@@ -142,6 +142,13 @@ class SquirrelOption {
      * @var bool
      */
     var $htmlencoded=false;
+    /**
+     * Controls folder list limits in SMOPT_TYPE_FLDRLIST widget.
+     * See $flag argument in sqimap_mailbox_option_list() function.
+     * @var string
+     * @since 1.5.1
+     */
+    var $folder_filter='noselect';
 
     /**
      * Constructor function
@@ -252,6 +259,15 @@ class SquirrelOption {
      */
     function setSaveFunction($save_function) {
         $this->save_function = $save_function;
+    }
+
+    /**
+     * Set the trailing_text for this option.
+     * @param string $folder_filter
+     * @since 1.5.1
+     */
+    function setFolderFilter($folder_filter) {
+        $this->folder_filter = $folder_filter;
     }
 
     /**
@@ -383,14 +399,14 @@ class SquirrelOption {
     function createWidget_FolderList() {
         $selected = array(strtolower($this->value));
 
-        /* Begin the select tag. */
-        $result = "<select name=\"new_$this->name\" $this->script>\n";
+        /* set initial value */
+        $result = '';
 
         /* Add each possible value to the select list. */
         foreach ($this->possible_values as $real_value => $disp_value) {
             if ( is_array($disp_value) ) {
               /* For folder list, we passed in the array of boxes.. */
-              $new_option = sqimap_mailbox_option_list(0, $selected, 0, $disp_value);
+              $new_option = sqimap_mailbox_option_list(0, $selected, 0, $disp_value, $this->folder_filter);
             } else {
               /* Start the next new option string. */
               $new_option = '<option value="' . htmlspecialchars($real_value) . '"';
@@ -406,9 +422,19 @@ class SquirrelOption {
             /* And add the new option string to our select tag. */
             $result .= $new_option;
         }
-        /* Close the select tag and return our happy result. */
-        $result .= "</select>\n";
-        return ($result);
+
+
+        if (empty($result)) {
+            // string is displayed when interface can't build folder selection box
+            return _("unavailable");
+        } else {
+            /* Begin the select tag. */
+            $ret = "<select name=\"new_$this->name\" $this->script>\n";
+            $ret.= $result;
+            /* Close the select tag and return our happy result. */
+            $ret.= "</select>\n";
+            return ($ret);
+        }
     }
 
     /**
@@ -647,6 +673,11 @@ function create_option_groups($optgrps, $optvals) {
             /* If provided, set the "post script" for this option. */
             if (isset($optset['post_script'])) {
                 $next_option->setPostScript($optset['post_script']);
+            }
+
+            /* If provided, set the folder_filter for this option. */
+            if (isset($optset['folder_filter'])) {
+                $next_option->setFolderFilter($optset['folder_filter']);
             }
 
             /* Add this option to the option array. */
