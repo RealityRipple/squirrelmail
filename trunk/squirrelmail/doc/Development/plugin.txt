@@ -728,6 +728,9 @@ for you.  This is the preferred method of building options lists going forward.
          htmlencoded    disables html sanitizing. WARNING - don't use it, if user
                         input is possible in option or use own sanitizing functions.
                         Currently works only with SMOPT_TYPE_STRLIST.
+         folder_filter  Controls folder list limits in SMOPT_TYPE_FLDRLIST widget.
+                        See $flag argument in sqimap_mailbox_option_list()
+                        function. Available since 1.5.1.
 
       Note that you do not have to create a whole new section on the options
       page if you merely want to add a simple input item or two to an options
