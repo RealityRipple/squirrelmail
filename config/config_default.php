@@ -887,25 +887,25 @@ $prefs_val_size = 65536;
 /**
  * DSN of global address book database
  * @global string $addrbook_global_dsn
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.4
  */
 $addrbook_global_dsn = '';
 /**
  * Table used for global database address book
  * @global string $addrbook_global_table
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.4
  */
 $addrbook_global_table = 'global_abook';
 /**
  * Control writing into global database address book
  * @global boolean $addrbook_global_writeable
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.4
  */
 $addrbook_global_writeable = false;
 /**
  * Control listing of global database address book
  * @global boolean $addrbook_global_listing
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.4
  */
 $addrbook_global_listing = false;
 
