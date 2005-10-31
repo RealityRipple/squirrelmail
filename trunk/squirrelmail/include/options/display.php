@@ -122,15 +122,18 @@ function load_optpage_data_display() {
         array_merge(array('' => _("Default")), $language_values);
     $language = $squirrelmail_language;
 
-    // TODO: maybe we can add count($language_values) check here
-    $optvals[SMOPT_GRP_GENERAL][] = array(
-        'name'    => 'language',
-        'caption' => _("Language"),
-        'type'    => SMOPT_TYPE_STRLIST,
-        'refresh' => SMOPT_REFRESH_ALL,
-        'posvals' => $language_values,
-        'htmlencoded' => true
-    );
+    // add language selection only when more than 2 languages are available 
+    // (default, English and some other)
+    if (count($language_values)>2) {
+        $optvals[SMOPT_GRP_GENERAL][] = array(
+            'name'    => 'language',
+            'caption' => _("Language"),
+            'type'    => SMOPT_TYPE_STRLIST,
+            'refresh' => SMOPT_REFRESH_ALL,
+            'posvals' => $language_values,
+            'htmlencoded' => true
+        );
+    }
 
     /* Set values for the "use javascript" option. */
     $optvals[SMOPT_GRP_GENERAL][] = array(
