@@ -261,6 +261,13 @@ function fixcharset($charset) {
      */
     $charset=preg_replace("/[-:.\/\\\]/",'_',$charset);
 
+    // OE ks_c_5601_1987 > cp949 
+    $charset=str_replace('ks_c_5601_1987','cp949',$charset);
+    // Moz x-euc-tw > euc-tw
+    $charset=str_replace('x_euc','euc',$charset);
+    // Moz x-windows-949 > cp949
+    $charset=str_replace('x_windows_','cp',$charset);
+
     // windows-125x and cp125x charsets
     $charset=str_replace('windows_','cp',$charset);
 
