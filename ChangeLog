@@ -461,6 +461,8 @@ Version 1.5.1 -- CVS
   - If you don't have any filters defined, and spam filters are disabled, no
     point issuing a STATUS call on INBOX for the filters plugin.
   - Added folder filtering controls to SMOPT_TYPE_FLDRLIST option widget. 
+  - Security: Fixed possible XSS issue in search feature.  Issue was
+    originally resolved in stable, but changes not migrated forward.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------

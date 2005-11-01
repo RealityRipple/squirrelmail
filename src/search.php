@@ -505,7 +505,7 @@ function asearch_get_query_display(&$color, &$mailbox_array, &$biop_array, &$uno
                 $cur_mailbox = 'INBOX';
             $biop = asearch_nz($biop_array[$crit_num]);
             if (($query_display == '') || ($cur_mailbox != $last_mailbox)) {
-                $mailbox_display = ' <b>' . asearch_get_mailbox_display($cur_mailbox) . '</b>';
+                $mailbox_display = ' <b>' . htmlspecialchars(asearch_get_mailbox_display($cur_mailbox)) . '</b>';
                 if ($query_display == '')
                     $biop_display = _("In");
                 else
@@ -714,7 +714,7 @@ function asearch_mailbox_exists($mailbox, &$boxes)
 function asearch_get_form_mailbox($imapConnection, &$boxes, $mailbox, $row_num = 0)
 {
     if (($mailbox != 'All Folders') && (!asearch_mailbox_exists($mailbox, $boxes))) {
-        $missing = asearch_opt($mailbox, $mailbox, '[' . _("Missing") . '] ' . asearch_get_mailbox_display($mailbox));
+        $missing = asearch_opt($mailbox, $mailbox, '[' . _("Missing") . '] ' . htmlspecialchars(asearch_get_mailbox_display($mailbox)));
     } else {
         $missing = '';
     }
@@ -1625,7 +1625,7 @@ if ($submit == $search_button_text) {
                             $mailbox_display = imap_utf7_decode_local($mbx);
                         }
 
-                        echo '<br /><b><big>' . _("Folder:") . ' '. $mailbox_display . '&nbsp;</big></b>';
+                        echo '<br /><b><big>' . _("Folder:") . ' '. htmlspecialchars($mailbox_display) . '&nbsp;</big></b>';
 
                         $oTemplate->display('message_list.tpl');
                     }
