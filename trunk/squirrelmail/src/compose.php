@@ -82,6 +82,7 @@ if ( sqgetGlobalVar('startMessage',$startMessage) ) {
     $startMessage = 1;
 }
 
+
 /** POST VARS */
 sqgetGlobalVar('sigappend',             $sigappend,             SQ_POST);
 sqgetGlobalVar('from_htmladdr_search',  $from_htmladdr_search,  SQ_POST);
@@ -96,6 +97,12 @@ if ( sqgetGlobalVar('return', $temp, SQ_POST) ) {
 
 /** GET VARS */
 sqgetGlobalVar('attachedmessages', $attachedmessages, SQ_GET);
+if ( sqgetGlobalVar('account', $temp,  SQ_GET) ) {
+    $iAccount = (int) $temp;
+} else {
+    $iAccount = 0;
+}
+
 
 /** get smaction */
 if ( !sqgetGlobalVar('smaction',$action) )
@@ -1657,12 +1664,29 @@ function deliverMessage($composeMessage, $draft=false) {
             sqimap_append_done ($imap_stream, $sent_folder);
             unset ($imap_deliver);
         }
-        global $passed_id, $mailbox, $action;
+
+        global $passed_id, $mailbox, $action, $what, $iAccount,$startMessage;
+
         ClearAttachments($composeMessage);
         if ($action == 'reply' || $action == 'reply_all') {
-            sqimap_mailbox_select ($imap_stream, $mailbox);
-            sqimap_toggle_flag($imap_stream, array($passed_id), '\\Answered', true, false);
+            $aMailbox = sqm_api_mailbox_select($imap_stream, $iAccount, $mailbox,array('setindex' => $what, 'offset' => $startMessage),array());
+            //sqimap_mailbox_select ($imap_stream, $mailbox);
+            $aUpdatedMsgs = sqimap_toggle_flag($imap_stream, array($passed_id), '\\Answered', true, false);
+             if (isset($aUpdatedMsgs[$iUid]['FLAGS'])) {
+                /**
+                 * Only update the cached headers if the header is
+                 * cached.
+                 */
+                if (isset($aMailbox['MSG_HEADERS'][$iUid])) {
+                    $aMailbox['MSG_HEADERS'][$iUid]['FLAGS'] = $aMsg['FLAGS'];
+                }
+            }
         }
+        /**
+         * Write mailbox with updated seen flag information back to cache.
+         */
+        $mailbox_cache[$iAccount.'_'.$aMailbox['NAME']] = $aMailbox;
+        sqsession_register($mailbox_cache,'mailbox_cache');
         sqimap_logout($imap_stream);
     }
     return $succes;
