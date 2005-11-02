@@ -59,7 +59,7 @@ if (version_compare(PHP_VERSION, "4.3.0", ">=")) {
 }
 
 // Trigger Developers to look at CSS ;)
-trigger_error("This layout sucks. Adapt squirrelmail.css!!!",E_USER_WARNING);
+// trigger_error("This layout sucks. Adapt squirrelmail.css!!!",E_USER_WARNING);
 //sqm_trigger_imap_error('SQM_IMAP_NO_THREAD',"BLA1",'BAD', 'BLA2', array('test1'=>'test1'));
 
 /* lets get the global vars we may need */
