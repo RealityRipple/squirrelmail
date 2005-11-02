@@ -463,6 +463,8 @@ Version 1.5.1 -- CVS
   - Added folder filtering controls to SMOPT_TYPE_FLDRLIST option widget. 
   - Security: Fixed possible XSS issue in search feature.  Issue was
     originally resolved in stable, but changes not migrated forward.
+  - Update the cached mailbox header with the \Answered flag in case of an
+    reply.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
