@@ -54,9 +54,9 @@ $message = &$messages[$mbx_response['UIDVALIDITY']][$passed_id];
 if (!is_object($message)) {
     $message = sqimap_get_message($imap_stream, $passed_id, $mailbox);
 }
-$message_ent = &$message->getEntity($ent_id);
+$message_ent = $message->getEntity($ent_id);
 if ($passed_ent_id) {
-    $message = &$message->getEntity($passed_ent_id);
+    $message = $message->getEntity($passed_ent_id);
 }
 $header   = $message_ent->header;
 $type0    = $header->type0;
