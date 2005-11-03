@@ -387,7 +387,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
                  * If we don't add html message between iframe tags,
                  * we must detect unsafe images and modify $has_unsafe_images.
                  */
-                $html_body = magicHTML($body, $id, $message, $mailbox); 
+                $html_body = magicHTML($body, $id, $message, $mailbox);
                 // Convert character set in order to display html mails in different character set
                 $html_body = charset_decode($body_message->header->getParameter('charset'),$html_body,false,true);
 
@@ -429,10 +429,10 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
                 // old way of html rendering
                 $body = magicHTML($body, $id, $message, $mailbox);
                 /**
-                 * convert character set. charset_decode does not remove html special chars 
+                 * convert character set. charset_decode does not remove html special chars
                  * applied by magicHTML functions and does not sanitize them second time if
-                 * fourth argument is true. 
-                 */ 
+                 * fourth argument is true.
+                 */
                 $body = charset_decode($body_message->header->getParameter('charset'),$body,false,true);
             }
         } else {
@@ -642,7 +642,7 @@ function decodeBody($body, $encoding) {
         /**
          * quoted_printable_decode() function is broken in older
          * php versions. Text with \r\n decoding was fixed only
-         * in php 4.3.0. Minimal code requirement 4.0.4 + 
+         * in php 4.3.0. Minimal code requirement 4.0.4 +
          * str_replace("\r\n", "\n", $body); call.
          */
         $body = quoted_printable_decode($body);
@@ -801,13 +801,13 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
  *
  * Function uses XTRA_CODE _encodeheader function, if such function exists.
  *
- * Function uses Q encoding by default and encodes a string according to RFC 
- * 1522 for use in headers if it contains 8-bit characters or anything that 
+ * Function uses Q encoding by default and encodes a string according to RFC
+ * 1522 for use in headers if it contains 8-bit characters or anything that
  * looks like it should be encoded.
  *
- * Function switches to B encoding and encodeHeaderBase64() function, if 
- * string is 8bit and multibyte character set supported by mbstring extension 
- * is used. It can cause E_USER_NOTICE errors, if interface is used with 
+ * Function switches to B encoding and encodeHeaderBase64() function, if
+ * string is 8bit and multibyte character set supported by mbstring extension
+ * is used. It can cause E_USER_NOTICE errors, if interface is used with
  * multibyte character set unsupported by mbstring extension.
  *
  * @param string $string header string, that has to be encoded
@@ -951,27 +951,27 @@ function encodeHeader ($string) {
 /**
  * Encodes string according to rfc2047 B encoding header formating rules
  *
- * It is recommended way to encode headers with character sets that store 
+ * It is recommended way to encode headers with character sets that store
  * symbols in more than one byte.
  *
  * Function requires mbstring support. If required mbstring functions are missing,
  * function returns false and sets E_USER_WARNING level error message.
  *
- * Minimal requirements - php 4.0.6 with mbstring extension. Please note, 
- * that mbstring functions will generate E_WARNING errors, if unsupported 
+ * Minimal requirements - php 4.0.6 with mbstring extension. Please note,
+ * that mbstring functions will generate E_WARNING errors, if unsupported
  * character set is used. mb_encode_mimeheader function provided by php
  * mbstring extension is not used in order to get better control of header
  * encoding.
  *
- * Used php code functions - function_exists(), trigger_error(), strlen() 
- * (is used with charset names and base64 strings). Used php mbstring 
+ * Used php code functions - function_exists(), trigger_error(), strlen()
+ * (is used with charset names and base64 strings). Used php mbstring
  * functions - mb_strlen and mb_substr.
  *
- * Related documents: rfc 2045 (BASE64 encoding), rfc 2047 (mime header 
+ * Related documents: rfc 2045 (BASE64 encoding), rfc 2047 (mime header
  * encoding), rfc 2822 (header folding)
  *
  * @param string $string header string that must be encoded
- * @param string $charset character set. Must be supported by mbstring extension. 
+ * @param string $charset character set. Must be supported by mbstring extension.
  * Use sq_mb_list_encodings() to detect supported charsets.
  * @return string string encoded according to rfc2047 B encoding formating rules
  * @since 1.5.1
@@ -1692,44 +1692,49 @@ function sq_fixstyle($body, $pos, $message, $id, $mailbox){
     //                           "url(\\1$secremoveimg\\2)", $content);
     // remove NUL
     $content = str_replace("\0", "", $content);
+
     // NB I insert NUL characters to keep to avoid an infinite loop. They are removed after the loop.
     while (preg_match("/url\s*\(\s*[\'\"]?([^:]+):(.*)?[\'\"]?\s*\)/si", $content, $matches)) {
         $sProto = strtolower($matches[1]);
         switch ($sProto) {
-          /**
-           * Fix url('https*://.*) declarations but only if $view_unsafe_images
-           * is false.
-           */
-          case 'https':
-          case 'http':
-            if (!$view_unsafe_images){
-                $sExpr = "/url\s*\(\s*([\'\"])\s*$sProto*:.*?([\'\"])\s*\)/si";
-                $content = preg_replace($sExpr, "u\0r\0l(\\1$secremoveimg\\2)", $content);
-            }
-            break;
-          /**
-           * Fix urls that refer to cid:
-           */
-          case 'cid':
-            $cidurl = 'cid:'. $matches[2];
-            $httpurl = sq_cid2http($message, $id, $cidurl, $mailbox);
-            $content = preg_replace("|url\s*\(\s*$cidurl\s*\)|si",
-                                "u\0r\0l($httpurl)", $content);
-            break;
-          default:
             /**
-             * replace url with protocol other then the white list
-             * http,https and cid by an empty string.
+             * Fix url('https*://.*) declarations but only if $view_unsafe_images
+             * is false.
              */
-            $content = preg_replace("/url\s*\(\s*[\'\"]?([^:]+):(.*)?[\'\"]?\s*\)/si",
-                                "", $content);
-            break;
+            case 'https':
+            case 'http':
+                if (!$view_unsafe_images){
+
+                    $sExpr = "/url\s*\(\s*[\'\"]?\s*$sProto*:.*[\'\"]?\s*\)/si";
+                    $content = preg_replace($sExpr, "u\0r\0l(\\1$secremoveimg\\2)", $content);
+
+                } else {
+                    $content = preg_replace('/url/i',"u\0r\0l",$content);
+                }
+                break;
+            /**
+             * Fix urls that refer to cid:
+             */
+            case 'cid':
+                $cidurl = 'cid:'. $matches[2];
+                $httpurl = sq_cid2http($message, $id, $cidurl, $mailbox);
+                // escape parentheses that can modify the regular expression
+                $cidurl = str_replace(array('(',')'),array('\\(','\\)'),$cidurl);
+                $content = preg_replace("|url\s*\(\s*$cidurl\s*\)|si",
+                                        "u\0r\0l($httpurl)", $content);
+                break;
+            default:
+                /**
+                 * replace url with protocol other then the white list
+                 * http,https and cid by an empty string.
+                 */
+                $content = preg_replace("/url\s*\(\s*[\'\"]?([^:]+):(.*)?[\'\"]?\s*\)/si",
+                                 "", $content);
+                break;
         }
-        break;
     }
     // remove NUL
     $content = str_replace("\0", "", $content);
-
    /**
     * Remove any backslashes, entities, and extraneous whitespace.
     */
