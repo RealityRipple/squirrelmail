@@ -1681,12 +1681,12 @@ function deliverMessage($composeMessage, $draft=false) {
                     $aMailbox['MSG_HEADERS'][$passed_id]['FLAGS'] = $aMsg['FLAGS'];
                 }
             }
+            /**
+             * Write mailbox with updated seen flag information back to cache.
+             */
+            $mailbox_cache[$iAccount.'_'.$aMailbox['NAME']] = $aMailbox;
+            sqsession_register($mailbox_cache,'mailbox_cache');
         }
-        /**
-         * Write mailbox with updated seen flag information back to cache.
-         */
-        $mailbox_cache[$iAccount.'_'.$aMailbox['NAME']] = $aMailbox;
-        sqsession_register($mailbox_cache,'mailbox_cache');
         sqimap_logout($imap_stream);
     }
     return $succes;
