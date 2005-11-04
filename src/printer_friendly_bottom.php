@@ -260,7 +260,7 @@ function pf_show_attachments($message, $exclude_id, $mailbox, $id) {
         $display_filename = $filename;
 
         // TODO: maybe make it nicer?
-        $attachments .= '<table border="1"><tr><th colspan="2">'.decodeHeader($display_filename).'</th></tr>' .
+        $attachments .= '<table cellpadding="0" cellspacing="0" border="1"><tr><th colspan="2">'.decodeHeader($display_filename).'</th></tr>' .
             '<tr border="0">'.
             html_tag( 'td',_("Size:"), 'right') .
             html_tag( 'td',show_readable_size($header->size), 'left') .
