@@ -101,7 +101,7 @@ function sent_subfolders_load_prefs() {
  * Adds sent_subfolders options in folder preferences
  */
 function sent_subfolders_optpage_loadhook_folders() {
-    global $optpage_data, $imapServerAddress, $imapPort;
+    global $optpage_data, $imapServerAddress, $imapPort, $show_contain_subfolders_option;
 
     sqgetGlobalVar('username', $username, SQ_SESSION);
     sqgetGlobalVar('key', $key, SQ_COOKIE);
@@ -139,6 +139,15 @@ function sent_subfolders_optpage_loadhook_folders() {
         'posvals' => $sent_subfolders_base_values,
         'folder_filter' => 'noinferiors'
     );
+
+    if ($show_contain_subfolders_option) {
+        $optvals[] = array(
+            'name' => 'sent_subfolders_warning',
+            'caption' => _("Warning"),
+            'type' => SMOPT_TYPE_COMMENT,
+            'comment' => _("There are some restrictions in Sent Subfolder options.")
+            );
+    }
 
     /* Add our option data to the global array. */
     $optpage_data['grps'][SMOPT_GRP_SENT_SUBFOLDERS] = $optgrp;
@@ -184,7 +193,7 @@ function save_option_sent_subfolders_setting($option) {
 function sent_subfolders_update_sentfolder() {
     global $sent_folder;
     global $sent_subfolders_base, $sent_subfolders_setting;
-    global $data_dir, $imapServerAddress, $imapPort;
+    global $data_dir, $imapServerAddress, $imapPort, $color;
     global $use_sent_subfolders, $move_to_sent;
 
     sqgetGlobalVar('username', $username, SQ_SESSION);
@@ -234,42 +243,45 @@ function sent_subfolders_update_sentfolder() {
 
         /* If this folder is NOT the current sent folder, update stuff. */
         if ($sent_subfolder != $sent_folder) {
-            /**
-             * $sent_subfolder should not have \noselect flag or folder should 
-             * not exist.
-             * if $level=2, $year_folder should not have \noinferiors or folder
-             * should not exist.
-             *
-             * If some condition fails - sent_subfolders is misconfigured
-             */
-
-            /* Update sent_folder setting. */
-            setPref($data_dir, $username, 'sent_folder', $sent_subfolder);
-            setPref($data_dir, $username, 'move_to_sent', SMPREF_ON);
-            $sent_folder = $sent_subfolder;
-            $move_to_sent = SMPREF_ON;
-
             /* Auto-create folders, if they do not yet exist. */
-            if ($sent_folder != 'none') {
+            if ($sent_subfolder != 'none') {
                 /* Create the imap connection. */
                 $ic = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10);
 
-                if ($level==2) {
-                    /* Auto-create the year folder, if it does not yet exist. */
-                    if (!sqimap_mailbox_exists($ic, $year_folder)) {
-                        sqimap_mailbox_create($ic, $year_folder, 'noselect');
-                    } else if (!sqimap_mailbox_is_subscribed($ic, $year_folder)) {
-                        sqimap_subscribe($ic, $year_folder);
+                $boxes = false;
+                /**
+                 * If sent_subfolder can't store messages (noselect) ||
+                 * year_folder can't store subfolders (noinferiors) in level=2 setup ||
+                 * subfolder_base can't store subfolders (noinferiors), setup is broken
+                 */
+                if (sqimap_mailbox_is_noselect($ic,$sent_subfolder,$boxes) ||
+                    ($level==2 && sqimap_mailbox_is_noinferiors($ic,$year_folder,$boxes)) ||
+                     sqimap_mailbox_is_noinferiors($ic,$sent_subfolders_base,$boxes)) {
+                    error_box(_("Sent Subfolders plugin is misconfigured."),$color);
+                } else {
+                    if ($level==2) {
+                        /* Auto-create the year folder, if it does not yet exist. */
+                        if (!sqimap_mailbox_exists($ic, $year_folder)) {
+                            sqimap_mailbox_create($ic, $year_folder, 'noselect');
+                            // TODO: safety check for imap servers that can't create subfolders
+
+                        } else if (!sqimap_mailbox_is_subscribed($ic, $year_folder)) {
+                            sqimap_subscribe($ic, $year_folder);
+                        }
                     }
-                }
 
-                /* Auto-create the subfolder, if it does not yet exist. */
-                if (!sqimap_mailbox_exists($ic, $sent_subfolder)) {
-                    sqimap_mailbox_create($ic, $sent_subfolder, '');
-                } else if (!sqimap_mailbox_is_subscribed($ic, $sent_subfolder)) {
-                    sqimap_subscribe($ic, $sent_subfolder);
+                    /* Auto-create the subfolder, if it does not yet exist. */
+                    if (!sqimap_mailbox_exists($ic, $sent_subfolder)) {
+                        sqimap_mailbox_create($ic, $sent_subfolder, '');
+                    } else if (!sqimap_mailbox_is_subscribed($ic, $sent_subfolder)) {
+                        sqimap_subscribe($ic, $sent_subfolder);
+                    }
+                    /* Update sent_folder setting. */
+                    setPref($data_dir, $username, 'sent_folder', $sent_subfolder);
+                    setPref($data_dir, $username, 'move_to_sent', SMPREF_ON);
+                    $sent_folder = $sent_subfolder;
+                    $move_to_sent = SMPREF_ON;
                 }
-
                 /* Close the imap connection. */
                 sqimap_logout($ic);
             }
@@ -321,14 +333,18 @@ function sent_subfolder_getQuarter($month) {
  * @return boolean 1 - is part of sent_subfolders, 0 - is not part of sent_subfolders
  */
 function sent_subfolders_special_mailbox($mb) {
-    global $data_dir, $username;
+    global $data_dir, $username, $delimiter;
 
     $use_sent_subfolders = getPref
         ($data_dir, $username, 'use_sent_subfolders', SMPREF_OFF);
     $sent_subfolders_base = getPref($data_dir, $username, 'sent_subfolders_base', 'na');
 
+    /**
+     * If sent_subfolders are used and mailbox is equal to subfolder base 
+     * or mailbox matches subfolder base + delimiter.
+     */
     if ($use_sent_subfolders == SMPREF_ON &&
-    ($mb == $sent_subfolders_base || stristr($mb,$sent_subfolders_base) ) ) {
+    ($mb == $sent_subfolders_base || stristr($mb,$sent_subfolders_base . $delimiter) ) ) {
         return 1;
     }
     return 0;

@@ -1210,4 +1210,46 @@ function sqimap_get_status_mbx_tree($imap_stream,&$mbx_tree) {
     }
 }
 
+/**
+ * Checks if folder is noselect (can't store messages)
+ *
+ * Function does not check if folder subscribed.
+ * @param stream $oImapStream imap connection resource
+ * @param string $sImapFolder imap folder name
+ * @param object $oBoxes mailboxes class object.
+ * @return boolean true, when folder has noselect flag. false in any other case.
+ * @since 1.5.1
+ */
+function sqimap_mailbox_is_noselect($oImapStream,$sImapFolder,&$oBoxes) {
+    // build mailbox object if it is not available
+    if (! is_object($oBoxes)) $oBoxes=sqimap_mailbox_list($oImapStream);
+    foreach($oBoxes as $box) {
+        if ($box['unformatted']==$sImapFolder) {
+            return (bool) check_is_noselect($box['raw']);
+        }
+    }
+    return false;
+}
+
+/**
+ * Checks if folder is noinferiors (can't store other folders)
+ *
+ * Function does not check if folder subscribed.
+ * @param stream $oImapStream imap connection resource
+ * @param string $sImapFolder imap folder name
+ * @param object $oBoxes mailboxes class object.
+ * @return boolean true, when folder has noinferiors flag. false in any other case.
+ * @since 1.5.1
+ */
+function sqimap_mailbox_is_noinferiors($oImapStream,$sImapFolder,&$oBoxes) {
+    // build mailbox object if it is not available
+    if (! is_object($oBoxes)) $oBoxes=sqimap_mailbox_list($oImapStream);
+    foreach($oBoxes as $box) {
+        if ($box['unformatted']==$sImapFolder) {
+            return (bool) check_is_noinferiors($box['raw']);
+        }
+    }
+    return false;
+}
+
 ?>
