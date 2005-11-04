@@ -1090,7 +1090,10 @@ function sq_mb_list_encodings() {
         'windows-1256',
         'tis-620',
         'iso-2022-jp',
+        'euc-cn',
         'euc-kr',
+        'euc-tw',
+        'uhc',
         'utf7-imap');
 
     $supported_encodings=array();
