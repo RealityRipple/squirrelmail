@@ -1,5 +1,4 @@
 <?php
-
 /**
  * bug_report.php
  *
@@ -7,8 +6,6 @@
  * it will be sent to and what people will do with it, and provides
  * a button to show the bug report mail message in order to actually
  * send it.
- *
- * This is a standard SquirrelMail 1.2 API for plugins.
  *
  * @copyright &copy; 1999-2005 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -21,26 +18,30 @@
  * @ignore
  */
 define('SM_PATH','../../');
-
+/** load system functions */
 require_once(SM_PATH . 'include/validate.php');
+/** load form functions */
+include_once(SM_PATH . 'functions/forms.php');
+/** load error_box() function */
+include_once(SM_PATH . 'functions/display_messages.php');
+/** load plugin functions */
+include_once(SM_PATH . 'plugins/bug_report/functions.php');
 
-/** is bug_report plugin disabled */
-if (! is_plugin_enabled('bug_report')) {
+displayPageHeader($color, 'None');
+
+/** is bug_report plugin disabled or called by wrong user */
+if (! is_plugin_enabled('bug_report') || ! bug_report_check_user()) {
     error_box(_("Plugin is disabled."),$color);
     echo "\n</body></html>\n";
     exit();
 }
 
-// loading form functions
-include_once(SM_PATH . 'functions/forms.php');
-
-displayPageHeader($color, 'None');
-
+/** get system specs */
 include_once(SM_PATH . 'plugins/bug_report/system_specs.php');
-include_once(SM_PATH . 'plugins/bug_report/functions.php');
 global $body;
 
-$body_top = "I subscribe to the squirrelmail-users mailing list.\n" .
+$body_top = "I am subscribed to the this mailing list.\n" .
+            " (applies when you are sending email to SquirrelMail mailing list)\n".
             "  [ ]  True - No need to CC me when replying\n" .
             "  [ ]  False - Please CC me when replying\n" .
             "\n" .
@@ -103,7 +104,14 @@ echo "</p>\n";
       <table align="center" border="0">
         <tr>
           <td>
-            <?php echo _("This bug involves"); ?>: <select name="send_to">
+            <?php echo _("This bug involves:")
+                      .' <select name="send_to">';
+            if (! empty($bug_report_admin_email)) {
+                // if admin's email is set - add 'report to admin' option and make it default one    
+                echo '<option value="' . htmlspecialchars($bug_report_admin_email) .'" selected="selected">'
+                    ._("my email account") .'</option>';
+            }
+            ?>
               <option value="squirrelmail-users@lists.sourceforge.net"><?php
                   echo _("the general program"); ?></option>
               <option value="squirrelmail-plugins@lists.sourceforge.net"><?php
@@ -125,24 +133,5 @@ echo addSubmit(_("Start Bug Report Form"));
       </table>
     </form>
     <br />
-<?php
-// special forms that allow searching for bugs in mailing list and bugtracker
-echo html_tag('table',
-    html_tag('tr',
-        html_tag('th', _("Search Mailing List Archives"), 'center', $color[0])
-    ) .
-    html_tag('tr',
-        html_tag('td', add_gmane_form())
-    ) .
-    html_tag('tr',
-        html_tag('td', '&nbsp;<br />')
-    ) .
-    html_tag('tr',
-        html_tag('th', _("Search SourceForge Bugtracker"), 'center', $color[0])
-    ) .
-    html_tag('tr',
-        html_tag('td', add_sf_bug_form())
-    ), 'center', '', 'width="95%"');
-?>
   </body>
 </html>
