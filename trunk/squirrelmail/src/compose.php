@@ -593,9 +593,13 @@ elseif (isset($sigappend)) {
     if (isset($delete) && is_array($delete)) {
         $composeMessage = $compose_messages[$session];
         foreach($delete as $index) {
-            $attached_file = $composeMessage->entities[$index]->att_local_name;
-            unlink ($attached_file);
-            unset ($composeMessage->entities[$index]);
+            if (!empty($composeMessage->entities) && isset($composeMessage->entities[$index])) {
+                $attached_file = $composeMessage->entities[$index]->att_local_name;
+                if (file_exists($attached_file)) {
+                    unlink ($attached_file);
+                }
+                unset ($composeMessage->entities[$index]);
+            }
         }
         $new_entities = array();
         foreach ($composeMessage->entities as $entity) {
