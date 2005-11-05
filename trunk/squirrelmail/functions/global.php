@@ -129,20 +129,19 @@ function sqsession_is_registered ($name) {
 }
 
 /**
- * Search for the var $name in $_SESSION, $_POST, $_GET,
- * $_COOKIE, or $_SERVER and set it in provided var.
+ * Search for the var $name in $_SESSION, $_POST, $_GET, $_COOKIE, or $_SERVER
+ * and set it in provided var.
  *
- * If $search is not provided,  or == SQ_INORDER, it will search
- * $_SESSION, then $_POST, then $_GET. Otherwise,
- * use one of the defined constants to look for
- * a var in one place specifically.
+ * If $search is not provided, or if it is SQ_INORDER, it will search $_SESSION,
+ * then $_POST, then $_GET. If $search is SQ_FORM it will search $_POST and
+ * $_GET.  Otherwise, use one of the defined constants to look for a var in one
+ * place specifically.
  *
- * Note: $search is an int value equal to one of the
- * constants defined above.
+ * Note: $search is an int value equal to one of the constants defined above.
  *
- * example:
- *    sqgetGlobalVar('username',$username,SQ_SESSION);
- *  -- no quotes around last param!
+ * Example:
+ * sqgetGlobalVar('username',$username,SQ_SESSION);
+ * // No quotes around last param, it's a constant - not a string!
  *
  * @param string name the name of the var to search
  * @param mixed value the variable to return
@@ -369,5 +368,4 @@ $PHP_SELF = php_self();
 
 sqsession_is_active();
 
-// vim: et ts=4
 ?>
