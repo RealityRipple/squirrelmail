@@ -3,7 +3,7 @@
 /**
  * AddressStructure.class.php
  *
- * This file contains functions needed to extract email address headers from 
+ * This file contains functions needed to extract email address headers from
  * mime messages.
  *
  * @copyright &copy; 2003-2005 The SquirrelMail Project Team
@@ -49,7 +49,7 @@ class AddressStructure {
 
     /**
      * Return address information from mime headers.
-     * @param boolean $full return full address (true) or only email (false)
+     * @param boolean $full return full address (true) or only personal if it exists, otherwise email (false)
      * @param boolean $encoded (since 1.4.0) return rfc2047 encoded address (true) or plain text (false).
      * @return string
      */
@@ -98,4 +98,5 @@ class AddressStructure {
         return $this->getAddress(true, true);
     }
 }
+
 ?>
