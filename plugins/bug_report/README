@@ -35,8 +35,23 @@ Future Work
 Installation
 ============
 
-Go back to the main directory, run configure and add the plugin.
+You must configure plugin before you enable it in your SquirrelMail
+installation. Plugin's configuration is stored in 
+config/bug_report_config.php or plugins/bug_report/config.php files. 
+Configuration options can be found in plugins/bug_report/config_default.php
+file.
 
+If both configuration files are present, plugin uses the one in
+config/ directory.
+
+By default plugin is visible only to users listed in 
+plugins/bug_report/admins or config/admins file or only to user
+that owns main SquirrelMail configuration file. Other users can use 
+bug_report plugin, if you set administrator's email in plugin's 
+configuration and set $bug_report_allow_users option to true.
+
+Once plugin is configured, go back to the main directory, run configure 
+and enable the plugin.
 
 Credits
 =======

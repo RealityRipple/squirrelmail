@@ -1,9 +1,6 @@
 <?php
-
 /**
- * setup.php
- *
- * This is a standard SquirrelMail 1.2 API for plugins.
+ * Bug Report plugin - setup script
  *
  * @copyright &copy; 1999-2005 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -31,9 +28,10 @@ function squirrelmail_plugin_init_bug_report() {
  * @access private
  */
 function bug_report_button() {
+    include_once(SM_PATH.'plugins/bug_report/functions.php');
     global $bug_report_visible;
 
-    if (! $bug_report_visible) {
+    if (! $bug_report_visible || ! bug_report_check_user()) {
         return;
     }
 
@@ -58,19 +56,22 @@ function bug_report_load() {
  * @access private
  */
 function bug_report_block() {
-    global $optpage_data;
-    $optpage_data['grps']['bug_report'] = _("Bug Reports");
-    $optionValues = array();
-    // FIXME: option needs refresh in SMOPT_REFRESH_RIGHT 
-    // (menulink is processed before options are saved/loaded)
-    $optionValues[] = array(
-        'name'    => 'bug_report_visible',
-        'caption' => _("Show button in toolbar"),
-        'type'    => SMOPT_TYPE_BOOLEAN,
-        'refresh' => SMOPT_REFRESH_ALL,
-        'initial_value' => false
-        );
-    $optpage_data['vals']['bug_report'] = $optionValues;
+    include_once(SM_PATH.'plugins/bug_report/functions.php');
+    if (bug_report_check_user()) {
+        global $optpage_data;
+        $optpage_data['grps']['bug_report'] = _("Bug Reports");
+        $optionValues = array();
+        // FIXME: option needs refresh in SMOPT_REFRESH_RIGHT 
+        // (menulink is processed before options are saved/loaded)
+        $optionValues[] = array(
+            'name'    => 'bug_report_visible',
+            'caption' => _("Show button in toolbar"),
+            'type'    => SMOPT_TYPE_BOOLEAN,
+            'refresh' => SMOPT_REFRESH_ALL,
+            'initial_value' => false
+            );
+        $optpage_data['vals']['bug_report'] = $optionValues;
+    }
 }
 
 ?>

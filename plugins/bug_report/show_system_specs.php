@@ -1,9 +1,6 @@
 <?php
-
 /**
- * This shows system specification details.
- *
- * This is a standard SquirrelMail 1.2 API for plugins.
+ * This script shows system specification details.
  *
  * @copyright &copy; 1999-2005 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -16,10 +13,15 @@
  * @ignore
  */
 define('SM_PATH','../../');
+/** load system functions */
 include_once(SM_PATH . 'include/validate.php');
+/** load error_box() function */
+include_once(SM_PATH . 'functions/display_messages.php');
+/** load plugin functions */
+include_once(SM_PATH.'plugins/bug_report/functions.php');
 
-/** is bug_report plugin disabled */
-if (! is_plugin_enabled('bug_report')) {
+/** is bug_report plugin disabled or called by wrong user */
+if (! is_plugin_enabled('bug_report') || ! bug_report_check_user()) {
     error_box(_("Plugin is disabled."),$color);
     echo "\n</body></html>\n";
     exit();

@@ -1,10 +1,7 @@
 <?php
-
 /**
- * This gathers system specification details for use with bug reporting
+ * This script gathers system specification details for use with bug reporting
  * and anyone else who needs it.
- *
- * This is a standard SquirrelMail 1.2 API for plugins.
  *
  * @copyright &copy; 1999-2005 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
