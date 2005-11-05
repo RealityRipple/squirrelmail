@@ -465,6 +465,9 @@ Version 1.5.1 -- CVS
     originally resolved in stable, but changes not migrated forward.
   - Update the cached mailbox header with the \Answered flag in case of an
     reply.
+  - Added site configuration options to bug_report plugin. Plugin is available
+    only to interface administrators by default. See more information in 
+    plugins/bug_report/README file.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
