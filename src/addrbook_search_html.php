@@ -1,5 +1,4 @@
 <?php
-
 /**
  * addrbook_search_html.php
  *
@@ -66,7 +65,7 @@ function addr_insert_hidden() {
 /**
  * List search results
  * @param array $res Array containing results of search
- * @param bool $includesource UNDOCUMENTED [Default=true]
+ * @param bool $includesource If true, adds backend column to address listing
  */
 function addr_display_result($res, $includesource = true) {
     global $color, $javascript_on, $PHP_SELF, $squirrelmail_language;
@@ -78,25 +77,28 @@ function addr_display_result($res, $includesource = true) {
     addr_insert_hidden();
     $line = 0;
 
-if ($javascript_on) {
-    print
-        '<script language="JavaScript" type="text/javascript">' .
-        "\n<!-- \n" .
-        "function CheckAll(ch) {\n" .
-        "   for (var i = 0; i < document.addrbook.elements.length; i++) {\n" .
-        "       if( document.addrbook.elements[i].type == 'checkbox' &&\n" .
-        "           document.addrbook.elements[i].name.substr(0,16) == 'send_to_search['+ch ) {\n" .
-        "           document.addrbook.elements[i].checked = !(document.addrbook.elements[i].checked);\n".
-        "       }\n" .
-        "   }\n" .
-        "}\n" .
-        "//-->\n" .
-        "</script>\n";
-    $chk_all = '<a href="#" onclick="CheckAll(\'T\');">' . _("All") . '</a>&nbsp;<font color="'.$color[9].'">'._("To").'</font>'.
+    if ($javascript_on) {
+        print
+            '<script language="JavaScript" type="text/javascript">' .
+            "\n<!-- \n" .
+            "function CheckAll(ch) {\n" .
+            "   for (var i = 0; i < document.addrbook.elements.length; i++) {\n" .
+            "       if( document.addrbook.elements[i].type == 'checkbox' &&\n" .
+            "           document.addrbook.elements[i].name.substr(0,16) == 'send_to_search['+ch ) {\n" .
+            "           document.addrbook.elements[i].checked = !(document.addrbook.elements[i].checked);\n".
+            "       }\n" .
+            "   }\n" .
+            "}\n" .
+            "//-->\n" .
+            "</script>\n";
+        $chk_all = '<a href="#" onclick="CheckAll(\'T\');">'._("All").'</a>&nbsp;<font color="'.$color[9].'">'._("To").'</font>'.
             '&nbsp;&nbsp;'.
             '<a href="#" onclick="CheckAll(\'C\');">' . _("All") . '</a>&nbsp;<font color="'.$color[9].'">'._("Cc").'</font>'.
             '&nbsp;&nbsp;'.
             '<a href="#" onclick="CheckAll(\'B\');">' . _("All") . '</a>';
+    } else {
+        // check_all links are used only in JavaScript. disable links in js=off environment.
+        $chk_all = '';
     }
     echo html_tag( 'table', '', 'center', '', 'border="0" width="98%"' ) .
     html_tag( 'tr', '', '', $color[9] ) .
