@@ -28,6 +28,7 @@ function parse_viewheader($imapConnection,$id, $passed_ent_id) {
 
     $header_output = array();
     $second = array();
+    $first = array();
 
     if (!$passed_ent_id) {
         $read=sqimap_run_command ($imapConnection, "FETCH $id BODY[HEADER]",
