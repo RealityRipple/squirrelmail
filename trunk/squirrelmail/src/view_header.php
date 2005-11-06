@@ -26,6 +26,8 @@ require_once(SM_PATH . 'functions/url_parser.php');
 
 function parse_viewheader($imapConnection,$id, $passed_ent_id) {
 
+    $header_output = array();
+
     if (!$passed_ent_id) {
         $read=sqimap_run_command ($imapConnection, "FETCH $id BODY[HEADER]",
                               true, $a, $b, TRUE);
