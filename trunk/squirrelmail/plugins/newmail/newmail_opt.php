@@ -142,7 +142,7 @@ if ($newmail_allowsound) {
     $d = dir(SM_PATH . 'plugins/newmail/sounds');
     while($entry=$d->read()) {
         // $fname = get_location () . '/sounds/' . $entry;
-        if ($entry != '..' && $entry != '.' && $entry != 'CVS') {
+        if ($entry != '..' && $entry != '.' && $entry != 'CVS' && $entry != 'index.php') {
             echo '<option ';
             if ($entry == $newmail_media) {
                 echo 'selected="selected" ';
