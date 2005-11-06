@@ -1047,7 +1047,7 @@ function sq_is8bit($string,$charset='') {
  * If you want to test all mbstring encodings - fill $list_of_encodings
  * array.
  * @return array list of encodings supported by php mbstring extension
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.6
  */
 function sq_mb_list_encodings() {
     if (! function_exists('mb_internal_encoding'))
@@ -1117,7 +1117,7 @@ function sq_mb_list_encodings() {
  * Callback function used to lowercase array values.
  * @param string $val array value
  * @param mixed $key array key
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.6
  */
 function sq_lowercase_array_vals(&$val,$key) {
     $val = strtolower($val);
@@ -1133,7 +1133,7 @@ function sq_lowercase_array_vals(&$val,$key) {
  * vanilla string length function is used.
  * @param string $str string
  * @param string $charset charset
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.6
  * @return integer number of characters in string
  */
 function sq_strlen($str, $charset=null){
