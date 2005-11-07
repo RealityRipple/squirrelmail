@@ -237,7 +237,7 @@ function pf_show_attachments($message, $exclude_id, $mailbox, $id) {
             }
             $from_o = $rfc822_header->from;
             if (is_object($from_o)) {
-                $from_name = decodeHeader($from_o->getAddress(false));
+                $from_name = decodeHeader($from_o->getAddress(true));
             } else {
                 $from_name = _("Unknown sender");
             }
