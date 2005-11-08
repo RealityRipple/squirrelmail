@@ -105,6 +105,7 @@ function sqm_api_mailbox_select($imapConnection,$account,$mailbox,$aConfig,$aPro
     $aMailbox['UIDSET'][$iSetIndx] = false;
     $aMailbox['ID'] = false;
     $aMailbox['SETINDEX'] = $iSetIndx;
+    $aMailbox['MSG_HEADERS'] = false;
 
     if ($aCachedMailbox) {
         /**
@@ -601,8 +602,8 @@ function prepareMessageList(&$aMailbox, $aProps) {
                                          'answered'=>false,
                                          'flagged' => false,
                                          'draft' => false);
-                                         
-                    if(!is_array($value)) $value = array();                     
+
+                    if(!is_array($value)) $value = array();
                     foreach ($value as $sFlag => $value) {
                         switch ($sFlag) {
                           case '\\seen'    : $aFlagColumn['seen']     = true; break;
@@ -798,7 +799,52 @@ function _getSortField($sort,$bServerSort) {
     return $sSortField;
 }
 
+function calcFetchColumns(&$aMailbox, &$aProps) {
 
+    $highlight_list    = (isset($aProps['config']['highlight_list'])) ? $aProps['config']['highlight_list'] : false;
+    $aColumnsDesc      = (isset($aProps['columns'])) ? $aProps['columns'] : false;
+
+    $aFetchColumns = $aColumnsDesc;
+    if (isset($aFetchColumns[SQM_COL_CHECK])) {
+        unset($aFetchColumns[SQM_COL_CHECK]);
+    }
+
+    /*
+     * Before we fetch the message headers, check if we need to fetch extra columns
+     * to make the message highlighting work
+     */
+    if (is_array($highlight_list) && count($highlight_list)) {
+        $aHighlightColumns = array();
+        foreach ($highlight_list as $highlight_list_part) {
+            if (trim($highlight_list_part['value'])) {
+                $match_type = strtoupper($highlight_list_part['match_type']);
+                switch ($match_type) {
+                    case 'TO_CC':
+                        $aHighlightColumns[SQM_COL_TO] = true;
+                        $aHighlightColumns[SQM_COL_CC] = true;
+                        break;
+                    case 'TO':     $aHighlightColumns[SQM_COL_TO] = true; break;
+                    case 'CC':     $aHighlightColumns[SQM_COL_CC] = true; break;
+                    case 'FROM':   $aHighlightColumns[SQM_COL_FROM] = true; break;
+                    case 'SUBJECT':$aHighlightColumns[SQM_COL_SUBJ] = true; break;
+                }
+            }
+        }
+        $aExtraColumns = array();
+        foreach ($aHighlightColumns as $k => $v) {
+            if (!isset($aFetchColumns[$k])) {
+                $aExtraColumns[]  = $k;
+                $aFetchColumns[$k] = true;
+            }
+        }
+        if (count($aExtraColumns)) {
+            $aProps['extra_columns'] = $aExtraColumns;
+        }
+    }
+    $aMailbox['FETCHHEADERS'] =  array_keys($aFetchColumns);
+
+    ;
+}
 
 
 /**
@@ -844,50 +890,9 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
     } else {
         ++$iFormId;
     }
-    /*
-     * Remove the checkbox column because we cannot fetch it from the imap server
-     */
-    $aFetchColumns = $aColumnsDesc;
-    if (isset($aFetchColumns[SQM_COL_CHECK])) {
-        unset($aFetchColumns[SQM_COL_CHECK]);
-    }
-
-    /*
-     * Before we fetch the message headers, check if we need to fetch extra columns
-     * to make the message highlighting work
-     */
-    if (is_array($highlight_list) && count($highlight_list)) {
-        $aHighlightColumns = array();
-        foreach ($highlight_list as $highlight_list_part) {
-            if (trim($highlight_list_part['value'])) {
-                $match_type = strtoupper($highlight_list_part['match_type']);
-                switch ($match_type) {
-                    case 'TO_CC':
-                        $aHighlightColumns[SQM_COL_TO] = true;
-                        $aHighlightColumns[SQM_COL_CC] = true;
-                        break;
-                    case 'TO':     $aHighlightColumns[SQM_COL_TO] = true; break;
-                    case 'CC':     $aHighlightColumns[SQM_COL_CC] = true; break;
-                    case 'FROM':   $aHighlightColumns[SQM_COL_FROM] = true; break;
-                    case 'SUBJECT':$aHighlightColumns[SQM_COL_SUBJ] = true; break;
-                }
-            }
-        }
-        $aExtraColumns = array();
-        foreach ($aHighlightColumns as $k => $v) {
-            if (!isset($aFetchColumns[$k])) {
-                $aExtraColumns[]  = $k;
-                $aFetchColumns[$k] = true;
-            }
-        }
-        if (count($aExtraColumns)) {
-            $aProps['extra_columns'] = $aExtraColumns;
-        }
-    }
-    $aFetchColumns = array_keys($aFetchColumns);
     // store the columns to fetch so we can pick them up in read_body
     // where we validate the cache.
-    $aMailbox['FETCHHEADERS'] = $aFetchColumns;
+    calcFetchColumns($aMailbox  ,$aProps);
 
     $iError = fetchMessageHeaders($imapConnection, $aMailbox);
     if ($iError) {
