@@ -31,6 +31,7 @@ require_once(SM_PATH . 'functions/forms.php');
  * @param array    $aConfig array with system config settings and incoming vars
  * @param array    $aProps mailbox specific properties
  * @return array   $aMailbox mailbox array with all relevant information
+ * @since 1.5.1
  * @author Marc Groot Koerkamp
  */
 function sqm_api_mailbox_select($imapConnection,$account,$mailbox,$aConfig,$aProps) {
@@ -259,11 +260,13 @@ function sqm_api_mailbox_select($imapConnection,$account,$mailbox,$aConfig,$aPro
 
 /**
  * Fetch the message headers for a mailbox. Settings are part of the aMailbox
- * array.
+ * array. Dependent of the mailbox settings it deals with sort, thread and search
+ * If server sort is supported then SORT is also used for retrieving sorted search results
  *
  * @param resource $imapConnection imap socket handle
  * @param array    $aMailbox (reference) mailbox retrieved from sqm_api_mailbox_select
  * @return error   $error error number
+ * @since 1.5.1
  * @author Marc Groot Koerkamp
  */
 function fetchMessageHeaders($imapConnection, &$aMailbox) {
@@ -412,6 +415,16 @@ function fetchMessageHeaders($imapConnection, &$aMailbox) {
     return $iError;
 }
 
+/**
+ * Prepares the message headers for display inside a template. The links are calculated,
+ * color for row highlighting is calculated and optionally the strings are truncated.
+ *
+ * @param array    $aMailbox (reference) mailbox retrieved from sqm_api_mailbox_select
+ * @param array    $aProps properties
+ * @return array   $aFormattedMessages array with message headers and format info
+ * @since 1.5.1
+ * @author Marc Groot Koerkamp
+ */
 function prepareMessageList(&$aMailbox, $aProps) {
     /* retrieve the properties */
     $my_email_address = (isset($aProps['email'])) ? $aProps['email'] : false;
@@ -649,7 +662,17 @@ function prepareMessageList(&$aMailbox, $aProps) {
 }
 
 
-
+/**
+ * Sets the row color if the provided column value pair  matches a hightlight rule
+ *
+ * @param string   $sCol column name
+ * @param string   $sVal column value
+ * @param array    $highlight_list highlight rules
+ * @param array    $aFormat (reference) array where row color info is stored
+ * @return bool     match found
+ * @since 1.5.1
+ * @author Marc Groot Koerkamp
+ */
 function highlightMessage($sCol, $sVal, $highlight_list, &$aFormat) {
     if (!is_array($highlight_list) && count($highlight_list) == 0) {
         return false;
@@ -702,6 +725,7 @@ function setUserPref($username, $pref, $value) {
  * @param  array    $aMailbox (reference) Mailbox retrieved with sqm_api_mailbox_select
  * @return int      $error (reference) Error number
  * @private
+ * @since 1.5.1
  * @author Marc Groot Koerkamp
  */
 function _get_sorted_msgs_list($imapConnection,&$aMailbox) {
@@ -755,6 +779,7 @@ function _get_sorted_msgs_list($imapConnection,&$aMailbox) {
  * @param int $srt Field to sort on
  * @param bool $bServerSort Server sorting is true
  * @return string $sSortField Field to sort on
+ * @since 1.5.1
  * @private
  */
 function _getSortField($sort,$bServerSort) {
@@ -799,6 +824,19 @@ function _getSortField($sort,$bServerSort) {
     return $sSortField;
 }
 
+/**
+ * This function is a utility function for setting which headers should be
+ * fetched. It takes into account the highlight list which requires extra
+ * headers to be fetch in order to make those rules work. It's called before
+ * the headers are fetched which happens in showMessagesForMailbox and when
+ * the next and prev links in read_body.php are used.
+ *
+ * @param array    $aMailbox associative array with mailbox related vars
+ * @param array    $aProps
+ * @return void
+ * @since 1.5.1
+ */
+
 function calcFetchColumns(&$aMailbox, &$aProps) {
 
     $highlight_list    = (isset($aProps['config']['highlight_list'])) ? $aProps['config']['highlight_list'] : false;
@@ -842,8 +880,6 @@ function calcFetchColumns(&$aMailbox, &$aProps) {
         }
     }
     $aMailbox['FETCHHEADERS'] =  array_keys($aFetchColumns);
-
-    ;
 }
 
 
@@ -1171,6 +1207,7 @@ function handleAsSent($mailbox) {
  * @param  string $sButton fake a submit button
  * @param  array  $aUid    fake the $msg array
  * @return string $sError error string in case of an error
+ * @since 1.5.1
  * @author Marc Groot Koerkamp
  */
 function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = array()) {
@@ -1329,6 +1366,14 @@ function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = ar
     return $sError;
 }
 
+/**
+ * Attach messages to a compose session
+ *
+ * @param  resource $imapConnection imap connection
+ * @param  array $aMsgHeaders
+ * @return int $composesession unique compose_session_id where the attached messages belong to
+ * @author Marc Groot Koerkamp
+ */
 function attachSelectedMessages($imapConnection,$aMsgHeaders) {
     global $username, $attachment_dir,
            $data_dir;
