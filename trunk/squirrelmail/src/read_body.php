@@ -29,7 +29,7 @@ require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/identity.php');
 include_once(SM_PATH . 'functions/arrays.php');
-require_once(SM_PATH . 'functions/mailbox_display.php');
+include_once(SM_PATH . 'functions/mailbox_display.php');
 
 /**
  * Given an IMAP message id number, this will look it up in the cached
@@ -826,15 +826,57 @@ global $sqimap_capabilities, $lastTargetMailbox;
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $aMailbox = sqm_api_mailbox_select($imapConnection, $iAccount, $mailbox,array('setindex' => $what, 'offset' => $startMessage),array());
 
+
 /**
-    * Check if cache is still valid, $what contains the key
-    * which gives us acces to the array with uid's. At this moment
-    * 0 is used for a normal message list and search uses 1 as key. This can be
-    * changed / extended in the future.
-    * If on a select of a mailbox we detect that the cache should be invalidated due to
-    * the delete of messages or due to new messages we empty the list with uid's and
-    * that's what we detect below.
-    */
+ Start code to set the columns to fetch in case of hitting the next/prev link
+ The reason for this is the fact that the cache can be invalidated which means that the headers
+ to fetch aren't there anymore. Before they got calculated when the messagelist was shown.
+
+ Todo, better central handling of setting the mailbox options so we do not need to do the stuff below
+*/
+
+/**
+ * Replace From => To  in case it concerns a draft or sent folder
+ */
+if (($mailbox == $sent_folder || $mailbox == $draft_folder) &&
+    !in_array(SQM_COL_TO,$index_order)) {
+    $aNewOrder = array(); // nice var name ;)
+    foreach($index_order as $iCol) {
+        if ($iCol == SQM_COL_FROM) {
+            $iCol = SQM_COL_TO;
+        }
+        $aNewOrder[] = $iCol;
+   }
+   $aColumns = $aNewOrder;
+} else {
+   $aColumns = $index_order;
+}
+
+$aProps = array(
+    'columns' => $aColumns, // columns bound settings
+    'config'  => array(
+                        'highlight_list'        => $message_highlight_list, // row highlighting rules
+                        'trash_folder'          => $trash_folder,
+                        'sent_folder'           => $sent_folder,
+                        'draft_folder'          => $draft_folder));
+
+calcFetchColumns($aMailbox,$aProps);
+
+/**
+ End code to set the columns to fetch in case of hitting the next/prev link
+*/
+
+
+
+/**
+ * Check if cache is still valid, $what contains the key
+ * which gives us acces to the array with uid's. At this moment
+ * 0 is used for a normal message list and search uses 1 as key. This can be
+ * changed / extended in the future.
+ * If on a select of a mailbox we detect that the cache should be invalidated due to
+ * the delete of messages or due to new messages we empty the list with uid's and
+ * that's what we detect below.
+ */
 if (!is_array($aMailbox['UIDSET'][$what])) {
     fetchMessageHeaders($imapConnection, $aMailbox);
 }
