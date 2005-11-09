@@ -1,4 +1,4 @@
-Upgrading from 0.3 or higher 
+Upgrading from 0.3 or higher
 ============================
 
 If you are upgrading from versions 0.3 or higher of SquirrelMail, you can
@@ -19,21 +19,21 @@ Make a backup of your current SquirrelMail directory.  If you use "cp", be
 sure to use the "-Rp" options.  -R means recursive, and -p will save the
 permissions in the directory.
 
-In this example, we assume that your httpd document directory is 
+In this example, we assume that your httpd document directory is
 /home/httpd/html, that your SquirrelMail install is located at
-/home/httpd/html/squirrelmail-1.0.6, and that your new SM version is 1.2.0.
+/home/httpd/html/squirrelmail-1.2.6, and that your new SM version is 1.4.0.
 Substitute version numbers and names as required.
 
   $ cd /home/httpd/html
-  $ cp -Rp squirrelmail-1.0.6 squirrelmail-1.0.6.bak
+  $ cp -Rp squirrelmail-1.2.6 squirrelmail-1.2.6.bak
 
 
 2.  Unarchive new SquirrelMail
 ==============================
 Make sure that you are in your httpd document directory (/home/httpd/html)
-and then unarchive the SquirrelMail archive (whatever the filename is): 
+and then unarchive the SquirrelMail archive (whatever the filename is):
 
-  $ tar -zxvf squirrelmail-1.2.0.tar.gz
+  $ tar -zxvf squirrelmail-1.4.0.tar.gz
 
 
 3.  Copy important files from old install
@@ -43,26 +43,26 @@ The important files to copy are:
   B.  Config details
   C.  Plugins
   D.  Themes (if you've edited or added any of them)
-  
+
 A.  Preferences
 
 First, copy your preference data over to the new directory.  Usually
 this is ok, but if you are upgrading from anything less than 1.0.5, we
 strongly suggest you let your users reset their preferences.  There
 were important security upgrades in 1.0.5 regarding preference files.
-  
-  $ cp squirrelmail-1.0.6.bak/data/* squirrelmail-1.2.0/data
-  
+
+  $ cp squirrelmail-1.2.6.bak/data/* squirrelmail-1.4.0/data
+
 B.  Config details
 
-If at all possible, start the configuration process from scratch.  It is 
+If at all possible, start the configuration process from scratch.  It is
 much less prone to missing configuration options than copying your old
 configuration.  Ideally, you should just run conf.pl to reconfigure
 SquirrelMail.  If you decide to copy your old config.php over, we strongly
 recommend that you run conf.pl to make sure things are correct and then save
 the config file.
 
-  $ cp squirrelmail-1.0.6.bak/config/config.php squirrelmail-1.2.0/config
+  $ cp squirrelmail-1.2.6.bak/config/config.php squirrelmail-1.4.0/config
 
 C.  Copy plugins
 
@@ -75,16 +75,16 @@ easy, don't panic!).
 You should not try replacing plugins that are already included in SquirrelMail
 package. Download latest versions of plugins that are not included in new
 SquirrelMail package or copy them from older SquirrelMail install.
-  
+
 D.  Copy themes
 
 If you've created or modified themes, you should copy just those to the new
 SquirrelMail themes directory.  To just copy them all over to the new
 SquirrelMail installation, you can run one command.
 
-  $ cp -ui squirrelmail-1.0.6.bak/themes/* squirrelmail-1.2.0/themes/
+  $ cp -ui squirrelmail-1.2.6.bak/themes/* squirrelmail-1.4.0/themes/
 
-When -u flag is used, command copies only missing and newer files. 
+When -u flag is used, command copies only missing and newer files.
 When -i flag is used, command asks for confirmation before replacing
 existing files.
 
@@ -98,9 +98,9 @@ The web server must have write permission to the data directory.  In this
 example, we assume that user "nobody" and group "nobody" are the web server
 as is often the case with Apache.
 
-  $ cd squirrelmail-1.2.0
+  $ cd squirrelmail-1.4.0
   $ chown -R nobody:nobody data
-  
+
 See INSTALL for alternate userid/groupid pairs.  Additionally, if "chown
 user:group" doesn't work, you can use "chown user" and "chgrp group"
 instead.  See the man pages for these commands for more information.
