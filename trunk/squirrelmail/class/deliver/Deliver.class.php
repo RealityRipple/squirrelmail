@@ -427,7 +427,7 @@ class Deliver {
          * webmail installation does not prevent changes in user's email address.
          * See SquirrelMail bug tracker #847107 for more details about it.
          */
-        if (isset($encode_header_key) && 
+        if (isset($encode_header_key) &&
             trim($encode_header_key)!='') {
             // use encoded headers, if encryption key is set and not empty
             $header[] = 'X-Squirrel-UserHash: '.OneTimePadEncrypt($username,base64_encode($encode_header_key)).$rn;
@@ -445,7 +445,7 @@ class Deliver {
 
         /* Insert the rest of the header fields */
         $header[] = 'Message-ID: '. $message_id . $rn;
-        if (is_object($reply_rfc822_header) && 
+        if (is_object($reply_rfc822_header) &&
             isset($reply_rfc822_header->message_id) &&
             $reply_rfc822_header->message_id) {
             $rep_message_id = $reply_rfc822_header->message_id;
@@ -458,7 +458,8 @@ class Deliver {
         $header[] = 'Subject: '.encodeHeader($rfc822_header->subject) . $rn;
         $header[] = 'From: '. $rfc822_header->getAddr_s('from',",$rn ",true) . $rn;
 
-        // folding address list [From|To|Cc|Bcc] happens by using ",$rn<space>" as delimiter
+        // folding address list [From|To|Cc|Bcc] happens by using ",$rn<space>"
+        // as delimiter
         // Do not use foldLine for that.
 
         // RFC2822 if from contains more then 1 address
@@ -736,7 +737,7 @@ class Deliver {
      * Function is used to convert ipv4 and ipv6 addresses to hex strings.
      * It removes all delimiter symbols from ip addresses, converts decimal
      * ipv4 numbers to hex and pads strings in order to present full length
-     * address. ipv4 addresses are represented as 8 byte strings, ipv6 addresses 
+     * address. ipv4 addresses are represented as 8 byte strings, ipv6 addresses
      * are represented as 32 byte string.
      *
      * If function fails to detect address format, it returns unprocessed string.
@@ -791,4 +792,5 @@ class Deliver {
         return $ret;
     }
 }
+
 ?>

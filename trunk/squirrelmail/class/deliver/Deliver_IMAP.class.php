@@ -29,5 +29,4 @@ class Deliver_IMAP extends Deliver {
        imap-class */
 }
 
-
 ?>
