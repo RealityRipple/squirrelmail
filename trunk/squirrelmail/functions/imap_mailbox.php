@@ -1105,6 +1105,7 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
  * @since 1.5.0
  */
 function sqimap_utf7_decode_mbx_tree(&$mbx_tree) {
+
    if (strtoupper($mbx_tree->mailboxname_full) == 'INBOX')
        $mbx_tree->mailboxname_sub = _("INBOX");
    else
@@ -1112,7 +1113,7 @@ function sqimap_utf7_decode_mbx_tree(&$mbx_tree) {
    if ($mbx_tree->mbxs) {
       $iCnt = count($mbx_tree->mbxs);
       for ($i=0;$i<$iCnt;++$i) {
-          $mbxs_tree->mbxs[$i] = sqimap_utf7_decode_mbx_tree($mbx_tree->mbxs[$i]);
+            sqimap_utf7_decode_mbx_tree($mbx_tree->mbxs[$i]);
       }
    }
 }
