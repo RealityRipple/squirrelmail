@@ -1618,12 +1618,12 @@ function deliverMessage($composeMessage, $draft=false) {
             return false;
         }
     }
-    $succes = false;
+    $success = false;
     if ($stream) {
         $length = $deliver->mail($composeMessage, $stream);
-        $succes = $deliver->finalizeStream($stream);
+        $success = $deliver->finalizeStream($stream);
     }
-    if (!$succes) {
+    if (!$success) {
         $msg  = $deliver->dlv_msg . '<br />' .
             _("Server replied:") . ' ' . $deliver->dlv_ret_nr . ' ' .
             $deliver->dlv_server_msg;
@@ -1693,7 +1693,7 @@ function deliverMessage($composeMessage, $draft=false) {
         }
         sqimap_logout($imap_stream);
     }
-    return $succes;
+    return $success;
 }
 
 ?>
