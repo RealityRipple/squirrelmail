@@ -140,9 +140,12 @@ else {
  *
  * This was done to create a pure HTML way of refreshing the folder list since
  * we would like to use as little Javascript as possible.
+ *
+ * The test for // should catch any attempt to include off-site webpages into
+ * our frameset.
  */
 
-if (empty($right_frame) || (strpos(urldecode($right_frame), '://'))) {
+if (empty($right_frame) || (strpos(urldecode($right_frame), '//') !== false)) {
     $right_frame = '';
 }
 

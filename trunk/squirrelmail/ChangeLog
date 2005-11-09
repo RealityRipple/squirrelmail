@@ -478,6 +478,7 @@ Version 1.5.1 -- CVS
   - Make test for IE6 in SendDownloadHeaders also match versions higher
     than 6 (#1339211).
   - Allow double quote to be used in MOTD (#1276959).
+  - Prevent right_frame to be set to '//www.example.com'.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
