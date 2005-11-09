@@ -464,6 +464,7 @@ if ($send) {
         $composeMessage=$compose_messages[$session];
 
         $Result = deliverMessage($composeMessage);
+        do_hook('compose_send_after', $Result, $composeMessage);
         if (! $Result) {
             showInputForm($session);
             exit();
