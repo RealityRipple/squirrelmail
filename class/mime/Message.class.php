@@ -14,12 +14,12 @@
  */
 
 /**
- * The object that contains a message
+ * The object that contains a message.
  *
- * message is the object that contains messages.  It is a recursive
- * object in that through the $entities variable, it can contain
- * more objects of type message.  See documentation in mime.txt for
- * a better description of how this works.
+ * message is the object that contains messages. It is a recursive object in
+ * that through the $entities variable, it can contain more objects of type
+ * message. See documentation in mime.txt for a better description of how this
+ * works.
  * @package squirrelmail
  * @subpackage mime
  * @since 1.3.0
@@ -119,9 +119,8 @@ class Message {
      */
     var $length = 0;
     /**
-     * Local attachment filename
-     * location where the tempory attachment
-     * is stored. For use in delivery class.
+     * Local attachment filename location where the tempory attachment is
+     * stored. For use in delivery class.
      * @var string
      */
     var $att_local_name = '';
@@ -896,9 +895,9 @@ class Message {
             } else { /* Treat as multipart/mixed */
                 foreach ($this->entities as $ent) {
                     if(!(is_object($ent->header->disposition) && strtolower($ent->header->disposition->name) == 'attachment') &&
-                (!isset($ent->header->parameters['filename'])) &&
-                (!isset($ent->header->parameters['name'])) &&
-                       (($ent->type0 != 'message') && ($ent->type1 != 'rfc822'))) {
+                            (!isset($ent->header->parameters['filename'])) &&
+                            (!isset($ent->header->parameters['name'])) &&
+                            (($ent->type0 != 'message') && ($ent->type1 != 'rfc822'))) {
                         $entity = $ent->findDisplayEntity($entity, $alt_order, $strict);
                         $found = true;
                     }
@@ -910,10 +909,10 @@ class Message {
             foreach ($alt_order as $alt) {
                 if( ($alt == $type) && isset($this->entity_id) ) {
                     if ((count($this->entities) == 0) &&
-                (!isset($this->header->parameters['filename'])) &&
-                (!isset($this->header->parameters['name'])) &&
-                isset($this->header->disposition) && is_object($this->header->disposition) &&
-                        !(is_object($this->header->disposition) && strtolower($this->header->disposition->name) == 'attachment')) {
+                            (!isset($this->header->parameters['filename'])) &&
+                            (!isset($this->header->parameters['name'])) &&
+                            isset($this->header->disposition) && is_object($this->header->disposition) &&
+                            !(is_object($this->header->disposition) && strtolower($this->header->disposition->name) == 'attachment')) {
                         $entity[] = $this->entity_id;
                         $found = true;
                     }
