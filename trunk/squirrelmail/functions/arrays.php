@@ -40,7 +40,7 @@
   * @param array $a (recursive) array
   * @param mixed $v value to move
   * @param int $p positions to move
-  * @return bool $succes
+  * @return bool $success
   * @author Marc Groot Koerkamp
   */
 function sqm_array_kmove_value(&$a,$v,$p) {
@@ -73,7 +73,7 @@ function sqm_array_kmove_value(&$a,$v,$p) {
   * @param array $a (recursive) array
   * @param mixed $v value to move
   * @param int $p positions to move
-  * @return bool $succes
+  * @return bool $success
   * @author Marc Groot Koerkamp
   */
 function sqm_array_move_value(&$a,$v,$p) {
@@ -122,7 +122,7 @@ if (!function_exists('array_combine')) {
      *
      * @param array $aK array keys
      * @param array $aV array values
-     * @return mixed $r combined array on succes, false on failure
+     * @return mixed $r combined array on success, false on failure
      * @author Marc Groot Koerkamp
      */
     function array_combine($aK, $aV) {
