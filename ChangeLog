@@ -477,6 +477,7 @@ Version 1.5.1 -- CVS
     return value (#1351822)
   - Make test for IE6 in SendDownloadHeaders also match versions higher
     than 6 (#1339211).
+  - Allow double quote to be used in MOTD (#1276959).
 
 Version 1.5.0 - 2 February 2004
 -------------------------------

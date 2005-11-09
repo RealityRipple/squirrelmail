@@ -1428,7 +1428,7 @@ sub command71 {
             $line =~ s/  /\&nbsp;\&nbsp;/g;
             $line =~ s/\t/\&nbsp;\&nbsp;\&nbsp;\&nbsp;/g;
             $line =~ s/$/ /;
-            $line =~ s/\"/&quot;/g;
+            $line =~ s/\"/\\\"/g;
 
             $new_motd = $new_motd . $line;
         }
