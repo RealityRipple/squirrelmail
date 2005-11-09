@@ -473,6 +473,8 @@ Version 1.5.1 -- CVS
   - Undefined variable in rare case in view_header.php
   - Variable by reference fix in printer_friendly_bottom.php.
   - Undefined index in addressbook backends.
+  - sqimap_utf7_decode_mbx_tree returns variables by reference, rather than a 
+    return value (#1351822)
 
 
 Version 1.5.0 - 2 February 2004
