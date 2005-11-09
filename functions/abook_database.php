@@ -327,9 +327,9 @@ class abook_database extends addressbook_backend {
                          $this->table, $this->owner,
                          $this->dbh->quoteString($userdata['nickname']),
                          $this->dbh->quoteString($userdata['firstname']),
-                         $this->dbh->quoteString($userdata['lastname']),
+                         $this->dbh->quoteString((!empty($userdata['lastname'])?$userdata['lastname']:'')),
                          $this->dbh->quoteString($userdata['email']),
-                         $this->dbh->quoteString($userdata['label']) );
+                         $this->dbh->quoteString((!empty($userdata['label'])?$userdata['label']:'')) );
 
          /* Do the insert */
          $r = $this->dbh->simpleQuery($query);
@@ -407,9 +407,9 @@ class abook_database extends addressbook_backend {
                          $this->table,
                          $this->dbh->quoteString($userdata['nickname']),
                          $this->dbh->quoteString($userdata['firstname']),
-                         $this->dbh->quoteString($userdata['lastname']),
+                         $this->dbh->quoteString((!empty($userdata['lastname'])?$userdata['lastname']:'')),
                          $this->dbh->quoteString($userdata['email']),
-                         $this->dbh->quoteString($userdata['label']),
+                         $this->dbh->quoteString((!empty($userdata['label'])?$userdata['label']:'')),
                          $this->owner,
                          $this->dbh->quoteString($alias) );
 

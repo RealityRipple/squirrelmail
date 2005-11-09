@@ -368,9 +368,9 @@ class abook_local_file extends addressbook_backend {
         /* Here is the data to write */
         $data = $this->quotevalue($userdata['nickname']) . '|' .
                 $this->quotevalue($userdata['firstname']) . '|' .
-                $this->quotevalue($userdata['lastname']) . '|' .
+                $this->quotevalue((!empty($userdata['lastname'])?$userdata['lastname']:'')) . '|' .
                 $this->quotevalue($userdata['email']) . '|' .
-                $this->quotevalue($userdata['label']);
+                $this->quotevalue((!empty($userdata['label'])?$userdata['label']:''));
 
         /* Strip linefeeds */
         $data = ereg_replace("[\r\n]", ' ', $data);
@@ -476,9 +476,9 @@ class abook_local_file extends addressbook_backend {
             } else {
                 $rows[$i++] = array(0 => $userdata['nickname'],
                                     1 => $userdata['firstname'],
-                                    2 => $userdata['lastname'],
+                                    2 => (!empty($userdata['lastname'])?$userdata['lastname']:''),
                                     3 => $userdata['email'],
-                                    4 => $userdata['label']);
+                                    4 => (!empty($userdata['label'])?$userdata['label']:''));
             }
         }
 

@@ -472,6 +472,7 @@ Version 1.5.1 -- CVS
     before compose page has reloaded.
   - Undefined variable in rare case in view_header.php
   - Variable by reference fix in printer_friendly_bottom.php.
+  - Undefined index in addressbook backends.
 
 
 Version 1.5.0 - 2 February 2004
