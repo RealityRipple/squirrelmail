@@ -475,7 +475,8 @@ Version 1.5.1 -- CVS
   - Undefined index in addressbook backends.
   - sqimap_utf7_decode_mbx_tree returns variables by reference, rather than a 
     return value (#1351822)
-
+  - Make test for IE6 in SendDownloadHeaders also match versions higher
+    than 6 (#1339211).
 
 Version 1.5.0 - 2 February 2004
 -------------------------------

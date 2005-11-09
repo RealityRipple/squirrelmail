@@ -2283,18 +2283,18 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
  */
 function SendDownloadHeaders($type0, $type1, $filename, $force, $filesize=0) {
     global $languages, $squirrelmail_language;
-    $isIE = $isIE6 = 0;
+    $isIE = $isIE6plus = false;
 
     sqgetGlobalVar('HTTP_USER_AGENT', $HTTP_USER_AGENT, SQ_SERVER);
 
     if (strstr($HTTP_USER_AGENT, 'compatible; MSIE ') !== false &&
             strstr($HTTP_USER_AGENT, 'Opera') === false) {
-        $isIE = 1;
+        $isIE = true;
     }
 
-    if (strstr($HTTP_USER_AGENT, 'compatible; MSIE 6') !== false &&
-            strstr($HTTP_USER_AGENT, 'Opera') === false) {
-        $isIE6 = 1;
+    if (preg_match('/compatible; MSIE ([0-9]+)/', $HTTP_USER_AGENT, $match) &&
+        ((int)$match[1]) >= 6 && strstr($HTTP_USER_AGENT, 'Opera') === false) {
+        $isIE6plus = true;
     }
 
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
@@ -2351,7 +2351,7 @@ function SendDownloadHeaders($type0, $type1, $filename, $force, $filesize=0) {
         // "attachment"... does it apply to inline too?
         header ("Content-Disposition: attachment; filename=\"$filename\"");
 
-        if ($isIE && !$isIE6) {
+        if ($isIE && !$isIE6plus) {
             // This combination seems to work mostly.  IE 5.5 SP 1 has
             // known issues (see the Microsoft Knowledge Base)
 
