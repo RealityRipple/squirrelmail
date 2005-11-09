@@ -471,6 +471,7 @@ Version 1.5.1 -- CVS
   - E_NOTICE and unlink error message if user hits delete multiple times
     before compose page has reloaded.
   - Undefined variable in rare case in view_header.php
+  - Variable by reference fix in printer_friendly_bottom.php.
 
 
 Version 1.5.0 - 2 February 2004

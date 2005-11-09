@@ -40,12 +40,12 @@ if (! sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET) ) {
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response = sqimap_mailbox_select($imapConnection, $mailbox);
 if (isset($messages[$mbx_response['UIDVALIDITY']][$passed_id])) {
-    $message = &$messages[$mbx_response['UIDVALIDITY']][$passed_id];
+    $message = $messages[$mbx_response['UIDVALIDITY']][$passed_id];
 } else {
     $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
 }
 if ($passed_ent_id) {
-    $message = &$message->getEntity($passed_ent_id);
+    $message = $message->getEntity($passed_ent_id);
 }
 
 /* --start display setup-- */
