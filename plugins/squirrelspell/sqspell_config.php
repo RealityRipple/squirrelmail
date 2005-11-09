@@ -33,8 +33,8 @@ sqgetGlobalVar('username', $username, SQ_SESSION);
  *</pre>
  * Sometimes you have to specify full path for PHP to find it.
  * 
- * You can use Aspell or Ispell spellcheckers. Aspell might provide
- * better spellchecking for Western languages.
+ * You can use Aspell or Ispell spellcheckers, the command line is the
+ * same. Aspell might provide better spellchecking for Western languages.
  *
  * If you want to have more than one dictionary available to users,
  * configure the array to look something like this:
