@@ -6,15 +6,15 @@ It can be used if user can't run conf.pl and changes options manually.
 Settings can be different if IMAP server uses shared folders.
 
 Possible server values are:
- cyrus       = Cyrus IMAP server
- uw          = University of Washington's IMAP server
- exchange    = Microsoft Exchange IMAP server
- courier     = Courier IMAP server
- macosx      = Mac OS X Mailserver
- hmailserver = hMailServer
- mercury32   = Mercury/32
- dovecot     = Dovecot Secure IMAP server
  bincimap    = Binc IMAP server
+ courier     = Courier IMAP server
+ cyrus       = Cyrus IMAP server
+ dovecot     = Dovecot Secure IMAP server
+ exchange    = Microsoft Exchange IMAP server
+ hmailserver = hMailServer
+ macosx      = Mac OS X Mailserver
+ mercury32   = Mercury/32
+ uw          = University of Washington's IMAP server
 
 -----------------
 default settings:
@@ -125,7 +125,7 @@ show_contain_subfolders_option = false
 ---------------------
 'mercury32' settings:
 ---------------------
-Preset is used for Mercury Mail Transport System. Available since 1.5.0
+Preset is used for Mercury Mail Transport System. Available since 1.5.0 and 1.4.6.
 Free email server for Win32 and Netware.
 Tested Win32 v.4.01b
 CAPABILITY IMAP4rev1 X-MERCURY
@@ -158,7 +158,7 @@ show_contain_subfolders_option = true
 -------------------
 'dovecot' settings:
 -------------------
-Preset used for Dovecot Secure IMAP server. Available since 1.5.1.
+Preset used for Dovecot Secure IMAP server. Available since 1.5.1 and 1.4.6.
 
 There is no code specific to Dovecot IMAP server. Preset provides only a quick
 way to set correct folder settings.
@@ -190,7 +190,7 @@ show_contain_subfolders_option = false
 --------------------
 'bincimap' settings:
 --------------------
-Preset is used with Binc IMAP server. Available since 1.5.1.
+Preset is used with Binc IMAP server. Available since 1.5.1 and 1.4.6.
 Tested v.1.2.13 and 1.3.4
 
 CAPABILITY IMAP4rev1 STARTTLS AUTH=LOGIN AUTH=PLAIN (1.2.13)
