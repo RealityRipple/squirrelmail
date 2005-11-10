@@ -260,13 +260,13 @@ function pf_show_attachments($message, $exclude_id, $mailbox, $id) {
         $display_filename = $filename;
 
         // TODO: maybe make it nicer?
-        $attachments .= '<table cellpadding="0" cellspacing="0" border="1"><tr><th colspan="2">'.decodeHeader($display_filename).'</th></tr>' .
-            '<tr border="0">'.
-            html_tag( 'td',_("Size:"), 'right') .
-            html_tag( 'td',show_readable_size($header->size), 'left') .
-            '</tr><tr>' .
-            html_tag( 'td',_("Type:"), 'right') .
-            html_tag( 'td',htmlspecialchars($type0).'/'.htmlspecialchars($type1), 'left') . 
+        $attachments .= '<table cellpadding="1" cellspacing="0" width="100%" border="1"><tr><th colspan="2">'.decodeHeader($display_filename).'</th></tr>' .
+            '<tr>'. 
+            html_tag( 'td',_("Size:"), 'right', '', 'width="25%"') . 
+            html_tag( 'td',show_readable_size($header->size), 'left', '', 'width="75%"') .
+            '</tr><tr>' . "\n" .
+            html_tag( 'td',_("Type:"), 'right', '', 'width="25%"') .
+            html_tag( 'td',htmlspecialchars($type0).'/'.htmlspecialchars($type1), 'left', '', 'width="75%"') . 
             '</tr>';
         if (! empty($description)) {
             $attachments .= $description;
