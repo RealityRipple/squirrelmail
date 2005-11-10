@@ -110,6 +110,15 @@ show_contain_subfolders_option = false
 -----------------------
 'hmailserver' settings:
 -----------------------
+Preset is used with hMailServer IMAP server. Available since SquirrelMail 1.5.1 
+and 1.4.4. Open source email server for WinNT and later.
+
+Tested 4.1.1 (Build 140).
+CAPABILITY IMAP4 IMAP4rev1 QUOTA 
+PERMANENTFLAGS (\Deleted \Seen \Draft \Answered \Flagged)
+
+Site URL: http://www.hmailserver.com/
+
               imap_server_type = hmailserver   (used in imap_search.php)
          default_folder_prefix = <none> (is set to empty string)
                   trash_folder = INBOX.Trash
