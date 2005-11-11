@@ -36,6 +36,7 @@ $FileExtensionToMimeType = array('bmp'  => 'image/x-bitmap',
                                  'gif'  => 'image/gif',
                                  'htm'  => 'text/html',
                                  'html' => 'text/html',
+                                 'jpe'  => 'image/jpeg',
                                  'jpg'  => 'image/jpeg',
                                  'jpeg' => 'image/jpeg',
                                  'php'  => 'text/plain',
@@ -56,12 +57,12 @@ if (isset($attachment_common_types)) {
     foreach ($attachment_common_types as $val => $v) {
         if ($val == 'image/gif')
             register_attachment_common('image/gif',       'link_image');
-        elseif (($val == 'image/jpeg' || $val == 'image/pjpeg') and
+        elseif (($val == 'image/jpeg' || $val == 'image/pjpeg' || $val == 'image/jpg') and
                 (!isset($jpeg_done))) {
             $jpeg_done = 1;
+            register_attachment_common('image/jpg',       'link_image');
             register_attachment_common('image/jpeg',      'link_image');
             register_attachment_common('image/pjpeg',     'link_image');
-            // register_attachment_common('image/jpg',       'link_image');
         }
         elseif ($val == 'image/png')
             register_attachment_common('image/png',       'link_image');
@@ -74,9 +75,9 @@ if (isset($attachment_common_types)) {
              */
             if (! isset($jpeg_done)) {
                 $jpeg_done = 1;
+                register_attachment_common('image/jpg',   'link_image');
                 register_attachment_common('image/jpeg',  'link_image');
                 register_attachment_common('image/pjpeg', 'link_image');
-                // register_attachment_common('image/jpg',       'link_image');
             }
             register_attachment_common('image/gif',       'link_image');
             register_attachment_common('image/png',       'link_image');
