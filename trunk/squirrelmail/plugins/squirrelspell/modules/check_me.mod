@@ -339,7 +339,7 @@ if ($errors){
    <tr>
     <td bgcolor="<?php echo $color[9] ?>" align="center">
      <b>
-      <?php printf( ngettext(_("Found %d error"),_("Found %d errors"),$errors), $errors ) ?>
+      <?php printf( ngettext("Found %d error","Found %d errors",$errors), $errors ) ?>
      </b>
     </td>
    </tr>
