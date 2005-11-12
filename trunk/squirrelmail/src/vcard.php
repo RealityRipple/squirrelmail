@@ -104,7 +104,7 @@ foreach ($vcard_nice as $k => $v) {
 $ShowValues = array(
     'fn' =>             _("Name"),
     'title' =>          _("Title"),
-    'email;internet' => _("Email"),
+    'email;internet' => _("E-mail"),
     'url' =>            _("Web Page"),
     'org' =>            _("Organization / Department"),
     'adr' =>            _("Address"),
@@ -140,7 +140,7 @@ foreach ($ShowValues as $k => $v) {
 </td></tr></table>
 <table width="100%" border="0" cellspacing="0" cellpadding="2" align="center">
 <tr><td bgcolor="<?php echo $color[0]; ?>">
-<center><b><?php echo _("Add to Addressbook"); ?></b></center>
+<center><b><?php echo _("Add to address book"); ?></b></center>
 </td></tr>
 <tr><td align="center">
 <?php echo addForm('../src/addressbook.php', 'post', 'f_add'); ?><br />
@@ -224,7 +224,7 @@ if (count($opts) == 0) {
 
 echo addHidden('addaddr[firstname]', $vcard_safe['firstname']) .
      addHidden('addaddr[lastname]', $vcard_safe['lastname']) .
-     addSubmit(_("Add to Address Book"), 'addaddr[SUBMIT]');
+     addSubmit(_("Add to address book"), 'addaddr[SUBMIT]');
 
 ?>
 </td></tr>

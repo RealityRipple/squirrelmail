@@ -85,7 +85,7 @@ function load_optpage_data_personal() {
     if ($edit_identity) {
         $optvals[SMOPT_GRP_CONTACT][] = array(
             'name'    => 'email_address',
-            'caption' => _("Email Address"),
+            'caption' => _("E-mail Address"),
             'type'    => SMOPT_TYPE_STRING,
             'refresh' => SMOPT_REFRESH_NONE,
             'size'    => SMOPT_SIZE_HUGE
@@ -93,7 +93,7 @@ function load_optpage_data_personal() {
     } else {
         $optvals[SMOPT_GRP_CONTACT][] = array(
             'name'    => 'email_address',
-            'caption' => _("Email Address"),
+            'caption' => _("E-mail Address"),
             'type'    => SMOPT_TYPE_COMMENT,
             'refresh' => SMOPT_REFRESH_NONE,
             'comment' => $email_address

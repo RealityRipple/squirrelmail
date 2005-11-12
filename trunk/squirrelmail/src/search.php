@@ -656,7 +656,7 @@ function asearch_print_saved(&$boxes)
     if (isset($saved_array[$saved_prefkeys[0]])) {
         $saved_count = count($saved_array[$saved_prefkeys[0]]);
         if ($saved_count > 0) {
-            $saved_actions = array('edit_saved' => _("edit"), 'search_saved' => _("search"), 'delete_saved' => _("delete"));
+            $saved_actions = array('edit_saved' => _("Edit"), 'search_saved' => _("Search"), 'delete_saved' => _("Delete"));
             asearch_print_query_array($boxes, $saved_array, $saved_prefkeys, $saved_actions, _("Saved Searches"), 'search_show_saved');
         }
     }
