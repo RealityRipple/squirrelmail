@@ -226,6 +226,9 @@ function sqsession_destroy() {
     if (!empty( $sessid )) {
         $_SESSION = array();
         @session_destroy();
+        session_regenerate_id(true);
+        sqsetcookie(session_name(), '', 0, $base_uri);
+        session_write_close();
     }
 
 }
@@ -278,13 +281,16 @@ function sqsession_start() {
 function sqsetcookie($sName,$sValue,$iExpire=false,$sPath="",$sDomain="",$bSecure=false,$bHttpOnly=true) {
     $sHeader = "Set-Cookie: $sName=$sValue";
     if ($sPath) {
-        $sHeader .= "; Path=\"$sPath\"";
+        $sHeader .= "; path=$sPath";
     }
-    if ($iExpire !==false) {
+    if ($iExpire !== false) {
         $sHeader .= "; Max-Age=$iExpire";
-    }
-    if ($sPath) {
-        $sHeader .= "; Path=$sPath";
+        // php uses Expire header, also add the expire header
+        if ($iExpire === 0) {
+            $sHeader .= "; expires=". date("r",time() - 3600);
+        } else {
+            $sHeader .= "; expires=". date("r",$iExpire);
+        }
     }
     if ($sDomain) {
         $sHeader .= "; Domain=$sDomain";
@@ -295,10 +301,50 @@ function sqsetcookie($sName,$sValue,$iExpire=false,$sPath="",$sDomain="",$bSecur
     if ($bHttpOnly) {
         $sHeader .= "; HttpOnly";
     }
-    $sHeader .= "; Version=1";
+    // $sHeader .= "; Version=1";
 
     header($sHeader);
 }
+
+function php_combined_lcg() {
+    $tv = gettimeofday();
+    $lcg['s1'] = $tv['sec'] ^ (~$tv['usec']);
+    $lcg['s2'] = posix_getpid();
+
+    $q = (int) ($lcg['s1'] / 53668);
+    $lcg['s1'] = (int) (40014 * ($lcg['s1'] - 53668 * $q) - 12211 * $q);
+    if ($lcg['s1'] < 0)
+        $lcg['s1'] += 2147483563;
+
+    $q = (int) ($lcg['s2'] / 52774);
+    $lcg['s2'] = (int) (40692 * ($lcg['s2'] - 52774 * $q) - 3791 * $q);
+    if ($lcg['s2'] < 0)
+        $lcg['s2'] += 2147483399;
+
+    $z = (int) ($lcg['s1'] - $lcg['s2']);
+    if ($z < 1) {
+        $z += 2147483562;
+    }
+
+    return $z * 4.656613e-10;
+}
+
+
+if (!function_exists('session_regenerate_id')) {
+
+    function session_regenerate_id() {
+        global $base_uri;
+
+        $tv = gettimeofday();
+        $buf = sprintf("%.15s%ld%ld%0.8f", $_SERVER['REMOTE_ADDR'], $tv['sec'], $tv['usec'], php_combined_lcg() * 10);
+        $sessid = session_id(md5($buf));
+        if (ini_get('session.use_cookies')) {
+            if (isset($_COOKIE[session_name()])) sqsetcookie(session_name(), $sessid, 0, $base_uri);
+        }
+        return true;
+    }
+}
+
 
 /**
  * php_self
