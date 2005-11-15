@@ -39,6 +39,13 @@ Server supports server side sorting since 2.0.4 version. euc-jp, euc-kr,
 tis-620, cp1251, cp1255 character sets are not supported by sorting functions 
 (v.2.2.12).
 
+CAPABILITY IMAP4 IMAP4rev1 ACL QUOTA LITERAL+ MAILBOX-REFERRALS NAMESPACE
+ UIDPLUS ID NO_ATOMIC_RENAME UNSELECT CHILDREN MULTIAPPEND BINARY SORT
+ THREAD=ORDEREDSUBJECT THREAD=REFERENCES ANNOTATEMORE IDLE LISTEXT
+ LIST-SUBSCRIBED X-NETSCAPE
+
+PERMANENTFLAGS (\Answered \Flagged \Draft \Deleted \Seen $MDNSent \*)
+
               imap_server_type = cyrus
          default_folder_prefix = <none> (is set to empty string)
                   trash_folder = INBOX.Trash
