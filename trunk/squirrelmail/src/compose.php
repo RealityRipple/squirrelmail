@@ -1029,7 +1029,8 @@ function showInputForm ($session, $values=false) {
         $from_htmladdr_search, $location_of_buttons, $attachment_dir,
         $username, $data_dir, $identity, $idents, $delete_draft,
         $mailprio, $compose_new_win, $saved_draft, $mail_sent, $sig_first,
-        $username, $compose_messages, $composesession, $default_charset;
+        $username, $compose_messages, $composesession, $default_charset,
+        $compose_onsubmit;
 
     if (checkForJavascript()) {
         $onfocus = ' onfocus="alreadyFocused=true;"';
@@ -1068,7 +1069,36 @@ function showInputForm ($session, $values=false) {
 
     echo "\n" . '<form name="compose" action="compose.php" method="post" ' .
         'enctype="multipart/form-data"';
+
+    $compose_onsubmit = array();
     do_hook('compose_form');
+
+    // Plugins that use compose_form hook can add an array entry
+    // to the globally scoped $compose_onsubmit; we add them up
+    // here and format the form tag's full onsubmit handler.  
+    // Each plugin should use "return false" if they need to 
+    // stop form submission but otherwise should NOT use "return
+    // true" to give other plugins the chance to do what they need
+    // to do; SquirrelMail itself will add the final "return true".
+    // Onsubmit text is enclosed inside of double quotes, so plugins
+    // need to quote accordingly.
+    if (checkForJavascript()) {
+        $onsubmit_text = ' onsubmit="';
+        if (empty($compose_onsubmit)) 
+            $compose_onsubmit = array();
+        else if (!is_array($compose_onsubmit)) 
+            $compose_onsubmit = array($compose_onsubmit);
+
+        foreach ($compose_onsubmit as $text) {
+            $text = trim($text);
+            if (substr($text, -1) != ';' && substr($text, -1) != '}') 
+                $text .= '; ';
+            $onsubmit_text .= $text;
+        }
+
+        echo $onsubmit_text . ' return true;"';
+    }
+    
 
     echo ">\n";
 

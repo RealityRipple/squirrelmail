@@ -481,6 +481,9 @@ Version 1.5.1 -- CVS
   - Prevent right_frame to be set to '//www.example.com'.
   - Tweak printer friendly attachment view.
   - Added new compose_send_after hook.
+  - Added new scheme to allow multiple plugins to share the onsubmit handler 
+    for the compose form from the compose_form hook.  See plugin.txt for more
+    information.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
