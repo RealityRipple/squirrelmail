@@ -303,7 +303,7 @@ but may be out of date soon thereafter.  You never know.  ;-)
   loading_prefs                  include/load_prefs.php          do_hook
   addrbook_html_search_below     src/addrbook_search_html.php    do_hook
   addressbook_bottom             src/addressbook.php             do_hook
-  compose_form                   src/compose.php                 do_hook
+! compose_form                   src/compose.php                 do_hook
   compose_bottom                 src/compose.php                 do_hook
   compose_button_row             src/compose.php                 do_hook
   compose_send                   src/compose.php                 do_hook
@@ -372,6 +372,7 @@ O info_bottom                    plugins/info/options.php        do_hook
 ^ = Special attachments hook (see below)
 * = Special options hooks (see below)
 O = Optional hook provided by a particular plugin
+! = See below for notes about working with the compose page's <form> tag
 
 
 (#) Called With
@@ -380,6 +381,35 @@ Each hook is called using the hook type specified in the list above:
    do_hook       do_hook()
    hook_func     do_hook_function()
    concat_hook   concat_hook_function()
+
+
+(!) Compose Form
+----------------
+The compose_form hook allows plugins to insert their own code into 
+the form tag for the main message composition HTML form.  Usually
+plugins will want to insert some kind of code in an onsubmit event
+handler.  In order to allow more than one plugin to do so, all plugins
+using this hook to add some onsubmit code need to add that code (without
+the enclosing attribute name and quotes) as a new array entry to the 
+global $compose_onsubmit array.  The code should use "return false"
+if the plugin has found a reason to stop form submission, otherwise,
+it should DO NOTHING (that is, please do not use "return true", as that
+will prevent other plugins from using the onsubmit handler).  SquirrelMail
+itself will insert a final "return true".  All onsubmit code will be
+enclosed in double quotes by SquirrelMail, so plugins need to quote 
+accordingly if needed.  For example:
+
+   global $compose_onsubmit;
+   $compose_onsubmit[] = ' if (somevar == \'no\') return false; ';
+
+Note the escaped single quotes.  If you use double quotes, they would have
+to be escaped as such:
+
+   global $compose_onsubmit;
+   $compose_onsubmit[] = ' if (somevar == \'no\') { alert(\\"Sorry\\"); return false; }';
+
+Any other form tag additions by a plugin (beside onsubmit event code) can 
+currently be echoed directly to the browser.
 
 
 (&) Identity Hooks
