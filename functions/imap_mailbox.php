@@ -744,7 +744,7 @@ function sqimap_mailbox_list($imap_stream, $force=false) {
            * in other words, we cannot rely on it.
          */
         $sorted_list_ary = array();
- //       if (!$listsubscribed) {
+        if (!$listsubscribed && $show_only_subscribed_folders) {
           for ($i=0; $i < count($sorted_lsub_ary); $i++) {
             if (substr($sorted_lsub_ary[$i], -1) == $delimiter) {
                 $mbx = substr($sorted_lsub_ary[$i], 0, strlen($sorted_lsub_ary[$i])-1);
@@ -764,7 +764,9 @@ function sqimap_mailbox_list($imap_stream, $force=false) {
                 $sorted_list_ary[$i] = '';
             }
           }
- //       }
+        } else {
+          $sorted_list_ary = $sorted_lsub_ary;
+        }
         /*
          * Just in case they're not subscribed to their inbox,
          * we'll get it for them anyway
