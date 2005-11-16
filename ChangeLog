@@ -484,6 +484,8 @@ Version 1.5.1 -- CVS
   - Added new scheme to allow multiple plugins to share the onsubmit handler 
     for the compose form from the compose_form hook.  See plugin.txt for more
     information.
+  - Support for LIST-SUBSCRIBED extension. This speeds up the retrieval of
+    the subscribed mailbox-list.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
