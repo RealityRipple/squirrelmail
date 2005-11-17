@@ -179,7 +179,9 @@ class Rfc822Header {
                         }
                         $result .= $value{$i};
                     }
-                    $result .= $value{$i};
+                    if($i < $cnt) {
+                        $result .= $value{$i};
+                    }
                     break;
                 case '(':
                     $depth = 1;
