@@ -79,7 +79,9 @@ function asearch_get_link(&$href, $text, $title = '')
  */
 function asearch_get_toggle_link($value, $action, $text_array, $title_array = array())
 {
-    return asearch_get_link(asearch_get_href($action . '=' . (int)$value), $text_array[$value], asearch_nz($title_array[$value]));
+    $asearch_nz=asearch_nz($title_array[$value]);
+    $asearch_get_href=asearch_get_href($action . '=' . (int)$value);
+    return asearch_get_link($asearch_get_href, $text_array[$value], $asearch_nz);
 }
 
 /**
