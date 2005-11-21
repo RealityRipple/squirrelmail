@@ -313,13 +313,11 @@ function sqimap_run_search($imapConnection, $search_string, $search_charset)
         $query = 'SEARCH CHARSET "' . strtoupper($search_charset) . '" ' . $search_string;
     else
         $query = 'SEARCH ' . $search_string;
-//    s_debug_dump('C:', $query);
     $readin = sqimap_run_command($imapConnection, $query, false, $response, $message, TRUE);
 
     /* 6.4.4 try US-ASCII charset if we tried an OPTIONAL [CHARSET] and received a tagged NO response (SHOULD be [BADCHARSET]) */
     if (($search_charset != '')  && (strtoupper($response) == 'NO')) {
         $query = 'SEARCH CHARSET US-ASCII ' . $search_string;
-//        s_debug_dump('C:', $query);
         $readin = sqimap_run_command($imapConnection, $query, false, $response, $message, TRUE);
     }
     if (strtoupper($response) != 'OK') {
