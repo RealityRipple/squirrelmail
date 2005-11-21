@@ -90,17 +90,15 @@ function sqimap_toggle_flag($imap_stream, $id, $flag, $set, $handle_errors) {
     $msgs_id = sqimap_message_list_squisher($id);
     $set_string = ($set ? '+' : '-');
 
-    // mpl-spirit
     for ($i=0; $i<sizeof($id); $i++) {
         $aMessageList["$id[$i]"] = array();
     }
 
     $aResponse = sqimap_run_command_list($imap_stream, "STORE $msgs_id ".$set_string."FLAGS ($flag)", $handle_errors, $response, $message, TRUE);
 
-    // parse the fetch response (mpl-spirit added 2nd arg)
+    // parse the fetch response
     $parseFetchResults=parseFetch($aResponse,$aMessageList);
 
-    // mpl-spirit
     // some broken IMAP servers do not return UID elements on UID STORE
     // if this is the case, then we need to do a UID FETCH
     $testkey=$id[0];
