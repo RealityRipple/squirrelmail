@@ -815,9 +815,13 @@ function parseFetch($aResponse,$aMessageList = array()) {
                 break;
             }
         }
-        $msgi ="$unique_id";
-        $aMsg['UID'] = $unique_id;
-        $aMessageList[$msgi] = $aMsg;
+        if (!empty($unique_id)) {
+            $msgi = "$unique_id";
+            $aMsg['UID'] = $unique_id;
+       } else {
+            $msgi = '';
+       }
+       $aMessageList[$msgi] = $aMsg;
     }
     return $aMessageList;
 }
