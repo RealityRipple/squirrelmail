@@ -621,7 +621,7 @@ class AddressBook {
             if (is_array($res)) {
                return $res;
             } else {
-               $this->error = htmlspecialchars($backend->error);
+               $this->error = htmlspecialchars($this->backends[$bnum]->error);
                return false;
             }
         }

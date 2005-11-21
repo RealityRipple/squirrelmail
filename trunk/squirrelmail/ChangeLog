@@ -488,6 +488,7 @@ Version 1.5.1 -- CVS
     the subscribed mailbox-list.
   - Properly clean up temporary attachment files when saving as Draft
     (#1358407) and fix attachment cleaning code on logout.
+  - Fix error message in addressbook.php lookup (#1351825).
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
