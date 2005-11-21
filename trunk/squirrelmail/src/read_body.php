@@ -288,27 +288,6 @@ function ToggleMDNflag ($set ,$imapConnection, $mailbox, $passed_id) {
                                 $readmessage, TRUE);
 }
 
-function ClearAttachments() {
-    global $username, $attachments, $attachment_dir;
-
-    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-
-    $rem_attachments = array();
-    if (isset($attachments)) {
-        foreach ($attachments as $info) {
-            if ($info['session'] == -1) {
-                $attached_file = "$hashed_attachment_dir/$info[localfilename]";
-                if (file_exists($attached_file)) {
-                    unlink($attached_file);
-                }
-            } else {
-                $rem_attachments[] = $info;
-            }
-        }
-    }
-    $attachments = $rem_attachments;
-}
-
 function formatRecipientString($recipients, $item ) {
     global $show_more_cc, $show_more, $show_more_bcc,
            $PHP_SELF;
@@ -954,7 +933,6 @@ if (isset($sendreceipt)) {
          $message->is_mdnsent = true;
          $aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT'] = $message;
       }
-      ClearAttachments();
    }
 }
 /***********************************************/

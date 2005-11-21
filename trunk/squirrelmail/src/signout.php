@@ -24,15 +24,9 @@ require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/html.php');
 
 /* Erase any lingering attachments */
-if (isset($attachments) && is_array($attachments)
-    && sizeof($attachments)){
-    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-    foreach ($attachments as $info) {
-        $attached_file = "$hashed_attachment_dir/$info[localfilename]";
-        if (file_exists($attached_file)) {
-            unlink($attached_file);
-        }
-    }
+sqgetGlobalVar('compose_messages',  $compose_messages,  SQ_SESSION);
+foreach($compose_messages as $composeMessage) {
+    $composeMessage->purgeAttachments();
 }
 
 if (!isset($frame_top)) {

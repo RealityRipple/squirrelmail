@@ -1056,6 +1056,20 @@ class Message {
         $attachment->mime_header = $mime_header;
         $this->entities[]=$attachment;
     }
+
+    /**
+     * Delete all attachments from this object from disk.
+     * @since 1.5.1
+     */
+    function purgeAttachments() {
+        if ($this->att_local_name && file_exists($this->att_local_name)) {
+            unlink($this->att_local_name);
+        }
+        // recursively delete attachments from entities contained in this object
+        for ($i=0, $entCount=count($this->entities);$i< $entCount; ++$i) {
+            $this->entities[$i]->purgeAttachments();
+        }
+    }
 }
 
 ?>
