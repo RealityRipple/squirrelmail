@@ -486,6 +486,8 @@ Version 1.5.1 -- CVS
     information.
   - Support for LIST-SUBSCRIBED extension. This speeds up the retrieval of
     the subscribed mailbox-list.
+  - Properly clean up temporary attachment files when saving as Draft
+    (#1358407)
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
