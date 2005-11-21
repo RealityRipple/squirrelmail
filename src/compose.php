@@ -1459,6 +1459,10 @@ function saveAttachedFiles($session) {
     sqsession_register($compose_messages , 'compose_messages');
 }
 
+/**
+ * Given a composeMessage, recursively delete all temporary files in the
+ * attachment dir for each body part of that message.
+ */
 function ClearAttachments($composeMessage) {
     if ($composeMessage->att_local_name) {
         $attached_file = $composeMessage->att_local_name;
@@ -1642,6 +1646,7 @@ function deliverMessage($composeMessage, $draft=false) {
             sqimap_append_done ($imap_stream, $draft_folder);
             sqimap_logout($imap_stream);
             unset ($imap_deliver);
+            ClearAttachments($composeMessage);
             return $length;
         } else {
             $msg  = '<br />'.sprintf(_("Error: Draft folder %s does not exist."), $draft_folder);
