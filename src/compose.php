@@ -390,6 +390,7 @@ if ($draft) {
             }
             sqimap_logout($imap_stream);
         }
+        session_write_close();
         if ($compose_new_win == '1') {
             if ( !isset($pageheader_sent) || !$pageheader_sent ) {
                 Header("Location: $location/compose.php?saved_draft=yes&session=$composesession");
@@ -470,6 +471,7 @@ if ($send) {
             exit();
         }
         unset($compose_messages[$session]);
+        
         /* if it is resumed draft, delete draft message */
         if ( isset($delete_draft)) {
             $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, false);
@@ -483,6 +485,7 @@ if ($send) {
             }
             sqimap_logout($imap_stream);
         }
+        session_write_close();
         if ($compose_new_win == '1') {
             if ( !isset($pageheader_sent) || !$pageheader_sent ) {
                 Header("Location: $location/compose.php?mail_sent=yes");
@@ -595,10 +598,7 @@ elseif (isset($sigappend)) {
         $composeMessage = $compose_messages[$session];
         foreach($delete as $index) {
             if (!empty($composeMessage->entities) && isset($composeMessage->entities[$index])) {
-                $attached_file = $composeMessage->entities[$index]->att_local_name;
-                if (file_exists($attached_file)) {
-                    unlink ($attached_file);
-                }
+                $composeMessage->entities[$index]->purgeAttachments();
                 unset ($composeMessage->entities[$index]);
             }
         }
@@ -767,7 +767,6 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         } else {
             $mailprio = '';
         }
-        //ClearAttachments($session);
 
         $identity = '';
         $from_o = $orig_header->from;
@@ -1428,7 +1427,7 @@ function checkInput ($show) {
 
 /* True if FAILURE */
 function saveAttachedFiles($session) {
-    global $_FILES, $attachment_dir, $attachments, $username,
+    global $_FILES, $attachment_dir, $username,
         $data_dir, $compose_messages;
 
     /* get out of here if no file was attached at all */
@@ -1457,22 +1456,6 @@ function saveAttachedFiles($session) {
     $message->initAttachment($type, $name, $full_localfilename);
     $compose_messages[$session] = $message;
     sqsession_register($compose_messages , 'compose_messages');
-}
-
-/**
- * Given a composeMessage, recursively delete all temporary files in the
- * attachment dir for each body part of that message.
- */
-function ClearAttachments($composeMessage) {
-    if ($composeMessage->att_local_name) {
-        $attached_file = $composeMessage->att_local_name;
-        if (file_exists($attached_file)) {
-            unlink($attached_file);
-        }
-    }
-    for ($i=0, $entCount=count($composeMessage->entities);$i< $entCount; ++$i) {
-        ClearAttachments($composeMessage->entities[$i]);
-    }
 }
 
 /* parse values like 8M and 2k into bytes */
@@ -1646,7 +1629,7 @@ function deliverMessage($composeMessage, $draft=false) {
             sqimap_append_done ($imap_stream, $draft_folder);
             sqimap_logout($imap_stream);
             unset ($imap_deliver);
-            ClearAttachments($composeMessage);
+            $composeMessage->purgeAttachments();
             return $length;
         } else {
             $msg  = '<br />'.sprintf(_("Error: Draft folder %s does not exist."), $draft_folder);
@@ -1707,7 +1690,7 @@ function deliverMessage($composeMessage, $draft=false) {
 
         global $passed_id, $mailbox, $action, $what, $iAccount,$startMessage;
 
-        ClearAttachments($composeMessage);
+        $composeMessage->purgeAttachments();
         if ($action == 'reply' || $action == 'reply_all') {
             $aMailbox = sqm_api_mailbox_select($imap_stream, $iAccount, $mailbox,array('setindex' => $what, 'offset' => $startMessage),array());
             //sqimap_mailbox_select ($imap_stream, $mailbox);
