@@ -185,8 +185,6 @@ function getReplyCitation($orig_from, $orig_date) {
         $sOrig_from = decodeHeader($orig_from->getAddress(false),false,false,true);
     }
 
-//    $from = decodeHeader($orig_header->getAddr_s('from',"\n$indent"),false,false);
-
     /* First, return an empty string when no citation style selected. */
     if (($reply_citation_style == '') || ($reply_citation_style == 'none')) {
         return '';
@@ -206,8 +204,7 @@ function getReplyCitation($orig_from, $orig_date) {
         $full_reply_citation = sprintf(_("%s wrote:"),$sOrig_from);
         break;
     case 'quote_who':
-        // FIXME: do we have to translate xml formating?
-        $start = '<' . _("quote") . ' ' . _("who") . '="';
+        $start = '<quote who="';
         $end   = '">';
         $full_reply_citation = $start . $sOrig_from . $end;
         break;
@@ -348,7 +345,6 @@ if (!isset($compose_messages)) {
 }
 
 if (!isset($compose_messages[$session]) || ($compose_messages[$session] == NULL)) {
-    /* if (!array_key_exists($session, $compose_messages)) {  /* We can only do this in PHP >= 4.1 */
     $composeMessage = new Message();
     $rfc822_header = new Rfc822Header();
     $composeMessage->rfc822_header = $rfc822_header;
@@ -424,7 +420,7 @@ if ($send) {
     if (checkInput(false) && !isset($AttachFailure)) {
         if ($mailbox == "All Folders") {
             /* We entered compose via the search results page */
-            $mailbox="INBOX"; /* Send 'em to INBOX, that's safe enough */
+            $mailbox = 'INBOX'; /* Send 'em to INBOX, that's safe enough */
         }
         $urlMailbox = urlencode (trim($mailbox));
         if (! isset($passed_id)) {
@@ -1443,10 +1439,10 @@ function saveAttachedFiles($session) {
         $full_localfilename = "$hashed_attachment_dir/$localfilename";
     }
 
-    // FIXME: we SHOULD prefer move_uploaded_file over rename because
-    // m_u_f works better with restricted PHP installs (safe_mode, open_basedir)
-    if (!@rename($_FILES['attachfile']['tmp_name'], $full_localfilename)) {
-        if (!@move_uploaded_file($_FILES['attachfile']['tmp_name'],$full_localfilename)) {
+    // m_u_f works better with restricted PHP installs (safe_mode, open_basedir),
+    // if that doesn't work, try a simple rename.
+    if (!@move_uploaded_file($_FILES['attachfile']['tmp_name'],$full_localfilename)) {
+        if (!@rename($_FILES['attachfile']['tmp_name'], $full_localfilename)) {
             return true;
         }
     }
@@ -1491,7 +1487,7 @@ function getByteSize($ini_size) {
 
 /**
  * temporary function to make use of the deliver class.
- * In the future the responsable backend should be automaticly loaded
+ * In the future the responsible backend should be automaticly loaded
  * and conf.pl should show a list of available backends.
  * The message also should be constructed by the message class.
  */
