@@ -121,23 +121,7 @@ function sqimap_asearch_error_box($response, $query, $message, $link = '')
     else
         $message_title = _("Possible reason:");
     $message_title .= ' ';
-    if (function_exists('sqimap_error_box'))
-        sqimap_error_box($title, $query, $message_title, $message, $link);
-    else {    //Straight copy of 1.5 imap_general.php:sqimap_error_box(). Can be removed at a later time
-        global $color;
-    require_once(SM_PATH . 'functions/display_messages.php');
-    $string = "<font color=\"$color[2]\"><b>\n" . $title . "</b><br />\n";
-    if ($query != '')
-        $string .= _("Query:") . ' ' . htmlspecialchars($query) . '<br />';
-    if ($message_title != '')
-        $string .= $message_title;
-    if ($message != '')
-        $string .= htmlspecialchars($message);
-    if ($link != '')
-        $string .= $link;
-    $string .= "</font><br />\n";
-    error_box($string,$color);
-    }
+    sqimap_error_box($title, $query, $message_title, $message, $link);
 }
 
 /**
@@ -168,31 +152,6 @@ function asearch_unhtmlentities($string) {
     $string = strtr($string, array_flip(get_html_translation_table(HTML_ENTITIES)));
     return preg_replace("/&#([0-9]+);/E", "chr('\\1')", $string);
  */
-}
-
-/**
- * Provide an easy way to dump the IMAP dialogue if $imap_asearch_debug_dump is TRUE
- * @global bool imap_asearch_debug_dump
- * @param string $var_name
- * @param string $var_var
- * @deprecated contains workarounds for 1.4.0 and older code.
- *   code without workarounds uses regular sm 1.4.2+ functions.
- *   it is not compatible with 1.4.1
- * @todo remove debugging function
- */
-function s_debug_dump($var_name, $var_var)
-{
-    global $imap_asearch_debug_dump;
-    if ($imap_asearch_debug_dump) {
-        if (function_exists('sm_print_r'))      //Only exists since 1.4.2
-            sm_print_r($var_name, $var_var);    //Better be the 'varargs' version ;)
-        else {
-            echo '<pre>';
-            echo htmlentities($var_name);
-            print_r($var_var);
-            echo '</pre>';
-        }
-    }
 }
 
 /** Encode a string to quoted or literal as defined in rfc 3501

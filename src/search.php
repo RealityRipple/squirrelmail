@@ -728,12 +728,10 @@ function asearch_get_form_mailbox($imapConnection, &$boxes, $mailbox, $row_num =
 }
 
 /** Build the Include subfolders checkbox
- * @todo if(function_exists('addCheckBox')) ?
  */
 function asearch_get_form_sub($sub, $row_num = 0)
 {
-    return function_exists('addCheckBox') ? addCheckBox('sub[' . $row_num .']', $sub)
-    : '<input type="checkbox" name="sub[' . $row_num .']"' . ($sub ? ' checked="checked"' : '') . ' />';
+    return addCheckBox('sub[' . $row_num .']', $sub);
 }
 
 /** Build the 2 unop and where selects
@@ -750,17 +748,14 @@ function asearch_get_form_location($unop, $where, $row_num = 0)
  */
 function asearch_get_form_what($what, $row_num = 0)
 {
-    return function_exists('addInput') ? addInput('what[' . $row_num . ']', $what, '35')
-    : '<input type="text" size="35" name="what[' . $row_num . ']" value="' . htmlspecialchars($what) . '" />';
+    return addInput('what[' . $row_num . ']', $what, '35');
 }
 
 /** Build the Exclude criteria checkbox
- * @todo if(function_exists('addCheckBox')) ?
  */
 function asearch_get_form_exclude($exclude, $row_num = 0)
 {
-    return function_exists('addCheckBox') ? addCheckBox('exclude['.$row_num.']', $exclude)
-    : '<input type="checkbox" name="exclude[' . $row_num .']"' . ($exclude ? ' checked="checked"' : '') . ' />';
+    return addCheckBox('exclude['.$row_num.']', $exclude);
 }
 
 /** Print one advanced form row
