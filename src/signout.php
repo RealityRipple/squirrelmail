@@ -25,8 +25,11 @@ require_once(SM_PATH . 'functions/html.php');
 
 /* Erase any lingering attachments */
 sqgetGlobalVar('compose_messages',  $compose_messages,  SQ_SESSION);
-foreach($compose_messages as $composeMessage) {
-    $composeMessage->purgeAttachments();
+
+if (!empty($compose_message) && is_array($compose_messages)) {
+    foreach($compose_messages as $composeMessage) {
+        $composeMessage->purgeAttachments();
+    }
 }
 
 if (!isset($frame_top)) {
