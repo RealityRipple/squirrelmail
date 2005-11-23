@@ -145,7 +145,7 @@ class POP3 {
         } else {
             $reply = $this->send_cmd("PASS $pass");
             if(!$this->is_ok($reply)) {
-                $this->ERROR = _("POP3 pass:") . ' ' . _("Authentication failed ") . "[$reply]";
+                $this->ERROR = _("POP3 pass:") . ' ' . _("Authentication failed") . " [$reply]";
                 $this->quit();
                 return false;
             } else {
