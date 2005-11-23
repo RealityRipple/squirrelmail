@@ -1,21 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-12 16:26+0200\n"
+"POT-Creation-Date: 2005-11-23 19:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #, c-format
 msgid "About SquirrelMail %s"
@@ -152,7 +149,6 @@ msgstr ""
 
 #. FIXME: Test if $olddata really contains anything and return an error message if it doesn't
 #. Display the "new address" form
-#. Display the "new address" form again
 msgid "Update address"
 msgstr ""
 
@@ -199,13 +195,6 @@ msgstr ""
 #.
 #, c-format
 msgid "%s wrote:"
-msgstr ""
-
-#. FIXME: do we have to translate xml formating?
-msgid "quote"
-msgstr ""
-
-msgid "who"
 msgstr ""
 
 #. *
@@ -809,7 +798,6 @@ msgstr ""
 #. mailboxes are casesensitive => inbox.sent != inbox.Sent
 #. nevermind, to many dependencies this should be fixed!
 #. inbox is special and not casesensitive
-#, c-format
 msgid "INBOX"
 msgstr ""
 
@@ -1424,9 +1412,6 @@ msgstr ""
 msgid "Possible reason:"
 msgstr ""
 
-msgid "Query:"
-msgstr ""
-
 msgid "ERROR: No available IMAP stream."
 msgstr ""
 
@@ -1434,6 +1419,9 @@ msgid "ERROR: Bad function call."
 msgstr ""
 
 msgid "Reason:"
+msgstr ""
+
+msgid "Query:"
 msgstr ""
 
 msgid "Server responded:"
@@ -2840,7 +2828,6 @@ msgstr ""
 msgid "System crypt library doesn't have Blowfish support."
 msgstr ""
 
-#, c-format
 msgid "unknown"
 msgstr ""
 
@@ -3328,9 +3315,6 @@ msgstr ""
 msgid "No password submitted"
 msgstr ""
 
-msgid "Authentication failed "
-msgstr ""
-
 msgid "POP3 apop:"
 msgstr ""
 
@@ -3367,9 +3351,9 @@ msgstr ""
 msgid "POP3 last:"
 msgstr ""
 
-#. The POP3 RSET command -never- gives a -ERR
-#. response - if it ever does, something truely
-#. wild is going on.
+#.  The POP3 RSET command -never- gives a -ERR
+#.  response - if it ever does, something truely
+#.  wild is going on.
 msgid "POP3 reset:"
 msgstr ""
 
@@ -3633,7 +3617,6 @@ msgid ""
 "inbox for notification."
 msgstr ""
 
-#, c-format
 msgid "Check all boxes, not just INBOX"
 msgstr ""
 
@@ -3643,7 +3626,6 @@ msgid ""
 "unseen mail is in your folders (requires JavaScript)."
 msgstr ""
 
-#, c-format
 msgid "Show popup window on new mail"
 msgstr ""
 
@@ -3655,7 +3637,6 @@ msgid ""
 "sounds or popups for unseen mail."
 msgstr ""
 
-#, c-format
 msgid "Count only messages that are RECENT"
 msgstr ""
 
@@ -3667,7 +3648,6 @@ msgid ""
 "have new mail, even if you have %s enabled."
 msgstr ""
 
-#, c-format
 msgid "Change title on supported browsers"
 msgstr ""
 
@@ -3678,7 +3658,6 @@ msgid ""
 "provided file box."
 msgstr ""
 
-#, c-format
 msgid "Enable Media Playing"
 msgstr ""
 
@@ -3688,7 +3667,6 @@ msgid ""
 "no file is specified, %s, no sound will be used."
 msgstr ""
 
-#, c-format
 msgid "Select server file"
 msgstr ""
 
@@ -4005,6 +3983,9 @@ msgstr ""
 msgid "Proceed"
 msgstr ""
 
+#. *
+#. * Add some string vars so they can be i18n'd.
+#.
 msgid "You must make a choice"
 msgstr ""
 
@@ -4064,11 +4045,9 @@ msgstr ""
 
 #, c-format
 msgid "Found %d error"
-msgstr ""
-
-#, c-format
-msgid "Found %d errors"
-msgstr ""
+msgid_plural "Found %d errors"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Line with an error:"
 msgstr ""
@@ -4198,6 +4177,9 @@ msgstr ""
 msgid "Edit your Personal Dictionary"
 msgstr ""
 
+#. *
+#. * Set up some i18n'able wrappers for javascript.
+#.
 msgid "Please make your selection first."
 msgstr ""
 
@@ -4387,55 +4369,42 @@ msgstr ""
 msgid "%s to %s"
 msgstr ""
 
-#, c-format
 msgid "Chinese, Simplified"
 msgstr ""
 
-#, c-format
 msgid "English"
 msgstr ""
 
-#, c-format
 msgid "Chinese, Traditional"
 msgstr ""
 
-#, c-format
 msgid "Dutch"
 msgstr ""
 
-#, c-format
 msgid "French"
 msgstr ""
 
-#, c-format
 msgid "German"
 msgstr ""
 
-#, c-format
 msgid "Greek"
 msgstr ""
 
-#, c-format
 msgid "Italian"
 msgstr ""
 
-#, c-format
 msgid "Japanese"
 msgstr ""
 
-#, c-format
 msgid "Korean"
 msgstr ""
 
-#, c-format
 msgid "Portuguese"
 msgstr ""
 
-#, c-format
 msgid "Russian"
 msgstr ""
 
-#, c-format
 msgid "Spanish"
 msgstr ""
 
@@ -4564,6 +4533,7 @@ msgstr ""
 msgid "Paginate"
 msgstr ""
 
+#. Compute the 'show all' string.
 msgid "Show All"
 msgstr ""
 
