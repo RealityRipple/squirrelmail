@@ -1,0 +1,198 @@
+$Date$
+
+Collected information about IMAP servers.
+
+-----------
+Cyrus IMAPD
+-----------
+An IMAP server developed at Carnegie Mellon University
+
+Tested Cyrus IMAP4 v2.2.12-Invoca-RPM-2.2.12-6.fc4
+CAPABILITY IMAP4 IMAP4rev1 ACL QUOTA LITERAL+ MAILBOX-REFERRALS NAMESPACE
+ UIDPLUS ID NO_ATOMIC_RENAME UNSELECT CHILDREN MULTIAPPEND BINARY SORT
+ THREAD=ORDEREDSUBJECT THREAD=REFERENCES ANNOTATEMORE IDLE LISTEXT
+ LIST-SUBSCRIBED X-NETSCAPE
+
+PERMANENTFLAGS (\Answered \Flagged \Draft \Deleted \Seen $MDNSent \*)
+
+NAMESPACE (("INBOX." ".")) (("user." ".")) (("shared." "."))
+
+Server supports server side sorting since 2.0.4 version. euc-jp, euc-kr, 
+tis-620, cp1251, cp1255 character sets are not supported by sorting functions 
+(v.2.2.12).
+
+Site URL: http://asg.web.cmu.edu/cyrus/
+
+
+--------
+UW IMAPD
+--------
+Part of University of Washington IMAP toolkit.
+
+Tested 2002e (2003.339)
+CAPABILITY IMAP4REV1 IDLE NAMESPACE MAILBOX-REFERRALS BINARY UNSELECT SCAN SORT
+ THREAD=REFERENCES THREAD=ORDEREDSUBJECT MULTIAPPEND LOGIN-REFERRALS STARTTLS
+ AUTH=LOGIN
+
+PERMANENTFLAGS (Seen \* \Answered \Flagged \Deleted \Draft \Seen)
+
+NAMESPACE (("" "/")("#mhinbox" NIL)("#mh/" "/")) (("~" "/")) (("#shared/" "/")("#ftp/" "/")("#news." ".")("#public/" "/"))
+
+Server supports server side sorting. Plain text logins are disabled by default.
+Version visible in IMAP greeting can be used by more than one packaged version.
+
+Site URL: http://www.washington.edu/imap/
+
+
+------------
+Courier IMAP
+------------
+Fast, scalable, enterprise IMAP server that uses Maildirs
+
+CAPABILITY IMAP4rev1 UIDPLUS CHILDREN NAMESPACE THREAD=ORDEREDSUBJECT
+ THREAD=REFERENCES SORT QUOTA IDLE ACL ACL2=UNION
+
+PERMANENTFLAGS (\* \Draft \Answered \Flagged \Deleted \Seen)
+
+NAMESPACE (("INBOX." ".")) NIL (("#shared." ".")("shared." "."))
+
+Recent (3.0.0+) versions support most of character sets used by SquirrelMail, 
+if courier-imap is compiled with --enable-unicode option. Only koi8-u 
+is not supported. Server can be compiled with custom number of supported
+character sets. Sorting can be disabled in imapd configuration. Capability
+string can be set in configuration. Supports CRAM-MD5, CRAM-SHA1 and 
+CRAM-SHA256, if userdb or other backend stores passwords in plain text. Does 
+not handle traditional mailbox files.
+
+Site URL: http://www.courier-mta.org/
+
+
+-----------
+hMailServer
+-----------
+Open source email server for WinNT and later.
+
+Tested 4.1.1 (Build 140).
+CAPABILITY IMAP4 IMAP4rev1 QUOTA
+
+PERMANENTFLAGS (\Deleted \Seen \Draft \Answered \Flagged)
+
+Site URL: http://www.hmailserver.com/
+
+
+---------
+Mercury32
+---------
+Mercury Mail Transport System. Free email server for Win32 and Netware.
+
+Tested Win32 v.4.01b
+CAPABILITY IMAP4rev1 X-MERCURY
+PERMANENTFLAGS (\Deleted \Draft \Seen \Answered)
+
+Comments:
+* Server side sorting and threading are not supported.
+* Message flags are not supported.
+* IMAP folders can store messages _or_ other folders.
+* Supports STARTTLS, if configured.
+* May have issues with 8bit IMAP folder names.
+
+Site URL: http://www.pmail.com
+
+
+-------
+Dovecot
+-------
+Dovecot Secure IMAP server.
+
+Tested v.0.99.14
+
+CAPABILITY IMAP4rev1 SORT THREAD=REFERENCES MULTIAPPEND UNSELECT LITERAL+ IDLE 
+  CHILDREN LISTEXT LIST-SUBSCRIBED NAMESPACE
+
+PERMANENTFLAGS (\Answered \Flagged \Deleted \Seen \Draft \*)
+
+IMAP server supports server side sorting and threading. 1.0alpha1-4 versions
+violate syntax of responses to UID commands. NAMESPACE is supported in 1.0alpha.
+Remote plain text logins are disabled by default.
+
+Site URL: http://www.dovecot.org
+
+
+---------
+Binc IMAP
+---------
+Simple, lightweight IMAP server.
+
+Tested v.1.2.13 and 1.3.4
+
+CAPABILITY IMAP4rev1 STARTTLS AUTH=LOGIN AUTH=PLAIN (1.2.13)
+CAPABILITY IMAP4rev1 STARTTLS AUTH=LOGIN AUTH=PLAIN IDLE LITERAL+ NAMESPACE
+ CHILDREN (1.3.4)
+
+PERMANENTFLAGS (\Answered \Flagged \Deleted \Seen \Draft) - 1.2.13
+PERMANENTFLAGS (\Answered \Flagged \Deleted \Seen \Draft \*) - 1.3.4
+
+IMAP server does not support server side sorting and threading. Plain text 
+logins are disabled by default. Due to available storage backend configuration 
+options it is impossible to create single preset, which covers all setups.
+
+Site URL: http://www.bincimap.org
+
+
+-------------------
+GNU Mailutils IMAPD
+-------------------
+Part of GNU mail utility collection
+
+Site URL:
+ http://savannah.gnu.org/projects/mailutils
+ http://packages.debian.org/mailutils-imap4d
+
+
+--------
+Mac OS X
+--------
+No clear information about used software. Some OS X versions might use Eudora
+Internet Messaging Suite (EIMS, http://www.eudora.com/eims/), some - Apple IMAP 
+server, some - Cyrus.
+
+
+---------------------
+Exchange IMAP service
+---------------------
+IMAP server included in proprietary Exchange Server, Microsoft messaging and 
+collaboration server.
+
+Server does not support server side sorting.
+
+
+----
+PMDF
+----
+PMDF is a proprietary, high performance, standards-based Internet messaging 
+product suite for Windows, OpenVMS, Tru64 UNIX, and Solaris.
+
+Tested IMAP4rev1 Server PMDF V6.2-X29.1
+CAPABILITY IMAP4 IMAP4REV1 NAMESPACE X-NON-HIERARCHICAL-RENAME AUTH=LOGIN
+ AUTH=PLAIN
+
+PERMANENTFLAGS (\Answered \Flagged \Deleted \Seen)
+
+NAMESPACE (("" "/")) NIL NIL
+
+Supports TLS and SSL encryption, SASL CRAM-MD5 and DIGEST-MD5 authentication. 
+Includes SIEVE (rfc3028) support.
+
+Site URL: http://www.process.com/tcpip/pmdf.html
+
+
+-----------------------------
+IMAP server ready H mproxyus4
+-----------------------------
+Unidentified IMAP server or IMAP proxy used by 1&1 Internet Inc.
+(http://www.1and1.com and http://www.1und1.de)
+
+CAPABILITY CHILDREN ID IDLE IMAP4 IMAP4rev1 LITERAL+ LOGIN-REFERRALS
+ MAILBOX-REFERRALS NAMESPACE UIDPLUS QUOTA STARTTLS AUTH=PLAIN AUTH=LOGIN
+
+http://thread.gmane.org/gmane.mail.squirrelmail.user/26433
