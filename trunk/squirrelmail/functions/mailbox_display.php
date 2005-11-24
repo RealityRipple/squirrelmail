@@ -514,7 +514,7 @@ function prepareMessageList(&$aMailbox, $aProps) {
         if (isset($aId[$i])) {
 
             $bHighLight = false;
-            $value = $title = $link = $target = '';
+            $value = $title = $link = $target = $onclick = $link_extra = '';
             $aQuery = ($aInitQuery !== false) ? $aInitQuery : false;
             $aMsg = $aHeaders[$aId[$i]];
             if (isset($aSearch) && count($aSearch) > 1 && $aQuery) {
@@ -528,7 +528,7 @@ function prepareMessageList(&$aMailbox, $aProps) {
             }
 
             foreach ($aCol as $k => $v) {
-                $link = $target = $title = '';
+                $title = $link = $target = $onclick = $link_extra = '';
                 $aColumns[$k] = array();
                 $value = (isset($aMsg[$v]))  ? $aMsg[$v]  : '';
                 $sUnknown = _("Unknown recipient");
@@ -597,6 +597,12 @@ function prepareMessageList(&$aMailbox, $aProps) {
                     if ($aQuery) {
                         // TODO, $sTargetModule should be a query parameter so that we can use a single entrypoint
                         $link = $sTargetModule.'.php?' . implode('&amp;',$aQuery);
+
+                        // globalize link attributes so plugins can share in 
+                        // modifying them; plugins are responsible for sharing 
+                        // nicely (such as for setting the target, etc)
+                        global $link, $title, $target, $onclick, $link_extra;
+                        do_hook('subject_link', array($iPageOffset, $sSearch, $aSearch));
                     }
                     $value = (trim($value)) ? $value : _("(no subject)");
                     /* add thread indentation */
@@ -640,9 +646,11 @@ function prepareMessageList(&$aMailbox, $aProps) {
                     break;
                 default : break;
                 }
-                if ($title)  { $aColumns[$k]['title']  = $title;  }
-                if ($link)   { $aColumns[$k]['link']   = $link;   }
-                if ($target) { $aColumns[$k]['target'] = $target; }
+                if ($title)      { $aColumns[$k]['title']      = $title;      }
+                if ($link)       { $aColumns[$k]['link']       = $link;       }
+                if ($link_extra) { $aColumns[$k]['link_extra'] = $link_extra; }
+                if ($onclick)    { $aColumns[$k]['onclick']    = $onclick;    }
+                if ($target)     { $aColumns[$k]['target']     = $target;     }
                 $aColumns[$k]['value']  = $value;
             }
             /* columns which will not be displayed but should be inspected

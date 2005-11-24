@@ -459,11 +459,14 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
             $sLabelStart = '';
             $sLabelEnd = '';
         }
-        $aCol = (isset($aColumns[$iCol])) ? $aColumns[$iCol] : array();
-        $title  = (isset($aCol['title']))  ? $aCol['title']  : '';
-        $link   = (isset($aCol['link']))   ? $aCol['link']   : '';
-        $value  = (isset($aCol['value']))  ? $aCol['value']  : '';
-        $target = (isset($aCol['target'])) ? $aCol['target'] : '';
+        $aCol       = (isset($aColumns[$iCol]))    ? $aColumns[$iCol]    : array();
+        $title      = (isset($aCol['title']))      ? $aCol['title']      : '';
+        $link       = (isset($aCol['link']))       ? $aCol['link']       : '';
+        $link_extra = (isset($aCol['link_extra'])) ? $aCol['link_extra'] : '';
+        $onclick    = (isset($aCol['onclick']))    ? $aCol['onclick']    : '';
+        $link       = (isset($aCol['link']))       ? $aCol['link']       : '';
+        $value      = (isset($aCol['value']))      ? $aCol['value']      : '';
+        $target     = (isset($aCol['target']))     ? $aCol['target']     : '';
         if ($iCol !== SQM_COL_CHECK) {
             $value = $sLabelStart.$sPre.$value.$sEnd.$sLabelEnd;
         }
@@ -482,8 +485,10 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
                 $sText .= str_repeat('&nbsp;&nbsp;',$indent);
             }
             $sText .= "<a href=\"$link\"";
-            if ($target) { $sText .= " target=\"$target\"";}
-            if ($title)  { $sText .= " title=\"$title\""  ;}
+            if ($target)     { $sText .= " target=\"$target\"";   }
+            if ($title)      { $sText .= " title=\"$title\"";     }
+            if ($onclick)    { $sText .= " onclick=\"$onclick\""; }
+            if ($link_extra) { $sText .= " $link_extra";          }
             if ($javascript_on && $fancy_index_highlite) {
                   $sText .= " onmousedown=\"row_click('$form_id"."_msg$i'); setPointer(this." . (empty($bold) ? '' : 'parentNode.') .
                             'parentNode.parentNode, ' . $i . ', \'click\', \'' . $bgcolor . '\', \'' . $mouseoverColor . '\', \'' .
