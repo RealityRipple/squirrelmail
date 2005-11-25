@@ -426,6 +426,10 @@ function fetchMessageHeaders($imapConnection, &$aMailbox) {
  * @author Marc Groot Koerkamp
  */
 function prepareMessageList(&$aMailbox, $aProps) {
+
+    /* Globalize link attributes so plugins can share in modifying them */
+    global $link, $title, $target, $onclick, $link_extra;
+
     /* retrieve the properties */
     $my_email_address = (isset($aProps['email'])) ? $aProps['email'] : false;
     $highlight_list   = (isset($aProps['config']['highlight_list'])) ? $aProps['config']['highlight_list'] : false;
@@ -598,10 +602,11 @@ function prepareMessageList(&$aMailbox, $aProps) {
                         // TODO, $sTargetModule should be a query parameter so that we can use a single entrypoint
                         $link = $sTargetModule.'.php?' . implode('&amp;',$aQuery);
 
-                        // globalize link attributes so plugins can share in 
-                        // modifying them; plugins are responsible for sharing 
-                        // nicely (such as for setting the target, etc)
-                        global $link, $title, $target, $onclick, $link_extra;
+                        // see top of this function for which attributes are available
+                        // in the global scope for plugin use (like $link, $target, 
+                        // $onclick, $link_extra, $title, and so forth)
+                        // plugins are responsible for sharing nicely (such as for 
+                        // setting the target, etc)
                         do_hook('subject_link', array($iPageOffset, $sSearch, $aSearch));
                     }
                     $value = (trim($value)) ? $value : _("(no subject)");
