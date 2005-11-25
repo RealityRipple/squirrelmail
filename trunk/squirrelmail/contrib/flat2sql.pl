@@ -16,6 +16,7 @@
 $db = "squirrelmail";
 $abook_table = "address";
 $pref_table = "userprefs";
+$dbtype = 'mysql';
 ##### ##### #####
 
 use Getopt::Long;
@@ -81,7 +82,7 @@ closedir ( DIR );
 # Process a user address file
 
 sub abook {
-  print "DELETE FROM $db.$abook_table WHERE owner = '$username';\n"
+  print "DELETE FROM $db.$abook_table WHERE owner = '".escape_sql_string($username,true)."';\n"
     if ( defined $opts{delete} );
 
   open(ABOOK, "<$data_dir/$filename") or 
@@ -94,18 +95,22 @@ sub abook {
 
     print "INSERT INTO $db.$abook_table "
         . "(owner,nickname,firstname,lastname,email,label) "
-        . "VALUES ('$username','$nickname','$firstname','$lastname',"
-        . "'$email','$label');\n"; 
+        . "VALUES ('"
+        .escape_sql_string($username)."','"
+        .escape_sql_string($nickname)."','"
+        .escape_sql_string($firstname)."','"
+        .escape_sql_string($lastname)."','"
+        .escape_sql_string($email)."','"
+        .escape_sql_string($label)."');\n"; 
   }
 
   close(ABOOK);
 }
 
-# Process a user prefernce file
-
+# Process a user preference file
 sub pref {
   print "DELETE FROM $db.$pref_table "
-    . "WHERE user = '$username' and prefkey not like '___sig\%___';\n"
+    . "WHERE user = '".escape_sql_string($username,true)."' and prefkey not like '___sig\%___';\n"
     if ( defined $opts{delete} );
 
   open(PREFS, "<$data_dir/$filename") or 
@@ -118,21 +123,23 @@ sub pref {
 
     print "INSERT INTO $db.$pref_table "
         . "(user,prefkey,prefval) "
-        . "VALUES ('$username','$prefkey','$prefval');\n"; 
+        . "VALUES ('"
+        .escape_sql_string($username)."','"
+        .escape_sql_string($prefkey)."','"
+        .escape_sql_string($prefval)."');\n"; 
 
   }
 
   close(PREFS);
 }
 
-# Process a user sig file
-
+# Process a user signature file
 sub sig {
 
   $del_ext = $1;  
   $del_ext = "nature" if ( $del_ext eq "g" );
   print "DELETE FROM $db.$pref_table "
-    . "WHERE user = '$username' and prefkey like '___sig" . $del_ext . "___';\n"
+    . "WHERE user = '".escape_sql_string($username,true)."' and prefkey like '___sig" . escape_sql_string($del_ext,true) . "___';\n"
       if ( defined $opts{delete} );
 
   open(SIG, "<$data_dir/$filename") or 
@@ -150,11 +157,45 @@ sub sig {
   }
 
   print "INSERT INTO $db.$pref_table (user,prefkey,prefval) "
-    . "VALUES ('$username','$prefkey','".join("", @lines)."');\n";
+     . "VALUES ('".escape_sql_string($username)."','"
+     .escape_sql_string($prefkey)."','"
+     .escape_sql_string(join("", @lines))."');\n";
 }
 
-# Print out the usage screen
+# Escapes sql strings
+# MySQL escaping:
+#  http://dev.mysql.com/doc/refman/5.0/en/string-syntax.html
+#  full - \x00 (null), \n, \r, \, ', " and \x1a (Control-Z) 
+#         add % and _ in pattern matching expressions. 
+#  short - only character used for quoting and backslash should be escaped
+# PostgreSQL
+# Oracle
+# Sybase - different quoting of '
+sub escape_sql_string() {
+  my ($str,$isPattern) = @_;
 
+  if ($dbtype eq 'mysql'){
+    # escape \, ' and "
+    $str =~ s/(['"\\])/\\$1/g;
+    # escape \x1a
+    $str =~ s/([\x1a])/\\Z/g;
+    # escape ascii null
+    $str =~ s/([\x0])/\\0/g;
+    # escape line feed
+    $str =~ s/([\n])/\\n/g;
+    # escape cr
+    $str =~ s/([\r])/\\r/g;
+    if ($isPattern) {
+      $str =~ s/([%_])/\\$1/g;
+    }
+  } else {
+    die "ERROR: Unsupported database type";
+  }
+  return $str;
+}
+
+
+# Print out the usage screen
 sub Usage {
 
 $0 =~ /.*\/(.*)/;
