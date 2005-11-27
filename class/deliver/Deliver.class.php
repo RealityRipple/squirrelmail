@@ -378,7 +378,8 @@ class Deliver {
      * @return string $header
      */
     function prepareRFC822_Header($rfc822_header, $reply_rfc822_header, &$raw_length) {
-        global $domain, $version, $username, $encode_header_key, $edit_identity, $hide_auth_header;
+        global $domain, $version, $username, $encode_header_key, 
+               $edit_identity, $hide_auth_header, $hide_squirrelmail_header;
 
         /* if server var SERVER_NAME not available, use $domain */
         if(!sqGetGlobalVar('SERVER_NAME', $SERVER_NAME, SQ_SERVER)) {
@@ -426,21 +427,29 @@ class Deliver {
          * unless you understand all possible forging issues or your
          * webmail installation does not prevent changes in user's email address.
          * See SquirrelMail bug tracker #847107 for more details about it.
+         *
+         * Add $hide_squirrelmail_header as a candidate for config_local.php
+         * to allow completely hiding SquirrelMail participation in message
+         * processing.
          */
-        if (isset($encode_header_key) &&
+        $show_sm_header = ( isset($hide_squirrelmail_header) ? ! $hide_squirrelmail_header : 1 );
+
+        if ( $show_sm_header ) {
+          if (isset($encode_header_key) &&
             trim($encode_header_key)!='') {
             // use encoded headers, if encryption key is set and not empty
             $header[] = 'X-Squirrel-UserHash: '.OneTimePadEncrypt($username,base64_encode($encode_header_key)).$rn;
             $header[] = 'X-Squirrel-FromHash: '.OneTimePadEncrypt($this->ip2hex($REMOTE_ADDR),base64_encode($encode_header_key)).$rn;
             if (isset($HTTP_X_FORWARDED_FOR))
                 $header[] = 'X-Squirrel-ProxyHash:'.OneTimePadEncrypt($this->ip2hex($HTTP_X_FORWARDED_FOR),base64_encode($encode_header_key)).$rn;
-        } else {
+          } else {
             // use default received headers
             $header[] = "Received: from $received_from" . $rn;
             if ($edit_identity || ! isset($hide_auth_header) || ! $hide_auth_header)
                 $header[] = "        (SquirrelMail authenticated user $username)" . $rn;
             $header[] = "        by $SERVER_NAME with HTTP;" . $rn;
             $header[] = "        $date" . $rn;
+          }
         }
 
         /* Insert the rest of the header fields */
