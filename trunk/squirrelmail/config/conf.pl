@@ -2120,10 +2120,15 @@ sub command39 {
 
 
 sub command310 {
-    print "This allows you to prevent the editing of the user's name and ";
-    print "email address. This is mainly useful when used with the ";
-    print "retrieveuserdata plugin\n";
-    print "\n";
+    print "  In loosely managed environments, you may want to allow users 
+  to edit their full name and email address. In strictly managed 
+  environments, you may want to force users to use the name
+  and email address assigned to them.
+  
+  'y' - allow a user to edit their full name and email address,
+  'n' - users must use the assigned values.
+  
+  ";
 
     if ( lc($edit_identity) eq 'true' ) {
         $default_value = "y";
@@ -2135,7 +2140,7 @@ sub command310 {
     if ( ( $new_edit =~ /^y\n/i ) || ( ( $new_edit =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
         $edit_identity = 'true';
         $edit_name = 'true';
-        $hide_auth_header = 'false';
+        $hide_auth_header = command311b();
     } else {
         $edit_identity = 'false';
         $edit_name = command311();
@@ -2145,17 +2150,17 @@ sub command310 {
 }
 
 sub command311 {
-    print "As a follow-up, this option allows you to choose if the user ";
-    print "can edit their full name even when you don't want them to ";
-    print "change their username\n";
-    print "\n";
+    print "  Given that users are not allowed to modify their 
+  email address, can they edit their full name?
+  
+  ";
 
     if ( lc($edit_name) eq 'true' ) {
         $default_value = "y";
     } else {
         $default_value = "n";
     }
-    print "Allow editing of the users full name? (y/n) [$WHT$default_value$NRM]: $WHT";
+    print "Allow the user to edit their full name? (y/n) [$WHT$default_value$NRM]: $WHT";
     $new_edit = <STDIN>;
     if ( ( $new_edit =~ /^y\n/i ) || ( ( $new_edit =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
         $edit_name = 'true';
@@ -2166,16 +2171,19 @@ sub command311 {
 }
 
 sub command311b {
-    print "SquirrelMail adds username information to every sent email.";
-    print "It is done in order to prevent possible sender forging when ";
-    print "end users are allowed to change their email and name ";
-    print "information.\n";
-    print "\n";
-    print "You can disable this header, if you think that it violates ";
-    print "user's privacy or security. Please note, that setting will ";
-    print "work only when users are not allowed to change their identity.\n";
-    print "\n";
+    print "  SquirrelMail adds username information to every sent email
+  in order to prevent possible sender forging when users are allowed 
+  to change their email and/or full name.
 
+  You can remove user information from this header (y), if you think that 
+  it violates privacy or security. 
+  
+  Note: If users are allowed to change their email addresses, 
+  this setting will make it difficult to determine who sent what where.
+  Use at your own risk.
+  
+  ";
+    
     if ( lc($hide_auth_header) eq "true" ) {
         $default_value = "y";
     } else {
@@ -2188,7 +2196,7 @@ sub command311b {
     } else {
         $hide_auth_header = "false";
     }
-    return $edit_name;
+    return $hide_auth_header;
 }
 
 sub command312 {
