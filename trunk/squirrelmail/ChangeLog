@@ -488,9 +488,11 @@ Version 1.5.1 -- CVS
     the subscribed mailbox-list.
   - Properly clean up temporary attachment files when saving as Draft
     (#1358407) and fix attachment cleaning code on logout.
-  - Fix error message in addressbook.php lookup (#1351825).
-  - Fix incorrect curly escape in sqimap_append(). Error triggered by PHP 5.1
+  - Fixed error message in addressbook.php lookup (#1351825).
+  - Fixed incorrect curly escape in sqimap_append(). Error triggered by PHP 5.1
     bugfix (#1366982).
+  - Fixed ContentType object check in Rfc822Header class. E_NOTICE error
+    in PHP 5.1.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
