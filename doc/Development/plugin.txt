@@ -5,9 +5,9 @@ development FAQ for more information.  Also, help writing plugins
 is easily obtained by posting to the squirrelmail-plugins mailing
 list.  (See details about mailing lists on the website)
 
-FAQ -> http://www.squirrelmail.org/wiki/wiki.php?DeveloperFAQ
+FAQ -> http://www.squirrelmail.org/wiki/DeveloperFAQ
 Plugin Development ->
-       http://www.squirrelmail.org/wiki/wiki.php?DevelopingPlugins
+       http://www.squirrelmail.org/wiki/DevelopingPlugins
 
 
 A FEW NOTES ON THE PLUGIN ARCHITECTURE
@@ -163,36 +163,54 @@ version is not listed, files are included from v.1.3.2.):
       1.7. class/mime/Language.class.php
       1.8. class/mime/ContentType.class.php
    2. functions/global.php
+      * fixes differences between php 4.0.x and 4.1+ globals (only in 1.4.x).  
+      * undoes magic_quotes_gpc=on sanitizing
+      * sets $PHP_SELF (since 1.5.1)
+      * starts session
    3. functions/strings.php
+      3.1. functions/global.php
+      3.2. plugins/compatibility/functions.php (compatibility v.2.0.4+, requires
+           code patching)
+      * sets squirrelmail version variable and constant.
+      * sets $PHP_SELF (before 1.5.1)
    4. config/config.php
       4.1. config/config_local.php (from 1.4.0rc1)
    5. functions/i18n.php
       5.1. functions/global.php (from 1.4.0)
+      * reads 'squirrelmail_language' cookie
+      * loads $languages (since 1.5.1 $languages array is built from
+        locale/*/setup.php files)
+      * loads own gettext functions, if php gettext is unavailable
    6. functions/auth.php
    7. include/load_prefs.php
       7.1. include/validate.php
       7.2. functions/prefs.php
+         7.2.1. functions/global.php (sqgetGlobalVar() function)
+         7.2.2. functions/plugin.php (do_hook_function() function,, 
+                since 1.4.4 and 1.5.1, see 7.3)
+         7.2.3. $prefs_backend (only in 1.4.3 and 1.5.0)
+                do_hook_function('prefs_backend') (since 1.4.4 and 1.5.1)
+                functions/db_prefs.php
+                functions/file_prefs.php
+           7.2.3.1. functions/display_messages.php
+                    (loaded only by file_prefs.php)
+           7.2.3.2. files loaded by plugin that uses 'prefs_backend' hook
       7.3. functions/plugin.php
          7.3.1. functions/global.php (from 1.4.0 and 1.5.0)
          7.3.2. functions/prefs.php (from 1.5.1)
+         7.3.3. plugins/*/setup.php files for enabled plugins. 
+         * starts all squirrelmail_plugin_init_pluginname functions
       7.4. functions/constants.php
       7.5. do_hook('loading_prefs')
-         7.5.1. files loaded by plugins that use 'loading_prefs'
+         7.5.1. files loaded by plugins that use 'loading_prefs' hook
    8. functions/page_header.php
       8.1. functions/strings.php
       8.2. functions/html.php
       8.3. functions/imap_mailbox.php
          8.3.1. functions/imap_utf7_local.php
       8.4. functions/global.php
-   9. functions/prefs.php
-      9.1. functions/global.php
-      9.2. $prefs_backend (only in 1.4.3 and 1.5.0)
-           do_hook_function('prefs_backend') (since 1.4.4 and 1.5.1)
-           functions/db_prefs.php
-           functions/file_prefs.php
-         9.2.1. functions/display_messages.php
-                (loaded only by file_prefs.php)
-         9.2.2. files loaded by plugin that uses 'prefs_backend'
+   9. functions/prefs.php (already loaded. see 7.2)
+
 
 Hook Types:  Parameters and Return Values
 -----------------------------------------
@@ -1071,7 +1089,7 @@ it isn't much trouble, either.  This document will only describe how you can
 accomplish the internationalization of a plugin.  For more general information
 about PHP and SquirrelMail translation facilities, see:
 
-http://www.squirrelmail.org/wiki/wiki.php?LanguageTranslation
+http://www.squirrelmail.org/wiki/LanguageTranslation
 
 The unofficial way to internationalize a plugin is to put all plugin output
 into the proper format but to rely on the SquirrelMail translation facilities
@@ -1640,7 +1658,7 @@ and seamlessly support both 1.2.x and 1.4.x SquirrelMail installations.  For
 more information about how to use the "Compatibility" plugin, download it and
 read its README file or see:
 
-   http://www.squirrelmail.org/wiki/wiki.php?PluginUpgrading
+   http://www.squirrelmail.org/wiki/PluginUpgrading
 
 
 REQUESTING NEW HOOKS
@@ -1685,5 +1703,5 @@ official SquirrelMail plugin developer.
       do not respond, you should feel free to ask for help contacting them
       on the squirrelmail-plugins mailing list.
 
-         http://www.squirrelmail.org/wiki/wiki.php?SquirrelMailLeadership
+         http://www.squirrelmail.org/wiki/SquirrelMailLeadership
 
