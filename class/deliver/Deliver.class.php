@@ -379,7 +379,7 @@ class Deliver {
      */
     function prepareRFC822_Header($rfc822_header, $reply_rfc822_header, &$raw_length) {
         global $domain, $version, $username, $encode_header_key, 
-               $edit_identity, $hide_auth_header, $hide_squirrelmail_header;
+               $edit_identity, $hide_auth_header;
 
         /* if server var SERVER_NAME not available, use $domain */
         if(!sqGetGlobalVar('SERVER_NAME', $SERVER_NAME, SQ_SERVER)) {
@@ -430,9 +430,11 @@ class Deliver {
          *
          * Add $hide_squirrelmail_header as a candidate for config_local.php
          * to allow completely hiding SquirrelMail participation in message
-         * processing.
+         * processing; This is dangerous, especially if users can modify their 
+         * account information, as it makes mapping a sent message back to the
+         * original sender almost impossible.
          */
-        $show_sm_header = ( isset($hide_squirrelmail_header) ? ! $hide_squirrelmail_header : 1 );
+        $show_sm_header = ( defined('hide_squirrelmail_header') ? ! hide_squirrelmail_header : 1 );
 
         if ( $show_sm_header ) {
           if (isset($encode_header_key) &&
