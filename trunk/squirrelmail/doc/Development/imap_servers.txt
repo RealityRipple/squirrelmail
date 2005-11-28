@@ -144,9 +144,31 @@ GNU Mailutils IMAPD
 -------------------
 Part of GNU mail utility collection
 
-Site URL:
- http://savannah.gnu.org/projects/mailutils
- http://packages.debian.org/mailutils-imap4d
+Tested v.0.6.1 and v.0.6.90
+
+CAPABILITY IMAP4rev1 NAMESPACE IDLE X-VERSION AUTH=GSSAPI AUTH=ANONYMOUS
+ AUTH=EXTERNAL AUTH=PLAIN AUTH=LOGIN AUTH=SECURID AUTH=DIGEST-MD5 AUTH=CRAM-MD5
+
+PERMANENTFLAGS (\Answered \Deleted \Seen)
+
+NAMESPACE (("" "/")) NIL NIL
+
+Can use UW preset. Server side sorting is not supported. IMAP folders can 
+store messages or subfolders. Can't create second level (mail/Folder/Subfolder/)
+subfolders. Invalid unseen message count, when \Seen flag is toggled manually. 
+Folder listing with non-default sort order is broken (UID FETCH Bogus message
+set: message number out of range). Use of server with SquirrelMail is not 
+recommended and not supported.
+
+-----
+TEST_6
+Request:
+UID FETCH 1:* (FLAGS BODY[HEADER.FIELDS (FROM DATE TO)])
+Response:
+BAD UID FETCH Bogus message set: message number out of range
+-----
+
+Site URL: http://savannah.gnu.org/projects/mailutils
 
 
 --------
