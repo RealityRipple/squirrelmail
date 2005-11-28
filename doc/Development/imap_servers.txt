@@ -185,6 +185,36 @@ Includes SIEVE (rfc3028) support.
 
 Site URL: http://www.process.com/tcpip/pmdf.html
 
+-----------------
+Merak IMAP server
+-----------------
+Proprietary IMAP server included in Merak Email Server Suite.
+
+Tested 8.3.0.r and 8.3.1 beta.
+
+CAPABILITY IMAP4rev1 AUTH=CRAM-MD5 AUTH=DIGEST-MD5 AUTH=LOGIN AUTH=PLAIN SORT
+ THREAD-ORDEREDSUBJECT UIDPLUS QUOTA ACL NAMESPACE STARTTLS
+
+PERMANENTFLAGS (\Seen \Answered \Flagged \Draft \Deleted)
+
+NAMESPACE (("" "/")) NIL NIL 
+
+INBOX folder is lowercased. IMAP folder names are case insensitive. Possible 
+issue with IMAP SORT extension.
+
+-----
+TEST_5 
+
+Request: 
+A005 UID SORT (DATE) ISO-8859-1 ALL  
+Response: 
+* UID SORT 1 2 
+UID SORT Completed
+-----
+SquirrelMail expects '* SORT 1 2'
+
+Site URL: http://www.icewarp.com
+
 
 -----------------------------
 IMAP server ready H mproxyus4
