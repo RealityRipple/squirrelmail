@@ -199,7 +199,7 @@ function start_filters() {
         $spamfilters = load_spam_filters();
 
         $AllowSpamFilters = false;
-        foreach($spamfilters as $key=>$value) {
+        foreach($spamfilters as $filterskey=>$value) {
             if ($value['enabled'] == 'yes') {
                 $AllowSpamFilters = true;
                 break;
