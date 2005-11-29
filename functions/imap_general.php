@@ -873,11 +873,9 @@ function sqimap_capability($imap_stream, $capability='') {
         for ($i=2; $i < count($c); $i++) {
             $cap_list = explode('=', $c[$i]);
             if (isset($cap_list[1])) {
-                // FIX ME. capabilities can occure multiple times.
-                // THREAD=REFERENCES THREAD=ORDEREDSUBJECT
-                $sqimap_capabilities[$cap_list[0]] = $cap_list[1];
+                $sqimap_capabilities[trim($cap_list[0])][] = $cap_list[1];
             } else {
-                $sqimap_capabilities[$cap_list[0]] = TRUE;
+                $sqimap_capabilities[trim($cap_list[0])] = TRUE;
             }
         }
     }
