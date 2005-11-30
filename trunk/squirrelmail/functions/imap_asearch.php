@@ -436,6 +436,7 @@ function sqimap_asearch($imapConnection, &$mailbox_array, &$biop_array, &$unop_a
                 $search_string = '';
             }
             if (isset($where_array[$cur_crit]) && empty($exclude_array[$cur_crit])) {
+                $aCriteria = array();
                 for ($crit = $cur_crit; $crit < count($where_array); $crit++) {
                     $criteria = trim(sqimap_asearch_build_criteria($where_array[$crit], $what_array[$crit], $search_charset));
                     if (!empty($criteria) && empty($exclude_array[$crit])) {
