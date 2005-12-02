@@ -3,7 +3,9 @@
 /**
  * auth.php
  *
- * Contains functions used to do authentication.
+ * Contains functions used to do authentication. Library depends on 
+ * functions from functions/global.php, functions/i18n.php and 
+ * functions/strings.php.
  *
  * @copyright &copy; 1999-2005 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -35,6 +37,7 @@ if (! isset($use_smtp_tls)) {
  *
  * @return int A positive value is returned if user has previously logged in
  * successfully.
+ * @since 1.0
  */
 function is_logged_in() {
 
@@ -71,6 +74,77 @@ function is_logged_in() {
 }
 
 /**
+ * Detect logged user
+ * 
+ * Function is similar to is_logged_in() function. If user is logged in, function 
+ * returns true. If user is not logged in or session is expired, function saves $_POST
+ * and $PHP_SELF in session and returns false. POST information is saved in 
+ * 'session_expired_post' variable, PHP_SELF is saved in 'session_expired_location'.
+ *
+ * Script that uses this function instead of is_logged_in() function, must handle user 
+ * level messages.
+ * @return boolean
+ * @since 1.5.1
+ */
+function sqauth_is_logged_in() {
+    if ( sqsession_is_registered('user_is_logged_in') ) {
+        return true;
+    } else {
+        global $PHP_SELF, $session_expired_post, $session_expired_location;
+
+        //  First we store some information in the new session to prevent
+        //  information-loss.
+        //
+        $session_expired_post = $_POST;
+        $session_expired_location = $PHP_SELF;
+        if (!sqsession_is_registered('session_expired_post')) {
+            sqsession_register($session_expired_post,'session_expired_post');
+        }
+        if (!sqsession_is_registered('session_expired_location')) {
+            sqsession_register($session_expired_location,'session_expired_location');
+        }
+
+        return false;
+     }
+}
+
+/**
+ * Reads and decodes stored user password information
+ *
+ * Direct access to password information is deprecated.
+ * @return string password in plain text
+ * @since 1.5.1
+ */
+function sqauth_read_password() {
+    sqgetGlobalVar('key',         $key,       SQ_COOKIE);
+    sqgetGlobalVar('onetimepad',  $onetimepad,SQ_SESSION);
+
+    return OneTimePadDecrypt($key, $onetimepad);
+}
+
+/**
+ * Saves or updates user password information
+ * 
+ * This function is used to update password information that SquirrelMail
+ * stores during existing web session. It does not modify password stored 
+ * in authentication system used by IMAP server.
+ *
+ * Function must be called before any html output started. Direct access 
+ * to password information is deprecated.
+ * @param string $pass password
+ * @return void
+ * @since 1.5.1
+ */
+function sqauth_save_password($pass) {
+    sqgetGlobalVar('base_uri',    $base_uri,   SQ_SESSION);
+
+    $onetimepad = OneTimePadCreate(strlen($pass));
+    sqsession_register($onetimepad,'onetimepad');
+    $key = OneTimePadEncrypt($pass, $onetimepad);
+    setcookie('key', $key, 0, $base_uri);
+}
+
+/**
  * Given the challenge from the server, supply the response using cram-md5 (See
  * RFC 2195 for details)
  *
@@ -78,7 +152,7 @@ function is_logged_in() {
  * @param string $password User password supplied by User
  * @param string $challenge The challenge supplied by the server
  * @return string The response to be sent to the IMAP server
- *
+ * @since 1.4.0
  */
 function cram_md5_response ($username,$password,$challenge) {
     $challenge=base64_decode($challenge);
@@ -101,6 +175,7 @@ function cram_md5_response ($username,$password,$challenge) {
  * @param string $host The host name, usually the server's FQDN; it is used to
  *   define the digest-uri.
  * @return string The response to be sent to the IMAP server
+ * @since 1.4.0
  */
 function digest_md5_response ($username,$password,$challenge,$service,$host) {
     $result=digest_md5_parse_challenge($challenge);
@@ -155,6 +230,7 @@ function digest_md5_response ($username,$password,$challenge,$service,$host) {
  *
  * @param string $challenge Digest-MD5 Challenge
  * @return array Digest-MD5 challenge decoded data
+ * @since 1.4.0
  */
 function digest_md5_parse_challenge($challenge) {
     $challenge=base64_decode($challenge);
@@ -201,6 +277,7 @@ function digest_md5_parse_challenge($challenge) {
  * @param string $key Optional key, which, if supplied, will be used to
  * calculate data's HMAC.
  * @return string HMAC Digest string
+ * @since 1.4.0
  */
 function hmac_md5($data, $key='') {
     if (extension_loaded('mhash')) {
@@ -230,6 +307,7 @@ function hmac_md5($data, $key='') {
  *
  * @param string $user Reference to SMTP username
  * @param string $pass Reference to SMTP password (unencrypted)
+ * @since 1.5.0
  */
 function get_smtp_user(&$user, &$pass) {
     global $username, $smtp_auth_mech,
@@ -242,9 +320,8 @@ function get_smtp_user(&$user, &$pass) {
         $user = $smtp_sitewide_user;
         $pass = $smtp_sitewide_pass;
     } else {
-        global $key, $onetimepad;
         $user = $username;
-        $pass = OneTimePadDecrypt($key, $onetimepad);
+        $pass = sqauth_read_password();
     }
 }
 
