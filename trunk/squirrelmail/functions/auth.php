@@ -130,9 +130,13 @@ function sqauth_read_password() {
  * in authentication system used by IMAP server.
  *
  * Function must be called before any html output started. Direct access 
- * to password information is deprecated.
+ * to password information is deprecated. Saved password information is 
+ * available only to next executed SquirrelMail script. If your script needs
+ * access to saved password after sqauth_save_password() call, use returned 
+ * OTP encrypted key.
  * @param string $pass password
- * @return void
+ * @return string password encrypted with OTP. In case script wants to access 
+ *  password information before reloading page.
  * @since 1.5.1
  */
 function sqauth_save_password($pass) {
@@ -141,7 +145,8 @@ function sqauth_save_password($pass) {
     $onetimepad = OneTimePadCreate(strlen($pass));
     sqsession_register($onetimepad,'onetimepad');
     $key = OneTimePadEncrypt($pass, $onetimepad);
-    setcookie('key', $key, 0, $base_uri);
+    sqsetcookie('key', $key, false, $base_uri);
+    return $key;
 }
 
 /**
