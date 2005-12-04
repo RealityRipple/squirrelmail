@@ -495,6 +495,9 @@ Version 1.5.1 -- CVS
     in PHP 5.1.
   - Key value being overwritten by reuse of var in filters plugin.
   - Add doc/security.txt with some hints for a more secure installation.
+  - Added sqauth_read_password() and sqauth_save_password() functions.
+  - Unset global GET, POST and COOKIE variables registered in PHP
+    register_globals=on setups.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
