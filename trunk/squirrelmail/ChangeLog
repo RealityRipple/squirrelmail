@@ -494,6 +494,7 @@ Version 1.5.1 -- CVS
   - Fixed ContentType object check in Rfc822Header class. E_NOTICE error
     in PHP 5.1.
   - Key value being overwritten by reuse of var in filters plugin.
+  - Add doc/security.txt with some hints for a more secure installation.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
