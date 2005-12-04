@@ -69,6 +69,10 @@ Each of these steps is covered in detail below.
     Required for Japanese translation. Optional for translations that
     use non-ISO-8859-1 charset
 
+  It is highly advised to NOT turn on register_globals, as this can lead
+  to security holes. If you must use register_globals for some applications,
+  turn it on locally for only those directories, or turn it off for the
+  SquirrelMail folder.
   If you want your users to attach files to their mails, make sure
   File Uploads in php.ini is set to On.
 
