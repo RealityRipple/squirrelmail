@@ -356,10 +356,20 @@ $uid_support = true;
 
 /* if running with magic_quotes_gpc then strip the slashes
    from POST and GET global arrays */
-
 if (get_magic_quotes_gpc()) {
     sqstripslashes($_GET);
     sqstripslashes($_POST);
+}
+
+/**
+ * If register_globals are on, unregister all globals from $_GET, $_POST, 
+ * and $_COOKIE. Before 4.3.0 $_FILES globals are unregistered too. Code
+ * requires PHP 4.1.0 or newer. 
+ */
+if ((bool) @ini_get('register_globals')) {
+    foreach ($_REQUEST as $key => $value) {
+        unset($GLOBALS[$key]);
+    }
 }
 
 /* strip any tags added to the url from PHP_SELF.
