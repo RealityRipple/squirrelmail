@@ -498,6 +498,8 @@ Version 1.5.1 -- CVS
   - Added sqauth_read_password() and sqauth_save_password() functions.
   - Unset global GET, POST and COOKIE variables registered in PHP
     register_globals=on setups.
+  - Capabilities array now contains all multivalue information provided
+    by the IMAP server. (Such as THREAD=SORT, THREAD=REFERENCES).
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
