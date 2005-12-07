@@ -478,6 +478,29 @@ function readShortMailboxName($haystack, $needle) {
 }
 
 /**
+ * Find out where SquirrelMail lives and try to be smart about it.
+ * The only problem would be when SquirrelMail lives in directories
+ * called "src", "functions", or "plugins", but people who do that need
+ * to be beaten with a steel pipe anyway.
+ *
+ * @return string the base uri of SquirrelMail installation.
+ * @since 1.2.6
+ */
+function sqm_baseuri(){
+    global $base_uri, $PHP_SELF;
+    /**
+     * If it is in the session, just return it.
+     */
+    if (isset($base_uri)){
+        return $base_uri;
+    }
+    $dirs = array('|src/.*|', '|plugins/.*|', '|functions/.*|');
+    $repl = array('', '', '');
+    $base_uri = preg_replace($dirs, $repl, $PHP_SELF);
+    return $base_uri;
+}
+
+/**
  * get_location
  *
  * Determines the location to forward to, relative to your server.
