@@ -500,6 +500,8 @@ Version 1.5.1 -- CVS
     register_globals=on setups.
   - Capabilities array now contains all multivalue information provided
     by the IMAP server. (Such as THREAD=SORT, THREAD=REFERENCES).
+  - Inclusion of Compatibility plugin automatic (no patch needed for plugin)
+  - Moved sqm_baseuri() into more centralized location (strings.php)
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
