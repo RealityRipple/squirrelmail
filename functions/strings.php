@@ -36,6 +36,12 @@ $SQM_INTERNAL_VERSION = array(1,5,1);
 include_once(SM_PATH . 'functions/global.php');
 
 /**
+ * Include Compatibility plugin if available.
+ */
+if (file_exists(SM_PATH . 'plugins/compatibility/functions.php'))
+    include_once(SM_PATH . 'plugins/compatibility/functions.php'));
+
+/**
  * Appends citation markers to the string.
  * Also appends a trailing space.
  *
