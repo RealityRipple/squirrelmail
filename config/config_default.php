@@ -169,10 +169,24 @@ $encode_header_key = '';
  *
  * Program that should be used when sending email. SquirrelMail expects that
  * this program will follow options used by original sendmail
- * (http://www.sendmail.org).
+ * (http://www.sendmail.org). Support of -f argument is required.
  * @global string $sendmail_path
  */
 $sendmail_path = '/usr/sbin/sendmail';
+
+/**
+ * Extra sendmail command arguments.
+ * 
+ * Sets additional sendmail command arguments. Make sure that arguments are 
+ * supported by your sendmail program. -f argument is added automatically by
+ * SquirrelMail scripts. Variable defaults to standard /usr/sbin/sendmail 
+ * arguments. If you use qmail-inject, nbsmtp or any other sendmail wrapper,
+ * which does not support -t and -i arguments, set variable to empty string
+ * or use arguments suitable for your mailer. 
+ * @global string $sendmail_args
+ * @since 1.5.1
+ */
+$sendmail_args = '-i -t';
 
 /**
  * IMAP server address

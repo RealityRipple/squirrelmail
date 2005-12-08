@@ -14,7 +14,10 @@
 /** @ignore */
 if (!defined('SM_PATH')) define('SM_PATH','../../');
 
-/** */
+/**
+ * Load SquirrelMail SMPREF constants for default_unseen_notify and 
+ * default_unseen_type variables.
+ */
 require_once( SM_PATH . 'functions/constants.php' );
 
 /* Define constants for the various option types. */
@@ -132,6 +135,9 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                                           'type' => SMOPT_TYPE_BOOLEAN,
                                           'comment' => _("Choose &quot;no&quot; for SMTP") ),
                  '$sendmail_path' => array( 'name' => _("Sendmail Path"),
+                                            'type' => SMOPT_TYPE_STRING,
+                                            'size' => 40 ),
+                 '$sendmail_args' => array( 'name' => _("Sendmail Arguments"),
                                             'type' => SMOPT_TYPE_STRING,
                                             'size' => 40 ),
                  '$smtpServerAddress' => array( 'name' => _("SMTP Server Address"),

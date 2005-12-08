@@ -502,6 +502,12 @@ Version 1.5.1 -- CVS
     by the IMAP server. (Such as THREAD=SORT, THREAD=REFERENCES).
   - Inclusion of Compatibility plugin automatic (no patch needed for plugin)
   - Moved sqm_baseuri() into more centralized location (strings.php)
+  - Introduced $sendmail_args configuration variable in order to control
+    /usr/sbin/sendmail command arguments (#1365779). Deliver_SendMail class was 
+    modified to provide support of $sendmail_args. Modifications broke backwards 
+    compatibility with qmail-inject workarounds.
+  - Added execution error handling in Deliver_SendMail class (#1374174).
+  - Sanitized message composition error messages.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------

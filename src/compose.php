@@ -1608,8 +1608,8 @@ function deliverMessage($composeMessage, $draft=false) {
                 $smtpServerAddress, $smtpPort, $user, $pass, $authPop);
     } elseif (!$draft) {
         require_once(SM_PATH . 'class/deliver/Deliver_SendMail.class.php');
-        global $sendmail_path;
-        $deliver = new Deliver_SendMail();
+        global $sendmail_path, $sendmail_args;
+        $deliver = new Deliver_SendMail(array('sendmail_args'=>$sendmail_args));
         $stream = $deliver->initStream($composeMessage,$sendmail_path);
     } elseif ($draft) {
         global $draft_folder;
@@ -1628,7 +1628,7 @@ function deliverMessage($composeMessage, $draft=false) {
             $composeMessage->purgeAttachments();
             return $length;
         } else {
-            $msg  = '<br />'.sprintf(_("Error: Draft folder %s does not exist."), $draft_folder);
+            $msg  = '<br />'.sprintf(_("Error: Draft folder %s does not exist."), htmlspecialchars($draft_folder));
             plain_error_message($msg, $color);
             return false;
         }
@@ -1639,9 +1639,10 @@ function deliverMessage($composeMessage, $draft=false) {
         $success = $deliver->finalizeStream($stream);
     }
     if (!$success) {
-        $msg  = $deliver->dlv_msg . '<br />' .
-            _("Server replied:") . ' ' . $deliver->dlv_ret_nr . ' ' .
-            $deliver->dlv_server_msg;
+        // $deliver->dlv_server_msg is not always server's reply
+        $msg  = htmlspecialchars($deliver->dlv_msg) . '<br />' .
+            _("Server replied:") . ' ' . htmlspecialchars($deliver->dlv_ret_nr) . ' ' .
+            htmlspecialchars($deliver->dlv_server_msg);
         plain_error_message($msg, $color);
     } else {
         unset ($deliver);

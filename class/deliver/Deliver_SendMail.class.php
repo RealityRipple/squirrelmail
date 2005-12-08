@@ -12,6 +12,8 @@
  * @package squirrelmail
  */
 
+/** @ignore */
+if (!defined('SM_PATH')) define('SM_PATH','../../');
 
 /** This of course depends upon Deliver */
 require_once(SM_PATH . 'class/deliver/Deliver.class.php');
@@ -21,6 +23,44 @@ require_once(SM_PATH . 'class/deliver/Deliver.class.php');
  * @package squirrelmail
  */
 class Deliver_SendMail extends Deliver {
+    /**
+     * Extra sendmail arguments
+     *
+     * Parameter can be set in class constructor function.
+     *
+     * WARNING: Introduction of this parameter broke backwards compatibility 
+     * with workarounds specific to qmail-inject.
+     *
+     * If parameter needs some security modifications, it should be set to 
+     * private in PHP 5+ in order to prevent uncontrolled access.
+     * @var string
+     * @since 1.5.1
+     */
+    var $sendmail_args = '-i -t';
+
+    /**
+     * Stores used sendmail command
+     * Private variable that is used to inform about used sendmail command.
+     * @var string
+     * @since 1.5.1
+     */
+    var $sendmail_command = '';
+
+    /**
+     * Constructor function
+     * @param array configuration options. array key = option name, 
+     * array value = option value.
+     * @return void
+     * @since 1.5.1
+     */
+    function Deliver_SendMail($params=array()) {
+        if (!empty($params) && is_array($params)) {
+            // set extra sendmail arguments
+            if (isset($params['sendmail_args'])) {
+                $this->sendmail_args = $params['sendmail_args'];
+            }
+        }
+    }
 
    /**
     * function preWriteToStream
@@ -46,7 +86,7 @@ class Deliver_SendMail extends Deliver {
     *
     * @param Message $message Message object containing the from address
     * @param string $sendmail_path Location of sendmail binary
-    * @return void
+    * @return resource
     * @access public
     */
     function initStream($message, $sendmail_path) {
@@ -54,26 +94,32 @@ class Deliver_SendMail extends Deliver {
         $from = $rfc822_header->from[0];
         $envelopefrom = trim($from->mailbox.'@'.$from->host);
         $envelopefrom = str_replace(array("\0","\n"),array('',''),$envelopefrom);
-        if (strstr($sendmail_path, "qmail-inject")) {
-            $stream = popen (escapeshellcmd("$sendmail_path -f$envelopefrom"), "w");
-        } else {
-            $stream = popen (escapeshellcmd("$sendmail_path -i -t -f$envelopefrom"), "w");
-        }
+        // save executed command for future reference
+        $this->sendmail_command = "$sendmail_path $this->sendmail_args -f$envelopefrom";
+        // open process handle for writing
+        $stream = popen (escapeshellcmd($this->sendmail_command), "w");
         return $stream;
     }
 
    /**
-    * function finalizeStream
-    *
-    * Close the stream.
+    * Closes process handle.
     *
     * @param resource $stream
     * @return boolean
     * @access public
     */
     function finalizeStream($stream) {
-        pclose($stream);
-        return true;
+        $ret = true;
+        $status = pclose($stream);
+        // check pclose() status.
+        if ($status!=0) {
+            $ret = false;
+            $this->dlv_msg=_("Email delivery error");
+            $this->dlv_ret_nr=$status;
+            // we can get better error messsage only if we switch to php 4.3+ and proc_open().
+            $this->dlv_server_msg=sprintf(_("Can't execute command '%s'."),$this->sendmail_command);
+        }
+        return $ret;
     }
 
    /**
