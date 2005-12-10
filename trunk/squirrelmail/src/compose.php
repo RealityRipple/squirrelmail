@@ -1640,9 +1640,9 @@ function deliverMessage($composeMessage, $draft=false) {
     }
     if (!$success) {
         // $deliver->dlv_server_msg is not always server's reply
-        $msg  = htmlspecialchars($deliver->dlv_msg) . '<br />' .
-            _("Server replied:") . ' ' . htmlspecialchars($deliver->dlv_ret_nr) . ' ' .
-            htmlspecialchars($deliver->dlv_server_msg);
+        $msg  = $deliver->dlv_msg . '<br />' .
+            _("Server replied:") . ' ' . $deliver->dlv_ret_nr . ' ' .
+            $deliver->dlv_server_msg;
         plain_error_message($msg, $color);
     } else {
         unset ($deliver);
