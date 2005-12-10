@@ -507,7 +507,7 @@ Version 1.5.1 -- CVS
     modified to provide support of $sendmail_args. Modifications broke backwards 
     compatibility with qmail-inject workarounds.
   - Added execution error handling in Deliver_SendMail class (#1374174).
-  - Sanitized message composition error messages.
+  - Sanitized Draft folder error message in compose.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
