@@ -508,6 +508,9 @@ Version 1.5.1 -- CVS
     compatibility with qmail-inject workarounds.
   - Added execution error handling in Deliver_SendMail class (#1374174).
   - Sanitized Draft folder error message in compose.
+  - Fixed character wrapping/encoding issues in Japanese translation (#1377622). 
+    Issue is specific to sqBodyWrap() and string function wrappers introduced in 
+    1.5.1.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
