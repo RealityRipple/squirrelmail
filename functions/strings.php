@@ -1174,9 +1174,10 @@ function sq_strlen($str, $charset=null){
 
     // use automatic charset detection, if function call asks for it
     if ($charset=='auto') {
-        global $default_charset;
+        global $default_charset, $squirrelmail_language;
         set_my_charset();
         $charset=$default_charset;
+        if ($squirrelmail_language=='ja_JP') $charset='euc-jp';
     }
 
     // Use mbstring only with listed charsets
@@ -1241,9 +1242,10 @@ function sq_str_pad($string, $width, $pad, $padtype, $charset='') {
 function sq_substr($string,$start,$length,$charset='auto') {
     // use automatic charset detection, if function call asks for it
     if ($charset=='auto') {
-        global $default_charset;
+        global $default_charset, $squirrelmail_language;
         set_my_charset();
         $charset=$default_charset;
+        if ($squirrelmail_language=='ja_JP') $charset='euc-jp';
     }
     $charset = strtolower($charset);
     if (function_exists('mb_internal_encoding') &&
@@ -1271,9 +1273,10 @@ function sq_substr($string,$start,$length,$charset='auto') {
 function sq_strpos($haystack,$needle,$offset,$charset='auto') {
     // use automatic charset detection, if function call asks for it
     if ($charset=='auto') {
-        global $default_charset;
+        global $default_charset, $squirrelmail_language;
         set_my_charset();
         $charset=$default_charset;
+        if ($squirrelmail_language=='ja_JP') $charset='euc-jp';
     }
     $charset = strtolower($charset);
     if (function_exists('mb_internal_encoding') &&
@@ -1299,9 +1302,10 @@ function sq_strpos($haystack,$needle,$offset,$charset='auto') {
 function sq_strtoupper($string,$charset='auto') {
     // use automatic charset detection, if function call asks for it
     if ($charset=='auto') {
-        global $default_charset;
+        global $default_charset,$squirrelmail_language;
         set_my_charset();
         $charset=$default_charset;
+        if ($squirrelmail_language=='ja_JP') $charset='euc-jp';
     }
     $charset = strtolower($charset);
     if (function_exists('mb_strtoupper') &&
