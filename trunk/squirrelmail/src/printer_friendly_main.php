@@ -28,6 +28,7 @@ if ( ! sqgetGlobalVar('mailbox',$mailbox,SQ_GET) ||
 } else {
     $passed_id= (int) $passed_id;
     $view_unsafe_images = (bool) $_GET['view_unsafe_images'];
+    sqgetGlobalVar('show_html_default', $show_html_default, SQ_FORM);
 /* end globals */
     displayHtmlHeader( _("Printer Friendly"), '', false, true );
     echo '<frameset rows="60, *">' . "\n";
@@ -37,6 +38,7 @@ if ( ! sqgetGlobalVar('mailbox',$mailbox,SQ_GET) ||
         . urlencode($passed_ent_id) . '&amp;mailbox=' . urlencode($mailbox)
         . '&amp;passed_id=' . $passed_id
         . '&amp;view_unsafe_images='.$view_unsafe_images
+        . '&amp;show_html_default='.$show_html_default
         . '" name="bottom_frame" frameborder="0" />' . "\n";
     echo "</frameset>\n";
 }

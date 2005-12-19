@@ -35,6 +35,7 @@ sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
 if (! sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET) ) {
     $passed_ent_id = '';
 }
+sqgetGlobalVar('show_html_default', $show_html_default, SQ_FORM);
 /* end globals */
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
