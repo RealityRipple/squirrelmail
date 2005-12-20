@@ -448,6 +448,7 @@ $noselect_fix_enable = false;
  *   It is a possible security hole to have a writable directory
  *   under the web server's root directory (ex: /home/httpd/html).
  *   The path name can be absolute or relative (to the config directory).
+ *   If path is relative, it must use SM_PATH constant.
  *   Here are two examples:
  *
  * Absolute:
