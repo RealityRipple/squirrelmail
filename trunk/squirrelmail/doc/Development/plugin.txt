@@ -211,6 +211,11 @@ version is not listed, files are included from v.1.3.2.):
       8.4. functions/global.php
    9. functions/prefs.php (already loaded. see 7.2)
 
+Since SquirrelMail 1.5.1 functions/global.php file must be loaded before 
+setting any own global variables. If variables are set before loading 
+functions/global.php library, they can be corrupted in PHP register_globals=On 
+setups.
+
 
 Hook Types:  Parameters and Return Values
 -----------------------------------------
@@ -1394,6 +1399,10 @@ scope automatically.  There is nothing more to do than this:
 
    global $favorite_color;
    sqgetGlobalVar('favorite_color', $favorite_color, SQ_FORM);
+
+SquirrelMail 1.5.1+ cleans globals in functions/global.php library. If 
+plugin depends on PHP register_globals=On and loads this library, it will 
+be broken.
 
 
 Security considerations
