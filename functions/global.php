@@ -362,12 +362,39 @@ if (get_magic_quotes_gpc()) {
 }
 
 /**
- * If register_globals are on, unregister all globals from $_GET, $_POST, 
- * and $_COOKIE. Before 4.3.0 $_FILES globals are unregistered too. Code
- * requires PHP 4.1.0 or newer. 
+ * If register_globals are on, unregister globals.
+ * Code requires PHP 4.1.0 or newer.
  */
 if ((bool) @ini_get('register_globals')) {
+    /**
+     * Remove all globals from $_GET, $_POST, and $_COOKIE.
+     */
     foreach ($_REQUEST as $key => $value) {
+        unset($GLOBALS[$key]);
+    }
+    /**
+     * Remove globalized $_FILES variables
+     * Before 4.3.0 $_FILES are included in $_REQUEST.
+     * Unglobalize them in separate call in order to remove dependency 
+     * on PHP version.
+     */
+    foreach ($_FILES as $key => $value) {
+        unset($GLOBALS[$key]);
+        // there are three undocumented $_FILES globals.
+        unset($GLOBALS[$key.'_type']);
+        unset($GLOBALS[$key.'_name']);
+        unset($GLOBALS[$key.'_size']);
+    }
+    /**
+     * Remove globalized environment variables.
+     */
+    foreach ($_ENV as $key => $value) {
+        unset($GLOBALS[$key]);
+    }
+    /**
+     * Remove globalized server variables.
+     */
+    foreach ($_SERVER as $key => $value) {
         unset($GLOBALS[$key]);
     }
 }
@@ -381,4 +408,12 @@ $PHP_SELF = php_self();
 
 sqsession_is_active();
 
+/** 
+ * Remove globalized session data in rg=on setups
+ */
+if ((bool) @ini_get('register_globals')) {
+    foreach ($_SESSION as $key => $value) {
+        unset($GLOBALS[$key]);
+    }
+}
 ?>
