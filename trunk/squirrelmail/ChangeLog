@@ -511,6 +511,7 @@ Version 1.5.1 -- CVS
   - Fixed character wrapping/encoding issues in Japanese translation (#1377622). 
     Issue is specific to sqBodyWrap() and string function wrappers introduced in 
     1.5.1.
+  - MagicHTML fix for comments in styles.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
