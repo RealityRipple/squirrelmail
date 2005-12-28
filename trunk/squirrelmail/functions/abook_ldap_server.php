@@ -496,12 +496,14 @@ class abook_ldap_server extends addressbook_backend {
             /* Convert search from user's charset to the one used in ldap */
             $expr = $this->charset_encode($expr);
 
-            /* Make sure that search does not contain ldap special chars */
-            $expression = '(cn=*' . $this->ldapspecialchars($expr) . '*)';
+            /* sanitize search string */
+            $expr = $this->ldapspecialchars($expr);
+
+            /* Search for same string in cn, main and sn */
+            $expression = '(|(cn=*'.$expr.'*)(mail=*'.$expr.'*)(sn=*'.$expr.'*))';
 
             /* Undo sanitizing of * symbol */
             $expression = str_replace('\2a','*',$expression);
-            /* TODO: implement any single character (?) matching */
         }
 
         /* Add search filtering */
