@@ -111,7 +111,7 @@ CAPABILITY IMAP4rev1 SORT THREAD=REFERENCES MULTIAPPEND UNSELECT LITERAL+ IDLE
 
 PERMANENTFLAGS (\Answered \Flagged \Deleted \Seen \Draft \*)
 
-IMAP server supports server side sorting and threading. 1.0alpha1-4 versions
+IMAP server supports server side sorting and threading. 1.0alpha1-5 versions
 violate syntax of responses to UID commands. NAMESPACE is supported in 1.0alpha.
 Remote plain text logins are disabled by default.
 
@@ -160,6 +160,35 @@ Folder listing with non-default sort order issues are fixed in cvs version.
 Use of server with SquirrelMail is not recommended and not supported.
 
 Site URL: http://savannah.gnu.org/projects/mailutils
+
+
+------------
+DBMail IMAPD
+------------
+IMAP server that is part of DBMail email suite. DBMail provides local delivery 
+agent, pop3 and imap servers. User information and emails are stored in
+database.
+
+Tested v.2.0.7
+Information provided by Muhd Zamri
+
+CAPABILITY IMAP4 IMAP4rev1 AUTH=LOGIN ACL NAMESPACE SORT
+
+PERMANENTFLAGS (\Seen \Answered \Deleted \Flagged \Draft \Recent)
+
+NAMESPACE (("" "/")) (("#Users" "/")) (("#Public" "/"))
+
+IMAP server provides partial support of IMAP QUOTA extension. setquota command
+is not supported and QUOTA extension is not advertised in CAPABILITY. SORT 
+extension is broken in tested version.
+
+> A05 UID SORT (FROM) US-ASCII ALL
+A05 BAD syntax error in sort keys
+
+> A06 UID SORT (FROM) ISO-8859-1 ALL
+A06 BAD UID command received in invalid state
+
+Site URL: http://www.dbmail.org
 
 
 --------
