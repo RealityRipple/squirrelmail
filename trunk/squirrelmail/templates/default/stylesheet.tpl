@@ -13,6 +13,9 @@
  *   <li>SQM_BACKGROUND_LEFT - background of folder tree
  *   <li>SQM_TEXT_STANDARD - text color
  *   <li>SQM_TEXT_STANDARD_LEFT - text color of folder tree
+ *   <li>SQM_LINK - color of links
+ *   <li>SQM_LINK_LEFT - color of links in folder tree
+ *   <li>SQM_TEXT_SPECIAL - color of special folder links in folder tree
  *   <li>todo: other constants should be documented here
  * </ul>
  *
@@ -50,14 +53,19 @@ body.leftmain {
     background-color: <?php echo SQM_BACKGROUND_LEFT; ?>;
 }
 
-/* right links (a:link, a:visited, a:hover, a:active) */
-a {
+/* right links */
+a:link, a:visited, a:hover, a:active {
     color: <?php echo SQM_LINK; ?>;
 }
 /* left links */
-/* TODO: recheck link css */
-a.leftmain {
+.leftmain a:link, .leftmain a:visited, .leftmain a:hover, .leftmain a:active {
     color:  <?php echo SQM_LINK_LEFT; ?>;
+}
+.leftspecial, .leftspecial a:link, .leftspecial a:visited, .leftspecial a:hover, .leftspecial a:active {
+    color:  <?php echo SQM_TEXT_SPECIAL; ?>;
+}
+.leftnoselect a:link, .leftnoselect a:visited, .leftnoselect a:hover, .leftnoselect a:active {
+    color:  <?php echo SQM_TEXT_HIGHLIGHT; ?>;
 }
 
 td, th {
