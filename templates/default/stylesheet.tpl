@@ -37,13 +37,30 @@
 extract($t);
 
 ?>
+/* older css template */
 body, td, th, dd, dt, h1, h2, h3, h4, h5, h6, p, ol, ul, li {
-<?php if($fontfamily) echo '  font-family: '.$fontfamily.";\n";?>
+<?php
+  if($fontfamily) echo '  font-family: '.$fontfamily.";\n";
+?>
 }
 body, small {
-<?php if($fontsize) echo '  font-size: '.($fontsize-2)."pt;\n";?>
+<?php
+  if($fontsize) echo '  font-size: '.($fontsize-2)."pt;\n";
+?>
+}
+td, th {
+<?php
+  if($fontsize) echo '  font-size: '.$fontsize."pt;\n";
+?>
+}
+textarea, pre {
+  font-family: monospace;
+<?php
+  if($fontsize) echo '  font-size: '.($fontsize-1)."pt;\n";
+?>
 }
 
+/* page body formatting */
 body {
     color:  <?php echo SQM_TEXT_STANDARD; ?>;
     background-color: <?php echo SQM_BACKGROUND; ?>;
@@ -57,6 +74,7 @@ body.leftmain {
 a:link, a:visited, a:hover, a:active {
     color: <?php echo SQM_LINK; ?>;
 }
+
 /* left links */
 .leftmain a:link, .leftmain a:visited, .leftmain a:hover, .leftmain a:active {
     color:  <?php echo SQM_LINK_LEFT; ?>;
@@ -68,12 +86,9 @@ a:link, a:visited, a:hover, a:active {
     color:  <?php echo SQM_TEXT_HIGHLIGHT; ?>;
 }
 
-td, th {
-<?php if($fontsize) echo '  font-size: '.$fontsize."pt;\n";?>
-}
-textarea, pre {
-  font-family: monospace;
-<?php if($fontsize) echo '  font-size: '.($fontsize-1)."pt;\n";?>
+/* highlighted texts */
+.highlight {
+    color:  <?php echo SQM_TEXT_HIGHLIGHT; ?>;
 }
 
 /* formating of error template */
