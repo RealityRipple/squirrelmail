@@ -34,8 +34,5 @@ to the defaults. You can manually reset the commands using the
 'default' button, or clear the contents of all the commands with
 the 'clear' button.
 
-Questions, problems, comments welcome at
-
-jason@stdbev.com
-Jason Munro
-
+This plugin has been originally developed by Jason Munro and is now
+maintained by the SquirrelMail Project Team.

@@ -124,7 +124,7 @@ elseif (!$submit || $submit == 'default')  {
         'TEST_5' => "SORT (DATE) $default_charset ALL",
         'TEST_6' => "FETCH 1:* (FLAGS BODY[HEADER.FIELDS (FROM DATE TO)])",
         'TEST_7' => "LSUB \"$folder_prefix\" \"*%\"",
-        'TEST_8' => "LIST \"$folder_prefix*\" \"*\"",
+        'TEST_8' => "LIST \"$folder_prefix\" \"*\"",
         'TEST_9' => "");
 }
 
@@ -166,6 +166,12 @@ if ($submit == 'submit') {
         }
     }
     for ($i=0;$i<count($tests);$i++) {
+        // make sure that microtime function is available before it is called
+        if (function_exists('microtime')) {
+            list($usec, $sec) = explode(" ", microtime());
+            $starttime = (float)$sec + (float)$usec;
+        }
+
         echo '<center><table width="95%" border="0" bgcolor="'.$color[4]."\">\n".
              '<tr><td><b>'.$tests[$i]."</b></td></tr>\n".
              '<tr><td><small><b><font color="'.$color[7].'">'.
@@ -176,7 +182,19 @@ if ($submit == 'submit') {
              _("Response:")."</font></b></small></td></tr>\n".
              '<tr><td>';
         print_response($response);
-        echo "</td></tr></table></center><br />\n";
+        echo "</td></tr>\n";
+
+        if (function_exists('microtime')) {
+            // get script execution time
+            list($usec, $sec) = explode(" ", microtime());
+            $endtime = (float)$sec + (float)$usec;
+            // i18n: ms = short for miliseconds
+            echo '<tr><td><small><b><font color="'.$color[7].'">'.
+                _("Execution time:")."</font></b></small></td></tr>\n".
+                '<tr><td>'.sprintf(_("%s ms"),round((($endtime - $starttime)*1000),3))."</td></tr>\n";
+        }
+
+        echo "</table></center><br />\n";
     }
 }
 echo '</td></tr></table></center>';
