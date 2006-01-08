@@ -20,6 +20,34 @@
 $calendardata = array();
 
 /**
+ * Reads multilined calendar data
+ * 
+ * Plugin stores multiline texts converted to single line with PHP nl2br().
+ * Function undoes nl2br() conversion and sanitizes data with htmlspecialchars().
+ * @param string $string calendar string
+ * @return string calendar string converted to multiline text
+ * @since 1.5.1
+ */
+function calendar_readmultiline($string) {
+    // replace html line breaks with ASCII line feeds
+    $string = str_replace(array('<br />','<br>'),array("\n","\n"),$string);
+    // FIXME: don't sanitize data. Storage backend should not care about html data safety
+    $string = htmlspecialchars($string,ENT_NOQUOTES);
+    return $string;
+}
+
+/**
+ * Callback function used to sanitize calendar data before saving it to file
+ * @param string $sValue array value 
+ * @param string $sKey array key
+ * @since 1.5.1
+ */
+function calendar_encodedata(&$sValue, $sKey) {
+    // add html line breaks and remove original ASCII line feeds and carriage returns
+    $sValue = str_replace(array("\n","\r"),array('',''),nl2br($sValue));
+}
+
+/**
  * read events into array
  *
  * data is | delimited, just like addressbook
@@ -39,7 +67,7 @@ function readcalendardata() {
                 $calendardata[$fdata[0]][$fdata[1]] = array( 'length' => $fdata[2],
                                                             'priority' => $fdata[3],
                                                             'title' => htmlspecialchars($fdata[4],ENT_NOQUOTES),
-                                                            'message' => htmlspecialchars($fdata[5],ENT_NOQUOTES),
+                                                            'message' => calendar_readmultiline($fdata[5]),
                                                             'reminder' => $fdata[6] );
             }
             fclose ($fp);
@@ -65,6 +93,7 @@ function writecalendardata() {
         while ( $calfoo = each ($calendardata)) {
             while ( $calbar = each ($calfoo['value'])) {
                 $calfoobar = $calendardata[$calfoo['key']][$calbar['key']];
+                array_walk($calfoobar,'calendar_encodedata');
                 $calstr = "$calfoo[key]|$calbar[key]|$calfoobar[length]|$calfoobar[priority]|$calfoobar[title]|$calfoobar[message]|$calfoobar[reminder]\n";
                 if(sq_fwrite($fp, $calstr, 4096) === FALSE) {
                         error_box(_("Could not write calendar file %s", "$username.$year.cal.tmp"), $color);
@@ -124,6 +153,5 @@ function update_event($date, $time) {
         fclose ($fp);
     }
 }
-
 
 ?>
