@@ -138,7 +138,7 @@ function display_events() {
                         html_tag( 'td', $ehour . ':' . $eminute . $elength, 'left' ) .
                         html_tag( 'td', '', 'left' ) . '[';
                             echo ($calbar['priority']==1) ? "<font color=\"$color[1]\">$calbar[title]</font>" : "$calbar[title]";
-                            echo"] $calbar[message]&nbsp;" .
+                            echo'] <div style="margin-left:10px">'.nl2br($calbar['message']).'</div>' .
                         html_tag( 'td',
                             "<font size=\"-1\"><nobr>\n" .
                             "<a href=\"event_edit.php?year=$year&amp;month=$month&amp;day=$day&amp;hour=".substr($calfoo['key'],0,2)."&amp;minute=".substr($calfoo['key'],2,2)."\">".
