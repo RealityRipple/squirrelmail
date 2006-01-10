@@ -514,6 +514,7 @@ Version 1.5.1 -- CVS
   - MagicHTML fix for comments in styles.
   - Added 'mail' and 'sn' attributes to address book LDAP backend search
     expression (#1368154).
+  - Added mailbox caching code by Michael Long.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
