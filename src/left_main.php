@@ -636,14 +636,19 @@ $xtra .= <<<HEREDOC
 HEREDOC;
 }
 
+// get mailbox list and cache it
+$mailboxes=sqimap_get_mailboxes($imapConnection,false,$show_only_subscribed_folders);
+
 displayHtmlHeader( 'SquirrelMail', $xtra );
+
 sqgetGlobalVar('auto_create_done',$auto_create_done,SQ_SESSION);
 /* If requested and not yet complete, attempt to autocreate folders. */
 if ($auto_create_special && !isset($auto_create_done)) {
     $autocreate = array($sent_folder, $trash_folder, $draft_folder);
     foreach( $autocreate as $folder ) {
         if (($folder != '') && ($folder != 'none')) {
-            if ( !sqimap_mailbox_exists($imapConnection, $folder)) {
+            // use $mailboxes array for checking if mailbox exists
+            if ( !sqimap_mailbox_exists($imapConnection, $folder, $mailboxes)) {
                 sqimap_mailbox_create($imapConnection, $folder, '');
             } else {
                 // check for subscription is useless and expensive, just
@@ -763,8 +768,12 @@ if (empty($unseen_notify)) {
         $unseen_notify = 0;
     }
 }
+/**
+ * pass $mailboxes now instead of $imapconnection - sqimap_get_mailboxes() has been separated from
+ * sqimap_mailbox_tree() so that the cached mailbox list can be used elsewhere in left_main and beyond
+ */
+$boxes = sqimap_mailbox_tree($imapConnection,$mailboxes,$show_only_subscribed_folders);
 
-$boxes = sqimap_mailbox_tree($imapConnection);
 if (isset($advanced_tree) && $advanced_tree) {
     echo '<form name="collapse" action="left_main.php" method="post" ' .
          'enctype="multipart/form-data">'."\n";
