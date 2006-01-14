@@ -1,13 +1,9 @@
 <?php
 
 /**
- * setup.php
+ * Calendar plugin activation script
  *
- * Originally contrubuted by Michal Szczotka <michal@tuxy.org>
- *
- * Init plugin into SquirrelMail
- *
- * @copyright &copy; 2002-2005 The SquirrelMail Project Team
+ * @copyright &copy; 2002-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
@@ -23,8 +19,11 @@ function squirrelmail_plugin_init_calendar() {
     $squirrelmail_plugin_hooks['menuline']['calendar'] = 'calendar';
 }
 
+/**
+ * Adds Calendar link to upper menu
+ * @return void
+ */
 function calendar() {
-    /* Add Calendar link to upper menu */
     displayInternalLink('plugins/calendar/calendar.php',_("Calendar"),'right');
     echo "&nbsp;&nbsp;\n";
 }

@@ -1,57 +1,41 @@
 <?php
 
 /**
- * calendar.php
- *
- * Originally contrubuted by Michal Szczotka <michal@tuxy.org>
- *
  * Displays the main calendar page (month view).
  *
- * @copyright &copy; 2002-2005 The SquirrelMail Project Team
+ * @copyright &copy; 2002-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
  * @subpackage calendar
  */
 
-/**
-*/
+/** @ignore */
 define('SM_PATH','../../');
 
-/* Calender plugin required files. */
-require_once(SM_PATH . 'plugins/calendar/calendar_data.php');
-require_once(SM_PATH . 'plugins/calendar/functions.php');
-
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/strings.php');
-require_once(SM_PATH . 'functions/date.php');
-require_once(SM_PATH . 'config/config.php');
-require_once(SM_PATH . 'functions/page_header.php');
-require_once(SM_PATH . 'include/load_prefs.php');
-require_once(SM_PATH . 'functions/html.php');
+include_once(SM_PATH . 'include/validate.php');
+/* load date_intl() */
+include_once(SM_PATH . 'functions/date.php');
+
+/* Calendar plugin required files. */
+include_once(SM_PATH . 'plugins/calendar/calendar_data.php');
+include_once(SM_PATH . 'plugins/calendar/functions.php');
 
 /* get globals */
-
-// undo rg = on effects
-if (isset($month)) unset($month);
-if (isset($year))  unset($year);
-
-if (isset($_GET['month']) && is_numeric($_GET['month'])) {
-    $month = $_GET['month'];
+if (! sqgetGlobalVar('month',$month,SQ_FORM) || ! is_numeric($month)) {
+    unset($month);
 }
-if (isset($_GET['year']) && is_numeric($_GET['year'])) {
-    $year = $_GET['year'];
-}
-if (isset($_POST['year']) && is_numeric($_POST['year'])) {
-    $year = $_POST['year'];
-}
-if (isset($_POST['month']) && is_numeric($_POST['month'])) {
-    $month = $_POST['month'];
+if (! sqgetGlobalVar('year',$year,SQ_FORM) || ! is_numeric($year)) {
+    unset($year);
 }
 /* got 'em */
 
-//display upper part of month calendar view
+/**
+ * display upper part of month calendar view
+ * @return void
+ * @access private
+ */
 function startcalendar() {
     global $year, $month, $color;
 
@@ -97,7 +81,11 @@ function startcalendar() {
            '', $color[0] ) ."\n";
 }
 
-//main logic for month view of calendar
+/**
+ * main logic for month view of calendar
+ * @return void
+ * @access private
+ */
 function drawmonthview() {
     global $year, $month, $color, $calendardata, $todayis;
 
@@ -124,8 +112,13 @@ function drawmonthview() {
                 $i=0;
                 while ($calfoo = each($calendardata[$cdate])) {
                     $calbar = $calendardata[$cdate][$calfoo['key']];
-                    $title = '['. $calfoo['key']. '] ' .$calbar['message'];
-                    echo ($calbar['priority']==1) ? "<a href=\"#\" style=\"text-decoration:none; color: $color[1]\" title=\"$title\">$calbar[title]</a><br />\n" : "<a href=\"#\" style=\"text-decoration:none; color: $color[6]\" title=\"$title\">$calbar[title]</a><br />\n";
+                    // FIXME: how to display multiline task
+                    $title = '['. $calfoo['key']. '] ' .
+                        str_replace(array("\r","\n"),array(' ',' '),htmlspecialchars($calbar['message']));
+                    // FIXME: link to nowhere
+                    echo "<a href=\"#\" style=\"text-decoration:none; color: "
+                        .($calbar['priority']==1 ? $color[1] : $color[6])
+                        ."\" title=\"$title\">".htmlspecialchars($calbar['title'])."</a><br />\n";
                     $i=$i+1;
                     if($i==2){
                         break;
@@ -139,7 +132,12 @@ function drawmonthview() {
     }
 }
 
-//end of monthly view and form to jump to any month and year
+/**
+ * end of monthly view and form to jump to any month and year
+ * @return void
+ * @
+ * @access private
+ */
 function endcalendar() {
     global $year, $month, $day, $color;
 

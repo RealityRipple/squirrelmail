@@ -1,92 +1,61 @@
 <?php
 
 /**
- * event_delete.php
- *
- * Originally contrubuted by Michal Szczotka <michal@tuxy.org>
- *
  * Functions to delete a event.
  *
- * @copyright &copy; 2002-2005 The SquirrelMail Project Team
+ * @copyright &copy; 2002-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
  * @subpackage calendar
  */
 
-/**
- * @ignore
- */
+/** @ignore */
 define('SM_PATH','../../');
 
-/* Calender plugin required files. */
-require_once(SM_PATH . 'plugins/calendar/calendar_data.php');
-require_once(SM_PATH . 'plugins/calendar/functions.php');
-
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/strings.php');
-require_once(SM_PATH . 'functions/date.php');
-require_once(SM_PATH . 'config/config.php');
-require_once(SM_PATH . 'functions/page_header.php');
-require_once(SM_PATH . 'include/load_prefs.php');
-require_once(SM_PATH . 'functions/html.php');
+include_once(SM_PATH . 'include/validate.php');
+/* date_intl() */
+include_once(SM_PATH . 'functions/date.php');
+
+/* Calendar plugin required files. */
+include_once(SM_PATH . 'plugins/calendar/calendar_data.php');
+include_once(SM_PATH . 'plugins/calendar/functions.php');
+
 /* get globals */
-if (isset($_GET['month']) && is_numeric($_GET['month'])) {
-    $month = $_GET['month'];
+if (! sqGetGlobalVar('month',$month,SQ_FORM) || ! is_numeric($month)) {
+    unset($month);
 }
-elseif (isset($_POST['month']) && is_numeric($_GET['month'])) {
-    $month = $_POST['month'];
+if (! sqGetGlobalVar('year',$year,SQ_FORM) || ! is_numeric($year)) {
+    unset($year);
 }
-if (isset($_GET['year']) && is_numeric($_GET['year'])) {
-    $year = $_GET['year'];
+if (! sqGetGlobalVar('day',$day,SQ_FORM) || ! is_numeric($day)) {
+    unset($day);
 }
-elseif (isset($_POST['year']) && is_numeric($_POST['year'])) {
-    $year = $_POST['year'];
+if (! sqGetGlobalVar('dyear',$dyear,SQ_FORM) || ! is_numeric($dyear)) {
+    unset($dyear);
 }
-if (isset($_GET['day']) && is_numeric($_GET['day'])) {
-    $day = $_GET['day'];
+if (! sqGetGlobalVar('dmonth',$dmonth,SQ_FORM) || ! is_numeric($dmonth)) {
+    unset($dmonth);
 }
-elseif (isset($_POST['day']) && is_numeric($_POST['day'])) {
-    $day = $_POST['day'];
+if (! sqGetGlobalVar('dday',$dday,SQ_FORM) || ! is_numeric($dday)) {
+    unset($dday);
 }
-if (isset($_GET['dyear']) && is_numeric($_GET['dyear'])) {
-    $dyear = $_GET['dyear'];
+if (! sqGetGlobalVar('dhour',$dhour,SQ_FORM) || ! is_numeric($dhour)) {
+    unset($dhour);
 }
-elseif (isset($_POST['dyear']) && is_numeric($_POST['dyear'])) {
-    $dyear = $_POST['dyear'];
+if (! sqGetGlobalVar('dminute',$dminute,SQ_FORM) || ! is_numeric($dminute)) {
+    unset($dminute);
 }
-if (isset($_GET['dmonth']) && is_numeric($_GET['dmonth'])) {
-    $dmonth = $_GET['dmonth'];
-}
-elseif (isset($_POST['dmonth']) && is_numeric($_POST['dmonth'])) {
-    $dmonth = $_POST['dmonth'];
-}
-if (isset($_GET['dday']) && is_numeric($_GET['dday'])) {
-    $dday = $_GET['dday'];
-}
-elseif (isset($_POST['dday']) && is_numeric($_POST['dday'])) {
-    $dday = $_POST['dday'];
-}
-if (isset($_GET['dhour']) && is_numeric($_GET['dhour'])) {
-    $dhour = $_GET['dhour'];
-}
-elseif (isset($_POST['dhour']) && is_numeric($_POST['dhour'])) {
-    $dhour = $_POST['dhour'];
-}
-if (isset($_GET['dminute']) && is_numeric($_GET['dminute'])) {
-    $dminute = $_GET['dminute'];
-}
-elseif (isset($_POST['dminute']) && is_numeric($_POST['dminute'])) {
-    $dminute = $_POST['dminute'];
-}
-if (isset($_POST['confirmed'])) {
-    $confirmed = $_POST['confirmed'];
-}
+sqGetGlobalVar('confirmed',$confirmed,SQ_POST);
+
 /* got 'em */
 
-function confirm_deletion()
-{
+/**
+ * Displays confirmation form when event is deleted
+ * @return void
+ */
+function confirm_deletion() {
     global $calself, $dyear, $dmonth, $dday, $dhour, $dminute, $calendardata, $color, $year, $month, $day;
 
     $tmparray = $calendardata["$dmonth$dday$dyear"]["$dhour$dminute"];
@@ -105,11 +74,11 @@ function confirm_deletion()
                ) .
                html_tag( 'tr',
                    html_tag( 'td', _("Title:"), 'right', $color[4] ) .
-                   html_tag( 'td', $tmparray['title'], 'left', $color[4] )
+                   html_tag( 'td', htmlspecialchars($tmparray['title']), 'left', $color[4] )
                ) .
                html_tag( 'tr',
                    html_tag( 'td', _("Message:"), 'right', $color[4] ) .
-                   html_tag( 'td', $tmparray['message'], 'left', $color[4] )
+                   html_tag( 'td', nl2br(htmlspecialchars($tmparray['message'])), 'left', $color[4] )
                ) .
                html_tag( 'tr',
                    html_tag( 'td',

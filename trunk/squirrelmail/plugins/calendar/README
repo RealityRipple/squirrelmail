@@ -1,28 +1,25 @@
-SQCalendar  $Id$
+SquirrelMail Calendar Plugin
+$Id$
 
 ********** DESCRIPTION ************
 
-Simple calendar plugin for Squirrel Mail (squirrelmail.org). As of now it has
-month view and day view. Events can be created, deleted and updated.
+Simple calendar plugin for Squirrel Mail. As of now it has month view and 
+day view. Events can be created, deleted and updated.
 
 
 ********** REQUIREMENTS  **********
 
-It works with SquirrelMail 1.0.6 and 1.2.0-rc2 which are latest at the time
-of writing
-
-********** INSTALLATION  **********
-
-SEE INSTALL
+SquirrelMail 1.4.3 or later (1.5.0 version excluded)
+Write access to data directory (plugin uses own data files)
 
 *************** TODO **************
 
-- single entry of repetitve events (ex. birthday repeats every year)
+- single entry of recurring events (ex. birthday repeats every year)
 - reminder email/javascript/etc
 - weekly view
 
 
 ************ CREDITS **************
 
-This plugin has been originally created by  Michal Szczotka, and is now
-maintained by the SquirrelMail Project Team.
+This plugin has been originally created by  Michal Szczotka <michal@tuxy.org>, 
+and is now maintained by the SquirrelMail Project Team.
