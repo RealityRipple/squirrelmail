@@ -1,0 +1,41 @@
+.\" 
+.TH "conf.pl" "8" "Jan 14, 2006" "Tomas Kuliavas" "SquirrelMail"
+.SH "NAME"
+conf.pl \- SquirrelMail configuration utility
+
+.SH "SYNOPSIS"
+.B conf.pl
+.RI [\-\-install\-plugin\ plugin\-name\ |\ \-\-remove\-plugin\ plugin\-name]
+.br 
+
+.SH "DESCRIPTION"
+This manual page explains usage of the
+.B conf.pl
+program.
+.PP 
+\fBconf.pl\fP is perl based program that can be used to edit SquirrelMail 
+configuration file. If program is called without any arguments, it provides 
+interactive menu that can be controlled by entering menu command keys.
+
+.SH "OPTIONS"
+.B 
+.IP \-\-install\-plugin\ plugin\-name
+This option provides command line tool to enable plugins. It activates plugin 
+and saves SquirrelMail configuration.
+
+.B 
+.IP \-\-remove\-plugin\ plugin\-name
+This option provides command line tool to disable plugins. It deactivates plugin 
+and saves SquirrelMail configuration.
+.SH "BUGS"
+If you find bugs in SquirrelMail configuration utility or this manual, you can 
+report them in SquirrelMail bug tracker. See \fBhttp://www.squirrelmail.org/bugs\fR
+.SH "AUTHOR"
+Tomas Kuliavas <tokul@users.sourceforge.net>
+.SH "COPYRIGHT"
+Copyright (c) 2006 The SquirrelMail Project Team
+.SH "LICENSE"
+This manual is licensed under GNU Public License. See COPYING file included in 
+SquirrelMail package or \fBhttp://opensource.org/licenses/gpl\-license.php\fR.
+.SH "VERSION"
+Version: $Version:$
