@@ -515,6 +515,8 @@ Version 1.5.1 -- CVS
   - Added 'mail' and 'sn' attributes to address book LDAP backend search
     expression (#1368154).
   - Added mailbox caching code by Michael Long.
+  - Prevent output of whitespace during plugin activation. Fixes possible 
+    attachment corruption by incorrectly coded plugins.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
