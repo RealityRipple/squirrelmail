@@ -1,13 +1,9 @@
 <?php
 
 /**
- * functions.php
+ * Other calendar plugin functions.
  *
- * Originally contrubuted by Michal Szczotka <michal@tuxy.org>
- *
- * miscelenous functions.
- *
- * @copyright &copy; 2002-2005 The SquirrelMail Project Team
+ * @copyright &copy; 2002-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
@@ -15,10 +11,10 @@
  */
 
 /**
+ * Adds second layer of calendar links to upper menu
  * @return void
  */
 function calendar_header() {
-    //Add Second layer ofCalendar links to upper menu
     global $color,$year,$day,$month;
 
     echo html_tag( 'table', '', '', $color[0], 'border="0" width="100%" cellspacing="0" cellpadding="2"' ) .
@@ -35,8 +31,14 @@ function calendar_header() {
 
 }
 
+/**
+ * Generates html option tags with length values
+ * 
+ * Hardcoded values from 0 minutes to 6 hours
+ * @param integer $selected selected option length
+ * @return void
+ */
 function select_option_length($selected) {
-
     $eventlength = array(
         '0' => _("0 min."),
         '15' => _("15 min."),
@@ -54,39 +56,52 @@ function select_option_length($selected) {
     );
 
     while( $bar = each($eventlength)) {
-        if($selected==$bar['key']){
-                echo '        <option value="'.$bar['key'].'" selected="selected">'.$bar['value']."</option>\n";
+        if($bar['key']==$selected){
+            echo '        <option value="'.$bar['key'].'" selected="selected">'.$bar['value']."</option>\n";
         } else {
-                echo '        <option value="'.$bar['key'].'">'.$bar['value']."</option>\n";
+            echo '        <option value="'.$bar['key'].'">'.$bar['value']."</option>\n";
         }
     }
 }
 
+/**
+ * Generates html option tags with minute values
+ *
+ * Hardcoded values in 5 minute intervals
+ * @param integer $selected selected value
+ * @return void
+ */
 function select_option_minute($selected) {
     $eventminute = array(
-    '00'=>'00',
-    '05'=>'05',
-    '10'=>'10',
-    '15'=>'15',
-    '20'=>'20',
-    '25'=>'25',
-    '30'=>'30',
-    '35'=>'35',
-    '40'=>'40',
-    '45'=>'45',
-    '50'=>'50',
-    '55'=>'55'
+        '00'=>'00',
+        '05'=>'05',
+        '10'=>'10',
+        '15'=>'15',
+        '20'=>'20',
+        '25'=>'25',
+        '30'=>'30',
+        '35'=>'35',
+        '40'=>'40',
+        '45'=>'45',
+        '50'=>'50',
+        '55'=>'55'
     );
 
     while ( $bar = each($eventminute)) {
-        if ($selected==$bar['key']){
-                echo '        <option value="'.$bar['key'].'" selected="selected">'.$bar['value']."</option>\n";
+        if ($bar['key']==$selected){
+            echo '        <option value="'.$bar['key'].'" selected="selected">'.$bar['value']."</option>\n";
         } else {
-                echo '        <option value="'.$bar['key'].'">'.$bar['value']."</option>\n";
+            echo '        <option value="'.$bar['key'].'">'.$bar['value']."</option>\n";
         }
     }
 }
 
+/**
+ * Generates html option tags with hour values
+ * @param integer $selected selected value
+ * @return void
+ * @todo 12/24 hour format
+ */
 function select_option_hour($selected) {
 
     for ($i=0;$i<24;$i++){
@@ -99,6 +114,11 @@ function select_option_hour($selected) {
     }
 }
 
+/**
+ * Generates html option tags with priority values
+ * @param integer $selected selected value
+ * @return void
+ */
 function select_option_priority($selected) {
     $eventpriority = array(
         '0' => _("Normal"),
@@ -106,14 +126,21 @@ function select_option_priority($selected) {
     );
 
     while( $bar = each($eventpriority)) {
-        if($selected==$bar['key']){
-                echo '        <option value="'.$bar['key'].'" selected="selected">'.$bar['value']."</option>\n";
+        if($bar['key']==$selected){
+            echo '        <option value="'.$bar['key'].'" selected="selected">'.$bar['value']."</option>\n";
         } else {
-                echo '        <option value="'.$bar['key'].'">'.$bar['value']."</option>\n";
+            echo '        <option value="'.$bar['key'].'">'.$bar['value']."</option>\n";
         }
     }
 }
 
+/**
+ * Generates html option tags with year values
+ * 
+ * Hardcoded values from 1902 to 2037
+ * @param integer $selected selected value
+ * @return void
+ */
 function select_option_year($selected) {
 
     for ($i=1902;$i<2038;$i++){
@@ -125,6 +152,11 @@ function select_option_year($selected) {
     }
 }
 
+/**
+ * Generates html option tags with month values
+ * @param integer $selected selected value
+ * @return void
+ */
 function select_option_month($selected) {
 
     for ($i=1;$i<13;$i++){
@@ -138,6 +170,13 @@ function select_option_month($selected) {
     }
 }
 
+/**
+ * Generates html option tags with day of month values
+ * 
+ * Hardcoded values from 1 to 31
+ * @param integer $selected selected value
+ * @return void
+ */
 function select_option_day($selected) {
 
     for ($i=1;$i<32;$i++){

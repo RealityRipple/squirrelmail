@@ -1,97 +1,57 @@
 <?php
 
 /**
- * event_create.php
- *
- * Originally contrubuted by Michal Szczotka <michal@tuxy.org>
- *
  * functions to create a event for calendar.
  *
- * @copyright &copy; 2002-2005 The SquirrelMail Project Team
+ * @copyright &copy; 2002-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
  * @subpackage calendar
  */
 
-/**
- * @ignore
- */
+/** @ignore */
 define('SM_PATH','../../');
 
-/* Calender plugin required files. */
-require_once(SM_PATH . 'plugins/calendar/calendar_data.php');
-require_once(SM_PATH . 'plugins/calendar/functions.php');
-
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/strings.php');
-require_once(SM_PATH . 'functions/date.php');
-require_once(SM_PATH . 'config/config.php');
-require_once(SM_PATH . 'functions/page_header.php');
-require_once(SM_PATH . 'include/load_prefs.php');
-require_once(SM_PATH . 'functions/html.php');
+include_once(SM_PATH . 'include/validate.php');
+/* date_intl() */
+include_once(SM_PATH . 'functions/date.php');
+
+/* Calendar plugin required files. */
+include_once(SM_PATH . 'plugins/calendar/calendar_data.php');
+include_once(SM_PATH . 'plugins/calendar/functions.php');
 
 /* get globals */
-
-// undo rg = on effects
-if (isset($month)) unset($month);
-if (isset($year))  unset($year);
-if (isset($day))  unset($day);
-if (isset($hour))  unset($hour);
-if (isset($minute))  unset($minute);
-if (isset($event_hour))  unset($event_hour);
-if (isset($event_minute))  unset($event_minute);
-if (isset($event_length))  unset($event_length);
-if (isset($event_priority))  unset($event_priority);
-
-
-if (isset($_GET['year']) && is_numeric($_GET['year'])) {
-    $year = $_GET['year'];
+if (! sqGetGlobalVar('year',$year,SQ_FORM) || ! is_numeric($year)) {
+    unset($year);
 }
-elseif (isset($_POST['year']) && is_numeric($_POST['year'])) {
-    $year = $_POST['year'];
+if (! sqGetGlobalVar('month',$month,SQ_FORM) || ! is_numeric($month)) {
+    unset($month);
 }
-if (isset($_GET['month']) && is_numeric($_GET['month'])) {
-    $month = $_GET['month'];
+if (! sqGetGlobalVar('day',$day,SQ_FORM) || ! is_numeric($day)) {
+    unset($day);
 }
-elseif (isset($_POST['month']) && is_numeric($_POST['month'])) {
-    $month = $_POST['month'];
+if (! sqGetGlobalVar('hour',$hour,SQ_FORM) || ! is_numeric($hour)) {
+    unset($hour);
 }
-if (isset($_GET['day']) && is_numeric($_GET['day'])) {
-    $day = $_GET['day'];
+if (! sqGetGlobalVar('event_hour',$event_hour,SQ_POST) || ! is_numeric($event_hour)) {
+    unset($event_hour);
 }
-elseif (isset($_POST['day']) && is_numeric($_POST['day'])) {
-    $day = $_POST['day'];
+if (! sqGetGlobalVar('event_minute',$event_minute,SQ_POST) || ! is_numeric($event_minute)) {
+    unset($event_minute);
+}
+if (! sqGetGlobalVar('event_length',$event_length,SQ_POST) || ! is_numeric($event_length)) {
+    unset($event_length);
+}
+if (! sqGetGlobalVar('event_priority',$event_priority,SQ_POST) || ! is_numeric($event_priority)) {
+    unset($event_priority);
 }
 
-if (isset($_POST['hour']) && is_numeric($_POST['hour'])) {
-    $hour = $_POST['hour'];
-}
-elseif (isset($_GET['hour']) && is_numeric($_GET['hour'])) {
-    $hour = $_GET['hour'];
-}
-if (isset($_POST['event_hour']) && is_numeric($_POST['event_hour'])) {
-    $event_hour = $_POST['event_hour'];
-}
-if (isset($_POST['event_minute']) && is_numeric($_POST['event_minute'])) {
-    $event_minute = $_POST['event_minute'];
-}
-if (isset($_POST['event_length']) && is_numeric($_POST['event_length'])) {
-    $event_length = $_POST['event_length'];
-}
-if (isset($_POST['event_priority']) && is_numeric($_POST['event_priority'])) {
-    $event_priority = $_POST['event_priority'];
-}
-if (isset($_POST['event_title'])) {
-    $event_title = $_POST['event_title'];
-}
-if (isset($_POST['event_text'])) {
-    $event_text = $_POST['event_text'];
-}
-if (isset($_POST['send'])) {
-    $send = $_POST['send'];
-}
+sqGetGlobalVar('event_title',$event_title,SQ_POST);
+sqGetGlobalVar('event_text',$event_text,SQ_POST);
+sqGetGlobalVar('send',$send,SQ_POST);
+
 /* got 'em */
 
 //main form to gather event info
@@ -178,15 +138,11 @@ if(!isset($event_text)){
     show_event_form();
 } else {
     readcalendardata();
-    //make sure that event text is fittting in one line
-    $event_text=nl2br($event_text);
-    $event_text=ereg_replace ("\n", "", $event_text);
-    $event_text=ereg_replace ("\r", "", $event_text);
     $calendardata["$month$day$year"]["$event_hour$event_minute"] =
-    array( 'length' => $event_length,
+    array( 'length'   => $event_length,
            'priority' => $event_priority,
-           'title' => $event_title,
-           'message' => $event_text,
+           'title'    => $event_title,
+           'message'  => $event_text,
            'reminder' => '' );
     //save
     writecalendardata();
@@ -208,7 +164,7 @@ if(!isset($event_text)){
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Message:"), 'right', $color[4] ) . "\n" .
-                    html_tag( 'td', htmlspecialchars($event_text,ENT_NOQUOTES), 'left', $color[4] ) . "\n"
+                    html_tag( 'td', nl2br(htmlspecialchars($event_text,ENT_NOQUOTES)), 'left', $color[4] ) . "\n"
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td',
