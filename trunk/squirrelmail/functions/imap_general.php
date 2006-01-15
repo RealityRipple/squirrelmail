@@ -902,6 +902,11 @@ function sqimap_get_delimiter ($imap_stream = false) {
         return $optional_delimiter;
     }
 
+    /* Delimiter is stored in the session from redirect.  Try fetching from there first */
+    if (empty($sqimap_delimiter) {
+        sqgetGlobalVar('delimiter',$sqimap_delimiter,SQ_SESSION);
+    }
+
     /* Do some caching here */
     if (!$sqimap_delimiter) {
         if (sqimap_capability($imap_stream, 'NAMESPACE')) {
