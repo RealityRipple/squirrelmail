@@ -135,7 +135,6 @@ function drawmonthview() {
 /**
  * end of monthly view and form to jump to any month and year
  * @return void
- * @
  * @access private
  */
 function endcalendar() {
