@@ -636,6 +636,8 @@ Version 1.5.0 - 2 February 2004
   - Integration of delete_move_next plugin into core.
   - Compression of buttons/headers for message index and message body
   - New option to save replies in the same folder as the original message.
+  - Remove possible unneeded IMAP call for NAMESPACE if it was saved in the
+    session (suggestion by Michael Long).
 
 
 **************************************
