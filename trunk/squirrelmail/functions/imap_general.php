@@ -903,7 +903,7 @@ function sqimap_get_delimiter ($imap_stream = false) {
     }
 
     /* Delimiter is stored in the session from redirect.  Try fetching from there first */
-    if (empty($sqimap_delimiter) {
+    if (empty($sqimap_delimiter)) {
         sqgetGlobalVar('delimiter',$sqimap_delimiter,SQ_SESSION);
     }
 
