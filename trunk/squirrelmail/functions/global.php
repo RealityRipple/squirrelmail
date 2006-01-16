@@ -283,11 +283,7 @@ function sqsetcookie($sName,$sValue,$iExpire=false,$sPath="",$sDomain="",$bSecur
     if ($iExpire !== false) {
         $sHeader .= "; Max-Age=$iExpire";
         // php uses Expire header, also add the expire header
-        if ($iExpire === 0) {
-            $sHeader .= "; expires=". date("r",time() - 3600);
-        } else {
-            $sHeader .= "; expires=". date("r",$iExpire);
-        }
+        $sHeader .= "; expires=". gmdate("r",$iExpire);
     }
     if ($sDomain) {
         $sHeader .= "; Domain=$sDomain";
