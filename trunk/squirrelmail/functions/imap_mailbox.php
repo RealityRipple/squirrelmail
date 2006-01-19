@@ -317,7 +317,7 @@ function sqimap_mailbox_expunge ($imap_stream, $mailbox, $handle_errors = true, 
  *
  * @param stream $imap_stream imap connection resource
  * @param string $mailbox mailbox name
- * @param array $mailboxlist (since 1.5.1) optional array of mailboxes from 
+ * @param array $mailboxlist (since 1.5.1) optional array of mailboxes from
  *  sqimap_get_mailboxes() (to avoid having to talk to imap server)
  * @return boolean
  * @since 1.0 or older
@@ -350,10 +350,12 @@ function sqimap_mailbox_exists ($imap_stream, $mailbox, $mailboxlist=null) {
  * @since 1.0 or older
  */
 function sqimap_mailbox_select ($imap_stream, $mailbox) {
+    // FIX ME: WHAAAA DO NOT USE "None" for something that does not exist. Use false or NULL instead
     if ($mailbox == 'None') {
         return;
     }
-
+    // cleanup $mailbox in order to prevent IMAP injection attacks
+    $mailbox = str_replace(array("\r","\n"), array("",""),$mailbox);
     $read = sqimap_run_command($imap_stream, 'SELECT ' . sqimap_encode_mailbox_name($mailbox),
                                true, $response, $message);
     $result = array();
@@ -557,7 +559,7 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
  * Before 1.2.0 used third argument for delimiter.
  *
  * Before 1.5.1 used second argument for lsub line. Argument was removed in order to use
- * find_mailbox_name() on the raw input. Since 1.5.1 includes RFC3501 names in flags 
+ * find_mailbox_name() on the raw input. Since 1.5.1 includes RFC3501 names in flags
  * array (for example, "\NoSelect" in addition to "noselect")
  * @param array $line
  * @return array
@@ -771,7 +773,7 @@ function sqimap_get_mailboxes($imap_stream,$force=false,$show_only_subscribed=tr
      * There are three main listing commands we can use in IMAP:
      * LSUB        shows just the list of subscribed folders
      *            may include flags, but these are not necessarily accurate or authoratative
-     *            \NoSelect has special meaning: the folder does not exist -OR- it means this 
+     *            \NoSelect has special meaning: the folder does not exist -OR- it means this
      *            folder is not subscribed but children may be
      *            [RFC-2060]
      * LIST        this shows every mailbox on the system
@@ -840,7 +842,7 @@ function sqimap_get_mailboxes($imap_stream,$force=false,$show_only_subscribed=tr
         // and NOT a LSUB, so no need to do it again
         $list_assoc_ary  = $lsub_assoc_ary;
     } else {
-        // we did a LSUB so now we need to do a LIST            
+        // we did a LSUB so now we need to do a LIST
         // first see if it is in cache
         $list_cache_name='list_cache';
         if (!$force) {
@@ -944,7 +946,7 @@ function sqimap_get_mailboxes($imap_stream,$force=false,$show_only_subscribed=tr
             break;
         }
     }
-    
+
     if ($has_inbox == false) {
         // do a list request for inbox because we should always show
         // inbox even if the user isn't subscribed to it.
@@ -1036,14 +1038,14 @@ function sqimap_mailbox_tree($imap_stream,$lsub_ary) {
         if (in_array('\HasNoChildren',$flags)) { $noinferiors=1; }
 
         $noselect=0;
-        if (in_array('\NoSelect',$flags)) { $noselect=1; } 
+        if (in_array('\NoSelect',$flags)) { $noselect=1; }
         /**
          * LIST (SUBSCRIBED) has two new flags, \NonExistent which means the mailbox is subscribed to
          * but doesn't exist, and \PlaceHolder which is similar (but not the same) as \NoSelect
          * For right now, we'll treat these the same as \NoSelect and this behavior can be changed
          * later if needed
          */
-        if (in_array('\NonExistent',$flags)) { $noselect=1; } 
+        if (in_array('\NonExistent',$flags)) { $noselect=1; }
         if (in_array('\PlaceHolder',$flags)) { $noselect=1; }
         $sorted_lsub_ary[] = array ('mbx' => $mbx, 'noselect' => $noselect, 'noinferiors' => $noinferiors);
     }
