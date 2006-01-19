@@ -518,6 +518,8 @@ Version 1.5.1 -- CVS
   - Prevent output of whitespace during plugin activation. Fixes possible 
     attachment corruption by incorrectly coded plugins.
   - Fixed data sanitizing in calendar plugin (#1291081)(#705796).
+  - Prohibit imap injection attempts (reported by Vicente Aguilera)
+
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
