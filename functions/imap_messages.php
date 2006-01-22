@@ -39,9 +39,14 @@ function sqimap_msgs_list_copy($imap_stream, $id, $mailbox, $handle_errors = tru
  * @param string $id The list of messages to move
  * @param string $mailbox The destination to move to
  * @param bool $handle_errors Show error messages in case of a NO, BAD or BYE response
+ * @param string $source_mailbox (since 1.5.1) name of source mailbox. It is used to 
+ *  validate that target mailbox != source mailbox.
  * @return bool If the move completed without errors
  */
-function sqimap_msgs_list_move($imap_stream, $id, $mailbox, $handle_errors = true) {
+function sqimap_msgs_list_move($imap_stream, $id, $mailbox, $handle_errors = true, $source_mailbox = false) {
+    if ($source_mailbox!==false && $source_mailbox==$mailbox) {
+        return false;
+    }
     $msgs_id = sqimap_message_list_squisher($id);
     if (sqimap_msgs_list_copy ($imap_stream, $id, $mailbox, $handle_errors)) {
         return sqimap_toggle_flag($imap_stream, $id, '\\Deleted', true, true);
