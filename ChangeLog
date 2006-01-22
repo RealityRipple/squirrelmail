@@ -519,6 +519,10 @@ Version 1.5.1 -- CVS
     attachment corruption by incorrectly coded plugins.
   - Fixed data sanitizing in calendar plugin (#1291081)(#705796).
   - Prohibit imap injection attempts (reported by Vicente Aguilera)
+  - Don't move messages in sqimap_msgs_list_move() functions, when target
+    mailbox is same as source mailbox. Adds fifth argument to 
+    sqimap_msgs_list_move() function. Fixes possible issues on MacOS Cyrus
+    IMAP server (#1409453).
 
 
 Version 1.5.0 - 2 February 2004
