@@ -1270,7 +1270,7 @@ function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = ar
             $aUpdatedMsgs = sqimap_toggle_flag($imapConnection, $aUid, $sFlag, $bSet, true);
             break;
           case 'move':
-            $aUpdatedMsgs = sqimap_msgs_list_move($imapConnection,$aUid,$targetMailbox);
+            $aUpdatedMsgs = sqimap_msgs_list_move($imapConnection,$aUid,$targetMailbox,true,$mailbox);
             sqsession_register($targetMailbox,'lastTargetMailbox');
             $bExpunge = true;
             break;
