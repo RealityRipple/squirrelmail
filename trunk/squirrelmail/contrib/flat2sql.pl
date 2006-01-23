@@ -6,7 +6,7 @@
 # privileged user or backup your data directory before using it.
 #
 # Copyright (c) 2002, Michael Blandford and Tal Yardeni
-# Copyright (c) 2005, The SquirrelMail Project Team
+# Copyright (c) 2005-2006 The SquirrelMail Project Team
 #
 # This script is licensed under GPL.
 # $Id$

@@ -13,7 +13,7 @@
  *          necessary.
  *
  * @author Ray Black
- * @copyright &copy; 2000-2005 The SquirrelMail Project Team
+ * @copyright &copy; 2000-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

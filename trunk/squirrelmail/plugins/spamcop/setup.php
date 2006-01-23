@@ -3,7 +3,7 @@
 /**
  * setup.php -- SpamCop plugin - setup script
  *
- * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
