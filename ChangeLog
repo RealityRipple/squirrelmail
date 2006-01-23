@@ -523,6 +523,9 @@ Version 1.5.1 -- CVS
     mailbox is same as source mailbox. Adds fifth argument to 
     sqimap_msgs_list_move() function. Fixes possible issues on MacOS Cyrus
     IMAP server (#1409453).
+  - Style sheets are moved to template.
+  - displayHtmlHeader() function call sends http headers in order to prevent 
+    page caching.
 
 
 Version 1.5.0 - 2 February 2004
