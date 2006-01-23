@@ -3,7 +3,7 @@
  * This script gathers system specification details for use with bug reporting
  * and anyone else who needs it.
  *
- * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

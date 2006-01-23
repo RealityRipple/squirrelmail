@@ -7,7 +7,7 @@
  * This file is include by src/login.php, src/redirect.php and
  * src/load_prefs.php.
  *
- * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

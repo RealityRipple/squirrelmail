@@ -8,7 +8,7 @@
  *
  * Function replaces all 8bit symbols with '?' marks
  *
- * @copyright &copy; 2004-2005 The SquirrelMail Project Team
+ * @copyright &copy; 2004-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

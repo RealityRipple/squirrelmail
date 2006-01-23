@@ -5,7 +5,7 @@
  * main spellchecker window. Hope you have as much pain figuring
  * it out as it took to write. ;))
  *
- * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  */

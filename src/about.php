@@ -10,7 +10,7 @@
  * - What more information is needed?
  * - Display of system information might be restricted
  *
- * @copyright &copy; 1999-2005 The SquirrelMail Project Team
+ * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
@@ -87,6 +87,6 @@ if ( count ($plugins) > 0 ) {
 </small>
 <br /><br />
 </td></tr>
-<tr><td align="center">&copy; 1999 - 2005 The SquirrelMail Project Team</td></tr>
+<tr><td align="center">&copy; 1999 - 2006 The SquirrelMail Project Team</td></tr>
 </table></p>
 </body></html>
