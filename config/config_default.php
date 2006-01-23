@@ -775,6 +775,32 @@ $theme[43]['PATH'] = SM_PATH . 'themes/simple_purple.php';
 $theme[43]['NAME'] = 'Simple Purple';
 
 /**
+ * Default interface font size.
+ * @global string $default_fontsize
+ * @since 1.5.1
+ */
+$default_fontsize = '';
+
+/**
+ * Default font set
+ * @global string $default_fontset
+ * @since 1.5.1
+ */
+$default_fontset = '';
+
+/**
+ * List of available fontsets.
+ * @global array $fontsets
+ * @since 1.5.1
+ */
+$fontsets = array();
+$fontsets['serif'] = 'serif';
+$fontsets['sans'] = 'helvetica,arial,sans-serif';
+$fontsets['comicsans'] = 'comic sans ms,sans-serif';
+$fontsets['verasans'] = 'bitstream vera sans,verdana,sans-serif';
+$fontsets['tahoma'] = 'tahoma,sans-serif';
+
+/**
  * LDAP server(s)
  *   Array of arrays with LDAP server parameters. See
  *   functions/abook_ldap_server.php for a list of possible

@@ -11,6 +11,9 @@
  * @package squirrelmail
  */
 
+/** @ignore */
+if (! defined('SM_PATH')) define('SM_PATH','../');
+
 /** Include required files from SM */
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/html.php');
@@ -21,6 +24,8 @@ require_once(SM_PATH . 'functions/global.php');
  * Output a SquirrelMail page header, from <!doctype> to </head>
  * Always set up the language before calling these functions.
  *
+ * Since 1.5.1 function sends http headers. Function should be called
+ * before any output is started.
  * @param string title the page title, default SquirrelMail.
  * @param string xtra extra HTML to insert into the header
  * @param bool do_hook whether to execute hooks, default true
@@ -33,7 +38,12 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = true
     if ( !sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
         global $base_uri;
     }
-    global $theme_css, $custom_css, $pageheader_sent;
+    global $theme_css, $custom_css, $pageheader_sent, 
+        $chosen_fontset, $chosen_fontsize, $chosen_theme;
+
+    /* add no cache headers here */
+    header('Pragma: no-cache'); // http 1.0 (rfc1945)
+    header('Cache-Control: private, no-cache, no-store'); // http 1.1 (rfc2616)
 
     if ($frames) {
         echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">';
@@ -43,20 +53,22 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = true
     echo "\n" . html_tag( 'html' ,'' , '', '', 'lang="'.$squirrelmail_language.'"' ) .
         "<head>\n<meta name=\"robots\" content=\"noindex,nofollow\">\n";
 
+    
+    $used_theme = basename($chosen_theme,'.php');
+
     /*
      * Add closing / to link and meta elements only after switching to xhtml 1.0 Transitional.
      * It is not compatible with html 4.01 Transitional
      */
-    if ( !isset( $custom_css ) || $custom_css == 'none' ) {
-        if ($theme_css != '') {
-            echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$theme_css\">";
-        }
-    } else {
-        echo '<link rel="stylesheet" type="text/css" href="' .
-             $base_uri . 'themes/css/'.$custom_css.'">';
-    }
+    echo '<link rel="stylesheet" type="text/css" href="'. $base_uri .'src/style.php'
+        .'?fontset='.$chosen_fontset
+        .'&themeid='.$used_theme
+        .(isset($chosen_fontsize) ? '&fontsize='.$chosen_fontsize : '')."\">\n";
 
-    echo '<link rel="stylesheet" type="text/css" href="'. $base_uri .'templates/default/squirrelmail.css">';
+    // load custom style sheet (deprecated)
+    if ( !isset( $theme_css ) || empty($theme_css) ) {
+        echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$theme_css\">";
+    }
 
     if ($squirrelmail_language == 'ja_JP') {
         /*
@@ -182,7 +194,7 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
         $sBodyTagJs = '';
     }
 
-    echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" $sBodyTagJs>\n\n";
+    echo "<body $sBodyTagJs>\n\n";
 
     /** Here is the header and wrapping table **/
     $shortBoxName = htmlspecialchars(imap_utf7_decode_local(

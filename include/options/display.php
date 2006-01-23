@@ -49,7 +49,7 @@ if (! isset($use_iframe)) $use_iframe=false;
  * @return array all option information
  */
 function load_optpage_data_display() {
-    global $theme, $language, $languages,
+    global $theme, $fontsets, $language, $languages,
     $default_use_mdn, $squirrelmail_language, $allow_thread_sort,
     $show_alternative_names, $use_icons, $use_iframe;
 
@@ -93,6 +93,7 @@ function load_optpage_data_display() {
         closedir($handle);
     }
 
+    /*
     if ( count( $css_values ) > 1 ) {
 
         $optvals[SMOPT_GRP_GENERAL][] = array(
@@ -104,6 +105,36 @@ function load_optpage_data_display() {
         );
 
     }
+    */
+
+    $fontset_values = array();
+    foreach (array_keys($fontsets) as $fontset_key) {
+        $fontset_list[$fontset_key]=$fontset_key;
+    }
+    ksort($fontset_list);
+
+    if (count($fontset_list) > 1) {
+        $fontset_list = array_merge(array('' => _("Default font style")), $fontset_list);
+        $optvals[SMOPT_GRP_GENERAL][] = array(
+            'name'    => 'chosen_fontset',
+            'caption' => _("Font style"),
+            'type'    => SMOPT_TYPE_STRLIST,
+            'refresh' => SMOPT_REFRESH_ALL,
+            'posvals' => $fontset_list
+        );
+    }
+
+    $optvals[SMOPT_GRP_GENERAL][] = array(
+        'name'    => 'chosen_fontsize',
+        'caption' => _("Font size"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_ALL,
+        'posvals' => array('' => _("Default font size"),
+                           '8' => '8 px',
+                           '10' => '10 px',
+                           '12' => '12 px',
+                           '14' => '14 px')
+    );
 
     $language_values = array();
     foreach ($languages as $lang_key => $lang_attributes) {
