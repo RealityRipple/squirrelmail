@@ -359,6 +359,11 @@ $delete_prev_next_display = getPref($data_dir, $username, 'delete_prev_next_disp
  */
 $iframe_height = getPref($data_dir, $username, 'iframe_height', '300');
 
+if (! isset($default_fontset)) $default_fontset=SMPREF_NONE;
+$chosen_fontset = getPref($data_dir, $username, 'chosen_fontset', $default_fontset);
+if (! isset($default_fontsize)) $default_fontsize=SMPREF_NONE;
+$chosen_fontsize = getPref($data_dir, $username, 'chosen_fontsize', $default_fontsize);
+
 do_hook('loading_prefs');
 
 ?>

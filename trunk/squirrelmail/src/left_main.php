@@ -80,7 +80,7 @@ function ListBoxes ($boxes, $j=0 ) {
                 $unseen_string .= '/' . $boxes->total;
             }
 
-            $unseen_string = "<font color=\"$color[11]\">($unseen_string)</font>";
+            $unseen_string = "<span class=\"highlight\">($unseen_string)</span>";
 
             /*
                 Finally allow the script to display the values by setting a boolean.
@@ -157,15 +157,16 @@ function ListBoxes ($boxes, $j=0 ) {
 
     }
 
-    $font = '';
-    $fontend = '';
+    $span = '';
+    $spanend = '';
     if ($use_special_folder_color && $boxes->is_special) {
-        $font = "<font color=\"$color[11]\">";
-        $fontend = "</font>";
+        $span = "<span class=\"leftspecial\">";
+        $spanend = "</span>";
     } elseif ( $boxes->is_noselect ) {
-        $font = "<font color=\"$color[15]\">";
-        $fontend = '</font>';
+        $span = "<span class=\"leftnoselect\">";
+        $spanend = '</span>';
     }
+
 
     // let plugins fiddle with end of line
     $end .= concat_hook_function('left_main_after_each_folder',
@@ -175,12 +176,12 @@ function ListBoxes ($boxes, $j=0 ) {
     $end .= '</span>';
 
     if (!$boxes->is_root) {
-        echo "" . $pre .$font.
+        echo "" . $span . $pre .
             str_replace(
                 array(' ','<','>'),
                 array('&nbsp;','&lt;','&gt;'),
                 $boxes->mailboxname_sub) .
-            $fontend . $end. '<br />' . "\n";
+            $end. $spanend .'<br />' . "\n";
         $j++;
     }
 
@@ -232,7 +233,7 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
                 $unseen_string .= '/' . $boxes->total;
             }
 
-            $unseen_string = "<font color=\"$color[11]\">($unseen_string)</font>";
+            $unseen_string = "<span class=\"highlight\">($unseen_string)</span>";
 
             /*
                 Finally allow the script to display the values by setting a boolean.
@@ -250,8 +251,8 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
 
     /* color special boxes */
     if ($use_special_folder_color && $boxes->is_special) {
-        $pre .= "<font color=\"$color[11]\">";
-        $end .= '</font>';
+        $pre .= "<span class=\"highlight\">";
+        $end .= '</span>';
     }
 
     /* If there are unseen message, close bolding. */
@@ -671,9 +672,9 @@ if ($auto_create_special && !isset($auto_create_done)) {
 if ($advanced_tree) {
     echo "\n<body" .
             ' onload="preload(\'../images/minus.png\',\'../images/plus.png\')"' .
-            " bgcolor=\"$color[3]\" text=\"$color[6]\" link=\"$color[6]\" vlink=\"$color[6]\" alink=\"$color[6]\">\n";
+            " class=\"leftmain\">\n<div class=\"leftmain\">\n";
 } else {
-    echo "\n<body bgcolor=\"$color[3]\" text=\"$color[6]\" link=\"$color[6]\" vlink=\"$color[6]\" alink=\"$color[6]\">\n";
+    echo "\n<body class=\"leftmain\">\n<div class=\"leftmain\">\n";
 }
 
 do_hook('left_main_before');
@@ -793,4 +794,4 @@ sqimap_logout($imapConnection);
 
 ?>
 </td></tr></table>
-</body></html>
+</div></body></html>

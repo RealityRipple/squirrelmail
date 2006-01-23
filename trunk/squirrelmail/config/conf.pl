@@ -197,6 +197,12 @@ while ( $line = <FILE> ) {
             } else {
                $plugins[$sub] = $options[1];
             }
+        } elsif ($options[0] =~ /^fontsets\[\'[a-z]*\'\]/) {
+            # parse associative $fontsets array
+            $sub = $options[0];
+            $sub =~ s/\'\]//;
+            $sub =~ s/^fontsets\[\'//;
+            $fontsets{$sub} = $options[1];
         } elsif ( $options[0] =~ /^ldap_server\[[0-9]+\]/ ) {
             $sub = $options[0];
             $sub =~ s/\]//;
@@ -337,6 +343,7 @@ $imap_auth_mech = 'login'               if ( !$imap_auth_mech );
 $session_name = 'SQMSESSID'             if ( !$session_name );
 $skip_SM_header = 'false'               if ( !$skip_SM_header );
 $default_use_javascript_addr_book = 'false' if (! $default_use_javascript_addr_book);
+
 # since 1.5.0
 $show_alternative_names = 'false'       if ( !$show_alternative_names );
 # $available_languages option available only in 1.5.0. removed due to $languages
@@ -346,6 +353,7 @@ $aggressive_decoding = 'false'          if ( !$aggressive_decoding );
 $advanced_tree = 'false'                if ( !$advanced_tree );
 $use_php_recode = 'false'               if ( !$use_php_recode );
 $use_php_iconv = 'false'                if ( !$use_php_iconv );
+
 # since 1.5.1
 $use_icons = 'false'                    if ( !$use_icons );
 $use_iframe = 'false'                   if ( !$use_iframe );
@@ -363,12 +371,24 @@ $time_zone_type = '0'                   if ( !$time_zone_type );
 $prefs_user_size = 128                  if ( !$prefs_user_size );
 $prefs_key_size = 64                    if ( !$prefs_key_size );
 $prefs_val_size = 65536                 if ( !$prefs_val_size );
+
 # add qmail-inject test here for backwards compatibility
 if ( !$sendmail_args && $sendmail_path =~ /qmail-inject/ ) { 
     $sendmail_args = '';
 } elsif ( !$sendmail_args ) {
     $sendmail_args = '-i -t';
 }
+
+$default_fontsize = ''                  if ( !$default_fontsize);
+$default_fontset = ''                   if ( !$default_fontset);
+if ( !%fontsets) {
+    %fontsets = ('serif',     'serif',
+                 'sans',      'helvetica,arial,sans-serif',
+                 'comicsans', 'comic sans ms,sans-serif',
+                 'tahoma',    'tahoma,sans-serif',
+                 'verasans',  'bitstream vera sans,verdana,sans-serif');
+}
+
 
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
@@ -554,6 +574,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
                    $theme_name[($count*2)+1];
         }
         print "2.  CSS File : $WHT$theme_css$NRM\n";
+        print "3.  Default font size: $WHT$default_fontsize$NRM\n";
+        print "4.  Change available font sets\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 6 ) {
@@ -776,6 +798,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         } elsif ( $menu == 5 ) {
             if ( $command == 1 ) { command41(); }
             elsif ( $command == 2 ) { $theme_css = command42(); }
+            elsif ( $command == 3 ) { $default_fontsize = command_default_fontsize(); }
+            elsif ( $command == 4 ) { command_fontsets(); }
         } elsif ( $menu == 6 ) {
             if    ( $command == 1 ) { command61(); }
             elsif ( $command == 2 ) { command62(); }
@@ -1051,10 +1075,6 @@ sub command14 {
 
 # sendmail_path
 sub command15 {
-    # TODO: fix check
-    if ( $sendmail_path[0] !~ /./ ) {
-        $sendmail_path = "/usr/sbin/sendmail";
-    }
     print "Specify where the sendmail executable is located.  Usually /usr/sbin/sendmail\n";
     print "[$WHT$sendmail_path$NRM]: $WHT";
     $new_sendmail_path = <STDIN>;
@@ -2520,6 +2540,89 @@ sub command42 {
     return $new_theme_css;
 }
 
+# sets default font size option
+sub command_default_fontsize {
+    print "Enter default font size [$WHT$$default_fontsize$NRM]: $WHT";
+    $new_size = <STDIN>;
+    if ( $new_size eq "\n" ) {
+        $new_size = $size;
+    } else {
+        $new_size =~ s/[\r\n]//g;
+    }
+    return $new_size;
+}
+
+# controls available fontsets
+sub command_fontsets {
+    # Greeting
+    print "You can control fontsets available to end users here.\n";
+    # set initial $input value
+    $input = 'l';
+    while ( $input ne "x" ) {
+        if ( $input =~ /^\s*a\s*/i ) {
+            # add new fontset
+            print "\nFontset name: ";
+            $name = <STDIN>;
+            if (! $fontsets{trim($name)}) {
+                print "Fontset string: ";
+                $value = <STDIN>;
+                $fontsets{trim($name)} = trim($value);
+            } else {
+                print "\nERROR: Such fontset already exists.\n";
+            }
+        } elsif ( $input =~ /^\s*e\s*/i ) {
+            # edit existing fontset
+            print "\nFontset name: ";
+            $name = <STDIN>;
+            if (! $fontsets{trim($name)}) {
+                print "\nERROR: No such fontset.\n";
+            } else {
+                print "Fontset string [$fontsets{trim($name)}]: ";
+                $value = <STDIN>;
+                $fontsets{trim($name)} = trim($value);
+            }
+        } elsif ( $input =~ /^\s*d\s*/ ) {
+            # delete existing fontset
+            print "\nFontset name: ";
+            $name = <STDIN>;
+            if (! $fontsets{trim($name)}) {
+                print "\nERROR: No such fontset.\n";
+            } else {
+                delete $fontsets{trim($name)};
+            }
+        } elsif ( $input =~ /^\s*l\s*/ ) {
+            # list fontsets
+            print "\nConfigured fontsets:\n";
+            while (($fontset_name, $fontset_string) = each(%fontsets)) {
+                print "  $fontset_name = $fontset_string\n";
+            }
+            print "Default fontset: $default_fontset\n";
+        } elsif ( $input =~ /^\s*m\s*/ ) {
+            # set default fontset
+            print "\nSet default fontset [$default_fontset]: ";
+            $name = <STDIN>;
+            if (trim($name) ne '' and ! $fontsets{trim($name)}) {
+                print "\nERROR: No such fontset.\n";
+            } else {
+                $default_fontset = trim($name);
+            }
+        } else {
+            # print available commands on any other input
+            print "\nAvailable commands:\n";
+            print "  a - Adds new fontset.\n";
+            print "  d - Deletes existing fontset.\n";
+            print "  e - Edits existing fontset.\n";
+            print "  h or ? - Shows this help screen.\n";
+            print "  l - Lists available fontsets.\n";
+            print "  m - Sets default fontset.\n";
+            print "  x - Exits fontset editor mode.\n";
+        }
+        print "\nCommand [fontsets] (a,d,e,h,?=help,l,m,x)> ";
+        $input = <STDIN>;
+        $input =~ s/[\r\n]//g;
+    }
+}
+
 sub command61 {
     print "You can now define different LDAP servers.\n";
     print "[ldap] command (?=help) > ";
@@ -3466,89 +3569,89 @@ sub save_data {
         print CF "\$encode_header_key      = '$encode_header_key';\n";
         print CF "\n";
 
-    # string
+        # string
         print CF "\$default_folder_prefix          = '$default_folder_prefix';\n";
-    # string
+        # string
         print CF "\$trash_folder                   = '$trash_folder';\n";
-    # string
+        # string
         print CF "\$sent_folder                    = '$sent_folder';\n";
-    # string
+        # string
         print CF "\$draft_folder                   = '$draft_folder';\n";
-    # boolean
+        # boolean
         print CF "\$default_move_to_trash          = $default_move_to_trash;\n";
-    # boolean
+        # boolean
         print CF "\$default_move_to_sent           = $default_move_to_sent;\n";
-    # boolean
+        # boolean
         print CF "\$default_save_as_draft          = $default_save_as_draft;\n";
-    # boolean
+        # boolean
         print CF "\$show_prefix_option             = $show_prefix_option;\n";
-    # boolean
+        # boolean
         print CF "\$list_special_folders_first     = $list_special_folders_first;\n";
-    # boolean
+        # boolean
         print CF "\$use_special_folder_color       = $use_special_folder_color;\n";
-    # boolean
+        # boolean
         print CF "\$auto_expunge                   = $auto_expunge;\n";
-    # boolean
+        # boolean
         print CF "\$default_sub_of_inbox           = $default_sub_of_inbox;\n";
-    # boolean
+        # boolean
         print CF "\$show_contain_subfolders_option = $show_contain_subfolders_option;\n";
-    # integer
+        # integer
         print CF "\$default_unseen_notify          = $default_unseen_notify;\n";
-    # integer
+        # integer
         print CF "\$default_unseen_type            = $default_unseen_type;\n";
-    # boolean
+        # boolean
         print CF "\$auto_create_special            = $auto_create_special;\n";
-    # boolean
+        # boolean
         print CF "\$delete_folder                  = $delete_folder;\n";
-    # boolean
+        # boolean
         print CF "\$noselect_fix_enable            = $noselect_fix_enable;\n";
 
         print CF "\n";
 
-    # string
+        # string
         print CF "\$data_dir                 = " . &change_to_SM_path($data_dir) . ";\n";
-    # string that can contain a variable
+        # string that can contain a variable
         print CF "\$attachment_dir           = " . &change_to_SM_path($attachment_dir) . ";\n";
-    # integer
+        # integer
         print CF "\$dir_hash_level           = $dir_hash_level;\n";
-    # string
+        # string
         print CF "\$default_left_size        = '$default_left_size';\n";
-    # boolean
+        # boolean
         print CF "\$force_username_lowercase = $force_username_lowercase;\n";
-    # boolean
+        # boolean
         print CF "\$default_use_priority     = $default_use_priority;\n";
-    # boolean
+        # boolean
         print CF "\$hide_sm_attributions     = $hide_sm_attributions;\n";
-    # boolean
+        # boolean
         print CF "\$default_use_mdn          = $default_use_mdn;\n";
-    # boolean
+        # boolean
         print CF "\$edit_identity            = $edit_identity;\n";
-    # boolean
+        # boolean
         print CF "\$edit_name                = $edit_name;\n";
-    # boolean
+        # boolean
         print CF "\$hide_auth_header         = $hide_auth_header;\n";
-    # boolean
+        # boolean
         print CF "\$allow_thread_sort        = $allow_thread_sort;\n";
-    # boolean
+        # boolean
         print CF "\$allow_server_sort        = $allow_server_sort;\n";
-    # boolean
+        # boolean
         print CF "\$allow_charset_search     = $allow_charset_search;\n";
-    # integer
+        # integer
         print CF "\$allow_advanced_search    = $allow_advanced_search;\n";
         print CF "\n";
         # integer
         print CF "\$time_zone_type           = $time_zone_type;\n";
         print CF "\n";
 
-    # all plugins are strings
+        # all plugins are strings
         for ( $ct = 0 ; $ct <= $#plugins ; $ct++ ) {
             print CF "\$plugins[] = '$plugins[$ct]';\n";
         }
         print CF "\n";
 
-    # strings
+        # strings
         print CF "\$theme_css = " . &change_to_SM_path($theme_css) . ";\n";
-    if ( $theme_default eq '' ) { $theme_default = '0'; }
+        if ( $theme_default eq '' ) { $theme_default = '0'; }
         print CF "\$theme_default = $theme_default;\n";
 
         for ( $count = 0 ; $count <= $#theme_name ; $count++ ) {
@@ -3561,33 +3664,45 @@ sub save_data {
         }
         print CF "\n";
 
+        # integer
+        print CF "\$default_fontsize = '$default_fontsize';\n";
+        # string
+        print CF "\$default_fontset = '$default_fontset';\n";
+        print CF "\n";
+        # assoc. array (maybe initial value should be set somewhere else)
+        print CF '$fontsets = array();'."\n";
+        while (($fontset_name, $fontset_value) = each(%fontsets)) {
+            print CF "\$fontsets\['$fontset_name'\] = '$fontset_value';\n";
+        }
+        print CF "\n";
+
         ## Address books
         # boolean
         print CF "\$default_use_javascript_addr_book = $default_use_javascript_addr_book;\n";
         for ( $count = 0 ; $count <= $#ldap_host ; $count++ ) {
             print CF "\$ldap_server[$count] = array(\n";
-        # string
+            # string
             print CF "    'host' => '$ldap_host[$count]',\n";
-        # string
+            # string
             print CF "    'base' => '$ldap_base[$count]'";
             if ( $ldap_name[$count] ) {
                 print CF ",\n";
-        # string
+                # string
                 print CF "    'name' => '$ldap_name[$count]'";
             }
             if ( $ldap_port[$count] ) {
                 print CF ",\n";
-        # integer
+                # integer
                 print CF "    'port' => $ldap_port[$count]";
             }
             if ( $ldap_charset[$count] ) {
                 print CF ",\n";
-        # string
+                # string
                 print CF "    'charset' => '$ldap_charset[$count]'";
             }
             if ( $ldap_maxrows[$count] ) {
                 print CF ",\n";
-        # integer
+                # integer
                 print CF "    'maxrows' => $ldap_maxrows[$count]";
             }
             # string
@@ -3635,75 +3750,75 @@ sub save_data {
             print CF "\n";
         }
 
-    # string
+        # string
         print CF "\$addrbook_dsn = '$addrbook_dsn';\n";
-    # string
+        # string
         print CF "\$addrbook_table = '$addrbook_table';\n\n";
-    # string
+        # string
         print CF "\$prefs_dsn = '$prefs_dsn';\n";
-    # string
+        # string
         print CF "\$prefs_table = '$prefs_table';\n";
-    # string
+        # string
         print CF "\$prefs_user_field = '$prefs_user_field';\n";
-    # integer
+        # integer
         print CF "\$prefs_user_size = $prefs_user_size;\n";
-    # string
+        # string
         print CF "\$prefs_key_field = '$prefs_key_field';\n";
-    # integer
+        # integer
         print CF "\$prefs_key_size = $prefs_key_size;\n";
-    # string
+        # string
         print CF "\$prefs_val_field = '$prefs_val_field';\n";
-    # integer
+        # integer
         print CF "\$prefs_val_size = $prefs_val_size;\n\n";
-    # string
+        # string
         print CF "\$addrbook_global_dsn = '$addrbook_global_dsn';\n";
-    # string
+        # string
         print CF "\$addrbook_global_table = '$addrbook_global_table';\n";
-    # boolean
+        # boolean
         print CF "\$addrbook_global_writeable = $addrbook_global_writeable;\n";
-    # boolean
+        # boolean
         print CF "\$addrbook_global_listing = $addrbook_global_listing;\n\n";
-    # string
+        # string
         print CF "\$abook_global_file = '$abook_global_file';\n";
-    # boolean
+        # boolean
         print CF "\$abook_global_file_writeable = $abook_global_file_writeable;\n\n";
-    # boolean
+        # boolean
         print CF "\$abook_global_file_listing = $abook_global_file_listing;\n\n";
-    # boolean
+        # boolean
         print CF "\$no_list_for_subscribe = $no_list_for_subscribe;\n";
 
-    # string
+        # string
         print CF "\$smtp_auth_mech = '$smtp_auth_mech';\n";
-    # string
+        # string
         print CF "\$imap_auth_mech = '$imap_auth_mech';\n";
-    # boolean
+        # boolean
         print CF "\$use_imap_tls = $use_imap_tls;\n";
-    # boolean
+        # boolean
         print CF "\$use_smtp_tls = $use_smtp_tls;\n";
-    # string
+        # string
         print CF "\$session_name = '$session_name';\n";
 
-    print CF "\n";
+        print CF "\n";
 
-    # boolean
-    print CF "\$advanced_tree = $advanced_tree;\n";
-    print CF "\n";
-    # boolean
-    print CF "\$use_iframe = $use_iframe;\n";
-    print CF "\n";
-    # boolean
-    print CF "\$use_icons = $use_icons;\n";
-    print CF "\n";
-    # boolean
-    print CF "\$use_php_recode = $use_php_recode;\n";
-    print CF "\n";
-    # boolean
-    print CF "\$use_php_iconv = $use_php_iconv;\n";
-    print CF "\n";
-    # boolean
-    print CF "\$allow_remote_configtest = $allow_remote_configtest;\n";
-    print CF "\n";
-
+        # boolean
+        print CF "\$advanced_tree = $advanced_tree;\n";
+        print CF "\n";
+        # boolean
+        print CF "\$use_iframe = $use_iframe;\n";
+        print CF "\n";
+        # boolean
+        print CF "\$use_icons = $use_icons;\n";
+        print CF "\n";
+        # boolean
+        print CF "\$use_php_recode = $use_php_recode;\n";
+        print CF "\n";
+        # boolean
+        print CF "\$use_php_iconv = $use_php_iconv;\n";
+        print CF "\n";
+        # boolean
+        print CF "\$allow_remote_configtest = $allow_remote_configtest;\n";
+        print CF "\n";
+        
         print CF "\@include SM_PATH . 'config/config_local.php';\n";
 
         print CF "\n/**\n";
