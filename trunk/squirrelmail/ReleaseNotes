@@ -1,19 +1,28 @@
 /*****************************************************************
- * Release Notes: SquirrelMail 1.5.0                             *
- * The "Breeze Before the Storm" Release                         *
- * 1 Feb 2004                                                    *
- *****************************************************************/
+ * Release Notes: SquirrelMail 1.5.1                             *
+ * The "Fire in the Hole" Release                                *
+ * 2006-02-19                                                    *
+*****************************************************************/
+
+WARNING. If you can read this, then you are reading file from 1.5.1cvs and not 
+final release notes.
+
+
 
 In this edition of SquirrelMail Release Notes:
    * All about this Release!
    * Major updates
-   * A note on plugins
-   * Reporting my favorite SquirrelMail 1.5 bug
+   * Security updates
+   * Plugin updates
+   * Possible issues
+   * Backwards incompatible changes
+   * Data directory changes
+   * Reporting my favorite SquirrelMail bug
 
 All about this Release!
 =======================
 
-This is the first release of our new 1.5.x-series, which is a 
+This is the second release of our new 1.5.x-series, which is a 
 DEVELOPMENT release. 
 
 See the Major Updates section of this file for more.
@@ -21,41 +30,90 @@ See the Major Updates section of this file for more.
 
 Major updates
 ==============
+Rewritten IMAP functions and added extra data caching code. Internal sorting 
+functions should be faster than code used in SquirrelMail 1.5.0 and older 
+versions. Data caching should reduce number of IMAP calls in folder management 
+and mailbox status functions. 
 
-1.5.0 includes the integration of the delete_move_next plugin, 
-as well as a new "save replies to the same folder as the original"
-option. 
+Own gettext implementation replaced with PHP Gettext classes. Update adds 
+ngettext and dgettext support.
 
+Templates, css and error handler. 
+
+Own cookie functions
+
+Updated wrapping functions in compose.
+
+
+Security updates
+================
+
+This release contains security fixes applied to development branch after 1.5.0 
+release.
+CVE-2004-0521 - SQL injection vulnerability in address book.
+CVE-2004-1036 - XSS exploit in decodeHeader function.
+CVE-2005-0075 - Potential file inclusion in preference backend selection code.
+CVE-2005-0103 - Possible file/offsite inclusion in src/webmail.php.
+CVE-2005-0104 - Possible XSS issues in src/webmail.php.
+CVE-2005-1769 - Several cross site scripting (XSS) attacks.
+CVE-2005-2095 - Extraction of all POST variables in advanced identity code.
+
+
+Plugin updates
+==============
+Added site configuration options to filters, fortune, translate, newmail, 
+bug_report plugins. Improved newmail and change_password plugins.
+
+SquirrelSpell data storage
+
+
+Possible issues
+===============
+Cookies
+Plugins (changes in hooks and IMAP API)
+IMAP sorting/threading
+
+Backward incompatible changes
+=============================
+Index order options are modified in 1.5.1 version. If older options are 
+detected, interface upgrades to newer option format and deletes old options.
+
+In 1.5.1 version SquirrelSpell user dictionaries are saved with generic 
+SquirrelMail data functions. Code should copy older dictionary, if dictionary 
+version information is not present in user preferences. Once dictionary is 
+copied, <username>.words files are obsolete and no longer updated.
+
+If same data directory is used with other backwards incompatible version, older
+SquirrelMail version can lose some user preferences or work with outdated data.
 
 Data directory
 ==============
 
-The directory data/ used to be included in our tarball. Since placing this
-dir under a web accessible directory is not very wise, we've decided to not
-pack it anymore; you need to create it yourself. Please choose a location
-that's safe, e.g. somewhere under /var.
+The directory data/ used to be included in our tarball. Since placing this dir 
+under a web accessible directory is not very wise, we've decided to not pack it
+anymore; you need to create it yourself. Please choose a location that's safe, 
+e.g. somewhere under /var.
 
 
-Reporting my favorite SquirrelMail 1.4 bug
-==========================================
+Reporting my favorite SquirrelMail bug
+======================================
 
-We constantly aim to make SquirrelMail even better. So we need you to
-submit any bug you come across! Also, please mention that the bug is
-in this 1.5.0 release, and list your IMAP server and webserver details.
+We constantly aim to make SquirrelMail even better. So we need you to submit 
+any bug you come across! Also, please mention that the bug is in this 1.5.1 
+release, and list your IMAP server and webserver details.
 
    http://www.squirrelmail.org/bugs
 
-Thanks for your cooperation with this. That helps us to make
-sure nothing slips through the cracks. Also, it would help if
-people would check existing tracker items for a bug before reporting
-it again. This would help to eliminate duplicate reports, and
-increase the time we can spend CODING by DECREASING the time we
-spend sorting through bug reports. And remember, check not only OPEN
-bug reports, but also closed ones as a bug that you report MAY have
-been fixed in CVS already.
+Thanks for your cooperation with this. That helps us to make sure nothing slips
+through the cracks. Also, it would help if people would check existing tracker 
+items for a bug before reporting it again. This would help to eliminate 
+duplicate reports, and increase the time we can spend CODING by DECREASING the 
+time we spend sorting through bug reports. And remember, check not only OPEN 
+bug reports, but also closed ones as a bug that you report MAY have been fixed 
+in CVS already.
 
-If you want to join us in coding SquirrelMail, or have other
-things to share with the developers, join the development mailinglist:
+If you want to join us in coding SquirrelMail, or have other things to share 
+with the developers, join the development mailing list:
 
    squirrelmail-devel@lists.sourceforge.net
 
@@ -63,9 +121,17 @@ things to share with the developers, join the development mailinglist:
 About Our Release Alias
 =======================
 
-This release is labeled the "Breeze Before the Storm" Release.
-Major UI changes are coming in the next few releases, hold
-onto your hats!
+This release is labeled the "Fire in the Hole" release. "Fire in the hole" is 
+a phrase used to warn of the detonation of an explosive device. The phrase may 
+have been originated by miners, who made extensive use of explosives while 
+working underground.
+
+Release is created in order to get fixed package after two years of development
+in HEAD branch. Package contains many experimental changes. Changes add new 
+features, that can be unstable and cause inconsistent UI. If you want to use 
+stable code, you should stick to SquirrelMail 1.4.x series. If you find issues 
+in this package, make sure that they are still present in latest development 
+code snapshots. 
 
                   Happy SquirrelMailing!
                     - The SquirrelMail Project Team
