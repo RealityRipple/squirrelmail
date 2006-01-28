@@ -371,7 +371,7 @@ if ((bool) @ini_get('register_globals')) {
     /**
      * Remove globalized $_FILES variables
      * Before 4.3.0 $_FILES are included in $_REQUEST.
-     * Unglobalize them in separate call in order to remove dependency 
+     * Unglobalize them in separate call in order to remove dependency
      * on PHP version.
      */
     foreach ($_FILES as $key => $value) {
@@ -404,7 +404,7 @@ $PHP_SELF = php_self();
 
 sqsession_is_active();
 
-/** 
+/**
  * Remove globalized session data in rg=on setups
  */
 if ((bool) @ini_get('register_globals')) {
@@ -412,4 +412,5 @@ if ((bool) @ini_get('register_globals')) {
         unset($GLOBALS[$key]);
     }
 }
+
 ?>
