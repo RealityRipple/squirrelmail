@@ -229,22 +229,30 @@ $imapPort = 143;
 $imap_server_type = 'other';
 
 /**
- * Advanced IMAP authentication options control
+ * Secure IMAP connection controls
  *
- * CRAM-MD5, DIGEST-MD5, Plain, and TLS
- * Set reasonable defaults - you'd never know this was there unless you ask for it
- * @global bool $use_imap_tls
+ * 0 - use plain text connection,
+ * 1 - use imaps (adds tls:// prefix to hostname),
+ * 2 - use IMAP STARTTLS extension (rfc2595).
+ *
+ * Was boolean before 1.5.1.
+ * @global integer $use_imap_tls
+ * @since 1.4.0
  */
-$use_imap_tls = false;
+$use_imap_tls = 0;
 
 /**
- * Advanced SMTP authentication options control
+ * Secure SMTP connection controls
  *
- * CRAM-MD5, DIGEST-MD5, Plain, and TLS
- * Set reasonable defaults - you'd never know this was there unless you ask for it
- * @global bool $use_smtp_tls
+ * 0 - use plain text connection,
+ * 1 - use ssmtp (adds tls:// prefix to hostname),
+ * 2 - use SMTP STARTTLS extension (rfc2487).
+ *
+ * Was boolean before 1.5.1.
+ * @global integer $use_smtp_tls
+ * @since 1.4.0
  */
-$use_smtp_tls = false;
+$use_smtp_tls = 0;
 
 /**
  * SMTP authentication mechanism
