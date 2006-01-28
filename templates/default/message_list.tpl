@@ -26,9 +26,9 @@ do_hook('mailbox_index_before');
 $msg_cnt_str = '';
 if ($pageOffset < $end_msg) {
     $msg_cnt_str = sprintf(_("Viewing Messages: %s to %s (%s total)"),
-                    '<b>'.$pageOffset.'</b>', '<b>'.$end_msg.'</b>', $iNumberOfMessages);
+                    '<em>'.$pageOffset.'</em>', '<em>'.$end_msg.'</em>', $iNumberOfMessages);
 } else if ($pageOffset == $end_msg) {
-    $msg_cnt_str = sprintf(_("Viewing Message: %s (%s total)"), '<b>'.$pageOffset.'</b>', $iNumberOfMessages);
+    $msg_cnt_str = sprintf(_("Viewing Message: %s (%s total)"), '<em>'.$pageOffset.'</em>', $iNumberOfMessages);
 }
 
 
@@ -93,19 +93,19 @@ if ($bIcons) {
 //
 //$clickedColor = '';
 $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
-
+	
 ?>
+<div id="message_list">
 <form id="<?php echo $form_id;?>" name="<?php echo $form_name;?>" method="post" action="<?php echo $php_self;?>">
-<table border="0" width="100%" cellpadding="0" cellspacing="0">
+<table class="table_empty" cellspacing="0">
   <tr>
-    <td>
-    <table width="100%" cellpadding="1"  cellspacing="0" style="border: 1px solid <?php echo $color[0]; ?>;">
+   <td>
+    <table class="table_standard" cellspacing="0">
       <tr>
         <td>
-          <table bgcolor="<?php echo $color[4]; ?>" border="0" width="100%" cellpadding="1"  cellspacing="0">
+          <table class="table_empty" cellspacing="0">
             <tr>
-              <td align="<?php echo $align['left']; ?>">
-                <small>
+              <td class="links_paginator">
 <!-- paginator and thread link string -->
                   <?php
                       /**
@@ -114,10 +114,9 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
                       $paginator_str = $this->fetch('paginator.tpl');
                       echo $paginator_str . $thread_link_str ."\n"; ?>
 <!-- end paginator and thread link string -->
-                </small>
               </td>
 <!-- message count string -->
-              <td align="right"><small><?php echo $msg_cnt_str; ?></small></td>
+              <td class="message_count"><?php echo $msg_cnt_str; ?></td>
 <!-- end message count string -->
             </tr>
           </table>
@@ -127,12 +126,11 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
     if (count($aFormElements)) {
 ?>
 <!-- start message list form control -->
-      <tr bgcolor="<?php echo $color[0]; ?>">
+      <tr class="message_list_controls" cellspacing="0">
         <td>
-          <table border="0" width="100%" cellpadding="1"  cellspacing="0">
+          <table class="table_empty" cellspacing="0">
             <tr>
-              <td align="<?php echo $align['left']; ?>">
-                <small>
+              <td class="message_control_buttons" cellspacing="0">
 
 <?php
         foreach ($aFormElements as $key => $value) {
@@ -140,7 +138,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
             case 'submit':
                 if ($key != 'moveButton' && $key != 'delete' && $key != 'undeleteButton') { // add move in a different table cell
 ?>
-                  <input type="submit" name="<?php echo $key; ?>" value="<?php echo $value[0]; ?>" style="padding: 0px; margin: 0px;" />&nbsp;
+                  <input type="submit" name="<?php echo $key; ?>" value="<?php echo $value[0]; ?>" class="message_control_button" />&nbsp;
 <?php
                 }
                 break;
@@ -158,17 +156,14 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
             }
         }
 ?>
-                </small>
               </td>
-              <td align="<?php echo $align['right']; ?>">
+              <td class="message_control_delete">
 
 
 <?php
         if (isset($aFormElements['delete'])) {
 ?>
-              <td align="<?php echo $align['right']; ?>">
-                <small>
-                  <input type="submit" name="delete" value="<?php echo $aFormElements['delete'][0]; ?>" style="padding: 0px; margin: 0px;" />&nbsp;
+                  <input type="submit" name="delete" value="<?php echo $aFormElements['delete'][0]; ?>" class="message_control_button" />&nbsp;
  <?php
             if (isset($aFormElements['bypass_trash'])) {
 ?>
@@ -177,25 +172,20 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
             }
             if (isset($aFormElements['undeleteButton'])) {
 ?>
-                  <input type="submit" name="undeleteButton" value="<?php echo $aFormElements['undeleteButton'][0]; ?>" style="padding: 0px; margin: 0px;" />&nbsp;
+                  <input type="submit" name="undeleteButton" value="<?php echo $aFormElements['undeleteButton'][0]; ?>" class="message_control_button" />&nbsp;
 <?php
             }
 ?>
-               </small>
               </td>
 <?php
         } // if (isset($aFormElements['delete']))
         if (isset($aFormElements['moveButton'])) {
 ?>
-              <td align="<?php echo $align['right']; ?>">
-                <small>&nbsp;
-                  <tt>
+              <td class="message_control_move">
                     <select name="targetMailbox">
                        <?php echo $aFormElements['targetMailbox'][0];?>
                     </select>
-                  </tt>
-                  <input type="submit" name="moveButton" value="<?php echo $aFormElements['moveButton'][0]; ?>" style="padding: 0px; margin: 0px;" />
-                </small>
+                  <input type="submit" name="moveButton" value="<?php echo $aFormElements['moveButton'][0]; ?>" class="message_control_button" />
               </td>
 
 <?php
@@ -215,29 +205,32 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
 ?>
     </td>
   </tr>
-  <tr><td height="5" bgcolor="<?php echo $color[4]; ?>"></td></tr>
+  <tr><td class="spacer"></td></tr>
   <tr>
     <td>
-      <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="<?php echo $color[9]; ?>">
+      <table class="table_messageListWrapper" cellspacing="0">
         <tr>
           <td>
-            <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="<?php echo $color[5]; ?>">
-              <tr>
-                <td>
+            <table class="table_messageList" cellspacing="0">
 <!-- table header start -->
-                  <tr>
+<?php
+/*
+ * As an FYI, Firefox on Windows seems to have an issue w/ putting wierd breaks while
+ * rendering this table if we use THEAD and TH tags.  No other browser or platform has 
+ * this issue.  We will use TR/TD w/ another CSS class to work around this.
+ */
+?>
+              <tr class="headerRow">
 <?php
     $aWidth = calcMessageListColumnWidth($aOrder);
     foreach($aOrder as $iCol) {
-
 ?>
-                    <td align="<?php echo $align['left']; ?>" width="<?php echo $aWidth[$iCol]; ?>%" style="white-space: nowrap;">
-                        <b>
+                    <td style="width:<?php echo $aWidth[$iCol]; ?>%">
 <?php
         switch ($iCol) {
           case SQM_COL_CHECK:
               if ($javascript_on) {
-                  echo '<input type="checkbox" name="toggleAll" title="'._("Toggle All").'" onclick="toggle_all(\''.$form_id."',".$fancy_index_highlite.",'".$clickedColor.'\');" />';
+                  echo '<input type="checkbox" name="toggleAll" title="'._("Toggle All").'" onclick="toggle_all(\''.$form_id."',".$fancy_index_highlite.')" />'."\n";
               } else {
                   $link = $baseurl . "&amp;startMessage=$pageOffset&amp;&amp;checkall=";
                   if (sqgetGlobalVar('checkall',$checkall,SQ_GET)) {
@@ -248,35 +241,35 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
                   echo "<a href=\"$link\">"._("All").'</a>';
               }
               break;
-          case SQM_COL_FROM:       echo _("From");     break;
-          case SQM_COL_DATE:       echo _("Date");     break;
-          case SQM_COL_SUBJ:       echo _("Subject");  break;
+          case SQM_COL_FROM:       echo _("From")."\n";     break;
+          case SQM_COL_DATE:       echo _("Date")."\n";     break;
+          case SQM_COL_SUBJ:       echo _("Subject")."\n";  break;
           case SQM_COL_FLAGS:
                if ($bIcons) {
-                  echo '<img src="' . $sImageLocation. 'msg_new.png" border="0" height="12" width="18" alt="!" title="'. _("Message Flags") . '" />';
+                  echo '<img src="' . $sImageLocation. 'msg_new.png" border="0" height="12" width="18" alt="!" title="'. _("Message Flags") . '" />'."\n";
                } else {
-                  echo  '&nbsp;';
+                  echo  '&nbsp;'."\n";
                }
                break;
-          case SQM_COL_SIZE:       echo  _("Size");    break;
+          case SQM_COL_SIZE:       echo  _("Size")."\n";    break;
           case SQM_COL_PRIO:
                if ($bIcons) {
-                  echo '<img src="' . $sImageLocation. 'prio_high.png" border="0" height="10" width="5" alt="!" title="'. _("Priority") . '" />';
+                  echo '<img src="' . $sImageLocation. 'prio_high.png" border="0" height="10" width="5" alt="!" title="'. _("Priority") . '" />'."\n";
                } else {
-                  echo  '!';
+                  echo  '!'."\n";
                }
                break;
           case SQM_COL_ATTACHMENT:
                if ($bIcons) {
-                  echo '<img src="' . $sImageLocation. 'attach.png" border="0" height="10" width="6" alt="+" title="' . _("Attachment") . '"/>';
+                  echo '<img src="' . $sImageLocation. 'attach.png" border="0" height="10" width="6" alt="+" title="' . _("Attachment") . '"/>'."\n";
                } else {
-                  echo  '+';
+                  echo  '+'."\n";
                }
                break;
-          case SQM_COL_INT_DATE:   echo _("Received"); break;
-          case SQM_COL_TO:         echo _("To");       break;
-          case SQM_COL_CC:         echo _("Cc");       break;
-          case SQM_COL_BCC:        echo _("Bcc");      break;
+          case SQM_COL_INT_DATE:   echo _("Received")."\n"; break;
+          case SQM_COL_TO:         echo _("To")."\n";       break;
+          case SQM_COL_CC:         echo _("Cc")."\n";       break;
+          case SQM_COL_BCC:        echo _("Bcc")."\n";      break;
           default: break;
         }
         // add the sort buttons
@@ -295,15 +288,15 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
             echo " <a href=\"$baseurl&amp;startMessage=1&amp;srt=$newsort\">";
             echo '<img src="../images/' . $img
                 . '" border="0" width="12" height="10" alt="sort" title="'
-                . _("Click here to change the sorting of the message list") .'" /></a>';
+                . _("Click here to change the sorting of the message list") .'" /></a>'."\n";
         }
 ?>
-                      </b>
                     </td>
 <?php
     }
 ?>
-                  </tr>
+              </tr>
+<!-- end table header -->
 
 <!-- Message headers start -->
 <?php
@@ -369,9 +362,9 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
             $sValue = '';
             switch ($aColumns[SQM_COL_PRIO]['value']) {
                 case 1:
-                case 2: $sValue .= "<font color=\"$color[1]\">!</font>"; break;
+                case 2: $sValue .= '<span class="high_priority">!</span>'; break;
         // use downwards arrow for low priority emails
-                case 5: $sValue .= "<font color=\"$color[8]\">&#8595;</font>"; break;
+                case 5: $sValue .= '<span class="low_priority">&#8595;</span>'; break;
                 default: break;
             }
         }
@@ -394,30 +387,29 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
         $aColumns[SQM_COL_ATTACHMENT]['value'] = $sValue;
     }
 
-
-    $bgcolor = $color[4];
-
+	$class = 'even';
     /**
-     * If alternating row colors is set, adapt the bgcolor
+     * If alternating row colors is set, adapt the CSS class
      */
     if (isset($alt_index_colors) && $alt_index_colors) {
         if (!($i % 2)) {
-            if (!isset($color[12])) {
-                $color[12] = '#EAEAEA';
-            }
-            $bgcolor = $color[12];
+        	$class = 'odd';
         }
 
     }
-    $bgcolor = (isset($aMsg['row']['color'])) ? $aMsg['row']['color']: $bgcolor;
-    $class = 'msg_row';
+    if (isset($aMsg['row']['color']))
+    {
+    	$bgcolor = $aMsg['row']['color'];
+    	$class = 'misc'.$i;
+    }
+    else $bgcolor = '';
 
     $row_extra = '';
 
     // this stuff does the auto row highlighting on mouseover
     //
     if ($javascript_on && $fancy_index_highlite) {
-        $row_extra .= ' onmouseover="rowOver(\''.$form_id . "_msg$i','". $mouseoverColor . '\', \'' . $clickedColor . '\');" onmouseout="setPointer(this, ' . $i . ', \'out\', \'' . $bgcolor . '\', \'' . $mouseoverColor . '\', \'' . $clickedColor . '\');" onmousedown="setPointer(this, ' . $i . ', \'click\', \'' . $bgcolor . '\', \'' . $mouseoverColor . '\', \'' . $clickedColor . '\');"';
+        $row_extra .= ' onmouseover="rowOver(\''.$form_id . '_msg' . $i.'\');" onmouseout="setPointer(this, ' . $i . ', \'out\', \'' . $class . '\', \'mouse_over\', \'clicked\');" onmousedown="setPointer(this, ' . $i . ', \'click\', \'' . $class . '\', \'mouse_over\', \'clicked\');"';
     }
     // this does the auto-checking of the checkbox no matter
     // where on the row you click
@@ -428,22 +420,37 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
         $javascript_auto_click = " onMouseDown=\"row_click('$form_id"."_msg$i')\"";
     }
 
+/*
+ * Message Highlighting requires a unique CSS class declaration for proper
+ * mouseover functionality.  There is no harm in doing this when the mouseover
+ * functionality is disabled
+ */
+if ($class != 'even' && $class != 'odd')
+{
 ?>
-<tr class="<?php echo $class;?>" valign="top" bgcolor="<?php echo $bgcolor; ?>"<?php echo $row_extra;?>>
+<style type="text/css">
+<!--
+.table_messageList	tr.<?php echo $class; ?>	{ background:<?php echo $bgcolor; ?> }
+-->
+</style>
+<?
+}
+?>
+<tr <?php echo (empty($class) ? '' : 'class="'.$class.'" ');  echo $row_extra;?>>
 <?php
     // flag style mumbo jumbo
     $sPre = $sEnd = '';
     if (isset($aColumns[SQM_COL_FLAGS])) {
         if (!in_array('seen',$aFlags)) {
-            $sPre = '<b>'; $sEnd = '</b>';
+            $sPre = '<span class="unread">'; $sEnd = '</span>';
         }
         if (in_array('deleted',$aFlags) && $aFlags['deleted']) {
-            $sPre = "<font color=\"$color[9]\">" . $sPre;
-            $sEnd .= '</font>';
+            $sPre = '<span class="deleted">' . $sPre;
+            $sEnd .= '</span>';
         } else {
             if (in_array('flagged',$aFlags) && $aFlags['flagged']) {
-                $sPre = "<font color=\"$color[2]\">" . $sPre;
-                $sEnd .= '</font>';
+                $sPre = '<span class="flagged">' . $sPre;
+                $sEnd .= '</span>';
             }
         }
     }
@@ -474,13 +481,13 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
 
         switch ($iCol) {
           case SQM_COL_CHECK:
-            echo '<td align="' .$align['left'] .'"'. $javascript_auto_click. ' bgcolor="'.$bgcolor.'" style="white-space: nowrap;">' ?>
+            echo '<td class="col_check"'. $javascript_auto_click. '>' ?>
             <input type="checkbox" name="<?php echo "msg[$i]";?>" id="<?php echo $form_id."_msg$i";?>" value="<?php echo $iUid;?>" <?php echo $checkbox_javascript;?> /></td>
             <?php
             break;
           case SQM_COL_SUBJ:
             $indent = $aCol['indent'];
-            $sText = "    <td class=\"col_subject\" align=\"$align[left]\" $javascript_auto_click bgcolor=\"$bgcolor\">";
+            $sText = "    <td class=\"col_subject\" $javascript_auto_click>";
             if ($align['left'] == 'left') {
                 $sText .= str_repeat('&nbsp;&nbsp;',$indent);
             }
@@ -491,7 +498,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
             if ($link_extra) { $sText .= " $link_extra";          }
             if ($javascript_on && $fancy_index_highlite) {
                   $sText .= " onmousedown=\"row_click('$form_id"."_msg$i'); setPointer(this." . (empty($bold) ? '' : 'parentNode.') .
-                            'parentNode.parentNode, ' . $i . ', \'click\', \'' . $bgcolor . '\', \'' . $mouseoverColor . '\', \'' .
+                            'parentNode.parentNode, ' . $i . ', \'click\', \''. $class. '\', \'mouse_over\', \'' .
                              $clickedColor .'\');"';
             }
             $sText .= ">";
@@ -503,18 +510,18 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
             break;
           case SQM_COL_SIZE:
           case SQM_COL_FLAGS:
-            $sText = "    <td class=\"col_flags\" align=\"$align[left]\" $javascript_auto_click bgcolor=\"$bgcolor\" style=\"white-space: nowrap;\">";
-            $sText .= "<small>$value</small></td>\n";
+            $sText = "    <td class=\"col_flags\" $javascript_auto_click>";
+            $sText .= "$value</td>\n";
             echo $sText;
             break;
           case SQM_COL_INT_DATE:
           case SQM_COL_DATE:
-            $sText = "    <td class=\"col_date\" align=\"center\" $javascript_auto_click  bgcolor=\"$bgcolor\" style=\"white-space: nowrap;\">";
+            $sText = "    <td class=\"col_date\" $javascript_auto_click>";
             $sText .= $value. "</td>\n";
             echo $sText;
             break;
           default:
-            $sText = "    <td class=\"col_text\" align=\"$align[left]\" style=\"white-space: nowrap;\" $javascript_auto_click bgcolor=\"$bgcolor\"";
+            $sText = "    <td class=\"col_text\" $javascript_auto_click";
             if ($link) {
                 $sText .= "><a href=\"$link\"";
                 if ($target) { $sText .= " target=\"$target\"";}
@@ -533,7 +540,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
 ?>
                   </tr>
 <?php
-            $sLine = "<tr><td colspan=\"$iColCnt\" height=\"1\" bgcolor=\"$color[0]\"></td></tr>";
+            $sLine = "<tr><td colspan=\"$iColCnt\" class=\"spacer\"></td></tr>\n";
             ++$i;
 
 /*
@@ -549,16 +556,16 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
           </table>
         </td>
       </tr>
-      <tr><td height="5" bgcolor="<?php echo $color[4]; ?>" colspan="1"></td></tr>
+      <tr><td class="spacer"></td></tr>
       <tr>
         <td>
-          <table width="100%" cellpadding="1"  cellspacing="0" style="border: 1px solid <?php echo $color[0]; ?>;">
+          <table class="table_standard" cellspacing="0">
             <tr>
               <td>
-                <table bgcolor="<?php echo $color[4]; ?>" border="0" width="100%" cellpadding="1"  cellspacing="0">
+                <table class="table_empty" cellspacing="0">
                   <tr>
-                    <td align="left"><small><?php echo $paginator_str; ?></small></td>
-                    <td align="right"><small><?php echo $msg_cnt_str; ?></small></td>
+                    <td class="links_paginator"><?php echo $paginator_str; ?></td>
+                    <td class="message_count"><?php echo $msg_cnt_str; ?></td>
                   </tr>
                 </table>
               </td>
@@ -573,3 +580,4 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
       </tr>
     </table>
 </form>
+</div>

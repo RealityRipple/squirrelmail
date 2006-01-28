@@ -2,9 +2,9 @@
 /**
  * SquirrelMail CSS template
  *
- * Template is used by style.php script to generate css file used by 
+ * Template is used by style.php script to generate css file used by
  * SquirrelMail scripts.
- * 
+ *
  * Available constants
  *
  * Color codes used by selected theme:
@@ -40,23 +40,23 @@ extract($t);
 /* older css template */
 body, td, th, dd, dt, h1, h2, h3, h4, h5, h6, p, ol, ul, li {
 <?php
-  if($fontfamily) echo '  font-family: '.$fontfamily.";\n";
+if($fontfamily) echo '  font-family: '.$fontfamily.";\n";
 ?>
 }
 body, small {
 <?php
-  if($fontsize) echo '  font-size: '.($fontsize-2)."pt;\n";
+if($fontsize) echo '  font-size: '.($fontsize-2)."pt;\n";
 ?>
 }
 td, th {
 <?php
-  if($fontsize) echo '  font-size: '.$fontsize."pt;\n";
+if($fontsize) echo '  font-size: '.$fontsize."pt;\n";
 ?>
 }
 textarea, pre {
-  font-family: monospace;
+font-family: monospace;
 <?php
-  if($fontsize) echo '  font-size: '.($fontsize-1)."pt;\n";
+if($fontsize) echo '  font-size: '.($fontsize-1)."pt;\n";
 ?>
 }
 
@@ -146,3 +146,178 @@ input.sqmresetfield {
 }
 input.sqmtextarea {
 }
+
+/* basic definitions */
+.table_empty {
+    width:100%;
+    border:0;
+    margin:0;
+    padding:0;
+    border-spacing:0;
+}
+
+.table_standard {
+    width:100%;
+    border:1px solid <?php echo $color[0]; ?>;
+    padding:0;
+    margin:0;
+    border-spacing:0;
+}
+
+em		{
+    font-weight:bold;
+    font-style:normal;
+}
+
+small	{
+    font-size:80%;
+}
+
+/* page_header.tpl definitions */
+.sqm_currentFolder	{
+    background: <?php echo $color[9]; ?>;
+    padding:2px;
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
+}
+.sqm_headerSignout	{
+    background: <?php echo $color[9]; ?>;
+    padding:2px;
+    text-align: <?php echo SQM_ALIGN_RIGHT; ?>;
+    font-weight:bold;
+}
+.sqm_topNavigation	{
+    padding:2px;
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
+}
+.sqm_providerInfo	{
+    padding:2px;
+    text-align: <?php echo SQM_ALIGN_RIGHT; ?>;
+}
+
+/* message_list.tpl definitions */
+.table_messageListWrapper	{
+    width:100%;
+    padding:0;
+    border-spacing:0;
+    border:0;
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+    background: <?php echo $color[9]; ?>;
+}
+
+.table_messageList	{
+    width:100%;
+    padding:0;
+    border-spacing:0;
+    border:0;
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+    background: <?php echo $color[5]; ?>;
+}
+
+.table_messageList	a	{
+    white-space:nowrap;
+}
+
+.table_messageList	tr.headerRow	{
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
+    white-space:nowrap;
+    font-weight:bold;
+}
+.table_messageList td.spacer {
+    height:1px;
+    background: <?php echo $color[0]; ?>;
+}
+
+.table_messageList	tr		{
+    vertical-align:top;
+}
+.table_messageList	tr.even	{
+    background: <?php echo $color[12]; ?>;
+}
+.table_messageList	tr.odd	{
+    background: <?php echo $color[4]; ?>;
+}
+.table_messageList	tr.mouse_over	{
+    background: <?php echo $color[5]; ?>;
+}
+.table_messageList	tr.clicked	{
+    background: <?php echo (!empty($color[16])) ? $color[16] : $color[2]; ?>;
+}
+
+.table_messageList	td	{
+    white-space:nowrap;
+}
+.table_messageList	td.col_check	{
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
+}
+.table_messageList	td.col_subject	{
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
+}
+.table_messageList	td.col_flags	{
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
+}
+.table_messageList	td.col_date	{
+    text-align:center;
+}
+.table_messageList	td.col_text	{
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
+}
+
+.unread		{
+    font-weight:bold;
+}
+.deleted	{
+    color: <?php echo $color[9]; ?>;
+}
+.flagged	{
+    color: <?php echo $color[2]; ?>;
+}
+.high_priority	{
+    color: <?php echo $color[1]; ?>;
+}
+.low_priority	{
+    color: <?php echo $color[8]; ?>;
+}
+
+.col_checked	{
+}
+
+.links_paginator			{
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
+}
+
+.message_count				{
+    text-align:right;
+    font-size:8pt;
+}
+
+.message_list_controls {
+    background: <? echo $color[0]; ?>;
+}
+
+.message_control_button {
+    padding:0px;
+    margin:0px;
+}
+.message_control_buttons {
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
+    font-size:10px;		/* replaces <small> tags to allow greater control of fonts w/ using an id. */
+}
+.message_control_delete {
+    text-align: <?php echo SQM_ALIGN_RIGHT; ?>;
+    font-size:10px;		/* replaces <small> tags to allow greater control of fonts w/ using an id. */
+}
+.message_control_move {
+    text-align: <?php echo SQM_ALIGN_RIGHT; ?>;
+    font-size:10px;		/* replaces <small> tags to allow greater control of fonts w/ using an id. */
+}
+
+.spacer	{
+    height:5px;
+    background: <?php echo $color[4]; ?>;
+}
+
+

@@ -8,7 +8,6 @@
 var marked_row = new Array;
 var orig_row_colors = new Array();
 
-
 /*
  * (un)Checks checkbox for the row that the current table cell is in
  * when it gets clicked.
@@ -25,21 +24,49 @@ function row_click(chkboxName) {
         chkbox.checked = (chkbox.checked ? false : true);
     }
 }
+
+/*
+ * Gets the current class of the requested row.  This is a browser specific function.
+ * Code shamelessly ripped from setPointer() below.
+ */
+function getCSSClass (theRow)
+{
+	// 3.1 ... with DOM compatible browsers except Opera that does not return
+	//         valid values with "getAttribute"
+	if (typeof(window.opera) == 'undefined'
+		&& typeof(theRow.getAttribute) != 'undefined'
+		&& theRow.getAttribute('className') ) {
+		rowClass = theRow.getAttribute('className');
+	}
+	// 3.2 ... with other browsers
+	else {
+		rowClass = theRow.className;
+	}
+	
+	return rowClass;
+}
+
 /*
  * This function is used to initialize the orig_row_color array so we do not
  * need to predefine the entire array
  */
-function rowOver(chkboxName, overColor, clickedColor) {
+function rowOver(chkboxName) {
     chkbox = document.getElementById(chkboxName);
     if (chkbox) {
         if (!orig_row_colors[chkboxName]) {
-            bgColor = chkbox.parentNode.getAttribute('bgcolor');
-            orig_row_colors[chkboxName] = bgColor;
+			rowClass = getCSSClass(chkbox.parentNode.parentNode);
+            orig_row_colors[chkboxName] = rowClass;
         } else {
-            bgColor = orig_row_colors[chkboxName];
+            rowClass = orig_row_colors[chkboxName];
         }
         j = chkbox.name.length - 1
-        setPointer(chkbox.parentNode.parentNode, j,'over' , bgColor, overColor, clickedColor);
+
+/*
+ * The mouseover and clicked CSS classes are always the same name!
+ */        
+        overClass = 'mouse_over';
+        clickedClass = 'clicked';
+        setPointer(chkbox.parentNode.parentNode, j,'over' , rowClass, overClass, clickedClass);
     }
 }
 
@@ -51,7 +78,7 @@ function rowOver(chkboxName, overColor, clickedColor) {
  * @param   boolean  use fancy row coloring when a checkbox is checked
  * @param   string   new color of the checked rows
  */
-function toggle_all(formname, fancy, clickedColor) {
+function toggle_all(formname, fancy) {
      TargetForm = document.getElementById(formname);
      j = 0;
      for (var i = 0; i < TargetForm.elements.length; i++) {
@@ -61,11 +88,13 @@ function toggle_all(formname, fancy, clickedColor) {
                 if (TargetForm.elements[i].checked == false) {
                     // initialize orig_row_color if not defined already
                     if (!orig_row_colors[array_key]) {
-                        orig_row_colors[array_key] = TargetForm.elements[i].parentNode.getAttribute('bgcolor');
+						rowClass = getCSSClass(TargetForm.elements[i].parentNode.parentNode);
+            			orig_row_colors[array_key] = rowClass;
                     }
                 }
-                origColor = orig_row_colors[array_key];
-                setPointer(TargetForm.elements[i].parentNode.parentNode, j,'click' , origColor, origColor, clickedColor);
+                origClass = orig_row_colors[array_key];
+		        clickedClass = 'clicked';
+                setPointer(TargetForm.elements[i].parentNode.parentNode, j,'click' , origClass, origClass, clickedClass);
                 j++
             }
             TargetForm.elements[i].checked = !(TargetForm.elements[i].checked);
@@ -79,76 +108,59 @@ function toggle_all(formname, fancy, clickedColor) {
  * @param   object    the table row
  * @param   integer  the row number
  * @param   string    the action calling this script (over, out or click)
- * @param   string    the default background color
- * @param   string    the color to use for mouseover
- * @param   string    the color to use for marking a row
+ * @param   string    the default background CSS class
+ * @param   string    the CSS class to use for mouseover
+ * @param   string    the CSS class to use for marking a row
  *
  * @return  boolean  whether pointer is set or not
  */
-function setPointer(theRow, theRowNum, theAction, theDefaultColor, thePointerColor, theMarkColor)
+function setPointer(theRow, theRowNum, theAction, theDefaultClass, thePointerClass, theMarkClass)
 {
-    var theCells = null;
-
     // 1. Pointer and mark feature are disabled or the browser can't get the
     //    row -> exits
-    if ((thePointerColor == '' && theMarkColor == '')
-        || typeof(theRow.style) == 'undefined') {
+    if ((thePointerClass == '' && theMarkClass == '')
+        || typeof(theRow.className) == 'undefined') {
         return false;
     }
 
-    // 2. Gets the current row and exits if the browser can't get it
+    // 2. Verify we can get the current row or exit
     if (typeof(document.getElementsByTagName) != 'undefined') {
-        theCells = theRow.getElementsByTagName('td');
+		// We are ok
     }
-    else if (typeof(theRow.cells) != 'undefined') {
-        theCells = theRow.cells;
+    else if (typeof(theRow) != 'undefined') {
+    	// We are ok
     }
     else {
         return false;
     }
 
-    // 3. Gets the current color...
-    var rowCellsCnt  = theCells.length;
+    // 3. Gets the current CSS class...
     var domDetect    = null;
-    var currentColor = null;
-    var newColor     = null;
+    var newClass     = null;
+    var currentClass = getCSSClass(theRow);
+    
+    // domDetect is needed later...
     // 3.1 ... with DOM compatible browsers except Opera that does not return
     //         valid values with "getAttribute"
     if (typeof(window.opera) == 'undefined'
-        && typeof(theCells[0].getAttribute) != 'undefined') {
-        currentColor = theCells[0].getAttribute('bgcolor');
+        && typeof(theRow.getAttribute) != 'undefined'
+        && theRow.getAttribute('className') ) {
         domDetect    = true;
     }
     // 3.2 ... with other browsers
     else {
-        currentColor = theCells[0].style.backgroundColor;
         domDetect    = false;
     } // end 3
 
-    // 3.3 ... Opera changes colors set via HTML to rgb(r,g,b) format so fix it
-    if (currentColor.indexOf("rgb") >= 0)
-    {
-        var rgbStr = currentColor.slice(currentColor.indexOf('(') + 1,
-                                     currentColor.indexOf(')'));
-        var rgbValues = rgbStr.split(",");
-        currentColor = "#";
-        var hexChars = "0123456789ABCDEF";
-        for (var i = 0; i < 3; i++)
-        {
-            var v = rgbValues[i].valueOf();
-            currentColor += hexChars.charAt(v/16) + hexChars.charAt(v%16);
+    // 4. Defines the new class
+    // 4.1 Current class is the default one
+    if (currentClass == ''
+        || currentClass.toLowerCase() == theDefaultClass.toLowerCase()) {
+        if (theAction == 'over' && thePointerClass != '') {
+            newClass = thePointerClass;
         }
-    }
-
-    // 4. Defines the new color
-    // 4.1 Current color is the default one
-    if (currentColor == ''
-        || currentColor.toLowerCase() == theDefaultColor.toLowerCase()) {
-        if (theAction == 'over' && thePointerColor != '') {
-            newColor              = thePointerColor;
-        }
-        else if (theAction == 'click' && theMarkColor != '') {
-            newColor              = theMarkColor;
+        else if (theAction == 'click' && theMarkClass != '') {
+            newClass = theMarkClass;
             marked_row[theRowNum] = true;
             // deactivated onclick marking of the checkbox because it's also executed
             // when an action (clicking on the checkbox itself) on a single item is
@@ -158,24 +170,24 @@ function setPointer(theRow, theRowNum, theAction, theDefaultColor, thePointerCol
             //document.getElementById('msg[' + theRowNum + ']').checked = true;
         }
     }
-    // 4.1.2 Current color is the pointer one
-    else if (currentColor.toLowerCase() == thePointerColor.toLowerCase()
+    // 4.1.2 Current class is the pointer one
+    else if (currentClass.toLowerCase() == thePointerClass.toLowerCase()
              && (typeof(marked_row[theRowNum]) == 'undefined' || !marked_row[theRowNum])) {
         if (theAction == 'out') {
-            newColor              = theDefaultColor;
+            newClass = theDefaultClass;
         }
-        else if (theAction == 'click' && theMarkColor != '') {
-            newColor              = theMarkColor;
+        else if (theAction == 'click' && theMarkClass != '') {
+            newClass = theMarkClass;
             marked_row[theRowNum] = true;
             //document.getElementById('msg[' + theRowNum + ']').checked = true;
         }
     }
     // 4.1.3 Current color is the marker one
-    else if (currentColor.toLowerCase() == theMarkColor.toLowerCase()) {
+    else if (currentClass.toLowerCase() == theMarkClass.toLowerCase()) {
         if (theAction == 'click') {
-            newColor              = (thePointerColor != '')
-                                  ? thePointerColor
-                                  : theDefaultColor;
+            newClass              = (thePointerClass != '')
+                                  ? thePointerClass
+                                  : theDefaultClass;
             marked_row[theRowNum] = (typeof(marked_row[theRowNum]) == 'undefined' || !marked_row[theRowNum])
                                   ? true
                                   : null;
@@ -184,19 +196,14 @@ function setPointer(theRow, theRowNum, theAction, theDefaultColor, thePointerCol
     } // end 4
 
     // 5. Sets the new color...
-    if (newColor) {
-        var c = null;
+    if (newClass) {
         // 5.1 ... with DOM compatible browsers except Opera
         if (domDetect) {
-            for (c = 0; c < rowCellsCnt; c++) {
-                theCells[c].setAttribute('bgcolor', newColor, 0);
-            } // end for
+        	theRow.setAttribute('className', newClass, 0);
         }
         // 5.2 ... with other browsers
         else {
-            for (c = 0; c < rowCellsCnt; c++) {
-                theCells[c].style.backgroundColor = newColor;
-            }
+        	theRow.className = newClass;
         }
     } // end 5
 
