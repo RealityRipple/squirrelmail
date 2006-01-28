@@ -49,9 +49,9 @@ if (! isset($use_iframe)) $use_iframe=false;
  * @return array all option information
  */
 function load_optpage_data_display() {
-    global $theme, $fontsets, $language, $languages,
+    global $theme, $fontsets, $language, $languages,$aTemplateSet,
     $default_use_mdn, $squirrelmail_language, $allow_thread_sort,
-    $show_alternative_names, $use_icons, $use_iframe;
+    $show_alternative_names, $use_icons, $use_iframe, $sTplDir;
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -64,6 +64,24 @@ function load_optpage_data_display() {
     /*** Load the General Options into the array ***/
     $optgrps[SMOPT_GRP_GENERAL] = _("General Display Options");
     $optvals[SMOPT_GRP_GENERAL] = array();
+
+    /* load the template set option */
+    $templateset_values = array();
+
+    foreach ($aTemplateSet as $sKey => $aTemplateSetAttributes) {
+        $templateset_values[$aTemplateSetAttributes['NAME']] = $aTemplateSetAttributes['PATH'];
+    }
+    ksort($templateset_values);
+    $templateset_values = array_flip($templateset_values);
+    $optvals[SMOPT_GRP_GENERAL][] = array(
+        'name'    => 'sTplDir',
+        'caption' => _("Template"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_ALL,
+        'posvals' => $templateset_values,
+        'save'    => 'save_option_template'
+    );
+
 
     /* Load the theme option. */
     $theme_values = array();
@@ -153,7 +171,7 @@ function load_optpage_data_display() {
         array_merge(array('' => _("Default")), $language_values);
     $language = $squirrelmail_language;
 
-    // add language selection only when more than 2 languages are available 
+    // add language selection only when more than 2 languages are available
     // (default, English and some other)
     if (count($language_values)>2) {
         $optvals[SMOPT_GRP_GENERAL][] = array(
@@ -393,6 +411,29 @@ function load_optpage_data_display() {
 /******************************************************************/
 /** Define any specialized save functions for this option page. ***/
 /******************************************************************/
+
+/**
+ * This function saves a new template setting.
+ * It updates the template array.
+ */
+function save_option_template($option) {
+    global $aTemplateSet;
+
+    /* Do checking to make sure $new_theme is in the array. */
+    $templateset_in_array = false;
+    for ($i = 0; $i < count($aTemplateSet); ++$i) {
+        if ($aTemplateSet[$i]['PATH'] == $option->new_value) {
+            $templateset_in_array = true;
+            break;
+        }
+    }
+
+    if (!$templateset_in_array) {
+        $option->new_value = '';
+    }
+    /* Save the option like normal. */
+    save_option($option);
+}
 
 /**
  * This function saves a new theme setting.
