@@ -176,13 +176,13 @@ $sendmail_path = '/usr/sbin/sendmail';
 
 /**
  * Extra sendmail command arguments.
- * 
- * Sets additional sendmail command arguments. Make sure that arguments are 
+ *
+ * Sets additional sendmail command arguments. Make sure that arguments are
  * supported by your sendmail program. -f argument is added automatically by
- * SquirrelMail scripts. Variable defaults to standard /usr/sbin/sendmail 
+ * SquirrelMail scripts. Variable defaults to standard /usr/sbin/sendmail
  * arguments. If you use qmail-inject, nbsmtp or any other sendmail wrapper,
  * which does not support -t and -i arguments, set variable to empty string
- * or use arguments suitable for your mailer. 
+ * or use arguments suitable for your mailer.
  * @global string $sendmail_args
  * @since 1.5.1
  */
@@ -556,8 +556,8 @@ $edit_name = true;
 
 /**
  * SquirrelMail adds username information to every sent email.
- * It is done in order to prevent possible sender forging when 
- * end users are allowed to change their email and name 
+ * It is done in order to prevent possible sender forging when
+ * end users are allowed to change their email and name
  * information.
  *
  * You can disable this header, if you think that it violates
@@ -775,6 +775,26 @@ $theme[43]['PATH'] = SM_PATH . 'themes/simple_purple.php';
 $theme[43]['NAME'] = 'Simple Purple';
 
 /**
+ * Templates
+ *   You can define your own template and put it in this directory.
+ *   You must call it as the example below. You can name the template
+ *   whatever you want. For an example of a template, see the ones
+ *   included in the template directory.
+ *
+ * To add a new template to the options that users can choose from, just
+ * add a new number to the array at the bottom, and follow the pattern.
+ *
+ * $templateset_default sets theme that will be used by default
+ * used by default.
+ * @global integer $templateset_default
+ */
+$templateset_default = 0;
+
+$aTemplateSet[0]['PATH'] = SM_PATH . 'templates/default/';
+$aTemplateSet[0]['NAME'] = 'Default template';
+
+
+/**
  * Default interface font size.
  * @global string $default_fontsize
  * @since 1.5.1
@@ -891,7 +911,7 @@ $addrbook_table = 'address';
 $prefs_dsn = '';
 $prefs_table = 'userprefs';
 /**
- * Preference key field 
+ * Preference key field
  * @global string $prefs_key_field
  */
 $prefs_key_field = 'prefkey';
@@ -902,7 +922,7 @@ $prefs_key_field = 'prefkey';
  */
 $prefs_key_size = 64;
 /**
- * Preference owner field 
+ * Preference owner field
  * @global string $prefs_user_field
  */
 $prefs_user_field = 'user';
@@ -913,7 +933,7 @@ $prefs_user_field = 'user';
  */
 $prefs_user_size = 128;
 /**
- * Preference value field 
+ * Preference value field
  * @global string $prefs_val_field
  */
 $prefs_val_field = 'prefval';
