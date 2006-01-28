@@ -44,7 +44,7 @@ for ($i = 0; $i < count($aTemplateSet); ++$i){
 }
 $sTplDir = ($found_templateset ? $sTplDir : '');
 if (!$found_templateset) {
-    if (isset($aTemplateSet) && isset($aTemlateSet[$templateset_default]) && file_exists($aTemplateSet[$templateset_default]['PATH'])) {
+    if (isset($aTemplateSet) && isset($aTemplateSet[$templateset_default]) && file_exists($aTemplateSet[$templateset_default]['PATH'])) {
        $sTplDir = $aTemplateSet[$templateset_default]['PATH'];
     } else {
        $sTplDir = SM_PATH.'templates/default/';
