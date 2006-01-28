@@ -27,6 +27,7 @@ $custom_css = getPref($data_dir, $username, 'custom_css', 'none' );
 $theme = ( !isset($theme) ? array() : $theme );
 $color = ( !isset($color) ? array() : $color );
 $aTemplateSet = ( !isset($aTemplateSet) ? array() : $aTemplateSet );
+$templateset_default = ( !isset($templateset_default) ? 0 : $templateset_default );
 
 $chosen_theme = getPref($data_dir, $username, 'chosen_theme');
 $sTplDir = getPref($data_dir, $username, 'sTplDir');
