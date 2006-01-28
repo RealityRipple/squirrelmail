@@ -433,7 +433,7 @@ if ($class != 'even' && $class != 'odd')
 .table_messageList	tr.<?php echo $class; ?>	{ background:<?php echo $bgcolor; ?> }
 -->
 </style>
-<?
+<?php
 }
 ?>
 <tr <?php echo (empty($class) ? '' : 'class="'.$class.'" ');  echo $row_extra;?>>
