@@ -19,6 +19,7 @@ require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/imap_mailbox.php');
 require_once(SM_PATH . 'functions/global.php');
+include_once(SM_PATH . 'class/template/template.class.php');
 
 /**
  * Output a SquirrelMail page header, from <!doctype> to </head>
@@ -33,12 +34,12 @@ require_once(SM_PATH . 'functions/global.php');
  * @return void
  */
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = true, $frames = false ) {
-    global $squirrelmail_language;
+    global $squirrelmail_language, $sTplDir;
 
     if ( !sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
         global $base_uri;
     }
-    global $theme_css, $custom_css, $pageheader_sent, 
+    global $theme_css, $custom_css, $pageheader_sent,
         $chosen_fontset, $chosen_fontsize, $chosen_theme;
 
     /* add no cache headers here */
@@ -53,13 +54,13 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = true
     echo "\n" . html_tag( 'html' ,'' , '', '', 'lang="'.$squirrelmail_language.'"' ) .
         "<head>\n<meta name=\"robots\" content=\"noindex,nofollow\">\n";
 
-    
+
     $used_theme = basename($chosen_theme,'.php');
 
     /*
-     * Add closing / to link and meta elements only after switching to xhtml 1.0 Transitional.
-     * It is not compatible with html 4.01 Transitional
-     */
+    * Add closing / to link and meta elements only after switching to xhtml 1.0 Transitional.
+    * It is not compatible with html 4.01 Transitional
+    */
     echo '<link rel="stylesheet" type="text/css" href="'. $base_uri .'src/style.php'
         .'?fontset='.$chosen_fontset
         .'&themeid='.$used_theme
@@ -72,12 +73,12 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = true
 
     if ($squirrelmail_language == 'ja_JP') {
         /*
-         * force correct detection of charset, when browser does not follow
-         * http content-type and tries to detect charset from page content.
-         * Shooting of browser's creator can't be implemented in php.
-         * We might get rid of it, if we follow http://www.w3.org/TR/japanese-xml/
-         * recommendations and switch to unicode.
-         */
+        * force correct detection of charset, when browser does not follow
+        * http content-type and tries to detect charset from page content.
+        * Shooting of browser's creator can't be implemented in php.
+        * We might get rid of it, if we follow http://www.w3.org/TR/japanese-xml/
+        * recommendations and switch to unicode.
+        */
         echo "<!-- \xfd\xfe -->\n";
         echo '<meta http-equiv="Content-type" content="text/html; charset=euc-jp">' . "\n";
     }
@@ -91,12 +92,12 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = true
     echo <<<ECHO
 <style type="text/css">
 <!--
-  /* avoid stupid IE6 bug with frames and scrollbars */
-  body {
-      voice-family: "\"}\"";
-      voice-family: inherit;
-      width: expression(document.documentElement.clientWidth - 30);
-  }
+/* avoid stupid IE6 bug with frames and scrollbars */
+body {
+    voice-family: "\"}\"";
+    voice-family: inherit;
+    width: expression(document.documentElement.clientWidth - 30);
+}
 -->
 </style>
 
@@ -157,22 +158,26 @@ function displayInternalLink($path, $text, $target='') {
 function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
 
     global $reply_focus, $hide_sm_attributions, $frame_top,
-           $provider_name, $provider_uri, $startMessage,
-           $javascript_on, $action;
+        $provider_name, $provider_uri, $startMessage,
+        $javascript_on, $action, $oTemplate;
 
     if (empty($sBodyTagJs)) {
         if (strpos($action, 'reply') !== FALSE && $reply_focus) {
-          if ($reply_focus == 'select')
-              $sBodyTagJs = 'onload="checkForm(\'select\');"';
-          else if ($reply_focus == 'focus')
-              $sBodyTagJs = 'onload="checkForm(\'focus\');"';
-          else if ($reply_focus != 'none')
-              $sBodyTagJs = 'onload="checkForm();"';
+        if ($reply_focus == 'select')
+            $sBodyTagJs = 'onload="checkForm(\'select\');"';
+        else if ($reply_focus == 'focus')
+            $sBodyTagJs = 'onload="checkForm(\'focus\');"';
+        else if ($reply_focus != 'none')
+            $sBodyTagJs = 'onload="checkForm();"';
         }
         else
-          $sBodyTagJs = 'onload="checkForm();"';
+        $sBodyTagJs = 'onload="checkForm();"';
     }
 
+    $urlMailbox = urlencode($mailbox);
+    $startMessage = (int)$startMessage;
+
+    $sTplDir = $oTemplate->template_dir;
 
     sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION );
 
@@ -181,78 +186,45 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
     }
 
     if( $javascript_on || strpos($sHeaderJs, 'new_js_autodetect_results.value') ) {
-        $sJsBlock = '<script src="'. SM_PATH .'templates/default/js/default.js" type="text/javascript" language="JavaScript"></script>' ."\n";
+        $sJsBlock = '<script src="'. $sTplDir. 'js/default.js" type="text/javascript" language="JavaScript"></script>' ."\n";
         if ($sHeaderJs) {
             $sJsBlock .= "\n<script language=\"JavaScript\" type=\"text/javascript\">" .
                         "\n<!--\n" .
                         $sHeaderJs . "\n\n// -->\n</script>\n";
         }
         displayHtmlHeader ('SquirrelMail', $sJsBlock);
-   } else {
+    } else {
         /* do not use JavaScript */
         displayHtmlHeader ('SquirrelMail');
         $sBodyTagJs = '';
     }
 
-    echo "<body $sBodyTagJs>\n\n";
-
-    /** Here is the header and wrapping table **/
     $shortBoxName = htmlspecialchars(imap_utf7_decode_local(
                 readShortMailboxName($mailbox, $delimiter)));
     if ( $shortBoxName == 'INBOX' ) {
         $shortBoxName = _("INBOX");
     }
-    echo "<a name=\"pagetop\"></a>\n"
-        . html_tag( 'table', '', '', $color[4], 'border="0" width="100%" cellspacing="0" cellpadding="2"' ) ."\n"
-        . html_tag( 'tr', '', '', $color[9] ) ."\n"
-        . html_tag( 'td', '', 'left' ) ."\n";
-    if ( $shortBoxName <> '' && strtolower( $shortBoxName ) <> 'none' ) {
-        echo '         ' . _("Current Folder") . ": <b>$shortBoxName&nbsp;</b>\n";
-    } else {
-        echo '&nbsp;';
-    }
-    echo  "      </td>\n"
-        . html_tag( 'td', '', 'right' ) ."<b>\n";
-    displayInternalLink ('src/signout.php', _("Sign Out"), $frame_top);
-    echo "</b></td>\n"
-        . "   </tr>\n"
-        . html_tag( 'tr', '', '', $color[4] ) ."\n"
-        . ($hide_sm_attributions ? html_tag( 'td', '', 'left', '', 'colspan="2"' )
-                                 : html_tag( 'td', '', 'left' ) )
-        . "\n";
-    $urlMailbox = urlencode($mailbox);
-    $startMessage = (int)$startMessage;
 
-    echo makeComposeLink('src/compose.php?mailbox='.$urlMailbox.'&amp;startMessage='.$startMessage);
-    echo "&nbsp;&nbsp;\n";
-    displayInternalLink ('src/addressbook.php', _("Addresses"));
-    echo "&nbsp;&nbsp;\n";
-    displayInternalLink ('src/folders.php', _("Folders"));
-    echo "&nbsp;&nbsp;\n";
-    displayInternalLink ('src/options.php', _("Options"));
-    echo "&nbsp;&nbsp;\n";
-    displayInternalLink ("src/search.php?mailbox=$urlMailbox", _("Search"));
-    echo "&nbsp;&nbsp;\n";
-    displayInternalLink ('src/help.php', _("Help"));
-    echo "&nbsp;&nbsp;\n";
-
-    do_hook('menuline');
-
-    echo "      </td>\n";
-
-    if (!$hide_sm_attributions)
-    {
-        echo html_tag( 'td', '', 'right' ) ."\n";
+    $sm_attributes = '';
+    if (!$hide_sm_attributions) {
+        $sm_attributes .= '<td class="sqm_providerInfo">' ."\n";
         if (empty($provider_uri)) {
-            echo '<a href="about.php">SquirrelMail</a>';
+            $sm_attributes .= '   <a href="about.php">SquirrelMail</a>';
         } else {
             if (empty($provider_name)) $provider_name= 'SquirrelMail';
-            echo '<a href="'.$provider_uri.'" target="_blank">'.$provider_name.'</a>';
+            $sm_attributes .= '   <a href="'.$provider_uri.'" target="_blank">'.$provider_name.'</a>'."\n";
         }
-        echo "</td>\n";
+        $sm_attributes .= "  </td>\n";
     }
-    echo "   </tr>\n".
-        "</table><br />\n\n";
+
+    $oTemplate->assign('body_tag_js', $sBodyTagJs);
+    $oTemplate->assign('shortBoxName', $shortBoxName);
+    $oTemplate->assign('sm_attribute_str', $sm_attributes);
+    $oTemplate->assign('frame_top', $frame_top);
+    $oTemplate->assign('urlMailbox', $urlMailbox);
+    $oTemplate->assign('startMessage', $startMessage);
+    $oTemplate->assign('hide_sm_attributions', $hide_sm_attributions);
+    $oTemplate->display('page_header.tpl');
 }
 
 /**
@@ -271,15 +243,15 @@ function compose_Header($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
 
     if (empty($sBodyTagJs)) {
         if (strpos($action, 'reply') !== FALSE && $reply_focus) {
-          if ($reply_focus == 'select')
-              $sBodyTagJs = 'onload="checkForm(\'select\');"';
-          else if ($reply_focus == 'focus')
-              $sBodyTagJs = 'onload="checkForm(\'focus\');"';
-          else if ($reply_focus != 'none')
-              $sBodyTagJs = 'onload="checkForm();"';
+        if ($reply_focus == 'select')
+            $sBodyTagJs = 'onload="checkForm(\'select\');"';
+        else if ($reply_focus == 'focus')
+            $sBodyTagJs = 'onload="checkForm(\'focus\');"';
+        else if ($reply_focus != 'none')
+            $sBodyTagJs = 'onload="checkForm();"';
         }
         else
-          $sBodyTagJs = 'onload="checkForm();"';
+        $sBodyTagJs = 'onload="checkForm();"';
     }
 
 
@@ -292,7 +264,7 @@ function compose_Header($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
                         "\n<!--\n" .
                         $sHeaderJs . "\n\n// -->\n</script>\n";
         } else {
-           $sJsBlock = '';
+        $sJsBlock = '';
         }
         $sJsBlock .= "\n" . '<script src="'. SM_PATH .'templates/default/js/default.js" type="text/javascript" language="JavaScript"></script>' ."\n";
         displayHtmlHeader (_("Compose"), $sJsBlock);
