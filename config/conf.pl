@@ -188,6 +188,19 @@ while ( $line = <FILE> ) {
             $sub =~ s/\]\[['"]NAME['"]\]//;
             $sub =~ s/.*\[//;
             $theme_name[$sub] = $options[1];
+        } elsif ( $options[0] =~ /^aTemplateSet\[[0-9]+\]\[['"]PATH['"]\]/ ) {
+            $sub = $options[0];
+            $sub =~ s/\]\[['"]PATH['"]\]//;
+            $sub =~ s/.*\[//;
+            if ( -e "../templates" ) {
+                $options[1] =~ s/^\.\.\/config/\.\.\/templates/;
+            }
+            $templateset_path[$sub] = &change_to_rel_path($options[1]);
+        } elsif ( $options[0] =~ /^aTemplateSet\[[0-9]+\]\[['"]NAME['"]\]/ ) {
+            $sub = $options[0];
+            $sub =~ s/\]\[['"]NAME['"]\]//;
+            $sub =~ s/.*\[//;
+            $templateset_name[$sub] = $options[1];
         } elsif ( $options[0] =~ /^plugins\[[0-9]*\]/ ) {
             $sub = $options[0];
             $sub =~ s/\]//;
@@ -373,7 +386,7 @@ $prefs_key_size = 64                    if ( !$prefs_key_size );
 $prefs_val_size = 65536                 if ( !$prefs_val_size );
 
 # add qmail-inject test here for backwards compatibility
-if ( !$sendmail_args && $sendmail_path =~ /qmail-inject/ ) { 
+if ( !$sendmail_args && $sendmail_path =~ /qmail-inject/ ) {
     $sendmail_args = '';
 } elsif ( !$sendmail_args ) {
     $sendmail_args = '-i -t';
@@ -431,7 +444,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "2.  Server Settings\n";
         print "3.  Folder Defaults\n";
         print "4.  General Options\n";
-        print "5.  Themes\n";
+        print "5.  Templates\n";
         print "6.  Address Books\n";
         print "7.  Message of the Day (MOTD)\n";
         print "8.  Plugins\n";
@@ -566,16 +579,18 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 5 ) {
         print $WHT. "Themes\n" . $NRM;
-        print "1.  Change Themes\n";
-        for ( $count = 0 ; $count <= $#theme_name/2 ; $count++ ) {
-            $temp_name = $theme_name[$count*2];
-            printf "     %s%*s    %s\n", $temp_name,
-                   40 - length($temp_name), " ",
-                   $theme_name[($count*2)+1];
-        }
+        print "1.  Change Template set\n";
+#        for ( $count = 0 ; $count <= $#theme_name/2 ; $count++ ) {
+#            $temp_name = $theme_name[$count*2];
+#            printf "     %s%*s    %s\n", $temp_name,
+#                   40 - length($temp_name), " ",
+#                   $theme_name[($count*2)+1];
+#        }
         print "2.  CSS File : $WHT$theme_css$NRM\n";
         print "3.  Default font size: $WHT$default_fontsize$NRM\n";
         print "4.  Change available font sets\n";
+        print "5.  Change Themes\n";
+
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 6 ) {
@@ -796,10 +811,11 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 14 ) { $session_name             = command317(); }
             elsif ( $command == 15 ) { $time_zone_type           = command318(); }
         } elsif ( $menu == 5 ) {
-            if ( $command == 1 ) { command41(); }
+            if ( $command == 1 ) { $templateset_default = command_templates(); }
             elsif ( $command == 2 ) { $theme_css = command42(); }
             elsif ( $command == 3 ) { $default_fontsize = command_default_fontsize(); }
             elsif ( $command == 4 ) { command_fontsets(); }
+            elsif ( $command == 5 ) { command41(); }
         } elsif ( $menu == 6 ) {
             if    ( $command == 1 ) { command61(); }
             elsif ( $command == 2 ) { command62(); }
@@ -1094,7 +1110,7 @@ sub command_sendmail_args {
     print "is added automatically by SquirrelMail scripts. Variable defaults to standard\n";
     print "/usr/sbin/sendmail arguments. If you use qmail-inject, nbsmtp or any other \n";
     print "sendmail wrapper, which does not support -i and -t arguments, set variable to\n";
-    print "empty string or use arguments suitable for your mailer.\n"; 
+    print "empty string or use arguments suitable for your mailer.\n";
     print "\n";
     print "[$WHT$sendmail_args$NRM]: $WHT";
     $new_sendmail_args = <STDIN>;
@@ -2170,14 +2186,14 @@ sub command39 {
 
 
 sub command310 {
-    print "  In loosely managed environments, you may want to allow users 
-  to edit their full name and email address. In strictly managed 
+    print "  In loosely managed environments, you may want to allow users
+  to edit their full name and email address. In strictly managed
   environments, you may want to force users to use the name
   and email address assigned to them.
-  
+
   'y' - allow a user to edit their full name and email address,
   'n' - users must use the assigned values.
-  
+
   ";
 
     if ( lc($edit_identity) eq 'true' ) {
@@ -2200,9 +2216,9 @@ sub command310 {
 }
 
 sub command311 {
-    print "  Given that users are not allowed to modify their 
+    print "  Given that users are not allowed to modify their
   email address, can they edit their full name?
-  
+
   ";
 
     if ( lc($edit_name) eq 'true' ) {
@@ -2222,18 +2238,18 @@ sub command311 {
 
 sub command311b {
     print "  SquirrelMail adds username information to every sent email
-  in order to prevent possible sender forging when users are allowed 
+  in order to prevent possible sender forging when users are allowed
   to change their email and/or full name.
 
-  You can remove user information from this header (y), if you think that 
-  it violates privacy or security. 
-  
-  Note: If users are allowed to change their email addresses, 
+  You can remove user information from this header (y), if you think that
+  it violates privacy or security.
+
+  Note: If users are allowed to change their email addresses,
   this setting will make it difficult to determine who sent what where.
   Use at your own risk.
-  
+
   ";
-    
+
     if ( lc($hide_auth_header) eq "true" ) {
         $default_value = "y";
     } else {
@@ -2511,6 +2527,233 @@ sub command41 {
         $input =~ s/[\r\n]//g;
     }
 }
+
+sub command_templates {
+    print "\nDefine the template sets that you wish to use.  If you have added ";
+    print "a template set of your own, just follow the instructions (?) about how to add ";
+    print "them.  You can also change the default template.\n";
+
+    print "\n  Available Templates:\n";
+
+    $count = 0;
+    while ( $count <= $#templateset_name ) {
+        if ( $count == $templateset_default ) {
+            print " *";
+        } else {
+            print "  ";
+        }
+        if ( $count < 10 ) {
+            print " ";
+        }
+        $name       = $templateset_name[$count];
+        $num_spaces = 35 - length($name);
+        for ( $i = 0 ; $i < $num_spaces ; $i++ ) {
+            $name = $name . " ";
+        }
+
+        print " $count.  $name";
+        print "($templateset_path[$count])\n";
+
+        $count++;
+   }
+
+#    opendir( DIR, "../templates" );
+#    @files          = readdir(DIR);
+#    $pos            = 0;
+#
+#    while ( $cnt <= $#files ) {
+#        if ( -d "../templates/" . $files[$i] && $files[$i] !~ /^\./ && $files[$i] ne "CVS" ) {
+#            $filename = "../templates/" . $files[$cnt];
+#            $found = 0;
+#            for ( $x = 0 ; $x <= $#templateset_path ; $x++ ) {
+#                if ( $theme_path[$x] eq $filename ) {
+#                    $found = 1;
+#                }
+#            }
+#        }
+#        $cnt++;
+#    }
+#    for ( $i = 0 ; $i <= $#files ; $i++ ) {
+#        if ( -d "../templates/" . $files[$i] && $files[$i] !~ /^\./ && $files[$i] ne "CVS" ) {
+#            $match = 0;
+#           for ( $k = 0 ; $k <= $#aTemplateSets ; $k++ ) {
+#                if ( $aTemplateSets[$chosen] eq $files[$i] ) {
+#                    $match = 1;
+#                }
+#            }
+#           if ( $match == 0 ) {
+#                    $unused_plugins[$pos] = $files[$i];
+#                    $pos++;
+#                }
+#            }
+#    }
+#
+#    for ( $i = 0 ; $i <= $#unused_plugins ; $i++ ) {
+#        $num = $num + 1;
+#        print "    $num. $unused_plugins[$i]\n";
+#    }
+#    closedir DIR;
+
+    print "\n";
+    print ".--------------------------------.\n";
+    print "| t       (detect templates set) |\n";
+    print "| +           (add template set) |\n";
+    print "| - N      (remove template set) |\n";
+    print "| m N        (mark template set) |\n";
+    print "| l          (list template set) |\n";
+    print "| d                       (done) |\n";
+    print "`--------------------------------'\n";
+    print "\n[template set] command (?=help) > ";
+
+    $input = <STDIN>;
+    $input =~ s/[\r\n]//g;
+    while ( $input ne "d" ) {
+        if ( $input =~ /^\s*l\s*/i ) {
+            $count = 0;
+            while ( $count <= $#templateset_name ) {
+                if ( $count == $templateset_default ) {
+                    print " *";
+                } else {
+                    print "  ";
+                }
+                if ( $count < 10 ) {
+                    print " ";
+                }
+                $name       = $templateset_name[$count];
+                $num_spaces = 35 - length($name);
+                for ( $i = 0 ; $i < $num_spaces ; $i++ ) {
+                    $name = $name . " ";
+                }
+
+                print " $count.  $name";
+                print "($templateset_path[$count])\n";
+
+                $count++;
+            }
+        } elsif ( $input =~ /^\s*m\s*[0-9]+/i ) {
+            $old_def       = $templateset_default;
+            $templateset_default = $input;
+            $templateset_default =~ s/^\s*m\s*//;
+            if ( ( $templateset_default > $#templateset_name ) || ( $templateset_default < 0 ) ) {
+                print "Cannot set default template set to $templateset_default.  That template set does not exist.\n";
+                $templateset_default = $old_def;
+            }
+        } elsif ( $input =~ /^\s*\+/ ) {
+            print "What is the name of this template: ";
+            $name = <STDIN>;
+            $name =~ s/[\r\n]//g;
+            $templateset_name[ $#templateset_name + 1 ] = $name;
+            print "Be sure to put ../templates/ before the dirname.\n";
+            print "What file is this stored in (ex: ../templates/default/): ";
+            $name = <STDIN>;
+            $name =~ s/[\r\n]//g;
+            $templateset_path[ $#templateset_path + 1 ] = $name;
+        } elsif ( $input =~ /^\s*t\s*/i ) {
+            print "\nStarting detection...\n\n";
+            opendir( DIR, "../templates" );
+            @files = readdir(DIR);
+            $cnt = 0;
+            $detected = 0;
+            while ( $cnt <= $#files ) {
+                if ( -d "../templates/" . $files[$cnt] && $files[$cnt] !~ /^\./ && $files[$cnt] ne "CVS" ) {
+                    $filename = "../templates/" . $files[$cnt]. "/";
+                    $found = 0;
+                    for ( $x = 0 ; $x <= $#templateset_path ; $x++ ) {
+                        if ( $templateset_path[$x] eq $filename ) {
+                            $found = 1;
+                        }
+                    }
+                    if ( $found != 1 && $detected == 0) {
+                        $templateset_path[ $#templateset_path + 1 ] = $filename;
+                        $templateset_name[ $#templateset_name + 1 ] = "Default template";
+                        $aTemplateSet[ $#templateset_name + 1 ] = "Default template";
+                        $aTemplateSet[ $#templateset_path + 1 ] = $filename;
+                    } elsif ( $found != 1) {
+                        print "** Found template set: $filename\n";
+                        print "   What is it's name? ";
+                        $nm = <STDIN>;
+                        $nm =~ s/[\n\r]//g;
+                        $templateset_path[ $#templateset_path + 1 ] = $filename;
+                        $templateset_name[ $#templateset_name + 1 ] = $nm;
+
+                        $aTemplateSet[ $#templateset_name + 1 ] = $nm;
+                        $aTemplateSet[ $#templateset_path + 1 ] = $filename;
+                    }
+                    $detected++;
+                }
+                $cnt++;
+            }
+            print "\n";
+            for ( $cnt = 0 ; $cnt <= $#templateset_path ; $cnt++ ) {
+                $filename = $templateset_path[$cnt];
+                if ( !(-d  $filename) ) {
+                    print "  Removing $filename (file not found)\n";
+                    $offset         = 0;
+                    @new_templateset_name = ();
+                    @new_templateset_path = ();
+                    for ( $x = 0 ; $x < $#templateset_path ; $x++ ) {
+                        if ( $templateset_path[$x] eq $filename ) {
+                            $offset = 1;
+                        }
+                        if ( $offset == 1 ) {
+                            $new_templateset_name[$x] = $templateset_name[ $x + 1 ];
+                            $new_theme_path[$x] = $templateset_path[ $x + 1 ];
+                        } else {
+                            $new_templateset_name[$x] = $templateset_name[$x];
+                            $new_templateset_path[$x] = $templateset_path[$x];
+                        }
+                    }
+                    @templateset_name = @new_templateset_name;
+                    @templateset_path = @new_templateset_path;
+                }
+            }
+            print "\nDetection complete!\n\n";
+
+            closedir DIR;
+        } elsif ( $input =~ /^\s*-\s*[0-9]?/ ) {
+            if ( $input =~ /[0-9]+\s*$/ ) {
+                $rem_num = $input;
+                $rem_num =~ s/^\s*-\s*//g;
+                $rem_num =~ s/\s*$//;
+            } else {
+                $rem_num = $#templateset_name;
+            }
+            if ( $rem_num == $templateset_default ) {
+                print "You cannot remove the default template set!\n";
+            } else {
+                $count          = 0;
+                @new_templateset_name = ();
+                @new_templateset_path = ();
+                while ( $count <= $#templateset_name ) {
+                    if ( $count != $rem_num ) {
+                        @new_templateset_name = ( @new_templateset_name, $templateset_name[$count] );
+                        @new_templateset_path = ( @new_templateset_path, $templateset_path[$count] );
+                    }
+                    $count++;
+                }
+                @templateset_name = @new_templateset_name;
+                @templateset_path = @new_templateset_path;
+                if ( $templateset_default > $rem_num ) {
+                    $templateset_default--;
+                }
+            }
+        } elsif ( $input =~ /^\s*\?\s*/ ) {
+            print ".--------------------------------.\n";
+            print "| t       (detect templates set) |\n";
+            print "| +           (add template set) |\n";
+            print "| - N      (remove template set) |\n";
+            print "| m N        (mark template set) |\n";
+            print "| l          (list template set) |\n";
+            print "| d                       (done) |\n";
+            print "`--------------------------------'\n";
+        }
+        print "[template set] command (?=help) > ";
+        $input = <STDIN>;
+        $input =~ s/[\r\n]//g;
+    }
+    return $templateset_default;
+}
+
 
 # Theme - CSS file
 sub command42 {
@@ -3664,6 +3907,20 @@ sub save_data {
         }
         print CF "\n";
 
+        if ( $templateset_default eq '' ) { $templateset_default = '0'; }
+        print CF "\$templateset_default = $templateset_default;\n";
+
+        for ( $count = 0 ; $count <= $#templateset_name ; $count++ ) {
+            print CF "\$aTemplateSet[$count]['PATH'] = " . &change_to_SM_path($templateset_path[$count]) . ";\n";
+            # escape theme name so it can contain single quotes.
+            $esc_name =  $templateset_name[$count];
+            $esc_name =~ s/\\/\\\\/g;
+            $esc_name =~ s/'/\\'/g;
+            print CF "\$aTemplateSet[$count]['NAME'] = '$esc_name';\n";
+        }
+        print CF "\n";
+
+
         # integer
         print CF "\$default_fontsize = '$default_fontsize';\n";
         # string
@@ -3818,7 +4075,7 @@ sub save_data {
         # boolean
         print CF "\$allow_remote_configtest = $allow_remote_configtest;\n";
         print CF "\n";
-        
+
         print CF "\@include SM_PATH . 'config/config_local.php';\n";
 
         print CF "\n/**\n";
