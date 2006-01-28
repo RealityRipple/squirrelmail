@@ -18,6 +18,5 @@
 extract($t);
 $this->display('error_message.tpl');
 ?>
-<B> footer </B>
 </body>
 </html>
