@@ -625,17 +625,20 @@ function sqimap_read_data ($imap_stream, $tag_uid, $handle_errors,
 
 /**
  * Connects to the IMAP server and returns a resource identifier for use with
- * the other SquirrelMail IMAP functions.  Does NOT login!
+ * the other SquirrelMail IMAP functions. Does NOT login!
  * @param string server hostname of IMAP server
  * @param int port port number to connect to
- * @param bool tls whether to use TLS when connecting.
+ * @param integer $tls whether to use plain text(0), TLS(1) or STARTTLS(2) when connecting.
+ *  Argument was boolean before 1.5.1.
  * @return imap-stream resource identifier
  * @since 1.5.0 (usable only in 1.5.1 or later)
  */
-function sqimap_create_stream($server,$port,$tls=false) {
+function sqimap_create_stream($server,$port,$tls=0) {
     global $squirrelmail_language;
 
-    if ($tls == true) {
+    // FIXME: ipv6 address support
+
+    if ($tls == 1) {
         if ((check_php_version(4,3)) and (extension_loaded('openssl'))) {
             /* Use TLS by prefixing "tls://" to the hostname */
             $server = 'tls://' . $server;
@@ -662,6 +665,73 @@ function sqimap_create_stream($server,$port,$tls=false) {
         exit;
     }
     $server_info = fgets ($imap_stream, 1024);
+
+    /**
+     * Implementing IMAP STARTTLS (rfc2595) in php 5.1.0+
+     * http://www.php.net/stream-socket-enable-crypto
+     */
+    if ($tls == 2) {
+        if (function_exists('stream_socket_enable_crypto')) {
+            // check starttls capability, don't use cached capability version
+            if (! sqimap_capability($imap_stream, 'STARTTLS', false)) {
+                // imap server does not declare starttls support
+                sqimap_error_box(sprintf(_("Error connecting to IMAP server: %s."), $server),
+                                 '','',
+                                 _("IMAP STARTTLS is enabled in SquirrelMail configuration, but used IMAP server does not support STARTTLS."));
+                exit;
+            }
+
+            // issue starttls command and check response
+            sqimap_run_command($imap_stream, 'STARTTLS', false, $starttls_response, $starttls_message);
+            // check response
+            if ($starttls_response!='OK') {
+                // starttls command failed
+                sqimap_error_box(sprintf(_("Error connecting to IMAP server: %s."), $server),
+                                 'STARTTLS',
+                                 _("Server replied: "),
+                                 $starttls_message);
+                exit();
+            }
+
+            // start crypto on connection. suppress function errors.
+            if (@stream_socket_enable_crypto($imap_stream,true,STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
+                // starttls was successful
+
+                /**
+                 * RFC 2595 requires to discard CAPABILITY information after successful 
+                 * STARTTLS command. We don't follow RFC, because SquirrelMail stores CAPABILITY 
+                 * information only after successful login (src/redirect.php) and cached information 
+                 * is used only in other php script connections after successful STARTTLS. If script 
+                 * issues sqimap_capability() call before sqimap_login() and wants to get initial 
+                 * capability response, script should set third sqimap_capability() argument to false. 
+                 */
+                //sqsession_unregister('sqimap_capabilities');            
+            } else {
+                /**
+                 * stream_socket_enable_crypto() call failed. Possible issues:
+                 * - broken ssl certificate (uw drops connection, error is in syslog mail facility)
+                 * - some ssl error (can reproduce with STREAM_CRYPTO_METHOD_SSLv3_CLIENT, PHP E_WARNING 
+                 *   suppressed in stream_socket_enable_crypto() call)
+                 */
+                sqimap_error_box(sprintf(_("Error connecting to IMAP server: %s."), $server),
+                                 '','',
+                                 _("Unable to start TLS."));
+                /**
+                 * Bug: stream_socket_enable_crypto() does not register SSL errors in 
+                 * openssl_error_string() or stream notification wrapper and displays 
+                 * them in E_WARNING level message. It is impossible to retrieve error 
+                 * message without own error handler.
+                 */
+                exit;
+            }
+        } else {
+            // php install does not support stream_socket_enable_crypto() function
+            sqimap_error_box(sprintf(_("Error connecting to IMAP server: %s."), $server),
+                             '','',
+                             _("IMAP STARTTLS is enabled in SquirrelMail configuration, but used PHP version does not support functions that allow to enable encryption on open socket."));
+            exit;
+        }
+    }
     return $imap_stream;
 }
 
@@ -858,15 +928,16 @@ function sqimap_logout ($imap_stream) {
  * If capability is set, returns only that specific capability,
  * else returns array of all capabilities.
  * @param stream $imap_stream
- * @param string $capability (optional since 1.3.0)
+ * @param string $capability (since 1.3.0)
+ * @param boolean $bUseCache (since 1.5.1) Controls use of capability data stored in session 
  * @return mixed (string if $capability is set and found,
  *  false, if $capability is set and not found,
  *  array if $capability not set)
  */
-function sqimap_capability($imap_stream, $capability='') {
-    sqgetGlobalVar('sqimap_capabilities', $sqimap_capabilities, SQ_SESSION);
+function sqimap_capability($imap_stream, $capability='', $bUseCache=true) {
+    // sqgetGlobalVar('sqimap_capabilities', $sqimap_capabilities, SQ_SESSION);
 
-    if (!is_array($sqimap_capabilities)) {
+    if (!$bUseCache || ! sqgetGlobalVar('sqimap_capabilities', $sqimap_capabilities, SQ_SESSION)) {
         $read = sqimap_run_command($imap_stream, 'CAPABILITY', true, $a, $b);
 
         $c = explode(' ', $read[0]);

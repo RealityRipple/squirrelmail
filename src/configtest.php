@@ -77,7 +77,10 @@ if(!in_array('strings.php', $included)) {
 /* Block remote use of script */
 if (! $allow_remote_configtest) {
     sqGetGlobalVar('REMOTE_ADDR',$client_ip,SQ_SERVER);
-    if (! isset($client_ip) || $client_ip!='127.0.0.1') {
+    sqGetGlobalVar('SERVER_ADDR',$server_ip,SQ_SERVER);
+
+    if ((! isset($client_ip) || $client_ip!='127.0.0.1') &&
+        (! isset($client_ip) || ! isset($server_ip) || $client_ip!=$server_ip)) {
         do_err('Enable "Allow remote configtest" option in squirrelmail configuration in order to use this script.');
     }
 }
@@ -88,6 +91,8 @@ echo "<p><table>\n<tr><td>SquirrelMail version:</td><td><b>" . $version . "</b><
      '<tr><td>Config file last modified:</td><td><b>' .
          date ('d F Y H:i:s', filemtime(SM_PATH . 'config/config.php')) .
          "</b></td></tr>\n</table>\n</p>\n\n";
+
+/* TODO: check $config_version here */
 
 echo "Checking PHP configuration...<br />\n";
 
@@ -222,10 +227,10 @@ if ( $squirrelmail_default_language != 'en_US' ) {
 
 echo $IND . "Base URL detected as: <tt>" . htmlspecialchars(get_location()) . "</tt><br />\n";
 
+/* check minimal requirements for other security options */
 
-/* check outgoing mail */
-
-if($use_smtp_tls || $use_imap_tls) {
+/* imaps or ssmtp */
+if($use_smtp_tls == 1 || $use_imap_tls == 1) {
     if(!check_php_version(4,3,0)) {
         do_err('You need at least PHP 4.3.0 for SMTP/IMAP TLS!');
     }
@@ -233,6 +238,20 @@ if($use_smtp_tls || $use_imap_tls) {
         do_err('You need the openssl PHP extension to use SMTP/IMAP TLS!');
     }
 }
+/* starttls extensions */
+if($use_smtp_tls == 2 || $use_imap_tls == 2) {
+    if (! function_exists('stream_socket_enable_crypto')) {
+        do_err('If you want to use STARTTLS extension, you need stream_socket_enable_crypto() function from PHP 5.1.0 and newer.');
+    }
+}
+/* digest-md5 */
+if ($smtp_auth_mech=='digest-md5' || $imap_auth_mech =='digest-md5') {
+    if (!extension_loaded('xml')) {
+        do_err('You need the PHP XML extension to use Digest-MD5 authentication!');
+    }
+}
+
+/* check outgoing mail */
 
 echo "Checking outgoing mail service....<br />\n";
 
@@ -247,7 +266,7 @@ if($useSendmail) {
 
     echo $IND . "sendmail OK<br />\n";
 } else {
-    $stream = fsockopen( ($use_smtp_tls?'tls://':'').$smtpServerAddress, $smtpPort,
+    $stream = fsockopen( ($use_smtp_tls==1?'tls://':'').$smtpServerAddress, $smtpPort,
                         $errorNumber, $errorString);
     if(!$stream) {
         do_err("Error connecting to SMTP server \"$smtpServerAddress:$smtpPort\".".
@@ -259,6 +278,56 @@ if($useSendmail) {
     if(((int) $smtpline{0}) > 3) {
         do_err("Error connecting to SMTP server. Server error: ".
         htmlspecialchars($smtpline));
+    }
+
+    /* smtp starttls checks */
+    if ($use_smtp_tls==2) {
+        // if something breaks, script should close smtp connection on exit.
+
+        // say helo
+        fwrite($stream,"EHLO $client_ip\r\n");
+
+        $ehlo=array();
+        $ehlo_error = false;
+        while ($line=fgets($stream, 1024)){
+            if (preg_match("/^250(-|\s)(\S*)\s+(\S.*)/",$line,$match)||
+                preg_match("/^250(-|\s)(\S*)\s+/",$line,$match)) {
+                if (!isset($match[3])) {
+                    // simple one word extension
+                    $ehlo[strtoupper($match[2])]='';
+                } else {
+                    // ehlo-keyword + ehlo-param
+                    $ehlo[strtoupper($match[2])]=trim($match[3]);
+                }
+                if ($match[1]==' ') {
+                    $ret = $line;
+                    break;
+                }
+            } else {
+                // 
+                $ehlo_error = true;
+                $ehlo[]=$line;
+                break;
+            }
+        }
+        if ($ehlo_error) {
+            do_err('SMTP EHLO failed. You need ESMTP support for SMTP STARTTLS');
+        } elseif (!array_key_exists('STARTTLS',$ehlo)) {
+            do_err('STARTTLS support is not declared by SMTP server.');
+        }
+
+        fwrite($stream,"STARTTLS\r\n");
+        $starttls_response=fgets($stream, 1024);
+        if ($starttls_response[0]!=2) {
+            $starttls_cmd_err = 'SMTP STARTTLS failed. Server replied: '
+                .htmlspecialchars($starttls_response);
+            do_err($starttls_cmd_err);
+        } elseif(! stream_socket_enable_crypto($stream,true,STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
+            do_err('Failed to enable encryption on SMTP STARTTLS connection.');
+        } else {
+            echo $IND . "SMTP STARTTLS extension looks OK.<br />\n";
+        }
+        // According to RFC we should second ehlo call here.
     }
 
     fputs($stream, 'QUIT');
@@ -291,7 +360,7 @@ if($useSendmail) {
 echo "Checking IMAP service....<br />\n";
 
 /** Can we open a connection? */
-$stream = fsockopen( ($use_imap_tls?'tls://':'').$imapServerAddress, $imapPort,
+$stream = fsockopen( ($use_imap_tls==1?'tls://':'').$imapServerAddress, $imapPort,
                        $errorNumber, $errorString);
 if(!$stream) {
     do_err("Error connecting to IMAP server \"$imapServerAddress:$imapPort\".".
@@ -311,7 +380,43 @@ echo $IND . 'IMAP server ready (<tt><small>'.
 
 /** Check capabilities */
 fputs($stream, "A001 CAPABILITY\r\n");
-$capline = fgets($stream, 1024);
+$capline = '';
+while ($line=fgets($stream, 1024)){
+  if (preg_match("/A001.*/",$line)) {
+     break;
+  } else {
+     $capline.=$line;
+  }
+}
+
+/* don't display capabilities before STARTTLS */
+if ($use_imap_tls==2 && stristr($capline, 'STARTTLS') === false) {
+    do_err('Your server doesn\'t support STARTTLS.');
+} else {
+    /* try starting starttls */
+    fwrite($stream,"A002 STARTTLS\r\n");
+    $starttls_line=fgets($stream, 1024);
+    if (! preg_match("/^A002 OK.*/i",$starttls_line)) {
+        $imap_starttls_err = 'IMAP STARTTLS failed. Server replied: '
+                .htmlspecialchars($starttls_line);
+        do_err($imap_starttls_err);
+    } elseif (! stream_socket_enable_crypto($stream,true,STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
+        do_err('Failed to enable encryption on IMAP connection.');
+    } else {
+        echo $IND . "IMAP STARTTLS extension looks OK.<br />\n";
+    }
+
+    // get new capability line
+    fwrite($stream,"A003 CAPABILITY\r\n");
+    $capline='';
+    while ($line=fgets($stream, 1024)){
+        if (preg_match("/A003.*/",$line)) {
+            break;
+        } else {
+            $capline.=$line;
+        }
+    }
+}
 
 echo $IND . 'Capabilities: <tt>'.htmlspecialchars($capline)."</tt><br />\n";
 
@@ -320,10 +425,9 @@ if($imap_auth_mech == 'login' && stristr($capline, 'LOGINDISABLED') !== FALSE) {
         'Try enabling another authentication mechanism like CRAM-MD5, DIGEST-MD5 or TLS-encryption '.
         'in the SquirrelMail configuration.', FALSE);
 }
-/* don't test for STARTTLS in CAPABILITY */
 
 /** OK, close connection */
-fputs($stream, "A002 LOGOUT\r\n");
+fputs($stream, "A004 LOGOUT\r\n");
 fclose($stream);
 
 echo "Checking internationalization (i18n) settings...<br />\n";

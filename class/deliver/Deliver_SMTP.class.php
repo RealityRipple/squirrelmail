@@ -3,7 +3,7 @@
 /**
  * Deliver_SMTP.class.php
  *
- * Delivery backend for the Deliver class.
+ * SMTP delivery backend for the Deliver class.
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -11,14 +11,49 @@
  * @package squirrelmail
  */
 
+/** @ignore */
+if (!defined('SM_PATH')) define('SM_PATH','../../');
+
 /** This of course depends upon Deliver */
-require_once(SM_PATH . 'class/deliver/Deliver.class.php');
+include_once(SM_PATH . 'class/deliver/Deliver.class.php');
 
 /**
  * Deliver messages using SMTP
  * @package squirrelmail
  */
 class Deliver_SMTP extends Deliver {
+    /**
+     * Array keys are uppercased ehlo keywords
+     * array key values are ehlo params. If ehlo-param contains space, it is splitted into array. 
+     * @var array ehlo
+     * @since 1.5.1
+     */
+    var $ehlo = array();
+    /**
+     * @var string domain
+     * @since 1.5.1
+     */
+    var $domain = '';
+    /**
+     * SMTP STARTTLS rfc: "Both the client and the server MUST know if there 
+     * is a TLS session active."
+     * Variable should be set to true, when encryption is turned on.
+     * @var boolean
+     * @since 1.5.1 
+     */
+    var $tls_enabled = false;
+    /**
+     * Private var
+     * var stream $stream
+     * @todo don't pass stream resource in class method arguments.
+     */
+    //var $stream = false;
+    /** @var string delivery error message */
+    var $dlv_msg = '';
+    /** @var integer delivery error number from server */
+    var $dlv_ret_nr = '';
+    /** @var string delivery error message from server */
+    var $dlv_server_msg = '';
 
     function preWriteToStream(&$s) {
         if ($s) {
@@ -51,18 +86,32 @@ class Deliver_SMTP extends Deliver {
             $from->mailbox = '';
         }
 
-        if (($use_smtp_tls == true) and (check_php_version(4,3)) and (extension_loaded('openssl'))) {
-            $stream = @fsockopen('tls://' . $host, $port, $errorNumber, $errorString);
+        if ($use_smtp_tls == 1) {
+            if ((check_php_version(4,3)) && (extension_loaded('openssl'))) {
+                $stream = @fsockopen('tls://' . $host, $port, $errorNumber, $errorString);
+                $this->tls_enabled = true;
+            } else {
+                /**
+                 * don't connect to server when user asks for smtps and 
+                 * PHP does not support it.
+                 */
+                $errorNumber = '';
+                $errorString = _("Secure SMTP (TLS) is enabled in SquirrelMail configuration, but used PHP version does not support it.");
+            }
         } else {
             $stream = @fsockopen($host, $port, $errorNumber, $errorString);
         }
 
         if (!$stream) {
+            // reset tls state var to default value, if connection fails
+            $this->tls_enabled = false;
+            // set error messages
             $this->dlv_msg = $errorString;
             $this->dlv_ret_nr = $errorNumber;
             $this->dlv_server_msg = _("Can't open SMTP stream.");
             return(0);
         }
+        // get server greeting
         $tmp = fgets($stream, 1024);
         if ($this->errorCheck($tmp, $stream)) {
             return(0);
@@ -84,7 +133,8 @@ class Deliver_SMTP extends Deliver {
 
         /* Lets introduce ourselves */
         fputs($stream, "EHLO $helohost\r\n");
-        $tmp = fgets($stream,1024);
+        // Read ehlo response
+        $tmp = $this->parse_ehlo_response($stream);
         if ($this->errorCheck($tmp,$stream)) {
             // fall back to HELO if EHLO is not supported
             if ($this->dlv_ret_nr == '500') {
@@ -98,6 +148,59 @@ class Deliver_SMTP extends Deliver {
             }
         }
 
+        /**
+         * Implementing SMTP STARTTLS (rfc2487) in php 5.1.0+
+         * http://www.php.net/stream-socket-enable-crypto
+         */
+        if ($use_smtp_tls == 2) {
+            if (function_exists('stream_socket_enable_crypto')) {
+                // don't try starting tls, when client thinks that it is already active
+                if ($this->tls_enabled) {
+                    $this->dlv_msg = _("TLS session is already activated.");
+                    return 0;
+                } elseif (!array_key_exists('STARTTLS',$this->ehlo)) {
+                    // check for starttls in ehlo response
+                    $this->dlv_msg = _("SMTP STARTTLS is enabled in SquirrelMail configuration, but used SMTP server does not support it");
+                    return 0;
+                }
+
+                // issue starttls command
+                fputs($stream, "STARTTLS\r\n");
+                // get response
+                $tmp = fgets($stream,1024);
+                if ($this->errorCheck($tmp,$stream)) {
+                    return 0;
+                }
+
+                // start crypto on connection. suppress function errors.
+                if (@stream_socket_enable_crypto($stream,true,STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
+                    // starttls was successful (rfc2487 5.2 Result of the STARTTLS Command)
+                    // get new EHLO response
+                    fputs($stream, "EHLO $helohost\r\n");
+                    // Read ehlo response
+                    $tmp = $this->parse_ehlo_response($stream);
+                    if ($this->errorCheck($tmp,$stream)) {
+                        // don't revert to helo here. server must support ESMTP
+                        return 0;
+                    }
+                    // set information about started tls
+                    $this->tls_enabled = true;
+                } else {
+                    /**
+                     * stream_socket_enable_crypto() call failed.
+                     */
+                    $this->dlv_msg = _("Unable to start TLS.");
+                    return 0;
+                    // Bug: can't get error message. See comments in sqimap_create_stream().
+                }
+            } else {
+                // php install does not support stream_socket_enable_crypto() function
+                $this->dlv_msg = _("SMTP STARTTLS is enabled in SquirrelMail configuration, but used PHP version does not support functions that allow to enable encryption on open socket.");
+                return 0;
+            }
+        }
+
+        // FIXME: check ehlo response before using authentication
         if (( $smtp_auth_mech == 'cram-md5') or ( $smtp_auth_mech == 'digest-md5' )) {
             // Doing some form of non-plain auth
             if ($smtp_auth_mech == 'cram-md5') {
@@ -311,7 +414,7 @@ class Deliver_SMTP extends Deliver {
         }
 
         $this->dlv_msg = $message;
-        $this->dlv_server_msg = nl2br(htmlspecialchars($server_msg));
+        $this->dlv_server_msg = $server_msg;
 
         return true;
     }
@@ -345,6 +448,66 @@ class Deliver_SMTP extends Deliver {
             fputs($popConnection, "QUIT\r\n"); /* log off */
             fclose($popConnection);
         }
+    }
+
+    /**
+     * Parses ESMTP EHLO response (rfc1869)
+     *
+     * Reads SMTP response to EHLO command and fills class variables 
+     * (ehlo array and domain string). Returns last line.
+     * @param stream $stream smtp connection stream.
+     * @return string last ehlo line
+     * @since 1.5.1
+     */
+    function parse_ehlo_response($stream) {
+        // don't cache ehlo information
+        $this->ehlo=array();
+        $ret = '';
+        $firstline = true;
+        /**
+         * ehlo mailclient.example.org
+         * 250-mail.example.org
+         * 250-PIPELINING
+         * 250-SIZE 52428800
+         * 250-DATAZ
+         * 250-STARTTLS
+         * 250-AUTH LOGIN PLAIN
+         * 250 8BITMIME
+         */
+        while ($line=fgets($stream, 1024)){
+            // match[1] = first symbol after 250
+            // match[2] = domain or ehlo-keyword
+            // match[3] = greeting or ehlo-param
+            // match space after keyword in ehlo-keyword CR LF
+            if (preg_match("/^250(-|\s)(\S*)\s+(\S.*)\r\n/",$line,$match)||
+                preg_match("/^250(-|\s)(\S*)\s*\r\n/",$line,$match)) {
+                if ($firstline) {
+                    // first ehlo line (250[-\ ]domain SP greeting)
+                    $this->domain = $match[2];
+                    $firstline=false;
+                } elseif (!isset($match[3])) {
+                    // simple one word extension
+                    $this->ehlo[strtoupper($match[2])]='';
+                } elseif (!preg_match("/\s/",trim($match[3]))) {
+                    // extension with one option
+                    // yes, I know about ctype extension. no, i don't want to depend on it
+                    $this->ehlo[strtoupper($match[2])]=trim($match[3]);
+                } else {
+                    // ehlo-param with spaces
+                    $this->ehlo[strtoupper($match[2])]=explode(' ',trim($match[3]));
+                }
+                if ($match[1]==' ') {
+                    // stop while cycle, if we reach last 250 line
+                    $ret = $line;
+                    break;
+                }
+            } else {
+                // this is not 250 response
+                $ret = $line;
+                break;
+            }
+        }
+        return $ret;
     }
 }
 

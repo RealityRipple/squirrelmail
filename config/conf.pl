@@ -321,6 +321,7 @@ while ( $line = <FILE> ) {
 }
 close FILE;
 
+# FIXME: unknown introduction date
 $useSendmail = 'false'                  if ( lc($useSendmail) ne 'true' );
 $sendmail_path = "/usr/sbin/sendmail"   if ( !$sendmail_path );
 $pop_before_smtp = 'false'              if ( !$pop_before_smtp );
@@ -349,13 +350,15 @@ $allow_advanced_search = 0              if ( !$allow_advanced_search) ;
 $prefs_user_field = 'user'              if ( !$prefs_user_field );
 $prefs_key_field = 'prefkey'            if ( !$prefs_key_field );
 $prefs_val_field = 'prefval'            if ( !$prefs_val_field );
+$session_name = 'SQMSESSID'             if ( !$session_name );
+$skip_SM_header = 'false'               if ( !$skip_SM_header );
+$default_use_javascript_addr_book = 'false' if (! $default_use_javascript_addr_book);
+
+# since 1.4.0
 $use_smtp_tls= 'false'                  if ( !$use_smtp_tls);
 $smtp_auth_mech = 'none'                if ( !$smtp_auth_mech );
 $use_imap_tls = 'false'                 if ( !$use_imap_tls );
 $imap_auth_mech = 'login'               if ( !$imap_auth_mech );
-$session_name = 'SQMSESSID'             if ( !$session_name );
-$skip_SM_header = 'false'               if ( !$skip_SM_header );
-$default_use_javascript_addr_book = 'false' if (! $default_use_javascript_addr_book);
 
 # since 1.5.0
 $show_alternative_names = 'false'       if ( !$show_alternative_names );
@@ -402,6 +405,11 @@ if ( !%fontsets) {
                  'verasans',  'bitstream vera sans,verdana,sans-serif');
 }
 
+# $use_imap_tls and $use_smtp_tls are switched to integer since 1.5.1
+$use_imap_tls = 0                      if ( $use_imap_tls eq 'false');
+$use_imap_tls = 1                      if ( $use_imap_tls eq 'true');
+$use_smtp_tls = 0                      if ( $use_smtp_tls eq 'false');
+$use_smtp_tls = 1                      if ( $use_smtp_tls eq 'true');
 
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
@@ -760,7 +768,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
               if    ( $command == 4 )  { $imapServerAddress      = command12(); }
               elsif ( $command == 5 )  { $imapPort               = command13(); }
               elsif ( $command == 6 )  { $imap_auth_mech     = command112a(); }
-              elsif ( $command == 7 )  { $use_imap_tls       = command113("IMAP",$use_imap_tls); }
+              elsif ( $command == 7 )  { $use_imap_tls       = command_use_tls("IMAP",$use_imap_tls); }
               elsif ( $command == 8 )  { $imap_server_type       = command19(); }
               elsif ( $command == 9 )  { $optional_delimiter     = command111(); }
             } elsif ( $show_smtp_settings && lc($useSendmail) eq 'true' ) {
@@ -772,7 +780,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
               elsif ( $command == 5 )  { $smtpPort               = command17(); }
               elsif ( $command == 6 )  { $pop_before_smtp        = command18a(); }
               elsif ( $command == 7 )  { $smtp_auth_mech    = command112b(); }
-              elsif ( $command == 8 )  { $use_smtp_tls      = command113("SMTP",$use_smtp_tls); }
+              elsif ( $command == 8 )  { $use_smtp_tls      = command_use_tls("SMTP",$use_smtp_tls); }
               elsif ( $command == 9 )  { $encode_header_key      = command114(); }
             }
         } elsif ( $menu == 3 ) {
@@ -1430,27 +1438,31 @@ sub command112b {
 # TLS
 # This sub is reused for IMAP and SMTP
 # Args: service name, default value
-sub command113 {
+sub command_use_tls {
     my($default_val,$service,$inval);
     $service=$_[0];
     $default_val=$_[1];
     print "TLS (Transport Layer Security) encrypts the traffic between server and client.\n";
-    print "If you're familiar with SSL, you get the idea.\n";
-    print "To use this feature, your " . $service . " server must offer TLS\n";
-    print "capability, plus PHP 4.3.x with OpenSSL support.\n";
-    print "\nIf your " . $service . " server is localhost, you can safely disable this.\n";
+    print "STARTTLS extensions allow to start encryption on existing plain text connection.\n";
+    print "These options add specific PHP and IMAP server configuration requirements.\n";
+    print "See SquirrelMail documentation about connection security.\n";
+    print "\n";
+    print "If your " . $service . " server is localhost, you can safely disable this.\n";
     print "If it is remote, you may wish to seriously consider enabling this.\n";
-    print "Enable TLS (y/n) [$WHT";
-    if ($default_val eq 'true') {
-      print "y";
-    } else {
-      print "n";
+    $valid_input=0;
+    while ($valid_input eq 0) {
+        print "\nSelect connection security model:\n";
+        print " 0 - Use plain text connection\n";
+        print " 1 - Use TLS connection\n";
+        print " 2 - Use STARTTLS extension\n";
+        print "Select [$default_val]: ";
+        $inval=<STDIN>;
+        $inval=trim($inval);
+        if ($inval =~ /^[012]$/ || $inval eq '') {
+            $valid_input = 1;
+        }
     }
-    print "$NRM]: $WHT";
-    $inval=<STDIN>;
-    $inval =~ tr/yn//cd;
-    return 'true'  if ( $inval eq "y" );
-    return 'false' if ( $inval eq "n" );
+    if ($inval ne '') {$default_val = $inval};
     return $default_val;
 }
 

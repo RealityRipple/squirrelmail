@@ -263,9 +263,12 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
         $success = $deliver->finalizeStream($stream);
     }
     if (!$success) {
-        $msg  = $deliver->dlv_msg . '<br />' .
+        $msg = $deliver->dlv_msg;
+        if (! empty($deliver->dlv_server_msg)) {
+            $msg.= '<br />' .
                 _("Server replied:") . ' ' . $deliver->dlv_ret_nr . ' ' .
-                $deliver->dlv_server_msg;
+                nl2br(htmlspecialchars($deliver->dlv_server_msg));
+        }
         require_once(SM_PATH . 'functions/display_messages.php');
         plain_error_message($msg, $color);
     } else {
