@@ -18,7 +18,7 @@
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/page_header.php');
@@ -63,4 +63,6 @@ $DownloadLink = '../src/download.php?passed_id=' . $passed_id .
 <img src="<?php echo $DownloadLink; ?>" />
 
 </td></tr></table>
-</body></html>
+<?php
+$oTemplate->display('footer.tpl');
+?>

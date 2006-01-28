@@ -23,7 +23,7 @@
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'include/validate.php');
 
 displayPageHeader($color, 'None' );
 
@@ -89,4 +89,6 @@ if ( count ($plugins) > 0 ) {
 </td></tr>
 <tr><td align="center">&copy; 1999 - 2006 The SquirrelMail Project Team</td></tr>
 </table></p>
-</body></html>
+<?php
+$oTemplate->display('footer.tpl');
+?>

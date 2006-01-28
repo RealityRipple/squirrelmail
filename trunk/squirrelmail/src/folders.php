@@ -20,7 +20,7 @@
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/folder_manip.php');
 require_once(SM_PATH . 'functions/plugin.php');
@@ -142,9 +142,9 @@ $server_type = strtolower($imap_server_type);
 if ( $server_type == 'courier' ) {
     /**
      * If we use courier, we should hide system trash folder
-     * FIXME: (tokul) Who says that courier does not allow storing folders in 
-     * INBOX.Trash or inbox.trash? Can't reproduce it 3.0.8. This entry is 
-     * useless, because in_array() check is case sensitive and INBOX is in 
+     * FIXME: (tokul) Who says that courier does not allow storing folders in
+     * INBOX.Trash or inbox.trash? Can't reproduce it 3.0.8. This entry is
+     * useless, because in_array() check is case sensitive and INBOX is in
      * upper case.
      */
     array_push($skip_folders, 'inbox.trash');
@@ -192,14 +192,14 @@ foreach ($boxes as $index => $aBoxData) {
     if (isSpecialMailbox($aBoxData['unformatted']) &&
         ! in_array($aBoxData['unformatted'],$skip_folders)) {
         $skip_folders[] = $aBoxData['unformatted'];
-    } 
+    }
 }
 
 /**
  * Retrieve list of folders when special folders are excluded. Special folders
  * should be unavailable in rename/delete/unsubscribe. Theoretically user can
- * modify form and perform these operations with special folders, but if user 
- * manages to delete/rename/unsubscribe special folder by hacking form... 
+ * modify form and perform these operations with special folders, but if user
+ * manages to delete/rename/unsubscribe special folder by hacking form...
  *
  * If script or program depends on special folder, they should not assume that
  * folder is available.
@@ -358,4 +358,6 @@ sqimap_logout($imapConnection);
     </table>
 </td></tr>
 </table>
-</body></html>
+<?php
+$oTemplate->display('footer.tpl');
+?>

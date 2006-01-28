@@ -19,7 +19,7 @@
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/page_header.php');
@@ -125,7 +125,7 @@ function ListBoxes ($boxes, $j=0 ) {
             $boxes->total = $result['MESSAGES'];
             $boxes->unseen = $result['UNSEEN'];
         }
-        
+
         $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
         if ($unseen > 0) {
             $pre .= '<b>';
@@ -794,4 +794,7 @@ sqimap_logout($imapConnection);
 
 ?>
 </td></tr></table>
-</div></body></html>
+</div>
+<?php
+$oTemplate->display('footer.tpl');
+?>

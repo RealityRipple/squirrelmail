@@ -1,7 +1,7 @@
 <?php
 /**
  * Style sheet script
- * 
+ *
  * Script processes GET arguments and generates CSS output from stylesheet.tpl.
  * Used GET arguments:
  * <ul>
@@ -22,6 +22,7 @@ define('SM_PATH','../');
 require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'config/config.php');
+require_once(SM_PATH . 'include/load_prefs.php');
 
 /* temp setting containing list of font styles. Should go to config.php */
 $fontsets=array();
@@ -39,7 +40,7 @@ $fontsets['tahoma']['STYLE']='tahoma,sans-serif';
 /* template init */
 /** start block copy from right_main.php */
 include_once(SM_PATH . 'class/template/template.class.php');
-$sTplDir = SM_PATH . 'templates/default/';
+
 $oTemplate = new Template($sTplDir);
 /** end block copy */
 
@@ -71,12 +72,26 @@ if (sqgetGlobalVar('themeid',$themeid,SQ_GET) &&
     include_once($theme[$theme_default]['PATH']);
 }
 
+/**
+ * get alignment variable from language settings...
+ * MOVE THIS to a central init section !!!!
+ */
+if (!sqgetGlobalVar('align',$align,SQ_SESSION)) {
+    $dir = ( isset( $languages[$squirrelmail_language]['DIR']) ) ? $languages[$squirrelmail_language]['DIR'] : 'ltr';
+    if ( $dir == 'ltr' ) {
+        $align = array('left' => 'left', 'right' => 'right');
+    } else {
+        $align = array('left' => 'right', 'right' => 'left');
+    }
+    sqsession_register($align, 'align');
+}
+
 /**/
 $oTemplate->assign('color', $color);
 
 /**
  * set color constants in order to use simple names instead of color array
- * 0 - SQM_TEXT_DISABLED, SQM_TITLE_BACKGROUND, SQM_BUTTON_BACKGROUND_DISABLED, 
+ * 0 - SQM_TEXT_DISABLED, SQM_TITLE_BACKGROUND, SQM_BUTTON_BACKGROUND_DISABLED,
  *     SQM_ROW_BACKGROUND_1
  * 1 -
  * 2 - SQM_ERROR_TEXT
@@ -85,8 +100,8 @@ $oTemplate->assign('color', $color);
  * 5 - SQM_ROW_BACKGROUND_HIGHLIGHT, SQM_COLUMN_HEADER_BACKGROUND
  * 6 - SQM_TEXT_STANDARD_LEFT
  * 7 - SQM_TITLE_TEXT, SQM_BLOCK_TITLE_TEXT
- * 8 - SQM_TEXT_STANDARD, SQM_BUTTON_TEXT, SQM_BLOCK_TEXT, SQM_ROW_TEXT_1, 
- *     SQM_ROW_TEXT_2, SQM_ROW_TEXT_HIGHLIGHT, SQM_ROW_TEXT_SELECTED, 
+ * 8 - SQM_TEXT_STANDARD, SQM_BUTTON_TEXT, SQM_BLOCK_TEXT, SQM_ROW_TEXT_1,
+ *     SQM_ROW_TEXT_2, SQM_ROW_TEXT_HIGHLIGHT, SQM_ROW_TEXT_SELECTED,
  *     SQM_COLUMN_HEADER_TEXT
  * 9 - SQM_BUTTON_BACKGROUND
  * 10 - SQM_BLOCK_TITLE
@@ -138,6 +153,9 @@ define('SQM_MESSAGE_QUOTE_1',$color[13]);
 define('SQM_MESSAGE_QUOTE_2',$color[14]);
 
 define('SQM_ERROR_TEXT',$color[2]);
+
+define('SQM_ALIGN_LEFT', $align['left']);
+define('SQM_ALIGN_RIGHT', $align['right']);
 
 if (sqgetGlobalVar('fontset',$fontset,SQ_GET) &&
     isset($fontsets[$fontset])) {

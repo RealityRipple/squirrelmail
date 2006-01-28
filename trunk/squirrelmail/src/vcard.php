@@ -18,7 +18,7 @@
 Define('SM_PATH','../');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'functions/url_parser.php');
 
@@ -242,4 +242,6 @@ echo '<a href="../src/download.php?absolute_dl=true&amp;passed_id=' .
 <table border="0" cellspacing="0" cellpadding="2" align="center">
 <tr><td bgcolor="<?php echo $color[4]; ?>">
 </td></tr></table>
-</body></html>
+<?php
+$oTemplate->display('footer.tpl');
+?>

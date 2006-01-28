@@ -19,7 +19,7 @@
 define('SM_PATH','../');
 
 /** SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/addressbook.php');
 require_once(SM_PATH . 'functions/forms.php');
@@ -284,7 +284,7 @@ if ($showaddrlist) {
                                 html_tag( 'th', _("Info") .
                                     show_abook_sort_button($abook_sort_order, _("sort by info"), 6, 7),
                                     'left', '', 'width="1%"' ) .
-                                  ($abook->add_extra_field ? html_tag( 'th', '&nbsp;','left', '', 'width="1%"'): '') . 
+                                  ($abook->add_extra_field ? html_tag( 'th', '&nbsp;','left', '', 'width="1%"'): '') .
                                 "\n",
                                 '', $color[9] ) . "\n";
                 }
@@ -328,8 +328,8 @@ if ($showaddrlist) {
                                '&nbsp;' ,
                                'center', '', 'valign="top" width="1%"' );
             }
-            echo html_tag( 'td', 
-                           '&nbsp;' . htmlspecialchars($row['nickname']) . '&nbsp;', 
+            echo html_tag( 'td',
+                           '&nbsp;' . htmlspecialchars($row['nickname']) . '&nbsp;',
                            'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' );
 
             // different full name display formating for Japanese translation
@@ -338,7 +338,7 @@ if ($showaddrlist) {
                  * translation uses euc-jp character set internally.
                  * htmlspecialchars() should not break any characters.
                  */
-                echo html_tag( 'td', 
+                echo html_tag( 'td',
                                '&nbsp;' . htmlspecialchars($row['lastname']) . ' ' . htmlspecialchars($row['firstname']) . '&nbsp;',
                                'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' );
             } else {
@@ -359,7 +359,7 @@ if ($showaddrlist) {
 
             // add extra column if third party backend needs it
             if ($abook->add_extra_field) {
-                echo html_tag( 'td', 
+                echo html_tag( 'td',
                                '&nbsp;' . (isset($row['extra']) ? $row['extra'] : '') . '&nbsp;',
                                'left', '', 'valign="top" width="1%"' );
             }
@@ -394,6 +394,5 @@ echo "</form>\n";
 echo "<!-- start of addressbook_bottom hook-->\n";
 do_hook('addressbook_bottom');
 echo "\n<!-- end of addressbook_bottom hook-->\n";
-
+$oTemplate->display('footer.tpl');
 ?>
-</body></html>

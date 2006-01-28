@@ -23,7 +23,7 @@
 define('SM_PATH','../');
 
 /** SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'include/validate.php');
 include_once(SM_PATH . 'functions/strings.php');
 include_once(SM_PATH . 'functions/global.php');
 include_once(SM_PATH . 'functions/html.php');
@@ -311,6 +311,5 @@ if ($show == 'form' && ! isset($listall)) {
         echo html_tag( 'p', '<br /><b>' . _("Nothing to search") . "</b>\n",'center' );
     }
 }
-
+$oTemplate->display('footer.tpl');
 ?>
-</body></html>

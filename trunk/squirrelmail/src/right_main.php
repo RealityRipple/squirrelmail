@@ -19,44 +19,16 @@
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/global.php');
+include_once(SM_PATH . 'include/validate.php');
+//include_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'functions/mailbox_display.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/html.php');
-require_once(SM_PATH . 'functions/plugin.php');
-include_once(SM_PATH . 'class/error.class.php');
+//require_once(SM_PATH . 'functions/plugin.php');
 
-
-//include_once(SM_PATH . 'templates/default/message_list.tpl');
-include_once(SM_PATH . 'class/template/template.class.php');
-
-/**
- * Which templatedir are we using. TODO, add make a config var of this and make it possible to switch templates
- */
-$sTplDir = SM_PATH . 'templates/default/';
-
-/*
- * Initialize the template object
- */
-$oTemplate = new Template($sTplDir);
-
-/*
- * Initialize our custom error handler object
- */
-$oErrorHandler = new ErrorHandler($oTemplate,'error_message.tpl');
-
-/*
- * Activate custom error handling
- */
-if (version_compare(PHP_VERSION, "4.3.0", ">=")) {
-    $oldErrorHandler = set_error_handler(array($oErrorHandler, 'SquirrelMailErrorhandler'));
-} else {
-    $oldErrorHandler = set_error_handler('SquirrelMailErrorhandler');
-}
 
 // Trigger Developers to look at CSS ;)
 // trigger_error("This layout sucks. Adapt squirrelmail.css!!!",E_USER_WARNING);
