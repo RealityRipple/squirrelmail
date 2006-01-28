@@ -15,6 +15,7 @@
 
 /** Everything needs global.. */
 require_once(SM_PATH . 'functions/global.php');
+require_once(SM_PATH . 'config/config.php');
 require_once(SM_PATH . 'functions/prefs.php');
 
 global $squirrelmail_plugin_hooks;
