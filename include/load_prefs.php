@@ -13,9 +13,10 @@
  */
 
 /** SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/plugin.php');
-require_once(SM_PATH . 'functions/constants.php');
+include_once(SM_PATH . 'functions/constants.php');
+include_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'functions/plugin.php');
+
 
 if( ! sqgetGlobalVar('username', $username, SQ_SESSION) ) {
     $username = '';
@@ -25,8 +26,33 @@ $custom_css = getPref($data_dir, $username, 'custom_css', 'none' );
 
 $theme = ( !isset($theme) ? array() : $theme );
 $color = ( !isset($color) ? array() : $color );
+$aTemplateSet = ( !isset($aTemplateSet) ? array() : $aTemplateSet );
 
 $chosen_theme = getPref($data_dir, $username, 'chosen_theme');
+$sTplDir = getPref($data_dir, $username, 'sTplDir');
+
+$found_templateset = false;
+
+/* need to adjust $chosen_template path with SM_PATH */
+$sTplDir = preg_replace("/(\.\.\/){1,}/", SM_PATH, $sTplDir);
+
+for ($i = 0; $i < count($aTemplateSet); ++$i){
+    if ($aTemplateSet[$i]['PATH'] == $sTplDir) {
+        $found_templateset = true;
+        break;
+    }
+}
+$sTplDir = ($found_templateset ? $sTplDir : '');
+if (!$found_templateset) {
+    if (isset($aTemplateSet) && isset($aTemlateSet[$templateset_default]) && file_exists($aTemplateSet[$templateset_default]['PATH'])) {
+       $sTplDir = $aTemplateSet[$templateset_default]['PATH'];
+    } else {
+       $sTplDir = SM_PATH.'templates/default/';
+    }
+} else if (!file_exists($sTplDir)) {
+    $sTplDir = SM_PATH.'templates/default/';
+}
+
 $found_theme = false;
 
 /* need to adjust $chosen_theme path with SM_PATH */
@@ -39,6 +65,7 @@ for ($i = 0; $i < count($theme); ++$i){
     }
 }
 $chosen_theme = (!$found_theme ? '' : $chosen_theme);
+
 
 /**
 * This theme as a failsafe if no themes were found. It makes
