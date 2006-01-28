@@ -24,7 +24,7 @@ define('SM_PATH','../');
 
 /** SquirrelMail required files.
  */
-require_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'include/validate.php');
 include_once(SM_PATH . 'functions/strings.php');
 include_once(SM_PATH . 'functions/imap_asearch.php');
 include_once(SM_PATH . 'functions/imap_mailbox.php');
@@ -1641,7 +1641,7 @@ if ($submit == $search_button_text) {
 
 do_hook('search_bottom');
 sqimap_logout($imapConnection);
-echo '</body></html>';
+$oTemplate->display('footer.tpl');
 sqsession_register($mailbox_cache,'mailbox_cache');
 
 ?>

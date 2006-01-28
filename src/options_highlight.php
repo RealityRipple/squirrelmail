@@ -19,7 +19,7 @@
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'include/validate.php');
 include_once(SM_PATH . 'functions/display_messages.php');
 include_once(SM_PATH . 'functions/imap.php');
 include_once(SM_PATH . 'functions/plugin.php');
@@ -466,4 +466,7 @@ if ($action == 'edit' || $action == 'add') {
 do_hook('options_highlight_bottom');
 
 ?>
-</table></body></html>
+</table>
+<?php
+$oTemplate->display('footer.tpl');
+?>

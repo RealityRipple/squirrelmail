@@ -19,7 +19,7 @@
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'include/validate.php');
 
 displayHtmlHeader( _("Printer Friendly"),
              "<script language=\"javascript\" type=\"text/javascript\">\n".
@@ -40,5 +40,5 @@ echo '<body text="'.$color[8].'" bgcolor="'.$color[3].'" link="'.$color[7].'" vl
          '</form>',
      'right' );
 
+$oTemplate->display('footer.tpl');
 ?>
-</body></html>

@@ -21,7 +21,7 @@
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/imap.php');
 
 /* get some of these globals */
@@ -135,7 +135,7 @@ echo '<body text="#000000" bgcolor="#FFFFFF" link="#000000" vlink="#000000" alin
      echo html_tag( 'tr',
          html_tag( 'td', '<hr style="height: 1px;" /><br />' . "\n" . $body, 'left', '', 'colspan="2"' )
      ) . "\n" ;
-     
+
      if (! empty($attachments)) {
          // attachments title
          echo html_tag( 'tr',
@@ -151,8 +151,8 @@ echo '<body text="#000000" bgcolor="#FFFFFF" link="#000000" vlink="#000000" alin
          ) . "\n" ;
      }
 
-     echo '</table>' . "\n" .
-     '</body></html>';
+     echo '</table>' . "\n";
+$oTemplate->display('footer.tpl');
 
 /* --end browser output-- */
 
@@ -262,12 +262,12 @@ function pf_show_attachments($message, $exclude_id, $mailbox, $id) {
 
         // TODO: maybe make it nicer?
         $attachments .= '<table cellpadding="1" cellspacing="0" width="100%" border="1"><tr><th colspan="2">'.decodeHeader($display_filename).'</th></tr>' .
-            '<tr>'. 
-            html_tag( 'td',_("Size:"), 'right', '', 'width="25%"') . 
+            '<tr>'.
+            html_tag( 'td',_("Size:"), 'right', '', 'width="25%"') .
             html_tag( 'td',show_readable_size($header->size), 'left', '', 'width="75%"') .
             '</tr><tr>' . "\n" .
             html_tag( 'td',_("Type:"), 'right', '', 'width="25%"') .
-            html_tag( 'td',htmlspecialchars($type0).'/'.htmlspecialchars($type1), 'left', '', 'width="75%"') . 
+            html_tag( 'td',htmlspecialchars($type0).'/'.htmlspecialchars($type1), 'left', '', 'width="75%"') .
             '</tr>';
         if (! empty($description)) {
             $attachments .= $description;

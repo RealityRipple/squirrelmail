@@ -19,7 +19,7 @@
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'include/validate.php');
 include_once(SM_PATH . 'functions/global.php');
 include_once(SM_PATH . 'functions/display_messages.php');
 include_once(SM_PATH . 'functions/imap.php');
@@ -234,8 +234,8 @@ function viewOrderForm($aColumns, $aOrder, $aOpts, $mailbox) {
       </table>
     </td></tr>
   </table>
-</body></html>
 
 <?php
 }
+$oTemplate->display('footer.tpl');
 ?>

@@ -18,7 +18,7 @@
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 
@@ -212,4 +212,7 @@ echo html_tag( 'tr',
         );
 
 ?>
-</table></body></html>
+</table>
+<?php
+$oTemplate->display('footer.tpl');
+?>

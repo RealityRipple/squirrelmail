@@ -20,7 +20,7 @@
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/mime.php');
@@ -97,4 +97,6 @@ echo '<a href="' . $dwnld_url . '">' . _("Download this as a file") . '</a>';
 <tr><td bgcolor="<?php echo $color[4]; ?>"><tt>
 <?php echo $body; ?>
 </tt></td></tr></table>
-</body></html>
+<?php
+$oTemplate->display('footer.tpl');
+?>

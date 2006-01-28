@@ -22,7 +22,7 @@ if (! defined('SM_PATH') ) {
 }
 
 /** SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'include/validate.php');
 include_once(SM_PATH . 'functions/global.php');
 include_once(SM_PATH . 'functions/date.php');
 include_once(SM_PATH . 'functions/display_messages.php');
@@ -300,6 +300,6 @@ if ($addrquery == '' || sizeof($res) == 0) {
     echo '<input type="submit" value="' . _("Return") . '" name="return" />' . "\n" .
          '</form></center></nobr>';
 }
-
+<?php
+$oTemplate->display('footer.tpl');
 ?>
-</body></html>

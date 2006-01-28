@@ -17,7 +17,7 @@
  */
 define('SM_PATH','../');
 
-require_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/prefs.php');
 require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/strings.php');
@@ -92,6 +92,5 @@ html_tag( 'table',
     '', $color[0] ) ,
 'center', $color[4], 'width="50%" cellpadding="2" cellspacing="0" border="0"' )
 
+$oTemplate->display('footer.tpl');
 ?>
-</body>
-</html>

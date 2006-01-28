@@ -24,7 +24,7 @@
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/date.php');
@@ -467,7 +467,7 @@ if ($send) {
             exit();
         }
         unset($compose_messages[$session]);
-        
+
         /* if it is resumed draft, delete draft message */
         if ( isset($delete_draft)) {
             $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, false);
@@ -1025,7 +1025,7 @@ function showInputForm ($session, $values=false) {
         $username, $data_dir, $identity, $idents, $delete_draft,
         $mailprio, $compose_new_win, $saved_draft, $mail_sent, $sig_first,
         $username, $compose_messages, $composesession, $default_charset,
-        $compose_onsubmit;
+        $compose_onsubmit, $oTemplate;
 
     if (checkForJavascript()) {
         $onfocus = ' onfocus="alreadyFocused=true;"';
@@ -1070,8 +1070,8 @@ function showInputForm ($session, $values=false) {
 
     // Plugins that use compose_form hook can add an array entry
     // to the globally scoped $compose_onsubmit; we add them up
-    // here and format the form tag's full onsubmit handler.  
-    // Each plugin should use "return false" if they need to 
+    // here and format the form tag's full onsubmit handler.
+    // Each plugin should use "return false" if they need to
     // stop form submission but otherwise should NOT use "return
     // true" to give other plugins the chance to do what they need
     // to do; SquirrelMail itself will add the final "return true".
@@ -1079,21 +1079,21 @@ function showInputForm ($session, $values=false) {
     // need to quote accordingly.
     if (checkForJavascript()) {
         $onsubmit_text = ' onsubmit="';
-        if (empty($compose_onsubmit)) 
+        if (empty($compose_onsubmit))
             $compose_onsubmit = array();
-        else if (!is_array($compose_onsubmit)) 
+        else if (!is_array($compose_onsubmit))
             $compose_onsubmit = array($compose_onsubmit);
 
         foreach ($compose_onsubmit as $text) {
             $text = trim($text);
-            if (substr($text, -1) != ';' && substr($text, -1) != '}') 
+            if (substr($text, -1) != ';' && substr($text, -1) != '}')
                 $text .= '; ';
             $onsubmit_text .= $text;
         }
 
         echo $onsubmit_text . ' return true;"';
     }
-    
+
 
     echo ">\n";
 
@@ -1340,7 +1340,7 @@ function showInputForm ($session, $values=false) {
     }
 
     do_hook('compose_bottom');
-    echo '</body></html>' . "\n";
+    $oTemplate->display('footer.tpl');
 }
 
 
