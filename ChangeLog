@@ -526,10 +526,11 @@ Version 1.5.1 -- CVS
   - Style sheets are moved to template.
   - displayHtmlHeader() function call sends http headers in order to prevent 
     page caching.
-  - Added Template set selection
+  - Added Template set selection.
   - Merged patch from Steve Brown to transform current templates to css
-    based templates
-  - Added footer template to every page
+    based templates.
+  - Added footer template to every page.
+  - Added experimental IMAP and SMTP STARTTLS extension support.
 
 
 Version 1.5.0 - 2 February 2004
