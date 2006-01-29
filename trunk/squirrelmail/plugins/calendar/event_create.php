@@ -152,11 +152,11 @@ if(!isset($event_text)){
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Date:"), 'right', $color[4] ) . "\n" .
-                    html_tag( 'td', $month .'/'.$day.'/'.$year, 'left', $color[4] ) . "\n"
+                    html_tag( 'td', date_intl(_("m/d/Y"),mktime(0,0,0,$month,$day,$year)), 'left', $color[4] ) . "\n"
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Time:"), 'right', $color[4] ) . "\n" .
-                    html_tag( 'td', $event_hour.':'.$event_minute, 'left', $color[4] ) . "\n"
+                    html_tag( 'td', date_intl(_("H:i"),mktime($event_hour,$event_minute,0,$month,$day,$year)), 'left', $color[4] ) . "\n"
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Title:"), 'right', $color[4] ) . "\n" .

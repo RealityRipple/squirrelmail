@@ -66,11 +66,11 @@ function confirm_deletion() {
                ) .
                html_tag( 'tr',
                    html_tag( 'td', _("Date:"), 'right', $color[4] ) .
-                   html_tag( 'td', $dmonth.'/'.$dday.'/'.$dyear, 'left', $color[4] )
+                   html_tag( 'td', date_intl(_("m/d/Y"),mktime(0,0,0,$dmonth,$dday,$dyear)), 'left', $color[4] )
                ) .
                html_tag( 'tr',
                    html_tag( 'td', _("Time:"), 'right', $color[4] ) .
-                   html_tag( 'td', $dhour.':'.$dminute, 'left', $color[4] )
+                   html_tag( 'td', date_intl(_("H:i"),mktime($dhour,$dminute,0,$dmonth,$dday,$dyear)), 'left', $color[4] )
                ) .
                html_tag( 'tr',
                    html_tag( 'td', _("Title:"), 'right', $color[4] ) .
