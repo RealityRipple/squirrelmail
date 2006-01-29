@@ -92,7 +92,10 @@ echo "<p><table>\n<tr><td>SquirrelMail version:</td><td><b>" . $version . "</b><
          date ('d F Y H:i:s', filemtime(SM_PATH . 'config/config.php')) .
          "</b></td></tr>\n</table>\n</p>\n\n";
 
-/* TODO: check $config_version here */
+/* check $config_version */
+if ($config_version!='1.4.0') {
+    do_err('Configuration file version does not match required version. Please update your configuration file.');
+}
 
 echo "Checking PHP configuration...<br />\n";
 
