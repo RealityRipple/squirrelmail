@@ -39,7 +39,7 @@ function sqimap_msgs_list_copy($imap_stream, $id, $mailbox, $handle_errors = tru
  * @param string $id The list of messages to move
  * @param string $mailbox The destination to move to
  * @param bool $handle_errors Show error messages in case of a NO, BAD or BYE response
- * @param string $source_mailbox (since 1.5.1) name of source mailbox. It is used to 
+ * @param string $source_mailbox (since 1.5.1) name of source mailbox. It is used to
  *  validate that target mailbox != source mailbox.
  * @return bool If the move completed without errors
  */
@@ -162,13 +162,15 @@ function sqimap_get_sort_order($imap_stream, $sSortField, $reverse, $search='ALL
         }
         $query = "SORT ($sSortField) ".strtoupper($default_charset)." $search";
         // FIX ME sqimap_run_command should return the parsed data accessible by $aDATA['SORT']
-        $aData = sqimap_run_command ($imap_stream, $query, false, $response, $message, TRUE);
+        // use sqimap_run_command_list in case of unsollicited responses. If we don't we could loose the SORT response
+        $aData = sqimap_run_command_list ($imap_stream, $query, false, $response, $message, TRUE);
         /* fallback to default charset */
         if ($response == 'NO' && strpos($message,'[BADCHARSET]') !== false) {
             $query = "SORT ($sSortField) US-ASCII $search";
-            $aData = sqimap_run_command ($imap_stream, $query, true, $response, $message, TRUE);
+            $aData = sqimap_run_command_list ($imap_stream, $query, true, $response, $message, TRUE);
         }
     }
+
 
     if ($response == 'OK') {
         return parseUidList($aData,'SORT');
@@ -180,7 +182,7 @@ function sqimap_get_sort_order($imap_stream, $sSortField, $reverse, $search='ALL
 
 /**
  * Parses a UID list returned on a SORT or SEARCH request
- * @param array $aData imap response
+ * @param array $aData imap response (retrieved from sqimap_run_command_list)
  * @param string $sCommand issued imap command (SEARCH or SORT)
  * @return array $aUid uid list
  */
@@ -188,8 +190,10 @@ function parseUidList($aData,$sCommand) {
     $aUid = array();
     if (isset($aData) && count($aData)) {
         for ($i=0,$iCnt=count($aData);$i<$iCnt;++$i) {
-            if (preg_match("/^\* $sCommand (.+)$/", $aData[$i], $aMatch)) {
-                $aUid += preg_split("/ /", trim($aMatch[1]));
+            for ($j=0,$jCnt=count($aData[$i]);$j<$jCnt;++$j) {
+                if (preg_match("/^\* $sCommand (.+)$/", $aData[$i][$j], $aMatch)) {
+                    $aUid += preg_split("/ /", trim($aMatch[1]));
+                }
             }
         }
     }
