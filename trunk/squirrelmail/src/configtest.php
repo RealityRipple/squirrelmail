@@ -392,7 +392,7 @@ while ($line=fgets($stream, 1024)){
 /* don't display capabilities before STARTTLS */
 if ($use_imap_tls==2 && stristr($capline, 'STARTTLS') === false) {
     do_err('Your server doesn\'t support STARTTLS.');
-} else {
+} elseif($use_imap_tls==2) {
     /* try starting starttls */
     fwrite($stream,"A002 STARTTLS\r\n");
     $starttls_line=fgets($stream, 1024);
