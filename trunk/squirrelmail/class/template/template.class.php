@@ -40,14 +40,14 @@ class Template
    *
    * @var string
    */
-  var $template_dir = 'templates\default';
+  var $template_dir = '';
 
   /**
    * Constructor
    *
    * @param string $sTplDir where the template set is located
    */
-  function Template($sTplDir = 'templates\default') {
+  function Template($sTplDir) {
        $this->template_dir = $sTplDir;
   }
 
