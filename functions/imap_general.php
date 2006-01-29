@@ -636,7 +636,10 @@ function sqimap_read_data ($imap_stream, $tag_uid, $handle_errors,
 function sqimap_create_stream($server,$port,$tls=0) {
     global $squirrelmail_language;
 
-    // FIXME: ipv6 address support
+    if (strstr($server,':') && ! preg_match("/^\[.*\]$/",$server)) {
+        // numerical IPv6 address must be enclosed in square brackets
+        $server = '['.$server.']';
+    }
 
     if ($tls == 1) {
         if ((check_php_version(4,3)) and (extension_loaded('openssl'))) {
@@ -649,7 +652,7 @@ function sqimap_create_stream($server,$port,$tls=0) {
                 _("TLS is enabled, but this version of PHP does not support TLS sockets, or is missing the openssl extension.").
                 '<br /><br />'.
                 _("Please contact your system administrator and report this error."),
-		sprintf(_("Error connecting to IMAP server: %s."), $server));
+                          sprintf(_("Error connecting to IMAP server: %s."), $server));
         }
     }
 
@@ -661,7 +664,7 @@ function sqimap_create_stream($server,$port,$tls=0) {
         require_once(SM_PATH . 'functions/display_messages.php');
         logout_error( sprintf(_("Error connecting to IMAP server: %s."), $server).
             "<br />\r\n$error_number : $error_string<br />\r\n",
-	    sprintf(_("Error connecting to IMAP server: %s."), $server) );
+                      sprintf(_("Error connecting to IMAP server: %s."), $server) );
         exit;
     }
     $server_info = fgets ($imap_stream, 1024);
