@@ -40,7 +40,14 @@ ngettext and dgettext support.
 
 Templates, css and error handler. 
 
-Own cookie functions
+SquirrelMail started using internal cookie functions in order to have more 
+controls over cookie format. Cookies set with sqsetcookie() function use
+extra parameter that secures cookie information in browsers that follow 
+MSDN cookie specifications.
+
+SquirrelMail IMAP and SMTP libraries updated to allow use of STARTTLS extension.
+Code is experimental and requires PHP 5.1.0 or newer with 
+stream_socket_enable_crypto() function support.
 
 Updated wrapping functions in compose.
 
@@ -49,28 +56,37 @@ Security updates
 ================
 
 This release contains security fixes applied to development branch after 1.5.0 
-release.
-CVE-2004-0521 - SQL injection vulnerability in address book.
-CVE-2004-1036 - XSS exploit in decodeHeader function.
-CVE-2005-0075 - Potential file inclusion in preference backend selection code.
-CVE-2005-0103 - Possible file/offsite inclusion in src/webmail.php.
-CVE-2005-0104 - Possible XSS issues in src/webmail.php.
-CVE-2005-1769 - Several cross site scripting (XSS) attacks.
-CVE-2005-2095 - Extraction of all POST variables in advanced identity code.
+release:
+ CVE-2004-0521 - SQL injection vulnerability in address book.
+ CVE-2004-1036 - XSS exploit in decodeHeader function.
+ CVE-2005-0075 - Potential file inclusion in preference backend selection code.
+ CVE-2005-0103 - Possible file/offsite inclusion in src/webmail.php.
+ CVE-2005-0104 - Possible XSS issues in src/webmail.php.
+ CVE-2005-1769 - Several cross site scripting (XSS) attacks.
+ CVE-2005-2095 - Extraction of all POST variables in advanced identity code.
 
+If you use SquirrelMail 1.5.0, you should upgrade to 1.5.1 or downgrade to latest
+stable SquirrelMail version.
 
 Plugin updates
 ==============
 Added site configuration options to filters, fortune, translate, newmail, 
-bug_report plugins. Improved newmail and change_password plugins.
+bug_report plugins. Improved newmail and change_password plugins. Fixed data 
+corruption issues in calendar plugin.
 
-SquirrelSpell data storage
+SquirrelSpell plugin was updated to use generic SquirrelMail preference functions.
+User preferences and personal dictionaries that were stored in .words files are 
+moved to .pref files or other configured user data storage backend.
 
 
 Possible issues
 ===============
-Cookies
+Internal SquirrelMail cookie implementation is experimental. If you have cookie 
+expiration or corruption issues with some browser and can reproduce them only in 
+1.5.1 version, contact SquirrelMail developers and help them to debug your issue.
+
 Plugins (changes in hooks and IMAP API)
+
 IMAP sorting/threading
 
 Backward incompatible changes
