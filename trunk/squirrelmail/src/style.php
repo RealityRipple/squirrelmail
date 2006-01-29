@@ -173,6 +173,11 @@ if (! sqgetGlobalVar('fontsize',$fontsize,SQ_GET)) {
 $oTemplate->assign('fontsize', $fontsize);
 
 header('Content-Type: text/css');
+// output a last-modified header if we can
+if ( $lastmod = @filemtime($oTemplate->template_dir . 'stylesheet.tpl') ) {
+    $gmlastmod = gmdate('D, d M Y H:i:s', $lastmod) . ' GMT';
+    header('Last-Modified: ' . $gmlastmod);
+}
 
 $oTemplate->display('stylesheet.tpl');
 
