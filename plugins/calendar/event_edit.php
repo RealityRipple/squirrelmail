@@ -162,11 +162,11 @@ function confirm_update() {
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Date:") , 'right', $color[4] ) ."\n" .
-                    html_tag( 'td', $month.'/'.$day.'/'.$year , 'left', $color[4] ) ."\n"
+                    html_tag( 'td', date_intl(_("m/d/Y"),mktime(0,0,0,$month,$day,$year)), 'left', $color[4] ) ."\n"
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Time:") , 'right', $color[4] ) ."\n" .
-                    html_tag( 'td', $hour.':'.$minute , 'left', $color[4] ) ."\n"
+                    html_tag( 'td', date_intl(_("H:i"),mktime($hour,$minute,0,$month,$day,$year)) , 'left', $color[4] ) ."\n"
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Priority:") , 'right', $color[4] ) ."\n" .
@@ -186,11 +186,11 @@ function confirm_update() {
 
                 html_tag( 'tr',
                     html_tag( 'td', _("Date:") , 'right', $color[4] ) ."\n" .
-                    html_tag( 'td', $event_month.'/'.$event_day.'/'.$event_year , 'left', $color[4] ) ."\n"
+                    html_tag( 'td', date_intl(_("m/d/Y"),mktime(0,0,0,$event_month,$event_day,$event_year)), 'left', $color[4] ) ."\n"
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Time:") , 'right', $color[4] ) ."\n" .
-                    html_tag( 'td', $event_hour.':'.$event_minute , 'left', $color[4] ) ."\n"
+                    html_tag( 'td', date_intl(_("H:i"),mktime($event_hour,$event_minute,0,$event_month,$event_day,$event_year)), 'left', $color[4] ) ."\n"
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Priority:") , 'right', $color[4] ) ."\n" .

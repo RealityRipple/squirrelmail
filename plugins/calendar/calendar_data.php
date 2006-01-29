@@ -76,7 +76,7 @@ function readcalendardata() {
             while ($fdata = fgetcsv ($fp, 4096, '|')) {
                 $calendardata[$fdata[0]][$fdata[1]] = array( 'length'   => $fdata[2],
                                                              'priority' => $fdata[3],
-                                                             'title'    => $fdata[4],
+                                                             'title'    => str_replace("\n",' ',calendar_readmultiline($fdata[4])),
                                                              'message'  => calendar_readmultiline($fdata[5]),
                                                              'reminder' => $fdata[6] );
             }
@@ -155,7 +155,7 @@ function delete_event($date, $time) {
 }
 
 /**
- * same as delete but not saves calendar
+ * same as delete but does not save calendar
  * saving is done inside event_edit.php
  * @return void
  * @access private

@@ -119,12 +119,12 @@ function display_events() {
         } else {
             $calbar=$calfoo['value'];
             if ($calbar['length']!=0){
-                $elength = '-'.date('H:i',mktime($ehour,$eminute+$calbar['length'],0,1,1,0));
+                $elength = '-'.date_intl(_("H:i"),mktime($ehour,$eminute+$calbar['length'],0,1,1,0));
             } else {
                 $elength='';
             }
             echo html_tag( 'tr', '', '', $color[$eo] ) .
-                        html_tag( 'td', $ehour . ':' . $eminute . $elength, 'left' ) .
+                        html_tag( 'td', date_intl(_("H:i"),mktime($ehour,$eminute,0,1,1,0)) . $elength, 'left' ) .
                         html_tag( 'td', '', 'left' ) . '[';
                             echo ($calbar['priority']==1) ? 
                                 "<font color=\"$color[1]\">".htmlspecialchars($calbar['title']).'</font>' : 
