@@ -511,14 +511,17 @@ Version 1.5.1 -- CVS
   - Fixed character wrapping/encoding issues in Japanese translation (#1377622). 
     Issue is specific to sqBodyWrap() and string function wrappers introduced in 
     1.5.1.
-  - MagicHTML fix for comments in styles.
+  - Security: MagicHTML fix for comments in styles which allowed
+    for cross site scripting when using Internet Explorer
+    [CVE-2006-0195].
   - Added 'mail' and 'sn' attributes to address book LDAP backend search
     expression (#1368154).
   - Added mailbox caching code by Michael Long.
   - Prevent output of whitespace during plugin activation. Fixes possible 
     attachment corruption by incorrectly coded plugins.
   - Fixed data sanitizing in calendar plugin (#1291081)(#705796).
-  - Prohibit imap injection attempts (reported by Vicente Aguilera)
+  - Security: Prohibit imap injection attempts (reported by Vicente Aguilera)
+    [CVE-2006-0377].
   - Don't move messages in sqimap_msgs_list_move() function call, when target
     mailbox is same as source mailbox. Adds fifth argument to 
     sqimap_msgs_list_move() function. Fixes possible issues on MacOS Cyrus

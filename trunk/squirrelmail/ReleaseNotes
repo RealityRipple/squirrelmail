@@ -64,6 +64,9 @@ release:
  CVE-2005-0104 - Possible XSS issues in src/webmail.php.
  CVE-2005-1769 - Several cross site scripting (XSS) attacks.
  CVE-2005-2095 - Extraction of all POST variables in advanced identity code.
+ CVE-2006-0188 - Possible XSS through right_frame parameter in webmail.php.
+ CVE-2006-0195 - Possible XSS in MagicHTML, IE only.
+ CVE-2006-0377 - IMAP injection in sqimap_mailbox_select mailbox parameter.
 
 If you use SquirrelMail 1.5.0, you should upgrade to 1.5.1 or downgrade to latest
 stable SquirrelMail version.
