@@ -24,13 +24,13 @@ if ( $shortBoxName <> '' && strtolower( $shortBoxName ) <> 'none' ) {
 }
 
 // Define our default link text.
-$signout_link_default = _('Sign Out');
-$compose_link_default = _('Compose');
-$address_link_default = _('Addresses');
-$folders_link_default = _('Folders');
-$options_link_default = _('Options');
-$search_link_default = _('Search');
-$help_link_default = _('Help');
+$signout_link_default = _("Sign Out");
+$compose_link_default = _("Compose");
+$address_link_default = _("Addresses");
+$folders_link_default = _("Folders");
+$options_link_default = _("Options");
+$search_link_default = _("Search");
+$help_link_default = _("Help");
 
 /*
  * Create strings to use for links.  If tempalte authors
