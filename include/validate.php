@@ -125,6 +125,7 @@ include_once(SM_PATH . 'class/error.class.php');
 /*
  * Initialize the template object
  */
+global $sTplDir;
 $oTemplate = new Template($sTplDir);
 
 /*
