@@ -31,9 +31,10 @@ include_once(SM_PATH . 'class/template/template.class.php');
  * @param string xtra extra HTML to insert into the header
  * @param bool do_hook whether to execute hooks, default true
  * @param bool frames generate html frameset doctype (since 1.5.1)
+ * @param bool style use style.php CSS, default true (since 1.5.1)
  * @return void
  */
-function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = true, $frames = false ) {
+function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE, $frames = FALSE, $style = TRUE ) {
     global $squirrelmail_language, $sTplDir;
 
     if ( !sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
@@ -58,13 +59,19 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = true
     $used_theme = basename($chosen_theme,'.php');
 
     /*
-    * Add closing / to link and meta elements only after switching to xhtml 1.0 Transitional.
-    * It is not compatible with html 4.01 Transitional
-    */
-    echo '<link rel="stylesheet" type="text/css" href="'. $base_uri .'src/style.php'
-        .'?fontset='.$chosen_fontset
-        .'&themeid='.$used_theme
-        .(isset($chosen_fontsize) ? '&fontsize='.$chosen_fontsize : '')."\">\n";
+     * The $style parameter is needed since style.php breaks the login otherwise.
+     * This can be removed when style.php doesn't depend on a logged in user.
+     */
+    if ($style) {
+    /*
+     * Add closing / to link and meta elements only after switching to xhtml 1.0 Transitional.
+     * It is not compatible with html 4.01 Transitional
+     */
+	echo '<link rel="stylesheet" type="text/css" href="'. $base_uri .'src/style.php'
+	    .'?fontset='.$chosen_fontset
+	    .'&themeid='.$used_theme
+	    .(isset($chosen_fontsize) ? '&fontsize='.$chosen_fontsize : '')."\">\n";
+    }
 
     // load custom style sheet (deprecated)
     if ( !isset( $theme_css ) || empty($theme_css) ) {
@@ -73,12 +80,12 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = true
 
     if ($squirrelmail_language == 'ja_JP') {
         /*
-        * force correct detection of charset, when browser does not follow
-        * http content-type and tries to detect charset from page content.
-        * Shooting of browser's creator can't be implemented in php.
-        * We might get rid of it, if we follow http://www.w3.org/TR/japanese-xml/
-        * recommendations and switch to unicode.
-        */
+         * force correct detection of charset, when browser does not follow
+         * http content-type and tries to detect charset from page content.
+         * Shooting of browser's creator can't be implemented in php.
+         * We might get rid of it, if we follow http://www.w3.org/TR/japanese-xml/
+         * recommendations and switch to unicode.
+         */
         echo "<!-- \xfd\xfe -->\n";
         echo '<meta http-equiv="Content-type" content="text/html; charset=euc-jp">' . "\n";
     }
