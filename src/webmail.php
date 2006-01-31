@@ -149,22 +149,28 @@ if (empty($right_frame) || (strpos(urldecode($right_frame), '//') !== false)) {
     $right_frame = '';
 }
 
-if ($right_frame == 'right_main.php') {
-    $urlMailbox = urlencode($mailbox);
-    $right_frame_url = "right_main.php?mailbox=$urlMailbox"
+switch($right_frame) {
+    case 'right_main.php':
+        $right_frame_url = "right_main.php?mailbox=".urlencode($mailbox)
                        . (!empty($sort)?"&amp;sort=$sort":'')
                        . (!empty($startMessage)?"&amp;startMessage=$startMessage":'');
-} elseif ($right_frame == 'options.php') {
-    $right_frame_url = 'options.php';
-} elseif ($right_frame == 'folders.php') {
-    $right_frame_url = 'folders.php';
-} elseif ($right_frame == 'compose.php') {
-    $right_frame_url = 'compose.php?' . $mailto;
-} else if ($right_frame == '') {
-    $right_frame_url = 'right_main.php';
-} else {
-    $right_frame_url =  htmlspecialchars($right_frame);
-}
+        break;
+    case 'options.php':
+        $right_frame_url = 'options.php';
+        break;
+    case 'folders.php':
+        $right_frame_url = 'folders.php';
+        break;
+    case 'compose.php':
+        $right_frame_url = 'compose.php?' . $mailto;
+        break;
+    case '':
+        $right_frame_url = 'right_main.php';
+        break;
+    default:
+        $right_frame_url =  urlencode($right_frame);
+        break;
+} 
 
 $left_frame  = '<frame src="left_main.php" name="left" frameborder="1" title="'.
                _("Folder List") ."\" />\n";
