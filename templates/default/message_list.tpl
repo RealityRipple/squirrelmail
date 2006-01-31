@@ -441,7 +441,7 @@ if ($class != 'even' && $class != 'odd')
     // flag style mumbo jumbo
     $sPre = $sEnd = '';
     if (isset($aColumns[SQM_COL_FLAGS])) {
-        if (!in_array('seen',$aFlags)) {
+        if (!in_array('seen',$aFlags) || !$aFlags['seen']) {
             $sPre = '<span class="unread">'; $sEnd = '</span>';
         }
         if (in_array('deleted',$aFlags) && $aFlags['deleted']) {
