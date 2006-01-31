@@ -117,7 +117,7 @@ if (! isset($color) || ! is_array($color)) {
     $color[8]  = '#000000';  /* black         Normal text            */
 }
 
-displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
+displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE, FALSE, FALSE );
 
 echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" onLoad=\"squirrelmail_loginpage_onload()\">" .
      "\n" . '<form action="redirect.php" method="post" onSubmit="document.forms[0].js_autodetect_results.value=\'' . SMPREF_JS_ON .'\';">' . "\n";
