@@ -534,7 +534,9 @@ Version 1.5.1 -- CVS
     based templates.
   - Added footer template to every page.
   - Added experimental IMAP and SMTP STARTTLS extension support.
-
+  - Security: Fix possible cross site scripting through the right_main
+    parameter of webmail.php. This now uses a whitelist of acceptable
+    values. [CVE-2006-0188]
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
