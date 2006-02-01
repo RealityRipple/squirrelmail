@@ -156,8 +156,9 @@ for ($i_loop=$i_start;$i_loop<$i_stop;$i_loop++) {
     echo '<br />' .
         html_tag( 'table',
             html_tag( 'tr',
-                html_tag( 'td', '<b>' . _("Fetching from ") .
-                    htmlspecialchars($mailfetch[$i_loop]['alias']) .
+                html_tag( 'td', '<b>' .
+                    sprintf(_("Fetching from %s"),
+                        htmlspecialchars($mailfetch[$i_loop]['alias'])) .
                     '</b>',
                 'center' ) ,
             '', $color[9] ) ,
@@ -166,7 +167,7 @@ for ($i_loop=$i_start;$i_loop<$i_stop;$i_loop++) {
     flush();
 
     if (!$pop3->connect($mailfetch_server,$mailfetch_port)) {
-        Mail_Fetch_Status(_("Oops, ") . $pop3->ERROR );
+        Mail_Fetch_Status($pop3->ERROR );
         continue;
     }
 
@@ -227,7 +228,7 @@ for ($i_loop=$i_start;$i_loop<$i_stop;$i_loop++) {
     }
 
     for (; $i <= $Count; $i++) {
-        Mail_Fetch_Status(_("Fetching message ") . "$i" );
+        Mail_Fetch_Status(sprintf(_("Fetching message %s."), $i));
 
         if (!ini_get('safe_mode'))
             set_time_limit(20); // 20 seconds per message max
@@ -235,13 +236,13 @@ for ($i_loop=$i_start;$i_loop<$i_stop;$i_loop++) {
         $MessArray = $pop3->get($i);
 
         while ( (!$MessArray) or (gettype($MessArray) != "array")) {
-            Mail_Fetch_Status(_("Oops, ") . $pop3->ERROR);
+            Mail_Fetch_Status($pop3->ERROR);
             // re-connect pop3
             Mail_Fetch_Status(_("Server error. Disconnect"));
             $pop3->quit();
             Mail_Fetch_Status(_("Reconnect from dead connection"));
             if (!$pop3->connect($mailfetch_server)) {
-                Mail_Fetch_Status(_("Oops, ") . $pop3->ERROR );
+                Mail_Fetch_Status($pop3->ERROR );
                 Mail_Fetch_Status(_("Saving UIDL"));
                 setPref($data_dir,$username,"mailfetch_uidl_$i_loop", $mailfetch_uidl[$i-1]);
 
@@ -255,7 +256,7 @@ for ($i_loop=$i_start;$i_loop<$i_stop;$i_loop++) {
 
                 continue;
             }
-            Mail_Fetch_Status(_("Refetching message ") . "$i" );
+            Mail_Fetch_Status(sprintf(_("Refetching message %s."), $i));
             $MessArray = $pop3->get($i);
 
         } // end while

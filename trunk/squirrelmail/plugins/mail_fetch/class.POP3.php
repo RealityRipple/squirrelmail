@@ -92,7 +92,7 @@ class POP3 {
         $fp = @fsockopen("$server", $port, $errno, $errstr);
 
         if(!$fp) {
-            $this->ERROR = _("POP3 connect:") . ' ' . _("Error ") . "[$errno] [$errstr]";
+            $this->ERROR = _("POP3 connect:") . ' ' . _("Error") . ' ' . "[$errno] [$errstr]";
             unset($this->FP);
             return false;
         }
@@ -104,7 +104,7 @@ class POP3 {
         if($this->DEBUG)
             error_log("POP3 SEND [connect: $server] GOT [$reply]",0);
         if(!$this->is_ok($reply)) {
-            $this->ERROR = _("POP3 connect:") . ' ' . _("Error ") . "[$reply]";
+            $this->ERROR = _("POP3 connect:") . ' ' . _("Error") . ' ' . "[$reply]";
             unset($this->FP);
             return false;
         }
@@ -125,7 +125,7 @@ class POP3 {
         } else {
             $reply = $this->send_cmd("USER $user");
             if(!$this->is_ok($reply)) {
-                $this->ERROR = _("POP3 user:") . ' ' . _("Error ") . "[$reply]";
+                $this->ERROR = _("POP3 user:") . ' ' . _("Error") . ' ' . "[$reply]";
                 return false;
             } else
                 return true;
@@ -248,7 +248,7 @@ class POP3 {
         }
         if(!$this->is_ok($reply))
         {
-            $this->ERROR = _("POP3 top:") . ' ' . _("Error ") . "[$reply]";
+            $this->ERROR = _("POP3 top:") . ' ' . _("Error") . ' ' . "[$reply]";
             return false;
         }
 
@@ -302,7 +302,7 @@ class POP3 {
             }
             if(!$this->is_ok($reply))
             {
-                $this->ERROR = _("POP3 pop_list:") . ' ' . _("Error ") . "[$reply]";
+                $this->ERROR = _("POP3 pop_list:") . ' ' . _("Error") . ' ' . "[$reply]";
                 return false;
             }
             list($junk,$num,$size) = preg_split('/\s+/',$reply);
@@ -313,7 +313,7 @@ class POP3 {
         if(!$this->is_ok($reply))
         {
             $reply = $this->strip_clf($reply);
-            $this->ERROR = _("POP3 pop_list:") . ' ' . _("Error ") .  "[$reply]";
+            $this->ERROR = _("POP3 pop_list:") . ' ' . _("Error") . ' ' .  "[$reply]";
             return false;
         }
         $MsgArray = array();
@@ -361,7 +361,7 @@ class POP3 {
 
         if(!$this->is_ok($reply))
         {
-            $this->ERROR = _("POP3 get:") . ' ' . _("Error ") . "[$reply]";
+            $this->ERROR = _("POP3 get:") . ' ' . _("Error") . ' ' . "[$reply]";
             return false;
         }
 
@@ -394,7 +394,7 @@ class POP3 {
         $reply = $this->send_cmd("STAT");
         if(!$this->is_ok($reply))
         {
-            $this->ERROR = _("POP3 last:") . ' ' . _("Error ") . "[$reply]";
+            $this->ERROR = _("POP3 last:") . ' ' . _("Error") . ' ' . "[$reply]";
             return $last;
         }
 
@@ -427,7 +427,7 @@ class POP3 {
             //  response - if it ever does, something truely
             //  wild is going on.
 
-            $this->ERROR = _("POP3 reset:") . ' ' . _("Error ") . "[$reply]";
+            $this->ERROR = _("POP3 reset:") . ' ' . _("Error") . ' ' . "[$reply]";
             @error_log("POP3 reset: ERROR [$reply]",0);
         }
         $this->quit();
@@ -526,7 +526,7 @@ class POP3 {
             $reply = $this->send_cmd($cmd);
             if(!$this->is_ok($reply))
             {
-                $this->ERROR = _("POP3 uidl:") . ' ' . _("Error ") . "[$reply]";
+                $this->ERROR = _("POP3 uidl:") . ' ' . _("Error") . ' ' . "[$reply]";
                 return false;
             }
             list ($ok,$num,$myUidl) = preg_split('/\s+/',$reply);
@@ -549,7 +549,7 @@ class POP3 {
             if($this->DEBUG) { @error_log("POP3 SEND [$cmd] GOT [$reply]",0); }
             if(!$this->is_ok($reply))
             {
-                $this->ERROR = _("POP3 uidl:") . ' ' . _("Error ") . "[$reply]";
+                $this->ERROR = _("POP3 uidl:") . ' ' . _("Error") . ' ' . "[$reply]";
                 return false;
             }
 
@@ -593,7 +593,7 @@ class POP3 {
         $reply = $this->send_cmd("DELE $msgNum");
         if(!$this->is_ok($reply))
         {
-            $this->ERROR = _("POP3 delete:") . ' ' . _("Command failed ") . "[$reply]";
+            $this->ERROR = _("POP3 delete:") . ' ' . _("Command failed") . ' ' . "[$reply]";
             return false;
         }
         return true;
