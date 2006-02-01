@@ -134,7 +134,7 @@ function mail_fetch_login_function() {
             $pop3 = new POP3($mailfetch_server, 60);
 
             if (!$pop3->connect($mailfetch_server,$mailfetch_port)) {
-                $outMsg .= _("Warning, ") . $pop3->ERROR;
+                $outMsg .= _("Warning:") . ' ' . $pop3->ERROR;
                 continue;
             }
 
@@ -142,7 +142,7 @@ function mail_fetch_login_function() {
 
             $Count = $pop3->login($mailfetch_user, $mailfetch_pass);
             if (($Count == false || $Count == -1) && $pop3->ERROR != '') {
-                $outMsg .= _("Login Failed:") . $pop3->ERROR;
+                $outMsg .= _("Login Failed:") . ' ' . $pop3->ERROR;
                 continue;
             }
 
@@ -180,7 +180,7 @@ function mail_fetch_login_function() {
                 $MessArray = $pop3->get($i);
 
                 if ( (!$MessArray) or (gettype($MessArray) != "array")) {
-                    $outMsg .= _("Warning, ") . $pop3->ERROR;
+                    $outMsg .= _("Warning:") . ' ' . $pop3->ERROR;
                     continue 2;
                 }
 

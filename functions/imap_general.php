@@ -691,7 +691,7 @@ function sqimap_create_stream($server,$port,$tls=0) {
                 // starttls command failed
                 sqimap_error_box(sprintf(_("Error connecting to IMAP server: %s."), $server),
                                  'STARTTLS',
-                                 _("Server replied: "),
+                                 _("Server replied:") . ' ',
                                  $starttls_message);
                 exit();
             }
