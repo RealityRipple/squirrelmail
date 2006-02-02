@@ -22,20 +22,13 @@ define('SM_PATH','../');
 require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'config/config.php');
+# FIXME: remove it after template setting moved to get request
 require_once(SM_PATH . 'include/load_prefs.php');
 
-/* temp setting containing list of font styles. Should go to config.php */
-$fontsets=array();
-$fontsets['sans']['NAME']='Sans';
-$fontsets['sans']['STYLE']='helvetica,arial,sans-serif';
-$fontsets['serif']['NAME']='Serif';
-$fontsets['serif']['STYLE']='serif';
-$fontsets['comicsans']['NAME']='Comic Sans';
-$fontsets['comicsans']['STYLE']='comic sans ms,sans-serif';
-$fontsets['vera']['NAME']='Vera';
-$fontsets['vera']['STYLE']='bitstream vera sans,verdana,sans-serif';
-$fontsets['tahoma']['NAME']='Tahoma';
-$fontsets['tahoma']['STYLE']='tahoma,sans-serif';
+/* safety check for older config.php */
+if (!isset($fontsets) || !is_array($fontsets)) {
+    $fontsets=array();
+}
 
 /* template init */
 /** start block copy from right_main.php */
@@ -73,6 +66,7 @@ if (sqgetGlobalVar('themeid',$themeid,SQ_GET) &&
 }
 
 /**
+ * TODO: tokul. $languages are not loaded here.
  * get alignment variable from language settings...
  * MOVE THIS to a central init section !!!!
  */
