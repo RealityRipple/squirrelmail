@@ -23,7 +23,8 @@ containg them is a part of your PHP include path. See the PHP
 documentation for information on how to do that.
 Under Mandrake Linux the PEAR classes are installed as part of the
 php-devel package and under FreeBSD they are installed as part of
-the mod_php4 or php4 port/package. I'm afraid I have no information on
+the mod_php4 or php4 port/package. In Debian, you can install the
+php4-pear package. I'm afraid I have no information on
 other systems at the present time.
 
 
