@@ -259,7 +259,7 @@ if ($addrquery == '' || ! empty($listall)) {
         usort($res,'alistcmp');
         addr_display_result($res, true);
     }
-    echo "\n</body></html>";
+    $oTemplate->display('footer.tpl');
     exit;
 } elseif (!empty($addrquery)) {
     /* Do the search */
@@ -273,14 +273,14 @@ if ($addrquery == '' || ! empty($listall)) {
         echo html_tag( 'p', '<b><br />' .
                        _("Your search failed with the following error(s)") .
                        ':<br />' . $abook->error . "</b>\n" ,
-                       'center' ) .
-            "\n</body></html>\n";
+                       'center' ) . "\n";
+        $oTemplate->display('footer.tpl');
     } else {
         if (sizeof($res) == 0) {
             echo html_tag( 'p', '<br /><b>' .
                            _("No persons matching your search were found") . "</b>\n" ,
-                           'center' ) .
-                "\n</body></html>\n";
+                           'center' ) . "\n";
+            $oTemplate->display('footer.tpl');
         } else {
             addr_display_result($res);
         }
@@ -300,6 +300,6 @@ if ($addrquery == '' || sizeof($res) == 0) {
     echo '<input type="submit" value="' . _("Return") . '" name="return" />' . "\n" .
          '</form></center></nobr>';
 }
-<?php
+
 $oTemplate->display('footer.tpl');
 ?>
