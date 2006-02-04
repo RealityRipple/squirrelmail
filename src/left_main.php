@@ -251,7 +251,7 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
 
     /* color special boxes */
     if ($use_special_folder_color && $boxes->is_special) {
-        $pre .= "<span class=\"highlight\">";
+        $pre .= "<span class=\"leftspecial\">";
         $end .= '</span>';
     }
 
