@@ -31,51 +31,49 @@ include_once(SM_PATH . 'class/template/template.class.php');
  * @param string xtra extra HTML to insert into the header
  * @param bool do_hook whether to execute hooks, default true
  * @param bool frames generate html frameset doctype (since 1.5.1)
- * @param bool style use style.php CSS, default true (since 1.5.1)
  * @return void
  */
-function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE, $frames = FALSE, $style = TRUE ) {
+function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE, $frames = FALSE ) {
     global $squirrelmail_language, $sTplDir;
 
     if ( !sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
         global $base_uri;
     }
-    global $theme_css, $custom_css, $pageheader_sent,
-        $chosen_fontset, $chosen_fontsize, $chosen_theme;
+    global $theme_css, $custom_css, $pageheader_sent, $theme, $theme_default,
+        $default_fontset, $chosen_fontset, $default_fontsize, $chosen_fontsize, $chosen_theme;
 
     /* add no cache headers here */
     header('Pragma: no-cache'); // http 1.0 (rfc1945)
     header('Cache-Control: private, no-cache, no-store'); // http 1.1 (rfc2616)
 
     if ($frames) {
-        echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">';
+        echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"'."\n"
+            .' "http://www.w3.org/TR/1999/REC-html401-19991224/frameset.dtd">';
     } else {
-        echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">';
+        echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"'."\n"
+            .' "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">';
     }
     echo "\n" . html_tag( 'html' ,'' , '', '', 'lang="'.$squirrelmail_language.'"' ) .
         "<head>\n<meta name=\"robots\" content=\"noindex,nofollow\">\n";
 
+    $used_fontset = (!empty($chosen_fontset) ? $chosen_fontset : $default_fontset);
+    $used_fontsize = (!empty($chosen_fontsize) ? $chosen_fontsize : $default_fontsize);
+    $used_theme = basename((!empty($chosen_theme) ? $chosen_theme : $theme[$theme_default]['PATH']),'.php');
 
-    $used_theme = basename($chosen_theme,'.php');
-
-    /*
-     * The $style parameter is needed since style.php breaks the login otherwise.
-     * This can be removed when style.php doesn't depend on a logged in user.
-     */
-    if ($style) {
     /*
      * Add closing / to link and meta elements only after switching to xhtml 1.0 Transitional.
      * It is not compatible with html 4.01 Transitional
      */
-	echo '<link rel="stylesheet" type="text/css" href="'. $base_uri .'src/style.php'
-	    .'?fontset='.$chosen_fontset
-	    .'&themeid='.$used_theme
-	    .(isset($chosen_fontsize) ? '&fontsize='.$chosen_fontsize : '')."\">\n";
-    }
+    echo '<link rel="stylesheet" type="text/css" href="'. $base_uri .'src/style.php'
+        .'?themeid='.$used_theme
+        .'&amp;templateid='.basename($sTplDir)
+        .(!empty($used_fontset) ? '&amp;fontset='.$used_fontset : '')
+        .(!empty($used_fontsize) ? '&amp;fontsize='.$used_fontsize : '')."\">\n";
+
 
     // load custom style sheet (deprecated)
-    if ( !isset( $theme_css ) || empty($theme_css) ) {
-        echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$theme_css\">";
+    if ( ! empty($theme_css) ) {
+        echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$theme_css\">\n";
     }
 
     if ($squirrelmail_language == 'ja_JP') {
