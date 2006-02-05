@@ -129,7 +129,7 @@ elseif (!$submit || $submit == 'default')  {
 }
 
 echo "<form action=\"options.php\" method=\"post\">\n".
-     "<div style="text-align: center;"><table border=\"1\">\n".
+     "<div style=\"text-align: center;\"><table border=\"1\">\n".
      '<tr><th>'. _("Select").
      '</th><th>'._("Test Name").
      '</th><th>'._("IMAP command string")."</th></tr>\n".
