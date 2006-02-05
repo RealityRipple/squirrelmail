@@ -88,7 +88,7 @@ do_hook('change_password_init');
 <br />
 <table align="center" cellpadding="2" cellspacing="2" border="0">
 <tr><td bgcolor="<?php echo $color[0] ?>">
-   <center><b><?php echo _("Change Password") ?></b></center>
+   <div style="text-align: center;"><b><?php echo _("Change Password") ?></b></div>
 </td><?php
 
 if (isset($Messages) && count($Messages) > 0) {

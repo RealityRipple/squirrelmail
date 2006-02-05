@@ -32,9 +32,9 @@ displayPageHeader($color, 'None' );
 <img src="../images/sm_logo.png" width="308" height="111"
     alt="SquirrelMail Logo" /><br />
 <table align="center" width="80%" cellpadding="1" cellspacing="2" border="0">
-<tr><td bgcolor="#dcdcdc" align="center"><center><b>
+<tr><td bgcolor="#dcdcdc" align="center"><div style="text-align: center;"><b>
 <?php echo sprintf(_("About SquirrelMail %s"),$version); ?>
-</b></center></td></tr>
+</b></div></td></tr>
 <tr><td>
 <br />
 <?php echo _("SquirrelMail is the name of the program that provides access to your email via the web."); ?>

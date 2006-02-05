@@ -35,7 +35,7 @@ sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
 sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
 
 echo "<body text=\"$color[8]\" bgcolor=\"$color[3]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\">\n" .
-     '<center>' .
+     '<div style="text-align: center;">' .
      addForm(SM_PATH . 'src/download.php', 'GET').
      addHidden('mailbox', $mailbox).
      addHidden('passed_id', $passed_id).
@@ -44,7 +44,7 @@ echo "<body text=\"$color[8]\" bgcolor=\"$color[3]\" link=\"$color[7]\" vlink=\"
      '<input type="button" value="' . _("Print") . '" onclick="printPopup()" />&nbsp;&nbsp;'.
      '<input type="button" value="' . _("Close Window") . '" onclick="window.parent.close()" />&nbsp;&nbsp;'.
      addSubmit(_("Save Message")).
-     '</form></center>'.
+     '</form></div>'.
      '</body>'.
      "</html>\n";
 ?>

@@ -109,7 +109,7 @@ function Mail_Fetch_Select_Server($mailfetch) {
 $mailfetch = Mail_Fetch_Servers();
 displayPageHeader($color, 'None');
 
-echo '<br /><center>';
+echo '<br /><div style="text-align: center;">';
 
 echo html_tag( 'table',
          html_tag( 'tr',
@@ -321,6 +321,6 @@ for ($i_loop=$i_start;$i_loop<$i_stop;$i_loop++) {
     Mail_Fetch_Status(_("Done"));
 }
 ?>
-</center>
+</div>
 </body>
 </html>

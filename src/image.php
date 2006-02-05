@@ -40,7 +40,7 @@ echo '<br />' .
     '<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center">' .
     "\n" .
     '<tr><td bgcolor="' . $color[0] . '">' .
-    '<b><center>' .
+    '<div style="text-align: center;"><b>' .
     _("Viewing an image attachment") . " - ";
 
 $msg_url = 'read_body.php?' . $QUERY_STRING;
@@ -53,7 +53,7 @@ $DownloadLink = '../src/download.php?passed_id=' . $passed_id .
                '&amp;ent_id=' . urlencode($ent_id) . '&amp;absolute_dl=true';
 
 ?>
-</b></td></tr>
+</b></div></td></tr>
 <tr><td align="center">
 <a href="<?php echo $DownloadLink; ?>"><?php echo _("Download this as a file"); ?></a>
 <br />&nbsp;</td></tr></table>

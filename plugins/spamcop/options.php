@@ -79,9 +79,9 @@ spamcop_load_function();
       <br />
       <table width="95%" align="center" border="0" cellpadding="2" cellspacing="0">
       <tr><td bgcolor="<?php echo $color[0]; ?>">
-        <center><b>
+        <div style="text-align: center;"><b>
         <?php echo _("Options") . " - " . _("Spam reporting"); ?>
-        </b></center>
+        </b></div>
       </td></tr></table>
       <br />
 

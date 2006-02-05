@@ -154,7 +154,7 @@ if(sqgetGlobalVar('mailto', $mailto)) {
 echo html_tag( 'table',
     html_tag( 'tr',
         html_tag( 'td',
-            '<center>'.
+            '<div style="text-align: center;">'.
             ( isset($org_logo) && $org_logo
               ? '<img src="' . $org_logo . '" alt="' .
                 sprintf(_("%s Logo"), $org_name) .'"' . $width_and_height .
@@ -197,10 +197,10 @@ echo html_tag( 'table',
                         ) .
                         html_tag( 'tr',
                                 html_tag( 'td',
-                                    '<center>'. addSubmit(_("Login")) .'</center>',
+                                    '<div style="text-align: center;">'. addSubmit(_("Login")) .'</div>',
                                     'left' )
                                 ),
-                        '', $color[4], 'border="0" width="350"' ) . '</center>',
+                        '', $color[4], 'border="0" width="350"' ) . '</div>',
                         'center' )
                         ) ,
                         '', $color[4], 'border="0" cellspacing="0" cellpadding="0" width="100%"' );

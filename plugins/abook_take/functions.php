@@ -57,7 +57,7 @@ function abook_take_read()
     global $message;
 
     echo '<br />' . addForm(SM_PATH . 'plugins/abook_take/take.php') .
-         '<center>' . "\n";
+         '<div style="text-align: center;">' . "\n";
 
     if (isset($message->rfc822_header->reply_to))
         abook_take_read_array($message->rfc822_header->reply_to);
@@ -69,7 +69,7 @@ function abook_take_read()
         abook_take_read_array($message->rfc822_header->to);
 
     echo addSubmit(_("Take Address")) .
-         '</center></form>';
+         '</div></form>';
 }
 
 function abook_take_pref()

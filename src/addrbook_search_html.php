@@ -195,12 +195,12 @@ html_tag( 'table',
 
 
 /* Search form */
-echo '<center>' .
+echo '<div style="text-align: center;">' .
     html_tag( 'table', '', 'center', '', 'border="0"' ) .
     html_tag( 'tr' ) .
     html_tag( 'td', '', 'left', '', 'style="white-space: nowrap;" valign="middle"' ) . "\n" .
     addForm($PHP_SELF.'?html_addr_search=true', 'post', 'f').
-    "\n<center>\n" .
+    "\n<div style="text-align: center;">\n" .
     '  <nobr><strong>' . _("Search for") . "</strong>\n";
 addr_insert_hidden();
 echo addInput('addrquery', $addrquery, 26);
@@ -227,8 +227,8 @@ if (isset($session)) {
 echo '<input type="submit" value="' . _("Search") . '" />' .
      '&nbsp;|&nbsp;<input type="submit" value="' . _("List all") .
      '" name="listall" />' . "\n" .
-     '</form></center></td></tr></table>' . "\n";
-echo '</center>';
+     '</form></div></td></tr></table>' . "\n";
+echo '</div>';
 do_hook('addrbook_html_search_below');
 /* End search form */
 
@@ -294,11 +294,11 @@ if ($addrquery == '' || ! empty($listall)) {
 }
 
 if ($addrquery == '' || sizeof($res) == 0) {
-    echo '<center>'.
+    echo '<div style="text-align: center;">'.
         addForm('compose.php','post','k');
     addr_insert_hidden();
     echo '<input type="submit" value="' . _("Return") . '" name="return" />' . "\n" .
-         '</form></center></nobr>';
+         '</form></div></nobr>';
 }
 
 $oTemplate->display('footer.tpl');

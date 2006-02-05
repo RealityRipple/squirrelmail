@@ -40,7 +40,7 @@ displayPageHeader($color, 'None');
 
 echo '<br /><table width="100%" border="0" cellspacing="0" cellpadding="2" ' .
         'align="center">' . "\n" .
-     '<tr><td bgcolor="' . $color[0] . '"><b><center>' .
+     '<tr><td bgcolor="' . $color[0] . '"><b><div style="text-align: center;">' .
      _("Viewing a Business Card") . " - ";
 
 $msg_url = 'read_body.php?mailbox='.urlencode($mailbox).
@@ -50,7 +50,7 @@ $msg_url = 'read_body.php?mailbox='.urlencode($mailbox).
 $msg_url = set_url_var($msg_url, 'ent_id', 0);
 
 echo '<a href="'.$msg_url.'">'. _("View message") . '</a>' .
-     '</center></b></td></tr>';
+     '</div></b></td></tr>';
 
 $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
 
@@ -140,7 +140,7 @@ foreach ($ShowValues as $k => $v) {
 </td></tr></table>
 <table width="100%" border="0" cellspacing="0" cellpadding="2" align="center">
 <tr><td bgcolor="<?php echo $color[0]; ?>">
-<center><b><?php echo _("Add to address book"); ?></b></center>
+<div style="text-align: center;"><b><?php echo _("Add to address book"); ?></b></div>
 </td></tr>
 <tr><td align="center">
 <?php echo addForm('../src/addressbook.php', 'post', 'f_add'); ?><br />

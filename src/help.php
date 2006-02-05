@@ -101,7 +101,7 @@ function get_info($doc, $pos) {
 
 echo html_tag( 'table',
         html_tag( 'tr',
-            html_tag( 'td','<center><b>' . _("Help") .'</b></center>', 'center', $color[0] )
+            html_tag( 'td','<div style="text-align: center;"><b>' . _("Help") .'</b></div>', 'center', $color[0] )
         ) ,
     'center', '', 'width="95%" cellpadding="1" cellspacing="2" border="0"' );
 
@@ -118,9 +118,9 @@ if (!isset($squirrelmail_language)) {
 if (file_exists("../help/$squirrelmail_language")) {
     $user_language = $squirrelmail_language;
 } else if (file_exists('../help/en_US')) {
-    echo "<center><font color=\"$color[2]\">"
+    echo "<div style="text-align: center;"><font color=\"$color[2]\">"
         ._("The help has not been translated to the selected language. It will be displayed in English instead.");
-    echo '</font></center><br />';
+    echo '</font></div><br />';
     $user_language = 'en_US';
 } else {
     error_box( _("Some or all of the help documents are not present!"), $color );
@@ -153,7 +153,7 @@ if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
     echo html_tag( 'table', '', 'center', '', 'cellpadding="0" cellspacing="0" border="0"' ) .
          html_tag( 'tr' ) .
          html_tag( 'td' ) .
-         '<center><b>' . _("Table of Contents") . '</b></center><br />';
+         '<div style="text-align: center;"><b>' . _("Table of Contents") . '</b></div><br />';
     echo html_tag( 'ol' );
     for ($i=0, $cnt = count($helpdir); $i < $cnt; $i++) {
         $doc = file("../help/$user_language/$helpdir[$i]");
@@ -167,7 +167,7 @@ if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
 } else {
     $doc = file("../help/$user_language/" . $helpdir[$chapter-1]);
     $help_info = get_info($doc, 0);
-    echo '<center><small>';
+    echo '<div style="text-align: center;"><small>';
     if ($chapter <= 1){
         echo '<font color="' . $color[9] . '">' . _("Previous")
              . '</font> | ';
@@ -182,7 +182,7 @@ if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
         echo ' | <a href="../src/help.php?chapter=' . ($chapter+1)
              . '">' . _("Next") . '</a>';
     }
-    echo '</small></center><br />';
+    echo '</small></div><br />';
 
     echo '<font size="5"><b>' . $chapter . ' - ' . $help_info[0]
          . '</b></font><br /><br />';
@@ -202,7 +202,7 @@ if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
         $n = $help_info[3];
     }
 
-    echo '<br /><center><a href="#pagetop">' . _("Top") . '</a></center>';
+    echo '<br /><div style="text-align: center;"><a href="#pagetop">' . _("Top") . '</a></div>';
 }
 
 do_hook('help_bottom');

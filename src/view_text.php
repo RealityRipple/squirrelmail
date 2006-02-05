@@ -81,17 +81,17 @@ if ($type1 == 'html' || (isset($override_type1) &&  $override_type1 == 'html')) 
 displayPageHeader($color, 'None');
 ?>
 <br /><table width="100%" border="0" cellspacing="0" cellpadding="2" align="center"><tr><td bgcolor="<?php echo $color[0]; ?>">
-<b><center>
+<b><div style="text-align: center;">
 <?php
 echo _("Viewing a text attachment") . ' - ' .
     '<a href="'.$msg_url.'">' . _("View message") . '</a>';
 ?>
-</b></td><tr><tr><td><center>
+</b></td><tr><tr><td><div style="text-align: center;">
 <?php
 echo '<a href="' . $dwnld_url . '">' . _("Download this as a file") . '</a>';
 ?>
-</center><br />
-</center></b>
+</div><br />
+</div></b>
 </td></tr></table>
 <table width="98%" border="0" cellspacing="0" cellpadding="2" align="center"><tr><td bgcolor="<?php echo $color[0]; ?>">
 <tr><td bgcolor="<?php echo $color[4]; ?>"><tt>

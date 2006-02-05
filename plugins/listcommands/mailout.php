@@ -83,5 +83,5 @@ echo '<br />' .
     addHidden('mailbox', $mailbox) .
     addSubmit(_("Send Mail"), 'send');
 ?>
-<br /><br /></center>
+<br /><br /></div>
 </form></td></tr></table></p></body></html>
