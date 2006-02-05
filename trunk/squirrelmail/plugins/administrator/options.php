@@ -272,7 +272,7 @@ if ( sqgetGlobalVar('switch', $switch, SQ_GET) ) {
 }
 
 echo '<form action="options.php" method="post" name="options">' .
-     '<center><table width="95%" bgcolor="'.$color[5].'"><tr><td>'.
+     '<div style="text-align: center;"><table width="95%" bgcolor="'.$color[5].'"><tr><td>'.
      '<table width="100%" cellspacing="0" bgcolor="'.$color[4].'">'.
      '<tr bgcolor="'.$color[5].'"><th colspan="2">'.
      _("Configuration Administrator").'</th></tr>'.
@@ -581,7 +581,7 @@ if ( $colapse['Group8'] == 'off' ) {
                 $i++;
             }
         }
-        echo '<tr><td colspan="2"><input type="hidden" name="plg" value="on" /><center><table>';
+        echo '<tr><td colspan="2"><input type="hidden" name="plg" value="on" /><div style="text-align: center;"><table>';
         foreach ( $op_plugin as $plg ) {
             if ( in_array( $plg, $plugins ) ) {
                 $sw = ' checked="checked"';
@@ -598,7 +598,7 @@ if ( $colapse['Group8'] == 'off' ) {
                  "<td><input$sw type=\"checkbox\" name=\"plgs_$plg\" /></td>".
                  "</tr>\n";
         }
-        echo '</table></center></td></tr>';
+        echo '</table></div></td></tr>';
     } else {
         echo '<tr><td colspan="2" align="center">'.
              sprintf(_("Plugin directory could not be found: %s"), $plugpath).
@@ -609,7 +609,7 @@ echo '<tr bgcolor="'.$color[5].'"><th colspan="2"><input value="'.
      _("Change Settings").'" type="submit" /><br />'.
      '<a href="'.SM_PATH.'src/configtest.php" target="_blank">'.
      _("Test Configuration")."</a></th></tr>\n".
-     '</table></td></tr></table></center></form>';
+     '</table></td></tr></table></div></form>';
 
 /*
     Write the options to the file.

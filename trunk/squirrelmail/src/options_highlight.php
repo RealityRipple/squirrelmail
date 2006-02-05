@@ -116,15 +116,15 @@ displayPageHeader($color, 'None');
 echo
 html_tag( 'table', "\n" .
     html_tag( 'tr', "\n" .
-        html_tag( 'td', '<center><b>' . _("Options") . ' - ' . _("Message Highlighting") . '</b></center>', 'left')
+        html_tag( 'td', '<div style="text-align: center;"><b>' . _("Options") . ' - ' . _("Message Highlighting") . '</b></div>', 'left')
     ),
     'center', $color[9], 'width="95%" border="0" cellpadding="1" cellspacing="0"' ) . "<br />\n" .
 html_tag( 'table', '', '', '', 'width="100%" border="0" cellpadding="1" cellspacing="0"' ) .
      html_tag( 'tr' ) . "\n" .
          html_tag( 'td', '', 'left' );
 
-echo '<center>[<a href="options_highlight.php?action=add">' . _("New") . '</a>]'.
-        ' - [<a href="options.php">'._("Done").'</a>]</center><br />'."\n";
+echo '<div style="text-align: center;">[<a href="options_highlight.php?action=add">' . _("New") . '</a>]'.
+        ' - [<a href="options.php">'._("Done").'</a>]</div><br />'."\n";
 $mhl_count = count($message_highlight_list);
 if ($mhl_count > 0) {
     echo html_tag( 'table', '', 'center', '', 'width="80%" border="0" cellpadding="3" cellspacing="0"' ) . "\n";
@@ -176,7 +176,7 @@ if ($mhl_count > 0) {
     echo "</table>\n".
         "<br />\n";
 } else {
-    echo '<center>' . _("No highlighting is defined") . "</center><br />\n".
+    echo '<div style="text-align: center;">' . _("No highlighting is defined") . "</div><br />\n".
         "<br />\n";
 }
 if ($action == 'edit' || $action == 'add') {
@@ -460,7 +460,7 @@ if ($action == 'edit' || $action == 'add') {
     echo "        </td>\n";
     echo "   </tr>\n";
     echo "</table>\n";
-    echo '<center><input type="submit" value="' . _("Submit") . "\" /></center>\n";
+    echo '<div style="text-align: center;"><input type="submit" value="' . _("Submit") . "\" /></div>\n";
     echo "</form>\n";
 }
 do_hook('options_highlight_bottom');

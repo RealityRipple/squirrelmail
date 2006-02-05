@@ -451,7 +451,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
         if (isset($passed_ent_id)) {
             $link .= '&amp;passed_ent_id='.$passed_ent_id;
         }
-        $body .= '<center><small><a href="download.php?absolute_dl=true&amp;' .
+        $body .= '<div style="text-align: center;"><small><a href="download.php?absolute_dl=true&amp;' .
             $link . '">' . _("Download this as a file") .  '</a>';
         if ($view_unsafe_images) {
             $text = _("Hide Unsafe Images");
@@ -466,7 +466,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
         if($text != '') {
             $body .= '&nbsp;|&nbsp;<a href="read_body.php?' . $link . '">' . $text . '</a>';
         }
-        $body .= '</small></center><br />' . "\n";
+        $body .= '</small></div><br />' . "\n";
     }
     return $body;
 }

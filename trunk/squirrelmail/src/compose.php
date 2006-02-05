@@ -391,9 +391,9 @@ if ($draft) {
             if ( !isset($pageheader_sent) || !$pageheader_sent ) {
                 Header("Location: $location/compose.php?saved_draft=yes&session=$composesession");
             } else {
-                echo '   <br><br><center><a href="' . $location
+                echo '   <br><br><div style="text-align: center;"><a href="' . $location
                     . '/compose.php?saved_sent=yes&amp;session=' . $composesession . '">'
-                    . _("Return") . '</a></center>';
+                    . _("Return") . '</a></div>';
             }
             exit();
         } else {
@@ -401,10 +401,10 @@ if ($draft) {
                 Header("Location: $location/right_main.php?mailbox=" . urlencode($draft_folder) .
                    "&startMessage=1&note=".urlencode($draft_message));
             } else {
-                echo '   <br><br><center><a href="' . $location
+                echo '   <br><br><div style="text-align: center;"><a href="' . $location
                     . '/right_main.php?mailbox=' . urlencode($draft_folder)
                     . '&amp;startMessage=1&amp;note=' . urlencode($draft_message) .'">'
-                    . _("Return") . '</a></center>';
+                    . _("Return") . '</a></div>';
             }
             exit();
         }
@@ -486,9 +486,9 @@ if ($send) {
             if ( !isset($pageheader_sent) || !$pageheader_sent ) {
                 Header("Location: $location/compose.php?mail_sent=yes");
             } else {
-                echo '   <br><br><center><a href="' . $location
+                echo '   <br><br><div style="text-align: center;"><a href="' . $location
                     . '/compose.php?mail_sent=yes">'
-                    . _("Return") . '</a></center>';
+                    . _("Return") . '</a></div>';
             }
             exit();
         } else {
@@ -496,10 +496,10 @@ if ($send) {
                 Header("Location: $location/right_main.php?mailbox=$urlMailbox".
                     "&startMessage=$startMessage&mail_sent=yes");
             } else {
-                echo '   <br><br><center><a href="' . $location
+                echo '   <br><br><div style="text-align: center;"><a href="' . $location
                     . "/right_main.php?mailbox=$urlMailbox"
                     . "&amp;startMessage=$startMessage&amp;mail_sent=yes\">"
-                    . _("Return") . '</a></center>';
+                    . _("Return") . '</a></div>';
             }
             exit();
         }
@@ -1114,10 +1114,10 @@ function showInputForm ($session, $values=false) {
     }
 
     if ($saved_draft == 'yes') {
-        echo '<br /><center><b>'. _("Draft Saved").'</center></b>';
+        echo '<br /><div style="text-align: center;"><b>'. _("Draft Saved").'</div></b>';
     }
     if ($mail_sent == 'yes') {
-        echo '<br /><center><b>'. _("Your Message has been sent.").'</center></b>';
+        echo '<br /><div style="text-align: center;"><b>'. _("Your Message has been sent.").'</div></b>';
     }
     if ($compose_new_win == '1') {
         echo '<table align="center" bgcolor="'.$color[0].'" width="100%" border="0">'."\n" .

@@ -27,7 +27,7 @@ displayPageHeader($color, 'None');
 
 ?>
    <table width="95%" align="center" border="0" cellpadding="1" cellspacing="0"><tr><td bgcolor="<?php echo $color[0]; ?>">
-      <center><b><?php echo _("Options") . ' - '. _("Translator"); ?></b></center>
+      <div style="text-align: center;"><b><?php echo _("Options") . ' - '. _("Translator"); ?></b></div>
    </td></tr></table>
 
    <p><?php echo _("Your server options are as follows:"); ?></p>

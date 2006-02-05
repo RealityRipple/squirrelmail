@@ -24,7 +24,7 @@ $numnew = (int)$numnew;
    displayHtmlHeader( _("New Mail"), '', FALSE );
 
    echo '<body bgcolor="'.$color[4].'" topmargin="0" leftmargin="0" rightmargin="0" marginwidth="0" marginheight="0">'."\n".
-        '<center>'. "\n" .
+        '<div style="text-align: center;">'. "\n" .
         html_tag( 'table', "\n" .
             html_tag( 'tr', "\n" .
                 html_tag( 'td', '<b>' . _("SquirrelMail Notice:") . '</b>', 'center', $color[0] )
@@ -41,7 +41,7 @@ $numnew = (int)$numnew;
                           'center' )
                       ) ,
                   '', '', 'width="100%" cellpadding="2" cellspacing="2" border="0"' ) .
-   '</center>' .
+   '</div>' .
    "<script language=javascript>\n".
    "<!--\n".
    "document.nm.bt.focus();\n".

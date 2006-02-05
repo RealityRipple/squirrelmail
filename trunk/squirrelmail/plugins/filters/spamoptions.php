@@ -96,7 +96,7 @@ if (isset($action) && $action == 'spam') {
     }
 
     echo '<form method="post" action="spamoptions.php">'.
-        '<center>'.
+        '<div style="text-align: center;">'.
         html_tag( 'table', '', '', '', 'width="85%" border="0" cellpadding="2" cellspacing="0"' ) .
             html_tag( 'tr' ) .
                 html_tag( 'th', _("Move spam to:"), 'right', '', 'style="white-space: nowrap;"' ) .
@@ -173,13 +173,13 @@ if (isset($action) && $action == 'spam') {
         html_tag( 'td', '<input type="submit" name="spam_submit" value="' . _("Save") . '" />', 'center', '', 'colspan="2"' )
     ) . "\n" .
         '</table>'.
-        '</center>'.
+        '</div>'.
         '</form>';
 } else {
     // action is not set or action is not spam
     echo html_tag( 'p', '', 'center' ) .
          '[<a href="spamoptions.php?action=spam">' . _("Edit") . '</a>]' .
-         ' - [<a href="../../src/options.php">' . _("Done") . '</a>]</center><br /><br />';
+         ' - [<a href="../../src/options.php">' . _("Done") . '</a>]</div><br /><br />';
     printf( _("Spam is sent to %s."), ($filters_spam_folder?'<b>'.htmlspecialchars(imap_utf7_decode_local($filters_spam_folder)).'</b>':'[<i>'._("not set yet").'</i>]' ) );
     echo '<br />';
     printf( _("Spam scan is limited to %s."), '<b>' . ( ($filters_spam_scan == 'new')?_("Unread messages only"):_("All messages") ) . '</b>' );

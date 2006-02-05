@@ -107,7 +107,7 @@ function logout_error( $errString, $errTitle = '' ) {
     displayHtmlHeader( $org_name.' - '.$errTitle, '', false );
 
     echo '<body text="'.$color[8].'" bgcolor="'.$color[4].'" link="'.$color[7].'" vlink="'.$color[7].'" alink="'.$color[7]."\">\n\n".
-         '<center>';
+         '<div style="text-align: center;">';
 
     if (isset($org_logo) && ($org_logo != '')) {
         echo '<img src="'.$org_logo.'" alt="'.sprintf(_("%s Logo"), $org_name).
@@ -127,7 +127,7 @@ function logout_error( $errString, $errTitle = '' ) {
          '<font color="'.$color[2].'"><b>'.
          '<a href="'.$base_uri.'src/login.php" target="'.$frame_top.'">'.
          _("Go to the login page") . '</a></b></font></td></tr>'.
-         '</table></td></tr></table></center></body></html>';
+         '</table></td></tr></table></div></body></html>';
 }
 
 /**

@@ -23,10 +23,10 @@ echo '<body bgcolor="'.$color[4].'" topmargin="0" leftmargin="0" rightmargin="0"
 if ( ! sqgetGlobalVar('sound', $sound, SQ_GET) ) {
     $sound = 'Click.wav';
 } elseif ( $sound == '(none)' ) {
-    echo '<center><form><br /><br />'.
+    echo '<div style="text-align: center;"><form><br /><br />'.
          '<b>' . _("No sound specified") . '</b><br /><br />'.
          '<input type="button" name="close" value="' . _("Close") . '" onclick="window.close()" />'.
-         '</form></center>'.
+         '</form></div>'.
          '</body></html>';
     return;
 }

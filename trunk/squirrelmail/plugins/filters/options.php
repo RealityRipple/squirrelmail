@@ -88,7 +88,7 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
 } elseif (sqgetGlobalVar('user_submit',$user_submit,SQ_POST)) {
     sqgetGlobalVar('filters_user_scan_set',$filters_user_scan_set,SQ_POST);
     setPref($data_dir, $username, 'filters_user_scan', $filters_user_scan_set);
-    echo '<br /><center><b>'._("Saved Scan type")."</b></center>\n";
+    echo '<br /><div style="text-align: center;"><b>'._("Saved Scan type")."</b></div>\n";
 }
 
    $filters = load_filters();
@@ -97,14 +97,14 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
    echo html_tag( 'table',
             html_tag( 'tr',
                 html_tag( 'td',
-                    '<center><b>' . _("Options") . ' - ' . _("Message Filtering") . '</b></center>' ,
+                    '<div style="text-align: center;"><b>' . _("Options") . ' - ' . _("Message Filtering") . '</b></div>' ,
                     'left', $color[0]
                 )
             ),
             'center', '', 'width="95%" border="0" cellpadding="2" cellspacing="0"'
         ) .
         '<br /><form method="post" action="options.php">'.
-        '<center>'.
+        '<div style="text-align: center;">'.
         html_tag( 'table', '', '', '', 'border="0" cellpadding="2" cellspacing="0"' ) .
             html_tag( 'tr' ) .
                 html_tag( 'th', _("What to Scan:"), 'right', '', 'style="white-space: nowrap;"' ) .
@@ -124,7 +124,7 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
         '</td>'.
         html_tag( 'td', '<input type="submit" name="user_submit" value="' . _("Save") . '" />', 'left' ) .
         '</table>'.
-        '</center>'.
+        '</div>'.
         '</form>'.
 
         html_tag( 'div', '[<a href="options.php?action=add">' . _("New") .
