@@ -276,7 +276,12 @@ class abook_local_file extends addressbook_backend {
 
         while ($row = @fgetcsv($this->filehandle, 2048, '|')) {
             $line = join(' ', $row);
-            if(eregi($expr, $line)) {
+            /**
+             * TODO: regexp search is supported only in local_file backend.
+             * Do we check format of regexp or ignore errors?
+             */
+            // errors on eregi call are suppressed in order to prevent display of regexp compilation errors
+            if(@eregi($expr, $line)) {
                 array_push($res, array('nickname'  => $row[0],
                     'name'      => $row[1] . ' ' . $row[2],
                     'firstname' => $row[1],
