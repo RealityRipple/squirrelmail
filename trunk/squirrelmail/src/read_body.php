@@ -99,7 +99,7 @@ function printer_friendly_link($mailbox, $passed_id, $passed_ent_id) {
     $result = '';
     /* Output the link. */
     if ($javascript_on) {
-        $result = '<script language="javascript" type="text/javascript">' . "\n" .
+        $result = '<script type="text/javascript">' . "\n" .
                   '<!--' . "\n" .
                   "  function printFormat() {\n" .
                   '    window.open("../src/printer_friendly_main.php' .
@@ -386,7 +386,7 @@ function formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message,
                           $passed_ent_id)) {
                         $mdn_url = $PHP_SELF . '&sendreceipt=1';
                         if ($FirstTimeSee && $javascript_on) {
-                            $script  = '<script language="JavaScript" type="text/javascript">' . "\n";
+                            $script  = '<script type="text/javascript">' . "\n";
                             $script .= '<!--'. "\n";
                             $script .= 'if(window.confirm("' .
                                        _("The message sender has requested a response to indicate that you have read this message. Would you like to send a receipt?") .

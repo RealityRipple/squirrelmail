@@ -191,9 +191,9 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
     }
 
     if( $javascript_on || strpos($sHeaderJs, 'new_js_autodetect_results.value') ) {
-        $sJsBlock = '<script src="'. $sTplDir. 'js/default.js" type="text/javascript" language="JavaScript"></script>' ."\n";
+        $sJsBlock = '<script src="'. $sTplDir. 'js/default.js" type="text/javascript"></script>' ."\n";
         if ($sHeaderJs) {
-            $sJsBlock .= "\n<script language=\"JavaScript\" type=\"text/javascript\">" .
+            $sJsBlock .= "\n<script type=\"text/javascript\">" .
                         "\n<!--\n" .
                         $sHeaderJs . "\n\n// -->\n</script>\n";
         }
@@ -265,13 +265,13 @@ function compose_Header($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
      */
     if($javascript_on) {
         if ($sHeaderJs) {
-            $sJsBlock = "\n<script language=\"JavaScript\" type=\"text/javascript\">" .
+            $sJsBlock = "\n<script type=\"text/javascript\">" .
                         "\n<!--\n" .
                         $sHeaderJs . "\n\n// -->\n</script>\n";
         } else {
         $sJsBlock = '';
         }
-        $sJsBlock .= "\n" . '<script src="'. SM_PATH .'templates/default/js/default.js" type="text/javascript" language="JavaScript"></script>' ."\n";
+        $sJsBlock .= "\n" . '<script src="'. SM_PATH .'templates/default/js/default.js" type="text/javascript"></script>' ."\n";
         displayHtmlHeader (_("Compose"), $sJsBlock);
     } else {
         /* javascript off */

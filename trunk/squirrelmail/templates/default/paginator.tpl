@@ -24,7 +24,7 @@ if ($javascript_on && $compact_paginator &&!isset($bScriptAdded)) {
 ?>
 
 <!-- start of compact paginator javascript -->
-<script language="JavaScript">
+<script type="text/javascript">
     function SubmitOnSelect(select, URL)
     {
         URL += select.options[select.selectedIndex].value;

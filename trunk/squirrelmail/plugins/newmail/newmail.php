@@ -42,7 +42,7 @@ $numnew = (int)$numnew;
                       ) ,
                   '', '', 'width="100%" cellpadding="2" cellspacing="2" border="0"' ) .
    '</div>' .
-   "<script language=javascript>\n".
+   "<script type=\"text/javascript\">\n".
    "<!--\n".
    "document.nm.bt.focus();\n".
    "-->\n".

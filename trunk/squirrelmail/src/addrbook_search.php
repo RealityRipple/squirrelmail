@@ -36,7 +36,7 @@ include_once(SM_PATH . 'functions/addressbook.php');
  */
 function insert_javascript() {
     ?>
-    <script language="Javascript"><!--
+    <script type="text/javascript"><!--
 
     function to_and_close($addr) {
         to_address($addr);

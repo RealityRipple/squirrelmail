@@ -92,7 +92,7 @@ $loginname_value = (sqGetGlobalVar('loginname', $loginname) ? htmlspecialchars($
 
 /* Output the javascript onload function. */
 
-$header = "<script language=\"JavaScript\" type=\"text/javascript\">\n" .
+$header = "<script type=\"text/javascript\">\n" .
           "<!--\n".
           "  function squirrelmail_loginpage_onload() {\n".
           "    var textElements = 0;\n".

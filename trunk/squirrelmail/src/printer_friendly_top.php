@@ -22,7 +22,7 @@ define('SM_PATH','../');
 include_once(SM_PATH . 'include/validate.php');
 
 displayHtmlHeader( _("Printer Friendly"),
-             "<script language=\"javascript\" type=\"text/javascript\">\n".
+             "<script type=\"text/javascript\">\n".
              "<!--\n".
              "function printPopup() {\n".
                 "parent.frames[1].focus();\n".

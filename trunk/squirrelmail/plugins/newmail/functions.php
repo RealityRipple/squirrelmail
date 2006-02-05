@@ -233,7 +233,7 @@ function newmail_plugin_function() {
         // will play the sound as follows:
 
         if ($newmail_changetitle) {
-            echo "<script language=\"javascript\" type=\"text/javascript\">\n" .
+            echo "<script type=\"text/javascript\">\n" .
                 "function ChangeTitleLoad() {\n";
             echo 'window.parent.document.title = "' .
                 sprintf(ngettext("%s New Message","%s New Messages",$totalNew), $totalNew) .
@@ -255,7 +255,7 @@ function newmail_plugin_function() {
             // Idea by:  Nic Wolfe (Nic@TimelapseProductions.com)
             // Web URL:  http://fineline.xs.mw
             // More code from Tyler Akins
-            echo "<script language=\"JavaScript\">\n".
+            echo "<script type=\"text/javascript\">\n".
                 "<!--\n".
                 "function PopupScriptLoad() {\n".
                 'window.open("'.sqm_baseuri().'plugins/newmail/newmail.php?numnew='.$totalNew.
