@@ -54,7 +54,7 @@ sqspell_writeWords($word_dic,$sqspell_use_app);
  * display the splash screen, then close it automatically after 2 sec.
  */
 $onload = "setTimeout('self.close()', 2000)";
-$msg = '<form onsubmit="return false"><div align="center">'
+$msg = '<form onsubmit="return false"><div style="text-align: center;">'
    . '<input type="submit" value="  '
    . _("Close") . '  " onclick="self.close()" /></div></form>';
 sqspell_makeWindow($onload, _("Personal Dictionary Updated"), null, $msg);

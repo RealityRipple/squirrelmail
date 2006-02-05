@@ -164,7 +164,7 @@ if( check_php_version ( 4, 3 ) ) {
  * Check if the execution was successful. Bail out if it wasn't.
  */
 if ($sqspell_exitcode){
-  $msg= "<div align='center'>"
+  $msg= '<div style="text-align: center;">'
      . sprintf(_("I tried to execute '%s', but it returned:"),
                $sqspell_command) . "<pre>"
      . htmlspecialchars(join("\n", $sqspell_output)) . '</pre>'
@@ -469,7 +469,7 @@ if ($errors){
   /**
    * AREN'T YOU SUCH A KNOW-IT-ALL!
    */
-  $msg='<form onsubmit="return false"><div align="center">' .
+  $msg='<form onsubmit="return false"><div style="text-align: center;">' .
        '<input type="submit" value="  ' . _("Close") .
        '  " onclick="self.close()" /></div></form>';
   sqspell_makeWindow(null, _("No errors found"), null, $msg);

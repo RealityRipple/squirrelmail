@@ -118,7 +118,7 @@ if (!isset($squirrelmail_language)) {
 if (file_exists("../help/$squirrelmail_language")) {
     $user_language = $squirrelmail_language;
 } else if (file_exists('../help/en_US')) {
-    echo "<div style="text-align: center;"><font color=\"$color[2]\">"
+    echo "<div style=\"text-align: center;\"><font color=\"$color[2]\">"
         ._("The help has not been translated to the selected language. It will be displayed in English instead.");
     echo '</font></div><br />';
     $user_language = 'en_US';

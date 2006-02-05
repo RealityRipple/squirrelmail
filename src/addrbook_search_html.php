@@ -200,7 +200,7 @@ echo '<div style="text-align: center;">' .
     html_tag( 'tr' ) .
     html_tag( 'td', '', 'left', '', 'style="white-space: nowrap;" valign="middle"' ) . "\n" .
     addForm($PHP_SELF.'?html_addr_search=true', 'post', 'f').
-    "\n<div style="text-align: center;">\n" .
+    "\n<div style=\"text-align: center;\">\n" .
     '  <nobr><strong>' . _("Search for") . "</strong>\n";
 addr_insert_hidden();
 echo addInput('addrquery', $addrquery, 26);
