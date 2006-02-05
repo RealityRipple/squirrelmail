@@ -93,7 +93,7 @@ function spamcop_show_link_function() {
     // Javascript is used only in web based reporting
     // don't insert javascript if javascript is disabled
     if ($spamcop_method == 'web_form' && $javascript_on) {
-?><script language="javascript" type="text/javascript">
+?><script type="text/javascript">
 document.write('<a href="../plugins/spamcop/spamcop.php?passed_id=<?php echo urlencode($passed_id); ?>&amp;js_web=1&amp;mailbox=<?php echo urlencode($mailbox); ?>&amp;passed_ent_id=<?php echo urlencode($passed_ent_id); ?>" target="_blank">');
 document.write("<?php echo _("Report as Spam"); ?>");
 document.write("</a>");

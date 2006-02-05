@@ -79,7 +79,7 @@ function addr_display_result($res, $includesource = true) {
 
     if ($javascript_on) {
         print
-            '<script language="JavaScript" type="text/javascript">' .
+            '<script type="text/javascript">' .
             "\n<!-- \n" .
             "function CheckAll(ch) {\n" .
             "   for (var i = 0; i < document.addrbook.elements.length; i++) {\n" .

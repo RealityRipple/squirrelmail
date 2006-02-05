@@ -22,7 +22,7 @@ require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/forms.php');
 
 displayHtmlHeader( _("Message Details"),
-             "<script language=\"javascript\" type=\"text/javascript\">\n".
+             "<script type=\"text/javascript\">\n".
              "<!--\n".
              "function printPopup() {\n".
                 "parent.frames[1].focus();\n".

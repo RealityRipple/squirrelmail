@@ -46,7 +46,7 @@ function show_message_details() {
     $result = '';
     /* Output the link. */
     if ($javascript_on) {
-        $result = '<script type="text/javascript" language="javascript">' . "\n" .
+        $result = '<script type="text/javascript">' . "\n" .
                 '<!--' . "\n" .
                 "  function MessageSource() {\n" .
                 '    window.open("../plugins/message_details/message_details_main.php' .

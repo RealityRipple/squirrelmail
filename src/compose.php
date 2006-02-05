@@ -1052,7 +1052,7 @@ function showInputForm ($session, $values=false) {
     }
 
     if ($use_javascript_addr_book) {
-        echo "\n". '<script language="JavaScript">'."\n<!--\n" .
+        echo "\n". '<script type="text/javascript">'."\n<!--\n" .
             'function open_abook() { ' . "\n" .
             '  var nwin = window.open("addrbook_popup.php","abookpopup",' .
             '"width=670,height=300,resizable=yes,scrollbars=yes");' . "\n" .
@@ -1379,7 +1379,7 @@ function showComposeButtonRow() {
         '      <td>' . "\n" .
         '         <input type="submit" name="sigappend" value="' . _("Signature") . '" />' . "\n";
     if ($use_javascript_addr_book) {
-        echo "         <script language=\"JavaScript\"><!--\n document.write(\"".
+        echo "         <script type=\"text/javascript\"><!--\n document.write(\"".
             "            <input type=button value=\\\""._("Addresses").
             "\\\" onclick=\\\"javascript:open_abook();\\\" />\");".
             "            // --></script><noscript>\n".

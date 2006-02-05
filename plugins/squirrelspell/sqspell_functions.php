@@ -872,7 +872,7 @@ function sqspell_handle_crypt_panic($lang=false) {
   /**
    * Add some string vars so they can be i18n'd.
    */
-  $msg .= "<script type='text/javascript'><!--\n"
+  $msg .= "<script type=\"text/javascript\"><!--\n"
     . "var ui_choice = \"" . _("You must make a choice") ."\";\n"
     . "var ui_candel = \"" . _("You can either delete your dictionary or type in the old password. Not both.") . "\";\n"
     . "var ui_willdel = \"" . _("This will delete your personal dictionary file. Proceed?") . "\";\n"

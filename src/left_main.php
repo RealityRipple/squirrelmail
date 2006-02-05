@@ -407,7 +407,7 @@ if (empty($advanced_tree)) {
 
 if ($advanced_tree) {
 $xtra .= <<<HEREDOC
-<script language="Javascript" type="text/javascript">
+<script type="text/javascript">
 <!--
     function preload() {
       if (document.images) {
