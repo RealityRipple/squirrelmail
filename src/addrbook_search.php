@@ -289,20 +289,14 @@ if ($show == 'form' && ! isset($listall)) {
             echo html_tag( 'p', '<b><br />' .
                            _("Your search failed with the following error(s)") .
                            ':<br />' . $abook->error . "</b>\n" ,
-                           'center' ) .
-                "\n</body></html>\n";
-            exit;
-        }
-
-        if (sizeof($res) == 0) {
+                           'center' );
+        } elseif (sizeof($res) == 0) {
             echo html_tag( 'p', '<br /><b>' .
                            _("No persons matching your search were found") . "</b>\n" ,
-                           'center' ) .
-                "\n</body></html>\n";
-            exit;
+                           'center' );
+        } else {
+            display_result($res);
         }
-
-        display_result($res);
     } else {
         /**
          * listall is not set, query is not set or empty.
