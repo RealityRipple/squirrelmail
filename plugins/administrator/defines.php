@@ -35,8 +35,23 @@ define('SMOPT_TYPE_TITLE', 9);
 define('SMOPT_TYPE_THEME', 10);
 define('SMOPT_TYPE_PLUGINS', 11);
 define('SMOPT_TYPE_LDAP', 12);
+define('SMOPT_TYPE_CUSTOM', 13);
 define('SMOPT_TYPE_EXTERNAL', 32);
 define('SMOPT_TYPE_PATH',33);
+
+/**
+ * Returns reformated aTemplateSet array data for option selection
+ * @return array template selection options
+ * @since 1.5.1
+ */
+function adm_template_options() {
+    global $aTemplateSet;
+    $ret = array();
+    foreach ($aTemplateSet as $iTemplateID => $aTemplate) {
+        $ret[$iTemplateID] = $aTemplate['NAME'];
+    }
+    return $ret;
+}
 
 global $languages, $version;
 
@@ -385,11 +400,20 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                  '$abook_global_file_listing'   => array( 'name' => _("Allow listing of global address book"),
                                                           'type' => SMOPT_TYPE_BOOLEAN ),
                  /* --------------------------------------------------------*/
-                 'Group7' => array( 'name' => _("Themes"),
+                 'Group7' => array( 'name' => _("Templates"),
                                     'type' => SMOPT_TYPE_TITLE ),
                  '$theme_css' => array( 'name' => _("Style Sheet URL (css)"),
                                         'type' => SMOPT_TYPE_PATH,
                                         'size' => 40 ),
+                 '$default_fontsize' => array( 'name' => _("Default font size"),
+                                               'type' => SMOPT_TYPE_STRING,
+                                               'default' => ''),
+                 '$default_fontset' => array( 'name' => _("Default font set"),
+                                              'type' => SMOPT_TYPE_STRLIST,
+                                              'posvals' => $fontsets),
+                 '$templateset_default' => array( 'name' => _("Default template"),
+                                                  'type' => SMOPT_TYPE_STRLIST,
+                                                  'posvals' => adm_template_options()),
                  '$theme_default' => array( 'name' => _("Default theme"),
                                             'type' => SMOPT_TYPE_INTEGER,
                                             'default' => 0,
