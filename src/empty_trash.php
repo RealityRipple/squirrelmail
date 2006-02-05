@@ -67,6 +67,8 @@ for ($i = 0; $i < $numboxes; $i++) {
 
 // now lets go through the tree and delete the folders
 walkTreeInPreOrderEmptyTrash(0, $imap_stream, $foldersTree);
+// update mailbox cache
+$mailboxes=sqimap_get_mailboxes($imap_stream,true,$show_only_subscribed_folders);
 sqimap_logout($imap_stream);
 
 // close session properly before redirecting
