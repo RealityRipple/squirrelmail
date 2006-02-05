@@ -12,6 +12,9 @@
  * @package squirrelmail
  */
 
+/** @ignore */
+if (! defined('SM_PATH')) define('SM_PATH','../');
+
 /** Clearly, this needs the IMAP functions.. */
 require_once(SM_PATH . 'functions/imap.php');
 
@@ -154,24 +157,26 @@ function walkTreeInPostOrderCreatingFoldersUnderTrash($index, $imap_stream, $tre
     $subFolderName = substr($tree[$index]['value'], $position);
 
     if ($tree[$index]['doIHaveChildren']) {
-        sqimap_mailbox_create($imap_stream, $trash_folder . $delimiter . $subFolderName, "");
+        // create new trash subfolder only if it does not exist.
+        if (!sqimap_mailbox_exists($imap_stream, $trash_folder . $delimiter . $subFolderName))
+            sqimap_mailbox_create($imap_stream, $trash_folder . $delimiter . $subFolderName, "");
+
         $mbx_response = sqimap_mailbox_select($imap_stream, $tree[$index]['value']);
         $messageCount = $mbx_response['EXISTS'];
         if ($messageCount > 0) {
-            // FIXME: broken call
-            sqimap_messages_copy($imap_stream, 1, '*', $trash_folder . $delimiter . $subFolderName);
+            sqimap_msgs_list_copy($imap_stream, '1:*', $trash_folder . $delimiter . $subFolderName);
         }
         // after copy close the mailbox to get in unselected state
         sqimap_run_command($imap_stream,'CLOSE',false,$response,$message);
         for ($j = 0;$j < count($tree[$index]['subNodes']); $j++)
             walkTreeInPostOrderCreatingFoldersUnderTrash($tree[$index]['subNodes'][$j], $imap_stream, $tree, $topFolderName);
     } else {
-        sqimap_mailbox_create($imap_stream, $trash_folder . $delimiter . $subFolderName, '');
+        if (!sqimap_mailbox_exists($imap_stream, $trash_folder . $delimiter . $subFolderName))
+            sqimap_mailbox_create($imap_stream, $trash_folder . $delimiter . $subFolderName, '');
         $mbx_response = sqimap_mailbox_select($imap_stream, $tree[$index]['value']);
         $messageCount = $mbx_response['EXISTS'];
         if ($messageCount > 0) {
-            // FIXME: broken call
-            sqimap_messages_copy($imap_stream, 1, '*', $trash_folder . $delimiter . $subFolderName);
+            sqimap_msgs_list_copy($imap_stream, '1:*', $trash_folder . $delimiter . $subFolderName);
         }
         // after copy close the mailbox to get in unselected state
         sqimap_run_command($imap_stream,'CLOSE',false,$response,$message);
