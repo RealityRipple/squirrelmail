@@ -6,6 +6,7 @@
  * Used GET arguments:
  * <ul>
  *   <li>themeid - string, sets theme file from themes/*.php
+ *   <li>templateid - string, sets template directory from templates/
  *   <li>fontset - string, sets selected set of fonts from $fontsets array.
  *   <li>fontsize - integer, sets selected font size
  * </ul>
@@ -22,17 +23,24 @@ define('SM_PATH','../');
 require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'config/config.php');
-# FIXME: remove it after template setting moved to get request
-require_once(SM_PATH . 'include/load_prefs.php');
 
 /* safety check for older config.php */
 if (!isset($fontsets) || !is_array($fontsets)) {
     $fontsets=array();
 }
 
+
 /* template init */
 /** start block copy from right_main.php */
 include_once(SM_PATH . 'class/template/template.class.php');
+
+/* get template name and set used template directory */
+if (sqgetGlobalVar('templateid',$templateid,SQ_GET) &&
+    file_exists(SM_PATH.'templates/'.basename($templateid).'/stylesheet.tpl')) {
+    $sTplDir = SM_PATH.'templates/'.basename($templateid).'/';
+} else {
+    $sTplDir = SM_PATH.'templates/default/';
+}
 
 $oTemplate = new Template($sTplDir);
 /** end block copy */
@@ -153,7 +161,7 @@ define('SQM_ALIGN_RIGHT', $align['right']);
 
 if (sqgetGlobalVar('fontset',$fontset,SQ_GET) &&
     isset($fontsets[$fontset])) {
-    $fontfamily=$fontsets[$fontset]['STYLE'];
+    $fontfamily=$fontsets[$fontset];
 } else {
     $fontfamily='';
 }
@@ -172,7 +180,6 @@ if ( $lastmod = @filemtime($oTemplate->template_dir . 'stylesheet.tpl') ) {
     $gmlastmod = gmdate('D, d M Y H:i:s', $lastmod) . ' GMT';
     header('Last-Modified: ' . $gmlastmod);
 }
-
 $oTemplate->display('stylesheet.tpl');
 
 ?>
