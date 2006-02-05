@@ -50,7 +50,13 @@ $base_uri = sqm_baseuri();
  */
 
 sqsession_destroy();
-sqsession_start();
+/**
+ * PHP bug. http://bugs.php.net/11643 (warning, spammed bug tracker) and
+ * http://bugs.php.net/13834
+ * SID constant is not destroyed in PHP 4.1.2, 4.2.3 and maybe other 
+ * versions. Produces warning on login page. Bug should be fixed only in 4.3.0
+ */
+@sqsession_start();
 header('Pragma: no-cache');
 
 /**
