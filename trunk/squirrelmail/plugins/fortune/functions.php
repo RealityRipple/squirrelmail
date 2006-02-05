@@ -49,14 +49,14 @@ function fortune_function() {
         $fortune_command=$fortune_location;
     }
 
-    echo "<div style="text-align: center;"><table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" bgcolor=\"$color[10]\">\n".
+    echo "<div style=\"text-align: center;\"><table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" bgcolor=\"$color[10]\">\n".
         "<tr><td><table width=\"100%\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" bgcolor=\"$color[5]\">\n".
         "<tr><td align=\"center\">\n";
     echo '<table><tr><td>';
     if (!$exist) {
         printf(_("%s is not found."),$fortune_location);
     } else {
-        echo "<div style="text-align: center;"><em>" . _("Today's Fortune") . "</em></div><pre>\n" .
+        echo "<div style=\"text-align: center;\"><em>" . _("Today's Fortune") . "</em></div><pre>\n" .
             htmlspecialchars(shell_exec($fortune_command)) .
             "</pre>\n";
     }
