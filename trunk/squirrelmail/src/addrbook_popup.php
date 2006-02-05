@@ -23,7 +23,8 @@ include_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/addressbook.php');
 
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
+  "http://www.w3.org/TR/1999/REC-html401-19991224/frameset.dtd">
 
 <html>
     <head>
