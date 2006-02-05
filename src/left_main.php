@@ -646,11 +646,13 @@ sqgetGlobalVar('auto_create_done',$auto_create_done,SQ_SESSION);
 /* If requested and not yet complete, attempt to autocreate folders. */
 if ($auto_create_special && !isset($auto_create_done)) {
     $autocreate = array($sent_folder, $trash_folder, $draft_folder);
+    $folders_created = false;
     foreach( $autocreate as $folder ) {
         if (($folder != '') && ($folder != 'none')) {
             // use $mailboxes array for checking if mailbox exists
             if ( !sqimap_mailbox_exists($imapConnection, $folder, $mailboxes)) {
                 sqimap_mailbox_create($imapConnection, $folder, '');
+                $folders_created = true;
             } else {
                 // check for subscription is useless and expensive, just
                 // surpress the NO response. Unless we're on Mecury, which
@@ -659,6 +661,7 @@ if ($auto_create_special && !isset($auto_create_done)) {
                 if ( strtolower($imap_server_type) != 'mercury32' ||
                     !sqimap_mailbox_is_subscribed($imapConnection, $folder) ) {
                     sqimap_subscribe($imapConnection, $folder, false);
+                    $folders_created = true;
                 }
             }
         }
@@ -667,6 +670,9 @@ if ($auto_create_special && !isset($auto_create_done)) {
     /* Let the world know that autocreation is complete! Hurrah! */
     $auto_create_done = TRUE;
     sqsession_register($auto_create_done, 'auto_create_done');
+    // reload mailbox list
+    if ($folders_created)
+        $mailboxes=sqimap_get_mailboxes($imapConnection,true,$show_only_subscribed_folders);
 }
 
 if ($advanced_tree) {
