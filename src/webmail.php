@@ -79,7 +79,8 @@ if ($my_language != $squirrelmail_language) {
 
 $err=set_up_language(getPref($data_dir, $username, 'language'));
 
-$output = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\">\n".
+$output = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\"\n".
+          "  \"http://www.w3.org/TR/1999/REC-html401-19991224/frameset.dtd\">\n".
           "<html><head>\n" .
           "<meta name=\"robots\" content=\"noindex,nofollow\">\n" .
           "<title>$org_title</title>\n".

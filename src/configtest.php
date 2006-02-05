@@ -46,7 +46,8 @@ if (file_exists(SM_PATH . 'config/config.php')) {
     include(SM_PATH . 'config/config.php');
     include(SM_PATH . 'functions/strings.php');
 }
-?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 <head>
     <meta name="robots" content="noindex,nofollow">
