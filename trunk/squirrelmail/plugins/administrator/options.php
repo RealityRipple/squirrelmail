@@ -320,12 +320,16 @@ foreach ( $newcfg as $k => $v ) {
         $type = SMOPT_TYPE_PLUGINS;
     } else if ( substr( $k, 0, 13 ) == '$ldap_server[' ) {
         $type = SMOPT_TYPE_LDAP;
+    } else if ( substr( $k, 0, 9 ) == '$fontsets' ||
+	substr( $k, 0, 13 ) == '$aTemplateSet' ) {
+        $type = SMOPT_TYPE_CUSTOM;
     }
 
     if ( $type == SMOPT_TYPE_TITLE || $colapse[$act_grp] == 'off' ) {
 
         switch ( $type ) {
         case SMOPT_TYPE_LDAP:
+        case SMOPT_TYPE_CUSTOM:
         case SMOPT_TYPE_PLUGINS:
         case SMOPT_TYPE_THEME:
         case SMOPT_TYPE_HIDDEN:
