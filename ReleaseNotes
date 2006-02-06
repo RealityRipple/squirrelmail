@@ -88,7 +88,19 @@ Internal SquirrelMail cookie implementation is experimental. If you have cookie
 expiration or corruption issues with some browser and can reproduce them only in 
 1.5.1 version, contact SquirrelMail developers and help them to debug your issue.
 
-Plugins (changes in hooks and IMAP API)
+SquirrelMail 1.5.1 changed some functions and hooks. login_form hook requires
+different coding style. html_top, html_bottom, internal_link hooks are removed.
+src/move_messages.php code moved to main mailbox listing script. Some hooks are 
+broken after implementation of templates in mailbox listing pages. soupNazi() 
+function is replaced with checkForJavascript() function. sqimap_messages_delete, 
+sqimap_messages_copy, sqimap_messages_flag and sqimap_get_small_header() 
+functions are obsoleted. Some IMAP functions return data in different format.
+If plugins depend on changed or removed functions, they will break in this 
+SquirrelMail version.
+
+This SquirrelMail version implemented code that unregisters globals in PHP 
+register_globals=on setups. If some plugin loads main SquirrelMail functions 
+and depends on PHP register_globals, it will be broken.
 
 IMAP sorting/threading
 
