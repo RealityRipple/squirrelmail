@@ -1176,7 +1176,7 @@ function sqimap_append_done ($imap_stream, $folder='') {
  * commands issues by sqimap_append() and sqimap_append_done() functions.
  * @param string $response
  * @param string $folder
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.5
  */
 function sqimap_append_checkresponse($response, $folder) {
 
