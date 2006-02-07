@@ -334,7 +334,8 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
      * order that is their priority.
      */
     global $startMessage, $languages, $squirrelmail_language,
-           $show_html_default, $sort, $has_unsafe_images, $passed_ent_id, $use_iframe,$iframe_height;
+           $show_html_default, $sort, $has_unsafe_images, $passed_ent_id,
+           $use_iframe, $iframe_height, $download_and_unsafe_link;
 
     // workaround for not updated config.php
     if (! isset($use_iframe)) $use_iframe = false;
@@ -445,13 +446,15 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
             return $body;
         }
 
+        $download_and_unsafe_link = '';
+
         $link = 'passed_id=' . $id . '&amp;ent_id='.$ent_num.
             '&amp;mailbox=' . $urlmailbox .'&amp;sort=' . $sort .
             '&amp;startMessage=' . $startMessage . '&amp;show_more=0';
         if (isset($passed_ent_id)) {
             $link .= '&amp;passed_ent_id='.$passed_ent_id;
         }
-        $body .= '<div style="text-align: center;"><small><a href="download.php?absolute_dl=true&amp;' .
+        $download_and_unsafe_link .= '&nbsp;|&nbsp;<a href="download.php?absolute_dl=true&amp;' .
             $link . '">' . _("Download this as a file") .  '</a>';
         if ($view_unsafe_images) {
             $text = _("Hide Unsafe Images");
@@ -464,9 +467,8 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
             }
         }
         if($text != '') {
-            $body .= '&nbsp;|&nbsp;<a href="read_body.php?' . $link . '">' . $text . '</a>';
+            $download_and_unsafe_link .= '&nbsp;|&nbsp;<a href="read_body.php?' . $link . '">' . $text . '</a>';
         }
-        $body .= '</small></div><br />' . "\n";
     }
     return $body;
 }
