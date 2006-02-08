@@ -818,6 +818,7 @@ function sqimap_get_mailboxes($imap_stream,$force=false,$show_only_subscribed=tr
         sqgetGlobalVar($sub_cache_name,$lsub_cache,SQ_SESSION);
     }
 
+    $lsub_assoc_ary=array();
     if (!empty($lsub_cache)) {
         $lsub_assoc_ary=$lsub_cache;
     } else {
