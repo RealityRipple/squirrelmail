@@ -581,22 +581,23 @@ $hide_auth_header = false;
 /**
  * Server Side Threading Control
  *
- * If you want to enable server side thread sorting options
+ * If you want to disable server side thread sorting options
  * Your IMAP server must support the THREAD extension for
- * this to work.
- * @global bool $allow_thread_sort
+ * this to have any effect.
+ * @global bool $disable_thread_sort
  */
-$allow_thread_sort = false;
+$disable_thread_sort = false;
 
 /**
  * Server Side Sorting Control
  *
- * to use server-side sorting instead of SM client side.
+ * If you want to disable server-side sorting and use SM client side sorting
+ * instead (client side sorting can be slow).
  * Your IMAP server must support the SORT extension for this
- * to work.
+ * to have any effect.
  * @global bool $allow_server_sort
  */
-$allow_server_sort = false;
+$disable_server_sort = false;
 
 /**
  * IMAP Charset Use Control
