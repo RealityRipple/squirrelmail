@@ -165,12 +165,19 @@ function sqimap_get_sort_order($imap_stream, $sSortField, $reverse, $search='ALL
         // use sqimap_run_command_list in case of unsollicited responses. If we don't we could loose the SORT response
         $aData = sqimap_run_command_list ($imap_stream, $query, false, $response, $message, TRUE);
         /* fallback to default charset */
-        if ($response == 'NO' && strpos($message,'[BADCHARSET]') !== false) {
-            $query = "SORT ($sSortField) US-ASCII $search";
-            $aData = sqimap_run_command_list ($imap_stream, $query, true, $response, $message, TRUE);
+        if ($response == 'NO') {
+            if (strpos($message,'[BADCHARSET]') !== false ||
+                strpos($message,'Unrecognized character set') !== false) {
+                sqm_trigger_imap_error('SQM_IMAP_BADCHARSET',$query, $response, $message);
+                $query = "SORT ($sSortField) US-ASCII $search";
+                $aData = sqimap_run_command_list ($imap_stream, $query, true, $response, $message, TRUE);
+            } else {
+                sqm_trigger_imap_error('SQM_IMAP_ERROR',$query, $response, $message);
+            }
+        } else if ($response == 'BAD') {
+            sqm_trigger_imap_error('SQM_IMAP_NO_SORT',$query, $response, $message);
         }
     }
-
 
     if ($response == 'OK') {
         return parseUidList($aData,'SORT');
@@ -428,11 +435,21 @@ function get_thread_sort($imap_stream, $search='ALL') {
     }
     $query = "THREAD $sort_type ".strtoupper($default_charset)." $search";
 
+    // TODO use sqimap_run_command_list as we do in get_server_sort()
     $thread_test = sqimap_run_command ($imap_stream, $query, false, $response, $message, TRUE);
     /* fallback to default charset */
-    if ($response == 'NO' && strpos($message,'[BADCHARSET]') !== false) {
-        $query = "THREAD $sort_type US-ASCII $search";
-        $thread_test = sqimap_run_command ($imap_stream, $query, true, $response, $message, TRUE);
+
+    if ($response == 'NO') {
+        if (strpos($message,'[BADCHARSET]') !== false ||
+            strpos($message,'Unrecognized character set') !== false) {
+            sqm_trigger_imap_error('SQM_IMAP_BADCHARSET',$query, $response, $message);
+            $query = "THREAD $sort_type US-ASCII $search";
+            $thread_test = sqimap_run_command ($imap_stream, $query, true, $response, $message, TRUE);
+        } else {
+            sqm_trigger_imap_error('SQM_IMAP_ERROR',$query, $response, $message);
+        }
+    } elseif ($response == 'BAD') {
+        sqm_trigger_imap_error('SQM_IMAP_NO_THREAD',$query, $response, $message);
     }
     if (isset($thread_test[0])) {
         for ($i=0,$iCnt=count($thread_test);$i<$iCnt;++$i) {
@@ -445,7 +462,7 @@ function get_thread_sort($imap_stream, $search='ALL') {
         $thread_list = "";
     }
     if (!preg_match("/OK/", $response)) {
-        $server_sort_array = 'no';
+        $server_sort_array = false;
         return $server_sort_array;
     }
     if (isset($thread_list)) {

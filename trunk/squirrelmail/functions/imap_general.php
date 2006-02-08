@@ -701,28 +701,28 @@ function sqimap_create_stream($server,$port,$tls=0) {
                 // starttls was successful
 
                 /**
-                 * RFC 2595 requires to discard CAPABILITY information after successful 
-                 * STARTTLS command. We don't follow RFC, because SquirrelMail stores CAPABILITY 
-                 * information only after successful login (src/redirect.php) and cached information 
-                 * is used only in other php script connections after successful STARTTLS. If script 
-                 * issues sqimap_capability() call before sqimap_login() and wants to get initial 
-                 * capability response, script should set third sqimap_capability() argument to false. 
+                 * RFC 2595 requires to discard CAPABILITY information after successful
+                 * STARTTLS command. We don't follow RFC, because SquirrelMail stores CAPABILITY
+                 * information only after successful login (src/redirect.php) and cached information
+                 * is used only in other php script connections after successful STARTTLS. If script
+                 * issues sqimap_capability() call before sqimap_login() and wants to get initial
+                 * capability response, script should set third sqimap_capability() argument to false.
                  */
-                //sqsession_unregister('sqimap_capabilities');            
+                //sqsession_unregister('sqimap_capabilities');
             } else {
                 /**
                  * stream_socket_enable_crypto() call failed. Possible issues:
                  * - broken ssl certificate (uw drops connection, error is in syslog mail facility)
-                 * - some ssl error (can reproduce with STREAM_CRYPTO_METHOD_SSLv3_CLIENT, PHP E_WARNING 
+                 * - some ssl error (can reproduce with STREAM_CRYPTO_METHOD_SSLv3_CLIENT, PHP E_WARNING
                  *   suppressed in stream_socket_enable_crypto() call)
                  */
                 sqimap_error_box(sprintf(_("Error connecting to IMAP server: %s."), $server),
                                  '','',
                                  _("Unable to start TLS."));
                 /**
-                 * Bug: stream_socket_enable_crypto() does not register SSL errors in 
-                 * openssl_error_string() or stream notification wrapper and displays 
-                 * them in E_WARNING level message. It is impossible to retrieve error 
+                 * Bug: stream_socket_enable_crypto() does not register SSL errors in
+                 * openssl_error_string() or stream notification wrapper and displays
+                 * them in E_WARNING level message. It is impossible to retrieve error
                  * message without own error handler.
                  */
                 exit;
@@ -932,7 +932,7 @@ function sqimap_logout ($imap_stream) {
  * else returns array of all capabilities.
  * @param stream $imap_stream
  * @param string $capability (since 1.3.0)
- * @param boolean $bUseCache (since 1.5.1) Controls use of capability data stored in session 
+ * @param boolean $bUseCache (since 1.5.1) Controls use of capability data stored in session
  * @return mixed (string if $capability is set and found,
  *  false, if $capability is set and not found,
  *  array if $capability not set)
@@ -1179,7 +1179,7 @@ function sqimap_append_done ($imap_stream, $folder='') {
  * @since 1.5.1 and 1.4.5
  */
 function sqimap_append_checkresponse($response, $folder) {
-
+    // TODO use error handler, see how sort and thread errors are handled and see errors.php
     if (preg_match("/(.*)(BAD|NO)(.*)$/", $response, $regs)) {
         global $squirrelmail_language, $color;
         set_up_language($squirrelmail_language);
