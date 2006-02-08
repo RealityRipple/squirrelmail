@@ -200,7 +200,7 @@ echo html_tag( 'table',
                                     '<div style="text-align: center;">'. addSubmit(_("Login")) .'</div>',
                                     'left' )
                                 ),
-                        '', $color[4], 'border="0" width="350"' ) . '</div>',
+                        '', $color[4], 'border="0" width="350" align="center"' ) . '</div>',
                         'center' )
                         ) ,
                         '', $color[4], 'border="0" cellspacing="0" cellpadding="0" width="100%"' );
