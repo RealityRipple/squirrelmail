@@ -65,9 +65,10 @@ body {
     color:  <?php echo SQM_TEXT_STANDARD; ?>;
     background-color: <?php echo SQM_BACKGROUND; ?>;
 }
-body.leftmain {
+body.sqm_leftMain {
     color:  <?php echo SQM_TEXT_STANDARD_LEFT; ?>;
     background-color: <?php echo SQM_BACKGROUND_LEFT; ?>;
+    text-align: left;
 }
 
 /* right links */
@@ -76,7 +77,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 /* left links */
-.leftmain a:link, .leftmain a:visited, .leftmain a:hover, .leftmain a:active {
+.sqm_leftMain a:link, .leftmain a:visited, .leftmain a:hover, .leftmain a:active {
     color:  <?php echo SQM_LINK_LEFT; ?>;
 }
 .leftspecial, .leftspecial a:link, .leftspecial a:visited, .leftspecial a:hover, .leftspecial a:active {
@@ -89,6 +90,33 @@ a:link, a:visited, a:hover, a:active {
 /* highlighted texts */
 .highlight {
     color:  <?php echo SQM_TEXT_HIGHLIGHT; ?>;
+}
+
+/* left_main.tpl definitions */
+.sqm_wrapperTable   {
+    border:0;
+    padding:0;
+    margin-left:0;
+    border-spacing:0;
+    width:99%
+}
+.sqm_leftMain table {
+    border:0;
+    padding:0;
+    margin:0;
+    border-spacing:0;
+}
+.sqm_folderHeader {
+    font-size:18px;
+    font-weight:bold;
+    text-align:center;
+}
+.sqm_clock {
+}
+.sqm_lastRefreshTime {
+    white-space: nowrap;
+}
+.sqm_refreshButton {
 }
 
 /* formating of error template */
@@ -171,6 +199,47 @@ em		{
 
 small	{
     font-size:80%;
+}
+
+/* login.tpl definitions */
+#sqm_login table {
+    border:0;
+    margin:0;
+    padding:0;
+    border-spacing:0;
+    margin-left:auto;
+    margin-right:auto;
+}
+#sqm_login td {
+    padding:2px;
+}
+
+.sqm_loginImage {
+    margin-left:auto;
+    margin-right:auto;
+    border:0;
+    padding:2px;
+}
+.sqm_loginTop {
+    text-align:center;
+    font-size:80%;
+}
+.sqm_loginOrgName {
+    font-weight:bold;
+    text-align:center;
+    background: <?php echo $color[0]; ?>;
+    width:350px;
+    border:0;
+}
+.sqm_loginFieldName {
+    text-align:right;
+    width:30%;
+}
+.sqm_loginFieldInput {
+    text-align:left;
+}
+.sqm_loginSubmit {
+    text-align:center;
 }
 
 /* page_header.tpl definitions */
