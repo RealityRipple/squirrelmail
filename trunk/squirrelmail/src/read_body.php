@@ -827,6 +827,7 @@ $aMailbox = sqm_api_mailbox_select($imapConnection, $iAccount, $mailbox,array('s
 /**
  * Replace From => To  in case it concerns a draft or sent folder
  */
+$aColumns = array();
 if (($mailbox == $sent_folder || $mailbox == $draft_folder) &&
     !in_array(SQM_COL_TO,$index_order)) {
     $aNewOrder = array(); // nice var name ;)
@@ -834,11 +835,12 @@ if (($mailbox == $sent_folder || $mailbox == $draft_folder) &&
         if ($iCol == SQM_COL_FROM) {
             $iCol = SQM_COL_TO;
         }
-        $aNewOrder[] = $iCol;
+        $aColumns[$iCol] = array();
    }
-   $aColumns = $aNewOrder;
 } else {
-   $aColumns = $index_order;
+   foreach ($index_order as $iCol) {
+       $aColumns[$iCol] = array();
+   }
 }
 
 $aProps = array(
@@ -921,8 +923,6 @@ if (isset($passed_ent_id) && $passed_ent_id) {
 } else {
     $passed_ent_id = 0;
 }
-$header = $message->header;
-
 $header = $message->header;
 
 
