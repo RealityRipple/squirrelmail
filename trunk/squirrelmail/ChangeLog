@@ -540,6 +540,8 @@ Version 1.5.1 -- CVS
   - Disabled display of regexp compilation errors in local_file address
     book backend.
   - DOCTYPE tags are switched from quirks to standard compliance mode.
+  - Improved error reporting concerning THREAD, SORT and BADCHARSET.
+  - Added options to disable THREAD and SORT extension.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
