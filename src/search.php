@@ -1013,8 +1013,8 @@ $aMailboxGlobalPref = array(
  * system wide admin settings and incoming vars.
  */
 $aConfig = array(
-                'allow_thread_sort' => $allow_thread_sort,
-                'allow_server_sort' => $allow_server_sort,
+//                'allow_thread_sort' => $allow_thread_sort,
+//                'allow_server_sort' => $allow_server_sort,
                 'user'              => $username,
                 'setindex'          => 1
                 );
