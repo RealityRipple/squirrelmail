@@ -86,12 +86,31 @@ if($imap_auth_mech == 'login') {
     }
 }
 
+/*
+ * Initialize the template object and custom error handler object
+ */
+include_once(SM_PATH . 'class/template/template.class.php');
+include_once(SM_PATH . 'class/error.class.php');
+
+/*
+ * $sTplDir is not initialized when a user is not logged in, so we will use
+ * the config file defaults here.  If the neccesary variables are net set,
+ * force a default value.
+ */
+$aTemplateSet = ( !isset($aTemplateSet) ? array() : $aTemplateSet );
+$templateset_default = ( !isset($templateset_default) ? 0 : $templateset_default );
+$sTplDir = ( !isset($aTemplateSet[$templateset_default]['PATH']) ? 
+             SM_PATH . 'templates/default/' : 
+             $aTemplateSet[$templateset_default]['PATH'] );
+
+$oTemplate = new Template($sTplDir);
+$oErrorHandler = new ErrorHandler($oTemplate,'error_message.tpl');
+
 do_hook('login_cookie');
 
 $loginname_value = (sqGetGlobalVar('loginname', $loginname) ? htmlspecialchars($loginname) : '');
 
 /* Output the javascript onload function. */
-
 $header = "<script type=\"text/javascript\">\n" .
           "<!--\n".
           "  function squirrelmail_loginpage_onload() {\n".
@@ -123,16 +142,11 @@ if (! isset($color) || ! is_array($color)) {
     $color[8]  = '#000000';  /* black         Normal text            */
 }
 
-displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE, FALSE, FALSE );
+displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 
-echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" onLoad=\"squirrelmail_loginpage_onload()\">" .
-     "\n" . '<form action="redirect.php" method="post" onSubmit="document.forms[0].js_autodetect_results.value=\'' . SMPREF_JS_ON .'\';">' . "\n";
-
-$username_form_name = 'login_username';
-$password_form_name = 'secretkey';
-do_hook('login_top');
 
 /* If they don't have a logo, don't bother.. */
+$logo_str = '';
 if (isset($org_logo) && $org_logo) {
     /* Display width and height like good little people */
     $width_and_height = '';
@@ -144,69 +158,42 @@ if (isset($org_logo) && $org_logo) {
      $org_logo_height>0) {
         $width_and_height .= " height=\"$org_logo_height\"";
     }
+    
+    $logo_str = '<img src="'.$org_logo.'" ' .
+    			'alt="'. sprintf(_("%s Logo"), $org_name).'" ' .
+    			$width_and_height .
+                'class="sqm_loginImage" ' .
+    			' /><br />'."\n";
 }
+
+$sm_attribute_str = '';
+$hide_sm_attributes = false;
+if (isset($hide_sm_attributes) && !$hide_sm_attributes) {
+    $sm_attribute_str = _("SquirrelMail Webmail Application")."<br />\n" .
+                        _("By the SquirrelMail Project Team")."<br />\n";
+}
+
+$username_form_name = 'login_username';
+$password_form_name = 'secretkey';
 
 if(sqgetGlobalVar('mailto', $mailto)) {
     $rcptaddress = addHidden('mailto', $mailto);
 } else {
     $rcptaddress = '';
 }
-echo html_tag( 'table',
-    html_tag( 'tr',
-        html_tag( 'td',
-            '<div style="text-align: center;">'.
-            ( isset($org_logo) && $org_logo
-              ? '<img src="' . $org_logo . '" alt="' .
-                sprintf(_("%s Logo"), $org_name) .'"' . $width_and_height .
-                ' /><br />' . "\n"
-              : '' ).
-            ( (isset($hide_sm_attributions) && $hide_sm_attributions) ? '' :
-            '<small>' . _("SquirrelMail Webmail Application") . '<br />' ."\n".
-            '  ' . _("By the SquirrelMail Project Team") . '<br /></small>' . "\n" ) .
-            html_tag( 'table',
-                html_tag( 'tr',
-                    html_tag( 'td',
-                        '<b>' . sprintf (_("%s Login"), $org_name) . "</b>\n",
-                    'center', $color[0] )
-                ) .
-                html_tag( 'tr',
-                    html_tag( 'td',  "\n" .
-                        html_tag( 'table',
-                            html_tag( 'tr',
-                                html_tag( 'td',
-                                    _("Name:") ,
-                                'right', '', 'width="30%"' ) .
-                                html_tag( 'td',
-                                    addInput($username_form_name, $loginname_value),
-                                'left', '', 'width="*"' )
-                                ) . "\n" .
-                            html_tag( 'tr',
-                                html_tag( 'td',
-                                    _("Password:") ,
-                                'right', '', 'width="30%"' ) .
-                                html_tag( 'td',
-                                    addPwField($password_form_name).
-                                    addHidden('js_autodetect_results', SMPREF_JS_OFF).
-                                    $rcptaddress .
-                                    addHidden('just_logged_in', '1'),
-                                    'left', '', 'width="*"' )
-                                ) .
-                                concat_hook_function('login_form') ,
-                            'center', $color[4], 'border="0" width="100%"' ) ,
-                        'left', $color[4] )
-                        ) .
-                        html_tag( 'tr',
-                                html_tag( 'td',
-                                    '<div style="text-align: center;">'. addSubmit(_("Login")) .'</div>',
-                                    'left' )
-                                ),
-                        '', $color[4], 'border="0" width="350" align="center"' ) . '</div>',
-                        'center' )
-                        ) ,
-                        '', $color[4], 'border="0" cellspacing="0" cellpadding="0" width="100%"' );
-echo '</form>' . "\n";
 
-do_hook('login_bottom');
+$password_field = addPwField($password_form_name).
+                  addHidden('js_autodetect_results', SMPREF_JS_OFF).
+                  $rcptaddress .
+                  addHidden('just_logged_in', '1');
 
+$oTemplate->assign('color', $color);
+$oTemplate->assign('logo_str', $logo_str);
+$oTemplate->assign('sm_attribute_str', $sm_attribute_str);
+$oTemplate->assign('org_name_str', sprintf (_("%s Login"), $org_name));
+$oTemplate->assign('login_field', addInput($username_form_name, $loginname_value));
+$oTemplate->assign('password_field', $password_field);
+$oTemplate->assign('submit_field', addSubmit(_("Login")));
+
+$oTemplate->display('login.tpl');
 ?>
-</body></html>
