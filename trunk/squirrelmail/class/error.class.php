@@ -205,7 +205,7 @@ function SquirrelMailErrorhandler($iErrNo, $sErrStr, $sErrFile, $iErrLine, $aCon
 
 /**
  * Triggers an imap error. Utility function for sqm_trigger_error()
- * @param  integer $iErrNo error number defined in errors.php
+ * @param  string $sErrNo error string defined in errors.php
  * @param  string $sRequest imap request string
  * @param  string $sResponse tagged imap response
  * @param  string $sMessage tagged imap response message
@@ -214,37 +214,42 @@ function SquirrelMailErrorhandler($iErrNo, $sErrStr, $sErrFile, $iErrLine, $aCon
  * @author  Marc Groot Koerkamp
  * @since 1.5.1
  */
-function sqm_trigger_imap_error($iErrNo,$sRequest,$sResponse, $sMessage, $aExtra=array()) {
+function sqm_trigger_imap_error($sErrNo,$sRequest,$sResponse, $sMessage, $aExtra=array()) {
     $aError = array(
                     'REQUEST' => $sRequest,
                     'RESPONSE' => $sResponse,
                     'MESSAGE' => $sMessage);
     $aError = array_merge($aExtra,$aError);
-    sqm_trigger_error($iErrNo,$aError);
+    sqm_trigger_error($sErrNo,$aError);
 }
 
 /**
  * Trigger an error.
- * @param  integer $iErrNo error number defined in errors.php
+ * @param  string $sErrNo error string defined in errors.php
  * @param  array   $aExtra optional associative array with extra error info
  * @return void
  * @author  Marc Groot Koerkamp
  * @since 1.5.1
  */
-function sqm_trigger_error($iErrNo,$aExtra=array()) {
-    // Include the error definition file.
-    include_once(SM_PATH.'include/errors.php');
+function sqm_trigger_error($sErrNo,$aExtra=array()) {
+    static $aErrors;
+    if (!isset($aErrors)) {
+        // Include the error definition file.
+        include_once(SM_PATH.'include/errors.php');
+    }
+
     $iPhpErr = E_USER_NOTICE;
-    if (is_array($aErrors) && isset($aErrors[$iErrNo]['level'])) {
+    if (is_array($aErrors) && isset($aErrors[$sErrNo]['level'])) {
         if (is_array($aExtra) && count($aExtra)) {
-            $aErrors[$iErrNo]['extra'] = $aExtra;
+            $aErrors[$sErrNo]['extra'] = $aExtra;
         }
         // because trigger_error can only handle a string argument for the error description
         // we serialize the result.
-        $sErrString = serialize($aErrors[$iErrNo]);
-        $iPhpErr = $aErrors[$iErrNo]['level'];
+        $sErrString = serialize($aErrors[$sErrNo]);
+        $iPhpErr = $aErrors[$sErrNo]['level'];
     } else {
-        $sErrString = "Error number <$iErrNo> does not exist, fix the code or update the errors.php file";
+        sm_print_r($aErrors);
+        $sErrString = "Error <$sErrNo> does not exist, fix the code or update the errors.php file";
         $iPhpErr = E_USER_ERROR;
     }
     trigger_error($sErrString, $iPhpErr);
