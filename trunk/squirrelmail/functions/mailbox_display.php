@@ -346,6 +346,12 @@ function fetchMessageHeaders($imapConnection, &$aMailbox) {
         $id_slice = array_slice($aUid,$start_msg-1,$iLimit);
         /* do some funky cache checks */
         if (isset($aMailbox['MSG_HEADERS']) && is_array($aMailbox['MSG_HEADERS'])) {
+            // temp code, read_body del / next links fo not update fields.
+            foreach ($aMailbox['MSG_HEADERS'] as $iUid => $aValue) {
+                if (!isset($aValue['UID'])) {
+                    unset($aMailbox['MSG_HEADERS'][$iUid]);
+                }
+            }
             $aUidCached = array_keys($aMailbox['MSG_HEADERS']);
         } else {
             $aMailbox['MSG_HEADERS'] = array();
