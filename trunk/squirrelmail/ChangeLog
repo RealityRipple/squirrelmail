@@ -542,6 +542,8 @@ Version 1.5.1 -- CVS
   - DOCTYPE tags are switched from quirks to standard compliance mode.
   - Improved error reporting concerning THREAD, SORT and BADCHARSET.
   - Added options to disable THREAD and SORT extension.
+  - Fixed mailbox cache issues caused by using prev/next links in
+    read_body.php.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
