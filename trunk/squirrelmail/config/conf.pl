@@ -342,8 +342,8 @@ $provider_uri = ''                      if ( !$provider_uri );
 $provider_name = ''                     if ( !$provider_name );
 $edit_identity = 'true'                 if ( !$edit_identity );
 $edit_name = 'true'                     if ( !$edit_name );
-$allow_thread_sort = 'false'            if ( !$allow_thread_sort );
-$allow_server_sort = 'false'            if ( !$allow_server_sort );
+$disable_thread_sort = 'false'         if ( !$disable_thread_sort );
+$disable_server_sort = 'false'         if ( !$disable_server_sort );
 $no_list_for_subscribe = 'false'        if ( !$no_list_for_subscribe );
 $allow_charset_search = 'true'          if ( !$allow_charset_search );
 $allow_advanced_search = 0              if ( !$allow_advanced_search) ;
@@ -577,8 +577,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "9.  Allow editing of identity   : $WHT$edit_identity$NRM\n";
         print "    Allow editing of name       : $WHT$edit_name$NRM\n";
         print "    Remove username from header : $WHT$hide_auth_header$NRM\n";
-        print "10. Allow server thread sort    : $WHT$allow_thread_sort$NRM\n";
-        print "11. Allow server-side sorting   : $WHT$allow_server_sort$NRM\n";
+        print "10. Disable server thread sort  : $WHT$disable_thread_sort$NRM\n";
+        print "11. Disable server-side sorting : $WHT$disable_server_sort$NRM\n";
         print "12. Allow server charset search : $WHT$allow_charset_search$NRM\n";
         print "13. Allow advanced search       : $WHT$allow_advanced_search$NRM\n";
         print "14. PHP session name            : $WHT$session_name$NRM\n";
@@ -812,8 +812,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 7 )  { $hide_sm_attributions     = command38(); }
             elsif ( $command == 8 )  { $default_use_mdn          = command39(); }
             elsif ( $command == 9 )  { $edit_identity            = command310(); }
-            elsif ( $command == 10 ) { $allow_thread_sort        = command312(); }
-            elsif ( $command == 11 ) { $allow_server_sort        = command313(); }
+            elsif ( $command == 10 ) { $disable_thread_sort     = command312(); }
+            elsif ( $command == 11 ) { $disable_server_sort     = command313(); }
             elsif ( $command == 12 ) { $allow_charset_search     = command314(); }
             elsif ( $command == 13 ) { $allow_advanced_search    = command316(); }
             elsif ( $command == 14 ) { $session_name             = command317(); }
@@ -2278,9 +2278,9 @@ sub command311b {
 }
 
 sub command312 {
-    print "This option allows you to choose if users can use thread sorting\n";
-    print "Your IMAP server must support the THREAD command for this to work\n";
-    print "PHP versions later than 4.0.3 recommended\n";
+    print "This option makes it possible to disable the use of thread sorting if your server\n";
+    print "supports thread sort. Your IMAP server must support the THREAD command for this\n";
+    print "to have any effect.\n";
     print "\n";
 
     if ( lc($allow_thread_sort) eq 'true' ) {
@@ -2288,34 +2288,35 @@ sub command312 {
     } else {
         $default_value = "n";
     }
-    print "Allow server side thread sorting? (y/n) [$WHT$default_value$NRM]: $WHT";
-    $allow_thread_sort = <STDIN>;
-    if ( ( $allow_thread_sort =~ /^y\n/i ) || ( ( $allow_thread_sort =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
-        $allow_thread_sort = 'true';
+    print "Disallow server side thread sorting? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $disable_thread_sort = <STDIN>;
+    if ( ( $disable_thread_sort =~ /^y\n/i ) || ( ( $disable_thread_sort =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $disable_thread_sort = 'true';
     } else {
-        $allow_thread_sort = 'false';
+        $disable_thread_sort = 'false';
     }
-    return $allow_thread_sort;
+    return $disable_thread_sort;
 }
 
 sub command313 {
-    print "This option allows you to choose if SM uses server-side sorting\n";
-    print "Your IMAP server must support the SORT  command for this to work\n";
+    print "This option makes it possible to disable server-side sorting if your server\n";
+    print "supports server side sorting. Your IMAP server must support the SORT  command\n";
+    print "for this to have any effect\n";
     print "\n";
 
-    if ( lc($allow_server_sort) eq 'true' ) {
+    if ( lc($disable_server_sort) eq 'true' ) {
         $default_value = "y";
     } else {
         $default_value = "n";
     }
-    print "Allow server-side sorting? (y/n) [$WHT$default_value$NRM]: $WHT";
-    $allow_server_sort = <STDIN>;
-    if ( ( $allow_server_sort =~ /^y\n/i ) || ( ( $allow_server_sort =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
-        $allow_server_sort = 'true';
+    print "Disallow server-side sorting? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $disable_server_sort = <STDIN>;
+    if ( ( $disable_server_sort =~ /^y\n/i ) || ( ( $disable_server_sort =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $disable_server_sort = 'true';
     } else {
-        $allow_server_sort = 'false';
+        $disable_server_sort = 'false';
     }
-    return $allow_server_sort;
+    return $disable_server_sort;
 }
 
 sub command314 {
@@ -3886,9 +3887,9 @@ sub save_data {
         # boolean
         print CF "\$hide_auth_header         = $hide_auth_header;\n";
         # boolean
-        print CF "\$allow_thread_sort        = $allow_thread_sort;\n";
+        print CF "\$disable_thread_sort     = $disable_thread_sort;\n";
         # boolean
-        print CF "\$allow_server_sort        = $allow_server_sort;\n";
+        print CF "\$disable_server_sort     = $disable_server_sort;\n";
         # boolean
         print CF "\$allow_charset_search     = $allow_charset_search;\n";
         # integer
