@@ -85,6 +85,19 @@ if (!sqsession_is_registered('user_is_logged_in')) {
     $imapConnection = sqimap_login($login_username, $key, $imapServerAddress, $imapPort, 0);
 
     $sqimap_capabilities = sqimap_capability($imapConnection);
+
+    /* Server side sorting control */
+    if (isset($sqimap_capabilities['SORT']) && $sqimap_capabilities['SORT'] == true &&
+        isset($disable_server_sort) && $disable_server_sort) {
+        unset($sqimap_capabilities['SORT']);
+    }
+
+    /* Thread sort control */
+    if (isset($sqimap_capabilities['THREAD']) && $sqimap_capabilities['THREAD'] == true &&
+        isset($disable_thread_sort) && $disable_thread_sort) {
+        unset($sqimap_capabilities['THREAD']);
+    }
+
     sqsession_register($sqimap_capabilities, 'sqimap_capabilities');
     $delimiter = sqimap_get_delimiter ($imapConnection);
 
