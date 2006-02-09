@@ -65,7 +65,7 @@ body {
     color:  <?php echo SQM_TEXT_STANDARD; ?>;
     background-color: <?php echo SQM_BACKGROUND; ?>;
 }
-body.sqm_leftMain {
+body.leftmain {
     color:  <?php echo SQM_TEXT_STANDARD_LEFT; ?>;
     background-color: <?php echo SQM_BACKGROUND_LEFT; ?>;
     text-align: left;
@@ -77,10 +77,10 @@ a:link, a:visited, a:hover, a:active {
 }
 
 /* left links */
-.sqm_leftMain a:link, .leftmain a:visited, .leftmain a:hover, .leftmain a:active {
+.leftmain a:link, .leftmain a:visited, .leftmain a:hover, .leftmain a:active {
     color:  <?php echo SQM_LINK_LEFT; ?>;
 }
-.leftspecial, .leftspecial a:link, .leftspecial a:visited, .leftspecial a:hover, .leftspecial a:active {
+.leftunseen, .leftspecial, .leftspecial a:link, .leftspecial a:visited, .leftspecial a:hover, .leftspecial a:active {
     color:  <?php echo SQM_TEXT_SPECIAL; ?>;
 }
 .leftnoselect a:link, .leftnoselect a:visited, .leftnoselect a:hover, .leftnoselect a:active {
@@ -100,7 +100,7 @@ a:link, a:visited, a:hover, a:active {
     border-spacing:0;
     width:99%
 }
-.sqm_leftMain table {
+.leftmain table {
     border:0;
     padding:0;
     margin:0;
