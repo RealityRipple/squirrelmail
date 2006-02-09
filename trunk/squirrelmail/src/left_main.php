@@ -80,7 +80,7 @@ function ListBoxes ($boxes, $j=0 ) {
                 $unseen_string .= '/' . $boxes->total;
             }
 
-            $unseen_string = "<span class=\"highlight\">($unseen_string)</span>";
+            $unseen_string = "<span class=\"leftunseen\">($unseen_string)</span>";
 
             /*
                 Finally allow the script to display the values by setting a boolean.
@@ -233,7 +233,7 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
                 $unseen_string .= '/' . $boxes->total;
             }
 
-            $unseen_string = "<span class=\"highlight\">($unseen_string)</span>";
+            $unseen_string = "<span class=\"leftunseen\">($unseen_string)</span>";
 
             /*
                 Finally allow the script to display the values by setting a boolean.
