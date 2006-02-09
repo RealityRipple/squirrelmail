@@ -581,21 +581,27 @@ $hide_auth_header = false;
 /**
  * Server Side Threading Control
  *
- * If you want to disable server side thread sorting options
- * Your IMAP server must support the THREAD extension for
- * this to have any effect.
+ * Set it to true, if you want to disable server side thread 
+ * sorting options. Your IMAP server must support the THREAD 
+ * extension for this to have any effect.
+ * 
+ * Older SquirrelMail versions used $allow_thread_sort option.
  * @global bool $disable_thread_sort
+ * @since 1.5.1
  */
 $disable_thread_sort = false;
 
 /**
  * Server Side Sorting Control
  *
- * If you want to disable server-side sorting and use SM client side sorting
- * instead (client side sorting can be slow).
- * Your IMAP server must support the SORT extension for this
- * to have any effect.
- * @global bool $allow_server_sort
+ * Set it to true, if you want to disable server side sorting 
+ * and use SM client side sorting instead (client side sorting 
+ * can be slow). Your IMAP server must support the SORT extension 
+ * for this to have any effect.
+ * 
+ * Older SquirrelMail versions used $allow_server_sort option.
+ * @global bool $disable_server_sort
+ * @since 1.5.1
  */
 $disable_server_sort = false;
 
