@@ -4,7 +4,7 @@
  * 2006-02-19                                                    *
 *****************************************************************/
 
-WARNING. If you can read this, then you are reading file from 1.5.1cvs and not 
+WARNING. If you can read this, then you are reading file from 1.5.1cvs and not
 final release notes.
 
 
@@ -22,40 +22,58 @@ In this edition of SquirrelMail Release Notes:
 All about this Release!
 =======================
 
-This is the second release of our new 1.5.x-series, which is a 
-DEVELOPMENT release. 
+This is the second release of our new 1.5.x-series, which is a
+DEVELOPMENT release.
 
 See the Major Updates section of this file for more.
 
 
 Major updates
 ==============
-Rewritten IMAP functions and added extra data caching code. Internal sorting 
-functions should be faster than code used in SquirrelMail 1.5.0 and older 
-versions. Data caching should reduce number of IMAP calls in folder management 
-and mailbox status functions. 
+Rewritten IMAP functions and added optimized imap data caching code. Internal
+sorting functions should be faster than code used in SquirrelMail 1.5.0 and
+older versions. Together with the optimized caching code all the logic
+concerning sorting is rewritten in order to achieve that Squirrelmail can
+display more columns with sort support in the messages list. I.e. the From and
+To column in the same view sorted on size.
+The amount of IMAP calls is reduced by smarter caching in the imap mailbox area
+and the  optimized header- and sort cache as described before. Reducing the
+amount of IMAP calls will lower the load of your IMAP server and increase the
+SquirrelMail performance.
 
-Own gettext implementation replaced with PHP Gettext classes. Update adds 
+Own gettext implementation replaced with PHP Gettext classes. Update adds
 ngettext and dgettext support.
 
-Templates, css and error handler. 
+Initiation of separating the SquirrelMail internal logic from user interface
+related logic which resulted in the first rough css based templates in php. In
+future releases we finish the mentioned separation and work on simpler
+templates.
 
-SquirrelMail started using internal cookie functions in order to have more 
+Added javascript based message row highlighting code (disabled by default) for
+faster selection of messages in the messages list.
+
+Usage of a centralized error handler (moving process continues in 1.5.2).
+
+SquirrelMail started using internal cookie functions in order to have more
 controls over cookie format. Cookies set with sqsetcookie() function use
-extra parameter that secures cookie information in browsers that follow 
-MSDN cookie specifications.
+extra parameter (HttpOnly) that protects cookie information for javascript
+access in browsers that follow MSDN cookie specifications (currently recent IE6
+versions).
 
 SquirrelMail IMAP and SMTP libraries updated to allow use of STARTTLS extension.
-Code is experimental and requires PHP 5.1.0 or newer with 
+The code is experimental and requires PHP 5.1.0 or newer with
 stream_socket_enable_crypto() function support.
 
 Updated wrapping functions in compose.
+
+Added code for advanced searching in message. Now it's possible to switch
+between normal search and advanced search.
 
 
 Security updates
 ================
 
-This release contains security fixes applied to development branch after 1.5.0 
+This release contains security fixes applied to development branch after 1.5.0
 release:
  CVE-2004-0521 - SQL injection vulnerability in address book.
  CVE-2004-1036 - XSS exploit in decodeHeader function.
@@ -73,77 +91,86 @@ stable SquirrelMail version.
 
 Plugin updates
 ==============
-Added site configuration options to filters, fortune, translate, newmail, 
-bug_report plugins. Improved newmail and change_password plugins. Fixed data 
+Added site configuration options to filters, fortune, translate, newmail,
+bug_report plugins. Improved newmail and change_password plugins. Fixed data
 corruption issues in calendar plugin.
 
 SquirrelSpell plugin was updated to use generic SquirrelMail preference functions.
-User preferences and personal dictionaries that were stored in .words files are 
+User preferences and personal dictionaries that were stored in .words files are
 moved to .pref files or other configured user data storage backend.
 
 
 Possible issues
 ===============
-Internal SquirrelMail cookie implementation is experimental. If you have cookie 
-expiration or corruption issues with some browser and can reproduce them only in 
-1.5.1 version, contact SquirrelMail developers and help them to debug your issue.
+Internal SquirrelMail cookie implementation is experimental. If you have cookie
+expiration or corruption issues with some browser and can reproduce them only in
+1.5.1 version, contact one of the SquirrelMail developers and help them to debug
+your issue.
 
 SquirrelMail 1.5.1 changed some functions and hooks. login_form hook requires
 different coding style. html_top, html_bottom, internal_link hooks are removed.
-src/move_messages.php code moved to main mailbox listing script. Some hooks are 
-broken after implementation of templates in mailbox listing pages. soupNazi() 
-function is replaced with checkForJavascript() function. sqimap_messages_delete, 
-sqimap_messages_copy, sqimap_messages_flag and sqimap_get_small_header() 
+src/move_messages.php code moved to main mailbox listing script. Some hooks are
+broken after implementation of templates in mailbox listing pages. soupNazi()
+function is replaced with checkForJavascript() function. sqimap_messages_delete,
+sqimap_messages_copy, sqimap_messages_flag and sqimap_get_small_header()
 functions are obsoleted. Some IMAP functions return data in different format.
-If plugins depend on changed or removed functions, they will break in this 
+If plugins depend on changed or removed functions, they will break in this
 SquirrelMail version.
 
-This SquirrelMail version implemented code that unregisters globals in PHP 
-register_globals=on setups. If some plugin loads main SquirrelMail functions 
+This SquirrelMail version implemented code that unregisters globals in PHP
+register_globals=on setups. If some plugin loads main SquirrelMail functions
 and depends on PHP register_globals, it will be broken.
 
 IMAP sorting/threading
+By default SquirrelMail will make use of the capabilities provided by the IMAP
+server. This means that if the IMAP server supports SORT and THREAD sorting then
+SquirrelMail makes use of it. Some broken IMAP servers advertise the SORT and
+THREAD capabilities although they do not support it. For those IMAP servers
+there is a config option to disable the use of SORT and THREAD sort.
 
 Backward incompatible changes
 =============================
-Index order options are modified in 1.5.1 version. If older options are 
+Index order options are modified in 1.5.1 version. If older options are
 detected, interface upgrades to newer option format and deletes old options.
 
-In 1.5.1 version SquirrelSpell user dictionaries are saved with generic 
-SquirrelMail data functions. Code should copy older dictionary, if dictionary 
-version information is not present in user preferences. Once dictionary is 
+In 1.5.1 version SquirrelSpell user dictionaries are saved with generic
+SquirrelMail data functions. Code should copy older dictionary, if dictionary
+version information is not present in user preferences. Once dictionary is
 copied, <username>.words files are obsolete and no longer updated.
 
-If same data directory is used with other backwards incompatible version, older
-SquirrelMail version can lose some user preferences or work with outdated data.
+If the same data directory is used with other backwards incompatible version,
+the older SquirrelMail version can lose some user preferences or work with
+outdated data. We advise to use separate data directory for the 1.5.1 release.
+The data directory can be configured by running configure.
+
 
 Data directory
 ==============
 
-The directory data/ used to be included in our tarball. Since placing this dir 
+The directory data/ used to be included in our tarball. Since placing this dir
 under a web accessible directory is not very wise, we've decided to not pack it
-anymore; you need to create it yourself. Please choose a location that's safe, 
+anymore; you need to create it yourself. Please choose a location that's safe,
 e.g. somewhere under /var.
 
 
 Reporting my favorite SquirrelMail bug
 ======================================
 
-We constantly aim to make SquirrelMail even better. So we need you to submit 
-any bug you come across! Also, please mention that the bug is in this 1.5.1 
+We constantly aim to make SquirrelMail even better. So we need you to submit
+any bug you come across! Also, please mention that the bug is in this 1.5.1
 release, and list your IMAP server and webserver details.
 
    http://www.squirrelmail.org/bugs
 
 Thanks for your cooperation with this. That helps us to make sure nothing slips
-through the cracks. Also, it would help if people would check existing tracker 
-items for a bug before reporting it again. This would help to eliminate 
-duplicate reports, and increase the time we can spend CODING by DECREASING the 
-time we spend sorting through bug reports. And remember, check not only OPEN 
-bug reports, but also closed ones as a bug that you report MAY have been fixed 
+through the cracks. Also, it would help if people would check existing tracker
+items for a bug before reporting it again. This would help to eliminate
+duplicate reports, and increase the time we can spend CODING by DECREASING the
+time we spend sorting through bug reports. And remember, check not only OPEN
+bug reports, but also closed ones as a bug that you report MAY have been fixed
 in CVS already.
 
-If you want to join us in coding SquirrelMail, or have other things to share 
+If you want to join us in coding SquirrelMail, or have other things to share
 with the developers, join the development mailing list:
 
    squirrelmail-devel@lists.sourceforge.net
@@ -152,17 +179,17 @@ with the developers, join the development mailing list:
 About Our Release Alias
 =======================
 
-This release is labeled the "Fire in the Hole" release. "Fire in the hole" is 
-a phrase used to warn of the detonation of an explosive device. The phrase may 
-have been originated by miners, who made extensive use of explosives while 
+This release is labeled the "Fire in the Hole" release. "Fire in the hole" is
+a phrase used to warn of the detonation of an explosive device. The phrase may
+have been originated by miners, who made extensive use of explosives while
 working underground.
 
 Release is created in order to get fixed package after two years of development
-in HEAD branch. Package contains many experimental changes. Changes add new 
-features, that can be unstable and cause inconsistent UI. If you want to use 
-stable code, you should stick to SquirrelMail 1.4.x series. If you find issues 
-in this package, make sure that they are still present in latest development 
-code snapshots. 
+in HEAD branch. Package contains many experimental changes. Changes add new
+features, that can be unstable and cause inconsistent UI. If you want to use
+stable code, you should stick to SquirrelMail 1.4.x series. If you find issues
+in this package, make sure that they are still present in latest development
+code snapshots.
 
                   Happy SquirrelMailing!
                     - The SquirrelMail Project Team
