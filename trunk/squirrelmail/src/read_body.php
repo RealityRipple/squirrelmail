@@ -115,6 +115,55 @@ function printer_friendly_link($mailbox, $passed_id, $passed_ent_id) {
     return $result;
 }
 
+function view_as_html_link($mailbox, $passed_id, $passed_ent_id, $message) {
+    global $base_uri, $show_html_default;
+
+    $has_html = false;
+    if ($message->header->type0 == 'message' && $message->header->type1 == 'rfc822') {
+        $type0 = $message->rfc822_header->content_type->type0;
+        $type1 = $message->rfc822_header->content_type->type1;
+    } else {
+        $type0 = $message->header->type0;
+        $type1 = $message->header->type1;
+    }
+    if($type0 == 'multipart' &&
+       ($type1 == 'alternative' || $type1 == 'mixed' || $type1 == 'related')) {
+        if ($message->findDisplayEntity(array(), array('text/html'), true)) {
+            $has_html = true;
+        }
+    }
+    /*
+     * Normal single part message so check its type.
+     */
+    else {
+        if($type0 == 'text' && $type1 == 'html') {
+            $has_html = true;
+        }
+    }
+    if($has_html == true) {
+        $vars = array('passed_ent_id', 'show_more', 'show_more_cc', 'override_type0', 'override_type1', 'startMessage');
+
+        $new_link = $base_uri . 'src/read_body.php?passed_id=' . urlencode($passed_id) .
+                    '&amp;passed_ent_id=' . urlencode($passed_ent_id) .
+                    '&amp;mailbox=' . urlencode($mailbox);
+        foreach($vars as $var) {
+            if(sqgetGlobalVar($var, $temp)) {
+                $new_link .= '&amp;' . $var . '=' . urlencode($temp);
+            }
+        }
+
+        if($show_html_default == 1) {
+            $new_link .= '&amp;show_html_default=0';
+            $link      = _("View as plain text");
+        } else {
+            $new_link .= '&amp;show_html_default=1';
+            $link      = _("View as HTML");
+        }
+        return '&nbsp;|&nbsp<a href="' . $new_link . '">' . $link . '</a>';
+    }
+    return '';
+}
+
 function ServerMDNSupport($aFlags) {
     /* escaping $ doesn't work -> \x36 */
     return ( in_array('$mdnsent',$aFlags,true) ||
@@ -708,6 +757,7 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
     $s .= '&nbsp;|&nbsp;' .
           printer_friendly_link($mailbox, $passed_id, $passed_ent_id);
     echo $s;
+    echo view_as_html_link($mailbox, $passed_id, $passed_ent_id, $message);
 
     /* Output the download and/or unsafe images link/-s, if any. */
     if ($download_and_unsafe_link) {
@@ -803,6 +853,18 @@ if ( sqgetGlobalVar('startMessage', $temp) ) {
     $startMessage = (int) $temp;
 } else {
     $startMessage = 1;
+}
+if(sqgetGlobalVar('show_html_default', $temp)) {
+    $show_html_default = (int) $temp;
+}
+
+if(sqgetGlobalVar('view_unsafe_images', $temp)) {
+    $view_unsafe_images = (int) $temp;
+    if($view_unsafe_images == 1) {
+        $show_html_default = 1;
+    }
+} else {
+    $view_unsafe_images = 0;
 }
 /**
  * Retrieve mailbox cache
@@ -948,8 +1010,6 @@ if (isset($sendreceipt)) {
 /***********************************************/
 /* End of block for handling incoming url vars */
 /***********************************************/
-
-
 
 $messagebody = '';
 do_hook('read_body_top');

@@ -544,6 +544,7 @@ Version 1.5.1 -- CVS
   - Added options to disable THREAD and SORT extension.
   - Fixed mailbox cache issues caused by using prev/next links in
     read_body.php.
+  - Added View as HTML support to the SquirrelMail core.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
