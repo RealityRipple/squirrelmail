@@ -2279,7 +2279,7 @@ sub command311b {
 }
 
 sub command312 {
-    print "This option allows to disable server side thread sorting if your server \n";
+    print "This option allows you to disable server side thread sorting if your server \n";
     print "declares THREAD support, but you don't want to provide threading options \n";
     print "to end users or THREAD extension is broken or extension does not work with \n";
     print "options used by SquirrelMail. Option is not used, if THREAD extension is \n";
@@ -2302,7 +2302,7 @@ sub command312 {
 }
 
 sub command313 {
-    print "This option allows to disable server side sorting if your server declares \n";
+    print "This option allows you to disable server side sorting if your server declares \n";
     print "SORT support, but SORT extension is broken or does not work with options \n";
     print "used by SquirrelMail. Option is not used, if SORT extension is not declared \n";
     print "in IMAP CAPABILITY.\n";
