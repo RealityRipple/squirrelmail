@@ -166,7 +166,7 @@ function sqimap_get_sort_order($imap_stream, $sSortField, $reverse, $search='ALL
         $aData = sqimap_run_command_list ($imap_stream, $query, false, $response, $message, TRUE);
         /* fallback to default charset */
         if ($response == 'NO') {
-            if (strpos($message,'[BADCHARSET]') !== false ||
+            if (strpos($message,'BADCHARSET') !== false ||
                 strpos($message,'character') !== false) {
                 sqm_trigger_imap_error('SQM_IMAP_BADCHARSET',$query, $response, $message);
                 $query = "SORT ($sSortField) US-ASCII $search";
@@ -440,7 +440,7 @@ function get_thread_sort($imap_stream, $search='ALL') {
     /* fallback to default charset */
 
     if ($response == 'NO') {
-        if (strpos($message,'[BADCHARSET]') !== false ||
+        if (strpos($message,'BADCHARSET') !== false ||
             strpos($message,'character') !== false) {
             sqm_trigger_imap_error('SQM_IMAP_BADCHARSET',$query, $response, $message);
             $query = "THREAD $sort_type US-ASCII $search";
