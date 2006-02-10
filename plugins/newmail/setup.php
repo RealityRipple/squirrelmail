@@ -35,8 +35,11 @@ if (! defined('SM_PATH')) define('SM_PATH','../../');
  */
 function squirrelmail_plugin_init_newmail() {
     global $squirrelmail_plugin_hooks;
+    $totalNewArr=array();
+    global $totalNewArr;
 
-    $squirrelmail_plugin_hooks['left_main_before']['newmail'] = 'newmail_plugin';
+    $squirrelmail_plugin_hooks['folder_status']['newmail'] = 'newmail_folder_status';
+    $squirrelmail_plugin_hooks['left_main_after']['newmail'] = 'newmail_plugin';
     $squirrelmail_plugin_hooks['optpage_register_block']['newmail'] = 'newmail_optpage_register_block';
     $squirrelmail_plugin_hooks['options_save']['newmail'] = 'newmail_sav';
     $squirrelmail_plugin_hooks['loading_prefs']['newmail'] = 'newmail_pref';

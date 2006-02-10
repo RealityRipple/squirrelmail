@@ -42,7 +42,7 @@ define('SM_BOX_COLLAPSED',   1);
 function ListBoxes ($boxes, $j=0 ) {
     global $data_dir, $username, $color, $unseen_notify, $unseen_type,
            $move_to_trash, $trash_folder, $collapse_folders, $imapConnection,
-           $use_icons, $icon_theme, $use_special_folder_color;
+           $use_icons, $icon_theme, $use_special_folder_color, $unseen_cum;
 
     // stop condition
     if (empty($boxes)) {
@@ -61,34 +61,38 @@ function ListBoxes ($boxes, $j=0 ) {
 
     /* get unseen/total messages information */
     /* Only need to display info when option is set */
-    if (isset($unseen_notify) && ($unseen_notify > 1) &&
-        (($boxes->unseen !== false) || ($boxes->total !== false))) {
-
-        if ($boxes->unseen !== false)
-            $unseen = $boxes->unseen;
-
-        /*
-            Should only display unseen info if the folder is inbox
-            or you set the option for all folders
-        */
-
-        if ((strtolower($mailbox) == 'inbox') || ($unseen_notify == 3)) {
-            $unseen_string = $unseen;
-
-            /* If users requests, display message count too */
-            if (isset($unseen_type) && ($unseen_type == 2) && ($boxes->total !== false)) {
-                $unseen_string .= '/' . $boxes->total;
+    if (isset($unseen_notify) && ($unseen_notify > 1)) {
+        /* handle Cumulative Unread Message Notification */
+        if ($collapse && $unseen_cum) {
+            foreach ($boxes->mbxs as $cumn_box) {
+                if (!empty($cumn_box->unseen)) $boxes->unseen += $cumn_box->unseen;
+                if (!empty($cumn_box->total)) $boxes->total += $cumn_box->total;
             }
-
-            $unseen_string = "<span class=\"leftunseen\">($unseen_string)</span>";
-
+        }
+        if (($boxes->unseen !== false) || ($boxes->total !== false)) {
+            if ($boxes->unseen !== false) {
+                $unseen = $boxes->unseen;
+            }
             /*
-                Finally allow the script to display the values by setting a boolean.
-                This can only occur if the unseen count is great than 0 (if you have
-                unseen count only), or you have the message count too.
-            */
-            if (($unseen > 0) || (isset($unseen_type) && ($unseen_type ==2))) {
-                $unseen_found = true;
+             * Should only display unseen info if the folder is inbox
+             * or you set the option for all folders
+             */
+            if ((strtolower($mailbox) == 'inbox') || ($unseen_notify == 3)) {
+                $unseen_string = $unseen;
+                /* If users requests, display message count too */
+                if (isset($unseen_type) && ($unseen_type == 2) && ($boxes->total !== false)) {
+                    $unseen_string .= '/' . $boxes->total;
+                }
+                $unseen_string = "<span class=\"leftunseen\">($unseen_string)</span>";
+
+                /*
+                 * Finally allow the script to display the values by setting a boolean.
+                 * This can only occur if the unseen count is great than 0 (if you have
+                 * unseen count only), or you have the message count too.
+                 */
+                if (($unseen > 0) || (isset($unseen_type) && ($unseen_type ==2))) {
+                    $unseen_found = true;
+                }
             }
         }
     }
@@ -96,7 +100,6 @@ function ListBoxes ($boxes, $j=0 ) {
     if (isset($boxes->mbxs[0]) && $collapse_folders) {
         $collapse = getPref($data_dir, $username, 'collapse_folder_' . $mailbox);
         $collapse = ($collapse == '' ? SM_BOX_UNCOLLAPSED : $collapse);
-
         $link = '<a target="left" style="text-decoration:none" ' .'href="left_main.php?';
         if ($collapse) {
             if ($use_icons && $icon_theme != 'none') {
@@ -193,7 +196,7 @@ function ListBoxes ($boxes, $j=0 ) {
 }
 
 function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
-    global $data_dir, $username, $color, $unseen_notify, $unseen_type,
+    global $data_dir, $username, $color, $unseen_notify, $unseen_type, $unseen_cum,
         $move_to_trash, $trash_folder, $collapse_folders, $use_special_folder_color;
 
     if (empty($boxes)) {
@@ -212,36 +215,58 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     $mailbox = $boxes->mailboxname_full;
     $mailboxURL = urlencode($mailbox);
 
+     /* get collapse information */
+     if ($collapse_folders) {
+          $form_entry = $j.'F';
+          if (isset($mbx) && isset($mbx[$form_entry])) {
+              $collapse = $mbx[$form_entry];
+              setPref($data_dir, $username, 'collapse_folder_'.$boxes->mailboxname_full ,
+                    $collapse ? SM_BOX_COLLAPSED : SM_BOX_UNCOLLAPSED);
+          } else {
+              $collapse = getPref($data_dir, $username, 'collapse_folder_' . $mailbox);
+              $collapse = ($collapse == '' ? SM_BOX_UNCOLLAPSED : $collapse);
+          }
+          $img_src = ($collapse ? '../images/plus.png' : '../images/minus.png');
+          $collapse_link = '<a href="javascript:void(0)">' .
+                    " <img src=\"$img_src\" border=\"1\" id=$j onclick=\"hidechilds(this)\" style=\"cursor:hand\" /></a>";
+    } else {
+         $collapse_link='';
+    }
+
     /* get unseen/total messages information */
     /* Only need to display info when option is set */
-    if (isset($unseen_notify) && ($unseen_notify > 1) &&
-        (($boxes->unseen !== false) || ($boxes->total !== false))) {
-
-        if ($boxes->unseen !== false)
-            $unseen = $boxes->unseen;
-
-        /*
-            Should only display unseen info if the folder is inbox
-            or you set the option for all folders
-        */
-
-        if ((strtolower($mailbox) == 'inbox') || ($unseen_notify == 3)) {
-            $unseen_string = $unseen;
-
-            /* If users requests, display message count too */
-            if (isset($unseen_type) && ($unseen_type == 2) && ($boxes->total !== false)) {
-                $unseen_string .= '/' . $boxes->total;
+    if (isset($unseen_notify) && ($unseen_notify > 1)) {
+        /* handle Cumulative Unread Message Notification */
+        if ($collapse && $unseen_cum) {
+            foreach ($boxes->mbxs as $cumn_box) {
+                if (!empty($cumn_box->unseen)) $boxes->unseen += $cumn_box->unseen;
+                if (!empty($cumn_box->total)) $boxes->total += $cumn_box->total;
             }
+        }
+        if (($boxes->unseen !== false) || ($boxes->total !== false)) {
+            if ($boxes->unseen !== false)     $unseen = $boxes->unseen;
+               /*
+                * Should only display unseen info if the folder is inbox
+                * or you set the option for all folders
+                */
+                if ((strtolower($mailbox) == 'inbox') || ($unseen_notify == 3)) {
+                     $unseen_string = $unseen;
 
-            $unseen_string = "<span class=\"leftunseen\">($unseen_string)</span>";
+                    /* If users requests, display message count too */
+                    if (isset($unseen_type) && ($unseen_type == 2) && ($boxes->total !== false)) {
+                        $unseen_string .= '/' . $boxes->total;
+                    }
 
-            /*
-                Finally allow the script to display the values by setting a boolean.
-                This can only occur if the unseen count is great than 0 (if you have
-                unseen count only), or you have the message count too.
-            */
-            if (($unseen > 0) || (isset($unseen_type) && ($unseen_type ==2))) {
-                $unseen_found = true;
+                    $unseen_string = "<font color=\"$color[11]\">($unseen_string)</font>";
+
+                    /*
+                     * Finally allow the script to display the values by setting a boolean.
+                     * This can only occur if the unseen count is great than 0 (if you have
+                     * unseen count only), or you have the message count too.
+                     */
+                     if (($unseen > 0) || (isset($unseen_type) && ($unseen_type ==2))) {
+                         $unseen_found = true;
+                     }
             }
         }
     }
@@ -310,23 +335,7 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
                                 $end,
                             'left', '', 'class="mbx_sub" id="' .$j. '"' ) . "\n";
         } else {
-            /* get collapse information */
-            if ($collapse_folders) {
-                $form_entry = $j.'F';
-                if (isset($mbx) && isset($mbx[$form_entry])) {
-                    $collapse = $mbx[$form_entry];
-                    setPref($data_dir, $username, 'collapse_folder_'.$boxes->mailboxname_full ,
-                        $collapse ? SM_BOX_COLLAPSED : SM_BOX_UNCOLLAPSED);
-                } else {
-                    $collapse = getPref($data_dir, $username, 'collapse_folder_' . $mailbox);
-                    $collapse = ($collapse == '' ? SM_BOX_UNCOLLAPSED : $collapse);
-                }
-                $img_src = ($collapse ? '../images/plus.png' : '../images/minus.png');
-                $collapse_link = '<a href="javascript:void(0)">' .
-                    " <img src=\"$img_src\" border=\"1\" id=$j onclick=\"hidechilds(this)\" style=\"cursor:hand\" /></a>";
-            } else {
-                 $collapse_link='';
-            }
+
             echo '   ' . html_tag( 'div',
                             $collapse_link . $pre . $folder_img . '&nbsp;'. $boxes->mailboxname_sub . $end ,
                             'left', '', 'class="mbx_par" id="' .$j. 'P"' ) . "\n";

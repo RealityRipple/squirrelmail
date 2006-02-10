@@ -14,9 +14,9 @@
 if (! defined('SM_PATH')) define('SM_PATH','../../');
 
 /** load globals */
-global $UseSeparateImapConnection, 
-    $AllowSpamFilters, $SpamFilters_YourHop, $SpamFilters_ShowCommercial, 
-    $SpamFilters_DNScache, $SpamFilters_BulkQuery, $SpamFilters_SharedCache, 
+global $UseSeparateImapConnection,
+    $AllowSpamFilters, $SpamFilters_YourHop, $SpamFilters_ShowCommercial,
+    $SpamFilters_DNScache, $SpamFilters_BulkQuery, $SpamFilters_SharedCache,
     $SpamFilters_CacheTTL;
 
 /** load default config */
@@ -59,6 +59,7 @@ function filters_init_hooks () {
     $squirrelmail_plugin_hooks['special_mailbox']['filters'] = 'filters_special_mailbox';
     $squirrelmail_plugin_hooks['rename_or_delete_folder']['filters'] = 'update_for_folder_hook';
     $squirrelmail_plugin_hooks['webmail_bottom']['filters'] = 'start_filters_hook';
+    $squirrelmail_plugin_hooks['folder_status']['filters'] = 'filters_folder_status';
 }
 
 /**
@@ -82,6 +83,22 @@ function filters_optpage_register_block() {
             'desc' => _("SPAM filters allow you to select from various DNS based blacklists to detect junk email in your INBOX and move it to another folder (like Trash)."),
             'js'   => false
         );
+    }
+}
+
+/* Receive the status of the folder and do something with it */
+function filters_folder_status($statusarr) {
+
+	global $filter_inbox_count;
+	if (empty($filter_inbox_count)) $filter_inbox_count=0;
+
+    //echo "GOT HOOK<br><pre>";
+    //var_dump($statusarr);
+    //echo "</pre><br>\n";
+
+	if ($statusarr['MAILBOX'] == 'INBOX')
+    {
+     if (!empty($statusarr['MESSAGES'])) $filter_inbox_count=$statusarr['MESSAGES'];
     }
 }
 
@@ -187,7 +204,7 @@ function filters_bulkquery($filters, $IPs) {
  */
 function start_filters() {
     global $imapServerAddress, $imapPort, $imap_stream, $imapConnection,
-           $UseSeparateImapConnection, $AllowSpamFilters;
+           $UseSeparateImapConnection, $AllowSpamFilters, $filter_inbox_count;
 
     sqgetGlobalVar('username', $username, SQ_SESSION);
     sqgetGlobalVar('key',      $key,      SQ_COOKIE);
@@ -216,9 +233,8 @@ function start_filters() {
     // Also check if we are forced to use a separate IMAP connection
     if ((!isset($imap_stream) && !isset($imapConnection)) ||
         $UseSeparateImapConnection ) {
-            $stream = sqimap_login($username, $key, $imapServerAddress,
-                                $imapPort, 10);
-            $previously_connected = false;
+        $stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10);
+        $previously_connected = false;
     } else if (isset($imapConnection)) {
         $stream = $imapConnection;
         $previously_connected = true;
@@ -226,9 +242,17 @@ function start_filters() {
         $previously_connected = true;
         $stream = $imap_stream;
     }
-    $aStatus = sqimap_status_messages ($stream, 'INBOX', array('MESSAGES'));
 
-    if ($aStatus['MESSAGES']) {
+    if (!isset($filter_inbox_count)) {
+        $aStatus = sqimap_status_messages ($stream, 'INBOX', array('MESSAGES'));
+        if (!empty($aStatus['MESSAGES'])) {
+            $filter_inbox_count=$aStatus['MESSAGES'];
+        } else {
+            $filter_inbox_count=0;
+        }
+    }
+
+    if ($filter_inbox_count > 0) {
         sqimap_mailbox_select($stream, 'INBOX');
         // Filter spam from inbox before we sort them into folders
         if ($AllowSpamFilters) {

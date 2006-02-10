@@ -67,7 +67,6 @@ function newmail_sav_function() {
     if ( sqgetGlobalVar('submit_newmail', $submit, SQ_POST) ) {
         $media_enable = '';
         $media_popup = '';
-        $media_allbox = '';
         $media_recent = '';
         $media_changetitle = '';
         $media_sel = '';
@@ -76,7 +75,6 @@ function newmail_sav_function() {
 
         sqgetGlobalVar('media_enable',      $media_enable,      SQ_POST);
         sqgetGlobalVar('media_popup',       $media_popup,       SQ_POST);
-        sqgetGlobalVar('media_allbox',      $media_allbox,      SQ_POST);
         sqgetGlobalVar('media_recent',      $media_recent,      SQ_POST);
         sqgetGlobalVar('media_changetitle', $media_changetitle, SQ_POST);
         sqgetGlobalVar('popup_width',       $popup_width,       SQ_POST);
@@ -90,7 +88,6 @@ function newmail_sav_function() {
 
         setPref($data_dir,$username,'newmail_enable',$media_enable);
         setPref($data_dir,$username,'newmail_popup', $media_popup);
-        setPref($data_dir,$username,'newmail_allbox',$media_allbox);
         setPref($data_dir,$username,'newmail_recent',$media_recent);
         setPref($data_dir,$username,'newmail_changetitle',$media_changetitle);
         setPref($data_dir,$username,'newmail_popup_width',$popup_width);
@@ -139,13 +136,13 @@ function newmail_sav_function() {
  */
 function newmail_pref_function() {
     global $username,$data_dir;
-    global $newmail_media,$newmail_enable,$newmail_popup,$newmail_allbox;
+    global $newmail_media,$newmail_media_enable,$newmail_popup;
     global $newmail_recent, $newmail_changetitle;
     global $newmail_userfile_type, $newmail_userfile_name;
     global $newmail_popup_width, $newmail_popup_height;
 
     $newmail_recent = getPref($data_dir,$username,'newmail_recent');
-    $newmail_enable = getPref($data_dir,$username,'newmail_enable');
+    $newmail_media_enable = getPref($data_dir,$username,'newmail_enable');
     $newmail_media = getPref($data_dir, $username, 'newmail_media', '(none)');
     // remove full location from setting (since SM 1.5.1 plugin uses only filename).
     if ($newmail_media!='(none)')
@@ -154,7 +151,6 @@ function newmail_pref_function() {
     $newmail_popup = getPref($data_dir, $username, 'newmail_popup');
     $newmail_popup_width = getPref($data_dir, $username, 'newmail_popup_width',200);
     $newmail_popup_height = getPref($data_dir, $username, 'newmail_popup_height',130);
-    $newmail_allbox = getPref($data_dir, $username, 'newmail_allbox');
     $newmail_changetitle = getPref($data_dir, $username, 'newmail_changetitle');
 
     $newmail_userfile_type = getPref($data_dir, $username, 'newmail_userfile_type');
@@ -173,61 +169,53 @@ function newmail_set_loadinfo_function() {
     }
 }
 
+
+/* Receive the status of the folder and do something with it */
+function newmail_folder_status($statusarr) {
+    global $newmail_media_enable,$newmail_popup,$newmail_changetitle,$trash_folder,
+           $send_folder,$totalNewArr,$unseen_notify, $newmail_recent;
+
+    //echo "GOT HOOK<br><pre>";
+    //var_dump($statusarr);
+    //echo "</pre><br>\n";
+
+    $mailbox=$statusarr['MAILBOX'];
+    if ($newmail_media_enable == 'on' ||
+        $newmail_popup == 'on' ||
+        $newmail_changetitle == 'on') {
+
+        // Skip folders for Sent and Trash
+        if ($statusarr['MAILBOX'] == $send_folder || $statusarr['MAILBOX'] == $trash_folder) {
+            return 0;
+        }
+
+        if ((($mailbox == 'INBOX') && ($unseen_notify == 2)) || ($unseen_notify == 3)) {
+            if (($newmail_recent == 'on') && (!empty($statusarr['RECENT']))) {
+                $totalNewArr[$mailbox] = $statusarr['RECENT'];
+            } elseif ($newmail_recent != 'on' && !empty($statusarr['UNSEEN'])) {
+                $totalNewArr[$mailbox] = $statusarr['UNSEEN'];
+            }
+        }
+    }
+}
+
 /**
  * Insert needed data in left_main
  */
 function newmail_plugin_function() {
-    global $username, $newmail_media, $newmail_enable, $newmail_popup,
+    global $username, $newmail_media, $newmail_media_enable, $newmail_popup,
         $newmail_recent, $newmail_changetitle, $imapConnection, $PHP_SELF;
     global $newmail_mmedia, $newmail_allowsound;
     global $newmail_userfile_type;
     global $newmail_popup_width, $newmail_popup_height;
+    global $totalNewArr;
 
-    if ($newmail_enable == 'on' ||
+    if ($newmail_media_enable == 'on' ||
         $newmail_popup == 'on' ||
         $newmail_changetitle) {
 
-        // open a connection on the imap port (143)
-
-        $boxes = sqimap_mailbox_list($imapConnection);
-        $delimeter = sqimap_get_delimiter($imapConnection);
-
-        $status = 0;
-        $totalNew = 0;
-
-        for ($i = 0;$i < count($boxes); $i++) {
-
-            $mailbox = $boxes[$i]['formatted'];
-
-            if (! isset($boxes[$i]['unseen'])) {
-                $boxes[$i]['unseen'] = '';
-            }
-            if ($boxes[$i]['flags']) {
-                $noselect = false;
-                for ($h = 0; $h < count($boxes[$i]['flags']); $h++) {
-                    if (strtolower($boxes[$i]["flags"][$h]) == 'noselect') {
-                        $noselect = TRUE;
-                    }
-                }
-                if (! $noselect) {
-                    $status += CheckNewMailboxSound($imapConnection,
-                                                    $mailbox,
-                                                    $boxes[$i]['unformatted'],
-                                                    $delimeter,
-                                                    $boxes[$i]['unseen'],
-                                                    $totalNew);
-                }
-            } else {
-                $status += CheckNewMailboxSound($imapConnection,
-                                                $mailbox,
-                                                $boxes[$i]['unformatted'],
-                                                $delimeter,
-                                                $boxes[$i]['unseen'],
-                                                $totalNew);
-            }
-        }
-
-        // sqimap_logout($imapConnection);
+        if (!empty($totalNewArr)) { $totalNew=array_sum($totalNewArr); }
+        else { $totalNew=0; }
 
         // If we found unseen messages, then we
         // will play the sound as follows:
@@ -238,7 +226,7 @@ function newmail_plugin_function() {
             echo 'window.parent.document.title = "' .
                 sprintf(ngettext("%s New Message","%s New Messages",$totalNew), $totalNew) .
                 "\";\n";
-            echo    "if (BeforeChangeTitle != null)\n".
+            echo "if (BeforeChangeTitle != null)\n".
                 "BeforeChangeTitle();\n".
                 "}\n".
                 "BeforeChangeTitle = window.onload;\n".
@@ -247,7 +235,9 @@ function newmail_plugin_function() {
         }
 
         // create media output if there are new email messages
-        if ($newmail_allowsound && $totalNew > 0 && $newmail_enable == 'on' && $newmail_media != '' ) {
+        if ($newmail_allowsound && $totalNew > 0
+            && $newmail_media_enable == 'on'
+            && $newmail_media != '' ) {
             echo newmail_create_media_tags($newmail_media);
         }
 
@@ -274,45 +264,7 @@ function newmail_plugin_function() {
 
 // ----- end of hooked functions -----
 
-/**
- * Checks if mailbox contains new messages.
- *
- * @param stream $imapConnection
- * @param string $mailbox FIXME: option is not used
- * @param string $real_box unformated mailbox name
- * @param string $delimeter FIXME: option is not used
- * @param string $unseen FIXME: option is not used
- * @param integer $total_new number of new messages
- * @return bool true, if there are new messages
- */
-function CheckNewMailboxSound($imapConnection, $mailbox, $real_box, $delimeter, $unseen, &$total_new) {
-    global $trash_folder, $sent_folder,
-        $unseen_notify, $newmail_allbox,
-        $newmail_recent;
 
-    $mailboxURL = urlencode($real_box);
-
-    // Skip folders for Sent and Trash
-    if ($real_box == $sent_folder ||
-        $real_box == $trash_folder) {
-        return 0;
-    }
-
-    if (($unseen_notify == 2 && $real_box == 'INBOX') ||
-        ($unseen_notify == 3 && ($newmail_allbox == 'on' ||
-                                 $real_box == 'INBOX'))) {
-        $status = sqimap_status_messages( $imapConnection, $real_box);
-        if($newmail_recent == 'on') {
-            $total_new += $status['RECENT'];
-        } else {
-            $total_new += $status['UNSEEN'];
-        }
-        if ($total_new) {
-            return 1;
-        }
-    }
-    return 0;
-}
 
 /**
  * Function tries to detect if file contents match declared file type
@@ -520,7 +472,7 @@ function newmail_media_object($object,$type,$path,$args=array(),$addsuffix=true)
  * @param array $args media object attributes
  * @param bool $addsuffix controls addition of suffix to media object url
  * @return string object html tags and attributes required by selected media type.
- * @todo add ogg and svg support 
+ * @todo add ogg and svg support
  */
 function newmail_media_object_ie($object,$type,$path,$args=array(),$addsuffix) {
     $ret_ie='';

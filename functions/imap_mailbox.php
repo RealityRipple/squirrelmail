@@ -39,7 +39,7 @@ class mailboxes {
     var $mailboxname_full = '', $mailboxname_sub= '', $is_noselect = false, $is_noinferiors = false,
         $is_special = false, $is_root = false, $is_inbox = false, $is_sent = false,
         $is_trash = false, $is_draft = false,  $mbxs = array(),
-        $unseen = false, $total = false;
+        $unseen = false, $total = false, $recent = false;
 
     function addMbx($mbx, $delimiter, $start, $specialfirst) {
         $ary = explode($delimiter, $mbx->mailboxname_full);
@@ -1092,7 +1092,6 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
     $trail_del = false;
     $start = 0;
 
-
     if (isset($folder_prefix) && ($folder_prefix != '')) {
         $start = substr_count($folder_prefix,$delimiter);
         if (strrpos($folder_prefix, $delimiter) == (strlen($folder_prefix)-1)) {
@@ -1205,13 +1204,13 @@ function sqimap_get_status_mbx_tree($imap_stream,&$mbx_tree) {
                 $mbx = $oMbx->mailboxname_full;
                 if ($unseen_type == 2 ||
                    ($move_to_trash && $oMbx->mailboxname_full == $trash_folder)) {
-                   $query = 'STATUS ' . sqimap_encode_mailbox_name($mbx) . ' (MESSAGES UNSEEN)';
+                   $query = 'STATUS ' . sqimap_encode_mailbox_name($mbx) . ' (MESSAGES UNSEEN RECENT)';
                 } else {
-                   $query = 'STATUS ' . sqimap_encode_mailbox_name($mbx) . ' (UNSEEN)';
+                   $query = 'STATUS ' . sqimap_encode_mailbox_name($mbx) . ' (UNSEEN RECENT)';
                 }
                 sqimap_prepare_pipelined_query($query,$tag,$aQuery,false);
             } else {
-                $oMbx->unseen = $oMbx->total = false;
+                $oMbx->unseen = $oMbx->total = $oMbx->recent = false;
                 $tag = false;
             }
             $oMbx->tag = $tag;
@@ -1231,6 +1230,10 @@ function sqimap_get_status_mbx_tree($imap_stream,&$mbx_tree) {
                 if (preg_match('/MESSAGES\s+([0-9]+)/i', $sResponse, $regs)) {
                     $oMbx->total = $regs[1];
                 }
+                if (preg_match('/RECENT\s+([0-9]+)/i', $sResponse, $regs)) {
+                    $oMbx->recent = $regs[1];
+                }
+
            }
            unset($oMbx->tag);
         }
@@ -1245,6 +1248,7 @@ function sqimap_get_status_mbx_tree($imap_stream,&$mbx_tree) {
                     $aStatus = sqimap_status_messages($imap_stream,$oMbx->mailboxname_full);
                     $oMbx->unseen = $aStatus['UNSEEN'];
                     $oMbx->total  = $aStatus['MESSAGES'];
+                    $oMbx->recent = $aStatus['RECENT'];
                 } else {
                     $oMbx->unseen = sqimap_unseen_messages($imap_stream,$oMbx->mailboxname_full);
                 }
@@ -1259,6 +1263,21 @@ function sqimap_get_status_mbx_tree($imap_stream,&$mbx_tree) {
                 }
             }
         }
+    }
+
+    $cnt = count($aMbxs);
+    for($i=0;$i<$cnt;++$i) {
+         $oMbx =& $aMbxs[$i];
+         unset($hook_status);
+         if (!empty($oMbx->unseen)) { $hook_status['UNSEEN']=$oMbx->unseen; }
+         if (!empty($oMbx->total)) { $hook_status['MESSAGES']=$oMbx->total; }
+         if (!empty($oMbx->recent)) { $hook_status['RECENT']=$oMbx->recent; }
+         if (!empty($hook_status))
+         {
+              $hook_status['MAILBOX']=$oMbx->mailboxname_full;
+              $hook_status['CALLER']='sqimap_get_status_mbx_tree'; // helps w/ debugging
+              do_hook_function('folder_status',$hook_status);
+         }
     }
 }
 
