@@ -1040,13 +1040,8 @@ function sqimap_encode_mailbox_name($what)
  * @deprecated
  */
 function sqimap_get_num_messages ($imap_stream, $mailbox) {
-    $read_ary = sqimap_run_command ($imap_stream, 'EXAMINE ' . sqimap_encode_mailbox_name($mailbox), false, $result, $message);
-    for ($i = 0; $i < count($read_ary); $i++) {
-        if (ereg("[^ ]+ +([^ ]+) +EXISTS", $read_ary[$i], $regs)) {
-            return $regs[1];
-        }
-    }
-    return false; //"BUG! Couldn't get number of messages in $mailbox!";
+    $aStatus = sqimap_status_messages($imap_stream,$mailbox,array('MESSAGES'));
+    return $aStatus['MESSAGES'];
 }
 
 /**
@@ -1141,11 +1136,22 @@ function sqimap_status_messages ($imap_stream, $mailbox,
         }
         $i++;
     }
-    return array('MESSAGES' => $messages,
+
+    $status=array('MESSAGES' => $messages,
                  'UNSEEN'=>$unseen,
                  'RECENT' => $recent,
                  'UIDNEXT' => $uidnext,
                  'UIDVALIDITY' => $uidvalidity);
+
+    if (!empty($messages)) { $hook_status['MESSAGES']=$messages; }
+    if (!empty($unseen)) { $hook_status['UNSEEN']=$unseen; }
+    if (!empty($recent)) { $hook_status['RECENT']=$recent; }
+    if (!empty($hook_status)) { 
+         $hook_status['MAILBOX']=$mailbox;
+         $hook_status['CALLER']='sqimap_status_messages';
+         do_hook_function('folder_status',$hook_status);
+    }
+    return $status;
 }
 
 

@@ -35,9 +35,7 @@ echo html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="1" ce
                     html_tag( 'tr' ) . "\n" .
                         html_tag( 'td', '', 'left', $color[4] ) . "<br />\n";
 
-echo html_tag( 'p',
-        sprintf(_("The %s option will check ALL of your folders for unseen mail, not just the inbox for notification."), '&quot;'._("Check all boxes, not just INBOX").'&quot;')
-     ) . "\n" .
+echo html_tag( 'p',"The NewMail plugin will follow the Folder Preferences option &quot;Enable Unread Message Notification&quot;") . "\n" .
      html_tag( 'p',
         sprintf(_("Selecting the %s option will enable the showing of a popup window when unseen mail is in your folders (requires JavaScript)."), '&quot;'._("Show popup window on new mail").'&quot;')
      ) . "\n" .
@@ -62,16 +60,6 @@ echo '</td></tr>' .
 
 echo '<form action="'.sqm_baseuri().'src/options.php" method="post" enctype="multipart/form-data">' . "\n" .
         html_tag( 'table', '', '', '', 'width="100%" cellpadding="5" cellspacing="0" border="0"' ) . "\n";
-
-// Option: media_allbox
-echo html_tag( 'tr' ) .
-        html_tag( 'td', _("Check all boxes, not just INBOX").':', 'right', '', 'style="white-space: nowrap;"' ) .
-            html_tag( 'td', '', 'left' ) .
-                '<input type="checkbox" ';
-if ($newmail_allbox == 'on') {
-    echo 'checked="checked" ';
-}
-echo 'name="media_allbox" /></td></tr>' . "\n";
 
 // Option: media_recent
 echo html_tag( 'tr' ) .
