@@ -173,19 +173,20 @@ function newmail_set_loadinfo_function() {
 /* Receive the status of the folder and do something with it */
 function newmail_folder_status($statusarr) {
     global $newmail_media_enable,$newmail_popup,$newmail_changetitle,$trash_folder,
-           $send_folder,$totalNewArr,$unseen_notify, $newmail_recent;
+           $sent_folder,$totalNewArr,$unseen_notify, $newmail_recent;
 
     //echo "GOT HOOK<br><pre>";
     //var_dump($statusarr);
     //echo "</pre><br>\n";
 
     $mailbox=$statusarr['MAILBOX'];
+
     if ($newmail_media_enable == 'on' ||
         $newmail_popup == 'on' ||
         $newmail_changetitle == 'on') {
 
         // Skip folders for Sent and Trash
-        if ($statusarr['MAILBOX'] == $send_folder || $statusarr['MAILBOX'] == $trash_folder) {
+        if ($statusarr['MAILBOX'] == $sent_folder || $statusarr['MAILBOX'] == $trash_folder) {
             return 0;
         }
 
