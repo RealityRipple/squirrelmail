@@ -233,8 +233,9 @@ function start_filters() {
     // Also check if we are forced to use a separate IMAP connection
     if ((!isset($imap_stream) && !isset($imapConnection)) ||
         $UseSeparateImapConnection ) {
-        $stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10);
-        $previously_connected = false;
+            $stream = sqimap_login($username, $key, $imapServerAddress,
+                                $imapPort, 10);
+            $previously_connected = false;
     } else if (isset($imapConnection)) {
         $stream = $imapConnection;
         $previously_connected = true;
@@ -328,6 +329,8 @@ function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_
                                   $should_expunge) {
     global $languages, $squirrelmail_language, $allow_charset_search, $imap_server_type;
 
+    //TODO: make use of new mailbox cache. See mailbox_display.phpinfo
+
     if (strtolower($where_to) == 'inbox') {
         return array();
     }
@@ -350,32 +353,59 @@ function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_
     }
     if ($where == 'Header') {
         $what  = explode(':', $what);
+        $where = strtoupper($where);
         $where = trim($where . ' ' . $what[0]);
         $what  = addslashes(trim($what[1]));
     }
 
     // see comments in squirrelmail sqimap_search function
     if ($imap_server_type == 'macosx' || $imap_server_type == 'hmailserver') {
-        $search_str .= ' ' . $where . ' ' . $what;
+         $search_str .= ' ' . $where . ' ' . $what;
+        /* read data back from IMAP */
+        $read = sqimap_run_command($imap_stream, $search_str, true, $response, $message, TRUE);
     } else {
-        $search_str .= ' ' . $where . ' {' . strlen($what) . "}\r\n"
-                    . $what;
+        $search_str .= ' ' . $where . ' {' . strlen($what) . "}";
+        $sid = sqimap_session_id(true);
+        fputs ($imap_stream, $sid . ' ' . $search_str . "\r\n");
+        $read2 = sqimap_fgets($imap_stream);
+        # server should respond with Ready for argument, then we will send search text
+        #echo "RR2 $read2<br>";
+        fputs ($imap_stream, "$what\r\n");
+        #echo "SS $what<br>";
+        $read2 = sqimap_fgets($imap_stream);
+        #echo "RR2 $read2<br>";
+        $read[]=$read2;
+        $read3 = sqimap_fgets($imap_stream);
+        #echo "RR3 $read3<br>";
+        list($rtag,$response,$message)=explode(' ',$read3,3);
+##        $read2 = sqimap_retrieve_imap_response($imap_stream, $sid, true,
+##              $response, $message, $search_str, false, true, false);
+        #echo "RR2 $read2 / RESPONSE $response<br>";
     }
 
-    /* read data back from IMAP */
-    $read = sqimap_run_command($imap_stream, $search_str, true, $response, $message, TRUE);
     if (isset($read[0])) {
         $ids = array();
         for ($i = 0, $iCnt = count($read); $i < $iCnt; ++$i) {
             if (preg_match("/^\* SEARCH (.+)$/", $read[$i], $regs)) {
-                $ids = preg_split("/ /", trim($regs[1]));
-            break;
+                $ids += preg_split("/ /", trim($regs[1]));
             }
         }
         if ($response == 'OK' && count($ids)) {
             if (sqimap_mailbox_exists($imap_stream, $where_to)) {
                  $should_expunge = true;
                  sqimap_msgs_list_move ($imap_stream, $ids, $where_to, false);
+            }
+        } elseif ($response != 'OK') {
+            if ($response == 'NO') {
+                $query = $search_str . "\r\n".$what ."\r\n";
+                if (strpos($message,'BADCHARSET') !== false ||
+                    strpos($message,'character') !== false) {
+                    sqm_trigger_imap_error('SQM_IMAP_BADCHARSET',$query, $response, $message);
+                } else {
+                    sqm_trigger_imap_error('SQM_IMAP_ERROR',$query, $response, $message);
+                }
+            } else {
+                sqm_trigger_imap_error('SQM_IMAP_ERROR',$query, $response, $message);
             }
         }
     }
