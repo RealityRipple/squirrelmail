@@ -34,7 +34,7 @@ include_once(SM_PATH . 'class/template/template.class.php');
  * @return void
  */
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE, $frames = FALSE ) {
-    global $squirrelmail_language, $sTplDir;
+    global $squirrelmail_language, $sTplDir, $oErroHandler;
 
     if ( !sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
         global $base_uri;
@@ -112,6 +112,9 @@ ECHO;
 
     /* this is used to check elsewhere whether we should call this function */
     $pageheader_sent = TRUE;
+    if (isset($oErrorHandler)) {
+        $oErrorHander->HeaderSent();
+    }
 }
 
 /**

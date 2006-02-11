@@ -323,11 +323,11 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
     } else {
         unset ($deliver);
         if (sqimap_mailbox_exists ($imapConnection, $sent_folder)) {
-            sqimap_append ($imapConnection, $sent_folder, $length);
+            $sid = sqimap_append ($imapConnection, $sent_folder, $length);
             require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
             $imap_deliver = new Deliver_IMAP();
             $imap_deliver->mail($composeMessage, $imapConnection);
-            sqimap_append_done ($imapConnection);
+            sqimap_append_done ($imapConnection, $sent_folder);
             unset ($imap_deliver);
         }
     }
@@ -807,7 +807,11 @@ sqgetGlobalVar('lastTargetMailbox', $lastTargetMailbox, SQ_SESSION);
 if (!sqgetGlobalVar('messages', $messages, SQ_SESSION) ) {
     $messages = array();
 }
-
+sqgetGlobalVar('delayed_errors',  $delayed_errors,  SQ_SESSION);
+if (is_array($delayed_errors)) {
+    $oErrorHandler->AssignDelayedErrors($delayed_errors);
+    sqsession_unregister("delayed_errors");
+}
 /** GET VARS */
 sqgetGlobalVar('sendreceipt',   $sendreceipt,   SQ_GET);
 if (!sqgetGlobalVar('where',         $where,         SQ_GET) ) {
@@ -967,7 +971,6 @@ if (isset($aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT'])) {
     $message->is_seen = true;
     $aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT'] = $message;
 }
-
 if (isset($passed_ent_id) && $passed_ent_id) {
     $message = $message->getEntity($passed_ent_id);
     if ($message->type0 != 'message'  && $message->type1 != 'rfc822') {

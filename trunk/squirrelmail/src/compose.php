@@ -48,6 +48,11 @@ sqgetGlobalVar('delimiter', $delimiter,     SQ_SESSION);
 
 sqgetGlobalVar('composesession',    $composesession,    SQ_SESSION);
 sqgetGlobalVar('compose_messages',  $compose_messages,  SQ_SESSION);
+sqgetGlobalVar('delayed_errors',  $delayed_errors,  SQ_SESSION);
+if (is_array($delayed_errors)) {
+    $oErrorHandler->AssignDelayedErrors($delayed_errors);
+    sqsession_unregister("delayed_errors");
+}
 
 /** SESSION/POST/GET VARS */
 sqgetGlobalVar('session',$session);
@@ -386,6 +391,9 @@ if ($draft) {
             }
             sqimap_logout($imap_stream);
         }
+        if (count($oErrorHandler->aErrors)) {
+            sqsession_register($oErrorHandler->aErrors,"delayed_errors");
+        }
         session_write_close();
         if ($compose_new_win == '1') {
             if ( !isset($pageheader_sent) || !$pageheader_sent ) {
@@ -461,6 +469,7 @@ if ($send) {
         $composeMessage=$compose_messages[$session];
 
         $Result = deliverMessage($composeMessage);
+
         do_hook('compose_send_after', $Result, $composeMessage);
         if (! $Result) {
             showInputForm($session);
@@ -480,6 +489,12 @@ if ($send) {
                 sqimap_mailbox_expunge($imap_stream, $draft_folder, true);
             }
             sqimap_logout($imap_stream);
+        }
+        /*
+         * Store the error array in the session because they will be lost on a redirect
+         */
+        if (count($oErrorHandler->aErrors)) {
+            sqsession_register($oErrorHandler->aErrors,"delayed_errors");
         }
         session_write_close();
         if ($compose_new_win == '1') {
