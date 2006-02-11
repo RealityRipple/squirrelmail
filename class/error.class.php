@@ -43,6 +43,7 @@ class ErrorHandler {
         $this->TemplateName = $sTemplateFile;
         $this->Template =& $oTemplate;
         $this->aErrors = array();
+        $this->header_sent = false;
     }
 
     /**
@@ -52,6 +53,26 @@ class ErrorHandler {
     function SetTemplateFile($sTemplateFile) {
         $this->TemplateFile = $sTemplateFile;
     }
+
+    /**
+     * Sets if the page header is already sent
+     * @since 1.5.1
+     */
+    function HeaderSent() {
+        $this->header_sent = true;
+    }
+
+    /**
+     * Sets the error template
+     * @since 1.5.1
+     */
+    function AssignDelayedErrors(&$aDelayedErrors) {
+        $aErrors = array_merge($this->aErrors,$aDelayedErrors);
+        $this->aErrors = $aErrors;
+        $this->Template->assign('aErrors',$this->aErrors);
+        $aDelayedErrors = false;
+    }
+
 
     /**
      * Custom Error handler (set with set_error_handler() )
@@ -172,6 +193,10 @@ class ErrorHandler {
 
         // Show the error immediate in case of fatal errors
         if ($iType == SQM_ERROR) {
+            if (!$this->header_sent) {
+                // replace this with template that can be assigned
+                displayHtmlHeader(_("Error"),'',false);
+            }
             $this->DisplayErrors();
             exit(_("Terminating SquirrelMail due to a fatal error"));
         }

@@ -49,6 +49,21 @@ $aErrors['SQM_IMAP_BADCHARSET'] = array(
     'tip'      => _("Run \"configure\", choose option 4 (General options) and set option 12 (Allow server charset search) to false) or choose option 10 (Language settings) and set option 2 (Default charset) to a charset supported by your IMAP server.")
 );
 
+$aErrors['SQM_IMAP_APPEND_QUOTA_ERROR'] = array(
+    'level'    => E_USER_NOTICE,
+    'category' => SQM_ERROR_IMAP,
+    'message'  => _( "Out of quota error."),
+    'link'     => '',
+    'tip'      => _("Remove unneccessary messages from your folder and start with your Trash folder.")
+);
+
+$aErrors['SQM_IMAP_APPEND_ERROR'] = array(
+    'level'    => E_USER_NOTICE,
+    'category' => SQM_ERROR_IMAP,
+    'message'  => _( "An error occured when SquirrelMail appended a message to the mailbox as listed in this message."),
+    'link'     => ''
+);
+
 $aErrors['SQM_IMAP_ERROR'] = array(
     'level'    => E_USER_ERROR,
     'category' => SQM_ERROR_IMAP,
@@ -56,6 +71,15 @@ $aErrors['SQM_IMAP_ERROR'] = array(
                   _("Please contact your system administrator and report this error."),
     'link'     => ''
 );
+
+$aErrors['SQM_IMAP_BYE'] = array(
+    'level'    => E_USER_ERROR,
+    'category' => SQM_ERROR_IMAP,
+    'message'  => _( "IMAP server closed the connection.") . "\n" .
+                  _("Please contact your system administrator and report this error."),
+    'link'     => ''
+);
+
 //$aError['SQM_FS'] // Filesystem related errors
 
 ?>

@@ -40,7 +40,11 @@ sqgetGlobalVar('username',  $username,      SQ_SESSION);
 sqgetGlobalVar('onetimepad',$onetimepad,    SQ_SESSION);
 sqgetGlobalVar('delimiter', $delimiter,     SQ_SESSION);
 sqgetGlobalVar('base_uri',  $base_uri,      SQ_SESSION);
-
+sqgetGlobalVar('delayed_errors',  $delayed_errors,  SQ_SESSION);
+if (is_array($delayed_errors)) {
+    $oErrorHandler->AssignDelayedErrors($delayed_errors);
+    sqsession_unregister("delayed_errors");
+}
 sqgetGlobalVar('mailbox',   $mailbox);
 sqgetGlobalVar('lastTargetMailbox', $lastTargetMailbox, SQ_SESSION);
 sqgetGlobalVar('targetMailbox', $lastTargetMailbox, SQ_POST);

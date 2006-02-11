@@ -1146,7 +1146,7 @@ function sqimap_status_messages ($imap_stream, $mailbox,
     if (!empty($messages)) { $hook_status['MESSAGES']=$messages; }
     if (!empty($unseen)) { $hook_status['UNSEEN']=$unseen; }
     if (!empty($recent)) { $hook_status['RECENT']=$recent; }
-    if (!empty($hook_status)) { 
+    if (!empty($hook_status)) {
          $hook_status['MAILBOX']=$mailbox;
          $hook_status['CALLER']='sqimap_status_messages';
          do_hook_function('folder_status',$hook_status);
@@ -1160,61 +1160,103 @@ function sqimap_status_messages ($imap_stream, $mailbox,
  * @param stream $imap_stream
  * @param string $sent_folder
  * @param $length
+ * @return string $sid
  */
-function sqimap_append ($imap_stream, $sent_folder, $length) {
-    fputs ($imap_stream, sqimap_session_id() . ' APPEND ' . sqimap_encode_mailbox_name($sent_folder) . " (\\Seen) {".$length."}\r\n");
+function sqimap_append ($imap_stream, $sMailbox, $length) {
+    $sid = sqimap_session_id();
+    $query = $sid . ' APPEND ' . sqimap_encode_mailbox_name($sMailbox) . " (\\Seen) {".$length."}";
+    fputs ($imap_stream, "$query\r\n");
     $tmp = fgets ($imap_stream, 1024);
-    sqimap_append_checkresponse($tmp, $sent_folder);
+    sqimap_append_checkresponse($tmp, $sMailbox,$sid, $query);
+    return $sid;
 }
 
 /**
  * @param stream imap_stream
  * @param string $folder (since 1.3.2)
  */
-function sqimap_append_done ($imap_stream, $folder='') {
+function sqimap_append_done ($imap_stream, $sMailbox='') {
     fputs ($imap_stream, "\r\n");
     $tmp = fgets ($imap_stream, 1024);
-    sqimap_append_checkresponse($tmp, $folder);
+    while (!sqimap_append_checkresponse($tmp, $sMailbox)) {
+        $tmp = fgets ($imap_stream, 1024);
+    }
 }
 
 /**
  * Displays error messages, if there are errors in responses to
  * commands issues by sqimap_append() and sqimap_append_done() functions.
  * @param string $response
- * @param string $folder
+ * @param string $sMailbox
+ * @return bool $bDone
  * @since 1.5.1 and 1.4.5
  */
-function sqimap_append_checkresponse($response, $folder) {
-    // TODO use error handler, see how sort and thread errors are handled and see errors.php
-    if (preg_match("/(.*)(BAD|NO)(.*)$/", $response, $regs)) {
-        global $squirrelmail_language, $color;
-        set_up_language($squirrelmail_language);
-        require_once(SM_PATH . 'functions/display_messages.php');
+function sqimap_append_checkresponse($response, $sMailbox, $sid='', $query='') {
+    global $color;
+    // static vars to keep them available when sqimap_append_done calls this function.
+    static $imapquery, $imapsid;
 
-        $reason = $regs[3];
-        if ($regs[2] == 'NO') {
-           $string = "<b><font color=\"$color[2]\">\n" .
-                  _("ERROR: Could not append message to") ." $folder." .
-                  "</b><br />\n" .
-                  _("Server responded:") . ' ' .
-                  $reason . "<br />\n";
-           if (preg_match("/(.*)(quota)(.*)$/i", $reason, $regs)) {
-              $string .= _("Solution:") . ' ' .
-            _("Remove unneccessary messages from your folder and start with your Trash folder.")
-              ."<br />\n";
-           }
-           $string .= "</font>\n";
-           error_box($string,$color);
-        } else {
-           $string = "<b><font color=\"$color[2]\">\n" .
-                  _("ERROR: Bad or malformed request.") .
-                  "</b><br />\n" .
-                  _("Server responded:") . ' ' .
-                  $reason . "</font><br />\n";
-           error_box($string,$color);
-           exit;
+    $bDone = false;
+
+    if ($query) {
+        $imapquery = $query;
+    }
+    if ($sid) {
+        $imapsid = $sid;
+    }
+    if ($response{0} == '+') {
+        // continuation request triggerd by sqimap_append()
+        $bDone = true;
+    } else {
+        $i = strpos($response, ' ');
+        $sRsp = substr($response,0,$i);
+        $sMsg = substr($response,$i+1);
+        $aExtra = array('MAILBOX' => $sMailbox);
+        switch ($sRsp) {
+            case '*': //untagged response
+                $i = strpos($sMsg, ' ');
+                $sRsp = strtoupper(substr($sMsg,0,$i));
+                $sMsg = substr($sMsg,$i+1);
+                if ($sRsp == 'NO' || $sRsp == 'BAD') {
+                    // for the moment disabled. Enable after 1.5.1 release.
+                    // Notices could give valueable information about the mailbox
+                    // sqm_trigger_imap_error('SQM_IMAP_APPEND_NOTICE',$imapquery,$sRsp,$sMsg);
+                }
+                $bDone = false;
+            case $imapsid:
+                // A001 OK message
+                // $imapsid<space>$sRsp<space>$sMsg
+                $bDone = true;
+                $i = strpos($sMsg, ' ');
+                $sRsp = strtoupper(substr($sMsg,0,$i));
+                $sMsg = substr($sMsg,$i+1);
+                switch ($sRsp) {
+                    case 'NO':
+                        if (preg_match("/(.*)(quota)(.*)$/i", $sMsg, $aMatch)) {
+                            sqm_trigger_imap_error('SQM_IMAP_APPEND_QUOTA_ERROR',$imapquery,$sRsp,$sMsg,$aExtra);
+                        } else {
+                            sqm_trigger_imap_error('SQM_IMAP_APPEND_ERROR',$imapquery,$sRsp,$sMsg,$aExtra);
+                        }
+                        break;
+                    case 'BAD':
+                        sqm_trigger_imap_error('SQM_IMAP_ERROR',$imapquery,$sRsp,$sMsg,$aExtra);
+                        break;
+                    case 'BYE':
+                        sqm_trigger_imap_error('SQM_IMAP_BYE',$imapquery,$sRsp,$sMsg,$aExtra);
+                        break;
+                    case 'OK':
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                // should be false because of the unexpected response but i'm not sure if
+                // that will cause an endless loop in sqimap_append_done
+                $bDone = true;
         }
     }
+    return $bDone;
 }
 
 /**
