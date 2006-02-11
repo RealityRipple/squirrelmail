@@ -121,5 +121,5 @@ if (isset($Messages) && count($Messages) > 0) {
     </table>
     </form>
 </td></tr>
-</tr></table>
+</table>
 </body></html>
