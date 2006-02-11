@@ -69,9 +69,9 @@ $list = array ('TEST_0',
                'TEST_9');
 
 echo '<br /><div style="text-align: center;"><b>'._("IMAP server information")."</b></div><br />\n".
-     '<div style="text-align: center;"><table bgcolor="'.$color[3].'" width="100%" border="1" cellpadding="2">'.
+     '<table bgcolor="'.$color[3].'" width="100%" align="center" border="1" cellpadding="2">'.
      '<tr><td bgcolor="'.$color[3]."\"><br />\n".
-     '<div style="text-align: center;"><table width="95%" border="1" bgcolor="'.$color[3]."\">\n".
+     '<table width="95%" align="center" border="1" bgcolor="'.$color[3]."\">\n".
      '<tr><td bgcolor="'.$color[4].'"><b>'.
      _("Server Capability response:").
      "</b><br />\n";
@@ -98,7 +98,7 @@ else {
          'default_charset = '.htmlspecialchars($default_charset)."\n";
 }
 
-echo "<br /></td></tr></table></div><br />\n";
+echo "<br /></td></tr></table><br />\n";
 
 
 if ($submit == 'submit') {
@@ -129,7 +129,7 @@ elseif (!$submit || $submit == 'default')  {
 }
 
 echo "<form action=\"options.php\" method=\"post\">\n".
-     "<div style=\"text-align: center;\"><table border=\"1\">\n".
+     "<table border=\"1\" align=\"center\">\n".
      '<tr><th>'. _("Select").
      '</th><th>'._("Test Name").
      '</th><th>'._("IMAP command string")."</th></tr>\n".
@@ -148,11 +148,11 @@ foreach($type as $index=>$value) {
          addInput($index, $value, 60);
 }
 
-echo "</td></tr></table></div><br />\n".
+echo "</td></tr></table><br />\n".
      '<div style="text-align: center;">'.
      addSubmit('submit','submit').
-     addSubmit('clear','submit').
-     addSubmit('default','submit').
+     addSubmit('clear','submit',array('id'=>'clear')).
+     addSubmit('default','submit',array('id'=>'default')).
      "</div><br /></form>\n";
 
 $tests = array();
@@ -172,7 +172,7 @@ if ($submit == 'submit') {
             $starttime = (float)$sec + (float)$usec;
         }
 
-        echo '<div style="text-align: center;"><table width="95%" border="0" bgcolor="'.$color[4]."\">\n".
+        echo '<table width="95%" align="center" border="0" bgcolor="'.$color[4]."\">\n".
              '<tr><td><b>'.$tests[$i]."</b></td></tr>\n".
              '<tr><td><small><b><font color="'.$color[7].'">'.
             _("Request:")."</font></b></small></td></tr>\n";
@@ -194,10 +194,10 @@ if ($submit == 'submit') {
                 '<tr><td>'.sprintf(_("%s ms"),round((($endtime - $starttime)*1000),3))."</td></tr>\n";
         }
 
-        echo "</table></div><br />\n";
+        echo "</table><br />\n";
     }
 }
-echo '</td></tr></table></div>';
+echo '</td></tr></table>';
 sqimap_logout($imap_stream);
 
 /**
