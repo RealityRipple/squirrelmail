@@ -93,7 +93,7 @@ if ($bIcons) {
 //
 //$clickedColor = '';
 $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
-	
+
 ?>
 <div id="message_list">
 <form id="<?php echo $form_id;?>" name="<?php echo $form_name;?>" method="post" action="<?php echo $php_self;?>">
@@ -216,7 +216,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
 <?php
 /*
  * As an FYI, Firefox on Windows seems to have an issue w/ putting wierd breaks while
- * rendering this table if we use THEAD and TH tags.  No other browser or platform has 
+ * rendering this table if we use THEAD and TH tags.  No other browser or platform has
  * this issue.  We will use TR/TD w/ another CSS class to work around this.
  */
 ?>
@@ -232,7 +232,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
               if ($javascript_on) {
                   echo '<input type="checkbox" name="toggleAll" title="'._("Toggle All").'" onclick="toggle_all(\''.$form_id."',".$fancy_index_highlite.')" />'."\n";
               } else {
-                  $link = $baseurl . "&amp;startMessage=$pageOffset&amp;&amp;checkall=";
+                  $link = $baseurl . "&amp;startMessage=$pageOffset&amp;checkall=";
                   if (sqgetGlobalVar('checkall',$checkall,SQ_GET)) {
                       $link .= ($checkall) ? '0' : '1';
                   } else {
@@ -481,9 +481,15 @@ if ($class != 'even' && $class != 'odd')
 
         switch ($iCol) {
           case SQM_COL_CHECK:
-            echo '<td class="col_check"'. $javascript_auto_click. '>' ?>
-            <input type="checkbox" name="<?php echo "msg[$i]";?>" id="<?php echo $form_id."_msg$i";?>" value="<?php echo $iUid;?>" <?php echo $checkbox_javascript;?> /></td>
+            if ($javascript_on) {
+                echo '<td class="col_check"'. $javascript_auto_click. '>' ?>
+                <input type="checkbox" name="<?php echo "msg[$i]";?>" id="<?php echo $form_id."_msg$i";?>" value="<?php echo $iUid;?>" <?php echo $checkbox_javascript;?> /></td>
             <?php
+            } else {
+                echo '<td class="col_check">';
+                $checked = ($checkall) ? " checked=checked " : " ";
+                echo "<input type=\"checkbox\" name=\"msg[".$i."]\" id=\"".$form_id."_msg$i\" value=\"$iUid\" $checked/></td>";
+            }
             break;
           case SQM_COL_SUBJ:
             $indent = $aCol['indent'];
