@@ -1192,7 +1192,6 @@ function sqimap_append_done ($imap_stream, $sMailbox='') {
  * @since 1.5.1 and 1.4.5
  */
 function sqimap_append_checkresponse($response, $sMailbox, $sid='', $query='') {
-    global $color;
     // static vars to keep them available when sqimap_append_done calls this function.
     static $imapquery, $imapsid;
 
