@@ -80,8 +80,11 @@ a:link, a:visited, a:hover, a:active {
 .leftmain a:link, .leftmain a:visited, .leftmain a:hover, .leftmain a:active {
     color:  <?php echo SQM_LINK_LEFT; ?>;
 }
-.leftunseen, .leftspecial, .leftspecial a:link, .leftspecial a:visited, .leftspecial a:hover, .leftspecial a:active {
+.leftunseen, .leftrecent, .leftspecial, .leftspecial a:link, .leftspecial a:visited, .leftspecial a:hover, .leftspecial a:active {
     color:  <?php echo SQM_TEXT_SPECIAL; ?>;
+}
+.leftrecent {
+    font-weight:bold;
 }
 .leftnoselect a:link, .leftnoselect a:visited, .leftnoselect a:hover, .leftnoselect a:active {
     color:  <?php echo SQM_TEXT_HIGHLIGHT; ?>;
