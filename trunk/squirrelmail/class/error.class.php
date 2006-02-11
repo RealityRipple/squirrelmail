@@ -63,7 +63,9 @@ class ErrorHandler {
     }
 
     /**
-     * Sets the error template
+     * Store errors generated in a previous script but couldn't be displayed
+     * due to a header redirect. This requires storing of aDelayedErrors in the session
+     * @param array $aDelayedErrors array with errors stored in the $this->aErrors format.
      * @since 1.5.1
      */
     function AssignDelayedErrors(&$aDelayedErrors) {
@@ -194,7 +196,7 @@ class ErrorHandler {
         // Show the error immediate in case of fatal errors
         if ($iType == SQM_ERROR) {
             if (!$this->header_sent) {
-                // replace this with template that can be assigned
+                // TODO replace this with template that can be assigned
                 displayHtmlHeader(_("Error"),'',false);
             }
             $this->DisplayErrors();
