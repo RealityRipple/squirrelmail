@@ -83,7 +83,11 @@ function ListBoxes ($boxes, $j=0 ) {
                 if (isset($unseen_type) && ($unseen_type == 2) && ($boxes->total !== false)) {
                     $unseen_string .= '/' . $boxes->total;
                 }
-                $unseen_string = "<span class=\"leftunseen\">($unseen_string)</span>";
+                if (isset($boxes->recent) && $boxes->recent) {
+                    $unseen_string = "<span class=\"leftrecent\">($unseen_string)</span>";
+                } else {
+                    $unseen_string = "<span class=\"leftunseen\">($unseen_string)</span>";
+                }
 
                 /*
                  * Finally allow the script to display the values by setting a boolean.
@@ -256,8 +260,11 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
                     if (isset($unseen_type) && ($unseen_type == 2) && ($boxes->total !== false)) {
                         $unseen_string .= '/' . $boxes->total;
                     }
-
-                    $unseen_string = "<font color=\"$color[11]\">($unseen_string)</font>";
+                    if (isset($boxes->recent) && $boxes->recent > 0) {
+                        $unseen_string = "<span class=\"leftrecent\">($unseen_string)</span>";
+                    } else {
+                        $unseen_string = "<span class=\"leftunseen\">($unseen_string)</span>";
+                    }
 
                     /*
                      * Finally allow the script to display the values by setting a boolean.
