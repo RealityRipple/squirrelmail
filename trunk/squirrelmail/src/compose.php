@@ -1695,15 +1695,17 @@ function deliverMessage($composeMessage, $draft=false) {
         $composeMessage->purgeAttachments();
         if ($action == 'reply' || $action == 'reply_all') {
             $aMailbox = sqm_api_mailbox_select($imap_stream, $iAccount, $mailbox,array('setindex' => $what, 'offset' => $startMessage),array());
-            //sqimap_mailbox_select ($imap_stream, $mailbox);
-            $aUpdatedMsgs = sqimap_toggle_flag($imap_stream, array($passed_id), '\\Answered', true, false);
-             if (isset($aUpdatedMsgs[$passed_id]['FLAGS'])) {
-                /**
-                 * Only update the cached headers if the header is
-                 * cached.
-                 */
-                if (isset($aMailbox['MSG_HEADERS'][$passed_id])) {
-                    $aMailbox['MSG_HEADERS'][$passed_id]['FLAGS'] = $aMsg['FLAGS'];
+            // check if we are allowed to set the \\Answered flag
+            if (in_array('\\answered',$aMailbox['PERMANENTFLAGS'], true)) {
+                $aUpdatedMsgs = sqimap_toggle_flag($imap_stream, array($passed_id), '\\Answered', true, false);
+                if (isset($aUpdatedMsgs[$passed_id]['FLAGS'])) {
+                    /**
+                     * Only update the cached headers if the header is
+                     * cached.
+                     */
+                    if (isset($aMailbox['MSG_HEADERS'][$passed_id])) {
+                        $aMailbox['MSG_HEADERS'][$passed_id]['FLAGS'] = $aMsg['FLAGS'];
+                    }
                 }
             }
             /**
