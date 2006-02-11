@@ -518,6 +518,13 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
             $from_o = $rfc822_header->from;
             if (is_object($from_o)) {
                 $from_name = decodeHeader($from_o->getAddress(false));
+            } elseif (is_array($from_o) && count($from_o) && is_object($from_o[0])) {
+                // something weird happens when a digest message is opened and you return to the digest
+                // now the from object is part of an array. Probably the parseHeader call overwrites the info
+                // retrieved from the bodystructure in a different way. We need to fix this later.
+                // possible starting point, do not fetch header we already have and inspect how
+                // the rfc822_header object behaves.
+                $from_name = decodeHeader($from_o[0]->getAddress(false));
             } else {
                 $from_name = _("Unknown sender");
             }
