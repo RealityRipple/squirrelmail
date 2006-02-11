@@ -104,8 +104,7 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
             'center', '', 'width="95%" border="0" cellpadding="2" cellspacing="0"'
         ) .
         '<br /><form method="post" action="options.php">'.
-        '<div style="text-align: center;">'.
-        html_tag( 'table', '', '', '', 'border="0" cellpadding="2" cellspacing="0"' ) .
+        html_tag( 'table', '', 'center', '', 'border="0" cellpadding="2" cellspacing="0"' ) .
             html_tag( 'tr' ) .
                 html_tag( 'th', _("What to Scan:"), 'right', '', 'style="white-space: nowrap;"' ) .
                 html_tag( 'td', '', 'left' ) .
@@ -124,7 +123,6 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
         '</td>'.
         html_tag( 'td', '<input type="submit" name="user_submit" value="' . _("Save") . '" />', 'left' ) .
         '</table>'.
-        '</div>'.
         '</form>'.
 
         html_tag( 'div', '[<a href="options.php?action=add">' . _("New") .
@@ -202,8 +200,8 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
         if ( isset($filters[$theid]['folder']) )
           $selected = array(strtolower($filters[$theid]['folder']));
         echo sqimap_mailbox_option_list(0, $selected, 0, $boxes);
-        echo         '</tt>'.
-                    '</select>'.
+        echo        '</select>'.
+                    '</tt>'.
                 '</td>'.
             '</tr>'.
             '</table>'.
@@ -214,6 +212,7 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
 
     }
 
+if (count($filters)) {
     echo html_tag( 'table', '', 'center', '', 'border="0" cellpadding="3" cellspacing="0"' );
 
     for ($i=0, $num = count($filters); $i < $num; $i++) {
@@ -254,8 +253,9 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
         echo '</td></tr>';
 
     }
-    echo '</table>'.
-        html_tag( 'table',
+    echo '</table>';
+}
+    echo html_tag( 'table',
             html_tag( 'tr',
                 html_tag( 'td', '&nbsp;', 'left' )
             ) ,
