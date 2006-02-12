@@ -64,10 +64,14 @@ SquirrelMail IMAP and SMTP libraries now support use of STARTTLS extension.
 The code is experimental and requires PHP 5.1.0 or newer with
 stream_socket_enable_crypto() function support enabled.
 
-Updated wrapping functions in compose.
+Updated wrapping functions in compose. New wrapping code improves quoting
+of text chapters. Thanks to Justus Pendleton.
 
 Added code for advanced searching in messages. Now it's possible to switch
 between normal search and advanced search.
+
+Main SquirrelMail code implements view_as_html and folder_settings plugin 
+features. These plugins should not be used in SquirrelMail 1.5.1.
 
 
 Security Updates
@@ -117,7 +121,14 @@ functions are now obsolete.  Some IMAP functions return data in different
 format.  If plugins depend on changed or removed functions, they will break in
 this version of SquirrelMail.
 
-This SquirrelMail version implemented code that unregisters globals in PHP
+This SquirrelMail version added http headers that prevent caching of pages by
+proxies. Headers are added in SquirrelMail displayHtmlHeader() function. Changes
+require that html output is not started before displayHtmlHeader() is called. If 
+some code starts output, PHP errors will be displayed. If plugins display 
+notices in options_save hook and don't stop script execution on error, page 
+display will be broken.
+
+SquirrelMail 1.5.1 implemented code that unregisters globals in PHP
 register_globals=on setups.  Plugins that load main SquirrelMail functions and
 depend on PHP register_globals=on will be broken.
 
