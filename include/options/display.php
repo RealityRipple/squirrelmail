@@ -73,15 +73,17 @@ function load_optpage_data_display() {
     }
     ksort($templateset_values);
     $templateset_values = array_flip($templateset_values);
-    $optvals[SMOPT_GRP_GENERAL][] = array(
-        'name'    => 'sTplDir',
-        'caption' => _("Template"),
-        'type'    => SMOPT_TYPE_STRLIST,
-        'refresh' => SMOPT_REFRESH_ALL,
-        'posvals' => $templateset_values,
-        'save'    => 'save_option_template'
-    );
-
+    // display template options only when there is more than one template
+    if (count($templateset_values)>1) {
+        $optvals[SMOPT_GRP_GENERAL][] = array(
+            'name'    => 'sTplDir',
+            'caption' => _("Template"),
+            'type'    => SMOPT_TYPE_STRLIST,
+            'refresh' => SMOPT_REFRESH_ALL,
+            'posvals' => $templateset_values,
+            'save'    => 'save_option_template'
+        );
+    }
 
     /* Load the theme option. */
     $theme_values = array();
