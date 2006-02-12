@@ -111,7 +111,7 @@ if ($newmail_allowsound) {
             html_tag( 'td', _("Enable Media Playing").':', 'right', '', 'style="white-space: nowrap;"' ) .
                 html_tag( 'td', '', 'left' ) .
                     '<input type="checkbox" ';
-    if ($newmail_enable == 'on') {
+    if ($newmail_media_enable == 'on') {
         echo 'checked="checked" ';
     }
     echo 'name="media_enable" /></td></tr>' . "\n";
