@@ -537,6 +537,7 @@ $default_use_priority = true;
  * This option disables display of "created by SquirrelMail developers"
  * strings and provider link
  * @global bool $hide_sm_attributions
+ * @since 1.2.0
  */
 $hide_sm_attributions = false;
 
