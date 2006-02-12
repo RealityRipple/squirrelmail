@@ -23,6 +23,7 @@ define('SM_PATH','../');
 require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'config/config.php');
+require_once(SM_PATH . 'functions/i18n.php');
 
 /* safety check for older config.php */
 if (!isset($fontsets) || !is_array($fontsets)) {
