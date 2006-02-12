@@ -548,6 +548,19 @@ Version 1.5.1 (branched on 2006-02-12)
   - Fixed mailbox cache issues caused by using prev/next links in
     read_body.php.
   - Added View as HTML support to the SquirrelMail core.
+  - Fixed bug #550557.
+  - Applied status cache patch created by Michael Long.
+  - Updated newmail plugin to make use of status cache (Michael Long)
+  - Added RECENT check to left_main.php to bold the unseen message string if
+    there are recent messages.
+  - Fixed search query in filters.php, now we respect the imap continuation
+    request (Michael Long).
+  - Fixed bug in digest message view where the from name disappeared after
+    opening a digest message.
+  - Fixed checkall link in case javascript was disabled.
+  - Rewrite of thread parsing code in order to improve performance.
+  - Adapted message squisher function to gain performance.
+  - Fixed bug #1093360, skip untagged NO responses in APPEND query.
 
 Version 1.5.0 - 2 February 2004
 -------------------------------
