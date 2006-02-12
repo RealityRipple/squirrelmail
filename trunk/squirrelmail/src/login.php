@@ -167,8 +167,7 @@ if (isset($org_logo) && $org_logo) {
 }
 
 $sm_attribute_str = '';
-$hide_sm_attributes = false;
-if (isset($hide_sm_attributes) && !$hide_sm_attributes) {
+if (isset($hide_sm_attributions) && !$hide_sm_attributions) {
     $sm_attribute_str = _("SquirrelMail Webmail Application")."<br />\n" .
                         _("By the SquirrelMail Project Team")."<br />\n";
 }

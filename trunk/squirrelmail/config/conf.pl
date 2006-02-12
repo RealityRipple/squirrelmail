@@ -333,7 +333,6 @@ $force_username_lowercase = 'false'     if ( !$force_username_lowercase );
 $optional_delimiter = "detect"          if ( !$optional_delimiter );
 $auto_create_special = 'false'          if ( !$auto_create_special );
 $default_use_priority = 'true'          if ( !$default_use_priority );
-$hide_sm_attributions = 'false'         if ( !$hide_sm_attributions );
 $default_use_mdn = 'true'               if ( !$default_use_mdn );
 $delete_folder = 'false'                if ( !$delete_folder );
 $noselect_fix_enable = 'false'          if ( !$noselect_fix_enable );
@@ -351,6 +350,9 @@ $prefs_val_field = 'prefval'            if ( !$prefs_val_field );
 $session_name = 'SQMSESSID'             if ( !$session_name );
 $skip_SM_header = 'false'               if ( !$skip_SM_header );
 $default_use_javascript_addr_book = 'false' if (! $default_use_javascript_addr_book);
+
+# since 1.2.0
+$hide_sm_attributions = 'false'         if ( !$hide_sm_attributions );
 
 # since 1.4.0
 $use_smtp_tls= 'false'                  if ( !$use_smtp_tls);
