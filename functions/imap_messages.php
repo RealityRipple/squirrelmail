@@ -297,17 +297,73 @@ function get_squirrel_sort($imap_stream, $sSortField, $reverse = false, $aUid = 
     return $aUid;
 }
 
-
 /**
- * Returns an indent array for printMessageinfo()
- * This represents the amount of indent needed (value),
- * for this message number (key)
+ * Returns an array with each element as a string representing one
+ * message-thread as returned by the IMAP server.
+ * @param resource $imap_stream IMAP socket connection
+ * @param string $search optional search string
+ * @return array
+ * @link http://www.ietf.org/internet-drafts/draft-ietf-imapext-sort-13.txt
  */
+function get_thread_sort($imap_stream, $search='ALL') {
+    global $sort_by_ref, $default_charset;
 
+    if ($sort_by_ref == 1) {
+        $sort_type = 'REFERENCES';
+    } else {
+        $sort_type = 'ORDEREDSUBJECT';
+    }
+    $query = "THREAD $sort_type ".strtoupper($default_charset)." $search";
+
+    // TODO use sqimap_run_command_list as we do in get_server_sort()
+    $sRead = sqimap_run_command ($imap_stream, $query, false, $response, $message, TRUE);
+
+    /* fallback to default charset */
+    if ($response == 'NO') {
+        if (strpos($message,'BADCHARSET') !== false ||
+            strpos($message,'character') !== false) {
+            sqm_trigger_imap_error('SQM_IMAP_BADCHARSET',$query, $response, $message);
+            $query = "THREAD $sort_type US-ASCII $search";
+            $sRead = sqimap_run_command ($imap_stream, $query, true, $response, $message, TRUE);
+        } else {
+            sqm_trigger_imap_error('SQM_IMAP_ERROR',$query, $response, $message);
+        }
+    } elseif ($response == 'BAD') {
+        sqm_trigger_imap_error('SQM_IMAP_NO_THREAD',$query, $response, $message);
+    }
+    if (isset($sRead[0])) {
+        for ($i=0,$iCnt=count($sRead);$i<$iCnt;++$i) {
+            if (preg_match("/^\* THREAD (.+)$/", $sRead[$i], $aMatch)) {
+                $sThreadResponse = trim($aMatch[1]);
+                break;
+            }
+        }
+    } else {
+        $sThreadResponse = "";
+    }
+    unset($sRead);
+
+    if ($response !== 'OK') {
+        return false;
+    }
+
+    /* Example response
+     *  S: * THREAD (2)(3 6 (4 23)(44 7 96))
+     * -- 2
+     *
+     * -- 3
+     *    \-- 6
+     *        |-- 4
+     *        |   \-- 23
+     *        |
+     *        \-- 44
+     *             \-- 7
+     *                 \-- 96
+     */
 /*
  * Notes for future work:
  * indent_array should contain: indent_level, parent and flags,
- * sibling notes ..
+ * sibling nodes ..
  * To achieve that we  need to define the following flags:
  * 0: hasnochildren
  * 1: haschildren
@@ -324,195 +380,64 @@ function get_squirrel_sort($imap_stream, $sSortField, $reverse = false, $aUid = 
  *   \-4   par = 3, level = 2, flag = 1 + 2 + 4 = 7 (haschildren,   isfirst, islast)
  *     \-5 par = 4, level = 3, flag = 0 + 2 + 4 = 6 (hasnochildren, isfirst, islast)
  */
-function get_parent_level($thread_new) {
-    $parent = '';
-    $child  = '';
-    $cutoff = 0;
 
-    /*
-     * loop through the threads and take unwanted characters out
-     * of the thread string then chop it up
-     */
-    for ($i=0;$i<count($thread_new);$i++) {
-        $thread_new[$i] = preg_replace("/\s\(/", "(", $thread_new[$i]);
-        $thread_new[$i] = preg_replace("/(\d+)/", "$1|", $thread_new[$i]);
-        $thread_new[$i] = preg_split("/\|/", $thread_new[$i], -1, PREG_SPLIT_NO_EMPTY);
-    }
-    $indent_array = array();
-    if (!$thread_new) {
-        $thread_new = array();
-    }
-    /* looping through the parts of one message thread */
-
-    for ($i=0;$i<count($thread_new);$i++) {
-        /* first grab the parent, it does not indent */
-
-        if (isset($thread_new[$i][0])) {
-            if (preg_match("/(\d+)/", $thread_new[$i][0], $regs)) {
-                $parent = $regs[1];
-            }
-        }
-        $indent_array[$parent] = 0;
-
-        /*
-         * now the children, checking each thread portion for
-         * ),(, and space, adjusting the level and space values
-         * to get the indent level
-         */
-        $level = 0;
-        $spaces = array();
-        $spaces_total = 0;
-        $indent = 0;
-        $fake = FALSE;
-        for ($k=1,$iCnt=count($thread_new[$i])-1;$k<$iCnt;++$k) {
-            $chars = count_chars($thread_new[$i][$k], 1);
-            if (isset($chars['40'])) {       /* testing for ( */
-                $level += $chars['40'];
-            }
-            if (isset($chars['41'])) {      /* testing for ) */
-                $level -= $chars['41'];
-                $spaces[$level] = 0;
-                /* if we were faking lets stop, this portion
-                 * of the thread is over
-                 */
-                if ($level == $cutoff) {
-                    $fake = FALSE;
-                }
-            }
-            if (isset($chars['32'])) {      /* testing for space */
-                if (!isset($spaces[$level])) {
-                    $spaces[$level] = 0;
-                }
-                $spaces[$level] += $chars['32'];
-            }
-            for ($x=0;$x<=$level;$x++) {
-                if (isset($spaces[$x])) {
-                    $spaces_total += $spaces[$x];
-                }
-            }
-            $indent = $level + $spaces_total;
-            /* must have run into a message that broke the thread
-             * so we are adjusting for that portion
-             */
-            if ($fake == TRUE) {
-                $indent = $indent +1;
-            }
-            if (preg_match("/(\d+)/", $thread_new[$i][$k], $regs)) {
-                $child = $regs[1];
-            }
-            /* the thread must be broken if $indent == 0
-             * so indent the message once and start faking it
-             */
-            if ($indent == 0) {
-                $indent = 1;
-                $fake = TRUE;
-                $cutoff = $level;
-            }
-            /* dont need abs but if indent was negative
-             * errors would occur
-             */
-            $indent_array[$child] = ($indent < 0) ? 0 : $indent;
-            $spaces_total = 0;
-        }
-    }
-    return $indent_array;
-}
-
-
-/**
- * Returns an array with each element as a string representing one
- * message-thread as returned by the IMAP server.
- * @link http://www.ietf.org/internet-drafts/draft-ietf-imapext-sort-13.txt
- */
-function get_thread_sort($imap_stream, $search='ALL') {
-    global $thread_new, $sort_by_ref, $default_charset, $server_sort_array, $indent_array;
-
-    $thread_temp = array ();
-    if ($sort_by_ref == 1) {
-        $sort_type = 'REFERENCES';
-    } else {
-        $sort_type = 'ORDEREDSUBJECT';
-    }
-    $query = "THREAD $sort_type ".strtoupper($default_charset)." $search";
-
-    // TODO use sqimap_run_command_list as we do in get_server_sort()
-    $thread_test = sqimap_run_command ($imap_stream, $query, false, $response, $message, TRUE);
-    /* fallback to default charset */
-
-    if ($response == 'NO') {
-        if (strpos($message,'BADCHARSET') !== false ||
-            strpos($message,'character') !== false) {
-            sqm_trigger_imap_error('SQM_IMAP_BADCHARSET',$query, $response, $message);
-            $query = "THREAD $sort_type US-ASCII $search";
-            $thread_test = sqimap_run_command ($imap_stream, $query, true, $response, $message, TRUE);
-        } else {
-            sqm_trigger_imap_error('SQM_IMAP_ERROR',$query, $response, $message);
-        }
-    } elseif ($response == 'BAD') {
-        sqm_trigger_imap_error('SQM_IMAP_NO_THREAD',$query, $response, $message);
-    }
-    if (isset($thread_test[0])) {
-        for ($i=0,$iCnt=count($thread_test);$i<$iCnt;++$i) {
-            if (preg_match("/^\* THREAD (.+)$/", $thread_test[$i], $regs)) {
-                $thread_list = trim($regs[1]);
-                break;
-            }
-        }
-    } else {
-        $thread_list = "";
-    }
-    if (!preg_match("/OK/", $response)) {
-        $server_sort_array = false;
-        return $server_sort_array;
-    }
-    if (isset($thread_list)) {
-        $thread_temp = preg_split("//", $thread_list, -1, PREG_SPLIT_NO_EMPTY);
-    }
-
-    $counter = 0;
-    $thread_new = array();
+    $j = 0;
     $k = 0;
-    $thread_new[0] = "";
-    /*
-     * parse the thread response into separate threads
-     *
-     * example:
-     *         [0] => (540)
-     *         [1] => (1386)
-     *         [2] => (1599 759 959 37)
-     *         [3] => (492 1787)
-     *         [4] => ((933)(1891))
-     *         [5] => (1030 (1497)(845)(1637))
-     */
-    for ($i=0,$iCnt=count($thread_temp);$i<$iCnt;$i++) {
-        if ($thread_temp[$i] != ')' && $thread_temp[$i] != '(') {
-            $thread_new[$k] = $thread_new[$k] . $thread_temp[$i];
-        } elseif ($thread_temp[$i] == '(') {
-            $thread_new[$k] .= $thread_temp[$i];
-            $counter++;
-        } elseif ($thread_temp[$i] == ')') {
-            if ($counter > 1) {
-                $thread_new[$k] .= $thread_temp[$i];
-                $counter = $counter - 1;
-            } else {
-                $thread_new[$k] .= $thread_temp[$i];
-                $k++;
-                $thread_new[$k] = "";
-                $counter = $counter - 1;
+    $l = 0;
+    $aUidThread = array();
+    $aIndent = array();
+    $aUidSubThread = array();
+    $aDepthStack = array();
+    $sUid = '';
+
+    if ($sThreadResponse) {
+        for ($i=0,$iCnt = strlen($sThreadResponse);$i<$iCnt;++$i) {
+            $cChar = $sThreadResponse{$i};
+            switch ($cChar) {
+                case '(': // new sub thread
+                    $aDepthStack[$j] = $l;
+                    ++$j;
+                    break;
+                case ')': // close sub thread
+                    if($sUid !== '') {
+                        $aUidSubThread[] = $sUid;
+                        $aIndent[$sUid] = $j + $l - 1;
+                        ++$l;
+                        $sUid = '';
+                    }
+                    --$j;
+                    if ($j === 0) {
+                        // show message that starts the thread first.
+                        $aUidSubThread = array_reverse($aUidSubThread);
+                        // do not use array_merge because it's extremely slow and is causing timeouts
+                        foreach ($aUidSubThread as $iUid) {
+                            $aUidThread[] = $iUid;
+                        }
+                        $aUidSubThread = array();
+                        $l = 0;
+                        $aDepthStack = array();
+                    } else {
+                        $l = $aDepthStack[$j];
+                    }
+                    break;
+                case ' ': // new child
+                    if ($sUid !== '') {
+                        $aUidSubThread[] = $sUid;
+                        $aIndent[$sUid] = $j + $l - 1;
+                        ++$l;
+                        $sUid = '';
+                    }
+                    break;
+                default: // part of UID
+                    $sUid .= $cChar;
+                    break;
             }
         }
     }
-
-    $thread_new = array_reverse($thread_new);
-    /* place the threads after each other in one string */
-    $thread_list = implode(" ", $thread_new);
-    $thread_list = str_replace("(", " ", $thread_list);
-    $thread_list = str_replace(")", " ", $thread_list);
-    $thread_list = preg_split("/\s/", $thread_list, -1, PREG_SPLIT_NO_EMPTY);
-    $server_sort_array = $thread_list;
-
-    $indent_array = get_parent_level ($thread_new);
-    return array($thread_list,$indent_array);
+    unset($sThreadResponse);
+    // show newest threads first
+    $aUidThread = array_reverse($aUidThread);
+    return array($aUidThread,$aIndent);
 }
 
 
