@@ -119,29 +119,34 @@ function sqimap_toggle_flag($imap_stream, $id, $flag, $set, $handle_errors) {
 /**
  * Sort the message list and crunch to be as small as possible
  * (overflow could happen, so make it small if possible)
+ * @param array $aUid array with uid's
+ * @return string $s message set string
  */
-function sqimap_message_list_squisher($messages_array) {
-    if( !is_array( $messages_array ) ) {
-        return $messages_array;
+function sqimap_message_list_squisher($aUid) {
+    if( !is_array( $aUid ) ) {
+        return $aUid;
     }
+    sort($aUid, SORT_NUMERIC);
 
-    sort($messages_array, SORT_NUMERIC);
-    $msgs_str = '';
-    while ($messages_array) {
-        $start = array_shift($messages_array);
-        $end = $start;
-        while (isset($messages_array[0]) && $messages_array[0] == $end + 1) {
-            $end = array_shift($messages_array);
-        }
-        if ($msgs_str != '') {
-            $msgs_str .= ',';
-        }
-        $msgs_str .= $start;
-        if ($start != $end) {
-            $msgs_str .= ':' . $end;
+    if (count($aUid)) {
+        $s = '';
+        for ($i=0,$iCnt=count($aUid);$i<$iCnt;++$i) {
+            $iStart = $aUid[$i];
+            $iEnd = $iStart;
+            while ($i<($iCnt-1) && $aUid[$i+1] == $iEnd +1) {
+                $iEnd = $aUid[$i+1];
+                ++$i;
+            }
+            if ($s) {
+                $s .= ',';
+            }
+            $s .= $iStart;
+            if ($iStart != $iEnd) {
+                $s .= ':' . $iEnd;
+            }
         }
     }
-    return $msgs_str;
+    return $s;
 }
 
 
