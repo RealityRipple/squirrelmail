@@ -2,8 +2,11 @@
 *** SquirrelMail Devel Series 1.5 ***
 *************************************
 
-Version 1.5.1 -- CVS
---------------------
+Version 1.5.2 CVS
+  -
+	
+Version 1.5.1 (branched on 2006-02-12)
+--------------------------------------
   - New reply citation to include date and author.
   - Security: Fix some possible XSS bugs.
   - Norwegian Bokmal translation uses nb_NO.
