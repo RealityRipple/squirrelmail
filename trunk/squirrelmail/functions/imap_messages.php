@@ -400,6 +400,10 @@ function get_thread_sort($imap_stream, $search='ALL') {
             $cChar = $sThreadResponse{$i};
             switch ($cChar) {
                 case '(': // new sub thread
+                    // correction for a subthread of a thread with no parents in thread
+                    if (!count($aUidSubThread) && $j > 0) {
+                       --$l;
+                    }
                     $aDepthStack[$j] = $l;
                     ++$j;
                     break;
@@ -625,7 +629,7 @@ function sqimap_get_small_header_list($imap_stream, $msg_list,
  * @return array   $aMessageList associative array with messages. Key is the UID, value is an associative array
  * @author Marc Groot Koerkamp
  */
-function parseFetch($aResponse,$aMessageList = array()) {
+function parseFetch(&$aResponse,$aMessageList = array()) {
     for ($j=0,$iCnt=count($aResponse);$j<$iCnt;++$j) {
         $aMsg = array();
 
@@ -778,6 +782,7 @@ function parseFetch($aResponse,$aMessageList = array()) {
             $msgi = '';
        }
        $aMessageList[$msgi] = $aMsg;
+       $aResponse[$j] = NULL;
     }
     return $aMessageList;
 }
