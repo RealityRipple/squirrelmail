@@ -23,7 +23,6 @@ define('SM_PATH','../');
 require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'config/config.php');
-require_once(SM_PATH . 'functions/i18n.php');
 
 /* safety check for older config.php */
 if (!isset($fontsets) || !is_array($fontsets)) {
@@ -75,18 +74,13 @@ if (sqgetGlobalVar('themeid',$themeid,SQ_GET) &&
 }
 
 /**
- * TODO: tokul. $languages are not loaded here.
- * get alignment variable from language settings...
- * MOVE THIS to a central init section !!!!
+ * Get text direction
  */
-if (!sqgetGlobalVar('align',$align,SQ_SESSION)) {
-    $dir = ( isset( $languages[$squirrelmail_language]['DIR']) ) ? $languages[$squirrelmail_language]['DIR'] : 'ltr';
-    if ( $dir == 'ltr' ) {
-        $align = array('left' => 'left', 'right' => 'right');
-    } else {
-        $align = array('left' => 'right', 'right' => 'left');
-    }
-    sqsession_register($align, 'align');
+if (sqgetGlobalVar('dir',$text_direction,SQ_GET) &&
+    $text_direction == 'rtl') {
+    $align = array('left' => 'right', 'right' => 'left');
+} else {
+    $align = array('left' => 'left', 'right' => 'right');
 }
 
 /**/
