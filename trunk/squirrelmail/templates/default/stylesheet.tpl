@@ -367,7 +367,7 @@ small	{
 }
 
 .message_list_controls {
-    background: <? echo $color[0]; ?>;
+    background: <?php echo $color[0]; ?>;
 }
 
 .message_control_button {
