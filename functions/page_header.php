@@ -39,7 +39,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     if ( !sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
         global $base_uri;
     }
-    global $theme_css, $custom_css, $pageheader_sent, $theme, $theme_default,
+    global $theme_css, $custom_css, $pageheader_sent, $theme, $theme_default, $text_direction,
         $default_fontset, $chosen_fontset, $default_fontsize, $chosen_fontsize, $chosen_theme;
 
     /* add no cache headers here */
@@ -68,7 +68,8 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
         .'?themeid='.$used_theme
         .'&amp;templateid='.basename($sTplDir)
         .(!empty($used_fontset) ? '&amp;fontset='.$used_fontset : '')
-        .(!empty($used_fontsize) ? '&amp;fontsize='.$used_fontsize : '')."\">\n";
+        .(!empty($used_fontsize) ? '&amp;fontsize='.$used_fontsize : '')
+        .(!empty($text_direction) ? '&amp;dir='.$text_direction : '')."\">\n";
 
 
     // load custom style sheet (deprecated)

@@ -415,8 +415,13 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
         // Many functions expect English conversion rules.
         if ($sm_notAlias=='tr_TR') setlocale(LC_CTYPE,'C');
 
-        // Set text direction/alignment variables
-        // These don't appear to be used... are they safe to remove?
+        /**
+         * Set text direction/alignment variables
+         * When language environment is setup, scripts can use these globals 
+         * without accessing $languages directly and making checks for optional
+         * array key.
+         */
+        global $text_direction, $left_align, $right_align;
         if (isset($languages[$sm_notAlias]['DIR']) &&
             $languages[$sm_notAlias]['DIR'] == 'rtl') {
             /**
