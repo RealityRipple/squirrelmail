@@ -150,6 +150,12 @@ if (empty($right_frame) || (strpos(urldecode($right_frame), '//') !== false)) {
     $right_frame = '';
 }
 
+if ( strpos($right_frame,'?') ) {
+    $right_frame_file = substr($right_frame,0,strpos($right_frame,'?'));
+} else {
+    $right_frame_file = $right_frame;
+}
+
 switch($right_frame) {
     case 'right_main.php':
         $right_frame_url = "right_main.php?mailbox=".urlencode($mailbox)
