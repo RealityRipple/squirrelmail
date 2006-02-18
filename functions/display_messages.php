@@ -116,7 +116,7 @@ function logout_error( $errString, $errTitle = '' ) {
     echo ( $hide_sm_attributions ? '' :
             '<small>' .  _("SquirrelMail Webmail Application") . '<br />'.
             _("By the SquirrelMail Project Team") . "<br /></small>\n" ).
-         '<table cellspacing="1" cellpadding="0" bgcolor="'.$color[1].'" width="70%">'.
+         '<table cellspacing="1" cellpadding="0" bgcolor="'.$color[1].'" width="70%" align="center">'.
          '<tr><td>'.
          '<table width="100%" border="0" bgcolor="'.$color[4].'" align="center">'.
          '<tr><td bgcolor="'.$color[0].'" align="center">'.
