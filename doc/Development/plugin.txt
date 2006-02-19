@@ -309,6 +309,8 @@ but may be out of date soon thereafter.  You never know.  ;-)
 &% options_identities_renumber   functions/identity.php          do_hook
   special_mailbox                functions/imap_mailbox.php      hook_func
 % rename_or_delete_folder        functions/imap_mailbox.php      hook_func
+  folder_status (since 1.5.1)    functions/imap_mailbox.php      hook_func
+                                 functions/imap_general.php      hook_func
   mailbox_index_before           functions/mailbox_display.php   do_hook
   mailbox_form_before            functions/mailbox_display.php   do_hook
   mailbox_index_after            functions/mailbox_display.php   do_hook
