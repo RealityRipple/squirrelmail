@@ -1196,7 +1196,7 @@ files.
                     |
                     ------LC_MESSAGES
 
-      There is a directories such as de_DE for each language (de_DE is German,
+      There is a directory such as de_DE for each language (de_DE is German,
       ja_JP is Japanese, etc.).  Inside of each LC_MESSAGES directory you should
       place two files; one with your translations in it, called <plugin name>.po
       (in this case, "demo.po"), and one that is a compiled version of the ".po"
