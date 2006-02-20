@@ -424,7 +424,7 @@ if ($action == 'edit' || $action == 'add') {
         $gridindex = "$y,$x";
         $gridcolor = $new_color_list[$gridindex];
         echo html_tag( 'td', addRadioBox('color_type', ($gridcolor == $current_color), '#'.$gridcolor),
-            'left', $gridcolor, 'colspan="2"' );
+            'left', '#'.$gridcolor, 'colspan="2"' );
         }
         echo "</tr>\n";
     }
