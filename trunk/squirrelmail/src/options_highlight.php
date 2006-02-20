@@ -171,7 +171,7 @@ if ($mhl_count > 0) {
                         $match_type . ' = ' .
                         htmlspecialchars($message_highlight_list[$i]['value']) ,
                     'left' ) ,
-                '', $message_highlight_list[$i]['color'] ) . "\n";
+                '', '#'.$message_highlight_list[$i]['color'] ) . "\n";
     }
     echo "</table>\n".
         "<br />\n";
