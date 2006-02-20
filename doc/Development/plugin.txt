@@ -1158,7 +1158,7 @@ files.
       the top of any file that produces any output, place the following code
       (again, using "demo" as the plugin name):
 
-         bindtextdomain('demo', SM_PATH . 'plugins/demo/locale');
+         bindtextdomain('demo', SM_PATH . 'locale');
          textdomain('demo');
 
       Now all output will be translated using your own custom locale files.
@@ -1175,7 +1175,7 @@ files.
          bindtextdomain('squirrelmail', SM_PATH . 'locale');
          textdomain('squirrelmail');
          displayPageHeader($color, 'None');
-         bindtextdomain('demo', SM_PATH . 'plugins/demo/locale');
+         bindtextdomain('demo', SM_PATH . 'locale');
          textdomain('demo');
 
       Note that technically speaking, you only need to have one bindtextdomain
@@ -1183,30 +1183,26 @@ files.
       since PHP installations without gettext compiled into them will not
       function properly if you do not.
 
-  3.  Finally, you just need to create your own locale.  You should create
-      a directory structure like this in the plugin directory:
+  3.  Finally, you just need to create your own locale.  There is a directory
+      structure like this in the locale directory:
 
-         demo
-           |
-           ------locale
+         locale
+            |
+            ------de_DE
+            |       |
+            |       ------LC_MESSAGES
+            |
+            ------ja_JP
                     |
-                    ------de_DE
-                    |       |
-                    |       ------LC_MESSAGES
-                    |
-                    ------ja_JP
-                            |
-                            ------LC_MESSAGES
+                    ------LC_MESSAGES
 
-      Create a directories such as de_DE for each language (de_DE is German,
-      ja_JP is Japanese, etc. - check the SquirrelMail locale directory for
-      a fairly comprehensive listing).  Inside of each LC_MESSAGES directory
-      you should place two files, one with your translations in it, called
-      <plugin name>.po (in this case, "demo.po"), and one that is a compiled
-      version of the ".po" file, called <plugin name>.mo (in this case,
-      "demo.mo").  On most linux systems, there is a tool you can use to pull
-      out most of the strings that you need to have translated from your PHP
-      files into a sample .po file:
+      There is a directories such as de_DE for each language (de_DE is German,
+      ja_JP is Japanese, etc.).  Inside of each LC_MESSAGES directory you should
+      place two files; one with your translations in it, called <plugin name>.po
+      (in this case, "demo.po"), and one that is a compiled version of the ".po"
+      file, called <plugin name>.mo (in this case, "demo.mo").  On most linux
+      systems, there is a tool you can use to pull out most of the strings that
+      you need to have translated from your PHP files into a sample .po file:
 
          xgettext --keyword=_ -d <plugin name> -s -C *.php
 
@@ -1247,7 +1243,7 @@ files.
 
       You should change the header to look something more like:
 
-         # Copyright (c) 1999-2005 The SquirrelMail Project Team
+         # Copyright (c) 1999-2006 The SquirrelMail Project Team
          # Roland Bauerschmidt <rb@debian.org>, 1999.
          # $Id$
          msgid ""
