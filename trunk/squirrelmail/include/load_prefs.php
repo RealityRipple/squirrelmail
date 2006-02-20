@@ -103,10 +103,10 @@ if (!defined('download_php')) {
 }
 
 // user's icon theme, if using icons
-$icon_theme = getPref($data_dir, $username, 'icon_theme', 'none' );
+$icon_theme = getPref($data_dir, $username, 'icon_theme', 'xp' );
 
 // show (or not) flag and unflag buttons on mailbox list screen
-$show_flag_buttons = getPref($data_dir, $username, 'show_flag_buttons', SMPREF_OFF );
+$show_flag_buttons = getPref($data_dir, $username, 'show_flag_buttons', SMPREF_ON );
 
 /* Load the user's special folder preferences */
 $move_to_sent =
@@ -289,7 +289,7 @@ $alt_index_colors =
     getPref($data_dir, $username, 'alt_index_colors', SMPREF_ON );
 
 $fancy_index_highlite =
-    getPref($data_dir, $username, 'fancy_index_highlite', SMPREF_OFF );
+    getPref($data_dir, $username, 'fancy_index_highlite', SMPREF_ON );
 
 /* Folder List Display Format */
 $location_of_bar =
