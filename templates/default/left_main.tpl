@@ -1,8 +1,9 @@
 <?php
+
 /**
  * left_main.tpl
  *
- * Basic template to the left main window.  The following variables are 
+ * Basic template to the left main window.  The following variables are
  * avilable in this template:
  *      $clock           - formatted string containing last refresh
  *      $mailbox_listing - string containing HTML to display default mailbox tree
@@ -11,13 +12,13 @@
  *                         left_main_advanced.tpl
  *      $left_size       - width of left column in pixels.  Currently only used
  *                         in left_main_advanced.tpl
- *      $imapConnection  - IMAP connection handle.  Needed to allow plugins to 
+ *      $imapConnection  - IMAP connection handle.  Needed to allow plugins to
  *                         read the mailbox.
  *      $icon_theme_path - Path to the desired icon theme.  If no icon theme has
  *                         been chosen, this will be the template directory.  If
  *                         the user has disabled icons, this will be NULL.
  *
- *      $unread_notification_enabled - Boolean TRUE if the user wants to see unread 
+ *      $unread_notification_enabled - Boolean TRUE if the user wants to see unread
  *                             message count on mailboxes
  *      $unread_notification_cummulative - Boolean TRUE if the user has enabled
  *                             cummulative message counts.
@@ -35,7 +36,7 @@
  *                             the Trash folder.  FALSE if they are permanently
  *                             deleted.
  *      $trash_folder_name   - Name of the Trash folder.
- * 
+ *
  *      $mailboxes       - Associative array of current mailbox structure.
  *                         Provided so template authors know what they have to
  *                         work with when building a custom mailbox tree.
@@ -60,14 +61,14 @@
  *                                  'Icon'   = the icon to use, based on user prefs
  *          $a['ChildBoxes']    = array containing this same data structure for
  *                                each child folder/mailbox of the current
- *                                mailbox. 
+ *                                mailbox.
  *          $a['CummulativeMessageCount']   = integer of total messages in all
  *                                            folders in this mailbox, exlcuding
  *                                            trash folders.
  *          $a['CummulativeUnreadCount']    = integer of total unseen messages
  *                                            in all folders in this mailbox,
  *                                            excluding trash folders.
- *  
+ *
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -81,7 +82,7 @@ include_once(SM_PATH . 'templates/util_global.php');
 
 /*
  * Recursively parse the mailbox structure to build the navigation tree.
- * 
+ *
  * @since 1.5.2
  */
 function buildMailboxTree ($box, $settings, $indent_factor=0) {
@@ -99,22 +100,22 @@ function buildMailboxTree ($box, $settings, $indent_factor=0) {
     $unseen_str = '';
     if ($settings['unreadNotificationEnabled'])   {
         // We only display the unread count if we on the Inbox or we are told
-        // to display it on all folders. 
-        if ( $settings['unreadNotificationAllFolders'] || 
-             (!$settings['unreadNotifictionAllFolders'] && strtolower($box['MailboxFullName'])=='inbox') 
+        // to display it on all folders.
+        if ( $settings['unreadNotificationAllFolders'] ||
+             (!$settings['unreadNotifictionAllFolders'] && strtolower($box['MailboxFullName'])=='inbox')
            )  {
-            $unseen_str = $settings['unreadNotificationCummulative'] ? 
-                            $box['CummulativeUnreadCount'] : 
+            $unseen_str = $settings['unreadNotificationCummulative'] ?
+                            $box['CummulativeUnreadCount'] :
                             $box['UnreadCount'];
-            
+
             // Add the total messages if desired
             if ($settings['unreadNotificationDisplayTotal'])    {
                 $unseen_str .= '/' . ($settings['unreadNotificationCummulative'] ?
                                         $box['CummulativeMessageCount'] :
                                         $box['MessageCount']);
             }
-            
-            $unseen_str = '<span class="'. 
+
+            $unseen_str = '<span class="'.
                           ($box['IsRecent'] ? 'leftrecent' : 'leftunseen') .
                           '">' . $unseen_str .
                           '</span>';
@@ -126,20 +127,20 @@ function buildMailboxTree ($box, $settings, $indent_factor=0) {
      * we need to output the expand/collapse link.
      */
     if (sizeof($box['ChildBoxes'])>0 && $settings['collapsableFoldersEnabled'])    {
-        $link = $indent . 
+        $link = $indent .
                 '<a href="'.$box['CollapseLink']['URL'].'" ' .
                 'target="'.$box['CollapseLink']['Target'].'" ' .
                 'style="text-decoration:none" ' .
 #                'alt="'.$box['CollapseLink']['Alt'].'" ' .
 #                'title="'.$box['CollapseLink']['Alt'].'">' .
-                '>' .   
-                $box['CollapseLink']['Icon'] . 
-                '</a>';   
-        $pre .= $link;   
-    } else { 
+                '>' .
+                $box['CollapseLink']['Icon'] .
+                '</a>';
+        $pre .= $link;
+    } else {
         $pre .= $indent . '&nbsp;&nbsp;';
     }
-      
+
     /*
      * The Trash folder should only be displayed if message recycling has
      * been enabled, i.e. when deleted is a message moved to the trash or
@@ -148,7 +149,7 @@ function buildMailboxTree ($box, $settings, $indent_factor=0) {
     $view_link = '<a href="'.$box['ViewLink']['URL'].'" ' .
                  'target="'.$box['ViewLink']['Target'].'" ' .
                  'style="text-decoration:none">';
-     
+
     if ($settings['messageRecyclingEnabled'] && $box['MailboxFullName'] == $settings['trashFolderName']) {
         $pre .= $view_link;
 
@@ -158,7 +159,7 @@ function buildMailboxTree ($box, $settings, $indent_factor=0) {
             $end .= '</em>';
         }
         $end .= '</a>';
-        
+
         // Print unread info
         if ($box['UnreadCount'] > 0) {
             if (!empty($unseen_str)) {
@@ -172,7 +173,7 @@ function buildMailboxTree ($box, $settings, $indent_factor=0) {
         // Add a few other things for all other folders...
         if (!$box['IsNoSelect']) {
             $pre .= $view_link;
-    
+
             // Boxes with unread messages should be emphasized
             if ($box['UnreadCount'] > 0) {
                 $pre .= '<em>';
@@ -180,13 +181,13 @@ function buildMailboxTree ($box, $settings, $indent_factor=0) {
             }
             $end .= '</a>';
         }
-        
+
         // Display unread info...
         if (!empty($unseen_str)) {
             $end .= '&nbsp;<small>('.$unseen_str.')</small>';
         }
     }
-     
+
     $span = '';
     $spanend = '';
     if ($settings['useSpecialFolderColor'] && $box['IsSpecial']) {
@@ -220,17 +221,17 @@ function buildMailboxTree ($box, $settings, $indent_factor=0) {
             $out .= buildMailboxTree($box['ChildBoxes'][$i], $settings, $indent_factor);
         }
     }
-    
+
     return $out;
 }
 
 // Retrieve the template vars
 extract($t);
-  
+
 /*
  * Build an array to pass user prefs to the function that builds the tree in
  * order to avoid using globals, which are dirty, filthy things in templates. :)
- */         
+ */
 $settings = array();
 $settings['imapConnection'] = $imapConnection;
 $settings['iconThemePath'] = $icon_theme_path;
@@ -255,7 +256,7 @@ $settings['collapsableFoldersEnabled'] = $collapsable_folders_enabled;
      <td style="text-align:center">
       <span class="sqm_folderHeader"><?php echo _("Folders"); ?></span><br />
       <span class="sqm_clock"><?php echo $clock; ?></span>
-      <span class="sqm_refreshButton"><small>[<a href="../src/left_main.php" target="left"><?php echo _("Check Mail"); ?></a>]</small></span>
+      <span class="sqm_refreshButton"><small>[<a href="../src/left_main.php" target="left"><?php echo _("Check mail"); ?></a>]</small></span>
      </td>
     </tr>
    </table>
