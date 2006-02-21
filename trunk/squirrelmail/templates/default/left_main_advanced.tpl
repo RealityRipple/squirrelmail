@@ -1,8 +1,9 @@
 <?php
+
 /**
  * left_main_advanced.tpl
  *
- * Displays an experimental mailbox-tree with dhtml behaviour.  
+ * Displays an experimental mailbox-tree with dhtml behaviour.
  * It only works on browsers which supports css and javascript. The used
  * javascript is experimental and doesn't support all browsers.
  * It has been tested on IE6 an Konquerer 3.0.0-2.
@@ -23,13 +24,13 @@
  *                         left_main_advanced.tpl
  *      $left_size       - width of left column in pixels.  Currently only used
  *                         in left_main_advanced.tpl
- *      $imapConnection  - IMAP connection handle.  Needed to allow plugins to 
+ *      $imapConnection  - IMAP connection handle.  Needed to allow plugins to
  *                         read the mailbox.
  *      $icon_theme_path - Path to the desired icon theme.  If no icon theme has
  *                         been chosen, this will be the template directory.  If
  *                         the user has disabled icons, this will be NULL.
  *
- *      $unread_notification_enabled - Boolean TRUE if the user wants to see unread 
+ *      $unread_notification_enabled - Boolean TRUE if the user wants to see unread
  *                             message count on mailboxes
  *      $unread_notification_cummulative - Boolean TRUE if the user has enabled
  *                             cummulative message counts.
@@ -47,7 +48,7 @@
  *                             the Trash folder.  FALSE if they are permanently
  *                             deleted.
  *      $trash_folder_name   - Name of the Trash folder.
- * 
+ *
  *      $mailboxes       - Associative array of current mailbox structure.
  *                         Provided so template authors know what they have to
  *                         work with when building a custom mailbox tree.
@@ -72,7 +73,7 @@
  *                                  'Icon'   = the icon to use, based on user prefs
  *          $a['ChildBoxes']    = array containing this same data structure for
  *                                each child folder/mailbox of the current
- *                                mailbox. 
+ *                                mailbox.
  *          $a['CummulativeMessageCount']   = integer of total messages in all
  *                                            folders in this mailbox, exlcuding
  *                                            trash folders.
@@ -90,7 +91,7 @@
 
 /*
  * Recursively parse the mailbox structure to build the navigation tree.
- * 
+ *
  * @param array $box Array containing mailbox data
  * @param array $settings Array containing perferences, etc, passed to template
  * @param integer $indent_factor Counter used to control indent spacing
@@ -107,7 +108,7 @@ extract($t);
 /*
  * Build an array to pass user prefs to the function that builds the tree in
  * order to avoid using globals, which are dirty, filthy things in templates. :)
- */         
+ */
 $settings = array();
 $settings['imapConnection'] = $imapConnection;
 $settings['iconThemePath'] = $icon_theme_path;
@@ -126,7 +127,7 @@ $settings['collapsableFoldersEnabled'] = $collapsable_folders_enabled;
 <script type="text/javascript">
 <!--
 /**
- * Advanced tree makes uses dTree JavaScript package by Geir Landrö heavily. 
+ * Advanced tree makes uses dTree JavaScript package by Geir Landrö heavily.
  * See http://www.destroydrop.com/javascripts/tree/
  */
     function preload() {
@@ -370,7 +371,7 @@ $right_pos = $left_size - 20;
      <td style="text-align:center">
       <span class="sqm_folderHeader"><?php echo _("Folders"); ?></span><br />
       <span class="sqm_clock"><?php echo $clock; ?></span>
-      <span class="sqm_refreshButton"><small>[<a href="../src/left_main.php" target="left"><?php echo _("Check Mail"); ?></a>]</small></span>
+      <span class="sqm_refreshButton"><small>[<a href="../src/left_main.php" target="left"><?php echo _("Check mail"); ?></a>]</small></span>
      </td>
     </tr>
    </table>
@@ -380,5 +381,5 @@ $right_pos = $left_size - 20;
  </td>
 </table>
 <?php do_hook('left_main_after'); ?>
-</div>    
+</div>
 <?php var_dump($template_dir); ?>
