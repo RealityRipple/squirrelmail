@@ -383,7 +383,6 @@ function get_abook_sort() {
  * @param string $alt_tag alt tag value (string visible to text only browsers)
  * @param integer $Down sort value when list is sorted ascending
  * @param integer $Up sort value when list is sorted descending
- * @param string $icon_theme_path Path to user's current icon theme
  * @return string html code with sorting images and urls
  */
 function show_abook_sort_button($abook_sort_order, $alt_tag, $Down, $Up ) {
