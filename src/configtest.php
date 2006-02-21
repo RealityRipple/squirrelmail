@@ -218,7 +218,7 @@ $bad_plugins = array(
         'sql_squirrel_logger',
         'tmda',
         'vacation',
-        'view_as_html'
+        'view_as_html',
         'xmailer'
         );
 
