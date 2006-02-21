@@ -194,32 +194,32 @@ if($data_dir == $attachment_dir) {
 
 /* check plugins and themes */
 $bad_plugins = array(
-        'attachment_common',
-        'auto_prune_sent',
-        'compose_new_window',
-        'delete_move_next',
-        'disk_quota',
-        'email_priority',
-        'emoticons',
-        'focus_change',
-        'folder_preferences',
-        'global_sql_addressbook',
-        'hancock',
-        'message_source',
-        'motd',
-        'paginator',
-        'printer_friendly',
-        'procfilter',
-        'redhat_php_cgi_fix',
-        'send_to_semicolon',
-        'spamassassin',
-        'sqcalendar',
-        'sqclock',
-        'sql_squirrel_logger',
-        'tmda',
-        'vacation',
-        'view_as_html',
-        'xmailer'
+        'attachment_common',      // Integrated into SM 1.2 Core
+        'auto_prune_sent',        // Obsolete: See Proon Automatic Folder Pruning plugin
+        'compose_new_window',     // Integrated into SM 1.4 Core
+        'delete_move_next',       // Integrated into SM 1.5 Core
+        'disk_quota',             // Obsolete: See Check Quota plugin
+        'email_priority',         // Integrated into SM 1.2 Core
+        'emoticons',              // Obsolete: See HTML Mail plugin
+        'focus_change',           // Integrated into SM 1.2 Core
+        'folder_preferences',     // 
+        'global_sql_addressbook', // Integrated into SM 1.4 Core
+        'hancock',                // Not Working: See Random Signature Taglines plugin
+        'message_source',         // Added to SM 1.4 Core Plugins (message_details)
+        'motd',                   // Integrated into SM 1.2 Core
+        'paginator',              // Integrated into SM 1.2 Core
+        'printer_friendly',       // Integrated into SM 1.2 Core
+        'procfilter',             // Obsolete: See Server Side Filter plugin
+        'redhat_php_cgi_fix',     // Integrated into SM 1.1.1 Core
+        'send_to_semicolon',      // Integrated into SM 1.4.1 Core
+        'spamassassin',           // Not working beyond SM 1.2.7: See Spamassassin SpamFilter (Frontend) v2 plugin
+        'sqcalendar',             // Added to SM 1.2 Core Plugins (calendar)
+        'sqclock',                // Integrated into SM 1.2 Core
+        'sql_squirrel_logger',    // Obsolete: See Squirrel Logger plugin
+        'tmda',                   // Obsolete: See TMDA Tools plugin
+        'vacation',               // Obsolete: See Vacation Local plugin
+        'view_as_html',           // Integrated into SM 1.5.1 Core
+        'xmailer'                 // Integrated into SM 1.2 Core
         );
 
 if (isset($plugins[0])) {
