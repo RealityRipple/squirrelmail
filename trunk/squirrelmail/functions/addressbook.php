@@ -20,8 +20,9 @@ if (!defined('SM_PATH'))  {
     define('SM_PATH','../');
 }
 
-/* make sure that display_messages.php is loaded */
+/* required includes */
 include_once(SM_PATH . 'functions/display_messages.php');
+include_once(SM_PATH . 'templates/util_global.php');
 
 global $addrbook_dsn, $addrbook_global_dsn;
 
@@ -382,10 +383,11 @@ function get_abook_sort() {
  * @param string $alt_tag alt tag value (string visible to text only browsers)
  * @param integer $Down sort value when list is sorted ascending
  * @param integer $Up sort value when list is sorted descending
+ * @param string $icon_theme_path Path to user's current icon theme
  * @return string html code with sorting images and urls
  */
 function show_abook_sort_button($abook_sort_order, $alt_tag, $Down, $Up ) {
-    global $form_url;
+    global $form_url, $icon_theme_path;
 
      /* Figure out which image we want to use. */
     if ($abook_sort_order != $Up && $abook_sort_order != $Down) {
@@ -399,11 +401,11 @@ function show_abook_sort_button($abook_sort_order, $alt_tag, $Down, $Up ) {
         $which = 8;
     }
 
-      /* Now that we have everything figured out, show the actual button. */
-    return ' <a href="' . $form_url .'?abook_sort_order=' . $which
-         . '"><img src="../images/' . $img
-         . '" border="0" width="12" height="10" alt="' . $alt_tag . '" title="'
-         . _("Click here to change the sorting of the address list") .'" /></a>';
+    /* Now that we have everything figured out, show the actual button. */
+    return ' <a href="' . $form_url .'?abook_sort_order=' . $which .
+           '">' .
+           getIcon($icon_theme_path, $img, $alt_tag, _("Click here to change the sorting of the address list")) .
+           '</a>';
 }
 
 
