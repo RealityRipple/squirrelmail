@@ -67,17 +67,15 @@ function calcMessageListColumnWidth($aOrder) {
 }
 
 /**
- * Function to retrieve the correct flag icon belonging to the set of
- * provided flags
- *
+ * Function to retrieve correct icon based on provided message flags.  This is 
+ * a merge/replacement for getFlagIcon() and getFlagText() functions.
+ * 
  * @param array $aFlags associative array with seen,deleted,anwered and flag keys.
- * @param string $sImageLocation directory location of flagicons
- * @return string $sFlags string with the correct img html tag
- * @author Marc Groot Koerkamp
+ * @param string $icon_theme_path path to user's currently selected icon theme.
+ * @return string $icon full HTML img tag or text icon, depending on of user prefs
+ * @author Steve Brown
  */
-function getFlagIcon($aFlags, $sImageLocation) {
-    $sFlags = '';
-
+function getFlagIcon ($aFlags, $icon_theme_path) {
     /**
      * 0  = unseen
      * 1  = seen
@@ -100,27 +98,29 @@ function getFlagIcon($aFlags, $sImageLocation) {
     /**
      * Use static vars to avoid initialisation of the array on each displayed row
      */
-    static $aFlagImages, $aFlagValues;
-    if (!isset($aFlagImages)) {
-        $aFlagImages = array(
-                            array('msg_new.png','('._("New").')'),
-                            array('msg_read.png','('._("Read").')'),
-                            array('msg_new_deleted.png','('._("Deleted").')'),
-                            array('msg_read_deleted.png','('._("Deleted").')'),
-                            array('msg_new_reply.png','('._("Answered").')'),
-                            array('msg_read_reply.png','('._("Answered").')'),
-                            array('msg_read_deleted_reply.png','('._("Answered").')'),
-                            array('flagged.png', '('._("Flagged").')'),
-                            array('flagged.png', '('._("Flagged").')'),
-                            array('flagged.png', '('._("Flagged").')'),
-                            array('flagged.png', '('._("Flagged").')'),
-                            array('flagged.png', '('._("Flagged").')'),
-                            array('flagged.png', '('._("Flagged").')'),
-                            array('flagged.png', '('._("Flagged").')'),
-                            array('flagged.png', '('._("Flagged").')'),
-                            array('flagged.png', '('._("Flagged").')')
-                            ); // as you see the list is not completed yet.
-        $aFlagValues = array('seen'     => 1,
+    static $flag_icons, $flag_values;
+    if (!isset($flag_icons)) {
+        // This is by no means complete...
+        $flag_icons = array (   //     Image icon name               Text Icon  Alt/Title Text
+                                array ('msg_new.png',                '&nbsp;',  '('._("New").')') ,
+                                array ('msg_read.png',               '&nbsp;',  '('._("Read").')'),
+                                array ('msg_new_deleted.png',        _("D"),    '('._("Deleted").')'),
+                                array ('msg_read_deleted.png',       _("D"),    '('._("Deleted").')'),
+                                array ('msg_new_reply.png',          _("A"),    '('._("Answered").')'),
+                                array ('msg_read_reply.png',         _("A"),    '('._("Answered").')'),
+                                array ('msg_read_deleted_reply.png', _("D"),    '('._("Answered").')'),
+                                array ('flagged.png',                _("F"),    '('._("Flagged").')'),
+                                array ('flagged.png',                _("F"),    '('._("Flagged").')'),
+                                array ('flagged.png',                _("F"),    '('._("Flagged").')'),
+                                array ('flagged.png',                _("F"),    '('._("Flagged").')'),
+                                array ('flagged.png',                _("F"),    '('._("Flagged").')'),
+                                array ('flagged.png',                _("F"),    '('._("Flagged").')'),
+                                array ('flagged.png',                _("F"),    '('._("Flagged").')'),
+                                array ('flagged.png',                _("F"),    '('._("Flagged").')'),
+                                array ('flagged.png',                _("F"),    '('._("Flagged").')')
+                            );
+        
+        $flag_values = array('seen'     => 1,
                              'deleted'  => 2,
                              'answered' => 4,
                              'flagged'  => 8,
@@ -130,109 +130,74 @@ function getFlagIcon($aFlags, $sImageLocation) {
     /**
      * The flags entry contain all items displayed in the flag column.
      */
-    $iFlagIndx = 0;
+    $icon = '';
+
+    $index = 0;
     foreach ($aFlags as $flag => $flagvalue) {
-        /* FIX ME, we should use separate templates for icons */
          switch ($flag) {
             case 'deleted':
             case 'answered':
             case 'seen':
-            case 'flagged': if ($flagvalue) $iFlagIndx+=$aFlagValues[$flag]; break;
+            case 'flagged': if ($flagvalue) $index += $flag_values[$flag]; break;
             default: break;
         }
     }
-    if (isset($aFlagImages[$iFlagIndx])) {
-        $aFlagEntry = $aFlagImages[$iFlagIndx];
+    
+    if (isset($flag_icons[$index])) {
+        $data = $flag_icons[$index];
     } else {
-        $aFlagEntry = end($aFlagImages);
+        $data = end($flag_icons);
     }
 
-    $sFlags = '<img src="' . $sImageLocation . $aFlagEntry[0].'"'.
-              ' border="0" alt="'.$aFlagEntry[1].'" title="'. $aFlagEntry[1] .'" height="12" width="18" />' ;
-    if (!$sFlags) { $sFlags = '&nbsp;'; }
-    return $sFlags;
+    $icon = getIcon($icon_theme_path, $data[0], $data[1], $data[2]);
+    return $icon;
+}
+
+
+/**
+ * Function to retrieve correct priority icon based on user prefs
+ * 
+ * @param integer $priority priority value of message
+ * @param string $icon_theme_path path to user's currently selected icon theme.
+ * @return string $icon full HTML img tag or text icon, depending on of user prefs
+ * @author Steve Brown
+ */
+function getPriorityIcon ($priority, $icon_theme_path) {
+    $icon = '';
+
+    switch ($priority) {
+        case 1:
+        case 2:
+            $icon = getIcon($icon_theme_path, 'prio_high.png', '<span class="high_priority">!</span>');
+            break;
+        case 5:
+            $icon = getIcon($icon_theme_path, 'prio_low.png', '<span class="low_priority">&#8595;</span>');
+            break;
+        default:
+            $icon = getIcon($icon_theme_path, 'transparent.png', '', '', 5);
+            break;
+    }
+    
+    return $icon;
 }
 
 /**
- * Function to retrieve the correct flag text belonging to the set of
- * provided flags
- *
- * @param array $aFlags associative array with seen,deleted,anwered and flag keys.
- * @return string $sFlags string with the correct flag text
- * @author Marc Groot Koerkamp
+ * Function to retrieve correct attchment icon based on user prefs
+ * 
+ * @param boolean $attach TRUE if the message has an attachment
+ * @param string $icon_theme_path path to user's currently selected icon theme.
+ * @return string $icon full HTML img tag or text icon, depending on of user prefs
+ * @author Steve Brown
  */
-function getFlagText($aFlags) {
-    $sFlags = '';
+function getAttachmentIcon ($attach, $icon_theme_path) {
+    $icon = '';
+    
+    $icon_file = $attach ? 'attach.png' : 'transparent.png';
+    $text = $attach ? '+' : '';
+    $icon = getIcon($icon_theme_path, $icon_file, $text);
 
-    /**
-     * 0  = unseen
-     * 1  = seen
-     * 2  = deleted
-     * 3  = deleted seen
-     * 4  = answered
-     * 5  = answered seen
-     * 6  = answered deleted
-     * 7  = answered deleted seen
-     * 8  = flagged
-     * 9  = flagged seen
-     * 10 = flagged deleted
-     * 11 = flagged deleted seen
-     * 12 = flagged answered
-     * 13 = flagged aswered seen
-     * 14 = flagged answered deleted
-     * 15 = flagged anserwed deleted seen
-     */
-    /**
-     * Use static vars to avoid initialisation of the array on each displayed row
-     */
-    static $aFlagText, $aFlagValues;
-    if (!isset($aFlagText)) {
-        $aFlagText = array(
-                            array('&nbsp;', '('._("New").')'),
-                            array('&nbsp;', '('._("Read").')'),
-                            array(_("D")  , '('._("Deleted").')'),
-                            array(_("D")  , '('._("Deleted").')'),
-                            array(_("A")  , '('._("Answered").')'),
-                            array(_("A")  , '('._("Answered").')'),
-                            array(_("D")  , '('._("Answered").')'),
-                            array(_("F")  , '('._("Flagged").')'),
-                            array(_("F")  , '('._("Flagged").')'),
-                            array(_("F")  , '('._("Flagged").')'),
-                            array(_("F")  , '('._("Flagged").')'),
-                            array(_("F")  , '('._("Flagged").')'),
-                            array(_("F")  , '('._("Flagged").')'),
-                            array(_("F")  , '('._("Flagged").')'),
-                            array(_("F")  , '('._("Flagged").')'),
-                            array(_("F")  , '('._("Flagged").')')
-                            ); // as you see the list is not completed yet.
-        $aFlagValues = array('seen'     => 1,
-                             'deleted'  => 2,
-                             'answered' => 4,
-                             'flagged'  => 8,
-                             'draft'    => 16);
-    }
-
-    /**
-     * The flags entry contain all items displayed in the flag column.
-     */
-    $iFlagIndx = 0;
-    foreach ($aFlags as $flag => $flagvalue) {
-        /* FIX ME, we should use separate templates for icons */
-        switch ($flag) {
-            case 'deleted':
-            case 'answered':
-            case 'seen':
-            case 'flagged': if ($flagvalue) $iFlagIndx+=$aFlagValues[$flag]; break;
-            default: break;
-        }
-    }
-    if (isset($aFlagText[$iFlagIndx])) {
-        $sFlags = $aFlagText[$iFlagIndx][0];
-    } else {
-        $aLast = end($aFlagText);
-        $sFlags = $aLast[0];
-    }
-    if (!$sFlags) { $sFlags = '&nbsp;'; }
-    return $sFlags;
+    return $icon;
 }
+
+
 ?>

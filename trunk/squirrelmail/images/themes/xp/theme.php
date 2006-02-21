@@ -9,5 +9,5 @@
  * @package squirrelmail
  * @subpackage themes
  */
-    $icon_themes[] = array('NAME'=>_("XP"),'PATH'=> 'xp');
+    $icon_themes[] = array('NAME'=>_("XP"),'PATH'=> SM_PATH . 'images/themes/xp/');
 ?>

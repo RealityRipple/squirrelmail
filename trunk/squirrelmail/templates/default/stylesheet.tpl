@@ -65,7 +65,7 @@ body {
     color:  <?php echo SQM_TEXT_STANDARD; ?>;
     background-color: <?php echo SQM_BACKGROUND; ?>;
 }
-body.leftmain {
+body.sqm_leftMain {
     color:  <?php echo SQM_TEXT_STANDARD_LEFT; ?>;
     background-color: <?php echo SQM_BACKGROUND_LEFT; ?>;
     text-align: left;
@@ -77,10 +77,10 @@ a:link, a:visited, a:hover, a:active {
 }
 
 /* left links */
-.leftmain a:link, .leftmain a:visited, .leftmain a:hover, .leftmain a:active {
+.sqm_leftMain a:link, .sqm_leftMain a:visited, .sqm_leftMain a:hover, .sqm_leftMain a:active {
     color:  <?php echo SQM_LINK_LEFT; ?>;
 }
-.leftunseen, .leftrecent, .leftspecial, .leftspecial a:link, .leftspecial a:visited, .leftspecial a:hover, .leftspecial a:active {
+.leftunseen, .leftspecial, .leftspecial a:link, .leftspecial a:visited, .leftspecial a:hover, .leftspecial a:active {
     color:  <?php echo SQM_TEXT_SPECIAL; ?>;
 }
 .leftrecent {
@@ -103,7 +103,7 @@ a:link, a:visited, a:hover, a:active {
     border-spacing:0;
     width:99%
 }
-.leftmain table {
+sqm_leftMain table {
     border:0;
     padding:0;
     margin:0;
@@ -203,6 +203,9 @@ em		{
 small	{
     font-size:80%;
 }
+img   {
+    border:0;
+}
 
 /* login.tpl definitions */
 #sqm_login table {
@@ -220,7 +223,6 @@ small	{
 .sqm_loginImage {
     margin-left:auto;
     margin-right:auto;
-    border:0;
     padding:2px;
 }
 .sqm_loginTop {
@@ -367,7 +369,7 @@ small	{
 }
 
 .message_list_controls {
-    background: <?php echo $color[0]; ?>;
+    background: <? echo $color[0]; ?>;
 }
 
 .message_control_button {

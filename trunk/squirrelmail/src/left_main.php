@@ -26,6 +26,10 @@ require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/date.php');
 
+/** add required includes */
+include_once(SM_PATH . 'templates/util_global.php');
+include_once(SM_PATH . 'templates/util_left_main.php');
+
 /* These constants are used for folder stuff. */
 define('SM_BOX_UNCOLLAPSED', 0);
 define('SM_BOX_COLLAPSED',   1);
@@ -33,170 +37,20 @@ define('SM_BOX_COLLAPSED',   1);
 /* --------------------- FUNCTIONS ------------------------- */
 
 
+
 /**
- * Recursive function to output a tree of folders.
- * It is called on a list of boxes and iterates over that tree.
+ * Recursive functions to output a tree of folders.
+ * They are called on a list of boxes and iterates over that tree.
  *
+ * NOTE: These functions are deprecated and replaced with templates in 1.5.2.
+ *       They remain until the advanced tree tempalte is completed also,
+ *       at which point both functions below will be removed
+ * 
  * @since 1.3.0
+ * @deprecated
  */
-function ListBoxes ($boxes, $j=0 ) {
-    global $data_dir, $username, $color, $unseen_notify, $unseen_type,
-           $move_to_trash, $trash_folder, $collapse_folders, $imapConnection,
-           $use_icons, $icon_theme, $use_special_folder_color, $unseen_cum;
-
-    // stop condition
-    if (empty($boxes)) {
-        return;
-    }
-
-    $pre = '<span style="white-space: nowrap;">';
-    $end = '';
-    $collapse = false;
-    $unseen_found = false;
-    $unseen = 0;
-
-    $mailbox = $boxes->mailboxname_full;
-    $leader = str_repeat('&nbsp;&nbsp;',$j);
-    $mailboxURL = urlencode($mailbox);
-
-    /* get unseen/total messages information */
-    /* Only need to display info when option is set */
-    if (isset($unseen_notify) && ($unseen_notify > 1)) {
-        /* handle Cumulative Unread Message Notification */
-        if ($collapse && $unseen_cum) {
-            foreach ($boxes->mbxs as $cumn_box) {
-                if (!empty($cumn_box->unseen)) $boxes->unseen += $cumn_box->unseen;
-                if (!empty($cumn_box->total)) $boxes->total += $cumn_box->total;
-            }
-        }
-        if (($boxes->unseen !== false) || ($boxes->total !== false)) {
-            if ($boxes->unseen !== false) {
-                $unseen = $boxes->unseen;
-            }
-            /*
-             * Should only display unseen info if the folder is inbox
-             * or you set the option for all folders
-             */
-            if ((strtolower($mailbox) == 'inbox') || ($unseen_notify == 3)) {
-                $unseen_string = $unseen;
-                /* If users requests, display message count too */
-                if (isset($unseen_type) && ($unseen_type == 2) && ($boxes->total !== false)) {
-                    $unseen_string .= '/' . $boxes->total;
-                }
-                if (isset($boxes->recent) && $boxes->recent) {
-                    $unseen_string = "<span class=\"leftrecent\">($unseen_string)</span>";
-                } else {
-                    $unseen_string = "<span class=\"leftunseen\">($unseen_string)</span>";
-                }
-
-                /*
-                 * Finally allow the script to display the values by setting a boolean.
-                 * This can only occur if the unseen count is great than 0 (if you have
-                 * unseen count only), or you have the message count too.
-                 */
-                if (($unseen > 0) || (isset($unseen_type) && ($unseen_type ==2))) {
-                    $unseen_found = true;
-                }
-            }
-        }
-    }
-
-    if (isset($boxes->mbxs[0]) && $collapse_folders) {
-        $collapse = getPref($data_dir, $username, 'collapse_folder_' . $mailbox);
-        $collapse = ($collapse == '' ? SM_BOX_UNCOLLAPSED : $collapse);
-        $link = '<a target="left" style="text-decoration:none" ' .'href="left_main.php?';
-        if ($collapse) {
-            if ($use_icons && $icon_theme != 'none') {
-                $link .= "unfold=$mailboxURL\">$leader<img src=\"" . SM_PATH . 'images/plus.png" border="0" height="7" width="7" />&nbsp;';
-            } else {
-                $link .= "unfold=$mailboxURL\">$leader+&nbsp;";
-            }
-        } else {
-            if ($use_icons && $icon_theme != 'none') {
-                $link .= "fold=$mailboxURL\">$leader<img src=\"" . SM_PATH . 'images/minus.png" border="0" height="7" width="7" />&nbsp;';
-            } else {
-                $link .= "fold=$mailboxURL\">$leader-&nbsp;";
-            }
-        }
-        $link .= '</a>';
-        $pre .= $link;
-    } else {
-        $pre.= $leader . '&nbsp;&nbsp;';
-    }
-
-    /* If there are unseen message, bold the line. */
-    if (($move_to_trash) && ($mailbox == $trash_folder)) {
-
-        if ( !is_numeric($boxes->total) ) {
-            $result = sqimap_status_messages($imapConnection, $mailbox);
-            $boxes->total = $result['MESSAGES'];
-            $boxes->unseen = $result['UNSEEN'];
-        }
-
-        $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
-        if ($unseen > 0) {
-            $pre .= '<b>';
-            $end .= '</b>';
-        }
-        $end .= '</a>';
-        if ($boxes->total > 0) {
-            /* Print unseen information. */
-            if ($unseen_found) {
-                $end .= "&nbsp;<small>$unseen_string</small>";
-            }
-            $end .= "\n<small>" .
-                 '&nbsp;&nbsp;[<a href="empty_trash.php">'._("Purge").'</a>]'.
-                 '</small>';
-        }
-    } else {
-        if (!$boxes->is_noselect) {
-            $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
-            if ($unseen > 0) {
-                $pre .= '<b>';
-                $end .= '</b>';
-            }
-            $end .= '</a>';
-        }
-        /* Print unseen information. */
-        if ($unseen_found) {
-            $end .= "&nbsp;<small>$unseen_string</small>";
-        }
-
-    }
-
-    $span = '';
-    $spanend = '';
-    if ($use_special_folder_color && $boxes->is_special) {
-        $span = "<span class=\"leftspecial\">";
-        $spanend = "</span>";
-    } elseif ( $boxes->is_noselect ) {
-        $span = "<span class=\"leftnoselect\">";
-        $spanend = '</span>';
-    }
-
-
-    // let plugins fiddle with end of line
-    $end .= concat_hook_function('left_main_after_each_folder',
-        array(isset($numMessages) ? $numMessages : '',
-              $boxes->mailboxname_full, $imapConnection));
-
-    $end .= '</span>';
-
-    if (!$boxes->is_root) {
-        echo "" . $span . $pre .
-            str_replace(
-                array(' ','<','>'),
-                array('&nbsp;','&lt;','&gt;'),
-                $boxes->mailboxname_sub) .
-            $end. $spanend .'<br />' . "\n";
-        $j++;
-    }
-
-    if (!$collapse || $boxes->is_root) {
-        for ($i = 0; $i <count($boxes->mbxs); $i++) {
-            ListBoxes($boxes->mbxs[$i],$j);
-        }
-    }
+function ListBoxes ($boxes, $j=0) {
+    return '';
 }
 
 function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
@@ -314,6 +168,7 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
         array(isset($numMessages) ? $numMessages : '',
               $boxes->mailboxname_full, $imapConnection));
 
+    $out = '';
     if (!$boxes->is_root) {
         if ($use_folder_images) {
             if ($boxes->is_inbox) {
@@ -334,7 +189,7 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
             $folder_img = '';
         }
         if (!isset($boxes->mbxs[0])) {
-            echo '   ' . html_tag( 'div',
+            $out .= '   ' . html_tag( 'div',
                             $pre . $folder_img .
                                 str_replace( array(' ','<','>'),
                                              array('&nbsp;','&lt;','&gt;'),
@@ -343,27 +198,29 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
                             'left', '', 'class="mbx_sub" id="' .$j. '"' ) . "\n";
         } else {
 
-            echo '   ' . html_tag( 'div',
+            $out .= '   ' . html_tag( 'div',
                             $collapse_link . $pre . $folder_img . '&nbsp;'. $boxes->mailboxname_sub . $end ,
                             'left', '', 'class="mbx_par" id="' .$j. 'P"' ) . "\n";
-            echo '   <input type="hidden" name="mbx['.$j. 'F]" value="'.$collapse.'" id="mbx['.$j.'F]" />'."\n";
+            $out .= '   <input type="hidden" name="mbx['.$j. 'F]" value="'.$collapse.'" id="mbx['.$j.'F]" />'."\n";
         }
     }
 
     $visible = ($collapse ? ' style="display:none"' : ' style="display:block"');
     if (isset($boxes->mbxs[0]) && !$boxes->is_root) /* mailbox contains childs */
-        echo html_tag( 'div', '', 'left', '', 'class="par_area" id='.$j.'.0000 '. $visible ) . "\n";
+        $out .= html_tag( 'div', '', 'left', '', 'class="par_area" id='.$j.'.0000 '. $visible ) . "\n";
 
     if ($j !='ID.0000') {
        $j = $j .'.0000';
     }
     for ($i = 0; $i <count($boxes->mbxs); $i++) {
         $j++;
-        ListAdvancedBoxes($boxes->mbxs[$i],$mbx,$j);
+        $out .= ListAdvancedBoxes($boxes->mbxs[$i],$mbx,$j);
     }
     if (isset($boxes->mbxs[0]) && !$boxes->is_root) {
-        echo '</div>'."\n\n";
+        $out .= '</div>'."\n\n";
     }
+    
+    return $out;
 }
 
 
@@ -402,255 +259,14 @@ if (!empty($left_refresh) &&
  * $advanced_tree and is a boolean var which is default set to default
  * SM behaviour.
  * Setting $advanced tree to true causes SM to display a experimental
- * mailbox-tree with dhtml behaviour.
- * It only works on browsers which supports css and javascript. The used
- * javascript is experimental and doesn't support all browsers.
- * It has been tested on IE6 an Konquerer 3.0.0-2.
- * It is now tested and working on: (please test and update this list)
- * Windows: IE 5.5 SP2, IE 6 SP1, Gecko based (Mozilla, Firebird) and Opera7
- * XWindow: ?
- * Mac: ?
- * In the function ListAdvancedBoxes there is another var $use_folder_images.
- * setting this to true is only usefull if the images exists in ../images.
- *
- * Feel free to experiment with the code and report bugs and enhancements
+ * mailbox-tree with dhtml behaviour.  
+ * 
+ * See templates/default/left_main_advanced.tpl
  **/
 
 /* set this to true if you want to see a nicer mailboxtree */
 if (empty($advanced_tree)) {
     $advanced_tree=false;
-}
-
-if ($advanced_tree) {
-$xtra .= <<<HEREDOC
-<script type="text/javascript">
-<!--
-    function preload() {
-      if (document.images) {
-        var treeImages = new Array;
-        var arguments = preload.arguments;
-        for (var i = 0; i<arguments.length; i++) {
-          treeImages[i] = new Image();
-          treeImages[i].src = arguments[i];
-        }
-      }
-    }
-    var vTreeImg;
-    var vTreeDiv;
-    var vTreeSrc;
-    function fTreeTimeout() {
-      if (vTreeDiv.readyState == "complete")
-        vTreeImg.src = vTreeSrc;
-      else
-        setTimeout("fTreeTimeout()", 100);
-    }
-    function hidechilds(img) {
-      id = img.id + ".0000";
-      form_id = "mbx[" + img.id +"F]";
-      if (document.all) { //IE, Opera7
-        div = document.all[id];
-        if (div) {
-           if (div.style.display == "none") {
-              vTreeSrc = "../images/minus.png";
-              style = "block";
-              value = 0;
-           }
-           else {
-              vTreeSrc = "../images/plus.png";
-              style = "none";
-              value = 1;
-           }
-           vTreeImg = img;
-           vTreeDiv = div;
-           if (typeof vTreeDiv.readyState != "undefined") //IE
-              setTimeout("fTreeTimeout()",100);
-           else //Non IE
-              vTreeImg.src = vTreeSrc;
-           div.style.display = style;
-           document.all[form_id].value = value;
-        }
-      }
-      else if (document.getElementById) { //Gecko
-        div = document.getElementById(id);
-        if (div) {
-           if (div.style.display == "none") {
-              src = "../images/minus.png";
-              style = "block";
-              value = 0;
-           }
-           else {
-              src = "../images/plus.png";
-              style = "none";
-              value = 1;
-           }
-           div.style.display = style;
-           img.src = src;
-           document.getElementById(form_id).value = value;
-        }
-      }
-    }
-   function buttonover(el,on) {
-      if (!on) {
-         el.style.background="$color[0]";}
-      else {
-         el.style.background="$color[9]";}
-   }
-   function buttonclick(el,on) {
-      if (!on) {
-         el.style.border="groove";}
-      else {
-         el.style.border="ridge";}
-   }
-   function hideframe(hide) {
-      left_size = "$left_size";
-      if (document.all) {
-        masterf = window.parent.document.all["fs1"];
-        leftf = window.parent.document.all["left"];
-        leftcontent = document.all["leftframe"];
-        leftbutton = document.all["showf"];
-      } else if (document.getElementById) {
-        masterf = window.parent.document.getElementById("fs1");
-        leftf = window.parent.document.getElementById("left");
-        leftcontent = document.getElementById("leftframe");
-        leftbutton = document.getElementById("showf");
-      } else {
-        return false;
-      }
-      if(hide) {
-         new_col = calc_col("20");
-         masterf.cols = new_col;
-         document.body.scrollLeft=0;
-         document.body.style.overflow="hidden";
-         leftcontent.style.display = "none";
-         leftbutton.style.display="block";
-      } else {
-         masterf.cols = calc_col(left_size);
-         document.body.style.overflow="";
-         leftbutton.style.display="none";
-         leftcontent.style.display="block";
-      }
-   }
-   function calc_col(c_w) {
-HEREDOC;
-   if ($location_of_bar == 'right') {
-       $xtra .= '     right=true;';
-   } else {
-       $xtra .= '     right=false;';
-   }
-$xtra .= <<<HEREDOC
-   if (right) {
-         new_col = '*,'+c_w;
-     } else {
-         new_col = c_w+',*';
-     }
-     return new_col;
-   }
-   function resizeframe(direction) {
-     if (document.all) {
-        masterf = window.parent.document.all["fs1"];
-     } else if (document.getElementById) {
-        window.parent.document.getElementById("fs1");
-     } else {
-        return false;
-     }
-HEREDOC;
-   if ($location_of_bar == 'right') {
-       $xtra .= '  colPat=/^\*,(\d+)$/;';
-   } else {
-       $xtra .= '  colPat=/^(\d+),.*$/;';
-   }
-$xtra .= <<<HEREDOC
-     old_col = masterf.cols;
-     colPat.exec(old_col);
-     if (direction) {
-        new_col_width = parseInt(RegExp.$1) + 25;
-     } else {
-        if (parseInt(RegExp.$1) > 35) {
-           new_col_width = parseInt(RegExp.$1) - 25;
-        }
-     }
-     masterf.cols = calc_col(new_col_width);
-   }
-//-->
-</script>
-
-HEREDOC;
-
-/* style definitions */
-
-$xtra .= <<<HEREDOC
-<style type="text/css">
-<!--
-  body {
-     margin: 0px 0px 0px 0px;
-     padding: 5px 5px 5px 5px;
-  }
-  img {
-     vertical-align: middle;
-  }
-  .button {
-     border:outset;
-     border-color: $color[9];
-     background:$color[0];
-     color:$color[6];
-     width:99%;
-     heigth:99%;
-  }
-  .mbx_par {
-     font-size:1.0em;
-     margin-left:4px;
-     margin-right:0px;
-     white-space: nowrap;
-  }
-  a.mbx_link {
-      text-decoration: none;
-      background-color: $color[0];
-      display: inline;
-  }
-  a:hover.mbx_link {
-      background-color: $color[9];
-  }
-  a.mbx_link img {
-      border-style: none;
-  }
-  .mbx_sub {
-     padding-left:5px;
-     padding-right:0px;
-     margin-left:4px;
-     margin-right:0px;
-     font-size:0.9em;
-     white-space: nowrap;
-  }
-  .par_area {
-     margin-top:0px;
-     margin-left:4px;
-     margin-right:0px;
-     padding-left:10px;
-     padding-bottom:5px;
-     border-left: solid;
-     border-left-width:0.1em;
-     border-left-color:$color[9];
-     border-bottom: solid;
-     border-bottom-width:0.1em;
-     border-bottom-color:$color[9];
-     display: block;
-  }
-  .mailboxes {
-     padding-bottom:3px;
-     margin-right:4px;
-     padding-right:4px;
-     margin-left:4px;
-     padding-left:4px;
-     border: groove;
-     border-width:0.1em;
-     border-color:$color[9];
-     background: $color[0];
-     font-size: smaller;
-  }
--->
-</style>
-
-HEREDOC;
 }
 
 // get mailbox list and cache it
@@ -691,33 +307,7 @@ if ($auto_create_special && !isset($auto_create_done)) {
         $mailboxes=sqimap_get_mailboxes($imapConnection,true,$show_only_subscribed_folders);
 }
 
-if ($advanced_tree) {
-    echo "\n<body" .
-            ' onload="preload(\'../images/minus.png\',\'../images/plus.png\')"' .
-            " class=\"leftmain\">\n<div class=\"leftmain\">\n";
-} else {
-    echo "\n<body class=\"leftmain\">\n<div class=\"leftmain\">\n";
-}
-
-do_hook('left_main_before');
-if ($advanced_tree) {
-   /* nice future feature, needs layout !! volunteers?   */
-   $right_pos = $left_size - 20;
-/*   echo '<div style="position:absolute;top:0;border=solid;border-width:0.1em;border-color:blue;"><div id="hidef" style="width=20;font-size:12"><a href="javascript:hideframe(true)"><b>&lt;&lt;</b></a></div>';
-   echo '<div id="showf" style="width=20;font-size:12;display:none;"><a href="javascript:hideframe(false)"><b>&gt;&gt;</b></a></div>';
-   echo '<div id="incrf" style="width=20;font-size:12"><a href="javascript:resizeframe(true)"><b>&gt;</b></a></div>';
-   echo '<div id="decrf" style="width=20;font-size:12"><a href="javascript:resizeframe(false)"><b>&lt;</b></a></div></div>';
-   echo '<div id="leftframe"><br /><br />';*/
-}
-
-echo "\n\n" . html_tag( 'table', '', 'left', '', 'border="0" cellspacing="0" cellpadding="0" width="99%"' ) .
-    html_tag( 'tr' ) .
-    html_tag( 'td', '', 'left' ) .
-    html_tag( 'table', '', '', '', 'border="0" cellspacing="0" cellpadding="0"' ) .
-    html_tag( 'tr' ) .
-    html_tag( 'td', '', 'center' ) .
-    '<font size="4"><b>'. _("Folders") . "</b><br /></font>\n\n";
-
+$clock = '';
 if ($date_format != 6) {
     /* First, display the clock. */
     if ($hour_format == 1) {
@@ -752,16 +342,10 @@ if ($date_format != 6) {
     }
     $clk = str_replace(' ','&nbsp;',$clk);
 
-    echo '<small><span style="white-space: nowrap;">'
+    $clock = '<small><span style="white-space: nowrap;">'
        . str_replace(' ', '&nbsp;', _("Last Refresh"))
        . ":</span><br /><span style=\"white-space: nowrap;\">$clk</span></small><br />\n";
 }
-
-/* Next, display the refresh button. */
-echo '<div style="white-space: nowrap;"><small>[<a href="../src/left_main.php" target="left">'.
-     _("Check mail") . "</a>]</small></div></td></tr></table><br />\n\n";
-
-/* Lastly, display the folder list. */
 
 if ( $collapse_folders ) {
     /* If directed, collapse or uncollapse a folder. */
@@ -791,32 +375,54 @@ if (empty($unseen_notify)) {
         $unseen_notify = 0;
     }
 }
+
 /**
  * pass $mailboxes now instead of $imapconnection - sqimap_get_mailboxes() has been separated from
  * sqimap_mailbox_tree() so that the cached mailbox list can be used elsewhere in left_main and beyond
  */
 $boxes = sqimap_mailbox_tree($imapConnection,$mailboxes,$show_only_subscribed_folders);
 
+$mailbox_listing = '';
 if (isset($advanced_tree) && $advanced_tree) {
-    echo '<form name="collapse" action="left_main.php" method="post" ' .
+    $mailbox_listing = '<form name="collapse" action="left_main.php" method="post" ' .
          'enctype="multipart/form-data">'."\n";
-    echo '<button type="submit" class="button" onmouseover="buttonover(this,true)" onmouseout="buttonover(this,false)" onmousedown="buttonclick(this,true)" onmouseup="buttonclick(this,false)">'. _("Save folder tree") .'</button><br /><br />';
-    echo '<div id="mailboxes" class="mailboxes">'."\n\n";
+    $mailbox_listing .= '<button type="submit" class="button" onmouseover="buttonover(this,true)" onmouseout="buttonover(this,false)" onmousedown="buttonclick(this,true)" onmouseup="buttonclick(this,false)">'. _("Save folder tree") .'</button><br /><br />';
+    $mailbox_listing .= '<div id="mailboxes" class="mailboxes">'."\n\n";
     sqgetGlobalVar('mbx', $mbx, SQ_POST);
     if (!isset($mbx)) $mbx=NULL;
-    ListAdvancedBoxes($boxes, $mbx);
-    echo '</div>';
-    echo '</form>'."\n";
+    $mailbox_listing .=ListAdvancedBoxes($boxes, $mbx);
+    $mailbox_listing .= '</div>';
+    $mailbox_listing .= '</form>'."\n";
 } else {
-    ListBoxes($boxes);
+    $mailbox_listing = ListBoxes($boxes);
 }
 
-do_hook('left_main_after');
-sqimap_logout($imapConnection);
+$mailbox_structure = getBoxStructure($boxes);
 
-?>
-</td></tr></table>
-</div>
-<?php
+$oTemplate->assign('clock', $clock);
+$oTemplate->assign('mailbox_listing', $mailbox_listing);
+$oTemplate->assign('location_of_bar', $location_of_bar);
+$oTemplate->assign('left_size', $left_size);
+
+$oTemplate->assign('mailboxes', $mailbox_structure);
+$oTemplate->assign('imapConnection', $imapConnection);
+
+$oTemplate->assign('unread_notification_enabled', $unseen_notify!=1);
+$oTemplate->assign('unread_notification_cummulative', $unseen_cum==1);
+$oTemplate->assign('unread_notification_allFolders', $unseen_notify == 3);
+$oTemplate->assign('unread_notification_displayTotal', $unseen_type == 2);
+$oTemplate->assign('collapsable_folders_enabled', $collapse_folders==1);
+$oTemplate->assign('icon_theme_path', $icon_theme_path);
+$oTemplate->assign('use_special_folder_color', $use_special_folder_color);
+$oTemplate->assign('message_recycling_enabled', $move_to_trash);
+$oTemplate->assign('trash_folder_name', $trash_folder);
+
+if (isset($advanced_tree) && $advanced_tree)    {
+    $oTemplate->display('left_main_advanced.tpl');
+}   else    { 
+    $oTemplate->display('left_main.tpl');
+}
+
+sqimap_logout($imapConnection);
 $oTemplate->display('footer.tpl');
 ?>
