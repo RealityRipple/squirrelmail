@@ -194,32 +194,33 @@ if($data_dir == $attachment_dir) {
 
 /* check plugins and themes */
 $bad_plugins = array(
-        'attachment_common',      // Integrated into SM 1.2 Core
+        'attachment_common',      // Integrated into SquirrelMail 1.2 core
         'auto_prune_sent',        // Obsolete: See Proon Automatic Folder Pruning plugin
-        'compose_new_window',     // Integrated into SM 1.4 Core
-        'delete_move_next',       // Integrated into SM 1.5 Core
+        'compose_new_window',     // Integrated into SquirrelMail 1.4 core
+        'delete_move_next',       // Integrated into SquirrelMail 1.5 core
         'disk_quota',             // Obsolete: See Check Quota plugin
-        'email_priority',         // Integrated into SM 1.2 Core
+        'email_priority',         // Integrated into SquirrelMail 1.2 core
         'emoticons',              // Obsolete: See HTML Mail plugin
-        'focus_change',           // Integrated into SM 1.2 Core
-        'folder_preferences',     // 
-        'global_sql_addressbook', // Integrated into SM 1.4 Core
+        'focus_change',           // Integrated into SquirrelMail 1.2 core
+        'folder_settings',        // Integrated into SquirrelMail 1.5.1 core
+        'global_sql_addressbook', // Integrated into SquirrelMail 1.4 core
         'hancock',                // Not Working: See Random Signature Taglines plugin
-        'message_source',         // Added to SM 1.4 Core Plugins (message_details)
-        'motd',                   // Integrated into SM 1.2 Core
-        'paginator',              // Integrated into SM 1.2 Core
-        'printer_friendly',       // Integrated into SM 1.2 Core
+        'msg_flags',              // Integrated into SquirrelMail 1.5.1 core
+        'message_source',         // Added to SquirrelMail 1.4 Core Plugins (message_details)
+        'motd',                   // Integrated into SquirrelMail 1.2 core
+        'paginator',              // Integrated into SquirrelMail 1.2 core
+        'printer_friendly',       // Integrated into SquirrelMail 1.2 core
         'procfilter',             // Obsolete: See Server Side Filter plugin
-        'redhat_php_cgi_fix',     // Integrated into SM 1.1.1 Core
-        'send_to_semicolon',      // Integrated into SM 1.4.1 Core
-        'spamassassin',           // Not working beyond SM 1.2.7: See Spamassassin SpamFilter (Frontend) v2 plugin
-        'sqcalendar',             // Added to SM 1.2 Core Plugins (calendar)
-        'sqclock',                // Integrated into SM 1.2 Core
+        'redhat_php_cgi_fix',     // Integrated into SquirrelMail 1.1.1 core
+        'send_to_semicolon',      // Integrated into SquirrelMail 1.4.1 core
+        'spamassassin',           // Not working beyond SquirrelMail 1.2.7: See Spamassassin SpamFilter (Frontend) v2 plugin
+        'sqcalendar',             // Added to SquirrelMail 1.2 Core Plugins (calendar)
+        'sqclock',                // Integrated into SquirrelMail 1.2 core
         'sql_squirrel_logger',    // Obsolete: See Squirrel Logger plugin
         'tmda',                   // Obsolete: See TMDA Tools plugin
         'vacation',               // Obsolete: See Vacation Local plugin
-        'view_as_html',           // Integrated into SM 1.5.1 Core
-        'xmailer'                 // Integrated into SM 1.2 Core
+        'view_as_html',           // Integrated into SquirrelMail 1.5.1 core
+        'xmailer'                 // Integrated into SquirrelMail 1.2 core
         );
 
 if (isset($plugins[0])) {
