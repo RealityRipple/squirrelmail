@@ -1,5 +1,4 @@
 <?php
-
 /**
  * left_main.tpl
  *
@@ -102,7 +101,7 @@ function buildMailboxTree ($box, $settings, $indent_factor=0) {
         // We only display the unread count if we on the Inbox or we are told
         // to display it on all folders.
         if ( $settings['unreadNotificationAllFolders'] ||
-             (!$settings['unreadNotifictionAllFolders'] && strtolower($box['MailboxFullName'])=='inbox')
+             (!$settings['unreadNotificationAllFolders'] && strtolower($box['MailboxFullName'])=='inbox')
            )  {
             $unseen_str = $settings['unreadNotificationCummulative'] ?
                             $box['CummulativeUnreadCount'] :

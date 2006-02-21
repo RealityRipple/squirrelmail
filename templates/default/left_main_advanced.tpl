@@ -1,5 +1,4 @@
 <?php
-
 /**
  * left_main_advanced.tpl
  *
@@ -382,4 +381,3 @@ $right_pos = $left_size - 20;
 </table>
 <?php do_hook('left_main_after'); ?>
 </div>
-<?php var_dump($template_dir); ?>
