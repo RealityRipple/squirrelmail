@@ -331,9 +331,7 @@ if ($aMailbox['EXISTS'] > 0) {
     $oTemplate->assign('compact_paginator', $compact_paginator);
     $oTemplate->assign('javascript_on', $javascript_on);
     $oTemplate->assign('enablesort', (isset($aProps['config']['enablesort'])) ? $aProps['config']['enablesort'] : false);
-    // Aaaaaahhhhhhh FIX ME DO NOT USE the string "none" for a var when you mean the boolean false or null
-    $oTemplate->assign('icon_theme', (isset($icon_theme) && $icon_theme !== 'none') ? $icon_theme : false);
-    $oTemplate->assign('use_icons', (isset($use_icons)) ? $use_icons : false);
+    $oTemplate->assign('icon_theme_path', $icon_theme_path);
     $oTemplate->assign('aOrder', array_keys($aColumns));
     $oTemplate->assign('alt_index_colors', isset($alt_index_colors) ? $alt_index_colors: false);
     $oTemplate->assign('color', $color);

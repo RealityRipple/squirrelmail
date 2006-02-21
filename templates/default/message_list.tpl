@@ -13,6 +13,7 @@
  */
 
 /** add required includes */
+include_once(SM_PATH . 'templates/util_global.php');
 include_once(SM_PATH . 'templates/util_message_list.php');
 
 /* retrieve the template vars */
@@ -77,16 +78,10 @@ if (!($javascript_on && $fancy_index_highlite)) {
 }
 
 /**
- * Check usage of images for attachments, flags and priority
- */
-$bIcons = ($use_icons && $icon_theme) ? true : false;
-
-/**
- * Location of icon images
- */
-if ($bIcons) {
-    $sImageLocation = SM_PATH . 'images/themes/' . $icon_theme . '/';
-}
+ * All icon functionality is now handled through $icon_theme_path.
+ * $icon_theme_path will contain the path to the user-selected theme.  If it is
+ * NULL, the user and/or admin have turned off icons.
+*/
 
 // set this to an empty string to turn off extra
 // highlighting of checked rows
@@ -245,27 +240,15 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
           case SQM_COL_DATE:       echo _("Date")."\n";     break;
           case SQM_COL_SUBJ:       echo _("Subject")."\n";  break;
           case SQM_COL_FLAGS:
-               if ($bIcons) {
-                  echo '<img src="' . $sImageLocation. 'msg_new.png" border="0" height="12" width="18" alt="!" title="'. _("Message Flags") . '" />'."\n";
-               } else {
-                  echo  '&nbsp;'."\n";
-               }
-               break;
+                echo getIcon($icon_theme_path, 'msg_new.png', '&nbsp;', _("Message Flags")) . "\n";
+                break;
           case SQM_COL_SIZE:       echo  _("Size")."\n";    break;
           case SQM_COL_PRIO:
-               if ($bIcons) {
-                  echo '<img src="' . $sImageLocation. 'prio_high.png" border="0" height="10" width="5" alt="!" title="'. _("Priority") . '" />'."\n";
-               } else {
-                  echo  '!'."\n";
-               }
-               break;
+                echo getIcon($icon_theme_path, 'prio_high.png', '!', _("Priority")) . "\n";
+                break;
           case SQM_COL_ATTACHMENT:
-               if ($bIcons) {
-                  echo '<img src="' . $sImageLocation. 'attach.png" border="0" height="10" width="6" alt="+" title="' . _("Attachment") . '"/>'."\n";
-               } else {
-                  echo  '+'."\n";
-               }
-               break;
+                echo getIcon($icon_theme_path, 'attach.png', '+', _("Attachment")) . "\n";
+                break;
           case SQM_COL_INT_DATE:   echo _("Received")."\n"; break;
           case SQM_COL_TO:         echo _("To")."\n";       break;
           case SQM_COL_CC:         echo _("Cc")."\n";       break;
@@ -275,20 +258,19 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
         // add the sort buttons
         if (isset($aSortSupported[$iCol])) {
             if ($sort == $aSortSupported[$iCol][0]) {
-               $newsort = $aSortSupported[$iCol][1];
-               $img = 'up_pointer.png';
+                $newsort = $aSortSupported[$iCol][1];
+                $img = 'up_pointer.png';
             } else if ($sort == $aSortSupported[$iCol][1]) {
-               $newsort = 0;
-               $img = 'down_pointer.png';
+                $newsort = 0;
+                $img = 'down_pointer.png';
             } else {
-               $newsort = $aSortSupported[$iCol][0];
-               $img = 'sort_none.png';
+                $newsort = $aSortSupported[$iCol][0];
+                $img = 'sort_none.png';
             }
             /* Now that we have everything figured out, show the actual button. */
-            echo " <a href=\"$baseurl&amp;startMessage=1&amp;srt=$newsort\">";
-            echo '<img src="../images/' . $img
-                . '" border="0" width="12" height="10" alt="sort" title="'
-                . _("Click here to change the sorting of the message list") .'" /></a>'."\n";
+            echo " <a href=\"$baseurl&amp;startMessage=1&amp;srt=$newsort\">" .
+                 getIcon($icon_theme_path, $img, '&nbsp;', _("Click here to change the sorting of the message list")) . "\n" .
+                 '</a>';
         }
 ?>
                     </td>
@@ -336,12 +318,8 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
      */
     if (isset($aColumns[SQM_COL_FLAGS])) {
         $aFlags = $aColumns[SQM_COL_FLAGS]['value'];
-        if ($bIcons) {
+        $sFlags = getFlagIcon($aFlags, $icon_theme_path);
 
-            $sFlags = getFlagIcon($aFlags, $sImageLocation);
-        } else {
-            $sFlags = getFlagText($aFlags);
-        }
         /* add the flag string to the value index */
         $aColumns[SQM_COL_FLAGS]['value'] = $sFlags;
     }
@@ -349,25 +327,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
      * Check the priority column
      */
     if (isset($aColumns[SQM_COL_PRIO])) {
-        /* FIX ME, we should use separate templates for icons */
-        if ($bIcons) {
-            $sValue = '<img src="' . $sImageLocation;
-            switch ($aColumns[SQM_COL_PRIO]['value']) {
-                case 1:
-                case 2:  $sValue .= 'prio_high.png" border="0" height="10" width="5" alt="" /> ' ; break;
-                case 5:  $sValue .= 'prio_low.png" border="0" height="10" width="5" alt="" /> '  ; break;
-                default: $sValue .= 'transparent.png" border="0" width="5" alt="" /> '           ; break;
-            }
-        } else {
-            $sValue = '';
-            switch ($aColumns[SQM_COL_PRIO]['value']) {
-                case 1:
-                case 2: $sValue .= '<span class="high_priority">!</span>'; break;
-        // use downwards arrow for low priority emails
-                case 5: $sValue .= '<span class="low_priority">&#8595;</span>'; break;
-                default: break;
-            }
-        }
+        $sValue = getPriorityIcon($aColumns[SQM_COL_PRIO]['value'], $icon_theme_path);
         $aColumns[SQM_COL_PRIO]['value'] = $sValue;
     }
 
@@ -375,15 +335,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
      * Check the attachment column
      */
     if (isset($aColumns[SQM_COL_ATTACHMENT])) {
-        /* FIX ME, we should use separate templates for icons */
-        if ($bIcons) {
-            $sValue = '<img src="' . $sImageLocation;
-            $sValue .= ($aColumns[SQM_COL_ATTACHMENT]['value'])
-                    ? 'attach.png" border="0" height="10" width="6" alt=""/>'
-                    : 'transparent.png" border="0" width="6" alt="" />';
-        } else {
-            $sValue = ($aColumns[SQM_COL_ATTACHMENT]['value']) ? '+' : '';
-        }
+        $sValue = getAttachmentIcon($aColumns[SQM_COL_ATTACHMENT]['value'], $icon_theme_path); 
         $aColumns[SQM_COL_ATTACHMENT]['value'] = $sValue;
     }
 

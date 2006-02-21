@@ -216,6 +216,28 @@ function load_optpage_data_display() {
                            SMPREF_TIME_24HR => _("24-hour clock"))
     );
 
+    /* Icon theme selection */
+    if ($use_icons) {
+        global $icon_themes, $icon_theme;
+        $temp = array();
+        for ($count = 0; $count < sizeof($icon_themes); $count++) {
+            $temp[$count] = $icon_themes[$count]['NAME'];
+            if ($icon_theme == $icon_themes[$count]['PATH'])
+                $value = $count;
+        }
+        if (sizeof($icon_themes) > 0) {
+            $optvals[SMOPT_GRP_GENERAL][] = array(
+                'name'          => 'icon_theme',
+                'caption'       => _("Icon Theme"),
+                'type'          => SMOPT_TYPE_STRLIST,
+                'refresh'       => SMOPT_REFRESH_NONE,
+                'posvals'       => $temp,
+                'initial_value' => $value,
+                'save'          => 'icon_theme_save'
+            );
+        }
+    }
+
     /*** Load the General Options into the array ***/
     $optgrps[SMOPT_GRP_MAILBOX] = _("Mailbox Display Options");
     $optvals[SMOPT_GRP_MAILBOX] = array();
@@ -241,27 +263,6 @@ function load_optpage_data_display() {
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );
-
-    if ($use_icons) {
-        global $icon_themes, $icon_theme;
-        $temp = array();
-        for ($count = 0; $count < sizeof($icon_themes); $count++) {
-            $temp[$count] = $icon_themes[$count]['NAME'];
-            if ($icon_theme == $icon_themes[$count]['PATH'])
-                $value = $count;
-        }
-        if (sizeof($icon_themes) > 0) {
-            $optvals[SMOPT_GRP_MAILBOX][] = array(
-                'name'          => 'icon_theme',
-                'caption'       => _("Message Flags Icon Theme"),
-                'type'          => SMOPT_TYPE_STRLIST,
-                'refresh'       => SMOPT_REFRESH_NONE,
-                'posvals'       => $temp,
-                'initial_value' => $value,
-                'save'          => 'icon_theme_save'
-            );
-        }
-    }
 
     $optvals[SMOPT_GRP_MAILBOX][] = array(
         'name'    => 'show_flag_buttons',
