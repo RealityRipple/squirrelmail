@@ -17,14 +17,19 @@
 
 // This script could really use some restructuring as it has grown quite rapidly
 // but is not very 'clean'. Feel free to get some structure into this thing.
+$warnings = 0;
 
-function do_err($str, $exit = TRUE) {
+function do_err($str, $fatal = TRUE) {
     global $IND;
-    echo '<p>'.$IND.'<font color="red"><b>ERROR:</b></font> ' .$str. "</p>\n";
-    if($exit) {
+	global $warnings;
+	$level = $fatal ? 'FATAL ERROR:' : 'WARNING:';
+    echo '<p>'.$IND.'<font color="red"><b>' . $level . '</b></font> ' .$str. "</p>\n";
+    if($fatal) {
          echo '</body></html>';
          exit;
-    }
+    } else {
+		$warnings++;
+	}
 }
 
 $IND = str_repeat('&nbsp;',4);
@@ -104,7 +109,7 @@ if(!check_php_version(4,1,0)) {
     do_err('Insufficient PHP version: '. PHP_VERSION . '! Minimum required: 4.1.0');
 }
 
-echo $IND . 'PHP version ' . PHP_VERSION . " OK.<br />\n";
+echo $IND . 'PHP version ' . PHP_VERSION . ' OK. (You have: ' . phpversion() . ". Minimum: 4.1.0)<br />\n";
 
 $php_exts = array('session','pcre');
 $diff = array_diff($php_exts, get_loaded_extensions());
@@ -189,13 +194,17 @@ if($data_dir == $attachment_dir) {
 
 
 /* check plugins and themes */
+$bad_plugins = array('view_as_html','folder_preferences');
+
 if (isset($plugins[0])) {
     foreach($plugins as $plugin) {
         if(!file_exists(SM_PATH .'plugins/'.$plugin)) {
             do_err('You have enabled the <i>'.$plugin.'</i> plugin but I cannot find it.', FALSE);
         } elseif (!is_readable(SM_PATH .'plugins/'.$plugin.'/setup.php')) {
             do_err('You have enabled the <i>'.$plugin.'</i> plugin but I cannot read its setup.php file.', FALSE);
-        }
+		} elseif (in_array($plugin, $bad_plugins)) {
+			do_err('You have enabled the <i>'.$plugin.'</i> plugin, which causes problems with this version of SquirrelMail.  Please check the ReleaseNotes or other documentation for more information.', false);
+		}
     }
     echo $IND . "Plugins OK.<br />\n";
 } else {
@@ -585,11 +594,21 @@ if( empty($ldap_server) ) {
     }
 }
 
-?>
-
+echo '<hr width="75%" align="center">';
+echo '<h2 align="center">Summary</h2>';
+$footer = '<hr width="75%" align="center">';
+if ($warnings) {
+	echo '<p>No fatal errors were found, but there was at least 1 warning.  Please check the flagged issue(s) carefully, as correcting them may prevent erratic, undefined, or incorrect behavior (or flat out breakage).</p>';
+	echo $footer;
+} else {
+print <<< EOF
 <p>Congratulations, your SquirrelMail setup looks fine to me!</p>
 
 <p><a href="login.php">Login now</a></p>
 
 </body>
 </html>
+EOF;
+echo $footer;
+}
+?>
