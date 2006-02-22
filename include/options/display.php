@@ -128,10 +128,15 @@ function load_optpage_data_display() {
     */
 
     $fontset_values = array();
-    foreach (array_keys($fontsets) as $fontset_key) {
-        $fontset_list[$fontset_key]=$fontset_key;
+    $fontset_list = array();
+
+    if (!empty($fontsets) && is_array($fontsets)) {
+
+        foreach (array_keys($fontsets) as $fontset_key) {
+            $fontset_list[$fontset_key]=$fontset_key;
+        }
+        ksort($fontset_list);
     }
-    ksort($fontset_list);
 
     if (count($fontset_list) > 1) {
         $fontset_list = array_merge(array('' => _("Default font style")), $fontset_list);
