@@ -415,7 +415,6 @@ $oTemplate->assign('collapsable_folders_enabled', $collapse_folders==1);
 $oTemplate->assign('icon_theme_path', $icon_theme_path);
 $oTemplate->assign('use_special_folder_color', $use_special_folder_color);
 $oTemplate->assign('message_recycling_enabled', $move_to_trash);
-$oTemplate->assign('trash_folder_name', $trash_folder);
 
 if (isset($advanced_tree) && $advanced_tree)    {
     $oTemplate->display('left_main_advanced.tpl');

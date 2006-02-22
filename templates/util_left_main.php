@@ -21,8 +21,7 @@
  * @author Steve Brown
  * @since 1.5.2
  */
-function getMessageCount ($boxes, $type='total')
-{
+function getMessageCount ($boxes, $type='total') {
     // The Trash folder isn't counted...
     if ($boxes->mailboxname_full == $GLOBALS['trash_folder'])
         return 0;
@@ -49,8 +48,7 @@ function getMessageCount ($boxes, $type='total')
  * @author Steve Brown
  * @since 1.5.2
  */
-function getBoxStructure ($boxes)
-{
+function getBoxStructure ($boxes) {
     global $data_dir, $username, $icon_theme_path;
         
     // Stop condition   
@@ -79,6 +77,12 @@ function getBoxStructure ($boxes)
     $box['IsSpecial'] = isset($boxes->is_special) && $boxes->is_special;
     $box['IsRoot'] =  isset($boxes->is_root) && $boxes->is_root;
     $box['IsNoSelect'] = isset($boxes->is_noselect) && $boxes->is_noselect;
+
+    $box['IsInbox'] = isset($boxes->is_inbox) && $boxes->is_inbox;
+    $box['IsSent'] = isset($boxes->is_sent) && $boxes->is_sent;
+    $box['IsTrash'] = isset($boxes->is_trash) && $boxes->is_trash;
+    $box['IsDraft'] = isset($boxes->is_draft) && $boxes->is_draft;
+    $box['IsNoInferiors'] = isset($boxes->is_noinferiors) && $boxes->is_noinferiors;
 
     $collapse = getPref($data_dir, $username, 'collapse_folder_' . $mailbox);
     $collapse = ($collapse == '' ? SM_BOX_UNCOLLAPSED : $collapse);
