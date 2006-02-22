@@ -3,7 +3,8 @@
 *************************************
 
 Version 1.5.2 CVS
-  -
+  -	Fix warning about array required in array_keys for display options when
+    no fontset is defined.
 	
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
