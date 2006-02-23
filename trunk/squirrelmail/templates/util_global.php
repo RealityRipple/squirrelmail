@@ -41,7 +41,7 @@ function getIcon($icon_theme_path, $icon_name, $text_icon, $alt_text='', $w=NULL
         
         // If we found an icon, build an img tag to display it.  If we didn't
         // find an image, we will revert back to the text icon.
-        if (!is_null($icon_path)) {
+        if (isset($icon_path) && !is_null($icon_path)) {
             $icon = '<img src="'.$icon_path.'" ' .
                     (!empty($alt_text) ? 'alt="'.$alt_text.'" title="'.$alt_text.'" ' : '') .
                     (!is_null($w) ? 'width="'.$w.'" ' : '') .
