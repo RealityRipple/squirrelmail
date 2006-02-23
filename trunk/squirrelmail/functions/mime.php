@@ -1701,7 +1701,8 @@ function sq_fixstyle($body, $pos, $message, $id, $mailbox){
     //                           "url(\\1$secremoveimg\\2)", $content);
     // remove NUL
     $content = str_replace("\0", "", $content);
-    $content = preg_replace("/(\\\\)?u(\\\\)?r(\\\\)?l(\\\\)?/i",'url', $content);
+    // translate ur\l and variations (IE parses that)
+    $content = preg_replace("/(\\\\)?u(\\\\)?r(\\\\)?l(\\\\)?/i", 'url', $content);
     // NB I insert NUL characters to keep to avoid an infinite loop. They are removed after the loop.
     while (preg_match("/url\s*\(\s*[\'\"]?([^:]+):(.*)?[\'\"]?\s*\)/si", $content, $matches)) {
         $sProto = strtolower($matches[1]);
@@ -2177,7 +2178,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
                     "idiocy",
                     "idiocy",
                     "",
-                    "idiocy",
+                    "url",
                     "url(\\1#\\1)",
                     "url(\\1#\\1)",
                     "url(\\1#\\1)",
