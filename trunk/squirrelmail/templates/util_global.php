@@ -30,18 +30,11 @@ function getIcon($icon_theme_path, $icon_name, $text_icon, $alt_text='', $w=NULL
     if (is_null($icon_theme_path)) {
         $icon = $text_icon;
     } else {
-        // Desired icon exists in the current theme?
-        if (is_file($icon_theme_path . $icon_name)) {
-            $icon_path = $icon_theme_path . $icon_name;
+        $icon_path = getIconPath($icon_theme_path, $icon_name);
 
-        // Icon not found, return the SQM default icon
-        } elseif (is_file(SM_PATH . 'images/themes/default/'.$icon_name)) {
-            $icon_path = SM_PATH . 'images/themes/default/'.$icon_name;
-        } 
-        
         // If we found an icon, build an img tag to display it.  If we didn't
         // find an image, we will revert back to the text icon.
-        if (isset($icon_path) && !is_null($icon_path)) {
+        if (!is_null($icon_path)) {
             $icon = '<img src="'.$icon_path.'" ' .
                     (!empty($alt_text) ? 'alt="'.$alt_text.'" title="'.$alt_text.'" ' : '') .
                     (!is_null($w) ? 'width="'.$w.'" ' : '') .
@@ -52,5 +45,33 @@ function getIcon($icon_theme_path, $icon_name, $text_icon, $alt_text='', $w=NULL
         }
     }
     return $icon;    
+}
+
+/**
+ * Gets the path to the specified icon or returns NULL if the image is not
+ * found.  This has been separated from getIcon to allow the path to be fetched
+ * for use w/ third party packages, e.g. dTree.
+ * 
+ * @param string $icon_theme_path User's chosen icon set
+ * @param string $icon_name File name of the desired icon
+ * @return string $icon String containing path to icon that can be used in
+ *                      an IMG tag, or NULL if the image is not found.
+ * @author Steve Brown
+ * @since 1.5.2
+ */
+function getIconPath ($icon_theme_path, $icon_name) {
+    if (is_null($icon_theme_path))
+        return NULL;
+    
+    // Desired icon exists in the current theme?
+    if (is_file($icon_theme_path . $icon_name)) {
+        return $icon_theme_path . $icon_name;
+
+    // Icon not found, return the SQM default icon
+    } elseif (is_file(SM_PATH . 'images/themes/default/'.$icon_name)) {
+        return SM_PATH . 'images/themes/default/'.$icon_name;
+    } 
+    
+    return NULL;
 }
 ?>
