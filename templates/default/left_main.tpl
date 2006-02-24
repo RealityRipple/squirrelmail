@@ -2,38 +2,36 @@
 /**
  * left_main.tpl
  *
- * Basic template to the left main window.  The following variables are
- * avilable in this template:
+ * Basic template to the left main window.  
+ * 
+ * The following variables are avilable in this template:
  *      $clock           - formatted string containing last refresh
- *      $mailbox_listing - string containing HTML to display default mailbox
- *                         tree
- *      $location_of_bar - string "left" or "right" indicating where the frame
- *                         is located.  Currently only used in
- *                         left_main_advanced.tpl
- *      $left_size       - width of left column in pixels. Currently
- *                         only used in left_main_advanced. tpl
- *      $imapConnection  - IMAP connection handle. Needed to allow plugins to
- *                         read the mailbox.
- *      $icon_theme_path - Path to the desired icon theme.  If the user/admin
- *                         has disabled icons, this will be NULL.
- *
- *      $unread_notification_enabled - Boolean TRUE if the user wants to see
- *                         unread message count on mailboxes
- *      $unread_notification_cummulative - Boolean TRUE if the user has enabled
- *                         cummulative message counts.
- *      $unread_notification_allFolders - Boolean TRUE if the user wants to see
- *                         unread message count on ALL folders or just the
- *                         mailbox.
- *      $unread_notification_displayTotal - Boolean TRUE if the user wants to
- *                         see the total number of messages in addition to the
- *                         unread message count.
- *      $collapsable_folders_enabled - Boolean TRUE if the user has enabled
- *                         collapsable folders.
- *      $use_special_folder_color - Boolean TRUE if the use has chosen to tag
- *                         "Special" folders in a different color.
- *      $message_recycling_enabled - Boolean TRUE if messages that get deleted
- *                         go to the Trash folder.  FALSE if they are
- *                         permanently deleted.
+ *      $settings        - Array containing user perferences needed by this
+ *                         template.  Indexes are as follows:
+ *          $settings['imapConnection'] - IMAP connection handle.  Needed to
+ *                         allow plugins to read the mailbox.
+ *          $settings['iconThemePath'] - Path to the desired icon theme.  If
+ *                         the user has disabled icons, this will be NULL.
+ *          $settings['templateDirectory'] - contains the path to the current
+ *                         template directory.  This may be needed by third
+ *                         party packages that don't integrate easily.
+ *          $settings['unreadNotificationEnabled'] - Boolean TRUE if the user
+ *                         wants to see unread message count on mailboxes
+ *          $settings['unreadNotificationCummulative'] - Boolean TRUE if the
+ *                         user has enabled cummulative message counts.
+ *          $settings['unreadNotificationAllFolders'] - Boolean TRUE if the
+ *                         user wants to see unread message count on ALL
+ *                         folders or just the Inbox.
+ *          $settings['unreadNotificationDisplayTotal'] - Boolean TRUE if the
+ *                         user wants to see the total number of messages in
+ *                         addition to the unread message count.
+ *          $settings['collapsableFoldersEnabled'] - Boolean TRUE if the user
+ *                         has enabled collapsable folders.
+ *          $settings['useSpecialFolderColor'] - Boolean TRUE if the use has
+ *                         chosen to tag "Special" folders in a different color
+ *          $settings['messageRecyclingEnabled'] - Boolean TRUE if messages
+ *                         that get deleted go to the Trash folder.  FALSE if
+ *                          they are permanently deleted.
  *
  *      $mailboxes       - Associative array of current mailbox structure.
  *                         Provided so template authors know what they have to
@@ -47,39 +45,32 @@
  *                                mailbox.  Elements are:
  *                                  'Target' = target frame for link
  *                                  'URL'    = target URL for link
- *          $a['IsRecent']      = boolean TRUE if mailbox is tagged "recent"
- *          $a['IsSpecial']     = boolean TRUE if mailbox is tagged "special"
- *          $a['IsRoot']        = boolean TRUE if mailbox is the root mailbox
- *          $a['IsNoSelect']    = boolean TRUE if mailbox is tagged "noselect"
- *          $a['IsInbox']       = boolean TRUE if mailbox is the Inbox.
- *          $a['IsSent']        = boolean TRUE if mailbox is the Sent box
- *          $a['IsTrash']       = boolean TRUE if mailbox is the Trash box
- *          $a['IsDraft']       = boolean TRUE if mailbox is the Draft box
- *          $a['IsNoInferiors'] = boolean TRUE of mailbox is tagged "no
- *                                inferiors"  
- *          $a['IsCollapsed']   = boolean TRUE if the mailbox is currently
- *                                collapsed 
- * 
- *          $a['CollapseLink']  = array containg elements needed to 
- *                                expand/collapse the mailbox.  Elements are:
- *                                      'Target' = target frame for link
- *                                      'URL'    = target URL for link
- *                                      'Icon'   = the icon to use, based on
- *                                                 user prefs
+ *          $a['IsRecent']      = boolean TRUE if the mailbox is tagged "recent"
+ *          $a['IsSpecial']     = boolean TRUE if the mailbox is tagged "special"
+ *          $a['IsRoot']        = boolean TRUE if the mailbox is the root mailbox
+ *          $a['IsNoSelect']    = boolean TRUE if the mailbox is tagged "noselect"
+ *          $a['IsCollapsed']   = boolean TRUE if the mailbox is currently collapsed
+ *          $a['CollapseLink']  = array containg elements needed to expand/collapse
+ *                                the mailbox.  Elements are:
+ *                                  'Target' = target frame for link
+ *                                  'URL'    = target URL for link
+ *                                  'Icon'   = the icon to use, based on user prefs
  *          $a['ChildBoxes']    = array containing this same data structure for
- *                                each child folder/mailbox.
- *          $a ['CummulativeMessageCount'] = integer of total messages in all
- *                                folders in this mailbox, exlcuding trash
- *                                folders.
- *          $a ['CummulativeUnreadCount'] = integer of total unseen messages
- *                                in all folders in this mailbox, excluding
- *                                trash folders.
+ *                                each child folder/mailbox of the current
+ *                                mailbox.
+ *          $a['CummulativeMessageCount']   = integer of total messages in all
+ *                                            folders in this mailbox, exlcuding
+ *                                            trash folders.
+ *          $a['CummulativeUnreadCount']    = integer of total unseen messages
+ *                                            in all folders in this mailbox,
+ *                                            excluding trash folders.
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
  * @subpackage templates
+ * @author Steve Brown
  */
 
 // include required files
@@ -263,21 +254,6 @@ function buildMailboxTree ($box, $settings, $indent_factor=0) {
 
 // Retrieve the template vars
 extract($t);
-
-/*
- * Build an array to pass user prefs to the function that builds the tree in
- * order to avoid using globals, which are dirty, filthy things in templates. :)
- */
-$settings = array();
-$settings['imapConnection'] = $imapConnection;
-$settings['iconThemePath'] = $icon_theme_path;
-$settings['unreadNotificationEnabled'] = $unread_notification_enabled;
-$settings['unreadNotificationAllFolders'] = $unread_notification_allFolders;
-$settings['unreadNotificationDisplayTotal'] = $unread_notification_displayTotal;
-$settings['unreadNotificationCummulative'] = $unread_notification_cummulative;
-$settings['useSpecialFolderColor'] = $use_special_folder_color;
-$settings['messageRecyclingEnabled'] = $message_recycling_enabled;
-$settings['collapsableFoldersEnabled'] = $collapsable_folders_enabled;
 
 ?>
 <body class="sqm_leftMain">

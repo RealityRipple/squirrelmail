@@ -43,12 +43,44 @@ class Template
   var $template_dir = '';
 
   /**
+   * Template files provided by this template set
+   * 
+   * @var array
+   */
+  var $templates_provided = array();
+  
+  /**
+   * Javascript files required by the template
+   * 
+   * @var array
+   */
+  var $required_js_files = array();
+  
+  /**
+   * Javascript files provided by the template.  If a JS file is required, but
+   * not provided, the js file by the same name will be included from the 
+   * default template directory.
+   * 
+   * @var array
+   */
+  var $provided_js_files = array();
+  
+  /**
    * Constructor
    *
    * @param string $sTplDir where the template set is located
    */
   function Template($sTplDir) {
        $this->template_dir = $sTplDir;
+       
+       // Pull in the tempalte config file
+       include ($this->template_dir . 'template.php');
+       $this->templates_provided = is_array($templates_provided) ? $templates_provided : array();
+       $this->required_js_files = is_array($required_js_files) ? $required_js_files : array();
+       $this->provided_js_files = is_array($provided_js_files) ? $provided_js_files: array();
+
+#       echo 'Template Dir: '.$this->template_dir.': ';
+#       var_dump($this->templates_provided);
   }
 
 
@@ -161,9 +193,12 @@ class Template
    */
   function display($file)
   {
+    // Pull in our config file
     $t = &$this->values; // place values array directly in scope
+    
+    $template = in_array($file, $this->templates_provided) ? $this->template_dir . $file : SM_PATH .'templates/default/'. $file;
     ob_start();
-    include($this->template_dir.$file);
+    include($template);
     ob_end_flush();
   }
 
@@ -177,12 +212,30 @@ class Template
   {
     ob_start();
     $t = &$this->values; // place values array directly in scope
-    include($this->template_dir.$file);
+
+    $template = in_array($file, $this->templates_provided) ? $this->template_dir . $file : SM_PATH .'templates/default/'. $file;
+    include($template);
     $contents = ob_get_contents();
     ob_end_clean();
     return $contents;
   }
 
+  /**
+   * Return paths to the required javascript files.  Used when generating page 
+   * header.
+   * 
+   * @return array $paths
+   */
+  function getJavascriptIncludes () {
+    $paths = array();
+    foreach ($this->required_js_files as $file) {
+        if (in_array($file, $this->provided_js_files))
+            $paths[] = './'.$this->template_dir.'js/'.basename($file);
+        else $paths[] = SM_PATH .'templates/default/js/'.basename($file);
+    }
+    
+    return $paths;
+  }
 }
 
 ?>
