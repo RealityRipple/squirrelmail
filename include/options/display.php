@@ -224,11 +224,15 @@ function load_optpage_data_display() {
     /* Icon theme selection */
     if ($use_icons) {
         global $icon_themes, $icon_theme;
+        
         $temp = array();
         for ($count = 0; $count < sizeof($icon_themes); $count++) {
             $temp[$count] = $icon_themes[$count]['NAME'];
-            if ($icon_theme == $icon_themes[$count]['PATH'])
+            if ($icon_theme == $icon_themes[$count]['PATH'] ||
+                (($icon_theme == $sTplDir.'images/') && ($icon_themes[$count]['PATH']=='template'))
+               ) {
                 $value = $count;
+            }
         }
         if (sizeof($icon_themes) > 0) {
             $optvals[SMOPT_GRP_GENERAL][] = array(
