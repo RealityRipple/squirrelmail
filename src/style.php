@@ -34,9 +34,13 @@ if (!isset($fontsets) || !is_array($fontsets)) {
 /** start block copy from right_main.php */
 include_once(SM_PATH . 'class/template/template.class.php');
 
-/* get template name and set used template directory */
-if (sqgetGlobalVar('templateid',$templateid,SQ_GET) &&
-    file_exists(SM_PATH.'templates/'.basename($templateid).'/stylesheet.tpl')) {
+/**
+ *  get template name and set used template directory
+ * 
+ *  Existing file check has been moved into the template object, so it is
+ *  not neccesary to do file_exists() here. 
+ * */
+if (sqgetGlobalVar('templateid',$templateid,SQ_GET)) {
     $sTplDir = SM_PATH.'templates/'.basename($templateid).'/';
 } else {
     $sTplDir = SM_PATH.'templates/default/';

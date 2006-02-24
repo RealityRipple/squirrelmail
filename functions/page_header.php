@@ -195,7 +195,11 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
     }
 
     if( $javascript_on || strpos($sHeaderJs, 'new_js_autodetect_results.value') ) {
-        $sJsBlock = '<script src="'. $sTplDir. 'js/default.js" type="text/javascript"></script>' ."\n";
+        $js_includes = $oTemplate->getJavascriptIncludes();
+        $sJsBlock = '';
+        foreach ($js_includes as $js_file) {
+            $sJsBlock .= '<script src="'.$js_file.'" type="text/javascript"></script>' ."\n";
+        }
         if ($sHeaderJs) {
             $sJsBlock .= "\n<script type=\"text/javascript\">" .
                         "\n<!--\n" .
@@ -248,7 +252,7 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
  */
 function compose_Header($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
 
-    global $reply_focus, $javascript_on, $action;
+    global $reply_focus, $javascript_on, $action, $oTemplate;
 
     if (empty($sBodyTagJs)) {
         if (strpos($action, 'reply') !== FALSE && $reply_focus) {
@@ -275,7 +279,14 @@ function compose_Header($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
         } else {
         $sJsBlock = '';
         }
-        $sJsBlock .= "\n" . '<script src="'. SM_PATH .'templates/default/js/default.js" type="text/javascript"></script>' ."\n";
+        $sJsBlock .= "\n";
+
+        $js_includes = $oTemplate->getJavascriptIncludes();
+        var_dump($js_includes);
+        foreach ($js_includes as $js_file) {
+            $sJsBlock .= '<script src="'.$js_file.'" type="text/javascript"></script>' ."\n";
+        }
+
         displayHtmlHeader (_("Compose"), $sJsBlock);
     } else {
         /* javascript off */

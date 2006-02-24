@@ -104,6 +104,9 @@ if (!defined('download_php')) {
 
 // user's icon theme, if using icons
 $icon_theme = getPref($data_dir, $username, 'icon_theme', 'images/themes/xp/' );
+if ($icon_theme == 'template') {
+    $icon_theme = $sTplDir . 'images/';
+}
 
 /*
  * NOTE: The $icon_theme_path var should contain the path to the icon 
