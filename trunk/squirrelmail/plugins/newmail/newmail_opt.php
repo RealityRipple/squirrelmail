@@ -17,8 +17,8 @@ define('SM_PATH','../../');
 
 /* SquirrelMail required files. */
 include_once(SM_PATH . 'include/validate.php');
-/* sqm_baseuri function */
-include_once(SM_PATH . 'functions/display_messages.php');
+/* form functions */
+include_once(SM_PATH . 'functions/forms.php');
 /** Plugin functions (also loads plugin's config) */
 include_once(SM_PATH . 'plugins/newmail/functions.php');
 
@@ -60,6 +60,17 @@ echo '</td></tr>' .
 
 echo '<form action="'.sqm_baseuri().'src/options.php" method="post" enctype="multipart/form-data">' . "\n" .
         html_tag( 'table', '', '', '', 'width="100%" cellpadding="5" cellspacing="0" border="0"' ) . "\n";
+
+/* newmail_unseen_notify */
+$newmail_unseen_opts = array( 0 => _("Follow folder preferences"),
+                              SMPREF_UNSEEN_INBOX => _("INBOX"),
+                              SMPREF_UNSEEN_ALL => _("All folders"),
+                              SMPREF_UNSEEN_SPECIAL => _("Special folders"),
+                              SMPREF_UNSEEN_NORMAL => _("Regular folders"));
+echo html_tag('tr',
+              html_tag('td',_("Check for new messages in:"),'right', '', 'style="white-space: nowrap;"').
+              html_tag('td',addSelect('newmail_unseen_notify',$newmail_unseen_opts,$newmail_unseen_notify,true),'left')
+              );
 
 // Option: media_recent
 echo html_tag( 'tr' ) .
