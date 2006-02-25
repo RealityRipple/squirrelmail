@@ -17,9 +17,9 @@
 if (! defined('SM_PATH')) define('SM_PATH','../../');
 
 /**
- * sqm_baseuri() function for setups that don't load it by default
+ * SMPREF_UNSEEN_* constants
  */
-include_once(SM_PATH . 'functions/display_messages.php');
+include_once(SM_PATH . 'functions/constants.php');
 
 /** file type defines */
 define('SM_NEWMAIL_FILETYPE_WAV',2);
@@ -93,6 +93,11 @@ function newmail_sav_function() {
         setPref($data_dir,$username,'newmail_popup_width',$popup_width);
         setPref($data_dir,$username,'newmail_popup_height',$popup_height);
 
+        if (sqgetGlobalVar('newmail_unseen_notify', $newmail_unseen_notify, SQ_POST)) {
+            $newmail_unseen_notify = (int) $newmail_unseen_notify;
+            setPref($data_dir,$username,'newmail_unseen_notify',$newmail_unseen_notify);
+        }
+
         if( sqgetGlobalVar('media_sel', $media_sel, SQ_POST) &&
             $media_sel == '(none)' ) {
             removePref($data_dir,$username,'newmail_media');
@@ -140,6 +145,7 @@ function newmail_pref_function() {
     global $newmail_recent, $newmail_changetitle;
     global $newmail_userfile_type, $newmail_userfile_name;
     global $newmail_popup_width, $newmail_popup_height;
+    global $newmail_unseen_notify;
 
     $newmail_recent = getPref($data_dir,$username,'newmail_recent');
     $newmail_media_enable = getPref($data_dir,$username,'newmail_enable');
@@ -155,6 +161,8 @@ function newmail_pref_function() {
 
     $newmail_userfile_type = getPref($data_dir, $username, 'newmail_userfile_type');
     $newmail_userfile_name = getPref($data_dir,$username,'newmail_userfile_name','');
+
+    $newmail_unseen_notify = getPref($data_dir,$username,'newmail_unseen_notify',0);
 }
 
 /**
@@ -173,24 +181,34 @@ function newmail_set_loadinfo_function() {
 /* Receive the status of the folder and do something with it */
 function newmail_folder_status($statusarr) {
     global $newmail_media_enable,$newmail_popup,$newmail_changetitle,$trash_folder,
-           $sent_folder,$totalNewArr,$unseen_notify, $newmail_recent;
+           $sent_folder,$totalNewArr, $newmail_unseen_notify, $unseen_notify, $newmail_recent;
 
-    //echo "GOT HOOK<br><pre>";
-    //var_dump($statusarr);
-    //echo "</pre><br>\n";
+    /* if $newmail_unseen_notify is set to zero, plugin follows $unseen_notify */
+    if ($newmail_unseen_notify == 0)
+        $newmail_unseen_notify = $unseen_notify;
 
     $mailbox=$statusarr['MAILBOX'];
 
-    if ($newmail_media_enable == 'on' ||
+    if (($newmail_media_enable == 'on' ||
         $newmail_popup == 'on' ||
-        $newmail_changetitle == 'on') {
+        $newmail_changetitle == 'on') &&
+        /**
+         * make sure that $newmail_unseen_notify is set to supported value, 
+         * currently (1.5.2cvs) SMPREF_UNSEEN_NORMAL has highest integer value 
+         * in SMPREF_UNSEEN constants
+         */
+        ($newmail_unseen_notify > SMPREF_UNSEEN_NONE && $newmail_unseen_notify <= SMPREF_UNSEEN_NORMAL)) {
 
         // Skip folders for Sent and Trash
+        // TODO: make this optional
         if ($statusarr['MAILBOX'] == $sent_folder || $statusarr['MAILBOX'] == $trash_folder) {
             return 0;
         }
 
-        if ((($mailbox == 'INBOX') && ($unseen_notify == 2)) || ($unseen_notify == 3)) {
+        if ((($mailbox == 'INBOX') && ($newmail_unseen_notify == SMPREF_UNSEEN_INBOX)) ||
+            ($newmail_unseen_notify == SMPREF_UNSEEN_SPECIAL && isSpecialMailbox($mailbox)) ||
+            ($newmail_unseen_notify == SMPREF_UNSEEN_NORMAL && ! isSpecialMailbox($mailbox)) ||
+            ($newmail_unseen_notify == SMPREF_UNSEEN_ALL)) {
             if (($newmail_recent == 'on') && (!empty($statusarr['RECENT']))) {
                 $totalNewArr[$mailbox] = $statusarr['RECENT'];
             } elseif ($newmail_recent != 'on' && !empty($statusarr['UNSEEN'])) {
