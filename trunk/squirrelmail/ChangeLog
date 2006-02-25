@@ -8,6 +8,7 @@ Version 1.5.2 - CVS
     fontset is defined.
   - Added "bad plugin" blacklist in configtest.php.
   - Fix MagicHTML fix with respect to parsing of u\rl in IE.
+  - Added monitored folders option to newmail plugin.
 	
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
