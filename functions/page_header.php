@@ -282,7 +282,6 @@ function compose_Header($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
         $sJsBlock .= "\n";
 
         $js_includes = $oTemplate->getJavascriptIncludes();
-        var_dump($js_includes);
         foreach ($js_includes as $js_file) {
             $sJsBlock .= '<script src="'.$js_file.'" type="text/javascript"></script>' ."\n";
         }
