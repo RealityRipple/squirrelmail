@@ -9,6 +9,9 @@ Version 1.5.2 - CVS
   - Added "bad plugin" blacklist in configtest.php.
   - Fix MagicHTML fix with respect to parsing of u\rl in IE.
   - Added monitored folders option to newmail plugin.
+  - Tweaked STARTTLS option for SMTP/IMAP to allow previous settings of just
+    pure TLS not to be used to assume STARTTLS.
+  
 	
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

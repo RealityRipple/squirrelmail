@@ -152,7 +152,7 @@ class Deliver_SMTP extends Deliver {
          * Implementing SMTP STARTTLS (rfc2487) in php 5.1.0+
          * http://www.php.net/stream-socket-enable-crypto
          */
-        if ($use_smtp_tls == 2) {
+        if ($use_smtp_tls === 2) {
             if (function_exists('stream_socket_enable_crypto')) {
                 // don't try starting tls, when client thinks that it is already active
                 if ($this->tls_enabled) {

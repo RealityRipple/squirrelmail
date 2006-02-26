@@ -673,7 +673,7 @@ function sqimap_create_stream($server,$port,$tls=0) {
      * Implementing IMAP STARTTLS (rfc2595) in php 5.1.0+
      * http://www.php.net/stream-socket-enable-crypto
      */
-    if ($tls == 2) {
+    if ($tls === 2) {
         if (function_exists('stream_socket_enable_crypto')) {
             // check starttls capability, don't use cached capability version
             if (! sqimap_capability($imap_stream, 'STARTTLS', false)) {
