@@ -321,7 +321,7 @@ foreach ( $newcfg as $k => $v ) {
     } else if ( substr( $k, 0, 13 ) == '$ldap_server[' ) {
         $type = SMOPT_TYPE_LDAP;
     } else if ( substr( $k, 0, 9 ) == '$fontsets' ||
-	substr( $k, 0, 13 ) == '$aTemplateSet' ) {
+                substr( $k, 0, 13 ) == '$aTemplateSet' ) {
         $type = SMOPT_TYPE_CUSTOM;
     }
 
@@ -416,11 +416,13 @@ foreach ( $newcfg as $k => $v ) {
 
         case SMOPT_TYPE_TEXTAREA:
             if (  sqgetGlobalVar($e, $new_v, SQ_POST) ) {
-                $v = '"' . $new_v . '"';
+                $v = '"' . addslashes($new_v) . '"';
                 $newcfg[$k] = str_replace( "\n", '', $v );
             }
-            echo "<tr><td valign=\"top\">$name</td><td>".
-                 "<textarea cols=\"$size\" rows=\"4\" name=\"adm_$n\">" . substr( $v, 1, strlen( $v ) - 2 ) . "</textarea>";
+            echo "<tr><td valign=\"top\">$name</td><td>"
+                ."<textarea cols=\"$size\" rows=\"4\" name=\"adm_$n\">" 
+                .htmlspecialchars(stripslashes(substr( $v, 1, strlen( $v ) - 2 )))
+                ."</textarea>";
             if ( isset( $defcfg[$k]['comment'] ) ) {
                 echo ' &nbsp; ' . $defcfg[$k]['comment'];
             }
@@ -428,15 +430,17 @@ foreach ( $newcfg as $k => $v ) {
             break;
         case SMOPT_TYPE_STRING:
             if (  sqgetGlobalVar($e, $new_v, SQ_POST) ) {
-                $v = '"' . $new_v . '"';
+                $v = '"' . addslashes($new_v) . '"';
                 $newcfg[$k] = $v;
             }
             if ( $v == '""' && isset( $defcfg[$k]['default'] ) ) {
                 $v = "'" . $defcfg[$k]['default'] . "'";
                 $newcfg[$k] = $v;
             }
-            echo "<tr><td>$name</td><td>".
-                 "<input size=\"$size\" name=\"adm_$n\" value=\"" . substr( $v, 1, strlen( $v ) - 2 ) . '" />';
+            echo "<tr><td>$name</td><td>"
+                ."<input size=\"$size\" name=\"adm_$n\" value=\""
+                .htmlspecialchars(stripslashes(substr( $v, 1, strlen( $v ) - 2 )))
+                .'" />';
             if ( isset( $defcfg[$k]['comment'] ) ) {
                 echo ' &nbsp; ' . $defcfg[$k]['comment'];
             }
@@ -645,5 +649,6 @@ if ( $fp = @fopen( $cfgfile, 'w' ) ) {
          _("Config file can't be opened. Please check config.php.").
          '</big></p>';
 }
+
 ?>
 </body></html>
