@@ -279,7 +279,7 @@ if($use_smtp_tls == 1 || $use_imap_tls == 1) {
     }
 }
 /* starttls extensions */
-if($use_smtp_tls == 2 || $use_imap_tls == 2) {
+if($use_smtp_tls === 2 || $use_imap_tls === 2) {
     if (! function_exists('stream_socket_enable_crypto')) {
         do_err('If you want to use STARTTLS extension, you need stream_socket_enable_crypto() function from PHP 5.1.0 and newer.');
     }
@@ -321,7 +321,7 @@ if($useSendmail) {
     }
 
     /* smtp starttls checks */
-    if ($use_smtp_tls==2) {
+    if ($use_smtp_tls===2) {
         // if something breaks, script should close smtp connection on exit.
 
         // say helo
@@ -430,9 +430,9 @@ while ($line=fgets($stream, 1024)){
 }
 
 /* don't display capabilities before STARTTLS */
-if ($use_imap_tls==2 && stristr($capline, 'STARTTLS') === false) {
+if ($use_imap_tls===2 && stristr($capline, 'STARTTLS') === false) {
     do_err('Your server doesn\'t support STARTTLS.');
-} elseif($use_imap_tls==2) {
+} elseif($use_imap_tls===2) {
     /* try starting starttls */
     fwrite($stream,"A002 STARTTLS\r\n");
     $starttls_line=fgets($stream, 1024);
