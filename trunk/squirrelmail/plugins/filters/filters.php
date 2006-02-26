@@ -41,28 +41,6 @@ if (file_exists(SM_PATH . 'config/filters_config.php')) {
 }
 
 /**
- * Init Hooks
- * @access private
- */
-function filters_init_hooks () {
-    global $squirrelmail_plugin_hooks;
-
-    if (! sqgetGlobalVar('mailbox',$mailbox,SQ_FORM)) {
-        $mailbox = 'INBOX';
-    }
-
-    $squirrelmail_plugin_hooks['left_main_before']['filters'] = 'start_filters_hook';
-    if (isset($mailbox) && $mailbox == 'INBOX') {
-        $squirrelmail_plugin_hooks['right_main_after_header']['filters'] = 'start_filters_hook';
-    }
-    $squirrelmail_plugin_hooks['optpage_register_block']['filters'] = 'filters_optpage_register_block_hook';
-    $squirrelmail_plugin_hooks['special_mailbox']['filters'] = 'filters_special_mailbox';
-    $squirrelmail_plugin_hooks['rename_or_delete_folder']['filters'] = 'update_for_folder_hook';
-    $squirrelmail_plugin_hooks['webmail_bottom']['filters'] = 'start_filters_hook';
-    $squirrelmail_plugin_hooks['folder_status']['filters'] = 'filters_folder_status';
-}
-
-/**
  * Register option blocks
  * @access private
  */
@@ -200,14 +178,24 @@ function filters_bulkquery($filters, $IPs) {
 
 /**
  * Starts the filtering process
+ * @param array $hook_args do hook arguments. Is used to check hook name, array key = 0.
  * @access private
  */
-function start_filters() {
+function start_filters($hook_args) {
     global $imapServerAddress, $imapPort, $imap_stream, $imapConnection,
            $UseSeparateImapConnection, $AllowSpamFilters, $filter_inbox_count;
 
     sqgetGlobalVar('username', $username, SQ_SESSION);
     sqgetGlobalVar('key',      $key,      SQ_COOKIE);
+
+    /**
+     * check hook that calls filtering. If filters are called by right_main_after_header, 
+     * do filtering only when we are in INBOX folder.
+     */
+    if ($hook_args[0]=='right_main_after_header' &&
+        (sqgetGlobalVar('mailbox',$mailbox,SQ_FORM) && $mailbox!='INBOX')) {
+        return;
+    }
 
     $filters = load_filters();
 
