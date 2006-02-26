@@ -70,10 +70,6 @@ function filters_folder_status($statusarr) {
 	global $filter_inbox_count;
 	if (empty($filter_inbox_count)) $filter_inbox_count=0;
 
-    //echo "GOT HOOK<br><pre>";
-    //var_dump($statusarr);
-    //echo "</pre><br>\n";
-
 	if ($statusarr['MAILBOX'] == 'INBOX')
     {
      if (!empty($statusarr['MESSAGES'])) $filter_inbox_count=$statusarr['MESSAGES'];
@@ -178,7 +174,8 @@ function filters_bulkquery($filters, $IPs) {
 
 /**
  * Starts the filtering process
- * @param array $hook_args do hook arguments. Is used to check hook name, array key = 0.
+ * @param array $hook_args (since 1.5.2) do hook arguments. Is used to check 
+ * hook name, array key = 0.
  * @access private
  */
 function start_filters($hook_args) {
