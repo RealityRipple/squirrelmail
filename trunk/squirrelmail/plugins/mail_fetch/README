@@ -91,7 +91,7 @@ Go back to the main directory, run configure and add the plugin.
 Some plugin settings can be adjusted in config/mail_fetch_config.php or
 plugins/mail_fetch/config.php files. 
 
-See plugins/mail_fetch/config_sample.php
+See plugins/mail_fetch/config_default.php
 
 
 Note for mod_gzip users
