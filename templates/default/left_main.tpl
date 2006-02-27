@@ -273,8 +273,8 @@ extract($t);
    </table>
    <br />
    <?php echo buildMailboxTree($mailboxes, $settings); ?>
-  </tr>
- </td>
-</table>   
+  </td>
+ </tr>
+</table>
 <?php do_hook('left_main_after'); ?>
 </div>
