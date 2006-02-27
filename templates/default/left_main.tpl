@@ -103,7 +103,7 @@ function buildMailboxTree ($box, $settings, $indent_factor=0) {
                             $box['CummulativeUnreadCount'] :
                             $box['UnreadCount'];
             
-            if ($unseen > 0) {
+            if ($unseen > 0 || $settings['unreadNotificationDisplayTotal']) {
                 $unseen_str = $unseen;
     
                 // Add the total messages if desired
