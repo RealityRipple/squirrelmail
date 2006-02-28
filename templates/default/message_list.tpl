@@ -260,16 +260,19 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
             if ($sort == $aSortSupported[$iCol][0]) {
                 $newsort = $aSortSupported[$iCol][1];
                 $img = 'up_pointer.png';
+                $text_icon = '&#8657';
             } else if ($sort == $aSortSupported[$iCol][1]) {
                 $newsort = 0;
                 $img = 'down_pointer.png';
+                $text_icon = '&#8659';
             } else {
                 $newsort = $aSortSupported[$iCol][0];
                 $img = 'sort_none.png';
+                $text_icon = '[&nbsp;]';
             }
             /* Now that we have everything figured out, show the actual button. */
             echo " <a href=\"$baseurl&amp;startMessage=1&amp;srt=$newsort\">" .
-                 getIcon($icon_theme_path, $img, '&nbsp;', _("Click here to change the sorting of the message list")) . "\n" .
+                 getIcon($icon_theme_path, $img, $text_icon, _("Click here to change the sorting of the message list")) . "\n" .
                  '</a>';
         }
 ?>
