@@ -12,6 +12,7 @@ Version 1.5.2 - CVS
   - Tweaked STARTTLS option for SMTP/IMAP to allow previous settings of just
     pure TLS not to be used to assume STARTTLS.
   - Fixed quotes in configuration strings in administrator plugin.
+  - Fixed View as HTML link so it doesn't forget it was part of a seach result.
   
 	
 Version 1.5.1 (branched on 2006-02-12)

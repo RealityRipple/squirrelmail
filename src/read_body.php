@@ -141,7 +141,7 @@ function view_as_html_link($mailbox, $passed_id, $passed_ent_id, $message) {
         }
     }
     if($has_html == true) {
-        $vars = array('passed_ent_id', 'show_more', 'show_more_cc', 'override_type0', 'override_type1', 'startMessage');
+        $vars = array('passed_ent_id', 'show_more', 'show_more_cc', 'override_type0', 'override_type1', 'startMessage', 'where', 'what');
 
         $new_link = $base_uri . 'src/read_body.php?passed_id=' . urlencode($passed_id) .
                     '&amp;passed_ent_id=' . urlencode($passed_ent_id) .
