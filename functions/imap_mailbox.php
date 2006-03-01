@@ -401,11 +401,13 @@ function sqimap_mailbox_select ($imap_stream, $mailbox) {
 function sqimap_mailbox_create ($imap_stream, $mailbox, $type) {
     global $delimiter;
     if (strtolower($type) == 'noselect') {
-        $mailbox .= $delimiter;
+        $create_mailbox = $mailbox . $delimiter;
+    } else {
+        $create_mailbox = $mailbox;
     }
 
     $read_ary = sqimap_run_command($imap_stream, 'CREATE ' .
-                                   sqimap_encode_mailbox_name($mailbox),
+                                   sqimap_encode_mailbox_name($create_mailbox),
                                    true, $response, $message);
     sqimap_subscribe ($imap_stream, $mailbox);
 }
