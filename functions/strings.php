@@ -497,7 +497,7 @@ function sqm_baseuri(){
     /**
      * If it is in the session, just return it.
      */
-    if (isset($base_uri)){
+    if (sqgetGlobalVar('base_uri',$base_uri,SQ_SESSION)){
         return $base_uri;
     }
     $dirs = array('|src/.*|', '|plugins/.*|', '|functions/.*|');
