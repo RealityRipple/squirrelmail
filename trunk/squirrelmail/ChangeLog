@@ -15,6 +15,9 @@ Version 1.5.2 - CVS
   - Fixed View as HTML link so it doesn't forget it was part of a seach result.
   - Don't use delimiter in IMAP subscription command, when noselect folder is
     created.
+  - Security: Possible cookie theft in src/redirect.php if 
+    register_globals is enabled, and malicous site is running
+    in same domain.
   
 	
 Version 1.5.1 (branched on 2006-02-12)
