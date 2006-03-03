@@ -188,7 +188,7 @@ function buildMailboxTree ($box, $settings, $indent_factor=0) {
         $end .= '</a>';
 
         // Print unread info
-        if ($box['UnreadCount'] > 0) {
+        if ($box['MessageCount'] > 0) {
             if (!empty($unseen_str)) {
                 $end .= '&nbsp;<small>('.$unseen_str.')</small>';
             }
