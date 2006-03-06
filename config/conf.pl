@@ -4171,6 +4171,9 @@ sub set_defaults {
             $disp_default_folder_prefix     = "<none>";
             $force_username_lowercase       = false;
 
+            # Delimiter might differ if unixhierarchysep is set to yes.
+            $message = "\nIf you have enabled unixhierarchysep, you must change delimiter and special folder names.\n";
+
             $continue = 1;
         } elsif ( $server eq "uw" ) {
             $imap_server_type               = "uw";
