@@ -122,7 +122,7 @@ function buildMailboxTree ($box, $settings, $parent_node=-1) {
                                 $box['CummulativeUnreadCount'] :
                                 $box['UnreadCount'];
                 
-                if ($unseen > 0) {
+                if (!$box['IsNoSelect'] && ($unseen > 0 || $settings['unreadNotificationDisplayTotal'])) {
                     $unseen_str = $unseen;
         
                     // Add the total messages if desired
