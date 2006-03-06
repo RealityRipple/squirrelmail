@@ -147,21 +147,21 @@ function buildMailboxTree ($box, $settings, $parent_node=-1) {
         $img_open = '';
         switch (true) {
             case $box['IsInbox']:
-                $img = $image_path . 'base.gif';
-                $img_open = $image_path . 'base.gif';
+                $img = $image_path . 'base.png';
+                $img_open = $image_path . 'base.png';
                 break; 
             case $box['IsTrash']:
-                $img = $image_path . 'trash.gif';
-                $img_open = $image_path . 'trash.gif';
+                $img = $image_path . 'trash.png';
+                $img_open = $image_path . 'trash.png';
                 break;
             case $box['IsNoSelect']: 
             case $box['IsNoInferiors']:
-                $img = $image_path . 'page.gif';
-                $img_open = $image_path . 'page.gif';
+                $img = $image_path . 'page.png';
+                $img_open = $image_path . 'page.png';
                 break;
             default:
-                $img = $image_path . 'folder.gif';
-                $img_open = $image_path . 'folderopen.gif'; 
+                $img = $image_path . 'folder.png';
+                $img_open = $image_path . 'folderopen.png'; 
                 break;
         }
         
