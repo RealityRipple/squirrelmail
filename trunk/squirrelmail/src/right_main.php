@@ -288,7 +288,8 @@ if (isset($mail_sent) && $mail_sent == 'yes') {
     $note = _("Your Message has been sent.");
 }
 if (isset($note)) {
-    echo html_tag( 'div', '<b>' . htmlspecialchars($note) .'</b>', 'center' ) . "<br />\n";
+    $oTemplate->assign('note', htmlspecialchars($note));
+    $oTemplate->display('note.tpl');
 }
 
 if ( sqgetGlobalVar('just_logged_in', $just_logged_in, SQ_SESSION) ) {
@@ -296,18 +297,10 @@ if ( sqgetGlobalVar('just_logged_in', $just_logged_in, SQ_SESSION) ) {
         $just_logged_in = false;
         sqsession_register($just_logged_in, 'just_logged_in');
 
-        if (strlen(trim($motd)) > 0) {
-            echo html_tag( 'table',
-                        html_tag( 'tr',
-                            html_tag( 'td',
-                                html_tag( 'table',
-                                    html_tag( 'tr',
-                                        html_tag( 'td', $motd, 'center' )
-                                    ) ,
-                                '', $color[4], 'width="100%" cellpadding="5" cellspacing="1" border="0"' )
-                             )
-                        ) ,
-                    'center', $color[9], 'width="70%" cellpadding="0" cellspacing="3" border="0"' );
+        $motd = trim($motd);
+        if (strlen($motd) > 0) {
+            $oTemplate->assign('motd', $motd);
+            $oTemplate->display('motd.tpl');
         }
     }
 }
@@ -340,18 +333,7 @@ if ($aMailbox['EXISTS'] > 0) {
     $oTemplate->display('message_list.tpl');
 
 } else {
-    $string = '<b>' . _("THIS FOLDER IS EMPTY") . '</b>';
-    echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[9].'">';
-    echo '     <tr><td>';
-    echo '       <table width="100%" cellpadding="0" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
-    echo '        <tr><td><br />';
-    echo '            <table cellpadding="1" cellspacing="5" align="center" border="0">';
-    echo '              <tr>' . html_tag( 'td', $string."\n", 'left')
-                        . '</tr>';
-    echo '            </table>';
-    echo '        <br /></td></tr>';
-    echo '       </table></td></tr>';
-    echo '    </table>';
+    $oTemplate->display('empty_folder.tpl');
 }
 
 do_hook('right_main_bottom');

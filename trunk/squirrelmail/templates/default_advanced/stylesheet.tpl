@@ -286,6 +286,58 @@ img   {
     text-align:center;
 }
 
+/* note.tpl defs */
+.sqm_noteWrapper {
+    text-align:center;
+    width:100%;
+}
+.sqm_note {
+    margin-left:auto;
+    margin-right:auto;
+    font-weight:bold;
+    text-align:center;
+}
+
+/* motd.tpl defs */
+.sqm_motdWrapper {
+    text-align:center;
+    width:100%;
+    margin:1px;
+}
+.sqm_motd {
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+    background: <?php echo $color[9]; ?>;
+    width:70%;
+    padding:0;
+}
+.sqm_motd td {
+    text-align:center;
+    background: <?php echo $color[4]; ?>;
+    padding:5px;
+}
+
+/* empty_folder.tpl defs */
+.sqm_emptyFolderWrapper {
+    text-align:center;
+    width:100%;
+}
+.sqm_emptyFolder {
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+    background: <?php echo $color[9]; ?>;
+    padding:1;
+    width:100%;
+}
+.sqm_emptyFolder td {
+    text-align:center;
+    background: <?php echo $color[4]; ?>;
+    padding-top:15px;
+    padding-bottom:15px;
+}
+
 /* page_header.tpl definitions */
 .sqm_currentFolder	{
     background: <?php echo $color[9]; ?>;
