@@ -16,6 +16,7 @@
  * this file, e.g. the template root directory.
  */
 $templates_provided = array (
+                                'empty_folder.tpl',
                                 'error_message.tpl',
                                 'footer.tpl',
                                 'left_main.tpl',
@@ -23,6 +24,8 @@ $templates_provided = array (
                                 'message_list.tpl',
                                 'page_header.tpl',
                                 'paginator.tpl',
+                                'note.tpl',
+                                'motd.tpl',
                                 'stylesheet.tpl'
                             );
 
