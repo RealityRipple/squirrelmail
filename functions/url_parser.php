@@ -173,6 +173,11 @@ function parseUrl (&$body) {
                 }
             }
 
+            /* make sure that there are no 8bit chars between $target_pos and suspected end of URL */
+            if (!is_bool($first8bit=sq_strpos_8bit($body,$target_pos,$end))) {
+                $end = $first8bit;
+            } 
+
             /* Extract URL */
             $url = substr($body, $target_pos, $end-$target_pos);
 
@@ -222,4 +227,54 @@ function getEmail($string) {
     return (array_key_exists(0, $addresses) ? $addresses[0] : '');
 }
 
+/**
+ * Finds first occurrence of 8bit data in the string
+ *
+ * Function finds first 8bit symbol or html entity that represents 8bit character.
+ * Search start is defined by $offset argument. Search ends at $maxlength position.
+ * If $maxlength is not defined or bigger than provided string, search ends when 
+ * string ends.
+ *
+ * Check returned data type in order to avoid confusion between bool(false) 
+ * (not found) and int(0) (first char in the string).
+ * @param string $haystack
+ * @param integer $offset
+ * @param integer $maxlength
+ * @return mixed integer with first 8bit character position or boolean false 
+ * @since 1.5.2
+ */
+function sq_strpos_8bit($haystack,$offset=0,$maxlength=false) {
+    $ret = false;
+
+    if ($maxlength===false || strlen($haystack) < $maxlength) {
+        $maxlength=strlen($haystack);
+    }
+
+    for($i=$offset;$i<$maxlength;$i++) {
+        /* rh7-8 compatibility. don't use full 8bit range in regexp */
+        if (preg_match('/[\200-\237]|\240|[\241-\377]/',$haystack[$i])) {
+            /* we have 8bit char. stop here and return position */
+            $ret = $i;
+            break;
+        } elseif ($haystack[$i]=='&') {
+            $substring = substr($haystack,$i);
+            /**
+             * 1. look for "&#(decimal number);" where decimal_number is bigger than 127
+             * 2. look for "&x(hexadecimal number);", where hex number is bigger than x7f
+             * 3. look for any html character entity that is not 7bit html special char. Use 
+             * own sq_get_html_translation_table() function with 'utf-8' character set in 
+             * order to get all html entities.
+             */
+            if ((preg_match('/^&#(\d+);/',$substring,$match) && $match[1]>127) ||
+                (preg_match('/^&x([0-9a-f]+);/i',$substring,$match) && $match[1]>"\x7f") ||
+                (preg_match('/^&([a-z]+);/i',$substring,$match) && 
+                 !in_array($match[0],get_html_translation_table(HTML_SPECIALCHARS)) && 
+                 in_array($match[0],sq_get_html_translation_table(HTML_ENTITIES,ENT_COMPAT,'utf-8')))) {
+                $ret = $i;
+                break;
+            }
+        }
+    }
+    return $ret;
+}
 ?>
