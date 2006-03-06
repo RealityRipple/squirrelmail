@@ -18,6 +18,10 @@ Version 1.5.2 - CVS
   - Security: Possible cookie theft in src/redirect.php if 
     register_globals is enabled, and malicous site is running
     in same domain.
+  - Stop URL parsing, if 8bit symbols or HTML entities are detected (#1356798).
+  - Added new color themes by Jeremy Landes, Tammi Maggard and Lucas Austin-Howe 
+    (#1378332), (#1377567), (#1377529), (#1377528), (#1377527), (#1377526), 
+    (#1377525), (#1393188).
   
 	
 Version 1.5.1 (branched on 2006-02-12)
