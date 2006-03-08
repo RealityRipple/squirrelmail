@@ -77,7 +77,7 @@
  * @author Steve Brown
  */
 
-// include required files
+/** include required files */
 include_once(SM_PATH . 'templates/util_global.php');
 
 /*
