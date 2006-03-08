@@ -176,10 +176,10 @@ class SquirrelOption {
         $this->post_script = '';
 
         /* Check for a current value. */
-        if (!empty($initial_value)) {
-            $this->value = $initial_value;
-        } else if (isset($GLOBALS[$name])) {
+        if (isset($GLOBALS[$name])) {
             $this->value = $GLOBALS[$name];
+        } else if (!empty($initial_value)) {
+            $this->value = $initial_value;
         } else {
             $this->value = '';
         }

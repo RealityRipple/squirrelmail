@@ -22,7 +22,8 @@ Version 1.5.2 - CVS
   - Added new color themes by Jeremy Landes, Tammi Maggard and Lucas Austin-Howe 
     (#1378332), (#1377567), (#1377529), (#1377528), (#1377527), (#1377526), 
     (#1377525), (#1393188).
-  
+  - Issue loading options page always loaded the prefs 
+    initial_value on display, instead of the users' value.
 	
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
