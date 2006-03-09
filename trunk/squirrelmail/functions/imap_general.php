@@ -392,6 +392,12 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
     $aResponse = '';
     $resultlist = array();
     $data = array();
+    $sCommand = '';
+    if (preg_match("/^(\w+)\s*/",$query,$aMatch)) {
+        $sCommand = strtoupper($aMatch[1]);
+    } else {
+        // error reporting (shouldn't happen)
+    }
     $read = sqimap_fgets($imap_stream);
     $i = 0;
     while ($read) {
@@ -455,7 +461,7 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
 
           case '*':
           {
-            if (preg_match('/^\*\s\d+\sFETCH/',$read)) {
+            if ($sCommand == "FETCH" && preg_match('/^\*\s\d+\sFETCH/',$read)) {
                 /* check for literal */
                 $s = substr($read,-3);
                 $fetch_data = array();
