@@ -117,7 +117,7 @@ b. Setting up directories
   running as the user "nobody" and group "nobody" you can fix this by
   running:
 
-    $ chown -R nobody:nobody /path/to/your/datadir
+    $ chown -R nobody:nobody /var/local/squirrelmail/data
 
   Keep in mind that with different installations, the web server could
   typically run as userid/groupid of nobody/nobody, nobody/nogroup,
@@ -128,17 +128,17 @@ b. Setting up directories
   before they are sent. Since personal mail is stored in this
   directory you might want to be a bit careful about how you set it
   up. It should be owned by another user than the webserver is running
-  as (root might be a good choice) and the webserver should have write
-  and execute permissions on the directory, but should not have read
+  as (root might be a good choice) and the webserver should have directory
+  write and execute permissions, but should not have read
   permissions. You could do this by running these commands (still
-  granted that the webserver is running as nobody/nobody)
+  granted that the webserver is running as nobody/nobody):
 
-    $ cd /var/some/place
-    $ mkdir SomeDirectory
-    $ chgrp -R nobody SomeDirectory
-    $ chmod 730 SomeDirectory
+    $ cd /var/local/squirrelmail/
+    $ mkdir attach
+    $ chgrp -R nobody attach
+    $ chmod 730 attach
 
-  If you trust all the users on you system not to read mail they are
+  If you trust all the users at your system not to read mail they are
   not supposed to read, you can simply use /tmp as you attachments
   directory.
 
@@ -182,7 +182,7 @@ c. Setting up SquirrelMail
 
   After you've created a configuration, you can use your webbrowser to
   browse to http://your-squirrelmail-location/src/configtest.php.
-  This will perform some basic checks on your config to make sure
+  This will perform some basic checks on your configuration to make sure
   everything works like it should.
 
 
@@ -243,7 +243,7 @@ c. Setting up SquirrelMail
     configuration files are optional. See README files in plugin directories.
   * squirrelspell
     configuration is stored in plugins/squirrelspell/sqspell_config.php
-    Default configuration might not work on your server.
+    The default configuration might not work at your server.
   * administrator
     plugin must be setup correctly in order to detect administrative user.
     See plugins/administrator/INSTALL
