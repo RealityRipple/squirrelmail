@@ -790,6 +790,30 @@ $theme[42]['NAME'] = 'Simple Green 2';
 $theme[43]['PATH'] = SM_PATH . 'themes/simple_purple.php';
 $theme[43]['NAME'] = 'Simple Purple';
 
+$theme[44]['PATH'] = SM_PATH . 'themes/autumn.php';
+$theme[44]['NAME'] = 'Autumn';
+
+$theme[45]['PATH'] = SM_PATH . 'themes/autumn2.php';
+$theme[45]['NAME'] = 'Autumn 2';
+
+$theme[46]['PATH'] = SM_PATH . 'themes/blue_on_blue.php';
+$theme[46]['NAME'] = 'Blue on Blue';
+
+$theme[47]['PATH'] = SM_PATH . 'themes/classic_blue.php';
+$theme[47]['NAME'] = 'Classic Blue';
+
+$theme[48]['PATH'] = SM_PATH . 'themes/classic_blue2.php';
+$theme[48]['NAME'] = 'Classic Blue 2';
+
+$theme[49]['PATH'] = SM_PATH . 'themes/powder_blue.php';
+$theme[49]['NAME'] = 'Powder Blue';
+
+$theme[50]['PATH'] = SM_PATH . 'themes/techno_blue.php';
+$theme[50]['NAME'] = 'Techno Blue';
+
+$theme[51]['PATH'] = SM_PATH . 'themes/turquoise.php';
+$theme[51]['NAME'] = 'Turquoise';
+
 /**
  * Templates
  *   You can define your own template and put it in this directory.
