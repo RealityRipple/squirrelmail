@@ -386,6 +386,8 @@ but may be out of date soon thereafter.  You never know.  ;-)
   search_after_form              src/search.php                  do_hook
   search_bottom                  src/search.php                  do_hook
   logout                         src/signout.php                 do_hook
+  message_body (since 1.5.2)     src/view_html.php               do_hook
+  message_body (since 1.5.2)     src/view_text.php               do_hook
   webmail_top                    src/webmail.php                 do_hook
   webmail_bottom                 src/webmail.php                 concat_hook
   logout_above_text              src/signout.php                 concat_hook

@@ -61,6 +61,8 @@ $dwnld_url = '../src/download.php?' . $QUERY_STRING . '&amp;absolute_dl=true';
 
 $body = mime_fetch_body($imapConnection, $passed_id, $ent_id);
 $body = decodeBody($body, $encoding);
+$hookResults = do_hook('message_body', $body);
+$body = $hookResults[1];
 
 if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
     function_exists($languages[$squirrelmail_language]['XTRA_CODE'].'_decode')) {
