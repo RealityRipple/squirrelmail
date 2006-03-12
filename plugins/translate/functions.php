@@ -466,7 +466,7 @@ function translate_form_babelfish($message) {
     <input type="hidden" name="doit" value="done" />
     <input type="hidden" name="intl" value="1" />
     <input type="hidden" name="tt" value="urltext" />
-    <input type="hidden" name="trtext" value="<?php echo $message; ?>" />
+    <input type="hidden" name="trtext" value="<?php echo htmlspecialchars($message); ?>" />
     <select name="lp"><?php
         echo translate_lang_opt('zh_CN',  '',     'zh_en',
                             sprintf( _("%s to %s"),_("Chinese, Simplified"),_("English"))) .
