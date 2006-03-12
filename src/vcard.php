@@ -188,7 +188,7 @@ if (isset($vcard_nice['org'])) {
     $opts[$vcard_nice['org']] = _("Organization / Department");
 }
 if (isset($vcard_nice['title'])) {
-    $opts[$vcard_nice['title'].'; '.$vcard_nice['org']] = _("Title & Org. / Dept.");
+    $opts[$vcard_nice['title'].'; '.$vcard_nice['org']] = _("Title &amp; Org. / Dept.");
 }
 if (isset($vcard_nice['tel;work'])) {
     $opts[$vcard_nice['tel;work']] = _("Work Phone");
