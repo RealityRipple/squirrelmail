@@ -1275,8 +1275,8 @@ function showInputForm ($session, $values=false) {
         }
 
         if(count($sizes) > 0) {
-            $maxsize = '(max.&nbsp;' . show_readable_size( min( $sizes ) ) . ')';
-            echo addHidden('MAX_FILE_SIZE', min( $sizes ));
+            $maxsize = '(max.&nbsp;' . show_readable_size( min( $sizes ) ) . ')'
+              . addHidden('MAX_FILE_SIZE', min( $sizes ));
         } else {
             $maxsize = '';
         }
