@@ -24,6 +24,9 @@ Version 1.5.2 - CVS
     (#1377525), (#1393188).
   - Issue loading options page always loaded the prefs 
     initial_value on display, instead of the users' value.
+  - Adding the message_body hook to src/view_html.php and src/view_text.php,
+    allowing display of unsafe images when viewing HTML attachments and when
+    HTML is in an <iframe>.
 	
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
