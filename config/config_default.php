@@ -1091,15 +1091,6 @@ $time_zone_type = 0;
 
 /*** Tweaks ***/
 /**
- * Advanced DHTML tree control
- *
- * Use experimental DHTML folder listing
- * @global bool $advanced_tree
- * @since 1.5.0
- */
-$advanced_tree = false;
-
-/**
  * Iframe sandbox code control
  *
  * Use iframe to render html emails

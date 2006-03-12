@@ -366,7 +366,8 @@ $show_alternative_names = 'false'       if ( !$show_alternative_names );
 # implementation changes. options are provided by limit_languages plugin
 # $available_languages = 'all'            if ( !$available_languages );
 $aggressive_decoding = 'false'          if ( !$aggressive_decoding );
-$advanced_tree = 'false'                if ( !$advanced_tree );
+# available only in 1.5.0 and 1.5.1
+# $advanced_tree = 'false'                if ( !$advanced_tree );
 $use_php_recode = 'false'               if ( !$use_php_recode );
 $use_php_iconv = 'false'                if ( !$use_php_iconv );
 
@@ -687,16 +688,15 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 11 ) {
     print $WHT. "Interface tweaks\n" . $NRM;
-    print "1.  Advanced tree                : $WHT$advanced_tree$NRM\n";
-    print "2.  Display html mails in iframe : $WHT$use_iframe$NRM\n";
-    print "3.  Use Icons                    : $WHT$use_icons$NRM\n";
+    print "1.  Display html mails in iframe : $WHT$use_iframe$NRM\n";
+    print "2.  Use Icons                    : $WHT$use_icons$NRM\n";
     print "\n";
     print $WHT. "PHP tweaks\n" . $NRM;
-    print "4.  Use php recode functions     : $WHT$use_php_recode$NRM\n";
-    print "5.  Use php iconv functions      : $WHT$use_php_iconv$NRM\n";
+    print "3.  Use php recode functions     : $WHT$use_php_recode$NRM\n";
+    print "4.  Use php iconv functions      : $WHT$use_php_iconv$NRM\n";
     print "\n";
     print $WHT. "Configuration tweaks\n" . $NRM;
-    print "6.  Allow remote configtest     : $WHT$allow_remote_configtest$NRM\n";
+    print "5.  Allow remote configtest     : $WHT$allow_remote_configtest$NRM\n";
     print "\n";
         print "R   Return to Main Menu\n";
     }
@@ -856,12 +856,11 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 4 ) { $aggressive_decoding           = commandA4(); }
             elsif ( $command == 5 ) { $lossy_encoding                = commandA5(); }
         } elsif ( $menu == 11 ) {
-            if    ( $command == 1 ) { $advanced_tree  = commandB1(); }
-            if    ( $command == 2 ) { $use_iframe     = commandB2(); }
-            elsif ( $command == 3 ) { $use_icons      = commandB3(); }
-            elsif ( $command == 4 ) { $use_php_recode = commandB4(); }
-            elsif ( $command == 5 ) { $use_php_iconv  = commandB5(); }
-            elsif ( $command == 6 ) { $allow_remote_configtest = commandB6(); }
+            if    ( $command == 1 ) { $use_iframe     = commandB2(); }
+            elsif ( $command == 2 ) { $use_icons      = commandB3(); }
+            elsif ( $command == 3 ) { $use_php_recode = commandB4(); }
+            elsif ( $command == 4 ) { $use_php_iconv  = commandB5(); }
+            elsif ( $command == 5 ) { $allow_remote_configtest = commandB6(); }
         }
     }
 }
@@ -3604,28 +3603,6 @@ sub commandA5 {
     return $lossy_encoding;
 }
 
-
-# Advanced tree
-sub commandB1 {
-    print "Enable this option if you want to use DHTML based folder listing.\n";
-    print "Code is experimental, works only with some browsers and there might\n";
-    print "be some glitches.\n";
-    print "\n";
-
-    if ( lc($advanced_tree) eq 'true' ) {
-        $default_value = "y";
-    } else {
-        $default_value = "n";
-    }
-    print "Use advanced tree in folder listing? (y/n) [$WHT$default_value$NRM]: $WHT";
-    $advanced_tree = <STDIN>;
-    if ( ( $advanced_tree =~ /^y\n/i ) || ( ( $advanced_tree =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
-        $advanced_tree = 'true';
-    } else {
-        $advanced_tree = 'false';
-    }
-    return $advanced_tree;
-}
 # display html emails in iframe
 sub commandB2 {
     print "This option can enable html email rendering inside iframe.\n";
@@ -4079,9 +4056,6 @@ sub save_data {
 
         print CF "\n";
 
-        # boolean
-        print CF "\$advanced_tree = $advanced_tree;\n";
-        print CF "\n";
         # boolean
         print CF "\$use_iframe = $use_iframe;\n";
         print CF "\n";
