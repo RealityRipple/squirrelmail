@@ -578,7 +578,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
         // top display is enabled.
         if ( $delete_prev_next_display == 1 &&
                in_array('\\deleted', $aMailbox['PERMANENTFLAGS'],true) ) {
-            $del_prev_link = _("Delete & Prev");
+            $del_prev_link = _("Delete &amp; Prev");
             if ($prev >= 0) {
                 $uri = $base_uri . 'src/read_body.php?passed_id='.$prev.
                        '&amp;mailbox='.$urlMailbox.'&amp;sort='.$sort.
@@ -588,7 +588,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
                 $del_prev_link = '<a href="'.$uri.'">'.$del_prev_link.'</a>';
             }
 
-            $del_next_link = _("Delete & Next");
+            $del_next_link = _("Delete &amp; Next");
             if ($next >= 0) {
                 $uri = $base_uri . 'src/read_body.php?passed_id='.$next.
                        '&amp;mailbox='.$urlMailbox.'&amp;sort='.$sort.
