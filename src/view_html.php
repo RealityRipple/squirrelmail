@@ -38,13 +38,6 @@ if (sqgetGlobalVar('passed_id', $temp, SQ_GET)) {
     $passed_id = (int) $temp;
 }
 
-global $view_unsafe_images;
-if (sqgetGlobalVar('view_unsafe_images', $temp, SQ_GET)) {
-    $view_unsafe_images = (bool) $temp;
-} else {
-    $view_unsafe_images = false;
-}
-
 // TODO: add required var checks here.
 
 $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
@@ -66,6 +59,8 @@ $encoding = strtolower($header->encoding);
 
 $body = mime_fetch_body($imap_stream, $passed_id, $ent_id);
 $body = decodeBody($body, $encoding);
+$hookResults = do_hook('message_body', $body);
+$body = $hookResults[1];
 
 /**
  * TODO: check if xtra_code is needed.
