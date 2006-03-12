@@ -376,8 +376,6 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                  /* ---- Tweaks ---- */
                  'Group10' => array( 'name' => _("Tweaks"),
                                      'type' => SMOPT_TYPE_TITLE ),
-                 '$advanced_tree'  => array( 'name' => _("Use advanced tree folder listing"),
-                                             'type' => SMOPT_TYPE_BOOLEAN ),
                  '$use_icons'  => array( 'name' => _("Use icons"),
                                          'type' => SMOPT_TYPE_BOOLEAN ),
                  '$use_iframe' => array( 'name' => _("Use inline frames with HTML mails"),
