@@ -27,6 +27,8 @@ Version 1.5.2 - CVS
   - Adding the message_body hook to src/view_html.php and src/view_text.php,
     allowing display of unsafe images when viewing HTML attachments and when
     HTML is in an <iframe>.
+  - Fixed from address in case of MDN receipts (patch from Dimitar Pashev)
+
 	
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
