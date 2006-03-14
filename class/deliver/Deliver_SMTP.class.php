@@ -82,6 +82,10 @@ class Deliver_SMTP extends Deliver {
             $content_type->type1 == 'report' &&
             isset($content_type->properties['report-type']) &&
             $content_type->properties['report-type']=='disposition-notification') {
+            // reinitialize the from object because otherwise the from header somehow
+            // is affected. This $from var is used for smtp command MAIL FROM which
+            // is not the same as what we put in the rfc822 header.
+            $from = new AddressStructure();
             $from->host = '';
             $from->mailbox = '';
         }
