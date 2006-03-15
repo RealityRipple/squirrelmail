@@ -832,7 +832,8 @@ $templateset_default = 0;
 
 $aTemplateSet[0]['PATH'] = SM_PATH . 'templates/default/';
 $aTemplateSet[0]['NAME'] = 'Default template';
-
+$aTemplateSet[1]['PATH'] = SM_PATH . 'templates/default_advanced/';
+$aTemplateSet[1]['NAME'] = 'Advanced template';
 
 /**
  * Default interface font size.
