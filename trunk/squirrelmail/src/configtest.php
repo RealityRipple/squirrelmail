@@ -476,6 +476,52 @@ if (function_exists('gettext')) {
     echo 'Gettext functions are available.'
         .' On some systems you must have appropriate system locales compiled.'
         ."<br />\n";
+
+    /* optional setlocale() tests. Should work only on glibc systems. */
+    if (sqgetGlobalVar('testlocales',$testlocales,SQ_GET)) {
+        include_once(SM_PATH . 'functions/i18n.php');
+        echo $IND . $IND . 'Testing translations:<br>';
+        foreach ($languages as $lang_code => $lang_data) {
+            /* don't test aliases */
+            if (isset($lang_data['NAME'])) {
+                /* locale can be $lang_code or $lang_data['LOCALE'] */
+                if (isset($lang_data['LOCALE'])) {
+                    $setlocale = $lang_data['LOCALE'];
+                } else {
+                    $setlocale = $lang_code;
+                }
+                /* prepare information about tested locales */
+                if (is_array($setlocale)) {
+                    $display_locale = implode(', ',$setlocale);
+                    $locale_count = count($setlocale);
+                } else {
+                    $display_locale = $setlocale;
+                    $locale_count = 1;
+                }
+                $tested_locales_msg = 'Tested '.htmlspecialchars($display_locale).' '
+                    .($locale_count>1 ? 'locales':'locale'). '.';
+
+                echo $IND . $IND .$IND . $lang_data['NAME'].' (' .$lang_code. ') - ';
+                $retlocale = sq_setlocale(LC_ALL,$setlocale);
+                if (is_bool($retlocale)) {
+                    echo '<font color="red">unsupported</font>. ';
+                    echo $tested_locales_msg;
+                } else {
+                    echo 'supported. '
+                        .$tested_locales_msg
+                        .' setlocale() returned "'.htmlspecialchars($retlocale).'"';
+                }
+                echo "<br />\n";
+            }
+        }
+        echo $IND . $IND . '<a href="configtest.php">Don\'t test translations</a>';
+    } else {
+        echo $IND . $IND . '<a href="configtest.php?testlocales=1">Test translations</a>. '
+            .'This test is not accurate and might work only on some systems.'
+            ."\n";
+    }
+    echo "<br />\n";
+    /* end of translation tests */
 } else {
     echo 'Gettext functions are unavailable.'
         .' SquirrelMail will use slower internal gettext functions.'
@@ -511,11 +557,16 @@ echo "$IND timezone - ";
 if ( (!ini_get('safe_mode')) ||
         !strcmp(ini_get('safe_mode_allowed_env_vars'),'') ||
         preg_match('/^([\w_]+,)*TZ/', ini_get('safe_mode_allowed_env_vars')) ) {
-    echo "Webmail users can change their time zone settings.<br />\n";
+    echo "Webmail users can change their time zone settings. \n";
 } else {
-    echo "Webmail users can't change their time zone settings.<br />\n";
+    echo "Webmail users can't change their time zone settings. \n";
 }
-
+if (isset($_ENV['TZ'])) {
+    echo 'Default time zone is '.htmlspecialchars($_ENV['TZ']);
+} else {
+    echo 'Current time zone is '.date('T');
+}
+echo ".<br />\n";
 
 // Pear DB tests
 echo "Checking database functions...<br />\n";
