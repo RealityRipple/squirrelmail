@@ -28,6 +28,9 @@ Version 1.5.2 - CVS
     allowing display of unsafe images when viewing HTML attachments and when
     HTML is in an <iframe>.
   - Fixed from address in case of MDN receipts (patch from Dimitar Pashev)
+  - Advanced tree folder listing is moved to templates. $advanced_tree 
+    configuration variable is removed.
+  - Added system locale tests to configtest.php script.
 
 	
 Version 1.5.1 (branched on 2006-02-12)
