@@ -121,11 +121,11 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
     if (count($aFormElements)) {
 ?>
 <!-- start message list form control -->
-      <tr class="message_list_controls" cellspacing="0">
+      <tr class="message_list_controls">
         <td>
           <table class="table_empty" cellspacing="0">
             <tr>
-              <td class="message_control_buttons" cellspacing="0">
+              <td class="message_control_buttons">
 
 <?php
         foreach ($aFormElements as $key => $value) {
