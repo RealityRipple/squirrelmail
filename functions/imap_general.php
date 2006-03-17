@@ -461,7 +461,7 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
 
           case '*':
           {
-            if ($sCommand == "FETCH" && preg_match('/^\*\s\d+\sFETCH/',$read)) {
+            if (($sCommand == "FETCH" || $sCommand == "STORE") && preg_match('/^\*\s\d+\sFETCH/',$read)) {
                 /* check for literal */
                 $s = substr($read,-3);
                 $fetch_data = array();
