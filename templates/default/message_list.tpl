@@ -225,7 +225,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
         switch ($iCol) {
           case SQM_COL_CHECK:
               if ($javascript_on) {
-                  echo '<input type="checkbox" name="toggleAll" title="'._("Toggle All").'" onclick="toggle_all(\''.$form_id."',".$fancy_index_highlite.')" />'."\n";
+                  echo '<input type="checkbox" name="toggleAll" title="'._("Toggle All").'" onclick="toggle_all(\''.$form_name."',".$fancy_index_highlite.')" />'."\n";
               } else {
                   $link = $baseurl . "&amp;startMessage=$pageOffset&amp;checkall=";
                   if (sqgetGlobalVar('checkall',$checkall,SQ_GET)) {
