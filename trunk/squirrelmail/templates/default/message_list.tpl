@@ -91,7 +91,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
 
 ?>
 <div id="message_list">
-<form id="<?php echo $form_id;?>" name="<?php echo $form_name;?>" method="post" action="<?php echo $php_self;?>">
+<form id="<?php echo $form_name;?>" name="<?php echo $form_name;?>" method="post" action="<?php echo $php_self;?>">
 <table class="table_empty" cellspacing="0">
   <tr>
    <td>
