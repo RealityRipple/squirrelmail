@@ -30,9 +30,6 @@ require_once(SM_PATH . 'functions/page_header.php');
 
 /* Before starting the session, the base URI must be known. Assuming */
 /* that this file is in the src/ subdirectory (or something).        */
-if (!function_exists('sqm_baseuri')){
-    require_once(SM_PATH . 'functions/display_messages.php');
-}
 $base_uri = sqm_baseuri();
 
 header('Pragma: no-cache');

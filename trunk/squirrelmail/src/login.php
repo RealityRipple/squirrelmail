@@ -19,6 +19,7 @@
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
+require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'config/config.php');
 require_once(SM_PATH . 'functions/i18n.php');
@@ -26,7 +27,6 @@ require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/constants.php');
 require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/html.php');
-require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/imap_general.php');
 require_once(SM_PATH . 'functions/forms.php');
 
@@ -39,9 +39,6 @@ set_up_language($squirrelmail_language, TRUE, TRUE);
 /**
  * Find out the base URI to set cookies.
  */
-if (!function_exists('sqm_baseuri')){
-    require_once(SM_PATH . 'functions/display_messages.php');
-}
 $base_uri = sqm_baseuri();
 
 /*
