@@ -92,32 +92,47 @@ function translate_read_form_function() {
 
     $trans_ar = $message->findDisplayEntity(array(), array('text/plain'));
     $body = '';
+    $final_body = '';
     if ($trans_ar[0] != '') {
         for ($i = 0; $i < count($trans_ar); $i++) {
-            $body .= formatBody($imapConnection, $message, $color, $wrap_at, $trans_ar[$i], $passed_id, $mailbox, true);
+            /* reduced version of formatBody and translateText functions */
+
+            // get message entity information
+            $body_message = getEntity($message, $trans_ar[$i]);
+            // get message body
+            $body = mime_fetch_body ($imapConnection, $passed_id, $trans_ar[$i]);
+            // convert encoded messages
+            $body = decodeBody($body, $body_message->header->encoding);
+
+            /*
+             * if message part is html formated - convert spaces, html line feeds, 
+             * less than and greater than html entities and remove tags
+             */
+            if ($body_message->header->type1 == 'html') {
+                $entity_conv = array('&nbsp;' => ' ',
+                                     '<p>'    => "\n",
+                                     '<P>'    => "\n",
+                                     '<br>'   => "\n",
+                                     '<BR>'   => "\n",
+                                     '<br />' => "\n",
+                                     '<BR />' => "\n",
+                                     '&gt;'   => '>',
+                                     '&lt;'   => '<');
+                $body = strtr($body, $entity_conv);
+                $body = strip_tags($body);
+            }
+            // remove whitespace
+            $body = trim($body);
+            // save processed text and parse other entity
+            $final_body.= charset_decode($body_message->header->getParameter('charset'),$body);
         }
-        $hookResults = do_hook('message_body', $body);
-        $body = $hookResults[1];
-    } else {
-        $body = 'Message can\'t be translated';
+
+        // add form if message is not empty
+        if (!empty($final_body)) {
+            $function = 'translate_form_' . $translate_server;
+            $function($final_body);
+        }
     }
-
-    $new_body = $body;
-
-    $trans = get_html_translation_table(HTML_ENTITIES);
-    $trans[' '] = '&nbsp;';
-    $trans = array_flip($trans);
-    $new_body = strtr($new_body, $trans);
-
-    $new_body = urldecode($new_body);
-    $new_body = strip_tags($new_body);
-
-    /* I really don't like this next part ... */
-    $new_body = str_replace('"', "''", $new_body);
-    $new_body = strtr($new_body, "\n", ' ');
-
-    $function = 'translate_form_' . $translate_server;
-    $function($new_body);
 }
 
 /**
@@ -466,7 +481,7 @@ function translate_form_babelfish($message) {
     <input type="hidden" name="doit" value="done" />
     <input type="hidden" name="intl" value="1" />
     <input type="hidden" name="tt" value="urltext" />
-    <input type="hidden" name="trtext" value="<?php echo htmlspecialchars($message); ?>" />
+    <input type="hidden" name="trtext" value="<?php echo $message; ?>" />
     <select name="lp"><?php
         echo translate_lang_opt('zh_CN',  '',     'zh_en',
                             sprintf( _("%s to %s"),_("Chinese, Simplified"),_("English"))) .
