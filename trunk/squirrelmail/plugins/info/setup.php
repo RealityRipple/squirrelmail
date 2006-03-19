@@ -11,9 +11,6 @@
  * @subpackage info
  */
 
-/** @ignore */
-require_once (SM_PATH . 'plugins/info/functions.php');
-
 /**
  * Plugin init function
  * @access private
