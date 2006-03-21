@@ -31,6 +31,7 @@ Version 1.5.2 - CVS
   - Advanced tree folder listing is moved to templates. $advanced_tree 
     configuration variable is removed.
   - Added system locale tests to configtest.php script.
+  - Fixed invalid HTML output that caused error notices in compose.php (#1454409).
 
 	
 Version 1.5.1 (branched on 2006-02-12)
