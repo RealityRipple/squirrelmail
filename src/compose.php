@@ -578,13 +578,13 @@ if ($send) {
      */
     include_once('./addrbook_search_html.php');
 } elseif (isset($attach)) {
-    if (saveAttachedFiles($session)) {
-        plain_error_message(_("Could not move/copy file. File not attached"), $color);
-    }
     if ($compose_new_win == '1') {
         compose_Header($color, $mailbox);
     } else {
         displayPageHeader($color, $mailbox);
+    }
+    if (saveAttachedFiles($session)) {
+        plain_error_message(_("Could not move/copy file. File not attached"), $color);
     }
     showInputForm($session);
 }
