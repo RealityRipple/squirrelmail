@@ -71,7 +71,6 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
         .(!empty($used_fontsize) ? '&amp;fontsize='.$used_fontsize : '')
         .(!empty($text_direction) ? '&amp;dir='.$text_direction : '')."\">\n";
 
-
     // load custom style sheet (deprecated)
     if ( ! empty($theme_css) ) {
         echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$theme_css\">\n";

@@ -300,6 +300,29 @@ img   {
     padding-bottom:15px;
 }
 
+/* error_box.tpl definitions */
+.table_errorBoxWrapper   {
+    width:100%;
+    padding:0;
+    border-spacing:0;
+    border:0;
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+    background: <?php echo $color[9]; ?>;
+}
+
+.table_errorBox  {
+    width:100%;
+    padding:0;
+    border-spacing:0;
+    border:0;
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+    background: <?php echo $color[5]; ?>;
+}
+
 /* page_header.tpl definitions */
 .sqm_currentFolder	{
     background: <?php echo $color[9]; ?>;
