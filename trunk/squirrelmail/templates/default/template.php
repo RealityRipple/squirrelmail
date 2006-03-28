@@ -17,15 +17,16 @@
  */
 $templates_provided = array (
                                 'empty_folder.tpl',
+                                'error_box.tpl',
                                 'error_message.tpl',
                                 'footer.tpl',
                                 'left_main.tpl',
                                 'login.tpl',
                                 'message_list.tpl',
+                                'motd.tpl',
+                                'note.tpl',
                                 'page_header.tpl',
                                 'paginator.tpl',
-                                'note.tpl',
-                                'motd.tpl',
                                 'stylesheet.tpl'
                             );
 
@@ -46,4 +47,14 @@ $required_js_files = array  (
 $provided_js_files = array  (
                                 'default.js'
                             );
+                            
+/**
+ * Additional CSS stylesheets may be provided by template authors.  
+ * stylesheet.tpl will always be included in all pages.  Any additional 
+ * stylesheets provided by this template should be listed here.  These
+ * stylesheets will be automatically included on each page.  They should be
+ * located in the template root directory.
+ */
+$additional_css_sheets = array  (
+                                );
 ?>

@@ -181,4 +181,12 @@ if ( $lastmod = @filemtime($oTemplate->template_dir . 'stylesheet.tpl') ) {
 }
 $oTemplate->display('stylesheet.tpl');
 
+/**
+ * Include any additional stylesheets provided by the template
+ */
+$template_css = $oTemplate->getAdditionalStyleSheets();
+foreach ($template_css as $stylesheet) {
+    $oTemplate->display($stylesheet);
+}
+ 
 ?>

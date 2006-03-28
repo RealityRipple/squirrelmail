@@ -66,6 +66,14 @@ class Template
   var $provided_js_files = array();
   
   /**
+   * Additional stylesheets provided by the template.  This allows template
+   * authors (namely me to begin with :p) to provide additional CSS sheets
+   * to templates while using the default template set stylesheet for other
+   * definitions.
+   */
+  var $additional_css_sheets = array(); 
+  
+  /**
    * Constructor
    *
    * @param string $sTplDir where the template set is located
@@ -78,9 +86,7 @@ class Template
        $this->templates_provided = is_array($templates_provided) ? $templates_provided : array();
        $this->required_js_files = is_array($required_js_files) ? $required_js_files : array();
        $this->provided_js_files = is_array($provided_js_files) ? $provided_js_files: array();
-
-#       echo 'Template Dir: '.$this->template_dir.': ';
-#       var_dump($this->templates_provided);
+       $this->additional_css_sheets = is_array($additional_css_sheets) ? $additional_css_sheets : array();
   }
 
 
@@ -234,6 +240,24 @@ class Template
         else $paths[] = SM_PATH .'templates/default/js/'.basename($file);
     }
     
+    return $paths;
+  }
+
+  /**
+   * Return any additional stylsheets provided by the template.  Used when
+   * generating page headers.
+   * 
+   * @return array $paths
+   */
+  function getAdditionalStyleSheets () {
+    $paths = array();
+    foreach ($this->additional_css_sheets as $css) {
+        $css = basename($css);
+        if (strtolower($css) == 'stylesheet.tpl') {
+            continue;
+        }
+        $paths[] = $css;
+    }
     return $paths;
   }
 }

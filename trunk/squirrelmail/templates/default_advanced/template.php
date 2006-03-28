@@ -17,7 +17,7 @@
  */
 $templates_provided = array (
                                 'left_main.tpl',
-                                'stylesheet.tpl'
+                                'stylesheet_advanced.tpl'
                             );
 
 /**
@@ -38,4 +38,15 @@ $required_js_files = array  (
 $provided_js_files = array  (
                                 'dtree.js'
                             );
+
+/**
+ * Additional CSS stylesheets may be provided by template authors.  
+ * stylesheet.tpl will always be included in all pages.  Any additional 
+ * stylesheets provided by this template should be listed here.  These
+ * stylesheets will be automatically included on each page.  They should be
+ * located in the template root directory.
+ */
+$additional_css_sheets = array  (
+                                    'stylesheet_advanced.tpl'
+                                );
 ?>
