@@ -36,7 +36,6 @@
 
 /* retrieve the template vars */
 extract($t);
-
 ?>
 /* older css template */
 body, td, th, dd, dt, h1, h2, h3, h4, h5, h6, p, ol, ul, li {
@@ -320,7 +319,16 @@ img   {
     text-align:center;
     margin-left:auto;
     margin-right:auto;
-    background: <?php echo $color[5]; ?>;
+    background: <?php echo $color[0]; ?>;
+}
+.error_header {
+    color: red;
+    font-weight:bold;
+    font-weight:bold;
+    font-style:normal;
+}
+.error_message {
+    background: <?php echo $color[4]; ?>;
 }
 
 /* page_header.tpl definitions */
