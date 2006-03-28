@@ -142,21 +142,9 @@ function logout_error( $errString, $errTitle = '' ) {
  * @since 1.3.2
  */
 function error_box($string, $color) {
-    global $pageheader_sent;
-
-    if ( !isset( $color ) ) {
-        $color = array();
-        $color[0]  = '#dcdcdc';  /* light gray    TitleBar               */
-        $color[1]  = '#800000';  /* red                                  */
-        $color[2]  = '#cc0000';  /* light red     Warning/Error Messages */
-        $color[4]  = '#ffffff';  /* white         Normal Background      */
-        $color[7]  = '#0000cc';  /* blue          Links                  */
-        $color[8]  = '#000000';  /* black         Normal text            */
-        $color[9]  = '#ababab';  /* mid-gray      Darker version of #0   */
-    }
+    global $pageheader_sent, $oTemplate;
 
     $err = _("ERROR");
-
     $ret = concat_hook_function('error_box', $string);
     if($ret != '') {
         $string = $ret;
@@ -168,18 +156,13 @@ function error_box($string, $color) {
         include_once( SM_PATH . 'functions/page_header.php' );
         displayHtmlHeader('SquirrelMail: '.$err);
         $pageheader_sent = TRUE;
-        echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\">\n\n";
+        echo "<body>\n\n";
     }
 
-    echo '<table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[9].'">'.
-         '<tr><td>'.
-         '<table width="100%" cellpadding="0" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">'.
-         '<tr><td align="center" bgcolor="'.$color[0].'">'.
-         '<font color="'.$color[2].'"><b>' . $err . ':</b></font>'.
-         '</td></tr><tr><td>'.
-         '<table cellpadding="1" cellspacing="5" align="center" border="0">'.
-         '<tr>' . html_tag( 'td', $string."\n", 'left') . '</tr></table>'.
-         '</td></tr></table></td></tr></table>';
+    /** ERROR is pre-translated to avoid multiple translation calls. **/
+    $oTemplate->assign('error', $err);
+    $oTemplate->assign('errorMessage', $string);
+    $oTemplate->display('error_box.tpl');
 }
 
 /**
@@ -195,5 +178,4 @@ function error_option_save($message) {
 
     $optpage_save_error=array_merge($optpage_save_error,array($message));
 }
-// vim: et ts=4
 ?>
