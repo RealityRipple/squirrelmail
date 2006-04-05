@@ -68,8 +68,8 @@ for ($i = 0; $i < count($theme); ++$i){
         break;
     }
 }
-$chosen_theme = (!$found_theme ? '' : $chosen_theme);
 
+$chosen_theme = (!$found_theme ? '' : $chosen_theme);
 
 /**
 * This theme as a failsafe if no themes were found. It makes
@@ -99,11 +99,6 @@ if (isset($chosen_theme) && $found_theme && (file_exists($chosen_theme))) {
         @include_once($theme[$theme_default]['PATH']);
         $chosen_theme = $theme[$theme_default]['PATH'];
     }
-}
-
-
-if (!defined('download_php')) {
-    sqsession_register($theme_css, 'theme_css');
 }
 
 // user's icon theme, if using icons
