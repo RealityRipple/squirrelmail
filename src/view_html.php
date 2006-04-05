@@ -17,14 +17,14 @@
  */
 
 /**
- * Path for SquirrelMail required files.
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../');
+require('../include/init.php');
 
 /** SquirrelMail required files. */
-include_once(SM_PATH . 'include/validate.php');
-include_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/mime.php');
+require_once(SM_PATH . 'functions/date.php');
 
 /** Get globals */
 sqgetGlobalVar('key',        $key,          SQ_COOKIE);
@@ -78,5 +78,4 @@ $body = MagicHTML( $body, $passed_id, $message, $mailbox);
 /** TODO: charset might be part of html code. */
 header('Content-Type: text/html; charset=' . $charset);
 echo $body;
-
 ?>

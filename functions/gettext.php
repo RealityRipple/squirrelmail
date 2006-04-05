@@ -16,8 +16,6 @@
  * @subpackage i18n
  */
 
-/** Almost everything requires global.php... */
-require_once(SM_PATH . 'functions/global.php');
 
 /** Load classes and other functions */
 include_once(SM_PATH . 'class/l10n.class.php');
@@ -36,7 +34,7 @@ function _($str) {
     global $l10n, $gettext_domain;
     if (! isset($l10n[$gettext_domain]) ||
         ! is_object($l10n[$gettext_domain]) ||
-        $l10n[$gettext_domain]->error==1) 
+        $l10n[$gettext_domain]->error==1)
         return $str;
     return $l10n[$gettext_domain]->translate($str);
 }
@@ -98,7 +96,7 @@ if (! function_exists('dgettext')) {
         global $l10n;
         if (! isset($l10n[$domain]) ||
             ! is_object($l10n[$domain]) ||
-            $l10n[$domain]->error==1) 
+            $l10n[$domain]->error==1)
             return $str;
         return $l10n[$domain]->translate($str);
     }

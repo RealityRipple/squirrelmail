@@ -13,19 +13,15 @@
  */
 
 /**
- * Path for SquirrelMail required files.
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../');
+include('../include/init.php');
 
 /** SquirrelMail required files. */
-include_once(SM_PATH . 'include/validate.php');
-/* plain_error_message() */
-include_once(SM_PATH . 'functions/display_messages.php');
 /* address book functions */
-include_once(SM_PATH . 'functions/addressbook.php');
+require_once(SM_PATH . 'functions/addressbook.php');
 /* form functions */
-include_once(SM_PATH . 'functions/forms.php');
+require_once(SM_PATH . 'functions/forms.php');
 
 /** lets get the global vars we may need */
 

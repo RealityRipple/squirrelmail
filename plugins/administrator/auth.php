@@ -21,7 +21,6 @@
  */
 function adm_check_user() {
     global $PHP_SELF, $plugins;
-    require_once(SM_PATH . 'functions/global.php');
 
     /* fail if the plugin is not enabled */
     if ( !in_array('administrator', $plugins) ) {

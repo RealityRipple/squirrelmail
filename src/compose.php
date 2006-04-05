@@ -18,19 +18,15 @@
  */
 
 /**
- * Path for SquirrelMail required files.
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../');
+require('../include/init.php');
 
 /* SquirrelMail required files. */
-include_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/global.php');
-require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/imap_general.php');
+require_once(SM_PATH . 'functions/imap_messages.php');
 require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/mime.php');
-require_once(SM_PATH . 'functions/plugin.php');
-require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'class/deliver/Deliver.class.php');
 require_once(SM_PATH . 'functions/addressbook.php');
 require_once(SM_PATH . 'functions/forms.php');
@@ -1276,7 +1272,7 @@ function showInputForm ($session, $values=false) {
 
         if(count($sizes) > 0) {
             $maxsize = '(max.&nbsp;' . show_readable_size( min( $sizes ) ) . ')'
-              . addHidden('MAX_FILE_SIZE', min( $sizes ));
+                . addHidden('MAX_FILE_SIZE', min( $sizes ));
         } else {
             $maxsize = '';
         }
@@ -1709,6 +1705,7 @@ function deliverMessage($composeMessage, $draft=false) {
 
         $composeMessage->purgeAttachments();
         if ($action == 'reply' || $action == 'reply_all') {
+            require(SM_PATH . 'functions/mailbox_display.php');
             $aMailbox = sqm_api_mailbox_select($imap_stream, $iAccount, $mailbox,array('setindex' => $what, 'offset' => $startMessage),array());
             // check if we are allowed to set the \\Answered flag
             if (in_array('\\answered',$aMailbox['PERMANENTFLAGS'], true)) {

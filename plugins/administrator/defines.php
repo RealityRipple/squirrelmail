@@ -11,15 +11,6 @@
  * @subpackage administrator
  */
 
-/** @ignore */
-if (!defined('SM_PATH')) define('SM_PATH','../../');
-
-/**
- * Load SquirrelMail SMPREF constants for default_unseen_notify and 
- * default_unseen_type variables.
- */
-require_once( SM_PATH . 'functions/constants.php' );
-
 /* Define constants for the various option types. */
 define('SMOPT_TYPE_UNDEFINED', -1);
 define('SMOPT_TYPE_STRING', 0);

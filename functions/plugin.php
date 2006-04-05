@@ -13,14 +13,6 @@
  * @package squirrelmail
  */
 
-/** Everything needs global.. */
-require_once(SM_PATH . 'functions/global.php');
-require_once(SM_PATH . 'config/config.php');
-require_once(SM_PATH . 'functions/prefs.php');
-
-global $squirrelmail_plugin_hooks;
-$squirrelmail_plugin_hooks = array();
-
 /**
  * This function adds a plugin.
  * @param string $name Internal plugin name (ie. delete_move_next)
@@ -200,7 +192,7 @@ function is_plugin_enabled($plugin_name) {
   global $plugins;
 
   /**
-   * check if variable is empty. if var is not set, php empty 
+   * check if variable is empty. if var is not set, php empty
    * returns true without error notice.
    *
    * then check if it is an array
@@ -214,25 +206,4 @@ function is_plugin_enabled($plugin_name) {
     return false;
   }
 }
-
-/*************************************/
-/*** MAIN PLUGIN LOADING CODE HERE ***/
-/*************************************/
-
-/* On startup, register all plugins configured for use. */
-if (isset($plugins) && is_array($plugins)) {
-    // turn on output buffering in order to prevent output of new lines
-    ob_start();
-    foreach ($plugins as $name) {
-        use_plugin($name);
-    }
-    // get output and remove whitespace
-    $output = trim(ob_get_contents());
-    ob_end_clean();
-    // if plugins output more than newlines and spacing, stop script execution.
-    if (!empty($output)) {
-        die($output);
-    }
-}
-
 ?>

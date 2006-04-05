@@ -9,12 +9,11 @@
  * @package plugins
  * @subpackage calendar
  */
+/**
+ * Include the SquirrelMail initialization file.
+ */
+require('../../include/init.php');
 
-/** @ignore */
-define('SM_PATH','../../');
-
-/* SquirrelMail required files. */
-include_once(SM_PATH . 'include/validate.php');
 /* date_intl() */
 include_once(SM_PATH . 'functions/date.php');
 

@@ -9,18 +9,16 @@
  * @package plugins
  * @subpackage listcommands
  */
-
-/** @ignore */
-define('SM_PATH','../../');
+/**
+ * Path for SquirrelMail required files.
+ * @ignore
+ */
+require('../../include/init.php');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
-include_once(SM_PATH . 'functions/page_header.php');
-include_once(SM_PATH . 'include/load_prefs.php');
-include_once(SM_PATH . 'functions/html.php');
-require_once(SM_PATH . 'functions/identity.php');
-require_once(SM_PATH . 'functions/forms.php');
-include_once(SM_PATH . 'plugins/listcommands/functions.php');
+require(SM_PATH . 'functions/identity.php');
+require(SM_PATH . 'functions/forms.php');
+require(SM_PATH . 'plugins/listcommands/functions.php');
 
 /* get globals */
 sqgetGlobalVar('mailbox', $mailbox, SQ_GET);

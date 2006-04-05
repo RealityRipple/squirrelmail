@@ -12,35 +12,6 @@
  * @package squirrelmail
  */
 
-/** @ignore */
-if (!defined('SM_PATH')) define('SM_PATH','../');
-
-/**
- * SquirrelMail version number -- DO NOT CHANGE
- */
-global $version;
-$version = '1.5.2 [CVS]';
-
-/**
- * SquirrelMail internal version number -- DO NOT CHANGE
- * $sm_internal_version = array (release, major, minor)
- */
-global $SQM_INTERNAL_VERSION;
-$SQM_INTERNAL_VERSION = array(1,5,2);
-
-/**
- * There can be a circular issue with includes, where the $version string is
- * referenced by the include of global.php, etc. before it's defined.
- * For that reason, bring in global.php AFTER we define the version strings.
- */
-include_once(SM_PATH . 'functions/global.php');
-
-/**
- * Include Compatibility plugin if available.
- */
-if (file_exists(SM_PATH . 'plugins/compatibility/functions.php'))
-    include_once(SM_PATH . 'plugins/compatibility/functions.php');
-
 /**
  * Appends citation markers to the string.
  * Also appends a trailing space.
@@ -483,28 +454,6 @@ function readShortMailboxName($haystack, $needle) {
     return( $elem );
 }
 
-/**
- * Find out where SquirrelMail lives and try to be smart about it.
- * The only problem would be when SquirrelMail lives in directories
- * called "src", "functions", or "plugins", but people who do that need
- * to be beaten with a steel pipe anyway.
- *
- * @return string the base uri of SquirrelMail installation.
- * @since 1.2.6
- */
-function sqm_baseuri(){
-    global $base_uri, $PHP_SELF;
-    /**
-     * If it is in the session, just return it.
-     */
-    if (sqgetGlobalVar('base_uri',$base_uri,SQ_SESSION)){
-        return $base_uri;
-    }
-    $dirs = array('|src/.*|', '|plugins/.*|', '|functions/.*|');
-    $repl = array('', '', '');
-    $base_uri = preg_replace($dirs, $repl, $PHP_SELF);
-    return $base_uri;
-}
 
 /**
  * get_location

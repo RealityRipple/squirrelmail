@@ -12,20 +12,18 @@
  * @subpackage newmail
  */
 
-/** @ignore */
-define('SM_PATH','../../');
+/**
+ * Path for SquirrelMail required files.
+ * @ignore
+ */
+require('../../include/init.php');
 
-/* SquirrelMail required files. */
-include_once(SM_PATH . 'include/validate.php');
-/* form functions */
-include_once(SM_PATH . 'functions/forms.php');
 /** Plugin functions (also loads plugin's config) */
 include_once(SM_PATH . 'plugins/newmail/functions.php');
 
-displayPageHeader($color, 'None');
+include_once(SM_PATH . 'functions/forms.php');
 
-// plugin uses squirrelmail loading_pref hook.
-// vars are already loaded in include/validate.php
+displayPageHeader($color, 'None');
 
 echo html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="1" cellspacing="0" border="0"' ) . "\n" .
         html_tag( 'tr' ) . "\n" .
@@ -225,3 +223,4 @@ echo html_tag( 'tr', "\n" .
      ) . "\n";
 ?>
 </table></form></td></tr></table></td></tr></table></body></html>
+

@@ -11,13 +11,13 @@
  */
 
 /**
- * Define for wrecked souls accessing functions script directly
- * @ignore
+ * do not allow to call this file directly
  */
-if (!defined('SM_PATH'))  {
-    define('SM_PATH','../../');
+if ((isset($_SERVER) && $_SERVER['SCRIPT_FILENAME'] == __FILE__) ||
+     (isset($HTTP_SERVER_SERVER) && $HTTP_SERVER_SERVER['SCRIPT_FILENAME'] == __FILE__) ) {
+    header("Location: ../../src/login.php");
+    die();
 }
-
 /** Load default config */
 if (file_exists(SM_PATH . 'plugins/translate/config_default.php')) {
     include_once(SM_PATH . 'plugins/translate/config_default.php');
@@ -105,7 +105,7 @@ function translate_read_form_function() {
             $body = decodeBody($body, $body_message->header->encoding);
 
             /*
-             * if message part is html formated - convert spaces, html line feeds, 
+             * if message part is html formated - convert spaces, html line feeds,
              * less than and greater than html entities and remove tags
              */
             if ($body_message->header->type1 == 'html') {
@@ -434,7 +434,7 @@ function translate_lang_opt($from, $to, $value, $text) {
  * Starts translation box
  *
  * @param string $action url that has to recieve message for translation
- * @param string $charset (since sm 1.5.1) character set, that should be used 
+ * @param string $charset (since sm 1.5.1) character set, that should be used
  * to submit 8bit information.
  * @access private
  */
@@ -455,7 +455,7 @@ function translate_new_form($action,$charset=null) {
     if (!$translate_same_window) {
         echo ' target="_blank"';
     }
-    
+
     if (! is_null($charset))
         echo ' accept-charset="'.htmlspecialchars($charset).'"';
 

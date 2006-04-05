@@ -10,15 +10,15 @@
  * @subpackage change_password
  */
 
-/** load Pear DB. 
- * Global is needed because library must be loaded before configuration 
+/** load Pear DB.
+ * Global is needed because library must be loaded before configuration
  * in order to use DB constants.
  */
 global $cpw_peardb_detect;
 $cpw_peardb_detect=@include_once('DB.php');
 
 /** declare configuration globals */
-global $cpw_peardb_dsn, $cpw_peardb_connect_opts, $cpw_peardb_table, 
+global $cpw_peardb_dsn, $cpw_peardb_connect_opts, $cpw_peardb_table,
  $cpw_peardb_uid_field, $cpw_peardb_domain_field, $cpw_peardb_passwd_field,
  $cpw_peardb_crypted_passwd, $cpw_peardb_debug;
 
@@ -108,17 +108,6 @@ $squirrelmail_plugin_hooks['change_password_init']['peardb'] =
 function cpw_peardb_init() {
     global $color, $cpw_peardb_detect, $cpw_peardb_dsn, $cpw_peardb_table;
 
-    /**
-     * If SM_PATH isn't defined, define it.  Required to include files.
-     * @ignore
-     */
-    if (!defined('SM_PATH'))  {
-        define('SM_PATH','../../../');
-    }
-
-    // load error_box() function
-    include_once(SM_PATH . 'functions/display_messages.php');
-
     if (! $cpw_peardb_detect) {
         error_box(_("Plugin is unable to use PHP Pear DB libraries. PHP Pear includes must be available in your PHP include_path setting."),$color);
         echo "</body></html>\n";
@@ -126,7 +115,7 @@ function cpw_peardb_init() {
     }
 
     // Test required settings
-    if ((is_string($cpw_peardb_dsn) && trim($cpw_peardb_dsn)=='') 
+    if ((is_string($cpw_peardb_dsn) && trim($cpw_peardb_dsn)=='')
         || trim($cpw_peardb_table)=='' ) {
         error_box(_("Required change password backend configuration options are missing."),$color);
         echo "</body></html>\n";
@@ -142,7 +131,7 @@ function cpw_peardb_init() {
  */
 function cpw_peardb_dochange($data) {
     global $cpw_peardb_dsn, $cpw_peardb_table, $cpw_peardb_connect_opts, $cpw_peardb_debug,
-        $cpw_peardb_uid_field, $cpw_peardb_passwd_field, $cpw_peardb_domain_field, 
+        $cpw_peardb_uid_field, $cpw_peardb_passwd_field, $cpw_peardb_domain_field,
         $cpw_peardb_crypted_passwd, $domain;
 
     $username = $data['username'];
@@ -159,7 +148,7 @@ function cpw_peardb_dochange($data) {
         $user=$username;
         $user_domain=$domain;
     }
- 
+
     // connect to database and make sure that table exists
     $cpw_db = DB::connect($cpw_peardb_dsn, $cpw_peardb_connect_opts);
     if (PEAR::isError($cpw_db)) {
@@ -187,9 +176,9 @@ function cpw_peardb_dochange($data) {
     $cpw_peardb_passwd_check=false;
     $cpw_peardb_domain_check=(($cpw_peardb_domain_field=='')? true : false);
     foreach($table_info as $key => $field_data) {
-        if ($field_data['name']==$cpw_peardb_uid_field) 
+        if ($field_data['name']==$cpw_peardb_uid_field)
             $cpw_peardb_uid_check=true;
-        if ($field_data['name']==$cpw_peardb_passwd_field) 
+        if ($field_data['name']==$cpw_peardb_passwd_field)
             $cpw_peardb_passwd_check=true;
         if ($cpw_peardb_domain_field!='' && $field_data['name']==$cpw_peardb_domain_field)
             $cpw_peardb_domain_check=true;
@@ -216,7 +205,7 @@ function cpw_peardb_dochange($data) {
         .' FROM '.$cpw_db->quoteIdentifier($cpw_peardb_table)
         .' WHERE '
         .$cpw_db->quoteIdentifier($cpw_peardb_uid_field).'='.$cpw_db->quoteSmart($user)
-        .(($cpw_peardb_domain_field!='') ? 
+        .(($cpw_peardb_domain_field!='') ?
           ' AND '.$cpw_db->quoteIdentifier($cpw_peardb_domain_field).'='.$cpw_db->quoteSmart($user_domain):
           '');
     $cpw_res=$cpw_db->query($query);
@@ -286,7 +275,7 @@ function cpw_peardb_dochange($data) {
         .'='.$cpw_db->quoteSmart($hashed_passwd)
         .' WHERE '.$cpw_db->quoteIdentifier($cpw_peardb_uid_field)
         .'='.$cpw_db->quoteSmart($user)
-        .(($cpw_peardb_domain_field!='') ? 
+        .(($cpw_peardb_domain_field!='') ?
           ' AND '.$cpw_db->quoteIdentifier($cpw_peardb_domain_field).'='.$cpw_db->quoteSmart($user_domain) :
           '');
 

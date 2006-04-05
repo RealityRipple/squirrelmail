@@ -10,10 +10,11 @@
  * @subpackage spamcop
  */
 
-/** @ignore */
-define('SM_PATH','../../');
-/* SquirrelMail functions */
-require_once(SM_PATH . 'include/validate.php');
+
+/**
+ * Include the SquirrelMail initialization file.
+ */
+require('../../include/init.php');
 /* plugin functions */
 include_once(SM_PATH . 'plugins/spamcop/functions.php');
 

@@ -224,7 +224,7 @@ function load_optpage_data_display() {
     /* Icon theme selection */
     if ($use_icons) {
         global $icon_themes, $icon_theme;
-        
+
         $temp = array();
         for ($count = 0; $count < sizeof($icon_themes); $count++) {
             $temp[$count] = $icon_themes[$count]['NAME'];
@@ -246,6 +246,7 @@ function load_optpage_data_display() {
             );
         }
     }
+
 
     /*** Load the General Options into the array ***/
     $optgrps[SMOPT_GRP_MAILBOX] = _("Mailbox Display Options");

@@ -11,14 +11,6 @@
  */
 
 /**
- * If SM_PATH isn't defined, define it.
- * @ignore
- */
-if (!defined('SM_PATH'))  {
-    define('SM_PATH','../../');
-}
-
-/**
  * Init plugin
  * @access private
  */

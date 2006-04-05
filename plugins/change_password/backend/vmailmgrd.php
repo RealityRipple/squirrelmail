@@ -106,17 +106,6 @@ $squirrelmail_plugin_hooks['change_password_init']['vmailmgrd'] =
 function cpw_vmailmgrd_init(){
     global $vmail_inc_path, $color, $username;
 
-    /**
-     * If SM_PATH isn't defined, define it.  Required to include files.
-     * @ignore
-     */
-    if (!defined('SM_PATH'))  {
-        define('SM_PATH','../../../');
-    }
-
-    // load error_box() function
-    include_once(SM_PATH . 'functions/display_messages.php');
-
     if ($vmail_inc_path=='' || ! file_exists($vmail_inc_path)) {
         // $vmail_inc_path is not set or file does not exist
         error_box(_("Incorrent path to vmail.inc file."),$color);

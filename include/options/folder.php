@@ -12,8 +12,7 @@
  */
 
 /** SquirrelMail required files. */
-require_once(SM_PATH . 'functions/imap.php');
-require_once(SM_PATH . 'functions/imap_general.php');
+include(SM_PATH . 'functions/imap_general.php');
 
 /* Define the group constants for the folder options page. */
 define('SMOPT_GRP_SPCFOLDER', 0);

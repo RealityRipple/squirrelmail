@@ -15,8 +15,10 @@
  * @subpackage date
  */
 
-/** Load up some useful constants */
-require_once(SM_PATH . 'functions/constants.php');
+/**
+ * dependency information
+ * - none
+ */
 
 /**
  * Corrects a time stamp to be the local time.
@@ -443,15 +445,3 @@ function getTimeStamp($dateParts) {
         return getGMTSeconds($stamp, $dateParts[0]);
     }
 }
-
-/* I use this function for profiling. Should never be called in
-   actual versions of SquirrelMail released to public. */
-/*
-   function getmicrotime() {
-      $mtime = microtime();
-      $mtime = explode(' ',$mtime);
-      $mtime = $mtime[1] + $mtime[0];
-      return ($mtime);
-   }
-*/
-?>

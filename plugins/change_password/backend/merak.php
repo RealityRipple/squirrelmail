@@ -43,17 +43,6 @@ $squirrelmail_plugin_hooks['change_password_init']['merak'] =
 function cpw_merak_init() {
     global $color;
 
-    /**
-     * If SM_PATH isn't defined, define it.  Required to include files.
-     * @ignore
-     */
-    if (!defined('SM_PATH'))  {
-        define('SM_PATH','../../../');
-    }
-
-    // load error_box() function
-    include_once(SM_PATH . 'functions/display_messages.php');
-
     if (!function_exists('curl_init')) {
         // user_error('Curl module NOT available!', E_USER_ERROR);
         error_box(_("PHP Curl extension is NOT available! Unable to change password!"),$color);

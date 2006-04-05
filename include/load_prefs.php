@@ -12,16 +12,20 @@
  * @package squirrelmail
  */
 
-/** SquirrelMail required files. */
-include_once(SM_PATH . 'functions/constants.php');
-include_once(SM_PATH . 'include/validate.php');
-include_once(SM_PATH . 'functions/plugin.php');
 
+/**
+ * do not allow to call this file directly
+ */
+if ((isset($_SERVER) && $_SERVER['SCRIPT_FILENAME'] == __FILE__) ||
+     (isset($HTTP_SERVER_SERVER) && $HTTP_SERVER_SERVER['SCRIPT_FILENAME'] == __FILE__) ) {
+    header("Location: ../src/login.php");
+    die();
+}
 
 if( ! sqgetGlobalVar('username', $username, SQ_SESSION) ) {
     $username = '';
 }
-
+// TODO Get rid of "none" strings when NULL or false should be used, i hate them i hate them i hate them!!!.
 $custom_css = getPref($data_dir, $username, 'custom_css', 'none' );
 
 $theme = ( !isset($theme) ? array() : $theme );
@@ -107,9 +111,8 @@ $icon_theme = getPref($data_dir, $username, 'icon_theme', 'images/themes/xp/' );
 if ($icon_theme == 'template') {
     $icon_theme = $sTplDir . 'images/';
 }
-
 /*
- * NOTE: The $icon_theme_path var should contain the path to the icon 
+ * NOTE: The $icon_theme_path var should contain the path to the icon
  *       theme to use.  If the admin has disabled icons, or the user has
  *       set the icon theme to "None," no icons will be used.
  */
@@ -272,8 +275,6 @@ if (!$index_order) {
     setPref($data_dir, $username, 'index_order', serialize($index_order));
 }
 
-
-
 if (!isset($default_mailbox_pref)) {
     $show_num = (isset($show_num)) ? $show_num : 15;
 
@@ -400,6 +401,27 @@ if (! isset($default_fontset)) $default_fontset=SMPREF_NONE;
 $chosen_fontset = getPref($data_dir, $username, 'chosen_fontset', $default_fontset);
 if (! isset($default_fontsize)) $default_fontsize=SMPREF_NONE;
 $chosen_fontsize = getPref($data_dir, $username, 'chosen_fontsize', $default_fontsize);
+
+
+
+/** Put in a safety net for authentication here, in case a naughty admin didn't run conf.pl when they upgraded */
+
+// TODO Get rid of "none" strings when NULL should be used, i hate them i hate them i hate them!!!.
+if (! isset($smtp_auth_mech)) {
+    $smtp_auth_mech = 'none';
+}
+
+if (! isset($imap_auth_mech)) {
+    $imap_auth_mech = 'login';
+}
+
+if (! isset($use_imap_tls)) {
+    $use_imap_tls = false;
+}
+
+if (! isset($use_smtp_tls)) {
+    $use_smtp_tls = false;
+}
 
 do_hook('loading_prefs');
 

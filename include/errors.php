@@ -54,7 +54,7 @@ $aErrors['SQM_IMAP_APPEND_QUOTA_ERROR'] = array(
     'category' => SQM_ERROR_IMAP,
     'message'  => _( "Out of quota error."),
     'link'     => '',
-    'tip'      => _("Remove unneccessary messages from your folders. Start with your Trash folder.")
+    'tip'      => _("Remove unneccessary messages from your folder. Start with your Trash folder.")
 );
 
 $aErrors['SQM_IMAP_APPEND_ERROR'] = array(

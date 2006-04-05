@@ -14,13 +14,13 @@
  */
 
 /**
- * Path for SquirrelMail required files.
- * @ignore */
-define('SM_PATH','../../');
+ * Include the SquirrelMail initialization file.
+ */
+require('../../include/init.php');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/addressbook.php');
+require(SM_PATH . 'functions/forms.php');
+require(SM_PATH . 'functions/addressbook.php');
 
 displayPageHeader($color, 'None');
 

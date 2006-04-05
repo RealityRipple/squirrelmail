@@ -14,8 +14,6 @@
  * @todo remove sqspell_ prefix from main php scripts.
  */
 
-/** @ignore */
-if (! defined('SM_PATH')) define('SM_PATH','../../');
 
 /**
  * Standard SquirrelMail plugin initialization API.

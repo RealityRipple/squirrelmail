@@ -12,19 +12,10 @@
  * @subpackage addressbook
  */
 
-/**
- * If SM_PATH isn't defined, define it.  Required to include files.
- * @ignore
- */
-if (!defined('SM_PATH'))  {
-    define('SM_PATH','../');
-}
 
 /* required includes */
-include_once(SM_PATH . 'functions/display_messages.php');
+// FIXME, NO display code in functions files
 include_once(SM_PATH . 'templates/util_global.php');
-
-global $addrbook_dsn, $addrbook_global_dsn;
 
 /**
  * Create and initialize an addressbook object.
@@ -450,13 +441,13 @@ class AddressBook {
     var $localbackendname = '';
     /**
      * Controls use of 'extra' field
-     * 
-     * Extra field can be used to add link to form, which allows 
-     * to modify all fields supported by backend. This is the only field 
+     *
+     * Extra field can be used to add link to form, which allows
+     * to modify all fields supported by backend. This is the only field
      * that is not sanitized with htmlspecialchars. Backends MUST make
      * sure that field data is sanitized and displayed correctly inside
      * table cell. Use of html formating in other address book fields is
-     * not allowed. Backends that don't return 'extra' row in address book 
+     * not allowed. Backends that don't return 'extra' row in address book
      * data should not modify this object property.
      * @var boolean
      * @since 1.5.1
@@ -498,8 +489,31 @@ class AddressBook {
      * @return integer number of backends
      */
     function add_backend($backend, $param = '') {
+        static $backend_classes;
+        if (!isset($backend_classes)) {
+            $backend_classes = array();
+        }
+        if (!isset($backend_classes[$backend])) {
+            /**
+              * Support backend provided by plugins. Plugin function must
+              * return an associative array with as key the backend name ($backend)
+              * and as value the file including the path containing the backend class.
+              * i.e.: $aBackend = array('backend_template' => SM_PATH . 'plugins/abook_backend_template/functions.php')
+              *
+              * NB: Because the backend files are included from within this function they DO NOT have access to
+              * vars in the global scope. This function is the global scope for the included backend !!!
+              */
+            $aBackend = do_hook('abook_add_class');
+            if (isset($aBackend) && is_array($aBackend) && isset($aBackend[$backend])) {
+                require_once($aBackend[$backend]);
+            } else {
+                require_once(SM_PATH . 'functions/abook_'.$backend.'.php');
+            }
+            $backend_classes[$backend] = true;
+        }
         $backend_name = 'abook_' . $backend;
-        eval('$newback = new ' . $backend_name . '($param);');
+        $newback = new $backend_name($param);
+        //eval('$newback = new ' . $backend_name . '($param);');
         if(!empty($newback->error)) {
             $this->error = $newback->error;
             return false;
@@ -880,9 +894,9 @@ class addressbook_backend {
     /**
      * Search for entries in backend
      *
-     * Working backend should support use of wildcards. * symbol 
+     * Working backend should support use of wildcards. * symbol
      * should match one or more symbols. ? symbol should match any
-     * single symbol.  
+     * single symbol.
      * @param string $expression
      * @return bool
      */
@@ -944,28 +958,4 @@ class addressbook_backend {
         return false;
     }
 }
-
-/*
-  PHP 5 requires that the class be made first, which seems rather
-  logical, and should have been the way it was generated the first time.
-*/
-
-require_once(SM_PATH . 'functions/abook_local_file.php');
-require_once(SM_PATH . 'functions/abook_ldap_server.php');
-
-/* Only load database backend if database is configured */
-if((isset($addrbook_dsn) && !empty($addrbook_dsn)) ||
-        (isset($addrbook_global_dsn) && !empty($addrbook_global_dsn))) {
-    include_once(SM_PATH . 'functions/abook_database.php');
-}
-
-/*
- * hook allows adding different address book classes.
- * class must follow address book class coding standards.
- *
- * see addressbook_backend class and functions/abook_*.php files.
- * @since 1.5.1 and 1.4.5
- */
-do_hook('abook_add_class');
-
 ?>

@@ -14,24 +14,9 @@
  */
 
 /**
- * Path for SquirrelMail required files.
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../');
-
-/* SquirrelMail required files. */
-require_once(SM_PATH . 'functions/global.php');
-require_once(SM_PATH . 'functions/strings.php');
-require_once(SM_PATH . 'config/config.php');
-require_once(SM_PATH . 'functions/prefs.php');
-require_once(SM_PATH . 'functions/imap.php');
-require_once(SM_PATH . 'functions/plugin.php');
-require_once(SM_PATH . 'functions/i18n.php');
-require_once(SM_PATH . 'functions/auth.php');
-
-$base_uri = sqm_baseuri();
-
-sqsession_is_active();
+require('../include/init.php');
 
 sqgetGlobalVar('username', $username, SQ_SESSION);
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
@@ -58,23 +43,7 @@ if(!sqgetGlobalVar('mailto', $mailto)) {
     $mailto = '';
 }
 
-is_logged_in();
-
 do_hook('webmail_top');
-
-/**
- * We'll need this to later have a noframes version
- *
- * Check if the user has a language preference, but no cookie.
- * Send him a cookie with his language preference, if there is
- * such discrepancy.
- */
-$my_language = getPref($data_dir, $username, 'language');
-if ($my_language != $squirrelmail_language) {
-    sqsetcookie('squirrelmail_language', $my_language, time()+2592000, $base_uri);
-}
-
-$err=set_up_language(getPref($data_dir, $username, 'language'));
 
 $output = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\"\n".
           "  \"http://www.w3.org/TR/1999/REC-html401-19991224/frameset.dtd\">\n".
@@ -82,19 +51,6 @@ $output = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\"\n".
           "<meta name=\"robots\" content=\"noindex,nofollow\">\n" .
           "<title>$org_title</title>\n".
           "</head>";
-
-// Japanese translation used without mbstring support
-if ($err==2) {
-    echo $output.
-         "<body>\n".
-         "<p>You need to have PHP installed with the multibyte string function \n".
-         "enabled (using configure option --enable-mbstring).</p>\n".
-         "<p>System assumed that you accidently switched to Japanese translation \n".
-         "and reverted your language preference to English.</p>\n".
-         "<p>Please refresh this page in order to use webmail.</p>\n".
-         "</body></html>";
-    return;
-}
 
 $left_size = getPref($data_dir, $username, 'left_size');
 $location_of_bar = getPref($data_dir, $username, 'location_of_bar');
@@ -174,7 +130,7 @@ switch($right_frame) {
     default:
         $right_frame_url =  urlencode($right_frame);
         break;
-} 
+}
 
 $left_frame  = '<frame src="left_main.php" name="left" frameborder="1" title="'.
                _("Folder List") ."\" />\n";
@@ -191,8 +147,7 @@ $ret = concat_hook_function('webmail_bottom', $output);
 if($ret != '') {
     $output = $ret;
 }
-echo $output;
 
-?>
-</frameset>
-</html>
+echo $output . '</frameset>';
+
+$oTemplate->display('footer.tpl');

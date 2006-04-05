@@ -10,33 +10,21 @@
  * @version $Id$
  * @package squirrelmail
  */
+$sInitLocation = 'redirect';
 
 /**
- * Path for SquirrelMail required files.
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../');
+require('../include/init.php');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'functions/global.php');
-require_once(SM_PATH . 'functions/i18n.php');
+require_once(SM_PATH . 'functions/imap_general.php');
 require_once(SM_PATH . 'functions/strings.php');
-require_once(SM_PATH . 'config/config.php');
-require_once(SM_PATH . 'functions/prefs.php');
-require_once(SM_PATH . 'functions/imap.php');
-require_once(SM_PATH . 'functions/plugin.php');
-require_once(SM_PATH . 'functions/constants.php');
-require_once(SM_PATH . 'functions/page_header.php');
-
-/* Before starting the session, the base URI must be known. Assuming */
-/* that this file is in the src/ subdirectory (or something).        */
-$base_uri = sqm_baseuri();
 
 header('Pragma: no-cache');
 $location = get_location();
 
-session_set_cookie_params (0, $base_uri);
-sqsession_is_active();
+// session_set_cookie_params (0, $base_uri);
 
 sqsession_unregister ('user_is_logged_in');
 sqsession_register ($base_uri, 'base_uri');
@@ -59,7 +47,6 @@ sqsetcookie('squirrelmail_language', $squirrelmail_language, time()+2592000,
           $base_uri);
 
 if (!isset($login_username)) {
-    include_once(SM_PATH .  'functions/display_messages.php' );
     logout_error( _("You must be logged in to access this page.") );
     exit;
 }
@@ -69,7 +56,6 @@ if (!sqsession_is_registered('user_is_logged_in')) {
 
     $onetimepad = OneTimePadCreate(strlen($secretkey));
     $key = OneTimePadEncrypt($secretkey, $onetimepad);
-    sqsession_register($onetimepad, 'onetimepad');
 
     /* remove redundant spaces */
     $login_username = trim($login_username);
@@ -80,6 +66,28 @@ if (!sqsession_is_registered('user_is_logged_in')) {
     }
 
     $imapConnection = sqimap_login($login_username, $key, $imapServerAddress, $imapPort, 0);
+    /* From now on we are logged it. If the login failed then sqimap_login handles it */
+
+    /* regenerate the session id to avoid session hyijacking */
+    sqsession_destroy();
+    sqsession_is_active();
+    session_regenerate_id();
+    /**
+     * The cookie part. session_start and session_regenerate_session normally set
+     * their own cookie. SquirrelMail sets another cookie which overwites the
+     * php cookies. The sqsetcookie function sets the cookie by using the header
+     * function which gives us full control how the cookie is set. We do that
+     * to add the HttpOnly cookie attribute which blocks javascript access on
+     * IE6 SP1.
+     * sqsetcookieflush is needed to send out the headers. sqsetcookie caches
+     * the cookies to be send. If we don't do that we only can send 1 single cookie
+     * which is not sufficient.
+     */
+    sqsetcookie(session_name(),session_id(),false,$base_uri);
+    sqsetcookie('key', $key, false, $base_uri);
+    sqsetcookieflush();
+
+    sqsession_register($onetimepad, 'onetimepad');
 
     $sqimap_capabilities = sqimap_capability($imapConnection);
 
@@ -103,9 +111,7 @@ if (!sqsession_is_registered('user_is_logged_in')) {
 
     $username = $login_username;
     sqsession_register ($username, 'username');
-    sqsetcookie('key', $key, false, $base_uri);
     do_hook ('login_verified');
-
 }
 
 /* Set the login variables. */
@@ -147,6 +153,7 @@ if ( sqgetGlobalVar('session_expired_location', $session_expired_location, SQ_SE
     }
     unset($session_expired_location);
 }
+
 if($mailto != '') {
     $redirect_url  = $location . '/webmail.php?right_frame=compose.php&mailto=';
     $redirect_url .= urlencode($mailto);
@@ -155,6 +162,7 @@ if($mailto != '') {
 /* Write session data and send them off to the appropriate page. */
 session_write_close();
 header("Location: $redirect_url");
+exit;
 
 /* --------------------- end main ----------------------- */
 
@@ -183,5 +191,3 @@ function attachment_common_parse($str, $debug) {
     }
     sqsession_register($attachment_common_types, 'attachment_common_types');
 }
-
-?>

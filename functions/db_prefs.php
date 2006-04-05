@@ -39,10 +39,9 @@ define('SMDB_MYSQL', 1);
 /** PostgreSQL */
 define('SMDB_PGSQL', 2);
 
-require_once(SM_PATH . 'config/config.php');
+
 if (!include_once('DB.php')) {
     // same error also in abook_database.php
-    require_once(SM_PATH . 'functions/display_messages.php');
     $error  = _("Could not include PEAR database functions required for the database backend.") . "<br />\n";
     $error .= sprintf(_("Is PEAR installed, and is the include path set correctly to find %s?"),
                         '<tt>DB.php</tt>') . "<br />\n";
@@ -212,7 +211,7 @@ class dbPrefs {
 
     /**
      * Function used to handle database connection errors
-     * @param object PEAR Error object 
+     * @param object PEAR Error object
      */
     function failQuery($res = NULL) {
         if($res == NULL) {
@@ -250,7 +249,7 @@ class dbPrefs {
 
     /**
      * Delete user's prefs setting
-     * @param string $user user name 
+     * @param string $user user name
      * @param string $key preference name
      * @return boolean
      */
@@ -298,8 +297,8 @@ class dbPrefs {
                 ." See doc/db-backend.txt or contact your system administrator.";
 
             /**
-             * Debugging function. Can be used to log all issues that trigger 
-             * oversized field errors. Function should be enabled in all three 
+             * Debugging function. Can be used to log all issues that trigger
+             * oversized field errors. Function should be enabled in all three
              * strlen checks. See http://www.php.net/error-log
              */
             // error_log($user.'|'.$key.'|'.$value."\n",3,'/tmp/oversized_log');

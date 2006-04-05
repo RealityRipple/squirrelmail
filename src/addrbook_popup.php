@@ -13,14 +13,9 @@
  */
 
 /**
- * Path for SquirrelMail required files.
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../');
-
-/** SquirrelMail required files. */
-include_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/addressbook.php');
+include('../include/init.php');
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"

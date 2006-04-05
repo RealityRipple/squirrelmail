@@ -13,22 +13,15 @@
  */
 
 /**
- * Path for SquirrelMail required files.
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../');
+require('../include/init.php');
 
 /* SquirrelMail required files. */
-include_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/imap.php');
-require_once(SM_PATH . 'functions/plugin.php');
-require_once(SM_PATH . 'functions/page_header.php');
-require_once(SM_PATH . 'functions/html.php');
+require_once(SM_PATH . 'functions/imap_general.php');
 require_once(SM_PATH . 'functions/date.php');
-
-/** add required includes */
-include_once(SM_PATH . 'templates/util_global.php');
-include_once(SM_PATH . 'templates/util_left_main.php');
+require_once(SM_PATH . 'templates/util_global.php');
+require_once(SM_PATH . 'templates/util_left_main.php');
 
 /* These constants are used for folder stuff. */
 define('SM_BOX_UNCOLLAPSED', 0);
@@ -67,7 +60,7 @@ $js_includes = $oTemplate->getJavascriptIncludes();
 foreach ($js_includes as $js_file) {
     $xtra .= '<script src="'.$js_file.'" type="text/javascript"></script>' ."\n";
 }
- 
+
 // get mailbox list and cache it
 $mailboxes=sqimap_get_mailboxes($imapConnection,false,$show_only_subscribed_folders);
 

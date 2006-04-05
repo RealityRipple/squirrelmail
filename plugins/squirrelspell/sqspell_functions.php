@@ -13,13 +13,10 @@
  * @subpackage squirrelspell
  */
 
-/** @ignore */
-if (! defined('SM_PATH')) define('SM_PATH','../../');
-
 /** globalize configuration vars **/
 global $SQSPELL_APP, $SQSPELL_APP_DEFAULT, $SQSPELL_WORDS_FILE, $SQSPELL_CRYPTO;
 
-/** 
+/**
  * load plugin configuration
  * @todo allow storing configuration file in config/ directory
  */
@@ -384,7 +381,7 @@ function sqspell_upgradeWordsFile($words_string){
 
 /**
  * gets list of available dictionaries from user's prefs.
- * Function was modified in 1.5.1 (sqspell 0.5). 
+ * Function was modified in 1.5.1 (sqspell 0.5).
  * Older function is suffixed with '_old'
  * @return array list of dictionaries used by end user.
  */
@@ -669,7 +666,7 @@ function sqspell_writeWords($words,$lang){
      */
     sqgetGlobalVar('key', $key, SQ_COOKIE);
     sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
-    
+
     $clear_key=OneTimePadDecrypt($key, $onetimepad);
     /**
      * Try encrypting it. If fails, scream bloody hell.
@@ -743,7 +740,7 @@ function sqspell_writeWords_old($words){
 
 /**
  * Deletes user's dictionary
- * Function was modified in 1.5.1 (sqspell 0.5). Older function is suffixed 
+ * Function was modified in 1.5.1 (sqspell 0.5). Older function is suffixed
  * with '_old'
  * @param string $lang dictionary
  */
@@ -850,12 +847,12 @@ function sqspell_handle_crypt_panic($lang=false) {
     .  _("SquirrelSpell was unable to decrypt your personal dictionary. This is most likely due to the fact that you have changed your mailbox password. In order to proceed, you will have to supply your old password so that SquirrelSpell can decrypt your personal dictionary. It will be re-encrypted with your new password after this. If you haven't encrypted your dictionary, then it got mangled and is no longer valid. You will have to delete it and start anew. This is also true if you don't remember your old password -- without it, the encrypted data is no longer accessible.") ,
     'left' ) .  "\n"
     . (($lang) ? html_tag('p',sprintf(_("Your %s dictionary is encrypted with password that differs from your current password."),
-                                      htmlspecialchars($lang)),'left') : '') 
+                                      htmlspecialchars($lang)),'left') : '')
     . '<blockquote>' . "\n"
     . '<form method="post" onsubmit="return AYS()">' . "\n"
     . '<input type="hidden" name="MOD" value="crypto_badkey" />' . "\n"
-    . (($lang) ? 
-       '<input type="hidden" name="dict_lang" value="'.htmlspecialchars($lang).'" />' : 
+    . (($lang) ?
+       '<input type="hidden" name="dict_lang" value="'.htmlspecialchars($lang).'" />' :
        '<input type="hidden" name="old_setup" value="yes" />')
     . html_tag( 'p',  "\n" .
         '<input type="checkbox" name="delete_words" value="ON" />'

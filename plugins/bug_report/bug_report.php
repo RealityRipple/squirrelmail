@@ -14,18 +14,15 @@
  * @subpackage bug_report
  */
 
+
 /**
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../../');
-/** load system functions */
-require_once(SM_PATH . 'include/validate.php');
+require('../../include/init.php');
 /** load form functions */
-include_once(SM_PATH . 'functions/forms.php');
-/** load error_box() function */
-include_once(SM_PATH . 'functions/display_messages.php');
+require_once(SM_PATH . 'functions/forms.php');
 /** load plugin functions */
-include_once(SM_PATH . 'plugins/bug_report/functions.php');
+require_once(SM_PATH . 'plugins/bug_report/functions.php');
 
 displayPageHeader($color, 'None');
 
@@ -37,7 +34,7 @@ if (! is_plugin_enabled('bug_report') || ! bug_report_check_user()) {
 }
 
 /** get system specs */
-include_once(SM_PATH . 'plugins/bug_report/system_specs.php');
+require_once(SM_PATH . 'plugins/bug_report/system_specs.php');
 global $body;
 
 $body_top = "I am subscribed to the this mailing list.\n" .
@@ -107,7 +104,7 @@ echo "</p>\n";
             <?php echo _("This bug involves:")
                       .' <select name="send_to">';
             if (! empty($bug_report_admin_email)) {
-                // if admin's email is set - add 'report to admin' option and make it default one    
+                // if admin's email is set - add 'report to admin' option and make it default one
                 echo '<option value="' . htmlspecialchars($bug_report_admin_email) .'" selected="selected">'
                     ._("my email account") .'</option>';
             }

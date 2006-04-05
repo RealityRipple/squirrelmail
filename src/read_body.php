@@ -13,23 +13,23 @@
  */
 
 /**
- * Path for SquirrelMail required files.
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../');
+require('../include/init.php');
 
 /* SquirrelMail required files. */
-include_once(SM_PATH . 'include/validate.php');
-//require_once(SM_PATH . 'functions/global.php');
+
+
 require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/imap_asearch.php'); // => move to mailbox_display
 require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/url_parser.php');
-require_once(SM_PATH . 'functions/html.php');
-//require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/identity.php');
-include_once(SM_PATH . 'functions/arrays.php');
-include_once(SM_PATH . 'functions/mailbox_display.php');
+require_once(SM_PATH . 'functions/arrays.php');
+require_once(SM_PATH . 'functions/mailbox_display.php');
+require_once(SM_PATH . 'functions/forms.php');
+require_once(SM_PATH . 'functions/attachment_common.php');
 
 /**
  * Given an IMAP message id number, this will look it up in the cached
@@ -141,7 +141,7 @@ function view_as_html_link($mailbox, $passed_id, $passed_ent_id, $message) {
         }
     }
     if($has_html == true) {
-        $vars = array('passed_ent_id', 'show_more', 'show_more_cc', 'override_type0', 'override_type1', 'startMessage', 'where', 'what');
+        $vars = array('passed_ent_id', 'show_more', 'show_more_cc', 'override_type0', 'override_type1', 'startMessage','where', 'what');
 
         $new_link = $base_uri . 'src/read_body.php?passed_id=' . urlencode($passed_id) .
                     '&amp;passed_ent_id=' . urlencode($passed_ent_id) .
@@ -318,7 +318,6 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
                 _("Server replied:") . ' ' . $deliver->dlv_ret_nr . ' ' .
                 nl2br(htmlspecialchars($deliver->dlv_server_msg));
         }
-        require_once(SM_PATH . 'functions/display_messages.php');
         plain_error_message($msg, $color);
     } else {
         unset ($deliver);
@@ -1029,6 +1028,14 @@ for ($i = 0; $i < $cnt; $i++) {
    }
 }
 
+/**
+ * Write mailbox with updated seen flag information back to cache.
+ */
+$mailbox_cache[$iAccount.'_'.$aMailbox['NAME']] = $aMailbox;
+sqsession_register($mailbox_cache,'mailbox_cache');
+$_SESSION['mailbox_cache'] = $mailbox_cache;
+$oTemplate->display('footer.tpl');
+
 displayPageHeader($color, $mailbox,'','');
 formatMenuBar($aMailbox, $passed_id, $passed_ent_id, $message,false);
 formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message, $color, $FirstTimeSee);
@@ -1096,10 +1103,4 @@ formatMenuBar($aMailbox, $passed_id, $passed_ent_id, $message, false, FALSE);
 do_hook('read_body_bottom');
 sqimap_logout($imapConnection);
 
-/**
- * Write mailbox with updated seen flag information back to cache.
- */
-$mailbox_cache[$iAccount.'_'.$aMailbox['NAME']] = $aMailbox;
-sqsession_register($mailbox_cache,'mailbox_cache');
-$oTemplate->display('footer.tpl');
 ?>

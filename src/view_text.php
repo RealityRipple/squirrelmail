@@ -13,18 +13,14 @@
  * @package squirrelmail
  */
 
-/**
- * Path for SquirrelMail required files.
- * @ignore
- */
-define('SM_PATH','../');
 
 /* SquirrelMail required files. */
-include_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/global.php');
-require_once(SM_PATH . 'functions/imap.php');
-require_once(SM_PATH . 'functions/mime.php');
-require_once(SM_PATH . 'functions/html.php');
+include('../include/init.php');
+include(SM_PATH . 'functions/imap_general.php');
+include(SM_PATH . 'functions/imap_messages.php');
+include(SM_PATH . 'functions/mime.php');
+include(SM_PATH . 'functions/date.php');
+include(SM_PATH . 'functions/url_parser.php');
 
 sqgetGlobalVar('key',        $key,          SQ_COOKIE);
 sqgetGlobalVar('username',   $username,     SQ_SESSION);

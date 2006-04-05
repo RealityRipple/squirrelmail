@@ -12,13 +12,9 @@
  * @subpackage imap
  */
 
-/** @ignore */
-if (! defined('SM_PATH')) define('SM_PATH','../');
-
 /** UTF7 support */
 require_once(SM_PATH . 'functions/imap_utf7_local.php');
 
-global $boxesnew;
 
 /**
  * Mailboxes class
@@ -769,7 +765,7 @@ function sqimap_get_mailboxes($imap_stream,$force=false,$show_only_subscribed=tr
 
     if ($show_only_subscribed) { $show_only_subscribed=$show_only_subscribed_folders; }
 
-    require_once(SM_PATH . 'include/load_prefs.php');
+    //require_once(SM_PATH . 'include/load_prefs.php');
 
     /**
      * There are three main listing commands we can use in IMAP:
@@ -814,7 +810,6 @@ function sqimap_get_mailboxes($imap_stream,$force=false,$show_only_subscribed=tr
 
     // get subscribed mailbox list from cache (session)
     // if not there, then get it from the imap server and store in cache
-    sqsession_is_active();
 
     if (!$force) {
         sqgetGlobalVar($sub_cache_name,$lsub_cache,SQ_SESSION);

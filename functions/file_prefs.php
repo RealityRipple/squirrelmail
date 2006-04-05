@@ -13,11 +13,6 @@
  * @since 1.2.5
  */
 
-/** @ignore */
-if (! defined('SM_PATH')) define('SM_PATH','../');
-
-/** include this for error messages */
-include_once(SM_PATH . 'functions/display_messages.php');
 
 /**
  * Check the preferences into the session cache.
@@ -31,6 +26,8 @@ function cachePrefValues($data_dir, $username) {
     sqgetGlobalVar('prefs_are_cached', $prefs_are_cached, SQ_SESSION );
     if ( isset($prefs_are_cached) && $prefs_are_cached) {
         sqgetGlobalVar('prefs_cache', $prefs_cache, SQ_SESSION );
+//        sm_print_r($prefs_cache);
+//        exit;
         return;
     }
 

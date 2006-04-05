@@ -3,7 +3,7 @@
 /**
  * prefs.php
  *
- * This contains functions for manipulating user preferences
+ * This contains functions for filebased user prefs locations
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -12,32 +12,7 @@
  * @subpackage prefs
  */
 
-/** @ignore */
-if (!defined('SM_PATH')) define('SM_PATH','../');
 
-/** Include global.php */
-require_once(SM_PATH . 'functions/global.php');
-require_once(SM_PATH . 'functions/plugin.php');
-
-sqgetGlobalVar('prefs_cache', $prefs_cache, SQ_SESSION );
-sqgetGlobalVar('prefs_are_cached', $prefs_are_cached, SQ_SESSION );
-
-if ( !sqsession_is_registered('prefs_are_cached') ||
-     !isset( $prefs_cache) ||
-     !is_array( $prefs_cache)
-   ) {
-    $prefs_are_cached = false;
-    $prefs_cache = array();
-}
-
-$prefs_backend = do_hook_function('prefs_backend');
-if (isset($prefs_backend) && !empty($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
-    require_once(SM_PATH . $prefs_backend);
-} elseif (isset($prefs_dsn) && !empty($prefs_dsn)) {
-    require_once(SM_PATH . 'functions/db_prefs.php');
-} else {
-    require_once(SM_PATH . 'functions/file_prefs.php');
-}
 
 /* Hashing functions */
 
@@ -151,33 +126,4 @@ function computeHashDirs($username) {
     /* Return our array of hash directories. */
     return ($hash_dirs);
 }
-
-/**
- * Javascript support detection function
- * @param boolean $reset recheck javascript support if set to true.
- * @return integer SMPREF_JS_ON or SMPREF_JS_OFF ({@see functions/constants.php})
- * @since 1.5.1
- */
-function checkForJavascript($reset = FALSE) {
-  global $data_dir, $username, $javascript_on, $javascript_setting;
-
-  if ( !$reset && sqGetGlobalVar('javascript_on', $javascript_on, SQ_SESSION) )
-    return $javascript_on;
-
-  if ( $reset || !isset($javascript_setting) )
-    $javascript_setting = getPref($data_dir, $username, 'javascript_setting', SMPREF_JS_AUTODETECT);
-
-  if ( !sqGetGlobalVar('new_js_autodetect_results', $js_autodetect_results) &&
-       !sqGetGlobalVar('js_autodetect_results', $js_autodetect_results) )
-    $js_autodetect_results = SMPREF_JS_OFF;
-
-  if ( $javascript_setting == SMPREF_JS_AUTODETECT )
-    $javascript_on = $js_autodetect_results;
-  else
-    $javascript_on = $javascript_setting;
-
-  sqsession_register($javascript_on, 'javascript_on');
-  return $javascript_on;
-}
-
 ?>

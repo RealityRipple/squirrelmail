@@ -13,13 +13,10 @@
  */
 
 /**
- * Path for SquirrelMail required files.
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../');
+include('../include/init.php');
 
-/* SquirrelMail required files. */
-include_once(SM_PATH . 'include/validate.php');
 
 displayHtmlHeader( _("Printer Friendly"),
              "<script type=\"text/javascript\">\n".

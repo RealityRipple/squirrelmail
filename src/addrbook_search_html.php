@@ -14,22 +14,18 @@
  */
 
 /**
- * Path for SquirrelMail required files.
- * @ignore
+ * Include the SquirrelMail initialization file.
+ * Because this file can also be included within compose we check for the $bInit
+ * var which is set inside ini.php. It's needed because compose already includes
+ * init.php.
  */
-if (! defined('SM_PATH') ) {
-    define('SM_PATH','../');
+if (!isset($bInit)) {
+    include('../include/init.php');
 }
 
 /** SquirrelMail required files. */
-include_once(SM_PATH . 'include/validate.php');
-include_once(SM_PATH . 'functions/global.php');
 include_once(SM_PATH . 'functions/date.php');
-include_once(SM_PATH . 'functions/display_messages.php');
 include_once(SM_PATH . 'functions/addressbook.php');
-include_once(SM_PATH . 'functions/plugin.php');
-include_once(SM_PATH . 'functions/strings.php');
-include_once(SM_PATH . 'functions/html.php');
 
 sqgetGlobalVar('session',   $session,   SQ_POST);
 sqgetGlobalVar('mailbox',   $mailbox,   SQ_POST);

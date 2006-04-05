@@ -10,12 +10,6 @@
  * @subpackage squirrelspell
  */
 
-/** @ignore */
-if (! defined('SM_PATH')) define('SM_PATH','../../');
-
-/** getHashedFile() function for SQSPELL_WORDS_FILE and sqgetGlobalVar() from global.php */
-include_once(SM_PATH . 'functions/prefs.php');
-
 /** vars needed for getHashedFile() */
 global $data_dir;
 sqgetGlobalVar('username', $username, SQ_SESSION);
@@ -32,7 +26,7 @@ sqgetGlobalVar('username', $username, SQ_SESSION);
  *   $SQSPELL_APP = array('English' => '/usr/local/bin/aspell -a');
  *</pre>
  * Sometimes you have to specify full path for PHP to find it.
- * 
+ *
  * You can use Aspell or Ispell spellcheckers, the command line is the
  * same. Aspell might provide better spellchecking for Western languages.
  *
@@ -53,7 +47,7 @@ sqgetGlobalVar('username', $username, SQ_SESSION);
  * <li>Whatever your setting is, don't omit the "-a" flag.</li>
  * <li>Remember to keep same array keys during upgrades. Don't rename them.
  *   Users' dictionary settings use it.</li>
- * <li>Interface might translate array key, if used key is present in 
+ * <li>Interface might translate array key, if used key is present in
  *   SquirrelMail translations.</li>
  * </ul>
  * <pre>
@@ -78,7 +72,7 @@ $SQSPELL_APP_DEFAULT = 'English';
  *
  * $SQSPELL_WORDS_FILE is a location and mask of a user dictionary file.
  * The default setting should be OK for most everyone.
- *     
+ *
  * This setting is used only when SquirrelSpell is upgraded from
  * older setup. Since SquirrelMail 1.5.1 SquirrelSpell stores all settings in
  * same place that stores other SquirrelMail user preferences.

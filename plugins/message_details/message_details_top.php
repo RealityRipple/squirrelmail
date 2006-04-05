@@ -14,12 +14,11 @@
  * @subpackage message_details
  */
 
-/** @ignore */
-define('SM_PATH','../../');
-
-/* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/forms.php');
+/**
+ * Include the SquirrelMail initialization file.
+ */
+require('../../include/init.php');
+require(SM_PATH . 'functions/forms.php');
 
 displayHtmlHeader( _("Message Details"),
              "<script type=\"text/javascript\">\n".

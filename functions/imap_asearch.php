@@ -19,8 +19,8 @@
 
 /** This functionality requires the IMAP and date functions
  */
-require_once(SM_PATH . 'functions/imap_general.php');
-require_once(SM_PATH . 'functions/date.php');
+//require_once(SM_PATH . 'functions/imap_general.php');
+//require_once(SM_PATH . 'functions/date.php');
 
 /** Set to TRUE to dump the IMAP dialogue
  * @global bool $imap_asearch_debug_dump
