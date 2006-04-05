@@ -41,17 +41,6 @@ function cpw_template_init()
 {
     global $color;
 
-    /**
-     * If SM_PATH isn't defined, define it.  Required to include files.
-     * @ignore
-     */
-    if (!defined('SM_PATH'))  {
-        define('SM_PATH','../../../');
-    }
-
-    // load error_box() function
-    include_once(SM_PATH . 'functions/display_messages.php');
-
     // plugin is not configured. Handle error gracefully.
     error_box(_("No valid backend defined."),$color);
     // close html and stop script execution

@@ -21,15 +21,12 @@
 $SQSPELL_DIR='plugins/squirrelspell/';
 $SQSPELL_CRYPTO=FALSE;
 
-/**
- * Load some necessary stuff from SquirrelMail.
- * @ignore
- */
-define('SM_PATH','../../');
 
-/* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
-include_once(SM_PATH . 'functions/display_messages.php');
+/**
+ * Include the SquirrelMail initialization file.
+ */
+require('../../include/init.php');
+
 include_once(SM_PATH . $SQSPELL_DIR . 'sqspell_functions.php');
 
 /**

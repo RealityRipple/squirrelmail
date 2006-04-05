@@ -12,9 +12,6 @@
  * @subpackage mail_fetch
  */
 
-/** @ignore */
-if (! defined('SM_PATH')) define('SM_PATH','../../');
-
 /**
  * Initialize the plugin
  */

@@ -12,11 +12,32 @@
  * @package squirrelmail
  */
 
-/** The typical includes... */
-require_once(SM_PATH . 'functions/imap.php');
-require_once(SM_PATH . 'functions/attachment_common.php');
-/** add sqm_baseuri()*/
-include_once(SM_PATH . 'functions/display_messages.php');
+/**
+ * dependency information
+   functions       dependency
+   mime_structure
+        class/mime/Message.class.php
+            Message::parseStructure
+        functions/page_header.php
+            displayPageHeader
+        functions/display_messages.php
+            plain_error_message
+   mime_fetch_body
+        functions/imap_general.php
+            sqimap_run_command
+   mime_print_body_lines
+
+
+
+functions/imap.php
+functions/attachment_common.php
+functions/display_messages.php
+
+magicHtml => url_parser
+translateText => url_parser
+
+*/
+
 
 /* -------------------------------------------------------------------------- */
 /* MIME DECODING                                                              */
@@ -37,7 +58,6 @@ function mime_structure ($bodystructure, $flags=array()) {
     $i = 0;
     $msg = Message::parseStructure($read,$i);
     if (!is_object($msg)) {
-        include_once(SM_PATH . 'functions/display_messages.php');
         global $color, $mailbox;
         /* removed urldecode because $_GET is auto urldecoded ??? */
         displayPageHeader( $color, $mailbox );
@@ -264,7 +284,7 @@ function translateText(&$body, $wrap_at, $charset) {
     global $where, $what;   /* from searching */
     global $color;          /* color theme */
 
-    require_once(SM_PATH . 'functions/url_parser.php');
+    // require_once(SM_PATH . 'functions/url_parser.php');
 
     $body_ary = explode("\n", $body);
     for ($i=0; $i < count($body_ary); $i++) {
@@ -489,7 +509,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
  * @return string html formated attachment information.
  */
 function formatAttachments($message, $exclude_id, $mailbox, $id) {
-    global $where, $what, $startMessage, $color, $passed_ent_id;
+    global $where, $what, $startMessage, $color, $passed_ent_id, $base_uri;
 
     $att_ar = $message->getAttachments($exclude_id);
 
@@ -506,10 +526,10 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         $type1 = strtolower($header->type1);
         $name = '';
         $links['download link']['text'] = _("Download");
-        $links['download link']['href'] = sqm_baseuri() .
+        $links['download link']['href'] = $base_uri .
             "src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;ent_id=$ent";
         if ($type0 =='message' && $type1 == 'rfc822') {
-            $default_page = sqm_baseuri() . 'src/read_body.php';
+            $default_page = $base_uri  . 'src/read_body.php';
             $rfc822_header = $att->rfc822_header;
             $filename = $rfc822_header->subject;
             if (trim( $filename ) == '') {
@@ -530,7 +550,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
             }
             $description = $from_name;
         } else {
-            $default_page = sqm_baseuri() . 'src/download.php';
+            $default_page = $base_uri  . 'src/download.php';
             $filename = $att->getFilename();
             if ($header->description) {
                 $description = decodeHeader($header->description);
@@ -2073,7 +2093,7 @@ function sq_sanitize($body,
  */
 function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links =true) {
 
-    require_once(SM_PATH . 'functions/url_parser.php');  // for $MailTo_PReg_Match
+    // require_once(SM_PATH . 'functions/url_parser.php');  // for $MailTo_PReg_Match
 
     global $attachment_common_show_images, $view_unsafe_images,
            $has_unsafe_images;
@@ -2235,7 +2255,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
     if ($take_mailto_links) {
         // parseUrl($trusted);   // this even parses URLs inside of tags... too aggressive
         global $MailTo_PReg_Match;
-        $MailTo_PReg_Match = '/mailto:' . substr($MailTo_PReg_Match, 1);
+        $MailTo_PReg_Match = '/mailto:' . substr($MailTo_PReg_Match, 1) ;
         if ((preg_match_all($MailTo_PReg_Match, $trusted, $regs)) && ($regs[0][0] != '')) {
             foreach ($regs[0] as $i => $mailto_before) {
                 $mailto_params = $regs[10][$i];

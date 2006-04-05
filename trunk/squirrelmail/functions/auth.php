@@ -3,8 +3,8 @@
 /**
  * auth.php
  *
- * Contains functions used to do authentication. Library depends on 
- * functions from functions/global.php, functions/i18n.php and 
+ * Contains functions used to do authentication. Library depends on
+ * functions from functions/global.php, functions/i18n.php and
  * functions/strings.php.
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
@@ -13,75 +13,16 @@
  * @package squirrelmail
  */
 
-/** Put in a safety net here, in case a naughty admin didn't run conf.pl when they upgraded */
-
-if (! isset($smtp_auth_mech)) {
-    $smtp_auth_mech = 'none';
-}
-
-if (! isset($imap_auth_mech)) {
-    $imap_auth_mech = 'login';
-}
-
-if (! isset($use_imap_tls)) {
-    $use_imap_tls = false;
-}
-
-if (! isset($use_smtp_tls)) {
-    $use_smtp_tls = false;
-}
-
-/**
- * Check if user has previously logged in to the SquirrelMail session.  If user
- * has not logged in, execution will stop inside this function.
- *
- * @return int A positive value is returned if user has previously logged in
- * successfully.
- * @since 1.0
- */
-function is_logged_in() {
-
-    if ( sqsession_is_registered('user_is_logged_in') ) {
-        return;
-    } else {
-        global $PHP_SELF, $session_expired_post,
-               $session_expired_location, $squirrelmail_language;
-
-        //  First we store some information in the new session to prevent
-        //  information-loss.
-        //
-        $session_expired_post = $_POST;
-        $session_expired_location = $PHP_SELF;
-        if (!sqsession_is_registered('session_expired_post')) {
-            sqsession_register($session_expired_post,'session_expired_post');
-        }
-        if (!sqsession_is_registered('session_expired_location')) {
-            sqsession_register($session_expired_location,'session_expired_location');
-        }
-
-        // signout page will deal with users who aren't logged
-        // in on its own; don't show error here
-        //
-        if (strpos($PHP_SELF, 'signout.php') !== FALSE) {
-           return;
-        }
-
-        include_once( SM_PATH . 'functions/display_messages.php' );
-        set_up_language($squirrelmail_language, true);
-        logout_error( _("You must be logged in to access this page.") );
-        exit;
-    }
-}
 
 /**
  * Detect logged user
- * 
- * Function is similar to is_logged_in() function. If user is logged in, function 
+ *
+ * Function is similar to is_logged_in() function. If user is logged in, function
  * returns true. If user is not logged in or session is expired, function saves $_POST
- * and $PHP_SELF in session and returns false. POST information is saved in 
+ * and $PHP_SELF in session and returns false. POST information is saved in
  * 'session_expired_post' variable, PHP_SELF is saved in 'session_expired_location'.
  *
- * Script that uses this function instead of is_logged_in() function, must handle user 
+ * Script that uses this function instead of is_logged_in() function, must handle user
  * level messages.
  * @return boolean
  * @since 1.5.1
@@ -124,18 +65,18 @@ function sqauth_read_password() {
 
 /**
  * Saves or updates user password information
- * 
+ *
  * This function is used to update password information that SquirrelMail
- * stores during existing web session. It does not modify password stored 
+ * stores during existing web session. It does not modify password stored
  * in authentication system used by IMAP server.
  *
- * Function must be called before any html output started. Direct access 
- * to password information is deprecated. Saved password information is 
+ * Function must be called before any html output started. Direct access
+ * to password information is deprecated. Saved password information is
  * available only to next executed SquirrelMail script. If your script needs
- * access to saved password after sqauth_save_password() call, use returned 
+ * access to saved password after sqauth_save_password() call, use returned
  * OTP encrypted key.
  * @param string $pass password
- * @return string password encrypted with OTP. In case script wants to access 
+ * @return string password encrypted with OTP. In case script wants to access
  *  password information before reloading page.
  * @since 1.5.1
  */

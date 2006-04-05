@@ -13,13 +13,6 @@
  * @todo add midi support
  */
 
-/** @ignore */
-if (! defined('SM_PATH')) define('SM_PATH','../../');
-
-/**
- * SMPREF_UNSEEN_* constants
- */
-include_once(SM_PATH . 'functions/constants.php');
 
 /** file type defines */
 define('SM_NEWMAIL_FILETYPE_WAV',2);
@@ -193,8 +186,8 @@ function newmail_folder_status($statusarr) {
         $newmail_popup == 'on' ||
         $newmail_changetitle == 'on') &&
         /**
-         * make sure that $newmail_unseen_notify is set to supported value, 
-         * currently (1.5.2cvs) SMPREF_UNSEEN_NORMAL has highest integer value 
+         * make sure that $newmail_unseen_notify is set to supported value,
+         * currently (1.5.2cvs) SMPREF_UNSEEN_NORMAL has highest integer value
          * in SMPREF_UNSEEN constants
          */
         ($newmail_unseen_notify > SMPREF_UNSEEN_NONE && $newmail_unseen_notify <= SMPREF_UNSEEN_NORMAL)) {

@@ -15,14 +15,16 @@
  */
 
 /**
- * Path for SquirrelMail required files.
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../');
+require('../include/init.php');
 
 /* SquirrelMail required files. */
-include_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/imap_general.php');
+require_once(SM_PATH . 'functions/imap_messages.php');
+require_once(SM_PATH . 'functions/date.php');
+require_once(SM_PATH . 'functions/mime.php');
+require_once(SM_PATH . 'functions/url_parser.php');
 
 /* get some of these globals */
 sqgetGlobalVar('username', $username, SQ_SESSION);

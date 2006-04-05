@@ -12,16 +12,9 @@
  */
 
 /**
- * Path for SquirrelMail required files.
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../');
-
-/* SquirrelMail required files. */
-include_once(SM_PATH . 'include/validate.php');
-include_once(SM_PATH . 'functions/display_messages.php');
-
-global $color;
+include('../include/init.php');
 error_box('delete_message.php script is obsolete since 1.5.1.',$color);
 $oTemplate->display('footer.tpl');
 ?>

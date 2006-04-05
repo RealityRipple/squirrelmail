@@ -10,11 +10,11 @@
  * @subpackage calendar
  */
 
-/** @ignore */
-define('SM_PATH','../../');
+/**
+ * Include the SquirrelMail initialization file.
+ */
+require('../../include/init.php');
 
-/* SquirrelMail required files. */
-include_once(SM_PATH . 'include/validate.php');
 /* date_intl() */
 include_once(SM_PATH . 'functions/date.php');
 
@@ -126,8 +126,8 @@ function display_events() {
             echo html_tag( 'tr', '', '', $color[$eo] ) .
                         html_tag( 'td', date_intl(_("H:i"),mktime($ehour,$eminute,0,1,1,0)) . $elength, 'left' ) .
                         html_tag( 'td', '', 'left' ) . '[';
-                            echo ($calbar['priority']==1) ? 
-                                "<font color=\"$color[1]\">".htmlspecialchars($calbar['title']).'</font>' : 
+                            echo ($calbar['priority']==1) ?
+                                "<font color=\"$color[1]\">".htmlspecialchars($calbar['title']).'</font>' :
                                 htmlspecialchars($calbar['title']);
                             echo'] <div style="margin-left:10px">'.nl2br(htmlspecialchars($calbar['message'])).'</div>' .
                         html_tag( 'td',

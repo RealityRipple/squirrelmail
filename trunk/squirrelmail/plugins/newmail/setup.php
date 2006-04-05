@@ -27,8 +27,6 @@
  * @subpackage newmail
  */
 
-/** @ignore */
-if (! defined('SM_PATH')) define('SM_PATH','../../');
 
 /**
  * Init newmail plugin

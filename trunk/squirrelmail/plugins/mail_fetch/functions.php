@@ -16,8 +16,6 @@
  * @subpackage mail_fetch
  */
 
-/** @ignore */
-if (! defined('SM_PATH')) define('SM_PATH','../../');
 
 /** pop3 class */
 include_once (SM_PATH . 'plugins/mail_fetch/class.POP3.php');
@@ -81,9 +79,9 @@ function  mail_fetch_load_pref_function() {
  * @private
  */
 function mail_fetch_login_function() {
-    include_once (SM_PATH . 'include/validate.php');
-    include_once (SM_PATH . 'functions/imap.php');
-    
+    //include_once (SM_PATH . 'include/validate.php');
+    include_once (SM_PATH . 'functions/imap_general.php');
+
     global $data_dir, $imapServerAddress, $imapPort;
 
     sqgetGlobalVar('username', $username, SQ_SESSION);
@@ -232,9 +230,6 @@ function mail_fetch_login_function() {
 function mail_fetch_setnew_function() {
     global $data_dir;
 
-    // FIXME: check if function is already loaded in login_verified hook
-    include_once(SM_PATH . 'functions/prefs.php');
-
     sqgetGlobalVar('username', $username, SQ_SESSION);
     setPref( $data_dir, $username, 'mailfetch_newlog', 'on' );
 }
@@ -256,7 +251,7 @@ function mailfetch_optpage_register_block_function() {
 }
 
 /**
- * Internal function used to update mail_fetch settings 
+ * Internal function used to update mail_fetch settings
  * when folders are renamed or deleted.
  * @since 1.5.1
  * @private

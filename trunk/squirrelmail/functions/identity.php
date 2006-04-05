@@ -12,15 +12,6 @@
  * @since 1.4.2
  */
 
-/** Used to simplify includes
- * @ignore
- */
-if (!defined('SM_PATH')) {
-    define('SM_PATH','../');
-}
-
-/** preference and signature functions */
-include_once(SM_PATH . 'include/load_prefs.php');
 
 /**
  * Returns an array of all the identities.
@@ -79,7 +70,7 @@ function save_identities($identities) {
 
 
     $num_cur = getPref($data_dir, $username, 'identities');
-    
+
     $cnt = count($identities);
 
     // Remove any additional identities in prefs //
@@ -185,9 +176,9 @@ function sqfixidentities( $identities, $id, $action ) {
             // Process actions from plugins and save/update action //
             default:
                 /**
-                 * send action and id information. number of hook arguments 
-                 * differs from 1.4.4 or older and 1.5.0. count($args) can 
-                 * be used to detect modified hook. Older hook does not 
+                 * send action and id information. number of hook arguments
+                 * differs from 1.4.4 or older and 1.5.0. count($args) can
+                 * be used to detect modified hook. Older hook does not
                  * provide information that can be useful for plugins.
                  */
                 do_hook('options_identities_process', $action, $id);

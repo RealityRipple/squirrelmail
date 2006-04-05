@@ -10,15 +10,20 @@
  * @subpackage bug_report
  */
 
-/** @ignore */
-if (!defined('SM_PATH')) define('SM_PATH','../../');
+/**
+ * do not allow to call this file directly
+ */
+if ((isset($_SERVER) && $_SERVER['SCRIPT_FILENAME'] == __FILE__) ||
+     (isset($HTTP_SERVER_SERVER) && $HTTP_SERVER_SERVER['SCRIPT_FILENAME'] == __FILE__) ) {
+    header("Location: ../../src/login.php");
+    die();
+}
 
 /**
  * load required libraries
  */
-include_once(SM_PATH . 'include/validate.php');
-include_once(SM_PATH . 'functions/imap.php');
-global $body, $username;
+include_once(SM_PATH . 'functions/imap_general.php');
+
 
 
 /**

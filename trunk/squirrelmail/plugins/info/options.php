@@ -13,13 +13,14 @@
  * @subpackage info
  */
 
-/** @ignore */
-define('SM_PATH','../../');
+/**
+ * Path for SquirrelMail required files.
+ * @ignore
+ */
+require('../../include/init.php');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/page_header.php');
-require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/imap_general.php');
 require_once(SM_PATH . 'functions/forms.php');
 require_once(SM_PATH . 'plugins/info/functions.php');
 

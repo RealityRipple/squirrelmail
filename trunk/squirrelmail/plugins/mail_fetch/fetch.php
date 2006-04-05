@@ -12,11 +12,12 @@
  * @subpackage mail_fetch
  */
 
-/** @ignore */
-define('SM_PATH','../../');
+/**
+ * Include the SquirrelMail initialization file.
+ */
+require('../../include/init.php');
 
-require_once(SM_PATH . 'include/validate.php');
-include_once(SM_PATH . 'functions/imap.php');
+include_once(SM_PATH . 'functions/imap_general.php');
 include_once(SM_PATH . 'plugins/mail_fetch/class.POP3.php');
 include_once(SM_PATH . 'plugins/mail_fetch/functions.php' );
 

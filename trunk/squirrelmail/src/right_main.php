@@ -12,27 +12,22 @@
  * @package squirrelmail
  */
 
+//xdebug_start_profiling("/var/spool/xdebug/right_main.txt");
+
+
 /**
- * Path for SquirrelMail required files.
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../');
+include('../include/init.php');
 
 /* SquirrelMail required files. */
-include_once(SM_PATH . 'include/validate.php');
-//include_once(SM_PATH . 'functions/global.php');
-require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/imap_asearch.php');
+require_once(SM_PATH . 'functions/imap_general.php');
+require_once(SM_PATH . 'functions/imap_messages.php');
 require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'functions/mailbox_display.php');
-require_once(SM_PATH . 'functions/display_messages.php');
-require_once(SM_PATH . 'functions/html.php');
-//require_once(SM_PATH . 'functions/plugin.php');
 
-
-// Trigger Developers to look at CSS ;)
-// trigger_error("This layout sucks. Adapt squirrelmail.css!!!",E_USER_WARNING);
-//sqm_trigger_imap_error('SQM_IMAP_NO_THREAD',"BLA1",'BAD', 'BLA2', array('test1'=>'test1'));
 
 /* lets get the global vars we may need */
 sqgetGlobalVar('key',       $key,           SQ_COOKIE);
@@ -344,4 +339,3 @@ $oTemplate->display('footer.tpl');
 /* add the mailbox to the cache */
 $mailbox_cache[$account.'_'.$aMailbox['NAME']] = $aMailbox;
 sqsession_register($mailbox_cache,'mailbox_cache');
-?>

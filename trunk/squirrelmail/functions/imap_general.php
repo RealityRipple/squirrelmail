@@ -13,9 +13,8 @@
  */
 
 /** Includes.. */
-require_once(SM_PATH . 'functions/page_header.php');
-require_once(SM_PATH . 'functions/auth.php');
-include_once(SM_PATH . 'functions/rfc822address.php');
+
+require_once(SM_PATH . 'functions/rfc822address.php');
 
 
 /**
@@ -64,7 +63,6 @@ function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$respon
     } else {
         global $squirrelmail_language, $color;
         set_up_language($squirrelmail_language);
-        require_once(SM_PATH . 'functions/display_messages.php');
         $string = "<b><font color=\"$color[2]\">\n" .
                 _("ERROR: No available IMAP stream.") .
                 "</b></font>\n";
@@ -115,7 +113,6 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response,
     } else {
         global $squirrelmail_language, $color;
         set_up_language($squirrelmail_language);
-        require_once(SM_PATH . 'functions/display_messages.php');
         $string = "<b><font color=\"$color[2]\">\n" .
                 _("ERROR: No available IMAP stream.") .
                 "</b></font>\n";
@@ -319,7 +316,6 @@ function sqimap_read_data_list($imap_stream, $tag, $handle_errors,
           &$response, &$message, $query = '') {
     global $color, $squirrelmail_language;
     set_up_language($squirrelmail_language);
-    require_once(SM_PATH . 'functions/display_messages.php');
     $string = "<b><font color=\"$color[2]\">\n" .
         _("ERROR: Bad function call.") .
         "</b><br />\n" .
@@ -350,7 +346,6 @@ function sqimap_error_box($title, $query = '', $message_title = '', $message = '
     global $color, $squirrelmail_language;
 
     set_up_language($squirrelmail_language);
-    require_once(SM_PATH . 'functions/display_messages.php');
     $string = "<font color=\"$color[2]\"><b>\n" . $title . "</b><br />\n";
     $cmd = explode(' ',$query);
     $cmd= strtolower($cmd[0]);
@@ -461,7 +456,7 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
 
           case '*':
           {
-            if (($sCommand == "FETCH" || $sCommand == "STORE") && preg_match('/^\*\s\d+\sFETCH/',$read)) {
+            if (($sCommand == "FETCH" || $sCommand == "STORE")  && preg_match('/^\*\s\d+\sFETCH/',$read)) {
                 /* check for literal */
                 $s = substr($read,-3);
                 $fetch_data = array();
@@ -863,7 +858,6 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
                 /* "BAD" and anything else gets reported here. */
                 $message = htmlspecialchars($message);
                 set_up_language($squirrelmail_language, true);
-                require_once(SM_PATH . 'functions/display_messages.php');
                 if ($response == 'BAD') {
                     $string = sprintf (_("Bad request: %s")."<br />\r\n", $message);
                 } else {
@@ -890,8 +884,8 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
                  */
 
                 set_up_language($squirrelmail_language, true);
-                include_once(SM_PATH . 'functions/display_messages.php' );
                 sqsession_destroy();
+                sqsetcookieflush();
                 /* terminate the session nicely */
                 sqimap_logout($imap_stream);
                 logout_error( _("Unknown user or password incorrect.") );
@@ -911,7 +905,6 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
     if ( stristr($message, 'REFERRAL imap') === TRUE ) {
         sqimap_logout($imap_stream);
         set_up_language($squirrelmail_language, true);
-        include_once(SM_PATH . 'functions/display_messages.php' );
         sqsession_destroy();
         logout_error( _("Your mailbox is not located at this server. Try a different server or consult your system administrator") );
         exit;
@@ -948,7 +941,6 @@ function sqimap_capability($imap_stream, $capability='', $bUseCache=true) {
 
     if (!$bUseCache || ! sqgetGlobalVar('sqimap_capabilities', $sqimap_capabilities, SQ_SESSION)) {
         $read = sqimap_run_command($imap_stream, 'CAPABILITY', true, $a, $b);
-
         $c = explode(' ', $read[0]);
         for ($i=2; $i < count($c); $i++) {
             $cap_list = explode('=', $c[$i]);

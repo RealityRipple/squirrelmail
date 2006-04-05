@@ -10,11 +10,11 @@
  * @subpackage newmail
  */
 
-/** @ignore */
-define('SM_PATH','../../');
-
-/* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
+/**
+ * Path for SquirrelMail required files.
+ * @ignore
+ */
+require('../../include/init.php');
 
 displayHtmlHeader( _("Test Sound"), '', FALSE );
 

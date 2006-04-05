@@ -17,13 +17,9 @@
  */
 
 /**
- * Path for SquirrelMail required files.
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../');
-
-/* SquirrelMail required files. */
-include_once(SM_PATH . 'include/validate.php');
+require('../include/init.php');
 
 displayPageHeader($color, 'None' );
 
@@ -72,7 +68,7 @@ echo sprintf(_("You are using SquirrelMail version: %s"),$version);
 echo "<br />\n";
 echo _("The administrator installed the following plugins:");
 echo "<br />\n";
-if ( count ($plugins) > 0 ) {
+if ( isset($plugins) && count ($plugins) > 0 ) {
     sort($plugins);
     echo "<ul>\n";
     foreach($plugins as $plugin) {

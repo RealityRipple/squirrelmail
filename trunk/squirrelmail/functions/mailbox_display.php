@@ -12,15 +12,6 @@
  * @package squirrelmail
  */
 
-/** The standard includes.. */
-require_once(SM_PATH . 'functions/strings.php');
-require_once(SM_PATH . 'functions/html.php');
-require_once(SM_PATH . 'functions/imap_mailbox.php');
-require_once(SM_PATH . 'functions/imap_messages.php');
-require_once(SM_PATH . 'functions/imap_asearch.php');
-require_once(SM_PATH . 'functions/mime.php');
-require_once(SM_PATH . 'functions/forms.php');
-
 
 /**
  * Selects a mailbox for header retrieval.
@@ -609,9 +600,9 @@ function prepareMessageList(&$aMailbox, $aProps) {
                         $link = $sTargetModule.'.php?' . implode('&amp;',$aQuery);
 
                         // see top of this function for which attributes are available
-                        // in the global scope for plugin use (like $link, $target, 
+                        // in the global scope for plugin use (like $link, $target,
                         // $onclick, $link_extra, $title, and so forth)
-                        // plugins are responsible for sharing nicely (such as for 
+                        // plugins are responsible for sharing nicely (such as for
                         // setting the target, etc)
                         do_hook('subject_link', array($iPageOffset, $sSearch, $aSearch));
                     }

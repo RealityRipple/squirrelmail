@@ -16,29 +16,27 @@
  * @package squirrelmail
  */
 
-/** @ignore */
-define('SM_PATH','../');
+/**
+ * Set the location in order to skip unneeded validation and other includes
+ * in the SquirrelMail initialisation file.
+ */
+$sInitLocation = 'style';
 
-/* SquirrelMail required files. */
-require_once(SM_PATH . 'functions/global.php');
-require_once(SM_PATH . 'functions/strings.php');
-require_once(SM_PATH . 'config/config.php');
+/**
+ * Include the SquirrelMail initialization file.
+ */
+require('../include/init.php');
 
 /* safety check for older config.php */
 if (!isset($fontsets) || !is_array($fontsets)) {
     $fontsets=array();
 }
 
-
-/* template init */
-/** start block copy from right_main.php */
-include_once(SM_PATH . 'class/template/template.class.php');
-
 /**
  *  get template name and set used template directory
- * 
+ *
  *  Existing file check has been moved into the template object, so it is
- *  not neccesary to do file_exists() here. 
+ *  not neccesary to do file_exists() here.
  * */
 if (sqgetGlobalVar('templateid',$templateid,SQ_GET)) {
     $sTplDir = SM_PATH.'templates/'.basename($templateid).'/';
@@ -188,5 +186,3 @@ $template_css = $oTemplate->getAdditionalStyleSheets();
 foreach ($template_css as $stylesheet) {
     $oTemplate->display($stylesheet);
 }
- 
-?>

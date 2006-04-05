@@ -14,14 +14,13 @@
  * @subpackage message_details
  */
 
-/** @ignore */
-if (!defined('SM_PATH'))
-   define('SM_PATH','../../');
-
-/* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/imap.php');
-require_once(SM_PATH . 'functions/mime.php');
+/**
+ * Include the SquirrelMail initialization file.
+ */
+require('../../include/init.php');
+require(SM_PATH . 'functions/imap_general.php');
+require(SM_PATH . 'functions/imap_messages.php');
+require(SM_PATH . 'functions/mime.php');
 
 sqgetGlobalVar('get_message_details', $md_action, SQ_GET);
 

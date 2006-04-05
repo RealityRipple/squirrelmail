@@ -13,15 +13,14 @@
  */
 
 /**
- * Path for SquirrelMail required files.
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../');
+require('../include/init.php');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/imap.php');
-require_once(SM_PATH . 'functions/mime.php');
+require(SM_PATH . 'functions/imap_general.php');
+require(SM_PATH . 'functions/mailbox_display.php');
+require(SM_PATH . 'functions/mime.php');
 
 header('Pragma: ');
 header('Cache-Control: cache');

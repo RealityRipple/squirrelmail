@@ -17,21 +17,19 @@
  */
 
 /**
- * Path for SquirrelMail required files.
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../');
+require('../include/init.php');
 
 /** SquirrelMail required files.
  */
-include_once(SM_PATH . 'include/validate.php');
-include_once(SM_PATH . 'functions/strings.php');
-include_once(SM_PATH . 'functions/imap_asearch.php');
-include_once(SM_PATH . 'functions/imap_mailbox.php');
-include_once(SM_PATH . 'functions/imap_messages.php');
-include_once(SM_PATH . 'functions/mime.php');
-include_once(SM_PATH . 'functions/mailbox_display.php'); //getButton()...
-include_once(SM_PATH . 'class/template/template.class.php');
+require_once(SM_PATH . 'functions/imap_asearch.php');
+require_once(SM_PATH . 'functions/imap_messages.php');
+require_once(SM_PATH . 'functions/imap_general.php');
+require_once(SM_PATH . 'functions/mime.php');
+require_once(SM_PATH . 'functions/mailbox_display.php'); //getButton()
+require_once(SM_PATH . 'functions/forms.php');
+require_once(SM_PATH . 'functions/date.php');
 
 /** Prefs array ordinals. Must match $recent_prefkeys and $saved_prefkeys
  */

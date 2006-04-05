@@ -11,15 +11,8 @@
  * @package squirrelmail
  */
 
-/** @ignore */
-if (! defined('SM_PATH')) define('SM_PATH','../');
-
 /** Include required files from SM */
-require_once(SM_PATH . 'functions/strings.php');
-require_once(SM_PATH . 'functions/html.php');
-require_once(SM_PATH . 'functions/imap_mailbox.php');
-require_once(SM_PATH . 'functions/global.php');
-include_once(SM_PATH . 'class/template/template.class.php');
+include_once(SM_PATH . 'functions/imap_mailbox.php');
 
 /**
  * Output a SquirrelMail page header, from <!doctype> to </head>
@@ -70,6 +63,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
         .(!empty($used_fontset) ? '&amp;fontset='.$used_fontset : '')
         .(!empty($used_fontsize) ? '&amp;fontsize='.$used_fontsize : '')
         .(!empty($text_direction) ? '&amp;dir='.$text_direction : '')."\">\n";
+
 
     // load custom style sheet (deprecated)
     if ( ! empty($theme_css) ) {
@@ -125,7 +119,8 @@ ECHO;
  * @param string target the target frame for this link
  */
 function makeInternalLink($path, $text, $target='') {
-    sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION);
+    global $base_uri;
+//    sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION);
     if ($target != '') {
         $target = " target=\"$target\"";
     }
@@ -210,7 +205,10 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
         displayHtmlHeader ('SquirrelMail');
         $sBodyTagJs = '';
     }
-
+    /*
+     * this explains the imap_mailbox.php dependency. We should instead store
+     * the selected mailbox in the session and fallback to the session var.
+     */
     $shortBoxName = htmlspecialchars(imap_utf7_decode_local(
                 readShortMailboxName($mailbox, $delimiter)));
     if ( $shortBoxName == 'INBOX' ) {
@@ -293,4 +291,3 @@ function compose_Header($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
     }
     echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" $sBodyTagJs>\n\n";
 }
-?>

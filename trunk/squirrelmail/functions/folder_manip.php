@@ -222,7 +222,7 @@ function folders_delete_ask ($imapConnection, $folder_name)
  */
 function folders_delete_do ($imapConnection, $delimiter, $folder_name)
 {
-    require_once(SM_PATH . 'functions/tree.php');
+    include(SM_PATH . 'functions/tree.php');
 
     $boxes = sqimap_mailbox_list ($imapConnection);
 

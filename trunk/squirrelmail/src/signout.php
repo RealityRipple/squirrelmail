@@ -12,16 +12,9 @@
  */
 
 /**
- * Path for SquirrelMail required files.
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../');
-
-include_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/prefs.php');
-require_once(SM_PATH . 'functions/plugin.php');
-require_once(SM_PATH . 'functions/strings.php');
-require_once(SM_PATH . 'functions/html.php');
+require('../include/init.php');
 
 /* Erase any lingering attachments */
 sqgetGlobalVar('compose_messages',  $compose_messages,  SQ_SESSION);
@@ -39,7 +32,6 @@ if (!isset($frame_top)) {
 /* If a user hits reload on the last page, $base_uri isn't set
  * because it was deleted with the session. */
 if (! sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
-    require_once(SM_PATH . 'functions/display_messages.php');
     $base_uri = sqm_baseuri();
 }
 

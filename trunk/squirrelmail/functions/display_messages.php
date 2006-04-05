@@ -12,13 +12,6 @@
  * @package squirrelmail
  */
 
-/** @ignore */
-if (! defined('SM_PATH')) define('SM_PATH','../');
-
-/**
- * including plugin functions
- */
-include_once(SM_PATH . 'functions/plugin.php');
 
 /**
  * Displays error message and URL to message listing
@@ -52,7 +45,7 @@ function plain_error_message($message, $color) {
 
 /**
  * Displays error when user is logged out
- * 
+ *
  * Error strings can be overriden by logout_error hook
  * @param string $errString error message
  * @param string $errTitle title of page with error message
@@ -60,16 +53,11 @@ function plain_error_message($message, $color) {
  */
 function logout_error( $errString, $errTitle = '' ) {
     global $frame_top, $org_logo, $org_name, $org_logo_width, $org_logo_height,
-           $hide_sm_attributions, $version, $squirrelmail_language, 
+           $hide_sm_attributions, $version, $squirrelmail_language,
            $color, $theme, $theme_default;
 
     $base_uri = sqm_baseuri();
 
-    include_once( SM_PATH . 'functions/page_header.php' );
-    if ( !isset( $org_logo ) ) {
-        // Don't know yet why, but in some accesses $org_logo is not set.
-        include( SM_PATH . 'config/config.php' );
-    }
     /* Display width and height like good little people */
     $width_and_height = '';
     if (isset($org_logo_width) && is_numeric($org_logo_width) && $org_logo_width>0) {
@@ -132,7 +120,7 @@ function logout_error( $errString, $errTitle = '' ) {
 
 /**
  * Displays error message
- * 
+ *
  * Since 1.4.1 function checks if page header is already displayed.
  * Since 1.4.3 and 1.5.1 function contains error_box hook.
  * Use plain_error_message() and make sure that page header is created,
@@ -152,8 +140,6 @@ function error_box($string, $color) {
 
     /* check if the page header has been sent; if not, send it! */
     if(!isset($pageheader_sent) && !$pageheader_sent) {
-        /* include this just to be sure */
-        include_once( SM_PATH . 'functions/page_header.php' );
         displayHtmlHeader('SquirrelMail: '.$err);
         $pageheader_sent = TRUE;
         echo "<body>\n\n";
@@ -178,4 +164,3 @@ function error_option_save($message) {
 
     $optpage_save_error=array_merge($optpage_save_error,array($message));
 }
-?>

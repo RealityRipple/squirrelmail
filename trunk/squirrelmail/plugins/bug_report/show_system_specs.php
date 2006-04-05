@@ -10,13 +10,10 @@
  */
 
 /**
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../../');
-/** load system functions */
-include_once(SM_PATH . 'include/validate.php');
-/** load error_box() function */
-include_once(SM_PATH . 'functions/display_messages.php');
+require('../../include/init.php');
+
 /** load plugin functions */
 include_once(SM_PATH.'plugins/bug_report/functions.php');
 

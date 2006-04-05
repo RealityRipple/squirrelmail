@@ -12,11 +12,11 @@
  * @subpackage newmail
  */
 
-/** @ignore */
-define('SM_PATH','../../');
-
-/* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
+/**
+ * Path for SquirrelMail required files.
+ * @ignore
+ */
+require('../../include/init.php');
 
 sqGetGlobalVar('numnew', $numnew, SQ_GET);
 $numnew = (int)$numnew;
@@ -27,8 +27,7 @@ $numnew = (int)$numnew;
         '<div style="text-align: center;">'. "\n" .
         html_tag( 'table', "\n" .
             html_tag( 'tr', "\n" .
-                // i18n: %s inserts the organisation name (typically SquirrelMail)
-                html_tag( 'td', '<b>' . sprintf(_("%s notice:"), $org_name) . '</b>', 'center', $color[0] )
+                html_tag( 'td', '<b>' . _("SquirrelMail Notice:") . '</b>', 'center', $color[0] )
             ) .
             html_tag( 'tr', "\n" .
                 html_tag( 'td',

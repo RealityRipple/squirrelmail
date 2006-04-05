@@ -10,10 +10,11 @@
  * @subpackage change_password
  */
 
-/** @ignore */
-define('SM_PATH','../../');
+/**
+ * Include the SquirrelMail initialization file.
+ */
+require('../../include/init.php');
 
-include_once (SM_PATH . 'include/validate.php');
 include_once (SM_PATH . 'plugins/change_password/functions.php');
 include_once (SM_PATH . 'functions/forms.php');
 

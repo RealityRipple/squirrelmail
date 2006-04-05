@@ -12,11 +12,6 @@
  * @package squirrelmail
  */
 
-/** @ignore */
-if (! defined('SM_PATH')) define('SM_PATH','../');
-
-/** Clearly, this needs the IMAP functions.. */
-require_once(SM_PATH . 'functions/imap.php');
 
 /**
  * Recursive function to find the correct parent for a new node.

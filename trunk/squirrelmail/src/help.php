@@ -12,15 +12,9 @@
  */
 
 /**
- * Path for SquirrelMail required files.
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../');
-
-/* SquirrelMail required files. */
-include_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/global.php');
-require_once(SM_PATH . 'functions/display_messages.php');
+require('../include/init.php');
 
 displayPageHeader($color, 'None' );
 

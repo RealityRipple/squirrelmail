@@ -12,10 +12,6 @@
  * @subpackage abook_take
  */
 
-/** SquirrelMail required files. */
-require_once(SM_PATH . 'functions/url_parser.php');
-require_once(SM_PATH . 'functions/forms.php');
-
 function valid_email ($email, $verify)
 {
     global $Email_RegExp_Match;

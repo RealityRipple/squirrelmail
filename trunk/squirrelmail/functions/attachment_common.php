@@ -12,18 +12,7 @@
  * @todo document attachment $type hook arguments
  */
 
-/** @ignore */
-if (! defined('SM_PATH')) define('SM_PATH','../');
 
-/** sqgetGlobalVar() */
-include_once(SM_PATH . 'functions/global.php');
-/** sqm_baseuri() */
-include_once(SM_PATH . 'functions/display_messages.php');
-
-global $attachment_common_show_images_list;
-$attachment_common_show_images_list = array();
-
-global $FileExtensionToMimeType, $attachment_common_types;
 /**
  * Mapping of file extensions to mime types
  *
@@ -70,7 +59,7 @@ if (isset($attachment_common_types)) {
             register_attachment_common('image/x-xbitmap', 'link_image');
         elseif ($val == '*/*' || $val == 'image/*') {
             /**
-             * browser (Firefox) declared that anything is acceptable. 
+             * browser (Firefox) declared that anything is acceptable.
              * Lets register some common image types.
              */
             if (! isset($jpeg_done)) {
@@ -131,6 +120,7 @@ function register_attachment_common($type, $func) {
  * @since 1.2.0
  */
 function attachment_common_link_text(&$Args) {
+    global $base_uri;
     /* If there is a text attachment, we would like to create a "View" button
        that links to the text attachment viewer.
 
@@ -144,7 +134,7 @@ function attachment_common_link_text(&$Args) {
     sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 
     // if htmlspecialchars() breaks something - find other way to encode & in url.
-    $Args[1]['attachment_common']['href'] = sqm_baseuri() . 'src/view_text.php?'. htmlspecialchars($QUERY_STRING);
+    $Args[1]['attachment_common']['href'] = $base_uri  . 'src/view_text.php?'. htmlspecialchars($QUERY_STRING);
     $Args[1]['attachment_common']['href'] =
           set_url_var($Args[1]['attachment_common']['href'],
           'ent_id',$Args[5]);
@@ -169,7 +159,8 @@ function attachment_common_link_text(&$Args) {
  * @since 1.2.6
  */
 function attachment_common_link_message(&$Args) {
-    $Args[1]['attachment_common']['href'] = sqm_baseuri() . 'src/read_body.php?startMessage=' .
+    global $base_uri;
+    $Args[1]['attachment_common']['href'] = $base_uri  . 'src/read_body.php?startMessage=' .
         $Args[2] . '&amp;passed_id=' . $Args[3] . '&amp;mailbox=' . $Args[4] .
         '&amp;passed_ent_id=' . $Args[5] . '&amp;override_type0=message&amp;override_type1=rfc822';
 
@@ -184,9 +175,10 @@ function attachment_common_link_message(&$Args) {
  * @since 1.2.0
  */
 function attachment_common_link_html(&$Args) {
+    global $base_uri;
     sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 
-    $Args[1]['attachment_common']['href'] = sqm_baseuri() . 'src/view_text.php?'. htmlspecialchars($QUERY_STRING).
+    $Args[1]['attachment_common']['href'] = $base_uri  . 'src/view_text.php?'. htmlspecialchars($QUERY_STRING).
         /* why use the overridetype? can this be removed */
         /* override_type might be needed only when we want view other type of messages as html */
        '&amp;override_type0=text&amp;override_type1=html';
@@ -205,7 +197,7 @@ function attachment_common_link_html(&$Args) {
  * @since 1.2.0
  */
 function attachment_common_link_image(&$Args) {
-    global $attachment_common_show_images_list;
+    global $attachment_common_show_images_list, $base_uri ;
 
     sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 
@@ -215,7 +207,7 @@ function attachment_common_link_image(&$Args) {
 
     $attachment_common_show_images_list[] = $info;
 
-    $Args[1]['attachment_common']['href'] = sqm_baseuri() . 'src/image.php?'. htmlspecialchars($QUERY_STRING);
+    $Args[1]['attachment_common']['href'] = $base_uri  . 'src/image.php?'. htmlspecialchars($QUERY_STRING);
     $Args[1]['attachment_common']['href'] =
           set_url_var($Args[1]['attachment_common']['href'],
           'ent_id',$Args[5]);
@@ -231,9 +223,10 @@ function attachment_common_link_image(&$Args) {
  * @since 1.2.0
  */
 function attachment_common_link_vcard(&$Args) {
+    global $base_uri;
     sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 
-    $Args[1]['attachment_common']['href'] = sqm_baseuri() . 'src/vcard.php?'. htmlspecialchars($QUERY_STRING);
+    $Args[1]['attachment_common']['href'] = $base_uri  . 'src/vcard.php?'. htmlspecialchars($QUERY_STRING);
     $Args[1]['attachment_common']['href'] =
           set_url_var($Args[1]['attachment_common']['href'],
           'ent_id',$Args[5]);

@@ -13,21 +13,13 @@
  */
 
 /**
- * Path for SquirrelMail required files.
- * @ignore
+ * Include the SquirrelMail initialization file.
  */
-define('SM_PATH','../');
+require('../include/init.php');
 
 /* SquirrelMail required files. */
-include_once(SM_PATH . 'include/validate.php');
-include_once(SM_PATH . 'functions/global.php');
-include_once(SM_PATH . 'functions/display_messages.php');
-include_once(SM_PATH . 'functions/imap.php');
-include_once(SM_PATH . 'functions/plugin.php');
-include_once(SM_PATH . 'functions/html.php');
-include_once(SM_PATH . 'functions/forms.php');
-include_once(SM_PATH . 'functions/arrays.php');
-//require_once(SM_PATH . 'functions/options.php');
+require_once(SM_PATH . 'functions/forms.php');
+require_once(SM_PATH . 'functions/arrays.php');
 
 /* get globals */
 if (sqgetGlobalVar('num',       $num,       SQ_GET)) {

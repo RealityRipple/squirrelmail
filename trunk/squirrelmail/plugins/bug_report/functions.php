@@ -9,8 +9,15 @@
  * @subpackage bug_report
  */
 
-/** @ignore */
-if (! defined('SM_PATH')) define('SM_PATH','../../');
+
+/**
+ * do not allow to call this file directly
+ */
+if ((isset($_SERVER) && $_SERVER['SCRIPT_FILENAME'] == __FILE__) ||
+     (isset($HTTP_SERVER_SERVER) && $HTTP_SERVER_SERVER['SCRIPT_FILENAME'] == __FILE__) ) {
+    header("Location: ../../src/login.php");
+    die();
+}
 
 /** Declare plugin configuration vars */
 global $bug_report_admin_email, $bug_report_allow_users;

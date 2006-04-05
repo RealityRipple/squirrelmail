@@ -23,6 +23,7 @@ define('SQ_COOKIE',4);
 define('SQ_SERVER',5);
 define('SQ_FORM',6);
 
+
 /**
  * returns true if current php version is at mimimum a.b.c
  *
@@ -148,12 +149,10 @@ function sqsession_is_registered ($name) {
  * @param int search constant defining where to look
  * @return bool whether variable is found.
  */
-function sqgetGlobalVar($name, &$value, $search = SQ_INORDER) {
+function sqgetGlobalVar($name, &$value, $search = SQ_INORDER, $default = NULL, $typecast = false) {
 
-    /* NOTE: DO NOT enclose the constants in the switch
-       statement with quotes. They are constant values,
-       enclosing them in quotes will cause them to evaluate
-       as strings. */
+    $result = false;
+
     switch ($search) {
         /* we want the default case to be first here,
            so that if a valid value isn't specified,
@@ -163,7 +162,8 @@ function sqgetGlobalVar($name, &$value, $search = SQ_INORDER) {
       case SQ_SESSION:
         if( isset($_SESSION[$name]) ) {
             $value = $_SESSION[$name];
-            return TRUE;
+            $result = TRUE;
+            break;
         } elseif ( $search == SQ_SESSION ) {
             break;
         }
@@ -171,32 +171,44 @@ function sqgetGlobalVar($name, &$value, $search = SQ_INORDER) {
       case SQ_POST:
         if( isset($_POST[$name]) ) {
             $value = $_POST[$name];
-            return TRUE;
+            $result = TRUE;
+            break;
         } elseif ( $search == SQ_POST ) {
           break;
         }
       case SQ_GET:
         if ( isset($_GET[$name]) ) {
             $value = $_GET[$name];
-            return TRUE;
+            $result = TRUE;
+            break;
         }
         /* NO IF HERE. FOR SQ_INORDER CASE, EXIT after GET */
         break;
       case SQ_COOKIE:
         if ( isset($_COOKIE[$name]) ) {
             $value = $_COOKIE[$name];
-            return TRUE;
+            $result = TRUE;
+            break;
         }
         break;
       case SQ_SERVER:
         if ( isset($_SERVER[$name]) ) {
             $value = $_SERVER[$name];
-            return TRUE;
+            $result = TRUE;
+            break;
         }
         break;
     }
-    /* Nothing found, return FALSE */
-    return FALSE;
+    if ($result && $typecast) {
+        switch ($typecast) {
+            case 'int': $value = (int) $value; break;
+            case 'bool': $value = (bool) $value; break;
+            default: break;
+        }
+    } else if (!is_null($default)) {
+        $value = $default;
+    }
+    return $result;
 }
 
 /**
@@ -227,7 +239,6 @@ function sqsession_destroy() {
         $_SESSION = array();
         @session_destroy();
     }
-
 }
 
 /**
@@ -249,18 +260,14 @@ function sqsession_is_active() {
  * (IE6 only)
  */
 function sqsession_start() {
-    global $PHP_SELF;
-
-    $dirs = array('|src/.*|', '|plugins/.*|', '|functions/.*|');
-    $repl = array('', '', '');
-    $base_uri = preg_replace($dirs, $repl, $PHP_SELF);
-
+    global $base_uri;
 
     session_start();
-    $sessid = session_id();
+    $session_id = session_id();
+
     // session_starts sets the sessionid cookie buth without the httponly var
     // setting the cookie again sets the httponly cookie attribute
-    sqsetcookie(session_name(),$sessid,false,$base_uri);
+    sqsetcookie(session_name(),session_id(),false,$base_uri);
 }
 
 
@@ -275,7 +282,21 @@ function sqsession_start() {
  * @param boolean $bHttpOnly Disallow JS to access the cookie (IE6 only)
  * @return void
  */
-function sqsetcookie($sName,$sValue,$iExpire=false,$sPath="",$sDomain="",$bSecure=false,$bHttpOnly=true) {
+function sqsetcookie($sName,$sValue,$iExpire=false,$sPath="",$sDomain="",$bSecure=false,$bHttpOnly=true,$bFlush=false) {
+    static $sCookieCache;
+    if (!isset($sCache)) {
+        $sCache = '';
+    }
+    /**
+     * We have to send all cookies with one header call otherwise we loose cookies.
+     * In order to achieve that the sqsetcookieflush function calls this function with $bFlush = true.
+     * If that happens we send the cookie header.
+     */
+    if ($bFlush) {
+        header($sCookieCache);
+        return;
+    }
+
     $sHeader = "Set-Cookie: $sName=$sValue";
     if ($sPath) {
         $sHeader .= "; path=$sPath";
@@ -295,9 +316,70 @@ function sqsetcookie($sName,$sValue,$iExpire=false,$sPath="",$sDomain="",$bSecur
         $sHeader .= "; HttpOnly";
     }
     // $sHeader .= "; Version=1";
-
-    header($sHeader);
+    $sCookieCache .= $sHeader ."\r\n";
+    if ($bFlush) {
+        header($sCookieCache);
+    }
 }
+
+/**
+ * Send the cookie header
+ *
+ * Cookies set with sqsetcookie will bet set after a sqsetcookieflush call.
+ * @return void
+ */
+function sqsetcookieflush() {
+    sqsetcookie('','','','','','','',true);
+}
+
+/**
+ * session_regenerate_id replacement for PHP < 4.3.2
+ *
+ * This code is borrowed from Gallery, session.php version 1.53.2.1
+ */
+if (!function_exists('session_regenerate_id')) {
+    function make_seed() {
+        list($usec, $sec) = explode(' ', microtime());
+        return (float)$sec + ((float)$usec * 100000);
+    }
+
+    function php_combined_lcg() {
+        mt_srand(make_seed());
+        $tv = gettimeofday();
+        $lcg['s1'] = $tv['sec'] ^ (~$tv['usec']);
+        $lcg['s2'] = mt_rand();
+        $q = (int) ($lcg['s1'] / 53668);
+        $lcg['s1'] = (int) (40014 * ($lcg['s1'] - 53668 * $q) - 12211 * $q);
+        if ($lcg['s1'] < 0) {
+            $lcg['s1'] += 2147483563;
+        }
+        $q = (int) ($lcg['s2'] / 52774);
+        $lcg['s2'] = (int) (40692 * ($lcg['s2'] - 52774 * $q) - 3791 * $q);
+        if ($lcg['s2'] < 0) {
+            $lcg['s2'] += 2147483399;
+        }
+        $z = (int) ($lcg['s1'] - $lcg['s2']);
+        if ($z < 1) {
+            $z += 2147483562;
+        }
+        return $z * 4.656613e-10;
+    }
+
+    function session_regenerate_id() {
+        global $base_uri;
+        $tv = gettimeofday();
+        sqgetGlobalVar('REMOTE_ADDR',$remote_addr,SQ_SERVER);
+        $buf = sprintf("%.15s%ld%ld%0.8f", $remote_addr, $tv['sec'], $tv['usec'], php_combined_lcg() * 10);
+        session_id(md5($buf));
+        if (ini_get('session.use_cookies')) {
+            // at a later stage we use sqsetcookie. At this point just do
+            // what session_regenerate_id would do
+            setcookie(session_name(), session_id(), NULL, $base_uri);
+        }
+        return TRUE;
+    }
+}
+
 
 /**
  * php_self
@@ -328,89 +410,4 @@ function php_self () {
     return '';
 }
 
-/** set the name of the session cookie */
-if(isset($session_name) && $session_name) {
-    ini_set('session.name' , $session_name);
-} else {
-    ini_set('session.name' , 'SQMSESSID');
-}
 
-/**
- * If magic_quotes_runtime is on, SquirrelMail breaks in new and creative ways.
- * Force magic_quotes_runtime off.
- * tassium@squirrelmail.org - I put it here in the hopes that all SM code includes this.
- * If there's a better place, please let me know.
- */
-ini_set('magic_quotes_runtime','0');
-
-/* Since we decided all IMAP servers must implement the UID command as defined in
- * the IMAP RFC, we force $uid_support to be on.
- */
-
-global $uid_support;
-$uid_support = true;
-
-/* if running with magic_quotes_gpc then strip the slashes
-   from POST and GET global arrays */
-if (get_magic_quotes_gpc()) {
-    sqstripslashes($_GET);
-    sqstripslashes($_POST);
-}
-
-/**
- * If register_globals are on, unregister globals.
- * Code requires PHP 4.1.0 or newer.
- */
-if ((bool) @ini_get('register_globals')) {
-    /**
-     * Remove all globals from $_GET, $_POST, and $_COOKIE.
-     */
-    foreach ($_REQUEST as $key => $value) {
-        unset($GLOBALS[$key]);
-    }
-    /**
-     * Remove globalized $_FILES variables
-     * Before 4.3.0 $_FILES are included in $_REQUEST.
-     * Unglobalize them in separate call in order to remove dependency
-     * on PHP version.
-     */
-    foreach ($_FILES as $key => $value) {
-        unset($GLOBALS[$key]);
-        // there are three undocumented $_FILES globals.
-        unset($GLOBALS[$key.'_type']);
-        unset($GLOBALS[$key.'_name']);
-        unset($GLOBALS[$key.'_size']);
-    }
-    /**
-     * Remove globalized environment variables.
-     */
-    foreach ($_ENV as $key => $value) {
-        unset($GLOBALS[$key]);
-    }
-    /**
-     * Remove globalized server variables.
-     */
-    foreach ($_SERVER as $key => $value) {
-        unset($GLOBALS[$key]);
-    }
-}
-
-/* strip any tags added to the url from PHP_SELF.
-   This fixes hand crafted url XXS expoits for any
-   page that uses PHP_SELF as the FORM action */
-$_SERVER['PHP_SELF'] = strip_tags($_SERVER['PHP_SELF']);
-
-$PHP_SELF = php_self();
-
-sqsession_is_active();
-
-/**
- * Remove globalized session data in rg=on setups
- */
-if ((bool) @ini_get('register_globals')) {
-    foreach ($_SESSION as $key => $value) {
-        unset($GLOBALS[$key]);
-    }
-}
-
-?>
