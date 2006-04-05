@@ -33,62 +33,6 @@ error_reporting(E_ALL);
 
 
 /**
- * calculate SM_PATH and calculate the base_uri
- * assumptions made: init.php is only called from plugins or from the src dir.
- * files in the plugin directory may not be part of a subdirectory called "src"
- *
- */
-if (isset($_SERVER['SCRIPT_NAME'])) {
-    $a = explode('/',$_SERVER['SCRIPT_NAME']);
-} elseif (isset($HTTP_SERVER_VARS['SCRIPT_NAME'])) {
-    $a = explode('/',$_SERVER['SCRIPT_NAME']);
-}
-$sSM_PATH = '';
-for($i = count($a) -2;$i > -1; --$i) {
-    $sSM_PATH .= '../';
-    if ($a[$i] === 'src' || $a[$i] === 'plugins') {
-        break;
-    }
-}
-
-$base_uri = implode('/',array_slice($a,0,$i)). '/';
-
-
-
-define('SM_PATH',$sSM_PATH);
-
-/**
- * global var $bInit is used to check if initialisation took place.
- * At this moment it's a workarounf for the include of addrbook_search_html
- * inside compose.php. If we found a better way then remove this. Do only use
- * this var if you know for sure a page can be called stand alone and be included
- * in another file.
- */
-$bInit = true;
-
-require(SM_PATH . 'functions/global.php');
-require(SM_PATH . 'config/config.php');
-require(SM_PATH . 'functions/plugin.php');
-require(SM_PATH . 'include/constants.php');
-require(SM_PATH . 'include/languages.php');
-
-/**
- * If magic_quotes_runtime is on, SquirrelMail breaks in new and creative ways.
- * Force magic_quotes_runtime off.
- * tassium@squirrelmail.org - I put it here in the hopes that all SM code includes this.
- * If there's a better place, please let me know.
- */
-ini_set('magic_quotes_runtime','0');
-
-
-/* if running with magic_quotes_gpc then strip the slashes
-   from POST and GET global arrays */
-if (get_magic_quotes_gpc()) {
-    sqstripslashes($_GET);
-    sqstripslashes($_POST);
-}
-
-/**
  * If register_globals are on, unregister globals.
  * Code requires PHP 4.1.0 or newer.
  */
@@ -126,6 +70,62 @@ if ((bool) @ini_get('register_globals')) {
     }
 }
 
+
+/**
+ * calculate SM_PATH and calculate the base_uri
+ * assumptions made: init.php is only called from plugins or from the src dir.
+ * files in the plugin directory may not be part of a subdirectory called "src"
+ *
+ */
+if (isset($_SERVER['SCRIPT_NAME'])) {
+    $a = explode('/',$_SERVER['SCRIPT_NAME']);
+} elseif (isset($HTTP_SERVER_VARS['SCRIPT_NAME'])) {
+    $a = explode('/',$_SERVER['SCRIPT_NAME']);
+}
+$sSM_PATH = '';
+for($i = count($a) -2;$i > -1; --$i) {
+    $sSM_PATH .= '../';
+    if ($a[$i] === 'src' || $a[$i] === 'plugins') {
+        break;
+    }
+}
+
+$base_uri = implode('/',array_slice($a,0,$i)). '/';
+
+define('SM_PATH',$sSM_PATH);
+define('SM_BASE_URI', $base_uri);
+/**
+ * global var $bInit is used to check if initialisation took place.
+ * At this moment it's a workarounf for the include of addrbook_search_html
+ * inside compose.php. If we found a better way then remove this. Do only use
+ * this var if you know for sure a page can be called stand alone and be included
+ * in another file.
+ */
+$bInit = true;
+
+require(SM_PATH . 'functions/global.php');
+require(SM_PATH . 'config/config.php');
+require(SM_PATH . 'functions/plugin.php');
+require(SM_PATH . 'include/constants.php');
+require(SM_PATH . 'include/languages.php');
+
+/**
+ * If magic_quotes_runtime is on, SquirrelMail breaks in new and creative ways.
+ * Force magic_quotes_runtime off.
+ * tassium@squirrelmail.org - I put it here in the hopes that all SM code includes this.
+ * If there's a better place, please let me know.
+ */
+ini_set('magic_quotes_runtime','0');
+
+
+/* if running with magic_quotes_gpc then strip the slashes
+   from POST and GET global arrays */
+if (get_magic_quotes_gpc()) {
+    sqstripslashes($_GET);
+    sqstripslashes($_POST);
+}
+
+
 /* strip any tags added to the url from PHP_SELF.
 This fixes hand crafted url XXS expoits for any
    page that uses PHP_SELF as the FORM action */
@@ -150,8 +150,6 @@ ini_set('session.name' , $session_name);
 session_set_cookie_params (0, $base_uri);
 sqsession_is_active();
 
-sqsession_register($base_uri, 'base_uri');
-
 /**
  * Remove globalized session data in rg=on setups
  */
@@ -160,6 +158,9 @@ if ((bool) @ini_get('register_globals')) {
         unset($GLOBALS[$key]);
     }
 }
+
+sqsession_register($base_uri, SM_BASE_URI);
+
 /**
  * Retrieve the language cookie
  */
