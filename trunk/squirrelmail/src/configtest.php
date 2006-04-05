@@ -47,8 +47,11 @@ $allow_remote_configtest=false;
  * later.
  */
 if (file_exists(SM_PATH . 'config/config.php')) {
-    require(SM_PATH . 'include/init.php');
+	require(SM_PATH . 'config/config.php');
 }
+require(SM_PATH . 'functions/global.php');
+require(SM_PATH . 'functions/strings.php');
+
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
   "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
@@ -108,7 +111,9 @@ if(!check_php_version(4,1,0)) {
 }
 
 echo $IND . 'PHP version ' . PHP_VERSION . ' OK. (You have: ' . phpversion() . ". Minimum: 4.1.0)<br />\n";
-
+if ((bool) ini_get('register_globals')) {
+	do_err('You have register_globals turned on.  This is not an error, but it CAN be a security hazard.  Consider turning register_globals off.', false);
+}
 $php_exts = array('session','pcre');
 $diff = array_diff($php_exts, get_loaded_extensions());
 if(count($diff)) {
