@@ -47,28 +47,6 @@ if (file_exists(SM_PATH . 'config/filters_config.php')) {
 }
 
 /**
- * Init Hooks
- * @access private
- */
-function filters_init_hooks () {
-    global $squirrelmail_plugin_hooks;
-
-    if (! sqgetGlobalVar('mailbox',$mailbox,SQ_FORM)) {
-        $mailbox = 'INBOX';
-    }
-
-    $squirrelmail_plugin_hooks['left_main_before']['filters'] = 'start_filters_hook';
-    if (isset($mailbox) && $mailbox == 'INBOX') {
-        $squirrelmail_plugin_hooks['right_main_after_header']['filters'] = 'start_filters_hook';
-    }
-    $squirrelmail_plugin_hooks['optpage_register_block']['filters'] = 'filters_optpage_register_block_hook';
-    $squirrelmail_plugin_hooks['special_mailbox']['filters'] = 'filters_special_mailbox';
-    $squirrelmail_plugin_hooks['rename_or_delete_folder']['filters'] = 'update_for_folder_hook';
-    $squirrelmail_plugin_hooks['webmail_bottom']['filters'] = 'start_filters_hook';
-    $squirrelmail_plugin_hooks['folder_status']['filters'] = 'filters_folder_status';
-}
-
-/**
  * Register option blocks
  * @access private
  */
@@ -95,14 +73,10 @@ function filters_optpage_register_block() {
 /* Receive the status of the folder and do something with it */
 function filters_folder_status($statusarr) {
 
-	global $filter_inbox_count;
-	if (empty($filter_inbox_count)) $filter_inbox_count=0;
+    global $filter_inbox_count;
+    if (empty($filter_inbox_count)) $filter_inbox_count=0;
 
-    //echo "GOT HOOK<br><pre>";
-    //var_dump($statusarr);
-    //echo "</pre><br>\n";
-
-	if ($statusarr['MAILBOX'] == 'INBOX')
+    if ($statusarr['MAILBOX'] == 'INBOX')
     {
      if (!empty($statusarr['MESSAGES'])) $filter_inbox_count=$statusarr['MESSAGES'];
     }
@@ -206,14 +180,25 @@ function filters_bulkquery($filters, $IPs) {
 
 /**
  * Starts the filtering process
+ * @param array $hook_args (since 1.5.2) do hook arguments. Is used to check
+ * hook name, array key = 0.
  * @access private
  */
-function start_filters() {
+function start_filters($hook_args) {
     global $imapServerAddress, $imapPort, $imap_stream, $imapConnection,
            $UseSeparateImapConnection, $AllowSpamFilters, $filter_inbox_count;
 
     sqgetGlobalVar('username', $username, SQ_SESSION);
     sqgetGlobalVar('key',      $key,      SQ_COOKIE);
+
+    /**
+     * check hook that calls filtering. If filters are called by right_main_after_header,
+     * do filtering only when we are in INBOX folder.
+     */
+    if ($hook_args[0]=='right_main_after_header' &&
+        (sqgetGlobalVar('mailbox',$mailbox,SQ_FORM) && $mailbox!='INBOX')) {
+        return;
+    }
 
     $filters = load_filters();
 
@@ -370,7 +355,6 @@ function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_
         /* read data back from IMAP */
         $read = sqimap_run_command($imap_stream, $search_str, true, $response, $message, TRUE);
     } else {
-        // TODO               BADCHARSET
         $search_str .= ' ' . $where . ' {' . strlen($what) . "}";
         $sid = sqimap_session_id(true);
         fputs ($imap_stream, $sid . ' ' . $search_str . "\r\n");
