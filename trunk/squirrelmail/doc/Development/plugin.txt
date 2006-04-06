@@ -125,29 +125,71 @@ the main SquirrelMail directory.  This constant is always available
 for you to use when including other files from the SquirrelMail core,
 your own plugin, or other plugins, should the need arise.  If any of
 your plugin files are requested directly from the client browser,
-you will need to define this constant before you do anything else:
+you will need to include the SquirrelMail initialization file which is present
+since SquirrelMail 1.5.2.
 
-  define('SM_PATH', '../../');
+The SquirrelMail initialization file which is located in include/init.php does
+take care of setting up the session, defining the constants like SM_PATH and
+it take care of including a minimum set of required files.
 
-Files are included like this:
+The files which are included depends on which file the hook operates on.
+For all hook locations the following files are included:
 
-  include_once(SM_PATH . 'include/validate.php');
+    require(SM_PATH . 'functions/global.php');
+    require(SM_PATH . 'config/config.php');
+    require(SM_PATH . 'functions/plugin.php');
+    require(SM_PATH . 'include/constants.php');
+    require(SM_PATH . 'include/languages.php');
+    require(SM_PATH . 'functions/display_messages.php' );
+    require(SM_PATH . 'functions/page_header.php');
+    require(SM_PATH . 'functions/html.php');
+
+Except login.php also the following files are included:
+    require(SM_PATH . 'functions/prefs.php');
+
+    require(SM_PATH . 'functions/db_prefs.php');
+OR
+    require(SM_PATH . 'functions/file_prefs.php');
+(dependent of the configured preference backend)
+
+For all files except login.php and redirect.php also the following files are
+included:
+    require(SM_PATH . 'functions/strings.php');
+    require(SM_PATH . 'functions/auth.php');
+
+Because the use of "require" in include/init.php your plugin will fail if it
+tries to include the file in the plugin as well.
+Be aware of that.
+
+To include the init.php file add the following in your plugin:
+
+    /**
+     * Include the SquirrelMail initialization file.
+     */
+    require('../../include/init.php');
+
+Other files then the files mentioned above can be included by your plugin
+like this:
+
+    include_once(SM_PATH . 'functions/imap_general.php');
 
 When including files, please make sure to use the include_once() function
-and NOT include(), require(), or require_once(), since these all are much
-less efficient than include_once() and can have a cumulative effect on
-SquirrelMail performance.
+and NOT include(), require() because they can cause fatal errors when other
+plugins or SquirrelMail files include the same file.
+If you use require_once() instead of include_once() then if something cause
+wrong with the include then php will raise a fatal error. That's the reason
+plugins MUST use include_once() instead of require_once().
 
 The files that you may need to include in a plugin will vary greatly
 depending upon what the plugin is designed to do.  For files that are
-requested directly by the client browser, we strongly recommend that
-you include the file include/validate.php, since it will set up the
-SquirrelMail environment automatically.  It will ensure the the user
-has been authenticated and is currently logged in, load all user
-preferences, include internationalization support, call stripslashes()
-on all incoming data (if magic_quotes_gpc is on), and initialize and
-include all other basic SquirrelMail resources and functions.  You may
-see other plugins that directly include other SquirrelMail files, but
+requested directly by the client browser, you MUST includey the file
+    include/init.php
+, since it will set up the SquirrelMail environment automatically.
+It will ensure the the user has been authenticated and is currently logged in,
+load all user preferences, include internationalization support,
+call stripslashes() on all incoming data (if magic_quotes_gpc is on), and
+initialize and include all other basic SquirrelMail resources and functions.
+You may see other plugins that directly include other SquirrelMail files, but
 that is no longer necessary and is a hold-over from older SquirrelMail
 versions.
 
@@ -163,7 +205,7 @@ version is not listed, files are included from v.1.3.2.):
       1.7. class/mime/Language.class.php
       1.8. class/mime/ContentType.class.php
    2. functions/global.php
-      * fixes differences between php 4.0.x and 4.1+ globals (only in 1.4.x).  
+      * fixes differences between php 4.0.x and 4.1+ globals (only in 1.4.x).
       * undoes magic_quotes_gpc=on sanitizing
       * sets $PHP_SELF (since 1.5.1)
       * starts session
@@ -186,7 +228,7 @@ version is not listed, files are included from v.1.3.2.):
       7.1. include/validate.php
       7.2. functions/prefs.php
          7.2.1. functions/global.php (sqgetGlobalVar() function)
-         7.2.2. functions/plugin.php (do_hook_function() function,, 
+         7.2.2. functions/plugin.php (do_hook_function() function,,
                 since 1.4.4 and 1.5.1, see 7.3)
          7.2.3. $prefs_backend (only in 1.4.3 and 1.5.0)
                 do_hook_function('prefs_backend') (since 1.4.4 and 1.5.1)
@@ -198,7 +240,7 @@ version is not listed, files are included from v.1.3.2.):
       7.3. functions/plugin.php
          7.3.1. functions/global.php (from 1.4.0 and 1.5.0)
          7.3.2. functions/prefs.php (from 1.5.1)
-         7.3.3. plugins/*/setup.php files for enabled plugins. 
+         7.3.3. plugins/*/setup.php files for enabled plugins.
          * starts all squirrelmail_plugin_init_pluginname functions
       7.4. functions/constants.php
       7.5. do_hook('loading_prefs')
@@ -211,9 +253,9 @@ version is not listed, files are included from v.1.3.2.):
       8.4. functions/global.php
    9. functions/prefs.php (already loaded. see 7.2)
 
-Since SquirrelMail 1.5.1 functions/global.php file must be loaded before 
-setting any own global variables. If variables are set before loading 
-functions/global.php library, they can be corrupted in PHP register_globals=On 
+Since SquirrelMail 1.5.1 functions/global.php file must be loaded before
+setting any own global variables. If variables are set before loading
+functions/global.php library, they can be corrupted in PHP register_globals=On
 setups.
 
 
@@ -412,18 +454,18 @@ Each hook is called using the hook type specified in the list above:
 
 (!) Compose Form
 ----------------
-The compose_form hook allows plugins to insert their own code into 
+The compose_form hook allows plugins to insert their own code into
 the form tag for the main message composition HTML form.  Usually
 plugins will want to insert some kind of code in an onsubmit event
 handler.  In order to allow more than one plugin to do so, all plugins
 using this hook to add some onsubmit code need to add that code (without
-the enclosing attribute name and quotes) as a new array entry to the 
+the enclosing attribute name and quotes) as a new array entry to the
 global $compose_onsubmit array.  The code should use "return false"
 if the plugin has found a reason to stop form submission, otherwise,
 it should DO NOTHING (that is, please do not use "return true", as that
 will prevent other plugins from using the onsubmit handler).  SquirrelMail
 itself will insert a final "return true".  All onsubmit code will be
-enclosed in double quotes by SquirrelMail, so plugins need to quote 
+enclosed in double quotes by SquirrelMail, so plugins need to quote
 accordingly if needed.  For example:
 
    global $compose_onsubmit;
@@ -435,7 +477,7 @@ to be escaped as such:
    global $compose_onsubmit;
    $compose_onsubmit[] = ' if (somevar == \'no\') { alert(\\"Sorry\\"); return false; }';
 
-Any other form tag additions by a plugin (beside onsubmit event code) can 
+Any other form tag additions by a plugin (beside onsubmit event code) can
 currently be echoed directly to the browser.
 
 
@@ -461,8 +503,8 @@ options_identities_process
 
     (SquirrelMail 1.4.6+ or 1.5.1+)
       [0] = hook name (always "options_identities_process")
-      [1] = action (hook is used only in 'update' action and any custom 
-            action added to form with option_identities_table and 
+      [1] = action (hook is used only in 'update' action and any custom
+            action added to form with option_identities_table and
             option_identities_buttons hooks)
       [2] = processed identity number
 
@@ -503,8 +545,8 @@ options_identities_table
               . 'YOUR CODE HERE' . '</td></tr>' . "\n";
       }
 
-   First hook argument was modified in 1.4.5/1.5.1. In SquirrelMail 1.4.1-1.4.4 
-   and 1.5.0 argument contains only background color. You should use 
+   First hook argument was modified in 1.4.5/1.5.1. In SquirrelMail 1.4.1-1.4.4
+   and 1.5.0 argument contains only background color. You should use
    <tr bgcolor="<?php echo $args[0]; ?>"> in these SquirrelMail versions.
 
 options_identities_buttons
@@ -524,7 +566,7 @@ options_identities_buttons
               . '" value="Press Me" />';
       }
 
-   Input element should use 'smaction[action_name][identity_no]' value in 
+   Input element should use 'smaction[action_name][identity_no]' value in
    'name' attribute, if you want to process your button actions in
    SquirrelMail 1.4.6+ and 1.5.1+ options_identity_process hook.
 
@@ -1400,8 +1442,8 @@ scope automatically.  There is nothing more to do than this:
    global $favorite_color;
    sqgetGlobalVar('favorite_color', $favorite_color, SQ_FORM);
 
-SquirrelMail 1.5.1+ cleans globals in functions/global.php library. If 
-plugin depends on PHP register_globals=On and loads this library, it will 
+SquirrelMail 1.5.1+ cleans globals in functions/global.php library. If
+plugin depends on PHP register_globals=On and loads this library, it will
 be broken.
 
 
