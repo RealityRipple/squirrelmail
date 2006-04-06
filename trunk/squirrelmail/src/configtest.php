@@ -111,7 +111,9 @@ if(!check_php_version(4,1,0)) {
 }
 
 echo $IND . 'PHP version ' . PHP_VERSION . ' OK. (You have: ' . phpversion() . ". Minimum: 4.1.0)<br />\n";
-if ((bool) ini_get('register_globals')) {
+/* test for boolean false and any string that is not equal to 'off' */
+if ((bool) ini_get('register_globals') && 
+    strtolower(ini_get('register_globals'))!='off') {
 	do_err('You have register_globals turned on.  This is not an error, but it CAN be a security hazard.  Consider turning register_globals off.', false);
 }
 $php_exts = array('session','pcre');

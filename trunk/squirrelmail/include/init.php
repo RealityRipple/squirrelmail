@@ -21,8 +21,10 @@ error_reporting(E_ALL);
 /**
  * If register_globals are on, unregister globals.
  * Code requires PHP 4.1.0 or newer.
+ * Second test covers boolean set as string (php_value register_globals off).
  */
-if ((bool) @ini_get('register_globals')) {
+if ((bool) @ini_get('register_globals') && 
+    strtolower(ini_get('register_globals'))!='off') {
     /**
      * Remove all globals from $_GET, $_POST, and $_COOKIE.
      */
@@ -418,7 +420,6 @@ if (version_compare(PHP_VERSION, "4.3.0", ">=")) {
  * @return integer SMPREF_JS_ON or SMPREF_JS_OFF ({@see functions/constants.php})
  * @since 1.5.1
  */
-
 function checkForJavascript($reset = FALSE) {
   global $data_dir, $username, $javascript_on, $javascript_setting;
 
