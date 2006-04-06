@@ -170,8 +170,8 @@ $oTemplate->assign('submit_field', addSubmit(_("Login")));
 $oTemplate->display('login.tpl');
 
 // Turn off delayed error handling to make sure all errors are dumped.
-$oErrorHandler->delayedErrors(false);
+#$oErrorHandler->delayedErrors(false);
 
-trigger_error('login');
+#trigger_error('login');
 $oTemplate->display('footer.tpl');
 ?>
