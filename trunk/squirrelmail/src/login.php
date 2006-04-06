@@ -110,6 +110,10 @@ if (! isset($color) || ! is_array($color)) {
     $color[7]  = '#0000cc';  /* blue          Links                  */
     $color[8]  = '#000000';  /* black         Normal text            */
 }
+/**
+ * send out all the cookies
+ */
+sqsetcookieflush();
 
 displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 
