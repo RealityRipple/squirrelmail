@@ -11,22 +11,10 @@
  * @package squirrelmail
  */
 
-
-
-
-
-/**
- * SquirrelMail internal version number -- DO NOT CHANGE
- * $sm_internal_version = array (release, major, minor)
- */
-
-$SQM_INTERNAL_VERSION = array(1,5,2);
-
 /**
  * This is a development version so in order to track programmer mistakes we
  * set the error reporting to E_ALL
  */
-
 error_reporting(E_ALL);
 
 
@@ -34,7 +22,6 @@ error_reporting(E_ALL);
  * If register_globals are on, unregister globals.
  * Code requires PHP 4.1.0 or newer.
  */
- 
 if ((bool) @ini_get('register_globals')) {
     /**
      * Remove all globals from $_GET, $_POST, and $_COOKIE.
@@ -143,17 +130,17 @@ if (!isset($session_name) || !$session_name) {
 
 /**
  * if session.auto_start is On then close the session
- */ 
-$session_autostart_name = session_name();
-if ((isset($session_autostart_name) || $session_autostart_name == '') && 
-     $session_autostart_name !== $session_name) {
-    $cookiepath = ini_get('session.cookie_path');
-    $cookiedomain = ini_get('session.cookie_domain');
+ */
+$sSessionAutostartName = session_name();
+if ((isset($sSessionAutostartName) || $sSessionAutostartName == '') &&
+     $sSessionAutostartName !== $session_name) {
+    $sCookiePath = ini_get('session.cookie_path');
+    $sCookieDomain = ini_get('session.cookie_domain');
     // reset the cookie
-    setcookie($session_autostart_name,'',time() - 604800,$cookiepath,$cookiedomain);
+    setcookie($sSessionAutostartName,'',time() - 604800,$sCookiePath,$sCookieDomain);
     @session_destroy();
     session_write_close();
-}    
+}
 
 /**
  * includes from classes stored in the session
@@ -179,6 +166,12 @@ sqsession_register($base_uri, SM_BASE_URI);
  * SquirrelMail version number -- DO NOT CHANGE
  */
 $version = '1.5.2 [CVS]';
+
+/**
+ * SquirrelMail internal version number -- DO NOT CHANGE
+ * $sm_internal_version = array (release, major, minor)
+ */
+$SQM_INTERNAL_VERSION = array(1,5,2);
 
 /**
  * Retrieve the language cookie
@@ -240,6 +233,20 @@ switch ($sInitLocation) {
         require(SM_PATH . 'functions/display_messages.php' );
         require(SM_PATH . 'functions/page_header.php');
         require(SM_PATH . 'functions/html.php');
+        /**
+         * cleanup old cookies with a cookie path the same as the standard php.ini
+         * cookie path. All previous SquirrelMail version used the standard php.ini
+         * cookie path for storing the session name. That behaviour changed.
+         */
+        if ($sCookiePath !== SM_BASE_URI) {
+            /**
+             * do not delete the standard sessions with session.name is i.e. PHPSESSID
+             * because they probably belong to other php apps
+             */
+            if (ini_get('session.name') !== $sSessionAutostartName) {
+                sqsetcookie(ini_get('session.name'),'',0,$sCookiePath);
+            }
+        }
         break;
     default:
         require(SM_PATH . 'functions/display_messages.php' );
