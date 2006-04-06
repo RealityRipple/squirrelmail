@@ -331,6 +331,32 @@ img   {
     background: <?php echo $color[4]; ?>;
 }
 
+/* error_logout.tpl definitions */
+#sqm_errorLogout {
+    width:100%;
+    text-align:center;
+}
+#sqm_errorLogout table {
+    border:0;
+    margin:0;
+    padding:0;
+    border-spacing:0;
+    margin-left:auto;
+    margin-right:auto;
+}
+#sqm_errorLogout td {
+    padding:2px;
+}
+.sqm_errorLogoutImage {
+    margin-left:auto;
+    margin-right:auto;
+    padding:2px;
+}
+.sqm_errorLogoutTop {
+    text-align:center;
+    font-size:80%;
+}
+
 /* page_header.tpl definitions */
 .sqm_currentFolder	{
     background: <?php echo $color[9]; ?>;
