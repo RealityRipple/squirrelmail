@@ -61,5 +61,3 @@ extract($t);
 </form>
 <?php do_hook('login_bottom'); ?>
 </div>
-</body>
-</html>

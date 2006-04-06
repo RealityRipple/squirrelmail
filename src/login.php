@@ -47,7 +47,6 @@ $_SESSION=array();
  * versions. Produces warning on login page. Bug should be fixed only in 4.3.0
  */
 
-//exit;
 /**
  * This detects if the IMAP server has logins disabled, and if so,
  * squelches the display of the login form and puts up a message
@@ -131,7 +130,7 @@ if (isset($org_logo) && $org_logo) {
      $org_logo_height>0) {
         $width_and_height .= " height=\"$org_logo_height\"";
     }
-
+    
     $logo_str = '<img src="'.$org_logo.'" ' .
     			'alt="'. sprintf(_("%s Logo"), $org_name).'" ' .
     			$width_and_height .
@@ -161,7 +160,6 @@ $password_field = addPwField($password_form_name).
 
 session_write_close();
 
-$oTemplate->assign('color', $color);
 $oTemplate->assign('logo_str', $logo_str);
 $oTemplate->assign('sm_attribute_str', $sm_attribute_str);
 $oTemplate->assign('org_name_str', sprintf (_("%s Login"), $org_name));
@@ -170,4 +168,10 @@ $oTemplate->assign('password_field', $password_field);
 $oTemplate->assign('submit_field', addSubmit(_("Login")));
 
 $oTemplate->display('login.tpl');
+
+// Turn off delayed error handling to make sure all errors are dumped.
+$oErrorHandler->delayedErrors(false);
+
+trigger_error('login');
+$oTemplate->display('footer.tpl');
 ?>
