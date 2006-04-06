@@ -73,20 +73,24 @@ class Template
    */
   var $additional_css_sheets = array(); 
   
-  /**
-   * Constructor
-   *
-   * @param string $sTplDir where the template set is located
-   */
-  function Template($sTplDir) {
-       $this->template_dir = $sTplDir;
+    /**
+     * Constructor
+     *
+     * @param string $sTplDir where the template set is located
+     */
+    function Template($sTplDir) {
+        $this->template_dir = $sTplDir;
        
-       // Pull in the tempalte config file
-       include ($this->template_dir . 'template.php');
-       $this->templates_provided = is_array($templates_provided) ? $templates_provided : array();
-       $this->required_js_files = is_array($required_js_files) ? $required_js_files : array();
-       $this->provided_js_files = is_array($provided_js_files) ? $provided_js_files: array();
-       $this->additional_css_sheets = is_array($additional_css_sheets) ? $additional_css_sheets : array();
+        // Pull in the tempalte config file
+        if (!file_exists($this->template_dir . 'template.php')) {
+             trigger_error('No template.php could be found in the requested template directory ("'.$this->template_dir.'")', E_USER_ERROR);
+        } else {
+            include ($this->template_dir . 'template.php');
+            $this->templates_provided = is_array($templates_provided) ? $templates_provided : array();
+            $this->required_js_files = is_array($required_js_files) ? $required_js_files : array();
+            $this->provided_js_files = is_array($provided_js_files) ? $provided_js_files: array();
+            $this->additional_css_sheets = is_array($additional_css_sheets) ? $additional_css_sheets : array();
+        }
   }
 
 
@@ -203,9 +207,13 @@ class Template
     $t = &$this->values; // place values array directly in scope
     
     $template = in_array($file, $this->templates_provided) ? $this->template_dir . $file : SM_PATH .'templates/default/'. $file;
-    ob_start();
-    include($template);
-    ob_end_flush();
+    if (!file_exists($template)) {
+        trigger_error('The template "'.htmlspecialchars($file).'" could not be displayed!', E_USER_ERROR);
+    } else {
+        ob_start();
+        include($template);
+        ob_end_flush();
+    }
   }
 
   /**
@@ -220,10 +228,16 @@ class Template
     $t = &$this->values; // place values array directly in scope
 
     $template = in_array($file, $this->templates_provided) ? $this->template_dir . $file : SM_PATH .'templates/default/'. $file;
-    include($template);
-    $contents = ob_get_contents();
-    ob_end_clean();
-    return $contents;
+    if (!file_exists($template)) {
+        trigger_error('The template "'.htmlspecialchars($file).'" could not be fetched!', E_USER_ERROR);
+    } else {
+        ob_start();
+        include($template);
+        $contents = ob_get_contents();
+        ob_end_flush();
+        return $contents;
+    }
+
   }
 
   /**
