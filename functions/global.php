@@ -267,7 +267,9 @@ function sqsession_start() {
 
     // session_starts sets the sessionid cookie buth without the httponly var
     // setting the cookie again sets the httponly cookie attribute
-    sqsetcookie(session_name(),session_id(),false,$base_uri);
+
+    // disable, @see sqsetcookie and php 5.1.2
+    // sqsetcookie(session_name(),session_id(),false,$base_uri);
 }
 
 
@@ -293,9 +295,17 @@ function sqsetcookie($sName,$sValue,$iExpire=false,$sPath="",$sDomain="",$bSecur
      * If that happens we send the cookie header.
      */
     if ($bFlush) {
-        header($sCookieCache);
+        // header($sCookieCache);
         return;
     }
+    if (!$sName) return;
+
+    // php 5.1.2 and 4.4.2 do not allow to send multiple headers at once.
+    // Because that's the only way to get this thing working we fallback to
+    // setcookie until we solved this
+    if ($iExpire===false) $iExpire = 0;
+    setcookie($sName, $sValue, $iExpire, $sPath);
+    return;
 
     $sHeader = "Set-Cookie: $sName=$sValue";
     if ($sPath) {
@@ -317,9 +327,7 @@ function sqsetcookie($sName,$sValue,$iExpire=false,$sPath="",$sDomain="",$bSecur
     }
     // $sHeader .= "; Version=1";
     $sCookieCache .= $sHeader ."\r\n";
-    if ($bFlush) {
-        header($sCookieCache);
-    }
+    //header($sHeader."\r\n");
 }
 
 /**
