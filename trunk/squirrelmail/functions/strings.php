@@ -825,7 +825,7 @@ function makeComposeLink($url, $text = null, $target='') {
     // if javascript is on, use onclick event to handle it
     if($javascript_on) {
         sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION);
-        $compuri = $base_uri.$url;
+        $compuri = SM_BASE_URI.$url;
         return "<a href=\"javascript:void(0)\" onclick=\"comp_in_new('$compuri','$compose_width','$compose_height')\">$text</a>";
     }
 
