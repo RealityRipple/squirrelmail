@@ -11,11 +11,9 @@
  * @package squirrelmail
  */
 
-/**
- * SquirrelMail version number -- DO NOT CHANGE
- */
 
-$version = '1.5.2 [CVS]';
+
+
 
 /**
  * SquirrelMail internal version number -- DO NOT CHANGE
@@ -36,6 +34,7 @@ error_reporting(E_ALL);
  * If register_globals are on, unregister globals.
  * Code requires PHP 4.1.0 or newer.
  */
+ 
 if ((bool) @ini_get('register_globals')) {
     /**
      * Remove all globals from $_GET, $_POST, and $_COOKIE.
@@ -137,15 +136,30 @@ $PHP_SELF = php_self();
  * Initialize the session
  */
 
+/** set the name of the session cookie */
+if (!isset($session_name) || !$session_name) {
+    $session_name = 'SQMSESSID';
+}
+
+/**
+ * if session.auto_start is On then close the session
+ */ 
+$session_autostart_name = session_name();
+if ((isset($session_autostart_name) || $session_autostart_name == '') && 
+     $session_autostart_name !== $session_name) {
+    $cookiepath = ini_get('session.cookie_path');
+    $cookiedomain = ini_get('session.cookie_domain');
+    // reset the cookie
+    setcookie($session_autostart_name,'',time() - 604800,$cookiepath,$cookiedomain);
+    @session_destroy();
+    session_write_close();
+}    
+
 /**
  * includes from classes stored in the session
  */
 require(SM_PATH . 'class/mime.class.php');
 
-/** set the name of the session cookie */
-if (!isset($session_name) || !$session_name) {
-    $session_name = 'SQMSESSID';
-}
 ini_set('session.name' , $session_name);
 session_set_cookie_params (0, $base_uri);
 sqsession_is_active();
@@ -160,6 +174,11 @@ if ((bool) @ini_get('register_globals')) {
 }
 
 sqsession_register($base_uri, SM_BASE_URI);
+
+/**
+ * SquirrelMail version number -- DO NOT CHANGE
+ */
+$version = '1.5.2 [CVS]';
 
 /**
  * Retrieve the language cookie
