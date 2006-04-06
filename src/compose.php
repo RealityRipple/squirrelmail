@@ -565,7 +565,7 @@ if ($send) {
             $_FILES['attachfile']['tmp_name'] &&
             $_FILES['attachfile']['tmp_name'] != 'none') {
         if(saveAttachedFiles($session)) {
-            plain_error_message(_("Could not move/copy file. File not attached"), $color);
+            plain_error_message(_("Could not move/copy file. File not attached"));
         }
     }
     /*
@@ -580,7 +580,7 @@ if ($send) {
         displayPageHeader($color, $mailbox);
     }
     if (saveAttachedFiles($session)) {
-        plain_error_message(_("Could not move/copy file. File not attached"), $color);
+        plain_error_message(_("Could not move/copy file. File not attached"));
     }
     showInputForm($session);
 }
@@ -1424,7 +1424,7 @@ function checkInput ($show) {
 
     if ($send_to == '' && $send_to_bcc == '') {
         if ($show) {
-            plain_error_message(_("You have not filled in the \"To:\" field."), $color);
+            plain_error_message(_("You have not filled in the \"To:\" field."));
         }
         return false;
     }
@@ -1640,7 +1640,7 @@ function deliverMessage($composeMessage, $draft=false) {
             return $length;
         } else {
             $msg  = '<br />'.sprintf(_("Error: Draft folder %s does not exist."), htmlspecialchars($draft_folder));
-            plain_error_message($msg, $color);
+            plain_error_message($msg);
             return false;
         }
     }
@@ -1659,7 +1659,7 @@ function deliverMessage($composeMessage, $draft=false) {
                 _("Server replied:") . ' ' . $deliver->dlv_ret_nr . ' ' .
                 nl2br(htmlspecialchars($deliver->dlv_server_msg));
         }
-        plain_error_message($msg, $color);
+        plain_error_message($msg);
     } else {
         unset ($deliver);
         $move_to_sent = getPref($data_dir,$username,'move_to_sent');
@@ -1730,5 +1730,4 @@ function deliverMessage($composeMessage, $draft=false) {
     }
     return $success;
 }
-
 ?>
