@@ -27,7 +27,7 @@ include_once(SM_PATH . 'functions/imap_mailbox.php');
  * @return void
  */
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE, $frames = FALSE ) {
-    global $squirrelmail_language, $sTplDir, $oErroHandler;
+    global $squirrelmail_language, $sTplDir, $oErrorHandler;
 
     if ( !sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
         global $base_uri;
@@ -63,7 +63,6 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
         .(!empty($used_fontset) ? '&amp;fontset='.$used_fontset : '')
         .(!empty($used_fontsize) ? '&amp;fontsize='.$used_fontsize : '')
         .(!empty($text_direction) ? '&amp;dir='.$text_direction : '')."\">\n";
-
 
     // load custom style sheet (deprecated)
     if ( ! empty($theme_css) ) {
@@ -107,7 +106,7 @@ ECHO;
     /* this is used to check elsewhere whether we should call this function */
     $pageheader_sent = TRUE;
     if (isset($oErrorHandler)) {
-        $oErrorHander->HeaderSent();
+        $oErrorHandler->HeaderSent();
     }
 }
 
