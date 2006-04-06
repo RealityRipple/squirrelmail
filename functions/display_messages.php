@@ -22,15 +22,13 @@
  * @param array $color color theme
  * @since 1.0
  */
-function error_message($message, $mailbox, $sort, $startMessage, $color) {
+function error_message($message, $mailbox, $sort, $startMessage) {
     $urlMailbox = urlencode($mailbox);
-    $string = '<tr><td align="center">' . $message . '</td></tr>'.
-              '<tr><td align="center">'.
-              '<a href="'.sqm_baseuri()."src/right_main.php?sort=$sort&amp;startMessage=$startMessage&amp;mailbox=$urlMailbox\">".
-              sprintf (_("Click here to return to %s"),
-                  strtoupper($mailbox) == 'INBOX' ? _("INBOX") : imap_utf7_decode_local($mailbox)).
-              '</a></td></tr>';
-    error_box($string, $color);
+    $link = array   (
+                        'URL'   => sqm_baseuri()."src/right_main.php?sort=$sort&amp;startMessage=$startMessage&amp;mailbox=$urlMailbox",
+                        'TEXT'  => sprintf (_("Click here to return to %s"), strtoupper($mailbox) == 'INBOX' ? _("INBOX") : imap_utf7_decode_local($mailbox)) 
+                    );
+    error_box($message, $link);
 }
 
 /**
@@ -39,51 +37,23 @@ function error_message($message, $mailbox, $sort, $startMessage, $color) {
  * @param array $color color theme
  * @since 1.0
  */
-function plain_error_message($message, $color) {
-    error_box($message, $color);
+function plain_error_message($message) {
+    error_box($message);
 }
 
 /**
  * Displays error when user is logged out
- *
+ * 
  * Error strings can be overriden by logout_error hook
  * @param string $errString error message
  * @param string $errTitle title of page with error message
  * @since 1.2.6
  */
 function logout_error( $errString, $errTitle = '' ) {
-    global $frame_top, $org_logo, $org_name, $org_logo_width, $org_logo_height,
-           $hide_sm_attributions, $version, $squirrelmail_language,
-           $color, $theme, $theme_default;
+    global $frame_top, $org_logo, $org_logo_width, $org_logo_height, $org_name,
+           $hide_sm_attributions, $squirrelmail_language, $oTemplate;
 
     $base_uri = sqm_baseuri();
-
-    /* Display width and height like good little people */
-    $width_and_height = '';
-    if (isset($org_logo_width) && is_numeric($org_logo_width) && $org_logo_width>0) {
-        $width_and_height = " width=\"$org_logo_width\"";
-    }
-    if (isset($org_logo_height) && is_numeric($org_logo_height) && $org_logo_height>0) {
-        $width_and_height .= " height=\"$org_logo_height\"";
-    }
-
-    if (!isset($frame_top) || $frame_top == '' ) {
-        $frame_top = '_top';
-    }
-
-    // load default theme if possible
-    if (!isset($color) && @file_exists($theme[$theme_default]['PATH']))
-        @include ($theme[$theme_default]['PATH']);
-
-    if ( !isset( $color ) ) {
-        $color = array();
-        $color[0]  = '#dcdcdc';  /* light gray    TitleBar               */
-        $color[1]  = '#800000';  /* red                                  */
-        $color[2]  = '#cc0000';  /* light red     Warning/Error Messages */
-        $color[4]  = '#ffffff';  /* white         Normal Background      */
-        $color[7]  = '#0000cc';  /* blue          Links                  */
-        $color[8]  = '#000000';  /* black         Normal text            */
-    }
 
     list($junk, $errString, $errTitle) = do_hook('logout_error', $errString, $errTitle);
 
@@ -94,42 +64,59 @@ function logout_error( $errString, $errTitle = '' ) {
 
     displayHtmlHeader( $org_name.' - '.$errTitle, '', false );
 
-    echo '<body text="'.$color[8].'" bgcolor="'.$color[4].'" link="'.$color[7].'" vlink="'.$color[7].'" alink="'.$color[7]."\">\n\n".
-         '<div style="text-align: center;">';
-
-    if (isset($org_logo) && ($org_logo != '')) {
-        echo '<img src="'.$org_logo.'" alt="'.sprintf(_("%s Logo"), $org_name).
-             "\"$width_and_height /><br />\n";
+    /* If they don't have a logo, don't bother.. */
+    $logo_str = '';
+    if (isset($org_logo) && $org_logo) {
+        /* Display width and height like good little people */
+        $width_and_height = '';
+        if (isset($org_logo_width) && is_numeric($org_logo_width) &&
+         $org_logo_width>0) {
+            $width_and_height = " width=\"$org_logo_width\"";
+        }
+        if (isset($org_logo_height) && is_numeric($org_logo_height) &&
+         $org_logo_height>0) {
+            $width_and_height .= " height=\"$org_logo_height\"";
+        }
+        
+        $logo_str = '<img src="'.$org_logo.'" ' .
+                    'alt="'. sprintf(_("%s Logo"), $org_name).'" ' .
+                    $width_and_height .
+                    'class="sqm_loginImage" ' .
+                    ' /><br />'."\n";
     }
-    echo ( $hide_sm_attributions ? '' :
-            '<small>' .  _("SquirrelMail Webmail Application") . '<br />'.
-            _("By the SquirrelMail Project Team") . "<br /></small>\n" ).
-         '<table cellspacing="1" cellpadding="0" bgcolor="'.$color[1].'" width="70%" align="center">'.
-         '<tr><td>'.
-         '<table width="100%" border="0" bgcolor="'.$color[4].'" align="center">'.
-         '<tr><td bgcolor="'.$color[0].'" align="center">'.
-         '<font color="'.$color[2].'"><b>' . _("ERROR") . '</b></font>'.
-         '</td></tr>'.
-         '<tr><td align="center">' . $errString . '</td></tr>'.
-         '<tr><td bgcolor="'.$color[0].'" align="center">'.
-         '<font color="'.$color[2].'"><b>'.
-         '<a href="'.$base_uri.'src/login.php" target="'.$frame_top.'">'.
-         _("Go to the login page") . '</a></b></font></td></tr>'.
-         '</table></td></tr></table></div></body></html>';
+    
+    $sm_attribute_str = '';
+    if (isset($hide_sm_attributions) && !$hide_sm_attributions) {
+        $sm_attribute_str = _("SquirrelMail Webmail Application")."<br />\n" .
+                            _("By the SquirrelMail Project Team")."<br />\n";
+    }
+
+    $login_link = array (
+                            'URL'   => $base_uri . 'src/login.php',
+                            'FRAME' => $frame_top
+                        );
+                        
+    $oTemplate->assign('logo_str', $logo_str);
+    $oTemplate->assign('sm_attribute_str', $sm_attribute_str);
+    $oTemplate->assign('login_link', $login_link);
+    $oTemplate->assign('errorMessage', $errString);
+    $oTemplate->display('error_logout.tpl');
+
+    $oTemplate->display('footer.tpl');
 }
 
 /**
  * Displays error message
- *
+ * 
  * Since 1.4.1 function checks if page header is already displayed.
  * Since 1.4.3 and 1.5.1 function contains error_box hook.
  * Use plain_error_message() and make sure that page header is created,
  * if you want compatibility with 1.4.0 and older.
- * @param string $string
- * @param array $color
+ * @param string $string Error message to be displayed
+ * @param mixed $link Optional array containing link details to be displayed
  * @since 1.3.2
  */
-function error_box($string, $color) {
+function error_box($string, $link=NULL) {
     global $pageheader_sent, $oTemplate;
 
     $err = _("ERROR");
@@ -145,9 +132,18 @@ function error_box($string, $color) {
         echo "<body>\n\n";
     }
 
+    // Double check the link for everything we need
+    if (!is_null($link)) {
+        if (!isset($link['FRAME']))
+            $link['FRAME'] = '';
+        if (!isset($link['TEXT']))
+            $link['TEXT'] = $link['URL'];
+    }
+    
     /** ERROR is pre-translated to avoid multiple translation calls. **/
     $oTemplate->assign('error', $err);
     $oTemplate->assign('errorMessage', $string);
+    $oTemplate->assign('link', $link);
     $oTemplate->display('error_box.tpl');
 }
 
