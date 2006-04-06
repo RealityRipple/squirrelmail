@@ -15,8 +15,15 @@
  * @access private
  */
 function squirrelmail_plugin_init_filters() {
-    include_once(SM_PATH . 'plugins/filters/filters.php');
-    filters_init_hooks ();
+    global $squirrelmail_plugin_hooks;
+
+    $squirrelmail_plugin_hooks['left_main_before']['filters'] = 'start_filters_hook';
+    $squirrelmail_plugin_hooks['right_main_after_header']['filters'] = 'start_filters_hook';
+    $squirrelmail_plugin_hooks['optpage_register_block']['filters'] = 'filters_optpage_register_block_hook';
+    $squirrelmail_plugin_hooks['special_mailbox']['filters'] = 'filters_special_mailbox';
+    $squirrelmail_plugin_hooks['rename_or_delete_folder']['filters'] = 'update_for_folder_hook';
+    $squirrelmail_plugin_hooks['webmail_bottom']['filters'] = 'start_filters_hook';
+    $squirrelmail_plugin_hooks['folder_status']['filters'] = 'filters_folder_status';
 }
 
 /**
@@ -46,7 +53,7 @@ function filters_optpage_register_block_hook() {
  */
 function start_filters_hook($args) {
     include_once(SM_PATH . 'plugins/filters/filters.php');
-    start_filters ();
+    start_filters ($args);
 }
 
 /**
