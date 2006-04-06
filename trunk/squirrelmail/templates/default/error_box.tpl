@@ -11,6 +11,12 @@
  *      $error        - Translation of string "ERROR".  This string is
  *                      translated in functions that call this template to
  *                      avoid making multiple translations on this string
+ *      $link         - Array containing link to display to go back, if desired.
+ *                      If no link is dsired, this will be NULL.  The array
+ *                      will contain the following elements:
+ *              $link['URL']    - URL target for link
+ *              $link['FRAME']  - Frame target for link
+ *              $link['TEXT']   - Text to display for link
  * 
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -37,6 +43,18 @@ extract($t);
       <?php echo $errorMessage."\n"; ?>
      </td>
     </tr>
+    <?php
+        if (!is_null($link)) {
+            ?>
+    <tr>
+     <td class="error_header">
+      <a href="<?php echo $link['URL']; ?>" target="<?php echo $link['FRAME']; ?>"><?php echo $link['TEXT']; ?></a>
+     </td>
+    </tr>
+            
+            <?php
+        }
+    ?>
    </table>
   </td>
  </tr>
