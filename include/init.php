@@ -221,13 +221,18 @@ if (isset($plugins) && is_array($plugins)) {
 switch ($sInitLocation) {
     case 'style': session_write_close(); sqsetcookieflush(); break;
     case 'redirect':
+        /**
+         * directory hashing functions are needed for all setups in case 
+         * plugins use own pref files.
+         */
+        require(SM_PATH . 'functions/prefs.php');
+        /* hook loads custom prefs backend plugins */
         $prefs_backend = do_hook_function('prefs_backend');
         if (isset($prefs_backend) && !empty($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
             require(SM_PATH . $prefs_backend);
         } elseif (isset($prefs_dsn) && !empty($prefs_dsn)) {
             require(SM_PATH . 'functions/db_prefs.php');
         } else {
-            require(SM_PATH . 'functions/prefs.php');
             require(SM_PATH . 'functions/file_prefs.php');
         }
         //nobreak;
@@ -301,13 +306,15 @@ switch ($sInitLocation) {
             $prefs_cache = false; //array();
         }
 
+        /* see 'redirect' switch */
+        require(SM_PATH . 'functions/prefs.php');
+
         $prefs_backend = do_hook_function('prefs_backend');
         if (isset($prefs_backend) && !empty($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
             require(SM_PATH . $prefs_backend);
         } elseif (isset($prefs_dsn) && !empty($prefs_dsn)) {
             require(SM_PATH . 'functions/db_prefs.php');
         } else {
-            require(SM_PATH . 'functions/prefs.php');
             require(SM_PATH . 'functions/file_prefs.php');
         }
 
