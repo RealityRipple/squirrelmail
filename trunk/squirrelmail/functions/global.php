@@ -319,6 +319,7 @@ function sqsetcookie($sName,$sValue,$iExpire=false,$sPath="",$sDomain="",$bSecur
     if ($sDomain) {
         $sHeader .= "; Domain=$sDomain";
     }
+    // TODO: IE for Mac (5.2) thinks that semicolon is part of cookie domain
     if ($bSecure) {
         $sHeader .= "; Secure";
     }
