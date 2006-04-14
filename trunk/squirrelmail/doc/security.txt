@@ -27,6 +27,9 @@ further improve the security of your webmail system.
   releases which may fix security bugs. If you run SquirrelMail packaged by
   your distribution, make sure to apply their security upgrades.
 
+- If you use SELinux, SquirrelMail will not work unless you create a policy
+  for it. In the SELinux Policy Editor, under HTTPD Service, enable
+  "allow HTTPD scripts and modules to connect to the network".
 
 These are only some tips to get you started. A truly secure system needs
 careful tweaking of all components, including PHP, Apache, mailserver,
