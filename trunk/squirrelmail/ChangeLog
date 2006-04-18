@@ -33,8 +33,10 @@ Version 1.5.2 - CVS
   - Added system locale tests to configtest.php script.
   - Fixed invalid HTML output that caused error notices in compose.php (#1454409).
   - Introduction of centralised initialization file init.php.
-  - Added session regenrate id functionality to prohibit session hyijacking.
+  - Added session regenrate id functionality to prohibit session hijacking.
   - Fixed sqsession_cookie function for setting HttpOnly cookie attribute.
+  - Reduce references header in a smart way to avoid "header too long"
+    errors from SMTP servers in really long threads (#1167754, #1465342).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

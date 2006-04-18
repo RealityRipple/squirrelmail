@@ -719,27 +719,43 @@ class Deliver {
     }
 
     /**
-     * function calculate_references - calculate correct Referer string
+     * function calculate_references - calculate correct References string
+     * Adds the current message ID, and makes sure it doesn't grow forever,
+     * to that extent it drops message-ID's in a smart way until the string
+     * length is under the recommended value of 1000 ("References: <986>\r\n").
+     * It always keeps the first and the last three ID's.
      *
      * @param   Rfc822Header $hdr    message header to calculate from
      *
-     * @return  string       $refer  concatenated and trimmed Referer string
+     * @return  string       $refer  concatenated and trimmed References string
      */
     function calculate_references($hdr) {
-        $refer = $hdr->references;
+        $aReferences = preg_split('/\s+/', $hdr->references);
         $message_id = $hdr->message_id;
         $in_reply_to = $hdr->in_reply_to;
-        if (strlen($refer) > 2) {
-            $refer .= ' ' . $message_id;
-        } else {
-            if ($in_reply_to) {
-                $refer .= $in_reply_to . ' ' . $message_id;
-            } else {
-                $refer .= $message_id;
-            }
+	
+        // if References already exists, add the current message ID at the end.
+        // no References exists; if we know a IRT, add that aswell
+        if (count($aReferences) == 0 && $in_reply_to) {
+            $aReferences[] = $in_reply_to;
         }
-        trim($refer);
-        return $refer;
+        $aReferences[] = $message_id;
+
+        // sanitize the array: trim whitespace, remove dupes
+        array_walk($aReferences, 'trim_value');
+        $aReferences = array_unique($aReferences);
+
+        while ( count($aReferences) > 4 && strlen(implode(' ', $aReferences)) >= 986 ) {
+            $aReferences = array_merge(array_slice($aReferences,0,1),array_slice($aReferences,2));
+        }
+        return implode(' ', $aReferences);
+    }
+
+    /**
+     * Callback function to trim whitespace from a value, to be used in array_walk
+     */
+    function trim_value ( &$value ) {
+        $value = trim($value);
     }
 
     /**
