@@ -104,11 +104,9 @@ function sent_subfolders_optpage_loadhook_folders() {
     global $optpage_data, $imapServerAddress, $imapPort, $show_contain_subfolders_option;
 
     sqgetGlobalVar('username', $username, SQ_SESSION);
-    sqgetGlobalVar('key', $key, SQ_COOKIE);
 
     /* Get some imap data we need later. */
-    $imapConnection =
-        sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+    $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
     $boxes = sqimap_mailbox_list($imapConnection);
     sqimap_logout($imapConnection);
 
@@ -197,7 +195,6 @@ function sent_subfolders_update_sentfolder() {
     global $use_sent_subfolders, $move_to_sent;
 
     sqgetGlobalVar('username', $username, SQ_SESSION);
-    sqgetGlobalVar('key', $key, SQ_COOKIE);
     sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 
     if ($use_sent_subfolders || $move_to_sent) {
@@ -246,7 +243,7 @@ function sent_subfolders_update_sentfolder() {
             /* Auto-create folders, if they do not yet exist. */
             if ($sent_subfolder != 'none') {
                 /* Create the imap connection. */
-                $ic = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10);
+                $ic = sqimap_login($username, false, $imapServerAddress, $imapPort, 10);
 
                 $boxes = false;
                 /**

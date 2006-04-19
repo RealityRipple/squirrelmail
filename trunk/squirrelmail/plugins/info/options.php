@@ -42,8 +42,6 @@ if (! is_plugin_enabled('info')) {
 
 /* GLOBALS */
 sqgetGlobalVar('username', $username, SQ_SESSION);
-sqgetGlobalVar('key', $key, SQ_COOKIE);
-sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
 sqgetGlobalVar('submit', $submit, SQ_POST);
 
@@ -56,7 +54,7 @@ for($i = 0; $i <= 9; $i++){
 
 /* END GLOBALS */
 
-$imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+$imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
 $caps_array = get_caps($imap_stream);
 $list = array ('TEST_0',
                'TEST_1',

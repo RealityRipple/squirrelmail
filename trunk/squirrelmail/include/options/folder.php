@@ -33,12 +33,11 @@ define('SMOPT_GRP_FOLDERSELECT', 2);
  * @return array all option information
  */
 function load_optpage_data_folder() {
-    global $username, $key, $imapServerAddress, $imapPort;
+    global $username, $imapServerAddress, $imapPort;
     global $folder_prefix, $default_folder_prefix, $show_prefix_option;
 
     /* Get some imap data we need later. */
-    $imapConnection =
-        sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+    $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
     $boxes = sqimap_mailbox_list($imapConnection);
 
     /* Build a simple array into which we will build options. */

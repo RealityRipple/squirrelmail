@@ -131,13 +131,12 @@ function spamcop_options_function() {
  */
 function spamcop_while_sending_function() {
     global $mailbox, $spamcop_delete, $spamcop_save, $spamcop_is_composing, $auto_expunge,
-           $username, $key, $imapServerAddress, $imapPort;
+           $username, $imapServerAddress, $imapPort;
 
     if (sqgetGlobalVar('spamcop_is_composing' , $spamcop_is_composing)) {
         // delete spam message
         if ($spamcop_delete) {
-            $imapConnection = sqimap_login($username, $key, $imapServerAddress,
-                $imapPort, 0);
+            $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
             sqimap_mailbox_select($imapConnection, $mailbox);
             sqimap_msgs_list_delete($imapConnection, $mailbox, array($spamcop_is_composing));
             if ($auto_expunge)

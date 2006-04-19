@@ -23,8 +23,6 @@ include_once(SM_PATH . 'plugins/spamcop/functions.php');
 /* GLOBALS */
 
 sqgetGlobalVar('username', $username, SQ_SESSION);
-sqgetGlobalVar('key',      $key,      SQ_COOKIE);
-sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
 sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
 sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
@@ -64,8 +62,7 @@ if (! is_plugin_enabled('spamcop')) {
     exit();
 }
 
-    $imap_stream = sqimap_login($username, $key, $imapServerAddress,
-       $imapPort, 0);
+    $imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
     sqimap_mailbox_select($imap_stream, $mailbox);
 
     if ($spamcop_method == 'quick_email' ||
