@@ -37,6 +37,9 @@ Version 1.5.2 - CVS
   - Fixed sqsession_cookie function for setting HttpOnly cookie attribute.
   - Reduce references header in a smart way to avoid "header too long"
     errors from SMTP servers in really long threads (#1167754, #1465342).
+  - Added code that allows to use internal password functions in sqimap_login().
+    Switched plugins to use this code instead of accessing key and otp information
+    directly.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

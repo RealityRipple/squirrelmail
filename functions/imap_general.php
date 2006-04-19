@@ -743,7 +743,9 @@ function sqimap_create_stream($server,$port,$tls=0) {
  * Logs the user into the IMAP server.  If $hide is set, no error messages
  * will be displayed.  This function returns the IMAP connection handle.
  * @param string $username user name
- * @param string $password encrypted password
+ * @param string $password password encrypted with onetimepad. Since 1.5.2 
+ *  function can use internal password functions, if parameter is set to 
+ *  boolean false. 
  * @param string $imap_server_address address of imap server
  * @param integer $imap_port port of imap server
  * @param boolean $hide controls display connection errors
@@ -753,9 +755,19 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
     global $color, $squirrelmail_language, $onetimepad, $use_imap_tls,
            $imap_auth_mech, $sqimap_capabilities;
 
-    if (!isset($onetimepad) || empty($onetimepad)) {
-        sqgetglobalvar('onetimepad' , $onetimepad , SQ_SESSION );
+    /* get imap login password */
+    if ($password===false) {
+        /* standard functions */
+        $password = sqauth_read_password();
+    } else {
+        /* old way. $key must be extracted from cookie */
+        if (!isset($onetimepad) || empty($onetimepad)) {
+            sqgetglobalvar('onetimepad' , $onetimepad , SQ_SESSION );
+        }
+        /* Decrypt the password */
+        $password = OneTimePadDecrypt($password, $onetimepad);
     }
+
     if (!isset($sqimap_capabilities)) {
         sqgetglobalvar('sqimap_capabilities' , $capability , SQ_SESSION );
     }
@@ -764,9 +776,6 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
     $imap_server_address = sqimap_get_user_server($imap_server_address, $username);
 
     $imap_stream = sqimap_create_stream($imap_server_address,$imap_port,$use_imap_tls);
-
-    /* Decrypt the password */
-    $password = OneTimePadDecrypt($password, $onetimepad);
 
     if (($imap_auth_mech == 'cram-md5') OR ($imap_auth_mech == 'digest-md5')) {
         // We're using some sort of authentication OTHER than plain or login
