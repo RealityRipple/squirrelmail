@@ -40,6 +40,8 @@ Version 1.5.2 - CVS
   - Added code that allows to use internal password functions in sqimap_login().
     Switched plugins to use this code instead of accessing key and otp information
     directly.
+  - Fixed automatic mailbox creation in left_main.php. 1.5.1 mailbox caching 
+    broke detection of unsubscribed special folders.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
