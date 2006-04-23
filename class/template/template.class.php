@@ -44,35 +44,35 @@ class Template
 
   /**
    * Template files provided by this template set
-   * 
+   *
    * @var array
    */
   var $templates_provided = array();
-  
+
   /**
    * Javascript files required by the template
-   * 
+   *
    * @var array
    */
   var $required_js_files = array();
-  
+
   /**
    * Javascript files provided by the template.  If a JS file is required, but
-   * not provided, the js file by the same name will be included from the 
+   * not provided, the js file by the same name will be included from the
    * default template directory.
-   * 
+   *
    * @var array
    */
   var $provided_js_files = array();
-  
+
   /**
    * Additional stylesheets provided by the template.  This allows template
    * authors (namely me to begin with :p) to provide additional CSS sheets
    * to templates while using the default template set stylesheet for other
    * definitions.
    */
-  var $additional_css_sheets = array(); 
-  
+  var $additional_css_sheets = array();
+
     /**
      * Constructor
      *
@@ -80,7 +80,7 @@ class Template
      */
     function Template($sTplDir) {
         $this->template_dir = $sTplDir;
-       
+
         // Pull in the tempalte config file
         if (!file_exists($this->template_dir . 'template.php')) {
              trigger_error('No template.php could be found in the requested template directory ("'.$this->template_dir.'")', E_USER_ERROR);
@@ -205,7 +205,7 @@ class Template
   {
     // Pull in our config file
     $t = &$this->values; // place values array directly in scope
-    
+
     $template = in_array($file, $this->templates_provided) ? $this->template_dir . $file : SM_PATH .'templates/default/'. $file;
     if (!file_exists($template)) {
         trigger_error('The template "'.htmlspecialchars($file).'" could not be displayed!', E_USER_ERROR);
@@ -222,9 +222,7 @@ class Template
    * @param string $file The template file to use
    * @return string A string of the results
    */
-  function fetch($file)
-  {
-    ob_start();
+  function fetch($file) {
     $t = &$this->values; // place values array directly in scope
 
     $template = in_array($file, $this->templates_provided) ? $this->template_dir . $file : SM_PATH .'templates/default/'. $file;
@@ -234,16 +232,15 @@ class Template
         ob_start();
         include($template);
         $contents = ob_get_contents();
-        ob_end_flush();
+        ob_end_clean();
         return $contents;
     }
-
   }
 
   /**
-   * Return paths to the required javascript files.  Used when generating page 
+   * Return paths to the required javascript files.  Used when generating page
    * header.
-   * 
+   *
    * @return array $paths
    */
   function getJavascriptIncludes () {
@@ -253,14 +250,14 @@ class Template
             $paths[] = './'.$this->template_dir.'js/'.basename($file);
         else $paths[] = SM_PATH .'templates/default/js/'.basename($file);
     }
-    
+
     return $paths;
   }
 
   /**
    * Return any additional stylsheets provided by the template.  Used when
    * generating page headers.
-   * 
+   *
    * @return array $paths
    */
   function getAdditionalStyleSheets () {
