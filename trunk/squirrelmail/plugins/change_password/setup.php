@@ -29,24 +29,12 @@ function squirrelmail_plugin_init_change_password() {
 function change_password_optpage() {
     global $optpage_blocks;
 
-    // SM14 code: use change_password gettext domain binding for 1.4.x
-    if (! check_sm_version(1,5,0)) {
-        bindtextdomain('change_password',SM_PATH . 'locale');
-        textdomain('change_password');
-    }
-
     $optpage_blocks[] = array(
         'name' => _("Change Password"),
         'url' => '../plugins/change_password/options.php',
         'desc' => _("Use this to change your email password."),
         'js' => FALSE
     );
-
-    // SM14 code: revert to squirrelmail domain for 1.4.x
-    if (! check_sm_version(1,5,0)) {
-        bindtextdomain('squirrelmail',SM_PATH . 'locale');
-        textdomain('squirrelmail');
-    }
 }
 
 /**
@@ -56,20 +44,8 @@ function change_password_optpage() {
 function change_password_loadinfo() {
     global $optpage, $optpage_name;
     if ($optpage=='change_password') {
-        // SM14 code: use change_password gettext domain binding for 1.4.x
-        if (! check_sm_version(1,5,0)) {
-            bindtextdomain('change_password',SM_PATH . 'locale');
-            textdomain('change_password');
-        }
-
         // i18n: is displayed after "Successfully Saved Options:"
         $optpage_name=_("User's Password");
-
-        // SM14 code: revert to squirrelmail domain for 1.4.x
-        if (! check_sm_version(1,5,0)) {
-            bindtextdomain('squirrelmail',SM_PATH . 'locale');
-            textdomain('squirrelmail');
-        }
     }
 }
 
