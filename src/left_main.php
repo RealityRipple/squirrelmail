@@ -73,8 +73,18 @@ if ($auto_create_special && !isset($auto_create_done)) {
     $folders_created = false;
     foreach( $autocreate as $folder ) {
         if (($folder != '') && ($folder != 'none')) {
-            // use $mailboxes array for checking if mailbox exists
-            if ( !sqimap_mailbox_exists($imapConnection, $folder, $mailboxes)) {
+            /**
+             * If $show_only_subscribed_folders is true, don't use 
+             * $mailboxes array for checking if mailbox exists.
+             * Mailbox list contains only subscribed folders. 
+             * sqimap_mailbox_create() will fail, if folder exists.
+             */
+            if ($show_only_subscribed_folders) {
+                $mailbox_cache = false;
+            } else {
+                $mailbox_cache = $mailboxes;
+            }
+            if ( !sqimap_mailbox_exists($imapConnection, $folder, $mailbox_cache)) {
                 sqimap_mailbox_create($imapConnection, $folder, '');
                 $folders_created = true;
             } else {
