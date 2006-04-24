@@ -154,13 +154,19 @@ session_set_cookie_params (0, $base_uri);
 sqsession_is_active();
 
 /**
+ * DISABLED.
  * Remove globalized session data in rg=on setups
- */
-if ((bool) @ini_get('register_globals')) {
+ * 
+ * Code can be utilized when session is started, but data is not loaded.
+ * We have already loaded configuration and other important vars. Can't 
+ * clean session globals here.
+if ((bool) @ini_get('register_globals') &&
+    strtolower(ini_get('register_globals'))!='off') {
     foreach ($_SESSION as $key => $value) {
         unset($GLOBALS[$key]);
     }
 }
+*/
 
 sqsession_register(SM_BASE_URI,'base_uri');
 
