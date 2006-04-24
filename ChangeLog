@@ -42,6 +42,7 @@ Version 1.5.2 - CVS
     directly.
   - Fixed automatic mailbox creation in left_main.php. 1.5.1 mailbox caching 
     broke detection of unsubscribed special folders.
+  - Undo extra sanitizing in decodeHeader() function (#1460638).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
