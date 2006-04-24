@@ -23,7 +23,7 @@ error_reporting(E_ALL);
  * Code requires PHP 4.1.0 or newer.
  * Second test covers boolean set as string (php_value register_globals off).
  */
-if ((bool) @ini_get('register_globals') && 
+if ((bool) @ini_get('register_globals') &&
     strtolower(ini_get('register_globals'))!='off') {
     /**
      * Remove all globals from $_GET, $_POST, and $_COOKIE.
@@ -162,7 +162,7 @@ if ((bool) @ini_get('register_globals')) {
     }
 }
 
-sqsession_register($base_uri, SM_BASE_URI);
+sqsession_register(SM_BASE_URI,'base_uri');
 
 /**
  * SquirrelMail version number -- DO NOT CHANGE
@@ -222,7 +222,7 @@ switch ($sInitLocation) {
     case 'style': session_write_close(); sqsetcookieflush(); break;
     case 'redirect':
         /**
-         * directory hashing functions are needed for all setups in case 
+         * directory hashing functions are needed for all setups in case
          * plugins use own pref files.
          */
         require(SM_PATH . 'functions/prefs.php');
