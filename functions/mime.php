@@ -759,7 +759,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
                             /* convert string to different charset,
                              * if functions asks for it (usually in compose)
                              */
-                            $ret .= charset_convert($res[2],$replace,$default_charset);
+                            $ret .= charset_convert($res[2],$replace,$default_charset,$htmlsave);
                         } else {
                             // convert string to html codes in order to display it
                             $ret .= charset_decode($res[2],$replace);
@@ -780,7 +780,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
                             /* convert string to different charset,
                              * if functions asks for it (usually in compose)
                              */
-                            $replace = charset_convert($res[2], $replace,$default_charset);
+                            $replace = charset_convert($res[2], $replace,$default_charset,$htmlsave);
                         } else {
                             // convert string to html codes in order to display it
                             $replace = charset_decode($res[2], $replace);
