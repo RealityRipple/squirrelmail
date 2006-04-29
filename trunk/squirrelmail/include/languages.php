@@ -72,11 +72,11 @@ function sq_textdomain($domain) {
  * @see http://www.php.net/setlocale
  */
 function sq_setlocale($category,$locale) {
-    // string with only one locale
-    if (is_string($locale))
-        return setlocale($category,$locale);
-
-    if (! check_php_version(4,3)) {
+    if (is_string($locale)) {
+        // string with only one locale
+        $ret = setlocale($category,$locale);
+    } elseif (! check_php_version(4,3)) {
+        // older php version (second setlocale argument must be string)
         $ret=false;
         $index=0;
         while ( ! $ret && $index<count($locale)) {
@@ -86,6 +86,17 @@ function sq_setlocale($category,$locale) {
     } else {
         // php 4.3.0 or better, use entire array
         $ret=setlocale($category,$locale);
+    }
+
+    /* safety checks */
+    if (preg_match("/^.*\/.*\/.*\/.*\/.*\/.*$/",$ret)) {
+        /**
+         * Welcome to We-Don't-Follow-Own-Fine-Manual department
+         * OpenBSD 3.8, 3.9-current and maybe later versions 
+         * return invalid response to setlocale command.
+         * SM bug report #1427512.
+         */
+        $ret = false;
     }
     return $ret;
 }
