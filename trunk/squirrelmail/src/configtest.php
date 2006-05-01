@@ -52,6 +52,11 @@ if (file_exists(SM_PATH . 'config/config.php')) {
 require(SM_PATH . 'functions/global.php');
 require(SM_PATH . 'functions/strings.php');
 
+/**
+ * get_location starts session and must be run before output is started.
+ */
+$test_location = get_location();
+
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
   "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
@@ -239,7 +244,32 @@ if (isset($plugins[0])) {
             do_err('You have enabled the <i>'.$plugin.'</i> plugin, which causes problems with this version of SquirrelMail. Please check the ReleaseNotes or other documentation for more information.', false);
         }
     }
-    echo $IND . "Plugins OK.<br />\n";
+    // load plugin functions
+    include_once(SM_PATH . 'functions/plugin.php');
+    // turn on output buffering in order to prevent output of new lines
+    ob_start();
+    foreach ($plugins as $name) {
+        use_plugin($name);
+    }
+    // get output and remove whitespace
+    $output = trim(ob_get_contents());
+    ob_end_clean();
+    // if plugins output more than newlines and spacing, stop script execution.
+    if (!empty($output)) {
+        $plugin_load_error = 'Some output is produced when plugins are loaded.'
+            .' Usually it means error. Output said: '.htmlspecialchars($output);
+        do_err($plugin_load_error);
+    }
+    /**
+     * Hook is added in 1.5.2. Plugins should print error message and return true
+     * if there is an error in plugin.
+     */
+    $plugin_err = boolean_hook_function('configtest');
+    if($plugin_err) {
+        do_err('Some plugin tests failed.');
+    } else {
+        echo $IND . "Plugins OK.<br />\n";
+    }
 } else {
     echo $IND . "Plugins are not enabled in config.<br />\n";
 }
@@ -271,7 +301,7 @@ if ( $squirrelmail_default_language != 'en_US' ) {
     echo $IND . "Default language OK.<br />\n";
 }
 
-echo $IND . "Base URL detected as: <tt>" . htmlspecialchars(get_location()) . "</tt><br />\n";
+echo $IND . "Base URL detected as: <tt>" . htmlspecialchars($test_location) . "</tt><br />\n";
 
 /* check minimal requirements for other security options */
 
