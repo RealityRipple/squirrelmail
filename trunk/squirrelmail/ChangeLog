@@ -46,6 +46,7 @@ Version 1.5.2 - CVS
   - Added workaround for broken OpenBSD 3.8+ setlocale() function (#1427512).
   - Fixed session lockups on large attachment downloads.
   - Added configtest hook in src/configtest.php.
+  - Improved error handling for the help pages.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

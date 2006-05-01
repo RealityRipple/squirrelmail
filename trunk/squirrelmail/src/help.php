@@ -92,7 +92,6 @@ function get_info($doc, $pos) {
 
 /**************[ END HELP FUNCTIONS ]******************/
 
-
 echo html_tag( 'table',
         html_tag( 'tr',
             html_tag( 'td','<div style="text-align: center;"><b>' . _("Help") .'</b></div>', 'center', $color[0] )
@@ -112,12 +111,11 @@ if (!isset($squirrelmail_language)) {
 if (file_exists("../help/$squirrelmail_language")) {
     $user_language = $squirrelmail_language;
 } else if (file_exists('../help/en_US')) {
-    echo "<div style=\"text-align: center;\"><font color=\"$color[2]\">"
-        ._("The help has not been translated to the selected language. It will be displayed in English instead.");
-    echo '</font></div><br />';
+    error_box(_("Help is not available in the selected language. It will be displayed in English instead."), $color);
+    echo '<br />';
     $user_language = 'en_US';
 } else {
-    error_box( _("Some or all of the help documents are not present!"), $color );
+    error_box( _("Help is not available. Please contact your system administrator for assistance."), $color );
     exit;
 }
 
@@ -144,23 +142,67 @@ if ( sqgetGlobalVar('chapter', $temp, SQ_GET) ) {
 }
 
 if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
+    // Initialise the needed variables.
+    $toc = array();
+
+    // Get the chapter numbers, title and decriptions.
+    for ($i=0, $cnt = count($helpdir); $i < $cnt; $i++) {
+        if (file_exists("../help/$user_language/$helpdir[$i]")) {
+            // First try the selected language.
+            $doc = file("../help/$user_language/$helpdir[$i]");
+            $help_info = get_info($doc, 0);
+            $toc[] = array($i+1, $help_info[0], $help_info[2]);
+        } elseif (file_exists("../help/en_US/$helpdir[$i]")) {
+            // If the selected language can't be found, try English.
+            $doc = file("../help/en_US/$helpdir[$i]");
+            $help_info = get_info($doc, 0);
+            $toc[] = array($i+1, $help_info[0],
+                    _("This chapter is not available in the selected language. It will be displayed in English instead.") .
+                    '<br />' . $help_info[2]);
+        } else {
+            // If English can't be found, the chapter went MIA.
+            $toc[] = array($i+1, _("This chapter is missing"),
+                    sprintf(_("For some reason, chapter %s is not available."), $i+1));
+        }
+    }
+
+    // Write the TOC header
     echo html_tag( 'table', '', 'center', '', 'cellpadding="0" cellspacing="0" border="0"' ) .
          html_tag( 'tr' ) .
          html_tag( 'td' ) .
          '<div style="text-align: center;"><b>' . _("Table of Contents") . '</b></div><br />';
     echo html_tag( 'ol' );
-    for ($i=0, $cnt = count($helpdir); $i < $cnt; $i++) {
-        $doc = file("../help/$user_language/$helpdir[$i]");
-        $help_info = get_info($doc, 0);
-        echo '<li><a href="../src/help.php?chapter=' . ($i+1)
-             . '">' . $help_info[0] . '</a>' .
-             html_tag( 'ul', $help_info[2] );
+
+    // Write the TOC chapters.
+    for ($i=0, $cnt = count($toc); $i < $cnt; $i++) {
+        echo '<li><a href="../src/help.php?chapter=' . $toc[$i][0]. '">' .
+            $toc[$i][1] . '</a>' . html_tag( 'ul', $toc[$i][2] );
     }
+
+    // Provide hook for external help scripts.
     do_hook('help_chapter');
+
+    // Write the TOC footer.
     echo '</ol></td></tr></table>';
 } else {
-    $doc = file("../help/$user_language/" . $helpdir[$chapter-1]);
-    $help_info = get_info($doc, 0);
+    // Initialise the needed variables.
+    $display_chapter = TRUE;
+
+    // Get the chapter.
+    if (file_exists("../help/$user_language/" . $helpdir[$chapter-1])) {
+        // First try the selected language.
+        $doc = file("../help/$user_language/" . $helpdir[$chapter-1]);
+    } elseif (file_exists("../help/en_US/" . $helpdir[$chapter-1])) {
+        // If the selected language can't be found, try English.
+        $doc = file("../help/en_US/" . $helpdir[$chapter-1]);
+        error_box(_("This chapter in not available in the selected language. It will be displayed in English instead."), $color);
+        echo '<br />';
+    } else {
+        // If English can't be found, the chapter went MIA.
+        $display_chapter = FALSE;
+    }
+
+    // Write the chpater header.
     echo '<div style="text-align: center;"><small>';
     if ($chapter <= 1){
         echo '<font color="' . $color[9] . '">' . _("Previous")
@@ -178,25 +220,33 @@ if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
     }
     echo '</small></div><br />';
 
-    echo '<font size="5"><b>' . $chapter . ' - ' . $help_info[0]
-         . '</b></font><br /><br />';
+    // Write the chapter.
+    if ($display_chapter) {
+        // If there is a valid chapter, display it.
+        $help_info = get_info($doc, 0);
+        echo '<font size="5"><b>' . $chapter . ' - ' . $help_info[0]
+            . '</b></font><br /><br />';
 
-    if (isset($help_info[1]) && $help_info[1]) {
-        echo $help_info[1];
+        if (isset($help_info[1]) && $help_info[1]) {
+            echo $help_info[1];
+        } else {
+            echo html_tag( 'p', $help_info[2], 'left' );
+        }
+
+        $section = 0;
+        for ($n = $help_info[3], $cnt = count($doc); $n < $cnt; $n++) {
+            $section++;
+            $help_info = get_info($doc, $n);
+            echo "<b>$chapter.$section - $help_info[0]</b>" .
+                html_tag( 'ul', $help_info[1] );
+            $n = $help_info[3];
+        }
+
+        echo '<br /><div style="text-align: center;"><a href="#pagetop">' . _("Top") . '</a></div>';
     } else {
-        echo html_tag( 'p', $help_info[2], 'left' );
+        // If the help file went MIA, display an error message.
+        error_box(sprintf(_("For some reason, chapter %s is not available."), $chapter), $color);
     }
-
-    $section = 0;
-    for ($n = $help_info[3], $cnt = count($doc); $n < $cnt; $n++) {
-        $section++;
-        $help_info = get_info($doc, $n);
-        echo "<b>$chapter.$section - $help_info[0]</b>" .
-            html_tag( 'ul', $help_info[1] );
-        $n = $help_info[3];
-    }
-
-    echo '<br /><div style="text-align: center;"><a href="#pagetop">' . _("Top") . '</a></div>';
 }
 
 do_hook('help_bottom');
