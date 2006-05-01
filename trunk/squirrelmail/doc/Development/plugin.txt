@@ -375,6 +375,7 @@ but may be out of date soon thereafter.  You never know.  ;-)
   compose_button_row             src/compose.php                 do_hook
   compose_send                   src/compose.php                 do_hook
   compose_send_after             src/compose.php                 do_hook
+  configtest (since 1.5.2)       src/configtest.php              boolean_hook
   folders_bottom                 src/folders.php                 do_hook
   help_top                       src/help.php                    do_hook
   help_chapter                   src/help.php                    do_hook
