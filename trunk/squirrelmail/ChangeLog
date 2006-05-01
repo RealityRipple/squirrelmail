@@ -45,6 +45,7 @@ Version 1.5.2 - CVS
   - Undo extra sanitizing in decodeHeader() function (#1460638).
   - Added workaround for broken OpenBSD 3.8+ setlocale() function (#1427512).
   - Fixed session lockups on large attachment downloads.
+  - Added configtest hook in src/configtest.php.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
