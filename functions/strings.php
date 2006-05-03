@@ -1280,4 +1280,13 @@ function sq_count8bit($string) {
     return $count;
 }
 
+/**
+ * Callback function to trim whitespace from a value, to be used in array_walk
+ * @param string $value value to trim
+ * @since 1.5.2 and 1.4.7
+ */
+function sq_trim_value ( &$value ) {
+    $value = trim($value);
+}
+
 ?>
