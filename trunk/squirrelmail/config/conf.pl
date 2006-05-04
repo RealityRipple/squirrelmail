@@ -1018,7 +1018,7 @@ sub command7 {
 
 sub command8 {
     print "Here you can set the name of the link on the right of the page.\n";
-    print "The default is 'SquirrelMail/'\n";
+    print "The default is 'SquirrelMail'\n";
     print "\n";
     print "[$WHT$provider_name$NRM]: $WHT";
     $new_provider_name = <STDIN>;
@@ -1027,6 +1027,7 @@ sub command8 {
     } else {
         $new_provider_name =~ s/[\r\n]//g;
         $new_provider_name =~ s/^\s+$//g;
+        $new_provider_name =~ s/\'/\\'/g;
     }
     return $new_provider_name;
 }

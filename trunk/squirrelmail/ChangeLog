@@ -47,6 +47,7 @@ Version 1.5.2 - CVS
   - Fixed session lockups on large attachment downloads.
   - Added configtest hook in src/configtest.php.
   - Improved error handling for the help pages.
+  - Fixed possibility to use single quote in provider name (#1475744).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
