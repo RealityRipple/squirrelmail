@@ -123,7 +123,7 @@ function load_optpage_data_compose() {
 
     $optvals[SMOPT_GRP_COMPOSE_REPLY][] = array(
         'name'    => 'sig_first',
-        'caption' => _("Append Signature before Reply/Forward Text"),
+        'caption' => _("Prepend Signature before Reply/Forward Text"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );
