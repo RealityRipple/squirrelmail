@@ -226,6 +226,7 @@ function load_optpage_data_display() {
         global $icon_themes, $icon_theme;
 
         $temp = array();
+        $value = 0;
         for ($count = 0; $count < sizeof($icon_themes); $count++) {
             $temp[$count] = $icon_themes[$count]['NAME'];
             if ($icon_theme == $icon_themes[$count]['PATH'] ||
