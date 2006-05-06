@@ -41,7 +41,7 @@ Version 1.5.2 - CVS
     Switched plugins to use this code instead of accessing key and otp information
     directly.
   - Fixed automatic mailbox creation in left_main.php. 1.5.1 mailbox caching 
-    broke detection of unsubscribed special folders.
+    broke detection of unsubscribed special folders (#1461578).
   - Undo extra sanitizing in decodeHeader() function (#1460638).
   - Added workaround for broken OpenBSD 3.8+ setlocale() function (#1427512).
   - Fixed session lockups on large attachment downloads.
