@@ -260,18 +260,18 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
             if ($sort == $aSortSupported[$iCol][0]) {
                 $newsort = $aSortSupported[$iCol][1];
                 $img = 'up_pointer.png';
-                $text_icon = '&#8657';
+                $text_icon = '&#8679;';  // U+21E7 UPWARDS WHITE ARROW
             } else if ($sort == $aSortSupported[$iCol][1]) {
                 $newsort = 0;
                 $img = 'down_pointer.png';
-                $text_icon = '&#8659';
+                $text_icon = '&#8681;'; // U+21E9 DOWNWARDS WHITE ARROW
             } else {
                 $newsort = $aSortSupported[$iCol][0];
                 $img = 'sort_none.png';
-                $text_icon = '[&nbsp;]';
+                $text_icon = '&#9723;'; // U+25FB WHITE MEDIUM SQUARE
             }
             /* Now that we have everything figured out, show the actual button. */
-            echo " <a href=\"$baseurl&amp;startMessage=1&amp;srt=$newsort\">" .
+            echo " <a href=\"$baseurl&amp;startMessage=1&amp;srt=$newsort\" style=\"text-decoration:none\">" .
                  getIcon($icon_theme_path, $img, $text_icon, _("Click here to change the sorting of the message list")) . "\n" .
                  '</a>';
         }
