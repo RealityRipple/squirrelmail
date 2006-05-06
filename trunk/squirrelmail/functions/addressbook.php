@@ -382,19 +382,22 @@ function show_abook_sort_button($abook_sort_order, $alt_tag, $Down, $Up ) {
      /* Figure out which image we want to use. */
     if ($abook_sort_order != $Up && $abook_sort_order != $Down) {
         $img = 'sort_none.png';
+        $text_icon = '&#9723;'; // U+25FB WHITE MEDIUM SQUARE
         $which = $Up;
     } elseif ($abook_sort_order == $Up) {
         $img = 'up_pointer.png';
+        $text_icon = '&#8679;'; // U+21E7 UPWARDS WHITE ARROW
         $which = $Down;
     } else {
         $img = 'down_pointer.png';
+        $text_icon = '&#8681;'; // U+21E9 DOWNWARDS WHITE ARROW
         $which = 8;
     }
 
     /* Now that we have everything figured out, show the actual button. */
-    return ' <a href="' . $form_url .'?abook_sort_order=' . $which .
-           '">' .
-           getIcon($icon_theme_path, $img, $alt_tag, _("Click here to change the sorting of the address list")) .
+    return '&nbsp;<a href="' . $form_url .'?abook_sort_order=' . $which .
+           '" style="text-decoration:none" title="'.$alt_tag.'">' .
+           getIcon($icon_theme_path, $img, $text_icon, $alt_tag) .
            '</a>';
 }
 
