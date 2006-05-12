@@ -48,6 +48,8 @@ Version 1.5.2 - CVS
   - Added configtest hook in src/configtest.php.
   - Improved error handling for the help pages.
   - Fixed possibility to use single quote in provider name (#1475744).
+  - Improve recovery when EHLO not supported on legacy SMTP servers
+    (#1031455).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
