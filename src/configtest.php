@@ -515,7 +515,7 @@ if (function_exists('gettext')) {
 
     /* optional setlocale() tests. Should work only on glibc systems. */
     if (sqgetGlobalVar('testlocales',$testlocales,SQ_GET)) {
-        include_once(SM_PATH . 'functions/i18n.php');
+        include_once(SM_PATH . 'include/languages.php');
         echo $IND . $IND . 'Testing translations:<br>';
         foreach ($languages as $lang_code => $lang_data) {
             /* don't test aliases */
@@ -588,9 +588,9 @@ if (function_exists('iconv')) {
 } else {
     echo "Iconv functions are unavailable.<br />\n";
 }
-// same test as in include/validate.php
+// same test as in include/init.php + date_default_timezone_set check
 echo "$IND timezone - ";
-if ( (!ini_get('safe_mode')) ||
+if ( (!ini_get('safe_mode')) || function_exists('date_default_timezone_set') ||
         !strcmp(ini_get('safe_mode_allowed_env_vars'),'') ||
         preg_match('/^([\w_]+,)*TZ/', ini_get('safe_mode_allowed_env_vars')) ) {
     echo "Webmail users can change their time zone settings. \n";

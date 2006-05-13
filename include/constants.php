@@ -4,9 +4,8 @@
  * constants.php
  *
  * Loads constants used by the rest of the SquirrelMail source.
- * This file is include by src/login.php, src/redirect.php and
- * src/load_prefs.php.
  *
+ * Before 1.5.2 script was stored in functions/constants.php
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
@@ -152,7 +151,10 @@ define('SQM_COL_TO', 9);
 define('SQM_COL_CC', 10);
 define('SQM_COL_BCC', 11);
 
-/** @since 1.2.0 */
+/**
+ * FIXME: error notice on direct load
+ * @since 1.2.0
+ */
 do_hook('loading_constants');
 
 ?>

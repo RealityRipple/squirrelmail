@@ -3524,7 +3524,7 @@ sub commandA2 {
     print "This option controls what character set is used when sending\n";
     print "mail and when sending HTML to the browser. Option works only\n";
     print "with US English (en_US) translation. Other translations use\n";
-    print "charsets that are set in functions/i18n.php.\n";
+    print "charsets that are set in translation settings.\n";
     print "\n";
 
     print "[$WHT$default_charset$NRM]: $WHT";

@@ -9,6 +9,11 @@
  * Internally the output character set is used. Other characters are
  * encoded using Unicode entities according to HTML 4.0.
  *
+ * Before 1.5.2 functions were stored in functions/i18n.php. Script is moved
+ * because it executes some code in order to detect functions supported by
+ * existing PHP installation and implements fallback functions when required
+ * functions are not available. Scripts in functions/ directory should not
+ * setup anything when they are loaded.
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$

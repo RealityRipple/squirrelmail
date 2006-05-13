@@ -11,7 +11,7 @@
  * @subpackage administrator
  */
 
-/* Define constants for the various option types. */
+/** Define constants for the various option types. */
 define('SMOPT_TYPE_UNDEFINED', -1);
 define('SMOPT_TYPE_STRING', 0);
 define('SMOPT_TYPE_STRLIST', 1);
