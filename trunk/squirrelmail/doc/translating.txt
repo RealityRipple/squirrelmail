@@ -29,8 +29,18 @@ c) To translate the actual strings fill in the msgstr after each
    running the command "msgfmt -o squirrelmail.mo squirrelmail.po" in
    the directory where the translated squirrelmail.po is residing.
 
-d) Add the language name and language code to the array at the top of
-   squirrelmail/functions/i18n.php.
+d) Create locale/language_code/setup.php file with your translation description.
+   For example locale/tlh/setup.php
+   <?php
+   /* Klingon translation setup */
+   $languages['tlh']['NAME'] = 'Klingon';
+   $languages['tlh']['CHARSET'] = 'utf-8';
+   ?>
+   
+   Before SquirrelMail 1.5.1 translation description should be added to
+   functions/i18n.php. Sample uses only required settings. Translation 
+   description can use other advanced settings. Check include/i18n.php 
+   or SquirrelMail developer's manual.
 
 There is also a small script in the po/ directory that can help in
 creating charset mappings from the mappings files that are provided by

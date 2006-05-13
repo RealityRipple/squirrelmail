@@ -92,8 +92,8 @@ Charset totals:
 -------------------
 2. $languages array
 -------------------
-$languages array is stored in functions/i18n.php and defines translations
-that are enabled in SquirrelMail.
+$languages array is stored in functions/i18n.php (v. 1.5.0 or older) or 
+locale/*/setup.php files and defines enabled SquirrelMail translations.
 
 Format of array:
     $languages['language_code']['key'] = 'value'
@@ -127,8 +127,8 @@ optional.
 XTRA_CODE functions provide way to change interface behavior, when translation
 requires special handling of some SquirrelMail functions. Functions are enabled
 by setting XTRA_CODE option in $languages array and including appropriate
-functions in functions/i18n.php. First part of function name is word listed in
-$languages['language_code']['XTRA_CODE'] value. Second part is one of special
+functions in locale/language_code/setup.php. First part of function name is word 
+listed in $languages['language_code']['XTRA_CODE'] value. Second part is one of special
 keywords. Possible keywords:
 * _decode
 Used in src/compose.php, src/i18n.php, src/view_text.php, functions/mime.php

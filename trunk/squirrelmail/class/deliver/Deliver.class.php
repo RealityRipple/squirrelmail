@@ -395,7 +395,7 @@ class Deliver {
         $rn = "\r\n";
 
         /* This creates an RFC 822 date */
-        $date = date('D, j M Y H:i:s ', mktime()) . $this->timezone();
+        $date = date('D, j M Y H:i:s ', time()) . $this->timezone();
         /* Create a message-id */
         $message_id = '<' . $REMOTE_PORT . '.';
         if (isset($encode_header_key) && trim($encode_header_key)!='') {

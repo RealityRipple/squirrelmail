@@ -12,6 +12,7 @@
  * @subpackage abook_take
  */
 
+/** */
 function valid_email ($email, $verify)
 {
     global $Email_RegExp_Match;

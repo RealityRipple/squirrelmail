@@ -1029,7 +1029,7 @@ $squirrelmail_default_language = 'en_US';
  * This option controls what character set is used when sending
  * mail and when sending HTML to the browser. Option works only
  * with US English (en_US) translation. Other translations use
- * charsets that are set in functions/i18n.php.
+ * charsets that are set in translation settings.
  *
  * @global string $default_charset
  */

@@ -32,7 +32,9 @@ Version 1.5.2 - CVS
     configuration variable is removed.
   - Added system locale tests to configtest.php script.
   - Fixed invalid HTML output that caused error notices in compose.php (#1454409).
-  - Introduction of centralised initialization file init.php.
+  - Introduction of centralised initialization file init.php. Location of some
+    scripts is changed. If code tries to use older script layout, scripts will
+    break and display error messages.
   - Added session regenrate id functionality to prohibit session hijacking.
   - Fixed sqsession_cookie function for setting HttpOnly cookie attribute.
   - Reduce references header in a smart way to avoid "header too long"
@@ -50,6 +52,9 @@ Version 1.5.2 - CVS
   - Fixed possibility to use single quote in provider name (#1475744).
   - Improve recovery when EHLO not supported on legacy SMTP servers
     (#1031455).
+  - Added error handling and $onlylocal argument to abook_init hook.
+  - Added PHP 5.1.0 date_default_timezone_set() function support. Allows
+    to use time zone settings in PHP safe_mode.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

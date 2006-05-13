@@ -3,9 +3,11 @@
 /**
  * auth.php
  *
- * Contains functions used to do authentication. Library depends on
- * functions from functions/global.php, functions/i18n.php and
- * functions/strings.php.
+ * Contains functions used to do authentication.
+ * 
+ * Dependencies:
+ *  functions/global.php
+ *  functions/strings.php.
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License

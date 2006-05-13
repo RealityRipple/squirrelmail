@@ -131,7 +131,7 @@ function load_optpage_data_personal() {
         );
     }
 
-    if ( $tzChangeAllowed ) {
+    if ( $tzChangeAllowed || function_exists('date_default_timezone_set')) {
         $TZ_ARRAY[SMPREF_NONE] = _("Same as server");
 
         $aTimeZones = sq_get_tz_array();

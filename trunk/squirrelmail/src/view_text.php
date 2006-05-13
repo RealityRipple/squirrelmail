@@ -13,8 +13,7 @@
  * @package squirrelmail
  */
 
-
-/* SquirrelMail required files. */
+/** SquirrelMail required files. */
 include('../include/init.php');
 include(SM_PATH . 'functions/imap_general.php');
 include(SM_PATH . 'functions/imap_messages.php');

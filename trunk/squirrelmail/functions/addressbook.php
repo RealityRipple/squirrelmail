@@ -12,8 +12,7 @@
  * @subpackage addressbook
  */
 
-
-/* required includes */
+/** required includes */
 // FIXME, NO display code in functions files
 include_once(SM_PATH . 'templates/util_global.php');
 
@@ -21,7 +20,10 @@ include_once(SM_PATH . 'templates/util_global.php');
  * Create and initialize an addressbook object.
  * @param boolean $showerr display any address book init errors. html page header
  * must be created before calling addressbook_init() with $showerr enabled.
- * @param boolean $onlylocal enable only local address book backends
+ * @param boolean $onlylocal enable only local address book backends. Should 
+ *  be used when code does not need access to remote backends. Backends
+ *  that provide read only address books with limited listing options can be
+ *  tagged as remote.
  * @return object address book object.
  */
 function addressbook_init($showerr = true, $onlylocal = false) {
@@ -122,11 +124,17 @@ function addressbook_init($showerr = true, $onlylocal = false) {
      * hook allows to include different address book backends.
      * plugins should extract $abook and $r from arguments
      * and use same add_backend commands as above functions.
+     * Since 1.5.2 hook sends third ($onlylocal) argument to address book
+     * plugins in order to allow detection of local address book init.
      * @since 1.5.1 and 1.4.5
      */
-    $hookReturn = do_hook('abook_init', $abook, $r);
+    $hookReturn = do_hook('abook_init', $abook, $r, $onlylocal);
     $abook = $hookReturn[1];
     $r = $hookReturn[2];
+    if (!$r && $showerr) {
+        if ($abook_init_error!='') $abook_init_error.="<br />\n";
+        $abook_init_error.=_("Error initializing other address books.") . "<br />\n" . $abook->error;
+    }
 
     if (! $onlylocal) {
         /* Load configured LDAP servers (if PHP has LDAP support) */

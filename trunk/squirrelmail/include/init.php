@@ -392,6 +392,20 @@ switch ($sInitLocation) {
                 putenv("TZ=".$realTimeZone);
             }
         }
+
+        /**
+         * php 5.1.0 added time zone functions. Set time zone with them in order
+         * to prevent E_STRICT notices and allow time zone modifications in safe_mode.
+         */
+        if (function_exists('date_default_timezone_set')) {
+            if ($timeZone != SMPREF_NONE && $timeZone != "") {
+                date_default_timezone_set($timeZone);
+            } else {
+                // interface runs on server's time zone. Remove php E_STRICT complains
+                $default_timezone = @date_default_timezone_get();
+                date_default_timezone_set($default_timezone);        
+            }
+        }
         break;
 }
 
@@ -430,7 +444,7 @@ if (version_compare(PHP_VERSION, "4.3.0", ">=")) {
 /**
  * Javascript support detection function
  * @param boolean $reset recheck javascript support if set to true.
- * @return integer SMPREF_JS_ON or SMPREF_JS_OFF ({@see functions/constants.php})
+ * @return integer SMPREF_JS_ON or SMPREF_JS_OFF ({@see include/constants.php})
  * @since 1.5.1
  */
 function checkForJavascript($reset = FALSE) {
