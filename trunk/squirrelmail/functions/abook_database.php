@@ -10,16 +10,11 @@
  * @subpackage addressbook
  */
 
-/** Needs the DB functions */
-if (!include_once('DB.php')) {
-    // same error also in db_prefs.php
-    $error  = _("Could not include PEAR database functions required for the database backend.") . "<br />\n";
-    $error .= sprintf(_("Is PEAR installed, and is the include path set correctly to find %s?"),
-                        '<tt>DB.php</tt>') . "<br />\n";
-    $error .= _("Please contact your system administrator and report this error.");
-    error_box($error, $color);
-    exit;
-}
+/**
+ * Needs the DB functions
+ * Don't display errors here. Error will be set in class constructor function.
+ */
+@include_once('DB.php');
 
 /**
  * Address book in a database backend
@@ -102,6 +97,16 @@ class abook_database extends addressbook_backend {
      */
     function abook_database($param) {
         $this->sname = _("Personal address book");
+
+        /* test if Pear DB class is available and freak out if it is not */
+        if (! class_exists('DB')) {
+            // same error also in db_prefs.php
+            $error  = _("Could not include PEAR database functions required for the database backend.") . "<br />\n";
+            $error .= sprintf(_("Is PEAR installed, and is the include path set correctly to find %s?"),
+                              '<tt>DB.php</tt>') . "<br />\n";
+            $error .= _("Please contact your system administrator and report this error.");
+            return $this->set_error($error);
+        }
 
         if (is_array($param)) {
             if (empty($param['dsn']) ||
