@@ -39,16 +39,11 @@ define('SMDB_MYSQL', 1);
 /** PostgreSQL */
 define('SMDB_PGSQL', 2);
 
-
-if (!include_once('DB.php')) {
-    // same error also in abook_database.php
-    $error  = _("Could not include PEAR database functions required for the database backend.") . "<br />\n";
-    $error .= sprintf(_("Is PEAR installed, and is the include path set correctly to find %s?"),
-                        '<tt>DB.php</tt>') . "<br />\n";
-    $error .= _("Please contact your system administrator and report this error.");
-    error_box($error, $color);
-    exit;
-}
+/**
+ * don't display errors (no code execution in functions/*.php).
+ * will handle error in dbPrefs class.
+ */
+@include_once('DB.php');
 
 global $prefs_are_cached, $prefs_cache;
 
@@ -166,6 +161,16 @@ class dbPrefs {
         global $prefs_dsn, $prefs_table;
         global $prefs_user_field, $prefs_key_field, $prefs_val_field;
         global $prefs_user_size, $prefs_key_size, $prefs_val_size;
+
+        /* test if Pear DB class is available and freak out if it is not */
+        if (! class_exists('DB')) {
+            // same error also in abook_database.php
+            $this->error  = _("Could not include PEAR database functions required for the database backend.") . "<br />\n";
+            $this->error .= sprintf(_("Is PEAR installed, and is the include path set correctly to find %s?"),
+                              '<tt>DB.php</tt>') . "<br />\n";
+            $this->error .= _("Please contact your system administrator and report this error.");
+            return false;
+        }
 
         if(isset($this->dbh)) {
             return true;
