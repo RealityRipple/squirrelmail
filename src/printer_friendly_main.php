@@ -20,7 +20,7 @@ if ( ! sqgetGlobalVar('passed_ent_id',$passed_ent_id,SQ_GET))
     $passed_ent_id = 0;
 if ( ! sqgetGlobalVar('mailbox',$mailbox,SQ_GET) ||
      ! sqgetGlobalVar('passed_id',$passed_id,SQ_GET)) {
-    error_box(_("Invalid URL"),$color);
+    error_box(_("Invalid URL"));
 } else {
     $passed_id= (int) $passed_id;
     $view_unsafe_images = (bool) $_GET['view_unsafe_images'];

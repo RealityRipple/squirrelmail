@@ -111,12 +111,14 @@ if (!isset($squirrelmail_language)) {
 if (file_exists("../help/$squirrelmail_language")) {
     $user_language = $squirrelmail_language;
 } else if (file_exists('../help/en_US')) {
-    error_box(_("Help is not available in the selected language. It will be displayed in English instead."), $color);
+    error_box(_("Help is not available in the selected language. It will be displayed in English instead."));
     echo '<br />';
     $user_language = 'en_US';
 } else {
-    error_box( _("Help is not available. Please contact your system administrator for assistance."), $color );
-    exit;
+    error_box( _("Help is not available. Please contact your system administrator for assistance."));
+    // display footer (closes html tags) and stop script execution
+    $oTemplate->display('footer.tpl');
+    exit();
 }
 
 
@@ -195,7 +197,7 @@ if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
     } elseif (file_exists("../help/en_US/" . $helpdir[$chapter-1])) {
         // If the selected language can't be found, try English.
         $doc = file("../help/en_US/" . $helpdir[$chapter-1]);
-        error_box(_("This chapter in not available in the selected language. It will be displayed in English instead."), $color);
+        error_box(_("This chapter in not available in the selected language. It will be displayed in English instead."));
         echo '<br />';
     } else {
         // If English can't be found, the chapter went MIA.
@@ -245,7 +247,7 @@ if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
         echo '<br /><div style="text-align: center;"><a href="#pagetop">' . _("Top") . '</a></div>';
     } else {
         // If the help file went MIA, display an error message.
-        error_box(sprintf(_("For some reason, chapter %s is not available."), $chapter), $color);
+        error_box(sprintf(_("For some reason, chapter %s is not available."), $chapter));
     }
 }
 

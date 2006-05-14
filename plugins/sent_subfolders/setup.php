@@ -254,7 +254,7 @@ function sent_subfolders_update_sentfolder() {
                 if (sqimap_mailbox_is_noselect($ic,$sent_subfolder,$boxes) ||
                     ($level==2 && sqimap_mailbox_is_noinferiors($ic,$year_folder,$boxes)) ||
                      sqimap_mailbox_is_noinferiors($ic,$sent_subfolders_base,$boxes)) {
-                    error_box(_("Sent Subfolders plugin is misconfigured."),$color);
+                    error_box(_("Sent Subfolders plugin is misconfigured."));
                 } else {
                     if ($level==2) {
                         /* Auto-create the year folder, if it does not yet exist. */

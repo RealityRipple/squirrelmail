@@ -18,5 +18,6 @@
 extract($t);
 $this->display('error_message.tpl');
 ?>
+<!-- end of generated html -->
 </body>
 </html>

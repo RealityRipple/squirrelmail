@@ -116,7 +116,7 @@ function writecalendardata() {
 
                 $calstr = "$calfoo[key]|$calbar[key]|$calfoobar[length]|$calfoobar[priority]|$calfoobar[title]|$calfoobar[message]|$calfoobar[reminder]\n";
                 if(sq_fwrite($fp, $calstr, 4096) === FALSE) {
-                    error_box(_("Could not write calendar file %s", "$username.$year.cal.tmp"), $color);
+                    error_box(_("Could not write calendar file %s", "$username.$year.cal.tmp"));
                 }
             }
 

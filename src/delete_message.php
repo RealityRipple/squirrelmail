@@ -15,6 +15,6 @@
  * Include the SquirrelMail initialization file.
  */
 include('../include/init.php');
-error_box('delete_message.php script is obsolete since 1.5.1.',$color);
+error_box('delete_message.php script is obsolete since 1.5.1.');
 $oTemplate->display('footer.tpl');
 ?>

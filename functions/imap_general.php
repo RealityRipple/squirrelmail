@@ -66,7 +66,7 @@ function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$respon
         $string = "<b><font color=\"$color[2]\">\n" .
                 _("ERROR: No available IMAP stream.") .
                 "</b></font>\n";
-        error_box($string,$color);
+        error_box($string);
         return false;
     }
 }
@@ -116,7 +116,7 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response,
         $string = "<b><font color=\"$color[2]\">\n" .
                 _("ERROR: No available IMAP stream.") .
                 "</b></font>\n";
-        error_box($string,$color);
+        error_box($string);
         return false;
     }
 }
@@ -314,7 +314,7 @@ function sqimap_fread($imap_stream,$iSize,$filter=false,
  */
 function sqimap_read_data_list($imap_stream, $tag, $handle_errors,
           &$response, &$message, $query = '') {
-    global $color, $squirrelmail_language;
+    global $color, $oTemplate, $squirrelmail_language;
     set_up_language($squirrelmail_language);
     $string = "<b><font color=\"$color[2]\">\n" .
         _("ERROR: Bad function call.") .
@@ -326,8 +326,8 @@ function sqimap_read_data_list($imap_stream, $tag, $handle_errors,
           'sqimap_run_command or sqimap_run_command_list instead<br /><br />'.
           'The following query was issued:<br />'.
            htmlspecialchars($query) . '<br />' . "</font><br />\n";
-    error_box($string,$color);
-    echo '</body></html>';
+    error_box($string);
+    $oTemplate->display('footer.tpl');
     exit;
 }
 
@@ -359,7 +359,7 @@ function sqimap_error_box($title, $query = '', $message_title = '', $message = '
     $string .= "</font><br />\n";
     if ($link != '')
         $string .= $link;
-    error_box($string,$color);
+    error_box($string);
 }
 
 /**
@@ -878,7 +878,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
                         $string .= htmlspecialchars($line) . "<br />\n";
                     }
                 }
-                error_box($string,$color);
+                error_box($string);
                 exit;
             } else {
                 /*

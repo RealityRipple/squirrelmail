@@ -43,7 +43,8 @@ sqspell_ckMOD($MOD);
 if (file_exists(SM_PATH . $SQSPELL_DIR . "modules/$MOD.mod")) {
     require_once(SM_PATH . $SQSPELL_DIR . "modules/$MOD.mod");
 } else {
-    error_box(_("Invalid SquirrelSpell module."),$color);
-    echo '</body></html>';
+    error_box(_("Invalid SquirrelSpell module."));
+    // display footer (closes html tags)
+    $oTemplate->display('footer.tpl');
 }
 ?>

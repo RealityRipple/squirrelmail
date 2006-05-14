@@ -100,21 +100,21 @@ if( check_php_version ( 4, 3 ) ) {
     if ( ! is_resource ( $spell_proc ) ) {
         // TODO: replace error_box() with sqspell_makeWindow()
         error_box ( sprintf(_("Could not run the spellchecker command (%s)."),
-            htmlspecialchars($sqspell_command) ) , $color );
-        // close html tags and abort script.
-        echo "</body></html>";
+            htmlspecialchars($sqspell_command) ) );
+        // display footer (closes html tags) and stop script execution
+        $oTemplate->display('footer.tpl');
         exit();
     }
     if ( ! @fwrite($pipes[0], $sqspell_new_text) ) {
         // TODO: replace error_box() with sqspell_makeWindow()
-        error_box ( _("Error while writing to pipe.") , $color );
+        error_box ( _("Error while writing to pipe.") );
         // close all three $pipes here.
         for($i=0; $i<=2; $i++) {
             // disable all fclose error messages
             @fclose($pipes[$i]);
         }
         // close html tags and abort script.
-        echo "</body></html>";
+        $oTemplate->display('footer.tpl');
         exit();
     }
     fclose($pipes[0]);
@@ -140,19 +140,19 @@ if( check_php_version ( 4, 3 ) ) {
     if ( ! is_resource ($fp) ) {
         // TODO: replace error_box() with sqspell_makeWindow()
         error_box ( sprintf(_("Could not open temporary file '%s'."),
-            htmlspecialchars($floc) ) , $color );
+            htmlspecialchars($floc) ) );
         // failed to open temp file. abort script.
-        echo "</body></html>";
+        $oTemplate->display('footer.tpl');
         exit();
     }
     if ( ! @fwrite($fp, $sqspell_new_text) ) {
         // TODO: replace error_box() with sqspell_makeWindow()
         error_box ( sprintf(_("Error while writing to temporary file '%s'."),
-            htmlspecialchars($floc) ) , $color );
+            htmlspecialchars($floc) ) );
         // close file descriptor
         fclose($fp);
         // failed writing to temp file. abort script.
-        echo "</body></html>";
+        $oTemplate->display('footer.tpl');
         exit();
     }
     fclose($fp);

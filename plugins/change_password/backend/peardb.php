@@ -106,19 +106,19 @@ $squirrelmail_plugin_hooks['change_password_init']['peardb'] =
  * Checks if configuration is correct
  */
 function cpw_peardb_init() {
-    global $color, $cpw_peardb_detect, $cpw_peardb_dsn, $cpw_peardb_table;
+    global $oTemplate, $cpw_peardb_detect, $cpw_peardb_dsn, $cpw_peardb_table;
 
     if (! $cpw_peardb_detect) {
-        error_box(_("Plugin is unable to use PHP Pear DB libraries. PHP Pear includes must be available in your PHP include_path setting."),$color);
-        echo "</body></html>\n";
+        error_box(_("Plugin is unable to use PHP Pear DB libraries. PHP Pear includes must be available in your PHP include_path setting."));
+        $oTemplate->display('footer.tpl');
         exit();
     }
 
     // Test required settings
     if ((is_string($cpw_peardb_dsn) && trim($cpw_peardb_dsn)=='')
         || trim($cpw_peardb_table)=='' ) {
-        error_box(_("Required change password backend configuration options are missing."),$color);
-        echo "</body></html>\n";
+        error_box(_("Required change password backend configuration options are missing."));
+        $oTemplate->display('footer.tpl');
         exit();
     }
 }

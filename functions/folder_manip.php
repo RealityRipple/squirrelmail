@@ -25,15 +25,16 @@ function folders_checkname($imapConnection, $folder_name, $delimiter)
     if (substr_count($folder_name, '"') || substr_count($folder_name, "\\") ||
         substr_count($folder_name, $delimiter) || ($folder_name == '')) {
 
-        global $color;
+        global $color, $oTemplate;
         error_box(_("Illegal folder name.") . "<br />\n" .
                 sprintf(_("The name may not contain any of the following: %s"), '<tt>" \\ '.$delimiter.'</tt>')
                 . "<br />\n" .
                 _("Please select a different name.").
                 '<br /><a href="folders.php">'.
-                _("Click here to go back") . '</a>.', $color);
+                _("Click here to go back") . '</a>.');
 
         sqimap_logout($imapConnection);
+        $oTemplate->display('footer.tpl');
         exit;
     }
 }

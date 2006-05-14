@@ -41,13 +41,13 @@ $squirrelmail_plugin_hooks['change_password_init']['merak'] =
  * Check if php install has all required extensions.
  */
 function cpw_merak_init() {
-    global $color;
+    global $oTemplate;
 
     if (!function_exists('curl_init')) {
         // user_error('Curl module NOT available!', E_USER_ERROR);
-        error_box(_("PHP Curl extension is NOT available! Unable to change password!"),$color);
+        error_box(_("PHP Curl extension is NOT available! Unable to change password!"));
         // close html and stop script execution
-        echo "</body></html>\n";
+        $oTemplate->display('footer.tpl');
         exit();
     }
 }

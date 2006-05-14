@@ -57,8 +57,9 @@ if ($js_web) {
 
 /** is spamcop plugin disabled */
 if (! is_plugin_enabled('spamcop')) {
-    error_box(_("Plugin is disabled."),$color);
-    echo "\n</body></html>\n";
+    error_box(_("Plugin is disabled."));
+    // display footer (closes html tags) and stop script execution
+    $oTemplate->display('footer.tpl');
     exit();
 }
 
