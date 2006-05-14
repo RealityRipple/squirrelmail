@@ -15,26 +15,29 @@
 
 /**
  * Displays error message and URL to message listing
+ *
+ * Fifth argument ($color array) is removed in 1.5.2.
  * @param string $message error message
  * @param string $mailbox mailbox name
  * @param integer $sort sort order
  * @param integer $startMessage first message
- * @param array $color color theme
  * @since 1.0
  */
 function error_message($message, $mailbox, $sort, $startMessage) {
     $urlMailbox = urlencode($mailbox);
-    $link = array   (
-                        'URL'   => sqm_baseuri()."src/right_main.php?sort=$sort&amp;startMessage=$startMessage&amp;mailbox=$urlMailbox",
-                        'TEXT'  => sprintf (_("Click here to return to %s"), strtoupper($mailbox) == 'INBOX' ? _("INBOX") : imap_utf7_decode_local($mailbox)) 
-                    );
+    $link = array (
+        'URL'   => sqm_baseuri()."src/right_main.php?sort=$sort&amp;startMessage=$startMessage&amp;mailbox=$urlMailbox",
+        'TEXT'  => sprintf (_("Click here to return to %s"),
+                            strtoupper($mailbox) == 'INBOX' ? _("INBOX") : htmlspecialchars(imap_utf7_decode_local($mailbox))) 
+                   );
     error_box($message, $link);
 }
 
 /**
  * Displays error message
+ * 
+ * Second argument ($color array) is removed in 1.5.2.
  * @param string $message error message
- * @param array $color color theme
  * @since 1.0
  */
 function plain_error_message($message) {
