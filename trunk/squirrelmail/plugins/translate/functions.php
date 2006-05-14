@@ -85,7 +85,7 @@ function translate_read_form_function() {
     $translate_server_option='translate_' . $translate_server . '_enabled';
     if ($translate_server=='gpltrans' && $translate_gpltrans_url=='' ||
         ! $$translate_server_option || ! function_exists('translate_form_' . $translate_server)) {
-        error_box(_("Selected translation engine is disabled. Please update your translation preferences."),$color);
+        error_box(_("Selected translation engine is disabled. Please update your translation preferences."));
         return;
     }
     $translate_dir = 'to';

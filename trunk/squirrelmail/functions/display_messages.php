@@ -109,11 +109,19 @@ function logout_error( $errString, $errTitle = '' ) {
  * Displays error message
  * 
  * Since 1.4.1 function checks if page header is already displayed.
+ * 
  * Since 1.4.3 and 1.5.1 function contains error_box hook.
  * Use plain_error_message() and make sure that page header is created,
  * if you want compatibility with 1.4.0 and older.
+ *
+ * In 1.5.2 second function argument is changed. Older functions used it
+ * for $color array, new function uses it for optional link data. Function 
+ * will ignore color array and use standard colors instead.
  * @param string $string Error message to be displayed
- * @param mixed $link Optional array containing link details to be displayed
+ * @param array $link Optional array containing link details to be displayed.
+ *  Array uses three keys. 'URL' key is required and should contain link URL.
+ *  'TEXT' key is optional and should contain link name. 'FRAME' key is 
+ *  optional and should contain link target attribute.
  * @since 1.3.2
  */
 function error_box($string, $link=NULL) {
@@ -134,10 +142,14 @@ function error_box($string, $link=NULL) {
 
     // Double check the link for everything we need
     if (!is_null($link)) {
-        if (!isset($link['FRAME']))
-            $link['FRAME'] = '';
-        if (!isset($link['TEXT']))
-            $link['TEXT'] = $link['URL'];
+        // safety check for older code
+        if (isset($link['URL'])) {
+            if (!isset($link['FRAME'])) $link['FRAME'] = '';
+            if (!isset($link['TEXT'])) $link['TEXT'] = $link['URL'];
+        } else {
+            // somebody used older error_box() code
+            $link=null;
+        }
     }
     
     /** ERROR is pre-translated to avoid multiple translation calls. **/

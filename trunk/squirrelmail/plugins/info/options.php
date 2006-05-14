@@ -35,8 +35,9 @@ $mailbox = 'INBOX';
  * prevent use of plugin if it is not enabled
  */
 if (! is_plugin_enabled('info')) {
-    error_box(_("Plugin is disabled."),$color);
-    echo '</body></html>';
+    error_box(_("Plugin is disabled."));
+    // display footer (closes html) and stop script execution
+    $oTemplate->display('footer.tpl');
     exit;
 }
 

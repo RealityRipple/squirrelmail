@@ -158,27 +158,26 @@ $squirrelmail_plugin_hooks['change_password_init']['ldap'] =
  * Makes sure that required functions and configuration options are set.
  */
 function cpw_ldap_init() {
-    global $color;
-    global $cpw_ldap_basedn;
+    global $oTemplate, $cpw_ldap_basedn;
 
     // set initial value for error tracker
     $cpw_ldap_initerr=false;
 
     // check for ldap support in php
     if (! function_exists('ldap_connect')) {
-        error_box(_("Current configuration requires LDAP support in PHP."),$color);
+        error_box(_("Current configuration requires LDAP support in PHP."));
         $cpw_ldap_initerr=true;
     }
 
     // chech required configuration settings.
     if ($cpw_ldap_basedn=='') {
-        error_box(_("Plugin is not configured correctly."),$color);
+        error_box(_("Plugin is not configured correctly."));
         $cpw_ldap_initerr=true;
     }
 
     // if error var is positive, close html and stop execution
     if ($cpw_ldap_initerr) {
-        echo '</body></html>';
+        $oTemplate->display('footer.tpl');
         exit;
     }
 }

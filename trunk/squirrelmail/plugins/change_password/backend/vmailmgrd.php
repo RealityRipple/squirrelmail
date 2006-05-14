@@ -104,13 +104,13 @@ $squirrelmail_plugin_hooks['change_password_init']['vmailmgrd'] =
  * is displayed to the user.
  */
 function cpw_vmailmgrd_init(){
-    global $vmail_inc_path, $color, $username;
+    global $vmail_inc_path, $username, $oTemplate;
 
     if ($vmail_inc_path=='' || ! file_exists($vmail_inc_path)) {
         // $vmail_inc_path is not set or file does not exist
-        error_box(_("Incorrent path to vmail.inc file."),$color);
+        error_box(_("Incorrent path to vmail.inc file."));
         // close html and stop script execution
-        echo "</body></html>\n";
+        $oTemplate->display('footer.tpl');
         exit();
     }
 
@@ -118,17 +118,17 @@ function cpw_vmailmgrd_init(){
 
     if (! function_exists('vchpass')) {
         // included vmail.inc does not have required functions.
-        error_box(_("Invalid or corrupted vmail.inc file."),$color);
+        error_box(_("Invalid or corrupted vmail.inc file."));
         // close html and stop script execution
-        echo "</body></html>\n";
+        $oTemplate->display('footer.tpl');
         exit();
     }
 
     if (! preg_match("/(.*)\@(.*)/", $username)) {
         // username does not match vmailmgr syntax
-        error_box(_("Invalid user."),$color);
+        error_box(_("Invalid user."));
         // close html and stop script execution
-        echo "</body></html>\n";
+        $oTemplate->display('footer.tpl');
         exit();
     }
 }

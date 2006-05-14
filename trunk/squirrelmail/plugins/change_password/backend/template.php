@@ -39,12 +39,12 @@ $squirrelmail_plugin_hooks['change_password_init']['template'] =
  */
 function cpw_template_init()
 {
-    global $color;
+    global $oTemplate;
 
     // plugin is not configured. Handle error gracefully.
-    error_box(_("No valid backend defined."),$color);
+    error_box(_("No valid backend defined."));
     // close html and stop script execution
-    echo "</body></html>\n";
+    $oTemplate->display('footer.tpl');
     exit();
 }
 

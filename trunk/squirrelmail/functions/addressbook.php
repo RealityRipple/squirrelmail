@@ -27,7 +27,7 @@ include_once(SM_PATH . 'templates/util_global.php');
  * @return object address book object.
  */
 function addressbook_init($showerr = true, $onlylocal = false) {
-    global $data_dir, $username, $color, $ldap_server, $address_book_global_filename;
+    global $data_dir, $username, $ldap_server, $address_book_global_filename;
     global $addrbook_dsn, $addrbook_table;
     global $abook_global_file, $abook_global_file_writeable, $abook_global_file_listing;
     global $addrbook_global_dsn, $addrbook_global_table, $addrbook_global_writeable, $addrbook_global_listing;
@@ -158,7 +158,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
      * display address book init errors.
      */
     if ($abook_init_error!='' && $showerr) {
-        error_box($abook_init_error,$color);
+        error_box($abook_init_error);
     }
 
     /* Return the initialized object */

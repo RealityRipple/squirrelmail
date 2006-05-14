@@ -67,7 +67,9 @@ if($imap_auth_mech == 'login') {
                 $string .= _("Also, the use of TLS may allow SquirrelMail to login.").'<br />';
             }
             $string .= _("Please contact your system administrator and report this error.");
-            error_box($string,$color);
+            error_box($string);
+            // display footer (closes html tags) and stop script execution
+            $oTemplate->display('footer.tpl');
             exit;
         }
     }
@@ -131,10 +133,10 @@ if (isset($org_logo) && $org_logo) {
     }
     
     $logo_str = '<img src="'.$org_logo.'" ' .
-    			'alt="'. sprintf(_("%s Logo"), $org_name).'" ' .
-    			$width_and_height .
+                'alt="'. sprintf(_("%s Logo"), $org_name).'" ' .
+                $width_and_height .
                 'class="sqm_loginImage" ' .
-    			' /><br />'."\n";
+                ' /><br />'."\n";
 }
 
 $sm_attribute_str = '';

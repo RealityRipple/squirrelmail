@@ -19,8 +19,8 @@ include_once(SM_PATH.'plugins/bug_report/functions.php');
 
 /** is bug_report plugin disabled or called by wrong user */
 if (! is_plugin_enabled('bug_report') || ! bug_report_check_user()) {
-    error_box(_("Plugin is disabled."),$color);
-    echo "\n</body></html>\n";
+    error_box(_("Plugin is disabled."));
+    $oTemplate->display('footer.tpl');
     exit();
 }
 ?>
