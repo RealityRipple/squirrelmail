@@ -55,6 +55,7 @@ Version 1.5.2 - CVS
   - Added error handling and $onlylocal argument to abook_init hook.
   - Added PHP 5.1.0 date_default_timezone_set() function support. Allows
     to use time zone settings in PHP safe_mode.
+  - Sanitized IMAP folder name in error_message() function.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
