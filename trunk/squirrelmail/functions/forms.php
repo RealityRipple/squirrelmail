@@ -50,7 +50,15 @@ function addInputField($sType, $aAttribs=array()) {
     $sAttribs = '';
     // define unique identifier
     if (! isset($aAttribs['id']) && isset($aAttribs['name']) && ! is_null($aAttribs['name'])) {
-        $aAttribs['id'] = $aAttribs['name'];
+        /**
+         * if 'id' is not set, set it to 'name' and replace brackets 
+         * with underscores. 'name' might contain field name with squire
+         * brackets (array). Brackets are not allowed in id (validator.w3.org
+         * fails to validate document). According to html 4.01 manual cdata 
+         * type description, 'name' attribute uses same type, but validator.w3.org 
+         * does not barf on brackets in 'name' attributes.
+         */
+        $aAttribs['id'] = strtr($aAttribs['name'],'[]','__');
     }
     // create attribute string (do we have to sanitize keys?)
     foreach ($aAttribs as $key => $value) {
