@@ -25,6 +25,12 @@ global $UseSeparateImapConnection,
     $SpamFilters_DNScache, $SpamFilters_BulkQuery, $SpamFilters_SharedCache,
     $SpamFilters_CacheTTL;
 
+/**
+ * load required functions. Plugin depends on IMAP functions and they are not 
+ * loaded in src/webmail.php
+ */
+include_once (SM_PATH . 'functions/imap.php');
+
 /** load default config */
 if (file_exists(SM_PATH . 'plugins/filters/config_default.php')) {
     include_once (SM_PATH . 'plugins/filters/config_default.php');
