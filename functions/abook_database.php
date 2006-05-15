@@ -347,8 +347,9 @@ class abook_database extends addressbook_backend {
     }
 
     /**
-     * Delete address
-     * @param string $alias alias that has to be deleted
+     * Deletes address book entries
+     * @param array $alias aliases that have to be deleted. numerical 
+     *  array with nickname values
      * @return bool
      */
     function remove($alias) {
