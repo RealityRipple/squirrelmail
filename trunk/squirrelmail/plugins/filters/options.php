@@ -15,6 +15,7 @@
  */
 require('../../include/init.php');
 include_once(SM_PATH . 'functions/imap_general.php');
+include_once(SM_PATH . 'functions/forms.php');
 include_once(SM_PATH . 'plugins/filters/filters.php');
 
 displayPageHeader($color, 'None');
@@ -245,7 +246,7 @@ if (count($filters)) {
         printf( _("If %s contains %s then move to %s"),
             '<b>'.$filters[$i]['where'].'</b>',
             '<b>'.$filters[$i]['what'].'</b>',
-            '<b>'.imap_utf7_decode_local($fdr).'</b>');
+            '<b>'.htmlspecialchars(imap_utf7_decode_local($fdr)).'</b>');
         echo '</td></tr>';
 
     }
