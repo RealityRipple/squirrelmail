@@ -12,6 +12,8 @@
  * @package squirrelmail
  */
 
+include_once(SM_PATH . 'functions/forms.php');
+
  /**
   * Generate a paginator link.
   *
