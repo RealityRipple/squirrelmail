@@ -12,6 +12,7 @@
  * @package squirrelmail
  */
 
+/** Load forms functions, needed for addsubmit(). */
 include_once(SM_PATH . 'functions/forms.php');
 
  /**
