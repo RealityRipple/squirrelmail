@@ -56,6 +56,9 @@ Version 1.5.2 - CVS
   - Added PHP 5.1.0 date_default_timezone_set() function support. Allows
     to use time zone settings in PHP safe_mode.
   - Sanitized IMAP folder names in error_message() function and filters plugin.
+  - Take X-Forwarded-Host HTTP header in consideration when constructing
+    base_uri for redirects; reduces problems with transparent proxies
+    (#1488590).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

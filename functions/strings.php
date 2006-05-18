@@ -493,17 +493,19 @@ function get_location () {
      *     OR if you are on port 443
      */
     $getEnvVar = getenv('HTTPS');
-    if ((isset($getEnvVar) && !strcasecmp($getEnvVar, 'on')) ||
-        (sqgetGlobalVar('HTTPS', $https_on, SQ_SERVER) && !strcasecmp($https_on, 'on')) ||
+    if ((isset($getEnvVar) && strcasecmp($getEnvVar, 'on') === 0) ||
+        (sqgetGlobalVar('HTTPS', $https_on, SQ_SERVER) && strcasecmp($https_on, 'on') === 0) ||
         (sqgetGlobalVar('SERVER_PORT', $server_port, SQ_SERVER) &&  $server_port == 443)) {
         $proto = 'https://';
     }
 
     /* Get the hostname from the Host header or server config. */
-    if ( !sqgetGlobalVar('HTTP_HOST', $host, SQ_SERVER) || empty($host) ) {
-      if ( !sqgetGlobalVar('SERVER_NAME', $host, SQ_SERVER) || empty($host) ) {
-        $host = '';
-      }
+    if ( !sqgetGlobalVar('HTTP_X_FORWARDED_HOST', $host, SQ_SERVER) || empty($host) ) {
+        if ( !sqgetGlobalVar('HTTP_HOST', $host, SQ_SERVER) || empty($host) ) {
+            if ( !sqgetGlobalVar('SERVER_NAME', $host, SQ_SERVER) || empty($host) ) {
+                $host = '';
+            }
+        }
     }
 
     $port = '';
