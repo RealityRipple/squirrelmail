@@ -292,6 +292,23 @@ switch ($sInitLocation) {
             return;
             }
 
+            /**
+             * Initialize the template object (logout_error uses it)
+             */
+            require(SM_PATH . 'class/template/template.class.php');
+            /*
+             * $sTplDir is not initialized when a user is not logged in, so we will use
+             * the config file defaults here.  If the neccesary variables are net set,
+             * force a default value.
+             */
+            $aTemplateSet = ( !isset($aTemplateSet) ? array() : $aTemplateSet );
+            $templateset_default = ( !isset($templateset_default) ? 0 : $templateset_default );
+
+            $sTplDir = ( !isset($aTemplateSet[$templateset_default]['PATH']) ?
+                         SM_PATH . 'templates/default/' :
+                         $aTemplateSet[$templateset_default]['PATH'] );
+            $oTemplate = new Template($sTplDir);
+
             set_up_language($squirrelmail_language, true);
             logout_error( _("You must be logged in to access this page.") );
             exit;
