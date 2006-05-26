@@ -954,9 +954,18 @@ function sqimap_capability($imap_stream, $capability='', $bUseCache=true) {
         for ($i=2; $i < count($c); $i++) {
             $cap_list = explode('=', $c[$i]);
             if (isset($cap_list[1])) {
+                if(isset($sqimap_capabilities[trim($cap_list[0])]) &&
+                 !is_array($sqimap_capabilities[trim($cap_list[0])])) {
+                    // Remove array key that was added in 'else' block below
+                    // This is to accomodate for capabilities like:
+                    // SORT SORT=MODSEQ
+                    unset($sqimap_capabilities[trim($cap_list[0])]);
+                }
                 $sqimap_capabilities[trim($cap_list[0])][] = $cap_list[1];
             } else {
-                $sqimap_capabilities[trim($cap_list[0])] = TRUE;
+                if(!isset($sqimap_capabilities[trim($cap_list[0])])) {
+                    $sqimap_capabilities[trim($cap_list[0])] = TRUE;
+                }
             }
         }
     }

@@ -59,6 +59,8 @@ Version 1.5.2 - CVS
   - Take X-Forwarded-Host HTTP header in consideration when constructing
     base_uri for redirects; reduces problems with transparent proxies
     (#1488590).
+  - Fixed server capability retrieval for "double" cases in capability
+    response, like "FOO FOO=bar".
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
