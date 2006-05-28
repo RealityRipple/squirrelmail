@@ -61,6 +61,12 @@ Version 1.5.2 - CVS
     (#1488590).
   - Fixed server capability retrieval for "double" cases in capability
     response, like "FOO FOO=bar".
+  - Various address book database backend modifications. Fixed invalid
+    error checks in insert() and delete() methods (checks caused PHP 
+    warnings). Turned on Pear DB field case portability mode. Escaped SQL
+    wildcards in search() method. Handle nickname changes in modify()
+    method when new nickname is already in use. Made search expressions
+    case insensitive in search() method.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
