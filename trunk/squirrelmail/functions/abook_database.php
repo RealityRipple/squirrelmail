@@ -3,6 +3,17 @@
 /**
  * abook_database.php
  *
+ * Supported database schema
+ * <pre>
+ *  owner varchar(128) NOT NULL
+ *  nickname varchar(16) NOT NULL
+ *  firstname varchar(128) 
+ *  lastname varchar(128)
+ *  email varchar(128) NOT NULL
+ *  label varchar(255)
+ *  PRIMARY KEY (owner,nickname)
+ * </pre>
+ *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
@@ -165,6 +176,13 @@ class abook_database extends addressbook_backend {
         }
 
         $this->dbh = $dbh;
+
+        /**
+         * field names are lowercased.
+         * We use unquoted identifiers and they use upper case in Oracle
+         */
+        $this->dbh->setOption('portability', DB_PORTABILITY_LOWERCASE);
+
         return true;
     }
 
@@ -180,8 +198,11 @@ class abook_database extends addressbook_backend {
 
     /**
      * Search the database
+     *
+     * Backend supports only * and ? wildcards. Complex eregs are not supported.
+     * Search is case insensitive.
      * @param string $expr search expression
-     * @return array search results
+     * @return array search results. boolean false on error
      */
     function search($expr) {
         $ret = array();
@@ -198,15 +219,26 @@ class abook_database extends addressbook_backend {
         if ($expr=='*' && ! $this->listing)
             return array();
 
-        /* Make regexp from glob'ed expression  */
+        /* lowercase expression in order to make it case insensitive */
+        $expr = strtolower($expr);
+
+        /* escape SQL wildcards */
+        $expr = str_replace('_', '\\_', $expr);
+        $expr = str_replace('%', '\\%', $expr);
+
+        /* Convert wildcards to SQL syntax  */
         $expr = str_replace('?', '_', $expr);
         $expr = str_replace('*', '%', $expr);
         $expr = $this->dbh->quoteString($expr);
         $expr = "%$expr%";
 
+        /* create escape expression */
+        $escape = 'ESCAPE \'' . $this->dbh->quoteString('\\') . '\'';
+    
         $query = sprintf("SELECT * FROM %s WHERE owner='%s' AND " .
-                         "(firstname LIKE '%s' OR lastname LIKE '%s')",
-                         $this->table, $this->owner, $expr, $expr);
+                         "(LOWER(firstname) LIKE '%s' %s OR LOWER(lastname) LIKE '%s' %s)",
+                         $this->table, $this->owner, $expr, $escape, $expr, $escape);
+
         $res = $this->dbh->query($query);
 
         if (DB::isError($res)) {
@@ -337,13 +369,13 @@ class abook_database extends addressbook_backend {
 
          /* Do the insert */
          $r = $this->dbh->simpleQuery($query);
-         if ($r == DB_OK) {
-             return true;
+ 
+         /* Check for errors */
+         if (DB::isError($r)) {
+             return $this->set_error(sprintf(_("Database error: %s"),
+                                             DB::errorMessage($r)));
          }
-
-         /* Fail */
-         return $this->set_error(sprintf(_("Database error: %s"),
-                                         DB::errorMessage($r)));
+         return true;
     }
 
     /**
@@ -375,13 +407,13 @@ class abook_database extends addressbook_backend {
 
         /* Delete entry */
         $r = $this->dbh->simpleQuery($query);
-        if ($r == DB_OK) {
-            return true;
-        }
 
-        /* Fail */
-        return $this->set_error(sprintf(_("Database error: %s"),
-                                         DB::errorMessage($r)));
+        /* Check for errors */
+        if (DB::isError($r)) {
+            return $this->set_error(sprintf(_("Database error: %s"),
+                                            DB::errorMessage($r)));
+        }
+        return true;
     }
 
     /**
@@ -405,6 +437,16 @@ class abook_database extends addressbook_backend {
             return $this->set_error(sprintf(_("User \"%s\" does not exist"),$alias));
         }
 
+        /* make sure that new nickname is not used */
+        if (strtolower($alias) != strtolower($userdata['nickname'])) {
+            /* same check as in add() */
+            $ret = $this->lookup($userdata['nickname']);
+            if (!empty($ret)) {
+                $error = sprintf(_("User '%s' already exist."), $ret['nickname']);
+                return $this->set_error($error);
+            }
+        }
+
         /* Create query */
         $query = sprintf("UPDATE %s SET nickname='%s', firstname='%s', ".
                          "lastname='%s', email='%s', label='%s' ".
@@ -420,13 +462,13 @@ class abook_database extends addressbook_backend {
 
         /* Do the insert */
         $r = $this->dbh->simpleQuery($query);
-        if ($r == DB_OK) {
-            return true;
-        }
 
-        /* Fail */
-        return $this->set_error(sprintf(_("Database error: %s"),
-                                        DB::errorMessage($r)));
+        /* Check for errors */
+        if (DB::isError($r)) {
+            return $this->set_error(sprintf(_("Database error: %s"),
+                                            DB::errorMessage($r)));
+        }
+        return true;
     }
 } /* End of class abook_database */
 
