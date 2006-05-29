@@ -61,6 +61,7 @@ function sent_subfolders_check_handleAsSent() {
     global $handleAsSent_result, $sent_subfolders_base,
            $use_sent_subfolders;
 
+    // FIXME: hardcoded folder
     $sent_subfolders_base = 'INBOX.Sent';
     $args = func_get_arg(0);
     sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
@@ -274,8 +275,8 @@ function sent_subfolders_update_sentfolder() {
                         sqimap_subscribe($ic, $sent_subfolder);
                     }
                     /* Update sent_folder setting. */
-                    setPref($data_dir, $username, 'sent_folder', $sent_subfolder);
-                    setPref($data_dir, $username, 'move_to_sent', SMPREF_ON);
+                    //setPref($data_dir, $username, 'sent_folder', $sent_subfolder);
+                    //setPref($data_dir, $username, 'move_to_sent', SMPREF_ON);
                     $sent_folder = $sent_subfolder;
                     $move_to_sent = SMPREF_ON;
                 }
