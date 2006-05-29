@@ -97,6 +97,13 @@ function load_optpage_data_folder() {
     );
 
     $optvals[SMOPT_GRP_SPCFOLDER][] = array(
+        'name'    => 'translate_special_folders',
+        'caption' => _("Translate Special Folders"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_FOLDERLIST
+    );
+
+    $optvals[SMOPT_GRP_SPCFOLDER][] = array(
         'name'    => 'save_reply_with_orig',
         'caption' => _("Save Replies with Original Message"),
         'type'    => SMOPT_TYPE_BOOLEAN,

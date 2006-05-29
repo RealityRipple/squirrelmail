@@ -398,7 +398,11 @@ $chosen_fontset = getPref($data_dir, $username, 'chosen_fontset', $default_fonts
 if (! isset($default_fontsize)) $default_fontsize=SMPREF_NONE;
 $chosen_fontsize = getPref($data_dir, $username, 'chosen_fontsize', $default_fontsize);
 
-
+/**
+ * Controls translation of special folders
+ * @since 1.5.2
+ */
+$translate_special_folders = getPref($data_dir, $username, 'translate_special_folders', SMPREF_OFF);
 
 /** Put in a safety net for authentication here, in case a naughty admin didn't run conf.pl when they upgraded */
 
