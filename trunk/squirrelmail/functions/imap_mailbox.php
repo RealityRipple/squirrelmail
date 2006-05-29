@@ -339,7 +339,7 @@ function sqimap_mailbox_exists ($imap_stream, $mailbox, $mailboxlist=null) {
 
 /**
  * Selects a mailbox
- * Before 1.3.0 used more arguments and returned data depended on those argumements.
+ * Before 1.3.0 used more arguments and returned data depended on those arguments.
  * @param stream $imap_stream imap connection resource
  * @param string $mailbox mailbox name
  * @return array results of select command (on success - permanentflags, flags and rights)
@@ -1152,17 +1152,27 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
  * @since 1.5.0
  */
 function sqimap_utf7_decode_mbx_tree(&$mbx_tree) {
+    global $draft_folder, $sent_folder, $trash_folder, $translate_special_folders;
 
-   if (strtoupper($mbx_tree->mailboxname_full) == 'INBOX')
-       $mbx_tree->mailboxname_sub = _("INBOX");
-   else
-       $mbx_tree->mailboxname_sub = imap_utf7_decode_local($mbx_tree->mailboxname_sub);
-   if ($mbx_tree->mbxs) {
-      $iCnt = count($mbx_tree->mbxs);
-      for ($i=0;$i<$iCnt;++$i) {
+    /* decode folder name and set mailboxname_sub */
+    if ($translate_special_folders && strtoupper($mbx_tree->mailboxname_full) == 'INBOX') {
+        $mbx_tree->mailboxname_sub = _("INBOX");
+    } elseif ($translate_special_folders && $mbx_tree->mailboxname_full == $draft_folder) {
+        $mbx_tree->mailboxname_sub = _("Drafts");
+    } elseif ($translate_special_folders && $mbx_tree->mailboxname_full == $sent_folder) {
+        $mbx_tree->mailboxname_sub = _("Sent");
+    } elseif ($translate_special_folders && $mbx_tree->mailboxname_full == $trash_folder) {
+        $mbx_tree->mailboxname_sub = _("Trash");
+    } else {
+        $mbx_tree->mailboxname_sub = imap_utf7_decode_local($mbx_tree->mailboxname_sub);
+    }
+
+    if ($mbx_tree->mbxs) {
+        $iCnt = count($mbx_tree->mbxs);
+        for ($i=0;$i<$iCnt;++$i) {
             sqimap_utf7_decode_mbx_tree($mbx_tree->mbxs[$i]);
-      }
-   }
+        }
+    }
 }
 
 /**
