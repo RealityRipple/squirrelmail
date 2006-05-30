@@ -67,6 +67,8 @@ Version 1.5.2 - CVS
     wildcards in search() method. Handle nickname changes in modify()
     method when new nickname is already in use. Made search expressions
     case insensitive in search() method.
+  - Added special folder (Drafts, Sent, Trash) translations in mailbox 
+    tree and folder selection boxes.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
