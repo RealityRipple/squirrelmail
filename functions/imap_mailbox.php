@@ -658,7 +658,11 @@ function sqimap_mailbox_parse ($line) {
  */
 function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_skip = 0, $boxes = 0,
                                     $flag = 'noselect', $use_long_format = false ) {
-    global $username, $data_dir;
+    global $username, $data_dir, $translate_special_folders, $sent_folder, 
+        $trash_folder, $draft_folder;
+
+    $delimiter = sqimap_get_delimiter($imap_stream);
+
     $mbox_options = '';
     if ( $use_long_format ) {
         $shorten_box_names = 0;
@@ -688,10 +692,39 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
                 switch ($shorten_box_names)
                 {
                   case 2:   /* delimited, style = 2 */
-                    $box2 = str_replace('&amp;nbsp;&amp;nbsp;', '.&nbsp;', htmlspecialchars($boxes_part['formatted']));
+                      if ($translate_special_folders && $boxes_part['unformatted-dm']==$sent_folder) {
+                          /*
+                           * calculate pad level from number of delimiters. do it inside if control in order 
+                           * to reduce number of calculations. Other folders don't need it.
+                           */
+                          $pad = str_pad('',7 * (count(explode($delimiter,$boxes_part['unformatted-dm']))-1),'.&nbsp;');
+                          // i18n: Name of Sent folder
+                          $box2 = $pad . _("Sent");
+                      } elseif ($translate_special_folders && $boxes_part['unformatted-dm']==$trash_folder) {
+                          $pad = str_pad('',7 * (count(explode($delimiter,$boxes_part['unformatted-dm']))-1),'.&nbsp;');
+                          // i18n: Name of Trash folder
+                          $box2 = $pad . _("Trash");
+                      } elseif ($translate_special_folders && $boxes_part['unformatted-dm']==$draft_folder) {
+                          $pad = str_pad('',7 * (count(explode($delimiter,$boxes_part['unformatted-dm']))-1),'.&nbsp;');
+                          // i18n: Name of Drafts folder
+                          $box2 = $pad . _("Drafts");
+                      } else {
+                          $box2 = str_replace('&amp;nbsp;&amp;nbsp;', '.&nbsp;', htmlspecialchars($boxes_part['formatted']));
+                      }
                     break;
                   case 1:   /* indent, style = 1 */
-                    $box2 = str_replace('&amp;nbsp;&amp;nbsp;', '&nbsp;&nbsp;', htmlspecialchars($boxes_part['formatted']));
+                      if ($translate_special_folders && $boxes_part['unformatted-dm']==$sent_folder) {
+                          $pad = str_pad('',12 * (count(explode($delimiter,$boxes_part['unformatted-dm']))-1),'&nbsp;&nbsp;');
+                          $box2 = $pad . _("Sent");
+                      } elseif ($translate_special_folders && $boxes_part['unformatted-dm']==$trash_folder) {
+                          $pad = str_pad('',12 * (count(explode($delimiter,$boxes_part['unformatted-dm']))-1),'&nbsp;&nbsp;');
+                          $box2 = $pad . _("Trash");
+                      } elseif ($translate_special_folders && $boxes_part['unformatted-dm']==$draft_folder) {
+                          $pad = str_pad('',12 * (count(explode($delimiter,$boxes_part['unformatted-dm']))-1),'&nbsp;&nbsp;');
+                          $box2 = $pad . _("Drafts");
+                      } else {
+                          $box2 = str_replace('&amp;nbsp;&amp;nbsp;', '&nbsp;&nbsp;', htmlspecialchars($boxes_part['formatted']));
+                      }
                     break;
                   default:  /* default, long names, style = 0 */
                     $box2 = str_replace(' ', '&nbsp;', htmlspecialchars(imap_utf7_decode_local($boxes_part['unformatted-disp'])));
@@ -1329,5 +1362,3 @@ function sqimap_mailbox_is_noinferiors($oImapStream,$sImapFolder,&$oBoxes) {
     }
     return false;
 }
-
-?>
