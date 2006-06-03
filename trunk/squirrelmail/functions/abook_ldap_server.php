@@ -142,7 +142,7 @@ class abook_ldap_server extends addressbook_backend {
      * @var boolean true if removing/adding/modifying entries is allowed
      * @since 1.5.2
      */
-    var $writeable = true;
+    var $writeable = false;
     /**
      * @var boolean controls ldap search type.
      * only first level entries are displayed if set to false
