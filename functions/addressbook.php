@@ -136,23 +136,27 @@ function addressbook_init($showerr = true, $onlylocal = false) {
         $abook_init_error.=_("Error initializing other address books.") . "<br />\n" . $abook->error;
     }
 
-    if (! $onlylocal) {
-        /* Load configured LDAP servers (if PHP has LDAP support) */
-        if (isset($ldap_server) && is_array($ldap_server)) {
-            reset($ldap_server);
-            while (list($undef,$param) = each($ldap_server)) {
-                if (is_array($param)) {
-                    $r = $abook->add_backend('ldap_server', $param);
-                    if (!$r && $showerr) {
-                        if ($abook_init_error!='') $abook_init_error.="<br />\n";
-                        $abook_init_error.=sprintf(_("Error initializing LDAP server %s:") .
-                                "<br />\n", $param['host']);
-                        $abook_init_error.= $abook->error;
-                    }
-                }
+
+    /* Load configured LDAP servers (if PHP has LDAP support) */
+    if (isset($ldap_server) && is_array($ldap_server)) {
+        reset($ldap_server);
+        while (list($undef,$param) = each($ldap_server)) {
+            if (!is_array($param))
+                continue;
+
+            /* if onlylocal is true, we only add writeable ldap servers */
+            if ($onlylocal && (!isset($param['writeable']) || $param['writeable'] != true))
+                continue;
+
+            $r = $abook->add_backend('ldap_server', $param);
+            if (!$r && $showerr) {
+                if ($abook_init_error!='') $abook_init_error.="<br />\n";
+                $abook_init_error.=sprintf(_("Error initializing LDAP server %s:") .
+                                           "<br />\n", $param['host']);
+                $abook_init_error.= $abook->error;
             }
-        } // end of ldap server init
-    } // end of remote abook backend init
+        }
+    } // end of ldap server init
 
     /**
      * display address book init errors.
@@ -969,4 +973,3 @@ class addressbook_backend {
         return false;
     }
 }
-?>

@@ -69,6 +69,8 @@ Version 1.5.2 - CVS
     case insensitive in search() method.
   - Added special folder (Drafts, Sent, Trash) translations in mailbox 
     tree and folder selection boxes.
+  - Added write support to address book LDAP backend. Patch by David 
+    Hardeman (#1495763).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
