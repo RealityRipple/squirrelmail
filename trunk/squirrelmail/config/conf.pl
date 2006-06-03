@@ -286,6 +286,11 @@ while ( $line = <FILE> ) {
                     $tmp =~ s/[\'\"]?,?\s*$//;
                     $tmp =~ s/[\'\"]?\);\s*$//;
                     $listing = $tmp;
+                } elsif ( $tmp =~ /^\s*[\'\"]writeable[\'\"]/i ) {
+                    $tmp =~ s/^\s*[\'\"]writeable[\'\"]\s*=>\s*[\'\"]?//i;
+                    $tmp =~ s/[\'\"]?,?\s*$//;
+                    $tmp =~ s/[\'\"]?\);\s*$//;
+                    $writeable = $tmp;
                 } elsif ( $tmp =~ /^\s*[\'\"]search_tree[\'\"]/i ) {
                     $tmp =~ s/^\s*[\'\"]search_tree[\'\"]\s*=>\s*[\'\"]?//i;
                     $tmp =~ s/[\'\"]?,?\s*$//;
@@ -310,6 +315,7 @@ while ( $line = <FILE> ) {
             $ldap_protocol[$sub] = $protocol;
             $ldap_limit_scope[$sub] = $limit_scope;
             $ldap_listing[$sub] = $listing;
+            $ldap_writeable[$sub] = $writeable;
             $ldap_search_tree[$sub] = $search_tree;
             $ldap_starttls[$sub] = $starttls;
         } elsif ( $options[0] =~ /^(data_dir|attachment_dir|theme_css|org_logo|signout_page)$/ ) {
@@ -2929,6 +2935,9 @@ sub command61 {
                 if ( $ldap_listing[$count] ) {
                     print "     listing: $ldap_listing[$count]\n";
                 }
+                if ( $ldap_writeable[$count] ) {
+                    print "   writeable: $ldap_writeable[$count]\n";
+                }
                 if ( $ldap_search_tree[$count] ) {
                     print " search_tree: $ldap_search_tree[$count]\n";
                 }
@@ -3048,7 +3057,6 @@ sub command61 {
               print "Number of displayed entries is limited by maxrows setting.\n";
               print "\n";
               print "Don't enable this option for public LDAP directories.\n";
-              print "This feature is experimental.\n";
               print "\n";
               print "Allow listing of LDAP directory? (y/N):";
               $name = <STDIN>;
@@ -3058,6 +3066,23 @@ sub command61 {
                 $name = 'false';
               }
               $ldap_listing[$sub] = $name;
+
+              print "\n";
+
+              print "You can control write access to LDAP address book here. This option can\n";
+              print "be useful if you run small LDAP server and want to provide writable\n";
+              print "shared address book stored in LDAP to users of webmail interface.\n";
+              print "\n";
+              print "Don't enable this option for public LDAP directories.\n";
+              print "\n";
+              print "Allow writing to LDAP directory? (y/N):";
+              $name = <STDIN>;
+              if ( $name =~ /^y\n/i ) {
+                $name = 'true';
+              } else {
+                $name = 'false';
+              }
+              $ldap_writeable[$sub] = $name;
 
               print "\n";
 
@@ -3137,6 +3162,7 @@ sub command61 {
             @new_ldap_protocol = ();
             @new_ldap_limit_scope = ();
             @new_ldap_listing = ();
+            @new_ldap_writeable = ();
             @new_ldap_search_tree = ();
             @new_ldap_starttls = ();
 
@@ -3154,6 +3180,7 @@ sub command61 {
                     @new_ldap_protocol  = ( @new_ldap_protocol,  $ldap_protocol[$count] );
                     @new_ldap_limit_scope = ( @new_ldap_limit_scope,  $ldap_limit_scope[$count] );
                     @new_ldap_listing = ( @new_ldap_listing, $ldap_listing[$count] );
+                    @new_ldap_writeable = ( @new_ldap_writeable, $ldap_writeable[$count] );
                     @new_ldap_search_tree = ( @new_ldap_search_tree, $ldap_search_tree[$count] );
                     @new_ldap_starttls = ( @new_ldap_starttls, $ldap_starttls[$count] );
                 }
@@ -3171,6 +3198,7 @@ sub command61 {
             @ldap_protocol = @new_ldap_protocol;
             @ldap_limit_scope = @new_ldap_limit_scope;
             @ldap_listing = @new_ldap_listing;
+            @ldap_writeable = @new_ldap_writeable;
             @ldap_search_tree = @new_ldap_search_tree;
             @ldap_starttls = @new_ldap_starttls;
 
@@ -3991,6 +4019,11 @@ sub save_data {
                 print CF ",\n";
                 # boolean
                 print CF "    'listing' => $ldap_listing[$count]";
+            }
+           if ( $ldap_writeable[$count] ) {
+                print CF ",\n";
+                # boolean
+                print CF "    'writeable' => $ldap_writeable[$count]";
             }
             if ( $ldap_search_tree[$count] ) {
                 print CF ",\n";
