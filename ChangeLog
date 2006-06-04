@@ -72,6 +72,12 @@ Version 1.5.2 - CVS
   - Added write support to address book LDAP backend. Patch by David 
     Hardeman (#1495763).
   - Added message copy options.
+  - Removed html formating from address book backend classes. Added
+    fullname() method to addressbook_backend class. Moved
+    htmlspecialchars() sanitizing from address book backend classes to
+    html output code. If third party code displays errors from address
+    book object in html, errors must be sanitized and ASCII line feeds
+    should be converted to html line breaks.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

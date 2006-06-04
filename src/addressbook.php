@@ -215,7 +215,7 @@ if (!empty($formerror)) {
             html_tag( 'tr',
                 html_tag( 'td',
                     "\n". '<br /><strong><font color="' . $color[2] .
-                    '">' . _("ERROR") . ': ' . $formerror . '</font></strong>' ."\n",
+                    '">' . _("ERROR") . ': ' . nl2br(htmlspecialchars($formerror)) . '</font></strong>' ."\n",
                     'center' )
                 ),
             'center', '', 'width="100%"' );
@@ -227,7 +227,7 @@ if ($showaddrlist) {
     /* Get and sort address list */
     $alist = $abook->list_addr();
     if(!is_array($alist)) {
-        plain_error_message($abook->error, $color);
+        plain_error_message(nl2br(htmlspecialchars($abook->error)), $color);
         exit;
     }
 
@@ -325,20 +325,9 @@ if ($showaddrlist) {
                            '&nbsp;' . htmlspecialchars($row['nickname']) . '&nbsp;',
                            'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' );
 
-            // different full name display formating for Japanese translation
-            if ($squirrelmail_language == 'ja_JP') {
-                /*
-                 * translation uses euc-jp character set internally.
-                 * htmlspecialchars() should not break any characters.
-                 */
-                echo html_tag( 'td',
-                               '&nbsp;' . htmlspecialchars($row['lastname']) . ' ' . htmlspecialchars($row['firstname']) . '&nbsp;',
-                               'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' );
-            } else {
-                echo html_tag( 'td',
-                               '&nbsp;' . htmlspecialchars($row['name']) . '&nbsp;',
-                               'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' );
-            }
+            echo html_tag( 'td',
+                           '&nbsp;' . htmlspecialchars($row['name']) . '&nbsp;',
+                           'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' );
 
             // email address column
             echo html_tag( 'td', '', 'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' ) . '&nbsp;';

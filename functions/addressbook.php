@@ -52,7 +52,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
                             'owner' => $username,
                             'table' => $addrbook_table));
         if (!$r && $showerr) {
-            $abook_init_error.=_("Error initializing addressbook database.") . "<br />\n" . $abook->error;
+            $abook_init_error.=_("Error initializing address book database.") . "\n" . $abook->error;
         }
     } else {
         /* File */
@@ -95,8 +95,8 @@ function addressbook_init($showerr = true, $onlylocal = false) {
 
         /* global abook init error is not fatal. add error message and continue */
         if (!$r && $showerr) {
-            if ($abook_init_error!='') $abook_init_error.="<br />\n";
-            $abook_init_error.=_("Error initializing global addressbook.") . "<br />\n" . $abook->error;
+            if ($abook_init_error!='') $abook_init_error.="\n";
+            $abook_init_error.=_("Error initializing global address book.") . "\n" . $abook->error;
         }
     }
 
@@ -115,8 +115,8 @@ function addressbook_init($showerr = true, $onlylocal = false) {
                                      'table' => $addrbook_global_table));
       /* global abook init error is not fatal. add error message and continue */
       if (!$r && $showerr) {
-          if ($abook_init_error!='') $abook_init_error.="<br />\n";
-          $abook_init_error.=_("Error initializing global addressbook.") . "<br />\n" . $abook->error;
+          if ($abook_init_error!='') $abook_init_error.="\n";
+          $abook_init_error.=_("Error initializing global address book.") . "\n" . $abook->error;
       }
     }
 
@@ -132,8 +132,8 @@ function addressbook_init($showerr = true, $onlylocal = false) {
     $abook = $hookReturn[1];
     $r = $hookReturn[2];
     if (!$r && $showerr) {
-        if ($abook_init_error!='') $abook_init_error.="<br />\n";
-        $abook_init_error.=_("Error initializing other address books.") . "<br />\n" . $abook->error;
+        if ($abook_init_error!='') $abook_init_error.="\n";
+        $abook_init_error.=_("Error initializing other address books.") . "\n" . $abook->error;
     }
 
 
@@ -150,9 +150,8 @@ function addressbook_init($showerr = true, $onlylocal = false) {
 
             $r = $abook->add_backend('ldap_server', $param);
             if (!$r && $showerr) {
-                if ($abook_init_error!='') $abook_init_error.="<br />\n";
-                $abook_init_error.=sprintf(_("Error initializing LDAP server %s:") .
-                                           "<br />\n", $param['host']);
+                if ($abook_init_error!='') $abook_init_error.="\n";
+                $abook_init_error.=sprintf(_("Error initializing LDAP server %s:"), $param['host'])."\n";
                 $abook_init_error.= $abook->error;
             }
         }
@@ -162,7 +161,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
      * display address book init errors.
      */
     if ($abook_init_error!='' && $showerr) {
-        error_box($abook_init_error);
+        error_box(nl2br(htmlspecialchars($abook_init_error)));
     }
 
     /* Return the initialized object */
@@ -421,14 +420,6 @@ function show_abook_sort_button($abook_sort_order, $alt_tag, $Down, $Up ) {
  * @subpackage addressbook
  */
 class AddressBook {
-
-    /*
-       Cleaning errors from html with htmlspecialchars:
-       Errors from the backend are cleaned up in this class because we not always
-       have control over it when error output is generated in the backend.
-       If this appears to be wrong place then clean it up at the source (the backend)
-    */
-
     /**
      * Enabled address book backends
      * @var array
@@ -594,7 +585,7 @@ class AddressBook {
                 if (is_array($res)) {
                     $ret = array_merge($ret, $res);
                 } else {
-                    $this->error .= "<br />\n" . htmlspecialchars($backend->error);
+                    $this->error .= "\n" . $backend->error;
                     $failed++;
                 }
             }
@@ -610,7 +601,7 @@ class AddressBook {
 
             $ret = $this->backends[$bnum]->search($expression);
             if (!is_array($ret)) {
-                $this->error .= "<br />\n" . htmlspecialchars($this->backends[$bnum]->error);
+                $this->error .= "\n" . $this->backends[$bnum]->error;
                 $ret = FALSE;
             }
         }
@@ -651,7 +642,7 @@ class AddressBook {
             if (is_array($res)) {
                return $res;
             } else {
-               $this->error = htmlspecialchars($this->backends[$bnum]->error);
+               $this->error = $this->backends[$bnum]->error;
                return false;
             }
         }
@@ -665,7 +656,7 @@ class AddressBook {
                if(!empty($res))
               return $res;
             } else {
-               $this->error = htmlspecialchars($backend->error);
+               $this->error = $backend->error;
                return false;
             }
         }
@@ -695,7 +686,7 @@ class AddressBook {
             if (is_array($res)) {
                $ret = array_merge($ret, $res);
             } else {
-               $this->error = htmlspecialchars($backend->error);
+               $this->error = $backend->error;
                return false;
             }
         }
@@ -729,6 +720,7 @@ class AddressBook {
             $userdata['nickname'] = $userdata['email'];
         }
 
+        /* Blocks use of space, :, |, #, " and ! in nickname */
         if (eregi('[ \\:\\|\\#\\"\\!]', $userdata['nickname'])) {
             $this->error = _("Nickname contains illegal characters");
             return false;
@@ -736,7 +728,7 @@ class AddressBook {
 
         /* Check that specified backend accept new entries */
         if (!$this->backends[$bnum]->writeable) {
-            $this->error = _("Addressbook is read-only");
+            $this->error = _("Address book is read-only");
             return false;
         }
 
@@ -745,7 +737,7 @@ class AddressBook {
         if ($res) {
             return $bnum;
         } else {
-            $this->error = htmlspecialchars($this->backends[$bnum]->error);
+            $this->error = $this->backends[$bnum]->error;
             return false;
         }
 
@@ -773,7 +765,7 @@ class AddressBook {
 
         /* Check that specified backend is writable */
         if (!$this->backends[$bnum]->writeable) {
-            $this->error = _("Addressbook is read-only");
+            $this->error = _("Address book is read-only");
             return false;
         }
 
@@ -782,7 +774,7 @@ class AddressBook {
         if ($res) {
             return $bnum;
         } else {
-            $this->error = htmlspecialchars($this->backends[$bnum]->error);
+            $this->error = $this->backends[$bnum]->error;
             return false;
         }
 
@@ -828,7 +820,7 @@ class AddressBook {
 
         /* Check that specified backend is writable */
         if (!$this->backends[$bnum]->writeable) {
-            $this->error = _("Addressbook is read-only");;
+            $this->error = _("Address book is read-only");;
             return false;
         }
 
@@ -837,7 +829,7 @@ class AddressBook {
         if ($res) {
             return $bnum;
         } else {
-            $this->error = htmlspecialchars($this->backends[$bnum]->error);
+            $this->error = $this->backends[$bnum]->error;
             return false;
         }
 
@@ -916,7 +908,7 @@ class addressbook_backend {
      * @return bool
      */
     function search($expression) {
-        $this->set_error('search not implemented');
+        $this->set_error('search is not implemented');
         return false;
     }
 
@@ -926,7 +918,7 @@ class addressbook_backend {
      * @return bool
      */
     function lookup($alias) {
-        $this->set_error('lookup not implemented');
+        $this->set_error('lookup is not implemented');
         return false;
     }
 
@@ -938,7 +930,7 @@ class addressbook_backend {
      * @return bool
      */
     function list_addr() {
-        $this->set_error('list_addr not implemented');
+        $this->set_error('list_addr is not implemented');
         return false;
     }
 
@@ -948,7 +940,7 @@ class addressbook_backend {
      * @return bool
      */
     function add($userdata) {
-        $this->set_error('add not implemented');
+        $this->set_error('add is not implemented');
         return false;
     }
 
@@ -958,7 +950,7 @@ class addressbook_backend {
      * @return bool
      */
     function remove($alias) {
-        $this->set_error('delete not implemented');
+        $this->set_error('delete is not implemented');
         return false;
     }
 
@@ -969,7 +961,25 @@ class addressbook_backend {
      * @return bool
      */
     function modify($alias, $newuserdata) {
-        $this->set_error('modify not implemented');
+        $this->set_error('modify is not implemented');
         return false;
+    }
+
+    /**
+     * Creates full name from given name and surname
+     *
+     * Handles name order differences
+     * @param string $firstname given name
+     * @param string $lastname surname
+     * @return string full name
+     * @since 1.5.2
+     */
+    function fullname($firstname,$lastname) {
+        global $squirrelmail_language;
+        if ($squirrelmail_language=='ja_JP') {
+            return trim($lastname . ' ' . $firstname);
+        } else {
+            return trim($firstname . ' ' . $lastname);
+        }
     }
 }
