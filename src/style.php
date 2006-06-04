@@ -9,6 +9,7 @@
  *   <li>templateid - string, sets template directory from templates/
  *   <li>fontset - string, sets selected set of fonts from $fontsets array.
  *   <li>fontsize - integer, sets selected font size
+ *   <li>dir - string, sets text direction variables. Possible values 'rtl' or 'ltr'
  * </ul>
  * @copyright &copy; 2005-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
