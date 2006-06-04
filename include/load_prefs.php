@@ -403,6 +403,11 @@ $chosen_fontsize = getPref($data_dir, $username, 'chosen_fontsize', $default_fon
  * @since 1.5.2
  */
 $translate_special_folders = getPref($data_dir, $username, 'translate_special_folders', SMPREF_OFF);
+/**
+ * Controls display of message copy options
+ * @since 1.5.2
+ */
+$show_copy_buttons = getPref($data_dir, $username, 'show_copy_buttons', SMPREF_OFF);
 
 /** Put in a safety net for authentication here, in case a naughty admin didn't run conf.pl when they upgraded */
 

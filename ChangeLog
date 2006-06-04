@@ -71,6 +71,7 @@ Version 1.5.2 - CVS
     tree and folder selection boxes.
   - Added write support to address book LDAP backend. Patch by David 
     Hardeman (#1495763).
+  - Added message copy options.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

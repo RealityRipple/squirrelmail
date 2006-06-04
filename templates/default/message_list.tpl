@@ -131,7 +131,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
         foreach ($aFormElements as $key => $value) {
             switch ($value[1]) {
             case 'submit':
-                if ($key != 'moveButton' && $key != 'delete' && $key != 'undeleteButton') { // add move in a different table cell
+                if ($key != 'moveButton' && $key != 'copyButton' && $key != 'delete' && $key != 'undeleteButton') { // add move in a different table cell
 ?>
                   <input type="submit" name="<?php echo $key; ?>" value="<?php echo $value[0]; ?>" class="message_control_button" />&nbsp;
 <?php
@@ -174,13 +174,18 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
               </td>
 <?php
         } // if (isset($aFormElements['delete']))
-        if (isset($aFormElements['moveButton'])) {
+        if (isset($aFormElements['moveButton']) || isset($aFormElements['copyButton'])) {
 ?>
               <td class="message_control_move">
                     <select name="targetMailbox">
                        <?php echo $aFormElements['targetMailbox'][0];?>
                     </select>
+<?php         if (isset($aFormElements['moveButton'])) { ?>
                   <input type="submit" name="moveButton" value="<?php echo $aFormElements['moveButton'][0]; ?>" class="message_control_button" />
+<?php         }
+              if (isset($aFormElements['copyButton'])) { ?>
+                  <input type="submit" name="copyButton" value="<?php echo $aFormElements['copyButton'][0]; ?>" class="message_control_button" />
+<?php         } ?>
               </td>
 
 <?php

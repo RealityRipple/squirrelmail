@@ -904,7 +904,7 @@ function calcFetchColumns(&$aMailbox, &$aProps) {
  */
 function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
     global $PHP_SELF;
-    global $boxes;
+    global $boxes, $show_copy_buttons;
 
     $highlight_list    = (isset($aProps['config']['highlight_list'])) ? $aProps['config']['highlight_list'] : false;
     $fancy_index_highlite = (isset($aProps['config']['fancy_index_highlite'])) ? $aProps['config']['fancy_index_highlite'] : true;
@@ -913,6 +913,11 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
     $sMailbox          = (isset($aProps['mailbox'])) ? $aProps['mailbox'] : false;
     $sTargetModule     = (isset($aProps['module'])) ? $aProps['module'] : 'read_body';
     $show_flag_buttons = (isset($aProps['config']['show_flag_buttons'])) ? $aProps['config']['show_flag_buttons'] : true;
+
+    /* allows to control copy button in function call. If array key is not set, code follows user preferences */
+    if (isset($aProps['config']['show_copy_buttons']))
+        $show_copy_buttons = $aProps['config']['show_copy_buttons'];
+
     $lastTargetMailbox = (isset($aProps['config']['lastTargetMailbox'])) ? $aProps['config']['lastTargetMailbox'] : '';
     $aOrder = array_keys($aProps['columns']);
     $trash_folder      = (isset($aProps['config']['trash_folder']) && $aProps['config']['trash_folder'])
@@ -993,7 +998,6 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
 
 
     /* future admin control over displayable buttons */
-
     $aAdminControl = array(
                            'markUnflagged' => 1,
                            'markFlagged'   => 1,
@@ -1004,8 +1008,10 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
                            'undeleteButton'=> 1,
                            'bypass_trash'  => 1,
                            'expungeButton' => 1,
-                           'moveButton'    => 1
+                           'moveButton'    => 1,
+                           'copyButton'    => 1
                            );
+
     /* user prefs control */
     $aUserControl = array (
 
@@ -1018,7 +1024,8 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
                            'undeleteButton'=> 1,
                            'bypass_trash'  => 1,
                            'expungeButton' => 1,
-                           'moveButton'    => 1
+                           'moveButton'    => 1,
+                           'copyButton'    => $show_copy_buttons
 
                           );
 
@@ -1033,6 +1040,8 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
     $showMove   = ($aMailbox['RIGHTS'] != 'READ-ONLY') ? true : false;
     $showExpunge = (!$aMailbox['AUTO_EXPUNGE'] && $aMailbox['RIGHTS'] != 'READ-ONLY' &&
                    in_array('\\deleted',$aMailbox['PERMANENTFLAGS'], true)) ? true : false;
+
+    /* Button options that depend on IMAP server and selected folder */
     $aImapControl = array (
                            'markUnflagged' => in_array('\\flagged',$aMailbox['PERMANENTFLAGS'], true),
                            'markFlagged'   => in_array('\\flagged',$aMailbox['PERMANENTFLAGS'], true),
@@ -1043,8 +1052,10 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
                            'undeleteButton'=> $showUndelete,
                            'bypass_trash'  => $showByPassTrash,
                            'expungeButton' => $showExpunge,
-                           'moveButton'    => $showMove
+                           'moveButton'    => $showMove,
+                           'copyButton'    => 1
                           );
+    /* Button strings */
     $aButtonStrings = array(
                            'markUnflagged' => _("Unflag"),
                            'markFlagged'   => _("Flag"),
@@ -1055,7 +1066,8 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
                            'undeleteButton'  => _("Undelete"),
                            'bypass_trash'  => _("Bypass Trash"),
                            'expungeButton' => _("Expunge"),
-                           'moveButton'          => _("Move")
+                           'moveButton'          => _("Move"),
+                           'copyButton'          => _("Copy")
                            );
 
 
@@ -1081,6 +1093,7 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
                 $aFormElements[$k] = array($aButtonStrings[$k],'checkbox');
                 break;
               case 'moveButton':
+              case 'copyButton':
                 $aFormElements['targetMailbox'] =
                    array(sqimap_mailbox_option_list($imapConnection, array(strtolower($lastTargetMailbox)), 0, $boxes),'select');
                 $aFormElements['mailbox']       = array($aMailbox['NAME'],'hidden');
@@ -1223,6 +1236,7 @@ function handleAsSent($mailbox) {
 function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = array()) {
     /* incoming formdata */
     $sButton = (sqgetGlobalVar('moveButton',      $sTmp, SQ_POST)) ? 'move'         : $sButton;
+    $sButton = (sqgetGlobalVar('copyButton',      $sTmp, SQ_POST)) ? 'copy'         : $sButton;
     $sButton = (sqgetGlobalVar('expungeButton',   $sTmp, SQ_POST)) ? 'expunge'      : $sButton;
     $sButton = (sqgetGlobalVar('forward',         $sTmp, SQ_POST)) ? 'forward'      : $sButton;
     $sButton = (sqgetGlobalVar('delete',          $sTmp, SQ_POST)) ? 'setDeleted'   : $sButton;
@@ -1270,6 +1284,10 @@ function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = ar
             $aUpdatedMsgs = sqimap_msgs_list_move($imapConnection,$aUid,$targetMailbox,true,$mailbox);
             sqsession_register($targetMailbox,'lastTargetMailbox');
             $bExpunge = true;
+            break;
+          case 'copy':
+            $aUpdatedMsgs = sqimap_msgs_list_copy($imapConnection,$aUid,$targetMailbox,true,$mailbox);
+            sqsession_register($targetMailbox,'lastTargetMailbox');
             break;
           case 'forward':
             $aMsgHeaders = array();

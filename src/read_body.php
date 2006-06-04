@@ -488,7 +488,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
     global $base_uri, $draft_folder, $where, $what, $color, $sort,
            $startMessage, $PHP_SELF, $save_as_draft,
            $enable_forward_as_attachment, $imapConnection, $lastTargetMailbox,
-           $username, $delete_prev_next_display,
+           $username, $delete_prev_next_display, $show_copy_buttons,
            $compose_new_win, $javascript_on, $compose_width, $compose_height;
 
     //FIXME cleanup argument list, use $aMailbox where possible
@@ -708,7 +708,14 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
         }
         $menu_row .= '</select> ';
 
-        $menu_row .= getButton('submit', 'moveButton',_("Move")) . "\n" . '</form>';
+        $menu_row .= getButton('submit', 'moveButton',_("Move")) . "\n";
+
+        // Add msg copy button
+        if ($show_copy_buttons) {
+            $menu_row .= getButton('submit', 'copyButton', _("Copy"));
+        }
+
+        $menu_row .= '</form>';
     }
     $menu_row .= '</td></tr>';
 
