@@ -283,6 +283,13 @@ function load_optpage_data_display() {
     );
 
     $optvals[SMOPT_GRP_MAILBOX][] = array(
+        'name'    => 'show_copy_buttons',
+        'caption' => _("Enable Message Copy Buttons"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[SMOPT_GRP_MAILBOX][] = array(
         'name'    => 'page_selector',
         'caption' => _("Enable Page Selector"),
         'type'    => SMOPT_TYPE_BOOLEAN,
