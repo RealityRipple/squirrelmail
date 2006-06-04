@@ -112,9 +112,9 @@ class abook_database extends addressbook_backend {
         /* test if Pear DB class is available and freak out if it is not */
         if (! class_exists('DB')) {
             // same error also in db_prefs.php
-            $error  = _("Could not include PEAR database functions required for the database backend.") . "<br />\n";
+            $error  = _("Could not include PEAR database functions required for the database backend.") . "\n";
             $error .= sprintf(_("Is PEAR installed, and is the include path set correctly to find %s?"),
-                              '<tt>DB.php</tt>') . "<br />\n";
+                              'DB.php') . "\n";
             $error .= _("Please contact your system administrator and report this error.");
             return $this->set_error($error);
         }
@@ -248,7 +248,7 @@ class abook_database extends addressbook_backend {
 
         while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
             array_push($ret, array('nickname'  => $row['nickname'],
-                                   'name'      => "$row[firstname] $row[lastname]",
+                                   'name'      => $this->fullname($row['firstname'], $row['lastname']),
                                    'firstname' => $row['firstname'],
                                    'lastname'  => $row['lastname'],
                                    'email'     => $row['email'],
@@ -287,7 +287,7 @@ class abook_database extends addressbook_backend {
 
         if ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
             return array('nickname'  => $row['nickname'],
-                         'name'      => "$row[firstname] $row[lastname]",
+                         'name'      => $this->fullname($row['firstname'], $row['lastname']),
                          'firstname' => $row['firstname'],
                          'lastname'  => $row['lastname'],
                          'email'     => $row['email'],
@@ -325,7 +325,7 @@ class abook_database extends addressbook_backend {
 
         while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
             array_push($ret, array('nickname'  => $row['nickname'],
-                                   'name'      => "$row[firstname] $row[lastname]",
+                                   'name'      => $this->fullname($row['firstname'], $row['lastname']),
                                    'firstname' => $row['firstname'],
                                    'lastname'  => $row['lastname'],
                                    'email'     => $row['email'],
@@ -343,7 +343,7 @@ class abook_database extends addressbook_backend {
      */
     function add($userdata) {
         if (!$this->writeable) {
-            return $this->set_error(_("Addressbook is read-only"));
+            return $this->set_error(_("Address book is read-only"));
         }
 
         if (!$this->open()) {
@@ -386,7 +386,7 @@ class abook_database extends addressbook_backend {
      */
     function remove($alias) {
         if (!$this->writeable) {
-            return $this->set_error(_("Addressbook is read-only"));
+            return $this->set_error(_("Address book is read-only"));
         }
 
         if (!$this->open()) {
@@ -424,7 +424,7 @@ class abook_database extends addressbook_backend {
      */
     function modify($alias, $userdata) {
         if (!$this->writeable) {
-            return $this->set_error(_("Addressbook is read-only"));
+            return $this->set_error(_("Address book is read-only"));
         }
 
         if (!$this->open()) {

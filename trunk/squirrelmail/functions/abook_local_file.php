@@ -283,7 +283,7 @@ class abook_local_file extends addressbook_backend {
             // errors on eregi call are suppressed in order to prevent display of regexp compilation errors
             if(@eregi($expr, $line)) {
                 array_push($res, array('nickname'  => $row[0],
-                    'name'      => $row[1] . ' ' . $row[2],
+                    'name'      => $this->fullname($row[1], $row[2]),
                     'firstname' => $row[1],
                     'lastname'  => $row[2],
                     'email'     => $row[3],
@@ -314,7 +314,7 @@ class abook_local_file extends addressbook_backend {
         while ($row = @fgetcsv($this->filehandle, 2048, '|')) {
             if(strtolower($row[0]) == $alias) {
                 return array('nickname'  => $row[0],
-                  'name'      => $row[1] . ' ' . $row[2],
+                  'name'      => $this->fullname($row[1], $row[2]),
                   'firstname' => $row[1],
                   'lastname'  => $row[2],
                   'email'     => $row[3],
@@ -343,7 +343,7 @@ class abook_local_file extends addressbook_backend {
 
         while ($row = @fgetcsv($this->filehandle, 2048, '|')) {
             array_push($res, array('nickname'  => $row[0],
-                'name'      => $row[1] . ' ' . $row[2],
+                'name'      => $this->fullname($row[1], $row[2]),
                 'firstname' => $row[1],
                 'lastname'  => $row[2],
                 'email'     => $row[3],
@@ -361,7 +361,7 @@ class abook_local_file extends addressbook_backend {
      */
     function add($userdata) {
         if(!$this->writeable) {
-            return $this->set_error(_("Addressbook is read-only"));
+            return $this->set_error(_("Address book is read-only"));
         }
         /* See if user exists already */
         $ret = $this->lookup($userdata['nickname']);
@@ -385,7 +385,7 @@ class abook_local_file extends addressbook_backend {
         /* Reopen file, just to be sure */
         $this->open(true);
         if(!$this->writeable) {
-            return $this->set_error(_("Addressbook is read-only"));
+            return $this->set_error(_("Address book is read-only"));
         }
 
         /* Lock the file */
@@ -402,7 +402,7 @@ class abook_local_file extends addressbook_backend {
         /* Test write result */
         if($r === FALSE) {
             /* Fail */
-            $this->set_error(_("Write to addressbook failed"));
+            $this->set_error(_("Write to address book failed"));
             return FALSE;
         }
 
@@ -416,7 +416,7 @@ class abook_local_file extends addressbook_backend {
      */
     function remove($alias) {
         if(!$this->writeable) {
-            return $this->set_error(_("Addressbook is read-only"));
+            return $this->set_error(_("Address book is read-only"));
         }
 
         /* Lock the file to make sure we're the only process working
@@ -453,7 +453,7 @@ class abook_local_file extends addressbook_backend {
      */
     function modify($alias, $userdata) {
         if(!$this->writeable) {
-            return $this->set_error(_("Addressbook is read-only"));
+            return $this->set_error(_("Address book is read-only"));
         }
 
         /* See if user exists */

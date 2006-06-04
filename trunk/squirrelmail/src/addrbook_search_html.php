@@ -116,21 +116,7 @@ function addr_display_result($res, $includesource = true) {
         } else {
             $tr_bgcolor = $color[4];
         }
-        if ($squirrelmail_language == 'ja_JP')
-            {
-        echo html_tag( 'tr', '', '', $tr_bgcolor, 'style="white-space: nowrap;"' ) .
-        html_tag( 'td',
-             '<input type="checkbox" name="send_to_search[T' . $line . ']" value = "' .
-             htmlspecialchars($email) . '" />&nbsp;' . _("To") . '&nbsp;' .
-             '<input type="checkbox" name="send_to_search[C' . $line . ']" value = "' .
-             htmlspecialchars($email) . '" />&nbsp;' . _("Cc") . '&nbsp;' .
-             '<input type="checkbox" name="send_to_search[B' . $line . ']" value = "' .
-             htmlspecialchars($email) . '" />&nbsp;' . _("Bcc") . '&nbsp;' ,
-        'center', '', 'width="5%" style="white-space: nowrap;"' ) .
-        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['lastname']) . ' ' . htmlspecialchars($row['firstname']) . '&nbsp;', 'left', '', 'style="white-space: nowrap;"' ) .
-        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['email']) . '&nbsp;', 'left', '', 'style="white-space: nowrap;"' ) .
-        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['label']) . '&nbsp;', 'left', '', 'style="white-space: nowrap;"' );
-            } else {
+
         echo html_tag( 'tr', '', '', $tr_bgcolor, 'style="white-space: nowrap;"' ) .
         html_tag( 'td',
             addCheckBox('send_to_search[T'.$line.']', FALSE, $email).
@@ -143,13 +129,12 @@ function addr_display_result($res, $includesource = true) {
         html_tag( 'td', '&nbsp;' . htmlspecialchars($row['name']) . '&nbsp;', 'left', '', 'style="white-space: nowrap;"' ) .
         html_tag( 'td', '&nbsp;' . htmlspecialchars($row['email']) . '&nbsp;', 'left', '', 'style="white-space: nowrap;"' ) .
         html_tag( 'td', '&nbsp;' . htmlspecialchars($row['label']) . '&nbsp;', 'left', '', 'style="white-space: nowrap;"' );
-            }
 
-         if ($includesource) {
-             echo html_tag( 'td', '&nbsp;' . $row['source'] . '&nbsp;', 'left', '', 'style="white-space: nowrap;"' );
-         }
-         echo "</tr>\n";
-         $line ++;
+        if ($includesource) {
+            echo html_tag( 'td', '&nbsp;' . $row['source'] . '&nbsp;', 'left', '', 'style="white-space: nowrap;"' );
+        }
+        echo "</tr>\n";
+        $line ++;
     }
     if ($includesource) { $td_colspan = '5'; } else { $td_colspan = '4'; }
     echo html_tag( 'tr',
@@ -268,7 +253,7 @@ if ($addrquery == '' || ! empty($listall)) {
     if (!is_array($res)) {
         echo html_tag( 'p', '<b><br />' .
                        _("Your search failed with the following error(s)") .
-                       ':<br />' . $abook->error . "</b>\n" ,
+                       ':<br />' . nl2br(htmlspecialchars($abook->error)) . "</b>\n" ,
                        'center' ) . "\n";
         $oTemplate->display('footer.tpl');
     } else {

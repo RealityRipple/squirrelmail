@@ -475,8 +475,7 @@ class abook_ldap_server extends addressbook_backend {
                 $surname = trim($this->charset_decode($row['sn'][0]));
             }
 
-            // FIXME: Write generic function to handle name order 
-            $fullname = trim($firstname . " " . $surname);
+            $fullname = $this->fullname($firstname,$surname);
 
             /* Add one row to result for each e-mail address */
             if(isset($row['mail']['count'])) {

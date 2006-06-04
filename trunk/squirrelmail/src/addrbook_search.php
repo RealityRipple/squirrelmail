@@ -282,7 +282,7 @@ if ($show == 'form' && ! isset($listall)) {
         if (!is_array($res)) {
             echo html_tag( 'p', '<b><br />' .
                            _("Your search failed with the following error(s)") .
-                           ':<br />' . $abook->error . "</b>\n" ,
+                           ':<br />' . nl2br(htmlspecialchars($abook->error)) . "</b>\n" ,
                            'center' );
         } elseif (sizeof($res) == 0) {
             echo html_tag( 'p', '<br /><b>' .
