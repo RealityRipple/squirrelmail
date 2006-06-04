@@ -13,10 +13,18 @@
  * @subpackage themes
  */
 
+/** Prevent direct script loading */
+if ((isset($_SERVER['SCRIPT_FILENAME']) && $_SERVER['SCRIPT_FILENAME'] == __FILE__) ||
+    (isset($HTTP_SERVER_SERVER['SCRIPT_FILENAME']) && $HTTP_SERVER_SERVER['SCRIPT_FILENAME'] == __FILE__) ) {
+    die();
+}
+
+/** load required functions */
+include_once(SM_PATH . 'functions/global.php');
+include_once(SM_PATH . 'functions/strings.php');
+
 /** Initialize the random number generator */
 sq_mt_randomize();
-
-require_once(SM_PATH . 'functions/global.php');
 
 global $theme;
 
