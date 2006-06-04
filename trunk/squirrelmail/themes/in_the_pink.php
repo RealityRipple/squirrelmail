@@ -15,6 +15,15 @@
  * @subpackage themes
  */
 
+/** Prevent direct script loading */
+if ((isset($_SERVER['SCRIPT_FILENAME']) && $_SERVER['SCRIPT_FILENAME'] == __FILE__) ||
+    (isset($HTTP_SERVER_SERVER['SCRIPT_FILENAME']) && $HTTP_SERVER_SERVER['SCRIPT_FILENAME'] == __FILE__) ) {
+    die();
+}
+
+/** load sq_mt_randomize() */
+include_once(SM_PATH . 'functions/strings.php');
+
 /* seed the random number generator */
 sq_mt_randomize();
 
