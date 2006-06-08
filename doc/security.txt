@@ -23,6 +23,12 @@ further improve the security of your webmail system.
   IMAP server. Note that this makes no sense if both are on the same machine.
   See doc/authentication.txt for info.
 
+- config.php. Some options in conf.pl / config.php allow for passwords to
+  be set in that file, e.g. the addressbook/preferences DSN, and LDAP
+  addressbooks. When setting a sensitive password, check that config.php
+  is not readable for untrusted system users, and consider the possibility
+  of it being read by other users of the same webserver.
+
 - Subscribe to the squirrelmail-announce mailinglist to be informed about new
   releases which may fix security bugs. If you run SquirrelMail packaged by
   your distribution, make sure to apply their security upgrades.
