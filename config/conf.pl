@@ -2896,6 +2896,8 @@ sub command_fontsets {
 
 sub command61 {
     print "You can now define different LDAP servers.\n";
+    print "Please ensure proper permissions for config.php when including\n";
+    print "sensitive passwords.\n\n";
     print "[ldap] command (?=help) > ";
     $input = <STDIN>;
     $input =~ s/[\r\n]//g;
@@ -3313,9 +3315,11 @@ sub command91 {
     print "you need to set this DSN to a valid value. The format for this is:\n";
     print "mysql://user:pass\@hostname/dbname\n";
     print "Where mysql can be one of the databases PHP supports, the most common\n";
-    print "of these are mysql, msql and pgsql\n";
+    print "of these are mysql, msql and pgsql.\n";
+    print "Please ensure proper permissions for config.php when including\n";
+    print "sensitive passwords.\n\n";
     print "If the DSN is left empty (hit space and then return) the database\n";
-    print "related code for address books will not be used\n";
+    print "related code for address books will not be used.\n";
     print "\n";
 
     if ( $addrbook_dsn eq "" ) {
@@ -3353,9 +3357,11 @@ sub command93 {
     print "you need to set this DSN to a valid value. The format for this is:\n";
     print "mysql://user:pass\@hostname/dbname\n";
     print "Where mysql can be one of the databases PHP supports, the most common\n";
-    print "of these are mysql, msql and pgsql\n";
+    print "of these are mysql, msql and pgsql.\n";
+    print "Please ensure proper permissions for config.php when including\n";
+    print "sensitive passwords.\n\n";
     print "If the DSN is left empty (hit space and then return) the database\n";
-    print "related code for address books will not be used\n";
+    print "related code for address books will not be used.\n";
     print "\n";
 
     if ( $prefs_dsn eq "" ) {
@@ -3456,9 +3462,11 @@ sub command98 {
     print "you need to set this DSN to a valid value. The format for this is:\n";
     print "mysql://user:pass\@hostname/dbname\n";
     print "Where mysql can be one of the databases PHP supports, the most common\n";
-    print "of these are mysql, msql and pgsql\n";
+    print "of these are mysql, msql and pgsql.\n";
+    print "Please ensure proper permissions for config.php when including\n";
+    print "sensitive passwords.\n\n";
     print "If the DSN is left empty (hit space and then return) the database\n";
-    print "related code for global SQL address book will not be used\n";
+    print "related code for global SQL address book will not be used.\n";
     print "\n";
 
     if ( $addrbook_global_dsn eq "" ) {
