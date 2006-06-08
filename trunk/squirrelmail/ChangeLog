@@ -78,6 +78,8 @@ Version 1.5.2 - CVS
     html output code. If third party code displays errors from address
     book object in html, errors must be sanitized and ASCII line feeds
     should be converted to html line breaks.
+  - Add note to conf.pl / config_default.php to warn users that set
+    sensitive passwords in that file to properly secure it.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
