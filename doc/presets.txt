@@ -173,7 +173,9 @@ show_contain_subfolders_option = true
 Preset used for Dovecot Secure IMAP server. Available since 1.5.1 and 1.4.6.
 
 There is no code specific to Dovecot IMAP server. Preset provides only a quick
-way to set correct folder settings.
+way to set correct folder settings. Preset works with any IMAP server that does 
+not store IMAP folders under INBOX and IMAP folders can store messages and other
+folders. Preset can also be used with Bejy IMAP server.
 
 IMAP server supports server side sorting and threading.
 
