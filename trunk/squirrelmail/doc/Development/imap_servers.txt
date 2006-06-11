@@ -191,6 +191,21 @@ A06 BAD UID command received in invalid state
 Site URL: http://www.dbmail.org
 
 
+----
+Bejy
+----
+HTTP and email server written in Java. User information is stored in database. 
+SELECT response is in rfc 2060 format.
+
+Tested v.1.4.1.58b
+
+CAPABILITY IMAP4rev1
+
+PERMANENTFLAGS - missing
+FLAGS (\Answered \Flagged \Deleted \Seen \Draft)
+
+Site URL: http://www.bejy.net
+
 --------
 Mac OS X
 --------
