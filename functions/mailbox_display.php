@@ -1286,7 +1286,9 @@ function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = ar
             $bExpunge = true;
             break;
           case 'copy':
-            $aUpdatedMsgs = sqimap_msgs_list_copy($imapConnection,$aUid,$targetMailbox,true,$mailbox);
+            // sqimap_msgs_list_copy returns true or false.
+            // If error happens - fourth argument handles it inside function.
+            sqimap_msgs_list_copy($imapConnection,$aUid,$targetMailbox,true);
             sqsession_register($targetMailbox,'lastTargetMailbox');
             break;
           case 'forward':
