@@ -21,6 +21,13 @@ require('../include/init.php');
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'functions/identity.php');
 
+/* make sure that page is not available when $edit_identity is false */
+if (!$edit_identity) {
+    error_box(_("Editing identities is disabled."));
+    $oTemplate->display('footer.tpl');
+    die();
+}
+
 if (!sqgetGlobalVar('identities', $identities, SQ_SESSION)) {
     $identities = get_identities();
 }
