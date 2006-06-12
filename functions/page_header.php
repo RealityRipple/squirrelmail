@@ -88,16 +88,14 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
 
     /* work around IE6's scrollbar bug */
     echo <<<ECHO
+<!--[if IE 6]>
 <style type="text/css">
-<!--
 /* avoid stupid IE6 bug with frames and scrollbars */
 body {
-    voice-family: "\"}\"";
-    voice-family: inherit;
     width: expression(document.documentElement.clientWidth - 30);
 }
--->
 </style>
+<![endif]-->
 
 ECHO;
 
