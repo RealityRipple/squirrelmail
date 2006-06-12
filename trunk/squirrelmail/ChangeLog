@@ -80,6 +80,8 @@ Version 1.5.2 - CVS
     should be converted to html line breaks.
   - Add note to conf.pl / config_default.php to warn users that set
     sensitive passwords in that file to properly secure it.
+  - Prevent modifications in advanced identities, when editing of
+    identities is disabled.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
