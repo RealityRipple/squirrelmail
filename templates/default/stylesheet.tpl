@@ -289,7 +289,7 @@ img   {
     margin-right:auto;
     text-align:center;
     background: <?php echo $color[9]; ?>;
-    padding:1;
+    padding:1px;
     width:100%;
 }
 .sqm_emptyFolder td {
