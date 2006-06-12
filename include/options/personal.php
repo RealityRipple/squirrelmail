@@ -12,7 +12,6 @@
  */
 
 /** SquirrelMail required files. */
-require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'include/timezones.php');
 
 /* Define the group constants for the personal options page. */
@@ -37,13 +36,22 @@ define('SMOPT_GRP_TZ', 3);
 function load_optpage_data_personal() {
     global $data_dir, $username, $edit_identity, $edit_name,
            $full_name, $reply_to, $email_address, $signature, $tzChangeAllowed,
-           $color, $timeZone;
+           $color, $timeZone, $domain;
 
     /* Set the values of some global variables. */
     $full_name = getPref($data_dir, $username, 'full_name');
     $reply_to = getPref($data_dir, $username, 'reply_to');
-    $email_address  = getPref($data_dir, $username, 'email_address');
+    $email_address  = getPref($data_dir, $username, 'email_address',SMPREF_NONE);
     $signature  = getSig($data_dir, $username, 'g');
+    
+    // set email_address to default value, if it is not set in user's preferences
+    if ($email_address == SMPREF_NONE) {
+        if (preg_match("/(.+)@(.+)/",$username)) {
+            $email_address = $username;
+        } else {
+            $email_address = $username . '@' . $domain ;
+        }
+    }
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -96,7 +104,7 @@ function load_optpage_data_personal() {
             'caption' => _("E-mail Address"),
             'type'    => SMOPT_TYPE_COMMENT,
             'refresh' => SMOPT_REFRESH_NONE,
-            'comment' => $email_address
+            'comment' => htmlspecialchars($email_address)
         );
     }
 
