@@ -125,18 +125,17 @@ if (isset($org_logo) && $org_logo) {
     $width_and_height = '';
     if (isset($org_logo_width) && is_numeric($org_logo_width) &&
      $org_logo_width>0) {
-        $width_and_height = " width=\"$org_logo_width\"";
+        $width_and_height = "width=\"$org_logo_width\" ";
     }
     if (isset($org_logo_height) && is_numeric($org_logo_height) &&
      $org_logo_height>0) {
-        $width_and_height .= " height=\"$org_logo_height\"";
+        $width_and_height .= "height=\"$org_logo_height\" ";
     }
     
     $logo_str = '<img src="'.$org_logo.'" ' .
                 'alt="'. sprintf(_("%s Logo"), $org_name).'" ' .
                 $width_and_height .
-                'class="sqm_loginImage" ' .
-                ' /><br />'."\n";
+                'class="sqm_loginImage" /><br />'."\n";
 }
 
 $sm_attribute_str = '';
