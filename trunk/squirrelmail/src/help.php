@@ -197,7 +197,7 @@ if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
     } elseif (file_exists("../help/en_US/" . $helpdir[$chapter-1])) {
         // If the selected language can't be found, try English.
         $doc = file("../help/en_US/" . $helpdir[$chapter-1]);
-        error_box(_("This chapter in not available in the selected language. It will be displayed in English instead."));
+        error_box(_("This chapter is not available in the selected language. It will be displayed in English instead."));
         echo '<br />';
     } else {
         // If English can't be found, the chapter went MIA.
