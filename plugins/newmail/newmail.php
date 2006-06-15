@@ -27,7 +27,8 @@ $numnew = (int)$numnew;
         '<div style="text-align: center;">'. "\n" .
         html_tag( 'table', "\n" .
             html_tag( 'tr', "\n" .
-                html_tag( 'td', '<b>' . _("SquirrelMail Notice:") . '</b>', 'center', $color[0] )
+                // i18n: %s inserts the organisation name (typically SquirrelMail)
+                html_tag( 'td', '<b>' . sprintf(_("%s notice:"), $org_name) . '</b>', 'center', $color[0] )
             ) .
             html_tag( 'tr', "\n" .
                 html_tag( 'td',
