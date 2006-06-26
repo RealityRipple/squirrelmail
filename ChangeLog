@@ -82,6 +82,8 @@ Version 1.5.2 - CVS
     sensitive passwords in that file to properly secure it.
   - Prevent modifications in advanced identities, when editing of
     identities is disabled.
+  - Configuration utility does not allow 8bit symbols in IMAP folder names 
+    (#1485501).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
