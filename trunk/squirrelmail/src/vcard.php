@@ -17,10 +17,18 @@
 require('../include/init.php');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'functions/mime.php');
-require_once(SM_PATH . 'functions/url_parser.php');
-require_once(SM_PATH . 'functions/imap_general.php');
-require_once(SM_PATH . 'functions/imap_messages.php');
+
+/** imap functions depend on date functions */
+include_once(SM_PATH . 'functions/date.php');
+/** form functions */
+include_once(SM_PATH . 'functions/forms.php');
+/** mime decoding */
+include_once(SM_PATH . 'functions/mime.php');
+/** url parser */
+include_once(SM_PATH . 'functions/url_parser.php');
+/** imap functions used to retrieve vcard */
+include_once(SM_PATH . 'functions/imap_general.php');
+include_once(SM_PATH . 'functions/imap_messages.php');
 
 /* globals */
 sqgetGlobalVar('username', $username, SQ_SESSION);
