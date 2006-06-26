@@ -36,7 +36,8 @@ function getIcon($icon_theme_path, $icon_name, $text_icon, $alt_text='', $w=NULL
         // find an image, we will revert back to the text icon.
         if (!is_null($icon_path)) {
             $icon = '<img src="'.$icon_path.'" ' .
-                    (!empty($alt_text) ? 'alt="'.$alt_text.'" title="'.$alt_text.'" ' : '') .
+                    'alt="'.$alt_text.'" '.
+                    (!empty($alt_text) ? 'title="'.$alt_text.'" ' : '') .
                     (!is_null($w) ? 'width="'.$w.'" ' : '') .
                     (!is_null($h) ? 'height="'.$h.'" ' : '') .
                     ' />';
