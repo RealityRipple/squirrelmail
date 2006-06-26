@@ -1639,7 +1639,11 @@ sub command23a {
     if ( $new_trash_folder eq "\n" ) {
         $new_trash_folder = $trash_folder;
     } else {
-        $new_trash_folder =~ s/[\r\n]//g;
+        if (check_imap_folder($new_trash_folder)) {
+            $new_trash_folder =~ s/[\r\n]//g;
+        } else {
+            $new_trash_folder = $trash_folder;
+        }
     }
     return $new_trash_folder;
 }
@@ -1660,7 +1664,11 @@ sub command23b {
     if ( $new_sent_folder eq "\n" ) {
         $new_sent_folder = $sent_folder;
     } else {
-        $new_sent_folder =~ s/[\r\n]//g;
+        if (check_imap_folder($new_sent_folder)) {
+            $new_sent_folder =~ s/[\r\n]//g;
+        } else {
+            $new_sent_folder = $sent_folder;
+        }
     }
     return $new_sent_folder;
 }
@@ -1682,7 +1690,11 @@ sub command23c {
     if ( $new_draft_folder eq "\n" ) {
         $new_draft_folder = $draft_folder;
     } else {
-        $new_draft_folder =~ s/[\r\n]//g;
+        if (check_imap_folder($new_draft_folder)) {
+            $new_draft_folder =~ s/[\r\n]//g;
+        } else {
+            $new_draft_folder = $draft_folder;
+        }
     }
     return $new_draft_folder;
 }
@@ -4518,5 +4530,32 @@ sub clear_screen() {
         system "cls";
     } else {
         system "clear";
+    }
+}
+
+# checks IMAP mailbox name. Refuses to accept 8bit folders
+# returns 0 (folder name is not correct) or 1 (folder name is correct)
+sub check_imap_folder($) {
+    my $folder_name = shift(@_);
+    if ($folder_name =~ /[\x{80}-\x{FFFF}]/) {
+        # check for 8bit. Using iso-10646 range, because x80-xFF range does not match unicode chars
+        print "Folder name contains 8bit characters. Configuration utility requires\n";
+        print "UTF7-IMAP encoded folder names.\n";
+        print "Press any key to continue...";
+        my $tmp = <STDIN>;
+        return 0;
+    } elsif ($folder_name =~ /[&\*\%]/) {
+        # check for ampersand and list-wildcards
+        print "Folder name contains special UTF7-IMAP characters.\n";
+        print "Are you sure that folder name is correct? (yN): ";
+        my $tmp = <STDIN>;
+        $tmp = lc(trim($tmp));
+        if ($tmp =~ /^y$/) {
+            return 1;
+        } else {
+            return 0;
+        }
+    } else {
+        return 1;
     }
 }
