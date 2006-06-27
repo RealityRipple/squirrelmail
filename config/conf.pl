@@ -421,6 +421,9 @@ $use_smtp_tls = 1                      if ( $use_smtp_tls eq 'true');
 $disable_thread_sort = 'false'         if ( !$disable_thread_sort );
 $disable_server_sort = 'false'         if ( !$disable_server_sort );
 
+# since 1.5.2
+$abook_file_line_length = 2048         if ( !$abook_file_line_length );
+
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
     push @plugins, $ARGV[1];
@@ -621,6 +624,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "3.  Global address book file                    : $WHT$abook_global_file$NRM\n";
         print "4.  Allow writing into global file address book : $WHT$abook_global_file_writeable$NRM\n";
         print "5.  Allow listing of global file address book   : $WHT$abook_global_file_listing$NRM\n";
+        print "6.  Allowed address book line length            : $WHT$abook_file_line_length$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 7 ) {
@@ -839,6 +843,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 3 ) { $abook_global_file=command63(); }
             elsif ( $command == 4 ) { command64(); }
             elsif ( $command == 5 ) { command65(); }
+            elsif ( $command == 6 ) { command_abook_file_line_length(); }
         } elsif ( $menu == 7 ) {
             if ( $command == 1 ) { $motd = command71(); }
         } elsif ( $menu == 8 ) {
@@ -3322,6 +3327,37 @@ sub command65 {
     return $abook_global_file_listing;
 }
 
+# controls $abook_file_line_length setting
+sub command_abook_file_line_length {
+    print "This setting controls space allocated to file based address book records.\n";
+    print "End users will be unable to save address book entry, if total entry size \n";
+    print "(quoted address book fields + 4 delimiters + linefeed) exceeds allowed \n";
+    print "address book length size.\n";
+    print "\n";
+    print "Same setting is applied to personal and global file based address books.\n";
+    print "\n";
+    print "It is strongly recommended to keep default setting value. Change it only\n";
+    print "if you really want to store address book entries that are bigger than two\n";
+    print "kilobytes (2048).\n";
+    print "\n";
+
+    print "Enter allowed address book line length [$abook_file_line_length]: ";
+    my $tmp = <STDIN>;
+    $tmp = trim($tmp);
+    # value is not modified, if user hits Enter or enters space
+    if ($tmp ne '') {
+        # make sure that input is numeric
+        if ($tmp =~ /^\d+$/) {
+            $abook_file_line_length = $tmp;
+        } else {
+            print "If you want to change this setting, you must enter number.\n";
+            print "If you want to keep original setting - enter space.\n\n";
+            print "Press Enter to continue...";
+            $tmp = <STDIN>;
+        }
+    }
+}
+
 sub command91 {
     print "If you want to store your users address book details in a database then\n";
     print "you need to set this DSN to a valid value. The format for this is:\n";
@@ -4094,6 +4130,8 @@ sub save_data {
         print CF "\$abook_global_file_writeable = $abook_global_file_writeable;\n\n";
         # boolean
         print CF "\$abook_global_file_listing = $abook_global_file_listing;\n\n";
+        # integer
+        print CF "\$abook_file_line_length = $abook_file_line_length;\n\n";
         # boolean
         print CF "\$no_list_for_subscribe = $no_list_for_subscribe;\n";
 
