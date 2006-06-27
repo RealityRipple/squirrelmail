@@ -31,6 +31,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
     global $addrbook_dsn, $addrbook_table;
     global $abook_global_file, $abook_global_file_writeable, $abook_global_file_listing;
     global $addrbook_global_dsn, $addrbook_global_table, $addrbook_global_writeable, $addrbook_global_listing;
+    global $abook_file_line_length;
 
     /* Create a new addressbook object */
     $abook = new AddressBook;
@@ -58,7 +59,8 @@ function addressbook_init($showerr = true, $onlylocal = false) {
         /* File */
         $filename = getHashedFile($username, $data_dir, "$username.abook");
         $r = $abook->add_backend('local_file', Array('filename' => $filename,
-                              'create'   => true));
+                                                     'line_length' => $abook_file_line_length,
+                                                     'create'   => true));
         if(!$r && $showerr) {
             // no need to use $abook->error, because message explains error.
             $abook_init_error.=sprintf( _("Error opening file %s"), $filename );
@@ -90,6 +92,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
         $r = $abook->add_backend('local_file',array('filename'=>$abook_global_filename,
                                                     'name' => _("Global address book"),
                                                     'detect_writeable' => false,
+                                                    'line_length' => $abook_file_line_length,
                                                     'writeable'=> $abook_global_file_writeable,
                                                     'listing' => $abook_global_file_listing));
 
@@ -135,7 +138,6 @@ function addressbook_init($showerr = true, $onlylocal = false) {
         if ($abook_init_error!='') $abook_init_error.="\n";
         $abook_init_error.=_("Error initializing other address books.") . "\n" . $abook->error;
     }
-
 
     /* Load configured LDAP servers (if PHP has LDAP support) */
     if (isset($ldap_server) && is_array($ldap_server)) {

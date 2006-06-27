@@ -84,6 +84,10 @@ Version 1.5.2 - CVS
     identities is disabled.
   - Configuration utility does not allow 8bit symbols in IMAP folder names 
     (#1485501).
+  - Address book file backend will break with error message, if required 
+    address book fields are not available. Prevents address book corruption
+    and address book format violations that can cause PHP notices.
+  - Added line length setting in local_file address book backend (#1181561).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
