@@ -219,15 +219,12 @@ function change_to_sm_path($old_path) {
 
 
 /* ---------------------- main -------------------------- */
-
-/** @ignore */
-define('SM_PATH','../../');
-
-/* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/imap.php');
-require_once(SM_PATH . 'plugins/administrator/defines.php');
-require_once(SM_PATH . 'plugins/administrator/auth.php');
+/** main SquirrelMail include */
+require('../../include/init.php');
+/* configuration definitions */
+include_once(SM_PATH . 'plugins/administrator/defines.php');
+/* additional functions */
+include_once(SM_PATH . 'plugins/administrator/auth.php');
 
 global $data_dir, $username;
 
