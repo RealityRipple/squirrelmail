@@ -388,6 +388,8 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                                                           'type' => SMOPT_TYPE_BOOLEAN ),
                  '$abook_global_file_listing'   => array( 'name' => _("Allow listing of global address book"),
                                                           'type' => SMOPT_TYPE_BOOLEAN ),
+                 '$abook_file_line_length' => array( 'name' => _("Address book file line length"),
+                                                     'type' => SMOPT_TYPE_INTEGER ),
                  /* --------------------------------------------------------*/
                  'Group7' => array( 'name' => _("Templates"),
                                     'type' => SMOPT_TYPE_TITLE ),
