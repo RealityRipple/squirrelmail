@@ -393,8 +393,8 @@ function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_
                  sqimap_msgs_list_move ($imap_stream, $ids, $where_to, false);
             }
         } elseif ($response != 'OK') {
+            $query = $search_str . "\r\n".$what ."\r\n";
             if ($response == 'NO') {
-                $query = $search_str . "\r\n".$what ."\r\n";
                 if (strpos($message,'BADCHARSET') !== false ||
                     strpos($message,'character') !== false) {
                     sqm_trigger_imap_error('SQM_IMAP_BADCHARSET',$query, $response, $message);
