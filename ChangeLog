@@ -88,6 +88,7 @@ Version 1.5.2 - CVS
     address book fields are not available. Prevents address book corruption
     and address book format violations that can cause PHP notices.
   - Added line length setting in local_file address book backend (#1181561).
+  - Removed proprietary wrap attribute from compose form (#1512681).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
