@@ -1193,18 +1193,20 @@ function showInputForm ($session, $values=false) {
         showComposeButtonRow();
     }
 
-    /* why this distinction? */
+    /**
+     * When message is compose in new window, different colors are used.
+     */
     if ($compose_new_win == '1') {
         echo '   <tr>' . "\n" .
             '      <td bgcolor="' . $color[0] . '" colspan="2" align="center">' . "\n" .
             '         <textarea name="body" id="body" rows="' . (int)$editor_height .
-            '" cols="' . (int)$editor_size . '" wrap="virtual"' . $onfocus . '>';
+            '" cols="' . (int)$editor_size . '"' . $onfocus . '>';
     }
     else {
         echo '   <tr>' . "\n" .
             '      <td bgcolor="' . $color[4] . '" colspan="2">' . "\n" .
             '         &nbsp;&nbsp;<textarea name="body" id="body" rows="' . (int)$editor_height .
-            '" cols="' . (int)$editor_size . '" wrap="virtual"' . $onfocus . '>';
+            '" cols="' . (int)$editor_size . '"' . $onfocus . '>';
     }
 
     if ($use_signature == true && $newmail == true && !isset($from_htmladdr_search)) {
