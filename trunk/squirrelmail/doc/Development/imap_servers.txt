@@ -273,6 +273,25 @@ SquirrelMail expects '* SORT 1 2'
 Site URL: http://www.icewarp.com
 
 
+--------------------
+MailSite IMAP server
+--------------------
+Commercial email server for Windows.
+
+Tested 6.1.22.1 version.
+
+CAPABILITY IMAP4rev1 ACL NAMESPACE UIDPLUS AUTH=NTLM AUTH=SCRAM-MD5
+ AUTH=CRAM-MD5 
+
+PERMANENTFLAGS (\Answered \Flagged \Deleted \Seen \Draft \*)
+
+NAMESPACE (("" "/")) (("#shared/" "/")) NIL 
+
+FETCH response to UID STORE command violates RFC 3501.
+
+Site URL: http://www.rockliffe.com/
+
+
 -----------------------------
 IMAP server ready H mproxyus4
 -----------------------------
