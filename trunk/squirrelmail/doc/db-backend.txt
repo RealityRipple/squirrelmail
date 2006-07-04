@@ -114,6 +114,10 @@ administration plugin. The DSN should look something like:
  mysql://squirreluser:sqpassword@localhost/squirrelmail or
  pgsql://squirreluser:sqpassword@localhost/squirrelmail
 
+Note that when using the above PostgreSQL schema, you also need to change
+the prefs_user_field variable in config.php from the default 'user' to
+'username'.
+
 From now on all users' personal preferences will be stored in a
 database.
 
@@ -130,12 +134,12 @@ field and 64KB (database BLOB field size) limit to value field.
 
 If interface tries to insert data without checking field limits, it
 can cause data loss or database errors. Table information functions
-provided by Pear DB libraries are not accurate and some database 
+provided by Pear DB libraries are not accurate and some database
 backends don't support them. Since 1.5.1 SquirrelMail provides
 configuration options that set allowed field sizes.
 
-If you see oversized field errors in your error logs - check your 
-database structure. Issue can be solved by increasing database field 
+If you see oversized field errors in your error logs - check your
+database structure. Issue can be solved by increasing database field
 sizes.
 
 If you want to get more debugging information - check setKey() function 
