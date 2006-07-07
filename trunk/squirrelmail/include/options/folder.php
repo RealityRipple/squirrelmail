@@ -254,44 +254,65 @@ function load_optpage_data_folder() {
 
 /**
  * Saves the trash folder option.
+ * @param object $option SquirrelOption object
+ * @since 1.3.2
  */
 function save_option_trash_folder($option) {
     global $data_dir, $username;
 
-    /* Set move to trash on or off. */
-    $trash_on = ($option->new_value == SMPREF_NONE ? SMPREF_OFF : SMPREF_ON);
-    setPref($data_dir, $username, 'move_to_trash', $trash_on);
+    if (strtolower($option->new_value)=='inbox') {
+        // make sure that it is not INBOX
+        error_option_save(_("You can't select INBOX as Trash folder."));
+    } else {
+        /* Set move to trash on or off. */
+        $trash_on = ($option->new_value == SMPREF_NONE ? SMPREF_OFF : SMPREF_ON);
+        setPref($data_dir, $username, 'move_to_trash', $trash_on);
 
-    /* Now just save the option as normal. */
-    save_option($option);
+        /* Now just save the option as normal. */
+        save_option($option);
+    }
 }
 
 /**
  * Saves the sent folder option.
+ * @param object $option SquirrelOption object
+ * @since 1.3.2
  */
 function save_option_sent_folder($option) {
     global $data_dir, $username;
 
-    /* Set move to sent on or off. */
-    $sent_on = ($option->new_value == SMPREF_NONE ? SMPREF_OFF : SMPREF_ON);
-    setPref($data_dir, $username, 'move_to_sent', $sent_on);
+    if (strtolower($option->new_value)=='inbox') {
+        // make sure that it is not INBOX
+        error_option_save(_("You can't select INBOX as Sent folder."));
+    } else {
+        /* Set move to sent on or off. */
+        $sent_on = ($option->new_value == SMPREF_NONE ? SMPREF_OFF : SMPREF_ON);
+        setPref($data_dir, $username, 'move_to_sent', $sent_on);
 
-    /* Now just save the option as normal. */
-    save_option($option);
+        /* Now just save the option as normal. */
+        save_option($option);
+    }
 }
 
 /**
  * Saves the draft folder option.
+ * @param object $option SquirrelOption object
+ * @since 1.3.2
  */
 function save_option_draft_folder($option) {
     global $data_dir, $username;
 
-    /* Set move to draft on or off. */
-    $draft_on = ($option->new_value == SMPREF_NONE ? SMPREF_OFF : SMPREF_ON);
-    setPref($data_dir, $username, 'save_as_draft', $draft_on);
-
-    /* Now just save the option as normal. */
-    save_option($option);
+    if (strtolower($option->new_value)=='inbox') {
+        // make sure that it is not INBOX
+        error_option_save(_("You can't select INBOX as Draft folder."));
+    } else {
+        /* Set move to draft on or off. */
+        $draft_on = ($option->new_value == SMPREF_NONE ? SMPREF_OFF : SMPREF_ON);
+        setPref($data_dir, $username, 'save_as_draft', $draft_on);
+        
+        /* Now just save the option as normal. */
+        save_option($option);
+    }
 }
 
 ?>
