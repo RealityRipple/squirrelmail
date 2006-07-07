@@ -48,4 +48,3 @@ function fortune_load() {
     include_once(SM_PATH . 'plugins/fortune/functions.php');
     fortune_function_load();
 }
-?>

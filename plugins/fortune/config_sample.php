@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Default Fortune plugin configuration
+ * Sample Fortune plugin configuration file
  *
  * Configuration defaults to /usr/games/fortune with short quotes
  *
@@ -13,15 +13,8 @@
  */
 
 /**
- * program that displays quotes
- * @global string $fortune_location
+ * Command that is used to display fortune cookies
+ * @global string $fortune_command
+ * @since 1.5.2
  */
-$fortune_location = '/usr/games/fortune';
-
-/**
- * options that have to be passed to program
- * @global string $fortune_options
- * @since 1.5.1
- */
-$fortune_options = '-s';
-?>
+$fortune_command = '/usr/games/fortune -s';
