@@ -95,6 +95,7 @@ Version 1.5.2 - CVS
     in PHP configuration (#1518885).
   - Make the default attachment dir /var/local/squirrelmail/attach, not
     $data_dir.
+  - Add HTML labels for form elements.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

@@ -311,22 +311,25 @@ if ($showaddrlist) {
             }
             echo html_tag( 'tr', '', '', $tr_bgcolor);
             if ($abook->backends[$row['backend']]->writeable) {
+                $id = $row['backend'].':'.$row['nickname'];
                 echo html_tag( 'td',
                                '<small>' .
-                               addCheckBox('sel[]', $selected, $row['backend'].':'.$row['nickname']).
+                               addCheckBox("sel[$id]", $selected, $id).
                                '</small>' ,
                                'center', '', 'valign="top" width="1%"' );
+                $label1 = '<label for="sel_'.$id.'_">'; $label2='</label>';
             } else {
                 echo html_tag( 'td',
                                '&nbsp;' ,
                                'center', '', 'valign="top" width="1%"' );
+                $label1 = $label2 = '';
             }
             echo html_tag( 'td',
-                           '&nbsp;' . htmlspecialchars($row['nickname']) . '&nbsp;',
+                           '&nbsp;' . $label1 . htmlspecialchars($row['nickname']) . $label2 . '&nbsp;',
                            'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' );
 
             echo html_tag( 'td',
-                           '&nbsp;' . htmlspecialchars($row['name']) . '&nbsp;',
+                           '&nbsp;' . $label1 . htmlspecialchars($row['name']) . $label2 . '&nbsp;',
                            'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' );
 
             // email address column

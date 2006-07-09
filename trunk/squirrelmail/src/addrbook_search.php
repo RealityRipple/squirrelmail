@@ -209,13 +209,15 @@ if ($show == 'form' && ! isset($listall)) {
             '" method="post">' . "\n" .
          html_tag( 'table', '', '', '', 'border="0" width="100%" height="100%"' ) .
          html_tag( 'tr' ) .
-         html_tag( 'td', '  <strong>' . _("Search for") . "</strong>\n", 'left', '', 'style="white-space: nowrap;" valign="middle" width="10%"' ) .
+         html_tag( 'td', '  <strong><label for="query">' . _("Search for") .
+             "</label></strong>\n", 'left', '',
+             'style="white-space: nowrap;" valign="middle" width="10%"' ) .
          html_tag( 'td', '', 'left', '', '' ) .
          addInput('query', $query, 28);
 
     /* List all backends to allow the user to choose where to search */
     if ($abook->numbackends > 1) {
-        echo '<strong>' . _("in") . '</strong>&nbsp;'."\n";
+        echo '<strong><label for="backend">' . _("in") . '</label></strong>&nbsp;'."\n";
         $selopts = array();
         $selopts['-1'] = _("All address books");
 

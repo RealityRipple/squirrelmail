@@ -1151,7 +1151,7 @@ function showInputForm ($session, $values=false) {
         }
         echo '   <tr>' . "\n" .
             html_tag( 'td', '', 'right', $color[4], 'width="10%"' ) .
-            _("From:") . '</td>' . "\n" .
+            '<label for="identity">' . _("From:") . '</label></td>' . "\n" .
             html_tag( 'td', '', 'left', $color[4], 'width="90%"' ) .
             '         '.
             addSelect('identity', $ident_list, $identity, TRUE);
@@ -1162,28 +1162,28 @@ function showInputForm ($session, $values=false) {
 
     echo '   <tr>' . "\n" .
         html_tag( 'td', '', 'right', $color[4], 'width="10%"' ) .
-        _("To") . ':</td>' . "\n" .
+        '<label for="send_to">' . _("To") . '</label>:</td>' . "\n" .
         html_tag( 'td', '', 'left', $color[4], 'width="90%"' ) .
         addInput('send_to', $send_to, 60, 0, $onfocus_array). '<br />' . "\n" .
         '      </td>' . "\n" .
         '   </tr>' . "\n" .
         '   <tr>' . "\n" .
         html_tag( 'td', '', 'right', $color[4] ) .
-        _("Cc") . ':</td>' . "\n" .
+        '<label for="send_to_cc">' . _("Cc") . '</label>:</td>' . "\n" .
         html_tag( 'td', '', 'left', $color[4] ) .
         addInput('send_to_cc', $send_to_cc, 60, 0, $onfocus_array). '<br />' . "\n" .
         '      </td>' . "\n" .
         '   </tr>' . "\n" .
         '   <tr>' . "\n" .
         html_tag( 'td', '', 'right', $color[4] ) .
-        _("Bcc") . ':</td>' . "\n" .
+        '<label for="send_to_bcc">' . _("Bcc") . '</label>:</td>' . "\n" .
         html_tag( 'td', '', 'left', $color[4] ) .
         addInput('send_to_bcc', $send_to_bcc, 60, 0, $onfocus_array).'<br />' . "\n" .
         '      </td>' . "\n" .
         '   </tr>' . "\n" .
         '   <tr>' . "\n" .
         html_tag( 'td', '', 'right', $color[4] ) .
-        _("Subject") . ':</td>' . "\n" .
+        '<label for="subject">' . _("Subject") . '</label>:</td>' . "\n" .
         html_tag( 'td', '', 'left', $color[4] ) . "\n";
     echo '         '.addInput('subject', $subject, 60, 0, $onfocus_array).
         '      </td>' . "\n" .
@@ -1370,7 +1370,7 @@ function showComposeButtonRow() {
         if(!isset($mailprio)) {
             $mailprio = '3';
         }
-        echo '          ' . _("Priority") .
+        echo '          <label for="mailprio">' . _("Priority") . '</label>: '.
             addSelect('mailprio', array(
                         '1' => _("High"),
                         '3' => _("Normal"),
@@ -1380,8 +1380,10 @@ function showComposeButtonRow() {
     if ($default_use_mdn) {
         if ($mdn_user_support) {
             echo '          ' . _("Receipt") .': '.
-                addCheckBox('request_mdn', $request_mdn == '1', '1'). _("On Read").
-                addCheckBox('request_dr',  $request_dr  == '1', '1'). _("On Delivery");
+                addCheckBox('request_mdn', $request_mdn == '1', '1') .
+                    '<label for="request_mdn">' . _("On Read") . '</label>' .
+                addCheckBox('request_dr',  $request_dr  == '1', '1') .
+                    '<label for="request_dr">' .  _("On Delivery") . '</label>';
         }
     }
 
