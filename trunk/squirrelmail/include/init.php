@@ -58,6 +58,17 @@ if ((bool) @ini_get('register_globals') &&
     }
 }
 
+/**
+ * [#1518885] session.use_cookies = off breaks SquirrelMail
+ *
+ * When session cookies are not used, all http redirects, meta refreshes, 
+ * src/download.php and javascript URLs are broken. Setting must be set 
+ * before session is started.
+ */
+if (!(bool)ini_get('session.use_cookies') ||
+    ini_get('session.use_cookies') == 'off') {
+    ini_set('session.use_cookies','1');
+}
 
 /**
  * calculate SM_PATH and calculate the base_uri
