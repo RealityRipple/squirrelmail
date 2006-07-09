@@ -27,7 +27,7 @@ include_once(SM_PATH . 'functions/imap_mailbox.php');
  * @return void
  */
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE, $frames = FALSE ) {
-    global $squirrelmail_language, $sTplDir, $oErrorHandler;
+    global $squirrelmail_language, $sTplDir, $oErrorHandler, $oTemplate;
 
     if ( !sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
         global $base_uri;
@@ -57,13 +57,17 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
      * Add closing / to link and meta elements only after switching to xhtml 1.0 Transitional.
      * It is not compatible with html 4.01 Transitional
      */
+    $templateid=basename($sTplDir);
+    $oTemplate->assign('base_uri',$base_uri);
+    $oTemplate->assign('templateid',$templateid);
+    $oTemplate->assign('themeid',$used_theme);
+    $oTemplate->display('stylelink.tpl');
     echo '<link rel="stylesheet" type="text/css" href="'. $base_uri .'src/style.php'
         .'?themeid='.$used_theme
-        .'&amp;templateid='.basename($sTplDir)
+        .'&amp;templateid='.$templateid
         .(!empty($used_fontset) ? '&amp;fontset='.$used_fontset : '')
         .(!empty($used_fontsize) ? '&amp;fontsize='.$used_fontsize : '')
         .(!empty($text_direction) ? '&amp;dir='.$text_direction : '')."\">\n";
-
     // load custom style sheet (deprecated)
     if ( ! empty($theme_css) ) {
         echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$theme_css\">\n";
