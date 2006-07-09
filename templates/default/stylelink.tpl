@@ -58,8 +58,8 @@ echo $css_link_html;
 **/
 function list_css_files($cssdir,$cssroot) {
     if (!$cssroot OR !$cssdir) return false;
+    $files=array();
    if (is_dir($cssdir)) {
-        $files=array();
         if ($dh = opendir($cssdir)) {
             while (($file = readdir($dh)) !== false) {
                 if ((strlen($file)>3) AND strtolower(substr($file,strlen($file)-3,3))=='css') {
@@ -69,7 +69,7 @@ function list_css_files($cssdir,$cssroot) {
         }
         closedir($dh);
     }
-    if ($files) {
+    if (count($files)>0) {
 //        sort($files);
         return $files;
     }
@@ -125,6 +125,9 @@ function css_link($url, $name = null, $alt = true, $mtype = 'screen', $xhtml_end
 
 /**
  * $Log$
+ * Revision 1.2  2006/07/09 22:37:35  vanmer
+ * - added variable initalization and check on variable
+ *
  * Revision 1.1  2006/07/09 22:23:03  vanmer
  * - intial revision of a template to display CSS links at the top of the page
  *
