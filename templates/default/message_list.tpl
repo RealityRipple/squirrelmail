@@ -140,7 +140,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
             case 'checkbox':
                 if ($key != 'bypass_trash') {
 ?>
-                  <input type="checkbox" name="<?php echo $key; ?>" /><?php echo $value[0]; ?>&nbsp;
+                  <input type="checkbox" name="<?php echo $key; ?>" id="<?php echo $key; ?>" /><label for="<?php echo $key; ?>"><?php echo $value[0]; ?></label>&nbsp;
 <?php
                 }
                 break;
@@ -162,7 +162,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
  <?php
             if (isset($aFormElements['bypass_trash'])) {
 ?>
-                  <input type="checkbox" name="bypass_trash" /><?php echo $aFormElements['bypass_trash'][0]; ?>&nbsp;
+                  <input type="checkbox" name="bypass_trash" id="bypass_trash" /><label for="bypass_trash"><?php echo $aFormElements['bypass_trash'][0]; ?></label>&nbsp;
 <?php
             }
             if (isset($aFormElements['undeleteButton'])) {

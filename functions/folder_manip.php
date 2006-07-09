@@ -121,7 +121,7 @@ function folders_rename_getname ($imapConnection, $delimiter, $old) {
             html_tag( 'td', '', 'center', $color[4] ) .
             addForm('folders.php').
             addHidden('smaction', 'rename').
-             _("New name:").
+             '<label for="new_name">' . _("New name:") . '</label>' .
              '<br /><b>' . htmlspecialchars($old_parent) . '</b>' .
              addInput('new_name', $old_name, 25) . '<br /><br />' . "\n";
              if ( $isfolder ) {

@@ -233,7 +233,8 @@ function addressbook_inp_field($label, $field, $name, $size, $values, $add='') {
     $td_str .= $add ;
 
     return html_tag( 'tr' ,
-            html_tag( 'td', $label . ':', 'right', $color[4]) .
+            html_tag( 'td', '<label for="'.$name.'_'.$field.'_'.'">' .
+                $label . '</label>:', 'right', $color[4]) .
             html_tag( 'td', $td_str, 'left', $color[4])
             )
         . "\n";
