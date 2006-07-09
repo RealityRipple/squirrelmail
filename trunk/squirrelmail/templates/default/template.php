@@ -25,9 +25,12 @@ $templates_provided = array (
                                 'message_list.tpl',
                                 'motd.tpl',
                                 'note.tpl',
+                                'options.tpl',
                                 'page_header.tpl',
                                 'paginator.tpl',
-                                'stylesheet.tpl'
+                                'stylesheet.tpl',
+				'stylelink.tpl',
+                                'webmail.tpl'
                             );
 
 /**
