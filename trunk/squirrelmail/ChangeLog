@@ -91,6 +91,8 @@ Version 1.5.2 - CVS
   - Removed proprietary wrap attribute from compose form (#1512681).
   - Fix URL for Read Receipts being incorrect in some cases (#1177518).
   - Don't allow selecting INBOX as Sent, Draft or Trash folder (#1242346).
+  - Session cookies are turned on, if session.use_cookies is turned off
+    in PHP configuration (#1518885).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
