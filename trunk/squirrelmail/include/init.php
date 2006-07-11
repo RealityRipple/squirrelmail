@@ -102,6 +102,29 @@ define('SM_BASE_URI', $base_uri);
  */
 $bInit = true;
 
+/**
+ * This theme as a failsafe if no themes were found, or if we error
+ * out before anything could be initialised.
+ */
+$color = array();
+$color[0]  = '#DCDCDC';  /* light gray    TitleBar               */
+$color[1]  = '#800000';  /* red                                  */
+$color[2]  = '#CC0000';  /* light red     Warning/Error Messages */
+$color[3]  = '#A0B8C8';  /* green-blue    Left Bar Background    */
+$color[4]  = '#FFFFFF';  /* white         Normal Background      */
+$color[5]  = '#FFFFCC';  /* light yellow  Table Headers          */
+$color[6]  = '#000000';  /* black         Text on left bar       */
+$color[7]  = '#0000CC';  /* blue          Links                  */
+$color[8]  = '#000000';  /* black         Normal text            */
+$color[9]  = '#ABABAB';  /* mid-gray      Darker version of #0   */
+$color[10] = '#666666';  /* dark gray     Darker version of #9   */
+$color[11] = '#770000';  /* dark red      Special Folders color  */
+$color[12] = '#EDEDED';
+$color[13] = '#800000';  /* (dark red)    Color for quoted text -- > 1 quote */
+$color[14] = '#ff0000';  /* (red)         Color for quoted text -- >> 2 or more */
+$color[15] = '#002266';  /* (dark blue)   Unselectable folders */
+$color[16] = '#ff9933';  /* (orange)      Highlight color */
+
 require(SM_PATH . 'functions/global.php');
 require(SM_PATH . 'config/config.php');
 require(SM_PATH . 'functions/plugin.php');
