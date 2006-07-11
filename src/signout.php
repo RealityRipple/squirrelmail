@@ -85,5 +85,19 @@ html_tag( 'table',
     '', $color[0] ) ,
 'center', $color[4], 'width="50%" cellpadding="2" cellspacing="0" border="0"' );
 
+/* After a reload of signout.php, $oTemplate might not exist anymore.
+ * Recover, so that we don't get all kinds of errors in that situation. */
+if ( !isset($oTemplate) || !is_object($oTemplate) ) {
+    require_once(SM_PATH . 'class/template/template.class.php');
+    $aTemplateSet = ( !isset($aTemplateSet) ? array() : $aTemplateSet );
+    $templateset_default = ( !isset($templateset_default) ? 0 : $templateset_default );
+
+    $sTplDir = ( !isset($aTemplateSet[$templateset_default]['PATH']) ?
+             SM_PATH . 'templates/default/' :
+             $aTemplateSet[$templateset_default]['PATH'] );
+    $oTemplate = new Template($sTplDir);
+}
+
 $oTemplate->display('footer.tpl');
+
 ?>
