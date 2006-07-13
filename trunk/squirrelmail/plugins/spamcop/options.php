@@ -26,7 +26,6 @@ displayPageHeader($color, 'None');
 /* globals */
 sqgetGlobalVar('action', $action);
 sqgetGlobalVar('meth', $meth);
-sqgetGlobalVar('type', $type);
 sqgetGlobalVar('ID' , $ID);
 
 sqgetGlobalVar('username', $username, SQ_SESSION);
@@ -56,11 +55,6 @@ switch ($action) {
     case 'meth':
         if (isset($meth)) {
             setPref($data_dir, $username, 'spamcop_method', $meth);
-        }
-        break;
-    case 'type':
-        if (isset($type)) {
-            setPref($data_dir, $username, 'spamcop_type', $type);
         }
         break;
     case 'save_id':
@@ -142,32 +136,6 @@ spamcop_load_function();
               echo '<input type="submit" value="' . _("Save Method") . "\" />\n";
             ?>
           </form></td>
-        </tr>
-        <tr>
-            <?php
-              echo html_tag('td',_("Spam Service Type:"),'right');
-            ?>
-          <td>
-          <form method="post" action="options.php">
-            <select name="type">
-              <option value="free"
-                <?php
-                  if ($spamcop_type == 'free') echo ' selected="selected"';
-                  echo ">"._("Free reporting");
-                ?>
-              </option>
-              <option value="member"
-                <?php
-                  if ($spamcop_type == 'member') echo ' selected="selected"';
-                  echo ">"._("Member services");
-                ?>
-              </option>
-            </select>
-            <?php
-              echo '<input type="hidden" name="action" value="type" />' .
-                   '<input type="submit" value="' . _("Save Service Type") . "\" />\n";
-            ?>
-           </form></td>
         </tr>
         <tr>
           <?php

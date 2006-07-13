@@ -14,7 +14,10 @@
  * Include the SquirrelMail initialization file.
  */
 require('../../include/init.php');
-
+/* IMAP functions depend on date and mime */
+include_once(SM_PATH . 'functions/date.php');
+include_once(SM_PATH . 'functions/mime.php');
+/* IMAP functions */
 include_once(SM_PATH . 'functions/imap_general.php');
 include_once(SM_PATH . 'functions/imap_messages.php');
 /* plugin functions */
@@ -148,11 +151,8 @@ echo "</p>";
       $Warning = "\n[truncated by SpamCop]\n";
       $spam_message = substr($spam_message, 0, 50000 - strlen($Warning)) . $Warning;
    }
-   if ($spamcop_type=='member') {
-     $action_url="http://members.spamcop.net/sc";
-   } else {
-     $action_url="http://www.spamcop.net/sc";
-   }
+   $action_url="http://members.spamcop.net/sc";
+
    if (isset($js_web) && $js_web) {
      echo "<form method=\"post\" action=\"$action_url\" name=\"submitspam\"".
        " enctype=\"multipart/form-data\">\n";
@@ -162,7 +162,6 @@ echo "</p>";
    } ?>
   <input type="hidden" name="action" value="submit" />
   <input type="hidden" name="oldverbose" value="1" />
-  <input type="hidden" name="code" value="<?php echo htmlspecialchars($spamcop_id) ?>" />
   <input type="hidden" name="spam" value="<?php echo htmlspecialchars($spam_message); ?>" />
     <?php
         echo '<input type="submit" name="x1" value="' . _("Send Spam Report") . "\" />\n";
