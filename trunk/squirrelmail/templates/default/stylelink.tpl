@@ -52,20 +52,3 @@ foreach ($base_css_files as $css_file=>$css_url) {
 /** output CSS links **/
 echo $css_link_html;
 
-/**
- * $Log$
- * Revision 1.4  2006/07/15 12:01:19  tokul
- * removing trailing ?> from function scripts
- *
- * Revision 1.3  2006/07/10 15:48:51  vanmer
- * - added new utils_css file to contain CSS-related functions for use in templates
- * - altered stylelink template to use new util_css.php file for all function definitions
- *
- * Revision 1.2  2006/07/09 22:37:35  vanmer
- * - added variable initalization and check on variable
- *
- * Revision 1.1  2006/07/09 22:23:03  vanmer
- * - intial revision of a template to display CSS links at the top of the page
- *
- *
-**/
