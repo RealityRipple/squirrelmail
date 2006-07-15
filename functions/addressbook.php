@@ -598,7 +598,11 @@ class AddressBook {
                 $ret = FALSE;
             }
 
-        }  else {
+        } elseif (! isset($this->backends[$bnum])) {
+            /* make sure that backend exists */
+            $this->error = _("Unknown address book backend");
+            $ret = false;
+        } else {
 
             /* Search only one backend */
 
@@ -641,6 +645,10 @@ class AddressBook {
         $ret = array();
 
         if ($bnum > -1) {
+            if (!isset($this->backends[$bnum])) {
+                $this->error = _("Unknown address book backend");
+                return false;
+            }
             $res = $this->backends[$bnum]->lookup($alias);
             if (is_array($res)) {
                return $res;
@@ -678,6 +686,10 @@ class AddressBook {
 
         if ($bnum == -1) {
             $sel = $this->get_backend_list('');
+        } elseif (! isset($this->backends[$bnum])) {
+            /* make sure that backend exists */
+            $this->error = _("Unknown address book backend");
+            $ret = false;
         } else {
             $sel = array(0 => &$this->backends[$bnum]);
         }
@@ -729,6 +741,12 @@ class AddressBook {
             return false;
         }
 
+        /* make sure that backend exists */
+        if (! isset($this->backends[$bnum])) {
+            $this->error = _("Unknown address book backend");
+            return false;
+        }
+
         /* Check that specified backend accept new entries */
         if (!$this->backends[$bnum]->writeable) {
             $this->error = _("Address book is read-only");
@@ -764,6 +782,12 @@ class AddressBook {
         /* Convert string to single element array */
         if (!is_array($alias)) {
             $alias = array(0 => $alias);
+        }
+
+        /* make sure that backend exists */
+        if (! isset($this->backends[$bnum])) {
+            $this->error = _("Unknown address book backend");
+            return false;
         }
 
         /* Check that specified backend is writable */
@@ -819,6 +843,12 @@ class AddressBook {
 
         if (empty($userdata['nickname'])) {
             $userdata['nickname'] = $userdata['email'];
+        }
+
+        /* make sure that backend exists */
+        if (! isset($this->backends[$bnum])) {
+            $this->error = _("Unknown address book backend");
+            return false;
         }
 
         /* Check that specified backend is writable */
