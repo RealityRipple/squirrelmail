@@ -147,16 +147,19 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                         $defselected = $sel;
                     } else {
                         $abortform = true;
-                        list($ebackend, $enick) = explode(':', $sel[0]);
+                        list($ebackend, $enick) = explode(':', current($sel));
                         $olddata = $abook->lookup($enick, $ebackend);
-                        // FIXME: Test if $olddata really contains anything and return an error message if it doesn't
-
-                        /* Display the "new address" form */
-                        abook_create_form($form_url,'editaddr',_("Update address"),_("Update address"),$olddata);
-                        echo addHidden('oldnick', $olddata['nickname']).
-                            addHidden('backend', $olddata['backend']).
-                            addHidden('doedit', '1').
-                            '</form>';
+                        // Test if $olddata really contains anything and return an error message if it doesn't
+                        if (!$olddata) {
+                            error_box(nl2br(htmlspecialchars($abook->error)));
+                        } else {
+                            /* Display the "new address" form */
+                            abook_create_form($form_url,'editaddr',_("Update address"),_("Update address"),$olddata);
+                            echo addHidden('oldnick', $olddata['nickname']).
+                                addHidden('backend', $olddata['backend']).
+                                addHidden('doedit', '1').
+                                '</form>';
+                        }
                     }
                 } elseif ($doedit == 1) {
                     /* Stage two: Write new data */
