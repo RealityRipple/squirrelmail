@@ -508,7 +508,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
           print "4.  IMAP Server            : $WHT$imapServerAddress$NRM\n";
           print "5.  IMAP Port              : $WHT$imapPort$NRM\n";
           print "6.  Authentication type    : $WHT$imap_auth_mech$NRM\n";
-          print "7.  Secure IMAP (TLS)      : $WHT$use_imap_tls$NRM\n";
+          print "7.  Secure IMAP (TLS)      : $WHT" . display_use_tls($use_imap_tls) . "$NRM\n";
           print "8.  Server software        : $WHT$imap_server_type$NRM\n";
           print "9.  Delimiter              : $WHT$optional_delimiter$NRM\n";
           print "\n";
@@ -525,7 +525,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             print "5.   SMTP Port             : $WHT$smtpPort$NRM\n";
             print "6.   POP before SMTP       : $WHT$pop_before_smtp$NRM\n";
             print "7.   SMTP Authentication   : $WHT$smtp_auth_mech$NRM\n";
-            print "8.   Secure SMTP (TLS)     : $WHT$use_smtp_tls$NRM\n";
+            print "8.   Secure SMTP (TLS)     : $WHT" . display_use_tls($use_smtp_tls) . "$NRM\n";
             print "9.   Header encryption key : $WHT$encode_header_key$NRM\n";
             print "\n";
           }
@@ -1478,6 +1478,19 @@ sub command_use_tls {
     }
     if ($inval ne '') {$default_val = $inval};
     return $default_val;
+}
+
+# This sub is used to display human readable text for 
+# $use_imap_tls and $use_smtp_tls values in conf.pl menu
+sub display_use_tls($) {
+    my $val = shift(@_);
+    my $ret = 'disabled';
+    if ($val eq '2') {
+        $ret = 'STARTTLS';
+    } elsif ($val eq '1') {
+        $ret = 'TLS';
+    }
+    return $ret;
 }
 
 # $encode_header_key
