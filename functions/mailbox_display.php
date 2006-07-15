@@ -1460,5 +1460,3 @@ function attachSelectedMessages($imapConnection,$aMsgHeaders) {
     sqsession_register($compose_messages,'compose_messages');
     return $composesession;
 }
-
-?>

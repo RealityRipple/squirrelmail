@@ -944,5 +944,3 @@ function sqimap_get_message($imap_stream, $id, $mailbox) {
     $msg->rfc822_header = $rfc822_header;
     return $msg;
 }
-
-?>

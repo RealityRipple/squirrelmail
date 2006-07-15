@@ -206,4 +206,3 @@ function is_plugin_enabled($plugin_name) {
     return false;
   }
 }
-?>

@@ -4173,8 +4173,6 @@ sub save_data {
         print CF " * sent and regular output to begin, which will majorly screw\n";
         print CF " * things up when we try to send more headers later.\n";
         print CF " */\n";
-        print CF "?>";
-
         close CF;
 
         print "Data saved in config.php\n";

@@ -953,5 +953,3 @@ function do_error($string) {
     echo $string;
     echo "</font></p>\n";
 }
-
-?>

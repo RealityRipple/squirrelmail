@@ -272,5 +272,3 @@ function get_smtp_user(&$user, &$pass) {
         $pass = sqauth_read_password();
     }
 }
-
-?>

@@ -151,4 +151,3 @@ function charset_decode_tis_620 ($string) {
 
     return $string;
 }
-?>

@@ -188,4 +188,3 @@ function charset_decode_koi8_u ($string) {
 
     return $string;
 }
-?>

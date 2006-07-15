@@ -24,4 +24,3 @@ $color[9]   = '#ababab'; // (mid-gray)       Lighter version of #0
 $color[10]  = '#666666'; // (dark gray)      Darker version of #0
 $color[11]  = '#770000'; // (dark red)       Special Folders color
 $color[15]  = '#ababab'; // (mid-gray)       Unselectable folders
-?>

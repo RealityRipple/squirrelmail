@@ -1256,4 +1256,3 @@ $aTimeZones['Mideast/Riyadh88']['LINK']='Asia/Riyadh88';
 $aTimeZones['Asia/Riyadh89']['TZ']='UCT-3:07:04';
 $aTimeZones['Mideast/Riyadh89']['LINK']='Asia/Riyadh89';
 
-?>

@@ -94,5 +94,3 @@ function abook_take_save()
     else
         setPref($data_dir, $username, 'abook_take_verify', '');
 }
-
-?>

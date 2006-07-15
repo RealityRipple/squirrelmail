@@ -113,6 +113,3 @@ function getBoxStructure ($boxes) {
     
     return $box;
 }
- 
-
-?>

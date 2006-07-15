@@ -185,4 +185,3 @@ function save_option_reply_prefix($option) {
     save_option($option);
 
 }
-?>

@@ -50,4 +50,3 @@ if (file_exists(SM_PATH . $SQSPELL_DIR . "modules/$MOD.mod")) {
     // display sm footer (closes html tags)
     $oTemplate->display('footer.tpl');
 }
-?>

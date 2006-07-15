@@ -1071,5 +1071,3 @@ class Message {
         }
     }
 }
-
-?>

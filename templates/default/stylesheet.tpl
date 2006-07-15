@@ -245,5 +245,3 @@ a:link, a:visited, a:hover, a:active {
 .spacer	{
     background: <?php echo $color[4]; ?>;
 }
-
-

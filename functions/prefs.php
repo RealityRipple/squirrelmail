@@ -126,4 +126,3 @@ function computeHashDirs($username) {
     /* Return our array of hash directories. */
     return ($hash_dirs);
 }
-?>

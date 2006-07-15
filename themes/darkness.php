@@ -75,91 +75,68 @@ global $squirrelmail_plugin_hooks;
 $squirrelmail_plugin_hooks['generic_header']['theme_darkness'] =
     'Darkness_HeaderPlugin';
 
-   /** seed the random number generator **/
-   sq_mt_randomize();
+/** seed the random number generator **/
+sq_mt_randomize();
 
-   $color[3] = '#000000';
-   $color[4] = '#000000';
-   $used = array(0);
-   $targetDistance = $BackgroundTargetDistance;
-   $Left = array(0, 5, 9, 10, 12);
-   while (count($Left) > 0) {
-      // Some background colors
-      $r = mt_rand(24,64);
-      $unique = true;
-      foreach ($used as $col) {
-         if (abs($r - $col) < $targetDistance)
+$color[3] = '#000000';
+$color[4] = '#000000';
+$used = array(0);
+$targetDistance = $BackgroundTargetDistance;
+$Left = array(0, 5, 9, 10, 12);
+while (count($Left) > 0) {
+    // Some background colors
+    $r = mt_rand(24,64);
+    $unique = true;
+    foreach ($used as $col) {
+        if (abs($r - $col) < $targetDistance)
             $unique = false;
-      }
-      if ($unique) {
-         $i = array_shift($Left);
-         $color[$i] = sprintf('#%02X%02X%02X',$r,$r, $r);
-         $used[] = $r;
-         $targetDistance = $BackgroundTargetDistance;
-      } else {
-         $targetDistance -= $BackgroundAdjust;
-      }
-   }
+    }
+    if ($unique) {
+        $i = array_shift($Left);
+        $color[$i] = sprintf('#%02X%02X%02X',$r,$r, $r);
+        $used[] = $r;
+        $targetDistance = $BackgroundTargetDistance;
+    } else {
+        $targetDistance -= $BackgroundAdjust;
+    }
+}
 
-   // Set the error color to some shade of red
-   $r = mt_rand(196, 255);
-   $g = mt_rand(144, ($r * .8));
-   $color[2] = sprintf('#%02X%02X%02X', $r, $g, $g);
-   $used = array(array($r, $g, $g));
+// Set the error color to some shade of red
+$r = mt_rand(196, 255);
+$g = mt_rand(144, ($r * .8));
+$color[2] = sprintf('#%02X%02X%02X', $r, $g, $g);
+$used = array(array($r, $g, $g));
 
-   // Set normal text colors
-   $cmin = 196;
-   $cmax = 255;
-   foreach (array(6, 8) as $i) {
-      /** generate random color **/
-      $r = mt_rand($cmin,$cmax);
-      $g = mt_rand($cmin,$cmax);
-      $b = mt_rand($cmin,$cmax);
-      $color[$i] = sprintf('#%02X%02X%02X',$r,$g,$b);
-      $used[] = array($r, $g, $b);
-   }
+// Set normal text colors
+$cmin = 196;
+$cmax = 255;
+foreach (array(6, 8) as $i) {
+    /** generate random color **/
+    $r = mt_rand($cmin,$cmax);
+    $g = mt_rand($cmin,$cmax);
+    $b = mt_rand($cmin,$cmax);
+    $color[$i] = sprintf('#%02X%02X%02X',$r,$g,$b);
+    $used[] = array($r, $g, $b);
+}
 
-   $Left = array(1, 7, 11, 13, 14, 15);
-   $targetDistance = $TextTargetDistance;
-   while (count($Left) > 0) {
-      // Text colors -- Try to keep the colors distinct
-      $cmin = 196;
-      $cmax = 255;
+$Left = array(1, 7, 11, 13, 14, 15);
+$targetDistance = $TextTargetDistance;
+while (count($Left) > 0) {
+    // Text colors -- Try to keep the colors distinct
+    $cmin = 196;
+    $cmax = 255;
 
-      /** generate random color **/
-      $r = mt_rand($cmin,$cmax);
-      $g = mt_rand($cmin,$cmax);
-      $b = mt_rand($cmin,$cmax);
+    /** generate random color **/
+    $r = mt_rand($cmin,$cmax);
+    $g = mt_rand($cmin,$cmax);
+    $b = mt_rand($cmin,$cmax);
 
-      if (IsUnique($targetDistance, $r, $g, $b, $used)) {
-         $i = array_shift($Left);
-         $color[$i] = sprintf('#%02X%02X%02X',$r,$g,$b);
-         $used[] = array($r, $g, $b);
-         $targetDistance = $TextTargetDistance;
-      } else {
-         $targetDistance *= $TextAdjust;
-      }
-   }
-
-
-/** Reference from  doc/themes.txt
-
-b  0: Title Bar at the top of the page header
-f  1: <not currently used>
-f  2: Error messages, usually red
-b  3: Left folder list background color
-b  4: Normal background color
-b  5: Header of the message index [From, Date, Subject]
-f  6: Normal text on the left folder list
-f  7: Links in the right frame, Folders with subfolders in left frame
-f  8: Normal text [usually black]
-b  9: Darker version of #0
-b 10: Darker version of #9
-f 11: Special folders color [Inbox, Trash, Sent]
-b 12: Alternate color for message list [alters between 4 and this one]
-f 13: Color for single-quoted text ('> text') when reading (default:  #800000)
-f 14: Color for text with more than one quote (default: #FF0000)
-
-**/
-
-?>
+    if (IsUnique($targetDistance, $r, $g, $b, $used)) {
+        $i = array_shift($Left);
+        $color[$i] = sprintf('#%02X%02X%02X',$r,$g,$b);
+        $used[] = array($r, $g, $b);
+        $targetDistance = $TextTargetDistance;
+    } else {
+        $targetDistance *= $TextAdjust;
+    }
+}

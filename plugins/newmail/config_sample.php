@@ -33,4 +33,3 @@ $newmail_mmedia['monty_message']['types'] = array(SM_NEWMAIL_FILETYPE_SWF,SM_NEW
 $newmail_mmedia['monty_message']['args']  = array('width'=>0,'height'=>0);
 $newmail_mmedia['austin_mail']['types'] = array(SM_NEWMAIL_FILETYPE_SWF,SM_NEWMAIL_FILETYPE_MP3,SM_NEWMAIL_FILETYPE_WAV);
 $newmail_mmedia['austin_mail']['args']  = array('width'=>0,'height'=>0);
-?>

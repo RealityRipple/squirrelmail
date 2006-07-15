@@ -92,4 +92,3 @@ function listcommands_fieldsdescr() {
             'help'        => _("Help"));
 }
 
-?>

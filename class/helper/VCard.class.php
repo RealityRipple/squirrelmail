@@ -40,5 +40,3 @@ class VCard {
         return $array;
     }
 }
-
-?>

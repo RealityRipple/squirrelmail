@@ -29,5 +29,3 @@ $color[10]  = '#88aa88'; // Dimmed out folder color
 $color[11]  = '#ee0000'; // Special folders / Unseen messages color
 $color[12]  = '#ddffdd'; // Alternate table row color
 $color[15]  = '#aaffaa'; // Unselectable folders
-
-?>

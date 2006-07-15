@@ -785,4 +785,3 @@ function cpw_ldap_compare_pass($pass_hash,$pass_clear,&$msgs) {
     }
     return $ret;
 }
-?>

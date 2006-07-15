@@ -314,5 +314,3 @@ function save_option_draft_folder($option) {
         save_option($option);
     }
 }
-
-?>

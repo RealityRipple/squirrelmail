@@ -1306,5 +1306,3 @@ function map_yp_alias($username) {
    $yp = `ypmatch $username aliases`;
    return chop(substr($yp, strlen($username)+1));
 }
-
-?>

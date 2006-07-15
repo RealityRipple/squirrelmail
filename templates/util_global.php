@@ -75,4 +75,3 @@ function getIconPath ($icon_theme_path, $icon_name) {
     
     return NULL;
 }
-?>

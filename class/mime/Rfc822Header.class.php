@@ -940,5 +940,3 @@ class Rfc822Header {
         return $this->content_type->properties;
     }
 }
-
-?>

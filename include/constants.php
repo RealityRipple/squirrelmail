@@ -156,5 +156,3 @@ define('SQM_COL_BCC', 11);
  * @since 1.2.0
  */
 do_hook('loading_constants');
-
-?>

@@ -168,5 +168,3 @@ function charset_decode_cp1253 ($string) {
 
     return $string;
 }
-
-?>

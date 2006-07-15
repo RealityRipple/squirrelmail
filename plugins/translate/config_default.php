@@ -108,4 +108,3 @@ $disable_compose_translate=true;
  */
 global $translate_custom_enabled;
 $translate_custom_enabled=false;
-?>

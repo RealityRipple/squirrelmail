@@ -431,4 +431,3 @@ function cpw_peardb_passwd_hash($password,$crypto,&$msgs,$forced_salt='') {
     }
     return $ret;
 }
-?>

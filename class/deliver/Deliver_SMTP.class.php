@@ -514,5 +514,3 @@ class Deliver_SMTP extends Deliver {
         return $ret;
     }
 }
-
-?>

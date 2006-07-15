@@ -135,5 +135,3 @@ function cpw_poppassd_go($username, $old_pw, $new_pw, $debug = 0) {
 
     return $messages;
 }
-
-?>

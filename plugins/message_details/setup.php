@@ -58,5 +58,3 @@ function show_message_details() {
     }
     echo $result;
 }
-
-?>

@@ -30,4 +30,3 @@ $color[11]  = '#7070ff'; // Special folders / Unseen messages color
 $color[12]  = '#3300cc'; // Alternate table row color
 $color[13]  = '#3333cc';
 $color[15]  = '#33ff66'; // Unselectable folders
-?>

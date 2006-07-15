@@ -153,4 +153,3 @@ function charset_decode_iso_8859_9 ($string) {
 
     return $string;
 }
-?>

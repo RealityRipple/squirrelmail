@@ -145,4 +145,3 @@ function unicodetoiso885915($var) {
     }
     return $ret;
 }
-?>

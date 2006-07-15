@@ -408,5 +408,3 @@ if (! isset($use_smtp_tls)) {
 }
 
 do_hook('loading_prefs');
-
-?>

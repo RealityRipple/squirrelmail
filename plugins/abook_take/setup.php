@@ -51,5 +51,3 @@ function abook_take_options_display_save() {
 
     abook_take_save();
 }
-
-?>

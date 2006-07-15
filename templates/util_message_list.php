@@ -198,6 +198,3 @@ function getAttachmentIcon ($attach, $icon_theme_path) {
 
     return $icon;
 }
-
-
-?>

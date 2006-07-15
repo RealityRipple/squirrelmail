@@ -473,4 +473,3 @@ class abook_database extends addressbook_backend {
 } /* End of class abook_database */
 
 // vim: et ts=4
-?>

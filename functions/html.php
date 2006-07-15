@@ -157,4 +157,3 @@ function set_url_var($url, $var, $val=0, $link=true) {
     }
     return $url;
 }
-?>

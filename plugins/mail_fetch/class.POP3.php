@@ -652,4 +652,3 @@ class POP3 {
 
 }   // End class
 
-?>

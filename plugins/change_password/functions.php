@@ -109,4 +109,3 @@ function cpw_do_change()
     exit;
 }
 
-?>

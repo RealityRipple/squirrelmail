@@ -29,4 +29,3 @@ $color[12]  = '#f2f3ff'; // Alternate color for message list (alters between #4 
 $color[13]  = '#333333'; // Color for single-quoted text ('> text')
 $color[14]  = '#666666'; // Color for text with more than one quote ('>> text')
 $color[15]  = '#f5f9ff'; // Non-selectable folders in the left frame (defaults to #6)
-?>

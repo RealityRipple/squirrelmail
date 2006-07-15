@@ -11,6 +11,7 @@
  * @subpackage themes
  */
 
+global $color;
 $color[0]  = '#4c4b83'; // TitleBar
 $color[1]  = '#ffffff'; // Not Currently Used
 $color[2]  = '#ffffff'; // Warning/Error Messages
@@ -27,5 +28,3 @@ $color[12] = '#1d1d26'; // Alternate List Item Color (alternates with #4)
 $color[13] = '#8a8aaf'; // Single-Quoted text
 $color[14] = '#8a8aaf'; // Two or more quotes
 $color[15] = '#ffffff'; // Unselectable Folders
-
-?>

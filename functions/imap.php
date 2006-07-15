@@ -16,5 +16,3 @@
 /** Includes */
 include_once(SM_PATH . 'functions/imap_messages.php');
 include_once(SM_PATH . 'functions/imap_general.php');
-
-?>

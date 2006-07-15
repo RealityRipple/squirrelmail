@@ -722,4 +722,3 @@ function newmail_create_media_tags($newmail_media) {
     }
     return $ret_media;
 }
-?>

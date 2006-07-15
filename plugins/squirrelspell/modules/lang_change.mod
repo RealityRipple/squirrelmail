@@ -76,4 +76,3 @@ sqspell_makePage(_("International Dictionaries Preferences Updated"),
  * End:
  * vim: syntax=php
  */
-?>

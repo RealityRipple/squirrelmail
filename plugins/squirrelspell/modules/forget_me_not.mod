@@ -66,5 +66,3 @@ sqspell_makeWindow($onload, _("Personal Dictionary Updated"), null, $msg);
  * End:
  * vim: syntax=php
  */
-
-?>

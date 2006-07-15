@@ -87,4 +87,3 @@ function translate_set_loadinfo() {
     include_once(SM_PATH . 'plugins/translate/functions.php');
     translate_set_loadinfo_function();
 }
-?>

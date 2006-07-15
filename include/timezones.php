@@ -87,4 +87,3 @@ function sq_get_tz_key($sTZ) {
         return false;
     }
 }
-?>

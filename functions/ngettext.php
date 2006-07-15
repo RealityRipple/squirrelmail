@@ -67,4 +67,3 @@ if (! function_exists('dngettext')) {
         return $l10n[$domain]->ngettext($single, $plural, $number);
     }
 }
-?>

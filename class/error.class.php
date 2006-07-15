@@ -281,4 +281,3 @@ function sqm_trigger_error($sErrNo,$aExtra=array()) {
     }
     trigger_error($sErrString, $iPhpErr);
 }
-?>

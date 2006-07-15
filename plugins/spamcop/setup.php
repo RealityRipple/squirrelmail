@@ -64,4 +64,3 @@ function spamcop_while_sending() {
     include_once(SM_PATH . 'plugins/spamcop/functions.php');
     spamcop_while_sending_function();
 }
-?>

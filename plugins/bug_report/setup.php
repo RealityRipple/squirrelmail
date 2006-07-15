@@ -73,5 +73,3 @@ function bug_report_block() {
         $optpage_data['vals']['bug_report'] = $optionValues;
     }
 }
-
-?>

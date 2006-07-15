@@ -59,5 +59,3 @@ function print_response($response) {
         }
     }
 }
-
-?>

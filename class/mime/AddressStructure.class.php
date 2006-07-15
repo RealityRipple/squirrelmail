@@ -98,5 +98,3 @@ class AddressStructure {
         return $this->getAddress(true, true);
     }
 }
-
-?>

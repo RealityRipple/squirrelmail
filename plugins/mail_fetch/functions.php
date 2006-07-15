@@ -395,4 +395,3 @@ function mail_fetch_check_noselect($imap_stream,$imap_folder) {
     }
     return false;
 }
-?>

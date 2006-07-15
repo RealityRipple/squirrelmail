@@ -29,5 +29,3 @@ $color[12]  = '#d0d4de'; //       odd message background
 $color[13]  = '#ffffff'; //
 $color[14]  = '#ffffff'; //
 $color[15]  = '#d0d0d0'; //       Unselectable folders
-
-?>

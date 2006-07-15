@@ -943,4 +943,3 @@ function translate_form_google($message) {
 
     translate_table_end();
 }
-?>

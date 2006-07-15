@@ -30,4 +30,3 @@ $color[12]  = '#202020'; // (dark gray)         Alternate color
 $color[13]  = '#ff7733'; // (orange-ish)        Single-quoted text
 $color[14]  = '#ff3377'; // (pink-ish)          2 or more quotes
 $color[15]  = '#414141'; // (darker gray)       unselectable folders
-?>

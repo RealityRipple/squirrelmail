@@ -34,5 +34,3 @@ function info_opt() {
         'js'   => false
     );
 }
-
-?>

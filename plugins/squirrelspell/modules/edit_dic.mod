@@ -89,5 +89,3 @@ sqspell_makePage(_("Edit your Personal Dictionary"), null, $msg);
  * End:
  * vim: syntax=php
  */
-
-?>

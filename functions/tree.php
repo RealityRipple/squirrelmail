@@ -194,5 +194,3 @@ function simpleWalkTreePre($index, $tree) {
         echo $tree[$index]['value'] . '<br />';
     }
 }
-
-?>
