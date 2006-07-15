@@ -1201,10 +1201,3 @@ $config_use_color = 2;
  */
 @include SM_PATH . 'config/config_local.php';
 
-/**
- * Make sure there are no characters after the PHP closing
- * tag below (including newline characters and whitespace).
- * Otherwise, that character will cause the headers to be
- * sent and regular output to begin, which will majorly screw
- * things up when we try to send more headers later.
- */

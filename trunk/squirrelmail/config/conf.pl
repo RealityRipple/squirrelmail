@@ -4179,13 +4179,6 @@ sub save_data {
 
         print CF "\@include SM_PATH . 'config/config_local.php';\n";
 
-        print CF "\n/**\n";
-        print CF " * Make sure there are no characters after the PHP closing\n";
-        print CF " * tag below (including newline characters and whitespace).\n";
-        print CF " * Otherwise, that character will cause the headers to be\n";
-        print CF " * sent and regular output to begin, which will majorly screw\n";
-        print CF " * things up when we try to send more headers later.\n";
-        print CF " */\n";
         close CF;
 
         print "Data saved in config.php\n";
