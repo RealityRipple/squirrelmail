@@ -83,13 +83,3 @@ function css_link($url, $name = null, $alt = true, $mtype = 'screen', $xhtml_end
 }
 
 
-/**
- * $Log$
- * Revision 1.2  2006/07/15 12:01:19  tokul
- * removing trailing ?> from function scripts
- *
- * Revision 1.1  2006/07/10 15:48:50  vanmer
- * - added new utils_css file to contain CSS-related functions for use in templates
- * - altered stylelink template to use new util_css.php file for all function definitions
- *
-**/
