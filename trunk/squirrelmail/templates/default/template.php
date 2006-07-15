@@ -61,4 +61,3 @@ $provided_js_files = array  (
  */
 $additional_css_sheets = array  (
                                 );
-?>

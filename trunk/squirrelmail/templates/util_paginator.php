@@ -351,4 +351,3 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll,$page_sel
     /* Return our final magical compact paginator string. */
     return ($result);
 }
-?>

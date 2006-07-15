@@ -482,4 +482,3 @@ if ($errors){
  * End:
  * vim: syntax=php et ts=4
  */
-?>

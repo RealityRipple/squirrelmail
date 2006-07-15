@@ -107,4 +107,3 @@ $sq_html_ent_table = array_merge($sq_html_ent_table,
               "\xFE" => '&thorn;',
               "\xFF" => '&yuml;')
                 );
-?>

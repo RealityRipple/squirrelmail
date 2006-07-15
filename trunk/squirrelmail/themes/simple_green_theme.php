@@ -29,5 +29,3 @@ $color[12] = "#EDEDED"; // (light gray) Alternate List Item Color (alternates wi
 $color[13] = "#800000"; // (dark red) > Quoted Message Text
 $color[14] = "#FF0000"; // (rec) >> Multi-Quoted Message Text (2 >'s or more)
 $color[15] = "#002266"; // (dark blue NOTE: not tested) L. Frame: unselectable folders
-
-?>

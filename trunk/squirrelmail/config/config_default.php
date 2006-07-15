@@ -1208,4 +1208,3 @@ $config_use_color = 2;
  * sent and regular output to begin, which will majorly screw
  * things up when we try to send more headers later.
  */
-?>

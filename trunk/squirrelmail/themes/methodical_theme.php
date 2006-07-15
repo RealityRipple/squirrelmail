@@ -31,4 +31,3 @@ $color[10]  = '#999999'; // (light grey)     Darker version of #9
 $color[11]  = '#a7c5f3'; // (light blue)     Special Folders color
 $color[12]  = '#9f9f9f'; //
 $color[13]  = '#dfdfdf'; // (lighter grey)   Unselectable folders
-?>

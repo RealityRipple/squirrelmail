@@ -418,4 +418,3 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
 
                );
 
-?>

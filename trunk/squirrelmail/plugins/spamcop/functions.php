@@ -213,4 +213,3 @@ function spamcop_getMessage_RFC822_Attachment($message, $composeMessage, $passed
     }
     return $composeMessage;
 }
-?>

@@ -26,6 +26,9 @@ extract($t);
 
 /**
  * $Log$
+ * Revision 1.3  2006/07/15 12:01:19  tokul
+ * removing trailing ?> from function scripts
+ *
  * Revision 1.2  2006/07/13 18:49:44  tokul
  * reverting some templating changes. They broke plugin blocks.
  * moving display of option blocks to separate template
@@ -35,4 +38,3 @@ extract($t);
  *
  *
 **/
-?>

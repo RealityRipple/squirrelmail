@@ -13,5 +13,3 @@
  * @package squirrelmail
  * @subpackage config
  */
-
-?>

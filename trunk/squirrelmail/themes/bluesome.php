@@ -33,4 +33,3 @@ $color[12]  = '#9DB5CB';
 $color[13]  = '#800000';
 $color[14]  = '#FF0000';
 $color[15]  = '#CCCCCC';
-?>

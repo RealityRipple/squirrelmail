@@ -273,4 +273,3 @@ $sq_html_ent_table = array_merge($sq_html_ent_table,
               "\xE2\x99\xA6" => '&diams;'
               )
        );
-?>

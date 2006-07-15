@@ -9,5 +9,4 @@
  * @package squirrelmail
  * @subpackage themes
  */
-    $icon_themes[] = array('NAME'=>_("Default"),'PATH'=> SM_PATH.'images/');
-?>
+$icon_themes[] = array('NAME'=>_("Default"),'PATH'=> SM_PATH.'images/');

@@ -2409,5 +2409,3 @@ function SendDownloadHeaders($type0, $type1, $filename, $force, $filesize=0) {
     }
 
 }  // end fn SendDownloadHeaders
-
-?>

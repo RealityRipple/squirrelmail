@@ -63,4 +63,3 @@ function adm_check_user() {
 function adm_array_trim(&$value,$key) {
     $value=trim($value);
 }
-?>

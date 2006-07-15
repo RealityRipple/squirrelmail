@@ -43,4 +43,3 @@ if ($javascript_on && $compact_paginator &&!isset($bScriptAdded)) {
     }
     // display the paginator string.
     echo $sPaginator;
-?>

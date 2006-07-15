@@ -16,4 +16,3 @@
  */
 $mail_fetch_allow_unsubscribed = false;
 
-?>

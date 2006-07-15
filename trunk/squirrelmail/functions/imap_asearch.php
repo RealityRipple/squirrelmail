@@ -486,5 +486,3 @@ function sqimap_asearch($imapConnection, &$mailbox_array, &$biop_array, &$unop_a
     }
     return ($mbox_search);
 }
-
-?>

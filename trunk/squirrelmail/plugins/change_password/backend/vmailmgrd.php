@@ -286,4 +286,3 @@ function cpw_i18n_vmail_response($string) {
     }
     return $ret;
 }
-?>

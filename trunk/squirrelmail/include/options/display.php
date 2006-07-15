@@ -505,5 +505,3 @@ function icon_theme_save($option) {
        setPref($data_dir, $username, 'icon_theme', 'none');
 
 }
-
-?>

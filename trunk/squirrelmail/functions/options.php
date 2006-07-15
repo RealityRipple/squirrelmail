@@ -734,4 +734,3 @@ function OptionSubmit( $name ) {
 }
 
 // vim: et ts=4
-?>

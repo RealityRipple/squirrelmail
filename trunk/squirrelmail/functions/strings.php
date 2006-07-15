@@ -1290,5 +1290,3 @@ function sq_count8bit($string) {
 function sq_trim_value ( &$value ) {
     $value = trim($value);
 }
-
-?>

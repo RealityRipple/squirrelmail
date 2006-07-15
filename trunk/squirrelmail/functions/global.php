@@ -418,5 +418,3 @@ function php_self () {
 
     return '';
 }
-
-

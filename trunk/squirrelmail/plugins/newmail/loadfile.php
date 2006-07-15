@@ -80,4 +80,3 @@ if ($newmail_uploadsounds && $newmail_userfile_type!=false && file_exists($newma
     } // failed to open userfile
 } // userfile is missing or preferences don't store file type.
 // maybe we should send some error code
-?>

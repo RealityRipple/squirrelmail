@@ -552,4 +552,3 @@ $aTimeZones['Universal']['TZ']='Universal';
 $aTimeZones['W-SU']['TZ']='W-SU';
 $aTimeZones['WET']['TZ']='WET';
 $aTimeZones['Zulu']['TZ']='Zulu';
-?>

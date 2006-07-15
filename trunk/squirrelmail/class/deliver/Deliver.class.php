@@ -812,5 +812,3 @@ class Deliver {
         return $ret;
     }
 }
-
-?>

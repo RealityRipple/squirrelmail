@@ -210,5 +210,3 @@ function empty_identity($ident) {
         return false;
     }
 }
-
-?>

@@ -262,5 +262,3 @@ function attachment_common_octet_stream(&$Args) {
         $Args[$a] = $b;
     }
 }
-
-?>

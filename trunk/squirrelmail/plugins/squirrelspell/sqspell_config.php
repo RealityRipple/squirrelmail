@@ -88,5 +88,3 @@ $SQSPELL_WORDS_FILE =
  * @deprecated It is not used since 1.5.1 (sqspell 0.5)
  */
 $SQSPELL_EREG = 'ereg';
-
-?>

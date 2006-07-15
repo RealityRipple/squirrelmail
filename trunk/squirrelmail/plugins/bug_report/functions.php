@@ -80,5 +80,3 @@ function bug_report_check_user() {
 function bug_report_array_trim(&$value,$key) {
     $value=trim($value);
 }
-
-?>

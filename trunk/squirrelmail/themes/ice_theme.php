@@ -27,5 +27,3 @@ $color[9]   = '#d0eaff'; // Darker version of #0
 $color[10]  = '#f0faff'; // Darker version of #9
 $color[11]  = '#770000'; // Special Folders color
 $color[15]  = '#006600'; // Unselectable folders
-
-?>

@@ -31,5 +31,3 @@ function plugin_listcommands_menu() {
     include_once(SM_PATH . 'plugins/listcommands/functions.php');
     plugin_listcommands_menu_do();
 }
-
-?>

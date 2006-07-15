@@ -98,6 +98,7 @@ Version 1.5.2 - CVS
   - Add HTML labels for form elements.
   - Fixed spamcop web based reporting form (#1519673) and removed service
     type options from spamcop plugin.
+  - Removed trailing ?> from function scripts.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

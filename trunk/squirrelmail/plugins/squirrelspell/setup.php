@@ -76,5 +76,3 @@ function squirrelspell_upgrade() {
 function squirrelspell_version() {
   return '0.5';
 }
-
-?>

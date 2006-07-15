@@ -43,4 +43,3 @@ function squirrelmail_administrator_optpage_register_block() {
             );
     }
 }
-?>

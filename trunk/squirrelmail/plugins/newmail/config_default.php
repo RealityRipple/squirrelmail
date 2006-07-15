@@ -46,4 +46,3 @@ $newmail_mediacompat_mode=false;
  */
 global $newmail_mmedia;
 $newmail_mmedia=array();
-?>

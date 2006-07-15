@@ -139,4 +139,3 @@ if (! $old_setup && $old_key) {
  * End:
  * vim: syntax=php
  */
-?>

@@ -101,4 +101,3 @@ if (! function_exists('dgettext')) {
         return $l10n[$domain]->translate($str);
     }
 }
-?>

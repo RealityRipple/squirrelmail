@@ -181,5 +181,3 @@ function update_event($date, $time) {
         fclose ($fp);
     }
 }
-
-?>

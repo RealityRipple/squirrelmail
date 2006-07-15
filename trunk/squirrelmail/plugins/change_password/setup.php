@@ -56,4 +56,3 @@ function change_password_loadinfo() {
 function change_password_version() {
     return '0.2';
 }
-?>

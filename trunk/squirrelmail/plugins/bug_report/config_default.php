@@ -29,4 +29,3 @@ $bug_report_admin_email = '';
  * @global boolean $bug_report_allow_users
  */
 $bug_report_allow_users = false;
-?>

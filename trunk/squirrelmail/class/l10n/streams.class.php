@@ -125,4 +125,3 @@ class FileReader {
         fclose($this->_fd);
     }
 }
-?>

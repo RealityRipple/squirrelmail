@@ -100,4 +100,3 @@ $SpamFilters_SharedCache = true;
  */
 $SpamFilters_CacheTTL = 7200;
 
-?>

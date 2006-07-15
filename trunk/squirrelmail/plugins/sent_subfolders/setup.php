@@ -347,4 +347,3 @@ function sent_subfolders_special_mailbox($mb) {
     }
     return 0;
 }
-?>

@@ -898,4 +898,3 @@ function sqspell_handle_crypt_panic($lang=false) {
  * @deprecated
  */
 $SQSPELL_VERSION="v0.3.8";
-?>

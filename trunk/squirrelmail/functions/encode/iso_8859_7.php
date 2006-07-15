@@ -140,4 +140,3 @@ function unicodetoiso88597($var) {
     }
     return $ret;
 }
-?>

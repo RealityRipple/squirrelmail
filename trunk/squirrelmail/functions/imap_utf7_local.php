@@ -250,5 +250,3 @@ function decodeBASE64($s) {
     }
     return $d;
 }
-
-?>

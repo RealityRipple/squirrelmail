@@ -51,5 +51,3 @@ if (!sqsession_is_registered('random_theme_good_theme')) {
 }
 
 @include_once (SM_PATH . $random_theme_good_theme);
-
-?>

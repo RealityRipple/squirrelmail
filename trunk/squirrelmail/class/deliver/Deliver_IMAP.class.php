@@ -28,5 +28,3 @@ class Deliver_IMAP extends Deliver {
     /* to do: finishing the imap-class so the initStream function can call the
        imap-class */
 }
-
-?>

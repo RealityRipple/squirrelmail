@@ -20,4 +20,3 @@ if (! defined('SM_PATH')) define('SM_PATH','../');
 /** Load all php-gettext classes */
 include_once(SM_PATH . 'class/l10n/streams.class.php');
 include_once(SM_PATH . 'class/l10n/gettext.class.php');
-?>

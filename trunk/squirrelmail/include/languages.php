@@ -1103,4 +1103,3 @@ elseif ($gettext_flags == 0) {
         }
     }
 }
-?>

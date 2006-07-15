@@ -160,5 +160,3 @@ if (isset($warning) && $warning) {
 }
 
 $body = htmlspecialchars($body_top . $body);
-
-?>

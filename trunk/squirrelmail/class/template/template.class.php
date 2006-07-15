@@ -272,5 +272,3 @@ class Template
     return $paths;
   }
 }
-
-?>

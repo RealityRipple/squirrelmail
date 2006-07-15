@@ -55,4 +55,3 @@ sqspell_makePage( _("SquirrelSpell Options Menu"), null, $msg);
  * End:
  * vim: syntax=php
  */
-?>

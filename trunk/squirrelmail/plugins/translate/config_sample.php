@@ -122,4 +122,3 @@ function translate_custom_showtrad() {
 function translate_custom_showoption() {
     translate_showoption_internal('server', 'custom', 'Al Misbar');
 }
-?>

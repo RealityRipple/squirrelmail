@@ -45,5 +45,3 @@ class Disposition {
         return '';
     }
 }
-
-?>

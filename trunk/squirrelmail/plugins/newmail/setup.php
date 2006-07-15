@@ -85,4 +85,3 @@ function newmail_plugin() {
     include_once(SM_PATH . 'plugins/newmail/functions.php');
     newmail_plugin_function();
 }
-?>

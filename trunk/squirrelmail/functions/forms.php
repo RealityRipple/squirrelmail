@@ -299,5 +299,3 @@ function addForm($sAction, $sMethod = 'post', $sName = '', $sEnctype = '', $sCha
     return '<form action="'. $sAction .'" method="'. $sMethod .'"'.
         $sEnctype . $sName . $sCharset . $sAttribs . ">\n";
 }
-
-?>

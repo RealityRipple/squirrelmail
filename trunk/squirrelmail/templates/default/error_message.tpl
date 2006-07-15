@@ -87,4 +87,3 @@ if (isset($aErrors) && is_array($aErrors)) {
 </div>
 <?php
 } // isset($aErrors)
-?>

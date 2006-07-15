@@ -80,4 +80,3 @@ function mail_fetch_folderact($args) {
     include_once (SM_PATH . 'plugins/mail_fetch/functions.php');
     mail_fetch_folderact_function($args);
 }
-?>

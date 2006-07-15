@@ -63,5 +63,3 @@ sqspell_makeWindow($onload, _("SquirrelSpell Initiating"), "init.js", $msg);
  * End:
  * vim: syntax=php
  */
-
-?>

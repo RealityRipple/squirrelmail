@@ -168,5 +168,3 @@ function charset_decode_cp1258 ($string) {
 
     return $string;
 }
-
-?>

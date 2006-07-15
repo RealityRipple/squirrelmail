@@ -543,4 +543,3 @@ function getSig($data_dir, $username, $number) {
 }
 
 // vim: et ts=4
-?>

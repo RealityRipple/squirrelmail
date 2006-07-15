@@ -340,6 +340,3 @@ function folders_unsubscribe($imapConnection, $folder_names)
 
     return;
 }
-
-
-?>

@@ -81,5 +81,3 @@ $aErrors['SQM_IMAP_BYE'] = array(
 );
 
 //$aError['SQM_FS'] // Filesystem related errors
-
-?>

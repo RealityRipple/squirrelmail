@@ -48,4 +48,3 @@ function unicodetousascii($var) {
     }
     return $ret;
 }
-?>

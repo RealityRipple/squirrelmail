@@ -30,4 +30,3 @@ $color[12]  = '#FFFFCC'; // (lightest yellow)  Alternate color for message list
 $color[13]  = '#0000F0'; // (blue)           Color for quoted text -- > 1 quote
 $color[14]  = '#00C060'; // (green)          Color for quoted text -- >> 2 or more
 $color[15]  = '#002266'; // (dark blue)      Unselectable folders
-?>

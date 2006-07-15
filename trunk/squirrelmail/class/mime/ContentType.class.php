@@ -56,5 +56,3 @@ class ContentType {
         $this->properties = array();
     }
 }
-
-?>

@@ -34,4 +34,3 @@ function charset_decode_us_ascii ($string) {
     $string = preg_replace("/([\241-\377])/e","'?'",$string);
     return $string;
 }
-?>

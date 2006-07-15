@@ -56,5 +56,3 @@ sqspell_makePage(_("Add International Dictionaries"), null, $msg);
  * End:
  * vim: syntax=php
  */
-
-?>

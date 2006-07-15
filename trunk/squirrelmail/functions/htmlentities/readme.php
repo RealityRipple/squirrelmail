@@ -321,4 +321,3 @@
  * @package squirrelmail
  * @subpackage strings
  */
-?>

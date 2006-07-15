@@ -64,5 +64,3 @@ function update_for_folder_hook($args) {
     include_once(SM_PATH . 'plugins/filters/filters.php');
     update_for_folder ($args);
 }
-
-?>

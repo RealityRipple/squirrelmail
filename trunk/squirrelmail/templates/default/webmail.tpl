@@ -123,8 +123,10 @@ if($ret != '') {
 echo $output . '</frameset>';
 /**
  * $Log$
+ * Revision 1.2  2006/07/15 12:01:19  tokul
+ * removing trailing ?> from function scripts
+ *
  * Revision 1.1  2006/07/09 21:55:33  vanmer
  * - Initial revision of a template to render the main squirrelmail HTML (current a frameset)
  *
 **/
-?>

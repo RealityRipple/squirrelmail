@@ -258,4 +258,3 @@ if (count($filters)) {
             ) ,
         'center', '', 'width="80%" border="0" cellpadding="2" cellspacing="0"' );
     echo '</body></html>';
-?>

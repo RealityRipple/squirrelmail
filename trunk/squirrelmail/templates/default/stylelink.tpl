@@ -54,6 +54,9 @@ echo $css_link_html;
 
 /**
  * $Log$
+ * Revision 1.4  2006/07/15 12:01:19  tokul
+ * removing trailing ?> from function scripts
+ *
  * Revision 1.3  2006/07/10 15:48:51  vanmer
  * - added new utils_css file to contain CSS-related functions for use in templates
  * - altered stylelink template to use new util_css.php file for all function definitions
@@ -66,4 +69,3 @@ echo $css_link_html;
  *
  *
 **/
-?>

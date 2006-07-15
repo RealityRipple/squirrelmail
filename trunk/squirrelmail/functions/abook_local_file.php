@@ -573,4 +573,3 @@ class abook_local_file extends addressbook_backend {
     }
 
 } /* End of class abook_local_file */
-?>
