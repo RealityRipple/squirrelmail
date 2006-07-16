@@ -42,7 +42,6 @@ $color[14]  = '#xxxxxx';
 $color[15]  = '#xxxxxx';
 $color[16]  = '#xxxxxx';
 
-?>
 ---<END>---
 
 Here is descriptions of what the different entries in the array are colors of.

@@ -88,9 +88,6 @@ When -u flag is used, command copies only missing and newer files.
 When -i flag is used, command asks for confirmation before replacing
 existing files.
 
-(While you are at it, you should send them to us!  We might add them to the
-themes in the standard install!)
-
 
 4.  Change permissions
 ======================
