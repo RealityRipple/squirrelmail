@@ -596,7 +596,7 @@ Version 1.5.1 (branched on 2006-02-12)
   - Add doc/security.txt with some hints for a more secure installation.
   - Added sqauth_read_password() and sqauth_save_password() functions.
   - Unset global GET, POST and COOKIE variables registered in PHP
-    register_globals=on setups.
+    register_globals=on setups. (Also addresses: CVE-2006-2842, CVE-2006-3174)
   - Capabilities array now contains all multivalue information provided
     by the IMAP server. (Such as THREAD=SORT, THREAD=REFERENCES).
   - Inclusion of Compatibility plugin automatic (no patch needed for plugin)
