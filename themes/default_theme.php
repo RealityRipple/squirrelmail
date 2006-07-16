@@ -10,11 +10,6 @@
  * To create a new theme, just copy this file, and edit the colors.
  * Be sure to rename the file and keep the original, just in case.
  *
- * NOTE:
- * You might want to submit the theme you create to our Patches tracker
- * on http://sourceforge.net/projects/squirrelmail
- * for inclusion in further releases of SquirrelMail.
- *
  * @author Luke Ehresman
  * @copyright &copy; 2000-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
