@@ -391,6 +391,7 @@ $abook_global_file_listing = 'true'     if ( !$abook_global_file_listing );
 $encode_header_key = ''                 if ( !$encode_header_key );
 $hide_auth_header = 'false'             if ( !$hide_auth_header );
 $time_zone_type = '0'                   if ( !$time_zone_type );
+$config_location_base = ''              if ( !$config_location_base );
 $prefs_user_size = 128                  if ( !$prefs_user_size );
 $prefs_key_size = 64                    if ( !$prefs_key_size );
 $prefs_val_size = 65536                 if ( !$prefs_val_size );
@@ -596,6 +597,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "13. Allow advanced search       : $WHT$allow_advanced_search$NRM\n";
         print "14. PHP session name            : $WHT$session_name$NRM\n";
         print "15. Time zone configuration     : $WHT$time_zone_type$NRM\n";
+        print "16. Location base               : $WHT$config_location_base$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 5 ) {
@@ -831,6 +833,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 13 ) { $allow_advanced_search    = command316(); }
             elsif ( $command == 14 ) { $session_name             = command317(); }
             elsif ( $command == 15 ) { $time_zone_type           = command318(); }
+            elsif ( $command == 16 ) { $config_location_base     = command319(); }
         } elsif ( $menu == 5 ) {
             if ( $command == 1 ) { $templateset_default = command_templates(); }
             elsif ( $command == 2 ) { $theme_css = command42(); }
@@ -2441,6 +2444,25 @@ sub command318 {
     return $time_zone_type;
 }
 
+# set the location base for redirects (since 1.5.2)
+sub command319 {
+    print "Here you can set the base part of the SquirrelMail URL.\n";
+    print "It is normally autodetected but if that fails, use this\n";
+    print "option to override.\n";
+    print "It should contain only the protocol and hostname/port parts\n";
+    print "of the URL; the full path will be appended automatically.\n\n";
+    print "Examples:\nhttp://webmail.example.org\nhttp://webmail.example.com:8080\nhttps://webmail.example.com:6691\n\n";
+    print "Do not add any path elements.\n";
+
+    print "URL base? [" .$WHT."autodetect$NRM]: $WHT";
+    $new_config_location_base = <STDIN>;
+    chomp($new_config_location_base);
+    $config_location_base = $new_config_location_base;
+    
+    return $config_location_base;
+}
+
+
 
 sub command41 {
     print "\nDefine the themes that you wish to use.  If you have added ";
@@ -3971,9 +3993,9 @@ sub save_data {
         # boolean
         print CF "\$hide_auth_header         = $hide_auth_header;\n";
         # boolean
-        print CF "\$disable_thread_sort     = $disable_thread_sort;\n";
+        print CF "\$disable_thread_sort      = $disable_thread_sort;\n";
         # boolean
-        print CF "\$disable_server_sort     = $disable_server_sort;\n";
+        print CF "\$disable_server_sort      = $disable_server_sort;\n";
         # boolean
         print CF "\$allow_charset_search     = $allow_charset_search;\n";
         # integer
@@ -3981,6 +4003,9 @@ sub save_data {
         print CF "\n";
         # integer
         print CF "\$time_zone_type           = $time_zone_type;\n";
+        print CF "\n";
+        # string
+        print CF "\$config_location_base     = '$config_location_base';\n";
         print CF "\n";
 
         # all plugins are strings

@@ -301,7 +301,9 @@ if ( $squirrelmail_default_language != 'en_US' ) {
     echo $IND . "Default language OK.<br />\n";
 }
 
-echo $IND . "Base URL detected as: <tt>" . htmlspecialchars($test_location) . "</tt><br />\n";
+echo $IND . "Base URL detected as: <tt>" . htmlspecialchars($test_location) .
+    "</tt> (location base " . (empty($config_location_base) ? 'autodetected' : 'set to <tt>' .
+    htmlspecialchars($config_location_base)."</tt>") . ")<br />\n";
 
 /* check minimal requirements for other security options */
 

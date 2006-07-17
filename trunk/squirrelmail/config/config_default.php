@@ -1119,6 +1119,29 @@ $lossy_encoding = false;
  */
 $time_zone_type = 0;
 
+/**
+ * Location base
+ * 
+ * This is used to build the URL to the SquirrelMail location.
+ * It should contain only the protocol and hostname/port parts
+ * of the URL; the full path will be appended automatically.
+ *
+ * If not specified or empty, it will be autodetected.
+ *
+ * Examples:
+ * http://webmail.example.org
+ * http://webmail.example.com:8080
+ * https://webmail.example.com:6691
+ *
+ * To be clear: do not include any of the path elements, so if
+ * SquirrelMail is at http://www.example.net/web/mail/src/login.php, you
+ * write: http://www.example.net
+ *
+ * @global string $config_location_base;
+ * @since 1.5.2
+ */
+$config_location_base = '';
+
 /*** Tweaks ***/
 /**
  * Iframe sandbox code control

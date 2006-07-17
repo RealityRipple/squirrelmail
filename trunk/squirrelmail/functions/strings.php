@@ -460,18 +460,17 @@ function readShortMailboxName($haystack, $needle) {
  *
  * Determines the location to forward to, relative to your server.
  * This is used in HTTP Location: redirects.
- * If this doesnt work correctly for you (although it should), you can
- * remove all this code except the last two lines, and have it return
- * the right URL for your site, something like:
  *
- *   http://www.example.com/squirrelmail/
+ * If set, it uses $config_location_base as the first part of the URL,
+ * specifically, the protocol, hostname and port parts. The path is
+ * always autodetected.
  *
  * @return string the base url for this SquirrelMail installation
  * @since 1.0
  */
 function get_location () {
 
-    global $imap_server_type;
+    global $imap_server_type, $config_location_base;
 
     /* Get the path, handle virtual directories */
     if(strpos(php_self(), '?')) {
@@ -480,9 +479,16 @@ function get_location () {
         $path = php_self();
     }
     $path = substr($path, 0, strrpos($path, '/'));
+
+    // proto+host+port are already set in config:
+    if ( !empty($config_location_base) ) {
+        return $config_location_base . $path ;
+    }
+    // we computed it before, get it from the session:
     if ( sqgetGlobalVar('sq_base_url', $full_url, SQ_SESSION) ) {
       return $full_url . $path;
     }
+    // else: autodetect
 
     /* Check if this is a HTTPS or regular HTTP request. */
     $proto = 'http://';
@@ -518,19 +524,19 @@ function get_location () {
         }
     }
 
-   /* this is a workaround for the weird macosx caching that
-      causes Apache to return 16080 as the port number, which causes
-      SM to bail */
+    /* this is a workaround for the weird macosx caching that
+     * causes Apache to return 16080 as the port number, which causes
+     * SM to bail */
 
-   if ($imap_server_type == 'macosx' && $port == ':16080') {
+    if ($imap_server_type == 'macosx' && $port == ':16080') {
         $port = '';
-   }
+    }
 
-   /* Fallback is to omit the server name and use a relative */
-   /* URI, although this is not RFC 2616 compliant.          */
-   $full_url = ($host ? $proto . $host . $port : '');
-   sqsession_register($full_url, 'sq_base_url');
-   return $full_url . $path;
+    /* Fallback is to omit the server name and use a relative */
+    /* URI, although this is not RFC 2616 compliant.          */
+    $full_url = ($host ? $proto . $host . $port : '');
+    sqsession_register($full_url, 'sq_base_url');
+    return $full_url . $path;
 }
 
 
