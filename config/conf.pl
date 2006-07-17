@@ -391,7 +391,6 @@ $abook_global_file_listing = 'true'     if ( !$abook_global_file_listing );
 $encode_header_key = ''                 if ( !$encode_header_key );
 $hide_auth_header = 'false'             if ( !$hide_auth_header );
 $time_zone_type = '0'                   if ( !$time_zone_type );
-$config_location_base = ''              if ( !$config_location_base );
 $prefs_user_size = 128                  if ( !$prefs_user_size );
 $prefs_key_size = 64                    if ( !$prefs_key_size );
 $prefs_val_size = 65536                 if ( !$prefs_val_size );
@@ -424,6 +423,7 @@ $disable_server_sort = 'false'         if ( !$disable_server_sort );
 
 # since 1.5.2
 $abook_file_line_length = 2048         if ( !$abook_file_line_length );
+$config_location_base = ''             if ( !$config_location_base );
 
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
@@ -833,7 +833,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 13 ) { $allow_advanced_search    = command316(); }
             elsif ( $command == 14 ) { $session_name             = command317(); }
             elsif ( $command == 15 ) { $time_zone_type           = command318(); }
-            elsif ( $command == 16 ) { $config_location_base     = command319(); }
+            elsif ( $command == 16 ) { $config_location_base     = command_config_location_base(); }
         } elsif ( $menu == 5 ) {
             if ( $command == 1 ) { $templateset_default = command_templates(); }
             elsif ( $command == 2 ) { $theme_css = command42(); }
@@ -2445,7 +2445,7 @@ sub command318 {
 }
 
 # set the location base for redirects (since 1.5.2)
-sub command319 {
+sub command_config_location_base {
     print "Here you can set the base part of the SquirrelMail URL.\n";
     print "It is normally autodetected but if that fails, use this\n";
     print "option to override.\n";
