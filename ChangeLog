@@ -100,6 +100,10 @@ Version 1.5.2 - CVS
     type options from spamcop plugin.
   - Removed trailing ?> from function scripts.
   - Added checks for non-existent backend to AddressBook class.
+  - Make the base for the SquirrelMail URL configurable. Adds a new variable
+    config_base_location to config.php and a new option to conf.pl. This is
+    to prevent problems in installs where our heuristic doesn't work
+    correctly (#1521299, #1460675, #1110064, #1000850, #1113791).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
