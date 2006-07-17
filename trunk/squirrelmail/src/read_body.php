@@ -1045,7 +1045,6 @@ for ($i = 0; $i < $cnt; $i++) {
 $mailbox_cache[$iAccount.'_'.$aMailbox['NAME']] = $aMailbox;
 sqsession_register($mailbox_cache,'mailbox_cache');
 $_SESSION['mailbox_cache'] = $mailbox_cache;
-$oTemplate->display('footer.tpl');
 
 displayPageHeader($color, $mailbox,'','');
 formatMenuBar($aMailbox, $passed_id, $passed_ent_id, $message,false);
@@ -1113,5 +1112,5 @@ formatMenuBar($aMailbox, $passed_id, $passed_ent_id, $message, false, FALSE);
 
 do_hook('read_body_bottom');
 sqimap_logout($imapConnection);
-
+$oTemplate->display('footer.tpl');
 ?>
