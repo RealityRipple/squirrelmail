@@ -1287,8 +1287,11 @@ sub command111 {
 # Now offers to detect supported mechs, assuming server & port are set correctly
 
 sub command112a {
-    if ($use_imap_tls =~ /^true\b/i) {
-        print "Auto-detection of login methods is unavailable when using TLS.\n";
+    if ($use_imap_tls ne "0") {
+        # 1. Script does not handle TLS.
+        # 2. Server does not have to declare all supported authentication mechs when 
+        #    STARTTLS is used. Supported mechs are declared only after STARTTLS.
+        print "Auto-detection of login methods is unavailable when using TLS or STARTTLS.\n";
     } else {
         print "If you have already set the hostname and port number, I can try to\n";
         print "detect the mechanisms your IMAP server supports.\n";
@@ -1350,9 +1353,10 @@ sub command112a {
 # SMTP authentication type
 # Possible choices: none, plain, cram-md5, digest-md5
 sub command112b {
-    if ($use_smtp_tls =~ /^true\b/i) {
-        print "Auto-detection of login methods is unavailable when using TLS.\n";
-    } else {
+    if ($use_smtp_tls ne "0") {
+        print "Auto-detection of login methods is unavailable when using TLS or STARTTLS.\n";
+    } elsif (eval ("use IO::Socket; 1")) {
+        # try loading IO::Socket module
         print "If you have already set the hostname and port number, I can try to\n";
         print "automatically detect some of the mechanisms your SMTP server supports.\n";
         print "Auto-detection is *optional* - you can safely say \"n\" here.\n";
@@ -1366,7 +1370,6 @@ sub command112b {
             # Special case!
             # Check none by trying to relay to junk@microsoft.com
             $host = $smtpServerAddress . ':' . $smtpPort;
-            use IO::Socket;
             my $sock = IO::Socket::INET->new($host);
             print "Testing none:\t\t$WHT";
             if (!defined($sock)) {
@@ -4501,13 +4504,16 @@ sub change_to_rel_path() {
     return $new_path;
 }
 
-sub detect_auth_support {
 # Attempts to auto-detect if a specific auth mechanism is supported.
 # Called by 'command112a' and 'command112b'
 # ARGS: service-name (IMAP or SMTP), host:port, mech-name (ie. CRAM-MD5)
-
+sub detect_auth_support {
+    # Try loading IO::Socket
+    unless (eval("use IO::Socket; 1")) {
+        print "Perl IO::Socket module is not available.";
+        return undef;
+    }
     # Misc setup
-    use IO::Socket;
     my $service = shift;
     my $host = shift;
     my $mech = shift;
@@ -4603,15 +4609,15 @@ sub clear_screen() {
 # checks IMAP mailbox name. Refuses to accept 8bit folders
 # returns 0 (folder name is not correct) or 1 (folder name is correct)
 sub check_imap_folder($) {
-    # Unicode support was added in Perl 5.6, use a less useful range in earlier versions
+    # Unicode support was added in Perl 5.6, use simple 8bit range in earlier versions
     if($] >= 5.6) {
+        # Using iso-10646 range, because x80-xFF range does not match unicode chars
         my $reg = '[\x{80}-\x{FFFF}]';
     } else {
         my $reg = '[\x80-\xFF]';
     }
     my $folder_name = shift(@_);
     if ($folder_name =~ /$reg/) {
-        # check for 8bit. Using iso-10646 range, because x80-xFF range does not match unicode chars
         print "Folder name contains 8bit characters. Configuration utility requires\n";
         print "UTF7-IMAP encoded folder names.\n";
         print "Press any key to continue...";

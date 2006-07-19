@@ -104,6 +104,9 @@ Version 1.5.2 - CVS
     config_base_location to config.php and a new option to conf.pl. This is
     to prevent problems in installs where our heuristic doesn't work
     correctly (#1521299, #1460675, #1110064, #1000850, #1113791).
+  - Removed conf.pl dependency on Perl IO::Socket module. Automatic detection
+    of supported authentication mechanisms is disabled, if IO::Socket is not
+    available.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
