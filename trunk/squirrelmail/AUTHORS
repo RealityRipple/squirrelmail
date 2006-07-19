@@ -5,13 +5,11 @@ THE SQUIRRELMAIL TEAM
  ----------------
    Alex Lemaresquier    <alex@brainstorm.fr>
    Chris Hilts          <tassium@squirrelmail.org>     http://www.birdbrained.org
-   Erin Schnabel        <ebullient@squirrelmail.org>   http://ebullient.haaser.com
    Fredrik Jervfors     <sqm_admin@fimbul.net>
    Jonathan Angliss     <jon@squirrelmail.org>
    Jimmy Conner         <jimmy@sqmail.org>             http://sqmail.org
    Marc Groot Koerkamp  <marc@squirrelmail.org>
    Paul Lesneiwski      <pdontthink@angrynerds.com>
-   Philippe Mingo       <philippe@squirrelmail.org>    http://mingo.ath.cx
    Seth E. Randall      <sethr@missoulafcu.org>
    Steve Brown          <sbrown25@gmail.com>
    Thijs Kinkhorst      <kink@squirrelmail.org>        http://thijs.kinkhorst.nl
@@ -20,10 +18,11 @@ THE SQUIRRELMAIL TEAM
 
  Past Developers, now retired:
  -----------------------------
- Brent Bice, Bron Gondwana, Bryan Stalcup, Gerrit Padgham, Gustav Foseid,
- Jason Munro, Konstantin Riabitsev, Lewis Bergman, Luke Ehresman, Matt Phillips
- Nathan Ehresman, Paul Thompson, Peter Hutnick, Pål Løberg, Rick Castello,
- Shane Wilson, Simon Dick, Steve Falla, Steve Gare, Tyler Akins, Wouter Teepe.
+ Brent Bice, Bron Gondwana, Bryan Stalcup, Erin Schnabel, Gerrit Padgham, Gustav
+ Foseid, Jason Munro, Konstantin Riabitsev, Lewis Bergman, Luke Ehresman, Matt
+ Phillips Nathan Ehresman, Paul Thompson, Peter Hutnick, Philippe Mingo, Pål
+ Løberg, Rick Castello, Shane Wilson, Simon Dick, Steve Falla, Steve Gare, Tyler
+ Akins, Wouter Teepe.
  (Thanks people!)
 
 
