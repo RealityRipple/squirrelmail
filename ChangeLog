@@ -107,6 +107,7 @@ Version 1.5.2 - CVS
   - Removed conf.pl dependency on Perl IO::Socket module. Automatic detection
     of supported authentication mechanisms is disabled, if IO::Socket is not
     available.
+  - Removed HTTP Status header from signout page (#1424748).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
