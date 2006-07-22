@@ -40,7 +40,8 @@ do_hook('logout');
 sqsession_destroy();
 
 if ($signout_page) {
-    header('Status: 303 See Other');
+    // Status 303 header is disabled. PHP fastcgi bug. See 1.91 changelog.
+    //header('Status: 303 See Other');
     header("Location: $signout_page");
     exit; /* we send no content if we're redirecting. */
 }
