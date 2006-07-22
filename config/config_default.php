@@ -474,7 +474,7 @@ $noselect_fix_enable = false;
  *
  * @global string $data_dir
  */
-$data_dir = '/var/local/squirrelmail/data';
+$data_dir = '/var/local/squirrelmail/data/';
 
 /**
  * Attachments directory
@@ -493,7 +493,7 @@ $data_dir = '/var/local/squirrelmail/data';
  *    + It should probably be another directory than data_dir.
  * @global string $attachment_dir
  */
-$attachment_dir = '/var/local/squirrelmail/attach';
+$attachment_dir = '/var/local/squirrelmail/attach/';
 
 /**
  * Hash level used for data directory.
