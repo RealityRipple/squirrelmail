@@ -79,7 +79,12 @@ if (!(bool)ini_get('session.use_cookies') ||
 if (isset($_SERVER['SCRIPT_NAME'])) {
     $a = explode('/',$_SERVER['SCRIPT_NAME']);
 } elseif (isset($HTTP_SERVER_VARS['SCRIPT_NAME'])) {
-    $a = explode('/',$_SERVER['SCRIPT_NAME']);
+    $a = explode('/',$HTTP_SERVER_VARS['SCRIPT_NAME']);
+} else {
+    $error = 'Unable to detect script environment. '
+	.'Please test your PHP settings and send PHP core config, $_SERVER '
+	.'and $HTTP_SERVER_VARS to SquirrelMail developers.';
+    die($error);
 }
 $sSM_PATH = '';
 for($i = count($a) -2;$i > -1; --$i) {
