@@ -20,42 +20,45 @@ error_reporting(E_ALL);
 
 /**
  * If register_globals are on, unregister globals.
- * Code requires PHP 4.1.0 or newer.
  * Second test covers boolean set as string (php_value register_globals off).
  */
-if ((bool) @ini_get('register_globals') &&
+if ((bool) ini_get('register_globals') &&
     strtolower(ini_get('register_globals'))!='off') {
     /**
-     * Remove all globals from $_GET, $_POST, and $_COOKIE.
+     * Remove all globals that are not reserved by PHP
+     * 'value' and 'key' are used by foreach. Don't unset them inside foreach.
      */
-    foreach ($_REQUEST as $key => $value) {
-        unset($GLOBALS[$key]);
+    foreach ($GLOBALS as $key => $value) {
+        switch($key) {
+        case 'HTTP_POST_VARS':
+        case '_POST':
+        case 'HTTP_GET_VARS':
+        case '_GET':
+        case 'HTTP_COOKIE_VARS':
+        case '_COOKIE':
+        case 'HTTP_SERVER_VARS':
+        case '_SERVER':
+        case 'HTTP_ENV_VARS':
+        case '_ENV':
+        case 'HTTP_POST_FILES':
+        case '_FILES':
+        case '_REQUEST':
+        case 'HTTP_SESSION_VARS':
+        case '_SESSION':
+        case 'GLOBALS':
+        case 'key':
+        case 'value':
+            break;
+        case 'sInitLocation':
+            // FIXME: variable must be set only in src/login.php
+            break;
+        default:
+            unset($GLOBALS[$key]);
+        }
     }
-    /**
-     * Remove globalized $_FILES variables
-     * Before 4.3.0 $_FILES are included in $_REQUEST.
-     * Unglobalize them in separate call in order to remove dependency
-     * on PHP version.
-     */
-    foreach ($_FILES as $key => $value) {
-        unset($GLOBALS[$key]);
-        // there are three undocumented $_FILES globals.
-        unset($GLOBALS[$key.'_type']);
-        unset($GLOBALS[$key.'_name']);
-        unset($GLOBALS[$key.'_size']);
-    }
-    /**
-     * Remove globalized environment variables.
-     */
-    foreach ($_ENV as $key => $value) {
-        unset($GLOBALS[$key]);
-    }
-    /**
-     * Remove globalized server variables.
-     */
-    foreach ($_SERVER as $key => $value) {
-        unset($GLOBALS[$key]);
-    }
+    // Unset variables used in foreach
+    unset($GLOBALS['key']);
+    unset($GLOBALS['value']);
 }
 
 /**
