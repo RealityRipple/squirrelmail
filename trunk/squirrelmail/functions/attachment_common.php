@@ -12,6 +12,7 @@
  * @todo document attachment $type hook arguments
  */
 
+$attachment_common_show_images_list = array();
 
 /**
  * Mapping of file extensions to mime types
