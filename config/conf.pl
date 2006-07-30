@@ -4607,15 +4607,9 @@ sub clear_screen() {
 # checks IMAP mailbox name. Refuses to accept 8bit folders
 # returns 0 (folder name is not correct) or 1 (folder name is correct)
 sub check_imap_folder($) {
-    # Unicode support was added in Perl 5.6, use simple 8bit range in earlier versions
-    if($] >= 5.6) {
-        # Using iso-10646 range, because x80-xFF range does not match unicode chars
-        my $reg = '[\x{80}-\x{FFFF}]';
-    } else {
-        my $reg = '[\x80-\xFF]';
-    }
     my $folder_name = shift(@_);
-    if ($folder_name =~ /$reg/) {
+
+    if ($folder_name =~ /[\x80-\xFFFF]/) {
         print "Folder name contains 8bit characters. Configuration utility requires\n";
         print "UTF7-IMAP encoded folder names.\n";
         print "Press any key to continue...";
