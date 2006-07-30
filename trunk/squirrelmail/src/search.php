@@ -14,6 +14,7 @@
  * @package squirrelmail
  * @subpackage search
  * @link http://www.ietf.org/rfc/rfc3501.txt
+ * @todo explain why references are used in function calls
  */
 
 /**
@@ -48,6 +49,8 @@ define('ASEARCH_CRITERIA', 'criteria');
 
 /** Builds a href with params
  * @param string $params optional parameters to GET
+ * @since 1.5.1
+ * @private
  */
 function asearch_get_href($params = '')
 {
@@ -58,9 +61,11 @@ function asearch_get_href($params = '')
 }
 
 /** Builds a [link]
- * @param string $href (reference)
- * @param string $text
- * @param string $title
+ * @param string $href (reference) URL
+ * @param string $text link name
+ * @param string $title link title attribute value
+ * @since 1.5.1
+ * @private
  */
 function asearch_get_link(&$href, $text, $title = '')
 {
@@ -74,6 +79,8 @@ function asearch_get_link(&$href, $text, $title = '')
  * @param string $action
  * @param array $text_array
  * @param array $title_array
+ * @since 1.5.1
+ * @private
  */
 function asearch_get_toggle_link($value, $action, $text_array, $title_array = array())
 {
@@ -83,12 +90,16 @@ function asearch_get_toggle_link($value, $action, $text_array, $title_array = ar
 }
 
 /**
+ * Array sort callback used to sort $imap_asearch_options
  * @param string $a
  * @param string $b
  * @return bool strcoll()-like result
+ * @since 1.5.0
+ * @private
  */
 function asearch_unhtml_strcoll($a, $b)
 {
+    // FIXME: Translation policy says "no html entities in translations"
     return strcoll(asearch_unhtmlentities($a), asearch_unhtmlentities($b));
 }
 
@@ -96,6 +107,8 @@ function asearch_unhtml_strcoll($a, $b)
 /**
  * @param string $mailbox mailbox name utf7 encoded inc. special case INBOX
  * @return string mailbox name ready to display (utf7 decoded or localized INBOX)
+ * @since 1.5.0
+ * @private
  */
 function imap_get_mailbox_display($mailbox)
 {
@@ -107,6 +120,8 @@ function imap_get_mailbox_display($mailbox)
 /**
  * @param string $mailbox mailbox name or special case 'All Folders'
  * @return string mailbox name ready to display (utf7 decoded or localized 'All Folders')
+ * @since 1.5.0
+ * @private
  */
 function asearch_get_mailbox_display($mailbox)
 {
@@ -116,11 +131,13 @@ function asearch_get_mailbox_display($mailbox)
 }
 
 /**
- * @param array $color color array
+ * @param array $color color array (unused)
  * @param string $txt text to display
  * @return string title ready to display
+ * @since 1.5.0
+ * @private
  */
-function asearch_get_title_display(&$color, $txt)
+function asearch_get_title_display($color, $txt)
 {
     return '<b><big>' . $txt . '</big></b>';
 }
@@ -128,8 +145,10 @@ function asearch_get_title_display(&$color, $txt)
  * @param array $color color array
  * @param string $txt text to display
  * @return string error text ready to display
+ * @since 1.5.0
+ * @private
  */
-function asearch_get_error_display(&$color, $txt)
+function asearch_get_error_display($color, $txt)
 {
     return '<font color="' . $color[2] . '">' . '<b><big>' . $txt . '</big></b></font>';
 }
@@ -137,6 +156,8 @@ function asearch_get_error_display(&$color, $txt)
 /**
  * @param array $input_array array to serialize
  * @return string a string containing a byte-stream representation of value that can be stored anywhere
+ * @since 1.5.0
+ * @private
  */
 function asearch_serialize(&$input_array)
 {
@@ -149,6 +170,8 @@ function asearch_serialize(&$input_array)
 /**
  * @param string $input_string string to unserialize
  * @return array
+ * @since 1.5.0
+ * @private
  */
 function asearch_unserialize($input_string)
 {
@@ -159,10 +182,15 @@ function asearch_unserialize($input_string)
 }
 
 /**
+ * Gets user's advanced search preferences
+ *
+ * Arguments are different in 1.5.0.
  * @param string $key the pref key
  * @param integer $index the pref key index
  * @param string $default default value
  * @return string pref value
+ * @since 1.5.0
+ * @private
  */
 function asearch_getPref(&$key, $index, $default = '')
 {
@@ -171,10 +199,15 @@ function asearch_getPref(&$key, $index, $default = '')
 }
 
 /**
+ * Sets user's advanced search preferences
+ *
+ * Arguments are different in 1.5.0.
  * @param string $key the pref key
  * @param integer $index the pref key index
  * @param string $value pref value to set
  * @return bool status
+ * @since 1.5.0
+ * @private
  */
 function asearch_setPref(&$key, $index, $value)
 {
@@ -183,9 +216,14 @@ function asearch_setPref(&$key, $index, $value)
 }
 
 /**
+ * Deletes user's advanced search preferences
+ *
+ * Arguments are different in 1.5.0.
  * @param string $key the pref key
  * @param integer $index the pref key index
  * @return bool status
+ * @since 1.5.0
+ * @private
  */
 function asearch_removePref(&$key, $index)
 {
@@ -193,7 +231,14 @@ function asearch_removePref(&$key, $index)
     return removePref($data_dir, $username, $key . ($index + !$search_advanced));
 }
 
-/** Sanity checks, done before running the imap command and before calling push_recent
+/**
+ * Sanity checks, done before running the imap command and before calling push_recent
+ * @param array $where_array search location data
+ * @param array $what_array search criteria data
+ * @param array $exclude_array excluded criteria data
+ * @return string error message or empty string
+ * @since 1.5.0
+ * @private
  */
 function asearch_check_query(&$where_array, &$what_array, &$exclude_array)
 {
@@ -212,7 +257,13 @@ function asearch_check_query(&$where_array, &$what_array, &$exclude_array)
     return '';
 }
 
-/** Read the recent searches from the prefs
+/**
+ * Read the recent searches from the prefs
+ *
+ * Function arguments are different in 1.5.0
+ * @return array recent searches
+ * @since 1.5.0
+ * @private
  */
 function asearch_read_recent()
 {
@@ -238,7 +289,13 @@ function asearch_read_recent()
     return $recent_array;
 }
 
-/** Read the saved searches from the prefs
+/**
+ * Read the saved searches from the prefs
+ *
+ * Function arguments are different in 1.5.0
+ * @return array saved searches
+ * @since 1.5.0
+ * @private
  */
 function asearch_read_saved()
 {
@@ -259,14 +316,24 @@ function asearch_read_saved()
     return $saved_array;
 }
 
-/** Save a recent search to the prefs
+/**
+ * Save a recent search to the prefs
+ *
+ * Function arguments are different in 1.5.0
+ * @param integer $recent_index
+ * @since 1.5.0
+ * @private
  */
 function asearch_save_recent($recent_index)
 {
     global $recent_prefkeys, $saved_prefkeys;
 
     $saved_array = asearch_read_saved();
-    $saved_index = count($saved_array[$saved_prefkeys[0]]);
+    if (isset($saved_array[$saved_prefkeys[0]])) {
+        $saved_index = count($saved_array[$saved_prefkeys[0]]);
+    } else {
+        $saved_index = 0;
+    }
     $recent_array = asearch_read_recent();
     $n = 0;
     foreach ($recent_prefkeys as $key) {
@@ -279,7 +346,13 @@ function asearch_save_recent($recent_index)
     }
 }
 
-/** Write a recent search to prefs
+/**
+ * Write a recent search to prefs
+ *
+ * Function arguments are different in 1.5.0
+ * @param array $recent_array
+ * @since 1.5.0
+ * @private
  */
 function asearch_write_recent(&$recent_array)
 {
@@ -298,7 +371,13 @@ function asearch_write_recent(&$recent_array)
     }
 }
 
-/** Remove a recent search from prefs
+/**
+ * Remove a recent search from prefs
+ *
+ * Function arguments are different in 1.5.0
+ * @param integer $forget_index removed search number
+ * @since 1.5.0
+ * @private
  */
 function asearch_forget_recent($forget_index)
 {
@@ -311,7 +390,19 @@ function asearch_forget_recent($forget_index)
     asearch_write_recent($recent_array);
 }
 
-/** Find a recent search in the prefs (used to avoid saving duplicates)
+/**
+ * Find a recent search in the prefs (used to avoid saving duplicates)
+ * @param array $recent_array
+ * @param array $mailbox_array
+ * @param array $biop_array
+ * @param array $unop_array
+ * @param array $where_array
+ * @param array $what_array
+ * @param array $exclude_array
+ * @param array $sub_array
+ * @return integer
+ * @since 1.5.0
+ * @private
  */
 function asearch_find_recent(&$recent_array, &$mailbox_array, &$biop_array, &$unop_array, &$where_array, &$what_array, &$exclude_array, &$sub_array)
 {
@@ -345,7 +436,18 @@ function asearch_find_recent(&$recent_array, &$mailbox_array, &$biop_array, &$un
     return -1;
 }
 
-/** Push a recent search into the prefs
+/**
+ * Push a recent search into the prefs
+ * @param array $recent_array
+ * @param array $mailbox_array
+ * @param array $biop_array
+ * @param array $unop_array
+ * @param array $where_array
+ * @param array $what_array
+ * @param array $exclude_array
+ * @param array $sub_array
+ * @since 1.5.0
+ * @private
  */
 function asearch_push_recent(&$mailbox_array, &$biop_array, &$unop_array, &$where_array, &$what_array, &$exclude_array, &$sub_array)
 {
@@ -376,8 +478,14 @@ function asearch_push_recent(&$mailbox_array, &$biop_array, &$unop_array, &$wher
     }
 }
 
-/** Edit a recent search
+/**
+ * Edit a recent search
+ *
+ * Function arguments are different in 1.5.0
  * @global array mailbox_array searched mailboxes
+ * @param mixed $index
+ * @since 1.5.0
+ * @private
  */
 function asearch_edit_recent($index)
 {
@@ -396,8 +504,14 @@ function asearch_edit_recent($index)
     }
 }
 
-/** Get last search criteria from session or prefs
- * FIX ME, try to avoid globals
+/**
+ * Get last search criteria from session or prefs
+ *
+ * Function arguments are different in 1.5.0
+ * FIXME, try to avoid globals
+ * @param mixed $index
+ * @since 1.5.0
+ * @private
  */
 function asearch_edit_last($index) {
     if (sqGetGlobalVar(ASEARCH_CRITERIA, $criteria, SQ_SESSION)) {
@@ -420,7 +534,13 @@ function asearch_edit_last($index) {
     }
 }
 
-/** Edit a saved search
+/**
+ * Edit a saved search
+ *
+ * Function arguments are different in 1.5.0
+ * @param mixed $index
+ * @since 1.5.0
+ * @private
  */
 function asearch_edit_saved($index)
 {
@@ -439,7 +559,13 @@ function asearch_edit_saved($index)
     }
 }
 
-/** Write a saved search to the prefs
+/**
+ * Write a saved search to the prefs
+ *
+ * Function arguments are different in 1.5.0
+ * @param array $saved_array
+ * @since 1.5.0
+ * @private
  */
 function asearch_write_saved(&$saved_array)
 {
@@ -456,7 +582,13 @@ function asearch_write_saved(&$saved_array)
     }
 }
 
-/** Delete a saved search from the prefs
+/**
+ * Delete a saved search from the prefs
+ *
+ * Function arguments are different in 1.5.0
+ * @param integer $saved_index
+ * @since 1.5.0
+ * @private
  */
 function asearch_delete_saved($saved_index)
 {
@@ -472,7 +604,10 @@ function asearch_delete_saved($saved_index)
 
 /** Translate the input date to imap date to local date display,
  * so the user can know if the date is wrong or illegal
+ * @param string $what date string
  * @return string locally formatted date or error text
+ * @since 1.5.0
+ * @private
  */
 function asearch_get_date_display(&$what)
 {
@@ -486,8 +621,19 @@ function asearch_get_date_display(&$what)
     return _("(Wrong date)");
 }
 
-/** Translate the query to rough natural display
+/**
+ * Translate the query to rough natural display
+ * @param array $color
+ * @param array $mailbox_array
+ * @param array $biop_array
+ * @param array $unop_array
+ * @param array $where_array
+ * @param array $what_array
+ * @param array $exclude_array
+ * @param array $sub_array
  * @return string rough natural query ready to display
+ * @since 1.5.0
+ * @private
  */
 function asearch_get_query_display(&$color, &$mailbox_array, &$biop_array, &$unop_array, &$where_array, &$what_array, &$exclude_array, &$sub_array)
 {
@@ -572,7 +718,11 @@ function getButton($type, $name, $value, $js = '', $enabled = TRUE) {
 
 
 /** Handle the alternate row colors
+ * @param array $color color theme array
+ * @param integer $row_num
  * @return string color value
+ * @since 1.5.0
+ * @private
  */
 function asearch_get_row_color(&$color, $row_num)
 {
@@ -588,7 +738,18 @@ function asearch_get_row_color(&$color, $row_num)
     return $color_string;
 }
 
-/** Print a whole query array, recent or saved
+/**
+ * Print a whole query array, recent or saved
+ *
+ * Function arguments are different in 1.5.0
+ * @param array $boxes (unused)
+ * @param array $query_array
+ * @param mixed $query_keys
+ * @param array $action_array
+ * @param mixed $title
+ * @param string $show_pref
+ * @since 1.5.0
+ * @private
  */
 function asearch_print_query_array(&$boxes, &$query_array, &$query_keys, &$action_array, $title, $show_pref)
 {
@@ -647,6 +808,11 @@ function asearch_print_query_array(&$boxes, &$query_array, &$query_keys, &$actio
 }
 
 /** Print the saved array
+ *
+ * Function arguments are different in 1.5.0
+ * @param array $boxes (unused, see asearch_print_query_array())
+ * @since 1.5.0
+ * @private
  */
 function asearch_print_saved(&$boxes)
 {
@@ -664,6 +830,11 @@ function asearch_print_saved(&$boxes)
 
 /**
  * Print the recent array
+ *
+ * Function arguments are different in 1.5.0
+ * @param array $boxes (unused, see asearch_print_query_array())
+ * @since 1.5.0
+ * @private
  */
 function asearch_print_recent(&$boxes)
 {
@@ -679,7 +850,14 @@ function asearch_print_recent(&$boxes)
     }
 }
 
-/** Build an <option> statement
+/**
+ * Build an <option> statement
+ * @param string $var option value
+ * @param string $set default option value
+ * @param string $tit displayed option name
+ * @return string formated html option tag
+ * @since 1.5.0
+ * @private
  */
 function asearch_opt($val, $sel, $tit)
 {
@@ -687,6 +865,14 @@ function asearch_opt($val, $sel, $tit)
 }
 
 /** Build a <select> statement from an array
+ * @param string $var_name select option name
+ * @param array $opt_array select option values
+ * @param string $cur_val default value
+ * @return string html formated select tag
+ * @deprecated FIXME use standard form functions or 
+ *  explain why they are not used.
+ * @since 1.5.0
+ * @private
  */
 function asearch_opt_array($var_name, $opt_array, $cur_val)
 {
@@ -698,7 +884,12 @@ function asearch_opt_array($var_name, $opt_array, $cur_val)
 }
 
 /** Verify that a mailbox exists
+ * @param string $mailbox
+ * @param array $boxes
  * @return bool mailbox exists
+ * @deprecated FIXME use standard functions
+ * @since 1.5.0
+ * @private
  */
 function asearch_mailbox_exists($mailbox, &$boxes)
 {
@@ -709,7 +900,14 @@ function asearch_mailbox_exists($mailbox, &$boxes)
     return FALSE;
 }
 
-/** Build the mailbox select
+/**
+ * Build the mailbox select
+ * @param stream $imapConnection
+ * @param array $boxes
+ * @param string $mailbox
+ * @param integer $row_num
+ * @since 1.5.1
+ * @private
  */
 function asearch_get_form_mailbox($imapConnection, &$boxes, $mailbox, $row_num = 0)
 {
@@ -725,7 +923,13 @@ function asearch_get_form_mailbox($imapConnection, &$boxes, $mailbox, $row_num =
         . '</select>';
 }
 
-/** Build the Include subfolders checkbox
+/**
+ * Build the Include subfolders checkbox
+ * @param string $sub
+ * @param integer $row_num
+ * @return string
+ * @since 1.5.1
+ * @private
  */
 function asearch_get_form_sub($sub, $row_num = 0)
 {
@@ -733,6 +937,12 @@ function asearch_get_form_sub($sub, $row_num = 0)
 }
 
 /** Build the 2 unop and where selects
+ * @param string $unop default value
+ * @param string $where default value
+ * @param integer $row_num
+ * @return string
+ * @since 1.5.1
+ * @private
  */
 function asearch_get_form_location($unop, $where, $row_num = 0)
 {
@@ -743,6 +953,11 @@ function asearch_get_form_location($unop, $where, $row_num = 0)
 }
 
 /** Build the what text input
+ * @param string $what
+ * @param integer $row_num
+ * @return string
+ * @since 1.5.1
+ * @private
  */
 function asearch_get_form_what($what, $row_num = 0)
 {
@@ -750,6 +965,11 @@ function asearch_get_form_what($what, $row_num = 0)
 }
 
 /** Build the Exclude criteria checkbox
+ * @param boolean $exclude
+ * @param integer $row_num
+ * @return string
+ * @since 1.5.1
+ * @private
  */
 function asearch_get_form_exclude($exclude, $row_num = 0)
 {
@@ -757,6 +977,18 @@ function asearch_get_form_exclude($exclude, $row_num = 0)
 }
 
 /** Print one advanced form row
+ * @param stream $imapConnection
+ * @param array $boxes
+ * @param string $mailbox
+ * @param mixed $biop
+ * @param string $unop
+ * @param string $where
+ * @param string $what
+ * @param boolean $exclude
+ * @param mixed $sub
+ * @param integer $row_num
+ * @since 1.5.0
+ * @private
  */
 function asearch_print_form_row($imapConnection, &$boxes, $mailbox, $biop, $unop, $where, $what, $exclude, $sub, $row_num)
 {
@@ -788,6 +1020,17 @@ function asearch_print_form_row($imapConnection, &$boxes, $mailbox, $biop, $unop
 }
 
 /** Print the advanced search form
+ * @param stream $imapConnection
+ * @param array $boxes
+ * @param array $mailbox_array
+ * @param array $biop_array
+ * @param array $unop_array
+ * @param array $where_array
+ * @param array $what_array
+ * @param array $exclude_array
+ * @param array $sub_array
+ * @since 1.5.0
+ * @private
  */
 function asearch_print_form($imapConnection, &$boxes, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array)
 {
@@ -826,6 +1069,18 @@ function asearch_print_form($imapConnection, &$boxes, $mailbox_array, $biop_arra
 }
 
 /** Print one basic form row
+ * @param stream $imapConnection
+ * @param array $boxes
+ * @param string $mailbox
+ * @param mixed $biop
+ * @param mixed $unop
+ * @param string $where
+ * @param string $what
+ * @param boolean $exclude
+ * @param mixed $sub
+ * @param integer $row_num
+ * @since 1.5.1
+ * @private
  */
 function asearch_print_form_row_basic($imapConnection, &$boxes, $mailbox, $biop, $unop, $where, $what, $exclude, $sub, $row_num)
 {
@@ -850,6 +1105,17 @@ function asearch_print_form_row_basic($imapConnection, &$boxes, $mailbox, $biop,
 }
 
 /** Print the basic search form
+ * @param stream $imapConnection
+ * @param array $boxes
+ * @param array $mailbox_array
+ * @param array $biop_array
+ * @param array $unop_array
+ * @param array $where_array
+ * @param array $what_array
+ * @param array $exclude_array
+ * @param array $sub_array
+ * @since 1.5.1
+ * @private
  */
 function asearch_print_form_basic($imapConnection, &$boxes, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array)
 {
@@ -880,6 +1146,8 @@ function asearch_print_form_basic($imapConnection, &$boxes, $mailbox_array, $bio
 /**
  * @param array $boxes mailboxes array (reference)
  * @return array selectable unformatted mailboxes names
+ * @since 1.5.0
+ * @private
  */
 function sqimap_asearch_get_selectable_unformatted_mailboxes(&$boxes)
 {
