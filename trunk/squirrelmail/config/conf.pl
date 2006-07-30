@@ -965,8 +965,6 @@ sub command3 {
     print "If your Organization Title includes a '\$', please precede it with a \\. \n";
     print "Other '\$' will be considered the beginning of a variable that\n";
     print "must be defined before the \$org_title is printed.\n";
-    print "\$version, for example can be used, and will print the\n";
-    print "string representing the current SquirrelMail version.\n";
     print "\n";
     print "[$WHT$org_title$NRM]: $WHT";
     $new_org_title = <STDIN>;
