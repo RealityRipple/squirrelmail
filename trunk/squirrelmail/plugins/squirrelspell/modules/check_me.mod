@@ -364,7 +364,7 @@ if ($errors){
          ?>
          <br />
          <textarea name="sqspell_line_area" cols="50" rows="3"
-                   wrap="hard" onfocus="this.blur()"></textarea>
+                   onfocus="this.blur()"></textarea>
         </td>
        </tr>
        <tr valign="middle">

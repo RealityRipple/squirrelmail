@@ -93,7 +93,7 @@ function show_event_form() {
          "      </td></tr>\n".
          html_tag( 'tr',
              html_tag( 'td',
-                 "<textarea name=\"event_text\" rows=\"5\" cols=\"$editor_size\" wrap=\"hard\"></textarea>" ,
+                 "<textarea name=\"event_text\" rows=\"5\" cols=\"$editor_size\"></textarea>" ,
              'left', $color[4], 'colspan="2"' )
          ) ."\n" .
          html_tag( 'tr',
