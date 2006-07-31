@@ -294,8 +294,16 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
 
     if ($useSendmail) {
         require_once(SM_PATH . 'class/deliver/Deliver_SendMail.class.php');
-        global $sendmail_path;
-        $deliver = new Deliver_SendMail();
+        global $sendmail_path, $sendmail_args;
+        // Check for outdated configuration
+        if (!isset($sendmail_args)) {
+            if ($sendmail_path=='/var/qmail/bin/qmail-inject') {
+                $sendmail_args = '';
+            } else {
+                $sendmail_args = '-i -t';
+            }
+        }
+        $deliver = new Deliver_SendMail(array('sendmail_args'=>$sendmail_args));
         $stream = $deliver->initStream($composeMessage,$sendmail_path);
     } else {
         require_once(SM_PATH . 'class/deliver/Deliver_SMTP.class.php');
@@ -771,7 +779,7 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
 
     /* Output the download and/or unsafe images link/-s, if any. */
     if ($download_and_unsafe_link) {
-	echo $download_and_unsafe_link;
+        echo $download_and_unsafe_link;
     }
 
     do_hook("read_body_header_right");
