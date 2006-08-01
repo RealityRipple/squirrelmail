@@ -125,8 +125,13 @@ a:link, a:visited, a:hover, a:active {
     border:1px solid <?php echo $color[0]; ?>;
 }
 
-.sqm_loginOrgName {
+.sqm_loginOrgName, .sqm_signoutBar {
     background: <?php echo $color[0]; ?>;
+}
+
+.sqm_signout {
+    margin-top: 2em;
+    text-align: center;
 }
 
 .sqm_motd {

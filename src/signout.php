@@ -46,46 +46,6 @@ if ($signout_page) {
     exit; /* we send no content if we're redirecting. */
 }
 
-/* internal gettext functions will fail, if language is not set */
-set_up_language($squirrelmail_language, true, true);
-?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-  "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
-<html>
-<head>
-<?php
-    if ($theme_css != '') {
-?>
-   <link rel="stylesheet" type="text/css" href="<?php echo $theme_css; ?>" />
-<?php
-    }
-?>
-   <meta name="robots" content="noindex,nofollow">
-   <title><?php echo $org_title . ' - ' . _("Signout"); ?></title>
-</head>
-<body text="<?php echo $color[8]; ?>" bgcolor="<?php echo $color[4]; ?>"
-link="<?php echo $color[7]; ?>" vlink="<?php echo $color[7]; ?>"
-alink="<?php echo $color[7]; ?>">
-<br /><br />
-<?php
-$plugin_message = concat_hook_function('logout_above_text');
-echo
-html_tag( 'table',
-    html_tag( 'tr',
-         html_tag( 'th', _("Sign Out"), 'center' ) ,
-    '', $color[0] ) .
-    $plugin_message .
-    html_tag( 'tr',
-         html_tag( 'td', _("You have been successfully signed out.") .
-             '<br /><a href="login.php" target="' . $frame_top . '">' .
-             _("Click here to log back in.") . '</a><br />' ,
-         'center' ) ,
-    '', $color[4] ) .
-    html_tag( 'tr',
-         html_tag( 'td', '<br />', 'center' ) ,
-    '', $color[0] ) ,
-'center', $color[4], 'width="50%" cellpadding="2" cellspacing="0" border="0"' );
-
 /* After a reload of signout.php, $oTemplate might not exist anymore.
  * Recover, so that we don't get all kinds of errors in that situation. */
 if ( !isset($oTemplate) || !is_object($oTemplate) ) {
@@ -99,6 +59,15 @@ if ( !isset($oTemplate) || !is_object($oTemplate) ) {
     $oTemplate = new Template($sTplDir);
 }
 
+
+/* internal gettext functions will fail, if language is not set */
+set_up_language($squirrelmail_language, true, true);
+
+displayHtmlHeader($org_title . ' - ' . _("Signout"));
+
+$oTemplate->assign('frame_top', $frame_top);
+
+$oTemplate->display('signout.tpl');
+
 $oTemplate->display('footer.tpl');
 
-?>
