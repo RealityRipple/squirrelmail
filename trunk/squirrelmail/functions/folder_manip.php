@@ -78,12 +78,13 @@ function folders_create ($imapConnection, $delimiter, $folder_name, $subfolder, 
  * folder should be renamed to.
  */
 function folders_rename_getname ($imapConnection, $delimiter, $old) {
-    global $color,$default_folder_prefix;
+    global $color, $default_folder_prefix, $oTemplate;
 
     if ( $old == '' ) {
         plain_error_message(_("You have not selected a folder to rename. Please do so.").
             '<br /><a href="../src/folders.php">'._("Click here to go back").'</a>.', $color);
         sqimap_logout($imapConnection);
+        $oTemplate->display('footer.tpl');
         exit;
     }
 
@@ -111,30 +112,19 @@ function folders_rename_getname ($imapConnection, $delimiter, $old) {
         $old_name = $old;
         $old_parent = '';
     }
-
-    echo '<br />' .
-    html_tag( 'table', '', 'center', '', 'width="95%" border="0"' ) .
-        html_tag( 'tr',
-            html_tag( 'td', '<b>' . _("Rename a folder") . '</b>', 'center', $color[0] )
-        ) .
-        html_tag( 'tr' ) .
-            html_tag( 'td', '', 'center', $color[4] ) .
-            addForm('folders.php').
-            addHidden('smaction', 'rename').
-             '<label for="new_name">' . _("New name:") . '</label>' .
-             '<br /><b>' . htmlspecialchars($old_parent) . '</b>' .
-             addInput('new_name', $old_name, 25) . '<br /><br />' . "\n";
-             if ( $isfolder ) {
-                 echo addHidden('isfolder', 'true');
-             }
-             echo addHidden('orig', $old).
-             addHidden('old_name', $old_name).
-             '<input type="submit" value="'._("Rename")."\" />\n".
-             '<input type="submit" name="cancelbutton" value="'._("Cancel")."\" />\n".
-             '</form><br /></td></tr></table>';
-    echo "\n</td></tr></table>\n</td></tr></table>\n\n</body></html>";
-
+    
     sqimap_logout($imapConnection);
+
+    $oTemplate->assign('dialog_type', 'rename');
+    $oTemplate->assign('color', $color);
+    $oTemplate->assign('old_parent', htmlspecialchars($old_parent));
+    $oTemplate->assign('old', htmlspecialchars($old));
+    $oTemplate->assign('old_name', htmlspecialchars($old_name));
+    $oTemplate->assign('isfolder', $isfolder);
+    
+    $oTemplate->display('folder_manip_dialog.tpl');
+    $oTemplate->display('footer.tpl');
+
     exit;
 }
 
@@ -182,11 +172,13 @@ function folders_rename_do($imapConnection, $delimiter, $orig, $old_name, $new_n
  */
 function folders_delete_ask ($imapConnection, $folder_name)
 {
-    global $color,$default_folder_prefix;
+    global $color, $default_folder_prefix, $oTemplate;
 
     if ($folder_name == '') {
         plain_error_message(_("You have not selected a folder to delete. Please do so.").
             '<br /><a href="../src/folders.php">'._("Click here to go back").'</a>.', $color);
+        sqimap_logout($imapConnection);
+        $oTemplate->display('footer.tpl');
         exit;
     }
 
@@ -196,25 +188,16 @@ function folders_delete_ask ($imapConnection, $folder_name)
     $prefix_length = (preg_match("/^$quoted_prefix/",$visible_folder_name) ? strlen($default_folder_prefix) : 0);
     $visible_folder_name = substr($visible_folder_name,$prefix_length);
 
-    echo '<br />' .
-        html_tag( 'table', '', 'center', '', 'width="95%" border="0"' ) .
-        html_tag( 'tr',
-            html_tag( 'td', '<b>' . _("Delete Folder") . '</b>', 'center', $color[0] )
-        ) .
-        html_tag( 'tr' ) .
-        html_tag( 'td', '', 'center', $color[4] ) .
-        sprintf(_("Are you sure you want to delete %s?"),
-            str_replace(array(' ','<','>'),array('&nbsp;','&lt;','&gt;'),$visible_folder_name)).
-        addForm('folders.php', 'post')."<p>\n".
-        addHidden('smaction', 'delete').
-        addHidden('folder_name', $folder_name).
-        addSubmit(_("Yes"), 'confirmed').
-        addSubmit(_("No"), 'cancelbutton').
-        '</p></form><br /></td></tr></table>';
-
-    echo "\n</td></tr></table>\n</td></tr></table>\n\n</body></html>";
-
     sqimap_logout($imapConnection);
+
+    $oTemplate->assign('dialog_type', 'delete');
+    $oTemplate->assign('color', $color);
+    $oTemplate->assign('folder_name', htmlspecialchars($folder_name));
+    $oTemplate->assign('visible_folder_name', htmlspecialchars($visible_folder_name));
+    
+    $oTemplate->display('folder_manip_dialog.tpl');
+    $oTemplate->display('footer.tpl');
+
     exit;
 }
 
@@ -290,12 +273,13 @@ function folders_delete_do ($imapConnection, $delimiter, $folder_name)
  */
 function folders_subscribe($imapConnection, $folder_names)
 {
-    global $color;
+    global $color, $oTemplate;
 
     if (count($folder_names) == 0 || $folder_names[0] == '') {
         plain_error_message(_("You have not selected a folder to subscribe. Please do so.").
             '<br /><a href="../src/folders.php">'._("Click here to go back").'</a>.', $color);
         sqimap_logout($imapConnection);
+        $oTemplate->display('footer.tpl');
         exit;
     }
 
@@ -325,12 +309,13 @@ function folders_subscribe($imapConnection, $folder_names)
  */
 function folders_unsubscribe($imapConnection, $folder_names)
 {
-    global $color;
+    global $color, $oTemplate;
 
     if (count($folder_names) == 0 || $folder_names[0] == '') {
         plain_error_message(_("You have not selected a folder to unsubscribe. Please do so.").
             '<br /><a href="../src/folders.php">'._("Click here to go back").'</a>.', $color);
         sqimap_logout($imapConnection);
+        $oTemplate->display('footer.tpl');
         exit;
     }
 
