@@ -57,12 +57,6 @@ if (isset($aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT']) &&
    $aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT'] = $message;
 }
 
-//$mbx_response =  sqimap_mailbox_select($imapConnection, $mailbox);
-
-//$message = &$messages[$mbx_response['UIDVALIDITY']]["$passed_id"];
-//if (!is_object($message)) {
-//    $message = sqimap_get_message($imapConnection,$passed_id, $mailbox);
-//}
 $subject = $message->rfc822_header->subject;
 if ($ent_id) {
     // replace message with message part, if message part is requested.
@@ -169,4 +163,3 @@ if (isset($absolute_dl) && $absolute_dl) {
  * attachment in case of ERROR reporting = E_ALL and the output is the screen */
 mime_print_body_lines ($imapConnection, $passed_id, $ent_id, $encoding);
 
-?>
