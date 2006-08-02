@@ -4203,8 +4203,6 @@ sub save_data {
         print CF "\$allow_remote_configtest = $allow_remote_configtest;\n";
         print CF "\n";
 
-        print CF "\@include SM_PATH . 'config/config_local.php';\n";
-
         close CF;
 
         print "Data saved in config.php\n";

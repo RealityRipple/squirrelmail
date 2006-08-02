@@ -189,7 +189,7 @@ $sendmail_path = '/usr/sbin/sendmail';
  * which does not support -t and -i arguments, set variable to empty string
  * or use arguments suitable for your mailer.
  * @global string $sendmail_args
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.8
  */
 $sendmail_args = '-i -t';
 
@@ -1218,9 +1218,3 @@ $no_list_for_subscribe = false;
  * @global integer $config_use_color
  */
 $config_use_color = 2;
-
-/**
- * This option includes special configuration options
- */
-@include SM_PATH . 'config/config_local.php';
-

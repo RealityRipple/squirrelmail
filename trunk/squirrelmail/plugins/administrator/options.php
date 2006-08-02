@@ -636,8 +636,6 @@ if ( $fp = @fopen( $cfgfile, 'w' ) ) {
             fwrite( $fp, "$k = $v;\n" );
         }
     }
-    // add local config support
-    fwrite( $fp, "@include SM_PATH . 'config/config_local.php';\n" );
     // close php
     fwrite( $fp, '?>' );
     fclose( $fp );
