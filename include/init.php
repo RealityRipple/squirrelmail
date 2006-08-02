@@ -134,7 +134,26 @@ $color[15] = '#002266';  /* (dark blue)   Unselectable folders */
 $color[16] = '#ff9933';  /* (orange)      Highlight color */
 
 require(SM_PATH . 'functions/global.php');
+
+/* load default configuration */
+require(SM_PATH . 'config/config_default.php');
+/* reset arrays in default configuration */
+$ldap_server = array();
+$plugins = array();
+$fontsets = array();
+$theme = array();
+$theme[0]['PATH'] = SM_PATH . 'themes/default_theme.php';
+$theme[0]['NAME'] = 'Default';
+$aTemplateSet = array();
+$aTemplateSet[0]['PATH'] = SM_PATH . 'templates/default/';
+$aTemplateSet[0]['NAME'] = 'Default template';
+/* load site configuration */
 require(SM_PATH . 'config/config.php');
+/* load local configuration overrides */
+if (file_exists(SM_PATH . 'config/config_local.php')) {
+    require(SM_PATH . 'config/config_local.php');
+}
+
 require(SM_PATH . 'functions/plugin.php');
 require(SM_PATH . 'include/constants.php');
 require(SM_PATH . 'include/languages.php');
