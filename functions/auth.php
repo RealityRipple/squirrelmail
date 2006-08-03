@@ -33,11 +33,10 @@ function sqauth_is_logged_in() {
     if ( sqsession_is_registered('user_is_logged_in') ) {
         return true;
     } else {
-        global $PHP_SELF, $session_expired_post, $session_expired_location;
-
         //  First we store some information in the new session to prevent
         //  information-loss.
-        //
+        sqGetGlobalVar('PHP_SELF', $PHP_SELF, SQ_SERVER);
+
         $session_expired_post = $_POST;
         $session_expired_location = $PHP_SELF;
         if (!sqsession_is_registered('session_expired_post')) {
@@ -46,6 +45,7 @@ function sqauth_is_logged_in() {
         if (!sqsession_is_registered('session_expired_location')) {
             sqsession_register($session_expired_location,'session_expired_location');
         }
+        session_write_close();
 
         return false;
      }
