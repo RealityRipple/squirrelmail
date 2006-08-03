@@ -30,9 +30,7 @@ require_once(SM_PATH . 'functions/mailbox_display.php');
 
 
 /* lets get the global vars we may need */
-sqgetGlobalVar('key',       $key,           SQ_COOKIE);
 sqgetGlobalVar('username',  $username,      SQ_SESSION);
-sqgetGlobalVar('onetimepad',$onetimepad,    SQ_SESSION);
 sqgetGlobalVar('delimiter', $delimiter,     SQ_SESSION);
 sqgetGlobalVar('base_uri',  $base_uri,      SQ_SESSION);
 sqgetGlobalVar('delayed_errors',  $delayed_errors,  SQ_SESSION);
@@ -77,7 +75,7 @@ if ( sqgetGlobalVar('account', $account, SQ_GET) ) {
 
 /* Open an imap connection */
 
-$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+$imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
 
 $mailbox = (isset($mailbox) && $mailbox) ? $mailbox : 'INBOX';
 
