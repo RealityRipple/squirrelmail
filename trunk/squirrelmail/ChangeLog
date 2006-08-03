@@ -111,6 +111,10 @@ Version 1.5.2 - CVS
   - config_default.php is loaded before site configuration file.
     config_local.php overrides are removed from config.php and loaded by
     main initiation script.
+  - Fixed resuming of compose when session expired while writing, and make
+    sure the code only sets those variables that are needed in compose and
+    are not already set. Thanks James Bercegay from GulfTech for pointing
+    this out.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

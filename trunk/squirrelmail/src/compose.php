@@ -295,13 +295,18 @@ if (sqsession_is_registered('session_expired_post')) {
         sqsession_unregister('session_expired_post');
         session_write_close();
     } else {
-        foreach ($session_expired_post as $postvar => $val) {
-            if (isset($val)) {
-                $$postvar = $val;
-            } else {
-                $$postvar = '';
-            }
+        // these are the vars that we can set from the expired composed session   
+        $compo_var_list = array ( 'send_to', 'send_to_cc','body','startMessage',
+            'passed_body','use_signature','signature','attachments','subject','newmail',
+            'send_to_bcc', 'passed_id', 'mailbox', 'from_htmladdr_search', 'identity',
+            'draft_id', 'delete_draft', 'mailprio', 'edit_as_new', 'compose_messsages',
+            'composesession', 'request_mdn', 'request_dr');
+
+        foreach ($compo_var_list as $var) {
+            if ( isset($session_expired_post[$var]) && !isset($$var) ) {
+               $$var = $session_expired_post[$var];
         }
+
         $compose_messages = unserialize(urldecode($restoremessages));
         sqsession_register($compose_messages,'compose_messages');
         sqsession_register($composesession,'composesession');
@@ -681,7 +686,7 @@ function getforwardSubject($subject)
 function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $session='') {
     global $editor_size, $default_use_priority, $body, $idents,
         $use_signature, $data_dir, $username,
-        $username, $key, $imapServerAddress, $imapPort, $compose_messages,
+        $key, $imapServerAddress, $imapPort, $compose_messages,
         $composeMessage, $body_quote;
     global $languages, $squirrelmail_language, $default_charset;
 
@@ -1035,7 +1040,7 @@ function showInputForm ($session, $values=false) {
         $from_htmladdr_search, $location_of_buttons, $attachment_dir,
         $username, $data_dir, $identity, $idents, $delete_draft,
         $mailprio, $compose_new_win, $saved_draft, $mail_sent, $sig_first,
-        $username, $compose_messages, $composesession, $default_charset,
+        $compose_messages, $composesession, $default_charset,
         $compose_onsubmit, $oTemplate;
 
     if (checkForJavascript()) {
@@ -1424,7 +1429,7 @@ function checkInput ($show) {
      * using $show=false, and then when i'm ready to display the error
      * message, show=true
      */
-    global $body, $send_to, $send_to_bcc, $subject, $color;
+    global $send_to, $send_to_bcc;
 
     if ($send_to == '' && $send_to_bcc == '') {
         if ($show) {

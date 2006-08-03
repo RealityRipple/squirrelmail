@@ -36,9 +36,6 @@ if (!sqgetGlobalVar('mailbox', $mailbox)) {
 
 sqgetGlobalVar('right_frame', $right_frame, SQ_GET);
 
-if ( isset($_SESSION['session_expired_post']) ) {
-    sqsession_unregister('session_expired_post');
-}
 if(!sqgetGlobalVar('mailto', $mailto)) {
     $mailto = '';
 }
