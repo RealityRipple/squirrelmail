@@ -220,18 +220,10 @@ function folders_delete_do ($imapConnection, $delimiter, $folder_name)
 
     /** lets see if we CAN move folders to the trash.. otherwise,
         ** just delete them **/
-
-    /* Courier IMAP doesn't like subfolders of Trash
-     * If global options say we can't move it into Trash
-     * If it's already a subfolder of trash, we'll have to delete it */
-    if (strtolower($imap_server_type) == 'courier' ||
-       (isset($delete_folder) && $delete_folder) ||
-        eregi('^'.$trash_folder.'.+', $folder_name) )
-    {
+    if ($delete_folder || eregi('^'.$trash_folder.'.+', $folder_name) ) {
         $can_move_to_trash = FALSE;
-    }
+    } else {
     /* Otherwise, check if trash folder exits and support sub-folders */
-    else {
         foreach($boxes as $box) {
             if ($box['unformatted'] == $trash_folder) {
                 $can_move_to_trash = !in_array('noinferiors', $box['flags']);

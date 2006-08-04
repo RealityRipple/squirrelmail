@@ -115,6 +115,13 @@ Version 1.5.2 - CVS
     sure the code only sets those variables that are needed in compose and
     are not already set. Thanks James Bercegay from GulfTech for pointing
     this out.
+  - Subfolders of system folders are not tagged as special in folder 
+    management page in order to allow rename and delete operations with
+    subfolders (#1460011).
+  - Trash subfolders are allowed in courier. INBOX.Trash is not treated 
+    as special on Courier, unless some SquirrelMail configuration options
+    mark this folder as special (#1354393). Configtest utility should 
+    display warning, if Courier IMAP XMAGICTRASH extension is detected.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

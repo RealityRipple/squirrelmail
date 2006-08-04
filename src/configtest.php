@@ -504,6 +504,18 @@ if($imap_auth_mech == 'login' && stristr($capline, 'LOGINDISABLED') !== FALSE) {
             'in the SquirrelMail configuration.', FALSE);
 }
 
+if (stristr($capline, 'XMAGICTRASH') !== false) {
+    $magic_trash = 'It looks like IMAP_MOVE_EXPUNGE_TO_TRASH option is turned on '
+        .'in your Courier IMAP configuration. Courier does not provide tools that '
+        .'allow to detect folder used for Trash or commands are not documented. '
+        .'SquirrelMail can\'t detect special trash folder. SquirrelMail manages '
+        .'all message deletion or move operations internally and '
+        .'IMAP_MOVE_EXPUNGE_TO_TRASH option can cause errors in message and '
+        .'folder management operations. Please turn off IMAP_MOVE_EXPUNGE_TO_TRASH '
+        .'option in Courier imapd configuration.';
+    do_err($magic_trash,false);
+}
+
 /** OK, close connection */
 fputs($stream, "A004 LOGOUT\r\n");
 fclose($stream);

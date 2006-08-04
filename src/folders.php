@@ -104,15 +104,6 @@ $server_type = strtolower($imap_server_type);
 
 // Special handling for courier
 if ( $server_type == 'courier' ) {
-    /**
-     * If we use courier, we should hide system trash folder
-     * FIXME: (tokul) Who says that courier does not allow storing folders in
-     * INBOX.Trash or inbox.trash? Can't reproduce it 3.0.8. This entry is
-     * useless, because in_array() check is case sensitive and INBOX is in
-     * upper case.
-     */
-    array_push($skip_folders, 'inbox.trash');
-
     if ( $default_folder_prefix == 'INBOX.' ) {
         // We don't need INBOX, since it is top folder
         array_push($skip_folders, 'INBOX');
@@ -140,7 +131,7 @@ $mbx_option_list .= sqimap_mailbox_option_list($imapConnection, $show_selected, 
 
 /** count special folders **/
 foreach ($boxes as $index => $aBoxData) {
-    if (isSpecialMailbox($aBoxData['unformatted']) &&
+    if (isSpecialMailbox($aBoxData['unformatted'],false) &&
         ! in_array($aBoxData['unformatted'],$skip_folders)) {
         $skip_folders[] = $aBoxData['unformatted'];
     }
