@@ -220,12 +220,17 @@ function isBoxBelow( $subbox, $parentbox ) {
  * Since 1.2.5 function includes special_mailbox hook.<br>
  * Since 1.4.3 hook supports more than one plugin.
  * @param string $box mailbox name
+ * @param boolean $include_subs (since 1.5.2) if true, subfolders of system 
+ *  folders are special. if false, subfolders are not special mailboxes 
+ *  unless they are tagged as special in 'special_mailbox' hook.
  * @return boolean
  * @since 1.2.3
  */
-function isSpecialMailbox( $box ) {
+function isSpecialMailbox($box,$include_subs=true) {
     $ret = ( (strtolower($box) == 'inbox') ||
-             isTrashMailbox($box) || isSentMailbox($box) || isDraftMailbox($box) );
+             isTrashMailbox($box,$include_subs) || 
+             isSentMailbox($box,$include_subs) || 
+             isDraftMailbox($box,$include_subs) );
 
     if ( !$ret ) {
         $ret = boolean_hook_function('special_mailbox',$box,1);
@@ -236,37 +241,46 @@ function isSpecialMailbox( $box ) {
 /**
  * Detects if mailbox is a Trash folder or subfolder of Trash
  * @param string $box mailbox name
+ * @param boolean $include_subs (since 1.5.2) if true, subfolders of system 
+ *  folders are special. if false, subfolders are not special mailboxes.
  * @return bool whether this is a Trash folder
  * @since 1.4.0
  */
-function isTrashMailbox ($box) {
+function isTrashMailbox ($box,$include_subs=true) {
     global $trash_folder, $move_to_trash;
     return $move_to_trash && $trash_folder &&
-           ( $box == $trash_folder || isBoxBelow($box, $trash_folder) );
+           ( $box == $trash_folder || 
+             ($include_subs && isBoxBelow($box, $trash_folder)) );
 }
 
 /**
  * Detects if mailbox is a Sent folder or subfolder of Sent
  * @param string $box mailbox name
+ * @param boolean $include_subs (since 1.5.2) if true, subfolders of system 
+ *  folders are special. if false, subfolders are not special mailboxes.
  * @return bool whether this is a Sent folder
  * @since 1.4.0
  */
-function isSentMailbox($box) {
+function isSentMailbox($box,$include_subs=true) {
    global $sent_folder, $move_to_sent;
    return $move_to_sent && $sent_folder &&
-          ( $box == $sent_folder || isBoxBelow($box, $sent_folder) );
+          ( $box == $sent_folder || 
+            ($include_subs && isBoxBelow($box, $sent_folder)) );
 }
 
 /**
  * Detects if mailbox is a Drafts folder or subfolder of Drafts
  * @param string $box mailbox name
+ * @param boolean $include_subs (since 1.5.2) if true, subfolders of system 
+ *  folders are special. if false, subfolders are not special mailboxes.
  * @return bool whether this is a Draft folder
  * @since 1.4.0
  */
-function isDraftMailbox($box) {
+function isDraftMailbox($box,$include_subs=true) {
    global $draft_folder, $save_as_draft;
    return $save_as_draft &&
-          ( $box == $draft_folder || isBoxBelow($box, $draft_folder) );
+          ( $box == $draft_folder || 
+            ($include_subs && isBoxBelow($box, $draft_folder)) );
 }
 
 /**
