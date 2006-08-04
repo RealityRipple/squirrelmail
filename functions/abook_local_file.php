@@ -571,5 +571,4 @@ class abook_local_file extends addressbook_backend {
         }
         return $value;
     }
-
-} /* End of class abook_local_file */
+}
