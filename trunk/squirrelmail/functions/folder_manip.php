@@ -43,9 +43,9 @@ function folders_checkname($imapConnection, $folder_name, $delimiter)
  * Called from folders.php to create a new folder.
  * @param stream $imapConnection imap connection resource
  * @param string $delimiter delimiter
- * @param string $folder_name create folder name
+ * @param string $folder_name new folder name
  * @param string $subfolder folder that stores new folder
- * @param boolean $contain_subs
+ * @param string $contain_subs if not empty, creates folder that can store subfolders
  * @since 1.5.1
  */
 function folders_create ($imapConnection, $delimiter, $folder_name, $subfolder, $contain_subs)
