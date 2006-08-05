@@ -305,6 +305,7 @@ if (sqsession_is_registered('session_expired_post')) {
         foreach ($compo_var_list as $var) {
             if ( isset($session_expired_post[$var]) && !isset($$var) ) {
                $$var = $session_expired_post[$var];
+            }
         }
 
         $compose_messages = unserialize(urldecode($restoremessages));
