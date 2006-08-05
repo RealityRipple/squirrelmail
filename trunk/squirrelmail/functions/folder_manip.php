@@ -41,6 +41,12 @@ function folders_checkname($imapConnection, $folder_name, $delimiter)
 
 /**
  * Called from folders.php to create a new folder.
+ * @param stream $imapConnection imap connection resource
+ * @param string $delimiter delimiter
+ * @param string $folder_name create folder name
+ * @param string $subfolder folder that stores new folder
+ * @param boolean $contain_subs
+ * @since 1.5.1
  */
 function folders_create ($imapConnection, $delimiter, $folder_name, $subfolder, $contain_subs)
 {
@@ -51,7 +57,9 @@ function folders_create ($imapConnection, $delimiter, $folder_name, $subfolder, 
     $folder_name = imap_utf7_encode_local($folder_name);
 
     if ( ! empty($contain_subs) ) {
-        $folder_name = $folder_name . $delimiter;
+        $folder_type = 'noselect';
+    } else {
+        $folder_type = '';
     }
 
     if ($folder_prefix && (substr($folder_prefix, -1) != $delimiter)) {
@@ -65,9 +73,9 @@ function folders_create ($imapConnection, $delimiter, $folder_name, $subfolder, 
     }
 
     if (trim($subfolder_orig) == '') {
-        sqimap_mailbox_create ($imapConnection, $folder_prefix.$folder_name, '');
+        sqimap_mailbox_create ($imapConnection, $folder_prefix.$folder_name, $folder_type);
     } else {
-        sqimap_mailbox_create ($imapConnection, $subfolder.$delimiter.$folder_name, '');
+        sqimap_mailbox_create ($imapConnection, $subfolder.$delimiter.$folder_name, $folder_type);
     }
 
     return;
