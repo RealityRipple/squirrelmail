@@ -119,9 +119,11 @@ Version 1.5.2 - CVS
     management page in order to allow rename and delete operations with
     subfolders (#1460011).
   - Trash subfolders are allowed in courier. INBOX.Trash is not treated 
-    as special on Courier, unless some SquirrelMail configuration options
-    mark this folder as special (#1354393). Configtest utility should 
+    as special on Courier, unless some SquirrelMail configuration option
+    marks this folder as special (#1354393). Configtest utility should 
     display warning, if Courier IMAP XMAGICTRASH extension is detected.
+  - Show purge link for Trash folder without any messages, if folder has
+    subfolders (#1413569).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
