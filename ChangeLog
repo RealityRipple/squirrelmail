@@ -124,6 +124,8 @@ Version 1.5.2 - CVS
     display warning, if Courier IMAP XMAGICTRASH extension is detected.
   - Show purge link for Trash folder without any messages, if folder has
     subfolders (#1413569).
+  - Custom SMTP AUTH configuration variables are moved from config_local.php
+    to main configuration file.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
