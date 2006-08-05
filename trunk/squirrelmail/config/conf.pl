@@ -1447,10 +1447,7 @@ sub command_smtp_sitewide_userpass($) {
     my $auth_mech = shift(@_);
     my $default, $tmp;
     $auth_mech = lc(trim($auth_mech));
-    if ($auth_mech ne 'cram-md5' &&
-        $auth_mech ne 'digest-md5' &&
-        $auth_mech ne 'login' &&
-        $auth_mech ne 'plain') {
+    if ($auth_mech eq 'none') {
         return;
     }
     print "SMTP authentication uses IMAP username and password by default.\n";
