@@ -20,9 +20,6 @@ require('../../include/init.php');
 include_once(SM_PATH . 'functions/imap_general.php');
 
 /* globals */
-sqgetGlobalVar('username',   $username,   SQ_SESSION);
-sqgetGlobalVar('key',        $key,        SQ_COOKIE);
-sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
 
 if(!sqgetGlobalVar('mf_cypher', $mf_cypher, SQ_POST)) {
@@ -212,7 +209,7 @@ switch( $mf_action ) {
          html_tag( 'tr' ) .
              html_tag( 'th', _("Store in Folder:"), 'right' ) .
              html_tag( 'td', '', 'left' );
-     $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
+     $imapConnection = sqimap_login ($username, false, $imapServerAddress, $imapPort, 0);
      $boxes = sqimap_mailbox_list($imapConnection);
      echo '<select name="mf_subfolder">';
 
@@ -333,7 +330,7 @@ switch( $mf_action ) {
                  html_tag( 'th', _("Store in Folder:"), 'right' ) .
                  html_tag( 'td', '', 'left' );
 
-     $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
+     $imapConnection = sqimap_login ($username, false, $imapServerAddress, $imapPort, 0);
      $boxes = sqimap_mailbox_list($imapConnection);
      echo '<select name="mf_subfolder">';
      $selected = 0;

@@ -25,8 +25,6 @@ include_once(SM_PATH . 'plugins/spamcop/functions.php');
 
 /* GLOBALS */
 
-sqgetGlobalVar('username', $username, SQ_SESSION);
-
 sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
 sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
 sqgetGlobalVar('js_web', $js_web, SQ_GET);

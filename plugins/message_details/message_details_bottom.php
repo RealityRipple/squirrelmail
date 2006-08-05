@@ -107,11 +107,9 @@ function CalcEntity($entString, $direction) {
  * @access public
  */
 function get_message_details($mailbox, $passed_id, $stripHTML=FALSE) {
-    global $imapServerAddress, $imapPort, $color,$msgd_8bit_in_hex;
+    global $imapServerAddress, $imapPort, $color,$msgd_8bit_in_hex, $username;
 
     $returnValue = '';
-
-    sqgetGlobalVar('username', $username, SQ_SESSION);
 
     $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
     $read = sqimap_mailbox_select($imapConnection, $mailbox);

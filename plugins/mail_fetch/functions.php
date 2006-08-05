@@ -45,14 +45,12 @@ if (file_exists(SM_PATH . 'config/mail_fetch_config.php')) {
  * @private
  */
 function  mail_fetch_load_pref_function() {
-    global $data_dir;
+    global $data_dir, $username;
     global $mailfetch_server_number;
     global $mailfetch_cypher, $mailfetch_port_;
     global $mailfetch_server_,$mailfetch_alias_,$mailfetch_user_,$mailfetch_pass_;
     global $mailfetch_lmos_, $mailfetch_uidl_, $mailfetch_login_, $mailfetch_fref_;
     global $PHP_SELF;
-
-    sqgetGlobalVar('username', $username, SQ_SESSION);
 
     if( stristr( $PHP_SELF, 'mail_fetch' ) ) {
         $mailfetch_server_number = getPref($data_dir, $username, 'mailfetch_server_number', 0);
@@ -82,10 +80,7 @@ function mail_fetch_login_function() {
     //include_once (SM_PATH . 'include/validate.php');
     include_once (SM_PATH . 'functions/imap_general.php');
 
-    global $data_dir, $imapServerAddress, $imapPort;
-
-    sqgetGlobalVar('username', $username, SQ_SESSION);
-    sqgetGlobalVar('key',      $key,      SQ_COOKIE);
+    global $username, $data_dir, $imapServerAddress, $imapPort;
 
     $mailfetch_newlog = getPref($data_dir, $username, 'mailfetch_newlog');
 
@@ -136,7 +131,7 @@ function mail_fetch_login_function() {
                 continue;
             }
 
-            $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10);
+            $imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 10);
 
             $Count = $pop3->login($mailfetch_user, $mailfetch_pass);
             if (($Count == false || $Count == -1) && $pop3->ERROR != '') {
@@ -228,9 +223,8 @@ function mail_fetch_login_function() {
  * Internal function used to detect new logins
  */
 function mail_fetch_setnew_function() {
-    global $data_dir;
+    global $data_dir, $username;
 
-    sqgetGlobalVar('username', $username, SQ_SESSION);
     setPref( $data_dir, $username, 'mailfetch_newlog', 'on' );
 }
 
