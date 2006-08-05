@@ -30,9 +30,7 @@ require_once(SM_PATH . 'functions/mailbox_display.php');
 
 
 /* lets get the global vars we may need */
-sqgetGlobalVar('username',  $username,      SQ_SESSION);
 sqgetGlobalVar('delimiter', $delimiter,     SQ_SESSION);
-sqgetGlobalVar('base_uri',  $base_uri,      SQ_SESSION);
 sqgetGlobalVar('delayed_errors',  $delayed_errors,  SQ_SESSION);
 if (is_array($delayed_errors)) {
     $oErrorHandler->AssignDelayedErrors($delayed_errors);

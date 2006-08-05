@@ -28,10 +28,7 @@ define('SM_BOX_UNCOLLAPSED', 0);
 define('SM_BOX_COLLAPSED',   1);
 
 /* get globals */
-sqgetGlobalVar('username', $username, SQ_SESSION);
-sqgetGlobalVar('key', $key, SQ_COOKIE);
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
-sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
 sqgetGlobalVar('fold', $fold, SQ_GET);
 sqgetGlobalVar('unfold', $unfold, SQ_GET);
@@ -39,7 +36,7 @@ sqgetGlobalVar('unfold', $unfold, SQ_GET);
 
 // open a connection on the imap port (143)
 // why hide the output?
-$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, true);
+$imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, true);
 
 /**
  * Using stristr since very old preferences may contain "None" and "none".

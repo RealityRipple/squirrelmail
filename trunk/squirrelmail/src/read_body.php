@@ -816,11 +816,7 @@ function getButton($type, $name, $value, $js = '', $enabled = TRUE) {
 
 /* get the globals we may need */
 
-sqgetGlobalVar('key',       $key,           SQ_COOKIE);
-sqgetGlobalVar('username',  $username,      SQ_SESSION);
-sqgetGlobalVar('onetimepad',$onetimepad,    SQ_SESSION);
 sqgetGlobalVar('delimiter', $delimiter,     SQ_SESSION);
-sqgetGlobalVar('base_uri',  $base_uri,      SQ_SESSION);
 sqgetGlobalVar('lastTargetMailbox', $lastTargetMailbox, SQ_SESSION);
 if (!sqgetGlobalVar('messages', $messages, SQ_SESSION) ) {
     $messages = array();
@@ -896,7 +892,7 @@ sqgetGlobalVar('mailbox_cache',$mailbox_cache,SQ_SESSION);
 /* end of get globals */
 global $sqimap_capabilities, $lastTargetMailbox;
 
-$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+$imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
 $aMailbox = sqm_api_mailbox_select($imapConnection, $iAccount, $mailbox,array('setindex' => $what, 'offset' => $startMessage),array());
 
 

@@ -27,10 +27,6 @@ require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'functions/url_parser.php');
 
 /* get some of these globals */
-sqgetGlobalVar('username', $username, SQ_SESSION);
-sqgetGlobalVar('key', $key, SQ_COOKIE);
-sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
-
 sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
 sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
 
@@ -40,7 +36,7 @@ if (! sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET) ) {
 sqgetGlobalVar('show_html_default', $show_html_default, SQ_FORM);
 /* end globals */
 
-$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+$imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
 $mbx_response = sqimap_mailbox_select($imapConnection, $mailbox);
 if (isset($messages[$mbx_response['UIDVALIDITY']][$passed_id])) {
     $message = $messages[$mbx_response['UIDVALIDITY']][$passed_id];

@@ -33,13 +33,8 @@ require_once(SM_PATH . 'functions/forms.php');
 require_once(SM_PATH . 'functions/identity.php');
 
 /* --------------------- Get globals ------------------------------------- */
-/** COOKIE VARS */
-sqgetGlobalVar('key',       $key,           SQ_COOKIE);
 
 /** SESSION VARS */
-sqgetGlobalVar('username',  $username,      SQ_SESSION);
-sqgetGlobalVar('onetimepad',$onetimepad,    SQ_SESSION);
-sqgetGlobalVar('base_uri',  $base_uri,      SQ_SESSION);
 sqgetGlobalVar('delimiter', $delimiter,     SQ_SESSION);
 
 sqgetGlobalVar('composesession',    $composesession,    SQ_SESSION);
@@ -382,7 +377,7 @@ if ($draft) {
         $draft_message = _("Draft Email Saved");
         /* If this is a resumed draft, then delete the original */
         if(isset($delete_draft)) {
-            $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, false);
+            $imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, false);
             sqimap_mailbox_select($imap_stream, $draft_folder);
             // force bypass_trash=true because message should be saved when deliverMessage() returns true.
             // in current implementation of sqimap_msgs_list_flag() single message id can
@@ -481,7 +476,7 @@ if ($send) {
 
         /* if it is resumed draft, delete draft message */
         if ( isset($delete_draft)) {
-            $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, false);
+            $imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, false);
             sqimap_mailbox_select($imap_stream, $draft_folder);
             // bypass_trash=true because message should be saved when deliverMessage() returns true.
             // in current implementation of sqimap_msgs_list_flag() single message id can
@@ -702,7 +697,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
     $mailprio = 3;
 
     if ($passed_id) {
-        $imapConnection = sqimap_login($username, $key, $imapServerAddress,
+        $imapConnection = sqimap_login($username, false, $imapServerAddress,
                 $imapPort, 0);
 
         sqimap_mailbox_select($imapConnection, $mailbox);
@@ -1643,7 +1638,7 @@ function deliverMessage($composeMessage, $draft=false) {
     } elseif ($draft) {
         global $draft_folder;
         require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
-        $imap_stream = sqimap_login($username, $key, $imapServerAddress,
+        $imap_stream = sqimap_login($username, false, $imapServerAddress,
                 $imapPort, 0);
         if (sqimap_mailbox_exists ($imap_stream, $draft_folder)) {
             require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
@@ -1681,7 +1676,7 @@ function deliverMessage($composeMessage, $draft=false) {
     } else {
         unset ($deliver);
         $move_to_sent = getPref($data_dir,$username,'move_to_sent');
-        $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+        $imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
 
         /* Move to sent code */
         if (isset($default_move_to_sent) && ($default_move_to_sent != 0)) {
