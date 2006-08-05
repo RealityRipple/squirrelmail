@@ -42,8 +42,6 @@ if (! is_plugin_enabled('info')) {
 }
 
 /* GLOBALS */
-sqgetGlobalVar('username', $username, SQ_SESSION);
-
 sqgetGlobalVar('submit', $submit, SQ_POST);
 
 for($i = 0; $i <= 9; $i++){

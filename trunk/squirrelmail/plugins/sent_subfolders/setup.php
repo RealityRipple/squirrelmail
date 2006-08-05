@@ -102,9 +102,7 @@ function sent_subfolders_load_prefs() {
  * Adds sent_subfolders options in folder preferences
  */
 function sent_subfolders_optpage_loadhook_folders() {
-    global $optpage_data, $imapServerAddress, $imapPort, $show_contain_subfolders_option;
-
-    sqgetGlobalVar('username', $username, SQ_SESSION);
+    global $username, $optpage_data, $imapServerAddress, $imapPort, $show_contain_subfolders_option;
 
     /* Get some imap data we need later. */
     $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
@@ -190,12 +188,11 @@ function save_option_sent_subfolders_setting($option) {
  * creates required imap folders
  */
 function sent_subfolders_update_sentfolder() {
-    global $sent_folder;
+    global $sent_folder, $username;
     global $sent_subfolders_base, $sent_subfolders_setting;
     global $data_dir, $imapServerAddress, $imapPort, $color;
     global $use_sent_subfolders, $move_to_sent;
 
-    sqgetGlobalVar('username', $username, SQ_SESSION);
     sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 
     if ($use_sent_subfolders || $move_to_sent) {

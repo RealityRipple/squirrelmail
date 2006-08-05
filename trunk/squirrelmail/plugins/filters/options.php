@@ -21,9 +21,6 @@ include_once(SM_PATH . 'plugins/filters/filters.php');
 displayPageHeader($color, 'None');
 
 /* get globals */
-sqgetGlobalVar('username', $username, SQ_SESSION);
-sqgetGlobalVar('key', $key, SQ_COOKIE);
-sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 
 sqgetGlobalVar('theid', $theid);
@@ -128,7 +125,7 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
 
     if (isset($action) && ($action == 'add' || $action == 'edit')) {
 
-        $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+        $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
         $boxes = sqimap_mailbox_list($imapConnection);
 
         for ($a = 0, $cnt = count($boxes); $a < $cnt; $a++) {

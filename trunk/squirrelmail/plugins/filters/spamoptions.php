@@ -20,9 +20,6 @@ include_once(SM_PATH . 'functions/imap_messages.php');
 include_once(SM_PATH . 'plugins/filters/filters.php');
 
 /* get globals */
-sqgetGlobalVar('username', $username, SQ_SESSION);
-sqgetGlobalVar('key', $key, SQ_COOKIE);
-sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 
 sqgetGlobalVar('action', $action, SQ_GET);
@@ -80,7 +77,7 @@ if ($SpamFilters_YourHop == ' ') {
 
 
 if (isset($action) && $action == 'spam') {
-    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+    $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
     $boxes = sqimap_mailbox_list($imapConnection);
     sqimap_logout($imapConnection);
     $numboxes = count($boxes);

@@ -22,9 +22,6 @@ include_once(SM_PATH . 'plugins/mail_fetch/class.POP3.php');
 include_once(SM_PATH . 'plugins/mail_fetch/functions.php' );
 
 /* globals */
-sqgetGlobalVar('username',   $username,   SQ_SESSION);
-sqgetGlobalVar('key',        $key,        SQ_COOKIE);
-sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
 /* end globals */
 
@@ -173,7 +170,7 @@ for ($i_loop=$i_start;$i_loop<$i_stop;$i_loop++) {
     }
 
     Mail_Fetch_Status(_("Opening IMAP server"));
-    $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10);
+    $imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 10);
 
     // check if destination folder is not set, is not subscribed and is not \noselect folder
     if($mailfetch_subfolder == '' ||

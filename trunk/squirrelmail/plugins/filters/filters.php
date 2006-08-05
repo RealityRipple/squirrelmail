@@ -192,10 +192,8 @@ function filters_bulkquery($filters, $IPs) {
  */
 function start_filters($hook_args) {
     global $imapServerAddress, $imapPort, $imap_stream, $imapConnection,
-           $UseSeparateImapConnection, $AllowSpamFilters, $filter_inbox_count;
-
-    sqgetGlobalVar('username', $username, SQ_SESSION);
-    sqgetGlobalVar('key',      $key,      SQ_COOKIE);
+           $UseSeparateImapConnection, $AllowSpamFilters, $filter_inbox_count,
+           $username;
 
     /**
      * check hook that calls filtering. If filters are called by right_main_after_header,
@@ -230,7 +228,7 @@ function start_filters($hook_args) {
     // Also check if we are forced to use a separate IMAP connection
     if ((!isset($imap_stream) && !isset($imapConnection)) ||
         $UseSeparateImapConnection ) {
-            $stream = sqimap_login($username, $key, $imapServerAddress,
+            $stream = sqimap_login($username, false, $imapServerAddress,
                                 $imapPort, 10);
             $previously_connected = false;
     } else if (isset($imapConnection)) {
