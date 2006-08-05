@@ -264,7 +264,8 @@ function get_smtp_user(&$user, &$pass) {
     if ($smtp_auth_mech == 'none') {
         $user = '';
         $pass = '';
-    } elseif ( isset($smtp_sitewide_user) && isset($smtp_sitewide_pass) ) {
+    } elseif ( isset($smtp_sitewide_user) && isset($smtp_sitewide_pass) &&
+               !empty($smtp_sitewide_user)) {
         $user = $smtp_sitewide_user;
         $pass = $smtp_sitewide_pass;
     } else {
