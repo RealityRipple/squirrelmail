@@ -424,6 +424,8 @@ $disable_server_sort = 'false'         if ( !$disable_server_sort );
 # since 1.5.2
 $abook_file_line_length = 2048         if ( !$abook_file_line_length );
 $config_location_base = ''             if ( !$config_location_base );
+$smtp_sitewide_user = ''               if ( !$smtp_sitewide_user );
+$smtp_sitewide_pass = ''               if ( !$smtp_sitewide_pass );
 
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
@@ -525,7 +527,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             print "4.   SMTP Server           : $WHT$smtpServerAddress$NRM\n";
             print "5.   SMTP Port             : $WHT$smtpPort$NRM\n";
             print "6.   POP before SMTP       : $WHT$pop_before_smtp$NRM\n";
-            print "7.   SMTP Authentication   : $WHT$smtp_auth_mech$NRM\n";
+            print "7.   SMTP Authentication   : $WHT$smtp_auth_mech" . display_smtp_sitewide_userpass() ."$NRM\n";
             print "8.   Secure SMTP (TLS)     : $WHT" . display_use_tls($use_smtp_tls) . "$NRM\n";
             print "9.   Header encryption key : $WHT$encode_header_key$NRM\n";
             print "\n";
@@ -1172,26 +1174,6 @@ sub command17 {
     return $new_smtpPort;
 }
 
-# authenticated server
-sub command18 {
-    return;
-    # This sub disabled by tassium - it has been replaced with smtp_auth_mech
-    print "Do you wish to use an authenticated SMTP server?  Your server must\n";
-    print "support this in order for SquirrelMail to work with it.  We implemented\n";
-    print "it according to RFC 2554.\n";
-
-    $YesNo = 'n';
-    $YesNo = 'y' if ( lc($use_authenticated_smtp) eq 'true' );
-
-    print "Use authenticated SMTP server (y/n) [$WHT$YesNo$NRM]: $WHT";
-
-    $new_use_authenticated_smtp = <STDIN>;
-    $new_use_authenticated_smtp =~ tr/yn//cd;
-    return 'true'  if ( $new_use_authenticated_smtp eq "y" );
-    return 'false' if ( $new_use_authenticated_smtp eq "n" );
-    return $use_authenticated_smtp;
-}
-
 # pop before SMTP
 sub command18a {
     print "Do you wish to use POP3 before SMTP?  Your server must\n";
@@ -1441,16 +1423,97 @@ sub command112b {
     $inval=<STDIN>;
     chomp($inval);
     if ($inval =~ /^none\b/i) {
-      # SMTP doesn't necessarily require logins
-      return "none";
-    }
-    if ( ($inval =~ /^cram-md5\b/i) || ($inval =~ /^digest-md5\b/i) ||
-    ($inval =~ /^login\b/i) || ($inval =~/^plain\b/i)) {
-      return lc($inval);
+        # remove sitewide smtp authentication information
+        $smtp_sitewide_user = '';
+        $smtp_sitewide_pass = '';
+        # SMTP doesn't necessarily require logins
+        return "none";
+    } elsif ( ($inval =~ /^cram-md5\b/i) || ($inval =~ /^digest-md5\b/i) ||
+              ($inval =~ /^login\b/i) || ($inval =~/^plain\b/i)) {
+        command_smtp_sitewide_userpass($inval);
+        return lc($inval);
+    } elsif (trim($inval) eq '') {
+        # user selected default value
+        command_smtp_sitewide_userpass($smtp_auth_mech);
+        return $smtp_auth_mech;
     } else {
-      # user entered garbage, or default value so nothing needs to be set
-      return $smtp_auth_mech;
+        # user entered garbage 
+        return $smtp_auth_mech;
     }
+}
+
+sub command_smtp_sitewide_userpass($) {
+    # get first function argument
+    my $auth_mech = shift(@_);
+    my $default, $tmp;
+    $auth_mech = lc(trim($auth_mech));
+    if ($auth_mech ne 'cram-md5' &&
+        $auth_mech ne 'digest-md5' &&
+        $auth_mech ne 'login' &&
+        $auth_mech ne 'plain') {
+        return;
+    }
+    print "SMTP authentication uses IMAP username and password by default.\n";
+    print "\n";
+    print "Would you like to use other login and password for all SquirrelMail \n";
+    print "SMTP connections?";
+    if ($smtp_sitewide_user ne '') {
+        $default = 'y';
+        print " [Yn]:";
+    } else {
+        $default = 'n';
+        print " [yN]:";
+    }
+    $tmp=<STDIN>;
+    $tmp = trim($tmp);
+    
+    if ($tmp eq '') {
+        $tmp = $default;
+    } else {
+        $tmp = lc($tmp);
+    }
+
+    if ($tmp eq 'n') {
+        $smtp_sitewide_user = '';
+        $smtp_sitewide_pass = '';
+    } elsif ($tmp eq 'y') {
+        print "Enter username [$smtp_sitewide_user]:";
+        my $new_user = <STDIN>;
+        $new_user = trim($new_user);
+        if ($new_user ne '') {
+            $smtp_sitewide_user = $new_user;
+        }
+        if ($smtp_sitewide_user ne '') {
+            print "If you don't enter any password, current sitewide password will be used.\n";
+            print "If you enter space, password will be set to empty string.\n";
+            print "Enter password:";
+            my $new_pass = <STDIN>;
+            if ($new_pass ne "\n") {
+                $smtp_sitewide_pass = trim($new_pass);
+            }
+        } else {
+            print "Invalid input. You must set username used for SMTP authentication.\n";
+            print "Click any key to continue\n";
+            $tmp = <STDIN>;
+        }
+    } else {
+        print "Invalid input\n";
+        print "Click any key to continue\n";
+        $tmp = <STDIN>;
+    }
+}
+
+# Sub adds information about SMTP authentication type to menu
+sub display_smtp_sitewide_userpass() {
+    my $ret = '';
+    if ($smtp_auth_mech ne 'none') {
+        if ($smtp_sitewide_user ne '') {
+            $ret = ' (with custom username and password)';
+        } else {
+            $ret = ' (with IMAP username and password)';
+        }
+    }
+    return $ret;
 }
 
 # TLS
@@ -4176,6 +4239,8 @@ sub save_data {
 
         # string
         print CF "\$smtp_auth_mech = '$smtp_auth_mech';\n";
+        print CF "\$smtp_sitewide_user = '". quote_single($smtp_sitewide_user) ."';\n";
+        print CF "\$smtp_sitewide_pass = '". quote_single($smtp_sitewide_pass) ."';\n";
         # string
         print CF "\$imap_auth_mech = '$imap_auth_mech';\n";
         # boolean
@@ -4627,4 +4692,11 @@ sub check_imap_folder($) {
     } else {
         return 1;
     }
+}
+
+# quotes string written in single quotes
+sub quote_single($) {
+    my $string = shift(@_);
+    $string =~ s/\'/\\'/g;
+    return $string;
 }
