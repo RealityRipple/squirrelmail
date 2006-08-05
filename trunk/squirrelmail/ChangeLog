@@ -127,6 +127,7 @@ Version 1.5.2 - CVS
   - Custom SMTP AUTH configuration variables are moved from config_local.php
     to main configuration file.
   - Fixed subscription of new 'noselect' folders (#1315912).
+  - Moving the development documentation to the documentation module.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
