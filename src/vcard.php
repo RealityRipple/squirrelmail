@@ -31,9 +31,6 @@ include_once(SM_PATH . 'functions/imap_general.php');
 include_once(SM_PATH . 'functions/imap_messages.php');
 
 /* globals */
-sqgetGlobalVar('username', $username, SQ_SESSION);
-sqgetGlobalVar('key', $key, SQ_COOKIE);
-sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
 sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
 sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
@@ -41,7 +38,7 @@ sqgetGlobalVar('ent_id', $ent_id, SQ_GET);
 sqgetGlobalVar('startMessage', $startMessage, SQ_GET);
 /* end globals */
 
-$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+$imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
 sqimap_mailbox_select($imapConnection, $mailbox);
 
 displayPageHeader($color, 'None');

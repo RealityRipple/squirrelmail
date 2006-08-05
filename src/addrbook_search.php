@@ -154,10 +154,6 @@ function display_result($res, $includesource = true) {
 /* ================= End of functions ================= */
 
 /** lets get the global vars we may need */
-sqgetGlobalVar('key',       $key,           SQ_COOKIE);
-sqgetGlobalVar('username',  $username,      SQ_SESSION);
-sqgetGlobalVar('onetimepad',$onetimepad,    SQ_SESSION);
-sqgetGlobalVar('base_uri',  $base_uri,      SQ_SESSION);
 
 if (! sqgetGlobalVar('show' , $show)) {
     $show = '';

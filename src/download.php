@@ -26,9 +26,6 @@ header('Pragma: ');
 header('Cache-Control: cache');
 
 /* globals */
-sqgetGlobalVar('key',        $key,          SQ_COOKIE);
-sqgetGlobalVar('username',   $username,     SQ_SESSION);
-sqgetGlobalVar('onetimepad', $onetimepad,   SQ_SESSION);
 sqgetGlobalVar('mailbox_cache',$mailbox_cache,SQ_SESSION);
 sqgetGlobalVar('messages',   $messages,     SQ_SESSION);
 sqgetGlobalVar('mailbox',    $mailbox,      SQ_GET);
@@ -46,7 +43,7 @@ set_my_charset();
 
 /* end globals */
 
-$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+$imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
 $aMailbox = sqm_api_mailbox_select($imapConnection, $account, $mailbox,array(),array());
 
 if (isset($aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT']) &&

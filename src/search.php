@@ -1162,10 +1162,7 @@ function sqimap_asearch_get_selectable_unformatted_mailboxes(&$boxes)
 
 /* ------------------------ main ------------------------ */
 /* get globals we will need */
-sqgetGlobalVar('username', $username, SQ_SESSION);
-sqgetGlobalVar('key', $key, SQ_COOKIE);
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
-sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
 if ( sqgetGlobalVar('checkall', $temp, SQ_GET) ) {
     $checkall = (int) $temp;
@@ -1572,7 +1569,7 @@ if ($search_advanced) {
 uasort($imap_asearch_options, 'asearch_unhtml_strcoll');
 
 /* open IMAP connection */
-$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+$imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
 
 
 /* get mailboxes once here */

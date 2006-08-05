@@ -18,10 +18,6 @@
  */
 require('../include/init.php');
 
-sqgetGlobalVar('username', $username, SQ_SESSION);
-sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
-sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
-
 if (sqgetGlobalVar('sort', $sort)) {
     $sort = (int) $sort;
 }

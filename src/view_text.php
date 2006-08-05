@@ -1,11 +1,9 @@
 <?php
 
 /**
- * view_text.php -- Displays the main frameset
+ * view_text.php -- View a text attachment
  *
- * Who knows what this file does. However PUT IT HERE DID NOT PUT
- * A SINGLE FREAKING COMMENT IN! Whoever is responsible for this,
- * be very ashamed.
+ * Used by attachment_common code.
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -21,9 +19,6 @@ include(SM_PATH . 'functions/mime.php');
 include(SM_PATH . 'functions/date.php');
 include(SM_PATH . 'functions/url_parser.php');
 
-sqgetGlobalVar('key',        $key,          SQ_COOKIE);
-sqgetGlobalVar('username',   $username,     SQ_SESSION);
-sqgetGlobalVar('onetimepad', $onetimepad,   SQ_SESSION);
 sqgetGlobalVar('messages',   $messages,     SQ_SESSION);
 sqgetGlobalVar('mailbox',    $mailbox,      SQ_GET);
 sqgetGlobalVar('ent_id',     $ent_id,       SQ_GET);
@@ -33,7 +28,7 @@ if (sqgetGlobalVar('passed_id', $temp, SQ_GET)) {
     $passed_id = (int) $temp;
 }
 
-$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+$imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
 $mbx_response = sqimap_mailbox_select($imapConnection, $mailbox);
 
 $message = &$messages[$mbx_response['UIDVALIDITY']][$passed_id];

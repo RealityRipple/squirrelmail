@@ -159,12 +159,9 @@ if ( sqgetGlobalVar('mailbox', $temp, SQ_GET) ) {
 if ( !sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET) ) {
   $passed_ent_id = '';
 }
-sqgetGlobalVar('key',        $key,          SQ_COOKIE);
-sqgetGlobalVar('username',   $username,     SQ_SESSION);
-sqgetGlobalVar('onetimepad', $onetimepad,   SQ_SESSION);
 sqgetGlobalVar('delimiter',  $delimiter,    SQ_SESSION);
 
-$imapConnection = sqimap_login($username, $key, $imapServerAddress,
+$imapConnection = sqimap_login($username, false, $imapServerAddress,
                                $imapPort, 0);
 $mbx_response = sqimap_mailbox_select($imapConnection, $mailbox, false, false, true);
 

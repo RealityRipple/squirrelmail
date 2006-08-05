@@ -23,14 +23,11 @@ require(SM_PATH . 'functions/tree.php');
 
 /* get those globals */
 
-sqgetGlobalVar('username', $username, SQ_SESSION);
-sqgetGlobalVar('key', $key, SQ_COOKIE);
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
-sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
 /* finished globals */
 
-$imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+$imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
 
 $mailbox = $trash_folder;
 $boxes = sqimap_mailbox_list($imap_stream);

@@ -27,9 +27,6 @@ require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'functions/date.php');
 
 /** Get globals */
-sqgetGlobalVar('key',        $key,          SQ_COOKIE);
-sqgetGlobalVar('username',   $username,     SQ_SESSION);
-sqgetGlobalVar('onetimepad', $onetimepad,   SQ_SESSION);
 sqgetGlobalVar('messages',   $messages,     SQ_SESSION);
 sqgetGlobalVar('mailbox',    $mailbox,      SQ_GET);
 sqgetGlobalVar('ent_id',     $ent_id,       SQ_GET);
@@ -40,7 +37,7 @@ if (sqgetGlobalVar('passed_id', $temp, SQ_GET)) {
 
 // TODO: add required var checks here.
 
-$imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+$imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
 $mbx_response = sqimap_mailbox_select($imap_stream, $mailbox);
 
 $message = &$messages[$mbx_response['UIDVALIDITY']][$passed_id];

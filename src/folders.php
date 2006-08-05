@@ -26,17 +26,12 @@ require_once(SM_PATH . 'functions/forms.php');
 displayPageHeader($color, 'None');
 
 /* get globals we may need */
-
-sqgetGlobalVar('username', $username, SQ_SESSION);
-sqgetGlobalVar('key', $key, SQ_COOKIE);
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
-sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
-
 sqgetGlobalVar('smaction', $action, SQ_POST);
 
 /* end of get globals */
 
-$imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
+$imapConnection = sqimap_login ($username, false, $imapServerAddress, $imapPort, 0);
 
 /* switch to the right function based on what the user selected */
 if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
