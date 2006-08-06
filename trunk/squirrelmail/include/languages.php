@@ -207,7 +207,7 @@ function charset_decode ($charset, $string, $force_decode=false, $save_html=fals
  * @param string $string
  * @param string $charset
  * @param boolean $htmlencode keep htmlspecialchars encoding
- * @param string
+ * @return string
  */
 function charset_encode($string,$charset,$htmlencode=true) {
     global $default_charset;
