@@ -781,29 +781,6 @@ function quoteimap($str) {
 }
 
 /**
- * Trims array
- *
- * Trims every element in the array, ie. remove the first char of each element
- * @param array $array the array to trim
- * @since 1.2.0
- */
-function TrimArray(&$array) {
-    foreach ($array as $k => $v) {
-        global $$k;
-        if (is_array($$k)) {
-            foreach ($$k as $k2 => $v2) {
-                $$k[$k2] = substr($v2, 1);
-            }
-        } else {
-            $$k = substr($v, 1);
-        }
-
-        /* Re-assign back to array. */
-        $array[$k] = $$k;
-    }
-}
-
-/**
  * Create compose link
  *
  * Returns a link to the compose-page, taking in consideration
