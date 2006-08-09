@@ -121,6 +121,21 @@ a:link, a:visited, a:hover, a:active {
 }
 
 
+td.header1  {
+    background: <?php echo $color[0]; ?>;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+td.header2  {
+    background: <?php echo $color[9]; ?>;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
 .table_standard {
     border:1px solid <?php echo $color[0]; ?>;
 }
@@ -249,4 +264,42 @@ a:link, a:visited, a:hover, a:active {
 
 .spacer	{
     background: <?php echo $color[4]; ?>;
+}
+
+/* folder_manip.tpl defs */
+#folderManip   {
+    text-align:center;
+}
+
+#folderManip   td  {
+    text-align: center;
+    padding: 2px;
+}
+
+#folderManip   table   {
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border: 0;
+    width: 70%;
+}
+
+#folderManip   table.wrapper   {
+    border: 1px solid <?php echo $color[0]; ?>;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+}
+
+#folderManip   td.folderAction {
+    background: <?php echo $color[0]; ?>;
+}
+
+#folderManip    div {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    text-align: left;
 }
