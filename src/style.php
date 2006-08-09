@@ -172,11 +172,27 @@ if (! sqgetGlobalVar('fontsize',$fontsize,SQ_GET)) {
 }
 $oTemplate->assign('fontsize', $fontsize);
 
+/**
+ * GOTCHA #1: When sending the headers for caching, we must send Expires,
+ *            Last-Modified, Pragma, and Cache-Control headers.  If we don't PHP 
+ *            weill makeup values that will break the cacheing.
+ * 
+ * GOTCHA #2: If the current template does not contain a template named
+ *            stylesheet.tpl, this cacheing will break because filemtime() won't
+ *            work.  This is a problem e.g. with the default_advanced template
+ *            that inherits CSS properties from the default template but
+ *            doesn't contain stylesheet.tpl itself.
+ * 
+ * TODO: Fix this. :)
+ **/
 header('Content-Type: text/css');
-// output a last-modified header if we can
-if ( $lastmod = @filemtime($oTemplate->template_dir . 'stylesheet.tpl') ) {
+if ( $lastmod = @filemtime(getcwd() .'/'. $oTemplate->template_dir . 'stylesheet.tpl') ) {
     $gmlastmod = gmdate('D, d M Y H:i:s', $lastmod) . ' GMT';
+    $expires = gmdate('D, d M Y H:i:s', strtotime('+1 week')) . ' GMT';
     header('Last-Modified: ' . $gmlastmod);
+    header('Expires: '. $expires);
+    header('Pragma: ');
+    header('Cache-Control: public, must-revalidate');
 }
 $oTemplate->display('stylesheet.tpl');
 
