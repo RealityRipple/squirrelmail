@@ -1,5 +1,4 @@
 <?php
-
 /**
  * folders.php
  *
@@ -35,7 +34,6 @@ $imapConnection = sqimap_login ($username, false, $imapServerAddress, $imapPort,
 
 /* switch to the right function based on what the user selected */
 if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
-
     switch ($action)
     {
         case 'create':
@@ -87,6 +85,11 @@ if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
             break;
     }
 
+}
+
+if (isset($td_str)) {
+    $oTemplate->assign('note', htmlspecialchars($td_str));
+    $oTemplate->display('note.tpl');
 }
 
 $boxes = sqimap_mailbox_list($imapConnection,true);
@@ -146,11 +149,13 @@ foreach ($boxes as $index => $aBoxData) {
 $rendel_folder_list = sqimap_mailbox_option_list($imapConnection, 0, $skip_folders, $boxes, NULL, true);
 
 
-$subbox_option_list = '';
+$subbox_option_list = array();
 
 if ($show_only_subscribed_folders && !$no_list_for_subscribe) {
     // FIXME: fix subscription options when top folder is not subscribed and sub folder is subscribed
+
     // TODO: use checkboxes instead of select options.
+    // DONE Steve Brown 2006-08-08
 
     /** SUBSCRIBE TO FOLDERS **/
     $boxes_all = sqimap_mailbox_list_all ($imapConnection);
@@ -159,34 +164,33 @@ if ($show_only_subscribed_folders && !$no_list_for_subscribe) {
     // so we keep only the unsubscribed ones.
     foreach ($boxes_all as $box_a) {
 
-	$use_folder = true;
-	foreach ( $boxes as $box ) {
-	    if ($box_a['unformatted'] == $box['unformatted'] ||
-		$box_a['unformatted-dm'] == $folder_prefix ) {
-		$use_folder = false;
-	    }
-	}
-
-	if ($use_folder) {
-	    $box_enc  = htmlspecialchars($box_a['unformatted-dm']);
-	    $box_disp = htmlspecialchars(imap_utf7_decode_local($box_a['unformatted-disp']));
-	    $subbox_option_list .= '<option value="' . $box_enc . '">'.$box_disp."</option>\n";
-	}
+    	$use_folder = true;
+    	foreach ( $boxes as $box ) {
+    	    if ($box_a['unformatted'] == $box['unformatted'] ||
+    		$box_a['unformatted-dm'] == $folder_prefix ) {
+    		$use_folder = false;
+    	    }
+    	}
+    
+    	if ($use_folder) {
+    	    $box_enc  = htmlspecialchars($box_a['unformatted-dm']);
+    	    $box_disp = htmlspecialchars(imap_utf7_decode_local($box_a['unformatted-disp']));
+            $subbox_option_list[] = array( 'Value' => $box_enc, 'Display' => $box_disp);
+    	}
     }
 }
 
 sqimap_logout($imapConnection);
 
-$oTemplate->assign('td_str', @$td_str);
-$oTemplate->assign('color', $color);
+$oTemplate->assign('show_subfolders_option', $show_contain_subfolders_option);
+$oTemplate->assign('show_only_subscribed_folders', $show_only_subscribed_folders==1);
+$oTemplate->assign('no_list_for_subscribe', $no_list_for_subscribe);
+
 $oTemplate->assign('mbx_option_list', $mbx_option_list);
-$oTemplate->assign('show_contain_subfolders_option', $show_contain_subfolders_option);
-$oTemplate->assign('show_only_subscribed_folders', $show_only_subscribed_folders);
 $oTemplate->assign('rendel_folder_list', $rendel_folder_list);
 $oTemplate->assign('subbox_option_list', $subbox_option_list);
-$oTemplate->assign('no_list_for_subscribe', $no_list_for_subscribe);
 
 $oTemplate->display('folder_manip.tpl');
 
 $oTemplate->display('footer.tpl');
-
+?>
