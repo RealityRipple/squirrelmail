@@ -17,18 +17,17 @@
  */
 
 /**
+ * Include the SquirrelMail initialization file.
+ */
+require('../../include/init.php');
+
+/**
  * Set up a couple of non-negotiable constants and
  * defaults. Don't change these, * the setuppable stuff is in
  * sqspell_config.php
  */
 $SQSPELL_DIR='plugins/squirrelspell/';
 $SQSPELL_CRYPTO=FALSE;
-
-
-/**
- * Include the SquirrelMail initialization file.
- */
-require('../../include/init.php');
 
 include_once(SM_PATH . $SQSPELL_DIR . 'sqspell_functions.php');
 
