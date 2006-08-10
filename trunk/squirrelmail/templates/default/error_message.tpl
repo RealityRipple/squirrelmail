@@ -17,6 +17,7 @@
 
 /* retrieve the template vars */
 extract($t);
+
 if (isset($aErrors) && is_array($aErrors)) {
 ?>
 <div id="error_list">
@@ -34,7 +35,7 @@ if (isset($aErrors) && is_array($aErrors)) {
        <?php echo _("Category:"); ?>
     </td>
     <td class="error_val">
-       <?php foreach ($aError['category'] as $sCategory) {echo $sCategory;} ?>
+       <?php echo join(', ', $aError['category']); ?>
     </td>
   </tr>
   <tr>
@@ -51,7 +52,7 @@ if (isset($aErrors) && is_array($aErrors)) {
     <td class="error_key">
       <?php echo $sKey; ?>:
     </td>
-    <td>
+    <td class="error_val">
       <?php echo $sValue; ?>
     </td>
   </tr>
@@ -81,6 +82,12 @@ if (isset($aErrors) && is_array($aErrors)) {
     </td>
   </tr>
 <?php }   // (isset($aError['link']) && ($aError['link']))
+        ?>
+ <tr class="error_thead">
+   <td class="error_thead_caption" colspan="2">
+   </td>
+ </tr>
+        <?php
     } // foreach($aErrors as $aError)
 ?>
 </table>

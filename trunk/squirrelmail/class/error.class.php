@@ -40,10 +40,13 @@ class ErrorHandler {
      * @since 1.5.1
      */
     function ErrorHandler(&$oTemplate, $sTemplateFile) {
+#        echo 'init error handler...';
         $this->TemplateName = $sTemplateFile;
         $this->Template =& $oTemplate;
         $this->aErrors = array();
         $this->header_sent = false;
+        $this->delayed_errors = false;
+        $this->Template->assign('delayed_errors', $this->delayed_errors);
     }
 
     /**
@@ -62,6 +65,15 @@ class ErrorHandler {
         $this->header_sent = true;
     }
 
+    /**
+     * Turn on/off delayed error handling
+     * @since 1.5.2
+     */
+    function setDelayedErrors ($val = true) {
+        $this->delayed_errors = $val===true;
+        $this->Template->assign('delayed_errors', $this->delayed_errors);
+    }
+    
     /**
      * Store errors generated in a previous script but couldn't be displayed
      * due to a header redirect. This requires storing of aDelayedErrors in the session
@@ -125,7 +137,7 @@ class ErrorHandler {
                 $aError['message'] = $sErrStr;
                 $aError['extra'] = array(
                                          'FILE' => $sErrFile,
-                                         'LINE' => $iErrLine) ;;
+                                         'LINE' => $iErrLine) ;
                 // what todo with $aContext?
                 break;
             case E_USER_ERROR:
@@ -181,6 +193,17 @@ class ErrorHandler {
             default: break;
             }
 
+            /**
+             * If delayed error handling is enabled, always record the location
+             * and tag the error is delayed to make debugging easier.
+             */
+            if (isset($this->Template->values['delayed_errors']) && $this->Template->values['delayed_errors']) {
+                $aErrorCategory[] = 'Delayed';
+                $aError['extra'] = array(
+                                         'FILE' => $sErrFile,
+                                         'LINE' => $iErrLine) ;
+            }
+            
             $aErrorTpl = array(
                 'type'      => $iType,
                 'category'  => $aErrorCategory,
@@ -210,8 +233,26 @@ class ErrorHandler {
      * @since 1.5.1
      */
     function DisplayErrors() {
-        if (count($this->aErrors)) {
-            $this->Template->display($this->TemplateName);
+        // Check for delayed errors...
+        if (!$this->delayed_errors) {
+            sqgetGlobalVar('delayed_errors',  $delayed_errors,  SQ_SESSION);
+            if (is_array($delayed_errors)) {
+                $this->AssignDelayedErrors($delayed_errors);
+                sqsession_unregister("delayed_errors");
+            }
+        }
+
+        if (isset($this->Template->values['aErrors']) && count($this->Template->values['aErrors']) > 0) {
+            $this->aErrors = array_merge($this->aErrors, $this->Template->values['aErrors']);
+            $this->Template->assign('aErrors',$this->aErrors);
+        }
+
+        if (count($this->aErrors) > 0) {
+            if ($this->delayed_errors) {
+                sqsession_register($this->aErrors,"delayed_errors");
+            } else {
+                $this->Template->display($this->TemplateName);
+            }
         }
     }
 }
