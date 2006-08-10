@@ -75,3 +75,15 @@ function getIconPath ($icon_theme_path, $icon_name) {
     
     return NULL;
 }
+
+/**
+ * Display error messages for use in footer.tpl
+ * 
+ * @author Steve Brown
+ * @since 1.5.2
+ **/
+function displayErrors () {
+    global $oErrorHandler;
+    
+    $oErrorHandler->displayErrors();
+}
