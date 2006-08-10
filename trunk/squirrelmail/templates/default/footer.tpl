@@ -13,10 +13,12 @@
  */
 
 /** add required includes */
+include_once(SM_PATH . 'templates/util_global.php');
 
 /* retrieve the template vars */
 extract($t);
-$this->display('error_message.tpl');
+
+displayErrors();
 ?>
 <!-- end of generated html -->
 </body>
