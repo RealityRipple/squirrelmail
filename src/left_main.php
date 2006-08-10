@@ -62,6 +62,7 @@ foreach ($js_includes as $js_file) {
 $mailboxes=sqimap_get_mailboxes($imapConnection,false,$show_only_subscribed_folders);
 
 displayHtmlHeader( 'SquirrelMail', $xtra );
+$oErrorHandler->setDelayedErrors(true);
 
 sqgetGlobalVar('auto_create_done',$auto_create_done,SQ_SESSION);
 /* If requested and not yet complete, attempt to autocreate folders. */
