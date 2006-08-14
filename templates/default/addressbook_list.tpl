@@ -8,6 +8,8 @@
  *      $current_backend - integer containing backend currently displayed.
  *      $abook_select    - string containing HTML to display the address book
  *                         selection drop down
+ *      $abook_has_extra_field - boolean TRUE if the address book contains an
+ *                         additional field.  FALSE otherwise.
  *      $backends        - array containing all available backends for selection.
  *                         This will be empty if only 1 backend is available! 
  *      $addresses - array of addresses in the address book.  Each element
@@ -46,7 +48,6 @@ extract($t);
 #echo dump_array($addresses).'<br>';
 /** Begin template **/
 $source = $addresses[$current_backend];
-$abook_has_extra_field = isset($source['Addresses'][0]) && !is_null($source['Addresses'][0]['Extra']);
 $colspan = $abook_has_extra_field ? 6 : 5;
 ?>
 <div id="addressList">
@@ -62,14 +63,22 @@ $colspan = $abook_has_extra_field ? 6 : 5;
    <input type="submit" value=<?php echo '"'._("Delete selected").'"'; ?> name="deladdr" id="deladdr" />
   </td>
   <td colspan=<?php echo '"'.($colspan - 3).'"'; ?> class="abookSwitch">
+   <?php
+    if (count($backends) > 0) {
+        ?>
    <select name="new_bnum">
     <?php
         foreach ($backends as $id=>$name) {
             echo '<option value="'.$id.'"'.($id==$current_backend ? ' selected="selected"' : '').'>'.$name.'</option>'."\n";
         }
     ?>
-    </select>
+   </select>
    <input type="submit" value=<?php echo '"'._("Change").'"'; ?> name="change_abook" id="change_abook" />
+        <?php
+    } else {
+        echo '&nbsp;';
+    }
+   ?>
   </td>
  </tr>
  <tr>
