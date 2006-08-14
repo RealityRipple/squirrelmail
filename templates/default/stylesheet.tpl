@@ -136,6 +136,13 @@ td.header2  {
     padding-bottom: 4px;
 }
 
+tr.even {
+    background: <?php echo $color[12]; ?>;
+}
+tr.odd  {
+    background: <?php echo $color[4]; ?>;
+}
+
 .table_standard {
     border:1px solid <?php echo $color[0]; ?>;
 }
@@ -206,12 +213,6 @@ td.header2  {
 }
 .table_messageList td.spacer {
     background: <?php echo $color[0]; ?>;
-}
-.table_messageList	tr.even	{
-    background: <?php echo $color[12]; ?>;
-}
-.table_messageList	tr.odd	{
-    background: <?php echo $color[4]; ?>;
 }
 .table_messageList	tr.mouse_over	{
     background: <?php echo $color[5]; ?>;
@@ -302,4 +303,63 @@ td.header2  {
     margin-right: auto;
     width: 80%;
     text-align: left;
+}
+
+/* addressbook_list.tpl defs */
+#addressList    {
+    text-align: center;
+}
+
+#addressList    input   {
+    font-size: 75%;
+}
+
+#addressList    select  {
+    font-size: 75%;
+}
+
+#addressList    table   {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    border: 1px solid <?php echo $color[9]; ?>;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+#addressList    td  {
+    text-align: left;
+    padding: 2px;
+}
+
+#addressList    td.header1  {
+    text-align: center;
+    background: <?php echo $color[9]; ?>;
+}
+#addressList    td.abookSwitch  {
+    background: <?php echo $color[0]; ?>;
+    text-align: right;
+}
+
+#addressList    td.abookButtons  {
+    background: <?php echo $color[0]; ?>;
+}
+
+#addressList    td.abookField   {
+    border-left: 1px solid <?php echo $color[9]; ?>;
+    border-right: 1px solid <?php echo $color[9]; ?>;
+}
+
+#addressList    td.colHeader {
+    text-align: center;
+    font-weight: bold;
+    font-size: 98%;
+    background: <?php echo $color[9]; ?>;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+#addressList    td.abookEmpty   {
+    text-align:center;
+    font-weight: bold;
 }
