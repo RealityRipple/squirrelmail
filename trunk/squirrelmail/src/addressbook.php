@@ -26,7 +26,6 @@ require_once(SM_PATH . 'functions/forms.php');
 /** lets get the global vars we may need */
 
 /* From the address form */
-//sqgetGlobalVar('change_abook',  $change_abook,  SQ_POST);
 sqgetGlobalVar('addaddr',       $addaddr,       SQ_POST);
 sqgetGlobalVar('editaddr',      $editaddr,      SQ_POST);
 sqgetGlobalVar('deladdr',       $deladdr,       SQ_POST);
@@ -79,7 +78,6 @@ $defselected  = array();
 $form_url = 'addressbook.php';
 
 /* Handle user's actions */
-//if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'POST' && !isset($change_abook)) {
 if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'POST') {
 
     /**************************************************
@@ -277,6 +275,7 @@ if ($showaddrlist) {
     $oTemplate->assign('addresses', $addresses);
     $oTemplate->assign('current_backend', $current_backend);
     $oTemplate->assign('backends', $list_backends);
+    $oTemplate->assign('abook_has_extra_field', $abook->add_extra_field);
         
     $oTemplate->display('addressbook_list.tpl');
     
