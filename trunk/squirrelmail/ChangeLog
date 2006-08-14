@@ -128,6 +128,7 @@ Version 1.5.2 - CVS
     to main configuration file.
   - Fixed subscription of new 'noselect' folders (#1315912).
   - Moving the development documentation to the documentation module.
+  - Drop obsolete script plugins/make_archive.pl.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
