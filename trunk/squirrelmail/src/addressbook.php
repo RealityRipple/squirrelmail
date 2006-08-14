@@ -26,13 +26,14 @@ require_once(SM_PATH . 'functions/forms.php');
 /** lets get the global vars we may need */
 
 /* From the address form */
-sqgetGlobalVar('addaddr',   $addaddr,   SQ_POST);
-sqgetGlobalVar('editaddr',  $editaddr,  SQ_POST);
-sqgetGlobalVar('deladdr',   $deladdr,   SQ_POST);
-sqgetGlobalVar('sel',       $sel,       SQ_POST);
-sqgetGlobalVar('oldnick',   $oldnick,   SQ_POST);
-sqgetGlobalVar('backend',   $backend,   SQ_POST);
-sqgetGlobalVar('doedit',    $doedit,    SQ_POST);
+//sqgetGlobalVar('change_abook',  $change_abook,  SQ_POST);
+sqgetGlobalVar('addaddr',       $addaddr,       SQ_POST);
+sqgetGlobalVar('editaddr',      $editaddr,      SQ_POST);
+sqgetGlobalVar('deladdr',       $deladdr,       SQ_POST);
+sqgetGlobalVar('sel',           $sel,           SQ_POST);
+sqgetGlobalVar('oldnick',       $oldnick,       SQ_POST);
+sqgetGlobalVar('backend',       $backend,       SQ_POST);
+sqgetGlobalVar('doedit',        $doedit,        SQ_POST);
 
 /* Get sorting order */
 $abook_sort_order = get_abook_sort();
@@ -47,10 +48,27 @@ $abook = addressbook_init(true, false);
 
 // FIXME: do we have to stop use of address book, when localbackend is not present.
 if($abook->localbackend == 0) {
-    plain_error_message(
-            _("No personal address book is defined. Contact administrator."),
-            $color);
+    plain_error_message(_("No personal address book is defined. Contact administrator."));
     exit();
+}
+
+$current_backend = $abook->localbackend;
+if (sqgetGlobalVar('new_bnum',$new_backend,SQ_POST) && array_key_exists($new_backend,$abook->backends)) {
+    $current_backend = (int) $new_backend;
+}
+
+$abook_selection = '&nbsp;';
+$list_backends = array();
+if (count($abook->backends) > 1) {
+    foreach($abook->get_backend_list() as $oBackend) {
+        if ($oBackend->listing) {
+            $list_backends[$oBackend->bnum]=$oBackend->sname;
+        }
+    }
+    if (count($list_backends)>1) {
+        $abook_selection = addSelect('new_bnum',$list_backends,$current_backend,true)
+            .addSubmit(_("Change"),'change_abook');
+    }
 }
 
 $defdata   = array();
@@ -61,6 +79,7 @@ $defselected  = array();
 $form_url = 'addressbook.php';
 
 /* Handle user's actions */
+//if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'POST' && !isset($change_abook)) {
 if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'POST') {
 
     /**************************************************
@@ -214,164 +233,55 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
 
 /* Display error messages */
 if (!empty($formerror)) {
-    echo html_tag( 'table',
-            html_tag( 'tr',
-                html_tag( 'td',
-                    "\n". '<br /><strong><font color="' . $color[2] .
-                    '">' . _("ERROR") . ': ' . nl2br(htmlspecialchars($formerror)) . '</font></strong>' ."\n",
-                    'center' )
-                ),
-            'center', '', 'width="100%"' );
+    plain_error_message(nl2br(htmlspecialchars($formerror)));
 }
 
 
 /* Display the address management part */
-if ($showaddrlist) {
-    /* Get and sort address list */
-    $alist = $abook->list_addr();
-    if(!is_array($alist)) {
-        plain_error_message(nl2br(htmlspecialchars($abook->error)), $color);
-        exit;
-    }
+$addresses = array();
+while (list($k, $backend) = each ($abook->backends)) {
+    $a = array();
+    $a['BackendID'] = $backend->bnum;
+    $a['BackendSource'] = $backend->sname;
+    $a['BackendWritable'] = $backend->writeable;
+    $a['Addresses'] = array();
 
+    $alist = $abook->list_addr($backend->bnum);
     usort($alist,'alistcmp');
-    $prevbackend = -1;
-    $headerprinted = false;
-
-    echo html_tag( 'p', '<a href="#AddAddress">' . _("Add address") . '</a>', 'center' ) . "\n";
-
-    /* List addresses */
-    if (count($alist) > 0) {
-        echo addForm($form_url, 'post');
-        if ($abook->add_extra_field) {
-            $abook_fields = 6;
-        } else {
-            $abook_fields = 5;
-        }
-        while(list($undef,$row) = each($alist)) {
-
-            /* New table header for each backend */
-            if($prevbackend != $row['backend']) {
-                if($prevbackend < 0) {
-                    echo html_tag( 'table',
-                            html_tag( 'tr',
-                                html_tag( 'td',
-                                    addSubmit(_("Edit selected"), 'editaddr').
-                                    addSubmit(_("Delete selected"), 'deladdr'),
-                                    'center', '', "colspan=\"$abook_fields\"" )
-                                ) .
-                            html_tag( 'tr',
-                                html_tag( 'td', '&nbsp;<br />', 'center', '', "colspan=\"$abook_fields\"" )
-                                ),
-                            'center' );
-                    echo "\n<!-- start of address book table -->\n" .
-                        html_tag( 'table', '', 'center', '', 'border="0" cellpadding="1" cellspacing="0" width="90%"' ) .
-                        html_tag( 'tr', "\n" .
-                                html_tag( 'th', '&nbsp;', 'left', '', 'width="1%"' ) . "\n" .
-                                html_tag( 'th', _("Nickname") .
-                                    show_abook_sort_button($abook_sort_order, _("sort by nickname"), 0, 1),
-                                    'left', '', 'width="1%"' ) . "\n" .
-                                html_tag( 'th', _("Name") .
-                                    show_abook_sort_button($abook_sort_order, _("sort by name"), 2, 3),
-                                    'left', '', 'width="1%"' ) . "\n" .
-                                html_tag( 'th', _("E-mail") .
-                                    show_abook_sort_button($abook_sort_order, _("sort by email"), 4, 5),
-                                    'left', '', 'width="1%"' ) . "\n" .
-                                html_tag( 'th', _("Info") .
-                                    show_abook_sort_button($abook_sort_order, _("sort by info"), 6, 7),
-                                    'left', '', 'width="1%"' ) .
-                                  ($abook->add_extra_field ? html_tag( 'th', '&nbsp;','left', '', 'width="1%"'): '') .
-                                "\n",
-                                '', $color[9] ) . "\n";
-                }
-
-                // Separate different backends with <hr />
-                if($prevbackend > 0) {
-                    echo  html_tag( 'tr',
-                            html_tag( 'td', "<hr />", 'center', '' ,"colspan=\"$abook_fields\"" )
-                            );
-                }
-
-                // Print backend name
-                echo html_tag( 'tr',
-                        html_tag( 'td', "\n" . '<strong>' . $row['source'] . '</strong>' . "\n", 'center', $color[0] ,"colspan=\"$abook_fields\"" )
-                        );
-
-                $line = 0;
-                $headerprinted = true;
-            } /* End of header */
-
-            $prevbackend = $row['backend'];
-
-            /* Check if this user is selected */
-            $selected = in_array($row['backend'] . ':' . $row['nickname'], $defselected);
-
-            /* Print one row, with alternating color */
-            if ($line % 2) {
-                $tr_bgcolor = $color[12];
-            } else {
-                $tr_bgcolor = $color[4];
-            }
-            echo html_tag( 'tr', '', '', $tr_bgcolor);
-            if ($abook->backends[$row['backend']]->writeable) {
-                $id = $row['backend'].':'.$row['nickname'];
-                echo html_tag( 'td',
-                               '<small>' .
-                               addCheckBox("sel[$id]", $selected, $id).
-                               '</small>' ,
-                               'center', '', 'valign="top" width="1%"' );
-                $label1 = '<label for="sel_'.$id.'_">'; $label2='</label>';
-            } else {
-                echo html_tag( 'td',
-                               '&nbsp;' ,
-                               'center', '', 'valign="top" width="1%"' );
-                $label1 = $label2 = '';
-            }
-            echo html_tag( 'td',
-                           '&nbsp;' . $label1 . htmlspecialchars($row['nickname']) . $label2 . '&nbsp;',
-                           'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' );
-
-            echo html_tag( 'td',
-                           '&nbsp;' . $label1 . htmlspecialchars($row['name']) . $label2 . '&nbsp;',
-                           'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' );
-
-            // email address column
-            echo html_tag( 'td', '', 'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' ) . '&nbsp;';
-            $email = $abook->full_address($row);
-            echo makeComposeLink('src/compose.php?send_to='.rawurlencode($email),
-                    htmlspecialchars($row['email'])).
-                '&nbsp;</td>'."\n";
-
-            // info column
-            echo html_tag( 'td', '&nbsp;' . htmlspecialchars($row['label']) . '&nbsp;', 'left', '', 'valign="top" width="1%"' );
-
-            // add extra column if third party backend needs it
-            if ($abook->add_extra_field) {
-                echo html_tag( 'td',
-                               '&nbsp;' . (isset($row['extra']) ? $row['extra'] : '') . '&nbsp;',
-                               'left', '', 'valign="top" width="1%"' );
-            }
-            echo "</tr>\n";
-            $line++;
-        }
-        echo "</table>" .
-            "\n<!-- end of address book table -->\n";
-
-        /* End of list. Add edit/delete select buttons */
-        if ($headerprinted) {
-            echo html_tag( 'table',
-                    html_tag( 'tr',
-                        html_tag( 'td',
-                            addSubmit(_("Edit selected"), 'editaddr') .
-                            addSubmit(_("Delete selected"), 'deladdr'),
-                            'center', '', "colspan=\"$abook_fields\"" )
-                        ),
-                    'center' );
-        }
-        echo "</form>\n";
+    $start = 200;
+    $count = count($alist);
+    if ($start >= $count) $start = 0;
+    $alist = array_slice($alist,$start,15);
+   
+    while(list($undef,$row) = each($alist)) {
+        $contact = array (
+                            'FirstName'     => htmlspecialchars($row['firstname']),
+                            'LastName'      => htmlspecialchars($row['lastname']),
+                            'FullName'      => htmlspecialchars($row['name']),
+                            'NickName'      => htmlspecialchars($row['nickname']),
+                            'Email'         => htmlspecialchars($row['email']),
+                            'FullAddress'   => htmlspecialchars($abook->full_address($row)),
+                            'Info'          => htmlspecialchars($row['label']),
+                            'Extra'         => (isset($row['extra']) ? $row['extra'] : NULL),
+                         );
+        $a['Addresses'][] = $contact;
     }
-} /* end of addresslist */
+  
+    $addresses[$backend->bnum] = $a;
+}
 
+
+if ($showaddrlist) {
+    echo addForm($form_url, 'post');
+    
+    $oTemplate->assign('addresses', $addresses);
+    $oTemplate->assign('current_backend', $current_backend);
+    $oTemplate->assign('backends', $list_backends);
+        
+    $oTemplate->display('addressbook_list.tpl');
+    
+    echo "</form>\n";
+}
 
 /* Display the "new address" form */
 echo '<a name="AddAddress"></a>' . "\n";
@@ -382,5 +292,6 @@ echo "</form>\n";
 echo "<!-- start of addressbook_bottom hook-->\n";
 do_hook('addressbook_bottom');
 echo "\n<!-- end of addressbook_bottom hook-->\n";
+
 $oTemplate->display('footer.tpl');
 ?>
