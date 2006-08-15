@@ -177,16 +177,35 @@ function addressbook_init($showerr = true, $onlylocal = false) {
  * @param array $defdata values of form fields
  */
 function abook_create_form($form_url,$name,$title,$button,$defdata=array()) {
-    global $color;
-    echo addForm($form_url, 'post', 'f_add').
-        html_tag( 'table',
-                  html_tag( 'tr',
-                            html_tag( 'td', "\n". '<strong>' . $title . '</strong>' . "\n",
-                                      'center', $color[0]
-                                      )
-                            )
-                  , 'center', '', 'width="90%"' ) ."\n";
-    address_form($name, $button, $defdata);
+    global $oTemplate;
+
+    echo addForm($form_url, 'post', 'f_add');
+
+    if ($button == _("Update address")) {
+        $edit = true;
+        $backends = NULL;
+    } else {
+        $edit = false;
+        $backends = getWritableBackends();
+    }
+    
+    $fields = array (
+                        'nickname'  => 'NickName',
+                        'firstname' => 'FirstName',
+                        'lastname'  => 'LastName',
+                        'email'     => 'Email',
+                        'label'     => 'Info',
+                    );
+    $values = array();
+    foreach ($fields as $sqm=>$template) {
+        $values[$template] = isset($defdata[$sqm]) ? $defdata[$sqm] : '';
+    }
+    
+    $oTemplate->assign('writable_backends', $backends);
+    $oTemplate->assign('values', $values);
+    $oTemplate->assign('edit', $edit);
+    
+    $oTemplate->display('addrbook_addedit.tpl');
 }
 
 
@@ -208,106 +227,23 @@ function addressbook_cmp($a,$b) {
 }
 
 /**
- * Make an input field
- * @param string $label
- * @param string $field
- * @param string $name
- * @param string $size
- * @param array $values
- * @param string $add
+ * Retrieve a list of writable backends
+ * 
+ * @author Steve Brown
+ * @since 1.5.2
  */
-function addressbook_inp_field($label, $field, $name, $size, $values, $add='') {
-    global $color;
-    $value = ( isset($values[$field]) ? $values[$field] : '');
-
-    if (is_array($value)) {
-        $td_str = addSelect($name.'['.$field.']', $value);
-    } else {
-        $td_str = addInput($name.'['.$field.']', $value, $size);
-    }
-    $td_str .= $add ;
-
-    return html_tag( 'tr' ,
-            html_tag( 'td', '<label for="'.$name.'_'.$field.'_'.'">' .
-                $label . '</label>:', 'right', $color[4]) .
-            html_tag( 'td', $td_str, 'left', $color[4])
-            )
-        . "\n";
-}
-
-/**
- * Output form to add and modify address data
- */
-function address_form($name, $submittext, $values = array()) {
-    global $color, $squirrelmail_language;
-
-    if ($squirrelmail_language == 'ja_JP') {
-        echo html_tag( 'table',
-                addressbook_inp_field(_("Nickname"),     'nickname', $name, 15, $values,
-                    ' <small>' . _("Must be unique") . '</small>') .
-                addressbook_inp_field(_("E-mail address"),  'email', $name, 45, $values, '') .
-                addressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
-                addressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
-                addressbook_inp_field(_("Additional info"), 'label', $name, 45, $values, '') .
-                list_writable_backends($name) .
-                html_tag( 'tr',
-                    html_tag( 'td',
-                        addSubmit($submittext, $name.'[SUBMIT]'),
-                        'center', $color[4], 'colspan="2"')
-                    )
-                , 'center', '', 'border="0" cellpadding="1" width="90%"') ."\n";
-    } else {
-        echo html_tag( 'table',
-                addressbook_inp_field(_("Nickname"),     'nickname', $name, 15, $values,
-                    ' <small>' . _("Must be unique") . '</small>') .
-                addressbook_inp_field(_("E-mail address"),  'email', $name, 45, $values, '') .
-                addressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
-                addressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
-                addressbook_inp_field(_("Additional info"), 'label', $name, 45, $values, '') .
-                list_writable_backends($name) .
-                html_tag( 'tr',
-                    html_tag( 'td',
-                        addSubmit($submittext, $name.'[SUBMIT]') ,
-                        'center', $color[4], 'colspan="2"')
-                    )
-                , 'center', '', 'border="0" cellpadding="1" width="90%"') ."\n";
-    }
-}
-
-/**
- * Provides list of writeable backends.
- * Works only when address is added ($name='addaddr')
- * @param string $name name of form
- * @return string html formated backend field (select or hidden)
- */
-function list_writable_backends($name) {
-    global $color, $abook;
-    if ( $name != 'addaddr' ) { return; }
-    $writeable_abook = 1;
-    if ( $abook->numbackends > 1 ) {
-        $backends = $abook->get_backend_list();
-        $writeable_abooks=array();
-        while (list($undef,$v) = each($backends)) {
-            if ($v->writeable) {
-                // add each backend to array
-                $writeable_abooks[$v->bnum]=$v->sname;
-                // save backend number
-                $writeable_abook=$v->bnum;
-            }
-        }
-        if (count($writeable_abooks)>1) {
-            // we have more than one writeable backend
-            $ret=addSelect('backend',$writeable_abooks,null,true);
-            return html_tag( 'tr',
-                             html_tag( 'td', _("Add to:"),'right', $color[4] ) .
-                             html_tag( 'td', $ret, 'left', $color[4] )) . "\n";
+function getWritableBackends () {
+    global $abook;
+    
+    $write = array();
+    $backends = $abook->get_backend_list();
+    while (list($undef,$v) = each($backends)) {
+        if ($v->writeable) {
+            $write[$v->bnum]=$v->sname;
         }
     }
-    // Only one backend exists or is writeable.
-    return html_tag( 'tr',
-                     html_tag( 'td',
-                               addHidden('backend', $writeable_abook),
-                               'center', $color[4], 'colspan="2"')) . "\n";
+
+    return $write;
 }
 
 /**
