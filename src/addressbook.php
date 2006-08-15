@@ -20,6 +20,8 @@ include('../include/init.php');
 /** SquirrelMail required files. */
 /* address book functions */
 require_once(SM_PATH . 'functions/addressbook.php');
+include_once(SM_PATH . 'templates/util_addressbook.php');
+
 /* form functions */
 require_once(SM_PATH . 'functions/forms.php');
 
@@ -251,19 +253,7 @@ while (list($k, $backend) = each ($abook->backends)) {
     if ($start >= $count) $start = 0;
     $alist = array_slice($alist,$start,15);
    
-    while(list($undef,$row) = each($alist)) {
-        $contact = array (
-                            'FirstName'     => htmlspecialchars($row['firstname']),
-                            'LastName'      => htmlspecialchars($row['lastname']),
-                            'FullName'      => htmlspecialchars($row['name']),
-                            'NickName'      => htmlspecialchars($row['nickname']),
-                            'Email'         => htmlspecialchars($row['email']),
-                            'FullAddress'   => htmlspecialchars($abook->full_address($row)),
-                            'Info'          => htmlspecialchars($row['label']),
-                            'Extra'         => (isset($row['extra']) ? $row['extra'] : NULL),
-                         );
-        $a['Addresses'][] = $contact;
-    }
+    $a['Addresses'] = formatAddressList($alist);
   
     $addresses[$backend->bnum] = $a;
 }

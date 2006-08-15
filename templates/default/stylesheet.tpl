@@ -311,7 +311,7 @@ tr.odd  {
 }
 
 #addressList    input   {
-    font-size: 75%;
+    font-size: 8pt;
 }
 
 #addressList    select  {
@@ -321,7 +321,7 @@ tr.odd  {
 #addressList    table   {
     margin-left: auto;
     margin-right: auto;
-    width: 90%;
+    width: 95%;
     border: 1px solid <?php echo $color[9]; ?>;
     margin-top: 8px;
     margin-bottom: 8px;
@@ -348,6 +348,8 @@ tr.odd  {
 #addressList    td.abookField   {
     border-left: 1px solid <?php echo $color[9]; ?>;
     border-right: 1px solid <?php echo $color[9]; ?>;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 #addressList    td.colHeader {
@@ -362,4 +364,48 @@ tr.odd  {
 #addressList    td.abookEmpty   {
     text-align:center;
     font-weight: bold;
+}
+
+#addressList    td.abookCompose {
+    font-size: 8pt;
+    white-space: nowrap;
+}
+
+#addrBookSearch {
+    text-align: center;
+}
+
+#addrBookSearch table   {
+    padding: 0;
+    border: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#addrBookSearch   table.wrapper   {
+    border: 1px solid <?php echo $color[9]; ?>;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+}
+
+#addrBookSearch td  {
+    padding: 2px;
+}
+
+#addrBookSearch label   {
+    font-weight: bold;
+}
+
+#addrBookSearch input   {
+    font-size: 75%;
+}
+
+#addrBookSearch select  {
+    font-size: 75%;
+}
+
+#addrBookSearch td.buttons  {
+    text-align: center;
 }
