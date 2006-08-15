@@ -189,7 +189,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                     /* Handle error messages */
                     if (!$r) {
                         /* Display error */
-                        plain_error_message( _("ERROR") .': '. $abook->error);
+                        plain_error_message( nl2br(htmlspecialchars(_("ERROR") .': '. $abook->error));
 
                         /* Display the "new address" form again */
                         abook_create_form($form_url,'editaddr',_("Update address"),_("Update address"),$newdata);
