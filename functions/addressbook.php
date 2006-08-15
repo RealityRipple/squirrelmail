@@ -679,7 +679,7 @@ class AddressBook {
     /**
      * Return all addresses
      * @param integer $bnum backend number
-     * @return array search results
+     * @return mixed array with search results or boolean false on error.
      */
     function list_addr($bnum = -1) {
         $ret = array();
@@ -1001,18 +1001,23 @@ class addressbook_backend {
     /**
      * Creates full name from given name and surname
      *
-     * Handles name order differences
+     * Handles name order differences. Function always runs in SquirrelMail gettext domain.
+     * Plugins don't have to switch domains before calling this function.
      * @param string $firstname given name
      * @param string $lastname surname
      * @return string full name
      * @since 1.5.2
      */
     function fullname($firstname,$lastname) {
-        global $squirrelmail_language;
-        if ($squirrelmail_language=='ja_JP') {
-            return trim($lastname . ' ' . $firstname);
-        } else {
-            return trim($firstname . ' ' . $lastname);
-        }
+        /**
+         * i18n: allows to control fullname layout in address book listing
+         * first %s is for first name, second %s is for last name.
+         * Translate it to '%2$s %1$s', if surname must be displayed first in your language.
+         * Please note that variables can be set to empty string and extra formating 
+         * (for example '%2$s, %1$s' as in 'Smith, John') might break. Use it only for 
+         * setting name and surname order. scripts will remove all prepended and appended
+         *  whitespace.
+         */
+        return trim(sprintf(dgettext('squirrelmail',"%s %s"),$firstname,$lastname));
     }
 }
