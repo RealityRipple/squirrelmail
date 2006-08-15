@@ -112,14 +112,14 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
             $orig_sel = $sel;
             sort($sel);
 
-            /* The selected addresses are identidied by "backend:nickname". *
+            /* The selected addresses are identidied by "nickname_backend". *
              * Sort the list and process one backend at the time            */
             $prevback  = -1;
             $subsel    = array();
             $delfailed = false;
 
             for ($i = 0 ; (($i < sizeof($sel)) && !$delfailed) ; $i++) {
-                list($sbackend, $snick) = explode(':', $sel[$i]);
+                list($snick, $sbackend) = explode('_', $sel[$i]);
 
                 /* When we get to a new backend, process addresses in *
                  * previous one.                                      */
@@ -167,7 +167,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                         $defselected = $sel;
                     } else {
                         $abortform = true;
-                        list($ebackend, $enick) = explode(':', current($sel));
+                        list($enick, $ebackend) = explode('_', current($sel));
                         $olddata = $abook->lookup($enick, $ebackend);
                         // Test if $olddata really contains anything and return an error message if it doesn't
                         if (!$olddata) {
@@ -189,7 +189,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                     /* Handle error messages */
                     if (!$r) {
                         /* Display error */
-                        plain_error_message( nl2br(htmlspecialchars(_("ERROR") .': '. $abook->error)));
+                        plain_error_message( nl2br(htmlspecialchars($abook->error)));
 
                         /* Display the "new address" form again */
                         abook_create_form($form_url,'editaddr',_("Update address"),_("Update address"),$newdata);
