@@ -21,6 +21,7 @@ include('../include/init.php');
 /* address book functions */
 require_once(SM_PATH . 'functions/addressbook.php');
 include_once(SM_PATH . 'templates/util_addressbook.php');
+include_once(SM_PATH . 'templates/util_global.php');
 
 /* form functions */
 require_once(SM_PATH . 'functions/forms.php');
@@ -188,14 +189,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                     /* Handle error messages */
                     if (!$r) {
                         /* Display error */
-                        echo html_tag( 'table',
-                                html_tag( 'tr',
-                                    html_tag( 'td',
-                                        "\n". '<strong><font color="' . $color[2] .
-                                        '">' . _("ERROR") . ': ' . $abook->error . '</font></strong>' ."\n",
-                                        'center' )
-                                    ),
-                                'center', '', 'width="100%"' );
+                        plain_error_message( _("ERROR") .': '. $abook->error);
 
                         /* Display the "new address" form again */
                         abook_create_form($form_url,'editaddr',_("Update address"),_("Update address"),$newdata);

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * functions/addressbook.php - Functions and classes for the addressbook system
  *
@@ -11,10 +10,6 @@
  * @package squirrelmail
  * @subpackage addressbook
  */
-
-/** required includes */
-// FIXME, NO display code in functions files
-include_once(SM_PATH . 'templates/util_global.php');
 
 /**
  * Create and initialize an addressbook object.
