@@ -100,11 +100,11 @@ $colspan = $abook_has_extra_field ? 6 : 5;
         echo '<tr><td class="abookEmpty" colspan="'.$colspan.'">'._("Address book is empty").'</td></tr>'."\n";
     }
     foreach ($source['Addresses'] as $contact) {
-        $id = $current_backend.':'.$contact['NickName'];
+        $id = $contact['NickName'] . $current_backend;
         ?>
  <tr class=<?php echo '"'.($count%2 ? 'even' : 'odd').'"'; ?>>
   <td class="abookField" style="width:1%"><?php echo ($source['BackendWritable'] ? '<input type="checkbox" name="sel[]" value="'.$id.'" id="'.$id.'" />' : ''); ?></td>
-  <td class="abookField" style="width:15%"><label for=<?php echo '"'.$id.'"'; ?>><?php echo $contact['NickName']; ?></lable></td>
+  <td class="abookField" style="width:15%"><label for=<?php echo '"'.$id.'"'; ?>><?php echo $contact['NickName']; ?></label></td>
   <td class="abookField"><?php echo $contact['FullName']; ?></td>
   <td class="abookField"><?php echo composeLink($contact); ?></td>
   <td class="abookField"><?php echo $contact['Info']; ?></td>
