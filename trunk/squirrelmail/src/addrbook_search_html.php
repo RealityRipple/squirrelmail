@@ -125,8 +125,6 @@ if ($addrquery == '' || ! empty($listall)) {
             $backend = $abook->localbackend;
         }
 
-        /* echo '<h3 align="center">' . $abook->backends[$backend]->sname) . "</h3>\n"; */
-
         $res = $abook->list_addr($backend);
 
         if (is_array($res)) {
