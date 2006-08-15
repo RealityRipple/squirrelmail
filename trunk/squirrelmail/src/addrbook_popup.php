@@ -17,24 +17,9 @@
  */
 include('../include/init.php');
 
-?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
-  "http://www.w3.org/TR/1999/REC-html401-19991224/frameset.dtd">
+displayHtmlHeader($org_title .': '. _("AddressBook"), '', false, true);
 
-<html>
-    <head>
-        <meta name="robots" content="noindex,nofollow">
-        <title><?php echo "$org_title: " . _("Address Book"); ?></title>
-    </head>
-    <frameset rows="60,*" border="0">
-        <frame name="abookmain"
-               marginwidth="0"
-               scrolling="no"
-               border="0"
-               src="addrbook_search.php?show=form" />
-        <frame name="abookres"
-               marginwidth="0"
-               border="0"
-               src="addrbook_search.php?show=blank" />
-    </frameset>
-</html>
+$oTemplate->display('addressbook_popup.tpl');
+
+$oTemplate->display('footer.tpl');
+?>

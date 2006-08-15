@@ -26,10 +26,11 @@ if (!isset($bInit)) {
 /** SquirrelMail required files. */
 include_once(SM_PATH . 'functions/date.php');
 include_once(SM_PATH . 'functions/addressbook.php');
+include_once(SM_PATH . 'templates/util_addressbook.php');
 
 sqgetGlobalVar('session',   $session,   SQ_POST);
 sqgetGlobalVar('mailbox',   $mailbox,   SQ_POST);
-if (! sqgetGlobalVar('addrquery', $addrquery, SQ_POST))
+if (! sqgetGlobalVar('query', $addrquery, SQ_POST))
      $addrquery='';
 sqgetGlobalVar('listall',   $listall,   SQ_POST);
 sqgetGlobalVar('backend',   $backend,   SQ_POST);
@@ -66,88 +67,21 @@ function addr_insert_hidden() {
 function addr_display_result($res, $includesource = true) {
     global $color, $javascript_on, $PHP_SELF, $squirrelmail_language;
 
+    global $oTemplate, $oErrorHandler;
+    
     if (sizeof($res) <= 0) return;
 
-    echo addForm($PHP_SELF, 'post', 'addrbook').
+    echo addForm($PHP_SELF, 'post', 'addressbook').
          addHidden('html_addr_search_done', 'true');
     addr_insert_hidden();
-    $line = 0;
 
-    if ($javascript_on) {
-        print
-            '<script type="text/javascript">' .
-            "\n<!-- \n" .
-            "function CheckAll(ch) {\n" .
-            "   for (var i = 0; i < document.addrbook.elements.length; i++) {\n" .
-            "       if( document.addrbook.elements[i].type == 'checkbox' &&\n" .
-            "           document.addrbook.elements[i].name.substr(0,16) == 'send_to_search['+ch ) {\n" .
-            "           document.addrbook.elements[i].checked = !(document.addrbook.elements[i].checked);\n".
-            "       }\n" .
-            "   }\n" .
-            "}\n" .
-            "//-->\n" .
-            "</script>\n";
-        $chk_all = '<a href="#" onclick="CheckAll(\'T\');">'._("All").'</a>&nbsp;<font color="'.$color[9].'">'._("To").'</font>'.
-            '&nbsp;&nbsp;'.
-            '<a href="#" onclick="CheckAll(\'C\');">' . _("All") . '</a>&nbsp;<font color="'.$color[9].'">'._("Cc").'</font>'.
-            '&nbsp;&nbsp;'.
-            '<a href="#" onclick="CheckAll(\'B\');">' . _("All") . '</a>';
-    } else {
-        // check_all links are used only in JavaScript. disable links in js=off environment.
-        $chk_all = '';
-    }
-    echo html_tag( 'table', '', 'center', '', 'border="0" width="98%"' ) .
-    html_tag( 'tr', '', '', $color[9] ) .
-    html_tag( 'th', '&nbsp;' . $chk_all, 'left' ) .
-    html_tag( 'th', '&nbsp;' . _("Name"), 'left' ) .
-    html_tag( 'th', '&nbsp;' . _("E-mail"), 'left' ) .
-    html_tag( 'th', '&nbsp;' . _("Info"), 'left' );
-
-    if ($includesource) {
-        echo html_tag( 'th', '&nbsp;' . _("Source"), 'left', '', 'width="10%"' );
-    }
-
-    echo "</tr>\n";
-
-    foreach ($res as $row) {
-        $email = AddressBook::full_address($row);
-        if ($line % 2) {
-            $tr_bgcolor = $color[12];
-        } else {
-            $tr_bgcolor = $color[4];
-        }
-
-        echo html_tag( 'tr', '', '', $tr_bgcolor, 'style="white-space: nowrap;"' ) .
-        html_tag( 'td',
-            addCheckBox('send_to_search[T'.$line.']', FALSE, $email).
-            '&nbsp;' . _("To") . '&nbsp;' .
-            addCheckBox('send_to_search[C'.$line.']', FALSE, $email).
-            '&nbsp;' . _("Cc") . '&nbsp;' .
-            addCheckBox('send_to_search[B'.$line.']', FALSE, $email).
-            '&nbsp;' . _("Bcc") . '&nbsp;' ,
-        'center', '', 'width="5%" style="white-space: nowrap;"' ) .
-        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['name']) . '&nbsp;', 'left', '', 'style="white-space: nowrap;"' ) .
-        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['email']) . '&nbsp;', 'left', '', 'style="white-space: nowrap;"' ) .
-        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['label']) . '&nbsp;', 'left', '', 'style="white-space: nowrap;"' );
-
-        if ($includesource) {
-            echo html_tag( 'td', '&nbsp;' . $row['source'] . '&nbsp;', 'left', '', 'style="white-space: nowrap;"' );
-        }
-        echo "</tr>\n";
-        $line ++;
-    }
-    if ($includesource) { $td_colspan = '5'; } else { $td_colspan = '4'; }
-    echo html_tag( 'tr',
-                html_tag( 'td',
-                        '<input type="submit" name="addr_search_done" value="' .
-                        _("Use Addresses") . '" /> ' .
-                        '<input type="submit" name="addr_search_cancel" value="' .
-                        _("Cancel") . '" />',
-                'center', '', 'colspan="'. $td_colspan .'"' )
-            ) .
-         '</table>' .
-         addHidden('html_addr_search_done', '1').
-         '</form>';
+    $oTemplate->assign('use_js', false);
+    $oTemplate->assign('include_abook_name', $includesource);
+    $oTemplate->assign('addresses', formatAddressList($res));
+    
+    $oTemplate->display('addrbook_search_list.tpl');
+    
+    echo '</form>';
 }
 
 /* --- End functions --- */
@@ -167,49 +101,19 @@ set_my_charset();
 $abook = addressbook_init();
 
 
-echo '<br />' .
-html_tag( 'table',
-    html_tag( 'tr',
-        html_tag( 'td', '<b>' . _("Address Book Search") . '</b>', 'center', $color[0] )
-    ) ,
-'center', '', 'width="95%" cellpadding="2" cellspacing="2" border="0"' );
-
-
 /* Search form */
-echo '<div style="text-align: center;">' .
-    html_tag( 'table', '', 'center', '', 'border="0"' ) .
-    html_tag( 'tr' ) .
-    html_tag( 'td', '', 'left', '', 'style="white-space: nowrap;" valign="middle"' ) . "\n" .
-    addForm($PHP_SELF.'?html_addr_search=true', 'post', 'f').
-    "\n<div style=\"text-align: center;\">\n" .
-    '  <nobr><strong>' . _("Search for") . "</strong>\n";
+echo addForm($PHP_SELF.'?html_addr_search=true', 'post', 'f');
 addr_insert_hidden();
-echo addInput('addrquery', $addrquery, 26);
-
-/* List all backends to allow the user to choose where to search */
-if (!isset($backend)) { $backend = ''; }
-if ($abook->numbackends > 1) {
-    echo '<strong>' . _("in") . '</strong>&nbsp;';
-
-    $selopts['-1'] = _("All address books");
-    $ret = $abook->get_backend_list();
-
-    while (list($undef,$v) = each($ret)) {
-        $selopts[$v->bnum] = $v->sname;
-    }
-    echo addSelect('backend', $selopts, $backend, TRUE);
-} else {
-    echo addHidden('backend', '-1');
-}
 if (isset($session)) {
     echo addHidden('session', $session);
 }
 
-echo '<input type="submit" value="' . _("Search") . '" />' .
-     '&nbsp;|&nbsp;<input type="submit" value="' . _("List all") .
-     '" name="listall" />' . "\n" .
-     '</form></div></td></tr></table>' . "\n";
-echo '</div>';
+$oTemplate->assign('use_js', false);
+$oTemplate->assign('backends', getBackends());
+
+$oTemplate->display('addressbook_search_form.tpl');
+
+echo "</form>\n";
 do_hook('addrbook_html_search_below');
 /* End search form */
 
@@ -229,10 +133,7 @@ if ($addrquery == '' || ! empty($listall)) {
             usort($res,'alistcmp');
             addr_display_result($res, false);
         } else {
-            echo html_tag( 'p', '<strong><br />' .
-                 sprintf(_("Unable to list addresses from %s"),
-                 $abook->backends[$backend]->sname) . "</strong>\n" ,
-            'center' );
+            plain_error_message(_("Unable to list addresses from %s"), $abook->backends[$backend]->sname);
         }
 
     } else {
@@ -251,27 +152,17 @@ if ($addrquery == '' || ! empty($listall)) {
     }
 
     if (!is_array($res)) {
-        echo html_tag( 'p', '<b><br />' .
-                       _("Your search failed with the following error(s)") .
-                       ':<br />' . nl2br(htmlspecialchars($abook->error)) . "</b>\n" ,
-                       'center' ) . "\n";
-        $oTemplate->display('footer.tpl');
+        plain_error_message(_("Your search failed with the following error(s)") .':<br />'. nl2br(htmlspecialchars($abook->error)));
+    } elseif (sizeof($res) == 0) {
+        $oTemplate->assign('note', _("No persons matching your search were found"));
+        $oTemplate->display('note.tpl');
     } else {
-        if (sizeof($res) == 0) {
-            echo html_tag( 'p', '<br /><b>' .
-                           _("No persons matching your search were found") . "</b>\n" ,
-                           'center' ) . "\n";
-            $oTemplate->display('footer.tpl');
-        } else {
-            addr_display_result($res);
-        }
+        addr_display_result($res);
     }
 } else {
     // not first time display, not listall and search is empty
     // TODO: I think, this part of control structure is never reached.
-    echo html_tag( 'p', '<br /><b>' .
-                   _("Nothing to search") . "</b>\n" ,
-                   'center' );
+    plain_error_message(_("Nothing to search"));
 }
 
 if ($addrquery == '' || sizeof($res) == 0) {
@@ -281,6 +172,8 @@ if ($addrquery == '' || sizeof($res) == 0) {
     echo '<input type="submit" value="' . _("Return") . '" name="return" />' . "\n" .
          '</form></div></nobr>';
 }
+
+echo '<hr />';
 
 $oTemplate->display('footer.tpl');
 ?>

@@ -31,6 +31,8 @@
  *              $el['Info']      - Additional info about this contact
  *              $el['Extra']     - Additional field, if provided.  NULL if this
  *                                 field is not provided by the book.
+ *              $el['JSEmail']   - email address scrubbed for use with
+ *                                 javascript functions.
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -45,7 +47,6 @@ include_once(SM_PATH . 'templates/util_addressbook.php');
 /** extract template variables **/
 extract($t);
 
-#echo dump_array($addresses).'<br>';
 /** Begin template **/
 $source = $addresses[$current_backend];
 $colspan = $abook_has_extra_field ? 6 : 5;
