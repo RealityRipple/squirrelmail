@@ -239,6 +239,7 @@ if (!empty($formerror)) {
 
 /* Display the address management part */
 $addresses = array();
+// TODO: remove while. list_addr() should be called only for $current_backend
 while (list($k, $backend) = each ($abook->backends)) {
     $a = array();
     $a['BackendID'] = $backend->bnum;
@@ -247,15 +248,18 @@ while (list($k, $backend) = each ($abook->backends)) {
     $a['Addresses'] = array();
 
     $alist = $abook->list_addr($backend->bnum);
-    usort($alist,'alistcmp');
-    $start = 200;
-    $count = count($alist);
-    if ($start >= $count) $start = 0;
-    $alist = array_slice($alist,$start,15);
-   
-    $a['Addresses'] = formatAddressList($alist);
+
+    /* check return (array with data or boolean false) */
+    if (is_array($alist)) {
+        usort($alist,'alistcmp');
+
+        $a['Addresses'] = formatAddressList($alist);
   
-    $addresses[$backend->bnum] = $a;
+        $addresses[$backend->bnum] = $a;
+    } else {
+        // list_addr() returns boolean
+        plain_error_message(nl2br(htmlspecialchars($abook->error)));
+    }
 }
 
 
