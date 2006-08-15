@@ -80,13 +80,14 @@ if ( sqgetGlobalVar('startMessage',$startMessage) ) {
 
 
 /** POST VARS */
-sqgetGlobalVar('sigappend',             $sigappend,             SQ_POST);
-sqgetGlobalVar('from_htmladdr_search',  $from_htmladdr_search,  SQ_POST);
-sqgetGlobalVar('addr_search_done',      $html_addr_search_done, SQ_POST);
-sqgetGlobalVar('send_to_search',        $send_to_search,        SQ_POST);
-sqgetGlobalVar('do_delete',             $do_delete,             SQ_POST);
-sqgetGlobalVar('delete',                $delete,                SQ_POST);
-sqgetGlobalVar('restoremessages',       $restoremessages,       SQ_POST);
+sqgetGlobalVar('sigappend',             $sigappend,                 SQ_POST);
+sqgetGlobalVar('from_htmladdr_search',  $from_htmladdr_search,      SQ_POST);
+sqgetGlobalVar('addr_search_done',      $html_addr_search_done,     SQ_POST);
+sqgetGlobalVar('addr_search_cancel',    $html_addr_search_cancel,   SQ_POST);
+sqgetGlobalVar('send_to_search',        $send_to_search,            SQ_POST);
+sqgetGlobalVar('do_delete',             $do_delete,                 SQ_POST);
+sqgetGlobalVar('delete',                $delete,                    SQ_POST);
+sqgetGlobalVar('restoremessages',       $restoremessages,           SQ_POST);
 if ( sqgetGlobalVar('return', $temp, SQ_POST) ) {
     $html_addr_search_done = 'Use Addresses';
 }
@@ -561,7 +562,7 @@ if ($send) {
         }
     }
     showInputForm($session);
-} elseif (isset($html_addr_search)) {
+} elseif (isset($html_addr_search) && !isset($html_addr_search_cancel)) {
     if (isset($_FILES['attachfile']) &&
             $_FILES['attachfile']['tmp_name'] &&
             $_FILES['attachfile']['tmp_name'] != 'none') {
