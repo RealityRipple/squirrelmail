@@ -512,7 +512,15 @@ class abook_local_file extends addressbook_backend {
             // i18n: don't use html formating in translation
             return $this->set_error(sprintf(_("User \"%s\" does not exist"),$alias));
         }
-
+        
+        /* If the alias changed, see if the new alias exists */
+        if (strtolower($alias) != strtolower($userdata['nickname'])) {
+            $ret = $this->lookup($userdata['nickname']);
+            if (!empty($ret)) {
+                return $this->set_error(sprintf(_("User \"%s\" already exists"), $userdata['nickname']));
+            }
+        }
+        
         /* Lock the file to make sure we're the only process working
          * on it. */
         if(!$this->lock()) {
