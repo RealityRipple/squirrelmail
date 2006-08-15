@@ -239,7 +239,6 @@ if (!empty($formerror)) {
 
 /* Display the address management part */
 $addresses = array();
-// TODO: remove while. list_addr() should be called only for $current_backend
 while (list($k, $backend) = each ($abook->backends)) {
     $a = array();
     $a['BackendID'] = $backend->bnum;
