@@ -409,3 +409,44 @@ tr.odd  {
 #addrBookSearch td.buttons  {
     text-align: center;
 }
+
+#addrAddEdit    {
+    text-align: center;
+}
+
+#addrAddEdit    table   {
+    border: 1px solid <?php echo $color[9]; ?>;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    width: 95%
+}
+
+#addrAddEdit    td.header   {
+    background: <?php echo $color[9]; ?>;
+    text-align: center;
+    font-weight: bold;
+}
+
+#addrAddEdit    td.fieldName   {
+    text-align: right;
+    width: 30%;
+}
+
+#addrAddEdit    td.addButton   {
+    text-align: center;
+}
+
+#addrAddEdit    td  {
+    text-align: left;
+    padding: 2px;
+}
+
+#addrAddEdit    input   {
+    font-size: 75%;
+}
+
+#addrAddEdit    select  {
+    font-size: 75%;
+}
