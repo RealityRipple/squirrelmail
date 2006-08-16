@@ -22,6 +22,19 @@ require(SM_PATH . 'functions/imap_general.php');
 require(SM_PATH . 'functions/mailbox_display.php');
 require(SM_PATH . 'functions/mime.php');
 
+/**
+ * If a message is viewed from the search page, $aMailbox[$passed_id]['MESSAGE_OBJECT']
+ * is not initialized, which makes this page error out on line 65 with an 
+ * undefined function.  We need to include some additional files in case the
+ * object has not been initialized.
+ * 
+ * TODO: Determine why the object in question is not initialized when coming from
+ *       a search page and correct.  Once that is done, we can remove these
+ *       includes.
+ */
+require(SM_PATH . 'functions/imap_messages.php');
+require(SM_PATH . 'functions/date.php');
+
 header('Pragma: ');
 header('Cache-Control: cache');
 
@@ -50,8 +63,8 @@ if (isset($aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT']) &&
     is_object($aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT']) ) {
     $message = $aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT'];
 } else {
-   $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
-   $aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT'] = $message;
+    $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
+    $aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT'] = $message;
 }
 
 $subject = $message->rfc822_header->subject;
