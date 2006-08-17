@@ -407,7 +407,6 @@ switch ($sInitLocation) {
          */
         require(SM_PATH . 'include/load_prefs.php');
 
-
 // i do not understand the frames language cookie story
         /**
          * We'll need this to later have a noframes version
@@ -491,17 +490,23 @@ switch ($sInitLocation) {
  * Initialize the template object
  */
 require(SM_PATH . 'class/template/template.class.php');
+
 /*
  * $sTplDir is not initialized when a user is not logged in, so we will use
  * the config file defaults here.  If the neccesary variables are net set,
  * force a default value.
+ * 
+ * If the user is logged in, $sTplDir will be set in load_prefs.php, so we
+ * shouldn't change it here.
  */
-$aTemplateSet = ( !isset($aTemplateSet) ? array() : $aTemplateSet );
-$templateset_default = ( !isset($templateset_default) ? 0 : $templateset_default );
-
-$sTplDir = ( !isset($aTemplateSet[$templateset_default]['PATH']) ?
-             SM_PATH . 'templates/default/' :
-             $aTemplateSet[$templateset_default]['PATH'] );
+if (!isset($sTplDir)) {
+    $aTemplateSet = ( !isset($aTemplateSet) ? array() : $aTemplateSet );
+    $templateset_default = ( !isset($templateset_default) ? 0 : $templateset_default );
+    
+    $sTplDir = ( !isset($aTemplateSet[$templateset_default]['PATH']) ?
+                 SM_PATH . 'templates/default/' :
+                 $aTemplateSet[$templateset_default]['PATH'] );
+}
 $oTemplate = new Template($sTplDir);
 
 /**
