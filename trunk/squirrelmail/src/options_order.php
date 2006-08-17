@@ -1,5 +1,4 @@
 <?php
-
 /**
  * options_order.php
  *
@@ -144,90 +143,20 @@ if (count($index_order) != count($available)) {
     }
 }
 
+sqgetGlobalVar('PHP_SELF', $PHP_SELF, SQ_SERVER);
+$x = isset($mailbox) && $mailbox ? '&amp;mailbox='.urlencode($mailbox) : '';
 
+$oTemplate->assign('fields', $available);
+$oTemplate->assign('current_order', $index_order);
+$oTemplate->assign('not_used', $opts);
+$oTemplate->assign('always_show', array(SQM_COL_SUBJ, SQM_COL_FLAGS));
 
-viewOrderForm($available, $index_order,$opts,urldecode($mailbox));
+$oTemplate->assign('move_up', $PHP_SELF .'?method=move&amp;positions=-1'. $x .'&amp;num=');
+$oTemplate->assign('move_down', $PHP_SELF .'?method=move&amp;positions=1'. $x .'&amp;num=');
+$oTemplate->assign('remove', $PHP_SELF .'?method=remove'. $x .'&amp;num=');
+$oTemplate->assign('addField_action', $PHP_SELF);
 
+$oTemplate->display('options_order.tpl');
 
-// FOOD for html designers
-function viewOrderForm($aColumns, $aOrder, $aOpts, $mailbox) {
-   global $color;
-?>
-
-  <table align="center" width="95%" border="0" cellpadding="1" cellspacing="0">
-    <tr>
-      <td align="center" bgcolor="<?php echo $color[0];?>">
-        <b> <?php echo _("Options");?> - <?php echo _("Index Order");?> </b>
-        <table width="100%" border="0" cellpadding="8" cellspacing="0">
-          <tr>
-            <td align="center" bgcolor="<?php echo $color[4];?>">
-              <table width="65%" border="0" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td>
-                    <?php echo _("The index order is the order that the columns are arranged in the message index. You can add, remove, and move columns around to customize them to fit your needs.");?>
-                  </td>
-                </tr>
-              </table>
-              <br>
-
-<?php if (count($aOrder)) { ?>
-              <table cellspacing="0" cellpadding="0" border="0">
-<?php     foreach($aOrder as $i => $iCol) {
-             $sQuery = "&amp;num=$iCol";
-             if (isset($mailbox) && $mailbox) {
-                 $sQuery .= '&amp;mailbox='.urlencode($mailbox);
-             }
-
-?>
-                <tr>
-<?php         if ($i) { ?>
-                  <td><small><a href="options_order.php?method=move&amp;positions=-1&amp;num=<?php echo $sQuery; ?>"> <?php echo _("up");?> </a></small></td>
-<?php         } else { ?>
-                  <td>&nbsp;</td>
-<?php         } // else ?>
-                  <td><small>&nbsp;|&nbsp;</small></td>
-<?php         if ($i < count($aOrder) -1) { ?>
-                  <td><small><a href="options_order.php?method=move&amp;positions=1&amp;num=<?php echo $sQuery; ?>"> <?php echo _("down");?> </a></small></td>
-<?php         } else { ?>
-                  <td>&nbsp;</td>
-<?php         } // else ?>
-                  <td><small>&nbsp;|&nbsp;</small></td>
-<?php
-              /* Always show the subject */
-              if ($iCol !== SQM_COL_SUBJ && $iCol !== SQM_COL_FLAGS) {
-?>
-                  <td><small><a href="options_order.php?method=remove&amp;num=<?php echo $sQuery; ?>"> <?php echo _("remove");?> </a></small></td>
-<?php         } else { ?>
-                  <td>&nbsp;</td>
-<?php         } // else ?>
-                  <td><small>&nbsp;|&nbsp;</small></td>
-                  <td><?php echo $aColumns[$iCol]; ?></td>
-                </tr>
-<?php
-          } // foreach
-      } // if
-?>
-              </table>
-
-<?php
-    if (count($aOpts)) {
-        echo addForm('options_order.php', 'get', 'f');
-        echo addSelect('num', $aOpts, '', TRUE);
-        echo addHidden('method', 'add');
-        if (isset($mailbox) && $mailbox) {
-            echo addHidden('mailbox', urlencode($mailbox));
-        }
-        echo addSubmit(_("Add"), 'submit');
-        echo '</form>';
-    }
-?>
-          <p><a href="../src/options.php"><?php echo _("Return to options page");?></a></p><br>
-        </td></tr>
-      </table>
-    </td></tr>
-  </table>
-
-<?php
-}
 $oTemplate->display('footer.tpl');
 ?>
