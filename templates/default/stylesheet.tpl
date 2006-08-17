@@ -1,5 +1,4 @@
 <?php
-
 /**
  * SquirrelMail CSS template
  *
@@ -120,6 +119,12 @@ a:link, a:visited, a:hover, a:active {
     background-color: <?php echo $color[0]; ?>;
 }
 
+table.table_empty, table.table_blank    {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
+}
 
 td.header1  {
     background: <?php echo $color[0]; ?>;
@@ -449,4 +454,80 @@ tr.odd  {
 
 #addrAddEdit    select  {
     font-size: 75%;
+}
+
+#optionGroups   {
+    text-align: center;
+}
+
+#optionGroups   table   {
+    border: 1px solid <?php echo $color[0]; ?>;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    width: 95%;
+}
+
+#optionGroups   td  {
+    width: 50%;
+    padding: 2px;
+    vertical-align: top;
+}
+
+#optionGroups   td.title    {
+    background: <?php echo $color[0]; ?>;
+    text-align: center;
+    font-weight: bold;
+}
+
+#optionGroups   td.optionElement    {
+    height: 100%;
+    padding: 10px; 
+}
+
+#optionGroups   td.optionElement    table   {
+    border:1px solid <?php echo $color[9]; ?>;
+    height: 100%;
+}
+
+
+#optionGroups   td.optionName   {
+    background: <?php echo $color[9]; ?>;
+    text-align: left;
+    height: 1%;
+}
+
+#optionGroups   td.optionDesc   {
+    text-align: left;
+    background: <?php echo $color[0]; ?>;
+}
+
+#optionDisplay  {
+    text-align:center;
+}
+
+#optionDisplay  table   {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 95%;
+    border: 1px solid <?php echo $color[0]; ?>
+}
+
+#optionDisplay  td  {
+    width: 50%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    white-space: nowrap;
+}
+
+#optionDisplay  td.optionName   {
+    text-align: right;
+}
+
+#optionDisplay  td.optionValue  {
+    text-align: left;
 }

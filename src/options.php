@@ -148,7 +148,7 @@ switch ($optpage) {
 
 if ( !@is_file( $optpage_file ) ) {
     $optpage = SMOPT_PAGE_MAIN;
-} else if ($optpage != SMOPT_PAGE_MAIN ) {
+} elseif ($optpage != SMOPT_PAGE_MAIN ) {
     /* Include the file for this optionpage. */
 
     require_once($optpage_file);
@@ -157,8 +157,7 @@ if ( !@is_file( $optpage_file ) ) {
     $optpage_data = array();
     $optpage_data = $optpage_loader();
     do_hook($optpage_loadhook);
-    $optpage_data['options'] =
-        create_option_groups($optpage_data['grps'], $optpage_data['vals']);
+    $optpage_data['options'] = create_option_groups($optpage_data['grps'], $optpage_data['vals']);
 }
 
 /***********************************************************/
@@ -229,14 +228,6 @@ if ($optmode == SMOPT_MODE_SUBMIT) {
 
 displayPageHeader($color, 'None', (isset($optpage_data['xtra']) ? $optpage_data['xtra'] : ''));
 
-echo html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="1" cellspacing="0" border="0"' ) . "\n" .
-        html_tag( 'tr' ) . "\n" .
-            html_tag( 'td', '', 'center' ) .
-                "<b>$optpage_title</b><br />\n".
-                html_tag( 'table', '', '', '', 'width="100%" cellpadding="5" cellspacing="0" border="0"' ) . "\n" .
-                    html_tag( 'tr' ) . "\n" .
-                        html_tag( 'td', '', 'center', $color[4] ) . "\n";
-
 /*
  * The main option page has a different layout then the rest of the option
  * pages. Therefore, we create it here first, then the others below.
@@ -252,16 +243,14 @@ if ($optpage == SMOPT_PAGE_MAIN) {
         }
 
         if (isset($optpage_save_error) && $optpage_save_error!=array()) {
-            $notice = "<font color=\"$color[2]\"><b>" . _("Error(s) occurred while saving your options") . "</b></font><br />\n"
-                ."<ul>\n";
+            $notice = _("Error(s) occurred while saving your options") . "<br />\n<ul>\n";
             foreach ($optpage_save_error as $error_message) {
                 $notice.= '<li><small>' . $error_message . "</small></li>\n";
             }
-            $notice.= "</ul>\n"
-                . '<b>' . _("Some of your preference changes were not applied.") . "</b><br />\n";
+            $notice.= "</ul>\n" . _("Some of your preference changes were not applied.") . "\n";
         } else {
             /* Display a message indicating a successful save. */
-            $notice = '<b>' . _("Successfully Saved Options") . ": $optpage_name</b><br />\n";
+            $notice = _("Successfully Saved Options") . ": $optpage_name</b><br />\n";
         }
 
         /* If $max_refresh != SMOPT_REFRESH_NONE, provide a refresh link. */
@@ -272,8 +261,12 @@ if ($optpage == SMOPT_PAGE_MAIN) {
             $notice .= '<a href="../src/webmail.php?right_frame=options.php" target="' . $frame_top . '">' . _("Refresh Page") . '</a><br />';
         }
     }
-    $oTemplate->assign('notice',$notice);
-
+    
+    if (!empty($notice)) {
+        $oTemplate->assign('note', $notice);
+        $oTemplate->display('note.tpl');
+    }
+    
     /******************************************/
     /* Build our array of Option Page Blocks. */
     /******************************************/
@@ -347,11 +340,11 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     /********************************************/
     /* Now, print out each option page section. */
     /********************************************/
+    $oTemplate->assign('page_title', $optpage_title);
+    $oTemplate->assign('options', $optpage_blocks);
 
-    $oTemplate->assign('color',$color);
-    $oTemplate->assign('optpage_blocks',$optpage_blocks);
     $oTemplate->display('option_groups.tpl');
-
+    
     do_hook('options_link_and_description');
 
 
@@ -359,14 +352,6 @@ if ($optpage == SMOPT_PAGE_MAIN) {
 /* If we are not looking at the main option page, display the page here. */
 /*************************************************************************/
 } else {
-    echo addForm('options.php', 'post', 'f')
-       . create_optpage_element($optpage)
-       . create_optmode_element(SMOPT_MODE_SUBMIT)
-       . html_tag( 'table', '', '', '', 'width="100%" cellpadding="2" cellspacing="0" border="0"' ) . "\n";
-
-    /* Output the option groups for this page. */
-    print_option_groups($optpage_data['options']);
-
     /* Set the inside_hook_name and submit_name. */
     switch ($optpage) {
         case SMOPT_PAGE_PERSONAL:
@@ -405,6 +390,41 @@ if ($optpage == SMOPT_PAGE_MAIN) {
             $submit_name = 'submit';
     }
 
+    // Begin output form
+    echo addForm('options.php', 'post', 'f')
+       . create_optpage_element($optpage)
+       . create_optmode_element(SMOPT_MODE_SUBMIT);
+
+    // Wrap the template in a table to keep from breaking the hooks below
+    echo "<table cellspacing=\"0\" class=\"table_blank\">\n" .
+         " <tr>\n" .
+         "  <td colspan=\"2\">\n";
+
+    // This is the only variable that is needed by *just* the template.
+    $oTemplate->assign('options', $optpage_data['options']);
+    
+    /**
+     * The variables below should not be needed by the template since all plugin
+     * hooks are called here, not in the template.  If we find otherwise, these
+     * variables can be passed to the template.  Commenting out for not.
+     */
+/*
+    $oTemplate->assign('max_refresh', isset($max_refresh) ? $max_refresh : NULL);
+    $oTemplate->assign('page_title', $optpage_title);
+    $oTemplate->assign('optpage',$optpage);
+    $oTemplate->assign('optpage_name',$optpage_name);
+    $oTemplate->assign('optmode',$optmode);
+    $oTemplate->assign('optpage_data',$optpage_data);
+*/
+    /**
+     * END comment block
+     */    
+     
+    $oTemplate->display('options.tpl');
+
+    echo "  </td>\n" .
+         " </tr>\n";
+
     /* If it is not empty, trigger the inside hook. */
     if ($inside_hook_name != '') {
         do_hook($inside_hook_name);
@@ -412,19 +432,15 @@ if ($optpage == SMOPT_PAGE_MAIN) {
 
     /* Spit out a submit button. */
     OptionSubmit($submit_name);
-    echo '</table></form>';
+    echo "</table>\n" .
+         "</form>\n";
 
     /* If it is not empty, trigger the bottom hook. */
     if ($bottom_hook_name != '') {
         do_hook($bottom_hook_name);
     }
-    if (isset($max_refresh)) $oTemplate->assign('max_refresh',$max_refresh);
-    $oTemplate->assign('color',$color);
-    $oTemplate->assign('optpage',$optpage);
-    $oTemplate->assign('optpage_name',$optpage_name);
-    $oTemplate->assign('optpage_data',$optpage_data);
-    $oTemplate->assign('optmode',$optmode);
-    $oTemplate->display('options.tpl');
+    
 }
 
 $oTemplate->display('footer.tpl');
+?>
