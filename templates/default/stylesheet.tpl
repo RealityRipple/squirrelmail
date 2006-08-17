@@ -531,3 +531,40 @@ tr.odd  {
 #optionDisplay  td.optionValue  {
     text-align: left;
 }
+
+#optionHighlight  {
+    text-align:center;
+}
+
+#optionHighlight    table   {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 95%;
+    border: 1px solid <?php echo $color[0]; ?>
+}
+
+#optionHighlight    table.moveFields    {
+    width: auto;
+}
+
+#optionHighlight    table.moveFields    td  {
+    border-left: 1px solid <?php echo $color[0]; ?>;
+    border-right: 1px solid <?php echo $color[0]; ?>;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+#optionHighlight    td.moveLink  {
+    text-align: center;
+    font-size: 75%;
+}
+
+#optionHighlight    td.fieldName    {
+    text-align: left;
+}
+
+#optionHighlight    select,input  {
+    font-size: 75%;
+}
