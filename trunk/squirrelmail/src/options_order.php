@@ -154,6 +154,7 @@ $oTemplate->assign('always_show', array(SQM_COL_SUBJ, SQM_COL_FLAGS));
 $oTemplate->assign('move_up', $PHP_SELF .'?method=move&amp;positions=-1'. $x .'&amp;num=');
 $oTemplate->assign('move_down', $PHP_SELF .'?method=move&amp;positions=1'. $x .'&amp;num=');
 $oTemplate->assign('remove', $PHP_SELF .'?method=remove'. $x .'&amp;num=');
+$oTemplate->assign('add', $PHP_SELF.'?method=add'.$x.'&amp;num=');
 $oTemplate->assign('addField_action', $PHP_SELF);
 
 $oTemplate->display('options_order.tpl');
