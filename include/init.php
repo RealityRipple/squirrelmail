@@ -509,6 +509,12 @@ if (!isset($sTplDir)) {
 }
 $oTemplate = new Template($sTplDir);
 
+// We want some variables to always be available to the template
+$always_include = array('sTplDir', 'icon_theme_path');
+foreach ($always_include as $var) {
+    $oTemplate->assign($var, (isset($$var) ? $$var : NULL));
+}
+
 /**
  * Initialize our custom error handler object
  */
