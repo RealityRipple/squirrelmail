@@ -557,14 +557,11 @@ tr.odd  {
 }
 
 #optionHighlight    td.moveLink  {
-    text-align: center;
+    text-align: right;
     font-size: 75%;
+    vertical-align: bottom;
 }
 
 #optionHighlight    td.fieldName    {
     text-align: left;
-}
-
-#optionHighlight    select,input  {
-    font-size: 75%;
 }

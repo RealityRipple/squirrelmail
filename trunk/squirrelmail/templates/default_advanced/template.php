@@ -17,7 +17,8 @@
  */
 $templates_provided = array (
                                 'left_main.tpl',
-                                'stylesheet_advanced.tpl'
+                                'stylesheet_advanced.tpl',
+                                'options_order.tpl',
                             );
 
 /**

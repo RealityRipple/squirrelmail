@@ -38,6 +38,16 @@
 extract($t);
 ?>
 
+/* advanced option order defs */
+#optionHighlight    td.divider  {
+    border-top: 1px solid <?php echo $color[0]; ?>;
+    border-bottom: 1px solid <?php echo $color[0]; ?>;
+    background: <?php echo $color[0]; ?>;
+    font-weight: bold;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
 /* Advanced Tree definitions */
 .dtree {
        font-size:11px;
