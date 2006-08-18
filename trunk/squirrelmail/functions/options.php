@@ -175,8 +175,20 @@ class SquirrelOption {
         $this->script = '';
         $this->post_script = '';
 
-        /* Check for a current value. */
-        if (isset($GLOBALS[$name])) {
+        /**
+         * Check for a current value.  If the $GLOBALS[] value exists, we also
+         * need to make sure it is the same data type as the initial value to
+         * make sure we are looking at the correct preference.
+         */
+        $var_type = NULL;        
+        if (!empty($initial_value)) {
+            $var_type = gettype($initial_value);
+        } elseif (is_array($possible_values)) {
+            list($index, $x) = each ($possible_values);
+            $var_type = gettype($index);
+        }
+        
+        if (isset($GLOBALS[$name]) && (is_null($var_type) ? true : $var_type == gettype($GLOBALS[$name]))) {
             $this->value = $GLOBALS[$name];
         } else if (!empty($initial_value)) {
             $this->value = $initial_value;
