@@ -203,17 +203,6 @@ class Template
    */
   function display($file)
   {
-    /**
-     * We want to make sure that certain variables are always passed to the
-     * templates b/c they are critical to certain template functions.
-     */
-    $always_include = array('icon_theme_path', 'sTplDir');
-    foreach ($always_include as $var) {
-        if (!isset($this->values[$var]) && isset($GLOBALS[$var])) {
-            $this->assign($var, $GLOBALS[$var]);
-        }
-    }
-    
     // Pull in our config file
     $t = &$this->values; // place values array directly in scope
 
