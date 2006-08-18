@@ -69,6 +69,7 @@ function getIconPath ($icon_theme_path, $icon_name) {
         return $icon_theme_path . $icon_name;
 
     // Icon not found, return the SQM default icon
+    // TODO: allow admins to change the default icon theme in conf.pl
     } elseif (is_file(SM_PATH . 'images/themes/default/'.$icon_name)) {
         return SM_PATH . 'images/themes/default/'.$icon_name;
     } 
