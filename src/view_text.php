@@ -48,6 +48,9 @@ $encoding = strtolower($header->encoding);
 $msg_url   = 'read_body.php?' . $QUERY_STRING;
 $msg_url   = set_url_var($msg_url, 'ent_id', 0);
 $dwnld_url = '../src/download.php?' . $QUERY_STRING . '&amp;absolute_dl=true';
+$unsafe_url = 'view_text.php?' . $QUERY_STRING;
+$unsafe_url = set_url_var($unsafe_url, 'view_unsafe_images', 1);
+
 
 $body = mime_fetch_body($imapConnection, $passed_id, $ent_id);
 $body = decodeBody($body, $encoding);
@@ -62,10 +65,12 @@ if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
 }
 
 if ($type1 == 'html' || (isset($override_type1) &&  $override_type1 == 'html')) {
+    $ishtml = TRUE;
     $body = MagicHTML( $body, $passed_id, $message, $mailbox);
     // html attachment with character set information
-    if (! empty($charset))
+    if (! empty($charset)) {
         $body = charset_decode($charset,$body,false,true);
+    }
 } else {
     translateText($body, $wrap_at, $charset);
 }
@@ -80,6 +85,9 @@ echo _("Viewing a text attachment") . ' - ' .
 ?>
 </b></td><tr><tr><td><div style="text-align: center;">
 <?php
+if ( $ishtml ) {
+    echo '<a href="' . $unsafe_url . '">' . _("View Unsafe Images") . '</a> | ';
+}
 echo '<a href="' . $dwnld_url . '">' . _("Download this as a file") . '</a>';
 ?>
 </div><br />
