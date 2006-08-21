@@ -129,6 +129,8 @@ Version 1.5.2 - CVS
   - Fixed subscription of new 'noselect' folders (#1315912).
   - Moving the development documentation to the documentation module.
   - Drop obsolete script plugins/make_archive.pl.
+  - Fix misspelled constant PREG_SPLIT_NI_EMPTY in sqimap_get_message
+    (#1543573).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
