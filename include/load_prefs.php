@@ -83,15 +83,13 @@ if (isset($chosen_theme) && $found_theme && (file_exists($chosen_theme))) {
 
 // user's icon theme, if using icons
 $icon_theme = getPref($data_dir, $username, 'icon_theme', 'images/themes/xp/' );
-if ($icon_theme == 'template') {
-    $icon_theme = $sTplDir . 'images/';
-}
+
 /*
  * NOTE: The $icon_theme_path var should contain the path to the icon
  *       theme to use.  If the admin has disabled icons, or the user has
  *       set the icon theme to "None," no icons will be used.
  */
-$icon_theme_path = (!$use_icons || $icon_theme=='none') ? NULL : $icon_theme;
+$icon_theme_path = (!$use_icons || $icon_theme=='none') ? NULL : ($icon_theme == 'template' ? $sTplDir . 'images/' : $icon_theme);
 
 // show (or not) flag and unflag buttons on mailbox list screen
 $show_flag_buttons = getPref($data_dir, $username, 'show_flag_buttons', SMPREF_ON );

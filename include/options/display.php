@@ -228,12 +228,7 @@ function load_optpage_data_display() {
         $temp = array();
         $value = 0;
         for ($count = 0; $count < sizeof($icon_themes); $count++) {
-            $temp[$count] = $icon_themes[$count]['NAME'];
-            if ($icon_theme == $icon_themes[$count]['PATH'] ||
-                (($icon_theme == $sTplDir.'images/') && ($icon_themes[$count]['PATH']=='template'))
-               ) {
-                $value = $count;
-            }
+            $temp[$icon_themes[$count]['PATH']] = $icon_themes[$count]['NAME'];
         }
         if (sizeof($icon_themes) > 0) {
             $optvals[SMOPT_GRP_GENERAL][] = array(
@@ -242,7 +237,6 @@ function load_optpage_data_display() {
                 'type'          => SMOPT_TYPE_STRLIST,
                 'refresh'       => SMOPT_REFRESH_NONE,
                 'posvals'       => $temp,
-                'initial_value' => $value,
                 'save'          => 'icon_theme_save'
             );
         }
@@ -492,15 +486,19 @@ function save_option_javascript_autodetect($option) {
  * This function saves the user's icon theme setting
  */
 function icon_theme_save($option) {
-
     global $icon_themes, $data_dir, $username;
 
 
     // Don't assume the new value is there, double check
     // and only save if found
     //
-    if (isset($icon_themes[$option->new_value]['PATH']))
-        setPref($data_dir, $username, 'icon_theme', $icon_themes[$option->new_value]['PATH']);
+    $found = false;
+    while (!$found && (list($index, $data) = each($icon_themes))) {
+        if ($data['PATH'] == $option->new_value)
+            $found = true;
+    }
+    if ($found)
+        setPref($data_dir, $username, 'icon_theme', $option->new_value);
     else
        setPref($data_dir, $username, 'icon_theme', 'none');
 
