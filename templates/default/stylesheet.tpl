@@ -126,12 +126,28 @@ table.table_empty, table.table_blank    {
     width: 100%;
 }
 
+table.table1    {
+    border: 1px solid <?php echo $color[0]; ?>;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table.table1    td  {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+td.emptyList    {
+    text-align: center;
+    font-weight: bold;
+}
+
 td.header1  {
     background: <?php echo $color[0]; ?>;
     text-align: center;
     font-weight: bold;
 }
-
 
 td.header2  {
     background: <?php echo $color[9]; ?>;
@@ -532,11 +548,11 @@ tr.odd  {
     text-align: left;
 }
 
-#optionHighlight  {
+#optionOrder  {
     text-align:center;
 }
 
-#optionHighlight    table   {
+#optionOrder    table   {
     margin-left: auto;
     margin-right: auto;
     margin-top: 8px;
@@ -545,23 +561,74 @@ tr.odd  {
     border: 1px solid <?php echo $color[0]; ?>
 }
 
-#optionHighlight    table.moveFields    {
+#optionOrder    table.moveFields    {
     width: auto;
 }
 
-#optionHighlight    table.moveFields    td  {
+#optionOrder    table.moveFields    td  {
     border-left: 1px solid <?php echo $color[0]; ?>;
     border-right: 1px solid <?php echo $color[0]; ?>;
     padding-left: 2px;
     padding-right: 2px;
 }
 
-#optionHighlight    td.moveLink  {
+#optionOrder    td.moveLink  {
     text-align: right;
     font-size: 75%;
     vertical-align: bottom;
 }
 
-#optionHighlight    td.fieldName    {
+#optionOrder    td.fieldName    {
     text-align: left;
+}
+
+#optionHightlightList   {
+    text-align: center;
+}
+
+#optionHighlightList    table   table   {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 75%;
+}
+
+#optionHighlightList    td.ruleButtons  {
+    text-align: center;
+    width: 1%;
+}
+
+#optionHighlightList    td.ruleName {
+    text-align: left;
+    width: 30%;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+#optionHighlightAdd {
+    text-align: center;
+}
+
+#optionHighlightAdd    table   table   {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 75%;
+}
+
+#optionHighlightAdd td.ruleField    {
+    text-align: right;
+    font-weight: bold;
+    width: 40%;
+}
+
+#optionHighlightAdd td.fieldValue   {
+    text-align: left;
+}
+
+#optionHighlightAdd td.colorTable  {
+    text-align: center;
+}
+
+#optionHighlightAdd table.colorTable    {
+    margin-left: auto;
+    margin-right: auto;
 }
