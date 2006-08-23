@@ -31,7 +31,7 @@ extract($t);
 
 /** Begin template **/
 ?>
-<div id="optionHighlight">
+<div id="optionOrder">
 <table cellspacing="0">
  <tr>
   <td class="header1">
