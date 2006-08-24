@@ -21,6 +21,7 @@ $templates_provided = array (
                                 'options_order.tpl',
                                 'options_highlight_list.tpl',
                                 'options_highlight_addedit.tpl',
+                                'login.tpl'
                             );
 
 /**
