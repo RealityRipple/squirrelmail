@@ -164,21 +164,28 @@ if(sqgetGlobalVar('mailto', $mailto)) {
     $rcptaddress = '';
 }
 
-$password_field = addPwField($password_form_name).
-                  addHidden('js_autodetect_results', SMPREF_JS_OFF).
-                  $rcptaddress .
-                  addHidden('just_logged_in', '1');
+$password_field = addPwField($password_form_name);
+$login_extra = addHidden('js_autodetect_results', SMPREF_JS_OFF).
+               $rcptaddress .
+               addHidden('just_logged_in', '1') .
+               concat_hook_function('login_form');
 
 session_write_close();
 
 $oTemplate->assign('logo_str', $logo_str);
 $oTemplate->assign('sm_attribute_str', $sm_attribute_str);
 $oTemplate->assign('org_name_str', sprintf (_("%s Login"), $org_name));
-$oTemplate->assign('login_field', addInput($username_form_name, $loginname_value));
-$oTemplate->assign('password_field', $password_field);
-$oTemplate->assign('submit_field', addSubmit(_("Login")));
+$oTemplate->assign('login_field_value', $loginname_value);
+$oTemplate->assign('login_extra', $login_extra);
+
+echo '<body onLoad="squirrelmail_loginpage_onload()" style="text-align:center">'."\n";
+echo '<form action="redirect.php" method="post" onSubmit="document.forms[0].js_autodetect_results.value='. SMPREF_JS_ON .'">'."\n";
+do_hook('login_top');
 
 $oTemplate->display('login.tpl');
+
+echo "</form>\n";
+do_hook('login_bottom');
 
 // Turn off delayed error handling to make sure all errors are dumped.
 #$oErrorHandler->delayedErrors(false);
