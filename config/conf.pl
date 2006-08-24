@@ -395,6 +395,9 @@ $prefs_user_size = 128                  if ( !$prefs_user_size );
 $prefs_key_size = 64                    if ( !$prefs_key_size );
 $prefs_val_size = 65536                 if ( !$prefs_val_size );
 
+# since 1.5.2
+$icon_theme_def = ''					if ( !$icon_theme_def );
+
 # add qmail-inject test here for backwards compatibility
 if ( !$sendmail_args && $sendmail_path =~ /qmail-inject/ ) {
     $sendmail_args = '';
@@ -704,13 +707,14 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
     print $WHT. "Interface tweaks\n" . $NRM;
     print "1.  Display html mails in iframe : $WHT$use_iframe$NRM\n";
     print "2.  Use Icons                    : $WHT$use_icons$NRM\n";
+    print "3.  Default Icon Set             : $WHT$icon_theme_def$NRM\n";
     print "\n";
     print $WHT. "PHP tweaks\n" . $NRM;
-    print "3.  Use php recode functions     : $WHT$use_php_recode$NRM\n";
-    print "4.  Use php iconv functions      : $WHT$use_php_iconv$NRM\n";
+    print "4.  Use php recode functions     : $WHT$use_php_recode$NRM\n";
+    print "5.  Use php iconv functions      : $WHT$use_php_iconv$NRM\n";
     print "\n";
     print $WHT. "Configuration tweaks\n" . $NRM;
-    print "5.  Allow remote configtest     : $WHT$allow_remote_configtest$NRM\n";
+    print "6.  Allow remote configtest     : $WHT$allow_remote_configtest$NRM\n";
     print "\n";
         print "R   Return to Main Menu\n";
     }
@@ -874,9 +878,10 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         } elsif ( $menu == 11 ) {
             if    ( $command == 1 ) { $use_iframe     = commandB2(); }
             elsif ( $command == 2 ) { $use_icons      = commandB3(); }
-            elsif ( $command == 3 ) { $use_php_recode = commandB4(); }
-            elsif ( $command == 4 ) { $use_php_iconv  = commandB5(); }
-            elsif ( $command == 5 ) { $allow_remote_configtest = commandB6(); }
+            elsif ( $command == 3 ) { $icon_theme_def = commandB7(); }
+            elsif ( $command == 4 ) { $use_php_recode = commandB4(); }
+            elsif ( $command == 5 ) { $use_php_iconv  = commandB5(); }
+            elsif ( $command == 6 ) { $allow_remote_configtest = commandB6(); }
         }
     }
 }
@@ -3900,7 +3905,32 @@ sub commandB6 {
     return $allow_remote_configtest;
 }
 
+# Default Icon theme
+sub commandB7 {
+	print "You may change the path to the default icon theme to be used, if icons\n";
+	print "have been enabled.  This theme will be used when an icon cannot be\n";
+	print "found in the current theme, or when no icon theme is specified.  If\n";
+	print "left blank, and icons are enabled, the default theme will be used\n";
+	print "from images/themes/default/.\n";
+    print "\n";
+    print "To clear out an existing value, just type a space for the input.\n";
+    print "\n";
+    print "Please be aware of the following: \n";
+    print "  - Relative URLs are relative to the config dir\n";
+    print "    to use the icon themes directory, use ../images/themes/newtheme/\n";
+    print "  - The icon theme may be outside the SquirrelMail directory, but\n";
+    print "    it must be web accessible.\n";
+    print "[$WHT$icon_theme_def$NRM]: $WHT";
+    $new_icon_theme_def = <STDIN>;
 
+    if ( $new_icon_theme_def eq "\n" ) {
+        $new_icon_theme_def = $icon_theme_def;
+    } else {
+        $new_icon_theme_def =~ s/[\r\n]//g;
+    }
+    $new_icon_theme_def =~ s/^\s*//;
+    return $new_icon_theme_def;
+}
 
 sub save_data {
     $tab = "    ";
@@ -4255,6 +4285,8 @@ sub save_data {
         # boolean
         print CF "\$use_icons = $use_icons;\n";
         print CF "\n";
+        # string
+        print CF "\$icon_theme_def = " . &change_to_SM_path($icon_theme_def) . ";\n";
         # boolean
         print CF "\$use_php_recode = $use_php_recode;\n";
         print CF "\n";
