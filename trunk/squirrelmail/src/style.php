@@ -33,21 +33,6 @@ if (!isset($fontsets) || !is_array($fontsets)) {
     $fontsets=array();
 }
 
-/**
- *  get template name and set used template directory
- *
- *  Existing file check has been moved into the template object, so it is
- *  not neccesary to do file_exists() here.
- * */
-if (sqgetGlobalVar('templateid',$templateid,SQ_GET)) {
-    $sTplDir = SM_PATH.'templates/'.basename($templateid).'/';
-} else {
-    $sTplDir = SM_PATH.'templates/default/';
-}
-
-$oTemplate = new Template($sTplDir);
-/** end block copy */
-
 /* set default colors in case color theme is not full */
 $color = array();
 $color[0]   = '#dcdcdc'; // (light gray)     TitleBar
