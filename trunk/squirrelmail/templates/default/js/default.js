@@ -47,6 +47,18 @@ function getCSSClass (theRow)
 }
 
 /*
+ * Sets a new CSS class for the given row.  Browser-specific.
+ */
+function setCSSClass (obj, newClass) {
+	if (typeof(window.opera) == 'undefined' && typeof(obj.getAttribute) != 'undefined' && obj.getAttribute('className') ) {
+		obj.setAttribute('className', newClass, 0);
+	}
+	else {
+		obj.className = newClass;
+	}
+}
+
+/*
  * This function is used to initialize the orig_row_color array so we do not
  * need to predefine the entire array
  */
@@ -135,23 +147,9 @@ function setPointer(theRow, theRowNum, theAction, theDefaultClass, thePointerCla
     }
 
     // 3. Gets the current CSS class...
-    var domDetect    = null;
     var newClass     = null;
     var currentClass = getCSSClass(theRow);
     
-    // domDetect is needed later...
-    // 3.1 ... with DOM compatible browsers except Opera that does not return
-    //         valid values with "getAttribute"
-    if (typeof(window.opera) == 'undefined'
-        && typeof(theRow.getAttribute) != 'undefined'
-        && theRow.getAttribute('className') ) {
-        domDetect    = true;
-    }
-    // 3.2 ... with other browsers
-    else {
-        domDetect    = false;
-    } // end 3
-
     // 4. Defines the new class
     // 4.1 Current class is the default one
     if (currentClass == ''
@@ -197,15 +195,8 @@ function setPointer(theRow, theRowNum, theAction, theDefaultClass, thePointerCla
 
     // 5. Sets the new color...
     if (newClass) {
-        // 5.1 ... with DOM compatible browsers except Opera
-        if (domDetect) {
-        	theRow.setAttribute('className', newClass, 0);
-        }
-        // 5.2 ... with other browsers
-        else {
-        	theRow.className = newClass;
-        }
-    } // end 5
+    	setCSSClass(theRow, newClass);
+    }
 
     return true;
 } // end of the 'setPointer()' function
