@@ -503,9 +503,8 @@ if (!isset($sTplDir)) {
     $aTemplateSet = ( !isset($aTemplateSet) ? array() : $aTemplateSet );
     $templateset_default = ( !isset($templateset_default) ? 0 : $templateset_default );
     
-    $sTplDir = ( !isset($aTemplateSet[$templateset_default]['PATH']) ?
-                 SM_PATH . 'templates/default/' :
-                 $aTemplateSet[$templateset_default]['PATH'] );
+    $sTplDir = !isset($aTemplateSet[$templateset_default]['PATH']) ? SM_PATH . 'templates/default/' : $aTemplateSet[$templateset_default]['PATH'];
+    $icon_theme_path = !$use_icons ? NULL : $sTplDir . 'images/';
 }
 $oTemplate = new Template($sTplDir);
 
