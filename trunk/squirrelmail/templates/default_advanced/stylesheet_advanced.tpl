@@ -48,6 +48,22 @@ extract($t);
     padding-bottom: 2px;
 }
 
+/* advanced message editing defs */
+#colorSample    {
+    width: 50px;
+    padding-left:10px;
+}
+
+#optionHighlightAdd table.colorTable   {
+    margin-left: 0;
+    margin-top: 2px;
+}
+
+#optionHighlightAdd td.fieldValue   {
+    font-size: 75%;
+    font-weight: bold;
+}
+
 /* Advanced Tree definitions */
 .dtree {
        font-size:11px;
