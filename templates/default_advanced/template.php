@@ -19,6 +19,8 @@ $templates_provided = array (
                                 'left_main.tpl',
                                 'stylesheet_advanced.tpl',
                                 'options_order.tpl',
+                                'options_highlight_list.tpl',
+                                'options_highlight_addedit.tpl',
                             );
 
 /**
