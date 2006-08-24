@@ -5,7 +5,9 @@
  * Template to create the login page
  *
  * The following variables are available to this template:
- *      $logo_str   - string containing HTML to display the org logo
+ *      $logo_str           - string containing HTML to display the org logo
+ *      $logo_path          - path to the org logo, in case you want to do
+ *                            something else with it.
  *      $sm_attribute_str   - string containg SQM attributes.  Will be empty if
  *                            this has been disabled by the admin.
  *      $org_name_str       - translated string containing orginization's name
