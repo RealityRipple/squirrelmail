@@ -37,6 +37,79 @@
 /* retrieve the template vars */
 extract($t);
 ?>
+/* advacned login page defs */
+#sqm_login  {
+    margin-top: 25px;
+    text-align: center;
+}
+
+#sqm_login  table   {
+    border: 0;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+}
+
+#sqm_login  td   {
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    color: #726b58;
+    font-family: verdana, sans-serif;
+    width: auto;
+    text-align: center;
+}
+
+#sqm_login  td.orgName {
+    font-weight: bold;
+    background: none;
+    font-size: 90%;
+}
+
+#sqm_login  td.orgLogo {
+    width: 155px;
+    text-align: center;
+    vertical-align: center;
+}
+
+#sqm_login  td.orgLogo  img {
+    width: 150px;
+    padding:0;
+}
+
+#sqm_login  td.attr   {
+    font-size: 70%;
+    padding-top:5px;
+    padding-bottom: 10px;
+}
+
+#sqm_login  td.fieldName {
+    font-size: 10pt;
+    font-weight: bold;
+    text-align: right;
+    width: 50%;
+}
+
+#sqm_login  td.fieldInput {
+    text-align: left;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+#sqm_login  td.loginSubmit {
+    padding-top: 15px;
+}
+
+#sqm_login  input.input {
+    font-size: 80%;
+    color: #110f08;
+    border: 1px solid #726b58;
+    padding: 1px;
+    background: url(<?php echo $icon_theme_path; ?>/login2.png) repeat-y;
+    width: 160px;
+}
 
 /* advanced option order defs */
 #optionHighlight    td.divider  {
