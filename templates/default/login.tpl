@@ -4,6 +4,15 @@
  *
  * Template to create the login page
  *
+ * The following variables are available to this template:
+ *      $logo_str   - string containing HTML to display the org logo
+ *      $sm_attribute_str   - string containg SQM attributes.  Will be empty if
+ *                            this has been disabled by the admin.
+ *      $org_name_str       - translated string containing orginization's name
+ *      $login_field_value  - default value for the user name field
+ *      $login_extra        - Some extra fields needed by SquirrelMail for the 
+ *                            login.  YOU SHOULD ALWAYS INCLUDE THIS FIELD!!
+ * 
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
@@ -15,17 +24,12 @@
 extract($t);
 
 ?>
-<body onLoad="squirrelmail_loginpage_onload()" style="text-align:center">
 <div id="sqm_login">
-<form action="redirect.php" method="post" onSubmit="document.forms[0].js_autodetect_results.value=<?php echo SMPREF_JS_ON; ?>;">
-<?php do_hook('login_top'); ?>
 <table cellspacing="0">
  <tr>
   <td class="sqm_loginTop" colspan="2">
-   <?php 
-       echo $logo_str;
-       echo $sm_attribute_str; 
-   ?>
+   <?php echo $logo_str; ?>
+   <?php echo $sm_attribute_str; ?>
   </td>
  </tr>
  <tr>
@@ -38,7 +42,7 @@ extract($t);
    <?php echo _("Name:"); ?>
   </td>
   <td class="sqm_loginFieldInput">
-   <?php echo $login_field; ?>
+   <input type="text" name="login_username" value="<?php echo $login_field_value; ?>" id="login_username" />
   </td>
  </tr>
  <tr>
@@ -46,18 +50,14 @@ extract($t);
    <?php echo _("Password:"); ?>
   </td>
   <td class="sqm_loginFieldInput">
-   <?php 
-       echo $password_field;
-       echo concat_hook_function('login_form')
-   ?>
+   <input type="password" name="secretkey" value="" id="secretkey" />
+   <?php echo $login_extra; ?>
   </td>
  </tr>
  <tr>
   <td class="sqm_loginSubmit" colspan="2">
-   <?php echo $submit_field; ?>
+   <input type="submit" value="<?php echo _("Login"); ?>" />
   </td>
  </tr>
 </table>
-</form>
-<?php do_hook('login_bottom'); ?>
 </div>
