@@ -53,12 +53,20 @@ if ( !isset($oTemplate) || !is_object($oTemplate) ) {
     $aTemplateSet = ( !isset($aTemplateSet) ? array() : $aTemplateSet );
     $templateset_default = ( !isset($templateset_default) ? 0 : $templateset_default );
 
-    $sTplDir = ( !isset($aTemplateSet[$templateset_default]['PATH']) ?
-             SM_PATH . 'templates/default/' :
-             $aTemplateSet[$templateset_default]['PATH'] );
+    $sTplDir = !isset($aTemplateSet[$templateset_default]['PATH']) ? SM_PATH . 'templates/default/' : $aTemplateSet[$templateset_default]['PATH'];
+    $icon_theme_path = !$use_icons ? NULL : $sTplDir . 'images/';
     $oTemplate = new Template($sTplDir);
+
+    // We want some variables to always be available to the template
+    $always_include = array('sTplDir', 'icon_theme_path');
+    foreach ($always_include as $var) {
+        $oTemplate->assign($var, (isset($$var) ? $$var : NULL));
+    }
 }
 
+// The error handler object is probably also not initialized on a refresh
+require(SM_PATH . 'class/error.class.php');
+$oErrorHandler = new ErrorHandler($oTemplate,'error_message.tpl');
 
 /* internal gettext functions will fail, if language is not set */
 set_up_language($squirrelmail_language, true, true);
