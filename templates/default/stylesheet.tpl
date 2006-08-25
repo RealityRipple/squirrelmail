@@ -138,6 +138,18 @@ table.table1    td  {
     padding-right: 2px;
 }
 
+table.table2    {
+    border: 1px solid <?php echo $color[9]; ?>;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table.table2    td  {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
 td.emptyList    {
     text-align: center;
     font-weight: bold;
@@ -153,8 +165,8 @@ td.header2  {
     background: <?php echo $color[9]; ?>;
     text-align: center;
     font-weight: bold;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
 
 td.header3  {
@@ -693,5 +705,32 @@ tr.odd  {
 
 #help   td.help  li   {
     margin-left: 10px;
+}
+
+#optionsIdentity    table   {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#optionsIdentity    table.table2 tr  {
+    background: <?php echo $color[0]; ?>;
+}
+
+#optionsIdentity    td.fieldName    {
+    text-align: <?php echo SQM_ALIGN_RIGHT; ?>;
+    width: 30%;
+}
+
+#optionsIdentity    td.fieldValue   {
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
+}
+
+#optionsIdentity    td.actionButtons  {
+    text-align: center;
+}
+
+#optionsIdentity hr  {
+    width: 95%;
+    border: 1px solid <?php echo $color[9]; ?>;
 }
 
