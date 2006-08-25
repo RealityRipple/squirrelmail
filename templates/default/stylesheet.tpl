@@ -157,6 +157,13 @@ td.header2  {
     padding-bottom: 4px;
 }
 
+td.header3  {
+    text-align: center;
+    font-weight: bold;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
 tr.even {
     background: <?php echo $color[12]; ?>;
 }
@@ -632,3 +639,59 @@ tr.odd  {
     margin-left: auto;
     margin-right: auto;
 }
+
+/* help defs */
+#help   {
+    text-align: center;
+}
+
+#help   td.help  {
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
+}
+
+#help   li  {
+    padding-left: 0px;
+}
+
+#help   ul  {
+    padding-left: 20px;
+    padding-right: 75px;
+}
+
+#help   td.nav  {
+    text-align: center;
+    color: <?php echo $color[0]; ?>;
+    padding-top: 15px;
+    padding-bottom: 5px;
+}
+
+#help   h1  {
+    font-size: 14pt;
+    font-weight: bold;
+    margin-top: 2px;
+    margin-bottom: 0px;
+}
+
+#help   h2  {
+    font-size: 10pt;
+    font-weight: normal;
+    margin-bottom: 2px;
+    margin-top: 0;
+}
+
+#help   h3  {
+    font-weight: bold;
+    font-size: 10pt;
+    margin: 0;
+    padding: 0;
+}
+
+#help   td.help p   {
+    margin-top: 2px;
+    margin-bottom: 10px;
+}
+
+#help   td.help  li   {
+    margin-left: 10px;
+}
+
