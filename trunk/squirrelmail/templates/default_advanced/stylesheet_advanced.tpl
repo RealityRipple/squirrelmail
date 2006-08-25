@@ -88,12 +88,12 @@ extract($t);
 #sqm_login  td.fieldName {
     font-size: 10pt;
     font-weight: bold;
-    text-align: right;
+    text-align: <?php echo SQM_ALIGN_RIGHT; ?>;
     width: 50%;
 }
 
 #sqm_login  td.fieldInput {
-    text-align: left;
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
     padding-top: 1px;
     padding-bottom: 1px;
 }

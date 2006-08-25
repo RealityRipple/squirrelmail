@@ -323,7 +323,7 @@ tr.odd  {
     margin-left: auto;
     margin-right: auto;
     width: 80%;
-    text-align: left;
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
 }
 
 /* addressbook_list.tpl defs */
@@ -349,7 +349,7 @@ tr.odd  {
 }
 
 #addressList    td  {
-    text-align: left;
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
     padding: 2px;
 }
 
@@ -359,7 +359,7 @@ tr.odd  {
 }
 #addressList    td.abookSwitch  {
     background: <?php echo $color[0]; ?>;
-    text-align: right;
+    text-align: <?php echo SQM_ALIGN_RIGHT; ?>;
 }
 
 #addressList    td.abookButtons  {
@@ -451,7 +451,7 @@ tr.odd  {
 }
 
 #addrAddEdit    td.fieldName   {
-    text-align: right;
+    text-align: <?php echo SQM_ALIGN_RIGHT; ?>;
     width: 30%;
 }
 
@@ -460,7 +460,7 @@ tr.odd  {
 }
 
 #addrAddEdit    td  {
-    text-align: left;
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
     padding: 2px;
 }
 
@@ -509,12 +509,12 @@ tr.odd  {
 
 #optionGroups   td.optionName   {
     background: <?php echo $color[9]; ?>;
-    text-align: left;
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
     height: 1%;
 }
 
 #optionGroups   td.optionDesc   {
-    text-align: left;
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
     background: <?php echo $color[0]; ?>;
 }
 
@@ -541,11 +541,11 @@ tr.odd  {
 }
 
 #optionDisplay  td.optionName   {
-    text-align: right;
+    text-align: <?php echo SQM_ALIGN_RIGHT; ?>;
 }
 
 #optionDisplay  td.optionValue  {
-    text-align: left;
+    text-align:<?php echo SQM_ALIGN_LEFT; ?>;
 }
 
 #optionOrder  {
@@ -573,13 +573,13 @@ tr.odd  {
 }
 
 #optionOrder    td.moveLink  {
-    text-align: right;
+    text-align: <?php echo SQM_ALIGN_RIGHT; ?>;
     font-size: 75%;
     vertical-align: bottom;
 }
 
 #optionOrder    td.fieldName    {
-    text-align: left;
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
 }
 
 #optionHightlightList   {
@@ -598,7 +598,7 @@ tr.odd  {
 }
 
 #optionHighlightList    td.ruleName {
-    text-align: left;
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
     width: 30%;
     padding-left: 4px;
     padding-right: 4px;
@@ -615,13 +615,13 @@ tr.odd  {
 }
 
 #optionHighlightAdd td.ruleField    {
-    text-align: right;
+    text-align: <?php echo SQM_ALIGN_RIGHT; ?>;
     font-weight: bold;
     width: 40%;
 }
 
 #optionHighlightAdd td.fieldValue   {
-    text-align: left;
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
 }
 
 #optionHighlightAdd td.colorTable  {
