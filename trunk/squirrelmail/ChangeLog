@@ -132,6 +132,7 @@ Version 1.5.2 - CVS
   - Fix misspelled constant PREG_SPLIT_NI_EMPTY in sqimap_get_message
     (#1543573).
   - Provide View Unsafe Images link on viewing a text/html attachment.
+  - Added APOP, TLS and STLS support to mail_fetch plugin (#575299).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
