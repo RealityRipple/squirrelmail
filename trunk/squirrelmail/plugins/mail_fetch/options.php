@@ -16,8 +16,9 @@
  * Include the SquirrelMail initialization file.
  */
 require('../../include/init.php');
-
+include_once(SM_PATH . 'plugins/mail_fetch/functions.php' );
 include_once(SM_PATH . 'functions/imap_general.php');
+include_once(SM_PATH . 'functions/forms.php');
 
 /* globals */
 sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
@@ -47,6 +48,8 @@ sqgetGlobalVar('mf_subfolder',     $mf_subfolder,     SQ_POST);
 sqgetGlobalVar('mf_login',         $mf_login,         SQ_POST);
 sqgetGlobalVar('mf_fref',          $mf_fref,          SQ_POST);
 sqgetGlobalVar('mf_lmos',          $mf_lmos,          SQ_POST);
+sqgetGlobalVar('mf_auth',          $mf_auth,          SQ_POST);
+sqgetGlobalVar('mf_type',          $mf_type,          SQ_POST);
 sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
 
 
@@ -68,6 +71,8 @@ switch( $mf_action ) {
      setPref($data_dir,$username,"mailfetch_login_$mf_sn",(isset($mf_login)?$mf_login:""));
      setPref($data_dir,$username,"mailfetch_fref_$mf_sn",(isset($mf_fref)?$mf_fref:""));
      setPref($data_dir,$username,"mailfetch_subfolder_$mf_sn",(isset($mf_subfolder)?$mf_subfolder:""));
+     setPref($data_dir,$username,"mailfetch_auth_$mf_sn",(isset($mf_auth)?$mf_auth:MAIL_FETCH_AUTH_USER));
+     setPref($data_dir,$username,"mailfetch_type_$mf_sn",(isset($mf_type)?$mf_type:MAIL_FETCH_USE_PLAIN));
      $mf_sn++;
      setPref($data_dir,$username,'mailfetch_server_number', $mf_sn);
      $mf_action = 'config';
@@ -85,6 +90,8 @@ switch( $mf_action ) {
      setPref($data_dir,$username,"mailfetch_login_$mf_sn",(isset($mf_login)?$mf_login:""));
      setPref($data_dir,$username,"mailfetch_fref_$mf_sn",(isset($mf_fref)?$mf_fref:""));
      setPref($data_dir,$username,"mailfetch_subfolder_$mf_sn",(isset($mf_subfolder)?$mf_subfolder:""));
+     setPref($data_dir,$username,"mailfetch_auth_$mf_sn",(isset($mf_auth)?$mf_auth:MAIL_FETCH_AUTH_USER));
+     setPref($data_dir,$username,"mailfetch_type_$mf_sn",(isset($mf_type)?$mf_type:MAIL_FETCH_USE_PLAIN));
      $mf_action = 'config';
      break;
  case 'confirm_delete':
@@ -118,6 +125,10 @@ switch( $mf_action ) {
                      getPref($data_dir,$username, 'mailfetch_fref_'.$tmp));
              setPref($data_dir,$username,'mailfetch_subfolder_'.$i,
                      getPref($data_dir,$username, 'mailfetch_subfolder_'.$tmp));
+             setPref($data_dir,$username,'mailfetch_auth_'.$i,
+                     getPref($data_dir,$username, 'mailfetch_auth_'.$tmp,MAIL_FETCH_AUTH_USER));
+             setPref($data_dir,$username,'mailfetch_type_'.$i,
+                     getPref($data_dir,$username, 'mailfetch_type_'.$tmp,MAIL_FETCH_USE_PLAIN));
              setPref($data_dir,$username,'mailfetch_uidl_'.$i,
                      getPref($data_dir,$username, 'mailfetch_uidl_'.$tmp));
          }
@@ -143,6 +154,8 @@ for ($i=0;$i<$mailfetch_server_number;$i++) {
     $mailfetch_fref_[$i] = getPref($data_dir, $username, "mailfetch_fref_$i");
     $mailfetch_uidl_[$i] = getPref($data_dir, $username, "mailfetch_uidl_$i");
     $mailfetch_subfolder_[$i] = getPref($data_dir, $username, "mailfetch_subfolder_$i");
+    $mailfetch_auth_[$i] = getPref($data_dir, $username, "mailfetch_auth_$i",MAIL_FETCH_AUTH_USER);
+    $mailfetch_type_[$i] = getPref($data_dir, $username, "mailfetch_type_$i",MAIL_FETCH_USE_PLAIN);
     if( $mailfetch_cypher == 'on' ) $mailfetch_pass_[$i] = decrypt( $mailfetch_pass_[$i] );
 }
 
@@ -205,6 +218,22 @@ switch( $mf_action ) {
          html_tag( 'tr',
              html_tag( 'th', _("Password:"), 'right' ) .
              html_tag( 'td', '<input type="password" name="mf_pass" value="" size="20" />', 'left' )
+                   ) .
+         html_tag( 'tr',
+             html_tag( 'th', _("Authentication type:"), 'right' ) .
+             html_tag( 'td', addSelect('mf_auth',
+                                       array(MAIL_FETCH_AUTH_USER     => _("USER"),
+                                             MAIL_FETCH_AUTH_APOP     => _("APOP"),
+                                             MAIL_FETCH_AUTH_RFC1939  => _("APOP or USER")),
+                                       MAIL_FETCH_AUTH_USER,true), 'left' )
+                   ) .
+         html_tag( 'tr',
+             html_tag( 'th', _("Connection type:"), 'right' ) .
+             html_tag( 'td', addSelect('mf_type',
+                                       array(MAIL_FETCH_USE_PLAIN => _("Plain text"),
+                                             MAIL_FETCH_USE_TLS   => _("Use TLS"),
+                                             MAIL_FETCH_USE_STLS  => _("Use StartTLS")),
+                                       MAIL_FETCH_USE_PLAIN,true), 'left' )
                    ) .
          html_tag( 'tr' ) .
              html_tag( 'th', _("Store in Folder:"), 'right' ) .
@@ -326,6 +355,20 @@ switch( $mf_action ) {
                  html_tag( 'td', '<input type="password" name="mf_pass" value="' .
                            htmlspecialchars($mailfetch_pass_[$mf_sn]) . '" size="20" />', 'left' )
                        ) .
+             html_tag( 'tr',
+                 html_tag( 'th', _("Authentication type:"), 'right' ) .
+                 html_tag( 'td', addSelect('mf_auth',array(MAIL_FETCH_AUTH_USER     => _("USER"),
+                                                           MAIL_FETCH_AUTH_APOP     => _("APOP"),
+                                                           MAIL_FETCH_AUTH_RFC1939  => _("APOP or USER")),
+                                                           $mailfetch_auth_[$mf_sn],true), 'left' )
+                       ) .
+             html_tag( 'tr',
+                 html_tag( 'th', _("Connection type:"), 'right' ) .
+                 html_tag( 'td', addSelect('mf_type',array(MAIL_FETCH_USE_PLAIN => _("Plain text"),
+                                                           MAIL_FETCH_USE_TLS   => _("Use TLS"),
+                                                           MAIL_FETCH_USE_STLS  => _("Use StartTLS")),
+                                                           $mailfetch_type_[$mf_sn],true), 'left' )
+                       ) .
              html_tag( 'tr' ) .
                  html_tag( 'th', _("Store in Folder:"), 'right' ) .
                  html_tag( 'td', '', 'left' );
@@ -382,5 +425,5 @@ switch( $mf_action ) {
                        ) ,
                    'center', '', 'width="70%"' );
 }
-?>
-</body></html>
+
+$oTemplate->display('footer.tpl');

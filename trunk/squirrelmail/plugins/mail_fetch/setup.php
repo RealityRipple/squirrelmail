@@ -19,7 +19,6 @@ function squirrelmail_plugin_init_mail_fetch() {
     global $squirrelmail_plugin_hooks;
 
     $squirrelmail_plugin_hooks['menuline']['mail_fetch'] = 'mail_fetch_link';
-    $squirrelmail_plugin_hooks['loading_prefs']['mail_fetch'] = 'mail_fetch_load_pref';
     $squirrelmail_plugin_hooks['login_verified']['mail_fetch'] = 'mail_fetch_setnew';
     $squirrelmail_plugin_hooks['left_main_before']['mail_fetch'] = 'mail_fetch_login';
     $squirrelmail_plugin_hooks['optpage_register_block']['mail_fetch'] = 'mailfetch_optpage_register_block';
@@ -33,15 +32,6 @@ function squirrelmail_plugin_init_mail_fetch() {
 function mail_fetch_link() {
     displayInternalLink('plugins/mail_fetch/fetch.php', _("Fetch"), '');
     echo '&nbsp;&nbsp;';
-}
-
-/**
- * load preferences
- * @private
- */
-function mail_fetch_load_pref() {
-    include_once(SM_PATH . 'plugins/mail_fetch/functions.php');
-    mail_fetch_load_pref_function();
 }
 
 /**

@@ -31,7 +31,8 @@
  * 3. login($username,$password) - true = login successful, false = login error.
  * 4. command_stat() - get number of messages
  * 5. command_list() - get message ids, use command_uidl(), if you implement 
- * 'keep mess on server' functions.
+ * 'keep mess on server' functions. Make sure that you handle possible UIDL 
+ * command errors.
  * 6. command_retr($some_message_id) - get message contents
  * 7. command_dele($some_message_id) - mark message for deletion
  * 8. command_quit() - close connection. You must close connection in order 
@@ -58,7 +59,7 @@ class mail_fetch {
      * 0 - plain text (default)
      * 1 - tls (php 4.3 and openssl extension requirement)
      * 2 - stls (stream_socket_enable_crypto() requirement. PHP 5.1.0, POP3
-     *     server with POP3EXT and STLS support) (untested)
+     *     server with POP3EXT and STLS support)
      * @var integer
      */
     var $tls = 0;
@@ -112,6 +113,8 @@ class mail_fetch {
     var $error = '';
 
     /**
+     * Response buffer
+     *
      * Variable is used to store last positive POP server response 
      * checked in check_response() method. Used internally to handle
      * mixed single and multiline command responses.
@@ -325,7 +328,10 @@ class mail_fetch {
      * @return mixed array with message ids (keys) and sizes (values) or boolean false
      */
     function command_list($msg='') {
-        fwrite($this->conn,"LIST $msg\r\n");
+        // add space between command and msg_id
+        if(!empty($msg)) $msg = ' ' . $msg;
+
+        fwrite($this->conn,"LIST$msg\r\n");
         
         if($this->check_response()) {
             $ret = array();
@@ -443,19 +449,23 @@ class mail_fetch {
      * or boolean false
      */
     function command_uidl($msg='') {
-        fwrite($this->conn,"UIDL $msg\r\n");
+        //return $this->set_error('Unsupported command.');
+        // add space between command and msg_id
+        if(!empty($msg)) $msg = ' ' . $msg;
+        fwrite($this->conn,"UIDL$msg\r\n");
         if($this->check_response()) {
             $ids = array();
             if (!empty($msg)) {
                 list($ok,$msg_id,$unique_id) = explode(' ',trim($this->response));
-                $ids[$msg_id] = $unique_id;
+                $ids[$msg_id] = "$unique_id";
             } else {
                 while($line = fgets($this->conn)) {
                     if (trim($line)=='.') {
                         break;
                     } else {
                         list($msg_id,$unique_id) = explode(' ',trim($line));
-                        $ids[$msg_id] = $unique_id;
+                        // make sure that unique_id is a string.
+                        $ids[$msg_id] = "$unique_id";
                     }
                 }
             }
@@ -549,12 +559,13 @@ class mail_fetch {
     function command_stls() {
         if (! function_exists('stream_socket_enable_crypto')) {
             return $this->set_error('Used PHP version does not support functions required for POP STLS.',true);
-        } elseif (in_array('STLS',$this->capabilities)) {
+        } elseif (! in_array('STLS',$this->capabilities)) {
             return $this->set_error('Selected POP3 server does not support STLS.',true);
         }
         fwrite($this->conn,"STLS\r\n");
         if (! $this->check_response()) {
-            return false;
+	    $this->command_quit();
+	    return false;
         }
 
         if (@stream_socket_enable_crypto($this->conn,true,STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
