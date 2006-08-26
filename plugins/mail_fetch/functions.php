@@ -18,7 +18,8 @@
 
 
 /** pop3 class */
-include_once (SM_PATH . 'plugins/mail_fetch/class.POP3.php');
+include_once (SM_PATH . 'plugins/mail_fetch/constants.php');
+include_once (SM_PATH . 'plugins/mail_fetch/class.mail_fetch.php');
 
 /** declare plugin globals */
 global $mail_fetch_allow_unsubscribed;
@@ -40,44 +41,11 @@ if (file_exists(SM_PATH . 'config/mail_fetch_config.php')) {
 // hooked functions
 
 /**
- * internal function used to load user's preferences
- * @since 1.5.1
- * @private
- */
-function  mail_fetch_load_pref_function() {
-    global $data_dir, $username;
-    global $mailfetch_server_number;
-    global $mailfetch_cypher, $mailfetch_port_;
-    global $mailfetch_server_,$mailfetch_alias_,$mailfetch_user_,$mailfetch_pass_;
-    global $mailfetch_lmos_, $mailfetch_uidl_, $mailfetch_login_, $mailfetch_fref_;
-    global $PHP_SELF;
-
-    if( stristr( $PHP_SELF, 'mail_fetch' ) ) {
-        $mailfetch_server_number = getPref($data_dir, $username, 'mailfetch_server_number', 0);
-        $mailfetch_cypher = getPref($data_dir, $username, 'mailfetch_cypher', 'on' );
-        if ($mailfetch_server_number<1) $mailfetch_server_number=0;
-        for ($i=0;$i<$mailfetch_server_number;$i++) {
-            $mailfetch_server_[$i] = getPref($data_dir, $username, "mailfetch_server_$i");
-            $mailfetch_port_[$i] = getPref($data_dir, $username, "mailfetch_port_$i");
-            $mailfetch_alias_[$i]  = getPref($data_dir, $username, "mailfetch_alias_$i");
-            $mailfetch_user_[$i]   = getPref($data_dir, $username, "mailfetch_user_$i");
-            $mailfetch_pass_[$i]   = getPref($data_dir, $username, "mailfetch_pass_$i");
-            $mailfetch_lmos_[$i]   = getPref($data_dir, $username, "mailfetch_lmos_$i");
-            $mailfetch_login_[$i]  = getPref($data_dir, $username, "mailfetch_login_$i");
-            $mailfetch_fref_[$i]   = getPref($data_dir, $username, "mailfetch_fref_$i");
-            $mailfetch_uidl_[$i]   = getPref($data_dir, $username, "mailfetch_uidl_$i");
-            if( $mailfetch_cypher   == 'on' ) $mailfetch_pass_[$i] =    decrypt( $mailfetch_pass_[$i] );
-        }
-    }
-}
-
-/**
  * Internal function used to fetch pop3 mails on login
  * @since 1.5.1
  * @private
  */
 function mail_fetch_login_function() {
-    //include_once (SM_PATH . 'include/validate.php');
     include_once (SM_PATH . 'functions/imap_general.php');
 
     global $username, $data_dir, $imapServerAddress, $imapPort;
@@ -102,6 +70,7 @@ function mail_fetch_login_function() {
         if( $mailfetch_pass_[$i_loop] <> '' &&          // Empty passwords no allowed
                 ( ( $mailfetch_login_[$i_loop] == 'on' &&  $mailfetch_newlog == 'on' ) || $mailfetch_fref_[$i_loop] == 'on' ) ) {
 
+            // What the heck
             $mailfetch_server_[$i_loop] = getPref($data_dir, $username, "mailfetch_server_$i_loop");
             $mailfetch_port_[$i_loop] = getPref($data_dir, $username , "mailfetch_port_$i_loop");
             $mailfetch_alias_[$i_loop] = getPref($data_dir, $username, "mailfetch_alias_$i_loop");
@@ -109,6 +78,8 @@ function mail_fetch_login_function() {
             $mailfetch_lmos_[$i_loop] = getPref($data_dir, $username, "mailfetch_lmos_$i_loop");
             $mailfetch_uidl_[$i_loop] = getPref($data_dir, $username, "mailfetch_uidl_$i_loop");
             $mailfetch_subfolder_[$i_loop] = getPref($data_dir, $username, "mailfetch_subfolder_$i_loop");
+            $mailfetch_auth_[$i_loop] = getPref($data_dir, $username, "mailfetch_auth_$i_loop",MAIL_FETCH_AUTH_USER);
+            $mailfetch_type_[$i_loop] = getPref($data_dir, $username, "mailfetch_type_$i_loop",MAIL_FETCH_USE_PLAIN);
 
             $mailfetch_server=$mailfetch_server_[$i_loop];
             $mailfetch_port=$mailfetch_port_[$i_loop];
@@ -119,66 +90,92 @@ function mail_fetch_login_function() {
             $mailfetch_login=$mailfetch_login_[$i_loop];
             $mailfetch_uidl=$mailfetch_uidl_[$i_loop];
             $mailfetch_subfolder=$mailfetch_subfolder_[$i_loop];
+            $mailfetch_auth=$mailfetch_auth_[$i_loop];
+            $mailfetch_type=$mailfetch_type_[$i_loop];
+            // end of what the heck
+
 
             // $outMsg .= "$mailfetch_alias checked<br />";
 
             // $outMsg .= "$mailfetch_alias_[$i_loop]<br />";
 
-            $pop3 = new POP3($mailfetch_server, 60);
+            // FIXME: duplicate code with different output destination.
 
-            if (!$pop3->connect($mailfetch_server,$mailfetch_port)) {
-                $outMsg .= _("Warning:") . ' ' . $pop3->ERROR;
+            $pop3 = new mail_fetch(array('host'    => $mailfetch_server,
+                                         'port'    => $mailfetch_port,
+                                         'auth'    => $mailfetch_auth,
+                                         'tls'     => $mailfetch_type,
+                                         'timeout' => 60));
+
+            if (!empty($pop3->error)) {
+                $outMsg .= _("Warning:") . ' ' . $pop3->error;
                 continue;
             }
 
             $imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 10);
 
-            $Count = $pop3->login($mailfetch_user, $mailfetch_pass);
-            if (($Count == false || $Count == -1) && $pop3->ERROR != '') {
-                $outMsg .= _("Login Failed:") . ' ' . $pop3->ERROR;
+            /* log into pop server*/
+            if (! $pop3->login($mailfetch_user, $mailfetch_pass)) {
+                $outMsg .= _("Login Failed:") . ' ' . $pop3->error;
                 continue;
             }
 
-            //   register_shutdown_function($pop3->quit());
+            $aMsgStat = $pop3->command_stat();
+            if (is_bool($aMsgStat)) {
+                $outMsg .= _("Can't get mailbox status:") . ' ' . htmlspecialchars($pop3->error);
+                continue;
+            }
 
-            $msglist = $pop3->uidl();
+            $Count = $aMsgStat['count'];
 
             $i = 1;
-            for ($j = 1; $j < sizeof($msglist); $j++) {
-                if ($msglist["$j"] == $mailfetch_uidl) {
-                    $i = $j+1;
-                    break;
+
+            if ($Count>0) {
+                // If we leave messages on server, try using UIDL
+                if ($mailfetch_lmos == 'on') {
+                    $msglist = $pop3->command_uidl();
+                    if (is_bool($msglist)) {
+                        $outMsg .= _("Server does not support UIDL.") . ' '.htmlspecialchars($pop3->error);
+                        // User asked to leave messages on server, but we can't do that.
+                        $pop3->command_quit();
+                        continue;
+                        // $mailfetch_lmos = 'off';
+                    } else {
+                        // calculate number of new messages
+                        for ($j = 1; $j <= sizeof($msglist); $j++) {
+                            // do strict comparison ('1111.10' should not be equal to '1111.100')
+                            if ($msglist[$j] === $mailfetch_uidl) {
+                                $i = $j+1;
+                                break;
+                            }
+                        }
+                    }
+                }
+                // fetch list of messages with LIST
+                // we can use else control, but we can also set $mailfetch_lmos 
+                // to off if server does not support UIDL.
+                if ($mailfetch_lmos != 'on') {
+                    $msglist = $pop3->command_list();
                 }
             }
 
             if ($Count < $i) {
-                $pop3->quit();
+                $pop3->command_quit();
                 continue;
             }
             if ($Count == 0) {
-                $pop3->quit();
+                $pop3->command_quit();
                 continue;
             }
-
-            // Faster to get them all at once
-            $mailfetch_uidl = $pop3->uidl();
-
-            if (! is_array($mailfetch_uidl) && $mailfetch_lmos == 'on')
-                $outMsg .= _("Server does not support UIDL.");
 
             for (; $i <= $Count; $i++) {
                 if (!ini_get('safe_mode'))
                     set_time_limit(20); // 20 seconds per message max
-                $Message = "";
-                $MessArray = $pop3->get($i);
+                $Message = $pop3->command_retr($i);
 
-                if ( (!$MessArray) or (gettype($MessArray) != "array")) {
-                    $outMsg .= _("Warning:") . ' ' . $pop3->ERROR;
-                    continue 2;
-                }
-
-                while (list($lineNum, $line) = each ($MessArray)) {
-                    $Message .= $line;
+                if (is_bool($Message)) {
+                    $outMsg .= _("Warning:") . ' ' . htmlspecialchars($pop3->error);
+                    continue;
                 }
 
                 // check if mail folder is not null and subscribed (There is possible issue with /noselect mail folders)
@@ -194,8 +191,23 @@ function mail_fetch_login_function() {
                     fputs($imap_stream, "\r\n");
                     sqimap_read_data($imap_stream, "A3$i", false, $response, $message);
 
+                    // Check results of append command
+                    $response=(implode('',$response));
+                    $message=(implode('',$message));
+                    if ($response != 'OK') {
+                        $outMsg .= _("Error Appending Message!")." ".htmlspecialchars($message);
+
+                        if ($mailfetch_lmos == 'on') {
+                            setPref($data_dir,$username,"mailfetch_uidl_$i_loop", $msglist[$i-1]);
+                        }
+                        // Destroy msg list in order to prevent UIDL update
+                        $msglist = false;
+                        // if append fails, don't download other messages
+                        break;
+                    }
+
                     if ($mailfetch_lmos != 'on') {
-                        $pop3->delete($i);
+                        $pop3->command_dele($i);
                     }
                 } else {
                     echo "$Line";
@@ -203,10 +215,10 @@ function mail_fetch_login_function() {
                 }
             }
 
-            $pop3->quit();
+            $pop3->command_quit();
             sqimap_logout($imap_stream);
-            if (is_array($mailfetch_uidl)) {
-                setPref($data_dir,$username,"mailfetch_uidl_$i_loop", array_pop($mailfetch_uidl));
+            if ($mailfetch_lmos == 'on' && is_array($msglist)) {
+                setPref($data_dir,$username,"mailfetch_uidl_$i_loop", array_pop($msglist));
             }
         }
     }
