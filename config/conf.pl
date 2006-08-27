@@ -3072,7 +3072,11 @@ sub command61 {
             $sub = $#ldap_host + 1;
 
             print "First, we need to have the hostname or the IP address where\n";
-            print "this LDAP server resides.  Example: ldap.bigfoot.com\n";
+            print "this LDAP server resides. Example: ldap.bigfoot.com\n";
+	    print "\n";
+	    print "You can use any URI compatible with your LDAP library. Please\n";
+            print "note that StartTLS option is not compatible with ldaps and\n";
+	    print "ldapi URIs.\n";
             print "hostname: ";
             $name = <STDIN>;
             $name =~ s/[\r\n]//g;
