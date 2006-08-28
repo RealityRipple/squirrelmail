@@ -75,7 +75,7 @@ extract($t);
     <?php
         foreach ($not_used as $field_id=>$name) {
             echo "<tr>\n" .
-                 "<td colspan=\"3\" class=\"moveLink\"><a href=\"". $add.$field_id."\">".getIcon($icon_theme_path, 'add.png', _("Add"), _("Add"))."</a></td>\n" .
+                 "<td colspan=\"3\" class=\"moveLink\"><a href=\"". $add.$field_id."\">".getIcon($icon_theme_path, 'plus.png', _("Add"), _("Add"))."</a></td>\n" .
                  "<td class=\"fieldName\">".htmlspecialchars($name)."</td>\n" .
                  "</tr>\n";
     }
