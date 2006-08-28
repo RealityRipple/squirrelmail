@@ -103,7 +103,7 @@ extract($t);
  </tr>
  <tr>
   <td class="ruleButtons">
-   <a href="<?php echo $add_rule; ?>"><?php echo getIcon($icon_theme_path, 'add.png', _("Add"), _("Add")); ?></a> Add Rule
+   <a href="<?php echo $add_rule; ?>"><?php echo getIcon($icon_theme_path, 'plus.png', _("Add"), _("Add")); ?></a> Add Rule
   </td>
  </tr>
 </table>

@@ -100,11 +100,11 @@ function dTree(objName, imagePath) {
 
 		joinBottom	: imagePath+'/joinbottom.png',
 
-		plus				: imagePath+'/plus.png',
+		plus				: imagePath+'/plus_mid.png',
 
 		plusBottom	: imagePath+'/plusbottom.png',
 
-		minus				: imagePath+'/minus.png',
+		minus				: imagePath+'/minus_mid.png',
 
 		minusBottom	: imagePath+'/minusbottom.png',
 
