@@ -734,3 +734,23 @@ tr.odd  {
     border: 1px solid <?php echo $color[9]; ?>;
 }
 
+#vCard  {
+    text-align: center;
+}
+
+#vCard  table   {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#vCard  td.fieldName   {
+    text-align: <?php echo SQM_ALIGN_RIGHT; ?>;
+    font-weight: bold;
+    vertical-align: top;
+}
+
+#vCard  td.fieldValue   {
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
+}
