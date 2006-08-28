@@ -2,9 +2,22 @@
 /**
  * vcard.tpl
  *
- * Description
+ * Template to display a vCard
  * 
  * The following variables are available in this template:
+ *      $view_message_link  - URL to go back to the message
+ *      $download_link      - URL to download the vCard
+ *      $nickname           - Default nickname for the address book add form
+ *      $firstname          - First name for the address book add from
+ *      $last name          - Last name for the add form
+ *      $email              - Email for the add form
+ *      $info               - array of Additional info for the add form.  May be
+ *                            empty if no additional info is provided by the
+ *                            card.  Index of each element is the value for the
+ *                            option, value of each element is the name.
+ *      $vcard              - array containing vCard data, scrubbed and i-18-n'ed.
+ *                            Index of each element is the field name, value of
+ *                            each element is the field value.
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
