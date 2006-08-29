@@ -133,6 +133,7 @@ Version 1.5.2 - CVS
     (#1543573).
   - Provide View Unsafe Images link on viewing a text/html attachment.
   - Added APOP, TLS and STLS support to mail_fetch plugin (#575299).
+  - Added Courier IMAP OUTBOX check to configtest utility.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

@@ -516,6 +516,15 @@ if (stristr($capline, 'XMAGICTRASH') !== false) {
     do_err($magic_trash,false);
 }
 
+/* add warning about IMAP delivery */
+if (stristr($capline, 'XCOURIEROUTBOX') !== false) {
+    $courier_outbox = 'OUTBOX setting is enabled in your Courier imapd '
+        .'configuration. SquirrelMail uses standard SMTP protocol or sendmail '
+        .'binary to send emails. Courier IMAP delivery method is not supported'
+        .' and can create duplicate email messages.';
+    do_err($courier_outbox,false);
+}
+
 /** OK, close connection */
 fputs($stream, "A004 LOGOUT\r\n");
 fclose($stream);
