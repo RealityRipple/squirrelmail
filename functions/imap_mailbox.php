@@ -651,26 +651,13 @@ function sqimap_mailbox_parse ($line) {
 }
 
 /**
- * Returns list of options (to be echoed into select statement
- * based on available mailboxes and separators
- * Caller should surround options with <select ...> </select> and
- * any formatting.
- * @param stream $imap_stream imap connection resource to query for mailboxes
- * @param array $show_selected array containing list of mailboxes to pre-select (0 if none)
- * @param array $folder_skip array of folders to keep out of option list (compared in lower)
- * @param $boxes list of already fetched boxes (for places like folder panel, where
- *            you know these options will be shown 3 times in a row.. (most often unset).
- * @param string $flag (since 1.4.1) flag to check for in mailbox flags, used to filter out mailboxes.
- *           'noselect' by default to remove unselectable mailboxes.
- *           'noinferiors' used to filter out folders that can not contain subfolders.
- *           NULL to avoid flag check entirely.
- *           NOTE: noselect and noiferiors are used internally. The IMAP representation is
- *                 \NoSelect and \NoInferiors
- * @param boolean $use_long_format (since 1.4.1) override folder display preference and always show full folder name.
- * @return string html formated mailbox selection options
- * @since 1.3.2
+ * Returns an array of mailboxes available.  Separated from sqimap_mailbox_option_list()
+ * below for template development.
+ * 
+ * @author Steve Brown
+ * @since 1.5.2
  */
-function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_skip = 0, $boxes = 0,
+function sqimap_mailbox_option_array($imap_stream, $folder_skip = 0, $boxes = 0,
                                     $flag = 'noselect', $use_long_format = false ) {
     global $username, $data_dir, $translate_special_folders, $sent_folder, 
         $trash_folder, $draft_folder;
@@ -688,6 +675,7 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
         $boxes = sqimap_mailbox_list($imap_stream);
     }
 
+    $a = array();
     foreach ($boxes as $boxes_part) {
         if ($flag == NULL || (is_array($boxes_part['flags'])
                       && !in_array($flag, $boxes_part['flags']))) {
@@ -745,14 +733,58 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
                     break;
                 }
             }
-            if ($show_selected != 0 && in_array($lowerbox, $show_selected) ) {
-                $mbox_options .= '<option value="' . htmlspecialchars($box) .'" selected="selected">'.$box2.'</option>' . "\n";
-            } else {
-                $mbox_options .= '<option value="' . htmlspecialchars($box) .'">'.$box2.'</option>' . "\n";
-            }
+            
+            $a[htmlspecialchars($box)] = $box2;
         }
     }
-    return $mbox_options;
+    
+    return $a;
+}
+
+/**
+ * Returns list of options (to be echoed into select statement
+ * based on available mailboxes and separators
+ * Caller should surround options with <select ...> </select> and
+ * any formatting.
+ * @param stream $imap_stream imap connection resource to query for mailboxes
+ * @param array $show_selected array containing list of mailboxes to pre-select (0 if none)
+ * @param array $folder_skip array of folders to keep out of option list (compared in lower)
+ * @param $boxes list of already fetched boxes (for places like folder panel, where
+ *            you know these options will be shown 3 times in a row.. (most often unset).
+ * @param string $flag (since 1.4.1) flag to check for in mailbox flags, used to filter out mailboxes.
+ *           'noselect' by default to remove unselectable mailboxes.
+ *           'noinferiors' used to filter out folders that can not contain subfolders.
+ *           NULL to avoid flag check entirely.
+ *           NOTE: noselect and noiferiors are used internally. The IMAP representation is
+ *                 \NoSelect and \NoInferiors
+ * @param boolean $use_long_format (since 1.4.1) override folder display preference and always show full folder name.
+ * @return string html formated mailbox selection options
+ * @since 1.3.2
+ */
+function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_skip = 0, $boxes = 0,
+                                    $flag = 'noselect', $use_long_format = false ) {
+    global $username, $data_dir, $translate_special_folders, $sent_folder, 
+        $trash_folder, $draft_folder;
+
+    $boxes = sqimap_mailbox_option_array($imap_stream, $folder_skip, $boxes, $flag, $use_long_format);
+    
+    $str = '';
+    foreach ($boxes as $value=>$option) {
+        $lowerbox = strtolower(htmlspecialchars($value));
+        $sel = false;
+        if ($show_selected != 0) {
+            reset($show_selected);
+            while (!$sel && (list($x, $val) = each($show_selected))) {
+                if (strtolower($value) == strtolower(htmlspecialchars($val))) {
+                    $sel = true;
+                }
+            }
+        }
+        
+        $str .= '<option value="'. $value .'"'. ($sel ? ' selected="selected"' : '').'>'. $option ."</option>\n";
+    }
+    
+    return $str;
 }
 
 /**
