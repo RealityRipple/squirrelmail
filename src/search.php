@@ -47,47 +47,6 @@ define('ASEARCH_MAX', 7);
  */
 define('ASEARCH_CRITERIA', 'criteria');
 
-/** Builds a href with params
- * @param string $params optional parameters to GET
- * @since 1.5.1
- * @private
- */
-function asearch_get_href($params = '')
-{
-    $href = 'search.php';
-    if ($params != '')
-        $href .= '?' . $params;
-    return $href;
-}
-
-/** Builds a [link]
- * @param string $href (reference) URL
- * @param string $text link name
- * @param string $title link title attribute value
- * @since 1.5.1
- * @private
- */
-function asearch_get_link(&$href, $text, $title = '')
-{
-    if ($title != '')
-        $title = ' title="' . $title . '"';
-    return '<a href="' . $href . '"' . $title . '>' . $text . '</a>';
-}
-
-/** Builds a toggle [link]
- * @param integer $value
- * @param string $action
- * @param array $text_array
- * @param array $title_array
- * @since 1.5.1
- * @private
- */
-function asearch_get_toggle_link($value, $action, $text_array, $title_array = array())
-{
-    $asearch_nz=asearch_nz($title_array[$value]);
-    $asearch_get_href=asearch_get_href($action . '=' . (int)$value);
-    return asearch_get_link($asearch_get_href, $text_array[$value], $asearch_nz);
-}
 
 /**
  * Array sort callback used to sort $imap_asearch_options
@@ -103,20 +62,6 @@ function asearch_unhtml_strcoll($a, $b)
     return strcoll(asearch_unhtmlentities($a), asearch_unhtmlentities($b));
 }
 
-
-/**
- * @param string $mailbox mailbox name utf7 encoded inc. special case INBOX
- * @return string mailbox name ready to display (utf7 decoded or localized INBOX)
- * @since 1.5.0
- * @private
- */
-function imap_get_mailbox_display($mailbox)
-{
-    if (strtoupper($mailbox) == 'INBOX')
-        return _("INBOX");
-    return imap_utf7_decode_local($mailbox);
-}
-
 /**
  * @param string $mailbox mailbox name or special case 'All Folders'
  * @return string mailbox name ready to display (utf7 decoded or localized 'All Folders')
@@ -125,32 +70,12 @@ function imap_get_mailbox_display($mailbox)
  */
 function asearch_get_mailbox_display($mailbox)
 {
-    if ($mailbox == 'All Folders')
+    if ($mailbox == 'All Folders') {
         return _("All Folders");
-    return imap_get_mailbox_display($mailbox);
-}
-
-/**
- * @param array $color color array (unused)
- * @param string $txt text to display
- * @return string title ready to display
- * @since 1.5.0
- * @private
- */
-function asearch_get_title_display($color, $txt)
-{
-    return '<b><big>' . $txt . '</big></b>';
-}
-/**
- * @param array $color color array
- * @param string $txt text to display
- * @return string error text ready to display
- * @since 1.5.0
- * @private
- */
-function asearch_get_error_display($color, $txt)
-{
-    return '<font color="' . $color[2] . '">' . '<b><big>' . $txt . '</big></b></font>';
+    } elseif (strtoupper($mailbox) == 'INBOX') {
+        return _("INBOX");
+    }
+    return imap_utf7_decode_local($mailbox);
 }
 
 /**
@@ -651,7 +576,7 @@ function asearch_get_query_display(&$color, &$mailbox_array, &$biop_array, &$uno
                 $cur_mailbox = 'INBOX';
             $biop = asearch_nz($biop_array[$crit_num]);
             if (($query_display == '') || ($cur_mailbox != $last_mailbox)) {
-                $mailbox_display = ' <b>' . htmlspecialchars(asearch_get_mailbox_display($cur_mailbox)) . '</b>';
+                $mailbox_display = ' <span class="mailbox">' . htmlspecialchars(asearch_get_mailbox_display($cur_mailbox)) . '</span>';
                 if ($query_display == '')
                     $biop_display = _("In");
                 else
@@ -672,25 +597,25 @@ function asearch_get_query_display(&$color, &$mailbox_array, &$biop_array, &$uno
             $what = $what_array[$crit_num];
             if ($what_type) { /* Check opcode parameter */
                 if ($what == '')
-                    $what_display = ' ' . asearch_get_error_display($color, _("(Missing argument)"));
+                    $what_display = ' <span class="error">' . _("(Missing argument)") .'</span>';
                 else {
                     if ($what_type == 'adate')
                         $what_display = asearch_get_date_display($what);
                     else
                         $what_display = htmlspecialchars($what);
-                    $what_display = ' <b>' . $what_display . '</b>';
+                    $what_display = ' <span class="value">' . $what_display . '</span>';
                 }
             }
             else {
                 if ($what)
-                    $what_display = ' ' . asearch_get_error_display($color, _("(Spurious argument)"));
+                    $what_display = ' <span class="error">' . _("(Spurious argument)") .'</span>';
                 else
                     $what_display = '';
             }
             if ($mailbox_display != '')
-                $query_display .= ' <u><i>' . $biop_display . '</i></u>' . $mailbox_display . ' <u><i>' . $where_display . '</i></u>' . $what_display;
+                $query_display .= ' <span class="operator">' . $biop_display . '</span>' . $mailbox_display . ' <span class="conditions">' . $where_display . '</span>' . $what_display;
             else
-                $query_display .= ' <u><i>' . $biop_display . ' ' . $where_display . '</i></u>' . $what_display;
+                $query_display .= ' <span class="operator">' . $biop_display . '</span> <span class="conditions">' . $where_display . '</span>' . $what_display;
         }
     }
     return $query_display;
@@ -716,28 +641,6 @@ function getButton($type, $name, $value, $js = '', $enabled = TRUE) {
             '" style="padding: 0px; margin: 0px" />';
 }
 
-
-/** Handle the alternate row colors
- * @param array $color color theme array
- * @param integer $row_num
- * @return string color value
- * @since 1.5.0
- * @private
- */
-function asearch_get_row_color(&$color, $row_num)
-{
-/*$color_string = ($row_num%2 ? $color[0] : $color[4]);*/
-    $color_string = $color[4];
-    if ($GLOBALS['alt_index_colors']) {
-        if (($row_num % 2) == 0) {
-            if (!isset($color[12]))
-                $color[12] = '#EAEAEA';
-            $color_string = $color[12];
-        }
-    }
-    return $color_string;
-}
-
 /**
  * Print a whole query array, recent or saved
  *
@@ -753,58 +656,49 @@ function asearch_get_row_color(&$color, $row_num)
  */
 function asearch_print_query_array(&$boxes, &$query_array, &$query_keys, &$action_array, $title, $show_pref)
 {
-    global $color;
     global $data_dir, $username;
-    global $use_icons, $icon_theme;
+    global $icon_theme_path;
+    global $oTemplate;
 
     $show_flag = getPref($data_dir, $username, $show_pref, 0) & 1;
-    $use_icons_flag = ($use_icons) && ($icon_theme != 'none');
-    if ($use_icons_flag)
-        $text_array = array('<img src="' . SM_PATH . 'images/minus.png" border="0" height="7" width="7" />',
-            '<img src="' . SM_PATH . 'images/plus.png" border="0" height="7" width="7" />');
-    else
-        $text_array = array('-', '+');
-    $toggle_link = asearch_get_toggle_link(!$show_flag, $show_pref, $text_array, array(_("Fold"), _("Unfold")));
-    if (!$use_icons_flag)
-        $toggle_link = '<small>[' . $toggle_link . ']</small>';
-
-    echo "<br />\n";
-    echo html_tag('table', '', 'center', $color[9], 'width="95%" cellpadding="1" cellspacing="1" border="0"');
-    echo html_tag('tr',
-        html_tag('td', $toggle_link, 'center', $color[5], 'width="5%"')
-        . html_tag('td', asearch_get_title_display($color, $title), 'center', $color[5], 'colspan=4'));
-    if ($show_flag) {
-        $main_key = $query_keys[ASEARCH_WHERE];
-        $query_count = count($query_array[$main_key]);
-        for ($query_num = 0, $row_num = 0; $query_num < $query_count; $query_num++) {
-            if (!empty($query_array[$main_key][$query_num])) {
-                echo html_tag('tr', '', '', asearch_get_row_color($color, $row_num));
-
-                unset($search_array);
-                foreach ($query_keys as $query_key) {
-                    $search_array[] = asearch_unserialize($query_array[$query_key][$query_num]);
-                }
-                $where_array = $search_array[ASEARCH_WHERE];
-                $mailbox_array = $search_array[ASEARCH_MAILBOX];
-                $what_array = $search_array[ASEARCH_WHAT];
-                $unop_array = $search_array[ASEARCH_UNOP];
-                $biop_array = asearch_nz($search_array[ASEARCH_BIOP], array());
-                $exclude_array = asearch_nz($search_array[ASEARCH_EXCLUDE], array());
-                $sub_array = asearch_nz($search_array[ASEARCH_SUB], array());
-                $query_display = asearch_get_query_display($color, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array);
-
-                echo html_tag('td', $query_num + 1, 'right');
-                echo html_tag('td', $query_display, 'center', '', 'width="80%"');
-                foreach ($action_array as $action => $action_display) {
-                    echo html_tag('td', '<a href="' . asearch_get_href('submit=' . $action . '&amp;rownum=' . $query_num) . '">' . $action_display . '</a>', 'center');
-                }
-
-                echo '</tr>' . "\n";
-                $row_num++;
+    $a = array();
+    $main_key = $query_keys[ASEARCH_WHERE];
+    $query_count = count($query_array[$main_key]);
+    for ($query_num = 0, $row_num = 0; $query_num < $query_count; $query_num++) {
+        if (!empty($query_array[$main_key][$query_num])) {
+            unset($search_array);
+            foreach ($query_keys as $query_key) {
+                $search_array[] = asearch_unserialize($query_array[$query_key][$query_num]);
             }
+            
+            $where_array = $search_array[ASEARCH_WHERE];
+            $mailbox_array = $search_array[ASEARCH_MAILBOX];
+            $what_array = $search_array[ASEARCH_WHAT];
+            $unop_array = $search_array[ASEARCH_UNOP];
+            $biop_array = asearch_nz($search_array[ASEARCH_BIOP], array());
+            $exclude_array = asearch_nz($search_array[ASEARCH_EXCLUDE], array());
+            $sub_array = asearch_nz($search_array[ASEARCH_SUB], array());
+            $query_display = asearch_get_query_display($color, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array);
+            
+            $a[$query_num] = $query_display;
         }
     }
-    echo '</table>' . "\n";
+            
+    $oTemplate->assign('list_title', $title);
+    $oTemplate->assign('show_list', $show_flag==1);
+    $oTemplate->assign('is_recent_list', $title==_("Recent Searches"));
+    $oTemplate->assign('expand_collapse_toggle', '../src/search.php?'.$show_pref.'='.($show_flag==1 ? 0 : 1));
+    $oTemplate->assign('query_list', $a);
+    
+    $oTemplate->assign('save_recent', '../src/search.php?submit=save_recent&rownum=');
+    $oTemplate->assign('do_recent', '../src/search.php?submit=search_recent&rownum=');
+    $oTemplate->assign('forget_recent', '../src/search.php?submit=forget_recent&rownum=');
+    
+    $oTemplate->assign('edit_saved', '../src/search.php?submit=edit_saved&rownum=');
+    $oTemplate->assign('do_saved', '../src/search.php?submit=search_saved&rownum=');
+    $oTemplate->assign('delete_saved', '../src/search.php?submit=delete_saved&rownum=');
+    
+    $oTemplate->display('search_list.tpl');
 }
 
 /** Print the saved array
@@ -850,39 +744,6 @@ function asearch_print_recent(&$boxes)
     }
 }
 
-/**
- * Build an <option> statement
- * @param string $var option value
- * @param string $set default option value
- * @param string $tit displayed option name
- * @return string formated html option tag
- * @since 1.5.0
- * @private
- */
-function asearch_opt($val, $sel, $tit)
-{
-    return '<option value="' . $val . '"' . ($sel == $val ? ' selected="selected"' : '') . '>' . $tit . '</option>' . "\n";
-}
-
-/** Build a <select> statement from an array
- * @param string $var_name select option name
- * @param array $opt_array select option values
- * @param string $cur_val default value
- * @return string html formated select tag
- * @deprecated FIXME use standard form functions or 
- *  explain why they are not used.
- * @since 1.5.0
- * @private
- */
-function asearch_opt_array($var_name, $opt_array, $cur_val)
-{
-    $output = '<select name="' . $var_name . '">' . "\n";
-    foreach($opt_array as $val => $display)
-        $output .= asearch_opt($val, $cur_val, asearch_nz($display, $val));
-    $output .= '</select>' . "\n";
-    return $output;
-}
-
 /** Verify that a mailbox exists
  * @param string $mailbox
  * @param array $boxes
@@ -900,125 +761,6 @@ function asearch_mailbox_exists($mailbox, &$boxes)
     return FALSE;
 }
 
-/**
- * Build the mailbox select
- * @param stream $imapConnection
- * @param array $boxes
- * @param string $mailbox
- * @param integer $row_num
- * @since 1.5.1
- * @private
- */
-function asearch_get_form_mailbox($imapConnection, &$boxes, $mailbox, $row_num = 0)
-{
-    if (($mailbox != 'All Folders') && (!asearch_mailbox_exists($mailbox, $boxes))) {
-        $missing = asearch_opt($mailbox, $mailbox, '[' . _("Missing") . '] ' . htmlspecialchars(asearch_get_mailbox_display($mailbox)));
-    } else {
-        $missing = '';
-    }
-    return '<select name="mailbox[' . $row_num . ']">'
-        . $missing
-        . asearch_opt('All Folders', $mailbox, '[' . asearch_get_mailbox_display('All Folders') . ']')
-        . sqimap_mailbox_option_list($imapConnection, array(strtolower($mailbox)), 0, $boxes, NULL)
-        . '</select>';
-}
-
-/**
- * Build the Include subfolders checkbox
- * @param string $sub
- * @param integer $row_num
- * @return string
- * @since 1.5.1
- * @private
- */
-function asearch_get_form_sub($sub, $row_num = 0)
-{
-    return addCheckBox('sub[' . $row_num .']', $sub);
-}
-
-/** Build the 2 unop and where selects
- * @param string $unop default value
- * @param string $where default value
- * @param integer $row_num
- * @return string
- * @since 1.5.1
- * @private
- */
-function asearch_get_form_location($unop, $where, $row_num = 0)
-{
-    global $imap_asearch_unops, $imap_asearch_options;
-
-    return asearch_opt_array('unop[' . $row_num . ']', $imap_asearch_unops, $unop)
-        . asearch_opt_array('where[' . $row_num . ']', $imap_asearch_options, $where);
-}
-
-/** Build the what text input
- * @param string $what
- * @param integer $row_num
- * @return string
- * @since 1.5.1
- * @private
- */
-function asearch_get_form_what($what, $row_num = 0)
-{
-    return addInput('what[' . $row_num . ']', $what, '35');
-}
-
-/** Build the Exclude criteria checkbox
- * @param boolean $exclude
- * @param integer $row_num
- * @return string
- * @since 1.5.1
- * @private
- */
-function asearch_get_form_exclude($exclude, $row_num = 0)
-{
-    return addCheckBox('exclude['.$row_num.']', $exclude);
-}
-
-/** Print one advanced form row
- * @param stream $imapConnection
- * @param array $boxes
- * @param string $mailbox
- * @param mixed $biop
- * @param string $unop
- * @param string $where
- * @param string $what
- * @param boolean $exclude
- * @param mixed $sub
- * @param integer $row_num
- * @since 1.5.0
- * @private
- */
-function asearch_print_form_row($imapConnection, &$boxes, $mailbox, $biop, $unop, $where, $what, $exclude, $sub, $row_num)
-{
-    global $imap_asearch_biops_in;
-    global $color;
-
-    echo html_tag('tr', '', '', $color[4]);
-
-//Binary operator
-    echo html_tag('td', $row_num ?
-            asearch_opt_array('biop[' . $row_num . ']', $imap_asearch_biops_in, $biop)
-            : '<b>' . _("In") . '</b>', 'center') . "\n";
-
-//Mailbox list and Include Subfolders
-    echo html_tag('td',
-            asearch_get_form_mailbox($imapConnection, $boxes, $mailbox, $row_num)
-        . _("and&nbsp;subfolders:") . asearch_get_form_sub($sub, $row_num), 'center') . "\n";
-
-//Unary operator and Search location
-    echo html_tag('td', asearch_get_form_location($unop, $where, $row_num), 'center') . "\n";
-
-//Text input
-    echo html_tag('td', asearch_get_form_what($what, $row_num), 'center') . "\n";
-
-//Exclude criteria
-    echo html_tag('td', _("Exclude Criteria:") . asearch_get_form_exclude($exclude, $row_num), 'center') . "\n";
-
-    echo "</tr>\n";
-}
-
 /** Print the advanced search form
  * @param stream $imapConnection
  * @param array $boxes
@@ -1034,74 +776,55 @@ function asearch_print_form_row($imapConnection, &$boxes, $mailbox, $biop, $unop
  */
 function asearch_print_form($imapConnection, &$boxes, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array)
 {
-    global $search_button_html, $add_criteria_button_html, $del_excluded_button_html, $del_all_button_html;
-    global $color;
+    global $oTemplate, $allow_advanced_search, $search_advanced, 
+           $imap_asearch_unops, $imap_asearch_biops_in, $imap_asearch_options;
 
-//Search Form
-    echo "<br />\n";
-    echo '<form action="' . asearch_get_href() . '" name="form_asearch">' . "\n";
-
-    echo html_tag('table', '', 'center', $color[9], 'width="100%" cellpadding="1" cellspacing="1" border="0"');
-    echo html_tag('tr', html_tag('td', asearch_get_title_display($color, _("Search Criteria")), 'center', $color[5], 'colspan=5'));
-    $row_count = count($where_array);
-    for ($row_num = 0; $row_num < $row_count; $row_num++) {
+    # Build the criteria array
+    $c = array();
+    for ($row_num = 0; $row_num < count($where_array); $row_num++) {
         $mailbox = asearch_nz($mailbox_array[$row_num]);
-        $biop = strip_tags(asearch_nz($biop_array[$row_num]));
-        $unop = strip_tags(asearch_nz($unop_array[$row_num]));
-        $where = strip_tags(asearch_nz($where_array[$row_num]));
-        $what = asearch_nz($what_array[$row_num]);
-        $exclude = strip_tags(asearch_nz($exclude_array[$row_num]));
-        $sub = strip_tags(asearch_nz($sub_array[$row_num]));
-        asearch_print_form_row($imapConnection, $boxes, $mailbox, $biop, $unop, $where, $what, $exclude, $sub, $row_num);
+        $a = array();
+        $a['MailboxSel'] = asearch_nz($mailbox_array[$row_num]);
+        $a['LogicSel'] = strip_tags(asearch_nz($biop_array[$row_num]));
+        $a['UnarySel'] = strip_tags(asearch_nz($unop_array[$row_num]));
+        $a['WhereSel'] = strip_tags(asearch_nz($where_array[$row_num]));
+        $a['What'] = asearch_nz($what_array[$row_num]);
+        $a['Exclude'] = strip_tags(asearch_nz($exclude_array[$row_num])) == 'on';
+        $a['IncludeSubfolders'] = strip_tags(asearch_nz($sub_array[$row_num])) == 'on';
+        
+        $c[$row_num] = $a;
     }
-    echo '</table>' . "\n";
+        
+    # Build the mailbox array
+    $a = array();
+    if (($mailbox != 'All Folders') && (!asearch_mailbox_exists($mailbox, $boxes))) {
+        $a[$mailbox] = '[' . _("Missing") . '] ' . htmlspecialchars(asearch_get_mailbox_display($mailbox));
+    }
+    $a['All Folders'] = '[' . asearch_get_mailbox_display('All Folders') . ']';
+    $a = array_merge($a, sqimap_mailbox_option_array($imapConnection, 0, $boxes, NULL));
+    
+    if ($allow_advanced_search > 1) {
+        $link = '../src/search.php?advanced='.($search_advanced ? 0 : 1);
+        $txt = $search_advanced ? _("Standard Search") : _("Advanced search");
+    } else {
+        $link = NULL;
+        $txt = NULL;
+    }
+           
+    $oTemplate->assign('allow_advanced_search', $allow_advanced_search > 1);
+    $oTemplate->assign('adv_toggle_text', $txt);
+    $oTemplate->assign('adv_toggle_link', $link);
+    
+    $oTemplate->assign('mailbox_options', $a);
+    $oTemplate->assign('logical_options', $imap_asearch_biops_in);
+    $oTemplate->assign('unary_options', $imap_asearch_unops);
+    $oTemplate->assign('where_options', $imap_asearch_options);
 
-//Submit buttons
-    echo html_tag('table', '', 'center', $color[9], 'width="100%" cellpadding="1" cellspacing="0" border="0"');
-    echo html_tag('tr',
-                html_tag('td', getButton('submit', 'submit', $search_button_html), 'center') . "\n"
-            . html_tag('td', getButton('submit', 'submit', $add_criteria_button_html), 'center') . "\n"
-            . html_tag('td', getButton('submit', 'submit', $del_all_button_html), 'center') . "\n"
-            . html_tag('td', getButton('submit', 'submit', $del_excluded_button_html), 'center') . "\n"
-            );
-    echo '</table>' . "\n";
-    echo '</form>' . "\n";
-}
-
-/** Print one basic form row
- * @param stream $imapConnection
- * @param array $boxes
- * @param string $mailbox
- * @param mixed $biop
- * @param mixed $unop
- * @param string $where
- * @param string $what
- * @param boolean $exclude
- * @param mixed $sub
- * @param integer $row_num
- * @since 1.5.1
- * @private
- */
-function asearch_print_form_row_basic($imapConnection, &$boxes, $mailbox, $biop, $unop, $where, $what, $exclude, $sub, $row_num)
-{
-    global $search_button_html;
-    global $color;
-
-    echo html_tag('tr', '', '', $color[4]);
-
-//Mailbox list
-    echo html_tag('td', '<b>' . _("In") . '</b> ' . asearch_get_form_mailbox($imapConnection, $boxes, $mailbox), 'center') . "\n";
-
-//Unary operator and Search location
-    echo html_tag('td', asearch_get_form_location($unop, $where), 'center') . "\n";
-
-//Text input
-    echo html_tag('td', asearch_get_form_what($what), 'center') . "\n";
-
-//Submit button
-    echo html_tag('td', getButton('submit', 'submit', $search_button_html), 'center') . "\n";
-
-    echo "</tr>\n";
+    $oTemplate->assign('criteria', $c);
+    
+    echo '<form action="../src/search.php" name="form_asearch">' . "\n";
+    $oTemplate->display('search_advanced.tpl');
+    echo "</form>\n";
 }
 
 /** Print the basic search form
@@ -1119,27 +842,49 @@ function asearch_print_form_row_basic($imapConnection, &$boxes, $mailbox, $biop,
  */
 function asearch_print_form_basic($imapConnection, &$boxes, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array)
 {
-    global $color;
+    global $allow_advanced_search, $search_advanced, $oTemplate, $imap_asearch_unops, $imap_asearch_options;
 
-//Search Form
-    echo "<br />\n";
-    echo '<form action="' . asearch_get_href() . '" name="form_asearch">' . "\n";
+    $row_num = 0;
+    $mailbox = asearch_nz($mailbox_array[$row_num]);
+    $biop = strip_tags(asearch_nz($biop_array[$row_num]));
+    $unop = strip_tags(asearch_nz($unop_array[$row_num]));
+    $where = strip_tags(asearch_nz($where_array[$row_num]));
+    $what = asearch_nz($what_array[$row_num]);
+    $exclude = strip_tags(asearch_nz($exclude_array[$row_num]));
+    $sub = strip_tags(asearch_nz($sub_array[$row_num]));
 
-    echo html_tag('table', '', 'center', $color[9], 'width="100%" cellpadding="1" cellspacing="1" border="0"');
-    //echo html_tag('tr', html_tag('td', asearch_get_title_display($color, _("Search Criteria")), 'center', $color[5], 'colspan=4'));
-    $row_count = count($where_array);
-    for ($row_num = 0; $row_num < $row_count; $row_num++) {
-        $mailbox = asearch_nz($mailbox_array[$row_num]);
-        $biop = strip_tags(asearch_nz($biop_array[$row_num]));
-        $unop = strip_tags(asearch_nz($unop_array[$row_num]));
-        $where = strip_tags(asearch_nz($where_array[$row_num]));
-        $what = asearch_nz($what_array[$row_num]);
-        $exclude = strip_tags(asearch_nz($exclude_array[$row_num]));
-        $sub = strip_tags(asearch_nz($sub_array[$row_num]));
-        asearch_print_form_row_basic($imapConnection, $boxes, $mailbox, $biop, $unop, $where, $what, $exclude, $sub, $row_num);
+    # Build the mailbox array
+    $a = array();
+    if (($mailbox != 'All Folders') && (!asearch_mailbox_exists($mailbox, $boxes))) {
+        $a[$mailbox] = '[' . _("Missing") . '] ' . htmlspecialchars(asearch_get_mailbox_display($mailbox));
     }
-    echo '</table>' . "\n";
-    echo '</form>' . "\n";
+    $a['All Folders'] = '[' . asearch_get_mailbox_display('All Folders') . ']';
+    $a = array_merge($a, sqimap_mailbox_option_array($imapConnection, 0, $boxes, NULL));
+        
+    if ($allow_advanced_search > 1) {
+        $link = '../src/search.php?advanced='.($search_advanced ? 0 : 1);
+        $txt = $search_advanced ? _("Standard Search") : _("Advanced search");
+    } else {
+        $link = NULL;
+        $txt = NULL;
+    }
+           
+    $oTemplate->assign('allow_advanced_search', $allow_advanced_search > 1);
+    $oTemplate->assign('adv_toggle_text', $txt);
+    $oTemplate->assign('adv_toggle_link', $link);
+
+    $oTemplate->assign('mailbox_options', $a);
+    $oTemplate->assign('unary_options', $imap_asearch_unops);
+    $oTemplate->assign('where_options', $imap_asearch_options);
+    
+    $oTemplate->assign('mailbox_sel', strtolower(htmlspecialchars($mailbox)));
+    $oTemplate->assign('unary_sel', $unop);
+    $oTemplate->assign('where_sel', $where);
+    $oTemplate->assign('what_val', $what);
+        
+    echo '<form action="../src/search.php" name="form_asearch">' . "\n";
+    $oTemplate->display('search.tpl');
+    echo "</form>\n";
 }
 
 
@@ -1172,7 +917,6 @@ if ( sqgetGlobalVar('checkall', $temp, SQ_GET) ) {
  * Retrieve the mailbox cache from the session.
  */
 sqgetGlobalVar('mailbox_cache',$mailbox_cache,SQ_SESSION);
-
 
 $search_button_html = _("Search");
 $search_button_text = asearch_unhtmlentities($search_button_html);
@@ -1369,12 +1113,6 @@ if ( sqgetGlobalVar('account', $temp,  SQ_GET) ) {
 } else {
     $iAccount = 0;
 }
-
-/**
- * Which templatedir are we using. TODO, add make a config var of this and make it possible to switch templates
- */
-$sTplDir = SM_PATH . 'templates/default/';
-
 
 /**
  * Incoming submit buttons from the message list with search results
@@ -1648,26 +1386,13 @@ if (isset($aMailbox['FORWARD_SESSION'])) {
 }
 
 if (isset($note)) {
-    echo html_tag( 'div', '<b>' . htmlspecialchars($note) .'</b>', 'center' ) . "<br />\n";
+    $oTemplate->assign('note', $note);
+    $oTemplate->display('note.tpl');
 }
-
 
 do_hook('search_before_form');
 
 if (!$search_silent) {
-    //Add a link to the other search mode if allowed
-    if ($allow_advanced_search > 1)
-        $toggle_link = ' - <small>['
-            . asearch_get_toggle_link(!$search_advanced, 'advanced', array(_("Standard search"), _("Advanced search")))
-            . ']</small>';
-    else
-        $toggle_link = '';
-
-    echo html_tag('table',
-                html_tag('tr', "\n"
-                . html_tag('td', asearch_get_title_display($color, _("Search")) . $toggle_link, 'center', $color[0])
-                    ) ,
-                '', '', 'width="100%"') . "\n";
     asearch_print_saved($boxes);
     asearch_print_recent($boxes);
     if (empty($where_array)) {
@@ -1707,17 +1432,18 @@ do_hook('search_after_form');
 
 if ($submit == $search_button_text) {
     $msgsfound = false;
-    echo html_tag('table', '', 'center', $color[9], 'width="100%" cellpadding="1" cellspacing="0" border="0"');
-    echo html_tag('tr', html_tag('td', asearch_get_title_display($color, _("Search Results")), 'center', $color[5]));
-    echo html_tag('tr', html_tag('td', asearch_get_query_display($color, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array), 'center', $color[4]));
-    echo '</table>' . "\n";
 
+    $err = asearch_check_query($where_array, $what_array, $exclude_array);
+
+    $oTemplate->assign('query_has_error', $err!='');
+    $oTemplate->assign('query_error', $err=='' ? NULL : $err);
+    $oTemplate->assign('query', asearch_get_query_display($color, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array));
+    
+    $oTemplate->display('search_result_top.tpl');
+    
     flush();
     $iMsgCnt = 0;
-    $query_error = asearch_check_query($where_array, $what_array, $exclude_array);
-    if ($query_error != '') {
-        echo '<br />' . html_tag('div', asearch_get_error_display($color, $query_error), 'center') . "\n";
-    } else {
+    if ($err == '') {
         $mboxes_array = sqimap_asearch_get_selectable_unformatted_mailboxes($boxes);
         /**
          * Retrieve the search queries
@@ -1855,8 +1581,9 @@ if ($submit == $search_button_text) {
                 */
                 sqgetGlobalVar('align',$align,SQ_SESSION);
 
-                $oTemplate = new Template($sTplDir);
-
+                /**
+                 * TODO: Clean up handling of message list once the template is cleaned up.
+                 */
                 if ($aMailbox['EXISTS'] > 0) {
                     if ($iError) {
                        // TODO
@@ -1865,6 +1592,16 @@ if ($submit == $search_button_text) {
                         foreach ($aTemplate as $k => $v) {
                             $oTemplate->assign($k, $v);
                         }
+
+                        $mailbox_display = asearch_get_mailbox_display($aMailbox['NAME']);
+                        if (strtoupper($mbx) == 'INBOX') {
+                            $mailbox_display = _("INBOX");
+                        } else {
+                            $mailbox_display = imap_utf7_decode_local($mbx);
+                        }
+
+                        $oTemplate->assign('mailbox_name', htmlspecialchars($mailbox_display));
+                        $oTemplate->display('search_result_mailbox.tpl');
 
                         $oTemplate->assign('page_selector',  $page_selector);
                         $oTemplate->assign('page_selector_max', $page_selector_max);
@@ -1878,15 +1615,6 @@ if ($submit == $search_button_text) {
                         $oTemplate->assign('color', $color);
                         $oTemplate->assign('align', $align);
 
-                        $mailbox_display = asearch_get_mailbox_display($aMailbox['NAME']);
-                        if (strtoupper($mbx) == 'INBOX') {
-                            $mailbox_display = _("INBOX");
-                        } else {
-                            $mailbox_display = imap_utf7_decode_local($mbx);
-                        }
-
-                        echo '<br /><b><big>' . _("Folder:") . ' '. htmlspecialchars($mailbox_display) . '&nbsp;</big></b>';
-
                         $oTemplate->display('message_list.tpl');
                     }
                 }
@@ -1898,13 +1626,13 @@ if ($submit == $search_button_text) {
         }
     }
     if(!$iMsgCnt) {
-        echo '<br />' . html_tag('div', asearch_get_error_display($color, _("No Messages Found")), 'center') . "\n";
+        $oTemplate->display('search_result_empty.tpl');
     }
 }
 
 do_hook('search_bottom');
 sqimap_logout($imapConnection);
+
 $oTemplate->display('footer.tpl');
 sqsession_register($mailbox_cache,'mailbox_cache');
-
 ?>

@@ -176,6 +176,14 @@ td.header3  {
     padding-bottom: 4px;
 }
 
+td.header4  {
+    background: <?php echo $color[5]; ?>;
+    font-weight: bold;
+    padding-top:2px;
+    padding-bottom: 2px;
+    text-align: center;
+}
+
 tr.even {
     background: <?php echo $color[12]; ?>;
 }
@@ -754,3 +762,93 @@ tr.odd  {
 #vCard  td.fieldValue   {
     text-align: <?php echo SQM_ALIGN_LEFT; ?>;
 }
+
+.search table   {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.search td.header4  {
+    border-bottom: 1px solid <?php echo $color[9]; ?>;
+    vertical-align: bottom;
+}
+
+.search td.queryAction {
+    text-align: center;
+    font-size: small;
+    width: 1%;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-left: 1px solid <?php echo $color[9]; ?>;
+    border-top: 1px solid <?php echo $color[9]; ?>;
+    border-bottom: 1px solid <?php echo $color[9]; ?>;
+}
+
+.search td.queryDesc  {
+    border-top: 1px solid <?php echo $color[9]; ?>;
+    border-bottom: 1px solid <?php echo $color[9]; ?>;
+}
+
+.search span {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.search span.operator {
+    font-weight: normal;
+    text-decoration: underline;
+    font-style: italic;
+}
+
+.search span.mailbox {
+    font-weight: bold
+}
+
+.search span.conditions {
+    font-weight: normal;
+    text-decoration: underline;
+    font-style: italic;
+}
+
+.search span.value {
+    font-weight: bold;
+}
+
+.search span.error  {
+    color: <?php echo $color[2]; ?>;
+    font-weight: bold;
+    font-size: 125%;
+}
+
+.search td.searchForm  {
+    border-right: 1px solid <?php echo $color[0]; ?>;
+    border-left: 1px solid <?php echo $color[0]; ?>;
+    font-weight: bold;
+    text-align: center;
+}
+
+.search td.queryError {
+    color: <?php echo $color[2]; ?>;
+    font-weight: bold;
+    text-align: center;
+    padding: 4px;
+}
+
+.search td.header1 input {
+    font-size: 80%;
+    margin: 2px;
+}
+
+.search h1 {
+    font-weight: bold;
+    font-size: 150%;
+    margin-top: 6px;
+    margin-bottom: 2px;
+}
+
+.search h2 {
+    color: <?php echo $color[2]; ?>;
+    font-weight: bold;
+    text-align: center;
+}
+
