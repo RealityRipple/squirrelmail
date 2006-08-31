@@ -150,9 +150,3 @@ define('SQM_COL_INT_DATE', 8);
 define('SQM_COL_TO', 9);
 define('SQM_COL_CC', 10);
 define('SQM_COL_BCC', 11);
-
-/**
- * FIXME: error notice on direct load
- * @since 1.2.0
- */
-do_hook('loading_constants');

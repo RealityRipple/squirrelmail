@@ -284,6 +284,13 @@ if (isset($plugins) && is_array($plugins)) {
     }
 }
 
+/**
+ * Before 1.5.2 version hook was part of functions/constants.php.
+ * After init layout changes, hook had to be moved because include/constants.php is
+ * loaded before plugins are initialized.
+ * @since 1.2.0
+ */
+do_hook('loading_constants');
 
 switch ($sInitLocation) {
     case 'style': session_write_close(); sqsetcookieflush(); break;
