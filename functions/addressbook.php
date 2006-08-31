@@ -247,46 +247,6 @@ function getWritableBackends () {
 }
 
 /**
- * Provides list of writeable backends.  Works only when address is added,
- * e.g. $name='addaddr'.
- * 
- * NOTE: This function needs to remain during the templating process to maintain
- *       some degree of backwards compatability with plugins.
- * 
- * @param string $name name of form
- * @return string html formated backend field (select or hidden)
- */
-function list_writable_backends($name) {
-    global $color, $abook;
-    if ( $name != 'addaddr' ) { return; }
-    $writeable_abook = 1;
-    if ( $abook->numbackends > 1 ) {
-        $backends = $abook->get_backend_list();
-        $writeable_abooks=array();
-        while (list($undef,$v) = each($backends)) {
-            if ($v->writeable) {
-                // add each backend to array
-                $writeable_abooks[$v->bnum]=$v->sname;
-                // save backend number
-                $writeable_abook=$v->bnum;
-            }
-        }
-        if (count($writeable_abooks)>1) {
-            // we have more than one writeable backend
-            $ret=addSelect('backend',$writeable_abooks,null,true);
-            return html_tag( 'tr',
-                             html_tag( 'td', _("Add to:"),'right', $color[4] ) .
-                             html_tag( 'td', $ret, 'left', $color[4] )) . "\n";
-        }
-    }
-    // Only one backend exists or is writeable.
-    return html_tag( 'tr',
-                     html_tag( 'td',
-                               addHidden('backend', $writeable_abook),
-                               'center', $color[4], 'colspan="2"')) . "\n";
-}
-
-/**
  * Sort array by the key "name"
  */
 function alistcmp($a,$b) {
