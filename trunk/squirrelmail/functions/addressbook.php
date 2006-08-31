@@ -228,8 +228,6 @@ function addressbook_cmp($a,$b) {
 
 /**
  * Retrieve a list of writable backends
- * 
- * @author Steve Brown
  * @since 1.5.2
  */
 function getWritableBackends () {
