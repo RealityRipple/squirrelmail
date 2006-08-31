@@ -244,7 +244,11 @@ class ErrorHandler {
         }
 
         if (isset($this->Template->values['aErrors']) && count($this->Template->values['aErrors']) > 0) {
-            $this->aErrors = array_merge($this->aErrors, $this->Template->values['aErrors']);
+            foreach ($this->Template->values['aErrors'] as $err) {
+                if (!in_array($err, $this->aErrors, true)) {
+                    $this->aErrors[] = $err;
+                }
+            }
             $this->Template->assign('aErrors',$this->aErrors);
         }
 
