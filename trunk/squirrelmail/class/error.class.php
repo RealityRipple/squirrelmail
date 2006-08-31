@@ -63,6 +63,7 @@ class ErrorHandler {
      */
     function HeaderSent() {
         $this->header_sent = true;
+        $this->Template->assign('header_sent', true);
     }
 
     /**
@@ -218,7 +219,7 @@ class ErrorHandler {
 
         // Show the error immediate in case of fatal errors
         if ($iType == SQM_ERROR) {
-            if (!$this->header_sent) {
+            if (!$this->header_sent || (isset($this->Template->values['header_sent']) && !$this->Template->values['header_sent'])) {
                 // TODO replace this with template that can be assigned
                 displayHtmlHeader(_("Error"),'',false);
             }
