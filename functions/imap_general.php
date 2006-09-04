@@ -769,7 +769,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
     }
 
     if (!isset($sqimap_capabilities)) {
-        sqgetglobalvar('sqimap_capabilities' , $capability , SQ_SESSION );
+        sqgetglobalvar('sqimap_capabilities' , $sqimap_capabilities , SQ_SESSION );
     }
 
     $host = $imap_server_address;
@@ -835,7 +835,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
          *
          **/
         $tag=sqimap_session_id(false);
-        $sasl = (isset($capability['SASL-IR']) && $capability['SASL-IR']) ? true : false;
+        $sasl = (isset($sqimap_capabilities['SASL-IR']) && $sqimap_capabilities['SASL-IR']) ? true : false;
         $auth = base64_encode("$username\0$username\0$password");
         if ($sasl) {
             // IMAP Extension for SASL Initial Client Response
