@@ -53,6 +53,10 @@ extract($t);
   </td>
   <td class="sqm_loginFieldInput">
    <input type="password" name="secretkey" value="" id="secretkey" />
+  </td>
+ </tr>
+ <tr>
+  <td colspan="2">
    <?php echo $login_extra; ?>
   </td>
  </tr>

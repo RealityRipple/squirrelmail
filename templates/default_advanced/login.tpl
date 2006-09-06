@@ -66,6 +66,10 @@ extract($t);
      </td>
      <td class="fieldInput">
       <input type="password" name="secretkey" value="" id="secretkey" class="input" />
+     </td>
+    </tr>
+    <tr>
+     <td colspan="2">
       <?php echo $login_extra; ?>
      </td>
     </tr>
