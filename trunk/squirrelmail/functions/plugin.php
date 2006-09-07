@@ -239,7 +239,7 @@ function is_plugin_enabled($plugin_name) {
   * possibly confuse the desired results of the version 
   * check:  1.2.3-beta4, 1.2.3.RC2, and so forth.
   * 
-  * @since 1.5.1
+  * @since 1.5.2
   *
   * @param string plugin_name   name of the plugin to
   *                             check; must precisely
