@@ -12,8 +12,10 @@
  *                            this has been disabled by the admin.
  *      $org_name_str       - translated string containing orginization's name
  *      $login_field_value  - default value for the user name field
- *      $login_extra        - Some extra fields needed by SquirrelMail for the 
- *                            login.  YOU SHOULD ALWAYS INCLUDE THIS FIELD!!
+ *      $login_extra        - Some extra form fields needed by SquirrelMail
+ *                            for the login.  Template designers SHOULD ALWAYS
+ *                            INCLUDE this value somewhere in the form.
+ *      $plugin_extra       - Extra table row(s) that may be added by plugin(s).
  * 
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -53,13 +55,10 @@ extract($t);
   </td>
   <td class="sqm_loginFieldInput">
    <input type="password" name="secretkey" value="" id="secretkey" />
-  </td>
- </tr>
- <tr>
-  <td colspan="2">
    <?php echo $login_extra; ?>
   </td>
  </tr>
+ <?php echo $plugin_extra; ?>
  <tr>
   <td class="sqm_loginSubmit" colspan="2">
    <input type="submit" value="<?php echo _("Login"); ?>" />
