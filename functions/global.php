@@ -147,6 +147,9 @@ function sqsession_is_registered ($name) {
  * @param string name the name of the var to search
  * @param mixed value the variable to return
  * @param int search constant defining where to look
+ * @param int typecast force variable to be cast to given type (please
+ *                     use SQ_TYPE_XXX constants or set to FALSE (default)
+ *                     to leave variable type unmolested)
  * @return bool whether variable is found.
  */
 function sqgetGlobalVar($name, &$value, $search = SQ_INORDER, $default = NULL, $typecast = false) {
@@ -201,8 +204,9 @@ function sqgetGlobalVar($name, &$value, $search = SQ_INORDER, $default = NULL, $
     }
     if ($result && $typecast) {
         switch ($typecast) {
-            case 'int': $value = (int) $value; break;
-            case 'bool': $value = (bool) $value; break;
+            case SQ_TYPE_INT: $value = (int) $value; break;
+            case SQ_TYPE_STRING: $value = (string) $value; break;
+            case SQ_TYPE_BOOL: $value = (bool) $value; break;
             default: break;
         }
     } else if (!is_null($default)) {
