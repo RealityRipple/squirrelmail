@@ -712,7 +712,7 @@ function OneTimePadCreate ($length=100) {
  */
 function show_readable_size($bytes) {
     $bytes /= 1024;
-    $type = 'KiB';
+    $type = 'kiB';
 
     if ($bytes / 1024 > 1) {
         $bytes /= 1024;
