@@ -107,9 +107,15 @@ class Rfc822Header {
      */
     var $priority = 3;
     /**
+     * Disposition notification for requesting message delivery notification (MDN)
      * @var mixed
      */
     var $dnt = '';
+    /**
+     * Delivery notification (DR)
+     * @var mixed
+     */
+    var $drnt = '';
     /**
      * @var mixed
      */
@@ -260,10 +266,13 @@ class Rfc822Header {
                 $this->references = $value;
                 break;
             case 'x-confirm-reading-to':
-            case 'return-receipt-to':
             case 'disposition-notification-to':
                 $value = $this->stripComments($value);
                 $this->dnt = $this->parseAddress($value);
+                break;
+            case 'return-receipt-to':
+                $value = $this->stripComments($value);
+                $this->drnt = $this->parseAddress($value);
                 break;
             case 'mime-version':
                 $value = $this->stripComments($value);
