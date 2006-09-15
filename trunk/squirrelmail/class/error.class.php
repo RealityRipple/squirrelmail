@@ -229,6 +229,27 @@ class ErrorHandler {
     }
 
     /**
+     * Force the delayed errors to be stored in the session in case 
+     * $this->displayErrors() never gets called, e.g. in compose.php
+     */
+    function saveDelayedErrors () {
+        if($this->delayed_errors) {
+            // Check for previous delayed errors...
+            if (!$this->delayed_errors) {
+                sqgetGlobalVar('delayed_errors',  $delayed_errors,  SQ_SESSION);
+                if (is_array($delayed_errors)) {
+                    $this->AssignDelayedErrors($delayed_errors);
+                    sqsession_unregister("delayed_errors");
+                }
+            }
+
+            if (count($this->aErrors) > 0) {
+                sqsession_register($this->aErrors,"delayed_errors");
+            }
+        }
+    }
+    
+    /**
      * Display the error array in the error template
      * @return void
      * @since 1.5.1
