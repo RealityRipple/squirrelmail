@@ -91,5 +91,19 @@ function getIconPath ($icon_theme_path, $icon_name) {
 function displayErrors () {
     global $oErrorHandler;
     
-    $oErrorHandler->displayErrors();
+    if ($oErrorHandler) {
+        $oErrorHandler->displayErrors();
+    }
 }
+
+/**
+ * Make the internal show_readable_size() function available to templates.
+ * 
+ * @param int size to be converted to human-readable
+ * @return string human-readable form
+ * @since 1.5.2
+ **/
+function humanReadableSize ($size) {
+    return show_readable_size($size);
+}
+
