@@ -191,7 +191,7 @@ $oTemplate->assign('mailboxes', $mailbox_structure);
  * globals, which are dirty, filthy things in templates. :)
  */
 $settings = array();
-#$settings['imapConnection'] = $imapConnection;
+$settings['imapConnection'] = $imapConnection;
 $settings['iconThemePath'] = $icon_theme_path;
 $settings['templateDirectory'] = $sTplDir;
 $settings['unreadNotificationEnabled'] = $unseen_notify!=1;
