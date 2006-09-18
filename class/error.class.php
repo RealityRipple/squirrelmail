@@ -235,12 +235,10 @@ class ErrorHandler {
     function saveDelayedErrors () {
         if($this->delayed_errors) {
             // Check for previous delayed errors...
-            if (!$this->delayed_errors) {
-                sqgetGlobalVar('delayed_errors',  $delayed_errors,  SQ_SESSION);
-                if (is_array($delayed_errors)) {
-                    $this->AssignDelayedErrors($delayed_errors);
-                    sqsession_unregister("delayed_errors");
-                }
+            sqgetGlobalVar('delayed_errors',  $delayed_errors,  SQ_SESSION);
+            if (is_array($delayed_errors)) {
+                $this->AssignDelayedErrors($delayed_errors);
+                sqsession_unregister("delayed_errors");
             }
 
             if (count($this->aErrors) > 0) {
