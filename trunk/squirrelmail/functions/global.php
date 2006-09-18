@@ -218,6 +218,13 @@ function sqgetGlobalVar($name, &$value, $search = SQ_INORDER, $default = NULL, $
 /**
  * Deletes an existing session, more advanced than the standard PHP
  * session_destroy(), it explicitly deletes the cookies and global vars.
+ *
+ * WARNING: Older PHP versions have some issues with session management.
+ * See http://bugs.php.net/11643 (warning, spammed bug tracker) and 
+ * http://bugs.php.net/13834. SID constant is not destroyed in PHP 4.1.2,
+ * 4.2.3 and maybe other versions. If you restart session after session 
+ * is destroyed, affected PHP versions produce PHP notice. Bug should 
+ * be fixed only in 4.3.0
  */
 function sqsession_destroy() {
 
