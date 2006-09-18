@@ -35,7 +35,7 @@ extract($t);
 <table cellspacing="0">
  <tr>
   <td colspan="2">
-   <?php echo getIcon($icon_theme_path, 'login1.png', _("Login"), _("Login")); ?>
+   <?php echo getIcon($icon_theme_path, 'login1.png', ''); ?>
   </td>
  </tr>
  <tr>
@@ -74,7 +74,7 @@ extract($t);
     <?php echo $plugin_extra; ?>
     <tr>
      <td class="loginSubmit" colspan="2">
-      <input type="image" src="<?php echo getIconPath($icon_theme_path, 'login_submit.png'); ?>" alt="<?php echo _("Login"); ?>" />
+      <input type="image" src="<?php echo getIconPath($icon_theme_path, 'login_submit.png', _("Login"), _("Login")); ?>" alt="<?php echo _("Login"); ?>" />
      </td>
     </tr>
    </table>
