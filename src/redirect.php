@@ -70,7 +70,7 @@ if (!sqsession_is_registered('user_is_logged_in')) {
 
     /* regenerate the session id to avoid session hyijacking */
     sqsession_destroy();
-    sqsession_is_active();
+    @sqsession_is_active();
     session_regenerate_id();
     /**
      * The cookie part. session_start and session_regenerate_session normally set

@@ -35,19 +35,12 @@ set_up_language($squirrelmail_language, TRUE, TRUE);
  * In case the last session was not terminated properly, make sure
  * we get a new one, but make sure we preserve session_expired_*
  */
-/**
- * PHP bug. http://bugs.php.net/11643 (warning, spammed bug tracker) and
- * http://bugs.php.net/13834
- * SID constant is not destroyed in PHP 4.1.2, 4.2.3 and maybe other
- * versions. Produces warning on login page. Bug should be fixed only in 4.3.0
- */
 if ( !empty($_SESSION['session_expired_post']) && !empty($_SESSION['session_expired_location']) ) {
     $sep = $_SESSION['session_expired_post'];
     $sel = $_SESSION['session_expired_location'];
 
     sqsession_destroy();
-  
-    sqsession_is_active();
+    @sqsession_is_active();
     $_SESSION=array();
     sqsession_register($sep, 'session_expired_post');
     sqsession_register($sel, 'session_expired_location');
