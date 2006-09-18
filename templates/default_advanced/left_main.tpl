@@ -12,8 +12,6 @@
  *      $clock           - formatted string containing last refresh
  *      $settings        - Array containing user perferences needed by this
  *                         template.  Indexes are as follows:
- *          $settings['imapConnection'] - IMAP connection handle.  Needed to
- *                         allow plugins to read the mailbox.
  *          $settings['iconThemePath'] - Path to the desired icon theme.  If
  *                         the user has disabled icons, this will be NULL.
  *          $settings['templateDirectory'] - contains the path to the current
