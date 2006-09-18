@@ -8,8 +8,6 @@
  *      $clock           - formatted string containing last refresh
  *      $settings        - Array containing user perferences needed by this
  *                         template.  Indexes are as follows:
- *          $settings['imapConnection'] - IMAP connection handle.  Needed to
- *                         allow plugins to read the mailbox.
  *          $settings['iconThemePath'] - Path to the desired icon theme.  If
  *                         the user has disabled icons, this will be NULL.
  *          $settings['templateDirectory'] - contains the path to the current
@@ -225,10 +223,17 @@ function buildMailboxTree ($box, $settings, $indent_factor=0) {
         $spanend = '</span>';
     }
 
+/********
+ * Pulling imapConnection due to segfaults that cannot be tracked down.  Best
+ * we can determine,its some combination of this var and >= 4 plugins enabled.
+ * No further clue from anyone.
+ ********
+    
     // let plugins fiddle with end of line
     $end .= concat_hook_function('left_main_after_each_folder',
             array(isset($numMessages) ? $numMessages : '',
             $box['MailboxFullName'], $settings['imapConnection']));
+*/
 
     $end .= '</span>';
 
