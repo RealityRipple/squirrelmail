@@ -20,7 +20,7 @@ extract($t);
 //echo SM_PATH;
 $base_css="css";
 
-$template_css_file="templates/$templateid/$templateid.css";
+$template_css_file="templates/$templatedir/$templatedir.css";
 
 /** Add URLs to the $css_files array to have them added as links before any theme css or style.php output **/
 $css_files=array();
