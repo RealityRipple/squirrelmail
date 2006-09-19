@@ -57,14 +57,14 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
      * Add closing / to link and meta elements only after switching to xhtml 1.0 Transitional.
      * It is not compatible with html 4.01 Transitional
      */
-    $templateid=basename($sTplDir);
+    $templatedir=basename($sTplDir);
     $oTemplate->assign('base_uri',$base_uri);
-    $oTemplate->assign('templateid',$templateid);
+    $oTemplate->assign('templatedir',$templatedir);
     $oTemplate->assign('themeid',$used_theme);
     $oTemplate->display('stylelink.tpl');
     echo '<link rel="stylesheet" type="text/css" href="'. $base_uri .'src/style.php'
         .'?themeid='.$used_theme
-        .'&amp;templateid='.$templateid
+        .'&amp;templatedir='.$templatedir
         .(!empty($used_fontset) ? '&amp;fontset='.$used_fontset : '')
         .(!empty($used_fontsize) ? '&amp;fontsize='.$used_fontsize : '')
         .(!empty($text_direction) ? '&amp;dir='.$text_direction : '')."\">\n";
