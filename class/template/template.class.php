@@ -67,9 +67,8 @@ class Template
 
   /**
    * Additional stylesheets provided by the template.  This allows template
-   * authors (namely me to begin with :p) to provide additional CSS sheets
-   * to templates while using the default template set stylesheet for other
-   * definitions.
+   * authors to provide additional CSS sheets to templates while using the 
+   * default template set stylesheet for other definitions.
    */
   var $additional_css_sheets = array();
 
@@ -133,11 +132,20 @@ class Template
    *
    * @param array|string $tpl_var the template variable name(s)
    * @param mixed $value the value to append
+   * @param boolean $merge when $value is given as an array, 
+   *                       this indicates whether or not that 
+   *                       array itself should be appended as 
+   *                       a new template variable value or if 
+   *                       that array's values should be merged 
+   *                       into the existing array of template 
+   *                       variable values
    */
   function append($tpl_var, $value = NULL, $merge = FALSE)
   {
     if (is_array($tpl_var))
     {
+      //FIXME: $tpl_var is supposed to be a list of template var names,
+      //       so we should be looking at the values NOT the keys!
       foreach ($tpl_var as $_key => $_val)
       {
         if ($_key != '')
@@ -145,6 +153,18 @@ class Template
           if(isset($this->values[$_key]) && !is_array($this->values[$_key]))
             settype($this->values[$_key],'array');
 
+          //FIXME: we should be iterating the $value array here not the values of the
+          //       list of template variable names!  I think this is totally broken 
+          // This might just be a matter of needing to clarify the method's API;
+          // values may have been meant to be passed in $tpl_var in the case that
+          // $tpl_var is an array.  Ugly and non-intuitive.
+          // PROPOSAL: API should be as such:  
+          //   if (is_string($tpl_var)) then $values are added/merged as already done
+          //   if (is_array($tpl_var)) then $values is required to be an array whose
+          //                                keys must match up with $tpl_var keys and
+          //                                whose values are then what is added to
+          //                                each template variable value (array or 
+          //                                strings, doesn't matter)
           if($merge && is_array($_val))
           {
             foreach($_val as $_mkey => $_mval)
@@ -178,6 +198,13 @@ class Template
    *
    * @param string $tpl_var the template variable name
    * @param mixed $value the referenced value to append
+   * @param boolean $merge when $value is given as an array, 
+   *                       this indicates whether or not that 
+   *                       array itself should be appended as 
+   *                       a new template variable value or if 
+   *                       that array's values should be merged 
+   *                       into the existing array of template 
+   *                       variable values
    */
   function append_by_ref($tpl_var, &$value, $merge = FALSE)
   {
