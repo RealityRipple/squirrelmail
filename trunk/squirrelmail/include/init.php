@@ -294,44 +294,22 @@ do_hook('loading_constants');
 
 switch ($sInitLocation) {
     case 'style': 
-        // what does getting a stylesheet have to do with flushing cookies et al.?
-        session_write_close(); 
-        sqsetcookieflush(); 
 
-        // need to set up prefs for stylesheets, too, in order to 
-        // know which template is being used, which often carries
-        // its own stylesheet...
+        // need to get the right template set up
+        sqGetGlobalVar('templatedir', $templatedir, SQ_GET);
 
-        /**
-         * Setting the prefs backend
-         */
-        sqgetGlobalVar('prefs_cache', $prefs_cache, SQ_SESSION );
-        sqgetGlobalVar('prefs_are_cached', $prefs_are_cached, SQ_SESSION );
+        // sanitize just in case...
+        $templatedir = preg_replace('/(\.\.\/){1,}/', '', $templatedir);
 
-        if ( !sqsession_is_registered('prefs_are_cached') ||
-            !isset( $prefs_cache) ||
-            !is_array( $prefs_cache)) {
-            $prefs_are_cached = false;
-            $prefs_cache = false; //array();
+        // could also conceivably make sure given templatedir is in $aTemplateSet
+
+        // set template directory only if what was given is valid
+        if (is_dir(SM_PATH . 'templates/' . $templatedir . '/')) {
+            $sTplDir = SM_PATH . 'templates/' . $templatedir . '/';
         }
 
-        /* see 'redirect' case */
-        require(SM_PATH . 'functions/prefs.php');
-
-        $prefs_backend = do_hook_function('prefs_backend');
-        if (isset($prefs_backend) && !empty($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
-            require(SM_PATH . $prefs_backend);
-        } elseif (isset($prefs_dsn) && !empty($prefs_dsn)) {
-            require(SM_PATH . 'functions/db_prefs.php');
-        } else {
-            require(SM_PATH . 'functions/file_prefs.php');
-        }
-
-        /**
-         * initializing user settings
-         */
-        require(SM_PATH . 'include/load_prefs.php');
-
+        session_write_close();
+        sqsetcookieflush();
         break;
 
     case 'redirect':
