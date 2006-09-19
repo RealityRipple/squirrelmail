@@ -6,7 +6,7 @@
  * Used GET arguments:
  * <ul>
  *   <li>themeid - string, sets theme file from themes/*.php
- *   <li>templateid - string, sets template directory from templates/
+ *   <li>templatedir - string, sets template directory from templates/
  *   <li>fontset - string, sets selected set of fonts from $fontsets array.
  *   <li>fontsize - integer, sets selected font size
  *   <li>dir - string, sets text direction variables. Possible values 'rtl' or 'ltr'
@@ -167,6 +167,8 @@ $oTemplate->assign('fontsize', $fontsize);
  *            work.  This is a problem e.g. with the default_advanced template
  *            that inherits CSS properties from the default template but
  *            doesn't contain stylesheet.tpl itself.
+ *            Possibly naive suggestion - template can define its own default 
+ *            template name
  * 
  * TODO: Fix this. :)
  **/
