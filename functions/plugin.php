@@ -260,21 +260,33 @@ function check_plugin_version($plugin_name,
                               $force_inclusion = FALSE)
 {
 
+   $info_function = $plugin_name . '_info';
    $version_function = $plugin_name . '_version';
+   $plugin_info = array();
    $plugin_version = FALSE;
 
 
-   // attempt to find version function and get version from plugin
+   // first attempt to find the plugin info function, wherein
+   // the plugin version should be available
    //
-   if (function_exists($version_function))
-      $plugin_version = $version_function();
+   if (function_exists($info_function))
+      $plugin_info = $info_function();
    else if ($force_inclusion 
     && file_exists(SM_PATH . 'plugins/' . $plugin_name . '/setup.php'))
    {
       include_once(SM_PATH . 'plugins/' . $plugin_name . '/setup.php');
-      if (function_exists($version_function))
-         $plugin_version = $version_function();
+      if (function_exists($info_function))
+         $plugin_info = $info_function();
    }
+   if (!empty($plugin_info['version']))
+      $plugin_version = $plugin_info['version'];
+
+
+   // otherwise, look for older version function 
+   //
+   if (!$plugin_version && function_exists($version_function))
+         $plugin_version = $version_function();
+
 
    if (!$plugin_version) return FALSE;
 
