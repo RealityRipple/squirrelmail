@@ -209,7 +209,7 @@ function sqgetGlobalVar($name, &$value, $search = SQ_INORDER, $default = NULL, $
             case SQ_TYPE_BOOL: $value = (bool) $value; break;
             default: break;
         }
-    } else if (!is_null($default)) {
+    } else if (!$result && !is_null($default)) {
         $value = $default;
     }
     return $result;
