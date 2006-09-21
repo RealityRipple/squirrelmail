@@ -378,17 +378,46 @@ return substr($this->template_dir, strlen(SM_PATH));
      */
     function display($file)
     {
-        // Pull in our config file
-        $t = &$this->values; // place values array directly in scope
 
-        // Get right template file
+        // get right template file
+        //
         $template = $this->get_template_file_path($file);
         if (empty($template)) {
-            trigger_error('The template "'.htmlspecialchars($file).'" could not be displayed!', E_USER_ERROR);
+
+            trigger_error('The template "' . htmlspecialchars($file) 
+                          . '" could not be displayed!', E_USER_ERROR);
+
         } else {
+
+            $aPluginOutput = array();
+            $aPluginOutput = do_hook_function('template_construct', 
+                                              array($aPluginOutput, $file, $this));
+            $this->assign('plugin_output', $aPluginOutput);
+
+            // pull in our config file ($t?  let's try to be more verbose please :-) )
+            //
+            $t = &$this->values; // place values array directly in scope
+
             ob_start();
             include($template);
+
+            // CAUTION: USE OF THIS HOOK IS HIGHLY DISCOURAGED AND CAN
+            // RESULT IN NOTICABLE PERFORMANCE DEGREDATION.  Plugins
+            // using this hook will probably be rejected by the 
+            // SquirrelMail team.
+            //
+            // Anyone hooking in here that wants to manipulate the output
+            // buffer has to get the buffer, clean it and then echo the 
+            // new buffer like this:
+            // $buffer = ob_get_contents(); ob_clean(); .... echo $new_buffer;
+            //
+            // Don't need to pass buffer contents ourselves
+            // do_hook_function('template_output', array(ob_get_contents()));
+            //
+            do_hook('template_output');
+
             ob_end_flush();
+
         }
     }
 
@@ -399,18 +428,48 @@ return substr($this->template_dir, strlen(SM_PATH));
      * @return string A string of the results
      */
     function fetch($file) {
-        $t = &$this->values; // place values array directly in scope
 
-        // Get right template file
+        // get right template file
+        //
         $template = $this->get_template_file_path($file);
         if (empty($template)) {
-            trigger_error('The template "'.htmlspecialchars($file).'" could not be fetched!', E_USER_ERROR);
+
+            trigger_error('The template "' . htmlspecialchars($file) 
+                          . '" could not be fetched!', E_USER_ERROR);
+
         } else {
+
+            $aPluginOutput = array();
+            $aPluginOutput = do_hook_function('template_construct', 
+                                              array($aPluginOutput, $file, $this));
+            $this->assign('plugin_output', $aPluginOutput);
+
+            // pull in our config file ($t?  let's try to be more verbose please :-) )
+            //
+            $t = &$this->values; // place values array directly in scope
+
             ob_start();
             include($template);
+
+            // CAUTION: USE OF THIS HOOK IS HIGHLY DISCOURAGED AND CAN
+            // RESULT IN NOTICABLE PERFORMANCE DEGREDATION.  Plugins
+            // using this hook will probably be rejected by the 
+            // SquirrelMail team.
+            //
+            // Anyone hooking in here that wants to manipulate the output
+            // buffer has to get the buffer, clean it and then echo the 
+            // new buffer like this:
+            // $buffer = ob_get_contents(); ob_clean(); .... echo $new_buffer;
+            //
+            // Don't need to pass buffer contents ourselves
+            // do_hook_function('template_output', array(ob_get_contents()));
+            //
+            do_hook('template_output');
+
             $contents = ob_get_contents();
             ob_end_clean();
             return $contents;
+
         }
     }
 
