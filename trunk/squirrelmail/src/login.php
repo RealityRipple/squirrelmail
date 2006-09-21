@@ -158,7 +158,6 @@ $password_field = addPwField('secretkey');
 $login_extra = addHidden('js_autodetect_results', SMPREF_JS_OFF).
                $rcptaddress .
                addHidden('just_logged_in', '1');
-$plugin_extra = concat_hook_function('login_form');
 
 session_write_close();
 
@@ -168,7 +167,6 @@ $oTemplate->assign('sm_attribute_str', $sm_attribute_str);
 $oTemplate->assign('org_name_str', sprintf (_("%s Login"), $org_name));
 $oTemplate->assign('login_field_value', $loginname_value);
 $oTemplate->assign('login_extra', $login_extra);
-$oTemplate->assign('plugin_extra', $plugin_extra);
 
 echo '<body onLoad="squirrelmail_loginpage_onload()">'."\n";
 echo '<form action="redirect.php" method="post" onSubmit="document.forms[0].js_autodetect_results.value='. SMPREF_JS_ON .'">'."\n";
