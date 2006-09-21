@@ -43,6 +43,13 @@ class Template
   var $template_dir = '';
 
   /**
+   * The default template directory
+   *
+   * @var string
+   */
+  var $default_template_dir = 'templates/default/';
+
+  /**
    * Template files provided by this template set
    *
    * @var array
@@ -223,46 +230,171 @@ class Template
     }
   }
 
-  /**
-   * Display the template
-   *
-   * @param string $file The template file to use
-   */
-  function display($file)
-  {
-    // Pull in our config file
-    $t = &$this->values; // place values array directly in scope
 
-    $template = in_array($file, $this->templates_provided) ? $this->template_dir . $file : SM_PATH .'templates/default/'. $file;
-    if (!file_exists($template)) {
-        trigger_error('The template "'.htmlspecialchars($file).'" could not be displayed!', E_USER_ERROR);
-    } else {
-        ob_start();
-        include($template);
-        ob_end_flush();
+    /**
+     *
+     * Return the relative template directory path for this template set.
+     *
+     * @return string The relative path to the template directory based
+     *                from the main SquirrelMail directory (SM_PATH).
+     *
+     */
+    function get_template_file_directory() {
+
+//FIXME: temporarily parse off SM_PATH from the template dir class attribute until we can change the entire template subsystem such that the template dir is derived internally in this class from the template ID/name/attributes
+return substr($this->template_dir, strlen(SM_PATH));
+        return $this->template_dir;
+
     }
-  }
 
-  /**
-   * Return the results of applying a template.
-   *
-   * @param string $file The template file to use
-   * @return string A string of the results
-   */
-  function fetch($file) {
-    $t = &$this->values; // place values array directly in scope
 
-    $template = in_array($file, $this->templates_provided) ? $this->template_dir . $file : SM_PATH .'templates/default/'. $file;
-    if (!file_exists($template)) {
-        trigger_error('The template "'.htmlspecialchars($file).'" could not be fetched!', E_USER_ERROR);
-    } else {
-        ob_start();
-        include($template);
-        $contents = ob_get_contents();
-        ob_end_clean();
-        return $contents;
+    /**
+     *
+     * Return the relative template directory path for the DEFAULT template set.
+     *
+     * @return string The relative path to the default template directory based
+     *                from the main SquirrelMail directory (SM_PATH).
+     *
+     */
+    function get_default_template_file_directory() {
+
+        return $this->default_template_dir;
+
     }
-  }
+
+
+    /**
+     *
+     * Find the right template file.
+     *
+     * Templates are expected to be found in the template set directory
+     * (for example SM_PATH/templates/<template name>/) or, in the case
+     * of plugin templates, in a plugin directory in the template set
+     * directory (for example, 
+     * SM_PATH/templates/<template name>/plugins/<plugin name>/) *OR* in 
+     * a template directory in the plugin as a fallback (for example,
+     * SM_PATH/plugins/<plugin name>/templates/<template name>/).  If 
+     * the correct file is not found for the current template set, a 
+     * default template is loaded, which is expected to be found in the 
+     * default template directory (for example, SM_PATH/templates/default/)
+     * or for plugins, in a plugin directory in the default template set
+     * (for example, SM_PATH/templates/default/plugins/<plugin name>/),
+     * *OR* in a default template directory in the plugin as a fallback
+     * (for example, SM_PATH/plugins/<plugin name>/templates/default/).
+     *
+     * @param string $filename The name of the template file,
+     *                         possibly prefaced with 
+     *                         "plugins/<plugin name>/"
+     *                         indicating that it is a plugin
+     *                         template.
+     *
+     * @return string The full path to the template file; if 
+     *                not found, an empty string.  The caller
+     *                is responsible for throwing erros or 
+     *                other actions if template file is not found.
+     *
+     */
+    function get_template_file_path($filename) {
+
+        // is the template found in the normal template directory?
+        //
+        $filepath = SM_PATH . $this->get_template_file_directory() . $filename;
+        if (!file_exists($filepath)) {
+
+            // no, so now we have to get the default template...
+            // however, in the case of a plugin template, let's
+            // give one more try to find the right template as
+            // provided by the plugin
+            //
+            if (strpos($filename, 'plugins/') === 0) {
+
+                $plugin_name = substr($filename, 8, strpos($filename, '/', 8) - 8);
+                $filepath = SM_PATH . 'plugins/' . $plugin_name . '/'
+                          . $this->get_template_file_directory() 
+                          . substr($filename, strlen($plugin_name) + 9);
+
+                // no go, we have to get the default template
+                // from the plugin
+                //
+                if (!file_exists($filepath)) {
+
+                    $filepath = SM_PATH . 'plugins/' . $plugin_name . '/'
+                              . $this->get_default_template_file_directory() 
+                              . substr($filename, strlen($plugin_name) + 9);
+
+                    // no dice whatsoever, return empty string
+                    //
+                    if (!file_exists($filepath)) {
+                        $filepath = '';
+                    }
+
+                }
+
+
+            // get default template for non-plugin templates
+            //
+            } else {
+
+                $filepath = SM_PATH . $this->get_default_template_file_directory() 
+                          . $filename;
+
+                // no dice whatsoever, return empty string
+                //
+                if (!file_exists($filepath)) {
+                    $filepath = '';
+                }
+
+            }
+
+        }
+
+        return $filepath;
+
+    }
+
+
+    /**
+     * Display the template
+     *
+     * @param string $file The template file to use
+     */
+    function display($file)
+    {
+        // Pull in our config file
+        $t = &$this->values; // place values array directly in scope
+
+        // Get right template file
+        $template = $this->get_template_file_path($file);
+        if (empty($template)) {
+            trigger_error('The template "'.htmlspecialchars($file).'" could not be displayed!', E_USER_ERROR);
+        } else {
+            ob_start();
+            include($template);
+            ob_end_flush();
+        }
+    }
+
+    /**
+     * Return the results of applying a template.
+     *
+     * @param string $file The template file to use
+     * @return string A string of the results
+     */
+    function fetch($file) {
+        $t = &$this->values; // place values array directly in scope
+
+        // Get right template file
+        $template = $this->get_template_file_path($file);
+        if (!file_exists($template)) {
+            trigger_error('The template "'.htmlspecialchars($file).'" could not be fetched!', E_USER_ERROR);
+        } else {
+            ob_start();
+            include($template);
+            $contents = ob_get_contents();
+            ob_end_clean();
+            return $contents;
+        }
+    }
 
   /**
    * Return paths to the required javascript files.  Used when generating page
