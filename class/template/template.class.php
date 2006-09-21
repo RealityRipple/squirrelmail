@@ -267,20 +267,28 @@ return substr($this->template_dir, strlen(SM_PATH));
      *
      * Find the right template file.
      *
-     * Templates are expected to be found in the template set directory
-     * (for example SM_PATH/templates/<template name>/) or, in the case
-     * of plugin templates, in a plugin directory in the template set
-     * directory (for example, 
-     * SM_PATH/templates/<template name>/plugins/<plugin name>/) *OR* in 
-     * a template directory in the plugin as a fallback (for example,
-     * SM_PATH/plugins/<plugin name>/templates/<template name>/).  If 
-     * the correct file is not found for the current template set, a 
+     * Templates are expected to be found in the template set directory,
+     * for example:
+     *     SM_PATH/templates/<template name>/
+     * or, in the case of plugin templates, in a plugin directory in the 
+     * template set directory, for example:
+     *     SM_PATH/templates/<template name>/plugins/<plugin name>/
+     * *OR* in a template directory in the plugin as a fallback, for example:
+     *     SM_PATH/plugins/<plugin name>/templates/<template name>/
+     * If the correct file is not found for the current template set, a 
      * default template is loaded, which is expected to be found in the 
-     * default template directory (for example, SM_PATH/templates/default/)
-     * or for plugins, in a plugin directory in the default template set
-     * (for example, SM_PATH/templates/default/plugins/<plugin name>/),
-     * *OR* in a default template directory in the plugin as a fallback
-     * (for example, SM_PATH/plugins/<plugin name>/templates/default/).
+     * default template directory, for example:
+     *     SM_PATH/templates/default/
+     * or for plugins, in a plugin directory in the default template set,
+     * for example:
+     *     SM_PATH/templates/default/plugins/<plugin name>/
+     * *OR* in a default template directory in the plugin as a fallback,
+     * for example:
+     *     SM_PATH/plugins/<plugin name>/templates/default/
+     *
+     * Plugin authors must note that the $filename MUST be prefaced
+     * with "plugins/<plugin name>/" in order to correctly resolve the 
+     * template file.
      *
      * @param string $filename The name of the template file,
      *                         possibly prefaced with 
@@ -313,19 +321,29 @@ return substr($this->template_dir, strlen(SM_PATH));
                           . $this->get_template_file_directory() 
                           . substr($filename, strlen($plugin_name) + 9);
 
-                // no go, we have to get the default template
-                // from the plugin
+                // no go, we have to get the default template, 
+                // first try the default SM template
                 //
                 if (!file_exists($filepath)) {
 
-                    $filepath = SM_PATH . 'plugins/' . $plugin_name . '/'
+                    $filepath = SM_PATH 
                               . $this->get_default_template_file_directory() 
-                              . substr($filename, strlen($plugin_name) + 9);
+                              . $filename;
 
-                    // no dice whatsoever, return empty string
+                    // still no luck?  get default template from the plugin
                     //
                     if (!file_exists($filepath)) {
-                        $filepath = '';
+
+                        $filepath = SM_PATH . 'plugins/' . $plugin_name . '/'
+                                  . $this->get_default_template_file_directory() 
+                                  . substr($filename, strlen($plugin_name) + 9);
+
+                        // no dice whatsoever, return empty string
+                        //
+                        if (!file_exists($filepath)) {
+                            $filepath = '';
+                        }
+
                     }
 
                 }
