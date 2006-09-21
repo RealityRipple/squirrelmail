@@ -403,7 +403,7 @@ return substr($this->template_dir, strlen(SM_PATH));
 
         // Get right template file
         $template = $this->get_template_file_path($file);
-        if (!file_exists($template)) {
+        if (empty($template)) {
             trigger_error('The template "'.htmlspecialchars($file).'" could not be fetched!', E_USER_ERROR);
         } else {
             ob_start();
