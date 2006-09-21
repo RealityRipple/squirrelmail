@@ -15,7 +15,8 @@
  *      $login_extra        - Some extra form fields needed by SquirrelMail
  *                            for the login.  Template designers SHOULD ALWAYS
  *                            INCLUDE this value somewhere in the form.
- *      $plugin_extra       - Extra table row(s) that may be added by plugin(s).
+ *      $plugin_output      - An array of extra output that may be added by 
+ *                            plugin(s).
  * 
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -58,7 +59,7 @@ extract($t);
    <?php echo $login_extra; ?>
   </td>
  </tr>
- <?php echo $plugin_extra; ?>
+ <?php if (!empty($plugin_output['login_form'])) echo $plugin_output['login_form']; ?>
  <tr>
   <td class="sqm_loginSubmit" colspan="2">
    <input type="submit" value="<?php echo _("Login"); ?>" />
