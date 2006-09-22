@@ -26,7 +26,6 @@ require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/url_parser.php');
 require_once(SM_PATH . 'functions/identity.php');
-require_once(SM_PATH . 'functions/arrays.php');
 require_once(SM_PATH . 'functions/mailbox_display.php');
 require_once(SM_PATH . 'functions/forms.php');
 require_once(SM_PATH . 'functions/attachment_common.php');

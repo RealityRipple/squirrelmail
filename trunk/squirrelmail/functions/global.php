@@ -84,64 +84,6 @@ function sqstripslashes(&$array) {
 }
 
 /**
- * Merges two variables into a single array
- *
- * Similar to PHP array_merge function, but provides same
- * functionality as array_merge without losing array values
- * with same key names.  If the values under identical array
- * keys are both strings and $concat_strings is TRUE, those
- * values are concatenated together, otherwise they are placed
- * in a sub-array and are merged (recursively) in the same manner.  
- *
- * If either of the elements being merged is not an array,
- * it will simply be added to the returned array.
- * 
- * If both values are strings and $concat_strings is TRUE,
- * a concatenated string is returned instead of an array.
- * 
- * @param mixed   $a              First element to be merged
- * @param mixed   $b              Second element to be merged
- * @param boolean $concat_strings Whether or not string values 
- *                                should be concatenated instead 
- *                                of added to different array 
- *                                keys (default TRUE)
- *
- * @return array The merged $a and $b in one array
- *
- * @since 1.5.2
- *
- */
-function sq_array_merge($a, $b, $concat_strings=true) {
-
-    $ret = array();
-
-    if (is_array($a)) {
-        $ret = $a;
-    } else {
-        if (is_string($a) && is_string($b) && $concat_strings) {
-            return $a . $b;
-        }
-        $ret[] = $a;
-    }
-
-
-    if (is_array($b)) {
-        foreach ($b as $key => $value) {
-            if (isset($ret[$key])) {
-                $ret[$key] = sq_array_merge($ret[$key], $value, $concat_strings);
-            } else {
-                $ret[$key] = $value;
-            }
-        }
-    } else {
-        $ret[] = $b;
-    }
-
-    return $ret;
-
-}
-
-/**
  * Add a variable to the session.
  * @param mixed $var the variable to register
  * @param string $name the name to refer to this variable
