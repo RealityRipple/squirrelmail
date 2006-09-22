@@ -85,24 +85,40 @@ function do_hook_function($name,$parm=NULL) {
 }
 
 /**
- * This function executes a hook, concatenating the results of each
- * plugin that has the hook defined.
+ * This function executes a hook, allows for parameters to be passed,
+ * and looks for an array returned from each plugin: each array is 
+ * then merged into one and returned to the core hook location.
+ *
+ * Note that unlike PHP's array_merge function, matching array keys
+ * will not overwrite each other, instead, values under such keys
+ * will be concatenated if they are both strings, or merged if they
+ * are arrays (in the same (non-overwrite) manner recursively).
+ *
+ * Plugins returning non-arrays (strings, objects, etc) will have 
+ * their output added to the end of the ultimate return array, 
+ * unless ALL values returned are strings, in which case one string
+ * with all returned strings concatenated together is returned.
  *
  * @param string name the name of the hook
- * @param mixed parm optional hook function parameters
- * @return string a concatenation of the results of each plugin function
+ * @param mixed param the parameters to pass to the hook function
+ *
+ * @return mixed the merged return arrays or strings of each
+ *               plugin on this hook
+ *
  */
 function concat_hook_function($name,$parm=NULL) {
     global $squirrelmail_plugin_hooks, $currentHookName;
-    $ret = '';
+//    $ret = '';
+    $ret = array();
     $currentHookName = $name;
 
     if (isset($squirrelmail_plugin_hooks[$name])
           && is_array($squirrelmail_plugin_hooks[$name])) {
         foreach ($squirrelmail_plugin_hooks[$name] as $function) {
-            /* Concatenate results from hook. */
+            /* Add something to set correct gettext domain for plugin. */
             if (function_exists($function)) {
-                $ret .= $function($parm);
+//                $ret .= $function($parm);
+                $ret = sq_array_merge($ret, $function($parm));
             }
         }
     }
