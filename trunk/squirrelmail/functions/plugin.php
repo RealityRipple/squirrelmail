@@ -127,6 +127,10 @@ function concat_hook_function($name,$parm=NULL) {
 
     /* Variable-length argument lists have a slight problem when */
     /* passing values by reference. Pity. This is a workaround.  */
+    // FIXME: empty return array breaks legacy use of this hook, so 
+    // as a workaround, return empty string (let's fix the 
+    // hook calls so we can pull this out)
+    if (empty($ret)) return '';
     return $ret;
 }
 
