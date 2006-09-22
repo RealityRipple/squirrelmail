@@ -118,7 +118,7 @@ function concat_hook_function($name,$parm=NULL) {
             /* Add something to set correct gettext domain for plugin. */
             if (function_exists($function)) {
 //                $ret .= $function($parm);
-                $ret = sq_array_merge($ret, $function($parm));
+                $ret = sqm_array_merge($ret, $function($parm));
             }
         }
     }

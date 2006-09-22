@@ -134,6 +134,7 @@ $color[15] = '#002266';  /* (dark blue)   Unselectable folders */
 $color[16] = '#ff9933';  /* (orange)      Highlight color */
 
 require(SM_PATH . 'functions/global.php');
+require(SM_PATH . 'functions/arrays.php');
 
 /* load default configuration */
 require(SM_PATH . 'config/config_default.php');

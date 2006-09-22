@@ -18,7 +18,6 @@ require('../include/init.php');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'functions/forms.php');
-require_once(SM_PATH . 'functions/arrays.php');
 
 /* get globals */
 if (sqgetGlobalVar('num',       $num,       SQ_GET)) {
