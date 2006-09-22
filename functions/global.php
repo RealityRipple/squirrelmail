@@ -108,6 +108,8 @@ function sqstripslashes(&$array) {
  *
  * @return array The merged $a and $b in one array
  *
+ * @since 1.5.2
+ *
  */
 function sq_array_merge($a, $b, $concat_strings=true) {
 
