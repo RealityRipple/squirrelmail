@@ -390,8 +390,8 @@ return substr($this->template_dir, strlen(SM_PATH));
         } else {
 
             $aPluginOutput = array();
-            $aPluginOutput = do_hook_function('template_construct', 
-                                              array($aPluginOutput, $file, $this));
+            $aPluginOutput = concat_hook_function('template_construct_' . $file,
+                                                  array($aPluginOutput, $this));
             $this->assign('plugin_output', $aPluginOutput);
 
             // pull in our config file ($t?  let's try to be more verbose please :-) )
@@ -440,8 +440,8 @@ return substr($this->template_dir, strlen(SM_PATH));
         } else {
 
             $aPluginOutput = array();
-            $aPluginOutput = do_hook_function('template_construct', 
-                                              array($aPluginOutput, $file, $this));
+            $aPluginOutput = concat_hook_function('template_construct_' . $file,
+                                                  array($aPluginOutput, $this));
             $this->assign('plugin_output', $aPluginOutput);
 
             // pull in our config file ($t?  let's try to be more verbose please :-) )
