@@ -64,10 +64,10 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     $oTemplate->display('stylelink.tpl');
     echo '<link rel="stylesheet" type="text/css" href="'. $base_uri .'src/style.php'
         .'?themeid='.$used_theme
-        .'&amp;templatedir='.$templatedir
-        .(!empty($used_fontset) ? '&amp;fontset='.$used_fontset : '')
-        .(!empty($used_fontsize) ? '&amp;fontsize='.$used_fontsize : '')
-        .(!empty($text_direction) ? '&amp;dir='.$text_direction : '')."\">\n";
+        .'&templatedir='.$templatedir
+        .(!empty($used_fontset) ? '&fontset='.$used_fontset : '')
+        .(!empty($used_fontsize) ? '&fontsize='.$used_fontsize : '')
+        .(!empty($text_direction) ? '&dir='.$text_direction : '')."\">\n";
     // load custom style sheet (deprecated)
     if ( ! empty($theme_css) ) {
         echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$theme_css\">\n";
