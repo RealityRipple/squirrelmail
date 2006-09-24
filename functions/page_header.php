@@ -64,10 +64,10 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     $oTemplate->display('stylelink.tpl');
     echo '<link rel="stylesheet" type="text/css" href="'. $base_uri .'src/style.php'
         .'?themeid='.$used_theme
-        .'&templatedir='.$templatedir
-        .(!empty($used_fontset) ? '&fontset='.$used_fontset : '')
-        .(!empty($used_fontsize) ? '&fontsize='.$used_fontsize : '')
-        .(!empty($text_direction) ? '&dir='.$text_direction : '')."\">\n";
+        .'&amp;templatedir='.$templatedir
+        .(!empty($used_fontset) ? '&amp;fontset='.$used_fontset : '')
+        .(!empty($used_fontsize) ? '&amp;fontsize='.$used_fontsize : '')
+        .(!empty($text_direction) ? '&amp;dir='.$text_direction : '')."\">\n";
     // load custom style sheet (deprecated)
     if ( ! empty($theme_css) ) {
         echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$theme_css\">\n";
@@ -190,7 +190,7 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
     }
 
     if( $javascript_on || strpos($sHeaderJs, 'new_js_autodetect_results.value') ) {
-        $js_includes = $oTemplate->getJavascriptIncludes();
+        $js_includes = $oTemplate->get_javascript_includes(TRUE);
         $sJsBlock = '';
         foreach ($js_includes as $js_file) {
             $sJsBlock .= '<script src="'.$js_file.'" type="text/javascript"></script>' ."\n";
@@ -279,7 +279,7 @@ function compose_Header($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
         }
         $sJsBlock .= "\n";
 
-        $js_includes = $oTemplate->getJavascriptIncludes();
+        $js_includes = $oTemplate->get_javascript_includes(TRUE);
         foreach ($js_includes as $js_file) {
             $sJsBlock .= '<script src="'.$js_file.'" type="text/javascript"></script>' ."\n";
         }
