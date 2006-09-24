@@ -190,7 +190,8 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
     }
 
     if( $javascript_on || strpos($sHeaderJs, 'new_js_autodetect_results.value') ) {
-        $js_includes = $oTemplate->get_javascript_includes(TRUE);
+        $js_includes = $oTemplate->getJavascriptIncludes();
+        //$js_includes = $oTemplate->get_javascript_includes(TRUE);
         $sJsBlock = '';
         foreach ($js_includes as $js_file) {
             $sJsBlock .= '<script src="'.$js_file.'" type="text/javascript"></script>' ."\n";
@@ -279,7 +280,8 @@ function compose_Header($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
         }
         $sJsBlock .= "\n";
 
-        $js_includes = $oTemplate->get_javascript_includes(TRUE);
+        $js_includes = $oTemplate->getJavascriptIncludes();
+        //$js_includes = $oTemplate->get_javascript_includes(TRUE);
         foreach ($js_includes as $js_file) {
             $sJsBlock .= '<script src="'.$js_file.'" type="text/javascript"></script>' ."\n";
         }
