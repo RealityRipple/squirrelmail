@@ -1,5 +1,4 @@
 <?php
-
 /**
  * compose.php
  *
@@ -40,10 +39,9 @@ sqgetGlobalVar('delimiter', $delimiter,     SQ_SESSION);
 sqgetGlobalVar('composesession',    $composesession,    SQ_SESSION);
 sqgetGlobalVar('compose_messages',  $compose_messages,  SQ_SESSION);
 sqgetGlobalVar('delayed_errors',  $delayed_errors,  SQ_SESSION);
-if (is_array($delayed_errors)) {
-    $oErrorHandler->AssignDelayedErrors($delayed_errors);
-    sqsession_unregister("delayed_errors");
-}
+
+// Turn on delayed error handling in case we wind up redirecting below
+$oErrorHandler->setDelayedErrors(true);
 
 /** SESSION/POST/GET VARS */
 sqgetGlobalVar('session',$session);
@@ -389,10 +387,10 @@ if ($draft) {
             }
             sqimap_logout($imap_stream);
         }
-        if (count($oErrorHandler->aErrors)) {
-            sqsession_register($oErrorHandler->aErrors,"delayed_errors");
-        }
+        
+        $oErrorHandler->saveDelayedErrors();
         session_write_close();
+
         if ($compose_new_win == '1') {
             if ( !isset($pageheader_sent) || !$pageheader_sent ) {
                 Header("Location: $location/compose.php?saved_draft=yes&session=$composesession");
@@ -491,10 +489,9 @@ if ($send) {
         /*
          * Store the error array in the session because they will be lost on a redirect
          */
-        if (count($oErrorHandler->aErrors)) {
-            sqsession_register($oErrorHandler->aErrors,"delayed_errors");
-        }
+        $oErrorHandler->saveDelayedErrors();
         session_write_close();
+
         if ($compose_new_win == '1') {
             if ( !isset($pageheader_sent) || !$pageheader_sent ) {
                 Header("Location: $location/compose.php?mail_sent=yes");
@@ -684,7 +681,8 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
     global $editor_size, $default_use_priority, $body, $idents,
         $use_signature, $data_dir, $username,
         $key, $imapServerAddress, $imapPort, $compose_messages,
-        $composeMessage, $body_quote;
+        $composeMessage, $body_quotem, $request_mdn, $request_dr,
+        $default_use_mdn, $mdn_user_support;
     global $languages, $squirrelmail_language, $default_charset;
 
     /*
@@ -739,7 +737,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $type1 = $msg->type1;
             $unencoded_bodypart = mime_fetch_body($imapConnection, $passed_id, $ent);
             $body_part_entity = $message->getEntity($ent);
-            $bodypart = decodeBody($unencoded_bodypart,
+            $bodypart = decodeBody($unencoded_bodypart, 
                     $body_part_entity->header->encoding);
             if ($type1 == 'html') {
                 $bodypart = str_replace("\n", ' ', $bodypart);
@@ -828,6 +826,11 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                     }
                 }
                 $subject = decodeHeader($orig_header->subject,false,false,true);
+                
+                // Remember the receipt settings
+                $request_mdn = $mdn_user_support && !empty($orig_header->dnt) ? '1' : '0';
+                $request_dr = $mdn_user_support && !empty($orig_header->drnt) ? '1' : '0';
+                
                 /* remember the references and in-reply-to headers in case of an reply */
                 $composeMessage->rfc822_header->more_headers['References'] = $orig_header->references;
                 $composeMessage->rfc822_header->more_headers['In-Reply-To'] = $orig_header->in_reply_to;
@@ -1038,7 +1041,7 @@ function showInputForm ($session, $values=false) {
         $username, $data_dir, $identity, $idents, $delete_draft,
         $mailprio, $compose_new_win, $saved_draft, $mail_sent, $sig_first,
         $compose_messages, $composesession, $default_charset,
-        $compose_onsubmit, $oTemplate;
+        $compose_onsubmit, $oTemplate, $oErrorHandler;
 
     if (checkForJavascript()) {
         $onfocus = ' onfocus="alreadyFocused=true;"';
@@ -1127,90 +1130,45 @@ function showInputForm ($session, $values=false) {
     }
 
     if ($saved_draft == 'yes') {
-        echo '<br /><div style="text-align: center;"><b>'. _("Draft Saved").'</div></b>';
+        $oTemplate->assign('note', _("Draft Saved"));
+        $oTemplate->display('note.tpl');
     }
     if ($mail_sent == 'yes') {
-        echo '<br /><div style="text-align: center;"><b>'. _("Your Message has been sent.").'</div></b>';
+        $oTemplate->assign('note', _("Your message has been sent."));
+        $oTemplate->display('note.tpl');
     }
     if ($compose_new_win == '1') {
-        echo '<table align="center" bgcolor="'.$color[0].'" width="100%" border="0">'."\n" .
-            '   <tr><td></td>'.html_tag( 'td', '', 'right' ).
-            '<input type="button" name="Close" onclick="return self.close()" value="'.
-            _("Close").'" /></td></tr>'."\n";
-    } else {
-        echo '<table align="center" cellspacing="0" border="0">' . "\n";
+        $oTemplate->display('compose_newwin_close.tpl');
     }
+    
     if ($location_of_buttons == 'top') {
         showComposeButtonRow();
     }
 
-    /* display select list for identities */
+    $identities = array();
     if (count($idents) > 1) {
-        $ident_list = array();
+        reset($idents);
         foreach($idents as $id => $data) {
-            $ident_list[$id] =
-                $data['full_name'].' <'.$data['email_address'].'>';
+            $identities[$id] = $data['full_name'].' &lt;'.$data['email_address'].'&gt;';
         }
-        echo '   <tr>' . "\n" .
-            html_tag( 'td', '', 'right', $color[4], 'width="10%"' ) .
-            '<label for="identity">' . _("From:") . '</label></td>' . "\n" .
-            html_tag( 'td', '', 'left', $color[4], 'width="90%"' ) .
-            '         '.
-            addSelect('identity', $ident_list, $identity, TRUE);
-
-        echo '      </td>' . "\n" .
-            '   </tr>' . "\n";
     }
-
-    echo '   <tr>' . "\n" .
-        html_tag( 'td', '', 'right', $color[4], 'width="10%"' ) .
-        '<label for="send_to">' . _("To") . '</label>:</td>' . "\n" .
-        html_tag( 'td', '', 'left', $color[4], 'width="90%"' ) .
-        addInput('send_to', $send_to, 60, 0, $onfocus_array). '<br />' . "\n" .
-        '      </td>' . "\n" .
-        '   </tr>' . "\n" .
-        '   <tr>' . "\n" .
-        html_tag( 'td', '', 'right', $color[4] ) .
-        '<label for="send_to_cc">' . _("Cc") . '</label>:</td>' . "\n" .
-        html_tag( 'td', '', 'left', $color[4] ) .
-        addInput('send_to_cc', $send_to_cc, 60, 0, $onfocus_array). '<br />' . "\n" .
-        '      </td>' . "\n" .
-        '   </tr>' . "\n" .
-        '   <tr>' . "\n" .
-        html_tag( 'td', '', 'right', $color[4] ) .
-        '<label for="send_to_bcc">' . _("Bcc") . '</label>:</td>' . "\n" .
-        html_tag( 'td', '', 'left', $color[4] ) .
-        addInput('send_to_bcc', $send_to_bcc, 60, 0, $onfocus_array).'<br />' . "\n" .
-        '      </td>' . "\n" .
-        '   </tr>' . "\n" .
-        '   <tr>' . "\n" .
-        html_tag( 'td', '', 'right', $color[4] ) .
-        '<label for="subject">' . _("Subject") . '</label>:</td>' . "\n" .
-        html_tag( 'td', '', 'left', $color[4] ) . "\n";
-    echo '         '.addInput('subject', $subject, 60, 0, $onfocus_array).
-        '      </td>' . "\n" .
-        '   </tr>' . "\n\n";
+    
+    $oTemplate->assign('identities', $identities);
+    $oTemplate->assign('identity_def', $identity);
+    $oTemplate->assign('input_onfocus', 'onfocus="'.join(' ', $onfocus_array).'"');
+    
+    $oTemplate->assign('to', htmlspecialchars($send_to));
+    $oTemplate->assign('cc', htmlspecialchars($send_to_cc));
+    $oTemplate->assign('bcc', htmlspecialchars($send_to_bcc));
+    $oTemplate->assign('subject', htmlspecialchars($subject));
+        
+    $oTemplate->display('compose_header.tpl');
 
     if ($location_of_buttons == 'between') {
         showComposeButtonRow();
     }
 
-    /**
-     * When message is compose in new window, different colors are used.
-     */
-    if ($compose_new_win == '1') {
-        echo '   <tr>' . "\n" .
-            '      <td bgcolor="' . $color[0] . '" colspan="2" align="center">' . "\n" .
-            '         <textarea name="body" id="body" rows="' . (int)$editor_height .
-            '" cols="' . (int)$editor_size . '"' . $onfocus . '>';
-    }
-    else {
-        echo '   <tr>' . "\n" .
-            '      <td bgcolor="' . $color[4] . '" colspan="2">' . "\n" .
-            '         &nbsp;&nbsp;<textarea name="body" id="body" rows="' . (int)$editor_height .
-            '" cols="' . (int)$editor_size . '"' . $onfocus . '>';
-    }
-
+    $body_str = '';
     if ($use_signature == true && $newmail == true && !isset($from_htmladdr_search)) {
         $signature = $idents[$identity]['signature'];
 
@@ -1222,38 +1180,34 @@ function showInputForm ($session, $values=false) {
              * issues too.
              */
             if ($default_charset == 'iso-2022-jp') {
-                echo "\n\n".($prefix_sig==true? "-- \n":'').mb_convert_encoding($signature, 'EUC-JP');
+                $body_str = "\n\n".($prefix_sig==true? "-- \n":'').mb_convert_encoding($signature, 'EUC-JP');
             } else {
-                echo "\n\n".($prefix_sig==true? "-- \n":'').decodeHeader($signature,false,false);
+                $body_str = "\n\n".($prefix_sig==true? "-- \n":'').decodeHeader($signature,false,false);
             }
-            echo "\n\n".htmlspecialchars(decodeHeader($body,false,false));
-        }
-        else {
-            echo "\n\n".htmlspecialchars(decodeHeader($body,false,false));
+            $body_str .= "\n\n".htmlspecialchars(decodeHeader($body,false,false));
+        } else {
+            $body_str = "\n\n".htmlspecialchars(decodeHeader($body,false,false));
             // FIXME: test is specific to ja_JP translation implementation. See above comments.
             if ($default_charset == 'iso-2022-jp') {
-                echo "\n\n".($prefix_sig==true? "-- \n":'').mb_convert_encoding($signature, 'EUC-JP');
-            }else{
-                echo "\n\n".($prefix_sig==true? "-- \n":'').decodeHeader($signature,false,false);
+                $body_str .= "\n\n".($prefix_sig==true? "-- \n":'').mb_convert_encoding($signature, 'EUC-JP');
+            } else {
+                $body_str .= "\n\n".($prefix_sig==true? "-- \n":'').decodeHeader($signature,false,false);
             }
         }
     } else {
-        echo htmlspecialchars(decodeHeader($body,false,false));
+        $body_str = htmlspecialchars(decodeHeader($body,false,false));
     }
-    echo '</textarea><br />' . "\n" .
-        '      </td>' . "\n" .
-        '   </tr>' . "\n";
 
-
+    $oTemplate->assign('editor_width', (int)$editor_size);
+    $oTemplate->assign('editor_height', (int)$editor_height);
+    $oTemplate->assign('input_onfocus', 'onfocus="'.join(' ', $onfocus_array).'"');
+    $oTemplate->assign('body', $body_str);
+    $oTemplate->assign('show_bottom_send', $location_of_buttons!='bottom');
+    
+    $oTemplate->display ('compose_body.tpl');
+    
     if ($location_of_buttons == 'bottom') {
         showComposeButtonRow();
-    } else {
-        echo '   <tr>' . "\n" .
-            html_tag( 'td', '', 'right', '', 'colspan="2"' ) . "\n" .
-            '         ' . addSubmit(_("Send"), 'send').
-            '         &nbsp;&nbsp;&nbsp;&nbsp;<br /><br />' . "\n" .
-            '      </td>' . "\n" .
-            '   </tr>' . "\n";
     }
 
     /* This code is for attachments */
@@ -1274,32 +1228,7 @@ function showInputForm ($session, $values=false) {
             }
         }
 
-        if(count($sizes) > 0) {
-            $maxsize = '(max.&nbsp;' . show_readable_size( min( $sizes ) ) . ')'
-                . addHidden('MAX_FILE_SIZE', min( $sizes ));
-        } else {
-            $maxsize = '';
-        }
-        echo '   <tr>' . "\n" .
-            '      <td colspan="2">' . "\n" .
-            '         <table width="100%" cellpadding="1" cellspacing="0" align="center"'.
-            ' border="0" bgcolor="'.$color[9].'">' . "\n" .
-            '            <tr>' . "\n" .
-            '               <td>' . "\n" .
-            '                 <table width="100%" cellpadding="3" cellspacing="0" align="center"'.
-            ' border="0">' . "\n" .
-            '                    <tr>' . "\n" .
-            html_tag( 'td', '', 'right', '', 'valign="middle"' ) .
-            _("Attach:") . '</td>' . "\n" .
-            html_tag( 'td', '', 'left', '', 'valign="middle"' ) .
-            '                          <input name="attachfile" size="48" type="file" />' . "\n" .
-            '                          &nbsp;&nbsp;<input type="submit" name="attach"' .
-            ' value="' . _("Add") .'" />' . "\n" .
-            $maxsize .
-            '                       </td>' . "\n" .
-            '                    </tr>' . "\n";
-
-        $s_a = array();
+        $attach = array();
         if ($composeMessage->entities) {
             foreach ($composeMessage->entities as $key => $attachment) {
                 $attached_file = $attachment->att_local_name;
@@ -1307,36 +1236,28 @@ function showInputForm ($session, $values=false) {
                     $attached_filename = decodeHeader($attachment->mime_header->getParameter('name'));
                     $type = $attachment->mime_header->type0.'/'.
                         $attachment->mime_header->type1;
-
-                    $s_a[] = '<table bgcolor="'.$color[0].
-                        '" border="0"><tr><td>'.
-                        addCheckBox('delete[]', FALSE, $key).
-                        "</td><td>\n" . $attached_filename .
-                        '</td><td>-</td><td> ' . $type . '</td><td>('.
-                        show_readable_size( filesize( $attached_file ) ) . ')</td></tr></table>'."\n";
+    
+                    $a = array();
+                    $a['Key'] = $key;
+                    $a['FileName'] = $attached_filename;
+                    $a['ContentType'] = $type;
+                    $a['Size'] = filesize($attached_file);
+                    $attach[$key] = $a;
                 }
             }
         }
-        if (count($s_a)) {
-            foreach ($s_a as $s) {
-                echo '<tr>' . html_tag( 'td', '', 'left', $color[0], 'colspan="2"' ) . $s .'</td></tr>';
-            }
-            echo '<tr><td colspan="2"><input type="submit" name="do_delete" value="' .
-                _("Delete selected attachments") . "\" />\n" .
-                '</td></tr>';
-        }
-        echo '                  </table>' . "\n" .
-            '               </td>' . "\n" .
-            '            </tr>' . "\n" .
-            '         </table>' . "\n" .
-            '      </td>' . "\n" .
-            '   </tr>' . "\n";
+    
+        $max = min($sizes);
+        $oTemplate->assign('max_file_size', empty($max) ? -1 : $max);
+        $oTemplate->assign('attachments', $attach);
+        
+        $oTemplate->display('compose_attachments.tpl');
     } // End of file_uploads if-block
     /* End of attachment code */
-    echo '</table>' . "\n" .
-        addHidden('username', $username).
-        addHidden('smaction', $action).
-        addHidden('mailbox', $mailbox);
+
+    echo addHidden('username', $username).
+         addHidden('smaction', $action).
+         addHidden('mailbox', $mailbox);
     /*
        store the complete ComposeMessages array in a hidden input value
        so we can restore them in case of a session timeout.
@@ -1355,6 +1276,12 @@ function showInputForm ($session, $values=false) {
     }
 
     do_hook('compose_bottom');
+
+    if ($compose_new_win=='1') {
+        $oTemplate->display('compose_newwin_close.tpl');
+    }
+    
+    $oErrorHandler->setDelayedErrors(false);
     $oTemplate->display('footer.tpl');
 }
 
@@ -1365,38 +1292,20 @@ function showComposeButtonRow() {
         $request_mdn, $request_dr,
         $data_dir, $username;
 
-    echo '   <tr>' . "\n" .
-        '      <td></td>' . "\n" .
-        '      <td>' . "\n";
-    if ($default_use_priority) {
-        if(!isset($mailprio)) {
-            $mailprio = '3';
-        }
-        echo '          <label for="mailprio">' . _("Priority") . '</label>: '.
-            addSelect('mailprio', array(
-                        '1' => _("High"),
-                        '3' => _("Normal"),
-                        '5' => _("Low") ), $mailprio, TRUE);
+    global $oTemplate, $buffer_hook;
+    
+    if ($default_use_priority) {    
+        $priorities = array('1'=>_("High"), '3'=>_("Normal"), '5'=>_("Low"));
+        $priority = isset($mailprio) ? $mailprio : 3;
+    } else {
+        $priorities = array();
+        $priority = NULL;
     }
+    
     $mdn_user_support=getPref($data_dir, $username, 'mdn_user_support',$default_use_mdn);
-    if ($default_use_mdn) {
-        if ($mdn_user_support) {
-            echo '          ' . _("Receipt") .': '.
-                addCheckBox('request_mdn', $request_mdn == '1', '1') .
-                    '<label for="request_mdn">' . _("On Read") . '</label>' .
-                addCheckBox('request_dr',  $request_dr  == '1', '1') .
-                    '<label for="request_dr">' .  _("On Delivery") . '</label>';
-        }
-    }
 
-    echo '      </td>' . "\n" .
-        '   </tr>' . "\n" .
-        '   <tr>'  . "\n" .
-        '      <td></td>' . "\n" .
-        '      <td>' . "\n" .
-        '         <input type="submit" name="sigappend" value="' . _("Signature") . '" />' . "\n";
     if ($use_javascript_addr_book) {
-        echo "         <script type=\"text/javascript\"><!--\n document.write(\"".
+        $addr_book = "         <script type=\"text/javascript\"><!--\n document.write(\"".
             "            <input type=button value=\\\""._("Addresses").
             "\\\" onclick=\\\"javascript:open_abook();\\\" />\");".
             "            // --></script><noscript>\n".
@@ -1404,19 +1313,22 @@ function showComposeButtonRow() {
             _("Addresses").'" />'.
             "         </noscript>\n";
     } else {
-        echo '         <input type="submit" name="html_addr_search" value="'.
+        $addr_book = '         <input type="submit" name="html_addr_search" value="'.
             _("Addresses").'" />' . "\n";
     }
 
-    if ($save_as_draft) {
-        echo '         <input type="submit" name ="draft" value="' . _("Save Draft") . "\" />\n";
-    }
+    $oTemplate->assign('allow_priority', $default_use_priority==1);
+    $oTemplate->assign('priority_list', $priorities);
+    $oTemplate->assign('current_priority', $priority);
+    
+    $oTemplate->assign('notifications_enabled', $mdn_user_support==1);
+    $oTemplate->assign('read_receipt', $request_mdn=='1');
+    $oTemplate->assign('delivery_receipt', $request_dr=='1');
+    
+    $oTemplate->assign('drafts_enabled', $save_as_draft);
+    $oTemplate->assign('address_book_button', $addr_book);
 
-    echo '         <input type="submit" name="send" value="'. _("Send") . '" />' . "\n";
-    do_hook('compose_button_row');
-
-    echo '      </td>' . "\n" .
-        '   </tr>' . "\n\n";
+    $oTemplate->display('compose_buttons.tpl');
 }
 
 function checkInput ($show) {
@@ -1567,11 +1479,17 @@ function deliverMessage($composeMessage, $draft=false) {
     /* Receipt: On Read */
     if (isset($request_mdn) && $request_mdn) {
         $rfc822_header->dnt = $rfc822_header->parseAddress($from_mail,true);
+    } elseif (isset($rfc822_header->dnt)) {
+        unset($rfc822_header->dnt);
     }
+    
     /* Receipt: On Delivery */
     if (isset($request_dr) && $request_dr) {
         $rfc822_header->more_headers['Return-Receipt-To'] = $from_mail;
+    } elseif (isset($rfc822_header->more_headers['Return-Receipt-To'])) {
+        unset($rfc822_header->more_headers['Return-Receipt-To']);
     }
+
     /* multipart messages */
     if (count($composeMessage->entities)) {
         $message_body = new Message();
@@ -1605,7 +1523,7 @@ function deliverMessage($composeMessage, $draft=false) {
 
     $rfc822_header->content_type = $content_type;
     $composeMessage->rfc822_header = $rfc822_header;
-
+    
     /* Here you can modify the message structure just before we hand
        it over to deliver */
     $hookReturn = do_hook('compose_send', $composeMessage);

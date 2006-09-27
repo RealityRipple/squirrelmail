@@ -763,17 +763,17 @@ tr.odd  {
     text-align: <?php echo SQM_ALIGN_LEFT; ?>;
 }
 
-.search table   {
+div.search table   {
     margin-top: 12px;
     margin-bottom: 12px;
 }
 
-.search td.header4  {
+div.search td.header4  {
     border-bottom: 1px solid <?php echo $color[9]; ?>;
     vertical-align: bottom;
 }
 
-.search td.queryAction {
+div.search td.queryAction {
     text-align: center;
     font-size: small;
     width: 1%;
@@ -784,71 +784,138 @@ tr.odd  {
     border-bottom: 1px solid <?php echo $color[9]; ?>;
 }
 
-.search td.queryDesc  {
+div.search td.queryDesc  {
     border-top: 1px solid <?php echo $color[9]; ?>;
     border-bottom: 1px solid <?php echo $color[9]; ?>;
 }
 
-.search span {
+div.search span {
     padding-left: 2px;
     padding-right: 2px;
 }
 
-.search span.operator {
+div.search span.operator {
     font-weight: normal;
     text-decoration: underline;
     font-style: italic;
 }
 
-.search span.mailbox {
+div.search span.mailbox {
     font-weight: bold
 }
 
-.search span.conditions {
+div.search span.conditions {
     font-weight: normal;
     text-decoration: underline;
     font-style: italic;
 }
 
-.search span.value {
+div.search span.value {
     font-weight: bold;
 }
 
-.search span.error  {
+div.search span.error  {
     color: <?php echo $color[2]; ?>;
     font-weight: bold;
     font-size: 125%;
 }
 
-.search td.searchForm  {
+div.search td.searchForm  {
     border-right: 1px solid <?php echo $color[0]; ?>;
     border-left: 1px solid <?php echo $color[0]; ?>;
     font-weight: bold;
     text-align: center;
 }
 
-.search td.queryError {
+div.search td.queryError {
     color: <?php echo $color[2]; ?>;
     font-weight: bold;
     text-align: center;
     padding: 4px;
 }
 
-.search td.header1 input {
+div.search td.header1 input {
     font-size: 80%;
     margin: 2px;
 }
 
-.search h1 {
+div.search h1 {
     font-weight: bold;
     font-size: 150%;
     margin-top: 6px;
     margin-bottom: 2px;
 }
 
-.search h2 {
+div.search h2 {
     color: <?php echo $color[2]; ?>;
     font-weight: bold;
     text-align: center;
 }
+
+div.compose    {
+    text-align: center;
+}
+
+div.compose table {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.compose td.fieldName {
+    text-align: <?php echo SQM_ALIGN_RIGHT; ?>;
+    font-weight: bold;
+    width: 30%;
+    vertical-align: top;
+}
+
+div.compose td.fieldValue {
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
+}
+
+div.compose td.buttons {
+    text-align: center;
+}
+
+div.compose input {
+    font-size: 80%;
+}
+
+div.compose textarea {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+div.compose td.bottomSend {
+    text-align: center;
+}
+
+div.compose tr.header {
+    background: <?php echo $color[9]; ?>;
+}
+
+div.compose tr.header td {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+div.compose tr.attachment td {
+    background: <?php echo $color[0]; ?>;
+    border-top: 1px solid <?php echo $color[9]; ?>;
+    border-bottom: 1px solid <?php echo $color[9]; ?>;
+}
+
+div.compose table.close {
+    width: 100%;
+    background: <?php echo $color[0]; ?>;
+    border:1px solid <?php echo $color[9]; ?>;
+    text-align: center;
+    margin: 0;
+}
+
+div.readMenuBar table.table2 {
+    width: 100%;
+}
+
 
