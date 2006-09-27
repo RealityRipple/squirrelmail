@@ -107,7 +107,7 @@ extract($t);
     color: #110f08;
     border: 1px solid #726b58;
     padding: 1px;
-    background: url(<?php echo $icon_theme_path; ?>/login2.png) repeat-y;
+    background: url('<?php echo $sTplDir; ?>images/login2.png') repeat-y;
     width: 160px;
 }
 
