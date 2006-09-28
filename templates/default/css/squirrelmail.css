@@ -1,0 +1,36 @@
+.thead_caption {
+    font-weight: bold;
+    text-align: center;
+}
+
+.error_list {
+}
+.error_table {
+    color: #FF0000;
+    border: 2px solid #dcdcdc;
+    background-color: #a0b8c8;
+    width: 100%;
+}
+.error_thead {
+    background-color: #666666;
+}
+.error_thead_caption {
+    background-color: #666666;
+}
+.error_row {
+    color: #FF0000;
+}
+.error_val {
+    color: #000000;
+    width: 80%;
+    border: 2px solid #dcdcdc;
+
+}
+.error_key {
+    width: 20%;
+    border: 2px solid #dcdcdc;
+    color: #FF0000;
+    font-weight: bold;
+    font-style: italic;
+    background-color: #dcdcdc;
+}
