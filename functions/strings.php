@@ -819,45 +819,6 @@ function makeComposeLink($url, $text = null, $target='') {
 }
 
 /**
- * Print variable
- *
- * sm_print_r($some_variable, [$some_other_variable [, ...]]);
- *
- * Debugging function - does the same as print_r, but makes sure special
- * characters are converted to htmlentities first.  This will allow
- * values like <some@email.address> to be displayed.
- * The output is wrapped in <<pre>> and <</pre>> tags.
- * Since 1.4.2 accepts unlimited number of arguments.
- * @since 1.4.1
- * @return void
- */
-function sm_print_r() {
-    ob_start();  // Buffer output
-    foreach(func_get_args() as $var) {
-        print_r($var);
-        echo "\n";
-        // php has get_class_methods function that can print class methods
-        if (is_object($var)) {
-            // get class methods if $var is object
-            $aMethods=get_class_methods(get_class($var));
-            // make sure that $aMethods is array and array is not empty
-            if (is_array($aMethods) && $aMethods!=array()) {
-                echo "Object methods:\n";
-                foreach($aMethods as $method) {
-                    echo '* ' . $method . "\n";
-                }
-            }
-            echo "\n";
-        }
-    }
-    $buffer = ob_get_contents(); // Grab the print_r output
-    ob_end_clean();  // Silently discard the output & stop buffering
-    print '<div align="left"><pre>';
-    print htmlentities($buffer);
-    print '</pre></div>';
-}
-
-/**
  * version of fwrite which checks for failure
  * @param resource $fp
  * @param string $string
