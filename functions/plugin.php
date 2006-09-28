@@ -56,6 +56,39 @@ function do_hook ($name) {
 }
 
 /**
+ * This function executes a hook and allows for parameters to be 
+ * passed, wherein each plugin can modify the parameters before 
+ * they are passed to the next funciton. Whether or not the 
+ * parameters are modified, plugins on this hook should always
+ * return the given parameters.
+ *
+ * @param string name the name of the hook
+ * @param mixed param the parameters to pass to the hook function
+ * @return mixed the possibly modified hook parameters
+ */
+function filter_hook_function($name,$parm=NULL) {
+    global $squirrelmail_plugin_hooks, $currentHookName;
+    $ret = '';
+    $currentHookName = $name;
+
+    if (isset($squirrelmail_plugin_hooks[$name])
+          && is_array($squirrelmail_plugin_hooks[$name])) {
+        foreach ($squirrelmail_plugin_hooks[$name] as $function) {
+            /* Add something to set correct gettext domain for plugin. */
+            if (function_exists($function)) {
+                $parm = $function($parm);
+            }
+        }
+    }
+
+    $currentHookName = '';
+
+    /* Variable-length argument lists have a slight problem when */
+    /* passing values by reference. Pity. This is a workaround.  */
+    return $parm;
+}
+
+/**
  * This function executes a hook and allows for parameters to be passed.
  *
  * @param string name the name of the hook
