@@ -14,8 +14,8 @@
  *                         template.  Indexes are as follows:
  *          $settings['iconThemePath'] - Path to the desired icon theme.  If
  *                         the user has disabled icons, this will be NULL.
- *          $settings['templateDirectory'] - contains the path to the current
- *                         template directory.  This may be needed by third
+ *          $settings['templateID'] - contains the ID of the current
+ *                         template set.  This may be needed by third
  *                         party packages that don't integrate easily.
  *          $settings['unreadNotificationEnabled'] - Boolean TRUE if the user
  *                         wants to see unread message count on mailboxes
@@ -95,7 +95,7 @@ function buildMailboxTree ($box, $settings, $parent_node=-1) {
         return '';
     }
     
-    $image_path = $settings['templateDirectory'] . 'images/';
+    $image_path = Template::calculate_template_images_directory($settings['templateID']);
     $out = '';
     if ($box['IsRoot']) {
         // Determine the path to the correct images

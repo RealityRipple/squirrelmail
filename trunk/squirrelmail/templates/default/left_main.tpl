@@ -10,8 +10,8 @@
  *                         template.  Indexes are as follows:
  *          $settings['iconThemePath'] - Path to the desired icon theme.  If
  *                         the user has disabled icons, this will be NULL.
- *          $settings['templateDirectory'] - contains the path to the current
- *                         template directory.  This may be needed by third
+ *          $settings['templateID'] - contains the ID of the current
+ *                         template set.  This may be needed by third
  *                         party packages that don't integrate easily.
  *          $settings['unreadNotificationEnabled'] - Boolean TRUE if the user
  *                         wants to see unread message count on mailboxes
