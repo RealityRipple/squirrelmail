@@ -146,8 +146,8 @@ $theme = array();
 $theme[0]['PATH'] = SM_PATH . 'themes/default_theme.php';
 $theme[0]['NAME'] = 'Default';
 $aTemplateSet = array();
-$aTemplateSet[0]['PATH'] = SM_PATH . 'templates/default/';
-$aTemplateSet[0]['NAME'] = 'Default template';
+$aTemplateSet[0]['ID'] = 'default';
+$aTemplateSet[0]['NAME'] = 'Default';
 /* load site configuration */
 require(SM_PATH . 'config/config.php');
 /* load local configuration overrides */
@@ -214,6 +214,9 @@ require(SM_PATH . 'class/mime.class.php');
 ini_set('session.name' , $session_name);
 session_set_cookie_params (0, $base_uri);
 sqsession_is_active();
+
+include_once(SM_PATH . 'plugins/multilogin/functions.php');
+multilogin_sqoverride_config_do();
 
 /**
  * DISABLED.
@@ -297,16 +300,34 @@ switch ($sInitLocation) {
     case 'style': 
 
         // need to get the right template set up
-        sqGetGlobalVar('templatedir', $templatedir, SQ_GET);
+        //
+        sqGetGlobalVar('templateid', $templateid, SQ_GET);
 
         // sanitize just in case...
-        $templatedir = preg_replace('/(\.\.\/){1,}/', '', $templatedir);
+        //
+        $templateid = preg_replace('/(\.\.\/){1,}/', '', $templateid);
 
-        // could also conceivably make sure given templatedir is in $aTemplateSet
+        // make sure given template actually is available
+        //
+        $aTemplateSet = (!isset($aTemplateSet) || !is_array($aTemplateSet)
+                         ? array() : $aTemplateSet);
+        $templateset_default = (!isset($templateset_default) ? 0 : $templateset_default);
+        $found_templateset = false;
+        for ($i = 0; $i < count($aTemplateSet); ++$i) {
+            if ($aTemplateSet[$i]['ID'] == $templateid) {
+                $found_templateset = true;
+                break;
+            }
+        }
 
-        // set template directory only if what was given is valid
-        if (is_dir(SM_PATH . 'templates/' . $templatedir . '/')) {
-            $sTplDir = SM_PATH . 'templates/' . $templatedir . '/';
+// FIXME: do we need/want to check here for actual presence of template sets?
+        // selected template not available, fall back to default template
+        //
+        if (!$found_templateset) {
+            $sTemplateID = (!isset($aTemplateSet[$templateset_default]['ID'])
+                            ? 'default' : $aTemplateSet[$templateset_default]['ID']);
+        } else {
+            $sTemplateID = $templateid;
         }
 
         session_write_close();
@@ -382,19 +403,19 @@ switch ($sInitLocation) {
             /**
              * Initialize the template object (logout_error uses it)
              */
-            require(SM_PATH . 'class/template/template.class.php');
+            require(SM_PATH . 'class/template/Template.class.php');
             /*
-             * $sTplDir is not initialized when a user is not logged in, so we will use
-             * the config file defaults here.  If the neccesary variables are net set,
-             * force a default value.
+             * $sTemplateID is not initialized when a user is not logged in, so we 
+             * will use the config file defaults here.  If the neccesary variables 
+             * are net set, force a default value.
              */
-            $aTemplateSet = ( !isset($aTemplateSet) ? array() : $aTemplateSet );
+            $aTemplateSet = (!isset($aTemplateSet) || !is_array($aTemplateSet) 
+                             ? array() : $aTemplateSet);
             $templateset_default = ( !isset($templateset_default) ? 0 : $templateset_default );
 
-            $sTplDir = ( !isset($aTemplateSet[$templateset_default]['PATH']) ?
-                         SM_PATH . 'templates/default/' :
-                         $aTemplateSet[$templateset_default]['PATH'] );
-            $oTemplate = new Template($sTplDir);
+            $sTemplateID = ( !isset($aTemplateSet[$templateset_default]['ID']) ?
+                             'default' : $aTemplateSet[$templateset_default]['ID'] );
+            $oTemplate = Template::construct_template($sTemplateID);
 
             set_up_language($squirrelmail_language, true);
             logout_error( _("You must be logged in to access this page.") );
@@ -515,27 +536,28 @@ switch ($sInitLocation) {
 /**
  * Initialize the template object
  */
-require(SM_PATH . 'class/template/template.class.php');
+require(SM_PATH . 'class/template/Template.class.php');
 
 /*
- * $sTplDir is not initialized when a user is not logged in, so we will use
- * the config file defaults here.  If the neccesary variables are not set,
- * force a default value.
+ * $sTemplateID is not initialized when a user is not logged in, so we 
+ * will use the config file defaults here.  If the neccesary variables 
+ * are not set, force a default value.
  * 
- * If the user is logged in, $sTplDir will be set in load_prefs.php, so we
- * shouldn't change it here.
+ * If the user is logged in, $sTemplateID will be set in load_prefs.php, 
+ * so we shouldn't change it here.
  */
-if (!isset($sTplDir)) {
-    $aTemplateSet = ( !isset($aTemplateSet) ? array() : $aTemplateSet );
+if (!isset($sTemplateID)) {
+    $aTemplateSet = (!isset($aTemplateSet) || !is_array($aTemplateSet) 
+                     ? array() : $aTemplateSet);
     $templateset_default = ( !isset($templateset_default) ? 0 : $templateset_default );
     
-    $sTplDir = !isset($aTemplateSet[$templateset_default]['PATH']) ? SM_PATH . 'templates/default/' : $aTemplateSet[$templateset_default]['PATH'];
-    $icon_theme_path = !$use_icons ? NULL : $sTplDir . 'images/';
+    $sTemplateID = !isset($aTemplateSet[$templateset_default]['ID']) ? 'default' : $aTemplateSet[$templateset_default]['ID'];
+    $icon_theme_path = !$use_icons ? NULL : Template::calculate_template_images_directory($sTemplateID);
 }
-$oTemplate = new Template($sTplDir);
+$oTemplate = Template::construct_template($sTemplateID);
 
 // We want some variables to always be available to the template
-$always_include = array('sTplDir', 'icon_theme_path');
+$always_include = array('sTemplateID', 'icon_theme_path');
 foreach ($always_include as $var) {
     $oTemplate->assign($var, (isset($$var) ? $$var : NULL));
 }

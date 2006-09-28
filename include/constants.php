@@ -160,3 +160,10 @@ define('SQ_TYPE_STRING', 'string');
 define('SQ_TYPE_BOOL', 'bool');
 define('SQ_TYPE_ARRAY', 'array');
 
+/**
+ * Template engines supported 
+ * @since 1.5.2
+ */
+define('SQ_PHP_TEMPLATE', 'PHP_');
+define('SQ_SMARTY_TEMPLATE', 'Smarty_');
+
