@@ -192,7 +192,8 @@ extract($t);
       </select>
 */
             foreach ($subbox_option_list as $folder) {
-                echo '<input type="checkbox" name="folder_names[]" value="'.$folder['Value'].'" />'.$folder['Display'].'<br />';
+                echo '<input type="checkbox" name="folder_names[]" id="sub_'.$folder['Value'].'" value="'.$folder['Value'].'" /> '.
+                    '<label for="sub_'.$folder['Value'].'">'.$folder['Display'].'</label><br />';
             }
             ?>
       </div>
