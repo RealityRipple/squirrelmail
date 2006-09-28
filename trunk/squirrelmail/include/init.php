@@ -215,9 +215,6 @@ ini_set('session.name' , $session_name);
 session_set_cookie_params (0, $base_uri);
 sqsession_is_active();
 
-include_once(SM_PATH . 'plugins/multilogin/functions.php');
-multilogin_sqoverride_config_do();
-
 /**
  * DISABLED.
  * Remove globalized session data in rg=on setups
