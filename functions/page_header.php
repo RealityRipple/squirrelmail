@@ -27,7 +27,7 @@ include_once(SM_PATH . 'functions/imap_mailbox.php');
  * @return void
  */
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE, $frames = FALSE ) {
-    global $squirrelmail_language, $sTplDir, $oErrorHandler, $oTemplate;
+    global $squirrelmail_language, $sTemplateID, $oErrorHandler, $oTemplate;
 
     if ( !sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
         global $base_uri;
@@ -36,42 +36,40 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
         $default_fontset, $chosen_fontset, $default_fontsize, $chosen_fontsize, $chosen_theme;
 
     /* add no cache headers here */
-    header('Pragma: no-cache'); // http 1.0 (rfc1945)
-    header('Cache-Control: private, no-cache, no-store'); // http 1.1 (rfc2616)
+//FIXME: should change all header() calls in SM core to use $oTemplate->header()!!
+    $oTemplate->header('Pragma: no-cache'); // http 1.0 (rfc1945)
+    $oTemplate->header('Cache-Control: private, no-cache, no-store'); // http 1.1 (rfc2616)
 
-    if ($frames) {
-        echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"'."\n"
-            .' "http://www.w3.org/TR/1999/REC-html401-19991224/frameset.dtd">';
-    } else {
-        echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"'."\n"
-            .' "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">';
-    }
-    echo "\n" . html_tag( 'html' ,'' , '', '', 'lang="'.$squirrelmail_language.'"' ) .
-        "<head>\n<meta name=\"robots\" content=\"noindex,nofollow\">\n";
+    $oTemplate->assign('frames', $frames);
+    $oTemplate->assign('lang', $squirrelmail_language);
+
+    $header_tags = '';
+
+    $header_tags .= "<meta name=\"robots\" content=\"noindex,nofollow\">\n";
 
     $used_fontset = (!empty($chosen_fontset) ? $chosen_fontset : $default_fontset);
     $used_fontsize = (!empty($chosen_fontsize) ? $chosen_fontsize : $default_fontsize);
     $used_theme = basename((!empty($chosen_theme) ? $chosen_theme : $theme[$theme_default]['PATH']),'.php');
 
-    /*
-     * Add closing / to link and meta elements only after switching to xhtml 1.0 Transitional.
-     * It is not compatible with html 4.01 Transitional
-     */
-    $templatedir=basename($sTplDir);
-    $oTemplate->assign('base_uri',$base_uri);
-    $oTemplate->assign('templatedir',$templatedir);
-    $oTemplate->assign('themeid',$used_theme);
-    $oTemplate->display('stylelink.tpl');
-    echo '<link rel="stylesheet" type="text/css" href="'. $base_uri .'src/style.php'
-        .'?themeid='.$used_theme
-        .'&amp;templatedir='.$templatedir
-        .(!empty($used_fontset) ? '&amp;fontset='.$used_fontset : '')
-        .(!empty($used_fontsize) ? '&amp;fontsize='.$used_fontsize : '')
-        .(!empty($text_direction) ? '&amp;dir='.$text_direction : '')."\">\n";
+    $header_tags .= $oTemplate->fetch_standard_stylesheet_links();
+    $aUserStyles = array();
+//FIXME: remove this!!
     // load custom style sheet (deprecated)
     if ( ! empty($theme_css) ) {
-        echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$theme_css\">\n";
+        $aUserStyles[] = $theme_css;
     }
+// FIXME: the following user pref ("sUserStyle"; rename as necessary) will have to be populated by the display prefs screen from a widget similar to the color themes widget (which it replaces) where its values should be full relative paths (from SM_PATH) to the selected css "themes" (either in template css/alternates dir or SM_PATH/css/alternates dir)
+// FIXME: uhhh, getPref() is not available yet here.  (at least on login page) Ugh.  Nor has load_prefs been included yet -- how do we fix this?
+//    $aUserStyles[] = getPref($data_dir, $username, 'sUserStyle', '');
+    $aUserStyles[] = $base_uri .'src/style.php'
+                   . '?themeid='.$used_theme
+                   . '&amp;templateid='.$sTemplateID
+                   . (!empty($used_fontset) ? '&amp;fontset='.$used_fontset : '')
+                   . (!empty($used_fontsize) ? '&amp;fontsize='.$used_fontsize : '')
+                   . (!empty($text_direction) ? '&amp;dir='.$text_direction : '');
+    $header_tags .= $oTemplate->fetch_external_stylesheet_links($aUserStyles);
+//FIXME: only call the next method if language is right-to-left!
+    $header_tags .= $oTemplate->fetch_right_to_left_stylesheet_link();
 
     if ($squirrelmail_language == 'ja_JP') {
         /*
@@ -81,17 +79,20 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
          * We might get rid of it, if we follow http://www.w3.org/TR/japanese-xml/
          * recommendations and switch to unicode.
          */
-        echo "<!-- \xfd\xfe -->\n";
-        echo '<meta http-equiv="Content-type" content="text/html; charset=euc-jp">' . "\n";
+        $header_tags .= "<!-- \xfd\xfe -->\n";
+        $header_tags .= '<meta http-equiv="Content-type" content="text/html; charset=euc-jp">' . "\n";
     }
     if ($do_hook) {
+        // NOTE! plugins here must assign output to template 
+        //       and NOT echo anything directly!!
         do_hook('generic_header');
     }
 
-    echo "<title>$title</title>\n$xtra\n";
+    $header_tags .= $xtra;
+    $oTemplate->assign('page_title', $title);
 
     /* work around IE6's scrollbar bug */
-    echo <<<ECHO
+    $header_tags .= <<<EOS
 <!--[if IE 6]>
 <style type="text/css">
 /* avoid stupid IE6 bug with frames and scrollbars */
@@ -101,15 +102,17 @@ body {
 </style>
 <![endif]-->
 
-ECHO;
+EOS;
 
-    echo "\n</head>\n\n";
+    $oTemplate->assign('header_tags', $header_tags);
+    $oTemplate->display('protocol_header.tpl');
 
     /* this is used to check elsewhere whether we should call this function */
     $pageheader_sent = TRUE;
     if (isset($oErrorHandler)) {
         $oErrorHandler->HeaderSent();
     }
+
 }
 
 /**
@@ -144,6 +147,7 @@ function makeInternalLink($path, $text, $target='') {
  * Same as makeInternalLink, but echoes it too
  */
 function displayInternalLink($path, $text, $target='') {
+// FIXME: should let the template echo all these kinds of things
     echo makeInternalLink($path, $text, $target);
 }
 
@@ -181,8 +185,6 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
     $urlMailbox = urlencode($mailbox);
     $startMessage = (int)$startMessage;
 
-    $sTplDir = $oTemplate->template_dir;
-
     sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION );
 
     if (!isset($frame_top)) {
@@ -190,8 +192,7 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
     }
 
     if( $javascript_on || strpos($sHeaderJs, 'new_js_autodetect_results.value') ) {
-        $js_includes = $oTemplate->getJavascriptIncludes();
-        //$js_includes = $oTemplate->get_javascript_includes(TRUE);
+        $js_includes = $oTemplate->get_javascript_includes(TRUE);
         $sJsBlock = '';
         foreach ($js_includes as $js_file) {
             $sJsBlock .= '<script src="'.$js_file.'" type="text/javascript"></script>' ."\n";
@@ -280,8 +281,7 @@ function compose_Header($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
         }
         $sJsBlock .= "\n";
 
-        $js_includes = $oTemplate->getJavascriptIncludes();
-        //$js_includes = $oTemplate->get_javascript_includes(TRUE);
+        $js_includes = $oTemplate->get_javascript_includes(TRUE);
         foreach ($js_includes as $js_file) {
             $sJsBlock .= '<script src="'.$js_file.'" type="text/javascript"></script>' ."\n";
         }
@@ -292,5 +292,6 @@ function compose_Header($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
         displayHtmlHeader(_("Compose"));
         $onload = '';
     }
+// FIXME: should let the template echo all these kinds of things
     echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" $sBodyTagJs>\n\n";
 }
