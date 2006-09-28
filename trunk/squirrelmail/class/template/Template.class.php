@@ -1,6 +1,6 @@
 <?php
 
-require(SM_PATH . 'functions/template_functions.php');
+require(SM_PATH . 'functions/template.php');
 
 /**
   * Template.class.php
