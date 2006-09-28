@@ -51,7 +51,7 @@ if (! isset($use_iframe)) $use_iframe=false;
 function load_optpage_data_display() {
     global $theme, $fontsets, $language, $languages,$aTemplateSet,
     $default_use_mdn, $squirrelmail_language, $allow_thread_sort,
-    $show_alternative_names, $use_icons, $use_iframe, $sTplDir;
+    $show_alternative_names, $use_icons, $use_iframe, $sTemplateID;
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -69,15 +69,15 @@ function load_optpage_data_display() {
     $templateset_values = array();
 
     foreach ($aTemplateSet as $sKey => $aTemplateSetAttributes) {
-        $templateset_values[$aTemplateSetAttributes['NAME']] = $aTemplateSetAttributes['PATH'];
+        $templateset_values[$aTemplateSetAttributes['NAME']] = $aTemplateSetAttributes['ID'];
     }
     ksort($templateset_values);
     $templateset_values = array_flip($templateset_values);
     // display template options only when there is more than one template
     if (count($templateset_values)>1) {
         $optvals[SMOPT_GRP_GENERAL][] = array(
-            'name'    => 'sTplDir',
-            'caption' => _("Template"),
+            'name'    => 'sTemplateID',
+            'caption' => _("Skin"),
             'type'    => SMOPT_TYPE_STRLIST,
             'refresh' => SMOPT_REFRESH_ALL,
             'posvals' => $templateset_values,
@@ -328,6 +328,7 @@ function load_optpage_data_display() {
         'size'    => SMOPT_SIZE_TINY
     );
 /*
+FIXME!
   disabled because the template doesn't support it (yet?)
     $optvals[SMOPT_GRP_MAILBOX][] = array(
         'name'    => 'show_recipient_instead',
@@ -437,7 +438,7 @@ function save_option_template($option) {
     /* Do checking to make sure $new_theme is in the array. */
     $templateset_in_array = false;
     for ($i = 0; $i < count($aTemplateSet); ++$i) {
-        if ($aTemplateSet[$i]['PATH'] == $option->new_value) {
+        if ($aTemplateSet[$i]['ID'] == $option->new_value) {
             $templateset_in_array = true;
             break;
         }
