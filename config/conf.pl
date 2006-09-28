@@ -188,14 +188,14 @@ while ( $line = <FILE> ) {
             $sub =~ s/\]\[['"]NAME['"]\]//;
             $sub =~ s/.*\[//;
             $theme_name[$sub] = $options[1];
-        } elsif ( $options[0] =~ /^aTemplateSet\[[0-9]+\]\[['"]PATH['"]\]/ ) {
+        } elsif ( $options[0] =~ /^aTemplateSet\[[0-9]+\]\[['"]ID['"]\]/ ) {
             $sub = $options[0];
-            $sub =~ s/\]\[['"]PATH['"]\]//;
+            $sub =~ s/\]\[['"]ID['"]\]//;
             $sub =~ s/.*\[//;
             if ( -e "../templates" ) {
                 $options[1] =~ s/^\.\.\/config/\.\.\/templates/;
             }
-            $templateset_path[$sub] = &change_to_rel_path($options[1]);
+            $templateset_id[$sub] = $options[1];
         } elsif ( $options[0] =~ /^aTemplateSet\[[0-9]+\]\[['"]NAME['"]\]/ ) {
             $sub = $options[0];
             $sub =~ s/\]\[['"]NAME['"]\]//;
@@ -2698,11 +2698,12 @@ sub command_templates {
         }
 
         print " $count.  $name";
-        print "($templateset_path[$count])\n";
+        print "($templateset_id[$count])\n";
 
         $count++;
    }
 
+# FIXME: what is this stuff?  it is commented out, can we just blast it?
 #    opendir( DIR, "../templates" );
 #    @files          = readdir(DIR);
 #    $pos            = 0;
@@ -2711,7 +2712,7 @@ sub command_templates {
 #        if ( -d "../templates/" . $files[$i] && $files[$i] !~ /^\./ && $files[$i] ne "CVS" ) {
 #            $filename = "../templates/" . $files[$cnt];
 #            $found = 0;
-#            for ( $x = 0 ; $x <= $#templateset_path ; $x++ ) {
+#            for ( $x = 0 ; $x <= $#templateset_id ; $x++ ) {
 #                if ( $theme_path[$x] eq $filename ) {
 #                    $found = 1;
 #                }
@@ -2740,21 +2741,29 @@ sub command_templates {
 #    }
 #    closedir DIR;
 
+    $menu_text = ".-------------------------------------.\n"
+               . "| t            (detect templates set) |\n"
+               . "| +                (add template set) |\n"
+               . "| - N           (remove template set) |\n"
+               . "| m N     (mark default template set) |\n"
+               . "| l              (list template sets) |\n"
+               . "| d                            (done) |\n"
+               . "|-------------------------------------|\n"
+               . "| where N is a template set number    |\n"
+               . "`-------------------------------------'\n";
     print "\n";
-    print ".--------------------------------.\n";
-    print "| t       (detect templates set) |\n";
-    print "| +           (add template set) |\n";
-    print "| - N      (remove template set) |\n";
-    print "| m N        (mark template set) |\n";
-    print "| l          (list template set) |\n";
-    print "| d                       (done) |\n";
-    print "`--------------------------------'\n";
+    print $menu_text;
     print "\n[template set] command (?=help) > ";
 
     $input = <STDIN>;
     $input =~ s/[\r\n]//g;
     while ( $input ne "d" ) {
+
+        # list template sets
+        #
         if ( $input =~ /^\s*l\s*/i ) {
+# LEFT OFF HERE!  default is lost after detection.... hmmmm
+print "DEFAULT INDEX IS " . $templateset_default . "\n";
             $count = 0;
             while ( $count <= $#templateset_name ) {
                 if ( $count == $templateset_default ) {
@@ -2772,10 +2781,13 @@ sub command_templates {
                 }
 
                 print " $count.  $name";
-                print "($templateset_path[$count])\n";
+                print "($templateset_id[$count])\n";
 
                 $count++;
             }
+
+        # mark default template set
+        #
         } elsif ( $input =~ /^\s*m\s*[0-9]+/i ) {
             $old_def       = $templateset_default;
             $templateset_default = $input;
@@ -2784,79 +2796,89 @@ sub command_templates {
                 print "Cannot set default template set to $templateset_default.  That template set does not exist.\n";
                 $templateset_default = $old_def;
             }
+
+        # add template set
+        #
         } elsif ( $input =~ /^\s*\+/ ) {
-            print "What is the name of this template: ";
+            print "\nWhat is the name of this template (as shown to your users): ";
             $name = <STDIN>;
             $name =~ s/[\r\n]//g;
             $templateset_name[ $#templateset_name + 1 ] = $name;
-            print "Be sure to put ../templates/ before the dirname.\n";
-            print "What file is this stored in (ex: ../templates/default/): ";
+            print "\n\nThe directory name should not contain any path information\n"
+                . "or slashes, and should be the name of the directory that the\n"
+                . "template set is found in within the SquirrelMail templates\n"
+                . "directory.\n\n";
+            print "What directory is this stored in (ex: default_advanced): ";
             $name = <STDIN>;
             $name =~ s/[\r\n]//g;
-            $templateset_path[ $#templateset_path + 1 ] = $name;
+            $templateset_id[ $#templateset_id + 1 ] = $name;
+
+        # detect template sets
+        #
         } elsif ( $input =~ /^\s*t\s*/i ) {
             print "\nStarting detection...\n\n";
             opendir( DIR, "../templates" );
             @files = readdir(DIR);
             $cnt = 0;
-            $detected = 0;
             while ( $cnt <= $#files ) {
                 if ( -d "../templates/" . $files[$cnt] && $files[$cnt] !~ /^\./ && $files[$cnt] ne "CVS" ) {
-                    $filename = "../templates/" . $files[$cnt]. "/";
+                    $filename = $files[$cnt];
                     $found = 0;
-                    for ( $x = 0 ; $x <= $#templateset_path ; $x++ ) {
-                        if ( $templateset_path[$x] eq $filename ) {
+                    for ( $x = 0 ; $x <= $#templateset_id ; $x++ ) {
+                        if ( $templateset_id[$x] eq $filename ) {
                             $found = 1;
+                            last;
                         }
                     }
-                    if ( $found != 1 && $detected == 0) {
-                        $templateset_path[ $#templateset_path + 1 ] = $filename;
-                        $templateset_name[ $#templateset_name + 1 ] = "Default template";
-                        $aTemplateSet[ $#templateset_name + 1 ] = "Default template";
-                        $aTemplateSet[ $#templateset_path + 1 ] = $filename;
-                    } elsif ( $found != 1) {
+                    if ( $found != 1) {
                         print "** Found template set: $filename\n";
-                        print "   What is it's name? ";
+                        print "   What is it's name (as shown to your users)? ";
                         $nm = <STDIN>;
                         $nm =~ s/[\n\r]//g;
-                        $templateset_path[ $#templateset_path + 1 ] = $filename;
+                        $templateset_id[ $#templateset_id + 1 ] = $filename;
                         $templateset_name[ $#templateset_name + 1 ] = $nm;
-
-                        $aTemplateSet[ $#templateset_name + 1 ] = $nm;
-                        $aTemplateSet[ $#templateset_path + 1 ] = $filename;
+# FIXME: why are these two lines here?
+#                        $aTemplateSet[ $#templateset_name + 1 ] = $nm;
+#                        $aTemplateSet[ $#templateset_id + 1 ] = $filename;
                     }
-                    $detected++;
                 }
                 $cnt++;
             }
             print "\n";
-            for ( $cnt = 0 ; $cnt <= $#templateset_path ; $cnt++ ) {
-                $filename = $templateset_path[$cnt];
-                if ( !(-d  $filename) ) {
-                    print "  Removing $filename (file not found)\n";
+            for ( $cnt= 0 ; $cnt <= $#templateset_id ; ) {
+                $filename = $templateset_id[$cnt];
+                if ( !(-d  change_to_rel_path('SM_PATH . \'templates/' . $filename)) ) {
+                    print "  Removing \"$filename\" (template set directory not found)\n";
+                    if ( $templateset_default gt $cnt ) { $templateset_default--; }
+                    elsif ( $templateset_default eq $cnt ) { $templateset_default = 0; }
                     $offset         = 0;
                     @new_templateset_name = ();
-                    @new_templateset_path = ();
-                    for ( $x = 0 ; $x < $#templateset_path ; $x++ ) {
-                        if ( $templateset_path[$x] eq $filename ) {
+                    @new_templateset_id = ();
+                    for ( $x = 0 ; $x < $#templateset_id ; $x++ ) {
+                        if ( $templateset_id[$x] eq $filename ) {
                             $offset = 1;
                         }
                         if ( $offset == 1 ) {
                             $new_templateset_name[$x] = $templateset_name[ $x + 1 ];
-                            $new_theme_path[$x] = $templateset_path[ $x + 1 ];
+                            $new_templateset_id[$x] = $templateset_id[ $x + 1 ];
                         } else {
                             $new_templateset_name[$x] = $templateset_name[$x];
-                            $new_templateset_path[$x] = $templateset_path[$x];
+                            $new_templateset_id[$x] = $templateset_id[$x];
                         }
                     }
                     @templateset_name = @new_templateset_name;
-                    @templateset_path = @new_templateset_path;
-                }
+                    @templateset_id = @new_templateset_id;
+                } else { $cnt++; }
             }
             print "\nDetection complete!\n\n";
 
             closedir DIR;
-        } elsif ( $input =~ /^\s*-\s*[0-9]?/ ) {
+
+        # remove template set
+        #
+        # undocumented functionality of removing last template set isn't that great
+        #} elsif ( $input =~ /^\s*-\s*[0-9]?/ ) {
+        } elsif ( $input =~ /^\s*-\s*[0-9]+/ ) {
             if ( $input =~ /[0-9]+\s*$/ ) {
                 $rem_num = $input;
                 $rem_num =~ s/^\s*-\s*//g;
@@ -2869,29 +2891,25 @@ sub command_templates {
             } else {
                 $count          = 0;
                 @new_templateset_name = ();
-                @new_templateset_path = ();
+                @new_templateset_id = ();
                 while ( $count <= $#templateset_name ) {
                     if ( $count != $rem_num ) {
                         @new_templateset_name = ( @new_templateset_name, $templateset_name[$count] );
-                        @new_templateset_path = ( @new_templateset_path, $templateset_path[$count] );
+                        @new_templateset_id = ( @new_templateset_id, $templateset_id[$count] );
                     }
                     $count++;
                 }
                 @templateset_name = @new_templateset_name;
-                @templateset_path = @new_templateset_path;
+                @templateset_id = @new_templateset_id;
                 if ( $templateset_default > $rem_num ) {
                     $templateset_default--;
                 }
             }
+
+        # help
+        #
         } elsif ( $input =~ /^\s*\?\s*/ ) {
-            print ".--------------------------------.\n";
-            print "| t       (detect templates set) |\n";
-            print "| +           (add template set) |\n";
-            print "| - N      (remove template set) |\n";
-            print "| m N        (mark template set) |\n";
-            print "| l          (list template set) |\n";
-            print "| d                       (done) |\n";
-            print "`--------------------------------'\n";
+            print $menu_text;
         }
         print "[template set] command (?=help) > ";
         $input = <STDIN>;
@@ -4128,7 +4146,7 @@ sub save_data {
         print CF "\$templateset_default = $templateset_default;\n";
 
         for ( $count = 0 ; $count <= $#templateset_name ; $count++ ) {
-            print CF "\$aTemplateSet[$count]['PATH'] = " . &change_to_SM_path($templateset_path[$count]) . ";\n";
+            print CF "\$aTemplateSet[$count]['ID'] = '" . $templateset_id[$count] . "';\n";
             # escape theme name so it can contain single quotes.
             $esc_name =  $templateset_name[$count];
             $esc_name =~ s/\\/\\\\/g;
@@ -4591,6 +4609,7 @@ sub change_to_rel_path() {
     my $new_path = $old_path;
 
     if ( $old_path =~ /^SM_PATH/ ) {
+        # FIXME: the following replacement loses the opening quote mark!
         $new_path =~ s/^SM_PATH . \'/\.\.\//;
         $new_path =~ s/\.\.\/config\///;
     }

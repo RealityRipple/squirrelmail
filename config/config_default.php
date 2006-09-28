@@ -843,24 +843,25 @@ $theme[51]['NAME'] = 'Turquoise';
 
 /**
  * Templates
- *   You can define your own template and put it in this directory.
- *   You must call it as the example below. You can name the template
- *   whatever you want. For an example of a template, see the ones
- *   included in the template directory.
+ *   You can define your own template and put it in a new directory
+ *   under SM_PATH/templates.  The ID must match the name of
+ *   the template directory as the example below. You can name the 
+ *   template whatever you want. For an example of a template, see 
+ *   the ones included in the SM_PATH/templates directory.
  *
  * To add a new template to the options that users can choose from, just
  * add a new number to the array at the bottom, and follow the pattern.
  *
- * $templateset_default sets theme that will be used by default
- * used by default.
+ * $templateset_default sets theme that will be used by default.
+ *
  * @global integer $templateset_default
  */
 $templateset_default = 0;
 
-$aTemplateSet[0]['PATH'] = SM_PATH . 'templates/default/';
-$aTemplateSet[0]['NAME'] = 'Default template';
-$aTemplateSet[1]['PATH'] = SM_PATH . 'templates/default_advanced/';
-$aTemplateSet[1]['NAME'] = 'Advanced template';
+$aTemplateSet[0]['ID'] = 'default';
+$aTemplateSet[0]['NAME'] = 'Default';
+$aTemplateSet[1]['ID'] = 'default_advanced';
+$aTemplateSet[1]['NAME'] = 'Advanced';
 
 /**
  * Default interface font size.
