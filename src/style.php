@@ -1,12 +1,15 @@
 <?php
+
 /**
  * Style sheet script
  *
- * Script processes GET arguments and generates CSS output from stylesheet.tpl.
+ * Script processes GET arguments and generates CSS output from stylesheet.tpl,
+ * which is defined in each template set.
+ *
  * Used GET arguments:
  * <ul>
  *   <li>themeid - string, sets theme file from themes/*.php
- *   <li>templatedir - string, sets template directory from templates/
+ *   <li>templateid - string, sets template set ID
  *   <li>fontset - string, sets selected set of fonts from $fontsets array.
  *   <li>fontsize - integer, sets selected font size
  *   <li>dir - string, sets text direction variables. Possible values 'rtl' or 'ltr'
@@ -160,20 +163,28 @@ $oTemplate->assign('fontsize', $fontsize);
 /**
  * GOTCHA #1: When sending the headers for caching, we must send Expires,
  *            Last-Modified, Pragma, and Cache-Control headers.  If we don't PHP 
- *            weill makeup values that will break the cacheing.
+ *            will makeup values that will break the cacheing.
  * 
  * GOTCHA #2: If the current template does not contain a template named
  *            stylesheet.tpl, this cacheing will break because filemtime() won't
  *            work.  This is a problem e.g. with the default_advanced template
  *            that inherits CSS properties from the default template but
  *            doesn't contain stylesheet.tpl itself.
+IDEA: So ask the Template class object to return the mtime or better yet, the full file path (at least from SM_PATH) by using $oTemplate->get_template_file_path(stylesheet.tpl) but this is still a problem if the default template also does not have such a file (in which case, we fall back to SM's css/deafult css file (so in that case, go get that file's mtime!)
  *            Possibly naive suggestion - template can define its own default 
  *            template name
  * 
+ * GOTCHA #3: If the user changes user prefs for things like font size then
+ *            the mtime should be updated to the time of that change, and not
+ *            that of the stylesheet.tpl file.  IDEA: can this be a value kept
+ *            in user prefs (always compare to actual file mtime before sending
+ *            to the browser)
+ *
  * TODO: Fix this. :)
  **/
 header('Content-Type: text/css');
-if ( $lastmod = @filemtime(getcwd() .'/'. $oTemplate->template_dir . 'stylesheet.tpl') ) {
+if ( $lastmod = @filemtime(SM_PATH . $oTemplate->get_template_file_directory() 
+                         . 'css/stylesheet.tpl') ) {
     $gmlastmod = gmdate('D, d M Y H:i:s', $lastmod) . ' GMT';
     $expires = gmdate('D, d M Y H:i:s', strtotime('+1 week')) . ' GMT';
     header('Last-Modified: ' . $gmlastmod);
@@ -181,12 +192,5 @@ if ( $lastmod = @filemtime(getcwd() .'/'. $oTemplate->template_dir . 'stylesheet
     header('Pragma: ');
     header('Cache-Control: public, must-revalidate');
 }
-$oTemplate->display('stylesheet.tpl');
+$oTemplate->display('css/stylesheet.tpl');
 
-/**
- * Include any additional stylesheets provided by the template
- */
-$template_css = $oTemplate->getAdditionalStyleSheets();
-foreach ($template_css as $stylesheet) {
-    $oTemplate->display($stylesheet);
-}

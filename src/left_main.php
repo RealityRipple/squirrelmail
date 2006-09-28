@@ -53,7 +53,7 @@ if (!empty($left_refresh) &&
 /**
  * Include extra javascript files needed by template
  */
-$js_includes = $oTemplate->getJavascriptIncludes();
+$js_includes = $oTemplate->get_javascript_includes(TRUE);
 foreach ($js_includes as $js_file) {
     $xtra .= '<script src="'.$js_file.'" type="text/javascript"></script>' ."\n";
 }
@@ -192,8 +192,10 @@ $oTemplate->assign('mailboxes', $mailbox_structure);
  */
 $settings = array();
 #$settings['imapConnection'] = $imapConnection;
+//FIXME: I think this is already included in all templates by init.php
 $settings['iconThemePath'] = $icon_theme_path;
-$settings['templateDirectory'] = $sTplDir;
+//FIXME: I think this is already included in all templates by init.php
+$settings['templateID'] = $sTemplateID;
 $settings['unreadNotificationEnabled'] = $unseen_notify!=1;
 $settings['unreadNotificationAllFolders'] = $unseen_notify == 3;
 $settings['unreadNotificationDisplayTotal'] = $unseen_type == 2;

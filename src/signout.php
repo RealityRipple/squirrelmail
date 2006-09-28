@@ -49,16 +49,17 @@ if ($signout_page) {
 /* After a reload of signout.php, $oTemplate might not exist anymore.
  * Recover, so that we don't get all kinds of errors in that situation. */
 if ( !isset($oTemplate) || !is_object($oTemplate) ) {
-    require_once(SM_PATH . 'class/template/template.class.php');
-    $aTemplateSet = ( !isset($aTemplateSet) ? array() : $aTemplateSet );
+    require_once(SM_PATH . 'class/template/Template.class.php');
+    $aTemplateSet = (!isset($aTemplateSet) || !is_array($aTemplateSet) 
+                     ? array() : $aTemplateSet);
     $templateset_default = ( !isset($templateset_default) ? 0 : $templateset_default );
 
-    $sTplDir = !isset($aTemplateSet[$templateset_default]['PATH']) ? SM_PATH . 'templates/default/' : $aTemplateSet[$templateset_default]['PATH'];
-    $icon_theme_path = !$use_icons ? NULL : $sTplDir . 'images/';
-    $oTemplate = new Template($sTplDir);
+    $sTemplateID = !isset($aTemplateSet[$templateset_default]['ID']) ? 'default' : $aTemplateSet[$templateset_default]['ID'];
+    $icon_theme_path = !$use_icons ? NULL : Template::calculate_template_images_directory($sTemplateID);
+    $oTemplate = Template::construct_template($sTemplateID);
 
     // We want some variables to always be available to the template
-    $always_include = array('sTplDir', 'icon_theme_path');
+    $always_include = array('sTemplateID', 'icon_theme_path');
     foreach ($always_include as $var) {
         $oTemplate->assign($var, (isset($$var) ? $$var : NULL));
     }
