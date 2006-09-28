@@ -429,3 +429,106 @@ function php_self () {
 
     return '';
 }
+
+
+/**
+  * Find files in a given directory optionally limited to only
+  * those with the given file extension.  If the directory is 
+  * not found or cannot be opened, no error is generated; only
+  * an empty file list is returned.
+FIXME: do we WANT to throw an error or a notice or... or return FALSE?
+  *
+  * @param string $directory_path The path (relative or absolute) 
+  *                               to the desired directory.
+  * @param string $extension      The file extension filter (optional;
+  *                               default is to return all files.
+  * @param boolean $return_filenames_only When TRUE, only file names
+  *                                       are returned, otherwise the
+  *                                       $directory_path string is
+  *                                       prepended to each file in
+  *                                       the returned list (optional;
+  *                                       default is filename only)
+  *
+  * @return array The requested file list.
+  *
+  * @since 1.5.2
+  *
+  */
+function list_files($directory_path, $extension='', $return_filenames_only=TRUE) {
+
+    $files = array();
+
+//FIXME: do we want to place security restrictions here like only allowing
+//       directories under SM_PATH?
+    // validate given directory
+    // 
+    if (empty($directory_path) 
+     || !is_dir($directory_path) 
+     || !($DIR = opendir($directory_path))) {
+        return $files;
+    }
+
+
+    // parse through the files
+    //
+    $extension = '.' . trim($extension, '.');
+    while (($file = readdir($DIR)) !== false) {
+
+        if ($file == '.' || $file == '..') continue;
+
+        if (empty($extension)
+         || strrpos($file, $extension) === (strlen($file) - strlen($extension))) {
+            $files[] = ($return_filenames_only 
+                        ? $file
+                        : $directory_path . '/' . $file);
+        }
+
+    }
+    closedir($DIR);
+
+
+    return $files;
+
+}
+
+
+/**
+ * Print variable
+ *
+ * sm_print_r($some_variable, [$some_other_variable [, ...]]);
+ *
+ * Debugging function - does the same as print_r, but makes sure special
+ * characters are converted to htmlentities first.  This will allow
+ * values like <some@email.address> to be displayed.
+ * The output is wrapped in <<pre>> and <</pre>> tags.
+ * Since 1.4.2 accepts unlimited number of arguments.
+ * @since 1.4.1
+ * @return void
+ */
+function sm_print_r() {
+    ob_start();  // Buffer output
+    foreach(func_get_args() as $var) {
+        print_r($var);
+        echo "\n";
+        // php has get_class_methods function that can print class methods
+        if (is_object($var)) {
+            // get class methods if $var is object
+            $aMethods=get_class_methods(get_class($var));
+            // make sure that $aMethods is array and array is not empty
+            if (is_array($aMethods) && $aMethods!=array()) {
+                echo "Object methods:\n";
+                foreach($aMethods as $method) {
+                    echo '* ' . $method . "\n";
+                }
+            }
+            echo "\n";
+        }
+    }
+    $buffer = ob_get_contents(); // Grab the print_r output
+    ob_end_clean();  // Silently discard the output & stop buffering
+    print '<div align="left"><pre>';
+    print htmlentities($buffer);
+    print '</pre></div>';
+}
+
+
