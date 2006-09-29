@@ -681,7 +681,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
     global $editor_size, $default_use_priority, $body, $idents,
         $use_signature, $data_dir, $username,
         $key, $imapServerAddress, $imapPort, $compose_messages,
-        $composeMessage, $body_quotem, $request_mdn, $request_dr,
+        $composeMessage, $body_quote, $request_mdn, $request_dr,
         $default_use_mdn, $mdn_user_support;
     global $languages, $squirrelmail_language, $default_charset;
 
