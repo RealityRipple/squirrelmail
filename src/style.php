@@ -36,6 +36,13 @@ if (!isset($fontsets) || !is_array($fontsets)) {
     $fontsets=array();
 }
 
+
+/**
+ * The collowing code should no longer be neccesary, but it will remain for the
+ * time being, just in case.
+ * 
+ * TODO: Remove if no longer needed.
+ **/
 /* set default colors in case color theme is not full */
 $color = array();
 $color[0]   = '#dcdcdc'; // (light gray)     TitleBar
@@ -55,27 +62,6 @@ $color[13]  = '#800000'; // (dark red)       Color for quoted text -- > 1 quote
 $color[14]  = '#ff0000'; // (red)            Color for quoted text -- >> 2 or more
 $color[15]  = '#002266'; // (dark blue)      Unselectable folders
 $color[16]  = '#ff9933'; // (orange)         Highlight color
-
-/** get theme from GET */
-if (sqgetGlobalVar('themeid',$themeid,SQ_GET) &&
-    file_exists(SM_PATH . 'themes/'.basename($themeid,'.php').'.php')) {
-    include_once(SM_PATH . 'themes/'.basename($themeid,'.php').'.php');
-} elseif (file_exists($theme[$theme_default]['PATH'])) {
-    include_once($theme[$theme_default]['PATH']);
-}
-
-/**
- * Get text direction
- */
-if (sqgetGlobalVar('dir',$text_direction,SQ_GET) &&
-    $text_direction == 'rtl') {
-    $align = array('left' => 'right', 'right' => 'left');
-} else {
-    $align = array('left' => 'left', 'right' => 'right');
-}
-
-/**/
-$oTemplate->assign('color', $color);
 
 /**
  * set color constants in order to use simple names instead of color array
@@ -145,21 +131,22 @@ define('SQM_ERROR_TEXT',$color[2]);
 define('SQM_ALIGN_LEFT', $align['left']);
 define('SQM_ALIGN_RIGHT', $align['right']);
 
+// END TODO
+
 if (sqgetGlobalVar('fontset',$fontset,SQ_GET) &&
     isset($fontsets[$fontset])) {
     $fontfamily=$fontsets[$fontset];
 } else {
     $fontfamily='';
 }
-$oTemplate->assign('fontfamily', $fontfamily);
 
 if (! sqgetGlobalVar('fontsize',$fontsize,SQ_GET)) {
     $fontsize = 0;
 } else {
     $fontsize = (int) $fontsize;
 }
-$oTemplate->assign('fontsize', $fontsize);
 
+header('Content-Type: text/css');
 /**
  * GOTCHA #1: When sending the headers for caching, we must send Expires,
  *            Last-Modified, Pragma, and Cache-Control headers.  If we don't PHP 
@@ -180,9 +167,14 @@ IDEA: So ask the Template class object to return the mtime or better yet, the fu
  *            in user prefs (always compare to actual file mtime before sending
  *            to the browser)
  *
+ * Comment re gotcha #3: If we only define basic font prefs here, we really
+ * only need to refresh the cache if one of the font prefs changes.
+ * Possibly some type of "force nocache flag could be set if a font pref is
+ * changed?
+ * 
  * TODO: Fix this. :)
- **/
-header('Content-Type: text/css');
+ * */
+
 if ( $lastmod = @filemtime(SM_PATH . $oTemplate->get_template_file_directory() 
                          . 'css/stylesheet.tpl') ) {
     $gmlastmod = gmdate('D, d M Y H:i:s', $lastmod) . ' GMT';
@@ -192,5 +184,32 @@ if ( $lastmod = @filemtime(SM_PATH . $oTemplate->get_template_file_directory()
     header('Pragma: ');
     header('Cache-Control: public, must-revalidate');
 }
-$oTemplate->display('css/stylesheet.tpl');
+
+/**
+ * Additional styles are now handled by adding stylesheets to $sTplDir/css/,
+ * so here, we simply define some basic styles based on user prefs.
+ */
+?>
+/* older css template */
+body, td, th, dd, dt, h1, h2, h3, h4, h5, h6, p, ol, ul, li {
+<?php
+if($fontfamily) echo '  font-family: '.$fontfamily.";\n";
+?>
+}
+body, small {
+<?php
+if($fontsize) echo '  font-size: '.($fontsize-2)."pt;\n";
+?>
+}
+td, th {
+<?php
+if($fontsize) echo '  font-size: '.$fontsize."pt;\n";
+?>
+}
+textarea, pre {
+font-family: monospace;
+<?php
+if($fontsize) echo '  font-size: '.($fontsize-1)."pt;\n";
+?>
+}
 
