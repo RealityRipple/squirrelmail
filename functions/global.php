@@ -464,6 +464,7 @@ function list_files($directory_path, $extension='', $return_filenames_only=TRUE)
     // 
     if (empty($directory_path) 
      || !is_dir($directory_path) 
+     || !is_readable($directory_path)
      || !($DIR = opendir($directory_path))) {
         return $files;
     }
