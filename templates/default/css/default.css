@@ -62,7 +62,7 @@ a:link, a:visited, a:hover, a:active {
     background-color: #dcdcdc;
 }
 
-table.table_empty,stable.table_blank    {
+table.table_empty,table.table_blank    {
     margin: 0;
     padding: 0;
     border: 0;
