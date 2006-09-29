@@ -507,8 +507,8 @@ class Template
      **/
     function get_alternative_stylesheets () {
         $a = array();
-        foreach ($this->alternate_stylesheets as $css) {
-            $a[] = strtolower(basename($css));
+        foreach ($this->alternate_stylesheets as $path=>$name) {
+            $a[strtolower(basename($path))] = $name;
         }
         return $a;
     }
