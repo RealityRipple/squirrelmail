@@ -62,7 +62,7 @@ a:link, a:visited, a:hover, a:active {
     background-color: #dcdcdc;
 }
 
-table.table_empty, table.table_blank    {
+table.table_empty,stable.table_blank    {
     margin: 0;
     padding: 0;
     border: 0;
@@ -136,6 +136,7 @@ tr.odd  {
 
 .table_standard {
     border:1px solid #dcdcdc;
+    width: 100%;
 }
 
 .sqm_loginOrgName, .sqm_signoutBar {
@@ -191,8 +192,12 @@ tr.odd  {
 }
 
 /* message_list.tpl definitions */
+#message_list {
+    width: 100%;
+}
 .table_messageListWrapper	{
     background: #ababab;
+    width:100%;
 }
 
 .table_messageList	{
