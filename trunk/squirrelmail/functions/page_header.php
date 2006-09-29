@@ -68,8 +68,10 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
                    . (!empty($used_fontsize) ? '&amp;fontsize='.$used_fontsize : '')
                    . (!empty($text_direction) ? '&amp;dir='.$text_direction : '');
     $header_tags .= $oTemplate->fetch_external_stylesheet_links($aUserStyles);
-//FIXME: only call the next method if language is right-to-left!
-    $header_tags .= $oTemplate->fetch_right_to_left_stylesheet_link();
+
+    if ($text_direction == 'rtl') {
+        $header_tags .= $oTemplate->fetch_right_to_left_stylesheet_link();
+    }
 
     if ($squirrelmail_language == 'ja_JP') {
         /*
