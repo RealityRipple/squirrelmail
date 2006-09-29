@@ -196,17 +196,17 @@ while ( $line = <FILE> ) {
                 $options[1] =~ s/^\.\.\/config/\.\.\/templates/;
             }
             $templateset_id[$sub] = $options[1];
-##### FIXME: This section here so old prefs files don't blow up when running conf.pl
+##### FIXME: This section BELOW here so old prefs files don't blow up when running conf.pl
 #####        Remove after a month or two 
-        } elsif ( $options[0] =~ /^aTemplateSet\[[0-9]+\]\[['"]PATH['"]\]/ ) {
-            $sub = $options[0];
-            $sub =~ s/\]\[['"]PATH['"]\]//;
-            $sub =~ s/.*\[//;
-            if ( -e "../templates" ) {
-                $options[1] =~ s/^\.\.\/config/\.\.\/templates/;
-            }
-            $templateset_id[$sub] = $options[1];
-##### FIXME: This section here so old prefs files don't blow up when running conf.pl
+} elsif ( $options[0] =~ /^aTemplateSet\[[0-9]+\]\[['"]PATH['"]\]/ ) {
+    $sub = $options[0];
+    $sub =~ s/\]\[['"]PATH['"]\]//;
+    $sub =~ s/.*\[//;
+    if ( -e "../templates" ) {
+        $options[1] =~ s/^\.\.\/config/\.\.\/templates/;
+    }
+    $templateset_id[$sub] = $options[1];
+##### FIXME: This section ABOVE here so old prefs files don't blow up when running conf.pl
 #####        Remove after a month or two 
         } elsif ( $options[0] =~ /^aTemplateSet\[[0-9]+\]\[['"]NAME['"]\]/ ) {
             $sub = $options[0];
