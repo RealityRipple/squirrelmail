@@ -2774,8 +2774,6 @@ sub command_templates {
         # list template sets
         #
         if ( $input =~ /^\s*l\s*/i ) {
-# LEFT OFF HERE!  default is lost after detection.... hmmmm
-print "DEFAULT INDEX IS " . $templateset_default . "\n";
             $count = 0;
             while ( $count <= $#templateset_name ) {
                 if ( $count == $templateset_default ) {
