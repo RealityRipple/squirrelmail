@@ -51,24 +51,34 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     $used_fontsize = (!empty($chosen_fontsize) ? $chosen_fontsize : $default_fontsize);
     $used_theme = basename((!empty($chosen_theme) ? $chosen_theme : $theme[$theme_default]['PATH']),'.php');
 
+    /**
+     * Stylesheets are loaded in the following order:
+     *    1) All stylesheets provided by the template.  Normally, these are
+     *       stylsheets in $sTplDir/css/.  This is accomplished by calling
+     *       $oTemplate->fetch_standard_stylesheet_links().
+     *    2) An optional user-defined stylesheet.  This is set in the Display
+     *       Preferences.
+     *    3) src/style.php which sets some basic font prefs.
+     *    4) If we are dealing with an RTL language, we load rtl.css from the
+     *       template set.
+     **/
+     
+    // 1. Stylesheets from the template.
     $header_tags .= $oTemplate->fetch_standard_stylesheet_links();
+
     $aUserStyles = array();
-//FIXME: remove this!!
-    // load custom style sheet (deprecated)
-    if ( ! empty($theme_css) ) {
-        $aUserStyles[] = $theme_css;
-    }
+    // 2. Option user-defined stylesheet from preferences.
 // FIXME: the following user pref ("sUserStyle"; rename as necessary) will have to be populated by the display prefs screen from a widget similar to the color themes widget (which it replaces) where its values should be full relative paths (from SM_PATH) to the selected css "themes" (either in template css/alternates dir or SM_PATH/css/alternates dir)
 // FIXME: uhhh, getPref() is not available yet here.  (at least on login page) Ugh.  Nor has load_prefs been included yet -- how do we fix this?
 //    $aUserStyles[] = getPref($data_dir, $username, 'sUserStyle', '');
-    $aUserStyles[] = $base_uri .'src/style.php'
-                   . '?themeid='.$used_theme
-                   . '&amp;templateid='.$sTemplateID
+
+    // 3. src/style.php
+    $aUserStyles[] = $base_uri .'src/style.php?'
                    . (!empty($used_fontset) ? '&amp;fontset='.$used_fontset : '')
-                   . (!empty($used_fontsize) ? '&amp;fontsize='.$used_fontsize : '')
-                   . (!empty($text_direction) ? '&amp;dir='.$text_direction : '');
+                   . (!empty($used_fontsize) ? '&amp;fontsize='.$used_fontsize : '');
     $header_tags .= $oTemplate->fetch_external_stylesheet_links($aUserStyles);
 
+    // 4. Optional rtl.css stylesheet
     if ($text_direction == 'rtl') {
         $header_tags .= $oTemplate->fetch_right_to_left_stylesheet_link();
     }
