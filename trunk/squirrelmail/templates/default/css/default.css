@@ -1,23 +1,17 @@
-/* older css template */
-body, td, th, dd, dt, h1, h2, h3, h4, h5, h6, p, ol, ul, li {
-}
-body, small {
-}
-td, th {
-}
-textarea, pre {
-font-family: monospace;
-}
-
 /* page body formatting */
 body {
     color:  #000000;
     background-color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
 }
 body.sqm_leftMain {
     color:  #000000;
     background-color: #a0b8c8;
     text-align: left;
+}
+
+img {
+    border:0;
 }
 
 /* right links */
@@ -29,12 +23,11 @@ a:link, a:visited, a:hover, a:active {
 .sqm_leftMain a:link, .sqm_leftMain a:visited, .sqm_leftMain a:hover, .sqm_leftMain a:active {
     color:  #000000;
 }
+
 .leftunseen, .leftspecial, .leftspecial a:link, .leftspecial a:visited, .leftspecial a:hover, .leftspecial a:active {
     color:  #770000;
 }
-.leftrecent {
-    font-weight:bold;
-}
+
 .leftnoselect a:link, .leftnoselect a:visited, .leftnoselect a:hover, .leftnoselect a:active {
     color:  #002266;
 }
@@ -44,46 +37,10 @@ a:link, a:visited, a:hover, a:active {
     color:  #002266;
 }
 
-/* left_main.tpl definitions */
-.sqm_wrapperTable   {
-    border:0;
-    padding:0;
-    margin-left:0;
-    border-spacing:0;
-    width:99%
-}
-sqm_leftMain table {
-    border:0;
-    padding:0;
-    margin:0;
-    border-spacing:0;
-}
-.sqm_folderHeader {
-    font-size:18px;
-    font-weight:bold;
-    text-align:center;
-}
-.sqm_clock {
-}
-.sqm_lastRefreshTime {
-    white-space: nowrap;
-}
-.sqm_refreshButton {
-}
-
-/* formating of error template */
-.thead_caption {
-    font-weight: bold;
-    text-align: center;
-}
-
-.error_list {
-}
 .error_table {
     color: #ff0000;
     border: 2px solid #dcdcdc;
     background-color: #a0b8c8;
-    width: 100%;
 }
 .error_thead {
     background-color: #666666;
@@ -96,292 +53,163 @@ sqm_leftMain table {
 }
 .error_val {
     color: #000000;
-    width: 80%;
     border: 2px solid #dcdcdc;
 
 }
 .error_key {
-    width: 20%;
     border: 2px solid #dcdcdc;
     color: #ff0000;
-    font-weight: bold;
-    font-style: italic;
     background-color: #dcdcdc;
 }
 
-/* form fields */
-input.sqmtextfield{
-}
-input.sqmpwfield {
-}
-input.sqmcheckbox {
-}
-input.sqmradiobox {
-}
-input.sqmhiddenfield {
-}
-input.sqmsubmitfield {
-}
-input.sqmresetfield {
-}
-input.sqmtextarea {
+table.table_empty, table.table_blank    {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
 }
 
-/* basic definitions */
-.table_empty {
-    width:100%;
-    border:0;
-    margin:0;
-    padding:0;
-    border-spacing:0;
+table.table1    {
+    border: 1px solid #dcdcdc;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table.table1    td  {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+table.table2    {
+    border: 1px solid #ababab;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table.table2    td  {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+td.emptyList    {
+    text-align: center;
+    font-weight: bold;
+}
+
+td.header1  {
+    background: #dcdcdc;
+    text-align: center;
+    font-weight: bold;
+}
+
+td.header2  {
+    background: #ababab;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+td.header3  {
+    text-align: center;
+    font-weight: bold;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+td.header4  {
+    background: #ffffcc;
+    font-weight: bold;
+    padding-top:2px;
+    padding-bottom: 2px;
+    text-align: center;
+}
+
+tr.even {
+    background: #ededed;
+}
+tr.odd  {
+    background: #ffffff;
 }
 
 .table_standard {
-    width:100%;
     border:1px solid #dcdcdc;
-    padding:0;
-    margin:0;
-    border-spacing:0;
 }
 
-em		{
-    font-weight:bold;
-    font-style:normal;
-}
-
-small	{
-    font-size:80%;
-}
-img   {
-    border:0;
-}
-
-/* login.tpl definitions */
-#sqm_login table {
-    border:0;
-    margin:0;
-    padding:0;
-    border-spacing:0;
-    margin-left:auto;
-    margin-right:auto;
-}
-#sqm_login td {
-    padding:2px;
-}
-
-.sqm_loginImage {
-    margin-left:auto;
-    margin-right:auto;
-    padding:2px;
-}
-.sqm_loginTop {
-    text-align:center;
-    font-size:80%;
-}
-.sqm_loginOrgName {
-    font-weight:bold;
-    text-align:center;
+.sqm_loginOrgName, .sqm_signoutBar {
     background: #dcdcdc;
-    width:350px;
-    border:0;
-}
-.sqm_loginFieldName {
-    text-align:right;
-    width:30%;
-}
-.sqm_loginFieldInput {
-    text-align:left;
-}
-.sqm_loginSubmit {
-    text-align:center;
 }
 
-/* note.tpl defs */
-.sqm_noteWrapper {
-    text-align:center;
-    width:100%;
-}
-.sqm_note {
-    margin-left:auto;
-    margin-right:auto;
-    font-weight:bold;
-    text-align:center;
+.sqm_signout {
+    margin-top: 2em;
+    text-align: center;
 }
 
-/* motd.tpl defs */
-.sqm_motdWrapper {
-    text-align:center;
-    width:100%;
-    margin:1px;
-}
 .sqm_motd {
-    margin-left:auto;
-    margin-right:auto;
-    text-align:center;
     background: #ababab;
-    width:70%;
-    padding:0;
 }
 .sqm_motd td {
-    text-align:center;
     background: #ffffff;
-    padding:5px;
 }
 
 /* empty_folder.tpl defs */
-.sqm_emptyFolderWrapper {
-    text-align:center;
-    width:100%;
-}
 .sqm_emptyFolder {
-    margin-left:auto;
-    margin-right:auto;
-    text-align:center;
     background: #ababab;
-    padding:1px;
-    width:100%;
 }
 .sqm_emptyFolder td {
-    text-align:center;
     background: #ffffff;
-    padding-top:15px;
-    padding-bottom:15px;
 }
 
 /* error_box.tpl definitions */
 .table_errorBoxWrapper   {
-    width:100%;
-    padding:0;
-    border-spacing:0;
-    border:0;
-    text-align:center;
-    margin-left:auto;
-    margin-right:auto;
     background: #ababab;
 }
 
 .table_errorBox  {
-    width:100%;
-    padding:0;
-    border-spacing:0;
-    border:0;
-    text-align:center;
-    margin-left:auto;
-    margin-right:auto;
     background: #dcdcdc;
-}
-.error_header {
-    color: red;
-    font-weight:bold;
-    font-weight:bold;
-    font-style:normal;
 }
 .error_message {
     background: #ffffff;
 }
 
-/* error_logout.tpl definitions */
-#sqm_errorLogout {
-    width:100%;
-    text-align:center;
-}
-#sqm_errorLogout table {
-    border:0;
-    margin:0;
-    padding:0;
-    border-spacing:0;
-    margin-left:auto;
-    margin-right:auto;
-}
-#sqm_errorLogout td {
-    padding:2px;
-}
-.sqm_errorLogoutImage {
-    margin-left:auto;
-    margin-right:auto;
-    padding:2px;
-}
-.sqm_errorLogoutTop {
-    text-align:center;
-    font-size:80%;
-}
-
 /* page_header.tpl definitions */
 .sqm_currentFolder	{
     background: #ababab;
-    padding:2px;
     text-align: left;
 }
 .sqm_headerSignout	{
     background: #ababab;
-    padding:2px;
     text-align: right;
-    font-weight:bold;
 }
 .sqm_topNavigation	{
-    padding:2px;
     text-align: left;
 }
 .sqm_providerInfo	{
-    padding:2px;
     text-align: right;
 }
 
 /* message_list.tpl definitions */
 .table_messageListWrapper	{
-    width:100%;
-    padding:0;
-    border-spacing:0;
-    border:0;
-    text-align:center;
-    margin-left:auto;
-    margin-right:auto;
     background: #ababab;
 }
 
 .table_messageList	{
-    width:100%;
-    padding:0;
-    border-spacing:0;
-    border:0;
-    text-align:center;
-    margin-left:auto;
-    margin-right:auto;
     background: #ffffcc;
-}
-
-.table_messageList	a	{
-    white-space:nowrap;
 }
 
 .table_messageList	tr.headerRow	{
     text-align: left;
-    white-space:nowrap;
-    font-weight:bold;
 }
 .table_messageList td.spacer {
-    height:1px;
     background: #dcdcdc;
-}
-
-.table_messageList	tr		{
-    vertical-align:top;
-}
-.table_messageList	tr.even	{
-    background: #ededed;
-}
-.table_messageList	tr.odd	{
-    background: #ffffff;
 }
 .table_messageList	tr.mouse_over	{
     background: #ffffcc;
 }
 .table_messageList	tr.clicked	{
     background: #ff9933;
-}
-
-.table_messageList	td	{
-    white-space:nowrap;
 }
 .table_messageList	td.col_check	{
     text-align: left;
@@ -392,15 +220,8 @@ img   {
 .table_messageList	td.col_flags	{
     text-align: left;
 }
-.table_messageList	td.col_date	{
-    text-align:center;
-}
 .table_messageList	td.col_text	{
     text-align: left;
-}
-
-.unread		{
-    font-weight:bold;
 }
 .deleted	{
     color: #ababab;
@@ -415,40 +236,533 @@ img   {
     color: #000000;
 }
 
-.col_checked	{
-}
-
 .links_paginator			{
     text-align: left;
-}
-
-.message_count				{
-    text-align:right;
-    font-size:8pt;
 }
 
 .message_list_controls {
     background: #dcdcdc;
 }
 
-.message_control_button {
-    padding:0px;
-    margin:0px;
-}
 .message_control_buttons {
     text-align: left;
-    font-size:10px;		/* replaces <small> tags to allow greater control of fonts w/ using an id. */
 }
 .message_control_delete {
     text-align: right;
-    font-size:10px;		/* replaces <small> tags to allow greater control of fonts w/ using an id. */
 }
 .message_control_move {
     text-align: right;
-    font-size:10px;		/* replaces <small> tags to allow greater control of fonts w/ using an id. */
 }
 
 .spacer	{
-    height:5px;
     background: #ffffff;
+}
+
+/* folder_manip.tpl defs */
+#folderManip   {
+    text-align:center;
+}
+
+#folderManip   td  {
+    text-align: center;
+    padding: 2px;
+}
+
+#folderManip   table   {
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border: 0;
+    width: 70%;
+}
+
+#folderManip   table.wrapper   {
+    border: 1px solid #dcdcdc;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+}
+
+#folderManip   td.folderAction {
+    background: #dcdcdc;
+}
+
+#folderManip    div {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    text-align: left;
+}
+
+/* login defs */
+#sqm_login  {
+    margin-top: 25px;
+    text-align: center;
+}
+
+#sqm_login  table   {
+    border: 0;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+}
+
+#sqm_login  td   {
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: auto;
+    text-align: center;
+}
+
+#sqm_login  td.orgName {
+    font-weight: bold;
+    background: none;
+    font-size: 90%;
+}
+
+#sqm_login  td.orgLogo {
+    width: 155px;
+    text-align: center;
+    vertical-align: center;
+}
+
+#sqm_login  td.orgLogo  img {
+    width: 150px;
+    padding:0;
+}
+
+#sqm_login  td.attr   {
+    font-size: 70%;
+    padding-top:5px;
+    padding-bottom: 10px;
+}
+
+#sqm_login  td.fieldName {
+    font-size: 10pt;
+    font-weight: bold;
+    text-align: <?php echo SQM_ALIGN_RIGHT; ?>;
+    width: 50%;
+}
+
+#sqm_login  td.fieldInput {
+    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+#sqm_login  td.loginSubmit {
+    padding-top: 15px;
+}
+
+/* addressbook_list.tpl defs */
+#addressList    {
+    text-align: center;
+}
+
+#addressList    input   {
+    font-size: 8pt;
+}
+
+#addressList    select  {
+    font-size: 75%;
+}
+
+#addressList    table   {
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+    border: 1px solid #ababab;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+#addressList    td  {
+    text-align: left;
+    padding: 2px;
+}
+
+#addressList    td.header1  {
+    text-align: center;
+    background: #ababab;
+}
+#addressList    td.abookSwitch  {
+    background: #dcdcdc;
+    text-align: right;
+}
+
+#addressList    td.abookButtons  {
+    background: #dcdcdc;
+}
+
+#addressList    td.abookField   {
+    border-left: 1px solid #ababab;
+    border-right: 1px solid #ababab;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#addressList    td.colHeader {
+    text-align: center;
+    font-weight: bold;
+    font-size: 98%;
+    background: #ababab;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+#addressList    td.abookEmpty   {
+    text-align:center;
+    font-weight: bold;
+}
+
+#addressList    td.abookCompose {
+    font-size: 8pt;
+    white-space: nowrap;
+}
+
+#addrBookSearch {
+    text-align: center;
+}
+
+#addrBookSearch table   {
+    padding: 0;
+    border: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#addrBookSearch   table.wrapper   {
+    border: 1px solid #ababab;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+}
+
+#addrBookSearch td  {
+    padding: 2px;
+}
+
+#addrBookSearch label   {
+    font-weight: bold;
+}
+
+#addrBookSearch input   {
+    font-size: 75%;
+}
+
+#addrBookSearch select  {
+    font-size: 75%;
+}
+
+#addrBookSearch td.buttons  {
+    text-align: center;
+}
+
+#addrAddEdit    {
+    text-align: center;
+}
+
+#addrAddEdit    table   {
+    border: 1px solid #ababab;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    width: 95%
+}
+
+#addrAddEdit    td.header   {
+    background: #ababab;
+    text-align: center;
+    font-weight: bold;
+}
+
+#addrAddEdit    td.fieldName   {
+    text-align: right;
+    width: 30%;
+}
+
+#addrAddEdit    td.addButton   {
+    text-align: center;
+}
+
+#addrAddEdit    td  {
+    text-align: left;
+    padding: 2px;
+}
+
+#addrAddEdit    input   {
+    font-size: 75%;
+}
+
+#addrAddEdit    select  {
+    font-size: 75%;
+}
+
+#optionGroups   {
+    text-align: center;
+}
+
+/* help defs */
+#help   {
+    text-align: center;
+}
+
+#help   td.help  {
+    text-align: left;
+}
+
+#help   li  {
+    padding-left: 0px;
+}
+
+#help   ul  {
+    padding-left: 20px;
+    padding-right: 75px;
+}
+
+#help   td.nav  {
+    text-align: center;
+    color: #dcdcdc;
+    padding-top: 15px;
+    padding-bottom: 5px;
+}
+
+#help   h1  {
+    font-size: 14pt;
+    font-weight: bold;
+    margin-top: 2px;
+    margin-bottom: 0px;
+}
+
+#help   h2  {
+    font-size: 10pt;
+    font-weight: normal;
+    margin-bottom: 2px;
+    margin-top: 0;
+}
+
+#help   h3  {
+    font-weight: bold;
+    font-size: 10pt;
+    margin: 0;
+    padding: 0;
+}
+
+#help   td.help p   {
+    margin-top: 2px;
+    margin-bottom: 10px;
+}
+
+#help   td.help  li   {
+    margin-left: 10px;
+}
+
+#optionsIdentity    table   {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#optionsIdentity    table.table2 tr  {
+    background: #dcdcdc;
+}
+
+#optionsIdentity    td.fieldName    {
+    text-align: right;
+    width: 30%;
+}
+
+#optionsIdentity    td.fieldValue   {
+    text-align: left;
+}
+
+#optionsIdentity    td.actionButtons  {
+    text-align: center;
+}
+
+#optionsIdentity hr  {
+    width: 95%;
+    border: 1px solid #ababab;
+}
+
+#vCard  {
+    text-align: center;
+}
+
+#vCard  table   {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#vCard  td.fieldName   {
+    text-align: right;
+    font-weight: bold;
+    vertical-align: top;
+}
+
+#vCard  td.fieldValue   {
+    text-align: left;
+}
+
+div.search table   {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+div.search td.header4  {
+    border-bottom: 1px solid #ababab;
+    vertical-align: bottom;
+}
+
+div.search td.queryAction {
+    text-align: center;
+    font-size: small;
+    width: 1%;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-left: 1px solid #ababab;
+    border-top: 1px solid #ababab;
+    border-bottom: 1px solid #ababab;
+}
+
+div.search td.queryDesc  {
+    border-top: 1px solid #ababab;
+    border-bottom: 1px solid #ababab;
+}
+
+div.search span {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+div.search span.operator {
+    font-weight: normal;
+    text-decoration: underline;
+    font-style: italic;
+}
+
+div.search span.mailbox {
+    font-weight: bold
+}
+
+div.search span.conditions {
+    font-weight: normal;
+    text-decoration: underline;
+    font-style: italic;
+}
+
+div.search span.value {
+    font-weight: bold;
+}
+
+div.search span.error  {
+    color: #cc0000;
+    font-weight: bold;
+    font-size: 125%;
+}
+
+div.search td.searchForm  {
+    border-right: 1px solid #dcdcdc;
+    border-left: 1px solid #dcdcdc;
+    font-weight: bold;
+    text-align: center;
+}
+
+div.search td.queryError {
+    color: #cc0000;
+    font-weight: bold;
+    text-align: center;
+    padding: 4px;
+}
+
+div.search td.header1 input {
+    font-size: 80%;
+    margin: 2px;
+}
+
+div.search h1 {
+    font-weight: bold;
+    font-size: 150%;
+    margin-top: 6px;
+    margin-bottom: 2px;
+}
+
+div.search h2 {
+    color: #cc0000;
+    font-weight: bold;
+    text-align: center;
+}
+
+div.compose    {
+    text-align: center;
+}
+
+div.compose table {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.compose td.fieldName {
+    text-align: right;
+    font-weight: bold;
+    width: 30%;
+    vertical-align: top;
+}
+
+div.compose td.fieldValue {
+    text-align: left;
+}
+
+div.compose td.buttons {
+    text-align: center;
+}
+
+div.compose input {
+    font-size: 80%;
+}
+
+div.compose textarea {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+div.compose td.bottomSend {
+    text-align: center;
+}
+
+div.compose tr.header {
+    background: #ababab;
+}
+
+div.compose tr.header td {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+div.compose tr.attachment td {
+    background: #dcdcdc;
+    border-top: 1px solid #ababab;
+    border-bottom: 1px solid #ababab;
+}
+
+div.compose table.close {
+    width: 100%;
+    background: #dcdcdc;
+    border:1px solid #ababab;
+    text-align: center;
+    margin: 0;
+}
+
+div.readMenuBar table.table2 {
+    width: 100%;
 }
