@@ -87,6 +87,9 @@ function load_optpage_data_display() {
 
     /* Load the theme option. */
     $theme_values = array();
+    // List alternate themes provided by templates first
+#    var_dump(Template::get_template_file_directory());
+    #list_files
     foreach ($theme as $theme_key => $theme_attributes) {
         $theme_values[$theme_attributes['NAME']] = $theme_attributes['PATH'];
     }
@@ -113,19 +116,26 @@ function load_optpage_data_display() {
         closedir($handle);
     }
 
-    /*
-    if ( count( $css_values ) > 1 ) {
+    /* Icon theme selection */
+    if ($use_icons) {
+        global $icon_themes, $icon_theme;
 
-        $optvals[SMOPT_GRP_GENERAL][] = array(
-            'name'    => 'custom_css',
-            'caption' => _("Custom Stylesheet"),
-            'type'    => SMOPT_TYPE_STRLIST,
-            'refresh' => SMOPT_REFRESH_ALL,
-            'posvals' => $css_values
-        );
-
+        $temp = array();
+        $value = 0;
+        for ($count = 0; $count < sizeof($icon_themes); $count++) {
+            $temp[$icon_themes[$count]['PATH']] = $icon_themes[$count]['NAME'];
+        }
+        if (sizeof($icon_themes) > 0) {
+            $optvals[SMOPT_GRP_GENERAL][] = array(
+                'name'          => 'icon_theme',
+                'caption'       => _("Icon Theme"),
+                'type'          => SMOPT_TYPE_STRLIST,
+                'refresh'       => SMOPT_REFRESH_NONE,
+                'posvals'       => $temp,
+                'save'          => 'icon_theme_save'
+            );
+        }
     }
-    */
 
     $fontset_values = array();
     $fontset_list = array();
@@ -220,28 +230,6 @@ function load_optpage_data_display() {
         'posvals' => array(SMPREF_TIME_12HR => _("12-hour clock"),
                            SMPREF_TIME_24HR => _("24-hour clock"))
     );
-
-    /* Icon theme selection */
-    if ($use_icons) {
-        global $icon_themes, $icon_theme;
-
-        $temp = array();
-        $value = 0;
-        for ($count = 0; $count < sizeof($icon_themes); $count++) {
-            $temp[$icon_themes[$count]['PATH']] = $icon_themes[$count]['NAME'];
-        }
-        if (sizeof($icon_themes) > 0) {
-            $optvals[SMOPT_GRP_GENERAL][] = array(
-                'name'          => 'icon_theme',
-                'caption'       => _("Icon Theme"),
-                'type'          => SMOPT_TYPE_STRLIST,
-                'refresh'       => SMOPT_REFRESH_NONE,
-                'posvals'       => $temp,
-                'save'          => 'icon_theme_save'
-            );
-        }
-    }
-
 
     /*** Load the General Options into the array ***/
     $optgrps[SMOPT_GRP_MAILBOX] = _("Mailbox Display Options");
