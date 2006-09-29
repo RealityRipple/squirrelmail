@@ -141,8 +141,8 @@ function do_hook_function($name,$parm=NULL) {
  */
 function concat_hook_function($name,$parm=NULL) {
     global $squirrelmail_plugin_hooks, $currentHookName;
-//    $ret = '';
-    $ret = array();
+    $ret = '';
+//    $ret = array();
     $currentHookName = $name;
 
     if (isset($squirrelmail_plugin_hooks[$name])
@@ -160,10 +160,6 @@ function concat_hook_function($name,$parm=NULL) {
 
     /* Variable-length argument lists have a slight problem when */
     /* passing values by reference. Pity. This is a workaround.  */
-    // FIXME: empty return array breaks legacy use of this hook, so 
-    // as a workaround, return empty string (let's fix the 
-    // hook calls so we can pull this out)
-    if (empty($ret)) return '';
     return $ret;
 }
 
