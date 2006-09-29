@@ -449,6 +449,7 @@ switch ($sInitLocation) {
         /**
          * initializing user settings
          */
+        require(SM_PATH . 'class/template/Template.class.php');
         require(SM_PATH . 'include/load_prefs.php');
 
 // i do not understand the frames language cookie story
@@ -533,7 +534,7 @@ switch ($sInitLocation) {
 /**
  * Initialize the template object
  */
-require(SM_PATH . 'class/template/Template.class.php');
+require_once(SM_PATH . 'class/template/Template.class.php');
 
 /*
  * $sTemplateID is not initialized when a user is not logged in, so we 
