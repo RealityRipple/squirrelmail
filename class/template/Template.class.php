@@ -99,6 +99,15 @@ class Template
     var $required_js_files = array();
 
     /**
+     * Alternate stylesheets provided by the template.  This is defined in the
+     * template config file so that we can provide pretty names in the display
+     * preferences
+     * 
+     * @var array
+     **/
+    var $alternate_stylesehets = array();
+    
+    /**
       * Constructor
       *
       * Please do not call directly.  Use Template::construct_template().
@@ -190,6 +199,9 @@ class Template
             require($template_config_file);
             $this->required_js_files = is_array($required_js_files) 
                                      ? $required_js_files : array();
+            $this->alternate_stylesheets = is_array($alternate_stylesheets) ?
+                                           $alternate_stylesheets :
+                                           array();
 
         }
 
@@ -470,7 +482,6 @@ class Template
         $files = list_files($directory, '.css', !$full_path);
 
         // need to leave out "rtl.css" 
-        //
         $return_array = array();
         foreach ($files as $file) {
 
@@ -486,6 +497,22 @@ class Template
 
     }
 
+    /**
+     * Return all alternate stylesheets provided by template.  These
+     * sheets are defined in the template config file so that we cna display
+     * pretty names in the Display Preferences.  The CSS files are located in
+     * $this->template_dir/css/alternatives/
+     * 
+     * @return array alternate style sheets
+     **/
+    function get_alternative_stylesheets () {
+        $a = array();
+        foreach ($this->alternate_stylesheets as $css) {
+            $a[] = strtolower(basename($css));
+        }
+        return $a;
+    }
+    
     /**
       * Generate links to all this template set's standard stylesheets
       *

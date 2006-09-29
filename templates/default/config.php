@@ -26,4 +26,12 @@ $required_js_files = array  (
                                 'default.js',
                             );
 
+/**
+ * Alternate stylesheets provided by this template.  Format detailed below.
+ **/
+$alternate_stylesheets = array (
+                                    # CSS File         Stlye Name
+#                                   'example.css'   => 'My Example Style',
+                               );
+
 
