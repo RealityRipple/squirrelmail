@@ -1,0 +1,157 @@
+#optionGroups   table   {
+    border: 1px solid #dcdcdc;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    width: 95%;
+}
+
+#optionGroups   td  {
+    width: 50%;
+    padding: 2px;
+    vertical-align: top;
+}
+
+#optionGroups   td.title    {
+    background: #dcdcdc;
+    text-align: center;
+    font-weight: bold;
+}
+
+#optionGroups   td.optionElement    {
+    height: 100%;
+    padding: 10px; 
+}
+
+#optionGroups   td.optionElement    table   {
+    border:1px solid #ababab;
+    height: 100%;
+}
+
+
+#optionGroups   td.optionName   {
+    background: #ababab;
+    text-align: left;
+    height: 1%;
+}
+
+#optionGroups   td.optionDesc   {
+    text-align: left;
+    background: #dcdcdc;
+}
+
+#optionDisplay  {
+    text-align:center;
+}
+
+#optionDisplay  table   {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 95%;
+    border: 1px solid #dcdcdc
+}
+
+#optionDisplay  td  {
+    width: 50%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    white-space: nowrap;
+}
+
+#optionDisplay  td.optionName   {
+    text-align: right;
+}
+
+#optionDisplay  td.optionValue  {
+    text-align:left;
+}
+
+#optionOrder  {
+    text-align:center;
+}
+
+#optionOrder    table   {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 95%;
+    border: 1px solid #dcdcdc
+}
+
+#optionOrder    table.moveFields    {
+    width: auto;
+}
+
+#optionOrder    table.moveFields    td  {
+    border-left: 1px solid #dcdcdc;
+    border-right: 1px solid #dcdcdc;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+#optionOrder    td.moveLink  {
+    text-align: right;
+    font-size: 75%;
+    vertical-align: bottom;
+}
+
+#optionOrder    td.fieldName    {
+    text-align: left;
+}
+
+#optionHightlightList   {
+    text-align: center;
+}
+
+#optionHighlightList    table   table   {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 75%;
+}
+
+#optionHighlightList    td.ruleButtons  {
+    text-align: center;
+    width: 1%;
+}
+
+#optionHighlightList    td.ruleName {
+    text-align: left;
+    width: 30%;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+#optionHighlightAdd {
+    text-align: center;
+}
+
+#optionHighlightAdd    table   table   {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 75%;
+}
+
+#optionHighlightAdd td.ruleField    {
+    text-align: right;
+    font-weight: bold;
+    width: 40%;
+}
+
+#optionHighlightAdd td.fieldValue   {
+    text-align: left;
+}
+
+#optionHighlightAdd td.colorTable  {
+    text-align: center;
+}
+
+#optionHighlightAdd table.colorTable    {
+    margin-left: auto;
+    margin-right: auto;
+}
+
