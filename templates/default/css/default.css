@@ -37,6 +37,11 @@ a:link, a:visited, a:hover, a:active {
     color:  #002266;
 }
 
+.thead_caption {
+    font-weight: bold;
+    text-align: center;
+}
+
 .error_table {
     color: #ff0000;
     border: 2px solid #dcdcdc;
