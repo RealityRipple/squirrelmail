@@ -62,6 +62,29 @@ $SQSPELL_APP = array('English' => 'ispell -a',
                      'Spanish' => 'ispell -d spanish -a');
 
 /**
+ * Sample configuration for PHP pspell extension. Sets dictionary options.
+ * Each language definition can contain up to 3 comma delimited options.
+ * First option sets language, second sets spelling, third one sets jargon.
+ * See http://www.php.net/pspell-new
+ * 
+ * Pspell extension is supported since 0.6 (sm 1.5.2)
+ */
+//$SQSPELL_APP = array('English' => 'en',
+//                     'Spanish' => 'es');
+
+/**
+ * 0 - default, command line ispell or aspell utilities configured with SQSPELL_APP
+ * 1 - use php pspell extension. WARNING requires different SQSPELL_APP options.
+ */
+$SQSPELL_SPELLCHECKER = 0;
+
+/**
+ * Can be used to turn of detection of proc_open support in command line spellcheck
+ * module. Option is not used if $SQSPELL_SPELLCHECKER is set to 1.
+ */
+$SQSPELL_FORCE_POPEN = false;
+
+/**
  * Default dictionary
  * @global string $SQSPELL_APP_DEFAULT
  */
