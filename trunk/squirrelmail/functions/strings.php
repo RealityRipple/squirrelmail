@@ -1136,15 +1136,32 @@ function sq_str_pad($string, $width, $pad, $padtype, $charset='') {
  */
 function sq_substr($string,$start,$length,$charset='auto') {
     // use automatic charset detection, if function call asks for it
+    static $charset_auto, $bUse_mb;
+
     if ($charset=='auto') {
-        global $default_charset, $squirrelmail_language;
-        set_my_charset();
-        $charset=$default_charset;
-        if ($squirrelmail_language=='ja_JP') $charset='euc-jp';
+        if (!isset($charset_auto)) {
+            global $default_charset, $squirrelmail_language;
+            set_my_charset();
+            $charset=$default_charset;
+            if ($squirrelmail_language=='ja_JP') $charset='euc-jp';
+            $charset_auto = $charset;
+        } else {
+            $charset = $charset_auto;
+        }
     }
     $charset = strtolower($charset);
-    if (function_exists('mb_internal_encoding') &&
-        in_array($charset,sq_mb_list_encodings())) {
+
+    // in_array call is expensive => do it once and use a static var for
+    // storing the results
+    if (!isset($bUse_mb)) {
+        if (in_array($charset,sq_mb_list_encodings())) {
+            $bUse_mb = true;
+        } else {
+            $bUse_mb = false;
+        }
+    }
+
+    if ($bUse_mb) {
         return mb_substr($string,$start,$length,$charset);
     }
     // TODO: add mbstring independent code
@@ -1167,15 +1184,31 @@ function sq_substr($string,$start,$length,$charset='auto') {
  */
 function sq_strpos($haystack,$needle,$offset,$charset='auto') {
     // use automatic charset detection, if function call asks for it
+    static $charset_auto, $bUse_mb;
+
     if ($charset=='auto') {
-        global $default_charset, $squirrelmail_language;
-        set_my_charset();
-        $charset=$default_charset;
-        if ($squirrelmail_language=='ja_JP') $charset='euc-jp';
+        if (!isset($charset_auto)) {
+            global $default_charset, $squirrelmail_language;
+            set_my_charset();
+            $charset=$default_charset;
+            if ($squirrelmail_language=='ja_JP') $charset='euc-jp';
+            $charset_auto = $charset;
+        } else {
+            $charset = $charset_auto;
+        }
     }
     $charset = strtolower($charset);
-    if (function_exists('mb_internal_encoding') &&
-        in_array($charset,sq_mb_list_encodings())) {
+
+    // in_array call is expensive => do it once and use a static var for
+    // storing the results
+    if (!isset($bUse_mb)) {
+        if (in_array($charset,sq_mb_list_encodings())) {
+            $bUse_mb = true;
+        } else {
+            $bUse_mb = false;
+        }
+    }
+    if ($bUse_mb) {
         return mb_strpos($haystack,$needle,$offset,$charset);
     }
     // TODO: add mbstring independent code
@@ -1196,15 +1229,33 @@ function sq_strpos($haystack,$needle,$offset,$charset='auto') {
  */
 function sq_strtoupper($string,$charset='auto') {
     // use automatic charset detection, if function call asks for it
+    static $charset_auto, $bUse_mb;
+
     if ($charset=='auto') {
-        global $default_charset,$squirrelmail_language;
-        set_my_charset();
-        $charset=$default_charset;
-        if ($squirrelmail_language=='ja_JP') $charset='euc-jp';
+        if (!isset($charset_auto)) {
+            global $default_charset, $squirrelmail_language;
+            set_my_charset();
+            $charset=$default_charset;
+            if ($squirrelmail_language=='ja_JP') $charset='euc-jp';
+            $charset_auto = $charset;
+        } else {
+            $charset = $charset_auto;
+        }
     }
     $charset = strtolower($charset);
-    if (function_exists('mb_strtoupper') &&
-        in_array($charset,sq_mb_list_encodings())) {
+
+    // in_array call is expensive => do it once and use a static var for
+    // storing the results
+    if (!isset($bUse_mb)) {
+        if (function_exists('mb_strtoupper') &&
+            in_array($charset,sq_mb_list_encodings())) {
+            $bUse_mb = true;
+        } else {
+            $bUse_mb = false;
+        }
+    }
+
+    if ($bUse_mb) {
         return mb_strtoupper($string,$charset);
     }
     // TODO: add mbstring independent code
