@@ -218,8 +218,10 @@ function sqspell_makeWindow($onload, $title, $scriptsrc, $body){
           html_tag( 'tr', "\n" .
               html_tag( 'td', 'SquirrelSpell ' . squirrelspell_version(), 'center', $color[9] )
           ) ,
-      '', '', 'width="100%" border="0" cellpadding="2"' )
-    . "</body>\n</html>\n";
+      '', '', 'width="100%" border="0" cellpadding="2"' );
+
+  global $oTemplate;
+  $oTemplate->display('footer.tpl');
 }
 
 /**

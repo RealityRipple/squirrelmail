@@ -36,7 +36,8 @@ function SpellLink($jscode, $title, $link) {
 /**
  * Declaring globals for users with E_ALL set.
  */
-global $SQSPELL_APP_DEFAULT, $SQSPELL_APP, $attachment_dir, $color;
+global $SQSPELL_APP_DEFAULT, $SQSPELL_APP, $SQSPELL_SPELLCHECKER, 
+  $SQSPELL_FORCE_POPEN, $attachment_dir, $color;
 
 if (! sqgetGlobalVar('sqspell_text',$sqspell_text,SQ_POST)) {
   $sqspell_text = '';
@@ -46,12 +47,10 @@ if (! sqgetGlobalVar('sqspell_use_app',$sqspell_use_app,SQ_POST)) {
 }
 
 /**
- * Now we explode the lines for three reasons:
+ * Now we explode the lines for two reasons:
  * 1) So we can ignore lines starting with ">" (reply's)
  * 2) So we can stop processing when we get to "--" on a single line,
  *    which means that the signature is starting
- * 3) So we can add an extra space at the beginning of each line. This way
- *    ispell/aspell don't treat these as command characters.
  */
 $sqspell_raw_lines = explode("\n", $sqspell_text);
 for ($i=0; $i<sizeof($sqspell_raw_lines); $i++){
@@ -68,9 +67,9 @@ for ($i=0; $i<sizeof($sqspell_raw_lines); $i++){
    * stuff.
    */
   if(substr($sqspell_raw_lines[$i], 0, 1) != '>'){
-    $sqspell_new_lines[$i] = ' ' . $sqspell_raw_lines[$i];
+    $sqspell_new_lines[$i] = $sqspell_raw_lines[$i];
   } else {
-    $sqspell_new_lines[$i] = ' ';
+    $sqspell_new_lines[$i] = '';
   }
 }
 /**
@@ -79,95 +78,35 @@ for ($i=0; $i<sizeof($sqspell_raw_lines); $i++){
  */
 $sqspell_new_text=implode("\n", $sqspell_new_lines);
 
-/**
- * Define the command used to spellcheck the document.
- */
-$sqspell_command=$SQSPELL_APP[$sqspell_use_app];
-/**
- * If you have php >= 4.3.0, we can use proc_open and safe mode
- * and not mess w/ temp files.  Otherwise we will do it the old
- * way, (minus the uneeded call to cat that messes up Wintel
- * boxen.)
- * Thanks Ray Ferguson for providing this patch.
- */
-if( check_php_version ( 4, 3 ) ) {
-    $descriptorspec = array(
-       0 => array('pipe', 'r'),  // stdin is a pipe that the child will read from
-       1 => array('pipe', 'w'),  // stdout is a pipe that the child will write to
-       2 => array('pipe', 'w'), // stderr is a pipe that the child will write to
-    );
-    $spell_proc = @proc_open($sqspell_command, $descriptorspec, $pipes);
-    if ( ! is_resource ( $spell_proc ) ) {
-        // TODO: replace error_box() with sqspell_makeWindow()
-        error_box ( sprintf(_("Could not run the spellchecker command (%s)."),
-            htmlspecialchars($sqspell_command) ) );
-        // display footer (closes html tags) and stop script execution
-        $oTemplate->display('footer.tpl');
-        exit();
-    }
-    if ( ! @fwrite($pipes[0], $sqspell_new_text) ) {
-        // TODO: replace error_box() with sqspell_makeWindow()
-        error_box ( _("Error while writing to pipe.") );
-        // close all three $pipes here.
-        for($i=0; $i<=2; $i++) {
-            // disable all fclose error messages
-            @fclose($pipes[$i]);
-        }
-        // close html tags and abort script.
-        $oTemplate->display('footer.tpl');
-        exit();
-    }
-    fclose($pipes[0]);
-    $sqspell_output = array();
-    for($i=1; $i<=2; $i++) {
-        while(!feof($pipes[$i])) {
-           array_push($sqspell_output, rtrim(fgetss($pipes[$i],999),"\r\n"));
-        }
-        fclose($pipes[$i]);
-    }
-    $sqspell_exitcode=proc_close($spell_proc);
+include_once(SM_PATH . 'plugins/squirrelspell/class/common.php');
+
+$aParams = array();
+$aParams['words'] = sqspell_getLang($sqspell_use_app);
+
+if ($SQSPELL_SPELLCHECKER===1) {
+    include_once(SM_PATH . 'plugins/squirrelspell/class/php_pspell.php');
+    $aParams['dictionary'] = $SQSPELL_APP[$sqspell_use_app];
+    $aParams['charset'] = $default_charset;
+    $check = new php_pspell($aParams);
 } else {
-    // add slash to attachment directory, if it does not end with slash. 
-    if (substr($attachment_dir, -1) != '/')
-        $attachment_dir = $attachment_dir . '/';
-
-    // find unused file in attachment directory
-    do {
-        $floc = $attachment_dir . md5($sqspell_new_text . microtime());
-    } while (file_exists($floc));
-
-    $fp = @fopen($floc, 'w');
-    if ( ! is_resource ($fp) ) {
-        // TODO: replace error_box() with sqspell_makeWindow()
-        error_box ( sprintf(_("Could not open temporary file '%s'."),
-            htmlspecialchars($floc) ) );
-        // failed to open temp file. abort script.
-        $oTemplate->display('footer.tpl');
-        exit();
+    include_once(SM_PATH . 'plugins/squirrelspell/class/cmd_spell.php');
+    $aParams['spell_command'] = $SQSPELL_APP[$sqspell_use_app];
+    if ($SQSPELL_FORCE_POPEN) {
+        $aParams['use_proc_open'] = false;
+    } else {
+        $aParams['use_proc_open'] = check_php_version(4,3);
     }
-    if ( ! @fwrite($fp, $sqspell_new_text) ) {
-        // TODO: replace error_box() with sqspell_makeWindow()
-        error_box ( sprintf(_("Error while writing to temporary file '%s'."),
-            htmlspecialchars($floc) ) );
-        // close file descriptor
-        fclose($fp);
-        // failed writing to temp file. abort script.
-        $oTemplate->display('footer.tpl');
-        exit();
-    }
-    fclose($fp);
-    exec("$sqspell_command < $floc 2>&1", $sqspell_output, $sqspell_exitcode);
-    unlink($floc);
+    $aParams['temp_dir'] = $attachment_dir;
+    $aParams['debug'] = false;
+    $check = new cmd_spell($aParams);
 }
 
 /**
- * Check if the execution was successful. Bail out if it wasn't.
+ * Check for class constructor function errors
  */
-if ($sqspell_exitcode){
+if (!empty($check->error)) {
   $msg= '<div style="text-align: center;">'
-     . sprintf(_("I tried to execute '%s', but it returned:"),
-               $sqspell_command) . "<pre>"
-     . htmlspecialchars(join("\n", $sqspell_output)) . '</pre>'
+      . nl2br(htmlspecialchars($check->error))
      . '<form onsubmit="return false">'
      . '<input type="submit" value="  ' . _("Close")
      . '  " onclick="self.close()" /></form></div>';
@@ -175,87 +114,56 @@ if ($sqspell_exitcode){
   exit;
 }
 
-/**
- * Load the user dictionary.
- */
-$words=sqspell_getLang($sqspell_use_app);
-/**
- * Define some variables to be used during the processing.
- */
-$current_line=0;
 $missed_words=Array();
 $misses = Array();
 $locations = Array();
 $errors=0;
+$results = $check->check_text($sqspell_new_text);
+
 /**
- * Now we process the output of sqspell_command (ispell or aspell in
- * ispell compatibility mode, whichever). I'm going to be scarce on
- * comments here, since you can just look at the ispell/aspell output
- * and figure out what's going on. ;) The best way to describe this is
- * "Dark Magic".
+ * Check for execution errors
  */
-for ($i=0; $i<sizeof($sqspell_output); $i++){
-  switch (substr($sqspell_output[$i], 0, 1)){
-  /**
-   * Line is empty.
-   * Ispell adds empty lines when an end of line is reached
-   */
-  case '':
-    $current_line++;
-  break;
-  /**
-   * Line begins with "&".
-   * This means there's a misspelled word and a few suggestions.
-   */
-  case '&':
-    list($left, $right) = explode(": ", $sqspell_output[$i]);
-    $tmparray = explode(" ", $left);
-    $sqspell_word=$tmparray[1];
-    /**
-     * Check if the word is in user dictionary.
-     */
-    if (! in_array($sqspell_word,$words)){
-      $sqspell_symb=intval($tmparray[3])-1;
-      if (!isset($misses[$sqspell_word])) {
-        $misses[$sqspell_word] = $right;
-        $missed_words[$errors] = $sqspell_word;
-        $errors++;
-      }
-      if (isset($locations[$sqspell_word])){
-        $locations[$sqspell_word] .= ', ';
-      } else {
-        $locations[$sqspell_word] = '';
-      }
-      $locations[$sqspell_word] .= "$current_line:$sqspell_symb";
+if (!empty($check->error)) {
+  $msg= '<div style="text-align: center;">'
+      . nl2br(htmlspecialchars($check->error))
+     . '<form onsubmit="return false">'
+     . '<input type="submit" value="  ' . _("Close")
+     . '  " onclick="self.close()" /></form></div>';
+  sqspell_makeWindow(null, _("SquirrelSpell is misconfigured."), null, $msg);
+  exit;
+}
+
+if (is_array($results)) {
+    // convert variables to old style squirrelspell results
+    if (!empty($results)) {
+        foreach(array_keys($results) as $word) {
+            if (isset($results[$word]['locations'])) {
+                $missed_words[] = $word;
+                $locations[$word] = implode(', ',$results[$word]['locations']);
+                if (isset($results[$word]['suggestions'])) {
+                    $misses[$word] = implode(', ',$results[$word]['suggestions']);
+                } else {
+                    $misses[$word] = '_NONE';
+                }
+            } else {
+                // $word without 'locations'. ignore it
+            }
+        }
+        $errors = count($missed_words);
     }
-  break;
-  /**
-   * Line begins with "#".
-   * This means a misspelled word and no suggestions.
-   */
-  case '#':
-    $tmparray = explode(" ", $sqspell_output[$i]);
-    $sqspell_word=$tmparray[1];
-    /**
-     *
-     * Check if the word is in user dictionary.
-     */
-    if (!in_array($sqspell_word,$words)){
-      $sqspell_symb=intval($tmparray[2])-1;
-      if (!isset($misses[$sqspell_word])) {
-          $misses[$sqspell_word] = '_NONE';
-          $missed_words[$errors] = $sqspell_word;
-          $errors++;
-      }
-      if (isset($locations[$sqspell_word])) {
-          $locations[$sqspell_word] .= ', ';
-      } else {
-          $locations[$sqspell_word] = '';
-      }
-      $locations[$sqspell_word] .= "$current_line:$sqspell_symb";
+} else {
+    if (!empty($check->error)) {
+        $error_msg = nl2br(htmlspecialchars($check->error));
+    } else {
+        $error_msg = _("Unknown error");
     }
-  break;
-  }
+    $msg= '<div style="text-align: center;">'
+        . $error_msg
+     . '<form onsubmit="return false">'
+     . '<input type="submit" value="  ' . _("Close")
+     . '  " onclick="self.close()" /></form></div>';
+    sqspell_makeWindow(null, _("SquirrelSpell error."), null, $msg);
+    exit;
 }
 
 if ($errors){
