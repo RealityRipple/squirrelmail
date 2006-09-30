@@ -71,6 +71,9 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
 // FIXME: the following user pref ("sUserStyle"; rename as necessary) will have to be populated by the display prefs screen from a widget similar to the color themes widget (which it replaces) where its values should be full relative paths (from SM_PATH) to the selected css "themes" (either in template css/alternates dir or SM_PATH/css/alternates dir)
 // FIXME: uhhh, getPref() is not available yet here.  (at least on login page) Ugh.  Nor has load_prefs been included yet -- how do we fix this?
 //    $aUserStyles[] = getPref($data_dir, $username, 'sUserStyle', '');
+    if (!empty($chosen_theme) && substr($chosen_theme, 0, 2) == 'u_') {
+        $aUserStyles[] = substr($chosen_theme, 2) .'default.css';
+    }
 
     // 3. src/style.php
     $aUserStyles[] = $base_uri .'src/style.php?'
