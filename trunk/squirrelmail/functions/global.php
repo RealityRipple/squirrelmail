@@ -469,10 +469,9 @@ function list_files($directory_path, $extension='', $return_filenames_only=TRUE)
         return $files;
     }
 
-
     // parse through the files
     //
-    $extension = '.' . trim($extension, '.');
+    $extension = empty($extension) ? '' : '.' . trim($extension, '.');
     while (($file = readdir($DIR)) !== false) {
 
         if ($file == '.' || $file == '..') continue;
@@ -486,7 +485,6 @@ function list_files($directory_path, $extension='', $return_filenames_only=TRUE)
 
     }
     closedir($DIR);
-
 
     return $files;
 
