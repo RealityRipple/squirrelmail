@@ -53,13 +53,16 @@ if (!$found_templateset) {
                      'default' : $aTemplateSet[$templateset_default]['ID'] );
 }
 
+$chosen_theme = getPref($data_dir, $username, 'chosen_theme');
+
+/*
 $theme = ( !isset($theme) ? array() : $theme );
 $color = ( !isset($color) ? array() : $color );
 
 $chosen_theme = getPref($data_dir, $username, 'chosen_theme');
 $found_theme = false;
 
-/* need to adjust $chosen_theme path with SM_PATH */
+// need to adjust $chosen_theme path with SM_PATH
 $chosen_theme = preg_replace("/(\.\.\/){1,}/", SM_PATH, $chosen_theme);
 
 for ($i = 0; $i < count($theme); ++$i){
@@ -80,6 +83,7 @@ if (isset($chosen_theme) && $found_theme && (file_exists($chosen_theme))) {
     }
 }
 
+*/
 // user's icon theme, if using icons
 $icon_theme = getPref($data_dir, $username, 'icon_theme', 'images/themes/xp/' );
 

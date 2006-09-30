@@ -16,6 +16,11 @@ define('SMOPT_GRP_GENERAL', 0);
 define('SMOPT_GRP_MAILBOX', 1);
 define('SMOPT_GRP_MESSAGE', 2);
 
+/**
+ * Icon themes and user CSS themes should probably both be moved to conf.pl
+ * 
+ * TODO: move to conf.pl
+ **/
 // load icon themes if in use
 global $use_icons;
 if ($use_icons) {
@@ -28,6 +33,19 @@ if ($use_icons) {
                 if (is_dir($dirName."/".$dir) && file_exists("$dirName/$dir/theme.php"))
                     include("$dirName/$dir/theme.php");
             }
+        }
+    }
+}
+
+// load user-provided CSS themes
+global $css_themes;
+$dirName = SM_PATH . 'css';
+if (is_readable($dirName) && is_dir($dirName)) {
+    $d = dir($dirName);
+    while($dir = $d->read()) {
+        if ($dir != "." && $dir != "..") {
+            if (is_dir($dirName."/".$dir) && file_exists("$dirName/$dir/config.php"))
+                include("$dirName/$dir/config.php");
         }
     }
 }
@@ -51,7 +69,8 @@ if (! isset($use_iframe)) $use_iframe=false;
 function load_optpage_data_display() {
     global $theme, $fontsets, $language, $languages,$aTemplateSet,
     $default_use_mdn, $squirrelmail_language, $allow_thread_sort,
-    $show_alternative_names, $use_icons, $use_iframe, $sTemplateID;
+    $show_alternative_names, $use_icons, $use_iframe, $sTemplateID, 
+    $oTemplate, $css_themes;
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -86,35 +105,46 @@ function load_optpage_data_display() {
     }
 
     /* Load the theme option. */
+
+    /**
+     * User themes start with a 'u_', template themes start with a 't_' to
+     * differentiate which is which.  This seems kind of hackish, but we can
+     * come up with a better solution later.
+     * 
+     * TODO: Clean me.
+     **/
     $theme_values = array();
+    
+    // Always provide the template default first.
+    $theme_values['none'] = 'Template Default Theme';
+
     // List alternate themes provided by templates first
-#    var_dump(Template::get_template_file_directory());
-    #list_files
-    foreach ($theme as $theme_key => $theme_attributes) {
-        $theme_values[$theme_attributes['NAME']] = $theme_attributes['PATH'];
+/*
+ * Since this requires mods to the template class, I'm holding off on alternate
+ * template styles until Paul finishes template inheritence.
+ *      -- SB, 2006-09-30
+ * 
+    $template_provided = $oTemplate->get_alternative_stylesheets();
+    asort($template_provided);
+    foreach ($template_provided as $sheet=>$name) {
+        $theme_values['t_'.$sheet] = 'Template Theme - '.htmlspecialchars($name);
     }
-    ksort($theme_values);
-    $theme_values = array_flip($theme_values);
+*/
+    // Next, list styles provided in SM_PATH/css/
+    // FIXME, these should probably be defined in conf.pl!!
+    asort($css_themes);
+    foreach ($css_themes as $style) {
+        $theme_values['u_'.$style['PATH']] = 'User Theme - '.htmlspecialchars($style['NAME']);
+    }
+
     $optvals[SMOPT_GRP_GENERAL][] = array(
         'name'    => 'chosen_theme',
         'caption' => _("Theme"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_ALL,
         'posvals' => $theme_values,
-        'save'    => 'save_option_theme'
+        'save'    => 'css_theme_save'
     );
-
-    $css_values = array( 'none' => _("Default" ) );
-    $css_dir = SM_PATH . 'themes/css';
-    if (is_readable($css_dir) && is_dir($css_dir)) {
-        $handle=opendir($css_dir);
-        while ($file = readdir($handle) ) {
-            if ( substr( $file, -4 ) == '.css' ) {
-                $css_values[$file] = substr( $file, 0, strlen( $file ) - 4 );
-            }
-        }
-        closedir($handle);
-    }
 
     /* Icon theme selection */
     if ($use_icons) {
@@ -492,3 +522,23 @@ function icon_theme_save($option) {
        setPref($data_dir, $username, 'icon_theme', 'none');
 
 }
+
+function css_theme_save ($option) {
+    global $css_themes, $data_dir, $username;
+
+    // Don't assume the new value is there, double check
+    // and only save if found
+    //
+    $found = false;
+    reset($css_themes);
+    while (!$found && (list($index, $data) = each($css_themes))) {
+        if ('u_'.$data['PATH'] == $option->new_value)
+            $found = true;
+    }
+    if ($found)
+        setPref($data_dir, $username, 'chosen_theme', $option->new_value);
+    else
+       setPref($data_dir, $username, 'chosen_theme', 'none');
+}
+
+
