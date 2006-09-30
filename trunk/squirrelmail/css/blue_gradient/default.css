@@ -1,0 +1,17 @@
+td.header1 {
+    background: url('img/gradient-blue.png') repeat-x;
+    vertical-align: middle;
+}
+
+#optionGroups td.optionElement table {
+	border:1px solid #a6b2e2;
+}
+
+#optionGroups td.optionName {
+    background: url('img/gradient-blue.png') repeat-x;
+    vertical-align: middle;
+}
+
+#optionDisplay table {
+	border:1px solid #a6b2e2;
+}
