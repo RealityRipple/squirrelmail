@@ -77,11 +77,6 @@ $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 
 
 $mailbox = (isset($mailbox) && $mailbox) ? $mailbox : 'INBOX';
 
-/* compensate for the UW vulnerability. */
-if ($imap_server_type == 'uw' && (strstr($mailbox, '../') ||
-                                  substr($mailbox, 0, 1) == '/')) {
-   $mailbox = 'INBOX';
-}
 /**
  * Set the global settings for a mailbox and merge them with the usersettings
  * for the mailbox. In the future we can add more mailbox specific preferences

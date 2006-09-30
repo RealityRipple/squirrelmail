@@ -135,7 +135,9 @@ Version 1.5.2 - CVS
   - Added APOP, TLS and STLS support to mail_fetch plugin (#575299).
   - Added Courier IMAP OUTBOX check to configtest utility.
   - Moved login_form hook to its own table row on login page.
-  - Added check_plugin_version() function
+  - Added check_plugin_version() function.
+  - If mailbox name starts with slash or contains ../, error message is
+    generated. Safety check for insecure default UW IMAP setup (#1557078).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
