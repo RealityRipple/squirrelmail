@@ -142,7 +142,6 @@ function do_hook_function($name,$parm=NULL) {
 function concat_hook_function($name,$parm=NULL) {
     global $squirrelmail_plugin_hooks, $currentHookName;
     $ret = '';
-//    $ret = array();
     $currentHookName = $name;
 
     if (isset($squirrelmail_plugin_hooks[$name])
@@ -150,8 +149,10 @@ function concat_hook_function($name,$parm=NULL) {
         foreach ($squirrelmail_plugin_hooks[$name] as $function) {
             /* Add something to set correct gettext domain for plugin. */
             if (function_exists($function)) {
-//                $ret .= $function($parm);
-                $ret = sqm_array_merge($ret, $function($parm));
+                $plugin_ret = $function($parm);
+                if (!empty($plugin_ret)) {
+                    $ret = sqm_array_merge($ret, $plugin_ret);
+                }
             }
         }
     }
