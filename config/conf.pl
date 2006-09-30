@@ -357,8 +357,6 @@ $noselect_fix_enable = 'false'          if ( !$noselect_fix_enable );
 $frame_top = "_top"                     if ( !$frame_top );
 $provider_uri = ''                      if ( !$provider_uri );
 $provider_name = ''                     if ( !$provider_name );
-$edit_identity = 'true'                 if ( !$edit_identity );
-$edit_name = 'true'                     if ( !$edit_name );
 $no_list_for_subscribe = 'false'        if ( !$no_list_for_subscribe );
 $allow_charset_search = 'true'          if ( !$allow_charset_search );
 $allow_advanced_search = 0              if ( !$allow_advanced_search) ;
@@ -371,6 +369,9 @@ $default_use_javascript_addr_book = 'false' if (! $default_use_javascript_addr_b
 
 # since 1.2.0
 $hide_sm_attributions = 'false'         if ( !$hide_sm_attributions );
+# since 1.2.5
+$edit_identity = 'true'                 if ( !$edit_identity );
+$edit_name = 'true'                     if ( !$edit_name );
 
 # since 1.4.0
 $use_smtp_tls= 'false'                  if ( !$use_smtp_tls);

@@ -69,16 +69,15 @@ function sqimap_msgs_list_delete($imap_stream, $mailbox, $id, $bypass_trash=fals
     // FIX ME, remove globals by introducing an associative array with properties
     // as 4th argument as replacement for the bypass_trash var
     global $move_to_trash, $trash_folder;
-    $bRes = true;
     if (($move_to_trash == true) && ($bypass_trash != true) &&
         (sqimap_mailbox_exists($imap_stream, $trash_folder) &&  ($mailbox != $trash_folder)) ) {
-        $bRes = sqimap_msgs_list_copy ($imap_stream, $id, $trash_folder);
+        /**
+         * turn off internal error handling (fourth argument = false) and
+         * ignore copy to trash errors (allows to delete messages when overquota)
+         */
+        sqimap_msgs_list_copy ($imap_stream, $id, $trash_folder, false);
     }
-    if ($bRes) {
-        return sqimap_toggle_flag($imap_stream, $id, '\\Deleted', true, true);
-    } else {
-        return false;
-    }
+    return sqimap_toggle_flag($imap_stream, $id, '\\Deleted', true, true);
 }
 
 
