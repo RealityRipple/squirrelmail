@@ -1,4 +1,6 @@
-/* older css template */
+/* older css template 
+ FIXME: needs to be re-thought in context of templating system
+*/
 body, td, th, dd, dt, h1, h2, h3, h4, h5, h6, p, ol, ul, li {
 }
 body, small {
