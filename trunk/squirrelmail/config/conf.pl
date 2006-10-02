@@ -188,6 +188,19 @@ while ( $line = <FILE> ) {
             $sub =~ s/\]\[['"]NAME['"]\]//;
             $sub =~ s/.*\[//;
             $user_theme_name[$sub] = $options[1];
+        } elsif ( $options[0] =~ /^icon_themes\[[0-9]+\]\[['"]PATH['"]\]/ ) {
+            $sub = $options[0];
+            $sub =~ s/\]\[['"]PATH['"]\]//;
+            $sub =~ s/.*\[//;
+            if ( -e "../images/" ) {
+                $options[1] =~ s/^\.\.\/config/\.\.\/images/;
+            }
+            $icon_theme_path[$sub] = &change_to_rel_path($options[1]);
+        } elsif ( $options[0] =~ /^icon_themes\[[0-9]+\]\[['"]NAME['"]\]/ ) {
+            $sub = $options[0];
+            $sub =~ s/\]\[['"]NAME['"]\]//;
+            $sub =~ s/.*\[//;
+            $icon_theme_name[$sub] = $options[1];
         } elsif ( $options[0] =~ /^aTemplateSet\[[0-9]+\]\[['"]ID['"]\]/ ) {
             $sub = $options[0];
             $sub =~ s/\]\[['"]ID['"]\]//;
@@ -330,7 +343,7 @@ while ( $line = <FILE> ) {
             $ldap_writeable[$sub] = $writeable;
             $ldap_search_tree[$sub] = $search_tree;
             $ldap_starttls[$sub] = $starttls;
-        } elsif ( $options[0] =~ /^(data_dir|attachment_dir|user_theme_default|org_logo|signout_page|icon_theme_def)$/ ) {
+        } elsif ( $options[0] =~ /^(data_dir|attachment_dir|org_logo|signout_page|icon_theme_def)$/ ) {
             ${ $options[0] } = &change_to_rel_path($options[1]);
         } else {
             ${ $options[0] } = $options[1];
@@ -620,12 +633,13 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 5 ) {
         print $WHT. "User Interface\n" . $NRM;
-        print "1.  Modify Template sets\n";
-        print "2.  Use Icons                    : $WHT$use_icons$NRM\n";
-        print "3.  Default Icon Set             : $WHT$icon_theme_def$NRM\n";
-        print "4.  Default font size            : $WHT$default_fontsize$NRM\n";
-        print "5.  Modify available font sets\n";
-        print "6.  Modify available user themes\n";
+        print "1.  Use Icons?                   : $WHT$use_icons$NRM\n";
+#        print "3.  Default Icon Set             : $WHT$icon_theme_def$NRM\n";
+        print "2.  Default font size            : $WHT$default_fontsize$NRM\n";
+        print "3.  Manage template sets\n";
+        print "4.  Manage user themes\n";
+        print "5.  Manage font sets\n";
+        print "6.  Manage icon themes\n";
 
         print "\n";
         print "R   Return to Main Menu\n";
@@ -847,12 +861,13 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 15 ) { $time_zone_type           = command318(); }
             elsif ( $command == 16 ) { $config_location_base     = command_config_location_base(); }
         } elsif ( $menu == 5 ) {
-            if ( $command == 1 ) { $templateset_default = command_templates(); }
-            elsif ( $command == 2 ) { $use_icons      = commandB3(); }
-            elsif ( $command == 3 ) { $icon_theme_def = commandB7(); }
-            elsif ( $command == 4 ) { $default_fontsize = command_default_fontsize(); }
-            elsif ( $command == 5 ) { command_fontsets(); }
-            elsif ( $command == 6 ) { command41(); }
+            if ( $command == 1 )     { $use_icons      = commandB3(); }
+#            elsif ( $command == 3 )  { $icon_theme_def = commandB7(); }
+            elsif ( $command == 2 )  { $default_fontsize = command_default_fontsize(); }
+            elsif ( $command == 3 )  { $templateset_default = command_templates(); }
+            elsif ( $command == 4 )  { command_userThemes(); }
+            elsif ( $command == 5 )  { command_fontsets(); }
+            elsif ( $command == 6 )  { command_iconSets(); }
         } elsif ( $menu == 6 ) {
             if    ( $command == 1 ) { command61(); }
             elsif ( $command == 2 ) { command62(); }
@@ -2535,11 +2550,11 @@ sub command_config_location_base {
 
 
 
-sub command41 {
+sub command_userThemes {
     print "\nDefine the user themes that you wish to use.  If you have added\n";
     print "a theme of your own, just follow the instructions (?) about\n";
     print "how to add them.  You can also change the default theme.\n\n";
-    print "[user_theme] command (?=help) > ";
+    print "[user_themes] command (?=help) > ";
     $input = <STDIN>;
     $input =~ s/[\r\n]//g;
     while ( $input ne "d" ) {
@@ -2577,7 +2592,7 @@ sub command41 {
             print "What is the name of this theme? ";
             $name = <STDIN>;
             $name =~ s/[\r\n]//g;
-            $user_theme_name[ $#theme_name + 1 ] = $name;
+            $user_theme_name[ $#user_theme_name + 1 ] = $name;
             print "Be sure to put ../css/ before the filename.\n";
             print "What file is this stored in (ex: ../css/my_theme/): ";
             $name = <STDIN>;
@@ -2664,16 +2679,160 @@ sub command41 {
 
             closedir DIR;
         } elsif ( $input =~ /^\s*\?\s*/ ) {
-            print ".-------------------------.\n";
-            print "| t       (detect themes) |\n";
-            print "| +           (add theme) |\n";
-            print "| - N      (remove theme) |\n";
-            print "| m N      (mark default) |\n";
-            print "| l         (list themes) |\n";
-            print "| d                (done) |\n";
-            print "`-------------------------'\n";
+            print ".------------------------------------.\n";
+            print "| t             (detect user themes) |\n";
+            print "| +                 (add user theme) |\n";
+            print "| - N            (remove user theme) |\n";
+            print "| m N      (mark default user theme) |\n";
+            print "| l               (list user themes) |\n";
+            print "| d                           (done) |\n";
+            print "`------------------------------------'\n";
         }
-        print "[user_theme] command (?=help) > ";
+        print "[user_themes] command (?=help) > ";
+        $input = <STDIN>;
+        $input =~ s/[\r\n]//g;
+    }
+}
+
+sub command_iconSets {
+    print "\nDefine the icon themes that you wish to use.  If you have added\n";
+    print "a theme of your own, just follow the instructions (?) about\n";
+    print "how to add them.  You can also change the default theme.\n\n";
+    print "[icon_themes] command (?=help) > ";
+    $input = <STDIN>;
+    $input =~ s/[\r\n]//g;
+    while ( $input ne "d" ) {
+        if ( $input =~ /^\s*l\s*/i ) {
+            $count = 0;
+            while ( $count <= $#icon_theme_name ) {
+                if ( $count == $icon_theme_def ) {
+                    print " *";
+                } else {
+                    print "  ";
+                }
+                if ( $count < 10 ) {
+                    print " ";
+                }
+                $name       = $icon_theme_name[$count];
+                $num_spaces = 35 - length($name);
+                for ( $i = 0 ; $i < $num_spaces ; $i++ ) {
+                    $name = $name . " ";
+                }
+
+                print " $count.  $name";
+                print "($icon_theme_path[$count])\n";
+
+                $count++;
+            }
+        } elsif ( $input =~ /^\s*m\s*[0-9]+/i ) {
+            $old_def       = $icon_theme_def;
+            $icon_theme_def = $input;
+            $icon_theme_def =~ s/^\s*m\s*//;
+            if ( ( $icon_theme_default > $#icon_theme_name ) || ( $icon_theme_default < 0 ) ) {
+                print "Cannot set default icon theme to $icon_theme_default.  That theme does not exist.\n";
+                $icon_theme_def = $old_def;
+            }
+        } elsif ( $input =~ /^\s*\+/ ) {
+            print "What is the name of this icon theme? ";
+            $name = <STDIN>;
+            $name =~ s/[\r\n]//g;
+            $icon_theme_name[ $#icon_theme_name + 1 ] = $name;
+            print "Be sure to put ../images/themes/ before the filename.\n";
+            print "What directory is this icon theme stored in (ex: ../images/themes/my_theme/)? ";
+            $name = <STDIN>;
+            $name =~ s/[\r\n]//g;
+            $icon_theme_path[ $#icon_theme_path + 1 ] = $name;
+        } elsif ( $input =~ /^\s*-\s*[0-9]?/ ) {
+            if ( $input =~ /[0-9]+\s*$/ ) {
+                $rem_num = $input;
+                $rem_num =~ s/^\s*-\s*//g;
+                $rem_num =~ s/\s*$//;
+            } else {
+                $rem_num = $#icon_theme_name;
+            }
+            if ( $rem_num == $icon_theme_def ) {
+                print "You cannot remove the default icon theme!\n";
+            } else {
+                $count          = 0;
+                @new_theme_name = ();
+                @new_theme_path = ();
+                while ( $count <= $#icon_theme_name ) {
+                    if ( $count != $rem_num ) {
+                        @new_theme_name = ( @new_theme_name, $icon_theme_name[$count] );
+                        @new_theme_path = ( @new_theme_path, $icon_theme_path[$count] );
+                    }
+                    $count++;
+                }
+                @icon_theme_name = @new_theme_name;
+                @icon_theme_path = @new_theme_path;
+                if ( $icon_theme_def > $rem_num ) {
+                    $icon_theme_def--;
+                }
+            }
+        } elsif ( $input =~ /^\s*t\s*/i ) {
+            print "\nStarting detection...\n\n";
+
+            opendir( DIR, "../images/themes/" );
+            @files = readdir(DIR);
+            $cnt = 0;
+            while ( $cnt <= $#files ) {
+                $filename = "../images/themes/" . $files[$cnt] .'/';
+                if ( -d "../images/themes/" . $files[$cnt] && $files[$cnt] !~ /^\./ && $files[$cnt] ne "CVS" ) {
+                    $found = 0;
+                    for ( $x = 0 ; $x <= $#icon_theme_path ; $x++ ) {
+                        if ( $icon_theme_path[$x] eq $filename ) {
+                            $found = 1;
+                        }
+                    }
+                    if ( $found != 1 ) {
+                        print "** Found icon theme: $filename\n";
+                        print "   What is its name? ";
+                        $nm = <STDIN>;
+                        $nm =~ s/[\n\r]//g;
+                        $icon_theme_name[ $#icon_theme_name + 1 ] = $nm;
+                        $icon_theme_path[ $#icon_theme_path + 1 ] = $filename;
+                    }
+                }
+                $cnt++;
+            }
+            print "\n";
+            for ( $cnt = 0 ; $cnt <= $#icon_theme_path ; $cnt++ ) {
+                $filename = $icon_theme_path[$cnt];
+                if ( $filename ne "none" && $filename ne "template" && ! -d $filename ) {
+                    print "  Removing $filename (file not found)\n";
+                    $offset         = 0;
+                    @new_icon_theme_name = ();
+                    @new_icon_theme_path = ();
+                    for ( $x = 0 ; $x < $#icon_theme_path ; $x++ ) {
+                        if ( $icon_theme_path[$x] eq $filename ) {
+                            $offset = 1;
+                        }
+                        if ( $offset == 1 ) {
+                            $new_icon_theme_name[$x] = $icon_theme_name[ $x + 1 ];
+                            $new_icon_theme_path[$x] = $icon_theme_path[ $x + 1 ];
+                        } else {
+                            $new_icon_theme_name[$x] = $icon_theme_name[$x];
+                            $new_icon_theme_path[$x] = $icon_theme_path[$x];
+                        }
+                    }
+                    @icon_theme_name = @new_icon_theme_name;
+                    @icon_theme_path = @new_icon_theme_path;
+                }
+            }
+            print "\nDetection complete!\n\n";
+
+            closedir DIR;
+        } elsif ( $input =~ /^\s*\?\s*/ ) {
+            print ".------------------------------------.\n";
+            print "| t             (detect icon themes) |\n";
+            print "| +                 (add icon theme) |\n";
+            print "| - N            (remove icon theme) |\n";
+            print "| m N      (mark default icon theme) |\n";
+            print "| l               (list icon themes) |\n";
+            print "| d                           (done) |\n";
+            print "`------------------------------------'\n";
+        }
+        print "[icon_themes] command (?=help) > ";
         $input = <STDIN>;
         $input =~ s/[\r\n]//g;
     }
@@ -2747,7 +2906,7 @@ sub command_templates {
 #    closedir DIR;
 
     $menu_text = ".-------------------------------------.\n"
-               . "| t            (detect templates set) |\n"
+               . "| t             (detect template set) |\n"
                . "| +                (add template set) |\n"
                . "| - N           (remove template set) |\n"
                . "| m N     (mark default template set) |\n"
@@ -4121,6 +4280,25 @@ sub save_data {
         }
         print CF "\n";
 
+        if ( $icon_theme_def eq '' ) { $icon_theme_def = '0'; }
+        print CF "\$icon_theme_def = $icon_theme_def;\n";
+
+        for ( $count = 0 ; $count <= $#icon_theme_name ; $count++ ) {
+            $path = $icon_theme_path[$count];
+            if ($path eq 'none' || $path eq 'template') {
+                $path = "'".$path."'";
+            } else {
+                $path = &change_to_SM_path($icon_theme_path[$count]);
+            }
+            print CF "\$icon_themes[$count]['PATH'] = " . $path . ";\n";
+            # escape theme name so it can contain single quotes.
+            $esc_name =  $icon_theme_name[$count];
+            $esc_name =~ s/\\/\\\\/g;
+            $esc_name =~ s/'/\\'/g;
+            print CF "\$icon_themes[$count]['NAME'] = '$esc_name';\n";
+        }
+        print CF "\n";
+
         if ( $templateset_default eq '' ) { $templateset_default = '0'; }
         print CF "\$templateset_default = $templateset_default;\n";
 # FIXME: need to make this a setting the user can change herein
@@ -4293,8 +4471,6 @@ $templateset_fallback = 0;
         # boolean
         print CF "\$use_icons = $use_icons;\n";
         print CF "\n";
-        # string
-        print CF "\$icon_theme_def = " . &change_to_SM_path($icon_theme_def) . ";\n";
         # boolean
         print CF "\$use_php_recode = $use_php_recode;\n";
         print CF "\n";

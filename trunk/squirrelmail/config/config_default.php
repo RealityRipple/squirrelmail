@@ -664,26 +664,70 @@ $session_name = 'SQMSESSID';
 
 /**
  * User Themes
- *   You can define your own theme and put it in this directory.
+ *   You can define your own theme and put it in directory in SM_PATH/css/.
  *   You must call it as the example below. You can name the theme
- *   whatever you want. For an example of a theme, see the ones
- *   included in the config directory.
+ *   whatever you want.
  *
  * To add a new theme to the options that users can choose from, just
  * add a new number to the array at the bottom, and follow the pattern.
  *
  * $user_theme_default sets theme that will be used by default
- * used by default.
+ *
  * @global integer $user_theme_default
+ * @since 1.5.2
  */
 $user_theme_default = 0;
 
 /**
  * Listing of installed themes
  * @global array $user_themes
+ * @since 1.5.2
  */
 $user_themes[0]['PATH'] = 'none';
 $user_themes[0]['NAME'] = 'Default';
+
+
+/**
+ * Message Icons control
+ *
+ * Use icons for message and folder markers
+ * @global bool $use_icons
+ * @since 1.5.1
+ */
+$use_icons = false;
+
+/**
+ * Icon Themes
+ *    You can create your own icon themes and put them in a directory in
+ *    SM_PATH/images/themes/.  Your users will be able to choose whatever
+ *    icon themes are listed below.
+ * 
+ *    To add a new theme to the list of available icon themes, just add a new
+ *    number to the array below and follow the pattern
+ * 
+ *    $icon_theme_default sets the theme that will be used by default.
+ * 
+ * @global integer $icon_theme_def
+ * @since 1.5.2
+ */
+$icon_theme_def = 0;
+
+/**
+ * Listing of installed icon themes
+ * @global array $icon_themes;
+ * @since 1.5.2
+ */
+$icon_themes[0]['PATH'] = 'none';
+$icon_themes[0]['NAME'] = 'No Icons';
+
+$icon_themes[1]['PATH'] = 'template';
+$icon_themes[1]['NAME'] = 'Template Default Icons';
+
+$icon_themes[2]['PATH'] = '../images/themes/default/';
+$icon_themes[2]['NAME'] = 'Default Icon Set';
+
+$icon_themes[3]['PATH'] = '../images/themes/xp/';
+$icon_themes[3]['NAME'] = 'XP Style Icons';
 
 /**
  * Templates
@@ -1020,15 +1064,6 @@ $config_location_base = '';
  * @since 1.5.1
  */
 $use_iframe = false;
-
-/**
- * Message Icons control
- *
- * Use icons for message and folder markers
- * @global bool $use_icons
- * @since 1.5.1
- */
-$use_icons = false;
 
 /**
  * PHP recode functions control
