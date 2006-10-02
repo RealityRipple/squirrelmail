@@ -432,31 +432,53 @@ function php_self () {
 
 
 /**
-  * Find files in a given directory optionally limited to only
-  * those with the given file extension.  If the directory is 
-  * not found or cannot be opened, no error is generated; only
-  * an empty file list is returned.
+  * Find files and/or directories in a given directory optionally 
+  * limited to only those with the given file extension.  If the 
+  * directory is not found or cannot be opened, no error is generated; 
+  * only an empty file list is returned.
 FIXME: do we WANT to throw an error or a notice or... or return FALSE?
   *
-  * @param string $directory_path The path (relative or absolute) 
-  *                               to the desired directory.
-  * @param string $extension      The file extension filter (optional;
-  *                               default is to return all files.
-  * @param boolean $return_filenames_only When TRUE, only file names
+  * @param string $directory_path         The path (relative or absolute) 
+  *                                       to the desired directory.
+  * @param string $extension              The file extension filter (optional;
+  *                                       default is to return all files (dirs).
+  * @param boolean $return_filenames_only When TRUE, only file/dir names
   *                                       are returned, otherwise the
   *                                       $directory_path string is
-  *                                       prepended to each file in
+  *                                       prepended to each file/dir in
   *                                       the returned list (optional;
-  *                                       default is filename only)
+  *                                       default is filename/dirname only)
+  * @param boolean $include_directories   When TRUE, directories are
+  *                                       included (optional; default 
+  *                                       DO include directories).
+  * @param boolean $directories_only      When TRUE, ONLY directories 
+  *                                       are included (optional; default 
+  *                                       is to include files too).
+  * @param boolean $separate_files_and_directories When TRUE, files and
+  *                                                directories are returned
+  *                                                in separate lists, so
+  *                                                the return value is
+  *                                                formatted as a two-element
+  *                                                array with the two keys
+  *                                                "FILES" and "DIRECTORIES",
+  *                                                where corresponding values
+  *                                                are lists of either all
+  *                                                files or all directories
+  *                                                (optional; default do not
+  *                                                split up return array).
+  *                                       
   *
-  * @return array The requested file list.
+  * @return array The requested file/directory list(s).
   *
   * @since 1.5.2
   *
   */
-function list_files($directory_path, $extension='', $return_filenames_only=TRUE) {
+function list_files($directory_path, $extension='', $return_filenames_only=TRUE,
+                    $include_directories=TRUE, $directories_only=FALSE, 
+                    $separate_files_and_directories=FALSE) {
 
     $files = array();
+    $directories = array();
 
 //FIXME: do we want to place security restrictions here like only allowing
 //       directories under SM_PATH?
@@ -464,28 +486,54 @@ function list_files($directory_path, $extension='', $return_filenames_only=TRUE)
     // 
     if (empty($directory_path) 
      || !is_dir($directory_path) 
-     || !is_readable($directory_path)
      || !($DIR = opendir($directory_path))) {
         return $files;
     }
 
+
+    if (!empty($extension)) $extension = '.' . trim($extension, '.');
+    $directory_path = rtrim($directory_path, '/');
+
+
     // parse through the files
     //
-    $extension = empty($extension) ? '' : '.' . trim($extension, '.');
     while (($file = readdir($DIR)) !== false) {
 
         if ($file == '.' || $file == '..') continue;
 
-        if (empty($extension)
-         || strrpos($file, $extension) === (strlen($file) - strlen($extension))) {
+        if (!empty($extension)
+         && strrpos($file, $extension) !== (strlen($file) - strlen($extension))) 
+            continue;
+
+        // only use is_dir() if we really need to (be as efficient as possible)
+        //
+        $is_dir = FALSE;
+        if (!$include_directories || $directories_only 
+                                  || $separate_files_and_directories) {
+            if (is_dir($directory_path . '/' . $file)) {
+                if (!$include_directories) continue;
+                $is_dir = TRUE;
+                $directories[] = ($return_filenames_only 
+                               ? $file
+                               : $directory_path . '/' . $file);
+            } 
+            if ($directories_only) continue;
+        }
+
+        if (!$separate_files_and_directories 
+         || ($separate_files_and_directories && !$is_dir)) {
             $files[] = ($return_filenames_only 
-                        ? $file
-                        : $directory_path . '/' . $file);
+                     ? $file
+                     : $directory_path . '/' . $file);
         }
 
     }
     closedir($DIR);
 
+
+    if ($directories_only) return $directories;
+    if ($separate_files_and_directories) return array('FILES' => $files,
+                                                      'DIRECTORIES' => $directories);
     return $files;
 
 }
