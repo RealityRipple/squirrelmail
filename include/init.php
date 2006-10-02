@@ -158,6 +158,7 @@ if (file_exists(SM_PATH . 'config/config_local.php')) {
 require(SM_PATH . 'functions/plugin.php');
 require(SM_PATH . 'include/constants.php');
 require(SM_PATH . 'include/languages.php');
+require(SM_PATH . 'class/template/Template.class.php');
 
 /**
  * If magic_quotes_runtime is on, SquirrelMail breaks in new and creative ways.
@@ -306,9 +307,6 @@ switch ($sInitLocation) {
 
         // make sure given template actually is available
         //
-        $aTemplateSet = (!isset($aTemplateSet) || !is_array($aTemplateSet)
-                         ? array() : $aTemplateSet);
-        $templateset_default = (!isset($templateset_default) ? 0 : $templateset_default);
         $found_templateset = false;
         for ($i = 0; $i < count($aTemplateSet); ++$i) {
             if ($aTemplateSet[$i]['ID'] == $templateid) {
@@ -321,8 +319,7 @@ switch ($sInitLocation) {
         // selected template not available, fall back to default template
         //
         if (!$found_templateset) {
-            $sTemplateID = (!isset($aTemplateSet[$templateset_default]['ID'])
-                            ? 'default' : $aTemplateSet[$templateset_default]['ID']);
+            $sTemplateID = Template::get_default_template_set();
         } else {
             $sTemplateID = $templateid;
         }
@@ -351,6 +348,12 @@ switch ($sInitLocation) {
         require(SM_PATH . 'functions/display_messages.php' );
         require(SM_PATH . 'functions/page_header.php');
         require(SM_PATH . 'functions/html.php');
+
+        // reset template file cache
+        //
+        $sTemplateID = Template::get_default_template_set();
+        Template::cache_template_file_hierarchy(TRUE);
+
         /**
          * cleanup old cookies with a cookie path the same as the standard php.ini
          * cookie path. All previous SquirrelMail version used the standard php.ini
@@ -400,18 +403,12 @@ switch ($sInitLocation) {
             /**
              * Initialize the template object (logout_error uses it)
              */
-            require(SM_PATH . 'class/template/Template.class.php');
             /*
              * $sTemplateID is not initialized when a user is not logged in, so we 
              * will use the config file defaults here.  If the neccesary variables 
              * are net set, force a default value.
              */
-            $aTemplateSet = (!isset($aTemplateSet) || !is_array($aTemplateSet) 
-                             ? array() : $aTemplateSet);
-            $templateset_default = ( !isset($templateset_default) ? 0 : $templateset_default );
-
-            $sTemplateID = ( !isset($aTemplateSet[$templateset_default]['ID']) ?
-                             'default' : $aTemplateSet[$templateset_default]['ID'] );
+            $sTemplateID = Template::get_default_template_set();
             $oTemplate = Template::construct_template($sTemplateID);
 
             set_up_language($squirrelmail_language, true);
@@ -449,7 +446,6 @@ switch ($sInitLocation) {
         /**
          * initializing user settings
          */
-        require(SM_PATH . 'class/template/Template.class.php');
         require(SM_PATH . 'include/load_prefs.php');
 
 // i do not understand the frames language cookie story
@@ -531,11 +527,6 @@ switch ($sInitLocation) {
         break;
 }
 
-/**
- * Initialize the template object
- */
-require_once(SM_PATH . 'class/template/Template.class.php');
-
 /*
  * $sTemplateID is not initialized when a user is not logged in, so we 
  * will use the config file defaults here.  If the neccesary variables 
@@ -545,11 +536,7 @@ require_once(SM_PATH . 'class/template/Template.class.php');
  * so we shouldn't change it here.
  */
 if (!isset($sTemplateID)) {
-    $aTemplateSet = (!isset($aTemplateSet) || !is_array($aTemplateSet) 
-                     ? array() : $aTemplateSet);
-    $templateset_default = ( !isset($templateset_default) ? 0 : $templateset_default );
-    
-    $sTemplateID = !isset($aTemplateSet[$templateset_default]['ID']) ? 'default' : $aTemplateSet[$templateset_default]['ID'];
+    $sTemplateID = Template::get_default_template_set();
     $icon_theme_path = !$use_icons ? NULL : Template::calculate_template_images_directory($sTemplateID);
 }
 $oTemplate = Template::construct_template($sTemplateID);
