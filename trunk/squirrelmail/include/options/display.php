@@ -453,7 +453,7 @@ FIXME!
 function save_option_template($option) {
     global $aTemplateSet;
 
-    /* Do checking to make sure $new_theme is in the array. */
+    /* Do checking to make sure new template is in the available templates array. */
     $templateset_in_array = false;
     for ($i = 0; $i < count($aTemplateSet); ++$i) {
         if ($aTemplateSet[$i]['ID'] == $option->new_value) {
@@ -464,7 +464,20 @@ function save_option_template($option) {
 
     if (!$templateset_in_array) {
         $option->new_value = '';
+    } else {
+
+        // clear template cache when changing template sets
+        // (in order to do so, we have to change the global
+        // template set ID now... should not be a problem --
+        // in fact, if we don't do it now, very anomalous
+        // problems occur)
+        //
+        global $sTemplateID;
+        $sTemplateID = $option->new_value;
+        Template::cache_template_file_hierarchy(TRUE);
+
     }
+
     /* Save the option like normal. */
     save_option($option);
 }
