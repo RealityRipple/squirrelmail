@@ -74,6 +74,15 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
 //    $aUserStyles[] = getPref($data_dir, $username, 'sUserStyle', '');
 // Steve, can you please document what u_ means?  Will it work with the
 // new template inheritance system and auto-detection of alternate sheets?
+/**
+ * Stylesheets beginning with a "u_" == user provided stylesheets, e.g. those
+ * in SM_PATH/css/.  Template provided stylesheets (TEMPLATE_DIR/css/alternatives/)
+ * should begin with 't_'.  This was the initial path I took to get it working 
+ * since I wasn't sure what mods to the Template class would be used to handle
+ * template-provided alt stylesheets.
+ * 
+ * TODO: Re-evaluate this naming convetion.
+ */
     if (!empty($chosen_theme) && substr($chosen_theme, 0, 2) == 'u_') {
         $aUserStyles[] = substr($chosen_theme, 2) .'default.css';
     }
