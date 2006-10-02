@@ -57,6 +57,7 @@ $chosen_theme_path = empty($chosen_theme) ?
                      $chosen_theme_path = 'u_'.$user_themes[$user_theme_default]['PATH'] :
                      $chosen_theme;
 
+// Make sure the chosen theme is a legitimate one.
 // need to adjust $chosen_theme path with SM_PATH 
 $chosen_theme_path = preg_replace("/(\.\.\/){1,}/", SM_PATH, $chosen_theme_path);
 $k = 0;
@@ -102,8 +103,24 @@ if (isset($chosen_theme) && $found_theme && (file_exists($chosen_theme))) {
 }
 
 */
+
 // user's icon theme, if using icons
-$icon_theme = getPref($data_dir, $username, 'icon_theme', 'images/themes/xp/' );
+$icon_theme = getPref($data_dir, $username, 'icon_theme');
+$default_icon_theme = $icon_themes[$icon_theme_def]['PATH'];
+$found_theme = false;
+
+// Make sure the chosen icon theme is a legitimate one.
+// need to adjust $icon_theme path with SM_PATH 
+$icon_theme = preg_replace("/(\.\.\/){1,}/", SM_PATH, $icon_theme);
+$k = 0;
+while (!$found_theme && $k < count($icon_themes)) {
+    if ($icon_themes[$k]['PATH'] == $icon_theme)
+        $found_theme = true;
+    $k++;
+}
+if (!$found_theme) {
+    $icon_theme = $default_icon_theme;
+}
 
 /*
  * NOTE: The $icon_theme_path var should contain the path to the icon
