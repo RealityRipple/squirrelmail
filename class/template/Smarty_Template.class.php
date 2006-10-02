@@ -54,37 +54,26 @@ class Smarty_Template extends Template
         parent::Template($template_id);
 
 
-        // pull in the tempalte config file and load smarty settings
+        // load smarty settings
         //
-        $template_config_file = SM_PATH . $this->get_template_file_directory()
-                              . 'config.php';
-        if (!file_exists($template_config_file)) {
+        // instantiate and set up Smarty object
+        //
+        $smarty_path 
+            = Template::get_template_config($this->template_set_id, 'smarty_path');
+        require($smarty_path);
+        $this->smarty_template = new Smarty();
+        $this->smarty_template->compile_dir 
+            = Template::get_template_config($this->template_set_id, 'smarty_compile_dir');
+        $this->smarty_template->cache_dir 
+            = Template::get_template_config($this->template_set_id, 'smarty_cache_dir');
+        $this->smarty_template->config_dir 
+            = Template::get_template_config($this->template_set_id, 'smarty_config_dir');
 
-            trigger_error('No template configuration file was found where expected: ("'
-                        . $template_config_file . '")', E_USER_ERROR);
-
-        } else {
-
-            require($template_config_file);
-
-
-            // instantiate and set up Smarty object
-            //
-//LEFT OFF HERE - check for this as empty or not
-            require($smarty_path);
-            $this->smarty_template = new Smarty();
-//LEFT OFF HERE - check for these as empty or not.... I think we at least need compile dir?
-            $this->smarty_template->compile_dir = $smarty_compile_dir;
-            $this->smarty_template->cache_dir = $smarty_cache_dir;
-            $this->smarty_template->config_dir = $smarty_config_dir;
-
-            // note that we do not use Smarty's template_dir 
-            // because SquirrelMail has its own method of 
-            // determining template file paths
-            //
-            //$this->smarty_template->template_dir = 
-
-        }
+        // note that we do not use Smarty's template_dir 
+        // because SquirrelMail has its own method of 
+        // determining template file paths
+        //
+        //$this->smarty_template->template_dir = 
 
     }
 
@@ -117,6 +106,35 @@ FIXME: Proposed idea to add a parameter here that turns variable
     function assign_by_ref($tpl_var, &$value) {
 
         $this->smarty_template->assign_by_ref($tpl_var, $value);
+
+    }
+
+    /**
+      * Clears the values of all assigned varaiables.
+      *
+      */
+    function clear_all_assign() {
+
+        $this->smarty_template->clear_all_assign();
+
+    }
+
+    /**
+      * Returns assigned variable value(s).
+      *
+      * @param string $varname If given, the value of that variable
+      *                        is returned, assuming it has been
+      *                        previously assigned.  If not specified
+      *                        an array of all assigned variables is
+      *                        returned. (optional)
+      *
+      * @return mixed Desired single variable value or list of all 
+      *               assigned variable values.
+      *
+      */
+    function get_template_vars($varname=NULL) {
+
+        return $this->smarty_template->get_template_vars($varname);
 
     }
 
