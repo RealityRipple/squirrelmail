@@ -50,11 +50,7 @@ if ($signout_page) {
  * Recover, so that we don't get all kinds of errors in that situation. */
 if ( !isset($oTemplate) || !is_object($oTemplate) ) {
     require_once(SM_PATH . 'class/template/Template.class.php');
-    $aTemplateSet = (!isset($aTemplateSet) || !is_array($aTemplateSet) 
-                     ? array() : $aTemplateSet);
-    $templateset_default = ( !isset($templateset_default) ? 0 : $templateset_default );
-
-    $sTemplateID = !isset($aTemplateSet[$templateset_default]['ID']) ? 'default' : $aTemplateSet[$templateset_default]['ID'];
+    $sTemplateID = Template::get_default_template_set();
     $icon_theme_path = !$use_icons ? NULL : Template::calculate_template_images_directory($sTemplateID);
     $oTemplate = Template::construct_template($sTemplateID);
 
