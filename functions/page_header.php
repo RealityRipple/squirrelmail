@@ -33,7 +33,8 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
         global $base_uri;
     }
     global $custom_css, $pageheader_sent, $theme, $theme_default, $text_direction,
-        $default_fontset, $chosen_fontset, $default_fontsize, $chosen_fontsize, $chosen_theme;
+        $default_fontset, $chosen_fontset, $default_fontsize, $chosen_fontsize, 
+        $chosen_theme, $chosen_theme_path, $user_themes, $user_theme_default;
 
     /* add no cache headers here */
 //FIXME: should change all header() calls in SM core to use $oTemplate->header()!!
@@ -49,8 +50,8 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
 
     $used_fontset = (!empty($chosen_fontset) ? $chosen_fontset : $default_fontset);
     $used_fontsize = (!empty($chosen_fontsize) ? $chosen_fontsize : $default_fontsize);
-    $used_theme = basename((!empty($chosen_theme) ? $chosen_theme : $theme[$theme_default]['PATH']),'.php');
-
+    $used_theme = !isset($chosen_theme) && $user_theme_default != 'none' ?  'u_'.$user_themes[$user_theme_default]['PATH'] : $chosen_theme_path;
+    
     /**
      * Stylesheets are loaded in the following order:
      *    1) All stylesheets provided by the template.  Normally, these are
@@ -83,8 +84,8 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
  * 
  * TODO: Re-evaluate this naming convetion.
  */
-    if (!empty($chosen_theme) && substr($chosen_theme, 0, 2) == 'u_') {
-        $aUserStyles[] = substr($chosen_theme, 2) .'default.css';
+    if (!empty($used_theme) && substr($used_theme, 0, 2) == 'u_') {
+        $aUserStyles[] = substr($used_theme, 2) .'default.css';
     }
 
     // 3. src/style.php

@@ -50,10 +50,30 @@ for ($i = 0; $i < count($aTemplateSet); ++$i){
 //
 if (!$found_templateset) $sTemplateID = $sDefaultTemplateID;
 
+// Load user theme
 $chosen_theme = getPref($data_dir, $username, 'chosen_theme');
+$found_theme = false;
+$chosen_theme_path = empty($chosen_theme) ?
+                     $chosen_theme_path = 'u_'.$user_themes[$user_theme_default]['PATH'] :
+                     $chosen_theme;
 
-/* Steve, is this commented out because it is part of the old system being removed?
-   Let's just remove it then... no?
+// need to adjust $chosen_theme path with SM_PATH 
+$chosen_theme_path = preg_replace("/(\.\.\/){1,}/", SM_PATH, $chosen_theme_path);
+$k = 0;
+while (!$found_theme && $k < count($user_themes)) {
+    if ('u_'.$user_themes[$k]['PATH'] == $chosen_theme_path)
+        $found_theme = true;
+    $k++;
+}
+if (!$found_theme || $chosen_theme == 'none') {
+    $chosen_theme_path = NULL;
+}
+
+/* PL: Steve, is this commented out because it is part of the old system being removed?
+       Let's just remove it then... no?
+   
+   SB: Holding on to incase I need to reference later.  Will remove eventually. :)
+   
 $theme = ( !isset($theme) ? array() : $theme );
 $color = ( !isset($color) ? array() : $color );
 
