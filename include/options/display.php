@@ -110,6 +110,7 @@ function load_optpage_data_display() {
      * User themes start with a 'u_', template themes start with a 't_' to
      * differentiate which is which.  This seems kind of hackish, but we can
      * come up with a better solution later.
+No need for the prefixes.  Just use full paths, no?
      * 
      * TODO: Clean me.
      **/
