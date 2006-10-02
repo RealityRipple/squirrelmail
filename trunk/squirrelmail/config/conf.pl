@@ -175,19 +175,19 @@ while ( $line = <FILE> ) {
         $options[1] =~ s/\\'/'/g;
         $options[1] =~ s/\\\\/\\/g;
 
-        if ( $options[0] =~ /^theme\[[0-9]+\]\[['"]PATH['"]\]/ ) {
+        if ( $options[0] =~ /^user_themes\[[0-9]+\]\[['"]PATH['"]\]/ ) {
             $sub = $options[0];
             $sub =~ s/\]\[['"]PATH['"]\]//;
             $sub =~ s/.*\[//;
-            if ( -e "../themes" ) {
-                $options[1] =~ s/^\.\.\/config/\.\.\/themes/;
+            if ( -e "../css/" ) {
+                $options[1] =~ s/^\.\.\/config/\.\.\/css/;
             }
-            $theme_path[$sub] = &change_to_rel_path($options[1]);
-        } elsif ( $options[0] =~ /^theme\[[0-9]+\]\[['"]NAME['"]\]/ ) {
+            $user_theme_path[$sub] = &change_to_rel_path($options[1]);
+        } elsif ( $options[0] =~ /^user_themes\[[0-9]+\]\[['"]NAME['"]\]/ ) {
             $sub = $options[0];
             $sub =~ s/\]\[['"]NAME['"]\]//;
             $sub =~ s/.*\[//;
-            $theme_name[$sub] = $options[1];
+            $user_theme_name[$sub] = $options[1];
         } elsif ( $options[0] =~ /^aTemplateSet\[[0-9]+\]\[['"]ID['"]\]/ ) {
             $sub = $options[0];
             $sub =~ s/\]\[['"]ID['"]\]//;
@@ -330,7 +330,7 @@ while ( $line = <FILE> ) {
             $ldap_writeable[$sub] = $writeable;
             $ldap_search_tree[$sub] = $search_tree;
             $ldap_starttls[$sub] = $starttls;
-        } elsif ( $options[0] =~ /^(data_dir|attachment_dir|org_logo|signout_page|icon_theme_def)$/ ) {
+        } elsif ( $options[0] =~ /^(data_dir|attachment_dir|user_theme_default|org_logo|signout_page|icon_theme_def)$/ ) {
             ${ $options[0] } = &change_to_rel_path($options[1]);
         } else {
             ${ $options[0] } = $options[1];
@@ -625,7 +625,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "3.  Default Icon Set             : $WHT$icon_theme_def$NRM\n";
         print "4.  Default font size            : $WHT$default_fontsize$NRM\n";
         print "5.  Modify available font sets\n";
-#        print "4.  Change Themes\n";
+        print "6.  Modify available user themes\n";
 
         print "\n";
         print "R   Return to Main Menu\n";
@@ -852,6 +852,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 3 ) { $icon_theme_def = commandB7(); }
             elsif ( $command == 4 ) { $default_fontsize = command_default_fontsize(); }
             elsif ( $command == 5 ) { command_fontsets(); }
+            elsif ( $command == 6 ) { command41(); }
         } elsif ( $menu == 6 ) {
             if    ( $command == 1 ) { command61(); }
             elsif ( $command == 2 ) { command62(); }
@@ -2535,17 +2536,17 @@ sub command_config_location_base {
 
 
 sub command41 {
-    print "\nDefine the themes that you wish to use.  If you have added ";
-    print "a theme of your own, just follow the instructions (?) about how to add ";
-    print "them.  You can also change the default theme.\n";
-    print "[theme] command (?=help) > ";
+    print "\nDefine the user themes that you wish to use.  If you have added\n";
+    print "a theme of your own, just follow the instructions (?) about\n";
+    print "how to add them.  You can also change the default theme.\n\n";
+    print "[user_theme] command (?=help) > ";
     $input = <STDIN>;
     $input =~ s/[\r\n]//g;
     while ( $input ne "d" ) {
         if ( $input =~ /^\s*l\s*/i ) {
             $count = 0;
-            while ( $count <= $#theme_name ) {
-                if ( $count == $theme_default ) {
+            while ( $count <= $#user_theme_name ) {
+                if ( $count == $user_theme_default ) {
                     print " *";
                 } else {
                     print "  ";
@@ -2553,110 +2554,110 @@ sub command41 {
                 if ( $count < 10 ) {
                     print " ";
                 }
-                $name       = $theme_name[$count];
+                $name       = $user_theme_name[$count];
                 $num_spaces = 35 - length($name);
                 for ( $i = 0 ; $i < $num_spaces ; $i++ ) {
                     $name = $name . " ";
                 }
 
                 print " $count.  $name";
-                print "($theme_path[$count])\n";
+                print "($user_theme_path[$count])\n";
 
                 $count++;
             }
         } elsif ( $input =~ /^\s*m\s*[0-9]+/i ) {
-            $old_def       = $theme_default;
-            $theme_default = $input;
-            $theme_default =~ s/^\s*m\s*//;
-            if ( ( $theme_default > $#theme_name ) || ( $theme_default < 0 ) ) {
-                print "Cannot set default theme to $theme_default.  That theme does not exist.\n";
-                $theme_default = $old_def;
+            $old_def       = $user_theme_default;
+            $user_theme_default = $input;
+            $user_theme_default =~ s/^\s*m\s*//;
+            if ( ( $user_theme_default > $#user_theme_name ) || ( $user_theme_default < 0 ) ) {
+                print "Cannot set default theme to $user_theme_default.  That theme does not exist.\n";
+                $user_theme_default = $old_def;
             }
         } elsif ( $input =~ /^\s*\+/ ) {
-            print "What is the name of this theme: ";
+            print "What is the name of this theme? ";
             $name = <STDIN>;
             $name =~ s/[\r\n]//g;
-            $theme_name[ $#theme_name + 1 ] = $name;
-            print "Be sure to put ../themes/ before the filename.\n";
-            print "What file is this stored in (ex: ../themes/default_theme.php): ";
+            $user_theme_name[ $#theme_name + 1 ] = $name;
+            print "Be sure to put ../css/ before the filename.\n";
+            print "What file is this stored in (ex: ../css/my_theme/): ";
             $name = <STDIN>;
             $name =~ s/[\r\n]//g;
-            $theme_path[ $#theme_path + 1 ] = $name;
+            $user_theme_path[ $#user_theme_path + 1 ] = $name;
         } elsif ( $input =~ /^\s*-\s*[0-9]?/ ) {
             if ( $input =~ /[0-9]+\s*$/ ) {
                 $rem_num = $input;
                 $rem_num =~ s/^\s*-\s*//g;
                 $rem_num =~ s/\s*$//;
             } else {
-                $rem_num = $#theme_name;
+                $rem_num = $#user_theme_name;
             }
-            if ( $rem_num == $theme_default ) {
+            if ( $rem_num == $user_theme_default ) {
                 print "You cannot remove the default theme!\n";
             } else {
                 $count          = 0;
                 @new_theme_name = ();
                 @new_theme_path = ();
-                while ( $count <= $#theme_name ) {
+                while ( $count <= $#user_theme_name ) {
                     if ( $count != $rem_num ) {
-                        @new_theme_name = ( @new_theme_name, $theme_name[$count] );
-                        @new_theme_path = ( @new_theme_path, $theme_path[$count] );
+                        @new_theme_name = ( @new_theme_name, $user_theme_name[$count] );
+                        @new_theme_path = ( @new_theme_path, $user_theme_path[$count] );
                     }
                     $count++;
                 }
-                @theme_name = @new_theme_name;
-                @theme_path = @new_theme_path;
-                if ( $theme_default > $rem_num ) {
-                    $theme_default--;
+                @user_theme_name = @new_theme_name;
+                @user_theme_path = @new_theme_path;
+                if ( $user_theme_default > $rem_num ) {
+                    $user_theme_default--;
                 }
             }
         } elsif ( $input =~ /^\s*t\s*/i ) {
             print "\nStarting detection...\n\n";
 
-            opendir( DIR, "../themes" );
-            @files = grep { /\.php$/i } readdir(DIR);
+            opendir( DIR, "../css" );
+            @files = readdir(DIR);
             $cnt = 0;
             while ( $cnt <= $#files ) {
-                $filename = "../themes/" . $files[$cnt];
-                if ( $filename ne "../themes/index.php" ) {
+                $filename = "../css/" . $files[$cnt] .'/';
+                if ( $filename ne "../css/rtl.css" && -e $filename . "default.css" ) {
                     $found = 0;
-                    for ( $x = 0 ; $x <= $#theme_path ; $x++ ) {
-                        if ( $theme_path[$x] eq $filename ) {
+                    for ( $x = 0 ; $x <= $#user_theme_path ; $x++ ) {
+                        if ( $user_theme_path[$x] eq $filename ) {
                             $found = 1;
                         }
                     }
                     if ( $found != 1 ) {
-                        print "** Found theme: $filename\n";
+                        print "** Found user theme: $filename\n";
                         print "   What is its name? ";
                         $nm = <STDIN>;
                         $nm =~ s/[\n\r]//g;
-                        $theme_name[ $#theme_name + 1 ] = $nm;
-                        $theme_path[ $#theme_path + 1 ] = $filename;
+                        $user_theme_name[ $#user_theme_name + 1 ] = $nm;
+                        $user_theme_path[ $#user_theme_path + 1 ] = $filename;
                     }
                 }
                 $cnt++;
             }
             print "\n";
-            for ( $cnt = 0 ; $cnt <= $#theme_path ; $cnt++ ) {
-                $filename = $theme_path[$cnt];
-                if ( !( -e $filename ) ) {
+            for ( $cnt = 0 ; $cnt <= $#user_theme_path ; $cnt++ ) {
+                $filename = $user_theme_path[$cnt];
+                if ( $filename != 'none' && !( -e $filename ."/default.css" ) ) {
                     print "  Removing $filename (file not found)\n";
                     $offset         = 0;
-                    @new_theme_name = ();
-                    @new_theme_path = ();
-                    for ( $x = 0 ; $x < $#theme_path ; $x++ ) {
-                        if ( $theme_path[$x] eq $filename ) {
+                    @new_user_theme_name = ();
+                    @new_user_theme_path = ();
+                    for ( $x = 0 ; $x < $#user_theme_path ; $x++ ) {
+                        if ( $user_theme_path[$x] eq $filename ) {
                             $offset = 1;
                         }
                         if ( $offset == 1 ) {
-                            $new_theme_name[$x] = $theme_name[ $x + 1 ];
-                            $new_theme_path[$x] = $theme_path[ $x + 1 ];
+                            $new_user_theme_name[$x] = $user_theme_name[ $x + 1 ];
+                            $new_user_theme_path[$x] = $user_theme_path[ $x + 1 ];
                         } else {
-                            $new_theme_name[$x] = $theme_name[$x];
-                            $new_theme_path[$x] = $theme_path[$x];
+                            $new_user_theme_name[$x] = $user_theme_name[$x];
+                            $new_user_theme_path[$x] = $user_theme_path[$x];
                         }
                     }
-                    @theme_name = @new_theme_name;
-                    @theme_path = @new_theme_path;
+                    @user_theme_name = @new_user_theme_name;
+                    @user_theme_path = @new_user_theme_path;
                 }
             }
             print "\nDetection complete!\n\n";
@@ -2672,7 +2673,7 @@ sub command41 {
             print "| d                (done) |\n";
             print "`-------------------------'\n";
         }
-        print "[theme] command (?=help) > ";
+        print "[user_theme] command (?=help) > ";
         $input = <STDIN>;
         $input =~ s/[\r\n]//g;
     }
@@ -4102,16 +4103,21 @@ sub save_data {
         print CF "\n";
 
         # strings
-        if ( $theme_default eq '' ) { $theme_default = '0'; }
-        print CF "\$theme_default = $theme_default;\n";
+        if ( $user_theme_default eq '' ) { $user_theme_default = '0'; }
+        print CF "\$user_theme_default = $user_theme_default;\n";
 
-        for ( $count = 0 ; $count <= $#theme_name ; $count++ ) {
-            print CF "\$theme[$count]['PATH'] = " . &change_to_SM_path($theme_path[$count]) . ";\n";
+        for ( $count = 0 ; $count <= $#user_theme_name ; $count++ ) {
+            if ($user_theme_path[$count] eq 'none') {
+                $path = '\'none\'';
+            } else {
+                $path = &change_to_SM_path($user_theme_path[$count]);
+            }
+            print CF "\$user_themes[$count]['PATH'] = " . $path . ";\n";
             # escape theme name so it can contain single quotes.
-            $esc_name =  $theme_name[$count];
+            $esc_name =  $user_theme_name[$count];
             $esc_name =~ s/\\/\\\\/g;
             $esc_name =~ s/'/\\'/g;
-            print CF "\$theme[$count]['NAME'] = '$esc_name';\n";
+            print CF "\$user_themes[$count]['NAME'] = '$esc_name';\n";
         }
         print CF "\n";
 
