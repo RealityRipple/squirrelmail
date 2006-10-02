@@ -37,19 +37,6 @@ if ($use_icons) {
     }
 }
 
-// load user-provided CSS themes
-global $css_themes;
-$dirName = SM_PATH . 'css';
-if (is_readable($dirName) && is_dir($dirName)) {
-    $d = dir($dirName);
-    while($dir = $d->read()) {
-        if ($dir != "." && $dir != "..") {
-            if (is_dir($dirName."/".$dir) && file_exists("$dirName/$dir/config.php"))
-                include("$dirName/$dir/config.php");
-        }
-    }
-}
-
 global $use_iframe;
 if (! isset($use_iframe)) $use_iframe=false;
 
@@ -70,7 +57,7 @@ function load_optpage_data_display() {
     global $theme, $fontsets, $language, $languages,$aTemplateSet,
     $default_use_mdn, $squirrelmail_language, $allow_thread_sort,
     $show_alternative_names, $use_icons, $use_iframe, $sTemplateID, 
-    $oTemplate, $css_themes;
+    $oTemplate, $user_themes;
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -110,7 +97,11 @@ function load_optpage_data_display() {
      * User themes start with a 'u_', template themes start with a 't_' to
      * differentiate which is which.  This seems kind of hackish, but we can
      * come up with a better solution later.
-No need for the prefixes.  Just use full paths, no?
+PL: No need for the prefixes.  Just use full paths, no?
+
+SB: Don't think so.  If the user chooses a template theme than changes the 
+    path to the template, it would error out, right?  Or should we worry about
+    that?
      * 
      * TODO: Clean me.
      **/
@@ -120,32 +111,36 @@ No need for the prefixes.  Just use full paths, no?
     $theme_values['none'] = 'Template Default Theme';
 
     // List alternate themes provided by templates first
+    $template_themes = array();
 /*
  * Since this requires mods to the template class, I'm holding off on alternate
  * template styles until Paul finishes template inheritence.
  *      -- SB, 2006-09-30
  * 
-    $template_provided = $oTemplate->get_alternative_stylesheets();
+    $template_themes = $oTemplate->get_alternative_stylesheets();
     asort($template_provided);
     foreach ($template_provided as $sheet=>$name) {
         $theme_values['t_'.$sheet] = 'Template Theme - '.htmlspecialchars($name);
     }
 */
     // Next, list styles provided in SM_PATH/css/
-    // FIXME, these should probably be defined in conf.pl!!
-    asort($css_themes);
-    foreach ($css_themes as $style) {
+    asort($user_themes);
+    foreach ($user_themes as $style) {
+        if ($style['PATH'] == 'none')
+            continue;
         $theme_values['u_'.$style['PATH']] = 'User Theme - '.htmlspecialchars($style['NAME']);
     }
 
-    $optvals[SMOPT_GRP_GENERAL][] = array(
-        'name'    => 'chosen_theme',
-        'caption' => _("Theme"),
-        'type'    => SMOPT_TYPE_STRLIST,
-        'refresh' => SMOPT_REFRESH_ALL,
-        'posvals' => $theme_values,
-        'save'    => 'css_theme_save'
-    );
+    if (count($user_themes) + count($template_themes) > 1) {
+        $optvals[SMOPT_GRP_GENERAL][] = array(
+            'name'    => 'chosen_theme',
+            'caption' => _("Theme"),
+            'type'    => SMOPT_TYPE_STRLIST,
+            'refresh' => SMOPT_REFRESH_ALL,
+            'posvals' => $theme_values,
+            'save'    => 'css_theme_save'
+        );
+    }
 
     /* Icon theme selection */
     if ($use_icons) {
@@ -538,14 +533,14 @@ function icon_theme_save($option) {
 }
 
 function css_theme_save ($option) {
-    global $css_themes, $data_dir, $username;
+    global $user_themes, $data_dir, $username;
 
     // Don't assume the new value is there, double check
     // and only save if found
     //
     $found = false;
-    reset($css_themes);
-    while (!$found && (list($index, $data) = each($css_themes))) {
+    reset($user_themes);
+    while (!$found && (list($index, $data) = each($user_themes))) {
         if ('u_'.$data['PATH'] == $option->new_value)
             $found = true;
     }

@@ -663,7 +663,7 @@ $session_name = 'SQMSESSID';
 
 
 /**
- * Themes
+ * User Themes
  *   You can define your own theme and put it in this directory.
  *   You must call it as the example below. You can name the theme
  *   whatever you want. For an example of a theme, see the ones
@@ -672,171 +672,18 @@ $session_name = 'SQMSESSID';
  * To add a new theme to the options that users can choose from, just
  * add a new number to the array at the bottom, and follow the pattern.
  *
- * $theme_default sets theme that will be used by default
+ * $user_theme_default sets theme that will be used by default
  * used by default.
- * @global integer $theme_default
+ * @global integer $user_theme_default
  */
-$theme_default = 0;
+$user_theme_default = 0;
 
 /**
  * Listing of installed themes
- * @global array $theme
+ * @global array $user_themes
  */
-$theme[0]['PATH'] = SM_PATH . 'themes/default_theme.php';
-$theme[0]['NAME'] = 'Default';
-
-$theme[1]['PATH'] = SM_PATH . 'themes/plain_blue_theme.php';
-$theme[1]['NAME'] = 'Plain Blue';
-
-$theme[2]['PATH'] = SM_PATH . 'themes/sandstorm_theme.php';
-$theme[2]['NAME'] = 'Sand Storm';
-
-$theme[3]['PATH'] = SM_PATH . 'themes/deepocean_theme.php';
-$theme[3]['NAME'] = 'Deep Ocean';
-
-$theme[4]['PATH'] = SM_PATH . 'themes/slashdot_theme.php';
-$theme[4]['NAME'] = 'Slashdot';
-
-$theme[5]['PATH'] = SM_PATH . 'themes/purple_theme.php';
-$theme[5]['NAME'] = 'Purple';
-
-$theme[6]['PATH'] = SM_PATH . 'themes/forest_theme.php';
-$theme[6]['NAME'] = 'Forest';
-
-$theme[7]['PATH'] = SM_PATH . 'themes/ice_theme.php';
-$theme[7]['NAME'] = 'Ice';
-
-$theme[8]['PATH'] = SM_PATH . 'themes/seaspray_theme.php';
-$theme[8]['NAME'] = 'Sea Spray';
-
-$theme[9]['PATH'] = SM_PATH . 'themes/bluesteel_theme.php';
-$theme[9]['NAME'] = 'Blue Steel';
-
-$theme[10]['PATH'] = SM_PATH . 'themes/dark_grey_theme.php';
-$theme[10]['NAME'] = 'Dark Grey';
-
-$theme[11]['PATH'] = SM_PATH . 'themes/high_contrast_theme.php';
-$theme[11]['NAME'] = 'High Contrast';
-
-$theme[12]['PATH'] = SM_PATH . 'themes/black_bean_burrito_theme.php';
-$theme[12]['NAME'] = 'Black Bean Burrito';
-
-$theme[13]['PATH'] = SM_PATH . 'themes/servery_theme.php';
-$theme[13]['NAME'] = 'Servery';
-
-$theme[14]['PATH'] = SM_PATH . 'themes/maize_theme.php';
-$theme[14]['NAME'] = 'Maize';
-
-$theme[15]['PATH'] = SM_PATH . 'themes/bluesnews_theme.php';
-$theme[15]['NAME'] = 'BluesNews';
-
-$theme[16]['PATH'] = SM_PATH . 'themes/deepocean2_theme.php';
-$theme[16]['NAME'] = 'Deep Ocean 2';
-
-$theme[17]['PATH'] = SM_PATH . 'themes/blue_grey_theme.php';
-$theme[17]['NAME'] = 'Blue Grey';
-
-$theme[18]['PATH'] = SM_PATH . 'themes/dompie_theme.php';
-$theme[18]['NAME'] = 'Dompie';
-
-$theme[19]['PATH'] = SM_PATH . 'themes/methodical_theme.php';
-$theme[19]['NAME'] = 'Methodical';
-
-$theme[20]['PATH'] = SM_PATH . 'themes/greenhouse_effect.php';
-$theme[20]['NAME'] = 'Greenhouse Effect (Changes)';
-
-$theme[21]['PATH'] = SM_PATH . 'themes/in_the_pink.php';
-$theme[21]['NAME'] = 'In The Pink (Changes)';
-
-$theme[22]['PATH'] = SM_PATH . 'themes/kind_of_blue.php';
-$theme[22]['NAME'] = 'Kind of Blue (Changes)';
-
-$theme[23]['PATH'] = SM_PATH . 'themes/monostochastic.php';
-$theme[23]['NAME'] = 'Monostochastic (Changes)';
-
-$theme[24]['PATH'] = SM_PATH . 'themes/shades_of_grey.php';
-$theme[24]['NAME'] = 'Shades of Grey (Changes)';
-
-$theme[25]['PATH'] = SM_PATH . 'themes/spice_of_life.php';
-$theme[25]['NAME'] = 'Spice of Life (Changes)';
-
-$theme[26]['PATH'] = SM_PATH . 'themes/spice_of_life_lite.php';
-$theme[26]['NAME'] = 'Spice of Life - Lite (Changes)';
-
-$theme[27]['PATH'] = SM_PATH . 'themes/spice_of_life_dark.php';
-$theme[27]['NAME'] = 'Spice of Life - Dark (Changes)';
-
-$theme[28]['PATH'] = SM_PATH . 'themes/christmas.php';
-$theme[28]['NAME'] = 'Holiday - Christmas';
-
-$theme[29]['PATH'] = SM_PATH . 'themes/darkness.php';
-$theme[29]['NAME'] = 'Darkness (Changes)';
-
-$theme[30]['PATH'] = SM_PATH . 'themes/random.php';
-$theme[30]['NAME'] = 'Random (Changes every login)';
-
-$theme[31]['PATH'] = SM_PATH . 'themes/midnight.php';
-$theme[31]['NAME'] = 'Midnight';
-
-$theme[32]['PATH'] = SM_PATH . 'themes/alien_glow.php';
-$theme[32]['NAME'] = 'Alien Glow';
-
-$theme[33]['PATH'] = SM_PATH . 'themes/dark_green.php';
-$theme[33]['NAME'] = 'Dark Green';
-
-$theme[34]['PATH'] = SM_PATH . 'themes/penguin.php';
-$theme[34]['NAME'] = 'Penguin';
-
-$theme[35]['PATH'] = SM_PATH . 'themes/minimal_bw.php';
-$theme[35]['NAME'] = 'Minimal BW';
-
-$theme[36]['PATH'] = SM_PATH . 'themes/redmond.php';
-$theme[36]['NAME'] = 'Redmond';
-
-$theme[37]['PATH'] = SM_PATH . 'themes/netstyle_theme.php';
-$theme[37]['NAME'] = 'Net Style';
-
-$theme[38]['PATH'] = SM_PATH . 'themes/silver_steel_theme.php';
-$theme[38]['NAME'] = 'Silver Steel';
-
-$theme[39]['PATH'] = SM_PATH . 'themes/simple_green_theme.php';
-$theme[39]['NAME'] = 'Simple Green';
-
-$theme[40]['PATH'] = SM_PATH . 'themes/wood_theme.php';
-$theme[40]['NAME'] = 'Wood';
-
-$theme[41]['PATH'] = SM_PATH . 'themes/bluesome.php';
-$theme[41]['NAME'] = 'Bluesome';
-
-$theme[42]['PATH'] = SM_PATH . 'themes/simple_green2.php';
-$theme[42]['NAME'] = 'Simple Green 2';
-
-$theme[43]['PATH'] = SM_PATH . 'themes/simple_purple.php';
-$theme[43]['NAME'] = 'Simple Purple';
-
-$theme[44]['PATH'] = SM_PATH . 'themes/autumn.php';
-$theme[44]['NAME'] = 'Autumn';
-
-$theme[45]['PATH'] = SM_PATH . 'themes/autumn2.php';
-$theme[45]['NAME'] = 'Autumn 2';
-
-$theme[46]['PATH'] = SM_PATH . 'themes/blue_on_blue.php';
-$theme[46]['NAME'] = 'Blue on Blue';
-
-$theme[47]['PATH'] = SM_PATH . 'themes/classic_blue.php';
-$theme[47]['NAME'] = 'Classic Blue';
-
-$theme[48]['PATH'] = SM_PATH . 'themes/classic_blue2.php';
-$theme[48]['NAME'] = 'Classic Blue 2';
-
-$theme[49]['PATH'] = SM_PATH . 'themes/powder_blue.php';
-$theme[49]['NAME'] = 'Powder Blue';
-
-$theme[50]['PATH'] = SM_PATH . 'themes/techno_blue.php';
-$theme[50]['NAME'] = 'Techno Blue';
-
-$theme[51]['PATH'] = SM_PATH . 'themes/turquoise.php';
-$theme[51]['NAME'] = 'Turquoise';
+$user_themes[0]['PATH'] = 'none';
+$user_themes[0]['NAME'] = 'Default';
 
 /**
  * Templates
