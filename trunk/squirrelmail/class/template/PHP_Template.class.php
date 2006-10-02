@@ -104,6 +104,48 @@ FIXME: Proposed idea to add a parameter here that turns variable
     }
 
     /**
+      * Clears the values of all assigned varaiables.
+      *
+      */
+    function clear_all_assign() {
+
+        $this->values = array();
+
+    }
+
+    /**
+      * Returns assigned variable value(s).
+      *
+      * @param string $varname If given, the value of that variable
+      *                        is returned, assuming it has been
+      *                        previously assigned.  If not specified
+      *                        an array of all assigned variables is
+      *                        returned. (optional)
+      *
+      * @return mixed Desired single variable value or list of all
+      *               assigned variable values.
+      *
+      */
+    function get_template_vars($varname=NULL) {
+
+        // just looking for one value
+        // 
+        if (!empty($varname)) {
+            if (!empty($this->values[$varname]))
+                return $this->values[$varname];
+            else
+// FIXME: this OK?  What does Smarty do?
+                return NULL;
+        }
+
+
+        // return all variable values
+        //
+        return $this->values;
+
+    }
+
+    /**
       * Appends values to template variables
       *
       * @param array|string $tpl_var the template variable name(s)
