@@ -673,13 +673,11 @@ $session_name = 'SQMSESSID';
  * add a new number to the array at the bottom, and follow the pattern.
  *
  * $theme_default sets theme that will be used by default
- * $theme_css sets stylesheet (from theme/css directory) that will be
  * used by default.
  * @global integer $theme_default
  * @global string $theme_css
  */
 $theme_default = 0;
-$theme_css = '';
 
 /**
  * Listing of installed themes
