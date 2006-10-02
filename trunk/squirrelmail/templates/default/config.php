@@ -18,20 +18,17 @@ $template_engine = SQ_PHP_TEMPLATE;
 
 
 /**
- * Required Javascript files for this template set.  If a JS file is listed
- * here, but not listed in the provided js files below, SquirrelMail will use
- * the file by the same name in the default template directory.
- */
-$required_js_files = array  (
-                                'default.js',
-                            );
-
-/**
- * Alternate stylesheets provided by this template.  Format detailed below.
- **/
-$alternate_stylesheets = array (
-                                    # CSS File         Stlye Name
-#                                   'example.css'   => 'My Example Style',
-                               );
+  * If non-empty, indicates which template set this set is derived from.
+  *
+  * If a template file does not exist in this template set, then the
+  * parent set is searched for the file.  If not found there and that
+  * set has a parent itself (the grandparent of this set), the file is
+  * searched for there....  This continues until there are no more parent
+  * template sets, and if the file is still not found, the fall-back
+  * template set (see $templateset_fallback in config/config.php) is the 
+  * last placed searched for the file.
+  *
+  */
+$parent_template_set = '';
 
 
