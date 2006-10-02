@@ -61,7 +61,7 @@ function getIcon($icon_theme_path, $icon_name, $text_icon, $alt_text='', $w=NULL
  * @since 1.5.2
  */
 function getIconPath ($icon_theme_path, $icon_name) {
-    global $icon_theme_def;
+    global $default_icon_theme;
 
     if (is_null($icon_theme_path))
         return NULL;
@@ -71,8 +71,8 @@ function getIconPath ($icon_theme_path, $icon_name) {
         return $icon_theme_path . $icon_name;
         
     // Icon not found, check for the admin-specified default
-    } elseif (!is_null($icon_theme_def) && is_file($icon_theme_def . $icon_name)) {
-        return $icon_theme_def . $icon_name;
+    } elseif (!is_null($default_icon_theme) && is_file($default_icon_theme . $icon_name)) {
+        return $default_icon_theme . $icon_name;
         
     // Icon not found, return the SQM default icon
     } elseif (is_file(SM_PATH . 'images/themes/default/'.$icon_name)) {

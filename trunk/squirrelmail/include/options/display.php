@@ -16,27 +16,6 @@ define('SMOPT_GRP_GENERAL', 0);
 define('SMOPT_GRP_MAILBOX', 1);
 define('SMOPT_GRP_MESSAGE', 2);
 
-/**
- * Icon themes and user CSS themes should probably both be moved to conf.pl
- * 
- * TODO: move to conf.pl
- **/
-// load icon themes if in use
-global $use_icons;
-if ($use_icons) {
-    global $icon_themes;
-    $dirName = SM_PATH . 'images/themes';
-    if (is_readable($dirName) && is_dir($dirName)) {
-        $d = dir($dirName);
-        while($dir = $d->read()) {
-            if ($dir != "." && $dir != "..") {
-                if (is_dir($dirName."/".$dir) && file_exists("$dirName/$dir/theme.php"))
-                    include("$dirName/$dir/theme.php");
-            }
-        }
-    }
-}
-
 global $use_iframe;
 if (! isset($use_iframe)) $use_iframe=false;
 
@@ -56,8 +35,9 @@ if (! isset($use_iframe)) $use_iframe=false;
 function load_optpage_data_display() {
     global $theme, $fontsets, $language, $languages,$aTemplateSet,
     $default_use_mdn, $squirrelmail_language, $allow_thread_sort,
-    $show_alternative_names, $use_icons, $use_iframe, $sTemplateID, 
-    $oTemplate, $user_themes, $chosen_theme;
+    $show_alternative_names, $use_iframe, $use_icons, 
+    $sTemplateID, $oTemplate,
+    $user_themes, $chosen_theme;
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
