@@ -32,7 +32,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     if ( !sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
         global $base_uri;
     }
-    global $theme_css, $custom_css, $pageheader_sent, $theme, $theme_default, $text_direction,
+    global $custom_css, $pageheader_sent, $theme, $theme_default, $text_direction,
         $default_fontset, $chosen_fontset, $default_fontsize, $chosen_fontsize, $chosen_theme;
 
     /* add no cache headers here */

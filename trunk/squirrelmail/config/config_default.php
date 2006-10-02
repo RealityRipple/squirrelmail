@@ -675,7 +675,6 @@ $session_name = 'SQMSESSID';
  * $theme_default sets theme that will be used by default
  * used by default.
  * @global integer $theme_default
- * @global string $theme_css
  */
 $theme_default = 0;
 
