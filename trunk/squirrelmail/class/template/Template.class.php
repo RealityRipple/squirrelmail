@@ -1078,7 +1078,12 @@ class Template
 
         }
 
-        return $return_array;
+
+        // return sheets for the current template set
+        // last so we can enable any custom overrides 
+        // of styles in ancestor sheets 
+        //
+        return array_reverse($return_array);
 
     }
 
