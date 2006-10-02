@@ -29,11 +29,11 @@ if( ! sqgetGlobalVar('username', $username, SQ_SESSION) ) {
 // TODO Get rid of "none" strings when NULL or false should be used, i hate them i hate them i hate them!!!.
 $custom_css = getPref($data_dir, $username, 'custom_css', 'none' );
 
-$aTemplateSet = (!isset($aTemplateSet) || !is_array($aTemplateSet) 
-                 ? array() : $aTemplateSet);
-$templateset_default = ( !isset($templateset_default) ? 0 : $templateset_default );
 
-$sTemplateID = getPref($data_dir, $username, 'sTemplateID', 'default');
+// template set setup
+//
+$sDefaultTemplateID = Template::get_default_template_set();
+$sTemplateID = getPref($data_dir, $username, 'sTemplateID', $sDefaultTemplateID);
 
 // check user prefs template selection against templates actually available
 //
@@ -48,21 +48,19 @@ for ($i = 0; $i < count($aTemplateSet); ++$i){
 // FIXME: do we need/want to check here for actual presence of template sets?
 // selected template not available, fall back to default template
 //
-if (!$found_templateset) {
-    $sTemplateID = ( !isset($aTemplateSet[$templateset_default]['ID']) ?
-                     'default' : $aTemplateSet[$templateset_default]['ID'] );
-}
+if (!$found_templateset) $sTemplateID = $sDefaultTemplateID;
 
 $chosen_theme = getPref($data_dir, $username, 'chosen_theme');
 
-/*
+/* Steve, is this commented out because it is part of the old system being removed?
+   Let's just remove it then... no?
 $theme = ( !isset($theme) ? array() : $theme );
 $color = ( !isset($color) ? array() : $color );
 
 $chosen_theme = getPref($data_dir, $username, 'chosen_theme');
 $found_theme = false;
 
-// need to adjust $chosen_theme path with SM_PATH
+// need to adjust $chosen_theme path with SM_PATH */
 $chosen_theme = preg_replace("/(\.\.\/){1,}/", SM_PATH, $chosen_theme);
 
 for ($i = 0; $i < count($theme); ++$i){
