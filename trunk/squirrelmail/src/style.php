@@ -38,9 +38,9 @@ if (!isset($fontsets) || !is_array($fontsets)) {
 
 
 /**
- * The collowing code should no longer be neccesary, but it will remain for the
+ * The following code should no longer be neccesary, but it will remain for the
  * time being, just in case.
- * 
+ *
  * TODO: Remove if no longer needed.
  **/
 /* set default colors in case color theme is not full */
@@ -146,7 +146,7 @@ if (! sqgetGlobalVar('fontsize',$fontsize,SQ_GET)) {
     $fontsize = (int) $fontsize;
 }
 
-header('Content-Type: text/css');
+$oTemplate->header('Content-Type: text/css');
 /**
  * GOTCHA #1: When sending the headers for caching, we must send Expires,
  *            Last-Modified, Pragma, and Cache-Control headers.  If we don't PHP 
@@ -171,9 +171,13 @@ IDEA: So ask the Template class object to return the mtime or better yet, the fu
  * only need to refresh the cache if one of the font prefs changes.
  * Possibly some type of "force nocache flag could be set if a font pref is
  * changed?
- * 
+ *
+ * Response: Perhaps, if that can be implemented great, but I think the 
+ * user prefs solution would definitely work: catch the font setting change
+ * in a custom save() routine from user prefs and away we go. 
+ *
  * TODO: Fix this. :)
- * */
+ */
 
 if ( $lastmod = @filemtime(SM_PATH . $oTemplate->get_template_file_directory() 
                          . 'css/stylesheet.tpl') ) {
@@ -184,10 +188,15 @@ if ( $lastmod = @filemtime(SM_PATH . $oTemplate->get_template_file_directory()
     header('Pragma: ');
     header('Cache-Control: public, must-revalidate');
 }
+// Steve, why did you remove this?  Is it irrelevant now?  If so, let's 
+// remove the rest of the references to it here (note that it is being
+// used above in the filetime() statement) and elsewhere
+// $oTemplate->display('css/stylesheet.tpl');
 
 /**
- * Additional styles are now handled by adding stylesheets to $sTplDir/css/,
- * so here, we simply define some basic styles based on user prefs.
+ * Additional styles are now handled by adding stylesheets to 
+ * templates/<template>/css/, so here, we simply define some 
+ * basic styles based on user prefs.
  */
 ?>
 /* older css template */
