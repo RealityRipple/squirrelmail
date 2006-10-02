@@ -857,6 +857,7 @@ $theme[51]['NAME'] = 'Turquoise';
  * @global integer $templateset_default
  */
 $templateset_default = 0;
+$templateset_fallback = 0;
 
 $aTemplateSet[0]['ID'] = 'default';
 $aTemplateSet[0]['NAME'] = 'Default';

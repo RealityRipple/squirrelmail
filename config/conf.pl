@@ -4155,6 +4155,13 @@ sub save_data {
 
         if ( $templateset_default eq '' ) { $templateset_default = '0'; }
         print CF "\$templateset_default = $templateset_default;\n";
+# FIXME: need to make this a setting the user can change herein
+#        This REALLY needs to be done, since the index of the "default"
+#        set cannot always be predicted!
+#        Heck, why are default and fallback indexes?  If we make them
+#        into the ID strings, then it would not cause such issues
+$templateset_fallback = 0;
+        print CF "\$templateset_fallback = $templateset_fallback;\n";
 
         for ( $count = 0 ; $count <= $#templateset_name ; $count++ ) {
             print CF "\$aTemplateSet[$count]['ID'] = '" . $templateset_id[$count] . "';\n";
