@@ -57,7 +57,7 @@ function load_optpage_data_display() {
     global $theme, $fontsets, $language, $languages,$aTemplateSet,
     $default_use_mdn, $squirrelmail_language, $allow_thread_sort,
     $show_alternative_names, $use_icons, $use_iframe, $sTemplateID, 
-    $oTemplate, $user_themes;
+    $oTemplate, $user_themes, $chosen_theme;
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -479,30 +479,6 @@ function save_option_template($option) {
 }
 
 /**
- * This function saves a new theme setting.
- * It updates the theme array.
- */
-function save_option_theme($option) {
-    global $theme;
-
-    /* Do checking to make sure $new_theme is in the array. */
-    $theme_in_array = false;
-    for ($i = 0; $i < count($theme); ++$i) {
-        if ($theme[$i]['PATH'] == $option->new_value) {
-            $theme_in_array = true;
-            break;
-        }
-    }
-
-    if (!$theme_in_array) {
-        $option->new_value = '';
-    }
-
-    /* Save the option like normal. */
-    save_option($option);
-}
-
-/**
  * This function saves the javascript detection option.
  */
 function save_option_javascript_autodetect($option) {
@@ -525,11 +501,11 @@ function icon_theme_save($option) {
         if ($data['PATH'] == $option->new_value)
             $found = true;
     }
-    if ($found)
-        setPref($data_dir, $username, 'icon_theme', $option->new_value);
-    else
-       setPref($data_dir, $username, 'icon_theme', 'none');
-
+    
+    if (!$found)
+        $option->new_value = 'none';
+        
+    save_option($option);
 }
 
 function css_theme_save ($option) {
