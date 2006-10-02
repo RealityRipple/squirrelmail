@@ -330,7 +330,7 @@ while ( $line = <FILE> ) {
             $ldap_writeable[$sub] = $writeable;
             $ldap_search_tree[$sub] = $search_tree;
             $ldap_starttls[$sub] = $starttls;
-        } elsif ( $options[0] =~ /^(data_dir|attachment_dir|theme_css|org_logo|signout_page|icon_theme_def)$/ ) {
+        } elsif ( $options[0] =~ /^(data_dir|attachment_dir|org_logo|signout_page|icon_theme_def)$/ ) {
             ${ $options[0] } = &change_to_rel_path($options[1]);
         } else {
             ${ $options[0] } = $options[1];
@@ -4102,7 +4102,6 @@ sub save_data {
         print CF "\n";
 
         # strings
-        print CF "\$theme_css = " . &change_to_SM_path($theme_css) . ";\n";
         if ( $theme_default eq '' ) { $theme_default = '0'; }
         print CF "\$theme_default = $theme_default;\n";
 
