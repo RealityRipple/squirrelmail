@@ -66,6 +66,21 @@ while (!$found_theme && $k < count($user_themes)) {
         $found_theme = true;
     $k++;
 }
+/**
+ * $oTemplate is not instantiated when this is called, so we need to devise
+ * a method of fething a list of tempalte-provided alt stylesheets to validate
+ * against.  For now, we assume that it is always found.
+ * 
+ * FIXME: fix this.
+ */
+#$template_themes = $oTemplate->get_alternative_stylesheets();
+#while (!$found_theme && (list($path, $name) = each($template_themes))) {
+#    if ('t_'.$path == $chosen_theme_path)
+#        $found_theme = true;
+#}
+if (substr($chosen_theme, 0, 2) == 't_')
+    $found_theme = true;
+    
 if (!$found_theme || $chosen_theme == 'none') {
     $chosen_theme_path = NULL;
 }

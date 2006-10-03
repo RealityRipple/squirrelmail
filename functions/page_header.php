@@ -84,14 +84,22 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
  * 
  * TODO: Re-evaluate this naming convetion.
  */
-    if (!empty($used_theme) && substr($used_theme, 0, 2) == 'u_') {
-        $aUserStyles[] = substr($used_theme, 2) .'default.css';
+#    var_dump($used_theme);
+    if (!empty($used_theme)) {
+        if (substr($used_theme, 0, 2) == 'u_') {
+            $aUserStyles[] = substr($used_theme, 2) .'default.css';
+        } elseif (substr($used_theme, 0, 2) == 't_') {
+            $aUserStyles[] = SM_PATH . $oTemplate->get_template_file_directory().'css/alternates/'.substr($used_theme, 2);
+#            $aUserStyles[] = substr($used_theme, 2);
+        }
     }
 
     // 3. src/style.php
     $aUserStyles[] = $base_uri .'src/style.php?'
                    . (!empty($used_fontset) ? '&amp;fontset='.$used_fontset : '')
                    . (!empty($used_fontsize) ? '&amp;fontsize='.$used_fontsize : '');
+
+    // 3.1.  Load the stylesheets we have already  
     $header_tags .= $oTemplate->fetch_external_stylesheet_links($aUserStyles);
 
     // 4. Optional rtl.css stylesheet
