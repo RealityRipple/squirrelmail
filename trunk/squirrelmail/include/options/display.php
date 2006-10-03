@@ -91,19 +91,12 @@ SB: Don't think so.  If the user chooses a template theme than changes the
     $theme_values['none'] = 'Template Default Theme';
 
     // List alternate themes provided by templates first
-    $template_themes = array();
-/*
- * Since this requires mods to the template class, I'm holding off on alternate
- * template styles until Paul finishes template inheritence.
- *      -- SB, 2006-09-30
- * 
     $template_themes = $oTemplate->get_alternative_stylesheets();
-    asort($template_provided);
-    foreach ($template_provided as $sheet=>$name) {
+    asort($template_themes);
+    foreach ($template_themes as $sheet=>$name) {
         $theme_values['t_'.$sheet] = 'Template Theme - '.htmlspecialchars($name);
     }
-*/
-    // Next, list styles provided in SM_PATH/css/
+    // Next, list user-provided styles
     asort($user_themes);
     foreach ($user_themes as $style) {
         if ($style['PATH'] == 'none')
@@ -470,12 +463,11 @@ function save_option_javascript_autodetect($option) {
  * This function saves the user's icon theme setting
  */
 function icon_theme_save($option) {
-    global $icon_themes, $data_dir, $username;
+    global $icon_themes;
 
 
     // Don't assume the new value is there, double check
     // and only save if found
-    //
     $found = false;
     while (!$found && (list($index, $data) = each($icon_themes))) {
         if ($data['PATH'] == $option->new_value)
@@ -489,21 +481,27 @@ function icon_theme_save($option) {
 }
 
 function css_theme_save ($option) {
-    global $user_themes, $data_dir, $username;
+    global $user_themes, $oTemplate;
 
     // Don't assume the new value is there, double check
     // and only save if found
-    //
     $found = false;
     reset($user_themes);
     while (!$found && (list($index, $data) = each($user_themes))) {
         if ('u_'.$data['PATH'] == $option->new_value)
             $found = true;
     }
-    if ($found)
-        setPref($data_dir, $username, 'chosen_theme', $option->new_value);
-    else
-       setPref($data_dir, $username, 'chosen_theme', 'none');
+    
+    $template_themes = $oTemplate->get_alternative_stylesheets();
+    foreach ($template_themes as $path=>$name) {
+        if ('t_'.$path == $option->new_value)
+            $found = true;
+    }
+    
+    if (!$found)
+        $option->new_value = 'none';
+        
+    save_option($option);
 }
 
 
