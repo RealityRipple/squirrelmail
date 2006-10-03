@@ -686,6 +686,8 @@ $user_theme_default = 0;
 $user_themes[0]['PATH'] = 'none';
 $user_themes[0]['NAME'] = 'Default';
 
+$user_themes[1]['PATH'] = '../css/blue_gradient/';
+$user_themes[1]['NAME'] = 'Blue Options';
 
 /**
  * Message Icons control
@@ -694,7 +696,7 @@ $user_themes[0]['NAME'] = 'Default';
  * @global bool $use_icons
  * @since 1.5.1
  */
-$use_icons = false;
+$use_icons = true;
 
 /**
  * Icon Themes
@@ -710,7 +712,7 @@ $use_icons = false;
  * @global integer $icon_theme_def
  * @since 1.5.2
  */
-$icon_theme_def = 0;
+$icon_theme_def = 3;
 
 /**
  * Listing of installed icon themes
