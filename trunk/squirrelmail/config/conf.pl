@@ -8,7 +8,7 @@
 #
 # $Id$
 ############################################################
-$conf_pl_version = "1.4.0";
+$conf_pl_version = "1.5.0";
 
 ############################################################
 # Check what directory we're supposed to be running in, and
@@ -2549,12 +2549,45 @@ sub command_config_location_base {
 }
 
 
-
 sub command_userThemes {
     print "\nDefine the user themes that you wish to use.  If you have added\n";
     print "a theme of your own, just follow the instructions (?) about\n";
     print "how to add them.  You can also change the default theme.\n\n";
-    print "[user_themes] command (?=help) > ";
+    
+    print "Available user themes:\n";
+    $count = 0;
+    while ( $count <= $#user_theme_name ) {
+        if ( $count == $user_theme_default ) {
+            print " *";
+        } else {
+            print "  ";
+        }
+        if ( $count < 10 ) {
+            print " ";
+        }
+        $name       = $user_theme_name[$count];
+        $num_spaces = 35 - length($name);
+        for ( $i = 0 ; $i < $num_spaces ; $i++ ) {
+            $name = $name . " ";
+        }
+
+        print " $count.  $name";
+        print "($user_theme_path[$count])\n";
+
+        $count++;
+    }
+	    
+	print "\n";
+    print ".------------------------------------.\n";
+    print "| t             (detect user themes) |\n";
+    print "| +                 (add user theme) |\n";
+    print "| - N            (remove user theme) |\n";
+    print "| m N      (mark default user theme) |\n";
+    print "| l               (list user themes) |\n";
+    print "| d                           (done) |\n";
+    print "`------------------------------------'\n";
+	
+    print "\n[user_themes] command (?=help) > ";
     $input = <STDIN>;
     $input =~ s/[\r\n]//g;
     while ( $input ne "d" ) {
@@ -2698,7 +2731,42 @@ sub command_iconSets {
     print "\nDefine the icon themes that you wish to use.  If you have added\n";
     print "a theme of your own, just follow the instructions (?) about\n";
     print "how to add them.  You can also change the default theme.\n\n";
-    print "[icon_themes] command (?=help) > ";
+    
+    print "Available icon themes:\n\n";
+
+    $count = 0;
+    while ( $count <= $#icon_theme_name ) {
+        if ( $count == $icon_theme_def ) {
+            print " *";
+        } else {
+            print "  ";
+        }
+        if ( $count < 10 ) {
+            print " ";
+        }
+        $name       = $icon_theme_name[$count];
+        $num_spaces = 35 - length($name);
+        for ( $i = 0 ; $i < $num_spaces ; $i++ ) {
+            $name = $name . " ";
+        }
+
+        print " $count.  $name";
+        print "($icon_theme_path[$count])\n";
+
+        $count++;
+    }
+    
+    print "\n";
+    print ".------------------------------------.\n";
+    print "| t             (detect icon themes) |\n";
+    print "| +                 (add icon theme) |\n";
+    print "| - N            (remove icon theme) |\n";
+    print "| m N      (mark default icon theme) |\n";
+    print "| l               (list icon themes) |\n";
+    print "| d                           (done) |\n";
+    print "`------------------------------------'\n";
+    
+    print "\n[icon_themes] command (?=help) > ";
     $input = <STDIN>;
     $input =~ s/[\r\n]//g;
     while ( $input ne "d" ) {
@@ -2839,9 +2907,9 @@ sub command_iconSets {
 }
 
 sub command_templates {
-    print "\nDefine the template sets that you wish to use.  If you have added ";
-    print "a template set of your own, just follow the instructions (?) about how to add ";
-    print "them.  You can also change the default template.\n";
+    print "\nDefine the template sets that you wish to use.  If you have added\n";
+    print "a template set of your own, just follow the instructions (?) about\n";
+    print "how to add them.  You can also change the default template.\n";
 
     print "\n  Available Templates:\n";
 
