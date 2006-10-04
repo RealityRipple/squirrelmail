@@ -241,6 +241,11 @@ while ( $line = <FILE> ) {
             $sub =~ s/\'\]//;
             $sub =~ s/^fontsets\[\'//;
             $fontsets{$sub} = $options[1];
+        } elsif ( $options[0] =~ /^theme\[[0-9]+\]\[['"]PATH|NAME['"]\]/ ) {
+        	##
+        	## $color themes are no longer supported.  Please leave this
+        	## so conf.pl doesn't barf if it encounters a $theme.
+        	##
         } elsif ( $options[0] =~ /^ldap_server\[[0-9]+\]/ ) {
             $sub = $options[0];
             $sub =~ s/\]//;
