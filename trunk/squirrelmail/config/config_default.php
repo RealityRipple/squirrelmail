@@ -25,7 +25,7 @@
 /* Do not change this value. */
 global $version;
 global $config_version;
-$config_version = '1.4.0';
+$config_version = '1.5.0';
 
 /*** Organization preferences ***/
 /**
