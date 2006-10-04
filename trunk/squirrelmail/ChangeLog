@@ -141,6 +141,8 @@ Version 1.5.2 - CVS
   - Ignore message copy errors when messages are deleted. Allows to delete
     messages when quota is exceeded. (#614887) (#646386) (#1446026)
   - Added filter_hook_function() hook type.
+  - Fixed unintended literal fetching (#1562271).
+
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
