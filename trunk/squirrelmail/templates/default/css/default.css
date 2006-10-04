@@ -14,6 +14,11 @@ img {
     border:0;
 }
 
+em {
+    font-weight: bold;
+    font-style: normal;
+}
+
 /* right links */
 a:link, a:visited, a:hover, a:active {
     color: #0000cc;
@@ -232,6 +237,12 @@ tr.odd  {
 }
 .table_messageList	td.col_text	{
     text-align: left;
+}
+td.message_count	{
+    text-align: right;
+}
+.unread {
+    font-weight: bold;
 }
 .deleted	{
     color: #ababab;
