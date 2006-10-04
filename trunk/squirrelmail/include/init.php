@@ -334,6 +334,7 @@ switch ($sInitLocation) {
          * plugins use own pref files.
          */
         require(SM_PATH . 'functions/prefs.php');
+        require(SM_PATH . 'functions/auth.php');
         /* hook loads custom prefs backend plugins */
         $prefs_backend = do_hook_function('prefs_backend');
         if (isset($prefs_backend) && !empty($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
