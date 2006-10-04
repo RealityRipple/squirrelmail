@@ -1,0 +1,275 @@
+/* older css template */
+/* page body formatting */
+body {
+    color:  #9097bc;
+    background-color: #19193a;
+}
+body.sqm_leftMain {
+    color:  #8a8aaf;
+    background-color: #19193a;
+}
+
+/* right links */
+a:link, a:visited, a:hover, a:active {
+    color: #8a8aaf;
+}
+
+/* left links */
+.sqm_leftMain a:link, .sqm_leftMain a:visited, .sqm_leftMain a:hover, .sqm_leftMain a:active {
+    color:  #8a8aaf;
+}
+.leftunseen, .leftspecial, .leftspecial a:link, .leftspecial a:visited, .leftspecial a:hover, .leftspecial a:active {
+    color:  #ffffff;
+}
+.leftnoselect a:link, .leftnoselect a:visited, .leftnoselect a:hover, .leftnoselect a:active {
+    color:  #ffffff;
+}
+
+/* highlighted texts */
+.highlight {
+    color:  #ffffff;
+}
+.error_table {
+    color: #8a8aaf;
+    border: 2px solid #4c4b83;
+    background-color: #19193a;
+}
+.error_thead {
+    background-color: #16161d;
+}
+.error_thead_caption {
+    background-color: #16161d;
+}
+.error_row {
+    color: #8a8aaf;
+}
+.error_val {
+    color: #9097bc;
+    border: 2px solid #4c4b83;
+
+}
+.error_key {
+    border: 2px solid #4c4b83;
+    color: #8a8aaf;
+    background-color: #4c4b83;
+}
+
+/* Standard defs */
+table.table1    {
+    border: 1px solid #4c4b83;
+}
+table.table2    {
+    border: 1px solid #2d2d3b;
+}
+td.header1  {
+    background: #4c4b83;
+}
+td.header2  {
+    background: #2d2d3b;
+}
+td.header4  {
+    background: #19193a;
+}
+tr.even {
+    background: #1d1d26;
+}
+tr.odd  {
+    background: #19193a;
+}
+.table_standard {
+    border:1px solid #4c4b83;
+}
+
+.sqm_loginOrgName, .sqm_signoutBar {
+    background: #4c4b83;
+}
+.sqm_motd {
+    background: #2d2d3b;
+}
+.sqm_motd td {
+    background: #19193a;
+}
+
+/* empty_folder.tpl defs */
+.sqm_emptyFolder {
+    background: #2d2d3b;
+}
+.sqm_emptyFolder td {
+    background: #19193a;
+}
+
+/* error_box.tpl definitions */
+.table_errorBoxWrapper   {
+    background: #2d2d3b;
+}
+.table_errorBox  {
+    background: #4c4b83;
+}
+.error_message {
+    background: #19193a;
+}
+
+/* page_header.tpl definitions */
+.sqm_currentFolder  {
+    background: #2d2d3b;
+}
+.sqm_headerSignout  {
+    background: #2d2d3b;
+}
+
+/* message_list.tpl definitions */
+.table_messageListWrapper   {
+    background: #2d2d3b;
+}
+
+.table_messageList  {
+    background: #19193a;
+}
+.table_messageList td.spacer {
+    background: #4c4b83;
+}
+.table_messageList  tr.mouse_over   {
+    background: #19193a;
+}
+.table_messageList  tr.clicked  {
+    background: #ff9933;
+}
+.deleted    {
+    color: #2d2d3b;
+}
+.flagged    {
+    color: #ffffff;
+}
+.high_priority  {
+    color: #ffffff;
+}
+.low_priority   {
+    color: #9097bc;
+}
+.message_list_controls {
+    background: #4c4b83;
+}
+.spacer {
+    background: #19193a;
+}
+
+/* folder_manip.tpl defs */
+#folderManip   table.wrapper   {
+    border: 1px solid #4c4b83;
+}
+#folderManip   td.folderAction {
+    background: #4c4b83;
+}
+
+/* addressbook_list.tpl defs */
+#addressList    table   {
+    border: 1px solid #2d2d3b;
+}
+#addressList    td.header1  {
+    background: #2d2d3b;
+}
+#addressList    td.abookSwitch  {
+    background: #4c4b83;
+}
+
+#addressList    td.abookButtons  {
+    background: #4c4b83;
+}
+#addressList    td.abookField   {
+    border-left: 1px solid #2d2d3b;
+    border-right: 1px solid #2d2d3b;
+}
+#addressList    td.colHeader {
+    background: #2d2d3b;
+}
+#addrBookSearch   table.wrapper   {
+    border: 1px solid #2d2d3b;
+}
+#addrAddEdit    table   {
+    border: 1px solid #2d2d3b;
+}
+#addrAddEdit    td.header   {
+    background: #2d2d3b;
+}
+
+/* options defs */
+#optionGroups   table   {
+    border: 1px solid #4c4b83;
+}
+#optionGroups   td.title    {
+    background: #4c4b83;
+}
+#optionGroups   td.optionElement    table   {
+    border:1px solid #2d2d3b;
+}
+#optionGroups   td.optionName   {
+    background: #2d2d3b;
+}
+#optionGroups   td.optionDesc   {
+    background: #4c4b83;
+}
+#optionDisplay  table   {
+    border: 1px solid #4c4b83
+}
+#optionOrder    table   {
+    border: 1px solid #4c4b83
+}
+#optionOrder    table.moveFields    td  {
+    border-left: 1px solid #4c4b83;
+    border-right: 1px solid #4c4b83;
+}
+#optionsIdentity    table.table2 tr  {
+    background: #4c4b83;
+}
+#optionsIdentity hr  {
+    width: 95%;
+    border: 1px solid #2d2d3b;
+}
+
+/* help defs */
+#help   td.nav  {
+    color: #4c4b83;
+}
+
+/* search defs */
+div.search td.header4  {
+    border-bottom: 1px solid #2d2d3b;
+}
+div.search td.queryAction {
+    border-left: 1px solid #2d2d3b;
+    border-top: 1px solid #2d2d3b;
+    border-bottom: 1px solid #2d2d3b;
+}
+
+div.search td.queryDesc  {
+    border-top: 1px solid #2d2d3b;
+    border-bottom: 1px solid #2d2d3b;
+}
+div.search span.error  {
+    color: #ffffff;
+}
+div.search td.searchForm  {
+    border-right: 1px solid #4c4b83;
+    border-left: 1px solid #4c4b83;
+}
+div.search td.queryError {
+    color: #ffffff;
+}
+div.search h2 {
+    color: #ffffff;
+}
+
+/* compse defs */
+div.compose tr.header {
+    background: #2d2d3b;
+}
+div.compose tr.attachment td {
+    background: #4c4b83;
+    border-top: 1px solid #2d2d3b;
+    border-bottom: 1px solid #2d2d3b;
+}
+
+div.compose table.close {
+    background: #4c4b83;
+    border:1px solid #2d2d3b;
+}
