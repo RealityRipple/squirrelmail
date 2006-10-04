@@ -105,7 +105,7 @@ echo "<p><table>\n<tr><td>SquirrelMail version:</td><td><b>" . $version . "</b><
     "</b></td></tr>\n</table>\n</p>\n\n";
 
 /* check $config_version */
-if ($config_version!='1.4.0') {
+if ($config_version!='1.5.0') {
     do_err('Configuration file version does not match required version. Please update your configuration file.');
 }
 
