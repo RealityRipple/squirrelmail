@@ -72,6 +72,9 @@ while (!$found_theme && $k < count($user_themes)) {
  * against.  For now, we assume that it is always found.
  * 
  * FIXME: fix this.
+PL: See include/init.php commit from 2 days ago, Template class should be
+    loaded before this file is, so the commented-out code below will probably 
+    work
  */
 #$template_themes = $oTemplate->get_alternative_stylesheets();
 #while (!$found_theme && (list($path, $name) = each($template_themes))) {
