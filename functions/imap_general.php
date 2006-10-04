@@ -516,14 +516,21 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
                     if ($s === "}\r\n") {
                         $j = strrpos($read,'{');
                         $iLit = substr($read,$j+1,-3);
-                        $data[] = $read;
-                        $sLiteral = fread($imap_stream,$iLit);
-                        if ($sLiteral === false) { /* error */
-                            $read = false;
-                            break 3; /* while switch while */
+                        // check for numeric value to avoid that untagged responses like:
+                        // * OK [PARSE] Unexpected characters at end of address: {SET:debug=51}
+                        // will trigger literal fetching  ({SET:debug=51} !== int )
+                        if (is_numeric($iLit)) {
+                            $data[] = $read;
+                            $sLiteral = fread($imap_stream,$iLit);
+                            if ($sLiteral === false) { /* error */
+                                $read = false;
+                                break 3; /* while switch while */
+                            }
+                            $data[] = $sLiteral;
+                            $data[] = sqimap_fgets($imap_stream);
+                        } else {
+                            $data[] = $read;
                         }
-                        $data[] = $sLiteral;
-                        $data[] = sqimap_fgets($imap_stream);
                     } else {
                          $data[] = $read;
                     }
@@ -743,9 +750,9 @@ function sqimap_create_stream($server,$port,$tls=0) {
  * Logs the user into the IMAP server.  If $hide is set, no error messages
  * will be displayed.  This function returns the IMAP connection handle.
  * @param string $username user name
- * @param string $password password encrypted with onetimepad. Since 1.5.2 
- *  function can use internal password functions, if parameter is set to 
- *  boolean false. 
+ * @param string $password password encrypted with onetimepad. Since 1.5.2
+ *  function can use internal password functions, if parameter is set to
+ *  boolean false.
  * @param string $imap_server_address address of imap server
  * @param integer $imap_port port of imap server
  * @param boolean $hide controls display connection errors
