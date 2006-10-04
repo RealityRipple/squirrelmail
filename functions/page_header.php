@@ -87,7 +87,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
 #    var_dump($used_theme);
     if (!empty($used_theme)) {
         if (substr($used_theme, 0, 2) == 'u_') {
-            $aUserStyles[] = substr($used_theme, 2) .'default.css';
+            $aUserStyles[] = substr($used_theme, 2) .'/default.css';
         } elseif (substr($used_theme, 0, 2) == 't_') {
             $aUserStyles[] = SM_PATH . $oTemplate->get_template_file_directory().'css/alternates/'.substr($used_theme, 2);
 #            $aUserStyles[] = substr($used_theme, 2);
