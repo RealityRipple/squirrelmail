@@ -109,7 +109,7 @@ function set_url_var($url, $var, $val=0, $link=true) {
                     '/.+(\\?'.$var.')=(.*)$/AU',     /* at front and only var */
                     '/.+(\\&'.$var.')=(.*)$/AU'      /* at the end */
                     );
-    preg_replace('/&amp;/','&',$url);
+    $url = preg_replace('/&amp;/','&',$url);
 
     // FIXME: why switch is used instead of if () or one preg_match()
     switch (true) {
@@ -155,5 +155,6 @@ function set_url_var($url, $var, $val=0, $link=true) {
         $pat = "/$k=$v/";
         $url = preg_replace($pat,$rpl,$url);
     }
+    $url = preg_replace('/&/','&amp;',$url);
     return $url;
 }
