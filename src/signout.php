@@ -55,7 +55,7 @@ if ( !isset($oTemplate) || !is_object($oTemplate) ) {
     $oTemplate = Template::construct_template($sTemplateID);
 
     // We want some variables to always be available to the template
-    $always_include = array('sTemplateID', 'icon_theme_path');
+    $always_include = array('sTemplateID', 'icon_theme_path', 'javascript_on');
     foreach ($always_include as $var) {
         $oTemplate->assign($var, (isset($$var) ? $$var : NULL));
     }
