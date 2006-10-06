@@ -205,7 +205,9 @@ function attachment_common_link_image(&$Args) {
     $info['passed_id'] = $Args[3];
     $info['mailbox'] = $Args[4];
     $info['ent_id'] = $Args[5];
-
+    $info['name'] = $Args[7];
+    $info['download_href'] = isset($Args[1]['download link']) ? $Args[1]['download link']['href'] : '';
+    
     $attachment_common_show_images_list[] = $info;
 
     $Args[1]['attachment_common']['href'] = $base_uri  . 'src/image.php?'. htmlspecialchars($QUERY_STRING);
