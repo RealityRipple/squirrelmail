@@ -192,6 +192,32 @@ tr.odd  {
     text-align: center;
 }
 
+.sqm_wrapperTable   {
+    border:0;
+    padding:0;
+    margin-left:0;
+    border-spacing:0;
+    width:99%
+}
+sqm_leftMain table {
+    border:0;
+    padding:0;
+    margin:0;
+    border-spacing:0;
+}
+.sqm_folderHeader {
+    font-size:18px;
+    font-weight:bold;
+    text-align:center;
+}
+.sqm_clock {
+}
+.sqm_lastRefreshTime {
+    white-space: nowrap;
+}
+.sqm_refreshButton {
+}
+
 /* note.tpl defs */
 .sqm_noteWrapper {
     text-align:center;
