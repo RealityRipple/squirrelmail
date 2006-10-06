@@ -97,4 +97,17 @@ class AddressStructure {
     function getEncodedAddress() {
         return $this->getAddress(true, true);
     }
+    
+    /**
+     * Return just the email portion of this address
+     * @return string
+     * @since 1.5.2
+     */
+    function getEmail () {
+        $r = '';
+        if (is_object($this)) {
+            $r = $this->host ? $this->mailbox.'@'.$this->host : $this->mailbox;
+        }
+        return $r;
+    }
 }
