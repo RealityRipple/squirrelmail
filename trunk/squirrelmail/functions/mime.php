@@ -313,15 +313,9 @@ function translateText(&$body, $wrap_at, $charset) {
         }
 
         if ($quotes % 2) {
-            if (!isset($color[13])) {
-                $color[13] = '#800000';
-            }
-            $line = '<font color="' . $color[13] . '">' . $line . '</font>';
+            $line = '<span class="quote1">' . $line . '</style>';
         } elseif ($quotes) {
-            if (!isset($color[14])) {
-                $color[14] = '#FF0000';
-            }
-            $line = '<font color="' . $color[14] . '">' . $line . '</font>';
+            $line = '<span class="quote2">' . $line . '</style>';
         }
 
         $body_ary[$i] = $line;
@@ -504,33 +498,32 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
  * Since 1.0.2 uses attachment $type0/$type1 hook.
  * Since 1.2.5 uses attachment $type0/* hook.
  * Since 1.5.0 uses attachments_bottom hook.
+ * Since 1.5.2 uses templates and does *not* return a value.
  *
  * @param object $message SquirrelMail message object
  * @param array $exclude_id message parts that are not attachments.
  * @param string $mailbox mailbox name
  * @param integer $id message id
- * @return string html formated attachment information.
  */
 function formatAttachments($message, $exclude_id, $mailbox, $id) {
-    global $where, $what, $startMessage, $color, $passed_ent_id, $base_uri;
+    global $where, $what, $startMessage, $color, $passed_ent_id, $base_uri,
+           $oTemplate;
 
     $att_ar = $message->getAttachments($exclude_id);
-
-    if (!count($att_ar)) return '';
-
-    $attachments = '';
-
     $urlMailbox = urlencode($mailbox);
 
+    $attach = array();
     foreach ($att_ar as $att) {
         $ent = $att->entity_id;
         $header = $att->header;
         $type0 = strtolower($header->type0);
         $type1 = strtolower($header->type1);
         $name = '';
+        $links = array();
         $links['download link']['text'] = _("Download");
         $links['download link']['href'] = $base_uri .
             "src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;ent_id=$ent";
+            
         if ($type0 =='message' && $type1 == 'rfc822') {
             $default_page = $base_uri  . 'src/read_body.php';
             $rfc822_header = $att->rfc822_header;
@@ -551,7 +544,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
             } else {
                 $from_name = _("Unknown sender");
             }
-            $description = $from_name;
+            $description = _("From").': '.$from_name;
         } else {
             $default_page = $base_uri  . 'src/download.php';
             $filename = $att->getFilename();
@@ -591,34 +584,33 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         $links = $hookresults[1];
         $defaultlink = $hookresults[6];
 
-        $attachments .= '<tr><td>' .
-            '<a href="'.$defaultlink.'">'.decodeHeader($display_filename).'</a>&nbsp;</td>' .
-            '<td><small><b>' . show_readable_size($header->size) .
-            '</b>&nbsp;&nbsp;</small></td>' .
-            '<td><small>[ '.htmlspecialchars($type0).'/'.htmlspecialchars($type1).' ]&nbsp;</small></td>' .
-            '<td><small>';
-        $attachments .= '<b>' . $description . '</b>';
-        $attachments .= '</small></td><td><small>&nbsp;';
-
-        $skipspaces = 1;
+        $a = array();
+        $a['Name'] = decodeHeader($display_filename);
+        $a['Description'] = $description;
+        $a['DefaultHREF'] = $defaultlink;
+        $a['DownloadHREF'] = $links['download link']['href'];
+        $a['ViewHREF'] = isset($links['attachment_common']) ? $links['attachment_common']['href'] : '';
+        $a['Size'] = $header->size;
+        $a['ContentType'] = htmlspecialchars($type0 .'/'. $type1);
+        $a['OtherLinks'] = array();
         foreach ($links as $val) {
-            if ($skipspaces) {
-                $skipspaces = 0;
-            } else {
-                $attachments .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
-            }
-            $attachments .= '<a href="' . $val['href'] . '">'
-                . (isset($val['text']) && !empty($val['text']) ? $val['text'] : '')
-                . (isset($val['extra']) && !empty($val['extra']) ? $val['extra'] : '')
-                . '</a>';
+            if ($val['text']==_("Download") || $val['text'] == _("View"))
+                continue;
+            if (empty($val['text']) && empty($val['extra']))
+                continue;
+                
+            $t = array();
+            $t['HREF'] = $val['href'];
+            $t['Text'] = (empty($val['text']) ? '' : $val['text']) . (empty($val['extra']) ? '' : $val['extra']);
+            $a['OtherLinks'][] = $t;
         }
+        $attach[] = $a;
+        
         unset($links);
-        $attachments .= "</td></tr>\n";
     }
-    $attachmentadd = do_hook_function('attachments_bottom',$attachments);
-    if ($attachmentadd != '')
-        $attachments = $attachmentadd;
-    return $attachments;
+
+    $oTemplate->assign('attachments', $attach);
+    $oTemplate->display('read_attachments.tpl');
 }
 
 function sqimap_base64_decode(&$string) {
@@ -2102,6 +2094,8 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
            $has_unsafe_images;
     /**
      * Don't display attached images in HTML mode.
+     * 
+     * SB: why?
      */
     $attachment_common_show_images = false;
     $tag_list = Array(
