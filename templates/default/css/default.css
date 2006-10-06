@@ -1,12 +1,12 @@
 /* page body formatting */
 body {
-    color:  #000000;
-    background-color: #ffffff;
+    color:  #000000 /* __COLOR8__ */;
+    background-color: #ffffff /* __COLOR4__*/;
     font-family: Arial, Helvetica, sans-serif;
 }
 body.sqm_leftMain {
-    color:  #000000;
-    background-color: #a0b8c8;
+    color:  #000000 /* __COLOR6__*/;
+    background-color: #a0b8c8 /* __COLOR3__*/;
     text-align: left;
 }
 
@@ -19,27 +19,35 @@ em {
     font-style: normal;
 }
 
+.quote1 {
+    color: #800000 /* __COLOR13__*/;
+}
+
+.quote2 {
+    color: #ff0000 /* __COLOR14__*/;
+}
+
 /* right links */
 a:link, a:visited, a:hover, a:active {
-    color: #0000cc;
+    color: #0000cc /* __COLOR7__ */;
 }
 
 /* left links */
 .sqm_leftMain a:link, .sqm_leftMain a:visited, .sqm_leftMain a:hover, .sqm_leftMain a:active {
-    color:  #000000;
+    color:  #000000 /* __COLOR6__*/;
 }
 
 .leftunseen, .leftspecial, .leftspecial a:link, .leftspecial a:visited, .leftspecial a:hover, .leftspecial a:active {
-    color:  #770000;
+    color:  #770000 /* __COLOR11__ */;
 }
 
 .leftnoselect a:link, .leftnoselect a:visited, .leftnoselect a:hover, .leftnoselect a:active {
-    color:  #002266;
+    color:  #002266 /* __COLOR15__ */;
 }
 
 /* highlighted texts */
 .highlight {
-    color:  #002266;
+    color:  #002266 /* __COLOR15__ */;
 }
 
 .thead_caption {
@@ -48,28 +56,28 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .error_table {
-    color: #ff0000;
-    border: 2px solid #dcdcdc;
-    background-color: #a0b8c8;
+    color: #ff0000 /* __COLOR14__*/;
+    border: 2px solid #dcdcdc /* __COLOR0__ */;
+    background-color: #a0b8c8 /* __COLOR3__*/;
 }
 .error_thead {
-    background-color: #666666;
+    background-color: #666666 /* __COLOR10__*/;
 }
 .error_thead_caption {
-    background-color: #666666;
+    background-color: #666666 /* __COLOR10__*/;
 }
 .error_row {
-    color: #ff0000;
+    color: #ff0000 /* __COLOR14__*/;
 }
 .error_val {
-    color: #000000;
-    border: 2px solid #dcdcdc;
+    color: #000000 /* __COLOR6__*/;
+    border: 2px solid #dcdcdc /* __COLOR0__ */;
 
 }
 .error_key {
-    border: 2px solid #dcdcdc;
-    color: #ff0000;
-    background-color: #dcdcdc;
+    border: 2px solid #dcdcdc /* __COLOR0__ */;
+    color: #ff0000 /* __COLOR14__*/;
+    background-color: #dcdcdc /* __COLOR0__ */;
 }
 
 table.table_empty,table.table_blank    {
@@ -79,8 +87,15 @@ table.table_empty,table.table_blank    {
     width: 100%;
 }
 
+table.spacer {
+    border: 0;
+    height: 5px;
+    width:100%;
+    background-color: #ffffff /* __COLOR4__ */;
+}
+
 table.table1    {
-    border: 1px solid #dcdcdc;
+    border: 1px solid #dcdcdc /* __COLOR0__ */;
     width: 90%;
     margin-left: auto;
     margin-right: auto;
@@ -92,7 +107,7 @@ table.table1    td  {
 }
 
 table.table2    {
-    border: 1px solid #ababab;
+    border: 1px solid #ababab /* __COLOR9__ */;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -109,13 +124,13 @@ td.emptyList    {
 }
 
 td.header1  {
-    background: #dcdcdc;
+    background: #dcdcdc /* __COLOR0__ */;
     text-align: center;
     font-weight: bold;
 }
 
 td.header2  {
-    background: #ababab;
+    background: #ababab /* __COLOR9__ */;
     text-align: center;
     font-weight: bold;
     padding-top: 2px;
@@ -130,27 +145,46 @@ td.header3  {
 }
 
 td.header4  {
-    background: #ffffcc;
+    background: #ffffcc /* __COLOR5__*/;
     font-weight: bold;
     padding-top:2px;
     padding-bottom: 2px;
     text-align: center;
 }
 
+td.header5 {
+    background-color: #ababab /* __COLOR9__ */;
+    font-weight: bold;
+    text-align: left;
+}
+
+td.fieldName {
+    text-align: right;
+    width:25%;
+    font-weight: bold;
+    vertical-align:top;
+}
+
+td.fieldValue {
+    text-align: left;
+    width:75%;
+    font-weight: normal;
+}
+
 tr.even {
-    background: #ededed;
+    background: #ededed /* __COLOR12__*/;
 }
 tr.odd  {
-    background: #ffffff;
+    background: #ffffff /* __COLOR4__*/;
 }
 
 .table_standard {
-    border:1px solid #dcdcdc;
+    border:1px solid #dcdcdc /* __COLOR0__ */;
     width: 100%;
 }
 
 .sqm_loginOrgName, .sqm_signoutBar {
-    background: #dcdcdc;
+    background: #dcdcdc /* __COLOR0__ */;
 }
 
 .sqm_signout {
@@ -158,40 +192,60 @@ tr.odd  {
     text-align: center;
 }
 
+/* note.tpl defs */
+.sqm_noteWrapper {
+    text-align:center;
+    width:100%;
+}
+.sqm_note {
+    margin-left:auto;
+    margin-right:auto;
+    font-weight:bold;
+    text-align:center;
+}
+
+/* motd defs */
 .sqm_motd {
-    background: #ababab;
+    background: #ababab /* __COLOR9__ */;
 }
 .sqm_motd td {
-    background: #ffffff;
+    background: #ffffff /* __COLOR4__*/;
 }
 
 /* empty_folder.tpl defs */
 .sqm_emptyFolder {
-    background: #ababab;
+    background: #ababab /* __COLOR9__ */;
 }
 .sqm_emptyFolder td {
-    background: #ffffff;
+    background: #ffffff /* __COLOR4__*/;
 }
 
 /* error_box.tpl definitions */
 .table_errorBoxWrapper   {
-    background: #ababab;
+    background: #ababab /* __COLOR9__ */;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 .table_errorBox  {
-    background: #dcdcdc;
+    background: #dcdcdc /* __COLOR0__ */;
 }
 .error_message {
-    background: #ffffff;
+    background: #ffffff /* __COLOR4__*/;
+}
+td.error_header {
+    font-weight: bold;
+    color: #cc0000 /* __COLOR2__*/;
 }
 
 /* page_header.tpl definitions */
 .sqm_currentFolder	{
-    background: #ababab;
+    background: #ababab /* __COLOR9__ */;
     text-align: left;
 }
 .sqm_headerSignout	{
-    background: #ababab;
+    background: #ababab /* __COLOR9__ */;
     text-align: right;
 }
 .sqm_topNavigation	{
@@ -206,25 +260,25 @@ tr.odd  {
     width: 100%;
 }
 .table_messageListWrapper	{
-    background: #ababab;
+    background: #ababab /* __COLOR9__ */;
     width:100%;
 }
 
 .table_messageList	{
-    background: #ffffcc;
+    background: #ffffcc /* __COLOR5__*/;
 }
 
 .table_messageList	tr.headerRow	{
     text-align: left;
 }
 .table_messageList td.spacer {
-    background: #dcdcdc;
+    background: #dcdcdc /* __COLOR0__ */;
 }
 .table_messageList	tr.mouse_over	{
-    background: #ffffcc;
+    background: #ffffcc /* __COLOR5__*/;
 }
 .table_messageList	tr.clicked	{
-    background: #ff9933;
+    background: #ff9933 /* __COLOR16__*/;
 }
 .table_messageList	td.col_check	{
     text-align: left;
@@ -245,16 +299,16 @@ td.message_count	{
     font-weight: bold;
 }
 .deleted	{
-    color: #ababab;
+    color: #ababab /* __COLOR9__ */;
 }
 .flagged	{
-    color: #cc0000;
+    color: #cc0000 /* __COLOR2__ */;
 }
 .high_priority	{
-    color: #800000;
+    color: #800000 /* __COLOR13__*/;
 }
 .low_priority	{
-    color: #000000;
+    color: #000000 /* __COLOR4__*/;
 }
 
 .links_paginator			{
@@ -262,7 +316,7 @@ td.message_count	{
 }
 
 .message_list_controls {
-    background: #dcdcdc;
+    background: #dcdcdc /* __COLOR0__ */;
 }
 
 .message_control_buttons {
@@ -276,7 +330,7 @@ td.message_count	{
 }
 
 .spacer	{
-    background: #ffffff;
+    background: #ffffff /* __COLOR4__*/;
 }
 
 /* folder_manip.tpl defs */
@@ -299,7 +353,7 @@ td.message_count	{
 }
 
 #folderManip   table.wrapper   {
-    border: 1px solid #dcdcdc;
+    border: 1px solid #dcdcdc /* __COLOR0__ */;
     width: 95%;
     margin-left: auto;
     margin-right: auto;
@@ -307,7 +361,7 @@ td.message_count	{
 }
 
 #folderManip   td.folderAction {
-    background: #dcdcdc;
+    background: #dcdcdc /* __COLOR0__ */;
 }
 
 #folderManip    div {
@@ -366,12 +420,12 @@ td.message_count	{
 #sqm_login  td.fieldName {
     font-size: 10pt;
     font-weight: bold;
-    text-align: <?php echo SQM_ALIGN_RIGHT; ?>;
+    text-align: right;
     width: 50%;
 }
 
 #sqm_login  td.fieldInput {
-    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
+    text-align: left;
     padding-top: 1px;
     padding-bottom: 1px;
 }
@@ -397,7 +451,7 @@ td.message_count	{
     margin-left: auto;
     margin-right: auto;
     width: 95%;
-    border: 1px solid #ababab;
+    border: 1px solid #ababab /* __COLOR9__ */;
     margin-top: 8px;
     margin-bottom: 8px;
 }
@@ -409,20 +463,20 @@ td.message_count	{
 
 #addressList    td.header1  {
     text-align: center;
-    background: #ababab;
+    background: #ababab /* __COLOR9__ */;
 }
 #addressList    td.abookSwitch  {
-    background: #dcdcdc;
+    background: #dcdcdc /* __COLOR0__ */;
     text-align: right;
 }
 
 #addressList    td.abookButtons  {
-    background: #dcdcdc;
+    background: #dcdcdc /* __COLOR0__ */;
 }
 
 #addressList    td.abookField   {
-    border-left: 1px solid #ababab;
-    border-right: 1px solid #ababab;
+    border-left: 1px solid #ababab /* __COLOR9__ */;
+    border-right: 1px solid #ababab /* __COLOR9__ */;
     white-space: nowrap;
     overflow: hidden;
 }
@@ -431,7 +485,7 @@ td.message_count	{
     text-align: center;
     font-weight: bold;
     font-size: 98%;
-    background: #ababab;
+    background: #ababab /* __COLOR9__ */;
     padding-top: 0px;
     padding-bottom: 0px;
 }
@@ -458,7 +512,7 @@ td.message_count	{
 }
 
 #addrBookSearch   table.wrapper   {
-    border: 1px solid #ababab;
+    border: 1px solid #ababab /* __COLOR9__ */;
     width: 95%;
     margin-left: auto;
     margin-right: auto;
@@ -490,7 +544,7 @@ td.message_count	{
 }
 
 #addrAddEdit    table   {
-    border: 1px solid #ababab;
+    border: 1px solid #ababab /* __COLOR9__ */;
     margin-left: auto;
     margin-right: auto;
     margin-top: 6px;
@@ -499,7 +553,7 @@ td.message_count	{
 }
 
 #addrAddEdit    td.header   {
-    background: #ababab;
+    background: #ababab /* __COLOR9__ */;
     text-align: center;
     font-weight: bold;
 }
@@ -550,7 +604,7 @@ td.message_count	{
 
 #help   td.nav  {
     text-align: center;
-    color: #dcdcdc;
+    color: #dcdcdc /* __COLOR0__ */;
     padding-top: 15px;
     padding-bottom: 5px;
 }
@@ -591,7 +645,7 @@ td.message_count	{
 }
 
 #optionsIdentity    table.table2 tr  {
-    background: #dcdcdc;
+    background: #dcdcdc /* __COLOR0__ */;
 }
 
 #optionsIdentity    td.fieldName    {
@@ -609,7 +663,7 @@ td.message_count	{
 
 #optionsIdentity hr  {
     width: 95%;
-    border: 1px solid #ababab;
+    border: 1px solid #ababab /* __COLOR9__ */;
 }
 
 #vCard  {
@@ -639,7 +693,7 @@ div.search table   {
 }
 
 div.search td.header4  {
-    border-bottom: 1px solid #ababab;
+    border-bottom: 1px solid #ababab /* __COLOR9__ */;
     vertical-align: bottom;
 }
 
@@ -649,14 +703,14 @@ div.search td.queryAction {
     width: 1%;
     padding-left: 8px;
     padding-right: 8px;
-    border-left: 1px solid #ababab;
-    border-top: 1px solid #ababab;
-    border-bottom: 1px solid #ababab;
+    border-left: 1px solid #ababab /* __COLOR9__ */;
+    border-top: 1px solid #ababab /* __COLOR9__ */;
+    border-bottom: 1px solid #ababab /* __COLOR9__ */;
 }
 
 div.search td.queryDesc  {
-    border-top: 1px solid #ababab;
-    border-bottom: 1px solid #ababab;
+    border-top: 1px solid #ababab /* __COLOR9__ */;
+    border-bottom: 1px solid #ababab /* __COLOR9__ */;
 }
 
 div.search span {
@@ -685,20 +739,20 @@ div.search span.value {
 }
 
 div.search span.error  {
-    color: #cc0000;
+    color: #cc0000 /* __COLOR2__ */;
     font-weight: bold;
     font-size: 125%;
 }
 
 div.search td.searchForm  {
-    border-right: 1px solid #dcdcdc;
-    border-left: 1px solid #dcdcdc;
+    border-right: 1px solid #dcdcdc /* __COLOR0__ */;
+    border-left: 1px solid #dcdcdc /* __COLOR0__ */;
     font-weight: bold;
     text-align: center;
 }
 
 div.search td.queryError {
-    color: #cc0000;
+    color: #cc0000 /* __COLOR2__ */;
     font-weight: bold;
     text-align: center;
     padding: 4px;
@@ -717,7 +771,7 @@ div.search h1 {
 }
 
 div.search h2 {
-    color: #cc0000;
+    color: #cc0000 /* __COLOR2__ */;
     font-weight: bold;
     text-align: center;
 }
@@ -762,7 +816,7 @@ div.compose td.bottomSend {
 }
 
 div.compose tr.header {
-    background: #ababab;
+    background: #ababab /* __COLOR9__ */;
 }
 
 div.compose tr.header td {
@@ -771,19 +825,139 @@ div.compose tr.header td {
 }
 
 div.compose tr.attachment td {
-    background: #dcdcdc;
-    border-top: 1px solid #ababab;
-    border-bottom: 1px solid #ababab;
+    background: #dcdcdc /* __COLOR0__ */;
+    border-top: 1px solid #ababab /* __COLOR9__ */;
+    border-bottom: 1px solid #ababab /* __COLOR9__ */;
 }
 
 div.compose table.close {
     width: 100%;
-    background: #dcdcdc;
-    border:1px solid #ababab;
+    background: #dcdcdc /* __COLOR0__ */;
+    border:1px solid #ababab /* __COLOR9__ */;
     text-align: center;
     margin: 0;
 }
 
-div.readMenuBar table.table2 {
+div.readMenuBar table {
+    padding:0;
+    margin:0;
+    width: 100%;
+    border-left: 1px solid #ababab /* __COLOR9__ */;
+    border-right: 1px solid #ababab /* __COLOR9__ */;
+}
+
+div.readMenuBar table.top {
+    border-top: 1px solid #ababab /* __COLOR9__ */;
+}
+
+div.readMenuBar table.bottom {
+    border-bottom: 1px solid #ababab /* __COLOR9__ */;
+}
+
+div.readMenuBar td {
+    padding:2px;
+}
+
+div.readMenuBar td.nav {
+    padding-top:4px;
+    padding-bottom:4px;
+}
+
+div.readMenuBar tr.buttons {
+    background-color: #dcdcdc /* __COLOR0__ */;
+}
+
+div.readMenuBar td.buttons {
+    width:1%;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+div.readMenuBar input, select {
+	padding:0;
+	font-size:100%;
+}
+
+div.readMenuBar td.move {
+    text-align: right;
+}
+
+div.readMenuBar form {
+    display:inline;
+}
+
+div.readHeaders table.table2 {
+    width:100%;
+    background-color: #dcdcdc /* __COLOR0__ */;
+}
+
+div.readHeaders td {
+    padding-left:4px;
+    padding-right:4px;
+}
+
+div.readHeaders table.spacer {
+    border: 0;
+    height: 5px;
+    width:100%;
+    background-color: #ffffff /* __COLOR4__ */;
+}
+
+div.readBody table {
     width: 100%;
 }
+
+div.readBody table.table2 tr {
+    background-color: #ffffff /* __COLOR4__ */;
+}
+
+div.readBody table.table2 td {
+    padding: 10px;
+    width:100%;
+}
+
+div.readAttachments table {
+    width: 100%;
+}
+
+div.readAttachments td.attachSize, td.attachDesc {
+    font-weight: bold;
+}
+
+div.readAttachments td.attachActions {
+    text-align: right;
+}
+
+div.readInlineImages {
+    width:100%;
+    text-align: center;
+}
+
+div.readInlineImages table {
+    width: 50%;
+    margin-top:8px;
+    margin-bottom:8px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.readInlineImages td.header5 {
+    padding-left:2px;
+    padding-right:2px;
+    width:60%;
+    white-space:nowrap;
+}
+
+div.readInlineImages td.header5 a {
+    font-size:75%;
+    font-weight: normal;
+}
+
+div.readInlineImages td.image {
+    border:1px solid #ababab /* __COLOR9__ */;
+    padding:10px;
+}
+
+
+
+
