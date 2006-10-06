@@ -18,8 +18,6 @@
 require('../include/init.php');
 
 /* SquirrelMail required files. */
-
-
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/imap_asearch.php'); // => move to mailbox_display
 require_once(SM_PATH . 'functions/mime.php');
@@ -72,49 +70,7 @@ function findPreviousMessage($uidset, $passed_id) {
     }
 }
 
-/**
- * Displays a link to a page where the message is displayed more
- * "printer friendly".
- * @param string $mailbox Name of current mailbox
- * @param int $passed_id
- */
-function printer_friendly_link($mailbox, $passed_id, $passed_ent_id) {
-    global $javascript_on, $show_html_default;
-
-    /* hackydiehack */
-    if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
-        $view_unsafe_images = false;
-    } else {
-        $view_unsafe_images = true;
-    }
-    $params = '?passed_ent_id=' . urlencode($passed_ent_id) .
-              '&mailbox=' . urlencode($mailbox) .
-              '&passed_id=' . urlencode($passed_id) .
-              '&view_unsafe_images='. (bool) $view_unsafe_images .
-              '&show_html_default=' . $show_html_default;
-
-    $print_text = _("View Printable Version");
-
-    $result = '';
-    /* Output the link. */
-    if ($javascript_on) {
-        $result = '<script type="text/javascript">' . "\n" .
-                  '<!--' . "\n" .
-                  "  function printFormat() {\n" .
-                  '    window.open("../src/printer_friendly_main.php' .
-                  $params . '","Print","width=800,height=600");' . "\n".
-                  "  }\n" .
-                  "// -->\n" .
-                  "</script>\n" .
-                  "<a href=\"javascript:printFormat();\">$print_text</a>\n";
-    } else {
-        $result = '<a target="_blank" href="../src/printer_friendly_bottom.php' .
-                  "$params\">$print_text</a>\n";
-    }
-    return $result;
-}
-
-function view_as_html_link($mailbox, $passed_id, $passed_ent_id, $message) {
+function html_toggle_href ($mailbox, $passed_id, $passed_ent_id, $message) {
     global $base_uri, $show_html_default;
 
     $has_html = false;
@@ -126,7 +82,7 @@ function view_as_html_link($mailbox, $passed_id, $passed_ent_id, $message) {
         $type1 = $message->header->type1;
     }
     if($type0 == 'multipart' &&
-       ($type1 == 'alternative' || $type1 == 'mixed' || $type1 == 'related')) {
+       ($type1 == 'alternative' || $type1 == 'mixed' || $type1 == 'related' || $type1=='signed')) {
         if ($message->findDisplayEntity(array(), array('text/html'), true)) {
             $has_html = true;
         }
@@ -153,12 +109,10 @@ function view_as_html_link($mailbox, $passed_id, $passed_ent_id, $message) {
 
         if($show_html_default == 1) {
             $new_link .= '&amp;show_html_default=0';
-            $link      = _("View as plain text");
         } else {
             $new_link .= '&amp;show_html_default=1';
-            $link      = _("View as HTML");
         }
-        return '&nbsp;|&nbsp<a href="' . $new_link . '">' . $link . '</a>';
+        return $new_link;
     }
     return '';
 }
@@ -349,7 +303,7 @@ function ToggleMDNflag ($set ,$imapConnection, $mailbox, $passed_id) {
 
 function formatRecipientString($recipients, $item ) {
     global $show_more_cc, $show_more, $show_more_bcc,
-           $PHP_SELF;
+           $PHP_SELF, $oTemplate;
 
     $string = '';
     if ((is_array($recipients)) && (isset($recipients[0]))) {
@@ -377,25 +331,22 @@ function formatRecipientString($recipients, $item ) {
                 $url = set_url_var($PHP_SELF, 'show_more_bcc',1);
             }
         }
-
-        $cnt = count($recipients);
-        foreach($recipients as $r) {
-            $add = decodeHeader($r->getAddress(true));
-            if ($string) {
-                $string .= '<br />' . $add;
-            } else {
-                $string = $add;
-                if ($cnt > 1) {
-                    $string .= '&nbsp;(<a href="'.$url;
-                    if ($show) {
-                       $string .= '">'._("less").'</a>)';
-                    } else {
-                       $string .= '">'._("more").'</a>)';
-                       break;
-                    }
-                }
-            }
+        
+        $a = array();
+        foreach ($recipients as $r) {
+            $a[] = array(
+                            'Name'  => htmlspecialchars($r->getAddress(false)),
+                            'Email' => htmlspecialchars($r->getEmail()),
+                            'Full'  => htmlspecialchars($r->getAddress(true))
+                        );
         }
+        
+        $oTemplate->assign('which_field', $item);
+        $oTemplate->assign('recipients', $a);
+        $oTemplate->assign('more_less_toggle_href', $url);
+        $oTemplate->assign('show_more', $show);
+        
+        $string = $oTemplate->fetch('read_recipient_list.tpl');
     }
     return $string;
 }
@@ -404,7 +355,7 @@ function formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message,
                          $color, $FirstTimeSee) {
     global $default_use_mdn, $default_use_priority,
            $show_xmailer_default, $mdn_user_support, $PHP_SELF, $javascript_on,
-           $squirrelmail_language;
+           $squirrelmail_language, $oTemplate;
 
     $mailbox = $aMailbox['NAME'];
 
@@ -424,66 +375,35 @@ function formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message,
     $env[_("Cc")] = formatRecipientString($header->cc, "cc");
     $env[_("Bcc")] = formatRecipientString($header->bcc, "bcc");
     if ($default_use_priority) {
-        $env[_("Priority")] = htmlspecialchars(getPriorityStr($header->priority));
+        $oTemplate->assign('message_priority', $header->priority);
+        $env[_("Priority")] = $oTemplate->fetch('read_message_priority.tpl');
     }
     if ($show_xmailer_default) {
-        $env[_("Mailer")] = decodeHeader($header->xmailer);
+        $oTemplate->assign('xmailer', decodeHeader($header->xmailer));
+        $env[_("Mailer")] = $oTemplate->fetch('read_xmailer.tpl');
     }
     if ($default_use_mdn) {
         if ($mdn_user_support) {
             if ($header->dnt) {
-                if ($message->is_mdnsent) {
-                    $env[_("Read receipt")] = _("sent");
-                } else {
-                    $env[_("Read receipt")] = _("requested");
-                    if (!(handleAsSent($mailbox) ||
-                          $message->is_deleted ||
-                          $passed_ent_id)) {
-                        $mdn_url = $PHP_SELF;
-                        $mdn_url = set_url_var($PHP_SELF, 'mailbox', urlencode($mailbox));
-                        $mdn_url = set_url_var($PHP_SELF, 'passed_id', $passed_id);
-                        $mdn_url = set_url_var($PHP_SELF, 'passed_ent_id', $passed_ent_id);
-                        $mdn_url = set_url_var($PHP_SELF, 'sendreceipt', 1);
-                        if ($FirstTimeSee && $javascript_on) {
-                            $script  = '<script type="text/javascript">' . "\n";
-                            $script .= '<!--'. "\n";
-                            $script .= 'if(window.confirm("' .
-                                       _("The message sender has requested a response to indicate that you have read this message. Would you like to send a receipt?") .
-                                       '")) {  '."\n" .
-                                       '    sendMDN()'.
-                                       '}' . "\n";
-                            $script .= '// -->'. "\n";
-                            $script .= '</script>'. "\n";
-                            echo $script;
-                        }
-                        $env[_("Read receipt")] .= '&nbsp;<a href="' . $mdn_url . '">[' .
-                                                   _("Send read receipt now") . ']</a>';
-                    }
-                }
+                $mdn_url = $PHP_SELF;
+                $mdn_url = set_url_var($PHP_SELF, 'mailbox', urlencode($mailbox));
+                $mdn_url = set_url_var($PHP_SELF, 'passed_id', $passed_id);
+                $mdn_url = set_url_var($PHP_SELF, 'passed_ent_id', $passed_ent_id);
+                $mdn_url = set_url_var($PHP_SELF, 'sendreceipt', 1);
+
+                $oTemplate->assign('read_receipt_sent', $message->is_mdnsent);
+                $oTemplate->assign('first_time_reading', $FirstTimeSee);
+                $oTemplate->assign('send_receipt_href', $mdn_url);
+                
+                $env[_("Read Receipt")] = $oTemplate->fetch('read_handle_receipt.tpl');
             }
         }
     }
+    $env[_("Options")] = formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color);
 
-    $s  = '<table width="100%" cellpadding="0" cellspacing="2" border="0"';
-    $s .= ' align="center" bgcolor="'.$color[0].'">';
-    foreach ($env as $key => $val) {
-        if ($val) {
-            $s .= '<tr>';
-            $s .= html_tag('td', '<b>' . $key . ':&nbsp;&nbsp;</b>', 'right', '', 'valign="top" width="20%"') . "\n";
-            $s .= html_tag('td', $val, 'left', '', 'valign="top" width="80%"') . "\n";
-            $s .= '</tr>';
-        }
-    }
-    echo '<table bgcolor="'.$color[9].'" width="100%" cellpadding="1"'.
-         ' cellspacing="0" border="0" align="center">'."\n";
-    echo '<tr><td height="5" colspan="2" bgcolor="'.
-          $color[4].'"></td></tr><tr><td align="center">'."\n";
-    echo $s;
-    do_hook('read_body_header');
-    formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color);
-    echo '</table>';
-    echo '</td></tr><tr><td height="5" colspan="2" bgcolor="'.$color[4].'"></td></tr>'."\n";
-    echo '</table>';
+    $oTemplate->assign('headers_to_display', $env);
+    
+    $oTemplate->display('read_headers.tpl');
 }
 
 /**
@@ -496,26 +416,24 @@ function formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message,
  * @param object $mbx_response
  */
 function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removedVar, $nav_on_top = TRUE) {
-    global $base_uri, $draft_folder, $where, $what, $color, $sort,
+    global $base_uri, $draft_folder, $where, $what, $sort,
            $startMessage, $PHP_SELF, $save_as_draft,
            $enable_forward_as_attachment, $imapConnection, $lastTargetMailbox,
-           $username, $delete_prev_next_display, $show_copy_buttons,
-           $compose_new_win, $javascript_on, $compose_width, $compose_height;
+           $delete_prev_next_display, $show_copy_buttons,
+           $compose_new_win, $javascript_on, $compose_width, $compose_height,
+           $oTemplate;
 
     //FIXME cleanup argument list, use $aMailbox where possible
     $mailbox = $aMailbox['NAME'];
 
-    $topbar_delimiter = '&nbsp;|&nbsp;';
-    $double_delimiter = '&nbsp;&nbsp;&nbsp;&nbsp;';
     $urlMailbox = urlencode($mailbox);
 
     $msgs_url = $base_uri . 'src/';
 
-    // BEGIN NAV ROW - PREV/NEXT, DEL PREV/NEXT, LINKS TO INDEX, etc.
-    $nav_row = '<tr><td align="left" colspan="2" style="border: 1px solid '.$color[9].';"><small>';
-
     // Create Prev & Next links
     // Handle nested entities first (i.e. Mime Attach parts)
+    $prev_href = $next_href = $up_href = $del_href = $del_prev_href = $del_next_href = '';
+    $msg_list_href = $search_href = $view_msg_href = ''; 
     if (isset($passed_ent_id) && $passed_ent_id) {
         // code for navigating through attached message/rfc822 messages
         $url = set_url_var($PHP_SELF, 'passed_ent_id',0);
@@ -525,111 +443,80 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
 
         foreach($message->parent->entities as $ent) {
             if ($ent->type0 == 'message' && $ent->type1 == 'rfc822') {
+                
                 $c++;
                 $entity_count[$c] = $ent->entity_id;
                 $entities[$ent->entity_id] = $c;
             }
         }
 
-        $prev_link = _("Previous");
         if(isset($entities[$passed_ent_id]) && $entities[$passed_ent_id] > 1) {
             $prev_ent_id = $entity_count[$entities[$passed_ent_id] - 1];
-            $prev_link   = '<a href="'
-                         . set_url_var($PHP_SELF, 'passed_ent_id', $prev_ent_id)
-                         . '">' . $prev_link . '</a>';
+            $prev_href = set_url_var($PHP_SELF, 'passed_ent_id', $prev_ent_id);
         }
 
-        $next_link = _("Next");
         if(isset($entities[$passed_ent_id]) && $entities[$passed_ent_id] < $c) {
             $next_ent_id = $entity_count[$entities[$passed_ent_id] + 1];
-            $next_link   = '<a href="'
-                         . set_url_var($PHP_SELF, 'passed_ent_id', $next_ent_id)
-                         . '">' . $next_link . '</a>';
+            $next_href = set_url_var($PHP_SELF, 'passed_ent_id', $next_ent_id);
         }
 
         $par_ent_id = $message->parent->entity_id;
-        $up_link = '';
         if ($par_ent_id) {
             $par_ent_id = substr($par_ent_id,0,-2);
             if ( $par_ent_id != 0 ) {
-                $up_link = $topbar_delimiter;
-                $url = set_url_var($PHP_SELF, 'passed_ent_id',$par_ent_id);
-                $up_link .= '<a href="'.$url.'">'._("Up").'</a>';
+                $up_href = set_url_var($PHP_SELF, 'passed_ent_id',$par_ent_id);
             }
         }
 
-        $nav_row .= $prev_link . $up_link . $topbar_delimiter . $next_link;
-        $nav_row .= $double_delimiter . '[<a href="'.$url.'">'._("View Message").'</a>]';
+        $view_msg_href = $url;
 
     // Prev/Next links for regular messages
     } else if ( true ) { //!(isset($where) && isset($what)) ) {
         $prev = findPreviousMessage($aMailbox['UIDSET'][$what], $passed_id);
         $next = findNextMessage($aMailbox['UIDSET'][$what],$passed_id);
 
-        $prev_link = _("Previous");
         if ($prev >= 0) {
-            $uri = $base_uri . 'src/read_body.php?passed_id='.$prev.
+            $prev_href = $base_uri . 'src/read_body.php?passed_id='.$prev.
                    '&amp;mailbox='.$urlMailbox.'&amp;sort='.$sort.
                    "&amp;where=$where&amp;what=$what" .
                    '&amp;startMessage='.$startMessage.'&amp;show_more=0';
-            $prev_link = '<a href="'.$uri.'">'.$prev_link.'</a>';
         }
 
-        $next_link = _("Next");
         if ($next >= 0) {
-            $uri = $base_uri . 'src/read_body.php?passed_id='.$next.
+            $next_href = $base_uri . 'src/read_body.php?passed_id='.$next.
                    '&amp;mailbox='.$urlMailbox.'&amp;sort='.$sort.
                    "&amp;where=$where&amp;what=$what" .
                    '&amp;startMessage='.$startMessage.'&amp;show_more=0';
-            $next_link = '<a href="'.$uri.'">'.$next_link.'</a>';
         }
 
         // Only bother with Delete & Prev and Delete & Next IF
         // top display is enabled.
         if ( $delete_prev_next_display == 1 &&
                in_array('\\deleted', $aMailbox['PERMANENTFLAGS'],true) ) {
-            $del_prev_link = _("Delete &amp; Prev");
             if ($prev >= 0) {
-                $uri = $base_uri . 'src/read_body.php?passed_id='.$prev.
+                $del_prev_href = $base_uri . 'src/read_body.php?passed_id='.$prev.
                        '&amp;mailbox='.$urlMailbox.'&amp;sort='.$sort.
                        '&amp;startMessage='.$startMessage.'&amp;show_more=0'.
                        "&amp;where=$where&amp;what=$what" .
                        '&amp;delete_id='.$passed_id;
-                $del_prev_link = '<a href="'.$uri.'">'.$del_prev_link.'</a>';
             }
 
-            $del_next_link = _("Delete &amp; Next");
             if ($next >= 0) {
-                $uri = $base_uri . 'src/read_body.php?passed_id='.$next.
+                $del_next_href = $base_uri . 'src/read_body.php?passed_id='.$next.
                        '&amp;mailbox='.$urlMailbox.'&amp;sort='.$sort.
                        '&amp;startMessage='.$startMessage.'&amp;show_more=0'.
                        "&amp;where=$where&amp;what=$what" .
                        '&amp;delete_id='.$passed_id;
-                $del_next_link = '<a href="'.$uri.'">'.$del_next_link.'</a>';
             }
         }
-
-        $nav_row .= '['.$prev_link.$topbar_delimiter.$next_link.']';
-        if ( isset($del_prev_link) && isset($del_next_link) )
-            $nav_row .= $double_delimiter.'['.$del_prev_link.$topbar_delimiter.$del_next_link.']';
     }
 
     // Start with Search Results or Message List link.
-    $msgs_url .= "$where?where=read_body.php&amp;what=$what&amp;mailbox=" . $urlMailbox.
+    $list_xtra = "?where=read_body.php&amp;what=$what&amp;mailbox=" . $urlMailbox.
                  "&amp;startMessage=$startMessage";
-    if ($where == 'search.php') {
-        $msgs_str  = _("Search Results");
-    } else {
-        $msgs_str  = _("Message List");
-    }
-    $nav_row .= $double_delimiter .
-                '[<a href="' . $msgs_url . '">' . $msgs_str . '</a>]';
+    $msg_list_href = $base_uri .'src/right_main.php'. $list_xtra;
+    $search_href = $where=='search.php' ? $base_uri .'src/search.php?'.$list_xtra : '';
 
-    $nav_row .= '</small></td></tr>';
-
-
-    // BEGIN MENU ROW - DELETE/REPLY/FORWARD/MOVE/etc.
-    $menu_row = '<tr bgcolor="'.$color[0].'"><td><small>';
     $comp_uri = $base_uri.'src/compose.php' .
                 '?passed_id=' . $passed_id .
                 '&amp;mailbox=' . $urlMailbox .
@@ -658,156 +545,138 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
         }
     }
 
-    $menu_row .= "\n".'<form name="composeForm" action="'.$comp_uri.'" '
-              . $method.$target.$onsubmit.' style="display: inline">'."\n";
+    $oTemplate->assign('nav_on_top', $nav_on_top);
 
+    $oTemplate->assign('prev_href', $prev_href);
+    $oTemplate->assign('up_href', $up_href);
+    $oTemplate->assign('next_href', $next_href);
+    $oTemplate->assign('del_prev_href', $del_prev_href);
+    $oTemplate->assign('del_next_href', $del_next_href);
+    $oTemplate->assign('view_msg_href', $view_msg_href);
+
+    $oTemplate->assign('message_list_href', $msg_list_href);
+    $oTemplate->assign('search_href', $search_href);
+
+    $oTemplate->assign('form_extra', $method . $target . $onsubmit);
+    $oTemplate->assign('compose_href', $comp_uri);
+    $oTemplate->assign('button_onclick', $on_click);
+    $oTemplate->assign('forward_as_attachment_enabled', $enable_forward_as_attachment==1);
+    
     // If Draft folder - create Resume link
+    $resume_draft = $edit_as_new = false;    
     if (($mailbox == $draft_folder) && ($save_as_draft)) {
-        $new_button = 'smaction_draft';
-        $comp_alt_string = _("Resume Draft");
+        $resume_draft = true; 'smaction_draft';
     } else if (handleAsSent($mailbox)) {
-    // If in Sent folder, edit as new
-        $new_button = 'smaction_edit_new';
-        $comp_alt_string = _("Edit Message as New");
+        $edit_as_new = true;
     }
-    // Show Alt URI for Draft/Sent
-    if (isset($comp_alt_string))
-        $menu_row .= getButton('submit', $new_button, $comp_alt_string, $on_click) . "\n";
-
-    $menu_row .= getButton('submit', 'smaction_reply', _("Reply"), $on_click) . "\n";
-    $menu_row .= getButton('submit', 'smaction_reply_all', _("Reply All"), $on_click) ."\n";
-    $menu_row .= getButton('submit', 'smaction_forward', _("Forward"), $on_click);
-    if ($enable_forward_as_attachment)
-        $menu_row .= '<input type="checkbox" name="smaction_attache" />' . _("As Attachment") .'&nbsp;&nbsp;'."\n";
-
-    $menu_row .= '</form>&nbsp;';
-
-    if ( in_array('\\deleted', $aMailbox['PERMANENTFLAGS'],true) ) {
-    // Form for deletion. Form is handled by the originating display in $where. This is right_main.php or search.php
+    $oTemplate->assign('can_resume_draft', $resume_draft);
+    $oTemplate->assign('can_edit_as_new', $edit_as_new);    
+    
+    $oTemplate->assign('mailboxes', sqimap_mailbox_option_array($imapConnection));
+    if (in_array('\\deleted', $aMailbox['PERMANENTFLAGS'],true)) {
         $delete_url = $base_uri . "src/$where";
-        $menu_row .= '<form name="deleteMessageForm" action="'.$delete_url.'" method="post" style="display: inline">';
-
+        $oTemplate->assign('can_be_deleted', true);
+        $oTemplate->assign('move_delete_form_action', $base_uri.'src/'.$where);
+        $oTemplate->assign('delete_form_extra', addHidden('mailbox', $aMailbox['NAME'])."\n" .
+                                                addHidden('msg[0]', $passed_id)."\n" .
+                                                addHidden('startMessage', $startMessage)."\n" );
         if (!(isset($passed_ent_id) && $passed_ent_id)) {
-            $menu_row .= addHidden('mailbox', $aMailbox['NAME']);
-            $menu_row .= addHidden('msg[0]', $passed_id);
-            $menu_row .= addHidden('startMessage', $startMessage);
-            $menu_row .= getButton('submit', 'delete', _("Delete"));
-            $menu_row .= '<input type="checkbox" name="bypass_trash" />' . _("Bypass Trash");
+            $oTemplate->assign('can_be_moved', true);
+            $oTemplate->assign('move_form_extra', addHidden('mailbox', $aMailbox['NAME'])."\n" .
+                                                  addHidden('msg[0]', $passed_id)."\n" );
+            $oTemplate->assign('last_move_target', isset($lastTargetMailbox) && !empty($lastTargetMailbox) ? $lastTargetMailbox : '');
+            $oTemplate->assign('can_be_copied', $show_copy_buttons==1);
         } else {
-            $menu_row .= getButton('submit', 'delete', _("Delete"), '', FALSE) . "\n"; // delete button is disabled
+            $oTemplate->assign('can_be_moved', false);
+            $oTemplate->assign('move_form_extra', '');
+            $oTemplate->assign('last_move_target', '');
+            $oTemplate->assign('can_be_copied', false);
         }
-
-        $menu_row .= '</form>';
+    } else {
+        $oTemplate->assign('can_be_deleted', false);
+        $oTemplate->assign('move_delete_form_action', '');
+        $oTemplate->assign('delete_form_extra', '');
+        $oTemplate->assign('can_be_moved', false);
+        $oTemplate->assign('move_form_extra', '');
+        $oTemplate->assign('last_move_target', '');
+        $oTemplate->assign('can_be_copied', false);
     }
-
-    // Add top move link
-    $menu_row .= '</small></td><td align="right">';
-    if ( !(isset($passed_ent_id) && $passed_ent_id) &&
-        in_array('\\deleted', $aMailbox['PERMANENTFLAGS'],true) ) {
-
-        $menu_row .= '<form name="moveMessageForm" action="'.$base_uri.'src/'.$where.'?'.'" method="post" style="display: inline">'.
-              '<small>'.
-
-          addHidden('mailbox',$aMailbox['NAME']) .
-          addHidden('msg[0]', $passed_id) . _("Move to:") .
-              '<select name="targetMailbox" style="padding: 0px; margin: 0px">';
-
-        if (isset($lastTargetMailbox) && !empty($lastTargetMailbox)) {
-            $menu_row .= sqimap_mailbox_option_list($imapConnection, array(strtolower($lastTargetMailbox)));
-        } else {
-            $menu_row .= sqimap_mailbox_option_list($imapConnection);
-        }
-        $menu_row .= '</select> ';
-
-        $menu_row .= getButton('submit', 'moveButton',_("Move")) . "\n";
-
-        // Add msg copy button
-        if ($show_copy_buttons) {
-            $menu_row .= getButton('submit', 'copyButton', _("Copy"));
-        }
-
-        $menu_row .= '</form>';
+    
+    if ($nav_on_top) {
+        $oTemplate->display('read_menubar_nav.tpl');
+        $oTemplate->display('read_menubar_buttons.tpl');
+    } else {
+        $oTemplate->display('read_menubar_buttons.tpl');
+        $oTemplate->display('read_menubar_nav.tpl');
     }
-    $menu_row .= '</td></tr>';
-
-    // echo rows, with hooks
-    $ret = do_hook_function('read_body_menu_top', array($nav_row, $menu_row));
-    if (is_array($ret)) {
-        if (isset($ret[0]) && !empty($ret[0])) {
-            $nav_row = $ret[0];
-        }
-        if (isset($ret[1]) && !empty($ret[1])) {
-            $menu_row = $ret[1];
-        }
-    }
-    echo '<table width="100%" cellpadding="3" cellspacing="0" align="center" border="0">';
-    echo $nav_on_top ? $nav_row . $menu_row : $menu_row . $nav_row;
-    echo '</table>'."\n";
+    
     do_hook('read_body_menu_bottom');
 }
 
 function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
-    global $base_uri, $where, $what, $download_and_unsafe_link;
+    global $base_uri, $where, $what, $show_html_default,
+           $oTemplate, $javascript_on, $download_href, 
+           $unsafe_image_toggle_href, $unsafe_image_toggle_text;
 
     $urlMailbox = urlencode($mailbox);
     $urlPassed_id = urlencode($passed_id);
     $urlPassed_ent_id = urlencode($passed_ent_id);
 
     $query_string = 'mailbox=' . $urlMailbox . '&amp;passed_id=' . $urlPassed_id . '&amp;passed_ent_id=' . $urlPassed_ent_id;
-
     if (!empty($where)) {
         $query_string .= '&amp;where=' . urlencode($where);
     }
-
     if (!empty($what)) {
         $query_string .= '&amp;what=' . urlencode($what);
     }
-
     $url = $base_uri.'src/view_header.php?'.$query_string;
 
-    $s  = "<tr>\n" .
-          html_tag( 'td', '', 'right', '', 'valign="middle" width="20%"' ) . '<b>' . _("Options") . ":&nbsp;&nbsp;</b></td>\n" .
-          html_tag( 'td', '', 'left', '', 'valign="middle" width="80%"' ) . '<small>' .
-          '<a href="'.$url.'">'._("View Full Header").'</a>';
 
-    /* Output the printer friendly link if we are in subtle mode. */
-    $s .= '&nbsp;|&nbsp;' .
-          printer_friendly_link($mailbox, $passed_id, $passed_ent_id);
-    echo $s;
-    echo view_as_html_link($mailbox, $passed_id, $passed_ent_id, $message);
-
-    /* Output the download and/or unsafe images link/-s, if any. */
-    if ($download_and_unsafe_link) {
-        echo $download_and_unsafe_link;
+    // Build the printer friend link
+    /* hackydiehack */
+    if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
+        $view_unsafe_images = false;
+    } else {
+        $view_unsafe_images = true;
+    }
+    $pf_params = '?passed_ent_id=' . $urlPassed_ent_id .
+                 '&mailbox=' . $urlMailbox .
+                 '&passed_id=' . $urlPassed_id .
+                 '&view_unsafe_images='. (bool) $view_unsafe_images .
+                 '&show_html_default=' . $show_html_default;    
+    $links = array();
+    $links[] = array (
+                        'URL'   => $url,
+                        'Text'  => _("View Full Header")
+                     );
+    $links[] = array (
+                        'URL'   => $pf_params,
+                        'Text'  => _("View Printable Version")
+                     );
+    $links[] = array (
+                        'URL'   => $download_href,
+                        'Text'  => _("Download this is a file")
+                     );
+    $toggle = html_toggle_href($mailbox, $passed_id, $passed_ent_id, $message);
+    if (!empty($toggle)) {
+        $links[] = array (
+                            'URL'   => $toggle,
+                            'Text'  => $show_html_default==1 ? _("View as plain text") : _("View as HTML")
+                         );
+    }
+    if (!empty($unsafe_image_toggle_href)) {
+        $links[] = array (
+                            'URL'   => $unsafe_image_toggle_href,
+                            'Text'  => $unsafe_image_toggle_text
+                         );
     }
 
-    do_hook("read_body_header_right");
-    $s = "</small></td>\n" .
-         "</tr>\n";
-    echo $s;
+    do_hook('read_body_header_right', $links);
 
+    $oTemplate->assign('links', $links);
+    
+    return $oTemplate->fetch('read_toolbar.tpl');
 }
-
-/**
- * Creates button
- *
- * @deprecated see form functions available in 1.5.1 and 1.4.3.
- * @param string $type
- * @param string $name
- * @param string $value
- * @param string $js
- * @param bool $enabled
- */
-function getButton($type, $name, $value, $js = '', $enabled = TRUE) {
-    $disabled = ( $enabled ? '' : 'disabled ' );
-    $js = ( $js ? $js.' ' : '' );
-    return '<input '.$disabled.$js.
-            'type="'.$type.
-            '" name="'.$name.
-            '" value="'.$value .
-            '" style="padding: 0px; margin: 0px" />';
-}
-
 
 /***************************/
 /*   Main of read_body.php */
@@ -1038,7 +907,7 @@ $cnt = count($ent_ar);
 for ($i = 0; $i < $cnt; $i++) {
    $messagebody .= formatBody($imapConnection, $message, $color, $wrap_at, $ent_ar[$i], $passed_id, $mailbox);
    if ($i != $cnt-1) {
-       $messagebody .= '<hr style="height: 1px;" />';
+       $messagebody .= '<hr />';
    }
 }
 
@@ -1052,48 +921,15 @@ $_SESSION['mailbox_cache'] = $mailbox_cache;
 displayPageHeader($color, $mailbox,'','');
 formatMenuBar($aMailbox, $passed_id, $passed_ent_id, $message,false);
 formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message, $color, $FirstTimeSee);
-echo '<table width="100%" cellpadding="0" cellspacing="0" align="center" border="0">';
-echo '  <tr><td>';
-echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[9].'">';
-echo '      <tr><td>';
-echo '        <table width="100%" cellpadding="3" cellspacing="0" align="center" border="0">';
-echo '          <tr bgcolor="'.$color[4].'"><td>';
-// echo '            <table cellpadding="1" cellspacing="5" align="left" border="0">';
-echo html_tag( 'table' ,'' , 'left', '', 'width="100%" cellpadding="1" cellspacing="5" border="0"' );
-echo '              <tr>' . html_tag( 'td', '<br />'. $messagebody."\n", 'left')
-                        . '</tr>';
-echo '            </table>';
-echo '          </td></tr>';
-echo '        </table></td></tr>';
-echo '    </table>';
-echo '  </td></tr>';
 
-echo '<tr><td height="5" colspan="2" bgcolor="'.
-          $color[4].'"></td></tr>'."\n";
+$oTemplate->assign('message_body', $messagebody);
+$oTemplate->display('read_message_body.tpl');
 
-$attachmentsdisplay = formatAttachments($message,$ent_ar,$mailbox, $passed_id);
-if ($attachmentsdisplay) {
-   echo '  </table>';
-   echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
-   echo '     <tr><td>';
-   echo '       <table width="100%" cellpadding="0" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
-   echo '        <tr>' . html_tag( 'td', '', 'left', $color[9] );
-   echo '           <b>' . _("Attachments") . ':</b>';
-   echo '        </td></tr>';
-   echo '        <tr><td>';
-   echo '          <table width="100%" cellpadding="2" cellspacing="2" align="center"'.' border="0" bgcolor="'.$color[0].'"><tr><td>';
-   echo              $attachmentsdisplay;
-   echo '          </td></tr></table>';
-   echo '       </td></tr></table>';
-   echo '  </td></tr>';
-   echo '<tr><td height="5" colspan="2" bgcolor="'.
-          $color[4].'"></td></tr>';
-}
-echo '</table>';
+formatAttachments($message,$ent_ar,$mailbox, $passed_id);
 
 /* show attached images inline -- if pref'fed so */
-if (($attachment_common_show_images) &&
-    is_array($attachment_common_show_images_list)) {
+if ($attachment_common_show_images && is_array($attachment_common_show_images_list)) {
+    $images = array();
     foreach ($attachment_common_show_images_list as $img) {
         $imgurl = SM_PATH . 'src/download.php' .
                 '?' .
@@ -1101,14 +937,15 @@ if (($attachment_common_show_images) &&
                 '&amp;mailbox='       . urlencode($mailbox) .
                 '&amp;ent_id=' . urlencode($img['ent_id']) .
                 '&amp;absolute_dl=true';
-
-        echo html_tag( 'table', "\n" .
-                    html_tag( 'tr', "\n" .
-                        html_tag( 'td', '<img src="' . $imgurl . '" />' ."\n", 'left'
-                        )
-                    ) ,
-        'center', '', 'cellspacing="0" border="0" cellpadding="2"');
+        $a = array();
+        $a['Name'] = $img['name'];
+        $a['DisplayURL'] = $imgurl;
+        $a['DownloadURL'] = $img['download_href'];
+        $images[] = $a;
     }
+    
+    $oTemplate->assign('images', $images);
+    $oTemplate->display('read_display_images_inline.tpl');
 }
 
 formatMenuBar($aMailbox, $passed_id, $passed_ent_id, $message, false, FALSE);
