@@ -17,8 +17,54 @@
 
 // This script could really use some restructuring as it has grown quite rapidly
 // but is not very 'clean'. Feel free to get some structure into this thing.
-$warnings = 0;
 
+/** force verbose error reporting and turn on display of errors */
+error_reporting(E_ALL);
+ini_set('display_errors',1);
+
+/** Blockcopy from init.php. Cleans globals. */
+if ((bool) ini_get('register_globals') &&
+    strtolower(ini_get('register_globals'))!='off') {
+    /**
+     * Remove all globals that are not reserved by PHP
+     * 'value' and 'key' are used by foreach. Don't unset them inside foreach.
+     */
+    foreach ($GLOBALS as $key => $value) {
+        switch($key) {
+        case 'HTTP_POST_VARS':
+        case '_POST':
+        case 'HTTP_GET_VARS':
+        case '_GET':
+        case 'HTTP_COOKIE_VARS':
+        case '_COOKIE':
+        case 'HTTP_SERVER_VARS':
+        case '_SERVER':
+        case 'HTTP_ENV_VARS':
+        case '_ENV':
+        case 'HTTP_POST_FILES':
+        case '_FILES':
+        case '_REQUEST':
+        case 'HTTP_SESSION_VARS':
+        case '_SESSION':
+        case 'GLOBALS':
+        case 'key':
+        case 'value':
+            break;
+        default:
+            unset($GLOBALS[$key]);
+        }
+    }
+    // Unset variables used in foreach
+    unset($GLOBALS['key']);
+    unset($GLOBALS['value']);
+}
+
+
+/**
+ * Displays error messages and warnings
+ * @param string $str message
+ * @param boolean $fatal fatal error or only warning
+ */
 function do_err($str, $fatal = TRUE) {
     global $IND, $warnings;
     $level = $fatal ? 'FATAL ERROR:' : 'WARNING:';
@@ -31,26 +77,44 @@ function do_err($str, $fatal = TRUE) {
     }
 }
 
-$IND = str_repeat('&nbsp;',4);
-
 ob_implicit_flush();
 /** @ignore */
 define('SM_PATH', '../');
-
-/* set default value in order to block remote access to script */
-$allow_remote_configtest=false;
-
-/*
- * Load config before output begins. functions/strings.php depends on
- * functions/globals.php. functions/global.php needs to be run before
- * any html output starts. If config.php is missing, error will be displayed
- * later.
- */
-if (file_exists(SM_PATH . 'config/config.php')) {
-	require(SM_PATH . 'config/config.php');
-}
+/** load minimal function set */
 require(SM_PATH . 'functions/global.php');
 require(SM_PATH . 'functions/strings.php');
+
+/** set default value in order to block remote access */
+$allow_remote_configtest=false;
+
+/** Load all configuration files before output begins */
+
+/* load default configuration */
+require(SM_PATH . 'config/config_default.php');
+/* reset arrays in default configuration */
+$ldap_server = array();
+$plugins = array();
+$fontsets = array();
+$theme = array();
+$theme[0]['PATH'] = SM_PATH . 'themes/default_theme.php';
+$theme[0]['NAME'] = 'Default';
+$aTemplateSet = array();
+$aTemplateSet[0]['ID'] = 'default';
+$aTemplateSet[0]['NAME'] = 'Default';
+/* load site configuration */
+if (file_exists(SM_PATH . 'config/config.php')) {
+    require(SM_PATH . 'config/config.php');
+}
+/* load local configuration overrides */
+if (file_exists(SM_PATH . 'config/config_local.php')) {
+    require(SM_PATH . 'config/config_local.php');
+}
+
+/** Warning counter */
+$warnings = 0;
+
+/** indent */
+$IND = str_repeat('&nbsp;',4);
 
 /**
  * get_location starts session and must be run before output is started.
@@ -119,7 +183,7 @@ echo $IND . 'PHP version ' . PHP_VERSION . ' OK. (You have: ' . phpversion() . "
 /* test for boolean false and any string that is not equal to 'off' */
 if ((bool) ini_get('register_globals') && 
     strtolower(ini_get('register_globals'))!='off') {
-	do_err('You have register_globals turned on.  This is not an error, but it CAN be a security hazard.  Consider turning register_globals off.', false);
+    do_err('You have register_globals turned on.  This is not an error, but it CAN be a security hazard.  Consider turning register_globals off.', false);
 }
 $php_exts = array('session','pcre');
 $diff = array_diff($php_exts, get_loaded_extensions());
