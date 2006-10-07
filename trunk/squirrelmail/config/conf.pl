@@ -46,6 +46,17 @@ $dir = cwd();
 # First, lets read in the data already in there...
 ############################################################
 if ( -e "config.php" ) {
+    # Make sure that file is readable
+    if (! -r "config.php") {
+        clear_screen();
+        print "WARNING:\n";
+        print "The file \"config/config.php\" was found, but you don't\n";
+        print "have rights to read it.\n";
+        print "\n";
+        print "Press any key to continue";
+        $ctu = <STDIN>;
+        exit;
+    }
     open( FILE, "config.php" );
     while ( $line = <FILE> ) {
         $line =~ s/^\s+//;
@@ -70,7 +81,7 @@ if ( -e "config.php" ) {
 
     if ( $config_version ne $conf_pl_version ) {
         clear_screen();
-        print $WHT. "WARNING:\n" . $NRM;
+        print "WARNING:\n";
         print "  The file \"config/config.php\" was found, but it is for\n";
         print "  an older version of SquirrelMail. It is possible to still\n";
         print "  read the defaults from this file but be warned that many\n";
@@ -123,7 +134,7 @@ if ( -e "config.php" ) {
 
     if ( $config_version ne $conf_pl_version ) {
         clear_screen();
-        print $WHT. "WARNING:\n" . $NRM;
+        print "WARNING:\n";
         print "  You are trying to use a 'config_default.php' from an older\n";
         print "  version of SquirrelMail. This is HIGHLY unrecommended. You\n";
         print "  should get the 'config_default.php' that matches the version\n";
@@ -242,10 +253,10 @@ while ( $line = <FILE> ) {
             $sub =~ s/^fontsets\[\'//;
             $fontsets{$sub} = $options[1];
         } elsif ( $options[0] =~ /^theme\[[0-9]+\]\[['"]PATH|NAME['"]\]/ ) {
-        	##
-        	## $color themes are no longer supported.  Please leave this
-        	## so conf.pl doesn't barf if it encounters a $theme.
-        	##
+            ##
+            ## $color themes are no longer supported.  Please leave this
+            ## so conf.pl doesn't barf if it encounters a $theme.
+            ##
         } elsif ( $options[0] =~ /^ldap_server\[[0-9]+\]/ ) {
             $sub = $options[0];
             $sub =~ s/\]//;
@@ -426,9 +437,6 @@ $prefs_user_size = 128                  if ( !$prefs_user_size );
 $prefs_key_size = 64                    if ( !$prefs_key_size );
 $prefs_val_size = 65536                 if ( !$prefs_val_size );
 
-# since 1.5.2
-$icon_theme_def = ''					if ( !$icon_theme_def );
-
 # add qmail-inject test here for backwards compatibility
 if ( !$sendmail_args && $sendmail_path =~ /qmail-inject/ ) {
     $sendmail_args = '';
@@ -460,6 +468,7 @@ $abook_file_line_length = 2048         if ( !$abook_file_line_length );
 $config_location_base = ''             if ( !$config_location_base );
 $smtp_sitewide_user = ''               if ( !$smtp_sitewide_user );
 $smtp_sitewide_pass = ''               if ( !$smtp_sitewide_pass );
+$icon_theme_def = ''                   if ( !$icon_theme_def );
 
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
@@ -2581,8 +2590,8 @@ sub command_userThemes {
 
         $count++;
     }
-	    
-	print "\n";
+    
+    print "\n";
     print ".------------------------------------.\n";
     print "| t             (detect user themes) |\n";
     print "| +                 (add user theme) |\n";
@@ -2591,7 +2600,7 @@ sub command_userThemes {
     print "| l               (list user themes) |\n";
     print "| d                           (done) |\n";
     print "`------------------------------------'\n";
-	
+    
     print "\n[user_themes] command (?=help) > ";
     $input = <STDIN>;
     $input =~ s/[\r\n]//g;
@@ -3298,10 +3307,10 @@ sub command61 {
 
             print "First, we need to have the hostname or the IP address where\n";
             print "this LDAP server resides. Example: ldap.bigfoot.com\n";
-	    print "\n";
-	    print "You can use any URI compatible with your LDAP library. Please\n";
+            print "\n";
+            print "You can use any URI compatible with your LDAP library. Please\n";
             print "note that StartTLS option is not compatible with ldaps and\n";
-	    print "ldapi URIs.\n";
+            print "ldapi URIs.\n";
             print "hostname: ";
             $name = <STDIN>;
             $name =~ s/[\r\n]//g;
@@ -4136,11 +4145,11 @@ sub commandB6 {
 
 # Default Icon theme
 sub commandB7 {
-	print "You may change the path to the default icon theme to be used, if icons\n";
-	print "have been enabled.  This theme will be used when an icon cannot be\n";
-	print "found in the current theme, or when no icon theme is specified.  If\n";
-	print "left blank, and icons are enabled, the default theme will be used\n";
-	print "from images/themes/default/.\n";
+    print "You may change the path to the default icon theme to be used, if icons\n";
+    print "have been enabled.  This theme will be used when an icon cannot be\n";
+    print "found in the current theme, or when no icon theme is specified.  If\n";
+    print "left blank, and icons are enabled, the default theme will be used\n";
+    print "from images/themes/default/.\n";
     print "\n";
     print "To clear out an existing value, just type a space for the input.\n";
     print "\n";
