@@ -144,6 +144,7 @@ Version 1.5.2 - CVS
   - Fixed unintended literal fetching (#1562271).
   - Checked if configuration file is readable in configuration utility
     (#1568355).
+  - Added PHP pspell extension support to squirrelspell plugin.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
