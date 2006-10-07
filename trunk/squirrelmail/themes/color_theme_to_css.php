@@ -26,6 +26,7 @@
  * @since 1.5.2
  */
 
+/** make sure that first command line argument is set */
 if (empty($argv[1])) {
     echo "Please provide the path to the file containing the \$color theme you\n" .
          "wish to convert to a stylesheet.\n\n";
