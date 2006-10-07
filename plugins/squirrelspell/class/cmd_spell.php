@@ -2,27 +2,6 @@
 /**
  * Command line spellcheck class
  *
- * ---
- *  Quick brownn fox brownn
- *
- *  brownn squirrel.
- *  twentytwo owttnewt
- * ---
- * @(#) International Ispell Version 3.1.20 10/10/95, patch 1
- * *
- * & brownn 5 7: brown, Browne, browns, brown n, brown-n
- * *
- * & brownn 5 18: brown, Browne, browns, brown n, brown-n
- * 
- * 
- * & brownn 5 1: brown, Browne, browns, brown n, brown-n
- * *
- * 
- * & twentytwo 2 1: twenty two, twenty-two
- * # owttnewt 11
- * 
- * 
- * ---
  * $params = array();
  * $params['spell_command'] = 'ispell -d american -a';
  * $params['use_proc_open'] = false; // (check_php_version(4,3))
