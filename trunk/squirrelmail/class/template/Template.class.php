@@ -1,7 +1,4 @@
 <?php
-
-require(SM_PATH . 'functions/template.php');
-
 /**
   * Template.class.php
   *
@@ -19,6 +16,9 @@ require(SM_PATH . 'functions/template.php');
   * @since 1.5.2
   *
   */
+
+/** load template functions */
+require(SM_PATH . 'functions/template.php');
 
 /**
   * The SquirrelMail Template class.
@@ -549,7 +549,6 @@ class Template
 
         if ($regenerate_cache) unset($template_file_hierarchy);
 
-
         if (!empty($template_file_hierarchy)) {
 
             // have to add additional files if given before returning
@@ -658,11 +657,13 @@ class Template
             //
             $relative_file = substr($file, strlen($template_base_dir));
 
-            // only put file in cache if not already found in earlier template
-            //
+            /**
+             * only put file in cache if not already found in earlier template
+             * PATH should be relative to SquirrelMail top directory
+             */
             if (!isset($file_list[$relative_file])) {
                 $file_list[$relative_file] = array(
-                                                     'PATH'   => $file,
+                                                     'PATH'   => substr($file,strlen(SM_PATH)),
                                                      'SET_ID' => $template_set_id,
                                                      'ENGINE' => $engine,
                                                   );
@@ -831,7 +832,7 @@ class Template
                 //
                 if (strpos($file, $filename) === 0 
                  && strpos($file, '/', strlen($filename)) === FALSE)
-                    $return_array[] = $file_info['PATH'];
+                    $return_array[] = SM_PATH . $file_info['PATH'];
 
             }
             return $return_array;
@@ -856,7 +857,7 @@ class Template
 
         }
 
-        return $this->template_file_cache[$filename]['PATH'];
+        return SM_PATH . $this->template_file_cache[$filename]['PATH'];
 
     }
 
