@@ -716,7 +716,7 @@ $icon_theme_def = 3;
 
 /**
  * Listing of installed icon themes
- * @global array $icon_themes;
+ * @global array $icon_themes
  * @since 1.5.2
  */
 $icon_themes[0]['PATH'] = 'none';
