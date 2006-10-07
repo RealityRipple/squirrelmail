@@ -142,7 +142,8 @@ Version 1.5.2 - CVS
     messages when quota is exceeded. (#614887) (#646386) (#1446026)
   - Added filter_hook_function() hook type.
   - Fixed unintended literal fetching (#1562271).
-
+  - Checked if configuration file is readable in configuration utility
+    (#1568355).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
