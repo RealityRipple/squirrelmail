@@ -52,7 +52,7 @@ extract($t);
   </td>
   <td class="fieldValue">
     <input type="checkbox" name="request_mdn" id="request_mdn" value="1" <?php if ($read_receipt) echo ' checked="checked"'; ?> /><label for="request_mdn"><?php echo _("On Read"); ?></label>
-    <br />
+    &nbsp;
     <input type="checkbox" name="request_dr" id="request_dr" value="1" <?php if ($delivery_receipt) echo ' checked="checked"'; ?> /><label for="request_dr"><?php echo _("On Delivery"); ?></label>
   </td>
  </tr>
