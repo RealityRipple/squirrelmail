@@ -741,9 +741,9 @@ class Template
             $engine = $this->get_template_config($template_set_id, 
                                                  'template_engine', SQ_PHP_TEMPLATE);
             $file_list = array('plugins/' . $plugin . '/' . $file => array(
-                                                      'PATH'   => $file_path,
-                                                      'SET_ID' => $template_set_id,
-                                                      'ENGINE' => $engine,
+                                         'PATH'   => substr($file_path, strlen(SM_PATH)),
+                                         'SET_ID' => $template_set_id,
+                                         'ENGINE' => $engine,
                                                                           )
                               );
             $this->template_file_cache 
