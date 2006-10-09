@@ -733,8 +733,8 @@ $icon_themes[3]['NAME'] = 'XP Style Icons';
 
 /**
  * Templates
- *   You can define your own template and put it in a new directory
- *   under SM_PATH/templates.  The ID must match the name of
+ *   You can define your own template set (skin) and put it in a new 
+ *   directory under SM_PATH/templates.  The ID must match the name of
  *   the template directory as the example below. You can name the 
  *   template whatever you want. For an example of a template, see 
  *   the ones included in the SM_PATH/templates directory.
@@ -742,12 +742,22 @@ $icon_themes[3]['NAME'] = 'XP Style Icons';
  * To add a new template to the options that users can choose from, just
  * add a new number to the array at the bottom, and follow the pattern.
  *
- * $templateset_default sets theme that will be used by default.
+ * $templateset_default sets the skin that will be used by default
+ *                      when a user doesn't have a skin selection
+ *                      in their preferences. (Must be the "ID" of
+ *                      the desired template set)
  *
- * @global integer $templateset_default
+ * $templateset_fallback tells SquirrelMail which template set (skin)
+ *                       to use when looking for a file that is not
+ *                       contained within whatever skin is currently
+ *                       being used.  (Must be the "ID" of the desired 
+ *                       template set)
+ *
+ * @global string $templateset_default
+ * @global string $templateset_fallback
  */
-$templateset_default = 0;
-$templateset_fallback = 0;
+$templateset_default = 'default';
+$templateset_fallback = 'default';
 
 $aTemplateSet[0]['ID'] = 'default';
 $aTemplateSet[0]['NAME'] = 'Default';

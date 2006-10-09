@@ -39,7 +39,7 @@ function adm_template_options() {
     global $aTemplateSet;
     $ret = array();
     foreach ($aTemplateSet as $iTemplateID => $aTemplate) {
-        $ret[$iTemplateID] = $aTemplate['NAME'];
+        $ret[$aTemplate['ID']] = $aTemplate['NAME'];
     }
     return $ret;
 }
