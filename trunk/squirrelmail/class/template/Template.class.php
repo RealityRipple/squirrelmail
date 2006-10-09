@@ -238,7 +238,7 @@ class Template
         //
         $found_it = FALSE;
         foreach ($aTemplateSet as $aTemplate) {
-            if ($aTemplate['ID'] == $templateset_fallback) {
+            if ($aTemplate['ID'] === $templateset_fallback) {
                 $found_it = TRUE;
                 break;
             }
@@ -289,7 +289,7 @@ class Template
         //
         $found_it = FALSE;
         foreach ($aTemplateSet as $aTemplate) {
-            if ($aTemplate['ID'] == $templateset_default) {
+            if ($aTemplate['ID'] === $templateset_default) {
                 $found_it = TRUE;
                 break;
             }
