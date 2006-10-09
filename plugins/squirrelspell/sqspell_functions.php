@@ -62,7 +62,7 @@ function squirrelspell_setup_function() {
      * use document.write() so the "Check Spelling" button is not
      * displayed if js is off in the browser.
      */
-    echo "<script type=\"text/javascript\">\n".
+    $output = "<script type=\"text/javascript\">\n".
       "<!--\n".
       'document.write("<input type=\"button\" value=\"'.
       _("Check Spelling").
@@ -71,6 +71,7 @@ function squirrelspell_setup_function() {
       'resizable=yes\')\" />");' . "\n".
       "//-->\n".
       "</script>\n";
+    return array('compose_button_row' => $output);
   }
 }
 

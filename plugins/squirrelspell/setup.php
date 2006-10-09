@@ -22,7 +22,7 @@
  */
 function squirrelmail_plugin_init_squirrelspell() {
   global $squirrelmail_plugin_hooks;
-  $squirrelmail_plugin_hooks['compose_button_row']['squirrelspell'] =
+  $squirrelmail_plugin_hooks['template_construct_compose_buttons.tpl']['squirrelspell'] = 
       'squirrelspell_setup';
   $squirrelmail_plugin_hooks['optpage_register_block']['squirrelspell'] =
       'squirrelspell_optpage_register_block';
@@ -54,7 +54,7 @@ function squirrelspell_optpage_register_block() {
  */
 function squirrelspell_setup() {
   include_once(SM_PATH . 'plugins/squirrelspell/sqspell_functions.php');
-  squirrelspell_setup_function();
+  return squirrelspell_setup_function();
 }
 
 /**
