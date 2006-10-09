@@ -4,7 +4,7 @@
  *
  * Template used to generate the attachment list while reading a message.  This
  * template is called from the function formatAttachments() in functions/mime.php.
- * 
+ *
  * The following variables are available in this template:
  *    $attachments - array containing info for all message attachments.  Each
  *                   element in the array represents a separate attachment and
@@ -31,7 +31,7 @@
  */
 
 /** add required includes **/
-require(SM_PATH . 'templates/util_global.php');
+include_once(SM_PATH . 'templates/util_global.php');
 
 /** extract template variables **/
 extract($t);
@@ -76,7 +76,7 @@ if (count($attachments)==0) {
    <a href="<?php echo $attachment['ViewHREF']; ?>"><?php echo _("View"); ?></a>
         <?php
     }
-    
+
     foreach ($attachment['OtherLinks'] as $link) {
         ?>
    &nbsp;|&nbsp;
@@ -89,7 +89,7 @@ if (count($attachments)==0) {
  </tr>
         <?php
     }
-    
+
     if (!empty($plugin_output['attachments_bottom'])) echo $plugin_output['attachments_bottom'];
  ?>
 </table>
