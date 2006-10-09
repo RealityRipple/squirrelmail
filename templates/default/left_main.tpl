@@ -8,8 +8,6 @@
  *      $clock           - formatted string containing last refresh
  *      $settings        - Array containing user perferences needed by this
  *                         template.  Indexes are as follows:
- *          $settings['iconThemePath'] - Path to the desired icon theme.  If
- *                         the user has disabled icons, this will be NULL.
  *          $settings['templateID'] - contains the ID of the current
  *                         template set.  This may be needed by third
  *                         party packages that don't integrate easily.
@@ -79,7 +77,7 @@ include_once(SM_PATH . 'templates/util_global.php');
  *
  * @since 1.5.2
  */
-function buildMailboxTree ($box, $settings, $indent_factor=0) {
+function buildMailboxTree ($box, $settings, $icon_theme_path, $indent_factor=0) {
     // stop condition
     if (empty($box)) {
         return '';
@@ -144,22 +142,22 @@ function buildMailboxTree ($box, $settings, $indent_factor=0) {
     if (!is_null($settings['iconThemePath'])) {
         switch (true) {
             case $box['IsInbox']:
-                $folder_icon = getIcon($settings['iconThemePath'], 'inbox.png', '', $box['MailboxName']);
+                $folder_icon = getIcon($icon_theme_path, 'inbox.png', '', $box['MailboxName']);
                 break; 
             case $box['IsSent']:
-                $folder_icon = getIcon($settings['iconThemePath'], 'senti.png', '', $box['MailboxName']);
+                $folder_icon = getIcon($icon_theme_path, 'senti.png', '', $box['MailboxName']);
                 break; 
             case $box['IsTrash']:
-                $folder_icon = getIcon($settings['iconThemePath'], 'delitem.png', '', $box['MailboxName']);
+                $folder_icon = getIcon($icon_theme_path, 'delitem.png', '', $box['MailboxName']);
                 break; 
             case $box['IsDraft']:
-                $folder_icon = getIcon($settings['iconThemePath'], 'draft.png', '', $box['MailboxName']);
+                $folder_icon = getIcon($icon_theme_path, 'draft.png', '', $box['MailboxName']);
                 break; 
             case $box['IsNoInferiors']:
-                $folder_icon = getIcon($settings['iconThemePath'], 'folder_noinf.png', '', $box['MailboxName']);
+                $folder_icon = getIcon($icon_theme_path, 'folder_noinf.png', '', $box['MailboxName']);
                 break;
             default: 
-                $folder_icon = getIcon($settings['iconThemePath'], 'folder.png', '', $box['MailboxName']);
+                $folder_icon = getIcon($icon_theme_path, 'folder.png', '', $box['MailboxName']);
                 break;
         }
         $folder_icon .= '&nbsp;';
@@ -277,7 +275,7 @@ extract($t);
     </tr>
    </table>
    <br />
-   <?php echo buildMailboxTree($mailboxes, $settings); ?>
+   <?php echo buildMailboxTree($mailboxes, $settings, $icon_theme_path); ?>
   </td>
  </tr>
 </table>
