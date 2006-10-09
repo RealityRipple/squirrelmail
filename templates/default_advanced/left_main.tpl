@@ -83,11 +83,12 @@ include_once(SM_PATH . 'templates/util_global.php');
  *
  * @param array $box Array containing mailbox data
  * @param array $settings Array containing perferences, etc, passed to template
+ * @param string $icon_theme_path
  * @param integer $indent_factor Counter used to control indent spacing
  * @since 1.5.2
  * @author Steve Brown
  */
-function buildMailboxTree ($box, $settings, $parent_node=-1) {
+function buildMailboxTree ($box, $settings, $icon_theme_path, $parent_node=-1) {
     static $counter;
     
     // stop condition
@@ -95,11 +96,10 @@ function buildMailboxTree ($box, $settings, $parent_node=-1) {
         return '';
     }
     
-    $image_path = Template::calculate_template_images_directory($settings['templateID']);
     $out = '';
-    if ($box['IsRoot']) {
+    if ($box['IsRoot']) { 
         // Determine the path to the correct images
-        $out .= 'mailboxes = new dTree("mailboxes", "'.$image_path.'");'."\n";
+        $out .= 'mailboxes = new dTree("mailboxes", "'.$icon_theme_path.'");'."\n";
         $out .= 'mailboxes.config.inOrder = true;'."\n";
         $counter = -1;
     } else {
@@ -145,21 +145,21 @@ function buildMailboxTree ($box, $settings, $parent_node=-1) {
         $img_open = '';
         switch (true) {
             case $box['IsInbox']:
-                $img = $image_path . 'base.png';
-                $img_open = $image_path . 'base.png';
+                $img = 'base.png';
+                $img_open = 'base.png';
                 break; 
             case $box['IsTrash']:
-                $img = $image_path . 'trash.png';
-                $img_open = $image_path . 'trash.png';
+                $img = 'trash.png';
+                $img_open = 'trash.png';
                 break;
             case $box['IsNoSelect']: 
             case $box['IsNoInferiors']:
-                $img = $image_path . 'page.png';
-                $img_open = $image_path . 'page.png';
+                $img = 'page.png';
+                $img_open = 'page.png';
                 break;
             default:
-                $img = $image_path . 'folder.png';
-                $img_open = $image_path . 'folderopen.png'; 
+                $img = 'folder.png';
+                $img_open = 'folderopen.png'; 
                 break;
         }
         
@@ -231,15 +231,15 @@ function buildMailboxTree ($box, $settings, $parent_node=-1) {
             $out .= 'mailboxes.add('.$counter.', '.$parent_node.', ' .
                                        '"'.addslashes($name).'", "'.$url.'", "'.$title.'", ' .
                                        '"'.$target.'", ' .
-                                       '"'.$img.'", ' .
-                                       '"'.$img_open.'"' .
+                                       '"'.getIconPath($icon_theme_path, $img).'", ' .
+                                       '"'.getIconPath($icon_theme_path, $img_open).'"' .
                                        ');'."\n";
         }
     }
     
     $parent_node = $counter;
     for ($i = 0; $i<sizeof($box['ChildBoxes']); $i++) {
-        $out .= buildMailboxTree($box['ChildBoxes'][$i], $settings, $parent_node);
+        $out .= buildMailboxTree($box['ChildBoxes'][$i], $settings, $icon_theme_path, $parent_node);
     }
 
     if ($box['IsRoot']) {
@@ -304,9 +304,9 @@ if ($settings['messageRecyclingEnabled']) {
 </p>
 <script type="text/javascript">
 <!--
-<?php echo buildMailboxTree($mailboxes, $settings); ?>
+<?php echo buildMailboxTree($mailboxes, $settings, $icon_theme_path); ?>
 -->
 </script>
 </div>
-<?php do_hook('left_main_after'); ?>
+<?php if (!empty($plugin_output['left_main_after'])) echo $plugin_output['left_main_after']; ?>
 </div>
