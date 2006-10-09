@@ -65,53 +65,22 @@ $chosen_theme_path = empty($chosen_theme) ?
 // Make sure the chosen theme is a legitimate one.
 // need to adjust $chosen_theme path with SM_PATH 
 $chosen_theme_path = preg_replace("/(\.\.\/){1,}/", SM_PATH, $chosen_theme_path);
-$k = 0;
-while (!$found_theme && $k < count($user_themes)) {
-    if ('u_'.$user_themes[$k]['PATH'] == $chosen_theme_path)
-        $found_theme = true;
-    $k++;
-}
-$template_themes = $oTemplate->get_alternative_stylesheets();
-while (!$found_theme && (list($path, $name) = each($template_themes))) {
-    if ('t_'.$path == $chosen_theme_path)
+while (!$found_theme && (list($index, $data) = each($user_themes))) {
+    if ($data['PATH'] == $chosen_theme_path)
         $found_theme = true;
 }
-    
+
+if (!$found_theme) {
+    $template_themes = $oTemplate->get_alternative_stylesheets(true);
+    while (!$found_theme && (list($path, $name) = each($template_themes))) {
+        if ($path == $chosen_theme_path)
+            $found_theme = true;
+    }
+}
+
 if (!$found_theme || $chosen_theme == 'none') {
     $chosen_theme_path = NULL;
 }
-
-/* ----- SB: Holding on to the following code incase I need to reference later.  
-       Will remove eventually. :)
-   
-$theme = ( !isset($theme) ? array() : $theme );
-$color = ( !isset($color) ? array() : $color );
-
-$chosen_theme = getPref($data_dir, $username, 'chosen_theme');
-$found_theme = false;
-
-// need to adjust $chosen_theme path with SM_PATH 
-$chosen_theme = preg_replace("/(\.\.\/){1,}/", SM_PATH, $chosen_theme);
-
-for ($i = 0; $i < count($theme); ++$i){
-    if ($theme[$i]['PATH'] == $chosen_theme) {
-        $found_theme = true;
-        break;
-    }
-}
-
-$chosen_theme = (!$found_theme ? '' : $chosen_theme);
-
-if (isset($chosen_theme) && $found_theme && (file_exists($chosen_theme))) {
-    @include_once($chosen_theme);
-} else {
-    if (isset($theme) && isset($theme[$theme_default]) && file_exists($theme[$theme_default]['PATH'])) {
-        @include_once($theme[$theme_default]['PATH']);
-        $chosen_theme = $theme[$theme_default]['PATH'];
-    }
-}
-
------- */
 
 // user's icon theme, if using icons
 $icon_theme = getPref($data_dir, $username, 'icon_theme');

@@ -50,7 +50,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
 
     $used_fontset = (!empty($chosen_fontset) ? $chosen_fontset : $default_fontset);
     $used_fontsize = (!empty($chosen_fontsize) ? $chosen_fontsize : $default_fontsize);
-    $used_theme = !isset($chosen_theme) && $user_theme_default != 'none' ?  'u_'.$user_themes[$user_theme_default]['PATH'] : $chosen_theme_path;
+    $used_theme = !isset($chosen_theme) && $user_theme_default != 'none' ?  $user_themes[$user_theme_default]['PATH'].'/default.css' : $chosen_theme_path;
     
     /**
      * Stylesheets are loaded in the following order:
@@ -70,27 +70,19 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     $aUserStyles = array();
 
     // 2. Option user-defined stylesheet from preferences.
-// FIXME: the following user pref ("sUserStyle"; rename as necessary) will have to be populated by the display prefs screen from a widget similar to the color themes widget (which it replaces) where its values should be full relative paths (from SM_PATH) to the selected css "themes" (either in template css/alternates dir or SM_PATH/css/alternates dir)
-// FIXME: uhhh, getPref() is not available yet here.  (at least on login page) Ugh.  Nor has load_prefs been included yet -- how do we fix this?
-//    $aUserStyles[] = getPref($data_dir, $username, 'sUserStyle', '');
-// Steve, can you please document what u_ means?  Will it work with the
-// new template inheritance system and auto-detection of alternate sheets?
-/**
- * Stylesheets beginning with a "u_" == user provided stylesheets, e.g. those
- * in SM_PATH/css/.  Template provided stylesheets (TEMPLATE_DIR/css/alternatives/)
- * should begin with 't_'.  This was the initial path I took to get it working 
- * since I wasn't sure what mods to the Template class would be used to handle
- * template-provided alt stylesheets.
- * 
- * TODO: Re-evaluate this naming convetion.
- */
-#    var_dump($used_theme);
     if (!empty($used_theme)) {
-        if (substr($used_theme, 0, 2) == 'u_') {
-            $aUserStyles[] = substr($used_theme, 2) .'/default.css';
-        } elseif (substr($used_theme, 0, 2) == 't_') {
-            $aUserStyles[] = SM_PATH . $oTemplate->get_template_file_directory().'css/alternates/'.substr($used_theme, 2);
-#            $aUserStyles[] = substr($used_theme, 2);
+        /**
+         * User styles just point to a directory, so we need to include all .css
+         * files in that directory.  Template themes point to a specific stylesheet,
+         * so we simply include it. 
+         */
+        if (is_dir($used_theme)) {
+            $styles = list_files($used_theme, '.css');
+            foreach ($styles as $sheet) { 
+                $aUserStyles[] = $used_theme .'/'.$sheet;
+            }
+        } else {
+            $aUserStyles[] = $used_theme;
         }
     }
 

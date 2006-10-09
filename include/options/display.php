@@ -72,36 +72,23 @@ function load_optpage_data_display() {
     }
 
     /* Load the theme option. */
-
-    /**
-     * User themes start with a 'u_', template themes start with a 't_' to
-     * differentiate which is which.  This seems kind of hackish, but we can
-     * come up with a better solution later.
-PL: No need for the prefixes.  Just use full paths, no?
-
-SB: Don't think so.  If the user chooses a template theme than changes the 
-    path to the template, it would error out, right?  Or should we worry about
-    that?
-     * 
-     * TODO: Clean me.
-     **/
     $theme_values = array();
     
     // Always provide the template default first.
     $theme_values['none'] = 'Template Default Theme';
 
     // List alternate themes provided by templates first
-    $template_themes = $oTemplate->get_alternative_stylesheets();
+    $template_themes = $oTemplate->get_alternative_stylesheets(true);
     asort($template_themes);
     foreach ($template_themes as $sheet=>$name) {
-        $theme_values['t_'.$sheet] = 'Template Theme - '.htmlspecialchars($name);
+        $theme_values[$sheet] = 'Template Theme - '.htmlspecialchars($name);
     }
     // Next, list user-provided styles
     asort($user_themes);
     foreach ($user_themes as $style) {
         if ($style['PATH'] == 'none')
             continue;
-        $theme_values['u_'.$style['PATH']] = 'User Theme - '.htmlspecialchars($style['NAME']);
+        $theme_values[$style['PATH']] = 'User Theme - '.htmlspecialchars($style['NAME']);
     }
 
     if (count($user_themes) + count($template_themes) > 1) {
@@ -447,6 +434,10 @@ function save_option_template($option) {
 
     }
 
+    /**
+     * TODO: If the template changes and we are using a template provided theme
+     * ($user_theme), do we want to reset $user_theme?
+     */
     /* Save the option like normal. */
     save_option($option);
 }
@@ -488,14 +479,16 @@ function css_theme_save ($option) {
     $found = false;
     reset($user_themes);
     while (!$found && (list($index, $data) = each($user_themes))) {
-        if ('u_'.$data['PATH'] == $option->new_value)
+        if ($data['PATH'] == $option->new_value)
             $found = true;
     }
     
-    $template_themes = $oTemplate->get_alternative_stylesheets();
-    foreach ($template_themes as $path=>$name) {
-        if ('t_'.$path == $option->new_value)
-            $found = true;
+    if (!$found) {
+        $template_themes = $oTemplate->get_alternative_stylesheets(true);
+        while (!$found && (list($path, $name) = each($template_themes))) {
+            if ($path == $option->new_value)
+                $found = true;
+        }
     }
     
     if (!$found)
