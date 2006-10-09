@@ -47,10 +47,16 @@ a:link, a:visited, a:hover, a:active {
 }
 
 /* left_main.tpl definitions */
+div.sqm_leftMain {
+    text-align: center;
+    width:100%;
+}
+
 .sqm_wrapperTable   {
     border:0;
     padding:0;
-    margin-left:0;
+    margin-left:auto;
+    margin-right: auto;
     border-spacing:0;
     width:99%
 }
