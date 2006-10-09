@@ -313,9 +313,9 @@ function translateText(&$body, $wrap_at, $charset) {
         }
 
         if ($quotes % 2) {
-            $line = '<span class="quote1">' . $line . '</style>';
+            $line = '<span class="quote1">' . $line . '</span>';
         } elseif ($quotes) {
-            $line = '<span class="quote2">' . $line . '</style>';
+            $line = '<span class="quote2">' . $line . '</span>';
         }
 
         $body_ary[$i] = $line;
