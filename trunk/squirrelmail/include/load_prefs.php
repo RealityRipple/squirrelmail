@@ -136,7 +136,7 @@ if (!$found_theme) {
  *       theme to use.  If the admin has disabled icons, or the user has
  *       set the icon theme to "None," no icons will be used.
  */
-$icon_theme_path = (!$use_icons || $icon_theme=='none') ? NULL : ($icon_theme == 'template' ? Template::calculate_template_images_directory($sTemplateID) : $icon_theme);
+$icon_theme_path = (!$use_icons || $icon_theme=='none') ? NULL : ($icon_theme == 'template' ? SM_PATH . Template::calculate_template_images_directory($sTemplateID) : $icon_theme);
 
 // show (or not) flag and unflag buttons on mailbox list screen
 $show_flag_buttons = getPref($data_dir, $username, 'show_flag_buttons', SMPREF_ON );
