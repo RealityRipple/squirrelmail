@@ -762,6 +762,30 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
     global $color, $squirrelmail_language, $onetimepad, $use_imap_tls,
            $imap_auth_mech, $sqimap_capabilities;
 
+    // Note/TODO: This hack grabs the $authz argument from the session. In the short future,
+    // a new argument in function sqimap_login() will be used instead.
+    $authz = '';
+    global $authz;
+    sqgetglobalvar('authz' , $authz , SQ_SESSION);
+
+    if(!empty($authz)) {
+        /* authz plugin - specific:
+         * Get proxy login parameters from authz plugin configuration. If they 
+         * exist, they will override the current ones.
+         * This is useful if we want to use different SASL authentication mechanism
+         * and/or different TLS settings for proxy logins. */
+		global $authz_imap_auth_mech, $authz_use_imap_tls, $authz_imapPort_tls; 
+        $imap_auth_mech = !empty($authz_imap_auth_mech) ? strtolower($authz_imap_auth_mech) : $imap_auth_mech;
+		$use_imap_tls = !empty($authz_use_imap_tls)? $authz_use_imap_tls : $use_imap_tls;
+		$imap_port = !empty($authz_use_imap_tls)? $authz_imapPort_tls : $imap_port;
+
+        if($imap_auth_mech == 'login' || $imap_auth_mech == 'cram-md5') {
+            logout_error("Misconfigured Plugin (authz or equivalent):<br/>".
+            "The LOGIN and CRAM-MD5 authentication mechanisms cannot be used when attempting proxy login.");
+            exit;
+        }
+    }
+
     /* get imap login password */
     if ($password===false) {
         /* standard functions */
@@ -800,7 +824,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
             // Got a challenge back
             $challenge=$response[1];
             if ($imap_auth_mech == 'digest-md5') {
-                $reply = digest_md5_response($username,$password,$challenge,'imap',$host);
+                $reply = digest_md5_response($username,$password,$challenge,'imap',$host,$authz);
             } elseif ($imap_auth_mech == 'cram-md5') {
                 $reply = cram_md5_response($username,$password,$challenge);
             }
@@ -828,22 +852,25 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
         $read = sqimap_run_command ($imap_stream, $query, false, $response, $message);
     } elseif ($imap_auth_mech == 'plain') {
         /***
-         * SASL PLAIN
+         * SASL PLAIN, RFC 4616 (updates 2595)
          *
-         *  RFC 2595 Chapter 6
-         *
-         *  The mechanism consists of a single message from the client to the
-         *  server.  The client sends the authorization identity (identity to
-         *  login as), followed by a US-ASCII NUL character, followed by the
-         *  authentication identity (identity whose password will be used),
-         *  followed by a US-ASCII NUL character, followed by the clear-text
-         *  password.  The client may leave the authorization identity empty to
-         *  indicate that it is the same as the authentication identity.
-         *
-         **/
+         * The mechanism consists of a single message, a string of [UTF-8]
+         * encoded [Unicode] characters, from the client to the server.  The
+         * client presents the authorization identity (identity to act as),
+         * followed by a NUL (U+0000) character, followed by the authentication
+         * identity (identity whose password will be used), followed by a NUL
+         * (U+0000) character, followed by the clear-text password.  As with
+         * other SASL mechanisms, the client does not provide an authorization
+         * identity when it wishes the server to derive an identity from the
+         * credentials and use that as the authorization identity.
+         */
         $tag=sqimap_session_id(false);
         $sasl = (isset($sqimap_capabilities['SASL-IR']) && $sqimap_capabilities['SASL-IR']) ? true : false;
-        $auth = base64_encode("$username\0$username\0$password");
+        if(!empty($authz)) {
+            $auth = base64_encode("$username\0$authz\0$password");
+        } else {
+            $auth = base64_encode("$username\0$username\0$password");
+        }
         if ($sasl) {
             // IMAP Extension for SASL Initial Client Response
             // <draft-siemborski-imap-sasl-initial-response-01b.txt>
@@ -862,6 +889,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
         $results=explode(" ",$read,3);
         $response=$results[1];
         $message=$results[2];
+
     } else {
         $response="BAD";
         $message="Internal SquirrelMail error - unknown IMAP authentication method chosen.  Please contact the developers.";

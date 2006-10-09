@@ -122,10 +122,11 @@ function cram_md5_response ($username,$password,$challenge) {
  *   define the digest-uri.
  * @param string $host The host name, usually the server's FQDN; it is used to
  *   define the digest-uri.
+ * @param string $authz Authorization ID (since 1.5.2)
  * @return string The response to be sent to the IMAP server
  * @since 1.4.0
  */
-function digest_md5_response ($username,$password,$challenge,$service,$host) {
+function digest_md5_response ($username,$password,$challenge,$service,$host,$authz='') {
     $result=digest_md5_parse_challenge($challenge);
 
     // verify server supports qop=auth
@@ -166,6 +167,9 @@ function digest_md5_response ($username,$password,$challenge,$service,$host) {
     $reply .= 'nonce="' . $result['nonce'] . '",nc=' . $ncount . ',cnonce="' . $cnonce . '",';
     $reply .= "digest-uri=\"$digest_uri_value\",response=$response_value";
     $reply .= ',qop=' . $qop_value;
+    if(!empty($authz)) {
+        $reply .= ',authzid=' . $authz;
+    }
     $reply = base64_encode($reply);
     return $reply . "\r\n";
 
