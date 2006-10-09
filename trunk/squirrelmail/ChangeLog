@@ -4,9 +4,12 @@
 
 Version 1.5.2 - CVS
 -------------------
+  - Now uses the $Forwarded IMAP keyword for forwarded messages, when it is
+    enabled or when arbitrary keywords ("PERMANENT FLAGS \*") are permitted.
+    RFC 4550, paragraph 2.8.
   - Added support for authorization identifier in IMAP backend, for SASL
     authentication mechanisms PLAIN and DIGEST-MD5. This can be set upon login
-	by use of an external plugin.
+    by use of an external plugin.
   - Fix warning about array required in array_keys for display options when no
     fontset is defined.
   - Added "bad plugin" blacklist in configtest.php.
