@@ -2744,14 +2744,22 @@ sub command_userThemes {
 sub command_iconSets {
     print "\nDefine the icon themes that you wish to use.  If you have added\n";
     print "a theme of your own, just follow the instructions (?) about\n";
-    print "how to add them.  You can also change the default theme.\n\n";
+    print "how to add them.  You can also change the default and fallback\n";
+    print "themes.  The default theme will be used when no icon theme is\n";
+    print "set by the user.  The fallback theme will be used if an icon\n";
+    print "cannot be found in the currently selected icon theme.\n\n";
     
     print "Available icon themes:\n\n";
 
     $count = 0;
     while ( $count <= $#icon_theme_name ) {
         if ( $count == $icon_theme_def ) {
-            print " *";
+            print " d";
+        } else {
+            print "  ";
+        }
+        if ( $count eq $icon_theme_fallback ) {
+            print "f ";
         } else {
             print "  ";
         }
@@ -2770,12 +2778,15 @@ sub command_iconSets {
         $count++;
     }
     
+    print "\n d = Default icon theme\n";
+    print " f = Fallback icon theme\n";
     print "\n";
     print ".------------------------------------.\n";
     print "| t             (detect icon themes) |\n";
     print "| +                 (add icon theme) |\n";
     print "| - N            (remove icon theme) |\n";
     print "| m N      (mark default icon theme) |\n";
+    print "| f N        (set fallback icon set) |\n";
     print "| l               (list icon themes) |\n";
     print "| d                           (done) |\n";
     print "`------------------------------------'\n";
@@ -2786,15 +2797,18 @@ sub command_iconSets {
     while ( $input ne "d" ) {
         if ( $input =~ /^\s*l\s*/i ) {
             $count = 0;
+            print "\n";
             while ( $count <= $#icon_theme_name ) {
-                if ( $count == $icon_theme_def ) {
-                    print " *";
-                } else {
-                    print "  ";
-                }
-                if ( $count < 10 ) {
-                    print " ";
-                }
+		        if ( $count == $icon_theme_def ) {
+		            print " d";
+		        } else {
+		            print "  ";
+		        }
+		        if ( $count eq $icon_theme_fallback ) {
+		            print "f ";
+		        } else {
+		            print "  ";
+		        }
                 $name       = $icon_theme_name[$count];
                 $num_spaces = 35 - length($name);
                 for ( $i = 0 ; $i < $num_spaces ; $i++ ) {
@@ -2806,6 +2820,8 @@ sub command_iconSets {
 
                 $count++;
             }
+		    print "\n d = Default icon theme\n";
+		    print " f = Fallback icon theme\n\n";
         } elsif ( $input =~ /^\s*m\s*[0-9]+/i ) {
             $old_def       = $icon_theme_def;
             $icon_theme_def = $input;
@@ -2813,6 +2829,14 @@ sub command_iconSets {
             if ( ( $icon_theme_default > $#icon_theme_name ) || ( $icon_theme_default < 0 ) ) {
                 print "Cannot set default icon theme to $icon_theme_default.  That theme does not exist.\n";
                 $icon_theme_def = $old_def;
+            }
+        } elsif ( $input =~ /^\s*f\s*[0-9]+/i ) {
+            $old_fb       = $icon_theme_fallback;
+            $icon_theme_fallback = $input;
+            $icon_theme_fallback =~ s/^\s*f\s*//;
+            if ( ( $icon_theme_fallback > $#icon_theme_name ) || ( $icon_theme_fallback < 0 ) ) {
+                print "Cannot set fallback icon theme to $icon_theme_fallback.  That theme does not exist.\n";
+                $icon_theme_fallback = $old_fb;
             }
         } elsif ( $input =~ /^\s*\+/ ) {
             print "What is the name of this icon theme? ";
@@ -2834,6 +2858,8 @@ sub command_iconSets {
             }
             if ( $rem_num == $icon_theme_def ) {
                 print "You cannot remove the default icon theme!\n";
+            } elsif ( $rem_num == $icon_theme_fallback ) {
+                print "You cannot remove the fallback icon theme!\n";
             } else {
                 $count          = 0;
                 @new_theme_name = ();
@@ -2910,6 +2936,7 @@ sub command_iconSets {
             print "| +                 (add icon theme) |\n";
             print "| - N            (remove icon theme) |\n";
             print "| m N      (mark default icon theme) |\n";
+            print "| f N        (set fallback icon set) |\n";
             print "| l               (list icon themes) |\n";
             print "| d                           (done) |\n";
             print "`------------------------------------'\n";
@@ -4354,7 +4381,9 @@ sub save_data {
 
         if ( $icon_theme_def eq '' ) { $icon_theme_def = '0'; }
         print CF "\$icon_theme_def = $icon_theme_def;\n";
-
+        if ( $icon_theme_fallback eq '' ) { $icon_theme_fallback = '0'; }
+	    print CF "\$icon_theme_fallback = $icon_theme_fallback;\n";
+	    
         for ( $count = 0 ; $count <= $#icon_theme_name ; $count++ ) {
             $path = $icon_theme_path[$count];
             if ($path eq 'none' || $path eq 'template') {

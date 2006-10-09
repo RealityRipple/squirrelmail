@@ -708,11 +708,15 @@ $use_icons = true;
  *    number to the array below and follow the pattern
  * 
  *    $icon_theme_default sets the theme that will be used by default.
+ *    $icon_theme_fallback specifies which theme will be used if an icon is 
+ *    not found in the selected theme
  * 
  * @global integer $icon_theme_def
+ * @global integer $icon_theme_fallback
  * @since 1.5.2
  */
-$icon_theme_def = 3;
+$icon_theme_def = 1;
+$icon_theme_fallback = 3;
 
 /**
  * Listing of installed icon themes
