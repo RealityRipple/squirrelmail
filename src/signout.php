@@ -62,7 +62,6 @@ if ( !isset($oTemplate) || !is_object($oTemplate) ) {
 }
 
 // The error handler object is probably also not initialized on a refresh
-require_once(SM_PATH . 'class/error.class.php');
 $oErrorHandler = new ErrorHandler($oTemplate,'error_message.tpl');
 
 /* internal gettext functions will fail, if language is not set */
