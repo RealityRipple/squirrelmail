@@ -116,6 +116,7 @@ if (isset($chosen_theme) && $found_theme && (file_exists($chosen_theme))) {
 // user's icon theme, if using icons
 $icon_theme = getPref($data_dir, $username, 'icon_theme');
 $default_icon_theme = $icon_themes[$icon_theme_def]['PATH'];
+$fallback_icon_theme = $icon_themes[$icon_theme_fallback]['PATH'];
 $found_theme = false;
 
 // Make sure the chosen icon theme is a legitimate one.
@@ -137,6 +138,8 @@ if (!$found_theme) {
  *       set the icon theme to "None," no icons will be used.
  */
 $icon_theme_path = (!$use_icons || $icon_theme=='none') ? NULL : ($icon_theme == 'template' ? SM_PATH . Template::calculate_template_images_directory($sTemplateID) : $icon_theme);
+$default_icon_theme_path = (!$use_icons || $default_icon_theme=='none') ? NULL : ($default_icon_theme == 'template' ? SM_PATH . Template::calculate_template_images_directory($sTemplateID) : $default_icon_theme);
+$fallback_icon_theme_path = (!$use_icons || $fallback_icon_theme=='none') ? NULL : ($fallback_icon_theme == 'template' ? SM_PATH . Template::calculate_template_images_directory($sTemplateID) : $fallback_icon_theme);
 
 // show (or not) flag and unflag buttons on mailbox list screen
 $show_flag_buttons = getPref($data_dir, $username, 'show_flag_buttons', SMPREF_ON );
