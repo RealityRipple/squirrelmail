@@ -378,7 +378,7 @@ class Deliver {
      * @return string $header
      */
     function prepareRFC822_Header($rfc822_header, $reply_rfc822_header, &$raw_length) {
-        global $domain, $version, $username, $encode_header_key, 
+        global $domain, $version, $username, $encode_header_key,
                $edit_identity, $hide_auth_header;
 
         /* if server var SERVER_NAME not available, use $domain */
@@ -430,7 +430,7 @@ class Deliver {
          *
          * Add $hide_squirrelmail_header as a candidate for config_local.php
          * to allow completely hiding SquirrelMail participation in message
-         * processing; This is dangerous, especially if users can modify their 
+         * processing; This is dangerous, especially if users can modify their
          * account information, as it makes mapping a sent message back to the
          * original sender almost impossible.
          */
@@ -513,7 +513,7 @@ class Deliver {
         if ($encoding = $rfc822_header->encoding) {
             $header[] = 'Content-Transfer-Encoding: ' . $encoding .  $rn;
         }
-        if ($rfc822_header->dnt) {
+        if (isset($rfc822_header->dnt) && $rfc822_header->dnt) {
             $dnt = $rfc822_header->getAddr_s('dnt');
             /* Pegasus Mail */
             $header[] = 'X-Confirm-Reading-To: '.$dnt. $rn;
@@ -733,7 +733,7 @@ class Deliver {
         $aReferences = preg_split('/\s+/', $hdr->references);
         $message_id = $hdr->message_id;
         $in_reply_to = $hdr->in_reply_to;
-	
+
         // if References already exists, add the current message ID at the end.
         // no References exists; if we know a IRT, add that aswell
         if (count($aReferences) == 0 && $in_reply_to) {
