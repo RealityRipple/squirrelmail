@@ -76,8 +76,6 @@ while (!$found_theme && (list($path, $name) = each($template_themes))) {
     if ('t_'.$path == $chosen_theme_path)
         $found_theme = true;
 }
-if (substr($chosen_theme, 0, 2) == 't_')
-    $found_theme = true;
     
 if (!$found_theme || $chosen_theme == 'none') {
     $chosen_theme_path = NULL;
