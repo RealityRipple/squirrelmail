@@ -232,10 +232,26 @@ class Template
         $aTemplateSet = (!isset($aTemplateSet) || !is_array($aTemplateSet) 
                          ? array() : $aTemplateSet);
         $templateset_fallback = (!isset($templateset_fallback) 
-                                 ? 0 : $templateset_fallback);
+                                 ? $default : $templateset_fallback);
 
-        return (!empty($aTemplateSet[$templateset_fallback]['ID'])
-                ? $aTemplateSet[$templateset_fallback]['ID'] : $default);
+        // iterate through all template sets, is this a valid skin ID?
+        //
+        $found_it = FALSE;
+        foreach ($aTemplateSet as $aTemplate) {
+            if ($aTemplate['ID'] == $templateset_fallback) {
+                $found_it = TRUE;
+                break;
+            }
+        }
+
+        if ($found_it)
+            return $templateset_fallback;
+
+        // FIXME: note that it is possible for $default to
+        // point to an invalid (nonexistent) template set
+        // and that error will not be caught here
+        //
+        return $default;
 
     }
 
@@ -267,10 +283,26 @@ class Template
         $aTemplateSet = (!isset($aTemplateSet) || !is_array($aTemplateSet)
                          ? array() : $aTemplateSet);
         $templateset_default = (!isset($templateset_default) 
-                                 ? 0 : $templateset_default);
+                                 ? $default : $templateset_default);
 
-        return (!empty($aTemplateSet[$templateset_default]['ID'])
-                ? $aTemplateSet[$templateset_default]['ID'] : $default);
+        // iterate through all template sets, is this a valid skin ID?
+        //
+        $found_it = FALSE;
+        foreach ($aTemplateSet as $aTemplate) {
+            if ($aTemplate['ID'] == $templateset_default) {
+                $found_it = TRUE;
+                break;
+            }
+        }
+
+        if ($found_it)
+            return $templateset_default;
+
+        // FIXME: note that it is possible for $default to
+        // point to an invalid (nonexistent) template set
+        // and that error will not be caught here
+        //
+        return $default;
 
     }
 

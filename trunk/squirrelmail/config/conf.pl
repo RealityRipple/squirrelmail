@@ -2929,8 +2929,13 @@ sub command_templates {
 
     $count = 0;
     while ( $count <= $#templateset_name ) {
-        if ( $count == $templateset_default ) {
-            print " *";
+        if ( $templateset_id[$count] eq $templateset_default ) {
+            print " d";
+        } else {
+            print "  ";
+        }
+        if ( $templateset_id[$count] eq $templateset_fallback ) {
+            print "f ";
         } else {
             print "  ";
         }
@@ -2948,50 +2953,15 @@ sub command_templates {
 
         $count++;
    }
-
-# FIXME: what is this stuff?  it is commented out, can we just blast it?
-#    opendir( DIR, "../templates" );
-#    @files          = readdir(DIR);
-#    $pos            = 0;
-#
-#    while ( $cnt <= $#files ) {
-#        if ( -d "../templates/" . $files[$i] && $files[$i] !~ /^\./ && $files[$i] ne "CVS" ) {
-#            $filename = "../templates/" . $files[$cnt];
-#            $found = 0;
-#            for ( $x = 0 ; $x <= $#templateset_id ; $x++ ) {
-#                if ( $theme_path[$x] eq $filename ) {
-#                    $found = 1;
-#                }
-#            }
-#        }
-#        $cnt++;
-#    }
-#    for ( $i = 0 ; $i <= $#files ; $i++ ) {
-#        if ( -d "../templates/" . $files[$i] && $files[$i] !~ /^\./ && $files[$i] ne "CVS" ) {
-#            $match = 0;
-#           for ( $k = 0 ; $k <= $#aTemplateSets ; $k++ ) {
-#                if ( $aTemplateSets[$chosen] eq $files[$i] ) {
-#                    $match = 1;
-#                }
-#            }
-#           if ( $match == 0 ) {
-#                    $unused_plugins[$pos] = $files[$i];
-#                    $pos++;
-#                }
-#            }
-#    }
-#
-#    for ( $i = 0 ; $i <= $#unused_plugins ; $i++ ) {
-#        $num = $num + 1;
-#        print "    $num. $unused_plugins[$i]\n";
-#    }
-#    closedir DIR;
+   print "\n  d = default template set\n"
+       . "  f = fallback template set\n\n";
 
     $menu_text = ".-------------------------------------.\n"
                . "| t             (detect template set) |\n"
                . "| +                (add template set) |\n"
                . "| - N           (remove template set) |\n"
                . "| m N     (mark default template set) |\n"
+               . "| f N     (set fallback template set) |\n"
                . "| l              (list template sets) |\n"
                . "| d                            (done) |\n"
                . "|-------------------------------------|\n"
@@ -3010,8 +2980,13 @@ sub command_templates {
         if ( $input =~ /^\s*l\s*/i ) {
             $count = 0;
             while ( $count <= $#templateset_name ) {
-                if ( $count == $templateset_default ) {
-                    print " *";
+                if ( $templateset_id[$count] eq $templateset_default ) {
+                    print " d";
+                } else {
+                    print "  ";
+                }
+                if ( $templateset_id[$count] eq $templateset_fallback ) {
+                    print "f ";
                 } else {
                     print "  ";
                 }
@@ -3029,16 +3004,29 @@ sub command_templates {
 
                 $count++;
             }
+            print "\n  d = default template set\n"
+                . "  f = fallback template set\n\n";
 
         # mark default template set
         #
         } elsif ( $input =~ /^\s*m\s*[0-9]+/i ) {
             $old_def       = $templateset_default;
-            $templateset_default = $input;
-            $templateset_default =~ s/^\s*m\s*//;
-            if ( ( $templateset_default > $#templateset_name ) || ( $templateset_default < 0 ) ) {
-                print "Cannot set default template set to $templateset_default.  That template set does not exist.\n";
+            $input =~ s/^\s*m\s*//;
+            $templateset_default = $templateset_id[$input];
+            if ( $templateset_default =~ /^\s*$/ ) {
+                print "Cannot set default template set to $input.  That template set does not exist.\n";
                 $templateset_default = $old_def;
+            }
+
+        # set fallback template set
+        #
+        } elsif ( $input =~ /^\s*f\s*[0-9]+/i ) {
+            $old_def       = $templateset_fallback;
+            $input =~ s/^\s*f\s*//;
+            $templateset_fallback = $templateset_id[$input];
+            if ( $templateset_fallback =~ /^\s*$/ ) {
+                print "Cannot set fallback template set to $input.  That template set does not exist.\n";
+                $templateset_fallback = $old_def;
             }
 
         # add template set
@@ -3081,9 +3069,6 @@ sub command_templates {
                         $nm =~ s/[\n\r]//g;
                         $templateset_id[ $#templateset_id + 1 ] = $filename;
                         $templateset_name[ $#templateset_name + 1 ] = $nm;
-# FIXME: why are these two lines here?
-#                        $aTemplateSet[ $#templateset_name + 1 ] = $nm;
-#                        $aTemplateSet[ $#templateset_id + 1 ] = $filename;
                     }
                 }
                 $cnt++;
@@ -3093,8 +3078,8 @@ sub command_templates {
                 $filename = $templateset_id[$cnt];
                 if ( !(-d  change_to_rel_path('SM_PATH . \'templates/' . $filename)) ) {
                     print "  Removing \"$filename\" (template set directory not found)\n";
-                    if ( $templateset_default gt $cnt ) { $templateset_default--; }
-                    elsif ( $templateset_default eq $cnt ) { $templateset_default = 0; }
+                    if ( $templateset_default eq $filename ) { $templateset_default = 'default'; }
+                    if ( $templateset_fallback eq $filename ) { $templateset_fallback = 'default'; }
                     $offset         = 0;
                     @new_templateset_name = ();
                     @new_templateset_id = ();
@@ -3130,8 +3115,10 @@ sub command_templates {
             } else {
                 $rem_num = $#templateset_name;
             }
-            if ( $rem_num == $templateset_default ) {
+            if ( $templateset_id[$rem_num] eq $templateset_default ) {
                 print "You cannot remove the default template set!\n";
+            } elsif ( $templateset_id[$rem_num] eq $templateset_fallback ) {
+                print "You cannot remove the fallback template set!\n";
             } else {
                 $count          = 0;
                 @new_templateset_name = ();
@@ -3145,16 +3132,19 @@ sub command_templates {
                 }
                 @templateset_name = @new_templateset_name;
                 @templateset_id = @new_templateset_id;
-                if ( $templateset_default > $rem_num ) {
-                    $templateset_default--;
-                }
             }
 
         # help
         #
         } elsif ( $input =~ /^\s*\?\s*/ ) {
             print $menu_text;
+
+        # command not understood
+        #
+        } else {
+            print "Command not understood\n";
         }
+
         print "[template set] command (?=help) > ";
         $input = <STDIN>;
         $input =~ s/[\r\n]//g;
@@ -4381,15 +4371,11 @@ sub save_data {
         }
         print CF "\n";
 
-        if ( $templateset_default eq '' ) { $templateset_default = '0'; }
-        print CF "\$templateset_default = $templateset_default;\n";
-# FIXME: need to make this a setting the user can change herein
-#        This REALLY needs to be done, since the index of the "default"
-#        set cannot always be predicted!
-#        Heck, why are default and fallback indexes?  If we make them
-#        into the ID strings, then it would not cause such issues
-$templateset_fallback = 0;
-        print CF "\$templateset_fallback = $templateset_fallback;\n";
+        if ( $templateset_default eq '' ) { $templateset_default = 'default'; }
+        print CF "\$templateset_default = '$templateset_default';\n";
+
+        if ( $templateset_fallback eq '' ) { $templateset_fallback = 'default'; }
+        print CF "\$templateset_fallback = '$templateset_fallback';\n";
 
         for ( $count = 0 ; $count <= $#templateset_name ; $count++ ) {
             print CF "\$aTemplateSet[$count]['ID'] = '" . $templateset_id[$count] . "';\n";
