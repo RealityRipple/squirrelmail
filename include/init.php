@@ -142,12 +142,10 @@ require(SM_PATH . 'config/config_default.php');
 $ldap_server = array();
 $plugins = array();
 $fontsets = array();
-$theme = array();
-$theme[0]['PATH'] = SM_PATH . 'themes/default_theme.php';
-$theme[0]['NAME'] = 'Default';
 $aTemplateSet = array();
 $aTemplateSet[0]['ID'] = 'default';
 $aTemplateSet[0]['NAME'] = 'Default';
+
 /* load site configuration */
 require(SM_PATH . 'config/config.php');
 /* load local configuration overrides */
@@ -354,6 +352,17 @@ switch ($sInitLocation) {
         //
         $sTemplateID = Template::get_default_template_set();
         Template::cache_template_file_hierarchy(TRUE);
+
+        /**
+         * Make sure icon variables are setup for the login page.
+         */
+        $icon_theme = $icon_themes[$icon_theme_def]['PATH'];
+        /*
+         * NOTE: The $icon_theme_path var should contain the path to the icon
+         *       theme to use.  If the admin has disabled icons, or the user has
+         *       set the icon theme to "None," no icons will be used.
+         */
+        $icon_theme_path = (!$use_icons || $icon_theme=='none') ? NULL : ($icon_theme == 'template' ? SM_PATH . Template::calculate_template_images_directory($sTemplateID) : $icon_theme);
 
         /**
          * cleanup old cookies with a cookie path the same as the standard php.ini
