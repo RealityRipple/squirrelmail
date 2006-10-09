@@ -192,9 +192,6 @@ $oTemplate->assign('mailboxes', $mailbox_structure);
  */
 $settings = array();
 #$settings['imapConnection'] = $imapConnection;
-//FIXME: I think this is already included in all templates by init.php
-$settings['iconThemePath'] = $icon_theme_path;
-//FIXME: I think this is already included in all templates by init.php
 $settings['templateID'] = $sTemplateID;
 $settings['unreadNotificationEnabled'] = $unseen_notify!=1;
 $settings['unreadNotificationAllFolders'] = $unseen_notify == 3;
@@ -209,4 +206,3 @@ $oTemplate->display('left_main.tpl');
 
 sqimap_logout($imapConnection);
 $oTemplate->display('footer.tpl');
-?>
