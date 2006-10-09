@@ -139,7 +139,7 @@ function buildMailboxTree ($box, $settings, $icon_theme_path, $indent_factor=0) 
      * image based on whatever logic they see fit here.
      */
     $folder_icon = '';
-    if (!is_null($settings['iconThemePath'])) {
+    if (!is_null($icon_theme_path)) {
         switch (true) {
             case $box['IsInbox']:
                 $folder_icon = getIcon($icon_theme_path, 'inbox.png', '', $box['MailboxName']);
@@ -248,7 +248,7 @@ function buildMailboxTree ($box, $settings, $icon_theme_path, $indent_factor=0) 
 
     if (!$box['IsCollapsed'] || $box['IsRoot']) {
         for ($i = 0; $i<sizeof($box['ChildBoxes']); $i++) {
-            $out .= buildMailboxTree($box['ChildBoxes'][$i], $settings, $indent_factor);
+            $out .= buildMailboxTree($box['ChildBoxes'][$i], $settings, $icon_theme_path, $indent_factor);
         }
     }
 
