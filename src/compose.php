@@ -1636,29 +1636,52 @@ function deliverMessage($composeMessage, $draft=false) {
         global $passed_id, $mailbox, $action, $what, $iAccount,$startMessage;
 
         $composeMessage->purgeAttachments();
-        if ($action == 'reply' || $action == 'reply_all') {
+        if ($action=='reply' || $action=='reply_all' || $action=='forward' || $action=='forward_as_attachment') {
             require(SM_PATH . 'functions/mailbox_display.php');
             $aMailbox = sqm_api_mailbox_select($imap_stream, $iAccount, $mailbox,array('setindex' => $what, 'offset' => $startMessage),array());
-            // check if we are allowed to set the \\Answered flag
-            if (in_array('\\answered',$aMailbox['PERMANENTFLAGS'], true)) {
-                $aUpdatedMsgs = sqimap_toggle_flag($imap_stream, array($passed_id), '\\Answered', true, false);
-                if (isset($aUpdatedMsgs[$passed_id]['FLAGS'])) {
-                    /**
-                     * Only update the cached headers if the header is
-                     * cached.
-                     */
-                    if (isset($aMailbox['MSG_HEADERS'][$passed_id])) {
-                        $aMailbox['MSG_HEADERS'][$passed_id]['FLAGS'] = $aMsg['FLAGS'];
+            switch($action) {
+            case 'reply':
+            case 'reply_all':
+                // check if we are allowed to set the \\Answered flag
+                if (in_array('\\answered',$aMailbox['PERMANENTFLAGS'], true)) {
+                    $aUpdatedMsgs = sqimap_toggle_flag($imap_stream, array($passed_id), '\\Answered', true, false);
+                    if (isset($aUpdatedMsgs[$passed_id]['FLAGS'])) {
+                        /**
+                        * Only update the cached headers if the header is
+                        * cached.
+                        */
+                        if (isset($aMailbox['MSG_HEADERS'][$passed_id])) {
+                            $aMailbox['MSG_HEADERS'][$passed_id]['FLAGS'] = $aMsg['FLAGS'];
+                        }
                     }
                 }
+                break;
+            case 'forward':
+            case 'forward_as_attachment':
+                // check if we are allowed to set the $Forwarded flag (RFC 4550 paragraph 2.8)
+                if (in_array('$forwarded',$aMailbox['PERMANENTFLAGS'], true) || 
+                    in_array('\\*',$aMailbox['PERMANENTFLAGS'])) {
+
+                    $aUpdatedMsgs = sqimap_toggle_flag($imap_stream, array($passed_id), '$Forwarded', true, false);
+                    if (isset($aUpdatedMsgs[$passed_id]['FLAGS'])) {
+                        if (isset($aMailbox['MSG_HEADERS'][$passed_id])) {
+                            $aMailbox['MSG_HEADERS'][$passed_id]['FLAGS'] = $aMsg['FLAGS'];
+                        }
+                    }
+                }
+                break;
             }
+
             /**
              * Write mailbox with updated seen flag information back to cache.
              */
-            $mailbox_cache[$iAccount.'_'.$aMailbox['NAME']] = $aMailbox;
-            sqsession_register($mailbox_cache,'mailbox_cache');
+            if(isset($aUpdatedMsgs[$passed_id])) {
+                $mailbox_cache[$iAccount.'_'.$aMailbox['NAME']] = $aMailbox;
+                sqsession_register($mailbox_cache,'mailbox_cache');
+            }
+
+            sqimap_logout($imap_stream);
         }
-        sqimap_logout($imap_stream);
     }
     return $success;
 }
