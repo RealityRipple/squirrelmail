@@ -1,47 +1,4 @@
-<?php
-
-/**
-
-FIXME!!  This was a .tpl file needs to be changed to css file!!
-
- * SquirrelMail CSS template for additional definitions needed by the advanced
- * template
- *
- * Template is used by style.php script to generate css file used by
- * SquirrelMail scripts.
- *
- * Available constants
- *
- * Color codes used by selected theme:
- * <ul>
- *   <li>SQM_BACKGROUND - background color
- *   <li>SQM_BACKGROUND_LEFT - background of folder tree
- *   <li>SQM_TEXT_STANDARD - text color
- *   <li>SQM_TEXT_STANDARD_LEFT - text color of folder tree
- *   <li>SQM_LINK - color of links
- *   <li>SQM_LINK_LEFT - color of links in folder tree
- *   <li>SQM_TEXT_SPECIAL - color of special folder links in folder tree
- *   <li>todo: other constants should be documented here
- * </ul>
- *
- * Optional template variables
- * <ul>
- *   <li>fontfamily - string with list of fonts used by selected style.
- *   <li>fontsize - integer with selected font size value.
- * </ul>
- * Variables are set to empty string, when value is not set.
- *
- * @copyright &copy; 2005-2006 The SquirrelMail Project Team
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id$
- * @package squirrelmail
- * @subpackage templates
- */
-
-/* retrieve the template vars */
-extract($t);
-?>
-/* advacned login page defs */
+/* advanced login page defs */
 #sqm_login  {
     margin-top: 25px;
     text-align: center;
@@ -92,12 +49,12 @@ extract($t);
 #sqm_login  td.fieldName {
     font-size: 10pt;
     font-weight: bold;
-    text-align: <?php echo SQM_ALIGN_RIGHT; ?>;
+    text-align: right;
     width: 50%;
 }
 
 #sqm_login  td.fieldInput {
-    text-align: <?php echo SQM_ALIGN_LEFT; ?>;
+    text-align: left;
     padding-top: 1px;
     padding-bottom: 1px;
 }
@@ -111,15 +68,15 @@ extract($t);
     color: #110f08;
     border: 1px solid #726b58;
     padding: 1px;
-    background: url(<?php echo $icon_theme_path; ?>/login2.png) repeat-y;
+    background: url(../images/login2.png) repeat-y;
     width: 160px;
 }
 
 /* advanced option order defs */
 #optionHighlight    td.divider  {
-    border-top: 1px solid <?php echo $color[0]; ?>;
-    border-bottom: 1px solid <?php echo $color[0]; ?>;
-    background: <?php echo $color[0]; ?>;
+    border-top: 1px solid #dcdcdc /* __COLOR0__ */;
+    border-bottom: 1px solid #dcdcdc /* __COLOR0__ */;
+    background: #dcdcdc /* __COLOR0__ */;
     font-weight: bold;
     padding-top: 2px;
     padding-bottom: 2px;
@@ -168,10 +125,10 @@ extract($t);
     padding: 1px 2px 1px 2px;
 }
 .dtree a.node:hover, .dtree a.nodeSel:hover {
-    color: <?php echo SQM_TEXT_HIGHLIGHT; ?>;
+    color: #002266 /* __COLOR15__ */;
 }
 .dtree a.nodeSel {
-    color: <?php echo SQM_TEXT_HIGHLIGHT; ?>;
+    color: #002266 /* __COLOR15__ */;
 }
 .dtree .clip {
     overflow: hidden;
