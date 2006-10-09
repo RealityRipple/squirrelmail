@@ -35,6 +35,11 @@ $custom_css = getPref($data_dir, $username, 'custom_css', 'none' );
 $sDefaultTemplateID = Template::get_default_template_set();
 $sTemplateID = getPref($data_dir, $username, 'sTemplateID', $sDefaultTemplateID);
 
+// need to build this object now because it is used below to validate
+// user css theme choice
+//
+$oTemplate = Template::construct_template($sTemplateID);
+
 // check user prefs template selection against templates actually available
 //
 $found_templateset = false;
@@ -66,22 +71,11 @@ while (!$found_theme && $k < count($user_themes)) {
         $found_theme = true;
     $k++;
 }
-/**
- * $oTemplate is not instantiated when this is called, so we need to devise
- * a method of fething a list of tempalte-provided alt stylesheets to validate
- * against.  For now, we assume that it is always found.
- * 
- * FIXME: fix this.
-PL: See include/init.php commit from 2 days ago, Template class should be
-    loaded before this file is, so the commented-out code below will probably 
-    work
-SB: Nope, still get errors.
- */
-#$template_themes = $oTemplate->get_alternative_stylesheets();
-#while (!$found_theme && (list($path, $name) = each($template_themes))) {
-#    if ('t_'.$path == $chosen_theme_path)
-#        $found_theme = true;
-#}
+$template_themes = $oTemplate->get_alternative_stylesheets();
+while (!$found_theme && (list($path, $name) = each($template_themes))) {
+    if ('t_'.$path == $chosen_theme_path)
+        $found_theme = true;
+}
 if (substr($chosen_theme, 0, 2) == 't_')
     $found_theme = true;
     
@@ -89,10 +83,8 @@ if (!$found_theme || $chosen_theme == 'none') {
     $chosen_theme_path = NULL;
 }
 
-/* PL: Steve, is this commented out because it is part of the old system being removed?
-       Let's just remove it then... no?
-   
-   SB: Holding on to incase I need to reference later.  Will remove eventually. :)
+/* ----- SB: Holding on to the following code incase I need to reference later.  
+       Will remove eventually. :)
    
 $theme = ( !isset($theme) ? array() : $theme );
 $color = ( !isset($color) ? array() : $color );
@@ -121,7 +113,7 @@ if (isset($chosen_theme) && $found_theme && (file_exists($chosen_theme))) {
     }
 }
 
-*/
+------ */
 
 // user's icon theme, if using icons
 $icon_theme = getPref($data_dir, $username, 'icon_theme');

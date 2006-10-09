@@ -315,7 +315,7 @@ switch ($sInitLocation) {
             }
         }
 
-// FIXME: do we need/want to check here for actual presence of template sets?
+// FIXME: do we need/want to check here for actual (physical) presence of template sets?
         // selected template not available, fall back to default template
         //
         if (!$found_templateset) {
@@ -540,7 +540,12 @@ if (!isset($sTemplateID)) {
     $sTemplateID = Template::get_default_template_set();
     $icon_theme_path = !$use_icons ? NULL : Template::calculate_template_images_directory($sTemplateID);
 }
-$oTemplate = Template::construct_template($sTemplateID);
+
+// template object may have already been constructed in load_prefs.php
+//
+if (empty($oTemplate)) {
+    $oTemplate = Template::construct_template($sTemplateID);
+}
 
 // We want some variables to always be available to the template
 $always_include = array('sTemplateID', 'icon_theme_path', 'javascript_on');
