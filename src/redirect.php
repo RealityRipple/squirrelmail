@@ -106,6 +106,11 @@ if (!sqsession_is_registered('user_is_logged_in')) {
     sqsession_register($sqimap_capabilities, 'sqimap_capabilities');
     $delimiter = sqimap_get_delimiter ($imapConnection);
 
+    if (isset($sqimap_capabilities['NAMESPACE']) && $sqimap_capabilities['NAMESPACE'] == true) {
+        $namespace = sqimap_get_namespace($imapConnection);
+        sqsession_register($namespace, 'sqimap_namespace');
+    }
+
     sqimap_logout($imapConnection);
     sqsession_register($delimiter, 'delimiter');
 
