@@ -774,10 +774,10 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
          * exist, they will override the current ones.
          * This is useful if we want to use different SASL authentication mechanism
          * and/or different TLS settings for proxy logins. */
-		global $authz_imap_auth_mech, $authz_use_imap_tls, $authz_imapPort_tls; 
+        global $authz_imap_auth_mech, $authz_use_imap_tls, $authz_imapPort_tls; 
         $imap_auth_mech = !empty($authz_imap_auth_mech) ? strtolower($authz_imap_auth_mech) : $imap_auth_mech;
-		$use_imap_tls = !empty($authz_use_imap_tls)? $authz_use_imap_tls : $use_imap_tls;
-		$imap_port = !empty($authz_use_imap_tls)? $authz_imapPort_tls : $imap_port;
+        $use_imap_tls = !empty($authz_use_imap_tls)? $authz_use_imap_tls : $use_imap_tls;
+        $imap_port = !empty($authz_use_imap_tls)? $authz_imapPort_tls : $imap_port;
 
         if($imap_auth_mech == 'login' || $imap_auth_mech == 'cram-md5') {
             logout_error("Misconfigured Plugin (authz or equivalent):<br/>".
@@ -1041,6 +1041,8 @@ function sqimap_get_delimiter ($imap_stream = false) {
              * OS: According to rfc2342 response from NAMESPACE command is:
              * OS: * NAMESPACE (PERSONAL NAMESPACES) (OTHER_USERS NAMESPACE) (SHARED NAMESPACES)
              * OS: We want to lookup all personal NAMESPACES...
+             * 
+             * TODO: remove this in favour of the information from sqimap_get_namespace()
              */
             $read = sqimap_run_command($imap_stream, 'NAMESPACE', true, $a, $b);
             if (eregi('\\* NAMESPACE +(\\( *\\(.+\\) *\\)|NIL) +(\\( *\\(.+\\) *\\)|NIL) +(\\( *\\(.+\\) *\\)|NIL)', $read[0], $data)) {
@@ -1067,6 +1069,66 @@ function sqimap_get_delimiter ($imap_stream = false) {
         }
     }
     return $sqimap_delimiter;
+}
+
+/**
+ * Retrieves the namespaces from the IMAP server.
+ * NAMESPACE is an IMAP extension defined in RFC 2342.
+ *
+ * @param stream $imap_stream
+ * @return array
+ */
+function sqimap_get_namespace($imap_stream) {
+    $read = sqimap_run_command($imap_stream, 'NAMESPACE', true, $a, $b);
+    return sqimap_parse_namespace($read[0]);
+}
+    
+/**
+ * Parses a NAMESPACE response and returns an array with the available
+ * personal, users and shared namespaces.
+ *
+ * @param string $input
+ * @return array The returned array has the following format:
+ * <pre>
+ * array(
+ *   'personal' => array(
+ *       0 => array('prefix'=>'INBOX.','delimiter' =>'.'),
+ *       1 => ...
+ *    ),
+ *    'users' => array(..
+ *    ),
+ *    'shared' => array( ..
+ *    )
+ * )
+ * </pre>
+ * Note that if a namespace is not defined in the server, then the corresponding
+ * array will be empty.
+ */
+function sqimap_parse_namespace(&$input) {
+    $ns_strings = array(1=>'personal', 2=>'users', 3=>'shared');
+    $namespace = array();
+
+    if(ereg('NAMESPACE (\(\(.*\)\)|NIL) (\(\(.*\)\)|NIL) (\(\(.*\)\)|NIL)', $input, $regs) !== false) {
+        for($i=1; $i<=3; $i++) {
+            if($regs[$i] == 'NIL') {
+                $namespace[$ns_strings[$i]] = array();
+            } else {
+                // Pop-out the first ( and last ) for easier parsing
+                $ns = substr($regs[$i], 1, sizeof($regs[$i])-2);
+                if($c = preg_match_all('/\((?:(.*?)\s*?)\)/', $ns, $regs2)) {
+                    $namespace[$ns_strings[$i]] = array();
+                    for($j=0; $j<sizeof($regs2[1]); $j++) {
+                        preg_match('/"(.*)"\s+"(.*)"/', $regs2[1][$j], $regs3);
+                        $namespace[$ns_strings[$i]][$j]['prefix'] = $regs3[1];
+                        $namespace[$ns_strings[$i]][$j]['delimiter'] = $regs3[2];
+                        unset($regs3);
+                    }
+                }
+                unset($ns);
+            }
+        }
+    }
+    return($namespace);
 }
 
 /**
