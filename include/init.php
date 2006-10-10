@@ -427,6 +427,7 @@ switch ($sInitLocation) {
         }
 
         sqgetGlobalVar('username',$username,SQ_SESSION);
+        sqgetGlobalVar('authz',$authz,SQ_SESSION);
 
         /**
          * Setting the prefs backend
