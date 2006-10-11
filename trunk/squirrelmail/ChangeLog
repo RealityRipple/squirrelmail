@@ -4,6 +4,10 @@
 
 Version 1.5.2 - CVS
 -------------------
+  - The search expression in the LDAP backend of the Addressbook is now
+    configurable, which can allow the result set to be expanded.
+  - Preliminary support for NAMESPACE in Squirrelmail IMAP Backend: NAMESPACE
+    is parsed and stored in session upon login.
   - Now uses the $Forwarded IMAP keyword for forwarded messages, when it is
     enabled or when arbitrary keywords ("PERMANENT FLAGS \*") are permitted.
     RFC 4550, paragraph 2.8.
