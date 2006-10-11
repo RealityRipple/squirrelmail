@@ -49,7 +49,22 @@
  * </pre>
  * Advanced settings:
  * <pre>
- *  ? filter    => Filter expression to limit ldap searches
+ *  ? filter    => Filter expression to limit ldap search results.
+ *    You can use this to *limit* the result set, based on specific
+ *    requirements. The filter must be enclosed in parentheses, e.g.:
+ *    '(objectclass=mailRecipient)'
+ *    or '(&(objectclass=mailRecipient)(obectclass=myCustomClass))'
+ *    The default value is empty.
+ *
+ *  ? search_expression => Custom expression to expand ldap searches.
+ *    This can help *expand* the result set, because of hits in more
+ *    LDAP attributes. It must be a printf()-style string with either
+ *    one placeholder '%s', or, if you want to repeat the expression
+ *    many times, '%1$s'. The default value is:
+ *    '(|(cn=*%1$s*)(mail=*%1$s*)(sn=*%1$s*))'
+ *    that is, the search expression is search in the fields cn (common
+ *    name), sn (surname) and mail.
+ *
  *  ? limit_scope => Limits scope to base DN (Specific to Win2k3 ADS).
  *  ? listing   => Controls listing of LDAP directory.
  *  ? writeable => Controls write access to address book
@@ -109,6 +124,12 @@ class abook_ldap_server extends addressbook_backend {
      * @since 1.5.1
      */
     var $filter = '';
+    /**
+     * @var string printf()-style ldap search expression.
+     * The default is to search for same string in cn, mail and sn.
+     * @since 1.5.2
+     */
+    var $search_expression = '(|(cn=*%1$s*)(mail=*%1$s*)(sn=*%1$s*))';
     /**
      * @var integer timeout of LDAP operations (in seconds)
      */
@@ -193,6 +214,11 @@ class abook_ldap_server extends addressbook_backend {
 
             if(isset($param['filter']))
                 $this->filter = trim($param['filter']);
+            
+            if(isset($param['search_expression']) &&
+               (strstr($param['search_expression'], '%s') || strstr($param['search_expression'], '%1$s'))) {
+                $this->search_expression = trim($param['search_expression']);
+            }
 
             if(isset($param['limit_scope']))
                 $this->limit_scope = (bool) $param['limit_scope'];
@@ -667,11 +693,24 @@ class abook_ldap_server extends addressbook_backend {
             /* Convert search from user's charset to the one used in ldap and sanitize */
             $expr = $this->quotevalue($expr);
 
-            /* Search for same string in cn, main and sn */
-            $expression = '(|(cn=*'.$expr.'*)(mail=*'.$expr.'*)(sn=*'.$expr.'*))';
+            /* If search expr contains %s or %1$s, replace them with escaped values,
+             * so that a wrong printf()-style string is not created by mistake.
+             * (Probably overkill but who knows...) */
+            $expr = str_replace('%s', '\\25s', $expr);
+            $expr = str_replace('%1$s', '\\251$s', $expr);
+
+            /* Substitute %s or %1$s in printf()-formatted search_expresison with
+             * the value that the user searches for. */
+            $expression = sprintf($this->search_expression, $expr);
 
             /* Undo sanitizing of * symbol */
             $expression = str_replace('\2a','*',$expression);
+
+            /* Replace '**', '***' etc. with '*' in case it occurs in final 
+             * search expression */
+            while(strstr($expression, '**')) {
+                $expression = str_replace('**', '*', $expression);
+            }
         }
 
         /* Add search filtering */
