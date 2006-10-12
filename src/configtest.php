@@ -268,6 +268,9 @@ if($data_dir == $attachment_dir) {
 
 
 /* check plugins and themes */
+//FIXME: check requirements given in plugin _info() function, such
+//       as required PHP extensions, Pear packages, other plugins, SM version, etc
+//       see development docs for list of returned info from that function
 $bad_plugins = array(
         'attachment_common',      // Integrated into SquirrelMail 1.2 core
         'auto_prune_sent',        // Obsolete: See Proon Automatic Folder Pruning plugin
