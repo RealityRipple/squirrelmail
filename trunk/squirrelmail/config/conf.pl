@@ -5160,6 +5160,7 @@ if ($hooked_plugin_name ne $plugins[$ct]) {
                             print "   registering on hook \"" . $hook_name . "\"\n";
                         }
                         $line =~ s/ {2,}/ /g;
+                        $line =~ s/=/\n    =/;
                         print HOOKFILE "\$$line";
 
                     }
