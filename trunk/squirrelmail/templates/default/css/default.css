@@ -239,11 +239,19 @@ sqm_leftMain table {
 }
 
 /* empty_folder.tpl defs */
-.sqm_emptyFolder {
-    background: #ababab /* __COLOR9__ */;
+div.sqm_emptyFolderWrapper {
+    width:100%;
+    text-align: center;
 }
-.sqm_emptyFolder td {
+table.sqm_emptyFolder {
+    background: #ababab /* __COLOR9__ */;
+    width:95%;
+    margin-left:auto;
+    margin-right: auto;
+}
+table.sqm_emptyFolder td {
     background: #ffffff /* __COLOR4__*/;
+    text-align: center;
 }
 
 /* error_box.tpl definitions */
