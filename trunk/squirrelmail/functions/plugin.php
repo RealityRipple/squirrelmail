@@ -21,10 +21,18 @@
 function use_plugin ($name) {
     if (file_exists(SM_PATH . "plugins/$name/setup.php")) {
         include_once(SM_PATH . "plugins/$name/setup.php");
-        $function = "squirrelmail_plugin_init_$name";
-        if (function_exists($function)) {
-            $function();
-        }
+
+        /**
+          * As of SM 1.5.2, plugin hook registration is statically
+          * accomplished using the configuration utility (config/conf.pl).
+          * And this code is deprecated (but let's keep it until 
+          * the new registration system is proven).
+          *
+          */
+        //$function = "squirrelmail_plugin_init_$name";
+        //if (function_exists($function)) {
+        //    $function();
+        //}
     }
 }
 
@@ -40,7 +48,8 @@ function do_hook ($name) {
 
     if (isset($squirrelmail_plugin_hooks[$name])
           && is_array($squirrelmail_plugin_hooks[$name])) {
-        foreach ($squirrelmail_plugin_hooks[$name] as $function) {
+        foreach ($squirrelmail_plugin_hooks[$name] as $plugin_name => $function) {
+            use_plugin($plugin_name);
             /* Add something to set correct gettext domain for plugin. */
             if (function_exists($function)) {
                 $function($data);
@@ -73,7 +82,8 @@ function filter_hook_function($name,$parm=NULL) {
 
     if (isset($squirrelmail_plugin_hooks[$name])
           && is_array($squirrelmail_plugin_hooks[$name])) {
-        foreach ($squirrelmail_plugin_hooks[$name] as $function) {
+        foreach ($squirrelmail_plugin_hooks[$name] as $plugin_name => $function) {
+            use_plugin($plugin_name);
             /* Add something to set correct gettext domain for plugin. */
             if (function_exists($function)) {
                 $parm = $function($parm);
@@ -102,7 +112,8 @@ function do_hook_function($name,$parm=NULL) {
 
     if (isset($squirrelmail_plugin_hooks[$name])
           && is_array($squirrelmail_plugin_hooks[$name])) {
-        foreach ($squirrelmail_plugin_hooks[$name] as $function) {
+        foreach ($squirrelmail_plugin_hooks[$name] as $plugin_name => $function) {
+            use_plugin($plugin_name);
             /* Add something to set correct gettext domain for plugin. */
             if (function_exists($function)) {
                 $ret = $function($parm);
@@ -146,7 +157,8 @@ function concat_hook_function($name,$parm=NULL) {
 
     if (isset($squirrelmail_plugin_hooks[$name])
           && is_array($squirrelmail_plugin_hooks[$name])) {
-        foreach ($squirrelmail_plugin_hooks[$name] as $function) {
+        foreach ($squirrelmail_plugin_hooks[$name] as $plugin_name => $function) {
+            use_plugin($plugin_name);
             /* Add something to set correct gettext domain for plugin. */
             if (function_exists($function)) {
                 $plugin_ret = $function($parm);
@@ -188,7 +200,8 @@ function boolean_hook_function($name,$parm=NULL,$priority=0,$tie=false) {
 
         /* Loop over the plugins that registered the hook */
         $currentHookName = $name;
-        foreach ($squirrelmail_plugin_hooks[$name] as $function) {
+        foreach ($squirrelmail_plugin_hooks[$name] as $plugin_name => $function) {
+            use_plugin($plugin_name);
             if (function_exists($function)) {
                 $ret = $function($parm);
                 if ($ret) {

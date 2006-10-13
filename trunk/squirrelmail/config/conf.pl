@@ -53,7 +53,7 @@ if ( -e "config.php" ) {
         print "The file \"config/config.php\" was found, but you don't\n";
         print "have rights to read it.\n";
         print "\n";
-        print "Press any key to continue";
+        print "Press enter to continue";
         $ctu = <STDIN>;
         exit;
     }
@@ -1529,12 +1529,12 @@ sub command_smtp_sitewide_userpass($) {
             }
         } else {
             print "Invalid input. You must set username used for SMTP authentication.\n";
-            print "Click any key to continue\n";
+            print "Click enter to continue\n";
             $tmp = <STDIN>;
         }
     } else {
         print "Invalid input\n";
-        print "Click any key to continue\n";
+        print "Click enter to continue\n";
         $tmp = <STDIN>;
     }
 }
@@ -2081,7 +2081,7 @@ sub command215 {
         print "Deleting folders will bypass the trash folder and be immediately deleted\n\n";
         print "If this is not the correct value for your server,\n";
         print "please use option D on the Main Menu to configure your server correctly.\n\n";
-        print "Press any key to continue...\n";
+        print "Press enter to continue...\n";
         $new_delete = <STDIN>;
         $delete_folder = 'true';
     } else {
@@ -4581,6 +4581,9 @@ sub save_data {
         close CF;
 
         print "Data saved in config.php\n";
+
+        build_plugin_hook_array();
+
     } else {
         print "Error saving config.php: $!\n";
     }
@@ -4986,7 +4989,7 @@ sub check_imap_folder($) {
     if ($folder_name =~ /[\x80-\xFFFF]/) {
         print "Folder name contains 8bit characters. Configuration utility requires\n";
         print "UTF7-IMAP encoded folder names.\n";
-        print "Press any key to continue...";
+        print "Press enter to continue...";
         my $tmp = <STDIN>;
         return 0;
     } elsif ($folder_name =~ /[&\*\%]/) {
@@ -5011,3 +5014,192 @@ sub quote_single($) {
     $string =~ s/\'/\\'/g;
     return $string;
 }
+
+# parses the setup.php files for all activated plugins and
+# builds static plugin hooks array so we don't have to load
+# ALL plugins are runtime and build the hook array on every
+# page request
+#
+# hook array is saved in config/plugin_hooks.php
+#
+# Note the $verbose variable at the top of this routine
+# can be set to zero to quiet it down.
+#
+# NOTE/FIXME: we aren't necessarily interested in writing
+#             a full-blown PHP parsing engine, so plenty
+#             of assumptions are included herein about the
+#             coding of the plugin setup files, and things
+#             like commented out curly braces or other 
+#             such oddities can break this in a bad way.
+#
+sub build_plugin_hook_array() {
+
+    $verbose = 1;
+
+    if ($verbose) {
+        print "\n\n";
+    }
+
+    if ( open( HOOKFILE, ">plugin_hooks.php" ) ) {
+        print HOOKFILE "<?php\n";
+        print HOOKFILE "\n";
+
+        print HOOKFILE "/**\n";
+        print HOOKFILE " * SquirrelMail Plugin Hook Registration File\n";
+        print HOOKFILE " * Auto-generated using the configure script, conf.pl\n";
+        print HOOKFILE " */\n";
+        print HOOKFILE "\n";
+        print HOOKFILE "global \$squirrelmail_plugin_hooks;\n";
+        print HOOKFILE "\n";
+
+PLUGIN: for ( $ct = 0 ; $ct <= $#plugins ; $ct++ ) {
+
+        if ($verbose) {
+            print "Activating plugin \"" . $plugins[$ct] . "\"...\n";
+        }
+
+        $setup_file = '../plugins/' . $plugins[$ct] . '/setup.php';
+        if ( -e "$setup_file" ) {
+            # Make sure that file is readable
+            if (! -r "$setup_file") {
+                print "\n";
+                print "WARNING:\n";
+                print "The file \"$setup_file\" was found, but you don't\n";
+                print "have rights to read it.  The plugin \"";
+                print $plugins[$ct] . "\" will not be activated until you fix this.\n";
+                print "\nPress enter to continue";
+                $ctu = <STDIN>;
+                print "\n";
+                next;
+            }
+            open( FILE, "$setup_file" );
+            $inside_init_fxn = 0;
+            $brace_count = 0;
+            while ( $line = <FILE> ) {
+
+                # throw away lines until we get to target function
+                #
+                if (!$inside_init_fxn 
+                 && $line !~ /^\s*function\s*squirrelmail_plugin_init_/i) {
+                    next;
+                } 
+                $inside_init_fxn = 1;
+
+
+                # throw away lines that are not exactly one "brace set" deep
+                #
+                if ($brace_count > 1) { 
+                    next;
+                } 
+
+
+                # count open braces
+                #
+                if ($line =~ /{/) {
+                    $brace_count++;
+                } 
+
+
+                # count close braces
+                #
+                if ($line =~ /}/) {
+                    $brace_count--;
+
+                    # leaving <plugin>_init() function...
+                    if ($brace_count == 0) {
+                        close(FILE);
+                        next PLUGIN;
+                    }
+
+                } 
+
+
+                # also not interested in lines that are not
+                # hook registration points
+                #
+                if ($line !~ /^\s*\$squirrelmail_plugin_hooks/i) {
+                    next;
+                } 
+
+
+                # if $line does not have an ending semicolon,
+                # we need to recursively read in subsequent 
+                # lines until we find one
+                while ( $line !~ /;\s*$/ ) {
+                    $line =~ s/[\n\r]\s*$//;
+                    $line .= <FILE>;
+                }
+
+
+                $line =~ s/^\s+//;
+                $line =~ s/^\$//;
+                $var = $line;
+
+                $var =~ s/=/EQUALS/;
+                if ( $var =~ /^([a-z])/i ) {
+                    @options = split ( /\s*EQUALS\s*/, $var );
+                    $options[1] =~ s/[\n\r]//g;
+                    $options[1] =~ s/[\'\"];\s*$//;
+                    $options[1] =~ s/;$//;
+                    $options[1] =~ s/^[\'\"]//;
+                    # de-escape escaped strings
+                    $options[1] =~ s/\\'/'/g;
+                    $options[1] =~ s/\\\\/\\/g;
+
+                    if ( $options[0] =~ /^squirrelmail_plugin_hooks\s*\[\s*['"]([a-z0-9._-]+)['"]\s*\]\s*\[\s*['"]([0-9a-z._-]+)['"]\s*\]/i ) {
+                        $hook_name = $1;
+                        $hooked_plugin_name = $2;
+# FIXME: what to do with this?  shouldn't ever be necessary, but...
+if ($hooked_plugin_name ne $plugins[$ct]) {
+    print "ummmm, plugin is tring to hook in under different name....  what do we do with this???\n";
+}
+
+#FIXME: do we want to count the number of hook registrations for each plugin and warn if a plugin doesn't have any?
+                        # hook registration has been found!
+                        if ($verbose) {
+                            print "   registering on hook \"" . $hook_name . "\"\n";
+                        }
+                        $line =~ s/ {2,}/ /g;
+                        print HOOKFILE "\$$line";
+
+                    }
+
+                }
+
+            }
+            close(FILE);
+
+        } else {
+            print "\n";
+            print "WARNING:\n";
+            print "The file \"$setup_file\" was not found.\n";
+            print "The plugin \"" . $plugins[$ct];
+            print "\" will not be activated until you fix this.\n";
+            print "\nPress enter to continue";
+            $ctu = <STDIN>;
+            print "\n";
+            next;
+        }
+
+    }
+
+    print HOOKFILE "\n\n";
+    close(HOOKFILE);
+#    if ($verbose) {
+        print "\nDone activating plugins; registration data saved in plugin_hooks.php\n\n";
+#    }
+
+    } else {
+
+        print "\n";
+        print "WARNING:\n";
+        print "The file \"plugin_hooks.php\" was not able to be written to.\n";
+        print "No plugins will be activated until you fix this.\n";
+        print "\nPress enter to continue";
+        $ctu = <STDIN>;
+        print "\n";
+
+    }
+
+}
+
