@@ -268,20 +268,13 @@ if (file_exists(SM_PATH . 'plugins/compatibility/functions.php'))
     include_once(SM_PATH . 'plugins/compatibility/functions.php');
 $squirrelmail_plugin_hooks = array();
 
-/* On init, register all plugins configured for use. */
-if (isset($plugins) && is_array($plugins)) {
-    // turn on output buffering in order to prevent output of new lines
-    ob_start();
-    foreach ($plugins as $name) {
-        use_plugin($name);
-    }
-    // get output and remove whitespace
-    $output = trim(ob_get_contents());
-    ob_end_clean();
-    // if plugins output more than newlines and spacing, stop script execution.
-    if (!empty($output)) {
-        die($output);
-    }
+/**
+ * On init, we no longer need to load all plugin setup files. 
+ * Now, we load the statically generated hook registrations here
+ * and let the hook calls include only the plugins needed.
+ */
+if (file_exists(SM_PATH . 'config/plugin_hooks.php')) {
+    include_once(SM_PATH . 'config/plugin_hooks.php');
 }
 
 /**
