@@ -274,7 +274,7 @@ $squirrelmail_plugin_hooks = array();
  * and let the hook calls include only the plugins needed.
  */
 if (file_exists(SM_PATH . 'config/plugin_hooks.php')) {
-    include_once(SM_PATH . 'config/plugin_hooks.php');
+    require(SM_PATH . 'config/plugin_hooks.php');
 }
 
 /**
