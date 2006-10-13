@@ -50,7 +50,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
 
     $used_fontset = (!empty($chosen_fontset) ? $chosen_fontset : $default_fontset);
     $used_fontsize = (!empty($chosen_fontsize) ? $chosen_fontsize : $default_fontsize);
-    $used_theme = !isset($chosen_theme) && $user_theme_default != 'none' ?  $user_themes[$user_theme_default]['PATH'].'/default.css' : $chosen_theme_path;
+    $used_theme = !isset($chosen_theme) && $user_theme_default != 'none' && is_dir($chosen_theme) && is_readable($chosen_theme)?  $user_themes[$user_theme_default]['PATH'].'/default.css' : $chosen_theme_path;
     
     /**
      * Stylesheets are loaded in the following order:
@@ -72,17 +72,12 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     // 2. Option user-defined stylesheet from preferences.
     if (!empty($used_theme)) {
         /**
-         * User styles just point to a directory, so we need to include all .css
-         * files in that directory.  Template themes point to a specific stylesheet,
-         * so we simply include it. 
+         * All styles just point to a directory, so we need to include all .css
+         * files in that directory. 
          */
-        if (is_dir($used_theme)) {
-            $styles = list_files($used_theme, '.css');
-            foreach ($styles as $sheet) { 
-                $aUserStyles[] = $used_theme .'/'.$sheet;
-            }
-        } else {
-            $aUserStyles[] = $used_theme;
+        $styles = list_files($used_theme, '.css');
+        foreach ($styles as $sheet) { 
+            $aUserStyles[] = $used_theme .'/'.$sheet;
         }
     }
 
