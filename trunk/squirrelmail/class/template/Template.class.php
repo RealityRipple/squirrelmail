@@ -840,6 +840,22 @@ class Template
       *                         slash, indicating that all files
       *                         for that directory name should
       *                         be returned.
+      * @param boolean $directories_ok When TRUE, directory names
+      *                                are acceptable search values,
+      *                                and when returning a list of
+      *                                directory contents, sub-directory
+      *                                names will also be included
+      *                                (optional; default FALSE).
+      *                                NOTE that empty directories 
+      *                                are NOT included in the cache!
+      * @param boolean $directories_only When TRUE, only directory names
+      *                                  are included in the returned
+      *                                  results.  (optional; default 
+      *                                  FALSE).  Setting this argument
+      *                                  to TRUE forces $directories_ok 
+      *                                  to TRUE as well.
+      *                                  NOTE that empty directories 
+      *                                  are NOT included in the cache!
       *
       * @return mixed The full path to the template file or a list
       *               of all files in the given directory if $filename
@@ -849,8 +865,15 @@ class Template
       *               file is not found.
       *
       */
-    function get_template_file_path($filename) {
+    function get_template_file_path($filename, 
+                                    $directories_ok=FALSE, 
+                                    $directories_only=FALSE) {
 
+        if ($directories_only) $directories_ok = TRUE;
+
+
+        // only looking for directory listing first...
+        //
         // return list of all files in a directory (and that
         // of any ancestors)
         //
@@ -862,30 +885,73 @@ class Template
                 // only want files in the requested directory
                 // (AND not in a subdirectory!)
                 //
-                if (strpos($file, $filename) === 0 
+                if (!$directories_only && strpos($file, $filename) === 0 
                  && strpos($file, '/', strlen($filename)) === FALSE)
                     $return_array[] = SM_PATH . $file_info['PATH'];
+
+                // directories too?  detect by finding any
+                // array key that matches a file in a sub-directory
+                // of the directory being processed
+                //
+                if ($directories_ok && strpos($file, $filename) === 0
+                 && ($pos = strpos($file, '/', strlen($filename))) !== FALSE
+                 && strpos($file, '/', $pos + 1) === FALSE) {
+                    $directory_name = SM_PATH 
+                                    . substr($file_info['PATH'], 
+                                             0, 
+                                             strrpos($file_info['PATH'], '/'));
+                    if (!in_array($directory_name, $return_array))
+                        $return_array[] = $directory_name;
+                }
 
             }
             return $return_array;
 
         }
 
+
+        // just looking for singular file or directory below...
+        //
         // figure out what to do with files not found
         //
-        if (empty($this->template_file_cache[$filename]['PATH'])) {
+        if ($directories_only || empty($this->template_file_cache[$filename]['PATH'])) {
 
-            // plugins get one more chance below; any other
-            // files we just give up now
+            // if looking for directories...
+            // have to iterate through cache and detect
+            // directory by matching any file inside of it
             //
-            if (strpos($filename, 'plugins/') !== 0) 
-                return '';
+            if ($directories_ok) {
+                foreach ($this->template_file_cache as $file => $file_info) {
+                    if (strpos($file, $filename) === 0
+                     && ($pos = strpos($file, '/', strlen($filename))) !== FALSE
+                     && strpos($file, '/', $pos + 1) === FALSE) {
+                        return SM_PATH . substr($file_info['PATH'], 
+                                                0, 
+                                                strrpos($file_info['PATH'], '/'));
+                    }
+                }
 
-            $plugin_name = substr($filename, 8, strpos($filename, '/', 8) - 8);
-            $file = substr($filename, strlen($plugin_name) + 9);
+                if ($directories_only) return '';
+            }
 
-            if (!$this->find_and_cache_plugin_template_file($plugin_name, $file))
-                return '';
+            // plugins get one more chance 
+            //
+            if (strpos($filename, 'plugins/') === 0) {
+
+                $plugin_name = substr($filename, 8, strpos($filename, '/', 8) - 8);
+                $file = substr($filename, strlen($plugin_name) + 9);
+
+                if (!$this->find_and_cache_plugin_template_file($plugin_name, $file))
+                    return '';
+                //FIXME: technically I guess we should check for directories
+                //       here too, but that's overkill (no need) presently
+                //       (plugin-provided alternate stylesheet dirs?!?  bah.)
+
+            }
+
+            // nothing... return empty string (yes, the else is intentional!)
+            //
+            else return '';
 
         }
 
@@ -1010,14 +1076,13 @@ class Template
     /**
       * Return all alternate stylesheets provided by template.  
       *
-      * All files found in the template set's "css/alternates" 
-      * directory (and that of its ancestors) with the extension
-      * ".css" are returned.
+      * All (non-empty) directories found in the template set's 
+      * "css/alternates" directory (and that of its ancestors) 
+      * are returned.
       *
       * Note that prettified names are constructed herein by
-      * taking the file name, changing underscores to spaces,
-      * removing the ".css" from the end of the file, and 
-      * capitalizing each word in the resultant name.
+      * taking the directory name, changing underscores to spaces
+      * and capitalizing each word in the resultant name.
       *
       * @param boolean $full_path When FALSE, only the file names
       *                           are included in the return array;
@@ -1039,25 +1104,24 @@ class Template
         // all alternate css files from ancestor 
         // template sets, not just this set
         //
-        //$directory = SM_PATH . $this->get_template_file_directory() . 'css/alternates';
-        //$css_files = list_files($directory, '.css', !$full_path);
-        //
-        $css_files = $this->get_template_file_path('css/alternates/');
+        $css_directories = $this->get_template_file_path('css/alternates/', TRUE, TRUE);
 
 
-        // parse out .css files only
+        // prettify names
         //
         $return_array = array();
-        foreach ($css_files as $file) {
+        foreach ($css_directories as $directory) {
 
-            if (substr($file, strlen($file) - 4) != '.css') continue;
+            // CVS directories are not wanted
+            //
+            if (strpos($directory, '/CVS') === strlen($directory) - 4) continue;
 
-            $pretty_name = ucwords(str_replace('_', ' ', substr(basename($file), 0, -4)));
+            $pretty_name = ucwords(str_replace('_', ' ', basename($directory)));
 
             if ($full_path) {
-                $return_array[$file] = $pretty_name;
+                $return_array[$directory] = $pretty_name;
             } else {
-                $return_array[basename($file)] = $pretty_name;
+                $return_array[basename($directory)] = $pretty_name;
             }
 
         }
