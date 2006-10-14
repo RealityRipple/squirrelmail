@@ -215,6 +215,40 @@ session_set_cookie_params (0, $base_uri);
 sqsession_is_active();
 
 /**
+ * SquirrelMail version number -- DO NOT CHANGE
+ */
+$version = '1.5.2 [CVS]';
+
+/**
+ * SquirrelMail internal version number -- DO NOT CHANGE
+ * $sm_internal_version = array (release, major, minor)
+ */
+$SQM_INTERNAL_VERSION = array(1,5,2);
+
+/**
+ * Include Compatibility plugin if available.
+ */
+if (file_exists(SM_PATH . 'plugins/compatibility/functions.php'))
+    include_once(SM_PATH . 'plugins/compatibility/functions.php');
+
+/**
+ * MAIN PLUGIN LOADING CODE HERE
+ * On init, we no longer need to load all plugin setup files. 
+ * Now, we load the statically generated hook registrations here
+ * and let the hook calls include only the plugins needed.
+ */
+$squirrelmail_plugin_hooks = array();
+if (file_exists(SM_PATH . 'config/plugin_hooks.php')) {
+    require(SM_PATH . 'config/plugin_hooks.php');
+}
+
+/**
+ * allow plugins to override main configuration; hook is placed
+ * here to allow plugins to use session information to do their work
+ */
+do_hook('config_override');
+
+/**
  * DISABLED.
  * Remove globalized session data in rg=on setups
  * 
@@ -232,17 +266,6 @@ if ((bool) @ini_get('register_globals') &&
 sqsession_register(SM_BASE_URI,'base_uri');
 
 /**
- * SquirrelMail version number -- DO NOT CHANGE
- */
-$version = '1.5.2 [CVS]';
-
-/**
- * SquirrelMail internal version number -- DO NOT CHANGE
- * $sm_internal_version = array (release, major, minor)
- */
-$SQM_INTERNAL_VERSION = array(1,5,2);
-
-/**
  * Retrieve the language cookie
  */
 if (! sqgetGlobalVar('squirrelmail_language',$squirrelmail_language,SQ_COOKIE)) {
@@ -255,26 +278,6 @@ if (! sqgetGlobalVar('squirrelmail_language',$squirrelmail_language,SQ_COOKIE)) 
  */
 if (!isset($sInitLocation)) {
     $sInitLocation=NULL;
-}
-
-/**
- * MAIN PLUGIN LOADING CODE HERE
- */
-
-/**
- * Include Compatibility plugin if available.
- */
-if (file_exists(SM_PATH . 'plugins/compatibility/functions.php'))
-    include_once(SM_PATH . 'plugins/compatibility/functions.php');
-$squirrelmail_plugin_hooks = array();
-
-/**
- * On init, we no longer need to load all plugin setup files. 
- * Now, we load the statically generated hook registrations here
- * and let the hook calls include only the plugins needed.
- */
-if (file_exists(SM_PATH . 'config/plugin_hooks.php')) {
-    require(SM_PATH . 'config/plugin_hooks.php');
 }
 
 /**
