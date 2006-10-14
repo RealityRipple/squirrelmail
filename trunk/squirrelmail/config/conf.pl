@@ -5149,15 +5149,22 @@ PLUGIN: for ( $ct = 0 ; $ct <= $#plugins ; $ct++ ) {
                     if ( $options[0] =~ /^squirrelmail_plugin_hooks\s*\[\s*['"]([a-z0-9._-]+)['"]\s*\]\s*\[\s*['"]([0-9a-z._-]+)['"]\s*\]/i ) {
                         $hook_name = $1;
                         $hooked_plugin_name = $2;
-# FIXME: what to do with this?  shouldn't ever be necessary, but...
-if ($hooked_plugin_name ne $plugins[$ct]) {
-    print "ummmm, plugin is tring to hook in under different name....  what do we do with this???\n";
-}
+                        # Note: if we wanted to stop plugins from registering
+                        #       a *different* plugin on a hook, we could catch
+                        #       it here, however this has actually proven to be
+                        #       a useful *feature*
+                        #if ($hooked_plugin_name ne $plugins[$ct]) {
+                        #    print "...plugin is tring to hook in under different name...\n";
+                        #}
 
 #FIXME: do we want to count the number of hook registrations for each plugin and warn if a plugin doesn't have any?
                         # hook registration has been found!
                         if ($verbose) {
-                            print "   registering on hook \"" . $hook_name . "\"\n";
+                            if ($hooked_plugin_name ne $plugins[$ct]) {
+                                print "   registering on hook \"" . $hook_name . "\" (as \"$hooked_plugin_name\" plugin)\n";
+                            } else {
+                                print "   registering on hook \"" . $hook_name . "\"\n";
+                            }
                         }
                         $line =~ s/ {2,}/ /g;
                         $line =~ s/=/\n    =/;
