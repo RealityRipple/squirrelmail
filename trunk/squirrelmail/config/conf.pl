@@ -485,6 +485,20 @@ if ( $ARGV[0] eq '--install-plugin' ) {
     @plugins = @newplugins;
     save_data();
     exit(0);
+} elsif ( $ARGV[0] eq '--update-plugins' or $ARGV[0] eq '-u') {
+    build_plugin_hook_array();
+    exit(0);
+} elsif ( $ARGV[0] eq '--help' or $ARGV[0] eq '-h') {
+    print "SquirrelMail Configuration Script\n";
+    print "Usage:\n";
+    print " * No arguments: initiates the configuration dialog\n";
+    print " * --install-plugin <plugin> : activates the specified plugin\n";
+    print " * --remove-plugin <plugin>  : deactivates the specified plugin\n";
+    print " * --update-plugins , -u     : rebuilds plugin_hooks.php according\n";
+    print "                               to plugins activated in config.php\n";
+    print " * --help , -h               : Displays this help\n";
+    print "\n";
+    exit(0);
 }
 
 #####################################################################################
