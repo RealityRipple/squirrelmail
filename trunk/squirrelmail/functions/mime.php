@@ -491,28 +491,23 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
 }
 
 /**
- * Displays attachment links and information
- *
- * Since 1.3.0 function is not included in formatBody() call.
- *
- * Since 1.0.2 uses attachment $type0/$type1 hook.
- * Since 1.2.5 uses attachment $type0/* hook.
- * Since 1.5.0 uses attachments_bottom hook.
- * Since 1.5.2 uses templates and does *not* return a value.
- *
+ * Generate attachments array for passing to templates.  Separated from
+ * formatAttachments() below so that the same array can be given to the
+ * print-friendly version.
+ * 
+ * @since 1.5.2
  * @param object $message SquirrelMail message object
  * @param array $exclude_id message parts that are not attachments.
  * @param string $mailbox mailbox name
  * @param integer $id message id
  */
-function formatAttachments($message, $exclude_id, $mailbox, $id) {
-    global $where, $what, $startMessage, $color, $passed_ent_id, $base_uri,
-           $oTemplate;
+function buildAttachmentArray($message, $exclude_id, $mailbox, $id) {
+    global $where, $what, $startMessage, $color, $passed_ent_id, $base_uri;
 
     $att_ar = $message->getAttachments($exclude_id);
     $urlMailbox = urlencode($mailbox);
 
-    $attach = array();
+    $attachments = array();
     foreach ($att_ar as $att) {
         $ent = $att->entity_id;
         $header = $att->header;
@@ -584,30 +579,53 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         $links = $hookresults[1];
         $defaultlink = $hookresults[6];
 
-        $a = array();
-        $a['Name'] = decodeHeader($display_filename);
-        $a['Description'] = $description;
-        $a['DefaultHREF'] = $defaultlink;
-        $a['DownloadHREF'] = $links['download link']['href'];
-        $a['ViewHREF'] = isset($links['attachment_common']) ? $links['attachment_common']['href'] : '';
-        $a['Size'] = $header->size;
-        $a['ContentType'] = htmlspecialchars($type0 .'/'. $type1);
-        $a['OtherLinks'] = array();
+        $this_attachment = array();
+        $this_attachment['Name'] = decodeHeader($display_filename);
+        $this_attachment['Description'] = $description;
+        $this_attachment['DefaultHREF'] = $defaultlink;
+        $this_attachment['DownloadHREF'] = $links['download link']['href'];
+        $this_attachment['ViewHREF'] = isset($links['attachment_common']) ? $links['attachment_common']['href'] : '';
+        $this_attachment['Size'] = $header->size;
+        $this_attachment['ContentType'] = htmlspecialchars($type0 .'/'. $type1);
+        $this_attachment['OtherLinks'] = array();
         foreach ($links as $val) {
             if ($val['text']==_("Download") || $val['text'] == _("View"))
                 continue;
             if (empty($val['text']) && empty($val['extra']))
                 continue;
                 
-            $t = array();
-            $t['HREF'] = $val['href'];
-            $t['Text'] = (empty($val['text']) ? '' : $val['text']) . (empty($val['extra']) ? '' : $val['extra']);
-            $a['OtherLinks'][] = $t;
+            $temp = array();
+            $temp['HREF'] = $val['href'];
+            $temp['Text'] = (empty($val['text']) ? '' : $val['text']) . (empty($val['extra']) ? '' : $val['extra']);
+            $this_attachment['OtherLinks'][] = $temp;
         }
-        $attach[] = $a;
+        $attachments[] = $this_attachment;
         
         unset($links);
     }
+    
+    return $attachments;
+}
+
+/**
+ * Displays attachment links and information
+ *
+ * Since 1.3.0 function is not included in formatBody() call.
+ *
+ * Since 1.0.2 uses attachment $type0/$type1 hook.
+ * Since 1.2.5 uses attachment $type0/* hook.
+ * Since 1.5.0 uses attachments_bottom hook.
+ * Since 1.5.2 uses templates and does *not* return a value.
+ *
+ * @param object $message SquirrelMail message object
+ * @param array $exclude_id message parts that are not attachments.
+ * @param string $mailbox mailbox name
+ * @param integer $id message id
+ */
+function formatAttachments($message, $exclude_id, $mailbox, $id) {
+    global $oTemplate;
+    
+    $attach = buildAttachmentArray($message, $exclude_id, $mailbox, $id);
 
     $oTemplate->assign('attachments', $attach);
     $oTemplate->display('read_attachments.tpl');
