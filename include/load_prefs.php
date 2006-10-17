@@ -59,7 +59,7 @@ if (!$found_templateset) $sTemplateID = $sDefaultTemplateID;
 $chosen_theme = getPref($data_dir, $username, 'chosen_theme');
 $found_theme = false;
 $chosen_theme_path = empty($chosen_theme) ?
-                     $chosen_theme_path = 'u_'.$user_themes[$user_theme_default]['PATH'] :
+                     $chosen_theme_path = $user_themes[$user_theme_default]['PATH'] :
                      $chosen_theme;
 
 // Make sure the chosen theme is a legitimate one.
