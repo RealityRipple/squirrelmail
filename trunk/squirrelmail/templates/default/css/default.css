@@ -163,6 +163,8 @@ td.fieldName {
     width:25%;
     font-weight: bold;
     vertical-align:top;
+    padding-left: 4px;
+    padding-right: 4px;
 }
 
 td.fieldValue {
@@ -991,6 +993,31 @@ div.readInlineImages td.image {
     border:1px solid #ababab /* __COLOR9__ */;
     padding:10px;
 }
+
+div.printerFriendlyTop table {
+    width:100%;
+}
+
+div.printerFriendlyTop td {
+    text-align: right;
+}
+
+div.printerFriendly table.attach {
+    width: 100%;
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+div.printerFriendly td.attachField {
+    width: 30%;
+    font-weight: bold;
+    text-align: right;
+}
+
+div.printerFriendly td.attachName {
+    font-weight: bold;
+}
+
 
 
 
