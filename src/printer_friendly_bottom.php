@@ -68,7 +68,9 @@ $body = '';
 if ($ent_ar[0] != '') {
   for ($i = 0; $i < count($ent_ar); $i++) {
      $body .= formatBody($imapConnection, $message, $color, $wrap_at, $ent_ar[$i], $passed_id, $mailbox, TRUE);
-     $body .= '<hr style="height: 1px;" />';
+     if ($i < count($ent_ar)-1) {
+        $body .= '<hr />';
+     }
   }
   $hookResults = do_hook('message_body', $body);
   $body = $hookResults[1];
@@ -96,60 +98,26 @@ $cc = decodeHeader($cc);
 $from = decodeHeader($from);
 $subject = decodeHeader($subject);
 
-$attachments = pf_show_attachments($message,$ent_ar,$mailbox,$passed_id);
-
 // --end display setup--
 
 
 /* --start browser output-- */
-displayHtmlHeader( $subject, '', FALSE );
+displayHtmlHeader($subject);
 
-echo '<body text="#000000" bgcolor="#FFFFFF" link="#000000" vlink="#000000" alink="#000000">'."\n" .
-     /* headers (we use table because translations are not all the same width) */
-     html_tag( 'table', '', 'center', '', 'cellspacing="0" cellpadding="0" border="0" width="100%"' ) .
-     html_tag( 'tr',
-         html_tag( 'td', '<b>'._("From").':</b>&nbsp;', 'left' ,'','valign="top"') .
-         html_tag( 'td', $from, 'left' )
-     ) . "\n" .
-     html_tag( 'tr',
-         html_tag( 'td', '<b>'._("Subject").':</b>&nbsp;', 'left','','valign="top"' ) .
-         html_tag( 'td', $subject, 'left' )
-     ) . "\n" .
-     html_tag( 'tr',
-         html_tag( 'td', '<b>'._("Date").':</b>&nbsp;', 'left' ) .
-         html_tag( 'td', htmlspecialchars($date), 'left' )
-     ) . "\n" .
-     html_tag( 'tr',
-         html_tag( 'td', '<b>'._("To").':</b>&nbsp;', 'left','','valign="top"' ) .
-         html_tag( 'td', $to, 'left' )
-    ) . "\n";
-    if ( strlen($cc) > 0 ) { /* only show Cc: if it's there... */
-         echo html_tag( 'tr',
-             html_tag( 'td', '<b>'._("Cc").':</b>&nbsp;', 'left','','valign="top"' ) .
-             html_tag( 'td', $cc, 'left' )
-         );
-     }
-     /* body */
-     echo html_tag( 'tr',
-         html_tag( 'td', '<hr style="height: 1px;" /><br />' . "\n" . $body, 'left', '', 'colspan="2"' )
-     ) . "\n" ;
+$aHeaders = array();
+$aHeaders[ _("From") ] = $from;
+$aHeaders[ _("Subject") ] = $subject;
+$aHeaders[ _("Date") ] = htmlspecialchars($date);
+$aHeaders[ _("To") ] = $to;
+$aHeaders[ _("Cc") ] = $cc;
 
-     if (! empty($attachments)) {
-         // attachments title
-         echo html_tag( 'tr',
-             html_tag( 'td','<b>'._("Attachments:").'</b>', 'left', '', 'colspan="2"' )
-         ) . "\n" ;
-         // list of attachments
-         echo html_tag( 'tr',
-             html_tag( 'td',$attachments, 'left', '', 'colspan="2"' )
-         ) . "\n" ;
-         // add separator line
-         echo html_tag( 'tr',
-             html_tag( 'td', '<hr style="height: 1px;" />', 'left', '', 'colspan="2"' )
-         ) . "\n" ;
-     }
+$attachments_ar = buildAttachmentArray($message, $ent_ar, $mailbox, $passed_id);
 
-     echo '</table>' . "\n";
+$oTemplate->assign('headers', $aHeaders);
+$oTemplate->assign('message_body', $body);
+$oTemplate->assign('attachments', $attachments_ar);
+
+$oTemplate->display('printer_friendly_bottom.tpl');
 $oTemplate->display('footer.tpl');
 
 /* --end browser output-- */
@@ -199,83 +167,3 @@ function pf_clean_string ( $unclean_string, $num_leading_spaces ) {
 
     return $clean_string;
 } /* end pf_clean_string() function */
-
-/**
- * Displays attachment information
- *
- * Stripped version of formatAttachments() function from functions/mime.php.
- * @param object $message SquirrelMail message object
- * @param array $exclude_id message parts that are not attachments.
- * @param string $mailbox mailbox name
- * @param integer $id message id
- * @return string html formated attachment information.
- */
-function pf_show_attachments($message, $exclude_id, $mailbox, $id) {
-    global $where, $what, $startMessage, $color, $passed_ent_id;
-
-    $att_ar = $message->getAttachments($exclude_id);
-
-    if (!count($att_ar)) return '';
-
-    $attachments = '';
-
-    $urlMailbox = urlencode($mailbox);
-
-    foreach ($att_ar as $att) {
-        $ent = $att->entity_id;
-        $header = $att->header;
-        $type0 = strtolower($header->type0);
-        $type1 = strtolower($header->type1);
-        $name = '';
-
-        if ($type0 =='message' && $type1 == 'rfc822') {
-            $rfc822_header = $att->rfc822_header;
-            $filename = $rfc822_header->subject;
-            if (trim( $filename ) == '') {
-                $filename = 'untitled-[' . $ent . ']' ;
-            }
-            $from_o = $rfc822_header->from;
-            if (is_object($from_o)) {
-                $from_name = decodeHeader($from_o->getAddress(true));
-            } else {
-                $from_name = _("Unknown sender");
-            }
-            $description = '<tr>'.
-                html_tag( 'td',_("From:"), 'right') .
-                html_tag( 'td',$from_name, 'left') .
-                '</tr>';
-        } else {
-            $filename = $att->getFilename();
-            if ($header->description) {
-                $description = '<tr>'.
-                    html_tag( 'td',_("Info:"), 'right') .
-                    html_tag( 'td',decodeHeader($header->description), 'left') .
-                    '</tr>';
-            } else {
-                $description = '';
-            }
-        }
-
-        $display_filename = $filename;
-
-        // TODO: maybe make it nicer?
-        $attachments .= '<table cellpadding="1" cellspacing="0" width="100%" border="1"><tr><th colspan="2">'.decodeHeader($display_filename).'</th></tr>' .
-            '<tr>'.
-            html_tag( 'td',_("Size:"), 'right', '', 'width="25%"') .
-            html_tag( 'td',show_readable_size($header->size), 'left', '', 'width="75%"') .
-            '</tr><tr>' . "\n" .
-            html_tag( 'td',_("Type:"), 'right', '', 'width="25%"') .
-            html_tag( 'td',htmlspecialchars($type0).'/'.htmlspecialchars($type1), 'left', '', 'width="75%"') .
-            '</tr>';
-        if (! empty($description)) {
-            $attachments .= $description;
-        }
-        $attachments .= "</table>\n";
-    }
-    return $attachments;
-}
-
-
-/* --end pf-specific functions */
-
-?>

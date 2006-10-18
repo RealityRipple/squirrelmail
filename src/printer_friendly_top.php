@@ -17,25 +17,10 @@
  */
 include('../include/init.php');
 
+displayHtmlHeader( _("Printer Friendly"));
+$oErrorHandler->setDelayedErrors(true);
 
-displayHtmlHeader( _("Printer Friendly"),
-             "<script type=\"text/javascript\">\n".
-             "<!--\n".
-             "function printPopup() {\n".
-                "parent.frames[1].focus();\n".
-                "parent.frames[1].print();\n".
-             "}\n".
-             "-->\n".
-             "</script>\n", FALSE );
-
-
-echo '<body text="'.$color[8].'" bgcolor="'.$color[3].'" link="'.$color[7].'" vlink="'.$color[7].'" alink="'.$color[7]."\">\n" .
-     html_tag( 'div',
-         '<form>'.
-         '<input type="button" value="' . _("Print") . '" onclick="printPopup()" /> '.
-         '<input type="button" value="' . _("Close") . '" onclick="window.parent.close()" />'.
-         '</form>',
-     'right' );
+$oTemplate->display('printer_friendly_top.tpl');
 
 $oTemplate->display('footer.tpl');
 ?>
