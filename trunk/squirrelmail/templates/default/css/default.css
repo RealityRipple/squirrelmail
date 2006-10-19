@@ -1018,7 +1018,19 @@ div.printerFriendly td.attachName {
     font-weight: bold;
 }
 
+div.viewHeader table.table1 {
+    width: 100%;
+}
 
+div.viewHeader td.headers {
+    padding-left:5px;
+    font-family: monospace, sans-serif;
+    font-size: small;
+}
+
+div.viewHeader span.headerName {
+    font-weight: bold;
+}
 
 
 

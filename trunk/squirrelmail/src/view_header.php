@@ -79,76 +79,6 @@ function parse_viewheader($imapConnection,$id, $passed_ent_id) {
     return $header_output;
 }
 
-/**
- * Temporary test function to process template vars with formatting.
- * I use it for viewing the message_header (view_header.php) with
- * a sort of template.
- * @param mixed $var
- * @param mixed $format_ar
- * @since 1.3.0
- * @todo if function is temporary, then why it is used.
- * @deprecated
- */
-function echo_template_var($var, $format_ar = array() ) {
-    $frm_last = count($format_ar) -1;
-
-    if (isset($format_ar[0])) echo $format_ar[0];
-    $i = 1;
-
-    switch (true) {
-    case (is_string($var)):
-        echo $var;
-        break;
-    case (is_array($var)):
-        $frm_a = array_slice($format_ar,1,$frm_last-1);
-        foreach ($var as $a_el) {
-            if (is_array($a_el)) {
-                echo_template_var($a_el,$frm_a);
-            } else {
-                echo $a_el;
-                if (isset($format_ar[$i])) {
-                    echo $format_ar[$i];
-                }
-                $i++;
-            }
-        }
-        break;
-    default:
-        break;
-    }
-    if (isset($format_ar[$frm_last]) && $frm_last>$i ) {
-        echo $format_ar[$frm_last];
-    }
-}
-
-function view_header($header, $mailbox, $color) {
-    sqgetGlobalVar('QUERY_STRING', $queryStr, SQ_SERVER);
-    $ret_addr = SM_PATH . 'src/read_body.php?'.$queryStr;
-
-    displayPageHeader($color, $mailbox);
-
-    echo '<br />' .
-         '<table width="100%" cellpadding="2" cellspacing="0" border="0" '.
-            'align="center">' . "\n" .
-         '<tr><td bgcolor="'.$color[9].'" width="100%" align="center"><b>'.
-         _("Viewing Full Header") . '</b> - '.
-         '<a href="';
-    echo_template_var($ret_addr);
-    echo '">' ._("View message") . "</a></td></tr></table>\n";
-
-    echo_template_var($header,
-        array(
-            '<table width="99%" cellpadding="2" cellspacing="0" border="0" '.
-                "align=center>\n".'<tr><td>',
-            '<tt style="white-space: nowrap;"><b>',
-            '</b>',
-            '</tt>',
-            '</td></tr></table>'."\n"
-         )
-    );
-    echo '</body></html>';
-}
-
 /* get global vars */
 if ( sqgetGlobalVar('passed_id', $temp, SQ_GET) ) {
   $passed_id = (int) $temp;
@@ -164,8 +94,25 @@ sqgetGlobalVar('delimiter',  $delimiter,    SQ_SESSION);
 $imapConnection = sqimap_login($username, false, $imapServerAddress,
                                $imapPort, 0);
 $mbx_response = sqimap_mailbox_select($imapConnection, $mailbox, false, false, true);
-
 $header = parse_viewheader($imapConnection,$passed_id, $passed_ent_id);
-view_header($header, $mailbox, $color);
 
+$aTemplateHeaders = array();
+foreach ($header as $h) {
+    $aTemplateHeaders[] = array (
+                                    'Header' => $h[0],
+                                    'Value' => $h[1]
+                                );
+}
+
+sqgetGlobalVar('QUERY_STRING', $queryStr, SQ_SERVER);
+$ret_addr = SM_PATH . 'src/read_body.php?'.$queryStr;
+
+displayPageHeader( $color, $mailbox );
+
+$oTemplate->assign('view_message_href', $ret_addr);
+$oTemplate->assign('headers', $aTemplateHeaders);
+
+$oTemplate->display('view_header.tpl');
+
+$oTemplate->display('footer.tpl');
 ?>
