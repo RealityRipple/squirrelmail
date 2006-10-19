@@ -77,27 +77,13 @@ if ($type1 == 'html' || (isset($override_type1) &&  $override_type1 == 'html')) 
 }
 
 displayPageHeader($color, 'None');
-?>
-<br /><table width="100%" border="0" cellspacing="0" cellpadding="2" align="center"><tr><td bgcolor="<?php echo $color[0]; ?>">
-<b><div style="text-align: center;">
-<?php
-echo _("Viewing a text attachment") . ' - ' .
-    '<a href="'.$msg_url.'">' . _("View message") . '</a>';
-?>
-</b></td><tr><tr><td><div style="text-align: center;">
-<?php
-if ( $ishtml ) {
-    echo '<a href="' . $unsafe_url . '">' . _("View Unsafe Images") . '</a> | ';
-}
-echo '<a href="' . $dwnld_url . '">' . _("Download this as a file") . '</a>';
-?>
-</div><br />
-</div></b>
-</td></tr></table>
-<table width="98%" border="0" cellspacing="0" cellpadding="2" align="center"><tr><td bgcolor="<?php echo $color[0]; ?>">
-<tr><td bgcolor="<?php echo $color[4]; ?>"><tt>
-<?php echo $body; ?>
-</tt></td></tr></table>
-<?php
+
+$oTemplate->assign('view_message_href', $msg_url);
+$oTemplate->assign('download_href', $dwnld_url);
+$oTemplate->assign('view_unsafe_image_href', $ishtml ? $unsafe_url : '');
+$oTemplate->assign('body', $body);
+
+$oTemplate->display('view_text.tpl');
+
 $oTemplate->display('footer.tpl');
 ?>
