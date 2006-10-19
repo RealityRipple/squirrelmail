@@ -93,7 +93,7 @@ function translate_read_form_function() {
     $trans_ar = $message->findDisplayEntity(array(), array('text/plain'));
     $body = '';
     $final_body = '';
-    if ($trans_ar[0] != '') {
+    if ( !empty($trans_ar[0]) ) {
         for ($i = 0; $i < count($trans_ar); $i++) {
             /* reduced version of formatBody and translateText functions */
 
