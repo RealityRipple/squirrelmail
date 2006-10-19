@@ -1044,3 +1044,29 @@ div.htmlIframe iframe {
     width:100%;
 }
 
+div.viewText table.table1 {
+    width: 100%;
+}
+
+div.viewText td.header2 a {
+    font-size: smaller;
+    font-weight: normal;
+}
+
+div.viewText td.actions {
+    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+div.viewText td.text {
+    padding: 10px;
+    background-color: #ffffff /* __COLOR4__ */;
+}
+
+div.viewText td.spacer {
+    padding: 3px;
+    background-color: #DCDCDC /* __COLOR0__ */;
+}
+
+
