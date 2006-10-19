@@ -1032,5 +1032,15 @@ div.viewHeader span.headerName {
     font-weight: bold;
 }
 
+div.htmlIframe {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
 
+div.htmlIframe iframe {
+    height: 250px;
+    width:100%;
+}
 

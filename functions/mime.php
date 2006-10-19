@@ -414,33 +414,11 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
                     . '&amp;ent_id=' . $ent_num
                     . '&amp;view_unsafe_images=' . (int) $view_unsafe_images;
 
-                // adding warning message
-                $body = html_tag('div',_("Viewing HTML formatted email"),'center');
-
-                /**
-                 * height can't be set to 100%, because it does not work as expected when
-                 * iframe is inside the table. Browsers do not create full height objects
-                 * even when iframe is not nested. Maybe there is some way to get full size
-                 * with CSS. Tested in firefox 1.02 and opera 7.53
-                 *
-                 * width="100%" does not work as expected, when table width is not set (automatic)
-                 *
-                 * tokul: I think <iframe> are safer sandbox than <object>. Objects might
-                 * need special handling for IE and IE6SP2.
-                 */
-                $body.= "<div><iframe name=\"message_frame\" width=\"100%\" height=\"$iframe_height\" src=\"$iframeurl\""
-                    .' frameborder="1" marginwidth="0" marginheight="0" scrolling="auto">' . "\n";
-
-                // Message for browsers without iframe support
-                //$body.= _("Your browser does not support inline frames.
-                // You can view HTML formated message by following below link.");
-                //$body.= "<br /><a href=\"$iframeurl\">"._("View HTML Message")."</a>";
-
-                // if browser can't render iframe, it renders html message.
-                $body.= $html_body;
-
-                // close iframe
-                $body.="</iframe></div>\n";
+                global $oTemplate;
+                $oTemplate->assign('iframe_url', $iframeurl);
+                $oTemplate->assign('html_body', $html_body);
+                
+                $body = $oTemplate->fetch('read_html_iframe.tpl');
             } else {
                 // old way of html rendering
                 $body = magicHTML($body, $id, $message, $mailbox);
