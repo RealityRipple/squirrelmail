@@ -155,6 +155,7 @@ Version 1.5.2 - CVS
   - Checked if configuration file is readable in configuration utility
     (#1568355).
   - Added PHP pspell extension support to squirrelspell plugin.
+  - Add CEST and MEST (non-standard) timezone codes for +0200.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
