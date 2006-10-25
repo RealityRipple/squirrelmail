@@ -77,7 +77,6 @@ function do_hook ($name) {
  */
 function filter_hook_function($name,$parm=NULL) {
     global $squirrelmail_plugin_hooks, $currentHookName;
-    $ret = '';
     $currentHookName = $name;
 
     if (isset($squirrelmail_plugin_hooks[$name])
