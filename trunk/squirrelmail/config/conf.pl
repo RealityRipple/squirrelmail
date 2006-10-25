@@ -5100,13 +5100,6 @@ PLUGIN: for ( $ct = 0 ; $ct <= $#plugins ; $ct++ ) {
                 $inside_init_fxn = 1;
 
 
-                # throw away lines that are not exactly one "brace set" deep
-                #
-                if ($brace_count > 1) { 
-                    next;
-                } 
-
-
                 # count open braces
                 #
                 if ($line =~ /{/) {
@@ -5125,6 +5118,13 @@ PLUGIN: for ( $ct = 0 ; $ct <= $#plugins ; $ct++ ) {
                         next PLUGIN;
                     }
 
+                } 
+
+
+                # throw away lines that are not exactly one "brace set" deep
+                #
+                if ($brace_count > 1) { 
+                    next;
                 } 
 
 
@@ -5160,7 +5160,7 @@ PLUGIN: for ( $ct = 0 ; $ct <= $#plugins ; $ct++ ) {
                     $options[1] =~ s/\\'/'/g;
                     $options[1] =~ s/\\\\/\\/g;
 
-                    if ( $options[0] =~ /^squirrelmail_plugin_hooks\s*\[\s*['"]([a-z0-9._-]+)['"]\s*\]\s*\[\s*['"]([0-9a-z._-]+)['"]\s*\]/i ) {
+                    if ( $options[0] =~ /^squirrelmail_plugin_hooks\s*\[\s*['"]([a-z0-9 \/._*-]+)['"]\s*\]\s*\[\s*['"]([0-9a-z._-]+)['"]\s*\]/i ) {
                         $hook_name = $1;
                         $hooked_plugin_name = $2;
                         # Note: if we wanted to stop plugins from registering
