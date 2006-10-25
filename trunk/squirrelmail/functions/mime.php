@@ -549,14 +549,6 @@ function buildAttachmentArray($message, $exclude_id, $mailbox, $id) {
         $hookresults = do_hook("attachment $type0/$type1", $links,
                 $startMessage, $id, $urlMailbox, $ent, $defaultlink,
                 $display_filename, $where, $what);
-// FIXME: How does this code ever get executed?  $hookresults[1] is $links
-//        from above, and should always be returned by do_hook().  I will
-//        test this and fix if needed (but it has been working, right???)
-//        and get rid of these comments (Paul)
-// UPDATE: Preliminary testing shows that in fact I am correct that the
-//         following never gets executed (unless a strange plugin actually
-//         unsets the contents of the links)... how did this ever work???
-//         Can someonen please show a plugin that worked here?
         if(count($hookresults[1]) <= 1) {
             $hookresults = do_hook("attachment $type0/*", $links,
                     $startMessage, $id, $urlMailbox, $ent, $defaultlink,
