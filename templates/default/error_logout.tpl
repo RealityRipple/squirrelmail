@@ -11,7 +11,7 @@
  *                          if any
  *      $login_link   - Array containing details needed to generate link to login
  *                      page.  Elements are:
- *                          $login_link['URL']   - URL target for link
+ *                          $login_link['URI']   - URI target for link
  *                          $login_link['FRAME'] - Frame target for link
  *      $errorMessage - Translated string containing error message to be
  *                      displayed.
@@ -56,7 +56,7 @@ extract ($t);
     </tr>
     <tr>
      <td class="error_header">
-      <?php echo '<a href="'.$login_link['URL'].'" target="'.$login_link['FRAME'].'">'. _("Go to the login page") .'</a>'; ?>
+      <?php echo '<a href="'.$login_link['URI'].'" target="'.$login_link['FRAME'].'">'. _("Go to the login page") .'</a>'; ?>
      </td>
     </tr>
    </table>

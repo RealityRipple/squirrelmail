@@ -58,7 +58,13 @@ function logout_error( $errString, $errTitle = '' ) {
 
     $base_uri = sqm_baseuri();
 
-    list($junk, $errString, $errTitle) = do_hook('logout_error', $errString, $errTitle);
+    $login_link = array (
+                            'URI'   => $base_uri . 'src/login.php',
+                            'FRAME' => $frame_top
+                        );
+                        
+    list($junk, $errString, $errTitle, $login_link) 
+        = do_hook('logout_error', $errString, $errTitle, $login_link);
 
     if ( $errTitle == '' ) {
         $errTitle = $errString;
@@ -94,11 +100,6 @@ function logout_error( $errString, $errTitle = '' ) {
                             _("By the SquirrelMail Project Team")."<br />\n";
     }
 
-    $login_link = array (
-                            'URL'   => $base_uri . 'src/login.php',
-                            'FRAME' => $frame_top
-                        );
-                        
     $oTemplate->assign('logo_str', $logo_str);
     $oTemplate->assign('sm_attribute_str', $sm_attribute_str);
     $oTemplate->assign('login_link', $login_link);
