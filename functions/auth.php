@@ -152,6 +152,9 @@ function digest_md5_response ($username,$password,$challenge,$service,$host,$aut
     $string_a1 .= utf8_encode($password);
     $string_a1 = hmac_md5($string_a1);
     $A1 = $string_a1 . ":" . $result['nonce'] . ":" . $cnonce;
+    if(!empty($authz)) {
+        $A1 .= ":" . utf8_encode($authz);
+    }
     $A1 = bin2hex(hmac_md5($A1));
     $A2 = "AUTHENTICATE:$digest_uri_value";
     // If qop is auth-int or auth-conf, A2 gets a little extra
