@@ -1118,9 +1118,14 @@ function sqimap_parse_namespace(&$input) {
                 if($c = preg_match_all('/\((?:(.*?)\s*?)\)/', $ns, $regs2)) {
                     $namespace[$ns_strings[$i]] = array();
                     for($j=0; $j<sizeof($regs2[1]); $j++) {
-                        preg_match('/"(.*)"\s+"(.*)"/', $regs2[1][$j], $regs3);
+                        preg_match('/"(.*)"\s+("(.*)"|NIL)/', $regs2[1][$j], $regs3);
                         $namespace[$ns_strings[$i]][$j]['prefix'] = $regs3[1];
-                        $namespace[$ns_strings[$i]][$j]['delimiter'] = $regs3[2];
+                        if($regs3[2] == 'NIL') {
+                            $namespace[$ns_strings[$i]][$j]['delimiter'] = null;
+                        } else {
+                            // $regs[3] is $regs[2] without the quotes
+                            $namespace[$ns_strings[$i]][$j]['delimiter'] = $regs3[3];
+                        }
                         unset($regs3);
                     }
                 }
