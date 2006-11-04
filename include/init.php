@@ -157,6 +157,7 @@ require(SM_PATH . 'functions/plugin.php');
 require(SM_PATH . 'include/constants.php');
 require(SM_PATH . 'include/languages.php');
 require(SM_PATH . 'class/template/Template.class.php');
+require(SM_PATH . 'class/error.class.php');
 
 /**
  * If magic_quotes_runtime is on, SquirrelMail breaks in new and creative ways.
@@ -562,7 +563,6 @@ foreach ($always_include as $var) {
 /**
  * Initialize our custom error handler object
  */
-require(SM_PATH . 'class/error.class.php');
 $oErrorHandler = new ErrorHandler($oTemplate,'error_message.tpl');
 
 /**
