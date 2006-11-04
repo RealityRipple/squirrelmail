@@ -35,7 +35,10 @@ if (! sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
     $base_uri = sqm_baseuri();
 }
 
-do_hook('logout');
+$login_uri = 'login.php';
+
+$hook_results = do_hook('logout', $login_uri);
+$login_uri = $hook_results[1];
 
 sqsession_destroy();
 
@@ -70,6 +73,7 @@ set_up_language($squirrelmail_language, true, true);
 displayHtmlHeader($org_title . ' - ' . _("Signout"));
 
 $oTemplate->assign('frame_top', $frame_top);
+$oTemplate->assign('login_uri', $login_uri);
 
 $oTemplate->display('signout.tpl');
 
