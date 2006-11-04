@@ -26,7 +26,7 @@ $plugin_message = concat_hook_function('logout_above_text');
 <?php echo $plugin_message; ?>
 <tr width="100%"><td>
   <?php echo _("You have been successfully signed out."); ?><br />
-  <a href="login.php" target="<?php echo $frame_top; ?>"><?php echo _("Click here to log back in."); ?></a><br />
+  <a href="<?php echo $login_uri; ?>" target="<?php echo $frame_top; ?>"><?php echo _("Click here to log back in."); ?></a><br />
 </td></tr>
 <tr width="100%"><td class="sqm_signoutBar"><br /></td></tr>
 </table>
