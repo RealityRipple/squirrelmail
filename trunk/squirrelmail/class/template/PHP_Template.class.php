@@ -23,7 +23,7 @@
   * @author Paul James
   * @author Monte Ohrt <monte at ispi.net>
   * @author Andrei Zmievski <andrei at php.net>
-  * @author Paul Lesniewski
+  * @author Paul Lesniewski <paul at squirrelmail.org>
   * @package squirrelmail
   *
   */

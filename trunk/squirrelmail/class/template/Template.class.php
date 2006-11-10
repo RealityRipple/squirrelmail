@@ -37,7 +37,7 @@ require(SM_PATH . 'functions/template.php');
   *     append_by_ref()
   *     apply_template()
   *
-  * @author Paul Lesniewski
+  * @author Paul Lesniewski <paul at squirrelmail.org>
   * @package squirrelmail
   *
   */

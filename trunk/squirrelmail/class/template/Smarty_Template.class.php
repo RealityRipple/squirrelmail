@@ -20,7 +20,7 @@
   * The SquirrelMail Smarty Template class.  Extends the base
   * Template class for use with Smarty template pages.
   *
-  * @author Paul Lesniewski
+  * @author Paul Lesniewski <paul at squirrelmail.org>
   * @package squirrelmail
   *
   */
