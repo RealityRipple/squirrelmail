@@ -133,6 +133,11 @@ class Rfc822Header {
      */
     var $mlist = array();
     /**
+     * SpamAssassin 'x-spam-status' header
+     * @var mixed
+     */
+    var $x_spam_status = array();
+    /**
      * Extra header
      * only needed for constructing headers in delivery class
      * @var array
@@ -337,6 +342,9 @@ class Rfc822Header {
             case 'list-id':
                 $value = $this->stripComments($value);
                 $this->mlist('id', $value);
+                break;
+	    case 'x-spam-status':
+                $this->x_spam_status = $this->parseSpamStatus($value);
                 break;
             default:
                 break;
@@ -783,6 +791,53 @@ class Rfc822Header {
             }
         }
         $this->mlist[$field] = $res_a;
+    }
+
+    /**
+     * Parses the X-Spam-Status header
+     * @param string $value
+     */
+    function parseSpamStatus($value) {
+        // Header value looks like this:
+        // No, score=1.5 required=5.0 tests=MSGID_FROM_MTA_ID,NO_REAL_NAME,UPPERCASE_25_50 autolearn=disabled version=3.1.0-gr0
+
+        $spam_status = array();
+
+        if (preg_match ('/^(No|Yes),\s+score=(-?\d+\.\d+)\s+required=(-?\d+\.\d+)\s+tests=(.*?)\s+autolearn=(.*?)\s+version=(.+?)$/', $value, $matches)) {
+            // full header
+            $spam_status['bad_format'] = 0;
+            $spam_status['value'] = $matches[0];
+            // is_spam
+            if (isset($matches[1])
+                && strtolower($matches[1]) == 'yes') {
+                $spam_status['is_spam'] = true;
+            } else {
+                $spam_status['is_spam'] = false;
+            }
+
+            // score
+            $spam_status['score'] = $matches[2];
+
+            // required
+            $spam_status['required'] = $matches[3];
+
+            // tests
+            $tests = array();
+            $tests = explode(',', $matches[4]);
+            foreach ($tests as $test) {
+                $spam_status['tests'][] = trim($test);
+            }
+
+            // autolearn
+            $spam_status['autolearn'] = $matches[5];
+
+            // version
+            $spam_status['version'] = $matches[6];
+        } else {
+            $spam_status['bad_format'] = 1;
+            $spam_status['value'] = $value;
+        }
+        return $spam_status;
     }
 
     /**
