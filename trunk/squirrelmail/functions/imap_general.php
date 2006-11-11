@@ -748,15 +748,18 @@ function sqimap_create_stream($server,$port,$tls=0) {
 
 /**
  * Logs the user into the IMAP server.  If $hide is set, no error messages
- * will be displayed.  This function returns the IMAP connection handle.
+ * will be displayed (if set to 1, just exits, if set to 2, returns FALSE).  
+ * This function returns the IMAP connection handle.
  * @param string $username user name
  * @param string $password password encrypted with onetimepad. Since 1.5.2
  *  function can use internal password functions, if parameter is set to
  *  boolean false.
  * @param string $imap_server_address address of imap server
  * @param integer $imap_port port of imap server
- * @param boolean $hide controls display connection errors
- * @return stream
+ * @param int $hide controls display connection errors:
+ *                  0 = do not hide, 1 = show logout error, 2 = return FALSE
+ * @return mixed The IMAP connection stream, or FALSE if $hide is set to 2 
+ *               and the connection fails.
  */
 function sqimap_login ($username, $password, $imap_server_address, $imap_port, $hide) {
     global $color, $squirrelmail_language, $onetimepad, $use_imap_tls,
@@ -936,6 +939,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
                 exit;
             }
         } else {
+            if ($hide == 2) return FALSE;
             exit;
         }
     }
