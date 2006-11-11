@@ -760,8 +760,10 @@ function sqimap_create_stream($server,$port,$tls=0) {
  *                  0 = do not hide
  *                  1 = show no errors (just exit)
  *                  2 = show no errors (return FALSE)
- * @return mixed The IMAP connection stream, or FALSE if $hide is set to 2 
- *               and the connection fails.
+ *                  3 = show no errors (return error string)
+ * @return mixed The IMAP connection stream, or if the connection fails,
+ *               FALSE if $hide is set to 2 or an error string if $hide 
+ *               is set to 3.
  */
 function sqimap_login ($username, $password, $imap_server_address, $imap_port, $hide) {
     global $color, $squirrelmail_language, $onetimepad, $use_imap_tls,
@@ -902,14 +904,17 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
 
     /* If the connection was not successful, lets see why */
     if ($response != 'OK') {
-        if (!$hide) {
+        if (!$hide || $hide == 3) {
+//FIXME: UUURG... We don't want HTML in error messages, should also do html sanitizing of error messages elsewhere; should't assume output is destined for an HTML browser here
             if ($response != 'NO') {
                 /* "BAD" and anything else gets reported here. */
                 $message = htmlspecialchars($message);
                 set_up_language($squirrelmail_language, true);
                 if ($response == 'BAD') {
+                    if ($hide == 3) return sprintf(_("Bad request: %s"), $message);
                     $string = sprintf (_("Bad request: %s")."<br />\r\n", $message);
                 } else {
+                    if ($hide == 3) return sprintf(_("Unknown error: %s"), $message);
                     $string = sprintf (_("Unknown error: %s") . "<br />\n", $message);
                 }
                 if (isset($read) && is_array($read)) {
@@ -937,6 +942,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
                 sqsetcookieflush();
                 /* terminate the session nicely */
                 sqimap_logout($imap_stream);
+                if ($hide == 3) return _("Unknown user or password incorrect.");
                 logout_error( _("Unknown user or password incorrect.") );
                 exit;
             }
