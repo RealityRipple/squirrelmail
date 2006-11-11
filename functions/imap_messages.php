@@ -912,8 +912,8 @@ function sqimap_parse_address($read, &$i) {
  * @param  resource $imap_stream imap connection
  * @param  integer  $id uid of the message
  * @param  string   $mailbox used for error handling, can be removed because we should return an error code and generate the message elsewhere
- * @param  int      $hide Indicates whether or not to hide any errors: 0 = don't hide, 1 = hide (just exit), 2 = hide (return FALSE) (OPTIONAL; default don't hide)
- * @return mixed  Message object or FALSE if error occurred and $hide is set to 2
+ * @param  int      $hide Indicates whether or not to hide any errors: 0 = don't hide, 1 = hide (just exit), 2 = hide (return FALSE), 3 = hide (return error string) (OPTIONAL; default don't hide)
+ * @return mixed  Message object or FALSE/error string if error occurred and $hide is set to 2/3
  */
 function sqimap_get_message($imap_stream, $id, $mailbox, $hide=0) {
     // typecast to int to prohibit 1:* msgs sets
@@ -934,8 +934,12 @@ function sqimap_get_message($imap_stream, $id, $mailbox, $hide=0) {
         /* the message was not found, maybe the mailbox was modified? */
         global $sort, $startMessage, $color;
 
-        $errmessage = _("The server couldn't find the message you requested.") .
-            '<p>'._("Most probably your message list was out of date and the message has been moved away or deleted (perhaps by another program accessing the same mailbox).");
+        $errmessage = _("The server couldn't find the message you requested.");
+
+        if ($hide == 3) return $errmessage;
+
+        $errmessage .= '<p>'._("Most probably your message list was out of date and the message has been moved away or deleted (perhaps by another program accessing the same mailbox).");
+
         /* this will include a link back to the message list */
         error_message($errmessage, $mailbox, $sort, (int) $startMessage, $color);
         exit;
