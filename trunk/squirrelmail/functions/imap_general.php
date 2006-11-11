@@ -757,7 +757,9 @@ function sqimap_create_stream($server,$port,$tls=0) {
  * @param string $imap_server_address address of imap server
  * @param integer $imap_port port of imap server
  * @param int $hide controls display connection errors:
- *                  0 = do not hide, 1 = show logout error, 2 = return FALSE
+ *                  0 = do not hide
+ *                  1 = show no errors (just exit)
+ *                  2 = show no errors (return FALSE)
  * @return mixed The IMAP connection stream, or FALSE if $hide is set to 2 
  *               and the connection fails.
  */
