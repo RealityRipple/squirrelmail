@@ -912,9 +912,10 @@ function sqimap_parse_address($read, &$i) {
  * @param  resource $imap_stream imap connection
  * @param  integer  $id uid of the message
  * @param  string   $mailbox used for error handling, can be removed because we should return an error code and generate the message elsewhere
- * @return Message  Message object
+ * @param  int      $hide Indicates whether or not to hide any errors: 0 = don't hide, 1 = hide (just exit), 2 = hide (return FALSE) (OPTIONAL; default don't hide)
+ * @return mixed  Message object or FALSE if error occurred and $hide is set to 2
  */
-function sqimap_get_message($imap_stream, $id, $mailbox) {
+function sqimap_get_message($imap_stream, $id, $mailbox, $hide=0) {
     // typecast to int to prohibit 1:* msgs sets
     $id = (int) $id;
     $flags = array();
@@ -926,6 +927,10 @@ function sqimap_get_message($imap_stream, $id, $mailbox) {
             }
         }
     } else {
+
+        if ($hide == 1) exit;
+        if ($hide == 2) return FALSE;
+
         /* the message was not found, maybe the mailbox was modified? */
         global $sort, $startMessage, $color;
 
