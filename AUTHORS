@@ -5,7 +5,7 @@ THE SQUIRRELMAIL TEAM
  ----------------
    Alex Lemaresquier    <alex@brainstorm.fr>
    Chris Hilts          <tassium@squirrelmail.org>     http://www.birdbrained.org
-   Fredrik Jervfors     <sqm_admin@fimbul.net>
+   Fredrik Jervfors     <jervfors@squirrelmail.org>    http://fredrik.jervfors.se
    Jonathan Angliss     <jon@squirrelmail.org>
    Marc Groot Koerkamp  <marc@squirrelmail.org>
    Paul Lesneiwski      <paul@squirrelmail.org>
@@ -16,11 +16,11 @@ THE SQUIRRELMAIL TEAM
 
  Past Developers, now retired:
  -----------------------------
- Brent Bice, Bron Gondwana, Bryan Stalcup, Erin Schnabel, Gerrit Padgham, Gustav
- Foseid, Jason Munro, Jimmy Conner, Konstantin Riabitsev, Lewis Bergman, Luke Ehresman, Matt
- Phillips Nathan Ehresman, Paul Thompson, Peter Hutnick, Philippe Mingo, Pål
- Løberg, Rick Castello, Shane Wilson, Simon Dick, Steve Falla, Steve Gare, Tyler
- Akins, Wouter Teepe.
+ Brent Bice, Bron Gondwana, Bryan Stalcup, Erin Schnabel, Gerrit Padgham,
+ Gustav Foseid, Jason Munro, Jimmy Conner, Konstantin Riabitsev, Lewis Bergman,
+ Luke Ehresman, Matt Phillips Nathan Ehresman, Paul Thompson, Peter Hutnick,
+ Philippe Mingo, PÃ¥l LÃ¸berg, Rick Castello, Shane Wilson, Simon Dick, Steve
+ Falla, Steve Gare, Tomas Kuliavas, Tyler Akins, Wouter Teepe.
  (Thanks people!)
 
 
@@ -92,7 +92,7 @@ THE SQUIRRELMAIL TEAM
                  Ralf Hildebrandt <Ralf.Hildebrandt at charite.de> (coordinator)
                  Klaus Brunner <klaus at winf.at>
                  Ferdie Ferdsen <ferdie at despam.de>
-                 Thomas Fründ <fruend at fhos.de>
+                 Thomas FrÃ¼nd <fruend at fhos.de>
                  Florian Daumling <jam at qv90.de>
 
    Greek         George P. Kremmydas <george at kefalonia-ithaki.gr>
@@ -100,11 +100,11 @@ THE SQUIRRELMAIL TEAM
 
    Hebrew        Yoav Bagno <yoavb at zavit.net.il>
 
-   Hungarian     István-Attila András <bergkatten at netscape.net>
+   Hungarian     IstvÃ¡n-Attila AndrÃ¡s <bergkatten at netscape.net>
                  KADI Gergo <gergo at kapu.hu>
                  Zoltan Levardy <zoltan at levardy.org>
 
-   Icelandic     Karl Heiðar <karlh at macho.is>
+   Icelandic     Karl HeiÃ°ar <karlh at macho.is>
                  H.M.Gestsson <skvirrelmail at kuntnet.org>
 
    Indonesian    Arief S Fitrianto <arief at fisika.ui.ac.id>
@@ -127,11 +127,11 @@ THE SQUIRRELMAIL TEAM
    Norwegian Bokmal
                  Gustav Foseid <gustavf at squirrelmail.org>
                  Frode Nordahl <frode at powertech.no>
-                 Robin Smidsrød <robin at smidsrod.no> (last translator)
+                 Robin SmidsrÃ¸d <robin at smidsrod.no> (last translator)
                  Hans Fredrik Nordhaug <hans at nordhaug.priv.no>
 
    Norwegian Nynorsk
-                 Magni Onsøien <magnio-squirrel at initio.no>
+                 Magni OnsÃ¸ien <magnio-squirrel at initio.no>
                  Ola Ketil Siqveland <ola.k.siqveland at tn.his.no>
                  Hans Fredrik Nordhaug <hans at nordhaug.priv.no>
 
@@ -167,7 +167,7 @@ THE SQUIRRELMAIL TEAM
 
    Swedish       Tobias Ekbom <tobias at vallcom.net>
                  Teemu Junnila <teejun at vallcom.com>
-                 Olle Hällnäs <olle at xmms.org>
+                 Olle HÃ¤llnÃ¤s <olle at xmms.org>
                  Johan Fernberger <johan at fernberger.com>
                  Fredrik Jervfors <sqm_admin at fimbul.net> (translation coordinator)
 
