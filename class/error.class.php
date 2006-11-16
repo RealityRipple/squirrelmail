@@ -220,7 +220,14 @@ class ErrorHandler {
         // Show the error immediate in case of fatal errors
         if ($iType == SQM_ERROR) {
             if (isset($this->Template->values['header_sent']) && !$this->Template->values['header_sent']) {
-                // TODO replace this with template that can be assigned
+// TODO replace this with template that can be assigned
+// UPDATE: displayHtmlHeader() no longer sends anything
+//         directly to the browser itself and instead 
+//         displays all output through the template file 
+//         "protocol_header" as well as calls to the 
+//         template's header() method, so perhaps the 
+//         above TODO is alleviated?? (however, I don't fully
+//         understand the problem behind the TODO comment myself (Paul))
                 displayHtmlHeader(_("Error"),'',false);
             }
             $this->DisplayErrors();
