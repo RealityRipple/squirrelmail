@@ -883,6 +883,18 @@ $motd = "";
 // Add list of enabled plugins here
 
 
+/**
+ * To disable all plugins regardless of any that are installed 
+ * above, turn on $disable_plugins.  To disable them ONLY for 
+ * one user, put that username into $disable_plugins_user.
+ * @global boolean $disable_plugins
+ * @global string $disable_plugins_user
+ * @since 1.5.2
+ */
+$disable_plugins = false;
+$disable_plugins_user = '';
+
+
 /*** Database ***/
 /**
  * Read doc/database.txt in order to get more information
