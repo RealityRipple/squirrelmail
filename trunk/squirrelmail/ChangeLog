@@ -157,6 +157,8 @@ Version 1.5.2 - CVS
   - Added PHP pspell extension support to squirrelspell plugin.
   - Add CEST and MEST (non-standard) timezone codes for +0200.
   - Add support for SpamAssassin's X-Spam-Status header (#1589520).
+  - Added plugin on/off switch, which completely disables all plugins
+    (optionally for one named user, otherwise for all users).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

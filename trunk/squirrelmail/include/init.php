@@ -226,10 +226,27 @@ $version = '1.5.2 [CVS]';
  */
 $SQM_INTERNAL_VERSION = array(1,5,2);
 
+
+/* if plugins are disabled only for one user and 
+ * the current user is NOT that user, turn them
+ * back on
+ */
+sqgetGlobalVar('username',$username,SQ_SESSION);
+if ($disable_plugins && !empty($disable_plugins_user)
+ && $username != $disable_plugins_user) {
+    $disable_plugins = false;
+}
+
+/* remove all plugins if they are disabled */
+if ($disable_plugins) {
+   $plugins = array();
+}
+
+
 /**
  * Include Compatibility plugin if available.
  */
-if (file_exists(SM_PATH . 'plugins/compatibility/functions.php'))
+if (!$disable_plugins && file_exists(SM_PATH . 'plugins/compatibility/functions.php'))
     include_once(SM_PATH . 'plugins/compatibility/functions.php');
 
 /**
@@ -239,7 +256,7 @@ if (file_exists(SM_PATH . 'plugins/compatibility/functions.php'))
  * and let the hook calls include only the plugins needed.
  */
 $squirrelmail_plugin_hooks = array();
-if (file_exists(SM_PATH . 'config/plugin_hooks.php')) {
+if (!$disable_plugins && file_exists(SM_PATH . 'config/plugin_hooks.php')) {
     require(SM_PATH . 'config/plugin_hooks.php');
 }
 
@@ -423,6 +440,7 @@ switch ($sInitLocation) {
             exit;
         }
 
+//FIXME: remove next line if the placement of the copy of this line above does not prove to be problematic
         sqgetGlobalVar('username',$username,SQ_SESSION);
         sqgetGlobalVar('authz',$authz,SQ_SESSION);
 

@@ -469,6 +469,8 @@ $config_location_base = ''             if ( !$config_location_base );
 $smtp_sitewide_user = ''               if ( !$smtp_sitewide_user );
 $smtp_sitewide_pass = ''               if ( !$smtp_sitewide_pass );
 $icon_theme_def = ''                   if ( !$icon_theme_def );
+$disable_plugins = 'false'             if ( !$disable_plugins );
+$disable_plugins_user = ''             if ( !$disable_plugins_user );
 
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
@@ -692,7 +694,13 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 8 ) {
-        print $WHT. "Plugins\n" . $NRM;
+        if (lc($disable_plugins) eq 'true' && $disable_plugins_user ne '') {
+            print $WHT. "Plugins (WARNING: All plugins are currently disabled\n                  for the user \"$disable_plugins_user\"!)\n" . $NRM;
+        } elsif (lc($disable_plugins) eq 'true') {
+            print $WHT. "Plugins (WARNING: All plugins are currently disabled!)\n" . $NRM;
+        } else {
+            print $WHT. "Plugins\n" . $NRM;
+        }
         print "  Installed Plugins\n";
         $num = 0;
         for ( $count = 0 ; $count <= $#plugins ; $count++ ) {
@@ -726,6 +734,14 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         closedir DIR;
 
         print "\n";
+        if (lc($disable_plugins) eq 'true' && $disable_plugins_user ne '') {
+            print "E   Enable active plugins (all plugins currently\n    disabled for the user \"$disable_plugins_user\")\n";
+        } elsif (lc($disable_plugins) eq 'true') {
+            print "E   Enable active plugins (all plugins currently\n    disabled)\n";
+        } else {
+            print "D   Disable all plugins\n";
+        }
+        print "U   Set the user for whom plugins can be disabled\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 9 ) {
         print $WHT. "Database\n" . $NRM;
@@ -906,7 +922,10 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         } elsif ( $menu == 7 ) {
             if ( $command == 1 ) { $motd = command71(); }
         } elsif ( $menu == 8 ) {
-            if ( $command =~ /^[0-9]+/ ) { @plugins = command81(); }
+            if    ( $command =~ /^[0-9]+/ ) { @plugins              = command81(); }
+            elsif ( $command eq "u" )       { $disable_plugins_user = command82(); }
+            elsif ( $command eq "d" )       { $disable_plugins      = 'true'; }
+            elsif ( $command eq "e" )       { $disable_plugins      = 'false'; }
         } elsif ( $menu == 9 ) {
             if    ( $command == 1 ) { $addrbook_dsn     = command91(); }
             elsif ( $command == 2 ) { $addrbook_table   = command92(); }
@@ -1688,6 +1707,25 @@ sub command81 {
         }
     }
     return @plugins;
+}
+
+# disable_plugins_user
+sub command82 {
+    print "When all active plugins are disabled, they can be disabled only\n";
+    print "for the one user named here.  If left blank, plugins will be\n";
+    print "disabled for ALL users.  This setting has no effect if plugins\n";
+    print "are not disabled.\n";
+    print "\n";
+    print "This must be the exact IMAP login name for the desired user.\n";
+    print "\n";
+    print "[$WHT$disable_plugins_user$NRM]: $WHT";
+    $new_disable_plugins_user = <STDIN>;
+    if ( $new_disable_plugins_user eq "\n" ) {
+        $new_disable_plugins_user = $disable_plugins_user;
+    } else {
+        $new_disable_plugins_user =~ s/[\r\n]//g;
+    }
+    return $new_disable_plugins_user;
 }
 
 ################# FOLDERS ###################
@@ -4366,6 +4404,11 @@ sub save_data {
         print CF "\n";
         # string
         print CF "\$config_location_base     = '$config_location_base';\n";
+        print CF "\n";
+        # boolean
+        print CF "\$disable_plugins          = $disable_plugins;\n";
+        # string
+        print CF "\$disable_plugins_user     = '$disable_plugins_user';\n";
         print CF "\n";
 
         # all plugins are strings
