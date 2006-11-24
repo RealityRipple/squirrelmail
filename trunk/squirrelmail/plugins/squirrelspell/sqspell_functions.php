@@ -22,6 +22,12 @@ global $SQSPELL_APP, $SQSPELL_APP_DEFAULT, $SQSPELL_WORDS_FILE, $SQSPELL_CRYPTO;
  */
 include_once(SM_PATH . 'plugins/squirrelspell/sqspell_config.php');
 
+/**
+ * Workaround for including function squirrelspell_version() in SM 1.5 CVS,
+ * where plugins' setup.php is not included by default.
+ */
+include_once(SM_PATH . 'plugins/squirrelspell/setup.php');
+
 /** Hooked functions **/
 
 /**
