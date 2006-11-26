@@ -658,14 +658,25 @@ class Message {
     }
 
     /**
+     * function parseQuote
+     *
+     * This extract the string value from a quoted string. After the end-quote
+     * character is found it returns the string. The offset $i when calling
+     * this function points to the first double quote. At the end it points to
+     * The ending quote. This function takes care of escaped double quotes.
+     * "some \"string\""
+     * ^               ^
+     * initial $i      end position $i
+     *
      * @param string $read
-     * @param integer $i
-     * @return string
-     * @todo document me
+     * @param integer $i offset in $read
+     * @return string string inbetween the double quotes
+     * @author Marc Groot Koerkamp
      */
     function parseQuote($read, &$i) {
         $s = '';
         $iPos = ++$i;
+        $iPosStart = $iPos;
         while (true) {
             $iPos = strpos($read,'"',$iPos);
             if (!$iPos) break;
@@ -673,6 +684,38 @@ class Message {
                 $s = substr($read,$i,($iPos-$i));
                 $i = $iPos;
                 break;
+            } else if ($iPos > 1 && $read{$iPos -1} == '\\' && $read{$iPos-2} == '\\') {
+                // This is an unique situation where the fast detection of the string
+                // fails. If the quote string ends with \\ then we need to iterate
+                // through the entire string to make sure we detect the unexcaped
+                // double quotes correctly.
+                $s = '';
+                $bEscaped = false;
+                $k = 0;
+                 for ($j=$iPosStart,$iCnt=strlen($read);$j<$iCnt;++$j) {
+                    $cChar = $read{$j};
+                    switch ($cChar) {
+                        case '\\':
+                           $bEscaped = !$bEscaped;
+                            $s .= $cChar;
+                            break;
+                         case '"':
+                            if ($bEscaped) {
+                                $s .= $cChar;
+                                $bEscaped = false;
+                            } else {
+                                $i = $j;
+                                break 3;
+                            }
+                            break;
+                         default:
+                            if ($bEscaped) {
+                               $bEscaped = false;
+                            }
+                            $s .= $cChar;
+                            break;
+                    }
+                }
             }
             ++$iPos;
             if ($iPos > strlen($read)) {
