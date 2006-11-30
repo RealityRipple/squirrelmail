@@ -655,7 +655,7 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
                      );
     $links[] = array (
                         'URL'   => $download_href,
-                        'Text'  => _("Download this is a file")
+                        'Text'  => _("Download this as a file")
                      );
     $toggle = html_toggle_href($mailbox, $passed_id, $passed_ent_id, $message);
     if (!empty($toggle)) {
