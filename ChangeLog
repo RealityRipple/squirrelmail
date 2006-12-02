@@ -159,6 +159,10 @@ Version 1.5.2 - CVS
   - Add support for SpamAssassin's X-Spam-Status header (#1589520).
   - Added plugin on/off switch, which completely disables all plugins
     (optionally for one named user, otherwise for all users).
+  - Security: close cross site scripting vulnerability in draft, compose
+    and mailto functionality [CVE-2006-6142].
+  - Security: work around an issue in Internet Explorer that would guess
+    the mime type of a file based on contents, not Content-Type header.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

@@ -38,6 +38,8 @@ $trtable = array('cc'           => 'send_to_cc',
                  'subject'      => 'subject');
 $url = '';
 
+$data = array();
+
 if(sqgetGlobalVar('emailaddress', $emailaddress)) {
     $emailaddress = trim($emailaddress);
     if(stristr($emailaddress, 'mailto:')) {
@@ -47,30 +49,30 @@ if(sqgetGlobalVar('emailaddress', $emailaddress)) {
         list($emailaddress, $a) = explode('?', $emailaddress, 2);
         if(strlen(trim($a)) > 0) {
             $a = explode('=', $a, 2);
-            $url .= $trtable[strtolower($a[0])] . '=' . urlencode($a[1]) . '&';
+            $data[strtolower($a[0])] = $a[1];
         }
     }
-    $url = 'send_to=' . urlencode($emailaddress) . '&' . $url;
+    $data['to'] = $emailaddress;
 
     /* CC, BCC, etc could be any case, so we'll fix them here */
     foreach($_GET as $k=>$g) {
         $k = strtolower($k);
         if(isset($trtable[$k])) {
             $k = $trtable[$k];
-            $url .= $k . '=' . urlencode($g) . '&';
+            $data[$k] = $g;
         }
     }
-    $url = substr($url, 0, -1);
 }
+sqsession_is_active();
 
 if($force_login == false && sqsession_is_registered('user_is_logged_in')) {
     if($compose_only == true) {
-        $redirect = 'compose.php?' . $url;
+        $redirect = 'compose.php?mailtodata=' . urlencode(serialize($data));
     } else {
-        $redirect = 'webmail.php?right_frame=compose.php?' . urlencode($url);
+        $redirect = 'webmail.php?mailtodata=' . urlencode(serialize($data));
     }
 } else {
-    $redirect = 'login.php?mailto=' . urlencode($url);
+    $redirect = 'login.php?mailtodata=' . urlencode(serialize($data));
 }
 
 session_write_close();
