@@ -50,7 +50,7 @@ extract($t);
             } else {
                 # everything else follows this format...
                 ?>
- <a href="../src/printer_friendly_bottom.php<?php echo $link['URL']; ?>" target="_blank"><?php $link['Text']; ?></a>
+ <a href="../src/printer_friendly_bottom.php<?php echo $link['URL']; ?>" target="_blank"><?php echo $link['Text']; ?></a>
                <?php
             }
         } else {
