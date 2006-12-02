@@ -69,7 +69,11 @@ sqgetGlobalVar('draft',$draft);
 sqgetGlobalVar('draft_id',$draft_id);
 sqgetGlobalVar('ent_num',$ent_num);
 sqgetGlobalVar('saved_draft',$saved_draft);
-sqgetGlobalVar('delete_draft',$delete_draft);
+
+if ( sqgetGlobalVar('delete_draft',$delete_draft) ) {
+    $delete_draft = (int)$delete_draft;
+}
+
 if ( sqgetGlobalVar('startMessage',$startMessage) ) {
     $startMessage = (int)$startMessage;
 } else {
@@ -108,6 +112,25 @@ if ( !sqgetGlobalVar('smaction',$action) )
     if ( sqgetGlobalVar('smaction_attache',$tmp) )    $action = 'forward_as_attachment';
     if ( sqgetGlobalVar('smaction_draft',$tmp) )      $action = 'draft';
     if ( sqgetGlobalVar('smaction_edit_new',$tmp) )   $action = 'edit_as_new';
+}
+
+/**
+ * Here we decode the data passed in from mailto.php.
+ */
+if ( sqgetGlobalVar('mailtodata', $mailtodata, SQ_GET) ) {
+    $trtable = array('to'       => 'send_to',
+                 'cc'           => 'send_to_cc',
+                 'bcc'          => 'send_to_bcc',
+                 'body'         => 'body',
+                 'subject'      => 'subject');
+    $mtdata = unserialize($mailtodata);
+    
+    foreach ($trtable as $f => $t) {
+        if ( !empty($mtdata[$f]) ) {
+            $$t = $mtdata[$f];
+        }
+    }
+    unset($mailtodata,$mtdata, $trtable);
 }
 
 /* Location (For HTTP 1.1 Header("Location: ...") redirects) */
@@ -333,6 +356,8 @@ if (sqsession_is_registered('session_expired_post')) {
 if (!isset($composesession)) {
     $composesession = 0;
     sqsession_register(0,'composesession');
+} else {
+    $composesession = (int)$composesession;
 }
 
 if (!isset($session) || (isset($newmessage) && $newmessage)) {

@@ -31,8 +31,10 @@ if (!sqgetGlobalVar('mailbox', $mailbox)) {
 
 sqgetGlobalVar('right_frame', $right_frame, SQ_GET);
 
-if(!sqgetGlobalVar('mailto', $mailto)) {
-    $mailto = '';
+if(!sqgetGlobalVar('mailtodata', $mailtodata)) {
+    $mailtourl = 'mailtodata='.urlencode($mailtodata);
+} else {
+    $mailtourl = '';
 }
 
 // Determine the size of the left frame
@@ -95,7 +97,7 @@ switch($right_frame) {
         $right_frame_url = 'folders.php';
         break;
     case 'compose.php':
-        $right_frame_url = 'compose.php?' . $mailto;
+        $right_frame_url = 'compose.php?' . $mailtourl;
         break;
     case '':
         $right_frame_url = 'right_main.php';

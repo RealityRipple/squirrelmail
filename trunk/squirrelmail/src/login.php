@@ -148,15 +148,15 @@ if (isset($hide_sm_attributions) && !$hide_sm_attributions) {
                         _("By the SquirrelMail Project Team")."<br />\n";
 }
 
-if(sqgetGlobalVar('mailto', $mailto)) {
-    $rcptaddress = addHidden('mailto', $mailto);
+if(sqgetGlobalVar('mailtodata', $mailtodata)) {
+    $mailtofield = addHidden('mailtodata', $mailtodata);
 } else {
-    $rcptaddress = '';
+    $mailtofield = '';
 }
 
 $password_field = addPwField('secretkey');
 $login_extra = addHidden('js_autodetect_results', SMPREF_JS_OFF).
-               $rcptaddress .
+               $mailtofield .
                addHidden('just_logged_in', '1');
 
 session_write_close();

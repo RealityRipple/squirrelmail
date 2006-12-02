@@ -248,7 +248,7 @@ if (isset($aMailbox['FORWARD_SESSION'])) {
         }
         // do not use &amp;, it will break the query string and $session will not be detected!!!
         $comp_uri = SM_PATH . 'src/compose.php?mailbox='. urlencode($mailbox).
-                    '&session='.$aMailbox['FORWARD_SESSION'];
+                    '&session='.urlencode($aMailbox['FORWARD_SESSION']);
         displayPageHeader($color, $mailbox, "comp_in_new('$comp_uri', $compose_width, $compose_height);", '');
     } else {
         $mailbox_cache[$account.'_'.$aMailbox['NAME']] = $aMailbox;
