@@ -57,6 +57,7 @@ function mime_structure ($bodystructure, $flags=array()) {
     $read = trim(substr ($read, 0, -1));
     $i = 0;
     $msg = Message::parseStructure($read,$i);
+
     if (!is_object($msg)) {
         global $color, $mailbox;
         /* removed urldecode because $_GET is auto urldecoded ??? */
@@ -417,7 +418,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
                 global $oTemplate;
                 $oTemplate->assign('iframe_url', $iframeurl);
                 $oTemplate->assign('html_body', $html_body);
-                
+
                 $body = $oTemplate->fetch('read_html_iframe.tpl');
             } else {
                 // old way of html rendering
@@ -472,7 +473,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
  * Generate attachments array for passing to templates.  Separated from
  * formatAttachments() below so that the same array can be given to the
  * print-friendly version.
- * 
+ *
  * @since 1.5.2
  * @param object $message SquirrelMail message object
  * @param array $exclude_id message parts that are not attachments.
@@ -496,7 +497,7 @@ function buildAttachmentArray($message, $exclude_id, $mailbox, $id) {
         $links['download link']['text'] = _("Download");
         $links['download link']['href'] = $base_uri .
             "src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;ent_id=$ent";
-            
+
         if ($type0 =='message' && $type1 == 'rfc822') {
             $default_page = $base_uri  . 'src/read_body.php';
             $rfc822_header = $att->rfc822_header;
@@ -545,6 +546,7 @@ function buildAttachmentArray($message, $exclude_id, $mailbox, $id) {
         if ($type0 == 'application' && $type1 == 'octet-stream') {
             $defaultlink .= '&amp;absolute_dl=true';
         }
+
         /* This executes the attachment hook with a specific MIME-type.
          * If that doesn't have results, it tries if there's a rule
          * for a more generic type. Finally, a hook for ALL attachment
@@ -559,8 +561,8 @@ function buildAttachmentArray($message, $exclude_id, $mailbox, $id) {
                     $display_filename, $where, $what);
         }
         $hookresults = do_hook("attachment */*", $hookresults[1],
-                $startMessage, $id, $urlMailbox, $ent, $hookresults[6], 
-                $display_filename, $where, $what);
+            $startMessage, $id, $urlMailbox, $ent, $hookresults[6],
+            $display_filename, $where, $what);
 
         $links = $hookresults[1];
         $defaultlink = $hookresults[6];
@@ -579,17 +581,17 @@ function buildAttachmentArray($message, $exclude_id, $mailbox, $id) {
                 continue;
             if (empty($val['text']) && empty($val['extra']))
                 continue;
-                
+
             $temp = array();
             $temp['HREF'] = $val['href'];
             $temp['Text'] = (empty($val['text']) ? '' : $val['text']) . (empty($val['extra']) ? '' : $val['extra']);
             $this_attachment['OtherLinks'][] = $temp;
         }
         $attachments[] = $this_attachment;
-        
+
         unset($links);
     }
-    
+
     return $attachments;
 }
 
@@ -610,7 +612,7 @@ function buildAttachmentArray($message, $exclude_id, $mailbox, $id) {
  */
 function formatAttachments($message, $exclude_id, $mailbox, $id) {
     global $oTemplate;
-    
+
     $attach = buildAttachmentArray($message, $exclude_id, $mailbox, $id);
 
     $oTemplate->assign('attachments', $attach);
@@ -1125,6 +1127,11 @@ function sq_defang(&$attvalue){
         return;
     }
     $m = false;
+    // before deent, translate the dangerous unicode characters and ... to safe values
+    // otherwise the regular expressions do not match.
+
+
+
     do {
         $m = false;
         $m = $m || sq_deent($attvalue, '/\&#0*(\d+);*/s');
@@ -1148,6 +1155,75 @@ function sq_unspace(&$attvalue){
         $attvalue = str_replace(Array("\t", "\r", "\n", "\0", " "),
                                 Array('',   '',   '',   '',   ''), $attvalue);
     }
+}
+
+/**
+ * Translate all dangerous Unicode or Shift_JIS characters which are acepted by
+ * IE as regular characters.
+ *
+ * @param  attvalue  The attribute value before dangerous characters are translated.
+ * @return attvalue  Nothing, modifies a reference value.
+ * @author Marc Groot Koerkamp.
+ */
+function sq_fixIE_idiocy(&$attvalue) {
+    // remove NUL
+    $attvalue = str_replace("\0", "", $attvalue);
+    // remove comments
+    $attvalue = preg_replace("/(\/\*.*?\*\/)/","",$attvalue);
+
+    // IE has the evil habit of excepting every possible value for the attribute expression
+    // The table below contain characters which are valid in IE if they are used in the "expression"
+    // attribute value.
+    $aDangerousCharsReplacementTable = array(
+                        array('&#x029F;', '&#0671;' ,/* L UNICODE IPA Extension */
+                              '&#x0280;', '&#0640;' ,/* R UNICODE IPA Extension */
+                              '&#x0274;', '&#0628;' ,/* N UNICODE IPA Extension */
+                              '&#xFF25;', '&#65317' ,/* Unicode FULLWIDTH LATIN CAPITAL LETTER E */
+                              '&#xFF45;', '&#65349' ,/* Unicode FULLWIDTH LATIN SMALL LETTER E */
+                              '&#xFF38;', '&#65336;',/* Unicode FULLWIDTH LATIN CAPITAL LETTER X */
+                              '&#xFF58;', '&#65368;',/* Unicode FULLWIDTH LATIN SMALL LETTER X */
+                              '&#xFF30;', '&#65328;',/* Unicode FULLWIDTH LATIN CAPITAL LETTER P */
+                              '&#xFF50;', '&#65360;',/* Unicode FULLWIDTH LATIN SMALL LETTER P */
+                              '&#xFF32;', '&#65330;',/* Unicode FULLWIDTH LATIN CAPITAL LETTER R */
+                              '&#xFF52;', '&#65362;',/* Unicode FULLWIDTH LATIN SMALL LETTER R */
+                              '&#xFF33;', '&#65331;',/* Unicode FULLWIDTH LATIN CAPITAL LETTER S */
+                              '&#xFF53;', '&#65363;',/* Unicode FULLWIDTH LATIN SMALL LETTER S */
+                              '&#xFF29;', '&#65321;',/* Unicode FULLWIDTH LATIN CAPITAL LETTER I */
+                              '&#xFF49;', '&#65353;',/* Unicode FULLWIDTH LATIN SMALL LETTER I */
+                              '&#xFF2F;', '&#65327;',/* Unicode FULLWIDTH LATIN CAPITAL LETTER O */
+                              '&#xFF4F;', '&#65359;',/* Unicode FULLWIDTH LATIN SMALL LETTER O */
+                              '&#xFF2E;', '&#65326;',/* Unicode FULLWIDTH LATIN CAPITAL LETTER N */
+                              '&#xFF4E;', '&#65358;',/* Unicode FULLWIDTH LATIN SMALL LETTER N */
+                              '&#xFF2C;', '&#65324;',/* Unicode FULLWIDTH LATIN CAPITAL LETTER L */
+                              '&#xFF4C;', '&#65356;',/* Unicode FULLWIDTH LATIN SMALL LETTER L */
+                              '&#xFF35;', '&#65333;',/* Unicode FULLWIDTH LATIN CAPITAL LETTER U */
+                              '&#xFF55;', '&#65365;',/* Unicode FULLWIDTH LATIN SMALL LETTER U */
+                              '&#x207F;', '&#8319;' ,/* Unicode SUPERSCRIPT LATIN SMALL LETTER N */
+                              '&#x8264;', /* Shift JIS FULLWIDTH LATIN CAPITAL LETTER E */   // in unicode this is some chinese char range
+                              '&#x8285;', /* Shift JIS FULLWIDTH LATIN SMALL LETTER E */
+                              '&#x8277;', /* Shift JIS FULLWIDTH LATIN CAPITAL LETTER X */
+                              '&#x8298;', /* Shift JIS FULLWIDTH LATIN SMALL LETTER X */
+                              '&#x826F;', /* Shift JIS FULLWIDTH LATIN CAPITAL LETTER P */
+                              '&#x8290;', /* Shift JIS FULLWIDTH LATIN SMALL LETTER P */
+                              '&#x8271;', /* Shift JIS FULLWIDTH LATIN CAPITAL LETTER R */
+                              '&#x8292;', /* Shift JIS FULLWIDTH LATIN SMALL LETTER R */
+                              '&#x8272;', /* Shift JIS FULLWIDTH LATIN CAPITAL LETTER S */
+                              '&#x8293;', /* Shift JIS FULLWIDTH LATIN SMALL LETTER S */
+                              '&#x8268;', /* Shift JIS FULLWIDTH LATIN CAPITAL LETTER I */
+                              '&#x8289;', /* Shift JIS FULLWIDTH LATIN SMALL LETTER I */
+                              '&#x826E;', /* Shift JIS FULLWIDTH LATIN CAPITAL LETTER O */
+                              '&#x828F;', /* Shift JIS FULLWIDTH LATIN SMALL LETTER O */
+                              '&#x826D;', /* Shift JIS FULLWIDTH LATIN CAPITAL LETTER N */
+                              '&#x828E;'), /* Shift JIS FULLWIDTH LATIN SMALL LETTER N */
+                       array('l', 'l', 'r','r','n','n',
+                             'E','E','e','e','X','X','x','x','P','P','p','p','S','S','s','s','I','I',
+                             'i','i','O','O','o','o','N','N','n','n','L','L','l','l','U','U','u','u','n',
+                             'E','e','X','x','P','p','S','s','I','i','O','o','N','n'));
+    $attvalue = str_replace($aDangerousCharsReplacementTable[0],$aDangerousCharsReplacementTable[1],$attvalue);
+
+    // Escapes are usefull for special characters like "{}[]()'&. In other cases they are
+    // used for XSS
+    $attvalue = preg_replace("/(\\\\)([a-zA-Z]{1})/",'$2',$attvalue);
 }
 
 /**
@@ -1563,6 +1639,8 @@ function sq_getnxtag($body, $offset){
 function sq_deent(&$attvalue, $regex, $hex=false){
     $me = 'sq_deent';
     $ret_match = false;
+    // remove comments
+    //$attvalue = preg_replace("/(\/\*.*\*\/)/","",$attvalue);
     preg_match_all($regex, $attvalue, $matches);
     if (is_array($matches) && sizeof($matches[0]) > 0){
         $repl = Array();
@@ -1617,9 +1695,22 @@ function sq_fixatts($tagname,
             }
         }
         /**
+         * Workaround for IE quirks
+         */
+        sq_fixIE_idiocy($attvalue);
+
+        /**
          * Remove any backslashes, entities, and extraneous whitespace.
          */
+
+        $oldattvalue = $attvalue;
         sq_defang($attvalue);
+        if ($attname == 'style' && $attvalue !== $oldattvalue) {
+            // entities are used in the attribute value. In 99% of the cases it's there as XSS
+            // i.e.<div style="{ left:exp&#x0280;essio&#x0274;( alert('XSS') ) }">
+            $attvalue = "idiocy";
+            $attary{$attname} = $attvalue;
+        }
         sq_unspace($attvalue);
 
         /**
@@ -1699,7 +1790,6 @@ function sq_fixatts($tagname,
 function sq_fixstyle($body, $pos, $message, $id, $mailbox){
     global $view_unsafe_images;
     $me = 'sq_fixstyle';
-
     // workaround for </style> in between comments
     $iCurrentPos = $pos;
     $content = '';
@@ -1740,6 +1830,9 @@ function sq_fixstyle($body, $pos, $message, $id, $mailbox){
                     // possible comment
                     if (isset($body{$i+2}) && substr($body,$i,3) == '!--') {
                         $i = strpos($body,'-->',$i+3);
+                        if ($i === false) { // no end comment
+                            $i = strlen($body);
+                        }
                         $sToken = '';
                     }
                 } else {
@@ -1759,6 +1852,8 @@ function sq_fixstyle($body, $pos, $message, $id, $mailbox){
         return array(FALSE, strlen($body));
     }
 
+
+
     /**
     * First look for general BODY style declaration, which would be
     * like so:
@@ -1772,9 +1867,15 @@ function sq_fixstyle($body, $pos, $message, $id, $mailbox){
     */
     //   $content = preg_replace("|url\s*\(\s*([\'\"])\s*\S+script\s*:.*?([\'\"])\s*\)|si",
     //                           "url(\\1$secremoveimg\\2)", $content);
-    // remove NUL
-    $content = str_replace("\0", "", $content);
+
+    // IE Sucks hard. We have a special function for it.
+    sq_fixIE_idiocy($content);
+
+    // remove @import line
+    $content = preg_replace("/^\s*(@import.*)$/mi","\n<!-- @import rules forbidden -->\n",$content);
+
     // translate ur\l and variations (IE parses that)
+    // TODO check if the sq_fixIE_idiocy function already handles this.
     $content = preg_replace("/(\\\\)?u(\\\\)?r(\\\\)?l(\\\\)?/i", 'url', $content);
     // NB I insert NUL characters to keep to avoid an infinite loop. They are removed after the loop.
     while (preg_match("/url\s*\(\s*[\'\"]?([^:]+):(.*)?[\'\"]?\s*\)/si", $content, $matches)) {
@@ -1833,8 +1934,10 @@ function sq_fixstyle($body, $pos, $message, $id, $mailbox){
                     '/expression/i',
                     '/behaviou*r/i',
                     '/binding/i',
-                    '/include-source/i');
-    $replace = Array('','idiocy', 'idiocy', 'idiocy', 'idiocy');
+                    '/include-source/i',
+                    '/javascript/i',
+                    '/script/i');
+    $replace = Array('','idiocy', 'idiocy', 'idiocy', 'idiocy', 'idiocy', 'idiocy');
     $contentNew = preg_replace($match, $replace, $contentTemp);
     if ($contentNew !== $contentTemp) {
         // insecure css declarations are used. From now on we don't care
@@ -2152,7 +2255,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
            $has_unsafe_images;
     /**
      * Don't display attached images in HTML mode.
-     * 
+     *
      * SB: why?
      */
     $attachment_common_show_images = false;
@@ -2447,7 +2550,6 @@ function SendDownloadHeaders($type0, $type1, $filename, $force, $filesize=0) {
 
             // This works for most types, but doesn't work with Word files
             header ("Content-Type: application/download; name=\"$filename\"");
-            // This is to prevent IE for MIME sniffing and auto open a file in IE
             header ("Content-Type: application/force-download; name=\"$filename\"");
             // These are spares, just in case.  :-)
             //header("Content-Type: $type0/$type1; name=\"$filename\"");
