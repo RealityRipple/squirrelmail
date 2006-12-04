@@ -163,6 +163,9 @@ Version 1.5.2 - CVS
     and mailto functionality [CVE-2006-6142].
   - Security: work around an issue in Internet Explorer that would guess
     the mime type of a file based on contents, not Content-Type header.
+  - Security: Multiple IE cross site scripting issues related to the
+    generous parsing of the words 'expression' and 'url' by IE.
+  - Security: Removing @import when sanitizing html mail.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
