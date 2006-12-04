@@ -1158,7 +1158,7 @@ function sq_unspace(&$attvalue){
 }
 
 /**
- * Translate all dangerous Unicode or Shift_JIS characters which are acepted by
+ * Translate all dangerous Unicode or Shift_JIS characters which are accepted by
  * IE as regular characters.
  *
  * @param  attvalue  The attribute value before dangerous characters are translated.
@@ -1171,8 +1171,8 @@ function sq_fixIE_idiocy(&$attvalue) {
     // remove comments
     $attvalue = preg_replace("/(\/\*.*?\*\/)/","",$attvalue);
 
-    // IE has the evil habit of excepting every possible value for the attribute expression
-    // The table below contain characters which are valid in IE if they are used in the "expression"
+    // IE has the evil habit of accepting every possible value for the attribute expression.
+    // The table below contains characters which are parsed by IE if they are used in the "expression"
     // attribute value.
     $aDangerousCharsReplacementTable = array(
                         array('&#x029F;', '&#0671;' ,/* L UNICODE IPA Extension */
@@ -1199,7 +1199,7 @@ function sq_fixIE_idiocy(&$attvalue) {
                               '&#xFF35;', '&#65333;',/* Unicode FULLWIDTH LATIN CAPITAL LETTER U */
                               '&#xFF55;', '&#65365;',/* Unicode FULLWIDTH LATIN SMALL LETTER U */
                               '&#x207F;', '&#8319;' ,/* Unicode SUPERSCRIPT LATIN SMALL LETTER N */
-                              '&#x8264;', /* Shift JIS FULLWIDTH LATIN CAPITAL LETTER E */   // in unicode this is some chinese char range
+                              '&#x8264;', /* Shift JIS FULLWIDTH LATIN CAPITAL LETTER E */   // in unicode this is some Chinese char range
                               '&#x8285;', /* Shift JIS FULLWIDTH LATIN SMALL LETTER E */
                               '&#x8277;', /* Shift JIS FULLWIDTH LATIN CAPITAL LETTER X */
                               '&#x8298;', /* Shift JIS FULLWIDTH LATIN SMALL LETTER X */
@@ -1221,8 +1221,8 @@ function sq_fixIE_idiocy(&$attvalue) {
                              'E','e','X','x','P','p','S','s','I','i','O','o','N','n'));
     $attvalue = str_replace($aDangerousCharsReplacementTable[0],$aDangerousCharsReplacementTable[1],$attvalue);
 
-    // Escapes are usefull for special characters like "{}[]()'&. In other cases they are
-    // used for XSS
+    // Escapes are useful for special characters like "{}[]()'&. In other cases they are
+    // used for XSS.
     $attvalue = preg_replace("/(\\\\)([a-zA-Z]{1})/",'$2',$attvalue);
 }
 
