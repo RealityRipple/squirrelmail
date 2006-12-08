@@ -50,6 +50,10 @@ foreach ($options as $option) {
         }
     }
 
+    echo " <tr>\n  <td colspan=\"2\" align=\"right\">\n"
+       . "   <input type=\"submit\" value=\"" . _("Submit") 
+       . "\" name=\"" . $submit_name . "\" />&nbsp;&nbsp;&nbsp;&nbsp;\n  </td>\n </tr>\n";
+
     echo "</table>\n";
 }
 ?>
