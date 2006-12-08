@@ -689,48 +689,4 @@ function create_option_groups($optgrps, $optvals) {
     return ($result);
 }
 
-/**
- * @param array $option_groups
- */
-function print_option_groups($option_groups) {
-    /* Print each option group. */
-    foreach ($option_groups as $next_optgrp) {
-        /* If it is not blank, print the name for this option group. */
-        if ($next_optgrp['name'] != '') {
-            echo html_tag( 'tr', "\n".
-                        html_tag( 'td',
-                            '<b>' . $next_optgrp['name'] . '</b>' ,
-                        'center' ,'', 'valign="middle" colspan="2" style="white-space: nowrap;"' )
-                    ) ."\n";
-        }
-
-        /* Print each option in this option group. */
-        foreach ($next_optgrp['options'] as $option) {
-            if ($option->type != SMOPT_TYPE_HIDDEN) {
-                echo html_tag( 'tr', "\n".
-                           html_tag( 'td', $option->caption . ':', 'right' ,'', 'valign="middle"' ) .
-                           html_tag( 'td', $option->createHTMLWidget(), 'left' )
-                       ) ."\n";
-            } else {
-                echo $option->createHTMLWidget();
-            }
-        }
-
-        /* Print an empty row after this option group. */
-        echo html_tag( 'tr',
-                   html_tag( 'td', '&nbsp;', 'left', '', 'colspan="2"' )
-                ) . "\n";
-    }
-}
-
-/**
- * Create submit button inside table row.
- * @param string $name
- */
-function OptionSubmit( $name ) {
-        echo html_tag( 'tr',
-                   html_tag( 'td', '<input type="submit" value="' . _("Submit") . '" name="' . $name . '" />&nbsp;&nbsp;&nbsp;&nbsp;', 'right', '', 'colspan="2"' )
-                ) . "\n";
-}
-
 // vim: et ts=4

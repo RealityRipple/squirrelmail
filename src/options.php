@@ -406,7 +406,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     /**
      * The variables below should not be needed by the template since all plugin
      * hooks are called here, not in the template.  If we find otherwise, these
-     * variables can be passed to the template.  Commenting out for not.
+     * variables can be passed to the template.  Commenting out for now.
      */
 /*
     $oTemplate->assign('max_refresh', isset($max_refresh) ? $max_refresh : NULL);
@@ -420,8 +420,10 @@ if ($optpage == SMOPT_PAGE_MAIN) {
      * END comment block
      */    
      
+    $oTemplate->assign('submit_name', $submit_name);
     $oTemplate->display('options.tpl');
 
+//FIXME: need to remove HTML from here!
     echo "  </td>\n" .
          " </tr>\n";
 
@@ -430,8 +432,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
         do_hook($inside_hook_name);
     }
 
-    /* Spit out a submit button. */
-    OptionSubmit($submit_name);
+//FIXME: need to remove HTML from here!
     echo "</table>\n" .
          "</form>\n";
 
