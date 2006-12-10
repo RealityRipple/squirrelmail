@@ -52,7 +52,7 @@ if (!isset($login_username)) {
 }
 
 if (!sqsession_is_registered('user_is_logged_in')) {
-    do_hook ('login_before');
+    do_hook('login_before', $null);
 
     $onetimepad = OneTimePadCreate(strlen($secretkey));
     $key = OneTimePadEncrypt($secretkey, $onetimepad);
@@ -116,7 +116,7 @@ if (!sqsession_is_registered('user_is_logged_in')) {
 
     $username = $login_username;
     sqsession_register ($username, 'username');
-    do_hook ('login_verified');
+    do_hook('login_verified', $null);
 }
 
 /* Set the login variables. */

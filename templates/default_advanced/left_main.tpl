@@ -274,7 +274,7 @@ extract($t);
 //-->
 </script>
 <div class="sqm_leftMain">
-<?php do_hook('left_main_before'); ?>
+<?php /* FIXME: no hooks in templates! */ global $null; do_hook('left_main_before', $null); ?>
 <div class="dtree">
 <table class="sqm_wrapperTable" cellspacing="0">
  <tr>

@@ -266,18 +266,18 @@ if ($showaddrlist) {
         
     $oTemplate->display('addressbook_list.tpl');
     
+//FIXME: Remove HTML from here!
     echo "</form>\n";
 }
 
 /* Display the "new address" form */
+//FIXME: Remove HTML from here!
 echo '<a name="AddAddress"></a>' . "\n";
 abook_create_form($form_url,'addaddr',_("Add to address book"),_("Add address"),$defdata);
 echo "</form>\n";
 
 /* Hook for extra address book blocks */
-echo "<!-- start of addressbook_bottom hook-->\n";
-do_hook('addressbook_bottom');
-echo "\n<!-- end of addressbook_bottom hook-->\n";
+do_hook('addressbook_bottom', $null);
 
 $oTemplate->display('footer.tpl');
 ?>

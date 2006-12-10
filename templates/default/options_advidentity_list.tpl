@@ -85,7 +85,7 @@ extract($t);
       <textarea name="newidentities[<?php echo $index; ?>][signature]" cols="50" rows="5"><?php echo $identity['Signature']; ?></textarea>
      </td>
     </tr>
-    <?php echo concat_hook_function('options_identities_table', array('', $identity['New'], $index)); ?>
+    <?php /* FIXME: No hooks in templates! */ echo concat_hook_function('options_identities_table', $temp=array('', &$identity['New'], &$index)); ?>
     <tr>
      <td colspan="2" class="actionButtons">
       <input type="submit" name="smaction[save][<?php echo $index; ?>]" value="<?php echo _("Save / Update"); ?>" />
@@ -101,7 +101,7 @@ extract($t);
       <input type="submit" name="smaction[move][<?php echo $index; ?>]" value="<?php echo _("Move Up"); ?>" />
             <?php
         }
-        echo concat_hook_function('options_identities_buttons', array($identity['New'], $index));
+        /* FIXME: No hooks in templates! */ echo concat_hook_function('options_identities_buttons', $temp=array(&$identity['New'], &$index));
       ?>
      </td>
     </tr>

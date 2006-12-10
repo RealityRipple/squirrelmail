@@ -343,7 +343,7 @@ if ($action == 'edit' || $action == 'add') {
     
     echo "</form>\n";
 }
-do_hook('options_highlight_bottom');
+do_hook('options_highlight_bottom', $null);
 
 $oTemplate->display('footer.tpl');
 ?>

@@ -267,7 +267,7 @@ if (isset($aMailbox['FORWARD_SESSION'])) {
     displayPageHeader($color, $mailbox);
 }
 
-do_hook('right_main_after_header');
+do_hook('right_main_after_header', $null);
 
 /* display a message to the user that their mail has been sent */
 if (isset($mail_sent) && $mail_sent == 'yes') {
@@ -322,7 +322,7 @@ if ($aMailbox['EXISTS'] > 0) {
     $oTemplate->display('empty_folder.tpl');
 }
 
-do_hook('right_main_bottom');
+do_hook('right_main_bottom', $null);
 sqimap_logout ($imapConnection);
 $oTemplate->display('footer.tpl');
 

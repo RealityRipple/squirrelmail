@@ -37,8 +37,7 @@ if (! sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
 
 $login_uri = 'login.php';
 
-$hook_results = do_hook('logout', $login_uri);
-if (!empty($hook_results[1])) $login_uri = $hook_results[1];
+do_hook('logout', $login_uri);
 
 sqsession_destroy();
 

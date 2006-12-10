@@ -214,5 +214,5 @@ extract($t);
   </td>
  </tr>
 </table>
-<?php do_hook('folders_bottom');  ?>
+<?php /* FIXME: no hooks in templates!! */ global $null; do_hook('folders_bottom', $null);  ?>
 </div>

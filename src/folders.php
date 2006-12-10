@@ -80,8 +80,8 @@ if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
             $td_str =  _("Unsubscribed successfully.");
             break;
         default:
-            // TODO: add hook for plugin action processing.
-            $td_str = '';
+// TODO: this is a new hook for plugin action processing that has not been TESTED.
+            $td_str = do_hook('folder_action', $action);
             break;
     }
 

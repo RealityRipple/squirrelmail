@@ -39,10 +39,4 @@ if ($nav_on_left) {
     $output .= $right_frame . $left_frame;
 }
 
-// Add the hook
-$ret = concat_hook_function('webmail_bottom', $output);
-if ($ret != '') {
-    $output = $ret;
-}
-
 echo $output ."\n</frameset>";

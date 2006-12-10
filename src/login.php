@@ -79,10 +79,11 @@ if($imap_auth_mech == 'login') {
     }
 }
 
-do_hook('login_cookie');
+do_hook('login_cookie', $null);
 
 $loginname_value = (sqGetGlobalVar('loginname', $loginname) ? htmlspecialchars($loginname) : '');
 
+//FIXME: should be part of the template, not the core!
 /* Output the javascript onload function. */
 $header = "<script type=\"text/javascript\">\n" .
           "<!--\n".
@@ -121,6 +122,8 @@ sqsetcookieflush();
 
 displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 
+
+//FIXME: need to remove *ALL* HTML from this file!
 
 /* If they don't have a logo, don't bother.. */
 $logo_str = '';
@@ -170,12 +173,12 @@ $oTemplate->assign('login_extra', $login_extra);
 
 echo '<body onLoad="squirrelmail_loginpage_onload()">'."\n";
 echo '<form action="redirect.php" method="post" onSubmit="document.forms[0].js_autodetect_results.value='. SMPREF_JS_ON .'">'."\n";
-do_hook('login_top');
+do_hook('login_top', $null);
 
 $oTemplate->display('login.tpl');
 
 echo "</form>\n";
-do_hook('login_bottom');
+do_hook('login_bottom', $null);
 
 // Turn off delayed error handling to make sure all errors are dumped.
 $oErrorHandler->setDelayedErrors(false);

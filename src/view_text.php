@@ -54,8 +54,7 @@ $unsafe_url = set_url_var($unsafe_url, 'view_unsafe_images', 1);
 
 $body = mime_fetch_body($imapConnection, $passed_id, $ent_id);
 $body = decodeBody($body, $encoding);
-$hookResults = do_hook('message_body', $body);
-$body = $hookResults[1];
+do_hook('message_body', $body);
 
 if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
     function_exists($languages[$squirrelmail_language]['XTRA_CODE'].'_decode')) {

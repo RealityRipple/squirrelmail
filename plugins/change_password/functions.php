@@ -85,11 +85,11 @@ function cpw_do_change()
 
     require_once(SM_PATH . 'plugins/change_password/backend/'.$cpw_backend.'.php');
 
-    $msgs = do_hook_function('change_password_dochange',
-        array (
-            'username' => $username,
-            'curpw' => $curpw,
-            'newpw' => $newpw
+    $msgs = do_hook('change_password_dochange',
+        $temp=array (
+            'username' => &$username,
+            'curpw' => &$curpw,
+            'newpw' => &$newpw
         ) );
 
     /* something bad happened, return */
