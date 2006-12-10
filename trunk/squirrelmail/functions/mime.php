@@ -374,8 +374,9 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
                 $body = call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_decode',$body);
             }
         }
-        $hookResults = do_hook("message_body", $body);
-        $body = $hookResults[1];
+
+        /* As of 1.5.2, $body is passed (and modified) by reference */
+        do_hook('message_body', $body);
 
         /* If there are other types that shouldn't be formatted, add
          * them here.
@@ -552,20 +553,32 @@ function buildAttachmentArray($message, $exclude_id, $mailbox, $id) {
          * for a more generic type. Finally, a hook for ALL attachment
          * types is run as well.
          */
-        $hookresults = do_hook("attachment $type0/$type1", $links,
-                $startMessage, $id, $urlMailbox, $ent, $defaultlink,
-                $display_filename, $where, $what);
-        if(count($hookresults[1]) <= 1) {
-            $hookresults = do_hook("attachment $type0/*", $links,
-                    $startMessage, $id, $urlMailbox, $ent, $defaultlink,
-                    $display_filename, $where, $what);
+        /* The API for this hook has changed as of 1.5.2 so that all plugin
+           arguments are passed in an array instead of each their own plugin
+           argument, and arguments are passed by reference, so instead of
+           returning any changes, changes should simply be made to the original
+           arguments themselves. */
+        do_hook("attachment $type0/$type1", $temp=array(&$links,
+                &$startMessage, &$id, &$urlMailbox, &$ent, &$defaultlink,
+                &$display_filename, &$where, &$what));
+        if(count($links) <= 1) {
+            /* The API for this hook has changed as of 1.5.2 so that all plugin
+               arguments are passed in an array instead of each their own plugin
+               argument, and arguments are passed by reference, so instead of
+               returning any changes, changes should simply be made to the original
+               arguments themselves. */
+            do_hook("attachment $type0/*", $temp=array(&$links,
+                    &$startMessage, &$id, &$urlMailbox, &$ent, &$defaultlink,
+                    &$display_filename, &$where, &$what));
         }
-        $hookresults = do_hook("attachment */*", $hookresults[1],
-            $startMessage, $id, $urlMailbox, $ent, $hookresults[6],
-            $display_filename, $where, $what);
-
-        $links = $hookresults[1];
-        $defaultlink = $hookresults[6];
+        /* The API for this hook has changed as of 1.5.2 so that all plugin
+           arguments are passed in an array instead of each their own plugin
+           argument, and arguments are passed by reference, so instead of
+           returning any changes, changes should simply be made to the original
+           arguments themselves. */
+        do_hook("attachment */*", $temp=array(&$links,
+                &$startMessage, &$id, &$urlMailbox, &$ent, &$defaultlink, 
+                &$display_filename, &$where, &$what));
 
         $this_attachment = array();
         $this_attachment['Name'] = decodeHeader($display_filename);
@@ -659,7 +672,7 @@ function decodeBody($body, $encoding) {
     $body = str_replace("\r\n", "\n", $body);
     $encoding = strtolower($encoding);
 
-    $encoding_handler = do_hook_function('decode_body', $encoding);
+    $encoding_handler = do_hook('decode_body', $encoding);
 
 
     // plugins get first shot at decoding the body

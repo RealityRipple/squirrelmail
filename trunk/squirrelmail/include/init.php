@@ -62,6 +62,13 @@ if ((bool) ini_get('register_globals') &&
 }
 
 /**
+ * Used as a dummy value, e.g., for passing as an empty
+ * hook argument.
+ */
+global $null; 
+$null = NULL;
+
+/**
  * [#1518885] session.use_cookies = off breaks SquirrelMail
  *
  * When session cookies are not used, all http redirects, meta refreshes, 
@@ -264,7 +271,7 @@ if (!$disable_plugins && file_exists(SM_PATH . 'config/plugin_hooks.php')) {
  * allow plugins to override main configuration; hook is placed
  * here to allow plugins to use session information to do their work
  */
-do_hook('config_override');
+do_hook('config_override', $null);
 
 /**
  * DISABLED.
@@ -297,14 +304,6 @@ if (! sqgetGlobalVar('squirrelmail_language',$squirrelmail_language,SQ_COOKIE)) 
 if (!isset($sInitLocation)) {
     $sInitLocation=NULL;
 }
-
-/**
- * Before 1.5.2 version hook was part of functions/constants.php.
- * After init layout changes, hook had to be moved because include/constants.php is
- * loaded before plugins are initialized.
- * @since 1.2.0
- */
-do_hook('loading_constants');
 
 switch ($sInitLocation) {
     case 'style': 
@@ -348,7 +347,7 @@ switch ($sInitLocation) {
         require(SM_PATH . 'functions/prefs.php');
         require(SM_PATH . 'functions/auth.php');
         /* hook loads custom prefs backend plugins */
-        $prefs_backend = do_hook_function('prefs_backend');
+        $prefs_backend = do_hook('prefs_backend', $null);
         if (isset($prefs_backend) && !empty($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
             require(SM_PATH . $prefs_backend);
         } elseif (isset($prefs_dsn) && !empty($prefs_dsn)) {
@@ -460,7 +459,7 @@ switch ($sInitLocation) {
         /* see 'redirect' case */
         require(SM_PATH . 'functions/prefs.php');
 
-        $prefs_backend = do_hook_function('prefs_backend');
+        $prefs_backend = do_hook('prefs_backend', $null);
         if (isset($prefs_backend) && !empty($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
             require(SM_PATH . $prefs_backend);
         } elseif (isset($prefs_dsn) && !empty($prefs_dsn)) {

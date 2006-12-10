@@ -424,4 +424,4 @@ if (! isset($use_smtp_tls)) {
     $use_smtp_tls = false;
 }
 
-do_hook('loading_prefs');
+do_hook('loading_prefs', $null);

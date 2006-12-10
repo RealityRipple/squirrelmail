@@ -1337,7 +1337,7 @@ FIXME: We could make the incoming array more complex so it can
 
             $aPluginOutput = array();
             $aPluginOutput = concat_hook_function('template_construct_' . $file,
-                                                  array($aPluginOutput, $this));
+                                                  $temp=array(&$aPluginOutput, &$this));
             $this->assign('plugin_output', $aPluginOutput);
 
             //$output = $this->apply_template($template);
@@ -1349,7 +1349,7 @@ FIXME: We could make the incoming array more complex so it can
             // using this hook will probably be rejected by the
             // SquirrelMail team.
             //
-            $output = filter_hook_function('template_output', $output);
+            do_hook('template_output', $output);
 
             return $output;
 

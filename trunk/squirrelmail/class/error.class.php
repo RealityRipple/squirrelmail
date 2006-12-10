@@ -177,7 +177,7 @@ class ErrorHandler {
                         }
                         if ($aError['category'] & SQM_ERROR_PLUGIN) {
                             $aErrorCategory[] = 'PLUGIN';
-                            do_hook_function('error_handler_plugin',$aError);
+                            do_hook('error_handler_plugin', $aError);
                             // plugin related error handling inside
                         }
                         //if ($aError['category'] & SQM_ERROR_X) {

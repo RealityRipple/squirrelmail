@@ -125,23 +125,23 @@ function attachment_common_link_text(&$Args) {
     /* If there is a text attachment, we would like to create a "View" button
        that links to the text attachment viewer.
 
-       $Args[1] = the array of actions
+       $Args[0] = the array of actions
 
        Use the name of this file for adding an action
-       $Args[1]['attachment_common'] = Array for href and text
+       $Args[0]['attachment_common'] = Array for href and text
 
-       $Args[1]['attachment_common']['text'] = What is displayed
-       $Args[1]['attachment_common']['href'] = Where it links to */
+       $Args[0]['attachment_common']['text'] = What is displayed
+       $Args[0]['attachment_common']['href'] = Where it links to */
     sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 
     // if htmlspecialchars() breaks something - find other way to encode & in url.
-    $Args[1]['attachment_common']['href'] = $base_uri  . 'src/view_text.php?'. htmlspecialchars($QUERY_STRING);
-    $Args[1]['attachment_common']['href'] =
-          set_url_var($Args[1]['attachment_common']['href'],
-          'ent_id',$Args[5]);
+    $Args[0]['attachment_common']['href'] = $base_uri  . 'src/view_text.php?'. htmlspecialchars($QUERY_STRING);
+    $Args[0]['attachment_common']['href'] =
+          set_url_var($Args[0]['attachment_common']['href'],
+          'ent_id',$Args[4]);
 
     /* The link that we created needs a name. */
-    $Args[1]['attachment_common']['text'] = _("View");
+    $Args[0]['attachment_common']['text'] = _("View");
 
     /* Each attachment has a filename on the left, which is a link.
        Where that link points to can be changed.  Just in case the link above
@@ -151,7 +151,7 @@ function attachment_common_link_text(&$Args) {
        This is a lot better in the image links, since the defaultLink will just
        download the image, but the one that we set it to will format the page
        to have an image tag in the center (looking a lot like this text viewer) */
-    $Args[6] = $Args[1]['attachment_common']['href'];
+    $Args[5] = $Args[1]['attachment_common']['href'];
 }
 
 /**
@@ -161,13 +161,13 @@ function attachment_common_link_text(&$Args) {
  */
 function attachment_common_link_message(&$Args) {
     global $base_uri;
-    $Args[1]['attachment_common']['href'] = $base_uri  . 'src/read_body.php?startMessage=' .
-        $Args[2] . '&amp;passed_id=' . $Args[3] . '&amp;mailbox=' . $Args[4] .
-        '&amp;passed_ent_id=' . $Args[5] . '&amp;override_type0=message&amp;override_type1=rfc822';
+    $Args[0]['attachment_common']['href'] = $base_uri  . 'src/read_body.php?startMessage=' .
+        $Args[1] . '&amp;passed_id=' . $Args[2] . '&amp;mailbox=' . $Args[3] .
+        '&amp;passed_ent_id=' . $Args[4] . '&amp;override_type0=message&amp;override_type1=rfc822';
 
-    $Args[1]['attachment_common']['text'] = _("View");
+    $Args[0]['attachment_common']['text'] = _("View");
 
-    $Args[6] = $Args[1]['attachment_common']['href'];
+    $Args[5] = $Args[0]['attachment_common']['href'];
 }
 
 /**
@@ -179,17 +179,17 @@ function attachment_common_link_html(&$Args) {
     global $base_uri;
     sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 
-    $Args[1]['attachment_common']['href'] = $base_uri  . 'src/view_text.php?'. htmlspecialchars($QUERY_STRING).
+    $Args[0]['attachment_common']['href'] = $base_uri  . 'src/view_text.php?'. htmlspecialchars($QUERY_STRING).
         /* why use the overridetype? can this be removed */
         /* override_type might be needed only when we want view other type of messages as html */
        '&amp;override_type0=text&amp;override_type1=html';
-    $Args[1]['attachment_common']['href'] =
-          set_url_var($Args[1]['attachment_common']['href'],
-          'ent_id',$Args[5]);
+    $Args[0]['attachment_common']['href'] =
+          set_url_var($Args[0]['attachment_common']['href'],
+          'ent_id',$Args[4]);
 
-    $Args[1]['attachment_common']['text'] = _("View");
+    $Args[0]['attachment_common']['text'] = _("View");
 
-    $Args[6] = $Args[1]['attachment_common']['href'];
+    $Args[5] = $Args[0]['attachment_common']['href'];
 }
 
 /**
@@ -202,22 +202,22 @@ function attachment_common_link_image(&$Args) {
 
     sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 
-    $info['passed_id'] = $Args[3];
-    $info['mailbox'] = $Args[4];
-    $info['ent_id'] = $Args[5];
-    $info['name'] = $Args[7];
-    $info['download_href'] = isset($Args[1]['download link']) ? $Args[1]['download link']['href'] : '';
+    $info['passed_id'] = $Args[2];
+    $info['mailbox'] = $Args[3];
+    $info['ent_id'] = $Args[4];
+    $info['name'] = $Args[6];
+    $info['download_href'] = isset($Args[0]['download link']) ? $Args[0]['download link']['href'] : '';
     
     $attachment_common_show_images_list[] = $info;
 
-    $Args[1]['attachment_common']['href'] = $base_uri  . 'src/image.php?'. htmlspecialchars($QUERY_STRING);
-    $Args[1]['attachment_common']['href'] =
-          set_url_var($Args[1]['attachment_common']['href'],
-          'ent_id',$Args[5]);
+    $Args[0]['attachment_common']['href'] = $base_uri  . 'src/image.php?'. htmlspecialchars($QUERY_STRING);
+    $Args[0]['attachment_common']['href'] =
+          set_url_var($Args[0]['attachment_common']['href'],
+          'ent_id',$Args[4]);
 
-    $Args[1]['attachment_common']['text'] = _("View");
+    $Args[0]['attachment_common']['text'] = _("View");
 
-    $Args[6] = $Args[1]['attachment_common']['href'];
+    $Args[5] = $Args[0]['attachment_common']['href'];
 }
 
 /**
@@ -229,14 +229,14 @@ function attachment_common_link_vcard(&$Args) {
     global $base_uri;
     sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 
-    $Args[1]['attachment_common']['href'] = $base_uri  . 'src/vcard.php?'. htmlspecialchars($QUERY_STRING);
-    $Args[1]['attachment_common']['href'] =
-          set_url_var($Args[1]['attachment_common']['href'],
-          'ent_id',$Args[5]);
+    $Args[0]['attachment_common']['href'] = $base_uri  . 'src/vcard.php?'. htmlspecialchars($QUERY_STRING);
+    $Args[0]['attachment_common']['href'] =
+          set_url_var($Args[0]['attachment_common']['href'],
+          'ent_id',$Args[4]);
 
-    $Args[1]['attachment_common']['text'] = _("View Business Card");
+    $Args[0]['attachment_common']['text'] = _("View Business Card");
 
-    $Args[6] = $Args[1]['attachment_common']['href'];
+    $Args[5] = $Args[0]['attachment_common']['href'];
 }
 
 /**
@@ -246,22 +246,19 @@ function attachment_common_link_vcard(&$Args) {
  * @since 1.2.0
  */
 function attachment_common_octet_stream(&$Args) {
-    global $FileExtensionToMimeType;
+    global $FileExtensionToMimeType, $null;
 
-    do_hook('attachment_common-load_mime_types');
+    do_hook('attachment_common-load_mime_types', $null);
 
-    ereg('\\.([^\\.]+)$', $Args[7], $Regs);
+    ereg('\\.([^\\.]+)$', $Args[6], $Regs);
 
     $Ext = strtolower($Regs[1]);
 
     if ($Ext == '' || ! isset($FileExtensionToMimeType[$Ext]))
         return;
 
-    $Ret = do_hook('attachment ' . $FileExtensionToMimeType[$Ext],
-        $Args[1], $Args[2], $Args[3], $Args[4], $Args[5], $Args[6],
-        $Args[7], $Args[8], $Args[9]);
+    do_hook('attachment ' . $FileExtensionToMimeType[$Ext],
+        $temp=array(&$Args[0], &$Args[1], &$Args[2], &$Args[3], &$Args[4], &$Args[5],
+        &$Args[6], &$Args[7], &$Args[8]));
 
-    foreach ($Ret as $a => $b) {
-        $Args[$a] = $b;
-    }
 }

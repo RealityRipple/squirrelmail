@@ -233,7 +233,7 @@ function isSpecialMailbox($box,$include_subs=true) {
              isDraftMailbox($box,$include_subs) );
 
     if ( !$ret ) {
-        $ret = boolean_hook_function('special_mailbox',$box,1);
+        $ret = boolean_hook_function('special_mailbox', $box, 1);
     }
     return $ret;
 }
@@ -486,7 +486,7 @@ function sqimap_mailbox_delete ($imap_stream, $mailbox) {
             // subscribe again
             sqimap_subscribe ($imap_stream, $mailbox);
         } else {
-            do_hook_function('rename_or_delete_folder', $args = array($mailbox, 'delete', ''));
+            do_hook('rename_or_delete_folder', $temp=array(&$mailbox, 'delete', ''));
             removePref($data_dir, $username, "thread_$mailbox");
             removePref($data_dir, $username, "collapse_folder_$mailbox");
         }
@@ -541,7 +541,7 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
         sqimap_subscribe($imap_stream, $new_name.$postfix);
         setPref($data_dir, $username, 'thread_'.$new_name.$postfix, $oldpref_thread);
         setPref($data_dir, $username, 'collapse_folder_'.$new_name.$postfix, $oldpref_collapse);
-        do_hook_function('rename_or_delete_folder',$args = array($old_name, 'rename', $new_name));
+        do_hook('rename_or_delete_folder', $temp=array(&$old_name, 'rename', &$new_name));
         $l = strlen( $old_name ) + 1;
         $p = 'unformatted';
 
@@ -567,8 +567,7 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
                 }
                 setPref($data_dir, $username, 'thread_'.$new_sub, $oldpref_thread);
                 setPref($data_dir, $username, 'collapse_folder_'.$new_sub, $oldpref_collapse);
-                do_hook_function('rename_or_delete_folder',
-                                 $args = array($box[$p], 'rename', $new_sub));
+                do_hook('rename_or_delete_folder', $temp=array(&$box[$p], 'rename', &$new_sub));
             }
         }
     }
@@ -1381,7 +1380,7 @@ function sqimap_get_status_mbx_tree($imap_stream,&$mbx_tree) {
          {
               $hook_status['MAILBOX']=$oMbx->mailboxname_full;
               $hook_status['CALLER']='sqimap_get_status_mbx_tree'; // helps w/ debugging
-              do_hook_function('folder_status',$hook_status);
+              do_hook('folder_status', $hook_status);
          }
     }
 }

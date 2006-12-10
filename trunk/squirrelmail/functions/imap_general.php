@@ -1279,7 +1279,7 @@ function sqimap_status_messages ($imap_stream, $mailbox,
     if (!empty($hook_status)) {
          $hook_status['MAILBOX']=$mailbox;
          $hook_status['CALLER']='sqimap_status_messages';
-         do_hook_function('folder_status',$hook_status);
+         do_hook('folder_status', $hook_status);
     }
     return $status;
 }
