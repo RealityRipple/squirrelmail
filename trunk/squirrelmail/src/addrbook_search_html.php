@@ -114,7 +114,7 @@ $oTemplate->assign('backends', getBackends());
 $oTemplate->display('addressbook_search_form.tpl');
 
 echo "</form>\n";
-do_hook('addrbook_html_search_below');
+do_hook('addrbook_html_search_below', $null);
 /* End search form */
 
 /* List addresses. Show personal addressbook */

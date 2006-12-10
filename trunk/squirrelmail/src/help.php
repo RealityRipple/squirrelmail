@@ -92,7 +92,7 @@ function get_info($doc, $pos) {
 
 /**************[ END HELP FUNCTIONS ]******************/
 
-do_hook('help_top');
+do_hook('help_top', $null);
 
 if (!isset($squirrelmail_language)) {
     $squirrelmail_language = 'en_US';
@@ -160,7 +160,7 @@ if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
     }
 
     // Provide hook for external help scripts.
-    do_hook('help_chapter');
+    do_hook('help_chapter', $null);
  
     $new_toc = array();
     foreach ($toc as $ch) {
@@ -234,7 +234,7 @@ if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
     $oTemplate->display('help_chapter.tpl');
 }
 
-do_hook('help_bottom');
+do_hook('help_bottom', $null);
 
 $oTemplate->display('footer.tpl');
 ?>

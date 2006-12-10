@@ -1390,7 +1390,7 @@ if (isset($note)) {
     $oTemplate->display('note.tpl');
 }
 
-do_hook('search_before_form');
+do_hook('search_before_form', $null);
 
 if (!$search_silent) {
     asearch_print_saved($boxes);
@@ -1428,7 +1428,7 @@ if (!$search_silent) {
     }
 }
 
-do_hook('search_after_form');
+do_hook('search_after_form', $null);
 
 if ($submit == $search_button_text) {
     $msgsfound = false;
@@ -1630,7 +1630,7 @@ if ($submit == $search_button_text) {
     }
 }
 
-do_hook('search_bottom');
+do_hook('search_bottom', $null);
 sqimap_logout($imapConnection);
 
 $oTemplate->display('footer.tpl');

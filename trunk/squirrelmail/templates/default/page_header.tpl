@@ -81,7 +81,7 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
    <?php echo $options_link; ?>&nbsp;&nbsp;
    <?php echo $search_link; ?>&nbsp;&nbsp;
    <?php echo $help_link; ?>&nbsp;&nbsp;
-   <?php do_hook('menuline'); ?>
+   <?php /* FIXME: no hooks in templates!! */ global $null; do_hook('menuline', $null); ?>
   </td>
   <?php echo $sm_attribute_str."\n"; ?>
  </tr>

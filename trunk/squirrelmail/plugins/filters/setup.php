@@ -22,7 +22,7 @@ function squirrelmail_plugin_init_filters() {
     $squirrelmail_plugin_hooks['optpage_register_block']['filters'] = 'filters_optpage_register_block_hook';
     $squirrelmail_plugin_hooks['special_mailbox']['filters'] = 'filters_special_mailbox';
     $squirrelmail_plugin_hooks['rename_or_delete_folder']['filters'] = 'update_for_folder_hook';
-    $squirrelmail_plugin_hooks['webmail_bottom']['filters'] = 'start_filters_hook';
+    $squirrelmail_plugin_hooks['template_construct_login_webmail.tpl']['filters'] = 'start_filters_hook';
     $squirrelmail_plugin_hooks['folder_status']['filters'] = 'filters_folder_status';
 }
 

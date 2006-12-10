@@ -110,7 +110,7 @@ switch($right_frame) {
 displayHtmlHeader($org_title, '', false, true);
 $oErrorHandler->setDelayedErrors(true);
 
-do_hook('webmail_top');
+do_hook('webmail_top', $null);
 
 $oTemplate->assign('nav_size', $left_size);
 $oTemplate->assign('nav_on_left', $location_of_bar=='left');

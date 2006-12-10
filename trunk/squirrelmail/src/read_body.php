@@ -610,7 +610,8 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
         $oTemplate->display('read_menubar_nav.tpl');
     }
     
-    do_hook('read_body_menu_bottom');
+    global $null;
+    do_hook('read_body_menu_bottom', $null);
 }
 
 function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
@@ -897,7 +898,7 @@ if (isset($sendreceipt)) {
 /***********************************************/
 
 $messagebody = '';
-do_hook('read_body_top');
+do_hook('read_body_top', $null);
 if ($show_html_default == 1) {
     $ent_ar = $message->findDisplayEntity(array());
 } else {
@@ -950,7 +951,7 @@ if ($attachment_common_show_images && is_array($attachment_common_show_images_li
 
 formatMenuBar($aMailbox, $passed_id, $passed_ent_id, $message, false, FALSE);
 
-do_hook('read_body_bottom');
+do_hook('read_body_bottom', $null);
 sqimap_logout($imapConnection);
 $oTemplate->display('footer.tpl');
 ?>

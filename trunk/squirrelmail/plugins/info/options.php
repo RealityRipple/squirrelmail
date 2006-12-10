@@ -203,6 +203,6 @@ sqimap_logout($imap_stream);
  *
  * Hook allows attaching plugin to bottom of info plugin
  */
-do_hook('info_bottom');
+do_hook('info_bottom', $null);
 ?>
 </body></html>

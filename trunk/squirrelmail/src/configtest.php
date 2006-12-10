@@ -328,10 +328,10 @@ if (isset($plugins[0])) {
         do_err($plugin_load_error);
     }
     /**
-     * Hook is added in 1.5.2. Plugins should print error message and return true
-     * if there is an error in plugin.
+     * This hook was added in 1.5.2. Each plugins should print an error 
+     * message and return TRUE if there are any errors in its setup/configuration.
      */
-    $plugin_err = boolean_hook_function('configtest');
+    $plugin_err = boolean_hook_function('configtest', $null);
     if($plugin_err) {
         do_err('Some plugin tests failed.');
     } else {

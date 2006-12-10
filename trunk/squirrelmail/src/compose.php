@@ -491,7 +491,10 @@ if ($send) {
 
         $Result = deliverMessage($composeMessage);
 
-        do_hook('compose_send_after', $Result, $composeMessage);
+        // NOTE: this hook changed in 1.5.2 from sending $Result and 
+        //       $composeMessage as args #2 and #3 to being in an array
+        //       under arg #2
+        do_hook('compose_send_after', $temp=array(&$Result, &$composeMessage));
         if (! $Result) {
             showInputForm($session);
             exit();
@@ -1107,7 +1110,8 @@ function showInputForm ($session, $values=false) {
         'enctype="multipart/form-data"';
 
     $compose_onsubmit = array();
-    do_hook('compose_form');
+    global $null;
+    do_hook('compose_form', $null);
 
     // Plugins that use compose_form hook can add an array entry
     // to the globally scoped $compose_onsubmit; we add them up
@@ -1300,7 +1304,7 @@ function showInputForm ($session, $values=false) {
             . "</p>\r\n";
     }
 
-    do_hook('compose_bottom');
+    do_hook('compose_bottom', $null);
 
     if ($compose_new_win=='1') {
         $oTemplate->display('compose_newwin_close.tpl');
@@ -1550,12 +1554,9 @@ function deliverMessage($composeMessage, $draft=false) {
     $composeMessage->rfc822_header = $rfc822_header;
     
     /* Here you can modify the message structure just before we hand
-       it over to deliver */
-    $hookReturn = do_hook('compose_send', $composeMessage);
-    /* Get any changes made by plugins to $composeMessage. */
-    if ( is_object($hookReturn[1]) ) {
-        $composeMessage = $hookReturn[1];
-    }
+       it over to deliver; plugin authors note that $composeMessage
+       is sent and modified by reference since 1.5.2 */
+    do_hook('compose_send', $composeMessage);
 
     if (!$useSendmail && !$draft) {
         require_once(SM_PATH . 'class/deliver/Deliver_SMTP.class.php');

@@ -19,7 +19,9 @@ include_once(SM_PATH . 'templates/util_message_list.php');
 /* retrieve the template vars */
 extract($t);
 
-do_hook('mailbox_index_before');
+//FIXME: no hooks in templates!
+global $null;
+do_hook('mailbox_index_before', $null);
 
 /**
  * Calculate string "Viewing message x to y (z total)"
@@ -201,7 +203,8 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
 ?>
     </table>
 <?php
-    do_hook('mailbox_form_before');
+    //FIXME: no hooks in templates!
+    do_hook('mailbox_form_before', $null);
 ?>
     </td>
   </tr>
@@ -541,7 +544,7 @@ if ($class != 'even' && $class != 'odd')
       </tr>
       <tr>
         <td>
-        <?php do_hook('mailbox_index_after');?>
+        <?php /* FIXME: no hooks in templates!! */ do_hook('mailbox_index_after', $null); ?>
         </td>
       </tr>
     </table>

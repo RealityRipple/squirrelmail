@@ -56,8 +56,7 @@ $encoding = strtolower($header->encoding);
 
 $body = mime_fetch_body($imap_stream, $passed_id, $ent_id);
 $body = decodeBody($body, $encoding);
-$hookResults = do_hook('message_body', $body);
-$body = $hookResults[1];
+do_hook('message_body', $body);
 
 /**
  * TODO: check if xtra_code is needed.

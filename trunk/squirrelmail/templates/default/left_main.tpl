@@ -223,14 +223,18 @@ function buildMailboxTree ($box, $settings, $icon_theme_path, $indent_factor=0) 
 
 /********
  * Pulling imapConnection due to segfaults that cannot be tracked down.  Best
- * we can determine,its some combination of this var and >= 4 plugins enabled.
+ * we can determine, it's some combination of this var and >= 4 plugins enabled.
  * No further clue from anyone.
+ ********
+ * Update: syntax of this hook call changed a bit, so if the error is so anomalous,
+ * it might be worth trying this again to see if it is still segfaulting
  ********
     
     // let plugins fiddle with end of line
+// FIXME: no hooks in templates!
     $end .= concat_hook_function('left_main_after_each_folder',
-            array(isset($numMessages) ? $numMessages : '',
-            $box['MailboxFullName'], $settings['imapConnection']));
+            $temp=array(isset($numMessages) ? &$numMessages : '',
+            &$box['MailboxFullName'], &$settings['imapConnection']));
 */
 
     $end .= '</span>';
@@ -261,7 +265,7 @@ extract($t);
 ?>
 <body class="sqm_leftMain">
 <div class="sqm_leftMain">
-<?php do_hook('left_main_before'); ?>
+<?php /* FIXME: no hooks in templates! */ global $null; do_hook('left_main_before', $null); ?>
 <table class="sqm_wrapperTable" cellspacing="0">
  <tr>
   <td>
@@ -279,5 +283,5 @@ extract($t);
   </td>
  </tr>
 </table>
-<?php do_hook('left_main_after'); ?>
+<?php /* FIXME: no hooks in templates! */ do_hook('left_main_after', $null); ?>
 </div>

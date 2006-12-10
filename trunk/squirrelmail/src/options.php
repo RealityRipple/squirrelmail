@@ -139,7 +139,7 @@ switch ($optpage) {
         $optpage_loader = 'load_optpage_data_order';
         $optpage_loadhook = 'optpage_loadhook_order';
         break;
-    default: do_hook('optpage_set_loadinfo');
+    default: do_hook('optpage_set_loadinfo', $null);
 }
 
 /**********************************************************/
@@ -156,7 +156,7 @@ if ( !@is_file( $optpage_file ) ) {
     /* Assemble the data for this option page. */
     $optpage_data = array();
     $optpage_data = $optpage_loader();
-    do_hook($optpage_loadhook);
+    do_hook($optpage_loadhook, $null);
     $optpage_data['options'] = create_option_groups($optpage_data['grps'], $optpage_data['vals']);
 }
 
@@ -208,7 +208,7 @@ if ($optmode == SMOPT_MODE_SUBMIT) {
     }
 
     /* Run the options save hook. */
-    do_hook($save_hook_name);
+    do_hook($save_hook_name, $null);
 }
 
 /***************************************************************/
@@ -321,7 +321,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     );
 
     /* Build a section for plugins wanting to register an optionpage. */
-    do_hook('optpage_register_block');
+    do_hook('optpage_register_block', $null);
 
     /*****************************************************/
     /* Let's sort Javascript Option Pages to the bottom. */
@@ -345,7 +345,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
 
     $oTemplate->display('option_groups.tpl');
     
-    do_hook('options_link_and_description');
+    do_hook('options_link_and_description', $null);
 
 
 /*************************************************************************/
@@ -429,7 +429,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
 
     /* If it is not empty, trigger the inside hook. */
     if ($inside_hook_name != '') {
-        do_hook($inside_hook_name);
+        do_hook($inside_hook_name, $null);
     }
 
 //FIXME: need to remove HTML from here!
@@ -438,7 +438,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
 
     /* If it is not empty, trigger the bottom hook. */
     if ($bottom_hook_name != '') {
-        do_hook($bottom_hook_name);
+        do_hook($bottom_hook_name, $null);
     }
     
 }

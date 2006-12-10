@@ -14,7 +14,6 @@
 /* retrieve the template vars */
 extract($t);
 
-$plugin_message = concat_hook_function('logout_above_text');
 ?>
 <body>
 

@@ -72,8 +72,8 @@ if ($ent_ar[0] != '') {
         $body .= '<hr />';
      }
   }
-  $hookResults = do_hook('message_body', $body);
-  $body = $hookResults[1];
+  /* Note that $body is passed to this hook (and modified) by reference as of 1.5.2 */
+  do_hook('message_body', $body);
 } else {
   $body = _("Message not printable");
 }
