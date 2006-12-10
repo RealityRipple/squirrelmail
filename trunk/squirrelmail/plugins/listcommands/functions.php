@@ -19,7 +19,7 @@
  * internal function that builds mailing list links
  */
 function plugin_listcommands_menu_do() {
-    global $passed_id, $passed_ent_id, $color, $mailbox, $message, $startMessage;
+    global $passed_id, $passed_ent_id, $color, $mailbox, $message, $startMessage, $oTemplate;
 
     /**
      * Array of commands we can deal with from the header. The Reply option
@@ -63,13 +63,15 @@ function plugin_listcommands_menu_do() {
                 $links[] = makeComposeLink($url, $fieldsdescr['reply']);
             }
         } else if ($proto == 'href') {
-            $links[] = '<a href="' . $act . '" target="_blank">'
-                . $fieldsdescr[$cmd] . '</a>';
+            $oTemplate->assign('uri', $act);
+            $oTemplate->assign('target', '_blank');
+            $oTemplate->assign('text', $fieldsdescr[$cmd]);
+            $output = $oTemplate->fetch('hyperlink.tpl');
+            $links[] = $output;
         }
     }
 
     if (count($links) > 0) {
-        global $oTemplate;
         $oTemplate->assign('links', $links);
         $output = $oTemplate->fetch('plugins/listcommands/read_body_header.tpl');
         return array('read_body_header' => $output);

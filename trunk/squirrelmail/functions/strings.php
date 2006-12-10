@@ -792,7 +792,8 @@ function quoteimap($str) {
  * @since 1.4.2
  */
 function makeComposeLink($url, $text = null, $target='') {
-    global $compose_new_win,$javascript_on, $compose_width, $compose_height;
+    global $compose_new_win, $javascript_on, $compose_width, 
+           $compose_height, $oTemplate;
 
     if(!$text) {
         $text = _("Compose");
@@ -811,7 +812,10 @@ function makeComposeLink($url, $text = null, $target='') {
     if($javascript_on) {
         sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION);
         $compuri = SM_BASE_URI.$url;
-        return "<a href=\"javascript:void(0)\" onclick=\"comp_in_new('$compuri','$compose_width','$compose_height')\">$text</a>";
+        $oTemplate->assign('uri', 'javascript:void(0)');
+        $oTemplate->assign('text', $text);
+        $oTemplate->assign('onclick', "comp_in_new('$compuri','$compose_width','$compose_height')");
+        return $oTemplate->fetch('hyperlink.tpl');
     }
 
     // otherwise, just open new window using regular HTML
