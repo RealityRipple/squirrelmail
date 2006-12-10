@@ -150,7 +150,6 @@ Version 1.5.2 - CVS
     generated. Safety check for insecure default UW IMAP setup (#1557078).
   - Ignore message copy errors when messages are deleted. Allows to delete
     messages when quota is exceeded. (#614887) (#646386) (#1446026)
-  - Added filter_hook_function() hook type.
   - Fixed unintended literal fetching (#1562271).
   - Checked if configuration file is readable in configuration utility
     (#1568355).
@@ -166,6 +165,9 @@ Version 1.5.2 - CVS
   - Security: Multiple IE cross site scripting issues related to the
     generous parsing of the words 'expression' and 'url' by IE.
   - Security: Removing @import when sanitizing html mail.
+  - Redesigned plugin hook system.  do_hook_function() has been removed
+    and do_hook() now emulates do_hook_function()'s return value and 
+    also has its plugin arguments passed by value, etc.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
