@@ -50,14 +50,10 @@ extract($t);
    <?php echo $value; ?>
   </td>
  </tr>
-        <?php
+<?php
     }
- ?>
- <tr>
-  <td>
-   <?php if(!empty($plugin_output['read_body_header'])) echo $plugin_output['read_body_header']; ?>
-  </td>
- </tr>
+    if (!empty($plugin_output['read_body_header'])) echo $plugin_output['read_body_header'];
+?>
 </table>
 <table cellspacing="0" class="spacer">
  <tr>
