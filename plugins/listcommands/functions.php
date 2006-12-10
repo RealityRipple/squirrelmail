@@ -26,7 +26,7 @@ function plugin_listcommands_menu_do() {
      * is added later because we generate it using the Post information.
      */
     $fieldsdescr = listcommands_fieldsdescr();
-    $output = array();
+    $links = array();
 
     foreach ($message->rfc822_header->mlist as $cmd => $actions) {
 
@@ -40,7 +40,7 @@ function plugin_listcommands_menu_do() {
         $proto = array_shift($aActions);
         $act   = array_shift($actions);
 
-        if ($proto == 'mailto') {
+        if (1||$proto == 'mailto') {
 
             if (($cmd == 'post') || ($cmd == 'owner')) {
                 $url = 'src/compose.php?'.
@@ -50,7 +50,7 @@ function plugin_listcommands_menu_do() {
             }
             $url .= 'send_to=' . str_replace('?','&amp;', $act);
 
-            $output[] = makeComposeLink($url, $fieldsdescr[$cmd]);
+            $links[] = makeComposeLink($url, $fieldsdescr[$cmd]);
 
             if ($cmd == 'post') {
                 if (!isset($mailbox))
@@ -60,22 +60,21 @@ function plugin_listcommands_menu_do() {
                     (isset($passed_ent_id)?'&amp;passed_ent_id='.$passed_ent_id:'');
                 $url .= '&amp;smaction=reply';
 
-                $output[] = makeComposeLink($url, $fieldsdescr['reply']);
+                $links[] = makeComposeLink($url, $fieldsdescr['reply']);
             }
         } else if ($proto == 'href') {
-            $output[] = '<a href="' . $act . '" target="_blank">'
+            $links[] = '<a href="' . $act . '" target="_blank">'
                 . $fieldsdescr[$cmd] . '</a>';
         }
     }
 
-    if (count($output) > 0) {
-        echo '<tr>' .
-            html_tag('td', '<b>' . _("Mailing List") . ':&nbsp;&nbsp;</b>',
-                    'right', '', 'valign="middle" width="20%"') . "\n" .
-            html_tag('td', '<small>' . implode('&nbsp;|&nbsp;', $output) . '</small>',
-                    'left', $color[0], 'valign="middle" width="80%"') . "\n" .
-            '</tr>';
+    if (count($links) > 0) {
+        global $oTemplate;
+        $oTemplate->assign('links', $links);
+        $output = $oTemplate->fetch('plugins/listcommands/read_body_header.tpl');
+        return array('read_body_header' => $output);
     }
+
 }
 
 /**
