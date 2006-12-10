@@ -20,7 +20,7 @@
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
   * @version $Id$
   * @package squirrelmail
-  * @subpackage plugins
+  * @subpackage templates
   */
 
 
