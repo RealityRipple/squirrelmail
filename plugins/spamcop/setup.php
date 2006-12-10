@@ -41,9 +41,9 @@ function spamcop_load() {
  * Shows spamcop link on the read-a-message screen
  * @access private
  */
-function spamcop_show_link() {
+function spamcop_show_link(&$links) {
     include_once(SM_PATH . 'plugins/spamcop/functions.php');
-    spamcop_show_link_function();
+    spamcop_show_link_function($links);
 }
 
 /**
