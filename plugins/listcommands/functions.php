@@ -40,7 +40,7 @@ function plugin_listcommands_menu_do() {
         $proto = array_shift($aActions);
         $act   = array_shift($actions);
 
-        if (1||$proto == 'mailto') {
+        if ($proto == 'mailto') {
 
             if (($cmd == 'post') || ($cmd == 'owner')) {
                 $url = 'src/compose.php?'.
