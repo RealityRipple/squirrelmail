@@ -147,11 +147,8 @@ EOS;
  * @param string target the target frame for this link
  */
 function makeInternalLink($path, $text, $target='') {
-    global $base_uri;
+    global $base_uri, $oTemplate;
 //    sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION);
-    if ($target != '') {
-        $target = " target=\"$target\"";
-    }
 
     // This is an inefficient hook and is only used by
     // one plugin that still needs to patch this code,
@@ -162,7 +159,10 @@ function makeInternalLink($path, $text, $target='') {
     //
     //do_hook('internal_link', $text);
 
-    return '<a href="'.$base_uri.$path.'"'.$target.'>'.$text.'</a>';
+    $oTemplate->assign('uri', $base_uri . $path);
+    $oTemplate->assign('text', $text);
+    $oTemplate->assign('target', $target);
+    return $oTemplate->fetch('hyperlink.tpl');
 }
 
 /**
