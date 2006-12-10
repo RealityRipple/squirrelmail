@@ -29,7 +29,7 @@ function squirrelmail_plugin_init_message_details()
  * Add message details link in message view
  * @access private
  */
-function show_message_details($links) {
+function show_message_details(&$links) {
     global $passed_id, $mailbox, $ent_num,
            $javascript_on;
     
