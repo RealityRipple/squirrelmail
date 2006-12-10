@@ -80,7 +80,7 @@ function do_hook($name, &$args) {
         foreach ($squirrelmail_plugin_hooks[$name] as $plugin_name => $function) {
             use_plugin($plugin_name);
             if (function_exists($function)) {
-                $ret = $function($args, $ret);
+                $ret = $function(&$args, $ret);
             }
         }
     }
@@ -219,11 +219,12 @@ function boolean_hook_function($name, &$args, $priority=0, $tie=false) {
 }
 
 /**
+ * Do not use, use checkForJavascript() instead.
+ *
  * This function checks whether the user's USER_AGENT is known to
  * be broken. If so, returns true and the plugin is invisible to the
  * offending browser.
  * *** THIS IS A TEST FOR JAVASCRIPT SUPPORT ***
- * FIXME: This function needs to have its name changed!
  *
  * @return bool whether this browser properly supports JavaScript
  * @deprecated use checkForJavascript() since 1.5.1
