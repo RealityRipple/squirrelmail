@@ -80,7 +80,7 @@ function do_hook($name, &$args) {
         foreach ($squirrelmail_plugin_hooks[$name] as $plugin_name => $function) {
             use_plugin($plugin_name);
             if (function_exists($function)) {
-                $ret = $function(&$args, $ret);
+                $ret = $function($args, $ret);
             }
         }
     }
