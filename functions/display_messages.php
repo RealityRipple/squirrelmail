@@ -63,8 +63,9 @@ function logout_error( $errString, $errTitle = '' ) {
                             'FRAME' => $frame_top
                         );
                         
-    list($junk, $errString, $errTitle, $login_link) 
-        = do_hook('logout_error', $errString, $errTitle, $login_link);
+    /* As of 1.5.2, plugin parameters are combined into one array; 
+       plugins on this hook must be updated */
+    do_hook('logout_error', $temp=array(&$errString, &$errTitle, &$login_link));
 
     if ( $errTitle == '' ) {
         $errTitle = $errString;
@@ -114,31 +115,30 @@ function logout_error( $errString, $errTitle = '' ) {
  * 
  * Since 1.4.1 function checks if page header is already displayed.
  * 
- * Since 1.4.3 and 1.5.1 function contains error_box hook.
+ * Since 1.4.3 and 1.5.1, this function contains the error_box hook.
  * Use plain_error_message() and make sure that page header is created,
  * if you want compatibility with 1.4.0 and older.
  *
  * In 1.5.2 second function argument is changed. Older functions used it
  * for $color array, new function uses it for optional link data. Function 
  * will ignore color array and use standard colors instead.
+ *
  * @param string $string Error message to be displayed
  * @param array $link Optional array containing link details to be displayed.
  *  Array uses three keys. 'URL' key is required and should contain link URL.
  *  'TEXT' key is optional and should contain link name. 'FRAME' key is 
  *  optional and should contain link target attribute.
+ *
  * @since 1.3.2
  */
 function error_box($string, $link=NULL) {
     global $pageheader_sent, $oTemplate;
 
     $err = _("ERROR");
-    $ret = concat_hook_function('error_box', $string);
-    if($ret != '') {
-        $string = $ret;
-    }
+    do_hook('error_box', $string);
 
     /* check if the page header has been sent; if not, send it! */
-    if(!isset($pageheader_sent) && !$pageheader_sent) {
+    if (!isset($pageheader_sent) && !$pageheader_sent) {
         displayHtmlHeader('SquirrelMail: '.$err);
         $pageheader_sent = TRUE;
         echo "<body>\n\n";

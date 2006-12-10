@@ -37,100 +37,64 @@ function use_plugin ($name) {
 }
 
 /**
- * This function executes a hook.
- * @param string $name Name of hook to fire
- * @return mixed $data
- */
-function do_hook ($name) {
-    global $squirrelmail_plugin_hooks, $currentHookName;
-    $data = func_get_args();
-    $currentHookName = $name;
-
-    if (isset($squirrelmail_plugin_hooks[$name])
-          && is_array($squirrelmail_plugin_hooks[$name])) {
-        foreach ($squirrelmail_plugin_hooks[$name] as $plugin_name => $function) {
-            use_plugin($plugin_name);
-            /* Add something to set correct gettext domain for plugin. */
-            if (function_exists($function)) {
-                $function($data);
-            }
-        }
-    }
-
-    $currentHookName = '';
-
-    /* Variable-length argument lists have a slight problem when */
-    /* passing values by reference. Pity. This is a workaround.  */
-    return $data;
-}
-
-/**
- * This function executes a hook and allows for parameters to be 
- * passed, wherein each plugin can modify the parameters before 
- * they are passed to the next funciton. Whether or not the 
- * parameters are modified, plugins on this hook should always
- * return the given parameters.
+ * This function executes a plugin hook.
  *
- * @param string name the name of the hook
- * @param mixed param the parameters to pass to the hook function
- * @return mixed the possibly modified hook parameters
- */
-function filter_hook_function($name,$parm=NULL) {
-    global $squirrelmail_plugin_hooks, $currentHookName;
-    $currentHookName = $name;
-
-    if (isset($squirrelmail_plugin_hooks[$name])
-          && is_array($squirrelmail_plugin_hooks[$name])) {
-        foreach ($squirrelmail_plugin_hooks[$name] as $plugin_name => $function) {
-            use_plugin($plugin_name);
-            /* Add something to set correct gettext domain for plugin. */
-            if (function_exists($function)) {
-                $parm = $function($parm);
-            }
-        }
-    }
-
-    $currentHookName = '';
-
-    /* Variable-length argument lists have a slight problem when */
-    /* passing values by reference. Pity. This is a workaround.  */
-    return $parm;
-}
-
-/**
- * This function executes a hook and allows for parameters to be passed.
+ * It includes an arbitrary return value that is managed by
+ * all plugins on the same hook and returned to the core hook
+ * location.
  *
- * @param string name the name of the hook
- * @param mixed param the parameters to pass to the hook function
- * @return mixed the return value of the hook function
+ * The desired format of the return value should be defined 
+ * by the context in which the hook is called.
+ *
+ * Note that the master return value for this hook is passed
+ * to each plugin after the main argument(s) value/array as a 
+ * convenience only - to show what the current return value is
+ * even though it is liable to be changed by other plugins.
+ *
+ * If any plugin on this hook wants to modify the $args
+ * plugin parameter, it simply has to use call-by-reference
+ * syntax in the hook function that it has registered for the
+ * current hook.  Note that this is in addition to (entirely
+ * independent of) the return value for this hook.
+ *
+ * @param string $name Name of hook being executed
+ * @param mixed  $args A single value or an array of arguments 
+ *                     that are to be passed to all plugins 
+ *                     operating off the hook being called.  
+ *                     Note that this argument is passed by 
+ *                     reference thus it is liable to be 
+ *                     changed after the hook completes.
+ *
+ * @return mixed The return value that is managed by the plugins
+ *               on the current hook.
+ *
  */
-function do_hook_function($name,$parm=NULL) {
+function do_hook($name, &$args) {
+
     global $squirrelmail_plugin_hooks, $currentHookName;
-    $ret = '';
     $currentHookName = $name;
+    $ret = NULL;
 
     if (isset($squirrelmail_plugin_hooks[$name])
           && is_array($squirrelmail_plugin_hooks[$name])) {
         foreach ($squirrelmail_plugin_hooks[$name] as $plugin_name => $function) {
             use_plugin($plugin_name);
-            /* Add something to set correct gettext domain for plugin. */
             if (function_exists($function)) {
-                $ret = $function($parm);
+                $ret = $function($args, $ret);
             }
         }
     }
 
     $currentHookName = '';
-
-    /* Variable-length argument lists have a slight problem when */
-    /* passing values by reference. Pity. This is a workaround.  */
     return $ret;
+
 }
 
 /**
- * This function executes a hook, allows for parameters to be passed,
- * and looks for an array returned from each plugin: each array is 
- * then merged into one and returned to the core hook location.
+ * This function executes a hook that allows for an arbitrary
+ * return value from each plugin that will be merged into one
+ * array (or one string if all return values are strings) and
+ * returned to the core hook location.
  *
  * Note that unlike PHP's array_merge function, matching array keys
  * will not overwrite each other, instead, values under such keys
@@ -142,25 +106,36 @@ function do_hook_function($name,$parm=NULL) {
  * unless ALL values returned are strings, in which case one string
  * with all returned strings concatenated together is returned.
  *
- * @param string name the name of the hook
- * @param mixed param the parameters to pass to the hook function
+ * If any plugin on this hook wants to modify the $args
+ * plugin parameter, it simply has to use call-by-reference
+ * syntax in the hook function that it has registered for the
+ * current hook.  Note that this is in addition to (entirely
+ * independent of) the return value for this hook.
+ *
+ * @param string $name Name of hook being executed
+ * @param mixed  $args A single value or an array of arguments 
+ *                     that are to be passed to all plugins 
+ *                     operating off the hook being called.  
+ *                     Note that this argument is passed by 
+ *                     reference thus it is liable to be 
+ *                     changed after the hook completes.
  *
  * @return mixed the merged return arrays or strings of each
- *               plugin on this hook
+ *               plugin on this hook.
  *
  */
-function concat_hook_function($name,$parm=NULL) {
+function concat_hook_function($name, &$args) {
+
     global $squirrelmail_plugin_hooks, $currentHookName;
-    $ret = '';
     $currentHookName = $name;
+    $ret = '';
 
     if (isset($squirrelmail_plugin_hooks[$name])
           && is_array($squirrelmail_plugin_hooks[$name])) {
         foreach ($squirrelmail_plugin_hooks[$name] as $plugin_name => $function) {
             use_plugin($plugin_name);
-            /* Add something to set correct gettext domain for plugin. */
             if (function_exists($function)) {
-                $plugin_ret = $function($parm);
+                $plugin_ret = $function($args);
                 if (!empty($plugin_ret)) {
                     $ret = sqm_array_merge($ret, $plugin_ret);
                 }
@@ -169,10 +144,8 @@ function concat_hook_function($name,$parm=NULL) {
     }
 
     $currentHookName = '';
-
-    /* Variable-length argument lists have a slight problem when */
-    /* passing values by reference. Pity. This is a workaround.  */
     return $ret;
+
 }
 
 /**
@@ -182,13 +155,27 @@ function concat_hook_function($name,$parm=NULL) {
  * override any trues.
  * Priority 0 means majority rules.  Ties will be broken with $tie
  *
- * @param string name the hook name
- * @param mixed parm the parameters for the hook function
- * @param int priority
- * @param bool tie
- * @return bool the result of the function
+ * If any plugin on this hook wants to modify the $args
+ * plugin parameter, it simply has to use call-by-reference
+ * syntax in the hook function that it has registered for the
+ * current hook.  Note that this is in addition to (entirely
+ * independent of) the return value for this hook.
+ *
+ * @param string  $name     The hook name
+ * @param mixed   $args     A single value or an array of arguments 
+ *                          that are to be passed to all plugins 
+ *                          operating off the hook being called.  
+ *                          Note that this argument is passed by 
+ *                          reference thus it is liable to be 
+ *                          changed after the hook completes.
+ * @param int     $priority See explanation above
+ * @param boolean $tie      See explanation above
+ *
+ * @return boolean The result of the function
+ *
  */
-function boolean_hook_function($name,$parm=NULL,$priority=0,$tie=false) {
+function boolean_hook_function($name, &$args, $priority=0, $tie=false) {
+
     global $squirrelmail_plugin_hooks, $currentHookName;
     $yea = 0;
     $nay = 0;
@@ -202,7 +189,7 @@ function boolean_hook_function($name,$parm=NULL,$priority=0,$tie=false) {
         foreach ($squirrelmail_plugin_hooks[$name] as $plugin_name => $function) {
             use_plugin($plugin_name);
             if (function_exists($function)) {
-                $ret = $function($parm);
+                $ret = $function($args);
                 if ($ret) {
                     $yea++;
                 } else {
@@ -228,6 +215,7 @@ function boolean_hook_function($name,$parm=NULL,$priority=0,$tie=false) {
     }
     // If the code gets here, there was a problem - no hooks, etc.
     return NULL;
+
 }
 
 /**

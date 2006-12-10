@@ -108,7 +108,8 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     if ($do_hook) {
         // NOTE! plugins here must assign output to template 
         //       and NOT echo anything directly!!
-        do_hook('generic_header');
+        global $null;
+        do_hook('generic_header', $null);
     }
 
     $header_tags .= $xtra;
@@ -159,9 +160,7 @@ function makeInternalLink($path, $text, $target='') {
     // here just in case we find a good (non-visual?)
     // use for the internal_link hook.
     //
-    //$hooktext = do_hook_function('internal_link',$text);
-    //if ($hooktext != '')
-    //    $text = $hooktext;
+    //do_hook('internal_link', $text);
 
     return '<a href="'.$base_uri.$path.'"'.$target.'>'.$text.'</a>';
 }

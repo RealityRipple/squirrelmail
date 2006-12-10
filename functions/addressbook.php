@@ -125,10 +125,12 @@ function addressbook_init($showerr = true, $onlylocal = false) {
      * Since 1.5.2 hook sends third ($onlylocal) argument to address book
      * plugins in order to allow detection of local address book init.
      * @since 1.5.1 and 1.4.5
+     * Since 1.5.2, the plugin arguments are passed inside an array
+     * and by reference, so plugins hooking in here need to accept arguments
+     * in an array and change those values as needed instead of returning
+     * the changed values.
      */
-    $hookReturn = do_hook('abook_init', $abook, $r, $onlylocal);
-    $abook = $hookReturn[1];
-    $r = $hookReturn[2];
+    do_hook('abook_init', $temp=array(&$abook, &$r, &$onlylocal));
     if (!$r && $showerr) {
         if ($abook_init_error!='') $abook_init_error.="\n";
         $abook_init_error.=_("Error initializing other address books.") . "\n" . $abook->error;
@@ -441,7 +443,8 @@ class AddressBook {
               * NB: Because the backend files are included from within this function they DO NOT have access to
               * vars in the global scope. This function is the global scope for the included backend !!!
               */
-            $aBackend = do_hook('abook_add_class');
+            global $null;
+            $aBackend = do_hook('abook_add_class', $null);
             if (isset($aBackend) && is_array($aBackend) && isset($aBackend[$backend])) {
                 require_once($aBackend[$backend]);
             } else {

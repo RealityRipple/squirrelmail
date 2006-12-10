@@ -21,7 +21,9 @@
  * @param string   $mailbox mailbox to select and retrieve message headers from
  * @param array    $aConfig array with system config settings and incoming vars
  * @param array    $aProps mailbox specific properties
+ *
  * @return array   $aMailbox mailbox array with all relevant information
+ *
  * @since 1.5.1
  * @author Marc Groot Koerkamp
  */
@@ -604,7 +606,7 @@ function prepareMessageList(&$aMailbox, $aProps) {
                         // $onclick, $link_extra, $title, and so forth)
                         // plugins are responsible for sharing nicely (such as for
                         // setting the target, etc)
-                        do_hook('subject_link', array($iPageOffset, $sSearch, $aSearch));
+                        do_hook('subject_link', $temp=array(&$iPageOffset, &$sSearch, &$aSearch));
                     }
                     $value = (trim($value)) ? $value : _("(no subject)");
                     /* add thread indentation */
@@ -1304,7 +1306,7 @@ function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = ar
             break;
           default:
              // Hook for plugin buttons
-             do_hook_function('mailbox_display_button_action', $aUid);
+             do_hook('mailbox_display_button_action', $aUid);
              break;
         }
         /**
