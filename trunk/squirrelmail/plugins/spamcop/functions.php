@@ -59,7 +59,7 @@ function spamcop_load_function() {
  * @since 1.5.1
  * @access private
  */
-function spamcop_show_link_function() {
+function spamcop_show_link_function(&$links) {
     global $spamcop_enabled, $spamcop_method, $spamcop_quick_report,$javascript_on;
 
     if (! $spamcop_enabled)
@@ -79,8 +79,6 @@ function spamcop_show_link_function() {
         $passed_ent_id = 0;
     }
 
-    echo "<br />\n";
-
     /*
        Catch situation when user uses quick_email and does not update
        preferences. User gets web_form link. If prefs are set to
@@ -90,19 +88,24 @@ function spamcop_show_link_function() {
         $spamcop_method = 'web_form';
     }
 
-    // Javascript is used only in web based reporting
-    // don't insert javascript if javascript is disabled
-    if ($spamcop_method == 'web_form' && $javascript_on) {
-?><script type="text/javascript">
-document.write('<a href="../plugins/spamcop/spamcop.php?passed_id=<?php echo urlencode($passed_id); ?>&amp;js_web=1&amp;mailbox=<?php echo urlencode($mailbox); ?>&amp;passed_ent_id=<?php echo urlencode($passed_ent_id); ?>" target="_blank">');
-document.write("<?php echo _("Report as Spam"); ?>");
-document.write("</a>");
-</script><?php
-    } else {
-?><a href="../plugins/spamcop/spamcop.php?passed_id=<?php echo urlencode($passed_id); ?>&amp;mailbox=<?php echo urlencode($mailbox); ?>&amp;startMessage=<?php echo urlencode($startMessage); ?>&amp;passed_ent_id=<?php echo urlencode($passed_ent_id); ?>">
-<?php echo _("Report as Spam"); ?></a>
-<?php
+// FIXME: do we need this javascript and if so, fix it
+// <script type="text/javascript">
+// document.write('<a href="../plugins/spamcop/spamcop.php?passed_id=<php echo urlencode($passed_id); >&amp;js_web=1&amp;mailbox=<php echo urlencode($mailbox); >&amp;passed_ent_id=<php echo urlencode($passed_ent_id); >" target="_blank">');
+//document.write("<php echo _("Report as Spam"); >");
+//document.write("</a>");
+//</script>
+
+
+    $url =  '../plugins/spamcop/spamcop.php?passed_id=' . urlencode($passed_id) .
+                '&amp;mailbox=' . urlencode($mailbox) . '&amp;startMessage=' . urlencode($startMessage) .
+                '&amp;passed_ent_id=' . urlencode($passed_ent_id);
+    if ( $spamcop_method == 'web_form' && $javascript_on ) {
+        $url .= '&amp;js_web=1';
     }
+
+    $links[] = array ( 'URL' => $url,
+        'Text' => _("Report as Spam")
+    );
 }
 
 /**
