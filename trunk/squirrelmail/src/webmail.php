@@ -107,14 +107,15 @@ switch($right_frame) {
         break;
 }
 
-displayHtmlHeader($org_title, '', false, true);
 $oErrorHandler->setDelayedErrors(true);
-
-do_hook('webmail_top', $null);
 
 $oTemplate->assign('nav_size', $left_size);
 $oTemplate->assign('nav_on_left', $location_of_bar=='left');
 $oTemplate->assign('right_frame_url', $right_frame_url);
+
+do_hook('webmail_top', $null);
+
+displayHtmlHeader($org_title, '', false, true);
 
 $oTemplate->display('webmail.tpl');
 
