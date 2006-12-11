@@ -110,6 +110,13 @@ if (file_exists(SM_PATH . 'config/config_local.php')) {
     require(SM_PATH . 'config/config_local.php');
 }
 
+/** Load plugins */
+global $disable_plugins;
+$squirrelmail_plugin_hooks = array();
+if (!$disable_plugins && file_exists(SM_PATH . 'config/plugin_hooks.php')) {
+    require(SM_PATH . 'config/plugin_hooks.php');
+}
+
 /** Warning counter */
 $warnings = 0;
 
