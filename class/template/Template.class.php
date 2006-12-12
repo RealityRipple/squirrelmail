@@ -157,6 +157,7 @@ class Template
     function construct_template($template_set_id) {
 
         $template = new Template($template_set_id);
+        $template->override_plugins();
         return $template->get_template_engine_subclass();
 
     }
@@ -303,6 +304,72 @@ class Template
         // and that error will not be caught here
         //
         return $default;
+
+    }
+
+    /**
+      * Allow template set to override plugin configuration by either
+      * adding or removing plugins.
+      *
+      */
+    function override_plugins() {
+
+        global $disable_plugins, $plugins, $squirrelmail_plugin_hooks;
+        if ($disable_plugins) return;
+
+        $add_plugins = Template::get_template_config($this->template_set_id, 
+                                                     'add_plugins', array());
+        $remove_plugins = Template::get_template_config($this->template_set_id, 
+                                                        'remove_plugins', array());
+
+//FIXME (?) we assume $add_plugins and $remove_plugins are arrays -- we could
+//          error check here, or just assume that template authors or admins 
+//          won't screw up their config files
+
+
+        // disable all plugins? (can still add some by using $add_plugins)
+        //
+        if (in_array('*', $remove_plugins)) {
+            $plugins = array();
+            $squirrelmail_plugin_hooks = array();
+            $remove_plugins = array();
+        }
+
+
+        foreach ($add_plugins as $plugin_name) {
+            // add plugin to global plugin array
+            //
+            $plugins[] = $plugin_name;
+
+
+            // enable plugin -- emulate code from use_plugin() function
+            // in SquirrelMail core, but also need to call the
+            // "squirrelmail_plugin_init_<plugin_name>" function, which
+            // in static configuration is not called (this inconsistency
+            // could be a source of anomalous-seeming bugs in poorly
+            // coded plugins)
+            //
+            if (file_exists(SM_PATH . "plugins/$plugin_name/setup.php")) {
+                include_once(SM_PATH . "plugins/$plugin_name/setup.php");
+
+                $function = "squirrelmail_plugin_init_$plugin_name";
+                if (function_exists($function))
+                    $function();
+            }
+        }
+
+        foreach ($remove_plugins as $plugin_name) {
+            // remove plugin from both global plugin & plugin hook arrays
+            //
+            $plugin_key = array_search($plugin_name, $plugins);
+            if (!is_null($plugin_key) && $plugin_key !== FALSE) {
+                unset($plugins[$plugin_key]);
+                if (is_array($squirrelmail_plugin_hooks))
+                    foreach (array_keys($squirrelmail_plugin_hooks) as $hookName) {
+                        unset($squirrelmail_plugin_hooks[$hookName][$plugin_name]);
+                    }
+            }
+        }
 
     }
 
