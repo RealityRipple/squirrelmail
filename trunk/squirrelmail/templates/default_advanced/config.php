@@ -32,3 +32,14 @@ $template_engine = SQ_PHP_TEMPLATE;
 $parent_template_set = 'default';
 
 
+/**
+  * These settings allow this template set to change SquirrelMail's
+  * list of active plugins by adding or removing any of those listed
+  * herein.  If the $remove_plugins list contains "*", then ALL plugins
+  * will be disabled, and only those in $add_plugins will be enabled.
+  *
+  */
+$add_plugins = array();
+$remove_plugins = array();
+
+
