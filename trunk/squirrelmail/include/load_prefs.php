@@ -35,52 +35,14 @@ $custom_css = getPref($data_dir, $username, 'custom_css', 'none' );
 $sDefaultTemplateID = Template::get_default_template_set();
 $sTemplateID = getPref($data_dir, $username, 'sTemplateID', $sDefaultTemplateID);
 
-// need to build this object now because it is used below to validate
-// user css theme choice
-//
-$oTemplate = Template::construct_template($sTemplateID);
 
-// check user prefs template selection against templates actually available
+// load user theme
 //
-$found_templateset = false;
-for ($i = 0; $i < count($aTemplateSet); ++$i){
-    if ($aTemplateSet[$i]['ID'] == $sTemplateID) {
-        $found_templateset = true;
-        break;
-    }
-}
-
-// FIXME: do we need/want to check here for actual presence of template sets?
-// selected template not available, fall back to default template
-//
-if (!$found_templateset) $sTemplateID = $sDefaultTemplateID;
-
-// Load user theme
 $chosen_theme = getPref($data_dir, $username, 'chosen_theme');
-$found_theme = false;
 $chosen_theme_path = empty($chosen_theme) ?
                      $chosen_theme_path = $user_themes[$user_theme_default]['PATH'] :
                      $chosen_theme;
 
-// Make sure the chosen theme is a legitimate one.
-// need to adjust $chosen_theme path with SM_PATH 
-$chosen_theme_path = preg_replace("/(\.\.\/){1,}/", SM_PATH, $chosen_theme_path);
-while (!$found_theme && (list($index, $data) = each($user_themes))) {
-    if ($data['PATH'] == $chosen_theme_path)
-        $found_theme = true;
-}
-
-if (!$found_theme) {
-    $template_themes = $oTemplate->get_alternative_stylesheets(true);
-    while (!$found_theme && (list($path, $name) = each($template_themes))) {
-        if ($path == $chosen_theme_path)
-            $found_theme = true;
-    }
-}
-
-if (!$found_theme || $chosen_theme == 'none') {
-    $chosen_theme_path = NULL;
-}
 
 // user's icon theme, if using icons
 $icon_theme = getPref($data_dir, $username, 'icon_theme');
@@ -101,14 +63,6 @@ if (!$found_theme) {
     $icon_theme = $default_icon_theme;
 }
 
-/*
- * NOTE: The $icon_theme_path var should contain the path to the icon
- *       theme to use.  If the admin has disabled icons, or the user has
- *       set the icon theme to "None," no icons will be used.
- */
-$icon_theme_path = (!$use_icons || $icon_theme=='none') ? NULL : ($icon_theme == 'template' ? SM_PATH . Template::calculate_template_images_directory($sTemplateID) : $icon_theme);
-$default_icon_theme_path = (!$use_icons || $default_icon_theme=='none') ? NULL : ($default_icon_theme == 'template' ? SM_PATH . Template::calculate_template_images_directory($sTemplateID) : $default_icon_theme);
-$fallback_icon_theme_path = (!$use_icons || $fallback_icon_theme=='none') ? NULL : ($fallback_icon_theme == 'template' ? SM_PATH . Template::calculate_template_images_directory($sTemplateID) : $fallback_icon_theme);
 
 // show (or not) flag and unflag buttons on mailbox list screen
 $show_flag_buttons = getPref($data_dir, $username, 'show_flag_buttons', SMPREF_ON );
@@ -424,4 +378,62 @@ if (! isset($use_smtp_tls)) {
     $use_smtp_tls = false;
 }
 
+
+// allow plugins to override user prefs
+//
 do_hook('loading_prefs', $null);
+
+
+// check user prefs template selection against templates actually available
+//
+$found_templateset = false;
+for ($i = 0; $i < count($aTemplateSet); ++$i){
+    if ($aTemplateSet[$i]['ID'] == $sTemplateID) {
+        $found_templateset = true;
+        break;
+    }
+}
+
+// FIXME: do we need/want to check here for actual presence of template sets?
+// selected template not available, fall back to default template
+//
+if (!$found_templateset) $sTemplateID = $sDefaultTemplateID;
+
+// need to build this object now because it is used below to validate
+// user css theme choice
+//
+$oTemplate = Template::construct_template($sTemplateID);
+
+
+// Make sure the chosen theme is a legitimate one.
+//
+// need to adjust $chosen_theme path with SM_PATH 
+$chosen_theme_path = preg_replace("/(\.\.\/){1,}/", SM_PATH, $chosen_theme_path);
+$found_theme = false;
+while (!$found_theme && (list($index, $data) = each($user_themes))) {
+    if ($data['PATH'] == $chosen_theme_path)
+        $found_theme = true;
+}
+
+if (!$found_theme) {
+    $template_themes = $oTemplate->get_alternative_stylesheets(true);
+    while (!$found_theme && (list($path, $name) = each($template_themes))) {
+        if ($path == $chosen_theme_path)
+            $found_theme = true;
+    }
+}
+
+if (!$found_theme || $chosen_theme == 'none') {
+    $chosen_theme_path = NULL;
+}
+
+
+/*
+ * NOTE: The $icon_theme_path var should contain the path to the icon
+ *       theme to use.  If the admin has disabled icons, or the user has
+ *       set the icon theme to "None," no icons will be used.
+ */
+$icon_theme_path = (!$use_icons || $icon_theme=='none') ? NULL : ($icon_theme == 'template' ? SM_PATH . Template::calculate_template_images_directory($sTemplateID) : $icon_theme);
+$default_icon_theme_path = (!$use_icons || $default_icon_theme=='none') ? NULL : ($default_icon_theme == 'template' ? SM_PATH . Template::calculate_template_images_directory($sTemplateID) : $default_icon_theme);
+$fallback_icon_theme_path = (!$use_icons || $fallback_icon_theme=='none') ? NULL : ($fallback_icon_theme == 'template' ? SM_PATH . Template::calculate_template_images_directory($sTemplateID) : $fallback_icon_theme);
+
