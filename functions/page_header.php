@@ -162,6 +162,13 @@ function makeInternalLink($path, $text, $target='') {
     $oTemplate->assign('uri', $base_uri . $path);
     $oTemplate->assign('text', $text);
     $oTemplate->assign('target', $target);
+
+    // blank the onclick because the template object might
+    // already contain an onclick value due to having been
+    // used to show a compose link (when comp_in_new is turned on)
+    //
+    $oTemplate->assign('onclick', '');
+
     return $oTemplate->fetch('hyperlink.tpl');
 }
 
