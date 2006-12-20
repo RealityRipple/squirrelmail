@@ -330,8 +330,7 @@ if (isset($plugins[0])) {
     ob_end_clean();
     // if plugins output more than newlines and spacing, stop script execution.
     if (!empty($output)) {
-        $plugin_load_error = 'Some output is produced when plugins are loaded.'
-            .' Usually it means error. Output said: '.htmlspecialchars($output);
+        $plugin_load_error = 'Some output is produced when plugins are loaded. Usually this means there is an error in one of the plugin setup or configuration files. The output was: '.htmlspecialchars($output);
         do_err($plugin_load_error);
     }
     /**
