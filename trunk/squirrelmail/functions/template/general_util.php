@@ -77,7 +77,7 @@ $xhtml_end='';
 
 
 /**
- * Checks for an image icon and returns a complete HTML img tag or a text
+ * Checks for an image icon and returns a complete image tag or a text
  * string with the text icon based on what is found and user prefs.
  *
  * @param string $icon_theme_path User's chosen icon set
@@ -100,12 +100,25 @@ function getIcon($icon_theme_path, $icon_name, $text_icon, $alt_text='', $w=NULL
         // If we found an icon, build an img tag to display it.  If we didn't
         // find an image, we will revert back to the text icon.
         if (!is_null($icon_path)) {
-            $icon = '<img src="'.$icon_path.'" ' .
-                    'alt="'.$alt_text.'" '.
-                    (!empty($alt_text) ? 'title="'.$alt_text.'" ' : '') .
-                    (!is_null($w) ? 'width="'.$w.'" ' : '') .
-                    (!is_null($h) ? 'height="'.$h.'" ' : '') .
-                    ' />';
+            global $oTemplate;
+            $oTemplate->assign('src', $icon_path);
+            $oTemplate->assign('alt', $alt_text);
+            $oTemplate->assign('title', $alt_text);
+            $oTemplate->assign('width', $w);
+            $oTemplate->assign('height', $h);
+
+            // blank other attributes because the template 
+            // object might already contain values due to 
+            // having been used to show another image before
+            // this one
+            //
+            $oTemplate->assign('onclick', '');
+            $oTemplate->assign('align', '');
+            $oTemplate->assign('border', '');
+            $oTemplate->assign('hspace', '');
+            $oTemplate->assign('vspace', '');
+
+            $icon = $oTemplate->fetch('image.tpl');
         } else {
             $icon = $text_icon;
         }

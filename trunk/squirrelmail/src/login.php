@@ -128,21 +128,28 @@ displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 /* If they don't have a logo, don't bother.. */
 $logo_str = '';
 if (isset($org_logo) && $org_logo) {
-    /* Display width and height like good little people */
-    $width_and_height = '';
+    
+    $oTemplate->assign('src', $org_logo);
+    $oTemplate->assign('alt', sprintf(_("%s Logo"), $org_name));
+    $oTemplate->assign('class', 'sqm_loginImage');
     if (isset($org_logo_width) && is_numeric($org_logo_width) &&
      $org_logo_width>0) {
-        $width_and_height = "width=\"$org_logo_width\" ";
+        $oTemplate->assign('width', $worg_logo_width);
+    } else {
+        $oTemplate->assign('width', '');
     }
     if (isset($org_logo_height) && is_numeric($org_logo_height) &&
      $org_logo_height>0) {
-        $width_and_height .= "height=\"$org_logo_height\" ";
+        $oTemplate->assign('height', $worg_logo_height);
+    } else {
+        $oTemplate->assign('height', '');
     }
-    
-    $logo_str = '<img src="'.$org_logo.'" ' .
-                'alt="'. sprintf(_("%s Logo"), $org_name).'" ' .
-                $width_and_height .
-                'class="sqm_loginImage" /><br />'."\n";
+    $oTemplate->assign('onclick', '');
+    $oTemplate->assign('align', '');
+    $oTemplate->assign('border', '');
+    $oTemplate->assign('hspace', '');
+    $oTemplate->assign('vspace', '');
+    $logo_str = $oTemplate->fetch('image.tpl');
 }
 
 $sm_attribute_str = '';
