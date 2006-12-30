@@ -134,13 +134,13 @@ if (isset($org_logo) && $org_logo) {
     $oTemplate->assign('class', 'sqm_loginImage');
     if (isset($org_logo_width) && is_numeric($org_logo_width) &&
      $org_logo_width>0) {
-        $oTemplate->assign('width', $worg_logo_width);
+        $oTemplate->assign('width', $org_logo_width);
     } else {
         $oTemplate->assign('width', '');
     }
     if (isset($org_logo_height) && is_numeric($org_logo_height) &&
      $org_logo_height>0) {
-        $oTemplate->assign('height', $worg_logo_height);
+        $oTemplate->assign('height', $org_logo_height);
     } else {
         $oTemplate->assign('height', '');
     }
