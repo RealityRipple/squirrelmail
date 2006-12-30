@@ -25,8 +25,6 @@
  * @subpackage templates
  */
 
-// add includes
-include_once(SM_PATH . 'templates/util_global.php');
 
 /* retrieve the template vars */
 extract($t);

@@ -18,7 +18,7 @@
   */
 
 /** load template functions */
-require(SM_PATH . 'functions/template.php');
+require(SM_PATH . 'functions/template/general_util.php');
 
 /**
   * The SquirrelMail Template class.

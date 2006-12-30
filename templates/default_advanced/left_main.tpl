@@ -75,8 +75,6 @@
  * @author Steve Brown
  */
 
-/** include required files */
-include_once(SM_PATH . 'templates/util_global.php');
 
 /*
  * Recursively parse the mailbox structure to build the navigation tree.
