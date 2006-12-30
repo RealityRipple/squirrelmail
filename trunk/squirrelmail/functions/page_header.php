@@ -168,6 +168,7 @@ function makeInternalLink($path, $text, $target='') {
     // used to show a compose link (when comp_in_new is turned on)
     //
     $oTemplate->assign('onclick', '');
+    $oTemplate->assign('class', '');
 
     return $oTemplate->fetch('hyperlink.tpl');
 }
