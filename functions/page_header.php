@@ -169,6 +169,7 @@ function makeInternalLink($path, $text, $target='') {
     //
     $oTemplate->assign('onclick', '');
     $oTemplate->assign('class', '');
+    $oTemplate->assign('id', '');
 
     return $oTemplate->fetch('hyperlink.tpl');
 }

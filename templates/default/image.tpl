@@ -7,6 +7,7 @@
   *
   * The following variables are available in this template:
   *      + $src     - the image source path
+  *      + $id      - ID name (optional; may not be present)
   *      + $class   - CSS class name (optional; may not be present)
   *      + $alt     - alternative link text
   *                   (optional; may not be present)
@@ -39,4 +40,4 @@
 extract($t);
 
 
-?><img src="<?php echo $src ?>"<?php if (!empty($class)) echo ' class="' . $class . '"'; ?><?php if (!empty($alt)) echo ' alt="' . $alt . '"'; ?><?php if (!empty($title)) echo ' title="' . $title . '"'; ?><?php if (!empty($onclick)) echo ' onclick="' . $onclick . '"'; ?><?php if (!empty($width)) echo ' width="' . $width . '"'; ?><?php if (!empty($height)) echo ' height="' . $height . '"'; ?><?php if (!empty($align)) echo ' align="' . $align . '"'; ?><?php if (!empty($border)) echo ' border="' . $border . '"'; ?><?php if (!empty($hspace)) echo ' hspace="' . $hspace . '"'; ?><?php if (!empty($vspace)) echo ' vspace="' . $vspace . '"'; ?> />
+?><img src="<?php echo $src ?>"<?php if (!empty($class)) echo ' class="' . $class . '"'; ?><?php if (!empty($id)) echo ' id="' . $id . '"'; ?><?php if (!empty($alt)) echo ' alt="' . $alt . '"'; ?><?php if (!empty($title)) echo ' title="' . $title . '"'; ?><?php if (!empty($onclick)) echo ' onclick="' . $onclick . '"'; ?><?php if (!empty($width)) echo ' width="' . $width . '"'; ?><?php if (!empty($height)) echo ' height="' . $height . '"'; ?><?php if (!empty($align)) echo ' align="' . $align . '"'; ?><?php if (!empty($border)) echo ' border="' . $border . '"'; ?><?php if (!empty($hspace)) echo ' hspace="' . $hspace . '"'; ?><?php if (!empty($vspace)) echo ' vspace="' . $vspace . '"'; ?> />

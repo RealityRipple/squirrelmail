@@ -67,6 +67,7 @@ function plugin_listcommands_menu_do() {
             $oTemplate->assign('target', '_blank');
             $oTemplate->assign('text', $fieldsdescr[$cmd]);
             $oTemplate->assign('class', '');
+            $oTemplate->assign('id', '');
             $oTemplate->assign('onclick', '');
             $output = $oTemplate->fetch('hyperlink.tpl');
             $links[] = $output;

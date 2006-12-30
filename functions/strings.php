@@ -816,6 +816,7 @@ function makeComposeLink($url, $text = null, $target='') {
         $oTemplate->assign('text', $text);
         $oTemplate->assign('onclick', "comp_in_new('$compuri','$compose_width','$compose_height')");
         $oTemplate->assign('class', '');
+        $oTemplate->assign('id', '');
         return $oTemplate->fetch('hyperlink.tpl');
     }
 

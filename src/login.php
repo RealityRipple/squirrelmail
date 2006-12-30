@@ -145,6 +145,8 @@ if (isset($org_logo) && $org_logo) {
         $oTemplate->assign('height', '');
     }
     $oTemplate->assign('onclick', '');
+    $oTemplate->assign('id', '');
+    $oTemplate->assign('title', '');
     $oTemplate->assign('align', '');
     $oTemplate->assign('border', '');
     $oTemplate->assign('hspace', '');
