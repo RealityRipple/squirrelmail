@@ -11,10 +11,6 @@
   *      + $target  - the location where the link should be opened 
   *                   (optional; may not be present)
   *      + $onclick - onClick JavaScript handler (optional; may not be present)
-  *      + $extra   - any extra text to be directly inserted into the hyperlink
-  *                   (note to core developers - PLEASE AVOID using this, as it
-  *                   usually means you are adding template-engine specific output
-  *                   to the core)
   *
   * @copyright &copy; 1999-2006 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
