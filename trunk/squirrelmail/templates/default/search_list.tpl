@@ -28,8 +28,6 @@
  * @subpackage templates
  */
 
-/** add required includes **/
-require_once(SM_PATH . 'templates/util_global.php');
 
 /** extract template variables **/
 extract($t);

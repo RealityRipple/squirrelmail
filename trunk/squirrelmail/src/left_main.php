@@ -20,7 +20,7 @@ require('../include/init.php');
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'functions/imap_general.php');
 require_once(SM_PATH . 'functions/date.php');
-require_once(SM_PATH . 'templates/util_global.php');
+require_once(SM_PATH . 'functions/template/general_util.php');
 require_once(SM_PATH . 'templates/util_left_main.php');
 
 /* These constants are used for folder stuff. */

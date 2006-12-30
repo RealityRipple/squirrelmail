@@ -13,7 +13,6 @@
  */
 
 /** add required includes */
-include_once(SM_PATH . 'templates/util_global.php');
 include_once(SM_PATH . 'templates/util_message_list.php');
 
 /* retrieve the template vars */
