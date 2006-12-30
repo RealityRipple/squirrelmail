@@ -47,6 +47,7 @@ $xhtml_end='';
         $browser = 'msie4';
         $dom_browser = false;
         $is_IE = true;
+//FIXME: this fails for Opera because its user agent also contains MSIE
     } elseif (stristr($browser_user_agent, "msie")) {
         $browser = 'msie';
         $dom_browser = true;
