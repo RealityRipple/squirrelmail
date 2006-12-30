@@ -117,6 +117,8 @@ function getIcon($icon_theme_path, $icon_name, $text_icon, $alt_text='', $w=NULL
             $oTemplate->assign('border', '');
             $oTemplate->assign('hspace', '');
             $oTemplate->assign('vspace', '');
+            $oTemplate->assign('class', '');
+            $oTemplate->assign('id', '');
 
             $icon = $oTemplate->fetch('image.tpl');
         } else {
