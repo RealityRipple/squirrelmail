@@ -1,11 +1,10 @@
 <?php
 
 /**
- * template.php
+ * general_util.php
  *
  * This file is intended to contain helper functions for template sets
  * that would like to use them.
-FIXME: potentially create a separate directory and separate functions into different files?
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
