@@ -74,6 +74,12 @@ function create_hyperlink($uri, $text, $target='', $onclick='', $class='', $id='
  *                        (OPTIONAL; default not used)
  * @param string $vspace  The image's vspace attribute value 
  *                        (OPTIONAL; default not used)
+ * @param string $text_alternative A text replacement for the entire
+ *                                 image tag, to be used at the 
+ *                                 discretion of the template set,
+ *                                 if for some reason the image tag
+ *                                 cannot or should not be produced
+ *                                 (OPTIONAL; default not used)
  *
  * @return string The desired hyperlink tag.
  *
@@ -82,7 +88,8 @@ function create_hyperlink($uri, $text, $target='', $onclick='', $class='', $id='
  */
 function create_image($src, $alt='', $width='', $height='', 
                       $border='', $class='', $id='', $onclick='', 
-                      $title='', $align='', $hspace='', $vspace='') {
+                      $title='', $align='', $hspace='', $vspace='',
+                      $text_alternative='') {
 
     global $oTemplate;
 
@@ -98,6 +105,7 @@ function create_image($src, $alt='', $width='', $height='',
     $oTemplate->assign('align', $align);
     $oTemplate->assign('hspace', $hspace);
     $oTemplate->assign('vspace', $vspace);
+    $oTemplate->assign('text_alternative', $text_alternative);
 
     return $oTemplate->fetch('image.tpl');
 

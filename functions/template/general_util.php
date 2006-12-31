@@ -103,7 +103,8 @@ function getIcon($icon_theme_path, $icon_name, $text_icon, $alt_text='', $w=NULL
         // If we found an icon, build an img tag to display it.  If we didn't
         // find an image, we will revert back to the text icon.
         if (!is_null($icon_path)) {
-            $icon = create_image($icon_path, $alt_text, $w, $h, '', '', '', '', $alt_text);
+            $icon = create_image($icon_path, $alt_text, $w, $h, '', '', '', 
+                                 '', $alt_text, '', '', '', $text_icon);
         } else {
             $icon = $text_icon;
         }
