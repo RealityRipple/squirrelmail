@@ -812,12 +812,8 @@ function makeComposeLink($url, $text = null, $target='') {
     if($javascript_on) {
         sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION);
         $compuri = SM_BASE_URI.$url;
-        $oTemplate->assign('uri', 'javascript:void(0)');
-        $oTemplate->assign('text', $text);
-        $oTemplate->assign('onclick', "comp_in_new('$compuri','$compose_width','$compose_height')");
-        $oTemplate->assign('class', '');
-        $oTemplate->assign('id', '');
-        return $oTemplate->fetch('hyperlink.tpl');
+
+        return create_hyperlink('javascript:void(0)', $text, '', "comp_in_new('$compuri','$compose_width','$compose_height')");
     }
 
     // otherwise, just open new window using regular HTML
