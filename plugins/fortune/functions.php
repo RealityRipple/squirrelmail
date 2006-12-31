@@ -31,16 +31,11 @@ if (file_exists(SM_PATH . 'config/fortune_config.php')) {
  * @since 1.5.1
  */
 function fortune_function() {
-    global $fortune_visible, $color, $fortune_command;
+    global $oTemplate, $fortune_visible, $color, $fortune_command;
 
     if (!$fortune_visible) {
         return;
     }
-
-    echo "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" bgcolor=\"$color[10]\" align=\"center\">\n".
-        "<tr><td><table width=\"100%\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" bgcolor=\"$color[5]\">\n".
-        "<tr><td align=\"center\">\n";
-    echo '<table><tr><td>';
 
     /* open handle and get all command output*/
     $handle = popen($fortune_command,'r');
@@ -53,11 +48,12 @@ function fortune_function() {
         // %s shows executed fortune cookie command.
         $fortune = sprintf(_("Unable to execute \"%s\"."),$fortune_command);
     }
-    echo "<div style=\"text-align: center;\"><em>" . _("Today's Fortune") . "</em></div><pre>\n" .
-            htmlspecialchars($fortune) .
-            "</pre>\n";
 
-    echo '</td></tr></table></td></tr></table></td></tr></table>';
+    $oTemplate->assign('color', $color);
+    $oTemplate->assign('fortune', htmlspecialchars($fortune));
+    $output = $oTemplate->fetch('plugins/fortune/mailbox_index_before.tpl');
+    return array('mailbox_index_before' => $output);
+
 }
 
 /**
