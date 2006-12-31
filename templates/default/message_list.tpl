@@ -57,6 +57,8 @@
  *    $use_icons
  *    $alt_index_colors
  *    $fancy_index_highlite
+ *    $aSortSupported
+ *    $show_label_columns
  *    $compact_paginator
  *    $aErrors
  *
@@ -67,13 +69,17 @@
  * @subpackage templates
  */
 
+
 /** add required includes */
 include_once(SM_PATH . 'functions/template/message_list_util.php');
+
 
 /* retrieve the template vars */
 extract($t);
 
+
 if (!empty($plugin_output['mailbox_index_before'])) echo $plugin_output['mailbox_index_before'];
+
 
 /**
  * Calculate string "Viewing message x to y (z total)"
@@ -81,67 +87,29 @@ if (!empty($plugin_output['mailbox_index_before'])) echo $plugin_output['mailbox
 $msg_cnt_str = '';
 if ($pageOffset < $end_msg) {
     $msg_cnt_str = sprintf(_("Viewing Messages: %s to %s (%s total)"),
-                    '<em>'.$pageOffset.'</em>', '<em>'.$end_msg.'</em>', $iNumberOfMessages);
+                           '<em>' . $pageOffset . '</em>',
+                           '<em>' . $end_msg . '</em>',
+                           $iNumberOfMessages);
 } else if ($pageOffset == $end_msg) {
-    $msg_cnt_str = sprintf(_("Viewing Message: %s (%s total)"), '<em>'.$pageOffset.'</em>', $iNumberOfMessages);
+    $msg_cnt_str = sprintf(_("Viewing Message: %s (%s total)"),
+                           '<em>' . $pageOffset . '</em>',
+                           $iNumberOfMessages);
 }
 
-
-
-if (!($sort & SQSORT_THREAD) && $enablesort) {
-    $aSortSupported = array(SQM_COL_SUBJ =>     array(SQSORT_SUBJ_ASC     , SQSORT_SUBJ_DESC),
-                            SQM_COL_DATE =>     array(SQSORT_DATE_DESC    , SQSORT_DATE_ASC),
-                            SQM_COL_INT_DATE => array(SQSORT_INT_DATE_DESC, SQSORT_INT_DATE_ASC),
-                            SQM_COL_FROM =>     array(SQSORT_FROM_ASC     , SQSORT_FROM_DESC),
-                            SQM_COL_TO =>       array(SQSORT_TO_ASC       , SQSORT_TO_DESC),
-                            SQM_COL_CC =>       array(SQSORT_CC_ASC       , SQSORT_CC_DESC),
-                            SQM_COL_SIZE =>     array(SQSORT_SIZE_ASC     , SQSORT_SIZE_DESC));
-} else {
-    $aSortSupported = array();
-}
-
-// figure out which columns should serve as labels for checkbox:
-// we try to grab the two columns before and after the checkbox,
-// except the subject column, since it is the link that opens
-// the message view
-//
-// if $javascript_on is set, then the highlighting code takes
-// care of this; just skip it
-//
-$show_label_columns = array();
-$index_order_part = array();
-if (!($javascript_on && $fancy_index_highlite)) {
-    $get_next_two = 0;
-    $last_order_part = 0;
-    $last_last_order_part = 0;
-    foreach ($aOrder as $index_order_part) {
-        if ($index_order_part == SQM_COL_CHECK) {
-            $get_next_two = 1;
-            if ($last_last_order_part != SQM_COL_SUBJ)
-                $show_label_columns[] = $last_last_order_part;
-            if ($last_order_part != SQM_COL_SUBJ)
-                $show_label_columns[] = $last_order_part;
-
-        } else if ($get_next_two > 0 && $get_next_two < 3 && $index_order_part != SQM_COL_SUBJ) {
-            $show_label_columns[] = $index_order_part;
-            $get_next_two++;
-        }
-        $last_last_order_part = $last_order_part;
-        $last_order_part = $index_order_part;
-    }
-}
 
 /**
  * All icon functionality is now handled through $icon_theme_path.
  * $icon_theme_path will contain the path to the user-selected theme.  If it is
  * NULL, the user and/or admin have turned off icons.
-*/
+ */
+
 
 // set this to an empty string to turn off extra
 // highlighting of checked rows
 //
 //$clickedColor = '';
 $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
+
 
 ?>
 <div id="message_list">
@@ -157,8 +125,10 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
               <td class="links_paginator">
 <!-- paginator and thread link string -->
                   <?php
-                      /**
-                       * because the template is included in the display function we refer to $oTemplate with $this
+                     /**
+                       * The following line gets the output from a separate 
+                       * template altogether (called "paginator.tpl").
+                       * $this is the Template class object.
                        */
                       $paginator_str = $this->fetch('paginator.tpl');
                       echo $paginator_str . $thread_link_str ."\n"; ?>
@@ -182,68 +152,61 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
               <td class="message_control_buttons">
 
 <?php
-        foreach ($aFormElements as $key => $value) {
-            switch ($value[1]) {
+        foreach ($aFormElements as $widget_name => $widget_attrs) {
+            switch ($widget_attrs['type']) {
             case 'submit':
-                if ($key != 'moveButton' && $key != 'copyButton' && $key != 'delete' && $key != 'undeleteButton') { // add move in a different table cell
-?>
-                  <input type="submit" name="<?php echo $key; ?>" value="<?php echo $value[0]; ?>" class="message_control_button" />&nbsp;
-<?php
+                if ($widget_name != 'moveButton' && $widget_name != 'copyButton' && $widget_name != 'delete' && $widget_name != 'undeleteButton') { // add these later in another table cell
+                    echo '<input type="submit" name="' . $widget_name . '" value="' . $widget_attrs['value'] . '" class="message_control_button" />&nbsp;';
                 }
                 break;
             case 'checkbox':
-                if ($key != 'bypass_trash') {
-?>
-                  <input type="checkbox" name="<?php echo $key; ?>" id="<?php echo $key; ?>" /><label for="<?php echo $key; ?>"><?php echo $value[0]; ?></label>&nbsp;
-<?php
+                if ($widget_name != 'bypass_trash') {
+                    echo '<input type="checkbox" name="' . $widget_name . '" id="' . $widget_name . '" /><label for="' . $widget_name . '">' . $widget_attrs['value'] . '</label>&nbsp;';
                 }
                 break;
             case 'hidden':
-                 echo '<input type="hidden" name="'.$key.'" value="'. $value[0]."\">\n";
-                 break;
+                echo '<input type="hidden" name="'.$widget_name.'" value="'. $widget_attrs['value']."\">\n";
+                break;
             default: break;
             }
         }
 ?>
               </td>
               <td class="message_control_delete">
-
-
 <?php
         if (isset($aFormElements['delete'])) {
-?>
-                  <input type="submit" name="delete" value="<?php echo $aFormElements['delete'][0]; ?>" class="message_control_button" />&nbsp;
- <?php
+            echo '<input type="submit" name="delete" value="' . $aFormElements['delete']['value'] . '" class="message_control_button" />&nbsp;';
             if (isset($aFormElements['bypass_trash'])) {
-?>
-                  <input type="checkbox" name="bypass_trash" id="bypass_trash" /><label for="bypass_trash"><?php echo $aFormElements['bypass_trash'][0]; ?></label>&nbsp;
-<?php
+                echo '<input type="checkbox" name="bypass_trash" id="bypass_trash" /><label for="bypass_trash">' . $aFormElements['bypass_trash']['value'] . '</label>&nbsp;';
             }
             if (isset($aFormElements['undeleteButton'])) {
-?>
-                  <input type="submit" name="undeleteButton" value="<?php echo $aFormElements['undeleteButton'][0]; ?>" class="message_control_button" />&nbsp;
-<?php
+                echo '<input type="submit" name="undeleteButton" value="' . $aFormElements['undeleteButton']['value'] . '" class="message_control_button" />&nbsp;';
             }
 ?>
+
               </td>
+
 <?php
         } // if (isset($aFormElements['delete']))
         if (isset($aFormElements['moveButton']) || isset($aFormElements['copyButton'])) {
 ?>
               <td class="message_control_move">
                     <select name="targetMailbox">
-                       <?php echo $aFormElements['targetMailbox'][0];?>
+                       <?php echo $aFormElements['targetMailbox']['options_list'];?>
                     </select>
-<?php         if (isset($aFormElements['moveButton'])) { ?>
-                  <input type="submit" name="moveButton" value="<?php echo $aFormElements['moveButton'][0]; ?>" class="message_control_button" />
-<?php         }
-              if (isset($aFormElements['copyButton'])) { ?>
-                  <input type="submit" name="copyButton" value="<?php echo $aFormElements['copyButton'][0]; ?>" class="message_control_button" />
-<?php         } ?>
+<?php         
+            if (isset($aFormElements['moveButton'])) { 
+                echo '<input type="submit" name="moveButton" value="' . $aFormElements['moveButton']['value'] . '" class="message_control_button" />';
+            }
+            if (isset($aFormElements['copyButton'])) {
+                echo '<input type="submit" name="copyButton" value="' . $aFormElements['copyButton']['value'] . '" class="message_control_button" />';
+            } 
+?>
+
               </td>
 
 <?php
-        } // if (isset($aFormElements['move']))
+        } // if (isset($aFormElements['moveButton']) || isset($aFormElements['copyButton']))
 ?>
             </tr>
           </table>
@@ -254,10 +217,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
     } // if (count($aFormElements))
 ?>
     </table>
-<?php
-    //FIXME: no hooks in templates!
-    do_hook('mailbox_form_before', $null);
-?>
+<?php if (!empty($plugin_output['mailbox_form_before'])) echo $plugin_output['mailbox_form_before']; ?>
     </td>
   </tr>
   <tr><td class="spacer"></td></tr>
@@ -275,12 +235,16 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
  * this issue.  We will use TR/TD w/ another CSS class to work around this.
  */
 ?>
+
               <tr class="headerRow">
+
 <?php
     $aWidth = calcMessageListColumnWidth($aOrder);
     foreach($aOrder as $iCol) {
 ?>
+
                     <td style="width:<?php echo $aWidth[$iCol]; ?>%">
+
 <?php
         switch ($iCol) {
           case SQM_COL_CHECK:
