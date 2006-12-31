@@ -26,6 +26,10 @@
   *      + $vspace  - the image's vspace attribute value
   *                   (optional; may not be present)
   *      + $onclick - onClick JavaScript handler (optional; may not be present)
+  *      + $text_alternative - A text replacement for the entire
+  *                            image tag, if for some reason the 
+  *                            image tag cannot or should not be 
+  *                            produced (optional; may not be present)
   *
   * @copyright &copy; 1999-2006 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
