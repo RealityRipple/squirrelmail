@@ -1089,23 +1089,30 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
               case 'undeleteButton':
               case 'expungeButton':
               case 'forward':
-                $aFormElements[$k] = array($aButtonStrings[$k],'submit');
+                $aFormElements[$k] 
+                    = array('value' => $aButtonStrings[$k], 'type' => 'submit');
                 break;
               case 'bypass_trash':
-                $aFormElements[$k] = array($aButtonStrings[$k],'checkbox');
+                $aFormElements[$k] 
+                    = array('value' => $aButtonStrings[$k], 'type' => 'checkbox');
                 break;
               case 'moveButton':
               case 'copyButton':
-                $aFormElements['targetMailbox'] =
-                   array(sqimap_mailbox_option_list($imapConnection, array(strtolower($lastTargetMailbox)), 0, $boxes),'select');
-                $aFormElements['mailbox']       = array($aMailbox['NAME'],'hidden');
-                $aFormElements['startMessage']  = array($aMailbox['PAGEOFFSET'],'hidden');
-                $aFormElements[$k]              = array($aButtonStrings[$k],'submit');
+                $aFormElements['targetMailbox']
+                    = array('options_list' => sqimap_mailbox_option_list($imapConnection, array(strtolower($lastTargetMailbox)), 0, $boxes),
+                            'type' => 'select');
+                $aFormElements['mailbox']       
+                    = array('value' => $aMailbox['NAME'], 'type' => 'hidden');
+                $aFormElements['startMessage']  
+                    = array('value' => $aMailbox['PAGEOFFSET'], 'type' => 'hidden');
+                $aFormElements[$k]              
+                    = array('value' => $aButtonStrings[$k], 'type' => 'submit');
                 break;
             }
         }
-        $aFormElements['account']  = array($iAccount,'hidden');
+        $aFormElements['account']  = array('value' => $iAccount,'type' => 'hidden');
     }
+    do_hook('message_list_controls', $aFormElements);
 
     /*
      * This is the beginning of the message list table.
@@ -1121,7 +1128,8 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
 
     /* finally set the template vars */
 
-    // FIX ME, before we support multiple templates we must review the names of the vars
+// FIXME, before we support multiple templates we must review the names of the vars
+// BUMP!
 
 
     $aTemplate['color']     = $color;
@@ -1154,7 +1162,68 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
     $aTemplate['fancy_index_highlite'] = $fancy_index_highlite;
 
 
+    /**
+      * Set up sort possibilities; one could argue that this is best
+      * placed in the template, but most template authors won't understand
+      * or need to understand it, so some advanced templates can override 
+      * it if they do something different.
+      */
+    if (!($aTemplate['sort'] & SQSORT_THREAD) && $aTemplate['enablesort']) {
+        $aTemplate['aSortSupported']
+            = array(SQM_COL_SUBJ =>     array(SQSORT_SUBJ_ASC     , SQSORT_SUBJ_DESC),
+                    SQM_COL_DATE =>     array(SQSORT_DATE_DESC    , SQSORT_DATE_ASC),
+                    SQM_COL_INT_DATE => array(SQSORT_INT_DATE_DESC, SQSORT_INT_DATE_ASC),
+                    SQM_COL_FROM =>     array(SQSORT_FROM_ASC     , SQSORT_FROM_DESC),
+                    SQM_COL_TO =>       array(SQSORT_TO_ASC       , SQSORT_TO_DESC),
+                    SQM_COL_CC =>       array(SQSORT_CC_ASC       , SQSORT_CC_DESC),
+                    SQM_COL_SIZE =>     array(SQSORT_SIZE_ASC     , SQSORT_SIZE_DESC));
+    } else {
+        $aTemplate['aSortSupported'] = array();
+    }
+
+
+    /**
+      * Figure out which columns should serve as labels for checkbox:
+      * we try to grab the two columns before and after the checkbox,
+      * except the subject column, since it is the link that opens
+      * the message view
+      *
+      * if $javascript_on is set, then the highlighting code takes
+      * care of this; just skip it
+      *
+      * This code also might be more appropriate in a template file, but
+      * we are moving this complex stuff out of the way of template 
+      * authors; advanced template sets are always free to override
+      * the resultant values.
+      *
+      */
+    $show_label_columns = array();
+    $index_order_part = array();
+    if (!($aTemplate['javascript_on'] && $aTemplate['fancy_index_highlite'])) {
+        $get_next_two = 0;
+        $last_order_part = 0;
+        $last_last_order_part = 0;
+        foreach ($aTemplate['aOrder'] as $index_order_part) {
+            if ($index_order_part == SQM_COL_CHECK) {
+                $get_next_two = 1;
+                if ($last_last_order_part != SQM_COL_SUBJ)
+                    $show_label_columns[] = $last_last_order_part;
+                if ($last_order_part != SQM_COL_SUBJ)
+                    $show_label_columns[] = $last_order_part;
+    
+            } else if ($get_next_two > 0 && $get_next_two < 3 && $index_order_part != SQM_COL_SUBJ) {
+                $show_label_columns[] = $index_order_part;
+                $get_next_two++;
+            }
+            $last_last_order_part = $last_order_part;
+            $last_order_part = $index_order_part;
+        }
+    }
+    $aTemplate['show_label_columns'] = $show_label_columns;
+
+
     return $aTemplate;
+
 }
 
 
