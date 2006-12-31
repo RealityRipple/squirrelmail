@@ -63,14 +63,7 @@ function plugin_listcommands_menu_do() {
                 $links[] = makeComposeLink($url, $fieldsdescr['reply']);
             }
         } else if ($proto == 'href') {
-            $oTemplate->assign('uri', $act);
-            $oTemplate->assign('target', '_blank');
-            $oTemplate->assign('text', $fieldsdescr[$cmd]);
-            $oTemplate->assign('class', '');
-            $oTemplate->assign('id', '');
-            $oTemplate->assign('onclick', '');
-            $output = $oTemplate->fetch('hyperlink.tpl');
-            $links[] = $output;
+            $links[] = create_hyperlink($act, $fieldsdescr[$cmd], '_blank');
         }
     }
 

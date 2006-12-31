@@ -14,6 +14,41 @@
  * @since 1.3.0
  */
 
+
+/**
+ * Generates a hyperlink
+ *
+ * @param string $uri     The target link location
+ * @param string $text    The link text 
+ * @param string $target  The location where the link should 
+ *                        be opened (OPTIONAL; default not used)
+ * @param string $onclick The onClick JavaScript handler (OPTIONAL; 
+ *                        default not used)
+ * @param string $class   The CSS class name (OPTIONAL; default
+ *                        not used)
+ * @param string $id      The ID name (OPTIONAL; default not used)
+ *
+ * @return string The desired hyperlink tag.
+ *
+ * @since 1.5.2
+ *
+ */
+function create_hyperlink($uri, $text, $target='', $onclick='', $class='', $id='') {
+
+    global $oTemplate;
+
+    $oTemplate->assign('uri', $uri);
+    $oTemplate->assign('text', $text);
+    $oTemplate->assign('target', $target);
+    $oTemplate->assign('onclick', $onclick);
+    $oTemplate->assign('class', $class);
+    $oTemplate->assign('id', $id);
+
+    return $oTemplate->fetch('hyperlink.tpl');
+
+}
+
+
 /**
  * Generates html tags
  *
@@ -90,6 +125,7 @@ function html_tag( $tag,                // Tag to output
     return( $ret );
 }
 
+
 /**
  * handy function to set url vars
  *
@@ -157,3 +193,5 @@ function set_url_var($url, $var, $val=0, $link=true) {
     }
     return $url;
 }
+
+
