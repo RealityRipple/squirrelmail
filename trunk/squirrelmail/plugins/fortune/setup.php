@@ -17,7 +17,7 @@
 function squirrelmail_plugin_init_fortune() {
     global $squirrelmail_plugin_hooks;
 
-    $squirrelmail_plugin_hooks['mailbox_index_before']['fortune'] = 'fortune';
+    $squirrelmail_plugin_hooks['template_construct_message_list.tpl']['fortune'] = 'fortune';
     $squirrelmail_plugin_hooks['loading_prefs']['fortune'] = 'fortune_load';
     $squirrelmail_plugin_hooks['optpage_loadhook_display']['fortune'] = 'fortune_options';
 }
@@ -28,7 +28,7 @@ function squirrelmail_plugin_init_fortune() {
  */
 function fortune() {
     include_once(SM_PATH . 'plugins/fortune/functions.php');
-    fortune_function();
+    return fortune_function();
 }
 
 /**
