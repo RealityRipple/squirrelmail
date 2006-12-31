@@ -113,7 +113,35 @@ function create_image($src, $alt='', $width='', $height='',
 
 
 /**
+ * Generates a span tag
+ *
+ * @param string $value   The contents that belong inside the span
+ * @param string $class   The CSS class name (OPTIONAL; default
+ *                        not used)
+ * @param string $id      The ID name (OPTIONAL; default not used)
+ *
+ * @return string The desired span tag.
+ *
+ * @since 1.5.2
+ *
+ */
+function create_span($value, $class='', $id='') {
+
+    global $oTemplate;
+
+    $oTemplate->assign('value', $value);
+    $oTemplate->assign('class', $class);
+    $oTemplate->assign('id', $id);
+
+    return $oTemplate->fetch('span.tpl');
+
+}
+
+
+/**
  * Generates html tags
+//FIXME: this should not be used anywhere in the core, or we should
+//       convert this to use templates.  We sould not be assuming HTML output.
  *
  * @param string $tag Tag to output
  * @param string $val Value between tags

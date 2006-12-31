@@ -174,16 +174,15 @@ function getPriorityIcon ($priority, $icon_theme_path) {
     switch ($priority) {
         case 1:
         case 2:
-            $icon = getIcon($icon_theme_path, 'prio_high.png', '<span class="high_priority">!</span>');
+            $icon = getIcon($icon_theme_path, 'prio_high.png', create_span('!', 'high_priority'));
             break;
         case 5:
-            $icon = getIcon($icon_theme_path, 'prio_low.png', '<span class="low_priority">&#8595;</span>');
+            $icon = getIcon($icon_theme_path, 'prio_low.png', create_span('&#8595;', 'low_priority'));
             break;
         default:
             $icon = getIcon($icon_theme_path, 'transparent.png', '', '', 5);
             break;
     }
- echo "prio = $priority<br>icon = $icon<br>";   
 
     return $icon;
 }
