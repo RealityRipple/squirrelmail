@@ -68,14 +68,12 @@
  */
 
 /** add required includes */
-include_once(SM_PATH . 'templates/util_message_list.php');
+include_once(SM_PATH . 'functions/template/message_list_util.php');
 
 /* retrieve the template vars */
 extract($t);
 
-//FIXME: no hooks in templates!
-global $null;
-do_hook('mailbox_index_before', $null);
+if (!empty($plugin_output['mailbox_index_before'])) echo $plugin_output['mailbox_index_before'];
 
 /**
  * Calculate string "Viewing message x to y (z total)"
