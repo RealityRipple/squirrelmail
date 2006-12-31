@@ -123,39 +123,32 @@ sqsetcookieflush();
 displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 
 
-//FIXME: need to remove *ALL* HTML from this file!
 
 /* If they don't have a logo, don't bother.. */
 $logo_str = '';
 if (isset($org_logo) && $org_logo) {
     
-    $oTemplate->assign('src', $org_logo);
-    $oTemplate->assign('alt', sprintf(_("%s Logo"), $org_name));
-    $oTemplate->assign('class', 'sqm_loginImage');
     if (isset($org_logo_width) && is_numeric($org_logo_width) &&
      $org_logo_width>0) {
-        $oTemplate->assign('width', $org_logo_width);
+        $width = $org_logo_width;
     } else {
-        $oTemplate->assign('width', '');
+        $width = '';
     }
     if (isset($org_logo_height) && is_numeric($org_logo_height) &&
      $org_logo_height>0) {
-        $oTemplate->assign('height', $org_logo_height);
+        $height = $org_logo_height;
     } else {
-        $oTemplate->assign('height', '');
+        $height = '';
     }
-    $oTemplate->assign('onclick', '');
-    $oTemplate->assign('id', '');
-    $oTemplate->assign('title', '');
-    $oTemplate->assign('align', '');
-    $oTemplate->assign('border', '');
-    $oTemplate->assign('hspace', '');
-    $oTemplate->assign('vspace', '');
-    $logo_str = $oTemplate->fetch('image.tpl');
+
+    $logo_str = create_image($org_logo, sprintf(_("%s Logo"), $org_name), 
+                             $width, $height, '', 'sqm_loginImage');
+
 }
 
 $sm_attribute_str = '';
 if (isset($hide_sm_attributions) && !$hide_sm_attributions) {
+//FIXME: need to remove *ALL* HTML from this file!
     $sm_attribute_str = _("SquirrelMail Webmail Application")."<br />\n" .
                         _("By the SquirrelMail Project Team")."<br />\n";
 }
@@ -180,12 +173,14 @@ $oTemplate->assign('org_name_str', sprintf (_("%s Login"), $org_name));
 $oTemplate->assign('login_field_value', $loginname_value);
 $oTemplate->assign('login_extra', $login_extra);
 
+//FIXME: need to remove *ALL* HTML from this file!
 echo '<body onLoad="squirrelmail_loginpage_onload()">'."\n";
 echo '<form action="redirect.php" method="post" onSubmit="document.forms[0].js_autodetect_results.value='. SMPREF_JS_ON .'">'."\n";
 do_hook('login_top', $null);
 
 $oTemplate->display('login.tpl');
 
+//FIXME: need to remove *ALL* HTML from this file!
 echo "</form>\n";
 do_hook('login_bottom', $null);
 
