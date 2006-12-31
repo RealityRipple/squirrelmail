@@ -35,7 +35,7 @@ extract($t);
                 <td>
                   <div style="text-align: center;"><em><?php echo _("Today's Fortune"); ?></em></div>
                   <pre>
-$fortune</pre>
+<?php echo $fortune; ?></pre>
                 </td>
               </tr>
             </table>
