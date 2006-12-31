@@ -21,7 +21,6 @@ include('../include/init.php');
 /* address book functions */
 require_once(SM_PATH . 'functions/addressbook.php');
 include_once(SM_PATH . 'templates/util_addressbook.php');
-include_once(SM_PATH . 'functions/template/general_util.php');
 
 /* form functions */
 require_once(SM_PATH . 'functions/forms.php');
