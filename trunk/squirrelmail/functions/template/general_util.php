@@ -86,9 +86,12 @@ $xhtml_end='';
  * @param string $alt_text Optional.  Text for alt/title attribute of image
  * @param integer $w Optional.  Width of requested image.
  * @param integer $h Optional.  Height of requested image.
+ *
  * @return string $icon String containing icon that can be echo'ed
+ *
  * @author Steve Brown
  * @since 1.5.2
+ *
  */
 function getIcon($icon_theme_path, $icon_name, $text_icon, $alt_text='', $w=NULL, $h=NULL) {
     $icon = '';
@@ -100,27 +103,7 @@ function getIcon($icon_theme_path, $icon_name, $text_icon, $alt_text='', $w=NULL
         // If we found an icon, build an img tag to display it.  If we didn't
         // find an image, we will revert back to the text icon.
         if (!is_null($icon_path)) {
-            global $oTemplate;
-            $oTemplate->assign('src', $icon_path);
-            $oTemplate->assign('alt', $alt_text);
-            $oTemplate->assign('title', $alt_text);
-            $oTemplate->assign('width', $w);
-            $oTemplate->assign('height', $h);
-
-            // blank other attributes because the template 
-            // object might already contain values due to 
-            // having been used to show another image before
-            // this one
-            //
-            $oTemplate->assign('onclick', '');
-            $oTemplate->assign('align', '');
-            $oTemplate->assign('border', '');
-            $oTemplate->assign('hspace', '');
-            $oTemplate->assign('vspace', '');
-            $oTemplate->assign('class', '');
-            $oTemplate->assign('id', '');
-
-            $icon = $oTemplate->fetch('image.tpl');
+            $icon = create_image($icon_path, $alt_text, $w, $h, '', '', '', '', $alt_text);
         } else {
             $icon = $text_icon;
         }
@@ -136,10 +119,13 @@ function getIcon($icon_theme_path, $icon_name, $text_icon, $alt_text='', $w=NULL
  *
  * @param string $icon_theme_path User's chosen icon set
  * @param string $icon_name File name of the desired icon
+ *
  * @return string $icon String containing path to icon that can be used in
  *                      an IMG tag, or NULL if the image is not found.
+ *
  * @author Steve Brown
  * @since 1.5.2
+ *
  */
 function getIconPath ($icon_theme_path, $icon_name) {
     global $fallback_icon_theme_path;

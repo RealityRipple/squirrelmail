@@ -50,6 +50,61 @@ function create_hyperlink($uri, $text, $target='', $onclick='', $class='', $id='
 
 
 /**
+ * Generates an image tag
+ *
+ * @param string $src     The image source path
+ * @param string $alt     Alternate link text (OPTIONAL; default 
+ *                        not used)
+ * @param string $width   The width the image should be shown in 
+ *                        (OPTIONAL; default not used)
+ * @param string $height  The height the image should be shown in 
+ *                        (OPTIONAL; default not used)
+ * @param string $border  The image's border attribute value 
+ *                        (OPTIONAL; default not used)
+ * @param string $class   The CSS class name (OPTIONAL; default
+ *                        not used)
+ * @param string $id      The ID name (OPTIONAL; default not used)
+ * @param string $onclick The onClick JavaScript handler (OPTIONAL;
+ *                        default not used)
+ * @param string $title   The image's title attribute value 
+ *                        (OPTIONAL; default not used)
+ * @param string $align   The image's alignment attribute value 
+ *                        (OPTIONAL; default not used)
+ * @param string $hspace  The image's hspace attribute value 
+ *                        (OPTIONAL; default not used)
+ * @param string $vspace  The image's vspace attribute value 
+ *                        (OPTIONAL; default not used)
+ *
+ * @return string The desired hyperlink tag.
+ *
+ * @since 1.5.2
+ *
+ */
+function create_image($src, $alt='', $width='', $height='', 
+                      $border='', $class='', $id='', $onclick='', 
+                      $title='', $align='', $hspace='', $vspace='') {
+
+    global $oTemplate;
+
+    $oTemplate->assign('src', $src);
+    $oTemplate->assign('alt', $alt);
+    $oTemplate->assign('width', $width);
+    $oTemplate->assign('height', $height);
+    $oTemplate->assign('border', $border);
+    $oTemplate->assign('class', $class);
+    $oTemplate->assign('id', $id);
+    $oTemplate->assign('onclick', $onclick);
+    $oTemplate->assign('title', $title);
+    $oTemplate->assign('align', $align);
+    $oTemplate->assign('hspace', $hspace);
+    $oTemplate->assign('vspace', $vspace);
+
+    return $oTemplate->fetch('image.tpl');
+
+}
+
+
+/**
  * Generates html tags
  *
  * @param string $tag Tag to output
