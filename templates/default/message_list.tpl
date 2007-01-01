@@ -147,69 +147,14 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
 <!-- start message list form control -->
       <tr class="message_list_controls">
         <td>
-          <table class="table_empty" cellspacing="0">
-            <tr>
-              <td class="message_control_buttons">
-
-<?php
-        foreach ($aFormElements as $widget_name => $widget_attrs) {
-            switch ($widget_attrs['type']) {
-            case 'submit':
-                if ($widget_name != 'moveButton' && $widget_name != 'copyButton' && $widget_name != 'delete' && $widget_name != 'undeleteButton') { // add these later in another table cell
-                    echo '<input type="submit" name="' . $widget_name . '" value="' . $widget_attrs['value'] . '" class="message_control_button" />&nbsp;';
-                }
-                break;
-            case 'checkbox':
-                if ($widget_name != 'bypass_trash') {
-                    echo '<input type="checkbox" name="' . $widget_name . '" id="' . $widget_name . '" /><label for="' . $widget_name . '">' . $widget_attrs['value'] . '</label>&nbsp;';
-                }
-                break;
-            case 'hidden':
-                echo '<input type="hidden" name="'.$widget_name.'" value="'. $widget_attrs['value']."\">\n";
-                break;
-            default: break;
-            }
-        }
-?>
-              </td>
-              <td class="message_control_delete">
-<?php
-        if (isset($aFormElements['delete'])) {
-            echo '<input type="submit" name="delete" value="' . $aFormElements['delete']['value'] . '" class="message_control_button" />&nbsp;';
-            if (isset($aFormElements['bypass_trash'])) {
-                echo '<input type="checkbox" name="bypass_trash" id="bypass_trash" /><label for="bypass_trash">' . $aFormElements['bypass_trash']['value'] . '</label>&nbsp;';
-            }
-            if (isset($aFormElements['undeleteButton'])) {
-                echo '<input type="submit" name="undeleteButton" value="' . $aFormElements['undeleteButton']['value'] . '" class="message_control_button" />&nbsp;';
-            }
-?>
-
-              </td>
-
-<?php
-        } // if (isset($aFormElements['delete']))
-        if (isset($aFormElements['moveButton']) || isset($aFormElements['copyButton'])) {
-?>
-              <td class="message_control_move">
-                    <select name="targetMailbox">
-                       <?php echo $aFormElements['targetMailbox']['options_list'];?>
-                    </select>
-<?php         
-            if (isset($aFormElements['moveButton'])) { 
-                echo '<input type="submit" name="moveButton" value="' . $aFormElements['moveButton']['value'] . '" class="message_control_button" />';
-            }
-            if (isset($aFormElements['copyButton'])) {
-                echo '<input type="submit" name="copyButton" value="' . $aFormElements['copyButton']['value'] . '" class="message_control_button" />';
-            } 
-?>
-
-              </td>
-
-<?php
-        } // if (isset($aFormElements['moveButton']) || isset($aFormElements['copyButton']))
-?>
-            </tr>
-          </table>
+                  <?php
+                     /**
+                       * The following line gets the output from a separate
+                       * template altogether (called "message_list_controls.tpl").
+                       * $this is the Template class object.
+                       */
+                      $message_list_controls = $this->fetch('message_list_controls.tpl');
+                      echo $message_list_controls ."\n"; ?>
         </td>
       </tr>
 <!-- end message list form control -->
