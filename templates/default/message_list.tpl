@@ -254,28 +254,30 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
 
 <!-- Message headers start -->
 <?php
+
             $i = 0;
             $iColCnt = count($aOrder);
             $sLine = '';
 
+
             // this stuff does the auto row highlighting on mouseover
             //
             if ($javascript_on && $fancy_index_highlite) {
-
                 $mouseoverColor = $color[5];
-
-                // set this to an empty string to turn off extra
-                // highlighting of checked rows
-                //
-                //$clickedColor = '';
-                $clickedColor = (!empty($color[16])) ? $color[16] : $color[2];
-
                 $checkbox_javascript = ' onclick="this.checked = !this.checked;"';
+                // $clickedColor is defined at top of this file
             } else {
                 $checkbox_javascript = '';
             }
+
+
+            /**
+              * main message iteration loop
+              */
             foreach ($aMessages as $iUid => $aMsg) {
+
                 echo $sLine;
+
 
 /**
 * Display message header row in messages list
@@ -333,7 +335,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
     // this stuff does the auto row highlighting on mouseover
     //
     if ($javascript_on && $fancy_index_highlite) {
-        $row_extra .= ' onmouseover="rowOver(\''.$form_id . '_msg' . $i.'\');" onmouseout="setPointer(this, ' . $i . ', \'out\', \'' . $class . '\', \'mouse_over\', \'clicked\');" onmousedown="setPointer(this, ' . $i . ', \'click\', \'' . $class . '\', \'mouse_over\', \'clicked\');"';
+        $row_extra = ' onmouseover="rowOver(\''.$form_id . '_msg' . $i.'\');" onmouseout="setPointer(this, ' . $i . ', \'out\', \'' . $class . '\', \'mouse_over\', \'clicked\');" onmousedown="setPointer(this, ' . $i . ', \'click\', \'' . $class . '\', \'mouse_over\', \'clicked\');"';
     }
     // this does the auto-checking of the checkbox no matter
     // where on the row you click
@@ -395,7 +397,6 @@ if ($class != 'even' && $class != 'odd')
         $link       = (isset($aCol['link']))       ? $aCol['link']       : '';
         $link_extra = (isset($aCol['link_extra'])) ? $aCol['link_extra'] : '';
         $onclick    = (isset($aCol['onclick']))    ? $aCol['onclick']    : '';
-        $link       = (isset($aCol['link']))       ? $aCol['link']       : '';
         $value      = (isset($aCol['value']))      ? $aCol['value']      : '';
         $target     = (isset($aCol['target']))     ? $aCol['target']     : '';
         if ($iCol !== SQM_COL_CHECK) {
@@ -411,7 +412,7 @@ if ($class != 'even' && $class != 'odd')
             <?php
             } else {
                 echo '<td class="col_check">';
-                $checked = ($checkall) ? " checked=checked " : " ";
+                $checked = ($checkall) ? ' checked=checked ' : '';
                 echo "<input type=\"checkbox\" name=\"msg[".$i."]\" id=\"".$form_id."_msg$i\" value=\"$iUid\" $checked/></td>";
             }
             break;
@@ -431,8 +432,8 @@ if ($class != 'even' && $class != 'odd')
                             'parentNode.parentNode, ' . $i . ', \'click\', \''. $class. '\', \'mouse_over\', \'' .
                              $clickedColor .'\');"';
             }
-            $sText .= ">";
-            $sText .= $value . '</a>';
+            $sText .= ">"
+                   . $value . '</a>';
             if ($align['left'] == 'right') {
                 $sText .= str_repeat('&nbsp;&nbsp;',$indent);
             }
@@ -440,14 +441,14 @@ if ($class != 'even' && $class != 'odd')
             break;
           case SQM_COL_SIZE:
           case SQM_COL_FLAGS:
-            $sText = "    <td class=\"col_flags\" $javascript_auto_click>";
-            $sText .= "$value</td>\n";
+            $sText = "    <td class=\"col_flags\" $javascript_auto_click>"
+                   . "$value</td>\n";
             echo $sText;
             break;
           case SQM_COL_INT_DATE:
           case SQM_COL_DATE:
-            $sText = "    <td class=\"col_date\" $javascript_auto_click>";
-            $sText .= $value. "</td>\n";
+            $sText = "    <td class=\"col_date\" $javascript_auto_click>"
+                   . $value. "</td>\n";
             echo $sText;
             break;
           default:
@@ -467,9 +468,8 @@ if ($class != 'even' && $class != 'odd')
             break;
         }
     }
-?>
-                  </tr>
-<?php
+
+            echo '</tr>';
             $sLine = "<tr><td colspan=\"$iColCnt\" class=\"spacer\"></td></tr>\n";
             ++$i;
 
@@ -505,7 +505,7 @@ if ($class != 'even' && $class != 'odd')
       </tr>
       <tr>
         <td>
-        <?php /* FIXME: no hooks in templates!! */ do_hook('mailbox_index_after', $null); ?>
+<?php if (!empty($plugin_output['mailbox_index_after'])) echo $plugin_output['mailbox_index_after']; ?>
         </td>
       </tr>
     </table>
