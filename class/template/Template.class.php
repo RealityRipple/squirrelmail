@@ -2,12 +2,12 @@
 /**
   * Template.class.php
   *
-  * This file contains an abstract (PHP 4, so "abstract" is relative) 
-  * class meant to define the basic template interface for the 
+  * This file contains an abstract (PHP 4, so "abstract" is relative)
+  * class meant to define the basic template interface for the
   * SquirrelMail core application.  Subclasses should extend this
   * class with any custom functionality needed to interface a target
   * templating engine with SquirrelMail.
-  * 
+  *
   * @copyright &copy; 2003-2006 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
   * @version $Id$
@@ -53,7 +53,7 @@ class Template
     var $template_set_id = '';
 
     /**
-      * The template set base directory (relative path from 
+      * The template set base directory (relative path from
       * the main SquirrelMail directory (SM_PATH))
       *
       * @var string
@@ -78,7 +78,7 @@ class Template
     var $fallback_template_set_id = '';
 
     /**
-      * The fall-back template directory (relative 
+      * The fall-back template directory (relative
       * path from the main SquirrelMail directory (SM_PATH))
       *
       * @var string
@@ -87,7 +87,7 @@ class Template
     var $fallback_template_dir = '';
 
     /**
-      * The fall-back template engine (please use 
+      * The fall-back template engine (please use
       * constants defined in constants.php)
       *
       * @var string
@@ -98,9 +98,9 @@ class Template
     /**
       * Template file cache.  Structured as an array, whose keys
       * are all the template file names (with path information relative
-      * to the template set's base directory, e.g., "css/style.css") 
-      * found in all parent template sets including the ultimate fall-back 
-      * template set.  Array values are sub-arrays with the 
+      * to the template set's base directory, e.g., "css/style.css")
+      * found in all parent template sets including the ultimate fall-back
+      * template set.  Array values are sub-arrays with the
       * following key-value pairs:
       *
       *   PATH    --  file path, relative to SM_PATH
@@ -130,7 +130,7 @@ class Template
       *
       */
     function Template($template_set_id) {
-//FIXME: find a way to test that this is ONLY ever called 
+//FIXME: find a way to test that this is ONLY ever called
 //       from the construct_template() method (I doubt it
 //       is worth the trouble to parse the current stack trace)
 //        if (???)
@@ -163,9 +163,9 @@ class Template
     }
 
     /**
-      * Set up internal attributes 
+      * Set up internal attributes
       *
-      * This method does most of the work for setting up 
+      * This method does most of the work for setting up
       * newly constructed objects.
       *
       * @param string $template_set_id the template ID
@@ -185,16 +185,16 @@ class Template
 
         // set up template directories
         //
-        $this->template_dir 
+        $this->template_dir
             = Template::calculate_template_file_directory($this->template_set_id);
-        $this->fallback_template_dir 
+        $this->fallback_template_dir
             = Template::calculate_template_file_directory($this->fallback_template_set_id);
 
 
-        // determine template engine 
+        // determine template engine
         // FIXME: assuming PHP template engine may not necessarily be a good thing
         //
-        $this->template_engine = Template::get_template_config($this->template_set_id, 
+        $this->template_engine = Template::get_template_config($this->template_set_id,
                                                                'template_engine',
                                                                SQ_PHP_TEMPLATE);
 
@@ -230,9 +230,9 @@ class Template
         // values are in main SM config file
         //
         global $templateset_fallback, $aTemplateSet;
-        $aTemplateSet = (!isset($aTemplateSet) || !is_array($aTemplateSet) 
+        $aTemplateSet = (!isset($aTemplateSet) || !is_array($aTemplateSet)
                          ? array() : $aTemplateSet);
-        $templateset_fallback = (!isset($templateset_fallback) 
+        $templateset_fallback = (!isset($templateset_fallback)
                                  ? $default : $templateset_fallback);
 
         // iterate through all template sets, is this a valid skin ID?
@@ -283,7 +283,7 @@ class Template
         global $templateset_default, $aTemplateSet;
         $aTemplateSet = (!isset($aTemplateSet) || !is_array($aTemplateSet)
                          ? array() : $aTemplateSet);
-        $templateset_default = (!isset($templateset_default) 
+        $templateset_default = (!isset($templateset_default)
                                  ? $default : $templateset_default);
 
         // iterate through all template sets, is this a valid skin ID?
@@ -317,13 +317,13 @@ class Template
         global $disable_plugins, $plugins, $squirrelmail_plugin_hooks;
         if ($disable_plugins) return;
 
-        $add_plugins = Template::get_template_config($this->template_set_id, 
+        $add_plugins = Template::get_template_config($this->template_set_id,
                                                      'add_plugins', array());
-        $remove_plugins = Template::get_template_config($this->template_set_id, 
+        $remove_plugins = Template::get_template_config($this->template_set_id,
                                                         'remove_plugins', array());
 
 //FIXME (?) we assume $add_plugins and $remove_plugins are arrays -- we could
-//          error check here, or just assume that template authors or admins 
+//          error check here, or just assume that template authors or admins
 //          won't screw up their config files
 
 
@@ -378,8 +378,8 @@ class Template
       * set's templating engine.
       *
       * @param string $template_set_id The template set whose engine
-      *                                is to be used as an override 
-      *                                (if not given, this template 
+      *                                is to be used as an override
+      *                                (if not given, this template
       *                                set's engine is used) (optional).
       *
       * @return object The Template subclass object for the template engine.
@@ -389,15 +389,15 @@ class Template
 
         if (empty($template_set_id)) $template_set_id = $this->template_set_id;
         // FIXME: assuming PHP template engine may not necessarily be a good thing
-        $engine = Template::get_template_config($template_set_id, 
+        $engine = Template::get_template_config($template_set_id,
                                                 'template_engine', SQ_PHP_TEMPLATE);
-        
 
-        $engine_class_file = SM_PATH . 'class/template/' 
+
+        $engine_class_file = SM_PATH . 'class/template/'
                            . $engine . 'Template.class.php';
 
         if (!file_exists($engine_class_file)) {
-            trigger_error('Unknown template engine (' . $engine 
+            trigger_error('Unknown template engine (' . $engine
                         . ') was specified in template configuration file',
                          E_USER_ERROR);
         }
@@ -409,10 +409,10 @@ class Template
     }
 
     /**
-      * Determine the relative template directory path for 
+      * Determine the relative template directory path for
       * the given template ID.
       *
-      * @param string $template_set_id The template ID from which to build 
+      * @param string $template_set_id The template ID from which to build
       *                                the directory path
       *
       * @return string The relative template path (based off of SM_PATH)
@@ -427,10 +427,10 @@ class Template
     }
 
     /**
-      * Determine the relative images directory path for 
+      * Determine the relative images directory path for
       * the given template ID.
       *
-      * @param string $template_set_id The template ID from which to build 
+      * @param string $template_set_id The template ID from which to build
       *                                the directory path
       *
       * @return string The relative images path (based off of SM_PATH)
@@ -470,11 +470,11 @@ class Template
     }
 
     /**
-      * Return the relative template directory path for the 
+      * Return the relative template directory path for the
       * fallback template set.
       *
-      * @return string The relative path to the fallback template 
-      *                directory based from the main SquirrelMail 
+      * @return string The relative path to the fallback template
+      *                directory based from the main SquirrelMail
       *                directory (SM_PATH).
       *
       */
@@ -487,8 +487,8 @@ class Template
     /**
       * Get template set config setting
       *
-      * Given a template set ID and setting name, returns the 
-      * setting's value.  Note that settings are cached in 
+      * Given a template set ID and setting name, returns the
+      * setting's value.  Note that settings are cached in
       * session, so "live" changes to template configuration
       * won't be reflected until the user logs out and back
       * in again.
@@ -496,20 +496,20 @@ class Template
       * @param string  $template_set_id The template set for which
       *                                 to look up the setting.
       * @param string  $setting         The name of the setting to
-      *                                 retrieve.  
+      *                                 retrieve.
       * @param mixed   $default         When the requested setting
       *                                 is not found, the contents
       *                                 of this value are returned
-      *                                 instead (optional; default 
+      *                                 instead (optional; default
       *                                 is NULL).
       *                                 NOTE that unlike sqGetGlobalVar(),
       *                                 this function will also return
-      *                                 the default value if the 
-      *                                 requested setting is found 
+      *                                 the default value if the
+      *                                 requested setting is found
       *                                 but is empty.
       * @param boolean $live_config     When TRUE, the target template
       *                                 set's configuration file is
-      *                                 reloaded every time this 
+      *                                 reloaded every time this
       *                                 method is called.  Default
       *                                 behavior is to only load the
       *                                 configuration file if it had
@@ -519,18 +519,18 @@ class Template
       *                                 Should mostly be used for
       *                                 debugging.
       *
-      * @return mixed The desired setting's value or if not found, 
+      * @return mixed The desired setting's value or if not found,
       *               the contents of $default are returned.
       *
       * @static
       *
       */
-    function get_template_config($template_set_id, $setting, 
+    function get_template_config($template_set_id, $setting,
                                  $default=NULL, $live_config=FALSE) {
 
-        sqGetGlobalVar('template_configuration_settings', 
-                       $template_configuration_settings, 
-                       SQ_SESSION, 
+        sqGetGlobalVar('template_configuration_settings',
+                       $template_configuration_settings,
+                       SQ_SESSION,
                        array());
 
         if ($live_config) unset($template_configuration_settings[$template_set_id]);
@@ -544,33 +544,33 @@ class Template
            return $template_configuration_settings[$template_set_id][$setting];
 
 
-        // if template set configuration has been loaded, but this 
+        // if template set configuration has been loaded, but this
         // setting is not known, return $default
         //
         if (!empty($template_configuration_settings[$template_set_id]))
            return $default;
 
 
-        // otherwise (template set configuration has not been loaded before), 
+        // otherwise (template set configuration has not been loaded before),
         // load it into session and return the desired setting after that
         //
-        $template_config_file = SM_PATH 
+        $template_config_file = SM_PATH
                      . Template::calculate_template_file_directory($template_set_id)
                      . 'config.php';
 
         if (!file_exists($template_config_file)) {
 
-            trigger_error('No template configuration file was found where expected: ("' 
+            trigger_error('No template configuration file was found where expected: ("'
                         . $template_config_file . '")', E_USER_ERROR);
 
         } else {
 
             // we require() the file to let PHP do the variable value
             // parsing for us, and read the file in manually so we can
-            // know what variable names are used in the config file 
+            // know what variable names are used in the config file
             // (settings can be different depending on specific requirements
             // of different template engines)... the other way this may
-            // be accomplished is to somehow diff the symbol table 
+            // be accomplished is to somehow diff the symbol table
             // before/after the require(), but anyway, this code should
             // only run once for this template set...
             //
@@ -587,11 +587,11 @@ class Template
             preg_match_all('/\$(\w+)/', $file_contents, $variables, PREG_PATTERN_ORDER);
             foreach ($variables[1] as $variable) {
                 if (isset($$variable))
-                    $template_configuration_settings[$template_set_id][$variable] 
+                    $template_configuration_settings[$template_set_id][$variable]
                         = $$variable;
             }
 
-            sqsession_register($template_configuration_settings, 
+            sqsession_register($template_configuration_settings,
                                'template_configuration_settings');
 
             // NOTE: could use isset() instead of empty() below, but
@@ -607,7 +607,7 @@ class Template
 
     }
 
-    /** 
+    /**
       * Obtain template file hierarchy from cache.
       *
       * If the file hierarchy does not exist in session, it is
@@ -624,12 +624,12 @@ class Template
       *                                  empty - no additional files).
       *
       * @return array Template file hierarchy array, whose keys
-      *               are all the template file names (with path 
-      *               information relative to the template set's 
-      *               base directory, e.g., "css/style.css") 
-      *               found in all parent template sets including 
-      *               the ultimate fall-back template set.  
-      *               Array values are sub-arrays with the 
+      *               are all the template file names (with path
+      *               information relative to the template set's
+      *               base directory, e.g., "css/style.css")
+      *               found in all parent template sets including
+      *               the ultimate fall-back template set.
+      *               Array values are sub-arrays with the
       *               following key-value pairs:
       *
       *                 PATH    --  file path, relative to SM_PATH
@@ -642,7 +642,7 @@ class Template
     function cache_template_file_hierarchy($regenerate_cache=FALSE,
                                            $additional_files=array()) {
 
-        sqGetGlobalVar('template_file_hierarchy', $template_file_hierarchy, 
+        sqGetGlobalVar('template_file_hierarchy', $template_file_hierarchy,
                        SQ_SESSION, array());
 
 
@@ -653,7 +653,7 @@ class Template
             // have to add additional files if given before returning
             //
             if (!empty($additional_files)) {
-                $template_file_hierarchy = array_merge($template_file_hierarchy, 
+                $template_file_hierarchy = array_merge($template_file_hierarchy,
                                                        $additional_files);
                 sqsession_register($template_file_hierarchy,
                                    'template_file_hierarchy');
@@ -665,7 +665,7 @@ class Template
 
         // nothing in cache apparently, so go build it now
         //
-        // FIXME: not sure if there is any possibility that 
+        // FIXME: not sure if there is any possibility that
         //        this could be called when $sTemplateID has
         //        yet to be defined... throw error for now,
         //        but if the error occurs, it's a coding error
@@ -683,11 +683,11 @@ class Template
             // additional files, if any
             //
             if (!empty($additional_files)) {
-                $template_file_hierarchy = array_merge($template_file_hierarchy, 
+                $template_file_hierarchy = array_merge($template_file_hierarchy,
                                                        $additional_files);
             }
 
-            sqsession_register($template_file_hierarchy, 
+            sqsession_register($template_file_hierarchy,
                                'template_file_hierarchy');
 
             return $template_file_hierarchy;
@@ -697,27 +697,27 @@ class Template
     }
 
     /**
-      * Traverse template hierarchy and catalogue all template 
+      * Traverse template hierarchy and catalogue all template
       * files (for storing in cache).
-      * 
-      * Paths to all files in all parent, grand-parent, great grand 
-      * parent, etc. template sets (including the fallback template) 
-      * are catalogued; for identically named files, the file earlier 
+      *
+      * Paths to all files in all parent, grand-parent, great grand
+      * parent, etc. template sets (including the fallback template)
+      * are catalogued; for identically named files, the file earlier
       * in the hierarchy (closest to this template set) is used.
-      * 
+      *
       * @param string $template_set_id The template set in which to
       *                                search for files
       * @param array  $file_list       The file list so far to be added
       *                                to (allows recursive behavior)
       *                                (optional; default empty array).
-      * @param string $directory       The directory in which to search for 
+      * @param string $directory       The directory in which to search for
       *                                files (must be given as full path).
       *                                If empty, starts at top-level template
       *                                set directory (optional; default empty).
       *                                NOTE!  Use with care, as behavior is
       *                                unpredictable if directory given is not
       *                                part of correct template set.
-      * 
+      *
       * @return mixed The top-level caller will have an array of template
       *               files returned to it; recursive calls to this function
       *               do not receive any return value at all.  The format
@@ -729,7 +729,7 @@ class Template
       */
     function catalog_template_files($template_set_id, $file_list=array(), $directory='') {
 
-        $template_base_dir = SM_PATH 
+        $template_base_dir = SM_PATH
                            . Template::calculate_template_file_directory($template_set_id);
 
         if (empty($directory)) {
@@ -747,7 +747,7 @@ class Template
         // place all found files in the cache
         // FIXME: assuming PHP template engine may not necessarily be a good thing
         //
-        $engine = Template::get_template_config($template_set_id, 
+        $engine = Template::get_template_config($template_set_id,
                                                 'template_engine', SQ_PHP_TEMPLATE);
         foreach ($files_and_dirs['FILES'] as $file) {
 
@@ -772,7 +772,7 @@ class Template
 
 
         // now if we are currently at the top-level of the template
-        // set base directory, we need to move on to the parent 
+        // set base directory, we need to move on to the parent
         // template set, if any
         //
         if ($directory == $template_base_dir) {
@@ -780,8 +780,8 @@ class Template
             // use fallback when we run out of parents
             //
             $fallback_id = Template::get_fallback_template_set();
-            $parent_id = Template::get_template_config($template_set_id, 
-                                                       'parent_template_set', 
+            $parent_id = Template::get_template_config($template_set_id,
+                                                       'parent_template_set',
                                                        $fallback_id);
 
             // were we already all the way to the last level? just exit
@@ -819,8 +819,8 @@ class Template
       * @param string $plugin          The name of the plugin
       * @param string $file            The name of the template file
       * @param string $template_set_id The ID of the template for which
-      *                                to start looking for the file 
-      *                                (optional; default is current 
+      *                                to start looking for the file
+      *                                (optional; default is current
       *                                template set ID).
       *
       * @return boolean TRUE if the template file was found, FALSE otherwise.
@@ -832,12 +832,12 @@ class Template
             $template_set_id = $this->template_set_id;
 
         $file_path = SM_PATH . 'plugins/' . $plugin . '/'
-                   . $this->calculate_template_file_directory($template_set_id) 
+                   . $this->calculate_template_file_directory($template_set_id)
                    . $file;
 
         if (file_exists($file_path)) {
             // FIXME: assuming PHP template engine may not necessarily be a good thing
-            $engine = $this->get_template_config($template_set_id, 
+            $engine = $this->get_template_config($template_set_id,
                                                  'template_engine', SQ_PHP_TEMPLATE);
             $file_list = array('plugins/' . $plugin . '/' . $file => array(
                                          'PATH'   => substr($file_path, strlen(SM_PATH)),
@@ -845,7 +845,7 @@ class Template
                                          'ENGINE' => $engine,
                                                                           )
                               );
-            $this->template_file_cache 
+            $this->template_file_cache
                 = $this->cache_template_file_hierarchy(FALSE, $file_list);
             return TRUE;
         }
@@ -855,8 +855,8 @@ class Template
         // (use fallback when we run out of parents)
         //
         $fallback_id = $this->get_fallback_template_set();
-        $parent_id = $this->get_template_config($template_set_id, 
-                                                'parent_template_set', 
+        $parent_id = $this->get_template_config($template_set_id,
+                                                'parent_template_set',
                                                 $fallback_id);
 
         // were we already all the way to the last level? just exit
@@ -877,12 +877,12 @@ class Template
       * Find the right template file.
       *
       * The template file is taken from the template file cache, thus
-      * the file is taken from the current template, one of its 
+      * the file is taken from the current template, one of its
       * ancestors or the fallback template.
       *
       * Note that it is perfectly acceptable to load template files from
-      * template subdirectories.  For example, JavaScript templates found 
-      * in the js/ subdirectory would be loaded by passing 
+      * template subdirectories.  For example, JavaScript templates found
+      * in the js/ subdirectory would be loaded by passing
       * "js/<javascript file name>" as the $filename.
       *
       * Note that the caller can also ask for ALL files in a directory
@@ -896,14 +896,14 @@ class Template
       * before just returning nothing.
       *
       * Plugin authors must note that the $filename MUST be prefaced
-      * with "plugins/<plugin name>/" in order to correctly resolve the 
+      * with "plugins/<plugin name>/" in order to correctly resolve the
       * template file.
       *
       * @param string $filename The name of the template file,
-      *                         possibly prefaced with 
+      *                         possibly prefaced with
       *                         "plugins/<plugin name>/"
       *                         indicating that it is a plugin
-      *                         template, or ending with a 
+      *                         template, or ending with a
       *                         slash, indicating that all files
       *                         for that directory name should
       *                         be returned.
@@ -913,27 +913,27 @@ class Template
       *                                directory contents, sub-directory
       *                                names will also be included
       *                                (optional; default FALSE).
-      *                                NOTE that empty directories 
+      *                                NOTE that empty directories
       *                                are NOT included in the cache!
       * @param boolean $directories_only When TRUE, only directory names
       *                                  are included in the returned
-      *                                  results.  (optional; default 
+      *                                  results.  (optional; default
       *                                  FALSE).  Setting this argument
-      *                                  to TRUE forces $directories_ok 
+      *                                  to TRUE forces $directories_ok
       *                                  to TRUE as well.
-      *                                  NOTE that empty directories 
+      *                                  NOTE that empty directories
       *                                  are NOT included in the cache!
       *
       * @return mixed The full path to the template file or a list
       *               of all files in the given directory if $filename
       *               ends with a slash; if not found, an empty string
-      *               is returned.  The caller is responsible for 
-      *               throwing errors or other actions if template 
+      *               is returned.  The caller is responsible for
+      *               throwing errors or other actions if template
       *               file is not found.
       *
       */
-    function get_template_file_path($filename, 
-                                    $directories_ok=FALSE, 
+    function get_template_file_path($filename,
+                                    $directories_ok=FALSE,
                                     $directories_only=FALSE) {
 
         if ($directories_only) $directories_ok = TRUE;
@@ -952,7 +952,7 @@ class Template
                 // only want files in the requested directory
                 // (AND not in a subdirectory!)
                 //
-                if (!$directories_only && strpos($file, $filename) === 0 
+                if (!$directories_only && strpos($file, $filename) === 0
                  && strpos($file, '/', strlen($filename)) === FALSE)
                     $return_array[] = SM_PATH . $file_info['PATH'];
 
@@ -963,9 +963,9 @@ class Template
                 if ($directories_ok && strpos($file, $filename) === 0
                  && ($pos = strpos($file, '/', strlen($filename))) !== FALSE
                  && strpos($file, '/', $pos + 1) === FALSE) {
-                    $directory_name = SM_PATH 
-                                    . substr($file_info['PATH'], 
-                                             0, 
+                    $directory_name = SM_PATH
+                                    . substr($file_info['PATH'],
+                                             0,
                                              strrpos($file_info['PATH'], '/'));
                     if (!in_array($directory_name, $return_array))
                         $return_array[] = $directory_name;
@@ -992,8 +992,8 @@ class Template
                     if (strpos($file, $filename) === 0
                      && ($pos = strpos($file, '/', strlen($filename))) !== FALSE
                      && strpos($file, '/', $pos + 1) === FALSE) {
-                        return SM_PATH . substr($file_info['PATH'], 
-                                                0, 
+                        return SM_PATH . substr($file_info['PATH'],
+                                                0,
                                                 strrpos($file_info['PATH'], '/'));
                     }
                 }
@@ -1001,7 +1001,7 @@ class Template
                 if ($directories_only) return '';
             }
 
-            // plugins get one more chance 
+            // plugins get one more chance
             //
             if (strpos($filename, 'plugins/') === 0) {
 
@@ -1037,17 +1037,17 @@ class Template
       * @param string $filename The name of the template file,
       *
       * @return object The needed template object to render the template.
-      * 
+      *
       */
     function get_rendering_template_engine_object($filename) {
-        
+
         // for files that we cannot find engine info for,
         // just return $this
-        //  
+        //
         if (empty($this->template_file_cache[$filename]['ENGINE']))
             return $this;
 
-            
+
         // otherwise, compare $this' engine to the file's engine
         //
         $engine = $this->template_file_cache[$filename]['ENGINE'];
@@ -1057,10 +1057,10 @@ class Template
 
         // need to load another engine... if already instantiated,
         // and stored herein, return that
-        // FIXME: this assumes same engine setup in all template 
+        // FIXME: this assumes same engine setup in all template
         //        set config files that have same engine in common
         //        (but keeping a separate class object for every
-        //        template set seems like overkill... for now we 
+        //        template set seems like overkill... for now we
         //        won't do that unless it becomes a problem)
         //
         if (!empty($this->other_template_engine_objects[$engine])) {
@@ -1093,10 +1093,10 @@ class Template
 
     }
 
-    /** 
+    /**
       * Return all JavaScript files provided by the template.
-      * 
-      * All files found in the template set's "js" directory (and 
+      *
+      * All files found in the template set's "js" directory (and
       * that of its ancestors) with the extension ".js" are returned.
       *
       * @param boolean $full_path When FALSE, only the file names
@@ -1104,13 +1104,13 @@ class Template
       *                           otherwise, path information is
       *                           included (relative to SM_PATH)
       *                           (OPTIONAL; default only file names)
-      *     
+      *
       * @return array The required file names/paths.
-      *     
+      *
       */
     function get_javascript_includes($full_path=FALSE) {
 
-        // since any page from a parent template set 
+        // since any page from a parent template set
         // could end up being loaded, we have to load
         // all js files from ancestor template sets,
         // not just this set
@@ -1119,13 +1119,13 @@ class Template
         //$js_files = list_files($directory, '.js', !$full_path);
         //
         $js_files = $this->get_template_file_path('js/');
-        
-        
+
+
         // parse out .js files only
         //
         $return_array = array();
         foreach ($js_files as $file) {
-    
+
             if (substr($file, strlen($file) - 3) != '.js') continue;
 
             if ($full_path) {
@@ -1141,10 +1141,10 @@ class Template
     }
 
     /**
-      * Return all alternate stylesheets provided by template.  
+      * Return all alternate stylesheets provided by template.
       *
-      * All (non-empty) directories found in the template set's 
-      * "css/alternates" directory (and that of its ancestors) 
+      * All (non-empty) directories found in the template set's
+      * "css/alternates" directory (and that of its ancestors)
       * are returned.
       *
       * Note that prettified names are constructed herein by
@@ -1158,17 +1158,17 @@ class Template
       *                           (OPTIONAL; default only file names)
       *
       * @return array A list of the available alternate stylesheets,
-      *               where the keys are the file names (formatted 
-      *               according to $full_path) for the stylesheets, 
-      *               and the values are the prettified version of 
+      *               where the keys are the file names (formatted
+      *               according to $full_path) for the stylesheets,
+      *               and the values are the prettified version of
       *               the file names for display to the user.
-      *               
+      *
       */
     function get_alternative_stylesheets($full_path=FALSE) {
 
         // since any page from a parent template set
         // could end up being loaded, we will load
-        // all alternate css files from ancestor 
+        // all alternate css files from ancestor
         // template sets, not just this set
         //
         $css_directories = $this->get_template_file_path('css/alternates/', TRUE, TRUE);
@@ -1198,10 +1198,10 @@ class Template
     }
 
     /**
-      * Return all standard stylsheets provided by the template.  
+      * Return all standard stylsheets provided by the template.
       *
       * All files found in the template set's "css" directory (and
-      * that of its ancestors) with the extension ".css" except 
+      * that of its ancestors) with the extension ".css" except
       * "rtl.css" (which is dealt with separately) are returned.
       *
       * @param boolean $full_path When FALSE, only the file names
@@ -1215,7 +1215,7 @@ class Template
       */
     function get_stylesheets($full_path=FALSE) {
 
-        // since any page from a parent template set 
+        // since any page from a parent template set
         // could end up being loaded, we have to load
         // all css files from ancestor template sets,
         // not just this set
@@ -1226,7 +1226,7 @@ class Template
         $css_files = $this->get_template_file_path('css/');
 
 
-        // need to leave out "rtl.css" 
+        // need to leave out "rtl.css"
         //
         $return_array = array();
         foreach ($css_files as $file) {
@@ -1244,8 +1244,8 @@ class Template
 
 
         // return sheets for the current template set
-        // last so we can enable any custom overrides 
-        // of styles in ancestor sheets 
+        // last so we can enable any custom overrides
+        // of styles in ancestor sheets
         //
         return array_reverse($return_array);
 
@@ -1254,7 +1254,7 @@ class Template
     /**
       * Generate links to all this template set's standard stylesheets
       *
-      * Subclasses can override this function if stylesheets are 
+      * Subclasses can override this function if stylesheets are
       * created differently for the template set's target output
       * interface.
       *
@@ -1271,18 +1271,18 @@ class Template
     }
 
     /**
-      * Push out any other stylesheet links as provided (for 
+      * Push out any other stylesheet links as provided (for
       * stylesheets not included with the current template set)
       *
-      * Subclasses can override this function if stylesheets are 
+      * Subclasses can override this function if stylesheets are
       * created differently for the template set's target output
       * interface.
       *
-      * @param mixed $sheets List of the desired stylesheets 
+      * @param mixed $sheets List of the desired stylesheets
       *                      (file path to be used in stylesheet
-      *                      href attribute) to output (or single 
+      *                      href attribute) to output (or single
       *                      stylesheet file path).
-FIXME: We could make the incoming array more complex so it can 
+FIXME: We could make the incoming array more complex so it can
        also contain the other parameters for create_css_link()
        such as $name, $alt, $mtype, and $xhtml_end
        But do we need to?
@@ -1312,7 +1312,7 @@ FIXME: We could make the incoming array more complex so it can
       * managed differently in the template set's target output
       * interface.
       *
-      * @param mixed $headers A list of (or a single) header 
+      * @param mixed $headers A list of (or a single) header
       *                       text to be sent.
       *
       */
@@ -1328,13 +1328,13 @@ FIXME: We could make the incoming array more complex so it can
     }
 
     /**
-      * Generate a link to the right-to-left stylesheet for 
+      * Generate a link to the right-to-left stylesheet for
       * this template set by getting the "rtl.css" file from
       * this template set, its parent (or grandparent, etc.)
-      * template set, the fall-back template set, or finally, 
+      * template set, the fall-back template set, or finally,
       * fall back to SquirrelMail's own "rtl.css" if need be.
       *
-      * Subclasses can override this function if stylesheets are 
+      * Subclasses can override this function if stylesheets are
       * created differently for the template set's target output
       * interface.
       *
@@ -1387,7 +1387,7 @@ FIXME: We could make the incoming array more complex so it can
         $template = $this->get_template_file_path($file);
 
 
-        // special case stylesheet.tpl falls back to SquirrelMail's 
+        // special case stylesheet.tpl falls back to SquirrelMail's
         // own default stylesheet
         //
         if (empty($template) && $file == 'css/stylesheet.tpl') {
@@ -1403,8 +1403,14 @@ FIXME: We could make the incoming array more complex so it can
         } else {
 
             $aPluginOutput = array();
-            $aPluginOutput = concat_hook_function('template_construct_' . $file,
+            // At this moment concat_hook_function can return string and arrays.
+            // In php 4.3.x a notice will be raised when a string is passed as $aPluginOutput
+            // TODO, only return an arrays by concat_hook_function.
+            $mixedOutput = concat_hook_function('template_construct_' . $file,
                                                   $temp=array(&$aPluginOutput, &$this));
+            if (is_array($mixedOutput)) {
+                $aPluginOutput = $mixedOutput;
+            }
             $this->assign('plugin_output', $aPluginOutput);
 
             //$output = $this->apply_template($template);
@@ -1534,7 +1540,7 @@ FIXME: We could make the incoming array more complex so it can
       * Note: this is an abstract method that must be implemented by subclass.
       *
       * @param string $filepath The full file path to the template to be applied
-      * 
+      *
       * @return string The output for the given template
       *
       */
