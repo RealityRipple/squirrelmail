@@ -16,4 +16,4 @@
   */
 
 
-?>&nbsp;
+?>&nbsp;<?php /* have to re-open PHP so no whitespace gets added */
