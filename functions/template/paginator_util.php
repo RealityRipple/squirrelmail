@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Template logic
+ * paginator_util.php
  *
- * The following functions are utility functions for this template. Do not
- * echo output in those functions. Output is generated above this comment block
+ * The following functions are utility functions for templates. Do not
+ * echo output in these functions.
  *
  * @copyright &copy; 2005-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -12,8 +12,10 @@
  * @package squirrelmail
  */
 
+
 /** Load forms functions, needed for addsubmit(). */
 include_once(SM_PATH . 'functions/forms.php');
+
 
  /**
   * Generate a paginator link.
@@ -25,24 +27,28 @@ include_once(SM_PATH . 'functions/forms.php');
   */
 function get_paginator_link($box, $start_msg, $text) {
     sqgetGlobalVar('PHP_SELF',$php_self,SQ_SERVER);
-    $result = "<a href=\"$php_self?startMessage=$start_msg&amp;mailbox=$box\" "
-            . ">$text</a>";
-
-    return ($result);
+    return create_hyperlink("$php_self?startMessage=$start_msg&amp;mailbox=$box", $text);
 }
+
 
 /**
  * This function computes the comapact paginator string.
  *
- * @param string  $box      mailbox name
- * @param integer $iOffset  offset in total number of messages
- * @param integer $iTotal   total number of messages
- * @param integer $iLimit   maximum number of messages to show on a page
- * @param bool    $bShowAll show all messages at once (non paginate mode)
+ * @param string  $box           mailbox name
+ * @param integer $iOffset       offset in total number of messages
+ * @param integer $iTotal        total number of messages
+ * @param integer $iLimit        maximum number of messages to show on a page
+ * @param bool    $bShowAll      whether or not to show all messages at once 
+ *                               ("show all" == non paginate mode)
+ * @param bool    $javascript_on whether or not javascript is currently enabled
+ * @param bool    $page_selector whether or not to show the page selection widget
+ *
  * @return string $result   paginate string with links to pages
+ *
  */
 function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, $javascript_on, $page_selector) {
 
+    global $oTemplate;
     sqgetGlobalVar('PHP_SELF',$php_self,SQ_SERVER);
 
     /* Initialize paginator string chunks. */
@@ -54,8 +60,10 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
     $box = urlencode($box);
 
     /* Create simple strings that will be creating the paginator. */
-    $spc = '&nbsp;';     /* This will be used as a space. */
-    $sep = '|';          /* This will be used as a seperator. */
+    /* This will be used as a space. */
+    $spc = $oTemplate->fetch('non_breaking_space.tpl');
+    /* This will be used as a seperator. */
+    $sep = '|';
 
     /* Make sure that our start message number is not too big. */
     $iOffset = min($iOffset, $iTotal);
@@ -88,9 +96,7 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
             $last_grp = (($tot_pgs - 1) * $iLimit) + 1;
         }
     } else {
-        $pg_str = "<a href=\"$php_self?showall=0"
-                . "&amp;startMessage=1&amp;mailbox=$box\" "
-                . ">" ._("Paginate") . '</a>';
+        $pg_str = create_hyperlink("$php_self?showall=0&amp;startMessage=1&amp;mailbox=$box", _("Paginate"));
     }
 
     /* Put all the pieces of the paginator string together. */
@@ -102,9 +108,7 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
     if ( $prv_str || $nxt_str ) {
 
         /* Compute the 'show all' string. */
-        $all_str = "<a href=\"$php_self?showall=1"
-                . "&amp;startMessage=1&amp;mailbox=$box\" "
-                . ">" . _("Show All") . '</a>';
+        $all_str = create_hyperlink("$php_self?showall=1&amp;startMessage=1&amp;mailbox=$box", _("Show All"));
 
         $result .= '[' . get_paginator_link($box, 1, '<<') . ']';
         $result .= '[' . $prv_str . ']';
@@ -115,26 +119,24 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
         $result .= '[' . get_paginator_link($box, $last_grp, '>>') . ']';
 
         if ($page_selector) {
-            $result .= $spc . '<select name="startMessage"';
-            if ($javascript_on) {
-                $result .= ' onchange="JavaScript:SubmitOnSelect'
-                    . '(this, \'' . $pg_url . '&startMessage=\')"';
-            }
-            $result .='>';
-
+            $options = array();
             for ($p = 0; $p < $tot_pgs; $p++) {
-                $result .= '<option ';
-                if (($p+1) == $cur_pg) $result .= 'selected ';
-                    $result .= 'value="' . (($p*$iLimit)+1) . '">'
-                        . ($p+1) . "/$tot_pgs" . '</option>';
+                $options[(($p*$iLimit)+1)] = ($p+1) . "/$tot_pgs";
             }
-
-            $result .= '</select>';
+            $result .= $spc . addSelect('startMessage', $options, 
+                                        ((($cur_pg-1)*$iLimit)+1), 
+                                        TRUE, 
+                                        ($javascript_on ? array('onchange' => 'JavaScript:SubmitOnSelect(this, \'' . $pg_url . '&startMessage=\')') : array()));
 
             if ($javascript_on) {
-                $result .= '<noscript language="JavaScript">'
-                . addSubmit(_("Go"))
-                . '</noscript>';
+//FIXME: What in the world?  Two issues here: for one, $javascript_on is supposed
+//       to have already detected whether or not JavaScript is available and enabled.
+//       Secondly, we need to rid ourselves of any HTML output in the core.  This
+//       is being removed (but left in case the original author points out why it
+//       should not be) and we'll trust $javascript_on to do the right thing.
+//                $result .= '<noscript language="JavaScript">'
+//                . addSubmit(_("Go"))
+//                . '</noscript>';
             } else {
                 $result .= addSubmit(_("Go"));
             }
@@ -152,18 +154,25 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
     return ($result);
 }
 
+
 /**
  * This function computes the paginator string.
  *
- * @param string  $box      mailbox name
- * @param integer $iOffset  offset in total number of messages
- * @param integer $iTotal   total number of messages
- * @param integer $iLimit   maximum number of messages to show on a page
- * @param bool    $bShowAll show all messages at once (non paginate mode)
+ * @param string  $box               mailbox name
+ * @param integer $iOffset           offset in total number of messages
+ * @param integer $iTotal            total number of messages
+ * @param integer $iLimit            maximum number of messages to show on a page
+ * @param bool    $bShowAll          whether or not to show all messages at once 
+ *                                   ("show all" == non paginate mode)
+ * @param bool    $page_selector     whether or not to show the page selection widget
+ * @param integer $page_selector_max maximum number of pages to show on the screen
+ *
  * @return string $result   paginate string with links to pages
+ *
  */
 function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll,$page_selector, $page_selector_max) {
 
+    global $oTemplate;
     sqgetGlobalVar('PHP_SELF',$php_self,SQ_SERVER);
 
     /* Initialize paginator string chunks. */
@@ -175,8 +184,10 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll,$page_sel
     $box = urlencode($box);
 
     /* Create simple strings that will be creating the paginator. */
-    $spc = '&nbsp;';     /* This will be used as a space. */
-    $sep = '|';          /* This will be used as a seperator. */
+    /* This will be used as a space. */
+    $spc = $oTemplate->fetch('non_breaking_space.tpl');
+    /* This will be used as a seperator. */
+    $sep = '|';
 
     /* Make sure that our start message number is not too big. */
     $iOffset = min($iOffset, $iTotal);
@@ -317,9 +328,7 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll,$page_sel
             $last_grp = (($tot_pgs - 1) * $iLimit) + 1;
         }
     } else {
-        $pg_str = "<a href=\"$php_self?showall=0"
-                . "&amp;startMessage=1&amp;mailbox=$box\" "
-                . ">" ._("Paginate") . '</a>';
+        $pg_str = create_hyperlink("$php_self?showall=0&amp;startMessage=1&amp;mailbox=$box", _("Paginate"));
     }
 
     /* Put all the pieces of the paginator string together. */
@@ -331,9 +340,7 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll,$page_sel
     if ( $prv_str || $nxt_str ) {
 
         /* Compute the 'show all' string. */
-        $all_str = "<a href=\"$php_self?showall=1"
-                . "&amp;startMessage=1&amp;mailbox=$box\" "
-                . ">" . _("Show All") . '</a>';
+        $all_str = create_hyperlink("$php_self?showall=1&amp;startMessage=1&amp;mailbox=$box", _("Show All"));
 
         $result .= '[';
         $result .= ($prv_str != '' ? $prv_str . $spc . $sep . $spc : '');
@@ -346,8 +353,10 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll,$page_sel
 
     /* If the resulting string is blank, return a non-breaking space. */
     if ($result == '') {
-        $result = '&nbsp;';
+        $result = $oTemplate->fetch('non_breaking_space.tpl');
     }
     /* Return our final magical compact paginator string. */
     return ($result);
 }
+
+

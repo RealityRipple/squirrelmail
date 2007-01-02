@@ -5,6 +5,63 @@
  *
  * Template and utility functions to create a paginator
  *
+ * The following variables are available in this template:
+//FIXME: need to clean (and document) this list, it is just a dump of the array keys of $t
+ *    $sTemplateID
+ *    $icon_theme_path
+ *    $javascript_on
+ *    $delayed_errors
+ *    $frames
+ *    $lang
+ *    $page_title
+ *    $header_tags
+ *    $plugin_output
+ *    $header_sent
+ *    $body_tag_js
+ *    $shortBoxName
+ *    $sm_attribute_str
+ *    $frame_top
+ *    $urlMailbox
+ *    $startMessage
+ *    $hide_sm_attributions
+ *    $uri
+ *    $text
+ *    $onclick
+ *    $class
+ *    $id
+ *    $target
+ *    $color
+ *    $form_name
+ *    $form_id
+ *    $page_selector
+ *    $page_selector_max
+ *    $messagesPerPage
+ *    $showall
+ *    $end_msg
+ *    $align
+ *    $iNumberOfMessages
+ *    $aOrder
+ *    $aFormElements
+ *    $sort
+ *    $pageOffset
+ *    $baseurl
+ *    $aMessages
+ *    $trash_folder
+ *    $sent_folder
+ *    $draft_folder
+ *    $thread_link_str
+ *    $php_self
+ *    $mailbox
+ *    $enablesort
+ *    $icon_theme
+ *    $use_icons
+ *    $alt_index_colors
+ *    $fancy_index_highlite
+ *    $aSortSupported
+ *    $show_label_columns
+ *    $compact_paginator
+ *    $aErrors
+ *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
@@ -13,13 +70,13 @@
  */
 
 /** include functions */
-include_once(SM_PATH.'templates/util_paginator.php');
+include_once(SM_PATH . 'functions/template/paginator_util.php');
 
 static $bScriptAdded;
 
 extract($t);
 
-if ($javascript_on && $compact_paginator &&!isset($bScriptAdded)) {
+if ($javascript_on && $compact_paginator && !isset($bScriptAdded)) {
     $bScriptAdded = true;
 ?>
 
