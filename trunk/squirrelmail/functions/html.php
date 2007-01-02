@@ -27,13 +27,15 @@
  * @param string $class   The CSS class name (OPTIONAL; default
  *                        not used)
  * @param string $id      The ID name (OPTIONAL; default not used)
+ * @param string $name    The anchor name (OPTIONAL; default not used)
  *
  * @return string The desired hyperlink tag.
  *
  * @since 1.5.2
  *
  */
-function create_hyperlink($uri, $text, $target='', $onclick='', $class='', $id='') {
+function create_hyperlink($uri, $text, $target='', $onclick='', 
+                          $class='', $id='', $name='') {
 
     global $oTemplate;
 
@@ -43,6 +45,7 @@ function create_hyperlink($uri, $text, $target='', $onclick='', $class='', $id='
     $oTemplate->assign('onclick', $onclick);
     $oTemplate->assign('class', $class);
     $oTemplate->assign('id', $id);
+    $oTemplate->assign('name', $name);
 
     return $oTemplate->fetch('hyperlink.tpl');
 
