@@ -30,8 +30,7 @@ function squirrelmail_plugin_init_message_details()
  * @access private
  */
 function show_message_details(&$links) {
-    global $passed_id, $mailbox, $ent_num,
-           $javascript_on;
+    global $passed_id, $mailbox, $ent_num;
     
     if (strlen(trim($mailbox)) < 1) {
         $mailbox = 'INBOX';
@@ -41,7 +40,7 @@ function show_message_details(&$links) {
               '&mailbox=' . urlencode($mailbox) .
               '&passed_id=' . $passed_id;
 
-    $url = $javascript_on ? 'javascript:MessageSource();' : 
+    $url = checkForJavascript() ? 'javascript:MessageSource();' : 
         '../plugins/message_details/message_details_main.php' .
         $params;
 
@@ -49,7 +48,7 @@ function show_message_details(&$links) {
     $links[] = array('URL' => $url,
         'Text' => _("View Message details") );
 
-    if ($javascript_on) {
+    if (checkForJavascript()) {
         echo '<script type="text/javascript">' . "\n" .
                 '<!--' . "\n" .
                 "  function MessageSource() {\n" .

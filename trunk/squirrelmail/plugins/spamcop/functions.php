@@ -60,7 +60,7 @@ function spamcop_load_function() {
  * @access private
  */
 function spamcop_show_link_function(&$links) {
-    global $spamcop_enabled, $spamcop_method, $spamcop_quick_report,$javascript_on;
+    global $spamcop_enabled, $spamcop_method, $spamcop_quick_report;
 
     if (! $spamcop_enabled)
         return;
@@ -99,7 +99,7 @@ function spamcop_show_link_function(&$links) {
     $url =  '../plugins/spamcop/spamcop.php?passed_id=' . urlencode($passed_id) .
                 '&amp;mailbox=' . urlencode($mailbox) . '&amp;startMessage=' . urlencode($startMessage) .
                 '&amp;passed_ent_id=' . urlencode($passed_ent_id);
-    if ( $spamcop_method == 'web_form' && $javascript_on ) {
+    if ( $spamcop_method == 'web_form' && checkForJavascript() ) {
         $url .= '&amp;js_web=1';
     }
 
