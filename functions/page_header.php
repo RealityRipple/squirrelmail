@@ -186,7 +186,7 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
 
     global $reply_focus, $hide_sm_attributions, $frame_top,
         $provider_name, $provider_uri, $startMessage,
-        $javascript_on, $action, $oTemplate;
+        $action, $oTemplate;
 
     if (empty($sBodyTagJs)) {
         if (strpos($action, 'reply') !== FALSE && $reply_focus) {
@@ -210,7 +210,8 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
         $frame_top = '_top';
     }
 
-    if( $javascript_on || strpos($sHeaderJs, 'new_js_autodetect_results.value') ) {
+//FIXME: does checkForJavascript() make the 2nd part of the if() below unneccessary??
+    if( checkForJavascript() || strpos($sHeaderJs, 'new_js_autodetect_results.value') ) {
         $js_includes = $oTemplate->get_javascript_includes(TRUE);
         $sJsBlock = '';
         foreach ($js_includes as $js_file) {
@@ -271,7 +272,7 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
  */
 function compose_Header($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
 
-    global $reply_focus, $javascript_on, $action, $oTemplate;
+    global $reply_focus, $action, $oTemplate;
 
     if (empty($sBodyTagJs)) {
         if (strpos($action, 'reply') !== FALSE && $reply_focus) {
@@ -290,7 +291,7 @@ function compose_Header($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
     /*
      * Locate the first displayable form element (only when JavaScript on)
      */
-    if($javascript_on) {
+    if(checkForJavascript()) {
         if ($sHeaderJs) {
             $sJsBlock = "\n<script type=\"text/javascript\">" .
                         "\n<!--\n" .

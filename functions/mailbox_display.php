@@ -1154,6 +1154,7 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
     $aTemplate['thread_link_str'] = $thread_link_str;
     $aTemplate['php_self'] = str_replace('&','&amp;',$php_self);
     $aTemplate['mailbox'] = $sMailbox;
+//FIXME: javascript_on is always assigned to the template object in places like init.php; is there some reason to reassign it here?  is there some chance that it was changed?  if not, please remove this line!
     $aTemplate['javascript_on'] = (isset($aProps['config']['javascript_on'])) ? $aProps['config']['javascript_on'] : false;
     $aTemplate['enablesort'] = (isset($aProps['config']['enablesort'])) ? $aProps['config']['enablesort'] : false;
     $aTemplate['icon_theme'] = (isset($aProps['config']['icon_theme'])) ? $aProps['config']['icon_theme'] : false;

@@ -792,7 +792,7 @@ function quoteimap($str) {
  * @since 1.4.2
  */
 function makeComposeLink($url, $text = null, $target='') {
-    global $compose_new_win, $javascript_on, $compose_width, 
+    global $compose_new_win, $compose_width, 
            $compose_height, $oTemplate;
 
     if(!$text) {
@@ -809,7 +809,7 @@ function makeComposeLink($url, $text = null, $target='') {
 
 
     // if javascript is on, use onclick event to handle it
-    if($javascript_on) {
+    if(checkForJavascript()) {
         sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION);
         $compuri = SM_BASE_URI.$url;
 

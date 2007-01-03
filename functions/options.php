@@ -463,11 +463,10 @@ class SquirrelOption {
      * @return string html formated option field
      */
     function createWidget_Integer() {
-        global $javascript_on;
 
         // add onChange javascript handler to a regular string widget
         // which will strip out all non-numeric chars
-        if ($javascript_on)
+        if (checkForJavascript())
            return preg_replace('/\/>/', ' onChange="origVal=this.value; newVal=\'\'; '
                     . 'for (i=0;i<origVal.length;i++) { if (origVal.charAt(i)>=\'0\' '
                     . '&& origVal.charAt(i)<=\'9\') newVal += origVal.charAt(i); } '
@@ -482,11 +481,10 @@ class SquirrelOption {
      * @return string html formated option field
      */
     function createWidget_Float() {
-        global $javascript_on;
 
         // add onChange javascript handler to a regular string widget
         // which will strip out all non-numeric (period also OK) chars
-        if ($javascript_on)
+        if (checkForJavascript())
            return preg_replace('/\/>/', ' onChange="origVal=this.value; newVal=\'\'; '
                     . 'for (i=0;i<origVal.length;i++) { if ((origVal.charAt(i)>=\'0\' '
                     . '&& origVal.charAt(i)<=\'9\') || origVal.charAt(i)==\'.\') '
