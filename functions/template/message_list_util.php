@@ -26,13 +26,13 @@ function calcMessageListColumnWidth($aOrder) {
     $aWidthTpl = array(
         SQM_COL_CHECK => 1,
         SQM_COL_FROM =>  25,
-        SQM_COL_DATE => 10,
+        SQM_COL_DATE => 15,
         SQM_COL_SUBJ  => 100,
         SQM_COL_FLAGS => 2,
         SQM_COL_SIZE  => 5,
         SQM_COL_PRIO => 1,
         SQM_COL_ATTACHMENT => 1,
-        SQM_COL_INT_DATE => 10,
+        SQM_COL_INT_DATE => 15,
         SQM_COL_TO => 25,
         SQM_COL_CC => 25,
         SQM_COL_BCC => 25
