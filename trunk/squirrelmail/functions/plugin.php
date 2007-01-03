@@ -104,7 +104,8 @@ function do_hook($name, &$args) {
  * Plugins returning non-arrays (strings, objects, etc) will have 
  * their output added to the end of the ultimate return array, 
  * unless ALL values returned are strings, in which case one string
- * with all returned strings concatenated together is returned.
+ * with all returned strings concatenated together is returned 
+ * (unless $force_array is TRUE).
  *
  * If any plugin on this hook wants to modify the $args
  * plugin parameter, it simply has to use call-by-reference
@@ -112,19 +113,27 @@ function do_hook($name, &$args) {
  * current hook.  Note that this is in addition to (entirely
  * independent of) the return value for this hook.
  *
- * @param string $name Name of hook being executed
- * @param mixed  $args A single value or an array of arguments 
- *                     that are to be passed to all plugins 
- *                     operating off the hook being called.  
- *                     Note that this argument is passed by 
- *                     reference thus it is liable to be 
- *                     changed after the hook completes.
+ * @param string  $name Name of hook being executed
+ * @param mixed   $args A single value or an array of arguments 
+ *                      that are to be passed to all plugins 
+ *                      operating off the hook being called.  
+ *                      Note that this argument is passed by 
+ *                      reference thus it is liable to be 
+ *                      changed after the hook completes.
+ * @param boolean $force_array When TRUE, guarantees the return
+ *                             value will ALWAYS be an array,
+ *                             (simple strings will be forced
+ *                             into a one-element array). 
+ *                             When FALSE, behavior is as 
+ *                             described above (OPTIONAL;
+ *                             default behavior is to return
+ *                             mixed - array or string).
  *
  * @return mixed the merged return arrays or strings of each
  *               plugin on this hook.
  *
  */
-function concat_hook_function($name, &$args) {
+function concat_hook_function($name, &$args, $force_array=FALSE) {
 
     global $squirrelmail_plugin_hooks, $currentHookName;
     $currentHookName = $name;
@@ -141,6 +150,10 @@ function concat_hook_function($name, &$args) {
                 }
             }
         }
+    }
+
+    if ($force_array && is_string($ret)) {
+        $ret = array($ret);
     }
 
     $currentHookName = '';
