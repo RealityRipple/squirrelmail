@@ -58,6 +58,7 @@ if ( !isset($oTemplate) || !is_object($oTemplate) ) {
 
     // We want some variables to always be available to the template
     $oTemplate->assign('javascript_on', checkForJavascript());
+    $oTemplate->assign('base_uri', sqm_baseuri());
     $always_include = array('sTemplateID', 'icon_theme_path');
     foreach ($always_include as $var) {
         $oTemplate->assign($var, (isset($$var) ? $$var : NULL));
