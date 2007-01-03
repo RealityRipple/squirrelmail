@@ -40,7 +40,7 @@ echo "<body text=\"$color[8]\" bgcolor=\"$color[3]\" link=\"$color[7]\" vlink=\"
      addHidden('passed_id', $passed_id).
      addHidden('ent_id', '0').
      addHidden('absolute_dl', 'true').
-     ($javascript_on ?
+     (checkForJavascript() ?
      '<input type="button" value="' . _("Print") . '" onclick="printPopup()" />&nbsp;&nbsp;'.
      '<input type="button" value="' . _("Close Window") . '" onclick="window.parent.close()" />&nbsp;&nbsp;' :'').
      addSubmit(_("Save Message")).
