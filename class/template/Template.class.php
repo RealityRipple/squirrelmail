@@ -1410,14 +1410,9 @@ FIXME: We could make the incoming array more complex so it can
         } else {
 
             $aPluginOutput = array();
-            // At this moment concat_hook_function can return string and arrays.
-            // In php 4.3.x a notice will be raised when a string is passed as $aPluginOutput
-            // TODO, only return an arrays by concat_hook_function.
-            $mixedOutput = concat_hook_function('template_construct_' . $file,
-                                                  $temp=array(&$aPluginOutput, &$this));
-            if (is_array($mixedOutput)) {
-                $aPluginOutput = $mixedOutput;
-            }
+            $aPluginOutput = concat_hook_function('template_construct_' . $file,
+                                                  $temp=array(&$aPluginOutput, &$this),
+                                                  TRUE);
             $this->assign('plugin_output', $aPluginOutput);
 
             //$output = $this->apply_template($template);
