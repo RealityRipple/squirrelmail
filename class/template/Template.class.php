@@ -311,10 +311,15 @@ class Template
       * Allow template set to override plugin configuration by either
       * adding or removing plugins.
       *
+      * NOTE: due to when this code executes, plugins activated here
+      *       do not have access to the config_override and loading_prefs 
+      *       hooks; instead, such plugins can use the 
+      *       "template_plugins_override_after" hook defined below.
+      *
       */
     function override_plugins() {
 
-        global $disable_plugins, $plugins, $squirrelmail_plugin_hooks;
+        global $disable_plugins, $plugins, $squirrelmail_plugin_hooks, $null;
         if ($disable_plugins) return;
 
         $add_plugins = Template::get_template_config($this->template_set_id,
@@ -370,6 +375,8 @@ class Template
                     }
             }
         }
+
+        do_hook('template_plugins_override_after', $null);
 
     }
 
