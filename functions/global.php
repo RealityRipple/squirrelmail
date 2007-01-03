@@ -129,6 +129,84 @@ function sqsession_is_registered ($name) {
     return $result;
 }
 
+
+/**
+  * Retrieves a form variable, from a set of possible similarly named
+  * form variables, based on finding a different, single field.  This
+  * is intended to allow more than one same-named inputs in a single 
+  * <form>, where the submit button that is clicked tells us which 
+  * input we should retrieve.  An example is if we have:
+  *     <select name="startMessage_1">
+  *     <select name="startMessage_2">
+  *     <input type="submit" name="form_submit_1">
+  *     <input type="submit" name="form_submit_2">
+  * and we want to know which one of the select inputs should be 
+  * returned as $startMessage (without the suffix!), this function
+  * decides by looking for either "form_submit_1" or "form_submit_2"
+  * (both should not appear).  In this example, $name should be
+  * "startMessage" and $indicator_field should be "form_submit".
+  *
+  * NOTE that form widgets must be named with the suffix "_1", "_2", "_3"
+  *      and so on, or this function will not work.
+  *
+  * If more than one of the indicator fields is found, the first one
+  * (numerically) will win.
+  *
+  * If an indicator field is found without a matching input field, 
+  * a field without any suffix is searched for (but only if 
+  * $fallback_no_suffix is TRUE), and if not found, FALSE is 
+  * ultimately returned.
+  *
+  * It should also be possible to use the same string for both
+  * $name and $indicator_field to look for the first possible
+  * widget with a suffix that can be found (and possibly fallback
+  * to a widget without a suffix).
+  *
+  * @param string name the name of the var to search
+  * @param mixed value the variable to return
+  * @param string indicator_field the name of the field upon which to base
+  *                               our decision upon (see above)
+  * @param int search constant defining where to look
+  * @param bool fallback_no_suffix whether or not to look for $name with
+  *                                no suffix when nothing else is found
+  * @param mixed default the value to assign to $value when nothing is found
+  * @param int typecast force variable to be cast to given type (please
+  *                     use SQ_TYPE_XXX constants or set to FALSE (default)
+  *                     to leave variable type unmolested)
+  *
+  * @return bool whether variable is found.
+  */
+function sqGetGlobalVarMultiple($name, &$value, $indicator_field, 
+                                $search = SQ_INORDER, 
+                                $fallback_no_suffix=TRUE, $default=NULL, 
+                                $typecast=FALSE) {
+
+    $max_form_search = 15;
+
+    for ($i = 1; $i <= $max_form_search; $i++) {
+        if (sqGetGlobalVar($indicator_field . '_' . $i, $temp, $search)) {
+            return sqGetGlobalVar($name . '_' . $i, $value, $search, $default, $typecast);
+        }
+    }
+
+
+    // no indicator field found; just try without suffix if allowed
+    //
+    if ($fallback_no_suffix) {
+        return sqGetGlobalVar($name, $value, $search, $default, $typecast);
+    }
+
+
+    // no dice, set default and return FALSE
+    //
+    if (!is_null($default)) {
+        $value = $default;
+    }
+    return FALSE;
+
+}
+
+
 /**
  * Search for the var $name in $_SESSION, $_POST, $_GET, $_COOKIE, or $_SERVER
  * and set it in provided var.
@@ -147,9 +225,11 @@ function sqsession_is_registered ($name) {
  * @param string name the name of the var to search
  * @param mixed value the variable to return
  * @param int search constant defining where to look
+ * @param mixed default the value to assign to $value when nothing is found
  * @param int typecast force variable to be cast to given type (please
  *                     use SQ_TYPE_XXX constants or set to FALSE (default)
  *                     to leave variable type unmolested)
+ *
  * @return bool whether variable is found.
  */
 function sqgetGlobalVar($name, &$value, $search = SQ_INORDER, $default = NULL, $typecast = false) {
