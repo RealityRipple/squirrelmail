@@ -331,7 +331,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     foreach ($optpage_blocks as $cur_optpage) {
         if (!isset($cur_optpage['js']) || !$cur_optpage['js']) {
             $reg_optpage_blocks[] = $cur_optpage;
-        } else if ($javascript_on == SMPREF_JS_ON) {
+        } else if (checkForJavascript()) {
             $js_optpage_blocks[] = $cur_optpage;
         }
     }

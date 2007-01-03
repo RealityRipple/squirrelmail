@@ -354,7 +354,7 @@ function formatRecipientString($recipients, $item ) {
 function formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message,
                          $color, $FirstTimeSee) {
     global $default_use_mdn, $default_use_priority,
-           $show_xmailer_default, $mdn_user_support, $PHP_SELF, $javascript_on,
+           $show_xmailer_default, $mdn_user_support, $PHP_SELF,
            $squirrelmail_language, $oTemplate;
 
     $mailbox = $aMailbox['NAME'];
@@ -420,7 +420,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
            $startMessage, $PHP_SELF, $save_as_draft,
            $enable_forward_as_attachment, $imapConnection, $lastTargetMailbox,
            $delete_prev_next_display, $show_copy_buttons,
-           $compose_new_win, $javascript_on, $compose_width, $compose_height,
+           $compose_new_win, $compose_width, $compose_height,
            $oTemplate;
 
     //FIXME cleanup argument list, use $aMailbox where possible
@@ -535,7 +535,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
         if (!preg_match("/^[0-9]{3,4}$/", $compose_height)) {
             $compose_height = '550';
         }
-        if ( $javascript_on ) {
+        if ( checkForJavascript() ) {
           $on_click=' onclick="comp_in_new_form(\''.$comp_uri.'\', this, this.form,'. $compose_width .',' . $compose_height .')"';
           $comp_uri = 'javascript:void(0)';
           $method='method="get" ';
@@ -616,7 +616,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
 
 function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
     global $base_uri, $where, $what, $show_html_default,
-           $oTemplate, $javascript_on, $download_href, 
+           $oTemplate, $download_href, 
            $unsafe_image_toggle_href, $unsafe_image_toggle_text;
 
     $urlMailbox = urlencode($mailbox);
