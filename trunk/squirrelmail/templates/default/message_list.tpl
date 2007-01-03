@@ -494,7 +494,7 @@ if ($class != 'even' && $class != 'odd')
               <td>
                 <table class="table_empty" cellspacing="0">
                   <tr>
-                    <td class="links_paginator"><?php echo $paginator_str; ?></td>
+                    <td class="links_paginator"><?php /* technically, should regenerate paginator but we know that the only things that change are these two field names, so str_replace should be faster */ echo str_replace(array('startMessage_1', 'paginator_submit_1'), array('startMessage_2', 'paginator_submit_2'), $paginator_str); ?></td>
                     <td class="message_count"><?php echo $msg_cnt_str; ?></td>
                   </tr>
                 </table>

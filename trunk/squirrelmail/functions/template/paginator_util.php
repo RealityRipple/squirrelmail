@@ -49,6 +49,14 @@ function get_paginator_link($box, $start_msg, $text) {
 function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, $javascript_on, $page_selector) {
 
     global $oTemplate;
+
+    // keeps count of how many times
+    // the paginator is used, avoids
+    // duplicate naming of <select> 
+    // and GO button
+    static $display_iterations = 0; 
+    $display_iterations++;
+
     sqgetGlobalVar('PHP_SELF',$php_self,SQ_SERVER);
 
     /* Initialize paginator string chunks. */
@@ -123,7 +131,8 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
             for ($p = 0; $p < $tot_pgs; $p++) {
                 $options[(($p*$iLimit)+1)] = ($p+1) . "/$tot_pgs";
             }
-            $result .= $spc . addSelect('startMessage', $options, 
+            $result .= $spc . addSelect('startMessage_' . $display_iterations, 
+                                        $options, 
                                         ((($cur_pg-1)*$iLimit)+1), 
                                         TRUE, 
                                         ($javascript_on ? array('onchange' => 'JavaScript:SubmitOnSelect(this, \'' . $pg_url . '&startMessage=\')') : array()));
@@ -135,10 +144,10 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
 //       is being removed (but left in case the original author points out why it
 //       should not be) and we'll trust $javascript_on to do the right thing.
 //                $result .= '<noscript language="JavaScript">'
-//                . addSubmit(_("Go"))
+//                . addSubmit(_("Go"), 'paginator_submit_' . $display_iterations)
 //                . '</noscript>';
             } else {
-                $result .= addSubmit(_("Go"));
+                $result .= addSubmit(_("Go"), 'paginator_submit_' . $display_iterations);
             }
         }
     }

@@ -43,7 +43,7 @@ sqgetGlobalVar('note',              $note,              SQ_GET);
 sqgetGlobalVar('mail_sent',         $mail_sent,         SQ_GET);
 
 
-if ( sqgetGlobalVar('startMessage', $temp) ) {
+if ( sqGetGlobalVarMultiple('startMessage', $temp, 'paginator_submit') ) {
     $startMessage = (int) $temp;
 } else {
     $startMessage = 1;
