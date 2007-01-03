@@ -562,6 +562,11 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
     $oTemplate->assign('button_onclick', $on_click);
     $oTemplate->assign('forward_as_attachment_enabled', $enable_forward_as_attachment==1);
     
+    //FIXME: I am surprised these aren't already given to the template; probably needs to be given at a higher level, so I have NO IDEA if this is the right place to do this...  adding them so template can construct its own API calls... we can build those herein too if preferrable
+    $oTemplate->assign('mailbox', $aMailbox['NAME']);
+    $oTemplate->assign('passed_id', $passed_id);
+    $oTemplate->assign('what', $what);
+
     // If Draft folder - create Resume link
     $resume_draft = $edit_as_new = false;    
     if (($mailbox == $draft_folder) && ($save_as_draft)) {
