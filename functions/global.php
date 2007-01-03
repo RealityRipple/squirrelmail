@@ -152,10 +152,12 @@ function sqsession_is_registered ($name) {
   * If more than one of the indicator fields is found, the first one
   * (numerically) will win.
   *
-  * If an indicator field is found without a matching input field, 
-  * a field without any suffix is searched for (but only if 
-  * $fallback_no_suffix is TRUE), and if not found, FALSE is 
-  * ultimately returned.
+  * If an indicator field is found without a matching input ($name) 
+  * field, FALSE is returned.
+  *
+  * If no indicator fields are found, a field of $name *without* any 
+  * suffix is searched for (but only if $fallback_no_suffix is TRUE), 
+  * and if not found, FALSE is ultimately returned.
   *
   * It should also be possible to use the same string for both
   * $name and $indicator_field to look for the first possible
