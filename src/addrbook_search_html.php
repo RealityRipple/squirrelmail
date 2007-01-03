@@ -65,7 +65,7 @@ function addr_insert_hidden() {
  * @param bool $includesource If true, adds backend column to address listing
  */
 function addr_display_result($res, $includesource = true) {
-    global $color, $javascript_on, $PHP_SELF, $squirrelmail_language;
+    global $color, $PHP_SELF, $squirrelmail_language;
 
     global $oTemplate, $oErrorHandler;
     

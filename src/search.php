@@ -1606,7 +1606,7 @@ if ($submit == $search_button_text) {
                         $oTemplate->assign('page_selector',  $page_selector);
                         $oTemplate->assign('page_selector_max', $page_selector_max);
                         $oTemplate->assign('compact_paginator', $compact_paginator);
-                        $oTemplate->assign('javascript_on', $javascript_on);
+                        $oTemplate->assign('javascript_on', checkForJavascript());
                         $oTemplate->assign('enablesort', (isset($aProps['config']['enablesort'])) ? $aProps['config']['enablesort'] : false);
                         $oTemplate->assign('icon_theme_path', $icon_theme_path);
                         $oTemplate->assign('use_icons', (isset($use_icons)) ? $use_icons : false);

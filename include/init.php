@@ -572,7 +572,8 @@ if (empty($oTemplate)) {
 }
 
 // We want some variables to always be available to the template
-$always_include = array('sTemplateID', 'icon_theme_path', 'javascript_on');
+$oTemplate->assign('javascript_on', checkForJavascript());
+$always_include = array('sTemplateID', 'icon_theme_path');
 foreach ($always_include as $var) {
     $oTemplate->assign($var, (isset($$var) ? $$var : NULL));
 }
@@ -603,7 +604,12 @@ function checkForJavascript($reset = FALSE) {
   if ( !$reset && sqGetGlobalVar('javascript_on', $javascript_on, SQ_SESSION) )
     return $javascript_on;
 
-  if ( $reset || !isset($javascript_setting) )
+  if ( ( $reset || !isset($javascript_setting) )
+    // getPref() not defined (nor is it meaningful) when user not 
+    // logged in, but that begs the question if $javascript_on is
+    // not in the session in that case, where do we get it from? 
+    && ( sqGetGlobalVar('user_is_logged_in', $user_is_logged_in, SQ_SESSION)
+      && $user_is_logged_in) )
     $javascript_setting = getPref($data_dir, $username, 'javascript_setting', SMPREF_JS_AUTODETECT);
 
   if ( !sqGetGlobalVar('new_js_autodetect_results', $js_autodetect_results) &&
