@@ -18,16 +18,23 @@
 /**
  * Generates a hyperlink
  *
- * @param string $uri     The target link location
- * @param string $text    The link text 
- * @param string $target  The location where the link should 
- *                        be opened (OPTIONAL; default not used)
- * @param string $onclick The onClick JavaScript handler (OPTIONAL; 
- *                        default not used)
- * @param string $class   The CSS class name (OPTIONAL; default
- *                        not used)
- * @param string $id      The ID name (OPTIONAL; default not used)
- * @param string $name    The anchor name (OPTIONAL; default not used)
+ * @param string $uri      The target link location
+ * @param string $text     The link text 
+ * @param string $target   The location where the link should 
+ *                         be opened (OPTIONAL; default not used)
+ * @param string $onclick  The onClick JavaScript handler (OPTIONAL; 
+ *                         default not used)
+ * @param string $class    The CSS class name (OPTIONAL; default
+ *                         not used)
+ * @param string $id       The ID name (OPTIONAL; default not used)
+ * @param string $name     The anchor name (OPTIONAL; default not used)
+ * @param array  $aAttribs Any extra attributes: this must be an 
+ *                         associative array, where keys will be 
+ *                         added as the attribute name, and values
+ *                         (which are optional - should be null if
+ *                         none should be used) will be placed in
+ *                         double quotes (pending template implementation)
+ *                         as the attribute value (OPTIONAL; default empty).
  *
  * @return string The desired hyperlink tag.
  *
@@ -35,7 +42,7 @@
  *
  */
 function create_hyperlink($uri, $text, $target='', $onclick='', 
-                          $class='', $id='', $name='') {
+                          $class='', $id='', $name='', $aAttribs=array()) {
 
     global $oTemplate;
 
@@ -46,6 +53,8 @@ function create_hyperlink($uri, $text, $target='', $onclick='',
     $oTemplate->assign('class', $class);
     $oTemplate->assign('id', $id);
     $oTemplate->assign('name', $name);
+
+    $oTemplate->assign('aAttribs', $aAttribs);
 
     return $oTemplate->fetch('hyperlink.tpl');
 
@@ -83,6 +92,13 @@ function create_hyperlink($uri, $text, $target='', $onclick='',
  *                                 if for some reason the image tag
  *                                 cannot or should not be produced
  *                                 (OPTIONAL; default not used)
+ * @param array  $aAttribs Any extra attributes: this must be an 
+ *                         associative array, where keys will be 
+ *                         added as the attribute name, and values
+ *                         (which are optional - should be null if
+ *                         none should be used) will be placed in
+ *                         double quotes (pending template implementation)
+ *                         as the attribute value (OPTIONAL; default empty).
  *
  * @return string The desired hyperlink tag.
  *
@@ -92,7 +108,7 @@ function create_hyperlink($uri, $text, $target='', $onclick='',
 function create_image($src, $alt='', $width='', $height='', 
                       $border='', $class='', $id='', $onclick='', 
                       $title='', $align='', $hspace='', $vspace='',
-                      $text_alternative='') {
+                      $text_alternative='', $aAttribs=array()) {
 
     global $oTemplate;
 
@@ -110,6 +126,8 @@ function create_image($src, $alt='', $width='', $height='',
     $oTemplate->assign('vspace', $vspace);
     $oTemplate->assign('text_alternative', $text_alternative);
 
+    $oTemplate->assign('aAttribs', $aAttribs);
+
     return $oTemplate->fetch('image.tpl');
 
 }
@@ -122,19 +140,28 @@ function create_image($src, $alt='', $width='', $height='',
  * @param string $class   The CSS class name (OPTIONAL; default
  *                        not used)
  * @param string $id      The ID name (OPTIONAL; default not used)
+ * @param array  $aAttribs Any extra attributes: this must be an 
+ *                         associative array, where keys will be 
+ *                         added as the attribute name, and values
+ *                         (which are optional - should be null if
+ *                         none should be used) will be placed in
+ *                         double quotes (pending template implementation)
+ *                         as the attribute value (OPTIONAL; default empty).
  *
  * @return string The desired span tag.
  *
  * @since 1.5.2
  *
  */
-function create_span($value, $class='', $id='') {
+function create_span($value, $class='', $id='', $aAttribs=array()) {
 
     global $oTemplate;
 
     $oTemplate->assign('value', $value);
     $oTemplate->assign('class', $class);
     $oTemplate->assign('id', $id);
+
+    $oTemplate->assign('aAttribs', $aAttribs);
 
     return $oTemplate->fetch('span.tpl');
 

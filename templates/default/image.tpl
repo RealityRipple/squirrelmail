@@ -30,6 +30,11 @@
   *                            image tag, if for some reason the 
   *                            image tag cannot or should not be 
   *                            produced (optional; may not be present)
+  *      + $aAttribs - Any extra attributes: an associative array, where
+  *                    keys are attribute names, and values (which are
+  *                    optional and might be null) should be placed
+  *                    in double quotes as attribute values (optional;
+  *                    may not be present)
   *
   * @copyright &copy; 1999-2006 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -44,4 +49,21 @@
 extract($t);
 
 
-?><img src="<?php echo $src ?>"<?php if (!empty($class)) echo ' class="' . $class . '"'; ?><?php if (!empty($id)) echo ' id="' . $id . '"'; ?><?php if (!empty($alt)) echo ' alt="' . $alt . '"'; ?><?php if (!empty($title)) echo ' title="' . $title . '"'; ?><?php if (!empty($onclick)) echo ' onclick="' . $onclick . '"'; ?><?php if (!empty($width)) echo ' width="' . $width . '"'; ?><?php if (!empty($height)) echo ' height="' . $height . '"'; ?><?php if (!empty($align)) echo ' align="' . $align . '"'; ?><?php if (!empty($border)) echo ' border="' . $border . '"'; ?><?php if (!empty($hspace)) echo ' hspace="' . $hspace . '"'; ?><?php if (!empty($vspace)) echo ' vspace="' . $vspace . '"'; ?> />
+echo '<img src="' . $src . '"';
+if (!empty($class)) echo ' class="' . $class . '"';
+if (!empty($id)) echo ' id="' . $id . '"';
+if (!empty($alt)) echo ' alt="' . $alt . '"';
+if (!empty($title)) echo ' title="' . $title . '"';
+if (!empty($onclick)) echo ' onclick="' . $onclick . '"';
+if (!empty($width)) echo ' width="' . $width . '"';
+if (!empty($height)) echo ' height="' . $height . '"';
+if (!empty($align)) echo ' align="' . $align . '"';
+if (!empty($border)) echo ' border="' . $border . '"';
+if (!empty($hspace)) echo ' hspace="' . $hspace . '"';
+if (!empty($vspace)) echo ' vspace="' . $vspace . '"';
+foreach ($aAttribs as $key => $value) {
+    echo ' ' . $key . (is_null($value) ? '' : '="' . $value . '"');
+}
+echo ' />';
+
+
