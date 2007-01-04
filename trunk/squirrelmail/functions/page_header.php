@@ -186,7 +186,7 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
 
     global $reply_focus, $hide_sm_attributions, $frame_top,
         $provider_name, $provider_uri, $startMessage,
-        $action, $oTemplate;
+        $action, $oTemplate, $org_title;
 
     if (empty($sBodyTagJs)) {
         if (strpos($action, 'reply') !== FALSE && $reply_focus) {
@@ -222,10 +222,10 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
                         "\n<!--\n" .
                         $sHeaderJs . "\n\n// -->\n</script>\n";
         }
-        displayHtmlHeader ('SquirrelMail', $sJsBlock);
+        displayHtmlHeader ($org_title, $sJsBlock);
     } else {
         /* do not use JavaScript */
-        displayHtmlHeader ('SquirrelMail');
+        displayHtmlHeader ($org_title);
         $sBodyTagJs = '';
     }
     /*
