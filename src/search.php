@@ -1096,7 +1096,8 @@ if (sqgetGlobalVar('srt', $temp, SQ_GET)) {
     asearch_edit_last(1);
 //    asearch_push_recent($mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array);
 }
-if (sqgetGlobalVar('startMessage', $temp, SQ_GET)) {
+//FIXME: the following gets the right startMessage value, but there is no indication of what form it came from (thus what mailbox folder needs to be paginated), so when using the compact paginator without javascript turned on, pagination is broken
+if (sqGetGlobalVarMultiple('startMessage', $temp, 'paginator_submit', SQ_FORM)) {
     $startMessage = (int) $temp;
     asearch_edit_last(1);
 //    asearch_push_recent($mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array);
