@@ -991,6 +991,7 @@ if ($search_advanced) {
  * @global string $submit
  */
 $searchpressed = false;
+//FIXME: Why is there so much access to $_GET in this file?  What's wrong with sqGetGlobalVar?
 if (isset($_GET['submit'])) {
     $submit = strip_tags($_GET['submit']);
 }
@@ -998,9 +999,17 @@ if (isset($_GET['submit'])) {
 /** Searched mailboxes
  * @global array $mailbox_array
  */
-if (isset($_GET['mailbox'])) {
-    $mailbox_array = $_GET['mailbox'];
-    $targetmailbox = $_GET['mailbox'];
+/* when using compact paginator, mailbox might be indicated in $startMessage, so look for it now ($startMessage is then processed farther below) */
+$mailbox = '';
+$startMessage = '';
+if (sqGetGlobalVarMultiple('startMessage', $temp, 'paginator_submit', SQ_FORM)) {
+    if (strstr($temp, '_')) list($startMessage, $mailbox) = explode('_', $temp);
+    else $startMessage = $temp;
+}
+if (empty($mailbox)) sqGetGlobalVar('mailbox', $mailbox, SQ_GET, '');
+if (!empty($mailbox)) {
+    $mailbox_array = $mailbox;
+    $targetmailbox = $mailbox;
     if (!is_array($mailbox_array)) {
         $mailbox_array = array($mailbox_array);
     }
@@ -1029,6 +1038,7 @@ $aConfig = array(
 /** Binary operators
  * @global array $biop_array
  */
+//FIXME: Why is there so much access to $_GET in this file?  What's wrong with sqGetGlobalVar?
 if (isset($_GET['biop'])) {
     $biop_array = $_GET['biop'];
     if (!is_array($biop_array))
@@ -1039,6 +1049,7 @@ if (isset($_GET['biop'])) {
 /** Unary operators
  * @global array $unop_array
  */
+//FIXME: Why is there so much access to $_GET in this file?  What's wrong with sqGetGlobalVar?
 if (isset($_GET['unop'])) {
     $unop_array = $_GET['unop'];
     if (!is_array($unop_array))
@@ -1049,6 +1060,7 @@ if (isset($_GET['unop'])) {
 /** Where to search
  * @global array $where_array
  */
+//FIXME: Why is there so much access to $_GET in this file?  What's wrong with sqGetGlobalVar?
 if (isset($_GET['where'])) {
     $where_array = $_GET['where'];
     if (!is_array($where_array)) {
@@ -1060,6 +1072,7 @@ if (isset($_GET['where'])) {
 /** What to search
  * @global array $what_array
  */
+//FIXME: Why is there so much access to $_GET in this file?  What's wrong with sqGetGlobalVar?
 if (isset($_GET['what'])) {
     $what_array = $_GET['what'];
     if (!is_array($what_array)) {
@@ -1071,6 +1084,7 @@ if (isset($_GET['what'])) {
 /** Whether to exclude this criteria from search
  * @global array $exclude_array
  */
+//FIXME: Why is there so much access to $_GET in this file?  What's wrong with sqGetGlobalVar?
 if (isset($_GET['exclude'])) {
     $exclude_array = $_GET['exclude'];
 } else {
@@ -1079,6 +1093,7 @@ if (isset($_GET['exclude'])) {
 /** Search within subfolders
  * @global array $sub_array
  */
+//FIXME: Why is there so much access to $_GET in this file?  What's wrong with sqGetGlobalVar?
 if (isset($_GET['sub'])) {
     $sub_array = $_GET['sub'];
 } else {
@@ -1086,6 +1101,7 @@ if (isset($_GET['sub'])) {
 }
 /** Row number used by recent and saved stuff
  */
+//FIXME: Why is there so much access to $_GET in this file?  What's wrong with sqGetGlobalVar?
 if (isset($_GET['rownum'])) {
     $submit_rownum = strip_tags($_GET['rownum']);
 }
@@ -1096,9 +1112,9 @@ if (sqgetGlobalVar('srt', $temp, SQ_GET)) {
     asearch_edit_last(1);
 //    asearch_push_recent($mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array);
 }
-//FIXME: the following gets the right startMessage value, but there is no indication of what form it came from (thus what mailbox folder needs to be paginated), so when using the compact paginator without javascript turned on, pagination is broken
-if (sqGetGlobalVarMultiple('startMessage', $temp, 'paginator_submit', SQ_FORM)) {
-    $startMessage = (int) $temp;
+/* already retrieved startMessage above */
+if (!empty($startMessage)) {
+    $startMessage = (int) $startMessage;
     asearch_edit_last(1);
 //    asearch_push_recent($mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array);
 }

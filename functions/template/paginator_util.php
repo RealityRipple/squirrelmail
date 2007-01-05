@@ -129,7 +129,7 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
         if ($page_selector) {
             $options = array();
             for ($p = 0; $p < $tot_pgs; $p++) {
-                $options[(($p*$iLimit)+1)] = ($p+1) . "/$tot_pgs";
+                $options[(($p*$iLimit)+1) . '_' . $box] = ($p+1) . "/$tot_pgs";
             }
             $result .= $spc . addSelect('startMessage_' . $display_iterations, 
                                         $options, 
