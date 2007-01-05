@@ -183,7 +183,12 @@ function sqGetGlobalVarMultiple($name, &$value, $indicator_field,
                                 $fallback_no_suffix=TRUE, $default=NULL, 
                                 $typecast=FALSE) {
 
-    $max_form_search = 15;
+    // Set arbitrary max limit -- should be much lower except on the
+    // search results page, if there are many (50 or more?) mailboxes
+    // shown, this may not be high enough.  Is there some way we should
+    // automate this value?
+    //
+    $max_form_search = 100;
 
     for ($i = 1; $i <= $max_form_search; $i++) {
         if (sqGetGlobalVar($indicator_field . '_' . $i, $temp, $search)) {
