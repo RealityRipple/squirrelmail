@@ -649,14 +649,6 @@ function load_spam_filters() {
             _("COMMERCIAL - RBL+ Dial-up entries.");
     }
 
-    $filters['ORDB']['prefname'] = 'filters_spam_ordb';
-    $filters['ORDB']['name'] = 'Open Relay Database List';
-    $filters['ORDB']['link'] = 'http://www.ordb.org/';
-    $filters['ORDB']['dns'] = 'relays.ordb.org';
-    $filters['ORDB']['result'] = '127.0.0.2';
-    $filters['ORDB']['comment'] =
-        _("FREE - ORDB was born when ORBS went off the air. It seems to have fewer false positives than ORBS did though.");
-
     $filters['FiveTen Direct']['prefname'] = 'filters_spam_fiveten_src';
     $filters['FiveTen Direct']['name'] = 'Five-Ten-sg.com Direct SPAM Sources';
     $filters['FiveTen Direct']['link'] = 'http://www.five-ten-sg.com/blackhole.php';
