@@ -21,5 +21,4 @@ displayHtmlHeader($org_title .': '. _("Addresses"), '', false, true);
 
 $oTemplate->display('addressbook_popup.tpl');
 
-$oTemplate->display('footer.tpl');
 

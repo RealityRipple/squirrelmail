@@ -119,4 +119,3 @@ displayHtmlHeader($org_title, '', false, true);
 
 $oTemplate->display('webmail.tpl');
 
-$oTemplate->display('footer.tpl');

@@ -40,5 +40,4 @@ if ( ! sqgetGlobalVar('mailbox',$mailbox,SQ_GET) ||
 
     $oTemplate->display('printer_friendly_main.tpl');
 
-    $oTemplate->display('footer.tpl');
 }

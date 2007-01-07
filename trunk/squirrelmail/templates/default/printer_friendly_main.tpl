@@ -26,3 +26,4 @@ extract($t);
  <frame src="printer_friendly_top.php" name="top_frame" scrolling="no" noresize="noresize" frameborder="0" />
  <frame src="<?php echo $printer_friendly_url; ?>" name="bottom_frame" frameborder="0" />
 </frameset>
+</html>
