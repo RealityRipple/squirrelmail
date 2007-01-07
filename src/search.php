@@ -1394,7 +1394,7 @@ if (isset($aMailbox['FORWARD_SESSION'])) {
         session_write_close();
         // we have to redirect to the compose page
         $location = SM_PATH . 'src/compose.php?mailbox='. urlencode($mailbox).
-                    '&amp;session='.$aMailbox['FORWARD_SESSION'];
+                    '&session='.$aMailbox['FORWARD_SESSION'];
         header("Location: $location");
         exit;
     }
