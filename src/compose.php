@@ -398,7 +398,6 @@ if ($draft) {
         showInputForm($session);
         exit();
     } else {
-        $compose_messages[$session] = NULL;
         unset($compose_messages[$session]);
         $draft_message = _("Draft Email Saved");
         /* If this is a resumed draft, then delete the original */
@@ -501,7 +500,6 @@ if ($send) {
             showInputForm($session);
             exit();
         }
-        $compose_messages[$session] = NULL;
         unset($compose_messages[$session]);
 
         /* if it is resumed draft, delete draft message */
@@ -1285,7 +1283,6 @@ function showInputForm ($session, $values=false) {
        store the complete ComposeMessages array in a hidden input value
        so we can restore them in case of a session timeout.
      */
-    //sm_print_r($compose_messages);
     sqgetGlobalVar('QUERY_STRING', $queryString, SQ_SERVER);
     echo addHidden('restoremessages', urlencode(serialize($compose_messages))).
         addHidden('composesession', $composesession).
@@ -1651,7 +1648,6 @@ function deliverMessage($composeMessage, $draft=false) {
         global $passed_id, $mailbox, $action, $what, $iAccount,$startMessage;
 
         $composeMessage->purgeAttachments();
-        unset($composeMessage);
         if ($action=='reply' || $action=='reply_all' || $action=='forward' || $action=='forward_as_attachment') {
             require(SM_PATH . 'functions/mailbox_display.php');
             $aMailbox = sqm_api_mailbox_select($imap_stream, $iAccount, $mailbox,array('setindex' => $what, 'offset' => $startMessage),array());
