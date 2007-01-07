@@ -273,7 +273,8 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
         $success = $deliver->finalizeStream($stream);
     }
     if (!$success) {
-        $msg = $deliver->dlv_msg;
+        $msg = _("Message not sent.") . "<br />\n" .
+            $deliver->dlv_msg;
         if (! empty($deliver->dlv_server_msg)) {
             $msg.= '<br />' .
                 _("Server replied:") . ' ' . $deliver->dlv_ret_nr . ' ' .
