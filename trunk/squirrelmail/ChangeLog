@@ -170,6 +170,7 @@ Version 1.5.2 - CVS
     also has its plugin arguments passed by value, etc.
   - Drop obsolete ORDB RBL from filters plugin (#1629398).
   - Add warning about magic_quotes_* in configtest.
+  - Unify accepted versions for imap_server_type and set_defaults (#1629722).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

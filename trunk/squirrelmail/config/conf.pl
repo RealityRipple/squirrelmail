@@ -503,6 +503,22 @@ if ( $ARGV[0] eq '--install-plugin' ) {
     exit(0);
 }
 
+
+
+####################################################################################
+
+# used in multiple places, define once
+$list_supported_imap_servers = 
+    "    bincimap    = Binc IMAP server\n" .
+    "    courier     = Courier IMAP server\n" .
+    "    cyrus       = Cyrus IMAP server\n" .
+    "    dovecot     = Dovecot Secure IMAP server\n" .
+    "    exchange    = Microsoft Exchange IMAP server\n" .
+    "    hmailserver = hMailServer\n" .
+    "    macosx      = Mac OS X Mailserver\n" .
+    "    mercury32   = Mercury/32\n" .
+    "    uw          = University of Washington's IMAP server\n";
+
 #####################################################################################
 if ( $config_use_color == 1 ) {
     $WHT = "\x1B[37;1m";
@@ -1271,14 +1287,7 @@ sub command19 {
     print "these servers.  If you would like to use them, please select your\n";
     print "IMAP server.  If you do not wish to use these work-arounds, you can\n";
     print "set this to \"other\", and none will be used.\n";
-    print "    courier     = Courier IMAP server\n";
-    print "    cyrus       = Cyrus IMAP server\n";
-    print "    dovecot     = Dovecot Secure IMAP server\n";
-    print "    exchange    = Microsoft Exchange IMAP server\n";
-    print "    hmailserver = hMailServer\n";
-    print "    macosx      = Mac OS X Mailserver\n";
-    print "    mercury32   = Mercury Mail Transport System\n";
-    print "    uw          = University of Washington's IMAP server\n";
+    print $list_supported_imap_servers;
     print "\n";
     print "    other       = Not one of the above servers\n";
     print "\n";
@@ -4667,15 +4676,7 @@ sub set_defaults {
     $continue = 0;
     while ( $continue != 1 ) {
         print "Please select your IMAP server:\n";
-        print "    bincimap    = Binc IMAP server\n";
-        print "    courier     = Courier IMAP server\n";
-        print "    cyrus       = Cyrus IMAP server\n";
-        print "    dovecot     = Dovecot Secure IMAP server\n";
-        print "    exchange    = Microsoft Exchange IMAP server\n";
-        print "    hmailserver = hMailServer\n";
-        print "    macosx      = Mac OS X Mailserver\n";
-        print "    mercury32   = Mercury/32\n";
-        print "    uw          = University of Washington's IMAP server\n";
+        print $list_supported_imap_servers;
         print "\n";
         print "    quit        = Do not change anything\n";
         print "\n";
