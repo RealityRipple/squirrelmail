@@ -1131,7 +1131,7 @@ sub command11 {
     if ( $new_domain eq "\n" ) {
         $new_domain = $domain;
     } else {
-        $new_domain =~ s/[\r\n]//g;
+        $new_domain =~ s/\s//g;
     }
     return $new_domain;
 }
