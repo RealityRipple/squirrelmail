@@ -181,8 +181,9 @@ if ($errors){
    */
   $extrajs.= "var sqspell_lines=new Array();\n";
   for ($i=0; $i<sizeof($sqspell_lines); $i++){
+    // use addcslashes for compatibility with magic_quotes_sybase
     $extrajs.= "sqspell_lines[$i] = \""
-      . chop(addslashes($sqspell_lines[$i])) . "\";\n";
+      . chop(addcslashes($sqspell_lines[$i]), "'\"\\\x0") . "\";\n";
   }
   $extrajs.= "\n\n";
 
