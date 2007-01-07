@@ -331,7 +331,7 @@ function formatRecipientString($recipients, $item ) {
                 $url = set_url_var($PHP_SELF, 'show_more_bcc',1);
             }
         }
-        
+
         $a = array();
         foreach ($recipients as $r) {
             $a[] = array(
@@ -340,12 +340,12 @@ function formatRecipientString($recipients, $item ) {
                             'Full'  => htmlspecialchars($r->getAddress(true))
                         );
         }
-        
+
         $oTemplate->assign('which_field', $item);
         $oTemplate->assign('recipients', $a);
         $oTemplate->assign('more_less_toggle_href', $url);
         $oTemplate->assign('show_more', $show);
-        
+
         $string = $oTemplate->fetch('read_recipient_list.tpl');
     }
     return $string;
@@ -394,34 +394,40 @@ function formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message,
                 $oTemplate->assign('read_receipt_sent', $message->is_mdnsent);
                 $oTemplate->assign('first_time_reading', $FirstTimeSee);
                 $oTemplate->assign('send_receipt_href', $mdn_url);
-                
+
                 $env[_("Read Receipt")] = $oTemplate->fetch('read_handle_receipt.tpl');
             }
         }
     }
 
     $statuses = array();
-    if ( $message->is_deleted ) {
-        $statuses[] = _("deleted");
+    if (isset($aMailbox['MSG_HEADERS'][$passed_id]['FLAGS'])) {
+        if (isset($aMailbox['MSG_HEADERS'][$passed_id]['FLAGS']['\\deleted']) &&
+                  $aMailbox['MSG_HEADERS'][$passed_id]['FLAGS']['\\deleted'] === true) {
+            $statuses[] = _("deleted");
+        }
+        if (isset($aMailbox['MSG_HEADERS'][$passed_id]['FLAGS']['\\answered']) &&
+                  $aMailbox['MSG_HEADERS'][$passed_id]['FLAGS']['\\answered'] === true) {
+            $statuses[] = _("answered");
+        }
+        if (isset($aMailbox['MSG_HEADERS'][$passed_id]['FLAGS']['\\draft']) &&
+                  $aMailbox['MSG_HEADERS'][$passed_id]['FLAGS']['\\draft'] === true) {
+            $statuses[] = _("draft");
+        }
+        if (isset($aMailbox['MSG_HEADERS'][$passed_id]['FLAGS']['\\flagged']) &&
+                  $aMailbox['MSG_HEADERS'][$passed_id]['FLAGS']['\\flagged'] === true) {
+            $statuses[] = _("flagged");
+        }
+        if ( count($statuses) ) {
+            $env[_("Status")] = implode(', ', $statuses);
+        }
     }
-    if ( $message->is_answered ) {
-        $statuses[] = _("answered");
-    }
-    if ( $message->is_draft ) {
-        $statuses[] = _("draft");
-    }
-    if ( $message->is_flagged) {
-        $statuses[] = _("flagged");
-    }
-    if ( count($statuses) ) {
-        $env[_("Status")] = implode(', ', $statuses);
-    }
-    
+
     $env[_("Options")] = formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color);
 
 
     $oTemplate->assign('headers_to_display', $env);
-    
+
     $oTemplate->display('read_headers.tpl');
 }
 
@@ -452,7 +458,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
     // Create Prev & Next links
     // Handle nested entities first (i.e. Mime Attach parts)
     $prev_href = $next_href = $up_href = $del_href = $del_prev_href = $del_next_href = '';
-    $msg_list_href = $search_href = $view_msg_href = ''; 
+    $msg_list_href = $search_href = $view_msg_href = '';
     if (isset($passed_ent_id) && $passed_ent_id) {
         // code for navigating through attached message/rfc822 messages
         $url = set_url_var($PHP_SELF, 'passed_ent_id',0);
@@ -462,7 +468,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
 
         foreach($message->parent->entities as $ent) {
             if ($ent->type0 == 'message' && $ent->type1 == 'rfc822') {
-                
+
                 $c++;
                 $entity_count[$c] = $ent->entity_id;
                 $entities[$ent->entity_id] = $c;
@@ -580,22 +586,22 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
     $oTemplate->assign('compose_href', $comp_uri);
     $oTemplate->assign('button_onclick', $on_click);
     $oTemplate->assign('forward_as_attachment_enabled', $enable_forward_as_attachment==1);
-    
+
     //FIXME: I am surprised these aren't already given to the template; probably needs to be given at a higher level, so I have NO IDEA if this is the right place to do this...  adding them so template can construct its own API calls... we can build those herein too if preferrable
     $oTemplate->assign('mailbox', $aMailbox['NAME']);
     $oTemplate->assign('passed_id', $passed_id);
     $oTemplate->assign('what', $what);
 
     // If Draft folder - create Resume link
-    $resume_draft = $edit_as_new = false;    
+    $resume_draft = $edit_as_new = false;
     if (($mailbox == $draft_folder) && ($save_as_draft)) {
         $resume_draft = true; 'smaction_draft';
     } else if (handleAsSent($mailbox)) {
         $edit_as_new = true;
     }
     $oTemplate->assign('can_resume_draft', $resume_draft);
-    $oTemplate->assign('can_edit_as_new', $edit_as_new);    
-    
+    $oTemplate->assign('can_edit_as_new', $edit_as_new);
+
     $oTemplate->assign('mailboxes', sqimap_mailbox_option_array($imapConnection));
     if (in_array('\\deleted', $aMailbox['PERMANENTFLAGS'],true)) {
         $delete_url = $base_uri . "src/$where";
@@ -625,7 +631,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
         $oTemplate->assign('last_move_target', '');
         $oTemplate->assign('can_be_copied', false);
     }
-    
+
     if ($nav_on_top) {
         $oTemplate->display('read_menubar_nav.tpl');
         $oTemplate->display('read_menubar_buttons.tpl');
@@ -633,14 +639,14 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
         $oTemplate->display('read_menubar_buttons.tpl');
         $oTemplate->display('read_menubar_nav.tpl');
     }
-    
+
     global $null;
     do_hook('read_body_menu_bottom', $null);
 }
 
 function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
     global $base_uri, $where, $what, $show_html_default,
-           $oTemplate, $download_href, 
+           $oTemplate, $download_href,
            $unsafe_image_toggle_href, $unsafe_image_toggle_text;
 
     $urlMailbox = urlencode($mailbox);
@@ -668,7 +674,7 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
                  '&mailbox=' . $urlMailbox .
                  '&passed_id=' . $urlPassed_id .
                  '&view_unsafe_images='. (bool) $view_unsafe_images .
-                 '&show_html_default=' . $show_html_default;    
+                 '&show_html_default=' . $show_html_default;
     $links = array();
     $links[] = array (
                         'URL'   => $url,
@@ -699,7 +705,7 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
     do_hook('read_body_header_right', $links);
 
     $oTemplate->assign('links', $links);
-    
+
     return $oTemplate->fetch('read_toolbar.tpl');
 }
 
@@ -968,7 +974,7 @@ if ($attachment_common_show_images && is_array($attachment_common_show_images_li
         $a['DownloadURL'] = $img['download_href'];
         $images[] = $a;
     }
-    
+
     $oTemplate->assign('images', $images);
     $oTemplate->display('read_display_images_inline.tpl');
 }
