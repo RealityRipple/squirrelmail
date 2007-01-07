@@ -125,7 +125,7 @@ if ( sqgetGlobalVar('mailtodata', $mailtodata, SQ_GET) ) {
                  'body'         => 'body',
                  'subject'      => 'subject');
     $mtdata = unserialize($mailtodata);
-    
+
     foreach ($trtable as $f => $t) {
         if ( !empty($mtdata[$f]) ) {
             $$t = $mtdata[$f];
@@ -313,7 +313,7 @@ if (sqsession_is_registered('session_expired_post')) {
         sqsession_unregister('session_expired_post');
         session_write_close();
     } else {
-        // these are the vars that we can set from the expired composed session   
+        // these are the vars that we can set from the expired composed session
         $compo_var_list = array ( 'send_to', 'send_to_cc','body','startMessage',
             'passed_body','use_signature','signature','attachments','subject','newmail',
             'send_to_bcc', 'passed_id', 'mailbox', 'from_htmladdr_search', 'identity',
@@ -398,6 +398,7 @@ if ($draft) {
         showInputForm($session);
         exit();
     } else {
+        $compose_messages[$session] = NULL;
         unset($compose_messages[$session]);
         $draft_message = _("Draft Email Saved");
         /* If this is a resumed draft, then delete the original */
@@ -413,7 +414,7 @@ if ($draft) {
             }
             sqimap_logout($imap_stream);
         }
-        
+
         $oErrorHandler->saveDelayedErrors();
         session_write_close();
 
@@ -492,7 +493,7 @@ if ($send) {
 
         $Result = deliverMessage($composeMessage);
 
-        // NOTE: this hook changed in 1.5.2 from sending $Result and 
+        // NOTE: this hook changed in 1.5.2 from sending $Result and
         //       $composeMessage as args #2 and #3 to being in an array
         //       under arg #2
         do_hook('compose_send_after', $temp=array(&$Result, &$composeMessage));
@@ -500,6 +501,7 @@ if ($send) {
             showInputForm($session);
             exit();
         }
+        $compose_messages[$session] = NULL;
         unset($compose_messages[$session]);
 
         /* if it is resumed draft, delete draft message */
@@ -766,7 +768,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $type1 = $msg->type1;
             $unencoded_bodypart = mime_fetch_body($imapConnection, $passed_id, $ent);
             $body_part_entity = $message->getEntity($ent);
-            $bodypart = decodeBody($unencoded_bodypart, 
+            $bodypart = decodeBody($unencoded_bodypart,
                     $body_part_entity->header->encoding);
             if ($type1 == 'html') {
                 $bodypart = str_replace("\n", ' ', $bodypart);
@@ -855,11 +857,11 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                     }
                 }
                 $subject = decodeHeader($orig_header->subject,false,false,true);
-                
+
                 // Remember the receipt settings
                 $request_mdn = $mdn_user_support && !empty($orig_header->dnt) ? '1' : '0';
                 $request_dr = $mdn_user_support && !empty($orig_header->drnt) ? '1' : '0';
-                
+
                 /* remember the references and in-reply-to headers in case of an reply */
                 $composeMessage->rfc822_header->more_headers['References'] = $orig_header->references;
                 $composeMessage->rfc822_header->more_headers['In-Reply-To'] = $orig_header->in_reply_to;
@@ -1161,7 +1163,7 @@ function showInputForm ($session, $values=false) {
     if ($compose_new_win == '1') {
         $oTemplate->display('compose_newwin_close.tpl');
     }
-    
+
     if ($location_of_buttons == 'top') {
         showComposeButtonRow();
     }
@@ -1173,16 +1175,16 @@ function showInputForm ($session, $values=false) {
             $identities[$id] = $data['full_name'].' &lt;'.$data['email_address'].'&gt;';
         }
     }
-    
+
     $oTemplate->assign('identities', $identities);
     $oTemplate->assign('identity_def', $identity);
     $oTemplate->assign('input_onfocus', 'onfocus="'.join(' ', $onfocus_array).'"');
-    
+
     $oTemplate->assign('to', htmlspecialchars($send_to));
     $oTemplate->assign('cc', htmlspecialchars($send_to_cc));
     $oTemplate->assign('bcc', htmlspecialchars($send_to_bcc));
     $oTemplate->assign('subject', htmlspecialchars($subject));
-        
+
     $oTemplate->display('compose_header.tpl');
 
     if ($location_of_buttons == 'between') {
@@ -1224,9 +1226,9 @@ function showInputForm ($session, $values=false) {
     $oTemplate->assign('input_onfocus', 'onfocus="'.join(' ', $onfocus_array).'"');
     $oTemplate->assign('body', $body_str);
     $oTemplate->assign('show_bottom_send', $location_of_buttons!='bottom');
-    
+
     $oTemplate->display ('compose_body.tpl');
-    
+
     if ($location_of_buttons == 'bottom') {
         showComposeButtonRow();
     }
@@ -1257,7 +1259,7 @@ function showInputForm ($session, $values=false) {
                     $attached_filename = decodeHeader($attachment->mime_header->getParameter('name'));
                     $type = $attachment->mime_header->type0.'/'.
                         $attachment->mime_header->type1;
-    
+
                     $a = array();
                     $a['Key'] = $key;
                     $a['FileName'] = $attached_filename;
@@ -1267,11 +1269,11 @@ function showInputForm ($session, $values=false) {
                 }
             }
         }
-    
+
         $max = min($sizes);
         $oTemplate->assign('max_file_size', empty($max) ? -1 : $max);
         $oTemplate->assign('attachments', $attach);
-        
+
         $oTemplate->display('compose_attachments.tpl');
     } // End of file_uploads if-block
     /* End of attachment code */
@@ -1283,8 +1285,9 @@ function showInputForm ($session, $values=false) {
        store the complete ComposeMessages array in a hidden input value
        so we can restore them in case of a session timeout.
      */
+    //sm_print_r($compose_messages);
     sqgetGlobalVar('QUERY_STRING', $queryString, SQ_SERVER);
-    echo addHidden('restoremessages', serialize($compose_messages)).
+    echo addHidden('restoremessages', urlencode(serialize($compose_messages))).
         addHidden('composesession', $composesession).
         addHidden('querystring', $queryString).
         "</form>\n";
@@ -1301,7 +1304,7 @@ function showInputForm ($session, $values=false) {
     if ($compose_new_win=='1') {
         $oTemplate->display('compose_newwin_close.tpl');
     }
-    
+
     $oErrorHandler->setDelayedErrors(false);
     $oTemplate->display('footer.tpl');
 }
@@ -1314,15 +1317,15 @@ function showComposeButtonRow() {
         $data_dir, $username;
 
     global $oTemplate, $buffer_hook;
-    
-    if ($default_use_priority) {    
+
+    if ($default_use_priority) {
         $priorities = array('1'=>_("High"), '3'=>_("Normal"), '5'=>_("Low"));
         $priority = isset($mailprio) ? $mailprio : 3;
     } else {
         $priorities = array();
         $priority = NULL;
     }
-    
+
     $mdn_user_support=getPref($data_dir, $username, 'mdn_user_support',$default_use_mdn);
 
     if ($use_javascript_addr_book) {
@@ -1341,11 +1344,11 @@ function showComposeButtonRow() {
     $oTemplate->assign('allow_priority', $default_use_priority==1);
     $oTemplate->assign('priority_list', $priorities);
     $oTemplate->assign('current_priority', $priority);
-    
+
     $oTemplate->assign('notifications_enabled', $mdn_user_support==1);
     $oTemplate->assign('read_receipt', $request_mdn=='1');
     $oTemplate->assign('delivery_receipt', $request_dr=='1');
-    
+
     $oTemplate->assign('drafts_enabled', $save_as_draft);
     $oTemplate->assign('address_book_button', $addr_book);
 
@@ -1496,7 +1499,7 @@ function deliverMessage($composeMessage, $draft=false) {
     } elseif (isset($rfc822_header->dnt)) {
         unset($rfc822_header->dnt);
     }
-    
+
     /* Receipt: On Delivery */
     if (isset($request_dr) && $request_dr) {
         $rfc822_header->more_headers['Return-Receipt-To'] = $from_mail;
@@ -1537,7 +1540,7 @@ function deliverMessage($composeMessage, $draft=false) {
 
     $rfc822_header->content_type = $content_type;
     $composeMessage->rfc822_header = $rfc822_header;
-    
+
     /* Here you can modify the message structure just before we hand
        it over to deliver; plugin authors note that $composeMessage
        is sent and modified by reference since 1.5.2 */
@@ -1648,6 +1651,7 @@ function deliverMessage($composeMessage, $draft=false) {
         global $passed_id, $mailbox, $action, $what, $iAccount,$startMessage;
 
         $composeMessage->purgeAttachments();
+        unset($composeMessage);
         if ($action=='reply' || $action=='reply_all' || $action=='forward' || $action=='forward_as_attachment') {
             require(SM_PATH . 'functions/mailbox_display.php');
             $aMailbox = sqm_api_mailbox_select($imap_stream, $iAccount, $mailbox,array('setindex' => $what, 'offset' => $startMessage),array());
@@ -1671,7 +1675,7 @@ function deliverMessage($composeMessage, $draft=false) {
             case 'forward':
             case 'forward_as_attachment':
                 // check if we are allowed to set the $Forwarded flag (RFC 4550 paragraph 2.8)
-                if (in_array('$forwarded',$aMailbox['PERMANENTFLAGS'], true) || 
+                if (in_array('$forwarded',$aMailbox['PERMANENTFLAGS'], true) ||
                     in_array('\\*',$aMailbox['PERMANENTFLAGS'])) {
 
                     $aUpdatedMsgs = sqimap_toggle_flag($imap_stream, array($passed_id), '$Forwarded', true, false);
