@@ -23,6 +23,8 @@ include_once(SM_PATH . 'functions/imap_messages.php');
 /* plugin functions */
 include_once(SM_PATH . 'plugins/spamcop/functions.php');
 
+include_once(SM_PATH . 'functions/compose.php');
+
 /* GLOBALS */
 
 sqgetGlobalVar('mailbox', $mailbox, SQ_GET);

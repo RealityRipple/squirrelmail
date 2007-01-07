@@ -1477,9 +1477,6 @@ function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = ar
  * @author Marc Groot Koerkamp
  */
 function attachSelectedMessages($imapConnection,$aMsgHeaders) {
-    global $username, $attachment_dir,
-           $data_dir;
-
 
     sqgetGlobalVar('composesession', $composesession, SQ_SESSION);
     sqgetGlobalVar('compose_messages', $compose_messages, SQ_SESSION);
@@ -1495,8 +1492,6 @@ function attachSelectedMessages($imapConnection,$aMsgHeaders) {
         $composesession++;
         sqsession_register($composesession,'composesession');
     }
-
-    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
 
     $composeMessage = new Message();
     $rfc822_header = new Rfc822Header();
@@ -1517,14 +1512,13 @@ function attachSelectedMessages($imapConnection,$aMsgHeaders) {
             $body = implode('', $body_a);
             $body .= "\r\n";
 
-            $localfilename = GenerateRandomString(32, 'FILE', 7);
-            $full_localfilename = "$hashed_attachment_dir/$localfilename";
-
-            $fp = fopen( $full_localfilename, 'wb');
+            $filename = sq_get_attach_tempfile();
+            $fp = fopen($filename, 'wb');
             fwrite ($fp, $body);
             fclose($fp);
+
             $composeMessage->initAttachment('message/rfc822',$subject.'.msg',
-                 $full_localfilename);
+                 $filename);
         }
     }
 
@@ -1532,3 +1526,4 @@ function attachSelectedMessages($imapConnection,$aMsgHeaders) {
     sqsession_register($compose_messages,'compose_messages');
     return $composesession;
 }
+

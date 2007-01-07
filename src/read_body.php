@@ -27,6 +27,7 @@ require_once(SM_PATH . 'functions/identity.php');
 require_once(SM_PATH . 'functions/mailbox_display.php');
 require_once(SM_PATH . 'functions/forms.php');
 require_once(SM_PATH . 'functions/attachment_common.php');
+require_once(SM_PATH . 'functions/compose.php');
 
 /**
  * Given an IMAP message id number, this will look it up in the cached

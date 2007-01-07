@@ -31,6 +31,7 @@ require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'functions/mailbox_display.php'); //getButton()
 require_once(SM_PATH . 'functions/forms.php');
 require_once(SM_PATH . 'functions/date.php');
+require_once(SM_PATH . 'functions/compose.php');
 
 /** Prefs array ordinals. Must match $recent_prefkeys and $saved_prefkeys
  */

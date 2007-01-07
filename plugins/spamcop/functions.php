@@ -180,9 +180,7 @@ function spamcop_enable_disable($option,$disable_action,$enable_action) {
  */
 function spamcop_getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
                                       $passed_ent_id='', $imapConnection) {
-    global $attachment_dir, $username;
 
-    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     if (!$passed_ent_id) {
         $body_a = sqimap_run_command($imapConnection,
                                     'FETCH '.$passed_id.' RFC822',
@@ -198,21 +196,12 @@ function spamcop_getMessage_RFC822_Attachment($message, $composeMessage, $passed
         array_shift($body_a);
         $body = implode('', $body_a) . "\r\n";
 
-        $localfilename = GenerateRandomString(32, 'FILE', 7);
-        $full_localfilename = "$hashed_attachment_dir/$localfilename";
-        $fp = fopen( $full_localfilename, 'w');
+        $filename = sq_get_attach_tempfile();
+        $fp = fopen($filename, 'wb');
         fwrite ($fp, $body);
         fclose($fp);
-
-        /* dirty relative dir fix */
-        if (substr($attachment_dir,0,3) == '../') {
-           $attachment_dir = substr($attachment_dir,3);
-           $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-        }
-        $full_localfilename = "$hashed_attachment_dir/$localfilename";
-
         $composeMessage->initAttachment('message/rfc822','email.txt',
-                         $full_localfilename);
+                         $filename);
     }
     return $composeMessage;
 }
