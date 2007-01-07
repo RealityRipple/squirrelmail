@@ -39,4 +39,4 @@ if ($nav_on_left) {
     $output .= $right_frame . $left_frame;
 }
 
-echo $output ."\n</frameset>";
+echo $output ."\n</frameset>\n</html>";

@@ -31,3 +31,6 @@ extract($t);
            border="0"
            src="addrbook_search.php?show=blank" />
 </frameset>
+
+</html>
+
