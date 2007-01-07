@@ -26,6 +26,7 @@ require_once(SM_PATH . 'functions/imap_general.php');
 require_once(SM_PATH . 'functions/imap_messages.php');
 require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/mime.php');
+require_once(SM_PATH . 'functions/compose.php');
 require_once(SM_PATH . 'class/deliver/Deliver.class.php');
 require_once(SM_PATH . 'functions/addressbook.php');
 require_once(SM_PATH . 'functions/forms.php');
@@ -974,8 +975,8 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
  * @return object
  */
 function getAttachments($message, &$composeMessage, $passed_id, $entities, $imapConnection) {
-    global $attachment_dir, $username, $data_dir, $squirrelmail_language, $languages;
-    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+    global $squirrelmail_language, $languages;
+
     if (!count($message->entities) ||
             ($message->type0 == 'message' && $message->type1 == 'rfc822')) {
         if ( !in_array($message->entity_id, $entities) && $message->entity_id) {
@@ -1003,19 +1004,14 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
                     function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_encode')) {
                 $filename =  call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_encode', $filename);
             }
-            $localfilename = GenerateRandomString(32, '', 7);
-            $full_localfilename = "$hashed_attachment_dir/$localfilename";
-            while (file_exists($full_localfilename)) {
-                $localfilename = GenerateRandomString(32, '', 7);
-                $full_localfilename = "$hashed_attachment_dir/$localfilename";
-            }
-            $message->att_local_name = $full_localfilename;
+            $localfilename = sq_get_attach_tempfile();
+            $message->att_local_name = $localfilename;
 
             $composeMessage->initAttachment($message->type0.'/'.$message->type1,$filename,
-                    $full_localfilename);
+                    $localfilename);
 
             /* Write Attachment to file */
-            $fp = fopen ("$hashed_attachment_dir/$localfilename", 'wb');
+            $fp = fopen ($localfilename, 'wb');
             mime_print_body_lines ($imapConnection, $passed_id, $message->entity_id, $message->header->encoding, $fp);
             fclose ($fp);
         }
@@ -1029,8 +1025,6 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
 
 function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
         $passed_ent_id='', $imapConnection) {
-    global $attachment_dir, $username, $data_dir;
-    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     if (!$passed_ent_id) {
         $body_a = sqimap_run_command($imapConnection,
                 'FETCH '.$passed_id.' RFC822',
@@ -1048,14 +1042,12 @@ function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
         array_pop($body_a);
         $body = implode('', $body_a) . "\r\n";
 
-        $localfilename = GenerateRandomString(32, 'FILE', 7);
-        $full_localfilename = "$hashed_attachment_dir/$localfilename";
-
-        $fp = fopen($full_localfilename, 'w');
+        $localfilename = sq_get_attach_tempfile();
+        $fp = fopen($localfilename, 'wb');
         fwrite ($fp, $body);
         fclose($fp);
         $composeMessage->initAttachment('message/rfc822',$subject.'.msg',
-                $full_localfilename);
+                $localfilename);
     }
     return $composeMessage;
 }
@@ -1381,33 +1373,26 @@ function checkInput ($show) {
 
 /* True if FAILURE */
 function saveAttachedFiles($session) {
-    global $_FILES, $attachment_dir, $username,
-        $data_dir, $compose_messages;
+    global $compose_messages;
 
     /* get out of here if no file was attached at all */
     if (! is_uploaded_file($_FILES['attachfile']['tmp_name']) ) {
         return true;
     }
 
-    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-    $localfilename = GenerateRandomString(32, '', 7);
-    $full_localfilename = "$hashed_attachment_dir/$localfilename";
-    while (file_exists($full_localfilename)) {
-        $localfilename = GenerateRandomString(32, '', 7);
-        $full_localfilename = "$hashed_attachment_dir/$localfilename";
-    }
+    $localfilename = sq_get_attach_tempfile();
 
     // m_u_f works better with restricted PHP installs (safe_mode, open_basedir),
     // if that doesn't work, try a simple rename.
-    if (!@move_uploaded_file($_FILES['attachfile']['tmp_name'],$full_localfilename)) {
-        if (!@rename($_FILES['attachfile']['tmp_name'], $full_localfilename)) {
+    if (!@move_uploaded_file($_FILES['attachfile']['tmp_name'],$localfilename)) {
+        if (!@rename($_FILES['attachfile']['tmp_name'], $localfilename)) {
             return true;
         }
     }
     $message = $compose_messages[$session];
     $type = strtolower($_FILES['attachfile']['type']);
     $name = $_FILES['attachfile']['name'];
-    $message->initAttachment($type, $name, $full_localfilename);
+    $message->initAttachment($type, $name, $localfilename);
     $compose_messages[$session] = $message;
     sqsession_register($compose_messages , 'compose_messages');
 }
