@@ -399,7 +399,26 @@ function formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message,
             }
         }
     }
+
+    $statuses = array();
+    if ( $message->is_deleted ) {
+        $statuses[] = _("deleted");
+    }
+    if ( $message->is_answered ) {
+        $statuses[] = _("answered");
+    }
+    if ( $message->is_draft ) {
+        $statuses[] = _("draft");
+    }
+    if ( $message->is_flagged) {
+        $statuses[] = _("flagged");
+    }
+    if ( count($statuses) ) {
+        $env[_("Status")] = implode(', ', $statuses);
+    }
+    
     $env[_("Options")] = formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color);
+
 
     $oTemplate->assign('headers_to_display', $env);
     
