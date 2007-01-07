@@ -28,9 +28,9 @@ extract ($t);
 ?>
 <body>
 <div id="sqm_errorLogout">
-<table cellspacing="0">
+<table class="sqm_errorLogoutTop" cellspacing="0">
  <tr>
-  <td class="sqm_errorLogoutTop" colspan="2">
+  <td colspan="2">
    <?php 
        echo $logo_str;
        echo $sm_attribute_str; 
@@ -38,8 +38,9 @@ extract ($t);
   </td>
  </tr>
 </table>
-<br>
-<div style="width:70%; text-align:center; margin-left:auto; margin-right:auto">
+</div>
+<br />
+
 <table class="table_errorBoxWrapper" cellspacing="0">
  <tr>
   <td>
@@ -63,5 +64,3 @@ extract ($t);
   </td>
  </tr>
 </table>
-</div>
-</div>

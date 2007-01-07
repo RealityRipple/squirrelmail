@@ -257,7 +257,7 @@ table.sqm_emptyFolder td {
 }
 
 /* error_box.tpl definitions */
-.table_errorBoxWrapper   {
+.table_errorBoxWrapper {
     background: #ababab /* __COLOR9__ */;
     margin-left: auto;
     margin-right: auto;
@@ -274,6 +274,22 @@ td.error_header {
     font-weight: bold;
     color: #cc0000 /* __COLOR2__*/;
 }
+
+/* logout error screen */
+
+#sqm_errorLogout  {
+    margin-top: 25px;
+    text-align: center;
+}
+
+#sqm_errorLogout  table   {
+    border: 0;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
 
 /* page_header.tpl definitions */
 .sqm_currentFolder	{
