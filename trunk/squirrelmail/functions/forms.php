@@ -3,8 +3,9 @@
 /**
  * forms.php - html form functions
  *
- * Functions to build HTML forms in a safe and consistent manner.
+ * Functions to build forms in a safe and consistent manner.
  * All attribute values are sanitized with htmlspecialchars().
+//FIXME: I think the Template class might be better place to sanitize inside assign() method
  *
  * Currently functions don't provide simple wrappers for file and 
  * image input fields, support only submit and reset buttons and use 
@@ -60,11 +61,15 @@ function addInputField($sType, $aAttribs=array()) {
          */
         $aAttribs['id'] = strtr($aAttribs['name'],'[]','__');
     }
-    // create attribute string (do we have to sanitize keys?)
-    foreach ($aAttribs as $key => $value) {
-        $sAttribs.= ' ' . $key . (! is_null($value) ? '="'.htmlspecialchars($value).'"':'');
-    }
-    return '<input type="'.$sType.'"'.$sAttribs." />\n";
+
+    global $oTemplate;
+
+    $oTemplate->assign('type', $sType);
+//FIXME: all the values in the $aAttribs list used to go thru htmlspecialchars()... I would propose that most everything that is assigned to the template should go thru that *in the template class* on its way between here and the actual template file.  Otherwise we have to do something like:  foreach ($aAttribs as $key => $value) $aAttribs[$key] = htmlspecialchars($value);
+    $oTemplate->assign('aAttribs', $aAttribs);
+
+    return $oTemplate->fetch('input.tpl');
+
 }
 
 /**
@@ -155,7 +160,7 @@ function addInput($sName, $sValue = '', $iSize = 0, $iMaxlength = 0, $aAttribs=a
 /**
  * Function to create a selectlist from an array.
  * @param string $sName field name
- * @param array $aValues field values array ( key => value )  ->     <option value="key">value</option>
+ * @param array $aValues field values array(key => value)  ->  <option value="key">value</option>, although if $bUsekeys is FALSE, then  <option value="value">value</option>
  * @param mixed $default the key that will be selected
  * @param boolean $bUsekeys use the keys of the array as option value or not
  * @param array $aAttribs (since 1.5.1) extra attributes
@@ -170,31 +175,16 @@ function addSelect($sName, $aValues, $default = null, $bUsekeys = false, $aAttri
             htmlspecialchars($v) . "\n";
     }
 
-    if (isset($aAttribs['id'])) {
-        $label_open = '<label for="'.htmlspecialchars($aAttribs['id']).'">';
-        $label_close = '</label>';
-    } else {
-        $label_open = '';
-        $label_close = '';
-    }
+    global $oTemplate;
 
-    // create attribute string for select tag
-    $sAttribs = '';
-    foreach ($aAttribs as $key => $value) {
-        $sAttribs.= ' ' . $key . (! is_null($value) ? '="'.htmlspecialchars($value).'"':'');
-    }
+//FIXME: all the values in the $aAttribs list and $sName and both the keys and values in $aValues used to go thru htmlspecialchars()... I would propose that most everything that is assigned to the template should go thru that *in the template class* on its way between here and the actual template file.  Otherwise we have to do something like:  foreach ($aAttribs as $key => $value) $aAttribs[$key] = htmlspecialchars($value); $sName = htmlspecialchars($sName); $aNewValues = array(); foreach ($aValues as $key => $value) $aNewValues[htmlspecialchars($key)] = htmlspecialchars($value); $aValues = $aNewValues;   And probably this too because it has to be matched to a value that has already been sanitized: $default = htmlspecialchars($default); 
+    $oTemplate->assign('aAttribs', $aAttribs);
+    $oTemplate->assign('aValues', $aValues);
+    $oTemplate->assign('bUsekeys', $bUsekeys);
+    $oTemplate->assign('default', $default);
+    $oTemplate->assign('name', $sName);
 
-    $ret = '<select name="'.htmlspecialchars($sName) . '"' . $sAttribs . ">\n";
-    foreach ($aValues as $k => $v) {
-        if(!$bUsekeys) $k = $v;
-        $ret .= '<option value="' .
-            htmlspecialchars( $k ) . '"' .
-            (($default == $k) ? ' selected="selected"' : '') .
-            '>' . $label_open . htmlspecialchars($v) . $label_close  ."</option>\n";
-    }
-    $ret .= "</select>\n";
-
-    return $ret;
+    return $oTemplate->fetch('select.tpl');
 }
 
 /**
@@ -227,75 +217,70 @@ function addReset($sValue, $aAttribs=array()) {
 
 /**
  * Textarea form element.
- * @param string $sName field name
- * @param string $sText initial field value
- * @param integer $iCols field width (number of chars)
- * @param integer $iRows field height (number of character rows)
- * @param array $aAttribs (since 1.5.1) extra attributes. function accepts string argument 
- * for backward compatibility.
+ *
+ * @param string  $sName    field name
+ * @param string  $sText    initial field value (OPTIONAL; default empty)
+ * @param integer $iCols    field width (number of chars) (OPTIONAL; default 40)
+ * @param integer $iRows    field height (number of character rows) (OPTIONAL; default 10)
+ * @param array   $aAttribs (since 1.5.1) extra attributes (OPTIONAL; default empty) 
+ *
  * @return string html formated text area field
+ *
  */
 function addTextArea($sName, $sText = '', $iCols = 40, $iRows = 10, $aAttribs = array()) {
-    $label_open = '';
-    $label_close = '';
-    if (is_array($aAttribs)) {
-        // maybe id can default to name?
-        if (isset($aAttribs['id'])) {
-            $label_open = '<label for="'.htmlspecialchars($aAttribs['id']).'">';
-            $label_close = '</label>';
-        }
-        // add default css
-        if (! isset($aAttribs['class'])) $aAttribs['class'] = 'sqmtextarea';
-        // create attribute string (do we have to sanitize keys?)
-        $sAttribs = '';
-        foreach ($aAttribs as $key => $value) {
-            $sAttribs.= ' ' . $key . (! is_null($value) ? '="'.htmlspecialchars($value).'"':'');
-        }
-    } elseif (is_string($aAttribs)) {
-        // backward compatibility mode. deprecated.
-        $sAttribs = ' ' . $aAttribs;
-    } else {
-        $sAttribs = '';
+
+    // no longer accept string arguments for attribs; print 
+    // backtrace to help people fix their code
+    if (!is_array($aAttribs)) {
+        echo '$aAttribs argument to addTextArea() must be an array<br /><pre>';
+        debug_print_backtrace();
+        echo '</pre><br />';
+        exit;
     }
-    return '<textarea name="'.htmlspecialchars($sName).'" '.
-        'rows="'.(int)$iRows .'" cols="'.(int)$iCols.'"'.
-        $sAttribs . '>'. $label_open . htmlspecialchars($sText) . $label_close ."</textarea>\n";
+
+    // FIXME: should the template do this instead????
+    else if (!isset($aAttribs['class'])) $aAttribs['class'] = 'sqmtextarea';
+
+    global $oTemplate;
+
+//FIXME: all the values in the $aAttribs list as well as $sName and $sText used to go thru htmlspecialchars()... I would propose that most everything that is assigned to the template should go thru that *in the template class* on its way between here and the actual template file.  Otherwise we have to do something like:  foreach ($aAttribs as $key => $value) $aAttribs[$key] = htmlspecialchars($value); $sName = htmlspecialchars($sName); $sText = htmlspecialchars($sText);
+    $oTemplate->assign('aAttribs', $aAttribs);
+    $oTemplate->assign('name', $sName);
+    $oTemplate->assign('text', $sText);
+    $oTemplate->assign('cols', (int)$iCols);
+    $oTemplate->assign('rows', (int)$iRows);
+
+    return $oTemplate->fetch('textarea.tpl');
 }
 
 /**
  * Make a <form> start-tag.
- * @param string $sAction form handler URL
- * @param string $sMethod http method used to submit form data. 'get' or 'post'
- * @param string $sName form name used for identification (used for backward 
- *  compatibility). Use of id is recommended.
+ *
+ * @param string $sAction  form handler URL
+ * @param string $sMethod  http method used to submit form data. 'get' or 'post'
+ * @param string $sName    form name used for identification (used for backward 
+ *                         compatibility). Use of id is recommended instead.
  * @param string $sEnctype content type that is used to submit data. html 4.01 
- *  defaults to 'application/x-www-form-urlencoded'. Form with file field needs 
- *  'multipart/form-data' encoding type.
+ *                         defaults to 'application/x-www-form-urlencoded'. Form 
+ *                         with file field needs 'multipart/form-data' encoding type.
  * @param string $sCharset charset that is used for submitted data
- * @param array $aAttribs (since 1.5.1) extra attributes
+ * @param array  $aAttribs (since 1.5.1) extra attributes
+ *
  * @return string html formated form start string
+ *
  */
 function addForm($sAction, $sMethod = 'post', $sName = '', $sEnctype = '', $sCharset = '', $aAttribs = array()) {
-    // id tags
-    if (! isset($aAttribs['id']) && ! empty($sName))
-        $aAttribs['id'] = $sName;
 
-    if($sName) {
-        $sName = ' name="'.$sName.'"';
-    }
-    if($sEnctype) {
-        $sEnctype = ' enctype="'.$sEnctype.'"';
-    }
-    if($sCharset) {
-        $sCharset = ' accept-charset="'.htmlspecialchars($sCharset).'"';
-    }
+    global $oTemplate;
 
-    // create attribute string (do we have to sanitize keys?)
-    $sAttribs = '';
-    foreach ($aAttribs as $key => $value) {
-        $sAttribs.= ' ' . $key . (! is_null($value) ? '="'.htmlspecialchars($value).'"':'');
-    }
+//FIXME: all the values in the $aAttribs list as well as $charset used to go thru htmlspecialchars()... I would propose that most everything that is assigned to the template should go thru that *in the template class* on its way between here and the actual template file.  Otherwise we have to do something like:  foreach ($aAttribs as $key => $value) $aAttribs[$key] = htmlspecialchars($value); $sCharset = htmlspecialchars($sCharset);
+    $oTemplate->assign('aAttribs', $aAttribs);
+    $oTemplate->assign('name', $sName);
+    $oTemplate->assign('method', $sMethod);
+    $oTemplate->assign('action', $sAction);
+    $oTemplate->assign('enctype', $sEnctype);
+    $oTemplate->assign('charset', $sCharset);
 
-    return '<form action="'. $sAction .'" method="'. $sMethod .'"'.
-        $sEnctype . $sName . $sCharset . $sAttribs . ">\n";
+    return $oTemplate->fetch('form.tpl');
 }
+

@@ -450,10 +450,9 @@ class SquirrelOption {
             case SMOPT_SIZE_NORMAL:
             default: $rows = 5; $cols =  50;
         }
-        $result = "<textarea name=\"new_$this->name\" rows=\"$rows\" "
-                . "cols=\"$cols\" $this->script>"
-                . htmlspecialchars($this->value) . "</textarea>\n";
-        return ($result);
+//FIXME: we need to change $this->script into $this->aExtraAttribs, and anyone who wants to add some javascript or other attributes to an options widget can put them in an array and pass them as extra attributes (key == attrib name, value == attrib value).... for now, this is the only place it is used, and there is no place in the code that text areas get extra attribs or javascript... in fact the only place that was using $this->script is include/options/display.php:200, so that's easy to change.... just have to go through this file and change all the places that use "script"
+$this->aExtraAttribs = array();
+        return addTextArea('new_' . $this->name, $this->value, $cols, $rows, $this->aExtraAttribs);
     }
 
     /**
