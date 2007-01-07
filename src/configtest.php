@@ -216,6 +216,21 @@ if (function_exists('mb_internal_encoding') &&
     do_err($mb_error);
 }
 
+/**
+ * Do not use SquirrelMail with magic_quotes_* on.
+ */
+if ( get_magic_quotes_runtime() || get_magic_quotes_gpc() ||
+    ( (bool) ini_get('magic_quotes_sybase') && ini_get('magic_quotes_sybase') != 'off' )
+    ) {
+    $magic_quotes_warning='You have enabled any one of <tt>magic_quotes_runtime</tt>, '
+        .'<tt>magic_quotes_gpc</tt> or <tt>magic_quotes_sybase</tt> in your PHP '
+        .'configuration. We recommend all those settings to be off. SquirrelMail '
+        .'may work with them on, but when experiencing stray backslashes in your mail '
+        .'or other strange behaviour, it may be advisable to turn them off.';
+    do_err($magic_quotes_warning,false);
+}
+
+
 /* checking paths */
 
 echo "Checking paths...<br />\n";

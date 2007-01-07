@@ -169,6 +169,7 @@ Version 1.5.2 - CVS
     and do_hook() now emulates do_hook_function()'s return value and 
     also has its plugin arguments passed by value, etc.
   - Drop obsolete ORDB RBL from filters plugin (#1629398).
+  - Add warning about magic_quotes_* in configtest.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
