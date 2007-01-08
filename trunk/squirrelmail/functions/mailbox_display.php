@@ -987,11 +987,11 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
             $thread_name = _("Thread View");
             $newsort = $aMailbox['SORT'] + SQSORT_THREAD;
         }
-        $thread_link_str = '<small>[<a href="' . $baseurl . '&amp;srt='
-            . $newsort . '&amp;startMessage=1">' . $thread_name
-            . '</a>]</small>';
+        $thread_link_uri = $baseurl . '&amp;srt=' . $newsort 
+                         . '&amp;startMessage=1';
     } else {
-        $thread_link_str ='';
+        $thread_link_uri ='';
+        $thread_name = '';
     }
     $sort = $aMailbox['SORT'];
 
@@ -1151,7 +1151,8 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
     $aTemplate['trash_folder'] = $trash_folder;
     $aTemplate['sent_folder'] = $sent_folder;
     $aTemplate['draft_folder'] = $draft_folder;
-    $aTemplate['thread_link_str'] = $thread_link_str;
+    $aTemplate['thread_link_uri'] = $thread_link_uri;
+    $aTemplate['thread_name'] = $thread_name;
     $aTemplate['php_self'] = str_replace('&','&amp;',$php_self);
     $aTemplate['mailbox'] = $sMailbox;
 //FIXME: javascript_on is always assigned to the template object in places like init.php; is there some reason to reassign it here?  is there some chance that it was changed?  if not, please remove this line!

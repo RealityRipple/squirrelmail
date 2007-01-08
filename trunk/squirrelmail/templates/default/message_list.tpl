@@ -49,7 +49,8 @@
  *    $trash_folder
  *    $sent_folder
  *    $draft_folder
- *    $thread_link_str
+ *    $thread_link_uri
+ *    $thread_name
  *    $php_self
  *    $mailbox
  *    $enablesort
@@ -131,7 +132,8 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
                        * $this is the Template class object.
                        */
                       $paginator_str = $this->fetch('paginator.tpl');
-                      echo $paginator_str . $thread_link_str ."\n"; ?>
+                      echo $paginator_str . '<small>[<a href="' . $thread_link_uri
+                                          . '">' . $thread_name . '</a>]</small>'; ?>
 <!-- end paginator and thread link string -->
               </td>
 <!-- message count string -->

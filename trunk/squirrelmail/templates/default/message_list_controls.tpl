@@ -49,7 +49,8 @@
  *    $trash_folder
  *    $sent_folder
  *    $draft_folder
- *    $thread_link_str
+ *    $thread_link_uri
+ *    $thread_name
  *    $php_self
  *    $mailbox
  *    $enablesort
