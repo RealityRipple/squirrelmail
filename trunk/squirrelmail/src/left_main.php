@@ -20,7 +20,7 @@ require('../include/init.php');
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'functions/imap_general.php');
 require_once(SM_PATH . 'functions/date.php');
-require_once(SM_PATH . 'templates/util_left_main.php');
+require_once(SM_PATH . 'functions/template/folder_list_util.php');
 
 /* These constants are used for folder stuff. */
 define('SM_BOX_UNCOLLAPSED', 0);
@@ -141,6 +141,7 @@ if ($date_format != 6) {
     }
     $clk = str_replace(' ','&nbsp;',$clk);
 
+//FIXME don't build HTML here - do it in template; after this is fixed BE SURE to remove the FALSE from the assign() call for $clock below!
     $clock = '<small><span style="white-space: nowrap;">'
        . str_replace(' ', '&nbsp;', _("Last Refresh"))
        . ":</span><br /><span style=\"white-space: nowrap;\">$clk</span></small><br />\n";
