@@ -1,6 +1,7 @@
 <?php
+
 /**
- * util_left_main.php
+ * folder_list_util.php
  *
  * Provides some functions for use in left_main.php and templates.  Do not echo
  * output from these functions!
