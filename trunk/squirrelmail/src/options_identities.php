@@ -89,11 +89,13 @@ $a['ReplyTo'] = '';
 $a['Signature'] = '';
 $i[count($i)] = $a;
 
+//FIXME: NO HTML IN THE CORE
 echo '<form name="f" action="options_identities.php" method="post">' . "\n";
 
 $oTemplate->assign('identities', $i);
 $oTemplate->display('options_advidentity_list.tpl');
 
+//FIXME: NO HTML IN THE CORE
 echo "</form>\n";
 
 $oTemplate->display('footer.tpl');
@@ -143,6 +145,7 @@ function ShowIdentityInfo($title, $identity, $id ) {
 
     $return_str = '';
 
+//FIXME: NO HTML IN THE CORE
     $return_str .= '<tr>' . "\n";
     $return_str .= '  <th style="text-align:center;background-color:' . $color[9] . ';" colspan="2">' . $title . '</th> '. "\n";
     $return_str .= '</tr>' . "\n";
@@ -189,6 +192,7 @@ function ShowIdentityInfo($title, $identity, $id ) {
  * @access private
  */
 function sti_input( $title, $name, $data, $bgcolor ) {
+//FIXME: NO HTML IN THE CORE
     $str = '';
     $str .= '<tr' . $bgcolor . ">\n";
     $str .= '  <td style="white-space: nowrap;text-align:right;">' . $title . ' </td>' . "\n";
@@ -211,6 +215,7 @@ function sti_input( $title, $name, $data, $bgcolor ) {
  * @access private
  */
 function sti_textarea( $title, $name, $data, $bgcolor ) {
+//FIXME: NO HTML IN THE CORE
     $str = '';
     $str .= '<tr' . $bgcolor . ">\n";
     $str .= '  <td style="white-space: nowrap;text-align:right;">' . $title . ' </td>' . "\n";
