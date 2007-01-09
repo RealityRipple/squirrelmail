@@ -1316,7 +1316,7 @@ FIXME: We could make the incoming array more complex so it can
       * Send HTTP header(s) to browser.
       *
       * Subclasses can override this function if headers are
-      * managed differently in the template set's target output
+      * managed differently in the engine's target output
       * interface.
       *
       * @param mixed $headers A list of (or a single) header
@@ -1329,7 +1329,8 @@ FIXME: We could make the incoming array more complex so it can
         if (!is_array($headers)) $headers = array($headers);
 
         foreach ($headers as $header) {
-            header($header);
+            $this->assign('header', $header);
+            header($this->fetch('header.tpl'));
         }
 
     }
