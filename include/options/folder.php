@@ -33,8 +33,8 @@ define('SMOPT_GRP_FOLDERSELECT', 2);
  * @return array all option information
  */
 function load_optpage_data_folder() {
-    global $username, $imapServerAddress, $imapPort;
-    global $folder_prefix, $default_folder_prefix, $show_prefix_option;
+    global $username, $imapServerAddress, $imapPort, $oTemplate,
+           $folder_prefix, $default_folder_prefix, $show_prefix_option;
 
     /* Get some imap data we need later. */
     $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
@@ -64,7 +64,7 @@ function load_optpage_data_folder() {
     }
 
     $trash_folder_values = array(SMPREF_NONE => '[ '._("Do not use Trash").' ]',
-                                 'whatever'  => $boxes);
+                                 'ignore'  => $boxes);
     $optvals[SMOPT_GRP_SPCFOLDER][] = array(
         'name'    => 'trash_folder',
         'caption' => _("Trash Folder"),
@@ -75,7 +75,7 @@ function load_optpage_data_folder() {
     );
 
     $draft_folder_values = array(SMPREF_NONE => '[ '._("Do not use Drafts").' ]',
-                                 'whatever'  => $boxes);
+                                 'ignore'  => $boxes);
     $optvals[SMOPT_GRP_SPCFOLDER][] = array(
         'name'    => 'draft_folder',
         'caption' => _("Draft Folder"),
@@ -86,7 +86,7 @@ function load_optpage_data_folder() {
     );
 
     $sent_folder_values = array(SMPREF_NONE => '[ '._("Do not use Sent").' ]',
-                                'whatever'  => $boxes);
+                                'ignore'  => $boxes);
     $optvals[SMOPT_GRP_SPCFOLDER][] = array(
         'name'    => 'sent_folder',
         'caption' => _("Sent Folder"),
@@ -227,6 +227,7 @@ function load_optpage_data_folder() {
     $optgrps[SMOPT_GRP_FOLDERSELECT] = _("Folder Selection Options");
     $optvals[SMOPT_GRP_FOLDERSELECT] = array();
 
+    $nbsp = $oTemplate->fetch('non_breaking_space.tpl');
     $delim = sqimap_get_delimiter($imapConnection);
     $optvals[SMOPT_GRP_FOLDERSELECT][] = array(
         'name'    => 'mailbox_select_style',
@@ -234,8 +235,8 @@ function load_optpage_data_folder() {
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
         'posvals' => array( 0 => _("Long:") . ' "' . _("Folder") . $delim . _("Subfolder") . '"',
-                            1 => _("Indented:") . ' "&nbsp;&nbsp;&nbsp;&nbsp;' . _("Subfolder") . '"',
-                            2 => _("Delimited:") . ' ".&nbsp;' . _("Subfolder") . '"'),
+                            1 => _("Indented:") . " \"$nbsp$nbsp$nbsp$nbsp" . _("Subfolder") . '"',
+                            2 => _("Delimited:") . " \".$nbsp" . _("Subfolder") . '"'),
         'htmlencoded' => true
     );
 

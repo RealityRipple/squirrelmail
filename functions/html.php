@@ -134,6 +134,39 @@ function create_image($src, $alt='', $width='', $height='',
 
 
 /**
+ * Generates a label tag
+ *
+ * @param string $value    The contents that belong inside the label
+ * @param string $for      The ID to which the label applies (OPTIONAL; 
+ *                         default not used)
+ * @param array  $aAttribs Any extra attributes: this must be an
+ *                         associative array, where keys will be
+ *                         added as the attribute name, and values
+ *                         (which are optional - should be null if
+ *                         none should be used) will be placed in
+ *                         double quotes (pending template implementation)
+ *                         as the attribute value (OPTIONAL; default empty).
+ *
+ * @return string The desired label tag.
+ *
+ * @since 1.5.2
+ *
+ */
+function create_label($value, $for='', $aAttribs=array()) {
+
+    global $oTemplate;
+
+    $oTemplate->assign('text', $value);
+    $oTemplate->assign('for', $for);
+
+    $oTemplate->assign('aAttribs', $aAttribs);
+
+    return $oTemplate->fetch('label.tpl');
+
+}
+
+
+/**
  * Generates a span tag
  *
  * @param string $value   The contents that belong inside the span
