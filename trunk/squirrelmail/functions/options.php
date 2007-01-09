@@ -98,10 +98,12 @@ class SquirrelOption {
      */
     var $comment;
     /**
-     * additional javascript or other code added to the user input
-     * @var string
+     * additional javascript or other widget attributes added to the 
+     * user input; must be an array where keys are attribute names
+     * ("onclick", etc) and values are the attribute values.
+     * @var array
      */
-    var $script;
+    var $aExtraAttribs;
     /**
      * script (usually Javascript) that will be placed after (outside of)
      * the INPUT tag
@@ -137,8 +139,7 @@ class SquirrelOption {
      * disables html sanitizing.
      *
      * WARNING - don't use it, if user input is possible in option
-     * or use own sanitizing functions. Currently works only with
-     * SMOPT_TYPE_STRLIST.
+     * or use own sanitizing functions. Currently only works for SMOPT_TYPE_STRLIST.
      * @var bool
      */
     var $htmlencoded=false;
@@ -172,7 +173,7 @@ class SquirrelOption {
         $this->size = SMOPT_SIZE_MEDIUM;
         $this->trailing_text = '';
         $this->comment = '';
-        $this->script = '';
+        $this->aExtraAttribs = array();
         $this->post_script = '';
 
         //Check for a current value.  
@@ -238,11 +239,11 @@ class SquirrelOption {
     }
 
     /**
-     * Set the script for this option.
-     * @param string $script
+     * Set the extra attributes for this option.
+     * @param array $aExtraAttribs
      */
-    function setScript($script) {
-        $this->script = $script;
+    function setExtraAttributes($aExtraAttribs) {
+        $this->aExtraAttribs = $aExtraAttribs;
     }
 
     /**
@@ -315,6 +316,7 @@ class SquirrelOption {
                 $result = $this->createWidget_FolderList();
                 break;
             default:
+//FIXME: can we throw an error here instead?  either way, we don't want HTML here!
                $result = '<font color="' . $color[2] . '">'
                        . sprintf(_("Option Type '%s' Not Found"), $this->type)
                        . '</font>';
@@ -355,41 +357,22 @@ class SquirrelOption {
                 $width = 25;
         }
 
-        $result = "<input type=\"text\" name=\"new_$this->name\" value=\"" .
-            htmlspecialchars($this->value) .
-            "\" size=\"$width\" $this->script />$this->trailing_text\n";
-        return ($result);
+        return addInput('new_' . $this->name, $this->value, $width, 0, $this->aExtraAttribs) . htmlspecialchars($this->trailing_text);
     }
 
     /**
      * Create selection box
+     *
+     * When $this->htmlencoded is TRUE, the keys and values in 
+     * $this->possible_values are assumed to be display-safe.  
+     * Use with care!
+     *
      * @return string html formated selection box
      */
     function createWidget_StrList() {
-        /* Begin the select tag. */
-        $result = "<select name=\"new_$this->name\" $this->script>\n";
 
-        /* Add each possible value to the select list. */
-        foreach ($this->possible_values as $real_value => $disp_value) {
-            /* Start the next new option string. */
-            $new_option = '<option value="' .
-                ($this->htmlencoded ? $real_value : htmlspecialchars($real_value)) . '"';
+        return addSelect('new_' . $this->name, $this->possible_values, $this->value, TRUE, $this->aExtraAttribs, !$this->htmlencoded) . htmlspecialchars($this->trailing_text);
 
-            /* If this value is the current value, select it. */
-            if ($real_value == $this->value) {
-               $new_option .= ' selected="selected"';
-            }
-
-            /* Add the display value to our option string. */
-            $new_option .= '>' . ($this->htmlencoded ? $disp_value : htmlspecialchars($disp_value)) . "</option>\n";
-
-            /* And add the new option string to our select tag. */
-            $result .= $new_option;
-        }
-
-        /* Close the select tag and return our happy result. */
-        $result .= "</select>$this->trailing_text\n";
-        return ($result);
     }
 
     /**
@@ -397,44 +380,31 @@ class SquirrelOption {
      * @return string html formated selection box
      */
     function createWidget_FolderList() {
-        $selected = array(strtolower($this->value));
 
-        /* set initial value */
-        $result = '';
+        // possible values might include a nested array of 
+        // possible values (list of folders)
+        //
+        $option_list = array();
+        foreach ($this->possible_values as $value => $text) {
 
-        /* Add each possible value to the select list. */
-        foreach ($this->possible_values as $real_value => $disp_value) {
-            if ( is_array($disp_value) ) {
-              /* For folder list, we passed in the array of boxes.. */
-              $new_option = sqimap_mailbox_option_list(0, $selected, 0, $disp_value, $this->folder_filter);
+            // list of folders (boxes array)
+            //
+            if (is_array($text)) {
+              $option_list = array_merge($option_list, sqimap_mailbox_option_array(0, array(strtolower($this->value)), 0, $text, $this->folder_filter));
+
+            // just one option here
+            //
             } else {
-              /* Start the next new option string. */
-              $new_option = '<option value="' . htmlspecialchars($real_value) . '"';
-
-              /* If this value is the current value, select it. */
-              if ($real_value == $this->value) {
-                 $new_option .= ' selected="selected"';
-              }
-
-              /* Add the display value to our option string. */
-              $new_option .= '>' . htmlspecialchars($disp_value) . "</option>\n";
+              $option_list = array_merge($option_list, array($value => $text));
             }
-            /* And add the new option string to our select tag. */
-            $result .= $new_option;
+
         }
+        if (empty($option_list))
+            $option_list = array('ignore' => _("unavailable"));
 
 
-        if (empty($result)) {
-            // string is displayed when interface can't build folder selection box
-            return _("unavailable");
-        } else {
-            /* Begin the select tag. */
-            $ret = "<select name=\"new_$this->name\" $this->script>\n";
-            $ret.= $result;
-            /* Close the select tag and return our happy result. */
-            $ret.= "</select>\n";
-            return ($ret);
-        }
+        return addSelect('new_' . $this->name, $option_list, $this->value, TRUE, $this->aExtraAttribs) . htmlspecialchars($this->trailing_text);
+
     }
 
     /**
@@ -450,8 +420,6 @@ class SquirrelOption {
             case SMOPT_SIZE_NORMAL:
             default: $rows = 5; $cols =  50;
         }
-//FIXME: we need to change $this->script into $this->aExtraAttribs, and anyone who wants to add some javascript or other attributes to an options widget can put them in an array and pass them as extra attributes (key == attrib name, value == attrib value).... for now, this is the only place it is used, and there is no place in the code that text areas get extra attribs or javascript... in fact the only place that was using $this->script is include/options/display.php:200, so that's easy to change.... just have to go through this file and change all the places that use "script"
-$this->aExtraAttribs = array();
         return addTextArea('new_' . $this->name, $this->value, $cols, $rows, $this->aExtraAttribs);
     }
 
@@ -466,12 +434,12 @@ $this->aExtraAttribs = array();
         // add onChange javascript handler to a regular string widget
         // which will strip out all non-numeric chars
         if (checkForJavascript())
-           return preg_replace('/\/>/', ' onChange="origVal=this.value; newVal=\'\'; '
+           $this->aExtraAttribs['onchange'] = 'origVal=this.value; newVal=\'\'; '
                     . 'for (i=0;i<origVal.length;i++) { if (origVal.charAt(i)>=\'0\' '
                     . '&& origVal.charAt(i)<=\'9\') newVal += origVal.charAt(i); } '
-                    . 'this.value=newVal;" />', $this->createWidget_String());
-        else
-           return $this->createWidget_String();
+                    . 'this.value=newVal;';
+
+        return $this->createWidget_String();
     }
 
     /**
@@ -484,13 +452,12 @@ $this->aExtraAttribs = array();
         // add onChange javascript handler to a regular string widget
         // which will strip out all non-numeric (period also OK) chars
         if (checkForJavascript())
-           return preg_replace('/\/>/', ' onChange="origVal=this.value; newVal=\'\'; '
+           $this->aExtraAttribs['onchange'] = 'origVal=this.value; newVal=\'\'; '
                     . 'for (i=0;i<origVal.length;i++) { if ((origVal.charAt(i)>=\'0\' '
                     . '&& origVal.charAt(i)<=\'9\') || origVal.charAt(i)==\'.\') '
-                    . 'newVal += origVal.charAt(i); } this.value=newVal;" />'
-                , $this->createWidget_String());
-        else
-           return $this->createWidget_String();
+                    . 'newVal += origVal.charAt(i); } this.value=newVal;';
+
+        return $this->createWidget_String();
     }
 
     /**
@@ -498,29 +465,18 @@ $this->aExtraAttribs = array();
      * @return string html formated radio field
      */
     function createWidget_Boolean() {
-        /* Do the whole current value thing. */
-        if ($this->value != SMPREF_NO) {
-            $yes_chk = ' checked="checked"';
-            $no_chk = '';
-        } else {
-            $yes_chk = '';
-            $no_chk = ' checked="checked"';
-        }
+
+        global $oTemplate;
+        $nbsp = $oTemplate->fetch('non_breaking_space.tpl');
 
         /* Build the yes choice. */
-        $yes_option = '<input type="radio" id="new_' . $this->name . '_yes" '
-                    . 'name="new_' . $this->name . '" value="' . SMPREF_YES . '"'
-                    . $yes_chk . ' ' . $this->script . ' />&nbsp;'
-                    . '<label for="new_'.$this->name.'_yes">' . _("Yes") . '</label>';
+        $yes_option = addRadioBox('new_' . $this->name, ($this->value != SMPREF_NO), SMPREF_YES, array_merge(array('id' => 'new_' . $this->name . '_yes'), $this->aExtraAttribs)) . $nbsp . create_label(_("Yes"), 'new_' . $this->name . '_yes');
 
         /* Build the no choice. */
-        $no_option = '<input type="radio" id="new_' . $this->name . '_no" '
-                   . 'name="new_' . $this->name . '" value="' . SMPREF_NO . '"'
-                   . $no_chk . ' ' . $this->script . ' />&nbsp;'
-                    . '<label for="new_'.$this->name.'_no">' . _("No") . '</label>';
+        $no_option = addRadioBox('new_' . $this->name, ($this->value == SMPREF_NO), SMPREF_NO, array_merge(array('id' => 'new_' . $this->name . '_no'), $this->aExtraAttribs)) . $nbsp . create_label(_("No"), 'new_' . $this->name . '_no');
 
         /* Build and return the combined "boolean widget". */
-        $result = "$yes_option&nbsp;&nbsp;&nbsp;&nbsp;$no_option";
+        $result = "$yes_option$nbsp$nbsp$nbsp$nbsp$no_option";
         return ($result);
     }
 
@@ -529,10 +485,7 @@ $this->aExtraAttribs = array();
      * @return string html formated hidden input field
      */
     function createWidget_Hidden() {
-        $result = '<input type="hidden" name="new_' . $this->name
-                . '" value="' . htmlspecialchars($this->value)
-                . '" ' . $this->script . ' />';
-        return ($result);
+        return addHidden('new_' . $this->name, $this->value, $this->aExtraAttribs);
     }
 
     /**
@@ -587,7 +540,7 @@ function save_option_noop($option) {
  * @return string html formated hidden input field
  */
 function create_optpage_element($optpage) {
-    return create_hidden_element('optpage', $optpage);
+    return addHidden('optpage', $optpage);
 }
 
 /**
@@ -596,20 +549,7 @@ function create_optpage_element($optpage) {
  * @return string html formated hidden input field
  */
 function create_optmode_element($optmode) {
-    return create_hidden_element('optmode', $optmode);
-}
-
-/**
- * Create hidden field.
- * @param string $name field name
- * @param string $value field value
- * @return string html formated hidden input field
- */
-function create_hidden_element($name, $value) {
-    $result = '<input type="hidden" '
-            . 'name="' . $name . '" '
-            . 'value="' . htmlspecialchars($value) . '" />';
-    return ($result);
+    return addHidden('optmode', $optmode);
 }
 
 /**
@@ -662,9 +602,9 @@ function create_option_groups($optgrps, $optvals) {
                 $next_option->setSaveFunction($optset['save']);
             }
 
-            /* If provided, set the script for this option. */
-            if (isset($optset['script'])) {
-                $next_option->setScript($optset['script']);
+            /* If provided, set the extra attributes for this option. */
+            if (isset($optset['extra_attributes'])) {
+                $next_option->setExtraAttributes($optset['extra_attributes']);
             }
 
             /* If provided, set the "post script" for this option. */

@@ -197,7 +197,7 @@ function load_optpage_data_display() {
                            SMPREF_JS_ON         => _("Always"),
                            SMPREF_JS_OFF        => _("Never")),
         'save'    => 'save_option_javascript_autodetect',
-        'script'  => 'onclick="document.forms[0].new_js_autodetect_results.value = \'' . SMPREF_JS_ON . '\';"'
+        'extra_attributes' => array('onclick' => 'document.forms[0].new_js_autodetect_results.value = \'' . SMPREF_JS_ON . '\';'),
     );
 
     $optvals[SMOPT_GRP_GENERAL][] = array(
