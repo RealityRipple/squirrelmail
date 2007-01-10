@@ -141,7 +141,7 @@ if ($date_format != 6) {
     }
     $clk = str_replace(' ','&nbsp;',$clk);
 
-//FIXME don't build HTML here - do it in template; after this is fixed BE SURE to remove the FALSE from the assign() call for $clock below!
+//FIXME don't build HTML here - do it in template
     $clock = '<small><span style="white-space: nowrap;">'
        . str_replace(' ', '&nbsp;', _("Last Refresh"))
        . ":</span><br /><span style=\"white-space: nowrap;\">$clk</span></small><br />\n";
