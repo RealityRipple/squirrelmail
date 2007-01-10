@@ -370,8 +370,8 @@ class SquirrelOption {
      * @return string html formated selection box
      */
     function createWidget_StrList() {
-
-        return addSelect('new_' . $this->name, $this->possible_values, $this->value, TRUE, $this->aExtraAttribs, !$this->htmlencoded) . htmlspecialchars($this->trailing_text);
+//FIXME: Currently, $this->htmlencoded is ignored here -- was removed when changing to template-based output; a fix is available as part of proposed centralized sanitizing patch
+        return addSelect('new_' . $this->name, $this->possible_values, $this->value, TRUE, $this->aExtraAttribs) . htmlspecialchars($this->trailing_text);
 
     }
 
