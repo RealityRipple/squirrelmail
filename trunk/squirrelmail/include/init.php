@@ -387,7 +387,9 @@ switch ($sInitLocation) {
              * because they probably belong to other php apps
              */
             if (ini_get('session.name') !== $sSessionAutostartName) {
-                sqsetcookie(ini_get('session.name'),'',0,$sCookiePath);
+                //  This does not work. Sometimes the cookie with SQSESSID=deleted and path /
+                // is picked up in webmail.php => login will fail
+                //sqsetcookie(ini_get('session.name'),'',0,$sCookiePath);
             }
         }
         break;
