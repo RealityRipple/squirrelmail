@@ -748,7 +748,7 @@ function sqimap_create_stream($server,$port,$tls=0) {
 
 /**
  * Logs the user into the IMAP server.  If $hide is set, no error messages
- * will be displayed (if set to 1, just exits, if set to 2, returns FALSE).  
+ * will be displayed (if set to 1, just exits, if set to 2, returns FALSE).
  * This function returns the IMAP connection handle.
  * @param string $username user name
  * @param string $password password encrypted with onetimepad. Since 1.5.2
@@ -762,7 +762,7 @@ function sqimap_create_stream($server,$port,$tls=0) {
  *                  2 = show no errors (return FALSE)
  *                  3 = show no errors (return error string)
  * @return mixed The IMAP connection stream, or if the connection fails,
- *               FALSE if $hide is set to 2 or an error string if $hide 
+ *               FALSE if $hide is set to 2 or an error string if $hide
  *               is set to 3.
  */
 function sqimap_login ($username, $password, $imap_server_address, $imap_port, $hide) {
@@ -777,11 +777,11 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
 
     if(!empty($authz)) {
         /* authz plugin - specific:
-         * Get proxy login parameters from authz plugin configuration. If they 
+         * Get proxy login parameters from authz plugin configuration. If they
          * exist, they will override the current ones.
          * This is useful if we want to use different SASL authentication mechanism
          * and/or different TLS settings for proxy logins. */
-        global $authz_imap_auth_mech, $authz_use_imap_tls, $authz_imapPort_tls; 
+        global $authz_imap_auth_mech, $authz_use_imap_tls, $authz_imapPort_tls;
         $imap_auth_mech = !empty($authz_imap_auth_mech) ? strtolower($authz_imap_auth_mech) : $imap_auth_mech;
         $use_imap_tls = !empty($authz_use_imap_tls)? $authz_use_imap_tls : $use_imap_tls;
         $imap_port = !empty($authz_use_imap_tls)? $authz_imapPort_tls : $imap_port;
@@ -939,7 +939,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
 
                 set_up_language($squirrelmail_language, true);
                 sqsession_destroy();
-                sqsetcookieflush();
+
                 /* terminate the session nicely */
                 sqimap_logout($imap_stream);
                 if ($hide == 3) return _("Unknown user or password incorrect.");
@@ -1053,7 +1053,7 @@ function sqimap_get_delimiter ($imap_stream = false) {
              * OS: According to rfc2342 response from NAMESPACE command is:
              * OS: * NAMESPACE (PERSONAL NAMESPACES) (OTHER_USERS NAMESPACE) (SHARED NAMESPACES)
              * OS: We want to lookup all personal NAMESPACES...
-             * 
+             *
              * TODO: remove this in favour of the information from sqimap_get_namespace()
              */
             $read = sqimap_run_command($imap_stream, 'NAMESPACE', true, $a, $b);
@@ -1094,7 +1094,7 @@ function sqimap_get_namespace($imap_stream) {
     $read = sqimap_run_command($imap_stream, 'NAMESPACE', true, $a, $b);
     return sqimap_parse_namespace($read[0]);
 }
-    
+
 /**
  * Parses a NAMESPACE response and returns an array with the available
  * personal, users and shared namespaces.

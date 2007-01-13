@@ -115,10 +115,6 @@ if (! isset($color) || ! is_array($color)) {
     $color[7]  = '#0000cc';  /* blue          Links                  */
     $color[8]  = '#000000';  /* black         Normal text            */
 }
-/**
- * send out all the cookies
- */
-sqsetcookieflush();
 
 displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 
@@ -127,7 +123,7 @@ displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 /* If they don't have a logo, don't bother.. */
 $logo_str = '';
 if (isset($org_logo) && $org_logo) {
-    
+
     if (isset($org_logo_width) && is_numeric($org_logo_width) &&
      $org_logo_width>0) {
         $width = $org_logo_width;
@@ -141,7 +137,7 @@ if (isset($org_logo) && $org_logo) {
         $height = '';
     }
 
-    $logo_str = create_image($org_logo, sprintf(_("%s Logo"), $org_name), 
+    $logo_str = create_image($org_logo, sprintf(_("%s Logo"), $org_name),
                              $width, $height, '', 'sqm_loginImage');
 
 }
