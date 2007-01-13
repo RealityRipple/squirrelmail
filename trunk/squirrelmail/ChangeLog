@@ -174,7 +174,7 @@ Version 1.5.2 - CVS
   - Improve attachment temp file creation.
   - Add ability for listcommands plugin to show post and reply links for 
     user-configured non-RFC 2369-compliant lists; admin must enable by 
-    configuring plugin.
+    configuring plugin. Thanks to Peter Steiner.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
