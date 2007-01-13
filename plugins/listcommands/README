@@ -22,11 +22,17 @@ The information in these headers is used to generate an extra menuline on
 messages containing one or more of these headers to help users taking advantage
 of the features offered.
 
+For mailing list subscriptions to non-RFC-compliant lists, the administrator
+may allow users to manage a list of mailing list addresses for which they want
+to show a "reply to list" link when replying to messages on such lists.
+
 
 Installation
 ============
 
-Go to the main directory, run configure and add the plugin.
+Go to the main directory, run configure and add the plugin.  In order to enable
+optional features such as user management of subscriptions to non-RFC-compliant
+lists, copy config_sample.php to config.php and edit that file as desired.
 
 
 Acknowledgements

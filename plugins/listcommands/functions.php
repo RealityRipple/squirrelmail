@@ -16,10 +16,58 @@
  */
 
 /**
+  * Get current list of subscribed non-RFC-compliant mailing lists for logged-in user
+  *
+  * @return array The list of mailing list addresses, keyed by integer index
+  */
+function get_non_rfc_lists() {
+    global $username, $data_dir;
+    $lists = getPref($data_dir, $username, 'non_rfc_lists', array());
+    $new_lists = array();
+    if (!empty($lists)) {
+        $lists = explode(':', $lists);
+        foreach ($lists as $list) {
+            list($index, $list_addr) = explode('_', $list);
+            if ((!empty($index) || $index === '0') && !empty($list_addr))
+                $new_lists[$index] = $list_addr;
+        }
+    }
+    $lists = $new_lists;
+    sort($lists);
+    return $lists;
+}
+
+/**
+  * Show mailing list management option section on options page
+  */
+function plugin_listcommands_optpage_register_block_do()
+{
+
+    global $optpage_blocks, $listcommands_allow_non_rfc_list_management;
+
+    // only allow management of non-RFC lists if admin deems necessary
+    //
+    @include_once(SM_PATH . 'plugins/listcommands/config.php');
+    if (!$listcommands_allow_non_rfc_list_management)
+        return;
+
+    $optpage_blocks[] = array(
+        'name' => _("Mailing Lists"),
+        'url'  => '../plugins/listcommands/options.php',
+        'desc' => _("Manage the (non-RFC-compliant) mailing lists that you are subscribed to for the purpose of providing one-click list replies when responding to list messages."),
+        'js'   => false
+    );
+
+}
+
+/**
  * internal function that builds mailing list links
  */
 function plugin_listcommands_menu_do() {
-    global $passed_id, $passed_ent_id, $color, $mailbox, $message, $startMessage, $oTemplate;
+    global $passed_id, $passed_ent_id, $color, $mailbox, $message, 
+           $startMessage, $oTemplate, $listcommands_allow_non_rfc_list_management;
+
+    @include_once(SM_PATH . 'plugins/listcommands/config.php');
 
     /**
      * Array of commands we can deal with from the header. The Reply option
@@ -50,7 +98,7 @@ function plugin_listcommands_menu_do() {
             }
             $url .= 'send_to=' . str_replace('?','&amp;', $act);
 
-            $links[] = makeComposeLink($url, $fieldsdescr[$cmd]);
+            $links[$cmd] = makeComposeLink($url, $fieldsdescr[$cmd]);
 
             if ($cmd == 'post') {
                 if (!isset($mailbox))
@@ -60,12 +108,65 @@ function plugin_listcommands_menu_do() {
                     (isset($passed_ent_id)?'&amp;passed_ent_id='.$passed_ent_id:'');
                 $url .= '&amp;smaction=reply';
 
-                $links[] = makeComposeLink($url, $fieldsdescr['reply']);
+                $links['reply'] = makeComposeLink($url, $fieldsdescr['reply']);
             }
         } else if ($proto == 'href') {
-            $links[] = create_hyperlink($act, $fieldsdescr[$cmd], '_blank');
+            $links[$cmd] = create_hyperlink($act, $fieldsdescr[$cmd], '_blank');
         }
     }
+
+
+    // allow non-rfc reply link if admin allows and message is from 
+    // non-rfc list the user has configured
+    //
+    if ($listcommands_allow_non_rfc_list_management) {
+
+        $non_rfc_lists = get_non_rfc_lists();
+
+        $recipients = formatRecipientString($message->rfc822_header->to, "to") . ' '
+                    . formatRecipientString($message->rfc822_header->cc, "cc") . ' '
+                    . formatRecipientString($message->rfc822_header->bcc, "bcc");
+
+        if (!in_array('post', array_keys($links))) {
+
+            foreach ($non_rfc_lists as $non_rfc_list) {
+                if (preg_match('/(^|,|\s)' . preg_quote($non_rfc_list) . '($|,|\s)/', $recipients)) {
+                    $url = 'src/compose.php?'
+                         . (isset($startMessage)?'startMessage='.$startMessage.'&amp;':'')
+                         . 'send_to=' . str_replace('?','&amp;', $non_rfc_list);
+
+                    $links['post'] = makeComposeLink($url, $fieldsdescr['post']);
+
+                    break;
+                }
+            }
+
+        }
+
+        if (!in_array('reply', array_keys($links))) {
+
+            foreach ($non_rfc_lists as $non_rfc_list) {
+                if (preg_match('/(^|,|\s)' . preg_quote($non_rfc_list) . '($|,|\s)/', $recipients)) {
+                    if (!isset($mailbox))
+                        $mailbox = 'INBOX';
+                    $url = 'src/compose.php?'
+                         . (isset($startMessage)?'startMessage='.$startMessage.'&amp;':'')
+                         . 'send_to=' . str_replace('?','&amp;', $non_rfc_list)
+                         . '&amp;passed_id='.$passed_id
+                         . '&amp;mailbox='.urlencode($mailbox)
+                         . (isset($passed_ent_id)?'&amp;passed_ent_id='.$passed_ent_id:'')
+                         . '&amp;smaction=reply';
+
+                    $links['reply'] = makeComposeLink($url, $fieldsdescr['reply']);
+
+                    break;
+                }
+            }
+
+        }
+
+    }
+
 
     if (count($links) > 0) {
         $oTemplate->assign('links', $links);

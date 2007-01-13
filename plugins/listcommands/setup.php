@@ -22,6 +22,8 @@ function squirrelmail_plugin_init_listcommands () {
     global $squirrelmail_plugin_hooks;
 
     $squirrelmail_plugin_hooks['template_construct_read_headers.tpl']['listcommands'] = 'plugin_listcommands_menu';
+    $squirrelmail_plugin_hooks['optpage_register_block']['listcommands'] = 'plugin_listcommands_optpage_register_block';
+
 }
 
 /**
@@ -30,4 +32,13 @@ function squirrelmail_plugin_init_listcommands () {
 function plugin_listcommands_menu() {
     include_once(SM_PATH . 'plugins/listcommands/functions.php');
     return plugin_listcommands_menu_do();
+}
+
+
+/**
+  * Show mailing list management option section on options page
+  */
+function plugin_listcommands_optpage_register_block() {
+    include_once(SM_PATH . 'plugins/listcommands/functions.php');
+    plugin_listcommands_optpage_register_block_do();
 }
