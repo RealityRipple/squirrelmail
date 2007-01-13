@@ -3,7 +3,7 @@
 /**
  * Change password PearDB backend
  *
- * @copyright &copy; 2005-2006 The SquirrelMail Project Team
+ * @copyright &copy; 2005-2007 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

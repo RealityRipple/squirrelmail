@@ -5,7 +5,7 @@
  * Date: 2004/09/20
  *
  * @author Paul Lesneiwski
- * @copyright &copy; 2004-2006 The SquirrelMail Project Team
+ * @copyright &copy; 2004-2007 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

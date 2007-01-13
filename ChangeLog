@@ -176,6 +176,7 @@ Version 1.5.2 - SVN
     user-configured non-RFC 2369-compliant lists; admin must enable by 
     configuring plugin. Thanks to Peter Steiner.
   - Fixed HttpOnly cookies again.
+  - Update for switch from CVS to Subversion.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

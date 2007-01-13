@@ -6,7 +6,7 @@
  * Loads constants used by the rest of the SquirrelMail source.
  *
  * Before 1.5.2 script was stored in functions/constants.php
- * @copyright &copy; 1999-2006 The SquirrelMail Project Team
+ * @copyright &copy; 1999-2007 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

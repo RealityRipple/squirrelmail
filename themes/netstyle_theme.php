@@ -6,7 +6,7 @@
  * URL:          http://www.net-style.it
  *
  * @author Gabriele Maidecchi
- * @copyright &copy; 2000-2006 The SquirrelMail Project Team
+ * @copyright &copy; 2000-2007 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
