@@ -5,7 +5,7 @@
  *
  * NOTE: probably you need to configure your specific backend too!
  *
- * @copyright &copy; 2005-2006 The SquirrelMail Project Team
+ * @copyright &copy; 2005-2007 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
