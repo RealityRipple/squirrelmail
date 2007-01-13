@@ -79,13 +79,9 @@ if (!sqsession_is_registered('user_is_logged_in')) {
      * function which gives us full control how the cookie is set. We do that
      * to add the HttpOnly cookie attribute which blocks javascript access on
      * IE6 SP1.
-     * sqsetcookieflush is needed to send out the headers. sqsetcookie caches
-     * the cookies to be send. If we don't do that we only can send 1 single cookie
-     * which is not sufficient.
      */
     sqsetcookie(session_name(),session_id(),false,$base_uri);
     sqsetcookie('key', $key, false, $base_uri);
-    sqsetcookieflush();
 
     sqsession_register($onetimepad, 'onetimepad');
 
