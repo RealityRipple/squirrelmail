@@ -133,14 +133,14 @@ function sqsession_is_registered ($name) {
 /**
   * Retrieves a form variable, from a set of possible similarly named
   * form variables, based on finding a different, single field.  This
-  * is intended to allow more than one same-named inputs in a single 
-  * <form>, where the submit button that is clicked tells us which 
+  * is intended to allow more than one same-named inputs in a single
+  * <form>, where the submit button that is clicked tells us which
   * input we should retrieve.  An example is if we have:
   *     <select name="startMessage_1">
   *     <select name="startMessage_2">
   *     <input type="submit" name="form_submit_1">
   *     <input type="submit" name="form_submit_2">
-  * and we want to know which one of the select inputs should be 
+  * and we want to know which one of the select inputs should be
   * returned as $startMessage (without the suffix!), this function
   * decides by looking for either "form_submit_1" or "form_submit_2"
   * (both should not appear).  In this example, $name should be
@@ -152,11 +152,11 @@ function sqsession_is_registered ($name) {
   * If more than one of the indicator fields is found, the first one
   * (numerically) will win.
   *
-  * If an indicator field is found without a matching input ($name) 
+  * If an indicator field is found without a matching input ($name)
   * field, FALSE is returned.
   *
-  * If no indicator fields are found, a field of $name *without* any 
-  * suffix is searched for (but only if $fallback_no_suffix is TRUE), 
+  * If no indicator fields are found, a field of $name *without* any
+  * suffix is searched for (but only if $fallback_no_suffix is TRUE),
   * and if not found, FALSE is ultimately returned.
   *
   * It should also be possible to use the same string for both
@@ -178,9 +178,9 @@ function sqsession_is_registered ($name) {
   *
   * @return bool whether variable is found.
   */
-function sqGetGlobalVarMultiple($name, &$value, $indicator_field, 
-                                $search = SQ_INORDER, 
-                                $fallback_no_suffix=TRUE, $default=NULL, 
+function sqGetGlobalVarMultiple($name, &$value, $indicator_field,
+                                $search = SQ_INORDER,
+                                $fallback_no_suffix=TRUE, $default=NULL,
                                 $typecast=FALSE) {
 
     // Set arbitrary max limit -- should be much lower except on the
@@ -307,10 +307,10 @@ function sqgetGlobalVar($name, &$value, $search = SQ_INORDER, $default = NULL, $
  * session_destroy(), it explicitly deletes the cookies and global vars.
  *
  * WARNING: Older PHP versions have some issues with session management.
- * See http://bugs.php.net/11643 (warning, spammed bug tracker) and 
+ * See http://bugs.php.net/11643 (warning, spammed bug tracker) and
  * http://bugs.php.net/13834. SID constant is not destroyed in PHP 4.1.2,
- * 4.2.3 and maybe other versions. If you restart session after session 
- * is destroyed, affected PHP versions produce PHP notice. Bug should 
+ * 4.2.3 and maybe other versions. If you restart session after session
+ * is destroyed, affected PHP versions produce PHP notice. Bug should
  * be fixed only in 4.3.0
  */
 function sqsession_destroy() {
@@ -328,9 +328,9 @@ function sqsession_destroy() {
 
     global $base_uri;
 
-    if (isset($_COOKIE[session_name()])) sqsetcookie(session_name(), '', 0, $base_uri);
-    if (isset($_COOKIE['username'])) sqsetcookie('username','',0,$base_uri);
-    if (isset($_COOKIE['key'])) sqsetcookie('key','',0,$base_uri);
+    if (isset($_COOKIE[session_name()]) && session_name()) sqsetcookie(session_name(), '', 0, $base_uri);
+    if (isset($_COOKIE['username']) && $_COOKIE['username']) sqsetcookie('username','',0,$base_uri);
+    if (isset($_COOKIE['key']) && $_COOKIE['key']) sqsetcookie('key','',0,$base_uri);
 
     $sessid = session_id();
     if (!empty( $sessid )) {
@@ -366,8 +366,7 @@ function sqsession_start() {
     // session_starts sets the sessionid cookie buth without the httponly var
     // setting the cookie again sets the httponly cookie attribute
 
-    // disable, @see sqsetcookie and php 5.1.2
-    // sqsetcookie(session_name(),session_id(),false,$base_uri);
+    sqsetcookie(session_name(),session_id(),false,$base_uri);
 }
 
 
@@ -382,61 +381,33 @@ function sqsession_start() {
  * @param boolean $bHttpOnly Disallow JS to access the cookie (IE6 only)
  * @return void
  */
-function sqsetcookie($sName,$sValue,$iExpire=false,$sPath="",$sDomain="",$bSecure=false,$bHttpOnly=true,$bFlush=false) {
-    static $sCookieCache;
-    if (!isset($sCache)) {
-        $sCache = '';
+function sqsetcookie($sName,$sValue="",$iExpire=0,$sPath="",$sDomain="",$bSecure=false,$bHttpOnly=true) {
+    // if we have a secure connection then limit the cookies to https only.
+    if ($sName && isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) {
+        $bSecure = true;
     }
-    /**
-     * We have to send all cookies with one header call otherwise we loose cookies.
-     * In order to achieve that the sqsetcookieflush function calls this function with $bFlush = true.
-     * If that happens we send the cookie header.
-     */
-    if ($bFlush) {
-        // header($sCookieCache);
-        return;
-    }
-    if (!$sName) return;
+    if (false && check_php_version(5,2)) {
+       // php 5 supports the httponly attribute in setcookie, but because setcookie seems a bit
+       // broken we use the header function for php 5.2 as well. We might change that later.
+       //setcookie($sName,$sValue,(int) $iExpire,$sPath,$sDomain,$bSecure,$bHttpOnly);
+    } else {
+        if (!empty($Domain)) {
+            // Fix the domain to accept domains with and without 'www.'.
+            if (strtolower(substr($Domain, 0, 4)) == 'www.')  $Domain = substr($Domain, 4);
+            $Domain = '.' . $Domain;
 
-    // php 5.1.2 and 4.4.2 do not allow to send multiple headers at once.
-    // Because that's the only way to get this thing working we fallback to
-    // setcookie until we solved this
-    if ($iExpire===false) $iExpire = 0;
-    setcookie($sName, $sValue, $iExpire, $sPath);
-    return;
+            // Remove port information.
+            $Port = strpos($Domain, ':');
+            if ($Port !== false)  $Domain = substr($Domain, 0, $Port);
+        }
 
-    $sHeader = "Set-Cookie: $sName=$sValue";
-    if ($sPath) {
-        $sHeader .= "; path=$sPath";
+        header('Set-Cookie: ' . rawurlencode($sName) . '=' . rawurlencode($sValue)
+                            . (empty($iExpires) ? '' : '; expires=' . gmdate('D, d-M-Y H:i:s', $iExpires) . ' GMT')
+                            . (empty($sPath) ? '' : '; path=' . $sPath)
+                            . (empty($sDomain) ? '' : '; domain=' . $sDomain)
+                            . (!$bSecure ? '' : '; secure')
+                            . (!$bHttpOnly ? '' : '; HttpOnly'), false);
     }
-    if ($iExpire !== false) {
-        $sHeader .= "; Max-Age=$iExpire";
-        // php uses Expire header, also add the expire header
-        $sHeader .= "; expires=". gmdate('D, d-M-Y H:i:s T',$iExpire);
-    }
-    if ($sDomain) {
-        $sHeader .= "; Domain=$sDomain";
-    }
-    // TODO: IE for Mac (5.2) thinks that semicolon is part of cookie domain
-    if ($bSecure) {
-        $sHeader .= "; Secure";
-    }
-    if ($bHttpOnly) {
-        $sHeader .= "; HttpOnly";
-    }
-    // $sHeader .= "; Version=1";
-    $sCookieCache .= $sHeader ."\r\n";
-    //header($sHeader."\r\n");
-}
-
-/**
- * Send the cookie header
- *
- * Cookies set with sqsetcookie will bet set after a sqsetcookieflush call.
- * @return void
- */
-function sqsetcookieflush() {
-    sqsetcookie('','','','','','','',true);
 }
 
 /**
@@ -519,13 +490,13 @@ function php_self () {
 
 
 /**
-  * Find files and/or directories in a given directory optionally 
-  * limited to only those with the given file extension.  If the 
-  * directory is not found or cannot be opened, no error is generated; 
+  * Find files and/or directories in a given directory optionally
+  * limited to only those with the given file extension.  If the
+  * directory is not found or cannot be opened, no error is generated;
   * only an empty file list is returned.
 FIXME: do we WANT to throw an error or a notice or... or return FALSE?
   *
-  * @param string $directory_path         The path (relative or absolute) 
+  * @param string $directory_path         The path (relative or absolute)
   *                                       to the desired directory.
   * @param string $extension              The file extension filter (optional;
   *                                       default is to return all files (dirs).
@@ -536,10 +507,10 @@ FIXME: do we WANT to throw an error or a notice or... or return FALSE?
   *                                       the returned list (optional;
   *                                       default is filename/dirname only)
   * @param boolean $include_directories   When TRUE, directories are
-  *                                       included (optional; default 
+  *                                       included (optional; default
   *                                       DO include directories).
-  * @param boolean $directories_only      When TRUE, ONLY directories 
-  *                                       are included (optional; default 
+  * @param boolean $directories_only      When TRUE, ONLY directories
+  *                                       are included (optional; default
   *                                       is to include files too).
   * @param boolean $separate_files_and_directories When TRUE, files and
   *                                                directories are returned
@@ -553,7 +524,7 @@ FIXME: do we WANT to throw an error or a notice or... or return FALSE?
   *                                                files or all directories
   *                                                (optional; default do not
   *                                                split up return array).
-  *                                       
+  *
   *
   * @return array The requested file/directory list(s).
   *
@@ -561,7 +532,7 @@ FIXME: do we WANT to throw an error or a notice or... or return FALSE?
   *
   */
 function list_files($directory_path, $extension='', $return_filenames_only=TRUE,
-                    $include_directories=TRUE, $directories_only=FALSE, 
+                    $include_directories=TRUE, $directories_only=FALSE,
                     $separate_files_and_directories=FALSE) {
 
     $files = array();
@@ -570,9 +541,9 @@ function list_files($directory_path, $extension='', $return_filenames_only=TRUE,
 //FIXME: do we want to place security restrictions here like only allowing
 //       directories under SM_PATH?
     // validate given directory
-    // 
-    if (empty($directory_path) 
-     || !is_dir($directory_path) 
+    //
+    if (empty($directory_path)
+     || !is_dir($directory_path)
      || !($DIR = opendir($directory_path))) {
         return $files;
     }
@@ -589,27 +560,27 @@ function list_files($directory_path, $extension='', $return_filenames_only=TRUE,
         if ($file == '.' || $file == '..') continue;
 
         if (!empty($extension)
-         && strrpos($file, $extension) !== (strlen($file) - strlen($extension))) 
+         && strrpos($file, $extension) !== (strlen($file) - strlen($extension)))
             continue;
 
         // only use is_dir() if we really need to (be as efficient as possible)
         //
         $is_dir = FALSE;
-        if (!$include_directories || $directories_only 
+        if (!$include_directories || $directories_only
                                   || $separate_files_and_directories) {
             if (is_dir($directory_path . '/' . $file)) {
                 if (!$include_directories) continue;
                 $is_dir = TRUE;
-                $directories[] = ($return_filenames_only 
+                $directories[] = ($return_filenames_only
                                ? $file
                                : $directory_path . '/' . $file);
-            } 
+            }
             if ($directories_only) continue;
         }
 
-        if (!$separate_files_and_directories 
+        if (!$separate_files_and_directories
          || ($separate_files_and_directories && !$is_dir)) {
-            $files[] = ($return_filenames_only 
+            $files[] = ($return_filenames_only
                      ? $file
                      : $directory_path . '/' . $file);
         }
