@@ -225,7 +225,7 @@ sqsession_is_active();
 /**
  * SquirrelMail version number -- DO NOT CHANGE
  */
-$version = '1.5.2 [CVS]';
+$version = '1.5.2 [SVN]';
 
 /**
  * SquirrelMail internal version number -- DO NOT CHANGE

@@ -2,7 +2,7 @@
 *** SquirrelMail Devel Series 1.5 ***
 *************************************
 
-Version 1.5.2 - CVS
+Version 1.5.2 - SVN
 -------------------
   - The search expression in the LDAP backend of the Addressbook is now
     configurable, which can allow the result set to be expanded.

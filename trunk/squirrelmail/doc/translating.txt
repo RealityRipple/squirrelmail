@@ -1,7 +1,7 @@
 How to translate SquirrelMail into another language?
 ====================================================
 
-This document does not deal with CVS and how to upload translations to
+This document does not deal with Subversion and how to upload translations to
 the repository.
 
 1. First time translation

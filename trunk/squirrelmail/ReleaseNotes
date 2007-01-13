@@ -177,7 +177,7 @@ before submitting a new bug.  This will help to eliminate duplicate reports and
 increase the time we can spend FIXING existing bugs by DECREASING the time we
 spend sorting through bug reports.  Remember to check for CLOSED bug reports
 also, not just OPEN bug reports, in case a bug you want to report may have been
-recently fixed in CVS.
+recently fixed in our source code repository.
 
 If you want to join us in coding SquirrelMail, or have other things to share
 with the developers, join the development mailing list:
