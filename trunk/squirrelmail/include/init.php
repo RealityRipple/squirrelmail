@@ -65,14 +65,14 @@ if ((bool) ini_get('register_globals') &&
  * Used as a dummy value, e.g., for passing as an empty
  * hook argument.
  */
-global $null; 
+global $null;
 $null = NULL;
 
 /**
  * [#1518885] session.use_cookies = off breaks SquirrelMail
  *
- * When session cookies are not used, all http redirects, meta refreshes, 
- * src/download.php and javascript URLs are broken. Setting must be set 
+ * When session cookies are not used, all http redirects, meta refreshes,
+ * src/download.php and javascript URLs are broken. Setting must be set
  * before session is started.
  */
 if (!(bool)ini_get('session.use_cookies') ||
@@ -234,7 +234,7 @@ $version = '1.5.2 [CVS]';
 $SQM_INTERNAL_VERSION = array(1,5,2);
 
 
-/* if plugins are disabled only for one user and 
+/* if plugins are disabled only for one user and
  * the current user is NOT that user, turn them
  * back on
  */
@@ -258,7 +258,7 @@ if (!$disable_plugins && file_exists(SM_PATH . 'plugins/compatibility/functions.
 
 /**
  * MAIN PLUGIN LOADING CODE HERE
- * On init, we no longer need to load all plugin setup files. 
+ * On init, we no longer need to load all plugin setup files.
  * Now, we load the statically generated hook registrations here
  * and let the hook calls include only the plugins needed.
  */
@@ -276,9 +276,9 @@ do_hook('config_override', $null);
 /**
  * DISABLED.
  * Remove globalized session data in rg=on setups
- * 
+ *
  * Code can be utilized when session is started, but data is not loaded.
- * We have already loaded configuration and other important vars. Can't 
+ * We have already loaded configuration and other important vars. Can't
  * clean session globals here.
 if ((bool) @ini_get('register_globals') &&
     strtolower(ini_get('register_globals'))!='off') {
@@ -306,7 +306,7 @@ if (!isset($sInitLocation)) {
 }
 
 switch ($sInitLocation) {
-    case 'style': 
+    case 'style':
 
         // need to get the right template set up
         //
@@ -336,7 +336,6 @@ switch ($sInitLocation) {
         }
 
         session_write_close();
-        sqsetcookieflush();
         break;
 
     case 'redirect':
@@ -427,8 +426,8 @@ switch ($sInitLocation) {
              * Initialize the template object (logout_error uses it)
              */
             /*
-             * $sTemplateID is not initialized when a user is not logged in, so we 
-             * will use the config file defaults here.  If the neccesary variables 
+             * $sTemplateID is not initialized when a user is not logged in, so we
+             * will use the config file defaults here.  If the neccesary variables
              * are net set, force a default value.
              */
             $sTemplateID = Template::get_default_template_set();
@@ -491,8 +490,6 @@ switch ($sInitLocation) {
          * Set up the language.
          */
         $err=set_up_language(getPref($data_dir, $username, 'language'));
-        /* this is the last cookie we set so flush it. */
-        sqsetcookieflush();
 
         // Japanese translation used without mbstring support
         if ($err==2) {
@@ -546,18 +543,18 @@ switch ($sInitLocation) {
             } else {
                 // interface runs on server's time zone. Remove php E_STRICT complains
                 $default_timezone = @date_default_timezone_get();
-                date_default_timezone_set($default_timezone);        
+                date_default_timezone_set($default_timezone);
             }
         }
         break;
 }
 
 /*
- * $sTemplateID is not initialized when a user is not logged in, so we 
- * will use the config file defaults here.  If the neccesary variables 
+ * $sTemplateID is not initialized when a user is not logged in, so we
+ * will use the config file defaults here.  If the neccesary variables
  * are not set, force a default value.
- * 
- * If the user is logged in, $sTemplateID will be set in load_prefs.php, 
+ *
+ * If the user is logged in, $sTemplateID will be set in load_prefs.php,
  * so we shouldn't change it here.
  */
 if (!isset($sTemplateID)) {
@@ -606,9 +603,9 @@ function checkForJavascript($reset = FALSE) {
     return $javascript_on;
 
   if ( ( $reset || !isset($javascript_setting) )
-    // getPref() not defined (nor is it meaningful) when user not 
+    // getPref() not defined (nor is it meaningful) when user not
     // logged in, but that begs the question if $javascript_on is
-    // not in the session in that case, where do we get it from? 
+    // not in the session in that case, where do we get it from?
     && ( sqGetGlobalVar('user_is_logged_in', $user_is_logged_in, SQ_SESSION)
       && $user_is_logged_in) )
     $javascript_setting = getPref($data_dir, $username, 'javascript_setting', SMPREF_JS_AUTODETECT);
