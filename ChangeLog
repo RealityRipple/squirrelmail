@@ -177,6 +177,7 @@ Version 1.5.2 - SVN
     configuring plugin. Thanks to Peter Steiner.
   - Fixed HttpOnly cookies again.
   - Update for switch from CVS to Subversion.
+  - Default provider URI link fixed (was broken when on plugin options pages, etc)
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
