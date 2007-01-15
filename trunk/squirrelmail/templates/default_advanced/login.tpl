@@ -44,7 +44,7 @@ extract($t);
  </tr>
  <tr>
   <td class="attr" colspan="2">
-   <?php echo $sm_attribute_str; ?>
+   <?php echo nl2br($sm_attribute_str) . (empty($sm_attribute_str) ? '' : '<br /><br />'); ?>
   </td>
  </tr>
  <tr>
