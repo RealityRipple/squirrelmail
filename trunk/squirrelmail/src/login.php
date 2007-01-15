@@ -161,12 +161,12 @@ $login_extra = addHidden('js_autodetect_results', SMPREF_JS_OFF).
 
 session_write_close();
 
-$oTemplate->assign('logo_str', $logo_str, FALSE);
+$oTemplate->assign('logo_str', $logo_str);
 $oTemplate->assign('logo_path', $org_logo);
 $oTemplate->assign('sm_attribute_str', $sm_attribute_str);
 $oTemplate->assign('org_name_str', sprintf (_("%s Login"), $org_name));
 $oTemplate->assign('login_field_value', $loginname_value);
-$oTemplate->assign('login_extra', $login_extra, FALSE);
+$oTemplate->assign('login_extra', $login_extra);
 
 //FIXME: need to remove *ALL* HTML from this file!
 echo '<body onLoad="squirrelmail_loginpage_onload()">'."\n";
