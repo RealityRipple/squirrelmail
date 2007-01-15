@@ -186,7 +186,7 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
 
     global $reply_focus, $hide_sm_attributions, $frame_top,
         $provider_name, $provider_uri, $startMessage,
-        $action, $oTemplate, $org_title;
+        $action, $oTemplate, $org_title, $base_uri;
 
     if (empty($sBodyTagJs)) {
         if (strpos($action, 'reply') !== FALSE && $reply_focus) {
