@@ -83,7 +83,10 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
    <?php echo $help_link; ?>&nbsp;&nbsp;
    <?php /* FIXME: no hooks in templates!! */ global $null; do_hook('menuline', $null); ?>
   </td>
-  <?php echo $sm_attribute_str."\n"; ?>
+  <?php if (!empty($sm_attribute_str))
+            echo '<td class="sqm_providerInfo">'
+               . $sm_attribute_str
+               . "</td>\n"; ?>
  </tr>
 </table>
 </div>

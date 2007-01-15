@@ -240,14 +240,12 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
 
     $sm_attributes = '';
     if (!$hide_sm_attributions) {
-        $sm_attributes .= '<td class="sqm_providerInfo">' ."\n";
         if (empty($provider_uri)) {
-            $sm_attributes .= '   <a href="about.php">SquirrelMail</a>';
+            $sm_attributes .= create_hyperlink($base_uri . 'src/about.php', 'SquirrelMail');
         } else {
-            if (empty($provider_name)) $provider_name= 'SquirrelMail';
-            $sm_attributes .= '   <a href="'.$provider_uri.'" target="_blank">'.$provider_name.'</a>'."\n";
+            if (empty($provider_name)) $provider_name = 'SquirrelMail';
+            $sm_attributes .= create_hyperlink($provider_uri, $provider_name, '_blank');
         }
-        $sm_attributes .= "  </td>\n";
     }
 
     $oTemplate->assign('body_tag_js', $sBodyTagJs);
