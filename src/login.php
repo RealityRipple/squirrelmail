@@ -144,9 +144,8 @@ if (isset($org_logo) && $org_logo) {
 
 $sm_attribute_str = '';
 if (isset($hide_sm_attributions) && !$hide_sm_attributions) {
-//FIXME: need to remove *ALL* HTML from this file!
-    $sm_attribute_str = _("SquirrelMail Webmail Application")."<br />\n" .
-                        _("By the SquirrelMail Project Team")."<br />\n";
+    $sm_attribute_str = _("SquirrelMail Webmail Application")."\n" .
+                        _("By the SquirrelMail Project Team");
 }
 
 if(sqgetGlobalVar('mailtodata', $mailtodata)) {
@@ -162,12 +161,12 @@ $login_extra = addHidden('js_autodetect_results', SMPREF_JS_OFF).
 
 session_write_close();
 
-$oTemplate->assign('logo_str', $logo_str);
+$oTemplate->assign('logo_str', $logo_str, FALSE);
 $oTemplate->assign('logo_path', $org_logo);
 $oTemplate->assign('sm_attribute_str', $sm_attribute_str);
 $oTemplate->assign('org_name_str', sprintf (_("%s Login"), $org_name));
 $oTemplate->assign('login_field_value', $loginname_value);
-$oTemplate->assign('login_extra', $login_extra);
+$oTemplate->assign('login_extra', $login_extra, FALSE);
 
 //FIXME: need to remove *ALL* HTML from this file!
 echo '<body onLoad="squirrelmail_loginpage_onload()">'."\n";

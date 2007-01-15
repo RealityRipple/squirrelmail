@@ -34,7 +34,7 @@ extract($t);
  <tr>
   <td class="sqm_loginTop" colspan="2">
    <?php echo $logo_str; if (!empty($logo_str)) echo '<br />'; ?>
-   <?php echo $sm_attribute_str; ?>
+   <?php echo nl2br($sm_attribute_str); ?>
   </td>
  </tr>
  <tr>
