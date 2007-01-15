@@ -32,3 +32,25 @@ install plugins.
   6.  Choose option 8 and proceed to add the new plugin following
       the instructions there.  Save and exit, and your plugin should
       be in place.
+
+The following plugins are "core" plugins; that is, plugins shipped with
+the SquirrelMail distribution.  Unless you are a developer and know what
+you are doing, you should not replace these plugins with other versions.
+
+- abook_take
+- administrator
+- bug_report
+- calendar
+- change_password
+- filters
+- fortune
+- info
+- listcommands
+- mail_fetch
+- message_details
+- newmail
+- plist
+- sent_subfolders
+- spamcop
+- squirrelspell
+- translate
