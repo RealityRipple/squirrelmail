@@ -33,7 +33,7 @@ extract ($t);
   <td colspan="2">
    <?php 
        echo $logo_str;
-       echo $sm_attribute_str; 
+       echo nl2br($sm_attribute_str) . (empty($sm_attribute_str) ? '' : '<br /><br />'); 
    ?>
   </td>
  </tr>
