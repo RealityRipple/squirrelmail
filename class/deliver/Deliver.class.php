@@ -555,7 +555,9 @@ class Deliver {
                 $aRefs = explode(' ',$sRefs);
                 $sLine = 'References:';
                 foreach ($aRefs as $sReference) {
-                    if (strlen($sLine)+strlen($sReference) >76) {
+                    if ( trim($sReference) == '' ) {
+                         /* Don't add spaces. */
+                    } elseif (strlen($sLine)+strlen($sReference) >76) {
                         $hdr_s .= $sLine;
                         $sLine = $rn . '    ' . $sReference;
                     } else {
