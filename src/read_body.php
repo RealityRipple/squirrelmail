@@ -388,10 +388,10 @@ function formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message,
         if ($mdn_user_support) {
             if ($header->dnt) {
                 $mdn_url = $PHP_SELF;
-                $mdn_url = set_url_var($PHP_SELF, 'mailbox', urlencode($mailbox));
-                $mdn_url = set_url_var($PHP_SELF, 'passed_id', $passed_id);
-                $mdn_url = set_url_var($PHP_SELF, 'passed_ent_id', $passed_ent_id);
-                $mdn_url = set_url_var($PHP_SELF, 'sendreceipt', 1);
+                $mdn_url = set_url_var($mdn_url, 'mailbox', urlencode($mailbox));
+                $mdn_url = set_url_var($mdn_url, 'passed_id', $passed_id);
+                $mdn_url = set_url_var($mdn_url, 'passed_ent_id', $passed_ent_id);
+                $mdn_url = set_url_var($mdn_url, 'sendreceipt', 1);
 
                 $oTemplate->assign('read_receipt_sent', $message->is_mdnsent);
                 $oTemplate->assign('first_time_reading', $FirstTimeSee);
