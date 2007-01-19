@@ -33,8 +33,10 @@ extract($t);
 <table cellspacing="0">
  <tr>
   <td class="sqm_loginTop" colspan="2">
-   <?php echo $logo_str; if (!empty($logo_str)) echo '<br />'; ?>
-   <?php echo nl2br($sm_attribute_str) . (empty($sm_attribute_str) ? '' : '<br /><br />'); ?>
+   <?php 
+       echo $logo_str; if (!empty($logo_str)) echo '<br />'; 
+       echo nl2br($sm_attribute_str) . (empty($sm_attribute_str) ? '' : '<br /><br />'); 
+   ?>
   </td>
  </tr>
  <tr>
