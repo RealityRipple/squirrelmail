@@ -77,22 +77,23 @@ function logout_error( $errString, $errTitle = '' ) {
     /* If they don't have a logo, don't bother.. */
     $logo_str = '';
     if (isset($org_logo) && $org_logo) {
-        /* Display width and height like good little people */
-        $width_and_height = '';
+
         if (isset($org_logo_width) && is_numeric($org_logo_width) &&
          $org_logo_width>0) {
-            $width_and_height = " width=\"$org_logo_width\"";
+            $width = $org_logo_width;
+        } else {
+            $width = '';
         }
         if (isset($org_logo_height) && is_numeric($org_logo_height) &&
          $org_logo_height>0) {
-            $width_and_height .= " height=\"$org_logo_height\"";
+            $height = $org_logo_height;
+        } else {
+            $height = '';
         }
-        
-        $logo_str = '<img src="'.$org_logo.'" ' .
-                    'alt="'. sprintf(_("%s Logo"), $org_name).'" ' .
-                    $width_and_height .
-                    'class="sqm_loginImage" ' .
-                    ' /><br />'."\n";
+
+        $logo_str = create_image($org_logo, sprintf(_("%s Logo"), $org_name),
+                                 $width, $height, '', 'sqm_loginImage');
+
     }
     
     $sm_attribute_str = '';
