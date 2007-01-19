@@ -225,7 +225,7 @@ function comp_in_new(comp_uri, iWidth, iHeight) {
  */
 function sendMDN() {
     mdnuri=window.location+'&sendreceipt=1';
-    var newwin = window.open(mdnuri,'right');
+    window.location = mdnuri; 
 }
 
 var alreadyFocused = false;
