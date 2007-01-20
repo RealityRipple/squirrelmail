@@ -243,6 +243,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
         }
 
         if (isset($optpage_save_error) && $optpage_save_error!=array()) {
+//FIXME: REMOVE HTML FROM CORE
             $notice = _("Error(s) occurred while saving your options") . "<br />\n<ul>\n";
             foreach ($optpage_save_error as $error_message) {
                 $notice.= '<li><small>' . $error_message . "</small></li>\n";
@@ -256,9 +257,19 @@ if ($optpage == SMOPT_PAGE_MAIN) {
         /* If $max_refresh != SMOPT_REFRESH_NONE, provide a refresh link. */
         if ( !isset( $max_refresh ) ) {
         } else if ($max_refresh == SMOPT_REFRESH_FOLDERLIST) {
-            $notice .= '<a href="../src/left_main.php" target="left">' . _("Refresh Folder List") . '</a><br />';
+//FIXME: REMOVE HTML FROM CORE - when migrating, keep in mind that the javascript below assumes the folder list is in a separate sibling frame under the same parent, and it is called "left"
+            if (checkForJavascript()) {
+                $notice .= sprintf(_("Folder list should automatically %srefresh%s."), '<a href="../src/left_main.php" target="left">', '</a>') . '<br /><script type="text/javascript">' . "\n<!--\nparent.left.location = '../src/left_main.php';\n// -->\n</script>\n";
+            } else {
+                $notice .= '<a href="../src/left_main.php" target="left">' . _("Refresh Folder List") . '</a><br />';
+            }
         } else if ($max_refresh) {
-            $notice .= '<a href="../src/webmail.php?right_frame=options.php" target="' . $frame_top . '">' . _("Refresh Page") . '</a><br />';
+            if (checkForJavascript()) {
+//FIXME: REMOVE HTML FROM CORE - when migrating, keep in mind that the javascript below assumes the parent is the top-most SM frame and is what should be refreshed with webmail.php
+                $notice .= sprintf(_("This page should automatically %srefresh%s."), '<a href="../src/webmail.php?right_frame=options.php" target="' . $frame_top . '">', '</a>') . '<br /><script type="text/javascript">' . "\n<!--\nparent.location = '../src/webmail.php?right_frame=options.php';\n// -->\n</script>\n";
+            } else {
+                $notice .= '<a href="../src/webmail.php?right_frame=options.php" target="' . $frame_top . '">' . _("Refresh Page") . '</a><br />';
+            }
         }
     }
     
@@ -395,6 +406,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
        . create_optpage_element($optpage)
        . create_optmode_element(SMOPT_MODE_SUBMIT);
 
+//FIXME: NO HTML IN THE CORE!!
     // Wrap the template in a table to keep from breaking the hooks below
     echo "<table cellspacing=\"0\" class=\"table_blank\">\n" .
          " <tr>\n" .
