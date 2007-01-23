@@ -33,7 +33,7 @@ extract($t);
     </td>
   </tr>
   <tr>
-    <td colspan="2">Manage the (non-RFC-compliant) mailing lists that you are subscribed to for the purpose of providing one-click list replies when responding to list messages.  You only need to enter any lists you are subscribed to that do not already comply with RFC 2369.<br /><br />When entering a new list, input the full email address for the address from which list postings are delivered.<br /><br /></td>
+    <td colspan="2"><?php echo _("Manage the (non-RFC-compliant) mailing lists that you are subscribed to for the purpose of providing one-click list replies when responding to list messages.  You only need to enter any lists you are subscribed to that do not already comply with RFC 2369.") . '<br /><br />' . _("When entering a new list, input the full email address for the address from which list postings are delivered."); ?><br /><br /></td>
   </tr>
   <tr>
     <td align="right">
