@@ -32,7 +32,7 @@
 #sqm_login  td.orgLogo {
     width: 155px;
     text-align: center;
-    vertical-align: center;
+    vertical-align: middle;
 }
 
 #sqm_login  td.orgLogo  img {
