@@ -130,7 +130,7 @@ function plugin_listcommands_menu_do() {
         if (!in_array('post', array_keys($links))) {
 
             foreach ($non_rfc_lists as $non_rfc_list) {
-                if (preg_match('/(^|,|\s)' . preg_quote($non_rfc_list) . '($|,|\s)/', $recipients)) {
+                if (preg_match('/(^|,|<|\s)' . preg_quote($non_rfc_list) . '($|,|>|\s)/', $recipients)) {
                     $url = 'src/compose.php?'
                          . (isset($startMessage)?'startMessage='.$startMessage.'&amp;':'')
                          . 'send_to=' . str_replace('?','&amp;', $non_rfc_list);

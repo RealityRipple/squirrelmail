@@ -24,42 +24,33 @@
 extract($t);
 
 
-?><html><body><form method="post" action="">
-<table width="95%" align="center" border="0" cellpadding="2" cellspacing="0">
+?><form method="post" action="">
+<div id="optionGroups">
+<table cellspacing="0">
   <tr>
-    <td colspan="3" align="center" bgcolor="<?php echo  $color[0] ?>">
-      <b><?php echo _("Options") . " - " . _("Mailing Lists"); ?></b>
+    <td class="header1" colspan="2">
+      <?php echo _("Options") . " - " . _("Mailing Lists"); ?>
     </td>
   </tr>
   <tr>
-    <td colspan="3">&nbsp;</td>
+    <td colspan="2">Manage the (non-RFC-compliant) mailing lists that you are subscribed to for the purpose of providing one-click list replies when responding to list messages.  You only need to enter any lists you are subscribed to that do not already comply with RFC 2369.<br /><br />When entering a new list, input the full email address for the address from which list postings are delivered.<br /><br /></td>
   </tr>
   <tr>
-    <td colspan="3">Manage the (non-RFC-compliant) mailing lists that you are subscribed to for the purpose of providing one-click list replies when responding to list messages.  You only need to enter any lists you are subscribed to that do not already comply with RFC 2369.<br /><br />When entering a new list, input the full email address for the main list.</td>
-  </tr>
-  <tr>
-    <td colspan="3">&nbsp;</td>
-  </tr>
-</table>
-<table width="80%" align="center" border="0" cellpadding="2" cellspacing="0">
-  <tr>
-    <td>
+    <td align="right">
       <?php echo _("Enter new mailing list"); ?>:
     </td>
-    <td align="right">
+    <td align="left">
       <input type="text" name="newlist" size="30" />
-    </td>
-    <td>
       <input type="submit" name="addlist" value="<? echo _("Add"); ?>" size="30" />
     </td>
   </tr>
   <tr>
-    <td colspan="3">&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
   </tr>
   <tr>
-    <td valign="top"><? echo _("Existing mailing lists"); ?>:</td>
-    <td align="center" colspan="2">
-      <table cellpadding="2">
+    <td align="right" valign="top"><? echo _("Existing mailing lists"); ?>:</td>
+    <td align="center">
+      <table border="0" cellpadding="0" cellspacing="0">
 <?php
     foreach($lists as $index => $list) {
         echo '<tr><td>' . $list . '</td><td><input type="submit" name="deletelist[' . $index . ']" value="' . _("Delete") . '" /></td></tr>';
@@ -69,6 +60,7 @@ extract($t);
     </td>
   </tr>
 </table>
+</div>
 </form>
 </body>
 </html>
