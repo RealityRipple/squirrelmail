@@ -514,7 +514,7 @@ if ($class != 'even' && $class != 'odd')
         </td>
       </tr>
       <tr>
-        <td>
+        <td align="right">
 <?php if (!empty($plugin_output['mailbox_index_after'])) echo $plugin_output['mailbox_index_after']; ?>
         </td>
       </tr>
