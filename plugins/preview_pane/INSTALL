@@ -1,0 +1,11 @@
+Installing Preview Pane
+=======================
+
+This plugin should only be activated by a skin (template set)
+that is capable of displaying a message preview pane.  One
+such skin (template set) is the "default advanced" one that
+comes with the SquirrelMail base package.
+
+No manual activation or installation steps are required.
+
+

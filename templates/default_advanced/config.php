@@ -39,7 +39,7 @@ $parent_template_set = 'default';
   * will be disabled, and only those in $add_plugins will be enabled.
   *
   */
-$add_plugins = array();
+$add_plugins = array('preview_pane',);
 $remove_plugins = array();
 
 
