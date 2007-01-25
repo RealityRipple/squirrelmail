@@ -245,6 +245,7 @@ function buildMailboxTree ($box, $settings, $icon_theme_path, $parent_node=-1) {
     }
     
     return $out;
+//FIXME: somewhere above, need to insert the left_main_after_each_folder hook, or if no plugin hooks allowed in templates, at least the output from that hook (but I think it might be impossible not to have the hook here in this fxn
 }
 
 /* retrieve the template vars */
@@ -272,7 +273,7 @@ extract($t);
 //-->
 </script>
 <div class="sqm_leftMain">
-<?php /* FIXME: no hooks in templates! */ global $null; do_hook('left_main_before', $null); ?>
+<?php if (!empty($plugin_output['left_main_before'])) echo $plugin_output['left_main_before']; ?>
 <div class="dtree">
 <table class="sqm_wrapperTable" cellspacing="0">
  <tr>

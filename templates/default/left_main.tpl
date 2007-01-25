@@ -229,7 +229,7 @@ function buildMailboxTree ($box, $settings, $icon_theme_path, $indent_factor=0) 
  ********
     
     // let plugins fiddle with end of line
-// FIXME: no hooks in templates!
+// FIXME: no hooks in templates! Although note that I'm not sure we can avoid it here because the context of which folder we are displaying is important to the hook, unless we preemptively iterate through all folders and collect the output from the hook call for that and give that to the template.... seems like overkill; I say this hook remains
     $end .= concat_hook_function('left_main_after_each_folder',
             $temp=array(isset($numMessages) ? &$numMessages : '',
             &$box['MailboxFullName'], &$settings['imapConnection']));
@@ -263,7 +263,7 @@ extract($t);
 ?>
 <body class="sqm_leftMain">
 <div class="sqm_leftMain">
-<?php /* FIXME: no hooks in templates! */ global $null; do_hook('left_main_before', $null); ?>
+<?php if (!empty($plugin_output['left_main_before'])) echo $plugin_output['left_main_before']; ?>
 <table class="sqm_wrapperTable" cellspacing="0">
  <tr>
   <td>
@@ -281,5 +281,5 @@ extract($t);
   </td>
  </tr>
 </table>
-<?php /* FIXME: no hooks in templates! */ do_hook('left_main_after', $null); ?>
+<?php if (!empty($plugin_output['left_main_after'])) echo $plugin_output['left_main_after']; ?>
 </div>
