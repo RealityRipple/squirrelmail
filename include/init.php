@@ -203,6 +203,7 @@ if (!isset($session_name) || !$session_name) {
  * if session.auto_start is On then close the session
  */
 $sSessionAutostartName = session_name();
+$sCookiePath = null;
 if ((isset($sSessionAutostartName) || $sSessionAutostartName == '') &&
      $sSessionAutostartName !== $session_name) {
     $sCookiePath = ini_get('session.cookie_path');
