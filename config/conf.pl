@@ -471,6 +471,7 @@ $smtp_sitewide_pass = ''               if ( !$smtp_sitewide_pass );
 $icon_theme_def = ''                   if ( !$icon_theme_def );
 $disable_plugins = 'false'             if ( !$disable_plugins );
 $disable_plugins_user = ''             if ( !$disable_plugins_user );
+$only_secure_cookies = 'true'          if ( !$only_secure_cookies );
 
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
@@ -657,24 +658,25 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 4 ) {
         print $WHT. "General Options\n" . $NRM;
-        print "1.  Data Directory              : $WHT$data_dir$NRM\n";
-        print "2.  Attachment Directory        : $WHT$attachment_dir$NRM\n";
-        print "3.  Directory Hash Level        : $WHT$dir_hash_level$NRM\n";
-        print "4.  Default Left Size           : $WHT$default_left_size$NRM\n";
-        print "5.  Usernames in Lowercase      : $WHT$force_username_lowercase$NRM\n";
-        print "6.  Allow use of priority       : $WHT$default_use_priority$NRM\n";
-        print "7.  Hide SM attributions        : $WHT$hide_sm_attributions$NRM\n";
-        print "8.  Allow use of receipts       : $WHT$default_use_mdn$NRM\n";
-        print "9.  Allow editing of identity   : $WHT$edit_identity$NRM\n";
-        print "    Allow editing of name       : $WHT$edit_name$NRM\n";
-        print "    Remove username from header : $WHT$hide_auth_header$NRM\n";
-        print "10. Disable server thread sort  : $WHT$disable_thread_sort$NRM\n";
-        print "11. Disable server-side sorting : $WHT$disable_server_sort$NRM\n";
-        print "12. Allow server charset search : $WHT$allow_charset_search$NRM\n";
-        print "13. Allow advanced search       : $WHT$allow_advanced_search$NRM\n";
-        print "14. PHP session name            : $WHT$session_name$NRM\n";
-        print "15. Time zone configuration     : $WHT$time_zone_type$NRM\n";
-        print "16. Location base               : $WHT$config_location_base$NRM\n";
+        print "1.  Data Directory               : $WHT$data_dir$NRM\n";
+        print "2.  Attachment Directory         : $WHT$attachment_dir$NRM\n";
+        print "3.  Directory Hash Level         : $WHT$dir_hash_level$NRM\n";
+        print "4.  Default Left Size            : $WHT$default_left_size$NRM\n";
+        print "5.  Usernames in Lowercase       : $WHT$force_username_lowercase$NRM\n";
+        print "6.  Allow use of priority        : $WHT$default_use_priority$NRM\n";
+        print "7.  Hide SM attributions         : $WHT$hide_sm_attributions$NRM\n";
+        print "8.  Allow use of receipts        : $WHT$default_use_mdn$NRM\n";
+        print "9.  Allow editing of identity    : $WHT$edit_identity$NRM\n";
+        print "    Allow editing of name        : $WHT$edit_name$NRM\n";
+        print "    Remove username from header  : $WHT$hide_auth_header$NRM\n";
+        print "10. Disable server thread sort   : $WHT$disable_thread_sort$NRM\n";
+        print "11. Disable server-side sorting  : $WHT$disable_server_sort$NRM\n";
+        print "12. Allow server charset search  : $WHT$allow_charset_search$NRM\n";
+        print "13. Allow advanced search        : $WHT$allow_advanced_search$NRM\n";
+        print "14. PHP session name             : $WHT$session_name$NRM\n";
+        print "15. Time zone configuration      : $WHT$time_zone_type$NRM\n";
+        print "16. Location base                : $WHT$config_location_base$NRM\n";
+        print "17. Only secure cookies if poss. : $WHT$only_secure_cookies$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 5 ) {
@@ -920,6 +922,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 14 ) { $session_name             = command317(); }
             elsif ( $command == 15 ) { $time_zone_type           = command318(); }
             elsif ( $command == 16 ) { $config_location_base     = command_config_location_base(); }
+            elsif ( $command == 17 ) { $only_secure_cookies = command319(); }
         } elsif ( $menu == 5 ) {
             if ( $command == 1 )     { $use_icons      = commandB3(); }
 #            elsif ( $command == 3 )  { $icon_theme_def = commandB7(); }
@@ -2621,6 +2624,32 @@ sub command_config_location_base {
     $config_location_base = $new_config_location_base;
     
     return $config_location_base;
+}
+
+# only_secure_cookies (since 1.5.2)
+sub command319 {
+    print "This option allows you to specify that if a user session is initiated\n";
+    print "under a secure (HTTPS, SSL-encrypted) connection, the cookies given to\n";
+    print "the browser will ONLY be transmitted via a secure connection henceforth.\n\n";
+    print "Generally this is a Good Thing, and should NOT be disabled.  However,\n";
+    print "if you intend to use the Secure Login or Show SSL Link plugins to\n";
+    print "encrypt the user login, but not the rest of the SquirrelMail session,\n";
+    print "this can be turned off.  Think twice before doing so.\n";
+    print "\n";
+
+    if ( lc($only_secure_cookies) eq 'true' ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Transmit cookies only on secure connection when available? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $only_secure_cookies = <STDIN>;
+    if ( ( $only_secure_cookies =~ /^y\n/i ) || ( ( $only_secure_cookies =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $only_secure_cookies = 'true';
+    } else {
+        $only_secure_cookies = 'false';
+    }
+    return $only_secure_cookies;
 }
 
 
@@ -4614,17 +4643,19 @@ sub save_data {
         print CF "\$no_list_for_subscribe = $no_list_for_subscribe;\n";
 
         # string
-        print CF "\$smtp_auth_mech = '$smtp_auth_mech';\n";
-        print CF "\$smtp_sitewide_user = '". quote_single($smtp_sitewide_user) ."';\n";
-        print CF "\$smtp_sitewide_pass = '". quote_single($smtp_sitewide_pass) ."';\n";
+        print CF "\$smtp_auth_mech        = '$smtp_auth_mech';\n";
+        print CF "\$smtp_sitewide_user    = '". quote_single($smtp_sitewide_user) ."';\n";
+        print CF "\$smtp_sitewide_pass    = '". quote_single($smtp_sitewide_pass) ."';\n";
         # string
-        print CF "\$imap_auth_mech = '$imap_auth_mech';\n";
+        print CF "\$imap_auth_mech        = '$imap_auth_mech';\n";
         # boolean
-        print CF "\$use_imap_tls = $use_imap_tls;\n";
+        print CF "\$use_imap_tls          = $use_imap_tls;\n";
         # boolean
-        print CF "\$use_smtp_tls = $use_smtp_tls;\n";
+        print CF "\$use_smtp_tls          = $use_smtp_tls;\n";
         # string
-        print CF "\$session_name = '$session_name';\n";
+        print CF "\$session_name          = '$session_name';\n";
+        # boolean
+        print CF "\$only_secure_cookies   = $only_secure_cookies;\n";
 
         print CF "\n";
 

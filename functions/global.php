@@ -385,6 +385,12 @@ function sqsetcookie($sName,$sValue="deleted",$iExpire=0,$sPath="",$sDomain="",$
     if ($sName && isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) {
         $bSecure = true;
     }
+
+    // admin config can override the restriction of secure-only cookies
+    global $only_secure_cookies;
+    if (!$only_secure_cookies)
+        $bSecure = false;
+
     if (false && check_php_version(5,2)) {
        // php 5 supports the httponly attribute in setcookie, but because setcookie seems a bit
        // broken we use the header function for php 5.2 as well. We might change that later.
