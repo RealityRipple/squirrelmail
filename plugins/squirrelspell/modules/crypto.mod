@@ -23,7 +23,7 @@ global $SQSPELL_CRYPTO;
 
 $langs=sqspell_getSettings();
 
-if (! sqgetGlobalVar('action', $crypt_action, SQ_POST)) {
+if (! sqgetGlobalVar('encaction', $crypt_action, SQ_POST)) {
     $crypt_action = 'noaction';
 }
 
