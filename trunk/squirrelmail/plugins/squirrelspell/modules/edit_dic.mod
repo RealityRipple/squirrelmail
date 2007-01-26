@@ -61,8 +61,9 @@ foreach ($langs as $lang) {
         $msg .= "</td><td valign=\"top\">\n";
       }
       $msg .= "<input type=\"checkbox\" name=\"words_ary[]\" "
-        . 'value="'.htmlspecialchars($lang_words[$j]). '" /> '
-        . htmlspecialchars($lang_words[$j]) . "<br />\n";
+        . 'value="'.htmlspecialchars($lang_words[$j]). '" id="words_ary_'
+        . $j . '" /> <label for="words_ary_' . $j .'">'
+        . htmlspecialchars($lang_words[$j]) . "</label><br />\n";
     }
     $msg .= '</td></tr></table></td></tr>'
       . "<tr bgcolor=\"$color[0]\" align=\"center\"><td>"

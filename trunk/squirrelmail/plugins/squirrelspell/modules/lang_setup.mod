@@ -28,16 +28,17 @@ $msg = '<p>'
  * Present a nice listing.
  */
 $langs = sqspell_getSettings();
-$add = '<p>'
+$add = '<p><label for="lang_default">'
   . _("Make this dictionary my default selection:")
-  . " <select name=\"lang_default\">\n";
+  . "</label> <select name=\"lang_default\" id=\"lang_default\">\n";
 while (list($avail_lang, $junk) = each($SQSPELL_APP)){
   $msg .= "<input type=\"checkbox\" name=\"use_langs[]\" "
-    . "value=\"$avail_lang\"";
+    . "value=\"$avail_lang\" id=\"use_langs_$avail_lang\"";
   if (in_array($avail_lang, $langs)) {
     $msg .= ' checked="checked"';
   }
-  $msg .= ' /> ' . _($avail_lang) . "<br />\n";
+  $msg .= ' /> <label for="use_langs_' . $avail_lang . '">'
+    . _($avail_lang) . "</label><br />\n";
   $add .= "<option";
   if ($avail_lang==$langs[0]) {
     $add .= ' selected="selected"';

@@ -864,10 +864,12 @@ function sqspell_handle_crypt_panic($lang=false) {
        '<input type="hidden" name="dict_lang" value="'.htmlspecialchars($lang).'" />' :
        '<input type="hidden" name="old_setup" value="yes" />')
     . html_tag( 'p',  "\n" .
-        '<input type="checkbox" name="delete_words" value="ON" />'
-        . _("Delete my dictionary and start a new one") . '<br />'
+        '<input type="checkbox" name="delete_words" value="ON" id="delete_words" />'
+        . '<label for="delete_words">'
+        . _("Delete my dictionary and start a new one")
+        . '</label><br /><label for="old_key">'
         . _("Decrypt my dictionary with my old password:")
-        . '<input name="old_key" size="10" />' ,
+        . '</label><input type="text" name="old_key" id="old_key" size="10" />' ,
         'left' ) . "\n"
         . '</blockquote>' . "\n"
         . html_tag( 'p', "\n"
