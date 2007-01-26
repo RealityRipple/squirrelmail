@@ -60,7 +60,7 @@ if ($crypted){
         . '</p>'
         . '<form method="post" onsubmit="return checkMe()">'
         . '<input type="hidden" name="MOD" value="crypto" />'
-        . '<p align="center"><input type="checkbox" name="action" '
+        . '<p align="center"><input type="checkbox" name="encaction" '
         . 'value="decrypt" id="action_decrypt" /> <label for="action_decrypt">'
         . _("Please decrypt my personal dictionary and store it in a clear-text format." )
         . '</label></p>'
@@ -85,7 +85,7 @@ if ($crypted){
         . '</p>'
         . '<form method="post" onsubmit="return checkMe()">'
         . '<input type="hidden" name="MOD" value="crypto" />'
-        . '<p align="center"><input type="checkbox" name="action" '
+        . '<p align="center"><input type="checkbox" name="encaction" '
         . 'value="encrypt" id="action_encrypt" /> <label for="action_encrypt">'
         . _("Please encrypt my personal dictionary and store it in an encrypted format.")
         . '</label></p>'
