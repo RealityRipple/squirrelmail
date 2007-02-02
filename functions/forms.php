@@ -164,6 +164,7 @@ function addInput($sName, $sValue = '', $iSize = 0, $iMaxlength = 0, $aAttribs=a
  * @param mixed $default the key that will be selected
  * @param boolean $bUsekeys use the keys of the array as option value or not
  * @param array $aAttribs (since 1.5.1) extra attributes
+ *
  * @return string html formated selection box
  * @todo add attributes argument for option tags and default css
  */
@@ -188,6 +189,31 @@ function addSelect($sName, $aValues, $default = null, $bUsekeys = false, $aAttri
 }
 
 /**
+ * Normal button
+ *
+ * Note the switched value/name parameters!
+ * Note also that regular buttons are not very useful unless
+ * used with onclick handlers, thus are only really appropriate
+ * if you use them after having checked if JavaScript is turned
+ * on by doing this:  if (checkForJavascript()) ...
+ *
+ * @param string $sValue button name
+ * @param string $sName key name
+ * @param array $aAttribs extra attributes
+ *
+ * @return string html formated submit input field
+ *
+ * @since 1.5.2
+ */
+function addButton($sValue, $sName = null, $aAttribs=array()) {
+    $aAttribs['value'] = $sValue;
+    if (! is_null($sName)) $aAttribs['name'] = $sName;
+    // add default css
+    if (! isset($aAttribs['class'])) $aAttribs['class'] = 'sqmsubmitfield';
+    return addInputField('button', $aAttribs);
+}
+
+/**
  * Form submission button
  * Note the switched value/name parameters!
  * @param string $sValue button name
@@ -202,6 +228,7 @@ function addSubmit($sValue, $sName = null, $aAttribs=array()) {
     if (! isset($aAttribs['class'])) $aAttribs['class'] = 'sqmsubmitfield';
     return addInputField('submit', $aAttribs);
 }
+
 /**
  * Form reset button
  * @param string $sValue button name
@@ -231,6 +258,7 @@ function addTextArea($sName, $sText = '', $iCols = 40, $iRows = 10, $aAttribs = 
 
     // no longer accept string arguments for attribs; print 
     // backtrace to help people fix their code
+    //FIXME: throw error instead?
     if (!is_array($aAttribs)) {
         echo '$aAttribs argument to addTextArea() must be an array<br /><pre>';
         debug_print_backtrace();
@@ -238,7 +266,7 @@ function addTextArea($sName, $sText = '', $iCols = 40, $iRows = 10, $aAttribs = 
         exit;
     }
 
-    // FIXME: should the template do this instead????
+    // add default css
     else if (!isset($aAttribs['class'])) $aAttribs['class'] = 'sqmtextarea';
 
     global $oTemplate;
