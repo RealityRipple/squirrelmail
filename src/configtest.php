@@ -289,6 +289,8 @@ if($data_dir == $attachment_dir) {
 }
 
 
+echo "Checking plugins...<br />\n";
+
 /* check plugins and themes */
 //FIXME: check requirements given in plugin _info() function, such
 //       as required PHP extensions, Pear packages, other plugins, SM version, etc
