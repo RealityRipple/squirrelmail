@@ -78,8 +78,16 @@ function br_show_plugins() {
             && ! in_array('compatibility',$plugins)) {
             $str.= '    * compatibility';
             include_once(SM_PATH . 'plugins/compatibility/setup.php');
-            if (function_exists('compatibility_version')) {
-                $str.= ' ' . call_user_func('compatibility_version');
+            $version_found = FALSE;
+            if (function_exists('compatibility_info')) {
+                $info = compatibility_info();
+                if (!empty($info['version'])) {
+                    $str .= ' ' . $info['version'];
+                    $version_found = TRUE;
+                }
+            }
+            if (!$version_found && function_exists('compatibility_version')) {
+                $str.= ' ' . compatibility_version();
             }
             $str.="\n";
         }
