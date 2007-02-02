@@ -348,6 +348,21 @@ if (isset($plugins[0])) {
         $plugin_load_error = 'Some output is produced when plugins are loaded. Usually this means there is an error in one of the plugin setup or configuration files. The output was: '.htmlspecialchars($output);
         do_err($plugin_load_error);
     }
+    /** 
+     * Print plugin versions
+     */
+/* DISABLED FOR NOW: takes a lot of screen real estate and not all plugins currently 
+                     support the <plugin>_info() function
+    echo $IND . "Plugin versions...<br />\n";
+    foreach ($plugins as $name) {
+        $function = $name . '_info';
+        if (function_exists($function)) {
+            $info = $function();
+            if (!empty($info['version']))
+                echo $IND . $IND . $name . ' ' . $info['version'] . "<br />\n";
+        }
+    }
+*/
     /**
      * This hook was added in 1.5.2 and 1.4.10. Each plugins should print an error 
      * message and return TRUE if there are any errors in its setup/configuration.
