@@ -111,9 +111,13 @@ function preview_pane_message_list_do()
 
    if ($use_previewPane == 1)
    {
-      $output .= '<input type="button" value="' . _("Clear Preview") 
-         . '" onclick="parent.bottom.document.location=\'' . SM_PATH 
-         . 'plugins/preview_pane/empty_frame.php\'" />'
+      // why isn't this already available?
+      include_once(SM_PATH . 'functions/forms.php');
+
+      $output .= addButton(_("Clear Preview"), 'clear_preview',
+                           array('onclick' => 'parent.bottom.document.location=\''
+                                            . $base_uri . '/plugins/preview_pane/empty_frame.php\'; '))
+
 
 
       // don't let message list load into preview pane at all
