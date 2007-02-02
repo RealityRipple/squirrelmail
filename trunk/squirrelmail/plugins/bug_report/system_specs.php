@@ -59,7 +59,15 @@ function br_show_plugins() {
             if ($key != 0 || $value != '') {
                 $str .= "    * $key = $value";
                 // add plugin version
-                if (function_exists($value . '_version')) {
+                $version_found = FALSE;
+                if (function_exists($value . '_info')) {
+                    $info = call_user_func($value . '_info');
+                    if (!empty($info['version'])) {
+                        $str .= ' ' . $info['version'];
+                        $version_found = TRUE;
+                    }
+                }
+                if (!$version_found && function_exists($value . '_version')) {
                     $str.= ' ' . call_user_func($value . '_version');
                 }
                 $str.="\n";
