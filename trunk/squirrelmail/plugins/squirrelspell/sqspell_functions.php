@@ -62,21 +62,15 @@ function squirrelspell_setup_function() {
    * correctly.
    */
   if (checkForJavascript()) {
-    /**
-     * Some people may choose to disable javascript even though their
-     * browser is capable of using it. So these freaks don't complain,
-     * use document.write() so the "Check Spelling" button is not
-     * displayed if js is off in the browser.
-     */
-    $output = "<script type=\"text/javascript\">\n".
-      "<!--\n".
-      'document.write("<input type=\"button\" value=\"'.
-      _("Check Spelling").
-      '\" name=\"check_spelling\" onclick=\"window.open(\'../plugins/squirrelspell/sqspell_'.
-      'interface.php\', \'sqspell\', \'status=yes,width=550,height=370,'.
-      'resizable=yes\')\" />");' . "\n".
-      "//-->\n".
-      "</script>\n";
+
+    global $oTemplate, $base_uri;
+    $nbsp = $oTemplate->fetch('non_breaking_space.tpl');
+
+    $output = addButton(_("Check Spelling"), 
+                        'check_spelling', 
+                        array('onclick' => 'window.open(\'' . $base_uri 
+                                         . '/plugins/squirrelspell/sqspell_interface.php\', \'sqspell\', \'status=yes,width=550,height=370,resizable=yes\')')) . $nbsp;
+
     return array('compose_button_row' => $output);
   }
 }
