@@ -36,7 +36,7 @@ function SpellLink($jscode, $title, $link) {
 /**
  * Declaring globals for users with E_ALL set.
  */
-global $SQSPELL_APP_DEFAULT, $SQSPELL_APP, $SQSPELL_SPELLCHECKER, 
+global $SQSPELL_APP_DEFAULT, $SQSPELL_APP, $SQSPELL_SPELLCHECKER,
   $SQSPELL_FORCE_POPEN, $attachment_dir, $color;
 
 if (! sqgetGlobalVar('sqspell_text',$sqspell_text,SQ_POST)) {
@@ -230,7 +230,7 @@ if ($errors){
 
 
   /**
-   * Did I mention that I hate dots on the end of contcatenated lines?
+   * Did I mention that I hate dots on the end of concatenated lines?
    * Dots at the beginning make so much more sense!
    */
   $extrajs.= "//-->\n"
