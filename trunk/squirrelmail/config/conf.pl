@@ -723,7 +723,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         $num = 0;
         for ( $count = 0 ; $count <= $#plugins ; $count++ ) {
             $num = $count + 1;
-            print "    $num. $plugins[$count]\n";
+            print "    $num. $plugins[$count]" . get_plugin_version($plugins[$count]) . "\n";
         }
         print "\n  Available Plugins:\n";
         opendir( DIR, "../plugins" );
@@ -747,7 +747,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
 
         for ( $i = 0 ; $i <= $#unused_plugins ; $i++ ) {
             $num = $num + 1;
-            print "    $num. $unused_plugins[$i]\n";
+            print "    $num. $unused_plugins[$i]" . get_plugin_version($unused_plugins[$i]) . "\n";
         }
         closedir DIR;
 
@@ -5102,6 +5102,68 @@ sub quote_single($) {
     my $string = shift(@_);
     $string =~ s/\'/\\'/g;
     return $string;
+}
+
+# determine a plugin's version number
+#
+# parses the setup.php file, looking for the
+# version string in the <plugin>_info() or the
+# <plugin>_version functions.
+#
+sub get_plugin_version() {
+
+    my $plugin_name = shift(@_);
+
+    $setup_file = '../plugins/' . $plugin_name . '/setup.php';
+    if ( -e "$setup_file" ) {
+        # Make sure that file is readable
+        if (! -r "$setup_file") {
+            print "\n";
+            print "WARNING:\n";
+            print "The file \"$setup_file\" was found, but you don't\n";
+            print "have rights to read it.  The plugin \"";
+            print $plugin_name . "\" may not work correctly until you fix this.\n";
+            print "\nPress enter to continue";
+            $ctu = <STDIN>;
+            print "\n";
+            next;
+        }
+
+        $version = ' ';
+# FIXME: grep the file instead of reading it into memory?
+        $whole_file = '';
+        open( FILE, "$setup_file" );
+        while ( $line = <FILE> ) {
+            $whole_file .= $line;
+        }
+        close(FILE);
+
+        # ideally, there is a version in the <plugin>_info function...
+        #
+        if ($whole_file =~ /('version'\s*=>\s*['"](.*?)['"])/) {
+            $version .= $2;
+
+        # this assumes there is only one function that returns 
+        # a static string in the setup file
+        #
+        } elsif ($whole_file =~ /(return\s*['"](.*?)['"])/) {
+            $version .= $2;
+        }
+
+        return $version;
+
+        } else {
+            print "\n";
+            print "WARNING:\n";
+            print "The file \"$setup_file\" was not found.\n";
+            print "The plugin \"" . $plugin_name;
+            print "\" may not work correctly until you fix this.\n";
+            print "\nPress enter to continue";
+            $ctu = <STDIN>;
+            print "\n";
+            next;
+        }
+
 }
 
 # parses the setup.php files for all activated plugins and
