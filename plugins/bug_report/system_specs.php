@@ -57,39 +57,13 @@ function br_show_plugins() {
     if (is_array($plugins) && $plugins!=array()) {
         foreach ($plugins as $key => $value) {
             if ($key != 0 || $value != '') {
-                $str .= "    * $key = $value";
-                // add plugin version
-                $version_found = FALSE;
-                if (function_exists($value . '_info')) {
-                    $info = call_user_func($value . '_info');
-                    if (!empty($info['version'])) {
-                        $str .= ' ' . $info['version'];
-                        $version_found = TRUE;
-                    }
-                }
-                if (!$version_found && function_exists($value . '_version')) {
-                    $str.= ' ' . call_user_func($value . '_version');
-                }
-                $str.="\n";
+                $str .= "    * $key = $value " . get_plugin_version($value, TRUE) . "\n";
             }
         }
-        // compatibility plugin can be used without need to enable it in sm config
+        // compatibility plugin can be used without needing to enable it in sm config
         if (file_exists(SM_PATH . 'plugins/compatibility/setup.php')
             && ! in_array('compatibility',$plugins)) {
-            $str.= '    * compatibility';
-            include_once(SM_PATH . 'plugins/compatibility/setup.php');
-            $version_found = FALSE;
-            if (function_exists('compatibility_info')) {
-                $info = compatibility_info();
-                if (!empty($info['version'])) {
-                    $str .= ' ' . $info['version'];
-                    $version_found = TRUE;
-                }
-            }
-            if (!$version_found && function_exists('compatibility_version')) {
-                $str.= ' ' . compatibility_version();
-            }
-            $str.="\n";
+            $str.= '    * compatibility ' . get_plugin_version('compatibility', TRUE) . "\n";
         }
     }
     if ($str == '') {

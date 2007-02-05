@@ -354,15 +354,12 @@ if (isset($plugins[0])) {
      * Print plugin versions
      */
 /* DISABLED FOR NOW: takes a lot of screen real estate and not all plugins currently 
-                     support the <plugin>_info() function
+                     support the <plugin>_info() or <plugin>_version() functions
     echo $IND . "Plugin versions...<br />\n";
     foreach ($plugins as $name) {
-        $function = $name . '_info';
-        if (function_exists($function)) {
-            $info = $function();
-            if (!empty($info['version']))
-                echo $IND . $IND . $name . ' ' . $info['version'] . "<br />\n";
-        }
+        $plugin_version = get_plugin_version($name);
+        if (!empty($plugin_version))
+            echo $IND . $IND . $name . ' ' . $plugin_version . "<br />\n";
     }
 */
     /**

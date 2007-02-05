@@ -272,6 +272,71 @@ function is_plugin_enabled($plugin_name) {
 }
 
 /**
+  * Get a plugin's version.
+  *
+  * Determines and returns a plugin's version.
+  *
+  * By default, the desired plugin must be currently 
+  * activated, and if it is not, this function will 
+  * return FALSE.  By overriding the default value 
+  * of $force_inclusion, this function will attempt 
+  * to grab versioning information from the given 
+  * plugin even if it is not activated (plugin still 
+  * has to be unpackaged and set in place in the 
+  * plugins directory).  Use with care - some plugins
+  * might break SquirrelMail when this is used.
+  * 
+  * @since 1.5.2
+  *
+  * @param string plugin_name   name of the plugin to
+  *                             check; must precisely
+  *                             match the plugin
+  *                             directory name
+  * @param bool force_inclusion try to get version info
+  *                             for plugins not activated?
+  *                             (default FALSE)
+  *
+  * @return mixed The plugin version string if found, otherwise,
+  *               boolean FALSE is returned indicating that no
+  *               version information could be found for the plugin.
+  *
+  */
+function get_plugin_version($plugin_name, $force_inclusion = FALSE)
+{
+
+   $info_function = $plugin_name . '_info';
+   $version_function = $plugin_name . '_version';
+   $plugin_info = array();
+   $plugin_version = FALSE;
+
+
+   // first attempt to find the plugin info function, wherein
+   // the plugin version should be available
+   //
+   if (function_exists($info_function))
+      $plugin_info = $info_function();
+   else if ($force_inclusion 
+    && file_exists(SM_PATH . 'plugins/' . $plugin_name . '/setup.php'))
+   {
+      include_once(SM_PATH . 'plugins/' . $plugin_name . '/setup.php');
+      if (function_exists($info_function))
+         $plugin_info = $info_function();
+   }
+   if (!empty($plugin_info['version']))
+      $plugin_version = $plugin_info['version'];
+
+
+   // otherwise, look for older version function 
+   //
+   if (!$plugin_version && function_exists($version_function))
+       $plugin_version = $version_function();
+
+
+   return $plugin_version;
+
+}
+
+/**
   * Check a plugin's version.
   *
   * Returns TRUE if the given plugin is installed, 
@@ -324,34 +389,7 @@ function check_plugin_version($plugin_name,
                               $force_inclusion = FALSE)
 {
 
-   $info_function = $plugin_name . '_info';
-   $version_function = $plugin_name . '_version';
-   $plugin_info = array();
-   $plugin_version = FALSE;
-
-
-   // first attempt to find the plugin info function, wherein
-   // the plugin version should be available
-   //
-   if (function_exists($info_function))
-      $plugin_info = $info_function();
-   else if ($force_inclusion 
-    && file_exists(SM_PATH . 'plugins/' . $plugin_name . '/setup.php'))
-   {
-      include_once(SM_PATH . 'plugins/' . $plugin_name . '/setup.php');
-      if (function_exists($info_function))
-         $plugin_info = $info_function();
-   }
-   if (!empty($plugin_info['version']))
-      $plugin_version = $plugin_info['version'];
-
-
-   // otherwise, look for older version function 
-   //
-   if (!$plugin_version && function_exists($version_function))
-         $plugin_version = $version_function();
-
-
+   $plugin_version = get_plugin_version($plugin_name, $force_inclusion);
    if (!$plugin_version) return FALSE;
 
 
