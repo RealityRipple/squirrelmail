@@ -1276,6 +1276,7 @@ function showInputForm ($session, $values=false) {
     } // End of file_uploads if-block
     /* End of attachment code */
 
+//FIXME: no direct echoing to browser, no HTML output in core!
     echo addHidden('username', $username).
          addHidden('smaction', $action).
          addHidden('mailbox', $mailbox);
@@ -1284,6 +1285,7 @@ function showInputForm ($session, $values=false) {
        so we can restore them in case of a session timeout.
      */
     sqgetGlobalVar('QUERY_STRING', $queryString, SQ_SERVER);
+//FIXME: no direct echoing to browser, no HTML output in core!
     echo addHidden('restoremessages', urlencode(serialize($compose_messages))).
         addHidden('composesession', $composesession).
         addHidden('querystring', $queryString).
@@ -1291,6 +1293,7 @@ function showInputForm ($session, $values=false) {
     if (!(bool) ini_get('file_uploads')) {
         /* File uploads are off, so we didn't show that part of the form.
            To avoid bogus bug reports, tell the user why. */
+//FIXME: no direct echoing to browser, no HTML output in core!
         echo '<p style="text-align:center">'
             . _("Because PHP file uploads are turned off, you can not attach files to this message. Please see your system administrator for details.")
             . "</p>\r\n";
@@ -1326,6 +1329,7 @@ function showComposeButtonRow() {
     $mdn_user_support=getPref($data_dir, $username, 'mdn_user_support',$default_use_mdn);
 
     if ($use_javascript_addr_book) {
+//FIXME: do not construct HTML in core!
         $addr_book = "         <script type=\"text/javascript\"><!--\n document.write(\"".
             "            <input type=button value=\\\""._("Addresses").
             "\\\" onclick=\\\"javascript:open_abook();\\\" />\");".
