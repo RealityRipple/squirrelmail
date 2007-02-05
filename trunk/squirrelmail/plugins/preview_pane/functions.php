@@ -89,8 +89,12 @@ function preview_pane_message_list_do()
 
    if (!checkForJavascript()) return;
 
+   // globalize $pp_forceTopURL and $pp_noPageHeader to synch
+   // with other plugins (sent_confirmation, for example)
+   //
    global $plugins, $archive_mail_button_has_been_printed,
-          $username, $data_dir, $PHP_SELF, $base_uri;
+          $username, $data_dir, $PHP_SELF, $base_uri,
+          $pp_forceTopURL, $pp_noPageHeader;
 
 
    $output = '';
@@ -116,7 +120,7 @@ function preview_pane_message_list_do()
 
       $output .= addButton(_("Clear Preview"), 'clear_preview',
                            array('onclick' => 'parent.bottom.document.location=\''
-                                            . $base_uri . '/plugins/preview_pane/empty_frame.php\'; '))
+                                            . $base_uri . 'plugins/preview_pane/empty_frame.php\'; '))
 
 
 
@@ -126,8 +130,19 @@ function preview_pane_message_list_do()
          . "<!--\n"
          . "\n"
          . "   if (self.name == 'bottom')\n"
-         . "   {\n"
-         . "      document.location = '" . $base_uri . "plugins/preview_pane/empty_frame.php'\n"
+         . "   {\n";
+
+// NOTE: we can also force the top frame to the URL that was being
+//       loaded in the bottom, but this is usually overkill...
+//       unless another plugin told us to do so (such as sent_confirmation)
+      if ($pp_forceTopURL == 'yes')
+      {
+//         $output .= "      parent.right.document.location = '" . $_SERVER['REQUEST_URI'] . "&pp=yes';\n";
+         $output .= "      parent.right.document.location = '" . $PHP_SELF . "&pp=yes';\n";
+      }
+
+
+      $output .= "      document.location = '" . $base_uri . "plugins/preview_pane/empty_frame.php'\n"
          . "   }\n"
          . "//-->\n"
          . "</script>\n";
