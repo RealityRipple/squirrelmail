@@ -492,10 +492,15 @@ if ($send) {
 
         $Result = deliverMessage($composeMessage);
 
+        if ($Result)
+            $mail_sent = 'yes';
+        else
+            $mail_sent = 'no';
+
         // NOTE: this hook changed in 1.5.2 from sending $Result and
         //       $composeMessage as args #2 and #3 to being in an array
         //       under arg #2
-        do_hook('compose_send_after', $temp=array(&$Result, &$composeMessage));
+        do_hook('compose_send_after', $temp=array(&$Result, &$composeMessage, &$mail_sent));
         if (! $Result) {
             showInputForm($session);
             exit();
@@ -523,21 +528,21 @@ if ($send) {
 
         if ($compose_new_win == '1') {
             if ( !isset($pageheader_sent) || !$pageheader_sent ) {
-                Header("Location: $location/compose.php?mail_sent=yes");
+                Header("Location: $location/compose.php?mail_sent=$mail_sent");
             } else {
                 echo '   <br><br><div style="text-align: center;"><a href="' . $location
-                    . '/compose.php?mail_sent=yes">'
+                    . '/compose.php?mail_sent=$mail_sent">'
                     . _("Return") . '</a></div>';
             }
             exit();
         } else {
             if ( !isset($pageheader_sent) || !$pageheader_sent ) {
                 Header("Location: $location/right_main.php?mailbox=$urlMailbox".
-                    "&startMessage=$startMessage&mail_sent=yes");
+                    "&startMessage=$startMessage&mail_sent=$mail_sent");
             } else {
                 echo '   <br><br><div style="text-align: center;"><a href="' . $location
                     . "/right_main.php?mailbox=$urlMailbox"
-                    . "&amp;startMessage=$startMessage&amp;mail_sent=yes\">"
+                    . "&amp;startMessage=$startMessage&amp;mail_sent=$mail_sent\">"
                     . _("Return") . '</a></div>';
             }
             exit();
