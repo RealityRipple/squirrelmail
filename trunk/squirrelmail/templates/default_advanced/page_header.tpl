@@ -73,6 +73,7 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
 ?>
 <div id="page_header">
 <a name="pagetop"></a>
+<?php if (!empty($plugin_output['page_header_top'])) echo $plugin_output['page_header_top']; ?>
 <!-- Begin Header Navigation Table -->
 <table class="table_empty" cellspacing="0">
  <tr>
