@@ -89,14 +89,15 @@ function preview_pane_message_list_do()
 
    if (!checkForJavascript()) return;
 
-   // globalize $pp_forceTopURL and $pp_noPageHeader to synch
+   // globalize $pp_refresh_top, $pp_forceTopURL and $pp_noPageHeader to synch
    // with other plugins (sent_confirmation, for example)
    //
    global $plugins, $archive_mail_button_has_been_printed,
-          $username, $data_dir, $PHP_SELF, $base_uri,
+          $username, $data_dir, $PHP_SELF, $base_uri, $pp_refresh_top, 
           $pp_forceTopURL, $pp_noPageHeader;
 
 
+   sqgetGlobalVar('pp_refresh_top', $pp_refresh_top, SQ_GET);
    $output = '';
    $use_previewPane = getPref($data_dir, $username, 'use_previewPane', 0);
 
@@ -105,7 +106,9 @@ function preview_pane_message_list_do()
    // preview_pane_change_message_target_do()
    //
    if ($use_previewPane == 1
-    && getPref($data_dir, $username, 'pp_refresh_message_list', 1) == 1)
+// Bah, let's put this in anyway (even when the "always refresh thing is off),
+// in case someone else wants to use it
+//    && getPref($data_dir, $username, 'pp_refresh_message_list', 1) == 1)
    {
 //      sqgetGlobalVar('REQUEST_URI', $request_uri, SQ_SERVER);
       $request_uri = $PHP_SELF;
@@ -140,6 +143,13 @@ function preview_pane_message_list_do()
 //         $output .= "      parent.right.document.location = '" . $_SERVER['REQUEST_URI'] . "&pp=yes';\n";
          $output .= "      parent.right.document.location = '" . $PHP_SELF . "&pp=yes';\n";
       }
+
+
+      // if someone else asks for it, force the message list to reload 
+      //
+      else if ($pp_refresh_top)
+         echo "      if (typeof(parent.right.pp_refresh) != 'undefined')\n"
+            . "         parent.right.pp_refresh()\n\n";
 
 
       $output .= "      document.location = '" . $base_uri . "plugins/preview_pane/empty_frame.php'\n"
