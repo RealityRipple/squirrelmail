@@ -63,12 +63,12 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
 <body <?php echo $body_tag_js; ?>>
 <?php
 
-   /** if preview pane turned on, do not show menubar above message view */
-   global $data_dir, $username, $PHP_SELF;
+   /** if preview pane turned on, do not show menubar above message or compose view */
+   global $data_dir, $username, $PHP_SELF, $pp_skip_menubar;
    $use_previewPane = getPref($data_dir, $username, 'use_previewPane', 0);
    $show_preview_pane = checkForJavascript() && $use_previewPane;
    $current_page_is_read_body = (strpos($PHP_SELF, '/read_body.php') !== FALSE);
-   if (!$current_page_is_read_body || !$show_preview_pane) {
+   if (!$pp_skip_menubar && (!$current_page_is_read_body || !$show_preview_pane)) {
 
 ?>
 <div id="page_header">
