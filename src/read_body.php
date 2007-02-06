@@ -637,6 +637,9 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
         $oTemplate->assign('can_be_copied', false);
     }
 
+    global $null;
+    do_hook('read_body_menu', $null);
+
     if ($nav_on_top) {
         $oTemplate->display('read_menubar_nav.tpl');
         $oTemplate->display('read_menubar_buttons.tpl');
@@ -645,8 +648,6 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
         $oTemplate->display('read_menubar_nav.tpl');
     }
 
-    global $null;
-    do_hook('read_body_menu_bottom', $null);
 }
 
 function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
