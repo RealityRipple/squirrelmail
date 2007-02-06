@@ -1333,18 +1333,10 @@ function showComposeButtonRow() {
 
     $mdn_user_support=getPref($data_dir, $username, 'mdn_user_support',$default_use_mdn);
 
-    if ($use_javascript_addr_book) {
-//FIXME: do not construct HTML in core!
-        $addr_book = "         <script type=\"text/javascript\"><!--\n document.write(\"".
-            "            <input type=button value=\\\""._("Addresses").
-            "\\\" onclick=\\\"javascript:open_abook();\\\" />\");".
-            "            // --></script><noscript>\n".
-            '            <input type="submit" name="html_addr_search" value="'.
-            _("Addresses").'" />'.
-            "         </noscript>\n";
+    if ($use_javascript_addr_book && checkForJavascript()) {
+        $addr_book = addButton(_("Addresses"), null, array('onclick' => 'javascript:open_abook();'));
     } else {
-        $addr_book = '         <input type="submit" name="html_addr_search" value="'.
-            _("Addresses").'" />' . "\n";
+        $addr_book = addSubmit(_("Addresses"), 'html_addr_search');
     }
 
     $oTemplate->assign('allow_priority', $default_use_priority==1);
