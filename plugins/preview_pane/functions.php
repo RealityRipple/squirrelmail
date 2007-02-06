@@ -105,7 +105,7 @@ function preview_pane_message_list_do()
    // add refresh function called from code built in function
    // preview_pane_change_message_target_do()
    //
-   if ($use_previewPane == 1
+   if ($use_previewPane == 1)
 // Bah, let's put this in anyway (even when the "always refresh thing is off),
 // in case someone else wants to use it
 //    && getPref($data_dir, $username, 'pp_refresh_message_list', 1) == 1)
