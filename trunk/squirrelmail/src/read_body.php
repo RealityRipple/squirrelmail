@@ -553,7 +553,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
     // Start form for reply/reply all/forward..
     $target = '';
     $on_click='';
-    $method='method="post" ';
+    $method='post';
     $onsubmit='';
     if ($compose_new_win == '1') {
         if (!preg_match("/^[0-9]{3,4}$/", $compose_width)) {
@@ -565,10 +565,10 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
         if ( checkForJavascript() ) {
           $on_click=' onclick="comp_in_new_form(\''.$comp_uri.'\', this, this.form,'. $compose_width .',' . $compose_height .')"';
           $comp_uri = 'javascript:void(0)';
-          $method='method="get" ';
-          $onsubmit = 'onsubmit="return false" ';
+          $method='get';
+          $onsubmit = 'return false';
         } else {
-          $target = 'target="_blank"';
+          $target = '_blank';
         }
     }
 
@@ -584,7 +584,10 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
     $oTemplate->assign('message_list_href', $msg_list_href);
     $oTemplate->assign('search_href', $search_href);
 
-    $oTemplate->assign('form_extra', $method . $target . $onsubmit);
+    $oTemplate->assign('form_extra', '');
+    $oTemplate->assign('form_method', $method);
+    $oTemplate->assign('form_target', $target);
+    $oTemplate->assign('form_onsubmit', $onsubmit);
     $oTemplate->assign('compose_href', $comp_uri);
     $oTemplate->assign('button_onclick', $on_click);
     $oTemplate->assign('forward_as_attachment_enabled', $enable_forward_as_attachment==1);
