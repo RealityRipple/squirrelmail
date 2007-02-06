@@ -17,7 +17,10 @@
  *    $view_msg_href - URL to go back to the main message.  Empty if N/A.
  *    $msg_list_href - URL to go to the message list.
  *    $search_href   - URL to go back to the serach results.  Empty if N/A.
- *    $form_extra    - Extra elements required by the forms to delete, move or copy
+ *    $form_extra    - Extra elements that will be added to the <form> tag verbatim
+ *    $form_method   - The value of the <form>'s method attribute (optional, may be blank)
+ *    $form_target   - The value of the <form>'s target attribute (optional, may be blank)
+ *    $form_onsubmit - The value of the <form>'s onsubmit handler (optional, may be blank)
  *    $compose_href  - Base URL to forward, reply, etc.  Note that a specific action
  *                     must also be given by the form or in this URL.
  *    $on_click      - Onclick event string for all buttons
@@ -90,7 +93,12 @@ if ($nav_on_top) {
 <table class="<?php echo $table_class; ?>" cellspacing="0">
  <tr class="buttons">
   <td class="buttons">
-   <form name="composeForm" action="<?php echo $compose_href; ?>" <?php echo $form_extra; ?> >
+   <form name="composeForm" action="<?php
+                  echo $compose_href . '" '
+                     . (!empty($form_method) ? 'method="' . $form_method . '" ' : '')
+                     . (!empty($form_target) ? 'target="' . $form_target . '" ' : '')
+                     . (!empty($form_onsubmit) ? 'onsubmit="' . $form_onsubmit . '" ' : '')
+                     . $form_extra; ?> >
    <small>
     <?php
         if ($can_resume_draft) {
