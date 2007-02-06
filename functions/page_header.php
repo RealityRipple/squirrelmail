@@ -256,6 +256,9 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
     $oTemplate->assign('startMessage', $startMessage);
     $oTemplate->assign('hide_sm_attributions', $hide_sm_attributions);
     $oTemplate->display('page_header.tpl');
+
+    global $null;
+    do_hook('page_header_bottom', $null);
 }
 
 /**
