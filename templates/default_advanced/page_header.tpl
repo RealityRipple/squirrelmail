@@ -63,12 +63,22 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
 <body <?php echo $body_tag_js; ?>>
 <?php
 
-   /** if preview pane turned on, do not show menubar above message or compose view */
+   /** if preview pane turned on, do not show menubar above message */
    global $data_dir, $username, $PHP_SELF, $pp_skip_menubar;
    $use_previewPane = getPref($data_dir, $username, 'use_previewPane', 0);
    $show_preview_pane = checkForJavascript() && $use_previewPane;
    $current_page_is_read_body = (strpos($PHP_SELF, '/read_body.php') !== FALSE);
    if (!$pp_skip_menubar && (!$current_page_is_read_body || !$show_preview_pane)) {
+// Note: If we want to hide menubar on compose screen, we could do the following, 
+// but the compose screen when in the message list frame should not have the menubar
+// hidden... which would require some javascript to detect the current frame name
+// and then use document.write() to output the menubar if needed... and we'll
+// leave that for some other time
+//-   if (!$pp_skip_menubar && (!$current_page_is_read_body || !$show_preview_pane)) {
+//+   $current_page_is_compose = (strpos($PHP_SELF, '/compose.php') !== FALSE);
+//+   if (!$pp_skip_menubar 
+//+    && ((!$current_page_is_read_body && !$current_page_is_compose) 
+//+        || !$show_preview_pane)) {
 
 ?>
 <div id="page_header">
