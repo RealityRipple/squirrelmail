@@ -202,9 +202,42 @@ function create_span($value, $class='', $id='', $aAttribs=array()) {
 
 
 /**
+ * Generates an opening body tag
+ *
+ * @param string $onload  Body onload JavaScript handler code  
+ *                        (OPTIONAL; default not used)
+ * @param string $class   The CSS class name (OPTIONAL; default
+ *                        not used)
+ * @param array  $aAttribs Any extra attributes: this must be an 
+ *                         associative array, where keys will be 
+ *                         added as the attribute name, and values
+ *                         (which are optional - should be null if
+ *                         none should be used) will be placed in
+ *                         double quotes (pending template implementation)
+ *                         as the attribute value (OPTIONAL; default empty).
+ *
+ * @return string The desired body tag.
+ *
+ * @since 1.5.2
+ *
+ */
+function create_body($onload='', $class='', $aAttribs=array()) {
+
+    global $oTemplate;
+
+    $oTemplate->assign('onload', $onload);
+    $oTemplate->assign('class', $class);
+
+    $oTemplate->assign('aAttribs', $aAttribs);
+
+    return $oTemplate->fetch('body.tpl');
+
+}
+
+
+/**
  * Generates html tags
-//FIXME: this should not be used anywhere in the core, or we should
-//       convert this to use templates.  We sould not be assuming HTML output.
+//FIXME: This should not be used anywhere in the core, or we should convert this to use templates.  We sould not be assuming HTML output.
  *
  * @param string $tag Tag to output
  * @param string $val Value between tags
@@ -282,14 +315,19 @@ function html_tag( $tag,                // Tag to output
 
 /**
  * handy function to set url vars
+//FIXME: You call this documentation?  :-)  What does "set url vars" mean?  Looks like it might take a fully-formed URI (possibly with a query string) and adds a variable/value pair to it(?)... Does $link work on only the var being added or the whole URI?
  *
  * especially useful when $url = $PHP_SELF
+ *
  * @param string $url url that must be modified
  * @param string $var variable name
  * @param string $val variable value
  * @param boolean $link controls sanitizing of ampersand in urls (since 1.3.2)
+ *
  * @return string $url modified url
+ *
  * @since 1.3.0
+ *
  */
 function set_url_var($url, $var, $val=0, $link=true) {
     $k = '';
