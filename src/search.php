@@ -28,7 +28,8 @@ require_once(SM_PATH . 'functions/imap_asearch.php');
 require_once(SM_PATH . 'functions/imap_messages.php');
 require_once(SM_PATH . 'functions/imap_general.php');
 require_once(SM_PATH . 'functions/mime.php');
-require_once(SM_PATH . 'functions/mailbox_display.php'); //getButton()
+//FIXME - comment on next line seems to indicate this require is for the since removed getButton() function...  the next line is thus being commented out... if this proves to be correct, please remove this and the next line completely
+//require_once(SM_PATH . 'functions/mailbox_display.php'); //getButton()
 require_once(SM_PATH . 'functions/forms.php');
 require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/compose.php');
@@ -620,26 +621,6 @@ function asearch_get_query_display(&$color, &$mailbox_array, &$biop_array, &$uno
         }
     }
     return $query_display;
-}
-
-/**
- * Creates button
- *
- * @deprecated see form functions available in 1.5.1 and 1.4.3.
- * @param string $type
- * @param string $name
- * @param string $value
- * @param string $js
- * @param bool $enabled
- */
-function getButton($type, $name, $value, $js = '', $enabled = TRUE) {
-    $disabled = ( $enabled ? '' : 'disabled ' );
-    $js = ( $js ? $js.' ' : '' );
-    return '<input '.$disabled.$js.
-            'type="'.$type.
-            '" name="'.$name.
-            '" value="'.$value .
-            '" style="padding: 0px; margin: 0px" />';
 }
 
 /**
