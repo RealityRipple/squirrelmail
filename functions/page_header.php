@@ -188,6 +188,7 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
         $provider_name, $provider_uri, $startMessage,
         $action, $oTemplate, $org_title, $base_uri;
 
+//FIXME: $sBodyTag should be turned into $sOnload and should only contain the contents of the onload attribute (not the attribute name nor any quotes).... only question is if anyone was using $sBodyTag for anything but onload event handlers? (see function compose_Header() below for how to fix it once we confirm it can be changed)
     if (empty($sBodyTagJs)) {
         if (strpos($action, 'reply') !== FALSE && $reply_focus) {
         if ($reply_focus == 'select')
@@ -268,24 +269,25 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
  * @param array color the array of theme colors
  * @param string mailbox the current mailbox name to display
  * @param string sHeaderJs javascipt code to be inserted in a script block in the header
- * @param string sBodyTagJs js events to be inserted in the body tag
+ * @param string sOnload JavaScript code to be added inside the body's onload handler
+ *                       as of 1.5.2, this replaces $sBodyTagJs argument
  * @return void
  */
-function compose_Header($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
+function compose_Header($color, $mailbox, $sHeaderJs='', $sOnload = '') {
 
     global $reply_focus, $action, $oTemplate;
 
-    if (empty($sBodyTagJs)) {
+    if (empty($sOnload)) {
         if (strpos($action, 'reply') !== FALSE && $reply_focus) {
-        if ($reply_focus == 'select')
-            $sBodyTagJs = 'onload="checkForm(\'select\');"';
-        else if ($reply_focus == 'focus')
-            $sBodyTagJs = 'onload="checkForm(\'focus\');"';
-        else if ($reply_focus != 'none')
-            $sBodyTagJs = 'onload="checkForm();"';
+            if ($reply_focus == 'select')
+                $sOnload = 'checkForm(\'select\');';
+            else if ($reply_focus == 'focus')
+                $sOnload = 'checkForm(\'focus\');';
+            else if ($reply_focus != 'none')
+                $sOnload = 'checkForm();';
         }
         else
-        $sBodyTagJs = 'onload="checkForm();"';
+        $sOnload = 'checkForm();';
     }
 
 
@@ -313,6 +315,12 @@ function compose_Header($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
         displayHtmlHeader(_("Compose"));
         $onload = '';
     }
-// FIXME: should let the template echo all these kinds of things
-    echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" $sBodyTagJs>\n\n";
+
+// FIXME: change the colorization attributes below to a CSS class!
+    $class = '';
+    $aAttribs = array('text' => $color[8], 'bgcolor' => $color[4],
+                      'link' => $color[7], 'vlink' => $color[7],
+                      'alink' => $color[7]);
+    echo create_body($sOnload, $class, $aAttribs);
+
 }
