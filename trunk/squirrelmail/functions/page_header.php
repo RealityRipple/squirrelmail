@@ -323,4 +323,6 @@ function compose_Header($color, $mailbox, $sHeaderJs='', $sOnload = '') {
                       'alink' => $color[7]);
     echo create_body($sOnload, $class, $aAttribs);
 
+    global $null;
+    do_hook('compose_header_bottom', $null);
 }
