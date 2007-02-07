@@ -23,7 +23,7 @@
  *    $form_onsubmit - The value of the <form>'s onsubmit handler (optional, may be blank)
  *    $compose_href  - Base URL to forward, reply, etc.  Note that a specific action
  *                     must also be given by the form or in this URL.
- *    $on_click      - Onclick event string for all buttons
+ *    $button_onclick - Onclick event string for all buttons
  *    $forward_as_attachment_enabled - boolean TRUE if forwarding as attachments
  *                     has been enabled.
  *    $can_resume_draft - boolean TRUE if the "resume draft" is legitimate for
@@ -87,18 +87,18 @@ if ($nav_on_top) {
     <?php
         if ($can_resume_draft) {
             ?>
-    <input type="submit" name="smaction_draft" value="<?php echo _("Resume Draft"); ?>" <?php echo $button_onclick; ?> />&nbsp;
+    <input type="submit" name="smaction_draft" value="<?php echo _("Resume Draft"); ?>" onclick="<?php echo $button_onclick; ?>" />&nbsp;
             <?php
         } elseif ($can_edit_as_new) {
             ?>
-    <input type="submit" name="smaction_edit_new" value="<?php echo _("Edit Message as New"); ?>" <?php echo $button_onclick; ?> />&nbsp;
+    <input type="submit" name="smaction_edit_new" value="<?php echo _("Edit Message as New"); ?>" onclick="<?php echo $button_onclick; ?>" />&nbsp;
             <?php
         }
     ?>
-    <input type="submit" name="smaction_reply" value="<?php echo _("Reply"); ?>" <?php echo $button_onclick; ?> />&nbsp;
-    <input type="submit" name="smaction_reply_all" value="<?php echo _("Reply All"); ?>" <?php echo $button_onclick; ?> />
+    <input type="submit" name="smaction_reply" value="<?php echo _("Reply"); ?>" onclick="<?php echo $button_onclick; ?>" />&nbsp;
+    <input type="submit" name="smaction_reply_all" value="<?php echo _("Reply All"); ?>" onclick="<?php echo $button_onclick; ?>" />
     &nbsp;&nbsp;|&nbsp;&nbsp;
-    <input type="submit" name="smaction_forward" value="<?php echo _("Forward"); ?>" <?php echo $button_onclick; ?> />
+    <input type="submit" name="smaction_forward" value="<?php echo _("Forward"); ?>" onclick="<?php echo $button_onclick; ?>" />
     <?php
     if ($forward_as_attachment_enabled) {
         ?>

@@ -563,7 +563,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
             $compose_height = '550';
         }
         if ( checkForJavascript() ) {
-          $on_click=' onclick="comp_in_new_form(\''.$comp_uri.'\', this, this.form,'. $compose_width .',' . $compose_height .')"';
+          $on_click='comp_in_new_form(\''.$comp_uri.'\', this, this.form,'. $compose_width .',' . $compose_height .')';
           $comp_uri = 'javascript:void(0)';
           $method='get';
           $onsubmit = 'return false';
