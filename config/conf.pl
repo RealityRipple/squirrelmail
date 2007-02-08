@@ -2370,7 +2370,7 @@ sub command38 {
     print "";
     print "\n";
 
-    if ( lc($default_hide_attribution) eq 'true' ) {
+    if ( lc($hide_sm_attributions) eq 'true' ) {
         $default_value = "y";
     } else {
         $default_value = "n";
