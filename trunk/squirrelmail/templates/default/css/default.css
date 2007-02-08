@@ -385,6 +385,15 @@ td.message_count	{
     background: #ffffff /* __COLOR4__*/;
 }
 
+.sqm_squirrelcopyright, .sqm_squirrelcopyright a:link, .sqm_squirrelcopyright a:visited {
+   font-size: xx-small;
+   color: gray;
+   text-align: center;
+}
+.sqm_squirrelcopyright a:hover {
+   color: navy;
+}
+
 /* folder_manip.tpl defs */
 #folderManip   {
     text-align:center;
@@ -1069,8 +1078,7 @@ div.viewText td.header2 a {
     font-weight: normal;
 }
 
-div.viewText td.actions {
-    text-align: center;
+div.viewText td.actions {    text-align: center;
     padding-top: 4px;
     padding-bottom: 4px;
 }
