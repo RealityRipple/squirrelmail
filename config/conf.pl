@@ -385,7 +385,7 @@ $delete_folder = 'false'                if ( !$delete_folder );
 $noselect_fix_enable = 'false'          if ( !$noselect_fix_enable );
 $frame_top = "_top"                     if ( !$frame_top );
 $provider_uri = ''                      if ( !$provider_uri );
-$provider_name = ''                     if ( !$provider_name );
+$provider_name = ''                     if ( !$provider_name || $provider_name eq 'SquirrelMail');
 $no_list_for_subscribe = 'false'        if ( !$no_list_for_subscribe );
 $allow_charset_search = 'true'          if ( !$allow_charset_search );
 $allow_advanced_search = 0              if ( !$allow_advanced_search) ;
@@ -563,7 +563,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "5.  Signout Page           : $WHT$signout_page$NRM\n";
         print "6.  Top Frame              : $WHT$frame_top$NRM\n";
         print "7.  Provider link          : $WHT$provider_uri$NRM\n";
-        print "8.  Provider name          : $WHT$provider_name$NRM\n";
+        print "8.  Provider link text     : $WHT$provider_name$NRM\n";
 
         print "\n";
         print "R   Return to Main Menu\n";
@@ -1107,8 +1107,8 @@ sub command6 {
 
 # Default link to provider
 sub command7 {
-    print "Here you can set the link on the right of the page.\n";
-    print "If empty, it will link to the SquirrelMail About page.\n";
+    print "Here you can set the link on the top-right of the message list.\n";
+    print "If empty, it will not be displayed.\n";
     print "\n";
     print "[$WHT$provider_uri$NRM]: $WHT";
     $new_provider_uri = <STDIN>;
@@ -1122,13 +1122,13 @@ sub command7 {
 }
 
 sub command8 {
-    print "Here you can set the name of the link on the right of the page.\n";
-    print "The default is 'SquirrelMail'\n";
+    print "Here you can set the name of the link on the top-right of the message list.\n";
+    print "The default is empty (do not display anything).'\n";
     print "\n";
     print "[$WHT$provider_name$NRM]: $WHT";
     $new_provider_name = <STDIN>;
     if ( $new_provider_name eq "\n" ) {
-        $new_provider_name = 'SquirrelMail';
+        $new_provider_name = '';
     } else {
         $new_provider_name =~ s/[\r\n]//g;
         $new_provider_name =~ s/^\s+$//g;

@@ -17,9 +17,8 @@ $org_title     = "SquirrelMail $version";
 $signout_page  = '';
 $frame_top     = '_top';
 
-$provider_uri     = 'http://www.squirrelmail.org/';
-
-$provider_name     = 'SquirrelMail';
+$provider_uri     = '';
+$provider_name     = '';
 
 $motd = "";
 
@@ -174,4 +173,3 @@ $session_name = 'SQMSESSID';
  * sent and regular output to begin, which will majorly screw
  * things up when we try to send more headers later.
  */
-?>
