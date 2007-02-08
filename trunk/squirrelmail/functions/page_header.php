@@ -239,19 +239,14 @@ function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
         $shortBoxName = _("INBOX");
     }
 
-    $sm_attributes = '';
-    if (!$hide_sm_attributions) {
-        if (empty($provider_uri)) {
-            $sm_attributes .= create_hyperlink($base_uri . 'src/about.php', 'SquirrelMail');
-        } else {
-            if (empty($provider_name)) $provider_name = 'SquirrelMail';
-            $sm_attributes .= create_hyperlink($provider_uri, $provider_name, '_blank');
-        }
+    $provider_link = '';
+    if (!empty($provider_uri) && !empty($provider_name) && $provider_name != 'SquirrelMail') {
+        $provider_link = create_hyperlink($provider_uri, $provider_name, '_blank');
     }
 
     $oTemplate->assign('body_tag_js', $sBodyTagJs);
     $oTemplate->assign('shortBoxName', $shortBoxName);
-    $oTemplate->assign('sm_attribute_str', $sm_attributes);
+    $oTemplate->assign('provider_link', $provider_link);
     $oTemplate->assign('frame_top', $frame_top);
     $oTemplate->assign('urlMailbox', $urlMailbox);
     $oTemplate->assign('startMessage', $startMessage);

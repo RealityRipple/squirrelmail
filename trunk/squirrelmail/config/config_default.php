@@ -86,21 +86,23 @@ $frame_top = '_top';
 /**
  * Provider name
  *
- * Here you can set name of the link displayed on the right side of main page.
+ * Here you can set the text of the link displayed on the top-right
+ * of the message list.
  *
- * Link will be displayed only if you have $hide_sm_attributions
- * option set to true.
+ * Defaults to empty (no link).
+ *
  * @global string $provider_name
  */
-$provider_name = 'SquirrelMail';
+$provider_name = '';
 
 /**
  * Provider URI
  *
- * Here you can set URL of the link displayed on the right side of main page.
- * When empty, this refers to the SquirrelMail About page.
- * Link will be displayed only if you have $hide_sm_attributions
- * option set to true.
+ * Here you can set URL of the link displayed on the top-right of
+ * the message list.
+ *
+ * Defaults to empty (no link).
+ *
  * @global string $provider_uri
  */
 $provider_uri = '';
@@ -562,7 +564,7 @@ $default_use_priority = true;
  * SquirrelMail Attributions Control
  *
  * This option disables display of "created by SquirrelMail developers"
- * strings and provider link
+ * strings and links.
  * @global bool $hide_sm_attributions
  * @since 1.2.0
  */

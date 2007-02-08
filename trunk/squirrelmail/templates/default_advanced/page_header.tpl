@@ -95,7 +95,7 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
   </td>
  </tr>
  <tr>
-  <td class="sqm_topNavigation"<?php echo ($hide_sm_attributions ? ' colspan="2"' : ''); ?>>
+  <td class="sqm_topNavigation"<?php echo (empty($provider_link) ? ' colspan="2"' : ''); ?>>
    <?php echo $compose_link; ?>&nbsp;&nbsp;
    <?php echo $address_link; ?>&nbsp;&nbsp;
    <?php echo $folders_link; ?>&nbsp;&nbsp;
@@ -104,9 +104,9 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
    <?php echo $help_link; ?>&nbsp;&nbsp;
    <?php /* FIXME: no hooks in templates!! */ global $null; do_hook('menuline', $null); ?>
   </td>
-  <?php if (!empty($sm_attribute_str))
+  <?php if (!empty($provider_link))
             echo '<td class="sqm_providerInfo">'
-               . $sm_attribute_str
+               . $provider_link
                . "</td>\n"; ?>
  </tr>
 </table>
