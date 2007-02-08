@@ -19,7 +19,7 @@
  *    $header_sent
  *    $body_tag_js
  *    $shortBoxName
- *    $sm_attribute_str
+ *    $provider_link
  *    $frame_top
  *    $urlMailbox
  *    $startMessage
@@ -521,3 +521,7 @@ if ($class != 'even' && $class != 'odd')
     </table>
 </form>
 </div>
+
+<?php if (!$hide_sm_attributions): ?>
+<p class="sqm_squirrelcopyright">&copy; 1999-2007 The SquirrelMail Project Team - <a href="about.php">About SquirrelMail</a></p>
+<?php endif; ?>
