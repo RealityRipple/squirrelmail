@@ -148,8 +148,8 @@ function preview_pane_message_list_do()
       // if someone else asks for it, force the message list to reload 
       //
       else if ($pp_refresh_top)
-         echo "      if (typeof(parent.right.pp_refresh) != 'undefined')\n"
-            . "         parent.right.pp_refresh()\n\n";
+         $output.= "      if (typeof(parent.right.pp_refresh) != 'undefined')\n"
+                 . "         parent.right.pp_refresh()\n\n";
 
 
       $output .= "      document.location = '" . $base_uri . "plugins/preview_pane/empty_frame.php'\n"
