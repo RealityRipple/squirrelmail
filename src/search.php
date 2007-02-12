@@ -28,8 +28,7 @@ require_once(SM_PATH . 'functions/imap_asearch.php');
 require_once(SM_PATH . 'functions/imap_messages.php');
 require_once(SM_PATH . 'functions/imap_general.php');
 require_once(SM_PATH . 'functions/mime.php');
-//FIXME - comment on next line seems to indicate this require is for the since removed getButton() function...  the next line is thus being commented out... if this proves to be correct, please remove this and the next line completely
-//require_once(SM_PATH . 'functions/mailbox_display.php'); //getButton()
+require_once(SM_PATH . 'functions/mailbox_display.php'); //sqm_api_mailbox_select
 require_once(SM_PATH . 'functions/forms.php');
 require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/compose.php');
