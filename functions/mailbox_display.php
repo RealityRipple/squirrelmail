@@ -1308,20 +1308,20 @@ function handleAsSent($mailbox) {
  */
 function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = array()) {
     /* incoming formdata */
-    $sButton = (sqgetGlobalVar('moveButton',      $sTmp, SQ_POST)) ? 'move'         : $sButton;
-    $sButton = (sqgetGlobalVar('copyButton',      $sTmp, SQ_POST)) ? 'copy'         : $sButton;
-    $sButton = (sqgetGlobalVar('expungeButton',   $sTmp, SQ_POST)) ? 'expunge'      : $sButton;
-    $sButton = (sqgetGlobalVar('forward',         $sTmp, SQ_POST)) ? 'forward'      : $sButton;
-    $sButton = (sqgetGlobalVar('delete',          $sTmp, SQ_POST)) ? 'setDeleted'   : $sButton;
-    $sButton = (sqgetGlobalVar('undeleteButton',  $sTmp, SQ_POST)) ? 'unsetDeleted'   : $sButton;
-    $sButton = (sqgetGlobalVar('markRead',        $sTmp, SQ_POST)) ? 'setSeen'      : $sButton;
-    $sButton = (sqgetGlobalVar('markUnread',      $sTmp, SQ_POST)) ? 'unsetSeen'    : $sButton;
-    $sButton = (sqgetGlobalVar('markFlagged',     $sTmp, SQ_POST)) ? 'setFlagged'   : $sButton;
-    $sButton = (sqgetGlobalVar('markUnflagged',   $sTmp, SQ_POST)) ? 'unsetFlagged' : $sButton;
-    sqgetGlobalVar('targetMailbox', $targetMailbox,   SQ_POST);
-    sqgetGlobalVar('bypass_trash',  $bypass_trash,    SQ_POST);
-    sqgetGlobalVar('msg',           $msg,             SQ_POST);
-    if (sqgetGlobalVar('account',       $iAccount,        SQ_POST) === false) {
+    $sButton = (sqgetGlobalVar('moveButton',      $sTmp, SQ_FORM)) ? 'move'         : $sButton;
+    $sButton = (sqgetGlobalVar('copyButton',      $sTmp, SQ_FORM)) ? 'copy'         : $sButton;
+    $sButton = (sqgetGlobalVar('expungeButton',   $sTmp, SQ_FORM)) ? 'expunge'      : $sButton;
+    $sButton = (sqgetGlobalVar('forward',         $sTmp, SQ_FORM)) ? 'forward'      : $sButton;
+    $sButton = (sqgetGlobalVar('delete',          $sTmp, SQ_FORM)) ? 'setDeleted'   : $sButton;
+    $sButton = (sqgetGlobalVar('undeleteButton',  $sTmp, SQ_FORM)) ? 'unsetDeleted'   : $sButton;
+    $sButton = (sqgetGlobalVar('markRead',        $sTmp, SQ_FORM)) ? 'setSeen'      : $sButton;
+    $sButton = (sqgetGlobalVar('markUnread',      $sTmp, SQ_FORM)) ? 'unsetSeen'    : $sButton;
+    $sButton = (sqgetGlobalVar('markFlagged',     $sTmp, SQ_FORM)) ? 'setFlagged'   : $sButton;
+    $sButton = (sqgetGlobalVar('markUnflagged',   $sTmp, SQ_FORM)) ? 'unsetFlagged' : $sButton;
+    sqgetGlobalVar('targetMailbox', $targetMailbox,   SQ_FORM);
+    sqgetGlobalVar('bypass_trash',  $bypass_trash,    SQ_FORM);
+    sqgetGlobalVar('msg',           $msg,             SQ_FORM);
+    if (sqgetGlobalVar('account',       $iAccount,        SQ_FORM) === false) {
         $iAccount = 0;
     }
     $sError = '';
