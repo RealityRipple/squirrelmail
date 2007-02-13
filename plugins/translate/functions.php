@@ -928,7 +928,7 @@ function translate_form_google($message) {
          translate_lang_opt('en_US', 'ko_KR', 'en|ko',
                             sprintf( _("%s to %s"),_("English"),_("Korean"))) .
          translate_lang_opt('en_US', 'zh_CN', 'en|zh-CN',
-                            sprintf( _("%s to %s"),_("English"),_("Chinese (Simplified)"))) .
+                            sprintf( _("%s to %s"),_("English"),_("Chinese, Simplified"))) .
          translate_lang_opt('de_DE', 'en_US', 'de|en',
                             sprintf( _("%s to %s"),_("German"),_("English"))) .
          translate_lang_opt('de_DE', '', 'de|fr',
@@ -950,7 +950,7 @@ function translate_form_google($message) {
          translate_lang_opt('ko_KR', '', 'ko|en',
                             sprintf( _("%s to %s"),_("Korean"),_("English"))).
          translate_lang_opt('zh_CN', '', 'zh-CN|en',
-                            sprintf( _("%s to %s"),_("Chinese (Simplified)"),_("English")));
+                            sprintf( _("%s to %s"),_("Chinese, Simplified"),_("English")));
     echo '</select>'.
         '<input type="hidden" name="hl" value="en" />' .
         '<input type="hidden" name="ie" value="UTF8" />' .
