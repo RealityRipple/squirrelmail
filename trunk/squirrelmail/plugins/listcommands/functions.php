@@ -169,7 +169,7 @@ function plugin_listcommands_menu_do() {
 
 
     if (count($links) > 0) {
-        $oTemplate->assign('links', $links);
+        $oTemplate->assign('links', $links, FALSE);
         $output = $oTemplate->fetch('plugins/listcommands/read_body_header.tpl');
         return array('read_body_header' => $output);
     }

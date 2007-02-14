@@ -62,5 +62,3 @@ extract($t);
 </table>
 </div>
 </form>
-</body>
-</html>
