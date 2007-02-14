@@ -322,7 +322,7 @@ if (sqsession_is_registered('session_expired_post')) {
 
         foreach ($compo_var_list as $var) {
             if ( isset($session_expired_post[$var]) && !isset($$var) ) {
-               $$var = $session_expired_post[$var];
+                $$var = $session_expired_post[$var];
             }
         }
 
@@ -477,10 +477,10 @@ if ($send) {
             if( $line <> '-- ' ) {
                 $line = rtrim($line);
             }
-            if (sq_strlen($line,$default_charset) <= $editor_size + 1) {
+            if (sq_strlen($line, $default_charset) <= $editor_size + 1) {
                 $newBody .= $line . "\n";
             } else {
-                sqWordWrap($line, $editor_size,$default_charset);
+                sqWordWrap($line, $editor_size, $default_charset);
                 $newBody .= $line . "\n";
 
             }
@@ -1156,11 +1156,11 @@ function showInputForm ($session, $values=false) {
     }
 
     if ($saved_draft == 'yes') {
-        $oTemplate->assign('note', _("Draft Saved"));
+        $oTemplate->assign('note', _("Your draft has been saved."));
         $oTemplate->display('note.tpl');
     }
     if ($mail_sent == 'yes') {
-        $oTemplate->assign('note', _("Your message has been sent."));
+        $oTemplate->assign('note', _("Your mail has been sent."));
         $oTemplate->display('note.tpl');
     }
     if ($compose_new_win == '1') {
