@@ -74,5 +74,6 @@ displayPageHeader($color, 'None');
 
 $oTemplate->assign('lists', $lists);
 $oTemplate->display('plugins/listcommands/non_rfc_lists.tpl');
+$oTemplate->display('footer.tpl');
 
 
