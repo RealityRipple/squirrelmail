@@ -272,7 +272,7 @@ do_hook('right_main_after_header', $null);
 
 /* display a message to the user that their mail has been sent */
 if (isset($mail_sent) && $mail_sent == 'yes') {
-    $note = _("Your Message has been sent.");
+    $note = _("Your mail has been sent.");
 }
 if (isset($note)) {
     $oTemplate->assign('note', htmlspecialchars($note));
