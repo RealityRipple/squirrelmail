@@ -286,6 +286,27 @@ function is_plugin_enabled($plugin_name) {
   * plugins directory).  Use with care - some plugins
   * might break SquirrelMail when this is used.
   * 
+  * By turning on the $do_parse argument, the version
+  * string will be parsed by SquirrelMail into a 
+  * SquirrelMail-compatible version string (such as
+  * "1.2.3") if it is not already.  
+  *
+  * Note that this assumes plugin versioning is 
+  * consistently applied in the same fashion that 
+  * SquirrelMail versions are, with the exception that 
+  * an applicable SquirrelMail version may be appended 
+  * to the version number (which will be ignored herein).  
+  * That is, plugin version number schemes are expected 
+  * in the following format:  1.2.3, or 1.2.3-1.4.0.  
+  *
+  * Any characters after the third version number 
+  * indicating things such as beta or release candidate 
+  * versions are discarded, so formats such as the 
+  * following will also work, although extra information 
+  * about beta versions can possibly confuse the desired 
+  * results of the version check:  1.2.3-beta4, 1.2.3.RC2, 
+  * and so forth.
+  * 
   * @since 1.5.2
   *
   * @param string plugin_name   name of the plugin to
@@ -295,13 +316,16 @@ function is_plugin_enabled($plugin_name) {
   * @param bool force_inclusion try to get version info
   *                             for plugins not activated?
   *                             (default FALSE)
+  * @param bool do_parse        return the plugin version
+  *                             in SquirrelMail-compatible
+  *                             format (default FALSE)
   *
   * @return mixed The plugin version string if found, otherwise,
   *               boolean FALSE is returned indicating that no
   *               version information could be found for the plugin.
   *
   */
-function get_plugin_version($plugin_name, $force_inclusion = FALSE)
+function get_plugin_version($plugin_name, $force_inclusion = FALSE, $do_parse = FALSE)
 {
 
    $info_function = $plugin_name . '_info';
@@ -332,6 +356,30 @@ function get_plugin_version($plugin_name, $force_inclusion = FALSE)
        $plugin_version = $version_function();
 
 
+   if ($plugin_version && $do_parse)
+   {
+
+      // massage version number into something we understand
+      //
+      // the first regexp strips everything and anything that follows
+      // the first occurance of a non-digit (or non decimal point), so
+      // beware that putting letters in the middle of a version string
+      // will effectively truncate the version string right there (but
+      // this also just helps remove the SquirrelMail version part off
+      // of versions such as "1.2.3-1.4.4")
+      //
+      // the second regexp just strips out non-digits/non-decimal points
+      // (and might be redundant(?))
+      //
+      // the regexps are wrapped in a trim that makes sure the version
+      // does not start or end with a decimal point
+      //
+      $plugin_version = trim(preg_replace(array('/[^0-9.]+.*$/', '/[^0-9.]/'), 
+                                          '', $plugin_version), 
+                             '.');
+
+   }
+
    return $plugin_version;
 
 }
@@ -348,7 +396,7 @@ function get_plugin_version($plugin_name, $force_inclusion = FALSE)
   * By overriding the default value of $force_inclusion,
   * this function will attempt to grab versioning
   * information from the given plugin even if it
-  * is not activated (plugin still has to be 
+  * is not activated (the plugin still has to be 
   * unpackaged and set in place in the plugins 
   * directory).  Use with care - some plugins
   * might break SquirrelMail when this is used.
@@ -362,11 +410,12 @@ function get_plugin_version($plugin_name, $force_inclusion = FALSE)
   * version number schemes are expected in the following
   * format:  1.2.3, or 1.2.3-1.4.0.  
   *
-  * Any characters after the third number are discarded, 
-  * so formats such as the following will also work, 
-  * although extra information about beta versions can 
-  * possibly confuse the desired results of the version 
-  * check:  1.2.3-beta4, 1.2.3.RC2, and so forth.
+  * Any characters after the third number indicating 
+  * things such as beta or release candidate versions
+  * are discarded, so formats such as the following 
+  * will also work, although extra information about 
+  * beta versions can possibly confuse the desired results 
+  * of the version check:  1.2.3-beta4, 1.2.3.RC2, and so forth.
   * 
   * @since 1.5.2
   *
@@ -389,15 +438,13 @@ function check_plugin_version($plugin_name,
                               $force_inclusion = FALSE)
 {
 
-   $plugin_version = get_plugin_version($plugin_name, $force_inclusion);
+   $plugin_version = get_plugin_version($plugin_name, $force_inclusion, TRUE);
    if (!$plugin_version) return FALSE;
 
 
-   // now massage version number into something we understand
+   // split the version string into sections delimited by 
+   // decimal points, and make sure we have three sections
    //
-   $plugin_version = trim(preg_replace(array('/[^0-9.]+.*$/', '/[^0-9.]/'), 
-                                       '', $plugin_version), 
-                          '.');
    $plugin_version = explode('.', $plugin_version);
    if (!isset($plugin_version[0])) $plugin_version[0] = 0;
    if (!isset($plugin_version[1])) $plugin_version[1] = 0;
