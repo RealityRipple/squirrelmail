@@ -21,5 +21,3 @@ extract($t);
 
 
 ?><body>
-</body>
-</html>
