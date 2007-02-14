@@ -19,5 +19,6 @@ global $org_title;
 displayHtmlHeader($org_title, '', FALSE, FALSE);
 
 $oTemplate->display('plugins/preview_pane/empty_frame.tpl');
+$oTemplate->display('footer.tpl');
 
 
