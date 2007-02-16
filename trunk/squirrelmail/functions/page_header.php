@@ -106,10 +106,24 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
         $header_tags .= '<meta http-equiv="Content-type" content="text/html; charset=euc-jp">' . "\n";
     }
     if ($do_hook) {
-        // NOTE! plugins here must assign output to template 
-        //       and NOT echo anything directly!!
+        // NOTE! plugins here MUST assign output to template 
+        //       and NOT echo anything directly!!  A common
+        //       approach is if a plugin decides it needs to
+        //       put something at page-top after the standard
+        //       SM page header, to dynamically add itself to
+        //       the page_header_bottom and/or compose_header_bottom
+        //       hooks for the current page request.  See 
+        //       the Sent Confirmation v1.7 or Restrict Senders v1.2
+        //       plugins for examples of this approach.
         global $null;
+        ob_start();
         do_hook('generic_header', $null);
+        $output = ob_get_contents();
+        ob_end_clean();
+        // plugin authors can debug their errors with one of the following:
+        //sm_print_r($output);
+        //echo $output;
+        if (!empty($output)) trigger_error('A plugin on the "generic_header" hook has attempted to output directly to the browser', E_USER_ERROR);
     }
 
     $header_tags .= $xtra;
@@ -316,6 +330,8 @@ function compose_Header($color, $mailbox, $sHeaderJs='', $sOnload = '') {
     $aAttribs = array('text' => $color[8], 'bgcolor' => $color[4],
                       'link' => $color[7], 'vlink' => $color[7],
                       'alink' => $color[7]);
+
+    // this is template-safe (see create_body() function)
     echo create_body($sOnload, $class, $aAttribs);
 
     global $null;
