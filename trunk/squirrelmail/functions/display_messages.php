@@ -36,12 +36,15 @@ function error_message($message, $mailbox, $sort, $startMessage) {
 /**
  * Displays error message
  * 
- * Second argument ($color array) is removed in 1.5.2.
+ * Second argument ($color array) is changed to boolean $return_output as of 1.5.2.
  * @param string $message error message
+ * @param boolean $return_output When TRUE, output is returned to caller
+ *                               instead of being sent to browser (OPTIONAL;
+ *                               default = FALSE)
  * @since 1.0
  */
-function plain_error_message($message) {
-    error_box($message);
+function plain_error_message($message, $return_output=FALSE) {
+    return error_box($message, NULL, $return_output);
 }
 
 /**
@@ -124,25 +127,35 @@ function logout_error( $errString, $errTitle = '' ) {
  * for $color array, new function uses it for optional link data. Function 
  * will ignore color array and use standard colors instead.
  *
+ * The $return_output argument was added in 1.5.2
+ *
  * @param string $string Error message to be displayed
  * @param array $link Optional array containing link details to be displayed.
  *  Array uses three keys. 'URL' key is required and should contain link URL.
  *  'TEXT' key is optional and should contain link name. 'FRAME' key is 
  *  optional and should contain link target attribute.
+ * @param boolean $return_output When TRUE, output is returned to caller
+ *                               instead of being sent to browser (OPTIONAL;
+ *                               default = FALSE)
  *
  * @since 1.3.2
  */
-function error_box($string, $link=NULL) {
+function error_box($string, $link=NULL, $return_output=FALSE) {
     global $pageheader_sent, $oTemplate;
 
     $err = _("ERROR");
     do_hook('error_box', $string);
 
-    /* check if the page header has been sent; if not, send it! */
-    if (!isset($pageheader_sent) && !$pageheader_sent) {
+    // check if the page header has been sent; if not, send it!
+    //
+    // (however, if $return_output is turned on, the output of this
+    // should be being used in some other page, so we don't have
+    // to worry about page headers in that case)
+    //
+    if (!$return_output && empty($pageheader_sent)) {
         displayHtmlHeader('SquirrelMail: '.$err);
         $pageheader_sent = TRUE;
-        echo "<body>\n\n";
+        echo create_body();  // this is template-safe (see create_body() function)
     }
 
     // Double check the link for everything we need
@@ -161,7 +174,10 @@ function error_box($string, $link=NULL) {
     $oTemplate->assign('error', $err);
     $oTemplate->assign('errorMessage', $string);
     $oTemplate->assign('link', $link);
-    $oTemplate->display('error_box.tpl');
+    $output = $oTemplate->fetch('error_box.tpl');
+
+    if ($return_output) return $output;
+    echo $output;
 }
 
 /**
