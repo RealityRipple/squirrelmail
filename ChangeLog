@@ -179,6 +179,7 @@ Version 1.5.2 - SVN
   - Update for switch from CVS to Subversion.
   - Default provider URI link fixed (was broken when on plugin options pages, etc)
   - Fix URL to send read receipts from read_body (#1637572).
+  - Add option to ask users for personal information on first login.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

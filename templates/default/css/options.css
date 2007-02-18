@@ -154,4 +154,10 @@
     margin-left: auto;
     margin-right: auto;
 }
-
+#optionMessage {
+    text-align: center;
+    width: 100%;
+    font-size: larger;
+    color: red;
+    font-weight: bold;
+}

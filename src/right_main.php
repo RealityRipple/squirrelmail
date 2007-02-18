@@ -20,6 +20,13 @@
  */
 include('../include/init.php');
 
+/* If email_address not set and admin wants us to ask user for it,
+ * redirect to options page. */
+if ( $ask_user_info && getPref($data_dir, $username,'email_address') == "" ) {
+    header("Location: " . get_location() . "/options.php?optpage=personal");
+    exit;
+}
+
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'functions/imap_asearch.php');
 require_once(SM_PATH . 'functions/imap_general.php');
@@ -28,7 +35,6 @@ require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'functions/mailbox_display.php');
 require_once(SM_PATH . 'functions/compose.php');
-
 
 /* lets get the global vars we may need */
 sqgetGlobalVar('delimiter', $delimiter,     SQ_SESSION);

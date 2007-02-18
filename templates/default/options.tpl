@@ -21,7 +21,13 @@
 
 /** extract variables */
 extract($t);
+
+
+if ( !empty($topmessage) ) {
+	echo "<div id=\"optionMessage\">\n$topmessage\n</div>\n\n";
+}
 ?>
+
 <div id="optionDisplay">
 <?php
 foreach ($options as $option) {
