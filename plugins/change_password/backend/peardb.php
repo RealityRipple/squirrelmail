@@ -78,7 +78,7 @@ if ( isset($cpw_peardb) && is_array($cpw_peardb) && !empty($cpw_peardb) ) {
     if (isset($cpw_peardb['dsn']))
         $cpw_peardb_dsn=$cpw_peardb['dsn'];
     if (isset($cpw_peardb['connect_opts']))
-        $cpw_peardb_connect_opts=$cpw_peaddb['connect_opts'];
+        $cpw_peardb_connect_opts=$cpw_peardb['connect_opts'];
     if (isset($cpw_peardb['table']))
         $cpw_peardb_table=$cpw_peardb['table'];
     if (isset($cpw_peardb['uid_field']))
