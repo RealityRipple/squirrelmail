@@ -316,10 +316,9 @@ class SquirrelOption {
                 $result = $this->createWidget_FolderList();
                 break;
             default:
-//FIXME: can we throw an error here instead?  either way, we don't want HTML here!
-               $result = '<font color="' . $color[2] . '">'
-                       . sprintf(_("Option Type '%s' Not Found"), $this->type)
-                       . '</font>';
+                error_box ( 
+                    sprintf(_("Option Type '%s' Not Found"), $this->type)
+                    );
         }
 
         /* Add the "post script" for this option. */
@@ -626,4 +625,3 @@ function create_option_groups($optgrps, $optvals) {
     return ($result);
 }
 
-// vim: et ts=4
