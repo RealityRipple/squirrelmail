@@ -1151,3 +1151,15 @@ $no_list_for_subscribe = false;
  * @global integer $config_use_color
  */
 $config_use_color = 2;
+
+/**
+ * Ask User for Personal Information on login
+ *
+ * When a user logs in that doesn't have an email address configured,
+ * redirect him/her to the options page with a request to fill in their
+ * personal information.
+ *
+ * @global bool $ask_user_info
+ */
+$ask_user_info = true;
+

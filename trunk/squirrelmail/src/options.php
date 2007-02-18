@@ -44,9 +44,20 @@ function process_optionmode_submit($optpage, $optpage_data) {
     /* Initialize the maximum option refresh level. */
     $max_refresh = SMOPT_REFRESH_NONE;
 
+        
+
     /* Save each option in each option group. */
     foreach ($optpage_data['options'] as $option_grp) {
         foreach ($option_grp['options'] as $option) {
+    
+            /* Special case: need to make sure emailaddress
+             * is saved if we use it as a test for ask_user_info */
+            global $ask_user_info;
+            if ( $optpage = SMOPT_PAGE_PERSONAL && $ask_user_info &&
+                $option->name == 'email_address' ) {
+                $option->setValue('');
+            }
+            
             /* Remove Debug Mode Until Needed
             echo "name = '$option->name', "
                . "value = '$option->value', "
@@ -415,6 +426,13 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     // This is the only variable that is needed by *just* the template.
     $oTemplate->assign('options', $optpage_data['options']);
     
+    global $ask_user_info;
+    if ( $optpage = SMOPT_PAGE_PERSONAL && $ask_user_info
+            && getPref($data_dir, $username,'email_address') == "" ) {
+        $oTemplate->assign('topmessage',
+            _("Welcome to SquirrelMail. Please supply your full name and email address.") );
+    }
+    
     /**
      * The variables below should not be needed by the template since all plugin
      * hooks are called here, not in the template.  If we find otherwise, these
@@ -456,4 +474,3 @@ if ($optpage == SMOPT_PAGE_MAIN) {
 }
 
 $oTemplate->display('footer.tpl');
-?>

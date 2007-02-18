@@ -472,6 +472,7 @@ $icon_theme_def = ''                   if ( !$icon_theme_def );
 $disable_plugins = 'false'             if ( !$disable_plugins );
 $disable_plugins_user = ''             if ( !$disable_plugins_user );
 $only_secure_cookies = 'true'          if ( !$only_secure_cookies );
+$ask_user_info = 'true'                if ( !$ask_user_info );
 
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
@@ -790,6 +791,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
     } elsif ( $menu == 11 ) {
     print $WHT. "Interface tweaks\n" . $NRM;
     print "1.  Display html mails in iframe : $WHT$use_iframe$NRM\n";
+    print "2.  Ask user info on first login : $WHT$ask_user_info$NRM\n";
     print "\n";
     print $WHT. "PHP tweaks\n" . $NRM;
     print "4.  Use php recode functions     : $WHT$use_php_recode$NRM\n";
@@ -965,6 +967,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 5 ) { $lossy_encoding                = commandA5(); }
         } elsif ( $menu == 11 ) {
             if    ( $command == 1 ) { $use_iframe     = commandB2(); }
+            elsif ( $command == 2 ) { $ask_user_info  = command_ask_user_info(); }
             elsif ( $command == 4 ) { $use_php_recode = commandB4(); }
             elsif ( $command == 5 ) { $use_php_iconv  = commandB5(); }
             elsif ( $command == 6 ) { $allow_remote_configtest = commandB6(); }
@@ -4156,6 +4159,30 @@ sub commandB2 {
     }
     return $use_iframe;
 }
+
+# display html emails in iframe
+sub command_ask_user_info {
+    print "New users need to supply their real name and email address to\n";
+    print "send out proper mails. When this option is enabled, a user that\n";
+    print "logs in for the first time will be redirected to the Personal\n";
+    print "Options screen and asked to supply their personal data.\n";
+    print "\n";
+
+    if ( lc($ask_user_info) eq 'true' ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Ask user info? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $ask_user_info = <STDIN>;
+    if ( ( $ask_user_info =~ /^y\n/i ) || ( ( $ask_user_info =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $ask_user_info = 'true';
+    } else {
+        $ask_user_info = 'false';
+    }
+    return $ask_user_info;
+}
+
 # use icons
 sub commandB3 {
     print "Enabling this option will cause icons to be used instead of text\n";
@@ -4661,13 +4688,13 @@ sub save_data {
 
         # boolean
         print CF "\$use_iframe = $use_iframe;\n";
-        print CF "\n";
+        # boolean
+        print CF "\$ask_user_info = $ask_user_info;\n";
         # boolean
         print CF "\$use_icons = $use_icons;\n";
         print CF "\n";
         # boolean
         print CF "\$use_php_recode = $use_php_recode;\n";
-        print CF "\n";
         # boolean
         print CF "\$use_php_iconv = $use_php_iconv;\n";
         print CF "\n";
