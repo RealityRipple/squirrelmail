@@ -93,9 +93,7 @@ function sqsession_register ($var, $name) {
 
     sqsession_is_active();
 
-    $_SESSION["$name"] = $var;
-
-    session_register("$name");
+    $_SESSION[$name] = $var;
 }
 
 /**
