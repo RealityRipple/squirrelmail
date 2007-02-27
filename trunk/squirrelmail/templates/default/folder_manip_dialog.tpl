@@ -29,7 +29,7 @@
 /* retrieve the template vars */
 extract($t);
 ?>
-<div id="folderManip">
+<div class="dialogbox">
 <form action="folders.php" method="post">
 <table cellspacing="0" class="wrapper">
 <?php
