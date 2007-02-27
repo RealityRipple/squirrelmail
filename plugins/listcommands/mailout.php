@@ -28,7 +28,6 @@ sqgetGlobalVar('body',    $body,    SQ_GET);
 sqgetGlobalVar('action',  $action,  SQ_GET);
 
 displayPageHeader($color, $mailbox);
-$fieldsdescr = listcommands_fieldsdescr();
 
 switch ( $action ) {
     case 'help':
@@ -47,41 +46,19 @@ switch ( $action ) {
         exit;
 }
 
-echo html_tag('p', '', 'left' ) .
-    html_tag( 'table', '', 'center', $color[0], 'border="0" width="75%"' ) . "\n" .
-    html_tag( 'tr',
-            html_tag( 'th', _("Mailinglist") . ': ' . $fieldsdescr[$action], '', $color[9] )
-            ) .
-    html_tag( 'tr' ) .
-    html_tag( 'td', '', 'left' );
-
-printf($out_string, '&quot;' . htmlspecialchars($send_to) . '&quot;');
-
-echo addForm(SM_PATH . 'src/compose.php', 'post');
-
+$out_string = sprintf($out_string, '&quot;' . htmlspecialchars($send_to) . '&quot;');
 $idents = get_identities();
+$fieldsdescr = listcommands_fieldsdescr();
+$fielddescr = $fieldsdescr[$action];
 
-echo html_tag('p', '', 'center' ) . _("From:") . ' ';
+$oTemplate->assign('out_string', $out_string);
+$oTemplate->assign('fielddescr', $fielddescr);
+$oTemplate->assign('send_to', $send_to);
+$oTemplate->assign('subject', $subject);
+$oTemplate->assign('body', $body);
+$oTemplate->assign('mailbox', $mailbox);
+$oTemplate->assign('idents', $idents);
 
-if (count($idents) > 1) {
-    echo '<select name="identity">';
-    foreach($idents as $nr=>$data) {
-        echo '<option value="' . $nr . '">' .
-            htmlspecialchars(
-                    $data['full_name'].' <'.
-                    $data['email_address'] . ">\n");
-    }
-    echo '</select>' . "\n" ;
-} else {
-    echo htmlspecialchars('"'.$idents[0]['full_name'].'" <'.$idents[0]['email_address'].'>');
-}
+$oTemplate->display('plugins/listcommands/mailout.tpl');
+$oTemplate->display('footer.tpl');
 
-echo '<br />' .
-    addHidden('send_to', $send_to) .
-    addHidden('subject', $subject) .
-    addHidden('body', $body) .
-    addHidden('mailbox', $mailbox) .
-    addSubmit(_("Send Mail"), 'send');
-?>
-<br /><br />
-</form></td></tr></table></p></body></html>
