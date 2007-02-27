@@ -153,11 +153,11 @@ tr.odd  {
     background: #929292;
 }
 
-/* folder_manip.tpl defs */
-#folderManip   table.wrapper   {
+/* dialog box defs */
+.dialogbox   table.wrapper   {
     border: 1px solid #6188a9;
 }
-#folderManip   td.folderAction {
+.dialogbox   td.folderAction {
     background: #6188a9;
 }
 

@@ -34,7 +34,7 @@
 /* retrieve the template vars */
 extract($t);
 ?>
-<div id="folderManip">
+<div class="dialogbox">
 <table cellspacing="0" class="wrapper">
  <tr>
   <td class="header1">
@@ -50,7 +50,7 @@ extract($t);
      </td>
     </tr>
     <tr>
-     <td class="folderAction">
+     <td>
       <form method="post" action="folders.php" name="cf" id="cf">
       <input type="hidden" name="smaction" value="create" />
       <input type="text" name="folder_name" size="25" value="" />
@@ -87,7 +87,7 @@ extract($t);
      </td>
     </tr>
     <tr>
-     <td class="folderAction">
+     <td>
       <?php
         if ( !empty($rendel_folder_list) ) {
             ?>
@@ -118,7 +118,7 @@ extract($t);
      </td>
     </tr>
     <tr>
-     <td class="folderAction">
+     <td>
       <?php
         if ( !empty($rendel_folder_list) ) { 
             ?>
@@ -152,7 +152,7 @@ extract($t);
      </td>
     </tr>
     <tr>
-     <td class="folderAction">
+     <td>
       <?php
         if (!empty($rendel_folder_list)) {
             ?>
@@ -170,7 +170,7 @@ extract($t);
         }
       ?>
      </td>
-     <td class="folderAction">
+     <td>
      <?php
         if ($no_list_for_subscribe) {
             ?>

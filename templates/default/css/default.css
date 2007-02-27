@@ -394,17 +394,17 @@ td.message_count	{
    color: navy;
 }
 
-/* folder_manip.tpl defs */
-#folderManip   {
+/* dialog box defs */
+.dialogbox   {
     text-align:center;
 }
 
-#folderManip   td  {
+.dialogbox   td  {
     text-align: center;
     padding: 2px;
 }
 
-#folderManip   table   {
+.dialogbox   table   {
     margin-left: auto;
     margin-right: auto;
     padding-top: 8px;
@@ -413,7 +413,7 @@ td.message_count	{
     width: 70%;
 }
 
-#folderManip   table.wrapper   {
+.dialogbox   table.wrapper   {
     border: 1px solid #dcdcdc /* __COLOR0__ */;
     width: 95%;
     margin-left: auto;
@@ -421,11 +421,7 @@ td.message_count	{
     padding: 0;
 }
 
-#folderManip   td.folderAction {
-    background: #dcdcdc /* __COLOR0__ */;
-}
-
-#folderManip    div {
+.dialogbox  div {
     margin-left: auto;
     margin-right: auto;
     width: 80%;
