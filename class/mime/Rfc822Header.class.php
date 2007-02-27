@@ -30,7 +30,7 @@ class Rfc822Header {
      */
     var $date = -1;
     /**
-     * Date_original header
+     * Original date header as fallback for unparsable dates
      * @var mixed
      */
     var $date_unparsed = '';
