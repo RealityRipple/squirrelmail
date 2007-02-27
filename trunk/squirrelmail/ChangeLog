@@ -182,7 +182,8 @@ Version 1.5.2 - SVN
   - Add option to ask users for personal information on first login.
   - Drop redundant call to session_register, which could trigger a segfault
     in PHP 4.4.5 (#1664155).
-
+  - If a date-header cannot be parsed, display the unparsed version as a
+    better-than-nothing alternative.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
