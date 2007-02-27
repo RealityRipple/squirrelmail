@@ -174,7 +174,7 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
     }
 
     // part 1 (RFC2298)
-    $senton = getLongDateString( $header->date );
+    $senton = getLongDateString( $header->date, $header->date_unparsed );
     $to_array = $header->to;
     $to = '';
     foreach ($to_array as $line) {
@@ -372,7 +372,7 @@ function formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message,
         $env[_("From")] = _("Unknown sender");
     else
         $env[_("From")] = decodeHeader($from_name);
-    $env[_("Date")] = getLongDateString($header->date);
+    $env[_("Date")] = getLongDateString($header->date, $header->date_unparsed);
     $env[_("To")] = formatRecipientString($header->to, "to");
     $env[_("Cc")] = formatRecipientString($header->cc, "cc");
     $env[_("Bcc")] = formatRecipientString($header->bcc, "bcc");

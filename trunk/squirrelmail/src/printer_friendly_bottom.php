@@ -52,7 +52,7 @@ if ($passed_ent_id) {
 $rfc822_header = $message->rfc822_header;
 /* From and Date are usually fine as they are... */
 $from = $rfc822_header->getAddr_s('from');
-$date = getLongDateString($rfc822_header->date);
+$date = getLongDateString($rfc822_header->date, $rfc822_header->date_unparsed);
 $subject = trim($rfc822_header->subject);
 
 /* we can clean these up if the list is too long... */

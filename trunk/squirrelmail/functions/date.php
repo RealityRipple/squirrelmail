@@ -305,14 +305,15 @@ function date_intl( $date_format, $stamp ) {
  * and taking localization into accout.
  *
  * @param int stamp the timestamp
+ * @param string fallback string to use when stamp not valid
  * @return string the long date string
  */
-function getLongDateString( $stamp ) {
+function getLongDateString( $stamp, $fallback = '' ) {
 
     global $hour_format;
 
     if ($stamp == -1) {
-        return '';
+        return $fallback;
     }
 
     if ( $hour_format == SMPREF_TIME_12HR ) {

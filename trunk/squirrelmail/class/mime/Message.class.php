@@ -618,6 +618,7 @@ class Message {
             if (!$arg_a[1]) $arg_a[1] = _("(no subject)");
 
             $hdr->date = getTimeStamp($d); /* argument 1: date */
+            $hdr->date_unparsed = strtr($d,'<>','  '); /* original date */
             $hdr->subject = $arg_a[1];     /* argument 2: subject */
             $hdr->from = is_array($arg_a[2]) ? $arg_a[2][0] : '';     /* argument 3: from        */
             $hdr->sender = is_array($arg_a[3]) ? $arg_a[3][0] : '';   /* argument 4: sender      */

@@ -285,7 +285,7 @@ function getforwardHeader($orig_header) {
     $bodyTop =  sq_str_pad(' '._("Original Message").' ',$editor_size -2,'-',STR_PAD_BOTH,$default_charset) .
         "\n". $display[_("Subject")] . $subject . "\n" .
         $display[_("From")] . $from . "\n" .
-        $display[_("Date")] . getLongDateString( $orig_header->date ). "\n" .
+        $display[_("Date")] . getLongDateString( $orig_header->date, $orig_header->date_unparsed ). "\n" .
         $display[_("To")] . $to . "\n";
     if ($orig_header->cc != array() && $orig_header->cc !='') {
         $cc = decodeHeader($orig_header->getAddr_s('cc',"\n$indent"),false,false,true);
@@ -928,7 +928,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 }
                 /* this corrects some wrapping/quoting problems on replies */
                 $rewrap_body = explode("\n", $body);
-                $from =  (is_array($orig_header->from)) ? $orig_header->from[0] : $orig_header->from;
+                $from = (is_array($orig_header->from) && !empty($orig_header->from)) ? $orig_header->from[0] : $orig_header->from;
                 $body = '';
                 $strip_sigs = getPref($data_dir, $username, 'strip_sigs');
                 foreach ($rewrap_body as $line) {
