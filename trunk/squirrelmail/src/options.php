@@ -285,7 +285,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     }
     
     if (!empty($notice)) {
-        $oTemplate->assign('note', $notice);
+        $oTemplate->assign('note', $notice, FALSE);
         $oTemplate->display('note.tpl');
     }
     
@@ -424,13 +424,15 @@ if ($optpage == SMOPT_PAGE_MAIN) {
          "  <td colspan=\"2\">\n";
 
     // This is the only variable that is needed by *just* the template.
-    $oTemplate->assign('options', $optpage_data['options']);
+    // No output sanitizing needed because all widgets added through 
+    // template output already
+    $oTemplate->assign('options', $optpage_data['options'], FALSE);
     
-    global $ask_user_info;
+    global $ask_user_info, $org_name;
     if ( $optpage = SMOPT_PAGE_PERSONAL && $ask_user_info
             && getPref($data_dir, $username,'email_address') == "" ) {
         $oTemplate->assign('topmessage',
-            _("Welcome to SquirrelMail. Please supply your full name and email address.") );
+            sprintf(_("Welcome to %s. Please supply your full name and email address."), $org_name) );
     }
     
     /**
