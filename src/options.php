@@ -285,7 +285,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     }
     
     if (!empty($notice)) {
-        $oTemplate->assign('note', $notice, FALSE);
+        $oTemplate->assign('note', $notice);
         $oTemplate->display('note.tpl');
     }
     
@@ -424,9 +424,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
          "  <td colspan=\"2\">\n";
 
     // This is the only variable that is needed by *just* the template.
-    // No output sanitizing needed because all widgets added through 
-    // template output already
-    $oTemplate->assign('options', $optpage_data['options'], FALSE);
+    $oTemplate->assign('options', $optpage_data['options']);
     
     global $ask_user_info, $org_name;
     if ( $optpage = SMOPT_PAGE_PERSONAL && $ask_user_info
