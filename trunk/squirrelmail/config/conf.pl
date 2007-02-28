@@ -4160,7 +4160,7 @@ sub commandB2 {
     return $use_iframe;
 }
 
-# display html emails in iframe
+# ask user info
 sub command_ask_user_info {
     print "New users need to supply their real name and email address to\n";
     print "send out proper mails. When this option is enabled, a user that\n";
