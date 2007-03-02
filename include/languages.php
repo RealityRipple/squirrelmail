@@ -191,7 +191,7 @@ function charset_decode ($charset, $string, $force_decode=false, $save_html=fals
 
     $decode=fixcharset($charset);
     $decodefile=SM_PATH . 'functions/decode/' . $decode . '.php';
-    if (file_exists($decodefile)) {
+    if ($decode != 'index' && file_exists($decodefile)) {
         include_once($decodefile);
         // send $save_html argument to decoding function. needed for iso-2022-xx decoding.
         $ret = call_user_func('charset_decode_'.$decode, $string, $save_html);
@@ -214,7 +214,7 @@ function charset_encode($string,$charset,$htmlencode=true) {
 
     $encode=fixcharset($charset);
     $encodefile=SM_PATH . 'functions/encode/' . $encode . '.php';
-    if (file_exists($encodefile)) {
+    if ($encode != 'index' && file_exists($encodefile)) {
         include_once($encodefile);
         $ret = call_user_func('charset_encode_'.$encode, $string);
     } elseif(file_exists(SM_PATH . 'functions/encode/us_ascii.php')) {
