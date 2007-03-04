@@ -299,7 +299,7 @@ class dbPrefs {
         if (strlen($user) > $this->user_size) {
             $this->error = "Oversized username value."
                 ." Your preferences can't be saved."
-                ." See doc/db-backend.txt or contact your system administrator.";
+                ." See the administrator's manual or contact your system administrator.";
 
             /**
              * Debugging function. Can be used to log all issues that trigger
@@ -317,7 +317,7 @@ class dbPrefs {
         if (strlen($key) > $this->key_size) {
             $err_msg = "Oversized user's preference key."
                 ." Some preferences were not saved."
-                ." See doc/db-backend.txt or contact your system administrator.";
+                ." See the administrator's manual or contact your system administrator.";
             // error is not fatal. Only some preference is not saved.
             trigger_error($err_msg,E_USER_WARNING);
             return false;
@@ -328,7 +328,7 @@ class dbPrefs {
         if (strlen($value) > $this->val_size) {
             $err_msg = "Oversized user's preference value."
                 ." Some preferences were not saved."
-                ." See doc/db-backend.txt or contact your system administrator.";
+                ." See the administrator's manual or contact your system administrator.";
             // error is not fatal. Only some preference is not saved.
             trigger_error($err_msg,E_USER_WARNING);
             return false;
@@ -541,5 +541,3 @@ function getSig($data_dir, $username, $number) {
     }
     return getPref($data_dir, $username, $key);
 }
-
-// vim: et ts=4

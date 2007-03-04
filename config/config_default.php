@@ -899,13 +899,13 @@ $disable_plugins_user = '';
 
 /*** Database ***/
 /**
- * Read doc/database.txt in order to get more information
+ * Read the administrator's manual in order to get more information
  * about these settings.
  */
 /**
  * Database-driven private addressbooks
  *   DSN (Data Source Name) for a database where the private
- *   addressbooks are stored.  See doc/db-backend.txt for more info.
+ *   addressbooks are stored.  See the administrator's manual for more info.
  *   If it is not set, the addressbooks are stored in files
  *   in the data dir.
  *   The DSN is in the format: mysql://user:pass@hostname/dbname
