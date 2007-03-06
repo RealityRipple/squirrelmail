@@ -237,7 +237,7 @@ if ($optmode == SMOPT_MODE_SUBMIT) {
 /* Finally, display whatever page we are supposed to show now. */
 /***************************************************************/
 
-displayPageHeader($color, 'None', (isset($optpage_data['xtra']) ? $optpage_data['xtra'] : ''));
+displayPageHeader($color, null, (isset($optpage_data['xtra']) ? $optpage_data['xtra'] : ''));
 
 /*
  * The main option page has a different layout then the rest of the option

@@ -196,7 +196,7 @@ function displayInternalLink($path, $text, $target='') {
  * @return void
  */
 
-function displayPageHeader($color, $mailbox, $sHeaderJs='', $sBodyTagJs = '') {
+function displayPageHeader($color, $mailbox='', $sHeaderJs='', $sBodyTagJs = '') {
 
     global $reply_focus, $hide_sm_attributions, $frame_top,
         $provider_name, $provider_uri, $startMessage,

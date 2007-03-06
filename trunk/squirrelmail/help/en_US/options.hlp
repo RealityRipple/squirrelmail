@@ -268,7 +268,7 @@
       messages, the INBOX will become bold and a number will appear to the right of it
       to say how many new messages are in it.  If you set it to All Folders, this 
       behavior will happen on all folders.  If you notice that loading the folder list
-      is really slow, you can set this to INBOX or None and that should speed it up.
+      is really slow, you can set this to INBOX and that should speed it up.
       <br /><br />
       
       <b>Unseen message notification type</b><br />

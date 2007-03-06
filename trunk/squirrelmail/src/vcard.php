@@ -41,7 +41,7 @@ sqgetGlobalVar('startMessage', $startMessage, SQ_GET);
 $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
 sqimap_mailbox_select($imapConnection, $mailbox);
 
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 
 $msg_url = 'read_body.php?mailbox='.urlencode($mailbox).
     '&amp;startMessage='.urlencode($startMessage).

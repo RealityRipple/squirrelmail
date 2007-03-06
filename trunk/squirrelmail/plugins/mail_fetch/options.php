@@ -55,7 +55,7 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
 
 /* end globals */
 
-displayPageHeader( $color, 'None' );
+displayPageHeader( $color );
 
 switch( $mf_action ) {
  case 'add':

@@ -360,8 +360,7 @@ function sqimap_mailbox_exists ($imap_stream, $mailbox, $mailboxlist=null) {
  * @since 1.0 or older
  */
 function sqimap_mailbox_select ($imap_stream, $mailbox) {
-    // FIX ME: WHAAAA DO NOT USE "None" for something that does not exist. Use false or NULL instead
-    if ($mailbox == 'None') {
+    if (empty($mailbox)) {
         return;
     }
 

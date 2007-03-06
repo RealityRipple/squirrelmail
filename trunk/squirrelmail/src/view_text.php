@@ -75,7 +75,7 @@ if ($type1 == 'html' || (isset($override_type1) &&  $override_type1 == 'html')) 
     translateText($body, $wrap_at, $charset);
 }
 
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 
 $oTemplate->assign('view_message_href', $msg_url);
 $oTemplate->assign('download_href', $dwnld_url);

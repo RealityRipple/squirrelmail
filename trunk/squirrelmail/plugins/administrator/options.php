@@ -233,7 +233,7 @@ if ( !adm_check_user() ) {
     exit;
 }
 
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 
 $newcfg = array( );
 

@@ -122,7 +122,7 @@ if (!isset($hour) || $hour <= 0){
 $calself=basename($PHP_SELF);
 
 
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 //load calendar menu
 calendar_header();
 

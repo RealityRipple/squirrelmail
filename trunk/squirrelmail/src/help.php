@@ -16,7 +16,7 @@
  */
 require('../include/init.php');
 
-displayPageHeader($color, 'None' );
+displayPageHeader($color);
 
 $helpdir[0] = 'basic.hlp';
 $helpdir[1] = 'main_folder.hlp';

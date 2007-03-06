@@ -73,7 +73,7 @@ if (!sqgetGlobalVar('account', $account,  SQ_GET)) {
 /* Finally, display whatever page we are supposed to show now. */
 /***************************************************************/
 
-displayPageHeader($color, 'None', (isset($optpage_data['xtra']) ? $optpage_data['xtra'] : ''));
+displayPageHeader($color, null, (isset($optpage_data['xtra']) ? $optpage_data['xtra'] : ''));
 
 
 /**

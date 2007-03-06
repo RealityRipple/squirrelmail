@@ -186,6 +186,7 @@ Version 1.5.2 - SVN
     better-than-nothing alternative.
   - Fix Priority and Receipt compose options being reset after return from
     HTML addressbook, and allow returning from an empty address book (#1673056).
+  - Do not special case the 'None' folder.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

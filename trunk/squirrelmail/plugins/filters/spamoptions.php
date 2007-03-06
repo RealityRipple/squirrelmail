@@ -25,7 +25,7 @@ sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 sqgetGlobalVar('action', $action, SQ_GET);
 /* end globals */
 
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 
 if (sqgetGlobalVar('spam_submit',$spam_submit,SQ_POST)) {
     $spam_filters = load_spam_filters();

@@ -61,7 +61,7 @@ if (!empty($return)) {
     exit;
 }
 
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 
 /* since 1.1.3 */
 do_hook('options_identities_top', $null);

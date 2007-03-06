@@ -26,7 +26,7 @@ require_once(SM_PATH . 'plugins/info/functions.php');
 
 global $username, $color, $folder_prefix, $default_charset;
 $default_charset = strtoupper($default_charset);
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 $mailbox = 'INBOX';
 
 /**

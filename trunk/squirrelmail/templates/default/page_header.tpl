@@ -17,7 +17,7 @@ extract($t);
 
 
 $current_folder_str = '';
-if ( $shortBoxName <> '' && strtolower( $shortBoxName ) <> 'none' ) {
+if ( $shortBoxName != '' ) {
     $current_folder_str .= _("Current Folder") . ": <em>$shortBoxName&nbsp;</em>\n";
 } else {
     $current_folder_str .= '&nbsp;';
