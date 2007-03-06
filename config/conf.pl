@@ -2187,7 +2187,7 @@ sub command215 {
 
 #noselect fix
 sub command216 {
-    print "Some IMAP server allow subfolders to exist even if the parent\n";
+    print "Some IMAP servers allow subfolders to exist even if the parent\n";
     print "folders do not. This fixes some problems with the folder list\n";
     print "when this is the case, causing the /NoSelect folders to be displayed\n";
     print "\n";
