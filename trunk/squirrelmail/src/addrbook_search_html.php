@@ -40,7 +40,7 @@ sqgetGlobalVar('backend',   $backend,   SQ_POST);
  */
 function addr_insert_hidden() {
     global $body, $subject, $send_to, $send_to_cc, $send_to_bcc, $mailbox,
-           $identity, $session;
+           $request_mdn, $request_dr, $identity, $session;
 
    if (substr($body, 0, 1) == "\r") {
        echo addHidden('body', "\n".$body);
@@ -53,6 +53,9 @@ function addr_insert_hidden() {
         addHidden('send_to', $send_to).
         addHidden('send_to_bcc', $send_to_bcc).
         addHidden('send_to_cc', $send_to_cc).
+        addHidden('mailprio', $mailprio).
+        addHidden('request_mdn', $request_mdn).
+        addHidden('request_dr', $request_dr).
         addHidden('identity', $identity).
         addHidden('mailbox', $mailbox).
         addHidden('from_htmladdr_search', 'true');
@@ -69,12 +72,11 @@ function addr_display_result($res, $includesource = true) {
 
     global $oTemplate, $oErrorHandler;
     
-    if (sizeof($res) <= 0) return;
 
     echo addForm($PHP_SELF, 'post', 'addressbook').
          addHidden('html_addr_search_done', 'true');
     addr_insert_hidden();
-
+    
     $oTemplate->assign('use_js', false);
     $oTemplate->assign('include_abook_name', $includesource);
     $oTemplate->assign('addresses', formatAddressList($res));
