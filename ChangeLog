@@ -184,6 +184,8 @@ Version 1.5.2 - SVN
     in PHP 4.4.5 (#1664155).
   - If a date-header cannot be parsed, display the unparsed version as a
     better-than-nothing alternative.
+  - Fix Priority and Receipt compose options being reset after return from
+    HTML addressbook, and allow returning from an empty address book (#1673056).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
