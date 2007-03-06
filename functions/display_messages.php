@@ -141,10 +141,11 @@ function logout_error( $errString, $errTitle = '' ) {
  * @since 1.3.2
  */
 function error_box($string, $link=NULL, $return_output=FALSE) {
-    global $pageheader_sent, $oTemplate;
+    global $pageheader_sent, $oTemplate, $org_title;
 
     $err = _("ERROR");
     do_hook('error_box', $string);
+    if ( !isset($org_title) ) $org_title = 'SquirrelMail';
 
     // check if the page header has been sent; if not, send it!
     //
@@ -153,7 +154,7 @@ function error_box($string, $link=NULL, $return_output=FALSE) {
     // to worry about page headers in that case)
     //
     if (!$return_output && empty($pageheader_sent)) {
-        displayHtmlHeader('SquirrelMail: '.$err);
+        displayHtmlHeader($org_title . ': '.$err);
         $pageheader_sent = TRUE;
         echo create_body();  // this is template-safe (see create_body() function)
     }
