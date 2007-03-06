@@ -60,7 +60,7 @@ foreach ($js_includes as $js_file) {
 // get mailbox list and cache it
 $mailboxes=sqimap_get_mailboxes($imapConnection,false,$show_only_subscribed_folders);
 
-displayHtmlHeader( 'SquirrelMail', $xtra );
+displayHtmlHeader( $org_title, $xtra );
 $oErrorHandler->setDelayedErrors(true);
 
 sqgetGlobalVar('auto_create_done',$auto_create_done,SQ_SESSION);
