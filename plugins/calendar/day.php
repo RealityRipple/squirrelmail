@@ -169,7 +169,7 @@ $calself=basename($PHP_SELF);
 
 $daily_events = array();
 
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 calendar_header();
 readcalendardata();
 day_header();

@@ -169,7 +169,7 @@ if( !isset($day) || $day <= 0){
 $todayis = date( 'mdY' );
 $calself=basename($PHP_SELF);
 
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 calendar_header();
 readcalendardata();
 startcalendar();

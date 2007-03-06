@@ -16,7 +16,7 @@
  */
 require('../include/init.php');
 
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 
 /* globals */
 if ( sqgetGlobalVar('passed_id', $temp, SQ_GET) ) {

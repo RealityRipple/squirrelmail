@@ -119,7 +119,7 @@ function Mail_Fetch_Select_Server($mailfetch) {
 }
 
 $mailfetch = Mail_Fetch_Servers();
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 
 echo '<br />';
 

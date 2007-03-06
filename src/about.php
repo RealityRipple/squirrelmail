@@ -21,7 +21,7 @@
  */
 require('../include/init.php');
 
-displayPageHeader($color, 'None' );
+displayPageHeader($color);
 
 ?>
 <p align="center">

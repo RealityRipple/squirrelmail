@@ -23,7 +23,7 @@ include_once(SM_PATH . 'plugins/newmail/functions.php');
 
 include_once(SM_PATH . 'functions/forms.php');
 
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 
 echo html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="1" cellspacing="0" border="0"' ) . "\n" .
         html_tag( 'tr' ) . "\n" .

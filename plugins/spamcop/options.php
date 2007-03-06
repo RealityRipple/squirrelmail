@@ -18,7 +18,7 @@ require('../../include/init.php');
 /* plugin functions */
 include_once(SM_PATH . 'plugins/spamcop/functions.php');
 
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 
 /** is spamcop plugin disabled */
 // option changes do nothing, if read_body_header_right hook is not active.

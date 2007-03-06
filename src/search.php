@@ -1312,7 +1312,7 @@ $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 
 $boxes = sqimap_mailbox_list($imapConnection);
 /* ensure we have a valid default mailbox name */
 $mailbox = asearch_nz($mailbox_array[0]);
-if (($mailbox == '') || ($mailbox == 'None')) //Workaround for sm quirk IMHO (what if I really have a mailbox called None?)
+if ($mailbox == '')
     $mailbox = $boxes[0]['unformatted']; //Usually INBOX ;)
 
 

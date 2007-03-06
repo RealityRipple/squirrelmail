@@ -62,7 +62,7 @@ if(sqgetGlobalVar('cpw_go', $cpw_go, SQ_POST)) {
     }
 }
 
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 
 do_hook('change_password_init', $null);
 ?>

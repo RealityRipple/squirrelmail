@@ -22,7 +22,7 @@ require('../../include/init.php');
 require(SM_PATH . 'functions/forms.php');
 require(SM_PATH . 'functions/addressbook.php');
 
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 
 /* input form data */
 sqgetGlobalVar('email', $email, SQ_POST);

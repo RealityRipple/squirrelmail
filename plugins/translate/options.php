@@ -20,7 +20,7 @@ require('../../include/init.php');
 /** Plugin functions */
 include_once(SM_PATH . 'plugins/translate/functions.php');
 
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 
 ?>
    <table width="95%" align="center" border="0" cellpadding="1" cellspacing="0"><tr><td bgcolor="<?php echo $color[0]; ?>">

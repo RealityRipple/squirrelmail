@@ -125,7 +125,7 @@ function sqspell_makePage($title, $scriptsrc, $body){
       $MOD = 'options_main';
   }
 
-  displayPageHeader($color, 'None');
+  displayPageHeader($color);
   echo "&nbsp;<br />\n";
   /**
    * Check if we need to link in a script.

@@ -104,7 +104,7 @@ if (isset($theid) && ($action == 'delete') ||
 
     setPref($data_dir, $username, 'hililist', serialize($message_highlight_list));
 }
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 
 /**
  * Display the current rule list

@@ -70,7 +70,7 @@ if (sqGetGlobalVar('addlist', $ignore, SQ_FORM)
 
 
 
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 
 $oTemplate->assign('lists', $lists);
 $oTemplate->display('plugins/listcommands/non_rfc_lists.tpl');

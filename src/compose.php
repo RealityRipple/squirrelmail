@@ -383,7 +383,7 @@ if (!isset($compose_messages[$session]) || ($compose_messages[$session] == NULL)
     $composeMessage=$compose_messages[$session];
 }
 
-if (!isset($mailbox) || $mailbox == '' || ($mailbox == 'None')) {
+if (empty($mailbox)) {
     $mailbox = 'INBOX';
 }
 

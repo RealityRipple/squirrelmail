@@ -22,7 +22,7 @@ require_once(SM_PATH . 'functions/imap_general.php');
 require_once(SM_PATH . 'functions/folder_manip.php');
 require_once(SM_PATH . 'functions/forms.php');
 
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 
 /* get globals we may need */
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);

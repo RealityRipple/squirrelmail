@@ -18,7 +18,7 @@ include_once(SM_PATH . 'functions/imap_general.php');
 include_once(SM_PATH . 'functions/forms.php');
 include_once(SM_PATH . 'plugins/filters/filters.php');
 
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 
 /* get globals */
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);

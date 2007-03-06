@@ -24,7 +24,7 @@ require_once(SM_PATH . 'functions/forms.php');
 /** load plugin functions */
 require_once(SM_PATH . 'plugins/bug_report/functions.php');
 
-displayPageHeader($color, 'None');
+displayPageHeader($color);
 
 /** is bug_report plugin disabled or called by wrong user */
 if (! is_plugin_enabled('bug_report') || ! bug_report_check_user()) {
