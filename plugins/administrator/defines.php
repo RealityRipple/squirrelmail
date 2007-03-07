@@ -121,6 +121,7 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                                                                    'hmailserver' => _("hMailServer IMAP server"),
                                                                    'mercury32' => _("Mercury/32 IMAP server"),
                                                                    'bincimap' => _("Binc IMAP server"),
+                                                                   'dovecot' => _("Dovecot IMAP server"),
                                                                    'other' => _("Not one of the above servers") ) ),
                  '$optional_delimiter' => array( 'name' => _("IMAP Folder Delimiter"),
                                                  'type' => SMOPT_TYPE_STRING,
@@ -178,7 +179,7 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                                               'type' => SMOPT_TYPE_BOOLEAN,
                                               'default' => false ),
                  '$encode_header_key' => array( 'name' => _("Header Encryption Key"),
-                                          'type' => SMOPT_TYPE_STRING ),
+                                                'type' => SMOPT_TYPE_STRING ),
                  '$invert_time' => array( 'name' => _("Invert Time"),
                                           'type' => SMOPT_TYPE_BOOLEAN ),
                  /* --------------------------------------------------------*/
@@ -430,4 +431,3 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                  /* --------------------------------------------------------*/
 
                );
-
