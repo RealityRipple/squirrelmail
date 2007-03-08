@@ -73,7 +73,7 @@ echo "</big></p>\n";
 
 echo '<ul>';
 echo '<li>';
-printf(_("Make sure that you are running the most recent copy of %s. You are currently using version %s."), '<a href="http://www.squirrelmail.org/" target="_blank">SquirrelMail</a>', $version);
+printf(_("Make sure that you are running the most recent copy of %s. You are currently using version %s."), '<a href="http://squirrelmail.org/" target="_blank">SquirrelMail</a>', $version);
 echo "</li>\n";
 
 echo '<li>';

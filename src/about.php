@@ -55,7 +55,7 @@ echo sprintf(_("SquirrelMail is a feature rich, standards compliant webmail appl
 echo ' ';
 
 // i18n: %s tags are used in order to remove html URL attributes from translation
-echo sprintf(_("For more information about SquirrelMail and the SquirrelMail Project Team, see %sthe SquirrelMail website%s."),'<a href="http://www.squirrelmail.org/" target="_blank">','</a>');
+echo sprintf(_("For more information about SquirrelMail and the SquirrelMail Project Team, see %sthe SquirrelMail website%s."),'<a href="http://squirrelmail.org/" target="_blank">','</a>');
 ?>
 <br />
 <br /><br />
@@ -87,4 +87,3 @@ if ( isset($plugins) && count ($plugins) > 0 ) {
 </table></p>
 <?php
 $oTemplate->display('footer.tpl');
-?>

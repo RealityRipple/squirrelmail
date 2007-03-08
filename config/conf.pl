@@ -140,7 +140,7 @@ if ( -e "config.php" ) {
         print "  should get the 'config_default.php' that matches the version\n";
         print "  of SquirrelMail that you are running. You can get this from\n";
         print "  the SquirrelMail web page by going to the following URL:\n";
-        print "      http://www.squirrelmail.org.\n";
+        print "      http://squirrelmail.org.\n";
         print "\n";
         print "Continue loading with old config_default.php (a bad idea) [y/N]? ";
         $ctu = <STDIN>;
@@ -1015,7 +1015,7 @@ sub command2 {
     print "    to use the default logo, use ../images/sm_logo.png\n";
     print "  - To specify a logo defined outside the SquirrelMail source tree\n";
     print "    use the absolute URL the webserver would use to include the file\n";
-    print "    e.g. http://www.example.com/images/mylogo.gif or /images/mylogo.jpg\n";
+    print "    e.g. http://example.com/images/mylogo.gif or /images/mylogo.jpg\n";
     print "\n";
     print "[$WHT$org_logo$NRM]: $WHT";
     $new_org_logo = <STDIN>;
@@ -5388,4 +5388,3 @@ PLUGIN: for ( $ct = 0 ; $ct <= $#plugins ; $ct++ ) {
     }
 
 }
-

@@ -28,9 +28,9 @@ Each of these steps is covered in detail below.
 - Run config/conf.pl from the command line. Use the D option to load
   predefined options for specific IMAP servers, and edit at least the
   Server Settings and General Options (datadir).
-- Browse to http://www.example.com/yourwebmaillocation/src/configtest.php
+- Browse to http://example.com/yourwebmaillocation/src/configtest.php
   to test your configuration for common errors.
-- Browse to http://www.example.com/yourwebmaillocation/ to log in.
+- Browse to http://example.com/yourwebmaillocation/ to log in.
 
 
 1. CONFIGURE YOUR WEBSERVER TO WORK WITH PHP
@@ -40,7 +40,7 @@ Each of these steps is covered in detail below.
   to work with PHP. You need at least PHP v4.1.0. SquirrelMail uses
   the standard suffix .php for all PHP files.
 
-  You can find PHP at http://www.php.net. See the documentation that
+  You can find PHP at http://php.net. See the documentation that
   comes with PHP for instructions how to set it up.
 
   The PHP IMAP extension is NOT necessary at all (but won't harm)!
@@ -91,7 +91,7 @@ Each of these steps is covered in detail below.
 ----------------------------------------
 
   SquirrelMail is constantly being improved. Therefore you should always
-  get the newest version around. Look at http://www.squirrelmail.org
+  get the newest version around. Look at http://squirrelmail.org
   to see what it is. If you want to be bleeding edge you might want to
   consider using the latest SVN version (with the latest and most
   fashionable bugs).
@@ -191,7 +191,7 @@ c. Setting up SquirrelMail
 
   Point your browser at the URL at which SquirrelMail is installed.  A
   possible example of this is:
-     http://www.example.com/squirrelmail
+     http://example.com/squirrelmail
 
   It should be pretty straight forward to use. Some more documentation
   might show up one day or another.

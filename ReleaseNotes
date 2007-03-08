@@ -169,7 +169,7 @@ any bugs you come across! Also, please mention that the bug is in this release
 (version 1.5.1), and list your IMAP server and web server details.  Bugs can be
 submitted at:
 
-   http://www.squirrelmail.org/bugs
+   http://squirrelmail.org/bugs
 
 Thanks for your cooperation with this. This helps ensure that nothing slips
 through the cracks.  Also, please search the bug database for existing items
@@ -200,7 +200,7 @@ the 1.4.x series of SquirrelMail.  If you find issues in this package, make
 sure that they are still present in the latest development code snapshots.  To
 obtain thelatest development snapshot, see 
 	
-	http://www.squirrelmail.org/download.php#snapshot
+	http://squirrelmail.org/download.php#snapshot
 
                   Happy SquirrelMailing!
                     - The SquirrelMail Project Team
