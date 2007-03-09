@@ -110,6 +110,8 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
             echo $plugin_output['provider_link_before'];
         if (!empty($provider_link)) 
             echo $provider_link; 
+        if (!empty($plugin_output['provider_link_after'])) 
+            echo $plugin_output['provider_link_after'];
     ?>
   </td>
  </tr>
