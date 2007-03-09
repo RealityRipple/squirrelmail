@@ -29,6 +29,8 @@ function squirrelmail_plugin_init_preview_pane()
       = 'preview_pane_show_options';
    $squirrelmail_plugin_hooks['template_construct_message_list.tpl']['preview_pane']
       = 'preview_pane_message_list';
+   $squirrelmail_plugin_hooks['template_construct_page_header.tpl']['preview_pane']
+      = 'preview_pane_open_close_buttons';
 
 }
 
@@ -115,6 +117,21 @@ function preview_pane_change_message_target()
 
   include_once(SM_PATH . 'plugins/preview_pane/functions.php');
   preview_pane_change_message_target_do();
+
+}
+
+
+
+/**
+  * Adds preview pane open/close (and clear) buttons next to
+  * "provider link"
+  *
+  */
+function preview_pane_open_close_buttons()
+{
+
+  include_once(SM_PATH . 'plugins/preview_pane/functions.php');
+  return preview_pane_open_close_buttons_do();
 
 }
 
