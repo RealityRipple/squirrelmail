@@ -75,7 +75,7 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
   </td>
  </tr>
  <tr>
-  <td class="sqm_topNavigation"<?php echo (empty($provider_link) ? ' colspan="2"' : ''); ?>>
+  <td class="sqm_topNavigation">
    <?php echo $compose_link; ?>&nbsp;&nbsp;
    <?php echo $address_link; ?>&nbsp;&nbsp;
    <?php echo $folders_link; ?>&nbsp;&nbsp;
@@ -84,10 +84,16 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
    <?php echo $help_link; ?>&nbsp;&nbsp;
    <?php /* FIXME: no hooks in templates!! */ global $null; do_hook('menuline', $null); ?>
   </td>
-  <?php if (!empty($provider_link))
-            echo '<td class="sqm_providerInfo">'
-               . $provider_link
-               . "</td>\n"; ?>
+  <td class="sqm_providerInfo">
+   <?php 
+       if (!empty($plugin_output['provider_link_before']))
+           echo $plugin_output['provider_link_before'];
+       if (!empty($provider_link))
+           echo $provider_link;
+       if (!empty($plugin_output['provider_link_after']))
+           echo $plugin_output['provider_link_after'];
+   ?>
+  </td>
  </tr>
 </table>
 </div>
