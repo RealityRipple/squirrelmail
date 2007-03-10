@@ -88,7 +88,7 @@ function preview_pane_open_close_buttons_do()
 
    if (!show_preview_pane()) return;
 
-   global $data_dir, $username, $base_uri;
+   global $data_dir, $username, $base_uri, $oTemplate;
    $previewPane_vertical_split = getPref($data_dir, $username, 'previewPane_vertical_split', 0);
    if ($previewPane_vertical_split)
    {
@@ -106,26 +106,13 @@ function preview_pane_open_close_buttons_do()
 
    $previewPane_size = getPref($data_dir, $username, 'previewPane_size', 300);
 
+   $oTemplate->assign('previewPane_size', $previewPane_size);
+   $oTemplate->assign('base_uri', $base_uri);
+   $oTemplate->assign('split', $split);
+   $oTemplate->assign('down_arrow', $down_arrow);
+   $oTemplate->assign('up_arrow', $up_arrow);
 
-   $output = "\n<script type=\"text/javascript\">\n"
-      . "<!--\n"
-      . "   function set_preview_pane_size(new_size)\n"
-      . "   {\n"
-      . "      if (document.all)\n"
-      . "      {\n"
-      . "         parent.document.all[\"fs2\"].$split = \"*, \" + new_size;\n"
-      . "      }\n"
-      . "      else if (this.document.getElementById)\n"
-      . "      {\n"
-      . "         parent.document.getElementById(\"fs2\").$split = \"*, \" + new_size;\n"
-      . "      }\n"
-      . "   }\n"
-      . "// -->\n</script>\n"
-      . '<form style="margin:0">'
-      . '<input type="button" value="' . $down_arrow . '" onclick="set_preview_pane_size(0)" />'
-      . '<input type="button" value="X" onclick="parent.bottom.document.location=\'' . $base_uri . 'plugins/preview_pane/empty_frame.php\'" />'
-      . '<input type="button" value="' . $up_arrow . '" onclick="set_preview_pane_size(' . $previewPane_size . ')" />'
-      . '</form>';
+   $output = $oTemplate->fetch('plugins/preview_pane/collapse_buttons.tpl');
 
    return array('provider_link_before' => $output);
 
