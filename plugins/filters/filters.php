@@ -25,7 +25,7 @@ global $UseSeparateImapConnection,
     $SpamFilters_CacheTTL;
 
 /**
- * load required functions. Plugin depends on IMAP functions and they are not 
+ * load required functions. Plugin depends on IMAP functions and they are not
  * loaded in src/webmail.php
  */
 include_once (SM_PATH . 'functions/imap.php');
@@ -211,7 +211,7 @@ function start_filters($hook_args) {
 
         $AllowSpamFilters = false;
         foreach($spamfilters as $filterskey=>$value) {
-            if ($value['enabled'] == 'yes') {
+            if ($value['enabled'] == SMPREF_ON) {
                 $AllowSpamFilters = true;
                 break;
             }
@@ -547,8 +547,12 @@ function filters_spam_check_site($a, $b, $c, $d, &$filters) {
     foreach ($filters as $key => $value) {
         if ($filters[$key]['enabled']) {
             if ($filters[$key]['dns']) {
+                /**
+                 * RFC allows . on end of hostname to force domain lookup
+                 * to not use search domain from resolv.conf
+                 */
                 $filter_revip = $d . '.' . $c . '.' . $b . '.' . $a . '.' .
-                                $filters[$key]['dns'];
+                                $filters[$key]['dns'] . '.';
 
                 if(!isset($SpamFilters_DNScache[$filter_revip]['L']))
                         $SpamFilters_DNScache[$filter_revip]['L'] = '';
@@ -562,8 +566,12 @@ function filters_spam_check_site($a, $b, $c, $d, &$filters) {
                     $SpamFilters_DNScache[$filter_revip]['T'] =
                                        time() + $SpamFilters_CacheTTL;
                 }
-                if ($SpamFilters_DNScache[$filter_revip]['L'] ==
-                    $filters[$key]['result']) {
+
+                /**
+                 * gethostbyname returns ip if resolved, or returns original
+                 * host query if no resolution
+                 */
+                if ($SpamFilters_DNScache[$filter_revip]['L'] != $filter_revip) {
                     return 1;
                 }
             }
@@ -716,7 +724,7 @@ function load_spam_filters() {
     $filters['SPAMhaus']['name'] = 'SPAMhaus Lists';
     $filters['SPAMhaus']['link'] = 'http://www.spamhaus.org';
     $filters['SPAMhaus']['dns'] = 'sbl.spamhaus.org';
-    $filters['SPAMhaus']['result'] = '127.0.0.6';
+    $filters['SPAMhaus']['result'] = '127.0.0.2';
     $filters['SPAMhaus']['comment'] =
         _("FREE - SPAMhaus - A list of well-known SPAM sources.");
 
@@ -857,7 +865,7 @@ function load_spam_filters() {
         _("FREE - Distributed Sender Boycott List - UN-Confirmed Relays");
 
     foreach ($filters as $Key => $Value) {
-        $filters[$Key]['enabled'] = getPref($data_dir, $username, $filters[$Key]['prefname']);
+        $filters[$Key]['enabled'] = (bool)getPref($data_dir, $username, $filters[$Key]['prefname']);
     }
 
     return $filters;

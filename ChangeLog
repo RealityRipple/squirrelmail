@@ -187,6 +187,7 @@ Version 1.5.2 - SVN
   - Fix Priority and Receipt compose options being reset after return from
     HTML addressbook, and allow returning from an empty address book (#1673056).
   - Do not special case the 'None' folder.
+  - Fixes for filters issues (#1634735).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
