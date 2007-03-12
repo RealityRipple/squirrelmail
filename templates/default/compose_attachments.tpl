@@ -25,7 +25,7 @@ extract($t);
    <?php echo _("New") .' '. _("Attachment");?>:
   </td>
   <td class="fieldValue">
-   <input type="file" name="attachfile" size="48">
+   <input type="file" name="attachfile" size="48" />
    &nbsp;
    <input type="submit" name="attach" value="<?php echo _("Attach"); ?>" />
    &nbsp;

@@ -69,7 +69,7 @@ if ( $dialog_type == 'rename' ) {
   <td>
    <?php echo sprintf(_("Are you sure you want to delete %s?"), $visible_folder_name); ?>
    <br /><br />
-   <input type="hidden" name="smaction" value="delete">
+   <input type="hidden" name="smaction" value="delete" />
    <input type="hidden" name="folder_name" value="<?php echo $folder_name ?>" />
    <input type="submit" name="confirmed" value="<?php echo _("Yes") ?>" />
    <input type="submit" name="cancelbutton" value="<?php echo _("No") ?>" />

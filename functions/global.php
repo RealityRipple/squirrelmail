@@ -136,8 +136,8 @@ function sqsession_is_registered ($name) {
   * input we should retrieve.  An example is if we have:
   *     <select name="startMessage_1">
   *     <select name="startMessage_2">
-  *     <input type="submit" name="form_submit_1">
-  *     <input type="submit" name="form_submit_2">
+  *     <input type="submit" name="form_submit_1" />
+  *     <input type="submit" name="form_submit_2" />
   * and we want to know which one of the select inputs should be
   * returned as $startMessage (without the suffix!), this function
   * decides by looking for either "form_submit_1" or "form_submit_2"
@@ -638,5 +638,3 @@ function sm_print_r() {
     print htmlentities($buffer);
     print '</pre></div>';
 }
-
-

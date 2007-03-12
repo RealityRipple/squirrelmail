@@ -113,7 +113,7 @@ $formname = $edit ? 'editaddr' : 'addaddr';
  </tr>
             <?php
         } else {
-            echo '<input type="hidden" name="backend" value="1">'."\n";
+            echo '<input type="hidden" name="backend" value="1" />'."\n";
         }
     }
  ?>

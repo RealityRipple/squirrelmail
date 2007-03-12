@@ -67,7 +67,7 @@ extract($t);
  <tr>
   <td>
    <form action=<?php echo '"'.$addField_action.'"'; ?> method="GET">
-   <input type="hidden" name="method" value="add">
+   <input type="hidden" name="method" value="add" />
    <select name="num">
     <?php
         foreach ($not_used as $field_id=>$name) {

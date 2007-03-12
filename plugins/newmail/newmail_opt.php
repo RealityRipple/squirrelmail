@@ -191,7 +191,7 @@ if ($newmail_allowsound) {
         // upload form
         echo  html_tag('tr')
             . html_tag('td',_("Upload Media File:"),'right','','style="white-space: nowrap;"')
-            . html_tag('td','<input type="file" size="40" name="media_file">')
+            . html_tag('td','<input type="file" size="40" name="media_file" />')
             . "</tr>\n";
         // display currently uploaded file information
         echo  html_tag('tr')

@@ -92,7 +92,7 @@ extract($t);
         if ( !empty($rendel_folder_list) ) {
             ?>
      <form method="post" action="folders.php" name="rf" id="rf">
-     <input type="hidden" name="smaction" value="rename">
+     <input type="hidden" name="smaction" value="rename" />
      <select name="old_name">
       <option value="">[ <?php echo _("Select a folder") ?> ]</option>
       <?php echo $rendel_folder_list ?>
@@ -123,7 +123,7 @@ extract($t);
         if ( !empty($rendel_folder_list) ) { 
             ?>
       <form method="post" action="folders.php" name="df" id="df">
-      <input type="hidden" name="smaction" value="delete">
+      <input type="hidden" name="smaction" value="delete" />
       <select name="folder_name">
        <option value="">[ <?php echo _("Select a folder") ?> ]</option>
        <?php echo $rendel_folder_list ?>
@@ -175,7 +175,7 @@ extract($t);
         if ($no_list_for_subscribe) {
             ?>
       <form method="post" action="folders.php" name="sf" id="sf">
-      <input type="hidden" name="smaction" value="subscribe">
+      <input type="hidden" name="smaction" value="subscribe" />
       <input type="text" name="folder_names[]" size="25" />
       <input type="submit" value="<?php echo _("Subscribe") ?>" />
       </form>

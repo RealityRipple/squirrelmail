@@ -21,18 +21,14 @@
   * @param boolean $alt       Whether or not this is an alternate 
   *                           stylesheet (optional; default TRUE).
   * @param string  $mtype     The target media display type (optional; default "screen").
-  * @param string  $xhtml_end The XHTML-compliant close tag syntax to 
-  *                           use (optional; default "/")
   *
   * @return string The full text of the stylesheet link.
   *
   */
-function create_css_link($uri, $name='', $alt=TRUE, $mtype='screen', $xhtml_end='/') {
+function create_css_link($uri, $name='', $alt=TRUE, $mtype='screen') {
 // FIXME: Add closing / to link and meta elements only after 
 //        switching to xhtml 1.0 Transitional.
 //        It is not compatible with html 4.01 Transitional
-$xhtml_end='';
-
     if (empty($uri)) {
         return '';
     }
@@ -72,7 +68,7 @@ $xhtml_end='';
         $rel   = 'rel="'.( $alt ? 'alternate ' : '' ).'stylesheet" ';
     }
 
-    return '<link '.$media.$title.$rel.'type="text/css" '.$href." $xhtml_end>\n";
+    return '<link '.$media.$title.$rel.'type="text/css" '.$href." />\n";
 }
 
 
@@ -177,5 +173,3 @@ function displayErrors () {
 function humanReadableSize ($size) {
     return show_readable_size($size);
 }
-
-
