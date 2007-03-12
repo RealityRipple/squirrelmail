@@ -174,13 +174,13 @@ function getPriorityIcon ($priority, $icon_theme_path) {
     switch ($priority) {
         case 1:
         case 2:
-            $icon = getIcon($icon_theme_path, 'prio_high.png', create_span('!', 'high_priority'));
+            $icon = getIcon($icon_theme_path, 'prio_high.png', create_span('!', 'high_priority'), _("High priority"));
             break;
         case 5:
-            $icon = getIcon($icon_theme_path, 'prio_low.png', create_span('&#8595;', 'low_priority'));
+            $icon = getIcon($icon_theme_path, 'prio_low.png', create_span('&#8595;', 'low_priority'), _("Low priority"));
             break;
         default:
-            $icon = getIcon($icon_theme_path, 'transparent.png', '', '', 5);
+            $icon = getIcon($icon_theme_path, 'transparent.png', '', _("Normal priority"), 5);
             break;
     }
 
@@ -200,9 +200,9 @@ function getAttachmentIcon ($attach, $icon_theme_path) {
     $icon = '';
     
     $icon_file = $attach ? 'attach.png' : 'transparent.png';
+    $alt_text = $attach ? _("Attachment") : _("No attachment");
     $text = $attach ? '+' : '';
-    $icon = getIcon($icon_theme_path, $icon_file, $text);
+    $icon = getIcon($icon_theme_path, $icon_file, $text, $alt_text);
 
     return $icon;
 }
-
