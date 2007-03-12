@@ -46,7 +46,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
 
     $header_tags = '';
 
-    $header_tags .= "<meta name=\"robots\" content=\"noindex,nofollow\">\n";
+    $header_tags .= "<meta name=\"robots\" content=\"noindex,nofollow\" />\n";
 
     $used_fontset = (!empty($chosen_fontset) ? $chosen_fontset : $default_fontset);
     $used_fontsize = (!empty($chosen_fontsize) ? $chosen_fontsize : $default_fontsize);
@@ -103,7 +103,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
          * recommendations and switch to unicode.
          */
         $header_tags .= "<!-- \xfd\xfe -->\n";
-        $header_tags .= '<meta http-equiv="Content-type" content="text/html; charset=euc-jp">' . "\n";
+        $header_tags .= '<meta http-equiv="Content-type" content="text/html; charset=euc-jp" />' . "\n";
     }
     if ($do_hook) {
         // NOTE! plugins here MUST assign output to template 

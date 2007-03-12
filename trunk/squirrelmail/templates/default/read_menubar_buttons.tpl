@@ -102,7 +102,7 @@ if ($nav_on_top) {
     <?php
     if ($forward_as_attachment_enabled) {
         ?>
-    <input type="checkbox" name="smaction_attache" id="smaction_attache">
+    <input type="checkbox" name="smaction_attache" id="smaction_attache" />
     <label for="smaction_attache"><?php echo _("As Attachment"); ?></label>
         <?php
     }
@@ -117,7 +117,7 @@ if ($nav_on_top) {
      <?php echo $delete_form_extra; ?>
      <small>
      <input type="submit" name="delete" value="<?php echo _("Delete"); ?>" />
-     <input type="checkbox" name="bypass_trash" id="bypass_trash"><label for="bypass_trash"><?php echo _("Bypass Trash"); ?></label>
+     <input type="checkbox" name="bypass_trash" id="bypass_trash" /><label for="bypass_trash"><?php echo _("Bypass Trash"); ?></label>
      </small>
     </form>
         <?php

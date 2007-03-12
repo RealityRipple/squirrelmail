@@ -95,7 +95,7 @@ extract($t);
                 }
                 break;
             case 'hidden':
-                echo '<input type="hidden" name="'.$widget_name.'" value="'. $widget_attrs['value']."\">\n";
+                echo '<input type="hidden" name="'.$widget_name.'" value="'. $widget_attrs['value']."\" />\n";
                 break;
             default: break;
             }

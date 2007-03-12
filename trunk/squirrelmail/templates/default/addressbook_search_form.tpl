@@ -54,7 +54,7 @@ extract($t);
         <?php
     } else {
         ?>
-   <input type="hidden" name="backend" value="-1">
+   <input type="hidden" name="backend" value="-1" />
         <?php
     }
    ?>

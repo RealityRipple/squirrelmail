@@ -73,9 +73,9 @@ if ($use_js) {
         <?php
     } else {
         ?>
-   <input type="checkbox" name=<?php echo '"send_to_search[T'.$index.']"'; ?> value=<?php echo '"'.$contact['FullAddress'].'"'; ?> id=<?php echo '"send_to_search_T'.$index.'_"'; ?>><label for=<?php echo '"send_to_search_T'.$index.'_"'; ?>><?php echo _("To"); ?></label>
-   <input type="checkbox" name=<?php echo '"send_to_search[C'.$index.']"'; ?> value=<?php echo '"'.$contact['FullAddress'].'"'; ?> id=<?php echo '"send_to_search_C'.$index.'_"'; ?>><label for=<?php echo '"send_to_search_C'.$index.'_"'; ?>><?php echo _("Cc"); ?></label>
-   <input type="checkbox" name=<?php echo '"send_to_search[B'.$index.']"'; ?> value=<?php echo '"'.$contact['FullAddress'].'"'; ?> id=<?php echo '"send_to_search_B'.$index.'_"'; ?>><label for=<?php echo '"send_to_search_B'.$index.'_"'; ?>><?php echo _("Bcc"); ?></label>
+   <input type="checkbox" name=<?php echo '"send_to_search[T'.$index.']"'; ?> value=<?php echo '"'.$contact['FullAddress'].'"'; ?> id=<?php echo '"send_to_search_T'.$index.'_"'; ?> /><label for=<?php echo '"send_to_search_T'.$index.'_"'; ?>><?php echo _("To"); ?></label>
+   <input type="checkbox" name=<?php echo '"send_to_search[C'.$index.']"'; ?> value=<?php echo '"'.$contact['FullAddress'].'"'; ?> id=<?php echo '"send_to_search_C'.$index.'_"'; ?> /><label for=<?php echo '"send_to_search_C'.$index.'_"'; ?>><?php echo _("Cc"); ?></label>
+   <input type="checkbox" name=<?php echo '"send_to_search[B'.$index.']"'; ?> value=<?php echo '"'.$contact['FullAddress'].'"'; ?> id=<?php echo '"send_to_search_B'.$index.'_"'; ?> /><label for=<?php echo '"send_to_search_B'.$index.'_"'; ?>><?php echo _("Bcc"); ?></label>
         <?php
     }
    ?> 
