@@ -79,7 +79,7 @@ function create_css_link($uri, $name='', $alt=TRUE, $mtype='screen') {
  * @param string $icon_theme_path User's chosen icon set
  * @param string $icon_name File name of the desired icon
  * @param string $text_icon Text-based icon to display if desired
- * @param string $alt_text Optional.  Text for alt/title attribute of image
+ * @param string $alt_text Text for alt/title attribute of image
  * @param integer $w Optional.  Width of requested image.
  * @param integer $h Optional.  Height of requested image.
  *
@@ -87,9 +87,8 @@ function create_css_link($uri, $name='', $alt=TRUE, $mtype='screen') {
  *
  * @author Steve Brown
  * @since 1.5.2
- *
  */
-function getIcon($icon_theme_path, $icon_name, $text_icon, $alt_text='', $w=NULL, $h=NULL) {
+function getIcon($icon_theme_path, $icon_name, $text_icon, $alt_text, $w=NULL, $h=NULL) {
     $icon = '';
     if (is_null($icon_theme_path)) {
         $icon = $text_icon;
