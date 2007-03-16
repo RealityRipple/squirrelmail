@@ -34,7 +34,7 @@ extract($t);
 <table cellspacing="0">
  <tr>
   <td colspan="2">
-   <?php echo getIcon($icon_theme_path, 'login1.png', ''); ?>
+   <?php echo getIcon($icon_theme_path, 'login1.png', '', _("The SquirrelMail logo")); ?>
   </td>
  </tr>
  <tr>
@@ -49,7 +49,7 @@ extract($t);
  </tr>
  <tr>
   <td class="orgLogo">
-   <img src="<?php echo $logo_path; ?>" width="50px" />
+   <img src="<?php echo $logo_path; ?>" width="50" alt="<?php echo _("The service provider's logo"); ?>" />
   </td>
   <td>
    <table cellspacing="0">
