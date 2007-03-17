@@ -11,6 +11,7 @@
  *      $sm_attribute_str   - string containg SQM attributes.  Will be empty if
  *                            this has been disabled by the admin.
  *      $org_name_str       - translated string containing orginization's name
+ *      $org_logo_str       - translated string containing orginization's logo
  *      $login_field_value  - default value for the user name field
  *      $login_extra        - Some extra form fields needed by SquirrelMail
  *                            for the login.  Template designers SHOULD ALWAYS
@@ -49,7 +50,7 @@ extract($t);
  </tr>
  <tr>
   <td class="orgLogo">
-   <img src="<?php echo $logo_path; ?>" width="50" alt="<?php echo _("The service provider's logo"); ?>" />
+   <img src="<?php echo $logo_path; ?>" width="50" alt="<?php echo $org_logo_str; ?>" />
   </td>
   <td>
    <table cellspacing="0">
