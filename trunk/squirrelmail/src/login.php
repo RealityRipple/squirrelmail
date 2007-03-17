@@ -164,7 +164,10 @@ session_write_close();
 $oTemplate->assign('logo_str', $logo_str);
 $oTemplate->assign('logo_path', $org_logo);
 $oTemplate->assign('sm_attribute_str', $sm_attribute_str);
+// i18n: The %s represents the service provider's name
 $oTemplate->assign('org_name_str', sprintf (_("%s Login"), $org_name));
+// i18n: The %s represents the service provider's name
+$oTemplate->assign('org_logo_str', sprintf (_("The %s logo"), $org_name));
 $oTemplate->assign('login_field_value', $loginname_value);
 $oTemplate->assign('login_extra', $login_extra);
 
@@ -183,4 +186,3 @@ do_hook('login_bottom', $null);
 $oErrorHandler->setDelayedErrors(false);
 
 $oTemplate->display('footer.tpl');
-?>
