@@ -81,6 +81,12 @@ function do_hook($name, &$args) {
             use_plugin($plugin_name);
             if (function_exists($function)) {
                 $ret = $function($args, $ret);
+
+                // each plugin can call additional hooks, so need
+                // to make sure the current hook name is accurate
+                // again after each plugin has finished
+                //
+                $currentHookName = $name;
             }
         }
     }
@@ -148,6 +154,12 @@ function concat_hook_function($name, &$args, $force_array=FALSE) {
                 if (!empty($plugin_ret)) {
                     $ret = sqm_array_merge($ret, $plugin_ret);
                 }
+
+                // each plugin can call additional hooks, so need
+                // to make sure the current hook name is accurate
+                // again after each plugin has finished
+                //
+                $currentHookName = $name;
             }
         }
     }
@@ -208,6 +220,12 @@ function boolean_hook_function($name, &$args, $priority=0, $tie=false) {
                 } else {
                     $nay++;
                 }
+
+                // each plugin can call additional hooks, so need
+                // to make sure the current hook name is accurate
+                // again after each plugin has finished
+                //
+                $currentHookName = $name;
             }
         }
         $currentHookName = '';
