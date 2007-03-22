@@ -224,15 +224,11 @@ session_set_cookie_params (0, $base_uri);
 sqsession_is_active();
 
 /**
- * SquirrelMail version number -- DO NOT CHANGE
- */
-$version = '1.5.2 [SVN]';
-
-/**
  * SquirrelMail internal version number -- DO NOT CHANGE
  * $sm_internal_version = array (release, major, minor)
  */
-$SQM_INTERNAL_VERSION = array(1,5,2);
+$SQM_INTERNAL_VERSION = preg_split('/\./', SM_VERSION, 3);
+$SQM_INTERNAL_VERSION[2] = intval($SQM_INTERNAL_VERSION[2]);
 
 
 /* if plugins are disabled only for one user and

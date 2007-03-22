@@ -4315,7 +4315,6 @@ sub save_data {
         print CF " * Created using the configure script, conf.pl\n";
         print CF " */\n";
         print CF "\n";
-        print CF "global \$version;\n";
 
         if ($print_config_version) {
             print CF "\$config_version = '$print_config_version';\n";

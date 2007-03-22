@@ -29,7 +29,7 @@ displayPageHeader($color);
     alt="SquirrelMail Logo" /><br />
 <table align="center" width="80%" cellpadding="1" cellspacing="2" border="0">
 <tr><td bgcolor="#dcdcdc" align="center"><div style="text-align: center;"><b>
-<?php echo sprintf(_("About SquirrelMail %s"),$version); ?>
+<?php echo sprintf(_("About SquirrelMail %s"), SM_VERSION); ?>
 </b></div></td></tr>
 <tr><td>
 <br />
@@ -64,7 +64,7 @@ echo sprintf(_("For more information about SquirrelMail and the SquirrelMail Pro
 </b><br/><br/>
 <small>
 <?php
-echo sprintf(_("You are using SquirrelMail version: %s"),$version);
+echo sprintf(_("You are using SquirrelMail version: %s"), SM_VERSION);
 echo "<br />\n";
 echo _("The administrator installed the following plugins:");
 echo "<br />\n";

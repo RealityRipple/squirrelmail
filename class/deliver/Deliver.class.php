@@ -378,7 +378,7 @@ class Deliver {
      * @return string $header
      */
     function prepareRFC822_Header($rfc822_header, $reply_rfc822_header, &$raw_length) {
-        global $domain, $version, $username, $encode_header_key,
+        global $domain, $username, $encode_header_key,
                $edit_identity, $hide_auth_header;
 
         /* if server var SERVER_NAME not available, use $domain */
@@ -497,7 +497,7 @@ class Deliver {
             }
         }
         /* Identify SquirrelMail */
-        $header[] = 'User-Agent: SquirrelMail/' . $version . $rn;
+        $header[] = 'User-Agent: SquirrelMail/' . SM_VERSION . $rn;
         /* Do the MIME-stuff */
         $header[] = 'MIME-Version: 1.0' . $rn;
         $contenttype = 'Content-Type: '. $rfc822_header->content_type->type0 .'/'.
