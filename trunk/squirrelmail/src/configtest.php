@@ -356,15 +356,25 @@ if (isset($plugins[0])) {
     /** 
      * Print plugin versions
      */
-/* DISABLED FOR NOW: takes a lot of screen real estate and not all plugins currently 
-                     support the <plugin>_info() or <plugin>_version() functions
     echo $IND . "Plugin versions...<br />\n";
     foreach ($plugins as $name) {
         $plugin_version = get_plugin_version($name);
         if (!empty($plugin_version))
             echo $IND . $IND . $name . ' ' . $plugin_version . "<br />\n";
+
+        // check if this plugin has any other plugin 
+        // dependencies and if they are satisfied
+        //
+        $failed_dependencies = check_plugin_dependencies($name);
+        if (is_array($failed_dependencies)) {
+            $missing_plugins = '';
+            foreach ($failed_dependencies as $depend_name => $depend_version) {
+                $missing_plugins .= ', ' . $depend_name . ' (version ' . $depend_version . ')';
+            }
+            do_err($name . ' is missing some dependencies: ' . trim($missing_plugins, ', '), FALSE);
+        }
+
     }
-*/
     /**
      * This hook was added in 1.5.2 and 1.4.10. Each plugins should print an error 
      * message and return TRUE if there are any errors in its setup/configuration.
