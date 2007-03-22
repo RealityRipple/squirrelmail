@@ -294,37 +294,37 @@ function is_plugin_enabled($plugin_name) {
   *
   * Determines and returns a plugin's version.
   *
-  * By default, the desired plugin must be currently 
-  * activated, and if it is not, this function will 
-  * return FALSE.  By overriding the default value 
-  * of $force_inclusion, this function will attempt 
-  * to grab versioning information from the given 
-  * plugin even if it is not activated (plugin still 
-  * has to be unpackaged and set in place in the 
+  * By default, the desired plugin must be currently
+  * activated, and if it is not, this function will
+  * return FALSE.  By overriding the default value
+  * of $force_inclusion, this function will attempt
+  * to grab versioning information from the given
+  * plugin even if it is not activated (plugin still
+  * has to be unpackaged and set in place in the
   * plugins directory).  Use with care - some plugins
   * might break SquirrelMail when this is used.
-  * 
+  *
   * By turning on the $do_parse argument, the version
-  * string will be parsed by SquirrelMail into a 
+  * string will be parsed by SquirrelMail into a
   * SquirrelMail-compatible version string (such as
-  * "1.2.3") if it is not already.  
+  * "1.2.3") if it is not already.
   *
-  * Note that this assumes plugin versioning is 
-  * consistently applied in the same fashion that 
-  * SquirrelMail versions are, with the exception that 
-  * an applicable SquirrelMail version may be appended 
-  * to the version number (which will be ignored herein).  
-  * That is, plugin version number schemes are expected 
-  * in the following format:  1.2.3, or 1.2.3-1.4.0.  
+  * Note that this assumes plugin versioning is
+  * consistently applied in the same fashion that
+  * SquirrelMail versions are, with the exception that
+  * an applicable SquirrelMail version may be appended
+  * to the version number (which will be ignored herein).
+  * That is, plugin version number schemes are expected
+  * in the following format:  1.2.3, or 1.2.3-1.4.0.
   *
-  * Any characters after the third version number 
-  * indicating things such as beta or release candidate 
-  * versions are discarded, so formats such as the 
-  * following will also work, although extra information 
-  * about beta versions can possibly confuse the desired 
-  * results of the version check:  1.2.3-beta4, 1.2.3.RC2, 
+  * Any characters after the third version number
+  * indicating things such as beta or release candidate
+  * versions are discarded, so formats such as the
+  * following will also work, although extra information
+  * about beta versions can possibly confuse the desired
+  * results of the version check:  1.2.3-beta4, 1.2.3.RC2,
   * and so forth.
-  * 
+  *
   * @since 1.5.2
   *
   * @param string plugin_name   name of the plugin to
@@ -357,7 +357,7 @@ function get_plugin_version($plugin_name, $force_inclusion = FALSE, $do_parse = 
    //
    if (function_exists($info_function))
       $plugin_info = $info_function();
-   else if ($force_inclusion 
+   else if ($force_inclusion
     && file_exists(SM_PATH . 'plugins/' . $plugin_name . '/setup.php'))
    {
       include_once(SM_PATH . 'plugins/' . $plugin_name . '/setup.php');
@@ -368,7 +368,7 @@ function get_plugin_version($plugin_name, $force_inclusion = FALSE, $do_parse = 
       $plugin_version = $plugin_info['version'];
 
 
-   // otherwise, look for older version function 
+   // otherwise, look for older version function
    //
    if (!$plugin_version && function_exists($version_function))
        $plugin_version = $version_function();
@@ -392,8 +392,8 @@ function get_plugin_version($plugin_name, $force_inclusion = FALSE, $do_parse = 
       // the regexps are wrapped in a trim that makes sure the version
       // does not start or end with a decimal point
       //
-      $plugin_version = trim(preg_replace(array('/[^0-9.]+.*$/', '/[^0-9.]/'), 
-                                          '', $plugin_version), 
+      $plugin_version = trim(preg_replace(array('/[^0-9.]+.*$/', '/[^0-9.]/'),
+                                          '', $plugin_version),
                              '.');
 
    }
@@ -479,6 +479,223 @@ function check_plugin_version($plugin_name,
 
 
    return TRUE;
+
+}
+
+/**
+  * Get a plugin's other plugin dependencies.
+  *
+  * Determines and returns all the other plugins
+  * that a given plugin requires, as well as the
+  * minimum version numbers of the required plugins.
+  *
+  * By default, the desired plugin must be currently 
+  * activated, and if it is not, this function will 
+  * return FALSE.  By overriding the default value 
+  * of $force_inclusion, this function will attempt 
+  * to grab dependency information from the given 
+  * plugin even if it is not activated (plugin still 
+  * has to be unpackaged and set in place in the 
+  * plugins directory).  Use with care - some plugins
+  * might break SquirrelMail when this is used.
+  * 
+  * By turning on the $do_parse argument (it is on by
+  * default), the version string for each required 
+  * plugin will be parsed by SquirrelMail into a 
+  * SquirrelMail-compatible version string (such as 
+  * "1.2.3") if it is not already.  See notes about 
+  * version formatting under get_plugin_version().
+  *
+  * @since 1.5.2
+  *
+  * @param string plugin_name   name of the plugin to
+  *                             check; must precisely
+  *                             match the plugin
+  *                             directory name
+  * @param bool force_inclusion try to get version info
+  *                             for plugins not activated?
+  *                             (default FALSE)
+  * @param bool do_parse        return the version numbers
+  *                             for required plugins in
+  *                             SquirrelMail-compatible
+  *                             format (default FALSE)
+  *
+  * @return mixed Boolean FALSE is returned if the plugin
+  *               could not be found or does not indicate
+  *               whether it has other plugin dependencies, 
+  *               otherwise an array is returned where keys 
+  *               are the names of required plugin dependencies,
+  *               and values are the minimum version required 
+  *               for that plugin.  Note that the array might 
+  *               be empty, indicating that the plugin has no 
+  *               dependencies.
+  *
+  */
+function get_plugin_dependencies($plugin_name, $force_inclusion = FALSE, $do_parse = TRUE)
+{
+
+   $info_function = $plugin_name . '_info';
+   $plugin_info = array();
+   $plugin_dependencies = FALSE;
+
+
+   // first attempt to find the plugin info function, wherein
+   // the plugin dependencies should be available
+   //
+   if (function_exists($info_function))
+      $plugin_info = $info_function();
+   else if ($force_inclusion 
+    && file_exists(SM_PATH . 'plugins/' . $plugin_name . '/setup.php'))
+   {
+      include_once(SM_PATH . 'plugins/' . $plugin_name . '/setup.php');
+      if (function_exists($info_function))
+         $plugin_info = $info_function();
+   }
+   if (!empty($plugin_info['required_plugins']))
+      $plugin_dependencies = $plugin_info['required_plugins'];
+
+
+   if (!empty($plugin_dependencies) && $do_parse)
+   {
+
+      $new_plugin_dependencies = '';
+      foreach ($plugin_dependencies as $plugin_name => $plugin_version)
+      {
+
+         // massage version number into something we understand
+         //
+         // the first regexp strips everything and anything that follows
+         // the first occurance of a non-digit (or non decimal point), so
+         // beware that putting letters in the middle of a version string
+         // will effectively truncate the version string right there (but
+         // this also just helps remove the SquirrelMail version part off
+         // of versions such as "1.2.3-1.4.4")
+         //
+         // the second regexp just strips out non-digits/non-decimal points
+         // (and might be redundant(?))
+         //
+         // the regexps are wrapped in a trim that makes sure the version
+         // does not start or end with a decimal point
+         //
+         $new_plugin_dependencies[$plugin_name] 
+            = trim(preg_replace(array('/[^0-9.]+.*$/', '/[^0-9.]/'), 
+                                '', $plugin_version), 
+                                '.');
+
+      }
+
+      $plugin_dependencies = $new_plugin_dependencies;
+
+   }
+
+   return $plugin_dependencies;
+
+}
+
+/**
+  * Check a plugin's other plugin dependencies.
+  *
+  * Determines whether or not all of the given
+  * plugin's required plugins are installed and
+  * up to the proper version.
+  *
+  * By default, the desired plugin must be currently 
+  * activated, and if it is not, this function will 
+  * return FALSE.  By overriding the default value 
+  * of $force_inclusion, this function will attempt 
+  * to grab dependency information from the given 
+  * plugin even if it is not activated (plugin still 
+  * has to be unpackaged and set in place in the 
+  * plugins directory).  Use with care - some plugins
+  * might break SquirrelMail when this is used.
+  * 
+  * NOTE that if a plugin does not report whether or
+  * not it has other plugin dependencies, this function
+  * will return TRUE, although that is possibly incorrect
+  * or misleading.
+  *
+//FIXME:
+  * NOTE that currently, the dependencies are checked
+  * in such as way as they do not have to be activated;
+  * this is due to the large number of plugins that
+  * require the Compatibility plugin, which does (should)
+  * not need to be activated.  Best solution would be to
+  * expand the plugin info function so that it indicates
+  * also whether or not the required plugin must be 
+  * activated or not.
+//FIXME: proposed info() change:
+     'required_plugins' => array(
+                                 'activated' => array(
+                                                      'blah' => '1.0',
+                                                     ),
+                                 'inactive'  => array(
+                                                      'compatibility' => '2.0.5',
+                                                     ),
+                                )
+//FIXME: optional proposed info() change: (I vote for this, the problem, tho, is that it is a bit of a departure from what is already out there...)
+     'required_plugins' => array(
+                                 'compatibility' => array(
+                                                          'version' => '2.0.5',
+                                                          'activate' => FALSE,
+                                                         )
+                                )
+//FIXME: optional proposed info() change:
+     'required_plugins' => array(
+                                 'compatibility::NO_NEED_TO_ACTIVATE::' => '2.0.5',
+                                )
+//FIXME: optional proposed info() change:
+     'required_plugins' => array(
+                                 'compatibility' => '2.0.5::NO_NEED_TO_ACTIVATE::',
+                                )
+  * 
+  * @since 1.5.2
+  *
+  * @param string plugin_name   name of the plugin to
+  *                             check; must precisely
+  *                             match the plugin
+  *                             directory name
+  * @param bool force_inclusion try to get version info
+  *                             for plugins not activated?
+  *                             (default FALSE)
+  *
+  * @return mixed Boolean TRUE if all of the plugin's 
+  *               required plugins are correctly installed,
+  *               otherwise an array of the required plugins
+  *               that are either not installed or not up to
+  *               the minimum required version.  The array is
+  *               keyed by plugin name where values are the
+  *               (printable, non-parsed) versions required.
+  *
+  */
+function check_plugin_dependencies($plugin_name, $force_inclusion = FALSE)
+{
+
+   $dependencies = get_plugin_dependencies($plugin_name, $force_inclusion);
+   if (!$dependencies) return TRUE;
+   $missing_or_bad = array();
+
+   foreach ($dependencies as $depend_name => $depend_version)
+   {
+      $version = preg_split('/\./', $depend_version, 3);
+      $version[2] = intval($version[2]);
+//FIXME: should fix plugin info function API to tell us what the value of $force_dependency_inclusion should be below
+      //$force_dependency_inclusion = !$the_plugin_info_thingy_array['required_plugins']['must_be_activated'];
+      $force_dependency_inclusion = TRUE;
+      if (!check_plugin_version($depend_name, $version[0], $version[1], $version[2], $force_dependency_inclusion))
+         $missing_or_bad[$depend_name] = $depend_version;
+   }
+
+   if (empty($missing_or_bad)) return TRUE;
+
+
+   // get non-parsed required versions
+   //
+   $non_parsed_dependencies = get_plugin_dependencies($plugin_name, $force_inclusion, FALSE);
+   $return_array = array();
+   foreach ($missing_or_bad as $depend_name => $ignore)
+      $return_array[$depend_name] = $non_parsed_dependencies[$depend_name];
+
+   return $return_array;
 
 }
 
