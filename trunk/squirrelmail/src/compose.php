@@ -1308,6 +1308,8 @@ function showInputForm ($session, $values=false) {
         $oTemplate->display('compose_newwin_close.tpl');
     }
 
+    do_hook('compose_bottom', $null);
+
     $oErrorHandler->setDelayedErrors(false);
     $oTemplate->display('footer.tpl');
 }
