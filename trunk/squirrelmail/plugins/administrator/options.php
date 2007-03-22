@@ -622,8 +622,7 @@ if ( $fp = @fopen( $cfgfile, 'w' ) ) {
     " * SquirrelMail Configuration File\n".
     " * Created using the Administrator Plugin\n".
     " */\n".
-    "\n".
-    "global \$version;\n" );
+    "\n" );
 
     foreach ( $newcfg as $k => $v ) {
         if ( $k{0} == '$' && $v <> '' || is_int($v)) {

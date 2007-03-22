@@ -126,7 +126,7 @@ function ServerMDNSupport($aFlags) {
 
 function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
     global $username, $attachment_dir, $popuser, $username, $color,
-           $version, $squirrelmail_language, $default_charset,
+           $squirrelmail_language, $default_charset,
            $languages, $useSendmail, $domain, $sent_folder;
 
     sqgetGlobalVar('SERVER_NAME', $SERVER_NAME, SQ_SERVER);
@@ -223,7 +223,7 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
     $original_recipient  = $to;
     $original_message_id = $header->message_id;
 
-    $report = "Reporting-UA : $SERVER_NAME ; SquirrelMail (version $version) \r\n";
+    $report = "Reporting-UA : $SERVER_NAME ; SquirrelMail (version " . SM_VERSION . ") \r\n";
     if ($original_recipient != '') {
         $report .= "Original-Recipient : $original_recipient\r\n";
     }

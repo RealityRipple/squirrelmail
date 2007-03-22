@@ -44,7 +44,7 @@ function adm_template_options() {
     return $ret;
 }
 
-global $languages, $version;
+global $languages;
 
 $language_values = array( );
 foreach ($languages as $lang_key => $lang_attributes) {
@@ -64,7 +64,7 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                                              'size' => 7 ),
                  'SM_ver' => array( 'name' => _("SquirrelMail Version"),
                                     'type' => SMOPT_TYPE_EXTERNAL,
-                                    'value' => "$version" ),
+                                    'value' => SM_VERSION ),
                  'PHP_ver' => array( 'name' => _("PHP Version"),
                                      'type' => SMOPT_TYPE_EXTERNAL,
                                      'value' => phpversion() ),

@@ -15,6 +15,12 @@
 
 /** @ignore */
 
+/**
+ * SquirrelMail version number -- DO NOT CHANGE
+ * @since 1.5.2
+ */
+define('SM_VERSION', '1.5.2 [SVN]');
+
 /**************************************************************/
 /* Set values for constants used by SquirrelMail preferences. */
 /**************************************************************/

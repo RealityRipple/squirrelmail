@@ -81,8 +81,11 @@ ob_implicit_flush();
 /** @ignore */
 define('SM_PATH', '../');
 /** load minimal function set */
+require(SM_PATH . 'include/constants.php');
 require(SM_PATH . 'functions/global.php');
 require(SM_PATH . 'functions/strings.php');
+$SQM_INTERNAL_VERSION = preg_split('/\./', SM_VERSION, 3);
+$SQM_INTERNAL_VERSION[2] = intval($SQM_INTERNAL_VERSION[2]);
 
 /** set default value in order to block remote access */
 $allow_remote_configtest=false;
@@ -169,7 +172,7 @@ if (! $allow_remote_configtest) {
 }
 /* checking PHP specs */
 
-echo "<p><table>\n<tr><td>SquirrelMail version:</td><td><b>" . $version . "</b></td></tr>\n" .
+echo "<p><table>\n<tr><td>SquirrelMail version:</td><td><b>" . SM_VERSION . "</b></td></tr>\n" .
     '<tr><td>Config file version:</td><td><b>' . $config_version . "</b></td></tr>\n" .
     '<tr><td>Config file last modified:</td><td><b>' .
     date ('d F Y H:i:s', filemtime(SM_PATH . 'config/config.php')) .
