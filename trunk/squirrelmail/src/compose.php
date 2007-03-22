@@ -1304,8 +1304,6 @@ function showInputForm ($session, $values=false) {
             . "</p>\r\n";
     }
 
-    do_hook('compose_bottom', $null);
-
     if ($compose_new_win=='1') {
         $oTemplate->display('compose_newwin_close.tpl');
     }
