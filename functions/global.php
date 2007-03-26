@@ -378,7 +378,7 @@ function sqsession_start() {
  * @param boolean $bHttpOnly Disallow JS to access the cookie (IE6 only)
  * @return void
  */
-function sqsetcookie($sName,$sValue="deleted",$iExpire=0,$sPath="",$sDomain="",$bSecure=false,$bHttpOnly=true) {
+function sqsetcookie($sName,$sValue='',$iExpire=0,$sPath="",$sDomain="",$bSecure=false,$bHttpOnly=true) {
     // if we have a secure connection then limit the cookies to https only.
     if ($sName && isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) {
         $bSecure = true;
@@ -403,7 +403,7 @@ function sqsetcookie($sName,$sValue="deleted",$iExpire=0,$sPath="",$sDomain="",$
             $Port = strpos($Domain, ':');
             if ($Port !== false)  $Domain = substr($Domain, 0, $Port);
         }
-        if (!$sValue) $sValue = 'deleted';
+        if (!$sValue) $sValue = '';
         header('Set-Cookie: ' . rawurlencode($sName) . '=' . rawurlencode($sValue)
                             . (empty($iExpires) ? '' : '; expires=' . gmdate('D, d-M-Y H:i:s', $iExpires) . ' GMT')
                             . (empty($sPath) ? '' : '; path=' . $sPath)
