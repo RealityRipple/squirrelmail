@@ -1002,7 +1002,7 @@ if (is_dir(SM_PATH . 'locale') &&
             $lang_dir = substr($lang_dir,0,-1);
         }
         if ($lang_dir != '..' && $lang_dir != '.' && $lang_dir != 'CVS' &&
-            is_dir(SM_PATH.'locale/'.$lang_dir) &&
+            $lang_dir != '.svn' && is_dir(SM_PATH.'locale/'.$lang_dir) &&
             file_exists(SM_PATH.'locale/'.$lang_dir.'/setup.php')) {
             include_once(SM_PATH.'locale/'.$lang_dir.'/setup.php');
         }
