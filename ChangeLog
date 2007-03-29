@@ -188,6 +188,7 @@ Version 1.5.2 - SVN
     HTML addressbook, and allow returning from an empty address book (#1673056).
   - Do not special case the 'None' folder.
   - Fixes for filters issues (#1634735).
+  - session_id reporting session id when no active session (#1685031).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
