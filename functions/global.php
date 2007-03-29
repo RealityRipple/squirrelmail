@@ -342,23 +342,30 @@ function sqsession_destroy() {
  * start a session up.  php.net doesn't tell you that $_SESSION
  * (even though autoglobal), is not created unless a session is
  * started, unlike $_POST, $_GET and such
+ * Update: (see #1685031) the session ID is left over after the
+ * session is closed in some PHP setups; this function just becomes
+ * a passthru to sqsession_start(), but leaving old code in for
+ * edification.
  */
 function sqsession_is_active() {
-    $sessid = session_id();
-    if ( empty( $sessid ) ) {
+    //$sessid = session_id();
+    //if ( empty( $sessid ) ) {
         sqsession_start();
-    }
+    //}
 }
 
 /**
  * Function to start the session and store the cookie with the session_id as
  * HttpOnly cookie which means that the cookie isn't accessible by javascript
  * (IE6 only)
+ * Note that as sqsession_is_active() no longer discriminates as to when 
+ * it calls this function, session_start() has to have E_NOTICE suppression
+ * (thus the @ sign).
  */
 function sqsession_start() {
     global $base_uri;
 
-    session_start();
+    @session_start();
     $session_id = session_id();
 
     // session_starts sets the sessionid cookie buth without the httponly var
@@ -637,4 +644,61 @@ function sm_print_r() {
     print '<div align="left"><pre>';
     print htmlentities($buffer);
     print '</pre></div>';
+}
+
+/**
+  * Sanitize a value using htmlspecialchars() or similar, but also
+  * recursively run htmlspecialchars() (or similar) on array keys
+  * and values.
+  *
+  * If $value is not a string or an array with strings in it,
+  * the value is returned as is.
+  *
+  * @param mixed $value       The value to be sanitized.
+  * @param mixed $quote_style Either boolean or an integer.  If it
+  *                           is an integer, it must be the PHP
+  *                           constant indicating if/how to escape
+  *                           quotes: ENT_QUOTES, ENT_COMPAT, or
+  *                           ENT_NOQUOTES.  If it is a boolean value,
+  *                           it must be TRUE and thus indicates
+  *                           that the only sanitizing to be done
+  *                           herein is to replace single and double
+  *                           quotes with &#039; and &quot;, no other
+  *                           changes are made to $value.  If it is
+  *                           boolean and FALSE, behavior reverts
+  *                           to same as if the value was ENT_QUOTES
+  *                           (OPTIONAL; default is ENT_QUOTES).
+  *
+  * @return mixed The sanitized value.
+  *
+  * @since 1.5.2
+  *
+  **/
+function sq_htmlspecialchars($value, $quote_style=ENT_QUOTES) {
+
+    if ($quote_style === FALSE) $quote_style = ENT_QUOTES;
+
+    // array?  go recursive...
+    //
+    if (is_array($value)) {
+        $return_array = array();
+        foreach ($value as $key => $val) {
+            $return_array[sq_htmlspecialchars($key, $quote_style)]
+                = sq_htmlspecialchars($val, $quote_style);
+        }
+        return $return_array;
+
+    // sanitize strings only
+    //
+    } else if (is_string($value)) {
+        if ($quote_style === TRUE)
+            return str_replace(array('\'', '"'), array('&#039;', '&quot;'), $value);
+        else
+            return htmlspecialchars($value, $quote_style);
+    }
+
+    // anything else gets returned with no changes
+    //
+    return $value;
+
 }
