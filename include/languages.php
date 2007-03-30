@@ -23,6 +23,55 @@
 
 
 /**
+ * Wrapper for textdomain(), bindtextdomain() and
+ * bind_textdomain_codeset() primarily intended for
+ * plugins when changing into their own text domain 
+ * and back again.
+ *
+ * Note that plugins using this function must have
+ * their translation files located in the SquirrelMail
+ * locale directory.
+ *
+ * @param string $domain_name The name of the text domain 
+ *                            (usually the plugin name, or 
+ *                            "squirrelmail") being switched to.                 
+ *
+ * @return void
+ *
+ * @since 1.5.2 and 1.4.10 
+ */
+function sq_change_text_domain($domain_name) {
+
+    global $languages, $sm_notAlias;
+    static $domains_already_seen = array();
+
+    // only need to call bindtextdomain() once 
+    //
+    if (in_array($domain_name, $domains_already_seen)) {
+        sq_textdomain($domain_name);
+        return;
+    }
+
+    $domains_already_seen[] = $domain_name;
+
+    sq_bindtextdomain($domain_name, SM_PATH . 'locale/');
+    sq_textdomain($domain_name);
+
+    // set codeset in order to avoid gettext charset conversions
+    if (function_exists('bind_textdomain_codeset') 
+     && isset($languages[$sm_notAlias]['CHARSET'])) {
+
+        // Japanese translation uses different internal charset
+        if ($sm_notAlias == 'ja_JP') {
+            bind_textdomain_codeset ($domain_name, 'EUC-JP');
+        } else {
+            bind_textdomain_codeset ($domain_name, $languages[$sm_notAlias]['CHARSET']);
+        }
+
+    }
+}
+
+/**
  * Gettext bindtextdomain wrapper.
  *
  * Wrapper solves differences between php versions in order to provide
