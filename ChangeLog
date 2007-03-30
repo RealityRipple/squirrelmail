@@ -189,6 +189,8 @@ Version 1.5.2 - SVN
   - Do not special case the 'None' folder.
   - Fixes for filters issues (#1634735).
   - session_id reporting session id when no active session (#1685031).
+  - Added sq_change_text_domain() for plugins to use when switching text
+    domains.  If plugins use this function, it fixes #1434043.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
