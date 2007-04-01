@@ -28,21 +28,26 @@
  * plugins when changing into their own text domain 
  * and back again.
  *
- * Note that plugins using this function must have
+ * Note that if plugins using this function have 
  * their translation files located in the SquirrelMail
- * locale directory.
+ * locale directory, the second argument is optional.
  *
  * @param string $domain_name The name of the text domain 
  *                            (usually the plugin name, or 
  *                            "squirrelmail") being switched to.                 
+ * @param string $directory   The directory that contains 
+ *                            all translations for the domain
+ *                            (OPTIONAL; default is SquirrelMail
+ *                            locale directory).
  *
  * @return void
  *
  * @since 1.5.2 and 1.4.10 
  */
-function sq_change_text_domain($domain_name) {
+function sq_change_text_domain($domain_name, $directory='') {
 
-    global $languages, $sm_notAlias;
+    if (empty($directory)) $directory = SM_PATH . 'locale/';
+
     static $domains_already_seen = array();
 
     // only need to call bindtextdomain() once 
@@ -54,21 +59,9 @@ function sq_change_text_domain($domain_name) {
 
     $domains_already_seen[] = $domain_name;
 
-    sq_bindtextdomain($domain_name, SM_PATH . 'locale/');
+    sq_bindtextdomain($domain_name, $directory);
     sq_textdomain($domain_name);
 
-    // set codeset in order to avoid gettext charset conversions
-    if (function_exists('bind_textdomain_codeset') 
-     && isset($languages[$sm_notAlias]['CHARSET'])) {
-
-        // Japanese translation uses different internal charset
-        if ($sm_notAlias == 'ja_JP') {
-            bind_textdomain_codeset ($domain_name, 'EUC-JP');
-        } else {
-            bind_textdomain_codeset ($domain_name, $languages[$sm_notAlias]['CHARSET']);
-        }
-
-    }
 }
 
 /**
@@ -77,7 +70,11 @@ function sq_change_text_domain($domain_name) {
  * Wrapper solves differences between php versions in order to provide
  * ngettext support. Should be used if translation uses ngettext
  * functions.
- * @since 1.5.1
+ *
+ * This also provides a bind_textdomain_codeset call to make sure the
+ * domain's encoding will not be overridden.
+ *
+ * @since 1.4.10 and 1.5.1
  * @param string $domain gettext domain name
  * @param string $dir directory that contains all translations
  * @return string path to translation directory
@@ -94,6 +91,19 @@ function sq_bindtextdomain($domain,$dir) {
     }
 
     $dir=bindtextdomain($domain,$dir);
+
+    // set codeset in order to avoid gettext charset conversions
+    if (function_exists('bind_textdomain_codeset') 
+     && isset($languages[$sm_notAlias]['CHARSET'])) {
+
+        // Japanese translation uses different internal charset
+        if ($sm_notAlias == 'ja_JP') {
+            bind_textdomain_codeset ($domain_name, 'EUC-JP');
+        } else {
+            bind_textdomain_codeset ($domain_name, $languages[$sm_notAlias]['CHARSET']);
+        }
+
+    }
 
     return $dir;
 }
@@ -429,16 +439,6 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
          isset($languages[$sm_notAlias]['CHARSET']) ) {
         sq_bindtextdomain( 'squirrelmail', SM_PATH . 'locale/' );
         sq_textdomain( 'squirrelmail' );
-
-        // set codeset in order to avoid gettext charset conversions
-        if (function_exists('bind_textdomain_codeset')) {
-            // Japanese translation uses different internal charset
-            if ($sm_notAlias == 'ja_JP') {
-                bind_textdomain_codeset ('squirrelmail', 'EUC-JP');
-            } else {
-                bind_textdomain_codeset ('squirrelmail', $languages[$sm_notAlias]['CHARSET'] );
-            }
-        }
 
         // Use LOCALE key, if it is set.
         if (isset($languages[$sm_notAlias]['LOCALE'])){
