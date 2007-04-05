@@ -359,8 +359,7 @@ if (isset($plugins[0])) {
     echo $IND . "Plugin versions...<br />\n";
     foreach ($plugins as $name) {
         $plugin_version = get_plugin_version($name);
-        if (!empty($plugin_version))
-            echo $IND . $IND . $name . ' ' . $plugin_version . "<br />\n";
+        echo $IND . $IND . $name . ' ' . (empty($plugin_version) ? '??' : $plugin_version) . "<br />\n";
 
         // check if this plugin has any other plugin 
         // dependencies and if they are satisfied
@@ -368,8 +367,8 @@ if (isset($plugins[0])) {
         $failed_dependencies = check_plugin_dependencies($name);
         if (is_array($failed_dependencies)) {
             $missing_plugins = '';
-            foreach ($failed_dependencies as $depend_name => $depend_version) {
-                $missing_plugins .= ', ' . $depend_name . ' (version ' . $depend_version . ')';
+            foreach ($failed_dependencies as $depend_name => $depend_requirements) {
+                $missing_plugins .= ', ' . $depend_name . ' (version ' . $depend_requirements['version'] . ', ' . ($depend_requirements['activate'] ? 'must be activated' : 'need not be activated') . ')';
             }
             do_err($name . ' is missing some dependencies: ' . trim($missing_plugins, ', '), FALSE);
         }
