@@ -41,14 +41,14 @@ extract($t);
     </td>
     <td align="left">
       <input type="text" name="newlist" size="30" />
-      <input type="submit" name="addlist" value="<? echo _("Add"); ?>" size="30" />
+      <input type="submit" name="addlist" value="<?php echo _("Add"); ?>" size="30" />
     </td>
   </tr>
   <tr>
     <td colspan="2">&nbsp;</td>
   </tr>
   <tr>
-    <td align="right" valign="top"><? echo _("Existing mailing lists"); ?>:</td>
+    <td align="right" valign="top"><?php echo _("Existing mailing lists"); ?>:</td>
     <td align="center">
       <table border="0" cellpadding="0" cellspacing="0">
 <?php
