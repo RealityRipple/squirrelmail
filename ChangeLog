@@ -191,6 +191,8 @@ Version 1.5.2 - SVN
   - session_id reporting session id when no active session (#1685031).
   - Added sq_change_text_domain() for plugins to use when switching text
     domains.  If plugins use this function, it fixes #1434043.
+  - Add dynamic textarea sizing slider control to compose screen (default_advanced 
+    skin)
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
