@@ -562,8 +562,11 @@ function check_plugin_version($plugin_name,
   *
   * @return mixed NULL is returned if the plugin could not be 
   *               found or does not include the given requirement,
-  *               otherwise the value of the requirement is returned,
-  *               whatever that may be (varies per requirement type).
+  *               the string "INCOMPATIBLE" is returned if the
+  *               given plugin is entirely incompatible with the
+  *               current SquirrelMail version, otherwise the 
+  *               value of the requirement is returned, whatever 
+  *               that may be (varies per requirement type).
   *
   */
 function get_plugin_requirement($plugin_name, $requirement, 
@@ -657,29 +660,33 @@ function get_plugin_requirement($plugin_name, $requirement,
       foreach ($plugin_info['per_version_requirements'] as $version => $requirement_overrides)
       {
 
-          $version_array = explode('.', $version);
-          if (sizeof($version_array) != 3) continue;
+         $version_array = explode('.', $version);
+         if (sizeof($version_array) != 3) continue;
 
-          $a = $version_array[0];
-          $b = $version_array[1];
-          $c = $version_array[2];
+         $a = $version_array[0];
+         $b = $version_array[1];
+         $c = $version_array[2];
 
-          if (check_sm_version($a, $b, $c) 
-           && isset($requirement_overrides[$requirement])
-           && !is_null($requirement_overrides[$requirement]))
-          {
+         if (check_sm_version($a, $b, $c) 
+          && ( !empty($requirement_overrides['INCOMPATIBLE']) 
+          || (isset($requirement_overrides[$requirement])
+          && !is_null($requirement_overrides[$requirement]))))
+         {
 
-             if (empty($highest_version_array)
-              || $highest_version_array[0] < $a
-              || ($highest_version_array[0] == $a
-              && $highest_version_array[1] < $b)
-              || ($highest_version_array[0] == $a 
-              && $highest_version_array[1] == $b 
-              && $highest_version_array[2] < $c))
-             {
-                $highest_version_array = $version_array;
-                $requirement_value_override = $requirement_overrides[$requirement];
-             }
+            if (empty($highest_version_array)
+             || $highest_version_array[0] < $a
+             || ($highest_version_array[0] == $a
+             && $highest_version_array[1] < $b)
+             || ($highest_version_array[0] == $a 
+             && $highest_version_array[1] == $b 
+             && $highest_version_array[2] < $c))
+            {
+               $highest_version_array = $version_array;
+               if (!empty($requirement_overrides['INCOMPATIBLE']))
+                  $requirement_value_override = 'INCOMPATIBLE';
+               else
+                  $requirement_value_override = $requirement_overrides[$requirement];
+            }
 
          }
 
@@ -739,20 +746,23 @@ function get_plugin_requirement($plugin_name, $requirement,
   * @return mixed Boolean FALSE is returned if the plugin
   *               could not be found or does not indicate
   *               whether it has other plugin dependencies, 
+  *               the string "INCOMPATIBLE" is returned if 
+  *               the given plugin is entirely incompatible 
+  *               with the current SquirrelMail version, 
   *               otherwise an array is returned where keys 
-  *               are the names of required plugin dependencies,
-  *               and values are arrays again, where at least
-  *               the following keys (and corresponding values)
-  *               will be available: 'version' - value is the
-  *               minimum version required for that plugin (the
-  *               format of which might vary per the value of
-  *               $do_parse), 'activate' - value is boolean: 
-  *               TRUE indicates that the plugin must also be 
-  *               activated, FALSE means that it only needs to 
-  *               be present, but does not need to be activated.  
-  *               Note that the return value might be an empty 
-  *               array, indicating that the plugin has no 
-  *               dependencies.
+  *               are the names of required plugin 
+  *               dependencies, and values are arrays again, 
+  *               where at least the following keys (and 
+  *               corresponding values) will be available: 
+  *               'version' - value is the minimum version 
+  *               required for that plugin (the format of 
+  *               which might vary per the value of $do_parse), 
+  *               'activate' - value is boolean: TRUE indicates 
+  *               that the plugin must also be activated, FALSE 
+  *               means that it only needs to be present, but 
+  *               does not need to be activated.  Note that 
+  *               the return value might be an empty array, 
+  *               indicating that the plugin has no dependencies.
   *
   */
 function get_plugin_dependencies($plugin_name, $force_inclusion = FALSE, 
@@ -762,6 +772,11 @@ function get_plugin_dependencies($plugin_name, $force_inclusion = FALSE,
    $plugin_dependencies = get_plugin_requirement($plugin_name, 
                                                  'required_plugins', 
                                                  $force_inclusion);
+
+   // the plugin is simply incompatible, no need to continue here
+   //
+   if ($plugin_dependencies === 'INCOMPATIBLE')
+      return $plugin_dependencies;
 
 
    // not an array of requirements?  wrong format, just return FALSE
@@ -871,6 +886,9 @@ function get_plugin_dependencies($plugin_name, $force_inclusion = FALSE,
   *
   * @return mixed Boolean TRUE if all of the plugin's 
   *               required plugins are correctly installed,
+  *               the string "INCOMPATIBLE" is returned if 
+  *               the given plugin is entirely incompatible 
+  *               with the current SquirrelMail version, 
   *               otherwise an array of the required plugins
   *               that are either not installed or not up to
   *               the minimum required version.  The array is
@@ -890,6 +908,7 @@ function check_plugin_dependencies($plugin_name, $force_inclusion = FALSE)
 
    $dependencies = get_plugin_dependencies($plugin_name, $force_inclusion);
    if (!$dependencies) return TRUE;
+   if ($dependencies === 'INCOMPATIBLE') return $dependencies;
    $missing_or_bad = array();
 
    foreach ($dependencies as $depend_name => $depend_requirements)
