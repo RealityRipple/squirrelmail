@@ -410,7 +410,10 @@ if (isset($plugins[0])) {
         // dependencies and if they are satisfied
         //
         $failed_dependencies = check_plugin_dependencies($name);
-        if (is_array($failed_dependencies)) {
+        if ($failed_dependencies === 'INCOMPATIBLE') {
+            do_err($name . ' is NOT COMPATIBLE with this version of SquirrelMail', FALSE);
+        }
+        else if (is_array($failed_dependencies)) {
             $missing_plugins = '';
             foreach ($failed_dependencies as $depend_name => $depend_requirements) {
                 $missing_plugins .= ', ' . $depend_name . ' (version ' . $depend_requirements['version'] . ', ' . ($depend_requirements['activate'] ? 'must be activated' : 'need not be activated') . ')';
