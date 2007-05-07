@@ -173,3 +173,9 @@ define('SQ_TYPE_ARRAY', 'array');
 define('SQ_PHP_TEMPLATE', 'PHP_');
 define('SQ_SMARTY_TEMPLATE', 'Smarty_');
 
+/**
+ * Used by plugins to indicate an incompatibility with a SM version
+ * @since 1.5.2
+ */
+define('SQ_INCOMPATIBLE', 'INCOMPATIBLE');
+

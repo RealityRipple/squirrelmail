@@ -562,7 +562,7 @@ function check_plugin_version($plugin_name,
   *
   * @return mixed NULL is returned if the plugin could not be 
   *               found or does not include the given requirement,
-  *               the string "INCOMPATIBLE" is returned if the
+  *               the constant SQ_INCOMPATIBLE is returned if the
   *               given plugin is entirely incompatible with the
   *               current SquirrelMail version, otherwise the 
   *               value of the requirement is returned, whatever 
@@ -668,7 +668,7 @@ function get_plugin_requirement($plugin_name, $requirement,
          $c = $version_array[2];
 
          if (check_sm_version($a, $b, $c) 
-          && ( !empty($requirement_overrides['INCOMPATIBLE']) 
+          && ( !empty($requirement_overrides[SQ_INCOMPATIBLE]) 
           || (isset($requirement_overrides[$requirement])
           && !is_null($requirement_overrides[$requirement]))))
          {
@@ -682,8 +682,8 @@ function get_plugin_requirement($plugin_name, $requirement,
              && $highest_version_array[2] < $c))
             {
                $highest_version_array = $version_array;
-               if (!empty($requirement_overrides['INCOMPATIBLE']))
-                  $requirement_value_override = 'INCOMPATIBLE';
+               if (!empty($requirement_overrides[SQ_INCOMPATIBLE]))
+                  $requirement_value_override = SQ_INCOMPATIBLE;
                else
                   $requirement_value_override = $requirement_overrides[$requirement];
             }
@@ -746,7 +746,7 @@ function get_plugin_requirement($plugin_name, $requirement,
   * @return mixed Boolean FALSE is returned if the plugin
   *               could not be found or does not indicate
   *               whether it has other plugin dependencies, 
-  *               the string "INCOMPATIBLE" is returned if 
+  *               the constant SQ_INCOMPATIBLE is returned if 
   *               the given plugin is entirely incompatible 
   *               with the current SquirrelMail version, 
   *               otherwise an array is returned where keys 
@@ -775,7 +775,7 @@ function get_plugin_dependencies($plugin_name, $force_inclusion = FALSE,
 
    // the plugin is simply incompatible, no need to continue here
    //
-   if ($plugin_dependencies === 'INCOMPATIBLE')
+   if ($plugin_dependencies === SQ_INCOMPATIBLE)
       return $plugin_dependencies;
 
 
@@ -886,7 +886,7 @@ function get_plugin_dependencies($plugin_name, $force_inclusion = FALSE,
   *
   * @return mixed Boolean TRUE if all of the plugin's 
   *               required plugins are correctly installed,
-  *               the string "INCOMPATIBLE" is returned if 
+  *               the constant SQ_INCOMPATIBLE is returned if 
   *               the given plugin is entirely incompatible 
   *               with the current SquirrelMail version, 
   *               otherwise an array of the required plugins
@@ -908,7 +908,7 @@ function check_plugin_dependencies($plugin_name, $force_inclusion = FALSE)
 
    $dependencies = get_plugin_dependencies($plugin_name, $force_inclusion);
    if (!$dependencies) return TRUE;
-   if ($dependencies === 'INCOMPATIBLE') return $dependencies;
+   if ($dependencies === SQ_INCOMPATIBLE) return $dependencies;
    $missing_or_bad = array();
 
    foreach ($dependencies as $depend_name => $depend_requirements)
