@@ -193,6 +193,11 @@ Version 1.5.2 - SVN
     domains.  If plugins use this function, it fixes #1434043.
   - Add dynamic textarea sizing slider control to compose screen (default_advanced 
     skin)
+  - Security: fixes for the HTML filter to counter further XSS exploits:
+    HTML attachments containing 'data:' URLs, Internet Explorer-specifc
+    charset conversion exploits, and request forgery through included
+    images. Thanks to Mikhail Markin, Tomas Kuliavas and Michael Jordon
+    for reporting these issues. [CVE-2007-1262]
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
