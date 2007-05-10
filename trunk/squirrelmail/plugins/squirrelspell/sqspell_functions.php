@@ -799,7 +799,7 @@ function sqspell_ckMOD($rMOD){
       || strstr($rMOD, '/')
       || strstr($rMOD, '%')
       || strstr($rMOD, "\\")){
-    echo _("Cute.");
+    echo _("Invalid URL");
     exit;
   }
 }
