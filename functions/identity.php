@@ -43,8 +43,9 @@ function get_identities() {
     /* If there are any others, add them to the array */
     if (!empty($num_ids) && $num_ids > 1) {
         for ($i=1;$i<$num_ids;$i++) {
+            $thisem = getPref($data_dir,$username,'email_address' . $i);
             $identities[] = array('full_name' => getPref($data_dir,$username,'full_name' . $i),
-            'email_address' => getPref($data_dir,$username,'email_address' . $i),
+            'email_address' => empty($thisem)?$em:$thisem,
             'reply_to' => getPref($data_dir,$username,'reply_to' . $i),
             'signature' => getSig($data_dir,$username,$i),
             'index' => $i );
@@ -209,4 +210,58 @@ function empty_identity($ident) {
     } else {
         return false;
     }
+}
+
+/**
+ * Construct our "From:" header based on
+ * a supplied identity number.
+ * Will fall back when no sensible email address has been defined.
+ *
+ * @param   int $identity   identity# to use
+ * @since 1.5.2
+ */
+function build_from_header($identity = 0) {
+    $idents = get_identities();
+
+    if (! isset($idents[$identity]) ) $identity = 0;
+
+    if ( !empty($idents[$identity]['full_name']) ) {
+        $from_name = $idents[$identity]['full_name'];
+    }
+
+    $from_mail = $idents[$identity]['email_address'];
+    
+    if ( isset($from_name) ) {
+        $from_name_encoded = encodeHeader($from_name);
+        if ($from_name_encoded != $from_name) {
+            return $from_name_encoded .' <'.$from_mail.'>';
+        }
+        return '"'.$from_name .'" <'.$from_mail.'>';
+    }
+    return $from_mail;
+}
+
+/**
+ * Find a matching identity based on a set of emailaddresses.
+ * Will return the first identity to have a matching address.
+ * When nothing found, returns the default identity.
+ *
+ * @param needles   array   list of mailadresses
+ * @returns int identity
+ * @since 1.5.2
+ */
+function find_identity($needles) {
+    $idents = get_identities();
+    if ( count($idents) == 1 || empty($needles) ) return 0;
+
+    foreach ( $idents as $nr => $ident ) {
+        if ( isset($ident['email_address']) ) {
+            foreach ( $needles as $needle ) {
+                if ( $needle == $ident['email_address'] ) {
+                    return $nr;
+                }
+            }
+        }
+    }
+    return 0;
 }

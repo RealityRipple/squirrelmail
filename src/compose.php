@@ -815,7 +815,6 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $mailprio = '';
         }
 
-        $identity = '';
         $from_o = $orig_header->from;
         if (is_array($from_o)) {
             if (isset($from_o[0])) {
@@ -856,15 +855,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 $send_from_parts = new AddressStructure();
                 $send_from_parts = $orig_header->parseAddress($send_from);
                 $send_from_add = $send_from_parts->mailbox . '@' . $send_from_parts->host;
-                $identities = get_identities();
-                if (count($identities) > 0) {
-                    foreach($identities as $iddata) {
-                        if ($send_from_add == $iddata['email_address']) {
-                            $identity = $iddata['index'];
-                            break;
-                        }
-                    }
-                }
+                $identity = find_identity(array($send_from_add));
                 $subject = decodeHeader($orig_header->subject,false,false,true);
 
                 // Remember the receipt settings
@@ -1443,7 +1434,7 @@ function getByteSize($ini_size) {
  */
 function deliverMessage($composeMessage, $draft=false) {
     global $send_to, $send_to_cc, $send_to_bcc, $mailprio, $subject, $body,
-        $username, $popuser, $usernamedata, $identity, $idents, $data_dir,
+        $username, $identity, $idents, $data_dir,
         $request_mdn, $request_dr, $default_charset, $color, $useSendmail,
         $domain, $action, $default_move_to_sent, $move_to_sent;
     global $imapServerAddress, $imapPort, $sent_folder, $key;
@@ -1468,45 +1459,24 @@ function deliverMessage($composeMessage, $draft=false) {
     }
     $composeMessage->setBody($body);
 
-    if (ereg("^([^@%/]+)[@%/](.+)$", $username, $usernamedata)) {
-        $popuser = $usernamedata[1];
-        $domain  = $usernamedata[2];
-        unset($usernamedata);
-    } else {
-        $popuser = $username;
-    }
     $reply_to = '';
-    $from_mail = $idents[$identity]['email_address'];
-    $full_name = $idents[$identity]['full_name'];
     $reply_to  = $idents[$identity]['reply_to'];
-    if (!$from_mail) {
-        $from_mail = "$popuser@$domain";
-    }
-    $rfc822_header->from = $rfc822_header->parseAddress($from_mail,true);
-    if ($full_name) {
-        $from = $rfc822_header->from[0];
-        if (!$from->host) $from->host = $domain;
-        $full_name_encoded = encodeHeader($full_name);
-        if ($full_name_encoded != $full_name) {
-            $from_addr = $full_name_encoded .' <'.$from->mailbox.'@'.$from->host.'>';
-        } else {
-            $from_addr = '"'.$full_name .'" <'.$from->mailbox.'@'.$from->host.'>';
-        }
-        $rfc822_header->from = $rfc822_header->parseAddress($from_addr,true);
-    }
+    
+    $from_addr = build_from_header($identity);
+    $rfc822_header->from = $rfc822_header->parseAddress($from_addr,true);
     if ($reply_to) {
         $rfc822_header->reply_to = $rfc822_header->parseAddress($reply_to,true);
     }
     /* Receipt: On Read */
     if (isset($request_mdn) && $request_mdn) {
-        $rfc822_header->dnt = $rfc822_header->parseAddress($from_mail,true);
+        $rfc822_header->dnt = $rfc822_header->parseAddress($from_addr,true);
     } elseif (isset($rfc822_header->dnt)) {
         unset($rfc822_header->dnt);
     }
 
     /* Receipt: On Delivery */
     if (isset($request_dr) && $request_dr) {
-        $rfc822_header->more_headers['Return-Receipt-To'] = $from_mail;
+        $rfc822_header->more_headers['Return-Receipt-To'] = $from->mailbox.'@'.$from->domain;
     } elseif (isset($rfc822_header->more_headers['Return-Receipt-To'])) {
         unset($rfc822_header->more_headers['Return-Receipt-To']);
     }

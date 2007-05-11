@@ -124,8 +124,8 @@ function ServerMDNSupport($aFlags) {
              in_array('\\*',$aFlags,true) ) ;
 }
 
-function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
-    global $username, $attachment_dir, $popuser, $username, $color,
+function SendMDN ( $mailbox, $passed_id, $message, $imapConnection) {
+    global $username, $attachment_dir, $color,
            $squirrelmail_language, $default_charset,
            $languages, $useSendmail, $domain, $sent_folder;
 
@@ -145,29 +145,20 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
     $rfc822_header->to[] = $header->dnt;
     $rfc822_header->subject = _("Read:") . ' ' . encodeHeader($header->subject);
 
-    // Patch #793504 Return Receipt Failing with <@> from Tim Craig (burny_md)
-    // This merely comes from compose.php and only happens when there is no
-    // email_addr specified in user's identity (which is the startup config)
-    if (ereg("^([^@%/]+)[@%/](.+)$", $username, $usernamedata)) {
-       $popuser = $usernamedata[1];
-       $domain  = $usernamedata[2];
-       unset($usernamedata);
-    } else {
-       $popuser = $username;
+    $idents = get_identities();
+    $needles = array();
+    if ($header->to) {
+        foreach ($header->to as $message_to) {
+             $needles[] = $message_to->mailbox.'@'.$message_to->host;
+        }
     }
+    $identity = find_identity($needles);
+    $from_addr = build_from_header($identity);
+    $reply_to = isset($idents[$identity]['reply_to']) ? $idents[$identity]['reply_to'] : '';
+    // FIXME: this must actually be the envelope address of the orginal message,
+    // but do we have that information? For now the first identity is our best guess.
+    $final_recipient = $idents[0]['email_address'];
 
-    $reply_to = '';
-    $ident = get_identities();
-    if(!isset($identity)) $identity = 0;
-    $full_name = $ident[$identity]['full_name'];
-    $from_mail = $ident[$identity]['email_address'];
-    $from_addr = '"'.$full_name.'" <'.$from_mail.'>';
-    $reply_to  = $ident[$identity]['reply_to'];
-
-    if (!$from_mail) {
-       $from_mail = "$popuser@$domain";
-       $from_addr = $from_mail;
-    }
     $rfc822_header->from = $rfc822_header->parseAddress($from_addr,true);
     if ($reply_to) {
        $rfc822_header->reply_to = $rfc822_header->parseAddress($reply_to,true);
@@ -227,7 +218,6 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
     if ($original_recipient != '') {
         $report .= "Original-Recipient : $original_recipient\r\n";
     }
-    $final_recipient = $sender;
     $report .= "Final-Recipient: rfc822; $final_recipient\r\n" .
               "Original-Message-ID : $original_message_id\r\n" .
               "Disposition: manual-action/MDN-sent-manually; displayed\r\n";
@@ -916,13 +906,8 @@ $header = $message->header;
 
 if (isset($sendreceipt)) {
    if ( !$message->is_mdnsent ) {
-      $final_recipient = '';
-      if ((isset($identity)) && ($identity != 0)) //Main identity
-         $final_recipient = trim(getPref($data_dir, $username, 'email_address' . $identity, '' ));
-      if ($final_recipient == '' )
-         $final_recipient = trim(getPref($data_dir, $username, 'email_address', '' ));
       $supportMDN = ServerMDNSupport($aMailbox["PERMANENTFLAGS"]);
-      if ( SendMDN( $mailbox, $passed_id, $final_recipient, $message, $imapConnection ) > 0 && $supportMDN ) {
+      if ( SendMDN( $mailbox, $passed_id, $message, $imapConnection ) > 0 && $supportMDN ) {
          ToggleMDNflag( true, $imapConnection, $mailbox, $passed_id);
          $message->is_mdnsent = true;
          $aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT'] = $message;
