@@ -257,7 +257,7 @@ function find_identity($needles) {
     foreach ( $idents as $nr => $ident ) {
         if ( isset($ident['email_address']) ) {
             foreach ( $needles as $needle ) {
-                if ( $needle == $ident['email_address'] ) {
+                if ( strcasecmp($needle, $ident['email_address']) == 0 ) {
                     return $nr;
                 }
             }
