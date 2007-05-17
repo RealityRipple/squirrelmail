@@ -913,7 +913,7 @@ function check_plugin_dependencies($plugin_name, $force_inclusion = FALSE)
 
    foreach ($dependencies as $depend_name => $depend_requirements)
    {
-      $version = preg_split('/\./', $depend_requirements['version'], 3);
+      $version = explode('.', $depend_requirements['version'], 3);
       $version[0] = intval($version[0]);
       $version[1] = intval($version[1]);
       $version[2] = intval($version[2]);

@@ -227,7 +227,7 @@ sqsession_is_active();
  * SquirrelMail internal version number -- DO NOT CHANGE
  * $sm_internal_version = array (release, major, minor)
  */
-$SQM_INTERNAL_VERSION = preg_split('/\./', SM_VERSION, 3);
+$SQM_INTERNAL_VERSION = explode('.', SM_VERSION, 3);
 $SQM_INTERNAL_VERSION[2] = intval($SQM_INTERNAL_VERSION[2]);
 
 
