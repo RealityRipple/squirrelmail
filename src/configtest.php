@@ -84,7 +84,7 @@ define('SM_PATH', '../');
 require(SM_PATH . 'include/constants.php');
 require(SM_PATH . 'functions/global.php');
 require(SM_PATH . 'functions/strings.php');
-$SQM_INTERNAL_VERSION = preg_split('/\./', SM_VERSION, 3);
+$SQM_INTERNAL_VERSION = explode('.', SM_VERSION, 3);
 $SQM_INTERNAL_VERSION[2] = intval($SQM_INTERNAL_VERSION[2]);
 
 /** set default value in order to block remote access */

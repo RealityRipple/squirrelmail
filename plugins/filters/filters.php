@@ -381,7 +381,7 @@ function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_
         $ids = array();
         for ($i = 0, $iCnt = count($read); $i < $iCnt; ++$i) {
             if (preg_match("/^\* SEARCH (.+)$/", $read[$i], $regs)) {
-                $ids += preg_split("/ /", trim($regs[1]));
+                $ids += explode(' ', trim($regs[1]));
             }
         }
         if ($response == 'OK' && count($ids)) {
@@ -450,7 +450,7 @@ function spam_filters($imap_stream) {
         if (isset($read[0])) {
             for ($i = 0, $iCnt = count($read); $i < $iCnt; ++$i) {
                 if (preg_match("/^\* SEARCH (.+)$/", $read[$i], $regs)) {
-                    $search_array = preg_split("/ /", trim($regs[1]));
+                    $search_array = explode(' ', trim($regs[1]));
                 break;
                 }
             }

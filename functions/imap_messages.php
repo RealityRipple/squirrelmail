@@ -203,7 +203,7 @@ function parseUidList($aData,$sCommand) {
         for ($i=0,$iCnt=count($aData);$i<$iCnt;++$i) {
             for ($j=0,$jCnt=count($aData[$i]);$j<$jCnt;++$j) {
                 if (preg_match("/^\* $sCommand (.+)$/", $aData[$i][$j], $aMatch)) {
-                    $aUid += preg_split("/ /", trim($aMatch[1]));
+                    $aUid += explode(' ', trim($aMatch[1]));
                 }
             }
         }
