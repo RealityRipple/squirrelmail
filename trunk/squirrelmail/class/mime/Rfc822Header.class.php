@@ -648,8 +648,9 @@ class Rfc822Header {
      * X-MS-Mail-Priority is not parsed because it always coincides
      * with one of the other headers.
      *
-     * NOTE: this is actually a duplicate from the function in
-     * functions/imap_messages. I'm not sure if it's ok here to call
+     * NOTE: this is actually a duplicate from the code in
+     * functions/imap_messages:parseFetch().
+     * I'm not sure if it's ok here to call
      * that function?
      * @param string $sValue literal priority name
      * @return integer
