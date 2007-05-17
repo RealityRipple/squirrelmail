@@ -455,33 +455,6 @@ function elapsedTime($start) {
     return $timepassed;
 }
 
-
-/**
- * Normalise the different Priority headers into a uniform value,
- * namely that of the X-Priority header (1, 3, 5). Supports:
- * Prioirty, X-Priority, Importance.
- * X-MS-Mail-Priority is not parsed because it always coincides
- * with one of the other headers.
- *
- * FIXME: DUPLICATE CODE ALERT:
- * NOTE: this is actually a duplicate from the function in
- * class/mime/Rfc822Header.php.
- * @todo obsolate function or use it instead of code block in parseFetch()
- */
-function parsePriority($sValue) {
-    $aValue = split('/\w/',trim($sValue));
-    $value = strtolower(array_shift($aValue));
-    if ( is_numeric($value) ) {
-        return $value;
-    }
-    if ( $value == 'urgent' || $value == 'high' ) {
-        return 1;
-    } elseif ( $value == 'non-urgent' || $value == 'low' ) {
-        return 5;
-    }
-    return 3;
-}
-
 /**
  * Parses a string in an imap response. String starts with " or { which means it
  * can handle double quoted strings and literal strings
@@ -730,8 +703,9 @@ function parseFetch(&$aResponse,$aMessageList = array()) {
                                 case 'x-priority': $aMsg['x-priority'] = ($value) ? (int) $value{0} : 3; break;
                                 case 'priority':
                                 case 'importance':
+                                    // duplicate code with Rfc822Header.cls:parsePriority()
                                     if (!isset($aMsg['x-priority'])) {
-                                        $aPrio = split('/\w/',trim($value));
+                                        $aPrio = preg_split('/\s/',trim($value));
                                         $sPrio = strtolower(array_shift($aPrio));
                                         if  (is_numeric($sPrio)) {
                                             $iPrio = (int) $sPrio;
