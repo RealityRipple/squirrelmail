@@ -1381,9 +1381,9 @@ function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = ar
              break;
         }
         /**
-         * Updates messages is an array containing the result of the untagged
+         * $aUpdatedMsgs is an array containing the result of the untagged
          * fetch responses send by the imap server due to a flag change. That
-         * response is parsed in a array with msg arrays by the parseFetch function
+         * response is parsed in an array with msg arrays by the parseFetch function
          */
         if ($aUpdatedMsgs) {
             // Update the message headers cache
@@ -1396,6 +1396,31 @@ function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = ar
                      */
                     if (isset($aMailbox['MSG_HEADERS'][$iUid])) {
                         $aMailbox['MSG_HEADERS'][$iUid]['FLAGS'] = $aMsg['FLAGS'];
+                    }
+                    /**
+                     * Also update flags in message object
+                     */
+//FIXME: WHY are we keeping flags in TWO places?!?  This is error-prone and some core code uses the is_xxxx message object values while other code uses the flags array above.  That's a mess.
+                    if (isset($aMailbox['MSG_HEADERS'][$iUid]['MESSAGE_OBJECT'])) {
+                        $message = $aMailbox['MSG_HEADERS'][$iUid]['MESSAGE_OBJECT'];
+                        $message->is_seen = false;
+                        $message->is_answered = false;
+                        $message->is_deleted = false;
+                        $message->is_flagged = false;
+                        $message->is_mdnsent = false;
+                        foreach ($aMsg['FLAGS'] as $flag => $value) {
+                            if (strtolower($flag) == '\\seen' && $value)
+                                $message->is_seen = true;
+                            else if (strtolower($flag) == '\\answered' && $value)
+                                $message->is_answered = true;
+                            else if (strtolower($flag) == '\\deleted' && $value)
+                                $message->is_deleted = true;
+                            else if (strtolower($flag) == '\\flagged' && $value)
+                                $message->is_flagged = true;
+                            else if (strtolower($flag) == '$mdnsent' && $value)
+                                $message->is_mdnsent = true;
+                        }
+                        $aMailbox['MSG_HEADERS'][$iUid]['MESSAGE_OBJECT'] = $message;
                     }
                     /**
                      * Count the messages with the \Delete flag set so we can determine
