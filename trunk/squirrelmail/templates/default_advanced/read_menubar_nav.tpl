@@ -66,17 +66,6 @@ $pp_refresh_message_list = getPref($data_dir, $username, 'pp_refresh_message_lis
 $use_previewPane = getPref($data_dir, $username, 'use_previewPane', 0);
 $show_preview_pane = checkForJavascript() && $use_previewPane;
 $empty_frame_uri = $base_uri . 'plugins/preview_pane/empty_frame.php';
-if ($show_preview_pane) { ?>
-   <script>
-   <!--
-      function refresh_message_list()
-      { 
-          if (typeof(parent.right.delayed_page_load) != 'undefined')
-              parent.right.delayed_page_load("<?php echo $message_list_href; ?>"); 
-      }
-   // -->
-   </script>
-<?php }
 
 
 /** Begin template **/
