@@ -119,7 +119,12 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
 </div>
 <br />
 <!-- End Header Navigation Table -->
-<?php } ?>
+<?php 
+   } 
+
+   // now, some generic javascript for use with preview pane
+
+?>
 <script type="text/javascript" language="JavaScript">
 <!--
    var delayed_page_load_uri = '';
@@ -127,6 +132,11 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
    { page_load_uri = page_uri; setTimeout('page_load()', 500); }
    function page_load()
    { document.location = page_load_uri; }
+   function refresh_message_list()
+   {
+      if (typeof(parent.right.delayed_page_load) != 'undefined')
+         parent.right.delayed_page_load("<?php echo $message_list_href; ?>");
+   }
 <?php 
 
    // autohide the preview pane if desired when not viewing messages,
