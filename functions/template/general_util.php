@@ -130,14 +130,17 @@ function getIconPath ($icon_theme_path, $icon_name) {
         return NULL;
 
     // Desired icon exists in the current theme?
+//FIXME: this assumes a URI path will be valid when used as a filesystem path - this will fail for some systems -- OTOH, if $icon_theme_path is meant as an internal filesystem path to the user's chosen theme directory, then the assumption that is wrong here is that this internal filesystem path is always correct for use as part of a URI.  This really should be mapped to/from an internal path to a URI path -- or can we guarantee that the two are always the same?
     if (is_file($icon_theme_path . $icon_name)) {
         return $icon_theme_path . $icon_name;
 
     // Icon not found, check for the admin-specified fallback
+//FIXME: same problem here as above
     } elseif (!is_null($fallback_icon_theme_path) && is_file($fallback_icon_theme_path . $icon_name)) {
         return $fallback_icon_theme_path . $icon_name;
 
     // Icon not found, return the SQM default icon
+//FIXME: same problem here -- SM_PATH is *NOT* intended for use in URIs
     } elseif (is_file(SM_PATH . 'images/themes/default/'.$icon_name)) {
         return SM_PATH . 'images/themes/default/'.$icon_name;
     }
