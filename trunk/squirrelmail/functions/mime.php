@@ -71,6 +71,7 @@ function mime_structure ($bodystructure, $flags=array()) {
     }
     if (count($flags)) {
         foreach ($flags as $flag) {
+//FIXME: please document why it is we have to check the first char of the flag but we then go ahead and do a full string comparison anyway.  Is this a speed enhancement?  If not, let's keep it simple and just compare the full string and forget the switch block.
             $char = strtoupper($flag{1});
             switch ($char) {
                 case 'S':
@@ -708,7 +709,7 @@ function decodeBody($body, $encoding) {
 /**
  * Decodes headers
  *
- * This functions decode strings that is encoded according to
+ * This function decodes strings that are encoded according to
  * RFC1522 (MIME Part Two: Message Header Extensions for Non-ASCII Text).
  * Patched by Christian Schmidt <christian@ostenfeld.dk>  23/03/2002
  *
