@@ -6,11 +6,12 @@
  * 
  * The following variables are available in this template:
  * 
- *    $headers_to_display - array containing the list of all elements that need
- *             to be displayed.  The index of each element is the translated name
- *             of the field to be displayed.  The value of each element is the
- *             value to be displayed for that field.  Many values can be controled
- *             through additional templates.
+ *    $headers_to_display - Array containing the list of all elements that need
+ *                          to be displayed.  The index of each element is the
+ *                          translated name of the field to be displayed.  The
+ *                          value of each element is the value to be displayed
+ *                          for that field.  Many values can be controled through
+ *                          additional templates.
  * 
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
