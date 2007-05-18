@@ -384,13 +384,15 @@ function formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message,
                 $mdn_url = set_url_var($mdn_url, 'sendreceipt', 1);
 
                 $oTemplate->assign('read_receipt_sent', $message->is_mdnsent);
-                $oTemplate->assign('first_time_reading', $FirstTimeSee);
                 $oTemplate->assign('send_receipt_href', $mdn_url);
 
                 $env[_("Read Receipt")] = $oTemplate->fetch('read_handle_receipt.tpl');
             }
         }
     }
+
+    // this is used for both mdn and also general use for plugins, etc
+    $oTemplate->assign('first_time_reading', $FirstTimeSee);
 
     $statuses = array();
     if (isset($aMailbox['MSG_HEADERS'][$passed_id]['FLAGS'])) {
