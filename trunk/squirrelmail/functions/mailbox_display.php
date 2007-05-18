@@ -606,7 +606,7 @@ function prepareMessageList(&$aMailbox, $aProps) {
                         // $onclick, $link_extra, $title, and so forth)
                         // plugins are responsible for sharing nicely (such as for
                         // setting the target, etc)
-                        do_hook('subject_link', $temp=array(&$iPageOffset, &$sSearch, &$aSearch));
+                        do_hook('subject_link', $temp=array(&$iPageOffset, &$sSearch, &$aSearch, $aMsg));
                     }
                     $value = (trim($value)) ? $value : _("(no subject)");
                     /* add thread indentation */
