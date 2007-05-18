@@ -55,12 +55,12 @@ if (!empty($id)) echo ' id="' . $id . '"';
 if (!empty($alt)) echo ' alt="' . $alt . '"';
 if (!empty($title)) echo ' title="' . $title . '"';
 if (!empty($onclick)) echo ' onclick="' . $onclick . '"';
-if (!empty($width)) echo ' width="' . $width . '"';
-if (!empty($height)) echo ' height="' . $height . '"';
+if (!empty($width) || $width === '0') echo ' width="' . $width . '"';
+if (!empty($height) || $height === '0') echo ' height="' . $height . '"';
 if (!empty($align)) echo ' align="' . $align . '"';
-if (!empty($border)) echo ' border="' . $border . '"';
-if (!empty($hspace)) echo ' hspace="' . $hspace . '"';
-if (!empty($vspace)) echo ' vspace="' . $vspace . '"';
+if (!empty($border) || $border === '0') echo ' border="' . $border . '"';
+if (!empty($hspace) || $hspace === '0') echo ' hspace="' . $hspace . '"';
+if (!empty($vspace) || $vspace === '0') echo ' vspace="' . $vspace . '"';
 foreach ($aAttribs as $key => $value) {
     echo ' ' . $key . (is_null($value) ? '' : '="' . $value . '"');
 }
