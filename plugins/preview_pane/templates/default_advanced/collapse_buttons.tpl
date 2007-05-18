@@ -6,7 +6,7 @@
   * Template for building (un)collapse (and clear) buttons for preview pane.
   *
   * The following variables are available in this template:
-  *    + $split            - Either "cols" or "rows" depending on how the 
+  *    + $orientation      - Either "cols" or "rows" depending on how the 
   *                          preview pane is oriented
   *    + $down_arrow       - The value to be displayed on the collapse button
   *    + $up_arrow         - The value to be displayed on the uncollapse button
@@ -28,18 +28,18 @@
 extract($t);
 
 
-?><script type="text/javascript">
+?><script type="text/javascript" language="JavaScript">
 <!--
 
    function set_preview_pane_size(new_size)
    {
       if (document.all)
       {
-         parent.document.all["fs2"].<?php echo $split; ?> = "*, " + new_size;
+         parent.document.all["fs2"].<?php echo $orientation; ?> = "*, " + new_size;
       }
       else if (this.document.getElementById)
       {
-         parent.document.getElementById("fs2").<?php echo $split; ?> = "*, " + new_size;
+         parent.document.getElementById("fs2").<?php echo $orientation; ?> = "*, " + new_size;
       }
    }
 // -->\n</script>

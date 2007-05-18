@@ -57,7 +57,7 @@ function preview_pane_show_options_do()
       'caption'       => _("Always Refresh Message List<br />When Using Preview Pane"),
       'type'          => SMOPT_TYPE_BOOLEAN,
       'initial_value' => $pp_refresh_message_list,
-      'refresh'       => SMOPT_REFRESH_ALL,
+      'refresh'       => SMOPT_REFRESH_NONE,
    );
 
 }
@@ -92,13 +92,13 @@ function preview_pane_open_close_buttons_do()
    $previewPane_vertical_split = getPref($data_dir, $username, 'previewPane_vertical_split', 0);
    if ($previewPane_vertical_split)
    {
-      $split = 'cols';
+      $orientation = 'cols';
       $up_arrow = '&larr;';
       $down_arrow = '&rarr;';
    }
    else
    {
-      $split = 'rows';
+      $orientation = 'rows';
       $up_arrow = '&uarr;';
       $down_arrow = '&darr;';
    }
@@ -108,7 +108,7 @@ function preview_pane_open_close_buttons_do()
 
    $oTemplate->assign('previewPane_size', $previewPane_size);
    $oTemplate->assign('base_uri', $base_uri);
-   $oTemplate->assign('split', $split);
+   $oTemplate->assign('orientation', $orientation);
    $oTemplate->assign('down_arrow', $down_arrow);
    $oTemplate->assign('up_arrow', $up_arrow);
 
@@ -154,7 +154,7 @@ function preview_pane_message_list_do()
    {
 //      sqgetGlobalVar('REQUEST_URI', $request_uri, SQ_SERVER);
       $request_uri = $PHP_SELF;
-      $output .= "<script type=\"text/javascript\">\n<!--\n function pp_refresh() { document.location = '$request_uri'; }\n// -->\n</script>\n";
+      $output .= "<script type=\"text/javascript\" language=\"JavaScript\">\n<!--\n function pp_refresh() { document.location = '$request_uri'; }\n// -->\n</script>\n";
    }
 
 
@@ -171,7 +171,7 @@ function preview_pane_message_list_do()
 
       // don't let message list load into preview pane at all
       //
-         . "\n<script language='javascript' type='text/javascript'>\n"
+         . "\n<script language='JavaScript' type='text/javascript'>\n"
          . "<!--\n"
          . "\n"
          . "   if (self.name == 'bottom')\n"
@@ -210,7 +210,7 @@ function preview_pane_message_list_do()
   * (and possibly refresh message list as well)
   *
   */
-function preview_pane_change_message_target_do()
+function preview_pane_change_message_target_do($args)
 {
 
    if (!checkForJavascript()) return;
@@ -223,10 +223,17 @@ function preview_pane_change_message_target_do()
    if (getPref($data_dir, $username, 'use_previewPane', 0) == 1)
    {
       $pp_refresh_message_list = getPref($data_dir, $username, 'pp_refresh_message_list', 1);
+      $aMsg = $args[3];
 
       $target = 'bottom';
-      if ($pp_refresh_message_list)
-// introduce a delay so read messages actually refresh after they are read
+
+
+      // introduce a delay so read messages actually 
+      // refresh after they are read, but only if they
+      // have not already been seen
+      //
+      if ($pp_refresh_message_list && empty($aMsg['FLAGS']['\seen']))
+// old code without refresh delay 
 //         $onclick .= ' onclick="document.location=\'' . $request_uri . '\'; " ';
          $onclick .= ' setTimeout(\'pp_refresh()\', 500); ';
    }

@@ -112,11 +112,11 @@ function preview_pane_message_list()
   * (and possibly refresh message list as well)
   *
   */
-function preview_pane_change_message_target()
+function preview_pane_change_message_target($args)
 {
 
   include_once(SM_PATH . 'plugins/preview_pane/functions.php');
-  preview_pane_change_message_target_do();
+  preview_pane_change_message_target_do($args);
 
 }
 
