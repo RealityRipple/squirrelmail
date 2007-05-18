@@ -66,10 +66,15 @@ Change Log
      advanced" template set
    * Only works with 1.5.2+
 
-  v1.3  2007/01/19  Paul Lesniewski <paul@squirrelmail.org>
+  v1.3  2007/05/17  Paul Lesniewski <paul@squirrelmail.org>
+   * Added ability to close/open the preview pane using buttons below
+     the "Sign Out" link (Thanks to Edwin Taylor <hagfish@ntlworld.com>)
+   * Added reduced message header functionality (also works even when
+     preview pane is not turned on) (Thanks to Daniel Watts <d@nielwatts.com>)
+   * Added auto-hide functionality (Thanks to Daniel Watts <d@nielwatts.com>)
    * Introduce slight delay refreshing message list so read messages
      actually refresh as having been read
-   * Added 1.4.9 patch; versions between 1.4.3 and 1.4.9 should be
+   * Added 1.4.9 patch; versions between 1.4.3 and 1.4.10 should be
      patch-able with the 1.4.3 patch
    * Added 1.4.9 patch for delete, move, next plugin
    * Added 1.5.1 patch, then removed it  ;-p  1.5.2 supports this
@@ -83,6 +88,8 @@ Change Log
      always 100% reliable.
    * No longer support replacement source files; patches are more than enough
    * Fully compatible with Windows plugin, version 1.7+
+   * Fully compatible with Sent Confirmation plugin, version 1.7+ (upgrade
+     required)
 
   v1.2  2004/06/08  Paul Lesniewski <paul@squirrelmail.org>
    * Added javascript fix so delete link will work when messages are 

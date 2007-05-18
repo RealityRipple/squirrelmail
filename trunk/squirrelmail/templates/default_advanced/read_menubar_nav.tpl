@@ -70,7 +70,10 @@ if ($show_preview_pane) { ?>
    <script>
    <!--
       function refresh_message_list()
-      { parent.right.delayed_page_load("<?php echo $message_list_href; ?>"); }
+      { 
+          if (typeof(parent.right.delayed_page_load) != 'undefined')
+              parent.right.delayed_page_load("<?php echo $message_list_href; ?>"); 
+      }
    // -->
    </script>
 <?php }
@@ -97,15 +100,19 @@ if ($nav_on_top) {
         echo _("Previous");
     } else {
         ?>
-   <a href="<?php echo $prev_href; ?>"<?php
+   <a href="<?php echo $prev_href; ?><?php
 
 /** if preview pane turned on with "always refresh message list", 
-    refresh message list frame too, but only if we are in the bottom frame! */
+    refresh message list frame too, but only if we are in the bottom frame! 
+    and make sure the refresh is conditional upon the seen flag of the
+    message after it is loaded (see read_headers.tpl) */
 if ($show_preview_pane && $pp_refresh_message_list)
-   echo ' onclick="if (self.name == \'bottom\') { refresh_message_list(); } "';
+   // old code: unconditional refresh
+   //echo ' onclick="if (self.name == \'bottom\') { refresh_message_list(); } "';
+   echo '&amp;pp_rr=1';
 
 
-echo '>' . _("Previous"); ?></a>
+echo '">' . _("Previous"); ?></a>
         <?php
     }
    ?> | 
@@ -122,15 +129,19 @@ echo '>' . _("Previous"); ?></a>
         echo _("Next");
     } else {
         ?>
-   <a href="<?php echo $next_href; ?>"<?php
+   <a href="<?php echo $next_href; ?><?php
 
 /** if preview pane turned on with "always refresh message list", 
-    refresh message list frame too, but only if we are in the bottom frame! */
+    refresh message list frame too, but only if we are in the bottom frame! 
+    and make sure the refresh is conditional upon the seen flag of the
+    message after it is loaded (see read_headers.tpl) */
 if ($show_preview_pane && $pp_refresh_message_list)
-   echo ' onclick="if (self.name == \'bottom\') { refresh_message_list(); } "';
+   // old code: unconditional refresh
+   //echo ' onclick="if (self.name == \'bottom\') { refresh_message_list(); } "';
+   echo '&amp;pp_rr=1';
 
 
-echo '>' . _("Next"); ?></a>
+echo '">' . _("Next"); ?></a>
         <?php
     }
    ?>

@@ -119,3 +119,9 @@ extract($t);
  </tr>
 </table>
 </div>
+<?php
+// do a conditional refresh of message list if needed
+// "pp_rr" = "preview pane read refresh"
+if (sqGetGlobalVar('pp_rr', $pp_rr, SQ_FORM) && $show_preview_pane && $first_time_reading) {
+        echo "<script language=\"JavaScript\" type=\"text/javascript\">\n<!--\nif (self.name == 'bottom') { refresh_message_list(); }\n// -->\n</script>\n";
+}

@@ -119,7 +119,7 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
 </div>
 <br />
 <!-- End Header Navigation Table -->
-<script type="text/javascript">
+<script type="text/javascript" language="JavaScript">
 <!--
    var delayed_page_load_uri = '';
    function delayed_page_load(page_uri)
