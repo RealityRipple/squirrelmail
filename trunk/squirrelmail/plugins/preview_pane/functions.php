@@ -27,6 +27,7 @@ function preview_pane_show_options_do()
    $previewPane_vertical_split = getPref($data_dir, $username, 'previewPane_vertical_split', 0);
    $previewPane_size = getPref($data_dir, $username, 'previewPane_size', 300);
    $pp_refresh_message_list = getPref($data_dir, $username, 'pp_refresh_message_list', 1);
+   $previewPane_autohide = getPref($data_dir, $username, 'previewPane_autohide', 0);
 
 
    global $optpage_data;
@@ -58,6 +59,13 @@ function preview_pane_show_options_do()
       'type'          => SMOPT_TYPE_BOOLEAN,
       'initial_value' => $pp_refresh_message_list,
       'refresh'       => SMOPT_REFRESH_NONE,
+   );
+   $optpage_data['vals'][1][] = array(
+      'name'          => 'previewPane_autohide',
+      'caption'       => _("Automatically Hide Preview Pane<br />When Not Reading Messages"),
+      'type'          => SMOPT_TYPE_BOOLEAN,
+      'initial_value' => $previewPane_autohide,
+      'refresh'       => SMOPT_REFRESH_ALL,
    );
 
 }
