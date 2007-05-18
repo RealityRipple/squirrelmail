@@ -209,32 +209,42 @@ if ((bool) ini_get('register_globals') &&
 //           latter is sure to be highly rare, so for now, just assume
 //           that empty value means the setting isn't even available
 //           (could also check PHP version when this setting was implemented)
-$variables_order = ini_get('variables_order');
-if (!empty($variables_order) && (strpos($variables_order, 'G') === FALSE
+//           although, we'll also warn the user if it is empty, with
+//           a non-fatal error
+$variables_order = strtoupper(ini_get('variables_order'));
+if (empty($variables_order))
+    do_err('Your variables_order setting seems to be empty.  Make sure it is undefined in any PHP ini files, .htaccess files, etc. and not specifically set to an empty value or SquirrelMail may not function correctly', false);
+else if (strpos($variables_order, 'G') === FALSE
  || strpos($variables_order, 'P') === FALSE
  || strpos($variables_order, 'C') === FALSE
- || strpos($variables_order, 'S') === FALSE)) {
-    do_err('Your variables_order setting is insufficient for SquirrelMail to function.  It needs at least "GPCS", but you have it set to "' . $variables_order . '"', true);
+ || strpos($variables_order, 'S') === FALSE) {
+    do_err('Your variables_order setting is insufficient for SquirrelMail to function.  It needs at least "GPCS", but you have it set to "' . htmlspecialchars($variables_order) . '"', true);
 } else {
     echo $IND . "variables_order OK: $variables_order.<br />\n";
 }
 
 
-/* gpc_order check */
+/* gpc_order check (removed from PHP as of v5.0) */
 
-// FIXME(?): Hmm, how do we distinguish between when an ini setting is
-//           not available (ini_set() returns empty string) and when 
-//           the administrator set the value to an empty string?  The
-//           latter is sure to be highly rare, so for now, just assume
-//           that empty value means the setting isn't even available
-//           (could also check PHP version when this setting was implemented)
-$gpc_order = ini_get('gpc_order');
-if (!empty($gpc_order) && (strpos($gpc_order, 'G') === FALSE
- || strpos($gpc_order, 'P') === FALSE
- || strpos($gpc_order, 'C') === FALSE)) {
-    do_err('Your gpc_order setting is insufficient for SquirrelMail to function.  It needs to be set to "GPC", but you have it set to "' . $gpc_order . '"', true);
-} else {
-    echo $IND . "gpc_order OK: $gpc_order.<br />\n";
+if (!check_php_version(5)) {
+    // FIXME(?): Hmm, how do we distinguish between when an ini setting is
+    //           not available (ini_set() returns empty string) and when 
+    //           the administrator set the value to an empty string?  The
+    //           latter is sure to be highly rare, so for now, just assume
+    //           that empty value means the setting isn't even available
+    //           (could also check PHP version when this setting was implemented)
+    //           although, we'll also warn the user if it is empty, with
+    //           a non-fatal error
+    $gpc_order = strtoupper(ini_get('gpc_order'));
+    if (empty($gpc_order))
+        do_err('Your gpc_order setting seems to be empty.  Make sure it is undefined in any PHP ini files, .htaccess files, etc. and not specifically set to an empty value or SquirrelMail may not function correctly', false);
+    else if (strpos($gpc_order, 'G') === FALSE
+     || strpos($gpc_order, 'P') === FALSE
+     || strpos($gpc_order, 'C') === FALSE) {
+        do_err('Your gpc_order setting is insufficient for SquirrelMail to function.  It needs to be set to "GPC", but you have it set to "' . htmlspecialchars($gpc_order) . '"', true);
+    } else {
+        echo $IND . "gpc_order OK: $gpc_order.<br />\n";
+    }
 }
 
 
