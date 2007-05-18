@@ -877,9 +877,14 @@ if (isset($aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT'])) {
 } else {
     $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
     $FirstTimeSee = !$message->is_seen;
-    $message->is_seen = true;
-    $aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT'] = $message;
 }
+
+/**
+ * update message seen status and put in cache
+ */
+$message->is_seen = true;
+$aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT'] = $message;
+
 if (isset($passed_ent_id) && $passed_ent_id) {
     $message = $message->getEntity($passed_ent_id);
     if ($message->type0 != 'message'  && $message->type1 != 'rfc822') {
