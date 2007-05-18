@@ -119,6 +119,7 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
 </div>
 <br />
 <!-- End Header Navigation Table -->
+<?php } ?>
 <script type="text/javascript" language="JavaScript">
 <!--
    var delayed_page_load_uri = '';
@@ -126,6 +127,86 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
    { page_load_uri = page_uri; setTimeout('page_load()', 500); }
    function page_load()
    { document.location = page_load_uri; }
+<?php 
+
+   // autohide the preview pane if desired when not viewing messages,
+   // also maximize any frame with a compose screen in it
+   if ($show_preview_pane 
+    && getPref($data_dir, $username, 'previewPane_autohide', 0) == 1) 
+   {
+      global $PHP_SELF;
+      $previewPane_vertical_split = getPref($data_dir, $username, 'previewPane_vertical_split', 0);
+      if ($previewPane_vertical_split)
+         $orientation = 'cols';
+      else
+         $orientation = 'rows';
+      
+      // spit out javascript to maximize compose frame
+      if (strpos($PHP_SELF, '/compose.php') !== FALSE)
+      {
+?>
+   var first_frame = 0;
+   var second_frame = 0;
+   if (self.name == 'right')
+   {
+      first_frame = '100%';
+      second_frame = '*';
+   }
+   else if (self.name == 'bottom')
+   {
+      first_frame = '*';
+      second_frame = '100%';
+   }
+   if (first_frame != 0)
+   {
+      if (document.all)
+      {
+         parent.document.all["fs2"].<?php echo $orientation; ?> = first_frame + ", " + second_frame;
+      }
+      else if (this.document.getElementById)
+      {
+         parent.document.getElementById("fs2").<?php echo $orientation; ?> = first_frame + ", " + second_frame;
+      }
+   }
+<?php 
+
+      // not on the compose screen, either hide or restore preview pane
+      } else {
+
+         $previewPane_size = getPref($data_dir, $username, 'previewPane_size', 300);
+         if (strpos($PHP_SELF, '/right_main.php') !== FALSE
+          || strpos($PHP_SELF, '/search.php') !== FALSE)
+            $new_size = $previewPane_size;
+         else
+            $new_size = 0;
+
+?>
+   if (self.name == 'right')
+   {
+      if (document.all)
+      {
+         parent.document.all["fs2"].<?php echo $orientation; ?> = "*, " + <?php echo $new_size; ?>;
+      }
+      else if (this.document.getElementById)
+      {
+         parent.document.getElementById("fs2").<?php echo $orientation; ?> = "*, " + <?php echo $new_size; ?>;
+      }
+   }
+
+   // restores the preview pane if it sucked up the whole page for composing a message
+   else if (self.name == 'bottom')
+   {
+      if (document.all)
+      {
+         if (parent.document.all["fs2"].<?php echo $orientation; ?> == "*, 100%")
+            parent.document.all["fs2"].<?php echo $orientation; ?> = "*, " + <?php echo $previewPane_size; ?>;
+      }
+      else if (this.document.getElementById)
+      {
+         if (parent.document.getElementById("fs2").<?php echo $orientation; ?> == "*, 100%")
+            parent.document.getElementById("fs2").<?php echo $orientation; ?> = "*, " + <?php echo $previewPane_size; ?>;
+      }
+   }
+<?php } } ?>
 // -->
 </script>
-<?php }
