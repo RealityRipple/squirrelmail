@@ -408,14 +408,9 @@ function getTimeStamp($dateParts) {
      *        and everything would be bumped up one.
      */
 
-    /*
-     * Simply check to see if the first element in the dateParts
-     * array is an integer or not.
-     * Since the day of week is optional, this check is needed.
-     */
-     if (count($dateParts) <2) {
+    if (count($dateParts) <2) {
         return -1;
-     } else if (count($dateParts) ==3) {
+    } else if (count($dateParts) ==3) {
         if (substr_count($dateParts[0],'-') == 2 &&
             substr_count($dateParts[1],':') == 2) {
             //  dd-Month-yyyy 23:19:05 +0200
@@ -424,12 +419,24 @@ function getTimeStamp($dateParts) {
             $newDate = array($aDate[0],$aDate[1],$aDate[2],$dateParts[1],$dateParts[2]);
             $dateParts = $newDate;
         }
-     }
-
-    /* remove day of week */
-    if (!is_numeric(trim($dateParts[0]))) {
-        $dataParts = array_shift($dateParts);
     }
+
+    /*
+     * Simply check to see if the first element in the dateParts
+     * array is an integer or not.
+     * Since the day of week is optional, this check is needed.
+     */
+    if (!is_numeric(trim($dateParts[0]))) {
+        /* cope with broken mailers that send "Tue,23" without space */
+        if ( preg_match ('/^\w+,(\d{1,2})$/', $dateParts[0], $match) ) {
+            /* replace Tue,23 with 23 */
+            $dateParts[0] = $match[1];
+        } else {
+            /* just drop the day of week */
+            array_shift($dateParts);
+        }
+    }
+
     /* calculate timestamp separated from the zone and obs-zone */
     $stamp = strtotime(implode (' ', array_splice ($dateParts,0,4)));
     if (!isset($dateParts[0])) {
