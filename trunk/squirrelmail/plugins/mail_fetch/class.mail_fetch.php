@@ -365,8 +365,10 @@ class mail_fetch {
         if($this->check_response()) {
             $ret = '';
             while($line = fgets($this->conn)) {
-                if (trim($line)=='.') {
+                if ($line == ".\r\n") {
                     break;
+                } elseif ( $line{0} == '.' ) {
+                    $ret .= substr($line,1);
                 } else {
                     $ret.= $line;
                 }
@@ -564,8 +566,8 @@ class mail_fetch {
         }
         fwrite($this->conn,"STLS\r\n");
         if (! $this->check_response()) {
-	    $this->command_quit();
-	    return false;
+            $this->command_quit();
+            return false;
         }
 
         if (@stream_socket_enable_crypto($this->conn,true,STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
