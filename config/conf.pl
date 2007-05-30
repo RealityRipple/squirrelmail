@@ -1443,6 +1443,7 @@ sub command112b {
                 print " ERROR TESTING\n";
                 close $sock;
             } else {
+                $got = <$sock>;  # Discard greeting
                 print $sock "HELO $domain\r\n";
                 $got = <$sock>;  # Discard
                 print $sock "MAIL FROM:<tester\@squirrelmail.org>\r\n";
@@ -5048,14 +5049,11 @@ sub detect_auth_support {
 
     # So at this point, we have a response, and it is (hopefully) valid.
     if ($service eq 'SMTP') {
-        if (($response =~ /^535/) or ($response =~/^502/)) {
+        if (!($response =~ /^334/)) {
             # Not supported
             print $sock $logout;
             close $sock;
             return 'NO';
-        } elsif ($response =~ /^503/) {
-            #Something went wrong
-            return undef;
         }
     } elsif ($service eq 'IMAP') {
         if ($response =~ /^A01/) {

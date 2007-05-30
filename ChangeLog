@@ -4,6 +4,7 @@
 
 Version 1.5.2 - SVN
 -------------------
+  - Fixed #1727033 (incorrect detection of auth mechanisms in config.pl)
   - The search expression in the LDAP backend of the Addressbook is now
     configurable, which can allow the result set to be expanded.
   - Preliminary support for NAMESPACE in Squirrelmail IMAP Backend: NAMESPACE
