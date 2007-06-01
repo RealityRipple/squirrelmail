@@ -38,6 +38,8 @@ extract($t);
         }
         ?>
    </select>
+   </td>
+ </tr>
         <?php
     }
  ?>
