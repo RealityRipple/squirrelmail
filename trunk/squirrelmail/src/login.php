@@ -172,8 +172,8 @@ $oTemplate->assign('login_field_value', $loginname_value);
 $oTemplate->assign('login_extra', $login_extra);
 
 //FIXME: need to remove *ALL* HTML from this file!
-echo '<body onLoad="squirrelmail_loginpage_onload()">'."\n";
-echo '<form action="redirect.php" method="post" onSubmit="document.forms[0].js_autodetect_results.value='. SMPREF_JS_ON .'">'."\n";
+echo '<body onload="squirrelmail_loginpage_onload()">'."\n";
+echo '<form action="redirect.php" method="post" onsubmit="document.forms[0].js_autodetect_results.value='. SMPREF_JS_ON .'">'."\n";
 do_hook('login_top', $null);
 
 $oTemplate->display('login.tpl');
