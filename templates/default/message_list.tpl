@@ -345,7 +345,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
     $javascript_auto_click = '';
     if ($javascript_on && $fancy_index_highlite) {
         // include the form_id in order to show multiple messages lists. Otherwise id isn't unique
-        $javascript_auto_click = " onMouseDown=\"row_click('$form_id"."_msg$i')\"";
+        $javascript_auto_click = " onmousedown=\"row_click('$form_id"."_msg$i')\"";
     }
 
 /*
