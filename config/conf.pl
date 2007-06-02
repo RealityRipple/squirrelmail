@@ -685,7 +685,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "1.  Use Icons?                   : $WHT$use_icons$NRM\n";
 #        print "3.  Default Icon Set             : $WHT$icon_theme_def$NRM\n";
         print "2.  Default font size            : $WHT$default_fontsize$NRM\n";
-        print "3.  Manage template sets\n";
+        print "3.  Manage template sets (skins)\n";
         print "4.  Manage user themes\n";
         print "5.  Manage font sets\n";
         print "6.  Manage icon themes\n";
@@ -728,7 +728,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         }
         print "\n  Available Plugins:\n";
         opendir( DIR, "../plugins" );
-        @files          = readdir(DIR);
+        @files          = sort(readdir(DIR));
         $pos            = 0;
         @unused_plugins = ();
         for ( $i = 0 ; $i <= $#files ; $i++ ) {
@@ -3042,7 +3042,7 @@ sub command_iconSets {
 }
 
 sub command_templates {
-    print "\nDefine the template sets that you wish to use.  If you have added\n";
+    print "\nDefine the template sets (skins) that you wish to use.  If you have added\n";
     print "a template set of your own, just follow the instructions (?) about\n";
     print "how to add them.  You can also change the default template.\n";
 
@@ -3083,7 +3083,7 @@ sub command_templates {
                . "| - N           (remove template set) |\n"
                . "| m N     (mark default template set) |\n"
                . "| f N     (set fallback template set) |\n"
-               . "| l              (list template sets) |\n"
+               . "| l        (list template sets/skins) |\n"
                . "| d                            (done) |\n"
                . "|-------------------------------------|\n"
                . "| where N is a template set number    |\n"
