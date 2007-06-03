@@ -314,13 +314,14 @@ function html_tag( $tag,                // Tag to output
 
 
 /**
- * handy function to set url vars
-//FIXME: You call this documentation?  :-)  What does "set url vars" mean?  Looks like it might take a fully-formed URI (possibly with a query string) and adds a variable/value pair to it(?)... Does $link work on only the var being added or the whole URI?
+ * This function is used to add, modify or delete GET variables in a URL. 
+ * It is especially useful when $url = $PHP_SELF
  *
- * especially useful when $url = $PHP_SELF
+ * Set $val to NULL to remove $var from $url.
+ * To ensure compatibility with older versions, use $val='0' to set $var to 0. 
  *
  * @param string $url url that must be modified
- * @param string $var variable name
+ * @param string $var GET variable name
  * @param string $val variable value
  * @param boolean $link controls sanitizing of ampersand in urls (since 1.3.2)
  *
@@ -329,61 +330,45 @@ function html_tag( $tag,                // Tag to output
  * @since 1.3.0
  *
  */
-function set_url_var($url, $var, $val=0, $link=true) {
-    $k = '';
-    $pat_a = array (
-                    '/.+(\\&'.$var.')=(.*)\\&/AU',   /* in the middle */
-                    '/.+\\?('.$var.')=(.*\\&).+/AU', /* at front, more follow */
-                    '/.+(\\?'.$var.')=(.*)$/AU',     /* at front and only var */
-                    '/.+(\\&'.$var.')=(.*)$/AU'      /* at the end */
-                    );
+function set_url_var($url, $var, $val=null, $link=true) {
     $url = str_replace('&amp;','&',$url);
 
-    // FIXME: why switch is used instead of if () or one preg_match()
-    switch (true) {
-    case (preg_match($pat_a[0],$url,$regs)):
-        $k = $regs[1];
-        $v = $regs[2];
-        break;
-    case (preg_match($pat_a[1],$url,$regs)):
-        $k = $regs[1];
-        $v = $regs[2];
-        break;
-    case (preg_match($pat_a[2],$url,$regs)):
-        $k = $regs[1];
-        $v = $regs[2];
-        break;
-    case (preg_match($pat_a[3],$url,$regs)):
-        $k = $regs[1];
-        $v = $regs[2];
-        break;
-    default:
-        if ($val) {
-            if (strpos($url,'?')) {
-                $url .= "&$var=$val";
-            } else {
-                $url .= "?$var=$val";
-            }
+    if (strpos($url, '?') === false) {
+        $url .= '?';
+    }   
+
+    list($uri, $params) = explode('?', $url, 2);
+        
+    $newpar = array(); 
+    $params = explode('&', $params);
+   
+    foreach ($params as $p) {
+        if (trim($p)) {
+            $p = explode('=', $p);
+            $newpar[$p[0]] = (isset($p[1]) ? $p[1] : '');
         }
-        break;
     }
 
-    if ($k) {
-        if ($val) {
-            $rpl = "$k=$val";
-        } else {
-            $rpl = '';
-        }
-        if( substr($v,-1)=='&' ) {
-            $rpl .= '&';
-        }
-        $pat = "/$k=$v/";
-        $url = preg_replace($pat,$rpl,$url);
+    if (is_null($val)) {
+        unset($newpar[$var]);
+    } else {
+        $newpar[$var] = $val;
     }
+
+    if (!count($newpar)) {
+        return $uri;
+    }
+   
+    $url = $uri . '?';
+    foreach ($newpar as $name => $value) {
+        $url .= "$name=$value&";
+    }
+     
+    $url = substr($url, 0, -1);
     if ($link) {
         $url = str_replace('&','&amp;',$url);
     }
+    
     return $url;
 }
-
 
