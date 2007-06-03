@@ -4,6 +4,7 @@
 
 Version 1.5.2 - SVN
 -------------------
+  - Fix broken set_url_var function in functions/html.php (#1729814).
   - Fix incorrect detection of auth mechanisms in conf.pl (#1727033).
   - The search expression in the LDAP backend of the Addressbook is now
     configurable, which can allow the result set to be expanded.
