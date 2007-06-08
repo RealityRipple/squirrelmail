@@ -906,7 +906,7 @@ function sqimap_get_message($imap_stream, $id, $mailbox, $hide=0) {
         if ($hide == 2) return FALSE;
 
         /* the message was not found, maybe the mailbox was modified? */
-        global $sort, $startMessage, $color;
+        global $sort, $startMessage;
 
         $errmessage = _("The server couldn't find the message you requested.");
 
@@ -915,7 +915,7 @@ function sqimap_get_message($imap_stream, $id, $mailbox, $hide=0) {
         $errmessage .= '<p>'._("Most probably your message list was out of date and the message has been moved away or deleted (perhaps by another program accessing the same mailbox).");
 
         /* this will include a link back to the message list */
-        error_message($errmessage, $mailbox, $sort, (int) $startMessage, $color);
+        error_message($errmessage, $mailbox, $sort, (int) $startMessage);
         exit;
     }
     $bodystructure = implode('',$read);
