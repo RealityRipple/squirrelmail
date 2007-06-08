@@ -240,9 +240,9 @@ function checkForPrefs($data_dir, $username, $filename = '') {
                 $uid = $user_data['name'];
             }
             $errTitle = _("Could not create initial preference file!");
-            $errString = $errTitle . "<br />\n" .
-                       sprintf( _("%s should be writable by user %s"), $data_dir, $uid ) . "<br />\n" .
-                       _("Please contact your system administrator and report this error.") . "<br />\n";
+            $errString = $errTitle . "\n" .
+                       sprintf( _("%s should be writable by user %s."), $data_dir, $uid ) . "\n" .
+                       _("Please contact your system administrator and report this error.") ;
             logout_error( $errString, $errTitle );
             exit;
         }
