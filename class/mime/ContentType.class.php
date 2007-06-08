@@ -46,6 +46,7 @@ class ContentType {
      * @param string $type content type string without auxiliary information
      */
     function ContentType($type) {
+        $type = strtolower($type);
         $pos = strpos($type, '/');
         if ($pos > 0) {
             $this->type0 = substr($type, 0, $pos);
