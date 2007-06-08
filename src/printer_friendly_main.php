@@ -15,7 +15,6 @@
 include('../include/init.php');
 
 /* get those globals into gear */
-global $color;
 if ( ! sqgetGlobalVar('passed_ent_id',$passed_ent_id,SQ_GET))
     $passed_ent_id = 0;
 if ( ! sqgetGlobalVar('mailbox',$mailbox,SQ_GET) ||

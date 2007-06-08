@@ -722,8 +722,8 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         $use_signature, $data_dir, $username,
         $key, $imapServerAddress, $imapPort, $compose_messages,
         $composeMessage, $body_quote, $request_mdn, $request_dr,
-        $default_use_mdn, $mdn_user_support;
-    global $languages, $squirrelmail_language, $default_charset;
+        $mdn_user_support, $languages, $squirrelmail_language,
+        $default_charset;
 
     /*
      * Set $default_charset to correspond with the user's selection
@@ -1055,10 +1055,11 @@ function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
 }
 
 function showInputForm ($session, $values=false) {
-    global $send_to, $send_to_cc, $body, $startMessage, $action,
-        $color, $use_signature, $signature, $prefix_sig,
+    global $send_to, $send_to_cc, $send_to_bcc,
+        $body, $startMessage, $action,
+        $use_signature, $signature, $prefix_sig,
         $editor_size, $editor_height, $subject, $newmail,
-        $use_javascript_addr_book, $send_to_bcc, $passed_id, $mailbox,
+        $use_javascript_addr_book, $passed_id, $mailbox,
         $from_htmladdr_search, $location_of_buttons, $attachment_dir,
         $username, $data_dir, $identity, $idents, $delete_draft,
         $mailprio, $compose_new_win, $saved_draft, $mail_sent, $sig_first,
@@ -1436,9 +1437,9 @@ function getByteSize($ini_size) {
 function deliverMessage($composeMessage, $draft=false) {
     global $send_to, $send_to_cc, $send_to_bcc, $mailprio, $subject, $body,
         $username, $identity, $idents, $data_dir,
-        $request_mdn, $request_dr, $default_charset, $color, $useSendmail,
-        $domain, $action, $default_move_to_sent, $move_to_sent;
-    global $imapServerAddress, $imapPort, $sent_folder, $key;
+        $request_mdn, $request_dr, $default_charset, $useSendmail,
+        $domain, $action, $default_move_to_sent, $move_to_sent,
+        $imapServerAddress, $imapPort, $sent_folder, $key;
 
     $rfc822_header = $composeMessage->rfc822_header;
 
@@ -1607,8 +1608,8 @@ function deliverMessage($composeMessage, $draft=false) {
             $lcl_allow_sent = false;
         }
 
+        global $passed_id, $mailbox;
         if (($fld_sent && $svr_allow_sent && !$lcl_allow_sent) || ($fld_sent && $lcl_allow_sent)) {
-            global $passed_id, $mailbox, $action;
             if ($action == 'reply' || $action == 'reply_all') {
                 $save_reply_with_orig=getPref($data_dir,$username,'save_reply_with_orig');
                 if ($save_reply_with_orig) {
@@ -1623,7 +1624,7 @@ function deliverMessage($composeMessage, $draft=false) {
             unset ($imap_deliver);
         }
 
-        global $passed_id, $mailbox, $action, $what, $iAccount,$startMessage;
+        global $what, $iAccount, $startMessage;
 
         $composeMessage->purgeAttachments();
         if ($action=='reply' || $action=='reply_all' || $action=='forward' || $action=='forward_as_attachment') {

@@ -125,8 +125,7 @@ function ServerMDNSupport($aFlags) {
 }
 
 function SendMDN ( $mailbox, $passed_id, $message, $imapConnection) {
-    global $username, $attachment_dir, $color,
-           $squirrelmail_language, $default_charset,
+    global $squirrelmail_language, $default_charset,
            $languages, $useSendmail, $domain, $sent_folder;
 
     sqgetGlobalVar('SERVER_NAME', $SERVER_NAME, SQ_SERVER);
@@ -271,7 +270,7 @@ function SendMDN ( $mailbox, $passed_id, $message, $imapConnection) {
                 _("Server replied:") . ' ' . $deliver->dlv_ret_nr . ' ' .
                 nl2br(htmlspecialchars($deliver->dlv_server_msg));
         }
-        plain_error_message($msg, $color);
+        plain_error_message($msg);
     } else {
         unset ($deliver);
         if (sqimap_mailbox_exists ($imapConnection, $sent_folder)) {
@@ -294,7 +293,7 @@ function ToggleMDNflag ($set ,$imapConnection, $mailbox, $passed_id) {
 }
 
 function formatRecipientString($recipients, $item ) {
-    global $show_more_cc, $show_more, $show_more_bcc,
+    global $show_more, $show_more_cc, $show_more_bcc,
            $PHP_SELF, $oTemplate;
 
     $string = '';
@@ -446,8 +445,6 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
     $mailbox = $aMailbox['NAME'];
 
     $urlMailbox = urlencode($mailbox);
-
-    $msgs_url = $base_uri . 'src/';
 
     // Create Prev & Next links
     // Handle nested entities first (i.e. Mime Attach parts)
@@ -787,7 +784,6 @@ if(sqgetGlobalVar('view_unsafe_images', $temp)) {
 sqgetGlobalVar('mailbox_cache',$mailbox_cache,SQ_SESSION);
 
 /* end of get globals */
-global $sqimap_capabilities, $lastTargetMailbox;
 
 $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
 $aMailbox = sqm_api_mailbox_select($imapConnection, $iAccount, $mailbox,array('setindex' => $what, 'offset' => $startMessage),array());

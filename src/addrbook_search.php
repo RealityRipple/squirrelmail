@@ -63,7 +63,6 @@ displayHtmlHeader();
 echo "<body>\n";
 
 /** set correct value of $default_charset */
-global $default_charset;
 set_my_charset();
 
 /* Empty search */
@@ -140,4 +139,3 @@ if ($show == 'form' && ! isset($listall)) {
 }
 
 $oTemplate->display('footer.tpl');
-?>
