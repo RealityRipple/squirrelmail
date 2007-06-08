@@ -43,7 +43,7 @@ if (!sqgetGlobalVar('account', $account, SQ_GET)) {
 }
 
 if (sqgetGlobalVar('mailbox', $mailbox, SQ_GET)) {
-   $aMailboxPrefs = unserialize(getPref($data_dir, $username, "pref_".$iAccount.'_'.urldecode($mailbox)));
+   $aMailboxPrefs = unserialize(getPref($data_dir, $username, "pref_".$iAccount.'_'.$mailbox));
    if (isset($aMailboxPrefs[MBX_PREF_COLUMNS])) {
        $index_order = $aMailboxPrefs[MBX_PREF_COLUMNS];
    }

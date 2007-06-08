@@ -151,7 +151,7 @@ if ( sqgetGlobalVar('session_expired_location', $session_expired_location, SQ_SE
             // of the last page
             $redirect_url = $session_expired_location;
         } else {
-            $redirect_url = $location.'/webmail.php?right_frame='.urldecode($session_expired_location);
+            $redirect_url = $location.'/webmail.php?right_frame='.urlencode($session_expired_location);
         }
     }
     unset($session_expired_location);

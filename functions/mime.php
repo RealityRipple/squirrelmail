@@ -60,7 +60,6 @@ function mime_structure ($bodystructure, $flags=array()) {
 
     if (!is_object($msg)) {
         global $color, $mailbox;
-        /* removed urldecode because $_GET is auto urldecoded ??? */
         displayPageHeader( $color, $mailbox );
         $errormessage  = _("SquirrelMail could not decode the bodystructure of the message");
         $errormessage .= '<br />'._("The bodystructure provided by your IMAP server:").'<br /><br />';
