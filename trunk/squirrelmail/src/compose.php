@@ -332,7 +332,7 @@ if (sqsession_is_registered('session_expired_post')) {
             }
         }
 
-        $compose_messages = unserialize(urldecode($restoremessages));
+        $compose_messages = unserialize($restoremessages);
         sqsession_register($compose_messages,'compose_messages');
         sqsession_register($composesession,'composesession');
         if (isset($send)) {
@@ -1252,7 +1252,8 @@ function showInputForm ($session, $values=false) {
         }
 
         $attach = array();
-        if ($composeMessage->entities) {
+        // composeMessage can be empty when coming from a restored session
+        if (is_object($composeMessage) && $composeMessage->entities) {
             foreach ($composeMessage->entities as $key => $attachment) {
                 $attached_file = $attachment->att_local_name;
                 if ($attachment->att_local_name || $attachment->body_part) {
@@ -1674,4 +1675,3 @@ function deliverMessage($composeMessage, $draft=false) {
     }
     return $success;
 }
-?>
