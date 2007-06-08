@@ -68,9 +68,7 @@ function addr_insert_hidden() {
  * @param bool $includesource If true, adds backend column to address listing
  */
 function addr_display_result($res, $includesource = true) {
-    global $color, $PHP_SELF, $squirrelmail_language;
-
-    global $oTemplate, $oErrorHandler;
+    global $PHP_SELF, $oTemplate, $oErrorHandler;
     
 
     echo addForm($PHP_SELF, 'post', 'addressbook').
@@ -96,7 +94,6 @@ else {
 }
 
 /** set correct value of $default_charset */
-global $default_charset;
 set_my_charset();
 
 /* Initialize addressbook */
@@ -176,4 +173,3 @@ if ($addrquery == '' || sizeof($res) == 0) {
 echo '<hr />';
 
 $oTemplate->display('footer.tpl');
-?>
