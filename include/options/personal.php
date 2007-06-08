@@ -36,7 +36,7 @@ define('SMOPT_GRP_TZ', 3);
 function load_optpage_data_personal() {
     global $data_dir, $username, $edit_identity, $edit_name,
            $full_name, $reply_to, $email_address, $signature, $tzChangeAllowed,
-           $color, $timeZone, $domain;
+           $timeZone, $domain;
 
     /* Set the values of some global variables. */
     $full_name = getPref($data_dir, $username, 'full_name');
@@ -179,7 +179,7 @@ function load_optpage_data_personal() {
 
         // TODO: make error user friendly
         if (isset($message)) {
-            plain_error_message($message, $color);
+            plain_error_message($message);
             exit;
         }
 
