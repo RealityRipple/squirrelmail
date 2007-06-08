@@ -458,7 +458,7 @@ if ($send) {
             /* We entered compose via the search results page */
             $mailbox = 'INBOX'; /* Send 'em to INBOX, that's safe enough */
         }
-        $urlMailbox = urlencode (trim($mailbox));
+        $urlMailbox = urlencode($mailbox);
         if (! isset($passed_id)) {
             $passed_id = 0;
         }
