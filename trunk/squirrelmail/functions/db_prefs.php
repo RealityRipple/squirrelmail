@@ -165,9 +165,9 @@ class dbPrefs {
         /* test if Pear DB class is available and freak out if it is not */
         if (! class_exists('DB')) {
             // same error also in abook_database.php
-            $this->error  = _("Could not include PEAR database functions required for the database backend.") . "<br />\n";
+            $this->error  = _("Could not include PEAR database functions required for the database backend.") . "\n";
             $this->error .= sprintf(_("Is PEAR installed, and is the include path set correctly to find %s?"),
-                              '<tt>DB.php</tt>') . "<br />\n";
+                              'DB.php') . "\n";
             $this->error .= _("Please contact your system administrator and report this error.");
             return false;
         }
