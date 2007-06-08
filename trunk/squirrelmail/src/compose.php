@@ -755,7 +755,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 (array(), $alt_order = array('text/plain'));
             if (!count($entities)) {
                 $entities = $message->entities[0]->findDisplayEntity
-                    (array(), $alt_order = array('text/plain','html/plain'));
+                    (array(), $alt_order = array('text/plain','text/html'));
             }
             $orig_header = $message->rfc822_header; /* here is the envelope located */
             /* redefine the message for picking up the attachments */
@@ -764,7 +764,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         } else {
             $entities = $message->findDisplayEntity (array(), $alt_order = array('text/plain'));
             if (!count($entities)) {
-                $entities = $message->findDisplayEntity (array(), $alt_order = array('text/plain','html/plain'));
+                $entities = $message->findDisplayEntity (array(), $alt_order = array('text/plain','text/html'));
             }
             $orig_header = $message->rfc822_header;
         }
