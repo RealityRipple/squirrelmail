@@ -427,7 +427,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     $oTemplate->assign('options', $optpage_data['options']);
     
     global $ask_user_info, $org_name;
-    if ( $optpage = SMOPT_PAGE_PERSONAL && $ask_user_info
+    if ( $optpage == SMOPT_PAGE_PERSONAL && $ask_user_info
             && getPref($data_dir, $username,'email_address') == "" ) {
         $oTemplate->assign('topmessage',
             sprintf(_("Welcome to %s. Please supply your full name and email address."), $org_name) );
