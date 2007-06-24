@@ -30,7 +30,7 @@ extract($t);
 
     // FIXME: There should be a better way (probably best to be javascript only, although trying to avoid unnecessary js) to calculate resize_handle width to match $editor_width 
     //$_total_width_ = 700;
-    echo '<div class="resize_handle" ' /* style="width: ' . ($editor_width * 8.3) . 'px; margin-left: ' . (($_total_width_ - ($editor_width * 8.3)) / 2) . 'px;" */ . 'onmousedown="startVertResizeDrag(event, document.forms[0].body, 40, 9000, this);"></div>';
+    echo '<div class="resize_handle" ' /* style="width: ' . ($editor_width * 8.3) . 'px; margin-left: ' . (($_total_width_ - ($editor_width * 8.3)) / 2) . 'px;" */ . 'onmousedown="startVertResizeDrag(event, document.compose.body, 40, 9000, this);"></div>';
 
 ?>
 
