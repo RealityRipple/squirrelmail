@@ -508,8 +508,11 @@ FIXME: do we WANT to throw an error or a notice or... or return FALSE?
   *
   * @param string $directory_path         The path (relative or absolute)
   *                                       to the desired directory.
-  * @param string $extension              The file extension filter (optional;
-  *                                       default is to return all files (dirs).
+  * @param mixed  $extension              The file extension filter - either
+  *                                       an array of desired extension(s),
+  *                                       or a comma-separated list of same
+  *                                       (optional; default is to return 
+  *                                       all files (dirs).
   * @param boolean $return_filenames_only When TRUE, only file/dir names
   *                                       are returned, otherwise the
   *                                       $directory_path string is
@@ -534,22 +537,36 @@ FIXME: do we WANT to throw an error or a notice or... or return FALSE?
   *                                                files or all directories
   *                                                (optional; default do not
   *                                                split up return array).
-  *
+  * @param boolean $only_sm               When TRUE, a security check will
+  *                                       limit directory access to only
+  *                                       paths within the SquirrelMail 
+  *                                       installation currently being used
+  *                                       (optional; default TRUE)
   *
   * @return array The requested file/directory list(s).
   *
   * @since 1.5.2
   *
   */
-function list_files($directory_path, $extension='', $return_filenames_only=TRUE,
+function list_files($directory_path, $extensions='', $return_filenames_only=TRUE,
                     $include_directories=TRUE, $directories_only=FALSE,
-                    $separate_files_and_directories=FALSE) {
+                    $separate_files_and_directories=FALSE, $only_sm=TRUE) {
 
     $files = array();
     $directories = array();
 
-//FIXME: do we want to place security restrictions here like only allowing
-//       directories under SM_PATH?
+
+    // make sure requested path is under SM_PATH if needed
+    //
+    if ($only_sm) {
+        if (strpos(realpath($directory_path), realpath(SM_PATH)) !== 0) {
+            //plain_error_message(_("Illegal filesystem access was requested"));
+            echo _("Illegal filesystem access was requested");
+            exit;
+        }
+    }
+
+
     // validate given directory
     //
     if (empty($directory_path)
@@ -559,7 +576,18 @@ function list_files($directory_path, $extension='', $return_filenames_only=TRUE,
     }
 
 
-    if (!empty($extension)) $extension = '.' . trim($extension, '.');
+    // ensure extensions is an array and is properly formatted 
+    //
+    if (!empty($extensions)) {
+        if (!is_array($extensions))
+            $extensions = explode(',', $extensions);
+        $temp_extensions = array();
+        foreach ($extensions as $ext)
+            $temp_extensions[] = '.' . trim(trim($ext), '.');
+        $extensions = $temp_extensions;
+    } else $extensions = array();
+
+
     $directory_path = rtrim($directory_path, '/');
 
 
@@ -569,9 +597,10 @@ function list_files($directory_path, $extension='', $return_filenames_only=TRUE,
 
         if ($file == '.' || $file == '..') continue;
 
-        if (!empty($extension)
-         && strrpos($file, $extension) !== (strlen($file) - strlen($extension)))
-            continue;
+        if (!empty($extensions))
+            foreach ($extensions as $ext)
+                if (strrpos($file, $ext) !== (strlen($file) - strlen($ext)))
+                    continue 2;
 
         // only use is_dir() if we really need to (be as efficient as possible)
         //
@@ -645,6 +674,271 @@ function sm_print_r() {
     print htmlentities($buffer);
     print '</pre></div>';
 }
+
+
+/**
+  * SquirrelMail wrapper for popen()/proc_open()
+  *
+  * This emulates popen() by using proc_open() if at all
+  * possible (reverts seamlessly to popen() if proc_open()
+  * is not supported in current PHP installation).
+  * 
+  * This is intended for use with the related sq_pclose(),
+  * sq_get_pipe_stdout() and sq_get_pipe_stderr() functions, 
+  * the latter of which add an easy interface for retrieving 
+  * output from a child process that was opened with traditional
+  * popen() syntax (in write mode), while not breaking under
+  * earlier versions of PHP.
+  *
+  * @param string $command The command identifying what to 
+  *                        execute in the child process.
+  * @param string $mode    The desired mode for the 
+  *                        unidirectional pipe that is returned;
+  *                        either 'r' for read or 'w' for write.
+  *
+  * @return resource A handle on the desired read or write pipe
+  *                  to the child process, or FALSE if the 
+  *                  process cannot be created.
+  *
+  * @since 1.5.2
+  *
+  */
+function sq_popen($command, $mode) {
+
+    $mode = strtolower($mode{0});
+
+
+    if (!function_exists('proc_open'))
+        return popen($command, $mode);
+
+
+    // set up our process store if not done already
+    //
+    global $processes;
+    if (empty($processes))
+        $processes = array();
+
+
+    // define read, write and error pipes
+    //
+    $descriptors = array(0 => array('pipe', 'r'),
+                         1 => array('pipe', 'w'),
+                         2 => array('pipe', 'w'));
+
+
+    // start the child process
+    //
+    $proc = proc_open($command, $descriptors, $pipes);
+    if (!is_resource($proc))
+        return FALSE;
+
+
+    // when in read mode, we'll return a handle to the child's write pipe
+    //
+    if ($mode == 'r')
+        $return_value = $pipes[1];
+    else if ($mode == 'w')
+        $return_value = $pipes[0];
+    else
+        die('sq_popen() expects $mode to be "r" or "w"');
+
+
+    // store the handle to the process and its pipes
+    // internally, keyed by whatever handle we'll be
+    // returning
+    //
+    $processes[$return_value] = array($proc, $pipes);
+
+
+    return $return_value;
+
+}
+
+
+/**
+  * Get STDERR output from a child process
+  * 
+  * This is designed to be used with processes that were
+  * opened with sq_popen(), and will return any output 
+  * that may be available from STDERR of the child process
+  * at the current time.
+  * 
+  * If a value is given for $timeout_seconds, this function
+  * will wait that long for output in case there is none
+  * right now.
+  *
+  * In PHP environments that do not support proc_open(),
+  * an empty string will always be returned.
+  *
+  * @param resource $handle     The handle to the child process,
+  *                             as returned from sq_popen().
+  * @param int $timeout_seconds The number of seconds to wait
+  *                             for output if there is none 
+  *                             available immediately (OPTIONAL;
+  *                             default is not to wait)
+  * @param boolean $quiet       When TRUE, errors are silently
+  *                             ignored (OPTIONAL; default is TRUE).
+  *                                       
+  * @return string Any STDERR output that may have been found.
+  * 
+  * @since 1.5.2
+  *
+  */
+function sq_get_pipe_stderr($handle, $timeout_seconds=0, $quiet=TRUE) {
+
+    // yes, we are testing for proc_OPEN
+    // because we need to know how the
+    // handle was actually OPENED
+    //
+    if (!function_exists('proc_open'))
+        return '';
+
+
+    // get our process out of the process store
+    //
+    global $processes;
+    if (!is_array($processes) || !isset($processes[$handle])) {
+        if (!quiet) {
+            plain_error_message(_("Failed to find corresponding open process handle"));
+        }
+        return '';
+    }
+    $proc = $processes[$handle];
+
+
+    // get all we can from stderr, don't wait longer
+    // than our timeout for input
+    //
+    $contents = '';
+    $read = array($proc[1][2]);
+    $write = NULL;
+    $except = NULL;
+    if (stream_select($read, $write, $except, $timeout_seconds))
+        while (!feof($proc[1][2])) $contents .= fread($proc[1][2], 8192);
+    return $contents;
+
+}
+
+
+/**
+  * Get STDOUT output from a child process
+  * 
+  * This is designed to be used with processes that were
+  * opened with sq_popen(), and will return any output 
+  * that may be available from STDOUT of the child process
+  * at the current time.
+  * 
+  * If a value is given for $timeout_seconds, this function
+  * will wait that long for output in case there is none
+  * right now.
+  *
+  * In PHP environments that do not support proc_open(),
+  * an empty string will always be returned.
+  *
+  * @param resource $handle     The handle to the child process,
+  *                             as returned from sq_popen().
+  * @param int $timeout_seconds The number of seconds to wait
+  *                             for output if there is none 
+  *                             available immediately (OPTIONAL;
+  *                             default is not to wait)
+  * @param boolean $quiet       When TRUE, errors are silently
+  *                             ignored (OPTIONAL; default is TRUE).
+  *                                       
+  * @return string Any STDOUT output that may have been found.
+  * 
+  * @since 1.5.2
+  *
+  */
+function sq_get_pipe_stdout($handle, $timeout_seconds=0, $quiet=TRUE) {
+
+    // yes, we are testing for proc_OPEN
+    // because we need to know how the
+    // handle was actually OPENED
+    //
+    if (!function_exists('proc_open'))
+        return '';
+
+
+    // get our process out of the process store
+    //
+    global $processes;
+    if (!is_array($processes) || !isset($processes[$handle])) {
+        if (!quiet) {
+            plain_error_message(_("Failed to find corresponding open process handle"));
+        }
+        return '';
+    }
+    $proc = $processes[$handle];
+
+
+    // get all we can from stdout, don't wait longer
+    // than our timeout for input
+    //
+    $contents = '';
+    $read = array($proc[1][1]);
+    $write = NULL;
+    $except = NULL;
+    if (stream_select($read, $write, $except, $timeout_seconds))
+       while (!feof($proc[1][1])) $contents .= fread($proc[1][1], 8192);
+    return $contents;
+
+}
+
+
+/**
+  * SquirrelMail wrapper for pclose()/proc_close()
+  * 
+  * This is designed to be used with processes that were
+  * opened with sq_popen(), and will correctly close 
+  * all pipes/handles that were opened as well as the 
+  * child process itself.
+  *
+  * @param resource $handle     The handle to the child process,
+  *                             as returned from sq_popen().
+  * @param boolean $quiet       When TRUE, errors are silently
+  *                             ignored (OPTIONAL; default is TRUE).
+  *                                       
+  * @return int The termination status of the child process.
+  * 
+  * @since 1.5.2
+  *
+  */
+function sq_pclose($handle, $quiet=TRUE) {
+
+    // yes, we are testing for proc_OPEN
+    // because we need to know how the
+    // handle was actually OPENED
+    //
+    if (!function_exists('proc_open'))
+        return pclose($handle);
+
+
+    // get our process out of the process store
+    //
+    global $processes;
+    if (!is_array($processes) || !isset($processes[$handle])) {
+        if (!quiet) {
+            plain_error_message(_("Failed to find corresponding open process handle"));
+        }
+        return 127;
+    }
+    $proc = $processes[$handle];
+    unset($processes[$handle]);
+
+
+    // close all pipes
+    //
+    fclose($proc[1][0]);
+    fclose($proc[1][1]);
+    fclose($proc[1][2]);
+
+
+    // close process
+    //
+    return proc_close($proc[0]);
+
+}
+
 
 /**
   * Sanitize a value using htmlspecialchars() or similar, but also
