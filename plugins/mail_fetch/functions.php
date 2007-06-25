@@ -64,8 +64,9 @@ function mail_fetch_login_function() {
         $mailfetch_login_[$i_loop] = getPref($data_dir, $username, "mailfetch_login_$i_loop");
         $mailfetch_fref_[$i_loop] = getPref($data_dir, $username, "mailfetch_fref_$i_loop");
         $mailfetch_pass_[$i_loop] = getPref($data_dir, $username, "mailfetch_pass_$i_loop");
-        if( $mailfetch_cypher == 'on' )
+        if( $mailfetch_cypher == 'on' ) {
             $mailfetch_pass_[$i_loop] = decrypt( $mailfetch_pass_[$i_loop] );
+        }
 
         if( $mailfetch_pass_[$i_loop] <> '' &&          // Empty passwords no allowed
                 ( ( $mailfetch_login_[$i_loop] == 'on' &&  $mailfetch_newlog == 'on' ) || $mailfetch_fref_[$i_loop] == 'on' ) ) {
