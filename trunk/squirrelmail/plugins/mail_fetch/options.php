@@ -65,7 +65,16 @@ switch( $mf_action ) {
      setPref($data_dir,$username,"mailfetch_port_$mf_sn", (isset($mf_port)?$mf_port:110));
      setPref($data_dir,$username,"mailfetch_alias_$mf_sn", (isset($mf_alias)?$mf_alias:""));
      setPref($data_dir,$username,"mailfetch_user_$mf_sn",(isset($mf_user)?$mf_user:""));
-     setPref($data_dir,$username,"mailfetch_pass_$mf_sn",(isset($mf_pass)?encrypt( $mf_pass )    :""));
+     $pass = "";
+     if ( isset($mf_pass) ) {
+        if ( isset($mf_cypher) && $mf_cypher == 'on' ) {
+            setPref($data_dir,$username,"mailfetch_cypher", ($mf_cypher == 'on' ? 'on' : ''));
+            $pass = encrypt($mf_pass);
+        } else {
+            $pass = $mf_pass;
+        }
+     }
+     setPref($data_dir,$username,"mailfetch_pass_$mf_sn",$pass);
      setPref($data_dir,$username,"mailfetch_lmos_$mf_sn",(isset($mf_lmos)?$mf_lmos:""));
      setPref($data_dir,$username,"mailfetch_login_$mf_sn",(isset($mf_login)?$mf_login:""));
      setPref($data_dir,$username,"mailfetch_fref_$mf_sn",(isset($mf_fref)?$mf_fref:""));
@@ -83,8 +92,17 @@ switch( $mf_action ) {
      setPref($data_dir,$username,"mailfetch_port_$mf_sn", (isset($mf_port)?$mf_port:110));
      setPref($data_dir,$username,"mailfetch_alias_$mf_sn", (isset($mf_alias)?$mf_alias:""));
      setPref($data_dir,$username,"mailfetch_user_$mf_sn",(isset($mf_user)?$mf_user:""));
-     setPref($data_dir,$username,"mailfetch_pass_$mf_sn",(isset($mf_pass)?encrypt( $mf_pass )    :""));
-     setPref($data_dir,$username,"mailfetch_cypher", ($mf_cypher == 'on' ? 'on' : ''));
+     $pass = "";
+     if ( isset($mf_pass) ) {
+        if ( isset($mf_cypher) && $mf_cypher == 'on' ) {
+            setPref($data_dir,$username,"mailfetch_cypher", 'on');
+            $pass = encrypt($mf_pass);
+        } else {
+            setPref($data_dir,$username,"mailfetch_cypher", '');
+            $pass = $mf_pass;
+        }
+     }
+     setPref($data_dir,$username,"mailfetch_pass_$mf_sn",$pass);
      setPref($data_dir,$username,"mailfetch_lmos_$mf_sn",(isset($mf_lmos)?$mf_lmos:""));
      setPref($data_dir,$username,"mailfetch_login_$mf_sn",(isset($mf_login)?$mf_login:""));
      setPref($data_dir,$username,"mailfetch_fref_$mf_sn",(isset($mf_fref)?$mf_fref:""));
