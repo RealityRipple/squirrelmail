@@ -200,6 +200,7 @@ Version 1.5.2 - SVN
     charset conversion exploits, and request forgery through included
     images. Thanks to Mikhail Markin, Tomas Kuliavas and Michael Jordon
     for reporting these issues. [CVE-2007-1262]
+  - Fix busy loop and notice when two literals in IMAP fetch (#1739433).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
