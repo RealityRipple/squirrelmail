@@ -101,7 +101,7 @@ function logout_error( $errString, $errTitle = '' ) {
     
     $sm_attribute_str = '';
     if (isset($hide_sm_attributions) && !$hide_sm_attributions) {
-        $sm_attribute_str = _("SquirrelMail Webmail Application") . "\n" 
+        $sm_attribute_str = _("SquirrelMail Webmail") . "\n" 
                           . _("By the SquirrelMail Project Team");
     }
 
