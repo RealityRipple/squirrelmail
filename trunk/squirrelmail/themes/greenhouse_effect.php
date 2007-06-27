@@ -25,10 +25,10 @@ include_once(SM_PATH . 'functions/strings.php');
 /** seed the random number generator **/
 sq_mt_randomize();
 
-for ($i = 0; $i <= 15; $i++) {
+for ($i = 0; $i <= 16; $i++) {
     /* background/foreground toggle **/
-    if (($i == 0) || ($i == 3) || ($i == 4) || ($i == 5)
-         || ($i == 9) || ($i == 10) || ($i == 12)) {
+    if ($i == 0 || $i == 3 || $i == 4 || $i == 5
+         || $i == 9 || $i == 10 || $i == 12 || $i == 16) {
         /* background */
         $g = mt_rand(248,255);
         $r = mt_rand(110,248);
