@@ -51,8 +51,8 @@ $gt = mt_rand($cmin_t,$cmax_t);
 $bt = mt_rand($cmin_t,$cmax_t);
 
 /** set array element as hex string with hashmark (for HTML output) **/
-for ($i = 0; $i <= 15; $i++) {
-    if ($i == 0 or $i == 3 or $i == 4 or $i == 5 or $i == 9 or $i == 10 or $i == 12) {
+for ($i = 0; $i <= 16; $i++) {
+    if ($i == 0 or $i == 3 or $i == 4 or $i == 5 or $i == 9 or $i == 10 or $i == 12 or $i == 16) {
         $color[$i] = sprintf('#%02X%02X%02X',$rb,$gb,$bb);
     } else {
         $color[$i] = sprintf('#%02X%02X%02X',$rt,$gt,$bt);
