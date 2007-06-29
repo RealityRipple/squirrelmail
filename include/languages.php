@@ -76,11 +76,15 @@ function sq_change_text_domain($domain_name, $directory='') {
  *
  * @since 1.4.10 and 1.5.1
  * @param string $domain gettext domain name
- * @param string $dir directory that contains all translations
+ * @param string $dir directory that contains all translations (OPTIONAL;
+ *                    if not specified, defaults to SquirrelMail locale 
+ *                    directory)
  * @return string path to translation directory
  */
-function sq_bindtextdomain($domain,$dir) {
+function sq_bindtextdomain($domain,$dir='') {
     global $l10n, $gettext_flags, $sm_notAlias;
+
+    if (empty($dir)) $dir = SM_PATH . 'locale/'
 
     if ($gettext_flags==7) {
         // gettext extension without ngettext
