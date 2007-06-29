@@ -40,28 +40,33 @@
  *                            (OPTIONAL; default is SquirrelMail
  *                            locale directory).
  *
- * @return void
+ * @return string The name of the text domain that was set
+ *                *BEFORE* it is changed herein - NOTE that
+ *                this differs from PHP's textdomain() 
  *
  * @since 1.5.2 and 1.4.10 
  */
 function sq_change_text_domain($domain_name, $directory='') {
 
-    if (empty($directory)) $directory = SM_PATH . 'locale/';
-
     static $domains_already_seen = array();
+    global $gettext_domain;
+    $return_value = $gettext_domain;
 
     // only need to call bindtextdomain() once 
     //
     if (in_array($domain_name, $domains_already_seen)) {
         sq_textdomain($domain_name);
-        return;
+        return $return_value;
     }
 
     $domains_already_seen[] = $domain_name;
 
+    if (empty($directory)) $directory = SM_PATH . 'locale/';
+
     sq_bindtextdomain($domain_name, $directory);
     sq_textdomain($domain_name);
 
+    return $return_value;
 }
 
 /**
