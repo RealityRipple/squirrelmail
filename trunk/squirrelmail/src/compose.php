@@ -1366,9 +1366,12 @@ function checkInput ($show) {
      * using $show=false, and then when i'm ready to display the error
      * message, show=true
      */
-    global $send_to, $send_to_bcc;
+    global $send_to, $send_to_cc, $send_to_bcc;
 
-    if ($send_to == '' && $send_to_bcc == '') {
+    $send_to = trim($send_to);
+    $send_to_cc = trim($send_to_cc);
+    $send_to_bcc = trim($send_to_bcc);
+    if (empty($send_to) && empty($send_to_cc) && empty($send_to_bcc)) {
         if ($show) {
             plain_error_message(_("You have not filled in the \"To:\" field."));
         }
