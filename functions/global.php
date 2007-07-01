@@ -401,18 +401,18 @@ function sqsetcookie($sName,$sValue='deleted',$iExpire=0,$sPath="",$sDomain="",$
        // broken we use the header function for php 5.2 as well. We might change that later.
        //setcookie($sName,$sValue,(int) $iExpire,$sPath,$sDomain,$bSecure,$bHttpOnly);
     } else {
-        if (!empty($Domain)) {
+        if (!empty($sDomain)) {
             // Fix the domain to accept domains with and without 'www.'.
-            if (strtolower(substr($Domain, 0, 4)) == 'www.')  $Domain = substr($Domain, 4);
-            $Domain = '.' . $Domain;
+            if (strtolower(substr($sDomain, 0, 4)) == 'www.')  $sDomain = substr($sDomain, 4);
+            $sDomain = '.' . $sDomain;
 
             // Remove port information.
-            $Port = strpos($Domain, ':');
-            if ($Port !== false)  $Domain = substr($Domain, 0, $Port);
+            $Port = strpos($sDomain, ':');
+            if ($Port !== false)  $sDomain = substr($sDomain, 0, $Port);
         }
         if (!$sValue) $sValue = 'deleted';
         header('Set-Cookie: ' . rawurlencode($sName) . '=' . rawurlencode($sValue)
-                            . (empty($iExpires) ? '' : '; expires=' . gmdate('D, d-M-Y H:i:s', $iExpires) . ' GMT')
+                            . (empty($iExpire) ? '' : '; expires=' . gmdate('D, d-M-Y H:i:s', $iExpire) . ' GMT')
                             . (empty($sPath) ? '' : '; path=' . $sPath)
                             . (empty($sDomain) ? '' : '; domain=' . $sDomain)
                             . (!$bSecure ? '' : '; secure')
