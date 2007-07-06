@@ -70,7 +70,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     $aUserStyles = array();
 
     // 2. Option user-defined stylesheet from preferences.
-    if (!empty($used_theme)) {
+    if (!empty($used_theme) && $used_theme != 'none') {
         /**
          * All styles just point to a directory, so we need to include all .css
          * files in that directory. 
