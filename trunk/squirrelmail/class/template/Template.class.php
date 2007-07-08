@@ -712,6 +712,8 @@ class Template
       * are catalogued; for identically named files, the file earlier
       * in the hierarchy (closest to this template set) is used.
       *
+      * Refuses to traverse directories called ".svn"
+      *
       * @param string $template_set_id The template set in which to
       *                                search for files
       * @param array  $file_list       The file list so far to be added
@@ -742,6 +744,12 @@ class Template
         if (empty($directory)) {
             $directory = $template_base_dir;
         }
+
+
+        // bail if we have been asked to traverse a Subversion directory
+        //
+        if (strpos($directory, '/.svn') === strlen($directory) - 5) return $file_list;
+
 
         $files_and_dirs = list_files($directory, '', FALSE, TRUE, FALSE, TRUE);
 
@@ -1186,9 +1194,10 @@ class Template
         $return_array = array();
         foreach ($css_directories as $directory) {
 
-            // CVS directories are not wanted
+            // CVS and SVN directories are not wanted
             //
-            if (strpos($directory, '/CVS') === strlen($directory) - 4) continue;
+            if ((strpos($directory, '/CVS') === strlen($directory) - 4)
+             || (strpos($directory, '/.svn') === strlen($directory) - 5)) continue;
 
             $pretty_name = ucwords(str_replace('_', ' ', basename($directory)));
 
