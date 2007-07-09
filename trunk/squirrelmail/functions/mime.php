@@ -1905,7 +1905,6 @@ function sq_fix_url($attname, &$attvalue, $message, $id, $mailbox,$sQuote = '"')
  * @return           a string with edited content.
  */
 function sq_fixstyle($body, $pos, $message, $id, $mailbox){
-    global $view_unsafe_images;
     $me = 'sq_fixstyle';
     // workaround for </style> in between comments
     $iCurrentPos = $pos;
