@@ -119,7 +119,7 @@ function squirrelspell_upgrade_function() {
  * @return            void
  */
 function sqspell_makePage($title, $scriptsrc, $body){
-  global $color, $SQSPELL_VERSION;
+  global $color;
 
   if (! sqgetGlobalVar('MOD', $MOD, SQ_GET) ) {
       $MOD = 'options_main';
@@ -186,7 +186,7 @@ function sqspell_makePage($title, $scriptsrc, $body){
  * @return            void
  */
 function sqspell_makeWindow($onload, $title, $scriptsrc, $body){
-  global $color, $SQSPELL_VERSION;
+  global $color;
 
   displayHtmlHeader($title,
       ($scriptsrc ? "\n<script type=\"text/javascript\" src=\"js/$scriptsrc\"></script>\n" : ''));
