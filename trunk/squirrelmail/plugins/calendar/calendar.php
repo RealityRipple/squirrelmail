@@ -138,7 +138,7 @@ function drawmonthview() {
  * @access private
  */
 function endcalendar() {
-    global $year, $month, $day, $color;
+    global $year, $month;
 
     echo html_tag( 'tr' ) ."\n" .
            html_tag( 'td', '', 'left', '', 'colspan="7"' ) ."\n" .
