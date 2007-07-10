@@ -202,6 +202,8 @@ Version 1.5.2 - SVN
     for reporting these issues. [CVE-2007-1262]
   - Fix busy loop and notice when two literals in IMAP fetch (#1739433).
   - Resolved issue with compose session not being updated after send/safe.
+  - Added ability to detect HTTP_X_FORWARDED_PROTO in get_location(),
+    thanks to Daniel Watts
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
