@@ -496,11 +496,15 @@ function get_location () {
     /*
      * If you have 'SSLOptions +StdEnvVars' in your apache config
      *     OR if you have HTTPS=on in your HTTP_SERVER_VARS
+     *     OR if you have HTTP_X_FORWARDED_PROTO=https in your HTTP_SERVER_VARS
      *     OR if you are on port 443
      */
     $getEnvVar = getenv('HTTPS');
+    if (!sqgetGlobalVar('HTTP_X_FORWARDED_PROTO', $forwarded_proto, SQ_SERVER))
+        $forwarded_proto = '';
     if ((isset($getEnvVar) && strcasecmp($getEnvVar, 'on') === 0) ||
         (sqgetGlobalVar('HTTPS', $https_on, SQ_SERVER) && strcasecmp($https_on, 'on') === 0) ||
+        (strcasecmp($forwarded_proto, 'https') === 0) ||
         (sqgetGlobalVar('SERVER_PORT', $server_port, SQ_SERVER) &&  $server_port == 443)) {
         $proto = 'https://';
     }
@@ -518,7 +522,8 @@ function get_location () {
     if (! strstr($host, ':')) {
         if (sqgetGlobalVar('SERVER_PORT', $server_port, SQ_SERVER)) {
             if (($server_port != 80 && $proto == 'http://') ||
-                ($server_port != 443 && $proto == 'https://')) {
+                ($server_port != 443 && $proto == 'https://' &&
+                 $forwarded_proto != 'https')) {
                 $port = sprintf(':%d', $server_port);
             }
         }
