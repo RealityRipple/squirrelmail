@@ -109,7 +109,6 @@ if ( sqgetGlobalVar('return', $temp, SQ_POST) ) {
 }
 
 /** GET VARS */
-sqgetGlobalVar('attachedmessages', $attachedmessages, SQ_GET);
 if ( sqgetGlobalVar('account', $temp,  SQ_GET) ) {
     $iAccount = (int) $temp;
 } else {
