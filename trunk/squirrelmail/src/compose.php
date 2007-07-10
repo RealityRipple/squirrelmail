@@ -434,6 +434,7 @@ if ($draft) {
             if ( !isset($pageheader_sent) || !$pageheader_sent ) {
                 Header("Location: $location/compose.php?saved_draft=yes&session=$composesession");
             } else {
+//FIXME: DON'T ECHO HTML FROM CORE!
                 echo '   <br><br><div style="text-align: center;"><a href="' . $location
                     . '/compose.php?saved_sent=yes&amp;session=' . $composesession . '">'
                     . _("Return") . '</a></div>';
@@ -444,6 +445,7 @@ if ($draft) {
                 Header("Location: $location/right_main.php?mailbox=" . urlencode($draft_folder) .
                    "&startMessage=1&note=".urlencode($draft_message));
             } else {
+//FIXME: DON'T ECHO HTML FROM CORE!
                 echo '   <br><br><div style="text-align: center;"><a href="' . $location
                     . '/right_main.php?mailbox=' . urlencode($draft_folder)
                     . '&amp;startMessage=1&amp;note=' . urlencode($draft_message) .'">'
@@ -544,6 +546,7 @@ if ($send) {
             if ( !isset($pageheader_sent) || !$pageheader_sent ) {
                 Header("Location: $location/compose.php?mail_sent=$mail_sent");
             } else {
+//FIXME: DON'T ECHO HTML FROM CORE!
                 echo '   <br><br><div style="text-align: center;"><a href="' . $location
                     . '/compose.php?mail_sent=$mail_sent">'
                     . _("Return") . '</a></div>';
@@ -554,6 +557,7 @@ if ($send) {
                 Header("Location: $location/right_main.php?mailbox=$urlMailbox".
                     "&startMessage=$startMessage&mail_sent=$mail_sent");
             } else {
+//FIXME: DON'T ECHO HTML FROM CORE!
                 echo '   <br><br><div style="text-align: center;"><a href="' . $location
                     . "/right_main.php?mailbox=$urlMailbox"
                     . "&amp;startMessage=$startMessage&amp;mail_sent=$mail_sent\">"
@@ -1099,6 +1103,7 @@ function showInputForm ($session, $values=false) {
     }
 
     if ($use_javascript_addr_book) {
+//FIXME: NO HTML IN CORE!
         echo "\n". '<script type="text/javascript">'."\n<!--\n" .
             'function open_abook() { ' . "\n" .
             '  var nwin = window.open("addrbook_popup.php","abookpopup",' .
@@ -1109,6 +1114,7 @@ function showInputForm ($session, $values=false) {
             "// -->\n</script>\n\n";
     }
 
+//FIXME: NO HTML IN CORE!
     echo "\n" . '<form name="compose" action="compose.php" method="post" ' .
         'enctype="multipart/form-data"';
 
@@ -1139,25 +1145,32 @@ function showInputForm ($session, $values=false) {
             $onsubmit_text .= $text;
         }
 
+//FIXME: DON'T ECHO HTML FROM CORE!
         echo $onsubmit_text . ' return true;"';
     }
 
 
+//FIXME: NO HTML IN CORE!
     echo ">\n";
 
+//FIXME: DON'T ECHO HTML FROM CORE!
     echo addHidden('startMessage', $startMessage);
 
     if ($action == 'draft') {
+//FIXME: DON'T ECHO HTML FROM CORE!
         echo addHidden('delete_draft', $passed_id);
     }
     if (isset($delete_draft)) {
+//FIXME: DON'T ECHO HTML FROM CORE!
         echo addHidden('delete_draft', $delete_draft);
     }
     if (isset($session)) {
+//FIXME: DON'T ECHO HTML FROM CORE!
         echo addHidden('session', $session);
     }
 
     if (isset($passed_id)) {
+//FIXME: DON'T ECHO HTML FROM CORE!
         echo addHidden('passed_id', $passed_id);
     }
 
@@ -1174,6 +1187,7 @@ function showInputForm ($session, $values=false) {
     }
 
     if ($location_of_buttons == 'top') {
+//FIXME: DON'T ECHO HTML FROM CORE!
         showComposeButtonRow();
     }
 
@@ -1197,6 +1211,7 @@ function showInputForm ($session, $values=false) {
     $oTemplate->display('compose_header.tpl');
 
     if ($location_of_buttons == 'between') {
+//FIXME: DON'T ECHO HTML FROM CORE!
         showComposeButtonRow();
     }
 
@@ -1239,6 +1254,7 @@ function showInputForm ($session, $values=false) {
     $oTemplate->display ('compose_body.tpl');
 
     if ($location_of_buttons == 'bottom') {
+//FIXME: DON'T ECHO HTML FROM CORE!
         showComposeButtonRow();
     }
 
