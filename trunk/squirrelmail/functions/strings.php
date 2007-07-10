@@ -523,7 +523,7 @@ function get_location () {
         if (sqgetGlobalVar('SERVER_PORT', $server_port, SQ_SERVER)) {
             if (($server_port != 80 && $proto == 'http://') ||
                 ($server_port != 443 && $proto == 'https://' &&
-                 $forwarded_proto != 'https')) {
+                 strcasecmp($forwarded_proto, 'https') !== 0)) {
                 $port = sprintf(':%d', $server_port);
             }
         }
