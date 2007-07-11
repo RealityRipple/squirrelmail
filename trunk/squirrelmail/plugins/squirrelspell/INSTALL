@@ -65,4 +65,4 @@ $SQSPELL_APP_DEFAULT = 'English';
  */
 $SQSPELL_WORDS_FILE =
    getHashedFile($username, $data_dir, "$username.words");
-?>
+
