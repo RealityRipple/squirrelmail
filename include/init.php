@@ -417,8 +417,8 @@ switch ($sInitLocation) {
             // signout page will deal with users who aren't logged
             // in on its own; don't show error here
             //
-            if (strpos($PHP_SELF, 'signout.php') !== FALSE) {
-            return;
+            if ( defined('PAGE_SIGNOUT') ) {
+                return;
             }
 
             /**

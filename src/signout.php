@@ -11,6 +11,9 @@
  * @package squirrelmail
  */
 
+/** This is the signout page */
+define('PAGE_SIGNOUT', 1);
+
 /**
  * Include the SquirrelMail initialization file.
  */
