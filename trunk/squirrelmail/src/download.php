@@ -12,6 +12,9 @@
  * @package squirrelmail
  */
 
+/** This is the download page */
+define('PAGE_NAME', 'download');
+
 /**
  * Include the SquirrelMail initialization file.
  */

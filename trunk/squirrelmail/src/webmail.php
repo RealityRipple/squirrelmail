@@ -12,6 +12,9 @@
  * @package squirrelmail
  */
 
+/** This is the webmail page */
+define('PAGE_NAME', 'webmail');
+
 /**
  * Include the SquirrelMail initialization file.
  */

@@ -12,6 +12,9 @@
  */
 $sInitLocation = 'redirect';
 
+/** This is the redirect page */
+define('PAGE_NAME', 'redirect');
+
 /**
  * Include the SquirrelMail initialization file.
  */

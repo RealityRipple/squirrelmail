@@ -15,6 +15,9 @@
  * @subpackage addressbook
  */
 
+/** This is the addrbook_search page */
+define('PAGE_NAME', 'addrbook_search');
+
 /**
  * Include the SquirrelMail initialization file.
  */

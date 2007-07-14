@@ -11,6 +11,9 @@
  * @package squirrelmail
  */
 
+/** This is the vcard page */
+define('PAGE_NAME', 'vcard');
+
 /**
  * Include the SquirrelMail initialization file.
  */
@@ -185,4 +188,3 @@ $oTemplate->assign('info', $opts);
 $oTemplate->display('vcard.tpl');
 
 $oTemplate->display('footer.tpl');
-?>

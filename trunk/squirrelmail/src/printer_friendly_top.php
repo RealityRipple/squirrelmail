@@ -12,6 +12,9 @@
  * @package squirrelmail
  */
 
+/** This is the printer_friendly_top page */
+define('PAGE_NAME', 'printer_friendly_top');
+
 /**
  * Include the SquirrelMail initialization file.
  */
@@ -23,4 +26,3 @@ $oErrorHandler->setDelayedErrors(true);
 $oTemplate->display('printer_friendly_top.tpl');
 
 $oTemplate->display('footer.tpl');
-?>

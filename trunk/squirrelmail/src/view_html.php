@@ -1,7 +1,7 @@
 <?php
 
 /**
- * $Source$
+ * view_html
  * Displays html message parts
  *
  * File is used to display html message parts. Usually inside iframe.
@@ -15,6 +15,9 @@
  * @version $Id$
  * @package squirrelmail
  */
+
+/** This is the view_html page */
+define('PAGE_NAME', 'view_html');
 
 /**
  * Include the SquirrelMail initialization file.
@@ -74,4 +77,3 @@ $body = MagicHTML( $body, $passed_id, $message, $mailbox);
 /** TODO: charset might be part of html code. */
 header('Content-Type: text/html; charset=' . $charset);
 echo $body;
-?>

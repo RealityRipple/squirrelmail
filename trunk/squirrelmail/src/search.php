@@ -17,6 +17,9 @@
  * @todo explain why references are used in function calls
  */
 
+/** This is the search page */
+define('PAGE_NAME', 'search');
+
 /**
  * Include the SquirrelMail initialization file.
  */
@@ -1634,4 +1637,3 @@ sqimap_logout($imapConnection);
 
 $oTemplate->display('footer.tpl');
 sqsession_register($mailbox_cache,'mailbox_cache');
-?>

@@ -15,6 +15,9 @@
  * If it throws errors you need to adjust your config.      *
  ************************************************************/
 
+/** This is the configtest page */
+define('PAGE_NAME', 'configtest');
+
 // This script could really use some restructuring as it has grown quite rapidly
 // but is not very 'clean'. Feel free to get some structure into this thing.
 
@@ -920,4 +923,3 @@ if ($warnings) {
 EOF;
     echo $footer;
 }
-?>

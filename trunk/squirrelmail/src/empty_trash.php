@@ -12,6 +12,9 @@
  * @package squirrelmail
  */
 
+/** This is the empty_trash page */
+define('PAGE_NAME', 'empty_trash');
+
 /**
  * Include the SquirrelMail initialization file.
  */
@@ -71,4 +74,3 @@ session_write_close();
 $location = get_location();
 header ("Location: $location/left_main.php");
 
-?>
