@@ -20,7 +20,7 @@
  * @return boolean
  */
 function adm_check_user() {
-    global $PHP_SELF, $plugins;
+    global $plugins;
 
     /* fail if the plugin is not enabled */
     if ( !in_array('administrator', $plugins) ) {
@@ -32,7 +32,7 @@ function adm_check_user() {
     }
 
     /* This needs to be first, for all non_options pages */
-    if (strpos('options.php', $PHP_SELF)) {
+    if (defined('PAGE_NAME') && PAGE_NAME='administrator_options') {
         $auth = FALSE;
     } else if (file_exists(SM_PATH . 'plugins/administrator/admins')) {
         $auths = file(SM_PATH . 'plugins/administrator/admins');
