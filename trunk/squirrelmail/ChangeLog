@@ -201,9 +201,12 @@ Version 1.5.2 - SVN
     images. Thanks to Mikhail Markin, Tomas Kuliavas and Michael Jordon
     for reporting these issues. [CVE-2007-1262]
   - Fix busy loop and notice when two literals in IMAP fetch (#1739433).
-  - Resolved issue with compose session not being updated after send/safe.
+  - Resolved issue with compose session not being updated after send/save.
   - Added ability to detect HTTP_X_FORWARDED_PROTO in get_location(),
-    thanks to Daniel Watts
+    thanks to Daniel Watts.
+  - Fix test for signout.php in the logged in check in init.php so it
+    cannot be circumvented by manipulating the URL. External plugins migh
+    rely on init.php guarranteeing that the user is logged in.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
