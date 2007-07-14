@@ -10,7 +10,6 @@
  * @version $Id$
  * @package squirrelmail
  */
-$sInitLocation = 'redirect';
 
 /** This is the redirect page */
 define('PAGE_NAME', 'redirect');

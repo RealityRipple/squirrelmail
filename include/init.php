@@ -49,9 +49,6 @@ if ((bool) ini_get('register_globals') &&
         case 'key':
         case 'value':
             break;
-        case 'sInitLocation':
-            // FIXME: variable must be set only in src/login.php
-            break;
         default:
             unset($GLOBALS[$key]);
         }
@@ -294,15 +291,12 @@ if (! sqgetGlobalVar('squirrelmail_language',$squirrelmail_language,SQ_COOKIE)) 
     $squirrelmail_language = '';
 }
 
-
 /**
- * @var $sInitlocation From where do we include.
+ * Do something special for some pages. This is based on the PAGE_NAME constand
+ * set at the top of every page.
  */
-if (!isset($sInitLocation)) {
-    $sInitLocation=NULL;
-}
-
-switch ($sInitLocation) {
+if ( !defined('PAGE_NAME') ) define('PAGE_NAME', NULL);
+switch (PAGE_NAME) {
     case 'style':
 
         // need to get the right template set up
@@ -417,7 +411,7 @@ switch ($sInitLocation) {
             // signout page will deal with users who aren't logged
             // in on its own; don't show error here
             //
-            if ( defined('PAGE_NAME') && PAGE_NAME == 'signout' ) {
+            if ( PAGE_NAME == 'signout' ) {
                 return;
             }
 

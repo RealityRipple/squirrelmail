@@ -15,14 +15,10 @@
 /** This is the login page */
 define('PAGE_NAME', 'login');
 
-// reduces the files included in init.php
-$sInitLocation = 'login';
-
 /**
  * Include the SquirrelMail initialization file.
  */
 require('../include/init.php');
-
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'functions/imap_general.php');
