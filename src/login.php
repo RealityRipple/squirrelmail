@@ -12,6 +12,9 @@
  * @package squirrelmail
  */
 
+/** This is the login page */
+define('PAGE_NAME', 'login');
+
 // reduces the files included in init.php
 $sInitLocation = 'login';
 

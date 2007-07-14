@@ -11,6 +11,9 @@
  * @package squirrelmail
  */
 
+/** This is the view_text page */
+define('PAGE_NAME', 'view_text');
+
 /** SquirrelMail required files. */
 include('../include/init.php');
 include(SM_PATH . 'functions/imap_general.php');
@@ -85,4 +88,3 @@ $oTemplate->assign('body', $body);
 $oTemplate->display('view_text.tpl');
 
 $oTemplate->display('footer.tpl');
-?>

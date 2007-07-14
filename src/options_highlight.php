@@ -12,6 +12,9 @@
  * @subpackage prefs
  */
 
+/** This is the options_highlight page */
+define('PAGE_NAME', 'options_highlight');
+
 /**
  * Include the SquirrelMail initialization file.
  */
@@ -346,4 +349,3 @@ if ($action == 'edit' || $action == 'add') {
 do_hook('options_highlight_bottom', $null);
 
 $oTemplate->display('footer.tpl');
-?>

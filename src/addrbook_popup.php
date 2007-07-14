@@ -12,6 +12,9 @@
  * @subpackage addressbook
  */
 
+/** This is the addrbook_popup page */
+define('PAGE_NAME', 'addrbook_popup');
+
 /**
  * Include the SquirrelMail initialization file.
  */

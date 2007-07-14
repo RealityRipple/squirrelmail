@@ -13,6 +13,10 @@
   * @since 1.5.2
   *
   */
+
+/** This is the squirrelmail_rpc page */
+define('PAGE_NAME', 'squirrelmail_rpc');
+
 //FIXME: If we decide to route ALL requests, even normal page
 //       requests through this file, need to change page requests
 //       to something like this

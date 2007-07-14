@@ -16,6 +16,9 @@
  * @package squirrelmail
  */
 
+/** This is the about page */
+define('PAGE_NAME', 'about');
+
 /**
  * Include the SquirrelMail initialization file.
  */

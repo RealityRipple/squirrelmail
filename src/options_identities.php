@@ -13,6 +13,9 @@
  * @since 1.1.3
  */
 
+/** This is the options_identities page */
+define('PAGE_NAME', 'options_identities');
+
 /**
  * Include the SquirrelMail initialization file.
  */
@@ -226,4 +229,3 @@ function sti_textarea( $title, $name, $data, $bgcolor ) {
 
 }
 
-?>

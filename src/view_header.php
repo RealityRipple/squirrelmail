@@ -11,6 +11,9 @@
  * @package squirrelmail
  */
 
+/** This is the view_header page */
+define('PAGE_NAME', 'view_header');
+
 /**
  * Include the SquirrelMail initialization file.
  */
@@ -115,4 +118,3 @@ $oTemplate->assign('headers', $aTemplateHeaders);
 $oTemplate->display('view_header.tpl');
 
 $oTemplate->display('footer.tpl');
-?>

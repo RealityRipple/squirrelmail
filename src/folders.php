@@ -12,6 +12,9 @@
  * @package squirrelmail
  */
 
+/** This is the folders page */
+define('PAGE_NAME', 'folders');
+
 /**
  * Include the SquirrelMail initialization file.
  */
@@ -193,4 +196,3 @@ $oTemplate->assign('subbox_option_list', $subbox_option_list);
 $oTemplate->display('folder_manip.tpl');
 
 $oTemplate->display('footer.tpl');
-?>

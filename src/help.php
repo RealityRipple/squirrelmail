@@ -11,6 +11,9 @@
  * @package squirrelmail
  */
 
+/** This is the help page */
+define('PAGE_NAME', 'help');
+
 /**
  * Include the SquirrelMail initialization file.
  */
@@ -237,4 +240,3 @@ if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
 do_hook('help_bottom', $null);
 
 $oTemplate->display('footer.tpl');
-?>

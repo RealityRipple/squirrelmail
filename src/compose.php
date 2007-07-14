@@ -16,6 +16,9 @@
  * @package squirrelmail
  */
 
+/** This is the compose page */
+define('PAGE_NAME', 'compose');
+
 /**
  * Include the SquirrelMail initialization file.
  */

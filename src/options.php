@@ -13,6 +13,9 @@
  * @subpackage prefs
  */
 
+/** This is the options page */
+define('PAGE_NAME', 'options');
+
 /**
  * Include the SquirrelMail initialization file.
  */

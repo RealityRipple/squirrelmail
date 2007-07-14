@@ -12,6 +12,9 @@
  * @subpackage addressbook
  */
 
+/** This is the addressbook page */
+define('PAGE_NAME', 'addressbook');
+
 /**
  * Include the SquirrelMail initialization file.
  */
@@ -279,4 +282,3 @@ echo "</form>\n";
 do_hook('addressbook_bottom', $null);
 
 $oTemplate->display('footer.tpl');
-?>

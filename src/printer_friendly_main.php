@@ -9,6 +9,9 @@
  * @package squirrelmail
  */
 
+/** This is the printer_friendly_main page */
+define('PAGE_NAME', 'printer_friendly_main');
+
 /**
  * Include the SquirrelMail initialization file.
  */

@@ -12,6 +12,9 @@
  * @package squirrelmail
  */
 
+/** This is the left_main page */
+define('PAGE_NAME', 'left_main');
+
 /**
  * Include the SquirrelMail initialization file.
  */

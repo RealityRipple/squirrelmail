@@ -20,6 +20,9 @@
  * init.php.
  */
 if (!isset($bInit)) {
+    /** This is the addrbook_search_html page */
+    define('PAGE_NAME', 'addrbook_search_html');
+
     include('../include/init.php');
 }
 

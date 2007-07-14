@@ -12,6 +12,9 @@
  * @package squirrelmail
  */
 
+/** This is the right_main page */
+define('PAGE_NAME', 'right_main');
+
 //xdebug_start_profiling("/var/spool/xdebug/right_main.txt");
 
 

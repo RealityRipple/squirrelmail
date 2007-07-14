@@ -11,6 +11,9 @@
  * @subpackage prefs
  */
 
+/** This is the options_order page */
+define('PAGE_NAME', 'options_order');
+
 /**
  * Include the SquirrelMail initialization file.
  */
@@ -161,4 +164,3 @@ $oTemplate->assign('addField_action', $PHP_SELF);
 $oTemplate->display('options_order.tpl');
 
 $oTemplate->display('footer.tpl');
-?>

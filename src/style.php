@@ -20,6 +20,9 @@
  * @package squirrelmail
  */
 
+/** This is the style page */
+define('PAGE_NAME', 'style');
+
 /**
  * Set the location in order to skip unneeded validation and other includes
  * in the SquirrelMail initialisation file.

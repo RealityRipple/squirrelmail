@@ -12,6 +12,9 @@
  * @package squirrelmail
  */
 
+/** This is the read_body page */
+define('PAGE_NAME', 'read_body');
+
 /**
  * Include the SquirrelMail initialization file.
  */
@@ -978,4 +981,3 @@ formatMenuBar($aMailbox, $passed_id, $passed_ent_id, $message, false, FALSE);
 do_hook('read_body_bottom', $null);
 sqimap_logout($imapConnection);
 $oTemplate->display('footer.tpl');
-?>
