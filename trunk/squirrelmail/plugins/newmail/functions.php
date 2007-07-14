@@ -216,7 +216,7 @@ function newmail_folder_status($statusarr) {
  */
 function newmail_plugin_function() {
     global $username, $newmail_media, $newmail_media_enable, $newmail_popup,
-        $newmail_recent, $newmail_changetitle, $imapConnection, $PHP_SELF;
+        $newmail_recent, $newmail_changetitle, $imapConnection;
     global $newmail_mmedia, $newmail_allowsound;
     global $newmail_userfile_type;
     global $newmail_popup_width, $newmail_popup_height;
