@@ -64,10 +64,10 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
 <?php
 
    /** if preview pane turned on, do not show menubar above message */
-   global $data_dir, $username, $PHP_SELF, $pp_skip_menubar;
+   global $data_dir, $username, $pp_skip_menubar;
    $use_previewPane = getPref($data_dir, $username, 'use_previewPane', 0);
    $show_preview_pane = checkForJavascript() && $use_previewPane;
-   $current_page_is_read_body = (strpos($PHP_SELF, '/read_body.php') !== FALSE);
+   $current_page_is_read_body = (defined('PAGE_NAME') && 'PAGE_NAME' == 'read_body');
    if (!$pp_skip_menubar && (!$current_page_is_read_body || !$show_preview_pane)) {
 // Note: If we want to hide menubar on compose screen, we could do the following, 
 // but the compose screen when in the message list frame should not have the menubar
@@ -75,7 +75,7 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
 // and then use document.write() to output the menubar if needed... and we'll
 // leave that for some other time
 //-   if (!$pp_skip_menubar && (!$current_page_is_read_body || !$show_preview_pane)) {
-//+   $current_page_is_compose = (strpos($PHP_SELF, '/compose.php') !== FALSE);
+//+   $current_page_is_compose = (defined('PAGE_NAME') && 'PAGE_NAME' == 'compose');
 //+   if (!$pp_skip_menubar 
 //+    && ((!$current_page_is_read_body && !$current_page_is_compose) 
 //+        || !$show_preview_pane)) {
@@ -144,7 +144,6 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
    if ($show_preview_pane 
     && getPref($data_dir, $username, 'previewPane_autohide', 0) == 1) 
    {
-      global $PHP_SELF;
       $previewPane_vertical_split = getPref($data_dir, $username, 'previewPane_vertical_split', 0);
       if ($previewPane_vertical_split)
          $orientation = 'cols';
@@ -152,7 +151,7 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
          $orientation = 'rows';
       
       // spit out javascript to maximize compose frame
-      if (strpos($PHP_SELF, '/compose.php') !== FALSE)
+      if (defined('PAGE_NAME') && PAGE_NAME=='compose')
       {
 ?>
    var first_frame = 0;
@@ -180,16 +179,15 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
    }
 <?php 
 
-      // not on the compose screen, either hide or restore preview pane
-      } else {
+    // not on the compose screen, either hide or restore preview pane
+    } else {
 
-         $previewPane_size = getPref($data_dir, $username, 'previewPane_size', 300);
-         if (strpos($PHP_SELF, '/right_main.php') !== FALSE
-          || strpos($PHP_SELF, '/search.php') !== FALSE)
+        $previewPane_size = getPref($data_dir, $username, 'previewPane_size', 300);
+        if (defined('PAGE_NAME') && (PAGE_NAME=='right_main'||PAGE_NAME=='search')) {
             $new_size = $previewPane_size;
-         else
+        } else {
             $new_size = 0;
-
+        }
 ?>
    if (self.name == 'right')
    {
