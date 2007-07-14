@@ -21,8 +21,8 @@
  *
  * Function is similar to is_logged_in() function. If user is logged in, function
  * returns true. If user is not logged in or session is expired, function saves $_POST
- * and $PHP_SELF in session and returns false. POST information is saved in
- * 'session_expired_post' variable, PHP_SELF is saved in 'session_expired_location'.
+ * and PAGE_NAME in session and returns false. POST information is saved in
+ * 'session_expired_post' variable, PAGE_NAME is saved in 'session_expired_location'.
  *
  * Script that uses this function instead of is_logged_in() function, must handle user
  * level messages.
@@ -36,10 +36,8 @@ function sqauth_is_logged_in() {
 
 	//  First we store some information in the new session to prevent
 	//  information-loss.
-	sqGetGlobalVar('PHP_SELF', $PHP_SELF, SQ_SERVER);
-
 	$session_expired_post = $_POST;
-	$session_expired_location = $PHP_SELF;
+	$session_expired_location = PAGE_NAME;
 	if (!sqsession_is_registered('session_expired_post')) {
 	    sqsession_register($session_expired_post,'session_expired_post');
 	}
