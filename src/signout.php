@@ -12,7 +12,7 @@
  */
 
 /** This is the signout page */
-define('PAGE_SIGNOUT', 1);
+define('PAGE_NAME', 'signout');
 
 /**
  * Include the SquirrelMail initialization file.

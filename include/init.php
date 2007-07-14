@@ -417,7 +417,7 @@ switch ($sInitLocation) {
             // signout page will deal with users who aren't logged
             // in on its own; don't show error here
             //
-            if ( defined('PAGE_SIGNOUT') ) {
+            if ( defined('PAGE_NAME') && PAGE_NAME == 'signout' ) {
                 return;
             }
 
