@@ -22,7 +22,10 @@ extract($t);
  <table class="sqm_motd" cellspacing="3">
   <tr>
    <td>
-    <?php echo $motd; ?>
+    <?php echo $motd; 
+          if (!empty($plugin_output['motd_inside'])) 
+             echo $plugin_output['motd_inside']; 
+    ?>
    </td>
   </tr>
  </table>

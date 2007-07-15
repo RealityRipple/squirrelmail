@@ -277,7 +277,12 @@ if (isset($aMailbox['FORWARD_SESSION'])) {
     displayPageHeader($color, $mailbox);
 }
 
-do_hook('right_main_after_header', $null);
+// plugins can operate normally here (don't output anything, of course!),
+// but can also return TRUE if they want to enable the MOTD display
+// even when SM's MOTD is empty (there is plugin output that can
+// be then hooked into in motd.tpl)
+//
+$show_motd = boolean_hook_function('right_main_after_header', $null, 1);
 
 /* display a message to the user that their mail has been sent */
 if (isset($mail_sent) && $mail_sent == 'yes') {
@@ -294,7 +299,7 @@ if ( sqgetGlobalVar('just_logged_in', $just_logged_in, SQ_SESSION) ) {
         sqsession_register($just_logged_in, 'just_logged_in');
 
         $motd = trim($motd);
-        if (strlen($motd) > 0) {
+        if ($show_motd || strlen($motd) > 0) {
             $oTemplate->assign('motd', $motd);
             $oTemplate->display('motd.tpl');
         }
