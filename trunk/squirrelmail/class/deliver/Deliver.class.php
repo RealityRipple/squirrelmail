@@ -151,8 +151,10 @@ class Deliver {
                 }
                 $last = $body_part;
             } elseif ($message->att_local_name) {
+                global $username, $attachment_dir;
+                $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
                 $filename = $message->att_local_name;
-                $file = fopen ($filename, 'rb');
+                $file = fopen ($hashed_attachment_dir . '/' . $filename, 'rb');
                 while ($body_part = fgets($file, 4096)) {
                     // remove NUL characters
                     $body_part = str_replace("\0",'',$body_part);
@@ -176,8 +178,10 @@ class Deliver {
                     $this->writeToStream($stream, $body_part);
                 }
             } elseif ($message->att_local_name) {
+                global $username, $attachment_dir;
+                $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
                 $filename = $message->att_local_name;
-                $file = fopen ($filename, 'rb');
+                $file = fopen ($hashed_attachment_dir . '/' . $filename, 'rb');
                 while ($tmp = fread($file, 570)) {
                     $body_part = chunk_split(base64_encode($tmp));
                     // Up to 4.3.10 chunk_split always appends a newline,
