@@ -18,7 +18,7 @@
  * This function makes sure it doesn't overwrite other attachments,
  * preventing collisions and race conditions.
  *
- * @return filename
+ * @return filename of the tempfile only (not full path)
  * @since 1.5.2
  */
 function sq_get_attach_tempfile()
@@ -49,7 +49,7 @@ function sq_get_attach_tempfile()
             // success! make sure it's not readable, close and return filename
             chmod($full_localfilename, 0600);
             fclose($fp);
-            return $full_localfilename;
+            return $localfilename;
         }
     }
 

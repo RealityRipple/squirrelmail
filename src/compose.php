@@ -330,7 +330,7 @@ if (sqsession_is_registered('session_expired_post')) {
     } else {
         // these are the vars that we can set from the expired composed session
         $compo_var_list = array ( 'send_to', 'send_to_cc','body','startMessage',
-            'passed_body','use_signature','signature','attachments','subject','newmail',
+            'passed_body','use_signature','signature','subject','newmail',
             'send_to_bcc', 'passed_id', 'mailbox', 'from_htmladdr_search', 'identity',
             'draft_id', 'delete_draft', 'mailprio', 'edit_as_new', 'compose_messsages',
             'composesession', 'request_mdn', 'request_dr');
@@ -992,7 +992,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
  * @return object
  */
 function getAttachments($message, &$composeMessage, $passed_id, $entities, $imapConnection) {
-    global $squirrelmail_language, $languages;
+    global $squirrelmail_language, $languages, $username, $attachment_dir;
 
     if (!count($message->entities) ||
             ($message->type0 == 'message' && $message->type1 == 'rfc822')) {
@@ -1021,6 +1021,8 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
                     function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_encode')) {
                 $filename =  call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_encode', $filename);
             }
+
+            $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
             $localfilename = sq_get_attach_tempfile();
             $message->att_local_name = $localfilename;
 
@@ -1028,7 +1030,7 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
                     $localfilename);
 
             /* Write Attachment to file */
-            $fp = fopen ($localfilename, 'wb');
+            $fp = fopen ($hashed_attachment_dir . '/' . $localfilename, 'wb');
             mime_print_body_lines ($imapConnection, $passed_id, $message->entity_id, $message->header->encoding, $fp);
             fclose ($fp);
         }
@@ -1059,8 +1061,10 @@ function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
         array_pop($body_a);
         $body = implode('', $body_a) . "\r\n";
 
+        global $username, $attachment_dir;
+        $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
         $localfilename = sq_get_attach_tempfile();
-        $fp = fopen($localfilename, 'wb');
+        $fp = fopen($hashed_attachment_dir . '/' . $localfilename, 'wb');
         fwrite ($fp, $body);
         fclose($fp);
         $composeMessage->initAttachment('message/rfc822',$subject.'.msg',
@@ -1280,6 +1284,8 @@ function showInputForm ($session, $values=false) {
         }
 
         $attach = array();
+        global $username, $attachment_dir;
+        $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
         // composeMessage can be empty when coming from a restored session
         if (is_object($composeMessage) && $composeMessage->entities) {
             foreach ($composeMessage->entities as $key => $attachment) {
@@ -1293,7 +1299,7 @@ function showInputForm ($session, $values=false) {
                     $a['Key'] = $key;
                     $a['FileName'] = $attached_filename;
                     $a['ContentType'] = $type;
-                    $a['Size'] = filesize($attached_file);
+                    $a['Size'] = filesize($hashed_attachment_dir . '/' . $attached_file);
                     $attach[$key] = $a;
                 }
             }
@@ -1403,19 +1409,21 @@ function checkInput ($show) {
 
 /* True if FAILURE */
 function saveAttachedFiles($session) {
-    global $compose_messages;
+    global $compose_messages, $username, $attachment_dir;
 
     /* get out of here if no file was attached at all */
     if (! is_uploaded_file($_FILES['attachfile']['tmp_name']) ) {
         return true;
     }
 
+    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     $localfilename = sq_get_attach_tempfile();
+    $fullpath = $hashed_attachment_dir . '/' . $localfilename;
 
     // m_u_f works better with restricted PHP installs (safe_mode, open_basedir),
     // if that doesn't work, try a simple rename.
-    if (!@move_uploaded_file($_FILES['attachfile']['tmp_name'],$localfilename)) {
-        if (!@rename($_FILES['attachfile']['tmp_name'], $localfilename)) {
+    if (!@move_uploaded_file($_FILES['attachfile']['tmp_name'],$fullpath)) {
+        if (!@rename($_FILES['attachfile']['tmp_name'], $fullpath)) {
             return true;
         }
     }

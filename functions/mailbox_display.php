@@ -1538,8 +1538,10 @@ function attachSelectedMessages($imapConnection,$aMsgHeaders) {
             $body = implode('', $body_a);
             $body .= "\r\n";
 
+            global $username, $attachment_dir;
             $filename = sq_get_attach_tempfile();
-            $fp = fopen($filename, 'wb');
+            $fullpath = getHashedDir($username, $attachment_dir) . '/' . $filename;
+            $fp = fopen($fullpath, 'wb');
             fwrite ($fp, $body);
             fclose($fp);
 

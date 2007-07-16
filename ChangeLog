@@ -205,8 +205,8 @@ Version 1.5.2 - SVN
   - Added ability to detect HTTP_X_FORWARDED_PROTO in get_location(),
     thanks to Daniel Watts.
   - Fix test for signout.php in the logged in check in init.php so it
-    cannot be circumvented by manipulating the URL. External plugins migh
-    rely on init.php guarranteeing that the user is logged in.
+    cannot be circumvented by manipulating the URL. External plugins might
+    rely on init.php guaranteeing that the user is logged in.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
