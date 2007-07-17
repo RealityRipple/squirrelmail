@@ -1,7 +1,7 @@
 <?php
 
 /**
-  * rpc.php
+  * squirrelmail_rpc.php
   *
   * This file contains the entry point to the "SquirrelMail API" -- the 
   * remote procedure call request receiver.
@@ -15,12 +15,12 @@
   */
 
 /** This is the squirrelmail_rpc page */
-define('PAGE_NAME', 'rpc');
+define('PAGE_NAME', 'squirrelmail_rpc');
 
 //FIXME: If we decide to route ALL requests, even normal page
 //       requests through this file, need to change page requests
 //       to something like this
-//http://example.org/squirrelmail/src/rpc.php?page=read_body&passed_id=47633...
+//http://example.org/squirrelmail/src/squirrelmail_rpc.php?page=read_body&passed_id=47633...
 //       This file would then add ".php" to the "page" variable
 //       and pass the request on to that page by simply require()ing
 //       that page and exiting.
