@@ -60,7 +60,8 @@ if ((bool) ini_get('register_globals') &&
 
 /**
  * Used as a dummy value, e.g., for passing as an empty
- * hook argument.
+ * hook argument (where the value is passed by reference,
+ * and therefore NULL itself is not acceptable).
  */
 global $null;
 $null = NULL;
@@ -562,7 +563,9 @@ if (empty($oTemplate)) {
 }
 
 // We want some variables to always be available to the template
-$oTemplate->assign('javascript_on', checkForJavascript());
+$oTemplate->assign('javascript_on', 
+    (sqGetGlobalVar('user_is_logged_in', $user_is_logged_in, SQ_SESSION)
+     ?  checkForJavascript() : 0));
 $oTemplate->assign('base_uri', sqm_baseuri());
 $always_include = array('sTemplateID', 'icon_theme_path');
 foreach ($always_include as $var) {
@@ -595,6 +598,7 @@ function checkForJavascript($reset = FALSE) {
   if ( !$reset && sqGetGlobalVar('javascript_on', $javascript_on, SQ_SESSION) )
     return $javascript_on;
 
+  $user_is_logged_in = FALSE;
   if ( ( $reset || !isset($javascript_setting) )
     // getPref() not defined (nor is it meaningful) when user not
     // logged in, but that begs the question if $javascript_on is
