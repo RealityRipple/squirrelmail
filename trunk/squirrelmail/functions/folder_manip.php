@@ -106,7 +106,7 @@ function folders_rename_getname ($imapConnection, $delimiter, $old) {
     $old = imap_utf7_decode_local($old);
 
     if (strpos($old, $delimiter)) {
-        $old_name = substr($old, strrpos($old, $delimiter)+1, strlen($old));
+        $old_name = substr($old, strrpos($old, $delimiter)+1);
         // hide default prefix (INBOX., mail/ or other)
         $quoted_prefix=preg_quote($default_folder_prefix,'/');
         $prefix_length=(preg_match("/^$quoted_prefix/",$old) ? strlen($default_folder_prefix) : 0);
