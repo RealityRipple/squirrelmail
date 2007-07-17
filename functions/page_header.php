@@ -72,10 +72,12 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     // 2. Option user-defined stylesheet from preferences.
     if (!empty($used_theme) && $used_theme != 'none') {
         /**
-         * All styles just point to a directory, so we need to include all .css
-         * files in that directory. 
+         * All styles (except "none" - ugh) just point to a directory,
+         * so we need to include all .css files in that directory.
          */
-        $styles = list_files($used_theme, '.css');
+//FIXME: rid ourselves of "none" strings!  I didn't do it here because I think the problem is that the theme itself should never be "none" (? well, what else would it be?  if "none" theme is actually OK, then is there a constant to use below in stead of a hard-coded string?)
+        $styles = $used_theme == 'none' ? array()
+                : list_files($used_theme, '.css');
         foreach ($styles as $sheet) { 
             $aUserStyles[] = $used_theme .'/'.$sheet;
         }
