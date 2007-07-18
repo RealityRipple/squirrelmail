@@ -2770,7 +2770,7 @@ sub command_userThemes {
             print "\nStarting detection...\n\n";
 
             opendir( DIR, "../css" );
-            @files = readdir(DIR);
+            @files = sort(readdir(DIR));
             $cnt = 0;
             while ( $cnt <= $#files ) {
                 $filename = "../css/" . $files[$cnt] .'/';
@@ -2975,7 +2975,7 @@ sub command_iconSets {
             print "\nStarting detection...\n\n";
 
             opendir( DIR, "../images/themes/" );
-            @files = readdir(DIR);
+            @files = sort(readdir(DIR));
             $cnt = 0;
             while ( $cnt <= $#files ) {
                 $filename = "../images/themes/" . $files[$cnt] .'/';
@@ -3171,7 +3171,7 @@ sub command_templates {
         } elsif ( $input =~ /^\s*t\s*/i ) {
             print "\nStarting detection...\n\n";
             opendir( DIR, "../templates" );
-            @files = readdir(DIR);
+            @files = sort(readdir(DIR));
             $cnt = 0;
             while ( $cnt <= $#files ) {
                 if ( -d "../templates/" . $files[$cnt] && $files[$cnt] !~ /^\./ && $files[$cnt] ne "CVS" ) {
