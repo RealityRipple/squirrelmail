@@ -207,6 +207,7 @@ Version 1.5.2 - SVN
   - Fix test for signout.php in the logged in check in init.php so it
     cannot be circumvented by manipulating the URL. External plugins might
     rely on init.php guaranteeing that the user is logged in.
+  - Sort readdir() output in conf.pl (#1755886).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
