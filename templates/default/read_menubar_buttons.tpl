@@ -113,7 +113,7 @@ if ($nav_on_top) {
     <?php
     if ($can_be_deleted) {
         ?>
-    <form name="deleteMessageForm" action="<?php echo $move_delete_form_action; ?>" method="POST">
+    <form name="deleteMessageForm" action="<?php echo $move_delete_form_action; ?>" method="post">
      <?php echo $delete_form_extra; ?>
      <small>
      <input type="submit" name="delete" value="<?php echo _("Delete"); ?>" />
@@ -129,7 +129,7 @@ if ($nav_on_top) {
    <?php
     if ($can_be_moved) {
         ?>
-    <form name="moveMessageForm" action="<?php echo $move_delete_form_action; ?>" method="POST">
+    <form name="moveMessageForm" action="<?php echo $move_delete_form_action; ?>" method="post">
      <?php echo $move_form_extra; ?>
      <small>
      <?php echo _("Move To"); ?>:
