@@ -42,7 +42,6 @@ function get_non_rfc_lists() {
   */
 function plugin_listcommands_optpage_register_block_do()
 {
-
     global $optpage_blocks, $listcommands_allow_non_rfc_list_management;
 
     // only allow management of non-RFC lists if admin deems necessary
@@ -64,7 +63,7 @@ function plugin_listcommands_optpage_register_block_do()
  * internal function that builds mailing list links
  */
 function plugin_listcommands_menu_do() {
-    global $passed_id, $passed_ent_id, $color, $mailbox, $message, 
+    global $passed_id, $passed_ent_id, $mailbox, $message, 
            $startMessage, $oTemplate, $listcommands_allow_non_rfc_list_management;
 
     @include_once(SM_PATH . 'plugins/listcommands/config.php');

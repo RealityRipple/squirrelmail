@@ -190,7 +190,7 @@ function save_option_sent_subfolders_setting($option) {
 function sent_subfolders_update_sentfolder() {
     global $sent_folder, $username;
     global $sent_subfolders_base, $sent_subfolders_setting;
-    global $data_dir, $imapServerAddress, $imapPort, $color;
+    global $data_dir, $imapServerAddress, $imapPort;
     global $use_sent_subfolders, $move_to_sent;
 
     sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);

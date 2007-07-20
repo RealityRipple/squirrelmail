@@ -210,7 +210,7 @@ function start_filters($hook_args) {
         $spamfilters = load_spam_filters();
 
         $AllowSpamFilters = false;
-        foreach($spamfilters as $filterskey=>$value) {
+        foreach($spamfilters as $value) {
             if ($value['enabled'] == SMPREF_ON) {
                 $AllowSpamFilters = true;
                 break;
@@ -429,7 +429,7 @@ function spam_filters($imap_stream) {
 
     $run = false;
 
-    foreach ($filters as $Key => $Value) {
+    foreach ($filters as $Value) {
         if ($Value['enabled']) {
             $run = true;
             break;
