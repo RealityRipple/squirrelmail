@@ -50,7 +50,7 @@ function imap_test($imap_stream, $string) {
  * @access private
  */
 function print_response($response) {
-    foreach($response as $index=>$value) {
+    foreach($response as $value) {
         if (is_array($value)) {
             print_response($value);
         }
