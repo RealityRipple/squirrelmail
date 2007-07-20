@@ -36,14 +36,14 @@ function hex2ip($hex) {
             .hexdec(substr($hex,4,2)).'.'
             .hexdec(substr($hex,6,2));
     } elseif (strlen($hex)==32) {
-        $ret=hexdec(substr($hex,0,4)).':'
-            .hexdec(substr($hex,4,4)).':'
-            .hexdec(substr($hex,8,4)).':'
-            .hexdec(substr($hex,12,4)).':'
-            .hexdec(substr($hex,16,4)).':'
-            .hexdec(substr($hex,20,4)).':'
-            .hexdec(substr($hex,24,4)).':'
-            .hexdec(substr($hex,28,4));
+        $ret=substr($hex,0,4).':'
+            .substr($hex,4,4).':'
+            .substr($hex,8,4).':'
+            .substr($hex,12,4).':'
+            .substr($hex,16,4).':'
+            .substr($hex,20,4).':'
+            .substr($hex,24,4).':'
+            .substr($hex,28,4);
     } else {
         $ret=$hex;
     }
