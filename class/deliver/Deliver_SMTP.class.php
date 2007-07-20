@@ -430,28 +430,30 @@ class Deliver_SMTP extends Deliver {
         if (!$pop_server) {
             $pop_server = 'localhost';
         }
-        $popConnection = fsockopen($pop_server, $pop_port, $err_no, $err_str);
+        $popConnection = @fsockopen($pop_server, $pop_port, $err_no, $err_str);
         if (!$popConnection) {
             error_log("Error connecting to POP Server ($pop_server:$pop_port)"
                 . " $err_no : $err_str");
+            return false;
         } else {
             $tmp = fgets($popConnection, 1024); /* banner */
             if (substr($tmp, 0, 3) != '+OK') {
-                return(0);
+                return false;
             }
             fputs($popConnection, "USER $user\r\n");
             $tmp = fgets($popConnection, 1024);
             if (substr($tmp, 0, 3) != '+OK') {
-                return(0);
+                return false;
             }
             fputs($popConnection, 'PASS ' . $pass . "\r\n");
             $tmp = fgets($popConnection, 1024);
             if (substr($tmp, 0, 3) != '+OK') {
-                return(0);
+                return false;
             }
             fputs($popConnection, "QUIT\r\n"); /* log off */
             fclose($popConnection);
         }
+        return true;
     }
 
     /**
