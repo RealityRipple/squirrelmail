@@ -335,6 +335,7 @@ function get_thread_sort($imap_stream, $search='ALL') {
     } elseif ($response == 'BAD') {
         sqm_trigger_imap_error('SQM_IMAP_NO_THREAD',$query, $response, $message);
     }
+    $sThreadResponse = '';
     if (isset($sRead[0])) {
         for ($i=0,$iCnt=count($sRead);$i<$iCnt;++$i) {
             if (preg_match("/^\* THREAD (.+)$/", $sRead[$i], $aMatch)) {
@@ -342,8 +343,6 @@ function get_thread_sort($imap_stream, $search='ALL') {
                 break;
             }
         }
-    } else {
-        $sThreadResponse = "";
     }
     unset($sRead);
 
