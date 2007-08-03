@@ -280,7 +280,11 @@ if (isset($aMailbox['FORWARD_SESSION'])) {
 // plugins can operate normally here (don't output anything, of course!),
 // but can also return TRUE if they want to enable the MOTD display
 // even when SM's MOTD is empty (there is plugin output that can
-// be then hooked into in motd.tpl)
+// be then hooked into in motd.tpl)  
+// NOTE a TRUE return value here will cause the display of the MOTD on 
+// *every* page view; if a plugin wants to support true MOTD (one-time 
+// message display upon login), it should also check the value of 
+// "just_logged_in" in the PHP session before returning TRUE.
 //
 $show_motd = boolean_hook_function('right_main_after_header', $null, 1);
 
@@ -293,16 +297,17 @@ if (isset($note)) {
     $oTemplate->display('note.tpl');
 }
 
-if ( sqgetGlobalVar('just_logged_in', $just_logged_in, SQ_SESSION) ) {
-    if ($just_logged_in == true) {
-        $just_logged_in = false;
-        sqsession_register($just_logged_in, 'just_logged_in');
-
+if (sqgetGlobalVar('just_logged_in', $just_logged_in, SQ_SESSION) || $show_motd) {
+    if ($show_motd || $just_logged_in == true) {
         $motd = trim($motd);
         if ($show_motd || strlen($motd) > 0) {
             $oTemplate->assign('motd', $motd);
             $oTemplate->display('motd.tpl');
         }
+
+        $just_logged_in = false;
+// FIXME: not likely to happen as SM is designed now, but the $oTemplate->display() above would send headers, therefore the following line would be broken.  If $note is enabled by a plugin or any other core changes, this will break, so let's be safe and fix this up (can it be fixed by changing the order of the MOTD and the $note?)
+        sqsession_register($just_logged_in, 'just_logged_in');
     }
 }
 
