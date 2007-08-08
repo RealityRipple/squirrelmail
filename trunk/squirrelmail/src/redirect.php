@@ -53,69 +53,68 @@ if (!isset($login_username)) {
     exit;
 }
 
-if (!sqsession_is_registered('user_is_logged_in')) {
-    do_hook('login_before', $null);
+do_hook('login_before', $null);
 
-    $onetimepad = OneTimePadCreate(strlen($secretkey));
-    $key = OneTimePadEncrypt($secretkey, $onetimepad);
+$onetimepad = OneTimePadCreate(strlen($secretkey));
+$key = OneTimePadEncrypt($secretkey, $onetimepad);
 
-    /* remove redundant spaces */
-    $login_username = trim($login_username);
+/* remove redundant spaces */
+$login_username = trim($login_username);
 
-    /* Verify that username and password are correct. */
-    if ($force_username_lowercase) {
-        $login_username = strtolower($login_username);
-    }
-
-    $imapConnection = sqimap_login($login_username, $key, $imapServerAddress, $imapPort, 0);
-    /* From now on we are logged it. If the login failed then sqimap_login handles it */
-
-    /* regenerate the session id to avoid session hyijacking */
-    sqsession_destroy();
-    @sqsession_is_active();
-    session_regenerate_id();
-    /**
-     * The cookie part. session_start and session_regenerate_session normally set
-     * their own cookie. SquirrelMail sets another cookie which overwites the
-     * php cookies. The sqsetcookie function sets the cookie by using the header
-     * function which gives us full control how the cookie is set. We do that
-     * to add the HttpOnly cookie attribute which blocks javascript access on
-     * IE6 SP1.
-     */
-    sqsetcookie(session_name(),session_id(),false,$base_uri);
-    sqsetcookie('key', $key, false, $base_uri);
-
-    sqsession_register($onetimepad, 'onetimepad');
-
-    $sqimap_capabilities = sqimap_capability($imapConnection);
-
-    /* Server side sorting control */
-    if (isset($sqimap_capabilities['SORT']) && $sqimap_capabilities['SORT'] == true &&
-        isset($disable_server_sort) && $disable_server_sort) {
-        unset($sqimap_capabilities['SORT']);
-    }
-
-    /* Thread sort control */
-    if (isset($sqimap_capabilities['THREAD']) && $sqimap_capabilities['THREAD'] == true &&
-        isset($disable_thread_sort) && $disable_thread_sort) {
-        unset($sqimap_capabilities['THREAD']);
-    }
-
-    sqsession_register($sqimap_capabilities, 'sqimap_capabilities');
-    $delimiter = sqimap_get_delimiter ($imapConnection);
-
-    if (isset($sqimap_capabilities['NAMESPACE']) && $sqimap_capabilities['NAMESPACE'] == true) {
-        $namespace = sqimap_get_namespace($imapConnection);
-        sqsession_register($namespace, 'sqimap_namespace');
-    }
-
-    sqimap_logout($imapConnection);
-    sqsession_register($delimiter, 'delimiter');
-
-    $username = $login_username;
-    sqsession_register ($username, 'username');
-    do_hook('login_verified', $null);
+/* Case-normalise username if so desired */
+if ($force_username_lowercase) {
+    $login_username = strtolower($login_username);
 }
+
+/* Verify that username and password are correct. */
+$imapConnection = sqimap_login($login_username, $key, $imapServerAddress, $imapPort, 0);
+/* From now on we are logged it. If the login failed then sqimap_login handles it */
+
+/* regenerate the session id to avoid session hyijacking */
+sqsession_destroy();
+@sqsession_is_active();
+session_regenerate_id();
+/**
+* The cookie part. session_start and session_regenerate_session normally set
+* their own cookie. SquirrelMail sets another cookie which overwites the
+* php cookies. The sqsetcookie function sets the cookie by using the header
+* function which gives us full control how the cookie is set. We do that
+* to add the HttpOnly cookie attribute which blocks javascript access on
+* IE6 SP1.
+*/
+sqsetcookie(session_name(),session_id(),false,$base_uri);
+sqsetcookie('key', $key, false, $base_uri);
+
+sqsession_register($onetimepad, 'onetimepad');
+
+$sqimap_capabilities = sqimap_capability($imapConnection);
+
+/* Server side sorting control */
+if (isset($sqimap_capabilities['SORT']) && $sqimap_capabilities['SORT'] == true &&
+    isset($disable_server_sort) && $disable_server_sort) {
+    unset($sqimap_capabilities['SORT']);
+}
+
+/* Thread sort control */
+if (isset($sqimap_capabilities['THREAD']) && $sqimap_capabilities['THREAD'] == true &&
+    isset($disable_thread_sort) && $disable_thread_sort) {
+    unset($sqimap_capabilities['THREAD']);
+}
+
+sqsession_register($sqimap_capabilities, 'sqimap_capabilities');
+$delimiter = sqimap_get_delimiter ($imapConnection);
+
+if (isset($sqimap_capabilities['NAMESPACE']) && $sqimap_capabilities['NAMESPACE'] == true) {
+    $namespace = sqimap_get_namespace($imapConnection);
+    sqsession_register($namespace, 'sqimap_namespace');
+}
+
+sqimap_logout($imapConnection);
+sqsession_register($delimiter, 'delimiter');
+
+$username = $login_username;
+sqsession_register ($username, 'username');
+do_hook('login_verified', $null);
 
 /* Set the login variables. */
 $user_is_logged_in = true;
@@ -183,9 +182,9 @@ function attachment_common_parse($str) {
 
     foreach ($types as $val) {
         // Ignore the ";q=1.0" stuff
-        if (strpos($val, ';') !== false)
+        if (strpos($val, ';') !== false) {
             $val = substr($val, 0, strpos($val, ';'));
-
+        }
         if (! isset($attachment_common_types[$val])) {
             $attachment_common_types[$val] = true;
         }
