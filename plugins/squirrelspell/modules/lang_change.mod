@@ -39,7 +39,7 @@ foreach ($use_langs as $lang) {
 if (sizeof($new_langs)>1) {
   $dsp_string = '';
   foreach( $new_langs as $a) {
-    $dsp_string .= _(htmlspecialchars(trim($a))) . ', ';
+    $dsp_string .= _(htmlspecialchars(trim($a))) . _(", ");
   }
   // remove last comma and space
   $dsp_string = substr( $dsp_string, 0, -2 );
