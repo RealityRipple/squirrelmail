@@ -180,6 +180,13 @@ tr.odd  {
     background: #ffffff /* __COLOR4__*/;
 }
 
+tr.clicked_even {
+    background: #ff9933 /* __COLOR16__*/;
+}
+tr.clicked_odd  {
+    background: #ff9933 /* __COLOR16__*/;
+}
+
 .table_standard {
     border:1px solid #dcdcdc /* __COLOR0__ */;
     width: 100%;

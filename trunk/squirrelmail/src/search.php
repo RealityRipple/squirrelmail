@@ -893,8 +893,8 @@ function sqimap_asearch_get_selectable_unformatted_mailboxes(&$boxes)
 /* get globals we will need */
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 
-if ( sqgetGlobalVar('checkall', $temp, SQ_GET) ) {
-    $checkall = (int) $temp;
+if (!sqgetGlobalVar('checkall',$checkall,SQ_GET)) {
+    $checkall = false;
 }
 
 /**
@@ -1616,6 +1616,7 @@ if ($submit == $search_button_text) {
                         $oTemplate->assign('alt_index_colors', isset($alt_index_colors) ? $alt_index_colors: false);
                         $oTemplate->assign('color', $color);
                         $oTemplate->assign('align', $align);
+                        $oTemplate->assign('checkall', $checkall);
 
                         $oTemplate->display('message_list.tpl');
                     }

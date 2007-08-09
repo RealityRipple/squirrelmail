@@ -20,6 +20,8 @@ function row_click(chkboxName) {
         // initialize orig_row_color if not defined already
         if (!orig_row_colors[chkboxName]) {
             orig_row_colors[chkboxName] = chkbox.parentNode.getAttribute('bgcolor');
+            if (orig_row_colors[chkboxName].indexOf("clicked_") == 0)
+                orig_row_colors[chkboxName] = orig_row_colors[chkboxName].substring(8, orig_row_colors[chkboxName].length);
         }
         chkbox.checked = (chkbox.checked ? false : true);
     }
@@ -66,19 +68,21 @@ function rowOver(chkboxName) {
     chkbox = document.getElementById(chkboxName);
     if (chkbox) {
         if (!orig_row_colors[chkboxName]) {
-			rowClass = getCSSClass(chkbox.parentNode.parentNode);
+            rowClass = getCSSClass(chkbox.parentNode.parentNode);
+            if (rowClass.indexOf("clicked_") == 0)
+                rowClass = rowClass.substring(8, rowClass.length);
             orig_row_colors[chkboxName] = rowClass;
         } else {
             rowClass = orig_row_colors[chkboxName];
         }
-        j = chkbox.name.length - 1
+        rowNum = chkboxName.substring(chkboxName.length - 1, chkboxName.length);
 
 /*
  * The mouseover and clicked CSS classes are always the same name!
  */        
         overClass = 'mouse_over';
         clickedClass = 'clicked';
-        setPointer(chkbox.parentNode.parentNode, j,'over' , rowClass, overClass, clickedClass);
+        setPointer(chkbox.parentNode.parentNode, rowNum, 'over' , rowClass, overClass, clickedClass);
     }
 }
 
@@ -97,15 +101,15 @@ function toggle_all(formname, fancy) {
          if (TargetForm.elements[i].type == 'checkbox' && TargetForm.elements[i].name.substring(0,3) == 'msg') {
              if (fancy) {
                 array_key = TargetForm.elements[i].getAttribute('id');
-                if (TargetForm.elements[i].checked == false) {
-                    // initialize orig_row_color if not defined already
-                    if (!orig_row_colors[array_key]) {
-						rowClass = getCSSClass(TargetForm.elements[i].parentNode.parentNode);
-            			orig_row_colors[array_key] = rowClass;
-                    }
+                // initialize orig_row_color if not defined already
+                if (!orig_row_colors[array_key]) {
+                    rowClass = getCSSClass(TargetForm.elements[i].parentNode.parentNode);
+                    if (rowClass.indexOf("clicked_") == 0)
+                        rowClass = rowClass.substring(8, rowClass.length);
+                    orig_row_colors[array_key] = rowClass;
                 }
                 origClass = orig_row_colors[array_key];
-		        clickedClass = 'clicked';
+                clickedClass = 'clicked';
                 setPointer(TargetForm.elements[i].parentNode.parentNode, j,'click' , origClass, origClass, clickedClass);
                 j++
             }
@@ -117,20 +121,20 @@ function toggle_all(formname, fancy) {
 /*
  * Sets/unsets the pointer and marker in browse mode
  *
- * @param   object    the table row
- * @param   integer  the row number
- * @param   string    the action calling this script (over, out or click)
- * @param   string    the default background CSS class
- * @param   string    the CSS class to use for mouseover
- * @param   string    the CSS class to use for marking a row
+ * @param object  theRow         the table row
+ * @param integer theRowNum      the row number
+ * @param string  theAction      the action calling this script (over, out or click)
+ * @param string  defaultClass   the default background CSS class
+ * @param string  mouseoverClass the CSS class to use for mouseover
+ * @param string  clickedClass   the CSS class to use for marking a row
  *
  * @return  boolean  whether pointer is set or not
  */
-function setPointer(theRow, theRowNum, theAction, theDefaultClass, thePointerClass, theMarkClass)
+function setPointer(theRow, theRowNum, theAction, defaultClass, mouseoverClass, clickedClass)
 {
     // 1. Pointer and mark feature are disabled or the browser can't get the
     //    row -> exits
-    if ((thePointerClass == '' && theMarkClass == '')
+    if ((mouseoverClass == '' && clickedClass == '')
         || typeof(theRow.className) == 'undefined') {
         return false;
     }
@@ -149,16 +153,18 @@ function setPointer(theRow, theRowNum, theAction, theDefaultClass, thePointerCla
     // 3. Gets the current CSS class...
     var newClass     = null;
     var currentClass = getCSSClass(theRow);
+    if (currentClass.indexOf("clicked_") == 0)
+        currentClass = 'clicked';
     
     // 4. Defines the new class
     // 4.1 Current class is the default one
     if (currentClass == ''
-        || currentClass.toLowerCase() == theDefaultClass.toLowerCase()) {
-        if (theAction == 'over' && thePointerClass != '') {
-            newClass = thePointerClass;
+        || currentClass.toLowerCase() == defaultClass.toLowerCase()) {
+        if (theAction == 'over' && mouseoverClass != '') {
+            newClass = mouseoverClass;
         }
-        else if (theAction == 'click' && theMarkClass != '') {
-            newClass = theMarkClass;
+        else if (theAction == 'click' && clickedClass != '') {
+            newClass = clickedClass;
             marked_row[theRowNum] = true;
             // deactivated onclick marking of the checkbox because it's also executed
             // when an action (clicking on the checkbox itself) on a single item is
@@ -168,27 +174,25 @@ function setPointer(theRow, theRowNum, theAction, theDefaultClass, thePointerCla
             //document.getElementById('msg[' + theRowNum + ']').checked = true;
         }
     }
-    // 4.1.2 Current class is the pointer one
-    else if (currentClass.toLowerCase() == thePointerClass.toLowerCase()
+    // 4.1.2 Current class is the mouseover one
+    else if (currentClass.toLowerCase() == mouseoverClass.toLowerCase()
              && (typeof(marked_row[theRowNum]) == 'undefined' || !marked_row[theRowNum])) {
         if (theAction == 'out') {
-            newClass = theDefaultClass;
+            newClass = defaultClass;
         }
-        else if (theAction == 'click' && theMarkClass != '') {
-            newClass = theMarkClass;
+        else if (theAction == 'click' && clickedClass != '') {
+            newClass = clickedClass;
             marked_row[theRowNum] = true;
             //document.getElementById('msg[' + theRowNum + ']').checked = true;
         }
     }
-    // 4.1.3 Current color is the marker one
-    else if (currentClass.toLowerCase() == theMarkClass.toLowerCase()) {
+    // 4.1.3 Current color is the clicked one
+    else if (currentClass.toLowerCase() == clickedClass.toLowerCase()) {
         if (theAction == 'click') {
-            newClass              = (thePointerClass != '')
-                                  ? thePointerClass
-                                  : theDefaultClass;
-            marked_row[theRowNum] = (typeof(marked_row[theRowNum]) == 'undefined' || !marked_row[theRowNum])
-                                  ? true
-                                  : null;
+            newClass              = (mouseoverClass != '')
+                                  ? mouseoverClass
+                                  : defaultClass;
+            marked_row[theRowNum] = false;
             //document.getElementById('msg[' + theRowNum + ']').checked = false;
         }
     } // end 4
