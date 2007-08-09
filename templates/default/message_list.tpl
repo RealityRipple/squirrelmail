@@ -62,6 +62,7 @@
  *    $show_label_columns
  *    $compact_paginator
  *    $aErrors
+ *    $checkall
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -103,13 +104,6 @@ if ($pageOffset < $end_msg) {
  * $icon_theme_path will contain the path to the user-selected theme.  If it is
  * NULL, the user and/or admin have turned off icons.
  */
-
-
-// set this to an empty string to turn off extra
-// highlighting of checked rows
-//
-//$clickedColor = '';
-$clickedColor = (empty($color[16])) ? $color[2] : $color[16];
 
 
 ?>
@@ -196,14 +190,12 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
         switch ($iCol) {
           case SQM_COL_CHECK:
               if ($javascript_on) {
-                  echo '<input type="checkbox" name="toggleAll" title="'._("Toggle All").'" onclick="toggle_all(\''.$form_name."',".$fancy_index_highlite.')" />'."\n";
+                  $checked = ($checkall ? ' checked="checked" ' : '');
+                  echo '<input type="checkbox" name="toggleAll" title="'._("Toggle All").'" onclick="toggle_all(\''.$form_name."',".$fancy_index_highlite.')" ' . $checked . '/>'."\n";
               } else {
-                  $link = $baseurl . "&amp;startMessage=$pageOffset&amp;checkall=";
-                  if (sqgetGlobalVar('checkall',$checkall,SQ_GET)) {
-                      $link .= ($checkall) ? '0' : '1';
-                  } else {
-                      $link .= '1';
-                  }
+                  $link = $baseurl 
+                        . "&amp;startMessage=$pageOffset&amp;checkall=" 
+                        . ($checkall ? '0' : '1');
                   echo "<a href=\"$link\">"._("All").'</a>';
               }
               break;
@@ -267,7 +259,6 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
             if ($javascript_on && $fancy_index_highlite) {
                 $mouseoverColor = $color[5];
                 $checkbox_javascript = ' onclick="this.checked = !this.checked;"';
-                // $clickedColor is defined at top of this file
             } else {
                 $checkbox_javascript = '';
             }
@@ -315,13 +306,16 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
         $aColumns[SQM_COL_ATTACHMENT]['value'] = $sValue;
     }
 
-	$class = 'even';
+    $class = ($checkall && $javascript_on && $fancy_index_highlite ? 'clicked_even' : 'even');
+    $non_clicked_class = 'even';
+
     /**
      * If alternating row colors is set, adapt the CSS class
      */
     if (isset($alt_index_colors) && $alt_index_colors) {
         if (!($i % 2)) {
-        	$class = 'odd';
+            $class = ($checkall && $javascript_on && $fancy_index_highlite ? 'clicked_odd' : 'odd');
+            $non_clicked_class = 'odd';
         }
 
     }
@@ -337,7 +331,7 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
     // this stuff does the auto row highlighting on mouseover
     //
     if ($javascript_on && $fancy_index_highlite) {
-        $row_extra = ' onmouseover="rowOver(\''.$form_id . '_msg' . $i.'\');" onmouseout="setPointer(this, ' . $i . ', \'out\', \'' . $class . '\', \'mouse_over\', \'clicked\');" onmousedown="setPointer(this, ' . $i . ', \'click\', \'' . $class . '\', \'mouse_over\', \'clicked\');"';
+        $row_extra = ' onmouseover="rowOver(\''.$form_id . '_msg' . $i.'\');" onmouseout="setPointer(this, ' . $i . ', \'out\', \'' . $non_clicked_class . '\', \'mouse_over\', \'clicked\');" onmousedown="setPointer(this, ' . $i . ', \'click\', \'' . $non_clicked_class . '\', \'mouse_over\', \'clicked\');"';
     }
     // this does the auto-checking of the checkbox no matter
     // where on the row you click
@@ -353,7 +347,8 @@ $clickedColor = (empty($color[16])) ? $color[2] : $color[16];
  * mouseover functionality.  There is no harm in doing this when the mouseover
  * functionality is disabled
  */
-if ($class != 'even' && $class != 'odd')
+if ($class != 'even' && $class != 'odd' 
+ && $class != 'even_checked' && $class != 'odd_checked')
 {
 ?>
 <style type="text/css">
@@ -408,13 +403,13 @@ if ($class != 'even' && $class != 'odd')
 
         switch ($iCol) {
           case SQM_COL_CHECK:
+            $checked = ($checkall ? ' checked="checked" ' : '');
             if ($javascript_on) {
                 echo '<td class="col_check"'. $javascript_auto_click. '>' ?>
-                <input type="checkbox" name="<?php echo "msg[$i]";?>" id="<?php echo $form_id."_msg$i";?>" value="<?php echo $iUid;?>" <?php echo $checkbox_javascript;?> /></td>
+                <input type="checkbox" name="<?php echo "msg[$i]";?>" id="<?php echo $form_id."_msg$i";?>" value="<?php echo $iUid;?>" <?php echo $checkbox_javascript . $checked;?> /></td>
             <?php
             } else {
                 echo '<td class="col_check">';
-                $checked = ($checkall) ? ' checked=checked ' : '';
                 echo "<input type=\"checkbox\" name=\"msg[".$i."]\" id=\"".$form_id."_msg$i\" value=\"$iUid\" $checked/></td>";
             }
             break;
@@ -431,8 +426,7 @@ if ($class != 'even' && $class != 'odd')
             if ($link_extra) { $sText .= " $link_extra";          }
             if ($javascript_on && $fancy_index_highlite) {
                   $sText .= " onmousedown=\"row_click('$form_id"."_msg$i'); setPointer(this." . (empty($bold) ? '' : 'parentNode.') .
-                            'parentNode.parentNode, ' . $i . ', \'click\', \''. $class. '\', \'mouse_over\', \'' .
-                             $clickedColor .'\');"';
+                            'parentNode.parentNode, ' . $i . ', \'click\', \''. $non_clicked_class. '\', \'mouse_over\', \'clicked\');"';
             }
             $sText .= ">"
                    . $value . '</a>';
