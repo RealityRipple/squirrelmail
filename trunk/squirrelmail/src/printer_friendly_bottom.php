@@ -32,6 +32,7 @@ require_once(SM_PATH . 'functions/url_parser.php');
 /* get some of these globals */
 sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
 sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
+sqgetGlobalVar('messages', $messages, SQ_SESSION);
 
 if (! sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET) ) {
     $passed_ent_id = '';
