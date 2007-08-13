@@ -69,7 +69,7 @@ function squirrelspell_setup_function() {
     $output = addButton(_("Check Spelling"), 
                         'check_spelling', 
                         array('onclick' => 'window.open(\'' . $base_uri 
-                                         . '/plugins/squirrelspell/sqspell_interface.php\', \'sqspell\', \'status=yes,width=550,height=370,resizable=yes\')')) . $nbsp;
+                                         . 'plugins/squirrelspell/sqspell_interface.php\', \'sqspell\', \'status=yes,width=550,height=370,resizable=yes\')')) . $nbsp;
 
     return array('compose_button_row' => $output);
   }
