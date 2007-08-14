@@ -417,7 +417,8 @@ if (isset($plugins[0])) {
     echo $IND . "Plugin versions...<br />\n";
     foreach ($plugins as $name) {
         $plugin_version = get_plugin_version($name);
-        echo $IND . $IND . $name . ' ' . (empty($plugin_version) ? '??' : $plugin_version) . "<br />\n";
+        $english_name = get_plugin_requirement($name, 'english_name');
+        echo $IND . $IND . (empty($english_name) ? $name . ' ' : $english_name . ' (' . $name . ') ') . (empty($plugin_version) ? '??' : $plugin_version) . "<br />\n";
 
         // check if this plugin has any other plugin 
         // dependencies and if they are satisfied
