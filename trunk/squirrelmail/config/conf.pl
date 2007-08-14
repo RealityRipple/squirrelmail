@@ -724,7 +724,12 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         $num = 0;
         for ( $count = 0 ; $count <= $#plugins ; $count++ ) {
             $num = $count + 1;
-            print "    $num. $plugins[$count]" . get_plugin_version($plugins[$count]) . "\n";
+            $english_name = get_plugin_english_name($plugins[$count]);
+            if ( $english_name eq "" ) {
+                print "    $num. $plugins[$count]" . get_plugin_version($plugins[$count]) . "\n";
+            } else {
+                print "    $num. $english_name ($plugins[$count])" . get_plugin_version($plugins[$count]) . "\n";
+            }
         }
         print "\n  Available Plugins:\n";
         opendir( DIR, "../plugins" );
@@ -748,7 +753,12 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
 
         for ( $i = 0 ; $i <= $#unused_plugins ; $i++ ) {
             $num = $num + 1;
-            print "    $num. $unused_plugins[$i]" . get_plugin_version($unused_plugins[$i]) . "\n";
+            $english_name = get_plugin_english_name($unused_plugins[$i]);
+            if ( $english_name eq "" ) {
+                print "    $num. $unused_plugins[$i]" . get_plugin_version($unused_plugins[$i]) . "\n";
+            } else {
+                print "    $num. $english_name ($unused_plugins[$i])" . get_plugin_version($unused_plugins[$i]) . "\n";
+            }
         }
         closedir DIR;
 
@@ -5175,6 +5185,61 @@ sub get_plugin_version() {
         }
 
         return $version;
+
+        } else {
+            print "\n";
+            print "WARNING:\n";
+            print "The file \"$setup_file\" was not found.\n";
+            print "The plugin \"" . $plugin_name;
+            print "\" may not work correctly until you fix this.\n";
+            print "\nPress enter to continue";
+            $ctu = <STDIN>;
+            print "\n";
+            next;
+        }
+
+}
+
+# determine a plugin's English name
+#
+# parses the setup.php file, looking for the
+# English name in the <plugin>_info() function.
+#
+sub get_plugin_english_name() {
+
+    my $plugin_name = shift(@_);
+
+    $setup_file = '../plugins/' . $plugin_name . '/setup.php';
+    if ( -e "$setup_file" ) {
+        # Make sure that file is readable
+        if (! -r "$setup_file") {
+            print "\n";
+            print "WARNING:\n";
+            print "The file \"$setup_file\" was found, but you don't\n";
+            print "have rights to read it.  The plugin \"";
+            print $plugin_name . "\" may not work correctly until you fix this.\n";
+            print "\nPress enter to continue";
+            $ctu = <STDIN>;
+            print "\n";
+            next;
+        }
+
+        $english_name = '';
+# FIXME: grep the file instead of reading it into memory?
+        $whole_file = '';
+        open( FILE, "$setup_file" );
+        while ( $line = <FILE> ) {
+            $whole_file .= $line;
+        }
+        close(FILE);
+
+        # the English name is in the <plugin>_info function or nothing...
+        #
+        if ($whole_file =~ /('english_name'\s*=>\s*['"](.*?)['"])/) {
+            $english_name .= $2;
+        }
+
+        return $english_name;
 
         } else {
             print "\n";
