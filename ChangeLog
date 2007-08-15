@@ -199,7 +199,7 @@ Version 1.5.2 - SVN
     HTML attachments containing 'data:' URLs, Internet Explorer-specifc
     charset conversion exploits, and request forgery through included
     images. Thanks to Mikhail Markin, Tomas Kuliavas and Michael Jordon
-    for reporting these issues. [CVE-2007-1262]
+    for reporting these issues. [CVE-2007-1262, CVE-2007-2589]
   - Fix busy loop and notice when two literals in IMAP fetch (#1739433).
   - Resolved issue with compose session not being updated after send/save.
   - Added ability to detect HTTP_X_FORWARDED_PROTO in get_location(),
