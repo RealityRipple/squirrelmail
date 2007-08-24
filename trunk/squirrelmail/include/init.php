@@ -292,6 +292,20 @@ if (! sqgetGlobalVar('squirrelmail_language',$squirrelmail_language,SQ_COOKIE)) 
     $squirrelmail_language = '';
 }
 
+
+/* load prefs system; even when user not logged in, should be OK to do this here */
+require(SM_PATH . 'functions/prefs.php');
+
+$prefs_backend = do_hook('prefs_backend', $null);
+if (isset($prefs_backend) && !empty($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
+    require(SM_PATH . $prefs_backend);
+} elseif (isset($prefs_dsn) && !empty($prefs_dsn)) {
+    require(SM_PATH . 'functions/db_prefs.php');
+} else {
+    require(SM_PATH . 'functions/file_prefs.php');
+}
+
+
 /**
  * Do something special for some pages. This is based on the PAGE_NAME constand
  * set at the top of every page.
@@ -331,22 +345,9 @@ switch (PAGE_NAME) {
         break;
 
     case 'redirect':
-        /**
-         * directory hashing functions are needed for all setups in case
-         * plugins use own pref files.
-         */
-        require(SM_PATH . 'functions/prefs.php');
         require(SM_PATH . 'functions/auth.php');
-        /* hook loads custom prefs backend plugins */
-        $prefs_backend = do_hook('prefs_backend', $null);
-        if (isset($prefs_backend) && !empty($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
-            require(SM_PATH . $prefs_backend);
-        } elseif (isset($prefs_dsn) && !empty($prefs_dsn)) {
-            require(SM_PATH . 'functions/db_prefs.php');
-        } else {
-            require(SM_PATH . 'functions/file_prefs.php');
-        }
         //nobreak;
+
     case 'login':
         require(SM_PATH . 'functions/display_messages.php' );
         require(SM_PATH . 'functions/page_header.php');
@@ -447,18 +448,6 @@ switch (PAGE_NAME) {
             !is_array( $prefs_cache)) {
             $prefs_are_cached = false;
             $prefs_cache = false; //array();
-        }
-
-        /* see 'redirect' case */
-        require(SM_PATH . 'functions/prefs.php');
-
-        $prefs_backend = do_hook('prefs_backend', $null);
-        if (isset($prefs_backend) && !empty($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
-            require(SM_PATH . $prefs_backend);
-        } elseif (isset($prefs_dsn) && !empty($prefs_dsn)) {
-            require(SM_PATH . 'functions/db_prefs.php');
-        } else {
-            require(SM_PATH . 'functions/file_prefs.php');
         }
 
         /**
@@ -599,12 +588,7 @@ function checkForJavascript($reset = FALSE) {
     return $javascript_on;
 
   $user_is_logged_in = FALSE;
-  if ( ( $reset || !isset($javascript_setting) )
-    // getPref() not defined (nor is it meaningful) when user not
-    // logged in, but that begs the question if $javascript_on is
-    // not in the session in that case, where do we get it from?
-    && ( sqGetGlobalVar('user_is_logged_in', $user_is_logged_in, SQ_SESSION)
-      && $user_is_logged_in) )
+  if ( $reset || !isset($javascript_setting) )
     $javascript_setting = getPref($data_dir, $username, 'javascript_setting', SMPREF_JS_AUTODETECT);
 
   if ( !sqGetGlobalVar('new_js_autodetect_results', $js_autodetect_results) &&
