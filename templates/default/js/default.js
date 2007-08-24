@@ -95,11 +95,11 @@ function rowOver(chkboxName) {
  * @param   string   new color of the checked rows
  */
 function toggle_all(formname, fancy) {
-     TargetForm = document.getElementById(formname);
-     j = 0;
-     for (var i = 0; i < TargetForm.elements.length; i++) {
-         if (TargetForm.elements[i].type == 'checkbox' && TargetForm.elements[i].name.substring(0,3) == 'msg') {
-             if (fancy) {
+    TargetForm = document.getElementById(formname);
+    j = 0;
+    for (var i = 0; i < TargetForm.elements.length; i++) {
+        if (TargetForm.elements[i].type == 'checkbox' && TargetForm.elements[i].name.substring(0,3) == 'msg') {
+            if (fancy) {
                 array_key = TargetForm.elements[i].getAttribute('id');
                 // initialize orig_row_color if not defined already
                 if (!orig_row_colors[array_key]) {
@@ -114,8 +114,8 @@ function toggle_all(formname, fancy) {
                 j++
             }
             TargetForm.elements[i].checked = !(TargetForm.elements[i].checked);
-         }
-     }
+        }
+    }
 }
 
 /*
