@@ -257,7 +257,6 @@ if ($pageOffset < $end_msg) {
             // this stuff does the auto row highlighting on mouseover
             //
             if ($javascript_on && $fancy_index_highlite) {
-                $mouseoverColor = $color[5];
                 $checkbox_javascript = ' onclick="this.checked = !this.checked;"';
             } else {
                 $checkbox_javascript = '';
@@ -319,12 +318,28 @@ if ($pageOffset < $end_msg) {
         }
 
     }
+
+    /**
+     * Message Highlighting Functionality
+     */
     if (isset($aMsg['row']['color']))
     {
-    	$bgcolor = $aMsg['row']['color'];
-    	$class = 'misc'.$i;
+    	if ($checkall && $javascript_on && $fancy_index_highlite) {
+//FIXME: would be best not to use $color directly here; want to move this to be a CSS style-defined value only, but the problem is that this CSS class is being defined on the fly right here
+    	    $bgcolor = $color[16];
+    	    $class = 'clicked_misc'.$i;
+        } else {
+            $bgcolor = $aMsg['row']['color'];
+    	    $class = 'misc'.$i;
+        }
+        $non_clicked_class = 'misc'.$i;
+        $non_clicked_bgcolor = $aMsg['row']['color'];
+    } 
+    else 
+    {
+        $bgcolor = '';
+        $non_clicked_bgcolor = '';
     }
-    else $bgcolor = '';
 
     $row_extra = '';
 
@@ -342,13 +357,14 @@ if ($pageOffset < $end_msg) {
         $javascript_auto_click = " onmousedown=\"row_click('$form_id"."_msg$i')\"";
     }
 
+
 /*
  * Message Highlighting requires a unique CSS class declaration for proper
  * mouseover functionality.  There is no harm in doing this when the mouseover
  * functionality is disabled
  */
 if ($class != 'even' && $class != 'odd' 
- && $class != 'even_checked' && $class != 'odd_checked')
+ && $class != 'clicked_even' && $class != 'clicked_odd')
 {
 ?>
 <style type="text/css">
@@ -358,6 +374,19 @@ if ($class != 'even' && $class != 'odd'
 </style>
 <?php
 }
+if ($non_clicked_class != 'even' && $non_clicked_class != 'odd' 
+ && $non_clicked_class != 'clicked_even' && $non_clicked_class != 'clicked_odd')
+{
+?>
+<style type="text/css">
+<!--
+.table_messageList	tr.<?php echo $non_clicked_class; ?>	{ background:<?php echo $non_clicked_bgcolor; ?> }
+-->
+</style>
+<?php
+}
+
+
 ?>
 <tr <?php echo (empty($class) ? '' : 'class="'.$class.'" ');  echo $row_extra;?>>
 <?php
