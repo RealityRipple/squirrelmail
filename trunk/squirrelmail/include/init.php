@@ -229,6 +229,19 @@ $SQM_INTERNAL_VERSION = explode('.', SM_VERSION, 3);
 $SQM_INTERNAL_VERSION[2] = intval($SQM_INTERNAL_VERSION[2]);
 
 
+/* load prefs system; even when user not logged in, should be OK to do this here */
+require(SM_PATH . 'functions/prefs.php');
+
+$prefs_backend = do_hook('prefs_backend', $null);
+if (isset($prefs_backend) && !empty($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
+    require(SM_PATH . $prefs_backend);
+} elseif (isset($prefs_dsn) && !empty($prefs_dsn)) {
+    require(SM_PATH . 'functions/db_prefs.php');
+} else {
+    require(SM_PATH . 'functions/file_prefs.php');
+}
+
+
 /* if plugins are disabled only for one user and
  * the current user is NOT that user, turn them
  * back on
@@ -290,19 +303,6 @@ sqsession_register(SM_BASE_URI,'base_uri');
  */
 if (! sqgetGlobalVar('squirrelmail_language',$squirrelmail_language,SQ_COOKIE)) {
     $squirrelmail_language = '';
-}
-
-
-/* load prefs system; even when user not logged in, should be OK to do this here */
-require(SM_PATH . 'functions/prefs.php');
-
-$prefs_backend = do_hook('prefs_backend', $null);
-if (isset($prefs_backend) && !empty($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
-    require(SM_PATH . $prefs_backend);
-} elseif (isset($prefs_dsn) && !empty($prefs_dsn)) {
-    require(SM_PATH . 'functions/db_prefs.php');
-} else {
-    require(SM_PATH . 'functions/file_prefs.php');
 }
 
 
