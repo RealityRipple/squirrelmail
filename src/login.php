@@ -34,19 +34,28 @@ set_up_language($squirrelmail_language, TRUE, TRUE);
  * In case the last session was not terminated properly, make sure
  * we get a new one, but make sure we preserve session_expired_*
  */
-if ( !empty($_SESSION['session_expired_post']) && !empty($_SESSION['session_expired_location']) ) {
-    $sep = $_SESSION['session_expired_post'];
-    $sel = $_SESSION['session_expired_location'];
+$sep = '';
+$sel = '';
+sqGetGlobalVar('session_expired_post', $sep, SQ_SESSION);
+sqGetGlobalVar('session_expired_location', $sel, SQ_SESSION);
 
-    sqsession_destroy();
-    @sqsession_is_active();
-    $_SESSION=array();
+/* blow away session */
+sqsession_destroy();
+
+/**
+ * in some rare instances, the session seems to stick
+ * around even after destroying it (!!), so if it does,
+ * we'll manually flatten the $_SESSION data
+ */
+if (!empty($_SESSION)) {
+    $_SESSION = array();
+}
+
+/* start session and put session_expired_* variables back in session */
+@sqsession_is_active();
+if (!empty($sep) && !empty($sel)) {
     sqsession_register($sep, 'session_expired_post');
     sqsession_register($sel, 'session_expired_location');
-} else {
-    sqsession_destroy();
-    @sqsession_is_active();
-    $_SESSION=array();
 }
 
 /**
@@ -160,7 +169,7 @@ $login_extra = addHidden('js_autodetect_results', SMPREF_JS_OFF).
 
 session_write_close();
 
-$oTemplate->assign('logo_str', $logo_str);
+$oTemplate->assign('logo_str', $logo_str, FALSE);
 $oTemplate->assign('logo_path', $org_logo);
 $oTemplate->assign('sm_attribute_str', $sm_attribute_str);
 // i18n: The %s represents the service provider's name
@@ -168,7 +177,7 @@ $oTemplate->assign('org_name_str', sprintf (_("%s Login"), $org_name));
 // i18n: The %s represents the service provider's name
 $oTemplate->assign('org_logo_str', sprintf (_("The %s logo"), $org_name));
 $oTemplate->assign('login_field_value', $loginname_value);
-$oTemplate->assign('login_extra', $login_extra);
+$oTemplate->assign('login_extra', $login_extra, FALSE);
 
 //FIXME: need to remove *ALL* HTML from this file!
 echo '<body onload="squirrelmail_loginpage_onload()">'."\n";
