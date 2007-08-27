@@ -119,7 +119,7 @@ echo "</p>";
   echo '<form method="post" action="javascript:return false">';
   echo '<input type="button" value="' . _("Close Window") . "\" onclick=\"window.close(); return true;\" />\n";
 } else {
-   ?><form method="post" action="../../src/right_main.php">
+   ?><form method="post" action="<?php echo sqm_baseuri(); ?>src/right_main.php">
   <input type="hidden" name="mailbox" value="<?php echo htmlspecialchars($mailbox) ?>" />
   <input type="hidden" name="startMessage" value="<?php echo htmlspecialchars($startMessage) ?>" />
 <?php
@@ -134,7 +134,7 @@ echo "</p>";
       $report_email = 'submit.' . $spamcop_id . '@spam.spamcop.net';
    else
       $report_email = 'quick.' . $spamcop_id . '@spam.spamcop.net';
-   $form_action = SM_PATH . 'src/compose.php';
+   $form_action = sqm_baseuri() . 'src/compose.php';
 ?>  <form method="post" action="<?php echo $form_action?>">
   <input type="hidden" name="mailbox" value="<?php echo htmlspecialchars($mailbox) ?>" />
   <input type="hidden" name="spamcop_is_composing" value="<?php echo htmlspecialchars($passed_id) ?>" />
