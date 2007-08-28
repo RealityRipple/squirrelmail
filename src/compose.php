@@ -349,7 +349,7 @@ if (sqsession_is_registered('session_expired_post')) {
         }
 
         if (!empty($attachments))
-            $attachments = unserialize($attachments);
+            $attachments = unserialize(urldecode($attachments));
 
         sqsession_register($composesession,'composesession');
 
@@ -410,7 +410,7 @@ if (!isset($compose_messages[$session]) || ($compose_messages[$session] == NULL)
 // FIXME: note that technically this is very bad form -
 // should never directly manipulate an object like this
 if (!empty($attachments)) {
-    $attachments = unserialize($attachments);
+    $attachments = unserialize(urldecode($attachments));
     if (!empty($attachments) && is_array($attachments))
         $composeMessage->entities = $attachments;
 }
