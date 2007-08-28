@@ -211,6 +211,9 @@ Version 1.5.2 - SVN
   - Made the webmail_top hook work again for plugins that want to change
     the URI of the "right" frame; plugins have to change the value of the
     global variable $right_frame_url
+  - No longer store all message composition sessions in the PHP session,
+    since it was not made use of and in rare cases, made sessions too big
+  - Composition restoration functionality now correctly restores attachments
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
