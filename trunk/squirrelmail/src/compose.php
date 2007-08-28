@@ -329,11 +329,8 @@ if (sqsession_is_registered('session_expired_post')) {
      * extra check for username so we don't display previous post data from
      * another user during this session.
      */
-    if ($session_expired_post['username'] != $username) {
-        unset($session_expired_post);
-        sqsession_unregister('session_expired_post');
-        session_write_close();
-    } else {
+    if (!empty($session_expired_post['username']) 
+     && $session_expired_post['username'] == $username) {
         // these are the vars that we can set from the expired composed session
         $compo_var_list = array ('send_to', 'send_to_cc', 'body',
             'startMessage', 'passed_body', 'use_signature', 'signature',

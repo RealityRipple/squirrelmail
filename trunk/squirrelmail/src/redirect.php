@@ -71,9 +71,10 @@ $imapConnection = sqimap_login($login_username, $key, $imapServerAddress, $imapP
 /* From now on we are logged it. If the login failed then sqimap_login handles it */
 
 /* regenerate the session id to avoid session hyijacking */
-sqsession_destroy();
-@sqsession_is_active();
-session_regenerate_id();
+//FIXME!  IMPORTANT!  SOMEONE PLEASE EXPLAIN THE SECURITY CONCERN HERE; THIS session_destroy() BORKS ANY SESSION INFORMATION ADDED ON THE LOGIN PAGE (SPECIFICALLY THE SESSION RESTORE DATA, BUT ALSO ANYTHING ADDED BY PLUGINS, ETC)... I HAVE DISABLED THIS (AND NOTE THAT THE LOGIN PAGE ALREADY EXECUTES A session_destroy() (see includes/init.php)), SO PLEASE, WHOEVER ADDED THIS, PLEASE ANALYSE THIS SITUATION AND COMMENT ON IF IT IS OK LIKE THIS!!  WHAT HIJACKING ISSUES ARE WE SUPPOSED TO BE PREVENTING HERE?
+//sqsession_destroy();
+//@sqsession_is_active();
+//session_regenerate_id();
 /**
 * The cookie part. session_start and session_regenerate_session normally set
 * their own cookie. SquirrelMail sets another cookie which overwites the
@@ -148,10 +149,12 @@ if ( sqgetGlobalVar('session_expired_location', $session_expired_location, SQ_SE
         if ($compose_new_win) {
             // do not prefix $location here because $session_expired_location is set to the PAGE_NAME
             // of the last page
-            $redirect_url = $session_expired_location.'.php';
+            $redirect_url = $location . $session_expired_location . '.php';
         } else {
-            $redirect_url = $location.'/webmail.php?right_frame='.urlencode($session_expired_location).'php';
+            $redirect_url = $location . '/webmail.php?right_frame=compose.php';
         }
+    } else {
+        $redirect_url = $location . '/webmail.php?right_frame=' . urlencode($session_expired_location) . '.php';
     }
     unset($session_expired_location);
 }

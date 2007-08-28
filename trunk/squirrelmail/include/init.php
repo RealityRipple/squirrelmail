@@ -19,6 +19,13 @@ error_reporting(E_ALL);
 
 
 /**
+ * Make sure we have a page name
+ *
+ */
+if ( !defined('PAGE_NAME') ) define('PAGE_NAME', NULL);
+
+
+/**
  * If register_globals are on, unregister globals.
  * Second test covers boolean set as string (php_value register_globals off).
  */
@@ -199,18 +206,32 @@ if (!isset($session_name) || !$session_name) {
 }
 
 /**
- * if session.auto_start is On then close the session
+ * When on login page or if session.auto_start is On 
+ * we want to destroy/close the session (save off 
+ * possible session restoration values first)
  */
+if (!sqGetGlobalVar('session_expired_post', $sep, SQ_SESSION))
+    $sep = '';
+if (!sqGetGlobalVar('session_expired_location', $sel, SQ_SESSION))
+    $sel = '';
 $sSessionAutostartName = session_name();
 $sCookiePath = null;
-if ((isset($sSessionAutostartName) || $sSessionAutostartName == '') &&
-     $sSessionAutostartName !== $session_name) {
+if (PAGE_NAME == 'login' 
+ || (isset($sSessionAutostartName) && $sSessionAutostartName !== $session_name)) {
     $sCookiePath = ini_get('session.cookie_path');
     $sCookieDomain = ini_get('session.cookie_domain');
     // reset the cookie
     setcookie($sSessionAutostartName,'',time() - 604800,$sCookiePath,$sCookieDomain);
     @session_destroy();
     session_write_close();
+
+    /**
+     * in some rare instances, the session seems to stick
+     * around even after destroying it (!!), so if it does,
+     * we'll manually flatten the $_SESSION data
+     */
+    if (!empty($_SESSION))
+        $_SESSION = array();
 }
 
 /**
@@ -311,7 +332,6 @@ if (! sqgetGlobalVar('squirrelmail_language',$squirrelmail_language,SQ_COOKIE)) 
  * Do something special for some pages. This is based on the PAGE_NAME constand
  * set at the top of every page.
  */
-if ( !defined('PAGE_NAME') ) define('PAGE_NAME', NULL);
 switch (PAGE_NAME) {
     case 'style':
 
@@ -353,6 +373,13 @@ switch (PAGE_NAME) {
         require(SM_PATH . 'functions/display_messages.php' );
         require(SM_PATH . 'functions/page_header.php');
         require(SM_PATH . 'functions/html.php');
+
+        // put session restore data back into session if necessary
+        if (!empty($sel)) {
+            sqsession_register($sel, 'session_expired_location');
+            if (!empty($sep))
+                sqsession_register($sep, 'session_expired_post');
+        }
 
         // reset template file cache
         //
