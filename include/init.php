@@ -399,6 +399,14 @@ switch (PAGE_NAME) {
         require(SM_PATH . 'functions/auth.php');
 
         if ( !sqsession_is_registered('user_is_logged_in') ) {
+
+            // use $message to indicate what logout text the user
+            // will see... if 0, typical "You must be logged in"
+            // if 1, information that the user session was saved
+            // and will be resumed after (re)login
+            //
+            $message = 0;
+
             //  First we store some information in the new session to prevent
             //  information-loss.
             //
@@ -409,6 +417,8 @@ switch (PAGE_NAME) {
             }
             if (!sqsession_is_registered('session_expired_location')) {
                 sqsession_register($session_expired_location,'session_expired_location');
+                if (stristr($session_expired_location, 'src/compose.php'))
+                    $message = 1;
             }
             // signout page will deal with users who aren't logged
             // in on its own; don't show error here
@@ -429,7 +439,10 @@ switch (PAGE_NAME) {
             $oTemplate = Template::construct_template($sTemplateID);
 
             set_up_language($squirrelmail_language, true);
-            logout_error( _("You must be logged in to access this page.") );
+            if (!$message)
+                logout_error( _("You must be logged in to access this page.") );
+            else
+                logout_error( _("Your session has expired, but will be resumed after logging in again.") );
             exit;
         }
 
