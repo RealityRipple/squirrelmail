@@ -134,8 +134,10 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
    { document.location = page_load_uri; }
    function refresh_message_list()
    {
+<?php if (!empty($message_list_href)) { ?>
       if (typeof(parent.right.delayed_page_load) != 'undefined')
          parent.right.delayed_page_load("<?php echo $message_list_href; ?>");
+<?php } ?>
    }
 <?php 
 
