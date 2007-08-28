@@ -206,32 +206,17 @@ if (!isset($session_name) || !$session_name) {
 }
 
 /**
- * When on login page or if session.auto_start is On 
- * we want to destroy/close the session (save off 
- * possible session restoration values first)
+ * When session.auto_start is On we want to destroy/close the session
  */
-if (!sqGetGlobalVar('session_expired_post', $sep, SQ_SESSION))
-    $sep = '';
-if (!sqGetGlobalVar('session_expired_location', $sel, SQ_SESSION))
-    $sel = '';
 $sSessionAutostartName = session_name();
 $sCookiePath = null;
-if (PAGE_NAME == 'login' 
- || (isset($sSessionAutostartName) && $sSessionAutostartName !== $session_name)) {
+if (isset($sSessionAutostartName) && $sSessionAutostartName !== $session_name) {
     $sCookiePath = ini_get('session.cookie_path');
     $sCookieDomain = ini_get('session.cookie_domain');
     // reset the cookie
     setcookie($sSessionAutostartName,'',time() - 604800,$sCookiePath,$sCookieDomain);
     @session_destroy();
     session_write_close();
-
-    /**
-     * in some rare instances, the session seems to stick
-     * around even after destroying it (!!), so if it does,
-     * we'll manually flatten the $_SESSION data
-     */
-    if (!empty($_SESSION))
-        $_SESSION = array();
 }
 
 /**
@@ -242,6 +227,30 @@ require(SM_PATH . 'class/mime.class.php');
 ini_set('session.name' , $session_name);
 session_set_cookie_params (0, $base_uri);
 sqsession_is_active();
+
+/**
+ * When on login page, have to reset the user session, making
+ * sure to save session restore data first
+ */
+if (PAGE_NAME == 'login') {
+    if (!sqGetGlobalVar('session_expired_post', $sep, SQ_SESSION))
+        $sep = '';
+    if (!sqGetGlobalVar('session_expired_location', $sel, SQ_SESSION))
+        $sel = '';
+    sqsession_destroy();
+    session_write_close();
+
+    /**
+     * in some rare instances, the session seems to stick
+     * around even after destroying it (!!), so if it does,
+     * we'll manually flatten the $_SESSION data
+     */
+    if (!empty($_SESSION))
+        $_SESSION = array();
+
+    sqsession_is_active();
+    session_regenerate_id();
+}
 
 /**
  * SquirrelMail internal version number -- DO NOT CHANGE
