@@ -31,34 +31,6 @@ require_once(SM_PATH . 'functions/forms.php');
 set_up_language($squirrelmail_language, TRUE, TRUE);
 
 /**
- * In case the last session was not terminated properly, make sure
- * we get a new one, but make sure we preserve session_expired_*
- */
-$sep = '';
-$sel = '';
-sqGetGlobalVar('session_expired_post', $sep, SQ_SESSION);
-sqGetGlobalVar('session_expired_location', $sel, SQ_SESSION);
-
-/* blow away session */
-sqsession_destroy();
-
-/**
- * in some rare instances, the session seems to stick
- * around even after destroying it (!!), so if it does,
- * we'll manually flatten the $_SESSION data
- */
-if (!empty($_SESSION)) {
-    $_SESSION = array();
-}
-
-/* start session and put session_expired_* variables back in session */
-@sqsession_is_active();
-if (!empty($sep) && !empty($sel)) {
-    sqsession_register($sep, 'session_expired_post');
-    sqsession_register($sel, 'session_expired_location');
-}
-
-/**
  * This detects if the IMAP server has logins disabled, and if so,
  * squelches the display of the login form and puts up a message
  * explaining the situation.
