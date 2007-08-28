@@ -1088,7 +1088,7 @@ function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
 function showInputForm ($session, $values=false) {
     global $send_to, $send_to_cc, $send_to_bcc,
         $body, $startMessage, $action, $attachments,
-        $use_signature, $signature, $prefix_sig,
+        $use_signature, $signature, $prefix_sig, $session_expired,
         $editor_size, $editor_height, $subject, $newmail,
         $use_javascript_addr_book, $passed_id, $mailbox,
         $from_htmladdr_search, $location_of_buttons, $attachment_dir,
