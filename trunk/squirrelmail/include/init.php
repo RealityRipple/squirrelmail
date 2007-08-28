@@ -411,13 +411,13 @@ switch (PAGE_NAME) {
             //  information-loss.
             //
             $session_expired_post = $_POST;
-            $session_expired_location = $PHP_SELF;
+            $session_expired_location = PAGE_NAME;
             if (!sqsession_is_registered('session_expired_post')) {
                 sqsession_register($session_expired_post,'session_expired_post');
             }
             if (!sqsession_is_registered('session_expired_location')) {
                 sqsession_register($session_expired_location,'session_expired_location');
-                if (stristr($session_expired_location, 'src/compose.php'))
+                if ($session_expired_location == 'compose')
                     $message = 1;
             }
             // signout page will deal with users who aren't logged
