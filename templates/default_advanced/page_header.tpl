@@ -170,14 +170,7 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
    }
    if (first_frame != 0)
    {
-      if (document.all)
-      {
-         parent.document.all["fs2"].<?php echo $orientation; ?> = first_frame + ", " + second_frame;
-      }
-      else if (this.document.getElementById)
-      {
-         parent.document.getElementById("fs2").<?php echo $orientation; ?> = first_frame + ", " + second_frame;
-      }
+      parent.fs2.<?php echo $orientation; ?> = first_frame + ", " + second_frame;
    }
 <?php 
 
@@ -193,29 +186,14 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
 ?>
    if (self.name == 'right')
    {
-      if (document.all)
-      {
-         parent.document.all["fs2"].<?php echo $orientation; ?> = "*, " + <?php echo $new_size; ?>;
-      }
-      else if (this.document.getElementById)
-      {
-         parent.document.getElementById("fs2").<?php echo $orientation; ?> = "*, " + <?php echo $new_size; ?>;
-      }
+      parent.fs2.<?php echo $orientation; ?> = "*, " + <?php echo $new_size; ?>;
    }
 
    // restores the preview pane if it sucked up the whole page for composing a message
    else if (self.name == 'bottom')
    {
-      if (document.all)
-      {
-         if (parent.document.all["fs2"].<?php echo $orientation; ?> == "*, 100%")
-            parent.document.all["fs2"].<?php echo $orientation; ?> = "*, " + <?php echo $previewPane_size; ?>;
-      }
-      else if (this.document.getElementById)
-      {
-         if (parent.document.getElementById("fs2").<?php echo $orientation; ?> == "*, 100%")
-            parent.document.getElementById("fs2").<?php echo $orientation; ?> = "*, " + <?php echo $previewPane_size; ?>;
-      }
+      if (parent.fs2.<?php echo $orientation; ?> == "*, 100%")
+         parent.fs2.<?php echo $orientation; ?> = "*, " + <?php echo $previewPane_size; ?>;
    }
 <?php } } ?>
 // -->
