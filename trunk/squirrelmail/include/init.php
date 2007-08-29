@@ -250,6 +250,13 @@ if (PAGE_NAME == 'login') {
 
     sqsession_is_active();
     session_regenerate_id();
+
+    // put session restore data back into session if necessary
+    if (!empty($sel)) {
+        sqsession_register($sel, 'session_expired_location');
+        if (!empty($sep))
+            sqsession_register($sep, 'session_expired_post');
+    }
 }
 
 /**
@@ -382,13 +389,6 @@ switch (PAGE_NAME) {
         require(SM_PATH . 'functions/display_messages.php' );
         require(SM_PATH . 'functions/page_header.php');
         require(SM_PATH . 'functions/html.php');
-
-        // put session restore data back into session if necessary
-        if (!empty($sel)) {
-            sqsession_register($sel, 'session_expired_location');
-            if (!empty($sep))
-                sqsession_register($sep, 'session_expired_post');
-        }
 
         // reset template file cache
         //

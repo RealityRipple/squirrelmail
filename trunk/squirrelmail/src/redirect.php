@@ -136,6 +136,11 @@ if ( sqgetGlobalVar('HTTP_ACCEPT', $http_accept, SQ_SERVER) &&
     attachment_common_parse($http_accept);
 }
 
+// having just logged in, need to synch the template file cache
+// so the right template set is displayed (per user prefs)
+require(SM_PATH . 'include/load_prefs.php');
+Template::cache_template_file_hierarchy(TRUE);
+
 /* Complete autodetection of Javascript. */
 checkForJavascript();
 
@@ -153,7 +158,8 @@ if ( sqgetGlobalVar('session_expired_location', $session_expired_location, SQ_SE
         } else {
             $redirect_url = $location . '/webmail.php?right_frame=' . urlencode($session_expired_location . '.php');
         }
-    } else if ($session_expired_location != 'webmail') {
+    } else if ($session_expired_location != 'webmail' 
+            && $session_expired_location != 'left_main') {
         $redirect_url = $location . '/webmail.php?right_frame=' . urlencode($session_expired_location . '.php');
     }
     unset($session_expired_location);
