@@ -153,7 +153,7 @@ if ( sqgetGlobalVar('session_expired_location', $session_expired_location, SQ_SE
         } else {
             $redirect_url = $location . '/webmail.php?right_frame=' . urlencode($session_expired_location . '.php');
         }
-    } else {
+    } else if ($session_expired_location != 'webmail') {
         $redirect_url = $location . '/webmail.php?right_frame=' . urlencode($session_expired_location . '.php');
     }
     unset($session_expired_location);
