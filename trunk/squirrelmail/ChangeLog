@@ -214,6 +214,7 @@ Version 1.5.2 - SVN
   - No longer store all message composition sessions in the PHP session,
     since it was not made use of and in rare cases, made sessions too big
   - Composition restoration functionality now correctly restores attachments
+  - Added smtp_auth hook
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

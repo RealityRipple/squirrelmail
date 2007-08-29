@@ -277,4 +277,10 @@ function get_smtp_user(&$user, &$pass) {
         $user = $username;
         $pass = sqauth_read_password();
     }
+
+    // plugin authors note: override $user or $pass by
+    // directly changing the arguments array contents 
+    // in your plugin e.g., $args[0] = 'new_username';
+    //
+    do_hook('smtp_auth', $temp=array(&$user, &$pass));
 }
