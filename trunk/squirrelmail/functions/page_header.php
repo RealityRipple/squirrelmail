@@ -144,7 +144,7 @@ body {
 
 EOS;
 
-    $oTemplate->assign('header_tags', $header_tags, FALSE);
+    $oTemplate->assign('header_tags', $header_tags);
     $oTemplate->display('protocol_header.tpl');
 
     /* this is used to check elsewhere whether we should call this function */
@@ -241,7 +241,6 @@ function displayPageHeader($color, $mailbox='', $sHeaderJs='', $sBodyTagJs = '')
      * this explains the imap_mailbox.php dependency. We should instead store
      * the selected mailbox in the session and fallback to the session var.
      */
-//FIXME: $shortBoxName will be sanitized when assigned to template, so remove htmlspecialchars on the following line?
     $shortBoxName = htmlspecialchars(imap_utf7_decode_local(
                 readShortMailboxName($mailbox, $delimiter)));
     if ( $shortBoxName == 'INBOX' ) {
@@ -255,7 +254,7 @@ function displayPageHeader($color, $mailbox='', $sHeaderJs='', $sBodyTagJs = '')
 
     $oTemplate->assign('body_tag_js', $sBodyTagJs);
     $oTemplate->assign('shortBoxName', $shortBoxName);
-    $oTemplate->assign('provider_link', $provider_link, FALSE);
+    $oTemplate->assign('provider_link', $provider_link);
     $oTemplate->assign('frame_top', $frame_top);
     $oTemplate->assign('urlMailbox', $urlMailbox);
     $oTemplate->assign('startMessage', $startMessage);
