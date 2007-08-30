@@ -7,7 +7,7 @@
  *
  * @copyright &copy; 2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: decodeheader.php 11081 2006-04-23 19:26:24Z tokul $
+ * @version $Id$
  * @package plugins
  * @subpackage test
  */
