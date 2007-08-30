@@ -102,7 +102,7 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
    <?php echo $options_link; ?>&nbsp;&nbsp;
    <?php echo $search_link; ?>&nbsp;&nbsp;
    <?php echo $help_link; ?>&nbsp;&nbsp;
-   <?php /* FIXME: no hooks in templates!! */ global $null; do_hook('menuline', $null); ?>
+   <?php if (!empty($plugin_output['menuline'])) echo $plugin_output['menuline']; ?>
   </td>
   <td class="sqm_providerInfo">
     <?php 
