@@ -25,6 +25,22 @@ include_once (SM_PATH . 'plugins/mail_fetch/class.mail_fetch.php');
 global $mail_fetch_allow_unsubscribed;
 
 /**
+  * Add link to menu at top of content pane
+  *
+  * @return void
+  *
+  */
+function mail_fetch_link_do() {
+
+    global $oTemplate;
+    $nbsp = $oTemplate->fetch('non_breaking_space.tpl');
+    $output = makeInternalLink('plugins/mail_fetch/fetch.php', _("Fetch"), '')
+            . $nbsp . $nbsp;
+    return array('menuline' => $output);
+
+}
+
+/**
  * Controls use of unsubscribed folders in plugin
  * @global boolean $mail_fetch_allow_unsubscribed
  * @since 1.5.1 and 1.4.5

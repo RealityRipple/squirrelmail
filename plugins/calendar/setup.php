@@ -11,19 +11,32 @@
  */
 
 /**
- * Initialize the plugin
- * @return void
- */
+  * Register this plugin with SquirrelMail
+  * 
+  * @return void
+  *
+  */
 function squirrelmail_plugin_init_calendar() {
+
     global $squirrelmail_plugin_hooks;
-    $squirrelmail_plugin_hooks['menuline']['calendar'] = 'calendar';
+
+    $squirrelmail_plugin_hooks['template_construct_page_header.tpl']['calendar'] 
+        = 'calendar';
+
 }
 
+
 /**
- * Adds Calendar link to upper menu
- * @return void
- */
+  * Add link to menu at top of content pane
+  *
+  * @return void
+  *
+  */
 function calendar() {
-    displayInternalLink('plugins/calendar/calendar.php',_("Calendar"),'right');
-    echo "&nbsp;&nbsp;\n";
+
+    include_once(SM_PATH . 'plugins/calendar/functions.php');
+    return calendar_do();
+
 }
+
+

@@ -144,7 +144,7 @@ body {
 
 EOS;
 
-    $oTemplate->assign('header_tags', $header_tags);
+    $oTemplate->assign('header_tags', $header_tags, FALSE);
     $oTemplate->display('protocol_header.tpl');
 
     /* this is used to check elsewhere whether we should call this function */
@@ -176,14 +176,6 @@ function makeInternalLink($path, $text, $target='') {
     //do_hook('internal_link', $text);
 
     return create_hyperlink($base_uri . $path, $text, $target);
-}
-
-/**
- * Same as makeInternalLink, but echoes it too
- */
-function displayInternalLink($path, $text, $target='') {
-// FIXME: should let the template echo all these kinds of things
-    echo makeInternalLink($path, $text, $target);
 }
 
 /**
@@ -249,6 +241,7 @@ function displayPageHeader($color, $mailbox='', $sHeaderJs='', $sBodyTagJs = '')
      * this explains the imap_mailbox.php dependency. We should instead store
      * the selected mailbox in the session and fallback to the session var.
      */
+//FIXME: $shortBoxName will be sanitized when assigned to template, so remove htmlspecialchars on the following line?
     $shortBoxName = htmlspecialchars(imap_utf7_decode_local(
                 readShortMailboxName($mailbox, $delimiter)));
     if ( $shortBoxName == 'INBOX' ) {
@@ -262,7 +255,7 @@ function displayPageHeader($color, $mailbox='', $sHeaderJs='', $sBodyTagJs = '')
 
     $oTemplate->assign('body_tag_js', $sBodyTagJs);
     $oTemplate->assign('shortBoxName', $shortBoxName);
-    $oTemplate->assign('provider_link', $provider_link);
+    $oTemplate->assign('provider_link', $provider_link, FALSE);
     $oTemplate->assign('frame_top', $frame_top);
     $oTemplate->assign('urlMailbox', $urlMailbox);
     $oTemplate->assign('startMessage', $startMessage);

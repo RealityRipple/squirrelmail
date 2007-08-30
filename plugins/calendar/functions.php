@@ -11,6 +11,22 @@
  */
 
 /**
+  * Add link to menu at top of content pane
+  *
+  * @return void
+  *
+  */
+function calendar_do() {
+
+    global $oTemplate;
+    $nbsp = $oTemplate->fetch('non_breaking_space.tpl');
+    $output = makeInternalLink('plugins/calendar/calendar.php',_("Calendar"),'right')
+            . $nbsp . $nbsp;
+    return array('menuline' => $output);
+
+}
+
+/**
  * Adds second layer of calendar links to upper menu
  * @return void
  */

@@ -17,7 +17,7 @@
 function squirrelmail_plugin_init_bug_report() {
     global $squirrelmail_plugin_hooks;
 
-    $squirrelmail_plugin_hooks['menuline']['bug_report'] = 'bug_report_button';
+    $squirrelmail_plugin_hooks['template_construct_page_header.tpl']['bug_report'] = 'bug_report_button';
     $squirrelmail_plugin_hooks['loading_prefs']['bug_report'] = 'bug_report_load';
     $squirrelmail_plugin_hooks['optpage_loadhook_display']['bug_report'] = 'bug_report_block';
 }
@@ -35,8 +35,11 @@ function bug_report_button() {
         return;
     }
 
-    displayInternalLink('plugins/bug_report/bug_report.php', _("Bug"), '');
-    echo "&nbsp;&nbsp;\n";
+    global $oTemplate;
+    $nbsp = $oTemplate->fetch('non_breaking_space.tpl');
+    $output = makeInternalLink('plugins/bug_report/bug_report.php', _("Bug"), '')
+            . $nbsp . $nbsp;
+    return array('menuline' => $output);
 }
 
 /**

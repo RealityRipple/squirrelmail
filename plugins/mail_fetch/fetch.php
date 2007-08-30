@@ -132,8 +132,9 @@ echo html_tag( 'table',
 
 /* there are no servers defined yet... */
 if($mailfetch['server_number'] == 0) {
+//FIXME: do not echo directly to browser -- use templates only
     echo '<p>' . _("No POP3 servers configured yet.") . '</p>';
-    displayInternalLink('plugins/mail_fetch/options.php',
+    echo makeInternalLink('plugins/mail_fetch/options.php',
                         _("Click here to go to the options page.") );
     $oTemplate->display('footer.tpl');
     exit();
