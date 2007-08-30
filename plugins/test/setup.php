@@ -4,7 +4,7 @@
   * SquirrelMail Test Plugin
   * @copyright &copy; 2006 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
-  * @version $Id: setup.php 11080 2006-04-23 19:00:45Z tokul $
+  * @version $Id$
   * @package plugins
   * @subpackage test
   */
