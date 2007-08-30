@@ -376,6 +376,10 @@ function formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message,
         $oTemplate->assign('xmailer', decodeHeader($header->xmailer));
         $env[_("Mailer")] = $oTemplate->fetch('read_xmailer.tpl');
     }
+
+    // this is used for both mdn and also general use for plugins, etc
+    $oTemplate->assign('first_time_reading', $FirstTimeSee);
+
     if ($default_use_mdn) {
         if ($mdn_user_support) {
             if ($header->dnt) {
@@ -392,9 +396,6 @@ function formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message,
             }
         }
     }
-
-    // this is used for both mdn and also general use for plugins, etc
-    $oTemplate->assign('first_time_reading', $FirstTimeSee);
 
     $statuses = array();
     if (isset($aMailbox['MSG_HEADERS'][$passed_id]['FLAGS'])) {
