@@ -855,7 +855,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         if (count($idents) > 1) {
             foreach($idents as $nr=>$data) {
                 $enc_from_name = '"'.$data['full_name'].'" <'. $data['email_address'].'>';
-                if($enc_from_name == $orig_from) {
+                if(strtolower($enc_from_name) == strtolower($orig_from)) {
                     $identity = $nr;
                     break;
                 }
