@@ -737,7 +737,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         $pos            = 0;
         @unused_plugins = ();
         for ( $i = 0 ; $i <= $#files ; $i++ ) {
-            if ( -d "../plugins/" . $files[$i] && $files[$i] !~ /^\./ && $files[$i] ne "CVS" ) {
+            if ( -d "../plugins/" . $files[$i] && $files[$i] !~ /^\./ && $files[$i] ne ".svn" ) {
                 $match = 0;
                 for ( $k = 0 ; $k <= $#plugins ; $k++ ) {
                     if ( $plugins[$k] eq $files[$i] ) {
@@ -2784,7 +2784,7 @@ sub command_userThemes {
             $cnt = 0;
             while ( $cnt <= $#files ) {
                 $filename = "../css/" . $files[$cnt] .'/';
-                if ( $filename ne "../css/rtl.css" && -e $filename . "default.css" ) {
+                if ( $files[$cnt] !~ /^\./ && $filename ne "../css/rtl.css" && -e $filename . "default.css" ) {
                     $found = 0;
                     for ( $x = 0 ; $x <= $#user_theme_path ; $x++ ) {
                         if ( $user_theme_path[$x] eq $filename ) {
@@ -2793,9 +2793,16 @@ sub command_userThemes {
                     }
                     if ( $found != 1 ) {
                         print "** Found user theme: $filename\n";
-                        print "   What is its name? ";
+                        $def = $files[$cnt];
+                        $def =~ s/_/ /g;
+                        $def = lc($def);
+                        #$def =~ s/(^\w+)/ucfirst $1/eg;
+                        #$def =~ s/(\s+)(\w+)/$1 . ucfirst $2/eg;
+                        $def =~ s/(^\w+)|(\s+)(\w+)/ucfirst $1 . $2 . ucfirst $3/eg;
+                        print "   What is its name? [$def]: ";
                         $nm = <STDIN>;
-                        $nm =~ s/[\n\r]//g;
+                        $nm =~ s/^\s+|\s+$|[\n\r]//g;
+                        if ( $nm eq '' ) { $nm = $def; }
                         $user_theme_name[ $#user_theme_name + 1 ] = $nm;
                         $user_theme_path[ $#user_theme_path + 1 ] = $filename;
                     }
@@ -2989,7 +2996,7 @@ sub command_iconSets {
             $cnt = 0;
             while ( $cnt <= $#files ) {
                 $filename = "../images/themes/" . $files[$cnt] .'/';
-                if ( -d "../images/themes/" . $files[$cnt] && $files[$cnt] !~ /^\./ && $files[$cnt] ne "CVS" ) {
+                if ( -d "../images/themes/" . $files[$cnt] && $files[$cnt] !~ /^\./ && $files[$cnt] ne ".svn" ) {
                     $found = 0;
                     for ( $x = 0 ; $x <= $#icon_theme_path ; $x++ ) {
                         if ( $icon_theme_path[$x] eq $filename ) {
@@ -2998,9 +3005,16 @@ sub command_iconSets {
                     }
                     if ( $found != 1 ) {
                         print "** Found icon theme: $filename\n";
-                        print "   What is its name? ";
+                        $def = $files[$cnt];
+                        $def =~ s/_/ /g;
+                        $def = lc($def);
+                        #$def =~ s/(^\w+)/ucfirst $1/eg;
+                        #$def =~ s/(\s+)(\w+)/$1 . ucfirst $2/eg;
+                        $def =~ s/(^\w+)|(\s+)(\w+)/ucfirst $1 . $2 . ucfirst $3/eg;
+                        print "   What is its name? [$def]: ";
                         $nm = <STDIN>;
-                        $nm =~ s/[\n\r]//g;
+                        $nm =~ s/^\s+|\s+$|[\n\r]//g;
+                        if ( $nm eq '' ) { $nm = $def; }
                         $icon_theme_name[ $#icon_theme_name + 1 ] = $nm;
                         $icon_theme_path[ $#icon_theme_path + 1 ] = $filename;
                     }
@@ -3184,7 +3198,7 @@ sub command_templates {
             @files = sort(readdir(DIR));
             $cnt = 0;
             while ( $cnt <= $#files ) {
-                if ( -d "../templates/" . $files[$cnt] && $files[$cnt] !~ /^\./ && $files[$cnt] ne "CVS" ) {
+                if ( -d "../templates/" . $files[$cnt] && $files[$cnt] !~ /^\./ && $files[$cnt] ne ".svn" ) {
                     $filename = $files[$cnt];
                     $found = 0;
                     for ( $x = 0 ; $x <= $#templateset_id ; $x++ ) {
@@ -3195,9 +3209,16 @@ sub command_templates {
                     }
                     if ( $found != 1) {
                         print "** Found template set: $filename\n";
-                        print "   What is it's name (as shown to your users)? ";
+                        $def = $files[$cnt];
+                        $def =~ s/_/ /g;
+                        $def = lc($def);
+                        #$def =~ s/(^\w+)/ucfirst $1/eg;
+                        #$def =~ s/(\s+)(\w+)/$1 . ucfirst $2/eg;
+                        $def =~ s/(^\w+)|(\s+)(\w+)/ucfirst $1 . $2 . ucfirst $3/eg;
+                        print "   What is it's name (as shown to your users)? [$def]: ";
                         $nm = <STDIN>;
-                        $nm =~ s/[\n\r]//g;
+                        $nm =~ s/^\s+|\s+$|[\n\r]//g;
+                        if ( $nm eq '' ) { $nm = $def; }
                         $templateset_id[ $#templateset_id + 1 ] = $filename;
                         $templateset_name[ $#templateset_name + 1 ] = $nm;
                     }
