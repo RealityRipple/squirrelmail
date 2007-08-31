@@ -935,6 +935,7 @@ class Rfc822Header {
     }
 
     /**
+//FIXME: This needs some documentation (inside the function too)!  Don't code w/out comments!
      * @param mixed $address array or string
      * @param boolean $recurs
      * @return mixed array, boolean
@@ -960,10 +961,10 @@ class Rfc822Header {
             $srch_addr = $this->parseAddress($address);
             $results = array();
             foreach ($this->to as $to) {
-                if ($to->host == $srch_addr->host) {
-                    if ($to->mailbox == $srch_addr->mailbox) {
+                if (strtolower($to->host) == strtolower($srch_addr->host)) {
+                    if (strtolower($to->mailbox) == strtolower($srch_addr->mailbox)) {
                         $results[] = $srch_addr;
-                        if ($to->personal == $srch_addr->personal) {
+                        if (strtolower($to->personal) == strtolower($srch_addr->personal)) {
                             if ($recurs) {
                                 return array($results, true);
                             } else {
@@ -974,10 +975,10 @@ class Rfc822Header {
                 }
             }
             foreach ($this->cc as $cc) {
-                if ($cc->host == $srch_addr->host) {
-                    if ($cc->mailbox == $srch_addr->mailbox) {
+                if (strtolower($cc->host) == strtolower($srch_addr->host)) {
+                    if (strtolower($cc->mailbox) == strtolower($srch_addr->mailbox)) {
                         $results[] = $srch_addr;
-                        if ($cc->personal == $srch_addr->personal) {
+                        if (strtolower($cc->personal) == strtolower($srch_addr->personal)) {
                             if ($recurs) {
                                 return array($results, true);
                             } else {
