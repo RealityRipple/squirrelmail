@@ -85,6 +85,7 @@ if (!(bool)ini_get('session.use_cookies') ||
     ini_set('session.use_cookies','1');
 }
 
+
 /**
  * calculate SM_PATH and calculate the base_uri
  * assumptions made: init.php is only called from plugins or from the src dir.
@@ -92,27 +93,29 @@ if (!(bool)ini_get('session.use_cookies') ||
  *
  */
 if (isset($_SERVER['SCRIPT_NAME'])) {
-    $a = explode('/',$_SERVER['SCRIPT_NAME']);
+    $a = explode('/', $_SERVER['SCRIPT_NAME']);
 } elseif (isset($HTTP_SERVER_VARS['SCRIPT_NAME'])) {
-    $a = explode('/',$HTTP_SERVER_VARS['SCRIPT_NAME']);
+    $a = explode('/', $HTTP_SERVER_VARS['SCRIPT_NAME']);
 } else {
-    $error = 'Unable to detect script environment. '
-	.'Please test your PHP settings and send PHP core config, $_SERVER '
-	.'and $HTTP_SERVER_VARS to SquirrelMail developers.';
+    $error = 'Unable to detect script environment. Please test your PHP '
+           . 'settings and send your PHP core configuration, $_SERVER and '
+           . '$HTTP_SERVER_VARS contents to the SquirrelMail developers.';
     die($error);
 }
 $sSM_PATH = '';
-for($i = count($a) -2;$i > -1; --$i) {
+for($i = count($a) -2; $i > -1; --$i) {
     $sSM_PATH .= '../';
     if ($a[$i] === 'src' || $a[$i] === 'plugins') {
         break;
     }
 }
 
-$base_uri = implode('/',array_slice($a,0,$i)). '/';
+$base_uri = implode('/', array_slice($a, 0, $i)). '/';
 
 define('SM_PATH',$sSM_PATH);
 define('SM_BASE_URI', $base_uri);
+
+
 /**
  * global var $bInit is used to check if initialisation took place.
  * At this moment it's a workarounf for the include of addrbook_search_html
