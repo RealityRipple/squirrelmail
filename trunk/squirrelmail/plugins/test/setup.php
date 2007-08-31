@@ -50,6 +50,7 @@ function test_info()
 
    return array(
              'english_name' => 'Test',
+             'version' => 'CORE',
              'summary' => 'This plugin provides some test mechanisms for further diagnosis of the system upon which you are attempting to run SquirrelMail.',
              'details' => 'This plugin provides some test mechanisms for further diagnosis of the system upon which you are attempting to run SquirrelMail.',
              'requires_configuration' => 0,
