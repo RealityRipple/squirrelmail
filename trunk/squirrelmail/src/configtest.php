@@ -196,6 +196,10 @@ if(!check_php_version(4,1,0)) {
 
 echo $IND . 'PHP version ' . PHP_VERSION . ' OK. (You have: ' . phpversion() . ". Minimum: 4.1.0)<br />\n";
 
+echo $IND . 'display_errors: ' . ini_get('display_errors') . "<br />\n";
+
+echo $IND . 'error_reporting: ' . ini_get('error_reporting') . "<br />\n";
+
 /* register_globals check: test for boolean false and any string that is not equal to 'off' */
 
 if ((bool) ini_get('register_globals') && 
