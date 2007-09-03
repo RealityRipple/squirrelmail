@@ -234,9 +234,13 @@ function load_optpage_data_folder() {
         'caption' => _("Selection List Style"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'posvals' => array( 0 => _("Long:") . ' "' . _("Folder") . $delim . _("Subfolder") . '"',
-                            1 => _("Indented:") . " \"$nbsp$nbsp$nbsp$nbsp" . _("Subfolder") . '"',
-                            2 => _("Delimited:") . " \".$nbsp" . _("Subfolder") . '"'),
+        'posvals' => array(
+            SMPREF_MAILBOX_SELECT_LONG =>
+                _("Long:") . ' "' . _("Folder") . $delim . _("Subfolder") . '"',
+            SMPREF_MAILBOX_SELECT_INDENTED =>
+                _("Indented:") . " \"$nbsp$nbsp$nbsp$nbsp" . _("Subfolder") . '"',
+            SMPREF_MAILBOX_SELECT_DELIMITED =>
+                _("Delimited:") . " \".$nbsp" . _("Subfolder") . '"'),
         'htmlencoded' => true
     );
 
