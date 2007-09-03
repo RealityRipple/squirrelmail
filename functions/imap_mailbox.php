@@ -685,7 +685,7 @@ function sqimap_mailbox_option_array($imap_stream, $folder_skip = 0, $boxes = 0,
     if ( $use_long_format ) {
         $shorten_box_names = 0;
     } else {
-        $shorten_box_names = getPref($data_dir, $username, 'mailbox_select_style', SMPREF_OFF);
+        $shorten_box_names = getPref($data_dir, $username, 'mailbox_select_style', SMPREF_MAILBOX_SELECT_INDENTED);
     }
 
     if ($boxes == 0) {
@@ -710,7 +710,7 @@ function sqimap_mailbox_option_array($imap_stream, $folder_skip = 0, $boxes = 0,
             } else {
                 switch ($shorten_box_names)
                 {
-                  case 2:   /* delimited, style = 2 */
+                  case SMPREF_MAILBOX_SELECT_DELIMITED:
                       if ($translate_special_folders && $boxes_part['unformatted-dm']==$sent_folder) {
                           /*
                            * calculate pad level from number of delimiters. do it inside if control in order 
@@ -731,7 +731,7 @@ function sqimap_mailbox_option_array($imap_stream, $folder_skip = 0, $boxes = 0,
                           $box2 = str_replace('&amp;nbsp;&amp;nbsp;', '.&nbsp;', htmlspecialchars($boxes_part['formatted']));
                       }
                     break;
-                  case 1:   /* indent, style = 1 */
+                  case SMPREF_MAILBOX_SELECT_INDENTED:
                       if ($translate_special_folders && $boxes_part['unformatted-dm']==$sent_folder) {
                           $pad = str_pad('',12 * (count(explode($delimiter,$boxes_part['unformatted-dm']))-1),'&nbsp;&nbsp;');
                           $box2 = $pad . _("Sent");

@@ -57,6 +57,10 @@ define('SMPREF_UNSEEN_NORMAL', 5);  // Only normal folders (since 1.2.5)
 define('SMPREF_UNSEEN_ONLY', 1);
 define('SMPREF_UNSEEN_TOTAL', 2);
 
+define('SMPREF_MAILBOX_SELECT_LONG', 0);
+define('SMPREF_MAILBOX_SELECT_INDENTED', 1);
+define('SMPREF_MAILBOX_SELECT_DELIMITED', 2);
+
 /**
  * Define constants for time/date display preferences.
  * @since 1.2.0

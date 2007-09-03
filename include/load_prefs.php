@@ -321,7 +321,7 @@ $forward_cc = getPref($data_dir, $username, 'forward_cc', SMPREF_OFF);
 
 /* How are mailbox select lists displayed: 0. full names, 1. indented (default),
  * 3. delimited) */
-$mailbox_select_style = getPref($data_dir, $username, 'mailbox_select_style', SMPREF_ON);
+$mailbox_select_style = getPref($data_dir, $username, 'mailbox_select_style', SMPREF_MAILBOX_SELECT_INDENTED);
 
 /* Allow user to customize, and display the full date, instead of day, or time based
    on time distance from date of message */
