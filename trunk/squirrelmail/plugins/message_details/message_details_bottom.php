@@ -287,7 +287,6 @@ function get_message_details($mailbox, $passed_id, $stripHTML=FALSE) {
 $xtra = <<<ECHO
 
 <style type="text/css">
-
 <!--
 .ent_body {
   display:inline;
@@ -301,8 +300,7 @@ $xtra = <<<ECHO
   display:inline;
   width:99%;
 }
-//-->
-
+-->
 </style>
 
 ECHO;

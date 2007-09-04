@@ -234,7 +234,8 @@ function newmail_plugin_function() {
 
         if ($newmail_changetitle) {
             echo "<script type=\"text/javascript\">\n" .
-                "function ChangeTitleLoad() {\n";
+                "function ChangeTitleLoad() {\n" .
+                "var BeforeChangeTitle;\n";
             echo 'window.parent.document.title = "' .
                 sprintf(ngettext("%s New Message","%s New Messages",$totalNew), $totalNew) .
                 "\";\n";

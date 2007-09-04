@@ -40,7 +40,7 @@ extract($t);
  <script type="text/javascript">
  <!--
  function printFormat () {
-     print_win = window.open("../src/printer_friendly_main.php<?php echo $link['URL']; ?>", "Print", "width=800; height=600");
+     var print_win = window.open("../src/printer_friendly_main.php<?php echo $link['URL']; ?>", "Print", "width=800; height=600");
      print_win.focus();
  }
  // -->
