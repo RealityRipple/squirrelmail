@@ -15,7 +15,7 @@ var orig_row_colors = new Array();
  * @param   string   the name of the checkbox that should be (un)checked
  */
 function row_click(chkboxName) {
-    chkbox = document.getElementById(chkboxName);
+    var chkbox = document.getElementById(chkboxName);
     if (chkbox) {
         // initialize orig_row_color if not defined already
         if (!orig_row_colors[chkboxName]) {
@@ -33,6 +33,7 @@ function row_click(chkboxName) {
  */
 function getCSSClass (theRow)
 {
+    var rowClass;
 	// 3.1 ... with DOM compatible browsers except Opera that does not return
 	//         valid values with "getAttribute"
 	if (typeof(window.opera) == 'undefined'
@@ -65,7 +66,8 @@ function setCSSClass (obj, newClass) {
  * need to predefine the entire array
  */
 function rowOver(chkboxName) {
-    chkbox = document.getElementById(chkboxName);
+    var chkbox = document.getElementById(chkboxName);
+    var rowClass, rowNum, overClass, clickedClass;
     if (chkbox) {
         if (!orig_row_colors[chkboxName]) {
             rowClass = getCSSClass(chkbox.parentNode.parentNode);
@@ -95,8 +97,8 @@ function rowOver(chkboxName) {
  * @param   string   new color of the checked rows
  */
 function toggle_all(formname, fancy) {
-    TargetForm = document.getElementById(formname);
-    j = 0;
+    var TargetForm = document.getElementById(formname);
+    var j = 0;
     for (var i = 0; i < TargetForm.elements.length; i++) {
         if (TargetForm.elements[i].type == 'checkbox' && TargetForm.elements[i].name.substring(0,3) == 'msg') {
             if (fancy) {
@@ -213,7 +215,7 @@ function comp_in_new_form(comp_uri, button, myform, iWidth, iHeight) {
     }
     if (!iWidth) iWidth   =  640;
     if (!iHeight) iHeight =  550;
-    sArg = "width=" + iWidth + ",height=" + iHeight + ",scrollbars=yes,resizable=yes,status=yes";
+    var sArg = "width=" + iWidth + ",height=" + iHeight + ",scrollbars=yes,resizable=yes,status=yes";
     var newwin = window.open(comp_uri, "_blank", sArg);
 }
 
@@ -228,7 +230,7 @@ function comp_in_new(comp_uri, iWidth, iHeight) {
  * Reload the read_body screen on sending an mdn receipt
  */
 function sendMDN() {
-    mdnuri=window.location+'&sendreceipt=1';
+    var mdnuri=window.location+'&sendreceipt=1';
     window.location = mdnuri; 
 }
 
