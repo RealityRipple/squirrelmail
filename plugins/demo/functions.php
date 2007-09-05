@@ -57,3 +57,28 @@ function demo_option_link_do()
 
 
 
+/**
+  * Validate that this plugin is configured correctly
+  *
+  * @return boolean Whether or not there was a
+  *                 configuration error for this plugin.
+  *
+  */
+function demo_check_configuration_do()
+{
+
+   // test for something that this plugin requires, print error if
+   // misconfigured or requirements are missing
+   //
+   if (FALSE)  // put something meaningful here
+   {
+      do_err('Demo plugin is missing something important', FALSE);
+      return TRUE;  // return FALSE if you only want to display a non-critical error
+   }
+
+   return FALSE;
+
+}
+
+
+

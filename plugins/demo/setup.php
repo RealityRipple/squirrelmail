@@ -43,6 +43,8 @@ function squirrelmail_plugin_init_demo()
    $squirrelmail_plugin_hooks['optpage_register_block']['demo']
       = 'demo_option_link';
 
+   $squirrelmail_plugin_hooks['configtest']['demo']
+      = 'demo_check_configuration';
 }
 
 
@@ -105,6 +107,21 @@ function demo_option_link()
 {
    include_once(SM_PATH . 'plugins/demo/functions.php');
    demo_option_link_do();
+}
+
+
+
+/**
+  * Validate that this plugin is configured correctly
+  *
+  * @return boolean Whether or not there was a
+  *                 configuration error for this plugin.
+  *
+  */
+function demo_check_configuration()
+{
+   include_once(SM_PATH . 'plugins/demo/functions.php');
+   return demo_check_configuration_do();
 }
 
 
