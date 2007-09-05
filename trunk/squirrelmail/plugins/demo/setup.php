@@ -19,24 +19,30 @@
   */
 function squirrelmail_plugin_init_demo() 
 {
+//FIXME: put *ALL* SM hooks in here... which includes template_construct hooks for any templates that have plugin output sections in them... and put them all in the right order
+//FIXME: many hooks have examples in the original demo plugin in trunk/plugins/demo
 
    global $squirrelmail_plugin_hooks;
 
+//FIXME: this hook not yet implemented below
    $squirrelmail_plugin_hooks['login_cookie']['demo']
       = 'demo_login_cookie';
 
+//FIXME: not all of the above hooks are yet implemented below
    $squirrelmail_plugin_hooks['login_top']['demo']
       = 'demo_login_top';
 
+//FIXME: not all of the above hooks are yet implemented below
    $squirrelmail_plugin_hooks['login_bottom']['demo']
       = 'demo_login_bottom';
 
+//FIXME: this template may have more plugin output sections that are not yet implemented below
    $squirrelmail_plugin_hooks['template_construct_page_header.tpl']['demo']
       = 'demo_page_header_template';
 
-//FIXME: put *ALL* SM hooks in here... which includes template_construct hooks for any templates that have plugin output sections in them and put page_header_template in right order
-//FIXME: not all of the above hooks are yet implemented below
-//FIXME: many hooks have examples in the original demo plugin in trunk/plugins/demo
+   $squirrelmail_plugin_hooks['optpage_register_block']['demo']
+      = 'demo_option_link';
+
 }
 
 
@@ -85,6 +91,20 @@ function demo_page_header_template()
 {
    include_once(SM_PATH . 'plugins/demo/functions.php');
    return demo_page_header_template_do();
+}
+
+
+
+/**
+  * Inserts an option block in the main SM options page
+  *
+  * @return void
+  *
+  */
+function demo_option_link()
+{
+   include_once(SM_PATH . 'plugins/demo/functions.php');
+   demo_option_link_do();
 }
 
 
