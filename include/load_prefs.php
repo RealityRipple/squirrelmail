@@ -317,8 +317,6 @@ $show_only_subscribed_folders =
     getPref($data_dir, $username, 'show_only_subscribed_folders', SMPREF_ON);
 
 
-$forward_cc = getPref($data_dir, $username, 'forward_cc', SMPREF_OFF);
-
 /* How are mailbox select lists displayed: 0. full names, 1. indented (default),
  * 3. delimited) */
 $mailbox_select_style = getPref($data_dir, $username, 'mailbox_select_style', SMPREF_MAILBOX_SELECT_INDENTED);
