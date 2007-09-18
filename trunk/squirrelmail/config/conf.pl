@@ -1554,10 +1554,10 @@ sub command_smtp_sitewide_userpass($) {
     print "SMTP connections?";
     if ($smtp_sitewide_user ne '') {
         $default = 'y';
-        print " [Yn]:";
+        print " [Y/n]:";
     } else {
         $default = 'n';
-        print " [yN]:";
+        print " [y/N]:";
     }
     $tmp=<STDIN>;
     $tmp = trim($tmp);
@@ -5139,7 +5139,7 @@ sub check_imap_folder($) {
     } elsif ($folder_name =~ /[&\*\%]/) {
         # check for ampersand and list-wildcards
         print "Folder name contains special UTF7-IMAP characters.\n";
-        print "Are you sure that folder name is correct? (yN): ";
+        print "Are you sure that folder name is correct? (y/N): ";
         my $tmp = <STDIN>;
         $tmp = lc(trim($tmp));
         if ($tmp =~ /^y$/) {
