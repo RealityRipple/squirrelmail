@@ -239,6 +239,7 @@ if ($sError) {
  * If we try to forward messages as attachment we have to open a new window
  * in case of compose in new window or redirect to compose.php
  */
+$onload = '';
 if (isset($aMailbox['FORWARD_SESSION'])) {
     if ($compose_new_win) {
         /* add the mailbox to the cache */
@@ -259,7 +260,7 @@ if (isset($aMailbox['FORWARD_SESSION'])) {
         // do not use &amp;, it will break the query string and $session will not be detected!!!
         $comp_uri = SM_PATH . 'src/compose.php?mailbox='. urlencode($mailbox).
                     '&session='.urlencode($aMailbox['FORWARD_SESSION']);
-        displayPageHeader($color, $mailbox, "comp_in_new('$comp_uri', $compose_width, $compose_height);", '');
+        $onload = "comp_in_new('$comp_uri', $compose_width, $compose_height);";
     } else {
         $mailbox_cache[$account.'_'.$aMailbox['NAME']] = $aMailbox;
         sqsession_register($mailbox_cache,'mailbox_cache');
@@ -273,8 +274,6 @@ if (isset($aMailbox['FORWARD_SESSION'])) {
         header("Location: $location");
         exit;
     }
-} else {
-    displayPageHeader($color, $mailbox);
 }
 
 // plugins can operate normally here (don't output anything, of course!),
@@ -288,6 +287,22 @@ if (isset($aMailbox['FORWARD_SESSION'])) {
 //
 $show_motd = boolean_hook_function('right_main_after_header', $null, 1);
 
+
+// get "just_logged_in" from PHP session, save it in a temp variable
+// for use below, and reset its value in PHP session
+//
+if (!sqgetGlobalVar('just_logged_in', $just_logged_in, SQ_SESSION))
+    $just_logged_in = false;
+$temp_just_logged_in = $just_logged_in;
+$just_logged_in = false;
+sqsession_register($just_logged_in, 'just_logged_in');
+
+
+// now we're done with the PHP session, can send output to browser
+//
+displayPageHeader($color, $mailbox, $onload);
+
+
 /* display a message to the user that their mail has been sent */
 if (isset($mail_sent) && $mail_sent == 'yes') {
     $note = _("Your mail has been sent.");
@@ -297,17 +312,11 @@ if (isset($note)) {
     $oTemplate->display('note.tpl');
 }
 
-if (sqgetGlobalVar('just_logged_in', $just_logged_in, SQ_SESSION) || $show_motd) {
-    if ($show_motd || $just_logged_in == true) {
-        $motd = trim($motd);
-        if ($show_motd || strlen($motd) > 0) {
-            $oTemplate->assign('motd', $motd);
-            $oTemplate->display('motd.tpl');
-        }
-
-        $just_logged_in = false;
-// FIXME: not likely to happen as SM is designed now, but the $oTemplate->display() above would send headers, therefore the following line would be broken.  If $note is enabled by a plugin or any other core changes, this will break, so let's be safe and fix this up (can it be fixed by changing the order of the MOTD and the $note?)
-        sqsession_register($just_logged_in, 'just_logged_in');
+if ($temp_just_logged_in || $show_motd) {
+    $motd = trim($motd);
+    if ($show_motd || strlen($motd) > 0) {
+        $oTemplate->assign('motd', $motd);
+        $oTemplate->display('motd.tpl');
     }
 }
 
