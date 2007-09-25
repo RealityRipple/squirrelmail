@@ -427,7 +427,7 @@ function fetchMessageHeaders($imapConnection, &$aMailbox) {
 function prepareMessageList(&$aMailbox, $aProps) {
 
     /* Globalize link attributes so plugins can share in modifying them */
-    global $link, $title, $target, $onclick, $link_extra;
+    global $link, $title, $target, $onclick, $link_extra, $preselected;
 
     /* retrieve the properties */
     $my_email_address = (isset($aProps['email'])) ? $aProps['email'] : false;
@@ -646,7 +646,7 @@ function prepareMessageList(&$aMailbox, $aProps) {
                     $value = (is_array($value) && $value[0] == 'multipart' && $value[1] == 'mixed') ? true : false;
                     break;
                 case SQM_COL_CHECK:
-                    $value = $checkall;
+                    $value = ($checkall || in_array($iUid, $preselected));
                     break;
                 default : break;
                 }

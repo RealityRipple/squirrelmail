@@ -71,6 +71,12 @@ if (!sqgetGlobalVar('checkall',$checkall,SQ_GET)) {
     $checkall = false;
 }
 
+if (!sqgetGlobalVar('preselected', $preselected, SQ_GET) || !is_array($preselected)) {
+    $preselected = array();
+} else {
+    $preselected = array_keys($preselected);
+}
+
 /* future work */
 if ( sqgetGlobalVar('account', $account, SQ_GET) ) {
   $account = (int) $account;
@@ -346,6 +352,7 @@ if ($aMailbox['EXISTS'] > 0) {
     $oTemplate->assign('color', $color);
     $oTemplate->assign('align', $align);
     $oTemplate->assign('checkall', $checkall);
+    $oTemplate->assign('preselected', $preselected);
 
     $oTemplate->display('message_list.tpl');
 
