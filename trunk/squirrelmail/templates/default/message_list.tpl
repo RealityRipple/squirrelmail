@@ -63,6 +63,7 @@
  *    $compact_paginator
  *    $aErrors
  *    $checkall
+ *    $preselected
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -305,7 +306,7 @@ if ($pageOffset < $end_msg) {
         $aColumns[SQM_COL_ATTACHMENT]['value'] = $sValue;
     }
 
-    $class = ($checkall && $javascript_on && $fancy_index_highlite ? 'clicked_even' : 'even');
+    $class = (($checkall || in_array($iUid, $preselected)) && $javascript_on && $fancy_index_highlite ? 'clicked_even' : 'even');
     $non_clicked_class = 'even';
 
     /**
@@ -313,7 +314,7 @@ if ($pageOffset < $end_msg) {
      */
     if (isset($alt_index_colors) && $alt_index_colors) {
         if (!($i % 2)) {
-            $class = ($checkall && $javascript_on && $fancy_index_highlite ? 'clicked_odd' : 'odd');
+            $class = (($checkall || in_array($iUid, $preselected)) && $javascript_on && $fancy_index_highlite ? 'clicked_odd' : 'odd');
             $non_clicked_class = 'odd';
         }
 
@@ -324,7 +325,7 @@ if ($pageOffset < $end_msg) {
      */
     if (isset($aMsg['row']['color']))
     {
-    	if ($checkall && $javascript_on && $fancy_index_highlite) {
+    	if (($checkall || in_array($iUid, $preselected)) && $javascript_on && $fancy_index_highlite) {
 //FIXME: would be best not to use $color directly here; want to move this to be a CSS style-defined value only, but the problem is that this CSS class is being defined on the fly right here
     	    $bgcolor = $color[16];
     	    $class = 'clicked_misc'.$i;
@@ -432,7 +433,7 @@ if ($non_clicked_class != 'even' && $non_clicked_class != 'odd'
 
         switch ($iCol) {
           case SQM_COL_CHECK:
-            $checked = ($checkall ? ' checked="checked" ' : '');
+            $checked = (($checkall || in_array($iUid, $preselected)) ? ' checked="checked" ' : '');
             if ($javascript_on) {
                 echo '<td class="col_check"'. $javascript_auto_click. '>' ?>
                 <input type="checkbox" name="<?php echo "msg[$i]";?>" id="<?php echo $form_id."_msg$i";?>" value="<?php echo $iUid;?>" <?php echo $checkbox_javascript . $checked;?> /></td>

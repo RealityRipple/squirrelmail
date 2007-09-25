@@ -217,6 +217,7 @@ Version 1.5.2 - SVN
   - Added smtp_auth hook
   - Removed "Include CCs when Forwarding Messages", which had no functionality
     whatsoever.
+  - Added "preselected" query argument to mailbox list.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
