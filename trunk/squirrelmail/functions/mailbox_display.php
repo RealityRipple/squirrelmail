@@ -1299,14 +1299,17 @@ function handleAsSent($mailbox) {
  * use it i.e. in read_body.php for del move next and update the cache
  *
  * @param  resource $imapConnection imap connection
- * @param  array $aMailbox (reference) cached mailbox
- * @param  string $sButton fake a submit button
- * @param  array  $aUid    fake the $msg array
+ * @param  array    $aMailbox       (reference) cached mailbox
+ * @param  string   $sButton        fake a submit button
+ * @param  array    $aUid           fake the $msg array
+ * @param  string   $targetMailbox  fake the target mailbox for move operations
+ * @param  boolean  $bypass_trash   fake the bypass trash checkbox for delete operations
  * @return string $sError error string in case of an error
  * @since 1.5.1
  * @author Marc Groot Koerkamp
  */
-function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = array()) {
+function handleMessageListForm($imapConnection, &$aMailbox, $sButton='',
+                               $aUid = array(), $targetMailbox='', $bypass_trash=NULL) {
     /* incoming formdata */
     $sButton = (sqgetGlobalVar('moveButton',      $sTmp, SQ_FORM)) ? 'move'         : $sButton;
     $sButton = (sqgetGlobalVar('copyButton',      $sTmp, SQ_FORM)) ? 'copy'         : $sButton;
@@ -1318,8 +1321,8 @@ function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = ar
     $sButton = (sqgetGlobalVar('markUnread',      $sTmp, SQ_FORM)) ? 'unsetSeen'    : $sButton;
     $sButton = (sqgetGlobalVar('markFlagged',     $sTmp, SQ_FORM)) ? 'setFlagged'   : $sButton;
     $sButton = (sqgetGlobalVar('markUnflagged',   $sTmp, SQ_FORM)) ? 'unsetFlagged' : $sButton;
-    sqgetGlobalVar('targetMailbox', $targetMailbox,   SQ_FORM);
-    sqgetGlobalVar('bypass_trash',  $bypass_trash,    SQ_FORM);
+    if (empty($targetMailbox)) sqgetGlobalVar('targetMailbox', $targetMailbox,   SQ_FORM);
+    if (is_null($bypass_trash)) sqgetGlobalVar('bypass_trash',  $bypass_trash,    SQ_FORM);
     sqgetGlobalVar('msg',           $msg,             SQ_FORM);
     if (sqgetGlobalVar('account',       $iAccount,        SQ_FORM) === false) {
         $iAccount = 0;
