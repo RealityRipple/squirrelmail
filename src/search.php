@@ -897,6 +897,12 @@ if (!sqgetGlobalVar('checkall',$checkall,SQ_GET)) {
     $checkall = false;
 }
 
+if (!sqgetGlobalVar('preselected', $preselected, SQ_GET) || !is_array($preselected)) {
+    $preselected = array();
+} else {
+    $preselected = array_keys($preselected);
+}
+
 /**
  * Retrieve the mailbox cache from the session.
  */
@@ -1617,6 +1623,7 @@ if ($submit == $search_button_text) {
                         $oTemplate->assign('color', $color);
                         $oTemplate->assign('align', $align);
                         $oTemplate->assign('checkall', $checkall);
+                        $oTemplate->assign('preselected', $preselected);
 
                         $oTemplate->display('message_list.tpl');
                     }
