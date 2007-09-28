@@ -923,5 +923,40 @@ function sqimap_get_message($imap_stream, $id, $mailbox, $hide=0) {
     $rfc822_header = new Rfc822Header();
     $rfc822_header->parseHeader($read);
     $msg->rfc822_header = $rfc822_header;
+
+    parse_message_entities($msg, $id, $imap_stream);
     return $msg;
+ }
+
+
+/**
+ * Recursively parse embedded messages (if any) in the given
+ * message, building correct rfc822 headers for each one
+ *
+ * @param object $msg The message object to scan for attached messages
+ *                    NOTE: this is passed by reference!  Changes made
+ *                    within will affect the caller's copy of $msg!
+ * @param int $id The top-level message UID on the IMAP server, even
+ *                if the $msg being passed in is only an attached entity
+ *                thereof.
+ * @param resource $imap_stream A live connection to the IMAP server.
+ *
+ * @return void
+ *
+ * @since 1.5.2
+ *
+ */
+function parse_message_entities(&$msg, $id, $imap_stream) {
+    global $uid_support;
+    if (!empty($msg->entities)) foreach ($msg->entities as $i => $entity) {
+        if (is_object($entity) && get_class($entity) == 'Message') {
+            if (!empty($entity->rfc822_header)) {
+                $read = sqimap_run_command($imap_stream, "FETCH $id BODY[". $entity->entity_id .".HEADER]", true, $response, $message, $uid_support);
+                $rfc822_header = new Rfc822Header();
+                $rfc822_header->parseHeader($read);
+                $msg->entities[$i]->rfc822_header = $rfc822_header;
+            }
+            parse_message_entities($msg->entities[$i], $id, $imap_stream);
+        }
+    }
 }
