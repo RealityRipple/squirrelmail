@@ -218,6 +218,8 @@ Version 1.5.2 - SVN
   - Removed "Include CCs when Forwarding Messages", which had no functionality
     whatsoever.
   - Added "preselected" query argument to mailbox list.
+  - Make the Message Details plugin actually show the correct entity when
+    viewing details of attached messages.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

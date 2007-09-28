@@ -31,6 +31,8 @@ displayHtmlHeader( _("Message Details"),
              "</script>\n", FALSE );
 
 sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
+if (!sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET))
+    $passed_ent_id = 0;
 sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
 
 echo "<body text=\"$color[8]\" bgcolor=\"$color[3]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\">\n" .
@@ -38,7 +40,7 @@ echo "<body text=\"$color[8]\" bgcolor=\"$color[3]\" link=\"$color[7]\" vlink=\"
      addForm(SM_PATH . 'src/download.php', 'GET').
      addHidden('mailbox', $mailbox).
      addHidden('passed_id', $passed_id).
-     addHidden('ent_id', '0').
+     addHidden('ent_id', $passed_ent_id).
      addHidden('absolute_dl', 'true').
      (checkForJavascript() ?
      '<input type="button" value="' . _("Print") . '" onclick="printPopup()" />&nbsp;&nbsp;'.
