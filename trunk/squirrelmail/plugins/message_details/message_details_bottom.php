@@ -13,6 +13,7 @@
  * @package plugins
  * @subpackage message_details
  */
+//FIXME: this file uses HTML extensively and eventually needs to be "templatized" (don't echo HTML directly)
 
 /**
  * Include the SquirrelMail initialization file.
@@ -33,12 +34,15 @@ $msgd_8bit_in_hex=false;
 
 if (!empty($md_action)) {
     sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
+    if (!sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET))
+        $passed_ent_id = 0;
     sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
     /* 
-     * add third function argument, if you want to see 
+     * change $unformatted to TRUE if you want to see 
      * message source without formating
      */
-    echo get_message_details($mailbox, $passed_id);
+    $unformatted = FALSE;
+    echo get_message_details($mailbox, $passed_id, $passed_ent_id, $unformatted);
 }
 
 
@@ -100,20 +104,24 @@ function CalcEntity($entString, $direction) {
  * Returns actual message details
  * @param string $mailbox
  * @param string $passed_id
+ * @param string $passed_ent_id
  * @param boolean $stripHTML If TRUE, only plain text is returned,
  *                           default is FALSE, wherein output contains
  *                           pretty-HTMLification of message body
  * @return string The formatted message details
  * @access public
  */
-function get_message_details($mailbox, $passed_id, $stripHTML=FALSE) {
+function get_message_details($mailbox, $passed_id, $passed_ent_id=0, $stripHTML=FALSE) {
     global $imapServerAddress, $imapPort, $color,$msgd_8bit_in_hex, $username;
 
     $returnValue = '';
 
     $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
     $read = sqimap_mailbox_select($imapConnection, $mailbox);
-    $body = sqimap_run_command($imapConnection, "FETCH $passed_id RFC822",true, $response, $readmessage, TRUE);
+    if (!empty($passed_ent_id))
+        $body = sqimap_run_command($imapConnection, "FETCH $passed_id BODY[$passed_ent_id]",true, $response, $readmessage, TRUE);
+    else
+        $body = sqimap_run_command($imapConnection, "FETCH $passed_id RFC822",true, $response, $readmessage, TRUE);
     $message_body = '';
     $header = false;
     $mimepart = false;
