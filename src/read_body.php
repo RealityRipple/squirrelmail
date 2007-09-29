@@ -948,7 +948,7 @@ sqsession_register($mailbox_cache,'mailbox_cache');
 $_SESSION['mailbox_cache'] = $mailbox_cache;
 
 displayPageHeader($color, $mailbox,'','');
-formatMenuBar($aMailbox, $passed_id, $passed_ent_id, $message,false);
+formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message,false);
 formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message, $color, $FirstTimeSee);
 
 $oTemplate->assign('message_body', $messagebody);
@@ -977,7 +977,7 @@ if ($attachment_common_show_images && is_array($attachment_common_show_images_li
     $oTemplate->display('read_display_images_inline.tpl');
 }
 
-formatMenuBar($aMailbox, $passed_id, $passed_ent_id, $message, false, FALSE);
+formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, false, FALSE);
 
 do_hook('read_body_bottom', $null);
 sqimap_logout($imapConnection);
