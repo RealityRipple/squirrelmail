@@ -546,6 +546,32 @@ function get_location () {
 
 
 /**
+ * Get Message List URI
+ *
+ * @param string $mailbox      Current mailbox name (unencoded/raw)
+ * @param string $startMessage The mailbox page offset
+ * @param string $what         Any current search parameters (OPTIONAL; 
+ *                             default empty string)
+ *
+ * @return string The message list URI
+ *
+ * @since 1.5.2
+ *
+ */
+function get_message_list_uri($mailbox, $startMessage, $what='') {
+
+    global $base_uri;
+
+    $urlMailbox = urlencode($mailbox);
+
+    $list_xtra = "?where=read_body.php&what=$what&mailbox=" . $urlMailbox.
+                 "&startMessage=$startMessage";
+
+    return $base_uri .'src/right_main.php'. $list_xtra;
+}
+
+
+/**
  * Encrypts password
  *
  * These functions are used to encrypt the password before it is
