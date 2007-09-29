@@ -431,7 +431,7 @@ function formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message,
 /**
  * Format message toolbar
  *
- * @param string $mailbox Name of current mailbox
+ * @param array $aMailbox Current mailbox information array
  * @param int $passed_id UID of current message
  * @param int $passed_ent_id Id of entity within message
  * @param object $message Current message object
@@ -531,11 +531,11 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
         }
     }
 
-    // Start with Search Results or Message List link.
-    $list_xtra = "?where=read_body.php&amp;what=$what&amp;mailbox=" . $urlMailbox.
-                 "&amp;startMessage=$startMessage";
-    $msg_list_href = $base_uri .'src/right_main.php'. $list_xtra;
-    $search_href = $where=='search.php' ? $base_uri .'src/search.php?'.$list_xtra : '';
+    $msg_list_href = get_message_list_uri($aMailbox['NAME'], $startMessage, $what);
+    if ($where == 'search.php')
+        $search_href = str_replace('read_body.php', 'search.php', $msg_list_href);
+    else
+        $search_href = '';
 
     $comp_uri = $base_uri.'src/compose.php' .
                 '?passed_id=' . $passed_id .
@@ -946,6 +946,9 @@ for ($i = 0; $i < $cnt; $i++) {
 $mailbox_cache[$iAccount.'_'.$aMailbox['NAME']] = $aMailbox;
 sqsession_register($mailbox_cache,'mailbox_cache');
 $_SESSION['mailbox_cache'] = $mailbox_cache;
+
+// message list URI is used in page header when on read_body
+$oTemplate->assign('message_list_href', get_message_list_uri($aMailbox['NAME'], $startMessage, $what));
 
 displayPageHeader($color, $mailbox,'','');
 formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message,false);
