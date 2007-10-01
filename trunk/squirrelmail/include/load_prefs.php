@@ -256,6 +256,9 @@ $collapse_folders =
 $show_html_default =
    getPref($data_dir, $username, 'show_html_default', SMPREF_ON);
 
+$addrsrch_fullname =
+   getPref($data_dir, $username, 'addrsrch_fullname', SMPREF_ON);
+
 $enable_forward_as_attachment =
    getPref($data_dir, $username, 'enable_forward_as_attachment', SMPREF_ON);
 

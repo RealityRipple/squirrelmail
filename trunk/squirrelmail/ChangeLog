@@ -220,6 +220,8 @@ Version 1.5.2 - SVN
   - Added "preselected" query argument to mailbox list.
   - Make the Message Details plugin actually show the correct entity when
     viewing details of attached messages.
+  - Enabled user selection of address format when adding from address
+    book during message composition.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

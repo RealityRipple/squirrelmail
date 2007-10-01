@@ -485,15 +485,14 @@ class AddressBook {
      * @return string email address with real name prepended
      */
     function full_address($row) {
-        global $addrsrch_fullname, $data_dir, $username;
-        $prefix = getPref($data_dir, $username, 'addrsrch_fullname');
-        if (($prefix != "" || (isset($addrsrch_fullname) &&
-            $prefix == $addrsrch_fullname)) && $prefix != 'noprefix') {
-            $name = ($prefix == 'nickname' ? $row['nickname'] : $row['name']);
-            return $name . ' <' . trim($row['email']) . '>';
-        } else {
+        global $data_dir, $username;
+        $addrsrch_fullname = getPref($data_dir, $username, 'addrsrch_fullname');
+        if ($addrsrch_fullname == 'fullname')
+            return $row['name'] . ' <' . trim($row['email']) . '>';
+        else if ($addrsrch_fullname == 'nickname')
+            return $row['nickname'] . ' <' . trim($row['email']) . '>';
+        else // "noprefix"
             return trim($row['email']);
-        }
     }
 
     /**
