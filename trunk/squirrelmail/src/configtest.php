@@ -200,6 +200,18 @@ echo $IND . 'display_errors: ' . ini_get('display_errors') . "<br />\n";
 
 echo $IND . 'error_reporting: ' . ini_get('error_reporting') . "<br />\n";
 
+$safe_mode = ini_get('safe_mode');
+if ($safe_mode) {
+    echo $IND . 'safe_mode: ' . $safe_mode;
+    if (empty($prefs_dsn) || empty($addrbook_dsn))
+        echo ' (<font color="red">double check data and attachment directory ownership, etc!</font>)';
+    if (!empty($addrbook_dsn) || !empty($prefs_dsn) || !empty($addrbook_global_dsn)) 
+        echo ' (<font color="red">does PHP have access to database interface?</font>)';
+    echo "<br />\n";
+    $safe_mode_exec_dir = ini_get('safe_mode_exec_dir');
+    echo $IND . 'safe_mode_exec_dir: ' . $safe_mode_exec_dir . "<br />\n";
+}
+
 /* register_globals check: test for boolean false and any string that is not equal to 'off' */
 
 if ((bool) ini_get('register_globals') && 
@@ -302,7 +314,7 @@ echo "Checking paths...<br />\n";
 
 if(!file_exists($data_dir)) {
     // data_dir is not that important in db_setups.
-    if (isset($prefs_dsn) && ! empty($prefs_dsn)) {
+    if (!empty($prefs_dsn)) {
         $data_dir_error = "Data dir ($data_dir) does not exist!\n";
         echo $IND .'<font color="red"><b>ERROR:</b></font> ' . $data_dir_error;
     } else {
@@ -311,7 +323,7 @@ if(!file_exists($data_dir)) {
 }
 // don't check if errors
 if(!isset($data_dir_error) && !is_dir($data_dir)) {
-    if (isset($prefs_dsn) && ! empty($prefs_dsn)) {
+    if (!empty($prefs_dsn)) {
         $data_dir_error = "Data dir ($data_dir) is not a directory!\n";
         echo $IND . '<font color="red"><b>ERROR:</b></font> ' . $data_dir_error;
     } else {
@@ -320,7 +332,7 @@ if(!isset($data_dir_error) && !is_dir($data_dir)) {
 }
 // datadir should be executable - but no clean way to test on that
 if(!isset($data_dir_error) && !is_writable($data_dir)) {
-    if (isset($prefs_dsn) && ! empty($prefs_dsn)) {
+    if (!empty($prefs_dsn)) {
         $data_dir_error = "Data dir ($data_dir) is not writable!\n";
         echo $IND . '<font color="red"><b>ERROR:</b></font> ' . $data_dir_error;
     } else {
