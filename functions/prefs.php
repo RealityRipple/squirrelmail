@@ -95,6 +95,7 @@ function getHashedDir($username, $dir, $hash_dirs = '') {
     for ($h = 0; $h < $dir_hash_level; ++$h) {
         $real_hash_dir .= '/' . $hash_dirs[$h];
         if (!@is_dir($real_hash_dir)) {
+//FIXME: When safe_mode is turned on, the error suppression below makes debugging safe_mode UID/GID restrictions tricky... for now, I will add a check in configtest
             if (!@mkdir($real_hash_dir, 0770)) {
                 error_box ( sprintf(_("Error creating directory %s."), $real_hash_dir) . "\n" .
                      _("Could not create hashed directory structure!") . "\n" .
