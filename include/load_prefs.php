@@ -157,9 +157,6 @@ $reply_focus = getPref($data_dir, $username, 'reply_focus', '');
 $left_refresh = getPref($data_dir, $username, 'left_refresh', 600 );
 $left_refresh = strtolower($left_refresh);
 
-/* Load up the Signature file */
-$signature_abs = $signature = getSig($data_dir, $username, 'g');
-
 /* Message Highlighting Rules */
 $message_highlight_list = array();
 
@@ -433,4 +430,7 @@ if (!$found_theme || $chosen_theme == 'none') {
 $icon_theme_path = (!$use_icons || $icon_theme=='none') ? NULL : ($icon_theme == 'template' ? SM_PATH . Template::calculate_template_images_directory($sTemplateID) : $icon_theme);
 $default_icon_theme_path = (!$use_icons || $default_icon_theme=='none') ? NULL : ($default_icon_theme == 'template' ? SM_PATH . Template::calculate_template_images_directory($sTemplateID) : $default_icon_theme);
 $fallback_icon_theme_path = (!$use_icons || $fallback_icon_theme=='none') ? NULL : ($fallback_icon_theme == 'template' ? SM_PATH . Template::calculate_template_images_directory($sTemplateID) : $fallback_icon_theme);
+
+/* Load up the Signature file */
+$signature_abs = $signature = getSig($data_dir, $username, 'g');
 
