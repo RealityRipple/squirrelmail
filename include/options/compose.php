@@ -71,11 +71,22 @@ function load_optpage_data_compose() {
 
     $optvals[SMOPT_GRP_COMPOSE][] = array(
         'name'    => 'use_javascript_addr_book',
-        'caption' => _("Addressbook Display Format"),
+        'caption' => _("Address Book Display Format"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'posvals' => array('1' => _("Javascript"),
-                           '0' => _("HTML"))
+        'posvals' => array('1' => _("Pop-up window"),
+                           '0' => _("In-page"))
+    );
+
+
+    $optvals[SMOPT_GRP_COMPOSE][] = array(
+        'name'    => 'addrsrch_fullname',
+        'caption' => _("Format of Addresses Added From Address Book"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => array('noprefix' => _("No prefix/Address only"),
+                           'nickname' => _("Nickname and address"),
+                           'fullname' => _("Full name and address"))
     );
 
 
