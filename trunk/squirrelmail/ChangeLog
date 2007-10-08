@@ -222,6 +222,7 @@ Version 1.5.2 - SVN
     viewing details of attached messages.
   - Enabled user selection of address format when adding from address
     book during message composition.
+  - Added a "short_open_tag" configuration test.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
