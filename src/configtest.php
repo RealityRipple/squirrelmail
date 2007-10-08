@@ -205,7 +205,7 @@ if ($safe_mode) {
     echo $IND . 'safe_mode: ' . $safe_mode;
     if (empty($prefs_dsn) || empty($addrbook_dsn))
         echo ' (<font color="red">double check data and attachment directory ownership, etc!</font>)';
-    if (!empty($addrbook_dsn) || !empty($prefs_dsn) || !empty($addrbook_global_dsn)) 
+    if (!empty($addrbook_dsn) || !empty($prefs_dsn) || !empty($addrbook_global_dsn))
         echo ' (<font color="red">does PHP have access to database interface?</font>)';
     echo "<br />\n";
     $safe_mode_exec_dir = ini_get('safe_mode_exec_dir');
@@ -214,7 +214,7 @@ if ($safe_mode) {
 
 /* register_globals check: test for boolean false and any string that is not equal to 'off' */
 
-if ((bool) ini_get('register_globals') && 
+if ((bool) ini_get('register_globals') &&
     strtolower(ini_get('register_globals'))!='off') {
     do_err('You have register_globals turned on.  This is not an error, but it CAN be a security hazard.  Consider turning register_globals off.', false);
 }
@@ -223,7 +223,7 @@ if ((bool) ini_get('register_globals') &&
 /* variables_order check */
 
 // FIXME(?): Hmm, how do we distinguish between when an ini setting is
-//           not available (ini_set() returns empty string) and when 
+//           not available (ini_set() returns empty string) and when
 //           the administrator set the value to an empty string?  The
 //           latter is sure to be highly rare, so for now, just assume
 //           that empty value means the setting isn't even available
@@ -247,7 +247,7 @@ else if (strpos($variables_order, 'G') === FALSE
 
 if (!check_php_version(5)) {
     // FIXME(?): Hmm, how do we distinguish between when an ini setting is
-    //           not available (ini_set() returns empty string) and when 
+    //           not available (ini_set() returns empty string) and when
     //           the administrator set the value to an empty string?  The
     //           latter is sure to be highly rare, so for now, just assume
     //           that empty value means the setting isn't even available
@@ -307,6 +307,17 @@ if ( get_magic_quotes_runtime() || get_magic_quotes_gpc() ||
     do_err($magic_quotes_warning,false);
 }
 
+if (ini_get('short_open_tag') == 0) {
+    $short_open_tag_warning = 'You have configured PHP not to allow short tags '
+        . '(<tt>short_open_tag=off</tt>). This shouldn\'t be a problem with '
+        . 'SquirrelMail or any plugin coded coded according to the '
+        . 'SquirrelMail Coding Guidelines, but if you experience problems with '
+        . 'PHP code being displayed in some of the pages and changing setting '
+        . 'to "on" solves the problem, please file a bug report against the '
+        . 'failing plugin. The correct contact information is most likely '
+        . 'to be found in the plugin documentation.';
+    do_err($short_open_tag_warning, false);
+}
 
 /* checking paths */
 
@@ -427,7 +438,7 @@ if (isset($plugins[0])) {
         $plugin_load_error = 'Some output is produced when plugins are loaded. Usually this means there is an error in one of the plugin setup or configuration files. The output was: '.htmlspecialchars($output);
         do_err($plugin_load_error);
     }
-    /** 
+    /**
      * Print plugin versions
      */
     echo $IND . "Plugin versions...<br />\n";
@@ -436,7 +447,7 @@ if (isset($plugins[0])) {
         $english_name = get_plugin_requirement($name, 'english_name');
         echo $IND . $IND . (empty($english_name) ? $name . ' ' : $english_name . ' (' . $name . ') ') . (empty($plugin_version) ? '??' : $plugin_version) . "<br />\n";
 
-        // check if this plugin has any other plugin 
+        // check if this plugin has any other plugin
         // dependencies and if they are satisfied
         //
         $failed_dependencies = check_plugin_dependencies($name);
@@ -453,7 +464,7 @@ if (isset($plugins[0])) {
 
     }
     /**
-     * This hook was added in 1.5.2 and 1.4.10. Each plugins should print an error 
+     * This hook was added in 1.5.2 and 1.4.10. Each plugins should print an error
      * message and return TRUE if there are any errors in its setup/configuration.
      */
     $plugin_err = boolean_hook_function('configtest', $null, 1);
@@ -574,7 +585,7 @@ if($useSendmail) {
                     break;
                 }
             } else {
-                // 
+                //
                 $ehlo_error = true;
                 $ehlo[]=$line;
                 break;
@@ -875,7 +886,7 @@ if($addrbook_dsn || $prefs_dsn || $addrbook_global_dsn) {
     } else {
         $db_error='Required PHP PEAR DB support is not available.'
             .' Is PEAR installed and is the include path set correctly to find <tt>DB.php</tt>?'
-            .' The include path is now:<tt>' . ini_get('include_path') . '</tt>.';
+            .' The include path is now: "<tt>' . ini_get('include_path') . '</tt>".';
         do_err($db_error);
     }
 } else {
