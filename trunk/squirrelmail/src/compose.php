@@ -389,18 +389,13 @@ if (!isset($session) || (isset($newmessage) && $newmessage)) {
     $composesession = $session;
     sqsession_register($composesession,'composesession');
 }
-if (!isset($compose_messages)) {
-    $compose_messages = array();
-}
-
-if (!isset($compose_messages[$session]) || ($compose_messages[$session] == NULL)) {
+if (!empty($compose_messages[$session])) {
+    $composeMessage = $compose_messages[$session];
+} else {
     $composeMessage = new Message();
     $rfc822_header = new Rfc822Header();
     $composeMessage->rfc822_header = $rfc822_header;
     $composeMessage->reply_rfc822_header = '';
-    $compose_messages[$session] = $composeMessage;
-} else {
-    $composeMessage=$compose_messages[$session];
 }
 
 // re-add attachments that were already in this message
@@ -422,7 +417,6 @@ if ($draft) {
      * of language interface.
      */
     set_my_charset();
-    $composeMessage = $compose_messages[$session];
     if (! deliverMessage($composeMessage, true)) {
         showInputForm($session);
         exit();
@@ -517,8 +511,6 @@ if ($send) {
 
         }
         $body = $newBody;
-
-        $composeMessage=$compose_messages[$session];
 
         $Result = deliverMessage($composeMessage);
 
@@ -666,7 +658,6 @@ elseif (isset($sigappend)) {
     }
 
     if (isset($delete) && is_array($delete)) {
-        $composeMessage = $compose_messages[$session];
         foreach($delete as $index) {
             if (!empty($composeMessage->entities) && isset($composeMessage->entities[$index])) {
                 $composeMessage->entities[$index]->purgeAttachments();
@@ -678,7 +669,6 @@ elseif (isset($sigappend)) {
             $new_entities[] = $entity;
         }
         $composeMessage->entities = $new_entities;
-        $compose_messages[$session] = $composeMessage;
     }
     showInputForm($session);
 } else {
@@ -744,7 +734,7 @@ function getforwardSubject($subject)
 function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $session='') {
     global $editor_size, $default_use_priority, $body, $idents,
         $use_signature, $data_dir, $username,
-        $key, $imapServerAddress, $imapPort, $compose_messages,
+        $key, $imapServerAddress, $imapPort, 
         $composeMessage, $body_quote, $request_mdn, $request_dr,
         $mdn_user_support, $languages, $squirrelmail_language,
         $default_charset;
@@ -974,8 +964,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             default:
                 break;
         }
-        $compose_messages[$session] = $composeMessage;
-        sqsession_register($compose_messages, 'compose_messages');
+//FIXME: we used to register $compose_messages in the session here, but not any more - so do we still need the session_write_close() and sqimap_logout() here?  We probably need the IMAP logout, but what about the session closure?
         session_write_close();
         sqimap_logout($imapConnection);
     }
@@ -1091,7 +1080,7 @@ function showInputForm ($session, $values=false) {
         $from_htmladdr_search, $location_of_buttons, $attachment_dir,
         $username, $data_dir, $identity, $idents, $delete_draft,
         $mailprio, $compose_new_win, $saved_draft, $mail_sent, $sig_first,
-        $compose_messages, $composesession, $default_charset,
+        $composeMessage, $composesession, $default_charset,
         $compose_onsubmit, $oTemplate, $oErrorHandler;
 
     if (checkForJavascript()) {
@@ -1103,7 +1092,6 @@ function showInputForm ($session, $values=false) {
         $onfocus_array = array();
     }
 
-    $composeMessage = $compose_messages[$session];
     if ($values) {
         $send_to = $values['send_to'];
         $send_to_cc = $values['send_to_cc'];
@@ -1420,7 +1408,7 @@ function checkInput ($show) {
 
 /* True if FAILURE */
 function saveAttachedFiles($session) {
-    global $compose_messages, $username, $attachment_dir;
+    global $composeMessage, $username, $attachment_dir;
 
     /* get out of here if no file was attached at all */
     if (! is_uploaded_file($_FILES['attachfile']['tmp_name']) ) {
@@ -1438,11 +1426,9 @@ function saveAttachedFiles($session) {
             return true;
         }
     }
-    $message = $compose_messages[$session];
     $type = strtolower($_FILES['attachfile']['type']);
     $name = $_FILES['attachfile']['name'];
-    $message->initAttachment($type, $name, $localfilename);
-    $compose_messages[$session] = $message;
+    $composeMessage->initAttachment($type, $name, $localfilename);
 }
 
 /* parse values like 8M and 2k into bytes */
