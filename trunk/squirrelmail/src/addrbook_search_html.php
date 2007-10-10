@@ -42,14 +42,18 @@ sqgetGlobalVar('backend',   $backend,   SQ_POST);
  * Insert hidden data
  */
 function addr_insert_hidden() {
-    global $body, $subject, $send_to, $send_to_cc, $send_to_bcc, $mailbox,
-           $request_mdn, $request_dr, $identity, $session;
+    global $body, $subject, $send_to, $send_to_cc, $send_to_bcc, $mailbox, $mailprio,
+           $request_mdn, $request_dr, $identity, $session, $composeMessage;
 
+//FIXME Do not echo HTML from the core.  This file already uses templates mostly, so why are we echoing here at all?!?
    if (substr($body, 0, 1) == "\r") {
        echo addHidden('body', "\n".$body);
    } else {
        echo addHidden('body', $body);
    }
+
+   if (is_object($composeMessage) && $composeMessage->entities)
+       echo addHidden('attachments', serialize($composeMessage->entities));
 
    echo addHidden('session', $session).
         addHidden('subject', $subject).
@@ -166,6 +170,7 @@ if ($addrquery == '' || ! empty($listall)) {
 }
 
 if ($addrquery == '' || sizeof($res) == 0) {
+//FIXME don't echo HTML from core -- especially convoluted given that there is template code immediately above AND below this block
     echo '<div style="text-align: center;">'.
         addForm('compose.php','post','k');
     addr_insert_hidden();
