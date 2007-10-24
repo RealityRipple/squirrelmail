@@ -566,7 +566,7 @@ class Rfc822Header {
                 if ($sGroup) {
                     $aAddress[] = $this->createAddressObject($aStack,$aComment,$sEmail,$sGroup);
                     $oAddr = end($aAddress);
-                    if(!$oAddr || ((isset($oAddr)) && !$oAddr->mailbox && !$oAddr->personal)) {
+                    if(!$oAddr || ((isset($oAddr)) && !strlen($oAddr->mailbox) && !$oAddr->personal)) {
                         $sEmail = $sGroup . ':;';
                     }
                     $aAddress[] = $this->createAddressObject($aStack,$aComment,$sEmail,$sGroup);
@@ -617,18 +617,18 @@ class Rfc822Header {
                      }
                  }
             }
-            if (!$grouplookup && !$oAddr->mailbox) {
+            if (!$grouplookup && !strlen($oAddr->mailbox)) {
                 $oAddr->mailbox = trim($sEmail);
-                if ($sHost && $oAddr->mailbox) {
+                if ($sHost && strlen($oAddr->mailbox)) {
                     $oAddr->host = $sHost;
                 }
             } else if (!$grouplookup && !$oAddr->host) {
-                if ($sHost && $oAddr->mailbox) {
+                if ($sHost && strlen($oAddr->mailbox)) {
                     $oAddr->host = $sHost;
                 }
             }
           }
-          if (!$aAddrBookAddress && $oAddr->mailbox) {
+          if (!$aAddrBookAddress && strlen($oAddr->mailbox)) {
               $aProcessedAddress[] = $oAddr;
           } else {
               $aProcessedAddress = array_merge($aProcessedAddress,$aAddrBookAddress);

@@ -294,7 +294,7 @@ class Deliver_SMTP extends Deliver {
         }
 
         /* Ok, who is sending the message? */
-        $fromaddress = ($from->mailbox && $from->host) ?
+        $fromaddress = (strlen($from->mailbox) && $from->host) ?
             $from->mailbox.'@'.$from->host : '';
         fputs($stream, 'MAIL FROM:<'.$fromaddress.">\r\n");
         $tmp = fgets($stream, 1024);
@@ -305,7 +305,7 @@ class Deliver_SMTP extends Deliver {
         /* send who the recipients are */
         for ($i = 0, $cnt = count($to); $i < $cnt; $i++) {
             if (!$to[$i]->host) $to[$i]->host = $domain;
-            if ($to[$i]->mailbox) {
+            if (strlen($to[$i]->mailbox)) {
                 fputs($stream, 'RCPT TO:<'.$to[$i]->mailbox.'@'.$to[$i]->host.">\r\n");
                 $tmp = fgets($stream, 1024);
                 if ($this->errorCheck($tmp, $stream)) {
@@ -316,7 +316,7 @@ class Deliver_SMTP extends Deliver {
 
         for ($i = 0, $cnt = count($cc); $i < $cnt; $i++) {
             if (!$cc[$i]->host) $cc[$i]->host = $domain;
-            if ($cc[$i]->mailbox) {
+            if (strlen($cc[$i]->mailbox)) {
                 fputs($stream, 'RCPT TO:<'.$cc[$i]->mailbox.'@'.$cc[$i]->host.">\r\n");
                 $tmp = fgets($stream, 1024);
                 if ($this->errorCheck($tmp, $stream)) {
@@ -327,7 +327,7 @@ class Deliver_SMTP extends Deliver {
 
         for ($i = 0, $cnt = count($bcc); $i < $cnt; $i++) {
             if (!$bcc[$i]->host) $bcc[$i]->host = $domain;
-            if ($bcc[$i]->mailbox) {
+            if (strlen($bcc[$i]->mailbox)) {
                 fputs($stream, 'RCPT TO:<'.$bcc[$i]->mailbox.'@'.$bcc[$i]->host.">\r\n");
                 $tmp = fgets($stream, 1024);
                 if ($this->errorCheck($tmp, $stream)) {
