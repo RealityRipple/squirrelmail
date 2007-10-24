@@ -223,6 +223,8 @@ Version 1.5.2 - SVN
   - Enabled user selection of address format when adding from address
     book during message composition.
   - Added a "short_open_tag" configuration test.
+  - Fixed outgoing messages to allow addresses such as "0@..." or "000@...", 
+    etc. (#1818398).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
