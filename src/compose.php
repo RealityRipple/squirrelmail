@@ -1550,6 +1550,14 @@ function deliverMessage($composeMessage, $draft=false) {
 
     $rfc822_header->content_type = $content_type;
     $composeMessage->rfc822_header = $rfc822_header;
+    if ($action == 'reply' || $action == 'reply_all') {
+        global $passed_id, $passed_ent_id;
+        $reply_id = $passed_id;
+        $reply_ent_id = $passed_ent_id;
+    } else {
+        $reply_id = '';
+        $reply_ent_id = '';
+    }
 
     /* Here you can modify the message structure just before we hand
        it over to deliver; plugin authors note that $composeMessage
@@ -1586,9 +1594,9 @@ function deliverMessage($composeMessage, $draft=false) {
         if (sqimap_mailbox_exists ($imap_stream, $draft_folder)) {
             require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
             $imap_deliver = new Deliver_IMAP();
-            $length = $imap_deliver->mail($composeMessage);
+            $length = $imap_deliver->mail($composeMessage, 0, $reply_id, $reply_ent_id);
             sqimap_append ($imap_stream, $draft_folder, $length);
-            $imap_deliver->mail($composeMessage, $imap_stream);
+            $imap_deliver->mail($composeMessage, $imap_stream, $reply_id, $reply_ent_id);
             sqimap_append_done ($imap_stream, $draft_folder);
             sqimap_logout($imap_stream);
             unset ($imap_deliver);
@@ -1602,7 +1610,7 @@ function deliverMessage($composeMessage, $draft=false) {
     }
     $success = false;
     if ($stream) {
-        $length = $deliver->mail($composeMessage, $stream);
+        $length = $deliver->mail($composeMessage, $stream, $reply_id, $reply_ent_id);
         $success = $deliver->finalizeStream($stream);
     }
     if (!$success) {
@@ -1653,7 +1661,7 @@ function deliverMessage($composeMessage, $draft=false) {
             sqimap_append ($imap_stream, $sent_folder, $length);
             require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
             $imap_deliver = new Deliver_IMAP();
-            $imap_deliver->mail($composeMessage, $imap_stream);
+            $imap_deliver->mail($composeMessage, $imap_stream, $reply_id, $reply_ent_id);
             sqimap_append_done ($imap_stream, $sent_folder);
             unset ($imap_deliver);
         }
