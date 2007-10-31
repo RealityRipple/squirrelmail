@@ -225,6 +225,8 @@ Version 1.5.2 - SVN
   - Added a "short_open_tag" configuration test.
   - Fixed outgoing messages to allow addresses such as "0@..." or "000@...", 
     etc. (#1818398).
+  - PAGE_NAME might not be defined in all plugins, which might cause a
+    "not defined" error on session timeouts.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

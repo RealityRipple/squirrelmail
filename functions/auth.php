@@ -34,19 +34,24 @@ function sqauth_is_logged_in() {
         return true;
     }
 
-	//  First we store some information in the new session to prevent
-	//  information-loss.
-	$session_expired_post = $_POST;
-	$session_expired_location = PAGE_NAME;
-	if (!sqsession_is_registered('session_expired_post')) {
-	    sqsession_register($session_expired_post,'session_expired_post');
-	}
-	if (!sqsession_is_registered('session_expired_location')) {
-	    sqsession_register($session_expired_location,'session_expired_location');
-	}
-	session_write_close();
+    //  First we store some information in the new session to prevent
+    //  information-loss.
+    $session_expired_post = $_POST;
+    if (defined('PAGE_NAME'))
+        $session_expired_location = PAGE_NAME;
+    else
+        $session_expired_location = '';
 
-	return false;
+    if (!sqsession_is_registered('session_expired_post')) {
+        sqsession_register($session_expired_post,'session_expired_post');
+    }
+    if (!sqsession_is_registered('session_expired_location')) {
+        sqsession_register($session_expired_location,'session_expired_location');
+    }
+
+    session_write_close();
+
+    return false;
 }
 
 /**
