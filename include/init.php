@@ -273,7 +273,7 @@ $SQM_INTERNAL_VERSION[2] = intval($SQM_INTERNAL_VERSION[2]);
 /* load prefs system; even when user not logged in, should be OK to do this here */
 require(SM_PATH . 'functions/prefs.php');
 
-// FIXME: config/plugin_hooks.php has not yet been loaded (see a few lines below); so this hook call should I think not be working -- has anyone actually tested it?  Is there any reason we cannot move this prefs code block down below "MAIN PLUGIN LOADING CODE HERE" (see below)?  Reading the code, I *think* it should be OK, but....
+// FIXME: config/plugin_hooks.php has not yet been loaded (see a few lines below); so this hook call should I think not be working -- has anyone actually tested it?  Is there any reason we cannot move this prefs code block down below "MAIN PLUGIN LOADING CODE HERE" (see below)?  Reading the code, I *think* it should be OK, but....   Also, note that this code would then be placed immediately next to the config_override hook, and since it makes little sense to execute two hooks in a row, I will propose removing config_override (although sadly, it is less clear to plugin authors that they should use the prefs_backend hook to do any configuration override work in their plugin)
 $prefs_backend = do_hook('prefs_backend', $null);
 if (isset($prefs_backend) && !empty($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
     require(SM_PATH . $prefs_backend);
