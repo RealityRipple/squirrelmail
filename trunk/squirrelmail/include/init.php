@@ -251,6 +251,51 @@ if (PAGE_NAME == 'login') {
     if (!empty($_SESSION))
         $_SESSION = array();
 
+    /**
+     * Allow administrators to define custom session handlers
+     * for SquirrelMail without needing to change anything in
+     * php.ini (application-level).
+     *
+     * In config_local.php, admin needs to put:
+     *
+     *     $custom_session_handlers = array(
+     *         'my_open_handler',
+     *         'my_close_handler',
+     *         'my_read_handler',
+     *         'my_write_handler',
+     *         'my_destroy_handler',
+     *         'my_gc_handler',
+     *     );
+     *     session_module_name('user');
+     *     session_set_save_handler(
+     *         $custom_session_handlers[0],
+     *         $custom_session_handlers[1],
+     *         $custom_session_handlers[2],
+     *         $custom_session_handlers[3],
+     *         $custom_session_handlers[4],
+     *         $custom_session_handlers[5]
+     *     );
+     *
+     * We need to replicate that code once here because PHP has
+     * long had a bug that resets the session handler mechanism
+     * when the session data is also destroyed.  Because of this
+     * bug, even administrators who define custom session handlers
+     * via a PHP pre-load defined in php.ini (auto_prepend_file)
+     * will still need to define the $custom_session_handlers array
+     * in config_local.php.
+     */
+    global $custom_session_handlers;
+    if (!empty($custom_session_handlers)) {
+        $open    = $custom_session_handlers[0];
+        $close   = $custom_session_handlers[1];
+        $read    = $custom_session_handlers[2];
+        $write   = $custom_session_handlers[3];
+        $destroy = $custom_session_handlers[4];
+        $gc      = $custom_session_handlers[5];
+        session_module_name('user');
+        session_set_save_handler($open, $close, $read, $write, $destroy, $gc);
+    }
+
     sqsession_is_active();
     session_regenerate_id();
 
