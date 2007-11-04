@@ -820,7 +820,7 @@ class Message {
      * @return integer
      */
     function parseParenthesis($read, $i) {
-        for (; $read{$i} != ')'; ++$i) {
+        for ($i++; $read{$i} != ')'; ++$i) {
             switch ($read{$i}) {
                 case '"': $this->parseQuote($read, $i); break;
                 case '{': $this->parseLiteral($read, $i); break;

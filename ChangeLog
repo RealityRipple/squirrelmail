@@ -229,6 +229,9 @@ Version 1.5.2 - SVN
     "not defined" error on session timeouts.
   - Allow custom session handlers to work correctly (and be defined at the
     application level with SquirrelMail).
+  - Fix off-by-one in bodystructure parsing triggered by servers sending
+    a body location part (e.g. Sun Java System Messaging Server). Thanks
+    John Callahan (#1808382).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
