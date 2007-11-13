@@ -1421,8 +1421,8 @@ function saveAttachedFiles($session) {
 
     // m_u_f works better with restricted PHP installs (safe_mode, open_basedir),
     // if that doesn't work, try a simple rename.
-    if (!@move_uploaded_file($_FILES['attachfile']['tmp_name'],$fullpath)) {
-        if (!@rename($_FILES['attachfile']['tmp_name'], $fullpath)) {
+    if (!sq_call_function_suppress_errors('move_uploaded_file', array($_FILES['attachfile']['tmp_name'], $fullpath))) {
+        if (!sq_call_function_suppress_errors('rename', array($_FILES['attachfile']['tmp_name'], $fullpath))) {
             return true;
         }
     }
