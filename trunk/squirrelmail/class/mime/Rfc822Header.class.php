@@ -958,6 +958,7 @@ class Rfc822Header {
             }
         } else {
             if (!is_array($this->cc)) $this->cc = array();
+            if (!is_array($this->to)) $this->to = array();
             $srch_addr = $this->parseAddress($address);
             $results = array();
             foreach ($this->to as $to) {
