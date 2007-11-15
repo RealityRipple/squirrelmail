@@ -232,6 +232,7 @@ Version 1.5.2 - SVN
   - Fix off-by-one in bodystructure parsing triggered by servers sending
     a body location part (e.g. Sun Java System Messaging Server). Thanks
     John Callahan (#1808382).
+  - Invalid initialization of To: header (#1772893).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
