@@ -1,5 +1,6 @@
 This file can be used to allow you to jump right to the SquirrelMail compose
-screen to send a message when you click on a "mailto" link on any web page.  
+screen to send a message when you click on a "mailto" link on any web page
+in Windows NT, 2000 or XP (and Vista?).
 
 Place the contents of this file (make sure to only use the part of this file
 below starting on the line after "Cut here") into a text file on the target 
