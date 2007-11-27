@@ -34,7 +34,7 @@ if (!sqgetGlobalVar('mailbox', $mailbox)) {
 
 sqgetGlobalVar('right_frame', $right_frame, SQ_GET);
 
-if(!sqgetGlobalVar('mailtodata', $mailtodata)) {
+if (sqgetGlobalVar('mailtodata', $mailtodata)) {
     $mailtourl = 'mailtodata='.urlencode($mailtodata);
 } else {
     $mailtourl = '';

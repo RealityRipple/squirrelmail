@@ -394,7 +394,7 @@ if (! sqgetGlobalVar('squirrelmail_language',$squirrelmail_language,SQ_COOKIE)) 
 
 
 /**
- * Do something special for some pages. This is based on the PAGE_NAME constand
+ * Do something special for some pages. This is based on the PAGE_NAME constant
  * set at the top of every page.
  */
 switch (PAGE_NAME) {
@@ -428,6 +428,10 @@ switch (PAGE_NAME) {
         }
 
         session_write_close();
+        break;
+
+    case 'mailto':
+        // nothing to do
         break;
 
     case 'redirect':
@@ -531,8 +535,6 @@ switch (PAGE_NAME) {
             exit;
         }
 
-//FIXME: remove next line if the placement of the copy of this line above does not prove to be problematic
-        sqgetGlobalVar('username',$username,SQ_SESSION);
         sqgetGlobalVar('authz',$authz,SQ_SESSION);
 
         /**
@@ -672,6 +674,12 @@ if (version_compare(PHP_VERSION, "4.3.0", ">=")) {
 } else {
     $oldErrorHandler = set_error_handler('SquirrelMailErrorhandler');
 }
+
+
+// ============================================================================
+// ================= End of Live Code, Beginning of Functions ================= 
+// ============================================================================
+
 
 /**
  * Javascript support detection function
