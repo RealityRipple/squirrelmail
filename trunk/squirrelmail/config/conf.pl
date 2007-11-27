@@ -424,6 +424,12 @@ $use_icons = 'false'                    if ( !$use_icons );
 $use_iframe = 'false'                   if ( !$use_iframe );
 $lossy_encoding = 'false'               if ( !$lossy_encoding );
 $allow_remote_configtest = 'false'      if ( !$allow_remote_configtest );
+
+$sm_debug_mode = 'SM_DEBUG_MODE_MODERATE' if ( !$sm_debug_mode );
+#FIXME: When this is STABLE software, remove the line above and uncomment the one below:
+#$sm_debug_mode = 'SM_DEBUG_MODE_OFF'    if ( !$sm_debug_mode );
+$sm_debug_mode = convert_debug_binary_integer_to_constants($sm_debug_mode);
+
 $addrbook_global_table = 'global_abook' if ( !$addrbook_global_table );
 $addrbook_global_writeable = 'false'    if ( !$addrbook_global_writeable );
 $addrbook_global_listing = 'false'      if ( !$addrbook_global_listing );
@@ -809,6 +815,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
     print "\n";
     print $WHT. "Configuration tweaks\n" . $NRM;
     print "6.  Allow remote configtest     : $WHT$allow_remote_configtest$NRM\n";
+    print "7.  Debug mode                  : $WHT$sm_debug_mode$NRM\n";
     print "\n";
         print "R   Return to Main Menu\n";
     }
@@ -981,6 +988,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 4 ) { $use_php_recode = commandB4(); }
             elsif ( $command == 5 ) { $use_php_iconv  = commandB5(); }
             elsif ( $command == 6 ) { $allow_remote_configtest = commandB6(); }
+            elsif ( $command == 7 ) { $sm_debug_mode = commandB8(); }
         }
     }
 }
@@ -2609,7 +2617,7 @@ sub command318 {
     print "See SquirrelMail documentation about format of config/timezones.php file.\n";
     print "\n";
 
-    print "Used time zone configuration (0,1,2,3)? [$WHT$time_zone_type$NRM]: $WHT";
+    print "Desired time zone configuration (0,1,2,3)? [$WHT$time_zone_type$NRM]: $WHT";
     $new_time_zone_type = <STDIN>;
     if ( $new_time_zone_type =~ /^[0123]\n/i ) {
         $time_zone_type = $new_time_zone_type;
@@ -4336,6 +4344,86 @@ sub commandB7 {
     return $new_icon_theme_def;
 }
 
+# SquirrelMail debug mode (since 1.5.2)
+sub commandB8 {
+    print "When debugging or developing SquirrelMail, you may want to increase\n";
+    print "the verbosity of certain kinds of errors, notices, and/or diagnostics.\n";
+    print "You may enable one or more of the debugging modes here.  Please make\n";
+    print "sure that you have turned off debugging if you are using SquirrelMail\n";
+    print "in a production environment.\n\n";
+
+    $input = "";
+    while ( $input ne "d\n" ) {
+        $sm_debug_mode = convert_debug_constants_to_binary_integer($sm_debug_mode);
+
+        # per include/constants.php, here are the debug mode values:
+        #
+        # 0          SM_DEBUG_MODE_OFF
+        # 1          SM_DEBUG_MODE_SIMPLE
+        # 512        SM_DEBUG_MODE_MODERATE
+        # 524288     SM_DEBUG_MODE_ADVANCED
+        # 536870912  SM_DEBUG_MODE_STRICT
+        #
+        print "\n#  Enabled?  Description\n";
+        print "---------------------------------------------------------------------\n";
+        print "0     " . ($sm_debug_mode == 0 ? "y" : " ")
+            . "      No debugging (recommended in production environments)\n";
+        print "1     " . ($sm_debug_mode & 1 ? "y" : " ")
+            . "      Simple debugging (PHP E_ERROR)\n";
+        print "2     " . ($sm_debug_mode & 512 ? "y" : " ")
+            . "      Moderate debugging (PHP E_ALL)\n";
+        print "3     " . ($sm_debug_mode & 524288 ? "y" : " ")
+            . "      Advanced debugging (PHP E_ALL plus log errors\n";
+        print "             intentionally suppressed)\n";
+        print "4     " . ($sm_debug_mode & 536870912 ? "y" : " ")
+            . "      Strict debugging (PHP E_STRICT)\n";
+        print "\n";
+    
+        print "SquirrelMail debug mode (0,1,2,3,4) or d when done? : $WHT";
+        $input = <STDIN>;
+        if ( $input eq "d\n" ) {
+            # nothing
+        } elsif ($input !~ /^[0-9]+\n$/) {
+            print "\nInvalid configuration value.\n";
+            print "\nPress enter to continue...";
+            $tmp = <STDIN>;
+        } elsif ( $input == "0\n" ) {
+            $sm_debug_mode = 0;
+        } elsif ( $input == "1\n" ) {
+            if ($sm_debug_mode & 1) {
+                $sm_debug_mode ^= 1;
+            } else {
+                $sm_debug_mode |= 1;
+            }
+        } elsif ( $input == "2\n" ) {
+            if ($sm_debug_mode & 512) {
+                $sm_debug_mode ^= 512;
+            } else {
+                $sm_debug_mode |= 512;
+            }
+        } elsif ( $input == "3\n" ) {
+            if ($sm_debug_mode & 524288) {
+                $sm_debug_mode ^= 524288;
+            } else {
+                $sm_debug_mode |= 524288;
+            }
+        } elsif ( $input == "4\n" ) {
+            if ($sm_debug_mode & 536870912) {
+                $sm_debug_mode ^= 536870912;
+            } else {
+                $sm_debug_mode |= 536870912;
+            }
+        } else {
+            print "\nInvalid configuration value.\n";
+            print "\nPress enter to continue...";
+            $tmp = <STDIN>;
+        }
+        print "\n";
+    }
+    $sm_debug_mode = convert_debug_binary_integer_to_constants($sm_debug_mode);
+    return $sm_debug_mode;
+}
+
 sub save_data {
     $tab = "    ";
     if ( open( CF, ">config.php" ) ) {
@@ -4731,6 +4819,10 @@ sub save_data {
         print CF "\n";
         # boolean
         print CF "\$allow_remote_configtest = $allow_remote_configtest;\n";
+        # (binary) integer or constant - convert integer 
+        # values to constants before output
+        $sm_debug_mode = convert_debug_binary_integer_to_constants($sm_debug_mode);
+        print CF "\$sm_debug_mode = $sm_debug_mode;\n";
         print CF "\n";
 
         close CF;
@@ -5470,4 +5562,92 @@ PLUGIN: for ( $ct = 0 ; $ct <= $#plugins ; $ct++ ) {
 
     }
 
+}
+
+# converts (binary) integer values that correspond 
+# to the SquirrelMail debug mode constants (see 
+# include/constants.php) into those constant strings 
+# (bitwise or'd if more than one is enabled)
+#
+# if the value passed in is not an integer, it is 
+# returned unmolested
+#
+sub convert_debug_binary_integer_to_constants() {
+
+    my ($debug_mode) = @_;
+    if ($debug_mode =~ /^[^0-9]/) {
+        return $debug_mode;
+    }
+    $debug_mode = int($debug_mode);
+    $new_debug_mode = '';
+
+    # per include/constants.php, here are their values:
+    #
+    # 0          SM_DEBUG_MODE_OFF
+    # 1          SM_DEBUG_MODE_SIMPLE
+    # 512        SM_DEBUG_MODE_MODERATE
+    # 524288     SM_DEBUG_MODE_ADVANCED
+    # 536870912  SM_DEBUG_MODE_STRICT
+    #
+    if ($debug_mode & 1) {
+        $new_debug_mode .= ' | SM_DEBUG_MODE_SIMPLE';
+    }
+    if ($debug_mode & 512) {
+        $new_debug_mode .= ' | SM_DEBUG_MODE_MODERATE';
+    }
+    if ($debug_mode & 524288) {
+        $new_debug_mode .= ' | SM_DEBUG_MODE_ADVANCED';
+    }
+    if ($debug_mode & 536870912) {
+        $new_debug_mode .= ' | SM_DEBUG_MODE_STRICT';
+    }
+
+    $new_debug_mode =~ s/^ \| //;
+    if (!$new_debug_mode) {
+        $new_debug_mode = 'SM_DEBUG_MODE_OFF';
+    }
+
+    return $new_debug_mode;
+}
+
+# converts SquirrelMail debug mode constants (see
+# include/constants.php) into their corresponding
+# (binary) integer values
+#
+# if the value passed in is an integer already, it
+# is returned unmolested
+#
+sub convert_debug_constants_to_binary_integer() {
+
+    my ($debug_mode) = @_;
+    if ($debug_mode =~ /^[0-9]/) {
+        return $debug_mode;
+    }
+    $new_debug_mode = 0;
+
+    # per include/constants.php, here are their values:
+    #
+    # 0          SM_DEBUG_MODE_OFF
+    # 1          SM_DEBUG_MODE_SIMPLE
+    # 512        SM_DEBUG_MODE_MODERATE
+    # 524288     SM_DEBUG_MODE_ADVANCED
+    # 536870912  SM_DEBUG_MODE_STRICT
+    #
+    if ($debug_mode =~ /\bSM_DEBUG_MODE_OFF\b/) {
+        $new_debug_mode = 0;
+    }
+    if ($debug_mode =~ /\bSM_DEBUG_MODE_SIMPLE\b/) {
+        $new_debug_mode |= 1;
+    }
+    if ($debug_mode =~ /\bSM_DEBUG_MODE_MODERATE\b/) {
+        $new_debug_mode |= 512;
+    }
+    if ($debug_mode =~ /\bSM_DEBUG_MODE_ADVANCED\b/) {
+        $new_debug_mode |= 524288;
+    }
+    if ($debug_mode =~ /\bSM_DEBUG_MODE_STRICT\b/) {
+        $new_debug_mode |= 536870912;
+    }
+
+    return $new_debug_mode;
 }

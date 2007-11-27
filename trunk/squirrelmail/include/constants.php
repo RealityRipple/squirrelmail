@@ -26,6 +26,21 @@ define('SM_VERSION', '1.5.2 [SVN]');
 /**************************************************************/
 
 /**
+ * Define constants for SquirrelMail debug modes.
+ * Note that these are binary so that modes can be
+ * mixed and matched, and they are also ordered from
+ * minor to severe.  When adding new modes, please
+ * order them in a sensical way (MODERATE is the 10th
+ * bit; ADVANCED is the 20th bit).
+ * @since 1.5.2
+ */
+define('SM_DEBUG_MODE_OFF', 0);             // complete error suppression
+define('SM_DEBUG_MODE_SIMPLE', 1);          // PHP E_ERROR
+define('SM_DEBUG_MODE_MODERATE', 512);      // PHP E_ALL
+define('SM_DEBUG_MODE_ADVANCED', 524288);   // PHP E_ALL plus log errors intentionally suppressed
+define('SM_DEBUG_MODE_STRICT', 536870912);  // PHP E_STRICT
+
+/**
  * Define basic, general purpose preference constants.
  * @since 1.2.0
  */

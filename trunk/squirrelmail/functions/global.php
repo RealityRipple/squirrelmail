@@ -85,6 +85,8 @@ function sqstripslashes(&$array) {
 
 /**
  * Squelch error output to screen (only) for the given function.
+ * If the SquirrelMail debug mode SM_DEBUG_MODE_ADVANCED is not 
+ * enabled, error output will not go to the log, either.
  *
  * This provides an alternative to the @ error-suppression
  * operator where errors will not be shown in the interface
@@ -110,9 +112,21 @@ function sqstripslashes(&$array) {
  *
  */
 function sq_call_function_suppress_errors($function, $args=NULL) {
+   global $sm_debug_mode;
+
    $display_errors = ini_get('display_errors');
    ini_set('display_errors', '0');
+
+   // if advanced debug mode isn't enabled, don't log the error, either
+   //
+   if (!($sm_debug_mode & SM_DEBUG_MODE_ADVANCED))
+      $error_reporting = error_reporting(0);
+
    $ret = call_user_func_array($function, $args);
+
+   if (!($sm_debug_mode & SM_DEBUG_MODE_ADVANCED))
+      error_reporting($error_reporting);
+
    ini_set('display_errors', $display_errors);
    return $ret;
 }

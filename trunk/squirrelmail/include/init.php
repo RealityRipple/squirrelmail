@@ -14,8 +14,10 @@
 /**
  * This is a development version so in order to track programmer mistakes we
  * set the error reporting to E_ALL
+FIXME: disabling this for now, because we now have $sm_debug_mode, but the problem with that is that we don't know what it will be until we have loaded the config file, a good 175 lines below after several important files have been included, etc.  For now, we'll trust that developers have turned on E_ALL in php.ini anyway, but this can be uncommented if not.
  */
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
+
 
 
 /**
@@ -148,6 +150,7 @@ $color[14] = '#ff0000';  /* (red)         Color for quoted text -- >> 2 or more 
 $color[15] = '#002266';  /* (dark blue)   Unselectable folders */
 $color[16] = '#ff9933';  /* (orange)      Highlight color */
 
+require(SM_PATH . 'include/constants.php');
 require(SM_PATH . 'functions/global.php');
 require(SM_PATH . 'functions/strings.php');
 require(SM_PATH . 'functions/arrays.php');
@@ -169,8 +172,22 @@ if (file_exists(SM_PATH . 'config/config_local.php')) {
     require(SM_PATH . 'config/config_local.php');
 }
 
+
+/**
+ * Set PHP error reporting level based on the SquirrelMail debug mode
+ */
+$error_level = 0;
+if ($sm_debug_mode & SM_DEBUG_MODE_SIMPLE)
+    $error_level |= E_ERROR;
+if ($sm_debug_mode & SM_DEBUG_MODE_MODERATE
+ || $sm_debug_mode & SM_DEBUG_MODE_ADVANCED)
+    $error_level |= E_ALL;
+if ($sm_debug_mode & SM_DEBUG_MODE_STRICT)
+    $error_level |= E_STRICT;
+error_reporting($error_level);
+
+
 require(SM_PATH . 'functions/plugin.php');
-require(SM_PATH . 'include/constants.php');
 require(SM_PATH . 'include/languages.php');
 require(SM_PATH . 'class/template/Template.class.php');
 require(SM_PATH . 'class/error.class.php');
