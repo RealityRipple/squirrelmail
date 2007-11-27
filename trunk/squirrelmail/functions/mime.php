@@ -1847,6 +1847,7 @@ function sq_fix_url($attname, &$attvalue, $message, $id, $mailbox,$sQuote = '"')
             $aUrl = parse_url($attvalue);
             if (isset($aUrl['scheme'])) {
                 switch(strtolower($aUrl['scheme'])) {
+                    case 'mailto':
                     case 'http':
                     case 'https':
                     case 'ftp':
