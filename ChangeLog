@@ -234,6 +234,8 @@ Version 1.5.2 - SVN
     John Callahan (#1808382).
   - Invalid initialization of To: header (#1772893).
   - Added SquirrelMail debug mode.
+  - Handle PHP's insistence on setting the value to 'deleted' for destroyed sessions
+    (#1829098).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
