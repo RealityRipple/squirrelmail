@@ -236,6 +236,9 @@ Version 1.5.2 - SVN
   - Added SquirrelMail debug mode.
   - Handle PHP's insistence on setting the value to 'deleted' for destroyed sessions
     (#1829098).
+  - Some IMAP servers send nil for an empty email body (See RFC2180,
+    section 4.1.3 on empty strings).
+
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

@@ -147,6 +147,8 @@ function mime_fetch_body($imap_stream, $id, $ent_id=1, $fetch_size=0) {
 //        }
     } else if (ereg('"([^"]*)"', $topline, $regs)) {
         $ret = $regs[1];
+    } else if ((stristr($topline, 'nil') !== false) && (empty($wholemessage))) {
+        $ret = $wholemessage;
     } else {
         global $where, $what, $mailbox, $passed_id, $startMessage;
         $par = 'mailbox=' . urlencode($mailbox) . '&amp;passed_id=' . $passed_id;
