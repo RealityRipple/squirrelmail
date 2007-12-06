@@ -32,7 +32,9 @@ function adm_check_user() {
     }
 
     /* This needs to be first, for all non_options pages */
-    if (defined('PAGE_NAME') && PAGE_NAME=='administrator_options') {
+    //if (!defined('PAGE_NAME') || strpos(PAGE_NAME, 'options') === FALSE) {
+    if (!defined('PAGE_NAME') 
+     || (PAGE_NAME != 'administrator_options' && PAGE_NAME != 'options')) {
         $auth = FALSE;
     } else if (file_exists(SM_PATH . 'plugins/administrator/admins')) {
         $auths = file(SM_PATH . 'plugins/administrator/admins');
