@@ -21,7 +21,7 @@ if (isset($_SERVER['SCRIPT_FILENAME']) && $_SERVER['SCRIPT_FILENAME'] == __FILE_
 /** load required functions */
 
 /** sqimap_get_user_server() function */
-include_once(SM_PATH . '../functions/imap_general.php');
+include_once(SM_PATH . 'functions/imap_general.php');
 
 /** get imap server and username globals */
 global $imapServerAddress, $username;
