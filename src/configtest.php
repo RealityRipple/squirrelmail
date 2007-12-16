@@ -275,7 +275,14 @@ if(count($diff)) {
     do_err('Required PHP extensions missing: '.implode(', ',$diff) );
 }
 
-echo $IND . "PHP extensions OK.<br />\n";
+echo $IND . "PHP extensions OK. Dynamic loading is ";
+
+if (!(bool)ini_get('enable_dl') || (bool)ini_get('safe_mode')) {
+    echo "disabled.<br />\n";
+} else {
+    echo "enabled.<br />\n";
+}
+
 
 /* dangerous php settings */
 /**
@@ -866,22 +873,28 @@ if($addrbook_dsn || $prefs_dsn || $addrbook_global_dsn) {
         foreach($dsns as $type => $dsn) {
             $aDsn = explode(':', $dsn);
             $dbtype = array_shift($aDsn);
+
             if(isset($db_functions[$dbtype]) && function_exists($db_functions[$dbtype])) {
                 echo "$IND$dbtype database support present.<br />\n";
-
-                // now, test this interface:
-
-                $dbh = DB::connect($dsn, true);
-                if (DB::isError($dbh)) {
-                    do_err('Database error: '. htmlspecialchars(DB::errorMessage($dbh)) .
-                            ' in ' .$type .' DSN.');
-                }
-                $dbh->disconnect();
-                echo "$IND$type database connect successful.<br />\n";
-
-            } else {
+            } elseif(!(bool)ini_get('enable_dl') || (bool)ini_get('safe_mode')) {
                 do_err($dbtype.' database support not present!');
+            } else {
+                // Non-fatal error
+                do_err($dbtype.' database support not present or not configured!
+                    Trying to dynamically load '.$dbtype.' extension.
+                    Please note that it is advisable to not rely on dynamic loading of extensions.', FALSE);
             }
+
+
+            // now, test this interface:
+
+            $dbh = DB::connect($dsn, true);
+            if (DB::isError($dbh)) {
+                do_err('Database error: '. htmlspecialchars(DB::errorMessage($dbh)) .
+                        ' in ' .$type .' DSN.');
+            }
+            $dbh->disconnect();
+            echo "$IND$type database connect successful.<br />\n";
         }
     } else {
         $db_error='Required PHP PEAR DB support is not available.'
