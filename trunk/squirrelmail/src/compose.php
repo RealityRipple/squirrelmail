@@ -1627,48 +1627,13 @@ function deliverMessage($composeMessage, $draft=false) {
         plain_error_message($msg);
     } else {
         unset ($deliver);
-        $move_to_sent = getPref($data_dir,$username,'move_to_sent');
         $imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
 
-        /* Move to sent code */
-        if (isset($default_move_to_sent) && ($default_move_to_sent != 0)) {
-            $svr_allow_sent = true;
-        } else {
-            $svr_allow_sent = false;
-        }
 
-        if (isset($sent_folder) && (($sent_folder != '') || ($sent_folder != 'none'))
-                && sqimap_mailbox_exists( $imap_stream, $sent_folder)) {
-            $fld_sent = true;
-        } else {
-            $fld_sent = false;
-        }
+        // mark as replied or forwarded if applicable
+        //
+        global $what, $iAccount, $startMessage, $passed_id, $mailbox;
 
-        if ((isset($move_to_sent) && ($move_to_sent != 0)) || (!isset($move_to_sent))) {
-            $lcl_allow_sent = true;
-        } else {
-            $lcl_allow_sent = false;
-        }
-
-        global $passed_id, $mailbox;
-        if (($fld_sent && $svr_allow_sent && !$lcl_allow_sent) || ($fld_sent && $lcl_allow_sent)) {
-            if ($action == 'reply' || $action == 'reply_all') {
-                $save_reply_with_orig=getPref($data_dir,$username,'save_reply_with_orig');
-                if ($save_reply_with_orig) {
-                    $sent_folder = $mailbox;
-                }
-            }
-            sqimap_append ($imap_stream, $sent_folder, $length);
-            require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
-            $imap_deliver = new Deliver_IMAP();
-            $imap_deliver->mail($composeMessage, $imap_stream, $reply_id, $reply_ent_id);
-            sqimap_append_done ($imap_stream, $sent_folder);
-            unset ($imap_deliver);
-        }
-
-        global $what, $iAccount, $startMessage;
-
-        $composeMessage->purgeAttachments();
         if ($action=='reply' || $action=='reply_all' || $action=='forward' || $action=='forward_as_attachment') {
             require(SM_PATH . 'functions/mailbox_display.php');
             $aMailbox = sqm_api_mailbox_select($imap_stream, $iAccount, $mailbox,array('setindex' => $what, 'offset' => $startMessage),array());
@@ -1713,8 +1678,52 @@ function deliverMessage($composeMessage, $draft=false) {
                 sqsession_register($mailbox_cache,'mailbox_cache');
             }
 
-            sqimap_logout($imap_stream);
         }
+
+
+        // move to sent folder
+        //
+        $move_to_sent = getPref($data_dir,$username,'move_to_sent');
+        if (isset($default_move_to_sent) && ($default_move_to_sent != 0)) {
+            $svr_allow_sent = true;
+        } else {
+            $svr_allow_sent = false;
+        }
+
+        if (isset($sent_folder) && (($sent_folder != '') || ($sent_folder != 'none'))
+                && sqimap_mailbox_exists( $imap_stream, $sent_folder)) {
+            $fld_sent = true;
+        } else {
+            $fld_sent = false;
+        }
+
+        if ((isset($move_to_sent) && ($move_to_sent != 0)) || (!isset($move_to_sent))) {
+            $lcl_allow_sent = true;
+        } else {
+            $lcl_allow_sent = false;
+        }
+
+        if (($fld_sent && $svr_allow_sent && !$lcl_allow_sent) || ($fld_sent && $lcl_allow_sent)) {
+            if ($action == 'reply' || $action == 'reply_all') {
+                $save_reply_with_orig=getPref($data_dir,$username,'save_reply_with_orig');
+                if ($save_reply_with_orig) {
+                    $sent_folder = $mailbox;
+                }
+            }
+            sqimap_append ($imap_stream, $sent_folder, $length);
+            require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
+            $imap_deliver = new Deliver_IMAP();
+            $imap_deliver->mail($composeMessage, $imap_stream, $reply_id, $reply_ent_id);
+            sqimap_append_done ($imap_stream, $sent_folder);
+            unset ($imap_deliver);
+        }
+
+
+        // final cleanup
+        //
+        $composeMessage->purgeAttachments();
+        sqimap_logout($imap_stream);
+
     }
     return $success;
 }
