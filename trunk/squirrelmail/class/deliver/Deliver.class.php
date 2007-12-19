@@ -33,6 +33,11 @@ class Deliver {
      *
      * @param Message  $message      Message object to send
      * @param resource $stream       Handle to the SMTP stream
+     *                               (when FALSE, nothing will be
+     *                               written to the stream; this can
+     *                               be used to determine the actual
+     *                               number of bytes that will be
+     *                               written to the stream)
      * @param string   $reply_id     Identifies message being replied to
      *                               (OPTIONAL; caller should ONLY specify
      *                               a value for this when the message
@@ -42,10 +47,17 @@ class Deliver {
      *                               message inside another (OPTIONAL; caller
      *                               should ONLY specify a value for this 
      *                               when the message being sent is a reply)
+     * @param mixed    $extra        Any implementation-specific variables
+     *                               can be passed in here and used in
+     *                               an overloaded version of this method
+     *                               if needed.
      *
-     * @return integer $raw_length
+     * @return integer $raw_length The number of bytes written (or that would 
+     *                             have been written) to the output stream
      */
-    function mail($message, $stream=false, $reply_id=0, $reply_ent_id=0) {
+    function mail($message, $stream=false, $reply_id=0, $reply_ent_id=0,
+                  $extra=NULL) {
+
         $rfc822_header = $message->rfc822_header;
         if (count($message->entities)) {
             $boundary = $this->mimeBoundary();
@@ -61,7 +73,8 @@ class Deliver {
         if ($reply_id) {
             global $imapConnection, $username, $imapServerAddress, 
                    $imapPort, $mailbox;
-            if (!$imapConnection)
+
+            if (!is_resource($imapConnection))
                 $imapConnection = sqimap_login($username, FALSE,
                                                $imapServerAddress, $imapPort, 0);
 
@@ -89,12 +102,44 @@ class Deliver {
                              ? $message->reply_rfc822_header : '');
         $header = $this->prepareRFC822_Header($rfc822_header, $reply_rfc822_header, $raw_length);
 
+        $this->send_mail($message, $header, $boundary, $stream, $raw_length, $extra);
+
+        return $raw_length;
+    }
+
+    /**
+     * function send_mail - send the message parts to the IMAP stream
+     *
+     * @param Message  $message      Message object to send
+     * @param string   $header       Headers ready to send
+     * @param string   $boundary     Message parts boundary
+     * @param resource $stream       Handle to the SMTP stream
+     *                               (when FALSE, nothing will be
+     *                               written to the stream; this can
+     *                               be used to determine the actual
+     *                               number of bytes that will be
+     *                               written to the stream)
+     * @param int     &$raw_length   The number of bytes written (or that
+     *                               would have been written) to the 
+     *                               output stream - NOTE that this is
+     *                               passed by reference
+     * @param mixed    $extra        Any implementation-specific variables
+     *                               can be passed in here and used in
+     *                               an overloaded version of this method
+     *                               if needed.
+     *
+     * @return void
+     *
+     */
+    function send_mail($message, $header, $boundary, $stream=false, 
+                       &$raw_length, $extra=NULL) {
+
+
         if ($stream) {
             $this->preWriteToStream($header);
             $this->writeToStream($stream, $header);
         }
         $this->writeBody($message, $stream, $raw_length, $boundary);
-        return $raw_length;
     }
 
     /**
@@ -105,6 +150,11 @@ class Deliver {
      *
      * @param Message   $message      Message object to transform
      * @param resource  $stream       SMTP output stream
+     *                                (when FALSE, nothing will be
+     *                                written to the stream; this can
+     *                                be used to determine the actual
+     *                                number of bytes that will be
+     *                                written to the stream)
      * @param integer  &$length_raw   raw length of the message (part)
      *                                as returned by mail fn
      * @param string    $boundary     custom boundary to call, usually for subparts
@@ -163,6 +213,11 @@ class Deliver {
      *
      * @param Message   $message      Message object to transform
      * @param resource  $stream       SMTP output stream
+     *                                (when FALSE, nothing will be
+     *                                written to the stream; this can
+     *                                be used to determine the actual
+     *                                number of bytes that will be
+     *                                written to the stream)
      * @param integer  &$length       length of the message part
      *                                as returned by mail fn
      *
