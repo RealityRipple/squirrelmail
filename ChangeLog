@@ -238,6 +238,7 @@ Version 1.5.2 - SVN
     (#1829098).
   - Some IMAP servers send nil for an empty email body (See RFC2180,
     section 4.1.3 on empty strings).
+  - Fix for IMAP servers that were having problems saving sent messages
 
 
 Version 1.5.1 (branched on 2006-02-12)
