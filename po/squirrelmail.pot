@@ -1,5 +1,5 @@
 # LANGUAGE (xx_XX) SquirrelMail Translation
-# Copyright (c) 1999-2006 The SquirrelMail Project Team
+# Copyright (c) 1999-2007 The SquirrelMail Project Team
 # This file is distributed under the same license as the SquirrelMail package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # $Id$
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: SquirrelMail DEVEL\n"
 "Report-Msgid-Bugs-To: SquirrelMail Internationalization <squirrelmail-"
 "i18n@lists.sourceforge.net>\n"
-"POT-Creation-Date: 2006-06-15 14:13+0200\n"
+"POT-Creation-Date: 2007-12-27 14:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -71,55 +71,7 @@ msgstr ""
 msgid "none installed"
 msgstr ""
 
-msgid "Address Book"
-msgstr ""
-
-msgid "All"
-msgstr ""
-
-msgid "To"
-msgstr ""
-
-msgid "Cc"
-msgstr ""
-
-msgid "Name"
-msgstr ""
-
-msgid "E-mail"
-msgstr ""
-
-msgid "Info"
-msgstr ""
-
-msgid "Source"
-msgstr ""
-
-msgid "Bcc"
-msgstr ""
-
-msgid "Use Addresses"
-msgstr ""
-
-msgid "Cancel"
-msgstr ""
-
-msgid "Address Book Search"
-msgstr ""
-
-msgid "Search for"
-msgstr ""
-
-msgid "in"
-msgstr ""
-
-msgid "All address books"
-msgstr ""
-
-msgid "Search"
-msgstr ""
-
-msgid "List all"
+msgid "Addresses"
 msgstr ""
 
 #, php-format
@@ -138,10 +90,10 @@ msgstr ""
 msgid "Return"
 msgstr ""
 
-msgid "Close"
+msgid "No personal address book is defined. Contact administrator."
 msgstr ""
 
-msgid "No personal address book is defined. Contact administrator."
+msgid "Change"
 msgstr ""
 
 msgid "You can only edit one address at the time"
@@ -150,37 +102,13 @@ msgstr ""
 msgid "Update address"
 msgstr ""
 
-msgid "ERROR"
-msgstr ""
-
 msgid "Please select address that you want to edit"
 msgstr ""
 
-msgid "Add address"
-msgstr ""
-
-msgid "Edit selected"
-msgstr ""
-
-msgid "Delete selected"
-msgstr ""
-
-msgid "Nickname"
-msgstr ""
-
-msgid "sort by nickname"
-msgstr ""
-
-msgid "sort by name"
-msgstr ""
-
-msgid "sort by email"
-msgstr ""
-
-msgid "sort by info"
-msgstr ""
-
 msgid "Add to address book"
+msgstr ""
+
+msgid "Add address"
 msgstr ""
 
 #. * To translators: %s is for author's name
@@ -208,6 +136,12 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
+msgid "To"
+msgstr ""
+
+msgid "Cc"
+msgstr ""
+
 msgid "Original Message"
 msgstr ""
 
@@ -217,33 +151,15 @@ msgstr ""
 msgid "Could not move/copy file. File not attached"
 msgstr ""
 
-msgid "Draft Saved"
+msgid "Your draft has been saved."
 msgstr ""
 
-msgid "Your Message has been sent."
-msgstr ""
-
-msgid "From:"
-msgstr ""
-
-msgid "Send"
-msgstr ""
-
-msgid "Attach:"
-msgstr ""
-
-msgid "Add"
-msgstr ""
-
-msgid "Delete selected attachments"
+msgid "Your mail has been sent."
 msgstr ""
 
 msgid ""
 "Because PHP file uploads are turned off, you can not attach files to this "
 "message. Please see your system administrator for details."
-msgstr ""
-
-msgid "Priority"
 msgstr ""
 
 msgid "High"
@@ -255,24 +171,6 @@ msgstr ""
 msgid "Low"
 msgstr ""
 
-msgid "Receipt"
-msgstr ""
-
-msgid "On Read"
-msgstr ""
-
-msgid "On Delivery"
-msgstr ""
-
-msgid "Signature"
-msgstr ""
-
-msgid "Addresses"
-msgstr ""
-
-msgid "Save Draft"
-msgstr ""
-
 msgid "You have not filled in the \"To:\" field."
 msgstr ""
 
@@ -280,10 +178,10 @@ msgstr ""
 msgid "Error: Draft folder %s does not exist."
 msgstr ""
 
-msgid "Server replied:"
+msgid "Message not sent."
 msgstr ""
 
-msgid "Folders"
+msgid "Server replied:"
 msgstr ""
 
 msgid "Created folder successfully."
@@ -301,61 +199,10 @@ msgstr ""
 msgid "Unsubscribed successfully."
 msgstr ""
 
-msgid "refresh folder list"
-msgstr ""
-
-msgid "Create Folder"
-msgstr ""
-
-msgid "as a subfolder of"
-msgstr ""
-
 msgid "None"
 msgstr ""
 
-msgid "Let this folder contain subfolders"
-msgstr ""
-
-msgid "Create"
-msgstr ""
-
-msgid "Rename a Folder"
-msgstr ""
-
-msgid "Select a folder"
-msgstr ""
-
-msgid "Rename"
-msgstr ""
-
-msgid "No folders found"
-msgstr ""
-
-msgid "Delete Folder"
-msgstr ""
-
-msgid "Delete"
-msgstr ""
-
-msgid "Unsubscribe"
-msgstr ""
-
-msgid "Subscribe"
-msgstr ""
-
-msgid "No folders were found to unsubscribe from."
-msgstr ""
-
-msgid "No folders were found to subscribe to."
-msgstr ""
-
-msgid "Subscribe to:"
-msgstr ""
-
 msgid "ERROR: Help files are not in the right format!"
-msgstr ""
-
-msgid "Help"
 msgstr ""
 
 msgid ""
@@ -378,18 +225,6 @@ msgstr ""
 
 #, php-format
 msgid "For some reason, chapter %s is not available."
-msgstr ""
-
-msgid "Table of Contents"
-msgstr ""
-
-msgid "Previous"
-msgstr ""
-
-msgid "Next"
-msgstr ""
-
-msgid "Top"
 msgstr ""
 
 msgid "Viewing an image attachment"
@@ -423,104 +258,26 @@ msgstr ""
 msgid "%s Logo"
 msgstr ""
 
-msgid "SquirrelMail Webmail Application"
+msgid "SquirrelMail Webmail"
 msgstr ""
 
 msgid "By the SquirrelMail Project Team"
 msgstr ""
 
+#. i18n: The %s represents the service provider's name
 #, php-format
 msgid "%s Login"
 msgstr ""
 
-msgid "Options"
-msgstr ""
-
-msgid "Message Highlighting"
-msgstr ""
-
-msgid "New"
-msgstr ""
-
-msgid "Done"
+#. i18n: The %s represents the service provider's name
+#, php-format
+msgid "The %s logo"
 msgstr ""
 
 msgid "To or Cc"
 msgstr ""
 
 msgid "subject"
-msgstr ""
-
-msgid "Edit"
-msgstr ""
-
-msgid "Up"
-msgstr ""
-
-msgid "Down"
-msgstr ""
-
-msgid "No highlighting is defined"
-msgstr ""
-
-msgid "Identifying name"
-msgstr ""
-
-msgid "Color"
-msgstr ""
-
-msgid "Dark Blue"
-msgstr ""
-
-msgid "Dark Green"
-msgstr ""
-
-msgid "Dark Yellow"
-msgstr ""
-
-msgid "Dark Cyan"
-msgstr ""
-
-msgid "Dark Magenta"
-msgstr ""
-
-msgid "Light Blue"
-msgstr ""
-
-msgid "Light Green"
-msgstr ""
-
-msgid "Light Yellow"
-msgstr ""
-
-msgid "Light Cyan"
-msgstr ""
-
-msgid "Light Magenta"
-msgstr ""
-
-msgid "Dark Gray"
-msgstr ""
-
-msgid "Medium Gray"
-msgstr ""
-
-msgid "Light Gray"
-msgstr ""
-
-msgid "White"
-msgstr ""
-
-msgid "Other:"
-msgstr ""
-
-msgid "Ex: 63aa7f"
-msgstr ""
-
-msgid "Matches"
-msgstr ""
-
-msgid "Submit"
 msgstr ""
 
 msgid "Editing identities is disabled."
@@ -533,10 +290,7 @@ msgstr ""
 msgid "Alternate Identity %d"
 msgstr ""
 
-msgid "Add a New Identity"
-msgstr ""
-
-msgid "Advanced Identities"
+msgid "Add New Identity"
 msgstr ""
 
 msgid "Full Name"
@@ -548,10 +302,16 @@ msgstr ""
 msgid "Reply To"
 msgstr ""
 
+msgid "Signature"
+msgstr ""
+
 msgid "Save / Update"
 msgstr ""
 
 msgid "Make Default"
+msgstr ""
+
+msgid "Delete"
 msgstr ""
 
 msgid "Move Up"
@@ -566,31 +326,16 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
+msgid "Priority"
+msgstr ""
+
 msgid "Attachments"
 msgstr ""
 
 msgid "Received"
 msgstr ""
 
-msgid "Index Order"
-msgstr ""
-
-msgid ""
-"The index order is the order that the columns are arranged in the message "
-"index. You can add, remove, and move columns around to customize them to fit "
-"your needs."
-msgstr ""
-
-msgid "up"
-msgstr ""
-
-msgid "down"
-msgstr ""
-
-msgid "remove"
-msgstr ""
-
-msgid "Return to options page"
+msgid "Bcc"
 msgstr ""
 
 msgid "Personal Information"
@@ -602,7 +347,16 @@ msgstr ""
 msgid "Compose Preferences"
 msgstr ""
 
+msgid "Message Highlighting"
+msgstr ""
+
 msgid "Folder Preferences"
+msgstr ""
+
+msgid "Index Order"
+msgstr ""
+
+msgid "Options"
 msgstr ""
 
 msgid "Error(s) occurred while saving your options"
@@ -614,7 +368,15 @@ msgstr ""
 msgid "Successfully Saved Options"
 msgstr ""
 
+#, php-format
+msgid "Folder list should automatically %srefresh%s."
+msgstr ""
+
 msgid "Refresh Folder List"
+msgstr ""
+
+#, php-format
+msgid "This page should automatically %srefresh%s."
 msgstr ""
 
 msgid "Refresh Page"
@@ -650,40 +412,17 @@ msgid ""
 "and forwarding messages."
 msgstr ""
 
+#, php-format
+msgid "Welcome to %s. Please supply your full name and email address."
+msgstr ""
+
 msgid "Message not printable"
-msgstr ""
-
-msgid "Attachments:"
-msgstr ""
-
-msgid "Unknown sender"
-msgstr ""
-
-msgid "Info:"
-msgstr ""
-
-msgid "Size:"
-msgstr ""
-
-msgid "Type:"
 msgstr ""
 
 msgid "Invalid URL"
 msgstr ""
 
 msgid "Printer Friendly"
-msgstr ""
-
-msgid "Print"
-msgstr ""
-
-msgid "View Printable Version"
-msgstr ""
-
-msgid "View as plain text"
-msgstr ""
-
-msgid "View as HTML"
 msgstr ""
 
 msgid "Read:"
@@ -700,87 +439,49 @@ msgstr ""
 msgid "Was displayed on %s"
 msgstr ""
 
-msgid "less"
-msgstr ""
-
-msgid "more"
+msgid "Unknown sender"
 msgstr ""
 
 msgid "Mailer"
 msgstr ""
 
-msgid "Read receipt"
+msgid "Read Receipt"
 msgstr ""
 
-msgid "sent"
+msgid "deleted"
 msgstr ""
 
-msgid "requested"
+msgid "answered"
 msgstr ""
 
-msgid ""
-"The message sender has requested a response to indicate that you have read "
-"this message. Would you like to send a receipt?"
+msgid "draft"
 msgstr ""
 
-msgid "Send read receipt now"
+msgid "flagged"
 msgstr ""
 
-msgid "View Message"
-msgstr ""
-
-msgid "Delete &amp; Prev"
-msgstr ""
-
-msgid "Delete &amp; Next"
-msgstr ""
-
-msgid "Search Results"
-msgstr ""
-
-msgid "Message List"
-msgstr ""
-
-msgid "Resume Draft"
-msgstr ""
-
-msgid "Edit Message as New"
-msgstr ""
-
-msgid "Reply"
-msgstr ""
-
-msgid "Reply All"
-msgstr ""
-
-msgid "Forward"
-msgstr ""
-
-msgid "As Attachment"
-msgstr ""
-
-msgid "Bypass Trash"
-msgstr ""
-
-msgid "Move to:"
-msgstr ""
-
-msgid "Move"
-msgstr ""
-
-msgid "Copy"
+msgid "Status"
 msgstr ""
 
 msgid "View Full Header"
 msgstr ""
 
+msgid "View Printable Version"
+msgstr ""
+
+msgid "View as plain text"
+msgstr ""
+
+msgid "View as HTML"
+msgstr ""
+
 msgid "You must be logged in to access this page."
 msgstr ""
 
-msgid "INBOX"
+msgid "All Folders"
 msgstr ""
 
-msgid "All Folders"
+msgid "INBOX"
 msgstr ""
 
 msgid "Please enter something to search for"
@@ -810,10 +511,13 @@ msgstr ""
 msgid "(Spurious argument)"
 msgstr ""
 
-msgid "Fold"
+msgid "Recent Searches"
 msgstr ""
 
-msgid "Unfold"
+msgid "Edit"
+msgstr ""
+
+msgid "Search"
 msgstr ""
 
 msgid "Saved Searches"
@@ -828,19 +532,13 @@ msgstr ""
 msgid "forget"
 msgstr ""
 
-msgid "Recent Searches"
-msgstr ""
-
 msgid "Missing"
 msgstr ""
 
-msgid "and&nbsp;subfolders:"
+msgid "Standard Search"
 msgstr ""
 
-msgid "Exclude Criteria:"
-msgstr ""
-
-msgid "Search Criteria"
+msgid "Advanced search"
 msgstr ""
 
 msgid "Add New Criteria"
@@ -883,6 +581,9 @@ msgid "Keyword"
 msgstr ""
 
 msgid "Larger Than"
+msgstr ""
+
+msgid "New"
 msgstr ""
 
 msgid "Old"
@@ -939,31 +640,19 @@ msgstr ""
 msgid "Everywhere"
 msgstr ""
 
-msgid "Standard search"
-msgstr ""
-
-msgid "Advanced search"
-msgstr ""
-
-msgid "Folder:"
-msgstr ""
-
-msgid "No Messages Found"
-msgstr ""
-
 msgid "Signout"
 msgstr ""
 
-msgid "Sign Out"
+msgid "No RPC action given"
 msgstr ""
 
-msgid "You have been successfully signed out."
+msgid "No deletion ID given"
 msgstr ""
 
-msgid "Click here to log back in."
+msgid "No mailbox given"
 msgstr ""
 
-msgid "Viewing a Business Card"
+msgid "RPC action not understood"
 msgstr ""
 
 #, php-format
@@ -972,7 +661,13 @@ msgid ""
 "correctly."
 msgstr ""
 
+msgid "Name"
+msgstr ""
+
 msgid "Title"
+msgstr ""
+
+msgid "E-mail"
 msgstr ""
 
 msgid "Web Page"
@@ -999,22 +694,7 @@ msgstr ""
 msgid "Note"
 msgstr ""
 
-msgid "E-mail address"
-msgstr ""
-
-msgid "Additional info"
-msgstr ""
-
 msgid "Title &amp; Org. / Dept."
-msgstr ""
-
-msgid "Viewing Full Header"
-msgstr ""
-
-msgid "Viewing a text attachment"
-msgstr ""
-
-msgid "Folder List"
 msgstr ""
 
 msgid "Personal address book"
@@ -1090,6 +770,12 @@ msgstr ""
 msgid "Unable to update"
 msgstr ""
 
+msgid "Address book is corrupted. Required fields are missing."
+msgstr ""
+
+msgid "Address book entry is too big"
+msgstr ""
+
 msgid "Could not lock datafile"
 msgstr ""
 
@@ -1113,16 +799,7 @@ msgstr ""
 msgid "Error initializing LDAP server %s:"
 msgstr ""
 
-msgid "Must be unique"
-msgstr ""
-
-msgid "Last name"
-msgstr ""
-
-msgid "First name"
-msgstr ""
-
-msgid "Add to:"
+msgid "Unknown address book backend"
 msgstr ""
 
 msgid "Invalid input data"
@@ -1137,10 +814,26 @@ msgstr ""
 msgid "Nickname contains illegal characters"
 msgstr ""
 
+#. * i18n: allows to control fullname layout in address book listing
+#. * first %s is for first name, second %s is for last name.
+#. * Translate it to '%2$s %1$s', if surname must be displayed first in your language.
+#. * Please note that variables can be set to empty string and extra formating
+#. * (for example '%2$s, %1$s' as in 'Smith, John') might break. Use it only for
+#. * setting name and surname order. scripts will remove all prepended and appended
+#. *  whitespace.
+#, php-format
+msgid "%s %s"
+msgstr ""
+
 msgid "View"
 msgstr ""
 
 msgid "View Business Card"
+msgstr ""
+
+msgid ""
+"Could not open temporary file to store attachment. Contact your system "
+"administrator to resolve this issue."
 msgstr ""
 
 msgid "Sunday"
@@ -1283,6 +976,9 @@ msgstr ""
 msgid "Click here to return to %s"
 msgstr ""
 
+msgid "ERROR"
+msgstr ""
+
 #, php-format
 msgid ""
 "Preference file, %s, does not exist. Log out, and log back in to create a "
@@ -1311,7 +1007,7 @@ msgid "Could not create initial preference file!"
 msgstr ""
 
 #, php-format
-msgid "%s should be writable by user %s"
+msgid "%s should be writable by user %s."
 msgstr ""
 
 msgid "Signature is too big."
@@ -1351,23 +1047,7 @@ msgstr ""
 msgid "You have not selected a folder to rename. Please do so."
 msgstr ""
 
-msgid "Rename a folder"
-msgstr ""
-
-msgid "New name:"
-msgstr ""
-
 msgid "You have not selected a folder to delete. Please do so."
-msgstr ""
-
-#, php-format
-msgid "Are you sure you want to delete %s?"
-msgstr ""
-
-msgid "Yes"
-msgstr ""
-
-msgid "No"
 msgstr ""
 
 msgid "You have not selected a folder to subscribe. Please do so."
@@ -1377,6 +1057,9 @@ msgid "Subscription Unsuccessful - Folder does not exist."
 msgstr ""
 
 msgid "You have not selected a folder to unsubscribe. Please do so."
+msgstr ""
+
+msgid "Illegal filesystem access was requested"
 msgstr ""
 
 msgid "ERROR: Could not complete request."
@@ -1456,6 +1139,10 @@ msgid ""
 "consult your system administrator"
 msgstr ""
 
+#, php-format
+msgid "Invalid mailbox name: %s"
+msgstr ""
+
 #. i18n: Name of Trash folder
 msgid "Trash"
 msgstr ""
@@ -1497,10 +1184,22 @@ msgstr ""
 msgid "Unread"
 msgstr ""
 
+msgid "Forward"
+msgstr ""
+
 msgid "Undelete"
 msgstr ""
 
+msgid "Bypass Trash"
+msgstr ""
+
 msgid "Expunge"
+msgstr ""
+
+msgid "Move"
+msgstr ""
+
+msgid "Copy"
 msgstr ""
 
 msgid "No messages were selected."
@@ -1529,9 +1228,6 @@ msgstr ""
 msgid "FETCH line:"
 msgstr ""
 
-msgid "Viewing HTML formatted email"
-msgstr ""
-
 msgid "Hide Unsafe Images"
 msgstr ""
 
@@ -1552,6 +1248,12 @@ msgid "Option Type '%s' Not Found"
 msgstr ""
 
 msgid "unavailable"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
 msgstr ""
 
 msgid "Compose"
@@ -1705,6 +1407,9 @@ msgstr ""
 msgid "IMAP server closed the connection."
 msgstr ""
 
+msgid "Your session has expired, but will be resumed after logging in again."
+msgstr ""
+
 msgid "General Message Composition"
 msgstr ""
 
@@ -1726,13 +1431,25 @@ msgstr ""
 msgid "After message body"
 msgstr ""
 
-msgid "Addressbook Display Format"
+msgid "Address Book Display Format"
 msgstr ""
 
-msgid "Javascript"
+msgid "Pop-up window"
 msgstr ""
 
-msgid "HTML"
+msgid "In-page"
+msgstr ""
+
+msgid "Format of Addresses Added From Address Book"
+msgstr ""
+
+msgid "No prefix/Address only"
+msgstr ""
+
+msgid "Nickname and address"
+msgstr ""
+
+msgid "Full name and address"
 msgstr ""
 
 msgid "Compose Messages in New Window"
@@ -1745,9 +1462,6 @@ msgid "Height of Compose Window"
 msgstr ""
 
 msgid "Replying and Forwarding Messages"
-msgstr ""
-
-msgid "Include CCs when Forwarding Messages"
 msgstr ""
 
 msgid "Include Me in CC when I Reply All"
@@ -1780,13 +1494,13 @@ msgstr ""
 msgid "General Display Options"
 msgstr ""
 
-msgid "Template"
+msgid "Skin"
 msgstr ""
 
 msgid "Theme"
 msgstr ""
 
-msgid "Default"
+msgid "Icon Theme"
 msgstr ""
 
 msgid "Default font style"
@@ -1799,6 +1513,9 @@ msgid "Font size"
 msgstr ""
 
 msgid "Default font size"
+msgstr ""
+
+msgid "Default"
 msgstr ""
 
 msgid "Language"
@@ -1823,9 +1540,6 @@ msgid "12-hour clock"
 msgstr ""
 
 msgid "24-hour clock"
-msgstr ""
-
-msgid "Icon Theme"
 msgstr ""
 
 msgid "Mailbox Display Options"
@@ -2032,6 +1746,15 @@ msgstr ""
 msgid "Delimited:"
 msgstr ""
 
+msgid "You can't select INBOX as Trash folder."
+msgstr ""
+
+msgid "You can't select INBOX as Sent folder."
+msgstr ""
+
+msgid "You can't select INBOX as Draft folder."
+msgstr ""
+
 msgid "Name and Address Options"
 msgstr ""
 
@@ -2095,16 +1818,13 @@ msgstr ""
 msgid "Prefix Signature with '-- ' Line"
 msgstr ""
 
-msgid "Template Default"
-msgstr ""
-
 msgid "XP"
 msgstr ""
 
 msgid "Take Address"
 msgstr ""
 
-msgid "Address Book Take:"
+msgid "Address Book Take"
 msgstr ""
 
 msgid "Try to verify addresses"
@@ -2188,6 +1908,9 @@ msgstr ""
 msgid "Binc IMAP server"
 msgstr ""
 
+msgid "Dovecot IMAP server"
+msgstr ""
+
 msgid "Not one of the above servers"
 msgstr ""
 
@@ -2248,6 +1971,12 @@ msgid "No SMTP auth"
 msgstr ""
 
 msgid "Login (plain text)"
+msgstr ""
+
+msgid "Custom SMTP AUTH username"
+msgstr ""
+
+msgid "Custom SMTP AUTH password"
 msgstr ""
 
 msgid "POP3 Before SMTP?"
@@ -2394,6 +2123,9 @@ msgstr ""
 msgid "Custom strict time zones"
 msgstr ""
 
+msgid "Location base"
+msgstr ""
+
 msgid "Message of the Day"
 msgstr ""
 
@@ -2490,6 +2222,9 @@ msgstr ""
 msgid "Allow writing into global address book file"
 msgstr ""
 
+msgid "Address book file line length"
+msgstr ""
+
 msgid "Templates"
 msgstr ""
 
@@ -2500,6 +2235,9 @@ msgid "Default font set"
 msgstr ""
 
 msgid "Default template"
+msgstr ""
+
+msgid "Fallback template"
 msgstr ""
 
 msgid "Default theme"
@@ -2703,6 +2441,9 @@ msgstr ""
 msgid "Event updated!"
 msgstr ""
 
+msgid "Calendar"
+msgstr ""
+
 msgid "Month View"
 msgstr ""
 
@@ -2743,9 +2484,6 @@ msgid "5 hr."
 msgstr ""
 
 msgid "6 hr."
-msgstr ""
-
-msgid "Calendar"
 msgstr ""
 
 msgid "You must type in a new password."
@@ -3034,11 +2772,6 @@ msgstr ""
 msgid "COMMERCIAL - RBL+ Dial-up entries."
 msgstr ""
 
-msgid ""
-"FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
-"false positives than ORBS did though."
-msgstr ""
-
 msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
 msgstr ""
 
@@ -3164,6 +2897,9 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
+msgid "Done"
+msgstr ""
+
 msgid "Match:"
 msgstr ""
 
@@ -3171,6 +2907,18 @@ msgid "Header"
 msgstr ""
 
 msgid "Contains:"
+msgstr ""
+
+msgid "Move to:"
+msgstr ""
+
+msgid "Submit"
+msgstr ""
+
+msgid "Down"
+msgstr ""
+
+msgid "Up"
 msgstr ""
 
 #, php-format
@@ -3230,11 +2978,9 @@ msgstr ""
 msgid "OFF"
 msgstr ""
 
+#. %s shows executed fortune cookie command.
 #, php-format
-msgid "%s is not found."
-msgstr ""
-
-msgid "Today's Fortune"
+msgid "Unable to execute \"%s\"."
 msgstr ""
 
 msgid "Fortunes:"
@@ -3287,7 +3033,13 @@ msgid ""
 "configuration. Custom command strings can be used."
 msgstr ""
 
-msgid "Mailing List"
+msgid "Mailing Lists"
+msgstr ""
+
+msgid ""
+"Manage the (non-RFC-compliant) mailing lists that you are subscribed to for "
+"the purpose of providing one-click list replies when responding to list "
+"messages."
 msgstr ""
 
 msgid "Post to List"
@@ -3296,10 +3048,19 @@ msgstr ""
 msgid "Reply to List"
 msgstr ""
 
+msgid "Subscribe"
+msgstr ""
+
+msgid "Unsubscribe"
+msgstr ""
+
 msgid "List Archives"
 msgstr ""
 
 msgid "Contact Listowner"
+msgstr ""
+
+msgid "Help"
 msgstr ""
 
 #, php-format
@@ -3324,97 +3085,10 @@ msgstr ""
 msgid "Unknown action: %s"
 msgstr ""
 
-msgid "Mailinglist"
-msgstr ""
-
-msgid "Send Mail"
-msgstr ""
-
-msgid "POP3 connect:"
-msgstr ""
-
-msgid "No server specified"
-msgstr ""
-
-msgid "POP3 user:"
-msgstr ""
-
-msgid "no login ID submitted"
-msgstr ""
-
-msgid "connection not established"
-msgstr ""
-
-msgid "POP3 pass:"
-msgstr ""
-
-msgid "No password submitted"
-msgstr ""
-
-msgid "POP3 apop:"
-msgstr ""
-
-msgid "No connection to server"
-msgstr ""
-
-msgid "No login ID submitted"
-msgstr ""
-
-msgid "No server banner"
-msgstr ""
-
-msgid "abort"
-msgstr ""
-
-msgid "apop authentication failed"
-msgstr ""
-
-msgid "POP3 login:"
-msgstr ""
-
-msgid "POP3 top:"
-msgstr ""
-
-msgid "POP3 pop_list:"
-msgstr ""
-
-msgid "Premature end of list"
-msgstr ""
-
-msgid "POP3 get:"
-msgstr ""
-
-msgid "POP3 last:"
-msgstr ""
-
-msgid "POP3 reset:"
-msgstr ""
-
-msgid "POP3 send_cmd:"
-msgstr ""
-
-msgid "Empty command string"
-msgstr ""
-
-msgid "POP3 quit:"
-msgstr ""
-
-msgid "connection does not exist"
-msgstr ""
-
-msgid "POP3 uidl:"
-msgstr ""
-
-msgid "POP3 delete:"
-msgstr ""
-
-msgid "No msg number submitted"
-msgstr ""
-
-msgid "Command failed"
-msgstr ""
-
 msgid "Select Server:"
+msgstr ""
+
+msgid "All"
 msgstr ""
 
 msgid "Password for"
@@ -3445,6 +3119,18 @@ msgstr ""
 msgid "Login Failed:"
 msgstr ""
 
+msgid "Can't get mailbox status:"
+msgstr ""
+
+msgid "Fetching UIDL..."
+msgstr ""
+
+msgid "Server does not support UIDL."
+msgstr ""
+
+msgid "Fetching list of messages..."
+msgstr ""
+
 msgid "Login OK: No new messages"
 msgstr ""
 
@@ -3457,12 +3143,6 @@ msgid_plural "Login OK: Inbox contains %s messages"
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "Fetching UIDL..."
-msgstr ""
-
-msgid "Server does not support UIDL."
-msgstr ""
-
 msgid "Leaving mail on server..."
 msgstr ""
 
@@ -3471,19 +3151,6 @@ msgstr ""
 
 #, php-format
 msgid "Fetching message %s."
-msgstr ""
-
-msgid "Server error. Disconnect"
-msgstr ""
-
-msgid "Reconnect from dead connection"
-msgstr ""
-
-msgid "Saving UIDL"
-msgstr ""
-
-#, php-format
-msgid "Refetching message %s."
 msgstr ""
 
 msgid "Error Appending Message!"
@@ -3495,6 +3162,9 @@ msgstr ""
 msgid "Logging out from IMAP"
 msgstr ""
 
+msgid "Saving UIDL"
+msgstr ""
+
 msgid "Message appended to mailbox"
 msgstr ""
 
@@ -3503,6 +3173,9 @@ msgid "Message %d deleted from remote server!"
 msgstr ""
 
 msgid "Delete failed:"
+msgstr ""
+
+msgid "Fetch"
 msgstr ""
 
 msgid "Warning:"
@@ -3553,6 +3226,30 @@ msgstr ""
 msgid "Password:"
 msgstr ""
 
+msgid "Authentication type:"
+msgstr ""
+
+msgid "USER"
+msgstr ""
+
+msgid "APOP"
+msgstr ""
+
+msgid "APOP or USER"
+msgstr ""
+
+msgid "Connection type:"
+msgstr ""
+
+msgid "Plain text"
+msgstr ""
+
+msgid "Use TLS"
+msgstr ""
+
+msgid "Use StartTLS"
+msgstr ""
+
 msgid "Store in Folder:"
 msgstr ""
 
@@ -3598,9 +3295,6 @@ msgstr ""
 msgid "The function you requested is unknown."
 msgstr ""
 
-msgid "Fetch"
-msgstr ""
-
 msgid "Message Details"
 msgstr ""
 
@@ -3617,6 +3311,9 @@ msgid "Encoding"
 msgstr ""
 
 msgid "RFC822 Message body"
+msgstr ""
+
+msgid "Print"
 msgstr ""
 
 msgid "Close Window"
@@ -3755,7 +3452,9 @@ msgstr ""
 msgid "New Mail"
 msgstr ""
 
-msgid "SquirrelMail Notice:"
+#. i18n: %s inserts the organisation name (typically SquirrelMail)
+#, php-format
+msgid "%s notice:"
 msgstr ""
 
 #, php-format
@@ -3768,6 +3467,9 @@ msgid "Test Sound"
 msgstr ""
 
 msgid "No sound specified"
+msgstr ""
+
+msgid "Close"
 msgstr ""
 
 msgid "Loading the sound..."
@@ -3849,18 +3551,6 @@ msgid "Web-based form"
 msgstr ""
 
 msgid "Save Method"
-msgstr ""
-
-msgid "Spam Service Type:"
-msgstr ""
-
-msgid "Free reporting"
-msgstr ""
-
-msgid "Member services"
-msgstr ""
-
-msgid "Save Service Type"
 msgstr ""
 
 msgid "Your SpamCop authorization code:"
@@ -3995,9 +3685,6 @@ msgstr ""
 msgid "Back to &quot;SpellChecker Options&quot; page"
 msgstr ""
 
-msgid "Cute."
-msgstr ""
-
 msgid "ATTENTION:"
 msgstr ""
 
@@ -4043,26 +3730,13 @@ msgstr ""
 msgid "Invalid SquirrelSpell module."
 msgstr ""
 
-#, php-format
-msgid "Could not run the spellchecker command (%s)."
-msgstr ""
-
-msgid "Error while writing to pipe."
-msgstr ""
-
-#, php-format
-msgid "Could not open temporary file '%s'."
-msgstr ""
-
-#, php-format
-msgid "Error while writing to temporary file '%s'."
-msgstr ""
-
-#, php-format
-msgid "I tried to execute '%s', but it returned:"
-msgstr ""
-
 msgid "SquirrelSpell is misconfigured."
+msgstr ""
+
+msgid "Unknown error"
+msgstr ""
+
+msgid "SquirrelSpell error."
 msgstr ""
 
 msgid "Spellcheck completed. Commit changes?"
@@ -4102,9 +3776,6 @@ msgid "Occurs times:"
 msgstr ""
 
 msgid "Change this word"
-msgstr ""
-
-msgid "Change"
 msgstr ""
 
 msgid "Change ALL occurances of this word"
@@ -4294,6 +3965,9 @@ msgid ""
 msgstr ""
 
 msgid "SquirrelSpell Initiating"
+msgstr ""
+
+msgid ", "
 msgstr ""
 
 #, php-format
@@ -4508,6 +4182,9 @@ msgstr ""
 msgid "Transliterate unknown words:"
 msgstr ""
 
+msgid "Arabic"
+msgstr ""
+
 msgid "Translator"
 msgstr ""
 
@@ -4546,19 +4223,97 @@ msgstr ""
 msgid "Not yet functional, currently does nothing"
 msgstr ""
 
-msgid "D"
+msgid "Nickname"
 msgstr ""
 
-msgid "A"
+msgid "sort by nickname"
 msgstr ""
 
-msgid "F"
+msgid "sort by name"
 msgstr ""
 
-msgid "Paginate"
+msgid "sort by email"
 msgstr ""
 
-msgid "Show All"
+msgid "Info"
+msgstr ""
+
+msgid "sort by info"
+msgstr ""
+
+msgid "All address books"
+msgstr ""
+
+msgid "Must be unique"
+msgstr ""
+
+msgid "First name"
+msgstr ""
+
+msgid "Last name"
+msgstr ""
+
+msgid "Additional info"
+msgstr ""
+
+msgid "Add to:"
+msgstr ""
+
+msgid "Source"
+msgstr ""
+
+msgid "Address book is empty"
+msgstr ""
+
+msgid "Use Addresses"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Edit selected"
+msgstr ""
+
+msgid "Delete selected"
+msgstr ""
+
+msgid "Address book search"
+msgstr ""
+
+msgid "Search for"
+msgstr ""
+
+msgid "in"
+msgstr ""
+
+msgid "List all"
+msgstr ""
+
+msgid "Attachment"
+msgstr ""
+
+msgid "Attach"
+msgstr ""
+
+msgid "Max."
+msgstr ""
+
+msgid "Delete selected attachments"
+msgstr ""
+
+msgid "Send"
+msgstr ""
+
+msgid "Receipts"
+msgstr ""
+
+msgid "On Read"
+msgstr ""
+
+msgid "On Delivery"
+msgstr ""
+
+msgid "Save Draft"
 msgstr ""
 
 msgid "THIS FOLDER IS EMPTY"
@@ -4577,6 +4332,64 @@ msgid "Tip:"
 msgstr ""
 
 msgid "More info:"
+msgstr ""
+
+msgid "Rename a folder"
+msgstr ""
+
+msgid "New name:"
+msgstr ""
+
+msgid "Rename"
+msgstr ""
+
+msgid "Delete Folder"
+msgstr ""
+
+#, php-format
+msgid "Are you sure you want to delete %s?"
+msgstr ""
+
+msgid "Folders"
+msgstr ""
+
+msgid "Create Folder"
+msgstr ""
+
+msgid "as a subfolder of"
+msgstr ""
+
+msgid "Let this folder contain subfolders"
+msgstr ""
+
+msgid "Create"
+msgstr ""
+
+msgid "Rename a Folder"
+msgstr ""
+
+msgid "Select a folder"
+msgstr ""
+
+msgid "No folders found"
+msgstr ""
+
+msgid "No folders were found to unsubscribe from."
+msgstr ""
+
+msgid "No folders were found to subscribe to."
+msgstr ""
+
+msgid "Previous"
+msgstr ""
+
+msgid "Table of Contents"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "Top"
 msgstr ""
 
 msgid "Purge"
@@ -4602,13 +4415,165 @@ msgstr ""
 msgid "Message Flags"
 msgstr ""
 
-msgid "Attachment"
-msgstr ""
-
 msgid "Click here to change the sorting of the message list"
 msgstr ""
 
+msgid "Advanced Identities"
+msgstr ""
+
+msgid "Add/Edit"
+msgstr ""
+
+msgid "Rule Conditions"
+msgstr ""
+
+msgid "Identifying Name"
+msgstr ""
+
+msgid "To or cc"
+msgstr ""
+
+msgid "Matches"
+msgstr ""
+
+msgid "Color"
+msgstr ""
+
+msgid "Other"
+msgstr ""
+
+msgid "Ex: 63aa7f"
+msgstr ""
+
+msgid "Save Changes"
+msgstr ""
+
+msgid "No highlighting is defined"
+msgstr ""
+
+msgid "Add"
+msgstr ""
+
+msgid ""
+"The index order is the order that the columns are arranged in the message "
+"index. You can add, remove, and move columns around to customize them to fit "
+"your needs."
+msgstr ""
+
+msgid "up"
+msgstr ""
+
+msgid "down"
+msgstr ""
+
+msgid "remove"
+msgstr ""
+
+msgid "Return to options page"
+msgstr ""
+
 msgid "Current Folder"
+msgstr ""
+
+msgid "Sign Out"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Requested"
+msgstr ""
+
+msgid "Send Read Receipt Now"
+msgstr ""
+
+msgid ""
+"The message sender has requested a response to indicate that you have read "
+"this message. Would you like to send a receipt?"
+msgstr ""
+
+msgid "Viewing HTML formatted email"
+msgstr ""
+
+msgid "Resume Draft"
+msgstr ""
+
+msgid "Edit Message as New"
+msgstr ""
+
+msgid "Reply"
+msgstr ""
+
+msgid "Reply All"
+msgstr ""
+
+msgid "As Attachment"
+msgstr ""
+
+msgid "Move To"
+msgstr ""
+
+msgid "Delete &amp; Previous"
+msgstr ""
+
+msgid "Delete &amp; Next"
+msgstr ""
+
+msgid "View Message"
+msgstr ""
+
+msgid "Message List"
+msgstr ""
+
+msgid "Search Results"
+msgstr ""
+
+msgid "less"
+msgstr ""
+
+msgid "more"
+msgstr ""
+
+msgid "and subfolders"
+msgstr ""
+
+msgid "Exclude"
+msgstr ""
+
+msgid "Fold"
+msgstr ""
+
+msgid "Unfold"
+msgstr ""
+
+msgid "Forget"
+msgstr ""
+
+msgid "No Messages Found"
+msgstr ""
+
+msgid "You have been successfully signed out."
+msgstr ""
+
+msgid "Click here to log back in."
+msgstr ""
+
+msgid "Viewing a Business Card"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "Additional Info"
+msgstr ""
+
+msgid "Viewing Full Header"
+msgstr ""
+
+msgid "Viewing a text attachment"
+msgstr ""
+
+msgid "Folder List"
 msgstr ""
 
 msgid "Delivery error report"
