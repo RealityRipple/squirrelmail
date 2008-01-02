@@ -26,6 +26,7 @@ define('SMOPT_TYPE_BOOLEAN', 5);
 define('SMOPT_TYPE_HIDDEN', 6);
 define('SMOPT_TYPE_COMMENT', 7);
 define('SMOPT_TYPE_FLDRLIST', 8);
+define('SMOPT_TYPE_FLDRLIST_MULTI', 9);
 
 /* Define constants for the options refresh levels. */
 define('SMOPT_REFRESH_NONE', 0);
@@ -144,7 +145,8 @@ class SquirrelOption {
      */
     var $htmlencoded=false;
     /**
-     * Controls folder list limits in SMOPT_TYPE_FLDRLIST widget.
+     * Controls folder list limits in SMOPT_TYPE_FLDRLIST and
+     * SMOPT_TYPE_FLDRLIST_MULTI widgets.
      * See $flag argument in sqimap_mailbox_option_list() function.
      * @var string
      * @since 1.5.1
@@ -315,6 +317,9 @@ class SquirrelOption {
             case SMOPT_TYPE_FLDRLIST:
                 $result = $this->createWidget_FolderList();
                 break;
+            case SMOPT_TYPE_FLDRLIST_MULTI:
+                $result = $this->createWidget_FolderList(TRUE);
+                break;
             default:
                 error_box ( 
                     sprintf(_("Option Type '%s' Not Found"), $this->type)
@@ -376,9 +381,16 @@ class SquirrelOption {
 
     /**
      * Create folder selection box
+     *
+     * @param boolean $multiple_select When TRUE, the select widget 
+     *                                 will allow multiple selections
+     *                                 (OPTIONAL; default is FALSE 
+     *                                 (single select list))
+     *
      * @return string html formated selection box
+     *
      */
-    function createWidget_FolderList() {
+    function createWidget_FolderList($multiple_select=FALSE) {
 
         // possible values might include a nested array of 
         // possible values (list of folders)
@@ -389,7 +401,7 @@ class SquirrelOption {
             // list of folders (boxes array)
             //
             if (is_array($text)) {
-              $option_list = array_merge($option_list, sqimap_mailbox_option_array(0, array(strtolower($this->value)), 0, $text, $this->folder_filter));
+              $option_list = array_merge($option_list, sqimap_mailbox_option_array(0, 0, $text, $this->folder_filter));
 
             // just one option here
             //
@@ -402,7 +414,8 @@ class SquirrelOption {
             $option_list = array('ignore' => _("unavailable"));
 
 
-        return addSelect('new_' . $this->name, $option_list, $this->value, TRUE, $this->aExtraAttribs) . htmlspecialchars($this->trailing_text);
+        // OK to use sq_htmlspecialchars() below because addSelect() already does
+        return addSelect('new_' . $this->name, $option_list, $this->value, TRUE, $this->aExtraAttribs, $multiple_select) . sq_htmlspecialchars($this->trailing_text);
 
     }
 
