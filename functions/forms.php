@@ -159,16 +159,22 @@ function addInput($sName, $sValue = '', $iSize = 0, $iMaxlength = 0, $aAttribs=a
 
 /**
  * Function to create a selectlist from an array.
- * @param string $sName field name
- * @param array $aValues field values array(key => value)  ->  <option value="key">value</option>, although if $bUsekeys is FALSE, then  <option value="value">value</option>
- * @param mixed $default the key that will be selected
- * @param boolean $bUsekeys use the keys of the array as option value or not
- * @param array $aAttribs (since 1.5.1) extra attributes
+ * @param string  $sName     Field name
+ * @param array   $aValues   Field values array(key => value) results in:
+ *                           <option value="key">value</option>, 
+ *                           although if $bUsekeys is FALSE, then it changes to:
+ *                           <option value="value">value</option>
+ * @param mixed   $default   The key(s) that will be selected (it is OK to pass 
+ *                           in an array here in the case of multiple select lists)
+ * @param boolean $bUsekeys  Use the keys of the array as option value or not
+ * @param array   $aAttribs  (since 1.5.1) Extra attributes
+ * @param boolean $bMultiple When TRUE, a multiple select list will be shown
+ *                           (OPTIONAL; default is FALSE (single select list))
  *
  * @return string html formated selection box
  * @todo add attributes argument for option tags and default css
  */
-function addSelect($sName, $aValues, $default = null, $bUsekeys = false, $aAttribs = array()) {
+function addSelect($sName, $aValues, $default = null, $bUsekeys = false, $aAttribs = array(), $bMultiple = FALSE) {
     // only one element
     if(count($aValues) == 1) {
         $k = key($aValues); $v = array_pop($aValues);
@@ -176,14 +182,23 @@ function addSelect($sName, $aValues, $default = null, $bUsekeys = false, $aAttri
             htmlspecialchars($v) . "\n";
     }
 
+
+    // make sure $default is an array, since multiple select lists
+    // need the chance to have more than one default... 
+    //
+    if (!is_array($default))
+       $default = array($default);
+
+
     global $oTemplate;
 
-//FIXME: all the values in the $aAttribs list and $sName and both the keys and values in $aValues used to go thru htmlspecialchars()... I would propose that most everything that is assigned to the template should go thru that *in the template class* on its way between here and the actual template file.  Otherwise we have to do something like:  foreach ($aAttribs as $key => $value) $aAttribs[$key] = htmlspecialchars($value); $sName = htmlspecialchars($sName); $aNewValues = array(); foreach ($aValues as $key => $value) $aNewValues[htmlspecialchars($key)] = htmlspecialchars($value); $aValues = $aNewValues;   And probably this too because it has to be matched to a value that has already been sanitized: $default = htmlspecialchars($default); 
+//FIXME: all the values in the $aAttribs list and $sName and both the keys and values in $aValues used to go thru htmlspecialchars()... I would propose that most everything that is assigned to the template should go thru that *in the template class* on its way between here and the actual template file.  Otherwise we have to do something like:  foreach ($aAttribs as $key => $value) $aAttribs[$key] = htmlspecialchars($value); $sName = htmlspecialchars($sName); $aNewValues = array(); foreach ($aValues as $key => $value) $aNewValues[htmlspecialchars($key)] = htmlspecialchars($value); $aValues = $aNewValues;   And probably this too because it has to be matched to a value that has already been sanitized: $default = htmlspecialchars($default);  (oops, watch out for when $default is an array! (multiple select lists))
     $oTemplate->assign('aAttribs', $aAttribs);
     $oTemplate->assign('aValues', $aValues);
     $oTemplate->assign('bUsekeys', $bUsekeys);
     $oTemplate->assign('default', $default);
     $oTemplate->assign('name', $sName);
+    $oTemplate->assign('multiple', $bMultiple);
 
     return $oTemplate->fetch('select.tpl');
 }
