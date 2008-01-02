@@ -496,7 +496,8 @@ class Deliver {
         /* This creates an RFC 822 date */
         $date = date('D, j M Y H:i:s ', time()) . $this->timezone();
         /* Create a message-id */
-        $message_id = '<' . $REMOTE_PORT . '.';
+        $message_id = '<' . (!empty($REMOTE_PORT) ? $REMOTE_PORT . '.' : '');
+//FIXME: if $REMOTE_ADDR is missing, should we skip this if/else block?  or perhaps try to generate it with some different kind of info?
         if (isset($encode_header_key) && trim($encode_header_key)!='') {
             // use encrypted form of remote address
             $message_id.= OneTimePadEncrypt($this->ip2hex($REMOTE_ADDR),base64_encode($encode_header_key));
