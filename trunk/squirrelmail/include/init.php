@@ -391,7 +391,8 @@ do_hook('config_override', $null);
  *
  * Code can be utilized when session is started, but data is not loaded.
  * We have already loaded configuration and other important vars. Can't
- * clean session globals here.
+ * clean session globals here, beside, the cleanout of globals at the
+ * top of this file will have removed anything this code would find anyway.
 if ((bool) @ini_get('register_globals') &&
     strtolower(ini_get('register_globals'))!='off') {
     foreach ($_SESSION as $key => $value) {
@@ -593,12 +594,9 @@ switch (PAGE_NAME) {
 
         // Japanese translation used without mbstring support
         if ($err==2) {
-            $sError =
-                "<p>You need to have PHP installed with the multibyte string function \n".
-                "enabled (using configure option --enable-mbstring).</p>\n".
-                "<p>System assumed that you accidently switched to Japanese translation \n".
-                "and reverted your language preference to English.</p>\n".
-                "<p>Please refresh this page in order to use webmail.</p>\n";
+            $sError = "<p>Your administrator needs to have PHP installed with the multibyte string extension enabled (using configure option --enable-mbstring).</p>\n"
+                    . "<p>This system has assumed that you accidently switched to Japanese and has reverted your language preference to English.</p>\n"
+                    . "<p>Please refresh this page in order to continue using your webmail.</p>\n";
             error_box($sError);
         }
 
