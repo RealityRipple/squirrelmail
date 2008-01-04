@@ -192,7 +192,7 @@ if ($pageOffset < $end_msg) {
           case SQM_COL_CHECK:
               if ($javascript_on) {
                   $checked = ($checkall ? ' checked="checked" ' : '');
-                  echo '<input type="checkbox" name="toggleAll" title="'._("Toggle All").'" onclick="toggle_all(\''.$form_name."',".$fancy_index_highlite.')" ' . $checked . '/>'."\n";
+                  echo '<input type="checkbox" name="toggleAll" id="toggleAll" title="'._("Toggle All").'" onclick="toggle_all(\''.$form_name."',".$fancy_index_highlite.')" ' . $checked . '/>'."\n";
               } else {
                   $link = $baseurl 
                         . "&amp;startMessage=$pageOffset&amp;checkall=" 
@@ -200,23 +200,25 @@ if ($pageOffset < $end_msg) {
                   echo "<a href=\"$link\">"._("All").'</a>';
               }
               break;
-          case SQM_COL_FROM:       echo _("From")."\n";     break;
-          case SQM_COL_DATE:       echo _("Date")."\n";     break;
-          case SQM_COL_SUBJ:       echo _("Subject")."\n";  break;
+          case SQM_COL_FROM:       
+              echo '<label for="toggleAll">' . _("From") . "</label>\n";
+              break;
+          case SQM_COL_DATE:       echo _("Date") . "\n";     break;
+          case SQM_COL_SUBJ:       echo _("Subject") . "\n";  break;
           case SQM_COL_FLAGS:
                 echo getIcon($icon_theme_path, 'msg_new.png', '&nbsp;', _("Message Flags")) . "\n";
                 break;
-          case SQM_COL_SIZE:       echo  _("Size")."\n";    break;
+          case SQM_COL_SIZE:       echo  _("Size") . "\n";    break;
           case SQM_COL_PRIO:
                 echo getIcon($icon_theme_path, 'prio_high.png', '!', _("Priority")) . "\n";
                 break;
           case SQM_COL_ATTACHMENT:
                 echo getIcon($icon_theme_path, 'attach.png', '+', _("Attachment")) . "\n";
                 break;
-          case SQM_COL_INT_DATE:   echo _("Received")."\n"; break;
-          case SQM_COL_TO:         echo _("To")."\n";       break;
-          case SQM_COL_CC:         echo _("Cc")."\n";       break;
-          case SQM_COL_BCC:        echo _("Bcc")."\n";      break;
+          case SQM_COL_INT_DATE:   echo _("Received") . "\n"; break;
+          case SQM_COL_TO:         echo _("To") . "\n";       break;
+          case SQM_COL_CC:         echo _("Cc") . "\n";       break;
+          case SQM_COL_BCC:        echo _("Bcc") . "\n";      break;
           default: break;
         }
         // add the sort buttons
