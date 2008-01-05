@@ -43,7 +43,7 @@ extract($t);
       }
    }
 // -->\n</script>
-<form style="margin:0">
+<form style="margin:0" action="">
    <input type="button" value="<?php echo $down_arrow; ?>" onclick="set_preview_pane_size(0)" />
    <input type="button" value="X" onclick="parent.bottom.document.location='<?php echo $base_uri; ?>plugins/preview_pane/empty_frame.php'" />
    <input type="button" value="<?php echo $up_arrow; ?>" onclick="set_preview_pane_size(<?php echo $previewPane_size; ?>)" />
