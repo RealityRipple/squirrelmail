@@ -122,6 +122,9 @@ extract($t);
 <?php
 // do a conditional refresh of message list if needed
 // "pp_rr" = "preview pane read refresh"
-if (sqGetGlobalVar('pp_rr', $pp_rr, SQ_FORM) && $show_preview_pane && $first_time_reading) {
-        echo "<script language=\"JavaScript\" type=\"text/javascript\">\n<!--\nif (self.name == 'bottom') { refresh_message_list(); }\n// -->\n</script>\n";
+// "pp_rr_force" = force pp_rr even if this is not the first time the message has been read
+if ($show_preview_pane
+ && (sqGetGlobalVar('pp_rr_force', $pp_rr_force, SQ_FORM)
+ || (sqGetGlobalVar('pp_rr', $pp_rr, SQ_FORM) && $first_time_reading))) {
+    echo "<script language=\"JavaScript\" type=\"text/javascript\">\n<!--\nif (self.name == 'bottom') { refresh_message_list(); }\n// -->\n</script>\n";
 }
