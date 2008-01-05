@@ -129,9 +129,9 @@ $help_link		= makeInternalLink ('src/help.php', $help_str);
 <!--
    var delayed_page_load_uri = '';
    function delayed_page_load(page_uri)
-   { page_load_uri = page_uri; setTimeout('page_load()', 500); }
+   { delayed_page_load_uri = page_uri; setTimeout('page_load()', 500); }
    function page_load()
-   { document.location = page_load_uri; }
+   { document.location = delayed_page_load_uri; }
    function refresh_message_list()
    {
 <?php if (!empty($message_list_href)) { ?>
