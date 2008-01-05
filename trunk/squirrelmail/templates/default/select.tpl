@@ -63,7 +63,7 @@ foreach ($aValues as $key => $value) {
     //
     if ($multiple) {
         foreach ($default as $def) {
-            if ($def === $key) {
+            if ((string)$def == (string)$key) {
                 echo ' selected="selected"';
                 break;
             }
@@ -74,7 +74,7 @@ foreach ($aValues as $key => $value) {
     // (we could use the same code above, but we do this here to increase
     // efficency and performance)
     //
-    else if ($default[0] === $key)
+    else if ((string)$default[0] == (string)$key)
         echo ' selected="selected"';
 
     echo '>' . $label_open . $value . $label_close  . "</option>\n";
