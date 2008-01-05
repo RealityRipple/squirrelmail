@@ -84,9 +84,11 @@ function cachePrefValues($username) {
 
 /**
  * Class used to handle connections to prefs database and operations with preferences
+ *
  * @package squirrelmail
  * @subpackage prefs
  * @since 1.1.3
+ *
  */
 class dbPrefs {
     /**
@@ -94,16 +96,19 @@ class dbPrefs {
      * @var string
      */
     var $table = 'userprefs';
+
     /**
      * Field used to store owner of preference
      * @var string
      */
     var $user_field = 'user';
+
     /**
      * Field used to store preference name
      * @var string
      */
     var $key_field = 'prefkey';
+
     /**
      * Field used to store preference value
      * @var string
@@ -115,11 +120,13 @@ class dbPrefs {
      * @var object
      */
     var $dbh   = NULL;
+
     /**
      * Error messages
      * @var string
      */
     var $error = NULL;
+
     /**
      * Database type (SMDB_* constants)
      * Is used in setKey().
@@ -140,12 +147,14 @@ class dbPrefs {
      * @since 1.5.1
      */
     var $user_size = 128;
+
     /**
      * Preference key field size
      * @var integer
      * @since 1.5.1
      */
     var $key_size = 64;
+
     /**
      * Preference value field size
      * @var integer
@@ -153,9 +162,13 @@ class dbPrefs {
      */
     var $val_size = 65536;
 
+
+
     /**
      * initialize DB connection object
+     *
      * @return boolean true, if object is initialized
+     *
      */
     function open() {
         global $prefs_dsn, $prefs_table;
@@ -216,7 +229,9 @@ class dbPrefs {
 
     /**
      * Function used to handle database connection errors
+     *
      * @param object PEAR Error object
+     *
      */
     function failQuery($res = NULL) {
         if($res == NULL) {
@@ -231,10 +246,13 @@ class dbPrefs {
 
     /**
      * Get user's prefs setting
+     *
      * @param string $user user name
      * @param string $key preference name
      * @param mixed $default (since 1.2.5) default value
+     *
      * @return mixed preference value
+     *
      */
     function getKey($user, $key, $default = '') {
         global $prefs_cache;
@@ -254,9 +272,12 @@ class dbPrefs {
 
     /**
      * Delete user's prefs setting
+     *
      * @param string $user user name
-     * @param string $key preference name
+     * @param string $key  preference name
+     *
      * @return boolean
+     *
      */
     function deleteKey($user, $key) {
         global $prefs_cache;
@@ -283,10 +304,13 @@ class dbPrefs {
 
     /**
      * Set user's preference
-     * @param string $user user name
-     * @param string $key preference name
-     * @param mixed $value preference value
+     *
+     * @param string $user  user name
+     * @param string $key   preference name
+     * @param mixed  $value preference value
+     *
      * @return boolean
+     *
      */
     function setKey($user, $key, $value) {
         if (!$this->open()) {
@@ -407,8 +431,11 @@ class dbPrefs {
 
     /**
      * Fill preference cache array
+     *
      * @param string $user user name
+     *
      * @since 1.2.3
+     *
      */
     function fillPrefsCache($user) {
         global $prefs_cache;
@@ -439,10 +466,10 @@ class dbPrefs {
 
 
 /**
- * returns the value for the pref $string
+ * Returns the value for the requested preference
  * @ignore
  */
-function getPref($data_dir, $username, $string, $default = '') {
+function getPref($data_dir, $username, $pref_name, $default = '') {
     $db = new dbPrefs;
     if(isset($db->error)) {
         printf( _("Preference database error (%s). Exiting abnormally"),
@@ -450,24 +477,24 @@ function getPref($data_dir, $username, $string, $default = '') {
         exit;
     }
 
-    return $db->getKey($username, $string, $default);
+    return $db->getKey($username, $pref_name, $default);
 }
 
 /**
- * Remove the pref $string
+ * Remove the desired preference setting ($pref_name)
  * @ignore
  */
-function removePref($data_dir, $username, $string) {
+function removePref($data_dir, $username, $pref_name) {
     global $prefs_cache;
     $db = new dbPrefs;
     if(isset($db->error)) {
         $db->failQuery();
     }
 
-    $db->deleteKey($username, $string);
+    $db->deleteKey($username, $pref_name);
 
-    if (isset($prefs_cache[$string])) {
-        unset($prefs_cache[$string]);
+    if (isset($prefs_cache[$pref_name])) {
+        unset($prefs_cache[$pref_name]);
     }
 
     sqsession_register($prefs_cache , 'prefs_cache');
@@ -475,18 +502,18 @@ function removePref($data_dir, $username, $string) {
 }
 
 /**
- * sets the pref, $string, to $set_to
+ * Sets the desired preference setting ($pref_name) to whatever is in $value
  * @ignore
  */
-function setPref($data_dir, $username, $string, $set_to) {
+function setPref($data_dir, $username, $pref_name, $value) {
     global $prefs_cache;
 
-    if (isset($prefs_cache[$string]) && ($prefs_cache[$string] == $set_to)) {
+    if (isset($prefs_cache[$pref_name]) && ($prefs_cache[$pref_name] == $value)) {
         return;
     }
 
-    if ($set_to === '') {
-        removePref($data_dir, $username, $string);
+    if ($value === '') {
+        removePref($data_dir, $username, $pref_name);
         return;
     }
 
@@ -495,11 +522,11 @@ function setPref($data_dir, $username, $string, $set_to) {
         $db->failQuery();
     }
 
-    $db->setKey($username, $string, $set_to);
-    $prefs_cache[$string] = $set_to;
+    $db->setKey($username, $pref_name, $value);
+    $prefs_cache[$pref_name] = $value;
     assert_options(ASSERT_ACTIVE, 1);
     assert_options(ASSERT_BAIL, 1);
-    assert ('$set_to == $prefs_cache[$string]');
+    assert ('$value == $prefs_cache[$pref_name]');
     sqsession_register($prefs_cache , 'prefs_cache');
     return;
 }
@@ -519,13 +546,13 @@ function checkForPrefs($data_dir, $username) {
  * Writes the Signature
  * @ignore
  */
-function setSig($data_dir, $username, $number, $string) {
+function setSig($data_dir, $username, $number, $value) {
     if ($number == "g") {
         $key = '___signature___';
     } else {
         $key = sprintf('___sig%s___', $number);
     }
-    setPref($data_dir, $username, $key, $string);
+    setPref($data_dir, $username, $key, $value);
     return;
 }
 
