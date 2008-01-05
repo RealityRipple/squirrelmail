@@ -133,8 +133,8 @@ function parseUrl (&$body) {
             $target_pos = strlen($check_str) + $start;
         }
 
-        /* If there was a token to replace, replace it */
-        if ($target_token == 'mailto:') {    // rfc 2368 (mailto URL)
+        // rfc 2368 (mailto URL)
+        if ($target_token == 'mailto:') {
             $target_pos += 7;    //skip mailto:
             $end = $blength;
 
@@ -163,6 +163,7 @@ function parseUrl (&$body) {
             }
         }
         else
+        /* If there was a token to replace, replace it */
         if ($target_token != '') {
             /* Find the end of the URL */
             $end = $blength;
