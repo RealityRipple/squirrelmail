@@ -63,8 +63,10 @@ function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$respon
     } else {
         global $squirrelmail_language, $color;
         set_up_language($squirrelmail_language);
+//FIXME: NO HTML IN CORE!
         $string = "<b><font color=\"$color[2]\">\n" .
                 _("ERROR: No available IMAP stream.") .
+//FIXME: NO HTML IN CORE!
                 "</b></font>\n";
         error_box($string);
         return false;
@@ -113,8 +115,10 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response,
     } else {
         global $squirrelmail_language, $color;
         set_up_language($squirrelmail_language);
+//FIXME: NO HTML IN CORE!
         $string = "<b><font color=\"$color[2]\">\n" .
                 _("ERROR: No available IMAP stream.") .
+//FIXME: NO HTML IN CORE!
                 "</b></font>\n";
         error_box($string);
         return false;
@@ -316,8 +320,10 @@ function sqimap_read_data_list($imap_stream, $tag, $handle_errors,
           &$response, &$message, $query = '') {
     global $color, $oTemplate, $squirrelmail_language;
     set_up_language($squirrelmail_language);
+//FIXME: NO HTML IN CORE!
     $string = "<b><font color=\"$color[2]\">\n" .
         _("ERROR: Bad function call.") .
+//FIXME: NO HTML IN CORE!
         "</b><br />\n" .
         _("Reason:") . ' '.
           'There is a plugin installed which make use of the  <br />' .
@@ -325,6 +331,7 @@ function sqimap_read_data_list($imap_stream, $tag, $handle_errors,
           'Please adapt the installed plugin and let it use<br />'.
           'sqimap_run_command or sqimap_run_command_list instead<br /><br />'.
           'The following query was issued:<br />'.
+//FIXME: NO HTML IN CORE!
            htmlspecialchars($query) . '<br />' . "</font><br />\n";
     error_box($string);
     $oTemplate->display('footer.tpl');
@@ -346,6 +353,7 @@ function sqimap_error_box($title, $query = '', $message_title = '', $message = '
     global $color, $squirrelmail_language;
 
     set_up_language($squirrelmail_language);
+//FIXME: NO HTML IN CORE!
     $string = "<font color=\"$color[2]\"><b>\n" . $title . "</b><br />\n";
     $cmd = explode(' ',$query);
     $cmd= strtolower($cmd[0]);
@@ -356,6 +364,7 @@ function sqimap_error_box($title, $query = '', $message_title = '', $message = '
         $string .= $message_title;
     if ($message != '')
         $string .= htmlspecialchars($message);
+//FIXME: NO HTML IN CORE!
     $string .= "</font><br />\n";
     if ($link != '')
         $string .= $link;
@@ -561,6 +570,7 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
                 $query = '';
             }
             sqimap_error_box(_("ERROR: IMAP server closed the connection."), $query, _("Server responded:"),$sResponse);
+//FIXME: NO HTML IN CORE!
             echo '</body></html>';
             exit;
         } else if ($handle_errors) {
@@ -596,10 +606,12 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
         break;
     case 'BAD':
         sqimap_error_box(_("ERROR: Bad or malformed request."), $query, _("Server responded:") . ' ', $message[$tag]);
+//FIXME: NO HTML IN CORE!
         echo '</body></html>';
         exit;
     case 'BYE':
         sqimap_error_box(_("ERROR: IMAP server closed the connection."), $query, _("Server responded:") . ' ', $message[$tag]);
+//FIXME: NO HTML IN CORE!
         echo '</body></html>';
         exit;
     default:
@@ -674,6 +686,7 @@ function sqimap_create_stream($server,$port,$tls=0) {
         set_up_language($squirrelmail_language, true);
         require_once(SM_PATH . 'functions/display_messages.php');
         logout_error( sprintf(_("Error connecting to IMAP server: %s."), $server).
+//FIXME: NO HTML IN CORE!
             "<br />\r\n$error_number : $error_string<br />\r\n",
                       sprintf(_("Error connecting to IMAP server: %s."), $server) );
         exit;
