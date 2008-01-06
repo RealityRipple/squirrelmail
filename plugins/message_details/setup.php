@@ -49,14 +49,16 @@ function show_message_details(&$links) {
         'Text' => _("View Message details") );
 
     if (checkForJavascript()) {
-        echo '<script type="text/javascript">' . "\n" .
-                '<!--' . "\n" .
-                "  function MessageSource() {\n" .
-                '    window.open("../plugins/message_details/message_details_main.php' .
-                        $params . '","MessageDetails","width=800,height=600");' . "\n".
-                "  }\n" .
-                "// -->\n" .
-                "</script>\n\n";
+        echo '<script type="text/javascript">' . "\n"
+           . '<!--' . "\n"
+           . "  function MessageSource() {\n"
+           . '    window.open("' 
+           . sqm_baseuri() 
+           . 'plugins/message_details/message_details_main.php' .
+                        $params . '","MessageDetails","width=800,height=600");' . "\n"
+           . "  }\n"
+           . "// -->\n"
+           . "</script>\n\n";
     }
 }
 
