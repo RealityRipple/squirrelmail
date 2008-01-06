@@ -130,7 +130,8 @@ function addressbook_init($showerr = true, $onlylocal = false) {
      * in an array and change those values as needed instead of returning
      * the changed values.
      */
-    do_hook('abook_init', $temp=array(&$abook, &$r, &$onlylocal));
+    $temp = array(&$abook, &$r, &$onlylocal);
+    do_hook('abook_init', $temp);
     if (!$r && $showerr) {
         if ($abook_init_error!='') $abook_init_error.="\n";
         $abook_init_error.=_("Error initializing other address books.") . "\n" . $abook->error;
