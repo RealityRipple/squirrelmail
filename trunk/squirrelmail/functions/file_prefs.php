@@ -109,13 +109,15 @@ function cachePrefValues($data_dir, $username) {
 function getPref($data_dir, $username, $pref_name, $default = '') {
     global $prefs_cache;
 
-    $result = do_hook('get_pref_override', $temp=array(&$username, &$pref_name));
+    $temp = array(&$username, &$pref_name);
+    $result = do_hook('get_pref_override', $temp);
     if (!$result) {
         cachePrefValues($data_dir, $username);
         if (isset($prefs_cache[$pref_name])) {
             $result = $prefs_cache[$pref_name];
         } else {
-            $result = do_hook('get_pref', $temp=array(&$username, &$pref_name));
+            $temp = array(&$username, &$pref_name);
+            $result = do_hook('get_pref', $temp);
             if (!$result) {
                 $result = $default;
             }
