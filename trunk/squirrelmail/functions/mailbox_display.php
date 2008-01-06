@@ -628,7 +628,7 @@ function prepareMessageList(&$aMailbox, $aProps) {
                                          'draft' => false);
 
                     if(!is_array($value)) $value = array();
-                    foreach ($value as $sFlag => $value) {
+                    foreach ($value as $sFlag => $v) {
                         switch ($sFlag) {
                           case '\\seen'    : $aFlagColumn['seen']     = true; break;
                           case '\\deleted' : $aFlagColumn['deleted']  = true; break;
