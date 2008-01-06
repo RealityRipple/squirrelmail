@@ -17,8 +17,7 @@
   */
 function test_menuline_do() {
 
-    global $oTemplate;
-    $nbsp = $oTemplate->fetch('non_breaking_space.tpl');
+    global $oTemplate, $nbsp;
     $output = makeInternalLink('plugins/test/test.php', 'Test', 'right')
             . $nbsp . $nbsp;
     return array('menuline' => $output);

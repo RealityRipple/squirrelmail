@@ -32,8 +32,7 @@ global $mail_fetch_allow_unsubscribed;
   */
 function mail_fetch_link_do() {
 
-    global $oTemplate;
-    $nbsp = $oTemplate->fetch('non_breaking_space.tpl');
+    global $oTemplate, $nbsp;
     $output = makeInternalLink('plugins/mail_fetch/fetch.php', _("Fetch"), '')
             . $nbsp . $nbsp;
     return array('menuline' => $output);

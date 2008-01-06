@@ -35,8 +35,7 @@ function bug_report_button() {
         return;
     }
 
-    global $oTemplate;
-    $nbsp = $oTemplate->fetch('non_breaking_space.tpl');
+    global $oTemplate, $nbsp;
     $output = makeInternalLink('plugins/bug_report/bug_report.php', _("Bug"), '')
             . $nbsp . $nbsp;
     return array('menuline' => $output);
