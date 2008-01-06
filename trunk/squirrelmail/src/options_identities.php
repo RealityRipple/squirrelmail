@@ -156,7 +156,8 @@ function ShowIdentityInfo($title, $identity, $id ) {
     $return_str .= sti_input( _("E-Mail Address") , sprintf($name, $id, 'email_address'), $identity['email_address'], $bg);
     $return_str .= sti_input( _("Reply To"), sprintf($name, $id, 'reply_to'), $identity['reply_to'], $bg);
     $return_str .= sti_textarea( _("Signature"), sprintf($name, $id, 'signature'), $identity['signature'], $bg);
-    $return_str .= concat_hook_function('options_identities_table', $temp=array(&$bg, &$empty, &$id));
+    $temp = array(&$bg, &$empty, &$id);
+    $return_str .= concat_hook_function('options_identities_table', $temp);
     $return_str .= '<tr' . $bg . '> ' . "\n";
     $return_str .= '  <td> &nbsp; </td>' . "\n";
     $return_str .= '  <td>' . "\n";
@@ -172,7 +173,8 @@ function ShowIdentityInfo($title, $identity, $id ) {
 
     }
 
-    $return_str .= concat_hook_function('options_identities_buttons', $temp=array(&$empty, &$id));
+    $temp = array(&$empty, &$id);
+    $return_str .= concat_hook_function('options_identities_buttons', $temp);
     $return_str .= '  </td>' . "\n";
     $return_str .= '</tr>' . "\n";
     $return_str .= '<tr>' . "\n";
