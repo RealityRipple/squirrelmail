@@ -416,10 +416,17 @@ function sqsession_start() {
     // was: @session_start();
     $session_id = session_id();
 
-    // session_starts sets the sessionid cookie buth without the httponly var
+    // session_starts sets the sessionid cookie but without the httponly var
     // setting the cookie again sets the httponly cookie attribute
-    sqsetcookie(session_name(),$session_id,false,$base_uri);
+    //
+    // need to check if headers have been sent, since sqsession_is_active()
+    // has become just a passthru to this function, so the sqsetcookie()
+    // below is called every time, even after headers have already been sent
+    //
+    if (!headers_sent())
+       sqsetcookie(session_name(),$session_id,false,$base_uri);
 }
+
 
 
 /**
