@@ -526,16 +526,29 @@ class SquirrelOption {
 } /* End of SquirrelOption class*/
 
 /**
- * Saves option
+ * Saves the option value (this is the default save function
+ * unless overridden by the user)
+ *
  * @param object $option object that holds option name and new_value
  */
 function save_option($option) {
+
+    // Can't save the pref if we don't have the username
+    //
     if ( !sqgetGlobalVar('username', $username, SQ_SESSION ) ) {
-        /* Can't save the pref if we don't have the username */
         return;
     }
+
     global $data_dir;
-    setPref($data_dir, $username, $option->name, $option->new_value);
+
+    // Certain option types need to be serialized because
+    // they are not scalar
+    //
+    if ($option->type == SMOPT_TYPE_FLDRLIST_MULTI)
+        setPref($data_dir, $username, $option->name, serialize($option->new_value));
+    else
+        setPref($data_dir, $username, $option->name, $option->new_value);
+
 }
 
 /**
