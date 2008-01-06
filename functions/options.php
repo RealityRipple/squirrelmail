@@ -478,8 +478,7 @@ class SquirrelOption {
      */
     function createWidget_Boolean() {
 
-        global $oTemplate;
-        $nbsp = $oTemplate->fetch('non_breaking_space.tpl');
+        global $oTemplate, $nbsp;
 
         /* Build the yes choice. */
         $yes_option = addRadioBox('new_' . $this->name, ($this->value != SMPREF_NO), SMPREF_YES, array_merge(array('id' => 'new_' . $this->name . '_yes'), $this->aExtraAttribs)) . $nbsp . create_label(_("Yes"), 'new_' . $this->name . '_yes');
