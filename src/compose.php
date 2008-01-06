@@ -1594,7 +1594,7 @@ function deliverMessage($composeMessage, $draft=false) {
         if (sqimap_mailbox_exists ($imap_stream, $draft_folder)) {
             require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
             $imap_deliver = new Deliver_IMAP();
-            $imap_deliver->mail($composeMessage, $imap_stream, $reply_id, $reply_ent_id, $draft_folder);
+            $length = $imap_deliver->mail($composeMessage, $imap_stream, $reply_id, $reply_ent_id, $draft_folder);
             sqimap_logout($imap_stream);
             unset ($imap_deliver);
             $composeMessage->purgeAttachments();
