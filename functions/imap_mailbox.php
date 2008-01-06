@@ -485,7 +485,8 @@ function sqimap_mailbox_delete ($imap_stream, $mailbox) {
             // subscribe again
             sqimap_subscribe ($imap_stream, $mailbox);
         } else {
-            do_hook('rename_or_delete_folder', $temp=array(&$mailbox, 'delete', ''));
+            $temp = array(&$mailbox, 'delete', '');
+            do_hook('rename_or_delete_folder', $temp);
             removePref($data_dir, $username, "thread_$mailbox");
             removePref($data_dir, $username, "collapse_folder_$mailbox");
         }
@@ -540,7 +541,8 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
         sqimap_subscribe($imap_stream, $new_name.$postfix);
         setPref($data_dir, $username, 'thread_'.$new_name.$postfix, $oldpref_thread);
         setPref($data_dir, $username, 'collapse_folder_'.$new_name.$postfix, $oldpref_collapse);
-        do_hook('rename_or_delete_folder', $temp=array(&$old_name, 'rename', &$new_name));
+        $temp = array(&$old_name, 'rename', &$new_name);
+        do_hook('rename_or_delete_folder', $temp);
         $l = strlen( $old_name ) + 1;
         $p = 'unformatted';
 
@@ -566,7 +568,8 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
                 }
                 setPref($data_dir, $username, 'thread_'.$new_sub, $oldpref_thread);
                 setPref($data_dir, $username, 'collapse_folder_'.$new_sub, $oldpref_collapse);
-                do_hook('rename_or_delete_folder', $temp=array(&$box[$p], 'rename', &$new_sub));
+                $temp = array(&$box[$p], 'rename', &$new_sub);
+                do_hook('rename_or_delete_folder', $temp);
             }
         }
     }
