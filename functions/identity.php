@@ -135,7 +135,8 @@ function sqfixidentities( $identities, $id, $action ) {
                     $fixed[0] = $ident;
 
                     // inform plugins about renumbering of ids
-                    do_hook('options_identities_renumber', $temp=array(&$id, 'default'));
+                    $temp = array(&$id, 'default');
+                    do_hook('options_identities_renumber', $temp);
 
                     continue 2;
                 } else {
@@ -149,7 +150,8 @@ function sqfixidentities( $identities, $id, $action ) {
                     $tmp_hold = $ident;
 
                     // inform plugins about renumbering of ids
-                    do_hook('options_identities_renumber', $temp=array(&$id , $id - 1));
+                    $temp = array(&$id , $id - 1);
+                    do_hook('options_identities_renumber', $temp);
 
                     continue 2;
                 } else {
@@ -166,7 +168,8 @@ function sqfixidentities( $identities, $id, $action ) {
 
                 if ($key == $id) {
                     // inform plugins about deleted id
-                    do_hook('options_identities_process', $temp=array(&$action, &$id));
+                    $temp = array(&$action, &$id);
+                    do_hook('options_identities_process', $temp);
 
                     continue 2;
                 } else {
@@ -182,7 +185,8 @@ function sqfixidentities( $identities, $id, $action ) {
                  * be used to detect modified hook. Older hook does not
                  * provide information that can be useful for plugins.
                  */
-                do_hook('options_identities_process', $temp=array(&$action, &$id));
+                $temp = array(&$action, &$id);
+                do_hook('options_identities_process', $temp);
 
                 $fixed[$i] = $ident;
 
