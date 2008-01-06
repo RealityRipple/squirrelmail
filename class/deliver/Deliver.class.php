@@ -94,8 +94,8 @@ class Deliver {
             } else {
                 $orig_header = $reply_message->rfc822_header;
             }
+            $message->reply_rfc822_header = $orig_header;
         }
-        $message->reply_rfc822_header = $orig_header;
 
 
         $reply_rfc822_header = (isset($message->reply_rfc822_header)
