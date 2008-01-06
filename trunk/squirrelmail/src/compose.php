@@ -522,7 +522,8 @@ if ($send) {
         // NOTE: this hook changed in 1.5.2 from sending $Result and
         //       $composeMessage as args #2 and #3 to being in an array
         //       under arg #2
-        do_hook('compose_send_after', $temp=array(&$Result, &$composeMessage, &$mail_sent));
+        $temp = array(&$Result, &$composeMessage, &$mail_sent);
+        do_hook('compose_send_after', $temp);
         if (! $Result) {
             showInputForm($session);
             exit();
