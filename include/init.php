@@ -667,6 +667,7 @@ if (empty($oTemplate)) {
 }
 
 // We want some variables to always be available to the template
+//
 $oTemplate->assign('javascript_on', 
     (sqGetGlobalVar('user_is_logged_in', $user_is_logged_in, SQ_SESSION)
      ?  checkForJavascript() : 0));
@@ -675,6 +676,11 @@ $always_include = array('sTemplateID', 'icon_theme_path');
 foreach ($always_include as $var) {
     $oTemplate->assign($var, (isset($$var) ? $$var : NULL));
 }
+
+// A few output elements are used often, so just get them once here
+//
+$nbsp = $oTemplate->fetch('non_breaking_space.tpl');
+$br = $oTemplate->fetch('line_break.tpl');
 
 /**
  * Initialize our custom error handler object

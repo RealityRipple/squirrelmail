@@ -33,7 +33,7 @@ define('SMOPT_GRP_FOLDERSELECT', 2);
  * @return array all option information
  */
 function load_optpage_data_folder() {
-    global $username, $imapServerAddress, $imapPort, $oTemplate,
+    global $username, $imapServerAddress, $imapPort, $oTemplate, $nbsp,
            $folder_prefix, $default_folder_prefix, $show_prefix_option;
 
     /* Get some imap data we need later. */
@@ -227,7 +227,6 @@ function load_optpage_data_folder() {
     $optgrps[SMOPT_GRP_FOLDERSELECT] = _("Folder Selection Options");
     $optvals[SMOPT_GRP_FOLDERSELECT] = array();
 
-    $nbsp = $oTemplate->fetch('non_breaking_space.tpl');
     $delim = sqimap_get_delimiter($imapConnection);
     $optvals[SMOPT_GRP_FOLDERSELECT][] = array(
         'name'    => 'mailbox_select_style',

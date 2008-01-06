@@ -48,7 +48,8 @@ function get_paginator_link($box, $start_msg, $text) {
  */
 function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, $javascript_on, $page_selector) {
 
-    global $oTemplate;
+    /* This will be used as a space. */
+    global $oTemplate, $nbsp;
 
     // keeps count of how many times
     // the paginator is used, avoids
@@ -68,8 +69,6 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
     $box = urlencode($box);
 
     /* Create simple strings that will be creating the paginator. */
-    /* This will be used as a space. */
-    $spc = $oTemplate->fetch('non_breaking_space.tpl');
     /* This will be used as a seperator. */
     $sep = '|';
 
@@ -131,7 +130,7 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
             for ($p = 0; $p < $tot_pgs; $p++) {
                 $options[(($p*$iLimit)+1) . '_' . $box] = ($p+1) . "/$tot_pgs";
             }
-            $result .= $spc . addSelect('startMessage_' . $display_iterations, 
+            $result .= $nbsp . addSelect('startMessage_' . $display_iterations, 
                                         $options, 
                                         ((($cur_pg-1)*$iLimit)+1), 
                                         TRUE, 
@@ -152,8 +151,8 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
         }
     }
 
-    $result .= ($pg_str  != '' ? '['.$pg_str.']' .  $spc : '');
-    $result .= ($all_str != '' ? $spc . '['.$all_str.']' . $spc . $spc : '');
+    $result .= ($pg_str  != '' ? '['.$pg_str.']' .  $nbsp : '');
+    $result .= ($all_str != '' ? $nbsp . '['.$all_str.']' . $nbsp . $nbsp : '');
 
     /* If the resulting string is blank, return a non-breaking space. */
     if ($result == '') {
@@ -181,7 +180,8 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
  */
 function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll,$page_selector, $page_selector_max) {
 
-    global $oTemplate;
+    /* This will be used as a space. */
+    global $oTemplate, $nbsp;
     sqgetGlobalVar('PHP_SELF',$php_self,SQ_SERVER);
 
     /* Initialize paginator string chunks. */
@@ -193,8 +193,6 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll,$page_sel
     $box = urlencode($box);
 
     /* Create simple strings that will be creating the paginator. */
-    /* This will be used as a space. */
-    $spc = $oTemplate->fetch('non_breaking_space.tpl');
     /* This will be used as a seperator. */
     $sep = '|';
 
@@ -295,42 +293,42 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll,$page_sel
 
             /* Start with the first quarter. */
             if (($q1_pgs == 0) && ($cur_pg > 1)) {
-                $pg_str .= "...$spc";
+                $pg_str .= "...$nbsp";
             } else {
                 for ($pg = 1; $pg <= $q1_pgs; ++$pg) {
                     $start = (($pg-1) * $iLimit) + 1;
-                    $pg_str .= get_paginator_link($box, $start, $pg) . $spc;
+                    $pg_str .= get_paginator_link($box, $start, $pg) . $nbsp;
                 }
                 if ($cur_pg - $q2_pgs - $q1_pgs > 1) {
-                    $pg_str .= "...$spc";
+                    $pg_str .= "...$nbsp";
                 }
             }
 
             /* Continue with the second quarter. */
             for ($pg = $cur_pg - $q2_pgs; $pg < $cur_pg; ++$pg) {
                 $start = (($pg-1) * $iLimit) + 1;
-                $pg_str .= get_paginator_link($box, $start, $pg) . $spc;
+                $pg_str .= get_paginator_link($box, $start, $pg) . $nbsp;
             }
 
             /* Now print the current page. */
-            $pg_str .= $cur_pg . $spc;
+            $pg_str .= $cur_pg . $nbsp;
 
             /* Next comes the third quarter. */
             for ($pg = $cur_pg + 1; $pg <= $cur_pg + $q3_pgs; ++$pg) {
                 $start = (($pg-1) * $iLimit) + 1;
-                $pg_str .= get_paginator_link($box, $start, $pg) . $spc;
+                $pg_str .= get_paginator_link($box, $start, $pg) . $nbsp;
             }
 
             /* And last, print the forth quarter page links. */
             if (($q4_pgs == 0) && ($cur_pg < $tot_pgs)) {
-                $pg_str .= "...$spc";
+                $pg_str .= "...$nbsp";
             } else {
                 if (($tot_pgs - $q4_pgs) > ($cur_pg + $q3_pgs)) {
-                    $pg_str .= "...$spc";
+                    $pg_str .= "...$nbsp";
                 }
                 for ($pg = $tot_pgs - $q4_pgs + 1; $pg <= $tot_pgs; ++$pg) {
                     $start = (($pg-1) * $iLimit) + 1;
-                    $pg_str .= get_paginator_link($box, $start,$pg) . $spc;
+                    $pg_str .= get_paginator_link($box, $start,$pg) . $nbsp;
                 }
             }
 
@@ -352,17 +350,17 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll,$page_sel
         $all_str = create_hyperlink("$php_self?showall=1&amp;startMessage=1&amp;mailbox=$box", _("Show All"));
 
         $result .= '[';
-        $result .= ($prv_str != '' ? $prv_str . $spc . $sep . $spc : '');
+        $result .= ($prv_str != '' ? $prv_str . $nbsp . $sep . $nbsp : '');
         $result .= ($nxt_str != '' ? $nxt_str : '');
-        $result .= ']' . $spc ;
+        $result .= ']' . $nbsp ;
     }
 
-    $result .= ($pg_str  != '' ? $spc . '['.$spc.$pg_str.']' .  $spc : '');
-    $result .= ($all_str != '' ? $spc . '['.$all_str.']' . $spc . $spc : '');
+    $result .= ($pg_str  != '' ? $nbsp . '['.$nbsp.$pg_str.']' .  $nbsp : '');
+    $result .= ($all_str != '' ? $nbsp . '['.$all_str.']' . $nbsp . $nbsp : '');
 
     /* If the resulting string is blank, return a non-breaking space. */
     if ($result == '') {
-        $result = $oTemplate->fetch('non_breaking_space.tpl');
+        $result = $nbsp;
     }
     /* Return our final magical compact paginator string. */
     return ($result);

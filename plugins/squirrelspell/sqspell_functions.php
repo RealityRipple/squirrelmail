@@ -63,8 +63,7 @@ function squirrelspell_setup_function() {
    */
   if (checkForJavascript()) {
 
-    global $oTemplate, $base_uri;
-    $nbsp = $oTemplate->fetch('non_breaking_space.tpl');
+    global $oTemplate, $base_uri, $nbsp;
 
     $output = addButton(_("Check Spelling"), 
                         'check_spelling', 

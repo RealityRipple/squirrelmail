@@ -20,10 +20,9 @@
   */
 function demo_page_header_template_do()
 {
-   global $oTemplate;
+   global $oTemplate, $nbsp;
 
    sq_change_text_domain('demo');
-   $nbsp = $oTemplate->fetch('non_breaking_space.tpl');
    $output = makeInternalLink('plugins/demo/demo.php', _("Demo"), '')
            . $nbsp . $nbsp;
    sq_change_text_domain('squirrelmail');

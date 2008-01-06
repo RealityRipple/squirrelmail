@@ -18,8 +18,7 @@
   */
 function calendar_do() {
 
-    global $oTemplate;
-    $nbsp = $oTemplate->fetch('non_breaking_space.tpl');
+    global $oTemplate, $nbsp;
     $output = makeInternalLink('plugins/calendar/calendar.php',_("Calendar"),'right')
             . $nbsp . $nbsp;
     return array('menuline' => $output);

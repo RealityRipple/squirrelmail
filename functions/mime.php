@@ -354,9 +354,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
            $show_html_default, $sort, $has_unsafe_images, $passed_ent_id,
            $use_iframe, $iframe_height, $download_and_unsafe_link,
            $download_href, $unsafe_image_toggle_href, $unsafe_image_toggle_text,
-           $oTemplate;
-
-    $nbsp = $oTemplate->fetch('non_breaking_space.tpl');
+           $oTemplate, $nbsp;
 
     // workaround for not updated config.php
     if (! isset($use_iframe)) $use_iframe = false;
