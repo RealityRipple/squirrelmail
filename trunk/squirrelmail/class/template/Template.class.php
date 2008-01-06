@@ -1420,9 +1420,9 @@ FIXME: We could make the incoming array more complex so it can
         } else {
 
             $aPluginOutput = array();
+            $temp = array(&$aPluginOutput, &$this);
             $aPluginOutput = concat_hook_function('template_construct_' . $file,
-                                                  $temp=array(&$aPluginOutput, &$this),
-                                                  TRUE);
+                                                  $temp, TRUE);
             $this->assign('plugin_output', $aPluginOutput);
 
             //$output = $this->apply_template($template);
