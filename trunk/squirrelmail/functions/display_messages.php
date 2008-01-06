@@ -68,7 +68,8 @@ function logout_error( $errString, $errTitle = '' ) {
                         
     /* As of 1.5.2, plugin parameters are combined into one array; 
        plugins on this hook must be updated */
-    do_hook('logout_error', $temp=array(&$errString, &$errTitle, &$login_link));
+    $temp = array(&$errString, &$errTitle, &$login_link);
+    do_hook('logout_error', $temp);
 
     if ( $errTitle == '' ) {
         $errTitle = $errString;
