@@ -424,6 +424,7 @@ $use_icons = 'false'                    if ( !$use_icons );
 $use_iframe = 'false'                   if ( !$use_iframe );
 $lossy_encoding = 'false'               if ( !$lossy_encoding );
 $allow_remote_configtest = 'false'      if ( !$allow_remote_configtest );
+$secured_config = 'true'                if ( !$secured_config );
 
 $sm_debug_mode = 'SM_DEBUG_MODE_MODERATE' if ( !$sm_debug_mode );
 #FIXME: When this is STABLE software, remove the line above and uncomment the one below:
@@ -821,6 +822,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
     print $WHT. "Configuration tweaks\n" . $NRM;
     print "6.  Allow remote configtest     : $WHT$allow_remote_configtest$NRM\n";
     print "7.  Debug mode                  : $WHT$sm_debug_mode$NRM\n";
+    print "8.  Secured configuration mode  : $WHT$secured_config$NRM\n";
     print "\n";
         print "R   Return to Main Menu\n";
     }
@@ -994,6 +996,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 5 ) { $use_php_iconv  = commandB5(); }
             elsif ( $command == 6 ) { $allow_remote_configtest = commandB6(); }
             elsif ( $command == 7 ) { $sm_debug_mode = commandB8(); }
+            elsif ( $command == 8 ) { $secured_config = commandB9(); }
         }
     }
 }
@@ -4429,6 +4432,32 @@ sub commandB8 {
     return $sm_debug_mode;
 }
 
+# Secured configuration mode (since 1.5.2)
+sub commandB9 {
+    print "This option allows you to enable \"Secured Configuration\" mode,\n";
+    print "which will guarantee that certain settings made herein will be\n";
+    print "made immutable and will not be subject to override by either friendly\n";
+    print "or unfriendly code/plugins.  Only a small number of settings herein\n";
+    print "will be used in this manner - just those that are deemed to be a\n";
+    print "potential security threat when rouge plugin or other code may be\n";
+    print "executed inside SquirrelMail.\n";
+    print "\n";
+
+    if ( lc($secured_config) eq 'true' ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Enable secured configuration mode? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $secured_config = <STDIN>;
+    if ( ( $secured_config =~ /^y\n/i ) || ( ( $secured_config =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $secured_config = 'true';
+    } else {
+        $secured_config = 'false';
+    }
+    return $secured_config;
+}
+
 sub save_data {
     $tab = "    ";
     if ( open( CF, ">config.php" ) ) {
@@ -4824,6 +4853,7 @@ sub save_data {
         print CF "\n";
         # boolean
         print CF "\$allow_remote_configtest = $allow_remote_configtest;\n";
+        print CF "\$secured_config = $secured_config;\n";
         # (binary) integer or constant - convert integer 
         # values to constants before output
         $sm_debug_mode = convert_debug_binary_integer_to_constants($sm_debug_mode);

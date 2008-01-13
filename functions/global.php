@@ -349,6 +349,69 @@ function sqgetGlobalVar($name, &$value, $search = SQ_INORDER, $default = NULL, $
 }
 
 /**
+ * Get an immutable copy of a configuration variable if SquirrelMail
+ * is in "secured configuration" mode.  This guarantees the caller 
+ * gets a copy of the requested value as it is set in the main 
+ * application configuration (including config_local overrides), and 
+ * not what it might be after possibly having been modified by some 
+ * other code (usually a plugin overriding configuration values for 
+ * one reason or another).
+ *
+ * WARNING: Please use this function as little as possible, because 
+ * every time it is called, it forcibly reloads the main configuration
+ * file(s).
+ *
+ * Caller beware that this function will do nothing if SquirrelMail
+ * is not in "secured configuration" mode per the $secured_config 
+ * setting.
+ *
+ * @param string $var_name The name of the desired variable
+ *
+ * @return mixed The desired value
+ *
+ * @since 1.5.2
+ *
+ */
+function get_secured_config_value($var_name) {
+
+    static $return_values = array();
+
+    // if we can avoid it, return values that have 
+    // already been retrieved (so we don't have to
+    // include the config file yet again)
+    //
+    if (isset($return_values[$var_name])) {
+        return $return_values[$var_name];
+    }
+
+
+    // load site configuration
+    //
+    require(SM_PATH . 'config/config.php');
+
+    // load local configuration overrides
+    //
+    if (file_exists(SM_PATH . 'config/config_local.php')) {
+        require(SM_PATH . 'config/config_local.php');
+    }
+
+    // if SM isn't in "secured configuration" mode,
+    // just return the desired value from the global scope
+    // 
+    if (!$secured_config) {
+        global $$var_name;
+        $return_values[$var_name] = $$var_name;
+        return $$var_name;
+    }
+
+    // else we return what we got from the config file
+    //
+    $return_values[$var_name] = $$var_name;
+    return $$var_name;
+
+}
+
+/**
  * Deletes an existing session, more advanced than the standard PHP
  * session_destroy(), it explicitly deletes the cookies and global vars.
  *
