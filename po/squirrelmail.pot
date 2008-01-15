@@ -1,5 +1,5 @@
 # LANGUAGE (xx_XX) SquirrelMail Translation
-# Copyright (c) 1999-2007 The SquirrelMail Project Team
+# Copyright (c) 1999-2008 The SquirrelMail Project Team
 # This file is distributed under the same license as the SquirrelMail package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # $Id$
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: SquirrelMail DEVEL\n"
 "Report-Msgid-Bugs-To: SquirrelMail Internationalization <squirrelmail-"
 "i18n@lists.sourceforge.net>\n"
-"POT-Creation-Date: 2007-12-27 15:22+0100\n"
+"POT-Creation-Date: 2008-01-09 00:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -4573,6 +4573,47 @@ msgid "Viewing a text attachment"
 msgstr ""
 
 msgid "Folder List"
+msgstr ""
+
+msgid "Open all"
+msgstr ""
+
+msgid "Close all"
+msgstr ""
+
+msgid "Purge trash"
+msgstr ""
+
+msgid "The SquirrelMail logo"
+msgstr ""
+
+msgid "OR"
+msgstr ""
+
+msgid "Reset"
+msgstr ""
+
+msgid "Reorder indexes"
+msgstr ""
+
+msgid "Add an index"
+msgstr ""
+
+msgid "Unknown date"
+msgstr ""
+
+#. i18n: The parameters are: subject, sender, and date.
+#, php-format
+msgid "%s from %s on %s"
+msgstr ""
+
+msgid "Expand Header"
+msgstr ""
+
+msgid "Collapse Header"
+msgstr ""
+
+msgid "Message Preview"
 msgstr ""
 
 msgid "Delivery error report"
