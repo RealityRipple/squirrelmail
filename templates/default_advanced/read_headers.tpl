@@ -70,7 +70,8 @@ extract($t);
             $from = preg_replace('/^(&quot;)+|(&quot;)+$/', '', $from);
             $from = preg_replace('/&quot;$/', '', trim($from));
         }
-        $reduced_header = sprintf(_("<b>%s</b> From <b>%s</b> On <b>%s</b>"), $subject, $from, $date);
+        // i18n: The parameters are: subject, sender, and date.
+        $reduced_header = sprintf(_("%s from %s on %s"), "<b>$subject</b>", "<b>$from</b>", "<b>$date</b>");
         $expand_link = str_replace('&expand_header=0', '', $PHP_SELF) . '&expand_header=1';
 
         echo '<tr><td colspan="2" align="center" valign="top">'
