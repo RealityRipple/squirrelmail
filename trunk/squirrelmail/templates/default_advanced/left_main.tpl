@@ -291,13 +291,13 @@ extract($t);
  </tr>
 </table>
 <p>
-<a href="javascript:mailboxes.openAll()">Open All</a>
+<a href="javascript:mailboxes.openAll()"><?php echo _("Open all") ?></a>
 &nbsp;&nbsp;|&nbsp;&nbsp;
-<a href="javascript:mailboxes.closeAll()">Close All</a>
+<a href="javascript:mailboxes.closeAll()"><?php echo _("Close all") ?></a>
 <?php
 if ($settings['messageRecyclingEnabled']) {
     echo '<br />';
-    echo '<a href="empty_trash.php">Purge Trash</a>';
+    echo '<a href="empty_trash.php">' . _("Purge trash") . '</a>';
 }
 ?>
 </p>
