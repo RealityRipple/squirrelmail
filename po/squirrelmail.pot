@@ -4604,7 +4604,7 @@ msgstr ""
 
 #. i18n: The parameters are: subject, sender, and date.
 #, php-format
-msgid "%1 from %2 on %3"
+msgid "%s from %s on %s"
 msgstr ""
 
 msgid "Expand Header"
