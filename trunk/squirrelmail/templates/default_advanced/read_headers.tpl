@@ -71,9 +71,7 @@ extract($t);
             $from = preg_replace('/&quot;$/', '', trim($from));
         }
         // i18n: The parameters are: subject, sender, and date.
-        $reduced_header = str_replace(array('%1', '%2', '%3'),
-                                      array("<b>$subject</b>", "<b>$from</b>", "<b>$date</b>"),
-                                      _("%1 from %2 on %3"));
+        $reduced_header = sprintf(_("%s from %s on %s"), "<b>$subject</b>", "<b>$from</b>", "<b>$date</b>");
         $expand_link = str_replace('&expand_header=0', '', $PHP_SELF) . '&expand_header=1';
 
         echo '<tr><td colspan="2" align="center" valign="top">'
