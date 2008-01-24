@@ -22,7 +22,7 @@ extract($t);
 <table cellspacing="0" class="table1">
  <tr class="header">
   <td class="fieldName" style="width: 1%; white-space: nowrap;">
-   <?php echo _("New") .' '. _("Attachment");?>:
+   <?php echo _("New attachment");?>:
   </td>
   <td class="fieldValue">
    <input type="file" name="attachfile" size="48" />
