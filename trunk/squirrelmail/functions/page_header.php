@@ -194,7 +194,8 @@ function displayPageHeader($color, $mailbox='', $sHeaderJs='', $sBodyTagJs = '')
 
     global $reply_focus, $hide_sm_attributions, $frame_top,
         $provider_name, $provider_uri, $startMessage,
-        $action, $oTemplate, $org_title, $base_uri;
+        $action, $oTemplate, $org_title, $base_uri,
+        $data_dir, $username;
 
 //FIXME: $sBodyTag should be turned into $sOnload and should only contain the contents of the onload attribute (not the attribute name nor any quotes).... only question is if anyone was using $sBodyTag for anything but onload event handlers? (see function compose_Header() below for how to fix it once we confirm it can be changed)
     if (empty($sBodyTagJs)) {
@@ -210,7 +211,6 @@ function displayPageHeader($color, $mailbox='', $sHeaderJs='', $sBodyTagJs = '')
         $sBodyTagJs = 'onload="checkForm();"';
     }
 
-    $urlMailbox = urlencode($mailbox);
     $startMessage = (int)$startMessage;
 
     sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION );
@@ -237,14 +237,20 @@ function displayPageHeader($color, $mailbox='', $sHeaderJs='', $sBodyTagJs = '')
         displayHtmlHeader ($org_title);
         $sBodyTagJs = '';
     }
-    /*
-     * this explains the imap_mailbox.php dependency. We should instead store
-     * the selected mailbox in the session and fallback to the session var.
-     */
-    $shortBoxName = htmlspecialchars(imap_utf7_decode_local(
-                readShortMailboxName($mailbox, $delimiter)));
-    if ( $shortBoxName == 'INBOX' ) {
-        $shortBoxName = _("INBOX");
+    if ($mailbox) {
+        /*
+        * this explains the imap_mailbox.php dependency. We should instead store
+        * the selected mailbox in the session and fallback to the session var.
+        */
+        $shortBoxName = htmlspecialchars(imap_utf7_decode_local(
+                    readShortMailboxName($mailbox, $delimiter)));
+        if (getPref($data_dir, $username, 'translate_special_folders')) {
+            $shortBoxName = _($shortBoxName);
+        }
+        $urlMailbox = urlencode($mailbox);
+    } else {
+        $shortBoxName = '';
+        $urlMailbox = '';
     }
 
     $provider_link = '';
