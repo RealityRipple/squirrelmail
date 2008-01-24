@@ -12,6 +12,7 @@
  * @package squirrelmail
  */
 
+require_once(SM_PATH . 'functions/imap.php');
 
 /**
  * Recursive function to find the correct parent for a new node.
