@@ -103,16 +103,29 @@ register_attachment_common('application/octet-stream', 'octet_stream');
 
 
 /**
- * Function which optimizes readability of the above code
+ * Function which optimizes readability of the above code, and also
+ * ensures that the attachment_common code is exectuted before any
+ * plugin, so that the latter may override the default processing.
+ *
  * Registers 'attachment $type' hooks.
- * @param string $type attachment type
- * @param string $func suffix of attachment_common_* function, which handles $type attachments.
+ *
+ * @param string $type Attachment type
+ * @param string $func Suffix of attachment_common_* function, which 
+ *                     handles $type attachments.
+ *
  * @since 1.2.0
  */
 function register_attachment_common($type, $func) {
     global $squirrelmail_plugin_hooks;
-    $squirrelmail_plugin_hooks['attachment ' . $type]['attachment_common'] =
-                      'attachment_common_' . $func;
+    $plugin_type = 'attachment ' . $type;
+    $fn = 'attachment_common_' . $func;
+    if (!empty($squirrelmail_plugin_hooks[$plugin_type])) {
+        $plugins = $squirrelmail_plugin_hooks[$plugin_type];
+        $plugins = array_merge(array('attachment_common', $fn), $plugins);
+        $squirrelmail_plugin_hooks[$plugin_type] = $plugins;
+    } else {
+        $squirrelmail_plugin_hooks[$plugin_type]['attachment_common'] = $fn;
+    }
 }
 
 /**
@@ -249,6 +262,7 @@ function attachment_common_octet_stream(&$Args) {
     global $FileExtensionToMimeType, $null;
 
 //FIXME: I propose removing this hook; I don't like having two hooks close together, but moreover, this hook appears to merely give plugins the chance to add to the global $FileExtensionToMimeType variable, which they can do in any hook before now - I'd recommend prefs_backend (which is what config_override used to be) because it's the one hook run at the beginning of almost all page requests in init.php -- the con is that we don't need it run on ALL page requests, do we?  There may be another hook in THIS page request that we can recommend, in which case, we *really should* remove this hook here.
+//FIXME: or at least we can move this hook up to the top of this file where $FileExtensionToMimeType is defined.  What else is this hook here for?  What plugins use it?
     do_hook('attachment_common-load_mime_types', $null);
 
     ereg('\\.([^\\.]+)$', $Args[6], $Regs);
@@ -258,8 +272,8 @@ function attachment_common_octet_stream(&$Args) {
     if ($Ext == '' || ! isset($FileExtensionToMimeType[$Ext]))
         return;
 
-    $temp=array(&$Args[0], &$Args[1], &$Args[2], &$Args[3], &$Args[4], &$Args[5],
-                &$Args[6], &$Args[7], &$Args[8]);
+    $temp = array(&$Args[0], &$Args[1], &$Args[2], &$Args[3], &$Args[4], &$Args[5],
+                  &$Args[6], &$Args[7], &$Args[8]);
     do_hook('attachment ' . $FileExtensionToMimeType[$Ext], $temp);
 
 }
