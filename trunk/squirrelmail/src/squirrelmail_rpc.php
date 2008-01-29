@@ -97,9 +97,8 @@ $oTemplate->header('Cache-Control: no-cache');
   * to add in the future.
   *
   */
-$handled_by_plugin = boolean_hook_function('squirrelmail_rpc',
-                                           $temp=array(&$rpc_action),
-                                           1);
+$temp = array(&$rpc_action);
+$handled_by_plugin = boolean_hook_function('squirrelmail_rpc', $temp, 1);
 
 
 
