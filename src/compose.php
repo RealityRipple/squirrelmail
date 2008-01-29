@@ -878,6 +878,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 $request_dr = $mdn_user_support && !empty($orig_header->drnt) ? '1' : '0';
 
                 /* remember the references and in-reply-to headers in case of an reply */
+//FIXME: it would be better to fiddle with headers inside of the message object or possibly when delivering the message to its destination (drafts folder?); is this possible?
                 $composeMessage->rfc822_header->more_headers['References'] = $orig_header->references;
                 $composeMessage->rfc822_header->more_headers['In-Reply-To'] = $orig_header->in_reply_to;
                 // rewrap the body to clean up quotations and line lengths
@@ -1512,7 +1513,8 @@ function deliverMessage($composeMessage, $draft=false) {
     }
 
     /* Receipt: On Delivery */
-    if (isset($request_dr) && $request_dr) {
+    if (!empty($request_dr)) {
+//FIXME: it would be better to fiddle with headers inside of the message object or possibly when delivering the message to its destination; is this possible?
         $rfc822_header->more_headers['Return-Receipt-To'] = $from->mailbox.'@'.$from->domain;
     } elseif (isset($rfc822_header->more_headers['Return-Receipt-To'])) {
         unset($rfc822_header->more_headers['Return-Receipt-To']);
