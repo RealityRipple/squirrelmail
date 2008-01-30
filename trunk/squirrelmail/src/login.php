@@ -67,7 +67,9 @@ $loginname_value = (sqGetGlobalVar('loginname', $loginname) ? htmlspecialchars($
 /* Output the javascript onload function. */
 $header = "<script type=\"text/javascript\">\n" .
           "<!--\n".
+          "  var alreadyFocused = false;\n".
           "  function squirrelmail_loginpage_onload() {\n".
+          "    if (alreadyFocused) return;\n".
           "    var textElements = 0; var i = 0;\n".
           "    for (i = 0; i < document.forms[0].elements.length; i++) {\n".
           "      if (document.forms[0].elements[i].type == \"text\" || document.forms[0].elements[i].type == \"password\") {\n".
