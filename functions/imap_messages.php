@@ -231,7 +231,9 @@ function get_squirrel_sort($imap_stream, $sSortField, $reverse = false, $aUid = 
 
     // sqimap_get_small_header (see above) returns fields in lower case,
     // but the code below uses all upper case
-    foreach ($msgs as $k => $v) $msgs[$k][strtoupper($sSortField)] = $msgs[$k][strtolower($sSortField)];
+    foreach ($msgs as $k => $v) 
+        if (isset($msgs[$k][strtolower($sSortField)])) 
+            $msgs[$k][strtoupper($sSortField)] = $msgs[$k][strtolower($sSortField)];
 
     $aUid = array();
     $walk = false;
