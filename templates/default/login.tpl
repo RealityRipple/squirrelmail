@@ -49,7 +49,7 @@ extract($t);
    <?php echo _("Name:"); ?>
   </td>
   <td class="sqm_loginFieldInput">
-   <input type="text" name="login_username" value="<?php echo $login_field_value; ?>" id="login_username" />
+   <input type="text" name="login_username" value="<?php echo $login_field_value; ?>" id="login_username" onfocus="alreadyFocused=true;" />
   </td>
  </tr>
  <tr>
@@ -57,7 +57,7 @@ extract($t);
    <?php echo _("Password:"); ?>
   </td>
   <td class="sqm_loginFieldInput">
-   <input type="password" name="secretkey" value="" id="secretkey" />
+   <input type="password" name="secretkey" value="" id="secretkey" onfocus="alreadyFocused=true;" />
    <?php echo $login_extra; ?>
   </td>
  </tr>
