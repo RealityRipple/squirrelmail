@@ -228,6 +228,11 @@ function get_squirrel_sort($imap_stream, $sSortField, $reverse = false, $aUid = 
         $msgs = sqimap_get_small_header_list($imap_stream, $aUid,
                                       array(), array($sSortField));
     }
+
+    // sqimap_get_small_header (see above) returns fields in lower case,
+    // but the code below uses all upper case
+    foreach ($msgs as $k => $v) $msgs[$k][strtoupper($sSortField)] = $msgs[$k][strtolower($sSortField)];
+
     $aUid = array();
     $walk = false;
     switch ($sSortField) {
@@ -244,7 +249,7 @@ function get_squirrel_sort($imap_stream, $sSortField, $reverse = false, $aUid = 
                  $sEmail = ($addr[SQM_ADDR_HOST]) ?
                       $addr[SQM_ADDR_MAILBOX] . "@".$addr[SQM_ADDR_HOST] :
                       $addr[SQM_ADDR_HOST];
-                 $v[$f] = ($sPersonal) ? decodeHeader($sPersonal):$sEmail;'),$sSortField);
+                 $v[$f] = ($sPersonal) ? decodeHeader($sPersonal, true, false):$sEmail;'),$sSortField);
             $walk = true;
         }
         // nobreak
@@ -252,9 +257,9 @@ function get_squirrel_sort($imap_stream, $sSortField, $reverse = false, $aUid = 
         if(!$walk) {
             array_walk($msgs, create_function('&$v,&$k,$f',
                 '$v[$f] = (isset($v[$f])) ? $v[$f] : "";
-                 $v[$f] = strtolower(decodeHeader(trim($v[$f])));
-                 $v[$f] = (preg_match("/^(vedr|sv|re|aw|\[\w\]):\s*(.*)$/si", $v[$f], $matches)) ?
-                                    $matches[2] : $v[$f];'),$sSortField);
+                 $v[$f] = strtolower(decodeHeader(trim($v[$f]), true, false));
+                 $v[$f] = (preg_match("/^(?:(?:vedr|sv|re|aw|fw|fwd|\[\w\]):\s*)*\s*(.*)$/si", $v[$f], $matches)) ?
+                                    $matches[1] : $v[$f];'),$sSortField);
             $walk = true;
         }
         foreach ($msgs as $item) {
