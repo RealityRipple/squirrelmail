@@ -716,7 +716,7 @@ function parseFetch(&$aResponse,$aMessageList = array()) {
                                         if  (is_numeric($sPrio)) {
                                             $iPrio = (int) $sPrio;
                                         } elseif ( $sPrio == 'non-urgent' || $sPrio == 'low' ) {
-                                            $iPrio = 3;
+                                            $iPrio = 5;
                                         } elseif ( $sPrio == 'urgent' || $sPrio == 'high' ) {
                                             $iPrio = 1;
                                         } else {
