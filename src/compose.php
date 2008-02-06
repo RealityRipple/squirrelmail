@@ -1469,10 +1469,14 @@ function getByteSize($ini_size) {
  * In the future the responsible backend should be automaticly loaded
  * and conf.pl should show a list of available backends.
  * The message also should be constructed by the message class.
+ *
+ * @return boolean FALSE if delivery failed, or some non-FALSE value
+ *                 upon success.
+ *
  */
 function deliverMessage($composeMessage, $draft=false) {
     global $send_to, $send_to_cc, $send_to_bcc, $mailprio, $subject, $body,
-        $username, $identity, $idents, $data_dir,
+        $username, $identity, $idents, $data_dir, $message_id,
         $request_mdn, $request_dr, $default_charset, $useSendmail,
         $domain, $action, $default_move_to_sent, $move_to_sent,
         $imapServerAddress, $imapPort, $sent_folder, $key;
@@ -1596,11 +1600,11 @@ function deliverMessage($composeMessage, $draft=false) {
         if (sqimap_mailbox_exists ($imap_stream, $draft_folder)) {
             require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
             $imap_deliver = new Deliver_IMAP();
-            $length = $imap_deliver->mail($composeMessage, $imap_stream, $reply_id, $reply_ent_id, $draft_folder);
+            list($success, $ignore) = $imap_deliver->mail($composeMessage, $imap_stream, $reply_id, $reply_ent_id, $draft_folder);
             sqimap_logout($imap_stream);
             unset ($imap_deliver);
             $composeMessage->purgeAttachments();
-            return $length;
+            return $success;
         } else {
             $msg  = '<br />'.sprintf(_("Error: Draft folder %s does not exist."), htmlspecialchars($draft_folder));
             plain_error_message($msg);
@@ -1609,7 +1613,7 @@ function deliverMessage($composeMessage, $draft=false) {
     }
     $success = false;
     if ($stream) {
-        $length = $deliver->mail($composeMessage, $stream, $reply_id, $reply_ent_id);
+        list($ignore, $message_id) = $deliver->mail($composeMessage, $stream, $reply_id, $reply_ent_id);
         $success = $deliver->finalizeStream($stream);
     }
     if (!$success) {

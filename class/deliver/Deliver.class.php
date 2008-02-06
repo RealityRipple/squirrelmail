@@ -29,6 +29,13 @@
 class Deliver {
 
     /**
+     * Most recently calculated Message-ID
+     * External code should NEVER access this directly!
+     * @var string
+     */
+    var $message_id;
+
+    /**
      * function mail - send the message parts to the SMTP stream
      *
      * @param Message  $message      Message object to send
@@ -52,8 +59,12 @@ class Deliver {
      *                               an overloaded version of this method
      *                               if needed.
      *
-     * @return integer $raw_length The number of bytes written (or that would 
-     *                             have been written) to the output stream
+     * @return array An array containing at least these elements in this order:
+     *                  - The number of bytes written (or that would have been
+     *                    written) to the output stream
+     *                  - The message ID (WARNING: if $stream is FALSE, this
+     *                    may not be supplied, or may not be accurate)
+     *
      */
     function mail($message, $stream=false, $reply_id=0, $reply_ent_id=0,
                   $extra=NULL) {
@@ -104,7 +115,7 @@ class Deliver {
 
         $this->send_mail($message, $header, $boundary, $stream, $raw_length, $extra);
 
-        return $raw_length;
+        return array($raw_length, $this->message_id);
     }
 
     /**
@@ -505,6 +516,8 @@ class Deliver {
             $message_id.= $REMOTE_ADDR;
         }
         $message_id .= '.' . time() . '.squirrel@' . $SERVER_NAME .'>';
+        $this->message_id = $message_id;
+
         /* Make an RFC822 Received: line */
         if (isset($REMOTE_HOST)) {
             $received_from = "$REMOTE_HOST ([$REMOTE_ADDR])";
