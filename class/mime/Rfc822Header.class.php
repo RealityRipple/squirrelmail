@@ -607,8 +607,13 @@ class Rfc822Header {
                          $aAddrBookAddress = $this->parseAddress($aAddr['email'],true);
                      } else {
                          $iPosAt = strpos($aAddr['email'], '@');
-                         $oAddr->mailbox = substr($aAddr['email'], 0, $iPosAt);
-                         $oAddr->host = substr($aAddr['email'], $iPosAt+1);
+                         if ($iPosAt === FALSE) {
+                             $oAddr->mailbox = $aAddr['email'];
+                             $oAddr->host = '';
+                         } else {
+                             $oAddr->mailbox = substr($aAddr['email'], 0, $iPosAt);
+                             $oAddr->host = substr($aAddr['email'], $iPosAt+1);
+                         } 
                          if (isset($aAddr['name'])) {
                              $oAddr->personal = $aAddr['name'];
                          } else {
