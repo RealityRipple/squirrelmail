@@ -24,7 +24,7 @@ extract($t);
 ?>
 <div class="htmlIframe">
 <?php echo _("Viewing HTML formatted email"); ?>
-<iframe name="message_frame" src="<?php echo $iframe_url; ?>" frameborder="1" marginwidth="0" marginheight="0" scrolling="auto">
+<iframe name="message_frame" src="<?php echo $iframe_url; ?>" frameborder="1" marginwidth="0" marginheight="0" scrolling="auto" height="<?php echo $iframe_height; ?>">
 <?php echo $html_body; ?>
 </iframe>
 </div>

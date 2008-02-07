@@ -421,6 +421,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
 
                 global $oTemplate;
                 $oTemplate->assign('iframe_url', $iframeurl);
+                $oTemplate->assign('iframe_height', $iframe_height);
                 $oTemplate->assign('html_body', $html_body);
 
                 $body = $oTemplate->fetch('read_html_iframe.tpl');
