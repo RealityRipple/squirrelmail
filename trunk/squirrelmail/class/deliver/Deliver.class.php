@@ -491,8 +491,10 @@ class Deliver {
         global $domain, $username, $encode_header_key,
                $edit_identity, $hide_auth_header;
 
-        /* if server var SERVER_NAME not available, use $domain */
-        if(!sqGetGlobalVar('SERVER_NAME', $SERVER_NAME, SQ_SERVER)) {
+        /* if server var SERVER_NAME not available, or contains
+           ":" (e.g. IPv6) which is illegal in a Message-ID, use $domain */
+        if(!sqGetGlobalVar('SERVER_NAME', $SERVER_NAME, SQ_SERVER) ||
+            strpos($SERVER_NAME,':') !== FALSE) {
             $SERVER_NAME = $domain;
         }
 
@@ -506,16 +508,17 @@ class Deliver {
 
         /* This creates an RFC 822 date */
         $date = date('D, j M Y H:i:s ', time()) . $this->timezone();
+
         /* Create a message-id */
-        $message_id = '<' . (!empty($REMOTE_PORT) ? $REMOTE_PORT . '.' : '');
-//FIXME: if $REMOTE_ADDR is missing, should we skip this if/else block?  or perhaps try to generate it with some different kind of info?
-        if (isset($encode_header_key) && trim($encode_header_key)!='') {
-            // use encrypted form of remote address
-            $message_id.= OneTimePadEncrypt($this->ip2hex($REMOTE_ADDR),base64_encode($encode_header_key));
-        } else {
-            $message_id.= $REMOTE_ADDR;
-        }
-        $message_id .= '.' . time() . '.squirrel@' . $SERVER_NAME .'>';
+        $message_id = '<';
+        /* user-specifc data to decrease collision chance */
+        $seed_data = $username . '.';
+        $seed_data .= (!empty($REMOTE_PORT) ? $REMOTE_PORT . '.' : '');
+        $seed_data .= (!empty($REMOTE_ADDR) ? $REMOTE_ADDR . '.' : '');
+        /* add the current time in milliseconds and randomness */
+        $seed_data .= uniqid(mt_rand(),true);
+        /* put it through one-way hash and add it to the ID */
+        $message_id .= md5($seed_data) . '.squirrel@' . $SERVER_NAME .'>';
         $this->message_id = $message_id;
 
         /* Make an RFC822 Received: line */
