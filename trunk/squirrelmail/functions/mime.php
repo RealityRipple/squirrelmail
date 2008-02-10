@@ -724,11 +724,11 @@ function decodeBody($body, $encoding) {
  *
  * @param string $string header string that has to be made readable
  * @param boolean $utfencode change message in order to be readable on user's charset. defaults to true
- * @param boolean $htmlsave preserve spaces and sanitize html special characters. defaults to true
+ * @param boolean $htmlsafe preserve spaces and sanitize html special characters. defaults to true
  * @param boolean $decide decide if string can be utfencoded. defaults to false
  * @return string decoded header string
  */
-function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
+function decodeHeader ($string, $utfencode=true,$htmlsafe=true,$decide=false) {
     global $languages, $squirrelmail_language,$default_charset;
     if (is_array($string)) {
         $string = implode("\n", $string);
@@ -760,7 +760,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
         while ($match = preg_match('/^(.*)=\?([^?]*)\?(Q|B)\?([^?]*)\?=(.*)$/Ui',$chunk,$res)) {
             /* if the last chunk isn't an encoded string then put back the space, otherwise don't */
             if ($iLastMatch !== $j) {
-                if ($htmlsave) {
+                if ($htmlsafe) {
                     $ret .= '&#32;';
                 } else {
                     $ret .= ' ';
@@ -768,7 +768,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
             }
             $iLastMatch = $i;
             $j = $i;
-            if ($htmlsave) {
+            if ($htmlsafe) {
                 $ret .= htmlspecialchars($res[1]);
             } else {
                 $ret .= $res[1];
@@ -791,13 +791,13 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
                             /* convert string to different charset,
                              * if functions asks for it (usually in compose)
                              */
-                            $ret .= charset_convert($res[2],$replace,$default_charset,$htmlsave);
+                            $ret .= charset_convert($res[2],$replace,$default_charset,$htmlsafe);
                         } else {
                             // convert string to html codes in order to display it
                             $ret .= charset_decode($res[2],$replace);
                         }
                     } else {
-                        if ($htmlsave) {
+                        if ($htmlsafe) {
                             $replace = htmlspecialchars($replace);
                         }
                         $ret.= $replace;
@@ -812,13 +812,13 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
                             /* convert string to different charset,
                              * if functions asks for it (usually in compose)
                              */
-                            $replace = charset_convert($res[2], $replace,$default_charset,$htmlsave);
+                            $replace = charset_convert($res[2], $replace,$default_charset,$htmlsafe);
                         } else {
                             // convert string to html codes in order to display it
                             $replace = charset_decode($res[2], $replace);
                         }
                     } else {
-                        if ($htmlsave) {
+                        if ($htmlsafe) {
                             $replace = htmlspecialchars($replace);
                         }
                     }
@@ -831,14 +831,14 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
             $encoded = true;
         }
         if (!$encoded) {
-            if ($htmlsave) {
+            if ($htmlsafe) {
                 $ret .= '&#32;';
             } else {
                 $ret .= ' ';
             }
         }
 
-        if (!$encoded && $htmlsave) {
+        if (!$encoded && $htmlsafe) {
             $ret .= htmlspecialchars($chunk);
         } else {
             $ret .= $chunk;
@@ -847,7 +847,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
     }
     /* remove the first added space */
     if ($ret) {
-        if ($htmlsave) {
+        if ($htmlsafe) {
             $ret = substr($ret,5);
         } else {
             $ret = substr($ret,1);
