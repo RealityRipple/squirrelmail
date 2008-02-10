@@ -90,7 +90,7 @@ function parseRFC822Address($sAddress,$iLimit = 0) {
  **/
 function getAddressString($aAddressList,$aProps) {
     $aPropsDefault = array (
-                            'separator' => ',',     // address separator
+                            'separator' => ', ',     // address separator
                             'limit'  => 0,          // limits returned addresses
                             'personal' => true,     // show persnal part
                             'email'    => true,     // show email part
