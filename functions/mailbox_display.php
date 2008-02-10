@@ -569,7 +569,7 @@ function prepareMessageList(&$aMailbox, $aProps) {
                             $sTrunc = truncateWithEntities($sTmp, $aColumnDesc[$k]['truncate']);
                             if ($sTrunc != $sTmp) {
                                 if (!$title) {
-                                    $title = htmlspecialchars($sTmp);
+                                    $title = $sTmp;
                                 } else if ($title_maybe) {
                                     $title = $title .', '.$title_maybe;
                                     $title = substr($title,0,-2); // strip ', ';
