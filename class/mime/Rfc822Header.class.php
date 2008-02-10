@@ -609,7 +609,7 @@ class Rfc822Header {
                          $iPosAt = strpos($aAddr['email'], '@');
                          if ($iPosAt === FALSE) {
                              $oAddr->mailbox = $aAddr['email'];
-                             $oAddr->host = '';
+                             $oAddr->host = FALSE;
                          } else {
                              $oAddr->mailbox = substr($aAddr['email'], 0, $iPosAt);
                              $oAddr->host = substr($aAddr['email'], $iPosAt+1);
