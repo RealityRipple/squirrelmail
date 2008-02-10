@@ -1927,7 +1927,7 @@ function sq_fixstyle($body, $pos, $message, $id, $mailbox){
         $char = $body{$i};
         switch ($char) {
             case '<':
-                $sToken .= $char;
+                $sToken = $char;
                 break;
             case '/':
                  if ($sToken == '<') {
