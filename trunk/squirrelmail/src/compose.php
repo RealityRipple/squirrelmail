@@ -154,7 +154,7 @@ if ( sqgetGlobalVar('mailtodata', $mailtodata, SQ_GET) ) {
     unset($mailtodata,$mtdata, $trtable);
 }
 
-/* Location (For HTTP 1.1 Header("Location: ...") redirects) */
+/* Location (For HTTP 1.1 header("Location: ...") redirects) */
 $location = get_location();
 /* Identities (fetch only once) */
 $idents = get_identities();
@@ -441,7 +441,7 @@ if ($draft) {
 
         if ($compose_new_win == '1') {
             if ( !isset($pageheader_sent) || !$pageheader_sent ) {
-                Header("Location: $location/compose.php?saved_draft=yes&session=$composesession");
+                header("Location: $location/compose.php?saved_draft=yes&session=$composesession");
             } else {
 //FIXME: DON'T ECHO HTML FROM CORE!
                 echo '   <br><br><div style="text-align: center;"><a href="' . $location
@@ -451,7 +451,7 @@ if ($draft) {
             exit();
         } else {
             if ( !isset($pageheader_sent) || !$pageheader_sent ) {
-                Header("Location: $location/right_main.php?mailbox=" . urlencode($draft_folder) .
+                header("Location: $location/right_main.php?mailbox=" . urlencode($draft_folder) .
                    "&startMessage=1&note=".urlencode($draft_message));
             } else {
 //FIXME: DON'T ECHO HTML FROM CORE!
@@ -550,7 +550,7 @@ if ($send) {
 
         if ($compose_new_win == '1') {
             if ( !isset($pageheader_sent) || !$pageheader_sent ) {
-                Header("Location: $location/compose.php?mail_sent=$mail_sent");
+                header("Location: $location/compose.php?mail_sent=$mail_sent");
             } else {
 //FIXME: DON'T ECHO HTML FROM CORE!
                 echo '   <br><br><div style="text-align: center;"><a href="' . $location
@@ -560,7 +560,7 @@ if ($send) {
             exit();
         } else {
             if ( !isset($pageheader_sent) || !$pageheader_sent ) {
-                Header("Location: $location/right_main.php?mailbox=$urlMailbox".
+                header("Location: $location/right_main.php?mailbox=$urlMailbox".
                     "&startMessage=$startMessage&mail_sent=$mail_sent");
             } else {
 //FIXME: DON'T ECHO HTML FROM CORE!
