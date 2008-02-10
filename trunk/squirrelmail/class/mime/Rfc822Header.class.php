@@ -861,7 +861,7 @@ class Rfc822Header {
      * @param boolean $encoded (since 1.4.0) return encoded or plain text addresses
      * @return string
      */
-    function getAddr_s($arr, $separator = ',',$encoded=false) {
+    function getAddr_s($arr, $separator = ', ', $encoded=false) {
         $s = '';
 
         if (is_array($arr)) {
