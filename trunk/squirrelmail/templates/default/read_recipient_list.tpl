@@ -33,11 +33,11 @@ extract($t);
 $count = 0;
 foreach ($recipients as $r) {
     $count++;
-    if ($count > 1 && !$show_more)
+    if ($count > 3 && !$show_more)
         continue;
     echo $r['Full'];
-    if ($show_more && $count != count($recipients)) {
-        echo '<br />';
+    if ($count != count($recipients)) {
+        echo ", \n   ";
     }
 }
 
@@ -52,3 +52,4 @@ if (count($recipients) > 1) {
         <?php
     }
 }
+
