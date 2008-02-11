@@ -41,7 +41,7 @@ foreach ($recipients as $r) {
     }
 }
 
-if (count($recipients) > 1) {
+if (count($recipients) > 3) {
     if ($show_more) {
         ?>
 &nbsp;<small>(<a href="<?php echo $more_less_toggle_href; ?>"><?php echo _("less"); ?></a>)</small>
