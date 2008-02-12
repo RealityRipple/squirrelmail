@@ -265,7 +265,7 @@ function hmac_md5($data, $key='') {
  *
  * @param string $user Reference to SMTP username
  * @param string $pass Reference to SMTP password (unencrypted)
- * @since 1.5.0
+ * @since 1.4.11
  */
 function get_smtp_user(&$user, &$pass) {
     global $username, $smtp_auth_mech,
