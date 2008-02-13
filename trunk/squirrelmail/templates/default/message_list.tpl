@@ -216,7 +216,9 @@ if ($pageOffset < $end_msg) {
                 echo getIcon($icon_theme_path, 'attach.png', '+', _("Attachment")) . "\n";
                 break;
           case SQM_COL_INT_DATE:   echo _("Received") . "\n"; break;
-          case SQM_COL_TO:         echo _("To") . "\n";       break;
+          case SQM_COL_TO:
+              echo '<label for="toggleAll">' . _("To") . "</label>\n";
+              break;
           case SQM_COL_CC:         echo _("Cc") . "\n";       break;
           case SQM_COL_BCC:        echo _("Bcc") . "\n";      break;
           default: break;
