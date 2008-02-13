@@ -29,17 +29,15 @@
 class Deliver {
 
     /**
-     * Most recently calculated Message-ID
-     * External code should NEVER access this directly!
-     * @var string
-     */
-    var $message_id;
-
-    /**
      * function mail - send the message parts to the SMTP stream
      *
      * @param Message  $message      Message object to send
-     * @param resource $stream       Handle to the SMTP stream
+     *                               NOTE that this is passed by
+     *                               reference and will be modified
+     *                               upon return with updated
+     *                               fields such as Message ID, References,
+     *                               In-Reply-To and Date headers.
+     * @param resource $stream       Handle to the outgoing stream
      *                               (when FALSE, nothing will be
      *                               written to the stream; this can
      *                               be used to determine the actual
@@ -59,17 +57,15 @@ class Deliver {
      *                               an overloaded version of this method
      *                               if needed.
      *
-     * @return array An array containing at least these elements in this order:
-     *                  - The number of bytes written (or that would have been
-     *                    written) to the output stream
-     *                  - The message ID (WARNING: if $stream is FALSE, this
-     *                    may not be supplied, or may not be accurate)
+     * @return integer The number of bytes written (or that would have been
+     *                 written) to the output stream.
      *
      */
-    function mail($message, $stream=false, $reply_id=0, $reply_ent_id=0,
+    function mail(&$message, $stream=false, $reply_id=0, $reply_ent_id=0,
                   $extra=NULL) {
 
-        $rfc822_header = $message->rfc822_header;
+        $rfc822_header = &$message->rfc822_header;
+
         if (count($message->entities)) {
             $boundary = $this->mimeBoundary();
             $rfc822_header->content_type->properties['boundary']='"'.$boundary.'"';
@@ -115,7 +111,7 @@ class Deliver {
 
         $this->send_mail($message, $header, $boundary, $stream, $raw_length, $extra);
 
-        return array($raw_length, $this->message_id);
+        return $raw_length;
     }
 
     /**
@@ -487,7 +483,7 @@ class Deliver {
      *
      * @return string $header
      */
-    function prepareRFC822_Header($rfc822_header, $reply_rfc822_header, &$raw_length) {
+    function prepareRFC822_Header(&$rfc822_header, $reply_rfc822_header, &$raw_length) {
         global $domain, $username, $encode_header_key,
                $edit_identity, $hide_auth_header;
 
@@ -510,16 +506,18 @@ class Deliver {
         $date = date('D, j M Y H:i:s ', time()) . $this->timezone();
 
         /* Create a message-id */
-        $message_id = '<';
-        /* user-specifc data to decrease collision chance */
-        $seed_data = $username . '.';
-        $seed_data .= (!empty($REMOTE_PORT) ? $REMOTE_PORT . '.' : '');
-        $seed_data .= (!empty($REMOTE_ADDR) ? $REMOTE_ADDR . '.' : '');
-        /* add the current time in milliseconds and randomness */
-        $seed_data .= uniqid(mt_rand(),true);
-        /* put it through one-way hash and add it to the ID */
-        $message_id .= md5($seed_data) . '.squirrel@' . $SERVER_NAME .'>';
-        $this->message_id = $message_id;
+        $message_id = 'MESSAGE ID GENERATION ERROR! PLEASE CONTACT SQUIRRELMAIL DEVELOPERS';
+        if (empty($rfc822_header->message_id)) {
+            $message_id = '<';
+            /* user-specifc data to decrease collision chance */
+            $seed_data = $username . '.';
+            $seed_data .= (!empty($REMOTE_PORT) ? $REMOTE_PORT . '.' : '');
+            $seed_data .= (!empty($REMOTE_ADDR) ? $REMOTE_ADDR . '.' : '');
+            /* add the current time in milliseconds and randomness */
+            $seed_data .= uniqid(mt_rand(),true);
+            /* put it through one-way hash and add it to the ID */
+            $message_id .= md5($seed_data) . '.squirrel@' . $SERVER_NAME .'>';
+        }
 
         /* Make an RFC822 Received: line */
         if (isset($REMOTE_HOST)) {
@@ -552,6 +550,7 @@ class Deliver {
          */
         $show_sm_header = ( defined('hide_squirrelmail_header') ? ! hide_squirrelmail_header : 1 );
 
+        // FIXME: The following headers may generate slightly differently between the message sent to the destination and that stored in the Sent folder because this code will be called before both actions.  This is not necessarily a big problem, but other headers such as Message-ID and Date are preserved between both actions 
         if ( $show_sm_header ) {
           if (isset($encode_header_key) &&
             trim($encode_header_key)!='') {
@@ -571,17 +570,32 @@ class Deliver {
         }
 
         /* Insert the rest of the header fields */
-        $header[] = 'Message-ID: '. $message_id . $rn;
+
+        if (!empty($rfc822_header->message_id)) {
+            $header[] = 'Message-ID: '. $rfc822_header->message_id . $rn;
+        } else {
+            $header[] = 'Message-ID: '. $message_id . $rn;
+            $rfc822_header->message_id = $message_id;
+        }
+
         if (is_object($reply_rfc822_header) &&
             isset($reply_rfc822_header->message_id) &&
             $reply_rfc822_header->message_id) {
             $rep_message_id = $reply_rfc822_header->message_id;
-        //        $this->strip_crlf($message_id);
             $header[] = 'In-Reply-To: '.$rep_message_id . $rn;
+            $rfc822_header->in_reply_to = $rep_message_id;
             $references = $this->calculate_references($reply_rfc822_header);
             $header[] = 'References: '.$references . $rn;
+            $rfc822_header->references = $references;
         }
-        $header[] = "Date: $date" . $rn;
+
+        if (!empty($rfc822_header->date) && $rfc822_header->date != -1) {
+            $header[] = 'Date: '. $rfc822_header->date . $rn;
+        } else {
+            $header[] = "Date: $date" . $rn;
+            $rfc822_header->date = $date;
+        }
+
         $header[] = 'Subject: '.encodeHeader($rfc822_header->subject) . $rn;
         $header[] = 'From: '. $rfc822_header->getAddr_s('from',",$rn ",true) . $rn;
 
