@@ -164,7 +164,7 @@ function attachment_common_link_text(&$Args) {
        This is a lot better in the image links, since the defaultLink will just
        download the image, but the one that we set it to will format the page
        to have an image tag in the center (looking a lot like this text viewer) */
-    $Args[5] = $Args[1]['attachment_common']['href'];
+    $Args[5] = $Args[0]['attachment_common']['href'];
 }
 
 /**
