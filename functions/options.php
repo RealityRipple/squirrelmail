@@ -27,6 +27,7 @@ define('SMOPT_TYPE_HIDDEN', 6);
 define('SMOPT_TYPE_COMMENT', 7);
 define('SMOPT_TYPE_FLDRLIST', 8);
 define('SMOPT_TYPE_FLDRLIST_MULTI', 9);
+define('SMOPT_TYPE_EDIT_LIST', 10);
 
 /* Define constants for the options refresh levels. */
 define('SMOPT_REFRESH_NONE', 0);
@@ -322,6 +323,9 @@ class SquirrelOption {
             case SMOPT_TYPE_FLDRLIST_MULTI:
                 $result = $this->createWidget_FolderList(TRUE);
                 break;
+            case SMOPT_TYPE_EDIT_LIST:
+                $result = $this->createWidget_EditList();
+                break;
             default:
                 error_box ( 
                     sprintf(_("Option Type '%s' Not Found"), $this->type)
@@ -394,6 +398,25 @@ class SquirrelOption {
      */
     function createWidget_FolderList($multiple_select=FALSE) {
 
+        switch ($this->size) {
+//FIXME: not sure about these sizes... seems like we could add another on the "large" side...
+            case SMOPT_SIZE_TINY:
+                $height = 3;
+                break;
+            case SMOPT_SIZE_SMALL:
+                $height = 8;
+                break;
+            case SMOPT_SIZE_LARGE:
+                $height = 15;
+                break;
+            case SMOPT_SIZE_HUGE:
+                $height = 25;
+                break;
+            case SMOPT_SIZE_NORMAL:
+            default:
+                $height = 5;
+        }
+
         // possible values might include a nested array of 
         // possible values (list of folders)
         //
@@ -416,8 +439,7 @@ class SquirrelOption {
             $option_list = array('ignore' => _("unavailable"));
 
 
-        // OK to use sq_htmlspecialchars() below because addSelect() already does
-        return addSelect('new_' . $this->name, $option_list, $this->value, TRUE, $this->aExtraAttribs, $multiple_select) . sq_htmlspecialchars($this->trailing_text);
+        return addSelect('new_' . $this->name, $option_list, $this->value, TRUE, $this->aExtraAttribs, $multiple_select, $height) . htmlspecialchars($this->trailing_text);
 
     }
 
@@ -511,6 +533,45 @@ class SquirrelOption {
     }
 
     /**
+     * Creates an edit list
+     * @return string html formated list of edit fields and
+     *                their associated controls
+     */
+    function createWidget_EditList() {
+
+        global $br, $nbsp;
+
+        switch ($this->size) {
+//FIXME: not sure about these sizes... seems like we could add another on the "large" side...
+            case SMOPT_SIZE_TINY:
+                $height = 3;
+                break;
+            case SMOPT_SIZE_SMALL:
+                $height = 8;
+                break;
+            case SMOPT_SIZE_LARGE:
+                $height = 15;
+                break;
+            case SMOPT_SIZE_HUGE:
+                $height = 25;
+                break;
+            case SMOPT_SIZE_NORMAL:
+            default:
+                $height = 5;
+        }
+
+//FIXME: $this->aExtraAttribs and $this->trailing_text probably should only be used in one place
+//FIXME: might be nice to have this in a template file instead of creating layout here
+        return create_label(_("Add"), '')
+             . $nbsp . addInput('add_' . $this->name, '', 38, 0, $this->aExtraAttribs) . htmlspecialchars($this->trailing_text)
+             . $br . addSelect('new_' . $this->name, $this->possible_values, $this->value, FALSE, !checkForJavascript() ? $this->aExtraAttribs : array_merge(array('onchange' => 'if (typeof(window.addinput) == \'undefined\') { var f = document.forms.length; var i = 0; var pos = -1; while( pos == -1 && i < f ) { var e = document.forms[i].elements.length; var j = 0; while( pos == -1 && j < e ) { if ( document.forms[i].elements[j].type == \'text\' && document.forms[i].elements[j].name == \'add_' . $this->name . '\' ) { pos = j; } j++; } i++; } if( pos >= 0 ) { window.addinput = document.forms[i-1].elements[pos]; } } for (x = 0; x < this.length; x++) { if (this.options[x].selected) { window.addinput.value = this.options[x].value; break; } }'), $this->aExtraAttribs), TRUE, $height) . htmlspecialchars($this->trailing_text)
+             . $br
+             . addCheckBox('delete_' . $this->name, FALSE, SMPREF_YES, array_merge(array('id' => 'delete_' . $this->name), $this->aExtraAttribs))
+             . $nbsp . create_label(_("Delete Selected"), 'delete_' . $this->name);
+
+    }
+
+    /**
      *
      */
     function save() {
@@ -522,6 +583,11 @@ class SquirrelOption {
      *
      */
     function changed() {
+
+        // edit lists have a lot going on, so we'll always process them
+        //
+        if ($this->type == SMOPT_TYPE_EDIT_LIST) return TRUE;
+
         return ($this->value != $this->new_value);
     }
 } /* End of SquirrelOption class*/
@@ -542,11 +608,39 @@ function save_option($option) {
 
     global $data_dir;
 
+    // edit lists: first add new elements to list, then
+    // remove any selected ones (note that we must add
+    // before deleting because the javascript that populates
+    // the "add" textbox when selecting items in the list
+    // (for deletion))
+    //
+    if ($option->type == SMOPT_TYPE_EDIT_LIST) {
+
+        // add element if given
+        //
+        if (sqGetGlobalVar('add_' . $option->name, $new_element, SQ_POST)) {
+            $new_element = trim($new_element);
+            if (!empty($new_element)
+             && !in_array($new_element, $option->possible_values))
+                $option->possible_values[] = $new_element;
+        }
+        
+        // delete selected elements if needed
+        //
+        if (is_array($option->new_value)
+         && sqGetGlobalVar('delete_' . $option->name, $ignore, SQ_POST))
+            $option->possible_values = array_diff($option->possible_values, $option->new_value);
+
+        // save full list (stored in "possible_values")
+        //
+        setPref($data_dir, $username, $option->name, serialize($option->possible_values));
+
     // Certain option types need to be serialized because
     // they are not scalar
     //
-    if ($option->type == SMOPT_TYPE_FLDRLIST_MULTI)
+    } else if ($option->type == SMOPT_TYPE_FLDRLIST_MULTI)
         setPref($data_dir, $username, $option->name, serialize($option->new_value));
+
     else
         setPref($data_dir, $username, $option->name, $option->new_value);
 

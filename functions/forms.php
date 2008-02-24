@@ -170,16 +170,19 @@ function addInput($sName, $sValue = '', $iSize = 0, $iMaxlength = 0, $aAttribs=a
  * @param array   $aAttribs  (since 1.5.1) Extra attributes
  * @param boolean $bMultiple When TRUE, a multiple select list will be shown
  *                           (OPTIONAL; default is FALSE (single select list))
+ * @param int     $iSize     Desired height of multiple select boxes
+ *                           (OPTIONAL; default is SMOPT_SIZE_NORMAL)
+ *                           (only applicable when $bMultiple is TRUE)
  *
  * @return string html formated selection box
  * @todo add attributes argument for option tags and default css
  */
-function addSelect($sName, $aValues, $default = null, $bUsekeys = false, $aAttribs = array(), $bMultiple = FALSE) {
+function addSelect($sName, $aValues, $default = null, $bUsekeys = false, $aAttribs = array(), $bMultiple = FALSE, $iSize = SMOPT_SIZE_NORMAL) {
     // only one element
-    if(count($aValues) == 1) {
+    if (!$bMultiple && count($aValues) == 1) {
         $k = key($aValues); $v = array_pop($aValues);
-        return addHidden($sName, ($bUsekeys ? $k:$v), $aAttribs).
-            htmlspecialchars($v) . "\n";
+        return addHidden($sName, ($bUsekeys ? $k : $v), $aAttribs)
+             . htmlspecialchars($v);
     }
 
 
@@ -199,6 +202,7 @@ function addSelect($sName, $aValues, $default = null, $bUsekeys = false, $aAttri
     $oTemplate->assign('default', $default);
     $oTemplate->assign('name', $sName);
     $oTemplate->assign('multiple', $bMultiple);
+    $oTemplate->assign('size', $iSize);
 
     return $oTemplate->fetch('select.tpl');
 }
