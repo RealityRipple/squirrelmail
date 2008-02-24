@@ -276,10 +276,12 @@ class SquirrelOption {
     /**
      * Creates fields on option pages according to option type
      *
-     * Function that calls other createWidget* functions.
-     * @return string html formated option field
+     * This is the function that calls all other createWidget* functions.
+     *
+     * @return string The formated option field
+     *
      */
-    function createHTMLWidget() {
+    function createWidget() {
         global $color;
 
         // Use new value if available
@@ -335,7 +337,7 @@ class SquirrelOption {
         }
 
         /* Now, return the created widget. */
-        return ($result);
+        return $result;
     }
 
     /**
