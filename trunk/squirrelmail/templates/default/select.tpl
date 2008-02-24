@@ -25,6 +25,8 @@
   *                   optional and might be null) should be placed
   *                   in double quotes as attribute values (optional;
   *                   may not be present)
+  * int     $size     The desired height of multiple select boxes (not
+  *                   applicable when $multiple is FALSE)
   *
   * @copyright &copy; 1999-2008 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -48,7 +50,7 @@ if (isset($aAttribs['id'])) {
 }
 
 
-echo '<select name="' . $name . ($multiple ? '[]" multiple="multiple" size="3"' : '"');
+echo '<select name="' . $name . ($multiple ? '[]" multiple="multiple" size="' . $size . '"' : '"');
 foreach ($aAttribs as $key => $value) {
     echo ' ' . $key . (is_null($value) ? '' : '="' . $value . '"');
 }
