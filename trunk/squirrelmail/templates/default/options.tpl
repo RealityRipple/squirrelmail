@@ -48,11 +48,11 @@ foreach ($options as $option) {
                    "  ".$opt->caption."\n" .
                    " </td>\n" .
                    " <td class=\"optionValue\">\n" .
-                   "  ".$opt->createHTMLWidget()."\n" .
+                   "  ".$opt->createWidget()."\n" .
                    " </td>\n" .
                    "</tr>\n";
         } else {
-            echo $opt->createHTMLWidget();
+            echo $opt->createWidget();
         }
     }
 
