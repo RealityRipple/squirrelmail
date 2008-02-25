@@ -28,6 +28,7 @@ define('SMOPT_TYPE_COMMENT', 7);
 define('SMOPT_TYPE_FLDRLIST', 8);
 define('SMOPT_TYPE_FLDRLIST_MULTI', 9);
 define('SMOPT_TYPE_EDIT_LIST', 10);
+define('SMOPT_TYPE_STRLIST_MULTI', 11);
 
 /* Define constants for the options refresh levels. */
 define('SMOPT_REFRESH_NONE', 0);
@@ -326,6 +327,9 @@ class SquirrelOption {
             case SMOPT_TYPE_EDIT_LIST:
                 $result = $this->createWidget_EditList();
                 break;
+            case SMOPT_TYPE_STRLIST_MULTI:
+                $result = $this->createWidget_StrList(TRUE);
+                break;
             default:
                 error_box ( 
                     sprintf(_("Option Type '%s' Not Found"), $this->type)
@@ -377,11 +381,37 @@ class SquirrelOption {
      * $this->possible_values are assumed to be display-safe.  
      * Use with care!
      *
+     * @param boolean $multiple_select When TRUE, the select widget 
+     *                                 will allow multiple selections
+     *                                 (OPTIONAL; default is FALSE 
+     *                                 (single select list))
+     *
      * @return string html formated selection box
+     *
      */
-    function createWidget_StrList() {
+    function createWidget_StrList($multiple_select=FALSE) {
 //FIXME: Currently, $this->htmlencoded is ignored here -- was removed when changing to template-based output; a fix is available as part of proposed centralized sanitizing patch
-        return addSelect('new_' . $this->name, $this->possible_values, $this->value, TRUE, $this->aExtraAttribs) . htmlspecialchars($this->trailing_text);
+
+        switch ($this->size) {
+//FIXME: not sure about these sizes... seems like we could add another on the "large" side...
+            case SMOPT_SIZE_TINY:
+                $height = 3;
+                break;
+            case SMOPT_SIZE_SMALL:
+                $height = 8;
+                break;
+            case SMOPT_SIZE_LARGE:
+                $height = 15;
+                break;
+            case SMOPT_SIZE_HUGE:
+                $height = 25;
+                break;
+            case SMOPT_SIZE_NORMAL:
+            default:
+                $height = 5;
+        }
+
+        return addSelect('new_' . $this->name, $this->possible_values, $this->value, TRUE, $this->aExtraAttribs, $multiple_select, $height, !$this->htmlencoded) . htmlspecialchars($this->trailing_text);
 
     }
 
@@ -638,7 +668,8 @@ function save_option($option) {
     // Certain option types need to be serialized because
     // they are not scalar
     //
-    } else if ($option->type == SMOPT_TYPE_FLDRLIST_MULTI)
+    } else if ($option->type == SMOPT_TYPE_FLDRLIST_MULTI
+            || $option->type == SMOPT_TYPE_STRLIST_MULTI)
         setPref($data_dir, $username, $option->name, serialize($option->new_value));
 
     else
