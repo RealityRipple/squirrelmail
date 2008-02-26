@@ -378,40 +378,33 @@ if ($optpage == SMOPT_PAGE_MAIN) {
 /* If we are not looking at the main option page, display the page here. */
 /*************************************************************************/
 } else {
-    /* Set the inside_hook_name and submit_name. */
+    /* Set the bottom_hook_name and submit_name. */
     switch ($optpage) {
         case SMOPT_PAGE_PERSONAL:
-            $inside_hook_name = 'options_personal_inside';
             $bottom_hook_name = 'options_personal_bottom';
             $submit_name = 'submit_personal';
             break;
         case SMOPT_PAGE_DISPLAY:
-            $inside_hook_name = 'options_display_inside';
             $bottom_hook_name = 'options_display_bottom';
             $submit_name = 'submit_display';
             break;
         case SMOPT_PAGE_COMPOSE:
-            $inside_hook_name = 'options_compose_inside';
             $bottom_hook_name = 'options_compose_bottom';
             $submit_name = 'submit_compose';
             break;
         case SMOPT_PAGE_HIGHLIGHT:
-            $inside_hook_name = 'options_highlight_inside';
             $bottom_hook_name = 'options_highlight_bottom';
             $submit_name = 'submit_highlight';
             break;
         case SMOPT_PAGE_FOLDER:
-            $inside_hook_name = 'options_folder_inside';
             $bottom_hook_name = 'options_folder_bottom';
             $submit_name = 'submit_folder';
             break;
         case SMOPT_PAGE_ORDER:
-            $inside_hook_name = 'options_order_inside';
             $bottom_hook_name = 'options_order_bottom';
             $submit_name = 'submit_order';
             break;
         default:
-            $inside_hook_name = '';
             $bottom_hook_name = '';
             $submit_name = 'submit';
     }
@@ -420,13 +413,6 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     echo addForm('options.php', 'post', 'f')
        . create_optpage_element($optpage)
        . create_optmode_element(SMOPT_MODE_SUBMIT);
-
-    // Wrap the template in a table to keep from breaking the hooks below
-    $oTemplate->assign('attributes', array('cellspacing' => 0, 'class' => 'table_blank'));
-    $oTemplate->display('table.tpl');
-    $oTemplate->display('table_row.tpl');
-    $oTemplate->assign('attributes', array('colspan' => 2));
-    $oTemplate->display('table_data.tpl');
 
     // This is the only variable that is needed by *just* the template.
     $oTemplate->assign('options', $optpage_data['options']);
@@ -438,35 +424,20 @@ if ($optpage == SMOPT_PAGE_MAIN) {
             sprintf(_("Welcome to %s. Please supply your full name and email address."), $org_name) );
     }
     
-    /**
-     * The variables below should not be needed by the template since all plugin
-     * hooks are called here, not in the template.  If we find otherwise, these
-     * variables can be passed to the template.  Commenting out for now.
-     */
-/*
+    // These variables are not specifically needed by the template,
+    // but they are relevant to the page being built, so we'll add
+    // them in case some plugin is modifying the page, etc....
+    //
     $oTemplate->assign('max_refresh', isset($max_refresh) ? $max_refresh : NULL);
     $oTemplate->assign('page_title', $optpage_title);
-    $oTemplate->assign('optpage',$optpage);
-    $oTemplate->assign('optpage_name',$optpage_name);
-    $oTemplate->assign('optmode',$optmode);
-    $oTemplate->assign('optpage_data',$optpage_data);
-*/
-    /**
-     * END comment block
-     */    
+    $oTemplate->assign('optpage', $optpage);
+    $oTemplate->assign('optpage_name', $optpage_name);
+    $oTemplate->assign('optmode', $optmode);
+    $oTemplate->assign('optpage_data', $optpage_data);
      
     $oTemplate->assign('submit_name', $submit_name);
     $oTemplate->display('options.tpl');
 
-    $oTemplate->display('table_data_close.tpl');
-    $oTemplate->display('table_row_close.tpl');
-
-    /* If it is not empty, trigger the inside hook. */
-    if ($inside_hook_name != '') {
-        do_hook($inside_hook_name, $null);
-    }
-
-    $oTemplate->display('table_close.tpl');
     $oTemplate->display('form_close.tpl');
 
     /* If it is not empty, trigger the bottom hook. */
