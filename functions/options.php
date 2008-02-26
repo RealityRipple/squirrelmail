@@ -590,6 +590,8 @@ class SquirrelOption {
                 $height = 5;
         }
 
+        if (empty($this->possible_values)) $this->possible_values = array();
+
 //FIXME: $this->aExtraAttribs probably should only be used in one place
         $oTemplate->assign('input_widget', addInput('add_' . $this->name, '', 38, 0, $this->aExtraAttribs));
         $oTemplate->assign('trailing_text', $this->trailing_text);
