@@ -43,6 +43,19 @@ define('SMOPT_PAGE_HIGHLIGHT', 'highlight');
 define('SMOPT_PAGE_FOLDER', 'folder');
 define('SMOPT_PAGE_ORDER', 'order');
 
+/**
+  * Save submitted options and calculate the most 
+  * we need to refresh the page
+  *
+  * @param string $optpage      The name of the page being submitted
+  * @param array  $optpage_data An array of all the submitted options
+  *
+  * @return int The highest level of screen refresh needed per
+  *             the options that were changed.  This value will
+  *             correspond to the SMOPT_REFRESH_* constants found
+  *             in functions/options.php.
+  *
+  */
 function process_optionmode_submit($optpage, $optpage_data) {
     /* Initialize the maximum option refresh level. */
     $max_refresh = SMOPT_REFRESH_NONE;
