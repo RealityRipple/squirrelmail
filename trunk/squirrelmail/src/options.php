@@ -65,6 +65,7 @@ function process_optionmode_submit($optpage, $optpage_data) {
             echo "name = '$option->name', "
                . "value = '$option->value', "
                . "new_value = '$option->new_value'\n";
+//FIXME: NO HTML IN THE CORE!
             echo "<br />";
             */
             if ($option->changed()) {
@@ -420,11 +421,12 @@ if ($optpage == SMOPT_PAGE_MAIN) {
        . create_optpage_element($optpage)
        . create_optmode_element(SMOPT_MODE_SUBMIT);
 
-//FIXME: NO HTML IN THE CORE!!
     // Wrap the template in a table to keep from breaking the hooks below
-    echo "<table cellspacing=\"0\" class=\"table_blank\">\n" .
-         " <tr>\n" .
-         "  <td colspan=\"2\">\n";
+    $oTemplate->assign('attributes', array('cellspacing' => 0, 'class' => 'table_blank'));
+    $oTemplate->display('table.tpl');
+    $oTemplate->display('table_row.tpl');
+    $oTemplate->assign('attributes', array('colspan' => 2));
+    $oTemplate->display('table_data.tpl');
 
     // This is the only variable that is needed by *just* the template.
     $oTemplate->assign('options', $optpage_data['options']);
@@ -456,18 +458,16 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     $oTemplate->assign('submit_name', $submit_name);
     $oTemplate->display('options.tpl');
 
-//FIXME: need to remove HTML from here!
-    echo "  </td>\n" .
-         " </tr>\n";
+    $oTemplate->display('table_data_close.tpl');
+    $oTemplate->display('table_row_close.tpl');
 
     /* If it is not empty, trigger the inside hook. */
     if ($inside_hook_name != '') {
         do_hook($inside_hook_name, $null);
     }
 
-//FIXME: need to remove HTML from here!
-    echo "</table>\n" .
-         "</form>\n";
+    $oTemplate->display('table_close.tpl');
+    $oTemplate->display('form_close.tpl');
 
     /* If it is not empty, trigger the bottom hook. */
     if ($bottom_hook_name != '') {
