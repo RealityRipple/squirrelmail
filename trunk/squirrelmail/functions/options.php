@@ -647,6 +647,8 @@ function save_option($option) {
     //
     if ($option->type == SMOPT_TYPE_EDIT_LIST) {
 
+        if (empty($option->possible_values)) $option->possible_values = array();
+
         // add element if given
         //
         if (sqGetGlobalVar('add_' . $option->name, $new_element, SQ_POST)) {
