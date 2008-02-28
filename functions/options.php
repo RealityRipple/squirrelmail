@@ -591,6 +591,7 @@ class SquirrelOption {
         }
 
         if (empty($this->possible_values)) $this->possible_values = array();
+        if (!is_array($this->possible_values)) $this->possible_values = array($this->possible_values);
 
 //FIXME: $this->aExtraAttribs probably should only be used in one place
         $oTemplate->assign('input_widget', addInput('add_' . $this->name, '', 38, 0, $this->aExtraAttribs));
