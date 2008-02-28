@@ -648,6 +648,7 @@ function save_option($option) {
     if ($option->type == SMOPT_TYPE_EDIT_LIST) {
 
         if (empty($option->possible_values)) $option->possible_values = array();
+        if (!is_array($option->possible_values)) $option->possible_values = array($option->possible_values);
 
         // add element if given
         //
