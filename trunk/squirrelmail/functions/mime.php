@@ -359,6 +359,9 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
     // workaround for not updated config.php
     if (! isset($use_iframe)) $use_iframe = false;
 
+    // If there's no "view_unsafe_images" setting in the user's preferences,
+    // turn unsafe images off by default.
+    // FIXME: Check if the UIR plugin is enabled. If it's not, no unsafe images should be displayed regardless of the user's preferences. This test is done in several places in the code and they should all be fixed in the same way.
     if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
         $view_unsafe_images = false;
     }
@@ -448,8 +451,20 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
             return $body;
         }
 
+        /*
+         * Previously the links for downloading and unsafe images were printed
+         * under the mail. By putting the links in a global variable we can
+         * print it in the toolbar where it belongs. Since the original code was
+         * in this place it's left here. It might be possible to move it to some
+         * other place if that makes sense. The possibility to do so has not
+         * been evaluated yet.
+         */
+
+        // Initialize the global variable to an empty string.
+        // FIXME: To have $download_and_unsafe_link as a global variable might not be needed since the use of separate variables ($download_href, $unsafe_image_toggle_href, and $unsafe_image_toggle_text) for the templates was introduced.
         $download_and_unsafe_link = '';
 
+        // Prepare and build a link for downloading the mail.
         $link = 'passed_id=' . $id . '&amp;ent_id='.$ent_num.
             '&amp;mailbox=' . $urlmailbox .'&amp;sort=' . $sort .
             '&amp;startMessage=' . $startMessage . '&amp;show_more=0';
@@ -457,8 +472,16 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
             $link .= '&amp;passed_ent_id='.$passed_ent_id;
         }
         $download_href = SM_PATH . 'src/download.php?absolute_dl=true&amp;' . $link;
+
+        // Always add the link for downloading the mail as a file to the global
+        // variable.
         $download_and_unsafe_link .= "$nbsp|$nbsp" 
             . create_hyperlink($download_href, _("Download this as a file"));
+
+        // Find out the right text to use in the link depending on the
+        // circumstances. If the unsafe images are displayed the link should
+        // hide them, if they aren't displayed the link should only appear if
+        // the mail really contains unsafe images.
         if ($view_unsafe_images) {
             $text = _("Hide Unsafe Images");
         } else {
@@ -469,6 +492,9 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
                 $text = '';
             }
         }
+
+        // Only create a link for unsafe images if there's need for one. If so:
+        // add it to the global variable.
         if($text != '') {
             $unsafe_image_toggle_href = SM_PATH . 'src/read_body.php?'.$link;
             $unsafe_image_toggle_text = $text;
@@ -1829,6 +1855,9 @@ function sq_fix_url($attname, &$attvalue, $message, $id, $mailbox,$sQuote = '"')
         $attvalue = trim(substr($attvalue,1,-1));
     }
 
+    // If there's no "view_unsafe_images" setting in the user's preferences,
+    // turn unsafe images off by default.
+    // FIXME: Check if the UIR plugin is enabled. If it's not, no unsafe images should be displayed regardless of the user's preferences. This test is done in several places in the code and they should all be fixed in the same way.
     if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
         $view_unsafe_images = false;
     }
@@ -1982,11 +2011,11 @@ function sq_fixstyle($body, $pos, $message, $id, $mailbox){
 
 
     /**
-    * First look for general BODY style declaration, which would be
-    * like so:
-    * body {background: blah-blah}
-    * and change it to .bodyclass so we can just assign it to a <div>
-    */
+     * First look for general BODY style declaration, which would be
+     * like so:
+     * body {background: blah-blah}
+     * and change it to .bodyclass so we can just assign it to a <div>
+     */
     $content = preg_replace("|body(\s*\{.*?\})|si", ".bodyclass\\1", $content);
     $secremoveimg = '../images/' . _("sec_remove_eng.png");
     /**
@@ -2023,9 +2052,9 @@ function sq_fixstyle($body, $pos, $message, $id, $mailbox){
         $content = str_replace($aValue,$aReplace,$content);
     }
 
-   /**
-    * Remove any backslashes, entities, and extraneous whitespace.
-    */
+    /**
+     * Remove any backslashes, entities, and extraneous whitespace.
+     */
     $contentTemp = $content;
     sq_defang($contentTemp);
     sq_unspace($contentTemp);
@@ -2079,8 +2108,8 @@ function sq_cid2http($message, $id, $cidurl, $mailbox){
     $cidurl = preg_replace($match_str, $str_rep, $cidurl);
 
     $linkurl = find_ent_id($cidurl, $message);
-    /* in case of non-save cid links $httpurl should be replaced by a sort of
-       unsave link image */
+    /* in case of non-safe cid links $httpurl should be replaced by a sort of
+       unsafe link image */
     $httpurl = '';
 
     /**
@@ -2469,9 +2498,14 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
                 )
             )
         );
+
+    // If there's no "view_unsafe_images" setting in the user's preferences,
+    // turn unsafe images off by default.
+    // FIXME: Check if the UIR plugin is enabled. If it's not, no unsafe images should be displayed regardless of the user's preferences. This test is done in several places in the code and they should all be fixed in the same way.
     if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
         $view_unsafe_images = false;
     }
+
     if (!$view_unsafe_images){
         /**
          * Remove any references to http/https if view_unsafe_images set
