@@ -303,7 +303,8 @@ if (function_exists('mb_internal_encoding') &&
 /**
  * Do not use SquirrelMail with magic_quotes_* on.
  */
-if ( get_magic_quotes_runtime() || get_magic_quotes_gpc() ||
+if ( (function_exists('get_magic_quotes_runtime') &&  @get_magic_quotes_runtime()) ||
+     (function_exists('get_magic_quotes_gpc') && @get_magic_quotes_gpc()) ||
     ( (bool) ini_get('magic_quotes_sybase') && ini_get('magic_quotes_sybase') != 'off' )
     ) {
     $magic_quotes_warning='You have enabled any one of <tt>magic_quotes_runtime</tt>, '
