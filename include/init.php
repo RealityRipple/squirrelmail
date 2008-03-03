@@ -203,7 +203,7 @@ ini_set('magic_quotes_runtime','0');
 
 /* if running with magic_quotes_gpc then strip the slashes
    from POST and GET global arrays */
-if (get_magic_quotes_gpc()) {
+if (function_exists('get_magic_quotes_gpc') && @get_magic_quotes_gpc()) {
     sqstripslashes($_GET);
     sqstripslashes($_POST);
 }
