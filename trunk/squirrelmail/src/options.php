@@ -214,6 +214,7 @@ if (isset($optpage_name) && ($optpage_name != '')) {
 /* DO OLD SAVING OF SUBMITTED OPTIONS. THIS WILL BE REMOVED LATER. */
 /*******************************************************************/
 
+//FIXME: let's remove these finally in 1.5.2..... but first, are there any plugins using them?
 /* If in submit mode, select a save hook name and run it. */
 if ($optmode == SMOPT_MODE_SUBMIT) {
     /* Select a save hook name. */
