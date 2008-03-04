@@ -202,6 +202,14 @@ class SquirrelOption {
         }
     }
 
+    /** Convenience function that identifies which types of
+        widgets are stored as (serialized) array values. */
+    function is_multiple_valued() {
+        return ($this->type == SMOPT_TYPE_FLDRLIST_MULTI
+             || $this->type == SMOPT_TYPE_STRLIST_MULTI
+             || $this->type == SMOPT_TYPE_EDIT_LIST);
+    }
+
     /**
      * Set the value for this option.
      * @param mixed $value
@@ -673,8 +681,7 @@ function save_option($option) {
     // Certain option types need to be serialized because
     // they are not scalar
     //
-    } else if ($option->type == SMOPT_TYPE_FLDRLIST_MULTI
-            || $option->type == SMOPT_TYPE_STRLIST_MULTI)
+    } else if ($option->is_multiple_valued())
         setPref($data_dir, $username, $option->name, serialize($option->new_value));
 
     else
