@@ -96,6 +96,20 @@ class SquirrelOption {
      */
     var $trailing_text;
     /**
+     * Text that overrides the "Yes" label for boolean 
+     * radio option widgets
+     *
+     * @var string
+     */
+    var $yes_text;
+    /**
+     * Text that overrides the "No" label for boolean 
+     * radio option widgets
+     *
+     * @var string
+     */
+    var $no_text;
+    /**
      * text displayed to the user
      *
      * Used with SMOPT_TYPE_COMMENT options
@@ -178,6 +192,8 @@ class SquirrelOption {
         $this->htmlencoded = $htmlencoded;
         $this->size = SMOPT_SIZE_MEDIUM;
         $this->trailing_text = '';
+        $this->yes_text = '';
+        $this->no_text = '';
         $this->comment = '';
         $this->aExtraAttribs = array();
         $this->post_script = '';
@@ -245,6 +261,22 @@ class SquirrelOption {
     }
 
     /**
+     * Set the yes_text for this option.
+     * @param string $yes_text
+     */
+    function setYesText($yes_text) {
+        $this->yes_text = $yes_text;
+    }
+
+    /**
+     * Set the no_text for this option.
+     * @param string $no_text
+     */
+    function setNoText($no_text) {
+        $this->no_text = $no_text;
+    }
+
+    /**
      * Set the comment for this option.
      * @param string $comment
      */
@@ -277,7 +309,7 @@ class SquirrelOption {
     }
 
     /**
-     * Set the trailing_text for this option.
+     * Set the folder_filter for this option.
      * @param string $folder_filter
      * @since 1.5.1
      */
@@ -545,6 +577,10 @@ class SquirrelOption {
     /**
      * Create boolean widget
      *
+     * When creating Yes/No radio buttons, the "yes_text"
+     * and "no_text" option attributes are used to override
+     * the typical "Yes" and "No" text.
+     *
      * @param boolean $checkbox When TRUE, the widget will be
      *                          constructed as a checkbox,
      *                          otherwise it will be a set of
@@ -570,10 +606,10 @@ class SquirrelOption {
         else {
 
             /* Build the yes choice. */
-            $yes_option = addRadioBox('new_' . $this->name, ($this->value != SMPREF_NO), SMPREF_YES, array_merge(array('id' => 'new_' . $this->name . '_yes'), $this->aExtraAttribs)) . $nbsp . create_label(_("Yes"), 'new_' . $this->name . '_yes');
+            $yes_option = addRadioBox('new_' . $this->name, ($this->value != SMPREF_NO), SMPREF_YES, array_merge(array('id' => 'new_' . $this->name . '_yes'), $this->aExtraAttribs)) . $nbsp . create_label((!empty($this->yes_text) ? $this->yes_text : _("Yes")), 'new_' . $this->name . '_yes');
 
             /* Build the no choice. */
-            $no_option = addRadioBox('new_' . $this->name, ($this->value == SMPREF_NO), SMPREF_NO, array_merge(array('id' => 'new_' . $this->name . '_no'), $this->aExtraAttribs)) . $nbsp . create_label(_("No"), 'new_' . $this->name . '_no');
+            $no_option = addRadioBox('new_' . $this->name, ($this->value == SMPREF_NO), SMPREF_NO, array_merge(array('id' => 'new_' . $this->name . '_no'), $this->aExtraAttribs)) . $nbsp . create_label((!empty($this->no_text) ? $this->no_text : _("No")), 'new_' . $this->name . '_no');
 
             /* Build the combined "boolean widget". */
             $result = "$yes_option$nbsp$nbsp$nbsp$nbsp$no_option";
@@ -783,6 +819,16 @@ function create_option_groups($optgrps, $optvals) {
             /* If provided, set the trailing_text for this option. */
             if (isset($optset['trailing_text'])) {
                 $next_option->setTrailingText($optset['trailing_text']);
+            }
+
+            /* If provided, set the yes_text for this option. */
+            if (isset($optset['yes_text'])) {
+                $next_option->setYesText($optset['yes_text']);
+            }
+
+            /* If provided, set the no_text for this option. */
+            if (isset($optset['no_text'])) {
+                $next_option->setNoText($optset['no_text']);
             }
 
             /* If provided, set the comment for this option. */
