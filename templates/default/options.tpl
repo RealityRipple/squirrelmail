@@ -46,10 +46,8 @@ foreach ($options as $option) {
             echo   "<tr>\n" .
                    " <td class=\"optionName\">\n  ";
 
-//FIXME: use the following two lines instead if we make the default boolean type checkbox
-            //if ($opt->type == SMOPT_TYPE_BOOLEAN_CHECKBOX
-            // || $opt->type == SMOPT_TYPE_BOOLEAN) {
-            if ($opt->type == SMOPT_TYPE_BOOLEAN_CHECKBOX) {
+            if ($opt->type == SMOPT_TYPE_BOOLEAN_CHECKBOX
+             || $opt->type == SMOPT_TYPE_BOOLEAN) {
                 echo '<label for="new_' . $opt->name . '">'
                    . $opt->caption . '</label>';
             } else {
