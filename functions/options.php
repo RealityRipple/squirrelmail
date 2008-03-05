@@ -29,6 +29,7 @@ define('SMOPT_TYPE_FLDRLIST', 8);
 define('SMOPT_TYPE_FLDRLIST_MULTI', 9);
 define('SMOPT_TYPE_EDIT_LIST', 10);
 define('SMOPT_TYPE_STRLIST_MULTI', 11);
+define('SMOPT_TYPE_BOOLEAN_CHECKBOX', 12);
 
 /* Define constants for the options refresh levels. */
 define('SMOPT_REFRESH_NONE', 0);
@@ -320,6 +321,9 @@ class SquirrelOption {
             case SMOPT_TYPE_BOOLEAN:
                 $result = $this->createWidget_Boolean();
                 break;
+            case SMOPT_TYPE_BOOLEAN_CHECKBOX:
+                $result = $this->createWidget_Boolean(TRUE);
+                break;
             case SMOPT_TYPE_HIDDEN:
                 $result = $this->createWidget_Hidden();
                 break;
@@ -535,21 +539,43 @@ class SquirrelOption {
     }
 
     /**
-     * Creates radio field (yes/no)
-     * @return string html formated radio field
+     * Create boolean widget
+     *
+     * @param boolean $checkbox When TRUE, the widget will be
+     *                          constructed as a checkbox,
+     *                          otherwise it will be a set of
+     *                          Yes/No radio buttons (OPTIONAL;
+     *                          default is FALSE (radio buttons)).
+     *
+     * @return string html formated boolean widget
+     *
      */
-    function createWidget_Boolean() {
+    function createWidget_Boolean($checkbox=FALSE) {
 
         global $oTemplate, $nbsp;
 
-        /* Build the yes choice. */
-        $yes_option = addRadioBox('new_' . $this->name, ($this->value != SMPREF_NO), SMPREF_YES, array_merge(array('id' => 'new_' . $this->name . '_yes'), $this->aExtraAttribs)) . $nbsp . create_label(_("Yes"), 'new_' . $this->name . '_yes');
 
-        /* Build the no choice. */
-        $no_option = addRadioBox('new_' . $this->name, ($this->value == SMPREF_NO), SMPREF_NO, array_merge(array('id' => 'new_' . $this->name . '_no'), $this->aExtraAttribs)) . $nbsp . create_label(_("No"), 'new_' . $this->name . '_no');
+        // checkbox...
+        //
+        if ($checkbox) {
+            $result = addCheckbox('new_' . $this->name, ($this->value != SMPREF_NO), SMPREF_YES, array_merge(array('id' => 'new_' . $this->name), $this->aExtraAttribs)) . $nbsp . create_label($this->trailing_text, 'new_' . $this->name);
+        }
 
-        /* Build and return the combined "boolean widget". */
-        $result = "$yes_option$nbsp$nbsp$nbsp$nbsp$no_option";
+        // radio buttons...
+        //
+        else {
+
+            /* Build the yes choice. */
+            $yes_option = addRadioBox('new_' . $this->name, ($this->value != SMPREF_NO), SMPREF_YES, array_merge(array('id' => 'new_' . $this->name . '_yes'), $this->aExtraAttribs)) . $nbsp . create_label(_("Yes"), 'new_' . $this->name . '_yes');
+
+            /* Build the no choice. */
+            $no_option = addRadioBox('new_' . $this->name, ($this->value == SMPREF_NO), SMPREF_NO, array_merge(array('id' => 'new_' . $this->name . '_no'), $this->aExtraAttribs)) . $nbsp . create_label(_("No"), 'new_' . $this->name . '_no');
+
+            /* Build the combined "boolean widget". */
+            $result = "$yes_option$nbsp$nbsp$nbsp$nbsp$no_option";
+
+        }
+
         return ($result);
     }
 
