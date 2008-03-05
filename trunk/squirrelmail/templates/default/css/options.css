@@ -59,7 +59,8 @@
     padding-bottom: 2px;
     padding-left: 4px;
     padding-right: 4px;
-    white-space: nowrap;
+# FIXME: this was forcing horizontal scrolling on long coment texts and maybe other stuff; I'm not sure I see why we want this(?).  if someone restores it, PLEASE have a solution in mind for when an option widget has a 'comment' value that is quite long
+#    white-space: nowrap;
 }
 
 #optionDisplay  td.optionName   {
