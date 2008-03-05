@@ -549,12 +549,12 @@ class SquirrelOption {
      *                          constructed as a checkbox,
      *                          otherwise it will be a set of
      *                          Yes/No radio buttons (OPTIONAL;
-     *                          default is FALSE (radio buttons)).
+     *                          default is TRUE (checkbox)).
      *
      * @return string html formated boolean widget
      *
      */
-    function createWidget_Boolean($checkbox=FALSE) {
+    function createWidget_Boolean($checkbox=TRUE) {
 
         global $oTemplate, $nbsp;
 
