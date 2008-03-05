@@ -30,6 +30,7 @@ define('SMOPT_TYPE_FLDRLIST_MULTI', 9);
 define('SMOPT_TYPE_EDIT_LIST', 10);
 define('SMOPT_TYPE_STRLIST_MULTI', 11);
 define('SMOPT_TYPE_BOOLEAN_CHECKBOX', 12);
+define('SMOPT_TYPE_BOOLEAN_RADIO', 13);
 
 /* Define constants for the options refresh levels. */
 define('SMOPT_REFRESH_NONE', 0);
@@ -323,6 +324,9 @@ class SquirrelOption {
                 break;
             case SMOPT_TYPE_BOOLEAN_CHECKBOX:
                 $result = $this->createWidget_Boolean(TRUE);
+                break;
+            case SMOPT_TYPE_BOOLEAN_RADIO:
+                $result = $this->createWidget_Boolean(FALSE);
                 break;
             case SMOPT_TYPE_HIDDEN:
                 $result = $this->createWidget_Hidden();
