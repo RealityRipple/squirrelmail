@@ -693,7 +693,6 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
 
     // If there's no "view_unsafe_images" setting in the user's preferences,
     // turn unsafe images off by default.
-    // FIXME: Check if the UIR plugin is enabled. If it's not, no unsafe images should be displayed regardless of the user's preferences. This test is done in several places in the code and they should all be fixed in the same way.
     if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
         $view_unsafe_images = false;
     } else {
