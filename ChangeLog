@@ -241,9 +241,8 @@ Version 1.5.2 - SVN
   - Let configtest.php use optional PEAR dynamic extension loading,
     patch by Walter Huijbers (#1833123).
   - Fix for IMAP servers that were having problems saving sent messages
-  - Added multiple select folder list option widgets (SMOPT_TYPE_FLDRLIST_MULTI).
   - Added "Secured Configuration" mode.
-  - Added edit list, checkbox, multiple-select folder list
+  - Added edit list, checkbox, radio group, multiple-select folder list
     and multiple-select string list option widget types.
 
 

@@ -31,6 +31,7 @@ define('SMOPT_TYPE_EDIT_LIST', 10);
 define('SMOPT_TYPE_STRLIST_MULTI', 11);
 define('SMOPT_TYPE_BOOLEAN_CHECKBOX', 12);
 define('SMOPT_TYPE_BOOLEAN_RADIO', 13);
+define('SMOPT_TYPE_STRLIST_RADIO', 14);
 
 /* Define constants for the options refresh levels. */
 define('SMOPT_REFRESH_NONE', 0);
@@ -378,6 +379,9 @@ class SquirrelOption {
             case SMOPT_TYPE_STRLIST_MULTI:
                 $result = $this->createWidget_StrList(TRUE);
                 break;
+            case SMOPT_TYPE_STRLIST_RADIO:
+                $result = $this->createWidget_StrList(FALSE, TRUE);
+                break;
             default:
                 error_box ( 
                     sprintf(_("Option Type '%s' Not Found"), $this->type)
@@ -419,27 +423,57 @@ class SquirrelOption {
                 $width = 25;
         }
 
-        return addInput('new_' . $this->name, $this->value, $width, 0, $this->aExtraAttribs) . htmlspecialchars($this->trailing_text);
+        return addInput('new_' . $this->name, $this->value, $width, 0, $this->aExtraAttribs) . htmlspecialchars($this->trailing_text); 
     }
 
     /**
-     * Create selection box
+     * Create selection box or radio button group
      *
      * When $this->htmlencoded is TRUE, the keys and values in 
      * $this->possible_values are assumed to be display-safe.  
      * Use with care!
      *
-     * @param boolean $multiple_select When TRUE, the select widget 
-     *                                 will allow multiple selections
-     *                                 (OPTIONAL; default is FALSE 
-     *                                 (single select list))
+     * Note that when building radio buttons instead of a select
+     * widget, if the "size" attribute is SMOPT_SIZE_TINY, the
+     * radio buttons will be output one after another without
+     * linebreaks between them.  Otherwise, each radio button
+     * goes on a line of its own.
      *
-     * @return string html formated selection box
+     * @param boolean $multiple_select When TRUE, the select widget
+     *                                 will allow multiple selections
+     *                                 (OPTIONAL; default is FALSE
+     *                                 (single select list))
+     * @param boolean $radio_buttons   When TRUE, the widget will
+     *                                 instead be built as a group
+     *                                 of radio buttons (and
+     *                                 $multiple_select will be
+     *                                 forced to FALSE) (OPTIONAL;
+     *                                 default is FALSE (select widget))
+     *
+     * @return string html formated selection box or radio buttons
      *
      */
-    function createWidget_StrList($multiple_select=FALSE) {
+    function createWidget_StrList($multiple_select=FALSE, $radio_buttons=FALSE) {
 //FIXME: Currently, $this->htmlencoded is ignored here -- was removed when changing to template-based output; a fix is available as part of proposed centralized sanitizing patch
 
+        // radio buttons instead of select widget?
+        //
+        if ($radio_buttons) {
+
+            global $br, $nbsp;
+            $result = '';
+            foreach ($this->possible_values as $real_value => $disp_value) {
+                $result .= addRadioBox('new_' . $this->name, ($this->value == $real_value), $real_value, array_merge(array('id' => 'new_' . $this->name . '_' . $real_value), $this->aExtraAttribs)) . $nbsp . create_label($disp_value, 'new_' . $this->name . '_' . $real_value);
+                if ($this->size != SMOPT_SIZE_TINY)
+                    $result .= $br;
+            }
+
+            return $result;
+        }
+
+
+        // everything below applies to select widgets
+        //
         switch ($this->size) {
 //FIXME: not sure about these sizes... seems like we could add another on the "large" side...
             case SMOPT_SIZE_TINY:
