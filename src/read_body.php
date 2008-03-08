@@ -691,12 +691,16 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
     // Build the printer friend link
     /* hackydiehack */
 
-    // If there's no "view_unsafe_images" setting in the user's preferences,
-    // turn unsafe images off by default.
+    // Pull "view_unsafe_images" from the URL to find out if the unsafe images
+    // should be displayed. The default is not to display unsafe images.
     if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
+        // If "view_unsafe_images" isn't part of the URL, default to not
+        // displaying unsafe images.
         $view_unsafe_images = false;
     } else {
-        // FIXME: Do we really want to display the unsafe images regardless of the user's preferences?
+        //  If "view_unsafe_images" is part of the URL, display unsafe images
+        //  regardless of the value of the URL variable.
+        // FIXME: Do we really want to display the unsafe images regardless of the value in URL variable?
         $view_unsafe_images = true;
     }
 
@@ -814,6 +818,7 @@ if(sqgetGlobalVar('view_unsafe_images', $temp)) {
 } else {
     $view_unsafe_images = 0;
 }
+
 /**
  * Retrieve mailbox cache
  */
