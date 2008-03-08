@@ -361,10 +361,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
 
     // If there's no "view_unsafe_images" variable in the URL, turn unsafe
     // images off by default.
-    // FIXME: Update this code to use the default value FALSE.
-    if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
-        $view_unsafe_images = false;
-    }
+    sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET, FALSE);
 
     $body = '';
     $urlmailbox = urlencode($mailbox);
@@ -1857,10 +1854,7 @@ function sq_fix_url($attname, &$attvalue, $message, $id, $mailbox,$sQuote = '"')
 
     // If there's no "view_unsafe_images" variable in the URL, turn unsafe
     // images off by default.
-    // FIXME: Update this code to use the default value FALSE.
-    if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
-        $view_unsafe_images = false;
-    }
+    sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET, FALSE);
 
     $secremoveimg = '../images/' . _("sec_remove_eng.png");
 
@@ -2502,10 +2496,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
 
     // If there's no "view_unsafe_images" variable in the URL, turn unsafe
     // images off by default.
-    // FIXME: Update this code to use the default value FALSE.
-    if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
-        $view_unsafe_images = false;
-    }
+    sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET, FALSE);
 
     if (!$view_unsafe_images){
         /**
