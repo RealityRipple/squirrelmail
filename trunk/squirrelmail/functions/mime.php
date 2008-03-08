@@ -359,8 +359,9 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
     // workaround for not updated config.php
     if (! isset($use_iframe)) $use_iframe = false;
 
-    // If there's no "view_unsafe_images" setting in the user's preferences,
-    // turn unsafe images off by default.
+    // If there's no "view_unsafe_images" variable in the URL, turn unsafe
+    // images off by default.
+    // FIXME: Update this code to use the default value FALSE.
     if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
         $view_unsafe_images = false;
     }
@@ -1854,11 +1855,13 @@ function sq_fix_url($attname, &$attvalue, $message, $id, $mailbox,$sQuote = '"')
         $attvalue = trim(substr($attvalue,1,-1));
     }
 
-    // If there's no "view_unsafe_images" setting in the user's preferences,
-    // turn unsafe images off by default.
+    // If there's no "view_unsafe_images" variable in the URL, turn unsafe
+    // images off by default.
+    // FIXME: Update this code to use the default value FALSE.
     if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
         $view_unsafe_images = false;
     }
+
     $secremoveimg = '../images/' . _("sec_remove_eng.png");
 
     /**
@@ -2497,8 +2500,9 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
             )
         );
 
-    // If there's no "view_unsafe_images" setting in the user's preferences,
-    // turn unsafe images off by default.
+    // If there's no "view_unsafe_images" variable in the URL, turn unsafe
+    // images off by default.
+    // FIXME: Update this code to use the default value FALSE.
     if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
         $view_unsafe_images = false;
     }
