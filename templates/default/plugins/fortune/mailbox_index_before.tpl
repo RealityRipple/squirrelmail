@@ -27,7 +27,7 @@ extract($t);
 <table cellpadding="0" cellspacing="0" border="0" bgcolor="<?php echo $color[10]; ?>" align="center">
   <tr>
     <td>
-      <table width="100%" cellpadding="2" cellspacing="1" border="0" bgcolor="$color[5]">
+      <table width="100%" cellpadding="2" cellspacing="1" border="0" bgcolor="<?php echo $color[5]; ?>">
         <tr>
           <td align="center">
             <table>
