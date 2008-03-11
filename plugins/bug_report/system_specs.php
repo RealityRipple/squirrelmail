@@ -3,26 +3,12 @@
  * This script gathers system specification details for use with bug reporting
  * and anyone else who needs it.
  *
- * @copyright &copy; 1999-2007 The SquirrelMail Project Team
+ * @copyright &copy; 1999-2008 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
  * @subpackage bug_report
  */
-
-/**
- * do not allow to call this file directly
- */
-if (isset($_SERVER['SCRIPT_FILENAME']) && $_SERVER['SCRIPT_FILENAME'] == __FILE__) {
-    header("Location: ../../src/login.php");
-    die();
-}
-
-/**
- * load required libraries
- */
-include_once(SM_PATH . 'functions/imap_general.php');
-
 
 
 /**
@@ -54,15 +40,26 @@ function br_show_plugins() {
     global $plugins;
     $str = '';
     if (is_array($plugins) && $plugins!=array()) {
-        foreach ($plugins as $key => $value) {
-            if ($key != 0 || $value != '') {
-                $str .= "    * $key = $value " . get_plugin_version($value, TRUE) . "\n";
+        foreach ($plugins as $key => $plugin_name) {
+
+            // note that some plugins may not have been loaded up by now
+            // so we do that here to make sure...  also turn on output
+            // buffering so they don't screw up our output with spacing
+            // or newlines
+            //
+            ob_start();
+            use_plugin($plugin_name);
+            ob_end_clean();
+
+            if ($key != 0 || $plugin_name != '') {
+                $english_name = get_plugin_requirement($plugin_name, 'english_name');
+                $str .= "    * $key = " . (!empty($english_name) ? $english_name . " ($plugin_name) " : "$plugin_name ") . get_plugin_version($plugin_name, TRUE) . "\n";
             }
         }
         // compatibility plugin can be used without needing to enable it in sm config
         if (file_exists(SM_PATH . 'plugins/compatibility/setup.php')
             && ! in_array('compatibility',$plugins)) {
-            $str.= '    * compatibility ' . get_plugin_version('compatibility', TRUE) . "\n";
+            $str.= '    * Compatibility (compatibility) ' . get_plugin_version('compatibility', TRUE) . "\n";
         }
     }
     if ($str == '') {
@@ -71,16 +68,48 @@ function br_show_plugins() {
     return $str;
 }
 
-$browscap = ini_get('browscap');
-if(!empty($browscap)) {
-    $browser = get_browser();
-}
 
-sqgetGlobalVar('HTTP_USER_AGENT', $HTTP_USER_AGENT, SQ_SERVER);
-if ( ! sqgetGlobalVar('HTTP_USER_AGENT', $HTTP_USER_AGENT, SQ_SERVER) )
-    $HTTP_USER_AGENT="Browser information is not available.";
+/**
+ * Retrieve long text string containing semi-formatted (simple text
+ * with newlines and spaces for indentation) SquirrelMail system
+ * specs
+ *
+ * @return array A three-element array, the first element containing
+ *               the string of system specs, the second one containing 
+ *               a list of any warnings that may have occurred, keyed
+ *               by a warning "type" (which is used to key the corrections
+ *               array next), and the third element of which is a list
+ *               of sub-arrays keyed by warning "type": the sub-arrays
+ *               are lists of correction messages associated with the
+ *               warnings.  The second and third return elements may
+ *               be empty arrays if no warnings were found.
+ *
+ * @since 1.5.2
+ *
+ */
+function get_system_specs() {
+//FIXME: configtest and this plugin should be using the same code to generate the basic SM system specifications and setup detection
 
-$body_top = "My browser information:\n" .
+    global $imapServerAddress, $username, $imapPort, $imap_server_type,
+           $use_imap_tls, $ldap_server;
+
+    // load required libraries
+    //
+    include_once(SM_PATH . 'functions/imap_general.php');
+
+    $browscap = ini_get('browscap');
+    if(!empty($browscap)) {
+        $browser = get_browser();
+    }
+
+    $warnings = array();
+    $corrections = array();
+
+    sqgetGlobalVar('HTTP_USER_AGENT', $HTTP_USER_AGENT, SQ_SERVER);
+    if ( ! sqgetGlobalVar('HTTP_USER_AGENT', $HTTP_USER_AGENT, SQ_SERVER) )
+        $HTTP_USER_AGENT="Browser information is not available.";
+
+    $body_top = "My browser information:\n" .
             '  '.$HTTP_USER_AGENT . "\n" ;
             if(isset($browser)) {
                 $body_top .= "  get_browser() information (List)\n" .
@@ -91,61 +120,60 @@ $body_top = "My browser information:\n" .
             "  PHP Extensions (List)\n" .
             Show_Array(get_loaded_extensions()) .
             "\nSquirrelMail-specific information:\n" .
-            "  Version:  $version\n" .
+            "  Version:  " . SM_VERSION . "\n" .
             "  Plugins (List)\n" .
-            br_show_plugins();
-if (isset($ldap_server) && $ldap_server[0] && ! extension_loaded('ldap')) {
-    $warning = 1;
-    $warnings['ldap'] = "LDAP server defined in SquirrelMail config, " .
-        "but the module is not loaded in PHP";
-    $corrections['ldap'][] = "Reconfigure PHP with the option '--with-ldap'";
-    $corrections['ldap'][] = "Then recompile PHP and reinstall";
-    $corrections['ldap'][] = "-- OR --";
-    $corrections['ldap'][] = "Reconfigure SquirrelMail to not use LDAP";
-}
+            br_show_plugins() . "\n";
+    if (!empty($ldap_server[0]) && $ldap_server[0] && ! extension_loaded('ldap')) {
+        $warnings['ldap'] = "LDAP server defined in SquirrelMail config, " .
+            "but the module is not loaded in PHP";
+        $corrections['ldap'][] = "Reconfigure PHP with the option '--with-ldap'";
+        $corrections['ldap'][] = "Then recompile PHP and reinstall";
+        $corrections['ldap'][] = "-- OR --";
+        $corrections['ldap'][] = "Reconfigure SquirrelMail to not use LDAP";
+    }
 
-$body = "\nMy IMAP server information:\n" .
+    $body = "\nMy IMAP server information:\n" .
             "  Server type:  $imap_server_type\n";
 
-$imapServerAddress = sqimap_get_user_server($imapServerAddress, $username);
-$imap_stream = sqimap_create_stream($imapServerAddress, $imapPort, $use_imap_tls);
-if ($imap_stream) {
-    $body.= '  Capabilities: ';
-    if ($imap_capabilities = sqimap_capability($imap_stream)) {
-        foreach ($imap_capabilities as $capability => $value) {
-            $body.= $capability . (is_bool($value) ? ' ' : "=$value ");
+    $imapServerAddress = sqimap_get_user_server($imapServerAddress, $username);
+    $imap_stream = sqimap_create_stream($imapServerAddress, $imapPort, $use_imap_tls);
+    if ($imap_stream) {
+        $body.= '  Capabilities: ';
+        if ($imap_capabilities = sqimap_capability($imap_stream)) {
+            foreach ($imap_capabilities as $capability => $value) {
+                $body.= $capability . (is_bool($value) ? ' ' : "=$value ");
+            }
         }
+        $body.="\n";
+        sqimap_logout($imap_stream);
+    } else {
+        $body .= "  Unable to connect to IMAP server to get information.\n";
+        $warnings['imap'] = "Unable to connect to IMAP server";
+        $corrections['imap'][] = "Make sure you specified the correct mail server";
+        $corrections['imap'][] = "Make sure the mail server is running IMAP, not POP";
+        $corrections['imap'][] = "Make sure the server responds to port $imapPort";
     }
-    $body.="\n";
-    sqimap_logout($imap_stream);
-} else {
-    $body .= "  Unable to connect to IMAP server to get information.\n";
-    $warning = 1;
-    $warnings['imap'] = "Unable to connect to IMAP server";
-    $corrections['imap'][] = "Make sure you specified the correct mail server";
-    $corrections['imap'][] = "Make sure the mail server is running IMAP, not POP";
-    $corrections['imap'][] = "Make sure the server responds to port $imapPort";
-}
-$warning_html = '';
-$warning_num = 0;
-if (isset($warning) && $warning) {
-    foreach ($warnings as $key => $value) {
-        if ($warning_num == 0) {
-            $body_top .= "WARNINGS WERE REPORTED WITH YOUR SETUP:\n";
-            $body_top = "WARNINGS WERE REPORTED WITH YOUR SETUP -- SEE BELOW\n\n$body_top";
-            $warning_html = "<h1>Warnings were reported with your setup:</h1>\n<dl>\n";
+    $warning_num = 0;
+    if (!empty($warnings)) {
+        foreach ($warnings as $key => $value) {
+            if ($warning_num == 0) {
+                $body_top .= "WARNINGS WERE REPORTED WITH YOUR SETUP:\n";
+                $body_top = "WARNINGS WERE REPORTED WITH YOUR SETUP -- SEE BELOW\n\n$body_top";
+            }
+            $warning_num ++;
+            $body_top .= "\n$value\n";
+            foreach ($corrections[$key] as $corr_val) {
+                $body_top .= "  * $corr_val\n";
+            }
         }
-        $warning_num ++;
-        $warning_html .= "<dt><b>$value</b></dt>\n";
-        $body_top .= "\n$value\n";
-        foreach ($corrections[$key] as $corr_val) {
-            $body_top .= "  * $corr_val\n";
-            $warning_html .= "<dd>* $corr_val</dd>\n";
-        }
+        $body_top .= "\n$warning_num warning(s) reported.\n";
+        $body_top .= "----------------------------------------------\n";
     }
-    $warning_html .= "</dl>\n<p>$warning_num warning(s) reported.</p>\n<hr />\n";
-    $body_top .= "\n$warning_num warning(s) reported.\n";
-    $body_top .= "----------------------------------------------\n";
+
+    $body = $body_top . $body;
+
+    return array($body, $warnings, $corrections);
+
 }
 
-$body = htmlspecialchars($body_top . $body);
+
