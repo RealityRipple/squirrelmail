@@ -93,6 +93,11 @@ function sq_get_attach_tempfile()
 function sq_send_mail($to, $subject, $body, $from, $cc='', $bcc='', $message='')
 {
 
+   require_once(SM_PATH . 'class/mime/Message.class.php');
+   require_once(SM_PATH . 'class/mime/Rfc822Header.class.php');
+   require_once(SM_PATH . 'class/mime/ContentType.class.php');
+   require_once(SM_PATH . 'class/mime/AddressStructure.class.php');
+
    if (empty($message))
    {
       $message = new Message();
