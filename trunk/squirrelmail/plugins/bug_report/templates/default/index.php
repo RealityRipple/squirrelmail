@@ -9,7 +9,7 @@
  *
  * @copyright &copy; 1999-2008 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id$
+ * @version $Id: index.php 12128 2007-01-13 20:15:44Z kink $
  * @package plugins
  * @subpackage bug_report
  */

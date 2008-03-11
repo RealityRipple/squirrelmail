@@ -2,7 +2,7 @@
 /**
  * Bug Report plugin - setup script
  *
- * @copyright &copy; 1999-2007 The SquirrelMail Project Team
+ * @copyright &copy; 1999-2008 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
@@ -11,67 +11,72 @@
 
 /**
  * Initialize the bug report plugin
+ *
  * @return void
+ *
  * @access private
+ *
  */
 function squirrelmail_plugin_init_bug_report() {
     global $squirrelmail_plugin_hooks;
 
-    $squirrelmail_plugin_hooks['template_construct_page_header.tpl']['bug_report'] = 'bug_report_button';
-    $squirrelmail_plugin_hooks['loading_prefs']['bug_report'] = 'bug_report_load';
-    $squirrelmail_plugin_hooks['optpage_loadhook_display']['bug_report'] = 'bug_report_block';
+    $squirrelmail_plugin_hooks['template_construct_page_header.tpl']['bug_report']
+        = 'bug_report_button';
+    $squirrelmail_plugin_hooks['optpage_loadhook_display']['bug_report']
+        = 'bug_report_block';
 }
 
 
 /**
  * Show the button in the main bar
+ *
  * @access private
+ *
  */
 function bug_report_button() {
-    include_once(SM_PATH.'plugins/bug_report/functions.php');
-    global $bug_report_visible;
-
-    if (! $bug_report_visible || ! bug_report_check_user()) {
-        return;
-    }
-
-    global $oTemplate, $nbsp;
-    $output = makeInternalLink('plugins/bug_report/bug_report.php', _("Bug"), '')
-            . $nbsp . $nbsp;
-    return array('menuline' => $output);
+    include_once(SM_PATH . 'plugins/bug_report/functions.php');
+    return bug_report_button_do();
 }
 
 /**
- * Loads bug report options
- * @access private
- */
-function bug_report_load() {
-    global $username, $data_dir;
-    global $bug_report_visible;
-
-    $bug_report_visible = (bool) getPref($data_dir, $username, 'bug_report_visible',false);
-}
-
-/**
+ *
  * Register bug report option block
+ *
  * @since 1.5.1
+ *
  * @access private
+ *
  */
 function bug_report_block() {
     include_once(SM_PATH.'plugins/bug_report/functions.php');
-    if (bug_report_check_user()) {
-        global $optpage_data;
-        $optpage_data['grps']['bug_report'] = _("Bug Reports");
-        $optionValues = array();
-        // FIXME: option needs refresh in SMOPT_REFRESH_RIGHT 
-        // (menulink is processed before options are saved/loaded)
-        $optionValues[] = array(
-            'name'    => 'bug_report_visible',
-            'caption' => _("Show button in toolbar"),
-            'type'    => SMOPT_TYPE_BOOLEAN,
-            'refresh' => SMOPT_REFRESH_ALL,
-            'initial_value' => false
-            );
-        $optpage_data['vals']['bug_report'] = $optionValues;
-    }
+    bug_report_block_do();
 }
+
+/**
+ * Returns info about this plugin
+ *
+ */
+function bug_report_info() { 
+    return array(
+        'english_name' => 'Bug Report',
+        'authors' => array(
+            'SquirrelMail Team' => array(),
+        ),
+        'version' => 'CORE',
+        'required_sm_version' => 'CORE',
+        'requires_configuration' => 0,
+        'summary' => 'Helps with sending bug reports to the SquirrelMail Developers.  Collects a lot of useful information about your system.',
+        'details' => 'When people stumble across a bug, which may happen in a work-in-progress, often times they would like to help out the software and get rid of the bug.  Sometimes, these people don\'t know much about the system and how it is set up -- they know enough to make the bug happen for them.  This bug report plugin is designed to gather all of the non-private information for the user automatically, so that the user doesn\'t need to know more than how to trigger the bug.',
+    );
+} 
+
+
+
+/**
+ * Returns version info about this plugin
+ *
+ */
+function bug_report_version() {
+    $info = bug_report_info();
+    return $info['version'];
+} 
