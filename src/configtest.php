@@ -388,9 +388,8 @@ if($data_dir == $attachment_dir) {
 echo "Checking plugins...<br />\n";
 
 /* check plugins and themes */
-//FIXME: check requirements given in plugin _info() function, such
-//       as required PHP extensions, Pear packages, other plugins, SM version, etc
-//       see development docs for list of returned info from that function
+//FIXME: check requirements given in plugin _info() function, such as required PHP extensions, Pear packages, other plugins, SM version, etc see development docs for list of returned info from that function
+//FIXME: update this list with most recent contents of the Obsolete category - I think it has changed recently
 $bad_plugins = array(
         'attachment_common',      // Integrated into SquirrelMail 1.2 core
         'auto_prune_sent',        // Obsolete: See Proon Automatic Folder Pruning plugin
@@ -443,6 +442,7 @@ if (isset($plugins[0])) {
     ob_end_clean();
     // if plugins output more than newlines and spacing, stop script execution.
     if (!empty($output)) {
+//FIXME: if the output buffer is checked INSIDE the foreach loop above, we can tell the user WHICH plugin has the problem - seems like a good idea
         $plugin_load_error = 'Some output is produced when plugins are loaded. Usually this means there is an error in one of the plugin setup or configuration files. The output was: '.htmlspecialchars($output);
         do_err($plugin_load_error);
     }
