@@ -756,13 +756,16 @@ function get_plugin_requirement($plugin_name, $requirement,
   *               corresponding values) will be available: 
   *               'version' - value is the minimum version 
   *               required for that plugin (the format of 
-  *               which might vary per the value of $do_parse), 
-  *               'activate' - value is boolean: TRUE indicates 
-  *               that the plugin must also be activated, FALSE 
-  *               means that it only needs to be present, but 
-  *               does not need to be activated.  Note that 
-  *               the return value might be an empty array, 
-  *               indicating that the plugin has no dependencies.
+  *               which might vary per the value of $do_parse
+  *               as well as if the plugin requires a SquirrelMail
+  *               core plugin, in which case it is "CORE" or
+  *               "CORE:1.5.2" or similar), 'activate' - value is
+  *               boolean: TRUE indicates that the plugin must
+  *               also be activated, FALSE means that it only
+  *               needs to be present, but does not need to be
+  *               activated.  Note that the return value might
+  *               be an empty array, indicating that the plugin
+  *               has no dependencies.
   *
   */
 function get_plugin_dependencies($plugin_name, $force_inclusion = FALSE, 
@@ -832,10 +835,21 @@ function get_plugin_dependencies($plugin_name, $force_inclusion = FALSE,
             // the regexps are wrapped in a trim that makes sure the version
             // does not start or end with a decimal point
             //
-            $plugin_requirements['version']
-               = trim(preg_replace(array('/[^0-9.]+.*$/', '/[^0-9.]/'), 
-                                   '', $plugin_requirements['version']), 
-                                   '.');
+            if (strpos(strtoupper($plugin_requirements['version']), 'CORE') === 0)
+            {
+               if (strpos($plugin_requirements['version'], ':') === FALSE)
+                  $plugin_requirements['version'] = 'CORE';
+               else
+                  $plugin_requirements['version']
+                     = 'CORE:' . trim(preg_replace(array('/[^0-9.]+.*$/', '/[^0-9.]/'), 
+                                         '', substr($plugin_requirements['version'], strpos($plugin_requirements['version'], ':') + 1)), 
+                                         '.');
+            }
+            else
+               $plugin_requirements['version']
+                  = trim(preg_replace(array('/[^0-9.]+.*$/', '/[^0-9.]/'), 
+                                      '', $plugin_requirements['version']), 
+                                      '.');
 
          }
 
@@ -913,6 +927,46 @@ function check_plugin_dependencies($plugin_name, $force_inclusion = FALSE)
 
    foreach ($dependencies as $depend_name => $depend_requirements)
    {
+
+      // check for core plugins first
+      //
+      if (strpos(strtoupper($depend_requirements['version']), 'CORE') === 0)
+      {
+
+         // see if the plugin is in the core (just check if the directory exists)
+         //
+         if (!file_exists(SM_PATH . 'plugins/' . $depend_name))
+            $missing_or_bad[$depend_name] = $depend_requirements;
+
+
+         // check if it is activated if need be
+         //
+         else if ($depend_requirements['activate'] && !is_plugin_enabled($depend_name))
+            $missing_or_bad[$depend_name] = $depend_requirements;
+
+
+         // check if this is the right core version if one is given
+         // (note this is pretty useless - a plugin should specify
+         // whether or not it itself is compatible with this version
+         // of SM in the first place)
+         //
+         else if (strpos($depend_requirements['version'], ':') !== FALSE)
+         {
+            $version = explode('.', substr($depend_requirements['version'], strpos($depend_requirements['version'], ':') + 1), 3);
+            $version[0] = intval($version[0]);
+            $version[1] = intval($version[1]);
+            $version[2] = intval($version[2]);
+
+            if (!check_sm_version($version[0], $version[1], $version[2]))
+               $missing_or_bad[$depend_name] = $depend_requirements;
+         }
+
+         continue;
+
+      }
+
+      // check for normal plugins
+      //
       $version = explode('.', $depend_requirements['version'], 3);
       $version[0] = intval($version[0]);
       $version[1] = intval($version[1]);
