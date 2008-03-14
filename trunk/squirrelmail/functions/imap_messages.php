@@ -66,8 +66,7 @@ function sqimap_msgs_list_move($imap_stream, $id, $mailbox, $handle_errors = tru
  * @since 1.4.0
  */
 function sqimap_msgs_list_delete($imap_stream, $mailbox, $id, $bypass_trash=false) {
-    // FIXME, remove globals by introducing an associative array with properties
-    // as 4th argument as replacement for the bypass_trash var
+    // FIXME: Remove globals by introducing an associative array with properties as 4th argument as replacement for the $bypass_trash variable.
     global $move_to_trash, $trash_folder;
     if (($move_to_trash == true) && ($bypass_trash != true) &&
         (sqimap_mailbox_exists($imap_stream, $trash_folder) &&  ($mailbox != $trash_folder)) ) {
@@ -165,8 +164,8 @@ function sqimap_get_sort_order($imap_stream, $sSortField, $reverse, $search='ALL
             $sSortField = 'REVERSE '.$sSortField;
         }
         $query = "SORT ($sSortField) ".strtoupper($default_charset)." $search";
-        // FIXME sqimap_run_command should return the parsed data accessible by $aDATA['SORT']
-        // use sqimap_run_command_list in case of unsollicited responses. If we don't we could loose the SORT response
+        // FIXME: sqimap_run_command() should return the parsed data accessible by $aDATA['SORT']
+        // use sqimap_run_command_list() in case of unsolicited responses. If we don't we could loose the SORT response.
         $aData = sqimap_run_command_list ($imap_stream, $query, false, $response, $message, TRUE);
         /* fallback to default charset */
         if ($response == 'NO') {
