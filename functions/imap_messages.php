@@ -66,7 +66,7 @@ function sqimap_msgs_list_move($imap_stream, $id, $mailbox, $handle_errors = tru
  * @since 1.4.0
  */
 function sqimap_msgs_list_delete($imap_stream, $mailbox, $id, $bypass_trash=false) {
-    // FIX ME, remove globals by introducing an associative array with properties
+    // FIXME, remove globals by introducing an associative array with properties
     // as 4th argument as replacement for the bypass_trash var
     global $move_to_trash, $trash_folder;
     if (($move_to_trash == true) && ($bypass_trash != true) &&
@@ -165,7 +165,7 @@ function sqimap_get_sort_order($imap_stream, $sSortField, $reverse, $search='ALL
             $sSortField = 'REVERSE '.$sSortField;
         }
         $query = "SORT ($sSortField) ".strtoupper($default_charset)." $search";
-        // FIX ME sqimap_run_command should return the parsed data accessible by $aDATA['SORT']
+        // FIXME sqimap_run_command should return the parsed data accessible by $aDATA['SORT']
         // use sqimap_run_command_list in case of unsollicited responses. If we don't we could loose the SORT response
         $aData = sqimap_run_command_list ($imap_stream, $query, false, $response, $message, TRUE);
         /* fallback to default charset */
@@ -954,11 +954,10 @@ function sqimap_get_message($imap_stream, $id, $mailbox, $hide=0) {
  *
  */
 function parse_message_entities(&$msg, $id, $imap_stream) {
-    global $uid_support;
     if (!empty($msg->entities)) foreach ($msg->entities as $i => $entity) {
         if (is_object($entity) && get_class($entity) == 'Message') {
             if (!empty($entity->rfc822_header)) {
-                $read = sqimap_run_command($imap_stream, "FETCH $id BODY[". $entity->entity_id .".HEADER]", true, $response, $message, $uid_support);
+                $read = sqimap_run_command($imap_stream, "FETCH $id BODY[". $entity->entity_id .".HEADER]", true, $response, $message, TRUE);
                 $rfc822_header = new Rfc822Header();
                 $rfc822_header->parseHeader($read);
                 $msg->entities[$i]->rfc822_header = $rfc822_header;
