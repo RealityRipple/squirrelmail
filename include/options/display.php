@@ -289,6 +289,7 @@ function load_optpage_data_display() {
     $optvals[SMOPT_GRP_MAILBOX][] = array(
         'name'          => 'custom_date_format',
         'caption'       => _("Custom Date Format"),
+//FIXME: need better wording here.  users should be made aware that this is for advanced use.  It might be nice to provide a list of the more common date format characters.  It may be helpful to know that it overrides settings such as the one above show_full_date, and only if kept empty will the other date formats apply.  For non-English users, it also may be helpful to know that the format is still passed through our own date_intl() function which translates things like the day of the week, month names and abbreviations, etc.
         'trailing_text' => ' ' . _("(Uses format of PHP date() function)"),
         'type'          => SMOPT_TYPE_STRING,
         'refresh'       => SMOPT_REFRESH_NONE,
