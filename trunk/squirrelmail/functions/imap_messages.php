@@ -954,7 +954,7 @@ function sqimap_get_message($imap_stream, $id, $mailbox, $hide=0) {
  */
 function parse_message_entities(&$msg, $id, $imap_stream) {
     if (!empty($msg->entities)) foreach ($msg->entities as $i => $entity) {
-        if (is_object($entity) && get_class($entity) == 'Message') {
+        if (is_object($entity) && strtolower(get_class($entity)) == 'message') {
             if (!empty($entity->rfc822_header)) {
                 $read = sqimap_run_command($imap_stream, "FETCH $id BODY[". $entity->entity_id .".HEADER]", true, $response, $message, TRUE);
                 $rfc822_header = new Rfc822Header();
