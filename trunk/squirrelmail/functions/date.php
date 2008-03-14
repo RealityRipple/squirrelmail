@@ -291,11 +291,12 @@ function date_intl( $date_format, $stamp ) {
     $ret = date('w#m#'. $ret, $stamp );
     // extract day and month in order to replace later by intl day and month
     $aParts = explode('#',$ret);
-    $ret = str_replace(array('$1','$4','$2','$3',), array(getDayAbrv($aParts[0]),
-                                                          getMonthAbrv($aParts[1]),
-                                                          getMonthName($aParts[1]),
-                                                          getDayName($aParts[0])),
-                                                          $aParts[2]);
+    $ret = str_replace(array('$1','$4','$2','$3',), 
+                       array(getDayAbrv($aParts[0]),
+                             getMonthAbrv($aParts[1]),
+                             getMonthName($aParts[1]),
+                             getDayName($aParts[0])),
+                       $aParts[2]);
     return( $ret );
 }
 
@@ -338,7 +339,7 @@ function getLongDateString( $stamp, $fallback = '' ) {
  */
 function getDateString( $stamp ) {
 
-    global $invert_time, $hour_format, $show_full_date;
+    global $invert_time, $hour_format, $show_full_date, $custom_date_format;
 
     if ( $stamp == -1 ) {
        return '';
@@ -364,7 +365,10 @@ function getDateString( $stamp ) {
     }
     $nextmid = $midnight + 86400;
 
-    if (($show_full_date == 1) || ($nextmid < $stamp)) {
+    $custom_date_format = trim($custom_date_format);
+    if (!empty($custom_date_format)) {
+        $date_format = $custom_date_format;
+    } else if ($show_full_date == 1 || $nextmid < $stamp) {
         $date_format = _("M j, Y");
     } else if ($midnight < $stamp) {
         /* Today */

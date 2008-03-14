@@ -287,6 +287,15 @@ function load_optpage_data_display() {
     );
 
     $optvals[SMOPT_GRP_MAILBOX][] = array(
+        'name'          => 'custom_date_format',
+        'caption'       => _("Custom Date Format"),
+        'trailing_text' => ' ' . _("(Uses format of PHP date() function)"),
+        'type'          => SMOPT_TYPE_STRING,
+        'refresh'       => SMOPT_REFRESH_NONE,
+        'size'          => SMOPT_SIZE_TINY,
+    );
+
+    $optvals[SMOPT_GRP_MAILBOX][] = array(
         'name'    => 'truncate_sender',
         'caption' => _("Length of From/To Field (0 for full)"),
         'type'    => SMOPT_TYPE_INTEGER,
