@@ -784,6 +784,14 @@ function save_option($option) {
     } else if ($option->is_multiple_valued())
         setPref($data_dir, $username, $option->name, serialize($option->new_value));
 
+    // Checkboxes, when unchecked, don't submit anything in
+    // the POST, so set to SMPREF_OFF if not found
+    //
+    else if (($option->type == SMOPT_TYPE_BOOLEAN
+           || $option->type == SMOPT_TYPE_BOOLEAN_CHECKBOX)
+          && empty($option->new_value)) 
+        setPref($data_dir, $username, $option->name, SMPREF_OFF);
+
     else
         setPref($data_dir, $username, $option->name, $option->new_value);
 
