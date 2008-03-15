@@ -543,6 +543,11 @@ if ( $config_use_color == 1 ) {
     $config_use_color = 2;
 }
 
+# lists can be printed in more than one column; default is just one
+#
+$columns = 1;
+$screen_width = 80;
+
 while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
     clear_screen();
     print $WHT. "SquirrelMail Configuration : " . $NRM;
@@ -733,14 +738,18 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             print $WHT. "Plugins\n" . $NRM;
         }
         print "  Installed Plugins\n";
-        $num = 0;
-        for ( $count = 0 ; $count <= $#plugins ; $count++ ) {
-            $num = $count + 1;
-            $english_name = get_plugin_english_name($plugins[$count]);
-            if ( $english_name eq "" ) {
-                print "    $num. $plugins[$count]" . get_plugin_version($plugins[$count]) . "\n";
-            } else {
-                print "    $num. $english_name ($plugins[$count])" . get_plugin_version($plugins[$count]) . "\n";
+        if ($columns > 1) {
+            $num = print_multi_col_list(1, $columns, $screen_width, 1, @plugins);
+        } else {
+            $num = 0;
+            for ( $count = 0 ; $count <= $#plugins ; $count++ ) {
+                $num = $count + 1;
+                $english_name = get_plugin_english_name($plugins[$count]);
+                if ( $english_name eq "" ) {
+                    print "    $WHT$num.$NRM $plugins[$count]" . get_plugin_version($plugins[$count]) . "\n";
+                } else {
+                    print "    $WHT$num.$NRM $english_name ($plugins[$count])" . get_plugin_version($plugins[$count]) . "\n";
+                }
             }
         }
         print "\n  Available Plugins:\n";
@@ -763,13 +772,17 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             }
         }
 
-        for ( $i = 0 ; $i <= $#unused_plugins ; $i++ ) {
-            $num = $num + 1;
-            $english_name = get_plugin_english_name($unused_plugins[$i]);
-            if ( $english_name eq "" ) {
-                print "    $num. $unused_plugins[$i]" . get_plugin_version($unused_plugins[$i]) . "\n";
-            } else {
-                print "    $num. $english_name ($unused_plugins[$i])" . get_plugin_version($unused_plugins[$i]) . "\n";
+        if ($columns > 1) {
+            $num = print_multi_col_list($num + 1, $columns, $screen_width, 1, @unused_plugins);
+        } else {
+            for ( $i = 0 ; $i <= $#unused_plugins ; $i++ ) {
+                $num = $num + 1;
+                $english_name = get_plugin_english_name($unused_plugins[$i]);
+                if ( $english_name eq "" ) {
+                    print "    $WHT$num.$NRM $unused_plugins[$i]" . get_plugin_version($unused_plugins[$i]) . "\n";
+                } else {
+                    print "    $WHT$num.$NRM $english_name ($unused_plugins[$i])" . get_plugin_version($unused_plugins[$i]) . "\n";
+                }
             }
         }
         closedir DIR;
@@ -784,6 +797,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         }
         print "U   Set the user for whom plugins can be disabled\n";
         print "R   Return to Main Menu\n";
+        print "C#  List plugins in <#> number of columns\n";
+        print "W#  Change screen width to <#>\n";
     } elsif ( $menu == 9 ) {
         print $WHT. "Database\n" . $NRM;
         print "1.  DSN for Address Book   : $WHT$addrbook_dsn$NRM\n";
@@ -802,28 +817,28 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 10 ) {
-    print $WHT. "Language settings\n" . $NRM;
-    print "1.  Default Language                : $WHT$squirrelmail_default_language$NRM\n";
-    print "2.  Default Charset                 : $WHT$default_charset$NRM\n";
-    print "3.  Show alternative language names : $WHT$show_alternative_names$NRM\n";
-    print "4.  Enable aggressive decoding      : $WHT$aggressive_decoding$NRM\n";
-    print "5.  Enable lossy encoding           : $WHT$lossy_encoding$NRM\n";
-    print "\n";
+        print $WHT. "Language settings\n" . $NRM;
+        print "1.  Default Language                : $WHT$squirrelmail_default_language$NRM\n";
+        print "2.  Default Charset                 : $WHT$default_charset$NRM\n";
+        print "3.  Show alternative language names : $WHT$show_alternative_names$NRM\n";
+        print "4.  Enable aggressive decoding      : $WHT$aggressive_decoding$NRM\n";
+        print "5.  Enable lossy encoding           : $WHT$lossy_encoding$NRM\n";
+        print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 11 ) {
-    print $WHT. "Interface tweaks\n" . $NRM;
-    print "1.  Display html mails in iframe : $WHT$use_iframe$NRM\n";
-    print "2.  Ask user info on first login : $WHT$ask_user_info$NRM\n";
-    print "\n";
-    print $WHT. "PHP tweaks\n" . $NRM;
-    print "4.  Use php recode functions     : $WHT$use_php_recode$NRM\n";
-    print "5.  Use php iconv functions      : $WHT$use_php_iconv$NRM\n";
-    print "\n";
-    print $WHT. "Configuration tweaks\n" . $NRM;
-    print "6.  Allow remote configtest     : $WHT$allow_remote_configtest$NRM\n";
-    print "7.  Debug mode                  : $WHT$sm_debug_mode$NRM\n";
-    print "8.  Secured configuration mode  : $WHT$secured_config$NRM\n";
-    print "\n";
+        print $WHT. "Interface tweaks\n" . $NRM;
+        print "1.  Display html mails in iframe : $WHT$use_iframe$NRM\n";
+        print "2.  Ask user info on first login : $WHT$ask_user_info$NRM\n";
+        print "\n";
+        print $WHT. "PHP tweaks\n" . $NRM;
+        print "4.  Use php recode functions     : $WHT$use_php_recode$NRM\n";
+        print "5.  Use php iconv functions      : $WHT$use_php_iconv$NRM\n";
+        print "\n";
+        print $WHT. "Configuration tweaks\n" . $NRM;
+        print "6.  Allow remote configtest     : $WHT$allow_remote_configtest$NRM\n";
+        print "7.  Debug mode                  : $WHT$sm_debug_mode$NRM\n";
+        print "8.  Secured configuration mode  : $WHT$secured_config$NRM\n";
+        print "\n";
         print "R   Return to Main Menu\n";
     }
     if ( $config_use_color == 1 ) {
@@ -866,6 +881,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             $WHT              = "\x1B[37;1m";
             $NRM              = "\x1B[0m";
         }
+    } elsif ( $command =~ /^w([0-9]+)/ ) {
+        $screen_width = $1;
     } elsif ( $command eq "d" && $menu == 0 ) {
         set_defaults();
     } else {
@@ -967,10 +984,11 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         } elsif ( $menu == 7 ) {
             if ( $command == 1 ) { $motd = command71(); }
         } elsif ( $menu == 8 ) {
-            if    ( $command =~ /^[0-9]+/ ) { @plugins              = command81(); }
-            elsif ( $command eq "u" )       { $disable_plugins_user = command82(); }
-            elsif ( $command eq "d" )       { $disable_plugins      = 'true'; }
-            elsif ( $command eq "e" )       { $disable_plugins      = 'false'; }
+            if    ( $command =~ /^[0-9]+/ )    { @plugins              = command81(); }
+            elsif ( $command eq "u" )          { $disable_plugins_user = command82(); }
+            elsif ( $command eq "d" )          { $disable_plugins      = 'true'; }
+            elsif ( $command eq "e" )          { $disable_plugins      = 'false'; }
+            elsif ( $command =~ /^c([0-9]+)/ ) { $columns              = $1; }
         } elsif ( $menu == 9 ) {
             if    ( $command == 1 ) { $addrbook_dsn     = command91(); }
             elsif ( $command == 2 ) { $addrbook_table   = command92(); }
@@ -5687,3 +5705,87 @@ sub convert_debug_constants_to_binary_integer() {
 
     return $new_debug_mode;
 }
+
+# Function to print n column numbered lists
+#
+# WARNING: the names in the list will be truncated
+# to fit in their respective columns based on the
+# screen width and number of columns.
+#
+# Expected arguments (in this order):
+#
+#    * The start number to use for the list
+#    * The number of columns to use
+#    * The screen width
+#    * Boolean (zero/one), indicating
+#      whether or not to show item numbers
+#    * The list of strings to be shown
+#
+# Returns: The number printed on screen of the last item in the list
+#
+sub print_multi_col_list {
+    my ($num, $cols, $screen_width, $show_numbering, @list) = @_;
+    my $x;
+    my $col_cnt = 0;
+    my $row_cnt = 0;
+    my $rows;
+    my $col_width;
+    my $total = 0;
+    my @layout = ();
+    my @numbers = ();
+
+    $rows = int(@list / $cols);
+    if (@list % $cols) { $rows++; }
+    if ($show_numbering) { $col_width = int(($screen_width - 2) / $cols) - 5; }
+    else                 { $col_width = int(($screen_width - 2) / $cols) - 2; }
+
+    # build the layout array so numbers run down each column
+    #
+    for ( $x = 0; $x < @list; $x++ ) {
+
+        $layout[$row_cnt][$col_cnt] = $list[$x];
+        $numbers[$row_cnt][$col_cnt] = $num++;
+
+        # move to next column
+        #
+        if ($row_cnt == $rows - 1) {
+            $row_cnt = 0;
+            $col_cnt++;
+        }
+        else { $row_cnt++; }
+
+    }
+
+    # if we filled up fewer rows than needed, recalc column width
+    #
+    if ($rows * $col_cnt == @list) { $col_cnt--; } # loop above ended right after increment
+    if ($col_cnt + 1 < $cols) {
+        if ($show_numbering) { $col_width = int(($screen_width - 2) / ($col_cnt + 1)) - 5; }
+        else                 { $col_width = int(($screen_width - 2) / ($col_cnt + 1)) - 2; }
+    }
+
+    # print it
+    # iterate rows
+    #
+    for ( $row_cnt = 0; $row_cnt <= $rows; $row_cnt++ ) {
+
+        # indent the row
+        #
+        print " ";
+
+        # iterate columns for this row
+        #
+        for ( $col_cnt = 0; $col_cnt <= $cols; $col_cnt++ ) {
+            if ($layout[$row_cnt][$col_cnt]) {
+                print " ";
+                if ($show_numbering) { printf "$WHT% 2u.$NRM", $numbers[$row_cnt][$col_cnt]; }
+                printf " %-$col_width." . $col_width . "s", $layout[$row_cnt][$col_cnt];
+            }
+        }
+        print "\n";
+    }
+
+
+    return $num - 1;
+}
+
