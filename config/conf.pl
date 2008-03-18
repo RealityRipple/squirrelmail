@@ -546,7 +546,20 @@ if ( $config_use_color == 1 ) {
 # lists can be printed in more than one column; default is just one
 #
 $columns = 1;
-$screen_width = 80;
+
+# try to get screen width dynamically if possible; default to 80
+# (user can override with "w#" command)
+#
+eval { require "sys/ioctl.ph" };
+if ($@
+ || !defined &TIOCGWINSZ
+ || !open(TTY, "+</dev/tty")
+ || !ioctl(TTY, &TIOCGWINSZ, $winsize='')) {
+    $screen_width = 80;
+} else {
+    ($row, $col, $xpixel, $ypixel) = unpack('S4', $winsize);
+    $screen_width = $col;
+}
 
 while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
     clear_screen();
@@ -798,7 +811,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "U   Set the user for whom plugins can be disabled\n";
         print "R   Return to Main Menu\n";
         print "C#  List plugins in <#> number of columns\n";
-        print "W#  Change screen width to <#>\n";
+        print "W#  Change screen width to <#> (currently $screen_width)\n";
     } elsif ( $menu == 9 ) {
         print $WHT. "Database\n" . $NRM;
         print "1.  DSN for Address Book   : $WHT$addrbook_dsn$NRM\n";
