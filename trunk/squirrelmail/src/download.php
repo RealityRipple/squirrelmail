@@ -131,7 +131,7 @@ if (strlen($filename) < 1) {
     else if ($type1 == 'postscript' && $type0 == 'application')
         $suffix = 'ps';
     else if ($type1 == 'rfc822' && $type0 == 'message')
-        $suffix = 'msg';
+        $suffix = 'eml';
     else
         $suffix = $type1;
 
