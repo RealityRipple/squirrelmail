@@ -1549,7 +1549,7 @@ function attachSelectedMessages($imapConnection,$aMsgHeaders) {
             fwrite ($fp, $body);
             fclose($fp);
 
-            $composeMessage->initAttachment('message/rfc822',$subject.'.msg',
+            $composeMessage->initAttachment('message/rfc822',$subject.'.eml',
                  $filename);
         }
     }
