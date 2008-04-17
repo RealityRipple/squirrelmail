@@ -795,6 +795,15 @@ function save_option($option) {
     else
         setPref($data_dir, $username, $option->name, $option->new_value);
 
+
+    // if a checkbox or multi select is zeroed/cleared out, it
+    // needs to have an empty value pushed into its "new_value" slot
+    //
+    if (($option->type == SMOPT_TYPE_STRLIST_MULTI
+      || $option->type == SMOPT_TYPE_BOOLEAN_CHECKBOX)
+     && is_null($option->new_value))
+        $option->new_value = '';
+
 }
 
 /**
