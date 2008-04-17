@@ -1,9 +1,9 @@
 <?php
 
 /**
-  * edit_list_widget.tpl
+  * edit_list_widget_list_style.tpl
   *
-  * Template for constructing an edit list.
+  * Template for constructing an edit list using a list-format layout.
   *
   * The following variables are available in this template:
   *
@@ -31,6 +31,29 @@
 extract($t);
 
 
-echo _("Add") . '&nbsp;' . $input_widget . '<br />' . $select_widget 
-   . '<br />' . $checkbox_widget . '&nbsp;<label for="delete_' . $name . '">' 
-   . _("Delete Selected") . '</label>';
+echo '<table class="table2" cellspacing="0"><tr><td>'
+   . _("Add") . '&nbsp;' . $input_widget . '<br />'
+   . '<table class="table_messageList" cellspacing="0">';
+
+$class = 'even';
+$index = 0;
+
+foreach ($possible_values as $key => $value) {
+
+    if ($class == 'even') $class = 'odd';
+    else $class = 'even';
+
+    echo '<tr class="' . $class . '">'
+       . '<td class="col_check" style="width:1%"><input type="checkbox" name="new_' . $name . '[' . ($index++) . ']" id="' . $name . '_list_item_' . $key . '" value="' . $value . '"></td>'
+       . '<td><label for="' . $name . '_list_item_' . $key . '">' . $value . '</label></td>'
+       . "</tr>\n";
+    
+}
+
+echo '</table>';
+
+if (!empty($possible_values))
+    echo $checkbox_widget . '&nbsp;<label for="delete_' . $name . '">' 
+       . _("Delete Selected") . '</label>';
+
+echo '</td></tr></table>';
