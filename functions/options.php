@@ -33,6 +33,10 @@ define('SMOPT_TYPE_BOOLEAN_CHECKBOX', 12);
 define('SMOPT_TYPE_BOOLEAN_RADIO', 13);
 define('SMOPT_TYPE_STRLIST_RADIO', 14);
 
+/* Define constants for the layout scheme for edit lists. */
+define('SMOPT_EDIT_LIST_LAYOUT_LIST', 0);
+define('SMOPT_EDIT_LIST_LAYOUT_SELECT', 1);
+
 /* Define constants for the options refresh levels. */
 define('SMOPT_REFRESH_NONE', 0);
 define('SMOPT_REFRESH_FOLDERLIST', 1);
@@ -110,6 +114,12 @@ class SquirrelOption {
      * @var string
      */
     var $no_text;
+    /**
+     * Some widgets support more than one layout type
+     *
+     * @var int
+     */
+    var $layout_type;
     /**
      * text displayed to the user
      *
@@ -196,6 +206,7 @@ class SquirrelOption {
         $this->yes_text = '';
         $this->no_text = '';
         $this->comment = '';
+        $this->layout_type = 0;
         $this->aExtraAttribs = array();
         $this->post_script = '';
 
@@ -275,6 +286,14 @@ class SquirrelOption {
      */
     function setNoText($no_text) {
         $this->no_text = $no_text;
+    }
+
+    /**
+     * Set the layout type for this option.
+     * @param int $layout_type
+     */
+    function setLayoutType($layout_type) {
+        $this->layout_type = $layout_type;
     }
 
     /**
@@ -672,6 +691,11 @@ class SquirrelOption {
 
     /**
      * Creates an edit list
+     *
+     * Note that multiple layout types are supported for this widget.
+     * $this->layout_type must be one of the SMOPT_EDIT_LIST_LAYOUT_*
+     * constants.
+     *
      * @return string html formated list of edit fields and
      *                their associated controls
      */
@@ -704,10 +728,19 @@ class SquirrelOption {
 //FIXME: $this->aExtraAttribs probably should only be used in one place
         $oTemplate->assign('input_widget', addInput('add_' . $this->name, '', 38, 0, $this->aExtraAttribs));
         $oTemplate->assign('trailing_text', $this->trailing_text);
+        $oTemplate->assign('possible_values', $this->possible_values);
         $oTemplate->assign('select_widget', addSelect('new_' . $this->name, $this->possible_values, $this->value, FALSE, !checkForJavascript() ? $this->aExtraAttribs : array_merge(array('onchange' => 'if (typeof(window.addinput) == \'undefined\') { var f = document.forms.length; var i = 0; var pos = -1; while( pos == -1 && i < f ) { var e = document.forms[i].elements.length; var j = 0; while( pos == -1 && j < e ) { if ( document.forms[i].elements[j].type == \'text\' && document.forms[i].elements[j].name == \'add_' . $this->name . '\' ) { pos = j; } j++; } i++; } if( pos >= 0 ) { window.addinput = document.forms[i-1].elements[pos]; } } for (x = 0; x < this.length; x++) { if (this.options[x].selected) { window.addinput.value = this.options[x].value; break; } }'), $this->aExtraAttribs), TRUE, $height));
         $oTemplate->assign('checkbox_widget', addCheckBox('delete_' . $this->name, FALSE, SMPREF_YES, array_merge(array('id' => 'delete_' . $this->name), $this->aExtraAttribs)));
         $oTemplate->assign('name', $this->name);
-        return $oTemplate->fetch('edit_list_widget.tpl');
+
+        switch ($this->layout_type) {
+            case SMOPT_EDIT_LIST_LAYOUT_SELECT:
+                return $oTemplate->fetch('edit_list_widget.tpl');
+            case SMOPT_EDIT_LIST_LAYOUT_LIST:
+                return $oTemplate->fetch('edit_list_widget_list_style.tpl');
+            default:
+                error_box(sprintf(_("Edit List Layout Type '%s' Not Found"), $layout_type));
+        }
 
     }
 
@@ -880,6 +913,11 @@ function create_option_groups($optgrps, $optvals) {
             /* If provided, set the no_text for this option. */
             if (isset($optset['no_text'])) {
                 $next_option->setNoText($optset['no_text']);
+            }
+
+            /* If provided, set the layout type for this option. */
+            if (isset($optset['layout_type'])) {
+                $next_option->setLayoutType($optset['layout_type']);
             }
 
             /* If provided, set the comment for this option. */
