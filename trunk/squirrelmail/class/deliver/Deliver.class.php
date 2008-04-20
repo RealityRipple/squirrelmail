@@ -437,6 +437,8 @@ class Deliver {
         } else {
             if ($mime_header->type0 == 'text' || $mime_header->type0 == 'message') {
                 $header[] = 'Content-Transfer-Encoding: 8bit' .  $rn;
+            } else if ($mime_header->type0 == 'multipart' || $mime_header->type0 == 'alternative') {
+                /* no-op; no encoding needed */
             } else {
                 $header[] = 'Content-Transfer-Encoding: base64' .  $rn;
             }
