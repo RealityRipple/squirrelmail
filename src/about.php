@@ -86,7 +86,7 @@ if ( isset($plugins) && count ($plugins) > 0 ) {
 </small>
 <br /><br />
 </td></tr>
-<tr><td align="center">&copy; 1999 - 2008 The SquirrelMail Project Team</td></tr>
+<tr><td align="center">&copy; <?php echo SM_COPYRIGHT ?> The SquirrelMail Project Team</td></tr>
 </table></p>
 <?php
 $oTemplate->display('footer.tpl');
