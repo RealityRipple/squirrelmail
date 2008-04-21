@@ -551,5 +551,5 @@ if ($non_clicked_class != 'even' && $non_clicked_class != 'odd'
 </div>
 
 <?php if (!$hide_sm_attributions): ?>
-<p class="sqm_squirrelcopyright">&copy; 1999-2008 The SquirrelMail Project Team - <a href="about.php">About SquirrelMail</a></p>
+<p class="sqm_squirrelcopyright">&copy; <?php echo SM_COPYRIGHT ?> The SquirrelMail Project Team - <a href="about.php">About SquirrelMail</a></p>
 <?php endif; ?>
