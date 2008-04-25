@@ -1721,7 +1721,7 @@ function deliverMessage(&$composeMessage, $draft=false) {
             }
             require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
             $imap_deliver = new Deliver_IMAP();
-            $imap_deliver->mail($composeMessage, $imap_stream, $reply_id, $reply_ent_id, $sent_folder);
+            $imap_deliver->mail($composeMessage, $imap_stream, $reply_id, $reply_ent_id, $sent_folder, $imap_stream);
             unset ($imap_deliver);
         }
 
