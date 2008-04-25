@@ -56,13 +56,24 @@ class Deliver {
      *                               can be passed in here and used in
      *                               an overloaded version of this method
      *                               if needed.
+     * @param resource $imap_stream  If there is an open IMAP stream in
+     *                               the caller's context, it should be
+     *                               passed in here.  This is OPTIONAL,
+     *                               as one will be created if not given,
+     *                               but as some IMAP servers may baulk
+     *                               at opening more than one connection
+     *                               at a time, the caller should always
+     *                               abide if possible.  Currently, this
+     *                               stream is only used when $reply_id
+     *                               is also non-zero, but that is subject
+     *                               to change.
      *
      * @return integer The number of bytes written (or that would have been
      *                 written) to the output stream.
      *
      */
     function mail(&$message, $stream=false, $reply_id=0, $reply_ent_id=0,
-                  $extra=NULL) {
+                  $extra=NULL, $imap_stream=NULL) {
 
         $rfc822_header = &$message->rfc822_header;
 
@@ -81,12 +92,27 @@ class Deliver {
             global $imapConnection, $username, $imapServerAddress, 
                    $imapPort, $mailbox;
 
-            if (!is_resource($imapConnection))
-                $imapConnection = sqimap_login($username, FALSE,
-                                               $imapServerAddress, $imapPort, 0);
+            // try our best to use an existing IMAP handle
+            //
+            $close_imap_stream = FALSE;
+            if (is_resource($imap_stream)) {
+                $my_imap_stream = $imap_stream;
 
-            sqimap_mailbox_select($imapConnection, $mailbox);
-            $reply_message = sqimap_get_message($imapConnection, $reply_id, $mailbox);
+            } else if (is_resource($imapConnection)) {
+                $my_imap_stream = $imapConnection;
+
+            } else {
+                $close_imap_stream = TRUE;
+                $my_imap_stream = sqimap_login($username, FALSE,
+                                               $imapServerAddress, $imapPort, 0);
+            }
+
+            sqimap_mailbox_select($my_imap_stream, $mailbox);
+            $reply_message = sqimap_get_message($my_imap_stream, $reply_id, $mailbox);
+
+            if ($close_imap_stream) {
+                sqimap_logout($my_imap_stream);
+            }
 
             if ($reply_ent_id) {
                 /* redefine the messsage in case of message/rfc822 */
