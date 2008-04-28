@@ -52,10 +52,6 @@ class Deliver {
      *                               message inside another (OPTIONAL; caller
      *                               should ONLY specify a value for this 
      *                               when the message being sent is a reply)
-     * @param mixed    $extra        Any implementation-specific variables
-     *                               can be passed in here and used in
-     *                               an overloaded version of this method
-     *                               if needed.
      * @param resource $imap_stream  If there is an open IMAP stream in
      *                               the caller's context, it should be
      *                               passed in here.  This is OPTIONAL,
@@ -67,13 +63,17 @@ class Deliver {
      *                               stream is only used when $reply_id
      *                               is also non-zero, but that is subject
      *                               to change.
+     * @param mixed    $extra        Any implementation-specific variables
+     *                               can be passed in here and used in
+     *                               an overloaded version of this method
+     *                               if needed.
      *
      * @return integer The number of bytes written (or that would have been
      *                 written) to the output stream.
      *
      */
     function mail(&$message, $stream=false, $reply_id=0, $reply_ent_id=0,
-                  $extra=NULL, $imap_stream=NULL) {
+                  $imap_stream=NULL, $extra=NULL) {
 
         $rfc822_header = &$message->rfc822_header;
 
