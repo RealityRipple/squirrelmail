@@ -61,6 +61,11 @@ define('SMOPT_SAVE_NOOP', 'save_option_noop');
  */
 class SquirrelOption {
     /**
+     * The original option configuration array
+     * @var array
+     */
+    var $raw_option_array;
+    /**
      * The name of this setting
      * @var string
      */
@@ -184,6 +189,7 @@ class SquirrelOption {
 
     /**
      * Constructor function
+     * @param array $raw_option_array
      * @param string $name
      * @param string $caption
      * @param integer $type
@@ -193,8 +199,9 @@ class SquirrelOption {
      * @param bool $htmlencoded
      */
     function SquirrelOption
-    ($name, $caption, $type, $refresh_level, $initial_value = '', $possible_values = '', $htmlencoded = false) {
+    ($raw_option_array, $name, $caption, $type, $refresh_level, $initial_value = '', $possible_values = '', $htmlencoded = false) {
         /* Set the basic stuff. */
+        $this->raw_option_array = $raw_option_array;
         $this->name = $name;
         $this->caption = $caption;
         $this->type = $type;
@@ -886,6 +893,7 @@ function create_option_groups($optgrps, $optvals) {
         foreach ($grpopts as $optset) {
             /* Create a new option with all values given. */
             $next_option = new SquirrelOption(
+                    $optset,
                     $optset['name'],
                     $optset['caption'],
                     $optset['type'],
