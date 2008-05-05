@@ -56,6 +56,8 @@ xgettext ${XGETTEXT_OPTIONS} -j \
 xgettext ${XGETTEXT_OPTIONS} -j \
     plugins/bug_report/*.php --output=po/squirrelmail.pot
 xgettext ${XGETTEXT_OPTIONS} -j \
+    plugins/bug_report/templates/default/*.tpl --output=po/squirrelmail.pot
+xgettext ${XGETTEXT_OPTIONS} -j \
     plugins/calendar/*.php --output=po/squirrelmail.pot
 xgettext ${XGETTEXT_OPTIONS} -j \
     plugins/change_password/*.php --output=po/squirrelmail.pot
