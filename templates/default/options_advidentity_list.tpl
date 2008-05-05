@@ -101,7 +101,7 @@ extract($t);
       <input type="submit" name="smaction[move][<?php echo $index; ?>]" value="<?php echo _("Move Up"); ?>" />
             <?php
         }
-        /* FIXME: No hooks in templates! */ echo $temp = array(&$identity['New'], &$index); concat_hook_function('options_identities_buttons', $temp);
+        /* FIXME: No hooks in templates! */ $temp = array(&$identity['New'], &$index); echo concat_hook_function('options_identities_buttons', $temp);
       ?>
      </td>
     </tr>
