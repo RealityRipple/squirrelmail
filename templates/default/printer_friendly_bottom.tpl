@@ -69,7 +69,7 @@ extract($t);
 if (count($attachments) > 0) {
     ?>
 <hr />
-<b><?php echo _("Attachments"); ?>:</b>
+<b><?php echo _("Attachments:"); ?></b>
  <?php
     foreach ($attachments as $attachment) {
         ?>
@@ -89,7 +89,7 @@ if (count($attachments) > 0) {
  </tr>
  <tr>
   <td class="attachField">
-   <?php echo _("Type"); ?>:
+   <?php echo _("Type:"); ?>
   </td>
   <td class="attachFieldValue">
    <?php echo $attachment['ContentType']; ?>
@@ -97,7 +97,7 @@ if (count($attachments) > 0) {
  </tr>
  <tr>
   <td class="attachField">
-   <?php echo _("Info"); ?>:
+   <?php echo _("Info:"); ?>
   </td>
   <td class="attachFieldValue">
    <?php echo $attachment['Description']; ?>
