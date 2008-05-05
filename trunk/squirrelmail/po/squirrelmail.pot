@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: SquirrelMail DEVEL\n"
 "Report-Msgid-Bugs-To: SquirrelMail Internationalization <squirrelmail-"
 "i18n@lists.sourceforge.net>\n"
-"POT-Creation-Date: 2008-01-09 00:15+0100\n"
+"POT-Creation-Date: 2008-05-06 01:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -1256,6 +1256,10 @@ msgstr ""
 msgid "No"
 msgstr ""
 
+#, php-format
+msgid "Edit List Layout Type '%s' Not Found"
+msgstr ""
+
 msgid "Compose"
 msgstr ""
 
@@ -1264,6 +1268,12 @@ msgid "Error creating directory %s."
 msgstr ""
 
 msgid "Could not create hashed directory structure!"
+msgstr ""
+
+msgid "KiB"
+msgstr ""
+
+msgid "MiB"
 msgstr ""
 
 msgid "Error"
@@ -1570,6 +1580,12 @@ msgid "Maximum Number of Pages to Show"
 msgstr ""
 
 msgid "Always Show Full Date"
+msgstr ""
+
+msgid "Custom Date Format"
+msgstr ""
+
+msgid "(Uses format of PHP date() function)"
 msgstr ""
 
 msgid "Length of From/To Field (0 for full)"
@@ -2294,7 +2310,23 @@ msgstr ""
 msgid "Plugin is disabled."
 msgstr ""
 
+msgid "Bug"
+msgstr ""
+
+msgid "Bug Reports"
+msgstr ""
+
+msgid "Show button in toolbar"
+msgstr ""
+
 msgid "Submit a Bug Report"
+msgstr ""
+
+msgid "Warnings were reported in your setup:"
+msgstr ""
+
+#, php-format
+msgid "%d warning(s) reported."
 msgstr ""
 
 msgid "Show System Specifications"
@@ -2357,15 +2389,6 @@ msgid "a specific plugin"
 msgstr ""
 
 msgid "Start Bug Report Form"
-msgstr ""
-
-msgid "Bug"
-msgstr ""
-
-msgid "Bug Reports"
-msgstr ""
-
-msgid "Show button in toolbar"
 msgstr ""
 
 #, php-format
@@ -4288,7 +4311,7 @@ msgstr ""
 msgid "List all"
 msgstr ""
 
-msgid "Attachment"
+msgid "New attachment"
 msgstr ""
 
 msgid "Attach"
@@ -4313,6 +4336,12 @@ msgid "On Delivery"
 msgstr ""
 
 msgid "Save Draft"
+msgstr ""
+
+msgid "Add"
+msgstr ""
+
+msgid "Delete Selected"
 msgstr ""
 
 msgid "THIS FOLDER IS EMPTY"
@@ -4414,6 +4443,9 @@ msgstr ""
 msgid "Message Flags"
 msgstr ""
 
+msgid "Attachment"
+msgstr ""
+
 msgid "Click here to change the sorting of the message list"
 msgstr ""
 
@@ -4450,9 +4482,6 @@ msgstr ""
 msgid "No highlighting is defined"
 msgstr ""
 
-msgid "Add"
-msgstr ""
-
 msgid ""
 "The index order is the order that the columns are arranged in the message "
 "index. You can add, remove, and move columns around to customize them to fit "
@@ -4477,7 +4506,13 @@ msgstr ""
 msgid "Sign Out"
 msgstr ""
 
-msgid "Type"
+msgid "Attachments:"
+msgstr ""
+
+msgid "Type:"
+msgstr ""
+
+msgid "Info:"
 msgstr ""
 
 msgid "Requested"
