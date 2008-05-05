@@ -1042,6 +1042,11 @@ div.printerFriendly td.attachField {
     text-align: right;
 }
 
+div.printerFriendly td.attachFieldValue {
+    text-align: left;
+    empty-cells: show;
+}
+
 div.printerFriendly td.attachName {
     font-weight: bold;
 }
