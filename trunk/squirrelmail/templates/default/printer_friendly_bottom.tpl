@@ -69,7 +69,7 @@ extract($t);
 if (count($attachments) > 0) {
     ?>
 <hr />
-<b>Attachments:</b>
+<b><?php echo _("Attachments"); ?>:</b>
  <?php
     foreach ($attachments as $attachment) {
         ?>
