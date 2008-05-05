@@ -68,20 +68,21 @@
 }
 
 #optionDisplay  td.optionValue  {
-    text-align:left;
+    text-align: left;
 }
 
 #optionOrder  {
-    text-align:center;
+    text-align: center;
 }
 
 #optionOrder    table   {
+    text-align: center;
     margin-left: auto;
     margin-right: auto;
     margin-top: 8px;
     margin-bottom: 8px;
     width: 95%;
-    border: 1px solid #dcdcdc
+    border: 1px solid #dcdcdc;
 }
 
 #optionOrder    table.moveFields    {
