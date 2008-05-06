@@ -185,9 +185,11 @@ function getBackends () {
     $backends['-1'] = _("All address books");
     $ret = $abook->get_backend_list();
     while (list($undef,$v) = each($ret)) {
+        if ($v->btype == 'local' && !$v->listing) {
+            continue;
+        }
         $backends[$v->bnum] = $v->sname;
     }
     
     return $backends;
 }
-?>
