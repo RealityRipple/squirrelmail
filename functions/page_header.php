@@ -117,9 +117,9 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
         //       hooks for the current page request.  See 
         //       the Sent Confirmation v1.7 or Restrict Senders v1.2
         //       plugins for examples of this approach.
-        global $null;
         ob_start();
-        do_hook('generic_header', $null);
+        $temp = array(&$header_tags);
+        do_hook('generic_header', $temp);
         $output = ob_get_contents();
         ob_end_clean();
         // plugin authors can debug their errors with one of the following:
