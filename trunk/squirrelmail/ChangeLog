@@ -244,7 +244,9 @@ Version 1.5.2 - SVN
   - Added "Secured Configuration" mode.
   - Added edit list, checkbox, radio group, multiple-select folder list
     and multiple-select string list option widget types.
-
+  - Allow database based preferences to read in default settings from the
+    default_pref file next to hardcoding them into the DB class, thanks
+    Thierry Godefroy.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
