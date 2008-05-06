@@ -165,6 +165,27 @@ class dbPrefs {
 
 
     /**
+     * initialize the default preferences array.
+     *
+     */
+    function dbPrefs() {
+        // Try and read the default preferences file.
+        $default_pref = SM_PATH . 'config/default_pref';
+        if (@file_exists($default_pref)) {
+            if ($file = @fopen($default_pref, 'r')) {
+                while (!feof($file)) {
+                    $pref = fgets($file, 1024);
+                    $i = strpos($pref, '=');
+                    if ($i > 0) {
+                        $this->default[trim(substr($pref, 0, $i))] = trim(substr($pref, $i + 1));
+                    }
+                }
+                fclose($file);
+            }
+        }
+    }
+
+    /**
      * initialize DB connection object
      *
      * @return boolean true, if object is initialized
