@@ -355,9 +355,10 @@ function formatRecipientString($recipients, $item ) {
         $a = array();
         foreach ($recipients as $r) {
             $a[] = array(
-                            'Name'  => htmlspecialchars($r->getAddress(false)),
+                            // note: decodeHeader is htmlsafe by default
+                            'Name'  => decodeHeader($r->getAddress(false)),
                             'Email' => htmlspecialchars($r->getEmail()),
-                            'Full'  => htmlspecialchars($r->getAddress(true))
+                            'Full'  => decodeHeader($r->getAddress(true))
                         );
         }
 
