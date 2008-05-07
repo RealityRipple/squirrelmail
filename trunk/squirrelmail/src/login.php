@@ -153,15 +153,8 @@ $oTemplate->assign('org_logo_str', sprintf (_("The %s logo"), $org_name));
 $oTemplate->assign('login_field_value', $loginname_value);
 $oTemplate->assign('login_extra', $login_extra, FALSE);
 
-//FIXME: need to remove *ALL* HTML from this file!
-echo '<body onload="squirrelmail_loginpage_onload()">'."\n";
-echo '<form name="login_form" id="login_form" action="redirect.php" method="post" onsubmit="document.login_form.js_autodetect_results.value='. SMPREF_JS_ON .'">'."\n";
-do_hook('login_top', $null);
-
 $oTemplate->display('login.tpl');
 
-//FIXME: need to remove *ALL* HTML from this file!
-echo "</form>\n";
 do_hook('login_bottom', $null);
 
 // Turn off delayed error handling to make sure all errors are dumped.

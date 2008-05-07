@@ -30,7 +30,9 @@
 /* retrieve the template vars */
 extract($t);
 
-?>
+?><body onload="squirrelmail_loginpage_onload()">
+<form name="login_form" id="login_form" action="redirect.php" method="post" onsubmit="document.login_form.js_autodetect_results.value=1">
+<?php if (!empty($plugin_output['login_top'])) echo $plugin_output['login_top']; ?>
 <div id="sqm_login">
 <table cellspacing="0">
  <tr>
@@ -82,3 +84,4 @@ extract($t);
  </tr>
 </table>
 </div>
+</form>
