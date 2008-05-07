@@ -361,7 +361,7 @@ if ($pageOffset < $end_msg) {
     $javascript_auto_click = '';
     if ($javascript_on && $fancy_index_highlite) {
         // include the form_id in order to show multiple messages lists. Otherwise id isn't unique
-        $javascript_auto_click = " onmousedown=\"row_click('$form_id"."_msg$i')\"";
+        $javascript_auto_click = " onmousedown=\"row_click('$form_id"."_msg$i', event)\"";
     }
 
 
@@ -461,7 +461,7 @@ if ($non_clicked_class != 'even' && $non_clicked_class != 'odd'
             if ($onclick)    { $sText .= " onclick=\"$onclick\""; }
             if ($link_extra) { $sText .= " $link_extra";          }
             if ($javascript_on && $fancy_index_highlite) {
-                  $sText .= " onmousedown=\"row_click('$form_id"."_msg$i'); setPointer(this." . (empty($bold) ? '' : 'parentNode.') .
+                  $sText .= " onmousedown=\"row_click('$form_id"."_msg$i', event); setPointer(this." . (empty($bold) ? '' : 'parentNode.') .
                             'parentNode.parentNode, ' . $i . ', \'click\', \''. $non_clicked_class. '\', \'mouse_over\', \'clicked\');"';
             }
             $sText .= ">"
