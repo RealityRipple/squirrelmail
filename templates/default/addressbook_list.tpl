@@ -61,8 +61,9 @@ $colspan = $abook_has_extra_field ? 6 : 5;
  </tr>
  <tr>
   <td colspan="3" class="abookButtons">
-   <input type="submit" value=<?php echo '"'._("Edit selected").'"'; ?> name="editaddr" id="editaddr" />
-   <input type="submit" value=<?php echo '"'._("Delete selected").'"'; ?> name="deladdr" id="deladdr" />
+   <input type="submit" value=<?php echo '"'._("Edit Selected").'"'; ?> name="editaddr" id="editaddr" />
+   <input type="submit" value=<?php echo '"'._("Delete Selected").'"'; ?> name="deladdr" id="deladdr" />
+   <?php if (!empty($plugin_output['address_book_navigation'])) echo $plugin_output['address_book_navigation']; ?>
   </td>
   <td colspan=<?php echo '"'.($colspan - 3).'"'; ?> class="abookSwitch">
    <?php
@@ -84,7 +85,7 @@ $colspan = $abook_has_extra_field ? 6 : 5;
   </td>
  </tr>
  <tr>
-  <td class="colHeader" style="width:1%"></td>
+  <td class="colHeader" style="width:1%"><input type="checkbox" name="toggleAll" id="toggleAll" title="<?php echo _("Toggle All"); ?>" onclick="toggle_all('address_book_form', 'sel', false); return false;" /></td>
   <td class="colHeader" style="width:15%"><?php echo addAbookSort('nickname'); ?></td>
   <td class="colHeader"><?php echo addAbookSort('fullname'); ?></td>
   <td class="colHeader"><?php echo addAbookSort('email'); ?></td>
