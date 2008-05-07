@@ -424,7 +424,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     }
 
     // Begin output form
-    echo addForm('options.php', 'post', 'f')
+    echo addForm('options.php', 'post', 'option_form')
        . create_optpage_element($optpage)
        . create_optmode_element(SMOPT_MODE_SUBMIT);
 
