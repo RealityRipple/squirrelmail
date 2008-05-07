@@ -41,6 +41,7 @@ foreach ($options as $option) {
              " </tr>\n";
     }
 
+    $hidden_widgets = '';
     foreach ($option['options'] as $opt) {
         if ($opt->type != SMOPT_TYPE_HIDDEN) {
             echo   "<tr>\n" .
@@ -60,12 +61,12 @@ foreach ($options as $option) {
                    " </td>\n" .
                    "</tr>\n";
         } else {
-            echo $opt->createWidget();
+            $hidden_widgets .= $opt->createWidget();
         }
     }
 
     echo " <tr>\n  <td colspan=\"2\" align=\"right\">\n"
-       . "   <input type=\"submit\" value=\"" . _("Submit") 
+       . $hidden_widgets . "   <input type=\"submit\" value=\"" . _("Submit") 
        . "\" name=\"" . $submit_name . "\" />&nbsp;&nbsp;&nbsp;&nbsp;\n  </td>\n </tr>\n";
 
     echo "</table>\n";
