@@ -128,7 +128,7 @@ if ($pageOffset < $end_msg) {
                        */
                       $paginator_str = $this->fetch('paginator.tpl');
                       echo $paginator_str . '<small>[<a href="' . $thread_link_uri
-                                          . '">' . $thread_name . '</a>]</small>';
+                                          . '">' . $thread_name . '</a>]</small>&nbsp;&nbsp;';
                       if (!empty($plugin_output['mailbox_paginator_after'])) echo $plugin_output['mailbox_paginator_after'];
                   ?>
 <!-- end paginator and thread link string -->
