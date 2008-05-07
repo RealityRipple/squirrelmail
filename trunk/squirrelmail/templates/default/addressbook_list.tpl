@@ -12,27 +12,28 @@
  *                         additional field.  FALSE otherwise.
  *      $backends        - array containing all available backends for selection.
  *                         This will be empty if only 1 backend is available! 
- *      $addresses - array of addresses in the address book.  Each element
+ *      $addresses - array of backends in the address book.  Each element
  *                   is an array containing the following fields:
- *          $el['BackendID']     - integer unique identifier for each source of 
- *                                 addresses in the book
- *          $el['BackendSource'] - description of each source of addresses
- *          $el['BackendWritable'] - boolean TRUE if the address book can be
- *                                 modified.  FALSE otherwise.
- *          $el['Addresses']     - array containing address from this source.
- *                                 Each array element contains the following:
- *              $el['FirstName'] - The entry's first name
- *              $el['LastName']  - The entry's last name (surname)
- *              $el['FullName']  - The entry's full name (first + last)
- *              $el['NickName']  - The entry's nickname
- *              $el['Email']     - duh
- *              $el['FullAddress'] - Email with full name or nick name
- *                                 optionally prepended.
- *              $el['Info']      - Additional info about this contact
- *              $el['Extra']     - Additional field, if provided.  NULL if this
- *                                 field is not provided by the book.
- *              $el['JSEmail']   - email address scrubbed for use with
- *                                 javascript functions.
+ *          ['BackendID']       - integer unique identifier for each source of 
+ *                                addresses in the book.  this should also be
+ *                                the same as the array key for this value
+ *          ['BackendSource']   - description of each source of addresses
+ *          ['BackendWritable'] - boolean TRUE if the address book can be
+ *                                modified.  FALSE otherwise.
+ *          ['Addresses']       - array containing address from this source.
+ *                                Each array element contains the following:
+ *                       ['FirstName']   - The entry's first name
+ *                       ['LastName']    - The entry's last name (surname)
+ *                       ['FullName']    - The entry's full name (first + last)
+ *                       ['NickName']    - The entry's nickname
+ *                       ['Email']       - duh
+ *                       ['FullAddress'] - Email with full name or nick name
+ *                                         optionally prepended.
+ *                       ['Info']        - Additional info about this contact
+ *                       ['Extra']       - Additional field, if provided.  NULL if
+ *                                         this field is not provided by the book.
+ *                       ['JSEmail']     - email address scrubbed for use with
+ *                                         javascript functions.
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
