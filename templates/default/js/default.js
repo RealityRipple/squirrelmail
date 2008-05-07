@@ -104,14 +104,15 @@ function rowOver(chkboxName) {
  * when it gets clicked.
  *
  * @param   string   the id of the form where all checkboxes should be (un)checked
+ * @param   string   the first three characters of target checkboxes, if any
  * @param   boolean  use fancy row coloring when a checkbox is checked
  * @param   string   new color of the checked rows
  */
-function toggle_all(formname, fancy) {
+function toggle_all(formname, name_prefix, fancy) {
     var TargetForm = document.getElementById(formname);
     var j = 0;
     for (var i = 0; i < TargetForm.elements.length; i++) {
-        if (TargetForm.elements[i].type == 'checkbox' && TargetForm.elements[i].name.substring(0,3) == 'msg') {
+        if (TargetForm.elements[i].type == 'checkbox' && (name_prefix == '' || TargetForm.elements[i].name.substring(0,3) == name_prefix)) {
             if (fancy) {
                 array_key = TargetForm.elements[i].getAttribute('id');
                 // initialize orig_row_color if not defined already
