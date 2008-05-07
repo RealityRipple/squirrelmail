@@ -29,10 +29,6 @@ function squirrelmail_plugin_init_demo()
       = 'demo_login_cookie';
 
 //FIXME: not all of the above hooks are yet implemented below
-   $squirrelmail_plugin_hooks['login_top']['demo']
-      = 'demo_login_top';
-
-//FIXME: not all of the above hooks are yet implemented below
    $squirrelmail_plugin_hooks['login_bottom']['demo']
       = 'demo_login_bottom';
 
