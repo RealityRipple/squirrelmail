@@ -259,7 +259,7 @@ while (list($k, $backend) = each ($abook->backends)) {
 
 
 if ($showaddrlist) {
-    echo addForm($form_url, 'post');
+    echo addForm($form_url, 'post', 'address_book_form');
     
     $oTemplate->assign('addresses', $addresses);
     $oTemplate->assign('current_backend', $current_backend);
