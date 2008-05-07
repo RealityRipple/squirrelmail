@@ -128,7 +128,9 @@ if ($pageOffset < $end_msg) {
                        */
                       $paginator_str = $this->fetch('paginator.tpl');
                       echo $paginator_str . '<small>[<a href="' . $thread_link_uri
-                                          . '">' . $thread_name . '</a>]</small>'; ?>
+                                          . '">' . $thread_name . '</a>]</small>';
+                      if (!empty($plugin_output['mailbox_paginator_after'])) echo $plugin_output['mailbox_paginator_after'];
+                  ?>
 <!-- end paginator and thread link string -->
               </td>
 <!-- message count string -->
@@ -532,6 +534,7 @@ if ($non_clicked_class != 'even' && $non_clicked_class != 'odd'
                        */
                       $paginator_str = $this->fetch('paginator.tpl');
                       echo $paginator_str; 
+                      if (!empty($plugin_output['mailbox_paginator_after'])) echo $plugin_output['mailbox_paginator_after'];
                     ?></td>
                     <td class="message_count"><?php echo $msg_cnt_str; ?></td>
                   </tr>
