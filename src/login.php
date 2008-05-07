@@ -71,11 +71,11 @@ $header = "<script type=\"text/javascript\">\n" .
           "  function squirrelmail_loginpage_onload() {\n".
           "    if (alreadyFocused) return;\n".
           "    var textElements = 0; var i = 0;\n".
-          "    for (i = 0; i < document.forms[0].elements.length; i++) {\n".
-          "      if (document.forms[0].elements[i].type == \"text\" || document.forms[0].elements[i].type == \"password\") {\n".
+          "    for (i = 0; i < document.login_form.elements.length; i++) {\n".
+          "      if (document.login_form.elements[i].type == \"text\" || document.login_form.elements[i].type == \"password\") {\n".
           "        textElements++;\n".
           "        if (textElements == " . (isset($loginname) ? 2 : 1) . ") {\n".
-          "          document.forms[0].elements[i].focus();\n".
+          "          document.login_form.elements[i].focus();\n".
           "          break;\n".
           "        }\n".
           "      }\n".
@@ -155,7 +155,7 @@ $oTemplate->assign('login_extra', $login_extra, FALSE);
 
 //FIXME: need to remove *ALL* HTML from this file!
 echo '<body onload="squirrelmail_loginpage_onload()">'."\n";
-echo '<form action="redirect.php" method="post" onsubmit="document.forms[0].js_autodetect_results.value='. SMPREF_JS_ON .'">'."\n";
+echo '<form name="login_form" id="login_form" action="redirect.php" method="post" onsubmit="document.login_form.js_autodetect_results.value='. SMPREF_JS_ON .'">'."\n";
 do_hook('login_top', $null);
 
 $oTemplate->display('login.tpl');
