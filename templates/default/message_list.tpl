@@ -263,8 +263,13 @@ if ($pageOffset < $end_msg) {
 
             // this stuff does the auto row highlighting on mouseover
             //
+            if (!empty($plugin_output['checkbox_javascript_onclick'])) $checkbox_javascript_onclick = $plugin_output['checkbox_javascript_onclick'];
+            else $checkbox_javascript_onclick = '';
+
             if ($javascript_on && $fancy_index_highlite) {
-                $checkbox_javascript = ' onclick="this.checked = !this.checked;"';
+                $checkbox_javascript = ' onclick="this.checked = !this.checked; ' . $checkbox_javascript_onclick . '"';
+            } else if (!empty($checkbox_javascript_onclick)) {
+                $checkbox_javascript = ' onclick="' . $checkbox_javascript_onclick . '"';
             } else {
                 $checkbox_javascript = '';
             }
@@ -359,9 +364,11 @@ if ($pageOffset < $end_msg) {
     // where on the row you click
     //
     $javascript_auto_click = '';
+    $row_click_extra = '';
+    if (!empty($plugin_output['row_click_extra'])) $row_click_extra = $plugin_output['row_click_extra'];
     if ($javascript_on && $fancy_index_highlite) {
         // include the form_id in order to show multiple messages lists. Otherwise id isn't unique
-        $javascript_auto_click = " onmousedown=\"row_click('$form_id"."_msg$i', event, '$form_name')\"";
+        $javascript_auto_click = " onmousedown=\"row_click('$form_id"."_msg$i', event, '$form_name', 'msg[' + $i + ']', '$row_click_extra')\"";
     }
 
 
@@ -461,7 +468,7 @@ if ($non_clicked_class != 'even' && $non_clicked_class != 'odd'
             if ($onclick)    { $sText .= " onclick=\"$onclick\""; }
             if ($link_extra) { $sText .= " $link_extra";          }
             if ($javascript_on && $fancy_index_highlite) {
-                  $sText .= " onmousedown=\"row_click('$form_id"."_msg$i', event, '$form_name'); setPointer(this." . (empty($bold) ? '' : 'parentNode.') .
+                  $sText .= " onmousedown=\"row_click('$form_id"."_msg$i', event, '$form_name', 'msg[' + $i + ']', '$row_click_extra'); setPointer(this." . (empty($bold) ? '' : 'parentNode.') .
                             'parentNode.parentNode, ' . $i . ', \'click\', \''. $non_clicked_class. '\', \'mouse_over\', \'clicked\');"';
             }
             $sText .= ">"
