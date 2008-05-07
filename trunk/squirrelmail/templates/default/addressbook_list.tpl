@@ -103,7 +103,7 @@ $colspan = $abook_has_extra_field ? 6 : 5;
         $id = $contact['NickName'] .'_'. $current_backend;
         ?>
  <tr class=<?php echo '"'.($count%2 ? 'even' : 'odd').'"'; ?>>
-  <td class="abookField" style="width:1%"><?php echo ($source['BackendWritable'] ? '<input type="checkbox" name="sel[]" value="'.$id.'" id="'.$id.'" />' : ''); ?></td>
+  <td class="abookField" style="width:1%"><?php echo ($source['BackendWritable'] ? '<input type="checkbox" name="sel[' . $count . ']" value="'.$id.'" id="'.$id.'" />' : ''); ?></td>
   <td class="abookField" style="width:15%"><label for=<?php echo '"'.$id.'"'; ?>><?php echo $contact['NickName']; ?></label></td>
   <td class="abookField"><?php echo $contact['FullName']; ?></td>
   <td class="abookField"><?php echo composeLink($contact); ?></td>
