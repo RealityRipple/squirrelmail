@@ -194,12 +194,15 @@ if ($pageOffset < $end_msg) {
           case SQM_COL_CHECK:
               if ($javascript_on) {
                   $checked = ($checkall ? ' checked="checked" ' : '');
-                  echo '<input type="checkbox" name="toggleAll" id="toggleAll" title="'._("Toggle All").'" onclick="toggle_all(\''.$form_name."',".$fancy_index_highlite.')" ' . $checked . '/>'."\n";
+                  echo '<input type="checkbox" name="toggleAll" id="toggleAll" title="'
+                     . _("Toggle All") . '" onclick="toggle_all(\''
+                     . $form_name . '\', \'msg\', ' . $fancy_index_highlite
+                     . ')" ' . $checked . '/>' . "\n";
               } else {
                   $link = $baseurl 
                         . "&amp;startMessage=$pageOffset&amp;checkall=" 
                         . ($checkall ? '0' : '1');
-                  echo "<a href=\"$link\">"._("All").'</a>';
+                  echo "<a href=\"$link\">" . _("All") . '</a>';
               }
               break;
           case SQM_COL_FROM:       
