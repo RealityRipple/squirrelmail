@@ -14,7 +14,7 @@ var orig_row_colors = new Array();
  *
  * @param   string   the name of the checkbox that should be (un)checked
  */
-function row_click(chkboxName, event) {
+function row_click(chkboxName, event, formName) {
     var chkbox = document.getElementById(chkboxName);
     if (chkbox) {
         // initialize orig_row_color if not defined already
