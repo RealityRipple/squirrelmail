@@ -12,9 +12,18 @@ var orig_row_colors = new Array();
  * (un)Checks checkbox for the row that the current table cell is in
  * when it gets clicked.
  *
- * @param   string   the name of the checkbox that should be (un)checked
+ * @param string                  The (internal) name of the checkbox
+ *                                that should be (un)checked
+ * @param JavaScript event object The JavaScript event associated
+ *                                with this mouse click
+ * @param string                  The name of the encapsulating form
+ * @param string                  The (real) name of the checkbox
+ *                                that should be (un)checked
+ * @param string                  Any extra JavaScript (that will
+ *                                be executed herein if non-empty);
+ *                                must be valid JavaScript expression(s)
  */
-function row_click(chkboxName, event, formName) {
+function row_click(chkboxName, event, formName, checkboxRealName, extra) {
     var chkbox = document.getElementById(chkboxName);
     if (chkbox) {
         // initialize orig_row_color if not defined already
@@ -24,6 +33,8 @@ function row_click(chkboxName, event, formName) {
                 orig_row_colors[chkboxName] = orig_row_colors[chkboxName].substring(8, orig_row_colors[chkboxName].length);
         }
         chkbox.checked = (chkbox.checked ? false : true);
+
+        if (extra != '') eval(extra);
     }
 }
 
