@@ -16,7 +16,7 @@ REQUIREMENTS:
   Mhash extension and system crypt libraries that support crypto
   used on LDAP server. It might need PHP LDAP extension with SSL
   support, if LDAP server requires it.
-- mysql backend needs PHP MySQL extension.
+- mysql backend needs PHP MySQL extension and PHP 4.3 or later.
 - merak backend needs PHP Curl extension.
 - peardb backend needs PHP Pear DB libraries (v.1.6.0 or newer) and 
   PHP extension that is used to connect to database.

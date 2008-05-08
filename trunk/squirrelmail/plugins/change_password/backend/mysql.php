@@ -90,16 +90,16 @@ function cpw_mysql_dochange($data)
 
     $query_string = 'SELECT ' . $mysql_userid_field . ',' . $mysql_password_field
                   . ' FROM '  . $mysql_table
-                  . ' WHERE ' . $mysql_userid_field . '="' . mysql_escape_string($username) .'"'
+                  . ' WHERE ' . $mysql_userid_field . '="' . mysql_real_escape_string($username, $ds) .'"'
                   . ' AND ' . $mysql_password_field;
 
     if ($mysql_saslcrypt) {
-        $query_string  .= '=password("'.mysql_escape_string($curpw).'")';
+        $query_string  .= '=password("'.mysql_real_escape_string($curpw, $ds).'")';
     } elseif ($mysql_unixcrypt) {
         // FIXME: why password field name is used for salting
-        $query_string  .= '=encrypt("'.mysql_escape_string($curpw).'", '.$mysql_password_field . ')';
+        $query_string  .= '=encrypt("'.mysql_real_escape_string($curpw, $ds).'", '.$mysql_password_field . ')';
     } else {
-        $query_string  .= '="' . mysql_escape_string($curpw) . '"';
+        $query_string  .= '="' . mysql_real_escape_string($curpw, $ds) . '"';
     }
 
     $select_result = mysql_query($query_string, $ds);
@@ -121,14 +121,14 @@ function cpw_mysql_dochange($data)
     $update_string = 'UPDATE '. $mysql_table . ' SET ' . $mysql_password_field;
 
     if ($mysql_saslcrypt) {
-        $update_string  .= '=password("'.mysql_escape_string($newpw).'")';
+        $update_string  .= '=password("'.mysql_real_escape_string($newpw, $ds).'")';
     } elseif ($mysql_unixcrypt) {
         // FIXME: use random salt when you create new password
-        $update_string  .= '=encrypt("'.mysql_escape_string($newpw).'", '.$mysql_password_field . ')';
+        $update_string  .= '=encrypt("'.mysql_real_escape_string($newpw, $ds).'", '.$mysql_password_field . ')';
     } else {
-        $update_string  .= '="' . mysql_escape_string($newpw) . '"';
+        $update_string  .= '="' . mysql_real_escape_string($newpw, $ds) . '"';
     }
-    $update_string .= ' WHERE ' . $mysql_userid_field . ' = "' . mysql_escape_string($username) . '"';
+    $update_string .= ' WHERE ' . $mysql_userid_field . ' = "' . mysql_real_escape_string($username, $ds) . '"';
 
     if (!mysql_query($update_string, $ds)) {
         array_push($msgs, _("Password change was not successful!"));
