@@ -270,7 +270,7 @@ function SendMDN ( $mailbox, $passed_id, $message, $imapConnection) {
         $msg = _("Message not sent.") . "\n" .
             $deliver->dlv_msg;
         if (! empty($deliver->dlv_server_msg)) {
-            $msg.= '<br />' .
+            $msg.= "\n" .
                 _("Server replied:") . ' ' . $deliver->dlv_ret_nr . ' ' .
                 nl2br(htmlspecialchars($deliver->dlv_server_msg));
         }
