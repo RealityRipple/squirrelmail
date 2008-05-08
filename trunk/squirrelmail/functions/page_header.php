@@ -96,6 +96,9 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
         $header_tags .= $oTemplate->fetch_right_to_left_stylesheet_link();
     }
 
+    // 5. Printer friendly stylesheet
+    $header_tags .= create_css_link($base_uri . 'css/print.css', 'printerfriendly', false, 'print');
+
     if ($squirrelmail_language == 'ja_JP') {
         /*
          * force correct detection of charset, when browser does not follow

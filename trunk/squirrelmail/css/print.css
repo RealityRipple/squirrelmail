@@ -1,0 +1,7 @@
+/* printer friendly style, currently only targeted at read_body */
+
+#page_header, .readMenuBar, .spacer, form, #listcommands, .field_Options { display: none; }
+
+
+
+
