@@ -92,7 +92,7 @@ extract($t);
                 continue;
             }
         ?>
- <tr>
+ <tr class="field_<?php echo $field_name; ?>">
   <td class="fieldName">
 <?php 
         if ($first_time) 

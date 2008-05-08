@@ -24,7 +24,7 @@ extract($t);
 
 ?>
 
-<tr>
+<tr id="listcommands">
   <td class="fieldName">
     <b><?php echo _("Mailing List"); ?>:</b>
   </td>
