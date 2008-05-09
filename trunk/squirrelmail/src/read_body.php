@@ -672,7 +672,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
 
 function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
     global $base_uri, $where, $what, $show_html_default,
-           $oTemplate, $download_href,
+           $oTemplate, $download_href, $PHP_SELF,
            $unsafe_image_toggle_href, $unsafe_image_toggle_text;
 
     $urlMailbox = urlencode($mailbox);
@@ -688,28 +688,11 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
     }
     $url = $base_uri.'src/view_header.php?'.$query_string;
 
-
-    // Build the printer friend link
-    /* hackydiehack */
-
-    // Pull "view_unsafe_images" from the URL to find out if the unsafe images
-    // should be displayed. The default is not to display unsafe images.
-    if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
-        // If "view_unsafe_images" isn't part of the URL, default to not
-        // displaying unsafe images.
-        $view_unsafe_images = false;
+    if ( checkForJavaScript() ) { 
+        $pf_params = 'javascript:printThis();';
     } else {
-        //  If "view_unsafe_images" is part of the URL, display unsafe images
-        //  regardless of the value of the URL variable.
-        // FIXME: Do we really want to display the unsafe images regardless of the value in URL variable?
-        $view_unsafe_images = true;
+        $pf_params = set_url_var($PHP_SELF, 'print', '1');
     }
-
-    $pf_params = '?passed_ent_id=' . $urlPassed_ent_id .
-                 '&mailbox=' . $urlMailbox .
-                 '&passed_id=' . $urlPassed_id .
-                 '&view_unsafe_images='. (bool) $view_unsafe_images .
-                 '&show_html_default=' . $show_html_default;
 
     $links = array();
     $links[] = array (
@@ -718,7 +701,8 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
                      );
     $links[] = array (
                         'URL'   => $pf_params,
-                        'Text'  => _("View Printable Version")
+                        'Text'  => _("Print"),
+                        'Target' => '_blank'
                      );
     $links[] = array (
                         'URL'   => $download_href,
@@ -989,7 +973,13 @@ $_SESSION['mailbox_cache'] = $mailbox_cache;
 $oTemplate->assign('message_list_href', get_message_list_uri($aMailbox['NAME'], $startMessage, $what));
 
 displayPageHeader($color, $mailbox,'','');
-formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message,false);
+
+/* this is the non-javascript version of printer friendly */
+if ( sqgetGlobalVar('print', $print, SQ_GET) ) {
+    $oTemplate->display('read_message_print.tpl');
+} else {
+    formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message,false);
+}
 formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message, $color, $FirstTimeSee);
 
 $oTemplate->assign('message_body', $messagebody);
