@@ -247,6 +247,7 @@ Version 1.5.2 - SVN
   - Allow database based preferences to read in default settings from the
     default_pref file next to hardcoding them into the DB class, thanks
     Thierry Godefroy.
+  - Reimplement printer friendly to make use of CSS.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

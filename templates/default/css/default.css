@@ -1100,4 +1100,10 @@ div.viewText td.spacer {
     background-color: #DCDCDC /* __COLOR0__ */;
 }
 
-
+#printMessageBox {
+    background-color: #fffff0;
+    border: 1px solid #f2e93a;
+    margin: 1em;
+    padding: 1em;
+    font-size: x-large;
+}

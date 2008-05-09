@@ -149,4 +149,11 @@
     background: #EEEEEE url(../images/grippie.png) no-repeat center 2px;
 }
 
+#printMessageBox {
+    background-color: #fffff0;
+    border: 1px solid #f2e93a;
+    margin: 1em;
+    padding: 1em;
+    font-size: x-large;
+}
 

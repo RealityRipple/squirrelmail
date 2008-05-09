@@ -1703,7 +1703,7 @@ sub display_use_tls($) {
 }
 
 # $encode_header_key
-sub command114{
+sub command114 {
     print "Encryption key allows to hide SquirrelMail Received: headers\n";
     print "in outbound messages. Interface uses encryption key to encode\n";
     print "username, remote address and proxied address, then stores encoded\n";

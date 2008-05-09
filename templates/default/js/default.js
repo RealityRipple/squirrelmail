@@ -283,3 +283,9 @@ function checkForm(smaction) {
         }
     }
 }
+
+function printThis()
+{
+    parent.frames['right'].focus();
+    parent.frames['right'].print();
+}

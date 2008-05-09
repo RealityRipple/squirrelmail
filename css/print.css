@@ -1,7 +1,10 @@
 /* printer friendly style, currently only targeted at read_body */
 
-#page_header, .readMenuBar, .spacer, form, #listcommands, .field_Options { display: none; }
+/* Drop any irrelevant stuff that's normally on the read_body page */
+#page_header, .readMenuBar, .spacer, form, #printMessageBox,
+    #listcommands, .field_Options, .attachActions { display: none; }
 
-
-
+/* Display attachment list a bit better */
+.header5 { font-size: larger; }
+.readAttachments td, .fieldName { padding-right: 1em; }
 
