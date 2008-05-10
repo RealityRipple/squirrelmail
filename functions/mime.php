@@ -342,10 +342,9 @@ function translateText(&$body, $wrap_at, $charset) {
  * @param string $ent_num (since 1.3.0) message part id
  * @param integer $id (since 1.3.0) message id
  * @param string $mailbox (since 1.3.0) imap folder name
- * @param boolean $clean (since 1.5.1) Do not output stuff that's irrelevant for the printable version.
  * @return string html formated message text
  */
-function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $mailbox='INBOX', $clean=FALSE) {
+function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $mailbox='INBOX') {
     /* This if statement checks for the entity to show as the
      * primary message. To add more of them, just put them in the
      * order that is their priority.
@@ -401,9 +400,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
                 $body = trim($body);
                 translateText($body, $wrap_at,
                         $body_message->header->getParameter('charset'));
-            } elseif ($use_iframe && ! $clean) {
-                // $clean is used to remove iframe in printable view.
-
+            } elseif ($use_iframe) {
                 /**
                  * If we don't add html message between iframe tags,
                  * we must detect unsafe images and modify $has_unsafe_images.
@@ -441,11 +438,6 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
         } else {
             translateText($body, $wrap_at,
                     $body_message->header->getParameter('charset'));
-        }
-
-        // if this is the clean display (i.e. printer friendly), stop here.
-        if ( $clean ) {
-            return $body;
         }
 
         /*
@@ -503,9 +495,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
 }
 
 /**
- * Generate attachments array for passing to templates.  Separated from
- * formatAttachments() below so that the same array can be given to the
- * print-friendly version.
+ * Generate attachments array for passing to templates.
  *
  * @since 1.5.2
  * @param object $message SquirrelMail message object

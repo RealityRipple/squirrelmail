@@ -1022,35 +1022,6 @@ div.readInlineImages td.image {
     padding:10px;
 }
 
-div.printerFriendlyTop table {
-    width:100%;
-}
-
-div.printerFriendlyTop td {
-    text-align: right;
-}
-
-div.printerFriendly table.attach {
-    width: 100%;
-    margin-top:5px;
-    margin-bottom:5px;
-}
-
-div.printerFriendly td.attachField {
-    width: 30%;
-    font-weight: bold;
-    text-align: right;
-}
-
-div.printerFriendly td.attachFieldValue {
-    text-align: left;
-    empty-cells: show;
-}
-
-div.printerFriendly td.attachName {
-    font-weight: bold;
-}
-
 div.viewHeader table.table1 {
     width: 100%;
 }
