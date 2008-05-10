@@ -163,14 +163,6 @@
       the message.
       <br /><br />
       
-      <b>Enable Subtle Printer Friendly Link</b><br />
-      This determines the way the Printable Version-link will be displayed.
-      <br /><br />
-      
-      <b>Enable Printer Friendly Clean Display</b><br />
-      This will clean out the message so the print looks nicer.
-      <br /><br />
-      
       <b>Other Options</b><br />
       Depending on the configuration of your SquirrelMail installation, some more
       options might be displayed here. They hopefully should be self-explanatory.
