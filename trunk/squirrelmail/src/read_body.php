@@ -307,7 +307,7 @@ function SendMDN ( $mailbox, $passed_id, $message, $imapConnection) {
             }
             require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
             $imap_deliver = new Deliver_IMAP();
-            $imap_deliver->mail($composeMessage, $imapConnection, 0, 0, $sent_folder);
+            $imap_deliver->mail($composeMessage, $imapConnection, 0, 0, $imapConnection, $sent_folder);
             unset ($imap_deliver);
         }
     }
