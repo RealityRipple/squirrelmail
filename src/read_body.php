@@ -688,22 +688,25 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
     }
     $url = $base_uri.'src/view_header.php?'.$query_string;
 
-    if ( checkForJavaScript() ) { 
-        $pf_params = 'javascript:printThis();';
-    } else {
-        $pf_params = set_url_var($PHP_SELF, 'print', '1');
-    }
-
     $links = array();
     $links[] = array (
                         'URL'   => $url,
                         'Text'  => _("View Full Header")
                      );
-    $links[] = array (
-                        'URL'   => $pf_params,
+
+    if ( checkForJavaScript() ) { 
+        $links[] = array (
+                        'URL'   => 'javascript:printThis();',
+                        'Text'  => _("Print"),
+                     );
+    } else {
+        $links[] = array (
+                        'URL'   => set_url_var($PHP_SELF, 'print', '1'),
                         'Text'  => _("Print"),
                         'Target' => '_blank'
                      );
+    }
+
     $links[] = array (
                         'URL'   => $download_href,
                         'Text'  => _("Download this as a file")
