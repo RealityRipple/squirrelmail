@@ -85,7 +85,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
         }
 
         $r = $abook->add_backend('local_file',array('filename'=>$abook_global_filename,
-                                                    'name' => _("Global address book"),
+                                                    'name' => _("Global Address Book"),
                                                     'detect_writeable' => false,
                                                     'line_length' => $abook_file_line_length,
                                                     'writeable'=> $abook_global_file_writeable,
@@ -107,7 +107,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
       $r = $abook->add_backend('database',
                                Array('dsn' => $addrbook_global_dsn,
                                      'owner' => 'global',
-                                     'name' => _("Global address book"),
+                                     'name' => _("Global Address Book"),
                                      'writeable' => $addrbook_global_writeable,
                                      'listing' => $addrbook_global_listing,
                                      'table' => $addrbook_global_table));
@@ -428,7 +428,7 @@ class AddressBook {
      * Constructor function.
      */
     function AddressBook() {
-        $this->localbackendname = _("Personal address book");
+        $this->localbackendname = _("Personal Address Book");
     }
 
     /**

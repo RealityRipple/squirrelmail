@@ -107,7 +107,7 @@ class abook_database extends addressbook_backend {
      * @param array $param address book backend options
      */
     function abook_database($param) {
-        $this->sname = _("Personal address book");
+        $this->sname = _("Personal Address Book");
 
         /* test if Pear DB class is available and freak out if it is not */
         if (! class_exists('DB')) {

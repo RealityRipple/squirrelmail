@@ -97,7 +97,7 @@ class abook_local_file extends addressbook_backend {
      * @return bool
      */
     function abook_local_file($param) {
-        $this->sname = _("Personal address book");
+        $this->sname = _("Personal Address Book");
         $this->umask = Umask();
 
         if(is_array($param)) {
