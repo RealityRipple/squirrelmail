@@ -169,20 +169,29 @@ function addressbook_init($showerr = true, $onlylocal = false) {
 }
 
 /**
- * Display the "new address" form
+ * Constructs the "new address" form
  *
- * Form is not closed and you must add closing form tag.
+ * NOTE!  The form is not closed - the caller
+ *        must add the closing form tag itself.
+ *
  * @since 1.5.1
- * @param string $form_url form action url
- * @param string $name form name
- * @param string $title form title
- * @param string $button form button name
- * @param array $defdata values of form fields
+ *
+ * @param string $form_url Form action url
+ * @param string $name     Form name
+ * @param string $title    Form title
+ * @param string $button   Form button name
+ * @param int    $backend  The current backend being displayed
+ * @param array  $defdata  Values of form fields
+ *
+ * @return string The desired address form display code
+ *
  */
-function abook_create_form($form_url,$name,$title,$button,$defdata=array()) {
+function abook_create_form($form_url, $name, $title, $button,
+                           $backend, $defdata=array()) {
+
     global $oTemplate;
 
-    echo addForm($form_url, 'post', 'f_add');
+    $output = addForm($form_url, 'post', 'f_add');
 
     if ($button == _("Update address")) {
         $edit = true;
@@ -207,8 +216,11 @@ function abook_create_form($form_url,$name,$title,$button,$defdata=array()) {
     $oTemplate->assign('writable_backends', $backends);
     $oTemplate->assign('values', $values);
     $oTemplate->assign('edit', $edit);
+    $oTemplate->assign('current_backend', $backend);
     
-    $oTemplate->display('addrbook_addedit.tpl');
+    $output .= $oTemplate->fetch('addrbook_addedit.tpl');
+
+    return $output;
 }
 
 
@@ -316,13 +328,24 @@ function get_abook_sort() {
 /**
  * This function shows the address book sort button.
  *
- * @param integer $abook_sort_order current sort value
- * @param string $alt_tag alt tag value (string visible to text only browsers)
- * @param integer $Down sort value when list is sorted ascending
- * @param integer $Up sort value when list is sorted descending
+ * @param integer $abook_sort_order Current sort value
+ * @param string  $alt_tag          The alt tag value (string
+ *                                  visible to text only browsers)
+ * @param integer $Down             Sort value when list is sorted
+ *                                  ascending
+ * @param integer $Up               Sort value when list is sorted
+ *                                  descending
+ * @param array   $uri_extra        Any additional parameters to add
+ *                                  to the button's link, as an
+ *                                  associative array of key/value pairs
+ *                                  (OPTIONAL; default none)
+ *
  * @return string html code with sorting images and urls
+ *
  */
-function show_abook_sort_button($abook_sort_order, $alt_tag, $Down, $Up ) {
+function show_abook_sort_button($abook_sort_order, $alt_tag,
+                                $Down, $Up, $uri_extra=array() ) {
+
     global $form_url, $icon_theme_path;
 
      /* Figure out which image we want to use. */
@@ -340,11 +363,17 @@ function show_abook_sort_button($abook_sort_order, $alt_tag, $Down, $Up ) {
         $which = 8;
     }
 
+    $uri = $form_url .'?abook_sort_order=' . $which;
+    foreach ($uri_extra as $key => $value)
+       $uri = set_url_var($uri, $key, $value, FALSE);
+
     /* Now that we have everything figured out, show the actual button. */
-    return '&nbsp;<a href="' . $form_url .'?abook_sort_order=' . $which .
-           '" style="text-decoration:none" title="'.$alt_tag.'">' .
-           getIcon($icon_theme_path, $img, $text_icon, $alt_tag) .
-           '</a>';
+    return create_hyperlink($uri,
+                            getIcon($icon_theme_path, $img, $text_icon, $alt_tag),
+                            '', '', '', '', '',
+                            array('style' => 'text-decoration:none',
+                                  'title' => $alt_tag),
+                            FALSE);
 }
 
 

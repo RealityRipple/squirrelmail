@@ -57,7 +57,8 @@ if($abook->localbackend == 0) {
 }
 
 $current_backend = $abook->localbackend;
-if (sqgetGlobalVar('new_bnum',$new_backend,SQ_POST) && array_key_exists($new_backend,$abook->backends)) {
+if (sqgetGlobalVar('new_bnum', $new_backend, SQ_FORM)
+ && array_key_exists($new_backend, $abook->backends)) {
     $current_backend = (int) $new_backend;
 }
 
@@ -176,7 +177,11 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                             error_box(nl2br(htmlspecialchars($abook->error)));
                         } else {
                             /* Display the "new address" form */
-                            abook_create_form($form_url,'editaddr',_("Update address"),_("Update address"),$olddata);
+                            echo abook_create_form($form_url, 'editaddr',
+                                                   _("Update address"),
+                                                   _("Update address"),
+                                                   $current_backend,
+                                                   $olddata);
                             echo addHidden('oldnick', $olddata['nickname']).
                                 addHidden('backend', $olddata['backend']).
                                 addHidden('doedit', '1').
@@ -194,7 +199,11 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                         plain_error_message( nl2br(htmlspecialchars($abook->error)));
 
                         /* Display the "new address" form again */
-                        abook_create_form($form_url,'editaddr',_("Update address"),_("Update address"),$newdata);
+                        echo abook_create_form($form_url, 'editaddr',
+                                               _("Update address"),
+                                               _("Update address"),
+                                               $current_backend,
+                                               $newdata);
                         echo addHidden('oldnick', $oldnick).
                             addHidden('backend', $backend).
                             addHidden('doedit',  '1').
@@ -259,6 +268,7 @@ while (list($k, $backend) = each ($abook->backends)) {
 
 
 if ($showaddrlist) {
+//FIXME: Remove HTML from here!
     echo addForm($form_url, 'post', 'address_book_form');
     
     $oTemplate->assign('addresses', $addresses);
@@ -273,9 +283,13 @@ if ($showaddrlist) {
 }
 
 /* Display the "new address" form */
-//FIXME: Remove HTML from here!
+//FIXME: Remove HTML from here! (echo abook_create_form() is OK, since it is all template based output
 echo '<a name="AddAddress"></a>' . "\n";
-abook_create_form($form_url,'addaddr',_("Add to address book"),_("Add address"),$defdata);
+echo abook_create_form($form_url, 'addaddr',
+                       _("Add to address book"),
+                       _("Add address"),
+                       $current_backend,
+                       $defdata);
 echo "</form>\n";
 
 /* Hook for extra address book blocks */
