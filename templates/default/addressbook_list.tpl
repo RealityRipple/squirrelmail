@@ -5,6 +5,10 @@
  * Template for the basic address book list
  * 
  * The following variables are available in this template:
+ *      $compose_new_win - whether or not the user prefs are set to compose
+ *                         messages in a popup window
+ *      $compose_width   - width of popup compose window if needed
+ *      $compose_height  - height of popup compose window if needed
  *      $current_backend - integer containing backend currently displayed.
  *      $abook_select    - string containing HTML to display the address book
  *                         selection drop down
@@ -55,28 +59,29 @@ $colspan = $abook_has_extra_field ? 6 : 5;
 <div id="addressList">
 <table cellspacing="0">
  <tr>
-  <td colspan=<?php echo '"'.$colspan.'"'; ?> class="header1">
+  <td colspan="<?php echo $colspan; ?>" class="header1">
    <?php echo $source['BackendSource']; ?>
   </td>
  </tr>
  <tr>
   <td colspan="3" class="abookButtons">
-   <input type="submit" value=<?php echo '"'._("Edit Selected").'"'; ?> name="editaddr" id="editaddr" />
-   <input type="submit" value=<?php echo '"'._("Delete Selected").'"'; ?> name="deladdr" id="deladdr" />
+   <input type="submit" value="<?php echo _("Edit Selected"); ?>" name="editaddr" id="editaddr" />
+   <input type="submit" value="<?php echo _("Delete Selected"); ?>" name="deladdr" id="deladdr" />
+   <input type="submit" value="<?php echo _("Compose to Selected") . ($javascript_on && $compose_new_win ? '" onclick="var send_to = \'\'; var f = document.forms.length; var i = 0; var grab_next_hidden = \'\'; while (i < f) { var e = document.forms[i].elements.length; var j = 0; while (j < e) { if (document.forms[i].elements[j].type == \'checkbox\' && document.forms[i].elements[j].checked) { var pos = document.forms[i].elements[j].value.indexOf(\'_\'); if (pos >= 1) { grab_next_hidden = document.forms[i].elements[j].value; } } else if (document.forms[i].elements[j].type == \'hidden\' && grab_next_hidden == document.forms[i].elements[j].name) { if (send_to != \'\') { send_to += \', \'; } send_to += document.forms[i].elements[j].value; } j++; } i++; } if (send_to != \'\') { comp_in_new(\''. $base_uri . 'src/compose.php?send_to=\' + send_to, ' . $compose_width . ', ' . $compose_height . '); } return false;"' : '"'); ?> name="compose_to" id="compose_to" />
    <?php if (!empty($plugin_output['address_book_navigation'])) echo $plugin_output['address_book_navigation']; ?>
   </td>
-  <td colspan=<?php echo '"'.($colspan - 3).'"'; ?> class="abookSwitch">
+  <td colspan="<?php echo ($colspan - 3); ?>" class="abookSwitch">
    <?php
     if (count($backends) > 0) {
         ?>
    <select name="new_bnum">
     <?php
         foreach ($backends as $id=>$name) {
-            echo '<option value="'.$id.'"'.($id==$current_backend ? ' selected="selected"' : '').'>'.$name.'</option>'."\n";
+            echo '<option value="' . $id . '"' . ($id == $current_backend ? ' selected="selected"' : '') . '>' . $name . '</option>' . "\n";
         }
     ?>
    </select>
-   <input type="submit" value=<?php echo '"'._("Change").'"'; ?> name="change_abook" id="change_abook" />
+   <input type="submit" value="<?php echo _("Change"); ?>" name="change_abook" id="change_abook" />
         <?php
     } else {
         echo '&nbsp;';
@@ -102,14 +107,14 @@ $colspan = $abook_has_extra_field ? 6 : 5;
         echo '<tr><td class="abookEmpty" colspan="'.$colspan.'">'._("Address book is empty").'</td></tr>'."\n";
     }
     foreach ($source['Addresses'] as $contact) {
-        $id = $contact['NickName'] .'_'. $current_backend;
+        $id = $current_backend . '_' . $contact['NickName'];
         ?>
- <tr class=<?php echo '"'.($count%2 ? 'even' : 'odd').'"'; ?>>
+ <tr class="<?php echo ($count%2 ? 'even' : 'odd'); ?>">
   <td class="abookField" style="width:1%"><?php echo ($source['BackendWritable'] ? '<input type="checkbox" name="sel[' . $count . ']" value="'.$id.'" id="'.$id.'" ' . (!empty($plugin_output['address_book_checkbox_extra']) ? $plugin_output['address_book_checkbox_extra'] : '') . ' />' : ''); ?></td>
-  <td class="abookField" style="width:15%"><label for=<?php echo '"'.$id.'"'; ?>><?php echo $contact['NickName']; ?></label></td>
-  <td class="abookField"><?php echo $contact['FullName']; ?></td>
-  <td class="abookField"><?php echo composeLink($contact); ?></td>
-  <td class="abookField"><?php echo $contact['Info']; ?></td>
+  <td class="abookField" style="width:15%"><label for="<?php echo $id . '">' . $contact['NickName']; ?></label></td>
+  <td class="abookField"><label for="<?php echo $id . '">' . $contact['FullName']; ?></label></td>
+  <td class="abookField"><input type="hidden" name="<?php echo $id; ?>" value="<?php echo rawurlencode($contact['FullAddress']); ?>" /><?php echo composeLink($contact); ?></td>
+  <td class="abookField"><label for="<?php echo $id . '">' . $contact['Info']; ?></label></td>
         <?php 
         if ($abook_has_extra_field) {
             echo '<td class="abookField">'.$contact['Extra'].'</td>'."\n";

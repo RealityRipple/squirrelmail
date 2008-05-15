@@ -5,6 +5,7 @@
  * Display the form elements to add/edit an entry in the address book
  * 
  * The following variables are available in this template:
+ *      $current_backend - integer containing backend currently displayed.
  *      $edit       - boolean TRUE if we are editing an existing address.
  *                    FALSE if the form is blank for adding a new address.
  *      $writable_backends - array of address book backends that can be written
@@ -60,6 +61,7 @@ $formname = $edit ? 'editaddr' : 'addaddr';
     if (is_array($values['Email'])) {
         echo '<select name="'.$formname.'[email]" id="email">'."\n";
         foreach ($values['Email'] as $email) {
+//FIXME: htmlspecialchars should not be needed inside any template files - I think values are already sanitized by the time they get here
             echo '<option value="'.htmlspecialchars($email).'">'.htmlspecialchars($email).'</option>'."\n";
         }
         echo '</select>'."\n";
@@ -105,7 +107,10 @@ $formname = $edit ? 'editaddr' : 'addaddr';
    <select name="backend" id="backend">
     <?php
         foreach ($writable_backends as $id=>$name) {
-            echo '<option value="'.$id.'">'.htmlspecialchars($name).'</option>'."\n";
+//FIXME: htmlspecialchars should not be needed inside any template files - I think values are already sanitized by the time they get here
+            echo '<option value="' . $id
+               . ($current_backend == $id ? '" selected="selected"' : '"')
+               . '>' . htmlspecialchars($name) . '</option>' . "\n";
         }
     ?>
    </select>
