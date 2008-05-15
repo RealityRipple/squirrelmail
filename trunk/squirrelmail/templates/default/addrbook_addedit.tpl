@@ -39,7 +39,7 @@ $formname = $edit ? 'editaddr' : 'addaddr';
 <table cellspacing="0">
  <tr>
   <td class="header" colspan="2">
-   <?php echo $edit ? _("Update address") : _("Add to address book"); ?>
+   <?php echo $edit ? _("Update Address") : _("Add to Address Book"); ?>
   </td>
  </tr>
  <tr>
@@ -120,7 +120,7 @@ $formname = $edit ? 'editaddr' : 'addaddr';
  <tr>
   <td colspan="2" class="addButton">
    <input type="hidden" name="new_bnum" value="<?php echo $current_backend; ?>" />
-   <input type="submit" value=<?php echo '"'.($edit ? _("Update address") : _("Add address")).'"'; ?> name="<?php echo $formname; ?>[SUBMIT]" />
+   <input type="submit" value=<?php echo '"'.($edit ? _("Update Address") : _("Add Address")).'"'; ?> name="<?php echo $formname; ?>[SUBMIT]" />
   </td>
  </tr>
 </table>
