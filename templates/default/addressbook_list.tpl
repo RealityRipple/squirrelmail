@@ -43,7 +43,7 @@
  */
 
 /** add required includes **/
-include_once(SM_PATH . 'templates/util_addressbook.php');
+include_once(SM_PATH . 'functions/template/abook_util.php');
 
 /** extract template variables **/
 extract($t);
@@ -86,10 +86,10 @@ $colspan = $abook_has_extra_field ? 6 : 5;
  </tr>
  <tr>
   <td class="colHeader" style="width:1%"><input type="checkbox" name="toggleAll" id="toggleAll" title="<?php echo _("Toggle All"); ?>" onclick="toggle_all('address_book_form', 'sel', false); return false;" /></td>
-  <td class="colHeader" style="width:15%"><?php echo addAbookSort('nickname'); ?></td>
-  <td class="colHeader"><?php echo addAbookSort('fullname'); ?></td>
-  <td class="colHeader"><?php echo addAbookSort('email'); ?></td>
-  <td class="colHeader"><?php echo addAbookSort('info'); ?></td>
+  <td class="colHeader" style="width:15%"><?php echo addAbookSort('nickname', $current_backend); ?></td>
+  <td class="colHeader"><?php echo addAbookSort('fullname', $current_backend); ?></td>
+  <td class="colHeader"><?php echo addAbookSort('email', $current_backend); ?></td>
+  <td class="colHeader"><?php echo addAbookSort('info', $current_backend); ?></td>
   <?php
    if ($abook_has_extra_field) {
     echo '<td class="colHeader"></td>';

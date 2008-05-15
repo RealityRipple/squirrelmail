@@ -119,6 +119,7 @@ $formname = $edit ? 'editaddr' : 'addaddr';
  ?>
  <tr>
   <td colspan="2" class="addButton">
+   <input type="hidden" name="new_bnum" value="<?php echo $current_backend; ?>" />
    <input type="submit" value=<?php echo '"'.($edit ? _("Update address") : _("Add address")).'"'; ?> name="<?php echo $formname; ?>[SUBMIT]" />
   </td>
  </tr>
