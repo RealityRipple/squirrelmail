@@ -197,7 +197,7 @@ if ($pageOffset < $end_msg) {
                   echo '<input type="checkbox" name="toggleAll" id="toggleAll" title="'
                      . _("Toggle All") . '" onclick="toggle_all(\''
                      . $form_name . '\', \'msg\', ' . $fancy_index_highlite
-                     . ')" ' . $checked . '/>' . "\n";
+                     . '); return false;" ' . $checked . '/>' . "\n";
               } else {
                   $link = $baseurl 
                         . "&amp;startMessage=$pageOffset&amp;checkall=" 
