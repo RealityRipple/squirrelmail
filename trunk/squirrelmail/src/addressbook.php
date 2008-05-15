@@ -34,6 +34,7 @@ require_once(SM_PATH . 'functions/forms.php');
 sqgetGlobalVar('addaddr',       $addaddr,       SQ_POST);
 sqgetGlobalVar('editaddr',      $editaddr,      SQ_POST);
 sqgetGlobalVar('deladdr',       $deladdr,       SQ_POST);
+sqgetGlobalVar('compose_to',    $compose_to,    SQ_POST);
 sqgetGlobalVar('sel',           $sel,           SQ_POST);
 sqgetGlobalVar('oldnick',       $oldnick,       SQ_POST);
 sqgetGlobalVar('backend',       $backend,       SQ_POST);
@@ -115,14 +116,14 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
             $orig_sel = $sel;
             sort($sel);
 
-            /* The selected addresses are identidied by "nickname_backend". *
+            /* The selected addresses are identified by "backend_nickname". *
              * Sort the list and process one backend at the time            */
             $prevback  = -1;
             $subsel    = array();
             $delfailed = false;
 
             for ($i = 0 ; (($i < sizeof($sel)) && !$delfailed) ; $i++) {
-                list($snick, $sbackend) = explode('_', $sel[$i]);
+                list($sbackend, $snick) = explode('_', $sel[$i], 2);
 
                 /* When we get to a new backend, process addresses in *
                  * previous one.                                      */
@@ -156,6 +157,47 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                 $defselected  = $orig_sel;
             }
 
+        /************************************************
+         * Compose to selected address(es)              *
+         ************************************************/
+        } else if ((!empty($compose_to)) && sizeof($sel) > 0) {
+            $orig_sel = $sel;
+            sort($sel);
+
+            // The selected addresses are identified by "backend_nickname"
+            $lookup_failed = false;
+            $send_to = '';
+
+            for ($i = 0 ; (($i < sizeof($sel)) && !$lookup_failed) ; $i++) {
+                list($sbackend, $snick) = explode('_', $sel[$i], 2);
+
+                $data = $abook->lookup($snick, $sbackend);
+
+                if (!$data) {
+                    $formerror = $abook->error;
+                    $lookup_failed = true;
+                    break;
+                } else {
+                    $addr = $abook->full_address($data);
+                    if (!empty($addr))
+                        $send_to .= $addr . ', ';
+                }
+            }
+
+
+            if ($lookup_failed || empty($send_to)) {
+                $showaddrlist = true;
+                $defselected  = $sel;
+            }
+
+
+            // send off to compose screen
+            else {
+                $send_to = trim($send_to, ', ');
+                header('Location: ' . $base_uri . 'src/compose.php?send_to=' . rawurlencode($send_to));
+                exit;
+            }
+
         } else {
 
             /***********************************************
@@ -170,7 +212,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                         $defselected = $sel;
                     } else {
                         $abortform = true;
-                        list($enick, $ebackend) = explode('_', current($sel));
+                        list($ebackend, $enick) = explode('_', current($sel), 2);
                         $olddata = $abook->lookup($enick, $ebackend);
                         // Test if $olddata really contains anything and return an error message if it doesn't
                         if (!$olddata) {
@@ -219,9 +261,10 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                     $formerror = _("Please select address that you want to edit");
                     $showaddrlist = true;
                 } /* end of edit stage detection */
-            } /* !empty($editaddr)                  - Update/modify address */
-        } /* (!empty($deladdr)) && sizeof($sel) > 0 - Delete address(es) */
-    } /* !empty($addaddr['nickname'])               - Add new address */
+            } /* !empty($editaddr)                     - Update/modify address */
+        } /* (!empty($deladdr)) && sizeof($sel) > 0    - Delete address(es) 
+          or (!empty($compose_to)) && sizeof($sel) > 0 - Compose to address(es) */
+    } /* !empty($addaddr['nickname'])                  - Add new address */
 
     // Some times we end output before forms are printed
     if($abortform) {
@@ -271,6 +314,9 @@ if ($showaddrlist) {
 //FIXME: Remove HTML from here!
     echo addForm($form_url, 'post', 'address_book_form');
     
+    $oTemplate->assign('compose_new_win', $compose_new_win);
+    $oTemplate->assign('compose_height', $compose_height);
+    $oTemplate->assign('compose_width', $compose_width);
     $oTemplate->assign('addresses', $addresses);
     $oTemplate->assign('current_backend', $current_backend);
     $oTemplate->assign('backends', $list_backends);
