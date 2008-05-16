@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: SquirrelMail DEVEL\n"
 "Report-Msgid-Bugs-To: SquirrelMail Internationalization <squirrelmail-"
 "i18n@lists.sourceforge.net>\n"
-"POT-Creation-Date: 2008-05-16 05:38+0200\n"
+"POT-Creation-Date: 2008-05-16 06:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -111,18 +111,19 @@ msgstr ""
 msgid "Add address"
 msgstr ""
 
-#. * To translators: %s is for author's name
+#. i18n: %s is for author's name
 #, php-format
 msgid "%s wrote:"
 msgstr ""
 
-#. * To translators:
-#. *  first %s is for date string, second %s is for author's name. Date uses
-#. *  formating from "D, F j, Y g:i a" and "D, F j, Y H:i" translations.
-#. * Example string:
-#. *  "On Sat, December 24, 2004 23:59, Santa wrote:"
-#. * If you have to put author's name in front of date string, check comments about
-#. * argument swapping at http://www.php.net/sprintf
+#. i18n:
+#. The first %s is for date string, the second %s is for author's name.
+#. The date uses formating from "D, F j, Y g:i a" and "D, F j, Y H:i"
+#. translations.
+#. Example string:
+#. "On Sat, December 24, 2004 23:59, Santa wrote:"
+#. If you have to put author's name in front of date string, check comments about
+#. argument swapping at http://php.net/sprintf
 #, php-format
 msgid "On %s, %s wrote:"
 msgstr ""
@@ -688,7 +689,7 @@ msgstr ""
 msgid "Title &amp; Org. / Dept."
 msgstr ""
 
-msgid "Personal address book"
+msgid "Personal Address Book"
 msgstr ""
 
 msgid ""
@@ -777,7 +778,7 @@ msgstr ""
 msgid "Error opening file %s"
 msgstr ""
 
-msgid "Global address book"
+msgid "Global Address Book"
 msgstr ""
 
 msgid "Error initializing global address book."
@@ -805,13 +806,13 @@ msgstr ""
 msgid "Nickname contains illegal characters"
 msgstr ""
 
-#. * i18n: allows to control fullname layout in address book listing
-#. * first %s is for first name, second %s is for last name.
-#. * Translate it to '%2$s %1$s', if surname must be displayed first in your language.
-#. * Please note that variables can be set to empty string and extra formating
-#. * (for example '%2$s, %1$s' as in 'Smith, John') might break. Use it only for
-#. * setting name and surname order. scripts will remove all prepended and appended
-#. *  whitespace.
+#. i18n: allows to control fullname layout in address book listing
+#. first %s is for first name, second %s is for last name.
+#. Translate it to '%2$s %1$s', if surname must be displayed first in your language.
+#. Please note that variables can be set to empty string and extra formating
+#. (for example '%2$s, %1$s' as in 'Smith, John') might break. Use it only for
+#. setting name and surname order. scripts will remove all prepended and appended
+#. whitespace.
 #, php-format
 msgid "%s %s"
 msgstr ""
@@ -2992,7 +2993,7 @@ msgstr ""
 msgid "OFF"
 msgstr ""
 
-#. %s shows executed fortune cookie command.
+#. i18n: %s shows executed fortune cookie command.
 #, php-format
 msgid "Unable to execute \"%s\"."
 msgstr ""
@@ -4236,25 +4237,16 @@ msgstr ""
 msgid "Not yet functional, currently does nothing"
 msgstr ""
 
-msgid "Nickname"
-msgstr ""
-
-msgid "sort by nickname"
-msgstr ""
-
-msgid "sort by name"
-msgstr ""
-
-msgid "sort by email"
-msgstr ""
-
-msgid "Info"
-msgstr ""
-
-msgid "sort by info"
-msgstr ""
-
 msgid "All address books"
+msgstr ""
+
+msgid "Update Address"
+msgstr ""
+
+msgid "Add to Address Book"
+msgstr ""
+
+msgid "Nickname"
 msgstr ""
 
 msgid "Must be unique"
@@ -4270,6 +4262,12 @@ msgid "Additional info"
 msgstr ""
 
 msgid "Add to:"
+msgstr ""
+
+msgid "Add Address"
+msgstr ""
+
+msgid "Info"
 msgstr ""
 
 msgid "Source"
@@ -4288,6 +4286,9 @@ msgid "Edit Selected"
 msgstr ""
 
 msgid "Delete Selected"
+msgstr ""
+
+msgid "Compose to Selected"
 msgstr ""
 
 msgid "Toggle All"

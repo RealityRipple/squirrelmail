@@ -237,9 +237,7 @@ function getReplyCitation($orig_from, $orig_date) {
     /* Otherwise, try to select the desired citation style. */
     switch ($reply_citation_style) {
     case 'author_said':
-        /**
-         * To translators: %s is for author's name
-         */
+        // i18n: %s is for author's name
         $full_reply_citation = sprintf(_("%s wrote:"),$sOrig_from);
         break;
     case 'quote_who':
@@ -248,15 +246,14 @@ function getReplyCitation($orig_from, $orig_date) {
         $full_reply_citation = $start . $sOrig_from . $end;
         break;
     case 'date_time_author':
-        /**
-         * To translators:
-         *  first %s is for date string, second %s is for author's name. Date uses
-         *  formating from "D, F j, Y g:i a" and "D, F j, Y H:i" translations.
-         * Example string:
-         *  "On Sat, December 24, 2004 23:59, Santa wrote:"
-         * If you have to put author's name in front of date string, check comments about
-         * argument swapping at http://www.php.net/sprintf
-         */
+        // i18n:
+        // The first %s is for date string, the second %s is for author's name.
+        // The date uses formating from "D, F j, Y g:i a" and "D, F j, Y H:i"
+        // translations.
+        // Example string:
+        // "On Sat, December 24, 2004 23:59, Santa wrote:"
+        // If you have to put author's name in front of date string, check comments about
+        // argument swapping at http://php.net/sprintf
         $full_reply_citation = sprintf(_("On %s, %s wrote:"), getLongDateString($orig_date), $sOrig_from);
         break;
     case 'user-defined':

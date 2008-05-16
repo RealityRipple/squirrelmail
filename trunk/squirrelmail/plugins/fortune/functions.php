@@ -45,7 +45,7 @@ function fortune_function() {
     }
     /* if pclose return != 0, popen command failed. Yes, I know that it is broken when --enable-sigchild is used */
     if (pclose($handle)) {
-        // %s shows executed fortune cookie command.
+        // i18n: %s shows executed fortune cookie command.
         $fortune = sprintf(_("Unable to execute \"%s\"."),$fortune_command);
     }
 
