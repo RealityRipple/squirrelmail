@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: SquirrelMail DEVEL\n"
 "Report-Msgid-Bugs-To: SquirrelMail Internationalization <squirrelmail-"
 "i18n@lists.sourceforge.net>\n"
-"POT-Creation-Date: 2008-05-06 01:15+0200\n"
+"POT-Creation-Date: 2008-05-16 05:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -416,15 +416,6 @@ msgstr ""
 msgid "Welcome to %s. Please supply your full name and email address."
 msgstr ""
 
-msgid "Message not printable"
-msgstr ""
-
-msgid "Invalid URL"
-msgstr ""
-
-msgid "Printer Friendly"
-msgstr ""
-
 msgid "Read:"
 msgstr ""
 
@@ -466,7 +457,7 @@ msgstr ""
 msgid "View Full Header"
 msgstr ""
 
-msgid "View Printable Version"
+msgid "Print"
 msgstr ""
 
 msgid "View as plain text"
@@ -3336,9 +3327,6 @@ msgstr ""
 msgid "RFC822 Message body"
 msgstr ""
 
-msgid "Print"
-msgstr ""
-
 msgid "Close Window"
 msgstr ""
 
@@ -3705,6 +3693,9 @@ msgid "Check Spelling"
 msgstr ""
 
 msgid "Back to &quot;SpellChecker Options&quot; page"
+msgstr ""
+
+msgid "Invalid URL"
 msgstr ""
 
 msgid "ATTENTION:"
@@ -4293,10 +4284,13 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-msgid "Edit selected"
+msgid "Edit Selected"
 msgstr ""
 
-msgid "Delete selected"
+msgid "Delete Selected"
+msgstr ""
+
+msgid "Toggle All"
 msgstr ""
 
 msgid "Address book search"
@@ -4339,9 +4333,6 @@ msgid "Save Draft"
 msgstr ""
 
 msgid "Add"
-msgstr ""
-
-msgid "Delete Selected"
 msgstr ""
 
 msgid "THIS FOLDER IS EMPTY"
@@ -4437,9 +4428,6 @@ msgstr ""
 msgid "Viewing Message: %s (%s total)"
 msgstr ""
 
-msgid "Toggle All"
-msgstr ""
-
 msgid "Message Flags"
 msgstr ""
 
@@ -4506,15 +4494,6 @@ msgstr ""
 msgid "Sign Out"
 msgstr ""
 
-msgid "Attachments:"
-msgstr ""
-
-msgid "Type:"
-msgstr ""
-
-msgid "Info:"
-msgstr ""
-
 msgid "Requested"
 msgstr ""
 
@@ -4560,6 +4539,12 @@ msgid "Message List"
 msgstr ""
 
 msgid "Search Results"
+msgstr ""
+
+msgid ""
+"Use your web browser's Print button or File -&gt; Print menu option to print "
+"this email. Afterwards, you can close this browser window again to return to "
+"SquirrelMail."
 msgstr ""
 
 msgid "less"
