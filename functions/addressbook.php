@@ -970,15 +970,13 @@ class addressbook_backend {
      * @since 1.5.2
      */
     function fullname($firstname,$lastname) {
-        /**
-         * i18n: allows to control fullname layout in address book listing
-         * first %s is for first name, second %s is for last name.
-         * Translate it to '%2$s %1$s', if surname must be displayed first in your language.
-         * Please note that variables can be set to empty string and extra formating 
-         * (for example '%2$s, %1$s' as in 'Smith, John') might break. Use it only for 
-         * setting name and surname order. scripts will remove all prepended and appended
-         *  whitespace.
-         */
+        // i18n: allows to control fullname layout in address book listing
+        // first %s is for first name, second %s is for last name.
+        // Translate it to '%2$s %1$s', if surname must be displayed first in your language.
+        // Please note that variables can be set to empty string and extra formating 
+        // (for example '%2$s, %1$s' as in 'Smith, John') might break. Use it only for 
+        // setting name and surname order. scripts will remove all prepended and appended
+        // whitespace.
         return trim(sprintf(dgettext('squirrelmail',"%s %s"),$firstname,$lastname));
     }
 }

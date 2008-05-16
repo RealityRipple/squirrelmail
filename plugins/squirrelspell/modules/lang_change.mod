@@ -44,11 +44,9 @@ if (sizeof($new_langs)>1) {
   // remove last comma and space
   $dsp_string = substr( $dsp_string, 0, -2 );
 
-  /**
-   * i18n: first %s is comma separated list of languages, second %s - default language.
-   * Language names are translated, if they are present in squirrelmail.po file.
-   * make sure that you don't use html codes in language name translations
-   */
+  // i18n: first %s is comma separated list of languages, second %s - default language.
+  // Language names are translated, if they are present in squirrelmail.po file.
+  // make sure that you don't use html codes in language name translations
   $msg = '<p>'
     . sprintf(_("Settings adjusted to: %s with %s as default dictionary."),
              '<strong>'.htmlspecialchars($dsp_string).'</strong>',
