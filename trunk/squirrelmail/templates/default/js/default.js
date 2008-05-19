@@ -289,3 +289,17 @@ function printThis()
     parent.frames['right'].focus();
     parent.frames['right'].print();
 }
+
+/* JS implementation of more/less links in To/CC. Could later be extended
+ * show/hide other interface items */
+function showhide (item, txtmore, txtless) {
+    var oTemp=document.getElementById("recpt_tail_" + item);
+    var oClick=document.getElementById("toggle_" + item);
+    if (oTemp.style.display=="inline") {
+        oTemp.style.display="none";
+        oClick.innerHTML=txtmore;
+    } else {
+        oTemp.style.display="inline";
+        oClick.innerHTML=txtless;
+    }
+}
