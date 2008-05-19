@@ -1078,3 +1078,10 @@ div.viewText td.spacer {
     padding: 1em;
     font-size: x-large;
 }
+
+#recpt_tail_to, #recpt_tail_cc {
+    display: none;
+}
+#toggle_to, #toggle_cc {
+    font-size: smaller;
+}
