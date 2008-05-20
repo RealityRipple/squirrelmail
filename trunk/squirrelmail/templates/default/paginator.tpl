@@ -3,7 +3,7 @@
 /**
  * paginator.tpl
  *
- * Template and utility functions to create a paginator
+ * Template to create a message list paginator
  *
  * The following variables are available in this template:
 //FIXME: need to clean (and document) this list, it is just a dump of the array keys of $t
