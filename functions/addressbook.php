@@ -363,9 +363,8 @@ function show_abook_sort_button($abook_sort_order, $alt_tag,
         $which = 8;
     }
 
-    $uri = $form_url .'?abook_sort_order=' . $which;
-    foreach ($uri_extra as $key => $value)
-       $uri = set_url_var($uri, $key, $value, FALSE);
+    $uri_extra['abook_sort_order'] = $which;
+    $uri = set_uri_vars($form_url, $uri_extra, FALSE);
 
     /* Now that we have everything figured out, show the actual button. */
     return create_hyperlink($uri,

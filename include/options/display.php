@@ -15,6 +15,7 @@
 define('SMOPT_GRP_GENERAL', 0);
 define('SMOPT_GRP_MAILBOX', 1);
 define('SMOPT_GRP_MESSAGE', 2);
+define('SMOPT_GRP_ABOOK', 3);
 
 global $use_iframe;
 if (! isset($use_iframe)) $use_iframe=false;
@@ -399,6 +400,44 @@ FIXME!
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_ALL
     );
+
+
+
+    /*** Load the Address Book Options into the array ***/
+    $optgrps[SMOPT_GRP_ABOOK] = _("Address Book Display Options");
+    $optvals[SMOPT_GRP_ABOOK] = array();
+
+    $optvals[SMOPT_GRP_ABOOK][] = array(
+        'name'    => 'abook_show_num',
+        'caption' => _("Number of Addresses per Page"),
+        'type'    => SMOPT_TYPE_INTEGER,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'size'    => SMOPT_SIZE_TINY
+    );
+
+    $optvals[SMOPT_GRP_ABOOK][] = array(
+        'name'    => 'abook_page_selector',
+        'caption' => _("Enable Page Selector"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[SMOPT_GRP_ABOOK][] = array(
+        'name'    => 'abook_compact_paginator',
+        'caption' => _("Use Compact Page Selector"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[SMOPT_GRP_ABOOK][] = array(
+        'name'    => 'abook_page_selector_max',
+        'caption' => _("Maximum Number of Pages to Show"),
+        'type'    => SMOPT_TYPE_INTEGER,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'size'    => SMOPT_SIZE_TINY
+    );
+
+
 
     /* Assemble all this together and return it as our result. */
     $result = array(

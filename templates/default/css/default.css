@@ -529,13 +529,23 @@ td.message_count	{
     text-align: center;
     background: #ababab /* __COLOR9__ */;
 }
-#addressList    td.abookSwitch  {
+
+#addressList    select {
+    vertical-align: middle;
+}
+
+#addressList    td.abookPaginationAndButtons  {
     background: #dcdcdc /* __COLOR0__ */;
     text-align: right;
 }
 
-#addressList    td.abookButtons  {
+#addressList    div.abookPagination  {
+    float: left;
+}
+
+#addressList    td.abookSwitch  {
     background: #dcdcdc /* __COLOR0__ */;
+    text-align: right;
 }
 
 #addressList    td.abookField   {
