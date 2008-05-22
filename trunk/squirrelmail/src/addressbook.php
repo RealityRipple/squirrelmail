@@ -39,6 +39,12 @@ sqgetGlobalVar('sel',           $sel,           SQ_POST);
 sqgetGlobalVar('oldnick',       $oldnick,       SQ_POST);
 sqgetGlobalVar('backend',       $backend,       SQ_POST);
 sqgetGlobalVar('doedit',        $doedit,        SQ_POST);
+$page_size = $abook_show_num;
+if (!sqGetGlobalVar('page_number', $page_number, SQ_FORM))
+    if (!sqGetGlobalVar('current_page_number', $page_number, SQ_FORM))
+        $page_number = 1;
+if (!sqGetGlobalVar('show_all', $show_all, SQ_FORM))
+    $show_all = 0;
 
 /* Get sorting order */
 $abook_sort_order = get_abook_sort();
@@ -51,7 +57,7 @@ displayPageHeader($color);
 */
 $abook = addressbook_init(true, false);
 
-// FIXME: do we have to stop use of address book, when localbackend is not present.
+// FIXME: do we really have to stop use of address book when localbackend is not present?
 if($abook->localbackend == 0) {
     plain_error_message(_("No personal address book is defined. Contact administrator."));
     exit();
@@ -268,6 +274,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
 
     // Some times we end output before forms are printed
     if($abortform) {
+//FIXME: use footer.tpl; remove HTML from core
         echo "</body></html>\n";
         exit();
     }
@@ -294,38 +301,120 @@ while (list($k, $backend) = each ($abook->backends)) {
     $a['BackendWritable'] = $backend->writeable;
     $a['Addresses'] = array();
 
-    $alist = $abook->list_addr($backend->bnum);
+    // don't do address lookup if we are not viewing that backend
+    //
+    if ($backend->bnum == $current_backend) {
+        $alist = $abook->list_addr($backend->bnum);
 
-    /* check return (array with data or boolean false) */
-    if (is_array($alist)) {
-        usort($alist,'alistcmp');
-
-        $a['Addresses'] = formatAddressList($alist);
+        /* check return (array with data or boolean false) */
+        if (is_array($alist)) {
+            usort($alist,'alistcmp');
+    
+            $a['Addresses'] = formatAddressList($alist);
   
-        $addresses[$backend->bnum] = $a;
+            $addresses[$backend->bnum] = $a;
+        } else {
+            // list_addr() returns boolean
+            plain_error_message(nl2br(htmlspecialchars($abook->error)));
+        }
     } else {
-        // list_addr() returns boolean
-        plain_error_message(nl2br(htmlspecialchars($abook->error)));
+        $addresses[$backend->bnum] = $a;
     }
 }
 
 
+$current_page_args = array(
+                           'abook_sort_order' => $abook_sort_order,
+                           'new_bnum'         => $current_backend,
+                           'page_number'      => $page_number,
+                          );
+
+
+// note that plugins can add to $current_page_args as well as
+// filter the address list
+//
+$temp = array(&$addresses, &$current_backend, &$page_number, &$current_page_args);
+do_hook('abook_list_filter', $temp);
+
+
+// NOTE to address book backend authors and plugin authors: if a backend does
+//      pagination (which might be more efficient), it needs to place a key
+//      in every address listing it returns called "paginated", whose value
+//      should evaluate to boolean TRUE.  However, if a plugin will also be
+//      used on the hook above to filter the addresses (perhaps by group), then
+//      the backend should be made compatible with the filtering plugin and
+//      should do the actual filtering too.  Otherwise, the backend will paginate
+//      before filtering has taken place, the output of which is clearly wrong.
+//      It is proposed that filtering be based on a GET/POST variable called
+//      "abook_groups_X" where X is the current backend number.  The value of
+//      this varaible would be an array of possible filter names, which the
+//      plugin and the backend would both know about.  The plugin would only
+//      filter based on that value if the backend didn't already do it.  The
+//      backend can insert a "grouped" key into all address listings, whose
+//      value evaluates to boolean TRUE, telling the plugin not to do any
+//      filtering itself.  For an example of this implementation, see the
+//      Address Book Grouping and Pagination plugin.
+
+
+// if no pagination was done by a plugin or the abook
+// backend (which is indicated by the presence of a
+// "paginated" key within all of the address entries
+// in the list of addresses for the backend currently
+// being viewed), then we provide default pagination
+//
+$total_addresses = 0;
+if (!$show_all
+ && is_array($addresses[$current_backend]['Addresses'])
+ && empty($addresses[$current_backend]['Addresses'][0]['paginated'])) {
+
+    // at this point, we assume the current list is
+    // the *full* list
+    //
+    $total_addresses = sizeof($addresses[$current_backend]['Addresses']);
+
+    // iterate through all the entries, building list of addresses
+    // to keep based on current page
+    //
+    $new_address_list = array();
+    $total_pages = ceil($total_addresses / $page_size);
+    if ($page_number > $total_pages) $page_number = $total_pages;
+    $page_count = 1;
+    $page_item_count = 0;
+    foreach ($addresses[$current_backend]['Addresses'] as $addr) {
+        $page_item_count++;
+        if ($page_item_count > $page_size) {
+            $page_count++;
+            $page_item_count = 1;
+        }
+        if ($page_count == $page_number)
+            $new_address_list[] = $addr;
+    }
+    $addresses[$current_backend]['Addresses'] = $new_address_list;
+
+}
+
+
 if ($showaddrlist) {
-//FIXME: Remove HTML from here!
-    echo addForm($form_url, 'post', 'address_book_form');
     
-    $oTemplate->assign('compose_new_win', $compose_new_win);
-    $oTemplate->assign('compose_height', $compose_height);
-    $oTemplate->assign('compose_width', $compose_width);
+    $oTemplate->assign('show_all', $show_all);
+    $oTemplate->assign('page_number', $page_number);
+    $oTemplate->assign('page_size', $page_size);
+    $oTemplate->assign('total_addresses', $total_addresses);
+    $oTemplate->assign('abook_compact_paginator', $abook_compact_paginator);
+    $oTemplate->assign('abook_page_selector', $abook_page_selector);
+    $oTemplate->assign('current_page_args', $current_page_args);
+    $oTemplate->assign('abook_page_selector_max', $abook_page_selector_max);
     $oTemplate->assign('addresses', $addresses);
     $oTemplate->assign('current_backend', $current_backend);
     $oTemplate->assign('backends', $list_backends);
     $oTemplate->assign('abook_has_extra_field', $abook->add_extra_field);
+    $oTemplate->assign('compose_new_win', $compose_new_win);
+    $oTemplate->assign('compose_height', $compose_height);
+    $oTemplate->assign('compose_width', $compose_width);
+    $oTemplate->assign('form_action', $form_url);
         
     $oTemplate->display('addressbook_list.tpl');
     
-//FIXME: Remove HTML from here!
-    echo "</form>\n";
 }
 
 /* Display the "new address" form */

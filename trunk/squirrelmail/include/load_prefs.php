@@ -278,6 +278,12 @@ $page_selector = getPref($data_dir, $username, 'page_selector', SMPREF_ON);
 $compact_paginator = getPref($data_dir, $username, 'compact_paginator', SMPREF_OFF);
 $page_selector_max = getPref($data_dir, $username, 'page_selector_max', 10);
 
+/* Abook page selector options */
+$abook_show_num = getPref($data_dir, $username, 'abook_show_num', 15 );
+$abook_page_selector = getPref($data_dir, $username, 'abook_page_selector', SMPREF_ON);
+$abook_compact_paginator = getPref($data_dir, $username, 'abook_compact_paginator', SMPREF_OFF);
+$abook_page_selector_max = getPref($data_dir, $username, 'abook_page_selector_max', 5);
+
 /* SqClock now in the core */
 $date_format = getPref($data_dir, $username, 'date_format', 3);
 $hour_format = getPref($data_dir, $username, 'hour_format', SMPREF_TIME_12HR);

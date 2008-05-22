@@ -248,6 +248,11 @@ Version 1.5.2 - SVN
     default_pref file next to hardcoding them into the DB class, thanks
     Thierry Godefroy.
   - Reimplement printer friendly to make use of CSS.
+  - Enhanced address book page: added address list pagination, added
+    'Compose to' button, put labels around address entries tied to
+    checkboxes, added hook and template plugin output sections for
+    plugins that can filter address book listings and modify the abook
+    navigation bar.  Complements RisuMail team (risumail.jp).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
