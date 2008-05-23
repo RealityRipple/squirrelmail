@@ -124,7 +124,7 @@ function get_abook_paginator($abook_page_selector, $abook_page_selector_max,
     // build "Show All" link
     //
     $show_all_string = '['
-                     . make_abook_paginator_link(1, _("Show All"), 
+                     . make_abook_paginator_link(1, _("All"), 
                                                  array_merge($current_page_args, array('show_all' => 1)))
                      . ']';
 
