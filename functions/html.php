@@ -237,7 +237,7 @@ function create_body($onload='', $class='', $aAttribs=array()) {
 
 /**
  * Generates html tags
-//FIXME: This should not be used anywhere in the core, or we should convert this to use templates.  We sould not be assuming HTML output.
+//FIXME: This should not be used anywhere in the core, or we should convert this to use templates.  We should not be assuming HTML output.
  *
  * @param string $tag Tag to output
  * @param string $val Value between tags
@@ -310,6 +310,43 @@ function html_tag( $tag,                // Tag to output
     }
 
     return( $ret );
+}
+
+
+/**
+ * This function is used to add, modify or delete more than
+ * one GET variable at a time in a URL.  This simply takes
+ * an array of variables (key/value pairs) and passes them
+ * one at a time to {@link set_url_var}.
+ * 
+ * Note that the value for any one of the variables may be
+ * an array, and it will be handled properly.
+ *
+ * As with set_url_var, any of the variable values may be
+ * set to NULL to remove it from the URI.
+ *
+ * Also, to ensure compatibility with older versions, use
+ * $val='0' to set $var to 0. 
+ *
+ * @param string  $uri      URI that must be modified
+ * @param array   $values   List of GET variable names and their values
+ * @param boolean $sanitize Controls sanitizing of ampersand in URIs
+ *
+ * @return string The modified URI
+ *
+ * @since 1.5.2
+ *
+ */
+function set_uri_vars($uri, $values, $sanitize=TRUE) {
+    foreach ($values as $key => $value)
+        if (is_array($value)) {
+          $i = 0;
+          foreach ($value as $val)
+             $uri = set_url_var($uri, $key . '[' . $i++ . ']', $val, $sanitize);
+        }
+        else
+          $uri = set_url_var($uri, $key, $value, $sanitize);
+    return $uri;
 }
 
 
