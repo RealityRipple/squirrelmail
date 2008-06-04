@@ -18,6 +18,13 @@
  */
 require('../../include/init.php');
 
+/** 
+ * Make sure plugin is activated!
+ */
+global $plugins;
+if (!in_array('newmail', $plugins))
+   exit;
+
 /** Plugin functions (also loads plugin's config) */
 include_once(SM_PATH . 'plugins/newmail/functions.php');
 
@@ -25,6 +32,7 @@ include_once(SM_PATH . 'functions/forms.php');
 
 displayPageHeader($color);
 
+//FIXME: Remove all HTML from core - put this all into a template file
 echo html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="1" cellspacing="0" border="0"' ) . "\n" .
         html_tag( 'tr' ) . "\n" .
             html_tag( 'td', '', 'center' ) .
@@ -33,15 +41,15 @@ echo html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="1" ce
                     html_tag( 'tr' ) . "\n" .
                         html_tag( 'td', '', 'left', $color[4] ) . "<br />\n";
 
-echo html_tag( 'p',_("The NewMail plugin will follow the Folder Preferences option &quot;Enable Unread Message Notification&quot;")) . "\n" .
+echo html_tag( 'p',_("Based on the Folder Preferences option &quot;Enable Unread Message Notification&quot;, you can be notified when new messages arrive in your account.")) . "\n" .
      html_tag( 'p',
-        sprintf(_("Selecting the %s option will enable the showing of a popup window when unseen mail is in your folders (requires JavaScript)."), '&quot;'._("Show popup window on new mail").'&quot;')
+        sprintf(_("Selecting the %s option will enable the showing of a popup window when unseen mail is in one of your folders (requires JavaScript)."), '&quot;'._("Show popup window on new mail").'&quot;')
      ) . "\n" .
      html_tag( 'p',
         sprintf(_("Use the %s option to only check for messages that are recent. Recent messages are those that have just recently showed up and have not been \"viewed\" or checked yet. This can prevent being continuously annoyed by sounds or popups for unseen mail."), '&quot;'._("Count only messages that are RECENT").'&quot;')
      ) . "\n" .
      html_tag( 'p',
-        sprintf(_("Selecting the %s option will change the title in some browsers to let you know when you have new mail (requires JavaScript). This will always tell you if you have new mail, even if you have %s enabled."), '&quot;'._("Change title on supported browsers").'&quot;', '&quot;'._("Count only messages that are RECENT").'&quot;')
+        sprintf(_("Selecting the %s option will change the browser title bar to let you know when you have new mail (requires JavaScript and may only work in some browsers). This will always tell you if you have new mail, even if you have %s enabled."), '&quot;'._("Change title on supported browsers").'&quot;', '&quot;'._("Count only messages that are RECENT").'&quot;')
      ) . "\n";
 if ($newmail_allowsound) {
     echo html_tag( 'p',
@@ -72,33 +80,33 @@ echo html_tag('tr',
 
 // Option: media_recent
 echo html_tag( 'tr' ) .
-        html_tag( 'td', _("Count only messages that are RECENT").':', 'right', '', 'style="white-space: nowrap;"' ) .
+        html_tag( 'td', '<label for="media_recent">' . _("Count only messages that are RECENT") . ':</label>', 'right', '', 'style="white-space: nowrap;"' ) .
             html_tag( 'td', '', 'left' ) .
                 '<input type="checkbox" ';
 if ($newmail_recent == 'on') {
     echo 'checked="checked" ';
 }
-echo 'name="media_recent" /></td></tr>' . "\n";
+echo 'name="media_recent" id="media_recent" /></td></tr>' . "\n";
 
 // Option: media_changetitle
 echo html_tag( 'tr' ) .
-        html_tag( 'td', _("Change title on supported browsers").':', 'right', '', 'style="white-space: nowrap;"' ) .
+        html_tag( 'td', '<label for="media_changetitle">' . _("Change title on supported browsers") . ':</label>', 'right', '', 'style="white-space: nowrap;"' ) .
             html_tag( 'td', '', 'left' ) .
                 '<input type="checkbox" ';
 if ($newmail_changetitle == 'on') {
     echo 'checked="checked" ';
 }
-echo 'name="media_changetitle" />&nbsp;<small>('._("requires JavaScript to work").')</small></td></tr>' . "\n";
+echo 'name="media_changetitle" id="media_changetitle" />&nbsp;<small><label for="media_changetitle">('._("requires JavaScript to work").')</label></small></td></tr>' . "\n";
 
 // Option: media_popup
 echo html_tag( 'tr' ) .
-        html_tag( 'td', _("Show popup window on new mail").':', 'right', '', 'style="white-space: nowrap;"' ) .
+        html_tag( 'td', '<label for="media_popup">' . _("Show popup window on new mail") . ':</label>', 'right', '', 'style="white-space: nowrap;"' ) .
             html_tag( 'td', '', 'left' ) .
                 '<input type="checkbox" ';
 if($newmail_popup == 'on') {
     echo 'checked="checked" ';
 }
-echo 'name="media_popup" />&nbsp;<small>('._("requires JavaScript to work").')</small></td></tr>' . "\n";
+echo 'name="media_popup" id="media_popup" />&nbsp;<small><label for="media_popup">('._("requires JavaScript to work").')</label></small></td></tr>' . "\n";
 
 echo html_tag( 'tr' )
      . html_tag('td',_("Width of popup window:"),'right','', 'style="white-space: nowrap;"')
@@ -117,13 +125,13 @@ echo html_tag( 'tr' )
 if ($newmail_allowsound) {
 // Option: media_enable
     echo html_tag( 'tr' ) .
-            html_tag( 'td', _("Enable Media Playing").':', 'right', '', 'style="white-space: nowrap;"' ) .
+            html_tag( 'td', '<label for="media_enable">' . _("Enable Media Playing") . ':</label>', 'right', '', 'style="white-space: nowrap;"' ) .
                 html_tag( 'td', '', 'left' ) .
                     '<input type="checkbox" ';
     if ($newmail_media_enable == 'on') {
         echo 'checked="checked" ';
     }
-    echo 'name="media_enable" /></td></tr>' . "\n";
+    echo 'name="media_enable" id="media_enable" /></td></tr>' . "\n";
 
 // Option: media_sel
     echo html_tag( 'tr' ) .
