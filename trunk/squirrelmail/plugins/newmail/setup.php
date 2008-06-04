@@ -32,17 +32,26 @@
  * Init newmail plugin
  */
 function squirrelmail_plugin_init_newmail() {
+
     global $squirrelmail_plugin_hooks;
     $totalNewArr=array();
     global $totalNewArr;
 
-    $squirrelmail_plugin_hooks['folder_status']['newmail'] = 'newmail_folder_status';
-    $squirrelmail_plugin_hooks['left_main_after']['newmail'] = 'newmail_plugin';
-    $squirrelmail_plugin_hooks['optpage_register_block']['newmail'] = 'newmail_optpage_register_block';
-    $squirrelmail_plugin_hooks['options_save']['newmail'] = 'newmail_sav';
-    $squirrelmail_plugin_hooks['loading_prefs']['newmail'] = 'newmail_pref';
-    $squirrelmail_plugin_hooks['optpage_set_loadinfo']['newmail'] = 'newmail_set_loadinfo';
+    $squirrelmail_plugin_hooks['folder_status']['newmail']
+        = 'newmail_folder_status';
+    $squirrelmail_plugin_hooks['template_construct_left_main.tpl']['newmail']
+        = 'newmail_plugin';
+    $squirrelmail_plugin_hooks['optpage_register_block']['newmail']
+        = 'newmail_optpage_register_block';
+    $squirrelmail_plugin_hooks['options_save']['newmail']
+        = 'newmail_sav';
+    $squirrelmail_plugin_hooks['loading_prefs']['newmail']
+        = 'newmail_pref';
+    $squirrelmail_plugin_hooks['optpage_set_loadinfo']['newmail']
+        = 'newmail_set_loadinfo';
+
 }
+
 
 /**
  * Register newmail option block
@@ -52,6 +61,7 @@ function newmail_optpage_register_block() {
     newmail_optpage_register_block_function();
 }
 
+
 /**
  * Save newmail plugin settings
  */
@@ -60,6 +70,7 @@ function newmail_sav() {
     newmail_sav_function();
 }
 
+
 /**
  * Load newmail plugin settings
  */
@@ -67,6 +78,7 @@ function newmail_pref() {
     include_once(SM_PATH . 'plugins/newmail/functions.php');
     newmail_pref_function();
 }
+
 
 /**
  * Set loadinfo data
@@ -78,10 +90,43 @@ function newmail_set_loadinfo() {
     newmail_set_loadinfo_function();
 }
 
+
 /**
  * Insert needed data in left_main
  */
 function newmail_plugin() {
     include_once(SM_PATH . 'plugins/newmail/functions.php');
-    newmail_plugin_function();
+    return newmail_plugin_function();
 }
+
+
+/**
+ * Returns info about this plugin
+ *
+ */
+function newmail_info() {
+    return array(
+        'english_name' => 'New Mail',
+        'authors' => array(
+            'SquirrelMail Team' => array(),
+        ),
+        'version' => 'CORE',
+        'required_sm_version' => 'CORE',
+        'requires_configuration' => 0,
+        'summary' => 'This plugin is used to notify the user when a new mail arrives.',
+        'details' => 'This plugin is used to notify the user when a new mail arrives.  This is accomplished by playing a sound through the browser or spawning a popup window whenever the user has unseen messages.',
+    );
+}
+
+
+
+/**
+ * Returns version info about this plugin
+ *
+ */
+function newmail_version() {
+    $info = newmail_info();
+    return $info['version'];
+}
+
+

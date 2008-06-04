@@ -18,10 +18,45 @@
  */
 require('../../include/init.php');
 
-sqGetGlobalVar('numnew', $numnew, SQ_GET);
-$numnew = (int)$numnew;
+/**
+ * Make sure plugin is activated!
+ */
+global $plugins;
+if (!in_array('newmail', $plugins))
+   exit;
 
-   displayHtmlHeader( _("New Mail"), '', FALSE );
+/** load default config */
+if (file_exists(SM_PATH . 'plugins/newmail/config_default.php')) {
+   include_once(SM_PATH . 'plugins/newmail/config_default.php');
+}
+
+/** load config */
+if (file_exists(SM_PATH . 'config/newmail_config.php')) {
+   include_once(SM_PATH . 'config/newmail_config.php');
+} elseif (file_exists(SM_PATH . 'plugins/newmail/config.php')) {
+   include_once(SM_PATH . 'plugins/newmail/config.php');
+}
+
+   sqGetGlobalVar('numnew', $numnew, SQ_GET);
+   $numnew = (int)$numnew;
+
+   global $username, $org_title,
+          $newmail_popup_title_bar_singular, $newmail_popup_title_bar_plural;
+
+   // make sure default strings are in pot file
+   $ignore = _("New Mail");
+
+   $singular_title = "New Mail";
+   $plural_title = "New Mail";
+   if (!empty($newmail_popup_title_bar_singular))
+      $singular_title = $newmail_popup_title_bar_singular;
+   if (!empty($newmail_popup_title_bar_plural))
+      $plural_title = $newmail_popup_title_bar_plural;
+   list($singular_title, $plural_title) = str_replace(array('###USERNAME###', '###ORG_TITLE###'), array($username, $org_title), array($singular_title, $plural_title));
+   $title = sprintf(ngettext($singular_title, $plural_title, $numnew), $numnew);
+
+
+   displayHtmlHeader( $title, '', FALSE );
 
    echo '<body bgcolor="'.$color[4].'" topmargin="0" leftmargin="0" rightmargin="0" marginwidth="0" marginheight="0">'."\n".
         '<div style="text-align: center;">'. "\n" .
@@ -49,4 +84,3 @@ $numnew = (int)$numnew;
    "-->\n".
    "</script>\n".
    "</body></html>\n";
-?>

@@ -44,7 +44,7 @@ function newmail_optpage_register_block_function() {
 
     /* Register Squirrelspell with the $optionpages array. */
     $optpage_blocks[] = array(
-        'name' => _("NewMail Options"),
+        'name' => _("New Mail Options"),
         'url'  => sqm_baseuri() . 'plugins/newmail/newmail_opt.php',
         'desc' => _("This configures settings for playing sounds and/or showing popup windows when new mail arrives."),
         'js'   => TRUE
@@ -166,7 +166,7 @@ function newmail_pref_function() {
 function newmail_set_loadinfo_function() {
     global $optpage, $optpage_name;
     if ($optpage=='newmail') {
-        $optpage_name=_("NewMail Options");
+        $optpage_name=_("New Mail Options");
     }
 }
 
@@ -216,15 +216,17 @@ function newmail_folder_status($statusarr) {
  */
 function newmail_plugin_function() {
     global $username, $newmail_media, $newmail_media_enable, $newmail_popup,
-        $newmail_recent, $newmail_changetitle, $imapConnection;
-    global $newmail_mmedia, $newmail_allowsound;
-    global $newmail_userfile_type;
-    global $newmail_popup_width, $newmail_popup_height;
-    global $totalNewArr;
+           $newmail_recent, $newmail_changetitle, $imapConnection,
+           $newmail_mmedia, $newmail_allowsound, $newmail_userfile_type,
+           $newmail_popup_width, $newmail_popup_height, $totalNewArr,
+           $newmail_title_bar_singular, $newmail_title_bar_plural,
+           $org_title;
 
     if ($newmail_media_enable == 'on' ||
         $newmail_popup == 'on' ||
         $newmail_changetitle) {
+
+        $output = '';
 
         if (!empty($totalNewArr)) { $totalNew=array_sum($totalNewArr); }
         else { $totalNew=0; }
@@ -233,46 +235,64 @@ function newmail_plugin_function() {
         // will play the sound as follows:
 
         if ($newmail_changetitle) {
-            echo "<script type=\"text/javascript\">\n" .
-                "function ChangeTitleLoad() {\n" .
-                "var BeforeChangeTitle;\n";
-            echo 'window.parent.document.title = "' .
-                sprintf(ngettext("%s New Message","%s New Messages",$totalNew), $totalNew) .
-                "\";\n";
-            echo "if (BeforeChangeTitle != null)\n".
-                "BeforeChangeTitle();\n".
-                "}\n".
-                "BeforeChangeTitle = window.onload;\n".
-                "window.onload = ChangeTitleLoad;\n".
-                "</script>\n";
+
+            // make sure default strings are in pot file
+            $ignore = _("%s New Message");
+            $ignore = _("%s New Messages");
+
+            $singular_title = "%s New Message";
+            $plural_title = "%s New Messages";
+            if (!empty($newmail_title_bar_singular))
+                $singular_title = $newmail_title_bar_singular;
+            if (!empty($newmail_title_bar_plural))
+                $plural_title = $newmail_title_bar_plural;
+            list($singular_title, $plural_title) = str_replace(array('###USERNAME###', '###ORG_TITLE###'), array($username, $org_title), array($singular_title, $plural_title));
+            $title = sprintf(ngettext($singular_title, $plural_title, $totalNew), $totalNew);
+
+//FIXME: remove HTML from core - put this into a template file
+            $output .= "<script type=\"text/javascript\">\n"
+                    . "function ChangeTitleLoad() {\n"
+                    . "var BeforeChangeTitle;\n"
+                    . 'window.parent.document.title = "'
+                    . $title
+                    . "\";\n"
+                    . "if (BeforeChangeTitle != null)\n"
+                    . "BeforeChangeTitle();\n"
+                    . "}\n"
+                    . "BeforeChangeTitle = window.onload;\n"
+                    . "window.onload = ChangeTitleLoad;\n"
+                    . "</script>\n";
         }
 
         // create media output if there are new email messages
         if ($newmail_allowsound && $totalNew > 0
-            && $newmail_media_enable == 'on'
-            && $newmail_media != '' ) {
-            echo newmail_create_media_tags($newmail_media);
+         && $newmail_media_enable == 'on'
+         && $newmail_media != '' ) {
+//FIXME: remove HTML from core - put this into a template file
+            $output .= newmail_create_media_tags($newmail_media);
         }
 
         if ($totalNew > 0 && $newmail_popup == 'on') {
-            // Idea by:  Nic Wolfe (Nic@TimelapseProductions.com)
-            // Web URL:  http://fineline.xs.mw
-            // More code from Tyler Akins
-            echo "<script type=\"text/javascript\">\n".
-                "<!--\n".
-                "function PopupScriptLoad() {\n".
-                'window.open("'.sqm_baseuri().'plugins/newmail/newmail.php?numnew='.$totalNew.
-                '", "SMPopup",'.
-                "\"width=$newmail_popup_width,height=$newmail_popup_height,scrollbars=no\");\n".
-                "if (BeforePopupScript != null)\n".
-                "BeforePopupScript();\n".
-                "}\n".
-                "BeforePopupScript = window.onload;\n".
-                "window.onload = PopupScriptLoad;\n".
-                "// End -->\n".
-                "</script>\n";
+//FIXME: remove HTML from core - put this into a template file
+            $output .= "<script type=\"text/javascript\">\n"
+                    . "<!--\n"
+                    . "function PopupScriptLoad() {\n"
+                    . 'window.open("'.sqm_baseuri().'plugins/newmail/newmail.php?numnew='.$totalNew
+                    . '", "SMPopup",'
+                    . "\"width=$newmail_popup_width,height=$newmail_popup_height,scrollbars=no\");\n"
+                    . "if (BeforePopupScript != null)\n"
+                    . "BeforePopupScript();\n"
+                    . "}\n"
+                    . "BeforePopupScript = window.onload;\n"
+                    . "window.onload = PopupScriptLoad;\n"
+                    . "// End -->\n"
+                    . "</script>\n";
         }
+
+        return array('left_main_after' => $output);
+
     }
+
 }
 
 // ----- end of hooked functions -----
