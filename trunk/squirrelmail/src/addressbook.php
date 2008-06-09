@@ -49,8 +49,12 @@ if (!sqGetGlobalVar('show_all', $show_all, SQ_FORM))
 /* Get sorting order */
 $abook_sort_order = get_abook_sort();
 
-/* Create page header before addressbook_init in order to  display error messages correctly. */
-displayPageHeader($color);
+// Create page header before addressbook_init in order to
+// display error messages correctly, unless we might be
+// redirecting the browser to the compose page.
+//
+if ((empty($compose_to)) || sizeof($sel) < 1)
+    displayPageHeader($color);
 
 /* Open addressbook with error messages on.
  remote backends (LDAP) are enabled because they can be used. (list_addr function)
@@ -194,6 +198,9 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
             if ($lookup_failed || empty($send_to)) {
                 $showaddrlist = true;
                 $defselected  = $sel;
+
+                // we skipped the page header above for this functionality, so add it here
+                displayPageHeader($color);
             }
 
 
