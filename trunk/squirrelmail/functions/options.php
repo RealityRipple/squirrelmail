@@ -32,6 +32,7 @@ define('SMOPT_TYPE_STRLIST_MULTI', 11);
 define('SMOPT_TYPE_BOOLEAN_CHECKBOX', 12);
 define('SMOPT_TYPE_BOOLEAN_RADIO', 13);
 define('SMOPT_TYPE_STRLIST_RADIO', 14);
+define('SMOPT_TYPE_SUBMIT', 15);
 
 /* Define constants for the layout scheme for edit lists. */
 define('SMOPT_EDIT_LIST_LAYOUT_LIST', 0);
@@ -126,6 +127,13 @@ class SquirrelOption {
      */
     var $layout_type;
     /**
+     * Indicates if the Add widget should be included
+     * with edit lists.
+     *
+     * @var boolean
+     */
+    var $use_add_widget;
+    /**
      * text displayed to the user
      *
      * Used with SMOPT_TYPE_COMMENT options
@@ -214,6 +222,7 @@ class SquirrelOption {
         $this->no_text = '';
         $this->comment = '';
         $this->layout_type = 0;
+        $this->use_add_widget = TRUE;
         $this->aExtraAttribs = array();
         $this->post_script = '';
 
@@ -293,6 +302,11 @@ class SquirrelOption {
      */
     function setNoText($no_text) {
         $this->no_text = $no_text;
+    }
+
+    /* Set the "use add widget" value for this option. */
+    function setUseAddWidget($use_add_widget) {
+        $this->use_add_widget = $use_add_widget;
     }
 
     /**
@@ -407,6 +421,9 @@ class SquirrelOption {
                 break;
             case SMOPT_TYPE_STRLIST_RADIO:
                 $result = $this->createWidget_StrList(FALSE, TRUE);
+                break;
+            case SMOPT_TYPE_SUBMIT:
+                $result = $this->createWidget_Submit();
                 break;
             default:
                 error_box ( 
@@ -736,6 +753,8 @@ class SquirrelOption {
 
 //FIXME: $this->aExtraAttribs probably should only be used in one place
         $oTemplate->assign('input_widget', addInput('add_' . $this->name, '', 38, 0, $this->aExtraAttribs));
+        $oTemplate->assign('use_input_widget', $this->use_add_widget);
+
         $oTemplate->assign('trailing_text', $this->trailing_text);
         $oTemplate->assign('possible_values', $this->possible_values);
         $oTemplate->assign('select_widget', addSelect('new_' . $this->name, $this->possible_values, $this->value, FALSE, !checkForJavascript() ? $this->aExtraAttribs : array_merge(array('onchange' => 'if (typeof(window.addinput_' . $this->name . ') == \'undefined\') { var f = document.forms.length; var i = 0; var pos = -1; while( pos == -1 && i < f ) { var e = document.forms[i].elements.length; var j = 0; while( pos == -1 && j < e ) { if ( document.forms[i].elements[j].type == \'text\' && document.forms[i].elements[j].name == \'add_' . $this->name . '\' ) { pos = j; } j++; } i++; } if( pos >= 0 ) { window.addinput_' . $this->name . ' = document.forms[i-1].elements[pos]; } } for (x = 0; x < this.length; x++) { if (this.options[x].selected) { window.addinput_' . $this->name . '.value = this.options[x].value; break; } }'), $this->aExtraAttribs), TRUE, $height));
@@ -750,6 +769,18 @@ class SquirrelOption {
             default:
                 error_box(sprintf(_("Edit List Layout Type '%s' Not Found"), $layout_type));
         }
+
+    }
+
+    /**
+     * Creates a submit button
+     *
+     * @return string html formated submit button widget
+     *
+     */
+    function createWidget_Submit() {
+
+        return addSubmit($this->comment, $this->name, $this->aExtraAttribs) . htmlspecialchars($this->trailing_text);
 
     }
 
@@ -803,7 +834,8 @@ function save_option($option) {
 
         // add element if given
         //
-        if (sqGetGlobalVar('add_' . $option->name, $new_element, SQ_POST)) {
+        if ((isset($option->use_add_widget) && $option->use_add_widget)
+         && sqGetGlobalVar('add_' . $option->name, $new_element, SQ_POST)) {
             $new_element = trim($new_element);
             if (!empty($new_element)
              && !in_array($new_element, $option->possible_values))
@@ -928,6 +960,11 @@ function create_option_groups($optgrps, $optvals) {
             /* If provided, set the layout type for this option. */
             if (isset($optset['layout_type'])) {
                 $next_option->setLayoutType($optset['layout_type']);
+            }
+
+            /* If provided, set the use_add_widget value for this option. */
+            if (isset($optset['use_add_widget'])) {
+                $next_option->setUseAddWidget($optset['use_add_widget']);
             }
 
             /* If provided, set the comment for this option. */
