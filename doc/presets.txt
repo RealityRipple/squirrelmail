@@ -1,11 +1,12 @@
 $Date$
 
-This file lists SquirrelMail options set by D option in conf.pl
+This file lists the SquirrelMail settings set by option D in conf.pl
 
-It can be used if user can't run conf.pl and changes options manually.
-Settings can be different if IMAP server uses shared folders.
+These can be used if the administrator can't run conf.pl and wants to
+change these settings manually.  These settings can be different if
+the IMAP server uses shared folders.
 
-Possible server values are:
+Possible server type values are:
  bincimap    = Binc IMAP server
  courier     = Courier IMAP server
  cyrus       = Cyrus IMAP server
