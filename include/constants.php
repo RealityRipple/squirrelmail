@@ -183,6 +183,16 @@ define('SQM_COL_CC', 10);
 define('SQM_COL_BCC', 11);
 
 /**
+ * Address book field list
+ * @since 1.4.16 and 1.5.2
+ */
+define('SM_ABOOK_FIELD_NICKNAME', 0);
+define('SM_ABOOK_FIELD_FIRSTNAME', 1);
+define('SM_ABOOK_FIELD_LASTNAME', 2);
+define('SM_ABOOK_FIELD_EMAIL', 3);
+define('SM_ABOOK_FIELD_LABEL', 4);
+
+/**
  * Generic variable type constants
  * @since 1.5.2
  */

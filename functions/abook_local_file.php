@@ -317,16 +317,25 @@ class abook_local_file extends addressbook_backend {
     }
 
     /**
-     * Lookup alias
-     * @param string $alias alias
-     * @return array search results
+     * Lookup an address by the indicated field.
+     *
+     * @param string  $value The value to look up
+     * @param integer $field The field to look in, should be one
+     *                       of the SM_ABOOK_FIELD_* constants
+     *                       defined in include/constants.php
+     *                       (OPTIONAL; defaults to nickname field)
+     *
+     * @return array Array with lookup results when the value
+     *               was found, an empty array if the value was
+     *               not found.
+     *
      */
-    function lookup($alias) {
-        if(empty($alias)) {
+    function lookup($value, $field=SM_ABOOK_FIELD_NICKNAME) {
+        if(empty($value)) {
             return array();
         }
 
-        $alias = strtolower($alias);
+        $value = strtolower($value);
 
         $this->open();
         @rewind($this->filehandle);
@@ -341,7 +350,7 @@ class abook_local_file extends addressbook_backend {
                 $oTemplate->display('footer.tpl');
                 die();
             } else {
-                if(strtolower($row[0]) == $alias) {
+                if(strtolower($row[$field]) == $value) {
                    return array('nickname'  => $row[0],
                       'name'      => $this->fullname($row[1], $row[2]),
                       'firstname' => $row[1],

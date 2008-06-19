@@ -594,13 +594,25 @@ class AddressBook {
 
 
     /**
-     * Lookup an address by alias.
+     * Lookup an address by the indicated field.
+     *
      * Only possible in local backends.
-     * @param string $alias
-     * @param integer backend number
-     * @return array lookup results. False, if not found.
+     *
+     * @param string  $value The value to look up
+     * @param integer $bnum  The number of the backend to
+     *                       look within (OPTIONAL; defaults 
+     *                       to look in all local backends)
+     * @param integer $field The field to look in, should be one
+     *                       of the SM_ABOOK_FIELD_* constants
+     *                       defined in include/constants.php
+     *                       (OPTIONAL; defaults to nickname field)
+     *
+     * @return mixed Array with lookup results when the value
+     *               was found, an empty array if the value was
+     *               not found, or false if an error occured.
+     *
      */
-    function lookup($alias, $bnum = -1) {
+    function lookup($value, $bnum = -1, $field = SM_ABOOK_FIELD_NICKNAME) {
 
         $ret = array();
 
@@ -609,7 +621,7 @@ class AddressBook {
                 $this->error = _("Unknown address book backend");
                 return false;
             }
-            $res = $this->backends[$bnum]->lookup($alias);
+            $res = $this->backends[$bnum]->lookup($value, $field);
             if (is_array($res)) {
                return $res;
             } else {
@@ -622,13 +634,18 @@ class AddressBook {
         for ($i = 0 ; $i < sizeof($sel) ; $i++) {
             $backend = &$sel[$i];
             $backend->error = '';
-            $res = $backend->lookup($alias);
+            $res = $backend->lookup($value, $field);
+
+            // return an address if one is found
+            // (empty array means lookup concluded
+            // but no result found - in this case,
+            // proceed to next backend)
+            //
             if (is_array($res)) {
-               if(!empty($res))
-              return $res;
+                if (!empty($res)) return $res;
             } else {
-               $this->error = $backend->error;
-               return false;
+                $this->error = $backend->error;
+                return false;
             }
         }
 
@@ -906,11 +923,19 @@ class addressbook_backend {
     }
 
     /**
-     * Find entry in backend by alias
-     * @param string $alias name used for id
-     * @return bool
+     * Find entry in backend by the indicated field
+     *
+     * @param string  $value The value to look up
+     * @param integer $field The field to look in, should be one
+     *                       of the SM_ABOOK_FIELD_* constants
+     *                       defined in include/constants.php
+     *
+     * @return mixed Array with lookup results when the value
+     *               was found, an empty array if the value was
+     *               not found, or false if an error occured.
+     *
      */
-    function lookup($alias) {
+    function lookup($value, $field) {
         $this->set_error('lookup is not implemented');
         return false;
     }
