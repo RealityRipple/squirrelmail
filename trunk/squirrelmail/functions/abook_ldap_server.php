@@ -722,14 +722,29 @@ class abook_ldap_server extends addressbook_backend {
     }
 
     /**
-     * Lookup an alias
-     * @param string $alias alias
-     * @return array search results
+     * Lookup an address by the indicated field.
+     *
+     * @param string  $value The value to look up
+     * @param integer $field The field to look in, should be one
+     *                       of the SM_ABOOK_FIELD_* constants
+     *                       defined in include/constants.php
+     *                       (OPTIONAL; defaults to nickname field)
+     *
+     * @return array Array with lookup results when the value
+     *               was found, an empty array if the value was
+     *               not found.
+     *
      * @since 1.5.2
+     *
      */
-    function lookup($alias) {
+    function lookup($value, $field=SM_ABOOK_FIELD_NICKNAME) {
+
+//FIXME: implement lookup by other fields
+        if ($field != SM_ABOOK_FIELD_NICKNAME)
+            return $this->set_error('LDAP lookup of fields other than nickname/alias not yet implemented');
+
         /* Generate the dn and try to retrieve that single entry */
-        $cn = $this->quotevalue($alias);
+        $cn = $this->quotevalue($value);
         $dn = 'cn=' . $cn . ',' . $this->basedn;
 
         /* Do the search */
