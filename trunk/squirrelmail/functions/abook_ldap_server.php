@@ -729,6 +729,10 @@ class abook_ldap_server extends addressbook_backend {
      *                       of the SM_ABOOK_FIELD_* constants
      *                       defined in include/constants.php
      *                       (OPTIONAL; defaults to nickname field)
+     *                       NOTE: uniqueness is only guaranteed
+     *                       when the nickname field is used here;
+     *                       otherwise, the first matching address
+     *                       is returned.
      *
      * @return array Array with lookup results when the value
      *               was found, an empty array if the value was
