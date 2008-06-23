@@ -253,6 +253,10 @@ Version 1.5.2 - SVN
     checkboxes, added hook and template plugin output sections for
     plugins that can filter address book listings and modify the abook
     navigation bar.  Complements RisuMail team (risumail.jp).
+  - Added submit button type option widget
+  - Allow address lookup by fields other than nickname/alias
+  - Implement preference override hooks for database prefs backend that
+    have long been in the file-based prefs backend
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
