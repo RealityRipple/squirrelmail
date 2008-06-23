@@ -278,17 +278,27 @@ class dbPrefs {
     function getKey($user, $key, $default = '') {
         global $prefs_cache;
 
-        cachePrefValues($user);
+        $temp = array(&$user, &$key);
+        $result = do_hook('get_pref_override', $temp);
+        if (is_null($result)) {
+            cachePrefValues($user);
 
-        if (isset($prefs_cache[$key])) {
-            return $prefs_cache[$key];
-        } else {
-            if (isset($this->default[$key])) {
-                return $this->default[$key];
+            if (isset($prefs_cache[$key])) {
+                $result = $prefs_cache[$key];
             } else {
-                return $default;
+//FIXME: is there a justification for having two prefs hooks so close?  who uses them?
+                $temp = array(&$user, &$key);
+                $result = do_hook('get_pref', $temp);
+                if (is_null($result)) {
+                    if (isset($this->default[$key])) {
+                        $result = $this->default[$key];
+                    } else {
+                        $result = $default;
+                    }
+                }
             }
         }
+        return $result;
     }
 
     /**
