@@ -111,14 +111,15 @@ function getPref($data_dir, $username, $pref_name, $default = '') {
 
     $temp = array(&$username, &$pref_name);
     $result = do_hook('get_pref_override', $temp);
-    if (!$result) {
+    if (is_null($result)) {
         cachePrefValues($data_dir, $username);
         if (isset($prefs_cache[$pref_name])) {
             $result = $prefs_cache[$pref_name];
         } else {
+//FIXME: is there a justification for having two prefs hooks so close?  who uses them?
             $temp = array(&$username, &$pref_name);
             $result = do_hook('get_pref', $temp);
-            if (!$result) {
+            if (is_null($result)) {
                 $result = $default;
             }
         }
