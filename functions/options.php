@@ -134,6 +134,13 @@ class SquirrelOption {
      */
     var $use_add_widget;
     /**
+     * Indicates if the Delete widget should be included
+     * with edit lists.
+     *
+     * @var boolean
+     */
+    var $use_delete_widget;
+    /**
      * text displayed to the user
      *
      * Used with SMOPT_TYPE_COMMENT options
@@ -223,6 +230,7 @@ class SquirrelOption {
         $this->comment = '';
         $this->layout_type = 0;
         $this->use_add_widget = TRUE;
+        $this->use_delete_widget = TRUE;
         $this->aExtraAttribs = array();
         $this->post_script = '';
 
@@ -307,6 +315,11 @@ class SquirrelOption {
     /* Set the "use add widget" value for this option. */
     function setUseAddWidget($use_add_widget) {
         $this->use_add_widget = $use_add_widget;
+    }
+
+    /* Set the "use delete widget" value for this option. */
+    function setUseDeleteWidget($use_delete_widget) {
+        $this->use_delete_widget = $use_delete_widget;
     }
 
     /**
@@ -754,6 +767,7 @@ class SquirrelOption {
 //FIXME: $this->aExtraAttribs probably should only be used in one place
         $oTemplate->assign('input_widget', addInput('add_' . $this->name, '', 38, 0, $this->aExtraAttribs));
         $oTemplate->assign('use_input_widget', $this->use_add_widget);
+        $oTemplate->assign('use_delete_widget', $this->use_delete_widget);
 
         $oTemplate->assign('trailing_text', $this->trailing_text);
         $oTemplate->assign('possible_values', $this->possible_values);
@@ -844,7 +858,8 @@ function save_option($option) {
         
         // delete selected elements if needed
         //
-        if (is_array($option->new_value)
+        if ((isset($option->use_delete_widget) && $option->use_delete_widget)
+         && is_array($option->new_value)
          && sqGetGlobalVar('delete_' . $option->name, $ignore, SQ_POST))
             $option->possible_values = array_diff($option->possible_values, $option->new_value);
 
@@ -965,6 +980,11 @@ function create_option_groups($optgrps, $optvals) {
             /* If provided, set the use_add_widget value for this option. */
             if (isset($optset['use_add_widget'])) {
                 $next_option->setUseAddWidget($optset['use_add_widget']);
+            }
+
+            /* If provided, set the use_delete_widget value for this option. */
+            if (isset($optset['use_delete_widget'])) {
+                $next_option->setUseDeleteWidget($optset['use_delete_widget']);
             }
 
             /* If provided, set the comment for this option. */
