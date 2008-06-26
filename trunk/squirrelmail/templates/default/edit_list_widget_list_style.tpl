@@ -11,8 +11,11 @@
   * string   $input_widget      A preconstructed input text box used
   *                             for adding new elements to the edit list
   * boolean  $use_input_widget  Whether or not to present the $input_widget
-  * string   $select_widget     A preconstructed input text box used
-  * string   $checkbox_widget   A preconstructed input text box used
+  * boolean  $use_delete_widget Whether or not to present the $checkbox_widget
+  * string   $select_widget     A preconstructed select widget containing
+  *                             all the elements in the list
+  * string   $checkbox_widget   A preconstructed checkbox used for deleting
+  *                             elements from the edit list
   * string   $trailing_text     Any text given by the caller to be displayed
   *                             after the edit list input
   * array    $possible_values   The original list of options in the edit list,
@@ -56,7 +59,7 @@ foreach ($possible_values as $key => $value) {
 
 echo '</table>';
 
-if (!empty($possible_values))
+if (!empty($possible_values) && $use_delete_widget)
     echo $checkbox_widget . '&nbsp;<label for="delete_' . $name . '">' 
        . _("Delete Selected") . '</label>';
 
