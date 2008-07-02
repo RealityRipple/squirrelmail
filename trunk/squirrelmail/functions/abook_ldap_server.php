@@ -12,7 +12,7 @@
  * StartTLS code by John Lane
  *   <starfry at users.sourceforge.net> (#1197703)
  * Code for remove, add, modify, lookup by David Härdeman
- *   <david at 2gen.com> (#1495763)
+ *   <david at hardeman.nu> (#1495763)
  *
  * This backend uses LDAP person (RFC2256), organizationalPerson (RFC2256)
  * and inetOrgPerson (RFC2798) objects and dn, description, sn, givenname,
@@ -424,7 +424,7 @@ class abook_ldap_server extends addressbook_backend {
             return false;
         }
 
-        $attributes = array('dn', 'description', 'sn', 'givenname', 'cn', 'mail');
+        $attributes = array('dn', 'description', 'sn', 'givenName', 'cn', 'mail');
 
         if ($singleentry) {
             // ldap_read - search for one single entry
@@ -672,6 +672,34 @@ class abook_ldap_server extends addressbook_backend {
         }
     }
 
+    /**
+     * Determine internal attribute name given one of
+     * the SquirrelMail SM_ABOOK_FIELD_* constants
+     *
+     * @param integer $attr The SM_ABOOK_FIELD_* contant to look up
+     *
+     * @return string The desired attribute name, or the string "ERROR"
+     *                if the $field is not understood (the caller
+     *                is responsible for handing errors)
+     *
+     */
+    function get_attr_name($attr) {
+        switch ($attr) {
+            case SM_ABOOK_FIELD_NICKNAME:
+                return 'cn';
+            case SM_ABOOK_FIELD_FIRSTNAME:
+                return 'givenName';
+            case SM_ABOOK_FIELD_LASTNAME:
+                return 'sn';
+            case SM_ABOOK_FIELD_EMAIL:
+                return 'mail';
+            case SM_ABOOK_FIELD_LABEL:
+                return 'description';
+            default:
+                return 'ERROR';
+        }
+    }
+
     /* ========================== Public ======================== */
 
     /**
@@ -743,15 +771,16 @@ class abook_ldap_server extends addressbook_backend {
      */
     function lookup($value, $field=SM_ABOOK_FIELD_NICKNAME) {
 
-//FIXME: implement lookup by other fields
-        if ($field != SM_ABOOK_FIELD_NICKNAME)
-            return $this->set_error('LDAP lookup of fields other than nickname/alias not yet implemented');
 
-        /* Generate the dn and try to retrieve that single entry */
-        $cn = $this->quotevalue($value);
-        $dn = 'cn=' . $cn . ',' . $this->basedn;
+        $attr = get_attr_name($field);
+        if ($attr == 'ERROR') {
+            return $this->set_error(sprintf(_("Unknown field name: %s"), $field));
+        }
 
-        /* Do the search */
+        // Generate the dn
+        $dn = $attr . '=' . $this->quotevalue($value) . ',' . $this->basedn;
+
+        // Do the search
         $result = $this->ldap_search($dn, true);
         if (!is_array($result) || count($result) < 1)
             return array();
