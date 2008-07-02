@@ -316,8 +316,13 @@ class abook_database extends addressbook_backend {
             return false;
         }
 
+        $db_field = $this->get_field_name($field);
+        if ($db_field == 'ERROR') {
+            return $this->set_error(sprintf(_("Unknown field name: %s"), $field));
+        }
+
         $query = sprintf("SELECT * FROM %s WHERE owner = '%s' AND LOWER(%s) = '%s'",
-                         $this->table, $this->owner, $this->get_field_name($field), 
+                         $this->table, $this->owner, $db_field, 
                          $this->dbh->quoteString($value));
 
         $res = $this->dbh->query($query);
