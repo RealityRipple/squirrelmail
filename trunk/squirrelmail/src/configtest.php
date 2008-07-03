@@ -116,6 +116,12 @@ if (file_exists(SM_PATH . 'config/config_local.php')) {
     require(SM_PATH . 'config/config_local.php');
 }
 
+/**
+ * Include Compatibility plugin if available.
+ */
+if (!$disable_plugins && file_exists(SM_PATH . 'plugins/compatibility/functions.php'))
+    include_once(SM_PATH . 'plugins/compatibility/functions.php');
+
 /** Load plugins */
 global $disable_plugins;
 $squirrelmail_plugin_hooks = array();
@@ -411,27 +417,61 @@ if (isset($plugins[0])) {
         if(!file_exists(SM_PATH .'plugins/'.$plugin)) {
             do_err('You have enabled the <i>'.$plugin.'</i> plugin, but I cannot find it.', FALSE);
         } elseif (!is_readable(SM_PATH .'plugins/'.$plugin.'/setup.php')) {
-            do_err('You have enabled the <i>'.$plugin.'</i> plugin, but I cannot read its setup.php file.', FALSE);
+            do_err('You have enabled the <i>'.$plugin.'</i> plugin, but I cannot locate or read its setup.php file.', FALSE);
         } elseif (in_array($plugin, $bad_plugins)) {
             do_err('You have enabled the <i>'.$plugin.'</i> plugin, which causes problems with this version of SquirrelMail. Please check the ReleaseNotes or other documentation for more information.', false);
         }
     }
+
+
     // load plugin functions
     include_once(SM_PATH . 'functions/plugin.php');
+
     // turn on output buffering in order to prevent output of new lines
     ob_start();
     foreach ($plugins as $name) {
         use_plugin($name);
+
+        // get output and remove whitespace
+        $output = trim(ob_get_contents());
+
+        // if plugin outputs more than newlines and spacing, stop script execution.
+        if (!empty($output)) {
+            $plugin_load_error = 'Some output was produced when plugin <i>' . $name . '</i> was loaded.  Usually this means there is an error in the plugin\'s setup or configuration file.  The output was: '.htmlspecialchars($output);
+            do_err($plugin_load_error);
+        }
     }
-    // get output and remove whitespace
-    $output = trim(ob_get_contents());
     ob_end_clean();
-    // if plugins output more than newlines and spacing, stop script execution.
-    if (!empty($output)) {
-//FIXME: if the output buffer is checked INSIDE the foreach loop above, we can tell the user WHICH plugin has the problem - seems like a good idea
-        $plugin_load_error = 'Some output is produced when plugins are loaded. Usually this means there is an error in one of the plugin setup or configuration files. The output was: '.htmlspecialchars($output);
-        do_err($plugin_load_error);
+
+
+    /**
+     * Check the contents of the static plugin hooks array file against
+     * the plugin setup file, which may have changed in an upgrade, etc.
+     * This helps remind admins to re-run the configuration utility when
+     * a plugin has been changed or upgraded.
+     */
+    $static_squirrelmail_plugin_hooks = $squirrelmail_plugin_hooks;
+    $squirrelmail_plugin_hooks = array();
+    foreach ($plugins as $name) {
+        $function = "squirrelmail_plugin_init_$name";
+        if (function_exists($function)) {
+            $function();
+
+            // now iterate through each hook and make sure the
+            // plugin is registered on the correct ones in the
+            // static plugin configuration file
+            //
+            foreach ($squirrelmail_plugin_hooks as $hook_name => $hooked_plugins)
+                foreach ($hooked_plugins as $hooked_plugin => $hooked_function)
+                    if ($hooked_plugin == $name
+                     && (empty($static_squirrelmail_plugin_hooks[$hook_name][$hooked_plugin])
+                      || $static_squirrelmail_plugin_hooks[$hook_name][$hooked_plugin] != $hooked_function))
+                        do_err('The plugin <i>' . $name . '</i> is supposed to be registered on the <i>' . $hook_name . '</i> hook, but it is not.  You need to re-run the configuration utility and re-save your configuration file.', FALSE);
+        }
     }
+    $squirrelmail_plugin_hooks = $static_squirrelmail_plugin_hooks;
+
+
     /**
      * Print plugin versions
      */
@@ -457,6 +497,8 @@ if (isset($plugins[0])) {
         }
 
     }
+
+
     /**
      * This hook was added in 1.5.2 and 1.4.10. Each plugins should print an error
      * message and return TRUE if there are any errors in its setup/configuration.
