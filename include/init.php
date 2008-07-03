@@ -335,16 +335,6 @@ $SQM_INTERNAL_VERSION[2] = intval($SQM_INTERNAL_VERSION[2]);
 /* load prefs system; even when user not logged in, should be OK to do this here */
 require(SM_PATH . 'functions/prefs.php');
 
-// FIXME: config/plugin_hooks.php has not yet been loaded (see a few lines below); so this hook call should I think not be working -- has anyone actually tested it?  Is there any reason we cannot move this prefs code block down below "MAIN PLUGIN LOADING CODE HERE" (see below)?  Reading the code, I *think* it should be OK, but....   Also, note that this code would then be placed immediately next to the config_override hook, and since it makes little sense to execute two hooks in a row, I will propose removing config_override (although sadly, it is less clear to plugin authors that they should use the prefs_backend hook to do any configuration override work in their plugin)
-$prefs_backend = do_hook('prefs_backend', $null);
-if (isset($prefs_backend) && !empty($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
-    require(SM_PATH . $prefs_backend);
-} elseif (isset($prefs_dsn) && !empty($prefs_dsn)) {
-    require(SM_PATH . 'functions/db_prefs.php');
-} else {
-    require(SM_PATH . 'functions/file_prefs.php');
-}
-
 
 /* if plugins are disabled only for one user and
  * the current user is NOT that user, turn them
@@ -355,6 +345,7 @@ if ($disable_plugins && !empty($disable_plugins_user)
  && $username != $disable_plugins_user) {
     $disable_plugins = false;
 }
+
 
 /* remove all plugins if they are disabled */
 if ($disable_plugins) {
@@ -368,6 +359,7 @@ if ($disable_plugins) {
 if (!$disable_plugins && file_exists(SM_PATH . 'plugins/compatibility/functions.php'))
     include_once(SM_PATH . 'plugins/compatibility/functions.php');
 
+
 /**
  * MAIN PLUGIN LOADING CODE HERE
  * On init, we no longer need to load all plugin setup files.
@@ -376,14 +368,29 @@ if (!$disable_plugins && file_exists(SM_PATH . 'plugins/compatibility/functions.
  */
 $squirrelmail_plugin_hooks = array();
 if (!$disable_plugins && file_exists(SM_PATH . 'config/plugin_hooks.php')) {
+//FIXME: if we keep the plugin hooks array static like this, it seems like we should also keep the template files list in a static file too (when a new user session is started or the template set is changed, the code will dynamically iterate through the directory heirarchy of the template directory and catalog all the template files therein (and store the "catalog" in PHP session) -- instead, we could do that once at config-time and keep that static so SM can just include the file just like the line below)
     require(SM_PATH . 'config/plugin_hooks.php');
 }
 
+
 /**
- * allow plugins to override main configuration; hook is placed
- * here to allow plugins to use session information to do their work
+ * Plugin authors note that the "config_override" hook used to be
+ * executed here, but please adapt your plugin to use this "prefs_backend" 
+ * hook instead, making sure that it does NOT return anything, since
+ * doing so will interfere with proper prefs system functionality.
+ * Of course, otherwise, this hook may be used to do any configuration
+ * overrides as needed, as well as set up a custom preferences backend.
  */
-do_hook('config_override', $null);
+$prefs_backend = do_hook('prefs_backend', $null);
+if (isset($prefs_backend) && !empty($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
+    require(SM_PATH . $prefs_backend);
+} elseif (isset($prefs_dsn) && !empty($prefs_dsn)) {
+    require(SM_PATH . 'functions/db_prefs.php');
+} else {
+    require(SM_PATH . 'functions/file_prefs.php');
+}
+
+
 
 /**
  * DISABLED.
