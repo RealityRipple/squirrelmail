@@ -1095,3 +1095,9 @@ div.viewText td.spacer {
 #toggle_to, #toggle_cc {
     font-size: smaller;
 }
+
+hr.entity_sep {
+    border: 0;
+    height: 1px;
+    background-color: gray;
+}
