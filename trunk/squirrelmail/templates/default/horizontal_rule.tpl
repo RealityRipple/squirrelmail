@@ -21,6 +21,11 @@
   */
 
 
+// retrieve the template vars
+//
+extract($t);
+
+
 echo '<hr'; 
 foreach ($aAttribs as $key => $value) {
     echo ' ' . $key . (is_null($value) ? '' : '="' . $value . '"');
