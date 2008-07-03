@@ -27,7 +27,7 @@ extract($t);
 
 
 echo '<br';
-foreach ($aAttribs as $key => $value) {
+if (isset($aAttribs)) foreach ($aAttribs as $key => $value) {
     echo ' ' . $key . (is_null($value) ? '' : '="' . $value . '"');
 }
 echo ' />';
