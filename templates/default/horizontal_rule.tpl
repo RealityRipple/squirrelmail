@@ -1,9 +1,9 @@
 <?php
 
 /**
-  * line_break.tpl
+  * horizontal_rule.tpl
   *
-  * Template for constructing a line break.
+  * Template for constructing a horizontal rule.
   *
   * The following variables are available in this template:
   *
@@ -15,13 +15,13 @@
   *
   * @copyright &copy; 1999-2008 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
-  * @version $Id: line_break.tpl 12046 2007-01-02 21:03:07Z pdontthink $
+  * @version $Id$
   * @package squirrelmail
   * @subpackage templates
   */
 
 
-echo '<br';
+echo '<hr'; 
 foreach ($aAttribs as $key => $value) {
     echo ' ' . $key . (is_null($value) ? '' : '="' . $value . '"');
 }
