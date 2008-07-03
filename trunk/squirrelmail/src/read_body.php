@@ -950,6 +950,8 @@ if (isset($sendreceipt)) {
 /* End of block for handling incoming url vars */
 /***********************************************/
 
+$oTemplate->assign('aAttribs', array('class' => 'entity_sep'));
+$hr = $oTemplate->fetch('horizontal_rule.tpl');
 $messagebody = '';
 do_hook('read_body_top', $null);
 if ($show_html_default == 1) {
@@ -961,7 +963,7 @@ $cnt = count($ent_ar);
 for ($i = 0; $i < $cnt; $i++) {
    $messagebody .= formatBody($imapConnection, $message, $color, $wrap_at, $ent_ar[$i], $passed_id, $mailbox);
    if ($i != $cnt-1) {
-       $messagebody .= '<hr class="entity_sep" />';
+       $messagebody .= $hr;
    }
 }
 
