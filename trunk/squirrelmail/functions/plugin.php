@@ -759,13 +759,15 @@ function get_plugin_requirement($plugin_name, $requirement,
   *               which might vary per the value of $do_parse
   *               as well as if the plugin requires a SquirrelMail
   *               core plugin, in which case it is "CORE" or
-  *               "CORE:1.5.2" or similar), 'activate' - value is
-  *               boolean: TRUE indicates that the plugin must
-  *               also be activated, FALSE means that it only
-  *               needs to be present, but does not need to be
-  *               activated.  Note that the return value might
-  *               be an empty array, indicating that the plugin
-  *               has no dependencies.
+  *               "CORE:1.5.2" or similar, or, if the plugin is
+  *               actually incompatible (not required) with this
+  *               one, the constant SQ_INCOMPATIBLE will be found
+  *               here), 'activate' - value is boolean: TRUE
+  *               indicates that the plugin must also be activated,
+  *               FALSE means that it only needs to be present,
+  *               but does not need to be activated.  Note that
+  *               the return value might be an empty array,
+  *               indicating that the plugin has no dependencies.
   *
   */
 function get_plugin_dependencies($plugin_name, $force_inclusion = FALSE, 
@@ -817,7 +819,7 @@ function get_plugin_dependencies($plugin_name, $force_inclusion = FALSE,
 
          // parse version into something we understand?
          //
-         if ($do_parse)
+         if ($do_parse && $plugin_requirements['version'] != SQ_INCOMPATIBLE)
          {
 
             // massage version number into something we understand
@@ -911,10 +913,12 @@ function get_plugin_dependencies($plugin_name, $force_inclusion = FALSE,
   *               corresponding values) will be available: 
   *               'version' - value is the minimum version 
   *               required for that plugin (in printable, non-
-  *               parsed format), 'activate' - value is boolean: 
-  *               TRUE indicates that the plugin must also be 
-  *               activated, FALSE means that it only needs to 
-  *               be present, but does not need to be activated.  
+  *               parsed format) or the constant SQ_INCOMPATIBLE,
+  *               which indicates that the plugin is actually
+  *               incompatible (not required), 'activate' - value
+  *               is boolean: TRUE indicates that the plugin must
+  *               also be activated, FALSE means that it only needs
+  *               to be present, but does not need to be activated.  
   *
   */
 function check_plugin_dependencies($plugin_name, $force_inclusion = FALSE)
@@ -960,6 +964,19 @@ function check_plugin_dependencies($plugin_name, $force_inclusion = FALSE)
             if (!check_sm_version($version[0], $version[1], $version[2]))
                $missing_or_bad[$depend_name] = $depend_requirements;
          }
+
+         continue;
+
+      }
+
+      // if the plugin is actually incompatible; check that it
+      // is not activated
+      //
+      if ($depend_requirements['version'] == SQ_INCOMPATIBLE)
+      {
+
+         if (is_plugin_enabled($depend_name))
+            $missing_or_bad[$depend_name] = $depend_requirements;
 
          continue;
 
