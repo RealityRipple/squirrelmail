@@ -200,25 +200,29 @@ TODO: write independent implementation of charset to utf7-imap conversion.
 ---------------
 6. Plural forms
 ---------------
-From v.1.5.1 SquirrelMail includes support of plural forms. It allows to use
-correct translation forms with numbers. For example. "We have %s squirrel on
-the roof." and "We have %s squirrels on the roof." can be written in one 
-function call without checking actual number for squirrels. Gettext functions
-also deal with non English languages that might use different word forms for
-two, five, ten or more units.
+From v.1.5.1 SquirrelMail includes support for plural forms. It allows the use
+of correct translation forms with numbers. For example. "We have %s squirrel
+on the roof." and "We have %s squirrels on the roof." can be written in one 
+function call without checking actual number of squirrels. The gettext
+functions also deal with non English languages that might use different word
+forms for two, five, ten or more units.
 
-Support is provided by ngettext functions that exist in php gettext extension 
-from php 4.2.0 and by ngettext function replacements from php-gettext classes 
-(http://savannah.nongnu.org/projects/php-gettext). In order to use it correctly
-when php gettext extension does not have ngettext support, SquirrelMail uses
-bindtextdomain and textdomain wrappers that load missing functions.
+Plural forms support is provided by ngettext functions that exist in the php
+gettext extension as of php 4.2.0 and by ngettext function replacements from
+the php-gettext classes (http://savannah.nongnu.org/projects/php-gettext).
+In order to provide identical functionality when the php gettext extension does
+not have ngettext support, SquirrelMail uses bindtextdomain and textdomain
+wrappers that load the missing functions.
 
-If plugins want to use ngettext functions without increasing php requirements
-to 4.2.0 with gettext support, they should require SquirrelMail 1.5.1, use 
-sq_bindtextdomain function instead of bindtextdomain and use sq_textdomain 
-function instead of textdomain function. If SquirrelMail wrapper functions 
-are used, there is no need to issue sq_bindtextdomain when plugins reverts to
-SquirrelMail domain.
+If plugin authors want to use ngettext functions without increasing php
+requirements to 4.2.0 with gettext support, they should require at least
+SquirrelMail 1.5.1, and use the sq_change_text_domain function instead of
+separate calls to bindtextdomain and textdomain. If sq_change_text_domain
+cannot be used, the sq_bindtextdomain function should be used instead of
+bindtextdomain and the sq_textdomain function should be used instead of the
+textdomain function. If these latter two SquirrelMail wrapper functions are
+used (but again, please use sq_change_text_domain), there is no need to issue
+a call to sq_bindtextdomain when a plugin reverts to the SquirrelMail domain.
 
 More information about ngettext and plural forms can be found at:
 http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
