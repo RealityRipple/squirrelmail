@@ -43,7 +43,8 @@ extract($t);
 
 if (!isset($bAlreadyExecuted)) {
     $bAlreadyExecuted = true;
-    ?><input type="hidden" name="current_page_number" value="<?php echo $page_number; ?>" /><?php
+    ?><input type="hidden" name="current_page_number" value="<?php echo $page_number; ?>" />
+      <input type="hidden" name="show_all" value="<?php echo $show_all; ?>" /><?php
 
     if ($javascript_on && $abook_compact_paginator) {
 ?>
