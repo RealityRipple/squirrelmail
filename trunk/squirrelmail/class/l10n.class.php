@@ -14,6 +14,7 @@
  * @subpackage i18n
  */
 
+//FIXME is SM_PATH ever not defined here?  defined() calls are CPU intensive enough that we should remove this if it is not really needed
 /** @ignore */
 if (! defined('SM_PATH')) define('SM_PATH','../');
 
