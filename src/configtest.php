@@ -490,10 +490,16 @@ if (isset($plugins[0])) {
         }
         else if (is_array($failed_dependencies)) {
             $missing_plugins = '';
+            $incompatible_plugins = '';
             foreach ($failed_dependencies as $depend_name => $depend_requirements) {
-                $missing_plugins .= ', ' . $depend_name . ' (version ' . $depend_requirements['version'] . ', ' . ($depend_requirements['activate'] ? 'must be activated' : 'need not be activated') . ')';
+                if ($depend_requirements['version'] == SQ_INCOMPATIBLE)
+                    $incompatible_plugins .= ', ' . $depend_name;
+                else
+                    $missing_plugins .= ', ' . $depend_name . ' (version ' . $depend_requirements['version'] . ', ' . ($depend_requirements['activate'] ? 'must be activated' : 'need not be activated') . ')';
             }
-            do_err($name . ' is missing some dependencies: ' . trim($missing_plugins, ', '), FALSE);
+            $error_string = (!empty($incompatible_plugins) ? $name . ' cannot be activated at the same time as the following plugins: ' . trim($incompatible_plugins, ', ') : '')
+                          . (!empty($missing_plugins) ? (!empty($incompatible_plugins) ? '.  ' . $name . ' is also ' : $name . ' is ') . 'missing some dependencies: ' . trim($missing_plugins, ', ') : '');
+            do_err($error_string, FALSE);
         }
 
     }
