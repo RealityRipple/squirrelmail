@@ -195,6 +195,11 @@ function buildMailboxTree ($box, $settings, $icon_theme_path, $parent_node=-1) {
             }
         }
 
+        // Add any extra output that may have been added by plugins, etc
+        //
+        if (!empty($box['ExtraOutput']))
+            $end .= $box['ExtraOutput'];
+
         $span = '';
         $spanend = '';
         if ($settings['useSpecialFolderColor'] && $box['IsSpecial']) {
@@ -205,11 +210,6 @@ function buildMailboxTree ($box, $settings, $icon_theme_path, $parent_node=-1) {
             $spanend = '</span>';
         }               
         
-        /**
-         * NOTE: Plugins would horribly break this advanced tree, so we are
-         *       going to skip that part altogether.
-         */     
-
         $name = str_replace(
                     array(' ','<','>'),
                     array('&nbsp;','&lt;','&gt;'),

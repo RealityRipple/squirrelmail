@@ -141,6 +141,7 @@ dTree.prototype.node = function(node, nodeId) {
 	else if ((!this.config.folderLinks || !node.url) && node._hc && node.pid != this.root.id)
 		str += '<a href="javascript: ' + this.obj + '.o(' + nodeId + ');" class="node">';
 	str += node.name;
+//FIXME: if node.name contains a hyperlink, either the plugin that put it there should be responsible for adding the </a> for the main folder link or the line below should be changed to detect inner links and close the main one before any; for now, it seems to work anyway although I think the resultant HTML is invalid (hyperlink within a hyperlink and extra, out of place closing </a> at the end)
 	if (node.url || ((!this.config.folderLinks || !node.url) && node._hc)) str += '</a>';
 	str += '</div>';
 	if (node._hc) {

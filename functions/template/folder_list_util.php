@@ -47,6 +47,7 @@ function getMessageCount ($boxes, $type='total') {
 /**
  * Recursively iterates a mailboxes object to build a data structure that is
  * easy for template authors to work with.
+FIXME: well.... why not document that data structure here?
  * 
  * @param object $boxes Object of the class mailboxes
  * @author Steve Brown
@@ -115,5 +116,16 @@ function getBoxStructure ($boxes) {
         $box['ChildBoxes'][] = getBoxStructure($boxes->mbxs[$i]);
     }
     
+    // if plugins want to add some text or link after the folder name in
+    // the folder list, they should add to the "ExtraOutput" array element
+    // in $box (remember, it's passed through the hook by reference) -- making
+    // sure to play nice with other plugins by *concatenating* to "ExtraOutput"
+    // and NOT by overwriting it
+    //
+    // known users of this hook:
+    // empty_folders
+    //
+    do_hook('left_main_after_each_folder', $box);
+
     return $box;
 }
