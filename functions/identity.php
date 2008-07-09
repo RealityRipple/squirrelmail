@@ -225,6 +225,9 @@ function empty_identity($ident) {
  * @since 1.5.2
  */
 function build_from_header($identity = 0) {
+
+    global $domain;
+
     $idents = get_identities();
 
     if (! isset($idents[$identity]) ) $identity = 0;
@@ -234,6 +237,8 @@ function build_from_header($identity = 0) {
     }
 
     $from_mail = $idents[$identity]['email_address'];
+    if (strpos($from_mail, '@') === FALSE)
+        $from_mail .= '@' . $domain;
     
     if ( isset($from_name) ) {
         $from_name_encoded = encodeHeader($from_name);
