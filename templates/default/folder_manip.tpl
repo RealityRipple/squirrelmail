@@ -211,8 +211,8 @@ extract($t);
         <?php
     }
    ?>
+<?php /* Known plugins using this output point: empty_folders */ if (!empty($plugin_output['folders_bottom'])) echo $plugin_output['folders_bottom']; ?>
   </td>
  </tr>
 </table>
-<?php /* FIXME: no hooks in templates!! */ global $null; do_hook('folders_bottom', $null);  ?>
 </div>
