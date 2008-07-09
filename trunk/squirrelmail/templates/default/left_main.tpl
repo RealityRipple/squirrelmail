@@ -209,6 +209,11 @@ function buildMailboxTree ($box, $settings, $icon_theme_path, $indent_factor=0) 
         }
     }
 
+    // Add any extra output that may have been added by plugins, etc
+    //
+    if (!empty($box['ExtraOutput']))
+        $end .= $box['ExtraOutput'];
+
     $span = '';
     $spanend = '';
     if ($settings['useSpecialFolderColor'] && $box['IsSpecial']) {
@@ -218,22 +223,6 @@ function buildMailboxTree ($box, $settings, $icon_theme_path, $indent_factor=0) 
         $span = '<span class="leftnoselect">';
         $spanend = '</span>';
     }
-
-/********
- * Pulling imapConnection due to segfaults that cannot be tracked down.  Best
- * we can determine, it's some combination of this var and >= 4 plugins enabled.
- * No further clue from anyone.
- ********
- * Update: syntax of this hook call changed a bit, so if the error is so anomalous,
- * it might be worth trying this again to see if it is still segfaulting
- ********
-    
-    // let plugins fiddle with end of line
-// FIXME: no hooks in templates! Although note that I'm not sure we can avoid it here because the context of which folder we are displaying is important to the hook, unless we preemptively iterate through all folders and collect the output from the hook call for that and give that to the template.... seems like overkill; I say this hook remains
-    $end .= concat_hook_function('left_main_after_each_folder',
-            $temp=array(isset($numMessages) ? &$numMessages : '',
-            &$box['MailboxFullName'], &$settings['imapConnection']));
-*/
 
     $end .= '</span>';
 
