@@ -23,8 +23,11 @@
  * @since 1.5.2
  */
 function getMessageCount ($boxes, $type='total') {
+
+    global $trash_folder;
+
     // The Trash folder isn't counted...
-    if ($boxes->mailboxname_full == $GLOBALS['trash_folder'])
+    if ($boxes->mailboxname_full == $trash_folder)
         return 0;
         
     $count = 0;
