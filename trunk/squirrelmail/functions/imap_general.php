@@ -60,6 +60,7 @@ function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$respon
         $message = $message[$tag];
         $response = $response[$tag];
         return $read[$tag];
+//FIXME: obey $handle_errors below!
     } else {
         global $squirrelmail_language, $color;
         set_up_language($squirrelmail_language);
