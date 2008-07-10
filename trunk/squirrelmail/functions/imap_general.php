@@ -113,6 +113,7 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response,
         } else {
             return $read[$tag];
         }
+//FIXME: obey $handle_errors below!
     } else {
         global $squirrelmail_language, $color;
         set_up_language($squirrelmail_language);
