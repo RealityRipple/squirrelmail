@@ -86,12 +86,24 @@ extract($t);
             switch ($widget_attrs['type']) {
             case 'submit':
                 if ($widget_name != 'moveButton' && $widget_name != 'copyButton' && $widget_name != 'delete' && $widget_name != 'undeleteButton') { // add these later in another table cell
-                    echo '<input type="submit" name="' . $widget_name . '" value="' . $widget_attrs['value'] . '" class="message_control_button" />&nbsp;';
+                    echo '<input type="submit" name="' . $widget_name . '" value="' . $widget_attrs['value'] . '" class="message_control_button"';
+                    if (!empty($widget_attrs['extra_attrs'])) {
+                        foreach ($widget_attrs['extra_attrs'] as $attr => $val) {
+                            echo ' ' . $attr . '="' . $val . '"';
+                        }
+                    }
+                    echo ' />&nbsp;';
                 }
                 break;
             case 'checkbox':
                 if ($widget_name != 'bypass_trash') {
-                    echo '<input type="checkbox" name="' . $widget_name . '" id="' . $widget_name . '" /><label for="' . $widget_name . '">' . $widget_attrs['value'] . '</label>&nbsp;';
+                    echo '<input type="checkbox" name="' . $widget_name . '" id="' . $widget_name . '"';
+                    if (!empty($widget_attrs['extra_attrs'])) {
+                        foreach ($widget_attrs['extra_attrs'] as $attr => $val) {
+                            echo ' ' . $attr . '="' . $val . '"';
+                        }
+                    }
+                    echo ' /><label for="' . $widget_name . '">' . $widget_attrs['value'] . '</label>&nbsp;';
                 }
                 break;
             case 'hidden':
