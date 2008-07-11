@@ -6,7 +6,7 @@
   * This file contains the entry point to the "SquirrelMail API" -- the 
   * remote procedure call request receiver.
   * 
-  * @copyright &copy; 1999-2007 The SquirrelMail Project Team
+  * @copyright &copy; 1999-2008 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
   * @version $Id$
   * @package squirrelmail
@@ -55,13 +55,31 @@ require('../include/init.php');
 
 
 
+//FIXME: do we need to put this list somewhere else?
+//FIXME: do we want to use constants instead?  probably not a bad idea, although plugins probably won't, so we still want to try to keep track of the plugin error codes too if possible (new plugin website should help)
+/**
+  * Known core error codes:
+  *
+  * 1    - No RPC action was given in request (please use "rpc_action")
+  * 2    - RPC action was not understood (perhaps a needed plugin is
+  *        not installed and activated?)
+  *
+  * Known plugin error codes:
+  *
+  * 500  - Empty Folders plugin efPurgeTrash action failed
+  * 501  - Empty Folders plugin efPurgeAll action failed
+  * 502  - Empty Folders plugin efDeleteAll action failed
+  *
+  */
+
+
+
 /**
   * Get RPC Action (can be in either GET or POST)
   *
   */
 if (!sqGetGlobalVar('rpc_action', $rpc_action, SQ_FORM)) {
-//FIXME: establish error codes (using 99 in the interim)
-    sm_rpc_return_error(99, _("No RPC action given"));
+    sm_rpc_return_error(1, _("No RPC action given"));
 }
 
 
@@ -95,6 +113,9 @@ $oTemplate->header('Cache-Control: no-cache');
   * Developer note: the $rpc_action parameter is passed 
   * in an array in case we can think of more parameters 
   * to add in the future.
+  *
+  * Known users of this hook:
+  *    empty_folders
   *
   */
 $temp = array(&$rpc_action);
@@ -157,7 +178,7 @@ if (!$handled_by_plugin) switch (strtolower($rpc_action)) {
       *
       */
     default:
-        sm_rpc_return_error(99, _("RPC action not understood"));
+        sm_rpc_return_error(2, _("RPC action not understood"));
         break;
 
 }
