@@ -1490,7 +1490,14 @@ function handleMessageListForm($imapConnection, &$aMailbox, $sButton='',
             sqimap_run_command($imapConnection,'CLOSE',false,$result,$message);
             $aMailbox = sqm_api_mailbox_select($imapConnection,$iAccount, $aMailbox['NAME'],array(),array());
         } else {
-            if ($sButton) {
+            // this is the same hook as above, but here it is called in the
+            // context of not having had any messages selected and if any
+            // plugin handles the situation, it should return TRUE so we
+            // know this was not an erroneous user action
+            //
+            global $null;
+            if (!boolean_hook_function('mailbox_display_button_action', $null, 1)
+             && $sButton) {
                 $sError = _("No messages were selected.");
             }
         }
