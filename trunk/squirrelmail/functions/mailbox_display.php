@@ -1381,7 +1381,7 @@ function handleMessageListForm($imapConnection, &$aMailbox, $sButton='',
             break;
           default:
              // Hook for plugin buttons
-             $temp = array(&$sButton, &$aUid);
+             $temp = array(&$sButton, &$aMailbox, $iAccount, $aMailbox['NAME'], &$aUid);
              do_hook('mailbox_display_button_action', $temp);
              break;
         }
@@ -1497,7 +1497,7 @@ function handleMessageListForm($imapConnection, &$aMailbox, $sButton='',
             // know this was not an erroneous user action
             //
             global $null;
-            $temp = array(&$sButton, $null);
+            $temp = array(&$sButton, &$aMailbox, $iAccount, $aMailbox['NAME'], $null);
             if (!boolean_hook_function('mailbox_display_button_action', $temp, 1)
              && $sButton) {
                 $sError = _("No messages were selected.");
