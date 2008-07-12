@@ -257,6 +257,8 @@ Version 1.5.2 - SVN
   - Allow address lookup by fields other than nickname/alias
   - Implement preference override hooks for database prefs backend that
     have long been in the file-based prefs backend
+  - Removed the Address Take (abook_take) plugin; please see the Add Address
+    (third party) plugin.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
