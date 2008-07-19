@@ -372,6 +372,7 @@ close FILE;
 $useSendmail = 'false'                  if ( lc($useSendmail) ne 'true' );
 $sendmail_path = "/usr/sbin/sendmail"   if ( !$sendmail_path );
 $pop_before_smtp = 'false'              if ( !$pop_before_smtp );
+$pop_before_smtp_host = ''              if ( !$pop_before_smtp_host );
 $default_unseen_notify = 2              if ( !$default_unseen_notify );
 $default_unseen_type = 1                if ( !$default_unseen_type );
 $config_use_color = 0                   if ( !$config_use_color );
@@ -1333,13 +1334,38 @@ sub command18a {
     $YesNo = 'n';
     $YesNo = 'y' if ( lc($pop_before_smtp) eq 'true' );
 
-    print "Use pop before SMTP (y/n) [$WHT$YesNo$NRM]: $WHT";
+    print "Use POP before SMTP (y/n) [$WHT$YesNo$NRM]: $WHT";
 
     $new_pop_before_smtp = <STDIN>;
     $new_pop_before_smtp =~ tr/yn//cd;
-    return 'true'  if ( $new_pop_before_smtp eq "y" );
-    return 'false'  if ( $new_pop_before_smtp eq "n" );
-    return $pop_before_smtp;
+    if ( $new_pop_before_smtp eq "y" ) {
+        $new_pop_before_smtp = "true";
+    } elsif ( $new_pop_before_smtp eq "n" ) {
+        $new_pop_before_smtp = "false";
+    } else {
+        $new_pop_before_smtp = $pop_before_smtp;
+    }
+
+    # if using POP before SMTP, allow setting of custom POP server address
+    if ($new_pop_before_smtp eq "true") {
+        print "$NRM\nIf the address of the POP server is not the same as\n";
+        print "your SMTP server, you may specify it here. Leave blank (to\n";
+        print "clear this, enter only spaces) to use the same address as\n";
+        print "your SMTP server.\n";
+        print "POP before SMTP server address [$WHT$pop_before_smtp_host$NRM]: $WHT";
+
+        $new_pop_before_smtp_host = <STDIN>;
+        if ( $new_pop_before_smtp_host eq "\n" ) {
+            $new_pop_before_smtp_host = $pop_before_smtp_host;
+        } elsif ($new_pop_before_smtp_host =~ /^\s+$/) {
+            $new_pop_before_smtp_host = '';
+        } else {
+            $new_pop_before_smtp_host =~ s/[\r|\n]//g;
+        }
+        $pop_before_smtp_host = $new_pop_before_smtp_host;
+    }
+
+    return $new_pop_before_smtp;
 }
 
 # imap_server_type
@@ -4569,6 +4595,8 @@ sub save_data {
 #        print CF "\$use_authenticated_smtp = $use_authenticated_smtp;\n";
         # boolean
         print CF "\$pop_before_smtp        = $pop_before_smtp;\n";
+        # string
+        print CF "\$pop_before_smtp_host   = '$pop_before_smtp_host';\n";
         # string
         print CF "\$imap_server_type       = '$imap_server_type';\n";
         # boolean

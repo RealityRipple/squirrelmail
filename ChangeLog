@@ -259,6 +259,8 @@ Version 1.5.2 - SVN
     have long been in the file-based prefs backend
   - Removed the Address Take (abook_take) plugin; please see the Add Address
     (third party) plugin.
+  - Allow a different server address for the POP server to be configured when
+    using POP before SMTP.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
