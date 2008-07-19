@@ -66,9 +66,9 @@ require('../include/init.php');
   *
   * Known plugin error codes:
   *
-  * 500  - Empty Folders plugin efPurgeTrash action failed
-  * 501  - Empty Folders plugin efPurgeAll action failed
-  * 502  - Empty Folders plugin efDeleteAll action failed
+  * 500  - Empty Folders plugin empty_folders_purge_trash action failed
+  * 501  - Empty Folders plugin empty_folders_purge_all action failed
+  * 502  - Empty Folders plugin empty_folders_delete_all action failed
   *
   */
 
