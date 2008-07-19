@@ -62,11 +62,11 @@ class Deliver_SMTP extends Deliver {
         }
     }
 
-    function initStream($message, $domain, $length=0, $host='', $port='', $user='', $pass='', $authpop=false) {
+    function initStream($message, $domain, $length=0, $host='', $port='', $user='', $pass='', $authpop=false, $pop_host='') {
         global $use_smtp_tls,$smtp_auth_mech;
 
         if ($authpop) {
-            $this->authPop($host, '', $user, $pass);
+            $this->authPop($pop_host, '', $user, $pass);
         }
 
         $rfc822_header = $message->rfc822_header;

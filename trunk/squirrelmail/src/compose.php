@@ -1577,12 +1577,13 @@ function deliverMessage(&$composeMessage, $draft=false) {
     if (!$useSendmail && !$draft) {
         require_once(SM_PATH . 'class/deliver/Deliver_SMTP.class.php');
         $deliver = new Deliver_SMTP();
-        global $smtpServerAddress, $smtpPort, $pop_before_smtp;
+        global $smtpServerAddress, $smtpPort, $pop_before_smtp, $pop_before_smtp_host;
 
         $authPop = (isset($pop_before_smtp) && $pop_before_smtp) ? true : false;
+        if (empty($pop_before_smtp_host)) $pop_before_smtp_host = $smtpServerAddress;
         get_smtp_user($user, $pass);
         $stream = $deliver->initStream($composeMessage,$domain,0,
-                $smtpServerAddress, $smtpPort, $user, $pass, $authPop);
+                $smtpServerAddress, $smtpPort, $user, $pass, $authPop, $pop_before_smtp_host);
     } elseif (!$draft) {
         require_once(SM_PATH . 'class/deliver/Deliver_SendMail.class.php');
         global $sendmail_path, $sendmail_args;
