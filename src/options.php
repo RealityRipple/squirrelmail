@@ -249,6 +249,7 @@ if ($optmode == SMOPT_MODE_SUBMIT) {
 
 if ($optmode == SMOPT_MODE_SUBMIT) {
     $optpage = SMOPT_PAGE_MAIN;
+    $optpage_title = _("Options");
 }
 
 /***************************************************************/
