@@ -69,6 +69,8 @@ require('../include/init.php');
   * 500  - Empty Folders plugin empty_folders_purge_trash action failed
   * 501  - Empty Folders plugin empty_folders_purge_all action failed
   * 502  - Empty Folders plugin empty_folders_delete_all action failed
+  * 503  - Mark Read plugin mark_read_read_all action failed
+  * 504  - Mark Read plugin mark_read_unread_all action failed
   *
   */
 
@@ -116,6 +118,7 @@ $oTemplate->header('Cache-Control: no-cache');
   *
   * Known users of this hook:
   *    empty_folders
+  *    mark_read
   *
   */
 $temp = array(&$rpc_action);
