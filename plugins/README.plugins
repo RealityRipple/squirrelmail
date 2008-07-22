@@ -1,7 +1,11 @@
 Plugins
 =======
 
-To understand more about plugins, read doc/plugin.txt
+To understand more about plugins, read:
+
+  http://squirrelmail.org/docs/admin/admin-7.html#ss7.1
+  http://squirrelmail.org/docs/devel/devel-4.html
+
 
 For the impatient, here is an extremely brief overview of how to
 install plugins.
