@@ -551,25 +551,31 @@ function check_plugin_version($plugin_name,
   * 
   * @since 1.5.2
   *
-  * @param string plugin_name   Name of the plugin to
-  *                             check; must precisely
-  *                             match the plugin
-  *                             directory name
-  * @param string requirement   The desired requirement name
-  * @param bool force_inclusion Try to get requirement info
-  *                             for plugins not activated?
-  *                             (default FALSE)
+  * @param string  $plugin_name         Name of the plugin to
+  *                                     check; must precisely
+  *                                     match the plugin
+  *                                     directory name
+  * @param string  $requirement         The desired requirement name
+  * @param boolean $ignore_incompatible When TRUE, version incompatibility
+  *                                     information will NOT be returned
+  *                                     if found; when FALSE, it will be
+  *                                     (OPTIONAL; default TRUE)
+  * @param boolean $force_inclusion     Try to get requirement info
+  *                                     for plugins not activated?
+  *                                     (OPTIONAL; default FALSE)
   *
   * @return mixed NULL is returned if the plugin could not be 
   *               found or does not include the given requirement,
   *               the constant SQ_INCOMPATIBLE is returned if the
   *               given plugin is entirely incompatible with the
-  *               current SquirrelMail version, otherwise the 
+  *               current SquirrelMail version (unless
+  *               $ignore_incompatible is TRUE), otherwise the 
   *               value of the requirement is returned, whatever 
   *               that may be (varies per requirement type).
   *
   */
 function get_plugin_requirement($plugin_name, $requirement, 
+                                $ignore_incompatible = TRUE,
                                 $force_inclusion = FALSE)
 {
 
@@ -667,10 +673,19 @@ function get_plugin_requirement($plugin_name, $requirement,
          $b = $version_array[1];
          $c = $version_array[2];
 
+         // complicated way to say we are interested in these overrides
+         // if the version is applicable to us and if the overrides include
+         // the requirement we are looking for, or if the plugin is not
+         // compatible with this version of SquirrelMail (unless we are
+         // told to ignore such)
+         // 
          if (check_sm_version($a, $b, $c) 
-          && ( !empty($requirement_overrides[SQ_INCOMPATIBLE]) 
-          || (isset($requirement_overrides[$requirement])
-          && !is_null($requirement_overrides[$requirement]))))
+          && ((!$ignore_incompatible
+            && (!empty($requirement_overrides[SQ_INCOMPATIBLE]) 
+             || $requirement_overrides === SQ_INCOMPATIBLE))
+           || (is_array($requirement_overrides)
+            && isset($requirement_overrides[$requirement])
+            && !is_null($requirement_overrides[$requirement]))))
          {
 
             if (empty($highest_version_array)
@@ -682,7 +697,8 @@ function get_plugin_requirement($plugin_name, $requirement,
              && $highest_version_array[2] < $c))
             {
                $highest_version_array = $version_array;
-               if (!empty($requirement_overrides[SQ_INCOMPATIBLE]))
+               if (!empty($requirement_overrides[SQ_INCOMPATIBLE])
+                || $requirement_overrides === SQ_INCOMPATIBLE)
                   $requirement_value_override = SQ_INCOMPATIBLE;
                else
                   $requirement_value_override = $requirement_overrides[$requirement];
@@ -776,6 +792,7 @@ function get_plugin_dependencies($plugin_name, $force_inclusion = FALSE,
 
    $plugin_dependencies = get_plugin_requirement($plugin_name, 
                                                  'required_plugins', 
+                                                 FALSE,
                                                  $force_inclusion);
 
    // the plugin is simply incompatible, no need to continue here
