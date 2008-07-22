@@ -34,8 +34,9 @@ install plugins.
         $ ./conf.pl
 
   6.  Choose option 8 and proceed to add the new plugin following
-      the instructions there.  Save and exit, and your plugin should
-      be in place.
+      the instructions there (move the desired plugin from the "Available
+      Plugins" category to the "Installed Plugins" category by entering
+      its number).  Save and exit, and your plugin should be in place.
 
 The following plugins are "core" plugins; that is, plugins shipped with
 the SquirrelMail distribution.  Unless you are a developer and know what
