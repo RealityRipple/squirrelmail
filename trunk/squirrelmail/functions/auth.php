@@ -71,19 +71,26 @@ function sqauth_read_password() {
 /**
  * Saves or updates user password information
  *
- * This function is used to update password information that SquirrelMail
- * stores during existing web session. It does not modify password stored
- * in authentication system used by IMAP server.
+ * This function is used to update the password information that
+ * SquirrelMail stores in the existing PHP session. It does NOT 
+ * modify the password stored in the authentication system used
+ * by the IMAP server.
  *
- * Function must be called before any html output started. Direct access
- * to password information is deprecated. Saved password information is
- * available only to next executed SquirrelMail script. If your script needs
- * access to saved password after sqauth_save_password() call, use returned
- * OTP encrypted key.
+ * This function must be called before any html output is started.
+ * Direct access to password information is deprecated. The saved
+ * password information is available only to the SquirrelMail script
+ * that is called/executed AFTER the current one. If your script
+ * needs access to the saved password after a sqauth_save_password()
+ * call, use the returned OTP encrypted key.
+ *
  * @param string $pass password
- * @return string password encrypted with OTP. In case script wants to access
- *  password information before reloading page.
+ *
+ * @return string Password encrypted with OTP. In case the script
+ *                wants to access the password information before
+ *                the end of its execution.
+ *
  * @since 1.5.1
+ *
  */
 function sqauth_save_password($pass) {
     sqgetGlobalVar('base_uri',    $base_uri,   SQ_SESSION);
