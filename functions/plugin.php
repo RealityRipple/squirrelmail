@@ -58,7 +58,7 @@ function use_plugin ($name) {
  * independent of) the return value for this hook.
  *
  * @param string $name Name of hook being executed
- * @param mixed  $args A single value or an array of arguments 
+ * @param mixed &$args A single value or an array of arguments 
  *                     that are to be passed to all plugins 
  *                     operating off the hook being called.  
  *                     Note that this argument is passed by 
@@ -120,7 +120,7 @@ function do_hook($name, &$args) {
  * independent of) the return value for this hook.
  *
  * @param string  $name Name of hook being executed
- * @param mixed   $args A single value or an array of arguments 
+ * @param mixed &$args A single value or an array of arguments 
  *                      that are to be passed to all plugins 
  *                      operating off the hook being called.  
  *                      Note that this argument is passed by 
@@ -187,7 +187,7 @@ function concat_hook_function($name, &$args, $force_array=FALSE) {
  * independent of) the return value for this hook.
  *
  * @param string  $name     The hook name
- * @param mixed   $args     A single value or an array of arguments 
+ * @param mixed   &$args    A single value or an array of arguments 
  *                          that are to be passed to all plugins 
  *                          operating off the hook being called.  
  *                          Note that this argument is passed by 
