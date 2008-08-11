@@ -509,7 +509,7 @@ class Rfc822Header {
             $sComment = trim(implode(' ',$aComment));
             $sPersonal .= $sComment;
         }
-        $oAddr =& new AddressStructure();
+        $oAddr = new AddressStructure();
         if ($sPersonal && substr($sPersonal,0,2) == '=?') {
             $oAddr->personal = encodeHeader($sPersonal);
         } else {
