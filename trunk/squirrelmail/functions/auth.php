@@ -138,6 +138,7 @@ function cram_md5_response ($username,$password,$challenge) {
  */
 function digest_md5_response ($username,$password,$challenge,$service,$host,$authz='') {
     $result=digest_md5_parse_challenge($challenge);
+    //FIXME we should check that $result contains the expected values that we use below
 
     // verify server supports qop=auth
     // $qop = explode(",",$result['qop']);
@@ -199,7 +200,8 @@ function digest_md5_response ($username,$password,$challenge,$service,$host,$aut
  */
 function digest_md5_parse_challenge($challenge) {
     $challenge=base64_decode($challenge);
-    while (isset($challenge) && $challenge !== FALSE) {
+    $parsed = array();
+    while (!empty($challenge)) {
         if ($challenge{0} == ',') { // First char is a comma, must not be 1st time through loop
             $challenge=substr($challenge,1);
         }
