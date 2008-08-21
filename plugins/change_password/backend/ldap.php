@@ -554,6 +554,7 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
             if ($forced_salt!='') {
                 $salt=$forced_salt;
             } else {
+                sq_mt_randomize();
                 $salt = mhash_keygen_s2k( MHASH_MD5, $pass, substr( pack( "h*", md5( mt_rand() ) ), 0, 8 ), 4 );
             }
             $ret = "{SMD5}".base64_encode( mhash( MHASH_MD5, $pass.$salt ).$salt );
@@ -594,6 +595,7 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
             if ($forced_salt!='') {
                 $salt=$forced_salt;
             } else {
+                sq_mt_randomize();
                 $salt = mhash_keygen_s2k( MHASH_SHA1, $pass, substr( pack( "h*", md5( mt_rand() ) ), 0, 8 ), 4 );
             }
             $ret = "{SSHA}".base64_encode( mhash( MHASH_SHA1, $pass.$salt ).$salt );
