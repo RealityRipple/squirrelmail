@@ -12,17 +12,13 @@
  * @subpackage themes
  */
 
-/**
- * Load up the usual suspects.. */
-require_once(SM_PATH . 'functions/strings.php');
-
-   // Note:  The text distance is actually pre-squared
-   // Background range is from 24-64, all three colors are the same
-   // Text range is from 196 to 255
-   $BackgroundTargetDistance = 12;
-   $BackgroundAdjust = 1;
-   $TextTargetDistance = 65536;
-   $TextAdjust = 0.95;
+// Note:  The text distance is actually pre-squared
+// Background range is from 24-64, all three colors are the same
+// Text range is from 196 to 255
+$BackgroundTargetDistance = 12;
+$BackgroundAdjust = 1;
+$TextTargetDistance = 65536;
+$TextAdjust = 0.95;
 
 function IsUnique($Distance, $r, $g, $b, $usedArray)
 {
@@ -73,9 +69,6 @@ setTimeout('DarknessTremble()', 10000);
 global $squirrelmail_plugin_hooks;
 $squirrelmail_plugin_hooks['generic_header']['theme_darkness'] =
     'Darkness_HeaderPlugin';
-
-/** seed the random number generator **/
-sq_mt_randomize();
 
 $color[3] = '#000000';
 $color[4] = '#000000';

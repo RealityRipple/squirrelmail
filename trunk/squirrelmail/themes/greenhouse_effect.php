@@ -19,12 +19,6 @@ if (isset($_SERVER['SCRIPT_FILENAME']) && $_SERVER['SCRIPT_FILENAME'] == __FILE_
     die();
 }
 
-/** load sq_mt_randomize() */
-include_once(SM_PATH . 'functions/strings.php');
-
-/** seed the random number generator **/
-sq_mt_randomize();
-
 for ($i = 0; $i <= 16; $i++) {
     /* background/foreground toggle **/
     if ($i == 0 || $i == 3 || $i == 4 || $i == 5

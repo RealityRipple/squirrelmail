@@ -550,11 +550,9 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
     case 'smd5':
         // minimal requirement = mhash extension with md5 support and php 4.0.4.
         if( function_exists( 'mhash' ) && function_exists( 'mhash_keygen_s2k' ) && defined('MHASH_MD5')) {
-            sq_mt_seed( (double) microtime() * 1000000 );
             if ($forced_salt!='') {
                 $salt=$forced_salt;
             } else {
-                sq_mt_randomize();
                 $salt = mhash_keygen_s2k( MHASH_MD5, $pass, substr( pack( "h*", md5( mt_rand() ) ), 0, 8 ), 4 );
             }
             $ret = "{SMD5}".base64_encode( mhash( MHASH_MD5, $pass.$salt ).$salt );
@@ -591,11 +589,9 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
     case 'ssha':
         // minimal requirement = mhash extension and php 4.0.4
         if( function_exists( 'mhash' ) && function_exists( 'mhash_keygen_s2k' ) && defined('MHASH_SHA1')) {
-            sq_mt_seed( (double) microtime() * 1000000 );
             if ($forced_salt!='') {
                 $salt=$forced_salt;
             } else {
-                sq_mt_randomize();
                 $salt = mhash_keygen_s2k( MHASH_SHA1, $pass, substr( pack( "h*", md5( mt_rand() ) ), 0, 8 ), 4 );
             }
             $ret = "{SSHA}".base64_encode( mhash( MHASH_SHA1, $pass.$salt ).$salt );

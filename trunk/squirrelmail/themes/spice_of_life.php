@@ -19,12 +19,6 @@ if (isset($_SERVER['SCRIPT_FILENAME']) && $_SERVER['SCRIPT_FILENAME'] == __FILE_
     die();
 }
 
-/** load sq_mt_randomize() */
-include_once(SM_PATH . 'functions/strings.php');
-
-/** seed the random number generator **/
-sq_mt_randomize();
-
 /** light(1) or dark(0) background? **/
 $bg = mt_rand(0,1);
 

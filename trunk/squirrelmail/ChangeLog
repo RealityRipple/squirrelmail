@@ -261,6 +261,7 @@ Version 1.5.2 - SVN
     (third party) plugin.
   - Allow a different server address for the POP server to be configured when
     using POP before SMTP.
+  - Seed random number generator in one place during script init.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
