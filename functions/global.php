@@ -544,13 +544,9 @@ function sqsetcookie($sName,$sValue='deleted',$iExpire=0,$sPath="",$sDomain="",$
  * This code is borrowed from Gallery, session.php version 1.53.2.1
  */
 if (!function_exists('session_regenerate_id')) {
-    function make_seed() {
-        list($usec, $sec) = explode(' ', microtime());
-        return (float)$sec + ((float)$usec * 100000);
-    }
 
     function php_combined_lcg() {
-        mt_srand(make_seed());
+        sq_mt_randomize();
         $tv = gettimeofday();
         $lcg['s1'] = $tv['sec'] ^ (~$tv['usec']);
         $lcg['s2'] = mt_rand();
