@@ -20,10 +20,6 @@ if (isset($_SERVER['SCRIPT_FILENAME']) && $_SERVER['SCRIPT_FILENAME'] == __FILE_
 
 /** load required functions */
 include_once(SM_PATH . 'functions/global.php');
-include_once(SM_PATH . 'functions/strings.php');
-
-/** Initialize the random number generator */
-sq_mt_randomize();
 
 global $theme;
 

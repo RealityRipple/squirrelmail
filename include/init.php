@@ -87,6 +87,35 @@ if (!(bool)ini_get('session.use_cookies') ||
     ini_set('session.use_cookies','1');
 }
 
+/**
+ * Initialize seed of random number generator.
+ * We use a number of things to randomize input: current time in ms,
+ * info about the remote client, info about the current process, the
+ * randomness of uniqid and stat of the current file.
+ *
+ * We seed this here only once per init, not only to save cycles
+ * but also to make the result of mt_rand more random (it now also
+ * depends on the number of times mt_rand was called before in this
+ * execution.
+ */
+$seed = microtime() . $_SERVER['REMOTE_PORT'] . $_SERVER['REMOTE_ADDR'] . getmypid();
+
+if (function_exists('getrusage')) {
+    /* Avoid warnings with Win32 */
+    $dat = @getrusage();
+    if (isset($dat) && is_array($dat)) { $seed .= implode('', $dat); }
+}
+
+if(!empty($_SERVER['UNIQUE_ID'])) {
+    $seed .= $_SERVER['UNIQUE_ID'];
+}
+
+$seed .= uniqid(mt_rand(),TRUE);
+$seed .= implode( '', stat( __FILE__) );
+
+/** PHP 4.2 and up don't require seeding, but their used seed algorithm
+ *  is of questionable quality, so we keep doing it ourselves. */
+mt_srand(hexdec(md5($seed)));
 
 /**
  * calculate SM_PATH and calculate the base_uri

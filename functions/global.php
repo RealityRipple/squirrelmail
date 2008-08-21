@@ -546,7 +546,6 @@ function sqsetcookie($sName,$sValue='deleted',$iExpire=0,$sPath="",$sDomain="",$
 if (!function_exists('session_regenerate_id')) {
 
     function php_combined_lcg() {
-        sq_mt_randomize();
         $tv = gettimeofday();
         $lcg['s1'] = $tv['sec'] ^ (~$tv['usec']);
         $lcg['s2'] = mt_rand();

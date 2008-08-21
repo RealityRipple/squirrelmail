@@ -635,83 +635,6 @@ function OneTimePadDecrypt ($string, $epad) {
     return $decrypted;
 }
 
-
-/**
- * Randomizes the mt_rand() function.
- *
- * Toss this in strings or integers and it will seed the generator
- * appropriately. With strings, it is better to get them long.
- * Use md5() to lengthen smaller strings.
- *
- * @param mixed $val a value to seed the random number generator. mixed = integer or string.
- * @return void
- * @since 1.0
- */
-function sq_mt_seed($Val) {
-    /* if mt_getrandmax() does not return a 2^n - 1 number,
-       this might not work well.  This uses $Max as a bitmask. */
-    $Max = mt_getrandmax();
-
-    if (! is_int($Val)) {
-            $Val = crc32($Val);
-    }
-
-    if ($Val < 0) {
-        $Val *= -1;
-    }
-
-    if ($Val == 0) {
-        return;
-    }
-
-    mt_srand(($Val ^ mt_rand(0, $Max)) & $Max);
-}
-
-
-/**
- * Init random number generator
- *
- * This function initializes the random number generator fairly well.
- * It also only initializes it once, so you don't accidentally get
- * the same 'random' numbers twice in one session.
- *
- * @return void
- * @since 1.0
- */
-function sq_mt_randomize() {
-    static $randomized;
-
-    if ($randomized) {
-        return;
-    }
-
-    /* Global. */
-    sqgetGlobalVar('REMOTE_PORT', $remote_port, SQ_SERVER);
-    sqgetGlobalVar('REMOTE_ADDR', $remote_addr, SQ_SERVER);
-    sq_mt_seed((int)((double) microtime() * 1000000));
-    sq_mt_seed(md5($remote_port . $remote_addr . getmypid()));
-
-    /* getrusage */
-    if (function_exists('getrusage')) {
-        /* Avoid warnings with Win32 */
-        $dat = @getrusage();
-        if (isset($dat) && is_array($dat)) {
-            $Str = '';
-            foreach ($dat as $k => $v)
-                {
-                    $Str .= $k . $v;
-                }
-            sq_mt_seed(md5($Str));
-        }
-    }
-
-    if(sqgetGlobalVar('UNIQUE_ID', $unique_id, SQ_SERVER)) {
-        sq_mt_seed(md5($unique_id));
-    }
-
-    $randomized = 1;
-}
-
 /**
  * Creates encryption key
  *
@@ -724,8 +647,6 @@ function sq_mt_randomize() {
  * @since 1.0
  */
 function OneTimePadCreate ($length=100) {
-    sq_mt_randomize();
-
     $pad = '';
     for ($i = 0; $i < $length; $i++) {
         $pad .= chr(mt_rand(0,255));
@@ -788,8 +709,6 @@ function GenerateRandomString($size, $chars, $flags = 0) {
     if (($size < 1) || (strlen($chars) < 1)) {
         return '';
     }
-
-    sq_mt_randomize(); /* Initialize the random number generator */
 
     $String = '';
     $j = strlen( $chars ) - 1;
