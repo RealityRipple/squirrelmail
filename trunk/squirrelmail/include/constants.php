@@ -214,3 +214,46 @@ define('SQ_SMARTY_TEMPLATE', 'Smarty_');
  */
 define('SQ_INCOMPATIBLE', 'INCOMPATIBLE');
 
+/**
+ * Define constants used in the options code
+ */
+
+// Define constants for the various option types
+define('SMOPT_TYPE_STRING', 0);
+define('SMOPT_TYPE_STRLIST', 1);
+define('SMOPT_TYPE_TEXTAREA', 2);
+define('SMOPT_TYPE_INTEGER', 3);
+define('SMOPT_TYPE_FLOAT', 4);
+define('SMOPT_TYPE_BOOLEAN', 5);
+define('SMOPT_TYPE_HIDDEN', 6);
+define('SMOPT_TYPE_COMMENT', 7);
+define('SMOPT_TYPE_FLDRLIST', 8);
+define('SMOPT_TYPE_FLDRLIST_MULTI', 9);
+define('SMOPT_TYPE_EDIT_LIST', 10);
+define('SMOPT_TYPE_STRLIST_MULTI', 11);
+define('SMOPT_TYPE_BOOLEAN_CHECKBOX', 12);
+define('SMOPT_TYPE_BOOLEAN_RADIO', 13);
+define('SMOPT_TYPE_STRLIST_RADIO', 14);
+define('SMOPT_TYPE_SUBMIT', 15);
+
+// Define constants for the layout scheme for edit lists
+define('SMOPT_EDIT_LIST_LAYOUT_LIST', 0);
+define('SMOPT_EDIT_LIST_LAYOUT_SELECT', 1);
+
+// Define constants for the options refresh levels
+define('SMOPT_REFRESH_NONE', 0);
+define('SMOPT_REFRESH_FOLDERLIST', 1);
+define('SMOPT_REFRESH_ALL', 2);
+
+// Define constants for the options size
+define('SMOPT_SIZE_TINY', 0);
+define('SMOPT_SIZE_SMALL', 1);
+define('SMOPT_SIZE_MEDIUM', 2);
+define('SMOPT_SIZE_LARGE', 3);
+define('SMOPT_SIZE_HUGE', 4);
+define('SMOPT_SIZE_NORMAL', 5);
+
+// Define miscellaneous options constants 
+define('SMOPT_SAVE_DEFAULT', 'save_option');
+define('SMOPT_SAVE_NOOP', 'save_option_noop');
+
