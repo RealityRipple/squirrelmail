@@ -206,28 +206,27 @@ function sent_subfolders_update_sentfolder() {
          * Multiple year holders with messages in it. level 1.
          * Multiple year folders with holders in it. level 2.
          */
-        $cnd_delimiter = $delimiter;
 
         switch ($sent_subfolders_setting) {
         case SMPREF_SENT_SUBFOLDERS_YEARLY:
             $level = 1;
-            $sent_subfolder = $sent_subfolders_base . $cnd_delimiter
+            $sent_subfolder = $sent_subfolders_base . $delimiter
                             . $year;
             break;
         case SMPREF_SENT_SUBFOLDERS_QUARTERLY:
             $level = 2;
-            $sent_subfolder = $sent_subfolders_base . $cnd_delimiter
+            $sent_subfolder = $sent_subfolders_base . $delimiter
                             . $year
                             . $delimiter . $quarter;
-            $year_folder = $sent_subfolders_base . $cnd_delimiter
+            $year_folder = $sent_subfolders_base . $delimiter
                             . $year;
             break;
         case SMPREF_SENT_SUBFOLDERS_MONTHLY:
             $level = 2;
-            $sent_subfolder = $sent_subfolders_base . $cnd_delimiter
+            $sent_subfolder = $sent_subfolders_base . $delimiter
                             . $year
                             . $delimiter . $month;
-            $year_folder = $sent_subfolders_base. $cnd_delimiter . $year;
+            $year_folder = $sent_subfolders_base. $delimiter . $year;
             break;
         case SMPREF_SENT_SUBFOLDERS_DISABLED:
         default:
@@ -328,7 +327,9 @@ function sent_subfolder_getQuarter($month) {
  * @return boolean 1 - is part of sent_subfolders, 0 - is not part of sent_subfolders
  */
 function sent_subfolders_special_mailbox($mb) {
-    global $data_dir, $username, $delimiter;
+    global $data_dir, $username;
+
+    sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 
     $use_sent_subfolders = getPref
         ($data_dir, $username, 'use_sent_subfolders', SMPREF_OFF);
