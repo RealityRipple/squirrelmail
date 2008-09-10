@@ -369,7 +369,7 @@ require(SM_PATH . 'functions/prefs.php');
  * the current user is NOT that user, turn them
  * back on
  */
-sqgetGlobalVar('username',$username,SQ_SESSION);
+sqgetGlobalVar('username', $username, SQ_SESSION);
 if ($disable_plugins && !empty($disable_plugins_user)
  && $username != $disable_plugins_user) {
     $disable_plugins = false;
@@ -451,6 +451,7 @@ if (! sqgetGlobalVar('squirrelmail_language',$squirrelmail_language,SQ_COOKIE)) 
  * Do something special for some pages. This is based on the PAGE_NAME constant
  * set at the top of every page.
  */
+$set_up_langage_after_template_setup = FALSE;
 switch (PAGE_NAME) {
     case 'style':
 
@@ -623,18 +624,7 @@ switch (PAGE_NAME) {
          }
 // /dont understand
 
-        /**
-         * Set up the language.
-         */
-        $err=set_up_language(getPref($data_dir, $username, 'language'));
-
-        // Japanese translation used without mbstring support
-        if ($err==2) {
-            $sError = "<p>Your administrator needs to have PHP installed with the multibyte string extension enabled (using configure option --enable-mbstring).</p>\n"
-                    . "<p>This system has assumed that you accidently switched to Japanese and has reverted your language preference to English.</p>\n"
-                    . "<p>Please refresh this page in order to continue using your webmail.</p>\n";
-            error_box($sError);
-        }
+        $set_up_langage_after_template_setup = TRUE;
 
         $timeZone = getPref($data_dir, $username, 'timezone');
 
@@ -718,10 +708,33 @@ foreach ($always_include as $var) {
 $nbsp = $oTemplate->fetch('non_breaking_space.tpl');
 $br = $oTemplate->fetch('line_break.tpl');
 
+
+/**
+ * Set up the language.
+ *
+ * This code block corresponds to the *default* block of the switch
+ * statement above, but the language cannot be set up until after the
+ * template is instantiated, so we set $set_up_langage_after_template_setup
+ * above and do the linguistic stuff now.
+ */
+if ($set_up_langage_after_template_setup) {
+    $err=set_up_language(getPref($data_dir, $username, 'language'));
+
+    // Japanese translation used without mbstring support
+    if ($err==2) {
+        $sError = "<p>Your administrator needs to have PHP installed with the multibyte string extension enabled (using configure option --enable-mbstring).</p>\n"
+                . "<p>This system has assumed that you accidently switched to Japanese and has reverted your language preference to English.</p>\n"
+                . "<p>Please refresh this page in order to continue using your webmail.</p>\n";
+        error_box($sError);
+    }
+}
+
+
 /**
  * Initialize our custom error handler object
  */
 $oErrorHandler = new ErrorHandler($oTemplate,'error_message.tpl');
+
 
 /**
  * Activate custom error handling

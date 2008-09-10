@@ -18,6 +18,12 @@ $template_engine = SQ_PHP_TEMPLATE;
 
 
 /**
+ * Indicates what the content type is for this template set.
+ */
+$content_type = 'text/html';
+
+
+/**
   * If non-empty, indicates which template set this set is derived from.
   *
   * If a template file does not exist in this template set, then the

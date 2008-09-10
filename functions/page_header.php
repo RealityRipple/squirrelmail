@@ -108,7 +108,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
          * recommendations and switch to unicode.
          */
         $header_tags .= "<!-- \xfd\xfe -->\n";
-        $header_tags .= '<meta http-equiv="Content-type" content="text/html; charset=euc-jp" />' . "\n";
+        $header_tags .= '<meta http-equiv="Content-type" content="' . $oTemplate->get_content_type() . '; charset=euc-jp" />' . "\n";
     }
     if ($do_hook) {
         // NOTE! plugins here MUST assign output to template 

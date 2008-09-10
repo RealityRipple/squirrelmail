@@ -374,15 +374,24 @@ function fixcharset($charset) {
  *  1 = mbstring support is not present,
  *  2 = mbstring support is not present, user's translation reverted to en_US.
  *
- * @param string $sm_language translation used by user's interface
- * @param bool $do_search use browser's preferred language detection functions. Defaults to false.
- * @param bool $default set $sm_language to $squirrelmail_default_language if language detection fails or language is not set. Defaults to false.
+ * @param string $sm_language  Translation used by user's interface
+ * @param bool   $do_search    Use browser's preferred language detection functions.
+ *                             Defaults to false.
+ * @param bool   $default      Set $sm_language to $squirrelmail_default_language if
+ *                             language detection fails or language is not set.
+ *                             Defaults to false.
+ * @param string $content_type The content type being served currently (OPTIONAL;
+ *                             if not specified, defaults to whatever the template
+ *                             set that is in use has defined).
+ *
  * @return int function execution error codes.
+ *
  */
-function set_up_language($sm_language, $do_search = false, $default = false) {
+function set_up_language($sm_language, $do_search=false,
+                         $default=false, $content_type='') {
 
     static $SetupAlready = 0;
-    global $use_gettext, $languages,
+    global $use_gettext, $languages, $oTemplate,
            $squirrelmail_language, $squirrelmail_default_language, $default_charset,
            $sm_notAlias, $username, $data_dir;
 
@@ -392,6 +401,10 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
 
     $SetupAlready = TRUE;
     sqgetGlobalVar('HTTP_ACCEPT_LANGUAGE',  $accept_lang, SQ_SERVER);
+
+    // grab content type if needed
+    //
+    if (empty($content_type)) $content_type = $oTemplate->get_content_type();
 
     /**
      * If function is asked to detect preferred language
@@ -517,7 +530,7 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
 
         $squirrelmail_language = $sm_notAlias;
         if ($squirrelmail_language == 'ja_JP') {
-            header ('Content-Type: text/html; charset=EUC-JP');
+            $oTemplate->header ('Content-Type: ' . $content_type . '; charset=EUC-JP');
             if (!function_exists('mb_internal_encoding')) {
                 // Error messages can't be displayed here
                 $error = 1;
@@ -535,9 +548,9 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
             mb_internal_encoding('EUC-JP');
             mb_http_output('pass');
         } elseif ($squirrelmail_language == 'en_US') {
-            header( 'Content-Type: text/html; charset=' . $default_charset );
+            $oTemplate->header( 'Content-Type: ' . $content_type . '; charset=' . $default_charset );
         } else {
-            header( 'Content-Type: text/html; charset=' . $languages[$sm_notAlias]['CHARSET'] );
+            $oTemplate->header( 'Content-Type: ' . $content_type . '; charset=' . $languages[$sm_notAlias]['CHARSET'] );
         }
         /**
          * mbstring.func_overload fix (#929644).

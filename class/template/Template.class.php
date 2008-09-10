@@ -70,6 +70,11 @@ class Template
     var $template_engine = '';
 
     /**
+      * The content type for this template set
+      */
+    var $content_type = '';
+
+    /**
       * The fall-back template ID
       *
       * @var string
@@ -189,6 +194,13 @@ class Template
             = Template::calculate_template_file_directory($this->template_set_id);
         $this->fallback_template_dir
             = Template::calculate_template_file_directory($this->fallback_template_set_id);
+
+
+        // determine content type, defaulting to text/html
+        //
+        $this->content_type = Template::get_template_config($this->template_set_id,
+                                                            'content_type',
+                                                            'text/html');
 
 
         // determine template engine
@@ -488,6 +500,18 @@ class Template
     function get_fallback_template_file_directory() {
 
         return $this->fallback_template_dir;
+
+    }
+
+    /**
+      * Return the content-type for this template set.
+      *
+      * @return string The content-type.
+      *
+      */
+    function get_content_type() {
+
+        return $this->content_type;
 
     }
 
