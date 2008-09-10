@@ -769,11 +769,26 @@ $icon_themes[3]['NAME'] = 'XP Style Icons';
  *                       being used.  (Must be the "ID" of the desired 
  *                       template set)
  *
+ * $rpc_templateset sets the skin that will be used by default
+ *                  when a user is making an RPC request.  This
+ *                  does not usually need to be changed, but
+ *                  can be used to change the RPC protocol that
+ *                  is used to respond to RPC requets. (Must be
+ *                  the "ID" of the desired template set and
+ *                  should NOT be a template set that is included
+ *                  in the $aTemplateSet list; PLEASE NOTE that
+ *                  new RPC template sets should always be named
+ *                  "<skin name>_rpc", as SquirrelMail will assume
+ *                  any template sets ending in "_rpc" are intended
+ *                  for its RPC interface only)
+ *
  * @global string $templateset_default
  * @global string $templateset_fallback
+ * @global string $rpc_templateset
  */
 $templateset_default = 'default';
 $templateset_fallback = 'default';
+$rpc_templateset = 'default_rpc';
 
 $aTemplateSet[0]['ID'] = 'default';
 $aTemplateSet[0]['NAME'] = 'Default';

@@ -213,7 +213,7 @@ class Template
 
         // get template file cache
         //
-        $this->template_file_cache = Template::cache_template_file_hierarchy();
+        $this->template_file_cache = Template::cache_template_file_hierarchy($template_set_id);
 
     }
 
@@ -316,6 +316,42 @@ class Template
         // and that error will not be caught here
         //
         return $default;
+
+    }
+
+    /**
+      * Determine what the RPC template set is.
+      *
+      * NOTE that if the default setting cannot be found in the
+      * main SquirrelMail configuration settings that the value
+      * of $default is returned.
+      *
+      * @param string $default The template set ID to use if
+      *                        the default setting cannot be
+      *                        found in SM config (optional;
+      *                        defaults to "default_rpc").
+      *
+      * @return string The ID of the RPC template set.
+      *
+      * @static
+      *
+      */
+    function get_rpc_template_set($default='default_rpc') {
+
+// FIXME: do we want to place any restrictions on the ID such as
+//        making sure no slashes included?
+
+        // values are in main SM config file
+        //
+        global $rpc_templateset;
+        $rpc_templateset = (!isset($rpc_templateset)
+                         ? $default : $rpc_templateset);
+
+        // FIXME: note that it is possible for this to
+        // point to an invalid (nonexistent) template set
+        // and that error will not be caught here
+        //
+        return $rpc_templateset;
 
     }
 
@@ -645,6 +681,14 @@ class Template
       * constructed and stored in session before being returned
       * to the caller.
       *
+      * @param string  $template_set_id  The template set for which
+      *                                  the cache should be built.
+      *                                  This function will save more
+      *                                  than one set's files, so it
+      *                                  may be called multiple times
+      *                                  with different values for this
+      *                                  argument.  When regenerating,
+      *                                  all set caches are dumped.
       * @param boolean $regenerate_cache When TRUE, the file hierarchy
       *                                  is reloaded and stored fresh
       *                                  (optional; default FALSE).
@@ -655,12 +699,12 @@ class Template
       *                                  empty - no additional files).
       *
       * @return array Template file hierarchy array, whose keys
-      *               are all the template file names (with path
-      *               information relative to the template set's
-      *               base directory, e.g., "css/style.css")
-      *               found in all parent template sets including
-      *               the ultimate fall-back template set.
-      *               Array values are sub-arrays with the
+      *               are all the template file names for the given
+      *               template set ID (with path information relative
+      *               to the template set's base directory, e.g.,
+      *               "css/style.css") found in all parent template
+      *               sets including the ultimate fall-back template
+      *               set.  Array values are sub-arrays with the
       *               following key-value pairs:
       *
       *                 PATH    --  file path, relative to SM_PATH
@@ -670,7 +714,8 @@ class Template
       * @static
       *
       */
-    function cache_template_file_hierarchy($regenerate_cache=FALSE,
+    function cache_template_file_hierarchy($template_set_id,
+                                           $regenerate_cache=FALSE,
                                            $additional_files=array()) {
 
         sqGetGlobalVar('template_file_hierarchy', $template_file_hierarchy,
@@ -679,51 +724,39 @@ class Template
 
         if ($regenerate_cache) unset($template_file_hierarchy);
 
-        if (!empty($template_file_hierarchy)) {
+        if (!empty($template_file_hierarchy[$template_set_id])) {
 
             // have to add additional files if given before returning
             //
             if (!empty($additional_files)) {
-                $template_file_hierarchy = array_merge($template_file_hierarchy,
-                                                       $additional_files);
+                $template_file_hierarchy[$template_set_id]
+                    = array_merge($template_file_hierarchy[$template_set_id],
+                                  $additional_files);
+
                 sqsession_register($template_file_hierarchy,
                                    'template_file_hierarchy');
             }
 
-            return $template_file_hierarchy;
+            return $template_file_hierarchy[$template_set_id];
         }
 
 
         // nothing in cache apparently, so go build it now
         //
-        // FIXME: not sure if there is any possibility that
-        //        this could be called when $sTemplateID has
-        //        yet to be defined... throw error for now,
-        //        but if the error occurs, it's a coding error
-        //        rather than a configuration error
+        $template_file_hierarchy[$template_set_id] = Template::catalog_template_files($template_set_id);
+
+        // additional files, if any
         //
-        global $sTemplateID;
-        if (empty($sTemplateID)) {
-
-            trigger_error('Template set ID unknown', E_USER_ERROR);
-
-        } else {
-
-            $template_file_hierarchy = Template::catalog_template_files($sTemplateID);
-
-            // additional files, if any
-            //
-            if (!empty($additional_files)) {
-                $template_file_hierarchy = array_merge($template_file_hierarchy,
-                                                       $additional_files);
-            }
-
-            sqsession_register($template_file_hierarchy,
-                               'template_file_hierarchy');
-
-            return $template_file_hierarchy;
-
+        if (!empty($additional_files)) {
+            $template_file_hierarchy[$template_set_id]
+                = array_merge($template_file_hierarchy[$template_set_id],
+                              $additional_files);
         }
+
+        sqsession_register($template_file_hierarchy,
+                           'template_file_hierarchy');
+
+        return $template_file_hierarchy[$template_set_id];
 
     }
 
@@ -885,7 +918,9 @@ class Template
                                                                           )
                               );
             $this->template_file_cache
-                = $this->cache_template_file_hierarchy(FALSE, $file_list);
+                = $this->cache_template_file_hierarchy($this->template_set_id,
+                                                       FALSE,
+                                                       $file_list);
             return TRUE;
         }
 

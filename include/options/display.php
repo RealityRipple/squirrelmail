@@ -479,7 +479,7 @@ function save_option_template($option) {
         //
         global $sTemplateID;
         $sTemplateID = $option->new_value;
-        Template::cache_template_file_hierarchy(TRUE);
+        Template::cache_template_file_hierarchy($sTemplateID, TRUE);
 
     }
 
