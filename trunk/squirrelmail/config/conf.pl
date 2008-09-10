@@ -368,6 +368,14 @@ while ( $line = <FILE> ) {
 }
 close FILE;
 
+# RPC template sets aren't included in user interface skin list,
+# so add the one from the config file here
+#
+if ($rpc_templateset =~ /_rpc$/) {
+    $templateset_name[$#templateset_name + 1] = $rpc_templateset;
+    $templateset_id[$#templateset_id + 1] = $rpc_templateset;
+}
+
 # FIXME: unknown introduction date
 $useSendmail = 'false'                  if ( lc($useSendmail) ne 'true' );
 $sendmail_path = "/usr/sbin/sendmail"   if ( !$sendmail_path );
@@ -3154,26 +3162,44 @@ sub command_templates {
             print "  ";
         }
         if ( $templateset_id[$count] eq $templateset_fallback ) {
-            print "f ";
+            print "f";
+        } else {
+            print " ";
+        }
+        if ( $templateset_id[$count] eq $rpc_templateset ) {
+            print "r ";
         } else {
             print "  ";
         }
         if ( $count < 10 ) {
             print " ";
         }
+        if ( $count < 100 ) {
+            print " ";
+        }
         $name       = $templateset_name[$count];
-        $num_spaces = 35 - length($name);
-        for ( $i = 0 ; $i < $num_spaces ; $i++ ) {
-            $name = $name . " ";
+
+        # present RPC template sets differently
+        #
+        if ( $templateset_id[$count] =~ /_rpc$/ ) {
+            $name = $name . " (not shown in user interface; used for RPC interface only)";
+        } else {
+
+            $num_spaces = 35 - length($name);
+            for ( $i = 0 ; $i < $num_spaces ; $i++ ) {
+                $name = $name . " ";
+            }
+            $name = $name . "($templateset_id[$count])";
+
         }
 
-        print " $count.  $name";
-        print "($templateset_id[$count])\n";
+        print " $count.  $name\n";
 
         $count++;
-   }
-   print "\n  d = default template set\n"
-       . "  f = fallback template set\n\n";
+    }
+    print "\n  d = default template set\n"
+       . "  f = fallback template set\n"
+       . "  r = RPC template set\n\n";
 
     $menu_text = ".-------------------------------------.\n"
                . "| t             (detect template set) |\n"
@@ -3181,6 +3207,7 @@ sub command_templates {
                . "| - N           (remove template set) |\n"
                . "| m N     (mark default template set) |\n"
                . "| f N     (set fallback template set) |\n"
+               . "| r N          (set RPC template set) |\n"
                . "| l        (list template sets/skins) |\n"
                . "| d                            (done) |\n"
                . "|-------------------------------------|\n"
@@ -3205,26 +3232,44 @@ sub command_templates {
                     print "  ";
                 }
                 if ( $templateset_id[$count] eq $templateset_fallback ) {
-                    print "f ";
+                    print "f";
+                } else {
+                    print " ";
+                }
+                if ( $templateset_id[$count] eq $rpc_templateset ) {
+                    print "r ";
                 } else {
                     print "  ";
                 }
                 if ( $count < 10 ) {
                     print " ";
                 }
+                if ( $count < 100 ) {
+                    print " ";
+                }
                 $name       = $templateset_name[$count];
-                $num_spaces = 35 - length($name);
-                for ( $i = 0 ; $i < $num_spaces ; $i++ ) {
-                    $name = $name . " ";
+
+                # present RPC template sets differently
+                #
+                if ( $templateset_id[$count] =~ /_rpc$/ ) {
+                    $name = $name . " (not shown in user interface; used for RPC interface only)";
+                } else {
+
+                    $num_spaces = 35 - length($name);
+                    for ( $i = 0 ; $i < $num_spaces ; $i++ ) {
+                        $name = $name . " ";
+                    }
+                    $name = $name . "($templateset_id[$count])";
+
                 }
 
-                print " $count.  $name";
-                print "($templateset_id[$count])\n";
+                print " $count.  $name\n";
 
                 $count++;
             }
             print "\n  d = default template set\n"
-                . "  f = fallback template set\n\n";
+                . "  f = fallback template set\n"
+                . "  r = RPC template set\n\n";
 
         # mark default template set
         #
@@ -3234,6 +3279,10 @@ sub command_templates {
             $templateset_default = $templateset_id[$input];
             if ( $templateset_default =~ /^\s*$/ ) {
                 print "Cannot set default template set to $input.  That template set does not exist.\n";
+                $templateset_default = $old_def;
+            }
+            if ( $templateset_default =~ /_rpc$/ ) {
+                print "Cannot set default template set to $input.  That template set is intended for the RPC interface only.\n";
                 $templateset_default = $old_def;
             }
 
@@ -3246,6 +3295,25 @@ sub command_templates {
             if ( $templateset_fallback =~ /^\s*$/ ) {
                 print "Cannot set fallback template set to $input.  That template set does not exist.\n";
                 $templateset_fallback = $old_def;
+            }
+            if ( $templateset_fallback =~ /_rpc$/ ) {
+                print "Cannot set fallback template set to $input.  That template set is intended for the RPC interface only.\n";
+                $templateset_fallback = $old_def;
+            }
+
+        # set RPC template set
+        #
+        } elsif ( $input =~ /^\s*r\s*[0-9]+/i ) {
+            $old_def       = $rpc_templateset;
+            $input =~ s/^\s*r\s*//;
+            $rpc_templateset = $templateset_id[$input];
+            if ( $rpc_templateset =~ /^\s*$/ ) {
+                print "Cannot set RPC template set to $input.  That template set does not exist.\n";
+                $rpc_templateset = $old_def;
+            }
+            if ( $rpc_templateset !~ /_rpc$/ ) {
+                print "Cannot set fallback template set to $input.  That template set is not intended for the RPC interface.\n";
+                $rpc_templateset = $old_def;
             }
 
         # add template set
@@ -3284,15 +3352,22 @@ sub command_templates {
                     if ( $found != 1) {
                         print "** Found template set: $filename\n";
                         $def = $files[$cnt];
-                        $def =~ s/_/ /g;
-                        $def = lc($def);
-                        #$def =~ s/(^\w+)/ucfirst $1/eg;
-                        #$def =~ s/(\s+)(\w+)/$1 . ucfirst $2/eg;
-                        $def =~ s/(^\w+)|(\s+)(\w+)/ucfirst $1 . $2 . ucfirst $3/eg;
-                        print "   What is it's name (as shown to your users)? [$def]: ";
-                        $nm = <STDIN>;
-                        $nm =~ s/^\s+|\s+$|[\n\r]//g;
-                        if ( $nm eq '' ) { $nm = $def; }
+
+                        # no user-friendly names needed for RPC template sets
+                        #
+                        if ( $def =~ /_rpc$/ ) {
+                            $nm = $def;
+                        } else {
+                            $def = lc($def);
+                            $def =~ s/_/ /g;
+                            #$def =~ s/(^\w+)/ucfirst $1/eg;
+                            #$def =~ s/(\s+)(\w+)/$1 . ucfirst $2/eg;
+                            $def =~ s/(^\w+)|(\s+)(\w+)/ucfirst $1 . $2 . ucfirst $3/eg;
+                            print "   What is it's name (as shown to your users)? [$def]: ";
+                            $nm = <STDIN>;
+                            $nm =~ s/^\s+|\s+$|[\n\r]//g;
+                            if ( $nm eq '' ) { $nm = $def; }
+                        }
                         $templateset_id[ $#templateset_id + 1 ] = $filename;
                         $templateset_name[ $#templateset_name + 1 ] = $nm;
                     }
@@ -3306,6 +3381,7 @@ sub command_templates {
                     print "  Removing \"$filename\" (template set directory not found)\n";
                     if ( $templateset_default eq $filename ) { $templateset_default = 'default'; }
                     if ( $templateset_fallback eq $filename ) { $templateset_fallback = 'default'; }
+                    if ( $rpc_templateset eq $filename ) { $rpc_templateset = 'default_rpc'; }
                     $offset         = 0;
                     @new_templateset_name = ();
                     @new_templateset_id = ();
@@ -3345,6 +3421,8 @@ sub command_templates {
                 print "You cannot remove the default template set!\n";
             } elsif ( $templateset_id[$rem_num] eq $templateset_fallback ) {
                 print "You cannot remove the fallback template set!\n";
+            } elsif ( $templateset_id[$rem_num] eq $rpc_templateset ) {
+                print "You cannot remove the RPC template set!\n";
             } else {
                 $count          = 0;
                 @new_templateset_name = ();
@@ -4741,7 +4819,15 @@ sub save_data {
         if ( $templateset_fallback eq '' ) { $templateset_fallback = 'default'; }
         print CF "\$templateset_fallback = '$templateset_fallback';\n";
 
+        if ( $rpc_templateset eq '' ) { $rpc_templateset = 'default_rpc'; }
+        print CF "\$rpc_templateset = '$rpc_templateset';\n";
+
         for ( $count = 0 ; $count <= $#templateset_name ; $count++ ) {
+
+            # don't include RPC template sets
+            #
+            if ( $templateset_id[$count] =~ /_rpc$/ ) { next; }
+
             print CF "\$aTemplateSet[$count]['ID'] = '" . $templateset_id[$count] . "';\n";
             # escape theme name so it can contain single quotes.
             $esc_name =  $templateset_name[$count];

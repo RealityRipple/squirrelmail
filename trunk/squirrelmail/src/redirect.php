@@ -139,7 +139,8 @@ if ( sqgetGlobalVar('HTTP_ACCEPT', $http_accept, SQ_SERVER) &&
 // having just logged in, need to synch the template file cache
 // so the right template set is displayed (per user prefs)
 require(SM_PATH . 'include/load_prefs.php');
-Template::cache_template_file_hierarchy(TRUE);
+global $sTemplateID;
+Template::cache_template_file_hierarchy($sTemplateID, TRUE);
 
 /* Complete autodetection of Javascript. */
 checkForJavascript();

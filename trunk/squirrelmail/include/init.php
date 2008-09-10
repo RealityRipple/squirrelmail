@@ -501,7 +501,7 @@ switch (PAGE_NAME) {
         // reset template file cache
         //
         $sTemplateID = Template::get_default_template_set();
-        Template::cache_template_file_hierarchy(TRUE);
+        Template::cache_template_file_hierarchy($sTemplateID, TRUE);
 
         /**
          * Make sure icon variables are setup for the login page.
@@ -577,9 +577,13 @@ switch (PAGE_NAME) {
             /*
              * $sTemplateID is not initialized when a user is not logged in, so we
              * will use the config file defaults here.  If the neccesary variables
-             * are net set, force a default value.
+             * are not set, force a default value.
              */
-            $sTemplateID = Template::get_default_template_set();
+            if (PAGE_NAME == 'squirrelmail_rpc') {
+                $sTemplateID = Template::get_rpc_template_set();
+            } else {
+                $sTemplateID = Template::get_default_template_set();
+            }
             $oTemplate = Template::construct_template($sTemplateID);
 
             set_up_language($squirrelmail_language, true);
@@ -682,7 +686,11 @@ switch (PAGE_NAME) {
  * so we shouldn't change it here.
  */
 if (!isset($sTemplateID)) {
-    $sTemplateID = Template::get_default_template_set();
+    if (PAGE_NAME == 'squirrelmail_rpc') {
+        $sTemplateID = Template::get_rpc_template_set();
+    } else {
+        $sTemplateID = Template::get_default_template_set();
+    }
     $icon_theme_path = !$use_icons ? NULL : Template::calculate_template_images_directory($sTemplateID);
 }
 

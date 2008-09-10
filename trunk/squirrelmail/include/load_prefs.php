@@ -32,7 +32,11 @@ $custom_css = getPref($data_dir, $username, 'custom_css', 'none' );
 // template set setup
 //
 $sDefaultTemplateID = Template::get_default_template_set();
-$sTemplateID = getPref($data_dir, $username, 'sTemplateID', $sDefaultTemplateID);
+if (PAGE_NAME == 'squirrelmail_rpc') {
+    $sTemplateID = Template::get_rpc_template_set();
+} else {
+    $sTemplateID = getPref($data_dir, $username, 'sTemplateID', $sDefaultTemplateID);
+}
 
 
 // load user theme
@@ -391,10 +395,17 @@ do_hook('loading_prefs', $null);
 // check user prefs template selection against templates actually available
 //
 $found_templateset = false;
-for ($i = 0; $i < count($aTemplateSet); ++$i){
-    if ($aTemplateSet[$i]['ID'] == $sTemplateID) {
+if (PAGE_NAME == 'squirrelmail_rpc') {
+    // RPC skins have no in-memory list
+    if (is_dir(SM_PATH . Template::calculate_template_file_directory($sTemplateID))) {
         $found_templateset = true;
-        break;
+    }
+} else {
+    for ($i = 0; $i < count($aTemplateSet); ++$i){
+        if ($aTemplateSet[$i]['ID'] == $sTemplateID) {
+            $found_templateset = true;
+            break;
+        }
     }
 }
 
