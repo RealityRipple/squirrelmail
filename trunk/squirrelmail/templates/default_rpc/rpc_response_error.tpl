@@ -3,18 +3,24 @@
 /**
   * rpc_response_error.tpl
   *
-  * Template for constructing an error response to a remote 
-  * procedure call.
+  * Template for constructing a standard (SOAP-compliant)
+  * response to an errant remote procedure call.
   *
   * The following variables are available in this template:
-  *      + $error_code - The numeric error code associated with the 
-  *                      current error condition
-  *      + $error_text - Any error message associated with the current
-  *                      error condition (optional; may not be present)
   *
-  * @copyright &copy; 1999-2007 The SquirrelMail Project Team
+  * string $rpc_action   The RPC action being handled
+  * int    $error_code   The numeric error code associated with the
+  *                      current error condition
+  * string $error_text   Any error message associated with the
+  *                      current error condition (optional; may not be
+  *                      present)
+  * string $guilty_party A string indicating the party who caused the
+  *                      error: either "client" or "server" (optional;
+  *                      may not be present)
+  *
+  * @copyright &copy; 1999-2008 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
-  * @version $Id: rpc_response_error.tpl 12111 2007-01-11 08:05:51Z pdontthink $
+  * @version $Id$
   * @package squirrelmail
   * @subpackage templates
   */
@@ -25,11 +31,20 @@
 extract($t);
 
 
-/*echo '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>';*/
-echo '<?xml version="1.0" ?>';
-?>
-<response>
-    <status>ERROR</status>
-    <result_code><?php echo $error_code; ?></result_code>
-    <result_text><?php echo $error_text; ?></result_text>
-</response>
+echo '<?xml version="1.0" ?>'; ?>
+<soap:envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:sm="http://squirrelmail.org/rpc" xmlns:xsd="http://www.w3.org/1999/XMLSchema" xmlns:xsi="http://www.w3.org/1999/XMLSchema-instance" xmlns:soap-enc="http://www.w3.org/2003/05/soap-encoding" soap:encodingstyle="http://www.w3.org/2003/05/soap-encoding">
+  <soap:header>
+    <sm:result_code><?php echo $error_code; ?></sm:result_code>
+    <sm:result_text><?php echo $error_text; ?></sm:result_text>
+  </soap:header>
+  <soap:body>
+    <soap:fault>
+      <faultcode>soap:<?php echo ucfirst(strtolower($guilty_party)); ?></faultcode>
+      <faultstring><?php echo $error_text; ?></faultstring>
+      <detail>
+        <sm:result_code><?php echo $error_code; ?></sm:result_code>
+        <sm:result_text><?php echo $error_text; ?></sm:result_text>
+      </detail>
+    </soap:fault>
+  </soap:body>
+</soap:envelope>
