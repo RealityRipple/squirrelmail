@@ -20,7 +20,7 @@ $template_engine = SQ_PHP_TEMPLATE;
 /**
  * Indicates what the content type is for this template set.
  */
-//FIXME - what is the proper content-type? (TODO: possibly make default RPC templates SOAP-compliant)
+//TODO - what is the proper content-type? (most recommend text/xml for SOAP messages, but some such as w3schools.com recommend application/soap+xml)
 //$content_type = 'application/soap+xml';
 $content_type = 'text/xml';
 
