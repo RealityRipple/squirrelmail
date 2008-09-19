@@ -40,7 +40,7 @@ if (empty($lang)) {
     <?php
 } else {
     ?>
-<html lang="<?php echo $lang; ?>">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $lang; ?>" lang="<?php echo $lang; ?>">
     <?php
 }
 ?>
