@@ -614,7 +614,6 @@ switch (PAGE_NAME) {
          */
         require(SM_PATH . 'include/load_prefs.php');
 
-// i do not understand the frames language cookie story
         /**
          * We'll need this to later have a noframes version
          *
@@ -626,7 +625,6 @@ switch (PAGE_NAME) {
          if ($my_language != $squirrelmail_language) {
              sqsetcookie('squirrelmail_language', $my_language, time()+2592000, $base_uri);
          }
-// /dont understand
 
         $set_up_langage_after_template_setup = TRUE;
 
