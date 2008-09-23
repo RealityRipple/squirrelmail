@@ -258,12 +258,12 @@ if (!isset($session_name) || !$session_name) {
  * When session.auto_start is On we want to destroy/close the session
  */
 $sSessionAutostartName = session_name();
-$sCookiePath = null;
-if (isset($sSessionAutostartName) && $sSessionAutostartName !== $session_name) {
+$sSessionAutostartID = session_id();
+if (!empty($sSessionAutostartID) && $sSessionAutostartName !== $session_name) {
     $sCookiePath = ini_get('session.cookie_path');
     $sCookieDomain = ini_get('session.cookie_domain');
     // reset the cookie
-    setcookie($sSessionAutostartName,'',time() - 604800,$sCookiePath,$sCookieDomain);
+    sqsetcookie($sSessionAutostartName,'',1,$sCookiePath,$sCookieDomain);
     @session_destroy();
     session_write_close();
 }
@@ -514,22 +514,6 @@ switch (PAGE_NAME) {
          */
         $icon_theme_path = (!$use_icons || $icon_theme=='none') ? NULL : ($icon_theme == 'template' ? SM_PATH . Template::calculate_template_images_directory($sTemplateID) : $icon_theme);
 
-        /**
-         * cleanup old cookies with a cookie path the same as the standard php.ini
-         * cookie path. All previous SquirrelMail version used the standard php.ini
-         * cookie path for storing the session name. That behaviour changed.
-         */
-        if ($sCookiePath !== SM_BASE_URI) {
-            /**
-             * do not delete the standard sessions with session.name is i.e. PHPSESSID
-             * because they probably belong to other php apps
-             */
-            if (ini_get('session.name') !== $sSessionAutostartName) {
-                //  This does not work. Sometimes the cookie with SQSESSID=deleted and path /
-                // is picked up in webmail.php => login will fail
-                //sqsetcookie(ini_get('session.name'),'',0,$sCookiePath);
-            }
-        }
         break;
     default:
         require(SM_PATH . 'functions/display_messages.php' );
