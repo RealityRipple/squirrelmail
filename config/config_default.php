@@ -1149,6 +1149,24 @@ $use_php_recode = false;
 $use_php_iconv = false;
 
 /**
+ * Output Buffering
+ *
+ * In some cases, buffering all output allows more complex functionality,
+ * especially for plugins that want to add headers on hooks that are beyond
+ * the point of output having been sent to the browser otherwise (although
+ * most plugins that need this feature will turn it on automatically by
+ * themselves).
+ *
+ * It is also possible to define a custom output handler as needed by special
+ * environments.  If $buffered_output_handler is non-empty, a function named
+ * the same as the value of $buffered_output_handler should be defined in
+ * config_local.php.
+ *
+ */
+$buffer_output = false;
+$buffered_output_handler = '';
+
+/**
  * Controls remote configuration checks
  * @global boolean $allow_remote_configtest
  * @since 1.5.1
