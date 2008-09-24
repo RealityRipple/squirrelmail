@@ -427,6 +427,7 @@ $aggressive_decoding = 'false'          if ( !$aggressive_decoding );
 # $advanced_tree = 'false'                if ( !$advanced_tree );
 $use_php_recode = 'false'               if ( !$use_php_recode );
 $use_php_iconv = 'false'                if ( !$use_php_iconv );
+$buffer_output = 'false'                if ( !$buffer_output );
 
 # since 1.5.1
 $use_icons = 'false'                    if ( !$use_icons );
@@ -855,11 +856,12 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print $WHT. "PHP tweaks\n" . $NRM;
         print "4.  Use php recode functions     : $WHT$use_php_recode$NRM\n";
         print "5.  Use php iconv functions      : $WHT$use_php_iconv$NRM\n";
+        print "6.  Buffer all output            : $WHT$buffer_output$NRM\n";
         print "\n";
         print $WHT. "Configuration tweaks\n" . $NRM;
-        print "6.  Allow remote configtest     : $WHT$allow_remote_configtest$NRM\n";
-        print "7.  Debug mode                  : $WHT$sm_debug_mode$NRM\n";
-        print "8.  Secured configuration mode  : $WHT$secured_config$NRM\n";
+        print "7.  Allow remote configtest     : $WHT$allow_remote_configtest$NRM\n";
+        print "8.  Debug mode                  : $WHT$sm_debug_mode$NRM\n";
+        print "9.  Secured configuration mode  : $WHT$secured_config$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     }
@@ -990,7 +992,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 17 ) { $only_secure_cookies = command319(); }
         } elsif ( $menu == 5 ) {
             if ( $command == 1 )     { $use_icons      = commandB3(); }
-#            elsif ( $command == 3 )  { $icon_theme_def = commandB7(); }
+#            elsif ( $command == 3 )  { $icon_theme_def = command53(); }
             elsif ( $command == 2 )  { $default_fontsize = command_default_fontsize(); }
             elsif ( $command == 3 )  { $templateset_default = command_templates(); }
             elsif ( $command == 4 )  { command_userThemes(); }
@@ -1034,9 +1036,10 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 2 ) { $ask_user_info  = command_ask_user_info(); }
             elsif ( $command == 4 ) { $use_php_recode = commandB4(); }
             elsif ( $command == 5 ) { $use_php_iconv  = commandB5(); }
-            elsif ( $command == 6 ) { $allow_remote_configtest = commandB6(); }
-            elsif ( $command == 7 ) { $sm_debug_mode = commandB8(); }
-            elsif ( $command == 8 ) { $secured_config = commandB9(); }
+            elsif ( $command == 6 ) { $buffer_output  = commandB6(); }
+            elsif ( $command == 7 ) { $allow_remote_configtest = commandB7(); }
+            elsif ( $command == 8 ) { $sm_debug_mode = commandB8(); }
+            elsif ( $command == 9 ) { $secured_config = commandB9(); }
         }
     }
 }
@@ -4440,8 +4443,37 @@ sub commandB5 {
     return $use_php_iconv;
 }
 
-# configtest block
+# buffer output
 sub commandB6 {
+    print "In some cases, buffering all output (holding it on the server until\n";
+    print "the full page is ready to send to the browser) allows more complex\n";
+    print "functionality, especially for plugins that want to add headers on hooks\n";
+    print "that are beyond the point of output having been sent to the browser\n";
+    print "otherwise.  Most plugins that need this functionality will enable it\n";
+    print "automatically on their own, but you can turn it on manually here.  You'd\n";
+    print "usually want to do this if you want to specify a custom output handler\n";
+    print "for parsing the output - you can do that by specifying a value for\n";
+    print "\$buffered_output_handler in config_local.php.  Don't forget to define\n";
+    print "a function of the same name as what \$buffered_output_handler is set to.\n";
+    print "\n";
+
+    if ( lc($buffer_output) eq 'true' ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Buffer all output? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $buffer_output = <STDIN>;
+    if ( ( $buffer_output =~ /^y\n/i ) || ( ( $buffer_output =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $buffer_output = 'true';
+    } else {
+        $buffer_output = 'false';
+    }
+    return $buffer_output;
+}
+
+# configtest block
+sub commandB7 {
     print "Enable this option if you want to check SquirrelMail configuration\n";
     print "remotely with configtest.php script.\n";
     print "\n";
@@ -4462,7 +4494,7 @@ sub commandB6 {
 }
 
 # Default Icon theme
-sub commandB7 {
+sub command53 {
     print "You may change the path to the default icon theme to be used, if icons\n";
     print "have been enabled.  This theme will be used when an icon cannot be\n";
     print "found in the current theme, or when no icon theme is specified.  If\n";
@@ -4996,6 +5028,9 @@ sub save_data {
         print CF "\$use_php_recode = $use_php_recode;\n";
         # boolean
         print CF "\$use_php_iconv = $use_php_iconv;\n";
+        print CF "\n";
+        # boolean
+        print CF "\$buffer_output = $buffer_output;\n";
         print CF "\n";
         # boolean
         print CF "\$allow_remote_configtest = $allow_remote_configtest;\n";

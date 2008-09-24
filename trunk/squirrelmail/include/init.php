@@ -19,7 +19,6 @@ FIXME: disabling this for now, because we now have $sm_debug_mode, but the probl
 //error_reporting(E_ALL);
 
 
-
 /**
  * Make sure we have a page name
  *
@@ -445,6 +444,19 @@ sqsession_register(SM_BASE_URI,'base_uri');
 if (! sqgetGlobalVar('squirrelmail_language',$squirrelmail_language,SQ_COOKIE)) {
     $squirrelmail_language = '';
 }
+
+
+/**
+ * In some cases, buffering all output allows more complex functionality,
+ * especially for plugins that want to add headers on hooks that are beyond
+ * the point of output having been sent to the browser otherwise.
+ *
+ * Note that we don't turn this on any earlier since we want to allow plugins
+ * to turn it on themselves via a configuration override on the prefs_backend
+ * hook.
+ *
+ */
+if ($buffer_output) ob_start(!empty($buffered_output_handler) ? $buffered_output_handler : NULL);
 
 
 /**
