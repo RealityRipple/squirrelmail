@@ -575,7 +575,7 @@ if (!function_exists('session_regenerate_id')) {
         if (ini_get('session.use_cookies')) {
             // at a later stage we use sqsetcookie. At this point just do
             // what session_regenerate_id would do
-            setcookie(session_name(), session_id(), NULL, $base_uri);
+            sqsetcookie(session_name(), session_id(), 0, $base_uri);
         }
         return TRUE;
     }
