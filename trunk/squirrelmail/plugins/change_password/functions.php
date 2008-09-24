@@ -101,7 +101,7 @@ function cpw_do_change()
     $onetimepad = OneTimePadCreate(strlen($newpw));
     sqsession_register($onetimepad,'onetimepad');
     $key = OneTimePadEncrypt($newpw, $onetimepad);
-    setcookie('key', $key, 0, $base_uri);
+    sqsetcookie('key', $key, 0, $base_uri);
 
     /* make sure we write the session data before we redirect */
     session_write_close();
