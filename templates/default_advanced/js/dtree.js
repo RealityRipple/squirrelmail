@@ -289,6 +289,7 @@ dTree.prototype.clearCookie = function() {
 };
 
 // [Cookie] Sets value in a cookie
+// FIXME: although setCookie() supports the secure flag, it isn't used when called anywhere in this file; ideally it should correspond to how the flag is determined in the SM core in sqsetcookie() (including the admin config that turns the secure flag off)... also, would be good to add the HTTP only flag
 dTree.prototype.setCookie = function(cookieName, cookieValue, expires, path, domain, secure) {
 	document.cookie =
 		escape(cookieName) + '=' + escape(cookieValue)
