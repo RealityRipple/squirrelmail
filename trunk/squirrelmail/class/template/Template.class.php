@@ -1389,16 +1389,23 @@ FIXME: We could make the incoming array more complex so it can
       *
       * @param mixed $headers A list of (or a single) header
       *                       text to be sent.
+      * @param boolean $replace Whether or not to replace header(s)
+      *                         previously sent header(s) of the
+      *                         same type (this parameter may be
+      *                         ignored in some implementations
+      *                         of this class if the target interface
+      *                         does not support this functionality)
+      *                         (OPTIONAL; default = TRUE, always replace).
       *
       */
-    function header($headers)
+    function header($headers, $replace=TRUE)
     {
 
         if (!is_array($headers)) $headers = array($headers);
 
         foreach ($headers as $header) {
             $this->assign('header', $header);
-            header($this->fetch('header.tpl'));
+            header($this->fetch('header.tpl'), $replace);
         }
 
     }

@@ -180,15 +180,19 @@ if ( $lastmod = @filemtime(SM_PATH . $oTemplate->get_template_file_directory()
                          . 'css/stylesheet.tpl') ) {
     $gmlastmod = gmdate('D, d M Y H:i:s', $lastmod) . ' GMT';
     $expires = gmdate('D, d M Y H:i:s', strtotime('+1 week')) . ' GMT';
-    header('Last-Modified: ' . $gmlastmod);
-    header('Expires: '. $expires);
-    header('Pragma: ');
-    header('Cache-Control: public, must-revalidate');
+    $oTemplate->header('Last-Modified: ' . $gmlastmod);
+    $oTemplate->header('Expires: '. $expires);
+    $oTemplate->header('Pragma: ');
+    $oTemplate->header('Cache-Control: public, must-revalidate');
 }
 // Steve, why did you remove this?  Is it irrelevant now?  If so, let's 
 // remove the rest of the references to it here (note that it is being
 // used above in the filetime() statement) and elsewhere
 // $oTemplate->display('css/stylesheet.tpl');
+
+// don't show version as a security measure
+//$oTemplate->header('X-Powered-By: SquirrelMail/' . SM_VERSION, FALSE);
+$oTemplate->header('X-Powered-By: SquirrelMail', FALSE);
 
 /**
  * Additional styles are now handled by adding stylesheets to 
