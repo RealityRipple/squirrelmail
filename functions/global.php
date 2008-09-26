@@ -584,8 +584,6 @@ if (!function_exists('session_regenerate_id')) {
         $buf = sprintf("%.15s%ld%ld%0.8f", $remote_addr, $tv['sec'], $tv['usec'], php_combined_lcg() * 10);
         session_id(md5($buf));
         if (ini_get('session.use_cookies')) {
-            // at a later stage we use sqsetcookie. At this point just do
-            // what session_regenerate_id would do
             sqsetcookie(session_name(), session_id(), 0, $base_uri);
         }
         return TRUE;
