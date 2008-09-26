@@ -494,16 +494,26 @@ function sqsession_start() {
 
 /**
  * Set a cookie
+ *
  * @param string  $sName     The name of the cookie.
  * @param string  $sValue    The value of the cookie.
- * @param int     $iExpire   The time the cookie expires. This is a Unix timestamp so is in number of seconds since the epoch.
- * @param string  $sPath     The path on the server in which the cookie will be available on.
+ * @param int     $iExpire   The time the cookie expires. This is a Unix 
+ *                           timestamp so is in number of seconds since 
+ *                           the epoch.
+ * @param string  $sPath     The path on the server in which the cookie 
+ *                           will be available on.
  * @param string  $sDomain   The domain that the cookie is available.
- * @param boolean $bSecure   Indicates that the cookie should only be transmitted over a secure HTTPS connection.
+ * @param boolean $bSecure   Indicates that the cookie should only be 
+ *                           transmitted over a secure HTTPS connection.
  * @param boolean $bHttpOnly Disallow JS to access the cookie (IE6 only)
+ * @param boolean $bReplace  Replace previous cookies with same name?
+ *
  * @return void
+ *
  */
-function sqsetcookie($sName,$sValue='deleted',$iExpire=0,$sPath="",$sDomain="",$bSecure=false,$bHttpOnly=true) {
+function sqsetcookie($sName, $sValue='deleted', $iExpire=0, $sPath="", $sDomain="",
+                     $bSecure=false, $bHttpOnly=true, $bReplace=false) {
+ 
     // if we have a secure connection then limit the cookies to https only.
     if ($sName && isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) {
         $bSecure = true;
@@ -534,9 +544,10 @@ function sqsetcookie($sName,$sValue='deleted',$iExpire=0,$sPath="",$sDomain="",$
                             . (empty($sPath) ? '' : '; path=' . $sPath)
                             . (empty($sDomain) ? '' : '; domain=' . $sDomain)
                             . (!$bSecure ? '' : '; secure')
-                            . (!$bHttpOnly ? '' : '; HttpOnly'), false);
+                            . (!$bHttpOnly ? '' : '; HttpOnly'), $bReplace);
     }
 }
+
 
 /**
  * session_regenerate_id replacement for PHP < 4.3.2
