@@ -51,6 +51,8 @@ foreach ($options as $option) {
              || $opt->type == SMOPT_TYPE_BOOLEAN) {
                 echo '<label for="new_' . $opt->name . '">'
                    . $opt->caption . '</label>';
+            } else if ($opt->type == SMOPT_TYPE_TEXTAREA && !empty($opt->trailing_text)) {
+                echo $opt->caption . '<br />' . $opt->trailing_text;
             } else {
                 echo $opt->caption;
             }
