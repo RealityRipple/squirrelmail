@@ -35,6 +35,11 @@ class SquirrelOption {
      */
     var $caption;
     /**
+     * Whether or not the caption text is allowed to wrap
+     * @var boolean
+     */
+    var $caption_wrap;
+    /**
      * The type of INPUT element
      *
      * See SMOPT_TYPE_* defines
@@ -177,6 +182,7 @@ class SquirrelOption {
         $this->raw_option_array = $raw_option_array;
         $this->name = $name;
         $this->caption = $caption;
+        $this->caption_wrap = TRUE;
         $this->type = $type;
         $this->refresh_level = $refresh_level;
         $this->possible_values = $possible_values;
@@ -236,6 +242,14 @@ class SquirrelOption {
      */
     function setNewValue($new_value) {
         $this->new_value = $new_value;
+    }
+
+    /**
+     * Set whether the caption is allowed to wrap for this option.
+     * @param boolean $caption_wrap
+     */
+    function setCaptionWrap($caption_wrap) {
+        $this->caption_wrap = $caption_wrap;
     }
 
     /**
@@ -909,6 +923,11 @@ function create_option_groups($optgrps, $optvals) {
                     (isset($optset['posvals']) ? $optset['posvals'] : ''),
                     (isset($optset['htmlencoded']) ? $optset['htmlencoded'] : false)
                     );
+
+            /* If provided, set if the caption is allowed to wrap for this option. */
+            if (isset($optset['caption_wrap'])) {
+                $next_option->setCaptionWrap($optset['caption_wrap']);
+            }
 
             /* If provided, set the size for this option. */
             if (isset($optset['size'])) {

@@ -263,6 +263,8 @@ Version 1.5.2 - SVN
     using POP before SMTP.
   - Seed random number generator in one place during script init.
   - Add native output buffering.
+  - Allow control over white space wrapping of auto-generated SquirrelMail
+    option widgets.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

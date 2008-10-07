@@ -45,7 +45,7 @@ foreach ($options as $option) {
     foreach ($option['options'] as $opt) {
         if ($opt->type != SMOPT_TYPE_HIDDEN) {
             echo   "<tr>\n" .
-                   " <td class=\"optionName\">\n  ";
+                   " <td class=\"optionName\"" . ($opt->caption_wrap ? '' : ' style="white-space:nowrap"') . ">\n  ";
 
             if ($opt->type == SMOPT_TYPE_BOOLEAN_CHECKBOX
              || $opt->type == SMOPT_TYPE_BOOLEAN) {
