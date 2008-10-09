@@ -52,7 +52,7 @@ foreach ($options as $option) {
                 echo '<label for="new_' . $opt->name . '">'
                    . $opt->caption . '</label>';
             } else if ($opt->type == SMOPT_TYPE_TEXTAREA && !empty($opt->trailing_text)) {
-                echo $opt->caption . '<br />' . $opt->trailing_text;
+                echo $opt->caption . '<br /><small>' . $opt->trailing_text . '</small>';
             } else {
                 echo $opt->caption;
             }
