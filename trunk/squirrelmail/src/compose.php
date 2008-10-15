@@ -845,7 +845,8 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 $enc_from_name = '"'.$data['full_name'].'" <'. $data['email_address'].'>';
                 if(strtolower($enc_from_name) == strtolower($orig_from)) {
                     $identity = $nr;
-                    break;
+                    // don't stop!  need to build $identities array for idents match below
+                    //break;
                 }
                 $identities[] = $enc_from_name;
             }
