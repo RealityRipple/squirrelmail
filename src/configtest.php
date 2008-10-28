@@ -966,7 +966,7 @@ if( empty($ldap_server) ) {
                 if ( empty($param['binddn']) ) {
                     $bind = @ldap_bind($linkid);
                 } else {
-                    $bind = @ldap_bind($param['binddn'], $param['bindpw']);
+                    $bind = @ldap_bind($linkid, $param['binddn'], $param['bindpw']);
                 }
 
                 if ( $bind ) {
