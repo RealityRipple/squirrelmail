@@ -642,7 +642,10 @@ class Rfc822Header {
         if ($ar) {
             return $aProcessedAddress;
         } else {
-            return $aProcessedAddress[0];
+            if (isset($aProcessedAddress[0]))
+                return $aProcessedAddress[0];
+            else
+                return '';
         }
     }
 
