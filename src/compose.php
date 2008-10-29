@@ -1523,7 +1523,7 @@ function deliverMessage(&$composeMessage, $draft=false) {
     /* Receipt: On Delivery */
     if (!empty($request_dr)) {
 //FIXME: it would be better to fiddle with headers inside of the message object or possibly when delivering the message to its destination; is this possible?
-        $rfc822_header->more_headers['Return-Receipt-To'] = $from->mailbox.'@'.$from->domain;
+        $rfc822_header->more_headers['Return-Receipt-To'] = $from_addr;
     } elseif (isset($rfc822_header->more_headers['Return-Receipt-To'])) {
         unset($rfc822_header->more_headers['Return-Receipt-To']);
     }
