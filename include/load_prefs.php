@@ -177,6 +177,7 @@ if( $ser = getPref($data_dir, $username, 'hililist') ) {
         $message_highlight_list[$i]['match_type'] = $highlight_array[3];
         removePref($data_dir, $username, "highlight$i");
     }
+// NB: The fact that this preference is always set here means that some plugins rely on testing it to know if a user has logged in before - the "old way" above is probably long since obsolete and unneeded, but the setPref() below should not be removed
     /* store in new format for the next time */
     setPref($data_dir, $username, 'hililist', serialize($message_highlight_list));
 }
