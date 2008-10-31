@@ -59,6 +59,8 @@ if($imap_auth_mech == 'login') {
     }
 }
 
+$username_form_name = 'login_username';
+$password_form_name = 'secretkey';
 do_hook('login_cookie', $null);
 
 $loginname_value = (sqGetGlobalVar('loginname', $loginname) ? htmlspecialchars($loginname) : '');
