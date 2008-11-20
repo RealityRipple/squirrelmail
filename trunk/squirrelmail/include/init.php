@@ -190,6 +190,7 @@ require(SM_PATH . 'include/constants.php');
 require(SM_PATH . 'functions/global.php');
 require(SM_PATH . 'functions/strings.php');
 require(SM_PATH . 'functions/arrays.php');
+require(SM_PATH . 'functions/files.php');
 
 /* load default configuration */
 require(SM_PATH . 'config/config_default.php');
