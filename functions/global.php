@@ -510,6 +510,8 @@ function sqsession_start() {
  *
  * @return void
  *
+ * @since 1.4.16 and 1.5.1
+ *
  */
 function sqsetcookie($sName, $sValue='deleted', $iExpire=0, $sPath="", $sDomain="",
                      $bSecure=false, $bHttpOnly=true, $bReplace=false) {
