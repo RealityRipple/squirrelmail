@@ -120,9 +120,20 @@ if(!empty($_SERVER['UNIQUE_ID'])) {
 $seed .= uniqid(mt_rand(),TRUE);
 $seed .= implode( '', stat( __FILE__) );
 
-/** PHP 4.2 and up don't require seeding, but their used seed algorithm
- *  is of questionable quality, so we keep doing it ourselves. */
-mt_srand(hexdec(md5($seed)));
+// mt_srand() uses an integer to seed, so we need to distill our
+// very large seed to something useful (without taking a sub-string,
+// the integer conversion of such a large number is always 0 on
+// many systems, but strangely, 9 hex numbers - even if larger
+// than a signed 32 bit integer - seem to be an acceptable "integer"
+// seed (perhaps it is used as unsigned?)...
+// we may want to revisit this and always force it to be less than
+// 2,147,483,647
+//
+$seed = hexdec(substr(md5($seed), 0, 9));
+
+// PHP 4.2 and up don't require seeding, but their used seed algorithm
+// is of questionable quality, so we keep doing it ourselves. */
+mt_srand($seed);
 
 /**
  * calculate SM_PATH and calculate the base_uri
