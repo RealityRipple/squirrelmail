@@ -75,6 +75,14 @@ global $null;
 $null = NULL;
 
 /**
+ * The global $server_os variable will be "windows" if
+ * we are working in a Windows environment or "*nix"
+ * otherwise.
+ */
+global $server_os;
+if (DIRECTORY_SEPARATOR == '\\') $server_os = 'windows'; else $server_os = '*nix';
+
+/**
  * [#1518885] session.use_cookies = off breaks SquirrelMail
  *
  * When session cookies are not used, all http redirects, meta refreshes,
