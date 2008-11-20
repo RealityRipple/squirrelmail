@@ -8,7 +8,7 @@
  *
  * @copyright &copy; 2008-2008 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id$
+ * @version $Id:$
  * @package squirrelmail
  */
 
