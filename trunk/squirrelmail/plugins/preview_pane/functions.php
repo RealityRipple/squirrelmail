@@ -117,8 +117,8 @@ function preview_pane_open_close_buttons_do()
    $oTemplate->assign('previewPane_size', $previewPane_size);
    $oTemplate->assign('base_uri', $base_uri);
    $oTemplate->assign('orientation', $orientation);
-   $oTemplate->assign('down_arrow', $down_arrow);
-   $oTemplate->assign('up_arrow', $up_arrow);
+   $oTemplate->assign('down_arrow', $down_arrow, FALSE);
+   $oTemplate->assign('up_arrow', $up_arrow, FALSE);
 
    $output = $oTemplate->fetch('plugins/preview_pane/collapse_buttons.tpl');
 
