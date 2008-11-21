@@ -342,7 +342,7 @@ if(!isset($data_dir_error) && !is_dir($data_dir)) {
     }
 }
 // datadir should be executable - but no clean way to test on that
-if(!isset($data_dir_error) && !is_writable($data_dir)) {
+if(!isset($data_dir_error) && !sq_is_writable($data_dir)) {
     if (!empty($prefs_dsn)) {
         $data_dir_error = "Data dir ($data_dir) is not writable!\n";
         echo $IND . '<font color="red"><b>ERROR:</b></font> ' . $data_dir_error;
@@ -370,7 +370,7 @@ if($data_dir == $attachment_dir) {
     if (!is_dir($attachment_dir)) {
         do_err("Attachment dir ($attachment_dir) is not a directory!");
     }
-    if (!is_writable($attachment_dir)) {
+    if (!sq_is_writable($attachment_dir)) {
         do_err("I cannot write to attachment dir ($attachment_dir)!");
     }
     echo $IND . "Attachment dir OK.<br />\n";
