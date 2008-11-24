@@ -14,7 +14,7 @@
  *                          additional templates.
  * 
  *
- * @copyright &copy; 1999-2006 The SquirrelMail Project Team
+ * @copyright &copy; 1999-2008 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id: read_headers.tpl 11998 2006-12-10 21:06:24Z pdontthink $
  * @package squirrelmail
@@ -56,12 +56,12 @@ extract($t);
     // show reduced (collapsed) header
     if (!$expand_header) {
 
-        $subject = (!empty($headers_to_display['Subject']) 
-                    ? $headers_to_display['Subject'] : _("(no subject)"));
-        $date = (!empty($headers_to_display['Date']) 
-                 ? $headers_to_display['Date'] : _("Unknown date"));
-        $from = (!empty($headers_to_display['From']) 
-                    ? $headers_to_display['From'] : _("Unknown sender"));
+        $subject = (!empty($headers_to_display[_("Subject")]) 
+                    ? $headers_to_display[_("Subject")] : _("(no subject)"));
+        $date = (!empty($headers_to_display[_("Date")]) 
+                 ? $headers_to_display[_("Date")] : _("Unknown date"));
+        $from = (!empty($headers_to_display[_("From")]) 
+                    ? $headers_to_display[_("From")] : _("Unknown sender"));
         // if available, print "real" name instead of email addr
         if (strpos($from,"&lt;") !== FALSE) {
             list($from, $ignore) = $parts = explode('&lt;', $from);
