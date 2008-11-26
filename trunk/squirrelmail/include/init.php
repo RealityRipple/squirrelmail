@@ -235,6 +235,12 @@ if ($sm_debug_mode & SM_DEBUG_MODE_STRICT)
 error_reporting($error_level);
 
 
+/** 
+ * Detect SSL connections
+ */
+$is_secure_connection = is_ssl_secured_connection();
+ 
+
 require(SM_PATH . 'functions/plugin.php');
 require(SM_PATH . 'include/languages.php');
 require(SM_PATH . 'class/template/Template.class.php');

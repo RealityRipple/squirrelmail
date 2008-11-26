@@ -435,6 +435,8 @@ $use_iframe = 'false'                   if ( !$use_iframe );
 $lossy_encoding = 'false'               if ( !$lossy_encoding );
 $allow_remote_configtest = 'false'      if ( !$allow_remote_configtest );
 $secured_config = 'true'                if ( !$secured_config );
+$sq_https_port = 443                    if ( !$sq_https_port );
+$sq_ignore_http_x_forwarded_headers = 'true' if ( !$sq_ignore_http_x_forwarded_headers );
 
 $sm_debug_mode = 'SM_DEBUG_MODE_MODERATE' if ( !$sm_debug_mode );
 #FIXME: When this is STABLE software, remove the line above and uncomment the one below:
@@ -862,6 +864,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "7.  Allow remote configtest     : $WHT$allow_remote_configtest$NRM\n";
         print "8.  Debug mode                  : $WHT$sm_debug_mode$NRM\n";
         print "9.  Secured configuration mode  : $WHT$secured_config$NRM\n";
+        print "10. HTTPS port                  : $WHT$sq_https_port$NRM\n";
+        print "11. Ignore HTTP_X_FORWARDED headers: $WHT$sq_ignore_http_x_forwarded_headers$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     }
@@ -1040,6 +1044,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 7 ) { $allow_remote_configtest = commandB7(); }
             elsif ( $command == 8 ) { $sm_debug_mode = commandB8(); }
             elsif ( $command == 9 ) { $secured_config = commandB9(); }
+            elsif ( $command == 10 ) { $sq_https_port = commandB10(); }
+            elsif ( $command == 11 ) { $sq_ignore_http_x_forwarded_headers = commandB11(); }
         }
     }
 }
@@ -4626,6 +4632,65 @@ sub commandB9 {
     return $secured_config;
 }
 
+# Set a (non-standard) HTTPS port
+sub commandB10 {
+    print "If you run HTTPS (SSL-secured HTTP) on a non-standard port, you should\n";
+    print "indicate that port here.  Even if you do not, SquirrelMail may still\n";
+    print "auto-detect secure connections, but it is safer and also very useful\n";
+    print "for third party plugins if you specify the port number here.\n";
+    print "\n";
+    print "Most SquirrelMail administrators will not need to use this setting\n";
+    print "because most all web servers use port 443 for HTTPS connections, and\n";
+    print "SquirrelMail assumes 443 unless something else is given here.\n";
+    print "\n";
+
+    print "Enter your HTTPS port [$sq_https_port]: ";
+    my $tmp = <STDIN>;
+    $tmp = trim($tmp);
+    # value is not modified, if user hits Enter or enters space
+    if ($tmp ne '') {
+        # make sure that input is numeric
+        if ($tmp =~ /^\d+$/) {
+            $sq_https_port = $tmp;
+        } else {
+            print "\n";
+            print "--- INPUT ERROR ---\n";
+            print "\n";
+            print "If you want to change this setting, you must enter a number.\n";
+            print "If you want to keep the original value, just press Enter.\n\n";
+            print "Press Enter to continue...";
+            $tmp = <STDIN>;
+        }
+    }
+    return $sq_https_port;
+}
+
+# Ignore HTTP_X_FORWARDED_* headers?
+sub commandB11 {
+
+    if ( lc($sq_ignore_http_x_forwarded_headers) eq 'true' ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+
+    print "Because HTTP_X_FORWARDED_* headers can be sent by the client and\n";
+    print "therefore possibly exploited by an outsider, SquirrelMail ignores\n";
+    print "them by default. If a proxy server or other machine sits between\n";
+    print "clients and your SquirrelMail server, you can turn this off to\n";
+    print "tell SquirrelMail to use such headers.\n";
+    print "\n";
+
+    print "Ignore HTTP_X_FORWARDED headers? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $sq_ignore_http_x_forwarded_headers = <STDIN>;
+    if ( ( $sq_ignore_http_x_forwarded_headers =~ /^y\n/i ) || ( ( $sq_ignore_http_x_forwarded_headers =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $sq_ignore_http_x_forwarded_headers = 'true';
+    } else {
+        $sq_ignore_http_x_forwarded_headers = 'false';
+    }
+    return $sq_ignore_http_x_forwarded_headers;
+}
+
 sub save_data {
     $tab = "    ";
     if ( open( CF, ">config.php" ) ) {
@@ -5035,6 +5100,10 @@ sub save_data {
         # boolean
         print CF "\$allow_remote_configtest = $allow_remote_configtest;\n";
         print CF "\$secured_config = $secured_config;\n";
+        # integer
+        print CF "\$sq_https_port = $sq_https_port;\n";
+        # boolean
+        print CF "\$sq_ignore_http_x_forwarded_headers = $sq_ignore_http_x_forwarded_headers;\n";
         # (binary) integer or constant - convert integer 
         # values to constants before output
         $sm_debug_mode = convert_debug_binary_integer_to_constants($sm_debug_mode);
