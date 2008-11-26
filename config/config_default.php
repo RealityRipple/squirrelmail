@@ -1167,11 +1167,50 @@ $buffer_output = false;
 $buffered_output_handler = '';
 
 /**
+ * Allow Remote configtest Access
+ *
  * Controls remote configuration checks
  * @global boolean $allow_remote_configtest
  * @since 1.5.1
  */
 $allow_remote_configtest = false;
+
+/**
+ * SquirrelMail Debug Mode
+ *
+ * Various debugging levels can be enabled using this setting.
+ * More than one mode can be used at once by combining them
+ * with pipes ("|").  See the SM_DEBUG_MODE_* constants in
+ * include/constants.php
+ */
+$sm_debug_mode = SM_DEBUG_MODE_OFF;
+
+/**
+ * "Secured Configuration" Mode
+ *
+ * Enable/disable "Secured Configuration" mode, wherein certain
+ * security-sensitive configuration settings are made immutable
+ * by other code.
+ */
+$secured_config = true;
+
+/**
+ * HTTPS Port
+ *
+ * This is the HTTPS (SSL-secured HTTP) port.  It can be left empty,
+ * in which case SquirrelMail will assume the standard port 443.
+ * Make sure to set this correctly when serving HTTPS on a non-
+ * standard port.
+ */
+$sq_https_port = 443;
+
+/**
+ * Ignore HTTP_X_FORWARDED_* headers?
+ *
+ * Whether or not HTTP_X_FORWARDED_* headers are respected by
+ * SquirrelMail (or plugins).
+ */
+$sq_ignore_http_x_forwarded_headers = true;
 
 /**
  * Subscribe Listing Control

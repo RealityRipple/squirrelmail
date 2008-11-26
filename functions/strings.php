@@ -470,7 +470,8 @@ function readShortMailboxName($haystack, $needle) {
  */
 function get_location () {
 
-    global $imap_server_type, $config_location_base;
+    global $imap_server_type, $config_location_base,
+           $is_secure_connection, $sq_ignore_http_x_forwarded_headers;
 
     /* Get the path, handle virtual directories */
     if(strpos(php_self(), '?')) {
@@ -492,25 +493,13 @@ function get_location () {
 
     /* Check if this is a HTTPS or regular HTTP request. */
     $proto = 'http://';
-
-    /*
-     * If you have 'SSLOptions +StdEnvVars' in your apache config
-     *     OR if you have HTTPS=on in your HTTP_SERVER_VARS
-     *     OR if you have HTTP_X_FORWARDED_PROTO=https in your HTTP_SERVER_VARS
-     *     OR if you are on port 443
-     */
-    $getEnvVar = getenv('HTTPS');
-    if (!sqgetGlobalVar('HTTP_X_FORWARDED_PROTO', $forwarded_proto, SQ_SERVER))
-        $forwarded_proto = '';
-    if ((isset($getEnvVar) && strcasecmp($getEnvVar, 'on') === 0) ||
-        (sqgetGlobalVar('HTTPS', $https_on, SQ_SERVER) && strcasecmp($https_on, 'on') === 0) ||
-        (strcasecmp($forwarded_proto, 'https') === 0) ||
-        (sqgetGlobalVar('SERVER_PORT', $server_port, SQ_SERVER) &&  $server_port == 443)) {
+    if ($is_secure_connection)
         $proto = 'https://';
-    }
 
     /* Get the hostname from the Host header or server config. */
-    if ( !sqgetGlobalVar('HTTP_X_FORWARDED_HOST', $host, SQ_SERVER) || empty($host) ) {
+    if ($sq_ignore_http_x_forwarded_headers
+     || !sqgetGlobalVar('HTTP_X_FORWARDED_HOST', $host, SQ_SERVER)
+     || empty($host)) {
         if ( !sqgetGlobalVar('HTTP_HOST', $host, SQ_SERVER) || empty($host) ) {
             if ( !sqgetGlobalVar('SERVER_NAME', $host, SQ_SERVER) || empty($host) ) {
                 $host = '';
