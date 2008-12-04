@@ -47,6 +47,7 @@ sqgetGlobalVar('messages',   $messages,     SQ_SESSION);
 sqgetGlobalVar('mailbox',    $mailbox,      SQ_GET);
 sqgetGlobalVar('ent_id',     $ent_id,       SQ_GET);
 sqgetGlobalVar('absolute_dl',$absolute_dl,  SQ_GET);
+sqgetGlobalVar('force_crlf', $force_crlf,   SQ_GET);
 if ( sqgetGlobalVar('passed_id', $temp, SQ_GET) ) {
     $passed_id = (int) $temp;
 }
@@ -174,5 +175,5 @@ if (isset($absolute_dl) && $absolute_dl) {
 }
 /* be aware that any warning caused by download.php will corrupt the
  * attachment in case of ERROR reporting = E_ALL and the output is the screen */
-mime_print_body_lines ($imapConnection, $passed_id, $ent_id, $encoding);
+mime_print_body_lines ($imapConnection, $passed_id, $ent_id, $encoding, $force_crlf);
 
