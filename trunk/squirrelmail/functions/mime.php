@@ -181,7 +181,7 @@ function mime_fetch_body($imap_stream, $id, $ent_id=1, $fetch_size=0) {
     return $ret;
 }
 
-function mime_print_body_lines ($imap_stream, $id, $ent_id=1, $encoding, $rStream='php://stdout') {
+function mime_print_body_lines ($imap_stream, $id, $ent_id=1, $encoding, $rStream='php://stdout', $force_crlf='') {
 
     /* Don't kill the connection if the browser is over a dialup
      * and it would take over 30 seconds to download it.
@@ -203,9 +203,9 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id=1, $encoding, $rStrea
     } else {
         $body = mime_fetch_body ($imap_stream, $id, $ent_id);
         if (is_resource($rStream)) {
-            fputs($rStream,decodeBody($body,$encoding));
+            fputs($rStream,decodeBody($body, $encoding, $force_crlf));
         } else {
-            echo decodeBody($body, $encoding);
+            echo decodeBody($body, $encoding, $force_crlf);
         }
     }
 
@@ -688,44 +688,79 @@ function sqimap_base64_decode(&$string) {
 }
 
 /**
- * Decodes encoded message body
+ * Decodes encoded string (usually message body)
  *
- * This function decodes the body depending on the encoding type.
- * Currently quoted-printable and base64 encodings are supported.
- * decode_body hook was added to this function in 1.4.2/1.5.0
- * @param string $body encoded message body
- * @param string $encoding used encoding
- * @return string decoded string
+ * This function decodes a string (usually the message body)
+ * depending on the encoding type.  Currently quoted-printable
+ * and base64 encodings are supported.
+ *
+ * The decode_body hook was added to this function in 1.4.2/1.5.0.
+ * The $force_crlf parameter was added in 1.5.2.
+ *
+ * @param string $string     The encoded string
+ * @param string $encoding   used encoding
+ * @param string $force_crlf Whether or not to force CRLF or LF
+ *                           line endings (or to leave as is).
+ *                           If given as "LF", line endings will
+ *                           all be converted to LF; if "CRLF",
+ *                           line endings will all be converted
+ *                           to CRLF.  If given as an empty value,
+ *                           the global $default_force_crlf will
+ *                           be consulted (it can be specified in
+ *                           config/config_local.php).  Otherwise,
+ *                           any other value will cause the string
+ *                           to be left alone.  Note that this will
+ *                           be overridden to "LF" if not using at
+ *                           least PHP version 4.3.0. (OPTIONAL;
+ *                           default is empty - consult global
+ *                           default value)
+ *
+ * @return string The decoded string
+ *
  * @since 1.0
+ *
  */
-function decodeBody($body, $encoding) {
+function decodeBody($string, $encoding, $force_crlf='') {
 
-    $body = str_replace("\r\n", "\n", $body);
+    global $force_crlf_default;
+    if (empty($force_crlf)) $force_crlf = $force_crlf_default;
+    $force_crlf = strtoupper($force_crlf);
+
+    // must force line endings to LF due to broken
+    // quoted_printable_decode() in PHP versions
+    // before 4.3.0 (see below)
+    //
+    if (!check_php_version(4, 3, 0) || $force_crlf == 'LF')
+        $string = str_replace("\r\n", "\n", $string);
+    else if ($force_crlf == 'CRLF')
+        $string = str_replace("\n", "\r\n", $string);
+
     $encoding = strtolower($encoding);
 
     $encoding_handler = do_hook('decode_body', $encoding);
 
 
-    // plugins get first shot at decoding the body
+    // plugins get first shot at decoding the string
     //
     if (!empty($encoding_handler) && function_exists($encoding_handler)) {
-        $body = $encoding_handler('decode', $body);
+        $string = $encoding_handler('decode', $string);
 
     } elseif ($encoding == 'quoted-printable' ||
             $encoding == 'quoted_printable') {
-        /**
-         * quoted_printable_decode() function is broken in older
-         * php versions. Text with \r\n decoding was fixed only
-         * in php 4.3.0. Minimal code requirement 4.0.4 +
-         * str_replace("\r\n", "\n", $body); call.
-         */
-        $body = quoted_printable_decode($body);
+
+        // quoted_printable_decode() function is broken in older
+        // php versions.  Text with \r\n decoding was fixed only
+        // in php 4.3.0.  Minimal code requirement is PHP 4.0.4+
+        // and the above call to:  str_replace("\r\n", "\n", $string);
+        //
+        $string = quoted_printable_decode($string);
+
     } elseif ($encoding == 'base64') {
-        $body = base64_decode($body);
+        $string = base64_decode($string);
     }
 
     // All other encodings are returned raw.
-    return $body;
+    return $string;
 }
 
 /**
@@ -2173,7 +2208,7 @@ function sq_cid2http($message, $id, $cidurl, $mailbox){
     }
 
     if (!empty($linkurl)) {
-        $httpurl = $quotchar . SM_PATH . 'src/download.php?absolute_dl=true&amp;' .
+        $httpurl = $quotchar . sqm_baseuri() . 'src/download.php?absolute_dl=true&amp;' .
             "passed_id=$id&amp;mailbox=" . urlencode($mailbox) .
             '&amp;ent_id=' . $linkurl . $quotchar;
     } else {
