@@ -320,6 +320,17 @@ if (ini_get('short_open_tag') == 0) {
     do_err($short_open_tag_warning, false);
 }
 
+
+/* check who the web server is running as if possible */
+
+if ($process_info = get_process_owner_info()) {
+    echo $IND . 'Web server is running as user: ' . $process_info['name'] . ' (' . $process_info['uid'] . ")<br />\n";
+    //echo $IND . 'Web server is running as effective user: ' . $process_info['ename'] . ' (' . $process_info['euid'] . ")<br />\n";
+    echo $IND . 'Web server is running as group: ' . $process_info['group'] . ' (' . $process_info['gid'] . ")<br />\n";
+    //echo $IND . 'Web server is running as effective group: ' . $process_info['egroup'] . ' (' . $process_info['egid'] . ")<br />\n";
+}
+
+
 /* checking paths */
 
 echo "Checking paths...<br />\n";

@@ -769,3 +769,48 @@ function is_ssl_secured_connection()
 }
 
 
+/**
+ * Endeavor to detect what user and group PHP is currently
+ * running as.  Probably only works in non-Windows environments.
+ *
+ * @return mixed Boolean FALSE is returned if something went wrong,
+ *               otherwise an array is returned with the following
+ *               elements:
+ *                  uid    The current process' UID (integer)
+ *                  euid   The current process' effective UID (integer)
+ *                  gid    The current process' GID (integer)
+ *                  egid   The current process' effective GID (integer)
+ *                  name   The current process' name/handle (string)
+ *                  ename  The current process' effective name/handle (string)
+ *                  group  The current process' group name (string)
+ *                  egroup The current process' effective group name (string)
+ *               Note that some of these elements may have empty
+ *               values, especially if they could not be determined.
+ *
+ * @since 1.5.2
+ *
+ */
+function get_process_owner_info()
+{
+    if (!function_exists('posix_getuid'))
+        return FALSE;
+
+    $process_info['uid'] = posix_getuid();
+    $process_info['euid'] = posix_geteuid();
+    $process_info['gid'] = posix_getgid();
+    $process_info['egid'] = posix_getegid();
+
+    $user_info = posix_getpwuid($process_info['uid']);
+    $euser_info = posix_getpwuid($process_info['euid']);
+    $group_info = posix_getgrgid($process_info['gid']);
+    $egroup_info = posix_getgrgid($process_info['egid']);
+
+    $process_info['name'] = $user_info['name'];
+    $process_info['ename'] = $euser_info['name'];
+    $process_info['group'] = $user_info['name'];
+    $process_info['egroup'] = $euser_info['name'];
+    
+    return $process_info;
+}
+
+
