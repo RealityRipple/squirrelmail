@@ -509,6 +509,17 @@ function get_location () {
 
     $port = '';
     if (! strstr($host, ':')) {
+        // Note: HTTP_X_FORWARDED_PROTO could be sent from the client and
+        //       therefore possibly spoofed/hackable - for now, the
+        //       administrator can tell SM to ignore this value by setting
+        //       $sq_ignore_http_x_forwarded_headers to boolean TRUE in
+        //       config/config_local.php, but in the future we may
+        //       want to default this to TRUE and make administrators
+        //       who use proxy systems turn it off (see 1.5.2+).
+        global $sq_ignore_http_x_forwarded_headers;
+        if ($sq_ignore_http_x_forwarded_headers
+         || !sqgetGlobalVar('HTTP_X_FORWARDED_PROTO', $forwarded_proto, SQ_SERVER))
+            $forwarded_proto = '';
         if (sqgetGlobalVar('SERVER_PORT', $server_port, SQ_SERVER)) {
             if (($server_port != 80 && $proto == 'http://') ||
                 ($server_port != 443 && $proto == 'https://' &&
