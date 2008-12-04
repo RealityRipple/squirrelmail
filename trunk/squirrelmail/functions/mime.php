@@ -1944,6 +1944,8 @@ function sq_fix_url($attname, &$attvalue, $message, $id, $mailbox,$sQuote = '"')
                                     $attvalue = $sQuote . SM_PATH . 'images/blank.png'. $sQuote;
                                 }
                             }
+                        } else {
+                            $attvalue = $sQuote . $attvalue . $sQuote;
                         }
                         break;
                     case 'outbind':
@@ -1952,13 +1954,13 @@ function sq_fix_url($attname, &$attvalue, $message, $id, $mailbox,$sQuote = '"')
                          * One day MS might actually make it match something useful, for now, falling
                          * back to using cid2http, so we can grab the blank.png.
                          */
-                        $attvalue = sq_cid2http($message, $id, $attvalue, $mailbox);
+                        $attvalue = $sQuote . sq_cid2http($message, $id, $attvalue, $mailbox) . $sQuote;
                         break;
                     case 'cid':
                         /**
                             * Turn cid: urls into http-friendly ones.
                             */
-                        $attvalue = sq_cid2http($message, $id, $attvalue, $mailbox);
+                        $attvalue = $sQuote . sq_cid2http($message, $id, $attvalue, $mailbox) . $sQuote;
                         break;
                     default:
                         $attvalue = $sQuote . SM_PATH . 'images/blank.png' . $sQuote;
