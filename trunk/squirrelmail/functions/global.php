@@ -604,9 +604,11 @@ if (!function_exists('session_regenerate_id')) {
  * @since 1.2.3
  */
 function php_self () {
-    if ( sqgetGlobalVar('REQUEST_URI', $req_uri, SQ_SERVER) && !empty($req_uri) ) {
-      return $req_uri;
-    }
+    // PHP 4.4.4 apparently gives the wrong value here - missing the query string
+    // this code is commented out in the 1.4.x code, so we'll do the same here
+    //if ( sqgetGlobalVar('REQUEST_URI', $req_uri, SQ_SERVER) && !empty($req_uri) ) {
+    //  return $req_uri;
+    //}
 
     if ( sqgetGlobalVar('PHP_SELF', $php_self, SQ_SERVER) && !empty($php_self) ) {
 
