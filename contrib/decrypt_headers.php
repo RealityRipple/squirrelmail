@@ -81,7 +81,7 @@ if (sqgetGlobalVar('submit',$submit,SQ_POST)) {
     echo "<hr />";
 }
 ?>
-<form action="<?php echo $PHP_SELF ?>" method="post" >
+<form action="" method="post">
 <p>
 Secret key: <input type="password" name="secret"><br />
 Encrypted string: <input type="text" name="enc_string"><br />
