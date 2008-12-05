@@ -20,6 +20,11 @@ require('../../include/init.php');
 include_once(SM_PATH . 'functions/imap_general.php');
 include_once(SM_PATH . 'plugins/mail_fetch/functions.php' );
 
+// don't load this page if this plugin is not enabled
+//
+global $plugins;
+if (!in_array('mail_fetch', $plugins)) exit;
+
 /* globals */
 sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
 /* end globals */
