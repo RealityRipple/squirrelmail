@@ -2578,6 +2578,11 @@ sub command311b {
   this setting will make it difficult to determine who sent what where.
   Use at your own risk.
 
+  Note: If you have defined a header encryption key in your SMTP or
+  Sendmail settings (see the \"Server Settings\" option page), this
+  setting is ignored because all user information in outgoing messages
+  is encoded.
+
   ";
 
     if ( lc($hide_auth_header) eq "true" ) {
