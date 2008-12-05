@@ -590,7 +590,7 @@ class Deliver {
           } else {
             // use default received headers
             $header[] = "Received: from $received_from" . $rn;
-            if ($edit_identity || ! isset($hide_auth_header) || ! $hide_auth_header)
+            if (!isset($hide_auth_header) || !$hide_auth_header)
                 $header[] = "        (SquirrelMail authenticated user $username)" . $rn;
             $header[] = "        by $SERVER_NAME with HTTP;" . $rn;
             $header[] = "        $date" . $rn;
