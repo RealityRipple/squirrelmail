@@ -16,10 +16,11 @@
 define('SM_PATH','../');
 
 /**
- * include SquirrelMail string functions
+ * include SquirrelMail string and generic functions
  * script needs OneTimePadDecrypt() (functions/strings.php)
- * and sqgetGlobalVar() (functions/global.php, loaded by strings.php)
+ * and sqgetGlobalVar() (functions/global.php)
  */
+include_once(SM_PATH.'functions/global.php');
 include_once(SM_PATH.'functions/strings.php');
 
 /**
