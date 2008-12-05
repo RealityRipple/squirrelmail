@@ -2539,6 +2539,7 @@ sub command310 {
 }
 
 sub command311 {
+    print "$NRM";
     print "  Given that users are not allowed to modify their
   email address, can they edit their full name?
 
@@ -2560,6 +2561,7 @@ sub command311 {
 }
 
 sub command311b {
+    print "$NRM";
     print "  SquirrelMail adds username information to every sent email
   in order to prevent possible sender forging when users are allowed
   to change their email and/or full name.
