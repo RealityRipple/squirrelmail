@@ -1747,17 +1747,22 @@ sub display_use_tls($) {
 
 # $encode_header_key
 sub command114 {
-    print "Encryption key allows to hide SquirrelMail Received: headers\n";
-    print "in outbound messages. Interface uses encryption key to encode\n";
-    print "username, remote address and proxied address, then stores encoded\n";
-    print "information in X-Squirrel-* headers.\n";
+    print "This encryption key allows the hiding of SquirrelMail Received:\n";
+    print "headers in outbound messages.  SquirrelMail uses the encryption\n";
+    print "key to encode the username, remote address, and proxied address\n";
+    print "and then stores that encoded information in X-Squirrel-* headers.\n";
     print "\n";
-    print "Warning: used encryption function is not bulletproof. When used\n";
-    print "with static encryption keys, it provides only minimal security\n";
-    print "measures and information can be decoded quickly.\n";
+    print "Warning: the encryption function used to accomplish this is not\n";
+    print "bulletproof. When used with a static encryption key as it is here,\n";
+    print "it provides only minimal security and the encoded user information\n";
+    print "in the X-Squirrel-* headers can be decoded quickly by a skilled\n";
+    print "attacker.\n";
     print "\n";
-    print "Encoded information can be decoded with decrypt_headers.php script\n";
-    print "from SquirrelMail contrib/ directory.\n";
+    print "When you need to inspect an email sent from your system with the\n";
+    print "X-Squirrel-* headers, you can decode the user information therein\n";
+    print "by using the decrypt_headers.php script found in the SquirrelMail\n";
+    print "contrib/ directory. You'll need the encryption key that you\n";
+    print "defined here when doing so.\n";
     print "\n";
     print "Enter encryption key: ";
     $new_encode_header_key = <STDIN>;
