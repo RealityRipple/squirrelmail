@@ -291,7 +291,8 @@ function translateText(&$body, $wrap_at, $charset) {
 
     $body_ary = explode("\n", $body);
     for ($i=0; $i < count($body_ary); $i++) {
-        $line = $body_ary[$i];
+        $line = rtrim($body_ary[$i],"\r");
+
         if (strlen($line) - 2 >= $wrap_at) {
             sqWordWrap($line, $wrap_at, $charset);
         }
