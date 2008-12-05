@@ -2562,11 +2562,11 @@ sub command311 {
 
 sub command311b {
     print "$NRM";
-    print "\n  SquirrelMail adds username information to every sent email
-  in order to prevent possible sender forging when users are allowed
-  to change their email and/or full name.
+    print "\n  SquirrelMail adds username information to every outgoing
+  email in order to prevent possible sender forging when users are
+  allowed to change their email and/or full name.
 
-  You can remove user information from this header (y), if you think that
+  You can remove user information from this header (y) if you think that
   it violates privacy or security.
 
   Note: If users are allowed to change their email addresses,
