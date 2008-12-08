@@ -517,9 +517,9 @@ class AddressBook {
         global $data_dir, $username;
         $addrsrch_fullname = getPref($data_dir, $username, 'addrsrch_fullname');
         if ($addrsrch_fullname == 'fullname')
-            return $row['name'] . ' <' . trim($row['email']) . '>';
+            return '"' . $row['name'] . '" <' . trim($row['email']) . '>';
         else if ($addrsrch_fullname == 'nickname')
-            return $row['nickname'] . ' <' . trim($row['email']) . '>';
+            return '"' . $row['nickname'] . '" <' . trim($row['email']) . '>';
         else // "noprefix"
             return trim($row['email']);
     }
