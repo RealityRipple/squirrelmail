@@ -175,5 +175,5 @@ if (isset($absolute_dl) && $absolute_dl) {
 }
 /* be aware that any warning caused by download.php will corrupt the
  * attachment in case of ERROR reporting = E_ALL and the output is the screen */
-mime_print_body_lines ($imapConnection, $passed_id, $ent_id, $encoding, $force_crlf);
+mime_print_body_lines ($imapConnection, $passed_id, $ent_id, $encoding, 'php://stdout', $force_crlf);
 
