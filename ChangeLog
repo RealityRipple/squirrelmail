@@ -265,6 +265,7 @@ Version 1.5.2 - SVN
   - Add native output buffering.
   - Allow control over white space wrapping of auto-generated SquirrelMail
     option widgets.
+  - Add informational type option widget
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
