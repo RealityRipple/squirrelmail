@@ -5,10 +5,11 @@
  * Template for rendering the options page
  * 
  * The following variables are available to this template:
- *      $options - array of options as built by SquirrelMail.  Important fields
- *                 in this array include (but are not limited to):
- *          $el['name']     - The name of the option group
- *          $el['options']  - array of squirrelOption objects
+ *      $option_groups - array of option groups and their options as
+ *                       built by SquirrelMail.  Important fields
+ *                       in this array include (but are not limited to):
+ *                       ['name']     - The name of the option group
+ *                       ['options']  - array of squirrelOption objects
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -30,7 +31,7 @@ if ( !empty($topmessage) ) {
 
 <div id="optionDisplay">
 <?php
-foreach ($options as $option) {
+foreach ($option_groups as $option) {
     echo "<table cellspacing=\"0\">\n";
 
     if (!empty($option['name'])) {
@@ -43,7 +44,20 @@ foreach ($options as $option) {
 
     $hidden_widgets = '';
     foreach ($option['options'] as $opt) {
-        if ($opt->type != SMOPT_TYPE_HIDDEN) {
+        if ($opt->type == SMOPT_TYPE_INFO) {
+            echo "<tr>\n"
+               . " <td colspan=\"2\">\n"
+               . "  <table class=\"optionInfo\">\n"
+               . "   <tr>\n"
+               . "    <td>\n"
+               . $opt->createWidget() . "\n"
+               . "    </td>\n"
+               . "   </tr>\n"
+               . "  </table>\n"
+               . " </td>\n"
+               . "</tr>\n";
+
+        } else if ($opt->type != SMOPT_TYPE_HIDDEN) {
             echo   "<tr>\n" .
                    " <td class=\"optionName\"" . ($opt->caption_wrap ? '' : ' style="white-space:nowrap"') . ">\n  ";
 

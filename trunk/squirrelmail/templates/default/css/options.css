@@ -28,6 +28,11 @@
     height: 100%;
 }
 
+#optionDisplay  table.optionInfo  {
+    width: 80%;
+    text-align: left;
+    border: 0px;
+}
 
 #optionGroups   td.optionName   {
     background: #ababab;

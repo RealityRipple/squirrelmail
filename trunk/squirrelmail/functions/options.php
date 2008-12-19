@@ -213,7 +213,9 @@ class SquirrelOption {
         }
 
         /* Set the default save function. */
-        if (($type != SMOPT_TYPE_HIDDEN) && ($type != SMOPT_TYPE_COMMENT)) {
+        if ($type != SMOPT_TYPE_HIDDEN
+         && $type != SMOPT_TYPE_INFO
+         && $type != SMOPT_TYPE_COMMENT) {
             $this->save_function = SMOPT_SAVE_DEFAULT;
         } else {
             $this->save_function = SMOPT_SAVE_NOOP;
@@ -410,6 +412,9 @@ class SquirrelOption {
             case SMOPT_TYPE_SUBMIT:
                 $result = $this->createWidget_Submit();
                 break;
+            case SMOPT_TYPE_INFO:
+                $result = $this->createWidget_Info();
+                break;
             default:
                 error_box ( 
                     sprintf(_("Option Type '%s' Not Found"), $this->type)
@@ -426,6 +431,14 @@ class SquirrelOption {
 
         /* Now, return the created widget. */
         return $result;
+    }
+
+    /**
+     * Creates info block
+     * @return string html formated output
+     */
+    function createWidget_Info() {
+        return sq_htmlspecialchars($this->value);
     }
 
     /**
