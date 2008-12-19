@@ -430,7 +430,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
        . create_optmode_element(SMOPT_MODE_SUBMIT);
 
     // This is the only variable that is needed by *just* the template.
-    $oTemplate->assign('options', $optpage_data['options']);
+    $oTemplate->assign('option_groups', $optpage_data['options']);
     
     global $ask_user_info, $org_name;
     if ( $optpage == SMOPT_PAGE_PERSONAL && $ask_user_info

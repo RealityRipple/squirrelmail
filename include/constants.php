@@ -235,6 +235,7 @@ define('SMOPT_TYPE_BOOLEAN_CHECKBOX', 12);
 define('SMOPT_TYPE_BOOLEAN_RADIO', 13);
 define('SMOPT_TYPE_STRLIST_RADIO', 14);
 define('SMOPT_TYPE_SUBMIT', 15);
+define('SMOPT_TYPE_INFO', 16);
 
 // Define constants for the layout scheme for edit lists
 define('SMOPT_EDIT_LIST_LAYOUT_LIST', 0);
