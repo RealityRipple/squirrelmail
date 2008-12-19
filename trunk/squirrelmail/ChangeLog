@@ -266,6 +266,7 @@ Version 1.5.2 - SVN
   - Allow control over white space wrapping of auto-generated SquirrelMail
     option widgets.
   - Add informational type option widget
+  - Add password type option widget
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

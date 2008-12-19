@@ -364,6 +364,9 @@ class SquirrelOption {
 
         /* Get the widget for this option type. */
         switch ($this->type) {
+            case SMOPT_TYPE_PASSWORD:
+                $result = $this->createWidget_String(TRUE);
+                break;
             case SMOPT_TYPE_STRING:
                 $result = $this->createWidget_String();
                 break;
@@ -443,9 +446,15 @@ class SquirrelOption {
 
     /**
      * Create string field
+     *
+     * @param boolean $password When TRUE, the text in the input
+     *                          widget will be obscured (OPTIONAL;
+     *                          default = FALSE).
+     *
      * @return string html formated option field
+     *
      */
-    function createWidget_String() {
+    function createWidget_String($password=FALSE) {
         switch ($this->size) {
             case SMOPT_SIZE_TINY:
                 $width = 5;
@@ -465,7 +474,11 @@ class SquirrelOption {
         }
 
 //TODO: might be better to have a separate template file for all widgets, because then the layout of the widget and the "trailing text" can be customized - they are still hard coded here
-        return addInput('new_' . $this->name, $this->value, $width, 0, $this->aExtraAttribs) . ' ' . htmlspecialchars($this->trailing_text);
+        if ($password)
+addPwField($sName, $sValue = null, $aAttribs=array()) {
+            return addPwField('new_' . $this->name, $this->value, $width, 0, $this->aExtraAttribs) . ' ' . htmlspecialchars($this->trailing_text);
+        else
+            return addInput('new_' . $this->name, $this->value, $width, 0, $this->aExtraAttribs) . ' ' . htmlspecialchars($this->trailing_text);
     }
 
     /**
