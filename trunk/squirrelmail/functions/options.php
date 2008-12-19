@@ -475,7 +475,6 @@ class SquirrelOption {
 
 //TODO: might be better to have a separate template file for all widgets, because then the layout of the widget and the "trailing text" can be customized - they are still hard coded here
         if ($password)
-addPwField($sName, $sValue = null, $aAttribs=array()) {
             return addPwField('new_' . $this->name, $this->value, $width, 0, $this->aExtraAttribs) . ' ' . htmlspecialchars($this->trailing_text);
         else
             return addInput('new_' . $this->name, $this->value, $width, 0, $this->aExtraAttribs) . ' ' . htmlspecialchars($this->trailing_text);
